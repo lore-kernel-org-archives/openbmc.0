@@ -1,24 +1,24 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender1.zohomail.com [74.201.84.158])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <brad@bwbmail.net>
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 929621A0024
- for <openbmc@lists.ozlabs.org>; Wed, 30 Sep 2015 00:51:24 +1000 (AEST)
-Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
- [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1443537257350254.02708993221302;
- Tue, 29 Sep 2015 07:34:17 -0700 (PDT)
-Date: Tue, 29 Sep 2015 09:34:13 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: EEPROM driver
-Message-ID: <20150929143413.GE14293@asimov.ibm.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="h56sxpGKRmy85csR"
-Content-Disposition: inline
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Zoho-Virus-Status: 1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 97BA41A077B
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Sep 2015 03:42:48 +1000 (AEST)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Sender: bradleyb@bajor.fuzziesquirrel.com
+Content-Type: text/plain; charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 8.2 \(2104\))
+Subject: Re: BSP layers
+From: Brad Bishop <brad@bwbmail.net>
+In-Reply-To: <20150929144451.GF14293@asimov.ibm.com>
+Date: Tue, 29 Sep 2015 13:42:42 -0400
+Cc: openbmc@lists.ozlabs.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <B894A2FA-6B26-4E24-9751-7EEF687D33A3@bwbmail.net>
+References: <722865DA-D254-4972-9020-E6D01F95EC60@bwbmail.net>
+ <20150929144451.GF14293@asimov.ibm.com>
+To: Patrick Williams <patrick@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -30,50 +30,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 Sep 2015 14:51:25 -0000
+X-List-Received-Date: Tue, 29 Sep 2015 17:42:49 -0000
 
+Patrick
 
---h56sxpGKRmy85csR
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Automatic versioning seems fine for now.  I will update that.
 
-The EEPROM connected to the BMC is an AT24C256.  This is already
-supported by a kernel driver: drivers/misc/eeprom/at24.c.  It is enabled
-with EEPROM_AT24.
+For the openbmc hierarchy how about:
 
-If we have enabled this driver correctly and probe the i2c bus then
-there will be an entry in /sys/bus/i2c/devices/ with a file containing
-the EEPROM data.  This file can then be passed to our IPMI FRU parser
-and then updated in the appropriate fru-manager DBus object.
+meta-openbmc-bsp/meta-aspeed -> meta-aspeed
+meta-openbmc-machines/meta-openpower -> meta-openpower
 
-[1] https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Do=
-cumentation/misc-devices/eeprom
-[2] https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/dr=
-ivers/misc/eeprom/at24.c
---=20
-Patrick Williams
+thx - Brad
 
---h56sxpGKRmy85csR
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJWCqFlAAoJEKsDR8wtAMEZri4P/0lAqVdUxvqYOdiL3DLegnM+
-cNJJmvT9t2NOSItRtEfZ7g4fowsSKoDqX/DoYwFiyKa5A8V9CQxjHJkAz/YVyMmG
-azjIXjvk15BmJuXhq5Op4DyCkq6kij94r6tbCk/TxHctwSZz15eTpEyC9CPh9xaq
-NFPAb6xDx73rNNUsRFuxo400+CSaDUUnJEztrYtwdX8uNCCNQPuUNjuzWVfDi7yS
-nFyfJBb5oNgsnFt516F0mb+vqb6woWLx15gQqzCVJDuqTofsaeQspMpjRFPchTF7
-1qE16o0C9fjmW3SM9opt6AcgzPSmEomB8epCF/I3R7LTQShkZJW7/Bg1Bxq1XDvL
-RVR3qVTiluJpgfLXEQVRxxsLvidAWg6SuvEN3trUOmOG2zPfHwKz7AkfXZIih4/F
-AvAlXN2uF2szIvE11W7folzY5CovmefU0RQ+W9W4A4jDa9CTT9w/U6k29OWGxWHV
-qRT3IkOGCGC9xIzkp1JYGHhikm/nM/+G9Yv/F3Yo5kbHB7GbFGK3wJTm436zE5zf
-WTCOnoW77o/YUHkt15nTDnXHfa1xOaAJNhnjkLipGQsZ6bk1icmoLSCtva/9D2kb
-Z09pi2bAZuYtZYy5EhFxwKs0G8/ODAxupm/14Da9mq7r9MmQKNbGUlAHHcwXASLa
-uJo5EcVAE7J47IXB+v2/
-=8h7f
------END PGP SIGNATURE-----
-
---h56sxpGKRmy85csR--
+> On Sep 29, 2015, at 10:44 AM, Patrick Williams <patrick@stwcx.xyz> =
+wrote:
+>=20
+> On Fri, Sep 25, 2015 at 02:47:59PM -0400, Brad Bishop wrote:
+>> I have a couple new layer repositories:
+>>=20
+>> https://github.com/bradbishop/meta-aspeed =
+<https://github.com/bradbishop/meta-aspeed>
+>> https://github.com/bradbishop/meta-openpower =
+<https://github.com/bradbishop/meta-openpower>
+>>=20
+>> Appreciate any feedback.
+>>=20
+>> Thx! - brad
+>>=20
+>=20
+> Brad,
+>=20
+> I noticed in the layer.conf files we are manually assigning priority.
+> Do we want to allow the automatic assignment or is there some =
+guidelines
+> on what the priority should be?
+>=20
+> Seems that you have:
+>    * BMC Hardware Layer - 7
+>    * Host Machine Class - 8
+>    * Host Machine Specific - 9
+>    * OEM Machine Enhancment - 10 (not there, but imagined by me).
+>=20
+> Based on the conference call we had last week, I think we should go
+> ahead and make github.com/openbmc repositories for these two you have.
+> I can create that if you want.
+>=20
+> What is your proposal for where these repositories live in
+> openbmc/openbmc?  meta-openbmc-bsp for meta-aspeed?  I'm unsure if
+> meta-openpower belongs under a meta-openbmc-machines or
+> meta-phosphor/meta-machines?
+>=20
+> --=20
+> Patrick Williams
