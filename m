@@ -1,48 +1,48 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-ob0-x22e.google.com (mail-ob0-x22e.google.com
- [IPv6:2607:f8b0:4003:c01::22e])
+Received: from mail-oi0-x234.google.com (mail-oi0-x234.google.com
+ [IPv6:2607:f8b0:4003:c06::234])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id E1EF91A002B
- for <openbmc@lists.ozlabs.org>; Wed, 30 Sep 2015 10:44:42 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 5E1DA1A002B
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Sep 2015 10:48:21 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=jEkh+Nn4; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=a2WVuSpG; 
  dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=fk+nMVkq; 
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=gQxW8I//; 
  dkim-atps=neutral
-Received: by obbbh8 with SMTP id bh8so19556083obb.0
- for <openbmc@lists.ozlabs.org>; Tue, 29 Sep 2015 17:44:39 -0700 (PDT)
+Received: by oiww128 with SMTP id w128so13916275oiw.2
+ for <openbmc@lists.ozlabs.org>; Tue, 29 Sep 2015 17:48:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc:content-type;
- bh=XMQnbqBGUi9NUdyrWXIVJBeYCv1tCSkEOXJLRSmqouQ=;
- b=jEkh+Nn4MeyP4z8ZsEwlidibkJZuE5y4+oJv0ILd9z/cBp3lchc27UDpWftZ5wUuFr
- yD5EhQuMfXjB/9R0+pf5t4Cgiw9muqCvStsKuMC1Krez+z7dNZaG8JWyIBjizPjarDfi
- nc5IR9j93vwUSFmZ+UZIYT8sjLjTuI+9tf7oCJv90eCylNbPWSKQOhGfK3LBI5GdPt9K
- C3mVho1Pei+MSAC+duytyXWJhy4yAAJKvo0/gdS5vq5uok3IiPS8hngtbpUlQnpnZETv
- fO22K1WmnDjnhjxEMDkfyo2KTU51jbmIHnzWXgbEC/+lZaWPrcIPqtkSJmvXRhs3dSQd
- 38WA==
+ bh=YRExDD9aKpdAnL4QLUg6BiSWttHuZ9y8JTjrZ81kbGk=;
+ b=a2WVuSpGQS607W+qWu/v0W5Jh+pxdxhyVnAyXZdJVOhBKNSWzjrcyOmHRgEaT/auuR
+ SCyC54grKWdyKTSt33GaXSoAvq0hR3YgXGkdGleFAz2IUyzPBsfAq4gxY9tZ2VQXosIw
+ Y42VR0jM0kAiR4/zENANwoYVJBLF+CjLF2D3koszYev8igRYAtFXsaeXvoCYXz2/0t3l
+ lPDB0BpTa1iCiaMRwxf1OFeD2C0r2QrZ7xpFZAPRECquqLje5bOLzjD7vMPJSRjOMzFF
+ WVaRNYq1uUQih7lGWsrFybyi4smseyfKNGPziwK4bG4mS4RtviZjrv1QcfoyyXT/ug8j
+ V9eg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc:content-type;
- bh=XMQnbqBGUi9NUdyrWXIVJBeYCv1tCSkEOXJLRSmqouQ=;
- b=fk+nMVkqtluLa7DmPb+o4w0JAHvCP9DvMOtwVtYQx1AhnhE6peifPMEfJkdOZmqScj
- rJb+PRU9q8oJBxX4ojYYNfJFj0QjI8TXuX5I5HZ8Aw8M+MZSDsDwpKVgSYkRZK20KuGx
- 2ODKQ7S7NpVfKMSBHCFiVDYJWlpEmT12Hm46M=
-X-Received: by 10.182.97.10 with SMTP id dw10mr608551obb.60.1443573879247;
- Tue, 29 Sep 2015 17:44:39 -0700 (PDT)
+ bh=YRExDD9aKpdAnL4QLUg6BiSWttHuZ9y8JTjrZ81kbGk=;
+ b=gQxW8I//50+YBGo5FTmq1ouU9MP2fQLGV/x2PN0PDqp9cX9G9X/Y2iFHjV8UvQ1R2c
+ JWPCiiwrF13IByJiisyTxDAVyTdEcpFX+N4J+XpkNImqYy4homQ0kDNXjiTo+7MkrwON
+ bberDM9ML4+1xXpkBlXlCzzgYqRuT0fDCK1UU=
+X-Received: by 10.202.72.20 with SMTP id v20mr517281oia.125.1443574099177;
+ Tue, 29 Sep 2015 17:48:19 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.202.182.197 with HTTP; Tue, 29 Sep 2015 17:44:19 -0700 (PDT)
-In-Reply-To: <722865DA-D254-4972-9020-E6D01F95EC60@bwbmail.net>
-References: <722865DA-D254-4972-9020-E6D01F95EC60@bwbmail.net>
+Received: by 10.202.182.197 with HTTP; Tue, 29 Sep 2015 17:47:59 -0700 (PDT)
+In-Reply-To: <20150929143413.GE14293@asimov.ibm.com>
+References: <20150929143413.GE14293@asimov.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 30 Sep 2015 10:14:19 +0930
-X-Google-Sender-Auth: 07dZ6GvcTZjzKW0cAjIcbK42TWs
-Message-ID: <CACPK8Xc9sYaZLTZnHu3V2vQRB6PvO-pYR7uEappp+Mg0210NaQ@mail.gmail.com>
-Subject: Re: BSP layers
-To: Brad Bishop <brad@bwbmail.net>
-Cc: openbmc@lists.ozlabs.org
+Date: Wed, 30 Sep 2015 10:17:59 +0930
+X-Google-Sender-Auth: pFcxBJcBKsUNNpn0jhAKHduU-go
+Message-ID: <CACPK8XeHTP4gUa=P3hdeo-uCU6_O+3SJg8qnwadfn=+GH3h5WA@mail.gmail.com>
+Subject: Re: EEPROM driver
+To: Patrick Williams <patrick@stwcx.xyz>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -55,23 +55,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 Sep 2015 00:44:44 -0000
+X-List-Received-Date: Wed, 30 Sep 2015 00:48:21 -0000
 
-Hey Brad,
+Hey Patrick,
 
-On Sat, Sep 26, 2015 at 4:47 AM, Brad Bishop <brad@bwbmail.net> wrote:
-> https://github.com/bradbishop/meta-aspeed
-> https://github.com/bradbishop/meta-openpower
+On Wed, Sep 30, 2015 at 12:04 AM, Patrick Williams <patrick@stwcx.xyz> wrote:
+> The EEPROM connected to the BMC is an AT24C256.  This is already
+> supported by a kernel driver: drivers/misc/eeprom/at24.c.  It is enabled
+> with EEPROM_AT24.
+>
+> If we have enabled this driver correctly and probe the i2c bus then
+> there will be an entry in /sys/bus/i2c/devices/ with a file containing
+> the EEPROM data.  This file can then be passed to our IPMI FRU parser
+> and then updated in the appropriate fru-manager DBus object.
 
-Cool. I had a bit of a look.
+IIRC it lives on i2c1 - the second bus. We should be able to add it to
+the device tree and have the kernel load the driver at boot; this is
+working for the rtc device that sits on i2c0.
 
-Feel free to send me patches for the issues in the kernel tree that
-you found. We don't want to be carrying patches to things where the
-fix should be in the repository, and that's especially true for
-components we own where the patch up-streaming is much easier.
-
-How do we go about building these into something I can boot on a palmetto?
+However, I'm currently hunting down an interrupt issue with the i2c
+bus driver when we enable anything more than the first bus. I'll let
+you know when we have that working.
 
 Cheers,
 
 Joel
+
+> [1] https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/misc-devices/eeprom
+> [2] https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/misc/eeprom/at24.c
