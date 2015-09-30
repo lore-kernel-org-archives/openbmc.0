@@ -1,24 +1,49 @@
-Return-Path: <brad@bwbmail.net>
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-ob0-x22e.google.com (mail-ob0-x22e.google.com
+ [IPv6:2607:f8b0:4003:c01::22e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 97BA41A077B
- for <openbmc@lists.ozlabs.org>; Wed, 30 Sep 2015 03:42:48 +1000 (AEST)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Sender: bradleyb@bajor.fuzziesquirrel.com
-Content-Type: text/plain; charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 8.2 \(2104\))
-Subject: Re: BSP layers
-From: Brad Bishop <brad@bwbmail.net>
-In-Reply-To: <20150929144451.GF14293@asimov.ibm.com>
-Date: Tue, 29 Sep 2015 13:42:42 -0400
-Cc: openbmc@lists.ozlabs.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <B894A2FA-6B26-4E24-9751-7EEF687D33A3@bwbmail.net>
+ by lists.ozlabs.org (Postfix) with ESMTPS id E1EF91A002B
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Sep 2015 10:44:42 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=jEkh+Nn4; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=fk+nMVkq; 
+ dkim-atps=neutral
+Received: by obbbh8 with SMTP id bh8so19556083obb.0
+ for <openbmc@lists.ozlabs.org>; Tue, 29 Sep 2015 17:44:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-type;
+ bh=XMQnbqBGUi9NUdyrWXIVJBeYCv1tCSkEOXJLRSmqouQ=;
+ b=jEkh+Nn4MeyP4z8ZsEwlidibkJZuE5y4+oJv0ILd9z/cBp3lchc27UDpWftZ5wUuFr
+ yD5EhQuMfXjB/9R0+pf5t4Cgiw9muqCvStsKuMC1Krez+z7dNZaG8JWyIBjizPjarDfi
+ nc5IR9j93vwUSFmZ+UZIYT8sjLjTuI+9tf7oCJv90eCylNbPWSKQOhGfK3LBI5GdPt9K
+ C3mVho1Pei+MSAC+duytyXWJhy4yAAJKvo0/gdS5vq5uok3IiPS8hngtbpUlQnpnZETv
+ fO22K1WmnDjnhjxEMDkfyo2KTU51jbmIHnzWXgbEC/+lZaWPrcIPqtkSJmvXRhs3dSQd
+ 38WA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-type;
+ bh=XMQnbqBGUi9NUdyrWXIVJBeYCv1tCSkEOXJLRSmqouQ=;
+ b=fk+nMVkqtluLa7DmPb+o4w0JAHvCP9DvMOtwVtYQx1AhnhE6peifPMEfJkdOZmqScj
+ rJb+PRU9q8oJBxX4ojYYNfJFj0QjI8TXuX5I5HZ8Aw8M+MZSDsDwpKVgSYkRZK20KuGx
+ 2ODKQ7S7NpVfKMSBHCFiVDYJWlpEmT12Hm46M=
+X-Received: by 10.182.97.10 with SMTP id dw10mr608551obb.60.1443573879247;
+ Tue, 29 Sep 2015 17:44:39 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.202.182.197 with HTTP; Tue, 29 Sep 2015 17:44:19 -0700 (PDT)
+In-Reply-To: <722865DA-D254-4972-9020-E6D01F95EC60@bwbmail.net>
 References: <722865DA-D254-4972-9020-E6D01F95EC60@bwbmail.net>
- <20150929144451.GF14293@asimov.ibm.com>
-To: Patrick Williams <patrick@stwcx.xyz>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 30 Sep 2015 10:14:19 +0930
+X-Google-Sender-Auth: 07dZ6GvcTZjzKW0cAjIcbK42TWs
+Message-ID: <CACPK8Xc9sYaZLTZnHu3V2vQRB6PvO-pYR7uEappp+Mg0210NaQ@mail.gmail.com>
+Subject: Re: BSP layers
+To: Brad Bishop <brad@bwbmail.net>
+Cc: openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -30,56 +55,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 Sep 2015 17:42:49 -0000
+X-List-Received-Date: Wed, 30 Sep 2015 00:44:44 -0000
 
-Patrick
+Hey Brad,
 
-Automatic versioning seems fine for now.  I will update that.
+On Sat, Sep 26, 2015 at 4:47 AM, Brad Bishop <brad@bwbmail.net> wrote:
+> https://github.com/bradbishop/meta-aspeed
+> https://github.com/bradbishop/meta-openpower
 
-For the openbmc hierarchy how about:
+Cool. I had a bit of a look.
 
-meta-openbmc-bsp/meta-aspeed -> meta-aspeed
-meta-openbmc-machines/meta-openpower -> meta-openpower
+Feel free to send me patches for the issues in the kernel tree that
+you found. We don't want to be carrying patches to things where the
+fix should be in the repository, and that's especially true for
+components we own where the patch up-streaming is much easier.
 
-thx - Brad
+How do we go about building these into something I can boot on a palmetto?
 
-> On Sep 29, 2015, at 10:44 AM, Patrick Williams <patrick@stwcx.xyz> =
-wrote:
->=20
-> On Fri, Sep 25, 2015 at 02:47:59PM -0400, Brad Bishop wrote:
->> I have a couple new layer repositories:
->>=20
->> https://github.com/bradbishop/meta-aspeed =
-<https://github.com/bradbishop/meta-aspeed>
->> https://github.com/bradbishop/meta-openpower =
-<https://github.com/bradbishop/meta-openpower>
->>=20
->> Appreciate any feedback.
->>=20
->> Thx! - brad
->>=20
->=20
-> Brad,
->=20
-> I noticed in the layer.conf files we are manually assigning priority.
-> Do we want to allow the automatic assignment or is there some =
-guidelines
-> on what the priority should be?
->=20
-> Seems that you have:
->    * BMC Hardware Layer - 7
->    * Host Machine Class - 8
->    * Host Machine Specific - 9
->    * OEM Machine Enhancment - 10 (not there, but imagined by me).
->=20
-> Based on the conference call we had last week, I think we should go
-> ahead and make github.com/openbmc repositories for these two you have.
-> I can create that if you want.
->=20
-> What is your proposal for where these repositories live in
-> openbmc/openbmc?  meta-openbmc-bsp for meta-aspeed?  I'm unsure if
-> meta-openpower belongs under a meta-openbmc-machines or
-> meta-phosphor/meta-machines?
->=20
-> --=20
-> Patrick Williams
+Cheers,
+
+Joel
