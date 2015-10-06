@@ -1,51 +1,20 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-ob0-x22e.google.com (mail-ob0-x22e.google.com
- [IPv6:2607:f8b0:4003:c01::22e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <brad@bwbmail.net>
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id E4A951A00C5
- for <openbmc@lists.ozlabs.org>; Thu,  1 Oct 2015 16:27:03 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=CLUvvKE3; 
- dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=QcnM/o+V; 
- dkim-atps=neutral
-Received: by obbda8 with SMTP id da8so50222901obb.1
- for <openbmc@lists.ozlabs.org>; Wed, 30 Sep 2015 23:27:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-type;
- bh=TUGHLhjM5CwqbKy38lEfI0oAWXqyMM7ioTxd+ICaylI=;
- b=CLUvvKE32oHX3PG1z1jzlMnmCpTraGM3G0psCnG5x8+LzK5uSrYfpEHfuRZV5lWAFO
- HkhpfKxgjc0gYNPOXeTgaK612Kj4jwXsLdNcCm9cbhLfzHYNZRRv+uXYS8/XGgtDf/0M
- 9Ppsiw2FSB0Hg/JAZdyvWx823HwkWN4zGTe0gpxj/8ycuqnauBgFCWUulUgANablo+F2
- 6uheXIl/4wFcaVXDuefhUT7tdsYiOL2C0vYS8I1udAcXn4jG1DiJNjfphbHy8EcJqGiO
- CWZBdtaTf9dpyZBJt632mMCv3VLbzDZosDFq4Z8NsYdQvb7SFgYGxC4/xJTDlWNSTiGR
- eXww==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-type;
- bh=TUGHLhjM5CwqbKy38lEfI0oAWXqyMM7ioTxd+ICaylI=;
- b=QcnM/o+VFUy3Clogl1r+Ey+qg7BvnHisEnGLowgLsJ73rFyKfYw1E2iaHeq4zxr4JB
- W46IamAb6WtdTWMjsuYPJjSqLbf5wDGQFIkTpuleFWFwHLMScRj9tX00SmXF6MrmAwcu
- XYyfmdrJgNmfFciWRhjAphzMn1YTWua568VLw=
-X-Received: by 10.182.107.199 with SMTP id he7mr5101334obb.35.1443680820605;
- Wed, 30 Sep 2015 23:27:00 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.202.182.197 with HTTP; Wed, 30 Sep 2015 23:26:40 -0700 (PDT)
-In-Reply-To: <20150930191352.GC20477@asimov.ibm.com>
-References: <20150929143413.GE14293@asimov.ibm.com>
- <CACPK8XeHTP4gUa=P3hdeo-uCU6_O+3SJg8qnwadfn=+GH3h5WA@mail.gmail.com>
- <20150930191352.GC20477@asimov.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 1 Oct 2015 15:56:40 +0930
-X-Google-Sender-Auth: kGBCJuz3_wA8Yyf2fCi69IHwOaE
-Message-ID: <CACPK8XceU6Z4XUWujfhHetVyqxYjYYa1JeMgFY3YYDpP=xKC5w@mail.gmail.com>
-Subject: Re: EEPROM driver
-To: Patrick Williams <patrick@stwcx.xyz>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id B00F21A0034
+ for <openbmc@lists.ozlabs.org>; Tue,  6 Oct 2015 17:05:53 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Sender: bradleyb@bajor.fuzziesquirrel.com
+From: Brad Bishop <brad@bwbmail.net>
+Content-Type: multipart/alternative;
+ boundary="Apple-Mail=_83FA4EED-EAFC-43B4-9C6B-83F0D1095311"
+Subject: Palmetto netboot instructions
+Message-Id: <B4E73D93-EAC0-4F2F-A1F1-74D969EDBDE8@bwbmail.net>
+Date: Tue, 6 Oct 2015 02:05:44 -0400
+To: openbmc@lists.ozlabs.org
+Mime-Version: 1.0 (Mac OS X Mail 8.2 \(2104\))
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -57,35 +26,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Oct 2015 06:27:05 -0000
+X-List-Received-Date: Tue, 06 Oct 2015 06:05:54 -0000
 
-On Thu, Oct 1, 2015 at 4:43 AM, Patrick Williams <patrick@stwcx.xyz> wrote:
-> Do we want devices to generally be required to be added to the device tree
-> or do we want to have a userspace app that probes the i2c bus for devices based on hotplug events?
 
-For the devices that are fixed in a system, such as devices on the i2c
-bus, we would encode them in the device tree.
+--Apple-Mail=_83FA4EED-EAFC-43B4-9C6B-83F0D1095311
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=us-ascii
 
-> For device tree entries are you just suggesting that the i2c master
-> would be in the device tree or all the end devices?
+Please let me know if you run into any problems with this procedure or =
+have any feedback.  Thanks.
 
-Both. The device tree describes the relationship between the i2c bus
-and the devices that hang off of each bus. We also encode interrupt
-numbers, i2c addresses, and any other information that might be
-configurable in the driver.
+On build system:
 
-> Is there an easy way for us to pre-populate a device tree at build time
-> for elements we know about a particular BMC / machine combination?  We
-> may need to incorporate elements from both the bmc-bsp layer and the
-> machine-bsp layer.
+1 - pull updates from here: https://github.com/bradbishop/openbmc-1 =
+<https://github.com/bradbishop/openbmc-1>
+2 - bitbake obmc-phosphor-image
+3 - tmp/sysroots/x86_64-linux/usr/bin/mkimage -A arm -O linux -C none -T =
+ramdisk -a 0x50200000 -d =
+tmp/deploy/images/palmetto/obmc-phosphor-image-palmetto.cpio.gz initrd
+4 - scp tmp/deploy/images/palmetto/cuImage <tftp>:/tftpboot
+5 - scp tmp/deploy/images/palmetto/initrd <tftp>:/tftpboot
 
-We will encode this information in the layer that describes the PCB
-that the BMC is attached to. Guessing at your naming scheme, I imagine
-this would be the machine-bsp layer?
 
-Do we have a wiki page that describes the the bitbake layers and how
-they relate to each other?
+On BMC (uboot shell):
 
-Cheers,
+for static ip:
+setenv gatewayip=3D<routers>
+setenv netmask=3D<netmask>
+setenv ipaddr=3D<ip>
+setenv serverip=3D<tftp>
+setenv netboot=3Dncsi\; tftp 0x50000000 /tftpboot/cuImage\; tftp =
+0x50200000 /tftpboot/initrd\; bootm 0x50000000 0x50200000\;
+saveenv
+run netboot
 
-Joel
+for dynamic ip:
+setenv serverip=3D<tftp>
+setenv netboot=3Dncsi\; dhcp\; tftp 0x50000000 /tftpboot/cuImage\; tftp =
+0x50200000 /tftpboot/initrd\; bootm 0x50000000 0x50200000\;
+saveenv
+run netboot=
+
+--Apple-Mail=_83FA4EED-EAFC-43B4-9C6B-83F0D1095311
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=us-ascii
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html =
+charset=3Dus-ascii"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; -webkit-line-break: after-white-space;" =
+class=3D"">Please let me know if you run into any problems with this =
+procedure or have any feedback. &nbsp;Thanks.<div class=3D""><br =
+class=3D""></div><div class=3D"">On build system:</div><div class=3D""><br=
+ class=3D""></div><div class=3D"">1 - pull updates from here:&nbsp;<a =
+href=3D"https://github.com/bradbishop/openbmc-1" =
+class=3D"">https://github.com/bradbishop/openbmc-1</a></div><div =
+class=3D"">2 - bitbake obmc-phosphor-image</div><div class=3D"">3 - =
+tmp/sysroots/x86_64-linux/usr/bin/mkimage -A arm -O linux -C none -T =
+ramdisk -a 0x50200000 -d =
+tmp/deploy/images/palmetto/obmc-phosphor-image-palmetto.cpio.gz =
+initrd</div><div class=3D"">4 - scp tmp/deploy/images/palmetto/cuImage =
+&lt;tftp&gt;:/tftpboot</div><div class=3D""><div class=3D"">5 - scp =
+tmp/deploy/images/palmetto/initrd &lt;tftp&gt;:/tftpboot</div></div><div =
+class=3D""><br class=3D""></div><div class=3D""><br class=3D""></div><div =
+class=3D"">On BMC (uboot shell):</div><div class=3D""><br =
+class=3D""></div><div class=3D"">for static ip:</div><div class=3D""><div =
+class=3D"">setenv gatewayip=3D&lt;routers&gt;</div><div class=3D"">setenv =
+netmask=3D&lt;netmask&gt;</div><div class=3D"">setenv =
+ipaddr=3D&lt;ip&gt;</div><div class=3D"">setenv =
+serverip=3D&lt;tftp&gt;</div><div class=3D"">setenv netboot=3Dncsi\; =
+tftp 0x50000000 /tftpboot/cuImage\; tftp 0x50200000 /tftpboot/initrd\; =
+bootm 0x50000000 0x50200000\;</div></div><div class=3D"">saveenv</div><div=
+ class=3D"">run netboot</div><div class=3D""><br class=3D""></div><div =
+class=3D"">for dynamic ip:</div><div class=3D""><div class=3D""><div =
+class=3D"">setenv serverip=3D&lt;tftp&gt;</div><div class=3D"">setenv =
+netboot=3Dncsi\; dhcp\; tftp 0x50000000 /tftpboot/cuImage\; tftp =
+0x50200000 /tftpboot/initrd\; bootm 0x50000000 =
+0x50200000\;</div></div><div class=3D"">saveenv</div><div class=3D"">run =
+netboot</div></div></body></html>=
+
+--Apple-Mail=_83FA4EED-EAFC-43B4-9C6B-83F0D1095311--
