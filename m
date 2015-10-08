@@ -1,24 +1,24 @@
-Return-Path: <brad@bwbmail.net>
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id D1AE61A0034
- for <openbmc@lists.ozlabs.org>; Tue,  6 Oct 2015 17:32:20 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Sender: bradleyb@bajor.fuzziesquirrel.com
-Content-Type: text/plain; charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 8.2 \(2104\))
-Subject: Re: Palmetto netboot instructions
-From: Brad Bishop <brad@bwbmail.net>
-In-Reply-To: <CACPK8XdBN0RUHbCrk6OZXuV5q=t7FsTtn68=DeTq8HpRNEvbTg@mail.gmail.com>
-Date: Tue, 6 Oct 2015 02:32:16 -0400
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <54035C08-0E79-4392-A29B-21AA481E800E@bwbmail.net>
-References: <B4E73D93-EAC0-4F2F-A1F1-74D969EDBDE8@bwbmail.net>
- <CACPK8XdBN0RUHbCrk6OZXuV5q=t7FsTtn68=DeTq8HpRNEvbTg@mail.gmail.com>
-To: Joel Stanley <joel@jms.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 0D32D1A0026
+ for <openbmc@lists.ozlabs.org>; Thu,  8 Oct 2015 11:03:04 +1100 (AEDT)
+Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
+ with SMTPS id 1444262582051446.3740643040635;
+ Wed, 7 Oct 2015 17:03:02 -0700 (PDT)
+Date: Wed, 7 Oct 2015 19:03:00 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Github Pull Requests
+Message-ID: <20151008000300.GD12084@asimov.ibm.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="5QAgd0e35j3NYeGe"
+Content-Disposition: inline
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -30,60 +30,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 Oct 2015 06:32:21 -0000
+X-List-Received-Date: Thu, 08 Oct 2015 00:03:05 -0000
 
-Joel
 
-Phosphor is just an alias for openbmc.  The target for a build in OE is =
-set in build/conf/local.conf by the machine variable.  The qemu target =
-is =E2=80=98qemuarm=E2=80=99  -  the Palmetto target is palmetto.  =
-obmc-phosphor-image is an image recipe - those are orthogonal to the =
-build target.
+--5QAgd0e35j3NYeGe
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-If you are starting from scratch without a build/conf directory you can =
-just:
+There was some discussion about using Github pull requests for code
+reviews or the mailing list.  There was expressed  a preference to use the
+mailing list because it is less spammy.
 
-=
-TEMPLATECONF=3Dmeta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto=
-/conf . oe-init-build-env
+Newer versions of git have a nice tool 'git-send-email', but the version
+installed on the internal machines that many of the team members are
+using does not support 'git-send-email'.
 
-and that will populate local.conf for palmetto.
+For those that know how to correct send patches to the mailing list, great.
+For those that do not, I decided to write a cronjob that will take our
+Github pull requests and forward them to the mailing list properly.
+This means that we can use Github pull requests for integrating the code
+and the mailing list for review discussion.
 
-OE does has support for putting the initramfs into the kernel.  I tried =
-briefly to get that going but I didn=E2=80=99t get very far.
+I'm going to run the script directed at the mailing list for the first
+time momentarily.  Please give feedback if there is anything I can do to
+improve it or if you hate it.  I'll post the code itself on Github
+sometime.
 
-Thx - Brad
+The script does detect if you update a pull request on Github and it
+will resend as v2, v3, etc.
+--=20
+Patrick Williams
 
-> On Oct 6, 2015, at 2:17 AM, Joel Stanley <joel@jms.id.au> wrote:
->=20
-> Hey Brad,
->=20
-> On Tue, Oct 6, 2015 at 4:35 PM, Brad Bishop <brad@bwbmail.net> wrote:
->> Please let me know if you run into any problems with this procedure =
-or have
->> any feedback.  Thanks.
->=20
-> Thanks for the instructions!
->=20
->> On build system:
->>=20
->> 1 - pull updates from here: https://github.com/bradbishop/openbmc-1
->> 2 - bitbake obmc-phosphor-image
->=20
-> I thought 'phosphor' was the qemu target we were using for OpenBMC
-> development, and that we would have a 'palmetto' target for running on
-> the hardware. Can you clarify for me?
->=20
->> 3 - tmp/sysroots/x86_64-linux/usr/bin/mkimage -A arm -O linux -C none =
--T
->> ramdisk -a 0x50200000 -d
->> tmp/deploy/images/palmetto/obmc-phosphor-image-palmetto.cpio.gz =
-initrd
->> 4 - scp tmp/deploy/images/palmetto/cuImage <tftp>:/tftpboot
->> 5 - scp tmp/deploy/images/palmetto/initrd <tftp>:/tftpboot
->=20
-> Can we get bitbake to build the rootfs into the kernel?
->=20
-> Cheers,
->=20
-> Joel
+--5QAgd0e35j3NYeGe
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJWFbK0AAoJEKsDR8wtAMEZaNIP/16IE1lNeLPgXaNp/iG+KBbK
+qzqU6anEVWRdL50LUw+3G/v18Aqdm/RO54yT7vN6Mj+eP737ma/we6tbFi2/1VK2
+P8H1HnrTr0QSJaLOFRSNk4avI4cOf/l0le1vu9Mvrfd6hw95+vKOx0rzqTE5nRnQ
+tlqYijZ8qckBPxSY9EkCddqfg1L2y1nM59fVCS1Ov6KOOJBkYJ2KG45I45/ah6q7
+ROswOV2hZVBaEpLsOXf/NnURICdD3mULg7CyHSjsyB7Xwc/WpJ1OzYP4nnqO4pUg
+Yp5NxuiVqbrjD7PSrBGVsOhcoS2gZUaIUQrUZLyfHleu9sonhH7ASjmmZFWrjYIa
+2Iw8Cu0ouhwG9pOxlCxUM3rkLwQeA0IHidUsC5Ermg4Qbk2tAfNS94hBngoUs7LM
+jxkZOHH8IEgjVj/laGX5q7uIMZEfw2irOG5cSOS9IPkPDfRScqpefmE8jwNWf2Mt
+N/bDztGAeLH3dhW/KpFxMZcKeyuZ/dbC2mkx0NMe5DApGAs/gkF3PLWmrwjCUAGb
+2N7DOa7iSP4Gm67oKqFgXrzYNZOnPUd+809em7clcOGrNe1dJYar7XE7bNa4KBVL
+Rfq0/DhlHPyi4Uq59h/VhWoRXSajmcZWY2v8CPhvMmITEiNLr8CaDAIWsDmvf89v
+KCRKk10GV69rldTTZqrB
+=lezC
+-----END PGP SIGNATURE-----
+
+--5QAgd0e35j3NYeGe--
