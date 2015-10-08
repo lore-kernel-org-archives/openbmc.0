@@ -1,30 +1,19 @@
-Return-Path: <patrick@stwcx.xyz>
+Return-Path: <patches@stwcx.xyz>
 Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 70DE71A022F
- for <openbmc@lists.ozlabs.org>; Fri,  9 Oct 2015 05:49:08 +1100 (AEDT)
-Received: from localhost (32.97.110.53 [32.97.110.53]) by mx.zohomail.com
- with SMTPS id 1444330144282488.160258015326;
- Thu, 8 Oct 2015 11:49:04 -0700 (PDT)
-Date: Thu, 8 Oct 2015 13:49:02 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC Patches <patches@stwcx.xyz>
-Cc: openbmc@lists.ozlabs.org
-Subject: Re: [PATCH phosphor-host-ipmid v3] Initial IPMI Net Function router
-Message-ID: <20151008184902.GI12084@asimov.ibm.com>
-References: <1444329868-31461-1-git-send-email-patches@stwcx.xyz>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="tcC6YSqBgqqkz7Sb"
-Content-Disposition: inline
-In-Reply-To: <1444329868-31461-1-git-send-email-patches@stwcx.xyz>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Zoho-Virus-Status: 1
-X-ZohoMail: Ss  SS_10 UW UB CHF_INT_SMD_EXT  SGR4_1_06105_7
-X-ZohoMail-Owner: <20151008184902.GI12084@asimov.ibm.com>+zmo_0_<patrick@stwcx.xyz>
-X-ZohoMail-Sender: 32.97.110.53
+ by lists.ozlabs.org (Postfix) with ESMTPS id 392ED1A02AD
+ for <openbmc@lists.ozlabs.org>; Fri,  9 Oct 2015 09:43:21 +1100 (AEDT)
+Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
+ with SMTPS id 1444344198840431.07902815243506;
+ Thu, 8 Oct 2015 15:43:18 -0700 (PDT)
+From: OpenBMC Patches <patches@stwcx.xyz>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH openbmc 0/5] First pass at flash image generation.
+Date: Thu,  8 Oct 2015 17:43:12 -0500
+Message-Id: <1444344197-7122-1-git-send-email-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.6.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -36,70 +25,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 08 Oct 2015 18:49:09 -0000
+X-List-Received-Date: Thu, 08 Oct 2015 22:43:23 -0000
 
+This doesn't produce a usable flash image!
 
---tcC6YSqBgqqkz7Sb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+https://github.com/openbmc/openbmc/pull/13
 
-Been plenty of opportunity for review.  This set looks good, so I'll
-merge it on github.
+Brad Bishop (5):
+  Add vim swap files to .gitignore
+  Add uboot image type specialization
+  Backport 2013.07 uboot recipe
+  Use OpenBMC uboot image
+  Add u-boot for Palmetto
 
-On Thu, Oct 08, 2015 at 01:44:27PM -0500, OpenBMC Patches wrote:
-> https://github.com/openbmc/phosphor-host-ipmid/pull/1
->=20
-> vishwabmc (1):
->   Final IPMI Net Function router
->=20
->  Makefile     |  24 +++++
->  apphandler.C |  58 +++++++++++
->  apphandler.h |  11 ++
->  ipmid-api.h  |  91 +++++++++++++++++
->  ipmid.C      | 326 +++++++++++++++++++++++++++++++++++++++++++++++++++++=
-++++++
->  ipmid.H      |  15 +++
->  6 files changed, 525 insertions(+)
->  create mode 100755 Makefile
->  create mode 100755 apphandler.C
->  create mode 100644 apphandler.h
->  create mode 100755 ipmid-api.h
->  create mode 100644 ipmid.C
->  create mode 100755 ipmid.H
->=20
-> --=20
-> 2.6.0
->=20
->=20
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+ .gitignore                                         |     1 +
+ .../meta-palmetto/conf/machine/palmetto.conf       |     7 +-
+ .../recipes-bsp/u-boot/files/config.patch          |    14 +
+ .../recipes-bsp/u-boot/files/fw_env.config         |    22 +
+ .../patch-2013.07/0000-u-boot-aspeed-064.patch     | 44658 +++++++++++++++++++
+ .../files/patch-2013.07/0001-u-boot-openbmc.patch  |  1937 +
+ .../recipes-bsp/u-boot/u-boot_2013.07%.bbappend    |    13 +
+ .../obmc-phosphor-image_types_uboot.bbclass        |    47 +
+ ...h-Add-use-DEFAULT_LINUX_BOOT_ENV-environm.patch |    74 +
+ .../common/recipes-bsp/u-boot/u-boot_2013.07.bb    |    25 +
+ .../conf/machine/include/obmc-bsp-common.inc       |     5 +-
+ 11 files changed, 46801 insertions(+), 2 deletions(-)
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-bsp/u-boot/files/config.patch
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-bsp/u-boot/files/fw_env.config
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-bsp/u-boot/files/patch-2013.07/0000-u-boot-aspeed-064.patch
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-bsp/u-boot/files/patch-2013.07/0001-u-boot-openbmc.patch
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-bsp/u-boot/u-boot_2013.07%.bbappend
+ create mode 100644 meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
+ create mode 100644 meta-phosphor/common/recipes-bsp/u-boot/files/0001-am335x_evm.h-Add-use-DEFAULT_LINUX_BOOT_ENV-environm.patch
+ create mode 100644 meta-phosphor/common/recipes-bsp/u-boot/u-boot_2013.07.bb
 
---=20
-Patrick Williams
-
---tcC6YSqBgqqkz7Sb
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJWFrqeAAoJEKsDR8wtAMEZFAYQAKPTqoeljQgP3h0S3eoYpCdV
-gp4pcAbCBDd9Lpn+qe+iomWM4lSO8Or3gJZunMObjflxP/em1dyAvC5Vu6WfyRJy
-xFor73Ottgpkc4oAACig2ymEOvpKKe/qpXYOE0f39h84AbC/SuB8N2HXf3NxA5K+
-8tylo4N20552ZZo4h6WF/qyBNjm5yrnFu/ggSUvL/HSI9pjljITvesz9UU5VzHiK
-7UfCTssSZQ7XUmH/C8WxENRj2LVIMSP99ZOgvFoqrxmnJS75a6iAxf5UkHZisHB4
-SAZ4alLKa5asAyRhB0b/xIwGZbiiOT60eplSNNQx6qr5lpn8+lxboje+Dq6ljQ2a
-V4lexETUkq38rZWmE9iZRcPw36j6RmFGTKEJmp7r11rVl/IDQG6kKnpsihmG5aZR
-DQ7BbZRpczJ9BnKUDxWvsncnBxBvMU1ZsdC9LUvFk3mRICtWOak7ObqLJlJUHRZv
-LRNpAGW5Rw5YgZbAR6j0rWlDJyIhVQDFM+Cubyx11IA37sygeV2wWBrkWeceFzST
-VCD2TJrRFJmo55jhH0hmMCM/dQK2e7dMSA5XrFE9EIPVemAcJdD1UNMMppa2YqU7
-OrerZnuVa2NyKzMXwxLWfZJwf6A0EdDXDmVnLpqx9DfX8+cJcEjz8G9pK23Un+rq
-vTPa2Q2NSTiN35A5f2F2
-=0T16
------END PGP SIGNATURE-----
-
---tcC6YSqBgqqkz7Sb--
+-- 
+2.6.0
