@@ -3,19 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 24F471A02E6
- for <openbmc@lists.ozlabs.org>; Fri,  9 Oct 2015 09:43:26 +1100 (AEDT)
-Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
- with SMTPS id 1444344204787299.65934495140664;
- Thu, 8 Oct 2015 15:43:24 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 25C1C1A03AA
+ for <openbmc@lists.ozlabs.org>; Sat, 10 Oct 2015 00:11:18 +1100 (AEDT)
+Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
+ [108.215.4.10]) by mx.zohomail.com
+ with SMTPS id 1444396273395494.10280510034806;
+ Fri, 9 Oct 2015 06:11:13 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 4/5] Use OpenBMC uboot image
-Date: Thu,  8 Oct 2015 17:43:16 -0500
-Message-Id: <1444344197-7122-5-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid] Use SYSTEM bus instead of SESSION
+Date: Fri,  9 Oct 2015 08:11:09 -0500
+Message-Id: <1444396270-14585-1-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
-In-Reply-To: <1444344197-7122-1-git-send-email-patches@stwcx.xyz>
-References: <1444344197-7122-1-git-send-email-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -27,30 +26,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 08 Oct 2015 22:43:27 -0000
+X-List-Received-Date: Fri, 09 Oct 2015 13:11:19 -0000
 
-From: Brad Bishop <bradleyb@us.ibm.com>
+Use SYSTEM bus instead of SESSION
 
-This makes all machines use the OpenBMC flash image uboot
-image fstype specialization.
----
- meta-phosphor/conf/machine/include/obmc-bsp-common.inc | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+https://github.com/openbmc/phosphor-host-ipmid/pull/2
 
-diff --git a/meta-phosphor/conf/machine/include/obmc-bsp-common.inc b/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
-index ca65285..4a800dd 100644
---- a/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
-+++ b/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
-@@ -10,6 +10,9 @@ KERNEL_IMAGETYPE ?= "cuImage"
- KERNEL_EXTRA_ARGS += "LOADADDR=${UBOOT_ENTRYPOINT}"
- 
- UBOOT_SUFFIX ?= "bin"
--IMAGE_BOOT_FILES ?= "u-boot.${UBOOT_SUFFIX}"
- 
- MACHINEOVERRIDES =. "openbmc:"
-+
-+IMAGE_CLASSES += "obmc-phosphor-image_types_uboot"
-+IMAGE_CTYPE = "gz"
-+IMAGE_FSTYPES += "cpio.${IMAGE_CTYPE}.u-boot"
+vishwabmc (1):
+  INITIAL CHANGE
+
+ ipmid.C | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
 -- 
 2.6.0
