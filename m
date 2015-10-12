@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id D3BC91A0851
- for <openbmc@lists.ozlabs.org>; Tue, 13 Oct 2015 01:17:02 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 196971A0742
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Oct 2015 01:17:06 +1100 (AEDT)
 Received: from localhost (32.97.110.55 [32.97.110.55]) by mx.zohomail.com
- with SMTPS id 1444659420548274.7161577527303;
- Mon, 12 Oct 2015 07:17:00 -0700 (PDT)
+ with SMTPS id 1444659423805612.6582437988462;
+ Mon, 12 Oct 2015 07:17:03 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 6/7] Move Palmetto specific metadata to Palmetto layer
-Date: Mon, 12 Oct 2015 09:16:39 -0500
-Message-Id: <1444659400-4196-7-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH openbmc 7/7] bitbake and package files for host-ipmid
+Date: Mon, 12 Oct 2015 09:16:40 -0500
+Message-Id: <1444659400-4196-8-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1444659400-4196-1-git-send-email-patches@stwcx.xyz>
 References: <1444659400-4196-1-git-send-email-patches@stwcx.xyz>
@@ -27,82 +27,69 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 12 Oct 2015 14:17:03 -0000
+X-List-Received-Date: Mon, 12 Oct 2015 14:17:07 -0000
 
-From: Brad Bishop <bradleyb@us.ibm.com>
+From: vishwabmc <vishwanath@in.ibm.com>
 
 ---
- .../meta-openpower/meta-ibm/meta-palmetto/conf/layer.conf |  4 ++++
- .../meta-ibm/meta-palmetto/conf/machine/palmetto.conf     |  2 ++
- .../recipes-kernel/linux/linux-obmc_%.bbappend            |  1 +
- .../meta-openpower/meta-ibm/meta-palmetto/recipes.txt     |  1 +
- meta-phosphor/conf/machine/include/obmc-bsp-common.inc    | 15 +++++++++++++++
- 5 files changed, 23 insertions(+)
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc_%.bbappend
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes.txt
- create mode 100644 meta-phosphor/conf/machine/include/obmc-bsp-common.inc
+ .../host-ipmid/files/host-ipmid.service              |  8 ++++++++
+ .../common/recipes-phosphor/host-ipmid/host-ipmid.bb | 20 ++++++++++++++++++++
+ .../packagegroups/packagegroup-obmc-phosphor-apps.bb |  1 +
+ 3 files changed, 29 insertions(+)
+ create mode 100644 meta-phosphor/common/recipes-phosphor/host-ipmid/files/host-ipmid.service
+ create mode 100644 meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb
 
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/layer.conf b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/layer.conf
-index ac8a2a2..b34e780 100644
---- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/layer.conf
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/layer.conf
-@@ -1,5 +1,9 @@
- # We have a conf and classes directory, add to BBPATH
- BBPATH .= ":${LAYERDIR}"
- 
-+# We have a recipes-* directories, add to BBFILES
-+BBFILES += "${LAYERDIR}/recipes-*/*/*.bb \
-+	${LAYERDIR}/recipes-*/*/*.bbappend"
-+
- BBFILE_COLLECTIONS += "palmetto"
- BBFILE_PATTERN_palmetto = ""
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/machine/palmetto.conf b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/machine/palmetto.conf
-index f846787..82a9b1c 100644
---- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/machine/palmetto.conf
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/machine/palmetto.conf
-@@ -19,6 +19,8 @@ VIRTUAL-RUNTIME_obmc-phosphor-flash-ctl = " \
-        "
- 
- # UBOOT_MACHINE_${MACHINE} = "${MACHINE}_config
-+KMACHINE = "aspeed"
-+KERNEL_DEVICETREE = "${KMACHINE}-bmc-opp-${MACHINE}.dtb"
- 
- require conf/machine/include/ast2400.inc
- require conf/machine/include/obmc-bsp-common.inc
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc_%.bbappend b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc_%.bbappend
+diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/files/host-ipmid.service b/meta-phosphor/common/recipes-phosphor/host-ipmid/files/host-ipmid.service
 new file mode 100644
-index 0000000..de6d3d6
+index 0000000..0636f12
 --- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc_%.bbappend
-@@ -0,0 +1 @@
-+KERNEL_CONFIG_COMMAND = "oe_runmake_call -C ${S} O=${B} ${KMACHINE}_defconfig"
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes.txt b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes.txt
++++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/files/host-ipmid.service
+@@ -0,0 +1,8 @@
++[Unit]
++Description="Phosphor OpenBMC IPMI daemon"
++
++[Service]
++ExecStart=/usr/sbin/ipmid
++
++[Install]
++WantedBy=multi-user.target
+diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb
 new file mode 100644
-index 0000000..db84c6f
+index 0000000..9741e61
 --- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes.txt
-@@ -0,0 +1 @@
-+recipes-kernel       - The kernel and generic applications/libraries with strong kernel dependencies
-diff --git a/meta-phosphor/conf/machine/include/obmc-bsp-common.inc b/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
-new file mode 100644
-index 0000000..ca65285
---- /dev/null
-+++ b/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
-@@ -0,0 +1,15 @@
-+#@TYPE: Machine
-+#@NAME: OpenBMC
-+#@DESCRIPTION: Common machine configuration for OpenBMC chips
++++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb
+@@ -0,0 +1,20 @@
++SUMMARY = "Phosphor OpenBMC IPMI daemon"
++DESCRIPTION = "Phosphor OpenBMC IPMI router and plugin libraries"
++HOMEPAGE = "http://github.com/openbmc/phosphor-host-ipmid"
++PR = "r1"
 +
-+MACHINE_EXTRA_RRECOMMENDS = " kernel-modules"
-+EXTRA_IMAGEDEPENDS += "u-boot"
++inherit obmc-phosphor-license
++inherit obmc-phosphor-systemd
 +
-+KERNEL_CLASSES ?= "kernel-uimage kernel-cuimage"
-+KERNEL_IMAGETYPE ?= "cuImage"
-+KERNEL_EXTRA_ARGS += "LOADADDR=${UBOOT_ENTRYPOINT}"
++DEPENDS += "glib-2.0"
++SRC_URI += "git://github.com/openbmc/phosphor-host-ipmid"
 +
-+UBOOT_SUFFIX ?= "bin"
-+IMAGE_BOOT_FILES ?= "u-boot.${UBOOT_SUFFIX}"
++SRCREV = "02d37aab090090af9a779f4039931a6721bff615"
 +
-+MACHINEOVERRIDES =. "openbmc:"
++S = "${WORKDIR}/git"
++
++do_install() {
++        install -m 0755 -d ${D}${sbindir} ${D}${libdir} ${D}${libdir}/host-ipmid/
++        install -m 0755 ${S}/ipmid ${D}${sbindir}/
++        install -m 0755 ${S}/libapphandler.so ${D}${libdir}/host-ipmid/
++}
+diff --git a/meta-phosphor/common/recipes-phosphor/packagegroups/packagegroup-obmc-phosphor-apps.bb b/meta-phosphor/common/recipes-phosphor/packagegroups/packagegroup-obmc-phosphor-apps.bb
+index 8aa6ba8..4dbcdd3 100644
+--- a/meta-phosphor/common/recipes-phosphor/packagegroups/packagegroup-obmc-phosphor-apps.bb
++++ b/meta-phosphor/common/recipes-phosphor/packagegroups/packagegroup-obmc-phosphor-apps.bb
+@@ -25,6 +25,7 @@ PACKAGES = " \
+ SUMMARY_packagegroup-obmc-phosphor-apps-extras = "Extra features"
+ RDEPENDS_packagegroup-obmc-phosphor-apps-extras = " \
+         rest-dbus \
++        host-ipmid \
+         "
+ 
+ SUMMARY_packagegroup-obmc-phosphor-apps-fan-mgmt = "Fan management support"
 -- 
 2.6.0
