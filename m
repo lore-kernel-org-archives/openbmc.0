@@ -3,19 +3,19 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 196971A0742
- for <openbmc@lists.ozlabs.org>; Tue, 13 Oct 2015 01:17:06 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 81AC61A0023
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Oct 2015 02:03:59 +1100 (AEDT)
 Received: from localhost (32.97.110.55 [32.97.110.55]) by mx.zohomail.com
- with SMTPS id 1444659423805612.6582437988462;
- Mon, 12 Oct 2015 07:17:03 -0700 (PDT)
+ with SMTPS id 1444662237576260.3226439177853;
+ Mon, 12 Oct 2015 08:03:57 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 7/7] bitbake and package files for host-ipmid
-Date: Mon, 12 Oct 2015 09:16:40 -0500
-Message-Id: <1444659400-4196-8-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH openbmc v2] bitbake and package files for host-ipmid
+Date: Mon, 12 Oct 2015 10:03:54 -0500
+Message-Id: <1444662234-13303-2-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
-In-Reply-To: <1444659400-4196-1-git-send-email-patches@stwcx.xyz>
-References: <1444659400-4196-1-git-send-email-patches@stwcx.xyz>
+In-Reply-To: <1444662234-13303-1-git-send-email-patches@stwcx.xyz>
+References: <1444662234-13303-1-git-send-email-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -27,7 +27,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 12 Oct 2015 14:17:07 -0000
+X-List-Received-Date: Mon, 12 Oct 2015 15:04:00 -0000
 
 From: vishwabmc <vishwanath@in.ibm.com>
 
