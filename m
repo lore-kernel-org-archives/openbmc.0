@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id DC8941A0991
- for <openbmc@lists.ozlabs.org>; Wed, 14 Oct 2015 04:48:25 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id A6FC31A0976
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Oct 2015 04:48:29 +1100 (AEDT)
 Received: from localhost (32.97.110.55 [32.97.110.55]) by mx.zohomail.com
- with SMTPS id 1444758502895468.3242885879754;
- Tue, 13 Oct 2015 10:48:22 -0700 (PDT)
+ with SMTPS id 1444758506023119.3486912181371;
+ Tue, 13 Oct 2015 10:48:26 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid v2 6/8] Add sensor ipmi commands
-Date: Tue, 13 Oct 2015 12:48:05 -0500
-Message-Id: <1444758487-9135-7-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid v2 7/8] Add storage ipmi commands
+Date: Tue, 13 Oct 2015 12:48:06 -0500
+Message-Id: <1444758487-9135-8-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1444758487-9135-1-git-send-email-patches@stwcx.xyz>
 References: <1444758487-9135-1-git-send-email-patches@stwcx.xyz>
@@ -27,284 +27,254 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Oct 2015 17:48:26 -0000
+X-List-Received-Date: Tue, 13 Oct 2015 17:48:30 -0000
 
 From: Chris Austen <austenc@us.ibm.com>
 
 ---
- Makefile        |  12 ++--
- sensorhandler.C | 213 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- sensorhandler.h |  13 ++++
- 3 files changed, 233 insertions(+), 5 deletions(-)
- create mode 100644 sensorhandler.C
- create mode 100644 sensorhandler.h
+ Makefile         |   1 +
+ storagehandler.C | 200 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ storagehandler.h |  16 +++++
+ 3 files changed, 217 insertions(+)
+ create mode 100644 storagehandler.C
+ create mode 100644 storagehandler.h
 
 diff --git a/Makefile b/Makefile
-index be3aedd..9ce7c8f 100755
+index 9ce7c8f..93d3256 100755
 --- a/Makefile
 +++ b/Makefile
-@@ -1,20 +1,22 @@
- CXX ?= $(CROSS_COMPILE)g++
+@@ -4,6 +4,7 @@ DAEMON = ipmid
+ DAEMON_OBJ  = $(DAEMON).o
+ LIB_APP_OBJ = apphandler.o     \
+               sensorhandler.o  \
++              storagehandler.o \
  
- DAEMON = ipmid
--DAEMON_OBJ = $(DAEMON).o
--LIB_OBJ = apphandler.o
--LIBS = libapphandler.so
-+DAEMON_OBJ  = $(DAEMON).o
-+LIB_APP_OBJ = apphandler.o     \
-+              sensorhandler.o  \
-+
-+LIB_APP     = libapphandler.so
+ LIB_APP     = libapphandler.so
  
- INC_FLAG += $(shell pkg-config --cflags --libs libsystemd) -I. -O2 --std=gnu++11
- LIB_FLAG += $(shell pkg-config  --libs libsystemd) -rdynamic
- IPMID_PATH ?= -DHOST_IPMI_LIB_PATH=\"/usr/lib/host-ipmid/\" 
- 
--all: $(DAEMON) $(LIBS)
-+all: $(DAEMON) $(LIB_APP) 
- 
- %.o: %.C
- 	$(CXX) -fpic -c $< $(CXXFLAGS) $(INC_FLAG) $(IPMID_PATH) -o $@
- 
--$(LIBS): $(LIB_OBJ)
-+$(LIB_APP): $(LIB_APP_OBJ)
- 	$(CXX) $^ -shared $(LDFLAGS) $(LIB_FLAG) -o $@
- 
- $(DAEMON): $(DAEMON_OBJ)
-diff --git a/sensorhandler.C b/sensorhandler.C
+diff --git a/storagehandler.C b/storagehandler.C
 new file mode 100644
-index 0000000..9f0c975
+index 0000000..659fff5
 --- /dev/null
-+++ b/sensorhandler.C
-@@ -0,0 +1,213 @@
-+#include "sensorhandler.h"
++++ b/storagehandler.C
+@@ -0,0 +1,200 @@
++#include "storagehandler.h"
 +#include "ipmid-api.h"
 +#include <stdio.h>
 +#include <string.h>
 +#include <stdint.h>
 +
-+
-+void register_netfn_sen_functions()   __attribute__((constructor));
-+
-+
-+struct sensor_data_t {
-+    uint8_t sennum;
-+}  __attribute__ ((packed)) ;
-+
-+unsigned char g_sensortype [][2] = {
-+    {0xc7, 58},
-+{0x01, 113},
-+{0xc7, 56},
-+{0x01, 114},
-+{0xc6, 54},
-+{0x07, 40},
-+{0xC1, 121},
-+{0xC2, 137},
-+{0x07, 36},
-+{0x07, 43},
-+{0xC1, 122},
-+{0xC1, 119},
-+{0x01, 12},
-+{0x01, 111},
-+{0x01, 116},
-+{0xC1, 127},
-+{0xC2, 134},
-+{0xC2, 130},
-+{0xc, 33},
-+{0xC1, 125},
-+{0x01, 115},
-+{0x22, 4},
-+{0xC2, 138},
-+{0x01, 108},
-+{0x01, 102},
-+{0xc, 46},
-+{0x7, 11},
-+{0xC1, 120},
-+{0x07, 39},
-+{0x07, 42},
-+{0x5, 21},
-+{0xC2, 131},
-+{0xc1, 48},
-+{0x12, 53},
-+{0xC1, 124},
-+{0x01, 117},
-+{0xC1, 126},
-+{0xf, 5},
-+{0x23, 0},
-+{0xC2, 139},
-+{0x07, 34},
-+{0x09, 146},
-+{0x02, 178},
-+{0xC2, 140},
-+{0xC1, 118},
-+{0xC2, 133},
-+{0x07, 38},
-+{0xC2, 143},
-+{0x01, 101},
-+{0xc3, 9},
-+{0x7, 10},
-+{0xc2, 51},
-+{0x01, 109},
-+{0xc, 32},
-+{0x7, 8},
-+{0xC1, 129},
-+{0x01, 112},
-+{0x01, 107},
-+{0x07, 37},
-+{0x07, 44},
-+{0x1f, 50},
-+{0xC2, 144},
-+{0xc7, 52},
-+{0xC2, 141},
-+{0x01, 106},
-+{0x01, 110},
-+{0x01, 103},
-+{0x9, 28},
-+{0x07, 35},
-+{0xc7, 55},
-+{0x03, 179},
-+{0x07, 41},
-+{0xc, 30},
-+{0x01, 100},
-+{0xC1, 128},
-+{0xC2, 135},
-+{0x01, 105},
-+{0x7, 47},
-+{0xC2, 145},
-+{0xc7, 57},
-+{0x01, 104},
-+{0x07, 45},
-+{0xC2, 132},
-+{0xc4, 49},
-+{0xC1, 123},
-+{0xC2, 142},
-+{0x01, 13},
-+{0xC2, 136},
-+{0xc, 31},
-+{0xff,0xff}
-+};
++void register_netfn_storage_functions() __attribute__((constructor));
 +
 +
-+unsigned char findSensor(char sensor_number) {
++unsigned int   g_sel_time    = 0xFFFFFFFF;
++unsigned short g_sel_reserve = 0x1;
 +
-+    int i=0;
-+
-+    // TODO : This function should actually call
-+    // a dbus object and have it return the data
-+    // it is not ready yet so use a Palmetto 
-+    // based lookup table for now.  The g_sensortype
-+    // can be removed once the dbus method exists
-+    while (g_sensortype[i][0] != 0xff) {
-+        if (g_sensortype[i][1] == sensor_number) {
-+            break;
-+        } else {
-+            i++;
-+        }
-+
-+    }
-+
-+    return g_sensortype[i][0];
-+
-+}
-+
-+ipmi_ret_t ipmi_sen_get_sensor_type(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
-+                             ipmi_request_t request, ipmi_response_t response, 
-+                             ipmi_data_len_t data_len, ipmi_context_t context)
++ipmi_ret_t ipmi_storage_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
++                              ipmi_request_t request, ipmi_response_t response, 
++                              ipmi_data_len_t data_len, ipmi_context_t context)
 +{
-+    sensor_data_t *reqptr = (sensor_data_t*)request;
++    printf("Handling STORAGE WILDCARD Netfn:[0x%X], Cmd:[0x%X]\n",netfn, cmd);
++    // Status code.
 +    ipmi_ret_t rc = IPMI_CC_OK;
-+
-+    printf("IPMI GET_SENSOR_TYPE [0x%02X]\n",reqptr->sennum);
-+
-+    // TODO Not sure what the System-event-sensor is suppose to return
-+    // need to ask Hostboot team
-+    unsigned char buf[] = {0x00,0x6F};
-+
-+    buf[0] = findSensor(reqptr->sennum);
-+
-+    *data_len = sizeof(buf);
-+    memcpy(response, &buf, *data_len);
-+
-+
-+
++    *data_len = 0;
 +    return rc;
 +}
 +
 +
-+
-+// TODO: Saves the sensor information to a file in /tmp.  This
-+// will need to change to calling the correct method 
-+// once it exists in the stack.  
-+ipmi_ret_t ipmi_sen_set_sensor(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
-+                             ipmi_request_t request, ipmi_response_t response, 
-+                             ipmi_data_len_t data_len, ipmi_context_t context)
++ipmi_ret_t ipmi_storage_set_sel_time(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
++                              ipmi_request_t request, ipmi_response_t response, 
++                              ipmi_data_len_t data_len, ipmi_context_t context)
 +{
++    unsigned int *bufftype = (unsigned int *) request;
++
++    printf("Handling Set-SEL-Time:[0x%X], Cmd:[0x%X]\n",netfn, cmd);
++    printf("Data: 0x%X]\n",*bufftype);
++
++    g_sel_time = *bufftype;
++
++    ipmi_ret_t rc = IPMI_CC_OK;
++    *data_len = 0;
++    return rc;
++}
++
++struct write_fru_data_t {
++    uint8_t  frunum;
++    uint8_t  offsetls;
++    uint8_t  offsetms;
++    uint8_t  data;
++} __attribute__ ((packed)) ;
++
++ipmi_ret_t ipmi_storage_write_fru_data(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
++                              ipmi_request_t request, ipmi_response_t response, 
++                              ipmi_data_len_t data_len, ipmi_context_t context)
++{
++    write_fru_data_t *reqptr = (write_fru_data_t*) request;
 +    FILE *fp;
 +    char string[16];
-+    sensor_data_t *reqptr = (sensor_data_t*)request;
++    short offset = 0;
++    uint16_t rlen;
 +    ipmi_ret_t rc = IPMI_CC_OK;
-+    unsigned short rlen;
++    char iocmd[4];
 +
-+    rlen = (unsigned short) *data_len - 1;
++    sprintf(string, "%s%02x", "/tmp/fru", reqptr->frunum);
 +
-+    sprintf(string, "%s%02x", "/tmp/sen", reqptr->sennum);
++    offset = ((uint16_t)reqptr->offsetms) << 8 | reqptr->offsetls;
 +
-+    printf("IPMI SET_SENSOR [%s]\n",string);
 +
-+    if ((fp = fopen(string, "wb")) != NULL) {
-+        fwrite(reqptr+1,rlen,1,fp);
-+        fclose(fp);
++    // Length is the number of request bytes minus the header itself.
++    // The header contains an extra byte to indicate the start of
++    // the data (so didn't need to worry about word/byte boundaries)
++    // hence the -1...
++    rlen = ((uint16_t)*data_len) - (sizeof(write_fru_data_t)-1);
++    
++
++    printf("IPMI WRITE-FRU-DATA for %s  Offset = %d Length = %d\n",
++        string, offset, rlen);
++
++
++    // I was thinking "ab+" but it appears it doesn't
++    // do what fseek asks.  Modify to rb+ and fseek 
++    // works great...
++    if (offset == 0) {
++        strcpy(iocmd, "wb");
 +    } else {
-+        fprintf(stderr, "Error trying to write to sensor file %s\n",string);
-+        ipmi_ret_t rc = IPMI_CC_INVALID;        
++        strcpy(iocmd, "rb+");
 +    }
 +
-+    *data_len=0;
++    if ((fp = fopen(string, iocmd)) != NULL) {
++        fseek(fp, offset, SEEK_SET);
++        fwrite(&reqptr->data,rlen,1,fp);
++        fclose(fp);
++    } else {
++        fprintf(stderr, "Error trying to write to fru file %s\n",string);
++        ipmi_ret_t rc = IPMI_CC_INVALID;        
++    }
++    
 +
++    // TODO : Here is where some validation code could determine if the 
++    // fru data is a legitimate FRU record (not just a partial).  Once
++    // the record is valid the code should call a parser routine to call
++    // the various methods updating interesting properties.  Perhaps 
++    // thinigs like Model#, Serial#, DIMM Size, etc
++    
++
++    *data_len = 0;
++    
++    return rc;
++}
++
++ipmi_ret_t ipmi_storage_get_sel_info(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
++                              ipmi_request_t request, ipmi_response_t response, 
++                              ipmi_data_len_t data_len, ipmi_context_t context)
++{
++
++    ipmi_ret_t rc = IPMI_CC_OK;
++    unsigned char buf[] = {0x51,0,0,0xff, 0xff,0xff,0xff,0xff,0xff, 0xff,0xff,0xff,0xff,0x06};
++
++    printf("IPMI Handling GET-SEL-INFO\n");
++
++    *data_len = sizeof(buf);
++
++    // TODO There is plently of work here.  The SEL DB needs to hold a bunch
++    // of things in a header.  Items like Time Stamp, number of entries, etc
++    // This is one place where the dbus object with the SEL information could
++    // mimic what IPMI needs.
++
++    // Pack the actual response
++    memcpy(response, &buf, *data_len);
 +
 +    return rc;
 +}
 +
-+ipmi_ret_t ipmi_sen_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
-+                             ipmi_request_t request, ipmi_response_t response, 
-+                             ipmi_data_len_t data_len, ipmi_context_t context)
++
++
++ipmi_ret_t ipmi_storage_reserve_sel(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
++                              ipmi_request_t request, ipmi_response_t response, 
++                              ipmi_data_len_t data_len, ipmi_context_t context)
 +{
++
 +    ipmi_ret_t rc = IPMI_CC_OK;
 +
-+    printf("IPMI S/E Wildcard Netfn:[0x%X], Cmd:[0x%X]\n",netfn,cmd);
-+    *data_len = 0;
++    printf("IPMI Handling RESERVE-SEL 0x%04x\n", g_sel_reserve);
++
++    *data_len = sizeof(g_sel_reserve);
++
++    // Pack the actual response
++    memcpy(response, &g_sel_reserve, *data_len);
 +
 +    return rc;
 +}
 +
 +
-+void register_netfn_sen_functions()
++ipmi_ret_t ipmi_storage_add_sel(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
++                              ipmi_request_t request, ipmi_response_t response, 
++                              ipmi_data_len_t data_len, ipmi_context_t context)
 +{
-+    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_SENSOR, IPMI_CMD_WILDCARD);
-+    ipmi_register_callback(NETFUN_SENSOR, IPMI_CMD_WILDCARD, NULL, ipmi_sen_wildcard);
 +
-+    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_SENSOR, IPMI_CMD_GET_SENSOR_TYPE);
-+    ipmi_register_callback(NETFUN_SENSOR, IPMI_CMD_GET_SENSOR_TYPE, NULL, ipmi_sen_get_sensor_type);
++    ipmi_ret_t rc = IPMI_CC_OK;
 +
-+    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_SENSOR, IPMI_CMD_SET_SENSOR);
-+    ipmi_register_callback(NETFUN_SENSOR, IPMI_CMD_SET_SENSOR, NULL, ipmi_sen_set_sensor);
++    printf("IPMI Handling ADD-SEL \n");
++
++    *data_len = sizeof(g_sel_reserve);
++
++    // Pack the actual response
++    memcpy(response, &g_sel_reserve, *data_len);
++
++    // TODO This code should grab the completed partial esel located in 
++    // the /tmp/esel0100 file and commit it to the error log handler.  
++
++
++    // TODO I advanced the sel reservation number so next time HB asks
++    // for a reservation they get a new number.  This tech may change 
++    // based on how the HB team currently uses sel reservations but
++    // for now provide the ability to get new reservations 
++    g_sel_reserve++;
++
++    return rc;
++}
++
++
++
++void register_netfn_storage_functions()
++{
++    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_STORAGE, IPMI_CMD_WILDCARD);
++    ipmi_register_callback(NETFUN_STORAGE, IPMI_CMD_WILDCARD, NULL, ipmi_storage_wildcard);
++
++    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_STORAGE, IPMI_CMD_SET_SEL_TIME);
++    ipmi_register_callback(NETFUN_STORAGE, IPMI_CMD_SET_SEL_TIME, NULL, ipmi_storage_set_sel_time);
++
++    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_STORAGE, IPMI_CMD_WRITE_FRU_DATA);
++    ipmi_register_callback(NETFUN_STORAGE, IPMI_CMD_WRITE_FRU_DATA, NULL, ipmi_storage_write_fru_data);
++
++    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_STORAGE, IPMI_CMD_GET_SEL_INFO);
++    ipmi_register_callback(NETFUN_STORAGE, IPMI_CMD_GET_SEL_INFO, NULL, ipmi_storage_get_sel_info);
++
++    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_STORAGE, IPMI_CMD_RESERVE_SEL);
++    ipmi_register_callback(NETFUN_STORAGE, IPMI_CMD_RESERVE_SEL, NULL, ipmi_storage_reserve_sel);
++
++    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_STORAGE, IPMI_CMD_ADD_SEL);
++    ipmi_register_callback(NETFUN_STORAGE, IPMI_CMD_ADD_SEL, NULL, ipmi_storage_add_sel);
 +    return;
 +}
-diff --git a/sensorhandler.h b/sensorhandler.h
++
+diff --git a/storagehandler.h b/storagehandler.h
 new file mode 100644
-index 0000000..da63bcb
+index 0000000..56c1a8b
 --- /dev/null
-+++ b/sensorhandler.h
-@@ -0,0 +1,13 @@
-+#ifndef __HOST_IPMI_SEN_HANDLER_H__
-+#define __HOST_IPMI_SEN_HANDLER_H__
++++ b/storagehandler.h
+@@ -0,0 +1,16 @@
++#ifndef __HOST_IPMI_STORAGE_HANDLER_H__
++#define __HOST_IPMI_STORAGE_HANDLER_H__
 +
 +// IPMI commands for net functions.
-+enum ipmi_netfn_sen_cmds
++enum ipmi_netfn_storage_cmds
 +{
 +    // Get capability bits
-+    IPMI_CMD_GET_SENSOR_TYPE = 0x2F,
-+    IPMI_CMD_SET_SENSOR      = 0x30,
++    IPMI_CMD_SET_SEL_TIME   = 0x49,
++    IPMI_CMD_WRITE_FRU_DATA = 0x12,
++    IPMI_CMD_GET_SEL_INFO   = 0x40,
++    IPMI_CMD_RESERVE_SEL    = 0x42,
++    IPMI_CMD_ADD_SEL        = 0x44,
 +
 +};
 +
