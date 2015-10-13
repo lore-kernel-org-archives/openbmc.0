@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 2022F1A09E6
- for <openbmc@lists.ozlabs.org>; Wed, 14 Oct 2015 01:30:52 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 2ADFA1A0981
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Oct 2015 01:30:53 +1100 (AEDT)
 Received: from localhost (32.97.110.55 [32.97.110.55]) by mx.zohomail.com
- with SMTPS id 1444746647100486.05031184932443;
- Tue, 13 Oct 2015 07:30:47 -0700 (PDT)
+ with SMTPS id 14447466488791003.3678131999675;
+ Tue, 13 Oct 2015 07:30:48 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 2/3] Fix initrd load address
-Date: Tue, 13 Oct 2015 09:30:36 -0500
-Message-Id: <1444746637-10175-3-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH openbmc 3/3] Palmetto u-boot console fixes
+Date: Tue, 13 Oct 2015 09:30:37 -0500
+Message-Id: <1444746637-10175-4-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1444746637-10175-1-git-send-email-patches@stwcx.xyz>
 References: <1444746637-10175-1-git-send-email-patches@stwcx.xyz>
@@ -27,28 +27,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Oct 2015 14:30:54 -0000
+X-List-Received-Date: Tue, 13 Oct 2015 14:30:55 -0000
 
 From: Brad Bishop <bradleyb@us.ibm.com>
 
-Using the same address as:
-  http://github.com/facebook/openbmc
+This provides a working uboot console.
 ---
- meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../recipes-bsp/u-boot/files/patch-2013.07/0001-u-boot-openbmc.patch  | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass b/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
-index 6652f3b..835e890 100644
---- a/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
-+++ b/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
-@@ -9,7 +9,7 @@ oe_mkimage () {
-         -d ${DEPLOY_DIR_IMAGE}/$1 ${DEPLOY_DIR_IMAGE}/$1.u-boot
- }
- 
--INITRD_IMAGE_ENTRYPOINT ?= "0x42000000"
-+INITRD_IMAGE_ENTRYPOINT ?= "0x40800000"
- INITRD_IMAGE_LOADADDRESS ?= "${INITRD_IMAGE_ENTRYPOINT}"
- 
- FLASH_IMAGE_NAME ?= "flash-${MACHINE}-${DATETIME}"
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-bsp/u-boot/files/patch-2013.07/0001-u-boot-openbmc.patch b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-bsp/u-boot/files/patch-2013.07/0001-u-boot-openbmc.patch
+index 834f371..bf77686 100644
+--- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-bsp/u-boot/files/patch-2013.07/0001-u-boot-openbmc.patch
++++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-bsp/u-boot/files/patch-2013.07/0001-u-boot-openbmc.patch
+@@ -1842,8 +1842,8 @@ index 0000000..6bb7639
+ +#define CONFIG_SYS_NS16550_COM2		0x1e784000
+ +#define CONFIG_SYS_NS16550_COM3		0x1e78e000
+ +#define	CONFIG_SYS_LOADS_BAUD_CHANGE
+-+#define CONFIG_CONS_INDEX		3
+-+#define CONFIG_BAUDRATE			57600
+++#define CONFIG_CONS_INDEX		2
+++#define CONFIG_BAUDRATE			38400
+ +#define CONFIG_SYS_BAUDRATE_TABLE	{ 9600, 19200, 38400, 57600, 115200 }
+ +#define CONFIG_ASPEED_COM 0x1e784000 // UART5
+ +#define CONFIG_ASPEED_COM_IER (CONFIG_ASPEED_COM + 0x4)
 -- 
 2.6.0
