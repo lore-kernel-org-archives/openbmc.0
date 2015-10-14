@@ -1,49 +1,19 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-oi0-x230.google.com (mail-oi0-x230.google.com
- [IPv6:2607:f8b0:4003:c06::230])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <patches@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id B75FA1A0567
- for <openbmc@lists.ozlabs.org>; Wed, 14 Oct 2015 21:36:17 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=PeAcScuJ; 
- dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=ZZFenSvh; 
- dkim-atps=neutral
-Received: by oixx6 with SMTP id x6so9373823oix.2
- for <openbmc@lists.ozlabs.org>; Wed, 14 Oct 2015 03:36:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-type;
- bh=B6GKYgrO+4fMhPYeJXH0xhEz1Rw6XkyteHbypbFzGFU=;
- b=PeAcScuJhaYP59yJJz4I0jO9sfoD+woxx5AQ37VynCG6t+sNGYN9SSY31l+DiR67RC
- hNrEy4ULF9bYHsrbDwla02MPrefAW6vOkflTEpdlW3xkSTs/fzBEBbEf5jP10U8sRfvl
- f7jpeNQeSXdoLvs3z+dd2DsVkH13juAYCgGuINugJAvpCCnUyCtTMu24QbKZ7zker4lz
- Vm4X1DAroSGR1c3fbQLlSEGcTC8cSLOsGcsr9SjsflBYk5SvplA6WoV19MuYLrWyKNcc
- QPHMkkfkCXFyPpfT2rbLHno5eLWsHRgXHD2StRLfYtsX7SlHng7Pm63a+uRB9gKVbdDI
- iUsg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-type;
- bh=B6GKYgrO+4fMhPYeJXH0xhEz1Rw6XkyteHbypbFzGFU=;
- b=ZZFenSvhjdAZt62dtolgC1re1D32GTswupE07UzKu8Iwrc+nlQmXjsw1w3lOjM/FjR
- 2wQNZR1lHWbopIx6xtP/MoM/a9Kq9DnDX/pFYbhBtNkyhxWuGiHRwnDO8aXLFoj1Ihta
- A7Y0RhoEYX3YMz3bV33O8EV8tBYYP7pW19MW8=
-X-Received: by 10.202.232.12 with SMTP id f12mr1095583oih.122.1444818975805;
- Wed, 14 Oct 2015 03:36:15 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.202.182.197 with HTTP; Wed, 14 Oct 2015 03:35:56 -0700 (PDT)
-In-Reply-To: <20151008000300.GD12084@asimov.ibm.com>
-References: <20151008000300.GD12084@asimov.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 14 Oct 2015 21:05:56 +1030
-X-Google-Sender-Auth: oeW4MU_8Ptvep-dNbM1nj5eZzno
-Message-ID: <CACPK8XdKBk+g7PJiHXVktKQEWNVeeUHRFUMVBV6a8CV5+76TZg@mail.gmail.com>
-Subject: Re: Github Pull Requests
-To: Patrick Williams <patrick@stwcx.xyz>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 5DB8F1A0739
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2015 01:23:40 +1100 (AEDT)
+Received: from localhost (32.97.110.55 [32.97.110.55]) by mx.zohomail.com
+ with SMTPS id 1444832605480223.79162695327398;
+ Wed, 14 Oct 2015 07:23:25 -0700 (PDT)
+From: OpenBMC Patches <patches@stwcx.xyz>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH openpower-host-ipmi-oem 0/2] B1 Added oem so and test program
+Date: Wed, 14 Oct 2015 09:23:21 -0500
+Message-Id: <1444832603-18260-1-git-send-email-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.6.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -55,23 +25,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 14 Oct 2015 10:36:18 -0000
+X-List-Received-Date: Wed, 14 Oct 2015 14:23:42 -0000
 
-On Thu, Oct 8, 2015 at 10:33 AM, Patrick Williams <patrick@stwcx.xyz> wrote:
-> I'm going to run the script directed at the mailing list for the first
-> time momentarily.  Please give feedback if there is anything I can do to
-> improve it or if you hate it.  I'll post the code itself on Github
-> sometime.
+https://github.com/openbmc/openpower-host-ipmi-oem/pull/1
 
-It would be better if we moved to using the mailing list directly, but
-this is a good compromise while the team gets used to open source
-development.
+Chris Austen (2):
+  Support OpenPOWERs OEM commands on openbmc
+  Add a test framework for the .so
 
-Would you like to publish the script?
+ Makefile     |  27 ++++++++++
+ README.md    |   1 +
+ ipmid-api.h  |  83 +++++++++++++++++++++++++++++++
+ ipmid.H      |  15 ++++++
+ oemhandler.C |  92 ++++++++++++++++++++++++++++++++++
+ oemhandler.h |  32 ++++++++++++
+ testit.C     | 157 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ testit.h     |  14 ++++++
+ 8 files changed, 421 insertions(+)
+ create mode 100644 Makefile
+ create mode 100644 README.md
+ create mode 100644 ipmid-api.h
+ create mode 100644 ipmid.H
+ create mode 100644 oemhandler.C
+ create mode 100644 oemhandler.h
+ create mode 100644 testit.C
+ create mode 100644 testit.h
 
-I wonder how we would go faking the from address? Gmail, etc might get
-a bit unhappy I guess.
-
-Cheers,
-
-Joel
+-- 
+2.6.0
