@@ -1,22 +1,49 @@
-Return-Path: <patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-oi0-x230.google.com (mail-oi0-x230.google.com
+ [IPv6:2607:f8b0:4003:c06::230])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 019E41A065B
- for <openbmc@lists.ozlabs.org>; Wed, 14 Oct 2015 04:48:31 +1100 (AEDT)
-Received: from localhost (32.97.110.55 [32.97.110.55]) by mx.zohomail.com
- with SMTPS id 1444758507890473.5651633404872;
- Tue, 13 Oct 2015 10:48:27 -0700 (PDT)
-From: OpenBMC Patches <patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid v2 8/8] Add support for the the dcmi
- package
-Date: Tue, 13 Oct 2015 12:48:07 -0500
-Message-Id: <1444758487-9135-9-git-send-email-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.0
-In-Reply-To: <1444758487-9135-1-git-send-email-patches@stwcx.xyz>
-References: <1444758487-9135-1-git-send-email-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id B75FA1A0567
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Oct 2015 21:36:17 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=PeAcScuJ; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=ZZFenSvh; 
+ dkim-atps=neutral
+Received: by oixx6 with SMTP id x6so9373823oix.2
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Oct 2015 03:36:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-type;
+ bh=B6GKYgrO+4fMhPYeJXH0xhEz1Rw6XkyteHbypbFzGFU=;
+ b=PeAcScuJhaYP59yJJz4I0jO9sfoD+woxx5AQ37VynCG6t+sNGYN9SSY31l+DiR67RC
+ hNrEy4ULF9bYHsrbDwla02MPrefAW6vOkflTEpdlW3xkSTs/fzBEBbEf5jP10U8sRfvl
+ f7jpeNQeSXdoLvs3z+dd2DsVkH13juAYCgGuINugJAvpCCnUyCtTMu24QbKZ7zker4lz
+ Vm4X1DAroSGR1c3fbQLlSEGcTC8cSLOsGcsr9SjsflBYk5SvplA6WoV19MuYLrWyKNcc
+ QPHMkkfkCXFyPpfT2rbLHno5eLWsHRgXHD2StRLfYtsX7SlHng7Pm63a+uRB9gKVbdDI
+ iUsg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-type;
+ bh=B6GKYgrO+4fMhPYeJXH0xhEz1Rw6XkyteHbypbFzGFU=;
+ b=ZZFenSvhjdAZt62dtolgC1re1D32GTswupE07UzKu8Iwrc+nlQmXjsw1w3lOjM/FjR
+ 2wQNZR1lHWbopIx6xtP/MoM/a9Kq9DnDX/pFYbhBtNkyhxWuGiHRwnDO8aXLFoj1Ihta
+ A7Y0RhoEYX3YMz3bV33O8EV8tBYYP7pW19MW8=
+X-Received: by 10.202.232.12 with SMTP id f12mr1095583oih.122.1444818975805;
+ Wed, 14 Oct 2015 03:36:15 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.202.182.197 with HTTP; Wed, 14 Oct 2015 03:35:56 -0700 (PDT)
+In-Reply-To: <20151008000300.GD12084@asimov.ibm.com>
+References: <20151008000300.GD12084@asimov.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 14 Oct 2015 21:05:56 +1030
+X-Google-Sender-Auth: oeW4MU_8Ptvep-dNbM1nj5eZzno
+Message-ID: <CACPK8XdKBk+g7PJiHXVktKQEWNVeeUHRFUMVBV6a8CV5+76TZg@mail.gmail.com>
+Subject: Re: Github Pull Requests
+To: Patrick Williams <patrick@stwcx.xyz>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,107 +55,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Oct 2015 17:48:32 -0000
+X-List-Received-Date: Wed, 14 Oct 2015 10:36:18 -0000
 
-From: Chris Austen <austenc@us.ibm.com>
+On Thu, Oct 8, 2015 at 10:33 AM, Patrick Williams <patrick@stwcx.xyz> wrote:
+> I'm going to run the script directed at the mailing list for the first
+> time momentarily.  Please give feedback if there is anything I can do to
+> improve it or if you hate it.  I'll post the code itself on Github
+> sometime.
 
----
- Makefile      |  1 +
- dcmihandler.C | 40 ++++++++++++++++++++++++++++++++++++++++
- dcmihandler.h | 12 ++++++++++++
- ipmid-api.h   |  1 +
- 4 files changed, 54 insertions(+)
- create mode 100644 dcmihandler.C
- create mode 100644 dcmihandler.h
+It would be better if we moved to using the mailing list directly, but
+this is a good compromise while the team gets used to open source
+development.
 
-diff --git a/Makefile b/Makefile
-index 93d3256..2177c9d 100755
---- a/Makefile
-+++ b/Makefile
-@@ -5,6 +5,7 @@ DAEMON_OBJ  = $(DAEMON).o
- LIB_APP_OBJ = apphandler.o     \
-               sensorhandler.o  \
-               storagehandler.o \
-+              dcmihandler.o
- 
- LIB_APP     = libapphandler.so
- 
-diff --git a/dcmihandler.C b/dcmihandler.C
-new file mode 100644
-index 0000000..fafebdc
---- /dev/null
-+++ b/dcmihandler.C
-@@ -0,0 +1,40 @@
-+#include "dcmihandler.h"
-+#include "ipmid-api.h"
-+#include <stdio.h>
-+#include <string.h>
-+#include <stdint.h>
-+
-+void register_netfn_dcmi_functions() __attribute__((constructor));
-+
-+
-+ipmi_ret_t ipmi_dcmi_get_power_limit(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
-+                              ipmi_request_t request, ipmi_response_t response, 
-+                              ipmi_data_len_t data_len, ipmi_context_t context)
-+{
-+    ipmi_ret_t rc = IPMI_DCMI_CC_NO_ACTIVE_POWER_LIMIT;
-+
-+    // dcmi-v1-5-rev-spec.pdf 6.6.2.   
-+    // This is good enough for OpenBMC support for OpenPOWER based systems
-+    // TODO research if more is needed
-+    uint8_t data_response[] = { 0xDC, 0x00, 0x00, 0x01, 0x00, 0x00, 
-+                                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-+                                0x00, 0x01};
-+
-+
-+
-+    printf("IPMI DCMI_GET_POWER_LEVEL\n");
-+
-+    memcpy(response, data_response, sizeof(data_response));
-+    *data_len = sizeof(data_response);
-+
-+    return rc;
-+}
-+
-+
-+void register_netfn_dcmi_functions()
-+{
-+    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_GRPEXT, IPMI_CMD_DCMI_GET_POWER);
-+    ipmi_register_callback(NETFUN_GRPEXT, IPMI_CMD_DCMI_GET_POWER, NULL, ipmi_dcmi_get_power_limit);
-+    return;
-+}
-+// 956379
-\ No newline at end of file
-diff --git a/dcmihandler.h b/dcmihandler.h
-new file mode 100644
-index 0000000..5fc0c10
---- /dev/null
-+++ b/dcmihandler.h
-@@ -0,0 +1,12 @@
-+#ifndef __HOST_IPMI_DCMI_HANDLER_H__
-+#define __HOST_IPMI_DCMI_HANDLER_H__
-+
-+// IPMI commands for net functions.
-+enum ipmi_netfn_sen_cmds
-+{
-+    // Get capability bits
-+    IPMI_CMD_DCMI_GET_POWER = 0x03,
-+    
-+};
-+
-+#endif
-diff --git a/ipmid-api.h b/ipmid-api.h
-index 615e0d5..caf18e8 100755
---- a/ipmid-api.h
-+++ b/ipmid-api.h
-@@ -85,6 +85,7 @@ enum ipmi_netfn_wild_card_cmd
- enum ipmi_return_codes
- {
-     IPMI_CC_OK = 0x00,
-+    IPMI_DCMI_CC_NO_ACTIVE_POWER_LIMIT = 0x80,
-     IPMI_CC_INVALID = 0xC1
- };
- 
--- 
-2.6.0
+Would you like to publish the script?
+
+I wonder how we would go faking the from address? Gmail, etc might get
+a bit unhappy I guess.
+
+Cheers,
+
+Joel
