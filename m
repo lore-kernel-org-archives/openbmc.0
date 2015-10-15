@@ -1,48 +1,49 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-oi0-x230.google.com (mail-oi0-x230.google.com
- [IPv6:2607:f8b0:4003:c06::230])
+Received: from mail-ob0-x22d.google.com (mail-ob0-x22d.google.com
+ [IPv6:2607:f8b0:4003:c01::22d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 7BF6D1A05AA
- for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2015 13:26:44 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id CC96E1A047B
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2015 15:48:44 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=hF0wCeWb; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=DlrIfqeN; 
  dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=fNg6XkdW; 
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=VSePwzjQ; 
  dkim-atps=neutral
-Received: by oiak8 with SMTP id k8so38669685oia.1
- for <openbmc@lists.ozlabs.org>; Wed, 14 Oct 2015 19:26:42 -0700 (PDT)
+Received: by obbrx8 with SMTP id rx8so56344960obb.3
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Oct 2015 21:48:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc:content-type;
- bh=yOd0zRJaHn8WXAjIYr3pVsixN/kYlCakK3AkuBYNBoc=;
- b=hF0wCeWb5b0dVDAL7nIsgW6aVKkbCGO4R+GDHwIaijmyBkl38vKoyMo6eieNmdAwrs
- 7Hyho1lYjbmcVziWgn1NE2rNK5Y9XxBKppqwXG7ZSGaOF7NGKETlMgss+RbkzupbItur
- 84OHbR58unQi9CckqxfZSYqSzhfqCMqmvC+wNUptQb67L+Fv+62bKGGtXmcomMUmA3om
- /WKVVm0lJWbCLMqaurXyuA+rB94etxDYgy3XHBNXbVsI3nPPSVjy1/2vAIMlh/fW9nEu
- W05qU4eJZUgBtZeVSmp/LeXtAn0Mj4TXqjmlQZ93VH4GMJ4YybykmmnkbYkNj6l2yMbG
- Ehhg==
+ bh=XzHT7ftUe9mKA9yIoUU/zF2opMlKiMa6kGG6NtCLABs=;
+ b=DlrIfqeNaDc5/6KjDeqPuPdrxesIRgN5PeLaAAUAUG/xdr7AmRO1Njn+3w2jKK2t8G
+ 3te+qQizK04UiM/4SeZ/YRpgT1lu1+ofxuCPekaylLGPdYQfK1Q38Z1MH7DpEmcW2v53
+ 34Z3Qb9yajFTaFbsixCkdF1dhPJ6wFzfKC1fjdtll4HtrbiK/Vug87MNttJPjSfxZVV9
+ qq0DEXhXclo4HOkbGF9gWlABo+4+I+Q0j8edPGk/jLF87VmRmkmDLlVjBlBeOxFwyofr
+ fmF1OTiE6Az+x40+UK7ZTYfy9lWVozqs0szMky4aOKtZ+ZF6CBCUhZ5TR8l3TzBdpiKv
+ yYmw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc:content-type;
- bh=yOd0zRJaHn8WXAjIYr3pVsixN/kYlCakK3AkuBYNBoc=;
- b=fNg6XkdWXhnT1PeOxYt1dl79ZotQATTVUwRmGRzNYG2fgbDvaY0IyClCoPUrQpCD1Y
- 3X6EV3GKPl9316a04VVDiJNSL+otWF2F4CShJGsY/bVcq2wmz/aj7Tf4kZ54OAAirI9Q
- 9o9D/qZUS5qPUAGBKSDHOMdoZ8F7MuN6aGpJo=
-X-Received: by 10.202.72.74 with SMTP id v71mr3994262oia.124.1444876002220;
- Wed, 14 Oct 2015 19:26:42 -0700 (PDT)
+ bh=XzHT7ftUe9mKA9yIoUU/zF2opMlKiMa6kGG6NtCLABs=;
+ b=VSePwzjQbPHFwlQMDeW8jSCGIuCtKLNwLzTXGo95wF5pByuRvMlDLlZo4iNQg83zIt
+ GFFzorWZ/1BW5mOYOGYfMYdNjUgYF29/bEGpUfq3DKBDqxUPsVU2QlB+WaFQZBUnA+WV
+ +k+86eb+xQvO7LBipCNBIxnXOkGNE+ar0G4NI=
+X-Received: by 10.182.20.162 with SMTP id o2mr2108166obe.35.1444884522489;
+ Wed, 14 Oct 2015 21:48:42 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.202.182.197 with HTTP; Wed, 14 Oct 2015 19:26:22 -0700 (PDT)
-In-Reply-To: <1444832615-18343-2-git-send-email-patches@stwcx.xyz>
-References: <1444832615-18343-1-git-send-email-patches@stwcx.xyz>
- <1444832615-18343-2-git-send-email-patches@stwcx.xyz>
+Received: by 10.202.182.197 with HTTP; Wed, 14 Oct 2015 21:48:23 -0700 (PDT)
+In-Reply-To: <1444832603-18260-2-git-send-email-patches@stwcx.xyz>
+References: <1444832603-18260-1-git-send-email-patches@stwcx.xyz>
+ <1444832603-18260-2-git-send-email-patches@stwcx.xyz>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 15 Oct 2015 12:56:22 +1030
-X-Google-Sender-Auth: J7hoDPmN9OM7sbXCY7F6sIDxp98
-Message-ID: <CACPK8XeWcE1QjU74kTcTBjA0Co_DPhP-u+LpK6k753JDKwB22Q@mail.gmail.com>
-Subject: Re: [PATCH phosphor-host-ipmid] FRU validator CLI
-To: OpenBMC Patches <patches@stwcx.xyz>, vishwanath@in.ibm.com
+Date: Thu, 15 Oct 2015 15:18:23 +1030
+X-Google-Sender-Auth: m4F5iXSu7YdWwyFU3Vh3jmjwb_0
+Message-ID: <CACPK8XcOuFn6OewUvYHtFmeTAuWpDY5S1nygqgnpb7G0DQUL9w@mail.gmail.com>
+Subject: Re: [PATCH openpower-host-ipmi-oem 1/2] Support OpenPOWERs OEM
+ commands on openbmc
+To: OpenBMC Patches <patches@stwcx.xyz>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -56,331 +57,360 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Oct 2015 02:26:45 -0000
+X-List-Received-Date: Thu, 15 Oct 2015 04:48:45 -0000
+
+Hi Chris,
+
+I had a bunch of questions from reading your code. Please see below.
 
 On Thu, Oct 15, 2015 at 12:53 AM, OpenBMC Patches <patches@stwcx.xyz> wrote:
-> From: vishwabmc <vishwanath@in.ibm.com>
+> From: Chris Austen <austenc@us.ibm.com>
 >
 > ---
->  fruvalidator.C | 252 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 252 insertions(+)
->  create mode 100644 fruvalidator.C
+>  Makefile     | 21 ++++++++++++++
+>  ipmid-api.h  | 83 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+>  oemhandler.C | 92 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+>  oemhandler.h | 32 +++++++++++++++++++++
+>  4 files changed, 228 insertions(+)
+>  create mode 100644 Makefile
+>  create mode 100644 ipmid-api.h
+>  create mode 100644 oemhandler.C
+>  create mode 100644 oemhandler.h
 >
-> diff --git a/fruvalidator.C b/fruvalidator.C
-
-Is this C or C++?  The code all looks like C, but I assume your .C
-extension means you want to compile it as C++. I suggest making it C,
-unless we have a good reason to be C++.
-
+> diff --git a/Makefile b/Makefile
 > new file mode 100644
-> index 0000000..5e2ffaf
+> index 0000000..f495d94
 > --- /dev/null
-> +++ b/fruvalidator.C
-> @@ -0,0 +1,252 @@
+> +++ b/Makefile
+> @@ -0,0 +1,21 @@
+> +CXX ?= $(CROSS_COMPILE)g++
+> +
+> +LIB_OEM_OBJ = oemhandler.o
+> +LIB_OEM     = liboemhandler.so
+> +
+> +INC_FLAG += -I. -O2 --std=gnu++11
+
+What does INC_FLAG mean? I suggest using CXXFLAGS for your C++ flags.
+You can include the -fpic as well.
+
+We should be building with -Wall enabled too.
+
+> +LIB_FLAG += -rdynamic
+
+I'd call this LDFLAGS, as that is what it is. You can add the -shared as well.
+
+> +
+> +
+> +all: $(LIB_OEM)
+> +
+> +%.o: %.C
+> +       $(CXX) -fpic -c $< $(CXXFLAGS) $(INC_FLAG) $(IPMID_PATH) -o $@
+
+IPMID_PATH does not appear to be defined.
+
+This rule is implict, if you use the names I suggested above. You can
+omit it and the makefile will still do the same thing.
+
+> +
+> +
+> +$(LIB_OEM): $(LIB_OEM_OBJ)
+> +       $(CXX) $^ -shared $(LDFLAGS) $(LIB_FLAG) -o $@
+> +
+> +
+> +clean:
+> +       rm -f *.o *.so
+
+perhaps this:
+
+ clean:
+           $(RM) $(LIB_OEM_OBJ) $(LIB_OEM)
+
+> diff --git a/ipmid-api.h b/ipmid-api.h
+> new file mode 100644
+> index 0000000..ef2be38
+> --- /dev/null
+> +++ b/ipmid-api.h
+> @@ -0,0 +1,83 @@
+> +#ifndef __HOST_IPMID_IPMI_COMMON_H__
+> +#define __HOST_IPMID_IPMI_COMMON_H__
+
+I'd expect the guard to be #define IPMID_API_H?
+
+> +#include <stdlib.h>
+> +
+> +// length of Completion Code and its ALWAYS _1_
+> +#define IPMI_CC_LEN 1
+> +
+> +// IPMI Net Function number as specified by IPMI V2.0 spec.
+> +// Example :
+> +// NETFUN_APP      =   (0x06 << 2),
+> +typedef unsigned char   ipmi_netfn_t;
+> +
+> +// IPMI Command for a Net Function number as specified by IPMI V2.0 spec.
+> +typedef unsigned char   ipmi_cmd_t;
+> +
+> +// Buffer containing data from sender of netfn and command as part of request
+> +typedef void*           ipmi_request_t;
+
+Is there much value in these typedefs? I think the obscure what's
+going on in the functions below.
+
+> +// This is the response buffer that the provider of [netfn,cmd] will send back
+> +// to the caller. Provider will allocate the memory inside the handler and then
+> +// will do a memcpy to this response buffer and also will set the data size
+> +// parameter to the size of the buffer.
+> +// EXAMPLE :
+> +// unsigned char str[] = {0x00, 0x01, 0xFE, 0xFF, 0x0A, 0x01};
+> +// *data_len = 6;
+> +// memcpy(response, &str, *data_len);
+> +typedef void*           ipmi_response_t;
+> +
+> +// This buffer contains any *user specific* data that is of interest only to the
+> +// plugin. For a ipmi function router, this data is opaque. At the time of
+> +// registering the plugin handlers, plugin may optionally allocate a memory and
+> +// fill in whatever needed that will be of help during the actual handling of
+> +// command. IPMID will just pass the netfn, cmd and also this data to plugins
+> +// during the command handler invocation.
+> +typedef void*           ipmi_context_t;
+> +
+> +// Length of request / response buffer depending on whether the data is a
+> +// request or a response from a plugin handler.
+> +typedef size_t*   ipmi_data_len_t;
+> +
+> +// Plugin function return the status code
+> +typedef unsigned char ipmi_ret_t;
+
+I do not think this is necessary. We can just return a uint8_t.
+
+> +
+> +// This is the callback handler that the plugin registers with IPMID. IPMI
+> +// function router will then make a call to this callback handler with the
+> +// necessary arguments of netfn, cmd, request, response, size and context.
+> +typedef ipmi_ret_t (*ipmid_callback_t)(ipmi_netfn_t, ipmi_cmd_t, ipmi_request_t,
+> +                                       ipmi_response_t, ipmi_data_len_t, ipmi_context_t);
+> +
+> +// This is the constructor function that is called into by each plugin handlers.
+> +// When ipmi sets up the callback handlers, a call is made to this with
+> +// information of netfn, cmd, callback handler pointer and context data.
+> +// Making this a extern "C" so that plugin libraries written in C can also use
+> +// it.
+> +extern "C" void ipmi_register_callback(ipmi_netfn_t, ipmi_cmd_t,
+> +                                       ipmi_context_t, ipmid_callback_t);
+> +
+> +// These are the command network functions, the response
+> +// network functions are the function + 1. So to determine
+> +// the proper network function which issued the command
+> +// associated with a response, subtract 1.
+> +// Note: these are also shifted left to make room for the LUN.
+> +enum ipmi_net_fns
+> +{
+> +    NETFUN_OEM_IBM  =   (0x32 << 2)
+> +};
+> +
+> +// IPMI commands for net functions. Since this is to be used both by the ipmi
+> +// function router and also the callback handler registration function, its put
+> +// in this .H file.
+> +enum ipmi_netfn_wild_card_cmd
+> +{
+> +    IPMI_CMD_WILDCARD       = 0xFF,
+> +};
+> +
+> +// Return codes from a IPMI operation as needed by IPMI V2.0 spec.
+> +enum ipmi_return_codes
+> +{
+> +    IPMI_CC_OK = 0x00,
+> +    IPMI_CC_INVALID = 0xC1
+> +};
+> +
+> +#endif
+> diff --git a/oemhandler.C b/oemhandler.C
+> new file mode 100644
+> index 0000000..c4eae21
+> --- /dev/null
+> +++ b/oemhandler.C
+> @@ -0,0 +1,92 @@
+> +#include "oemhandler.h"
+> +#include "ipmid-api.h"
 > +#include <stdio.h>
 > +#include <string.h>
-> +#include <sys/stat.h>
 > +
-> +typedef unsigned char uint8_t;
-
-Use #include <stdint.h> instead of creating your own typedef.
-
+> +void register_netfn_oem_partial_esel() __attribute__((constructor));
 > +
-> +/*
-> + * --- For Reference.----
+> +
+> +
 
-Lose the ---, and add the * to each line of the block comment below.
+Why the extra whitespace?
 
-> +typedef struct
+> +const char *g_esel_path = "/tmp/";
 
-struct commond_header, no need to typedef.
+Can we come up with something better than sticking files in /tmp?
 
+> +uint16_t g_record_id = 0x0100;
+> +
+> +
+
+Whitespace.
+
+> +#define LSMSSWAP(x,y) (y<<8|x)
+> +
+> +
+
+Whitespace.
+
+> +///////////////////////////////////////////////////////////////////////////////
+
+I don't think this is necessary.
+
+> +// For the First partial add eSEL the SEL Record ID and offset
+> +// value should be 0x0000. The extended data needs to be in
+> +// the form of an IPMI SEL Event Record, with Event sensor type
+> +// of 0xDF and Event Message format of 0x04. The returned
+> +// Record ID should be used for all partial eSEL adds.
+> +//
+> +// This function creates a /tmp/esel# file to store the
+> +// incoming partial esel.  It is the role of some other
+> +// function to commit the error log in to long term
+> +// storage.  Likely via the ipmi add_sel command.
+
+Do we really need to write this out as a file? Should it not be passed
+to the program that is going to commit it to long term storage?
+
+> +///////////////////////////////////////////////////////////////////////////////
+> +ipmi_ret_t ipmi_ibm_oem_partial_esel(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+> +                              ipmi_request_t request, ipmi_response_t response,
+> +                              ipmi_data_len_t data_len, ipmi_context_t context)
 > +{
-> +    uint8_t fixed;
-> +    uint8_t internal_offset;
-> +    uint8_t chassis_offset;
-> +    uint8_t board_offset;
-> +    uint8_t product_offset;
-> +    uint8_t multi_offset;
-> +    uint8_t pad;
-> +    uint8_t crc;
-> +}common_header_t;
-> +*/
+> +    esel_request_t *reqptr = (esel_request_t*) request;
+> +    FILE *fp;
+> +    char string[32];
+> +    short offset = 0, record=0;
+> +    unsigned short rlen;
+> +    ipmi_ret_t rc = IPMI_CC_OK;
+> +    char iocmd[4];
 > +
-> +#define HDR_BYTE_ZERO   1
-> +#define INTERNAL_OFFSET 1
-> +#define HDR_CRC_OFFSET  7
+> +    strcpy(string, g_esel_path);
 
-If you uncomment your struct definition you can do offsetof(struct
-header, crc) instead of these #defines. This eliminates any errors you
-may have if someone changes the header and forgets to change the
-#define.
+Why the strcpy? You could just use g_esel_path as the first string below.
 
-> +#define COMMON_HDR_SIZE 8
-
-If you uncomment your struct definition, you can use sizeof(struct
-common_header).
-
-> +#define RECORD_NOT_PRESENT 0
-> +#define EIGHT_BYTES 8
-
-Not necessary.
-
-> +uint8_t common_hdr[COMMON_HDR_SIZE] = {0};
 > +
-> +//------------------------------------------------
-> +// Takes the pointer to stream of bytes and length
-> +// returns the 8 bit checksum per IPMI spec.
-> +//--------------------------------------------------
-
-You've switched from C-style comments to C++ style. I think if you're
-writing C, you should use C-style ( /*  foo */ ).
-
-> +unsigned char calculate_checksum(unsigned char *ptr, int len)
-> +{
-> +    // REFER :: http://coreipm.googlecode.com/svn-history/r40/trunk/coreipm/ipmi_pkt.c
-> +    char checksum = 0;
-> +    int byte = 0;
+> +    offset = LSMSSWAP(reqptr->offsetls, reqptr->offsetms);
 > +
-> +    for(byte = 0; byte < len; byte++)
-> +    {
-> +        checksum += *ptr++;
+> +    sprintf(string, "%s%s%02x%02x", string, "esel", reqptr->selrecordms, reqptr->selrecordls);
+
+snprintf.
+
+Are selrecordms and selrecordls unique for every SEL? How will this
+code behave if we get two SELs at the same time?
+
+> +
+> +
+> +    // Length is the number of request bytes minus the header itself.
+> +    // The header contains an extra byte to indicate the start of
+> +    // the data (so didn't need to worry about word/byte boundaries)
+> +    // hence the -1...
+> +    rlen = ((unsigned short)*data_len) - (sizeof(esel_request_t));
+
+Why make data_len a size_t if we're just going to cast it away?
+
+> +
+> +
+> +    printf("IPMI PARTIAL ESEL for %s  Offset = %d Length = %d\n",
+> +        string, offset, rlen);
+> +
+> +    if (offset == 0) {
+> +        strcpy(iocmd, "wb");
+> +    } else {
+> +        // I was thinking "ab+" but it appears it doesn't
+> +        // do what fseek asks.  Modify to rb+ and fseek
+> +        // works great...
+> +        strcpy(iocmd, "rb+");
+
+Could you just have a pointer, instead of copying memory around?
+
 > +    }
 > +
-> +    return( -checksum );
+> +    if ((fp = fopen(string, iocmd)) != NULL) {
+> +        fseek(fp, offset, SEEK_SET);
+> +        fwrite(reqptr+1,rlen,1,fp);
+
+Do we care about how much data is written?
+
+> +        fclose(fp);
+> +
+> +
+
+Whitespace.
+
+> +        *data_len = sizeof(g_record_id);
+> +        memcpy(response, &g_record_id, *data_len);
+> +
+> +
+
+Whitespace
+
+> +    } else {
+> +        fprintf(stderr, "Error trying to perform %s for esel%s\n",iocmd, string);
+> +        ipmi_ret_t rc = IPMI_CC_INVALID;
+> +        *data_len     = 0;
+> +    }
+> +
+> +    return rc;
 > +}
 > +
-> +//---------------
-> +// Display Usage
-> +//---------------
+> +
 
-This comment is unnecessary.
+Whitespace.
 
-> +void usage(char *binary)
+> +void register_netfn_oem_partial_esel()
 > +{
-> +    printf("Usage: %s <valid binary ipmi fru file>\n", binary);
+> +    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_OEM_IBM, IPMI_CMD_PESEL);
+> +    ipmi_register_callback(NETFUN_OEM_IBM, IPMI_CMD_PESEL, NULL, ipmi_ibm_oem_partial_esel);
 > +    return;
-
-The return is unnecessary.
-
 > +}
+> diff --git a/oemhandler.h b/oemhandler.h
+> new file mode 100644
+> index 0000000..c176fd6
+> --- /dev/null
+> +++ b/oemhandler.h
+> @@ -0,0 +1,32 @@
+> +#ifndef __HOST_IPMI_OPENPOWEROEM_HANDLER_H__
+> +#define __HOST_IPMI_OPENPOWEROEM_HANDLER_H__
 > +
-> +//-----------------------------------------------------
-> +// Accepts the filename and validated per IPMI FRU spec
-> +//------------------------------------------------------
-
-Fix the comments.
-
-> +bool validate_fru_record(char *fru_file_name)
-
-const char *?
-
+> +#include <stdint.h>
+> +#include "ipmid-api.h"
+> +
+> +// IPMI commands for net functions.
+> +enum ipmi_netfn_oem_cmds
 > +{
-> +    // Used for generic checksum calculation.
-
-Comment style.
-
-> +    uint8_t checksum = 0;
+> +    IPMI_CMD_PESEL = 0xF0,
+> +};
 > +
-> +    // This can point to
-
-This sentence is incomplete.
-
-> +    uint8_t fru_section;
 > +
-> +    // A generic offset locator for any FRU record.
-> +    uint8_t record_offset = 0;
 > +
-> +    // Number of bytes read from FRU file.
 
-Unnecessary.
+Whitespace.
 
-> +    size_t bytes_read = 0;
+> +ipmi_ret_t ipmi_ibm_oem_partial_esel(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+> +                              ipmi_request_t request, ipmi_response_t response,
+> +                              ipmi_data_len_t data_len, ipmi_context_t context);
 > +
-> +    // First 2 bytes in the record.
-> +    uint8_t fru_record_hdr[2] = {0};
-
-Unnecessary.
-
 > +
-> +    //common_header_t com_hdr;
-> +    memset(common_hdr, 0x0, sizeof(common_hdr));
+> +struct esel_request_t {
+> +    uint8_t  residls;
+> +    uint8_t  residms;
+> +    uint8_t  selrecordls;
+> +    uint8_t  selrecordms;
+> +    uint8_t  offsetls;
+> +    uint8_t  offsetms;
+> +    uint8_t  progress;
+> +}  __attribute__ ((packed)) ;
 
-I suggest you restructure this code to use an instance of the struct
-common_header, instead of an array of bytes.
+Why the attribute?
 
 > +
-> +    // For now, this is user supplied in CLI. But this will be a parameter from
-> +    // fru handler
-> +    FILE *fru_file = fopen(fru_file_name,"rb");
-> +    if(fru_file == NULL)
-> +    {
-> +        fprintf(stderr, "ERROR: opening:[%s]\n",fru_file_name);
-> +        return false;
-> +    }
 > +
-> +    // Read first 8 bytes into common_header so we know the offsets and hdr
-> +    // checksum.
-> +    fseek(fru_file, 0, SEEK_SET);
-> +    bytes_read = fread(common_hdr, sizeof(common_hdr), 1, fru_file);
-> +    if(bytes_read != 1)
-> +    {
-> +        fprintf(stderr, "ERROR reading common header. Bytes read=:[%ld]\n",bytes_read);
-> +        return false;
-> +    }
 > +
-> +    // 1: Validate for first byte to always have a value of [1]
-> +    if(common_hdr[0] != HDR_BYTE_ZERO)
-> +    {
-> +        fprintf(stderr, "ERROR: Common Header entry_1:[0x%X] Invalid.\n",common_hdr[0]);
-> +        return false;
-> +    }
-> +    else
-> +    {
-> +        printf("SUCCESS: Validated [0x%X] in common header\n",common_hdr[0]);
-> +    }
-> +
-> +    // 2: Validate the header checskum that is at last byte ( Offset: 7 )
-> +    checksum = calculate_checksum(common_hdr, sizeof(common_hdr)-1);
-> +    if(checksum != common_hdr[HDR_CRC_OFFSET])
-> +    {
-> +        fprintf(stderr, "ERROR: Common Header checksum mismatch."
-> +                " Calculated:[0x%X], Embedded:[0x%X]\n",
-> +                checksum, common_hdr[HDR_CRC_OFFSET]);
-> +
-> +        return false;
-> +    }
-> +    else
-> +    {
-> +        printf("SUCCESS: Common Header checksum MATCH:[0x%X]\n",checksum);
-> +    }
-> +
-> +    // !! FIXME FIXME FIXME FIXME
-> +    // This below logic fails if the record type is "Multi". I however have not
-> +    // seen a usecase of that in FRU inventory.. But, if I need to fix, its
-> +    // easy.
-> +    // !! FIXME FIXME FIXME FIXME
-> +
-> +    // 3: Now start walking the common_hdr array that has offsets into other FRU
-> +    //    record areas and validate those. Starting with second entry since the
-> +    //    first one is always a [0x01]
-> +    for(fru_section = INTERNAL_OFFSET ; fru_section < (COMMON_HDR_SIZE - 2)  ; fru_section++)
-> +    {
-> +        // Offset is 'value given in' internal_offset * 8 from the START of
-> +        // common header. So an an example, 01 00 00 00 01 00 00 fe has
-> +        // product area set at the offset 01 * 8 --> 8 bytes from the START of
-> +        // common header. That means, soon after the header checksum.
-> +        record_offset = common_hdr[fru_section] * EIGHT_BYTES;
-> +
-> +        if(record_offset)
-> +        {
-> +            // A NON zero value means that the vpd packet has the data for that
-> +            // section.  These are the things needed at this moment:
-> +
-> +            // 1: Goto beginning of the FILE
-> +            rewind(fru_file);
-> +
-> +            // 2: Move the file pointer to record_offset
-> +            fseek(fru_file, record_offset, SEEK_SET);
-> +
-> +            // 3: Read first 2 bytes containing FIXED[0x1] and record Length.
-> +            fread(fru_record_hdr, sizeof(fru_record_hdr), 1, fru_file);
-> +
-> +            // 5: If first element in the record header is _not_ a fixed:[0x01], err out.
-> +            if(fru_record_hdr[0] != HDR_BYTE_ZERO)
-> +            {
-> +                fprintf(stderr, "ERROR: Unexpected :[0x%X] found at Record header",
-> +                        fru_record_hdr[0]);
-> +
-> +                return false;
-> +            }
-> +            else
-> +            {
-> +                printf("SUCCESS: Validated [0x%X] in fru record:[%d] header\n",
-> +                        fru_record_hdr[0],fru_section);
-> +            }
-> +
-> +            // 4: Read Length bytes ( makes a complete record read now )
-> +            uint8_t fru_record_len = fru_record_hdr[1] * EIGHT_BYTES;
-> +
-> +            printf("RECORD NO[%d], SIZE = [%d] \n",fru_section, fru_record_len);
-> +
-> +            uint8_t fru_record_data[fru_record_len];
-> +            memset(fru_record_data, 0x0, sizeof(fru_record_data));
-> +
-> +            // Since the data is from record data[0], move the file pointer again to
-> +            // beginning of record.
-> +            fseek(fru_file, -2, SEEK_CUR);
-> +            fread(fru_record_data, sizeof(fru_record_data), 1, fru_file);
-> +
-> +            // 5: Calculate checksum (from offset -> (Length-1)).
-> +            //    All the bytes except the last byte( which is CRC :) ) will
-> +            //    participate in calculating the checksum.
-> +            checksum = calculate_checksum(fru_record_data, sizeof(fru_record_data)-1);
-> +
-> +            // 6: Verify the embedded checksum in last byte with calculated checksum
-> +            //    record_len -1 since length is some N but numbering is 0..N-1
-> +            if(checksum != fru_record_data[fru_record_len-1])
-> +            {
-> +                fprintf(stderr, "ERROR: FRU Header checksum mismatch. "
-> +                        " Calculated:[0x%X], Embedded:[0x%X]\n",
-> +                        checksum, fru_record_data[fru_record_len-1]);
-> +
-> +                return false;
-> +            }
-> +            else
-> +            {
-> +                printf("SUCCESS: FRU Header checksum MATCH:[0x%X]\n",checksum);
-> +            }
-> +
-> +            // 7: If everything is okay, then we are fine.. Else mostly we are
-> +            //    awaiting another FRU write -OR- worst case, the VPD is corrupted
-> +            //    over BT.
-> +        } // If the packet has data for a particular data record.
-> +    } // End walking all the fru records.
-> +
-> +    return true;
-> +}
-> +
-> +//---------------------------------------------------------------------
-> +// Main function but this will be integrated as a API for
-> +// Open BMC code that accepts a filename and returns success or failure
-> +//----------------------------------------------------------------------
-> +int main(int argc, char *argv[])
-> +{
-> +    // Right way is to do a parse_opt but that is poky for now.
-> +    if(argc != 2)
-> +    {
-> +        usage(argv[0]);
-> +        return -1;
-> +    }
-> +
-> +    // Check if this file is really present.
-> +    struct stat statbuff;
-> +    if(stat(argv[1], &statbuff) == -1)
-> +    {
-> +        usage(argv[0]);
-> +        return -1;
-> +    }
-> +    else if(statbuff.st_mode & S_IFMT != S_IFREG)
-> +    {
-> +        usage(argv[0]);
-> +        return -1;
-> +    }
-> +
-> +    bool scan_result = validate_fru_record(argv[1]);
-> +    if(scan_result == true)
-> +    {
-> +        printf("SUCCESS: Validated:[%s]\n",argv[1]);
-> +    }
-> +    else
-> +    {
-> +        printf("ERROR: Validation failed for:[%s]\n",argv[1]);
-> +        return -1;
-> +    }
-> +
-> +    return 0;
-> +}
+> +#endif
 > --
 > 2.6.0
 >
