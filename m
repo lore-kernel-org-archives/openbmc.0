@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 8BE1F1A03ED
- for <openbmc@lists.ozlabs.org>; Fri, 16 Oct 2015 08:54:08 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 6B2031A03ED
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Oct 2015 08:54:10 +1100 (AEDT)
 Received: from localhost (32.97.110.55 [32.97.110.55]) by mx.zohomail.com
- with SMTPS id 1444946044983951.3365413862759;
- Thu, 15 Oct 2015 14:54:04 -0700 (PDT)
+ with SMTPS id 1444946046997345.7842521291766;
+ Thu, 15 Oct 2015 14:54:06 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 1/4] Refactor sdbus-service.bbclass
-Date: Thu, 15 Oct 2015 16:53:58 -0500
-Message-Id: <1444946041-22756-2-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH openbmc 2/4] -systemd.bbclass incorrect for nativesdk packages
+Date: Thu, 15 Oct 2015 16:53:59 -0500
+Message-Id: <1444946041-22756-3-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1444946041-22756-1-git-send-email-patches@stwcx.xyz>
 References: <1444946041-22756-1-git-send-email-patches@stwcx.xyz>
@@ -27,46 +27,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Oct 2015 21:54:09 -0000
+X-List-Received-Date: Thu, 15 Oct 2015 21:54:10 -0000
 
 From: Patrick Williams <patrick@stwcx.xyz>
 
-sdbus-service.bbclass currently depends on c-daemon.bbclass, which is
-used for samples that have their code and makefiles in the repository.
-Removed this inherit to make the sdbus-service class more generally
-applicable.
+We should use the 'bare' package name BPN instead of PN for finding the
+service file.  Otherwise, a -nativesdk package cannot be created because
+we get a file-not-found error on the service file.
 ---
- meta-phosphor/classes/obmc-phosphor-sdbus-service.bbclass                | 1 -
- .../obmc-phosphor-example-sdbus/obmc-phosphor-example-sdbus.bb           | 1 +
- .../common/recipes-phosphor/obmc-phosphor-fan/obmc-phosphor-fand.bb      | 1 +
- 3 files changed, 2 insertions(+), 1 deletion(-)
+ meta-phosphor/classes/obmc-phosphor-systemd.bbclass | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/meta-phosphor/classes/obmc-phosphor-sdbus-service.bbclass b/meta-phosphor/classes/obmc-phosphor-sdbus-service.bbclass
-index 8a9853c..bc190d4 100644
---- a/meta-phosphor/classes/obmc-phosphor-sdbus-service.bbclass
-+++ b/meta-phosphor/classes/obmc-phosphor-sdbus-service.bbclass
-@@ -6,4 +6,3 @@ DEPENDS += "systemd"
- RDEPENDS_${PN} += "libsystemd"
+diff --git a/meta-phosphor/classes/obmc-phosphor-systemd.bbclass b/meta-phosphor/classes/obmc-phosphor-systemd.bbclass
+index 7bd2d9d..12e0bc1 100644
+--- a/meta-phosphor/classes/obmc-phosphor-systemd.bbclass
++++ b/meta-phosphor/classes/obmc-phosphor-systemd.bbclass
+@@ -2,13 +2,13 @@
  
- inherit obmc-phosphor-dbus-service
--inherit obmc-phosphor-c-daemon
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-sdbus/obmc-phosphor-example-sdbus.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-sdbus/obmc-phosphor-example-sdbus.bb
-index 3735007..89fbdb1 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-sdbus/obmc-phosphor-example-sdbus.bb
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-sdbus/obmc-phosphor-example-sdbus.bb
-@@ -8,3 +8,4 @@ DBUS_SERVICES = " \
+ inherit systemd
+ 
+-SYSTEMD_SERVICE_${PN} = "${PN}.service"
++SYSTEMD_SERVICE_${PN} = "${BPN}.service"
+ SRC_URI += " \
+-        file://${PN}.service \
++        file://${BPN}.service \
          "
  
- inherit obmc-phosphor-sdbus-service
-+inherit obmc-phosphor-c-daemon
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-fan/obmc-phosphor-fand.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-fan/obmc-phosphor-fand.bb
-index 13c4b70..79e2e6c 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-fan/obmc-phosphor-fand.bb
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-fan/obmc-phosphor-fand.bb
-@@ -4,3 +4,4 @@ PR = "r1"
- 
- inherit obmc-phosphor-fan-mgmt
- inherit obmc-phosphor-sdbus-service
-+inherit obmc-phosphor-c-daemon
+ do_install_append() {
+         # install systemd unit files
+         install -d ${D}${systemd_unitdir}/system
+-        install -m 0644 ${WORKDIR}/${PN}.service ${D}${systemd_unitdir}/system
++        install -m 0644 ${WORKDIR}/${BPN}.service ${D}${systemd_unitdir}/system
+ }
 -- 
 2.6.0
