@@ -3,18 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 663451A08A5
- for <openbmc@lists.ozlabs.org>; Fri, 16 Oct 2015 23:38:17 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 316871A08A6
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Oct 2015 23:38:18 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1444999094225419.76530026485943;
- Fri, 16 Oct 2015 05:38:14 -0700 (PDT)
+ with SMTPS id 1444999095775347.1951351410876;
+ Fri, 16 Oct 2015 05:38:15 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid 0/2] Add 'make install' directive.
-Date: Fri, 16 Oct 2015 07:38:11 -0500
-Message-Id: <1444999093-21163-1-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid 1/2] Remove stray whitespace.
+Date: Fri, 16 Oct 2015 07:38:12 -0500
+Message-Id: <1444999093-21163-2-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
+In-Reply-To: <1444999093-21163-1-git-send-email-patches@stwcx.xyz>
+References: <1444999093-21163-1-git-send-email-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,14 +30,27 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Fri, 16 Oct 2015 12:38:18 -0000
 
-https://github.com/openbmc/phosphor-host-ipmid/pull/7
+From: Patrick Williams <patrick@stwcx.xyz>
 
-Patrick Williams (2):
-  Remove stray whitespace.
-  Add 'make install' directive
+---
+ Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- Makefile | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
-
+diff --git a/Makefile b/Makefile
+index 2177c9d..73cefc6 100755
+--- a/Makefile
++++ b/Makefile
+@@ -11,9 +11,9 @@ LIB_APP     = libapphandler.so
+ 
+ INC_FLAG += $(shell pkg-config --cflags --libs libsystemd) -I. -O2 --std=gnu++11
+ LIB_FLAG += $(shell pkg-config  --libs libsystemd) -rdynamic
+-IPMID_PATH ?= -DHOST_IPMI_LIB_PATH=\"/usr/lib/host-ipmid/\" 
++IPMID_PATH ?= -DHOST_IPMI_LIB_PATH=\"/usr/lib/host-ipmid/\"
+ 
+-all: $(DAEMON) $(LIB_APP) 
++all: $(DAEMON) $(LIB_APP)
+ 
+ %.o: %.C
+ 	$(CXX) -fpic -c $< $(CXXFLAGS) $(INC_FLAG) $(IPMID_PATH) -o $@
 -- 
 2.6.0
