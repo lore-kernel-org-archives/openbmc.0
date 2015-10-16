@@ -3,18 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 748EA1A064D
- for <openbmc@lists.ozlabs.org>; Fri, 16 Oct 2015 23:21:06 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 8418B1A0661
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Oct 2015 23:21:08 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1444998063651762.0316633410239;
- Fri, 16 Oct 2015 05:21:03 -0700 (PDT)
+ with SMTPS id 1444998065343805.3329875688905;
+ Fri, 16 Oct 2015 05:21:05 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid 2/5] Add routines for getting lookup data
- from the system dbus object
-Date: Fri, 16 Oct 2015 07:20:52 -0500
-Message-Id: <1444998055-17954-3-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid 3/5] Suport examining sensor records and
+ calling dbus
+Date: Fri, 16 Oct 2015 07:20:53 -0500
+Message-Id: <1444998055-17954-4-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1444998055-17954-1-git-send-email-patches@stwcx.xyz>
 References: <1444998055-17954-1-git-send-email-patches@stwcx.xyz>
@@ -29,142 +29,206 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Oct 2015 12:21:07 -0000
+X-List-Received-Date: Fri, 16 Oct 2015 12:21:09 -0000
 
 From: Chris Austen <austenc@us.ibm.com>
 
 ---
- ipmid.C | 121 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 121 insertions(+)
+ Makefile        |   5 ++-
+ ipmisensor.C    | 119 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ sensorhandler.C |   8 +++-
+ 3 files changed, 128 insertions(+), 4 deletions(-)
+ create mode 100644 ipmisensor.C
 
-diff --git a/ipmid.C b/ipmid.C
-index 87f993e..db2f6b9 100644
---- a/ipmid.C
-+++ b/ipmid.C
-@@ -426,3 +426,124 @@ finish:
-     return r < 0 ? EXIT_FAILURE : EXIT_SUCCESS;
+diff --git a/Makefile b/Makefile
+index 2177c9d..e27fe2d 100755
+--- a/Makefile
++++ b/Makefile
+@@ -5,7 +5,8 @@ DAEMON_OBJ  = $(DAEMON).o
+ LIB_APP_OBJ = apphandler.o     \
+               sensorhandler.o  \
+               storagehandler.o \
+-              dcmihandler.o
++              dcmihandler.o    \
++              ipmisensor.o
  
- }
+ LIB_APP     = libapphandler.so
+ 
+@@ -25,4 +26,4 @@ $(DAEMON): $(DAEMON_OBJ)
+ 	$(CXX) $^ $(LDFLAGS) $(LIB_FLAG) -o $@ -ldl
+ 
+ clean:
+-	rm -f $(DAEMON) *.o *.so
++	rm -f $(DAEMON) *.o *.so
+\ No newline at end of file
+diff --git a/ipmisensor.C b/ipmisensor.C
+new file mode 100644
+index 0000000..c2370b8
+--- /dev/null
++++ b/ipmisensor.C
+@@ -0,0 +1,119 @@
++#include <stdio.h>
++#include <string.h>
++#include <stdint.h>
 +
 +
-+#define MAX_DBUS_PATH 128
-+struct dbus_interface_t {
-+    uint8_t  sensornumber;
-+    uint8_t  sensortype;
++extern unsigned char findSensor(char);
 +
-+    char  bus[MAX_DBUS_PATH];
-+    char  path[MAX_DBUS_PATH];
-+    char  interface[MAX_DBUS_PATH];
++struct sensorRES_t {
++	uint8_t sensor_number;
++	uint8_t operation;
++	uint8_t sensor_reading;
++	uint8_t assert_state7_0;
++	uint8_t assert_state14_8;	
++	uint8_t deassert_state7_0;
++	uint8_t deassert_state14_8;	
++	uint8_t event_data1;
++	uint8_t event_data2;
++	uint8_t event_data3;	
++} __attribute__ ((packed));
++
++#define ISBITSET(x,y) ((x>>y)&0x01)
++#define ASSERTINDEX 0
++#define DEASSERTINDEX 1
++
++
++extern int updateDbusInterface(uint8_t , const char *, const char *) ;
++extern int set_sensor_dbus_state(uint8_t ,const char *, const char *);
++
++
++
++// Sensor Type,  Offset, function handler, Dbus Method, Assert value, Deassert value
++struct lookup_t {
++	uint8_t sensor_type;
++	uint8_t offset;
++	int (*func)(uint8_t, const char *, const char *);
++	char    method[16];
++	char    assertion[16];
++	char    deassertion[16];
 +};
 +
 +
++//  This table lists only senors we care about telling dbus about.
++//  Offset definition cab be found in section 42.2 of the IPMI 2.0 
++//  spec.  Add more if/when there are more items of interest.
++lookup_t ipmidbuslookup[] = {
 +
-+// Use a lookup table to find the interface name of a specific sensor
-+// This will be used until an alternative is found.  this is the first
-+// step for mapping IPMI
-+int find_openbmc_path(const char *type, const uint8_t num, dbus_interface_t *interface) {
++	{0x07, 0x07, set_sensor_dbus_state, "setPresent", "True", "False"},
++	{0x07, 0x08, set_sensor_dbus_state, "setFault",   "True", "False"},
++	{0x0C, 0x06, set_sensor_dbus_state, "setPresent", "True", "False"},
++	{0x0C, 0x04, set_sensor_dbus_state, "setFault",   "True", "False"},
++	{0xFF, 0xFF, NULL,                  "",            "" ,    ""}
++};
 +
-+    const char  *busname = "org.openbmc.managers.System";
-+    const char  *objname = "/org/openbmc/managers/System";
++int findindex(const uint8_t sensor_type, int offset, int *index) {
++	
++	int i=0, rc=0;
++	lookup_t *pTable = ipmidbuslookup;
 +
-+    char  *str1, *str2, *str3;
-+    sd_bus_error error = SD_BUS_ERROR_NULL;
-+    sd_bus_message *reply = NULL, *m=NULL;
++	do {
 +
++		if ( ((pTable+i)->sensor_type == sensor_type) && 
++			 ((pTable+i)->offset  == offset)  ) {
++			rc = 1;
++			*index = i;
++			break;
++		}
++		i++;
++	} while ((pTable+i)->sensor_type  != 0xFF);
 +
-+    int r;
++	return rc;
++}
 +
-+    r = sd_bus_message_new_method_call(bus,&m,busname,objname,busname,"getObjectFromByteId");
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to create a method call: %s", strerror(-r));
-+    }
++int shouldReport(sensorRES_t *pRec, uint8_t sensorType, int offset, int assertState) {
 +
-+    r = sd_bus_message_append(m, "sy", type, num);
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to create a input parameter: %s", strerror(-r));
-+    }
++	int index;
++	char *pState;
++	lookup_t *pTable = ipmidbuslookup;
 +
-+    // Call the IPMI responder on the bus so the message can be sent to the CEC
-+    r = sd_bus_call(bus, m, 0, &error, &reply);
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to call the method: %s", strerror(-r));
-+        goto final;
-+    }
++	if (findindex(sensorType, offset, &index)) {
 +
++		if (assertState == ASSERTINDEX) {
++			pState = (pTable+index)->assertion;
++		} else {
++			pState = (pTable+index)->deassertion;
++		}
++		(*((pTable+index)->func))(pRec->sensor_number, (pTable+index)->method, pState);
++	}
 +
-+    r = sd_bus_message_read(reply, "(sss)", &str1, &str2, &str3);
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to get a response: %s", strerror(-r));
-+        goto final;
-+    }
-+
-+    strncpy(interface->bus, str1, MAX_DBUS_PATH);
-+    strncpy(interface->path, str2, MAX_DBUS_PATH);
-+    strncpy(interface->interface, str3, MAX_DBUS_PATH);
-+
-+    interface->sensornumber = num;
-+
-+
-+final:
-+
-+    sd_bus_error_free(&error);
-+    sd_bus_message_unref(m);
-+
-+    return r;
++	return 0;
 +}
 +
 +
-+/////////////////////////////////////////////////////////////////////
-+//
-+// Routines used by ipmi commands wanting to interact on the dbus
-+//
-+/////////////////////////////////////////////////////////////////////
++int updateSensorRecordFromSSRAESC(const void *record) {
 +
++	sensorRES_t *pRec = (sensorRES_t *) record;
++	unsigned char stype;
++	int index, i=0;
 +
-+// Simple set routine because some methods are standard.
-+int set_sensor_dbus_state(uint8_t number, const char *method, const char *value) {
++	stype = findSensor(pRec->sensor_number);
 +
++	// Scroll through each bit position .  Determine 
++	// if any bit is either asserted or Deasserted.
++	for(i=0;i<8;i++) {
++		if (ISBITSET(pRec->assert_state7_0,i)) { 
++			shouldReport(pRec, stype, i, ASSERTINDEX);
++		}
++		if (ISBITSET(pRec->assert_state14_8,i)) { 
++			shouldReport(pRec, stype, i+8, ASSERTINDEX);
++		}
++		if (ISBITSET(pRec->deassert_state7_0,i)) { 
++			shouldReport(pRec, stype, i, DEASSERTINDEX);
++		}
++		if (ISBITSET(pRec->deassert_state14_8,i)) { 
++			shouldReport(pRec, stype, i+8, DEASSERTINDEX);
++		}
++	}
 +
-+    dbus_interface_t a;
-+    int r;
-+    sd_bus_error error = SD_BUS_ERROR_NULL;
-+    sd_bus_message *reply = NULL, *m=NULL;
-+
-+    printf("Attempting to set a dbus Sensor 0x%02x via %s with a value of %s\n",
-+        number, method, value);
-+
-+    r = find_openbmc_path("SENSOR", number, &a);
-+
-+    printf("**********************\n");
-+    printf("%s\n", a.bus);
-+    printf("%s\n", a.path);
-+    printf("%s\n", a.interface);
-+
-+
-+    r = sd_bus_message_new_method_call(bus,&m,a.bus,a.path,a.interface,method);
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to create a method call: %s", strerror(-r));
-+    }
-+
-+    r = sd_bus_message_append(m, "s", value);
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to create a input parameter: %s", strerror(-r));
-+    }
-+
-+    // Call the IPMI responder on the bus so the message can be sent to the CEC
-+    r = sd_bus_call(bus, m, 0, &error, &reply);
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to call the method: %s", strerror(-r));
-+    }
-+
-+
-+
-+    sd_bus_error_free(&error);
-+    sd_bus_message_unref(m);
-+
-+    return 0;
-+
-+
++	return 0;
 +}
+diff --git a/sensorhandler.C b/sensorhandler.C
+index 9f0c975..0b16d10 100644
+--- a/sensorhandler.C
++++ b/sensorhandler.C
+@@ -4,6 +4,7 @@
+ #include <string.h>
+ #include <stdint.h>
+ 
++extern int updateSensorRecordFromSSRAESC(const void *);
+ 
+ void register_netfn_sen_functions()   __attribute__((constructor));
+ 
+@@ -166,20 +167,22 @@ ipmi_ret_t ipmi_sen_set_sensor(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+     ipmi_ret_t rc = IPMI_CC_OK;
+     unsigned short rlen;
+ 
+-    rlen = (unsigned short) *data_len - 1;
++    rlen = (unsigned short) *data_len;
+ 
+     sprintf(string, "%s%02x", "/tmp/sen", reqptr->sennum);
+ 
+     printf("IPMI SET_SENSOR [%s]\n",string);
+ 
+     if ((fp = fopen(string, "wb")) != NULL) {
+-        fwrite(reqptr+1,rlen,1,fp);
++        fwrite(reqptr,rlen,1,fp);
+         fclose(fp);
+     } else {
+         fprintf(stderr, "Error trying to write to sensor file %s\n",string);
+         ipmi_ret_t rc = IPMI_CC_INVALID;        
+     }
+ 
++    updateSensorRecordFromSSRAESC(reqptr);
++
+     *data_len=0;
+ 
+ 
+@@ -209,5 +212,6 @@ void register_netfn_sen_functions()
+ 
+     printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_SENSOR, IPMI_CMD_SET_SENSOR);
+     ipmi_register_callback(NETFUN_SENSOR, IPMI_CMD_SET_SENSOR, NULL, ipmi_sen_set_sensor);
++
+     return;
+ }
 -- 
 2.6.0
