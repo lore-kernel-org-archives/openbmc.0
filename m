@@ -3,18 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id C2D671A0661
- for <openbmc@lists.ozlabs.org>; Fri, 16 Oct 2015 23:21:00 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 5F4F11A064D
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Oct 2015 23:21:05 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1444998057213646.8291533090353;
- Fri, 16 Oct 2015 05:20:57 -0700 (PDT)
+ with SMTPS id 1444998060654560.1729494926042;
+ Fri, 16 Oct 2015 05:21:00 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid 0/5] Virtualsensor
-Date: Fri, 16 Oct 2015 07:20:50 -0500
-Message-Id: <1444998055-17954-1-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid 1/5] Print the dlopen failure for debugging
+Date: Fri, 16 Oct 2015 07:20:51 -0500
+Message-Id: <1444998055-17954-2-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
+In-Reply-To: <1444998055-17954-1-git-send-email-patches@stwcx.xyz>
+References: <1444998055-17954-1-git-send-email-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -26,27 +28,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Oct 2015 12:21:01 -0000
+X-List-Received-Date: Fri, 16 Oct 2015 12:21:05 -0000
 
-Add code for 0x0F system Firmware boot sensor
+From: Chris Austen <austenc@us.ibm.com>
 
-https://github.com/openbmc/phosphor-host-ipmid/pull/6
+---
+ ipmid.C | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Chris Austen (5):
-  Print the dlopen failure for debugging
-  Add routines for getting lookup data from the system dbus object
-  Suport examining sensor records and calling dbus
-  Added testcases for sensor record parsing
-  Add virtual sensor support
-
- Makefile        |  16 ++++-
- ipmid.C         | 167 ++++++++++++++++++++++++++++++++++++++++++++-
- ipmisensor.C    | 207 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- sensorhandler.C |   8 ++-
- testit.C        | 166 +++++++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 558 insertions(+), 6 deletions(-)
- create mode 100644 ipmisensor.C
- create mode 100644 testit.C
-
+diff --git a/ipmid.C b/ipmid.C
+index d0dfba8..87f993e 100644
+--- a/ipmid.C
++++ b/ipmid.C
+@@ -351,7 +351,7 @@ void ipmi_register_callback_handlers(const char* ipmi_lib_path)
+             if(lib_handler == NULL)
+             {
+                 fprintf(stderr,"ERROR opening:[%s]\n",handler_fqdn.c_str());
+-                dlerror();
++                fprintf(stderr, "%s\n", dlerror());
+             }
+             // Wipe the memory allocated for this particular entry.
+             free(handler_list[num_handlers]);
 -- 
 2.6.0
