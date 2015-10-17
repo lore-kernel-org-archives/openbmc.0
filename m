@@ -3,18 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id CBECB1A090D
- for <openbmc@lists.ozlabs.org>; Sat, 17 Oct 2015 13:13:43 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3D6781A09E7
+ for <openbmc@lists.ozlabs.org>; Sat, 17 Oct 2015 13:13:44 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1445048020254783.9256109981586;
- Fri, 16 Oct 2015 19:13:40 -0700 (PDT)
+ with SMTPS id 1445048021685292.74375227052496;
+ Fri, 16 Oct 2015 19:13:41 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid 4/5] Added testcases for sensor record
- parsing
-Date: Fri, 16 Oct 2015 21:13:31 -0500
-Message-Id: <1445048012-11082-5-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid 5/5] Add virtual sensor support
+Date: Fri, 16 Oct 2015 21:13:32 -0500
+Message-Id: <1445048012-11082-6-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1445048012-11082-1-git-send-email-patches@stwcx.xyz>
 References: <1445048012-11082-1-git-send-email-patches@stwcx.xyz>
@@ -34,223 +33,338 @@ X-List-Received-Date: Sat, 17 Oct 2015 02:13:44 -0000
 From: Chris Austen <austenc@us.ibm.com>
 
 ---
- Makefile |  14 ++++--
- testit.C | 162 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 173 insertions(+), 3 deletions(-)
- create mode 100644 testit.C
+ Makefile     |   1 +
+ ipmid.C      |  44 ++++++++++++++++
+ ipmisensor.C | 170 +++++++++++++++++++++++++++++++++++++++++++++--------------
+ testit.C     |   8 ++-
+ 4 files changed, 180 insertions(+), 43 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index e27fe2d..f9580bd 100755
+index f9580bd..e848983 100755
 --- a/Makefile
 +++ b/Makefile
-@@ -1,12 +1,17 @@
- CXX ?= $(CROSS_COMPILE)g++
- 
-+TESTER = testit
-+
- DAEMON = ipmid
- DAEMON_OBJ  = $(DAEMON).o
- LIB_APP_OBJ = apphandler.o     \
+@@ -8,6 +8,7 @@ LIB_APP_OBJ = apphandler.o     \
                sensorhandler.o  \
                storagehandler.o \
                dcmihandler.o    \
--              ipmisensor.o
-+
-+
-+TESTER_OBJ = ipmisensor.o 	   \
-+			 testit.o
++              ipmisensor.o     \
  
- LIB_APP     = libapphandler.so
  
-@@ -14,7 +19,7 @@ INC_FLAG += $(shell pkg-config --cflags --libs libsystemd) -I. -O2 --std=gnu++11
- LIB_FLAG += $(shell pkg-config  --libs libsystemd) -rdynamic
- IPMID_PATH ?= -DHOST_IPMI_LIB_PATH=\"/usr/lib/host-ipmid/\" 
+ TESTER_OBJ = ipmisensor.o 	   \
+diff --git a/ipmid.C b/ipmid.C
+index db2f6b9..fb46212 100644
+--- a/ipmid.C
++++ b/ipmid.C
+@@ -547,3 +547,47 @@ int set_sensor_dbus_state(uint8_t number, const char *method, const char *value)
  
--all: $(DAEMON) $(LIB_APP) 
-+all: $(DAEMON) $(LIB_APP) $(TESTER)
  
- %.o: %.C
- 	$(CXX) -fpic -c $< $(CXXFLAGS) $(INC_FLAG) $(IPMID_PATH) -o $@
-@@ -25,5 +30,8 @@ $(LIB_APP): $(LIB_APP_OBJ)
- $(DAEMON): $(DAEMON_OBJ)
- 	$(CXX) $^ $(LDFLAGS) $(LIB_FLAG) -o $@ -ldl
- 
-+$(TESTER): $(TESTER_OBJ)
-+	$(CXX) $^ $(LDFLAGS) $(LIB_FLAG) -o $@ -ldl
+ }
 +
- clean:
--	rm -f $(DAEMON) *.o *.so
-\ No newline at end of file
-+	rm -f $(DAEMON) $(TESTER) *.o *.so
-\ No newline at end of file
-diff --git a/testit.C b/testit.C
-new file mode 100644
-index 0000000..0641a55
---- /dev/null
-+++ b/testit.C
-@@ -0,0 +1,162 @@
-+
-+#include <stdio.h>
-+#include <string.h>
-+#include <stdint.h>
++int set_sensor_dbus_state_v(uint8_t number, const char *method, char *value) {
 +
 +
-+unsigned char g_sensortype [][2] = {
-+    {0xc7, 58},
-+{0x01, 113},
-+{0xc7, 56},
-+{0x01, 114},
-+{0xc6, 54},
-+{0x07, 40},
-+{0xC1, 121},
-+{0xC2, 137},
-+{0x07, 36},
-+{0x07, 43},
-+{0xC1, 122},
-+{0xC1, 119},
-+{0x01, 12},
-+{0x01, 111},
-+{0x01, 116},
-+{0xC1, 127},
-+{0xC2, 134},
-+{0xC2, 130},
-+{0xc, 33},
-+{0xC1, 125},
-+{0x01, 115},
-+{0x22, 4},
-+{0xC2, 138},
-+{0x01, 108},
-+{0x01, 102},
-+{0xc, 46},
-+{0x7, 11},
-+{0xC1, 120},
-+{0x07, 39},
-+{0x07, 42},
-+{0x5, 21},
-+{0xC2, 131},
-+{0xc1, 48},
-+{0x12, 53},
-+{0xC1, 124},
-+{0x01, 117},
-+{0xC1, 126},
-+{0xf, 5},
-+{0x23, 0},
-+{0xC2, 139},
-+{0x07, 34},
-+{0x09, 146},
-+{0x02, 178},
-+{0xC2, 140},
-+{0xC1, 118},
-+{0xC2, 133},
-+{0x07, 38},
-+{0xC2, 143},
-+{0x01, 101},
-+{0xc3, 9},
-+{0x7, 10},
-+{0xc2, 51},
-+{0x01, 109},
-+{0xc, 32},
-+{0x7, 8},
-+{0xC1, 129},
-+{0x01, 112},
-+{0x01, 107},
-+{0x07, 37},
-+{0x07, 44},
-+{0x1f, 50},
-+{0xC2, 144},
-+{0xc7, 52},
-+{0xC2, 141},
-+{0x01, 106},
-+{0x01, 110},
-+{0x01, 103},
-+{0x9, 28},
-+{0x07, 35},
-+{0xc7, 55},
-+{0x03, 179},
-+{0x07, 41},
-+{0xc, 30},
-+{0x01, 100},
-+{0xC1, 128},
-+{0xC2, 135},
-+{0x01, 105},
-+{0x7, 47},
-+{0xC2, 145},
-+{0xc7, 57},
-+{0x01, 104},
-+{0x07, 45},
-+{0xC2, 132},
-+{0xc4, 49},
-+{0xC1, 123},
-+{0xC2, 142},
-+{0x01, 13},
-+{0xC2, 136},
-+{0xc, 31},
-+{0xff,0xff}
-+};
++    dbus_interface_t a;
++    int r;
++    sd_bus_error error = SD_BUS_ERROR_NULL;
++    sd_bus_message *reply = NULL, *m=NULL;
 +
-+unsigned char findSensor(char sensor_number) {
++    printf("Attempting to set a dbus Variant Sensor 0x%02x via %s with a value of %s\n",
++        number, method, value);
 +
-+    int i=0;
++    r = find_openbmc_path("SENSOR", number, &a);
 +
-+    // TODO : This function should actually call
-+    // a dbus object and have it return the data
-+    // it is not ready yet so use a Palmetto 
-+    // based lookup table for now.  The g_sensortype
-+    // can be removed once the dbus method exists
-+    while (g_sensortype[i][0] != 0xff) {
-+        if (g_sensortype[i][1] == sensor_number) {
-+            break;
-+        } else {
-+            i++;
-+        }
++    printf("**********************\n");
++    printf("%s\n", a.bus);
++    printf("%s\n", a.path);
++    printf("%s\n", a.interface);
 +
++
++    r = sd_bus_message_new_method_call(bus,&m,a.bus,a.path,a.interface,method);
++    if (r < 0) {
++        fprintf(stderr, "Failed to create a method call: %s", strerror(-r));
 +    }
 +
-+    return g_sensortype[i][0];
++    r = sd_bus_message_append(m, "v", "s", value);
++    if (r < 0) {
++        fprintf(stderr, "Failed to create a input parameter: %s", strerror(-r));
++    }
 +
++
++    // Call the IPMI responder on the bus so the message can be sent to the CEC
++    r = sd_bus_call(bus, m, 0, &error, NULL);
++    if (r < 0) {
++        fprintf(stderr, "12 Failed to call the method: %s", strerror(-r));
++    }
++
++
++
++    sd_bus_error_free(&error);
++    sd_bus_message_unref(m);
++
++    return 0;
++}
+diff --git a/ipmisensor.C b/ipmisensor.C
+index c2370b8..72cb576 100644
+--- a/ipmisensor.C
++++ b/ipmisensor.C
+@@ -4,6 +4,9 @@
+ 
+ 
+ extern unsigned char findSensor(char);
++extern int set_sensor_dbus_state_v(uint8_t , const char *, char *);
++
++
+ 
+ struct sensorRES_t {
+ 	uint8_t sensor_number;
+@@ -18,48 +21,136 @@ struct sensorRES_t {
+ 	uint8_t event_data3;	
+ } __attribute__ ((packed));
+ 
+-#define ISBITSET(x,y) ((x>>y)&0x01)
++#define ISBITSET(x,y) (((x)>>(y))&0x01)
+ #define ASSERTINDEX 0
+ #define DEASSERTINDEX 1
+ 
+-
+-extern int updateDbusInterface(uint8_t , const char *, const char *) ;
+-extern int set_sensor_dbus_state(uint8_t ,const char *, const char *);
+-
+-
+-
+ // Sensor Type,  Offset, function handler, Dbus Method, Assert value, Deassert value
+ struct lookup_t {
+ 	uint8_t sensor_type;
+ 	uint8_t offset;
+-	int (*func)(uint8_t, const char *, const char *);
++	int (*func)(const sensorRES_t *, const lookup_t *, const char *);
+ 	char    method[16];
+ 	char    assertion[16];
+ 	char    deassertion[16];
+ };
+ 
+ 
++extern int updateDbusInterface(uint8_t , const char *, const char *) ;
++extern int set_sensor_dbus_state(uint8_t ,const char *, const char *);
++
++
++int set_sensor_dbus_state_simple(const sensorRES_t *pRec, const lookup_t *pTable, const char *value) {
++
++	return set_sensor_dbus_state(pRec->sensor_number, pTable->method, value);
++}
++
++struct event_data_t {
++	uint8_t data;
++	char    text[32];
++};
++
++event_data_t g_fwprogress02h[] = {
++	{0x00, "Unspecified"},
++	{0x01, "Memory Init"},
++	{0x02, "HD Init"},
++	{0x03, "Secondary Proc Init"},
++	{0x04, "User Authentication"},
++	{0x05, "User init system setup"},
++	{0x06, "USB configuration"},
++	{0x07, "PCI configuration"},
++	{0x08, "Option ROM Init"},
++	{0x09, "Video Init"},
++	{0x0A, "Cache Init"},
++	{0x0B, "SM Bus init"},
++	{0x0C, "Keyboard Init"},
++	{0x0D, "Embedded ctrl init"},
++	{0x0E, "Docking station attachment"},
++	{0x0F, "Enable docking station"},
++	{0x10, "Docking station ejection"},
++	{0x11, "Disabling docking station"},
++	{0x12, "Calling OS Wakeup"},
++	{0x13, "Starting OS"},
++	{0x14, "Baseboard Init"},
++	{0x15, ""},
++	{0x16, "Floppy Init"},
++	{0x17, "Keyboard Test"},
++	{0x18, "Pointing Device Test"},
++	{0x19, "Primary Proc Init"},
++	{0xFF, "Unknown"}
++};
++
++
++char *getfw02string(uint8_t b) {
++
++	int i = 0;
++	event_data_t *p = g_fwprogress02h;
++
++	do {
++
++		if ((p+i)->data == b)
++			break;
++		i++;
++	} while ((p+i)->data != 0xFF);
++
++	return p->text;
++}
++//  The fw progress sensor contains some additional information that needs to be processed
++//  prior to calling the dbus code.  
++int set_sensor_dbus_state_fwprogress(const sensorRES_t *pRec, const lookup_t *pTable, const char *value) {
++
++	char valuestring[32];
++	char* pStr = valuestring;
++
++	switch (pTable->offset) {
++
++		case 0x00 : sprintf(valuestring, "POST Error, 0x%02x", pRec->event_data2);
++					break;
++		case 0x01 : sprintf(valuestring, "FW Hang, 0x%02x", pRec->event_data2);
++					break;
++		case 0x02 : sprintf(valuestring, "FW Progress, 0x%02x", getfw02string(pRec->event_data2));
++	}
++
++	return set_sensor_dbus_state_v(pRec->sensor_number, pTable->method, pStr);
 +}
 +
 +
-+int set_sensor_dbus_state(uint8_t number, const char *method, const char *value) {
+ //  This table lists only senors we care about telling dbus about.
+ //  Offset definition cab be found in section 42.2 of the IPMI 2.0 
+ //  spec.  Add more if/when there are more items of interest.
+-lookup_t ipmidbuslookup[] = {
++lookup_t g_ipmidbuslookup[] = {
+ 
+-	{0x07, 0x07, set_sensor_dbus_state, "setPresent", "True", "False"},
+-	{0x07, 0x08, set_sensor_dbus_state, "setFault",   "True", "False"},
+-	{0x0C, 0x06, set_sensor_dbus_state, "setPresent", "True", "False"},
+-	{0x0C, 0x04, set_sensor_dbus_state, "setFault",   "True", "False"},
+-	{0xFF, 0xFF, NULL,                  "",            "" ,    ""}
++	{0x07, 0x07, set_sensor_dbus_state_simple, "setPresent", "True", "False"},
++	{0x07, 0x08, set_sensor_dbus_state_simple, "setFault",   "True", "False"},
++	{0x0C, 0x06, set_sensor_dbus_state_simple, "setPresent", "True", "False"},
++	{0x0C, 0x04, set_sensor_dbus_state_simple, "setFault",   "True", "False"},
++	{0x0F, 0x02, set_sensor_dbus_state_fwprogress, "setValue", "True", "False"},
++	{0x0F, 0x01, set_sensor_dbus_state_fwprogress, "setValue", "True", "False"},
++	{0x0F, 0x00, set_sensor_dbus_state_fwprogress, "setValue", "True", "False"},
 +
-+	printf("Attempting to log Sensor 0x%02x via %s with a value of %s\n", 
-+		number, method, value);
++	{0xFF, 0xFF, NULL, "", "", ""}
+ };
+ 
 +
-+	return 0;
++
++void reportSensorEventAssert(sensorRES_t *pRec, int index) {
++	lookup_t *pTable = &g_ipmidbuslookup[index];
++	(*pTable->func)(pRec, pTable, pTable->assertion);
++}
++void reportSensorEventDeassert(sensorRES_t *pRec, int index) {
++	lookup_t *pTable = &g_ipmidbuslookup[index];
++	(*pTable->func)(pRec, pTable, pTable->deassertion);
 +}
 +
 +
-+extern int updateSensorRecordFromSSRAESC(const void *record);
+ int findindex(const uint8_t sensor_type, int offset, int *index) {
+ 	
+ 	int i=0, rc=0;
+-	lookup_t *pTable = ipmidbuslookup;
++	lookup_t *pTable = g_ipmidbuslookup;
+ 
+ 	do {
+-
+ 		if ( ((pTable+i)->sensor_type == sensor_type) && 
+-			 ((pTable+i)->offset  == offset)  ) {
++			 ((pTable+i)->offset  == offset) ) {
+ 			rc = 1;
+ 			*index = i;
+ 			break;
+@@ -70,23 +161,12 @@ int findindex(const uint8_t sensor_type, int offset, int *index) {
+ 	return rc;
+ }
+ 
+-int shouldReport(sensorRES_t *pRec, uint8_t sensorType, int offset, int assertState) {
+-
+-	int index;
+-	char *pState;
+-	lookup_t *pTable = ipmidbuslookup;
++bool shouldReport(uint8_t sensorType, int offset, int *index) {
+ 
+-	if (findindex(sensorType, offset, &index)) {
++	bool rc = false;
++	if (findindex(sensorType, offset, index)) { rc = true;	}
+ 
+-		if (assertState == ASSERTINDEX) {
+-			pState = (pTable+index)->assertion;
+-		} else {
+-			pState = (pTable+index)->deassertion;
+-		}
+-		(*((pTable+index)->func))(pRec->sensor_number, (pTable+index)->method, pState);
+-	}
+-
+-	return 0;
++	return rc;
+ }
+ 
+ 
+@@ -95,23 +175,31 @@ int updateSensorRecordFromSSRAESC(const void *record) {
+ 	sensorRES_t *pRec = (sensorRES_t *) record;
+ 	unsigned char stype;
+ 	int index, i=0;
+-
+ 	stype = findSensor(pRec->sensor_number);
+ 
 +
+ 	// Scroll through each bit position .  Determine 
+ 	// if any bit is either asserted or Deasserted.
+ 	for(i=0;i<8;i++) {
+-		if (ISBITSET(pRec->assert_state7_0,i)) { 
+-			shouldReport(pRec, stype, i, ASSERTINDEX);
++		if ((ISBITSET(pRec->assert_state7_0,i))  &&
++			(shouldReport(stype, i, &index)))
++		{
++			reportSensorEventAssert(pRec, index);
+ 		}
+-		if (ISBITSET(pRec->assert_state14_8,i)) { 
+-			shouldReport(pRec, stype, i+8, ASSERTINDEX);
++		if ((ISBITSET(pRec->assert_state14_8,i+8))  &&
++			(shouldReport(stype, i+8, &index)))
++		{
++			reportSensorEventAssert(pRec, index);
+ 		}
+-		if (ISBITSET(pRec->deassert_state7_0,i)) { 
+-			shouldReport(pRec, stype, i, DEASSERTINDEX);
++		if ((ISBITSET(pRec->deassert_state7_0,i))  &&
++			(shouldReport(stype, i, &index)))
++		{
++			reportSensorEventDeassert(pRec, index);
+ 		}
+-		if (ISBITSET(pRec->deassert_state14_8,i)) { 
+-			shouldReport(pRec, stype, i+8, DEASSERTINDEX);
++		if ((ISBITSET(pRec->deassert_state14_8,i+8))  &&
++			(shouldReport(stype, i+8, &index)))
++		{
++			reportSensorEventDeassert(pRec, index);
+ 		}
+ 	}
+ 
+diff --git a/testit.C b/testit.C
+index 0641a55..021d534 100644
+--- a/testit.C
++++ b/testit.C
+@@ -120,6 +120,12 @@ unsigned char findSensor(char sensor_number) {
+ }
+ 
+ 
++int set_sensor_dbus_state_v(uint8_t number, const char *method, char *value) {
++    printf("Attempting to log Variant Sensor 0x%02x via %s with a value of %s\n", 
++        number, method, value);
 +
-+
-+
-+
-+uint8_t testrec_boot1[] = {0x05, 0xa9, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x14, 0x00};
-+uint8_t testrec_boot2[] = {0x05, 0xa9, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00};
-+uint8_t testrec_boot3[] = {0x05, 0xa9, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x03, 0x00};
-+uint8_t testrec_boot4[] = {0x05, 0xa9, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x13, 0x00};                       
-+
-+
-+
-+// DIMM Present
-+uint8_t testrec_sensor1[] {0x1F, 0xa9, 0x00, 0x40, 0x00, 0x10, 0x00, 0x00};
-+
-+// DIMM Not present
-+uint8_t testrec_sensor2[] {0x1F, 0xa9, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00};
-+
-+
-+uint8_t testrec_bootprogress[]  = {05, 0xa9, 0x00, 0x04, 0x00, 0x00, 0x14, 0x00 };
-+
-+int main() {
-+
-+	updateSensorRecordFromSSRAESC(testrec_bootprogress);
-+	updateSensorRecordFromSSRAESC(testrec_sensor1);
-+	updateSensorRecordFromSSRAESC(testrec_sensor2);
-+
-+
-+	return 0;
 +}
-\ No newline at end of file
++
+ int set_sensor_dbus_state(uint8_t number, const char *method, const char *value) {
+ 
+ 	printf("Attempting to log Sensor 0x%02x via %s with a value of %s\n", 
+@@ -133,8 +139,6 @@ extern int updateSensorRecordFromSSRAESC(const void *record);
+ 
+ 
+ 
+-
+-
+ uint8_t testrec_boot1[] = {0x05, 0xa9, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x14, 0x00};
+ uint8_t testrec_boot2[] = {0x05, 0xa9, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00};
+ uint8_t testrec_boot3[] = {0x05, 0xa9, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x03, 0x00};
 -- 
 2.6.0
