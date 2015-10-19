@@ -3,18 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id DBF951A0725
- for <openbmc@lists.ozlabs.org>; Mon, 19 Oct 2015 23:57:12 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 416881A098C
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Oct 2015 23:57:13 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1445259429456473.72629535164424;
- Mon, 19 Oct 2015 05:57:09 -0700 (PDT)
+ with SMTPS id 1445259430836717.4800682194374;
+ Mon, 19 Oct 2015 05:57:10 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid v2 1/6] Print the dlopen failure for
- debugging
-Date: Mon, 19 Oct 2015 07:57:01 -0500
-Message-Id: <1445259426-10511-2-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid v2 2/6] Add routines for getting lookup
+ data from the system dbus object
+Date: Mon, 19 Oct 2015 07:57:02 -0500
+Message-Id: <1445259426-10511-3-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1445259426-10511-1-git-send-email-patches@stwcx.xyz>
 References: <1445259426-10511-1-git-send-email-patches@stwcx.xyz>
@@ -34,21 +34,137 @@ X-List-Received-Date: Mon, 19 Oct 2015 12:57:13 -0000
 From: Chris Austen <austenc@us.ibm.com>
 
 ---
- ipmid.C | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ ipmid.C | 121 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 121 insertions(+)
 
 diff --git a/ipmid.C b/ipmid.C
-index d0dfba8..87f993e 100644
+index 87f993e..db2f6b9 100644
 --- a/ipmid.C
 +++ b/ipmid.C
-@@ -351,7 +351,7 @@ void ipmi_register_callback_handlers(const char* ipmi_lib_path)
-             if(lib_handler == NULL)
-             {
-                 fprintf(stderr,"ERROR opening:[%s]\n",handler_fqdn.c_str());
--                dlerror();
-+                fprintf(stderr, "%s\n", dlerror());
-             }
-             // Wipe the memory allocated for this particular entry.
-             free(handler_list[num_handlers]);
+@@ -426,3 +426,124 @@ finish:
+     return r < 0 ? EXIT_FAILURE : EXIT_SUCCESS;
+ 
+ }
++
++
++#define MAX_DBUS_PATH 128
++struct dbus_interface_t {
++    uint8_t  sensornumber;
++    uint8_t  sensortype;
++
++    char  bus[MAX_DBUS_PATH];
++    char  path[MAX_DBUS_PATH];
++    char  interface[MAX_DBUS_PATH];
++};
++
++
++
++// Use a lookup table to find the interface name of a specific sensor
++// This will be used until an alternative is found.  this is the first
++// step for mapping IPMI
++int find_openbmc_path(const char *type, const uint8_t num, dbus_interface_t *interface) {
++
++    const char  *busname = "org.openbmc.managers.System";
++    const char  *objname = "/org/openbmc/managers/System";
++
++    char  *str1, *str2, *str3;
++    sd_bus_error error = SD_BUS_ERROR_NULL;
++    sd_bus_message *reply = NULL, *m=NULL;
++
++
++    int r;
++
++    r = sd_bus_message_new_method_call(bus,&m,busname,objname,busname,"getObjectFromByteId");
++    if (r < 0) {
++        fprintf(stderr, "Failed to create a method call: %s", strerror(-r));
++    }
++
++    r = sd_bus_message_append(m, "sy", type, num);
++    if (r < 0) {
++        fprintf(stderr, "Failed to create a input parameter: %s", strerror(-r));
++    }
++
++    // Call the IPMI responder on the bus so the message can be sent to the CEC
++    r = sd_bus_call(bus, m, 0, &error, &reply);
++    if (r < 0) {
++        fprintf(stderr, "Failed to call the method: %s", strerror(-r));
++        goto final;
++    }
++
++
++    r = sd_bus_message_read(reply, "(sss)", &str1, &str2, &str3);
++    if (r < 0) {
++        fprintf(stderr, "Failed to get a response: %s", strerror(-r));
++        goto final;
++    }
++
++    strncpy(interface->bus, str1, MAX_DBUS_PATH);
++    strncpy(interface->path, str2, MAX_DBUS_PATH);
++    strncpy(interface->interface, str3, MAX_DBUS_PATH);
++
++    interface->sensornumber = num;
++
++
++final:
++
++    sd_bus_error_free(&error);
++    sd_bus_message_unref(m);
++
++    return r;
++}
++
++
++/////////////////////////////////////////////////////////////////////
++//
++// Routines used by ipmi commands wanting to interact on the dbus
++//
++/////////////////////////////////////////////////////////////////////
++
++
++// Simple set routine because some methods are standard.
++int set_sensor_dbus_state(uint8_t number, const char *method, const char *value) {
++
++
++    dbus_interface_t a;
++    int r;
++    sd_bus_error error = SD_BUS_ERROR_NULL;
++    sd_bus_message *reply = NULL, *m=NULL;
++
++    printf("Attempting to set a dbus Sensor 0x%02x via %s with a value of %s\n",
++        number, method, value);
++
++    r = find_openbmc_path("SENSOR", number, &a);
++
++    printf("**********************\n");
++    printf("%s\n", a.bus);
++    printf("%s\n", a.path);
++    printf("%s\n", a.interface);
++
++
++    r = sd_bus_message_new_method_call(bus,&m,a.bus,a.path,a.interface,method);
++    if (r < 0) {
++        fprintf(stderr, "Failed to create a method call: %s", strerror(-r));
++    }
++
++    r = sd_bus_message_append(m, "s", value);
++    if (r < 0) {
++        fprintf(stderr, "Failed to create a input parameter: %s", strerror(-r));
++    }
++
++    // Call the IPMI responder on the bus so the message can be sent to the CEC
++    r = sd_bus_call(bus, m, 0, &error, &reply);
++    if (r < 0) {
++        fprintf(stderr, "Failed to call the method: %s", strerror(-r));
++    }
++
++
++
++    sd_bus_error_free(&error);
++    sd_bus_message_unref(m);
++
++    return 0;
++
++
++}
 -- 
 2.6.0
