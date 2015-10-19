@@ -3,20 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 67B7C1A08A3
- for <openbmc@lists.ozlabs.org>; Mon, 19 Oct 2015 23:57:06 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id C79751A0725
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Oct 2015 23:57:11 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1445259420383270.73426281605396;
- Mon, 19 Oct 2015 05:57:00 -0700 (PDT)
+ with SMTPS id 1445259428007615.8603914983512;
+ Mon, 19 Oct 2015 05:57:08 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 9/9] Make host-ipmid pull in host IPMI to hw package
-Date: Mon, 19 Oct 2015 07:56:45 -0500
-Message-Id: <1445259405-10312-10-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid v2 0/6] Added Sensors -> dbus states
+Date: Mon, 19 Oct 2015 07:57:00 -0500
+Message-Id: <1445259426-10511-1-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
-In-Reply-To: <1445259405-10312-1-git-send-email-patches@stwcx.xyz>
-References: <1445259405-10312-1-git-send-email-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,49 +26,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Oct 2015 12:57:06 -0000
+X-List-Received-Date: Mon, 19 Oct 2015 12:57:12 -0000
 
-From: Brad Bishop <bradleyb@us.ibm.com>
+https://github.com/openbmc/phosphor-host-ipmid/pull/8
 
-Set preferred providers for palmetto and qemuarm targets.
----
- .../meta-openpower/meta-ibm/meta-palmetto/conf/machine/palmetto.conf    | 2 ++
- meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb          | 2 ++
- meta-phosphor/conf/machine/include/sample.inc                           | 2 ++
- 3 files changed, 6 insertions(+)
+Chris Austen (6):
+  Print the dlopen failure for debugging
+  Add routines for getting lookup data from the system dbus object
+  Suport examining sensor records and calling dbus
+  Added testcases for sensor record parsing
+  Add virtual sensor support
+  C7 and & virtual sensor support
 
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/machine/palmetto.conf b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/machine/palmetto.conf
-index 0efdda0..0ef430e 100644
---- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/machine/palmetto.conf
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/machine/palmetto.conf
-@@ -29,3 +29,5 @@ UBOOT_ENTRYPOINT = "0x40008000"
- UBOOT_LOADADDRESS = "0x40008000"
- 
- FLASH_SIZE = "32768"
-+
-+PREFERRED_PROVIDER_virtual/obmc-phosphor-host-ipmi-hw = "host-ipmi-bt"
-diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb
-index 5f38eb3..ab3a1cb 100644
---- a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb
-+++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb
-@@ -3,6 +3,8 @@ DESCRIPTION = "Phosphor OpenBMC IPMI router and plugin libraries"
- HOMEPAGE = "http://github.com/openbmc/phosphor-host-ipmid"
- PR = "r1"
- 
-+RRECOMMENDS_${PN} = "virtual/obmc-phosphor-host-ipmi-hw"
-+
- inherit obmc-phosphor-license
- inherit obmc-phosphor-sdbus-service
- inherit obmc-phosphor-c-daemon
-diff --git a/meta-phosphor/conf/machine/include/sample.inc b/meta-phosphor/conf/machine/include/sample.inc
-index 89ad0ec..801706f 100644
---- a/meta-phosphor/conf/machine/include/sample.inc
-+++ b/meta-phosphor/conf/machine/include/sample.inc
-@@ -17,3 +17,5 @@ VIRTUAL-RUNTIME_obmc-phosphor-chassis-ctl = " \
- VIRTUAL-RUNTIME_obmc-phosphor-flash-ctl = " \
-        obmc-phosphor-example-pydbus \
-        "
-+
-+PREFERRED_PROVIDER_virtual/obmc-phosphor-host-ipmi-hw ?= "host-ipmi-hw-example"
+ Makefile        |  16 +++-
+ ipmid.C         | 167 ++++++++++++++++++++++++++++++++++++++++-
+ ipmisensor.C    | 229 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ sensorhandler.C |   8 +-
+ testit.C        | 166 ++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 580 insertions(+), 6 deletions(-)
+ create mode 100644 ipmisensor.C
+ create mode 100644 testit.C
+
 -- 
 2.6.0
