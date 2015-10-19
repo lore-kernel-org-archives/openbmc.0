@@ -1,21 +1,31 @@
-Return-Path: <patches@stwcx.xyz>
+Return-Path: <patrick@stwcx.xyz>
 Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id B4FA31A0730
- for <openbmc@lists.ozlabs.org>; Tue, 20 Oct 2015 09:23:01 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 908311A03A9
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Oct 2015 10:00:10 +1100 (AEDT)
 Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
- with SMTPS id 1445293378379590.1921986000781;
- Mon, 19 Oct 2015 15:22:58 -0700 (PDT)
-From: OpenBMC Patches <patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid] Watchdog support
-Date: Mon, 19 Oct 2015 17:22:55 -0500
-Message-Id: <1445293375-844-2-git-send-email-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.0
-In-Reply-To: <1445293375-844-1-git-send-email-patches@stwcx.xyz>
-References: <1445293375-844-1-git-send-email-patches@stwcx.xyz>
+ with SMTPS id 1445295606766598.1608376051901;
+ Mon, 19 Oct 2015 16:00:06 -0700 (PDT)
+Date: Mon, 19 Oct 2015 18:00:05 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: OpenBMC Patches <patches@stwcx.xyz>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: [PATCH openbmc 4/9] Start host-ipmid on boot
+Message-ID: <20151019230005.GI13316@asimov.austin.ibm.com>
+References: <1445259405-10312-1-git-send-email-patches@stwcx.xyz>
+ <1445259405-10312-5-git-send-email-patches@stwcx.xyz>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="GdbWtwDHkcXqP16f"
+Content-Disposition: inline
+In-Reply-To: <1445259405-10312-5-git-send-email-patches@stwcx.xyz>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
+X-ZohoMail: Ss  SS_10 UW UB CHF_INT_SMD_EXT  SGR4_1_06105_2
+X-ZohoMail-Owner: <20151019230005.GI13316@asimov.austin.ibm.com>+zmo_0_<patrick@stwcx.xyz>
+X-ZohoMail-Sender: 32.97.110.52
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -27,204 +37,101 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Oct 2015 22:23:02 -0000
+X-List-Received-Date: Mon, 19 Oct 2015 23:00:12 -0000
 
-From: Adriana Kobylak <anoo@us.ibm.com>
 
----
- apphandler.C | 110 ++++++++++++++++++++++++++++++++++++++++++++++-------------
- 1 file changed, 86 insertions(+), 24 deletions(-)
+--GdbWtwDHkcXqP16f
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/apphandler.C b/apphandler.C
-index 596ec9c..9d53552 100755
---- a/apphandler.C
-+++ b/apphandler.C
-@@ -4,12 +4,15 @@
- #include <stdio.h>
- #include <string.h>
- #include <stdint.h>
-+#include <systemd/sd-bus.h>
-+
-+extern sd_bus *bus;
- 
- void register_netfn_app_functions() __attribute__((constructor));
- 
- 
--ipmi_ret_t ipmi_app_read_event(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
--                             ipmi_request_t request, ipmi_response_t response, 
-+ipmi_ret_t ipmi_app_read_event(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-+                             ipmi_request_t request, ipmi_response_t response,
-                              ipmi_data_len_t data_len, ipmi_context_t context)
- {
-     ipmi_ret_t rc = IPMI_CC_OK;
-@@ -21,8 +24,8 @@ ipmi_ret_t ipmi_app_read_event(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
- }
- 
- 
--ipmi_ret_t ipmi_app_set_acpi_power_state(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
--                             ipmi_request_t request, ipmi_response_t response, 
-+ipmi_ret_t ipmi_app_set_acpi_power_state(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-+                             ipmi_request_t request, ipmi_response_t response,
-                              ipmi_data_len_t data_len, ipmi_context_t context)
- {
-     ipmi_ret_t rc = IPMI_CC_OK;
-@@ -32,18 +35,18 @@ ipmi_ret_t ipmi_app_set_acpi_power_state(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-     return rc;
- }
- 
--ipmi_ret_t ipmi_app_get_device_id(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
--                             ipmi_request_t request, ipmi_response_t response, 
-+ipmi_ret_t ipmi_app_get_device_id(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-+                             ipmi_request_t request, ipmi_response_t response,
-                              ipmi_data_len_t data_len, ipmi_context_t context)
- {
-     ipmi_ret_t rc = IPMI_CC_OK;
- 
--    // TODO GET REAL VALUES HERE....  I made these ones up because 
-+    // TODO GET REAL VALUES HERE....  I made these ones up because
-     // we are in bringup mode.  Version Major and Minor can be what we
--    // want like v1.03  but the IANA really should be something that 
--    // we own.  I would suggest getting the IANA from Hostboot as 
--    // long as IBM owns it then no problem.  If some other company 
--    // gave us the IANA to use then use the one we have from the 
-+    // want like v1.03  but the IANA really should be something that
-+    // we own.  I would suggest getting the IANA from Hostboot as
-+    // long as IBM owns it then no problem.  If some other company
-+    // gave us the IANA to use then use the one we have from the
-     // FSP ipmi code.
-     uint8_t str[] = {0x00, 0, 1, 1,2, 0xD, 0x41, 0xA7, 0x00, 0x43, 0x40};
- 
-@@ -56,8 +59,8 @@ ipmi_ret_t ipmi_app_get_device_id(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
- }
- 
- 
--ipmi_ret_t ipmi_app_get_bt_capabilities(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
--                             ipmi_request_t request, ipmi_response_t response, 
-+ipmi_ret_t ipmi_app_get_bt_capabilities(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-+                             ipmi_request_t request, ipmi_response_t response,
-                              ipmi_data_len_t data_len, ipmi_context_t context)
- {
-     printf("Handling Netfn:[0x%X], Cmd:[0x%X]\n",netfn,cmd);
-@@ -88,41 +91,100 @@ struct set_wd_data_t {
- 
- 
- 
--ipmi_ret_t ipmi_app_set_watchdog(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
--                             ipmi_request_t request, ipmi_response_t response, 
-+ipmi_ret_t ipmi_app_set_watchdog(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-+                             ipmi_request_t request, ipmi_response_t response,
-                              ipmi_data_len_t data_len, ipmi_context_t context)
- {
-+    const char  *busname = "org.openbmc.watchdog.Host";
-+    const char  *objname = "/org/openbmc/watchdog/HostWatchdog_0";
-+    const char  *iface = "org.openbmc.Watchdog";
-+    sd_bus_message *reply = NULL, *m = NULL;
-+    sd_bus_error error = SD_BUS_ERROR_NULL;
-+    int r = 0;
- 
-     set_wd_data_t *reqptr = (set_wd_data_t*) request;
-     uint16_t timer = 0;
-+    uint32_t timer_ms = 0;
-     // Status code.
-     ipmi_ret_t rc = IPMI_CC_OK;
- 
-     *data_len = 0;
- 
-+    // Get number of 100ms intervals
-     timer = (((uint16_t)reqptr->ms) << 8) + reqptr->ls;
-+    // Get timer value in ms
-+    timer_ms = timer * 100;
- 
-     printf("WATCHDOG SET Timer:[0x%X] 100ms intervals\n",timer);
- 
--    // TODO: Right here is where we would call some dbus method as a timer.
--    // If the timer expires it would iniate a reboot of the host.
-+    // Set watchdog timer
-+    r = sd_bus_message_new_method_call(bus,&m,busname,objname,iface,"set");
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to add the set method object: %s\n", strerror(-r));
-+        return -1;
-+    }
-+    r = sd_bus_message_append(m, "i", timer_ms);
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to add timer value: %s\n", strerror(-r));
-+        return -1;
-+    }
-+    r = sd_bus_call(bus, m, 0, &error, &reply);
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to call the set method: %s\n", strerror(-r));
-+        return -1;
-+    }
-+
-+    // Start watchdog
-+    r = sd_bus_message_new_method_call(bus,&m,busname,objname,iface,"start");
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to add the start method object: %s\n", strerror(-r));
-+        return -1;
-+    }
-+    r = sd_bus_call(bus, m, 0, &error, &reply);
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to call the start method: %s\n", strerror(-r));
-+        return -1;
-+    }
-+
-+    sd_bus_error_free(&error);
-+    sd_bus_message_unref(m);
- 
-     return rc;
- }
- 
- 
--ipmi_ret_t ipmi_app_reset_watchdog(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
--                             ipmi_request_t request, ipmi_response_t response, 
-+ipmi_ret_t ipmi_app_reset_watchdog(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-+                             ipmi_request_t request, ipmi_response_t response,
-                              ipmi_data_len_t data_len, ipmi_context_t context)
- {
-+    const char  *busname = "org.openbmc.watchdog.Host";
-+    const char  *objname = "/org/openbmc/watchdog/HostWatchdog_0";
-+    const char  *iface = "org.openbmc.Watchdog";
-+    sd_bus_message *reply = NULL, *m = NULL;
-+    sd_bus_error error = SD_BUS_ERROR_NULL;
-+    int r = 0;
-+
-     // Status code.
-     ipmi_ret_t rc = IPMI_CC_OK;
-     *data_len = 0;
- 
-     printf("WATCHDOG RESET\n");
--    // TODO Right here is where we would call some sdbus timer.
--    // If your are experiencing dejavu you are right.  the
--    // set and the reset do similar things
-+
-+    // Refresh watchdog
-+    r = sd_bus_message_new_method_call(bus,&m,busname,objname,iface,"poke");
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to add the method object: %s\n", strerror(-r));
-+        return -1;
-+    }
-+    r = sd_bus_call(bus, m, 0, &error, &reply);
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to call the method: %s\n", strerror(-r));
-+        return -1;
-+    }
-+
-+    sd_bus_error_free(&error);
-+    sd_bus_message_unref(m);
-+
-     return rc;
- }
- 
-@@ -130,8 +192,8 @@ ipmi_ret_t ipmi_app_reset_watchdog(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
- 
- 
- 
--ipmi_ret_t ipmi_app_wildcard_handler(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
--                              ipmi_request_t request, ipmi_response_t response, 
-+ipmi_ret_t ipmi_app_wildcard_handler(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-+                              ipmi_request_t request, ipmi_response_t response,
-                               ipmi_data_len_t data_len, ipmi_context_t context)
- {
-     printf("Handling WILDCARD Netfn:[0x%X], Cmd:[0x%X]\n",netfn, cmd);
--- 
-2.6.0
+Brad, I already did something similar to this.  Can you confirm this
+patch set will still work?
+
+On Mon, Oct 19, 2015 at 07:56:40AM -0500, OpenBMC Patches wrote:
+> From: Brad Bishop <bradleyb@us.ibm.com>
+>=20
+> Recipe was not picking up c-daemon which hooks into systemd.
+> Removed quotes from description.
+> ---
+>  meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb       | 5=
+ ++---
+>  .../common/recipes-phosphor/host-ipmid/host-ipmid/host-ipmid.service | 2=
+ +-
+>  2 files changed, 3 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.=
+bb b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb
+> index 5e7ad64..5f38eb3 100644
+> --- a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb
+> +++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb
+> @@ -5,17 +5,16 @@ PR =3D "r1"
+> =20
+>  inherit obmc-phosphor-license
+>  inherit obmc-phosphor-sdbus-service
+> +inherit obmc-phosphor-c-daemon
+> =20
+>  SRC_URI +=3D "git://github.com/openbmc/phosphor-host-ipmid"
+> =20
+>  SRCREV =3D "98900a99254cd177c8308b63c341f793d2ac119d"
+> =20
+>  S =3D "${WORKDIR}/git"
+> +INSTALL_NAME =3D "ipmid"
+> =20
+>  do_install() {
+> -        install -m 0755 -d ${D}${sbindir}
+> -        install -m 0755 ${S}/ipmid ${D}${sbindir}/
+> -
+>          install -m 0755 -d ${D}${libdir}/host-ipmid
+>          install -m 0755 ${S}/*.so ${D}${libdir}/host-ipmid/
+> =20
+> diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid/=
+host-ipmid.service b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-=
+ipmid/host-ipmid.service
+> index 0636f12..ee9ce1a 100644
+> --- a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid/host-ip=
+mid.service
+> +++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid/host-ip=
+mid.service
+> @@ -1,5 +1,5 @@
+>  [Unit]
+> -Description=3D"Phosphor OpenBMC IPMI daemon"
+> +Description=3DPhosphor OpenBMC IPMI daemon
+> =20
+>  [Service]
+>  ExecStart=3D/usr/sbin/ipmid
+> --=20
+> 2.6.0
+>=20
+>=20
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+
+--=20
+Patrick Williams
+
+--GdbWtwDHkcXqP16f
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJWJXX1AAoJEKsDR8wtAMEZYPAP/0vBl+FPl8jlo7pDRrn7PD1L
+U+aEa1QBasGQt7TO0KBG95AJIka60beb2nfs+GVGAjdaOM3w+vLjYkk4lLEEDyYH
+2kqCKEnP3+iYTCD3rs6tut+8ZCthq8Rnb44kV+5EisRs5wIZuKXOz93zj9aR6VRH
+US8sDOxeuxDKZmmPkCIhv65I7Oyz0C5KlbWRh6e+cjshejMnNRh/6l2S0s2xwqg4
+b4VGjJ2CfPXHC2mWGibTyR1XtX89bMdwk4+I5z8upSXkBKDYiGZyY4Zm6rCYZnw3
+StayLxqiwinIw0QwF4867N9Cy12SxXaVbOSQdpyZDSN9SjR7tsPPjyInkGF1/t1b
+z/jEd8LJ5oqktHsWIPBDlI7YHPPy/CqvEcyQPXlJlDjCR95dtKFXuTNSij5soMvB
+DvyrosM0WeciUWHB/w6W5WKkowQNpTse3WJVF9USypGeCYPfbiyV8iVlV2MW9sA/
+ehfngYuQD3pSYA3zOdDGdWa7JJUYZOouzgJ+WKmSEAZeSdqhNS8KZ4m6L4aFGqW5
+Ga/Pd+1SlMqUoqX4baKwgE4APN7K5VBZBlL0ajWcrAkakU+5BshKctRz9ixsd56N
+UKqFiR/Ic9B962BWb9uUiZTbop51mRXIXPEE0wWmh/jzPFlWbDV+8J0zTpUjpTNm
++Cxif4PB++9bVZ3iTzSk
+=GBny
+-----END PGP SIGNATURE-----
+
+--GdbWtwDHkcXqP16f--
