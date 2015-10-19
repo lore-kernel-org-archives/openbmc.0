@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id BCDD61A0AC9
- for <openbmc@lists.ozlabs.org>; Mon, 19 Oct 2015 23:56:59 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 508AF1A0A01
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Oct 2015 23:57:00 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1445259416274656.5404808251785;
- Mon, 19 Oct 2015 05:56:56 -0700 (PDT)
+ with SMTPS id 1445259417639418.28986362796286;
+ Mon, 19 Oct 2015 05:56:57 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 6/9] Add host IPMI DBUS to hw provider class
-Date: Mon, 19 Oct 2015 07:56:42 -0500
-Message-Id: <1445259405-10312-7-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH openbmc 7/9] Add recipe for host IPMI DBUS to BT
+Date: Mon, 19 Oct 2015 07:56:43 -0500
+Message-Id: <1445259405-10312-8-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1445259405-10312-1-git-send-email-patches@stwcx.xyz>
 References: <1445259405-10312-1-git-send-email-patches@stwcx.xyz>
@@ -33,19 +33,48 @@ X-List-Received-Date: Mon, 19 Oct 2015 12:57:00 -0000
 From: Brad Bishop <bradleyb@us.ibm.com>
 
 ---
- meta-phosphor/classes/obmc-phosphor-host-ipmi-hw.bbclass | 4 ++++
- 1 file changed, 4 insertions(+)
- create mode 100644 meta-phosphor/classes/obmc-phosphor-host-ipmi-hw.bbclass
+ .../common/recipes-phosphor/host-ipmid/host-ipmi-bt.bb  | 17 +++++++++++++++++
+ .../host-ipmid/host-ipmi-bt/host-ipmi-bt.service        |  8 ++++++++
+ 2 files changed, 25 insertions(+)
+ create mode 100644 meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-bt.bb
+ create mode 100644 meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-bt/host-ipmi-bt.service
 
-diff --git a/meta-phosphor/classes/obmc-phosphor-host-ipmi-hw.bbclass b/meta-phosphor/classes/obmc-phosphor-host-ipmi-hw.bbclass
+diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-bt.bb b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-bt.bb
 new file mode 100644
-index 0000000..974c010
+index 0000000..830f754
 --- /dev/null
-+++ b/meta-phosphor/classes/obmc-phosphor-host-ipmi-hw.bbclass
-@@ -0,0 +1,4 @@
-+# Common code for recipes that implement Phosphor OpenBMC IPMI HW to DBUS translation.
++++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-bt.bb
+@@ -0,0 +1,17 @@
++SUMMARY = "Phosphor OpenBMC BT to DBUS"
++DESCRIPTION = "Phosphor OpenBMC BT to DBUS."
++PR = "r1"
 +
-+RPROVIDES_${PN} += "virtual/obmc-phosphor-host-ipmi-hw"
-+PROVIDES += "virtual/obmc-phosphor-host-ipmi-hw"
++RDEPENDS_${PN} += "python-subprocess"
++
++SYSTEMD_SERVICE_${PN} = "host-ipmi-bt.service"
++
++inherit obmc-phosphor-pydbus-service
++inherit obmc-phosphor-host-ipmi-hw
++
++S = "${WORKDIR}/git"
++SRC_URI += "git://github.com/openbmc/skeleton.git;subpath=bin;destsuffix=git"
++SRCREV="${AUTOREV}"
++
++SCRIPT_NAME = "ipmid.py"
++INSTALL_NAME = "host-ipmi-bt"
+diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-bt/host-ipmi-bt.service b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-bt/host-ipmi-bt.service
+new file mode 100644
+index 0000000..dfc0416
+--- /dev/null
++++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-bt/host-ipmi-bt.service
+@@ -0,0 +1,8 @@
++[Unit]
++Description=Phosphor OpenBMC BT to DBUS 
++
++[Service]
++ExecStart=/usr/sbin/host-ipmi-bt
++
++[Install]
++WantedBy=multi-user.target
 -- 
 2.6.0
