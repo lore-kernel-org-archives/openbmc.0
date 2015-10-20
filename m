@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 310D21A06C9
- for <openbmc@lists.ozlabs.org>; Wed, 21 Oct 2015 06:20:12 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id D7ACF1A075C
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Oct 2015 06:20:13 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1445368808391996.7623413284457;
- Tue, 20 Oct 2015 12:20:08 -0700 (PDT)
+ with SMTPS id 1445368810350728.9637121150382;
+ Tue, 20 Oct 2015 12:20:10 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 03/20] Remove S and SRC_URI from c daemon class
-Date: Tue, 20 Oct 2015 14:19:41 -0500
-Message-Id: <1445368798-31274-4-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH openbmc 04/20] Start host-ipmid on boot
+Date: Tue, 20 Oct 2015 14:19:42 -0500
+Message-Id: <1445368798-31274-5-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1445368798-31274-1-git-send-email-patches@stwcx.xyz>
 References: <1445368798-31274-1-git-send-email-patches@stwcx.xyz>
@@ -28,70 +28,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Oct 2015 19:20:12 -0000
+X-List-Received-Date: Tue, 20 Oct 2015 19:20:14 -0000
 
 From: Brad Bishop <bradleyb@us.ibm.com>
 
-Initially this could be done in one place but as
-sources move to git repositories this can't be done
-in a generic manner.
-
-Adapted existing recipes to this class change.
+Recipe was not picking up c-daemon which hooks into systemd.
+Removed quotes from description.
 ---
- meta-phosphor/classes/obmc-phosphor-c-daemon.bbclass           | 10 ++++------
- .../obmc-phosphor-example-sdbus/obmc-phosphor-example-sdbus.bb |  4 ++++
- .../recipes-phosphor/obmc-phosphor-fan/obmc-phosphor-fand.bb   |  5 +++++
- 3 files changed, 13 insertions(+), 6 deletions(-)
+ meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb       | 5 ++---
+ .../common/recipes-phosphor/host-ipmid/host-ipmid/host-ipmid.service | 2 +-
+ 2 files changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/meta-phosphor/classes/obmc-phosphor-c-daemon.bbclass b/meta-phosphor/classes/obmc-phosphor-c-daemon.bbclass
-index e21d17c..0ceed96 100644
---- a/meta-phosphor/classes/obmc-phosphor-c-daemon.bbclass
-+++ b/meta-phosphor/classes/obmc-phosphor-c-daemon.bbclass
-@@ -4,14 +4,12 @@ inherit obmc-phosphor-systemd
+diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb
+index 5e7ad64..5f38eb3 100644
+--- a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb
++++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb
+@@ -5,17 +5,16 @@ PR = "r1"
+ 
  inherit obmc-phosphor-license
- 
- DEPENDS += "glib-2.0"
--SRC_URI += " \
--        file://Makefile \
--        file://${PN}.c \
--        "
--S = "${WORKDIR}"
-+
-+INSTALL_NAME ?= "${PN}"
-+BIN_NAME ?= "${INSTALL_NAME}"
- 
- do_install_append() {
-         # install the binary
-         install -d ${D}${sbindir}
--        install -m 0755 ${WORKDIR}/${PN} ${D}${sbindir}
-+        install -m 0755 ${S}/${BIN_NAME} ${D}${sbindir}/${INSTALL_NAME}
- }
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-sdbus/obmc-phosphor-example-sdbus.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-sdbus/obmc-phosphor-example-sdbus.bb
-index 89fbdb1..f1a9eb9 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-sdbus/obmc-phosphor-example-sdbus.bb
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-sdbus/obmc-phosphor-example-sdbus.bb
-@@ -7,5 +7,9 @@ DBUS_SERVICES = " \
-         org.openbmc.examples.SDBusService1 \
-         "
- 
-+S = "${WORKDIR}"
-+SRC_URI += "file://Makefile \
-+           file://obmc-phosphor-example-sdbus.c \
-+           "
  inherit obmc-phosphor-sdbus-service
- inherit obmc-phosphor-c-daemon
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-fan/obmc-phosphor-fand.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-fan/obmc-phosphor-fand.bb
-index 79e2e6c..8c937c6 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-fan/obmc-phosphor-fand.bb
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-fan/obmc-phosphor-fand.bb
-@@ -5,3 +5,8 @@ PR = "r1"
- inherit obmc-phosphor-fan-mgmt
- inherit obmc-phosphor-sdbus-service
- inherit obmc-phosphor-c-daemon
-+
-+S = "${WORKDIR}"
-+SRC_URI += "file://Makefile \
-+           file://obmc-phosphor-fand.c \
-+           "
++inherit obmc-phosphor-c-daemon
+ 
+ SRC_URI += "git://github.com/openbmc/phosphor-host-ipmid"
+ 
+ SRCREV = "98900a99254cd177c8308b63c341f793d2ac119d"
+ 
+ S = "${WORKDIR}/git"
++INSTALL_NAME = "ipmid"
+ 
+ do_install() {
+-        install -m 0755 -d ${D}${sbindir}
+-        install -m 0755 ${S}/ipmid ${D}${sbindir}/
+-
+         install -m 0755 -d ${D}${libdir}/host-ipmid
+         install -m 0755 ${S}/*.so ${D}${libdir}/host-ipmid/
+ 
+diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid/host-ipmid.service b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid/host-ipmid.service
+index 0636f12..ee9ce1a 100644
+--- a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid/host-ipmid.service
++++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid/host-ipmid.service
+@@ -1,5 +1,5 @@
+ [Unit]
+-Description="Phosphor OpenBMC IPMI daemon"
++Description=Phosphor OpenBMC IPMI daemon
+ 
+ [Service]
+ ExecStart=/usr/sbin/ipmid
 -- 
 2.6.0
