@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 266B61A072C
- for <openbmc@lists.ozlabs.org>; Wed, 21 Oct 2015 06:20:08 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 310D21A06C9
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Oct 2015 06:20:12 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1445368805054426.7709201361754;
- Tue, 20 Oct 2015 12:20:05 -0700 (PDT)
+ with SMTPS id 1445368808391996.7623413284457;
+ Tue, 20 Oct 2015 12:20:08 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 02/20] Remove S and SRC_URI from python daemon class
-Date: Tue, 20 Oct 2015 14:19:40 -0500
-Message-Id: <1445368798-31274-3-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH openbmc 03/20] Remove S and SRC_URI from c daemon class
+Date: Tue, 20 Oct 2015 14:19:41 -0500
+Message-Id: <1445368798-31274-4-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1445368798-31274-1-git-send-email-patches@stwcx.xyz>
 References: <1445368798-31274-1-git-send-email-patches@stwcx.xyz>
@@ -28,7 +28,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Oct 2015 19:20:09 -0000
+X-List-Received-Date: Tue, 20 Oct 2015 19:20:12 -0000
 
 From: Brad Bishop <bradleyb@us.ibm.com>
 
@@ -38,118 +38,60 @@ in a generic manner.
 
 Adapted existing recipes to this class change.
 ---
- meta-phosphor/classes/obmc-phosphor-py-daemon.bbclass             | 8 +++-----
- .../obmc-phosphor-chassis/obmc-phosphor-chassisd.bb               | 3 +++
- .../recipes-phosphor/obmc-phosphor-event/obmc-phosphor-eventd.bb  | 3 +++
- .../obmc-phosphor-example-pydbus/obmc-phosphor-example-pydbus.bb  | 4 +++-
- .../recipes-phosphor/obmc-phosphor-flash/obmc-phosphor-flashd.bb  | 3 +++
- .../obmc-phosphor-policy/obmc-phosphor-policyd.bb                 | 3 +++
- .../obmc-phosphor-sensor/obmc-phosphor-sensord.bb                 | 3 +++
- .../recipes-phosphor/obmc-phosphor-sys/obmc-phosphor-sysd.bb      | 3 +++
- 8 files changed, 24 insertions(+), 6 deletions(-)
+ meta-phosphor/classes/obmc-phosphor-c-daemon.bbclass           | 10 ++++------
+ .../obmc-phosphor-example-sdbus/obmc-phosphor-example-sdbus.bb |  4 ++++
+ .../recipes-phosphor/obmc-phosphor-fan/obmc-phosphor-fand.bb   |  5 +++++
+ 3 files changed, 13 insertions(+), 6 deletions(-)
 
-diff --git a/meta-phosphor/classes/obmc-phosphor-py-daemon.bbclass b/meta-phosphor/classes/obmc-phosphor-py-daemon.bbclass
-index 35c2714..9cb8bfd 100644
---- a/meta-phosphor/classes/obmc-phosphor-py-daemon.bbclass
-+++ b/meta-phosphor/classes/obmc-phosphor-py-daemon.bbclass
-@@ -5,13 +5,11 @@ inherit obmc-phosphor-systemd
+diff --git a/meta-phosphor/classes/obmc-phosphor-c-daemon.bbclass b/meta-phosphor/classes/obmc-phosphor-c-daemon.bbclass
+index e21d17c..0ceed96 100644
+--- a/meta-phosphor/classes/obmc-phosphor-c-daemon.bbclass
++++ b/meta-phosphor/classes/obmc-phosphor-c-daemon.bbclass
+@@ -4,14 +4,12 @@ inherit obmc-phosphor-systemd
  inherit obmc-phosphor-license
  
- RDEPENDS_${PN} += "python-dbus python-pygobject"
+ DEPENDS += "glib-2.0"
 -SRC_URI += " \
--        file://${PN}.py \
+-        file://Makefile \
+-        file://${PN}.c \
 -        "
 -S = "${WORKDIR}"
++
 +INSTALL_NAME ?= "${PN}"
-+SCRIPT_NAME ?= "${INSTALL_NAME}.py"
++BIN_NAME ?= "${INSTALL_NAME}"
  
  do_install_append() {
-         # install the script
+         # install the binary
          install -d ${D}${sbindir}
--        install -m 0755 ${WORKDIR}/${PN}.py ${D}${sbindir}/${PN}
-+        install -m 0755 ${S}/${SCRIPT_NAME} ${D}${sbindir}/${INSTALL_NAME}
+-        install -m 0755 ${WORKDIR}/${PN} ${D}${sbindir}
++        install -m 0755 ${S}/${BIN_NAME} ${D}${sbindir}/${INSTALL_NAME}
  }
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-chassis/obmc-phosphor-chassisd.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-chassis/obmc-phosphor-chassisd.bb
-index ad642a3..d7a8ed9 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-chassis/obmc-phosphor-chassisd.bb
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-chassis/obmc-phosphor-chassisd.bb
-@@ -4,3 +4,6 @@ PR = "r1"
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-sdbus/obmc-phosphor-example-sdbus.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-sdbus/obmc-phosphor-example-sdbus.bb
+index 89fbdb1..f1a9eb9 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-sdbus/obmc-phosphor-example-sdbus.bb
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-sdbus/obmc-phosphor-example-sdbus.bb
+@@ -7,5 +7,9 @@ DBUS_SERVICES = " \
+         org.openbmc.examples.SDBusService1 \
+         "
  
- inherit obmc-phosphor-chassis-mgmt
- inherit obmc-phosphor-pydbus-service
++S = "${WORKDIR}"
++SRC_URI += "file://Makefile \
++           file://obmc-phosphor-example-sdbus.c \
++           "
+ inherit obmc-phosphor-sdbus-service
+ inherit obmc-phosphor-c-daemon
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-fan/obmc-phosphor-fand.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-fan/obmc-phosphor-fand.bb
+index 79e2e6c..8c937c6 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-fan/obmc-phosphor-fand.bb
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-fan/obmc-phosphor-fand.bb
+@@ -5,3 +5,8 @@ PR = "r1"
+ inherit obmc-phosphor-fan-mgmt
+ inherit obmc-phosphor-sdbus-service
+ inherit obmc-phosphor-c-daemon
 +
 +S = "${WORKDIR}"
-+SRC_URI += "file://${PN}.py"
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-event/obmc-phosphor-eventd.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-event/obmc-phosphor-eventd.bb
-index 998648c..b5a54da 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-event/obmc-phosphor-eventd.bb
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-event/obmc-phosphor-eventd.bb
-@@ -4,3 +4,6 @@ PR = "r1"
- 
- inherit obmc-phosphor-event-mgmt
- inherit obmc-phosphor-pydbus-service
-+
-+S = "${WORKDIR}"
-+SRC_URI += "file://${PN}.py"
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/obmc-phosphor-example-pydbus.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/obmc-phosphor-example-pydbus.bb
-index c140c9b..1446a73 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/obmc-phosphor-example-pydbus.bb
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/obmc-phosphor-example-pydbus.bb
-@@ -11,8 +11,10 @@ inherit obmc-phosphor-pydbus-service
- 
- client = "pyclient-sample"
- SRC_URI += "file://${client}.py"
-+SRC_URI += "file://${PN}.py"
-+S = "${WORKDIR}"
- 
- do_install_append() {
-         install -d ${D}${bindir}
--        install -m 0755 ${WORKDIR}/${client}.py ${D}${bindir}/${client}
-+        install -m 0755 ${S}/${client}.py ${D}${bindir}/${client}
- }
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-flash/obmc-phosphor-flashd.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-flash/obmc-phosphor-flashd.bb
-index bd4b1af..6e4c04a 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-flash/obmc-phosphor-flashd.bb
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-flash/obmc-phosphor-flashd.bb
-@@ -4,3 +4,6 @@ PR = "r1"
- 
- inherit obmc-phosphor-flash-mgmt
- inherit obmc-phosphor-pydbus-service
-+
-+S = "${WORKDIR}"
-+SRC_URI += "file://${PN}.py"
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-policy/obmc-phosphor-policyd.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-policy/obmc-phosphor-policyd.bb
-index 664760e..05471d5 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-policy/obmc-phosphor-policyd.bb
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-policy/obmc-phosphor-policyd.bb
-@@ -4,3 +4,6 @@ PR = "r1"
- 
- inherit obmc-phosphor-policy-mgmt
- inherit obmc-phosphor-pydbus-service
-+
-+S = "${WORKDIR}"
-+SRC_URI += "file://${PN}.py"
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-sensor/obmc-phosphor-sensord.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-sensor/obmc-phosphor-sensord.bb
-index fc646a5..7a82fb5 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-sensor/obmc-phosphor-sensord.bb
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-sensor/obmc-phosphor-sensord.bb
-@@ -4,3 +4,6 @@ PR = "r1"
- 
- inherit obmc-phosphor-sensor-mgmt
- inherit obmc-phosphor-pydbus-service
-+
-+S = "${WORKDIR}"
-+SRC_URI += "file://${PN}.py"
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-sys/obmc-phosphor-sysd.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-sys/obmc-phosphor-sysd.bb
-index 3dc9a64..bcb5d32 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-sys/obmc-phosphor-sysd.bb
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-sys/obmc-phosphor-sysd.bb
-@@ -4,3 +4,6 @@ PR = "r1"
- 
- inherit obmc-phosphor-system-mgmt
- inherit obmc-phosphor-pydbus-service
-+
-+S = "${WORKDIR}"
-+SRC_URI += "file://${PN}.py"
++SRC_URI += "file://Makefile \
++           file://obmc-phosphor-fand.c \
++           "
 -- 
 2.6.0
