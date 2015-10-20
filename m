@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id B37DB1A07D3
- for <openbmc@lists.ozlabs.org>; Wed, 21 Oct 2015 06:20:25 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 1F72E1A070B
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Oct 2015 06:20:26 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1445368822308983.336924780806;
- Tue, 20 Oct 2015 12:20:22 -0700 (PDT)
+ with SMTPS id 144536882505960.96603366703141;
+ Tue, 20 Oct 2015 12:20:25 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 10/20] Move palmetto configuration to openpower layer
-Date: Tue, 20 Oct 2015 14:19:48 -0500
-Message-Id: <1445368798-31274-11-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH openbmc 11/20] Add palmetto recipes-bsp description
+Date: Tue, 20 Oct 2015 14:19:49 -0500
+Message-Id: <1445368798-31274-12-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1445368798-31274-1-git-send-email-patches@stwcx.xyz>
 References: <1445368798-31274-1-git-send-email-patches@stwcx.xyz>
@@ -28,85 +28,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Oct 2015 19:20:26 -0000
+X-List-Received-Date: Tue, 20 Oct 2015 19:20:27 -0000
 
 From: Brad Bishop <bradleyb@us.ibm.com>
 
-Added openpower.inc for any openpower system.
-Added ibm.cin for IBM openpower systems.
 ---
- .../conf/machine/include/openpower.inc              | 19 +++++++++++++++++++
- .../meta-ibm/conf/machine/include/ibm.inc           |  1 +
- .../meta-palmetto/conf/machine/palmetto.conf        | 21 +--------------------
- 3 files changed, 21 insertions(+), 20 deletions(-)
- create mode 100644 meta-openbmc-machines/meta-openpower/conf/machine/include/openpower.inc
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/conf/machine/include/ibm.inc
+ meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes.txt | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/meta-openbmc-machines/meta-openpower/conf/machine/include/openpower.inc b/meta-openbmc-machines/meta-openpower/conf/machine/include/openpower.inc
-new file mode 100644
-index 0000000..89ad0ec
---- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/conf/machine/include/openpower.inc
-@@ -0,0 +1,19 @@
-+OBMC_MACHINE_FEATURES += "\
-+        obmc-phosphor-fan-mgmt \
-+        obmc-phosphor-chassis-mgmt \
-+        obmc-phosphor-sensor-mgmt \
-+        obmc-phosphor-flash-mgmt \
-+        "
-+
-+VIRTUAL-RUNTIME_obmc-phosphor-fan-ctl = " \
-+       obmc-phosphor-example-sdbus \
-+       "
-+VIRTUAL-RUNTIME_obmc-phosphor-sensor-ctl = " \
-+       obmc-phosphor-example-sdbus \
-+       "
-+VIRTUAL-RUNTIME_obmc-phosphor-chassis-ctl = " \
-+       obmc-phosphor-example-pydbus \
-+       "
-+VIRTUAL-RUNTIME_obmc-phosphor-flash-ctl = " \
-+       obmc-phosphor-example-pydbus \
-+       "
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/conf/machine/include/ibm.inc b/meta-openbmc-machines/meta-openpower/meta-ibm/conf/machine/include/ibm.inc
-new file mode 100644
-index 0000000..c79ddd7
---- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/conf/machine/include/ibm.inc
-@@ -0,0 +1 @@
-+require conf/machine/include/openpower.inc
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/machine/palmetto.conf b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/machine/palmetto.conf
-index 0efdda0..f6256a7 100644
---- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/machine/palmetto.conf
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/machine/palmetto.conf
-@@ -1,28 +1,9 @@
--OBMC_MACHINE_FEATURES += "\
--        obmc-phosphor-fan-mgmt \
--        obmc-phosphor-chassis-mgmt \
--        obmc-phosphor-sensor-mgmt \
--        obmc-phosphor-flash-mgmt \
--        "
--
--VIRTUAL-RUNTIME_obmc-phosphor-fan-ctl = " \
--       obmc-phosphor-example-sdbus \
--       "
--VIRTUAL-RUNTIME_obmc-phosphor-sensor-ctl = " \
--       obmc-phosphor-example-sdbus \
--       "
--VIRTUAL-RUNTIME_obmc-phosphor-chassis-ctl = " \
--       obmc-phosphor-example-pydbus \
--       "
--VIRTUAL-RUNTIME_obmc-phosphor-flash-ctl = " \
--       obmc-phosphor-example-pydbus \
--       "
--
- KMACHINE = "aspeed"
- KERNEL_DEVICETREE = "${KMACHINE}-bmc-opp-${MACHINE}.dtb"
- 
- require conf/machine/include/ast2400.inc
- require conf/machine/include/obmc-bsp-common.inc
-+require conf/machine/include/ibm.inc
- 
- UBOOT_MACHINE_palmetto = "palmetto_config"
- UBOOT_ENTRYPOINT = "0x40008000"
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes.txt b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes.txt
+index db84c6f..149509f 100644
+--- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes.txt
++++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes.txt
+@@ -1 +1,2 @@
++recipes-bsp          - Anything with links to specific hardware or hardware configuration information
+ recipes-kernel       - The kernel and generic applications/libraries with strong kernel dependencies
 -- 
 2.6.0
