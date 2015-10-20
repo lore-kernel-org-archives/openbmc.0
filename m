@@ -1,22 +1,31 @@
-Return-Path: <patches@stwcx.xyz>
+Return-Path: <patrick@stwcx.xyz>
 Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3FCAF1A07D3
- for <openbmc@lists.ozlabs.org>; Wed, 21 Oct 2015 06:21:04 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id BEA4D1A03BC
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Oct 2015 06:48:54 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1445368861659227.63312123431967;
- Tue, 20 Oct 2015 12:21:01 -0700 (PDT)
-From: OpenBMC Patches <patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid 2/2] Add get sel time cmd
-Date: Tue, 20 Oct 2015 14:20:57 -0500
-Message-Id: <1445368857-31638-3-git-send-email-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.0
-In-Reply-To: <1445368857-31638-1-git-send-email-patches@stwcx.xyz>
-References: <1445368857-31638-1-git-send-email-patches@stwcx.xyz>
+ with SMTPS id 1445370530197227.4097370509303;
+ Tue, 20 Oct 2015 12:48:50 -0700 (PDT)
+Date: Tue, 20 Oct 2015 14:48:48 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: OpenBMC Patches <patches@stwcx.xyz>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: [PATCH openbmc 00/20] Adding IPMI Parser Library.
+Message-ID: <20151020194848.GM13316@asimov.austin.ibm.com>
+References: <1445368798-31274-1-git-send-email-patches@stwcx.xyz>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="8kI7hWEHMS8Z+7/0"
+Content-Disposition: inline
+In-Reply-To: <1445368798-31274-1-git-send-email-patches@stwcx.xyz>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
+X-ZohoMail: Ss  SS_10 UW UB CHF_INT_SMD_EXT  SGR4_1_06105_0
+X-ZohoMail-Owner: <20151020194848.GM13316@asimov.austin.ibm.com>+zmo_0_<patrick@stwcx.xyz>
+X-ZohoMail-Sender: 108.215.4.10
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,204 +37,78 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Oct 2015 19:21:04 -0000
+X-List-Received-Date: Tue, 20 Oct 2015 19:48:55 -0000
 
-From: Adriana Kobylak <anoo@us.ibm.com>
 
----
- storagehandler.C | 72 +++++++++++++++++++++++++++++++++++++-------------------
- storagehandler.h |  5 ++--
- 2 files changed, 51 insertions(+), 26 deletions(-)
+--8kI7hWEHMS8Z+7/0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/storagehandler.C b/storagehandler.C
-index 659fff5..276dd70 100644
---- a/storagehandler.C
-+++ b/storagehandler.C
-@@ -3,6 +3,7 @@
- #include <stdio.h>
- #include <string.h>
- #include <stdint.h>
-+#include <time.h>
- 
- void register_netfn_storage_functions() __attribute__((constructor));
- 
-@@ -10,8 +11,8 @@ void register_netfn_storage_functions() __attribute__((constructor));
- unsigned int   g_sel_time    = 0xFFFFFFFF;
- unsigned short g_sel_reserve = 0x1;
- 
--ipmi_ret_t ipmi_storage_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
--                              ipmi_request_t request, ipmi_response_t response, 
-+ipmi_ret_t ipmi_storage_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-+                              ipmi_request_t request, ipmi_response_t response,
-                               ipmi_data_len_t data_len, ipmi_context_t context)
- {
-     printf("Handling STORAGE WILDCARD Netfn:[0x%X], Cmd:[0x%X]\n",netfn, cmd);
-@@ -21,9 +22,29 @@ ipmi_ret_t ipmi_storage_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-     return rc;
- }
- 
-+ipmi_ret_t ipmi_storage_get_sel_time(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-+                              ipmi_request_t request, ipmi_response_t response,
-+                              ipmi_data_len_t data_len, ipmi_context_t context)
-+{
-+    time_t currtime;
-+    ipmi_ret_t rc = IPMI_CC_OK;
-+
-+    // Get current time in seconds since jan 1 1970
-+    time(&currtime);
-+
-+    printf("IPMI Handling GET-SEL-TIME\n");
-+
-+    // From the IPMI Spec 2.0, response should be a 32-bit value
-+    *data_len = sizeof(uint32_t);
-+
-+    // Pack the actual response
-+    memcpy(response, &currtime, *data_len);
- 
--ipmi_ret_t ipmi_storage_set_sel_time(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
--                              ipmi_request_t request, ipmi_response_t response, 
-+    return rc;
-+}
-+
-+ipmi_ret_t ipmi_storage_set_sel_time(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-+                              ipmi_request_t request, ipmi_response_t response,
-                               ipmi_data_len_t data_len, ipmi_context_t context)
- {
-     unsigned int *bufftype = (unsigned int *) request;
-@@ -45,8 +66,8 @@ struct write_fru_data_t {
-     uint8_t  data;
- } __attribute__ ((packed)) ;
- 
--ipmi_ret_t ipmi_storage_write_fru_data(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
--                              ipmi_request_t request, ipmi_response_t response, 
-+ipmi_ret_t ipmi_storage_write_fru_data(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-+                              ipmi_request_t request, ipmi_response_t response,
-                               ipmi_data_len_t data_len, ipmi_context_t context)
- {
-     write_fru_data_t *reqptr = (write_fru_data_t*) request;
-@@ -67,14 +88,14 @@ ipmi_ret_t ipmi_storage_write_fru_data(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-     // the data (so didn't need to worry about word/byte boundaries)
-     // hence the -1...
-     rlen = ((uint16_t)*data_len) - (sizeof(write_fru_data_t)-1);
--    
-+
- 
-     printf("IPMI WRITE-FRU-DATA for %s  Offset = %d Length = %d\n",
-         string, offset, rlen);
- 
- 
-     // I was thinking "ab+" but it appears it doesn't
--    // do what fseek asks.  Modify to rb+ and fseek 
-+    // do what fseek asks.  Modify to rb+ and fseek
-     // works great...
-     if (offset == 0) {
-         strcpy(iocmd, "wb");
-@@ -88,24 +109,24 @@ ipmi_ret_t ipmi_storage_write_fru_data(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-         fclose(fp);
-     } else {
-         fprintf(stderr, "Error trying to write to fru file %s\n",string);
--        ipmi_ret_t rc = IPMI_CC_INVALID;        
-+        ipmi_ret_t rc = IPMI_CC_INVALID;
-     }
--    
- 
--    // TODO : Here is where some validation code could determine if the 
-+
-+    // TODO : Here is where some validation code could determine if the
-     // fru data is a legitimate FRU record (not just a partial).  Once
-     // the record is valid the code should call a parser routine to call
--    // the various methods updating interesting properties.  Perhaps 
-+    // the various methods updating interesting properties.  Perhaps
-     // thinigs like Model#, Serial#, DIMM Size, etc
--    
-+
- 
-     *data_len = 0;
--    
-+
-     return rc;
- }
- 
--ipmi_ret_t ipmi_storage_get_sel_info(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
--                              ipmi_request_t request, ipmi_response_t response, 
-+ipmi_ret_t ipmi_storage_get_sel_info(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-+                              ipmi_request_t request, ipmi_response_t response,
-                               ipmi_data_len_t data_len, ipmi_context_t context)
- {
- 
-@@ -129,8 +150,8 @@ ipmi_ret_t ipmi_storage_get_sel_info(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
- 
- 
- 
--ipmi_ret_t ipmi_storage_reserve_sel(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
--                              ipmi_request_t request, ipmi_response_t response, 
-+ipmi_ret_t ipmi_storage_reserve_sel(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-+                              ipmi_request_t request, ipmi_response_t response,
-                               ipmi_data_len_t data_len, ipmi_context_t context)
- {
- 
-@@ -147,8 +168,8 @@ ipmi_ret_t ipmi_storage_reserve_sel(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
- }
- 
- 
--ipmi_ret_t ipmi_storage_add_sel(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
--                              ipmi_request_t request, ipmi_response_t response, 
-+ipmi_ret_t ipmi_storage_add_sel(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-+                              ipmi_request_t request, ipmi_response_t response,
-                               ipmi_data_len_t data_len, ipmi_context_t context)
- {
- 
-@@ -161,14 +182,14 @@ ipmi_ret_t ipmi_storage_add_sel(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-     // Pack the actual response
-     memcpy(response, &g_sel_reserve, *data_len);
- 
--    // TODO This code should grab the completed partial esel located in 
--    // the /tmp/esel0100 file and commit it to the error log handler.  
-+    // TODO This code should grab the completed partial esel located in
-+    // the /tmp/esel0100 file and commit it to the error log handler.
- 
- 
-     // TODO I advanced the sel reservation number so next time HB asks
--    // for a reservation they get a new number.  This tech may change 
-+    // for a reservation they get a new number.  This tech may change
-     // based on how the HB team currently uses sel reservations but
--    // for now provide the ability to get new reservations 
-+    // for now provide the ability to get new reservations
-     g_sel_reserve++;
- 
-     return rc;
-@@ -181,6 +202,9 @@ void register_netfn_storage_functions()
-     printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_STORAGE, IPMI_CMD_WILDCARD);
-     ipmi_register_callback(NETFUN_STORAGE, IPMI_CMD_WILDCARD, NULL, ipmi_storage_wildcard);
- 
-+    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_STORAGE, IPMI_CMD_GET_SEL_TIME);
-+    ipmi_register_callback(NETFUN_STORAGE, IPMI_CMD_GET_SEL_TIME, NULL, ipmi_storage_get_sel_time);
-+
-     printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_STORAGE, IPMI_CMD_SET_SEL_TIME);
-     ipmi_register_callback(NETFUN_STORAGE, IPMI_CMD_SET_SEL_TIME, NULL, ipmi_storage_set_sel_time);
- 
-diff --git a/storagehandler.h b/storagehandler.h
-index 56c1a8b..1b7f552 100644
---- a/storagehandler.h
-+++ b/storagehandler.h
-@@ -1,15 +1,16 @@
- #ifndef __HOST_IPMI_STORAGE_HANDLER_H__
- #define __HOST_IPMI_STORAGE_HANDLER_H__
- 
--// IPMI commands for net functions.
-+// IPMI commands for Storage net functions.
- enum ipmi_netfn_storage_cmds
- {
-     // Get capability bits
--    IPMI_CMD_SET_SEL_TIME   = 0x49,
-     IPMI_CMD_WRITE_FRU_DATA = 0x12,
-     IPMI_CMD_GET_SEL_INFO   = 0x40,
-     IPMI_CMD_RESERVE_SEL    = 0x42,
-     IPMI_CMD_ADD_SEL        = 0x44,
-+    IPMI_CMD_GET_SEL_TIME   = 0x48,
-+    IPMI_CMD_SET_SEL_TIME   = 0x49,
- 
- };
- 
--- 
-2.6.0
+Something is severely wrong with this pull request.  Please run the
+following:
+    git fetch git@github:openbmc/openbmc
+    git rebase FETCH_HEAD
+    git push origin HEAD:master --force
+
+On Tue, Oct 20, 2015 at 02:19:38PM -0500, OpenBMC Patches wrote:
+> https://github.com/openbmc/openbmc/pull/25
+>=20
+> Adriana Kobylak (1):
+>   Add skeleton recipe
+>=20
+> Brad Bishop (18):
+>   Rename host-ipmid/files to host-ipmid/host-ipmid
+>   Remove S and SRC_URI from python daemon class
+>   Remove S and SRC_URI from c daemon class
+>   Start host-ipmid on boot
+>   Add PROVIDES to all provider classes
+>   Add host IPMI DBUS to hw provider class
+>   Add recipe for host IPMI DBUS to BT
+>   Add recipe for host IPMI DBUS to hw example
+>   Make host-ipmid pull in host IPMI to hw package
+>   Move palmetto configuration to openpower layer
+>   Add palmetto recipes-bsp description
+>   Add stubbed barreleye/foxconn layers
+>   Skeleton makefile updates for OE build
+>   Add skeleton to phosphor image
+>   Add recipe for https://github.com/msoulier/tftpy
+>   Remove tftpy from skeleton package
+>   Move host-ipmi-bt from palmetto to common include
+>   Bump skeleton revision
+>=20
+> Hariharasubramanian R (1):
+>   Adding IPMI Parser Library.
+>=20
+>=20
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+
+--=20
+Patrick Williams
+
+--8kI7hWEHMS8Z+7/0
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJWJpqgAAoJEKsDR8wtAMEZoTAP/1bLbsRpSvh4BsM5q5tB/s4k
+YmAZVRkbnsNofB4eWG+PiKJj3bbtnFsDhhMSNyy3tk6KQXwToyeJxfqeevaM9t21
+xalx2cuwVJH+UpmM8uRCYr1rQK8IPUT5xlsOtcQ1Tcak9d9vaIJ74BqAR3kfG4Yh
+x6icgmgXXGuS3dbsyaFJ3hcsSOwv7J4LmDKnNkLnZo3ff5MzcXG44/r7c3jaP+jd
+NLb34UuBE+OcS1oSeWdlTxHZcN34USDuZARrZCk5yX+ZgCG7QKRKcyBrv7xJ97JU
+z03ewCYnN7S/mHLDuKSy6I1+WkhXH/wy4HgHioFX4zTrGW/GfU7O5esPP54+ejf9
+yrX8nIdmEMG7yk/OmBzXBDf4ADnj8ud6w1YHgpVQOJTCcyT7bNQj1/VVmz5T5HvD
+nj29N/+afXR2qJYHcFp3dee9xQyhe4s+hjhdS2iaShgfqhXUpUOQrt+AogfQBnQc
+NoBiPgA8bjhCruYWgn6UwUmzkcY5VCbxqfYfWCkiTXQiq5Fy0YzJxSH4a+aFJL2i
+EkZMhNYXhDdr6bq1N75hHN5f2RagVEFAYI2jt27DKCThiyteUl1bzHjvwC1ApiDl
+k/IRwREO/NAPZcG+PTCig7yJUk8lRpDRZclCoawBJhaz0VziZyKTVe2Eku41ZJgo
+PayiUO+vzEeMJrX1X9hg
+=/GBm
+-----END PGP SIGNATURE-----
+
+--8kI7hWEHMS8Z+7/0--
