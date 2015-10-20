@@ -3,18 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 9BC881A08EC
- for <openbmc@lists.ozlabs.org>; Wed, 21 Oct 2015 06:19:45 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 0720A1A0721
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Oct 2015 06:19:47 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1445368781866421.4398445913181;
- Tue, 20 Oct 2015 12:19:41 -0700 (PDT)
+ with SMTPS id 1445368786291204.6077369366925;
+ Tue, 20 Oct 2015 12:19:46 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH ipmi-fru-parser v4 4/6] Format string change in
- sd_bus_message_append.
-Date: Tue, 20 Oct 2015 14:19:31 -0500
-Message-Id: <1445368773-31098-5-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH ipmi-fru-parser v4 6/6] Removing depency in Makefile on the
+ systemd library.
+Date: Tue, 20 Oct 2015 14:19:33 -0500
+Message-Id: <1445368773-31098-7-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1445368773-31098-1-git-send-email-patches@stwcx.xyz>
 References: <1445368773-31098-1-git-send-email-patches@stwcx.xyz>
@@ -29,33 +29,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Oct 2015 19:19:46 -0000
+X-List-Received-Date: Tue, 20 Oct 2015 19:19:48 -0000
 
 From: Hariharasubramanian R <hramasub@in.ibm.com>
 
 ---
- frup.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ Makefile | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/frup.c b/frup.c
-index 9711645..ab58426 100644
---- a/frup.c
-+++ b/frup.c
-@@ -803,13 +803,13 @@ parse_fru (const void* msgbuf, sd_bus_message* vpdtbl)
-   {
-     if (i==OPENBMC_VPD_KEY_CHASSIS_TYPE)
-     {
--        sd_bus_message_append (vpdtbl, "sd", vpd_key_names[i], chassis_type);
-+        sd_bus_message_append (vpdtbl, "sy", vpd_key_names[i], chassis_type);
-         continue;
-     }
+diff --git a/Makefile b/Makefile
+index cf75af3..bcb3648 100644
+--- a/Makefile
++++ b/Makefile
+@@ -4,7 +4,8 @@ IPMI_FRU_PARSER_LIB = libifp.so
+ IPMI_FRU_PARSER_OBJS = frup.o
  
-     if (i==OPENBMC_VPD_KEY_BOARD_MFG_DATE)
-     {
--        sd_bus_message_append (vpdtbl, "sd", vpd_key_names[i], mfg_date_time);
-+        sd_bus_message_append (vpdtbl, "sa{y}", vpd_key_names[i], mfg_date_time);
-         continue;
-     }
-     
+ INC_FLAGS += $(shell pkg-config --cflags --libs libsystemd) -I. -O2 --std=gnu++11
+-LIB_FLAGS += $(shell pkg-config  --libs libsystemd) -rdynamic
++#LIB_FLAGS += $(shell pkg-config  --libs libsystemd) -rdynamic
++LIB_FLAGS += -rdynamic
+ #IPMID_PATH ?= -DHOST_IPMI_LIB_PATH=\"/usr/lib/host-ipmid/\" 
+ 
+ all: $(IPMI_FRU_PARSER_LIB)
 -- 
 2.6.0
