@@ -3,18 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 8EAE41A03CB
- for <openbmc@lists.ozlabs.org>; Wed, 21 Oct 2015 14:23:34 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id C6A471A0410
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Oct 2015 14:23:36 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 144539781224246.271592704941554;
- Tue, 20 Oct 2015 20:23:32 -0700 (PDT)
+ with SMTPS id 1445397813763232.6233323403577;
+ Tue, 20 Oct 2015 20:23:33 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid 1/4] Add App Set BMC Global Enables ipmi
- cmd
-Date: Tue, 20 Oct 2015 22:23:26 -0500
-Message-Id: <1445397809-31483-2-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid 2/4] Add get sel time cmd
+Date: Tue, 20 Oct 2015 22:23:27 -0500
+Message-Id: <1445397809-31483-3-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1445397809-31483-1-git-send-email-patches@stwcx.xyz>
 References: <1445397809-31483-1-git-send-email-patches@stwcx.xyz>
@@ -29,77 +28,202 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Oct 2015 03:23:35 -0000
+X-List-Received-Date: Wed, 21 Oct 2015 03:23:37 -0000
 
 From: Adriana Kobylak <anoo@us.ibm.com>
 
 ---
- apphandler.C | 17 +++++++++++++++++
- apphandler.h | 16 ++++++++--------
- 2 files changed, 25 insertions(+), 8 deletions(-)
+ storagehandler.C | 72 +++++++++++++++++++++++++++++++++++++-------------------
+ storagehandler.h |  5 ++--
+ 2 files changed, 51 insertions(+), 26 deletions(-)
 
-diff --git a/apphandler.C b/apphandler.C
-index 9d53552..132f5c6 100755
---- a/apphandler.C
-+++ b/apphandler.C
-@@ -188,7 +188,18 @@ ipmi_ret_t ipmi_app_reset_watchdog(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+diff --git a/storagehandler.C b/storagehandler.C
+index 659fff5..276dd70 100644
+--- a/storagehandler.C
++++ b/storagehandler.C
+@@ -3,6 +3,7 @@
+ #include <stdio.h>
+ #include <string.h>
+ #include <stdint.h>
++#include <time.h>
+ 
+ void register_netfn_storage_functions() __attribute__((constructor));
+ 
+@@ -10,8 +11,8 @@ void register_netfn_storage_functions() __attribute__((constructor));
+ unsigned int   g_sel_time    = 0xFFFFFFFF;
+ unsigned short g_sel_reserve = 0x1;
+ 
+-ipmi_ret_t ipmi_storage_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
+-                              ipmi_request_t request, ipmi_response_t response, 
++ipmi_ret_t ipmi_storage_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
++                              ipmi_request_t request, ipmi_response_t response,
+                               ipmi_data_len_t data_len, ipmi_context_t context)
+ {
+     printf("Handling STORAGE WILDCARD Netfn:[0x%X], Cmd:[0x%X]\n",netfn, cmd);
+@@ -21,9 +22,29 @@ ipmi_ret_t ipmi_storage_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
      return rc;
  }
  
-+ipmi_ret_t ipmi_app_set_bmc_global_enables(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-+                             ipmi_request_t request, ipmi_response_t response,
-+                             ipmi_data_len_t data_len, ipmi_context_t context)
++ipmi_ret_t ipmi_storage_get_sel_time(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
++                              ipmi_request_t request, ipmi_response_t response,
++                              ipmi_data_len_t data_len, ipmi_context_t context)
 +{
++    time_t currtime;
 +    ipmi_ret_t rc = IPMI_CC_OK;
-+    *data_len = 0;
- 
-+    // Event and message logging enabled by default so return for now
-+    printf("IPMI APP SET BMC GLOBAL ENABLES Ignoring for now\n");
 +
++    // Get current time in seconds since jan 1 1970
++    time(&currtime);
++
++    printf("IPMI Handling GET-SEL-TIME\n");
++
++    // From the IPMI Spec 2.0, response should be a 32-bit value
++    *data_len = sizeof(uint32_t);
++
++    // Pack the actual response
++    memcpy(response, &currtime, *data_len);
+ 
+-ipmi_ret_t ipmi_storage_set_sel_time(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
+-                              ipmi_request_t request, ipmi_response_t response, 
 +    return rc;
 +}
- 
- 
- 
-@@ -231,6 +242,12 @@ void register_netfn_app_functions()
- 
-     printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_APP, IPMI_CMD_READ_EVENT);
-     ipmi_register_callback(NETFUN_APP, IPMI_CMD_READ_EVENT, NULL, ipmi_app_read_event);
 +
-+    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_APP,
-+                                            IPMI_CMD_SET_BMC_GLOBAL_ENABLES);
-+    ipmi_register_callback(NETFUN_APP, IPMI_CMD_SET_BMC_GLOBAL_ENABLES, NULL,
-+                                            ipmi_app_set_bmc_global_enables);
++ipmi_ret_t ipmi_storage_set_sel_time(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
++                              ipmi_request_t request, ipmi_response_t response,
+                               ipmi_data_len_t data_len, ipmi_context_t context)
+ {
+     unsigned int *bufftype = (unsigned int *) request;
+@@ -45,8 +66,8 @@ struct write_fru_data_t {
+     uint8_t  data;
+ } __attribute__ ((packed)) ;
+ 
+-ipmi_ret_t ipmi_storage_write_fru_data(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
+-                              ipmi_request_t request, ipmi_response_t response, 
++ipmi_ret_t ipmi_storage_write_fru_data(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
++                              ipmi_request_t request, ipmi_response_t response,
+                               ipmi_data_len_t data_len, ipmi_context_t context)
+ {
+     write_fru_data_t *reqptr = (write_fru_data_t*) request;
+@@ -67,14 +88,14 @@ ipmi_ret_t ipmi_storage_write_fru_data(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+     // the data (so didn't need to worry about word/byte boundaries)
+     // hence the -1...
+     rlen = ((uint16_t)*data_len) - (sizeof(write_fru_data_t)-1);
+-    
 +
-     return;
+ 
+     printf("IPMI WRITE-FRU-DATA for %s  Offset = %d Length = %d\n",
+         string, offset, rlen);
+ 
+ 
+     // I was thinking "ab+" but it appears it doesn't
+-    // do what fseek asks.  Modify to rb+ and fseek 
++    // do what fseek asks.  Modify to rb+ and fseek
+     // works great...
+     if (offset == 0) {
+         strcpy(iocmd, "wb");
+@@ -88,24 +109,24 @@ ipmi_ret_t ipmi_storage_write_fru_data(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+         fclose(fp);
+     } else {
+         fprintf(stderr, "Error trying to write to fru file %s\n",string);
+-        ipmi_ret_t rc = IPMI_CC_INVALID;        
++        ipmi_ret_t rc = IPMI_CC_INVALID;
+     }
+-    
+ 
+-    // TODO : Here is where some validation code could determine if the 
++
++    // TODO : Here is where some validation code could determine if the
+     // fru data is a legitimate FRU record (not just a partial).  Once
+     // the record is valid the code should call a parser routine to call
+-    // the various methods updating interesting properties.  Perhaps 
++    // the various methods updating interesting properties.  Perhaps
+     // thinigs like Model#, Serial#, DIMM Size, etc
+-    
++
+ 
+     *data_len = 0;
+-    
++
+     return rc;
  }
  
-diff --git a/apphandler.h b/apphandler.h
-index 2c4ea22..3b8995c 100644
---- a/apphandler.h
-+++ b/apphandler.h
-@@ -1,16 +1,16 @@
- #ifndef __HOST_IPMI_APP_HANDLER_H__
- #define __HOST_IPMI_APP_HANDLER_H__
+-ipmi_ret_t ipmi_storage_get_sel_info(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
+-                              ipmi_request_t request, ipmi_response_t response, 
++ipmi_ret_t ipmi_storage_get_sel_info(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
++                              ipmi_request_t request, ipmi_response_t response,
+                               ipmi_data_len_t data_len, ipmi_context_t context)
+ {
+ 
+@@ -129,8 +150,8 @@ ipmi_ret_t ipmi_storage_get_sel_info(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+ 
+ 
+ 
+-ipmi_ret_t ipmi_storage_reserve_sel(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
+-                              ipmi_request_t request, ipmi_response_t response, 
++ipmi_ret_t ipmi_storage_reserve_sel(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
++                              ipmi_request_t request, ipmi_response_t response,
+                               ipmi_data_len_t data_len, ipmi_context_t context)
+ {
+ 
+@@ -147,8 +168,8 @@ ipmi_ret_t ipmi_storage_reserve_sel(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+ }
+ 
+ 
+-ipmi_ret_t ipmi_storage_add_sel(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
+-                              ipmi_request_t request, ipmi_response_t response, 
++ipmi_ret_t ipmi_storage_add_sel(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
++                              ipmi_request_t request, ipmi_response_t response,
+                               ipmi_data_len_t data_len, ipmi_context_t context)
+ {
+ 
+@@ -161,14 +182,14 @@ ipmi_ret_t ipmi_storage_add_sel(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+     // Pack the actual response
+     memcpy(response, &g_sel_reserve, *data_len);
+ 
+-    // TODO This code should grab the completed partial esel located in 
+-    // the /tmp/esel0100 file and commit it to the error log handler.  
++    // TODO This code should grab the completed partial esel located in
++    // the /tmp/esel0100 file and commit it to the error log handler.
+ 
+ 
+     // TODO I advanced the sel reservation number so next time HB asks
+-    // for a reservation they get a new number.  This tech may change 
++    // for a reservation they get a new number.  This tech may change
+     // based on how the HB team currently uses sel reservations but
+-    // for now provide the ability to get new reservations 
++    // for now provide the ability to get new reservations
+     g_sel_reserve++;
+ 
+     return rc;
+@@ -181,6 +202,9 @@ void register_netfn_storage_functions()
+     printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_STORAGE, IPMI_CMD_WILDCARD);
+     ipmi_register_callback(NETFUN_STORAGE, IPMI_CMD_WILDCARD, NULL, ipmi_storage_wildcard);
+ 
++    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_STORAGE, IPMI_CMD_GET_SEL_TIME);
++    ipmi_register_callback(NETFUN_STORAGE, IPMI_CMD_GET_SEL_TIME, NULL, ipmi_storage_get_sel_time);
++
+     printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_STORAGE, IPMI_CMD_SET_SEL_TIME);
+     ipmi_register_callback(NETFUN_STORAGE, IPMI_CMD_SET_SEL_TIME, NULL, ipmi_storage_set_sel_time);
+ 
+diff --git a/storagehandler.h b/storagehandler.h
+index 56c1a8b..1b7f552 100644
+--- a/storagehandler.h
++++ b/storagehandler.h
+@@ -1,15 +1,16 @@
+ #ifndef __HOST_IPMI_STORAGE_HANDLER_H__
+ #define __HOST_IPMI_STORAGE_HANDLER_H__
  
 -// IPMI commands for net functions.
-+// IPMI commands for App net functions.
- enum ipmi_netfn_app_cmds
++// IPMI commands for Storage net functions.
+ enum ipmi_netfn_storage_cmds
  {
--    // Get capability bits
--    IPMI_CMD_RESET_WD       = 0x22,
--    IPMI_CMD_SET_WD         = 0x24,
--    IPMI_CMD_GET_CAP_BIT    = 0x36,
--    IPMI_CMD_GET_DEVICE_ID  = 0x00,
--    IPMI_CMD_SET_ACPI       = 0x06,
--    IPMI_CMD_READ_EVENT     = 0x35,
-+    IPMI_CMD_GET_DEVICE_ID          = 0x01,
-+    IPMI_CMD_SET_ACPI               = 0x06,
-+    IPMI_CMD_RESET_WD               = 0x22,
-+    IPMI_CMD_SET_WD                 = 0x24,
-+    IPMI_CMD_SET_BMC_GLOBAL_ENABLES = 0x2E,
-+    IPMI_CMD_READ_EVENT             = 0x35,
-+    IPMI_CMD_GET_CAP_BIT            = 0x36,
+     // Get capability bits
+-    IPMI_CMD_SET_SEL_TIME   = 0x49,
+     IPMI_CMD_WRITE_FRU_DATA = 0x12,
+     IPMI_CMD_GET_SEL_INFO   = 0x40,
+     IPMI_CMD_RESERVE_SEL    = 0x42,
+     IPMI_CMD_ADD_SEL        = 0x44,
++    IPMI_CMD_GET_SEL_TIME   = 0x48,
++    IPMI_CMD_SET_SEL_TIME   = 0x49,
  
  };
  
