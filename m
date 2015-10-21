@@ -3,17 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 19B211A04D8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 27C1C1A04DB
  for <openbmc@lists.ozlabs.org>; Wed, 21 Oct 2015 23:48:59 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1445431737531264.82350083507185;
- Wed, 21 Oct 2015 05:48:57 -0700 (PDT)
+ with SMTPS id 1445431709260769.9638695005067;
+ Wed, 21 Oct 2015 05:48:29 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid v2 19/20] Fix a buffer overrun
-Date: Wed, 21 Oct 2015 07:48:20 -0500
-Message-Id: <1445431701-8681-20-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid v2 02/20] Set response bit returning from
+ the ipmi call
+Date: Wed, 21 Oct 2015 07:48:03 -0500
+Message-Id: <1445431701-8681-3-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1445431701-8681-1-git-send-email-patches@stwcx.xyz>
 References: <1445431701-8681-1-git-send-email-patches@stwcx.xyz>
@@ -33,33 +34,23 @@ X-List-Received-Date: Wed, 21 Oct 2015 12:49:00 -0000
 From: Chris Austen <austenc@us.ibm.com>
 
 ---
- ipmisensor.C | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ ipmid.C | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/ipmisensor.C b/ipmisensor.C
-index f60db18..568f4a4 100644
---- a/ipmisensor.C
-+++ b/ipmisensor.C
-@@ -98,16 +98,16 @@ char *getfw02string(uint8_t b) {
- //  prior to calling the dbus code.  
- int set_sensor_dbus_state_fwprogress(const sensorRES_t *pRec, const lookup_t *pTable, const char *value) {
+diff --git a/ipmid.C b/ipmid.C
+index 10422e1..3b136d0 100644
+--- a/ipmid.C
++++ b/ipmid.C
+@@ -181,8 +181,8 @@ static int send_ipmi_message(unsigned char seq, unsigned char netfn, unsigned ch
+     }
  
--	char valuestring[32];
-+	char valuestring[48];
- 	char* pStr = valuestring;
  
- 	switch (pTable->offset) {
+-    // Needed to see what we get back from the handlers.
+-    data_len = msg_length;
++    // Responses in IPMI require a bit set.  So there ya go...
++    netfn |= 0x04;
  
--		case 0x00 : sprintf(valuestring, "POST Error, 0x%02x", pRec->event_data2);
-+		case 0x00 : snprintf(valuestring, sizeof(valuestring), "POST Error, 0x%02x", pRec->event_data2);
- 					break;
--		case 0x01 : sprintf(valuestring, "FW Hang, 0x%02x", pRec->event_data2);
-+		case 0x01 : snprintf(valuestring, sizeof(valuestring), "FW Hang, 0x%02x", pRec->event_data2);
- 					break;
--		case 0x02 : sprintf(valuestring, "FW Progress, %s", getfw02string(pRec->event_data2));
-+		case 0x02 : snprintf(valuestring, sizeof(valuestring), "FW Progress, %s", getfw02string(pRec->event_data2));
- 	}
  
- 	return set_sensor_dbus_state_v(pRec->sensor_number, pTable->method, pStr);
+     // Add the bytes needed for the methods to be called
 -- 
 2.6.0
