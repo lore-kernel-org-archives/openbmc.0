@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id BA9141A0512
- for <openbmc@lists.ozlabs.org>; Wed, 21 Oct 2015 23:49:01 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 85A4B1A04C2
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Oct 2015 23:49:03 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1445431711902693.1090485926964;
- Wed, 21 Oct 2015 05:48:31 -0700 (PDT)
+ with SMTPS id 1445431721851953.6562275568779;
+ Wed, 21 Oct 2015 05:48:41 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid v2 03/20] Reset the lib path string per .so
-Date: Wed, 21 Oct 2015 07:48:04 -0500
-Message-Id: <1445431701-8681-4-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid v2 10/20] Remove stray whitespace.
+Date: Wed, 21 Oct 2015 07:48:11 -0500
+Message-Id: <1445431701-8681-11-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1445431701-8681-1-git-send-email-patches@stwcx.xyz>
 References: <1445431701-8681-1-git-send-email-patches@stwcx.xyz>
@@ -28,35 +28,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Oct 2015 12:49:02 -0000
+X-List-Received-Date: Wed, 21 Oct 2015 12:49:04 -0000
 
-From: Chris Austen <austenc@us.ibm.com>
+From: Patrick Williams <patrick@stwcx.xyz>
 
 ---
- ipmid.C | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/ipmid.C b/ipmid.C
-index 3b136d0..d0dfba8 100644
---- a/ipmid.C
-+++ b/ipmid.C
-@@ -343,13 +343,14 @@ void ipmi_register_callback_handlers(const char* ipmi_lib_path)
-         num_handlers = scandir(ipmi_lib_path, &handler_list, handler_select, alphasort);
-         while(num_handlers--)
-         {
--            printf("Registering handler:[%s]\n",handler_list[num_handlers]->d_name);
--
-+            handler_fqdn = ipmi_lib_path;
-             handler_fqdn += handler_list[num_handlers]->d_name;
-+            printf("Registering handler:[%s]\n",handler_fqdn.c_str());
-+
-             lib_handler = dlopen(handler_fqdn.c_str(), RTLD_NOW);
-             if(lib_handler == NULL)
-             {
--                fprintf(stderr,"ERROR opening:[%s]\n",handler_list[num_handlers]->d_name);
-+                fprintf(stderr,"ERROR opening:[%s]\n",handler_fqdn.c_str());
-                 dlerror();
-             }
-             // Wipe the memory allocated for this particular entry.
+diff --git a/Makefile b/Makefile
+index 2177c9d..73cefc6 100755
+--- a/Makefile
++++ b/Makefile
+@@ -11,9 +11,9 @@ LIB_APP     = libapphandler.so
+ 
+ INC_FLAG += $(shell pkg-config --cflags --libs libsystemd) -I. -O2 --std=gnu++11
+ LIB_FLAG += $(shell pkg-config  --libs libsystemd) -rdynamic
+-IPMID_PATH ?= -DHOST_IPMI_LIB_PATH=\"/usr/lib/host-ipmid/\" 
++IPMID_PATH ?= -DHOST_IPMI_LIB_PATH=\"/usr/lib/host-ipmid/\"
+ 
+-all: $(DAEMON) $(LIB_APP) 
++all: $(DAEMON) $(LIB_APP)
+ 
+ %.o: %.C
+ 	$(CXX) -fpic -c $< $(CXXFLAGS) $(INC_FLAG) $(IPMID_PATH) -o $@
 -- 
 2.6.0
