@@ -1,32 +1,23 @@
-Return-Path: <patrick@stwcx.xyz>
+Return-Path: <patches@stwcx.xyz>
 Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 2A0451A03C6
- for <openbmc@lists.ozlabs.org>; Wed, 21 Oct 2015 14:47:43 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 791921A0479
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Oct 2015 23:48:40 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1445399260425467.18647940336916;
- Tue, 20 Oct 2015 20:47:40 -0700 (PDT)
-Date: Tue, 20 Oct 2015 22:47:39 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC Patches <patches@stwcx.xyz>
-Cc: openbmc@lists.ozlabs.org
-Subject: Re: [PATCH openbmc 2/2] add devmem utility
-Message-ID: <20151021034738.GQ13316@asimov.austin.ibm.com>
-References: <1445377251-25832-1-git-send-email-patches@stwcx.xyz>
- <1445377251-25832-3-git-send-email-patches@stwcx.xyz>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="4ickEXl+ukcSQ/3E"
-Content-Disposition: inline
-In-Reply-To: <1445377251-25832-3-git-send-email-patches@stwcx.xyz>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
-X-ZohoMail: Ss  SS_10 UW UB CHF_INT_SMD_EXT  SGR4_1_06105_0
-X-ZohoMail-Owner: <20151021034738.GQ13316@asimov.austin.ibm.com>+zmo_0_<patrick@stwcx.xyz>
-X-ZohoMail-Sender: 108.215.4.10
+ with SMTPS id 1445431714723255.7122345325737;
+ Wed, 21 Oct 2015 05:48:34 -0700 (PDT)
+From: OpenBMC Patches <patches@stwcx.xyz>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH phosphor-host-ipmid v2 05/20] Add more ipmi commands for app
+ function
+Date: Wed, 21 Oct 2015 07:48:06 -0500
+Message-Id: <1445431701-8681-6-git-send-email-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.6.0
+In-Reply-To: <1445431701-8681-1-git-send-email-patches@stwcx.xyz>
+References: <1445431701-8681-1-git-send-email-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -38,76 +29,208 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Oct 2015 03:47:44 -0000
+X-List-Received-Date: Wed, 21 Oct 2015 12:48:41 -0000
 
+From: Chris Austen <austenc@us.ibm.com>
 
---4ickEXl+ukcSQ/3E
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+---
+ apphandler.C | 137 ++++++++++++++++++++++++++++++++++++++++++++++++++++++-----
+ apphandler.h |   6 +++
+ 2 files changed, 133 insertions(+), 10 deletions(-)
 
-On Tue, Oct 20, 2015 at 04:40:51PM -0500, OpenBMC Patches wrote:
-> From: Norman James <njames@us.ibm.com>
->=20
-> ---
->  yocto-poky/meta/recipes-core/busybox/busybox/defconfig | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/yocto-poky/meta/recipes-core/busybox/busybox/defconfig b/yoc=
-to-poky/meta/recipes-core/busybox/busybox/defconfig
-
-We shouldn't be changing files in the yocto-poky tree unless it is
-something we think would likely be accepted by upstream.
-
-I'm pretty sure there is another mechanism for adding configuration
-snippets.  We should add this through that mechanism in the meta-aspeed
-tree, unless someone else has a better idea of which layer it should go
-in.
-
-> index 4f5df9e..3deb4e5 100644
-> --- a/yocto-poky/meta/recipes-core/busybox/busybox/defconfig
-> +++ b/yocto-poky/meta/recipes-core/busybox/busybox/defconfig
-> @@ -706,7 +706,7 @@ CONFIG_DC=3Dy
->  # CONFIG_DEVFSD_FG_NP is not set
->  # CONFIG_DEVFSD_VERBOSE is not set
->  # CONFIG_FEATURE_DEVFS is not set
-> -# CONFIG_DEVMEM is not set
-> +CONFIG_DEVMEM=3Dy
->  # CONFIG_EJECT is not set
->  # CONFIG_FEATURE_EJECT_SCSI is not set
->  # CONFIG_FBSPLASH is not set
-> --=20
-> 2.6.0
->=20
->=20
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
-
---=20
-Patrick Williams
-
---4ickEXl+ukcSQ/3E
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJWJwraAAoJEKsDR8wtAMEZKNMP/iPntEW99FdxgOnUJf93uGV4
-WaNWE1lRYwn4GnViI/BfVsvCBhznrLETTAud5frhMUWw5O7takcaNOg140uylGcZ
-TLQ2V15Q2W3/cPsV8y56fz6mKDc2wXQF75sPCfCsle3roUFQOEHU2GXLa/FoLXUO
-TTqQzM2PMcW6jorzLwOR6xYceIJh1qJ6HQ2ntlr957mJmHRMxDv09RPe/+kGBaKz
-hzsYl/GLlKgqvsOrjvR4EhXS56cuclM8R8Kyxuyk0tXGEl5IC4TG1YMwfZtIo6pI
-ByN/hks1lIBRTUygWVr5omxJm98uvei7DAnHWWQi0qn2U/MUcOWW0H8P7hXU43tx
-MLOQa6y3DmH2ZR/k2tv0G3UIqSZpDf0YyOj7JlPHd7E9qRXkz52XRTtlni4VXMbt
-nQU/kDMt1Kzg7V1w8wkxCyPn4KsSwA528jzOi0ETBdfxNC0ikxdSD0JdSUFVTkEO
-yB/wn432kewDVuvTMZzYGj6U+yn7hFhdb6Rzh7WNZ7xKHF/FqQfEcwMOuu1xW1Pc
-ajCLG5kJvO78+zTe7SNPEM/Npqv8m0p0gad4frw3Ru65P7loTOkiVl4+OGL03HID
-bfEd/j6mtF+fFGenqOKZKUeXyGmKt+vYplRd0qNvMa+Opsk9WBCGcy8hpmz4PDaS
-jezEVLanILUnd0jWwaFI
-=5A6E
------END PGP SIGNATURE-----
-
---4ickEXl+ukcSQ/3E--
+diff --git a/apphandler.C b/apphandler.C
+index c86997f..596ec9c 100755
+--- a/apphandler.C
++++ b/apphandler.C
+@@ -1,12 +1,62 @@
+ #include "apphandler.h"
+ #include "ipmid-api.h"
++#include "ipmid.H"
+ #include <stdio.h>
+ #include <string.h>
++#include <stdint.h>
+ 
+-void register_netfn_app_cap_bit() __attribute__((constructor));
+-void register_netfn_app_wildcard() __attribute__((constructor));
++void register_netfn_app_functions() __attribute__((constructor));
+ 
+-ipmi_ret_t ipmi_app_cap_bit_handler(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
++
++ipmi_ret_t ipmi_app_read_event(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
++                             ipmi_request_t request, ipmi_response_t response, 
++                             ipmi_data_len_t data_len, ipmi_context_t context)
++{
++    ipmi_ret_t rc = IPMI_CC_OK;
++    *data_len = 0;
++
++    printf("IPMI APP READ EVENT Ignoring for now\n");
++    return rc;
++
++}
++
++
++ipmi_ret_t ipmi_app_set_acpi_power_state(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
++                             ipmi_request_t request, ipmi_response_t response, 
++                             ipmi_data_len_t data_len, ipmi_context_t context)
++{
++    ipmi_ret_t rc = IPMI_CC_OK;
++    *data_len = 0;
++
++    printf("IPMI SET ACPI STATE Ignoring for now\n");
++    return rc;
++}
++
++ipmi_ret_t ipmi_app_get_device_id(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
++                             ipmi_request_t request, ipmi_response_t response, 
++                             ipmi_data_len_t data_len, ipmi_context_t context)
++{
++    ipmi_ret_t rc = IPMI_CC_OK;
++
++    // TODO GET REAL VALUES HERE....  I made these ones up because 
++    // we are in bringup mode.  Version Major and Minor can be what we
++    // want like v1.03  but the IANA really should be something that 
++    // we own.  I would suggest getting the IANA from Hostboot as 
++    // long as IBM owns it then no problem.  If some other company 
++    // gave us the IANA to use then use the one we have from the 
++    // FSP ipmi code.
++    uint8_t str[] = {0x00, 0, 1, 1,2, 0xD, 0x41, 0xA7, 0x00, 0x43, 0x40};
++
++    // Data length
++    *data_len = sizeof(str);
++
++    // Pack the actual response
++    memcpy(response, &str, *data_len);
++    return rc;
++}
++
++
++ipmi_ret_t ipmi_app_get_bt_capabilities(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
+                              ipmi_request_t request, ipmi_response_t response, 
+                              ipmi_data_len_t data_len, ipmi_context_t context)
+ {
+@@ -15,7 +65,7 @@ ipmi_ret_t ipmi_app_cap_bit_handler(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+     // Status code.
+     ipmi_ret_t rc = IPMI_CC_OK;
+ 
+-    unsigned char str[] = {0x00, 0x01, 0xFE, 0xFF, 0x0A, 0x01};
++    uint8_t str[] = {0x01, MAX_IPMI_BUFFER, MAX_IPMI_BUFFER, 0x0A, 0x01};
+ 
+     // Data length
+     *data_len = sizeof(str);
+@@ -26,6 +76,60 @@ ipmi_ret_t ipmi_app_cap_bit_handler(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+     return rc;
+ }
+ 
++
++struct set_wd_data_t {
++    uint8_t t_use;
++    uint8_t t_action;
++    uint8_t preset;
++    uint8_t flags;
++    uint8_t ls;
++    uint8_t ms;
++}  __attribute__ ((packed));
++
++
++
++ipmi_ret_t ipmi_app_set_watchdog(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
++                             ipmi_request_t request, ipmi_response_t response, 
++                             ipmi_data_len_t data_len, ipmi_context_t context)
++{
++
++    set_wd_data_t *reqptr = (set_wd_data_t*) request;
++    uint16_t timer = 0;
++    // Status code.
++    ipmi_ret_t rc = IPMI_CC_OK;
++
++    *data_len = 0;
++
++    timer = (((uint16_t)reqptr->ms) << 8) + reqptr->ls;
++
++    printf("WATCHDOG SET Timer:[0x%X] 100ms intervals\n",timer);
++
++    // TODO: Right here is where we would call some dbus method as a timer.
++    // If the timer expires it would iniate a reboot of the host.
++
++    return rc;
++}
++
++
++ipmi_ret_t ipmi_app_reset_watchdog(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
++                             ipmi_request_t request, ipmi_response_t response, 
++                             ipmi_data_len_t data_len, ipmi_context_t context)
++{
++    // Status code.
++    ipmi_ret_t rc = IPMI_CC_OK;
++    *data_len = 0;
++
++    printf("WATCHDOG RESET\n");
++    // TODO Right here is where we would call some sdbus timer.
++    // If your are experiencing dejavu you are right.  the
++    // set and the reset do similar things
++    return rc;
++}
++
++
++
++
++
+ ipmi_ret_t ipmi_app_wildcard_handler(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
+                               ipmi_request_t request, ipmi_response_t response, 
+                               ipmi_data_len_t data_len, ipmi_context_t context)
+@@ -43,16 +147,29 @@ ipmi_ret_t ipmi_app_wildcard_handler(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+     return rc;
+ }
+ 
+-void register_netfn_app_cap_bit()
++void register_netfn_app_functions()
+ {
+     printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_APP, IPMI_CMD_GET_CAP_BIT);
+-    ipmi_register_callback(NETFUN_APP, IPMI_CMD_GET_CAP_BIT, NULL, ipmi_app_cap_bit_handler);
+-    return;
+-}
++    ipmi_register_callback(NETFUN_APP, IPMI_CMD_GET_CAP_BIT, NULL, ipmi_app_get_bt_capabilities);
+ 
+-void register_netfn_app_wildcard()
+-{
+     printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_APP, IPMI_CMD_WILDCARD);
+     ipmi_register_callback(NETFUN_APP, IPMI_CMD_WILDCARD, NULL, ipmi_app_wildcard_handler);
++
++    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_APP, IPMI_CMD_RESET_WD);
++    ipmi_register_callback(NETFUN_APP, IPMI_CMD_RESET_WD, NULL, ipmi_app_reset_watchdog);
++
++    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_APP, IPMI_CMD_SET_WD);
++    ipmi_register_callback(NETFUN_APP, IPMI_CMD_SET_WD, NULL, ipmi_app_set_watchdog);
++
++    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_APP, IPMI_CMD_GET_DEVICE_ID);
++    ipmi_register_callback(NETFUN_APP, IPMI_CMD_GET_DEVICE_ID, NULL, ipmi_app_get_device_id);
++
++    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_APP, IPMI_CMD_SET_ACPI);
++    ipmi_register_callback(NETFUN_APP, IPMI_CMD_SET_ACPI, NULL, ipmi_app_set_acpi_power_state);
++
++    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_APP, IPMI_CMD_READ_EVENT);
++    ipmi_register_callback(NETFUN_APP, IPMI_CMD_READ_EVENT, NULL, ipmi_app_read_event);
+     return;
+ }
++
++
+diff --git a/apphandler.h b/apphandler.h
+index 602801b..2c4ea22 100644
+--- a/apphandler.h
++++ b/apphandler.h
+@@ -5,7 +5,13 @@
+ enum ipmi_netfn_app_cmds
+ {
+     // Get capability bits
++    IPMI_CMD_RESET_WD       = 0x22,
++    IPMI_CMD_SET_WD         = 0x24,
+     IPMI_CMD_GET_CAP_BIT    = 0x36,
++    IPMI_CMD_GET_DEVICE_ID  = 0x00,
++    IPMI_CMD_SET_ACPI       = 0x06,
++    IPMI_CMD_READ_EVENT     = 0x35,
++
+ };
+ 
+ #endif
+-- 
+2.6.0
