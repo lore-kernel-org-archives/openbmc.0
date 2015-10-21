@@ -3,18 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 8E2261A0228
- for <openbmc@lists.ozlabs.org>; Wed, 21 Oct 2015 23:49:08 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id CC85C1A0024
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Oct 2015 23:49:10 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1445431730975669.060947841371;
- Wed, 21 Oct 2015 05:48:50 -0700 (PDT)
+ with SMTPS id 1445431719124714.5924401024166;
+ Wed, 21 Oct 2015 05:48:39 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid v2 16/20] Added testcases for sensor
- record parsing
-Date: Wed, 21 Oct 2015 07:48:17 -0500
-Message-Id: <1445431701-8681-17-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid v2 08/20] Add support for the the dcmi
+ package
+Date: Wed, 21 Oct 2015 07:48:09 -0500
+Message-Id: <1445431701-8681-9-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1445431701-8681-1-git-send-email-patches@stwcx.xyz>
 References: <1445431701-8681-1-git-send-email-patches@stwcx.xyz>
@@ -29,229 +29,107 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Oct 2015 12:49:09 -0000
+X-List-Received-Date: Wed, 21 Oct 2015 12:49:11 -0000
 
 From: Chris Austen <austenc@us.ibm.com>
 
 ---
- Makefile |  14 ++++--
- testit.C | 162 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 173 insertions(+), 3 deletions(-)
- create mode 100644 testit.C
+ Makefile      |  1 +
+ dcmihandler.C | 40 ++++++++++++++++++++++++++++++++++++++++
+ dcmihandler.h | 12 ++++++++++++
+ ipmid-api.h   |  1 +
+ 4 files changed, 54 insertions(+)
+ create mode 100644 dcmihandler.C
+ create mode 100644 dcmihandler.h
 
 diff --git a/Makefile b/Makefile
-index cebf798..45e3d0f 100755
+index 93d3256..2177c9d 100755
 --- a/Makefile
 +++ b/Makefile
-@@ -1,12 +1,17 @@
- CXX ?= $(CROSS_COMPILE)g++
- 
-+TESTER = testit
-+
- DAEMON = ipmid
- DAEMON_OBJ  = $(DAEMON).o
+@@ -5,6 +5,7 @@ DAEMON_OBJ  = $(DAEMON).o
  LIB_APP_OBJ = apphandler.o     \
                sensorhandler.o  \
                storagehandler.o \
-               dcmihandler.o    \
--              ipmisensor.o
-+
-+
-+TESTER_OBJ = ipmisensor.o 	   \
-+			 testit.o
++              dcmihandler.o
  
  LIB_APP     = libapphandler.so
- INSTALLED_LIBS += $(LIB_APP)
-@@ -21,7 +26,7 @@ SBINDIR ?= /usr/sbin
- INCLUDEDIR ?= /usr/include
- LIBDIR ?= /usr/lib
  
--all: $(DAEMON) $(LIB_APP)
-+all: $(DAEMON) $(LIB_APP) $(TESTER)
- 
- %.o: %.C
- 	$(CXX) -fpic -c $< $(CXXFLAGS) $(INC_FLAG) $(IPMID_PATH) -o $@
-@@ -32,8 +37,11 @@ $(LIB_APP): $(LIB_APP_OBJ)
- $(DAEMON): $(DAEMON_OBJ)
- 	$(CXX) $^ $(LDFLAGS) $(LIB_FLAG) -o $@ -ldl
- 
-+$(TESTER): $(TESTER_OBJ)
-+	$(CXX) $^ $(LDFLAGS) $(LIB_FLAG) -o $@ -ldl
-+
- clean:
--	rm -f $(DAEMON) *.o *.so
-+	rm -f $(DAEMON) $(TESTER) *.o *.so
- 
- install:
- 		install -m 0755 -d $(DESTDIR)$(SBINDIR)
-diff --git a/testit.C b/testit.C
+diff --git a/dcmihandler.C b/dcmihandler.C
 new file mode 100644
-index 0000000..0641a55
+index 0000000..fafebdc
 --- /dev/null
-+++ b/testit.C
-@@ -0,0 +1,162 @@
-+
++++ b/dcmihandler.C
+@@ -0,0 +1,40 @@
++#include "dcmihandler.h"
++#include "ipmid-api.h"
 +#include <stdio.h>
 +#include <string.h>
 +#include <stdint.h>
 +
++void register_netfn_dcmi_functions() __attribute__((constructor));
 +
-+unsigned char g_sensortype [][2] = {
-+    {0xc7, 58},
-+{0x01, 113},
-+{0xc7, 56},
-+{0x01, 114},
-+{0xc6, 54},
-+{0x07, 40},
-+{0xC1, 121},
-+{0xC2, 137},
-+{0x07, 36},
-+{0x07, 43},
-+{0xC1, 122},
-+{0xC1, 119},
-+{0x01, 12},
-+{0x01, 111},
-+{0x01, 116},
-+{0xC1, 127},
-+{0xC2, 134},
-+{0xC2, 130},
-+{0xc, 33},
-+{0xC1, 125},
-+{0x01, 115},
-+{0x22, 4},
-+{0xC2, 138},
-+{0x01, 108},
-+{0x01, 102},
-+{0xc, 46},
-+{0x7, 11},
-+{0xC1, 120},
-+{0x07, 39},
-+{0x07, 42},
-+{0x5, 21},
-+{0xC2, 131},
-+{0xc1, 48},
-+{0x12, 53},
-+{0xC1, 124},
-+{0x01, 117},
-+{0xC1, 126},
-+{0xf, 5},
-+{0x23, 0},
-+{0xC2, 139},
-+{0x07, 34},
-+{0x09, 146},
-+{0x02, 178},
-+{0xC2, 140},
-+{0xC1, 118},
-+{0xC2, 133},
-+{0x07, 38},
-+{0xC2, 143},
-+{0x01, 101},
-+{0xc3, 9},
-+{0x7, 10},
-+{0xc2, 51},
-+{0x01, 109},
-+{0xc, 32},
-+{0x7, 8},
-+{0xC1, 129},
-+{0x01, 112},
-+{0x01, 107},
-+{0x07, 37},
-+{0x07, 44},
-+{0x1f, 50},
-+{0xC2, 144},
-+{0xc7, 52},
-+{0xC2, 141},
-+{0x01, 106},
-+{0x01, 110},
-+{0x01, 103},
-+{0x9, 28},
-+{0x07, 35},
-+{0xc7, 55},
-+{0x03, 179},
-+{0x07, 41},
-+{0xc, 30},
-+{0x01, 100},
-+{0xC1, 128},
-+{0xC2, 135},
-+{0x01, 105},
-+{0x7, 47},
-+{0xC2, 145},
-+{0xc7, 57},
-+{0x01, 104},
-+{0x07, 45},
-+{0xC2, 132},
-+{0xc4, 49},
-+{0xC1, 123},
-+{0xC2, 142},
-+{0x01, 13},
-+{0xC2, 136},
-+{0xc, 31},
-+{0xff,0xff}
++
++ipmi_ret_t ipmi_dcmi_get_power_limit(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
++                              ipmi_request_t request, ipmi_response_t response, 
++                              ipmi_data_len_t data_len, ipmi_context_t context)
++{
++    ipmi_ret_t rc = IPMI_DCMI_CC_NO_ACTIVE_POWER_LIMIT;
++
++    // dcmi-v1-5-rev-spec.pdf 6.6.2.   
++    // This is good enough for OpenBMC support for OpenPOWER based systems
++    // TODO research if more is needed
++    uint8_t data_response[] = { 0xDC, 0x00, 0x00, 0x01, 0x00, 0x00, 
++                                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
++                                0x00, 0x01};
++
++
++
++    printf("IPMI DCMI_GET_POWER_LEVEL\n");
++
++    memcpy(response, data_response, sizeof(data_response));
++    *data_len = sizeof(data_response);
++
++    return rc;
++}
++
++
++void register_netfn_dcmi_functions()
++{
++    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_GRPEXT, IPMI_CMD_DCMI_GET_POWER);
++    ipmi_register_callback(NETFUN_GRPEXT, IPMI_CMD_DCMI_GET_POWER, NULL, ipmi_dcmi_get_power_limit);
++    return;
++}
++// 956379
+\ No newline at end of file
+diff --git a/dcmihandler.h b/dcmihandler.h
+new file mode 100644
+index 0000000..5fc0c10
+--- /dev/null
++++ b/dcmihandler.h
+@@ -0,0 +1,12 @@
++#ifndef __HOST_IPMI_DCMI_HANDLER_H__
++#define __HOST_IPMI_DCMI_HANDLER_H__
++
++// IPMI commands for net functions.
++enum ipmi_netfn_sen_cmds
++{
++    // Get capability bits
++    IPMI_CMD_DCMI_GET_POWER = 0x03,
++    
 +};
 +
-+unsigned char findSensor(char sensor_number) {
-+
-+    int i=0;
-+
-+    // TODO : This function should actually call
-+    // a dbus object and have it return the data
-+    // it is not ready yet so use a Palmetto 
-+    // based lookup table for now.  The g_sensortype
-+    // can be removed once the dbus method exists
-+    while (g_sensortype[i][0] != 0xff) {
-+        if (g_sensortype[i][1] == sensor_number) {
-+            break;
-+        } else {
-+            i++;
-+        }
-+
-+    }
-+
-+    return g_sensortype[i][0];
-+
-+}
-+
-+
-+int set_sensor_dbus_state(uint8_t number, const char *method, const char *value) {
-+
-+	printf("Attempting to log Sensor 0x%02x via %s with a value of %s\n", 
-+		number, method, value);
-+
-+	return 0;
-+}
-+
-+
-+extern int updateSensorRecordFromSSRAESC(const void *record);
-+
-+
-+
-+
-+
-+uint8_t testrec_boot1[] = {0x05, 0xa9, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x14, 0x00};
-+uint8_t testrec_boot2[] = {0x05, 0xa9, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00};
-+uint8_t testrec_boot3[] = {0x05, 0xa9, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x03, 0x00};
-+uint8_t testrec_boot4[] = {0x05, 0xa9, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x13, 0x00};                       
-+
-+
-+
-+// DIMM Present
-+uint8_t testrec_sensor1[] {0x1F, 0xa9, 0x00, 0x40, 0x00, 0x10, 0x00, 0x00};
-+
-+// DIMM Not present
-+uint8_t testrec_sensor2[] {0x1F, 0xa9, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00};
-+
-+
-+uint8_t testrec_bootprogress[]  = {05, 0xa9, 0x00, 0x04, 0x00, 0x00, 0x14, 0x00 };
-+
-+int main() {
-+
-+	updateSensorRecordFromSSRAESC(testrec_bootprogress);
-+	updateSensorRecordFromSSRAESC(testrec_sensor1);
-+	updateSensorRecordFromSSRAESC(testrec_sensor2);
-+
-+
-+	return 0;
-+}
-\ No newline at end of file
++#endif
+diff --git a/ipmid-api.h b/ipmid-api.h
+index 615e0d5..caf18e8 100755
+--- a/ipmid-api.h
++++ b/ipmid-api.h
+@@ -85,6 +85,7 @@ enum ipmi_netfn_wild_card_cmd
+ enum ipmi_return_codes
+ {
+     IPMI_CC_OK = 0x00,
++    IPMI_DCMI_CC_NO_ACTIVE_POWER_LIMIT = 0x80,
+     IPMI_CC_INVALID = 0xC1
+ };
+ 
 -- 
 2.6.0
