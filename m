@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 071EF1A06A1
- for <openbmc@lists.ozlabs.org>; Wed, 21 Oct 2015 23:48:53 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id EE7021A0728
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Oct 2015 23:48:57 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1445431732383801.2803629793583;
- Wed, 21 Oct 2015 05:48:52 -0700 (PDT)
+ with SMTPS id 1445431716340799.5162661105729;
+ Wed, 21 Oct 2015 05:48:36 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid v2 17/20] Add virtual sensor support
-Date: Wed, 21 Oct 2015 07:48:18 -0500
-Message-Id: <1445431701-8681-18-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid v2 06/20] Add sensor ipmi commands
+Date: Wed, 21 Oct 2015 07:48:07 -0500
+Message-Id: <1445431701-8681-7-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1445431701-8681-1-git-send-email-patches@stwcx.xyz>
 References: <1445431701-8681-1-git-send-email-patches@stwcx.xyz>
@@ -28,343 +28,287 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Oct 2015 12:48:54 -0000
+X-List-Received-Date: Wed, 21 Oct 2015 12:48:58 -0000
 
 From: Chris Austen <austenc@us.ibm.com>
 
 ---
- Makefile     |   1 +
- ipmid.C      |  44 ++++++++++++++++
- ipmisensor.C | 170 +++++++++++++++++++++++++++++++++++++++++++++--------------
- testit.C     |   8 ++-
- 4 files changed, 180 insertions(+), 43 deletions(-)
+ Makefile        |  12 ++--
+ sensorhandler.C | 213 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ sensorhandler.h |  13 ++++
+ 3 files changed, 233 insertions(+), 5 deletions(-)
+ create mode 100644 sensorhandler.C
+ create mode 100644 sensorhandler.h
 
 diff --git a/Makefile b/Makefile
-index 45e3d0f..1f2c7aa 100755
+index be3aedd..9ce7c8f 100755
 --- a/Makefile
 +++ b/Makefile
-@@ -8,6 +8,7 @@ LIB_APP_OBJ = apphandler.o     \
-               sensorhandler.o  \
-               storagehandler.o \
-               dcmihandler.o    \
-+              ipmisensor.o     \
+@@ -1,20 +1,22 @@
+ CXX ?= $(CROSS_COMPILE)g++
  
+ DAEMON = ipmid
+-DAEMON_OBJ = $(DAEMON).o
+-LIB_OBJ = apphandler.o
+-LIBS = libapphandler.so
++DAEMON_OBJ  = $(DAEMON).o
++LIB_APP_OBJ = apphandler.o     \
++              sensorhandler.o  \
++
++LIB_APP     = libapphandler.so
  
- TESTER_OBJ = ipmisensor.o 	   \
-diff --git a/ipmid.C b/ipmid.C
-index a134832..4f0831e 100644
---- a/ipmid.C
-+++ b/ipmid.C
-@@ -547,3 +547,47 @@ int set_sensor_dbus_state(uint8_t number, const char *method, const char *value)
+ INC_FLAG += $(shell pkg-config --cflags --libs libsystemd) -I. -O2 --std=gnu++11
+ LIB_FLAG += $(shell pkg-config  --libs libsystemd) -rdynamic
+ IPMID_PATH ?= -DHOST_IPMI_LIB_PATH=\"/usr/lib/host-ipmid/\" 
  
+-all: $(DAEMON) $(LIBS)
++all: $(DAEMON) $(LIB_APP) 
  
- }
-+
-+int set_sensor_dbus_state_v(uint8_t number, const char *method, char *value) {
-+
-+
-+    dbus_interface_t a;
-+    int r;
-+    sd_bus_error error = SD_BUS_ERROR_NULL;
-+    sd_bus_message *reply = NULL, *m=NULL;
-+
-+    printf("Attempting to set a dbus Variant Sensor 0x%02x via %s with a value of %s\n",
-+        number, method, value);
-+
-+    r = find_openbmc_path("SENSOR", number, &a);
-+
-+    printf("**********************\n");
-+    printf("%s\n", a.bus);
-+    printf("%s\n", a.path);
-+    printf("%s\n", a.interface);
-+
-+
-+    r = sd_bus_message_new_method_call(bus,&m,a.bus,a.path,a.interface,method);
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to create a method call: %s", strerror(-r));
-+    }
-+
-+    r = sd_bus_message_append(m, "v", "s", value);
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to create a input parameter: %s", strerror(-r));
-+    }
-+
-+
-+    // Call the IPMI responder on the bus so the message can be sent to the CEC
-+    r = sd_bus_call(bus, m, 0, &error, NULL);
-+    if (r < 0) {
-+        fprintf(stderr, "12 Failed to call the method: %s", strerror(-r));
-+    }
-+
-+
-+
-+    sd_bus_error_free(&error);
-+    sd_bus_message_unref(m);
-+
-+    return 0;
-+}
-diff --git a/ipmisensor.C b/ipmisensor.C
-index c2370b8..72cb576 100644
---- a/ipmisensor.C
-+++ b/ipmisensor.C
-@@ -4,6 +4,9 @@
+ %.o: %.C
+ 	$(CXX) -fpic -c $< $(CXXFLAGS) $(INC_FLAG) $(IPMID_PATH) -o $@
  
+-$(LIBS): $(LIB_OBJ)
++$(LIB_APP): $(LIB_APP_OBJ)
+ 	$(CXX) $^ -shared $(LDFLAGS) $(LIB_FLAG) -o $@
  
- extern unsigned char findSensor(char);
-+extern int set_sensor_dbus_state_v(uint8_t , const char *, char *);
+ $(DAEMON): $(DAEMON_OBJ)
+diff --git a/sensorhandler.C b/sensorhandler.C
+new file mode 100644
+index 0000000..9f0c975
+--- /dev/null
++++ b/sensorhandler.C
+@@ -0,0 +1,213 @@
++#include "sensorhandler.h"
++#include "ipmid-api.h"
++#include <stdio.h>
++#include <string.h>
++#include <stdint.h>
 +
 +
- 
- struct sensorRES_t {
- 	uint8_t sensor_number;
-@@ -18,48 +21,136 @@ struct sensorRES_t {
- 	uint8_t event_data3;	
- } __attribute__ ((packed));
- 
--#define ISBITSET(x,y) ((x>>y)&0x01)
-+#define ISBITSET(x,y) (((x)>>(y))&0x01)
- #define ASSERTINDEX 0
- #define DEASSERTINDEX 1
- 
--
--extern int updateDbusInterface(uint8_t , const char *, const char *) ;
--extern int set_sensor_dbus_state(uint8_t ,const char *, const char *);
--
--
--
- // Sensor Type,  Offset, function handler, Dbus Method, Assert value, Deassert value
- struct lookup_t {
- 	uint8_t sensor_type;
- 	uint8_t offset;
--	int (*func)(uint8_t, const char *, const char *);
-+	int (*func)(const sensorRES_t *, const lookup_t *, const char *);
- 	char    method[16];
- 	char    assertion[16];
- 	char    deassertion[16];
- };
- 
- 
-+extern int updateDbusInterface(uint8_t , const char *, const char *) ;
-+extern int set_sensor_dbus_state(uint8_t ,const char *, const char *);
++void register_netfn_sen_functions()   __attribute__((constructor));
 +
 +
-+int set_sensor_dbus_state_simple(const sensorRES_t *pRec, const lookup_t *pTable, const char *value) {
++struct sensor_data_t {
++    uint8_t sennum;
++}  __attribute__ ((packed)) ;
 +
-+	return set_sensor_dbus_state(pRec->sensor_number, pTable->method, value);
-+}
-+
-+struct event_data_t {
-+	uint8_t data;
-+	char    text[32];
-+};
-+
-+event_data_t g_fwprogress02h[] = {
-+	{0x00, "Unspecified"},
-+	{0x01, "Memory Init"},
-+	{0x02, "HD Init"},
-+	{0x03, "Secondary Proc Init"},
-+	{0x04, "User Authentication"},
-+	{0x05, "User init system setup"},
-+	{0x06, "USB configuration"},
-+	{0x07, "PCI configuration"},
-+	{0x08, "Option ROM Init"},
-+	{0x09, "Video Init"},
-+	{0x0A, "Cache Init"},
-+	{0x0B, "SM Bus init"},
-+	{0x0C, "Keyboard Init"},
-+	{0x0D, "Embedded ctrl init"},
-+	{0x0E, "Docking station attachment"},
-+	{0x0F, "Enable docking station"},
-+	{0x10, "Docking station ejection"},
-+	{0x11, "Disabling docking station"},
-+	{0x12, "Calling OS Wakeup"},
-+	{0x13, "Starting OS"},
-+	{0x14, "Baseboard Init"},
-+	{0x15, ""},
-+	{0x16, "Floppy Init"},
-+	{0x17, "Keyboard Test"},
-+	{0x18, "Pointing Device Test"},
-+	{0x19, "Primary Proc Init"},
-+	{0xFF, "Unknown"}
++unsigned char g_sensortype [][2] = {
++    {0xc7, 58},
++{0x01, 113},
++{0xc7, 56},
++{0x01, 114},
++{0xc6, 54},
++{0x07, 40},
++{0xC1, 121},
++{0xC2, 137},
++{0x07, 36},
++{0x07, 43},
++{0xC1, 122},
++{0xC1, 119},
++{0x01, 12},
++{0x01, 111},
++{0x01, 116},
++{0xC1, 127},
++{0xC2, 134},
++{0xC2, 130},
++{0xc, 33},
++{0xC1, 125},
++{0x01, 115},
++{0x22, 4},
++{0xC2, 138},
++{0x01, 108},
++{0x01, 102},
++{0xc, 46},
++{0x7, 11},
++{0xC1, 120},
++{0x07, 39},
++{0x07, 42},
++{0x5, 21},
++{0xC2, 131},
++{0xc1, 48},
++{0x12, 53},
++{0xC1, 124},
++{0x01, 117},
++{0xC1, 126},
++{0xf, 5},
++{0x23, 0},
++{0xC2, 139},
++{0x07, 34},
++{0x09, 146},
++{0x02, 178},
++{0xC2, 140},
++{0xC1, 118},
++{0xC2, 133},
++{0x07, 38},
++{0xC2, 143},
++{0x01, 101},
++{0xc3, 9},
++{0x7, 10},
++{0xc2, 51},
++{0x01, 109},
++{0xc, 32},
++{0x7, 8},
++{0xC1, 129},
++{0x01, 112},
++{0x01, 107},
++{0x07, 37},
++{0x07, 44},
++{0x1f, 50},
++{0xC2, 144},
++{0xc7, 52},
++{0xC2, 141},
++{0x01, 106},
++{0x01, 110},
++{0x01, 103},
++{0x9, 28},
++{0x07, 35},
++{0xc7, 55},
++{0x03, 179},
++{0x07, 41},
++{0xc, 30},
++{0x01, 100},
++{0xC1, 128},
++{0xC2, 135},
++{0x01, 105},
++{0x7, 47},
++{0xC2, 145},
++{0xc7, 57},
++{0x01, 104},
++{0x07, 45},
++{0xC2, 132},
++{0xc4, 49},
++{0xC1, 123},
++{0xC2, 142},
++{0x01, 13},
++{0xC2, 136},
++{0xc, 31},
++{0xff,0xff}
 +};
 +
 +
-+char *getfw02string(uint8_t b) {
++unsigned char findSensor(char sensor_number) {
 +
-+	int i = 0;
-+	event_data_t *p = g_fwprogress02h;
++    int i=0;
 +
-+	do {
++    // TODO : This function should actually call
++    // a dbus object and have it return the data
++    // it is not ready yet so use a Palmetto 
++    // based lookup table for now.  The g_sensortype
++    // can be removed once the dbus method exists
++    while (g_sensortype[i][0] != 0xff) {
++        if (g_sensortype[i][1] == sensor_number) {
++            break;
++        } else {
++            i++;
++        }
 +
-+		if ((p+i)->data == b)
-+			break;
-+		i++;
-+	} while ((p+i)->data != 0xFF);
++    }
 +
-+	return p->text;
-+}
-+//  The fw progress sensor contains some additional information that needs to be processed
-+//  prior to calling the dbus code.  
-+int set_sensor_dbus_state_fwprogress(const sensorRES_t *pRec, const lookup_t *pTable, const char *value) {
-+
-+	char valuestring[32];
-+	char* pStr = valuestring;
-+
-+	switch (pTable->offset) {
-+
-+		case 0x00 : sprintf(valuestring, "POST Error, 0x%02x", pRec->event_data2);
-+					break;
-+		case 0x01 : sprintf(valuestring, "FW Hang, 0x%02x", pRec->event_data2);
-+					break;
-+		case 0x02 : sprintf(valuestring, "FW Progress, 0x%02x", getfw02string(pRec->event_data2));
-+	}
-+
-+	return set_sensor_dbus_state_v(pRec->sensor_number, pTable->method, pStr);
-+}
-+
-+
- //  This table lists only senors we care about telling dbus about.
- //  Offset definition cab be found in section 42.2 of the IPMI 2.0 
- //  spec.  Add more if/when there are more items of interest.
--lookup_t ipmidbuslookup[] = {
-+lookup_t g_ipmidbuslookup[] = {
- 
--	{0x07, 0x07, set_sensor_dbus_state, "setPresent", "True", "False"},
--	{0x07, 0x08, set_sensor_dbus_state, "setFault",   "True", "False"},
--	{0x0C, 0x06, set_sensor_dbus_state, "setPresent", "True", "False"},
--	{0x0C, 0x04, set_sensor_dbus_state, "setFault",   "True", "False"},
--	{0xFF, 0xFF, NULL,                  "",            "" ,    ""}
-+	{0x07, 0x07, set_sensor_dbus_state_simple, "setPresent", "True", "False"},
-+	{0x07, 0x08, set_sensor_dbus_state_simple, "setFault",   "True", "False"},
-+	{0x0C, 0x06, set_sensor_dbus_state_simple, "setPresent", "True", "False"},
-+	{0x0C, 0x04, set_sensor_dbus_state_simple, "setFault",   "True", "False"},
-+	{0x0F, 0x02, set_sensor_dbus_state_fwprogress, "setValue", "True", "False"},
-+	{0x0F, 0x01, set_sensor_dbus_state_fwprogress, "setValue", "True", "False"},
-+	{0x0F, 0x00, set_sensor_dbus_state_fwprogress, "setValue", "True", "False"},
-+
-+	{0xFF, 0xFF, NULL, "", "", ""}
- };
- 
-+
-+
-+void reportSensorEventAssert(sensorRES_t *pRec, int index) {
-+	lookup_t *pTable = &g_ipmidbuslookup[index];
-+	(*pTable->func)(pRec, pTable, pTable->assertion);
-+}
-+void reportSensorEventDeassert(sensorRES_t *pRec, int index) {
-+	lookup_t *pTable = &g_ipmidbuslookup[index];
-+	(*pTable->func)(pRec, pTable, pTable->deassertion);
-+}
-+
-+
- int findindex(const uint8_t sensor_type, int offset, int *index) {
- 	
- 	int i=0, rc=0;
--	lookup_t *pTable = ipmidbuslookup;
-+	lookup_t *pTable = g_ipmidbuslookup;
- 
- 	do {
--
- 		if ( ((pTable+i)->sensor_type == sensor_type) && 
--			 ((pTable+i)->offset  == offset)  ) {
-+			 ((pTable+i)->offset  == offset) ) {
- 			rc = 1;
- 			*index = i;
- 			break;
-@@ -70,23 +161,12 @@ int findindex(const uint8_t sensor_type, int offset, int *index) {
- 	return rc;
- }
- 
--int shouldReport(sensorRES_t *pRec, uint8_t sensorType, int offset, int assertState) {
--
--	int index;
--	char *pState;
--	lookup_t *pTable = ipmidbuslookup;
-+bool shouldReport(uint8_t sensorType, int offset, int *index) {
- 
--	if (findindex(sensorType, offset, &index)) {
-+	bool rc = false;
-+	if (findindex(sensorType, offset, index)) { rc = true;	}
- 
--		if (assertState == ASSERTINDEX) {
--			pState = (pTable+index)->assertion;
--		} else {
--			pState = (pTable+index)->deassertion;
--		}
--		(*((pTable+index)->func))(pRec->sensor_number, (pTable+index)->method, pState);
--	}
--
--	return 0;
-+	return rc;
- }
- 
- 
-@@ -95,23 +175,31 @@ int updateSensorRecordFromSSRAESC(const void *record) {
- 	sensorRES_t *pRec = (sensorRES_t *) record;
- 	unsigned char stype;
- 	int index, i=0;
--
- 	stype = findSensor(pRec->sensor_number);
- 
-+
- 	// Scroll through each bit position .  Determine 
- 	// if any bit is either asserted or Deasserted.
- 	for(i=0;i<8;i++) {
--		if (ISBITSET(pRec->assert_state7_0,i)) { 
--			shouldReport(pRec, stype, i, ASSERTINDEX);
-+		if ((ISBITSET(pRec->assert_state7_0,i))  &&
-+			(shouldReport(stype, i, &index)))
-+		{
-+			reportSensorEventAssert(pRec, index);
- 		}
--		if (ISBITSET(pRec->assert_state14_8,i)) { 
--			shouldReport(pRec, stype, i+8, ASSERTINDEX);
-+		if ((ISBITSET(pRec->assert_state14_8,i+8))  &&
-+			(shouldReport(stype, i+8, &index)))
-+		{
-+			reportSensorEventAssert(pRec, index);
- 		}
--		if (ISBITSET(pRec->deassert_state7_0,i)) { 
--			shouldReport(pRec, stype, i, DEASSERTINDEX);
-+		if ((ISBITSET(pRec->deassert_state7_0,i))  &&
-+			(shouldReport(stype, i, &index)))
-+		{
-+			reportSensorEventDeassert(pRec, index);
- 		}
--		if (ISBITSET(pRec->deassert_state14_8,i)) { 
--			shouldReport(pRec, stype, i+8, DEASSERTINDEX);
-+		if ((ISBITSET(pRec->deassert_state14_8,i+8))  &&
-+			(shouldReport(stype, i+8, &index)))
-+		{
-+			reportSensorEventDeassert(pRec, index);
- 		}
- 	}
- 
-diff --git a/testit.C b/testit.C
-index 0641a55..021d534 100644
---- a/testit.C
-+++ b/testit.C
-@@ -120,6 +120,12 @@ unsigned char findSensor(char sensor_number) {
- }
- 
- 
-+int set_sensor_dbus_state_v(uint8_t number, const char *method, char *value) {
-+    printf("Attempting to log Variant Sensor 0x%02x via %s with a value of %s\n", 
-+        number, method, value);
++    return g_sensortype[i][0];
 +
 +}
 +
- int set_sensor_dbus_state(uint8_t number, const char *method, const char *value) {
- 
- 	printf("Attempting to log Sensor 0x%02x via %s with a value of %s\n", 
-@@ -133,8 +139,6 @@ extern int updateSensorRecordFromSSRAESC(const void *record);
- 
- 
- 
--
--
- uint8_t testrec_boot1[] = {0x05, 0xa9, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x14, 0x00};
- uint8_t testrec_boot2[] = {0x05, 0xa9, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00};
- uint8_t testrec_boot3[] = {0x05, 0xa9, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x03, 0x00};
++ipmi_ret_t ipmi_sen_get_sensor_type(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
++                             ipmi_request_t request, ipmi_response_t response, 
++                             ipmi_data_len_t data_len, ipmi_context_t context)
++{
++    sensor_data_t *reqptr = (sensor_data_t*)request;
++    ipmi_ret_t rc = IPMI_CC_OK;
++
++    printf("IPMI GET_SENSOR_TYPE [0x%02X]\n",reqptr->sennum);
++
++    // TODO Not sure what the System-event-sensor is suppose to return
++    // need to ask Hostboot team
++    unsigned char buf[] = {0x00,0x6F};
++
++    buf[0] = findSensor(reqptr->sennum);
++
++    *data_len = sizeof(buf);
++    memcpy(response, &buf, *data_len);
++
++
++
++    return rc;
++}
++
++
++
++// TODO: Saves the sensor information to a file in /tmp.  This
++// will need to change to calling the correct method 
++// once it exists in the stack.  
++ipmi_ret_t ipmi_sen_set_sensor(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
++                             ipmi_request_t request, ipmi_response_t response, 
++                             ipmi_data_len_t data_len, ipmi_context_t context)
++{
++    FILE *fp;
++    char string[16];
++    sensor_data_t *reqptr = (sensor_data_t*)request;
++    ipmi_ret_t rc = IPMI_CC_OK;
++    unsigned short rlen;
++
++    rlen = (unsigned short) *data_len - 1;
++
++    sprintf(string, "%s%02x", "/tmp/sen", reqptr->sennum);
++
++    printf("IPMI SET_SENSOR [%s]\n",string);
++
++    if ((fp = fopen(string, "wb")) != NULL) {
++        fwrite(reqptr+1,rlen,1,fp);
++        fclose(fp);
++    } else {
++        fprintf(stderr, "Error trying to write to sensor file %s\n",string);
++        ipmi_ret_t rc = IPMI_CC_INVALID;        
++    }
++
++    *data_len=0;
++
++
++    return rc;
++}
++
++ipmi_ret_t ipmi_sen_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
++                             ipmi_request_t request, ipmi_response_t response, 
++                             ipmi_data_len_t data_len, ipmi_context_t context)
++{
++    ipmi_ret_t rc = IPMI_CC_OK;
++
++    printf("IPMI S/E Wildcard Netfn:[0x%X], Cmd:[0x%X]\n",netfn,cmd);
++    *data_len = 0;
++
++    return rc;
++}
++
++
++void register_netfn_sen_functions()
++{
++    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_SENSOR, IPMI_CMD_WILDCARD);
++    ipmi_register_callback(NETFUN_SENSOR, IPMI_CMD_WILDCARD, NULL, ipmi_sen_wildcard);
++
++    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_SENSOR, IPMI_CMD_GET_SENSOR_TYPE);
++    ipmi_register_callback(NETFUN_SENSOR, IPMI_CMD_GET_SENSOR_TYPE, NULL, ipmi_sen_get_sensor_type);
++
++    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_SENSOR, IPMI_CMD_SET_SENSOR);
++    ipmi_register_callback(NETFUN_SENSOR, IPMI_CMD_SET_SENSOR, NULL, ipmi_sen_set_sensor);
++    return;
++}
+diff --git a/sensorhandler.h b/sensorhandler.h
+new file mode 100644
+index 0000000..da63bcb
+--- /dev/null
++++ b/sensorhandler.h
+@@ -0,0 +1,13 @@
++#ifndef __HOST_IPMI_SEN_HANDLER_H__
++#define __HOST_IPMI_SEN_HANDLER_H__
++
++// IPMI commands for net functions.
++enum ipmi_netfn_sen_cmds
++{
++    // Get capability bits
++    IPMI_CMD_GET_SENSOR_TYPE = 0x2F,
++    IPMI_CMD_SET_SENSOR      = 0x30,
++
++};
++
++#endif
 -- 
 2.6.0
