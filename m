@@ -1,31 +1,23 @@
-Return-Path: <patrick@stwcx.xyz>
+Return-Path: <patches@stwcx.xyz>
 Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id CEB0F1A0512
- for <openbmc@lists.ozlabs.org>; Thu, 22 Oct 2015 13:45:34 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 70B951A0758
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Oct 2015 13:52:18 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1445481930266979.3665538743304;
- Wed, 21 Oct 2015 19:45:30 -0700 (PDT)
-Date: Wed, 21 Oct 2015 21:45:28 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC Patches <patches@stwcx.xyz>
-Cc: openbmc@lists.ozlabs.org
-Subject: Re: [PATCH phosphor-host-ipmid v2] add dynamic lookup of sensor types
-Message-ID: <20151022024527.GT13316@asimov.austin.ibm.com>
-References: <1445481125-30036-1-git-send-email-patches@stwcx.xyz>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="wlFCko3yyTbBmKK8"
-Content-Disposition: inline
-In-Reply-To: <1445481125-30036-1-git-send-email-patches@stwcx.xyz>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
-X-ZohoMail: Ss  SS_10 UW UB CHF_INT_SMD_EXT  SGR4_1_06105_1
-X-ZohoMail-Owner: <20151022024527.GT13316@asimov.austin.ibm.com>+zmo_0_<patrick@stwcx.xyz>
-X-ZohoMail-Sender: 108.215.4.10
+ with SMTPS id 1445482336175664.5249326288874;
+ Wed, 21 Oct 2015 19:52:16 -0700 (PDT)
+From: OpenBMC Patches <patches@stwcx.xyz>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH openpower-host-ipmi-oem 1/8] Support OpenPOWERs OEM commands
+ on openbmc
+Date: Wed, 21 Oct 2015 21:52:06 -0500
+Message-Id: <1445482333-2053-2-git-send-email-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.6.0
+In-Reply-To: <1445482333-2053-1-git-send-email-patches@stwcx.xyz>
+References: <1445482333-2053-1-git-send-email-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -37,64 +29,272 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Oct 2015 02:45:35 -0000
+X-List-Received-Date: Thu, 22 Oct 2015 02:52:19 -0000
 
+From: Chris Austen <austenc@us.ibm.com>
 
---wlFCko3yyTbBmKK8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+---
+ Makefile     | 21 ++++++++++++++
+ ipmid-api.h  | 83 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ oemhandler.C | 92 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ oemhandler.h | 32 +++++++++++++++++++++
+ 4 files changed, 228 insertions(+)
+ create mode 100644 Makefile
+ create mode 100644 ipmid-api.h
+ create mode 100644 oemhandler.C
+ create mode 100644 oemhandler.h
 
-On Wed, Oct 21, 2015 at 09:32:04PM -0500, OpenBMC Patches wrote:
-> Why yes the testit file does need to compile Chris
->=20
-> https://github.com/openbmc/phosphor-host-ipmid/pull/15
->=20
-> Chris Austen (1):
->   add dynamic lookup of sensor types
->=20
->  ipmid.C         |  79 ++++++++++++++---------
->  ipmisensor.C    |  22 +++----
->  sensorhandler.C | 194 +++++++++++++++++++++-----------------------------=
-------
->  sensorhandler.h |  14 ++++
->  testit.C        |   9 +--
->  5 files changed, 146 insertions(+), 172 deletions(-)
->=20
-> --=20
-> 2.6.0
->=20
->=20
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
-
-This pull request needs a rebase.
-
---=20
-Patrick Williams
-
---wlFCko3yyTbBmKK8
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJWKE3HAAoJEKsDR8wtAMEZx6AP/1wKPhYqYq922qXmywmfU2Ey
-W9XnDjBjBdv4V9ZAjhEF7gYo+Knb7dUn0zuTwLUGEMJg3/0wnZZGXQoKCu7JdVZE
-ycP8WSJRoRBPMK8X1F9Es3y2sPHZLngWmxOjtOGPhPzGMizH676r27jvDDJ8BJfZ
-wu/b7MT5JMKDmfSyDocFI5B2bC0VM00xIvrYvYEyapsYmsjNHjzr0yRRalavGLZn
-VF1kTeyQkHM2qQlFzEsrlAP1rGMTI+u7+YI65iz/BtoAck0Dosrc2YVYrd0Nk3uq
-OQtz+VgmsgKE1JXL1taT0Ljryxd1jcpvschUJTglXfDFRTxSbSS8oHoxqJFX5fHO
-6P548FnJNswztXkk0Ntr1LgJgcieo+BY7Gr5o9m+c6OaddGzj8wQbRmVknMDFY69
-EK+K5kQYTR/leRMBHWNThMwCN7GeYEE9ikZmLFixY+iPnqMTX2tKRS30ns3pPXO0
-M2zmviEcCKxI3OvBa0aQHRmZvHoX5QW5mOhq6+PjbJTHosjdfTZ2jeVBmxPtyIux
-38bt+xftwSbaeabh9po5xG7vTvchfCqd43E1nsOt1OpG77iuM8DGdB+2zGCwISnG
-0flft4pF+IGHn+E6hGPIfGMq53h0cwo7DzB1VrA6/aGEcqoMbXvES4tzQO3LPj1S
-gjOrCzyAjrAj8avjS0PI
-=XTYk
------END PGP SIGNATURE-----
-
---wlFCko3yyTbBmKK8--
+diff --git a/Makefile b/Makefile
+new file mode 100644
+index 0000000..f495d94
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,21 @@
++CXX ?= $(CROSS_COMPILE)g++
++
++LIB_OEM_OBJ = oemhandler.o
++LIB_OEM     = liboemhandler.so
++
++INC_FLAG += -I. -O2 --std=gnu++11
++LIB_FLAG += -rdynamic
++
++
++all: $(LIB_OEM)
++
++%.o: %.C
++	$(CXX) -fpic -c $< $(CXXFLAGS) $(INC_FLAG) $(IPMID_PATH) -o $@
++	
++
++$(LIB_OEM): $(LIB_OEM_OBJ)
++	$(CXX) $^ -shared $(LDFLAGS) $(LIB_FLAG) -o $@
++
++
++clean:
++	rm -f *.o *.so
+diff --git a/ipmid-api.h b/ipmid-api.h
+new file mode 100644
+index 0000000..ef2be38
+--- /dev/null
++++ b/ipmid-api.h
+@@ -0,0 +1,83 @@
++#ifndef __HOST_IPMID_IPMI_COMMON_H__
++#define __HOST_IPMID_IPMI_COMMON_H__
++#include <stdlib.h>
++
++// length of Completion Code and its ALWAYS _1_
++#define IPMI_CC_LEN 1
++
++// IPMI Net Function number as specified by IPMI V2.0 spec.
++// Example : 
++// NETFUN_APP      =   (0x06 << 2),
++typedef unsigned char   ipmi_netfn_t;
++
++// IPMI Command for a Net Function number as specified by IPMI V2.0 spec.
++typedef unsigned char   ipmi_cmd_t;
++
++// Buffer containing data from sender of netfn and command as part of request
++typedef void*           ipmi_request_t;
++
++// This is the response buffer that the provider of [netfn,cmd] will send back
++// to the caller. Provider will allocate the memory inside the handler and then
++// will do a memcpy to this response buffer and also will set the data size
++// parameter to the size of the buffer.
++// EXAMPLE :
++// unsigned char str[] = {0x00, 0x01, 0xFE, 0xFF, 0x0A, 0x01};
++// *data_len = 6;
++// memcpy(response, &str, *data_len);
++typedef void*           ipmi_response_t;
++
++// This buffer contains any *user specific* data that is of interest only to the
++// plugin. For a ipmi function router, this data is opaque. At the time of
++// registering the plugin handlers, plugin may optionally allocate a memory and
++// fill in whatever needed that will be of help during the actual handling of
++// command. IPMID will just pass the netfn, cmd and also this data to plugins
++// during the command handler invocation.
++typedef void*           ipmi_context_t;
++
++// Length of request / response buffer depending on whether the data is a
++// request or a response from a plugin handler.
++typedef size_t*   ipmi_data_len_t;
++
++// Plugin function return the status code
++typedef unsigned char ipmi_ret_t;
++
++// This is the callback handler that the plugin registers with IPMID. IPMI
++// function router will then make a call to this callback handler with the
++// necessary arguments of netfn, cmd, request, response, size and context.
++typedef ipmi_ret_t (*ipmid_callback_t)(ipmi_netfn_t, ipmi_cmd_t, ipmi_request_t,
++                                       ipmi_response_t, ipmi_data_len_t, ipmi_context_t);
++
++// This is the constructor function that is called into by each plugin handlers.
++// When ipmi sets up the callback handlers, a call is made to this with
++// information of netfn, cmd, callback handler pointer and context data.
++// Making this a extern "C" so that plugin libraries written in C can also use
++// it.
++extern "C" void ipmi_register_callback(ipmi_netfn_t, ipmi_cmd_t, 
++                                       ipmi_context_t, ipmid_callback_t);
++
++// These are the command network functions, the response
++// network functions are the function + 1. So to determine
++// the proper network function which issued the command
++// associated with a response, subtract 1.
++// Note: these are also shifted left to make room for the LUN.
++enum ipmi_net_fns
++{
++    NETFUN_OEM_IBM  =   (0x32 << 2)
++};
++
++// IPMI commands for net functions. Since this is to be used both by the ipmi
++// function router and also the callback handler registration function, its put
++// in this .H file.
++enum ipmi_netfn_wild_card_cmd
++{
++    IPMI_CMD_WILDCARD       = 0xFF,
++};
++
++// Return codes from a IPMI operation as needed by IPMI V2.0 spec.
++enum ipmi_return_codes
++{
++    IPMI_CC_OK = 0x00,
++    IPMI_CC_INVALID = 0xC1
++};
++
++#endif
+diff --git a/oemhandler.C b/oemhandler.C
+new file mode 100644
+index 0000000..c4eae21
+--- /dev/null
++++ b/oemhandler.C
+@@ -0,0 +1,92 @@
++#include "oemhandler.h"
++#include "ipmid-api.h"
++#include <stdio.h>
++#include <string.h>
++
++void register_netfn_oem_partial_esel() __attribute__((constructor));
++
++
++
++const char *g_esel_path = "/tmp/";
++uint16_t g_record_id = 0x0100;
++
++
++#define LSMSSWAP(x,y) (y<<8|x)
++
++
++///////////////////////////////////////////////////////////////////////////////
++// For the First partial add eSEL the SEL Record ID and offset 
++// value should be 0x0000. The extended data needs to be in 
++// the form of an IPMI SEL Event Record, with Event sensor type 
++// of 0xDF and Event Message format of 0x04. The returned 
++// Record ID should be used for all partial eSEL adds.
++//
++// This function creates a /tmp/esel# file to store the 
++// incoming partial esel.  It is the role of some other
++// function to commit the error log in to long term 
++// storage.  Likely via the ipmi add_sel command.  
++///////////////////////////////////////////////////////////////////////////////
++ipmi_ret_t ipmi_ibm_oem_partial_esel(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
++                              ipmi_request_t request, ipmi_response_t response, 
++                              ipmi_data_len_t data_len, ipmi_context_t context)
++{
++    esel_request_t *reqptr = (esel_request_t*) request;
++    FILE *fp;
++    char string[32];
++    short offset = 0, record=0;
++    unsigned short rlen;
++    ipmi_ret_t rc = IPMI_CC_OK;
++    char iocmd[4];
++
++    strcpy(string, g_esel_path);
++    
++    offset = LSMSSWAP(reqptr->offsetls, reqptr->offsetms);
++
++    sprintf(string, "%s%s%02x%02x", string, "esel", reqptr->selrecordms, reqptr->selrecordls);
++
++
++    // Length is the number of request bytes minus the header itself.
++    // The header contains an extra byte to indicate the start of
++    // the data (so didn't need to worry about word/byte boundaries)
++    // hence the -1...
++    rlen = ((unsigned short)*data_len) - (sizeof(esel_request_t));
++
++
++    printf("IPMI PARTIAL ESEL for %s  Offset = %d Length = %d\n", 
++        string, offset, rlen);
++
++    if (offset == 0) {
++        strcpy(iocmd, "wb");
++    } else {
++        // I was thinking "ab+" but it appears it doesn't
++        // do what fseek asks.  Modify to rb+ and fseek 
++        // works great...
++        strcpy(iocmd, "rb+");
++    }
++
++    if ((fp = fopen(string, iocmd)) != NULL) {
++        fseek(fp, offset, SEEK_SET);
++        fwrite(reqptr+1,rlen,1,fp);
++        fclose(fp);
++
++
++        *data_len = sizeof(g_record_id);
++        memcpy(response, &g_record_id, *data_len);
++
++
++    } else {
++        fprintf(stderr, "Error trying to perform %s for esel%s\n",iocmd, string);
++        ipmi_ret_t rc = IPMI_CC_INVALID;   
++        *data_len     = 0;
++    }
++    
++    return rc;
++}
++
++
++void register_netfn_oem_partial_esel()
++{
++    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_OEM_IBM, IPMI_CMD_PESEL);
++    ipmi_register_callback(NETFUN_OEM_IBM, IPMI_CMD_PESEL, NULL, ipmi_ibm_oem_partial_esel);
++    return;
++}
+diff --git a/oemhandler.h b/oemhandler.h
+new file mode 100644
+index 0000000..c176fd6
+--- /dev/null
++++ b/oemhandler.h
+@@ -0,0 +1,32 @@
++#ifndef __HOST_IPMI_OPENPOWEROEM_HANDLER_H__
++#define __HOST_IPMI_OPENPOWEROEM_HANDLER_H__
++
++#include <stdint.h>
++#include "ipmid-api.h"
++
++// IPMI commands for net functions.
++enum ipmi_netfn_oem_cmds
++{
++    IPMI_CMD_PESEL = 0xF0,
++};
++
++
++
++ipmi_ret_t ipmi_ibm_oem_partial_esel(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
++                              ipmi_request_t request, ipmi_response_t response, 
++                              ipmi_data_len_t data_len, ipmi_context_t context);
++
++
++struct esel_request_t {
++    uint8_t  residls;
++    uint8_t  residms;
++    uint8_t  selrecordls;
++    uint8_t  selrecordms;
++    uint8_t  offsetls;
++    uint8_t  offsetms;
++    uint8_t  progress;
++}  __attribute__ ((packed)) ;
++
++
++
++#endif
+-- 
+2.6.0
