@@ -3,20 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id DB0DB1A062A
- for <openbmc@lists.ozlabs.org>; Thu, 22 Oct 2015 13:32:03 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 8C0641A051F
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Oct 2015 13:32:10 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1445481121877818.1228756183547;
- Wed, 21 Oct 2015 19:32:01 -0700 (PDT)
+ with SMTPS id 1445481127489862.5915146397127;
+ Wed, 21 Oct 2015 19:32:07 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid] Add OEM NETFN
-Date: Wed, 21 Oct 2015 21:31:58 -0500
-Message-Id: <1445481118-29951-2-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid v2] add dynamic lookup of sensor types
+Date: Wed, 21 Oct 2015 21:32:04 -0500
+Message-Id: <1445481125-30036-1-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
-In-Reply-To: <1445481118-29951-1-git-send-email-patches@stwcx.xyz>
-References: <1445481118-29951-1-git-send-email-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,27 +26,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Oct 2015 02:32:04 -0000
+X-List-Received-Date: Thu, 22 Oct 2015 02:32:11 -0000
 
-From: Chris Austen <austenc@us.ibm.com>
+Why yes the testit file does need to compile Chris
 
----
- ipmid-api.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+https://github.com/openbmc/phosphor-host-ipmid/pull/15
 
-diff --git a/ipmid-api.h b/ipmid-api.h
-index caf18e8..58810fa 100755
---- a/ipmid-api.h
-+++ b/ipmid-api.h
-@@ -70,7 +70,8 @@ enum ipmi_net_fns
-     NETFUN_STORAGE  =   (0x0a << 2),
-     NETFUN_TRANPORT =   (0x0c << 2),
-     NETFUN_GRPEXT   =   (0x2c << 2),
--    NETFUN_NONE     =   (0x30 << 2)
-+    NETFUN_NONE     =   (0x30 << 2),
-+    NETFUN_OEM      =   (0x32 << 2)
- };
- 
- // IPMI commands for net functions. Since this is to be used both by the ipmi
+Chris Austen (1):
+  add dynamic lookup of sensor types
+
+ ipmid.C         |  79 ++++++++++++++---------
+ ipmisensor.C    |  22 +++----
+ sensorhandler.C | 194 +++++++++++++++++++++-----------------------------------
+ sensorhandler.h |  14 ++++
+ testit.C        |   9 +--
+ 5 files changed, 146 insertions(+), 172 deletions(-)
+
 -- 
 2.6.0
