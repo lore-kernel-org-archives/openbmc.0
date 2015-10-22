@@ -1,18 +1,17 @@
 Return-Path: <patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
+Received: from sender163-mail.zoho.com (sender1.zohomail.com [74.201.84.157])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 6CD491A03A3
+ by lists.ozlabs.org (Postfix) with ESMTPS id B99121A03BE
  for <openbmc@lists.ozlabs.org>; Fri, 23 Oct 2015 04:59:35 +1100 (AEDT)
 Received: from localhost (32.97.110.55 [32.97.110.55]) by mx.zohomail.com
- with SMTPS id 1445536771909264.02147131136485;
- Thu, 22 Oct 2015 10:59:31 -0700 (PDT)
+ with SMTPS id 1445536773321744.2738226657416;
+ Thu, 22 Oct 2015 10:59:33 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux 10/13] misc/bt-host: Avoid global bt_host
-Date: Thu, 22 Oct 2015 12:59:10 -0500
-Message-Id: <1445536753-14352-11-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH linux 11/13] misc/bt-host: Add ioctl to assert SMS_ATN
+Date: Thu, 22 Oct 2015 12:59:11 -0500
+Message-Id: <1445536753-14352-12-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1445536753-14352-1-git-send-email-patches@stwcx.xyz>
 References: <1445536753-14352-1-git-send-email-patches@stwcx.xyz>
@@ -31,118 +30,100 @@ X-List-Received-Date: Thu, 22 Oct 2015 17:59:36 -0000
 
 From: Jeremy Kerr <jk@ozlabs.org>
 
-Rather than having a global bt_host, use references from the
-file & miscdev. This removes the restriction on the number of bt-host
-devices.
-
 Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
 ---
- drivers/misc/bt-host.c | 22 +++++++++++++---------
- 1 file changed, 13 insertions(+), 9 deletions(-)
+ drivers/misc/bt-host.c       | 19 +++++++++++++++++++
+ include/uapi/linux/Kbuild    |  1 +
+ include/uapi/linux/bt-host.h | 18 ++++++++++++++++++
+ 3 files changed, 38 insertions(+)
+ create mode 100644 include/uapi/linux/bt-host.h
 
 diff --git a/drivers/misc/bt-host.c b/drivers/misc/bt-host.c
-index 6621aed..4f37374 100644
+index 4f37374..d90797d 100644
 --- a/drivers/misc/bt-host.c
 +++ b/drivers/misc/bt-host.c
-@@ -16,7 +16,6 @@
+@@ -14,6 +14,7 @@
+ #include <linux/miscdevice.h>
+ #include <linux/timer.h>
  #include <linux/jiffies.h>
++#include <linux/bt-host.h>
  
  #define DEVICE_NAME	"bt-host"
--#define BT_NUM_DEVS	1
  
- #define BT_IO_BASE	0xe4
- #define BT_IRQ		10
-@@ -55,8 +54,6 @@ struct bt_host {
- 	struct timer_list	poll_timer;
- };
- 
--static struct bt_host *bt_host;
--
- static u8 bt_inb(struct bt_host *bt_host, int reg)
- {
- 	return ioread8(bt_host->base + reg);
-@@ -109,9 +106,14 @@ static void bt_write(struct bt_host *bt_host, u8 c)
+@@ -106,6 +107,11 @@ static void bt_write(struct bt_host *bt_host, u8 c)
  	bt_outb(bt_host, c, BT_BMC2HOST);
  }
  
-+static struct bt_host *file_bt_host(struct file *file)
++static void set_sms_atn(struct bt_host *bt_host)
 +{
-+	return container_of(file->private_data, struct bt_host, miscdev);
++	bt_outb(bt_host, BT_CTRL_SMS_ATN, BT_CTRL);
 +}
 +
- static int bt_host_open(struct inode *inode, struct file *file)
+ static struct bt_host *file_bt_host(struct file *file)
  {
--	file->private_data = bt_host;
-+	struct bt_host *bt_host = file_bt_host(file);
- 
- 	clr_b_busy(bt_host);
- 
-@@ -121,6 +123,7 @@ static int bt_host_open(struct inode *inode, struct file *file)
- static ssize_t bt_host_read(struct file *file, char __user *buf,
- 				size_t count, loff_t *ppos)
- {
-+	struct bt_host *bt_host = file_bt_host(file);
- 	char __user *p = buf;
- 	u8 len;
- 
-@@ -158,6 +161,7 @@ static ssize_t bt_host_read(struct file *file, char __user *buf,
- static ssize_t bt_host_write(struct file *file, const char __user *buf,
- 				size_t count, loff_t *ppos)
- {
-+	struct bt_host *bt_host = file_bt_host(file);
- 	const char __user *p = buf;
- 	u8 c;
- 
-@@ -190,12 +194,14 @@ static ssize_t bt_host_write(struct file *file, const char __user *buf,
- 
- static int bt_host_release(struct inode *inode, struct file *file)
- {
-+	struct bt_host *bt_host = file_bt_host(file);
- 	set_b_busy(bt_host);
- 	return 0;
+ 	return container_of(file->private_data, struct bt_host, miscdev);
+@@ -192,6 +198,18 @@ static ssize_t bt_host_write(struct file *file, const char __user *buf,
+ 	return p - buf;
  }
  
- static unsigned int bt_host_poll(struct file *file, poll_table *wait)
- {
++static long bt_host_ioctl(struct file *file, unsigned int cmd,
++		unsigned long param)
++{
 +	struct bt_host *bt_host = file_bt_host(file);
- 	uint8_t ctrl = bt_inb(bt_host, BT_CTRL);
- 	unsigned int mask = 0;
- 
-@@ -221,6 +227,7 @@ static const struct file_operations bt_host_fops = {
++	switch (cmd) {
++	case BT_HOST_IOCTL_SMS_ATN:
++		set_sms_atn(bt_host);
++		return 0;
++	}
++	return -EINVAL;
++}
++
+ static int bt_host_release(struct inode *inode, struct file *file)
+ {
+ 	struct bt_host *bt_host = file_bt_host(file);
+@@ -223,6 +241,7 @@ static const struct file_operations bt_host_fops = {
+ 	.write		= bt_host_write,
+ 	.release	= bt_host_release,
+ 	.poll		= bt_host_poll,
++	.unlocked_ioctl	= bt_host_ioctl,
+ };
  
  static void poll_timer(unsigned long data)
- {
-+	struct bt_host *bt_host = (void *)data;
- 	bt_host->ctrl = bt_inb(bt_host, BT_CTRL);
- 	bt_host->poll_timer.expires += msecs_to_jiffies(500);
- 	wake_up(&bt_host->queue);
-@@ -229,6 +236,7 @@ static void poll_timer(unsigned long data)
- 
- static int bt_host_probe(struct platform_device *pdev)
- {
-+	struct bt_host *bt_host;
- 	struct device *dev;
- 	struct resource *res;
- 	int rc;
-@@ -239,11 +247,6 @@ static int bt_host_probe(struct platform_device *pdev)
- 	dev = &pdev->dev;
- 	dev_info(dev, "Found bt host device\n");
- 
--	if (bt_host) {
--		dev_err(dev, "Multiple bt hosts not supported\n");
--		return -ENOMEM;
--	}
--
- 	bt_host = devm_kzalloc(dev, sizeof(*bt_host), GFP_KERNEL);
- 	if (!bt_host)
- 		return -ENOMEM;
-@@ -278,6 +281,7 @@ static int bt_host_probe(struct platform_device *pdev)
- 
- 	init_timer(&bt_host->poll_timer);
- 	bt_host->poll_timer.function = poll_timer;
-+	bt_host->poll_timer.data = (unsigned long)bt_host;
- 	bt_host->poll_timer.expires = jiffies + msecs_to_jiffies(10);
- 	add_timer(&bt_host->poll_timer);
- 
+diff --git a/include/uapi/linux/Kbuild b/include/uapi/linux/Kbuild
+index 1ff9942..712ab82 100644
+--- a/include/uapi/linux/Kbuild
++++ b/include/uapi/linux/Kbuild
+@@ -74,6 +74,7 @@ header-y += bpf_common.h
+ header-y += bpf.h
+ header-y += bpqether.h
+ header-y += bsg.h
++header-y += bt-host.h
+ header-y += btrfs.h
+ header-y += can.h
+ header-y += capability.h
+diff --git a/include/uapi/linux/bt-host.h b/include/uapi/linux/bt-host.h
+new file mode 100644
+index 0000000..a4298d9
+--- /dev/null
++++ b/include/uapi/linux/bt-host.h
+@@ -0,0 +1,18 @@
++/*
++ * Copyright 2015 IBM Corp.
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version
++ * 2 of the License, or (at your option) any later version.
++ */
++
++#ifndef _UAPI_LINUX_BT_HOST_H
++#define _UAPI_LINUX_BT_HOST_H
++
++#include <linux/ioctl.h>
++
++#define __BT_HOST_IOCTL_MAGIC	0xb1
++#define BT_HOST_IOCTL_SMS_ATN	_IO(__BT_HOST_IOCTL_MAGIC, 0x00)
++
++#endif /* _UAPI_LINUX_BT_HOST_H */
 -- 
 2.6.0
