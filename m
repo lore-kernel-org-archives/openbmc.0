@@ -1,19 +1,18 @@
 Return-Path: <patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
+Received: from sender163-mail.zoho.com (sender1.zohomail.com [74.201.84.157])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id B5E5D1A0406
- for <openbmc@lists.ozlabs.org>; Fri, 23 Oct 2015 04:59:25 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id C5AC61A040E
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Oct 2015 04:59:26 +1100 (AEDT)
 Received: from localhost (32.97.110.55 [32.97.110.55]) by mx.zohomail.com
- with SMTPS id 1445536761069153.46908083739436;
- Thu, 22 Oct 2015 10:59:21 -0700 (PDT)
+ with SMTPS id 1445536763141311.25992336778154;
+ Thu, 22 Oct 2015 10:59:23 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux 04/13] misc/bt-host: use explicit u8 type for bt
- registers
-Date: Thu, 22 Oct 2015 12:59:04 -0500
-Message-Id: <1445536753-14352-5-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH linux 05/13] misc/bt-host: remove chrdev_region,
+ use module_platform_driver
+Date: Thu, 22 Oct 2015 12:59:05 -0500
+Message-Id: <1445536753-14352-6-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1445536753-14352-1-git-send-email-patches@stwcx.xyz>
 References: <1445536753-14352-1-git-send-email-patches@stwcx.xyz>
@@ -28,71 +27,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Oct 2015 17:59:26 -0000
+X-List-Received-Date: Thu, 22 Oct 2015 17:59:27 -0000
 
 From: Jeremy Kerr <jk@ozlabs.org>
 
-.. to avoid any issues with signed vs unsigned types.
-
 Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
 ---
- drivers/misc/bt-host.c | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
+ drivers/misc/bt-host.c | 32 +-------------------------------
+ 1 file changed, 1 insertion(+), 31 deletions(-)
 
 diff --git a/drivers/misc/bt-host.c b/drivers/misc/bt-host.c
-index f9d1034..a75734d 100644
+index a75734d..6aa215e 100644
 --- a/drivers/misc/bt-host.c
 +++ b/drivers/misc/bt-host.c
-@@ -58,12 +58,12 @@ struct bt_host {
+@@ -45,8 +45,6 @@
+ #define   BT_INTMASK_B2H_IRQ		0x02
+ #define   BT_INTMASK_BMC_HWRST		0x80
  
- static struct bt_host *bt_host;
- 
--static char bt_inb(struct bt_host *bt_host, int reg)
-+static u8 bt_inb(struct bt_host *bt_host, int reg)
- {
- 	return ioread8(bt_host->base + reg);
- }
- 
--static void bt_outb(struct bt_host *bt_host, char data, int reg)
-+static void bt_outb(struct bt_host *bt_host, u8 data, int reg)
- {
- 	iowrite8(data, bt_host->base + reg);
- }
-@@ -100,14 +100,12 @@ static void set_b2h_atn(struct bt_host *bt_host)
- 	bt_outb(bt_host, BT_CTRL_B2H_ATN, BT_CTRL);
- }
- 
--static char bt_read(struct bt_host *bt_host)
-+static u8 bt_read(struct bt_host *bt_host)
- {
--	char result = bt_inb(bt_host, BT_BMC2HOST);
+-dev_t bt_host_devt;
 -
--	return result;
-+	return bt_inb(bt_host, BT_BMC2HOST);
- }
+ struct bt_host {
+ 	struct device		dev;
+ 	void			*base;
+@@ -329,35 +327,7 @@ static struct platform_driver bt_host_driver = {
+ 	.remove = bt_host_remove,
+ };
  
--static void bt_write(struct bt_host *bt_host, char c)
-+static void bt_write(struct bt_host *bt_host, u8 c)
- {
- 	bt_outb(bt_host, c, BT_BMC2HOST);
- }
-@@ -125,7 +123,7 @@ static ssize_t bt_host_read(struct file *file, char __user *buf,
- 				size_t count, loff_t *ppos)
- {
- 	char __user *p = buf;
--	char len;
-+	u8 len;
+-static int __init bt_host_init(void)
+-{
+-	int rc;
+-
+-	rc = alloc_chrdev_region(&bt_host_devt, 0, BT_NUM_DEVS, "bt");
+-	if (rc) {
+-		pr_err("bt-host: Could not allocate chardev region\n");
+-		return rc;
+-	}
+-
+-	rc = platform_driver_register(&bt_host_driver);
+-	if (rc) {
+-		pr_err("bt-host: Could not register platform device\n");
+-		goto out_chardev;
+-	}
+-
+-	return 0;
+-
+-out_chardev:
+-	unregister_chrdev_region(bt_host_devt, BT_NUM_DEVS);
+-	return rc;
+-}
+-module_init(bt_host_init);
+-
+-static void __exit bt_host_exit(void)
+-{
+-	platform_driver_unregister(&bt_host_driver);
+-}
+-module_exit(bt_host_exit);
++module_platform_driver(bt_host_driver);
  
- 	if (!access_ok(VERIFY_WRITE, buf, count))
- 		return -EFAULT;
-@@ -162,7 +160,7 @@ static ssize_t bt_host_write(struct file *file, const char __user *buf,
- 				size_t count, loff_t *ppos)
- {
- 	const char __user *p = buf;
--	char c;
-+	u8 c;
- 
- 	if (!access_ok(VERIFY_READ, buf, count))
- 		return -EFAULT;
+ MODULE_DEVICE_TABLE(of, bt_host_match);
+ MODULE_LICENSE("GPL");
 -- 
 2.6.0
