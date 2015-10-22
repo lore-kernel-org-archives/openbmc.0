@@ -3,20 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id E49D91A03A1
- for <openbmc@lists.ozlabs.org>; Fri, 23 Oct 2015 04:59:48 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 79A971A030A
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Oct 2015 05:00:02 +1100 (AEDT)
 Received: from localhost (32.97.110.55 [32.97.110.55]) by mx.zohomail.com
- with SMTPS id 1445536786096574.4868881909275;
- Thu, 22 Oct 2015 10:59:46 -0700 (PDT)
+ with SMTPS id 1445536799765522.4621456346423;
+ Thu, 22 Oct 2015 10:59:59 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux 3/3] watchdog/aspeed_wdt: Set system reset mode to 'full
- chip'
-Date: Thu, 22 Oct 2015 12:59:39 -0500
-Message-Id: <1445536779-14516-4-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid] Added Dynamic lookup for sensor types
+Date: Thu, 22 Oct 2015 12:59:57 -0500
+Message-Id: <1445536798-14692-1-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
-In-Reply-To: <1445536779-14516-1-git-send-email-patches@stwcx.xyz>
-References: <1445536779-14516-1-git-send-email-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,41 +25,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Oct 2015 17:59:49 -0000
+X-List-Received-Date: Thu, 22 Oct 2015 18:00:03 -0000
 
-From: Jeremy Kerr <jk@ozlabs.org>
+Fixed bug where ipmi sensor readings > offset 7 where not asserted
+Added testcases for code
+Kept sensors 35,37-3A hardcoded until dbus side decides if they
+want to represent them.
+reduced the amount of prints
 
-Currently, the watchdog timer does nothing on expiry - the 'SoC system'
-reset type doesn't seem to have any effect.
+https://github.com/openbmc/phosphor-host-ipmid/pull/19
 
-This change uses the 'full chip' reset type instead.
+Chris Austen (1):
+  Added Dynamic lookup for sensor types
 
-Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
----
- drivers/watchdog/aspeed_wdt.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ ipmid.C         |  74 +++++++++++-------
+ ipmisensor.C    |  89 ++++++++++++----------
+ sensorhandler.C | 232 ++++++++++++++++++++++++--------------------------------
+ sensorhandler.h |  13 +++-
+ testit.C        | 174 +++++++++++++++---------------------------
+ 5 files changed, 269 insertions(+), 313 deletions(-)
 
-diff --git a/drivers/watchdog/aspeed_wdt.c b/drivers/watchdog/aspeed_wdt.c
-index 57503be..9b82420 100644
---- a/drivers/watchdog/aspeed_wdt.c
-+++ b/drivers/watchdog/aspeed_wdt.c
-@@ -37,6 +37,7 @@ MODULE_DEVICE_TABLE(of, aspeed_wdt_of_table);
- #define WDT_RELOAD_VALUE	0x04
- #define WDT_RESTART		0x08
- #define WDT_CTRL		0x0C
-+#define   WDT_CTRL_RESET_MODE_FULL_CHIP	(0x01 << 5)
- #define   WDT_CTRL_RESET_SYSTEM		(0x1  << 1)
- #define   WDT_CTRL_ENABLE		(0x1  << 0)
- 
-@@ -44,7 +45,8 @@ MODULE_DEVICE_TABLE(of, aspeed_wdt_of_table);
- 
- static void aspeed_wdt_enable(struct aspeed_wdt *wdt, int count)
- {
--	u32 ctrl = WDT_CTRL_RESET_SYSTEM | WDT_CTRL_ENABLE;
-+	u32 ctrl = WDT_CTRL_RESET_MODE_FULL_CHIP | WDT_CTRL_RESET_SYSTEM |
-+		WDT_CTRL_ENABLE;
- 
- 	writel(0, wdt->base + WDT_CTRL);
- 	writel(count, wdt->base + WDT_RELOAD_VALUE);
 -- 
 2.6.0
