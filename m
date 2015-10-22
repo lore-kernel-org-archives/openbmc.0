@@ -1,22 +1,32 @@
-Return-Path: <patches@stwcx.xyz>
+Return-Path: <patrick@stwcx.xyz>
 Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 7222C1A051F
- for <openbmc@lists.ozlabs.org>; Thu, 22 Oct 2015 13:32:21 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 27E121A0758
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Oct 2015 13:41:57 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1445481138018564.1639146492518;
- Wed, 21 Oct 2015 19:32:18 -0700 (PDT)
-From: OpenBMC Patches <patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-objmgr v2] ObjectManager work in progress
-Date: Wed, 21 Oct 2015 21:32:14 -0500
-Message-Id: <1445481134-30158-2-git-send-email-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.0
-In-Reply-To: <1445481134-30158-1-git-send-email-patches@stwcx.xyz>
-References: <1445481134-30158-1-git-send-email-patches@stwcx.xyz>
+ with SMTPS id 144548171592547.21866994745881;
+ Wed, 21 Oct 2015 19:41:55 -0700 (PDT)
+Date: Wed, 21 Oct 2015 21:41:53 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: OpenBMC Patches <patches@stwcx.xyz>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: [PATCH phosphor-host-ipmid] Add ipmi cc for invalid sensor
+Message-ID: <20151022024153.GS13316@asimov.austin.ibm.com>
+References: <1445481114-29889-1-git-send-email-patches@stwcx.xyz>
+ <1445481114-29889-2-git-send-email-patches@stwcx.xyz>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="R4+lwT0Y15rLnKR0"
+Content-Disposition: inline
+In-Reply-To: <1445481114-29889-2-git-send-email-patches@stwcx.xyz>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
+X-ZohoMail: Ss  SS_10 UW UB CHF_INT_SMD_EXT  SGR4_1_06105_0
+X-ZohoMail-Owner: <20151022024153.GS13316@asimov.austin.ibm.com>+zmo_0_<patrick@stwcx.xyz>
+X-ZohoMail-Sender: 108.215.4.10
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,267 +38,74 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Oct 2015 02:32:22 -0000
+X-List-Received-Date: Thu, 22 Oct 2015 02:41:58 -0000
 
-From: Brad Bishop <bradleyb@us.ibm.com>
 
-Supports:
- initial discovery
- service name ownership changes
- interfaces added and removed signals
- getobjs, getowners, getownersrecurse methods
----
- Makefile         |  13 ++++
- object-mapper.py | 221 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 234 insertions(+)
- create mode 100644 Makefile
- create mode 100644 object-mapper.py
+--R4+lwT0Y15rLnKR0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/Makefile b/Makefile
-new file mode 100644
-index 0000000..2ef3b43
---- /dev/null
-+++ b/Makefile
-@@ -0,0 +1,13 @@
-+PACKAGE=object-manager
-+
-+prefix ?=/usr/local
-+sbin=$(prefix)/sbin
-+
-+all clean distclean: 
-+
-+install:
-+	@install -d $(sbin)
-+	@install -m 755 $(PACKAGE).py $(sbin)/$(PACKAGE)
-+
-+uninstall:
-+	@rm -f $(sbin)/$(PACKAGE)
-diff --git a/object-mapper.py b/object-mapper.py
-new file mode 100644
-index 0000000..e1e7134
---- /dev/null
-+++ b/object-mapper.py
-@@ -0,0 +1,221 @@
-+#!/usr/bin/env python
-+
-+# Contributors Listed Below - COPYRIGHT 2015
-+# [+] International Business Machines Corp.
-+#
-+#
-+# Licensed under the Apache License, Version 2.0 (the "License");
-+# you may not use this file except in compliance with the License.
-+# You may obtain a copy of the License at
-+#
-+#     http://www.apache.org/licenses/LICENSE-2.0
-+#
-+# Unless required by applicable law or agreed to in writing, software
-+# distributed under the License is distributed on an "AS IS" BASIS,
-+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-+# implied. See the License for the specific language governing
-+# permissions and limitations under the License.
-+
-+import sys
-+import dbus
-+import dbus.service
-+import dbus.mainloop.glib
-+import gobject
-+from xml.etree import ElementTree
-+
-+SERVICE_NAME = 'org.openbmc.objectmapper'
-+IFACE_NAME = SERVICE_NAME + '.ObjectMapper'
-+OBJ_PATH = '/org/openbmc/objectmapper/objectmapper'
-+
-+class BusWrapper:
-+	def __init__(self, bus):
-+		self.dbus = bus
-+
-+	def get_service_names(self, match):
-+		# these are well known names
-+		return [ x for x in self.dbus.list_names() \
-+				if match in x and x != SERVICE_NAME ]
-+
-+	def get_owner_names(self, match):
-+		# these are unique connection names
-+		return list( set( [ self.dbus.get_name_owner(x) \
-+				for x in self.get_service_names(match) ] ) )
-+
-+	def get_owners(self, match):
-+		return [ Owner(x, self) \
-+				for x in self.get_owner_names(match) ]
-+
-+class DisplayCache:
-+	def __init__(self, objs):
-+		self.objs = objs
-+
-+	@staticmethod
-+	def interfaces(interfaces):
-+		return "\n".join( [ "    %s" %(x) for x in interfaces] )
-+
-+	def __str__(self):
-+		return "\n".join( [ "%s %s\n%s" %(x, y.owner_name, self.interfaces(y.interfaces)) \
-+				for x,y in self.objs.iteritems() ] )
-+
-+class CacheItems:
-+	def __init__(self, owner_name, interfaces):
-+		self.owner_name = owner_name
-+		self.interfaces = interfaces
-+
-+class ObjectMapper(dbus.service.Object):
-+	def __init__(self, bus, path,
-+			name_match = 'org.openbmc',
-+			intf_match = 'org.openbmc'):
-+		super(ObjectMapper, self).__init__(bus.dbus, path)
-+		self.cache = {}
-+		self.bus = bus
-+		self.name_match = name_match
-+		self.intf_match = intf_match
-+		self.discovery_done = False
-+
-+		gobject.idle_add(self.discover)
-+		self.bus.dbus.add_signal_receiver(self.bus_handler,
-+			dbus_interface = dbus.BUS_DAEMON_IFACE,
-+			signal_name = 'NameOwnerChanged')
-+		self.bus.dbus.add_signal_receiver(self.interface_added_handler,
-+			dbus_interface = dbus.BUS_DAEMON_IFACE + '.ObjectMapper',
-+			signal_name = 'InterfaceesAdded')
-+		self.bus.dbus.add_signal_receiver(self.interface_removed_handler,
-+			dbus_interface = dbus.BUS_DAEMON_IFACE + '.ObjectMapper',
-+			signal_name = 'InterfacesRemoved')
-+
-+	def interface_added_handler(self, path, iprops):
-+		interfaces = [ x for x in iprops.iterkeys() \
-+				if self.intf_match in x ]
-+		self.cache[path].interfaces.extend(interfaces)
-+		print "added %s" %(path)
-+		print DisplayCache(self.cache)
-+
-+	def interface_removed_handler(self, path, interfaces):
-+		self.cache[path].interfaces = \
-+			[ x for x in self.cache[path].interfaces \
-+			if x not in interfaces ]
-+
-+		if not self.cache[path].interfaces:
-+			del self.cache[path]
-+			print "removed %s" %(path)
-+
-+		print DisplayCache(self.cache)
-+
-+	def process_new_owner(self, name):
-+		# unique name
-+		return self.discover([ Owner(name, self.bus) ])
-+
-+	def process_old_owner(self, name):
-+		# unique name
-+		for x,y in self.cache.items():
-+			if name == y.owner_name:
-+				del self.cache[x]
-+
-+	def bus_handler(self, service, old, new):
-+		if not self.discovery_done or \
-+				self.name_match not in service:
-+			return
-+
-+		if new:
-+			self.process_new_owner(new)
-+		if old:
-+			self.process_old_owner(old)
-+
-+	def owner_name_in_cache(self, name):
-+		return name in [ x.owner_name for x in self.cache.itervalues() ]
-+
-+	def discover(self, owners = None):
-+		if not owners:
-+			owners = self.bus.get_owners(self.name_match)
-+			self.discovery_done = True
-+		for o in owners:
-+			if self.owner_name_in_cache(o.name):
-+				continue
-+			self.cache.update(o.discover(self.intf_match))
-+
-+	@dbus.service.method(IFACE_NAME, 's', 'a{ss}')
-+	def GetObjs(self, path):
-+		return { x: y.owner_name for x,y in self.cache.iteritems() if path in x }
-+
-+	@dbus.service.method(IFACE_NAME, 'as', 'a{ss}')
-+	def GetOwners(self, objs):
-+		return { x: self.cache[x].owner_name \
-+				for x in objs if x in self.cache.iterkeys() }
-+
-+	@dbus.service.method(IFACE_NAME, 'as', 'a{ss}')
-+	def GetOwnersRecurse(self, objs):
-+		objs = [ self.GetObjs(x) for x in objs ]
-+		objs = [ x for y in objs for x in y ] # flatten nested lists
-+		return self.GetOwners(objs)
-+
-+class IntrospectionParser:
-+	def __init__(self, data):
-+		self.data = data
-+		self.cache = {}
-+
-+	def get_interfaces(self, match):
-+		if 'interfaces' not in self.cache.keys():
-+			self.cache['interfaces'] = [ x.attrib['name' ] \
-+					for x in self.data.findall('interface') \
-+					if match in x.attrib['name'] ]
-+		return self.cache['interfaces']
-+
-+	def get_kids(self):
-+		if 'kids' not in self.cache.keys():
-+			self.cache['kids'] = [ x.attrib['name' ] \
-+					for x in self.data.findall('node') ]
-+		return self.cache['kids']
-+
-+	def recursive_binding(self):
-+		return any('/' in s for s in self.get_kids())
-+
-+class Owner:
-+	def __init__(self, name, bus):
-+		self.name = name
-+		self.bus = bus
-+
-+	def introspect(self, path):
-+		try:
-+			obj = self.bus.dbus.get_object(self.name, path)
-+            		iface = dbus.Interface(obj, 'org.freedesktop.DBus.Introspectable')
-+			data = iface.Introspect()
-+		except dbus.DBusException:
-+			return None
-+
-+		return IntrospectionParser(ElementTree.fromstring(data))
-+
-+	def discover(self, match, path = '/'):
-+		objs = {}
-+           	parser = self.introspect(path)
-+
-+		if not parser:
-+			return objs
-+
-+		interfaces = parser.get_interfaces(match)
-+		if interfaces:
-+			objs[path] = CacheItems(self.name, interfaces)
-+
-+		if path != '/':
-+			path += '/'
-+
-+		recursive = parser.recursive_binding()
-+		for k in parser.get_kids():
-+			if recursive:
-+           			parser = self.introspect(path + k)
-+				interfaces = parser.get_interfaces(match)
-+				if interfaces:
-+					objs[path + k] = CacheItems(self.name, interfaces)
-+			else:
-+				objs.update(self.discover(match, path + k))
-+
-+		return objs
-+
-+if __name__ == '__main__':
-+	dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
-+	bus = dbus.SystemBus()
-+	s = dbus.service.BusName(SERVICE_NAME, bus)
-+	o = ObjectMapper(BusWrapper(bus), OBJ_PATH)
-+	loop = gobject.MainLoop()
-+
-+	loop.run()
--- 
-2.6.0
+On Wed, Oct 21, 2015 at 09:31:54PM -0500, OpenBMC Patches wrote:
+> From: Chris Austen <austenc@us.ibm.com>
+>=20
+> ---
+>  ipmid-api.h | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/ipmid-api.h b/ipmid-api.h
+> index caf18e8..588dd24 100755
+> --- a/ipmid-api.h
+> +++ b/ipmid-api.h
+> @@ -86,7 +86,9 @@ enum ipmi_return_codes
+>  {
+>      IPMI_CC_OK =3D 0x00,
+>      IPMI_DCMI_CC_NO_ACTIVE_POWER_LIMIT =3D 0x80,
+> -    IPMI_CC_INVALID =3D 0xC1
+> +    IPMI_CC_INVALID =3D 0xC1,
+> +    IPMI_CC_SENSOR_INVALID =3D 0xCB
+> +
+>  };
+> =20
+>  #endif
+> --=20
+> 2.6.0
+>=20
+>=20
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+
+Merged as is because the DCMI one is already here, but we shouldn't need
+to put all the CCs in this file.  Otherwise we break the purpose of
+modularizing the handlers.  I would suggest that CCs go into the
+relevant file for the particular handler that emits that CC.  Unless, we
+want to take every single CC documented in the IPMI spec and put it
+here.
+--=20
+Patrick Williams
+
+--R4+lwT0Y15rLnKR0
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJWKEzxAAoJEKsDR8wtAMEZ1AYQAJ65PCDwU+QM0x+7dt4f7V79
+zPd7gxjeXoqBskqj96TWDEbowZEUHXAu80e7tqYQ7axbV7bvSXfWiBPxAmAWOQu+
+OhjYmoYnEcGzYm0wGNHSH6G8mcsjvKO3qzKBIunTH8k0D9Jz0wF7aA5BRPxysqsc
+vl6ducnz8/Nra/1OykXtQTGYq1GuN1JIRyEFhCn9uxrXuXO3et6BElZ1zXIJuxz7
+5KEqMXuX4bHoW4t5kM+arS9apO+1iGqgd6czL2WWl0wfcGtRSpyQ2eHG0efrVM71
+X6th1e5nehRA+yY1SzYNEX0YJtJ2LYcz5e+ya6HZj6fo0nHYcduHnlpk8ErctcQE
+6lx4TufYnSvJNCVeb0HZ9KVV9DZMGOn+t+ckL9fko8UhR9XYkKsa2jtxgAerZtR6
+4B+h8zWhspWaklqxqF4neWkYCE0RQZrZblWFYlMmL3qxwU4lF6z0+mSXJXiKPFMm
+aDmBFrFTzZtpPZPAWxMApToYUfsjUQBOQS7ioyHHRYWNw97kyjlHd27SgN94wJ4Z
+6J2R0PxfvjBd5QEa2tzzAjPR+sADhcI0VmpJ6FKOTPQrsJAwRsWbznXh0zXmJxAS
+d6V1rcLp4hnSigQybPbRHR4eJyABsUZvknvCN88L5rHzY04LmP1Q5bdbBEe3H8IX
+ePfU/cNhCKieTx4KhK3/
+=KV+G
+-----END PGP SIGNATURE-----
+
+--R4+lwT0Y15rLnKR0--
