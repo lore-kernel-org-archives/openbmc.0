@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 14C7E1A08F5
- for <openbmc@lists.ozlabs.org>; Thu, 22 Oct 2015 13:52:25 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id C2CF51A0A75
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Oct 2015 13:52:27 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1445482343437982.5312244572068;
- Wed, 21 Oct 2015 19:52:23 -0700 (PDT)
+ with SMTPS id 1445482344815282.1477399374245;
+ Wed, 21 Oct 2015 19:52:24 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openpower-host-ipmi-oem 6/8] Clean up Makefile
-Date: Wed, 21 Oct 2015 21:52:11 -0500
-Message-Id: <1445482333-2053-7-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH openpower-host-ipmi-oem 7/8] Fixed string pointer usage
+Date: Wed, 21 Oct 2015 21:52:12 -0500
+Message-Id: <1445482333-2053-8-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1445482333-2053-1-git-send-email-patches@stwcx.xyz>
 References: <1445482333-2053-1-git-send-email-patches@stwcx.xyz>
@@ -28,44 +28,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Oct 2015 02:52:26 -0000
+X-List-Received-Date: Thu, 22 Oct 2015 02:52:28 -0000
 
 From: Chris Austen <austenc@us.ibm.com>
 
 ---
- Makefile | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ oemhandler.C | 7 ++-----
+ testit.C     | 8 +++-----
+ 2 files changed, 5 insertions(+), 10 deletions(-)
 
-diff --git a/Makefile b/Makefile
-index e2ed670..2dbcc46 100644
---- a/Makefile
-+++ b/Makefile
-@@ -6,22 +6,22 @@ TESTER_OBJ  = testit.o oemhandler.o
- LIB_OEM_OBJ = oemhandler.o
- LIB_OEM     = liboemhandler.so
+diff --git a/oemhandler.C b/oemhandler.C
+index 427831c..0cc7099 100644
+--- a/oemhandler.C
++++ b/oemhandler.C
+@@ -11,9 +11,6 @@ uint16_t g_record_id = 0x0100;
  
--LDFLAGS += -rdynamic
-+LDFLAGS += -rdynamic -ldl
- CXXFLAGS += -fpic -Wall
+ #define LSMSSWAP(x,y) ((y)<<8|(x))
  
+-const char *fio_wb = "wb";
+-const char *fio_rb = "rb+";
+-
  
- all:  $(TESTER) $(LIB_OEM)
+ ///////////////////////////////////////////////////////////////////////////////
+ // For the First partial add eSEL the SEL Record ID and offset 
+@@ -61,9 +58,9 @@ ipmi_ret_t ipmi_ibm_oem_partial_esel(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+     // to indicate this is a new record rather then an ofset in
+     // my next commit TODO
+     if (offset == 0) {
+-        pio = fio_wb;
++        pio = "wb";
+     } else {
+-        pio = fio_rb;
++        pio = "rb+";
+     }
  
- %.o: %.C
--	$(CXX) -fpic -c $< $(CXXFLAGS) -o $@
-+	$(CXX) -c $< $(CXXFLAGS) -o $@
- 	
+     if ((fp = fopen(string, pio)) != NULL) {
+diff --git a/testit.C b/testit.C
+index 25e069c..2b0005e 100644
+--- a/testit.C
++++ b/testit.C
+@@ -1,12 +1,10 @@
+-#include <iostream>
+ #include <cstdlib>
+-#include "ipmid-api.h"
+-#include "oemhandler.h"
+ #include <cstring>
+-
+-#include <iostream>
+ #include <fstream>
++#include <iostream>
+ #include <vector>
++#include "ipmid-api.h"
++#include "oemhandler.h"
  
- $(LIB_OEM): $(LIB_OEM_OBJ)
--	$(CXX) $^ -shared $(LDFLAGS) $(LIB_FLAG) -o $@
-+	$(CXX) $^ -shared $(LDFLAGS) -o $@
+ using namespace std;
  
- 
- $(TESTER): $(TESTER_OBJ)
--	$(CXX) $^ $(LDFLAGS) $(LIB_FLAG) -o $@ -ldl
-+	$(CXX) $^ $(LDFLAGS) -o $@ -ldl
- 
- clean:
- 	$(RM) $(LIB_OEM_OBJ) $(LIB_OEM) $(TESTER_OBJ) $(TESTER)
 -- 
 2.6.0
