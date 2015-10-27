@@ -2,21 +2,24 @@ Return-Path: <patches@stwcx.xyz>
 Received: from sender163-mail.zoho.com (sender1.zohomail.com [74.201.84.158])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 983CC1A0464
- for <openbmc@lists.ozlabs.org>; Wed, 28 Oct 2015 00:15:23 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 86A901A0464
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Oct 2015 00:15:51 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 144595162110625.463693035061624;
- Tue, 27 Oct 2015 06:13:41 -0700 (PDT)
+ with SMTPS id 1445951637816976.9994383265947;
+ Tue, 27 Oct 2015 06:13:57 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid 1/4] Remove executable permissions in
- source files
-Date: Tue, 27 Oct 2015 08:13:35 -0500
-Message-Id: <1445951618-17631-2-git-send-email-patches@stwcx.xyz>
+Cc: OpenBMC Patches <patches@stwcx.xyz>,
+	Jeremy Kerr <jk@ozlabs.org>
+Subject: [PATCH skeleton] bin/ipmi_debug: Use newer HostIpmi interface
+Date: Tue, 27 Oct 2015 08:13:55 -0500
+Message-Id: <1445951636-17767-1-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
-In-Reply-To: <1445951618-17631-1-git-send-email-patches@stwcx.xyz>
-References: <1445951618-17631-1-git-send-email-patches@stwcx.xyz>
+X-ZohoMail: Ss  SS_10 UW1 CHF_KNW_WHT_EXT  SGR4_1_19105_3
+X-ZohoMail-Owner: <1445951636-17767-1-git-send-email-patches@stwcx.xyz>+zmo_0_<patches@stwcx.xyz>
+X-ZohoMail-Sender: 108.215.4.10
+X-Zoho-Virus-Status: 2
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,33 +31,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Oct 2015 13:15:24 -0000
+X-List-Received-Date: Tue, 27 Oct 2015 13:15:52 -0000
 
-From: Jeremy Kerr <jk@ozlabs.org>
+Netfn and LUN are now split, and cc is separated from data.
 
 Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
----
- Makefile     | 0
- apphandler.C | 0
- ipmid-api.h  | 0
- ipmid.H      | 0
- 4 files changed, 0 insertions(+), 0 deletions(-)
- mode change 100755 => 100644 Makefile
- mode change 100755 => 100644 apphandler.C
- mode change 100755 => 100644 ipmid-api.h
- mode change 100755 => 100644 ipmid.H
 
-diff --git a/Makefile b/Makefile
-old mode 100755
-new mode 100644
-diff --git a/apphandler.C b/apphandler.C
-old mode 100755
-new mode 100644
-diff --git a/ipmid-api.h b/ipmid-api.h
-old mode 100755
-new mode 100644
-diff --git a/ipmid.H b/ipmid.H
-old mode 100755
-new mode 100644
+https://github.com/openbmc/skeleton/pull/8
+
+Jeremy Kerr (1):
+  bin/ipmi_debug: Use newer HostIpmi interface
+
+ bin/ipmi_debug.py | 42 +++++++++++++++++++++++++++++-------------
+ 1 file changed, 29 insertions(+), 13 deletions(-)
+
 -- 
 2.6.0
