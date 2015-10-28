@@ -3,19 +3,21 @@ Received: from sender-p126.zohomail.com (sender-p126.zohomail.com
  [74.201.154.126])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 54A9B1A0B5F
- for <openbmc@lists.ozlabs.org>; Thu, 29 Oct 2015 04:17:52 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 607321A0B62
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Oct 2015 04:17:53 +1100 (AEDT)
 Received: from localhost (32.97.110.55 [32.97.110.55]) by mx.zohomail.com
- with SMTPS id 14460526681631006.3994599823127;
- Wed, 28 Oct 2015 10:17:48 -0700 (PDT)
+ with SMTPS id 1446052669601618.3480735809027;
+ Wed, 28 Oct 2015 10:17:49 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Subject: [PATCH phosphor-host-ipmid] Fix comments in IANA TODO.
-Date: Wed, 28 Oct 2015 12:17:45 -0500
-Message-Id: <1446052666-25256-1-git-send-email-patches@stwcx.xyz>
+Date: Wed, 28 Oct 2015 12:17:46 -0500
+Message-Id: <1446052666-25256-2-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
-X-ZohoMail: Ss  SS_10 UW1 CHF_KNW_WHT_EXT  SGR4_1_19105_5
-X-ZohoMail-Owner: <1446052666-25256-1-git-send-email-patches@stwcx.xyz>+zmo_0_<patches@stwcx.xyz>
+In-Reply-To: <1446052666-25256-1-git-send-email-patches@stwcx.xyz>
+References: <1446052666-25256-1-git-send-email-patches@stwcx.xyz>
+X-ZohoMail: Ss  SS_10 UW1 CHF_KNW_WHT_EXT  SGR4_1_19105_3
+X-ZohoMail-Owner: <1446052666-25256-2-git-send-email-patches@stwcx.xyz>+zmo_0_<patches@stwcx.xyz>
 X-ZohoMail-Sender: 32.97.110.55
 X-Zoho-Virus-Status: 2
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -31,15 +33,34 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Wed, 28 Oct 2015 17:17:54 -0000
 
+From: Patrick Williams <patrick@stwcx.xyz>
+
 Signed-off-by: Patrick Williams <patrick@stwcx.xyz>
-
-https://github.com/openbmc/phosphor-host-ipmid/pull/24
-
-Patrick Williams (1):
-  Fix comments in IANA TODO.
-
+---
  apphandler.C | 11 ++++-------
  1 file changed, 4 insertions(+), 7 deletions(-)
 
+diff --git a/apphandler.C b/apphandler.C
+index 07be496..109aaa9 100755
+--- a/apphandler.C
++++ b/apphandler.C
+@@ -41,13 +41,10 @@ ipmi_ret_t ipmi_app_get_device_id(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+ {
+     ipmi_ret_t rc = IPMI_CC_OK;
+ 
+-    // TODO GET REAL VALUES HERE....  I made these ones up because
+-    // we are in bringup mode.  Version Major and Minor can be what we
+-    // want like v1.03  but the IANA really should be something that
+-    // we own.  I would suggest getting the IANA from Hostboot as
+-    // long as IBM owns it then no problem.  If some other company
+-    // gave us the IANA to use then use the one we have from the
+-    // FSP ipmi code.
++    // TODO:
++    // This value is the IANA number assigned to "IBM Platform Firmware
++    // Division", which is also used by our service processor.  We may want
++    // a different number or at least a different version?
+     uint8_t str[] = {0x00, 0, 1, 1,2, 0xD, 0x41, 0xA7, 0x00, 0x43, 0x40};
+ 
+     // Data length
 -- 
 2.6.0
