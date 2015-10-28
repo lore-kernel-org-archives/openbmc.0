@@ -3,18 +3,18 @@ Received: from sender-p126.zohomail.com (sender-p126.zohomail.com
  [74.201.154.126])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 6590F1A0B2F
- for <openbmc@lists.ozlabs.org>; Thu, 29 Oct 2015 01:31:11 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3CA411A0A9E
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Oct 2015 01:32:27 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1446040102447516.5307991147895;
- Wed, 28 Oct 2015 06:48:22 -0700 (PDT)
+ with SMTPS id 1446040105229888.5017381630825;
+ Wed, 28 Oct 2015 06:48:25 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@us.ibm.com>
-Subject: [PATCH openbmc 1/3] Don't set source dir to git
-Date: Wed, 28 Oct 2015 08:48:13 -0500
-Message-Id: <1446040095-14799-2-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH openbmc 2/3] Remove quotes from skeleton service description
+Date: Wed, 28 Oct 2015 08:48:14 -0500
+Message-Id: <1446040095-14799-3-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1446040095-14799-1-git-send-email-patches@stwcx.xyz>
 References: <1446040095-14799-1-git-send-email-patches@stwcx.xyz>
@@ -29,41 +29,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Oct 2015 14:31:11 -0000
+X-List-Received-Date: Wed, 28 Oct 2015 14:32:28 -0000
 
 From: Brad Bishop <bradleyb@us.ibm.com>
 
-So that patches can apply.
 ---
- meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ .../common/recipes-phosphor/skeleton/skeleton/skeleton.service          | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
-index d0cf359..0c8687c 100644
---- a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
-+++ b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
-@@ -19,16 +19,18 @@ SRC_URI += "git://github.com/openbmc/skeleton"
+diff --git a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton/skeleton.service b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton/skeleton.service
+index 545a1f2..53be092 100755
+--- a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton/skeleton.service
++++ b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton/skeleton.service
+@@ -1,5 +1,5 @@
+ [Unit]
+-Description="Temp placeholder for skeleton function"
++Description=Temp placeholder for skeleton function
  
- SRCREV = "47750bc1c06aebda189f2e8d7862c9d9b9ffe35b"
- 
--S = "${WORKDIR}/git"
-+S = "${WORKDIR}"
- 
- do_compile() {
--        oe_runmake all
-+        oe_runmake -C git all
- }
- 
- do_install() {
-+        source=${S}/git
-+
-         install -d ${D}/${sbindir} ${D}${libdir}
--        for i in ${S}/bin/*.py ${S}/bin/*.exe; do
-+        for i in ${source}/bin/*.py ${source}/bin/*.exe; do
-                 install $i ${D}/${sbindir}
-         done
--        install ${S}/bin/libopenbmc_intf.so ${D}/${libdir}
-+        install ${source}/bin/libopenbmc_intf.so ${D}/${libdir}
- }
+ [Service]
+ ExecStart=/usr/sbin/system_manager.py Palmetto
 -- 
 2.6.0
