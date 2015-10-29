@@ -3,21 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 8DDFA1A0BFB
- for <openbmc@lists.ozlabs.org>; Fri, 30 Oct 2015 07:11:50 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id A42A61A01E9
+ for <openbmc@lists.ozlabs.org>; Fri, 30 Oct 2015 08:09:14 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1446149505220793.0264497034112;
- Thu, 29 Oct 2015 13:11:45 -0700 (PDT)
+ with SMTPS id 1446152951292597.4983917339024;
+ Thu, 29 Oct 2015 14:09:11 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Brad Bishop <bradleyb@us.ibm.com>
-Subject: [PATCH openbmc v4 4/4] Bump object mapper revision
-Date: Thu, 29 Oct 2015 15:11:34 -0500
-Message-Id: <1446149494-11061-5-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH docs 0/2] REST API examples
+Date: Thu, 29 Oct 2015 16:09:07 -0500
+Message-Id: <1446152949-8085-1-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
-In-Reply-To: <1446149494-11061-1-git-send-email-patches@stwcx.xyz>
-References: <1446149494-11061-1-git-send-email-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -29,25 +26,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 29 Oct 2015 20:11:51 -0000
+X-List-Received-Date: Thu, 29 Oct 2015 21:09:16 -0000
 
-From: Brad Bishop <bradleyb@us.ibm.com>
+https://github.com/openbmc/docs/pull/4
 
----
- meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Brad Bishop (2):
+  Fix description of busctl
+  Add REST API examples
 
-diff --git a/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb b/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb
-index 35130cc..67219b0 100644
---- a/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb
-+++ b/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb
-@@ -20,6 +20,6 @@ SRC_URI += " \
-         git://github.com/openbmc/phosphor-objmgr \
-         "
- 
--SRCREV = "64d9b0ce3697c4fc3e000815667b0ced47af5ed6"
-+SRCREV = "e290f5cdccf14e50e838366367c91e0464f792f6"
- 
- S = "${WORKDIR}/git"
+ cheatsheet.md |  2 +-
+ rest-api.md   | 81 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 82 insertions(+), 1 deletion(-)
+ create mode 100644 rest-api.md
+
 -- 
 2.6.0
