@@ -3,18 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 8BAE91A0BE5
- for <openbmc@lists.ozlabs.org>; Fri, 30 Oct 2015 07:11:48 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 8DDFA1A0BFB
+ for <openbmc@lists.ozlabs.org>; Fri, 30 Oct 2015 07:11:50 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1446149503080321.0834983902515;
- Thu, 29 Oct 2015 13:11:43 -0700 (PDT)
+ with SMTPS id 1446149505220793.0264497034112;
+ Thu, 29 Oct 2015 13:11:45 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@us.ibm.com>
-Subject: [PATCH openbmc v4 3/4] Add rest server and mapper to image
-Date: Thu, 29 Oct 2015 15:11:33 -0500
-Message-Id: <1446149494-11061-4-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH openbmc v4 4/4] Bump object mapper revision
+Date: Thu, 29 Oct 2015 15:11:34 -0500
+Message-Id: <1446149494-11061-5-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1446149494-11061-1-git-send-email-patches@stwcx.xyz>
 References: <1446149494-11061-1-git-send-email-patches@stwcx.xyz>
@@ -29,25 +29,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 29 Oct 2015 20:11:49 -0000
+X-List-Received-Date: Thu, 29 Oct 2015 20:11:51 -0000
 
 From: Brad Bishop <bradleyb@us.ibm.com>
 
 ---
- .../recipes-phosphor/packagegroups/packagegroup-obmc-phosphor-apps.bb    | 1 +
- 1 file changed, 1 insertion(+)
+ meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/packagegroups/packagegroup-obmc-phosphor-apps.bb b/meta-phosphor/common/recipes-phosphor/packagegroups/packagegroup-obmc-phosphor-apps.bb
-index 4dbcdd3..cac7b1b 100644
---- a/meta-phosphor/common/recipes-phosphor/packagegroups/packagegroup-obmc-phosphor-apps.bb
-+++ b/meta-phosphor/common/recipes-phosphor/packagegroups/packagegroup-obmc-phosphor-apps.bb
-@@ -25,6 +25,7 @@ PACKAGES = " \
- SUMMARY_packagegroup-obmc-phosphor-apps-extras = "Extra features"
- RDEPENDS_packagegroup-obmc-phosphor-apps-extras = " \
-         rest-dbus \
-+	obmc-rest \
-         host-ipmid \
+diff --git a/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb b/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb
+index 35130cc..67219b0 100644
+--- a/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb
++++ b/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb
+@@ -20,6 +20,6 @@ SRC_URI += " \
+         git://github.com/openbmc/phosphor-objmgr \
          "
  
+-SRCREV = "64d9b0ce3697c4fc3e000815667b0ced47af5ed6"
++SRCREV = "e290f5cdccf14e50e838366367c91e0464f792f6"
+ 
+ S = "${WORKDIR}/git"
 -- 
 2.6.0
