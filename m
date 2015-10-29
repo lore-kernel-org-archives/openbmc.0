@@ -1,22 +1,32 @@
-Return-Path: <patches@stwcx.xyz>
+Return-Path: <patrick@stwcx.xyz>
+X-Greylist: delayed 91969 seconds by postgrey-1.35 at bilbo;
+ Thu, 29 Oct 2015 13:02:22 AEDT
 Received: from sender-p126.zohomail.com (sender-p126.zohomail.com
  [74.201.154.126])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 93CA11A041D
- for <openbmc@lists.ozlabs.org>; Thu, 29 Oct 2015 11:12:37 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id ED8D91A03EF
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Oct 2015 13:02:22 +1100 (AEDT)
 Received: from localhost (32.97.110.55 [32.97.110.55]) by mx.zohomail.com
- with SMTPS id 1446077552694102.48388268794895;
- Wed, 28 Oct 2015 17:12:32 -0700 (PDT)
-From: OpenBMC Patches <patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid v3] Reduce prints to journald from ipmi
- but keep ability to trace support for hex values with cli argument
-Date: Wed, 28 Oct 2015 19:12:29 -0500
-Message-Id: <1446077549-14268-2-git-send-email-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.0
-In-Reply-To: <1446077549-14268-1-git-send-email-patches@stwcx.xyz>
-References: <1446077549-14268-1-git-send-email-patches@stwcx.xyz>
+ with SMTPS id 1446084137141284.9716904126766;
+ Wed, 28 Oct 2015 19:02:17 -0700 (PDT)
+Date: Wed, 28 Oct 2015 21:02:15 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: OpenBMC Patches <patches@stwcx.xyz>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: [PATCH openbmc 0/2] rest/mapper recipes
+Message-ID: <20151029020215.GB31364@asimov.austin.ibm.com>
+References: <1445983600-2660-1-git-send-email-patches@stwcx.xyz>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="gj572EiMnwbLXET9"
+Content-Disposition: inline
+In-Reply-To: <1445983600-2660-1-git-send-email-patches@stwcx.xyz>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
+X-ZohoMail: Ss  SS_10 UW UB CHF_INT_SMD_EXT  SGR4_1_19105_1
+X-ZohoMail-Owner: <20151029020215.GB31364@asimov.austin.ibm.com>+zmo_0_<patrick@stwcx.xyz>
+X-ZohoMail-Sender: 32.97.110.55
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,252 +38,83 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 29 Oct 2015 00:12:38 -0000
+X-List-Received-Date: Thu, 29 Oct 2015 02:02:23 -0000
 
-From: Chris Austen <austenc@us.ibm.com>
 
----
- ipmid.C | 91 ++++++++++++++++++++++++++++++++++++++---------------------------
- ipmid.H |  2 --
- 2 files changed, 53 insertions(+), 40 deletions(-)
+--gj572EiMnwbLXET9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/ipmid.C b/ipmid.C
-index 11bd53e..8ac8ccd 100644
---- a/ipmid.C
-+++ b/ipmid.C
-@@ -17,6 +17,16 @@
- sd_bus *bus = NULL;
- FILE *ipmiio, *ipmidbus, *ipmicmddetails;
- 
-+void print_usage(void) {
-+  fprintf(stderr, "Options:  [-c mask]\n");
-+  fprintf(stderr, "    mask : 0x01 - Print ipmi packets\n");
-+  fprintf(stderr, "    mask : 0x02 - Print DBUS operations\n");
-+  fprintf(stderr, "    mask : 0x04 - Print ipmi command details\n");
-+  fprintf(stderr, "    mask : 0xFF - Print all trace\n");
-+}
-+
-+
-+
- // Channel that is used for OpenBMC Barreleye
- const char * DBUS_NAME = "org.openbmc.HostIpmi";
- const char * OBJ_NAME = "/org/openbmc/HostIpmi/1";
-@@ -36,7 +46,7 @@ std::map<ipmi_fn_cmd_t, ipmi_fn_context_t> g_ipmid_router_map;
- #define HEXDUMP_COLS 16
- #endif
- 
--void hexdump(void *mem, size_t len)
-+void hexdump(FILE *s, void *mem, size_t len)
- {
-         unsigned int i, j;
- 
-@@ -45,17 +55,17 @@ void hexdump(void *mem, size_t len)
-                 /* print offset */
-                 if(i % HEXDUMP_COLS == 0)
-                 {
--                        printf("0x%06x: ", i);
-+                        fprintf(s,"0x%06x: ", i);
-                 }
- 
-                 /* print hex data */
-                 if(i < len)
-                 {
--                        printf("%02x ", 0xFF & ((char*)mem)[i]);
-+                        fprintf(s,"%02x ", 0xFF & ((char*)mem)[i]);
-                 }
-                 else /* end of block, just aligning for ASCII dump */
-                 {
--                        printf("   ");
-+                        fprintf(s,"   ");
-                 }
- 
-                 /* print ASCII dump */
-@@ -65,18 +75,18 @@ void hexdump(void *mem, size_t len)
-                         {
-                                 if(j >= len) /* end of block, not really printing */
-                                 {
--                                        putchar(' ');
-+                                        fputc(' ', s);
-                                 }
-                                 else if(isprint(((char*)mem)[j])) /* printable char */
-                                 {
--                                        putchar(0xFF & ((char*)mem)[j]);
-+                                        fputc(0xFF & ((char*)mem)[j], s);
-                                 }
-                                 else /* other char */
-                                 {
--                                        putchar('.');
-+                                        fputc('.',s);
-                                 }
-                         }
--                        putchar('\n');
-+                        fputc('\n',s);
-                 }
-         }
- }
-@@ -119,7 +129,7 @@ ipmi_ret_t ipmi_netfn_router(ipmi_netfn_t netfn, ipmi_cmd_t cmd, ipmi_request_t
-     auto iter = g_ipmid_router_map.find(std::make_pair(netfn, cmd));
-     if(iter == g_ipmid_router_map.end())
-     {
--        printf("No registered handlers for NetFn:[0x%X], Cmd:[0x%X]"
-+        fprintf(stderr, "No registered handlers for NetFn:[0x%X], Cmd:[0x%X]"
-                " trying Wilcard implementation \n",netfn, cmd);
- 
-         // Now that we did not find any specific [NetFn,Cmd], tuple, check for
-@@ -127,7 +137,7 @@ ipmi_ret_t ipmi_netfn_router(ipmi_netfn_t netfn, ipmi_cmd_t cmd, ipmi_request_t
-         iter = g_ipmid_router_map.find(std::make_pair(netfn, IPMI_CMD_WILDCARD));
-         if(iter == g_ipmid_router_map.end())
-         {
--            printf("No Registered handlers for NetFn:[0x%X],Cmd:[0x%X]\n",netfn, IPMI_CMD_WILDCARD);
-+            fprintf(stderr, "No Registered handlers for NetFn:[0x%X],Cmd:[0x%X]\n",netfn, IPMI_CMD_WILDCARD);
- 
-             // Respond with a 0xC1
-             memcpy(response, &rc, IPMI_CC_LEN);
-@@ -210,24 +220,16 @@ static int send_ipmi_message(unsigned char seq, unsigned char netfn, unsigned ch
-     }
- 
-     r = sd_bus_message_read(reply, "x", &pty);
--#ifdef __IPMI_DEBUG__
--    printf("RC from the ipmi dbus method :%d \n", pty);
--#endif
-     if (r < 0) {
-        fprintf(stderr, "Failed to get a rc from the method: %s\n", strerror(-r));
- 
-     }
- 
--
-     sd_bus_error_free(&error);
-     sd_bus_message_unref(m);
- 
- 
--#ifdef __IPMI_DEBUG__
--    printf("%d : %s\n", __LINE__, __PRETTY_FUNCTION__ );
--#endif
-     return r < 0 ? EXIT_FAILURE : EXIT_SUCCESS;
--
- }
- 
- static int handle_ipmi_command(sd_bus_message *m, void *user_data, sd_bus_error
-@@ -240,8 +242,6 @@ static int handle_ipmi_command(sd_bus_message *m, void *user_data, sd_bus_error
-     size_t resplen =MAX_IPMI_BUFFER;
-     unsigned char response[MAX_IPMI_BUFFER];
- 
--    printf(" *** Received Signal: ");
--
-     memset(response, 0, MAX_IPMI_BUFFER);
- 
-     r = sd_bus_message_read(m, "yyy",  &sequence, &netfn, &cmd);
-@@ -256,9 +256,8 @@ static int handle_ipmi_command(sd_bus_message *m, void *user_data, sd_bus_error
-         return -1;
-     }
- 
--
--    printf("Seq 0x%02x, NetFn 0x%02x, CMD: 0x%02x \n", sequence, netfn, cmd);
--    hexdump((void*)request, sz);
-+    fprintf(ipmiio, "IPMI Incoming: Seq 0x%02x, NetFn 0x%02x, CMD: 0x%02x \n", sequence, netfn, cmd);
-+    hexdump(ipmiio, (void*)request, sz);
- 
-     // Allow the length field to be used for both input and output of the
-     // ipmi call
-@@ -272,8 +271,8 @@ static int handle_ipmi_command(sd_bus_message *m, void *user_data, sd_bus_error
-         fprintf(stderr,"ERROR:[0x%X] handling NetFn:[0x%X], Cmd:[0x%X]\n",r, netfn, cmd);
-     }
- 
--    printf("Response...\n");
--    hexdump((void*)response, resplen);
-+    fprintf(ipmiio, "IPMI Response:\n");
-+    hexdump(ipmiio,  (void*)response, resplen);
- 
-     // Send the response buffer from the ipmi command
-     r = send_ipmi_message(sequence, netfn, cmd, response, resplen);
-@@ -371,23 +370,39 @@ int main(int argc, char *argv[])
-     sd_bus_slot *slot = NULL;
-     int r;
-     char *mode = NULL;
-+    unsigned long tvalue;
-+    int c;
- 
- 
--    // Register all the handlers that provider implementation to IPMI commands.
--    ipmi_register_callback_handlers(HOST_IPMI_LIB_PATH);
- 
--#ifdef __IPMI_DEBUG__
--    printf("Registered Function handlers:\n");
-+    // This file and subsequient switch is for turning on levels
-+    // of trace
-+    ipmicmddetails = ipmiio = ipmidbus =  fopen("/dev/null", "w");
- 
--    // Print the registered handlers and their arguments.
--    for(auto& iter : g_ipmid_router_map)
--    {
--        ipmi_fn_cmd_t fn_and_cmd = iter.first;
--        printf("NETFN:[0x%X], cmd[0x%X]\n", fn_and_cmd.first, fn_and_cmd.second);
--    }
--#endif
-+    while ((c = getopt (argc, argv, "h:d:")) != -1)
-+        switch (c) {
-+            case 'd':
-+                tvalue =  strtoul(optarg, NULL, 16);
-+                if (1&tvalue) {
-+                    ipmiio = stdout;
-+                }
-+                if (2&tvalue) {
-+                    ipmidbus = stdout;
-+                }
-+                if (4&tvalue) {
-+                    ipmicmddetails = stdout;
-+                }
-+                break;
-+          case 'h':
-+          case '?':
-+                print_usage();
-+                return 1;
-+        }
- 
- 
-+    // Register all the handlers that provider implementation to IPMI commands.
-+    ipmi_register_callback_handlers(HOST_IPMI_LIB_PATH);
-+
-     /* Connect to system bus */
-     r = sd_bus_open_system(&bus);
-     if (r < 0) {
-@@ -548,7 +563,7 @@ int set_sensor_dbus_state(uint8_t number, const char *method, const char *value)
-     sd_bus_error error = SD_BUS_ERROR_NULL;
-     sd_bus_message *reply = NULL, *m=NULL;
- 
--    printf("Attempting to set a dbus Sensor 0x%02x via %s with a value of %s\n",
-+    fprintf(ipmidbus, "Attempting to set a dbus Sensor 0x%02x via %s with a value of %s\n",
-         number, method, value);
- 
-     r = find_openbmc_path("SENSOR", number, &a);
-@@ -582,7 +597,7 @@ int set_sensor_dbus_state_v(uint8_t number, const char *method, char *value) {
-     sd_bus_error error = SD_BUS_ERROR_NULL;
-     sd_bus_message *reply = NULL, *m=NULL;
- 
--    printf("Attempting to set a dbus Variant Sensor 0x%02x via %s with a value of %s\n",
-+    fprintf(ipmidbus, "Attempting to set a dbus Variant Sensor 0x%02x via %s with a value of %s\n",
-         number, method, value);
- 
-     r = find_openbmc_path("SENSOR", number, &a);
-diff --git a/ipmid.H b/ipmid.H
-index d6851db..73b60e6 100755
---- a/ipmid.H
-+++ b/ipmid.H
-@@ -2,7 +2,6 @@
- #define __HOST_IPMID_IPMI_H__
- #include "ipmid-api.h"
- #include <stdio.h>
--#include <stdint.h>
- 
- // When the requester sends in a netfn and a command along with data, this
- // function will look for registered handlers that will handle that [netfn,cmd]
-@@ -18,7 +17,6 @@ ipmi_ret_t ipmi_netfn_router(const ipmi_netfn_t, const ipmi_cmd_t, ipmi_request_
- // needs 1 byte for the length field. 
- #define MAX_IPMI_BUFFER 63
- 
--
- extern FILE *ipmiio, *ipmidbus, *ipmicmddetails;
- 
- #endif
--- 
-2.6.0
+I noticed you used AUTOREV on these.  Was that just temporary until the
+commits were merged?  I thought we were not going to use AUTOREV in
+general.
+
+On Tue, Oct 27, 2015 at 05:06:38PM -0500, OpenBMC Patches wrote:
+> These aren't being included in the image at the moment.  They can be merg=
+ed without causing any problems.
+>=20
+> Once my mapper/rest source code pulls have been merged I will follow up w=
+ith another pull here to add it to the image and set the SRCREV in these re=
+cipes.
+>=20
+> https://github.com/openbmc/openbmc/pull/40
+>=20
+> Brad Bishop (2):
+>   Add object manager recipe
+>   Add REST server recipe
+>=20
+>  .../common/recipes-phosphor/dbus/obmc-mapper.bb    | 25 ++++++++++++++++=
+++++++
+>  .../dbus/obmc-mapper/obmc-mapper.service           | 10 +++++++++
+>  .../dbus/obmc-mapper/org.openbmc.ObjectMapper.conf |  8 +++++++
+>  .../common/recipes-phosphor/dbus/obmc-rest.bb      | 24 ++++++++++++++++=
++++++
+>  .../dbus/obmc-rest/obmc-rest.service               | 10 +++++++++
+>  5 files changed, 77 insertions(+)
+>  create mode 100644 meta-phosphor/common/recipes-phosphor/dbus/obmc-mappe=
+r.bb
+>  create mode 100644 meta-phosphor/common/recipes-phosphor/dbus/obmc-mappe=
+r/obmc-mapper.service
+>  create mode 100644 meta-phosphor/common/recipes-phosphor/dbus/obmc-mappe=
+r/org.openbmc.ObjectMapper.conf
+>  create mode 100644 meta-phosphor/common/recipes-phosphor/dbus/obmc-rest.=
+bb
+>  create mode 100644 meta-phosphor/common/recipes-phosphor/dbus/obmc-rest/=
+obmc-rest.service
+>=20
+> --=20
+> 2.6.0
+>=20
+>=20
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+
+--=20
+Patrick Williams
+
+--gj572EiMnwbLXET9
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJWMX4nAAoJEKsDR8wtAMEZhvYP/RPs2uKGhqTD43naNNxl9trz
+RqK6t2Vaa1lUo6IOsfyQT+LJirWUHGj+5qBIZaniGe+IlwWJXMYzzjeeuAaEgSnV
+Q6dkuRLfTUJRR7iWBQCZmcVBLPV1VgcRLMaBjfpW211azMyM6mzaqlPAhaRQh3jL
+oCkjvX8gygbG1NtqyY4WCzPEXwpBwr3VXdocOlhXCZYeQEWutzZCDORrII9hgYCb
+9N9Q9miK3qSN17H6PBAJM4AV/+PX/J7gd9e5U8v3FKrC9FRkGVV304IcnppAF4Gi
+rYsb7/R4xxegr77hfzJlytkRdbKje4LxggKZtUV1edrSIUzOHCK330exmDCGVTsd
+8HxcXYzUZ38isf6Jhsll0m8anlDFa18R/Lt7DapWliBsCOBKF1prJf+flaCyXvsv
+GuGM13+Q5DgEf0BwTH9kZiXbdrfpylUrFTi8/NdI4ju2voopeNTyywxc/5nuJNdY
+SA0wKoX1uQQ/qOV62dPgLA6tlsHF9bnVAg6Uxh9pg/hSN/DJsGmRWqjIHcoXgNl5
+2Pff99RUHkue0NyjY15nd8reaXsDkUmqT9yvZUA2Rrh6TWhBd5j6T2/ZpCrmLsVj
+4areTDG0jMD5f6tvBZ5JRr2vH/FsyJ5nQNgJVI5n6/6EG81he7PJ3hL3KU1nRJqo
+M2j7lpuflfhAqb8mrT9h
+=/x3b
+-----END PGP SIGNATURE-----
+
+--gj572EiMnwbLXET9--
