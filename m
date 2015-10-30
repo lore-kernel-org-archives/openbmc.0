@@ -3,18 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 7530E1A0AB1
- for <openbmc@lists.ozlabs.org>; Fri, 30 Oct 2015 14:45:04 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 5CD1E1A05FC
+ for <openbmc@lists.ozlabs.org>; Fri, 30 Oct 2015 14:45:05 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1446176698149608.6479709421967;
- Thu, 29 Oct 2015 20:44:58 -0700 (PDT)
+ with SMTPS id 1446176699679685.1765619273671;
+ Thu, 29 Oct 2015 20:44:59 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Cyril Bur <cyril.bur@au1.ibm.com>
-Subject: [PATCH btbridge v2 1/3] Remove logic to check for message resends.
-Date: Thu, 29 Oct 2015 22:44:53 -0500
-Message-Id: <1446176695-22945-2-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH btbridge v2 2/3] Use builtin make rules
+Date: Thu, 29 Oct 2015 22:44:54 -0500
+Message-Id: <1446176695-22945-3-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1446176695-22945-1-git-send-email-patches@stwcx.xyz>
 References: <1446176695-22945-1-git-send-email-patches@stwcx.xyz>
@@ -33,55 +33,21 @@ X-List-Received-Date: Fri, 30 Oct 2015 03:45:05 -0000
 
 From: Cyril Bur <cyril.bur@au1.ibm.com>
 
-The current logic causes problems and needs to be more sophisticated, more
-sophistication has no place at this level and can handled be at a later
-stage of processing.
 ---
- btbridged.c | 18 ------------------
- 1 file changed, 18 deletions(-)
+ Makefile | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/btbridged.c b/btbridged.c
-index f9c5703..932355a 100644
---- a/btbridged.c
-+++ b/btbridged.c
-@@ -77,8 +77,6 @@ struct bt_queue {
+diff --git a/Makefile b/Makefile
+index 7f62be2..54d9964 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,4 +1,4 @@
+-all: btbridged
++CPPFLAGS=$(shell pkg-config --cflags libsystemd)
++LDFLAGS=$(shell pkg-config --libs libsystemd)
  
- struct btbridged_context{
- 	int debug;
--	uint8_t last_seq;
--	int started;
- 	struct pollfd fds[TOTAL_FDS];
- 	struct sd_bus *bus;
- 	struct bt_queue *bt_q;
-@@ -488,21 +486,6 @@ static int dispatch_bt(struct btbridged_context *context)
- 			goto out1;
- 		}
- 
--		/*
--		 * If the host sent us a retry, the seq number will not have
--		 * incremented. Drop the message otherwise we might send duplicate
--		 * responses.
--		 * This should deal with when last_seq is 0xff with overflow back
--		 * to zero.
--		 */
--		if (data[2] != context->last_seq + 1 && context->started) {
--			MSG_ERR("Received a retry from the host, dropping seq 0x%02x vs 0x%02x\n", data[2], context->last_seq);
--			r = 0;
--			goto out1;
--		}
--		context->started = 1;
--		context->last_seq = data[2];
--
- 		new = bt_q_enqueue(context, data);
- 		if (!new) {
- 			r = -ENOMEM;
-@@ -587,7 +570,6 @@ int main(int argc, char *argv[]) {
- 		{0,         0,           0,        0}
- 	};
- 
--	context.started = 0;
- 	context.debug = 0;
- 	context.bt_q = NULL;
- 
+-btbridged: btbridged.c
+-	$(CC) $(CFLAGS) `pkg-config --cflags --libs libsystemd` $^ -o $@
++all: btbridged
 -- 
 2.6.0
