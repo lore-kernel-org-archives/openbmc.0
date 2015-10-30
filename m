@@ -3,18 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 5CD1E1A05FC
- for <openbmc@lists.ozlabs.org>; Fri, 30 Oct 2015 14:45:05 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 473201A05FC
+ for <openbmc@lists.ozlabs.org>; Fri, 30 Oct 2015 14:45:07 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1446176699679685.1765619273671;
- Thu, 29 Oct 2015 20:44:59 -0700 (PDT)
+ with SMTPS id 14461767011611018.0957950527364;
+ Thu, 29 Oct 2015 20:45:01 -0700 (PDT)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Cyril Bur <cyril.bur@au1.ibm.com>
-Subject: [PATCH btbridge v2 2/3] Use builtin make rules
-Date: Thu, 29 Oct 2015 22:44:54 -0500
-Message-Id: <1446176695-22945-3-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH btbridge v2 3/3] Follow dbus naming convention for dbus signal
+Date: Thu, 29 Oct 2015 22:44:55 -0500
+Message-Id: <1446176695-22945-4-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1446176695-22945-1-git-send-email-patches@stwcx.xyz>
 References: <1446176695-22945-1-git-send-email-patches@stwcx.xyz>
@@ -29,25 +29,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 30 Oct 2015 03:45:05 -0000
+X-List-Received-Date: Fri, 30 Oct 2015 03:45:07 -0000
 
 From: Cyril Bur <cyril.bur@au1.ibm.com>
 
 ---
- Makefile | 6 +++---
+ btbridged.c | 6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/Makefile b/Makefile
-index 7f62be2..54d9964 100644
---- a/Makefile
-+++ b/Makefile
-@@ -1,4 +1,4 @@
--all: btbridged
-+CPPFLAGS=$(shell pkg-config --cflags libsystemd)
-+LDFLAGS=$(shell pkg-config --libs libsystemd)
+diff --git a/btbridged.c b/btbridged.c
+index 932355a..25bd9ac 100644
+--- a/btbridged.c
++++ b/btbridged.c
+@@ -293,7 +293,7 @@ static int method_send_message(sd_bus_message *msg, void *userdata, sd_bus_error
+ 		r = -EINVAL;
+ 		goto out;
+ 	}
+-	MSG_OUT("Recieved a dbus response for msg with seq 0x%02x\n", seq);
++	MSG_OUT("Received a dbus response for msg with seq 0x%02x\n", seq);
+ 	bt_msg->call = sd_bus_message_ref(msg);
+ 	bt_msg->rsp.netfn = netfn;
+ 	bt_msg->rsp.lun = lun;
+@@ -509,7 +509,7 @@ static int dispatch_bt(struct btbridged_context *context)
+ 		MSG_OUT("Sending dbus signal with netfn 0x%02x, lun 0x%02x, seq 0x%02x, cmd 0x%02x\n",
+ 				new->req.netfn, new->req.lun, new->req.seq, new->req.cmd);
+ 		/* Note we only actually keep the request data in the queue when debugging */
+-		r = sd_bus_emit_signal(context->bus, OBJ_NAME, DBUS_NAME, "receivedMessage", "yyyyay",
++		r = sd_bus_emit_signal(context->bus, OBJ_NAME, DBUS_NAME, "ReceivedMessage", "yyyyay",
+ 				               new->req.netfn, new->req.lun, new->req.seq, new->req.cmd,
+ 				               new->req.data_len, data+4);
+ 		if (r < 0) {
+@@ -553,7 +553,7 @@ static const sd_bus_vtable ipmid_vtable[] = {
+ 	SD_BUS_VTABLE_START(0),
+ 	SD_BUS_METHOD("sendMessage", "yyyyyay", "x", &method_send_message, SD_BUS_VTABLE_UNPRIVILEGED),
+ 	SD_BUS_METHOD("setAttention", "", "x", &method_send_sms_atn, SD_BUS_VTABLE_UNPRIVILEGED),
+-	SD_BUS_SIGNAL("receivedMessage", "yyyyay", 0),
++	SD_BUS_SIGNAL("ReceivedMessage", "yyyyay", 0),
+ 	SD_BUS_VTABLE_END
+ };
  
--btbridged: btbridged.c
--	$(CC) $(CFLAGS) `pkg-config --cflags --libs libsystemd` $^ -o $@
-+all: btbridged
 -- 
 2.6.0
