@@ -1,82 +1,84 @@
-Return-Path: <njames@us.ibm.com>
+Return-Path: <austenc@us.ibm.com>
 Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
  (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id EFFCD1A024F
- for <openbmc@lists.ozlabs.org>; Tue,  3 Nov 2015 21:30:52 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id C35091A0298
+ for <openbmc@lists.ozlabs.org>; Tue,  3 Nov 2015 23:18:49 +1100 (AEDT)
 Received: from localhost
  by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <njames@us.ibm.com>;
- Tue, 3 Nov 2015 05:30:49 -0500
-Received: from d01dlp02.pok.ibm.com (9.56.250.167)
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Tue, 3 Nov 2015 07:18:47 -0500
+Received: from d01dlp03.pok.ibm.com (9.56.250.168)
  by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Tue, 3 Nov 2015 05:30:48 -0500
-X-IBM-Helo: d01dlp02.pok.ibm.com
-X-IBM-MailFrom: njames@us.ibm.com
+ Tue, 3 Nov 2015 07:18:44 -0500
+X-IBM-Helo: d01dlp03.pok.ibm.com
+X-IBM-MailFrom: austenc@us.ibm.com
 X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from b01cxnp23032.gho.pok.ibm.com (b01cxnp23032.gho.pok.ibm.com
- [9.57.198.27])
- by d01dlp02.pok.ibm.com (Postfix) with ESMTP id EAB316E8045
- for <openbmc@lists.ozlabs.org>; Tue,  3 Nov 2015 05:18:58 -0500 (EST)
+Received: from b01cxnp22035.gho.pok.ibm.com (b01cxnp22035.gho.pok.ibm.com
+ [9.57.198.25])
+ by d01dlp03.pok.ibm.com (Postfix) with ESMTP id C6A37C90041
+ for <openbmc@lists.ozlabs.org>; Tue,  3 Nov 2015 07:06:54 -0500 (EST)
 Received: from d01av03.pok.ibm.com (d01av03.pok.ibm.com [9.56.224.217])
- by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- tA3AUliv60620844
- for <openbmc@lists.ozlabs.org>; Tue, 3 Nov 2015 10:30:48 GMT
+ by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ tA3CIiKO59310278
+ for <openbmc@lists.ozlabs.org>; Tue, 3 Nov 2015 12:18:44 GMT
 Received: from d01av03.pok.ibm.com (localhost [127.0.0.1])
  by d01av03.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- tA3AUl64022119
- for <openbmc@lists.ozlabs.org>; Tue, 3 Nov 2015 05:30:47 -0500
+ tA3CIhVe030020
+ for <openbmc@lists.ozlabs.org>; Tue, 3 Nov 2015 07:18:43 -0500
 Received: from d50lp02.ny.us.ibm.com (d50lp02.pok.ibm.com [146.89.104.208])
  by d01av03.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- tA3AUkoE022096
+ tA3CIhrx030005
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=OK)
- for <openbmc@lists.ozlabs.org>; Tue, 3 Nov 2015 05:30:46 -0500
-Message-Id: <201511031030.tA3AUkoE022096@d01av03.pok.ibm.com>
+ for <openbmc@lists.ozlabs.org>; Tue, 3 Nov 2015 07:18:43 -0500
+Message-Id: <201511031218.tA3CIhrx030005@d01av03.pok.ibm.com>
 Received: from /spool/local
  by d50lp02.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <njames@us.ibm.com>;
- Tue, 3 Nov 2015 05:28:27 -0500
-Received: from smtp.notes.na.collabserv.com (192.155.248.74)
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Tue, 3 Nov 2015 07:18:36 -0500
+Received: from smtp.notes.na.collabserv.com (192.155.248.72)
  by d50lp02.ny.us.ibm.com (158.87.18.21) with IBM ESMTP SMTP Gateway:
  Authorized Use Only! Violators will be prosecuted; 
  (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
- Tue, 3 Nov 2015 05:28:24 -0500
+ Tue, 3 Nov 2015 07:18:34 -0500
 Received: from /spool/local
  by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <njames@us.ibm.com>;
- Tue, 3 Nov 2015 10:28:19 -0000
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Tue, 3 Nov 2015 12:18:33 -0000
 Received: from us1a3-smtp03.a3.dal06.isc4sb.com (10.106.154.94)
- by smtp.notes.na.collabserv.com (10.106.227.92) with
- smtp.notes.na.collabserv.com ESMTP; Tue, 3 Nov 2015 10:28:17 -0000
-Received: from us1a3-mail62.a3.dal09.isc4sb.com ([10.142.3.202])
+ by smtp.notes.na.collabserv.com (10.106.227.158) with
+ smtp.notes.na.collabserv.com ESMTP; Tue, 3 Nov 2015 12:18:31 -0000
+Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
  by us1a3-smtp03.a3.dal06.isc4sb.com
- with ESMTP id 2015110310283062-161103 ;
- Tue, 3 Nov 2015 10:28:30 +0000 
-In-Reply-To: <201511022354.tA2NsCxq009238@d01av02.pok.ibm.com>
+ with ESMTP id 2015110312184523-226189 ;
+ Tue, 3 Nov 2015 12:18:45 +0000 
+In-Reply-To: <OF957048BA.07DD0CF2-ON86257EF2.00366792-86257EF2.00366F8B@LocalDomain>
+Date: Tue, 3 Nov 2015 12:18:30 +0000
+To: "Norman James" <njames@us.ibm.com>, "Patrick Williams III"
+ <iawillia@us.ibm.com>
+From: "Chris Austen" <austenc@us.ibm.com>
 Subject: Re: 9.3.164.147 is running Candidate 4 and so can you
-To: "Chris Austen" <austenc@us.ibm.com>
-Cc: openbmc@lists.ozlabs.org
-From: "Norman James" <njames@us.ibm.com>
-Date: Tue, 3 Nov 2015 03:54:34 -0600
-References: <201511022354.tA2NsCxq009238@d01av02.pok.ibm.com>
-X-KeepSent: 957048BA:07DD0CF2-86257EF2:00366792;
+Cc: "openbmc" <openbmc@lists.ozlabs.org>
+Importance: Normal
+MIME-Version: 1.0
+X-Mailer: IBM Traveler 9.0.1.8 Build 201510142205_20
+X-KeepSent: 00D6DD05:DC909F75-00257EF2:00439C6B;
  type=4; name=$KeepSent
-X-Mailer: IBM Notes Release 9.0.1FP2 SHF37 August 25, 2014
 X-LLNOutbound: False
-X-Disclaimed: 11851
+X-Disclaimed: 21983
 X-TNEFEvaluated: 1
-Content-type: multipart/related; 
- Boundary="0__=09BBF461DFA5E1028f9e8a93df938690918c09BBF461DFA5E102"
-x-cbid: 15110310-0041-0000-0000-00000233E88B
-X-IBM-ISS-SpamDetectors: Score=0.410717; BY=0.133353; FL=0; FP=0; FZ=0; HX=0; 
- KW=0; PH=0; SC=0.410717; ST=0; TS=0; UL=0; ISC=
+Content-Type: multipart/alternative; 
+ boundary="----=_Part_73_101058054.1446553110211"
+x-cbid: 15110312-0041-0000-0000-000002341896
+X-IBM-ISS-SpamDetectors: Score=0.387138; BY=0.292933; FL=0; FP=0; FZ=0; HX=0; 
+ KW=0; PH=0; SC=0.387138; ST=0; TS=0; UL=0; ISC=
 X-IBM-ISS-DetailInfo: BY=3.00004563; HX=3.00000236; KW=3.00000007;
- PH=3.00000004; SC=3.00000120; SDB=6.00612017; UDB=6.00270448; UTC=2015-11-03
- 10:28:18
-x-cbparentid: 15110310-5920-0000-0000-000004BF55CF
+ PH=3.00000004; SC=3.00000120; SDB=6.00612054; UDB=6.00270470; UTC=2015-11-03
+ 12:18:32
+x-cbparentid: 15110312-5090-0000-0000-000005A34D50
 X-TM-AS-MML: disable
 X-Content-Scanned: Fidelis XPS MAILER
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -90,237 +92,269 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 Nov 2015 10:30:53 -0000
-
---0__=09BBF461DFA5E1028f9e8a93df938690918c09BBF461DFA5E102
-Content-type: multipart/alternative; 
-	Boundary="1__=09BBF461DFA5E1028f9e8a93df938690918c09BBF461DFA5E102"
+X-List-Received-Date: Tue, 03 Nov 2015 12:18:51 -0000
 
 
---1__=09BBF461DFA5E1028f9e8a93df938690918c09BBF461DFA5E102
-Content-Transfer-Encoding: base64
-Content-type: text/plain; charset=KOI8-R
+------=_Part_73_101058054.1446553110211
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-SSBkb24ndCBzZWUgYW55IHRhZ3MuICBXaG8gaXMgdGFnZ2luZyB0aGUgcmVsZWFzZT8NCg0KDQpS
-ZWdhcmRzLA0KTm9ybWFuIEphbWVzDQpJQk0gLSBQT1dFUiBTeXN0ZW1zIEFyY2hpdGVjdA0KUGhv
-bmU6IDEtNTEyLTI4Ni02ODA3IChUL0w6IDM2My02ODA3KQ0KSW50ZXJuZXQ6IG5qYW1lc0B1cy5p
-Ym0uY29tDQoNCg0KDQoNCkZyb206CUNocmlzIEF1c3Rlbi9BdXN0aW4vSUJNQElCTVVTDQpUbzoJ
-b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnDQpEYXRlOgkxMS8wMi8yMDE1IDA1OjU0IFBNDQpTdWJq
-ZWN0Ogk5LjMuMTY0LjE0NyBpcyBydW5uaW5nIENhbmRpZGF0ZSA0IGFuZCBzbyBjYW4geW91DQpT
-ZW50IGJ5Ogkib3BlbmJtYyIgPG9wZW5ibWMtYm91bmNlcytuamFtZXM9dXMuaWJtLmNvbUBsaXN0
-cy5vemxhYnMub3JnPg0KDQoNCg0KU3lzdGVtIHBvd2VycyBvbiB0aGluZ3Mgb2YgaW50ZXJlc3Qg
-YmVsb3cuICBZb3UgYWxsIGhhdmUgNCBob3VycyBiZWZvcmUgSQ0KYXNrIFBhdHJpY2sgdG8gdGFn
-IGl0IGFzIHRoZSBOb3YgMSBkZWxpdmVyYWJsZS4gIEkgdmVyaWZpZWQgaXQgY29tcGlsZXMgaW4N
-ClBhbG1ldHRvIGFuZCBCYXJyZWxleWUuICBTd2l0Y2hpbmcgdG8gUUVNVSByZXF1aXJlcyBybSAt
-cmYgYnVpbGQvdG1wIHNvIHRoZQ0KZGVwZW5kZW5jaWVzIGFyZSBzdGlsbCBub3QgY29ycmVjdC4N
-Cg0KDQpGbGFzaCBpbWFnZXMuLi4NCjkuMy4xNjQuMjE5Oi90ZnRwYm9vdC9jdUltYWdlXzEwMzFf
-NA0KOS4zLjE2NC4yMTk6L3RmdHBib290L2luaXRyZF8xMDMxXzQNCg0KaXBtaSB0cmFjZS4uLg0K
-L2dzYS9hdXNnc2EvaG9tZS9jL2EvY2F1c3Rlbi9wdWJsaWMvb3BlbmJtYy9vYm1jX2lwbWl0cmFj
-ZV8xMDMxXzQudHh0DQoNCnJlc3Qgc3R1ZmYuLi4NCiQgY3VybA0KaHR0cDovLzkuMy4xNjQuMTQ3
-L29yZy9vcGVuYm1jL2ludmVudG9yeS9zeXN0ZW0vY2hhc3Npcy9tb3RoZXJib2FyZC9lbnVtZXJh
-dGUNCg0KY2F1c3RlbkBjYXVzdGVuLVZpcnR1YWxCb3g6fi9vcGVuYm1jLWJhcnJlbGV5ZS9idWls
-ZA0KJCBjdXJsIGh0dHA6Ly85LjMuMTY0LjE0Ny9vcmcvb3BlbmJtYy9pbnZlbnRvcnkvc3lzdGVt
-L2NoYXNzaXMvbW90aGVyYm9hcmQvDQpbDQogICIvb3JnL29wZW5ibWMvaW52ZW50b3J5L3N5c3Rl
-bS9jaGFzc2lzL21vdGhlcmJvYXJkL2RpbW0zIiwNCiAgIi9vcmcvb3BlbmJtYy9pbnZlbnRvcnkv
-c3lzdGVtL2NoYXNzaXMvbW90aGVyYm9hcmQvZGltbTIiLA0KICAiL29yZy9vcGVuYm1jL2ludmVu
-dG9yeS9zeXN0ZW0vY2hhc3Npcy9tb3RoZXJib2FyZC9kaW1tMSIsDQogICIvb3JnL29wZW5ibWMv
-aW52ZW50b3J5L3N5c3RlbS9jaGFzc2lzL21vdGhlcmJvYXJkL2RpbW0wIiwNCiAgIi9vcmcvb3Bl
-bmJtYy9pbnZlbnRvcnkvc3lzdGVtL2NoYXNzaXMvbW90aGVyYm9hcmQvY3B1MCIsDQogICIvb3Jn
-L29wZW5ibWMvaW52ZW50b3J5L3N5c3RlbS9jaGFzc2lzL21vdGhlcmJvYXJkL2NlbnRhdXIwIiwN
-CiAgIi9vcmcvb3BlbmJtYy9pbnZlbnRvcnkvc3lzdGVtL2NoYXNzaXMvbW90aGVyYm9hcmQvYm1j
-Ig0KXWNhdXN0ZW5AY2F1c3Rlbi1WaXJ0dWFsQm94On4vb3BlbmJtYy1iYXJyZWxleWUvYnVpbGQN
-CiQgY3VybA0KaHR0cDovLzkuMy4xNjQuMTQ3L29yZy9vcGVuYm1jL2ludmVudG9yeS9zeXN0ZW0v
-Y2hhc3Npcy9tb3RoZXJib2FyZC9saXN0DQpbDQogICIvb3JnL29wZW5ibWMvaW52ZW50b3J5L3N5
-c3RlbS9jaGFzc2lzL21vdGhlcmJvYXJkL2NwdTAvY29yZTkiLA0KICAiL29yZy9vcGVuYm1jL2lu
-dmVudG9yeS9zeXN0ZW0vY2hhc3Npcy9tb3RoZXJib2FyZC9kaW1tMiIsDQogICIvb3JnL29wZW5i
-bWMvaW52ZW50b3J5L3N5c3RlbS9jaGFzc2lzL21vdGhlcmJvYXJkL2NwdTAvY29yZTExIiwNCiAg
-Ii9vcmcvb3BlbmJtYy9pbnZlbnRvcnkvc3lzdGVtL2NoYXNzaXMvbW90aGVyYm9hcmQvY3B1MC9j
-b3JlMTAiLA0KICAiL29yZy9vcGVuYm1jL2ludmVudG9yeS9zeXN0ZW0vY2hhc3Npcy9tb3RoZXJi
-b2FyZC9jcHUwL2NvcmU4IiwNCiAgIi9vcmcvb3BlbmJtYy9pbnZlbnRvcnkvc3lzdGVtL2NoYXNz
-aXMvbW90aGVyYm9hcmQvY2VudGF1cjAiLA0KICAiL29yZy9vcGVuYm1jL2ludmVudG9yeS9zeXN0
-ZW0vY2hhc3Npcy9tb3RoZXJib2FyZC9kaW1tMyIsDQogICIvb3JnL29wZW5ibWMvaW52ZW50b3J5
-L3N5c3RlbS9jaGFzc2lzL21vdGhlcmJvYXJkL2RpbW0xIiwNCiAgIi9vcmcvb3BlbmJtYy9pbnZl
-bnRvcnkvc3lzdGVtL2NoYXNzaXMvbW90aGVyYm9hcmQvZGltbTAiLA0KICAiL29yZy9vcGVuYm1j
-L2ludmVudG9yeS9zeXN0ZW0vY2hhc3Npcy9tb3RoZXJib2FyZC9ibWMiLA0KICAiL29yZy9vcGVu
-Ym1jL2ludmVudG9yeS9zeXN0ZW0vY2hhc3Npcy9tb3RoZXJib2FyZC9jcHUwIiwNCiAgIi9vcmcv
-b3BlbmJtYy9pbnZlbnRvcnkvc3lzdGVtL2NoYXNzaXMvbW90aGVyYm9hcmQvY3B1MC9jb3JlNyIs
-DQogICIvb3JnL29wZW5ibWMvaW52ZW50b3J5L3N5c3RlbS9jaGFzc2lzL21vdGhlcmJvYXJkL2Nw
-dTAvY29yZTYiLA0KICAiL29yZy9vcGVuYm1jL2ludmVudG9yeS9zeXN0ZW0vY2hhc3Npcy9tb3Ro
-ZXJib2FyZC9jcHUwL2NvcmU1IiwNCiAgIi9vcmcvb3BlbmJtYy9pbnZlbnRvcnkvc3lzdGVtL2No
-YXNzaXMvbW90aGVyYm9hcmQvY3B1MC9jb3JlNCIsDQogICIvb3JnL29wZW5ibWMvaW52ZW50b3J5
-L3N5c3RlbS9jaGFzc2lzL21vdGhlcmJvYXJkL2NwdTAvY29yZTMiLA0KICAiL29yZy9vcGVuYm1j
-L2ludmVudG9yeS9zeXN0ZW0vY2hhc3Npcy9tb3RoZXJib2FyZC9jcHUwL2NvcmUyIiwNCiAgIi9v
-cmcvb3BlbmJtYy9pbnZlbnRvcnkvc3lzdGVtL2NoYXNzaXMvbW90aGVyYm9hcmQvY3B1MC9jb3Jl
-MSIsDQogICIvb3JnL29wZW5ibWMvaW52ZW50b3J5L3N5c3RlbS9jaGFzc2lzL21vdGhlcmJvYXJk
-L2NwdTAvY29yZTAiDQpdY2F1c3RlbkBjYXVzdGVuLVZpcnR1YWxCb3g6fi9vcGVuYm1jLWJhcnJl
-bGV5ZS9idWlsZA0KJA0KDQoNClBldGV0aXRib290IHNob3dzIGRpc2tzIG5vdy4uLg0KUGV0aXRi
-b290IChkZXYuMjAxNTA5MjkpICAgICAgICAgICAgICAgICAgICAgICAgICBUTjcxLUJQMDEyDQp1
-bmF2YWlsYWJsZQ0KDQqAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA
-gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIANCg0KICBbRGlzazogc2RhMiAvIGUw
-NzU0ZDc0LTljNmYtNGRhYS05ZTgxLWVlNWFlMDlkMGY2NF0NCiAgICBVYnVudHUsIHdpdGggTGlu
-dXggMy4xNi4wLTIzLWdlbmVyaWMgKHJlY292ZXJ5IG1vZGUpDQogICAgVWJ1bnR1LCB3aXRoIExp
-bnV4IDMuMTYuMC0yMy1nZW5lcmljDQogICAgVWJ1bnR1DQogIFN5c3RlbSBpbmZvcm1hdGlvbg0K
-ICBTeXN0ZW0gY29uZmlndXJhdGlvbg0KICBMYW5ndWFnZQ0KICBSZXNjYW4gZGV2aWNlcw0KICBS
-ZXRyaWV2ZSBjb25maWcgZnJvbSBVUkwNCiAqRXhpdCB0byBzaGVsbA0KDQoNCg0Kcm9vdEBwYWxt
-ZXR0bzp+IyBpMmNkZXRlY3QgLWwNCmkyYy0wICAgIGkyYyAgICAgICAgICAgQXNwZWVkIGkyYyBh
-dCBmMDE4YTA0MCAgICAgICAgICAgICAgSTJDIGFkYXB0ZXINCmkyYy0xICAgIGkyYyAgICAgICAg
-ICAgQXNwZWVkIGkyYyBhdCBmMDE4YTA4MCAgICAgICAgICAgICAgSTJDIGFkYXB0ZXINCmkyYy0y
-ICAgIGkyYyAgICAgICAgICAgQXNwZWVkIGkyYyBhdCBmMDE4YTBjMCAgICAgICAgICAgICAgSTJD
-IGFkYXB0ZXINCmkyYy0zICAgIGkyYyAgICAgICAgICAgQXNwZWVkIGkyYyBhdCBmMDE4YTEwMCAg
-ICAgICAgICAgICAgSTJDIGFkYXB0ZXINCmkyYy00ICAgIGkyYyAgICAgICAgICAgQXNwZWVkIGky
-YyBhdCBmMDE4YTE0MCAgICAgICAgICAgICAgSTJDIGFkYXB0ZXINCmkyYy01ICAgIGkyYyAgICAg
-ICAgICAgQXNwZWVkIGkyYyBhdCBmMDE4YTE4MCAgICAgICAgICAgICAgSTJDIGFkYXB0ZXINCmky
-Yy02ICAgIGkyYyAgICAgICAgICAgQXNwZWVkIGkyYyBhdCBmMDE4YTFjMCAgICAgICAgICAgICAg
-STJDIGFkYXB0ZXINCmkyYy03ICAgIGkyYyAgICAgICAgICAgQXNwZWVkIGkyYyBhdCBmMDE4YTMw
-MCAgICAgICAgICAgICAgSTJDIGFkYXB0ZXINCmkyYy04ICAgIGkyYyAgICAgICAgICAgQXNwZWVk
-IGkyYyBhdCBmMDE4YTM0MCAgICAgICAgICAgICAgSTJDIGFkYXB0ZXINCnJvb3RAcGFsbWV0dG86
-fiMNCg0KDQoNCkNocmlzIEF1c3Rlbg0KUE9XRVIgU3lzdGVtcyBFbmFibGVtZW50IE1hbmFnZXIN
-Cig1MTIpIDI4Ni01MTg0IChUL0w6IDM2My01MTg0KQ0KX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18NCm9wZW5ibWMgbWFpbGluZyBsaXN0DQpvcGVuYm1jQGxp
-c3RzLm96bGFicy5vcmcNCmh0dHBzOi8vbGlzdHMub3psYWJzLm9yZy9saXN0aW5mby9vcGVuYm1j
-DQoNCg==
+Patrick make a tag.=20
+  =20
+    Norm, latest will work until there is a tag
+ =20
+  Sent from my iPhone using IBM Verse
+ =20
+  On Nov 3, 2015, 4:28:17 AM, "Norman James" <njames@us.ibm.com> wrote:
+  I don't see any tags. Who is tagging the release?
+  =20
+  =20
+   Regards,
+   Norman James
+   IBM - POWER Systems Architect
+   Phone: 1-512-286-6807 (T/L: 363-6807)
+   Internet: njames@us.ibm.com
+  =20
+  =20
+         Chris Austen---11/02/2015 05:54:30 PM---System powers on things of=
+ interest below. You all have 4 hours before I ask Patrick to tag it as t
+          =20
+     From: Chris Austen/Austin/IBM@IBMUS
+     To: openbmc@lists.ozlabs.org
+     Date: 11/02/2015 05:54 PM
+     Subject: 9.3.164.147 is running Candidate 4 and so can you
+     Sent by: "openbmc" <openbmc-bounces+njames=3Dus.ibm.com@lists.ozlabs.o=
+rg>
+    =20
+    =20
+    =20
+     System powers on things of interest below. You all have 4 hours before=
+ I ask Patrick to tag it as the Nov 1 deliverable. I verified it compiles i=
+n Palmetto and Barreleye. Switching to QEMU requires rm -rf build/tmp so th=
+e dependencies are still not correct.
+     =20
+     =20
+     Flash images...
+     9.3.164.219:/tftpboot/cuImage=5F1031=5F4
+     9.3.164.219:/tftpboot/initrd=5F1031=5F4
+     =20
+     ipmi trace...
+     /gsa/ausgsa/home/c/a/causten/public/openbmc/obmc=5Fipmitrace=5F1031=5F=
+4.txt
+     =20
+     rest stuff...
+     $ curl http://9.3.164.147/org/openbmc/inventory/system/chassis/motherb=
+oard/enumerate
+     causten@causten-VirtualBox:~/openbmc-barreleye/build
+     $ curl http://9.3.164.147/org/openbmc/inventory/system/chassis/motherb=
+oard/
+     [
+     "/org/openbmc/inventory/system/chassis/motherboard/dimm3",
+     "/org/openbmc/inventory/system/chassis/motherboard/dimm2",
+     "/org/openbmc/inventory/system/chassis/motherboard/dimm1",
+     "/org/openbmc/inventory/system/chassis/motherboard/dimm0",
+     "/org/openbmc/inventory/system/chassis/motherboard/cpu0",
+     "/org/openbmc/inventory/system/chassis/motherboard/centaur0",
+     "/org/openbmc/inventory/system/chassis/motherboard/bmc"
+     ]causten@causten-VirtualBox:~/openbmc-barreleye/build
+     $ curl http://9.3.164.147/org/openbmc/inventory/system/chassis/motherb=
+oard/list
+     [
+     "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core9",
+     "/org/openbmc/inventory/system/chassis/motherboard/dimm2",
+     "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core11",
+     "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core10",
+     "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core8",
+     "/org/openbmc/inventory/system/chassis/motherboard/centaur0",
+     "/org/openbmc/inventory/system/chassis/motherboard/dimm3",
+     "/org/openbmc/inventory/system/chassis/motherboard/dimm1",
+     "/org/openbmc/inventory/system/chassis/motherboard/dimm0",
+     "/org/openbmc/inventory/system/chassis/motherboard/bmc",
+     "/org/openbmc/inventory/system/chassis/motherboard/cpu0",
+     "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core7",
+     "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core6",
+     "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core5",
+     "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core4",
+     "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core3",
+     "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core2",
+     "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core1",
+     "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core0"
+     ]causten@causten-VirtualBox:~/openbmc-barreleye/build
+     $
+     =20
+     =20
+     Petetitboot shows disks now...
+     Petitboot (dev.20150929) TN71-BP012 unavailable
+     =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80
+     [Disk: sda2 / e0754d74-9c6f-4daa-9e81-ee5ae09d0f64]
+     Ubuntu, with Linux 3.16.0-23-generic (recovery mode)
+     Ubuntu, with Linux 3.16.0-23-generic
+     Ubuntu
+      System information
+     System configuration
+     Language
+     Rescan devices
+     Retrieve config from URL
+     *Exit to shell=20
+     =20
+     =20
+     =20
+     root@palmetto:~# i2cdetect -l
+     i2c-0 i2c Aspeed i2c at f018a040 I2C adapter
+     i2c-1 i2c Aspeed i2c at f018a080 I2C adapter
+     i2c-2 i2c Aspeed i2c at f018a0c0 I2C adapter
+     i2c-3 i2c Aspeed i2c at f018a100 I2C adapter
+     i2c-4 i2c Aspeed i2c at f018a140 I2C adapter
+     i2c-5 i2c Aspeed i2c at f018a180 I2C adapter
+     i2c-6 i2c Aspeed i2c at f018a1c0 I2C adapter
+     i2c-7 i2c Aspeed i2c at f018a300 I2C adapter
+     i2c-8 i2c Aspeed i2c at f018a340 I2C adapter
+     root@palmetto:~#
+     =20
+     =20
+    =20
+     Chris Austen
+     POWER Systems Enablement Manager
+     (512) 286-5184 (T/L: 363-5184)
+     =5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F
+     openbmc mailing list
+     openbmc@lists.ozlabs.org
+     https://lists.ozlabs.org/listinfo/openbmc
 
---1__=09BBF461DFA5E1028f9e8a93df938690918c09BBF461DFA5E102
-Content-Transfer-Encoding: base64
-Content-type: text/html; charset=KOI8-R
-Content-Disposition: inline
+------=_Part_73_101058054.1446553110211
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=utf-8
 
-PGh0bWw+PGJvZHk+PHA+SSBkb24ndCBzZWUgYW55IHRhZ3MuICBXaG8gaXMgdGFnZ2luZyB0aGUg
-cmVsZWFzZT88YnI+PGJyPjxicj5SZWdhcmRzLDxicj5Ob3JtYW4gSmFtZXM8YnI+SUJNIC0gUE9X
-RVIgU3lzdGVtcyBBcmNoaXRlY3Q8YnI+UGhvbmU6IDEtNTEyLTI4Ni02ODA3IChUL0w6IDM2My02
-ODA3KTxicj5JbnRlcm5ldDogbmphbWVzQHVzLmlibS5jb208YnI+PGJyPjxicj48aW1nIHdpZHRo
-PSIxNiIgaGVpZ2h0PSIxNiIgc3JjPSJjaWQ6MV9fPTA5QkJGNDYxREZBNUUxMDI4ZjllOGE5M2Rm
-OTM4NjkwOTE4YzA5QkAiIGJvcmRlcj0iMCIgYWx0PSJJbmFjdGl2ZSBoaWRlIGRldGFpbHMgZm9y
-IENocmlzIEF1c3Rlbi0tLTExLzAyLzIwMTUgMDU6NTQ6MzAgUE0tLS1TeXN0ZW0gcG93ZXJzIG9u
-IHRoaW5ncyBvZiBpbnRlcmVzdCBiZWxvdy4gIFlvdSBhbGwgaGF2ZSA0IGhvIj48Zm9udCBjb2xv
-cj0iIzQyNDI4MiI+Q2hyaXMgQXVzdGVuLS0tMTEvMDIvMjAxNSAwNTo1NDozMCBQTS0tLVN5c3Rl
-bSBwb3dlcnMgb24gdGhpbmdzIG9mIGludGVyZXN0IGJlbG93LiAgWW91IGFsbCBoYXZlIDQgaG91
-cnMgYmVmb3JlIEkgYXNrIFBhdHJpY2sgdG8gdGFnIGl0IGFzIHQ8L2ZvbnQ+PGJyPjxicj48Zm9u
-dCBzaXplPSIyIiBjb2xvcj0iIzVGNUY1RiI+RnJvbTogICAgICAgIDwvZm9udD48Zm9udCBzaXpl
-PSIyIj5DaHJpcyBBdXN0ZW4vQXVzdGluL0lCTUBJQk1VUzwvZm9udD48YnI+PGZvbnQgc2l6ZT0i
-MiIgY29sb3I9IiM1RjVGNUYiPlRvOiAgICAgICAgPC9mb250Pjxmb250IHNpemU9IjIiPm9wZW5i
-bWNAbGlzdHMub3psYWJzLm9yZzwvZm9udD48YnI+PGZvbnQgc2l6ZT0iMiIgY29sb3I9IiM1RjVG
-NUYiPkRhdGU6ICAgICAgICA8L2ZvbnQ+PGZvbnQgc2l6ZT0iMiI+MTEvMDIvMjAxNSAwNTo1NCBQ
-TTwvZm9udD48YnI+PGZvbnQgc2l6ZT0iMiIgY29sb3I9IiM1RjVGNUYiPlN1YmplY3Q6ICAgICAg
-ICA8L2ZvbnQ+PGZvbnQgc2l6ZT0iMiI+OS4zLjE2NC4xNDcgaXMgcnVubmluZyBDYW5kaWRhdGUg
-NCBhbmQgc28gY2FuIHlvdTwvZm9udD48YnI+PGZvbnQgc2l6ZT0iMiIgY29sb3I9IiM1RjVGNUYi
-PlNlbnQgYnk6ICAgICAgICA8L2ZvbnQ+PGZvbnQgc2l6ZT0iMiI+JnF1b3Q7b3BlbmJtYyZxdW90
-OyAmbHQ7b3BlbmJtYy1ib3VuY2VzK25qYW1lcz11cy5pYm0uY29tQGxpc3RzLm96bGFicy5vcmcm
-Z3Q7PC9mb250Pjxicj48aHIgd2lkdGg9IjEwMCUiIHNpemU9IjIiIGFsaWduPSJsZWZ0IiBub3No
-YWRlIHN0eWxlPSJjb2xvcjojODA5MUE1OyAiPjxicj48YnI+PGJyPjxmb250IGZhY2U9IkFyaWFs
-Ij5TeXN0ZW0gcG93ZXJzIG9uIHRoaW5ncyBvZiBpbnRlcmVzdCBiZWxvdy4gIFlvdSBhbGwgaGF2
-ZSA0IGhvdXJzIGJlZm9yZSBJIGFzayBQYXRyaWNrIHRvIHRhZyBpdCBhcyB0aGUgTm92IDEgZGVs
-aXZlcmFibGUuICBJIHZlcmlmaWVkIGl0IGNvbXBpbGVzIGluIFBhbG1ldHRvIGFuZCBCYXJyZWxl
-eWUuICBTd2l0Y2hpbmcgdG8gUUVNVSByZXF1aXJlcyBybSAtcmYgYnVpbGQvdG1wIHNvIHRoZSBk
-ZXBlbmRlbmNpZXMgYXJlIHN0aWxsIG5vdCBjb3JyZWN0LjwvZm9udD48YnI+PGZvbnQgZmFjZT0i
-QXJpYWwiPiA8L2ZvbnQ+PGJyPjxmb250IGZhY2U9IkFyaWFsIj4gPC9mb250Pjxicj48Yj48Zm9u
-dCBmYWNlPSJBcmlhbCI+Rmxhc2ggaW1hZ2VzLi4uPC9mb250PjwvYj48YnI+PGZvbnQgZmFjZT0i
-Q291cmllciI+OS4zLjE2NC4yMTk6L3RmdHBib290L2N1SW1hZ2VfMTAzMV80PC9mb250Pjxicj48
-Zm9udCBmYWNlPSJDb3VyaWVyIj45LjMuMTY0LjIxOTovdGZ0cGJvb3QvaW5pdHJkXzEwMzFfNDwv
-Zm9udD48YnI+PGZvbnQgZmFjZT0iQXJpYWwiPiA8L2ZvbnQ+PGJyPjxiPjxmb250IGZhY2U9IkFy
-aWFsIj5pcG1pIHRyYWNlLi4uPC9mb250PjwvYj48YnI+PGZvbnQgZmFjZT0iQXJpYWwiPi9nc2Ev
-YXVzZ3NhL2hvbWUvYy9hL2NhdXN0ZW4vcHVibGljL29wZW5ibWMvb2JtY19pcG1pdHJhY2VfMTAz
-MV80LnR4dDwvZm9udD48YnI+PGZvbnQgZmFjZT0iQXJpYWwiPiA8L2ZvbnQ+PGJyPjxiPjxmb250
-IGZhY2U9IkFyaWFsIj5yZXN0IHN0dWZmLi4uPC9mb250PjwvYj48YnI+PGZvbnQgZmFjZT0iQXJp
-YWwiPiQgY3VybCA8L2ZvbnQ+PGEgaHJlZj0iaHR0cDovLzkuMy4xNjQuMTQ3L29yZy9vcGVuYm1j
-L2ludmVudG9yeS9zeXN0ZW0vY2hhc3Npcy9tb3RoZXJib2FyZC9lbnVtZXJhdGUiPjx1Pjxmb250
-IGNvbG9yPSIjMDAwMEZGIiBmYWNlPSJBcmlhbCI+aHR0cDovLzkuMy4xNjQuMTQ3L29yZy9vcGVu
-Ym1jL2ludmVudG9yeS9zeXN0ZW0vY2hhc3Npcy9tb3RoZXJib2FyZC9lbnVtZXJhdGU8L2ZvbnQ+
-PC91PjwvYT48Zm9udCBmYWNlPSJBcmlhbCI+PGJyPmNhdXN0ZW5AY2F1c3Rlbi1WaXJ0dWFsQm94
-On4vb3BlbmJtYy1iYXJyZWxleWUvYnVpbGQ8YnI+JCBjdXJsIDwvZm9udD48YSBocmVmPSJodHRw
-Oi8vOS4zLjE2NC4xNDcvb3JnL29wZW5ibWMvaW52ZW50b3J5L3N5c3RlbS9jaGFzc2lzL21vdGhl
-cmJvYXJkLyI+PHU+PGZvbnQgY29sb3I9IiMwMDAwRkYiIGZhY2U9IkFyaWFsIj5odHRwOi8vOS4z
-LjE2NC4xNDcvb3JnL29wZW5ibWMvaW52ZW50b3J5L3N5c3RlbS9jaGFzc2lzL21vdGhlcmJvYXJk
-LzwvZm9udD48L3U+PC9hPjxmb250IGZhY2U9IkFyaWFsIj48YnI+Wzxicj4gICZxdW90Oy9vcmcv
-b3BlbmJtYy9pbnZlbnRvcnkvc3lzdGVtL2NoYXNzaXMvbW90aGVyYm9hcmQvZGltbTMmcXVvdDss
-PGJyPiAgJnF1b3Q7L29yZy9vcGVuYm1jL2ludmVudG9yeS9zeXN0ZW0vY2hhc3Npcy9tb3RoZXJi
-b2FyZC9kaW1tMiZxdW90Oyw8YnI+ICAmcXVvdDsvb3JnL29wZW5ibWMvaW52ZW50b3J5L3N5c3Rl
-bS9jaGFzc2lzL21vdGhlcmJvYXJkL2RpbW0xJnF1b3Q7LDxicj4gICZxdW90Oy9vcmcvb3BlbmJt
-Yy9pbnZlbnRvcnkvc3lzdGVtL2NoYXNzaXMvbW90aGVyYm9hcmQvZGltbTAmcXVvdDssPGJyPiAg
-JnF1b3Q7L29yZy9vcGVuYm1jL2ludmVudG9yeS9zeXN0ZW0vY2hhc3Npcy9tb3RoZXJib2FyZC9j
-cHUwJnF1b3Q7LDxicj4gICZxdW90Oy9vcmcvb3BlbmJtYy9pbnZlbnRvcnkvc3lzdGVtL2NoYXNz
-aXMvbW90aGVyYm9hcmQvY2VudGF1cjAmcXVvdDssPGJyPiAgJnF1b3Q7L29yZy9vcGVuYm1jL2lu
-dmVudG9yeS9zeXN0ZW0vY2hhc3Npcy9tb3RoZXJib2FyZC9ibWMmcXVvdDs8YnI+XWNhdXN0ZW5A
-Y2F1c3Rlbi1WaXJ0dWFsQm94On4vb3BlbmJtYy1iYXJyZWxleWUvYnVpbGQ8YnI+JCBjdXJsIDwv
-Zm9udD48YSBocmVmPSJodHRwOi8vOS4zLjE2NC4xNDcvb3JnL29wZW5ibWMvaW52ZW50b3J5L3N5
-c3RlbS9jaGFzc2lzL21vdGhlcmJvYXJkL2xpc3QiPjx1Pjxmb250IGNvbG9yPSIjMDAwMEZGIiBm
-YWNlPSJBcmlhbCI+aHR0cDovLzkuMy4xNjQuMTQ3L29yZy9vcGVuYm1jL2ludmVudG9yeS9zeXN0
-ZW0vY2hhc3Npcy9tb3RoZXJib2FyZC9saXN0PC9mb250PjwvdT48L2E+PGZvbnQgZmFjZT0iQXJp
-YWwiPjxicj5bPGJyPiAgJnF1b3Q7L29yZy9vcGVuYm1jL2ludmVudG9yeS9zeXN0ZW0vY2hhc3Np
-cy9tb3RoZXJib2FyZC9jcHUwL2NvcmU5JnF1b3Q7LDxicj4gICZxdW90Oy9vcmcvb3BlbmJtYy9p
-bnZlbnRvcnkvc3lzdGVtL2NoYXNzaXMvbW90aGVyYm9hcmQvZGltbTImcXVvdDssPGJyPiAgJnF1
-b3Q7L29yZy9vcGVuYm1jL2ludmVudG9yeS9zeXN0ZW0vY2hhc3Npcy9tb3RoZXJib2FyZC9jcHUw
-L2NvcmUxMSZxdW90Oyw8YnI+ICAmcXVvdDsvb3JnL29wZW5ibWMvaW52ZW50b3J5L3N5c3RlbS9j
-aGFzc2lzL21vdGhlcmJvYXJkL2NwdTAvY29yZTEwJnF1b3Q7LDxicj4gICZxdW90Oy9vcmcvb3Bl
-bmJtYy9pbnZlbnRvcnkvc3lzdGVtL2NoYXNzaXMvbW90aGVyYm9hcmQvY3B1MC9jb3JlOCZxdW90
-Oyw8YnI+ICAmcXVvdDsvb3JnL29wZW5ibWMvaW52ZW50b3J5L3N5c3RlbS9jaGFzc2lzL21vdGhl
-cmJvYXJkL2NlbnRhdXIwJnF1b3Q7LDxicj4gICZxdW90Oy9vcmcvb3BlbmJtYy9pbnZlbnRvcnkv
-c3lzdGVtL2NoYXNzaXMvbW90aGVyYm9hcmQvZGltbTMmcXVvdDssPGJyPiAgJnF1b3Q7L29yZy9v
-cGVuYm1jL2ludmVudG9yeS9zeXN0ZW0vY2hhc3Npcy9tb3RoZXJib2FyZC9kaW1tMSZxdW90Oyw8
-YnI+ICAmcXVvdDsvb3JnL29wZW5ibWMvaW52ZW50b3J5L3N5c3RlbS9jaGFzc2lzL21vdGhlcmJv
-YXJkL2RpbW0wJnF1b3Q7LDxicj4gICZxdW90Oy9vcmcvb3BlbmJtYy9pbnZlbnRvcnkvc3lzdGVt
-L2NoYXNzaXMvbW90aGVyYm9hcmQvYm1jJnF1b3Q7LDxicj4gICZxdW90Oy9vcmcvb3BlbmJtYy9p
-bnZlbnRvcnkvc3lzdGVtL2NoYXNzaXMvbW90aGVyYm9hcmQvY3B1MCZxdW90Oyw8YnI+ICAmcXVv
-dDsvb3JnL29wZW5ibWMvaW52ZW50b3J5L3N5c3RlbS9jaGFzc2lzL21vdGhlcmJvYXJkL2NwdTAv
-Y29yZTcmcXVvdDssPGJyPiAgJnF1b3Q7L29yZy9vcGVuYm1jL2ludmVudG9yeS9zeXN0ZW0vY2hh
-c3Npcy9tb3RoZXJib2FyZC9jcHUwL2NvcmU2JnF1b3Q7LDxicj4gICZxdW90Oy9vcmcvb3BlbmJt
-Yy9pbnZlbnRvcnkvc3lzdGVtL2NoYXNzaXMvbW90aGVyYm9hcmQvY3B1MC9jb3JlNSZxdW90Oyw8
-YnI+ICAmcXVvdDsvb3JnL29wZW5ibWMvaW52ZW50b3J5L3N5c3RlbS9jaGFzc2lzL21vdGhlcmJv
-YXJkL2NwdTAvY29yZTQmcXVvdDssPGJyPiAgJnF1b3Q7L29yZy9vcGVuYm1jL2ludmVudG9yeS9z
-eXN0ZW0vY2hhc3Npcy9tb3RoZXJib2FyZC9jcHUwL2NvcmUzJnF1b3Q7LDxicj4gICZxdW90Oy9v
-cmcvb3BlbmJtYy9pbnZlbnRvcnkvc3lzdGVtL2NoYXNzaXMvbW90aGVyYm9hcmQvY3B1MC9jb3Jl
-MiZxdW90Oyw8YnI+ICAmcXVvdDsvb3JnL29wZW5ibWMvaW52ZW50b3J5L3N5c3RlbS9jaGFzc2lz
-L21vdGhlcmJvYXJkL2NwdTAvY29yZTEmcXVvdDssPGJyPiAgJnF1b3Q7L29yZy9vcGVuYm1jL2lu
-dmVudG9yeS9zeXN0ZW0vY2hhc3Npcy9tb3RoZXJib2FyZC9jcHUwL2NvcmUwJnF1b3Q7PGJyPl1j
-YXVzdGVuQGNhdXN0ZW4tVmlydHVhbEJveDp+L29wZW5ibWMtYmFycmVsZXllL2J1aWxkPGJyPiQ8
-L2ZvbnQ+PGJyPjxmb250IGZhY2U9IkFyaWFsIj4gPC9mb250Pjxicj48Zm9udCBmYWNlPSJBcmlh
-bCI+IDwvZm9udD48YnI+PGI+PGZvbnQgZmFjZT0iQXJpYWwiPlBldGV0aXRib290IHNob3dzIGRp
-c2tzIG5vdy4uLjwvZm9udD48L2I+PGJyPjxmb250IGZhY2U9IkFyaWFsIj5QZXRpdGJvb3QgKGRl
-di4yMDE1MDkyOSkgICAgICAgICAgICAgICAgICAgICAgICAgIFRONzEtQlAwMTIgICAgICAgdW5h
-dmFpbGFibGU8YnI+IICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA
-gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgDxicj4gIFtEaXNrOiBzZGEyIC8gZTA3
-NTRkNzQtOWM2Zi00ZGFhLTllODEtZWU1YWUwOWQwZjY0XTxicj4gICAgVWJ1bnR1LCB3aXRoIExp
-bnV4IDMuMTYuMC0yMy1nZW5lcmljIChyZWNvdmVyeSBtb2RlKTxicj4gICAgVWJ1bnR1LCB3aXRo
-IExpbnV4IDMuMTYuMC0yMy1nZW5lcmljPGJyPiAgICBVYnVudHU8L2ZvbnQ+PGJyPjxmb250IGZh
-Y2U9IkFyaWFsIj4gIFN5c3RlbSBpbmZvcm1hdGlvbjxicj4gIFN5c3RlbSBjb25maWd1cmF0aW9u
-PGJyPiAgTGFuZ3VhZ2U8YnI+ICBSZXNjYW4gZGV2aWNlczxicj4gIFJldHJpZXZlIGNvbmZpZyBm
-cm9tIFVSTDxicj4gKkV4aXQgdG8gc2hlbGwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIDwvZm9udD48YnI+PGZvbnQgZmFjZT0iQXJpYWwiPiA8L2ZvbnQ+PGJyPjxmb250
-IGZhY2U9IkFyaWFsIj4gPC9mb250Pjxicj48Zm9udCBmYWNlPSJBcmlhbCI+IDwvZm9udD48YnI+
-PGZvbnQgZmFjZT0iQXJpYWwiPnJvb3RAcGFsbWV0dG86fiMgaTJjZGV0ZWN0IC1sPGJyPmkyYy0w
-ICAgIGkyYyAgICAgICAgICAgQXNwZWVkIGkyYyBhdCBmMDE4YTA0MCAgICAgICAgICAgICAgSTJD
-IGFkYXB0ZXI8YnI+aTJjLTEgICAgaTJjICAgICAgICAgICBBc3BlZWQgaTJjIGF0IGYwMThhMDgw
-ICAgICAgICAgICAgICBJMkMgYWRhcHRlcjxicj5pMmMtMiAgICBpMmMgICAgICAgICAgIEFzcGVl
-ZCBpMmMgYXQgZjAxOGEwYzAgICAgICAgICAgICAgIEkyQyBhZGFwdGVyPGJyPmkyYy0zICAgIGky
-YyAgICAgICAgICAgQXNwZWVkIGkyYyBhdCBmMDE4YTEwMCAgICAgICAgICAgICAgSTJDIGFkYXB0
-ZXI8YnI+aTJjLTQgICAgaTJjICAgICAgICAgICBBc3BlZWQgaTJjIGF0IGYwMThhMTQwICAgICAg
-ICAgICAgICBJMkMgYWRhcHRlcjxicj5pMmMtNSAgICBpMmMgICAgICAgICAgIEFzcGVlZCBpMmMg
-YXQgZjAxOGExODAgICAgICAgICAgICAgIEkyQyBhZGFwdGVyPGJyPmkyYy02ICAgIGkyYyAgICAg
-ICAgICAgQXNwZWVkIGkyYyBhdCBmMDE4YTFjMCAgICAgICAgICAgICAgSTJDIGFkYXB0ZXI8YnI+
-aTJjLTcgICAgaTJjICAgICAgICAgICBBc3BlZWQgaTJjIGF0IGYwMThhMzAwICAgICAgICAgICAg
-ICBJMkMgYWRhcHRlcjxicj5pMmMtOCAgICBpMmMgICAgICAgICAgIEFzcGVlZCBpMmMgYXQgZjAx
-OGEzNDAgICAgICAgICAgICAgIEkyQyBhZGFwdGVyPGJyPnJvb3RAcGFsbWV0dG86fiM8L2ZvbnQ+
-PGJyPjxmb250IGZhY2U9IkFyaWFsIj4gPC9mb250Pjxicj48Zm9udCBmYWNlPSJBcmlhbCI+ICA8
-L2ZvbnQ+PGJyPjxmb250IGZhY2U9IkFyaWFsIj48YnI+Q2hyaXMgQXVzdGVuPGJyPlBPV0VSIFN5
-c3RlbXMgRW5hYmxlbWVudCBNYW5hZ2VyPGJyPig1MTIpIDI4Ni01MTg0IChUL0w6IDM2My01MTg0
-KTwvZm9udD48YnI+PHR0Pl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fPGJyPm9wZW5ibWMgbWFpbGluZyBsaXN0PGJyPm9wZW5ibWNAbGlzdHMub3psYWJzLm9y
-Zzxicj48L3R0Pjx0dD48YSBocmVmPSJodHRwczovL2xpc3RzLm96bGFicy5vcmcvbGlzdGluZm8v
-b3BlbmJtYyI+aHR0cHM6Ly9saXN0cy5vemxhYnMub3JnL2xpc3RpbmZvL29wZW5ibWM8L2E+PC90
-dD48dHQ+PGJyPjwvdHQ+PGJyPjxCUj4NCjwvYm9keT48L2h0bWw+DQo=
+<html><head><META http-equiv=3D"Content-Type" content=3D"text/html;charset=
+=3Dutf-8"><style>div{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);} Helvet=
+ica Neue, Helvetica-Neue, Helvetica, Arial, sans-serif</style></head><body =
+style=3D"color: #292929; font-family: blockquote {margin:1em 0em; color: #2=
+92929;border-left: 2px solid #292929;padding-left: 1em; !important; font-si=
+ze: 15 !important;"><div id=3D"content" class=3D"MaaS360PIMSDKComposeConten=
+tContainerClass" spellcheck=3D"true" autocorrect=3D"true" autocapitalize=3D=
+"true" style=3D"font-family: 'Helvetica Neue', Helvetica-Neue, Helvetica, A=
+rial, sans-serif; margin-top: 15px;">Patrick make a tag.&nbsp;<div><br></di=
+v><div>Norm, latest will work until there is a tag<br><br>Sent from my iPho=
+ne using IBM Verse<br><br><hr>On Nov 3, 2015, 4:28:17 AM, "Norman James" &l=
+t;njames@us.ibm.com&gt; wrote:<br><blockquote type=3D"cite" id=3D"MaaS360PI=
+MSDKOriginalMessageId">I don't see any tags.  Who is tagging the release?<b=
+r><br><br>Regards,<br>Norman James<br>IBM - POWER Systems Architect<br>Phon=
+e: <a href=3D"tel:1-512-286-6807" x-apple-data-detectors=3D"true" x-apple-d=
+ata-detectors-type=3D"telephone" x-apple-data-detectors-result=3D"1">1-512-=
+286-6807</a> (T/L: <a href=3D"tel:363-6807" x-apple-data-detectors=3D"true"=
+ x-apple-data-detectors-type=3D"telephone" x-apple-data-detectors-result=3D=
+"2/0">363-6807</a>)<br>Internet: njames@us.ibm.com<br><br><div class=3D"dom=
+ino-section"><div class=3D"domino-section-head"><span class=3D"domino-secti=
+on-title"><font color=3D"#424282">Chris Austen---11/02/2015 05:54:30 PM---S=
+ystem powers on things of interest below.  You all have 4 hours before I as=
+k Patrick to tag it as t</font></span></div><div class=3D"domino-section-bo=
+dy"><br><br><font size=3D"2" color=3D"#5F5F5F">From:        </font><font si=
+ze=3D"2">Chris Austen/Austin/IBM@IBMUS</font><br><font size=3D"2" color=3D"=
+#5F5F5F">To:        </font><font size=3D"2">openbmc@lists.ozlabs.org</font>=
+<br><font size=3D"2" color=3D"#5F5F5F">Date:        </font><font size=3D"2"=
+>11/02/2015 05:54 PM</font><br><font size=3D"2" color=3D"#5F5F5F">Subject: =
+       </font><font size=3D"2">9.3.164.147 is running Candidate 4 and so ca=
+n you</font><br><font size=3D"2" color=3D"#5F5F5F">Sent by:        </font><=
+font size=3D"2">"openbmc" &lt;openbmc-bounces+njames=3Dus.ibm.com@lists.ozl=
+abs.org&gt;</font><br><hr width=3D"100%" size=3D"2" align=3D"left" noshade=
+=3D"" style=3D"color:#8091A5; "><br><br><br><font face=3D"Arial">System pow=
+ers on things of interest below.  You all have 4 hours before I ask Patrick=
+ to tag it as the Nov 1 deliverable.  I verified it compiles in Palmetto an=
+d Barreleye.  Switching to QEMU requires rm -rf build/tmp so the dependenci=
+es are still not correct.</font><br><font face=3D"Arial"> </font><br><font =
+face=3D"Arial"> </font><br><b><font face=3D"Arial">Flash images...</font></=
+b><br><font face=3D"Courier">9.3.164.219:/tftpboot/cuImage=5F1031=5F4</font=
+><br><font face=3D"Courier">9.3.164.219:/tftpboot/initrd=5F1031=5F4</font><=
+br><font face=3D"Arial"> </font><br><b><font face=3D"Arial">ipmi trace...</=
+font></b><br><font face=3D"Arial">/gsa/ausgsa/home/c/a/causten/public/openb=
+mc/obmc=5Fipmitrace=5F1031=5F4.txt</font><br><font face=3D"Arial"> </font><=
+br><b><font face=3D"Arial">rest stuff...</font></b><br><font face=3D"Arial"=
+>$ curl </font><a href=3D"http://9.3.164.147/org/openbmc/inventory/system/c=
+hassis/motherboard/enumerate"><u><font color=3D"#0000FF" face=3D"Arial">htt=
+p://9.3.164.147/org/openbmc/inventory/system/chassis/motherboard/enumerate<=
+/font></u></a><font face=3D"Arial"><br>causten@causten-VirtualBox:~/openbmc=
+-barreleye/build<br>$ curl </font><a href=3D"http://9.3.164.147/org/openbmc=
+/inventory/system/chassis/motherboard/"><u><font color=3D"#0000FF" face=3D"=
+Arial">http://9.3.164.147/org/openbmc/inventory/system/chassis/motherboard/=
+</font></u></a><font face=3D"Arial"><br>[<br>  "/org/openbmc/inventory/syst=
+em/chassis/motherboard/dimm3",<br>  "/org/openbmc/inventory/system/chassis/=
+motherboard/dimm2",<br>  "/org/openbmc/inventory/system/chassis/motherboard=
+/dimm1",<br>  "/org/openbmc/inventory/system/chassis/motherboard/dimm0",<br=
+>  "/org/openbmc/inventory/system/chassis/motherboard/cpu0",<br>  "/org/ope=
+nbmc/inventory/system/chassis/motherboard/centaur0",<br>  "/org/openbmc/inv=
+entory/system/chassis/motherboard/bmc"<br>]causten@causten-VirtualBox:~/ope=
+nbmc-barreleye/build<br>$ curl </font><a href=3D"http://9.3.164.147/org/ope=
+nbmc/inventory/system/chassis/motherboard/list"><u><font color=3D"#0000FF" =
+face=3D"Arial">http://9.3.164.147/org/openbmc/inventory/system/chassis/moth=
+erboard/list</font></u></a><font face=3D"Arial"><br>[<br>  "/org/openbmc/in=
+ventory/system/chassis/motherboard/cpu0/core9",<br>  "/org/openbmc/inventor=
+y/system/chassis/motherboard/dimm2",<br>  "/org/openbmc/inventory/system/ch=
+assis/motherboard/cpu0/core11",<br>  "/org/openbmc/inventory/system/chassis=
+/motherboard/cpu0/core10",<br>  "/org/openbmc/inventory/system/chassis/moth=
+erboard/cpu0/core8",<br>  "/org/openbmc/inventory/system/chassis/motherboar=
+d/centaur0",<br>  "/org/openbmc/inventory/system/chassis/motherboard/dimm3"=
+,<br>  "/org/openbmc/inventory/system/chassis/motherboard/dimm1",<br>  "/or=
+g/openbmc/inventory/system/chassis/motherboard/dimm0",<br>  "/org/openbmc/i=
+nventory/system/chassis/motherboard/bmc",<br>  "/org/openbmc/inventory/syst=
+em/chassis/motherboard/cpu0",<br>  "/org/openbmc/inventory/system/chassis/m=
+otherboard/cpu0/core7",<br>  "/org/openbmc/inventory/system/chassis/motherb=
+oard/cpu0/core6",<br>  "/org/openbmc/inventory/system/chassis/motherboard/c=
+pu0/core5",<br>  "/org/openbmc/inventory/system/chassis/motherboard/cpu0/co=
+re4",<br>  "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core3",<=
+br>  "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core2",<br>  "=
+/org/openbmc/inventory/system/chassis/motherboard/cpu0/core1",<br>  "/org/o=
+penbmc/inventory/system/chassis/motherboard/cpu0/core0"<br>]causten@causten=
+-VirtualBox:~/openbmc-barreleye/build<br>$</font><br><font face=3D"Arial"> =
+</font><br><font face=3D"Arial"> </font><br><b><font face=3D"Arial">Petetit=
+boot shows disks now...</font></b><br><font face=3D"Arial">Petitboot (dev.2=
+0150929)                          TN71-BP012       unavailable<br> =E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80<br>  [Disk: sda2 / e0754d74-9c6f-4daa-9e81-ee5ae09d0f=
+64]<br>    Ubuntu, with Linux 3.16.0-23-generic (recovery mode)<br>    Ubun=
+tu, with Linux 3.16.0-23-generic<br>    Ubuntu</font><br><font face=3D"Aria=
+l">  System information<br>  System configuration<br>  Language<br>  Rescan=
+ devices<br>  Retrieve config from URL<br> *Exit to shell                  =
+                       </font><br><font face=3D"Arial"> </font><br><font fa=
+ce=3D"Arial"> </font><br><font face=3D"Arial"> </font><br><font face=3D"Ari=
+al">root@palmetto:~# i2cdetect -l<br>i2c-0    i2c           Aspeed i2c at f=
+018a040              I2C adapter<br>i2c-1    i2c           Aspeed i2c at f0=
+18a080              I2C adapter<br>i2c-2    i2c           Aspeed i2c at f01=
+8a0c0              I2C adapter<br>i2c-3    i2c           Aspeed i2c at f018=
+a100              I2C adapter<br>i2c-4    i2c           Aspeed i2c at f018a=
+140              I2C adapter<br>i2c-5    i2c           Aspeed i2c at f018a1=
+80              I2C adapter<br>i2c-6    i2c           Aspeed i2c at f018a1c=
+0              I2C adapter<br>i2c-7    i2c           Aspeed i2c at f018a300=
+              I2C adapter<br>i2c-8    i2c           Aspeed i2c at f018a340 =
+             I2C adapter<br>root@palmetto:~#</font><br><font face=3D"Arial"=
+> </font><br><font face=3D"Arial">  </font><br><font face=3D"Arial"><br>Chr=
+is Austen<br>POWER Systems Enablement Manager<br><a href=3D"tel:(512)%20286=
+-5184" x-apple-data-detectors=3D"true" x-apple-data-detectors-type=3D"telep=
+hone" x-apple-data-detectors-result=3D"10">(512) 286-5184</a> (T/L: <a href=
+=3D"tel:363-5184" x-apple-data-detectors=3D"true" x-apple-data-detectors-ty=
+pe=3D"telephone" x-apple-data-detectors-result=3D"11">363-5184</a>)</font><=
+br><tt>=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+<br>openbmc mailing list<br>openbmc@lists.ozlabs.org<br></tt><tt><a href=3D=
+"https://lists.ozlabs.org/listinfo/openbmc">https://lists.ozlabs.org/listin=
+fo/openbmc</a></tt><tt><br></tt></div></div></blockquote></div></div><BR>
+</body></html>
 
---1__=09BBF461DFA5E1028f9e8a93df938690918c09BBF461DFA5E102--
-
-
---0__=09BBF461DFA5E1028f9e8a93df938690918c09BBF461DFA5E102
-Content-type: image/gif; 
-	name="graycol.gif"
-Content-Disposition: inline; filename="graycol.gif"
-Content-ID: <1__=09BBF461DFA5E1028f9e8a93df938690918c09B@>
-Content-Transfer-Encoding: base64
-
-R0lGODlhEAAQAKECAMzMzAAAAP///wAAACH5BAEAAAIALAAAAAAQABAAAAIXlI+py+0PopwxUbpu
-ZRfKZ2zgSJbmSRYAIf4fT3B0aW1pemVkIGJ5IFVsZWFkIFNtYXJ0U2F2ZXIhAAA7
-
-
---0__=09BBF461DFA5E1028f9e8a93df938690918c09BBF461DFA5E102--
+------=_Part_73_101058054.1446553110211--
