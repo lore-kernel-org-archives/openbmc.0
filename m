@@ -3,18 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 897601A0133
- for <openbmc@lists.ozlabs.org>; Thu,  5 Nov 2015 03:40:29 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 481101A0133
+ for <openbmc@lists.ozlabs.org>; Thu,  5 Nov 2015 03:41:38 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1446655007060332.9575448229066;
- Wed, 4 Nov 2015 08:36:47 -0800 (PST)
+ with SMTPS id 1446655133161492.1517234078965;
+ Wed, 4 Nov 2015 08:38:53 -0800 (PST)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@us.ibm.com>
-Subject: [PATCH phosphor-objmgr 2/8] Add PathTree to mapper library
-Date: Wed,  4 Nov 2015 10:33:28 -0600
-Message-Id: <1446654814-4705-3-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH phosphor-objmgr 7/8] Add ObjectMapper binding
+Date: Wed,  4 Nov 2015 10:33:33 -0600
+Message-Id: <1446654814-4705-8-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1446654814-4705-1-git-send-email-patches@stwcx.xyz>
 References: <1446654814-4705-1-git-send-email-patches@stwcx.xyz>
@@ -29,193 +29,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 Nov 2015 16:40:30 -0000
+X-List-Received-Date: Wed, 04 Nov 2015 16:41:38 -0000
 
 From: Brad Bishop <bradleyb@us.ibm.com>
 
-PathTree is a somewhat generic structure for associating
-data with a path, internally managed as a tree.  It emulates
-built in python containers and supports iteration.
+Wrapper that allows default parameters to be used with the Mapper
+DBUS interface.
 ---
- OpenBMCMapper.py | 168 ++++++++++++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 165 insertions(+), 3 deletions(-)
+ OpenBMCMapper.py | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
 diff --git a/OpenBMCMapper.py b/OpenBMCMapper.py
-index cefed52..3b6fe00 100644
+index fde385e..3e7a745 100644
 --- a/OpenBMCMapper.py
 +++ b/OpenBMCMapper.py
-@@ -169,7 +169,169 @@ class IntrospectionParser:
- 				continue
- 			items.update(callback(path + k, parser))
- 
--		if path == '/':
--			print items
--
- 		return items
+@@ -336,3 +336,19 @@ class PathTree:
+ 		if not self.root:
+ 			return {}.iteritems()
+ 		return PathTreeItemIterator(self, subtree, depth)
 +
-+class PathTreeItemIterator(object):
-+	def __init__(self, path_tree, subtree, depth):
-+		self.path_tree = path_tree
-+		self.path = []
-+		self.itlist = []
-+		self.subtree = ['/'] + filter(bool, subtree.split('/'))
-+		self.depth = depth
-+		d = path_tree.root
-+		for k in self.subtree:
-+			try:
-+				d = d[k]['children']
-+			except KeyError:
-+				raise KeyError(subtree)
-+		self.it = d.iteritems()
++class Mapper:
++	def __init__(self, bus):
++		self.bus = bus
++		obj = bus.get_object(MAPPER_NAME, MAPPER_PATH)
++		self.iface = dbus.Interface(
++				obj, dbus_interface = MAPPER_IFACE)
 +
-+	def __iter__(self):
-+		return self
++	def get_object(self, path):
++		return self.iface.GetObject(path)
 +
-+	def __next__(self):
-+		return super(PathTreeItemIterator, self).next()
++	def get_subtree_paths(self, path = '/', depth = 0):
++		return self.iface.GetSubTreePaths(path, depth)
 +
-+	def next(self):
-+		key, value = self._next()
-+		path = self.subtree[0] + '/'.join(self.subtree[1:] + self.path)
-+		return path, value.get('data')
-+
-+	def _next(self):
-+		try:
-+			while True:
-+				x = self.it.next()
-+				depth_exceeded = len(self.path) +1 > self.depth
-+				if self.depth and depth_exceeded:
-+					continue
-+				self.itlist.append(self.it)
-+				self.path.append(x[0])
-+				self.it = x[1]['children'].iteritems()
-+				break;
-+
-+		except StopIteration:
-+			if not self.itlist:
-+				raise StopIteration
-+
-+			self.it = self.itlist.pop()
-+			self.path.pop()
-+			x = self._next()
-+		
-+		return x
-+
-+class PathTreeKeyIterator(PathTreeItemIterator):
-+	def __init__(self, path_tree, subtree, depth):
-+		super(PathTreeKeyIterator, self).__init__(path_tree, subtree, depth)
-+
-+	def next(self):
-+		return super(PathTreeKeyIterator, self).next()[0]
-+
-+class PathTree:
-+	def __init__(self):
-+		self.root = {}
-+
-+	def _try_delete_parent(self, elements):
-+		if len(elements) == 1:
-+			return False
-+
-+		kids = 'children'
-+		elements.pop()
-+		d = self.root
-+		for k in elements[:-1]:
-+			d = d[k][kids]
-+
-+		if 'data' not in d[elements[-1]] and not d[elements[-1]][kids]:
-+			del d[elements[-1]]
-+			self._try_delete_parent(elements)
-+
-+	def _get_node(self, key):
-+		kids = 'children'
-+		elements = ['/'] + filter(bool, key.split('/'))
-+		d = self.root
-+		for k in elements[:-1]:
-+			try:
-+				d = d[k][kids]
-+			except KeyError:
-+				raise KeyError(key)
-+		
-+		return d[elements[-1]]
-+
-+	def __iter__(self):
-+		return self
-+
-+	def __missing__(self, key):
-+		for x in self.iterkeys():
-+			if key == x:
-+				return False
-+		return True
-+
-+	def __delitem__(self, key):
-+		kids = 'children'
-+		elements = ['/'] + filter(bool, key.split('/'))
-+		d = self.root
-+		for k in elements[:-1]:
-+			try:
-+				d = d[k][kids]
-+			except KeyError:
-+				raise KeyError(key)
-+
-+		del d[elements[-1]]
-+		self._try_delete_parent(elements)
-+
-+	def __setitem__(self, key, value):
-+		kids = 'children'
-+		elements = ['/'] + filter(bool, key.split('/'))
-+		d = self.root
-+		for k in elements[:-1]:
-+			d = d.setdefault(k, {kids: {}})[kids]
-+
-+		children = d.setdefault(elements[-1], {kids: {}})[kids]
-+		d[elements[-1]].update({kids: children, 'data': value})
-+
-+	def __getitem__(self, key):
-+		return self._get_node(key).get('data')
-+
-+	def setdefault(self, key, default):
-+		if not self.get(key):
-+			self.__setitem__(key, default)
-+
-+		return self.__getitem__(key)
-+
-+	def get(self, key, default = None):
-+		try:
-+			x = self.__getitem__(key)
-+		except KeyError:
-+			x = default
-+
-+		return x
-+
-+	def get_children(self, key):
-+		return [ x for x in self._get_node(key)['children'].iterkeys() ]
-+
-+	def demote(self, key):
-+		n = self._get_node(key)
-+		if 'data' in n:
-+			del n['data']
-+
-+	def keys(self, subtree = '/', depth = None):
-+		return [ x for x in self.iterkeys(subtree, depth) ]
-+
-+	def values(self, subtree = '/', depth = None):
-+		return [ x[1] for x in self.iteritems(subtree, depth) ]
-+
-+	def items(self, subtree = '/', depth = None):
-+		return [ x for x in self.iteritems(subtree, depth) ]
-+
-+	def dataitems(self, subtree = '/', depth = None):
-+		return [ x for x in self.iteritems(subtree, depth) \
-+				if x[1] is not None ]
-+
-+	def iterkeys(self, subtree = '/', depth = None):
-+		if not self.root:
-+			return {}.iterkeys()
-+		return PathTreeKeyIterator(self, subtree, depth)
-+
-+	def iteritems(self, subtree = '/', depth = None):
-+		if not self.root:
-+			return {}.iteritems()
-+		return PathTreeItemIterator(self, subtree, depth)
++	def get_subtree(self, path = '/', depth = 0):
++		return self.iface.GetSubTree(path, depth)
 -- 
 2.6.0
