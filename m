@@ -3,18 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id D29761A0D56
- for <openbmc@lists.ozlabs.org>; Fri,  6 Nov 2015 00:22:54 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 314791A0D5A
+ for <openbmc@lists.ozlabs.org>; Fri,  6 Nov 2015 00:22:55 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1446729716451857.2770340336526;
- Thu, 5 Nov 2015 05:21:56 -0800 (PST)
+ with SMTPS id 1446729718022776.4823331806897;
+ Thu, 5 Nov 2015 05:21:58 -0800 (PST)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@us.ibm.com>
-Subject: [PATCH phosphor-objmgr v2 02/10] Add PathTree to mapper library
-Date: Thu,  5 Nov 2015 07:21:42 -0600
-Message-Id: <1446729710-27220-3-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH phosphor-objmgr v2 03/10] Rename TagListMatch to ListMatch
+Date: Thu,  5 Nov 2015 07:21:43 -0600
+Message-Id: <1446729710-27220-4-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1446729710-27220-1-git-send-email-patches@stwcx.xyz>
 References: <1446729710-27220-1-git-send-email-patches@stwcx.xyz>
@@ -33,189 +33,46 @@ X-List-Received-Date: Thu, 05 Nov 2015 13:22:55 -0000
 
 From: Brad Bishop <bradleyb@us.ibm.com>
 
-PathTree is a somewhat generic structure for associating
-data with a path, internally managed as a tree.  It emulates
-built in python containers and supports iteration.
+This match functor doesn't have anything to do with 'tags'.
 ---
- OpenBMCMapper.py | 168 ++++++++++++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 165 insertions(+), 3 deletions(-)
+ OpenBMCMapper.py | 10 +++++-----
+ phosphor-mapper  |  2 +-
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/OpenBMCMapper.py b/OpenBMCMapper.py
-index cefed52..3b6fe00 100644
+index 3b6fe00..c1d2c78 100644
 --- a/OpenBMCMapper.py
 +++ b/OpenBMCMapper.py
-@@ -169,7 +169,169 @@ class IntrospectionParser:
- 				continue
- 			items.update(callback(path + k, parser))
+@@ -48,12 +48,12 @@ class Path:
+ def org_dot_openbmc_match(name):
+ 	return 'org.openbmc' in name
  
--		if path == '/':
--			print items
--
- 		return items
-+
-+class PathTreeItemIterator(object):
-+	def __init__(self, path_tree, subtree, depth):
-+		self.path_tree = path_tree
-+		self.path = []
-+		self.itlist = []
-+		self.subtree = ['/'] + filter(bool, subtree.split('/'))
-+		self.depth = depth
-+		d = path_tree.root
-+		for k in self.subtree:
-+			try:
-+				d = d[k]['children']
-+			except KeyError:
-+				raise KeyError(subtree)
-+		self.it = d.iteritems()
-+
-+	def __iter__(self):
-+		return self
-+
-+	def __next__(self):
-+		return super(PathTreeItemIterator, self).next()
-+
-+	def next(self):
-+		key, value = self._next()
-+		path = self.subtree[0] + '/'.join(self.subtree[1:] + self.path)
-+		return path, value.get('data')
-+
-+	def _next(self):
-+		try:
-+			while True:
-+				x = self.it.next()
-+				depth_exceeded = len(self.path) +1 > self.depth
-+				if self.depth and depth_exceeded:
-+					continue
-+				self.itlist.append(self.it)
-+				self.path.append(x[0])
-+				self.it = x[1]['children'].iteritems()
-+				break;
-+
-+		except StopIteration:
-+			if not self.itlist:
-+				raise StopIteration
-+
-+			self.it = self.itlist.pop()
-+			self.path.pop()
-+			x = self._next()
-+		
-+		return x
-+
-+class PathTreeKeyIterator(PathTreeItemIterator):
-+	def __init__(self, path_tree, subtree, depth):
-+		super(PathTreeKeyIterator, self).__init__(path_tree, subtree, depth)
-+
-+	def next(self):
-+		return super(PathTreeKeyIterator, self).next()[0]
-+
-+class PathTree:
-+	def __init__(self):
-+		self.root = {}
-+
-+	def _try_delete_parent(self, elements):
-+		if len(elements) == 1:
-+			return False
-+
-+		kids = 'children'
-+		elements.pop()
-+		d = self.root
-+		for k in elements[:-1]:
-+			d = d[k][kids]
-+
-+		if 'data' not in d[elements[-1]] and not d[elements[-1]][kids]:
-+			del d[elements[-1]]
-+			self._try_delete_parent(elements)
-+
-+	def _get_node(self, key):
-+		kids = 'children'
-+		elements = ['/'] + filter(bool, key.split('/'))
-+		d = self.root
-+		for k in elements[:-1]:
-+			try:
-+				d = d[k][kids]
-+			except KeyError:
-+				raise KeyError(key)
-+		
-+		return d[elements[-1]]
-+
-+	def __iter__(self):
-+		return self
-+
-+	def __missing__(self, key):
-+		for x in self.iterkeys():
-+			if key == x:
-+				return False
-+		return True
-+
-+	def __delitem__(self, key):
-+		kids = 'children'
-+		elements = ['/'] + filter(bool, key.split('/'))
-+		d = self.root
-+		for k in elements[:-1]:
-+			try:
-+				d = d[k][kids]
-+			except KeyError:
-+				raise KeyError(key)
-+
-+		del d[elements[-1]]
-+		self._try_delete_parent(elements)
-+
-+	def __setitem__(self, key, value):
-+		kids = 'children'
-+		elements = ['/'] + filter(bool, key.split('/'))
-+		d = self.root
-+		for k in elements[:-1]:
-+			d = d.setdefault(k, {kids: {}})[kids]
-+
-+		children = d.setdefault(elements[-1], {kids: {}})[kids]
-+		d[elements[-1]].update({kids: children, 'data': value})
-+
-+	def __getitem__(self, key):
-+		return self._get_node(key).get('data')
-+
-+	def setdefault(self, key, default):
-+		if not self.get(key):
-+			self.__setitem__(key, default)
-+
-+		return self.__getitem__(key)
-+
-+	def get(self, key, default = None):
-+		try:
-+			x = self.__getitem__(key)
-+		except KeyError:
-+			x = default
-+
-+		return x
-+
-+	def get_children(self, key):
-+		return [ x for x in self._get_node(key)['children'].iterkeys() ]
-+
-+	def demote(self, key):
-+		n = self._get_node(key)
-+		if 'data' in n:
-+			del n['data']
-+
-+	def keys(self, subtree = '/', depth = None):
-+		return [ x for x in self.iterkeys(subtree, depth) ]
-+
-+	def values(self, subtree = '/', depth = None):
-+		return [ x[1] for x in self.iteritems(subtree, depth) ]
-+
-+	def items(self, subtree = '/', depth = None):
-+		return [ x for x in self.iteritems(subtree, depth) ]
-+
-+	def dataitems(self, subtree = '/', depth = None):
-+		return [ x for x in self.iteritems(subtree, depth) \
-+				if x[1] is not None ]
-+
-+	def iterkeys(self, subtree = '/', depth = None):
-+		if not self.root:
-+			return {}.iterkeys()
-+		return PathTreeKeyIterator(self, subtree, depth)
-+
-+	def iteritems(self, subtree = '/', depth = None):
-+		if not self.root:
-+			return {}.iteritems()
-+		return PathTreeItemIterator(self, subtree, depth)
+-class TagListMatch(object):
+-	def __init__(self, tag_list):
+-		self.tag_list = tag_list
++class ListMatch(object):
++	def __init__(self, l):
++		self.l = l
+ 
+-	def __call__(self, tag):
+-		return tag in self.tag_list
++	def __call__(self, match):
++		return match in self.l
+ 
+ class IntrospectionNodeParser:
+ 	def __init__(self, data, tag_match = bool, intf_match = bool):
+diff --git a/phosphor-mapper b/phosphor-mapper
+index fda70c7..1a63317 100644
+--- a/phosphor-mapper
++++ b/phosphor-mapper
+@@ -174,7 +174,7 @@ class ObjectMapper(dbus.service.Object):
+ 		self.bus = bus
+ 		self.name_match = name_match
+ 		self.intf_match = intf_match
+-		self.tag_match = OpenBMCMapper.TagListMatch(['children', 'interface'])
++		self.tag_match = OpenBMCMapper.ListMatch(['children', 'interface'])
+ 
+ 		self.discovery_done = False
+ 
 -- 
 2.6.0
