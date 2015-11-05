@@ -3,18 +3,19 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 7F7E01A0D2B
- for <openbmc@lists.ozlabs.org>; Fri,  6 Nov 2015 00:23:01 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id D50541A0D48
+ for <openbmc@lists.ozlabs.org>; Fri,  6 Nov 2015 00:23:02 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1446729724707319.53841430543207;
- Thu, 5 Nov 2015 05:22:04 -0800 (PST)
+ with SMTPS id 1446729726246830.377527313315;
+ Thu, 5 Nov 2015 05:22:06 -0800 (PST)
 From: OpenBMC Patches <patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@us.ibm.com>
-Subject: [PATCH phosphor-objmgr v2 07/10] Add ObjectMapper binding
-Date: Thu,  5 Nov 2015 07:21:47 -0600
-Message-Id: <1446729710-27220-8-git-send-email-patches@stwcx.xyz>
+Subject: [PATCH phosphor-objmgr v2 08/10] Add basic error handling to
+ ObjectMapper
+Date: Thu,  5 Nov 2015 07:21:48 -0600
+Message-Id: <1446729710-27220-9-git-send-email-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.0
 In-Reply-To: <1446729710-27220-1-git-send-email-patches@stwcx.xyz>
 References: <1446729710-27220-1-git-send-email-patches@stwcx.xyz>
@@ -29,39 +30,63 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Nov 2015 13:23:02 -0000
+X-List-Received-Date: Thu, 05 Nov 2015 13:23:03 -0000
 
 From: Brad Bishop <bradleyb@us.ibm.com>
 
-Wrapper that allows default parameters to be used with the Mapper
-DBUS interface.
+Raise MapperNotFound for invalid paths supplied to the
+DBUS API.
 ---
- OpenBMCMapper.py | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ OpenBMCMapper.py |  4 ++++
+ phosphor-mapper  | 15 ++++++++++++---
+ 2 files changed, 16 insertions(+), 3 deletions(-)
 
 diff --git a/OpenBMCMapper.py b/OpenBMCMapper.py
-index fde385e..3e7a745 100644
+index 3e7a745..ef49637 100644
 --- a/OpenBMCMapper.py
 +++ b/OpenBMCMapper.py
-@@ -336,3 +336,19 @@ class PathTree:
- 		if not self.root:
- 			return {}.iteritems()
- 		return PathTreeItemIterator(self, subtree, depth)
+@@ -24,6 +24,10 @@ MAPPER_IFACE = MAPPER_NAME + '.ObjectMapper'
+ MAPPER_PATH = '/org/openbmc/objectmapper/objectmapper'
+ ENUMERATE_IFACE = 'org.openbmc.Object.Enumerate'
+ 
++class MapperNotFoundException(Exception):
++	def __init__(self, msg):
++		super(MapperNotFoundException, self).__init__(msg)
 +
-+class Mapper:
-+	def __init__(self, bus):
-+		self.bus = bus
-+		obj = bus.get_object(MAPPER_NAME, MAPPER_PATH)
-+		self.iface = dbus.Interface(
-+				obj, dbus_interface = MAPPER_IFACE)
-+
-+	def get_object(self, path):
-+		return self.iface.GetObject(path)
-+
-+	def get_subtree_paths(self, path = '/', depth = 0):
-+		return self.iface.GetSubTreePaths(path, depth)
-+
-+	def get_subtree(self, path = '/', depth = 0):
-+		return self.iface.GetSubTree(path, depth)
+ class Path:
+ 	def __init__(self, path):
+ 		self.parts = filter(bool, path.split('/'))
+diff --git a/phosphor-mapper b/phosphor-mapper
+index 5bdcd8d..e9aa6dc 100644
+--- a/phosphor-mapper
++++ b/phosphor-mapper
+@@ -133,15 +133,24 @@ class ObjectMapper(dbus.service.Object):
+ 
+ 	@dbus.service.method(OpenBMCMapper.MAPPER_IFACE, 's', 'a{sas}')
+ 	def GetObject(self, path):
+-		return self.cache[path]
++		o = self.cache.get(path)
++		if not o:
++			raise MapperNotFoundException(path)
++		return o
+ 
+ 	@dbus.service.method(OpenBMCMapper.MAPPER_IFACE, 'si', 'as')
+ 	def GetSubTreePaths(self, path, depth):
+-		return self.cache.iterkeys(path, depth)
++		try:
++			return self.cache.iterkeys(path, depth)
++		except KeyError:
++			raise MapperNotFoundException(path)
+ 
+ 	@dbus.service.method(OpenBMCMapper.MAPPER_IFACE, 'si', 'a{sa{sas}}')
+ 	def GetSubTree(self, path, depth):
+-		return { x:y for x, y in self.cache.dataitems(path, depth) }
++		try:
++			return { x:y for x, y in self.cache.dataitems(path, depth) }
++		except KeyError:
++			raise MapperNotFoundException(path)
+ 
+ class BusWrapper:
+ 	def __init__(self, bus):
 -- 
 2.6.0
