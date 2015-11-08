@@ -3,18 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 800C31A0C37
- for <openbmc@lists.ozlabs.org>; Sun,  8 Nov 2015 12:36:15 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id DAE0D1A0A49
+ for <openbmc@lists.ozlabs.org>; Sun,  8 Nov 2015 12:36:17 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1446945637183325.57549193048703;
- Sat, 7 Nov 2015 17:20:37 -0800 (PST)
+ with SMTPS id 1446945636462546.1178107954271;
+ Sat, 7 Nov 2015 17:20:36 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton 7/7] Remove git
- 1e751075d5a11736df67c40ead5a8375141269d3
-Date: Sat,  7 Nov 2015 20:20:31 -0500
-Message-Id: <1446945631-28089-8-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton 6/7] Workarounf for fan PWM 100%
+Date: Sat,  7 Nov 2015 20:20:30 -0500
+Message-Id: <1446945631-28089-7-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1446945631-28089-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1446945631-28089-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,46 +28,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 08 Nov 2015 01:36:16 -0000
+X-List-Received-Date: Sun, 08 Nov 2015 01:36:18 -0000
 
 From: Ken <ken.sk.lai@mail.foxconn.com>
 
 ---
- bin/Barreleye.py | 15 ---------------
- 1 file changed, 15 deletions(-)
+ bin/startup_hacks.sh | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/bin/Barreleye.py b/bin/Barreleye.py
-index 0e92e83..64decbf 100755
---- a/bin/Barreleye.py
-+++ b/bin/Barreleye.py
-@@ -6,12 +6,6 @@ FLASH_DOWNLOAD_PATH = "/tmp"
- GPIO_BASE = 320
- SYSTEM_NAME = "Barreleye"
+diff --git a/bin/startup_hacks.sh b/bin/startup_hacks.sh
+index 5868e8a..603fc1c 100755
+--- a/bin/startup_hacks.sh
++++ b/bin/startup_hacks.sh
+@@ -11,3 +11,12 @@ echo 0x2e > /sys/bus/i2c/devices/i2c-6/delete_device
+ echo nct7904 0x2e > /sys/bus/i2c/devices/i2c-6/new_device
+ echo nct7904 0x2d > /sys/bus/i2c/devices/i2c-6/new_device
  
--import sys
--import gobject
--import dbus
--import dbus.service
--import dbus.mainloop.glib
--
- ## System states
- ##   state can change to next state in 2 ways:
- ##   - a process emits a GotoSystemState signal with state name to goto
-@@ -428,15 +422,6 @@ GPIO_CONFIG['SLOT2_PRESENT'] =         { 'gpio_pin': 'N5', 'direction': 'in' }
- GPIO_CONFIG['MEZZ0_PRESENT'] =         { 'gpio_pin': 'O0', 'direction': 'in' }
- GPIO_CONFIG['MEZZ1_PRESENT'] =         { 'gpio_pin': 'O1', 'direction': 'in' }
- 
--
--bus = dbus.SystemBus()
--
--for i in range(1,6):
-- print i
-- obj = bus.get_object("org.openbmc,sensors,hwmon","/org/openbmc/sensors/speed/fan"+str(i))
-- intf = dbus.Interface (obj,"org.openbmc.SensorValue")
-- intf.setValue(dbus.UInt32(255))
--
- def convertGpio(name):
- 	name = name.upper()
- 	c = name[0:1]
++echo 255 > /sys/class/hwmon/hwmon1/pwm1
++echo 255 > /sys/class/hwmon/hwmon1/pwm2
++echo 255 > /sys/class/hwmon/hwmon1/pwm3
++echo 255 > /sys/class/hwmon/hwmon1/pwm4
++
++echo 255 > /sys/class/hwmon/hwmon2/pwm1
++echo 255 > /sys/class/hwmon/hwmon2/pwm2
++echo 255 > /sys/class/hwmon/hwmon2/pwm3
++echo 255 > /sys/class/hwmon/hwmon2/pwm4
 -- 
 2.6.3
