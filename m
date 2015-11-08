@@ -1,20 +1,21 @@
-Return-Path: <patches@stwcx.xyz>
+Return-Path: <openbmc-patches@stwcx.xyz>
+X-Greylist: delayed 906 seconds by postgrey-1.35 at bilbo;
+ Sun, 08 Nov 2015 12:35:32 AEDT
 Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 5AA6C1A02B3
- for <openbmc@lists.ozlabs.org>; Sat,  7 Nov 2015 15:13:10 +1100 (AEDT)
-Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
- [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1446867621595569.1544377108528;
- Fri, 6 Nov 2015 19:40:21 -0800 (PST)
-From: OpenBMC Patches <patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 40CD41A068E
+ for <openbmc@lists.ozlabs.org>; Sun,  8 Nov 2015 12:35:32 +1100 (AEDT)
+Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
+ with SMTPS id 1446945623030898.639846112909;
+ Sat, 7 Nov 2015 17:20:23 -0800 (PST)
+From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc] Update README.md
-Date: Fri,  6 Nov 2015 21:40:10 -0600
-Message-Id: <1446867611-18041-1-git-send-email-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.0
+Subject: [PATCH phosphor-host-ipmid] Fix bugs from test runs
+Date: Sat,  7 Nov 2015 20:20:21 -0500
+Message-Id: <1446945622-27994-1-git-send-email-openbmc-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.6.3
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -26,15 +27,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 07 Nov 2015 04:13:11 -0000
+X-List-Received-Date: Sun, 08 Nov 2015 01:35:32 -0000
 
-https://github.com/openbmc/openbmc/pull/71
+POST and FW Boot progres where not getting set on DBUS
+Memory and CPU faults now show up on DBUS
+OS Boot Status was never sent
+
+https://github.com/openbmc/phosphor-host-ipmid/pull/34
 
 Chris Austen (1):
-  Update README.md
+  Fix bugs from test runs
 
- README.md | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ ipmisensor.C    | 59 ++++++++++++++++++++++++++++++++++++++++++---------------
+ sensorhandler.C | 25 +++++++++++++-----------
+ 2 files changed, 58 insertions(+), 26 deletions(-)
 
 -- 
-2.6.0
+2.6.3
