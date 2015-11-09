@@ -1,22 +1,31 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
+Return-Path: <patrick@stwcx.xyz>
 Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 13FD41A0296
- for <openbmc@lists.ozlabs.org>; Tue, 10 Nov 2015 06:40:13 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1447098010122479.68263218113464;
- Mon, 9 Nov 2015 11:40:10 -0800 (PST)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Cc: Brad Bishop <bradleyb@us.ibm.com>
-Subject: [PATCH docs] REST API updates
-Date: Mon,  9 Nov 2015 14:40:08 -0500
-Message-Id: <1447098008-27418-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1447098008-27418-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1447098008-27418-1-git-send-email-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 571341A0295
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Nov 2015 09:44:02 +1100 (AEDT)
+Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
+ [108.215.4.10]) by mx.zohomail.com
+ with SMTPS id 1447109037717927.3925080215363;
+ Mon, 9 Nov 2015 14:43:57 -0800 (PST)
+Date: Mon, 9 Nov 2015 16:43:54 -0600
+From: Patrick Williams <patrick@stwcx.xyz>
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: [PATCH openbmc v2 0/2] add i2c-occ to barreleye device table
+Message-ID: <20151109224354.GA11348@asimov.pw-on-the.net>
+References: <1447086019-22341-1-git-send-email-openbmc-patches@stwcx.xyz>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="x+6KMIRAuhnl3hBn"
+Content-Disposition: inline
+In-Reply-To: <1447086019-22341-1-git-send-email-openbmc-patches@stwcx.xyz>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
+X-ZohoMail: Ss  SS_10 UW1 CHF_KNW_WHT_EXT  SGR4_1_19105_1
+X-ZohoMail-Owner: <20151109224354.GA11348@asimov.pw-on-the.net>+zmo_0_<patrick@stwcx.xyz>
+X-ZohoMail-Sender: 108.215.4.10
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,147 +37,65 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 Nov 2015 19:40:14 -0000
+X-List-Received-Date: Mon, 09 Nov 2015 22:44:03 -0000
 
-From: Brad Bishop <bradleyb@us.ibm.com>
 
-I am working on a number of API (json format) changes.
-Use https:// instead of http://
-Show how to set the Content-Type HTTP header.
-Show how to set the HTTP verb.
----
- rest-api.md | 73 +++++++++++++++++++++++++++++++++++++------------------------
- 1 file changed, 45 insertions(+), 28 deletions(-)
+--x+6KMIRAuhnl3hBn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/rest-api.md b/rest-api.md
-index 7167e71..9b35f23 100644
---- a/rest-api.md
-+++ b/rest-api.md
-@@ -2,80 +2,97 @@
- ## HTTP GET operations
- List directory:
- ```
--curl http://bmc/<path>/
-+curl -k https://bmc/<path>/
- ```
- Examples:
- ```
--curl http://bmc/
--curl http://bmc/org/
--curl http://bmc/org/openbmc/
--curl http://bmc/org/openbmc/inventory/
--curl http://bmc/org/openbmc/inventory/system/chassis/
-+curl -k https://bmc/
-+curl -k https://bmc/org/
-+curl -k https://bmc/org/openbmc/
-+curl -k https://bmc/org/openbmc/inventory/
-+curl -k https://bmc/org/openbmc/inventory/system/chassis/
- ```
- 
- List objects recursively:
- ```
--curl http://bmc/<path>/list
-+curl -k https://bmc/<path>/list
- ```
- Examples:
- ```
--curl http://bmc/list
--curl http://bmc/org/openbmc/inventory/list
-+curl -k https://bmc/list
-+curl -k https://bmc/org/openbmc/inventory/list
- ```
- 
- Enumerate objects recursively:
- ```
--curl http://bmc/<path>/enumerate
-+curl -k https://bmc/<path>/enumerate
- ```
- Examples:
- ```
--curl http://bmc/enumerate
--curl http://bmc/org/openbmc/inventory/enumerate
-+curl -k https://bmc/enumerate
-+curl -k https://bmc/org/openbmc/inventory/enumerate
- 
- ```
- 
- Get object:
- ```
--curl http://bmc/<path>
-+curl -k https://bmc/<path>
- ```
- Examples:
- ```
--curl http://bmc/org/openbmc/inventory/system/chassis/fan2
-+curl -k https://bmc/org/openbmc/inventory/system/chassis/fan2
- ```
- 
- Get property:
- ```
--curl http://bmc/<path>/attr/<attr>
--curl http://bmc/org/openbmc/inventory/system/chassis/fan2/attr/is_fru
-+curl -k https://bmc/<path>/attr/<attr>
-+curl -k https://bmc/org/openbmc/inventory/system/chassis/fan2/attr/is_fru
- ```
- 
- ## HTTP PUT operations
-+PUT operations are for updating an existing resource ( an object or property ), or for creating a new resource when the client already knows where to put it.
-+For a quick explanation of HTTP verbs and how they relate to a RESTful API see this page:
-+```
-+http://www.restapitutorial.com/lessons/httpmethods.html
-+```
-+
- These require a json formatted payload.  To get an example of what that looks like:
- ```
--curl http://bmc/org/openbmc/flash/Bios_0 > bios.json # - or -
--curl http://bmc/org/openbmc/flash/Bios_0/attr/flasher_path > flasher_path.json
-+curl -k https://bmc/org/openbmc/control/flash/bios > bios.json # - or -
-+curl -k https://bmc/org/openbmc/control/flash/bios/attr/flasher_path > flasher_path.json
- ```
- 
--A put operation on an object requires a complete object.  For partial updates see POST.
-+When turning around and sending these as requests, delete the message and status properties.
-+
-+To make curl use the correct content type header use the -H option:
-+```
-+curl -k -H "Content-Type: application/json" -X POST -d <json> <url>
-+```
-+A put operation on an object requires a complete object.  For partial updates there is PATCH but that is not implemented yet.  As a workaround individual attributes are PUTable.
- 
- Make changes to the file and do a put (upload):
- 
- ```
--curl -T bios.json http://bmc/org/openbmc/flash/Bios_0
--curl -T flasher_path.json http://bmc/org/openbmc/flash/Bios_0/attr/flasher_path
-+curl -k -H "Content-Type: application/json" -X put -T bios.json https://bmc/org/openbmc/control/flash/bios
-+curl -k -H "Content-Type: application/json" -X put -T flasher_path.json https://bmc/org/openbmc/control/flash/bios/attr/flasher_path
- ```
- 
-+Alternatively specify the json inline with -d:
-+```
-+curl -k -H "Content-Type: application/json" -X put -d "{\"data\": <value>}" flasher_path.json https://bmc/org/openbmc/control/flash/bios/attr/flasher_path
-+```
-+
-+When using '-d' Just remember that json requires double quotes and any shell metacharacters need to be escaped.
-+
- ## HTTP POST operations
-+POST operations are for calling methods, but also for creating new resources when the client doesn't know where to put it.
- These also require a json formatted payload.
- 
--To make a partial change to an object, try removing some properties from the bios.json example above.  Then do:
--
-+To invoke a method with parameters:
- ```
--curl -d "`cat bios.partial.json`" http://bmc/org/openbmc/flash/Bios_0
-+curl -k -H "Content-Type: application/json" -x post -d "{\"data\": [<positional-parameters>]}" -k https://bmc/org/openbmc/control/fan0/action/setspeed
- ```
--
--To invoke a method:
-+To invoke a method without parameters:
- ```
--curl -d "[ \"foo\", \"bar\" ]" http://bmc/org/openbmc/managers/System/action/getObjectFromId
-+curl -k -H "Content-Type: application/json" -x post -d "{\"data\": []}" -k https://bmc/org/openbmc/control/fan0/action/getspeed
- ```
--
--- 
-2.6.3
+Jeremy, Brad,
+
+Should these be put into the kernel tree, openbmc tree, or both?
+
+On Mon, Nov 09, 2015 at 11:20:17AM -0500, OpenBMC Patches wrote:
+> So i2c-occ driver can be initialized and read sensor data from OCC.
+>=20
+> https://github.com/openbmc/openbmc/pull/73
+>=20
+> adamliyi (2):
+>   add i2c-occ to barreleye device table
+>   add occ-i2c to palmetto device table
+>=20
+>  .../meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.dts    | 4 ++=
+++
+>  .../meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.dts  | 8 ++=
+++++++
+>  2 files changed, 12 insertions(+)
+>=20
+> --=20
+> 2.6.3
+>=20
+>=20
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+
+--=20
+Patrick Williams
+
+--x+6KMIRAuhnl3hBn
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJWQSGqAAoJEKsDR8wtAMEZkScP/3Zb7Imthbf/kLQEmM9TtaOt
+xOEHcG1c/h5m/ZR+BUL7jnGJz4ve2Z0w+9B7ni8dFmQQs9AaF0+kmCDg5SXwFF8E
+8ZJFE4vAM645lGDbt4eIZTt6cMbh2Ds8Spkp7axW8CgQin0xUu2ZZFuz72HpxGTD
+LQiqBPy5nWE0HKiYQsRBkQ4ky8feAnlUZJZvEPum+vDW0waLQYRd7t0YeuQ5+Dld
+LIe1HPXgCQvLpv9N3cgnJujD6Vtlsh+ac0HD4XPAfPSO09g0fEmUnEMw1aH1eQau
+JCeTKN906TiccFCjgUSCNF57yrzIMHi+FBC01Sq74Qt5Q175+kPhARXfk890QMv3
+hyJV/CTCRTYlLu63QYfmLQ1/rJaqm+4Q70bJBiDGLxDC8cJYroE+hMGnNWB7PKKj
+ROnDEDvxl/rzmiMERyd6jpxY+XzcKv/RCj08ZGScosSMQiUBQ7eyxaCRfF+zEnDY
+sb4UwLzZjbPvvpgRn/zOgLZgx6085XHXE00xyzcvtnQpAnB/mt+EkxI17ZOBe4O1
+SaSS57gmi/rFJDVpkwjCfjVnJl8eJirY5Yv0GgZAB9s28/gCZqh1pQLEZz3LX1fd
+30QS9S8C212wHe4tMiCBBBFK98hOxRUAvB37ndL4o30eXUJFXqvBhkRYUvHWgCqG
+aUFQ+KJNwFU+UbsMacIh
+=zky2
+-----END PGP SIGNATURE-----
+
+--x+6KMIRAuhnl3hBn--
