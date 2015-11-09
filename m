@@ -3,17 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 8E2B01A03F4
- for <openbmc@lists.ozlabs.org>; Mon,  9 Nov 2015 21:50:23 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ED831A03F5
+ for <openbmc@lists.ozlabs.org>; Mon,  9 Nov 2015 21:50:24 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1447066219816375.16568711759123;
- Mon, 9 Nov 2015 02:50:19 -0800 (PST)
+ with SMTPS id 1447066220449689.551207053521;
+ Mon, 9 Nov 2015 02:50:20 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v2 0/2] testing Jenkins integration, please ignore
-Date: Mon,  9 Nov 2015 05:50:17 -0500
-Message-Id: <1447066219-13844-1-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: Chris Smart <distroguy@gmail.com>
+Subject: [PATCH openbmc v2 1/2] test: modify readme
+Date: Mon,  9 Nov 2015 05:50:18 -0500
+Message-Id: <1447066219-13844-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
+In-Reply-To: <1447066219-13844-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1447066219-13844-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -27,14 +30,23 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Mon, 09 Nov 2015 10:50:24 -0000
 
-https://github.com/openbmc/openbmc/pull/72
+From: Chris Smart <distroguy@gmail.com>
 
-Chris Smart (2):
-  test: modify readme
-  fake: commit for testing jenkins hook
+---
+ README.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- README.md | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
+diff --git a/README.md b/README.md
+index c4306b0..7557b22 100644
+--- a/README.md
++++ b/README.md
+@@ -7,6 +7,6 @@ somewhere to hold the build.  This directory will get big.
+ To start a build:
+ 
+     cd <builddir>
+-    . <repodir>/openbmc-env
++    source <repodir>/openbmc-env
+     bitbake obmc-phosphor-image
+ 
 -- 
 2.6.3
