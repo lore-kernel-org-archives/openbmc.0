@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 69D911A020A
+ by lists.ozlabs.org (Postfix) with ESMTPS id B72C91A0293
  for <openbmc@lists.ozlabs.org>; Tue, 10 Nov 2015 10:30:26 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1447111823118870.3972184347972;
- Mon, 9 Nov 2015 15:30:23 -0800 (PST)
+ with SMTPS id 1447111822287907.053909010717;
+ Mon, 9 Nov 2015 15:30:22 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Chris Smart <distroguy@gmail.com>
-Subject: [PATCH openbmc v3 3/3] test: jenkins
-Date: Mon,  9 Nov 2015 18:30:20 -0500
-Message-Id: <1447111820-1083-4-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v3 2/3] fake: commit for testing jenkins hook
+Date: Mon,  9 Nov 2015 18:30:19 -0500
+Message-Id: <1447111820-1083-3-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1447111820-1083-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1447111820-1083-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -33,17 +33,17 @@ X-List-Received-Date: Mon, 09 Nov 2015 23:30:27 -0000
 From: Chris Smart <distroguy@gmail.com>
 
 ---
- README.md | 1 -
- 1 file changed, 1 deletion(-)
+ README.md | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/README.md b/README.md
-index 0233343..7557b22 100644
+index 7557b22..0233343 100644
 --- a/README.md
 +++ b/README.md
-@@ -10,4 +10,3 @@ To start a build:
+@@ -10,3 +10,4 @@ To start a build:
      source <repodir>/openbmc-env
      bitbake obmc-phosphor-image
  
--## Jenkins Test ##
++## Jenkins Test ##
 -- 
 2.6.3
