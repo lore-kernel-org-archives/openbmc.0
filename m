@@ -3,19 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 656DA1A0216
- for <openbmc@lists.ozlabs.org>; Wed, 11 Nov 2015 17:30:29 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46F911A0216
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Nov 2015 17:50:26 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1447223424279171.11965728869257;
- Tue, 10 Nov 2015 22:30:24 -0800 (PST)
+ with SMTPS id 1447224621130186.8439819072828;
+ Tue, 10 Nov 2015 22:50:21 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid] Hostboot not clearing out its cached logs
-Date: Wed, 11 Nov 2015 01:30:22 -0500
-Message-Id: <1447223422-20179-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openpower-host-ipmi-oem] Add rolling record ids for enhanced
+ service
+Date: Wed, 11 Nov 2015 01:50:19 -0500
+Message-Id: <1447224619-20721-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1447223422-20179-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1447223422-20179-1-git-send-email-openbmc-patches@stwcx.xyz>
+In-Reply-To: <1447224619-20721-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1447224619-20721-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -27,76 +28,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Nov 2015 06:30:29 -0000
+X-List-Received-Date: Wed, 11 Nov 2015 06:50:27 -0000
 
 From: Chris Austen <austenc@us.ibm.com>
 
-renaming sent to dbus logs for debug
 ---
- storageaddsel.C  | 15 ++++++++++++---
- storagehandler.C |  2 +-
- 2 files changed, 13 insertions(+), 4 deletions(-)
+ oemhandler.C | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/storageaddsel.C b/storageaddsel.C
-index c36e1d3..94e037c 100644
---- a/storageaddsel.C
-+++ b/storageaddsel.C
-@@ -199,7 +199,9 @@ int send_esel_to_dbus(const char *desc, const char *sev, const char *details, ui
- 
-     r = sd_bus_message_read(reply, "q", &pty);
-     if (r < 0) {
--       fprintf(stderr, "Failed to get a rc from the method: %s\n", strerror(-r));
-+        fprintf(stderr, "Failed to get a rc from the method: %s\n", strerror(-r));
-+    } else {
-+        r = *pty;
+diff --git a/oemhandler.C b/oemhandler.C
+index 61afac1..ae3f506 100644
+--- a/oemhandler.C
++++ b/oemhandler.C
+@@ -46,10 +46,6 @@ ipmi_ret_t ipmi_ibm_oem_partial_esel(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+         snprintf(string, sizeof(string), "%s%s%02x%02x", g_esel_path, "esel", reqptr->selrecordms, reqptr->selrecordls);
      }
  
- finish:
-@@ -217,8 +219,9 @@ void send_esel(uint16_t recordid) {
- 	char *desc, *assoc, *ascii;
- 	const char *sev;
- 	uint8_t *buffer = NULL;
--	char *path;
-+	char *path, *pathsent;
- 	size_t sz;
-+	int r;
+-    // Length is the number of request bytes minus the header itself.
+-    // The header contains an extra byte to indicate the start of
+-    // the data (so didn't need to worry about word/byte boundaries)
+-    // hence the -1...
+     rlen = (*data_len) - (uint8_t) (sizeof(esel_request_t));
  
- 	uint8_t hack[] = {0x30, 0x32, 0x34};
  
-@@ -242,14 +245,20 @@ void send_esel(uint16_t recordid) {
+@@ -70,6 +66,14 @@ ipmi_ret_t ipmi_ibm_oem_partial_esel(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+         *data_len     = 0;
+     }
  
- 	// TODO until ISSUE https://github.com/openbmc/rest-dbus/issues/2
- 	// I cant send extended ascii chars.  So 0,2,4 for now...
--	send_esel_to_dbus(desc, sev, assoc, hack, 3);
-+	r = send_esel_to_dbus(desc, sev, assoc, hack, 3);
++    // The first bit prepresents that this is the last partial packet
++    // coming down.  If that is the case advance the record id so we
++    // don't overlap logs.  This allows anyone to establish a log
++    // directory system.
++    if (reqptr->progress & 1 ) {
++        g_record_id++;
++    }
 +
-+	asprintf(&pathsent,"%s_%d", path, r);
- 
- 
-+	rename(path, pathsent);
-+
- 	free(path);
-+	free(pathsent);
- 	free(assoc);
- 	free(desc);
- 
- 	delete[] buffer;
- 
-+
- 	return;
+     return rc;
  }
-diff --git a/storagehandler.C b/storagehandler.C
-index eee9540..1459f94 100644
---- a/storagehandler.C
-+++ b/storagehandler.C
-@@ -123,7 +123,7 @@ ipmi_ret_t ipmi_storage_add_sel(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-     *data_len = sizeof(g_sel_reserve);
  
-     // Pack the actual response
--    memcpy(response, &recordid, 2);
-+    memcpy(response, &p->eventdata[1], 2);
- 
-     // TODO This code should grab the completed partial esel located in
-     // the /tmp/esel0100 file and commit it to the error log handler.
 -- 
 2.6.3
