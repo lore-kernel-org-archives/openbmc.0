@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 37A651A074D
- for <openbmc@lists.ozlabs.org>; Thu, 12 Nov 2015 22:45:58 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id AF5B61A0672
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Nov 2015 22:45:59 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1447327829780896.9724916301659;
- Thu, 12 Nov 2015 03:30:29 -0800 (PST)
+ with SMTPS id 1447327825484236.06121678268676;
+ Thu, 12 Nov 2015 03:30:25 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: adamliyi <adamliyi@msn.com>
-Subject: [PATCH kernel-hwmon-occ v2 05/11] Create README.md
-Date: Thu, 12 Nov 2015 06:30:06 -0500
-Message-Id: <1447327812-21126-6-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH kernel-hwmon-occ v2 04/11] change file name to occ.c
+Date: Thu, 12 Nov 2015 06:30:05 -0500
+Message-Id: <1447327812-21126-5-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1447327812-21126-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1447327812-21126-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,23 +28,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Nov 2015 11:45:58 -0000
+X-List-Received-Date: Thu, 12 Nov 2015 11:46:00 -0000
 
 From: adamliyi <adamliyi@msn.com>
 
 ---
- README.md | 3 +++
- 1 file changed, 3 insertions(+)
- create mode 100644 README.md
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/README.md b/README.md
-new file mode 100644
-index 0000000..f417f67
---- /dev/null
-+++ b/README.md
-@@ -0,0 +1,3 @@
-+# kernel-hwmon-occ
-+hwmon driver for the openpower OCC. BMC uses it to read CPU sensor data via OCC (On-Chip-Controller).
-+It is part of openbmc.
+diff --git a/Makefile b/Makefile
+index cd9fcba..232508c 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,4 +1,4 @@
+-obj-m := occ-i2c.o
++obj-m := occ.o
+ 
+ SRC := $(shell pwd)
+ 
 -- 
 2.6.3
