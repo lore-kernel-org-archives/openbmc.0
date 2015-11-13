@@ -1,22 +1,28 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
+Return-Path: <patrick@stwcx.xyz>
 Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 8BEE01A09F0
- for <openbmc@lists.ozlabs.org>; Sat, 14 Nov 2015 02:10:31 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1447427427370360.73871798769153;
- Fri, 13 Nov 2015 07:10:27 -0800 (PST)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Cc: Brad Bishop <bradleyb@us.ibm.com>
-Subject: [PATCH phosphor-rest-server] Add self-signed cert
-Date: Fri, 13 Nov 2015 10:10:25 -0500
-Message-Id: <1447427425-3614-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1447427425-3614-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1447427425-3614-1-git-send-email-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 1A53D1A0A93
+ for <openbmc@lists.ozlabs.org>; Sat, 14 Nov 2015 03:29:10 +1100 (AEDT)
+Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
+ [108.215.4.10]) by mx.zohomail.com
+ with SMTPS id 1447432145182641.5058420506147;
+ Fri, 13 Nov 2015 08:29:05 -0800 (PST)
+Date: Fri, 13 Nov 2015 10:29:00 -0600
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Chris Austen <austenc@us.ibm.com>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: dbus connections
+Message-ID: <20151113162900.GA21764@asimov.pw-on-the.net>
+References: <201511130024.tAD0Oesn030327@d03av02.boulder.ibm.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="mP3DRpeJDSE+ciuQ"
+Content-Disposition: inline
+In-Reply-To: <201511130024.tAD0Oesn030327@d03av02.boulder.ibm.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,84 +34,72 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Nov 2015 15:10:32 -0000
+X-List-Received-Date: Fri, 13 Nov 2015 16:29:11 -0000
 
-From: Brad Bishop <bradleyb@us.ibm.com>
 
-Eventually will be running with SSL.
----
- cert.pem | 48 ++++++++++++++++++++++++++++++++++++++++++++++++
- setup.py |  6 ++++--
- 2 files changed, 52 insertions(+), 2 deletions(-)
- create mode 100644 cert.pem
+--mP3DRpeJDSE+ciuQ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/cert.pem b/cert.pem
-new file mode 100644
-index 0000000..095da08
---- /dev/null
-+++ b/cert.pem
-@@ -0,0 +1,48 @@
-+-----BEGIN CERTIFICATE-----
-+MIIDbzCCAlegAwIBAgIJAL6IhnBSzF8HMA0GCSqGSIb3DQEBCwUAME4xCzAJBgNV
-+BAYTAlhYMRUwEwYDVQQHDAxEZWZhdWx0IENpdHkxFDASBgNVBAoMC29wZW5ibWMu
-+b3JnMRIwEAYDVQQDDAlsb2NhbGhvc3QwHhcNMTUxMTA2MjAzNTA2WhcNMTYxMTA1
-+MjAzNTA2WjBOMQswCQYDVQQGEwJYWDEVMBMGA1UEBwwMRGVmYXVsdCBDaXR5MRQw
-+EgYDVQQKDAtvcGVuYm1jLm9yZzESMBAGA1UEAwwJbG9jYWxob3N0MIIBIjANBgkq
-+hkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0wl2ji+GPUpg21yjyo5jh+KwnZsV91wV
-+EO1DM6bdHbM/p34GkNRC6PO6DMDc3lGXaoVLHgdxhNMO/7lPwrAbO2dUyjoo4RCP
-+O23hWadodstfhgCMa5/h6rSbxtpVsnWD3nBh88tlug+jBZ625d6S+5MglfgrrQai
-++gYC9xDzCmMN7yWsfKWO8WfrMfebkB7c+TuWnF/O6u/wmUEZOybavrfP79MuLbwC
-++UkxF6PwiThGD7yINXSTxCDCN58MTrDML8AF7CWzBsYycJlJfcs2ix32Csk1FIey
-+t+Ze+tzEIzvOb/1G0hkIg40msFaWWEgXX9MIDHDGONwYyejb4nO8mQIDAQABo1Aw
-+TjAdBgNVHQ4EFgQUgoShQ/gqY2/oZWMRU4jJdAim38cwHwYDVR0jBBgwFoAUgoSh
-+Q/gqY2/oZWMRU4jJdAim38cwDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQsFAAOC
-+AQEAg2qFx8mu5Z0QBSZK3FZhNVAsbZwZuH7cjRGxWYwNlyaS24fVdts7q8YBRjpm
-+OZJLO+gBYkCRJnZ/AlfJ0yorT7p7Z0GTP4GrtPmh8eLoh/q5NLUGN7T2IkTea+Q+
-+4iorkAuYzmSviJNUZF99MhpbuPY8wCNQWPI13X6YRrJUxQGWOj7LmqR7gE9lSPiw
-+xXlrWvR1tc48Z20bEXR08nDH1m5G208BgtLRk53FdYGExebpoEQokQaYyJ6b4L2A
-+zkFLExO+ngn49ceC9XASlN4MnKvl4FiSOQqfLhKHjwpzVuMWifV/hlY9GGVbodeg
-+lUFi3n1XfYxNtiNSDZvWcBWKtA==
-+-----END CERTIFICATE-----
-+-----BEGIN RSA PRIVATE KEY-----
-+MIIEowIBAAKCAQEA0wl2ji+GPUpg21yjyo5jh+KwnZsV91wVEO1DM6bdHbM/p34G
-+kNRC6PO6DMDc3lGXaoVLHgdxhNMO/7lPwrAbO2dUyjoo4RCPO23hWadodstfhgCM
-+a5/h6rSbxtpVsnWD3nBh88tlug+jBZ625d6S+5MglfgrrQai+gYC9xDzCmMN7yWs
-+fKWO8WfrMfebkB7c+TuWnF/O6u/wmUEZOybavrfP79MuLbwC+UkxF6PwiThGD7yI
-+NXSTxCDCN58MTrDML8AF7CWzBsYycJlJfcs2ix32Csk1FIeyt+Ze+tzEIzvOb/1G
-+0hkIg40msFaWWEgXX9MIDHDGONwYyejb4nO8mQIDAQABAoIBAQCE/a2spN5fuYOY
-+OaUufNTUSVMrvxP0sh7EcACtiDZIBTHUB2Nz2Y/g5dcVOmT15U0aX62a2u362lbV
-+aJ6O/hPrN48DcetZCep5dSFSMmFum3MzKx1SpYrlMbQJeIYQ1GWpxAC2djNBMaF2
-+ZTK1YbIWv/0FBUPg4hHKpgcwU4oVvHj8W45ORY9/tJB4yPrdVewwtBQ1iJkEPgfO
-+H5/jjGfwPHgLYnzMtu1PU1tqNVWgXw19Zn3W6wf1v+f4abrhSZSRoHqciMC10da9
-+sMmhmdsi0ZWYQSn4TRRI4i9zZXuQhz/5HOUtt38JCpnkqWeEA7OHwrzyi1uHZHh0
-+7TrcW11BAoGBAPenwCy7jaZXdTnpckfNWDLT2Qp07dmw8WocrbCdMUUK5DTXH8Yh
-+xdEt5O4Vu6qdC8ccfIlS5DTVfddqrNLPuCpOpUmZVbGQeX6h9FoAyHG5YSuiZtXD
-+QHfWM8CJY8tT5OYTDGGgvbLSQehVKQ+a5n9ubB8YvFmtoEl2qaWgi6+FAoGBANol
-+2LnV8jXggwsN/13Jw1uIPNrKj6VClDUizLIQAsDwhS4aJeFLldTtIeVAPDovMDQX
-+/r33EDd0eev2w3E9Sd8Th4GaxOo9Iho8I2o0aqbjdfnT3/DsuAo5KARvzjiEvbnf
-+J5oTM+6eqdCyL1woy2Slqp5Wm1538ZoPALteG8MFAoGAQ9tl75vQOyS5jQ2m73+X
-+TA356UCSr1QpQb7r5Hmdt2I9lzDeluZIEoG1uXqg+iWfxYXLpcDdoJBis7SZ+AVM
-+W+NCrMDj1wxUDduIXWTbhzWZJ2CPNsESGAPMGFRM0LiC/nt3qARoFehAgM1cu9bg
-+k0gJPhgD+7p0MczevPAZdhUCgYBPUi+p8wdtW8OKg351heXJJJKsI7dzqe/mGk8/
-+995odYyXpN5dO3Sxxb/rch30MjBe4NK6FFoLMAkdKc8LH/P6b0l4cORlH/GEhJWE
-+Cqc1I8REISxumESbQwkwA8+CcZHjQidOOOlLPNoWjpP1+MdsQ2j0xh0cjpSFJitn
-+9eI2WQKBgBNC7ap56noSUH+aYQ/kNuiyJyaodPGsbG6eOkP2BeAGpzOGHluW7bun
-+zzfP9nichU4lMijWCj0OnM8hzoyOJgA4pM5xoHJICMqRyfAgjUvOvG/bYKBlJv11
-+i3KtkYzDp7auH+FetsCJsDGLSSi3qEa42cmK7Gy9PQXcetImH+tu
-+-----END RSA PRIVATE KEY-----
-diff --git a/setup.py b/setup.py
-index 2ddb129..f5f25e9 100644
---- a/setup.py
-+++ b/setup.py
-@@ -1,5 +1,7 @@
- from distutils.core import setup
--setup(name='Phosphor REST',
-+
-+setup(name='obmc-rest',
-       version='1.0',
--      scripts=['phosphor-rest']
-+      scripts=['phosphor-rest'],
-+      data_files=[('obmc-rest', ['cert.pem'])],
-       )
--- 
-2.6.3
+I think we should expose APIs in ipmid-api.h for performing dbus
+operations.  I think work Vishwa is doing is going to require an IPMI
+module to be able to create a dbus object too.  The ipmid is going to
+need to deal with the sequencing and callbacks for this.
+
+On Fri, Nov 13, 2015 at 12:24:30AM +0000, Chris Austen wrote:
+> <div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial;=
+font-size:10.5pt" ><div dir=3D"ltr" >Brad found a problem today where the i=
+pmi processes are creating dbus connections rather then relying on the pare=
+nt IPMI starting program.&nbsp; What happens is each error log is a connect=
+ion, each fru is a connection. on our palmettos this wasn't obvious but on =
+a broken Barreleye with 115 error logs and 46 different FRUs if certainly w=
+as.</div>
+> <div dir=3D"ltr" >&nbsp;</div>
+> <div dir=3D"ltr" >so how to fix this.&nbsp; #1 you could just extern the =
+ipmid.C's bus variable to the files that need it.&nbsp; OR you could add th=
+e bus variable to every single ipmi calback input parameter.&nbsp;&nbsp;</d=
+iv>
+> <div dir=3D"ltr" >&nbsp;</div>
+> <div dir=3D"ltr" >Thoughts?</div>
+> <div dir=3D"ltr" >&nbsp;</div>
+> <div dir=3D"ltr" >&nbsp;</div>
+> <div dir=3D"ltr" >&nbsp;</div>
+> <div dir=3D"ltr" ><div>&nbsp;</div>
+> <div>&nbsp;</div>
+> <div><br>Chris Austen<br>POWER Systems Enablement Manager<br>(512) 286-51=
+84 (T/L: 363-5184)</div></div></div><BR>
+>=20
+
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+
+
+--=20
+Patrick Williams
+
+--mP3DRpeJDSE+ciuQ
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJWRg/MAAoJEKsDR8wtAMEZgwEP/1lvS+AZvKL4CzLP7YIVvbbH
+KUfGs2vP0uG2YYpzovdnN7jAimXzimHcQE0HCRUgkTe2UkRnTP1QxAdRQcupm3h9
++r+jOoAuwmXUWR3j6QiYLS5s23RjPY3Uvmb0q43uijbczzP4sG6uVUE1vsLAVwKF
+3NaRxtN8migs0U2qFCN81p47yiCCD9IG1yJNAUURVV8wkAtN8RABSkTYavecpHj/
+wRl/Rg7I1yihRXp6gYfDg7h6/mPsgLh7MHvdBWawo+oPPIhEp4GOz3cb9ufhymAk
+BeDWODI5sAUJY+xNA+X75e8H2rptm9frj1fhPRUJuLE9H1KXP+8WqPAbQhN8lqx1
+xdzKTS4+lQ83SCz/WZn+7zS4BdOWydorAdRjafIatoy/KXDR2VYCiB7PgqWPPxAG
+li0n28s+cwIKpZAmGuzZBTKO6+jtIpci/OvpyNNDJmeyvLG8/fYmQMaS0QYIqk9k
+N5ylluhHWvKeLOqLoQyj5CFtqFVv1UoNhfX1dvkXZWbRjD3g8tnoJzcNGBlAtWlJ
+Wd5py+lh5MLrWu5f40HLaazxd9SOxqS2cTObiFeBYLCLkPBmtAypQSoKJxdf5+5m
+ekVQ7l7VDkjr+TLHEnt8waKQonpze8XxWqm9Rb0MaJ7NaFfXHA2LMkXIJlc9tCRN
+22ktBQUrAFnDQIVkrbMr
+=3C7Q
+-----END PGP SIGNATURE-----
+
+--mP3DRpeJDSE+ciuQ--
