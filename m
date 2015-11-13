@@ -1,31 +1,25 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <bradleyb@fuzziesquirrel.com>
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 10E591A0AC6
- for <openbmc@lists.ozlabs.org>; Sat, 14 Nov 2015 03:43:06 +1100 (AEDT)
-Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
- [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1447432982884893.0821274448014;
- Fri, 13 Nov 2015 08:43:02 -0800 (PST)
-Date: Fri, 13 Nov 2015 10:42:59 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-Cc: openbmc@lists.ozlabs.org
+ by lists.ozlabs.org (Postfix) with ESMTPS id C82391A0AC6
+ for <openbmc@lists.ozlabs.org>; Sat, 14 Nov 2015 03:50:55 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Sender: bradleyb@bajor.fuzziesquirrel.com
+Content-Type: multipart/alternative;
+ boundary="Apple-Mail=_738BCEF7-AD73-4CFF-8B6B-7876C9F1BE81"
+Mime-Version: 1.0 (Mac OS X Mail 9.1 \(3096.5\))
 Subject: Re: [PATCH phosphor-rest-server] Add self-signed cert
-Message-ID: <20151113164259.GC21764@asimov.pw-on-the.net>
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <B642E366-FA36-4B50-A2D6-1B9CF83456B9@fuzziesquirrel.com>
+Date: Fri, 13 Nov 2015 11:50:50 -0500
+Cc: OpenBMC Patches <openbmc@lists.ozlabs.org>
+Message-Id: <4B455CAA-B080-45E5-85B1-4EAB67A2ED20@fuzziesquirrel.com>
 References: <1447427425-3614-1-git-send-email-openbmc-patches@stwcx.xyz>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="0vzXIDBeUiKkjNJl"
-Content-Disposition: inline
-In-Reply-To: <1447427425-3614-1-git-send-email-openbmc-patches@stwcx.xyz>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
-X-ZohoMail: Ss  SS_10 UW1 CHF_KNW_WHT_EXT  SGR4_1_19105_2
-X-ZohoMail-Owner: <20151113164259.GC21764@asimov.pw-on-the.net>+zmo_0_<patrick@stwcx.xyz>
-X-ZohoMail-Sender: 108.215.4.10
+ <20151113164259.GC21764@asimov.pw-on-the.net>
+ <B642E366-FA36-4B50-A2D6-1B9CF83456B9@fuzziesquirrel.com>
+To: Patrick Williams <patrick@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -37,64 +31,117 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Nov 2015 16:43:07 -0000
+X-List-Received-Date: Fri, 13 Nov 2015 16:50:57 -0000
 
 
---0vzXIDBeUiKkjNJl
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--Apple-Mail=_738BCEF7-AD73-4CFF-8B6B-7876C9F1BE81
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
 
-On Fri, Nov 13, 2015 at 10:10:24AM -0500, OpenBMC Patches wrote:
-> Eventually will be running with SSL.
+I just opened issue =
+https://github.com/openbmc/phosphor-rest-server/issues/5 =
+<https://github.com/openbmc/phosphor-rest-server/issues/5>
+to track that.
+
+Can we settle for this in the short term?
+
+> On Nov 13, 2015, at 11:44 AM, Brad Bishop =
+<bradleyb@fuzziesquirrel.com> wrote:
 >=20
-> https://github.com/openbmc/phosphor-rest-server/pull/4
+> At the moment we don=E2=80=99t have any cert at all.  Baby steps...
 >=20
-> Brad Bishop (1):
->   Add self-signed cert
+>> On Nov 13, 2015, at 11:42 AM, Patrick Williams <patrick@stwcx.xyz> =
+wrote:
+>>=20
+>> On Fri, Nov 13, 2015 at 10:10:24AM -0500, OpenBMC Patches wrote:
+>>> Eventually will be running with SSL.
+>>>=20
+>>> https://github.com/openbmc/phosphor-rest-server/pull/4
+>>>=20
+>>> Brad Bishop (1):
+>>> Add self-signed cert
+>>>=20
+>>> cert.pem | 48 ++++++++++++++++++++++++++++++++++++++++++++++++
+>>=20
+>> Why aren't we generating a new self-signed certificate on the machine
+>> instead of including a global one here in the package?  It seems like =
+at
+>> a minimum we should generate a new one on each build.
+>>=20
+>>> setup.py |  6 ++++--
+>>> 2 files changed, 52 insertions(+), 2 deletions(-)
+>>> create mode 100644 cert.pem
+>>>=20
+>>> --=20
+>>> 2.6.3
+>>>=20
+>>>=20
+>>> _______________________________________________
+>>> openbmc mailing list
+>>> openbmc@lists.ozlabs.org
+>>> https://lists.ozlabs.org/listinfo/openbmc
+>>=20
+>> --=20
+>> Patrick Williams
+>> _______________________________________________
+>> openbmc mailing list
+>> openbmc@lists.ozlabs.org
+>> https://lists.ozlabs.org/listinfo/openbmc
 >=20
->  cert.pem | 48 ++++++++++++++++++++++++++++++++++++++++++++++++
 
-Why aren't we generating a new self-signed certificate on the machine
-instead of including a global one here in the package?  It seems like at
-a minimum we should generate a new one on each build.
 
->  setup.py |  6 ++++--
->  2 files changed, 52 insertions(+), 2 deletions(-)
->  create mode 100644 cert.pem
->=20
-> --=20
-> 2.6.3
->=20
->=20
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+--Apple-Mail=_738BCEF7-AD73-4CFF-8B6B-7876C9F1BE81
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
 
---=20
-Patrick Williams
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html =
+charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; -webkit-line-break: after-white-space;" =
+class=3D""><div class=3D"">I just opened issue&nbsp;<a =
+href=3D"https://github.com/openbmc/phosphor-rest-server/issues/5" =
+class=3D"">https://github.com/openbmc/phosphor-rest-server/issues/5</a></d=
+iv><div class=3D"">to track that.</div><div class=3D""><br =
+class=3D""></div><div class=3D"">Can we settle for this in the short =
+term?</div><div class=3D""><br class=3D""></div><div><blockquote =
+type=3D"cite" class=3D""><div class=3D"">On Nov 13, 2015, at 11:44 AM, =
+Brad Bishop &lt;<a href=3D"mailto:bradleyb@fuzziesquirrel.com" =
+class=3D"">bradleyb@fuzziesquirrel.com</a>&gt; wrote:</div><br =
+class=3D"Apple-interchange-newline"><div class=3D""><div class=3D"">At =
+the moment we don=E2=80=99t have any cert at all. &nbsp;Baby steps...<br =
+class=3D""><br class=3D""><blockquote type=3D"cite" class=3D"">On Nov =
+13, 2015, at 11:42 AM, Patrick Williams &lt;<a =
+href=3D"mailto:patrick@stwcx.xyz" class=3D"">patrick@stwcx.xyz</a>&gt; =
+wrote:<br class=3D""><br class=3D"">On Fri, Nov 13, 2015 at 10:10:24AM =
+-0500, OpenBMC Patches wrote:<br class=3D""><blockquote type=3D"cite" =
+class=3D"">Eventually will be running with SSL.<br class=3D""><br =
+class=3D""><a =
+href=3D"https://github.com/openbmc/phosphor-rest-server/pull/4" =
+class=3D"">https://github.com/openbmc/phosphor-rest-server/pull/4</a><br =
+class=3D""><br class=3D"">Brad Bishop (1):<br class=3D""> Add =
+self-signed cert<br class=3D""><br class=3D"">cert.pem | 48 =
+++++++++++++++++++++++++++++++++++++++++++++++++<br =
+class=3D""></blockquote><br class=3D"">Why aren't we generating a new =
+self-signed certificate on the machine<br class=3D"">instead of =
+including a global one here in the package? &nbsp;It seems like at<br =
+class=3D"">a minimum we should generate a new one on each build.<br =
+class=3D""><br class=3D""><blockquote type=3D"cite" class=3D"">setup.py =
+| &nbsp;6 ++++--<br class=3D"">2 files changed, 52 insertions(+), 2 =
+deletions(-)<br class=3D"">create mode 100644 cert.pem<br class=3D""><br =
+class=3D"">-- <br class=3D"">2.6.3<br class=3D""><br class=3D""><br =
+class=3D"">_______________________________________________<br =
+class=3D"">openbmc mailing list<br class=3D""><a =
+href=3D"mailto:openbmc@lists.ozlabs.org" =
+class=3D"">openbmc@lists.ozlabs.org</a><br =
+class=3D"">https://lists.ozlabs.org/listinfo/openbmc<br =
+class=3D""></blockquote><br class=3D"">-- <br class=3D"">Patrick =
+Williams<br class=3D"">_______________________________________________<br =
+class=3D"">openbmc mailing list<br class=3D""><a =
+href=3D"mailto:openbmc@lists.ozlabs.org" =
+class=3D"">openbmc@lists.ozlabs.org</a><br =
+class=3D"">https://lists.ozlabs.org/listinfo/openbmc<br =
+class=3D""></blockquote><br class=3D""></div></div></blockquote></div><br =
+class=3D""></body></html>=
 
---0vzXIDBeUiKkjNJl
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJWRhMTAAoJEKsDR8wtAMEZNyAP/RXKNKCISMSzJlGf6pJ5krYw
-C05zkMBDGTMv4Hiq5BcgDX5YLKlHalMyJRAQm8fRijXjxPcHbag7rpxns5CumGsU
-UZ+aLCVAN7wmwsHzNSfdpWJtd8vDRCidgdTM6+P0AnKNlwDYgHDM7WJyVThUD3nP
-tQgWETaZ/UjxppfqfU/O4GCJACjr+KobjdNmjRjvZIOKGW5P3A1aAWfky6CbhhrA
-+Pvd/GYM4zrTyw3mMrHxvRDjaL3DcxtPVyQjc3Mp05LoNarFA/r90bmSJIbM71S1
-VnERb1EKuKg/gjtmBFSfj915FfYn87QeMq6Culz+/HQ9Nho23nQuvPYOToSS9Pmb
-ODx721gA/53kaUR73xA/iBKCtfSas6cQrmJ8qrUQ12KPtH1uw6Az+WxouqpUc0K5
-IpmCdGPSPdnl2DJWMeBbu474uVw/FTQ6azMFTFHT/UAtmKRUxdwUygSxYXloXiKP
-hCIEzoDLAEWyrkAfijI2AcRq3Qx7e23bvMUBhv54JK1h+sFdd6DO9zwh3Iszx00O
-gp6MQhHBF4aIUfj6bkoKiXrKHMd6BcrTB88HXFDT/PgYh7h8w5v7arikwU6L+Whb
-JaEejs/WciocMYTKNYSbVYqK9K/GyrNAKgUaqZpCrRsR+dDAHNoRdA2pytVMPQnz
-pEXairi9+LP65jpkvJqy
-=ApDJ
------END PGP SIGNATURE-----
-
---0vzXIDBeUiKkjNJl--
+--Apple-Mail=_738BCEF7-AD73-4CFF-8B6B-7876C9F1BE81--
