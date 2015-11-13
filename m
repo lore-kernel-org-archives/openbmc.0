@@ -3,29 +3,28 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id AB8201A065D
- for <openbmc@lists.ozlabs.org>; Sat, 14 Nov 2015 03:37:27 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 10E591A0AC6
+ for <openbmc@lists.ozlabs.org>; Sat, 14 Nov 2015 03:43:06 +1100 (AEDT)
 Received: from localhost (108-215-4-10.lightspeed.austtx.sbcglobal.net
  [108.215.4.10]) by mx.zohomail.com
- with SMTPS id 1447432642155509.0277088472742;
- Fri, 13 Nov 2015 08:37:22 -0800 (PST)
-Date: Fri, 13 Nov 2015 10:37:18 -0600
+ with SMTPS id 1447432982884893.0821274448014;
+ Fri, 13 Nov 2015 08:43:02 -0800 (PST)
+Date: Fri, 13 Nov 2015 10:42:59 -0600
 From: Patrick Williams <patrick@stwcx.xyz>
 To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-Cc: openbmc@lists.ozlabs.org, Brad Bishop <bradleyb@us.ibm.com>
-Subject: Re: [PATCH openbmc] Add git version information to os-release
-Message-ID: <20151113163718.GB21764@asimov.pw-on-the.net>
-References: <1447269619-7651-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1447269619-7651-2-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: [PATCH phosphor-rest-server] Add self-signed cert
+Message-ID: <20151113164259.GC21764@asimov.pw-on-the.net>
+References: <1447427425-3614-1-git-send-email-openbmc-patches@stwcx.xyz>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="cvVnyQ+4j833TQvp"
+ protocol="application/pgp-signature"; boundary="0vzXIDBeUiKkjNJl"
 Content-Disposition: inline
-In-Reply-To: <1447269619-7651-2-git-send-email-openbmc-patches@stwcx.xyz>
+In-Reply-To: <1447427425-3614-1-git-send-email-openbmc-patches@stwcx.xyz>
 User-Agent: Mutt/1.5.24 (2015-08-30)
 X-Zoho-Virus-Status: 1
 X-ZohoMail: Ss  SS_10 UW1 CHF_KNW_WHT_EXT  SGR4_1_19105_2
-X-ZohoMail-Owner: <20151113163718.GB21764@asimov.pw-on-the.net>+zmo_0_<patrick@stwcx.xyz>
+X-ZohoMail-Owner: <20151113164259.GC21764@asimov.pw-on-the.net>+zmo_0_<patrick@stwcx.xyz>
 X-ZohoMail-Sender: 108.215.4.10
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -38,46 +37,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Nov 2015 16:37:28 -0000
+X-List-Received-Date: Fri, 13 Nov 2015 16:43:07 -0000
 
 
---cvVnyQ+4j833TQvp
+--0vzXIDBeUiKkjNJl
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Brad,
-
-This will fail if you build from a tar/zip file.  Can you add a
-fall-back if you are not building in a git repository?
-
-On Wed, Nov 11, 2015 at 02:20:19PM -0500, OpenBMC Patches wrote:
-> From: Brad Bishop <bradleyb@us.ibm.com>
+On Fri, Nov 13, 2015 at 10:10:24AM -0500, OpenBMC Patches wrote:
+> Eventually will be running with SSL.
 >=20
-> VERSION_ID =3D `git tag`
-> BUILD_ID =3D `git describe --dirty`
-> ---
->  meta-phosphor/common/recipes-core/os-release/os-release.bbappend | 8 +++=
-+++++
->  1 file changed, 8 insertions(+)
->  create mode 100644 meta-phosphor/common/recipes-core/os-release/os-relea=
-se.bbappend
+> https://github.com/openbmc/phosphor-rest-server/pull/4
 >=20
-> diff --git a/meta-phosphor/common/recipes-core/os-release/os-release.bbap=
-pend b/meta-phosphor/common/recipes-core/os-release/os-release.bbappend
-> new file mode 100644
-> index 0000000..1692af1
-> --- /dev/null
-> +++ b/meta-phosphor/common/recipes-core/os-release/os-release.bbappend
-> @@ -0,0 +1,8 @@
-> +def git_describe(d):
-> +        return bb.process.run("git describe --dirty")[0]
-> +def git_tag(d):
-> +        return bb.process.run("git tag")[0]
-> +
-> +VERSION_ID =3D "${@git_tag(d)}"
-> +BUILD_ID =3D "${@git_describe(d)}"
-> +OS_RELEASE_FIELDS_append =3D " BUILD_ID"
+> Brad Bishop (1):
+>   Add self-signed cert
+>=20
+>  cert.pem | 48 ++++++++++++++++++++++++++++++++++++++++++++++++
+
+Why aren't we generating a new self-signed certificate on the machine
+instead of including a global one here in the package?  It seems like at
+a minimum we should generate a new one on each build.
+
+>  setup.py |  6 ++++--
+>  2 files changed, 52 insertions(+), 2 deletions(-)
+>  create mode 100644 cert.pem
+>=20
 > --=20
 > 2.6.3
 >=20
@@ -90,26 +75,26 @@ pend b/meta-phosphor/common/recipes-core/os-release/os-release.bbappend
 --=20
 Patrick Williams
 
---cvVnyQ+4j833TQvp
+--0vzXIDBeUiKkjNJl
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJWRhG+AAoJEKsDR8wtAMEZCkAQAKicI5XOKCyk2TMaV3l7IePa
-kpTCt9yKg17IJicDWBnxGWVTbhKyvIQAvGvdaLShHUI9qXrHk8GU6qEAZUYEgN+j
-OnxxTuE92PLlJTEw80N0fWupb8kTBGyMzXtfe5mRMPTP0Hr3EDUdeOYoOVogIdeS
-2MSRdf2hXKQgz9BQQSk8d5kGWWWIEH6tg02TPQGqTM05keUerrNChb7ZGKe/Otj4
-eZmYhKkTyeLriZAlVUBr2670/v/Td1sWp0z3vBVvDGdgfAE6ybD8R83EZbiSE8c0
-Wsy9dGb8adnZ9bK09o+asVKPSOr9fiazin9/BNSsmIsTXNVvatIOntCVNOJzITfW
-kuuo6NXFwApOfkFx2yrRK6Y3kA+S+apzAUGLJEUXgnERqIYhh/9k7yc5IlYSQHGH
-H8v5AY4/8Cmmhfb+XIWAuP+aeOZgDzvKJMH60zDzxy3wKSllAWMYa+/Ds8pt9b1n
-UqL9uyeh3OyPxmXbJP8NxpHswruml/TdXzRfra+R69zgyZmUOXiHWQKGYppOmk2g
-KDyx5SL9SL1Dk9ZvnunLjKdV79exktpjyuJEhbF9Cal/rWyQ20sNqBhmLj2GJljv
-YtjALU8r0jHvVtx9odnldqjsrmmbwv3mCKOCcdnhyw40p9xPacGk9Qtq15yXzPWV
-K1ObeXcgFOBfJjLO3e7W
-=E92D
+iQIcBAEBCAAGBQJWRhMTAAoJEKsDR8wtAMEZNyAP/RXKNKCISMSzJlGf6pJ5krYw
+C05zkMBDGTMv4Hiq5BcgDX5YLKlHalMyJRAQm8fRijXjxPcHbag7rpxns5CumGsU
+UZ+aLCVAN7wmwsHzNSfdpWJtd8vDRCidgdTM6+P0AnKNlwDYgHDM7WJyVThUD3nP
+tQgWETaZ/UjxppfqfU/O4GCJACjr+KobjdNmjRjvZIOKGW5P3A1aAWfky6CbhhrA
++Pvd/GYM4zrTyw3mMrHxvRDjaL3DcxtPVyQjc3Mp05LoNarFA/r90bmSJIbM71S1
+VnERb1EKuKg/gjtmBFSfj915FfYn87QeMq6Culz+/HQ9Nho23nQuvPYOToSS9Pmb
+ODx721gA/53kaUR73xA/iBKCtfSas6cQrmJ8qrUQ12KPtH1uw6Az+WxouqpUc0K5
+IpmCdGPSPdnl2DJWMeBbu474uVw/FTQ6azMFTFHT/UAtmKRUxdwUygSxYXloXiKP
+hCIEzoDLAEWyrkAfijI2AcRq3Qx7e23bvMUBhv54JK1h+sFdd6DO9zwh3Iszx00O
+gp6MQhHBF4aIUfj6bkoKiXrKHMd6BcrTB88HXFDT/PgYh7h8w5v7arikwU6L+Whb
+JaEejs/WciocMYTKNYSbVYqK9K/GyrNAKgUaqZpCrRsR+dDAHNoRdA2pytVMPQnz
+pEXairi9+LP65jpkvJqy
+=ApDJ
 -----END PGP SIGNATURE-----
 
---cvVnyQ+4j833TQvp--
+--0vzXIDBeUiKkjNJl--
