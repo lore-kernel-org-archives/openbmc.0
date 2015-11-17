@@ -3,20 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id D056C1A1D13
- for <openbmc@lists.ozlabs.org>; Wed, 18 Nov 2015 01:20:33 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 2124F1A04B2
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Nov 2015 04:00:57 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1447770028582534.5238980733546;
- Tue, 17 Nov 2015 06:20:28 -0800 (PST)
+ with SMTPS id 1447779624154945.2485612580424;
+ Tue, 17 Nov 2015 09:00:24 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Brad Bishop <bradleyb@us.ibm.com>
-Subject: [PATCH phosphor-rest-server] Set response type correctly for errors
-Date: Tue, 17 Nov 2015 09:20:27 -0500
-Message-Id: <1447770027-31819-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc] Too many dbus connections
+Date: Tue, 17 Nov 2015 12:00:22 -0500
+Message-Id: <1447779623-3494-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1447770027-31819-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1447770027-31819-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,28 +25,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Nov 2015 14:20:34 -0000
+X-List-Received-Date: Tue, 17 Nov 2015 17:00:58 -0000
 
-From: Brad Bishop <bradleyb@us.ibm.com>
+This code reduces all ipmi connections to just 1
 
-Error response type was 'text/html' but should be
-'application/json'
----
- obmc-rest | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+https://github.com/openbmc/openbmc/pull/83
 
-diff --git a/obmc-rest b/obmc-rest
-index f655599..017a736 100644
---- a/obmc-rest
-+++ b/obmc-rest
-@@ -509,7 +509,7 @@ class JsonApiErrorsPlugin(object):
- 			response_object['data']['traceback'] = error.traceback.splitlines()
- 
- 		json_response = json.dumps(response_object, **self.json_opts)
--		res.content_type = 'application/json'
-+		response.content_type = 'application/json'
- 		return json_response
- 
- class RestApp(Bottle):
+Chris Austen (1):
+  Too many dbus connections
+
+ meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid-fru.bb | 2 +-
+ meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb     | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
 -- 
 2.6.3
