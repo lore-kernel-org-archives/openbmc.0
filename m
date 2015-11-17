@@ -3,19 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 00D171A0D6C
- for <openbmc@lists.ozlabs.org>; Tue, 17 Nov 2015 13:50:28 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 1D4071A1A0C
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Nov 2015 01:20:31 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1447728620517811.386578943646;
- Mon, 16 Nov 2015 18:50:20 -0800 (PST)
+ with SMTPS id 1447770027838987.0963011075527;
+ Tue, 17 Nov 2015 06:20:27 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v2 1/2] update build to support rest features
-Date: Mon, 16 Nov 2015 21:50:18 -0500
-Message-Id: <1447728619-12561-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-rest-server] Set response type correctly for errors
+Date: Tue, 17 Nov 2015 09:20:26 -0500
+Message-Id: <1447770027-31819-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1447728619-12561-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1447728619-12561-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -27,39 +25,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Nov 2015 02:50:29 -0000
+X-List-Received-Date: Tue, 17 Nov 2015 14:20:32 -0000
 
-From: Chris Austen <austenc@us.ibm.com>
+Error response type was 'text/html' but should be
+'application/json'
 
-list, enumerate, https, etc
----
- meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb | 2 +-
- meta-phosphor/common/recipes-phosphor/dbus/obmc-rest.bb   | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+https://github.com/openbmc/phosphor-rest-server/pull/7
 
-diff --git a/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb b/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb
-index 67219b0..37c9c3f 100644
---- a/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb
-+++ b/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb
-@@ -20,6 +20,6 @@ SRC_URI += " \
-         git://github.com/openbmc/phosphor-objmgr \
-         "
- 
--SRCREV = "e290f5cdccf14e50e838366367c91e0464f792f6"
-+SRCREV = "6aed08d480aa1e022df14d48b7a54f5b1790e7d9"
- 
- S = "${WORKDIR}/git"
-diff --git a/meta-phosphor/common/recipes-phosphor/dbus/obmc-rest.bb b/meta-phosphor/common/recipes-phosphor/dbus/obmc-rest.bb
-index 941fa90..8b4459e 100644
---- a/meta-phosphor/common/recipes-phosphor/dbus/obmc-rest.bb
-+++ b/meta-phosphor/common/recipes-phosphor/dbus/obmc-rest.bb
-@@ -21,6 +21,6 @@ SRC_URI += " \
-         git://github.com/openbmc/phosphor-rest-server \
-         "
- 
--SRCREV = "2f7aef50b005c16a51065984f090e787c04c0c14"
-+SRCREV = "275ec270684cd3b946674d02462bc9ed1890360e"
- 
- S = "${WORKDIR}/git"
+Brad Bishop (1):
+  Set response type correctly for errors
+
+ obmc-rest | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
 -- 
 2.6.3
