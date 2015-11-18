@@ -3,20 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 7E7E41A03A3
- for <openbmc@lists.ozlabs.org>; Wed, 18 Nov 2015 08:40:27 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id EA4051A04EB
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Nov 2015 14:50:33 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1447796421477237.10167673939497;
- Tue, 17 Nov 2015 13:40:21 -0800 (PST)
+ with SMTPS id 1447818630407871.8687911254552;
+ Tue, 17 Nov 2015 19:50:30 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc] need the nct7904 removed until pinmux driver is
- complete
-Date: Tue, 17 Nov 2015 16:40:19 -0500
-Message-Id: <1447796419-10805-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc] python-dbus dbus.Byte.__str__ produces broken utf8
+Date: Tue, 17 Nov 2015 22:50:28 -0500
+Message-Id: <1447818629-20624-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1447796419-10805-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1447796419-10805-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,32 +25,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Nov 2015 21:40:28 -0000
+X-List-Received-Date: Wed, 18 Nov 2015 03:50:34 -0000
 
-From: Norman James <njames@us.ibm.com>
+Byte to string simply copied the byte, which isn't valid
+utf8 for non ascii values.  Since dbus.byte is an int subclass,
+should just be using int's __str__  implementation anyway.
 
----
- .../meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.dts  | 8 --------
- 1 file changed, 8 deletions(-)
+https://github.com/openbmc/openbmc/pull/85
 
-diff --git a/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.dts b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.dts
-index c4f4076..9277307 100644
---- a/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.dts
-+++ b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.dts
-@@ -166,14 +166,6 @@
- 					bus = <6>;
- 					clock-frequency = <100000>;
- 					status = "okay";
--					nct7904@2d {
--						compatible = "nuvoton,nct7904";
--						reg = <0x2d>;
--					};
--					nct7904@2e {
--						compatible = "nuvoton,nct7904";
--						reg = <0x2e>;
--					};
- 				};
- 
- 				i2c7: i2c-bus@0x300 {
+Brad Bishop (1):
+  python-dbus dbus.Byte.__str__ produces broken utf8
+
+ .../python/python-dbus/bytes.patch                 | 37 ++++++++++++++++++++++
+ .../python/python-dbus_1.2.0.bbappend              |  2 ++
+ 2 files changed, 39 insertions(+)
+ create mode 100644 meta-phosphor/common/recipes-devtools/python/python-dbus/bytes.patch
+ create mode 100644 meta-phosphor/common/recipes-devtools/python/python-dbus_1.2.0.bbappend
+
 -- 
 2.6.3
