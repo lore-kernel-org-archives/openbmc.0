@@ -3,19 +3,19 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 8887A1A06A7
- for <openbmc@lists.ozlabs.org>; Wed, 18 Nov 2015 15:10:29 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 199191A05B9
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Nov 2015 15:30:25 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1447819822322197.794610623136;
- Tue, 17 Nov 2015 20:10:22 -0800 (PST)
+ with SMTPS id 1447821021130350.600697568319;
+ Tue, 17 Nov 2015 20:30:21 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux v2 2/2] misc/bt-host: Use devm_ioremap_resource()
-Date: Tue, 17 Nov 2015 23:10:19 -0500
-Message-Id: <1447819819-21180-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc] meta-phosphor: Update kernel version
+Date: Tue, 17 Nov 2015 23:30:19 -0500
+Message-Id: <1447821019-21779-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1447819819-21180-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1447819819-21180-1-git-send-email-openbmc-patches@stwcx.xyz>
+In-Reply-To: <1447821019-21779-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1447821019-21779-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -27,31 +27,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Nov 2015 04:10:30 -0000
+X-List-Received-Date: Wed, 18 Nov 2015 04:30:26 -0000
 
-From: Jeremy Kerr <jk@ozlabs.org>
+From: Joel Stanley <joel@jms.id.au>
 
-No need to unpack struct resource, and we don't need ioremap_uncached
-here.
+The kenrel contains many changes, including
 
-Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
+  - rewritten i2c driver
+  - interrupt facilities for the iBT host driver
+  - rebased on Linux 4.3
+
+Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- drivers/misc/bt-host.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.2.bb | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/misc/bt-host.c b/drivers/misc/bt-host.c
-index 7b5206e..105d3fc 100644
---- a/drivers/misc/bt-host.c
-+++ b/drivers/misc/bt-host.c
-@@ -333,8 +333,7 @@ static int bt_host_probe(struct platform_device *pdev)
- 		goto out_free;
- 	}
+diff --git a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.2.bb b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.2.bb
+index 1d8106d..09c18a5 100644
+--- a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.2.bb
++++ b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.2.bb
+@@ -2,7 +2,7 @@ DESCRIPTION = "Linux kernel for OpenBMC"
+ SECTION = "kernel"
+ LICENSE = "GPLv2"
  
--	bt_host->base = devm_ioremap_nocache(&pdev->dev, res->start,
--						resource_size(res));
-+	bt_host->base = devm_ioremap_resource(&pdev->dev, res);
- 	if (!bt_host->base) {
- 		rc = -ENOMEM;
- 		goto out_free;
+-KBRANCH ?= "dev"
++KBRANCH ?= "dev-4.3"
+ KCONFIG_MODE="--alldefconfig"
+ 
+ SRC_URI = "git://github.com/openbmc/linux;protocol=git;branch=${KBRANCH}"
+@@ -10,7 +10,7 @@ SRC_URI = "git://github.com/openbmc/linux;protocol=git;branch=${KBRANCH}"
+ LINUX_VERSION ?= "4.2"
+ LINUX_VERSION_EXTENSION ?= "-${SRCREV}"
+ 
+-SRCREV="openbmc-20151104-1"
++SRCREV="openbmc-20151118-1"
+ 
+ PV = "${LINUX_VERSION}+git${SRCPV}"
+ 
 -- 
 2.6.3
