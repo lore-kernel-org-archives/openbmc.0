@@ -1,24 +1,52 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <stewart@linux.vnet.ibm.com>
+Received: from e39.co.us.ibm.com (e39.co.us.ibm.com [32.97.110.160])
+ (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id E100D1A03BF
- for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2015 14:08:11 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Sender: bradleyb@bajor.fuzziesquirrel.com
-Content-Type: text/plain; charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 9.1 \(3096.5\))
-Subject: Re: [PATCH openbmc] meta-phosphor: Update kernel version
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <1447821019-21779-2-git-send-email-openbmc-patches@stwcx.xyz>
-Date: Wed, 18 Nov 2015 22:08:06 -0500
-Cc: openbmc@lists.ozlabs.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <8AE72D0A-C340-4F18-A06C-E0907893B453@fuzziesquirrel.com>
-References: <1447821019-21779-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1447821019-21779-2-git-send-email-openbmc-patches@stwcx.xyz>
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 265D71A0007
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2015 14:32:47 +1100 (AEDT)
+Received: from localhost
+ by e39.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
+ Wed, 18 Nov 2015 20:32:44 -0700
+Received: from d01dlp02.pok.ibm.com (9.56.250.167)
+ by e39.co.us.ibm.com (192.168.1.139) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 18 Nov 2015 20:32:44 -0700
+X-IBM-Helo: d01dlp02.pok.ibm.com
+X-IBM-MailFrom: stewart@linux.vnet.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
+ [9.57.198.29])
+ by d01dlp02.pok.ibm.com (Postfix) with ESMTP id D6A456E803F
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Nov 2015 22:20:52 -0500 (EST)
+Received: from d01av02.pok.ibm.com (d01av02.pok.ibm.com [9.56.224.216])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ tAJ3WgBS55902352
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2015 03:32:42 GMT
+Received: from d01av02.pok.ibm.com (localhost [127.0.0.1])
+ by d01av02.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ tAJ3WgV3017672
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Nov 2015 22:32:42 -0500
+Received: from oc8180480414.ibm.com ([9.81.199.205])
+ by d01av02.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with SMTP id
+ tAJ3WXv3017217; Wed, 18 Nov 2015 22:32:41 -0500
+Received: by oc8180480414.ibm.com (Postfix, from userid 500)
+ id CF736575C; Thu, 19 Nov 2015 14:32:31 +1100 (AEDT)
+From: Stewart Smith <stewart@linux.vnet.ibm.com>
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH phosphor-host-ipmid] Initial autotools support
+In-Reply-To: <1447902029-2805-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1447902029-2805-1-git-send-email-openbmc-patches@stwcx.xyz>
+User-Agent: Notmuch/0.18+16~gec02089 (http://notmuchmail.org) Emacs/23.1.1
+ (x86_64-redhat-linux-gnu)
+Date: Thu, 19 Nov 2015 14:32:31 +1100
+Message-ID: <m3vb8yslyo.fsf@oc8180480414.ibm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 15111903-0033-0000-0000-000006E65811
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -30,59 +58,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Nov 2015 03:08:12 -0000
+X-List-Received-Date: Thu, 19 Nov 2015 03:32:48 -0000
 
+OpenBMC Patches <openbmc-patches@stwcx.xyz> writes:
+> This switches us over to use autotools rather than custom makefiles.
+> This brings us into line with the defacto standard for building
+> userspace.
 
-> On Nov 17, 2015, at 11:30 PM, OpenBMC Patches =
-<openbmc-patches@stwcx.xyz> wrote:
->=20
-> From: Joel Stanley <joel@jms.id.au>
->=20
-> The kenrel contains many changes, including
->=20
->  - rewritten i2c driver
->  - interrupt facilities for the iBT host driver
->  - rebased on Linux 4.3
->=20
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-> ---
-> meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.2.bb | 4 ++--
-> 1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git =
-a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.2.bb =
-b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.2.bb
-> index 1d8106d..09c18a5 100644
-> --- a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.2.bb
-> +++ b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.2.bb
-> @@ -2,7 +2,7 @@ DESCRIPTION =3D "Linux kernel for OpenBMC"
-> SECTION =3D "kernel"
-> LICENSE =3D "GPLv2"
->=20
-> -KBRANCH ?=3D "dev"
-> +KBRANCH ?=3D "dev-4.3"
-> KCONFIG_MODE=3D"--alldefconfig"
->=20
-> SRC_URI =3D =
-"git://github.com/openbmc/linux;protocol=3Dgit;branch=3D${KBRANCH}"
-> @@ -10,7 +10,7 @@ SRC_URI =3D =
-"git://github.com/openbmc/linux;protocol=3Dgit;branch=3D${KBRANCH}"
-> LINUX_VERSION ?=3D =E2=80=9C4.2"
+I haven't converted everything yet, and I've really only started to poke
+at what makes sense for the current structure of everything.
 
-Should this be 4.3 ?
+There's a magic thing we could use for plugins too, which allows in tree
+and out of tree, and I haven't started using it.
+See https://autotools.io/libtool/plugins.html
 
-> LINUX_VERSION_EXTENSION ?=3D "-${SRCREV}"
->=20
-> -SRCREV=3D"openbmc-20151104-1"
-> +SRCREV=3D"openbmc-20151118-1"
->=20
-> PV =3D "${LINUX_VERSION}+git${SRCPV}"
->=20
-> --=20
-> 2.6.3
->=20
->=20
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+But first I wanted to raise the possibility of autotools and what it
+kind of looks like.
+
+We should also move to explicit exposure of symbols rather than
+exporting everything.
+
+thoughts?
