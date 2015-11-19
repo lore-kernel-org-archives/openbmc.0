@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 573311A06D5
- for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2015 12:00:54 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 641931A02A1
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2015 12:00:55 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1447894835170440.4746452084813;
- Wed, 18 Nov 2015 17:00:35 -0800 (PST)
+ with SMTPS id 1447894838031668.2292696058712;
+ Wed, 18 Nov 2015 17:00:38 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton v2 2/7] LED test 2
-Date: Wed, 18 Nov 2015 20:00:27 -0500
-Message-Id: <1447894832-31962-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v2 6/7] Workarounf for fan PWM 100%
+Date: Wed, 18 Nov 2015 20:00:31 -0500
+Message-Id: <1447894832-31962-7-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1447894832-31962-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1447894832-31962-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,62 +28,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Nov 2015 01:00:54 -0000
+X-List-Received-Date: Thu, 19 Nov 2015 01:00:55 -0000
 
 From: Ken <ken.sk.lai@mail.foxconn.com>
 
 ---
- bin/Barreleye.py         | 5 +++++
- objects/led_controller.c | 9 +++++----
- 2 files changed, 10 insertions(+), 4 deletions(-)
+ bin/startup_hacks.sh | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/bin/Barreleye.py b/bin/Barreleye.py
-index 98d7321..783aa88 100755
---- a/bin/Barreleye.py
-+++ b/bin/Barreleye.py
-@@ -51,6 +51,11 @@ ENTER_STATE_CALLBACK = {
- 			'obj_name'   : '/org/openbmc/control/led/BMC_READY',
- 			'interface_name' : 'org.openbmc.Led',
- 		},
-+		'setOn' : {
-+			'bus_name'   : 'org.openbmc.control.led',
-+			'obj_name'   : '/org/openbmc/control/led/BEEP',
-+			'interface_name' : 'org.openbmc.Led',
-+		},
- 		'init' : {
- 			'bus_name'   : 'org.openbmc.control.Flash',
- 			'obj_name'   : '/org/openbmc/control/flash/bios',
-diff --git a/objects/led_controller.c b/objects/led_controller.c
-index 5bb4542..6f773c9 100755
---- a/objects/led_controller.c
-+++ b/objects/led_controller.c
-@@ -68,13 +68,14 @@ on_set_off       (Led          *led,
- 	return TRUE;
- }
+diff --git a/bin/startup_hacks.sh b/bin/startup_hacks.sh
+index 5868e8a..603fc1c 100755
+--- a/bin/startup_hacks.sh
++++ b/bin/startup_hacks.sh
+@@ -11,3 +11,12 @@ echo 0x2e > /sys/bus/i2c/devices/i2c-6/delete_device
+ echo nct7904 0x2e > /sys/bus/i2c/devices/i2c-6/new_device
+ echo nct7904 0x2d > /sys/bus/i2c/devices/i2c-6/new_device
  
--int tmp=0;
-+//int tmp=0;
- void init_led(Led* led, GPIO* mygpio)
- {
- 	int rc = GPIO_OK;
- 	int i=5;
--	tmp++;
-+//	tmp++;
- 	do {
-+		sleep(2);
- 		uint8_t val;
- 		rc = gpio_open(mygpio);
- 		if (rc != GPIO_OK) { break; }
-@@ -89,8 +90,8 @@ void init_led(Led* led, GPIO* mygpio)
- 	i--;
- 	} while(i!=0);
- 	
--if(tmp==3)
--	led_set_state(led,"off");
-+//if(tmp==3)
-+//	led_set_state(led,"off");
- 
- 	gpio_close(mygpio);
- 	if (rc != GPIO_OK) {
++echo 255 > /sys/class/hwmon/hwmon1/pwm1
++echo 255 > /sys/class/hwmon/hwmon1/pwm2
++echo 255 > /sys/class/hwmon/hwmon1/pwm3
++echo 255 > /sys/class/hwmon/hwmon1/pwm4
++
++echo 255 > /sys/class/hwmon/hwmon2/pwm1
++echo 255 > /sys/class/hwmon/hwmon2/pwm2
++echo 255 > /sys/class/hwmon/hwmon2/pwm3
++echo 255 > /sys/class/hwmon/hwmon2/pwm4
 -- 
 2.6.3
