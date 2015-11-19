@@ -1,22 +1,24 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <bradleyb@fuzziesquirrel.com>
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 955971A0A50
- for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2015 14:00:58 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1447902044517331.0096827626685;
- Wed, 18 Nov 2015 19:00:44 -0800 (PST)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton v2 6/9] Workarounf for fan PWM 100%
-Date: Wed, 18 Nov 2015 22:00:36 -0500
-Message-Id: <1447902039-2898-7-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1447902039-2898-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1447902039-2898-1-git-send-email-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id E100D1A03BF
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2015 14:08:11 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Sender: bradleyb@bajor.fuzziesquirrel.com
+Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 9.1 \(3096.5\))
+Subject: Re: [PATCH openbmc] meta-phosphor: Update kernel version
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <1447821019-21779-2-git-send-email-openbmc-patches@stwcx.xyz>
+Date: Wed, 18 Nov 2015 22:08:06 -0500
+Cc: openbmc@lists.ozlabs.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <8AE72D0A-C340-4F18-A06C-E0907893B453@fuzziesquirrel.com>
+References: <1447821019-21779-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1447821019-21779-2-git-send-email-openbmc-patches@stwcx.xyz>
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,30 +30,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Nov 2015 03:00:59 -0000
+X-List-Received-Date: Thu, 19 Nov 2015 03:08:12 -0000
 
-From: Ken <ken.sk.lai@mail.foxconn.com>
 
----
- bin/startup_hacks.sh | 9 +++++++++
- 1 file changed, 9 insertions(+)
+> On Nov 17, 2015, at 11:30 PM, OpenBMC Patches =
+<openbmc-patches@stwcx.xyz> wrote:
+>=20
+> From: Joel Stanley <joel@jms.id.au>
+>=20
+> The kenrel contains many changes, including
+>=20
+>  - rewritten i2c driver
+>  - interrupt facilities for the iBT host driver
+>  - rebased on Linux 4.3
+>=20
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
+> ---
+> meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.2.bb | 4 ++--
+> 1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git =
+a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.2.bb =
+b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.2.bb
+> index 1d8106d..09c18a5 100644
+> --- a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.2.bb
+> +++ b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.2.bb
+> @@ -2,7 +2,7 @@ DESCRIPTION =3D "Linux kernel for OpenBMC"
+> SECTION =3D "kernel"
+> LICENSE =3D "GPLv2"
+>=20
+> -KBRANCH ?=3D "dev"
+> +KBRANCH ?=3D "dev-4.3"
+> KCONFIG_MODE=3D"--alldefconfig"
+>=20
+> SRC_URI =3D =
+"git://github.com/openbmc/linux;protocol=3Dgit;branch=3D${KBRANCH}"
+> @@ -10,7 +10,7 @@ SRC_URI =3D =
+"git://github.com/openbmc/linux;protocol=3Dgit;branch=3D${KBRANCH}"
+> LINUX_VERSION ?=3D =E2=80=9C4.2"
 
-diff --git a/bin/startup_hacks.sh b/bin/startup_hacks.sh
-index 5868e8a..603fc1c 100755
---- a/bin/startup_hacks.sh
-+++ b/bin/startup_hacks.sh
-@@ -11,3 +11,12 @@ echo 0x2e > /sys/bus/i2c/devices/i2c-6/delete_device
- echo nct7904 0x2e > /sys/bus/i2c/devices/i2c-6/new_device
- echo nct7904 0x2d > /sys/bus/i2c/devices/i2c-6/new_device
- 
-+echo 255 > /sys/class/hwmon/hwmon1/pwm1
-+echo 255 > /sys/class/hwmon/hwmon1/pwm2
-+echo 255 > /sys/class/hwmon/hwmon1/pwm3
-+echo 255 > /sys/class/hwmon/hwmon1/pwm4
-+
-+echo 255 > /sys/class/hwmon/hwmon2/pwm1
-+echo 255 > /sys/class/hwmon/hwmon2/pwm2
-+echo 255 > /sys/class/hwmon/hwmon2/pwm3
-+echo 255 > /sys/class/hwmon/hwmon2/pwm4
--- 
-2.6.3
+Should this be 4.3 ?
+
+> LINUX_VERSION_EXTENSION ?=3D "-${SRCREV}"
+>=20
+> -SRCREV=3D"openbmc-20151104-1"
+> +SRCREV=3D"openbmc-20151118-1"
+>=20
+> PV =3D "${LINUX_VERSION}+git${SRCPV}"
+>=20
+> --=20
+> 2.6.3
+>=20
+>=20
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
