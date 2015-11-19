@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 67DE21A09E9
+ by lists.ozlabs.org (Postfix) with ESMTPS id 82BF51A0A0C
  for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2015 14:00:58 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1447902046008215.61453362837312;
+ with SMTPS id 1447902046651271.83676940075077;
  Wed, 18 Nov 2015 19:00:46 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton v2 8/9] Set default LED status, add GPIO define
-Date: Wed, 18 Nov 2015 22:00:38 -0500
-Message-Id: <1447902039-2898-9-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v2 9/9] Init BMC_THROTTLE GPIO to high
+Date: Wed, 18 Nov 2015 22:00:39 -0500
+Message-Id: <1447902039-2898-10-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1447902039-2898-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1447902039-2898-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -33,74 +33,39 @@ X-List-Received-Date: Thu, 19 Nov 2015 03:00:59 -0000
 From: Ken <ken.sk.lai@mail.foxconn.com>
 
 ---
- bin/Barreleye.py         | 17 +++++++++++++++++
- objects/led_controller.c |  5 +++--
- 2 files changed, 20 insertions(+), 2 deletions(-)
+ objects/control_host_obj.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/bin/Barreleye.py b/bin/Barreleye.py
-index a1e7688..615b977 100755
---- a/bin/Barreleye.py
-+++ b/bin/Barreleye.py
-@@ -6,6 +6,12 @@ FLASH_DOWNLOAD_PATH = "/tmp"
- GPIO_BASE = 320
- SYSTEM_NAME = "Barreleye"
+diff --git a/objects/control_host_obj.c b/objects/control_host_obj.c
+index 672ef85..9297e52 100644
+--- a/objects/control_host_obj.c
++++ b/objects/control_host_obj.c
+@@ -21,6 +21,7 @@ GPIO fsi_data     = (GPIO){ "FSI_DATA" };
+ GPIO fsi_clk      = (GPIO){ "FSI_CLK" };
+ GPIO fsi_enable   = (GPIO){ "FSI_ENABLE" };
+ GPIO cronus_sel   = (GPIO){ "CRONUS_SEL" };
++GPIO Throttle     = (GPIO){ "BMC_TROTTLE" };
  
-+import sys
-+import gobject
-+import dbus
-+import dbus.service
-+import dbus.mainloop.glib
+ /* Bit bang patterns */
+ 
+@@ -82,6 +83,9 @@ on_boot         (ControlHost        *host,
+ {
+ 	int rc = GPIO_OK;
+ 
++	rc = gpio_open(&Throttle);
++	rc = gpio_write(&Throttle,1);
 +
- ## System states
- ##   state can change to next state in 2 ways:
- ##   - a process emits a GotoSystemState signal with state name to goto
-@@ -472,9 +478,12 @@ GPIO_CONFIG['PGOOD']      =   { 'gpio_pin': 'C7', 'direction': 'in'  }
- GPIO_CONFIG['IDENTIFY']   =   { 'gpio_pin': 'R5', 'direction': 'out' }
- GPIO_CONFIG['BMC_READY']   =  { 'gpio_pin': 'H2', 'direction': 'out' }
- GPIO_CONFIG['POWER_BUTTON'] = { 'gpio_pin': 'E0', 'direction': 'both' }
-+GPIO_CONFIG['RESET_BUTTON'] = { 'gpio_pin': 'E2', 'direction': 'both' }
- GPIO_CONFIG['PCIE_RESET']   = { 'gpio_pin': 'B5', 'direction': 'out' }
- GPIO_CONFIG['USB_RESET']    = { 'gpio_pin': 'B6', 'direction': 'out' }
- GPIO_CONFIG['BEEP']    	  =   { 'gpio_pin': 'N7', 'direction': 'out' }
-+GPIO_CONFIG['BMC_TROTTLE']    	  =   { 'gpio_pin': 'J3', 'direction': 'out' }
-+GPIO_CONFIG['BMC_HEARTBEAT']    	  =   { 'gpio_pin': 'R4', 'direction': 'out' }
- GPIO_CONFIG['SLOT0_RISER_PRESENT'] =   { 'gpio_pin': 'N0', 'direction': 'in' }
- GPIO_CONFIG['SLOT1_RISER_PRESENT'] =   { 'gpio_pin': 'N1', 'direction': 'in' }
- GPIO_CONFIG['SLOT2_RISER_PRESENT'] =   { 'gpio_pin': 'N2', 'direction': 'in' }
-@@ -484,6 +493,14 @@ GPIO_CONFIG['SLOT2_PRESENT'] =         { 'gpio_pin': 'N5', 'direction': 'in' }
- GPIO_CONFIG['MEZZ0_PRESENT'] =         { 'gpio_pin': 'O0', 'direction': 'in' }
- GPIO_CONFIG['MEZZ1_PRESENT'] =         { 'gpio_pin': 'O1', 'direction': 'in' }
- 
-+
-+## bus = dbus.SystemBus()
-+## for i in range(1,6):
-+##  print i
-+##  obj = bus.get_object("org.openbmc,sensors,hwmon","/org/openbmc/sensors/speed/fan"+str(i))
-+##  intf = dbus.Interface (obj,"org.openbmc.SensorValue")
-+##  intf.setValue(dbus.UInt32(255))
-+
- def convertGpio(name):
- 	name = name.upper()
- 	c = name[0:1]
-diff --git a/objects/led_controller.c b/objects/led_controller.c
-index 34945e1..383e9ea 100755
---- a/objects/led_controller.c
-+++ b/objects/led_controller.c
-@@ -10,12 +10,13 @@ static const gchar* dbus_name        = "org.openbmc.control.led";
- 
- static GDBusObjectManagerServer *manager = NULL;
- 
--#define  NUM_GPIO 3
-+#define  NUM_GPIO 4
- 
- GPIO led_gpio[NUM_GPIO] = { 
- 	(GPIO){"IDENTIFY"},
- 	(GPIO){"BMC_READY"},
--	(GPIO){"BEEP"}
-+	(GPIO){"BEEP"},
-+        (GPIO){"BMC_HEARTBEAT"}
- };
- 
- 
+ 	if (control_host_get_debug_mode(host)==1)
+ 	{
+ 		g_print("Enabling debug mode; not booting host\n");
+@@ -165,7 +169,7 @@ on_boot         (ControlHost        *host,
+ 	gpio_close(&fsi_data);
+ 	gpio_close(&fsi_enable);
+ 	gpio_close(&cronus_sel);
+-
++	gpio_close(&Throttle);
+ 	control_host_emit_booted(host);
+ 	return TRUE;
+ }
 -- 
 2.6.3
