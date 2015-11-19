@@ -1,52 +1,52 @@
-Return-Path: <stewart@linux.vnet.ibm.com>
-Received: from e39.co.us.ibm.com (e39.co.us.ibm.com [32.97.110.160])
- (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-oi0-x22c.google.com (mail-oi0-x22c.google.com
+ [IPv6:2607:f8b0:4003:c06::22c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 265D71A0007
- for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2015 14:32:47 +1100 (AEDT)
-Received: from localhost
- by e39.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
- Wed, 18 Nov 2015 20:32:44 -0700
-Received: from d01dlp02.pok.ibm.com (9.56.250.167)
- by e39.co.us.ibm.com (192.168.1.139) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 18 Nov 2015 20:32:44 -0700
-X-IBM-Helo: d01dlp02.pok.ibm.com
-X-IBM-MailFrom: stewart@linux.vnet.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
- [9.57.198.29])
- by d01dlp02.pok.ibm.com (Postfix) with ESMTP id D6A456E803F
- for <openbmc@lists.ozlabs.org>; Wed, 18 Nov 2015 22:20:52 -0500 (EST)
-Received: from d01av02.pok.ibm.com (d01av02.pok.ibm.com [9.56.224.216])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- tAJ3WgBS55902352
- for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2015 03:32:42 GMT
-Received: from d01av02.pok.ibm.com (localhost [127.0.0.1])
- by d01av02.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- tAJ3WgV3017672
- for <openbmc@lists.ozlabs.org>; Wed, 18 Nov 2015 22:32:42 -0500
-Received: from oc8180480414.ibm.com ([9.81.199.205])
- by d01av02.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with SMTP id
- tAJ3WXv3017217; Wed, 18 Nov 2015 22:32:41 -0500
-Received: by oc8180480414.ibm.com (Postfix, from userid 500)
- id CF736575C; Thu, 19 Nov 2015 14:32:31 +1100 (AEDT)
-From: Stewart Smith <stewart@linux.vnet.ibm.com>
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH phosphor-host-ipmid] Initial autotools support
-In-Reply-To: <1447902029-2805-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1447902029-2805-1-git-send-email-openbmc-patches@stwcx.xyz>
-User-Agent: Notmuch/0.18+16~gec02089 (http://notmuchmail.org) Emacs/23.1.1
- (x86_64-redhat-linux-gnu)
-Date: Thu, 19 Nov 2015 14:32:31 +1100
-Message-ID: <m3vb8yslyo.fsf@oc8180480414.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 91A1F1A0352
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2015 15:09:54 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=GEmt3QsJ; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=T2IMsrdR; 
+ dkim-atps=neutral
+Received: by oige206 with SMTP id e206so38040801oig.2
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Nov 2015 20:09:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-type;
+ bh=y5GYvc4mKW76eGg6pJDpxyIrfY5Mt65k8qGK+XsDo5k=;
+ b=GEmt3QsJoIPssHZ+Q21CEFSzjdIqzUMBk6P6bfoD2FfMIzQO1ev+QU48recTLJHMTy
+ 34F4qbh3ERlWp3X8/YWhwOLjVvWtNP6pTH87nYjsdr+BE1ICGfyDVkhrozlfekcKo9CG
+ fs5kpSMZu6Y6T6q1iImvm50Y3cH/CfOnzKEnrd9+xdmqxN+LDhcDGvqnbmGFPQHptmMQ
+ aKqIdcU1yRd4FgWowQaM67dAmjOmOkmT2srMTlxvuc2xD+B94ioIYTQjAy4LIPqTOl4l
+ bDJFMAthJkd/vvIxUFAocAOE20rKHp1eVfo7P4AB9NT9fV8znqBK3J6sOp/d1J5J0H82
+ ZYCw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-type;
+ bh=y5GYvc4mKW76eGg6pJDpxyIrfY5Mt65k8qGK+XsDo5k=;
+ b=T2IMsrdR2jkMDhEubE05YMddZeJhA414DFMPnY6mEH+gVeW1kKlaN+dE5fGH3dYjGG
+ Uy8yT6yPk+prwIBLPiAvVERQ5WFwn8teq9l5ydRa3hOYMGB584xY8TDh+xfM66k8g0yG
+ YV+TYPJQT75D08wt4WBDnZrLASBwigOe8ZyDQ=
+X-Received: by 10.202.206.130 with SMTP id e124mr3372552oig.132.1447906192274; 
+ Wed, 18 Nov 2015 20:09:52 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 15111903-0033-0000-0000-000006E65811
+Sender: joel.stan@gmail.com
+Received: by 10.202.226.10 with HTTP; Wed, 18 Nov 2015 20:09:32 -0800 (PST)
+In-Reply-To: <8AE72D0A-C340-4F18-A06C-E0907893B453@fuzziesquirrel.com>
+References: <1447821019-21779-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1447821019-21779-2-git-send-email-openbmc-patches@stwcx.xyz>
+ <8AE72D0A-C340-4F18-A06C-E0907893B453@fuzziesquirrel.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 19 Nov 2015 14:39:32 +1030
+X-Google-Sender-Auth: 6HANO6z2tUiTxTDnY2MAYD11jm8
+Message-ID: <CACPK8XdERZ59uZvAT87Ut3=Ae4diCp+o6dcdb8r0P432hv57gg@mail.gmail.com>
+Subject: Re: [PATCH openbmc] meta-phosphor: Update kernel version
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -58,24 +58,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Nov 2015 03:32:48 -0000
+X-List-Received-Date: Thu, 19 Nov 2015 04:09:55 -0000
 
-OpenBMC Patches <openbmc-patches@stwcx.xyz> writes:
-> This switches us over to use autotools rather than custom makefiles.
-> This brings us into line with the defacto standard for building
-> userspace.
+On Thu, Nov 19, 2015 at 1:38 PM, Brad Bishop
+<bradleyb@fuzziesquirrel.com> wrote:
+> Should this be 4.3 ?
 
-I haven't converted everything yet, and I've really only started to poke
-at what makes sense for the current structure of everything.
+Yes, good catch.
 
-There's a magic thing we could use for plugins too, which allows in tree
-and out of tree, and I haven't started using it.
-See https://autotools.io/libtool/plugins.html
+I'm not sure how necessary these strings are. I'll take a close look
+at the bitbake recipe.
 
-But first I wanted to raise the possibility of autotools and what it
-kind of looks like.
+Cheers,
 
-We should also move to explicit exposure of symbols rather than
-exporting everything.
-
-thoughts?
+Joel
