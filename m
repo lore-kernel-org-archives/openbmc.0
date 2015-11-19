@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 758D51A09F0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 955971A0A50
  for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2015 14:00:58 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 144790204290592.70184449616568;
- Wed, 18 Nov 2015 19:00:42 -0800 (PST)
+ with SMTPS id 1447902044517331.0096827626685;
+ Wed, 18 Nov 2015 19:00:44 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton v2 4/9] Remove ;
-Date: Wed, 18 Nov 2015 22:00:34 -0500
-Message-Id: <1447902039-2898-5-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v2 6/9] Workarounf for fan PWM 100%
+Date: Wed, 18 Nov 2015 22:00:36 -0500
+Message-Id: <1447902039-2898-7-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1447902039-2898-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1447902039-2898-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -33,22 +33,25 @@ X-List-Received-Date: Thu, 19 Nov 2015 03:00:59 -0000
 From: Ken <ken.sk.lai@mail.foxconn.com>
 
 ---
- objects/led_controller.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ bin/startup_hacks.sh | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/objects/led_controller.c b/objects/led_controller.c
-index 24cfc19..34945e1 100755
---- a/objects/led_controller.c
-+++ b/objects/led_controller.c
-@@ -71,7 +71,8 @@ on_set_off       (Led          *led,
+diff --git a/bin/startup_hacks.sh b/bin/startup_hacks.sh
+index 5868e8a..603fc1c 100755
+--- a/bin/startup_hacks.sh
++++ b/bin/startup_hacks.sh
+@@ -11,3 +11,12 @@ echo 0x2e > /sys/bus/i2c/devices/i2c-6/delete_device
+ echo nct7904 0x2e > /sys/bus/i2c/devices/i2c-6/new_device
+ echo nct7904 0x2d > /sys/bus/i2c/devices/i2c-6/new_device
  
- void init_led(Led* led, GPIO* mygpio)
- {
--	int rc = GPIO_OK;;
-+	int rc = GPIO_OK;
++echo 255 > /sys/class/hwmon/hwmon1/pwm1
++echo 255 > /sys/class/hwmon/hwmon1/pwm2
++echo 255 > /sys/class/hwmon/hwmon1/pwm3
++echo 255 > /sys/class/hwmon/hwmon1/pwm4
 +
- 	do {
- 		uint8_t val;
- 		rc = gpio_open(mygpio);
++echo 255 > /sys/class/hwmon/hwmon2/pwm1
++echo 255 > /sys/class/hwmon/hwmon2/pwm2
++echo 255 > /sys/class/hwmon/hwmon2/pwm3
++echo 255 > /sys/class/hwmon/hwmon2/pwm4
 -- 
 2.6.3
