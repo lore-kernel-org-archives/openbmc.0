@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id A16D21A0191
+ by lists.ozlabs.org (Postfix) with ESMTPS id AD7C01A01D6
  for <openbmc@lists.ozlabs.org>; Fri, 20 Nov 2015 12:00:49 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1447981242943659.5559571192636;
- Thu, 19 Nov 2015 17:00:42 -0800 (PST)
+ with SMTPS id 1447981241274232.39173060355301;
+ Thu, 19 Nov 2015 17:00:41 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton v3 11/19] LED test
-Date: Thu, 19 Nov 2015 20:00:25 -0500
-Message-Id: <1447981233-5573-12-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v3 09/19] Init BMC_THROTTLE GPIO to high
+Date: Thu, 19 Nov 2015 20:00:23 -0500
+Message-Id: <1447981233-5573-10-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1447981233-5573-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1447981233-5573-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -33,75 +33,39 @@ X-List-Received-Date: Fri, 20 Nov 2015 01:00:50 -0000
 From: Ken <ken.sk.lai@mail.foxconn.com>
 
 ---
- bin/Barreleye.py         |  1 +
- objects/led_controller.c | 16 +++++++++++++---
- 2 files changed, 14 insertions(+), 3 deletions(-)
- mode change 100644 => 100755 objects/led_controller.c
+ objects/control_host_obj.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/bin/Barreleye.py b/bin/Barreleye.py
-index 3782766..9f3d1d1 100755
---- a/bin/Barreleye.py
-+++ b/bin/Barreleye.py
-@@ -470,6 +470,7 @@ GPIO_CONFIG['BMC_READY']   =  { 'gpio_pin': 'H2', 'direction': 'out' }
- GPIO_CONFIG['POWER_BUTTON'] = { 'gpio_pin': 'E0', 'direction': 'both' }
- GPIO_CONFIG['PCIE_RESET']   = { 'gpio_pin': 'B5', 'direction': 'out' }
- GPIO_CONFIG['USB_RESET']    = { 'gpio_pin': 'B6', 'direction': 'out' }
-+GPIO_CONFIG['BEEP']    	  =   { 'gpio_pin': 'N7', 'direction': 'out' }
- GPIO_CONFIG['SLOT0_RISER_PRESENT'] =   { 'gpio_pin': 'N0', 'direction': 'in' }
- GPIO_CONFIG['SLOT1_RISER_PRESENT'] =   { 'gpio_pin': 'N1', 'direction': 'in' }
- GPIO_CONFIG['SLOT2_RISER_PRESENT'] =   { 'gpio_pin': 'N2', 'direction': 'in' }
-diff --git a/objects/led_controller.c b/objects/led_controller.c
-old mode 100644
-new mode 100755
-index 8c3fa3c..5bb4542
---- a/objects/led_controller.c
-+++ b/objects/led_controller.c
-@@ -10,11 +10,12 @@ static const gchar* dbus_name        = "org.openbmc.control.led";
+diff --git a/objects/control_host_obj.c b/objects/control_host_obj.c
+index 672ef85..9297e52 100644
+--- a/objects/control_host_obj.c
++++ b/objects/control_host_obj.c
+@@ -21,6 +21,7 @@ GPIO fsi_data     = (GPIO){ "FSI_DATA" };
+ GPIO fsi_clk      = (GPIO){ "FSI_CLK" };
+ GPIO fsi_enable   = (GPIO){ "FSI_ENABLE" };
+ GPIO cronus_sel   = (GPIO){ "CRONUS_SEL" };
++GPIO Throttle     = (GPIO){ "BMC_TROTTLE" };
  
- static GDBusObjectManagerServer *manager = NULL;
+ /* Bit bang patterns */
  
--#define  NUM_GPIO 2
-+#define  NUM_GPIO 3
- 
- GPIO led_gpio[NUM_GPIO] = { 
- 	(GPIO){"IDENTIFY"},
--	(GPIO){"BMC_READY"}
-+	(GPIO){"BMC_READY"},
-+	(GPIO){"BEEP"}
- };
- 
- 
-@@ -67,21 +68,30 @@ on_set_off       (Led          *led,
- 	return TRUE;
- }
- 
-+int tmp=0;
- void init_led(Led* led, GPIO* mygpio)
+@@ -82,6 +83,9 @@ on_boot         (ControlHost        *host,
  {
  	int rc = GPIO_OK;
-+	int i=5;
-+	tmp++;
- 	do {
- 		uint8_t val;
- 		rc = gpio_open(mygpio);
- 		if (rc != GPIO_OK) { break; }
- 		rc = gpio_read(mygpio,&val);
- 		if (rc != GPIO_OK) { break; }
-+		led_set_state(led,"off");
- 		if (val == 0) {
- 			led_set_state(led,"on");
- 		} else {
- 			led_set_state(led,"off");
- 		}
--	} while(0);
-+	i--;
-+	} while(i!=0);
-+	
-+if(tmp==3)
-+	led_set_state(led,"off");
+ 
++	rc = gpio_open(&Throttle);
++	rc = gpio_write(&Throttle,1);
 +
- 	gpio_close(mygpio);
- 	if (rc != GPIO_OK) {
- 		g_print("ERROR led controller: GPIO error %s (rc=%d)\n",
+ 	if (control_host_get_debug_mode(host)==1)
+ 	{
+ 		g_print("Enabling debug mode; not booting host\n");
+@@ -165,7 +169,7 @@ on_boot         (ControlHost        *host,
+ 	gpio_close(&fsi_data);
+ 	gpio_close(&fsi_enable);
+ 	gpio_close(&cronus_sel);
+-
++	gpio_close(&Throttle);
+ 	control_host_emit_booted(host);
+ 	return TRUE;
+ }
 -- 
 2.6.3
