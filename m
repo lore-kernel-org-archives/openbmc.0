@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 9D9371A026D
+ by lists.ozlabs.org (Postfix) with ESMTPS id A4FDC1A0331
  for <openbmc@lists.ozlabs.org>; Fri, 20 Nov 2015 12:00:52 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 144798124621159.79609415232301;
- Thu, 19 Nov 2015 17:00:46 -0800 (PST)
+ with SMTPS id 1447981236823720.9769998899949;
+ Thu, 19 Nov 2015 17:00:36 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton v3 14/19] Remove ;
-Date: Thu, 19 Nov 2015 20:00:28 -0500
-Message-Id: <1447981233-5573-15-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v3 04/19] Remove ;
+Date: Thu, 19 Nov 2015 20:00:18 -0500
+Message-Id: <1447981233-5573-5-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1447981233-5573-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1447981233-5573-1-git-send-email-openbmc-patches@stwcx.xyz>
