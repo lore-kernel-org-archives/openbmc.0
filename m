@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id AD7C01A01D6
- for <openbmc@lists.ozlabs.org>; Fri, 20 Nov 2015 12:00:49 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 962B71A0191
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Nov 2015 12:00:50 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1447981241274232.39173060355301;
- Thu, 19 Nov 2015 17:00:41 -0800 (PST)
+ with SMTPS id 1447981244881280.3910270236918;
+ Thu, 19 Nov 2015 17:00:44 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton v3 09/19] Init BMC_THROTTLE GPIO to high
-Date: Thu, 19 Nov 2015 20:00:23 -0500
-Message-Id: <1447981233-5573-10-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v3 13/19] LED test3
+Date: Thu, 19 Nov 2015 20:00:27 -0500
+Message-Id: <1447981233-5573-14-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1447981233-5573-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1447981233-5573-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,44 +28,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Nov 2015 01:00:50 -0000
+X-List-Received-Date: Fri, 20 Nov 2015 01:00:51 -0000
 
 From: Ken <ken.sk.lai@mail.foxconn.com>
 
 ---
- objects/control_host_obj.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ objects/led_controller.c | 13 +++----------
+ 1 file changed, 3 insertions(+), 10 deletions(-)
 
-diff --git a/objects/control_host_obj.c b/objects/control_host_obj.c
-index 672ef85..9297e52 100644
---- a/objects/control_host_obj.c
-+++ b/objects/control_host_obj.c
-@@ -21,6 +21,7 @@ GPIO fsi_data     = (GPIO){ "FSI_DATA" };
- GPIO fsi_clk      = (GPIO){ "FSI_CLK" };
- GPIO fsi_enable   = (GPIO){ "FSI_ENABLE" };
- GPIO cronus_sel   = (GPIO){ "CRONUS_SEL" };
-+GPIO Throttle     = (GPIO){ "BMC_TROTTLE" };
- 
- /* Bit bang patterns */
- 
-@@ -82,6 +83,9 @@ on_boot         (ControlHost        *host,
- {
- 	int rc = GPIO_OK;
- 
-+	rc = gpio_open(&Throttle);
-+	rc = gpio_write(&Throttle,1);
-+
- 	if (control_host_get_debug_mode(host)==1)
- 	{
- 		g_print("Enabling debug mode; not booting host\n");
-@@ -165,7 +169,7 @@ on_boot         (ControlHost        *host,
- 	gpio_close(&fsi_data);
- 	gpio_close(&fsi_enable);
- 	gpio_close(&cronus_sel);
--
-+	gpio_close(&Throttle);
- 	control_host_emit_booted(host);
+diff --git a/objects/led_controller.c b/objects/led_controller.c
+index 6f773c9..24cfc19 100755
+--- a/objects/led_controller.c
++++ b/objects/led_controller.c
+@@ -68,30 +68,23 @@ on_set_off       (Led          *led,
  	return TRUE;
  }
+ 
+-//int tmp=0;
++
+ void init_led(Led* led, GPIO* mygpio)
+ {
+-	int rc = GPIO_OK;
+-	int i=5;
+-//	tmp++;
++	int rc = GPIO_OK;;
+ 	do {
+-		sleep(2);
+ 		uint8_t val;
+ 		rc = gpio_open(mygpio);
+ 		if (rc != GPIO_OK) { break; }
+ 		rc = gpio_read(mygpio,&val);
+ 		if (rc != GPIO_OK) { break; }
+-		led_set_state(led,"off");
+ 		if (val == 0) {
+ 			led_set_state(led,"on");
+ 		} else {
+ 			led_set_state(led,"off");
+ 		}
+-	i--;
+-	} while(i!=0);
++	} while(0);
+ 	
+-//if(tmp==3)
+-//	led_set_state(led,"off");
+ 
+ 	gpio_close(mygpio);
+ 	if (rc != GPIO_OK) {
 -- 
 2.6.3
