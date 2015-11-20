@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id A4FDC1A0331
+ by lists.ozlabs.org (Postfix) with ESMTPS id 052331A03BA
  for <openbmc@lists.ozlabs.org>; Fri, 20 Nov 2015 12:00:52 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1447981236823720.9769998899949;
- Thu, 19 Nov 2015 17:00:36 -0800 (PST)
+ with SMTPS id 1447981247953791.0240624381128;
+ Thu, 19 Nov 2015 17:00:47 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton v3 04/19] Remove ;
-Date: Thu, 19 Nov 2015 20:00:18 -0500
-Message-Id: <1447981233-5573-5-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v3 16/19] Workarounf for fan PWM 100%
+Date: Thu, 19 Nov 2015 20:00:30 -0500
+Message-Id: <1447981233-5573-17-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1447981233-5573-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1447981233-5573-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -33,22 +33,37 @@ X-List-Received-Date: Fri, 20 Nov 2015 01:00:53 -0000
 From: Ken <ken.sk.lai@mail.foxconn.com>
 
 ---
- objects/led_controller.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ bin/startup_hacks.sh | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/objects/led_controller.c b/objects/led_controller.c
-index 24cfc19..34945e1 100755
---- a/objects/led_controller.c
-+++ b/objects/led_controller.c
-@@ -71,7 +71,8 @@ on_set_off       (Led          *led,
+diff --git a/bin/startup_hacks.sh b/bin/startup_hacks.sh
+index 18582ae..214e08d 100755
+--- a/bin/startup_hacks.sh
++++ b/bin/startup_hacks.sh
+@@ -2,3 +2,24 @@
  
- void init_led(Led* led, GPIO* mygpio)
- {
--	int rc = GPIO_OK;;
-+	int rc = GPIO_OK;
+ systemctl stop serial-getty@ttyS0
+ 
++<<<<<<< HEAD
++=======
++echo nct7904 0x2e > /sys/bus/i2c/devices/i2c-6/new_device
++echo nct7904 0x2d > /sys/bus/i2c/devices/i2c-6/new_device
 +
- 	do {
- 		uint8_t val;
- 		rc = gpio_open(mygpio);
++echo 0x2d > /sys/bus/i2c/devices/i2c-6/delete_device
++echo 0x2e > /sys/bus/i2c/devices/i2c-6/delete_device
++
++echo nct7904 0x2e > /sys/bus/i2c/devices/i2c-6/new_device
++echo nct7904 0x2d > /sys/bus/i2c/devices/i2c-6/new_device
++
++echo 255 > /sys/class/hwmon/hwmon1/pwm1
++echo 255 > /sys/class/hwmon/hwmon1/pwm2
++echo 255 > /sys/class/hwmon/hwmon1/pwm3
++echo 255 > /sys/class/hwmon/hwmon1/pwm4
++
++echo 255 > /sys/class/hwmon/hwmon2/pwm1
++echo 255 > /sys/class/hwmon/hwmon2/pwm2
++echo 255 > /sys/class/hwmon/hwmon2/pwm3
++echo 255 > /sys/class/hwmon/hwmon2/pwm4
++>>>>>>> Workarounf for fan PWM 100%
 -- 
 2.6.3
