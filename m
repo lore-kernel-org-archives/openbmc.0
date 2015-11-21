@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id F30D21A00C5
- for <openbmc@lists.ozlabs.org>; Sat, 21 Nov 2015 11:10:29 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 340201A00E9
+ for <openbmc@lists.ozlabs.org>; Sat, 21 Nov 2015 17:20:22 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448064623916704.4921636899238;
- Fri, 20 Nov 2015 16:10:23 -0800 (PST)
+ with SMTPS id 1448086819819736.6942783123585;
+ Fri, 20 Nov 2015 22:20:19 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux] device tree not compiling
-Date: Fri, 20 Nov 2015 19:10:22 -0500
-Message-Id: <1448064623-12049-1-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc] systems can power on without fans powering on
+Date: Sat, 21 Nov 2015 01:20:18 -0500
+Message-Id: <1448086819-24938-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -25,19 +25,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 21 Nov 2015 00:10:30 -0000
+X-List-Received-Date: Sat, 21 Nov 2015 06:20:23 -0000
 
-Needed to remove the 0x and make things lower case
+Tested and verified this does work
 
-Signed-off-by: Chris Austen <austenc@us.ibm.com>
-
-https://github.com/openbmc/linux/pull/20
+https://github.com/openbmc/openbmc/pull/95
 
 Chris Austen (1):
-  device tree not compiling
+  systems can power on without fans powering on
 
- arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 -- 
 2.6.3
