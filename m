@@ -3,19 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id F24C91A0100
- for <openbmc@lists.ozlabs.org>; Sat, 21 Nov 2015 17:20:25 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id D27A51A01B2
+ for <openbmc@lists.ozlabs.org>; Sun, 22 Nov 2015 05:10:30 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448086820938705.6261249293533;
- Fri, 20 Nov 2015 22:20:20 -0800 (PST)
+ with SMTPS id 1448129425472672.4405404910057;
+ Sat, 21 Nov 2015 10:10:25 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc] systems can power on without fans powering on
-Date: Sat, 21 Nov 2015 01:20:19 -0500
-Message-Id: <1448086819-24938-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid v2] IPMI soft power off
+Date: Sat, 21 Nov 2015 13:10:23 -0500
+Message-Id: <1448129424-11374-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1448086819-24938-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1448086819-24938-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -27,26 +25,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 21 Nov 2015 06:20:26 -0000
+X-List-Received-Date: Sat, 21 Nov 2015 18:10:31 -0000
 
-From: Chris Austen <austenc@us.ibm.com>
+https://github.com/openbmc/phosphor-host-ipmid/pull/41
 
----
- meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+vishwa (1):
+  IPMI soft power off
 
-diff --git a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
-index 87c5a55..c3d240a 100644
---- a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
-+++ b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
-@@ -16,7 +16,7 @@ DEPENDS += "glib-2.0"
- RDEPENDS_${PN} += "python-subprocess python-tftpy"
- SRC_URI += "git://github.com/openbmc/skeleton"
- 
--SRCREV = "981f4dc59f23668b567949527c8e9585c2ab7089"
-+SRCREV = "af915f1251b4989f41829f9ae8589b42ef81efd7"
- 
- S = "${WORKDIR}"
- 
+ Makefile         |   5 +--
+ apphandler.C     |  67 +++++++++++++++++++++++++++++--
+ apphandler.h     |  33 ++++++++++++++-
+ chassishandler.C |  85 ++++++++++++++++++++++++++++++++++++++-
+ chassishandler.h |  15 +++++++
+ host-services.c  | 119 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ host-services.h  |   3 ++
+ ipmid-api.h      |   4 +-
+ ipmid.C          |   6 ++-
+ ipmid.H          |   1 +
+ 10 files changed, 325 insertions(+), 13 deletions(-)
+ create mode 100644 host-services.c
+ create mode 100644 host-services.h
+
 -- 
 2.6.3
