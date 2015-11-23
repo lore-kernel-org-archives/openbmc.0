@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id BBAE81A02B0
- for <openbmc@lists.ozlabs.org>; Mon, 23 Nov 2015 20:50:15 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 281E41A039D
+ for <openbmc@lists.ozlabs.org>; Mon, 23 Nov 2015 20:50:16 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448272212165613.2716654226451;
+ with SMTPS id 1448272212801663.9252180325102;
  Mon, 23 Nov 2015 01:50:12 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH btbridge 6/7] bt_host_write: fix invalid check
-Date: Mon, 23 Nov 2015 04:50:06 -0500
-Message-Id: <1448272207-10877-7-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH btbridge 7/7] Makefile: fix linking and enable -Wall
+Date: Mon, 23 Nov 2015 04:50:07 -0500
+Message-Id: <1448272207-10877-8-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1448272207-10877-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1448272207-10877-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -27,30 +27,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 23 Nov 2015 09:50:16 -0000
+X-List-Received-Date: Mon, 23 Nov 2015 09:50:17 -0000
 
 From: Joel Stanley <joel@jms.id.au>
 
-r is uninitalised, so this check is undefined. Change it to check len
-instead.
-
 Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- btbridged.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/btbridged.c b/btbridged.c
-index 9dbed09..c57843d 100644
---- a/btbridged.c
-+++ b/btbridged.c
-@@ -361,7 +361,7 @@ static int bt_host_write(struct btbridged_context *context, struct bt_queue *bt_
- 		memcpy(data + 5, bt_msg->rsp.data, bt_msg->rsp.data_len);
- 	/* Count the data[0] byte */
- 	len = write(context->fds[BT_FD].fd, data, data[0] + 1);
--	if (r == -1) {
-+	if (len == -1) {
- 		r = errno;
- 		MSG_ERR("Error writing to %s: %s\n", BT_HOST_PATH, strerror(errno));
- 		if (bt_msg->call) {
+diff --git a/Makefile b/Makefile
+index a55897f..9d1f5b9 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,5 +1,5 @@
+-CPPFLAGS=$(shell pkg-config --cflags libsystemd)
+-LDFLAGS=$(shell pkg-config --libs libsystemd)
++CFLAGS	= $(shell pkg-config --cflags libsystemd) -Wall -O2
++LDLIBS	= $(shell pkg-config --libs libsystemd)
+ 
+ EXE = btbridged
+ 
 -- 
 2.6.3
