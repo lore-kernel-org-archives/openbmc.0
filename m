@@ -3,19 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 78E681A02B0
- for <openbmc@lists.ozlabs.org>; Mon, 23 Nov 2015 20:55:38 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 684531A02B0
+ for <openbmc@lists.ozlabs.org>; Mon, 23 Nov 2015 21:10:12 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448272210095376.39923259999296;
- Mon, 23 Nov 2015 01:50:10 -0800 (PST)
+ with SMTPS id 1448273407749687.3719574818062;
+ Mon, 23 Nov 2015 02:10:07 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH btbridge 3/7] Remove unused variables
-Date: Mon, 23 Nov 2015 04:50:03 -0500
-Message-Id: <1448272207-10877-4-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH btbridge v2 0/8] Warning fixes
+Date: Mon, 23 Nov 2015 05:09:59 -0500
+Message-Id: <1448273407-11474-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1448272207-10877-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1448272207-10877-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -27,52 +25,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 23 Nov 2015 09:55:39 -0000
+X-List-Received-Date: Mon, 23 Nov 2015 10:10:13 -0000
 
-From: Joel Stanley <joel@jms.id.au>
+These were found when building with `-Wall`. The makefile will now build with warnings enabled.
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- btbridged.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+https://github.com/openbmc/btbridge/pull/6
 
-diff --git a/btbridged.c b/btbridged.c
-index 550125c..bee4974 100644
---- a/btbridged.c
-+++ b/btbridged.c
-@@ -260,10 +260,9 @@ static int method_send_message(sd_bus_message *msg, void *userdata, sd_bus_error
- {
- 	struct btbridged_context *context;
- 	struct bt_queue *bt_msg;
--	uint8_t *data, *all_data;
--	size_t data_sz, all_data_sz;
-+	uint8_t *data;
-+	size_t data_sz;
- 	uint8_t netfn, lun, seq, cmd, cc;
--	uint64_t cookie;
- 	/*
- 	 * Doesn't say it anywhere explicitly but it looks like returning 0 or
- 	 * negative is BAD...
-@@ -477,7 +476,6 @@ static int dispatch_bt(struct btbridged_context *context)
- 
- 	if (context->fds[BT_FD].revents & POLLIN) {
- 		sd_bus_message *msg;
--		int data_len;
- 		struct bt_queue *new;
- 		uint8_t data[BT_MAX_MESSAGE] = { 0 };
- 
-@@ -599,11 +597,8 @@ static const sd_bus_vtable ipmid_vtable[] = {
- 
- int main(int argc, char *argv[]) {
- 	struct btbridged_context context;
--	struct bt_queue *bt_q;
--	const char *path;
- 	const char *name = argv[0];
--	int opt, polled, r, daemonise;
--	uint8_t buf[BT_MAX_MESSAGE];
-+	int opt, polled, r;
- 
- 	static struct option long_options[] = {
- 		{ "verbose", no_argument, &verbose, 1 },
+Joel Stanley (8):
+  Sort headers
+  Add missing include for ioctl
+  Remove unused variables
+  Fix printf format warnings
+  method_send_sms_atn: Log the ioctl number
+  bt_host_write: fix invalid check
+  Makefile: fix linking and enable -Wall
+  Makefile: Allow specifying kenrel header path
+
+ Makefile    |  8 ++++++--
+ btbridged.c | 49 +++++++++++++++++++++++--------------------------
+ 2 files changed, 29 insertions(+), 28 deletions(-)
+
 -- 
 2.6.3
