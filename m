@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4E6D41A0329
- for <openbmc@lists.ozlabs.org>; Mon, 23 Nov 2015 21:10:16 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id DFB711A06AF
+ for <openbmc@lists.ozlabs.org>; Mon, 23 Nov 2015 21:11:19 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 144827341355293.86262085754743;
- Mon, 23 Nov 2015 02:10:13 -0800 (PST)
+ with SMTPS id 144827340842297.8080255795702;
+ Mon, 23 Nov 2015 02:10:08 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH btbridge v2 8/8] Makefile: Allow specifying kenrel header path
-Date: Mon, 23 Nov 2015 05:10:07 -0500
-Message-Id: <1448273407-11474-9-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH btbridge v2 1/8] Sort headers
+Date: Mon, 23 Nov 2015 05:10:00 -0500
+Message-Id: <1448273407-11474-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1448273407-11474-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1448273407-11474-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -27,32 +27,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 23 Nov 2015 10:10:17 -0000
+X-List-Received-Date: Mon, 23 Nov 2015 10:11:20 -0000
 
 From: Joel Stanley <joel@jms.id.au>
 
-Helps with doing builds on systems where the kernel headers are not
-installed.
-
 Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- Makefile | 4 ++++
- 1 file changed, 4 insertions(+)
+ btbridged.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/Makefile b/Makefile
-index 9d1f5b9..733511c 100644
---- a/Makefile
-+++ b/Makefile
-@@ -1,6 +1,10 @@
- CFLAGS	= $(shell pkg-config --cflags libsystemd) -Wall -O2
- LDLIBS	= $(shell pkg-config --libs libsystemd)
+diff --git a/btbridged.c b/btbridged.c
+index d1de79f..7a094a4 100644
+--- a/btbridged.c
++++ b/btbridged.c
+@@ -13,22 +13,22 @@
+  *	limitations under the License.
+  */
  
-+ifdef KERNEL_HEADERS
-+	CFLAGS += -I$(KERNEL_HEADERS)
-+endif
-+
- EXE = btbridged
++#include <assert.h>
+ #include <errno.h>
++#include <fcntl.h>
++#include <getopt.h>
++#include <limits.h>
++#include <poll.h>
+ #include <stdint.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+-#include <fcntl.h>
+-#include <unistd.h>
+-#include <sys/stat.h>
++#include <syslog.h>
+ #include <sys/mman.h>
++#include <sys/stat.h>
+ #include <sys/timerfd.h>
+-#include <syslog.h>
+-#include <poll.h>
+-#include <limits.h>
+-#include <getopt.h>
+ #include <time.h>
+-#include <assert.h>
++#include <unistd.h>
  
- all: $(EXE)
+ #include <linux/bt-host.h>
+ 
 -- 
 2.6.3
