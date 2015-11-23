@@ -3,18 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4B2591A06A7
+ by lists.ozlabs.org (Postfix) with ESMTPS id 0FEBD1A06A7
  for <openbmc@lists.ozlabs.org>; Tue, 24 Nov 2015 03:10:26 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448295022146648.4320366165294;
- Mon, 23 Nov 2015 08:10:22 -0800 (PST)
+ with SMTPS id 1448295023293824.4399203767962;
+ Mon, 23 Nov 2015 08:10:23 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@us.ibm.com>
-Subject: [PATCH openbmc v2 1/3] Switch back to using in-tree Palmetto device
+Subject: [PATCH openbmc v2 2/3] Switch back to using in-tree Barreleye device
  tree
-Date: Mon, 23 Nov 2015 11:10:18 -0500
-Message-Id: <1448295020-21218-2-git-send-email-openbmc-patches@stwcx.xyz>
+Date: Mon, 23 Nov 2015 11:10:19 -0500
+Message-Id: <1448295020-21218-3-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1448295020-21218-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1448295020-21218-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,20 +29,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 23 Nov 2015 16:10:26 -0000
+X-List-Received-Date: Mon, 23 Nov 2015 16:10:27 -0000
 
 From: Brad Bishop <bradleyb@us.ibm.com>
 
 ---
- .../meta-palmetto/conf/machine/palmetto.conf       |   2 +-
- .../recipes-kernel/linux/linux-obmc/palmetto.dts   | 326 +--------------------
- .../recipes-kernel/linux/linux-obmc_%.bbappend     |   2 +-
- 3 files changed, 3 insertions(+), 327 deletions(-)
+ .../meta-barreleye/conf/machine/barreleye.conf     |   2 +-
+ .../recipes-kernel/linux/linux-obmc/barreleye.dts  | 326 +--------------------
+ .../recipes-kernel/linux/linux-obmc_%.bbappend     |   1 -
+ 3 files changed, 2 insertions(+), 327 deletions(-)
 
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/machine/palmetto.conf b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/machine/palmetto.conf
-index d57bdcb..f6256a7 100644
---- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/machine/palmetto.conf
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/machine/palmetto.conf
+diff --git a/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/conf/machine/barreleye.conf b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/conf/machine/barreleye.conf
+index c48f811..f9d31f1 100644
+--- a/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/conf/machine/barreleye.conf
++++ b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/conf/machine/barreleye.conf
 @@ -1,5 +1,5 @@
  KMACHINE = "aspeed"
 -KERNEL_DEVICETREE = "${MACHINE}.dtb"
@@ -50,18 +50,18 @@ index d57bdcb..f6256a7 100644
  
  require conf/machine/include/ast2400.inc
  require conf/machine/include/obmc-bsp-common.inc
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.dts b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.dts
-index d55096b..3b5e0f1 100644
---- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.dts
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.dts
+diff --git a/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.dts b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.dts
+index 9277307..3b5e0f1 100644
+--- a/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.dts
++++ b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.dts
 @@ -1,325 +1 @@
 -/dts-v1/;
 -
 -#include "skeleton.dtsi"
 -
 -/ {
--	model = "Palmetto BMC";
--	compatible = "tyan,palmetto-bmc", "aspeed,ast2400";
+-	model = "Barrelye BMC";
+-	compatible = "rackspace,barreleye-bmc", "aspeed,ast2400";
 -	#address-cells = <1>;
 -	#size-cells = <1>;
 -	interrupt-parent = <&vic>;
@@ -171,6 +171,10 @@ index d55096b..3b5e0f1 100644
 -						reg = <0x68>;
 -						// interrupts = <GPIOF0>
 -					};
+-					lm75@4a {
+-						compatible = "national,lm75";
+-						reg = <0x4a>;
+-					};
 -				};
 -
 -				i2c1: i2c-bus@0x80 {
@@ -187,10 +191,6 @@ index d55096b..3b5e0f1 100644
 -					bus = <2>;
 -					clock-frequency = <100000>;
 -					status = "okay";
--					tmp423@4c {
--						compatible = "ti,tmp423";
--						reg = <0x4c>;
--					};
 -				};
 -
 -				i2c3: i2c-bus@0x100 {
@@ -381,13 +381,12 @@ index d55096b..3b5e0f1 100644
 -	};
 -};
 +# use in-tree devtree
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc_%.bbappend b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc_%.bbappend
-index e4a4d85..a49c239 100644
---- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc_%.bbappend
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc_%.bbappend
-@@ -1,2 +1,2 @@
+diff --git a/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend
+index 39c2012..b106e5a 100644
+--- a/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend
++++ b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend
+@@ -1,2 +1 @@
  FILESEXTRAPATHS_prepend := "${THISDIR}/linux-obmc:"
--SRC_URI += "file://palmetto.dts file://palmetto.cfg"
-+SRC_URI += "file://palmetto.cfg"
+-SRC_URI += "file://barreleye.dts"
 -- 
 2.6.3
