@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 1379A1A02AD
- for <openbmc@lists.ozlabs.org>; Mon, 23 Nov 2015 20:50:12 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 316551A0337
+ for <openbmc@lists.ozlabs.org>; Mon, 23 Nov 2015 20:50:14 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448272208679558.3916097152998;
- Mon, 23 Nov 2015 01:50:08 -0800 (PST)
+ with SMTPS id 1448272210789486.87538964888086;
+ Mon, 23 Nov 2015 01:50:10 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH btbridge 1/7] Sort headers
-Date: Mon, 23 Nov 2015 04:50:01 -0500
-Message-Id: <1448272207-10877-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH btbridge 4/7] Fix printf format warnings
+Date: Mon, 23 Nov 2015 04:50:04 -0500
+Message-Id: <1448272207-10877-5-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1448272207-10877-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1448272207-10877-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -27,49 +27,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 23 Nov 2015 09:50:13 -0000
+X-List-Received-Date: Mon, 23 Nov 2015 09:50:14 -0000
 
 From: Joel Stanley <joel@jms.id.au>
 
 Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- btbridged.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ btbridged.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/btbridged.c b/btbridged.c
-index d1de79f..7a094a4 100644
+index bee4974..a8c84aa 100644
 --- a/btbridged.c
 +++ b/btbridged.c
-@@ -13,22 +13,22 @@
-  *	limitations under the License.
-  */
+@@ -351,7 +351,7 @@ static int bt_host_write(struct btbridged_context *context, struct bt_queue *bt_
+ 	data[3] = bt_msg->rsp.cmd;
+ 	data[4] = bt_msg->rsp.cc;
+ 	if (bt_msg->rsp.data_len > sizeof(data) - 5) {
+-		MSG_ERR("Response message size (%d) too big, truncating\n", bt_msg->rsp.data_len);
++		MSG_ERR("Response message size (%zu) too big, truncating\n", bt_msg->rsp.data_len);
+ 		bt_msg->rsp.data_len = sizeof(data) - 5;
+ 	}
+ 	/* netfn/len + seq + cmd + cc = 4 */
+@@ -524,7 +524,7 @@ static int dispatch_bt(struct btbridged_context *context)
  
-+#include <assert.h>
- #include <errno.h>
-+#include <fcntl.h>
-+#include <getopt.h>
-+#include <limits.h>
-+#include <poll.h>
- #include <stdint.h>
- #include <stdio.h>
- #include <stdlib.h>
- #include <string.h>
--#include <fcntl.h>
--#include <unistd.h>
--#include <sys/stat.h>
-+#include <syslog.h>
- #include <sys/mman.h>
-+#include <sys/stat.h>
- #include <sys/timerfd.h>
--#include <syslog.h>
--#include <poll.h>
--#include <limits.h>
--#include <getopt.h>
- #include <time.h>
--#include <assert.h>
-+#include <unistd.h>
+ 		r = sd_bus_message_append_array(msg, 'y', data + 4, new->req.data_len);
+ 		if (r < 0) {
+-			MSG_ERR("Couldn't append array to signal\n", strerror(-r));
++			MSG_ERR("Couldn't append array to signal: %s\n", strerror(-r));
+ 			goto out1_free;
+ 		}
  
- #include <linux/bt-host.h>
- 
+@@ -564,15 +564,15 @@ out1:
+ 		bt_msg = bt_q_get_msg(context);
+ 		if (!bt_msg) {
+ 			/* Odd, this shouldn't really happen */
+-			MSG_ERR("Got a POLLOUT on %s but no message is ready to be written\n");
++			MSG_ERR("Got a POLLOUT but no message is ready to be written\n");
+ 			r = 0;
+ 			goto out;
+ 		}
+ 		r = bt_host_write(context, bt_msg);
+ 		if (r < 0)
+ 			MSG_ERR("Problem putting request with seq 0x%02x, netfn 0x%02x, lun 0x%02x, cmd 0x%02x, cc 0x%02x\n"
+-					"out to %s", BT_HOST_PATH, bt_msg->rsp.seq, bt_msg->rsp.netfn, bt_msg->rsp.lun,
+-					bt_msg->rsp.cmd, bt_msg->rsp.cc);
++					"out to %s", bt_msg->rsp.seq, bt_msg->rsp.netfn, bt_msg->rsp.lun,
++					bt_msg->rsp.cmd, bt_msg->rsp.cc, BT_HOST_PATH);
+ 		else
+ 			MSG_OUT("Completed request with seq 0x%02x, netfn 0x%02x, lun 0x%02x, cmd 0x%02x, cc 0x%02x\n",
+ 					bt_msg->rsp.seq, bt_msg->rsp.netfn, bt_msg->rsp.lun, bt_msg->rsp.cmd, bt_msg->rsp.cc);
 -- 
 2.6.3
