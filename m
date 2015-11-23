@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 013211A2A8B
- for <openbmc@lists.ozlabs.org>; Tue, 24 Nov 2015 01:00:16 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 94F031A2A7D
+ for <openbmc@lists.ozlabs.org>; Tue, 24 Nov 2015 01:00:18 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448287214356741.5531775896367;
- Mon, 23 Nov 2015 06:00:14 -0800 (PST)
+ with SMTPS id 1448287215073636.5707690831115;
+ Mon, 23 Nov 2015 06:00:15 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH btbridge 5/9] method_send_sms_atn: Log the ioctl number
-Date: Mon, 23 Nov 2015 09:00:04 -0500
-Message-Id: <1448287208-17607-6-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH btbridge 6/9] bt_host_write: fix invalid check
+Date: Mon, 23 Nov 2015 09:00:05 -0500
+Message-Id: <1448287208-17607-7-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1448287208-17607-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1448287208-17607-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -27,39 +27,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 23 Nov 2015 14:00:17 -0000
+X-List-Received-Date: Mon, 23 Nov 2015 14:00:19 -0000
 
 From: Joel Stanley <joel@jms.id.au>
 
-This may help with debugging issues with old kernel headers.
+r is uninitalised, so this check is undefined. Change it to check len
+instead.
 
 Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- btbridged.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ btbridged.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/btbridged.c b/btbridged.c
-index a8c84aa..9dbed09 100644
+index 9dbed09..c57843d 100644
 --- a/btbridged.c
 +++ b/btbridged.c
-@@ -237,13 +237,14 @@ static struct bt_queue *bt_q_dequeue(struct btbridged_context *context)
- 	return r;
- }
- 
--static int method_send_sms_atn(sd_bus_message *msg, void *userdata, sd_bus_error *ret_error)
-+static int method_send_sms_atn(sd_bus_message *msg, void *userdata,
-+			       sd_bus_error *ret_error)
- {
- 	int r;
--	struct btbridged_context *bt_fd = (struct btbridged_context *)userdata;
--
--	MSG_OUT("Sending SMS_ATN ioctl() to %s\n", BT_HOST_PATH);
-+	struct btbridged_context *bt_fd = userdata;
- 
-+	MSG_OUT("Sending SMS_ATN ioctl (%d) to %s\n",
-+			BT_HOST_IOCTL_SMS_ATN, BT_HOST_PATH);
- 
- 	r = ioctl(bt_fd->fds[BT_FD].fd, BT_HOST_IOCTL_SMS_ATN);
- 	if (r == -1) {
+@@ -361,7 +361,7 @@ static int bt_host_write(struct btbridged_context *context, struct bt_queue *bt_
+ 		memcpy(data + 5, bt_msg->rsp.data, bt_msg->rsp.data_len);
+ 	/* Count the data[0] byte */
+ 	len = write(context->fds[BT_FD].fd, data, data[0] + 1);
+-	if (r == -1) {
++	if (len == -1) {
+ 		r = errno;
+ 		MSG_ERR("Error writing to %s: %s\n", BT_HOST_PATH, strerror(errno));
+ 		if (bt_msg->call) {
 -- 
 2.6.3
