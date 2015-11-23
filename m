@@ -3,17 +3,21 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 1CB3C1A06A7
- for <openbmc@lists.ozlabs.org>; Tue, 24 Nov 2015 03:10:24 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4B2591A06A7
+ for <openbmc@lists.ozlabs.org>; Tue, 24 Nov 2015 03:10:26 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448295020697982.6325322309536;
- Mon, 23 Nov 2015 08:10:20 -0800 (PST)
+ with SMTPS id 1448295022146648.4320366165294;
+ Mon, 23 Nov 2015 08:10:22 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v2 0/3] switch back to in-tree device trees
-Date: Mon, 23 Nov 2015 11:10:17 -0500
-Message-Id: <1448295020-21218-1-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: Brad Bishop <bradleyb@us.ibm.com>
+Subject: [PATCH openbmc v2 1/3] Switch back to using in-tree Palmetto device
+ tree
+Date: Mon, 23 Nov 2015 11:10:18 -0500
+Message-Id: <1448295020-21218-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
+In-Reply-To: <1448295020-21218-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1448295020-21218-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -25,26 +29,365 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 23 Nov 2015 16:10:25 -0000
+X-List-Received-Date: Mon, 23 Nov 2015 16:10:26 -0000
 
-https://github.com/openbmc/openbmc/pull/89
+From: Brad Bishop <bradleyb@us.ibm.com>
 
-Brad Bishop (3):
-  Switch back to using in-tree Palmetto device tree
-  Switch back to using in-tree Barreleye device tree
-  Update kernel version
-
+---
  .../meta-palmetto/conf/machine/palmetto.conf       |   2 +-
  .../recipes-kernel/linux/linux-obmc/palmetto.dts   | 326 +--------------------
  .../recipes-kernel/linux/linux-obmc_%.bbappend     |   2 +-
- .../meta-barreleye/conf/machine/barreleye.conf     |   2 +-
- .../recipes-kernel/linux/linux-obmc/barreleye.dts  | 326 +--------------------
- .../recipes-kernel/linux/linux-obmc_%.bbappend     |   1 -
- .../common/recipes-kernel/linux/linux-obmc_4.2.bb  |  30 --
- .../common/recipes-kernel/linux/linux-obmc_4.3.bb  |  30 ++
- 8 files changed, 35 insertions(+), 684 deletions(-)
- delete mode 100644 meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.2.bb
- create mode 100644 meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.3.bb
+ 3 files changed, 3 insertions(+), 327 deletions(-)
 
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/machine/palmetto.conf b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/machine/palmetto.conf
+index d57bdcb..f6256a7 100644
+--- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/machine/palmetto.conf
++++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/machine/palmetto.conf
+@@ -1,5 +1,5 @@
+ KMACHINE = "aspeed"
+-KERNEL_DEVICETREE = "${MACHINE}.dtb"
++KERNEL_DEVICETREE = "${KMACHINE}-bmc-opp-${MACHINE}.dtb"
+ 
+ require conf/machine/include/ast2400.inc
+ require conf/machine/include/obmc-bsp-common.inc
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.dts b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.dts
+index d55096b..3b5e0f1 100644
+--- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.dts
++++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.dts
+@@ -1,325 +1 @@
+-/dts-v1/;
+-
+-#include "skeleton.dtsi"
+-
+-/ {
+-	model = "Palmetto BMC";
+-	compatible = "tyan,palmetto-bmc", "aspeed,ast2400";
+-	#address-cells = <1>;
+-	#size-cells = <1>;
+-	interrupt-parent = <&vic>;
+-
+-	aliases {
+-		serial0 = &uart5;
+-	};
+-
+-	chosen {
+-		stdout-path = &uart5;
+-		bootargs = "console=ttyS4,38400";
+-	};
+-
+-	memory {
+-		reg = < 0x40000000 0x10000000 >;
+-	};
+-
+-	cpus {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-
+-		cpu@0 {
+-			compatible = "arm,arm926ej-s";
+-			device_type = "cpu";
+-			reg = <0>;
+-		};
+-	};
+-
+-	// FIXME
+-	clocks {
+-		// Do a proper driver... for now, we know the straps
+-		// and uboot config on palmetto are:
+-		// - CLKIN is 48Mhz
+-		// - HPLL is 384Mhz
+-		// - CPU:AHB is strapped 2:1
+-		// - PCLK is HPLL/8 = 48Mhz
+-		clk_apb: clk_apb {
+-			#clock-cells = <0>;
+-			compatible = "fixed-clock";
+-			clock-frequency = <48000000>;
+-		};
+-		clk_hpll: clk_hpll {
+-			#clock-cells = <0>;
+-			compatible = "fixed-clock";
+-			clock-frequency = <384000000>;
+-		};
+-	};
+-
+-	ahb {
+-		compatible = "simple-bus";
+-		#address-cells = <1>;
+-		#size-cells = <1>;
+-		ranges;
+-
+-		vic: interrupt-controller@1e6c0080 {
+-			compatible = "aspeed,new-vic";
+-	     		interrupt-controller;
+-			#interrupt-cells = <1>;
+-			valid-sources = < 0xffffffff 0x0007ffff>;
+-			reg = <0x1e6c0080 0x80>;
+-		};
+-
+-		mac0: ethernet@1e660000 {
+-			compatible = "faraday,ftgmac100", "aspeed,ast2400-mac";
+-			reg = <0x1e660000 0x180>;
+-			interrupts = <2>;
+-			use-nc-si;
+-			no-hw-checksum;
+-		};
+-
+-		apb {
+-			compatible = "simple-bus";
+-			#address-cells = <1>;
+-			#size-cells = <1>;
+-			ranges;
+-
+-			sram@1e72000 {
+-				compatible = "mmio-sram";
+-				reg = <0x1e72000 0x8000>;	// 32K
+-			};
+-
+-			ibt@1e789140 {
+-				compatible = "aspeed,bt-host";
+-				reg = <0x1e789140 0x18>;
+-			};
+-
+-			i2c: i2c@1e78a040 {
+-				compatible = "aspeed,ast2400-i2c-common";
+-				reg = <0x1e78a000 0x40>;
+-				ranges = <0 0x1e78a000 0x1000>;
+-				interrupts = <12>;
+-				clocks = <&clk_apb>;
+-
+-				i2c0: i2c-bus@0x40 {
+-					reg = <0x40 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <0>;
+-					clock-frequency = <100000>;
+-					status = "okay";
+-					eeprom@50 {
+-						compatible = "atmel,24c256";
+-						reg = <0x50>;
+-						pagesize = <64>;
+-					};
+-					rtc@68 {
+-						compatible = "dallas,ds3231";
+-						reg = <0x68>;
+-						// interrupts = <GPIOF0>
+-					};
+-				};
+-
+-				i2c1: i2c-bus@0x80 {
+-					reg = <0x80 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <1>;
+-					clock-frequency = <100000>;
+-					status = "okay";
+-				};
+-
+-				i2c2: i2c-bus@0xC0 {
+-					reg = <0xC0 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <2>;
+-					clock-frequency = <100000>;
+-					status = "okay";
+-					tmp423@4c {
+-						compatible = "ti,tmp423";
+-						reg = <0x4c>;
+-					};
+-				};
+-
+-				i2c3: i2c-bus@0x100 {
+-					reg = <0x100 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <3>;
+-					clock-frequency = <100000>;
+-					status = "okay";
+-				};
+-
+-				i2c4: i2c-bus@0x140 {
+-					reg = <0x140 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <4>;
+-					clock-frequency = <100000>;
+-					status = "okay";
+-				};
+-
+-				i2c5: i2c-bus@0x180 {
+-					reg = <0x180 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <5>;
+-					clock-frequency = <100000>;
+-					status = "okay";
+-				};
+-
+-				i2c6: i2c-bus@0x1C0 {
+-					reg = <0x1C0 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <6>;
+-					clock-frequency = <100000>;
+-					status = "okay";
+-				};
+-
+-				i2c7: i2c-bus@0x300 {
+-					reg = <0x300 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <7>;
+-					clock-frequency = <100000>;
+-					status = "okay";
+-				};
+-
+-				i2c8: i2c-bus@0x340 {
+-					reg = <0x340 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <8>;
+-					clock-frequency = <100000>;
+-					status = "okay";
+-				};
+-
+-				i2c9: i2c-bus@0x380 {
+-					reg = <0x380 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <9>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
+-				};
+-
+-				i2c10: i2c-bus@0x3C0 {
+-					reg = <0x380 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <10>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
+-				};
+-
+-				i2c11: i2c-bus@0x400 {
+-					reg = <0x400 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <11>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
+-				};
+-
+-				i2c12: i2c-bus@0x440 {
+-					reg = <0x400 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <12>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
+-				};
+-
+-				i2c13: i2c-bus@0x480 {
+-					reg = <0x480 0x40>;
+-					compatible = "aspeed,ast2400-i2c-bus";
+-					bus = <13>;
+-					clock-frequency = <100000>;
+-					status = "disabled";
+-				};
+-
+-			};
+-
+-			syscon: syscon@1e6e2000 {
+-				compatible = "aspeed,syscon", "syscon";
+-				reg = <0x1e6e2000 0x1a8>;
+-				interrupts = <19>;
+-				clocks = <&clk_apb>;
+-				status = "okay";
+-			};
+-
+-			wdt: wdt@1e785000 {
+-				compatible = "aspeed,wdt", "wdt";
+-				reg = <0x1e785000 0x1c4>;
+-				interrupts = <27>;
+-				clocks = <&clk_apb>;
+-			};
+-
+-			rtc: rtc@1e781000 {
+-				compatible = "aspeed,rtc";
+-				reg = <0x1e781000 0x18>;
+-			};
+-
+-			timer: timer@98400000 {
+-				compatible = "aspeed,timer";
+-				reg = <0x1e782000 0x90>;
+-				// The moxart_timer driver registers only one interrupt
+-				// and assumes it's for timer 1
+-				//interrupts = <16 17 18 35 36 37 38 39>;
+-				interrupts = <16>;
+-				clocks = <&clk_apb>;
+-			};
+-
+-			gpio: gpio@1e780000 {
+-			       compatible = "aspeed,ast2400-gpio";
+-			       reg = <0x1e780000 0x1000>;
+-			       interrupts = <20>;
+-			};
+-
+-			uart1: serial@1e783000 {
+-			       compatible = "ns16550a";
+-			       reg = <0x1e783000 0x1000>;
+-			       reg-shift = <2>;
+-			       interrupts = <9>;
+-			       clock-frequency = < 1843200 >;
+-			       no-loopback-test;
+-			};
+-			uart2: serial@1e78d000 {
+-			       compatible = "ns16550a";
+-			       reg = <0x1e78d000 0x1000>;
+-			       reg-shift = <2>;
+-			       interrupts = <32>;
+-			       clock-frequency = < 1843200 >;
+-			       no-loopback-test;
+-			};
+-			/* APSS UART */
+-			uart3: serial@1e78e000 {
+-			       compatible = "ns16550a";
+-			       reg = <0x1e78e000 0x1000>;
+-			       reg-shift = <2>;
+-			       interrupts = <33>;
+-			       clock-frequency = < 1843200 >;
+-			       no-loopback-test;
+-			};
+-
+-			/* Host UART */
+-			uart4: serial@1e78f000 {
+-			       compatible = "ns16550a";
+-			       reg = <0x1e78f000 0x1000>;
+-			       reg-shift = <2>;
+-			       interrupts = <34>;
+-			       clock-frequency = < 1843200 >;
+-			       current-speed = < 115200 >;
+-			       no-loopback-test;
+-			};
+-#if 1
+-			/* BMC UART */
+-			uart5: serial@1e784000 {
+-			       compatible = "ns16550a";
+-			       reg = <0x1e784000 0x1000>;
+-			       reg-shift = <2>;
+-			       interrupts = <10>;
+-			       clock-frequency = < 1843200 >;
+-			       current-speed = < 38400 >;
+-			       no-loopback-test;
+-			};
+-#endif
+-
+-			uart6: serial@1e787000 {
+-			       compatible = "ns16550a";
+-			       reg = <0x1e787000 0x1000>;
+-			       reg-shift = <2>;
+-			       interrupts = <10>;
+-			       clock-frequency = < 1843200 >;
+-			       current-speed = < 38400 >;
+-			       no-loopback-test;
+-			};
+-		};
+-	};
+-};
++# use in-tree devtree
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc_%.bbappend b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc_%.bbappend
+index e4a4d85..a49c239 100644
+--- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc_%.bbappend
++++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc_%.bbappend
+@@ -1,2 +1,2 @@
+ FILESEXTRAPATHS_prepend := "${THISDIR}/linux-obmc:"
+-SRC_URI += "file://palmetto.dts file://palmetto.cfg"
++SRC_URI += "file://palmetto.cfg"
 -- 
 2.6.3
