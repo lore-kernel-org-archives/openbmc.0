@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 557D91A00C5
+ by lists.ozlabs.org (Postfix) with ESMTPS id 708F71A0272
  for <openbmc@lists.ozlabs.org>; Mon, 23 Nov 2015 12:20:55 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448241639097146.79542433384438;
- Sun, 22 Nov 2015 17:20:39 -0800 (PST)
+ with SMTPS id 1448241640410697.6667257960062;
+ Sun, 22 Nov 2015 17:20:40 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton v4 11/18] LED test 2
-Date: Sun, 22 Nov 2015 20:20:23 -0500
-Message-Id: <1448241630-28724-12-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v4 13/18] Remove ;
+Date: Sun, 22 Nov 2015 20:20:25 -0500
+Message-Id: <1448241630-28724-14-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1448241630-28724-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1448241630-28724-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,62 +28,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 23 Nov 2015 01:20:55 -0000
+X-List-Received-Date: Mon, 23 Nov 2015 01:20:56 -0000
 
 From: Ken <ken.sk.lai@mail.foxconn.com>
 
 ---
- bin/Barreleye.py         | 5 +++++
- objects/led_controller.c | 9 +++++----
- 2 files changed, 10 insertions(+), 4 deletions(-)
+ objects/led_controller.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/bin/Barreleye.py b/bin/Barreleye.py
-index 9f3d1d1..14fe54a 100755
---- a/bin/Barreleye.py
-+++ b/bin/Barreleye.py
-@@ -61,6 +61,11 @@ ENTER_STATE_CALLBACK = {
- 			'obj_name'   : '/org/openbmc/control/led/BMC_READY',
- 			'interface_name' : 'org.openbmc.Led',
- 		},
-+		'setOn' : {
-+			'bus_name'   : 'org.openbmc.control.led',
-+			'obj_name'   : '/org/openbmc/control/led/BEEP',
-+			'interface_name' : 'org.openbmc.Led',
-+		},
- 		'init' : {
- 			'bus_name'   : 'org.openbmc.control.Flash',
- 			'obj_name'   : '/org/openbmc/control/flash/bios',
 diff --git a/objects/led_controller.c b/objects/led_controller.c
-index 5bb4542..6f773c9 100755
+index 24cfc19..34945e1 100755
 --- a/objects/led_controller.c
 +++ b/objects/led_controller.c
-@@ -68,13 +68,14 @@ on_set_off       (Led          *led,
- 	return TRUE;
- }
+@@ -71,7 +71,8 @@ on_set_off       (Led          *led,
  
--int tmp=0;
-+//int tmp=0;
  void init_led(Led* led, GPIO* mygpio)
  {
- 	int rc = GPIO_OK;
- 	int i=5;
--	tmp++;
-+//	tmp++;
+-	int rc = GPIO_OK;;
++	int rc = GPIO_OK;
++
  	do {
-+		sleep(2);
  		uint8_t val;
  		rc = gpio_open(mygpio);
- 		if (rc != GPIO_OK) { break; }
-@@ -89,8 +90,8 @@ void init_led(Led* led, GPIO* mygpio)
- 	i--;
- 	} while(i!=0);
- 	
--if(tmp==3)
--	led_set_state(led,"off");
-+//if(tmp==3)
-+//	led_set_state(led,"off");
- 
- 	gpio_close(mygpio);
- 	if (rc != GPIO_OK) {
 -- 
 2.6.3
