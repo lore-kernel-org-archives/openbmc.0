@@ -3,17 +3,19 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 5691B1A013E
- for <openbmc@lists.ozlabs.org>; Tue, 24 Nov 2015 09:20:27 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 778001A01E3
+ for <openbmc@lists.ozlabs.org>; Tue, 24 Nov 2015 09:20:30 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 144831722516931.188071242293177;
+ with SMTPS id 1448317225924359.52464954971947;
  Mon, 23 Nov 2015 14:20:25 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Subject: [PATCH phosphor-host-ipmid v6] fix set sel time
-Date: Mon, 23 Nov 2015 17:20:23 -0500
-Message-Id: <1448317224-31450-1-git-send-email-openbmc-patches@stwcx.xyz>
+Date: Mon, 23 Nov 2015 17:20:24 -0500
+Message-Id: <1448317224-31450-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
+In-Reply-To: <1448317224-31450-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1448317224-31450-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -25,15 +27,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 23 Nov 2015 22:20:28 -0000
+X-List-Received-Date: Mon, 23 Nov 2015 22:20:31 -0000
 
-https://github.com/openbmc/phosphor-host-ipmid/pull/40
+From: Norman James <njames@us.ibm.com>
 
-Norman James (1):
-  fix set sel time
-
+---
  storagehandler.C | 20 ++++++++++++++++----
  1 file changed, 16 insertions(+), 4 deletions(-)
 
+diff --git a/storagehandler.C b/storagehandler.C
+index 1459f94..f3e2532 100644
+--- a/storagehandler.C
++++ b/storagehandler.C
+@@ -2,6 +2,7 @@
+ #include <string.h>
+ #include <stdint.h>
+ #include <time.h>
++#include <sys/time.h>
+ #include <arpa/inet.h>
+ 
+ #include "storagehandler.h"
+@@ -52,14 +53,25 @@ ipmi_ret_t ipmi_storage_set_sel_time(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+                               ipmi_request_t request, ipmi_response_t response,
+                               ipmi_data_len_t data_len, ipmi_context_t context)
+ {
+-    unsigned int *bufftype = (unsigned int *) request;
++    uint32_t* secs = (uint32_t*)request;
+ 
+     printf("Handling Set-SEL-Time:[0x%X], Cmd:[0x%X]\n",netfn, cmd);
+-    printf("Data: 0x%X]\n",*bufftype);
+-
+-    g_sel_time = *bufftype;
++    printf("Data: 0x%X]\n",*secs);
+ 
++    struct timeval sel_time;
++    sel_time.tv_sec = le32toh(*secs);
+     ipmi_ret_t rc = IPMI_CC_OK;
++    int rct = settimeofday(&sel_time, NULL);
++
++    if(rct == 0)
++    {
++	system("hwclock -w");
++    }
++    else
++    {
++        printf("settimeofday() failed\n");
++        rc = IPMI_CC_UNSPECIFIED_ERROR;
++    }
+     *data_len = 0;
+     return rc;
+ }
 -- 
 2.6.3
