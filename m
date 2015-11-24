@@ -3,17 +3,19 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id AE6001A009B
- for <openbmc@lists.ozlabs.org>; Tue, 24 Nov 2015 15:40:28 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 5E12C1A00BF
+ for <openbmc@lists.ozlabs.org>; Tue, 24 Nov 2015 15:40:29 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 14483400256071001.9739362735343;
- Mon, 23 Nov 2015 20:40:25 -0800 (PST)
+ with SMTPS id 1448340026268751.8827787815901;
+ Mon, 23 Nov 2015 20:40:26 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Subject: [PATCH openbmc] meta-phosphor: Add watchdog userspace tool
-Date: Mon, 23 Nov 2015 23:40:23 -0500
-Message-Id: <1448340024-16578-1-git-send-email-openbmc-patches@stwcx.xyz>
+Date: Mon, 23 Nov 2015 23:40:24 -0500
+Message-Id: <1448340024-16578-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
+In-Reply-To: <1448340024-16578-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1448340024-16578-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -27,15 +29,22 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Tue, 24 Nov 2015 04:40:29 -0000
 
+From: Joel Stanley <joel@jms.id.au>
+
 Signed-off-by: Joel Stanley <joel@jms.id.au>
-
-https://github.com/openbmc/openbmc/pull/99
-
-Joel Stanley (1):
-  meta-phosphor: Add watchdog userspace tool
-
+---
  meta-phosphor/classes/obmc-phosphor-image.bbclass | 1 +
  1 file changed, 1 insertion(+)
 
+diff --git a/meta-phosphor/classes/obmc-phosphor-image.bbclass b/meta-phosphor/classes/obmc-phosphor-image.bbclass
+index 9a13f7f..e045387 100644
+--- a/meta-phosphor/classes/obmc-phosphor-image.bbclass
++++ b/meta-phosphor/classes/obmc-phosphor-image.bbclass
+@@ -38,4 +38,5 @@ IMAGE_INSTALL += " \
+        packagegroup-obmc-phosphor-apps-extras \
+        i2c-tools \
+        screen \
++       watchdog \
+        "
 -- 
 2.6.3
