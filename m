@@ -3,19 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 9F5FB1A028C
- for <openbmc@lists.ozlabs.org>; Wed, 25 Nov 2015 03:30:18 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3917F1A004B
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Nov 2015 03:40:23 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448382612652569.3278013452032;
- Tue, 24 Nov 2015 08:30:12 -0800 (PST)
+ with SMTPS id 1448383221130971.9286523083676;
+ Tue, 24 Nov 2015 08:40:21 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH ipmi-fru-parser v3] eeprom read CLI
-Date: Tue, 24 Nov 2015 11:30:11 -0500
-Message-Id: <1448382611-17450-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc] add occ hwmon driver as kernel patch
+Date: Tue, 24 Nov 2015 11:40:19 -0500
+Message-Id: <1448383220-17822-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1448382611-17450-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1448382611-17450-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -27,608 +25,77 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 Nov 2015 16:30:19 -0000
+X-List-Received-Date: Tue, 24 Nov 2015 16:40:25 -0000
 
-From: vishwa <vishwanath@in.ibm.com>
+Add the occ-i2c hwmon driver as kernel patch. By default this driver will be built into kernel. To use on Barreleye:
 
----
- Makefile        |  33 +++++++++++-----
- argument.C      |  62 +++++++++++++++++++++++++++++
- argument.H      |  27 +++++++++++++
- readeeprom.C    |  71 +++++++++++++++++++++++++++++++++
- strgfnhandler.C | 102 +++++++++++++++++++++++++++++++++++++++++++++++
- writefrudata.C  | 120 +++++++-------------------------------------------------
- writefrudata.H  |   3 ++
- 7 files changed, 303 insertions(+), 115 deletions(-)
- create mode 100644 argument.C
- create mode 100644 argument.H
- create mode 100644 readeeprom.C
- create mode 100644 strgfnhandler.C
+# echo occ-i2c 0x50 > /sys/class/i2c-adaptor/i2c-3/new_device
+# echo occ-i2c 0x51 > /sys/class/i2c-adaptor/i2c-3/new_device
 
-diff --git a/Makefile b/Makefile
-index f56eba3..07bbf5a 100644
---- a/Makefile
-+++ b/Makefile
-@@ -1,23 +1,33 @@
--LIBS += libwritefrudata.so
--libwritefrudata.so_OBJS += frup.o writefrudata.o
--libwritefrudata.so_NEEDED += libsystemd
-+LIBS += libwritefrudata.so 
-+HOST_LIBS += libstrgfnhandler.so 
-+libwritefrudata.so_OBJS  += frup.o writefrudata.o
-+libstrgfnhandler.so_OBJS += strgfnhandler.o
-+
-+EXES += phosphor-read-eeprom
-+
-+phosphor-read-eeprom_OBJS  += readeeprom.o argument.o
-+phosphor-read-eeprom_EXTRA_LIBS  += writefrudata
-+libstrgfnhandler.so_EXTRA_LIBS  += writefrudata
-+libwritefrudata.so_NEEDED  += libsystemd
-+phosphor-read-eeprom_NEEDED  += libsystemd
- 
- #### -----------------------------------------------------------------------####
- #                                                                              #
- ##                       Compilare Regulas Sequi                              ##
- #                                                                              #
- #### -----------------------------------------------------------------------####
--OPTFLAGS ?= -O3 -g -pipe
-+OPTFLAGS ?= -O3 -g -pipe -G -K
- CFLAGS ?= $(OPTFLAGS)
- CXXFLAGS ?= $(OPTFLAGS)
- CFLAGS += -Wall -flto -fPIC
- CXXFLAGS += --std=gnu++14 -Wall -flto -fPIC
- 
- __PKG_CONFIG = $(if $1,$(shell pkg-config $2 $1))
-+__EXTRA_LIB_RESOLV = $(if $1,$1)
- 
- define __BUILD_EXE
--$1 : $$($1_OBJS) $$(LIBS)
--		$$(LINK.cpp) -o $$@ $$^ $(call __PKG_CONFIG,$($1_NEEDED),--libs)
-+$1 : $$($1_OBJS) | $$(LIBS) $$(HOST_LIBS) 
-+		$$(LINK.cpp) -o $$@ $$^ $(call __EXTRA_LIB_RESOLV,$(addprefix -l,$($1_EXTRA_LIBS))) -L. $(call __PKG_CONFIG,$($1_NEEDED),--libs) 
- 
- $(eval CXXFLAGS += $(call __PKG_CONFIG,$($1_NEEDED),--cflags))
- 
-@@ -27,8 +37,8 @@ endef
- $(foreach exe,$(EXES),$(eval $(call __BUILD_EXE,$(exe))))
- 
- define __BUILD_LIB
--$1 : $$($1_OBJS)
--		$$(LINK.cpp) -shared -o $$@ $$^ $(call __PKG_CONFIG,$($1_NEEDED),--libs)
-+$1 : $$($1_OBJS) | $$(addsuffix .so,$$(addprefix lib,$$($1_EXTRA_LIBS)))
-+		$$(LINK.cpp) -fPIC -shared -o $$@ $$^ $(call __EXTRA_LIB_RESOLV,$(addprefix -l,$($1_EXTRA_LIBS))) -L. $(call __PKG_CONFIG,$($1_NEEDED),--libs) 
- 
- $(eval CXXFLAGS += $(call __PKG_CONFIG,$($1_NEEDED),--cflags))
- 
-@@ -36,11 +46,13 @@ $(eval CXXFLAGS += $(call __PKG_CONFIG,$($1_NEEDED),--cflags))
- endef
- 
- $(foreach lib,$(LIBS),$(eval $(call __BUILD_LIB,$(lib))))
-+$(foreach lib,$(HOST_LIBS),$(eval $(call __BUILD_LIB,$(lib))))
- 
- .PHONY: clean
- clean:
- 		$(RM) $(foreach exe,$(EXES),$(exe) $($(exe)_OBJS)) \
--			  $(foreach lib,$(LIBS),$(lib) $($(lib)_OBJS))
-+			  $(foreach lib,$(LIBS),$(lib) $($(lib)_OBJS)) \
-+			  $(foreach lib,$(HOST_LIBS),$(lib) $($(lib)_OBJS))
- 
- DESTDIR ?= /
- BINDIR ?= /usr/bin
-@@ -54,7 +66,8 @@ install:
- 		)
- 		$(if $(LIBS),\
- 		install -m 0755 -d $(DESTDIR)$(LIBDIR)/host-ipmid && \
--		install -m 0755 $(LIBS) $(DESTDIR)$(LIBDIR)/host-ipmid \
-+		install -m 0755 $(HOST_LIBS) $(DESTDIR)$(LIBDIR)/host-ipmid \
-+		install -m 0755 $(LIBS) $(DESTDIR)$(LIBDIR) \
- 		)
- 
- .DEFAULT_GOAL: all
-diff --git a/argument.C b/argument.C
-new file mode 100644
-index 0000000..a7e0a94
---- /dev/null
-+++ b/argument.C
-@@ -0,0 +1,62 @@
-+#include <iostream>
-+#include <iterator>
-+#include <algorithm>
-+#include <cassert>
-+#include "argument.H"
-+
-+ArgumentParser::ArgumentParser(int argc, char** argv)
-+{
-+    int option = 0;
-+    while(-1 != (option = getopt_long(argc, argv, optionstr, options, NULL)))
-+    {
-+        if ((option == '?') || (option == 'h'))
-+        {
-+            usage(argv);
-+            exit(-1);
-+        }
-+
-+        auto i = &options[0];
-+        while ((i->val != option) && (i->val != 0)) ++i;
-+
-+        if (i->val)
-+            arguments[i->name] = (i->has_arg ? optarg : true_string);
-+    }
-+}
-+
-+const std::string& ArgumentParser::operator[](const std::string& opt)
-+{
-+    auto i = arguments.find(opt);
-+    if (i == arguments.end())
-+    {
-+        return empty_string;
-+    }
-+    else
-+    {
-+        return i->second;
-+    }
-+}
-+
-+void ArgumentParser::usage(char** argv)
-+{
-+    std::cerr << "Usage: " << argv[0] << " [options]" << std::endl;
-+    std::cerr << "Options:" << std::endl;
-+    std::cerr << " --eeprom=<eeprom file path> Absolute file name of eeprom"
-+        << std::endl;
-+    std::cerr << " --fruid=<FRU ID>            valid fru id in integer"
-+        << std::endl;
-+    std::cerr << " --help                      display help"
-+        << std::endl;
-+}
-+
-+const option ArgumentParser::options[] =
-+{
-+    { "eeprom",   required_argument,  NULL, 'e' },
-+    { "fruid",    required_argument,  NULL, 'f' },
-+    { "help",     no_argument,        NULL, 'h' },
-+    { 0, 0, 0, 0},
-+};
-+
-+const char* ArgumentParser::optionstr = "e:f:?h";
-+
-+const std::string ArgumentParser::true_string = "true";
-+const std::string ArgumentParser::empty_string = "";
-diff --git a/argument.H b/argument.H
-new file mode 100644
-index 0000000..bd3b0b2
---- /dev/null
-+++ b/argument.H
-@@ -0,0 +1,27 @@
-+#ifndef __ARGUMENT_H
-+#define __ARGUMENT_H
-+#include <getopt.h>
-+#include <map>
-+#include <string>
-+class ArgumentParser
-+{
-+    public:
-+        ArgumentParser(int argc, char** argv);
-+        const std::string& operator[](const std::string& opt);
-+
-+        static void usage(char** argv);
-+
-+        static const std::string true_string;
-+        static const std::string empty_string;
-+
-+    private:
-+        std::map<const std::string, std::string> arguments;
-+
-+        static const option options[];
-+        static const char* optionstr;
-+
-+    private:
-+        ArgumentParser() {};
-+};
-+
-+#endif
-diff --git a/readeeprom.C b/readeeprom.C
-new file mode 100644
-index 0000000..b9c6f69
---- /dev/null
-+++ b/readeeprom.C
-@@ -0,0 +1,71 @@
-+#include <iostream>
-+#include <memory>
-+#include "argument.H"
-+#include "writefrudata.H"
-+
-+static void exit_with_error(const char* err, char** argv)
-+{
-+    ArgumentParser::usage(argv);
-+    std::cerr << std::endl;
-+    std::cerr << "ERROR: " << err << std::endl;
-+    exit(-1);
-+}
-+
-+//--------------------------------------------------------------------------
-+// This gets called by udev monitor soon after seeing hog plugs for EEPROMS. 
-+//--------------------------------------------------------------------------
-+int main(int argc, char **argv)
-+{
-+    int rc = 0;
-+    uint8_t fruid = 0;
-+
-+    // Handle to per process system bus
-+    sd_bus *bus_type = NULL;
-+    
-+    // Read the arguments.
-+    auto cli_options = std::make_unique<ArgumentParser>(argc, argv);
-+
-+    // Parse out each argument.
-+    auto eeprom_file = (*cli_options)["eeprom"];
-+    if (eeprom_file == ArgumentParser::empty_string)
-+    {
-+        // User has not passed in the appropriate argument value
-+        exit_with_error("eeprom data not found.", argv);
-+    }
-+
-+    auto fruid_str = (*cli_options)["fruid"];
-+    if (eeprom_file == ArgumentParser::empty_string)
-+    {
-+        // User has not passed in the appropriate argument value
-+        exit_with_error("fruid data not found.", argv);
-+    }
-+
-+    // Extract the fruid
-+    fruid = strtol(fruid_str.c_str(), NULL, 16);
-+    if(fruid == 0)
-+    {
-+        // User has not passed in the appropriate argument value
-+        exit_with_error("Invalid fruid.", argv);
-+    }
-+
-+    // Finished getting options out, so release the parser.
-+    cli_options.release();
-+
-+    // Get a handle to System Bus
-+    rc = sd_bus_open_system(&bus_type);
-+    if (rc < 0) 
-+    {
-+        fprintf(stderr, "Failed to connect to system bus: %s\n",strerror(-rc));
-+    }
-+    else
-+    {
-+        // Now that we have the file that contains the eeprom data, go read it and
-+        // update the Inventory DB.
-+        rc = ipmi_validate_fru_area(fruid, eeprom_file.c_str(), bus_type);
-+    }
-+
-+    // Cleanup
-+    sd_bus_unref(bus_type);
-+
-+    return (rc < 0 ? EXIT_FAILURE : EXIT_SUCCESS);
-+}
-diff --git a/strgfnhandler.C b/strgfnhandler.C
-new file mode 100644
-index 0000000..28406de
---- /dev/null
-+++ b/strgfnhandler.C
-@@ -0,0 +1,102 @@
-+#include <host-ipmid/ipmid-api.h>
-+#include <stdio.h>
-+#include <string.h>
-+#include <unistd.h>
-+#include "writefrudata.H"
-+
-+void register_netfn_storage_write_fru() __attribute__((constructor));
-+
-+sd_bus* ipmid_get_sd_bus_connection(void);
-+
-+///-------------------------------------------------------
-+// Called by IPMI netfn router for write fru data command
-+//--------------------------------------------------------
-+ipmi_ret_t ipmi_storage_write_fru_data(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
-+                              ipmi_request_t request, ipmi_response_t response, 
-+                              ipmi_data_len_t data_len, ipmi_context_t context)
-+{
-+    FILE *fp = NULL;
-+    char fru_file_name[16] = {0};
-+    uint8_t offset = 0;
-+    uint16_t len = 0;
-+    ipmi_ret_t rc = IPMI_CC_INVALID;
-+    const char *mode = NULL;
-+
-+    // From the payload, extract the header that has fruid and the offsets
-+    write_fru_data_t *reqptr = (write_fru_data_t*)request;
-+
-+    // Maintaining a temporary file to pump the data
-+    sprintf(fru_file_name, "%s%02x", "/tmp/ipmifru", reqptr->frunum);
-+
-+    offset = ((uint16_t)reqptr->offsetms) << 8 | reqptr->offsetls;
-+
-+    // Length is the number of request bytes minus the header itself.
-+    // The header contains an extra byte to indicate the start of
-+    // the data (so didn't need to worry about word/byte boundaries)
-+    // hence the -1...
-+    len = ((uint16_t)*data_len) - (sizeof(write_fru_data_t)-1);
-+
-+    // On error there is no response data for this command.
-+    *data_len = 0;
-+    
-+#ifdef __IPMI__DEBUG__
-+    printf("IPMI WRITE-FRU-DATA for [%s]  Offset = [%d] Length = [%d]\n",
-+            fru_file_name, offset, len);
-+#endif
-+
-+
-+    if( access( fru_file_name, F_OK ) == -1 ) {
-+        mode = "wb";
-+    } else {
-+        mode = "rb+";
-+    }
-+
-+    if ((fp = fopen(fru_file_name, mode)) != NULL)
-+    {
-+        if(fseek(fp, offset, SEEK_SET))
-+        {
-+            perror("Error:");
-+            fclose(fp);
-+            return rc;
-+        }
-+    
-+        if(fwrite(&reqptr->data, len, 1, fp) != 1)
-+        {
-+            perror("Error:");
-+            fclose(fp);
-+            return rc;
-+        }
-+    
-+        fclose(fp);
-+    } 
-+    else 
-+    {
-+        fprintf(stderr, "Error trying to write to fru file %s\n",fru_file_name);
-+        return rc;
-+    }
-+
-+
-+    // If we got here then set the resonse byte
-+    // to the number of bytes written
-+    memcpy(response, &len, 1);
-+    *data_len = 1;
-+    rc = IPMI_CC_OK;
-+
-+	// Get the reference to global sd_bus object
-+	sd_bus *bus_type = ipmid_get_sd_bus_connection();
-+
-+    // We received some bytes. It may be full or partial. Send a valid
-+    // FRU file to the inventory controller on DBus for the correct number
-+    ipmi_validate_fru_area(reqptr->frunum, fru_file_name, bus_type);
-+
-+    return rc;
-+}
-+
-+//-------------------------------------------------------
-+// Registering WRITE FRU DATA command handler with daemon
-+//-------------------------------------------------------
-+void register_netfn_storage_write_fru()
-+{
-+    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_STORAGE, IPMI_CMD_WRITE_FRU_DATA);
-+    ipmi_register_callback(NETFUN_STORAGE, IPMI_CMD_WRITE_FRU_DATA, NULL, ipmi_storage_write_fru_data);
-+}
-diff --git a/writefrudata.C b/writefrudata.C
-index 91aef45..ae0d1eb 100644
---- a/writefrudata.C
-+++ b/writefrudata.C
-@@ -1,4 +1,3 @@
--#include <host-ipmid/ipmid-api.h>
- #include <vector>
- #include <stdlib.h>
- #include <dlfcn.h>
-@@ -8,17 +7,15 @@
- #include "writefrudata.H"
- #include <systemd/sd-bus.h>
- #include <unistd.h>
--
--
--void register_netfn_storage_write_fru() __attribute__((constructor));
-+#include <host-ipmid/ipmid-api.h>
- 
- // Needed to be passed into fru parser alorithm
- typedef std::vector<fru_area_t> fru_area_vec_t;
- 
- // OpenBMC System Manager dbus framework
--const char  *bus_name      =  "org.openbmc.managers.System";
--const char  *object_name   =  "/org/openbmc/managers/System";
--const char  *intf_name     =  "org.openbmc.managers.System";
-+const char  *sys_bus_name      =  "org.openbmc.managers.System";
-+const char  *sys_object_name   =  "/org/openbmc/managers/System";
-+const char  *sys_intf_name     =  "org.openbmc.managers.System";
- 
- //------------------------------------------------
- // Takes the pointer to stream of bytes and length 
-@@ -78,7 +75,7 @@ uint8_t get_fru_area_type(uint8_t area_offset)
- // Inventory
- //------------------------------------------------------------------------
- int ipmi_update_inventory(const uint8_t fruid, const uint8_t *fru_data, 
--                          fru_area_vec_t & area_vec)
-+                          fru_area_vec_t & area_vec, sd_bus *bus_type)
- {
-     // Now, use this fru dictionary object and connect with FRU Inventory Dbus
-     // and update the data for this FRU ID.
-@@ -90,9 +87,6 @@ int ipmi_update_inventory(const uint8_t fruid, const uint8_t *fru_data,
-     // SD Bus error report mechanism.
-     sd_bus_error bus_error = SD_BUS_ERROR_NULL;
- 
--    // Gets a hook onto either a SYSTEM or SESSION bus
--    sd_bus *bus_type = ipmid_get_sd_bus_connection();
--
-     // Req message contains the specifics about which method etc that we want to
-     // access on which bus, object
-     sd_bus_message *response = NULL;
-@@ -145,9 +139,9 @@ int ipmi_update_inventory(const uint8_t fruid, const uint8_t *fru_data,
-         // We want to call a method "getObjectFromId" on System Bus that is
-         // made available over  OpenBmc system services.
-         rc = sd_bus_call_method(bus_type,                   // On the System Bus
--                                bus_name,                   // Service to contact
--                                object_name,                // Object path 
--                                intf_name,                  // Interface name
-+                                sys_bus_name,               // Service to contact
-+                                sys_object_name,            // Object path 
-+                                sys_intf_name,              // Interface name
-                                 "getObjectFromId",          // Method to be called
-                                 &bus_error,                 // object to return error
-                                 &response,                  // Response message on success
-@@ -240,7 +234,8 @@ int ipmi_update_inventory(const uint8_t fruid, const uint8_t *fru_data,
- // Validates the CRC and if found good, calls fru areas parser and calls
- // Inventory Dbus with the dictionary of Name:Value for updating. 
- //-------------------------------------------------------------------------
--int ipmi_validate_and_update_inventory(const uint8_t fruid, const uint8_t *fru_data)
-+int ipmi_validate_and_update_inventory(const uint8_t fruid, const uint8_t *fru_data, 
-+                                       sd_bus *bus_type)
- {
-     // Used for generic checksum calculation
-     uint8_t checksum = 0;
-@@ -249,7 +244,7 @@ int ipmi_validate_and_update_inventory(const uint8_t fruid, const uint8_t *fru_d
-     uint8_t fru_entry;
- 
-     // A generic offset locator for any FRU record.
--    uint8_t area_offset = 0;
-+    size_t area_offset = 0;
- 
-     // First 2 bytes in the record.
-     uint8_t fru_area_hdr[2] = {0};
-@@ -389,7 +384,7 @@ int ipmi_validate_and_update_inventory(const uint8_t fruid, const uint8_t *fru_d
-         
-     if(!(fru_area_vec.empty()))
-     {
--        rc =  ipmi_update_inventory(fruid, fru_data, fru_area_vec);
-+        rc =  ipmi_update_inventory(fruid, fru_data, fru_area_vec, bus_type);
-     }
-  
-     // We are done with this FRU write packet. 
-@@ -401,7 +396,8 @@ int ipmi_validate_and_update_inventory(const uint8_t fruid, const uint8_t *fru_d
- ///-----------------------------------------------------
- // Accepts the filename and validates per IPMI FRU spec
- //----------------------------------------------------
--int ipmi_validate_fru_area(const uint8_t fruid, const char *fru_file_name)
-+int ipmi_validate_fru_area(const uint8_t fruid, const char *fru_file_name, 
-+						   sd_bus *bus_type)
- {
-     int file_size = 0;
-     uint8_t *fru_data = NULL;
-@@ -445,7 +441,7 @@ int ipmi_validate_fru_area(const uint8_t fruid, const char *fru_file_name)
-     }
-     fclose(fru_file);
- 
--    rc = ipmi_validate_and_update_inventory(fruid, fru_data);
-+    rc = ipmi_validate_and_update_inventory(fruid, fru_data, bus_type);
-     if(rc == -1)
-     {
-         printf("ERROR: Validation failed for:[%d]\n",fruid);
-@@ -464,89 +460,3 @@ int ipmi_validate_fru_area(const uint8_t fruid, const char *fru_file_name)
-     return rc;
- }
- 
--///-------------------------------------------------------
--// Called by IPMI netfn router for write fru data command
--//--------------------------------------------------------
--ipmi_ret_t ipmi_storage_write_fru_data(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
--                              ipmi_request_t request, ipmi_response_t response, 
--                              ipmi_data_len_t data_len, ipmi_context_t context)
--{
--    FILE *fp = NULL;
--    char fru_file_name[16] = {0};
--    uint8_t offset = 0;
--    uint16_t len = 0;
--    ipmi_ret_t rc = IPMI_CC_INVALID;
--    const char *mode = NULL;
--
--    // From the payload, extract the header that has fruid and the offsets
--    write_fru_data_t *reqptr = (write_fru_data_t*)request;
--
--    // Maintaining a temporary file to pump the data
--    sprintf(fru_file_name, "%s%02x", "/tmp/ipmifru", reqptr->frunum);
--
--    offset = ((uint16_t)reqptr->offsetms) << 8 | reqptr->offsetls;
--
--    // Length is the number of request bytes minus the header itself.
--    // The header contains an extra byte to indicate the start of
--    // the data (so didn't need to worry about word/byte boundaries)
--    // hence the -1...
--    len = ((uint16_t)*data_len) - (sizeof(write_fru_data_t)-1);
--
--    // On error there is no response data for this command.
--    *data_len = 0;
--    
--#ifdef __IPMI__DEBUG__
--    printf("IPMI WRITE-FRU-DATA for [%s]  Offset = [%d] Length = [%d]\n",
--            fru_file_name, offset, len);
--#endif
--
--
--    if( access( fru_file_name, F_OK ) == -1 ) {
--        mode = "wb";
--    } else {
--        mode = "rb+";
--    }
--
--    if ((fp = fopen(fru_file_name, mode)) != NULL)
--    {
--        if(fseek(fp, offset, SEEK_SET))
--        {
--            perror("Error:");
--            fclose(fp);
--            return rc;
--        }
--    
--        if(fwrite(&reqptr->data, len, 1, fp) != 1)
--        {
--            perror("Error:");
--            fclose(fp);
--            return rc;
--        }
--    
--        fclose(fp);
--    } 
--    else 
--    {
--        fprintf(stderr, "Error trying to write to fru file %s\n",fru_file_name);
--        return rc;
--    }
--
--
--    // If we got here then set the resonse byte
--    // to the number of bytes written
--    memcpy(response, &len, 1);
--    *data_len = 1;
--    rc = IPMI_CC_OK;
--
--    // We received some bytes. It may be full or partial. Send a valid
--    // FRU file to the inventory controller on DBus for the correct number
--    ipmi_validate_fru_area(reqptr->frunum, fru_file_name);
--
--    return rc;
--}
--
--void register_netfn_storage_write_fru()
--{
--    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_STORAGE, IPMI_CMD_WRITE_FRU_DATA);
--    ipmi_register_callback(NETFUN_STORAGE, IPMI_CMD_WRITE_FRU_DATA, NULL, ipmi_storage_write_fru_data);
--}
-diff --git a/writefrudata.H b/writefrudata.H
-index 42924a3..89c20ac 100644
---- a/writefrudata.H
-+++ b/writefrudata.H
-@@ -3,6 +3,7 @@
- 
- #include <stdint.h>
- #include <stddef.h>
-+#include <systemd/sd-bus.h>
- 
- // IPMI commands for Storage net functions.
- enum ipmi_netfn_storage_cmds
-@@ -50,4 +51,6 @@ typedef struct
- #define IPMI_FRU_HDR_CRC_OFFSET  offsetof(struct common_header, crc)
- #define IPMI_EIGHT_BYTES         8
- 
-+extern "C" int ipmi_validate_fru_area(const uint8_t, const char *, sd_bus *);
-+
- #endif
+HWMON interface will be created in /sys/class/hwmon/
+
+root@barreleye:~# ls /sys/class/hwmon/hwmon3/
+device        freq5_label   temp10_label  temp16_label  temp21_label  temp6_label
+freq10_input  freq6_input   temp11_input  temp17_input  temp22_input  temp7_input
+freq10_label  freq6_label   temp11_label  temp17_label  temp22_label  temp7_label
+freq1_input   freq7_input   temp12_input  temp18_input  temp2_input   temp8_input
+freq1_label   freq7_label   temp12_label  temp18_label  temp2_label   temp8_label
+freq2_input   freq8_input   temp13_input  temp19_input  temp3_input   temp9_input
+freq2_label   freq8_label   temp13_label  temp19_label  temp3_label   temp9_label
+freq3_input   freq9_input   temp14_input  temp1_input   temp4_input   uevent
+freq3_label   freq9_label   temp14_label  temp1_label   temp4_label
+freq4_input   power         temp15_input  temp20_input  temp5_input
+freq4_label   subsystem     temp15_label  temp20_label  temp5_label
+freq5_input   temp10_input  temp16_input  temp21_input  temp6_input
+
+root@barreleye:~# ls /sys/class/hwmon/hwmon4/
+caps_curr_powercap      power1_input            temp16_label
+caps_curr_powerreading  power1_label            temp17_input
+caps_max_powercap       power2_input            temp17_label
+caps_min_powercap       power2_label            temp18_input
+caps_norm_powercap      power3_input            temp18_label
+caps_user_powerlimit    power3_label            temp19_input
+device                  power4_input            temp19_label
+freq10_input            power4_label            temp1_input
+freq10_label            power5_input            temp1_label
+freq1_input             power5_label            temp20_input
+freq1_label             power6_input            temp20_label
+freq2_input             power6_label            temp21_input
+freq2_label             power7_input            temp21_label
+freq3_input             power7_label            temp22_input
+freq3_label             power8_input            temp22_label
+freq4_input             power8_label            temp2_input
+freq4_label             power9_input            temp2_label
+freq5_input             power9_label            temp3_input
+freq5_label             subsystem               temp3_label
+freq6_input             temp10_input            temp4_input
+freq6_label             temp10_label            temp4_label
+freq7_input             temp11_input            temp5_input
+freq7_label             temp11_label            temp5_label
+freq8_input             temp12_input            temp6_input
+freq8_label             temp12_label            temp6_label
+freq9_input             temp13_input            temp7_input
+freq9_label             temp13_label            temp7_label
+power                   temp14_input            temp8_input
+power10_input           temp14_label            temp8_label
+power10_label           temp15_input            temp9_input
+power11_input           temp15_label            temp9_label
+power11_label           temp16_input            uevent
+root@barreleye:~#
+
+
+
+https://github.com/openbmc/openbmc/pull/100
+
+adamliyi (1):
+  add occ hwmon driver as kernel patch
+
+ .../recipes-kernel/linux/linux-obmc/barreleye.cfg  |    1 +
+ .../linux/linux-obmc/occ_hwmon.patch               | 1565 ++++++++++++++++++++
+ .../recipes-kernel/linux/linux-obmc_%.bbappend     |    2 +
+ 3 files changed, 1568 insertions(+)
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.cfg
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/occ_hwmon.patch
+
 -- 
 2.6.3
