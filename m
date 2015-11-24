@@ -1,21 +1,33 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (ozlabs.org [103.22.144.67])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id DEB091A0F01
- for <openbmc@lists.ozlabs.org>; Tue, 24 Nov 2015 13:10:29 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448331025880685.9289290186975;
- Mon, 23 Nov 2015 18:10:25 -0800 (PST)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-event v3 3/3] Move to size_t for logid
-Date: Mon, 23 Nov 2015 21:10:22 -0500
-Message-Id: <1448331022-8770-4-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1448331022-8770-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1448331022-8770-1-git-send-email-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 758671A00BF
+ for <openbmc@lists.ozlabs.org>; Tue, 24 Nov 2015 13:13:12 +1100 (AEDT)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.org (Postfix) with ESMTPSA id 1C00B14017E;
+ Tue, 24 Nov 2015 13:13:12 +1100 (AEDT)
+Subject: Re: [PATCH phosphor-host-ipmid] Initial autotools support
+To: Patrick Williams <patrick@stwcx.xyz>,
+ Stewart Smith <stewart@linux.vnet.ibm.com>
+References: <1447902029-2805-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <m3vb8yslyo.fsf@oc8180480414.ibm.com>
+ <CACPK8Xex_u+CsJk1VX1yLr7J3A-BZuSM6eBskT7OdQUV2CGKJw@mail.gmail.com>
+ <m3r3jmsfxs.fsf@oc8180480414.ibm.com>
+ <20151123200347.GF21764@asimov.pw-on-the.net>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ OpenBMC Patches <openbmc-patches@stwcx.xyz>
+From: Jeremy Kerr <jk@ozlabs.org>
+Message-ID: <5653C7B6.8090506@ozlabs.org>
+Date: Tue, 24 Nov 2015 10:13:10 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+ Thunderbird/38.3.0
+MIME-Version: 1.0
+In-Reply-To: <20151123200347.GF21764@asimov.pw-on-the.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -27,78 +39,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 Nov 2015 02:10:30 -0000
+X-List-Received-Date: Tue, 24 Nov 2015 02:13:12 -0000
 
-From: Chris Austen <austenc@us.ibm.com>
+Hi all,
 
-Fixes openbmc/phosphor-event#2
----
- event_messaged.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+> We should have a discussion on the call about autotools vs (...).  The US
+> side of the team has zero experience with autotools and so it was easier
+> to just write some simple makefiles to get started.
 
-diff --git a/event_messaged.c b/event_messaged.c
-index dbfa1da..5a0c3da 100644
---- a/event_messaged.c
-+++ b/event_messaged.c
-@@ -10,6 +10,14 @@ sd_bus *bus = NULL;
- List *glist;
- 
- 
-+int create_new_log_event(void *userdata,
-+                         const char *message,
-+                         const char *severity,
-+                         const char *association,
-+                         const char *reportedby,
-+                         uint8_t *p,
-+                         size_t n);
-+
- typedef struct messageEntry_t {
- 	char    *message;
- 	char    *severity;
-@@ -17,7 +25,7 @@ typedef struct messageEntry_t {
- 	char    *association;
- 	uint8_t *debugbytes;
- 	size_t   debuglength;
--	uint16_t logid;
-+	size_t   logid;
- 
- 	sd_bus_slot *messageslot;
- 	sd_bus_slot *deleteslot;
-@@ -64,7 +72,7 @@ void message_add(messageEntry_t **n,
-                 const char *severity,
-                 const char *association,
-                 const char *reportedby,
--                uint16_t     logid,
-+                size_t      logid,
-                 uint8_t    *data,
-                 size_t      datalen)
- {
-@@ -138,7 +146,7 @@ static int method_accept_host_message(sd_bus_message *m,
- 		return r;
- 	}
- 
--	r = create_new_log_event(userdata, message, severity, association, "Host", p, n);
-+	create_new_log_event(userdata, message, severity, association, "Host", p, n);
- 
- 	return sd_bus_reply_method_return(m, "q", g_logid);
- }
-@@ -208,7 +216,7 @@ static const sd_bus_vtable recordlog_delete_vtable[] = {
- 	SD_BUS_VTABLE_END
- };
- 
--int get_new_log_number() {
-+uint16_t get_new_log_number() {
- 	return ++g_logid;
- }
- 
-@@ -223,7 +231,7 @@ int create_new_log_event(void *userdata,
- 	int r;
- 	messageEntry_t *m;
- 	Node *node;
--	int logid = get_new_log_number();
-+	uint16_t logid = get_new_log_number();
- 
- 
- 	snprintf(loglocation, sizeof(loglocation), "/org/openbmc/records/events/%d", logid);
--- 
-2.6.3
+That will work while we have a limited platform & configuration support,
+but we'll need to scale eventually.
+
+> I don't consider autotools to be the "defacto standard" since cmake is
+> also pretty popular.
+
+Not nearly as popular as autotools though. If we're going to build
+something that's easily adoptable by others, autotools is definitely the
+right choice.
+
+Regards,
+
+
+Jeremy
