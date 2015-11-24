@@ -3,16 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 259FC1A004E
- for <openbmc@lists.ozlabs.org>; Wed, 25 Nov 2015 03:20:38 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4F95F1A02BE
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Nov 2015 03:20:40 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448382033317896.9666249644324;
- Tue, 24 Nov 2015 08:20:33 -0800 (PST)
+ with SMTPS id 1448382034674270.5733536000747;
+ Tue, 24 Nov 2015 08:20:34 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-event v4 2/4] Add signal support add/remove
-Date: Tue, 24 Nov 2015 11:20:28 -0500
-Message-Id: <1448382030-17201-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-event v4 4/4] Object manager doesn't show until first
+ log
+Date: Tue, 24 Nov 2015 11:20:30 -0500
+Message-Id: <1448382030-17201-5-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1448382030-17201-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1448382030-17201-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -27,73 +28,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 Nov 2015 16:20:39 -0000
+X-List-Received-Date: Tue, 24 Nov 2015 16:20:40 -0000
 
 From: Chris Austen <austenc@us.ibm.com>
 
 ---
- event_messaged.c | 32 +++++++++++++++++++++++++++++++-
- 1 file changed, 31 insertions(+), 1 deletion(-)
+ event_messaged.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/event_messaged.c b/event_messaged.c
-index 15412d2..dbfa1da 100644
+index 5a0c3da..07430b0 100644
 --- a/event_messaged.c
 +++ b/event_messaged.c
-@@ -27,7 +27,13 @@ typedef struct messageEntry_t {
+@@ -262,12 +262,6 @@ int create_new_log_event(void *userdata,
  
- void message_storage_delete(messageEntry_t *m) {
+ 	printf("Event Log added %s\n", loglocation);
  
--	printf("Attempting to delete /org/openbmc/records/events/%d\n", m->logid);
-+	char *path;
-+	int r;
-+
-+	asprintf(&path, "/org/openbmc/records/events/%d", m->logid);
-+
-+
-+	printf("Attempting to delete %s\n", path);
+-	r = sd_bus_add_object_manager(bus, NULL, "/org/openbmc/records/events") ;
+-	if (r < 0) {
+-		fprintf(stderr, "Object Manager failure  %s\n", strerror(-r));
+-		return 0;
+-	}
+-
+ 	r = sd_bus_emit_object_added(bus, loglocation);
+ 	if (r < 0) {
+ 		fprintf(stderr, "Failed to emit signal %s\n", strerror(-r));
+@@ -312,6 +306,12 @@ int start_event_recording(void) {
+ 		goto finish;
+ 	}
  
- 	free(m->message);
- 	free(m->severity);
-@@ -35,9 +41,17 @@ void message_storage_delete(messageEntry_t *m) {
- 	free(m->association);
- 	free(m->debugbytes);
- 
-+	
- 	sd_bus_slot_unref(m->messageslot);
- 	sd_bus_slot_unref(m->deleteslot);
- 
-+	sd_bus_emit_object_removed(bus, path);
-+	if (r < 0) {
-+		fprintf(stderr, "Failed to emit the 2nd delete  signal %s\n", strerror(-r));
-+		return;
-+	}
-+
-+	
- 	free(m);
- 
- 	return;
-@@ -238,6 +252,22 @@ int create_new_log_event(void *userdata,
- 	                             recordlog_delete_vtable,
- 	                             node);
- 
-+	printf("Event Log added %s\n", loglocation);
-+
 +	r = sd_bus_add_object_manager(bus, NULL, "/org/openbmc/records/events") ;
 +	if (r < 0) {
 +		fprintf(stderr, "Object Manager failure  %s\n", strerror(-r));
 +		return 0;
 +	}
 +
-+	r = sd_bus_emit_object_added(bus, loglocation);
-+	if (r < 0) {
-+		fprintf(stderr, "Failed to emit signal %s\n", strerror(-r));
-+		return 0;
-+	}
-+
-+
-+
- 	return logid;
- }
- 
+ 	for (;;) {
+ 		r = sd_bus_process(bus, NULL);
+ 		if (r < 0) {
 -- 
 2.6.3
