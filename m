@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 68D6E1A004B
+ by lists.ozlabs.org (Postfix) with ESMTPS id 259FC1A004E
  for <openbmc@lists.ozlabs.org>; Wed, 25 Nov 2015 03:20:38 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448382033975119.74594700515411;
+ with SMTPS id 1448382033317896.9666249644324;
  Tue, 24 Nov 2015 08:20:33 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-event v4 3/4] Move to size_t for logid
-Date: Tue, 24 Nov 2015 11:20:29 -0500
-Message-Id: <1448382030-17201-4-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-event v4 2/4] Add signal support add/remove
+Date: Tue, 24 Nov 2015 11:20:28 -0500
+Message-Id: <1448382030-17201-3-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1448382030-17201-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1448382030-17201-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -31,74 +31,69 @@ X-List-Received-Date: Tue, 24 Nov 2015 16:20:39 -0000
 
 From: Chris Austen <austenc@us.ibm.com>
 
-Fixes openbmc/phosphor-event#2
 ---
- event_messaged.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+ event_messaged.c | 32 +++++++++++++++++++++++++++++++-
+ 1 file changed, 31 insertions(+), 1 deletion(-)
 
 diff --git a/event_messaged.c b/event_messaged.c
-index dbfa1da..5a0c3da 100644
+index 15412d2..dbfa1da 100644
 --- a/event_messaged.c
 +++ b/event_messaged.c
-@@ -10,6 +10,14 @@ sd_bus *bus = NULL;
- List *glist;
+@@ -27,7 +27,13 @@ typedef struct messageEntry_t {
  
+ void message_storage_delete(messageEntry_t *m) {
  
-+int create_new_log_event(void *userdata,
-+                         const char *message,
-+                         const char *severity,
-+                         const char *association,
-+                         const char *reportedby,
-+                         uint8_t *p,
-+                         size_t n);
+-	printf("Attempting to delete /org/openbmc/records/events/%d\n", m->logid);
++	char *path;
++	int r;
 +
- typedef struct messageEntry_t {
- 	char    *message;
- 	char    *severity;
-@@ -17,7 +25,7 @@ typedef struct messageEntry_t {
- 	char    *association;
- 	uint8_t *debugbytes;
- 	size_t   debuglength;
--	uint16_t logid;
-+	size_t   logid;
++	asprintf(&path, "/org/openbmc/records/events/%d", m->logid);
++
++
++	printf("Attempting to delete %s\n", path);
  
- 	sd_bus_slot *messageslot;
- 	sd_bus_slot *deleteslot;
-@@ -64,7 +72,7 @@ void message_add(messageEntry_t **n,
-                 const char *severity,
-                 const char *association,
-                 const char *reportedby,
--                uint16_t     logid,
-+                size_t      logid,
-                 uint8_t    *data,
-                 size_t      datalen)
- {
-@@ -138,7 +146,7 @@ static int method_accept_host_message(sd_bus_message *m,
- 		return r;
- 	}
+ 	free(m->message);
+ 	free(m->severity);
+@@ -35,9 +41,17 @@ void message_storage_delete(messageEntry_t *m) {
+ 	free(m->association);
+ 	free(m->debugbytes);
  
--	r = create_new_log_event(userdata, message, severity, association, "Host", p, n);
-+	create_new_log_event(userdata, message, severity, association, "Host", p, n);
++	
+ 	sd_bus_slot_unref(m->messageslot);
+ 	sd_bus_slot_unref(m->deleteslot);
  
- 	return sd_bus_reply_method_return(m, "q", g_logid);
++	sd_bus_emit_object_removed(bus, path);
++	if (r < 0) {
++		fprintf(stderr, "Failed to emit the 2nd delete  signal %s\n", strerror(-r));
++		return;
++	}
++
++	
+ 	free(m);
+ 
+ 	return;
+@@ -238,6 +252,22 @@ int create_new_log_event(void *userdata,
+ 	                             recordlog_delete_vtable,
+ 	                             node);
+ 
++	printf("Event Log added %s\n", loglocation);
++
++	r = sd_bus_add_object_manager(bus, NULL, "/org/openbmc/records/events") ;
++	if (r < 0) {
++		fprintf(stderr, "Object Manager failure  %s\n", strerror(-r));
++		return 0;
++	}
++
++	r = sd_bus_emit_object_added(bus, loglocation);
++	if (r < 0) {
++		fprintf(stderr, "Failed to emit signal %s\n", strerror(-r));
++		return 0;
++	}
++
++
++
+ 	return logid;
  }
-@@ -208,7 +216,7 @@ static const sd_bus_vtable recordlog_delete_vtable[] = {
- 	SD_BUS_VTABLE_END
- };
  
--int get_new_log_number() {
-+uint16_t get_new_log_number() {
- 	return ++g_logid;
- }
- 
-@@ -223,7 +231,7 @@ int create_new_log_event(void *userdata,
- 	int r;
- 	messageEntry_t *m;
- 	Node *node;
--	int logid = get_new_log_number();
-+	uint16_t logid = get_new_log_number();
- 
- 
- 	snprintf(loglocation, sizeof(loglocation), "/org/openbmc/records/events/%d", logid);
 -- 
 2.6.3
