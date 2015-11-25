@@ -3,20 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 26A6A1A0376
- for <openbmc@lists.ozlabs.org>; Wed, 25 Nov 2015 18:20:30 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 98E4B1A032F
+ for <openbmc@lists.ozlabs.org>; Thu, 26 Nov 2015 00:50:35 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448436026476652.9583453539991;
- Tue, 24 Nov 2015 23:20:26 -0800 (PST)
+ with SMTPS id 1448459427904475.3560419157467;
+ Wed, 25 Nov 2015 05:50:27 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid 2/3] ipmid: Remove assumptions about host
- IPMI sender objects
-Date: Wed, 25 Nov 2015 02:20:23 -0500
-Message-Id: <1448436024-9396-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-objmgr] Objectmananger signal handling fixes
+Date: Wed, 25 Nov 2015 08:50:26 -0500
+Message-Id: <1448459427-20168-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1448436024-9396-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1448436024-9396-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,37 +25,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 25 Nov 2015 07:20:31 -0000
+X-List-Received-Date: Wed, 25 Nov 2015 13:50:37 -0000
 
-From: Jeremy Kerr <jk@ozlabs.org>
+Fixed signal name typo.
+Added get_owned_name helper.
+Use well known and connection specific name where appropriate.
 
-Currently, the IPMI daemon will only receive messages from a specific
-(arbitrary) object path that the debug daemon used.
+https://github.com/openbmc/phosphor-objmgr/pull/5
 
-Instead, we should be listening to any signal that matches our interface
-(org.openbmc.HostIpmi.ReceivedMessage). When replying to the message,
-we should be using the signal sender info to properly address the
-reply method.
+Brad Bishop (1):
+  Objectmananger signal handling fixes
 
-Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
----
- ipmid.C | 3 ---
- 1 file changed, 3 deletions(-)
+ phosphor-mapper | 32 ++++++++++++++++++++++----------
+ 1 file changed, 22 insertions(+), 10 deletions(-)
 
-diff --git a/ipmid.C b/ipmid.C
-index 440705c..fe989e0 100644
---- a/ipmid.C
-+++ b/ipmid.C
-@@ -26,10 +26,7 @@ void print_usage(void) {
-   fprintf(stderr, "    mask : 0xFF - Print all trace\n");
- }
- 
--
--
- const char * DBUS_INTF = "org.openbmc.HostIpmi";
--
- const char * FILTER = "type='signal',interface='org.openbmc.HostIpmi',member='ReceivedMessage'";
- 
- 
 -- 
 2.6.3
