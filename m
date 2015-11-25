@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 9BB801A034F
- for <openbmc@lists.ozlabs.org>; Wed, 25 Nov 2015 18:10:31 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 331B51A033E
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Nov 2015 18:10:33 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448435428141284.5420430633948;
- Tue, 24 Nov 2015 23:10:28 -0800 (PST)
+ with SMTPS id 1448435429562358.06444631800036;
+ Tue, 24 Nov 2015 23:10:29 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid 3/7] host-services: Add ipmid-api header
-Date: Wed, 25 Nov 2015 02:10:20 -0500
-Message-Id: <1448435424-9067-4-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid 5/7] another unused var
+Date: Wed, 25 Nov 2015 02:10:22 -0500
+Message-Id: <1448435424-9067-6-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1448435424-9067-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1448435424-9067-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -27,38 +27,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 25 Nov 2015 07:10:32 -0000
+X-List-Received-Date: Wed, 25 Nov 2015 07:10:33 -0000
 
 From: Joel Stanley <joel@jms.id.au>
 
-Needed for a prototype for ipmid_get_sd_bus_connection.
-
 Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- host-services.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ transporthandler.C | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/host-services.c b/host-services.c
-index 89f0b6c..ab9cfcc 100644
---- a/host-services.c
-+++ b/host-services.c
-@@ -3,6 +3,8 @@
- #include <errno.h>
- #include <systemd/sd-bus.h>
+diff --git a/transporthandler.C b/transporthandler.C
+index ca8522d..0f7a730 100644
+--- a/transporthandler.C
++++ b/transporthandler.C
+@@ -31,8 +31,6 @@ ipmi_ret_t ipmi_transport_set_lan(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+ {
+     ipmi_ret_t rc = IPMI_CC_OK;
+     *data_len = 0;
+-
+-    int i = 0;
+     char syscmd[128];
  
-+#include "ipmid-api.h"
-+
- // OpenBMC Host IPMI dbus framework
- const char  *bus_name      =  "org.openbmc.HostIpmi";
- const char  *object_name   =  "/org/openbmc/HostIpmi/1";
-@@ -38,7 +40,7 @@ static int soft_power_off(sd_bus_message *m, void *userdata, sd_bus_error *ret_e
-     sd_bus_error bus_error = SD_BUS_ERROR_NULL;
- 
- 	// Gets a hook onto either a SYSTEM or SESSION bus
--	sd_bus *bus = (sd_bus *)ipmid_get_sd_bus_connection();
-+	sd_bus *bus = ipmid_get_sd_bus_connection();
- 
- 	rc = sd_bus_call_method(bus,        // On the System Bus
- 							bus_name,        // Service to contact
+     printf("IPMI SET_LAN\n");
 -- 
 2.6.3
