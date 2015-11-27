@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 203311A03BF
- for <openbmc@lists.ozlabs.org>; Fri, 27 Nov 2015 17:40:51 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id F08CE1A013E
+ for <openbmc@lists.ozlabs.org>; Fri, 27 Nov 2015 17:40:52 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448606441496886.9214503251287;
- Thu, 26 Nov 2015 22:40:41 -0800 (PST)
+ with SMTPS id 14486064344001019.9930520293715;
+ Thu, 26 Nov 2015 22:40:34 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton v5 13/18] Remove ;
-Date: Fri, 27 Nov 2015 01:40:26 -0500
-Message-Id: <1448606431-24037-14-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v5 03/18] LED test3
+Date: Fri, 27 Nov 2015 01:40:16 -0500
+Message-Id: <1448606431-24037-4-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1448606431-24037-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1448606431-24037-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,27 +28,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 27 Nov 2015 06:40:52 -0000
+X-List-Received-Date: Fri, 27 Nov 2015 06:40:53 -0000
 
 From: Ken <ken.sk.lai@mail.foxconn.com>
 
 ---
- objects/led_controller.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ objects/led_controller.c | 13 +++----------
+ 1 file changed, 3 insertions(+), 10 deletions(-)
 
 diff --git a/objects/led_controller.c b/objects/led_controller.c
-index 24cfc19..34945e1 100755
+index 6f773c9..24cfc19 100755
 --- a/objects/led_controller.c
 +++ b/objects/led_controller.c
-@@ -71,7 +71,8 @@ on_set_off       (Led          *led,
+@@ -68,30 +68,23 @@ on_set_off       (Led          *led,
+ 	return TRUE;
+ }
  
+-//int tmp=0;
++
  void init_led(Led* led, GPIO* mygpio)
  {
--	int rc = GPIO_OK;;
-+	int rc = GPIO_OK;
-+
+-	int rc = GPIO_OK;
+-	int i=5;
+-//	tmp++;
++	int rc = GPIO_OK;;
  	do {
+-		sleep(2);
  		uint8_t val;
  		rc = gpio_open(mygpio);
+ 		if (rc != GPIO_OK) { break; }
+ 		rc = gpio_read(mygpio,&val);
+ 		if (rc != GPIO_OK) { break; }
+-		led_set_state(led,"off");
+ 		if (val == 0) {
+ 			led_set_state(led,"on");
+ 		} else {
+ 			led_set_state(led,"off");
+ 		}
+-	i--;
+-	} while(i!=0);
++	} while(0);
+ 	
+-//if(tmp==3)
+-//	led_set_state(led,"off");
+ 
+ 	gpio_close(mygpio);
+ 	if (rc != GPIO_OK) {
 -- 
 2.6.3
