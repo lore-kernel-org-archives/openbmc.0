@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 957401A044F
- for <openbmc@lists.ozlabs.org>; Fri, 27 Nov 2015 17:50:47 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 097871A0429
+ for <openbmc@lists.ozlabs.org>; Fri, 27 Nov 2015 17:50:48 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448607042544956.5292999732469;
- Thu, 26 Nov 2015 22:50:42 -0800 (PST)
+ with SMTPS id 1448607043356205.60839926897734;
+ Thu, 26 Nov 2015 22:50:43 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton v6 13/19] Remove ;
-Date: Fri, 27 Nov 2015 01:50:25 -0500
-Message-Id: <1448607031-24374-14-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v6 14/19] Force fan duty to 100%
+Date: Fri, 27 Nov 2015 01:50:26 -0500
+Message-Id: <1448607031-24374-15-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1448607031-24374-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1448607031-24374-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,27 +28,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 27 Nov 2015 06:50:48 -0000
+X-List-Received-Date: Fri, 27 Nov 2015 06:50:49 -0000
 
 From: Ken <ken.sk.lai@mail.foxconn.com>
 
 ---
- objects/led_controller.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ bin/Barreleye.py | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/objects/led_controller.c b/objects/led_controller.c
-index 24cfc19..34945e1 100755
---- a/objects/led_controller.c
-+++ b/objects/led_controller.c
-@@ -71,7 +71,8 @@ on_set_off       (Led          *led,
+diff --git a/bin/Barreleye.py b/bin/Barreleye.py
+index 14fe54a..2f7bf49 100755
+--- a/bin/Barreleye.py
++++ b/bin/Barreleye.py
+@@ -6,6 +6,11 @@ FLASH_DOWNLOAD_PATH = "/tmp"
+ GPIO_BASE = 320
+ SYSTEM_NAME = "Barreleye"
  
- void init_led(Led* led, GPIO* mygpio)
- {
--	int rc = GPIO_OK;;
-+	int rc = GPIO_OK;
++import sys
++import gobject
++import dbus
++import dbus.service
++import dbus.mainloop.glib
+ 
+ ## System states
+ ##   state can change to next state in 2 ways:
+@@ -485,6 +490,15 @@ GPIO_CONFIG['SLOT2_PRESENT'] =         { 'gpio_pin': 'N5', 'direction': 'in' }
+ GPIO_CONFIG['MEZZ0_PRESENT'] =         { 'gpio_pin': 'O0', 'direction': 'in' }
+ GPIO_CONFIG['MEZZ1_PRESENT'] =         { 'gpio_pin': 'O1', 'direction': 'in' }
+ 
 +
- 	do {
- 		uint8_t val;
- 		rc = gpio_open(mygpio);
++bus = dbus.SystemBus()
++
++for i in range(1,6):
++ print i
++ obj = bus.get_object("org.openbmc,sensors,hwmon","/org/openbmc/sensors/speed/fan"+str(i))
++ intf = dbus.Interface (obj,"org.openbmc.SensorValue")
++ intf.setValue(dbus.UInt32(255))
++
+ def convertGpio(name):
+ 	name = name.upper()
+ 	c = name[0:1]
 -- 
 2.6.3
