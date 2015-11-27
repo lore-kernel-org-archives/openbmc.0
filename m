@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 7F0031A03C3
+ by lists.ozlabs.org (Postfix) with ESMTPS id CA2A21A0014
  for <openbmc@lists.ozlabs.org>; Fri, 27 Nov 2015 17:40:53 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448606435756646.6054518734669;
- Thu, 26 Nov 2015 22:40:35 -0800 (PST)
+ with SMTPS id 1448606438608583.7512174806712;
+ Thu, 26 Nov 2015 22:40:38 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton v5 05/18] Force fan duty to 100%
-Date: Fri, 27 Nov 2015 01:40:18 -0500
-Message-Id: <1448606431-24037-6-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v5 09/18] Init BMC_THROTTLE GPIO to high
+Date: Fri, 27 Nov 2015 01:40:22 -0500
+Message-Id: <1448606431-24037-10-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1448606431-24037-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1448606431-24037-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -33,40 +33,39 @@ X-List-Received-Date: Fri, 27 Nov 2015 06:40:54 -0000
 From: Ken <ken.sk.lai@mail.foxconn.com>
 
 ---
- bin/Barreleye.py | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ objects/control_host_obj.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/bin/Barreleye.py b/bin/Barreleye.py
-index 783aa88..0e92e83 100755
---- a/bin/Barreleye.py
-+++ b/bin/Barreleye.py
-@@ -6,6 +6,11 @@ FLASH_DOWNLOAD_PATH = "/tmp"
- GPIO_BASE = 320
- SYSTEM_NAME = "Barreleye"
+diff --git a/objects/control_host_obj.c b/objects/control_host_obj.c
+index 672ef85..9297e52 100644
+--- a/objects/control_host_obj.c
++++ b/objects/control_host_obj.c
+@@ -21,6 +21,7 @@ GPIO fsi_data     = (GPIO){ "FSI_DATA" };
+ GPIO fsi_clk      = (GPIO){ "FSI_CLK" };
+ GPIO fsi_enable   = (GPIO){ "FSI_ENABLE" };
+ GPIO cronus_sel   = (GPIO){ "CRONUS_SEL" };
++GPIO Throttle     = (GPIO){ "BMC_TROTTLE" };
  
-+import sys
-+import gobject
-+import dbus
-+import dbus.service
-+import dbus.mainloop.glib
+ /* Bit bang patterns */
  
- ## System states
- ##   state can change to next state in 2 ways:
-@@ -423,6 +428,15 @@ GPIO_CONFIG['SLOT2_PRESENT'] =         { 'gpio_pin': 'N5', 'direction': 'in' }
- GPIO_CONFIG['MEZZ0_PRESENT'] =         { 'gpio_pin': 'O0', 'direction': 'in' }
- GPIO_CONFIG['MEZZ1_PRESENT'] =         { 'gpio_pin': 'O1', 'direction': 'in' }
+@@ -82,6 +83,9 @@ on_boot         (ControlHost        *host,
+ {
+ 	int rc = GPIO_OK;
  
++	rc = gpio_open(&Throttle);
++	rc = gpio_write(&Throttle,1);
 +
-+bus = dbus.SystemBus()
-+
-+for i in range(1,6):
-+ print i
-+ obj = bus.get_object("org.openbmc,sensors,hwmon","/org/openbmc/sensors/speed/fan"+str(i))
-+ intf = dbus.Interface (obj,"org.openbmc.SensorValue")
-+ intf.setValue(dbus.UInt32(255))
-+
- def convertGpio(name):
- 	name = name.upper()
- 	c = name[0:1]
+ 	if (control_host_get_debug_mode(host)==1)
+ 	{
+ 		g_print("Enabling debug mode; not booting host\n");
+@@ -165,7 +169,7 @@ on_boot         (ControlHost        *host,
+ 	gpio_close(&fsi_data);
+ 	gpio_close(&fsi_enable);
+ 	gpio_close(&cronus_sel);
+-
++	gpio_close(&Throttle);
+ 	control_host_emit_booted(host);
+ 	return TRUE;
+ }
 -- 
 2.6.3
