@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 74C0F1A0401
- for <openbmc@lists.ozlabs.org>; Fri, 27 Nov 2015 17:50:39 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 60AC31A03CD
+ for <openbmc@lists.ozlabs.org>; Fri, 27 Nov 2015 17:50:40 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448607034361316.27603258104693;
- Thu, 26 Nov 2015 22:50:34 -0800 (PST)
+ with SMTPS id 1448607035200597.5373979117406;
+ Thu, 26 Nov 2015 22:50:35 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton v6 03/19] LED test3
-Date: Fri, 27 Nov 2015 01:50:15 -0500
-Message-Id: <1448607031-24374-4-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v6 04/19] Remove ;
+Date: Fri, 27 Nov 2015 01:50:16 -0500
+Message-Id: <1448607031-24374-5-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1448607031-24374-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1448607031-24374-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -33,46 +33,22 @@ X-List-Received-Date: Fri, 27 Nov 2015 06:50:40 -0000
 From: Ken <ken.sk.lai@mail.foxconn.com>
 
 ---
- objects/led_controller.c | 13 +++----------
- 1 file changed, 3 insertions(+), 10 deletions(-)
+ objects/led_controller.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/objects/led_controller.c b/objects/led_controller.c
-index 6f773c9..24cfc19 100755
+index 24cfc19..34945e1 100755
 --- a/objects/led_controller.c
 +++ b/objects/led_controller.c
-@@ -68,30 +68,23 @@ on_set_off       (Led          *led,
- 	return TRUE;
- }
+@@ -71,7 +71,8 @@ on_set_off       (Led          *led,
  
--//int tmp=0;
-+
  void init_led(Led* led, GPIO* mygpio)
  {
--	int rc = GPIO_OK;
--	int i=5;
--//	tmp++;
-+	int rc = GPIO_OK;;
+-	int rc = GPIO_OK;;
++	int rc = GPIO_OK;
++
  	do {
--		sleep(2);
  		uint8_t val;
  		rc = gpio_open(mygpio);
- 		if (rc != GPIO_OK) { break; }
- 		rc = gpio_read(mygpio,&val);
- 		if (rc != GPIO_OK) { break; }
--		led_set_state(led,"off");
- 		if (val == 0) {
- 			led_set_state(led,"on");
- 		} else {
- 			led_set_state(led,"off");
- 		}
--	i--;
--	} while(i!=0);
-+	} while(0);
- 	
--//if(tmp==3)
--//	led_set_state(led,"off");
- 
- 	gpio_close(mygpio);
- 	if (rc != GPIO_OK) {
 -- 
 2.6.3
