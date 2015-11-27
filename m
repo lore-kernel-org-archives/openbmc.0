@@ -3,17 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 0C5081A03BD
- for <openbmc@lists.ozlabs.org>; Fri, 27 Nov 2015 17:40:52 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 2B0991A03BF
+ for <openbmc@lists.ozlabs.org>; Fri, 27 Nov 2015 17:40:53 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448606435115486.3532589521908;
- Thu, 26 Nov 2015 22:40:35 -0800 (PST)
+ with SMTPS id 1448606437148660.6840729821481;
+ Thu, 26 Nov 2015 22:40:37 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton v5 04/18] Remove ;
-Date: Fri, 27 Nov 2015 01:40:17 -0500
-Message-Id: <1448606431-24037-5-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v5 07/18] Remove git
+ 1e751075d5a11736df67c40ead5a8375141269d3
+Date: Fri, 27 Nov 2015 01:40:20 -0500
+Message-Id: <1448606431-24037-8-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1448606431-24037-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1448606431-24037-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -33,22 +34,41 @@ X-List-Received-Date: Fri, 27 Nov 2015 06:40:53 -0000
 From: Ken <ken.sk.lai@mail.foxconn.com>
 
 ---
- objects/led_controller.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ bin/Barreleye.py | 15 ---------------
+ 1 file changed, 15 deletions(-)
 
-diff --git a/objects/led_controller.c b/objects/led_controller.c
-index 24cfc19..34945e1 100755
---- a/objects/led_controller.c
-+++ b/objects/led_controller.c
-@@ -71,7 +71,8 @@ on_set_off       (Led          *led,
+diff --git a/bin/Barreleye.py b/bin/Barreleye.py
+index 0e92e83..64decbf 100755
+--- a/bin/Barreleye.py
++++ b/bin/Barreleye.py
+@@ -6,12 +6,6 @@ FLASH_DOWNLOAD_PATH = "/tmp"
+ GPIO_BASE = 320
+ SYSTEM_NAME = "Barreleye"
  
- void init_led(Led* led, GPIO* mygpio)
- {
--	int rc = GPIO_OK;;
-+	int rc = GPIO_OK;
-+
- 	do {
- 		uint8_t val;
- 		rc = gpio_open(mygpio);
+-import sys
+-import gobject
+-import dbus
+-import dbus.service
+-import dbus.mainloop.glib
+-
+ ## System states
+ ##   state can change to next state in 2 ways:
+ ##   - a process emits a GotoSystemState signal with state name to goto
+@@ -428,15 +422,6 @@ GPIO_CONFIG['SLOT2_PRESENT'] =         { 'gpio_pin': 'N5', 'direction': 'in' }
+ GPIO_CONFIG['MEZZ0_PRESENT'] =         { 'gpio_pin': 'O0', 'direction': 'in' }
+ GPIO_CONFIG['MEZZ1_PRESENT'] =         { 'gpio_pin': 'O1', 'direction': 'in' }
+ 
+-
+-bus = dbus.SystemBus()
+-
+-for i in range(1,6):
+- print i
+- obj = bus.get_object("org.openbmc,sensors,hwmon","/org/openbmc/sensors/speed/fan"+str(i))
+- intf = dbus.Interface (obj,"org.openbmc.SensorValue")
+- intf.setValue(dbus.UInt32(255))
+-
+ def convertGpio(name):
+ 	name = name.upper()
+ 	c = name[0:1]
 -- 
 2.6.3
