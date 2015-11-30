@@ -3,17 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id C38411A0075
- for <openbmc@lists.ozlabs.org>; Tue,  1 Dec 2015 03:04:00 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id A59EC1A0075
+ for <openbmc@lists.ozlabs.org>; Tue,  1 Dec 2015 03:35:45 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448899228717737.0048598428102;
- Mon, 30 Nov 2015 08:00:28 -0800 (PST)
+ with SMTPS id 1448899229533928.516848470922;
+ Mon, 30 Nov 2015 08:00:29 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
+Cc: Brad Bishop <bradleyb@us.ibm.com>
 Subject: [PATCH openbmc] Bump mapper and rest server revisions
-Date: Mon, 30 Nov 2015 11:00:26 -0500
-Message-Id: <1448899227-17646-1-git-send-email-openbmc-patches@stwcx.xyz>
+Date: Mon, 30 Nov 2015 11:00:27 -0500
+Message-Id: <1448899227-17646-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
+In-Reply-To: <1448899227-17646-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1448899227-17646-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -25,18 +28,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 30 Nov 2015 16:04:01 -0000
+X-List-Received-Date: Mon, 30 Nov 2015 16:35:48 -0000
+
+From: Brad Bishop <bradleyb@us.ibm.com>
 
 Fixes for freedesktop ObjectManager signal handling.
-
-https://github.com/openbmc/openbmc/pull/106
-
-Brad Bishop (1):
-  Bump mapper and rest server revisions
-
+---
  meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb | 2 +-
  meta-phosphor/common/recipes-phosphor/dbus/obmc-rest.bb   | 2 +-
  2 files changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb b/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb
+index 37c9c3f..323a179 100644
+--- a/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb
++++ b/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb
+@@ -20,6 +20,6 @@ SRC_URI += " \
+         git://github.com/openbmc/phosphor-objmgr \
+         "
+ 
+-SRCREV = "6aed08d480aa1e022df14d48b7a54f5b1790e7d9"
++SRCREV = "3f7aa329568d8f191baeeefa4a63dbb19cf26338"
+ 
+ S = "${WORKDIR}/git"
+diff --git a/meta-phosphor/common/recipes-phosphor/dbus/obmc-rest.bb b/meta-phosphor/common/recipes-phosphor/dbus/obmc-rest.bb
+index 19da738..05f2383 100644
+--- a/meta-phosphor/common/recipes-phosphor/dbus/obmc-rest.bb
++++ b/meta-phosphor/common/recipes-phosphor/dbus/obmc-rest.bb
+@@ -21,6 +21,6 @@ SRC_URI += " \
+         git://github.com/openbmc/phosphor-rest-server \
+         "
+ 
+-SRCREV = "f481dfc6b059677d06c158a5e23cfffab56edc3f"
++SRCREV = "34cae732597fb3d4b18a23b6494efdbfeca2033b"
+ 
+ S = "${WORKDIR}/git"
 -- 
 2.6.3
