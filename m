@@ -1,22 +1,85 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <vishwanath@in.ibm.com>
+Received: from e28smtp07.in.ibm.com (e28smtp07.in.ibm.com [122.248.162.7])
+ (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id C32A61A0295
- for <openbmc@lists.ozlabs.org>; Wed,  2 Dec 2015 03:50:30 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1448988623823743.4421651691617;
- Tue, 1 Dec 2015 08:50:23 -0800 (PST)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 2/2] systemd/networkd patch (not in upstream) DBUS API
- to configure network interface.
-Date: Tue,  1 Dec 2015 11:50:21 -0500
-Message-Id: <1448988621-12834-3-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1448988621-12834-1-git-send-email-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 978891A0B63
+ for <openbmc@lists.ozlabs.org>; Wed,  2 Dec 2015 04:18:11 +1100 (AEDT)
+Received: from localhost
+ by e28smtp07.in.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <vishwanath@in.ibm.com>;
+ Tue, 1 Dec 2015 22:48:08 +0530
+Received: from d28dlp01.in.ibm.com (9.184.220.126)
+ by e28smtp07.in.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Tue, 1 Dec 2015 22:48:06 +0530
+X-IBM-Helo: d28dlp01.in.ibm.com
+X-IBM-MailFrom: vishwanath@in.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d28relay05.in.ibm.com (d28relay05.in.ibm.com [9.184.220.62])
+ by d28dlp01.in.ibm.com (Postfix) with ESMTP id 2EAD6E0054
+ for <openbmc@lists.ozlabs.org>; Tue,  1 Dec 2015 22:48:47 +0530 (IST)
+Received: from d28av03.in.ibm.com (d28av03.in.ibm.com [9.184.220.65])
+ by d28relay05.in.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ tB1HI5fF5898622
+ for <openbmc@lists.ozlabs.org>; Tue, 1 Dec 2015 22:48:05 +0530
+Received: from d28av03.in.ibm.com (localhost [127.0.0.1])
+ by d28av03.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ tB1HI5CU020299
+ for <openbmc@lists.ozlabs.org>; Tue, 1 Dec 2015 22:48:05 +0530
+Received: from d50lp01.ny.us.ibm.com ([146.89.104.207])
+ by d28av03.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ tB1HI2Se017338
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Tue, 1 Dec 2015 22:48:04 +0530
+Message-Id: <201512011718.tB1HI2Se017338@d28av03.in.ibm.com>
+Received: from /spool/local
+ by d50lp01.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <vishwanath@in.ibm.com>;
+ Tue, 1 Dec 2015 12:17:13 -0500
+Received: from smtp.notes.na.collabserv.com (192.155.248.91)
+ by d50lp01.ny.us.ibm.com (158.87.18.20) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
+ Tue, 1 Dec 2015 12:17:10 -0500
+Received: from /spool/local
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <vishwanath@in.ibm.com>;
+ Tue, 1 Dec 2015 17:17:08 -0000
+Received: from us1a3-smtp03.a3.dal06.isc4sb.com (10.106.154.94)
+ by smtp.notes.na.collabserv.com (10.106.227.143) with
+ smtp.notes.na.collabserv.com ESMTP; Tue, 1 Dec 2015 17:17:06 -0000
+Received: from us1a3-mail58.a3.dal09.isc4sb.com ([10.142.3.114])
+ by us1a3-smtp03.a3.dal06.isc4sb.com
+ with ESMTP id 2015120117180098-410358 ;
+ Tue, 1 Dec 2015 17:18:00 +0000 
+In-Reply-To: <1448988621-12834-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: Re: [PATCH openbmc 1/2] Adding IPMI Parser Library.
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Cc: openbmc@lists.ozlabs.org,
+ "OpenBMC Members" <OpenBMC_Members@d28av03.in.ibm.com>
+From: "Vishwanatha Subbanna" <vishwanath@in.ibm.com>
+Date: Tue, 1 Dec 2015 22:47:04 +0530
 References: <1448988621-12834-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1448988621-12834-2-git-send-email-openbmc-patches@stwcx.xyz>
+X-KeepSent: 10C54741:9C5CECCA-65257F0E:005EA428;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1 October 14, 2013
+X-LLNOutbound: False
+X-Disclaimed: 40295
+X-TNEFEvaluated: 1
+Content-type: multipart/related; 
+ Boundary="0__=EABBF59DDFCD22B88f9e8a93df938690918cEABBF59DDFCD22B8"
+x-cbid: 15120117-0025-0000-0000-0000086947DC
+X-IBM-ISS-SpamDetectors: Score=0.410717; BY=0.13251; FL=0; FP=0; FZ=0; HX=0;
+ KW=0; PH=0; SC=0.410717; ST=0; TS=0; UL=0; ISC=
+X-IBM-ISS-DetailInfo: BY=3.00004629; HX=3.00000236; KW=3.00000007;
+ PH=3.00000004; SC=3.00000122; SDB=6.00625067; UDB=6.00278495; UTC=2015-12-01
+ 17:17:07
+x-cbparentid: 15120117-4778-0000-0000-00000110F455
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,301 +91,211 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Dec 2015 16:50:31 -0000
+X-List-Received-Date: Tue, 01 Dec 2015 17:18:12 -0000
+
+--0__=EABBF59DDFCD22B88f9e8a93df938690918cEABBF59DDFCD22B8
+Content-type: multipart/alternative; 
+	Boundary="1__=EABBF59DDFCD22B88f9e8a93df938690918cEABBF59DDFCD22B8"
+
+
+--1__=EABBF59DDFCD22B88f9e8a93df938690918cEABBF59DDFCD22B8
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/plain; charset=US-ASCII
+
+
+hey Hari,
+
+.../ipmi-fru-parser/ipmi-fru-parser.bb  : is not needed since
+ipmi-fru-parser repo is packaged as :
+openbmc/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid-fru.bb
+
+And hence no change needed for package-group as well.
+
+Thanks
+
+---------------------------------------------------------------------------=
+----------
+
+Thanks and Regards,
+Vishwanath.
+Advisory Software Engineer,
+Power Firmware Development,
+Systems &Technology Lab,
+MK-GF-050 , Manyata Embassy Business Park,
+Bangalore , KA , 560045
+Ph: +91-80-40256820
+E-mail: vishwanath@in.ibm.com
+---------------------------------------------------------------------------=
+-------
+
+
+
+From:	OpenBMC Patches <openbmc-patches@stwcx.xyz>
+To:	openbmc@lists.ozlabs.org
+Date:	12/01/2015 10:21 PM
+Subject:	[PATCH openbmc 1/2] Adding IPMI Parser Library.
+Sent by:	"openbmc" <openbmc-bounces
+            +vishwanath=3Din.ibm.com@lists.ozlabs.org>
+
+
 
 From: Hariharasubramanian R <hramasub@in.ibm.com>
 
 ---
- .../0100-systemd_networkd_dbus_setaddress.patch    | 255 +++++++++++++++++++++
- .../meta/recipes-core/systemd/systemd_225.bb       |   3 +-
- 2 files changed, 257 insertions(+), 1 deletion(-)
- create mode 100644 yocto-poky/meta/recipes-core/systemd/systemd/0100-systemd_networkd_dbus_setaddress.patch
+ .../ipmi-fru-parser/ipmi-fru-parser.bb                 | 18 ++++++++++++++
+++++
+ .../packagegroups/packagegroup-obmc-phosphor-apps.bb   |  1 +
+ 2 files changed, 19 insertions(+)
+ create mode 100644
+meta-phosphor/common/recipes-phosphor/ipmi-fru-parser/ipmi-fru-parser.bb
 
-diff --git a/yocto-poky/meta/recipes-core/systemd/systemd/0100-systemd_networkd_dbus_setaddress.patch b/yocto-poky/meta/recipes-core/systemd/systemd/0100-systemd_networkd_dbus_setaddress.patch
+diff --git
+a/meta-phosphor/common/recipes-phosphor/ipmi-fru-parser/ipmi-fru-parser.bb
+b/meta-phosphor/common/recipes-phosphor/ipmi-fru-parser/ipmi-fru-parser.bb
 new file mode 100644
-index 0000000..3ca23c6
+index 0000000..02ff308
 --- /dev/null
-+++ b/yocto-poky/meta/recipes-core/systemd/systemd/0100-systemd_networkd_dbus_setaddress.patch
-@@ -0,0 +1,255 @@
-+From 946d0bac014f2def506812aec19961fab813b0dd Mon Sep 17 00:00:00 2001
-+From: Hariharasubramanian R <hramasub@in.ibm.com>
-+Date: Tue, 1 Dec 2015 07:37:14 -0600
-+Subject: [PATCH] DBUS API support for systemd/networkd to configure the
-+ interface parameters.
++++
+b/meta-phosphor/common/recipes-phosphor/ipmi-fru-parser/ipmi-fru-parser.bb
+@@ -0,0 +1,18 @@
++SUMMARY =3D "OpenBMC IPMI FRU Parser"
++DESCRIPTION =3D "Parse the common/chassis/board/product areas of the FRU
+data into a VPD dictionary table."
++HOMEPAGE =3D "https://github.com/openbmc/ipmi-fru-parser"
++PR =3D "r1"
 +
-+---
-+ src/network/networkd-network-bus.c | 108 +++++++++++++++++++++++++++++++++++++
-+ src/network/networkd-network.c     |  85 +++++++++++++++++++++++++++++
-+ 2 files changed, 193 insertions(+)
++inherit obmc-phosphor-license
++inherit obmc-phosphor-sdbus-service
 +
-+diff --git a/src/network/networkd-network-bus.c b/src/network/networkd-network-bus.c
-+index 5717a15..6f20d2d 100644
-+--- a/src/network/networkd-network-bus.c
-++++ b/src/network/networkd-network-bus.c
-+@@ -19,10 +19,27 @@
-+   along with systemd; If not, see <http://www.gnu.org/licenses/>.
-+ ***/
-+ 
-++#define SYSTEMD_NETWORKD_DBUS 1
-++
-++#ifdef SYSTEMD_NETWORKD_DBUS
-++#include <netinet/ether.h>
-++#include <linux/if.h>
-++#endif
-++
-+ #include "strv.h"
-+ 
-+ #include "networkd.h"
-+ 
-++#ifdef SYSTEMD_NETWORKD_DBUS
-++#include "hostname-util.h"
-++#include "network-internal.h"
-++#include "networkd-link.h"
-++#endif
-++
-++#ifdef SYSTEMD_NETWORKD_DBUS
-++int network_address_added_handler (sd_netlink* rtnl, sd_netlink_message* m, void* userdata);
-++#endif
-++
-+ static int property_get_ether_addrs(
-+                 sd_bus *bus,
-+                 const char *path,
-+@@ -56,6 +73,10 @@ static int property_get_ether_addrs(
-+         return sd_bus_message_close_container(reply);
-+ }
-+ 
-++#ifdef SYSTEMD_NETWORKD_DBUS
-++static int method_set_address (sd_bus_message *m, void* userdata, sd_bus_error *error);
-++#endif
-++
-+ const sd_bus_vtable network_vtable[] = {
-+         SD_BUS_VTABLE_START(0),
-+ 
-+@@ -67,6 +88,10 @@ const sd_bus_vtable network_vtable[] = {
-+         SD_BUS_PROPERTY("MatchType", "as", NULL, offsetof(Network, match_type), SD_BUS_VTABLE_PROPERTY_CONST),
-+         SD_BUS_PROPERTY("MatchName", "as", NULL, offsetof(Network, match_name), SD_BUS_VTABLE_PROPERTY_CONST),
-+ 
-++#ifdef SYSTEMD_NETWORKD_DBUS
-++	    /* index, IP, netmask, family, flags, scope, gateway */
-++    	SD_BUS_METHOD("SetAddress", "yssyyys", "x", method_set_address, SD_BUS_VTABLE_UNPRIVILEGED),
-++#endif
-+         SD_BUS_VTABLE_END
-+ };
-+ 
-+@@ -152,3 +177,86 @@ int network_object_find(sd_bus *bus, const char *path, const char *interface, vo
-+ 
-+         return 1;
-+ }
-++
-++#ifdef SYSTEMD_NETWORKD_DBUS
-++static int method_set_address (sd_bus_message *m, void* userdata, sd_bus_error *error)
-++{
-++    _cleanup_address_free_ Address *addr = NULL;
-++    _cleanup_route_free_ Route *rt = NULL;
-++    unsigned char family;
-++    unsigned char prefixlen;
-++    unsigned char flags;
-++    unsigned char scope;
-++    unsigned char index;
-++    const char* ipaddr;
-++    const char* netmask;
-++    const char* gateway;
-++    struct in_addr nm;
-++    struct in_addr ip;
-++    struct in_addr gw;
-++    Manager *mgr = userdata;
-++    Link* link = NULL;
-++    int r;
-++
-++    assert(m);
-++    assert(mgr);
-++
-++    r = sd_bus_message_read (m, "yssyyys", &index, &ipaddr, &netmask, &family, &flags, &scope, &gateway);
-++    if (r < 0)
-++        return r;
-++
-++    if (isempty (ipaddr))
-++        return sd_bus_error_setf(error, SD_BUS_ERROR_INVALID_ARGS, "Invalid IP Address '%s'", ipaddr);
-++
-++    if (isempty (netmask))
-++        return sd_bus_error_setf(error, SD_BUS_ERROR_INVALID_ARGS, "Invalid IP Netmask '%s'", netmask);
-++
-++    inet_aton (netmask, &nm);
-++    inet_aton (ipaddr, &ip);
-++    inet_aton (gateway, &gw);
-++
-++    prefixlen = in_addr_netmask_to_prefixlen(&nm);
-++
-++    r = address_new_dynamic(&addr);
-++    if (r < 0)
-++        return sd_bus_error_setf(error, SD_BUS_ERROR_NO_MEMORY, "Error allocating new address");
-++
-++    r = link_get (mgr, index, &link);
-++    if (r == -ENODEV)
-++        return sd_bus_error_setf(error, SD_BUS_ERROR_BAD_ADDRESS, "No such Device at index ['%d'].", index);
-++    else if (r < 0)
-++        return sd_bus_error_setf(error, SD_BUS_ERROR_BAD_ADDRESS, "Unknown Device error at index ['%d'].", index);
-++
-++    r = link_initialized (link, link->udev_device);
-++    if (r < 0)
-++        /*return sd_bus_error_setf(error, SD_BUS_ERROR_IO_ERROR, "Device ['%s'] not ready.", link->udev_device->device->devpath);*/
-++        return sd_bus_error_setf(error, SD_BUS_ERROR_IO_ERROR, "Device not ready.");
-++
-++    addr->family = AF_INET;
-++    addr->in_addr.in.s_addr = ip.s_addr;
-++    addr->prefixlen = prefixlen;
-++    addr->broadcast.s_addr = ip.s_addr | ~nm.s_addr;
-++
-++    /* FIXME: Save default gateway in link->network->static_routes */
-++    r = route_new_dynamic(&rt, RTPROT_STATIC);
-++    if (r < 0)
-++        return r;
-++
-++    rt->protocol = RTPROT_STATIC;
-++    rt->network = link->network;
-++    rt->family = family;
-++    rt->scope = RT_SCOPE_LINK;
-++    rt->dst_prefixlen = 32; /* FIXME: AF_INET assumed */
-++    rt->dst_addr.in = gw;
-++    /*rt->gw = defgw;*/
-++
-++    LIST_PREPEND(routes, link->network->static_routes, rt);
-++
-++    /* send an nlmsg (RTM_NEWADDR) and append address to link address list */
-++    r = address_update (addr, link, network_address_added_handler);
-++    if (r < 0)
-++        return r;
-++
-++    return 0;
-++}
-++#endif
-+diff --git a/src/network/networkd-network.c b/src/network/networkd-network.c
-+index 6587ea9..8a38050 100644
-+--- a/src/network/networkd-network.c
-++++ b/src/network/networkd-network.c
-+@@ -32,6 +32,14 @@
-+ #include "network-internal.h"
-+ #include "dns-domain.h"
-+ 
-++#define SYSTEMD_NETWORKD_DBUS 1
-++
-++#ifdef SYSTEMD_NETWORKD_DBUS
-++int network_address_added_handler (sd_netlink* rtnl, sd_netlink_message* m, void* userdata);
-++int network_set_gateway (Link* link);
-++static int route_handler(sd_netlink *rtnl, sd_netlink_message *m, void *userdata);
-++#endif
-++
-+ static int network_load_one(Manager *manager, const char *filename) {
-+         _cleanup_network_free_ Network *network = NULL;
-+         _cleanup_fclose_ FILE *file = NULL;
-+@@ -850,3 +858,80 @@ int config_parse_hostname(const char *unit,
-+ 
-+         return 0;
-+ }
-++
-++#ifdef SYSTEMD_NETWORKD_DBUS
-++int network_address_added_handler (sd_netlink* rtnl, sd_netlink_message* m, void* userdata)
-++{
-++        _cleanup_link_unref_ Link *link = userdata;
-++        int r;
-++
-++        assert(link);
-++
-++        r = sd_netlink_message_get_errno(m);
-++        if (r < 0 && r != -EEXIST) {
-++                log_debug("Error in set IP address!");
-++                link_enter_failed(link);
-++        } else if (r >= 0)
-++                link_rtnl_process_address(rtnl, m, link->manager);
-++
-++	network_set_gateway (link);
-++
-++	return 1;
-++}
-++
-++/* link_enter_set_routes */
-++int network_set_gateway (Link* link)
-++{
-++        Route *rt;
-++        int r;
-++
-++        assert(link);
-++        assert(link->network);
-++        assert(link->state == LINK_STATE_SETTING_ADDRESSES);
-++
-++        link->state = LINK_STATE_SETTING_ROUTES;
-++
-++        LIST_FOREACH(routes, rt, link->network->static_routes) {
-++                r = route_configure(rt, link, &route_handler);
-++                if (r < 0) {
-++                        log_debug ("Could not set Gateway!");
-++                        link_enter_failed(link);
-++                        return r;
-++                }
-++
-++                link->link_messages ++;
-++        }
-++
-++        if (link->link_messages == 0) {
-++                link->static_configured = true;
-++                /*link_check_ready(link);*/
-++        } else
-++                log_debug("Setting Gateway");
-++
-++        return 0;
-++}
-++
-++static int route_handler(sd_netlink *rtnl, sd_netlink_message *m, void *userdata) {
-++        _cleanup_link_unref_ Link *link = userdata;
-++        int r;
-++
-++        assert(link);
-++        assert(link->dhcp4_messages);
-++
-++        link->dhcp4_messages --;
-++
-++        r = sd_netlink_message_get_errno(m);
-++        if (r < 0 && r != -EEXIST) {
-++                log_debug ("Could not set route! ");
-++                link_enter_failed(link);
-++        }
-++
-++        if (!link->dhcp4_messages) {
-++                link->dhcp4_configured = true;
-++                /*link_check_ready(link);*/
-++        }
-++
-++        return 1;
-++}
-++
-++#endif
-+-- 
-+1.8.2.2
++SRC=5FURI +=3D "git://github.com/hramasub/ipmi-fru-parser"
 +
-diff --git a/yocto-poky/meta/recipes-core/systemd/systemd_225.bb b/yocto-poky/meta/recipes-core/systemd/systemd_225.bb
-index f7d4c7d..eb3d879 100644
---- a/yocto-poky/meta/recipes-core/systemd/systemd_225.bb
-+++ b/yocto-poky/meta/recipes-core/systemd/systemd_225.bb
-@@ -41,6 +41,7 @@ SRC_URI = "git://github.com/systemd/systemd.git;protocol=git \
-            file://0012-implment-systemd-sysv-install-for-OE.patch \
-            file://0014-Revert-rules-remove-firmware-loading-rules.patch \
-            file://0015-Revert-udev-remove-userspace-firmware-loading-suppor.patch \
-+           file://0100-systemd_networkd_dbus_setaddress.patch \
-            file://touchscreen.rules \
-            file://00-create-volatile.conf \
-            file://init \
-@@ -74,7 +75,6 @@ PACKAGECONFIG[xz] = "--enable-xz,--disable-xz,xz"
- PACKAGECONFIG[cryptsetup] = "--enable-libcryptsetup,--disable-libcryptsetup,cryptsetup"
- PACKAGECONFIG[microhttpd] = "--enable-microhttpd,--disable-microhttpd,libmicrohttpd"
- PACKAGECONFIG[elfutils] = "--enable-elfutils,--disable-elfutils,elfutils"
--PACKAGECONFIG[resolved] = "--enable-resolved,--disable-resolved"
- PACKAGECONFIG[networkd] = "--enable-networkd,--disable-networkd"
- PACKAGECONFIG[libidn] = "--enable-libidn,--disable-libidn,libidn"
- PACKAGECONFIG[audit] = "--enable-audit,--disable-audit,audit"
-@@ -413,3 +413,4 @@ python () {
-     if not bb.utils.contains ('DISTRO_FEATURES', 'systemd', True, False, d):
-         raise bb.parse.SkipPackage("'systemd' not in DISTRO_FEATURES")
- }
++SRCREV =3D "e097f0cc58c64564ae059f9b02ecb574e4cbb666"
++
++S =3D "${WORKDIR}/git"
++
++do=5Finstall() {
++        install -m 0755 -d ${D}${libdir}/ipmi
++        install -m 0755 ${S}/*.so ${D}${libdir}/ipmi
 +}
--- 
+diff --git
+a/meta-phosphor/common/recipes-phosphor/packagegroups/packagegroup-obmc-pho=
+sphor-apps.bb
+
+b/meta-phosphor/common/recipes-phosphor/packagegroups/packagegroup-obmc-pho=
+sphor-apps.bb
+
+index 4dbcdd3..54e5655 100644
+---
+a/meta-phosphor/common/recipes-phosphor/packagegroups/packagegroup-obmc-pho=
+sphor-apps.bb
+
++++
+b/meta-phosphor/common/recipes-phosphor/packagegroups/packagegroup-obmc-pho=
+sphor-apps.bb
+
+@@ -26,6 +26,7 @@ SUMMARY=5Fpackagegroup-obmc-phosphor-apps-extras =3D "Ext=
+ra
+features"
+ RDEPENDS=5Fpackagegroup-obmc-phosphor-apps-extras =3D " \
+         rest-dbus \
+         host-ipmid \
++        ipmi-fru-parser \
+         "
+
+ SUMMARY=5Fpackagegroup-obmc-phosphor-apps-fan-mgmt =3D "Fan management
+support"
+--
 2.6.3
+
+
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F
+openbmc mailing list
+openbmc@lists.ozlabs.org
+https://lists.ozlabs.org/listinfo/openbmc
+
+
+--1__=EABBF59DDFCD22B88f9e8a93df938690918cEABBF59DDFCD22B8
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/html; charset=US-ASCII
+Content-Disposition: inline
+
+<html><body><p>hey Hari,<br><br><tt>.../ipmi-fru-parser/ipmi-fru-parser.bb =
+</tt> : is not needed since ipmi-fru-parser repo is packaged as : openbmc/m=
+eta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid-fru.bb<br><br>An=
+d hence no change needed for package-group as well.<br><br>Thanks<br><br>--=
+---------------------------------------------------------------------------=
+--------<br>Thanks and Regards,<br>Vishwanath.<br>Advisory Software Enginee=
+r,<br>Power Firmware Development, <br>Systems &amp;Technology Lab,<br>MK-GF=
+-050 , Manyata Embassy Business Park, <br>Bangalore , KA , 560045<br>Ph: +9=
+1-80-40256820<br>E-mail: vishwanath@in.ibm.com<br>-------------------------=
+---------------------------------------------------------<br><br><img width=
+=3D"16" height=3D"16" src=3D"cid:1=5F=5F=3DEABBF59DDFCD22B88f9e8a93df938690=
+918cEAB@" border=3D"0" alt=3D"Inactive hide details for OpenBMC Patches ---=
+12/01/2015 10:21:03 PM---From: Hariharasubramanian R &lt;hramasub@in.ibm.co=
+m&gt; ---"><font color=3D"#424282">OpenBMC Patches ---12/01/2015 10:21:03 P=
+M---From: Hariharasubramanian R &lt;hramasub@in.ibm.com&gt; ---</font><br><=
+br><font size=3D"2" color=3D"#5F5F5F">From:        </font><font size=3D"2">=
+OpenBMC Patches &lt;openbmc-patches@stwcx.xyz&gt;</font><br><font size=3D"2=
+" color=3D"#5F5F5F">To:        </font><font size=3D"2">openbmc@lists.ozlabs=
+.org</font><br><font size=3D"2" color=3D"#5F5F5F">Date:        </font><font=
+ size=3D"2">12/01/2015 10:21 PM</font><br><font size=3D"2" color=3D"#5F5F5F=
+">Subject:        </font><font size=3D"2">[PATCH openbmc 1/2] Adding IPMI P=
+arser Library.</font><br><font size=3D"2" color=3D"#5F5F5F">Sent by:       =
+ </font><font size=3D"2">&quot;openbmc&quot; &lt;openbmc-bounces+vishwanath=
+=3Din.ibm.com@lists.ozlabs.org&gt;</font><br><hr width=3D"100%" size=3D"2" =
+align=3D"left" noshade style=3D"color:#8091A5; "><br><br><br><tt>From: Hari=
+harasubramanian R &lt;hramasub@in.ibm.com&gt;<br><br>---<br> .../ipmi-fru-p=
+arser/ipmi-fru-parser.bb &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; | 18 ++++++++++++++++++<br> .../packagegroups/packagegroup-obmc-phosp=
+hor-apps.bb &nbsp; | &nbsp;1 +<br> 2 files changed, 19 insertions(+)<br> cr=
+eate mode 100644 meta-phosphor/common/recipes-phosphor/ipmi-fru-parser/ipmi=
+-fru-parser.bb<br><br>diff --git a/meta-phosphor/common/recipes-phosphor/ip=
+mi-fru-parser/ipmi-fru-parser.bb b/meta-phosphor/common/recipes-phosphor/ip=
+mi-fru-parser/ipmi-fru-parser.bb<br>new file mode 100644<br>index 0000000..=
+02ff308<br>--- /dev/null<br>+++ b/meta-phosphor/common/recipes-phosphor/ipm=
+i-fru-parser/ipmi-fru-parser.bb<br>@@ -0,0 +1,18 @@<br>+SUMMARY =3D &quot;O=
+penBMC IPMI FRU Parser&quot;<br>+DESCRIPTION =3D &quot;Parse the common/cha=
+ssis/board/product areas of the FRU data into a VPD dictionary table.&quot;=
+<br>+HOMEPAGE =3D &quot;</tt><tt><a href=3D"https://github.com/openbmc/ipmi=
+-fru-parser">https://github.com/openbmc/ipmi-fru-parser</a></tt><tt>&quot;<=
+br>+PR =3D &quot;r1&quot;<br>+<br>+inherit obmc-phosphor-license<br>+inheri=
+t obmc-phosphor-sdbus-service<br>+<br>+SRC=5FURI +=3D &quot;git://github.co=
+m/hramasub/ipmi-fru-parser&quot;<br>+<br>+SRCREV =3D &quot;e097f0cc58c64564=
+ae059f9b02ecb574e4cbb666&quot;<br>+<br>+S =3D &quot;${WORKDIR}/git&quot;<br=
+>+<br>+do=5Finstall() {<br>+ &nbsp; &nbsp; &nbsp; &nbsp;install -m 0755 -d =
+${D}${libdir}/ipmi<br>+ &nbsp; &nbsp; &nbsp; &nbsp;install -m 0755 ${S}/*.s=
+o ${D}${libdir}/ipmi<br>+}<br>diff --git a/meta-phosphor/common/recipes-pho=
+sphor/packagegroups/packagegroup-obmc-phosphor-apps.bb b/meta-phosphor/comm=
+on/recipes-phosphor/packagegroups/packagegroup-obmc-phosphor-apps.bb<br>ind=
+ex 4dbcdd3..54e5655 100644<br>--- a/meta-phosphor/common/recipes-phosphor/p=
+ackagegroups/packagegroup-obmc-phosphor-apps.bb<br>+++ b/meta-phosphor/comm=
+on/recipes-phosphor/packagegroups/packagegroup-obmc-phosphor-apps.bb<br>@@ =
+-26,6 +26,7 @@ SUMMARY=5Fpackagegroup-obmc-phosphor-apps-extras =3D &quot;E=
+xtra features&quot;<br> RDEPENDS=5Fpackagegroup-obmc-phosphor-apps-extras =
+=3D &quot; \<br> &nbsp; &nbsp; &nbsp; &nbsp; rest-dbus \<br> &nbsp; &nbsp; =
+&nbsp; &nbsp; host-ipmid \<br>+ &nbsp; &nbsp; &nbsp; &nbsp;ipmi-fru-parser =
+\<br> &nbsp; &nbsp; &nbsp; &nbsp; &quot;<br> <br> SUMMARY=5Fpackagegroup-ob=
+mc-phosphor-apps-fan-mgmt =3D &quot;Fan management support&quot;<br>-- <br>=
+2.6.3<br><br><br>=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F<br>openbmc mailing list<br>openbmc@lists.ozlabs.org<br></tt><tt><=
+a href=3D"https://lists.ozlabs.org/listinfo/openbmc">https://lists.ozlabs.o=
+rg/listinfo/openbmc</a></tt><tt><br></tt><br><BR>
+</body></html>
+
+--1__=EABBF59DDFCD22B88f9e8a93df938690918cEABBF59DDFCD22B8--
+
+
+--0__=EABBF59DDFCD22B88f9e8a93df938690918cEABBF59DDFCD22B8
+Content-type: image/gif; 
+	name="graycol.gif"
+Content-Disposition: inline; filename="graycol.gif"
+Content-ID: <1__=EABBF59DDFCD22B88f9e8a93df938690918cEAB@>
+Content-Transfer-Encoding: base64
+
+R0lGODlhEAAQAKECAMzMzAAAAP///wAAACH5BAEAAAIALAAAAAAQABAAAAIXlI+py+0PopwxUbpu
+ZRfKZ2zgSJbmSRYAIf4fT3B0aW1pemVkIGJ5IFVsZWFkIFNtYXJ0U2F2ZXIhAAA7
+
+
+--0__=EABBF59DDFCD22B88f9e8a93df938690918cEABBF59DDFCD22B8--
