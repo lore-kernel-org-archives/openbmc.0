@@ -1,20 +1,19 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <openbmc-patches@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 11CFB1A0CCC
- for <openbmc@lists.ozlabs.org>; Thu,  3 Dec 2015 04:35:01 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Sender: bradleyb@bajor.fuzziesquirrel.com
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: rest server authentication
-Message-Id: <0DE254DA-169E-4DA5-A7A7-940A648F147F@fuzziesquirrel.com>
-Date: Wed, 2 Dec 2015 12:34:55 -0500
-To: OpenBMC Patches <openbmc@lists.ozlabs.org>
-Mime-Version: 1.0 (Mac OS X Mail 9.1 \(3096.5\))
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4EC4D1A0CCC
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Dec 2015 04:40:12 +1100 (AEDT)
+Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
+ with SMTPS id 1449078010143971.7768741926674;
+ Wed, 2 Dec 2015 09:40:10 -0800 (PST)
+From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH docs] Add login/logout examples
+Date: Wed,  2 Dec 2015 12:40:08 -0500
+Message-Id: <1449078009-8256-1-git-send-email-openbmc-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.6.3
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -26,15 +25,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Dec 2015 17:35:02 -0000
+X-List-Received-Date: Wed, 02 Dec 2015 17:40:12 -0000
 
-If you use the rest server, read on=E2=80=A6
+https://github.com/openbmc/docs/pull/8
 
-I have a pending pull request that will require login to the rest server =
-before it can be used.  For examples on doing this with curl see here:
+Brad Bishop (1):
+  Add login/logout examples
 
-https://github.com/bradbishop/phosphor-docs/blob/master/rest-api.md
+ rest-api.md | 64 +++++++++++++++++++++++++++++++++++++------------------------
+ 1 file changed, 39 insertions(+), 25 deletions(-)
 
-Please let me know of any concerns or feedback.
-
-thx - brad=
+-- 
+2.6.3
