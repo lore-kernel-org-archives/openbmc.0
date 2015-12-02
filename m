@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id E9E7F1A0B63
- for <openbmc@lists.ozlabs.org>; Wed,  2 Dec 2015 19:30:55 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 5138A1A0286
+ for <openbmc@lists.ozlabs.org>; Wed,  2 Dec 2015 19:30:56 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1449045049200505.6068083436595;
- Wed, 2 Dec 2015 00:30:49 -0800 (PST)
+ with SMTPS id 1449045050559730.4669116371136;
+ Wed, 2 Dec 2015 00:30:50 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton v7 18/19] Init BMC_THROTTLE GPIO to high
-Date: Wed,  2 Dec 2015 03:30:32 -0500
-Message-Id: <1449045033-30280-19-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v7 19/19] Add BMC_CPLD GPIO define
+Date: Wed,  2 Dec 2015 03:30:33 -0500
+Message-Id: <1449045033-30280-20-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1449045033-30280-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1449045033-30280-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -33,39 +33,23 @@ X-List-Received-Date: Wed, 02 Dec 2015 08:30:56 -0000
 From: Ken <ken.sk.lai@mail.foxconn.com>
 
 ---
- objects/control_host_obj.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ bin/Barreleye.py | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/objects/control_host_obj.c b/objects/control_host_obj.c
-index 672ef85..9297e52 100644
---- a/objects/control_host_obj.c
-+++ b/objects/control_host_obj.c
-@@ -21,6 +21,7 @@ GPIO fsi_data     = (GPIO){ "FSI_DATA" };
- GPIO fsi_clk      = (GPIO){ "FSI_CLK" };
- GPIO fsi_enable   = (GPIO){ "FSI_ENABLE" };
- GPIO cronus_sel   = (GPIO){ "CRONUS_SEL" };
-+GPIO Throttle     = (GPIO){ "BMC_TROTTLE" };
- 
- /* Bit bang patterns */
- 
-@@ -82,6 +83,9 @@ on_boot         (ControlHost        *host,
- {
- 	int rc = GPIO_OK;
- 
-+	rc = gpio_open(&Throttle);
-+	rc = gpio_write(&Throttle,1);
-+
- 	if (control_host_get_debug_mode(host)==1)
- 	{
- 		g_print("Enabling debug mode; not booting host\n");
-@@ -165,7 +169,7 @@ on_boot         (ControlHost        *host,
- 	gpio_close(&fsi_data);
- 	gpio_close(&fsi_enable);
- 	gpio_close(&cronus_sel);
--
-+	gpio_close(&Throttle);
- 	control_host_emit_booted(host);
- 	return TRUE;
- }
+diff --git a/bin/Barreleye.py b/bin/Barreleye.py
+index e255ca7..f009b48 100755
+--- a/bin/Barreleye.py
++++ b/bin/Barreleye.py
+@@ -494,6 +494,10 @@ GPIO_CONFIG['USB_RESET']    = { 'gpio_pin': 'B6', 'direction': 'out' }
+ GPIO_CONFIG['BEEP']    	  =   { 'gpio_pin': 'N7', 'direction': 'out' }
+ GPIO_CONFIG['BMC_TROTTLE']    	  =   { 'gpio_pin': 'J3', 'direction': 'out' }
+ GPIO_CONFIG['BMC_HEARTBEAT']    	  =   { 'gpio_pin': 'R4', 'direction': 'out' }
++GPIO_CONFIG['CPLD_TCK']       =   { 'gpio_pin': 'P0', 'direction': 'out' }
++GPIO_CONFIG['CPLD_TDO']       =   { 'gpio_pin': 'P1', 'direction': 'out' }
++GPIO_CONFIG['CPLD_TDI']       =   { 'gpio_pin': 'P2', 'direction': 'out' }
++GPIO_CONFIG['CPLD_TMS']       =   { 'gpio_pin': 'P3', 'direction': 'out' }
+ GPIO_CONFIG['SLOT0_RISER_PRESENT'] =   { 'gpio_pin': 'N0', 'direction': 'in' }
+ GPIO_CONFIG['SLOT1_RISER_PRESENT'] =   { 'gpio_pin': 'N1', 'direction': 'in' }
+ GPIO_CONFIG['SLOT2_RISER_PRESENT'] =   { 'gpio_pin': 'N2', 'direction': 'in' }
 -- 
 2.6.3
