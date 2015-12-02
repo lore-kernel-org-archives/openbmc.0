@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id B3CE41A000C
- for <openbmc@lists.ozlabs.org>; Wed,  2 Dec 2015 19:30:56 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 5C3E11A0BF7
+ for <openbmc@lists.ozlabs.org>; Wed,  2 Dec 2015 19:30:58 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1449045034790883.0978231405734;
- Wed, 2 Dec 2015 00:30:34 -0800 (PST)
+ with SMTPS id 1449045042625291.8592438368461;
+ Wed, 2 Dec 2015 00:30:42 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton v7 01/19] LED test
-Date: Wed,  2 Dec 2015 03:30:15 -0500
-Message-Id: <1449045033-30280-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v7 10/19] LED test
+Date: Wed,  2 Dec 2015 03:30:24 -0500
+Message-Id: <1449045033-30280-11-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1449045033-30280-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1449045033-30280-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,7 +28,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Dec 2015 08:30:57 -0000
+X-List-Received-Date: Wed, 02 Dec 2015 08:30:58 -0000
 
 From: Ken <ken.sk.lai@mail.foxconn.com>
 
@@ -39,10 +39,10 @@ From: Ken <ken.sk.lai@mail.foxconn.com>
  mode change 100644 => 100755 objects/led_controller.c
 
 diff --git a/bin/Barreleye.py b/bin/Barreleye.py
-index 65a6aa4..98d7321 100755
+index 3782766..9f3d1d1 100755
 --- a/bin/Barreleye.py
 +++ b/bin/Barreleye.py
-@@ -408,6 +408,7 @@ GPIO_CONFIG['BMC_READY']   =  { 'gpio_pin': 'H2', 'direction': 'out' }
+@@ -470,6 +470,7 @@ GPIO_CONFIG['BMC_READY']   =  { 'gpio_pin': 'H2', 'direction': 'out' }
  GPIO_CONFIG['POWER_BUTTON'] = { 'gpio_pin': 'E0', 'direction': 'both' }
  GPIO_CONFIG['PCIE_RESET']   = { 'gpio_pin': 'B5', 'direction': 'out' }
  GPIO_CONFIG['USB_RESET']    = { 'gpio_pin': 'B6', 'direction': 'out' }
