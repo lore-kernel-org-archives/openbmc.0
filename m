@@ -3,18 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id C79D41A0915
+ by lists.ozlabs.org (Postfix) with ESMTPS id E9E7F1A0B63
  for <openbmc@lists.ozlabs.org>; Wed,  2 Dec 2015 19:30:55 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1449045039818787.8008302014842;
- Wed, 2 Dec 2015 00:30:39 -0800 (PST)
+ with SMTPS id 1449045049200505.6068083436595;
+ Wed, 2 Dec 2015 00:30:49 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton v7 07/19] Remove git
- 1e751075d5a11736df67c40ead5a8375141269d3
-Date: Wed,  2 Dec 2015 03:30:21 -0500
-Message-Id: <1449045033-30280-8-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v7 18/19] Init BMC_THROTTLE GPIO to high
+Date: Wed,  2 Dec 2015 03:30:32 -0500
+Message-Id: <1449045033-30280-19-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1449045033-30280-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1449045033-30280-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -34,41 +33,39 @@ X-List-Received-Date: Wed, 02 Dec 2015 08:30:56 -0000
 From: Ken <ken.sk.lai@mail.foxconn.com>
 
 ---
- bin/Barreleye.py | 15 ---------------
- 1 file changed, 15 deletions(-)
+ objects/control_host_obj.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/bin/Barreleye.py b/bin/Barreleye.py
-index 0e92e83..64decbf 100755
---- a/bin/Barreleye.py
-+++ b/bin/Barreleye.py
-@@ -6,12 +6,6 @@ FLASH_DOWNLOAD_PATH = "/tmp"
- GPIO_BASE = 320
- SYSTEM_NAME = "Barreleye"
+diff --git a/objects/control_host_obj.c b/objects/control_host_obj.c
+index 672ef85..9297e52 100644
+--- a/objects/control_host_obj.c
++++ b/objects/control_host_obj.c
+@@ -21,6 +21,7 @@ GPIO fsi_data     = (GPIO){ "FSI_DATA" };
+ GPIO fsi_clk      = (GPIO){ "FSI_CLK" };
+ GPIO fsi_enable   = (GPIO){ "FSI_ENABLE" };
+ GPIO cronus_sel   = (GPIO){ "CRONUS_SEL" };
++GPIO Throttle     = (GPIO){ "BMC_TROTTLE" };
  
--import sys
--import gobject
--import dbus
--import dbus.service
--import dbus.mainloop.glib
--
- ## System states
- ##   state can change to next state in 2 ways:
- ##   - a process emits a GotoSystemState signal with state name to goto
-@@ -428,15 +422,6 @@ GPIO_CONFIG['SLOT2_PRESENT'] =         { 'gpio_pin': 'N5', 'direction': 'in' }
- GPIO_CONFIG['MEZZ0_PRESENT'] =         { 'gpio_pin': 'O0', 'direction': 'in' }
- GPIO_CONFIG['MEZZ1_PRESENT'] =         { 'gpio_pin': 'O1', 'direction': 'in' }
+ /* Bit bang patterns */
  
+@@ -82,6 +83,9 @@ on_boot         (ControlHost        *host,
+ {
+ 	int rc = GPIO_OK;
+ 
++	rc = gpio_open(&Throttle);
++	rc = gpio_write(&Throttle,1);
++
+ 	if (control_host_get_debug_mode(host)==1)
+ 	{
+ 		g_print("Enabling debug mode; not booting host\n");
+@@ -165,7 +169,7 @@ on_boot         (ControlHost        *host,
+ 	gpio_close(&fsi_data);
+ 	gpio_close(&fsi_enable);
+ 	gpio_close(&cronus_sel);
 -
--bus = dbus.SystemBus()
--
--for i in range(1,6):
-- print i
-- obj = bus.get_object("org.openbmc,sensors,hwmon","/org/openbmc/sensors/speed/fan"+str(i))
-- intf = dbus.Interface (obj,"org.openbmc.SensorValue")
-- intf.setValue(dbus.UInt32(255))
--
- def convertGpio(name):
- 	name = name.upper()
- 	c = name[0:1]
++	gpio_close(&Throttle);
+ 	control_host_emit_booted(host);
+ 	return TRUE;
+ }
 -- 
 2.6.3
