@@ -3,19 +3,19 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 386361A078B
- for <openbmc@lists.ozlabs.org>; Thu,  3 Dec 2015 17:00:37 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id A426D1A04EB
+ for <openbmc@lists.ozlabs.org>; Fri,  4 Dec 2015 08:30:35 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1449122431684926.0519180346262;
- Wed, 2 Dec 2015 22:00:31 -0800 (PST)
+ with SMTPS id 1449178227176269.8449210589505;
+ Thu, 3 Dec 2015 13:30:27 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-event] Clear all logs not working
-Date: Thu,  3 Dec 2015 01:00:25 -0500
-Message-Id: <1449122425-25388-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid] Support host reboot
+Date: Thu,  3 Dec 2015 16:30:25 -0500
+Message-Id: <1449178225-11824-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1449122425-25388-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1449122425-25388-1-git-send-email-openbmc-patches@stwcx.xyz>
+In-Reply-To: <1449178225-11824-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1449178225-11824-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -27,26 +27,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Dec 2015 06:00:37 -0000
+X-List-Received-Date: Thu, 03 Dec 2015 21:30:37 -0000
 
 From: Chris Austen <austenc@us.ibm.com>
 
 ---
- event_messaged.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ chassishandler.C | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/event_messaged.c b/event_messaged.c
-index 1512310..0c75e3a 100644
---- a/event_messaged.c
-+++ b/event_messaged.c
-@@ -194,7 +194,7 @@ static const sd_bus_vtable recordlog_vtable[] = {
- 	SD_BUS_VTABLE_START(0),
- 	SD_BUS_METHOD("acceptHostMessage", "sssay", "q", method_accept_host_message, SD_BUS_VTABLE_UNPRIVILEGED),
- 	SD_BUS_METHOD("acceptTestMessage", NULL, "q", method_accept_test_message, SD_BUS_VTABLE_UNPRIVILEGED),
--	SD_BUS_METHOD("Clear", NULL, NULL, method_clearall, SD_BUS_VTABLE_UNPRIVILEGED),
-+	SD_BUS_METHOD("Clear", NULL, "q", method_clearall, SD_BUS_VTABLE_UNPRIVILEGED),
- 	SD_BUS_VTABLE_END
- };
+diff --git a/chassishandler.C b/chassishandler.C
+index 56b8375..1389db9 100644
+--- a/chassishandler.C
++++ b/chassishandler.C
+@@ -31,7 +31,7 @@ ipmi_ret_t ipmi_chassis_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+ //------------------------------------------------------------
+ // Calls into Chassis Control Dbus object to do the power off
+ //------------------------------------------------------------
+-int ipmi_chassis_power_off()
++int ipmi_chassis_power_control(const char *method)
+ {
+ 	// sd_bus error
+ 	int rc = 0;
+@@ -50,7 +50,7 @@ int ipmi_chassis_power_off()
+ 							chassis_bus_name,        // Service to contact
+ 							chassis_object_name,     // Object path 
+ 							chassis_intf_name,       // Interface name
+-							"powerOff",      		 // Method to be called
++							method,      		 // Method to be called
+ 							&bus_error,      		 // object to return error
+ 							&response,		 		 // Response buffer if any
+ 							NULL);			 		 // No input arguments
+@@ -69,6 +69,7 @@ int ipmi_chassis_power_off()
+ 	return rc;
+ }
  
++
+ //----------------------------------------------------------------------
+ // Chassis Control commands
+ //----------------------------------------------------------------------
+@@ -89,11 +90,11 @@ ipmi_ret_t ipmi_chassis_control(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+ 	switch(chassis_ctrl_cmd)
+ 	{
+ 		case CMD_POWER_OFF:
++			rc = ipmi_chassis_power_control("powerOff");
++			break;
+ 		case CMD_HARD_RESET:
+-		{
+-			rc = ipmi_chassis_power_off();
++			rc = ipmi_chassis_power_control("reboot");
+ 			break;
+-		}
+ 		default:
+ 		{
+ 			fprintf(stderr, "Invalid Chassis Control command:[0x%X] received\n",chassis_ctrl_cmd);
 -- 
 2.6.3
