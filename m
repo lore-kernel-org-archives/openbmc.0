@@ -1,21 +1,43 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <jiangyu@cn.ibm.com>
+X-Greylist: delayed 723 seconds by postgrey-1.35 at bilbo;
+ Tue, 08 Dec 2015 00:28:09 AEDT
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.91]) (using TLSv1.2 with cipher RC4-MD5 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 7A23D1A0175
- for <openbmc@lists.ozlabs.org>; Mon,  7 Dec 2015 17:46:46 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1449470425724532.7854976025197;
- Sun, 6 Dec 2015 22:40:25 -0800 (PST)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id A02981A0E5B
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Dec 2015 00:28:09 +1100 (AEDT)
+Received: from /spool/local
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <jiangyu@cn.ibm.com>;
+ Mon, 7 Dec 2015 13:16:03 -0000
+Received: from us1a3-smtp04.a3.dal06.isc4sb.com (10.106.154.237)
+ by smtp.notes.na.collabserv.com (10.106.227.143) with
+ smtp.notes.na.collabserv.com ESMTP; Mon, 7 Dec 2015 13:16:01 -0000
+Received: from us1a3-mail123.a3.dal06.isc4sb.com ([10.146.45.250])
+ by us1a3-smtp04.a3.dal06.isc4sb.com
+ with ESMTP id 2015120713155825-331231 ;
+ Mon, 7 Dec 2015 13:15:58 +0000 
+In-Reply-To: <201511291520.tATFKHEE015914@d23av02.au.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid v2] Host Services plugin support
-Date: Mon,  7 Dec 2015 01:40:24 -0500
-Message-Id: <1449470424-24743-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1449470424-24743-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1449470424-24743-1-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: Re: China Team's weekly status_20151206
+From: "Frank J Yu" <jiangyu@cn.ibm.com>
+Message-ID: <OFDFCF3CF1.C373098C-ON00257F14.00471505-48257F14.0048DF71@notes.na.collabserv.com>
+Date: Mon, 7 Dec 2015 21:15:58 +0800
+References: <201511291520.tATFKHEE015914@d23av02.au.ibm.com>
+MIME-Version: 1.0
+X-KeepSent: DFCF3CF1:C373098C-00257F14:00471505;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1SHF211 December 19, 2013
+X-Disclaimed: 36375
+X-TNEFEvaluated: 1
+Content-Type: multipart/alternative;
+ boundary="=_alternative 0048DE8248257F14_="
+x-cbid: 15120713-4778-0000-0000-00000125C8AE
+X-IBM-ISS-SpamDetectors: Score=0.410717; BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0;
+ PH=0; SC=0.410717; ST=0; TS=0; UL=0; ISC=
+X-IBM-ISS-DetailInfo: BY=3.00004641; HX=3.00000236; KW=3.00000007;
+ PH=3.00000004; SC=3.00000122; SDB=6.00627443; UDB=6.00280152; UTC=2015-12-07
+ 13:16:02
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -27,344 +49,149 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Dec 2015 06:46:47 -0000
+X-List-Received-Date: Mon, 07 Dec 2015 13:28:10 -0000
 
-From: vishwa <vishwanath@in.ibm.com>
 
----
- Makefile        |  12 +++-
- host-services.c | 171 +++++++++++++++++++++++++++++++-------------------------
- ipmid-api.h     |   1 +
- ipmid.C         |  14 ++---
- 4 files changed, 111 insertions(+), 87 deletions(-)
+--=_alternative 0048DE8248257F14_=
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="UTF-8"
 
-diff --git a/Makefile b/Makefile
-index 57ad6fe..472bfaa 100644
---- a/Makefile
-+++ b/Makefile
-@@ -5,7 +5,7 @@ TESTER = testit
- TESTADDSEL = testaddsel
- 
- DAEMON = ipmid
--DAEMON_OBJ  = ipmid.o host-services.o
-+DAEMON_OBJ  = ipmid.o
- 
- LIB_APP_OBJ = apphandler.o     \
-               sensorhandler.o  \
-@@ -16,6 +16,7 @@ LIB_APP_OBJ = apphandler.o     \
-               storageaddsel.o  \
-               transporthandler.o  \
- 
-+LIB_HOST_SRV_OBJ = host-services.o
- 
- TESTADDSEL_OBJ = $(TESTADDSEL).o \
-                  storageaddsel.o
-@@ -24,7 +25,9 @@ TESTER_OBJ = ipmisensor.o 	   \
- 	     testit.o
- 
- LIB_APP     = libapphandler.so
--INSTALLED_LIBS += $(LIB_APP)
-+LIB_HOST_SRV = libhostservice.so
-+
-+INSTALLED_LIBS += $(LIB_APP) $(LIB_HOST_SRV)
- INSTALLED_HEADERS = ipmid-api.h
- 
- CXXFLAGS += -Wall -Wno-unused-result
-@@ -39,7 +42,7 @@ SBINDIR ?= /usr/sbin
- INCLUDEDIR ?= /usr/include
- LIBDIR ?= /usr/lib
- 
--all: $(DAEMON) $(LIB_APP) $(TESTER)
-+all: $(DAEMON) $(LIB_APP) $(LIB_HOST_SRV) $(TESTER)
- 
- %.o: %.C
- 	$(CXX) -std=c++14 -fpic -c $< $(CXXFLAGS) $(INC_FLAG) $(IPMID_PATH) -o $@
-@@ -47,6 +50,9 @@ all: $(DAEMON) $(LIB_APP) $(TESTER)
- $(LIB_APP): $(LIB_APP_OBJ)
- 	$(CXX) $^ -shared $(LDFLAGS) $(LIB_FLAG) -o $@
- 
-+$(LIB_HOST_SRV): $(LIB_HOST_SRV_OBJ)
-+	$(CXX) $^ -shared $(LDFLAGS) $(LIB_FLAG) -o $@
-+
- $(DAEMON): $(DAEMON_OBJ)
- 	$(CXX) $^ $(LDFLAGS) $(LIB_FLAG) -o $@ -ldl
- 
-diff --git a/host-services.c b/host-services.c
-index ab9cfcc..23aa55e 100644
---- a/host-services.c
-+++ b/host-services.c
-@@ -5,6 +5,8 @@
- 
- #include "ipmid-api.h"
- 
-+void register_host_services() __attribute__((constructor));
-+
- // OpenBMC Host IPMI dbus framework
- const char  *bus_name      =  "org.openbmc.HostIpmi";
- const char  *object_name   =  "/org/openbmc/HostIpmi/1";
-@@ -13,69 +15,69 @@ const char  *intf_name     =  "org.openbmc.HostIpmi";
- //-------------------------------------------------------------------
- // Gets called by PowerOff handler when a Soft Power off is requested
- //-------------------------------------------------------------------
--static int soft_power_off(sd_bus_message *m, void *userdata, sd_bus_error *ret_error) 
-+static int soft_power_off(sd_bus_message *m, void *userdata, sd_bus_error *ret_error)
- {
--	int64_t bt_resp = -1;
--	int rc = 0;
--
--	// Steps to be taken when we get this.
--	// 	1: Send a SMS_ATN to the Host
--	// 	2: Host receives it and sends a GetMsgFlags IPMI command
--	// 	3: IPMID app handler will respond to that with a MSgFlag with bit:0x2
--	// 	   set indicating we have a message for Host
--	// 	4: Host sends a GetMsgBuffer command and app handler will respond to
--	// 	   that with a OEM-SEL with certain fields packed indicating to the 
--	// 	   host	that it do a shutdown of the partitions.   
--	// 	5: Host does the partition shutdown and calls Chassis Power off command
--	// 	6: App handler handles the command by making a call to ChassisManager
--	// 	   Dbus
--	
--	// Now the job is to send the SMS_ATTN.
--	
-+    int64_t bt_resp = -1;
-+    int rc = 0;
-+
-+    // Steps to be taken when we get this.
-+    //  1: Send a SMS_ATN to the Host
-+    //  2: Host receives it and sends a GetMsgFlags IPMI command
-+    //  3: IPMID app handler will respond to that with a MSgFlag with bit:0x2
-+    //     set indicating we have a message for Host
-+    //  4: Host sends a GetMsgBuffer command and app handler will respond to
-+    //     that with a OEM-SEL with certain fields packed indicating to the
-+    //     host that it do a shutdown of the partitions.
-+    //  5: Host does the partition shutdown and calls Chassis Power off command
-+    //  6: App handler handles the command by making a call to ChassisManager
-+    //     Dbus
-+
-+    // Now the job is to send the SMS_ATTN.
-+
-     // Req message contains the specifics about which method etc that we want to
-     // access on which bus, object
-     sd_bus_message *response = NULL;
- 
--	// Error return mechanism
-+    // Error return mechanism
-     sd_bus_error bus_error = SD_BUS_ERROR_NULL;
- 
--	// Gets a hook onto either a SYSTEM or SESSION bus
--	sd_bus *bus = ipmid_get_sd_bus_connection();
--
--	rc = sd_bus_call_method(bus,        // On the System Bus
--							bus_name,        // Service to contact
--							object_name,     // Object path 
--							intf_name,       // Interface name
--							"setAttention",  // Method to be called
--							&bus_error,      // object to return error
--							&response,		 // Response buffer if any
--							NULL);			 // No input arguments
--	if(rc < 0)
--	{
--		fprintf(stderr,"ERROR initiating Power Off:[%s]\n",bus_error.message);
--		goto finish;
--	}
--
--	// See if we were able to successfully raise SMS_ATN
-+    // Gets a hook onto either a SYSTEM or SESSION bus
-+    sd_bus *bus = ipmid_get_sd_bus_connection();
-+
-+    rc = sd_bus_call_method(bus,             // In the System Bus
-+                            bus_name,        // Service to contact
-+                            object_name,     // Object path
-+                            intf_name,       // Interface name
-+                            "setAttention",  // Method to be called
-+                            &bus_error,      // object to return error
-+                            &response,       // Response buffer if any
-+                            NULL);           // No input arguments
-+    if(rc < 0)
-+    {
-+        fprintf(stderr,"ERROR initiating Power Off:[%s]\n",bus_error.message);
-+        goto finish;
-+    }
-+
-+    // See if we were able to successfully raise SMS_ATN
-     rc = sd_bus_message_read(response, "x", &bt_resp);
--    if (rc < 0) 
--	{
--		fprintf(stderr, "Failed to get a rc from BT for SMS_ATN: %s\n", strerror(-rc));
--		goto finish;
-+    if (rc < 0)
-+    {
-+        fprintf(stderr, "Failed to get a rc from BT for SMS_ATN: %s\n", strerror(-rc));
-+        goto finish;
-     }
- 
- finish:
-     sd_bus_error_free(&bus_error);
-     sd_bus_message_unref(response);
- 
--	if(rc < 0)
--	{
--		return sd_bus_reply_method_return(m, "x", rc);
--	}
--	else
--	{
--		return sd_bus_reply_method_return(m, "x", bt_resp);
--	}
-+    if(rc < 0)
-+    {
-+        return sd_bus_reply_method_return(m, "x", rc);
-+    }
-+    else
-+    {
-+        return sd_bus_reply_method_return(m, "x", bt_resp);
-+    }
- }
- 
- //-------------------------------------------
-@@ -83,10 +85,10 @@ finish:
- //-------------------------------------------
- static const sd_bus_vtable host_services_vtable[] =
- {
--	SD_BUS_VTABLE_START(0),
--	// Takes No("") arguments -but- returns a value of type 64 bit integer("x")
--	SD_BUS_METHOD("SoftPowerOff", "", "x", &soft_power_off, SD_BUS_VTABLE_UNPRIVILEGED),
--	SD_BUS_VTABLE_END,
-+    SD_BUS_VTABLE_START(0),
-+    // Takes No("") arguments -but- returns a value of type 64 bit integer("x")
-+    SD_BUS_METHOD("SoftPowerOff", "", "x", &soft_power_off, SD_BUS_VTABLE_UNPRIVILEGED),
-+    SD_BUS_VTABLE_END,
- };
- 
- //------------------------------------------------------
-@@ -94,28 +96,43 @@ static const sd_bus_vtable host_services_vtable[] =
- // -----------------------------------------------------
- int start_host_service(sd_bus *bus, sd_bus_slot *slot)
- {
--	int rc = 0;
--
--	/* Install the object */
--	rc = sd_bus_add_object_vtable(bus,
--								 &slot,
--								"/org/openbmc/HostServices",  /* object path */
--								"org.openbmc.HostServices",   /* interface name */
--								host_services_vtable,
--								NULL);
--	if (rc < 0) 
--	{
--		fprintf(stderr, "Failed to issue method call: %s\n", strerror(-rc));
--	}
--	else
--	{
--		/* Take one in OpenBmc */
--		rc = sd_bus_request_name(bus, "org.openbmc.HostServices", 0);
--		if (rc < 0) 
--		{
--			fprintf(stderr, "Failed to acquire service name: %s\n", strerror(-rc));
--		}
--	}
--
--	return rc < 0 ? EXIT_FAILURE : EXIT_SUCCESS;
-+    int rc = 0;
-+
-+    /* Install the object */
-+    rc = sd_bus_add_object_vtable(bus,
-+                                 &slot,
-+                                "/org/openbmc/HostServices",  /* object path */
-+                                "org.openbmc.HostServices",   /* interface name */
-+                                host_services_vtable,
-+                                NULL);
-+    if (rc < 0)
-+    {
-+        fprintf(stderr, "Failed to issue method call: %s\n", strerror(-rc));
-+    }
-+    else
-+    {
-+        /* Take one in OpenBmc */
-+        rc = sd_bus_request_name(bus, "org.openbmc.HostServices", 0);
-+        if (rc < 0)
-+        {
-+            fprintf(stderr, "Failed to acquire service name: %s\n", strerror(-rc));
-+        }
-+    }
-+
-+    return rc < 0 ? EXIT_FAILURE : EXIT_SUCCESS;
-+}
-+
-+//------------------------------------------------------
-+// Callback register function
-+// -----------------------------------------------------
-+void register_host_services()
-+{
-+    // Gets a hook onto SYSTEM bus used by host-ipmid
-+    sd_bus *bus = ipmid_get_sd_bus_connection();
-+
-+    // Gets a hook onto SYSTEM bus slot used by host-ipmid
-+    sd_bus_slot *ipmid_slot = ipmid_get_sd_bus_slot();
-+
-+    //start_host_service(bus, ipmid_slot);
-+    start_host_service(bus, ipmid_slot);
- }
-diff --git a/ipmid-api.h b/ipmid-api.h
-index 4f4b9de..4f00798 100644
---- a/ipmid-api.h
-+++ b/ipmid-api.h
-@@ -97,6 +97,7 @@ enum ipmi_return_codes
- };
- 
- sd_bus *ipmid_get_sd_bus_connection(void);
-+sd_bus_slot *ipmid_get_sd_bus_slot(void);
- 
- #ifdef __cplusplus
- }
-diff --git a/ipmid.C b/ipmid.C
-index 76e612d..6b69722 100644
---- a/ipmid.C
-+++ b/ipmid.C
-@@ -13,8 +13,8 @@
- #include <errno.h>
- #include "sensorhandler.h"
- 
--
- sd_bus *bus = NULL;
-+sd_bus_slot *ipmid_slot = NULL;
- 
- FILE *ipmiio, *ipmidbus, *ipmicmddetails;
- 
-@@ -371,9 +371,12 @@ sd_bus *ipmid_get_sd_bus_connection(void) {
-     return bus;
- }
- 
-+sd_bus_slot *ipmid_get_sd_bus_slot(void) {
-+    return ipmid_slot;
-+}
-+
- int main(int argc, char *argv[])
- {
--    sd_bus_slot *slot = NULL;
-     int r;
-     unsigned long tvalue;
-     int c;
-@@ -416,11 +419,8 @@ int main(int argc, char *argv[])
-     // Register all the handlers that provider implementation to IPMI commands.
-     ipmi_register_callback_handlers(HOST_IPMI_LIB_PATH);
- 
--	// Start the Host Services Dbus Objects
--	start_host_service(bus, slot);
--
- 	// Watch for BT messages
--    r = sd_bus_add_match(bus, &slot, FILTER, handle_ipmi_command, NULL);
-+    r = sd_bus_add_match(bus, &ipmid_slot, FILTER, handle_ipmi_command, NULL);
-     if (r < 0) {
-         fprintf(stderr, "Failed: sd_bus_add_match: %s : %s\n", strerror(-r), FILTER);
-         goto finish;
-@@ -446,7 +446,7 @@ int main(int argc, char *argv[])
-     }
- 
- finish:
--    sd_bus_slot_unref(slot);
-+    sd_bus_slot_unref(ipmid_slot);
-     sd_bus_unref(bus);
-     return r < 0 ? EXIT_FAILURE : EXIT_SUCCESS;
- 
--- 
-2.6.3
+RGVhciBBbGwsIA0KDQpDaGluYSB0ZWFtJ3Mgd2Vla2x5IHN0YXR1cyBpbiBsYXN0IHdlZWsuIElm
+IHlvdSBoYXZlIGFueSBjb21tZW50cyBvciANCnN1Z2dlc3Rpb25zLCBwbGVhc2Uga2luZGx5IGxl
+dCBtZSBrbm93LiBUaGFua3MhDQoNCkZpbmlzaGVkOg0KMSkgQmFzZWQgb24gaG9zdF9zZXR0aW5n
+IGdpdmVuIGJ5IEFkcmlhbmEsIGNvbXBsZXRlIHRoZSBjb2Rpbmcgb2YgZ2V0L3NldCANCmJvb3Rf
+ZmxhZyB0aHJvdWdoIGRidXMuIEFuZCB0ZXN0IGl0IGluIHFlbXUgc3VjY2Vzc2Z1bGx5LiANCjIp
+IENvbXBsZXRlIHRoZSBPQ0MgZHJpdmVyIGJhc2VkIG9uIEplcmVteSdzIGNvbW1lbnRzLiBOb3cg
+dGhlIHVwZGF0ZWQgDQpjb2RlIGlzIHVuZGVyIHJldmlldy4gDQozKSBBZGFtIGNsYXJpZnkgdGhl
+IGRyaXZlcidzIGludGVyZmFjZSB3aXRoIE5vcm0gYW5kIFBhdHJpY2suIE9DQyBIV01PTiANCmRy
+aXZlciBoYXMgYmVlbiBtZXJnZWQgdG8gb3BlbmJtYyBhcyBhIHRlbXAgcGF0Y2guIA0KNCkgQ29t
+cGxldGUgdGVzdCBjYXNlcyBydW5uaW5nIGluIFBhbG1ldHRvLiBTb21lIGNhc2VzIGZhaWxlZC4g
+VHJ5IHRvIGZpbmQgDQp0aGUgcm9vdCBjYXVzZS4gDQoNClRPRE86DQoxKSBTdWJtaXQgcHVsbCBy
+ZXF1ZXN0IHdpdGggYm90aCBJUE1JIGJvb3Qgb3B0aW9ucyBnZXQvc2V0IG1ldGhvZCB3aXRoIA0K
+ZGJ1cyBwcm9wZXJ0eSwgdGFyZ2V0IGRhdGU6IGJlZm9yZSBuZXh0IFdlZG5lc2RheSAoMTIvOSku
+DQoyKSBJbnRlZ3JhdGVkIG9iaiBtYXBwZXIgdG8gSVBNSUQgYm9vdCBvcHRpb24gaGFuZGxpbmcs
+IHRhcmdldCBkYXRlOiANCmJlZm9yZSBuZXh0IEZyaWRheSAoMTIvMTEpLg0KMykgU3RhcnQgdG8g
+aW52ZXN0aWdhdGUgc2V0IHBvd2VyIGNhcCBkZXNpZ24gYW5kIHRhcmdldCB0byBmaW5pc2ggaXQg
+DQpiZWZvcmUgMTIvMjAuIA0KNCkgTGVhcm4gaG93IHRvIGFkZCBhIHRlc3QgY2FzZSBpbnRvIGF1
+dG8tdGVzdCBmcmFtZXdvcmssIHRhcmdldCBkYXRlOiANCmJlZm9yZSAxMi8xMy4NCjUpIEFkZCBP
+Q0MgdGVzdCBjYXNlIGludG8gYXV0by10ZXN0IGZyYW1ld29yaywgdGFyZ2V0IGRhdGU6IGJlZm9y
+ZSAxMi8yMC4NCg0KUmVnYXJkcywNCg0K4oCU4oCU4oCU4oCU4oCU4oCUDQpEci4gSmlhbmcgWXUg
+KOS9meaxnykgUE1Qwq4NCk9wZW5Qb3dlciBBcHBsaWNhdGlvbiBFbmdpbmVlcg0KSUJNIEdDRyBT
+eXN0ZW1zICYgVGVjaG5vbG9neSBHcm91cCBMYWINCg0KVGVsOiAoODYtMjEpNjA5Mi0yODcyDQpU
+L0w6ICAxMS05MC0yMjg3Mg0KRmF4OiAgODYtMjEtNjA5MjIyMDANCkUtTWFpbDogamlhbmd5dUBj
+bi5pYm0uY29tDQoNCg0KDQpGcm9tOiAgIEZyYW5rIEogWXUvQ2hpbmEvSUJNQElCTUNODQpUbzog
+ICAgIG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZw0KRGF0ZTogICAyMDE1LzExLzI5IDIzOjIxDQpT
+dWJqZWN0OiAgICAgICAgQ2hpbmEgVGVhbSdzIHdlZWtseSBzdGF0dXNfMjAxNTExMjkNClNlbnQg
+Ynk6ICAgICAgICAib3BlbmJtYyIgDQo8b3BlbmJtYy1ib3VuY2VzK2ppYW5neXU9Y24uaWJtLmNv
+bUBsaXN0cy5vemxhYnMub3JnPg0KDQoNCg0KRGVhciBBbGwsIA0KDQpJbiBvcmRlciB0byBoZWxw
+IENoaW5hIHRlYW0gY28td29yayB3aXRoIHRoZSB0ZWFtLCBJIHdvdWxkIGxpa2UgdG8gcmVwb3J0
+IA0KQ2hpbmEgdGVhbSdzIHN0YXR1cyB3ZWVrbHkgaGVyZSBhbmQgbG9vayBmb3J3YXJkIHRvIHlv
+dXIgY29tbWVudHMgYW5kIA0Kc3VnZ2VzdGlvbnMuIFRoYW5rcyENCg0KRmluaXNoZWQ6DQoxKSBT
+dWJtaXR0ZWQgb2NjIGh3bW9uIGRyaXZlciB0byBvcGVuYm1jIGFzIGtlcm5lbCBwYXRjaC4gR2l0
+IHB1bGwgDQpyZXF1ZXN0ZWQgZ2V0IHJldmlld2VkIGJ5IGtlcm5lbCBkZXZlbG9wZXIgSm9lbC4N
+CjIpIEZpeGVkIHRoZSBzdHlsZSBpc3N1ZSBhbmQgcmUtc3VibWl0dGVkIHRoZSBwYXRjaCB0byBv
+cGVuYm1jL2xpbnV4DQozKSBTZXR1cCAzIE9wZW5CTUMtYXV0b21hdGlvbiBlbnZpcm9ubWVudCBp
+biBkaWZmZXJlbnQgSFcgZW52aXJvbm1lbnQuIA0KVGhleSBjYW4gcnVuIHdpdGggc29tZSBlcnJv
+cnMuIFN0aWxsIGludmVzdGlnYXRlIGhvdyB0byBzb2x2ZSB0aGVzZSANCmVycm9ycy4gDQo0KSBG
+aW5pc2hlZCB0aGUgc3R1ZHkgb24gYm9vdCBvcHRpb25zIGFuZCBzZGJ1cyBjb21tdW5pY2F0aW9u
+IG1ldGhvZC4gTWFkZSANCnRoZSBEQlVTIGRlbW8gY29kZSBhdmFpbGFibGUgaW4gSVBNSUQgY29k
+ZSBhbmQgcmFuIGl0IHdpdGggcWVtdS4NCiANClRvZG86DQoxKSBBZGQgaHdtb24gZGJ1cyBpbnRl
+cmZhY2UgZm9yIG9jYyBzZW5zb3JzDQoyKSBJbXBsZW1lbnQgc2V0IHVzZXIgcG93ZXIgY2FwIGZ1
+bmN0aW9uLg0KMykgRGlzY3VzcyB3aXRoIEFkcmlhbmEgYWJvdXQgdGhlIGRlZmluaXRpb24gb2Yg
+REJVUyBwcm9wZXJ0aWVzIG9uIGJvb3QgDQpvcHRpb25zLiANCjQpIEltcGxlbWVudCBzZXQvZ2V0
+IGJvb3Qgb3B0aW9ucyBmdW5jdGlvbi4gDQo1KSBTdHVkeSBkYnVzIHNlcnZpY2VzL29iamVjdHMg
+bWFwcGVyIGludm9rZSBtZXRob2QgaW4gQyBjb2RlLiANCg0KUmVnYXJkcywNCg0K4oCU4oCU4oCU
+4oCU4oCU4oCUDQpEci4gSmlhbmcgWXUgKOS9meaxnykgUE1Qwq4NCk9wZW5Qb3dlciBBcHBsaWNh
+dGlvbiBFbmdpbmVlcg0KSUJNIEdDRyBTeXN0ZW1zICYgVGVjaG5vbG9neSBHcm91cCBMYWINCg0K
+VGVsOiAoODYtMjEpNjA5Mi0yODcyDQpUL0w6ICAxMS05MC0yMjg3Mg0KRmF4OiAgODYtMjEtNjA5
+MjIyMDANCkUtTWFpbDogamlhbmd5dUBjbi5pYm0uY29tX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18NCm9wZW5ibWMgbWFpbGluZyBsaXN0DQpvcGVuYm1jQGxp
+c3RzLm96bGFicy5vcmcNCmh0dHBzOi8vbGlzdHMub3psYWJzLm9yZy9saXN0aW5mby9vcGVuYm1j
+DQoNCg0KDQo=
+
+--=_alternative 0048DE8248257F14_=
+Content-Transfer-Encoding: base64
+Content-Type: text/html; charset="UTF-8"
+
+PGZvbnQgc2l6ZT0yIGZhY2U9InNhbnMtc2VyaWYiPkRlYXIgQWxsLCA8L2ZvbnQ+PGJyPjxicj48
+Zm9udCBzaXplPTIgZmFjZT0ic2Fucy1zZXJpZiI+Q2hpbmEgdGVhbSdzIHdlZWtseSBzdGF0dXMg
+aW4gbGFzdCB3ZWVrLg0KSWYgeW91IGhhdmUgYW55IGNvbW1lbnRzIG9yIHN1Z2dlc3Rpb25zLCBw
+bGVhc2Uga2luZGx5IGxldCBtZSBrbm93LiBUaGFua3MhPC9mb250Pjxicj48YnI+PGZvbnQgc2l6
+ZT0yIGZhY2U9InNhbnMtc2VyaWYiPkZpbmlzaGVkOjwvZm9udD48YnI+PGZvbnQgc2l6ZT0yIGZh
+Y2U9InNhbnMtc2VyaWYiPjEpIEJhc2VkIG9uIGhvc3Rfc2V0dGluZyBnaXZlbiBieSBBZHJpYW5h
+LA0KY29tcGxldGUgdGhlIGNvZGluZyBvZiBnZXQvc2V0IGJvb3RfZmxhZyB0aHJvdWdoIGRidXMu
+IEFuZCB0ZXN0IGl0IGluIHFlbXUNCnN1Y2Nlc3NmdWxseS4gJm5ic3A7PC9mb250Pjxicj48Zm9u
+dCBzaXplPTIgZmFjZT0ic2Fucy1zZXJpZiI+MikgQ29tcGxldGUgdGhlIE9DQyBkcml2ZXIgYmFz
+ZWQgb24NCkplcmVteSdzIGNvbW1lbnRzLiBOb3cgdGhlIHVwZGF0ZWQgY29kZSBpcyB1bmRlciBy
+ZXZpZXcuIDwvZm9udD48YnI+PGZvbnQgc2l6ZT0yIGZhY2U9InNhbnMtc2VyaWYiPjMpIEFkYW0g
+Y2xhcmlmeSB0aGUgZHJpdmVyJ3MgaW50ZXJmYWNlDQp3aXRoIE5vcm0gYW5kIFBhdHJpY2suIE9D
+QyBIV01PTiBkcml2ZXIgaGFzIGJlZW4gbWVyZ2VkIHRvIG9wZW5ibWMgYXMgYQ0KdGVtcCBwYXRj
+aC4gPC9mb250Pjxicj48Zm9udCBzaXplPTIgZmFjZT0ic2Fucy1zZXJpZiI+NCkgQ29tcGxldGUg
+dGVzdCBjYXNlcyBydW5uaW5nIGluIFBhbG1ldHRvLg0KU29tZSBjYXNlcyBmYWlsZWQuIFRyeSB0
+byBmaW5kIHRoZSByb290IGNhdXNlLiA8L2ZvbnQ+PGJyPjxicj48Zm9udCBzaXplPTIgZmFjZT0i
+c2Fucy1zZXJpZiI+VE9ETzo8L2ZvbnQ+PGJyPjxmb250IHNpemU9MiBmYWNlPSJzYW5zLXNlcmlm
+Ij4xKSBTdWJtaXQgcHVsbCByZXF1ZXN0IHdpdGggYm90aCBJUE1JDQpib290IG9wdGlvbnMgZ2V0
+L3NldCBtZXRob2Qgd2l0aCBkYnVzIHByb3BlcnR5LCB0YXJnZXQgZGF0ZTogYmVmb3JlIG5leHQN
+CldlZG5lc2RheSAoMTIvOSkuPC9mb250Pjxicj48Zm9udCBzaXplPTIgZmFjZT0ic2Fucy1zZXJp
+ZiI+MikgSW50ZWdyYXRlZCBvYmogbWFwcGVyIHRvIElQTUlEIGJvb3QNCm9wdGlvbiBoYW5kbGlu
+ZywgdGFyZ2V0IGRhdGU6IGJlZm9yZSBuZXh0IEZyaWRheSAoMTIvMTEpLjwvZm9udD48YnI+PGZv
+bnQgc2l6ZT0yIGZhY2U9InNhbnMtc2VyaWYiPjMpIFN0YXJ0IHRvIGludmVzdGlnYXRlIHNldCBw
+b3dlciBjYXANCmRlc2lnbiBhbmQgdGFyZ2V0IHRvIGZpbmlzaCBpdCBiZWZvcmUgMTIvMjAuIDwv
+Zm9udD48YnI+PGZvbnQgc2l6ZT0yIGZhY2U9InNhbnMtc2VyaWYiPjQpIExlYXJuIGhvdyB0byBh
+ZGQgYSB0ZXN0IGNhc2UgaW50bw0KYXV0by10ZXN0IGZyYW1ld29yaywgdGFyZ2V0IGRhdGU6IGJl
+Zm9yZSAxMi8xMy48L2ZvbnQ+PGJyPjxmb250IHNpemU9MiBmYWNlPSJzYW5zLXNlcmlmIj41KSBB
+ZGQgT0NDIHRlc3QgY2FzZSBpbnRvIGF1dG8tdGVzdA0KZnJhbWV3b3JrLCB0YXJnZXQgZGF0ZTog
+YmVmb3JlIDEyLzIwLjwvZm9udD48YnI+PGJyPjxmb250IHNpemU9MiBmYWNlPSJzYW5zLXNlcmlm
+Ij5SZWdhcmRzLDxicj48YnI+4oCU4oCU4oCU4oCU4oCU4oCUPGJyPkRyLiBKaWFuZyBZdSAo5L2Z
+5rGfKSBQTVDCrjxicj5PcGVuUG93ZXIgQXBwbGljYXRpb24gRW5naW5lZXI8YnI+SUJNIEdDRyBT
+eXN0ZW1zICZhbXA7IFRlY2hub2xvZ3kgR3JvdXAgTGFiPGJyPjxicj5UZWw6ICg4Ni0yMSk2MDky
+LTI4NzI8YnI+VC9MOiAmbmJzcDsxMS05MC0yMjg3Mjxicj5GYXg6ICZuYnNwOzg2LTIxLTYwOTIy
+MjAwPGJyPkUtTWFpbDogamlhbmd5dUBjbi5pYm0uY29tPC9mb250Pjxicj48YnI+PGJyPjxicj48
+Zm9udCBzaXplPTEgY29sb3I9IzVmNWY1ZiBmYWNlPSJzYW5zLXNlcmlmIj5Gcm9tOiAmbmJzcDsg
+Jm5ic3A7ICZuYnNwOw0KJm5ic3A7PC9mb250Pjxmb250IHNpemU9MSBmYWNlPSJzYW5zLXNlcmlm
+Ij5GcmFuayBKIFl1L0NoaW5hL0lCTUBJQk1DTjwvZm9udD48YnI+PGZvbnQgc2l6ZT0xIGNvbG9y
+PSM1ZjVmNWYgZmFjZT0ic2Fucy1zZXJpZiI+VG86ICZuYnNwOyAmbmJzcDsgJm5ic3A7DQombmJz
+cDs8L2ZvbnQ+PGZvbnQgc2l6ZT0xIGZhY2U9InNhbnMtc2VyaWYiPm9wZW5ibWNAbGlzdHMub3ps
+YWJzLm9yZzwvZm9udD48YnI+PGZvbnQgc2l6ZT0xIGNvbG9yPSM1ZjVmNWYgZmFjZT0ic2Fucy1z
+ZXJpZiI+RGF0ZTogJm5ic3A7ICZuYnNwOyAmbmJzcDsNCiZuYnNwOzwvZm9udD48Zm9udCBzaXpl
+PTEgZmFjZT0ic2Fucy1zZXJpZiI+MjAxNS8xMS8yOSAyMzoyMTwvZm9udD48YnI+PGZvbnQgc2l6
+ZT0xIGNvbG9yPSM1ZjVmNWYgZmFjZT0ic2Fucy1zZXJpZiI+U3ViamVjdDogJm5ic3A7ICZuYnNw
+Ow0KJm5ic3A7ICZuYnNwOzwvZm9udD48Zm9udCBzaXplPTEgZmFjZT0ic2Fucy1zZXJpZiI+Q2hp
+bmEgVGVhbSdzDQp3ZWVrbHkgc3RhdHVzXzIwMTUxMTI5PC9mb250Pjxicj48Zm9udCBzaXplPTEg
+Y29sb3I9IzVmNWY1ZiBmYWNlPSJzYW5zLXNlcmlmIj5TZW50IGJ5OiAmbmJzcDsgJm5ic3A7DQom
+bmJzcDsgJm5ic3A7PC9mb250Pjxmb250IHNpemU9MSBmYWNlPSJzYW5zLXNlcmlmIj4mcXVvdDtv
+cGVuYm1jJnF1b3Q7DQombHQ7b3BlbmJtYy1ib3VuY2VzK2ppYW5neXU9Y24uaWJtLmNvbUBsaXN0
+cy5vemxhYnMub3JnJmd0OzwvZm9udD48YnI+PGhyIG5vc2hhZGU+PGJyPjxicj48YnI+PGZvbnQg
+c2l6ZT0yIGZhY2U9InNhbnMtc2VyaWYiPkRlYXIgQWxsLCA8YnI+PGJyPkluIG9yZGVyIHRvIGhl
+bHAgQ2hpbmEgdGVhbSBjby13b3JrIHdpdGggdGhlIHRlYW0sIEkgd291bGQgbGlrZSB0byByZXBv
+cnQNCkNoaW5hIHRlYW0ncyBzdGF0dXMgd2Vla2x5IGhlcmUgYW5kIGxvb2sgZm9yd2FyZCB0byB5
+b3VyIGNvbW1lbnRzIGFuZCBzdWdnZXN0aW9ucy4NClRoYW5rcyE8YnI+PGJyPkZpbmlzaGVkOjxi
+cj4xKSBTdWJtaXR0ZWQgb2NjIGh3bW9uIGRyaXZlciB0byBvcGVuYm1jIGFzIGtlcm5lbCBwYXRj
+aC4gR2l0IHB1bGwgcmVxdWVzdGVkDQpnZXQgcmV2aWV3ZWQgYnkga2VybmVsIGRldmVsb3BlciBK
+b2VsLjxicj4yKSBGaXhlZCB0aGUgc3R5bGUgaXNzdWUgYW5kIHJlLXN1Ym1pdHRlZCB0aGUgcGF0
+Y2ggdG8gb3BlbmJtYy9saW51eDxicj4zKSBTZXR1cCAzIE9wZW5CTUMtYXV0b21hdGlvbiBlbnZp
+cm9ubWVudCBpbiBkaWZmZXJlbnQgSFcgZW52aXJvbm1lbnQuDQpUaGV5IGNhbiBydW4gd2l0aCBz
+b21lIGVycm9ycy4gU3RpbGwgaW52ZXN0aWdhdGUgaG93IHRvIHNvbHZlIHRoZXNlIGVycm9ycy4N
+Cjxicj40KSBGaW5pc2hlZCB0aGUgc3R1ZHkgb24gYm9vdCBvcHRpb25zIGFuZCBzZGJ1cyBjb21t
+dW5pY2F0aW9uIG1ldGhvZC4gTWFkZQ0KdGhlIERCVVMgZGVtbyBjb2RlIGF2YWlsYWJsZSBpbiBJ
+UE1JRCBjb2RlIGFuZCByYW4gaXQgd2l0aCBxZW11Ljxicj4gJm5ic3A7PC9mb250Pjxicj48Zm9u
+dCBzaXplPTIgZmFjZT0ic2Fucy1zZXJpZiI+VG9kbzo8YnI+MSkgQWRkIGh3bW9uIGRidXMgaW50
+ZXJmYWNlIGZvciBvY2Mgc2Vuc29yczxicj4yKSBJbXBsZW1lbnQgc2V0IHVzZXIgcG93ZXIgY2Fw
+IGZ1bmN0aW9uLjxicj4zKSBEaXNjdXNzIHdpdGggQWRyaWFuYSBhYm91dCB0aGUgZGVmaW5pdGlv
+biBvZiBEQlVTIHByb3BlcnRpZXMgb24gYm9vdA0Kb3B0aW9ucy4gPGJyPjQpIEltcGxlbWVudCBz
+ZXQvZ2V0IGJvb3Qgb3B0aW9ucyBmdW5jdGlvbi4gPGJyPjUpIFN0dWR5IGRidXMgc2VydmljZXMv
+b2JqZWN0cyBtYXBwZXIgaW52b2tlIG1ldGhvZCBpbiBDIGNvZGUuIDxicj48YnI+UmVnYXJkcyw8
+L2ZvbnQ+PGJyPjxmb250IHNpemU9MiBmYWNlPSJzYW5zLXNlcmlmIj48YnI+4oCU4oCU4oCU4oCU
+4oCU4oCUPGJyPkRyLiBKaWFuZyBZdSAo5L2Z5rGfKSBQTVDCrjxicj5PcGVuUG93ZXIgQXBwbGlj
+YXRpb24gRW5naW5lZXI8YnI+SUJNIEdDRyBTeXN0ZW1zICZhbXA7IFRlY2hub2xvZ3kgR3JvdXAg
+TGFiPGJyPjxicj5UZWw6ICg4Ni0yMSk2MDkyLTI4NzI8YnI+VC9MOiAmbmJzcDsxMS05MC0yMjg3
+Mjxicj5GYXg6ICZuYnNwOzg2LTIxLTYwOTIyMjAwPGJyPkUtTWFpbDogPC9mb250PjxhIGhyZWY9
+bWFpbHRvOmppYW5neXVAY24uaWJtLmNvbT48Zm9udCBzaXplPTIgY29sb3I9Ymx1ZSBmYWNlPSJz
+YW5zLXNlcmlmIj48dT5qaWFuZ3l1QGNuLmlibS5jb208L3U+PC9mb250PjwvYT48dHQ+PGZvbnQg
+c2l6ZT0yPl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fPGJy
+Pm9wZW5ibWMgbWFpbGluZyBsaXN0PGJyPm9wZW5ibWNAbGlzdHMub3psYWJzLm9yZzxicj48L2Zv
+bnQ+PC90dD48YSBocmVmPWh0dHBzOi8vbGlzdHMub3psYWJzLm9yZy9saXN0aW5mby9vcGVuYm1j
+Pjx0dD48Zm9udCBzaXplPTI+aHR0cHM6Ly9saXN0cy5vemxhYnMub3JnL2xpc3RpbmZvL29wZW5i
+bWM8L2ZvbnQ+PC90dD48L2E+PHR0Pjxmb250IHNpemU9Mj48YnI+PC9mb250PjwvdHQ+PGJyPjxC
+Uj4NCg==
+--=_alternative 0048DE8248257F14_=--
