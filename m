@@ -1,23 +1,50 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <cyril.bur@au1.ibm.com>
+Received: from e23smtp08.au.ibm.com (e23smtp08.au.ibm.com [202.81.31.141])
+ (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 9C8EE1A0F62
- for <openbmc@lists.ozlabs.org>; Tue,  8 Dec 2015 01:58:39 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1449495035432149.19130101461712;
- Mon, 7 Dec 2015 05:30:35 -0800 (PST)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 6CDDD1A0E80
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Dec 2015 11:03:36 +1100 (AEDT)
+Received: from localhost
+ by e23smtp08.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cyril.bur@au1.ibm.com>;
+ Tue, 8 Dec 2015 10:03:34 +1000
+Received: from d23dlp02.au.ibm.com (202.81.31.213)
+ by e23smtp08.au.ibm.com (202.81.31.205) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Tue, 8 Dec 2015 10:03:31 +1000
+X-IBM-Helo: d23dlp02.au.ibm.com
+X-IBM-MailFrom: cyril.bur@au1.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d23relay08.au.ibm.com (d23relay08.au.ibm.com [9.185.71.33])
+ by d23dlp02.au.ibm.com (Postfix) with ESMTP id 68BF42BB0052
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Dec 2015 11:03:31 +1100 (EST)
+Received: from d23av01.au.ibm.com (d23av01.au.ibm.com [9.190.234.96])
+ by d23relay08.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ tB8035b824183026
+ for <openbmc@lists.ozlabs.org>; Tue, 8 Dec 2015 11:03:13 +1100
+Received: from d23av01.au.ibm.com (localhost [127.0.0.1])
+ by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ tB802w7p022297
+ for <openbmc@lists.ozlabs.org>; Tue, 8 Dec 2015 11:02:58 +1100
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ tB802wBr021810
+ for <openbmc@lists.ozlabs.org>; Tue, 8 Dec 2015 11:02:58 +1100
+Received: from camb691.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
+ (using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 40CF0A00F6
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Dec 2015 11:02:34 +1100 (AEDT)
+From: Cyril Bur <cyril.bur@au1.ibm.com>
 To: openbmc@lists.ozlabs.org
-Cc: shgoupf <shgoupf@cn.ibm.com>
-Subject: [PATCH phosphor-host-ipmid 4/4] Cleanup codes for ipmid boot option
- changes.
-Date: Mon,  7 Dec 2015 08:30:26 -0500
-Message-Id: <1449495026-1692-5-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH 0/2] WIP: Fix unreliable networking
+Date: Tue,  8 Dec 2015 11:02:10 +1100
+Message-Id: <1449532932-5350-1-git-send-email-cyril.bur@au1.ibm.com>
 X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1449495026-1692-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1449495026-1692-1-git-send-email-openbmc-patches@stwcx.xyz>
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 15120800-0029-0000-0000-000002933F57
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -29,93 +56,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Dec 2015 14:58:40 -0000
+X-List-Received-Date: Tue, 08 Dec 2015 00:03:36 -0000
 
-From: shgoupf <shgoupf@cn.ibm.com>
+This is a work in progress patch to fix the unreliable networking. Busy
+networks can make the networking stop at a hardware level and stop
+receiving packets this is particularly a problem on long tftp transfers.
 
----
- chassishandler.C | 42 ++++++++++++++----------------------------
- 1 file changed, 14 insertions(+), 28 deletions(-)
+The fix leads to the follow up question of "how did this ever work" which I
+have yet to answer. Hopefully I'll know why soon and post a real fix once I
+really understand the problem.
 
-diff --git a/chassishandler.C b/chassishandler.C
-index e69e6c3..8aba43b 100644
---- a/chassishandler.C
-+++ b/chassishandler.C
-@@ -8,6 +8,12 @@
- const char  *chassis_bus_name      =  "org.openbmc.control.Chassis";
- const char  *chassis_object_name   =  "/org/openbmc/control/chassis0";
- const char  *chassis_intf_name     =  "org.openbmc.control.Chassis";
-+
-+// Host settings in dbus
-+const char  *settings_service_name =  "org.openbmc.settings.Host";
-+const char  *settings_object_name  =  "/org/openbmc/settings/host0";
-+const char  *settings_intf_name    =  "org.freedesktop.DBus.Properties";
-+
- char* uint8_to_char(uint8_t *a, size_t size)
- {
-     char* buffer;
-@@ -68,14 +74,14 @@ int dbus_get_property(char* buf)
-     // Signatures and input arguments are provided by the arguments at the
-     // end.
-     r = sd_bus_call_method(bus,
--            "org.openbmc.settings.Host",                /* service to contact */
--            "/org/openbmc/settings/host0",              /* object path */
--            "org.freedesktop.DBus.Properties",          /* interface name */
-+            settings_service_name,                      /* service to contact */
-+            settings_object_name,                       /* object path */
-+            settings_intf_name,                         /* interface name */
-             "Get",                                      /* method name */
-             &error,                                     /* object to return error in */
-             &m,                                         /* return message on success */
-             "ss",                                       /* input signature */
--            "org.freedesktop.DBus.Properties",          /* first argument */
-+            settings_intf_name,                         /* first argument */
-             "boot_flags");                              /* second argument */
-     if (r < 0) {
-         fprintf(stderr, "Failed to issue method call: %s\n", error.message);
-@@ -122,14 +128,14 @@ int dbus_set_property(const char* buf)
-     // Signatures and input arguments are provided by the arguments at the
-     // end.
-     r = sd_bus_call_method(bus,
--            "org.openbmc.settings.Host",                /* service to contact */
--            "/org/openbmc/settings/host0",              /* object path */
--            "org.freedesktop.DBus.Properties",          /* interface name */
-+            settings_service_name,                      /* service to contact */
-+            settings_object_name,                       /* object path */
-+            settings_intf_name,                         /* interface name */
-             "Set",                                      /* method name */
-             &error,                                     /* object to return error in */
-             &m,                                         /* return message on success */
-             "ssv",                                      /* input signature */
--            "org.freedesktop.DBus.Properties",          /* first argument */
-+            settings_intf_name,                         /* first argument */
-             "boot_flags",                               /* second argument */
-             "s",                                        /* third argument */
-             buf);                                       /* fourth argument */
-@@ -343,24 +349,4 @@ void register_netfn_chassis_functions()
- 
-     printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_CHASSIS, IPMI_CMD_CHASSIS_CONTROL);
-     ipmi_register_callback(NETFUN_CHASSIS, IPMI_CMD_CHASSIS_CONTROL, NULL, ipmi_chassis_control);
--
--    // TODO: Testing for dbus property set/get and related methods.
--    printf("----> Start of chassis handler testing.\n");
--    set_sys_boot_options_t req = {0x80, 0x10, 0xA2, 0x3B, 0x45, 0x57}; 
--    char* set_value = uint8_to_char((uint8_t*)(&(req.data1)), 5);
--    dbus_set_property(set_value);
--    char* buf = (char*)malloc(NUM_RETURN_BYTES_OF_GET_USED * 2 + 1);
--    dbus_get_property(buf);
--    uint8_t* get_value = char_to_uint8(buf, NUM_RETURN_BYTES_OF_GET_USED);
--    int i;
--    printf("buf: %s\n", (char*)buf);
--    printf("0x");
--    for (i = 0; i < 5; i++) {
--        printf("%2x", get_value[i]);
--    }
--    printf("\n");
--    printf("----> End of chassis handler testing.\n");
--    free(buf);
--    free(set_value);
--    free(get_value);
- }
+This the mean time this patch can be used.
+
+Cyril Bur (2):
+  Fix: RX buffer size
+  WIP: Fix unreliable networking
+
+ drivers/net/aspeednic.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
 -- 
 2.6.3
