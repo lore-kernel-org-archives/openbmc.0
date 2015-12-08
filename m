@@ -1,28 +1,26 @@
 Return-Path: <adamliyi@msn.com>
-X-Greylist: delayed 313 seconds by postgrey-1.35 at bilbo;
- Tue, 08 Dec 2015 19:26:24 AEDT
-Received: from BLU004-OMC4S3.hotmail.com (blu004-omc4s3.hotmail.com
- [65.55.111.142])
+Received: from BLU004-OMC4S7.hotmail.com (blu004-omc4s7.hotmail.com
+ [65.55.111.146])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id F24CA1A0EE1
- for <openbmc@lists.ozlabs.org>; Tue,  8 Dec 2015 19:26:24 +1100 (AEDT)
-Received: from BLU436-SMTP244 ([65.55.111.136]) by BLU004-OMC4S3.hotmail.com
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3F4451A0EE1
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Dec 2015 19:29:04 +1100 (AEDT)
+Received: from BLU436-SMTP199 ([65.55.111.135]) by BLU004-OMC4S7.hotmail.com
  over TLS secured channel with Microsoft SMTPSVC(7.5.7601.23008); 
- Tue, 8 Dec 2015 00:21:07 -0800
-X-TMN: [CEMyl7xlw+4JZBh1m/f0NI3T76V+Gk5I]
+ Tue, 8 Dec 2015 00:29:00 -0800
+X-TMN: [MeT+F86gjeCebUL3qsLDeKldyZSSrChL]
 X-Originating-Email: [adamliyi@msn.com]
-Message-ID: <BLU436-SMTP2447EBDB3207447294EC3AED9080@phx.gbl>
-Date: Tue, 8 Dec 2015 16:21:11 +0800
+Message-ID: <BLU436-SMTP1997C66B56E367DA0D3E402D9080@phx.gbl>
+Date: Tue, 8 Dec 2015 16:29:04 +0800
 From: Yi Li <adamliyi@msn.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH occ hwmon v3] Add OCC HWMON driver to kernel
+Subject: [PATCH occ hwmon v3] Add OCC hwmon driver to Kernel
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
 User-Agent: Mutt/1.5.21 (2010-09-15)
-X-OriginalArrivalTime: 08 Dec 2015 08:21:06.0912 (UTC)
- FILETIME=[62DCEE00:01D13191]
+X-OriginalArrivalTime: 08 Dec 2015 08:28:59.0720 (UTC)
+ FILETIME=[7CADB480:01D13192]
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -34,15 +32,12 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Dec 2015 08:26:26 -0000
+X-List-Received-Date: Tue, 08 Dec 2015 08:29:05 -0000
 
 The default patch triggered by git pull request is hard to read.
 I resend a clean patch to the list. Please review.
 
-This patch fixed many issue from Jeremy's V2 review.
-
-Thanks,
--Yi
+This version fixed issue according to Jeremy's comments.
 
 diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
 index e13c902..7c74854 100644
