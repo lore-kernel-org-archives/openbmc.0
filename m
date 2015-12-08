@@ -1,21 +1,50 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <cyril.bur@au1.ibm.com>
+Received: from e23smtp04.au.ibm.com (e23smtp04.au.ibm.com [202.81.31.146])
+ (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 9F95A1A0E6B
- for <openbmc@lists.ozlabs.org>; Tue,  8 Dec 2015 15:50:30 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1449550225215461.7746837732458;
- Mon, 7 Dec 2015 20:50:25 -0800 (PST)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 12D751A0F1E
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Dec 2015 16:39:21 +1100 (AEDT)
+Received: from localhost
+ by e23smtp04.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cyril.bur@au1.ibm.com>;
+ Tue, 8 Dec 2015 15:39:19 +1000
+Received: from d23dlp02.au.ibm.com (202.81.31.213)
+ by e23smtp04.au.ibm.com (202.81.31.210) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Tue, 8 Dec 2015 15:39:18 +1000
+X-IBM-Helo: d23dlp02.au.ibm.com
+X-IBM-MailFrom: cyril.bur@au1.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d23relay06.au.ibm.com (d23relay06.au.ibm.com [9.185.63.219])
+ by d23dlp02.au.ibm.com (Postfix) with ESMTP id 2DD312BB0051
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Dec 2015 16:39:18 +1100 (EST)
+Received: from d23av03.au.ibm.com (d23av03.au.ibm.com [9.190.234.97])
+ by d23relay06.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ tB85d2ol13762772
+ for <openbmc@lists.ozlabs.org>; Tue, 8 Dec 2015 16:39:10 +1100
+Received: from d23av03.au.ibm.com (localhost [127.0.0.1])
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ tB85cjXK004191
+ for <openbmc@lists.ozlabs.org>; Tue, 8 Dec 2015 16:38:45 +1100
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ tB85cj9J003298
+ for <openbmc@lists.ozlabs.org>; Tue, 8 Dec 2015 16:38:45 +1100
+Received: from camb691.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
+ (using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id F391EA00F6
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Dec 2015 16:38:20 +1100 (AEDT)
+From: Cyril Bur <cyril.bur@au1.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid] Increase ipmi BT to 64 bytes
-Date: Mon,  7 Dec 2015 23:50:23 -0500
-Message-Id: <1449550223-24173-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH 0/2] Fixes to drivers/net/aspeednic
+Date: Tue,  8 Dec 2015 16:38:03 +1100
+Message-Id: <1449553085-14727-1-git-send-email-cyril.bur@au1.ibm.com>
 X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1449550223-24173-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1449550223-24173-1-git-send-email-openbmc-patches@stwcx.xyz>
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 15120805-0013-0000-0000-00000254C778
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -27,29 +56,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Dec 2015 04:50:31 -0000
+X-List-Received-Date: Tue, 08 Dec 2015 05:39:22 -0000
 
-From: Chris Austen <austenc@us.ibm.com>
+The BMC has been failing to reliably TFTPboot large files, it turns out
+that busy networks could get the NIC into a state where it stops DMAing its
+received packets. Patch 2/2 addresses this problem. Patch 1/2 fixes an RX
+buffer size problem found along the way.
 
-after a lot of testing and verification from Hostboot it appears it is
-fine to move this back to 64 bytes.  I'm doing this to reduce the
-number of IPMI calls from the host.
----
- ipmid.H | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Code exists on github: https://github.com/cyrilbur-ibm/u-boot/tree/net_fix
 
-diff --git a/ipmid.H b/ipmid.H
-index 3de2c8c..c75b4ac 100644
---- a/ipmid.H
-+++ b/ipmid.H
-@@ -16,7 +16,7 @@ ipmi_ret_t ipmi_netfn_router(const ipmi_netfn_t, const ipmi_cmd_t, ipmi_request_
- // The BT FIFO in the AST2400 can only handle 64 bytes.  
- // Can only allow 63 because the BT interface still 
- // needs 1 byte for the length field. 
--#define MAX_IPMI_BUFFER 63
-+#define MAX_IPMI_BUFFER 64
- 
- extern FILE *ipmiio, *ipmidbus, *ipmicmddetails;
- 
+Cyril Bur (2):
+  drivers/net/aspeednic: Fix RX buffer size
+  drivers/net/aspeednic: Fix unreliable networking
+
+ drivers/net/aspeednic.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
+
 -- 
 2.6.3
