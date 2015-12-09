@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 34B601A0FE3
- for <openbmc@lists.ozlabs.org>; Wed,  9 Dec 2015 17:10:13 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 449951A105E
+ for <openbmc@lists.ozlabs.org>; Wed,  9 Dec 2015 17:10:15 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1449641407999140.34029150813365;
- Tue, 8 Dec 2015 22:10:07 -0800 (PST)
+ with SMTPS id 1449641408815929.5708542751398;
+ Tue, 8 Dec 2015 22:10:08 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Cyril Bur <cyril.bur@au1.ibm.com>
-Subject: [PATCH btbridge v2 1/3] Update usage message
-Date: Wed,  9 Dec 2015 00:10:04 -0600
-Message-Id: <1449641406-15479-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH btbridge v2 2/3] Actually set the verbose flag with --debug
+Date: Wed,  9 Dec 2015 00:10:05 -0600
+Message-Id: <1449641406-15479-3-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1449641406-15479-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1449641406-15479-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,27 +28,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Dec 2015 06:10:13 -0000
+X-List-Received-Date: Wed, 09 Dec 2015 06:10:15 -0000
 
 From: Cyril Bur <cyril.bur@au1.ibm.com>
 
 ---
- btbridged.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ btbridged.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/btbridged.c b/btbridged.c
-index 115ae63..ab4880c 100644
+index ab4880c..5eccc20 100644
 --- a/btbridged.c
 +++ b/btbridged.c
-@@ -584,7 +584,8 @@ out:
+@@ -624,10 +624,12 @@ int main(int argc, char *argv[]) {
+ 		MSG_OUT("Found verbosity flag\n");
  
- static void usage(const char *name)
- {
--	fprintf(stderr, "Usage %s\n", name);
-+	fprintf(stderr, "Usage %s [ --debug | --verbose ]\n", name);
-+	fprintf(stderr, "\t--debug\t Implies --verbose\n\t Dumps entire message contents to console\n");
- 	fprintf(stderr, "\t--verbose\t Be verbose\n\n");
- }
+ 	if (debug) {
+-		if (!verbose)
++		if (!verbose) {
++			verbose = 1;
+ 			MSG_OUT("Turning on verbosity because debug flag found\n");
+-		else
++		} else {
+ 			MSG_OUT("Found debug flag\n");
++		}
+ 	}
  
+ 	MSG_OUT("Starting\n");
 -- 
 2.6.3
