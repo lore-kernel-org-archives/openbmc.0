@@ -1,22 +1,51 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-ig0-x22d.google.com (mail-ig0-x22d.google.com
+ [IPv6:2607:f8b0:4001:c05::22d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 219551A1136
- for <openbmc@lists.ozlabs.org>; Thu, 10 Dec 2015 12:30:42 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1449711037448487.9759575723524;
- Wed, 9 Dec 2015 17:30:37 -0800 (PST)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Cc: "Milton D. Miller II" <miltonm@us.ibm.com>
-Subject: [PATCH openbmc] Add flash copy commands to busybox
-Date: Wed,  9 Dec 2015 19:30:36 -0600
-Message-Id: <1449711036-9716-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1449711036-9716-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1449711036-9716-1-git-send-email-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id ECEFC1A0F5E
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Dec 2015 14:16:05 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=Ln+Vgcwy; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=V582xEp1; 
+ dkim-atps=neutral
+Received: by igcto18 with SMTP id to18so4495932igc.0
+ for <openbmc@lists.ozlabs.org>; Wed, 09 Dec 2015 19:16:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-type;
+ bh=g/pHmVHtlIiwih51DzQ46M+gXHZa+SpRTRXUniTrTzo=;
+ b=Ln+VgcwyTyPd7ccQ4OfuI+RuJy45bXmgCBLISxdRSVfLEffIIbgI0K9KT/kq2mSkJa
+ cMPlP54sAR7qqcLa60ap0Dee2wTXQvaEMhs3Jv/sTMdJK+ZKPkqF+lSbj2dDCKDXzeDb
+ XPpYoRLDywkwinrCWW8gU9L3GOWJrMbuJgB6KP75/77vL3Phf5oA3liKlJwXBMv3Qw2+
+ JXqWPC2sDZeFaehwq8id1ycMD24PhEP9V/bEsk9NZb/cNYnpn08YC25QBWLE6JWj2f2x
+ qQxuaSuxDeLaLfmj/1ZOGwr36g73EC5tKDvHbKygS53d5WaWIo5aFSG2+qHao8ZpIEZ3
+ v+mA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-type;
+ bh=g/pHmVHtlIiwih51DzQ46M+gXHZa+SpRTRXUniTrTzo=;
+ b=V582xEp1afUb9u38Mp+bSCBOobQa1MohM6o5iveLZBjfD0emUrUHWwYbs2uzpnGyLk
+ zTfK9diUlhPAskvvBbmndOfDFenh+vE8wqHL4J+nkh7unLLp69znK4rgxD/054S4w+mb
+ 0HAfdRoq5xYt7XKASvDBje9lEPTLhYfcyu1YM=
+X-Received: by 10.50.160.5 with SMTP id xg5mr14366507igb.46.1449717363311;
+ Wed, 09 Dec 2015 19:16:03 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.79.29.201 with HTTP; Wed, 9 Dec 2015 19:15:43 -0800 (PST)
+In-Reply-To: <1449646825-17436-2-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1449646825-17436-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1449646825-17436-2-git-send-email-openbmc-patches@stwcx.xyz>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 10 Dec 2015 13:45:43 +1030
+X-Google-Sender-Auth: nZrGLZ8Mkxgq5tUTuhYOhUXA_4I
+Message-ID: <CACPK8XfFeXauuY7AV-rWRpYmCvPDTwF1Kg+mEDOz0vbje+TsSA@mail.gmail.com>
+Subject: Re: [PATCH linux] Temporary AST setup for Palmetto and Barreleye
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Norman James <nkskjames@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,37 +57,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Dec 2015 01:30:43 -0000
+X-List-Received-Date: Thu, 10 Dec 2015 03:16:06 -0000
 
-From: "Milton D. Miller II" <miltonm@us.ibm.com>
+On Wed, Dec 9, 2015 at 6:10 PM, OpenBMC Patches
+<openbmc-patches@stwcx.xyz> wrote:
+> From: Norman James <njames@us.ibm.com>
+>
+> Removed when pinmux driver is ready.
 
-The flashcp command will copy a file to a mtd device after erasing the
-partition.   This is useful for updating the bmc u-boot, kernel,
-environment, and/or initrd.  It can also be used for upating the whole
-pnor, or partitions if we later add ffs partition parsing.
----
- meta-phosphor/common/recipes-core/busybox/busybox/flash.cfg  | 4 ++++
- meta-phosphor/common/recipes-core/busybox/busybox_%.bbappend | 1 +
- 2 files changed, 5 insertions(+)
- create mode 100644 meta-phosphor/common/recipes-core/busybox/busybox/flash.cfg
+Thanks Norm. Merged as 6da1b0f7943571e825ad06b3cdb990472cc07d2b.
 
-diff --git a/meta-phosphor/common/recipes-core/busybox/busybox/flash.cfg b/meta-phosphor/common/recipes-core/busybox/busybox/flash.cfg
-new file mode 100644
-index 0000000..39ba10d
---- /dev/null
-+++ b/meta-phosphor/common/recipes-core/busybox/busybox/flash.cfg
-@@ -0,0 +1,4 @@
-+CONFIG_FLASHCP=y
-+CONFIG_FLASH_LOCK=y
-+CONFIG_FLASH_UNLOCK=y
-+CONFIG_FLASH_ERASEALL=y
-diff --git a/meta-phosphor/common/recipes-core/busybox/busybox_%.bbappend b/meta-phosphor/common/recipes-core/busybox/busybox_%.bbappend
-index 225f17a..3c4f2b6 100644
---- a/meta-phosphor/common/recipes-core/busybox/busybox_%.bbappend
-+++ b/meta-phosphor/common/recipes-core/busybox/busybox_%.bbappend
-@@ -1,2 +1,3 @@
- FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
- SRC_URI += "file://busybox.cfg"
-+SRC_URI += "file://flash.cfg"
--- 
-2.6.3
+I've got a question below.
+
+> +static void __init do_common_setup(void)
+> +{
+> +       u32 reg;
+
+This is unused. I fixed it for you.
+
+> +
+> +       /* Enable LPC FWH cycles, Enable LPC to AHB bridge */
+> +       writel(0x00000500, AST_IO(AST_BASE_LPC | 0x80));
+
+> +static void __init do_barreleye_setup(void)
+> +{
+> +       u32 reg;
+> +       do_common_setup();
+> +
+> +       /* Setup PNOR address mapping for 64M flash */
+> +       writel(0x30000C00, AST_IO(AST_BASE_LPC | 0x88));
+> +       writel(0xFC0003FF, AST_IO(AST_BASE_LPC | 0x8C));
+> +
+> +       /* GPIO setup */
+> +       writel(0x9E82FCE7, AST_IO(AST_BASE_GPIO | 0x00));
+> +       writel(0x0370E677, AST_IO(AST_BASE_GPIO | 0x04));
+> +
+> +       /*
+> +        * Do read/modify/write on power gpio
+> +        * to prevent resetting power on reboot
+> +       */
+
+Can you explain to me why we need to do this?
+
+> +       reg = readl(AST_IO(AST_BASE_GPIO | 0x20));
+> +       reg |= 0xCFC8F7FD;
+> +       writel(reg, AST_IO(AST_BASE_GPIO | 0x20));
+> +       writel(0xC738F20A, AST_IO(AST_BASE_GPIO | 0x24));
+> +       writel(0x0031FFAF, AST_IO(AST_BASE_GPIO | 0x80));
+> +}
