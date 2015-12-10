@@ -1,23 +1,51 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-ig0-x230.google.com (mail-ig0-x230.google.com
+ [IPv6:2607:f8b0:4001:c05::230])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 305C51A1045
- for <openbmc@lists.ozlabs.org>; Wed,  9 Dec 2015 18:40:32 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1449646827275499.63682945674464;
- Tue, 8 Dec 2015 23:40:27 -0800 (PST)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Cc: Norman James <njames@us.ibm.com>,
-	Norman James <nkskjames@gmail.com>
-Subject: [PATCH linux] Temporary AST setup for Palmetto and Barreleye
-Date: Wed,  9 Dec 2015 01:40:25 -0600
-Message-Id: <1449646825-17436-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1449646825-17436-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1449646825-17436-1-git-send-email-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 339B61A087B
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Dec 2015 12:03:45 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=cP8wUmIw; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=BZJQL9cb; 
+ dkim-atps=neutral
+Received: by mail-ig0-x230.google.com with SMTP id mv3so5578660igc.0
+ for <openbmc@lists.ozlabs.org>; Wed, 09 Dec 2015 17:03:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-type;
+ bh=OlEcTkWd9+VufcTWctkNaTAuQF/Yo7mbrw7xbut6K6E=;
+ b=cP8wUmIwpssWf9CLmG8n7B4ZPhO/PWQ4Fa380Zw4SQaQ6Rxyc9gpL5hq3VxkvX7+JU
+ Ty3dvlRrkjSz5K78e4qRkrD63ZTmwFfRDGdoCyjs0oqpMaIK7ILvTS7+ea9aYOYYS3X2
+ H88F03Eucx7T/TCMt6+BD4Lk4JYxw96S1CHHhr8+f08YCsq1Ur8uAw+6ifisvDDbQFyk
+ VtdwQi/ipe1fBpVCsTmCg2O3ROc65Qj7XyZPRtihqajBYDtNzv3aBqYaaWnY6rilVkrR
+ n/kCqBZASgqU5XoQozSGFcpsIGe218/hmyTMsubysZpHwBy1pxBlmrPw25z/Eh1GczI6
+ X9BA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-type;
+ bh=OlEcTkWd9+VufcTWctkNaTAuQF/Yo7mbrw7xbut6K6E=;
+ b=BZJQL9cbPU5yNx/2IHxPpe5SaPRvSyyxY4FfoUhtfqOMndwHDhFIIxB7QIEK2SOUaN
+ tLGDElma4wpO+SRfg9F2m5Ao0r8mrSbzwCRU1FJU/vGz8OJPEbWgEEAv5mrwjvdbrl6e
+ 7rR1A7D5h9ck9EDR7MtGY+5eJDMEEiFvTSilY=
+X-Received: by 10.50.79.202 with SMTP id l10mr32708007igx.46.1449709422810;
+ Wed, 09 Dec 2015 17:03:42 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.79.29.201 with HTTP; Wed, 9 Dec 2015 17:03:23 -0800 (PST)
+In-Reply-To: <1449641406-15479-2-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1449641406-15479-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1449641406-15479-2-git-send-email-openbmc-patches@stwcx.xyz>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 10 Dec 2015 11:33:23 +1030
+X-Google-Sender-Auth: ROPF8XnU93iG_UQc5APvgizk5XA
+Message-ID: <CACPK8Xfx+hqgaSkR8Ad-O4Rm8jdxYtzfvoUOfdmB4XgcZmse1Q@mail.gmail.com>
+Subject: Re: [PATCH btbridge v2 1/3] Update usage message
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Cyril Bur <cyril.bur@au1.ibm.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -29,111 +57,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Dec 2015 07:40:32 -0000
+X-List-Received-Date: Thu, 10 Dec 2015 01:03:46 -0000
 
-From: Norman James <njames@us.ibm.com>
+On Wed, Dec 9, 2015 at 4:40 PM, OpenBMC Patches
+<openbmc-patches@stwcx.xyz> wrote:
+> From: Cyril Bur <cyril.bur@au1.ibm.com>
+>
+> ---
+>  btbridged.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/btbridged.c b/btbridged.c
+> index 115ae63..ab4880c 100644
+> --- a/btbridged.c
+> +++ b/btbridged.c
+> @@ -584,7 +584,8 @@ out:
+>
+>  static void usage(const char *name)
+>  {
+> -       fprintf(stderr, "Usage %s\n", name);
+> +       fprintf(stderr, "Usage %s [ --debug | --verbose ]\n", name);
+> +       fprintf(stderr, "\t--debug\t Implies --verbose\n\t Dumps entire message contents to console\n");
 
-Removed when pinmux driver is ready.
+I don't know what this means. What's the difference between debug and verbose?
 
-Signed-off-by: Norman James <nkskjames@gmail.com>
----
- arch/arm/mach-aspeed/aspeed.c | 77 +++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 70 insertions(+), 7 deletions(-)
+It might be more discoverable to support multiple levels of verbosity.
+-v for verbose, -vv for what you term "debug".
 
-diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
-index 7ec9141..65e0f1f 100644
---- a/arch/arm/mach-aspeed/aspeed.c
-+++ b/arch/arm/mach-aspeed/aspeed.c
-@@ -103,6 +103,71 @@ static void ast_host_uart_setup(unsigned int speed, unsigned int clock)
- 	ast_uart_out(UART_FCR, 0x7);
- }
- 
-+static void __init do_common_setup(void)
-+{
-+	u32 reg;
-+
-+	/* Enable LPC FWH cycles, Enable LPC to AHB bridge */
-+	writel(0x00000500, AST_IO(AST_BASE_LPC | 0x80));
-+
-+
-+	/* Flash controller */
-+	writel(0x00000003, AST_IO(AST_BASE_SPI | 0x00));
-+	writel(0x00002404, AST_IO(AST_BASE_SPI | 0x04));
-+
-+	/* set UART routing */
-+	writel(0x00000000, AST_IO(AST_BASE_LPC | 0x9c));
-+
-+	/* SCU setup */
-+	writel(0x01C000FF, AST_IO(AST_BASE_SCU | 0x88));
-+	writel(0xC1C000FF, AST_IO(AST_BASE_SCU | 0x8c));
-+	writel(0x01C0007F, AST_IO(AST_BASE_SCU | 0x88));
-+	writel(0x003FA009, AST_IO(AST_BASE_SCU | 0x90));
-+	
-+	/* setup scratch registers */
-+	writel(0x00000042, AST_IO(AST_BASE_LPC | 0x170));
-+	writel(0x00004000, AST_IO(AST_BASE_LPC | 0x174));
-+}
-+
-+static void __init do_barreleye_setup(void)
-+{
-+	u32 reg;
-+	do_common_setup();
-+
-+	/* Setup PNOR address mapping for 64M flash */
-+	writel(0x30000C00, AST_IO(AST_BASE_LPC | 0x88));
-+	writel(0xFC0003FF, AST_IO(AST_BASE_LPC | 0x8C));
-+
-+	/* GPIO setup */
-+	writel(0x9E82FCE7, AST_IO(AST_BASE_GPIO | 0x00));
-+	writel(0x0370E677, AST_IO(AST_BASE_GPIO | 0x04));
-+
-+	/*
-+	 * Do read/modify/write on power gpio
-+	 * to prevent resetting power on reboot
-+	*/
-+	reg = readl(AST_IO(AST_BASE_GPIO | 0x20));
-+	reg |= 0xCFC8F7FD;
-+	writel(reg, AST_IO(AST_BASE_GPIO | 0x20));
-+	writel(0xC738F20A, AST_IO(AST_BASE_GPIO | 0x24));
-+	writel(0x0031FFAF, AST_IO(AST_BASE_GPIO | 0x80));
-+}
-+
-+static void __init do_palmetto_setup(void)
-+{
-+	do_common_setup();
-+
-+	/* Setup PNOR address mapping for 32M flash */
-+	writel(0x30000E00, AST_IO(AST_BASE_LPC | 0x88));
-+	writel(0xFE0001FF, AST_IO(AST_BASE_LPC | 0x8C));
-+
-+	/* GPIO setup */
-+	writel(0x13008CE7, AST_IO(AST_BASE_GPIO | 0x00));
-+	writel(0x0370E677, AST_IO(AST_BASE_GPIO | 0x04));
-+	writel(0xDF48F7FF, AST_IO(AST_BASE_GPIO | 0x20));
-+	writel(0xC738F202, AST_IO(AST_BASE_GPIO | 0x24));
-+}
-+
- #define SCU_PASSWORD	0x1688A8A8
- 
- static void __init aspeed_init_early(void)
-@@ -127,13 +192,11 @@ static void __init aspeed_init_early(void)
- 	writel(0, AST_IO(AST_BASE_WDT | 0x0c));
- 	writel(0, AST_IO(AST_BASE_WDT | 0x2c));
- 
--	/*
--	 * temporary: enable i2c usage of the shared GPIO/I2C pins for
--	 * i2c busses 4 - 8
--	 */
--	reg = readl(AST_IO(AST_BASE_SCU | 0x90));
--	reg |= 0x3E0000;
--	writel(reg, AST_IO(AST_BASE_SCU | 0x90));
-+	if (of_machine_is_compatible("rackspace,barreleye-bmc"))
-+		do_barreleye_setup();
-+	if (of_machine_is_compatible("tyan,palmetto-bmc"))
-+		do_palmetto_setup();
-+
- }
- 
- static void __init aspeed_map_io(void)
--- 
-2.6.3
+>         fprintf(stderr, "\t--verbose\t Be verbose\n\n");
+>  }
+>
+> --
+> 2.6.3
+>
+>
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
