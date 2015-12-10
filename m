@@ -3,17 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 1A8FF1A0B56
- for <openbmc@lists.ozlabs.org>; Thu, 10 Dec 2015 15:40:09 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 483851A1146
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Dec 2015 15:40:14 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1449722407259524.5991977495769;
- Wed, 9 Dec 2015 20:40:07 -0800 (PST)
+ with SMTPS id 1449722408736666.4574755210099;
+ Wed, 9 Dec 2015 20:40:08 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH btbridge v3 0/4] Add timestamps to output messages
-Date: Wed,  9 Dec 2015 22:40:02 -0600
-Message-Id: <1449722406-13608-1-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: Cyril Bur <cyril.bur@au1.ibm.com>
+Subject: [PATCH btbridge v3 2/4] Actually set the verbose flag with --debug
+Date: Wed,  9 Dec 2015 22:40:04 -0600
+Message-Id: <1449722406-13608-3-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
+In-Reply-To: <1449722406-13608-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1449722406-13608-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -25,20 +28,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Dec 2015 04:40:10 -0000
+X-List-Received-Date: Thu, 10 Dec 2015 04:40:14 -0000
 
-There have been some problems with timeouts. This should help narrow down where some of the time is going.
+From: Cyril Bur <cyril.bur@au1.ibm.com>
 
-https://github.com/openbmc/btbridge/pull/9
+---
+ btbridged.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Cyril Bur (4):
-  Update usage message
-  Actually set the verbose flag with --debug
-  Improve debugging output, timestamps and syslog
-  Replace --verbose with --v and --debug with --vv
-
- btbridged.c | 79 +++++++++++++++++++++++++++++++++++++++++--------------------
- 1 file changed, 53 insertions(+), 26 deletions(-)
-
+diff --git a/btbridged.c b/btbridged.c
+index ab4880c..5eccc20 100644
+--- a/btbridged.c
++++ b/btbridged.c
+@@ -624,10 +624,12 @@ int main(int argc, char *argv[]) {
+ 		MSG_OUT("Found verbosity flag\n");
+ 
+ 	if (debug) {
+-		if (!verbose)
++		if (!verbose) {
++			verbose = 1;
+ 			MSG_OUT("Turning on verbosity because debug flag found\n");
+-		else
++		} else {
+ 			MSG_OUT("Found debug flag\n");
++		}
+ 	}
+ 
+ 	MSG_OUT("Starting\n");
 -- 
 2.6.3
