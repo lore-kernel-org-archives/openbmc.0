@@ -3,20 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3A3351A1146
- for <openbmc@lists.ozlabs.org>; Wed, 16 Dec 2015 09:20:46 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id BDC441A0513
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Dec 2015 09:20:48 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1450218042669862.7898329269204;
- Tue, 15 Dec 2015 14:20:42 -0800 (PST)
+ with SMTPS id 1450218045369887.9357768683426;
+ Tue, 15 Dec 2015 14:20:45 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: kenneth-wilke <kenneth.wilke@rackspace.com>
-Subject: [PATCH openbmc] Added ubuntu dependencies to readme
-Date: Tue, 15 Dec 2015 16:20:41 -0600
-Message-Id: <1450218041-11964-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc] meta-phosphor: Update kernel to openbmc-20151210-1
+Date: Tue, 15 Dec 2015 16:20:43 -0600
+Message-Id: <1450218044-12020-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1450218041-11964-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1450218041-11964-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,34 +25,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Dec 2015 22:20:46 -0000
+X-List-Received-Date: Tue, 15 Dec 2015 22:20:49 -0000
 
-From: kenneth-wilke <kenneth.wilke@rackspace.com>
+ - Temporary AST setup for Palmetto and Barreleye
+ - Ensure all IP will be reset on reboot
 
----
- README.md | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+These changes should help us to be less acceptable to userspace messing
+up the configuration and causing bugs like the failure to reboot.
 
-diff --git a/README.md b/README.md
-index 49d4f94..0df0ad4 100644
---- a/README.md
-+++ b/README.md
-@@ -8,9 +8,15 @@ OpenBMC uses Yocto/Open-Embedded for a build system, which supports an
- out-of-tree build.  It is recommended that you create an empty directory
- somewhere to hold the build.  This directory will get big.
- 
-+On Ubuntu 14.04 the following packages are required to build the default target
-+```
-+sudo apt-get install -y git build-essential libsdl1.2-dev texinfo gawk chrpath diffstat
-+```
-+
- To start a build:
- 
-+```
-     cd <builddir>
-     . <repodir>/openbmc-env
-     bitbake obmc-phosphor-image
--
-+```
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+
+https://github.com/openbmc/openbmc/pull/120
+
+Joel Stanley (1):
+  meta-phosphor: Update kernel to openbmc-20151210-1
+
+ meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.3.bb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
 -- 
 2.6.3
