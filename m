@@ -3,17 +3,19 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 9904A1A1171
- for <openbmc@lists.ozlabs.org>; Wed, 16 Dec 2015 23:50:30 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 71EF11A1171
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Dec 2015 23:50:31 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 14502702264771010.8198634126722;
- Wed, 16 Dec 2015 04:50:26 -0800 (PST)
+ with SMTPS id 1450270227260239.87847583352595;
+ Wed, 16 Dec 2015 04:50:27 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid v3 0/6] IPMID boot options changes
-Date: Wed, 16 Dec 2015 06:50:19 -0600
-Message-Id: <1450270225-2497-1-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid v3 1/6] Support host reboot
+Date: Wed, 16 Dec 2015 06:50:20 -0600
+Message-Id: <1450270225-2497-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
+In-Reply-To: <1450270225-2497-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1450270225-2497-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -25,30 +27,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Dec 2015 12:50:31 -0000
+X-List-Received-Date: Wed, 16 Dec 2015 12:50:32 -0000
 
-1) Implemented ipmid_boot_option_set/get with respect to petitboot requirements.
-2) Boot options are handled via dbus property "host_settings".
-3) Conversion between dbus property and ipmid command is carefully handled.
-4) Service name is got via object mapper.
+From: Chris Austen <austenc@us.ibm.com>
 
-https://github.com/openbmc/phosphor-host-ipmid/pull/51
+---
+ chassishandler.C | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-Chris Austen (1):
-  Support host reboot
-
-shgoupf (5):
-  Add get/set ipmid command support with correct DBUS property handling.
-  Revert "Add get/set ipmid command support with correct DBUS property
-    handling."
-  Redo: Add get/set ipmid boot option command support with correct DBUS
-    property handling.
-  Cleanup codes for ipmid boot option changes.
-  Get service name via object mapper
-
- chassishandler.C | 290 +++++++++++++++++++++++++++++++++++++++++++++++++++++--
- chassishandler.h |   8 ++
- 2 files changed, 289 insertions(+), 9 deletions(-)
-
+diff --git a/chassishandler.C b/chassishandler.C
+index 56b8375..1389db9 100644
+--- a/chassishandler.C
++++ b/chassishandler.C
+@@ -31,7 +31,7 @@ ipmi_ret_t ipmi_chassis_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+ //------------------------------------------------------------
+ // Calls into Chassis Control Dbus object to do the power off
+ //------------------------------------------------------------
+-int ipmi_chassis_power_off()
++int ipmi_chassis_power_control(const char *method)
+ {
+ 	// sd_bus error
+ 	int rc = 0;
+@@ -50,7 +50,7 @@ int ipmi_chassis_power_off()
+ 							chassis_bus_name,        // Service to contact
+ 							chassis_object_name,     // Object path 
+ 							chassis_intf_name,       // Interface name
+-							"powerOff",      		 // Method to be called
++							method,      		 // Method to be called
+ 							&bus_error,      		 // object to return error
+ 							&response,		 		 // Response buffer if any
+ 							NULL);			 		 // No input arguments
+@@ -69,6 +69,7 @@ int ipmi_chassis_power_off()
+ 	return rc;
+ }
+ 
++
+ //----------------------------------------------------------------------
+ // Chassis Control commands
+ //----------------------------------------------------------------------
+@@ -89,11 +90,11 @@ ipmi_ret_t ipmi_chassis_control(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+ 	switch(chassis_ctrl_cmd)
+ 	{
+ 		case CMD_POWER_OFF:
++			rc = ipmi_chassis_power_control("powerOff");
++			break;
+ 		case CMD_HARD_RESET:
+-		{
+-			rc = ipmi_chassis_power_off();
++			rc = ipmi_chassis_power_control("reboot");
+ 			break;
+-		}
+ 		default:
+ 		{
+ 			fprintf(stderr, "Invalid Chassis Control command:[0x%X] received\n",chassis_ctrl_cmd);
 -- 
 2.6.3
