@@ -3,18 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id C977F1A1262
+ by lists.ozlabs.org (Postfix) with ESMTPS id 0EDDF1A1198
  for <openbmc@lists.ozlabs.org>; Wed, 16 Dec 2015 23:50:37 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1450270230419438.0898184023072;
- Wed, 16 Dec 2015 04:50:30 -0800 (PST)
+ with SMTPS id 145027023115917.522494038388004;
+ Wed, 16 Dec 2015 04:50:31 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: shgoupf <shgoupf@cn.ibm.com>
-Subject: [PATCH phosphor-host-ipmid v3 5/6] Cleanup codes for ipmid boot
- option changes.
-Date: Wed, 16 Dec 2015 06:50:24 -0600
-Message-Id: <1450270225-2497-6-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid v3 6/6] Get service name via object mapper
+Date: Wed, 16 Dec 2015 06:50:25 -0600
+Message-Id: <1450270225-2497-7-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1450270225-2497-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1450270225-2497-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -33,90 +32,164 @@ X-List-Received-Date: Wed, 16 Dec 2015 12:50:38 -0000
 
 From: shgoupf <shgoupf@cn.ibm.com>
 
-There are some codes for testing that should be removed.
+1) The connection name is got via objectmapper.
+2) The method used to get the connection name is object_mapper_get_connection().
+3) dbus_get_property/dbus_set_property will get the connection name via
+the above method instead of hard coding.
 ---
- chassishandler.C | 42 ++++++++++++++----------------------------
- 1 file changed, 14 insertions(+), 28 deletions(-)
+ chassishandler.C | 71 +++++++++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 68 insertions(+), 3 deletions(-)
 
 diff --git a/chassishandler.C b/chassishandler.C
-index e69e6c3..8aba43b 100644
+index 8aba43b..35b5086 100644
 --- a/chassishandler.C
 +++ b/chassishandler.C
-@@ -8,6 +8,12 @@
- const char  *chassis_bus_name      =  "org.openbmc.control.Chassis";
- const char  *chassis_object_name   =  "/org/openbmc/control/chassis0";
+@@ -10,10 +10,15 @@ const char  *chassis_object_name   =  "/org/openbmc/control/chassis0";
  const char  *chassis_intf_name     =  "org.openbmc.control.Chassis";
-+
-+// Host settings in dbus
-+const char  *settings_service_name =  "org.openbmc.settings.Host";
-+const char  *settings_object_name  =  "/org/openbmc/settings/host0";
-+const char  *settings_intf_name    =  "org.freedesktop.DBus.Properties";
+ 
+ // Host settings in dbus
+-const char  *settings_service_name =  "org.openbmc.settings.Host";
++// Service name should be referenced by connection name got via object mapper
++// const char  *settings_service_name =  "org.openbmc.settings.Host";
+ const char  *settings_object_name  =  "/org/openbmc/settings/host0";
+ const char  *settings_intf_name    =  "org.freedesktop.DBus.Properties";
+ 
++const char  *objmapper_service_name =  "org.openbmc.objectmapper";
++const char  *objmapper_object_name  =  "/org/openbmc/objectmapper/objectmapper";
++const char  *objmapper_intf_name    =  "org.openbmc.objectmapper.ObjectMapper";
 +
  char* uint8_to_char(uint8_t *a, size_t size)
  {
      char* buffer;
-@@ -68,14 +74,14 @@ int dbus_get_property(char* buf)
+@@ -52,6 +57,57 @@ uint8_t* char_to_uint8(char *a, size_t size)
+     return buffer;
+ }
+ 
++int object_mapper_get_connection(char** buf, const char* obj_path)
++{
++    sd_bus_error error = SD_BUS_ERROR_NULL;
++    sd_bus_message *m = NULL;
++    sd_bus *bus = NULL;
++    char* temp_buf = NULL;
++    size_t buf_size = 0;
++    int r;
++
++    // Open the system bus where most system services are provided. 
++    r = sd_bus_open_system(&bus);
++    if (r < 0) {
++        fprintf(stderr, "Failed to connect to system bus: %s\n", strerror(-r));
++        goto finish;
++    }
++
++    // Bus, service, object path, interface and method are provided to call
++    // the method. 
++    // Signatures and input arguments are provided by the arguments at the
++    // end.
++    r = sd_bus_call_method(bus,
++            objmapper_service_name,                      /* service to contact */
++            objmapper_object_name,                       /* object path */
++            objmapper_intf_name,                         /* interface name */
++            "GetObject",                                 /* method name */
++            &error,                                      /* object to return error in */
++            &m,                                          /* return message on success */
++            "s",                                         /* input signature */
++            obj_path                                     /* first argument */
++            );
++
++    if (r < 0) {
++        fprintf(stderr, "Failed to issue method call: %s\n", error.message);
++        goto finish;
++    }
++
++    // Get the key, aka, the connection name
++    r = sd_bus_message_read(m, "a{sas}", 1, &temp_buf);
++    buf_size = strlen(temp_buf) + 1;
++    printf("IPMID connection name: %s\n", temp_buf);
++    *buf = (char*)malloc(buf_size);
++    memcpy(*buf, temp_buf, buf_size);
++
++finish:
++    sd_bus_error_free(&error);
++    sd_bus_message_unref(m);
++    sd_bus_unref(bus);
++
++    return r;
++}
++
+ // TODO: object mapper should be used instead of hard-coding.
+ int dbus_get_property(char* buf)
+ {
+@@ -60,6 +116,7 @@ int dbus_get_property(char* buf)
+     sd_bus *bus = NULL;
+     char* temp_buf = NULL;
+     uint8_t* get_value = NULL;
++    char* connection = NULL;
+     int r, i;
+ 
+     // Open the system bus where most system services are provided. 
+@@ -69,12 +126,14 @@ int dbus_get_property(char* buf)
+         goto finish;
+     }
+ 
++    object_mapper_get_connection(&connection, settings_object_name);
++    printf("connection: %s\n", connection);
+     // Bus, service, object path, interface and method are provided to call
+     // the method. 
      // Signatures and input arguments are provided by the arguments at the
      // end.
      r = sd_bus_call_method(bus,
--            "org.openbmc.settings.Host",                /* service to contact */
--            "/org/openbmc/settings/host0",              /* object path */
--            "org.freedesktop.DBus.Properties",          /* interface name */
-+            settings_service_name,                      /* service to contact */
-+            settings_object_name,                       /* object path */
-+            settings_intf_name,                         /* interface name */
+-            settings_service_name,                      /* service to contact */
++            connection,                                 /* service to contact */
+             settings_object_name,                       /* object path */
+             settings_intf_name,                         /* interface name */
              "Get",                                      /* method name */
-             &error,                                     /* object to return error in */
-             &m,                                         /* return message on success */
+@@ -83,6 +142,7 @@ int dbus_get_property(char* buf)
              "ss",                                       /* input signature */
--            "org.freedesktop.DBus.Properties",          /* first argument */
-+            settings_intf_name,                         /* first argument */
+             settings_intf_name,                         /* first argument */
              "boot_flags");                              /* second argument */
++
      if (r < 0) {
          fprintf(stderr, "Failed to issue method call: %s\n", error.message);
-@@ -122,14 +128,14 @@ int dbus_set_property(const char* buf)
+         goto finish;
+@@ -104,6 +164,7 @@ finish:
+     sd_bus_error_free(&error);
+     sd_bus_message_unref(m);
+     sd_bus_unref(bus);
++    free(connection);
+ 
+     return r;
+ }
+@@ -114,6 +175,7 @@ int dbus_set_property(const char* buf)
+     sd_bus_error error = SD_BUS_ERROR_NULL;
+     sd_bus_message *m = NULL;
+     sd_bus *bus = NULL;
++    char* connection = NULL;
+     int r;
+ 
+     // Open the system bus where most system services are provided. 
+@@ -123,12 +185,14 @@ int dbus_set_property(const char* buf)
+         goto finish;
+     }
+ 
++    object_mapper_get_connection(&connection, settings_object_name);
++    printf("connection: %s\n", connection);
+     // Bus, service, object path, interface and method are provided to call
+     // the method. 
      // Signatures and input arguments are provided by the arguments at the
      // end.
      r = sd_bus_call_method(bus,
--            "org.openbmc.settings.Host",                /* service to contact */
--            "/org/openbmc/settings/host0",              /* object path */
--            "org.freedesktop.DBus.Properties",          /* interface name */
-+            settings_service_name,                      /* service to contact */
-+            settings_object_name,                       /* object path */
-+            settings_intf_name,                         /* interface name */
+-            settings_service_name,                      /* service to contact */
++            connection,                                 /* service to contact */
+             settings_object_name,                       /* object path */
+             settings_intf_name,                         /* interface name */
              "Set",                                      /* method name */
-             &error,                                     /* object to return error in */
-             &m,                                         /* return message on success */
-             "ssv",                                      /* input signature */
--            "org.freedesktop.DBus.Properties",          /* first argument */
-+            settings_intf_name,                         /* first argument */
-             "boot_flags",                               /* second argument */
-             "s",                                        /* third argument */
-             buf);                                       /* fourth argument */
-@@ -343,24 +349,4 @@ void register_netfn_chassis_functions()
+@@ -151,6 +215,7 @@ finish:
+     sd_bus_error_free(&error);
+     sd_bus_message_unref(m);
+     sd_bus_unref(bus);
++    free(connection);
  
-     printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_CHASSIS, IPMI_CMD_CHASSIS_CONTROL);
-     ipmi_register_callback(NETFUN_CHASSIS, IPMI_CMD_CHASSIS_CONTROL, NULL, ipmi_chassis_control);
--
--    // TODO: Testing for dbus property set/get and related methods.
--    printf("----> Start of chassis handler testing.\n");
--    set_sys_boot_options_t req = {0x80, 0x10, 0xA2, 0x3B, 0x45, 0x57}; 
--    char* set_value = uint8_to_char((uint8_t*)(&(req.data1)), 5);
--    dbus_set_property(set_value);
--    char* buf = (char*)malloc(NUM_RETURN_BYTES_OF_GET_USED * 2 + 1);
--    dbus_get_property(buf);
--    uint8_t* get_value = char_to_uint8(buf, NUM_RETURN_BYTES_OF_GET_USED);
--    int i;
--    printf("buf: %s\n", (char*)buf);
--    printf("0x");
--    for (i = 0; i < 5; i++) {
--        printf("%2x", get_value[i]);
--    }
--    printf("\n");
--    printf("----> End of chassis handler testing.\n");
--    free(buf);
--    free(set_value);
--    free(get_value);
+     return r;
  }
 -- 
 2.6.3
