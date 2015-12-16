@@ -1,22 +1,92 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <shgoupf@cn.ibm.com>
+Received: from e23smtp03.au.ibm.com (e23smtp03.au.ibm.com [202.81.31.145])
+ (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 0EDDF1A1198
- for <openbmc@lists.ozlabs.org>; Wed, 16 Dec 2015 23:50:37 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 145027023115917.522494038388004;
- Wed, 16 Dec 2015 04:50:31 -0800 (PST)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Cc: shgoupf <shgoupf@cn.ibm.com>
-Subject: [PATCH phosphor-host-ipmid v3 6/6] Get service name via object mapper
-Date: Wed, 16 Dec 2015 06:50:25 -0600
-Message-Id: <1450270225-2497-7-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1450270225-2497-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1450270225-2497-1-git-send-email-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 744301A0B9B
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Dec 2015 17:28:06 +1100 (AEDT)
+Received: from localhost
+ by e23smtp03.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <shgoupf@cn.ibm.com>;
+ Wed, 16 Dec 2015 16:28:05 +1000
+Received: from d23dlp03.au.ibm.com (202.81.31.214)
+ by e23smtp03.au.ibm.com (202.81.31.209) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Wed, 16 Dec 2015 16:28:03 +1000
+X-IBM-Helo: d23dlp03.au.ibm.com
+X-IBM-MailFrom: shgoupf@cn.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d23relay09.au.ibm.com (d23relay09.au.ibm.com [9.185.63.181])
+ by d23dlp03.au.ibm.com (Postfix) with ESMTP id 86D22357804F
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Dec 2015 17:28:03 +1100 (EST)
+Received: from d23av06.au.ibm.com (d23av06.au.ibm.com [9.190.235.151])
+ by d23relay09.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ tBG6RtmE30408712
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Dec 2015 17:28:03 +1100
+Received: from d23av06.au.ibm.com (localhost [127.0.0.1])
+ by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ tBG6RVcR006843
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Dec 2015 17:27:31 +1100
+Received: from d50lp31.co.us.ibm.com (d50lp31.boulder.ibm.com [9.17.249.32])
+ by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ tBG6RT0v006341
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Dec 2015 17:27:30 +1100
+Message-Id: <201512160627.tBG6RT0v006341@d23av06.au.ibm.com>
+Received: from localhost
+ by d50lp31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <shgoupf@cn.ibm.com>;
+ Tue, 15 Dec 2015 23:27:05 -0700
+Received: from smtp.notes.na.collabserv.com (192.155.248.74)
+ by d50lp31.co.us.ibm.com (192.168.2.141) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
+ Tue, 15 Dec 2015 23:27:04 -0700
+X-IBM-Helo: smtp.notes.na.collabserv.com
+X-IBM-MailFrom: shgoupf@cn.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from /spool/local
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <shgoupf@cn.ibm.com>;
+ Wed, 16 Dec 2015 06:27:03 -0000
+Received: from us1a3-smtp01.a3.dal06.isc4sb.com (10.106.154.100)
+ by smtp.notes.na.collabserv.com (10.106.227.92) with
+ smtp.notes.na.collabserv.com ESMTP; Wed, 16 Dec 2015 06:27:00 -0000
+Received: from us1a3-mail141.a3.dal06.isc4sb.com ([10.146.38.85])
+ by us1a3-smtp01.a3.dal06.isc4sb.com
+ with ESMTP id 2015121606270105-43370 ;
+ Wed, 16 Dec 2015 06:27:01 +0000 
+Subject: Re: [PATCH phosphor-host-ipmid v2 1/5] Add get/set ipmid command
+ support with correct DBUS property handling.
+In-Reply-To: <87vb7y7w1s.fsf@birb.au.ibm.com>
+From: "Peng Fei BG Gou" <shgoupf@cn.ibm.com>
+To: stewart@linux.vnet.ibm.com
+Cc: openbmc-patches@stwcx.xyz, openbmc@lists.ozlabs.org
+Date: Wed, 16 Dec 2015 06:26:59 +0000
+Sensitivity: 
+MIME-Version: 1.0
+References: <87vb7y7w1s.fsf@birb.au.ibm.com>,
+ <1450218057-12167-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1450218057-12167-2-git-send-email-openbmc-patches@stwcx.xyz>
+Importance: Normal
+X-Priority: 3 (Normal)
+X-Mailer: Lotus Domino Web Server Build V851SAAS_11302015_FP3 December 04, 2015
+X-LLNOutbound: False
+X-Disclaimed: 8495
+X-TNEFEvaluated: 1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=UTF-8
+x-cbid: 15121606-0009-0000-0000-0000028B290F
+X-IBM-ISS-SpamDetectors: Score=0.417846; BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0;
+ PH=0; SC=0.417846; ST=0; TS=0; UL=0; ISC=
+X-IBM-ISS-DetailInfo: BY=3.00004670; HX=3.00000236; KW=3.00000007;
+ PH=3.00000004; SC=3.00000125; SDB=6.00631285; UDB=6.00282634; UTC=2015-12-16
+ 06:27:01
+x-cbparentid: 15121606-5920-0000-0000-000005594936
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+X-Mailman-Approved-At: Thu, 17 Dec 2015 02:53:08 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,168 +98,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Dec 2015 12:50:38 -0000
+X-List-Received-Date: Wed, 16 Dec 2015 06:28:06 -0000
 
-From: shgoupf <shgoupf@cn.ibm.com>
-
-1) The connection name is got via objectmapper.
-2) The method used to get the connection name is object_mapper_get_connection().
-3) dbus_get_property/dbus_set_property will get the connection name via
-the above method instead of hard coding.
----
- chassishandler.C | 71 +++++++++++++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 68 insertions(+), 3 deletions(-)
-
-diff --git a/chassishandler.C b/chassishandler.C
-index 8aba43b..35b5086 100644
---- a/chassishandler.C
-+++ b/chassishandler.C
-@@ -10,10 +10,15 @@ const char  *chassis_object_name   =  "/org/openbmc/control/chassis0";
- const char  *chassis_intf_name     =  "org.openbmc.control.Chassis";
- 
- // Host settings in dbus
--const char  *settings_service_name =  "org.openbmc.settings.Host";
-+// Service name should be referenced by connection name got via object mapper
-+// const char  *settings_service_name =  "org.openbmc.settings.Host";
- const char  *settings_object_name  =  "/org/openbmc/settings/host0";
- const char  *settings_intf_name    =  "org.freedesktop.DBus.Properties";
- 
-+const char  *objmapper_service_name =  "org.openbmc.objectmapper";
-+const char  *objmapper_object_name  =  "/org/openbmc/objectmapper/objectmapper";
-+const char  *objmapper_intf_name    =  "org.openbmc.objectmapper.ObjectMapper";
-+
- char* uint8_to_char(uint8_t *a, size_t size)
- {
-     char* buffer;
-@@ -52,6 +57,57 @@ uint8_t* char_to_uint8(char *a, size_t size)
-     return buffer;
- }
- 
-+int object_mapper_get_connection(char** buf, const char* obj_path)
-+{
-+    sd_bus_error error = SD_BUS_ERROR_NULL;
-+    sd_bus_message *m = NULL;
-+    sd_bus *bus = NULL;
-+    char* temp_buf = NULL;
-+    size_t buf_size = 0;
-+    int r;
-+
-+    // Open the system bus where most system services are provided. 
-+    r = sd_bus_open_system(&bus);
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to connect to system bus: %s\n", strerror(-r));
-+        goto finish;
-+    }
-+
-+    // Bus, service, object path, interface and method are provided to call
-+    // the method. 
-+    // Signatures and input arguments are provided by the arguments at the
-+    // end.
-+    r = sd_bus_call_method(bus,
-+            objmapper_service_name,                      /* service to contact */
-+            objmapper_object_name,                       /* object path */
-+            objmapper_intf_name,                         /* interface name */
-+            "GetObject",                                 /* method name */
-+            &error,                                      /* object to return error in */
-+            &m,                                          /* return message on success */
-+            "s",                                         /* input signature */
-+            obj_path                                     /* first argument */
-+            );
-+
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to issue method call: %s\n", error.message);
-+        goto finish;
-+    }
-+
-+    // Get the key, aka, the connection name
-+    r = sd_bus_message_read(m, "a{sas}", 1, &temp_buf);
-+    buf_size = strlen(temp_buf) + 1;
-+    printf("IPMID connection name: %s\n", temp_buf);
-+    *buf = (char*)malloc(buf_size);
-+    memcpy(*buf, temp_buf, buf_size);
-+
-+finish:
-+    sd_bus_error_free(&error);
-+    sd_bus_message_unref(m);
-+    sd_bus_unref(bus);
-+
-+    return r;
-+}
-+
- // TODO: object mapper should be used instead of hard-coding.
- int dbus_get_property(char* buf)
- {
-@@ -60,6 +116,7 @@ int dbus_get_property(char* buf)
-     sd_bus *bus = NULL;
-     char* temp_buf = NULL;
-     uint8_t* get_value = NULL;
-+    char* connection = NULL;
-     int r, i;
- 
-     // Open the system bus where most system services are provided. 
-@@ -69,12 +126,14 @@ int dbus_get_property(char* buf)
-         goto finish;
-     }
- 
-+    object_mapper_get_connection(&connection, settings_object_name);
-+    printf("connection: %s\n", connection);
-     // Bus, service, object path, interface and method are provided to call
-     // the method. 
-     // Signatures and input arguments are provided by the arguments at the
-     // end.
-     r = sd_bus_call_method(bus,
--            settings_service_name,                      /* service to contact */
-+            connection,                                 /* service to contact */
-             settings_object_name,                       /* object path */
-             settings_intf_name,                         /* interface name */
-             "Get",                                      /* method name */
-@@ -83,6 +142,7 @@ int dbus_get_property(char* buf)
-             "ss",                                       /* input signature */
-             settings_intf_name,                         /* first argument */
-             "boot_flags");                              /* second argument */
-+
-     if (r < 0) {
-         fprintf(stderr, "Failed to issue method call: %s\n", error.message);
-         goto finish;
-@@ -104,6 +164,7 @@ finish:
-     sd_bus_error_free(&error);
-     sd_bus_message_unref(m);
-     sd_bus_unref(bus);
-+    free(connection);
- 
-     return r;
- }
-@@ -114,6 +175,7 @@ int dbus_set_property(const char* buf)
-     sd_bus_error error = SD_BUS_ERROR_NULL;
-     sd_bus_message *m = NULL;
-     sd_bus *bus = NULL;
-+    char* connection = NULL;
-     int r;
- 
-     // Open the system bus where most system services are provided. 
-@@ -123,12 +185,14 @@ int dbus_set_property(const char* buf)
-         goto finish;
-     }
- 
-+    object_mapper_get_connection(&connection, settings_object_name);
-+    printf("connection: %s\n", connection);
-     // Bus, service, object path, interface and method are provided to call
-     // the method. 
-     // Signatures and input arguments are provided by the arguments at the
-     // end.
-     r = sd_bus_call_method(bus,
--            settings_service_name,                      /* service to contact */
-+            connection,                                 /* service to contact */
-             settings_object_name,                       /* object path */
-             settings_intf_name,                         /* interface name */
-             "Set",                                      /* method name */
-@@ -151,6 +215,7 @@ finish:
-     sd_bus_error_free(&error);
-     sd_bus_message_unref(m);
-     sd_bus_unref(bus);
-+    free(connection);
- 
-     return r;
- }
--- 
-2.6.3
+<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial;fo=
+nt-size:10.5pt" ><div dir=3D"ltr" >Sorry. I don't know where are those mess=
+ages come from. I have pull request that is pending but hasn't been reviewe=
+d and merged.</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial;fo=
+nt-size:10.5pt" ><div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"fon=
+t-family:Arial;font-size:10.5pt" ><div dir=3D"ltr" >GOU, Peng Fei (=E8=8B=
+=9F=E9=B9=8F=E9=A3=9E), Ph.D.</div>
+<div dir=3D"ltr" >OpenPower Team.</div>
+<div dir=3D"ltr" >+86-21-609-28631</div></div></div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<blockquote data-history-content-modified=3D"1" dir=3D"ltr" style=3D"border=
+-left:solid #aaaaaa 2px; margin-left:5px; padding-left:5px; direction:ltr; =
+margin-right:0px" >----- Original message -----<br>From: Stewart Smith &lt;=
+stewart@linux.vnet.ibm.com&gt;<br>To: OpenBMC Patches &lt;openbmc-patches@s=
+twcx.xyz&gt;, openbmc@lists.ozlabs.org<br>Cc: Peng Fei BG Gou/China/IBM@IBM=
+CN<br>Subject: Re: [PATCH phosphor-host-ipmid v2 1/5] Add get/set ipmid com=
+mand support with correct DBUS property handling.<br>Date: Wed, Dec 16, 201=
+5 2:23 PM<br>&nbsp;
+<div><font face=3D"Default Monospace,Courier New,Courier,monospace" size=3D=
+"2" >OpenBMC Patches &lt;openbmc-patches@stwcx.xyz&gt; writes:<br>&gt; From=
+: shgoupf &lt;shgoupf@cn.ibm.com&gt;<br><br>Commit message?</font></div></b=
+lockquote>
+<div dir=3D"ltr" >&nbsp;</div></div><BR>
