@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 1DDFF1A0CEC
- for <openbmc@lists.ozlabs.org>; Thu, 17 Dec 2015 10:20:43 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 392FC1A0CF4
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Dec 2015 10:20:44 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 145030803635057.696584605898806;
- Wed, 16 Dec 2015 15:20:36 -0800 (PST)
+ with SMTPS id 1450308037019554.4528817303334;
+ Wed, 16 Dec 2015 15:20:37 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Cyril Bur <cyril.bur@au1.ibm.com>
-Subject: [PATCH u-boot 1/2] drivers/net/aspeednic: Fix RX buffer size
-Date: Wed, 16 Dec 2015 17:20:33 -0600
-Message-Id: <1450308034-19042-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH u-boot 2/2] drivers/net/aspeednic: Fix unreliable networking
+Date: Wed, 16 Dec 2015 17:20:34 -0600
+Message-Id: <1450308034-19042-3-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 In-Reply-To: <1450308034-19042-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1450308034-19042-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -32,48 +32,57 @@ X-List-Received-Date: Wed, 16 Dec 2015 23:20:44 -0000
 
 From: Cyril Bur <cyril.bur@au1.ibm.com>
 
-The hardware defaults to 1600 bytes of RX buffer size, currently we
-allocate a little less and there is a chance that the hardware might DMA
-more than we've allocated.
+Hardware must be told to move data from its RX FIFO to system memory where
+the driver can then consume it.  There are two mechanisms for this, a 'do
+this automatically' register which can be set on device init or simply a
+'copy data now' polling style which is what this patch does.
 
-In the process of writing this patch, it was discovered that the driver
-was incorrectly informing the hardware of its RX buffer size, addressed
-that problem too.
+Both options were investigated and as the entire network stack of u-boot is
+polling and we're only polling when we expect to receive a message it make
+sense to continue this down to the hardware level as well, doing the
+automatic copy actually causes more noise and unnecessary work.
+
+It should be noted that the NIC was largely functional before this patch.
+It appears that the reason it was working was that the hardware would quite
+happily DMA into the receive ring as long as there was was spare space.
+During heavy loads or on busy networks the receiving ring can fill up which
+causes the hardware to stop (and never resume) its DMA activities unless
+explicitly told to.
 
 Signed-off-by: Cyril Bur <cyril.bur@au1.ibm.com>
 ---
- drivers/net/aspeednic.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/net/aspeednic.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
 diff --git a/drivers/net/aspeednic.c b/drivers/net/aspeednic.c
-index d75ef67..e7b0b95 100644
+index e7b0b95..d70c7ab 100644
 --- a/drivers/net/aspeednic.c
 +++ b/drivers/net/aspeednic.c
-@@ -227,7 +227,7 @@ static u8 g_phy_addr = 0;
+@@ -1334,6 +1334,12 @@ static int aspeednic_recv(struct eth_device* dev)
+        * to the adapter.
+        */
+       rx_ring[rx_new].status &= cpu_to_le32(0x7FFFFFFF);
++
++      /*
++       * Ask the hardware for any other packets now that we have a known
++       * spare slot
++       */
++      OUTL(dev, POLL_DEMAND, RXPD_REG);
+ //      rx_ring[rx_new].status = cpu_to_le32(RXPKT_RDY);
+     }
  
- #define NUM_RX_DESC PKTBUFSRX
- #define NUM_TX_DESC 1     /* Number of TX descriptors   */
--#define RX_BUFF_SZ  PKTSIZE_ALIGN
-+#define RX_BUFF_SZ  1600 /* Hardware defaults to this */
- #define TX_BUFF_SZ  1514
- 
- #define TOUT_LOOP   1000000
-@@ -1161,7 +1161,7 @@ static int aspeednic_init(struct eth_device* dev, bd_t* bis)
-   set_mac_control_register (dev);
- 
-   for (i = 0; i < NUM_RX_DESC; i++) {
--    rx_ring[i].status = cpu_to_le32(RXPKT_RDY + RX_BUFF_SZ);
-+    rx_ring[i].status = cpu_to_le32(RXPKT_RDY);
-     rx_ring[i].buf = (u32)(&rx_buffer[i]);
-     rx_ring[i].reserved = 0;
+@@ -1342,6 +1348,12 @@ static int aspeednic_recv(struct eth_device* dev)
+     rx_new = (rx_new + 1) % rxRingSize;
    }
-@@ -1181,6 +1181,7 @@ static int aspeednic_init(struct eth_device* dev, bd_t* bis)
  
-   OUTL(dev, ((u32) &tx_ring), TXR_BADR_REG);
-   OUTL(dev, ((u32) &rx_ring), RXR_BADR_REG);
-+  OUTL(dev, RX_BUFF_SZ, RBSR_REG);
- 
-   START_MAC(dev);
++  /*
++   * Ask the hardware for more packets so that they'll be DMAed by the time
++   * we return to this loop
++   */
++  OUTL(dev, POLL_DEMAND, RXPD_REG);
++
+   return length;
+ }
  
 -- 
 2.6.3
