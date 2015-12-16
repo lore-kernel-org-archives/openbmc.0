@@ -1,47 +1,48 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-ig0-x233.google.com (mail-ig0-x233.google.com
- [IPv6:2607:f8b0:4001:c05::233])
+Received: from mail-ig0-x22c.google.com (mail-ig0-x22c.google.com
+ [IPv6:2607:f8b0:4001:c05::22c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 5C7FE1A0B50
- for <openbmc@lists.ozlabs.org>; Thu, 17 Dec 2015 10:39:04 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 9C08D1A0B99
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Dec 2015 10:39:47 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=BsR49tZt; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=NjjarFGb; 
  dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=cs05ghPU; 
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=lHK85u47; 
  dkim-atps=neutral
-Received: by mail-ig0-x233.google.com with SMTP id mv3so840271igc.0
- for <openbmc@lists.ozlabs.org>; Wed, 16 Dec 2015 15:39:04 -0800 (PST)
+Received: by mail-ig0-x22c.google.com with SMTP id jw2so11408334igc.1
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Dec 2015 15:39:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc:content-type;
- bh=XztSLA9VzAsjuDfeLjN/vWHRjUFNBg8RxKgXO0HOOkM=;
- b=BsR49tZtYqG3SAURbAAZTNeCsuedVAXZO/9CmhAALU1MCkfFgUomeRBQBolKbyrgXs
- tbFefpuD1vlsaIWtcG448z5rquw8T5xkctaAw+VuHb0HqmuBeePk5Uk3IDJADgigqE2o
- C2BrNzsJK5K5+ixKPP8oXektFFUluF6kkGK9+szdlUw2PjzQn0Y0Svt3706FcwMbvjJ7
- WDYdzAY2W9qIS49y3jR/RSyqOHFg8z/nOcScSvXcgJpxQ3JHVIJKeoiU6P4raMXItjo+
- Qe3gTXo7CM72JI3O0TGiw0y6WEK87LCrVupRZZhH/OxfMfxSyVlDMghdsgFJq6PwShoq
- bkwA==
+ bh=MJlsYBOuJF/M2YkNf7iSBlJrSuuWCBu41+wGbnyyNmo=;
+ b=NjjarFGbBEVGgGW7Sic3Uwyw1HwK1W0PiLm29ckn56WUNbvYmVwwMZqLTGL5BiEDnW
+ iICQJnFIg0PjRNLaNftDgc+RrEjZ6JC4bWbi7wuiVFC931inBjbWhRwJusLTn++EkkaS
+ OX5WAIyaNEFXfHcLDLwTSXL67tbBGtPy7GkMhQkpF5a8uA16mDV21K2LvzCwy9gtk9WP
+ o8lFWET49z2jgcjwpsO8fNMjFxqxmOIZQ6H0CXzdsoCzFOXnJ4Tqo5bJKQJqtdPoCbRq
+ bPULOSr1/4YAzvxH6xGLTCs1nqQH3BgWlPiyol0IWj+lbqhSxxYDG4KU1C+Am1Cm9ILu
+ j+UQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc:content-type;
- bh=XztSLA9VzAsjuDfeLjN/vWHRjUFNBg8RxKgXO0HOOkM=;
- b=cs05ghPUz2Xcrn5IYjZED/YSLpRlibweuEBM6PtNZyqvSp3AcKV4J+4zm5vguKh77d
- cbqRU5KZQUBKxH1E5FlWBfEeF9n5gTF7HSihRs8Djhy/8i2Q/aZJlHNBs2COdhBbROWj
- CjMIzRU61Wa6ACQw0ld/wIBxqI5ZaKsMkcwmg=
-X-Received: by 10.107.166.82 with SMTP id p79mr42973467ioe.187.1450309141708; 
- Wed, 16 Dec 2015 15:39:01 -0800 (PST)
+ bh=MJlsYBOuJF/M2YkNf7iSBlJrSuuWCBu41+wGbnyyNmo=;
+ b=lHK85u47qfx9TqyoV8U8no/AauzU6RCwh4HXY3X4T1Tnv7qHZ2qyEFC+SXLerJV+HV
+ AigDkaUOF0AuD0DXGqKevSNCVM2MzpyX2SMJH24/TV3VS+84dOJ3lqtAMgDTUyCcpx94
+ z2eJZowxfUcgko5o2gMuvh+IJD7qW+BsCvqt0=
+X-Received: by 10.50.36.69 with SMTP id o5mr510290igj.3.1450309185513; Wed, 16
+ Dec 2015 15:39:45 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.79.83.67 with HTTP; Wed, 16 Dec 2015 15:38:42 -0800 (PST)
-In-Reply-To: <1450308034-19042-2-git-send-email-openbmc-patches@stwcx.xyz>
+Received: by 10.79.83.67 with HTTP; Wed, 16 Dec 2015 15:39:26 -0800 (PST)
+In-Reply-To: <1450308034-19042-3-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1450308034-19042-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1450308034-19042-2-git-send-email-openbmc-patches@stwcx.xyz>
+ <1450308034-19042-3-git-send-email-openbmc-patches@stwcx.xyz>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 17 Dec 2015 10:08:42 +1030
-X-Google-Sender-Auth: UJoygn0NTFWBZ-6YdEG0VacPho0
-Message-ID: <CACPK8Xd7occj+rK2EZ0TmDUZcn0i-PMA8Ey-+kyCYAEuApG+sA@mail.gmail.com>
-Subject: Re: [PATCH u-boot 1/2] drivers/net/aspeednic: Fix RX buffer size
+Date: Thu, 17 Dec 2015 10:09:26 +1030
+X-Google-Sender-Auth: _HZsO1-yyLK2jwQtIxKkFoazQZs
+Message-ID: <CACPK8XfgL96LhYKG7k82yr6aTjyY0Ldf91kx8Bb8Ns3A_KgsLw@mail.gmail.com>
+Subject: Re: [PATCH u-boot 2/2] drivers/net/aspeednic: Fix unreliable
+ networking
 To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Cyril Bur <cyril.bur@au1.ibm.com>
@@ -57,59 +58,66 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Dec 2015 23:39:05 -0000
+X-List-Received-Date: Wed, 16 Dec 2015 23:39:48 -0000
 
 On Thu, Dec 17, 2015 at 9:50 AM, OpenBMC Patches
 <openbmc-patches@stwcx.xyz> wrote:
 > From: Cyril Bur <cyril.bur@au1.ibm.com>
 >
-> The hardware defaults to 1600 bytes of RX buffer size, currently we
-> allocate a little less and there is a chance that the hardware might DMA
-> more than we've allocated.
+> Hardware must be told to move data from its RX FIFO to system memory where
+> the driver can then consume it.  There are two mechanisms for this, a 'do
+> this automatically' register which can be set on device init or simply a
+> 'copy data now' polling style which is what this patch does.
 >
-> In the process of writing this patch, it was discovered that the driver
-> was incorrectly informing the hardware of its RX buffer size, addressed
-> that problem too.
-
-Thanks Cyril, great work.
-
+> Both options were investigated and as the entire network stack of u-boot is
+> polling and we're only polling when we expect to receive a message it make
+> sense to continue this down to the hardware level as well, doing the
+> automatic copy actually causes more noise and unnecessary work.
+>
+> It should be noted that the NIC was largely functional before this patch.
+> It appears that the reason it was working was that the hardware would quite
+> happily DMA into the receive ring as long as there was was spare space.
+> During heavy loads or on busy networks the receiving ring can fill up which
+> causes the hardware to stop (and never resume) its DMA activities unless
+> explicitly told to.
+>
 > Signed-off-by: Cyril Bur <cyril.bur@au1.ibm.com>
 
 Reviewed-by: Joel Stanley <joel@jms.id.au>
 
 > ---
->  drivers/net/aspeednic.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+>  drivers/net/aspeednic.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
 >
 > diff --git a/drivers/net/aspeednic.c b/drivers/net/aspeednic.c
-> index d75ef67..e7b0b95 100644
+> index e7b0b95..d70c7ab 100644
 > --- a/drivers/net/aspeednic.c
 > +++ b/drivers/net/aspeednic.c
-> @@ -227,7 +227,7 @@ static u8 g_phy_addr = 0;
+> @@ -1334,6 +1334,12 @@ static int aspeednic_recv(struct eth_device* dev)
+>         * to the adapter.
+>         */
+>        rx_ring[rx_new].status &= cpu_to_le32(0x7FFFFFFF);
+> +
+> +      /*
+> +       * Ask the hardware for any other packets now that we have a known
+> +       * spare slot
+> +       */
+> +      OUTL(dev, POLL_DEMAND, RXPD_REG);
+>  //      rx_ring[rx_new].status = cpu_to_le32(RXPKT_RDY);
+>      }
 >
->  #define NUM_RX_DESC PKTBUFSRX
->  #define NUM_TX_DESC 1     /* Number of TX descriptors   */
-> -#define RX_BUFF_SZ  PKTSIZE_ALIGN
-> +#define RX_BUFF_SZ  1600 /* Hardware defaults to this */
->  #define TX_BUFF_SZ  1514
->
->  #define TOUT_LOOP   1000000
-> @@ -1161,7 +1161,7 @@ static int aspeednic_init(struct eth_device* dev, bd_t* bis)
->    set_mac_control_register (dev);
->
->    for (i = 0; i < NUM_RX_DESC; i++) {
-> -    rx_ring[i].status = cpu_to_le32(RXPKT_RDY + RX_BUFF_SZ);
-> +    rx_ring[i].status = cpu_to_le32(RXPKT_RDY);
->      rx_ring[i].buf = (u32)(&rx_buffer[i]);
->      rx_ring[i].reserved = 0;
+> @@ -1342,6 +1348,12 @@ static int aspeednic_recv(struct eth_device* dev)
+>      rx_new = (rx_new + 1) % rxRingSize;
 >    }
-> @@ -1181,6 +1181,7 @@ static int aspeednic_init(struct eth_device* dev, bd_t* bis)
 >
->    OUTL(dev, ((u32) &tx_ring), TXR_BADR_REG);
->    OUTL(dev, ((u32) &rx_ring), RXR_BADR_REG);
-> +  OUTL(dev, RX_BUFF_SZ, RBSR_REG);
->
->    START_MAC(dev);
+> +  /*
+> +   * Ask the hardware for more packets so that they'll be DMAed by the time
+> +   * we return to this loop
+> +   */
+> +  OUTL(dev, POLL_DEMAND, RXPD_REG);
+> +
+>    return length;
+>  }
 >
 > --
 > 2.6.3
