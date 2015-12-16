@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id E1C0B1A0B50
- for <openbmc@lists.ozlabs.org>; Thu, 17 Dec 2015 09:40:24 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 2B3081A0B4F
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Dec 2015 10:00:38 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1450305621475739.3782561103176;
- Wed, 16 Dec 2015 14:40:21 -0800 (PST)
+ with SMTPS id 1450306836435805.7704347690158;
+ Wed, 16 Dec 2015 15:00:36 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc] Adding Fedora 23 requirements to README
-Date: Wed, 16 Dec 2015 16:40:19 -0600
-Message-Id: <1450305620-17792-1-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-rest-server] Add schema endpoint
+Date: Wed, 16 Dec 2015 17:00:34 -0600
+Message-Id: <1450306835-18436-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.3
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -25,15 +25,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Dec 2015 22:40:25 -0000
+X-List-Received-Date: Wed, 16 Dec 2015 23:00:39 -0000
 
-https://github.com/openbmc/openbmc/pull/123
+Navigate to /<obj>/schema to get a dbus introspection dump
+of <obj>.
 
-Antony Messerli (1):
-  Adding Fedora 23 requirements to README
+https://github.com/openbmc/phosphor-rest-server/pull/14
 
- README.md | 5 +++++
- 1 file changed, 5 insertions(+)
+Brad Bishop (1):
+  Add schema endpoint
+
+ obmc-rest | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
 -- 
 2.6.3
