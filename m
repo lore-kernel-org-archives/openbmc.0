@@ -1,22 +1,26 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <benh@kernel.crashing.org>
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id E38451A11BB
- for <openbmc@lists.ozlabs.org>; Thu, 17 Dec 2015 05:00:21 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1450288813799143.29541639552804;
- Wed, 16 Dec 2015 10:00:13 -0800 (PST)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH ipmi-fru-parser] Set Fault and Present status while handling
- fru
-Date: Wed, 16 Dec 2015 12:00:12 -0600
-Message-Id: <1450288812-10266-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.3
-In-Reply-To: <1450288812-10266-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1450288812-10266-1-git-send-email-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 568C61A0311
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Dec 2015 07:48:41 +1100 (AEDT)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.13.8) with ESMTP id tBGKmRsJ015005;
+ Wed, 16 Dec 2015 14:48:29 -0600
+Message-ID: <1450298906.14244.67.camel@kernel.crashing.org>
+Subject: Re: [PATCH phosphor-host-ipmid v3 2/6] Add get/set ipmid command
+ support with correct DBUS property handling.
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+Cc: shgoupf <shgoupf@cn.ibm.com>
+Date: Thu, 17 Dec 2015 07:48:26 +1100
+In-Reply-To: <1450270225-2497-3-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1450270225-2497-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1450270225-2497-3-git-send-email-openbmc-patches@stwcx.xyz>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.18.2 (3.18.2-1.fc23) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,1219 +32,1236 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Dec 2015 18:00:22 -0000
+X-List-Received-Date: Wed, 16 Dec 2015 20:48:43 -0000
 
-From: vishwa <vishwanath@in.ibm.com>
+On Wed, 2015-12-16 at 06:50 -0600, OpenBMC Patches wrote:
+> From: shgoupf <shgoupf@cn.ibm.com>
+> 
+> 1) Two methods to handle the dbus property set and get:
+>     a) dbus_set_property()
+>     b) dbus_get_property()
+> 2) The property is stored as a 10 character strings which represents
+> 5-byte information.
+> 3) ipmid set method is registered and implemented since petitboot
+> will
+> use it to clear the boot options.
 
----
- fru-area.H      | 153 ++++++++++++
- readeeprom.C    |   9 +-
- strgfnhandler.C |  21 +-
- writefrudata.C  | 745 +++++++++++++++++++++++++++++++++++---------------------
- writefrudata.H  |  23 +-
- 5 files changed, 650 insertions(+), 301 deletions(-)
- create mode 100644 fru-area.H
+Argh.
 
-diff --git a/fru-area.H b/fru-area.H
-new file mode 100644
-index 0000000..90dd92b
---- /dev/null
-+++ b/fru-area.H
-@@ -0,0 +1,153 @@
-+#ifndef __IPMI_FRU_AREA_H__
-+#define __IPMI_FRU_AREA_H__
-+
-+#include <stdint.h>
-+#include <stddef.h>
-+#include <systemd/sd-bus.h>
-+#include <string>
-+#include <vector>
-+#include <memory>
-+#include "writefrudata.H"
-+
-+class ipmi_fru;
-+typedef std::vector<std::unique_ptr<ipmi_fru>> fru_area_vec_t;
-+
-+class ipmi_fru
-+{
-+    private:
-+        // FRU ID
-+        uint8_t iv_fruid;
-+
-+        // Type of the fru matching offsets in common header
-+        uint8_t iv_type;
-+
-+        // Name of the fru area. ( BOARD/CHASSIS/PRODUCT )
-+        std::string iv_name;
-+
-+        // Length of a specific fru area.
-+        size_t  iv_len;
-+
-+        // Special bit for BMC readable eeprom only.
-+        bool iv_bmc_fru;
-+
-+        // If a FRU is physically present.
-+        bool iv_present;
-+
-+        // Whether a particular area is valid ?
-+        bool iv_valid;
-+
-+        // Actual area data.
-+        uint8_t *iv_data;
-+
-+        // fru inventory dbus name
-+        std::string iv_bus_name;
-+
-+        // fru inventory dbus object path
-+        std::string iv_obj_path;
-+
-+        // fru inventory dbus interface name
-+        std::string iv_intf_name;
-+
-+        // sd_bus handle
-+        sd_bus *iv_bus_type;
-+
-+        // Default constructor disabled.
-+        ipmi_fru();
-+
-+    public:
-+        // constructor
-+        ipmi_fru(const uint8_t fruid, const uint8_t type,
-+                 sd_bus *bus_type, bool bmc_fru = false);
-+
-+        // Destructor
-+        virtual ~ipmi_fru();
-+
-+        // If a particular area has been marked valid / invalid
-+        inline bool get_valid() const
-+        {
-+            return iv_valid;
-+        }
-+
-+        // Sets the present bit
-+        inline void set_present(const bool present)
-+        {
-+            iv_present = present;
-+        }
-+
-+        // Sets the valid bit for a corresponding area.
-+        inline void set_valid(const bool valid)
-+        {
-+            iv_valid = valid;
-+        }
-+
-+        // If a particular area accessible only by BMC
-+        inline bool is_bmc_fru() const
-+        {
-+            return iv_bmc_fru;
-+        }
-+
-+        // returns fru id;
-+        uint8_t get_fruid() const
-+        {
-+            return iv_fruid;
-+        }
-+
-+        // Returns the length.
-+        size_t get_len() const
-+        {
-+            return iv_len;
-+        }
-+
-+        // Returns the type of the current fru area
-+        uint8_t get_type() const
-+        {
-+            return iv_type;
-+        }
-+
-+        // Returns the name
-+        const char *get_name() const
-+        {
-+            return iv_name.c_str();
-+        }
-+
-+        // Returns SD bus name
-+        const char *get_bus_name() const
-+        {
-+            return iv_bus_name.c_str();
-+        }
-+
-+        // Retrns SD bus object path
-+        const char *get_obj_path() const
-+        {
-+            return iv_obj_path.c_str();
-+        }
-+
-+        // Returns SD bus interface name
-+        const char *get_intf_name() const
-+        {
-+            return iv_intf_name.c_str();
-+        }
-+
-+        // Returns the data portion
-+        inline uint8_t *get_data() const
-+        {
-+           return iv_data;
-+        }
-+
-+        // Returns the bus type.
-+        inline sd_bus *get_bus_type() const
-+        {
-+            return iv_bus_type;
-+        }
-+
-+        // Sets up the sd_bus variables for the given AREA type
-+        int setup_sd_bus_paths(void);
-+
-+        // Accepts a pointer to data and sets it in the object.
-+        void set_data(const uint8_t *, const size_t);
-+
-+        // Sets the dbus parameters
-+        void update_dbus_paths(const char *, const char *, const char *);
-+};
-+
-+#endif
-diff --git a/readeeprom.C b/readeeprom.C
-index b9c6f69..b78f35e 100644
---- a/readeeprom.C
-+++ b/readeeprom.C
-@@ -12,7 +12,7 @@ static void exit_with_error(const char* err, char** argv)
- }
- 
- //--------------------------------------------------------------------------
--// This gets called by udev monitor soon after seeing hog plugs for EEPROMS. 
-+// This gets called by udev monitor soon after seeing hog plugs for EEPROMS.
- //--------------------------------------------------------------------------
- int main(int argc, char **argv)
- {
-@@ -21,7 +21,7 @@ int main(int argc, char **argv)
- 
-     // Handle to per process system bus
-     sd_bus *bus_type = NULL;
--    
-+
-     // Read the arguments.
-     auto cli_options = std::make_unique<ArgumentParser>(argc, argv);
- 
-@@ -53,7 +53,7 @@ int main(int argc, char **argv)
- 
-     // Get a handle to System Bus
-     rc = sd_bus_open_system(&bus_type);
--    if (rc < 0) 
-+    if (rc < 0)
-     {
-         fprintf(stderr, "Failed to connect to system bus: %s\n",strerror(-rc));
-     }
-@@ -61,7 +61,8 @@ int main(int argc, char **argv)
-     {
-         // Now that we have the file that contains the eeprom data, go read it and
-         // update the Inventory DB.
--        rc = ipmi_validate_fru_area(fruid, eeprom_file.c_str(), bus_type);
-+        bool bmc_fru = true;
-+        rc = ipmi_validate_fru_area(fruid, eeprom_file.c_str(), bus_type, bmc_fru);
-     }
- 
-     // Cleanup
-diff --git a/strgfnhandler.C b/strgfnhandler.C
-index 28406de..eda4290 100644
---- a/strgfnhandler.C
-+++ b/strgfnhandler.C
-@@ -11,8 +11,8 @@ sd_bus* ipmid_get_sd_bus_connection(void);
- ///-------------------------------------------------------
- // Called by IPMI netfn router for write fru data command
- //--------------------------------------------------------
--ipmi_ret_t ipmi_storage_write_fru_data(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
--                              ipmi_request_t request, ipmi_response_t response, 
-+ipmi_ret_t ipmi_storage_write_fru_data(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-+                              ipmi_request_t request, ipmi_response_t response,
-                               ipmi_data_len_t data_len, ipmi_context_t context)
- {
-     FILE *fp = NULL;
-@@ -38,7 +38,7 @@ ipmi_ret_t ipmi_storage_write_fru_data(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
- 
-     // On error there is no response data for this command.
-     *data_len = 0;
--    
-+
- #ifdef __IPMI__DEBUG__
-     printf("IPMI WRITE-FRU-DATA for [%s]  Offset = [%d] Length = [%d]\n",
-             fru_file_name, offset, len);
-@@ -59,17 +59,17 @@ ipmi_ret_t ipmi_storage_write_fru_data(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-             fclose(fp);
-             return rc;
-         }
--    
-+
-         if(fwrite(&reqptr->data, len, 1, fp) != 1)
-         {
-             perror("Error:");
-             fclose(fp);
-             return rc;
-         }
--    
-+
-         fclose(fp);
--    } 
--    else 
-+    }
-+    else
-     {
-         fprintf(stderr, "Error trying to write to fru file %s\n",fru_file_name);
-         return rc;
-@@ -82,12 +82,13 @@ ipmi_ret_t ipmi_storage_write_fru_data(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-     *data_len = 1;
-     rc = IPMI_CC_OK;
- 
--	// Get the reference to global sd_bus object
--	sd_bus *bus_type = ipmid_get_sd_bus_connection();
-+    // Get the reference to global sd_bus object
-+    sd_bus *bus_type = ipmid_get_sd_bus_connection();
- 
-     // We received some bytes. It may be full or partial. Send a valid
-     // FRU file to the inventory controller on DBus for the correct number
--    ipmi_validate_fru_area(reqptr->frunum, fru_file_name, bus_type);
-+    bool bmc_fru = false;
-+    ipmi_validate_fru_area(reqptr->frunum, fru_file_name, bus_type, bmc_fru);
- 
-     return rc;
- }
-diff --git a/writefrudata.C b/writefrudata.C
-index ae0d1eb..ba03b05 100644
---- a/writefrudata.C
-+++ b/writefrudata.C
-@@ -3,22 +3,227 @@
- #include <dlfcn.h>
- #include <errno.h>
- #include <stdio.h>
--#include "frup.h"
--#include "writefrudata.H"
- #include <systemd/sd-bus.h>
- #include <unistd.h>
- #include <host-ipmid/ipmid-api.h>
--
--// Needed to be passed into fru parser alorithm
--typedef std::vector<fru_area_t> fru_area_vec_t;
-+#include <iostream>
-+#include <memory>
-+#include <algorithm>
-+#include <fstream>
-+#include "frup.h"
-+#include "fru-area.H"
- 
- // OpenBMC System Manager dbus framework
- const char  *sys_bus_name      =  "org.openbmc.managers.System";
- const char  *sys_object_name   =  "/org/openbmc/managers/System";
- const char  *sys_intf_name     =  "org.openbmc.managers.System";
- 
-+//----------------------------------------------------------------
-+// Constructor
-+//----------------------------------------------------------------
-+ipmi_fru::ipmi_fru(const uint8_t fruid, const uint8_t type,
-+                   sd_bus *bus_type, bool bmc_fru)
-+{
-+    iv_fruid = fruid;
-+    iv_type = type;
-+    iv_bmc_fru = bmc_fru;
-+    iv_bus_type = bus_type;
-+    iv_valid = false;
-+    iv_data = NULL;
-+    iv_present = false;
-+
-+    if(iv_type == IPMI_FRU_AREA_INTERNAL_USE)
-+    {
-+        iv_name = "INTERNAL_";
-+    }
-+    else if(iv_type == IPMI_FRU_AREA_CHASSIS_INFO)
-+    {
-+        iv_name = "CHASSIS_";
-+    }
-+    else if(iv_type == IPMI_FRU_AREA_BOARD_INFO)
-+    {
-+        iv_name = "BOARD_";
-+    }
-+    else if(iv_type == IPMI_FRU_AREA_PRODUCT_INFO)
-+    {
-+        iv_name = "PRODUCT_";
-+    }
-+    else if(iv_type == IPMI_FRU_AREA_MULTI_RECORD)
-+    {
-+        iv_name = "MULTI_";
-+    }
-+    else
-+    {
-+        iv_name = IPMI_FRU_AREA_TYPE_MAX;
-+        fprintf(stderr, "ERROR: Invalid Area type :[%d]\n",iv_type);
-+    }
-+}
-+
-+//-----------------------------------------------------
-+// Accepts a pointer to data and sets it in the object.
-+//-----------------------------------------------------
-+void ipmi_fru::set_data(const uint8_t *data, const size_t len)
-+{
-+    iv_len = len;
-+    iv_data = new uint8_t[len];
-+    memcpy(iv_data, data, len);
-+}
-+
-+//-----------------------------------------------------
-+// Sets the dbus parameters
-+//-----------------------------------------------------
-+void ipmi_fru::update_dbus_paths(const char *bus_name,
-+                      const char *obj_path, const char *intf_name)
-+{
-+    iv_bus_name = bus_name;
-+    iv_obj_path = obj_path;
-+    iv_intf_name = intf_name;
-+}
-+
-+//-------------------
-+// Destructor
-+//-------------------
-+ipmi_fru::~ipmi_fru()
-+{
-+    sd_bus_error bus_error = SD_BUS_ERROR_NULL;
-+    sd_bus_message *response = NULL;
-+    int rc = 0;
-+
-+    if(iv_data != NULL)
-+    {
-+        delete [] iv_data;
-+        iv_data = NULL;
-+    }
-+
-+    // If we have not been successful in doing some updates and we are a BMC
-+    // fru, then need to set the fault bits.
-+    bool valid_dbus = !(iv_bus_name.empty()) &&
-+                      !(iv_obj_path.empty()) &&
-+                      !(iv_intf_name.empty());
-+
-+    // Based on bmc_fru, success in updating the FRU inventory we need to set
-+    // some special bits.
-+    if(iv_bmc_fru && valid_dbus)
-+    {
-+        // Set the Fault bit if we did not successfully process the fru
-+        const char *fault_bit = iv_valid ? "False" : "True";
-+
-+        rc = sd_bus_call_method(iv_bus_type,                // On the System Bus
-+                iv_bus_name.c_str(),        // Service to contact
-+                iv_obj_path.c_str(),        // Object path
-+                iv_intf_name.c_str(),       // Interface name
-+                "setFault",                 // Method to be called
-+                &bus_error,                 // object to return error
-+                &response,                  // Response message on success
-+                "s",                        // input message (string)
-+                fault_bit);                 // First argument to setFault
-+
-+        if(rc <0)
-+        {
-+            fprintf(stderr,"Failed to set Fault bit, value:[%s] for fruid:[%d], path:[%s]\n",
-+                    fault_bit, iv_fruid, iv_obj_path.c_str());
-+        }
-+        else
-+        {
-+            printf("Successfully set FAULT bit, value:[%s]  for fruid:[%d], path:[%s]\n",
-+                    fault_bit, iv_fruid,iv_obj_path.c_str());
-+        }
-+
-+        sd_bus_error_free(&bus_error);
-+        sd_bus_message_unref(response);
-+
-+        // Set the Present bits
-+        const char *present_bit = iv_present ? "True" : "False";
-+
-+        rc = sd_bus_call_method(iv_bus_type,                // On the System Bus
-+                                iv_bus_name.c_str(),        // Service to contact
-+                                iv_obj_path.c_str(),        // Object path
-+                                iv_intf_name.c_str(),       // Interface name
-+                                "setPresent",               // Method to be called
-+                                &bus_error,                 // object to return error
-+                                &response,                  // Response message on success
-+                                "s",                        // input message (string)
-+                                present_bit);               // First argument to setPresent
-+        if(rc <0)
-+        {
-+            fprintf(stderr,"Failed to set Present bit for fruid:[%d], path:[%s]\n",
-+                    iv_fruid, iv_obj_path.c_str());
-+        }
-+        else
-+        {
-+            printf("Successfully set Present bit for fruid:[%d], path:[%s]\n",
-+                    iv_fruid,iv_obj_path.c_str());
-+        }
-+
-+        sd_bus_error_free(&bus_error);
-+        sd_bus_message_unref(response);
-+    }
-+}
-+
-+// Sets up the sd_bus structures for the given fru type
-+int ipmi_fru::setup_sd_bus_paths(void)
-+{
-+    // Need this to get respective DBUS objects
-+    sd_bus_error bus_error = SD_BUS_ERROR_NULL;
-+    sd_bus_message *response = NULL;
-+    int rc = 0;
-+
-+    // What we need is BOARD_1, PRODUCT_1, CHASSIS_1 etc..
-+    char *inv_bus_name, *inv_obj_path, *inv_intf_name;
-+    char fru_area_name[16] = {0};
-+    sprintf(fru_area_name,"%s%d",iv_name.c_str(), iv_fruid);
-+
-+#ifdef __IPMI_DEBUG__
-+    printf("Getting sd_bus for :[%s]\n",fru_area_name);
-+#endif
-+
-+    // We want to call a method "getObjectFromId" on System Bus that is
-+    // made available over  OpenBmc system services.
-+    rc = sd_bus_call_method(iv_bus_type,                // On the System Bus
-+                            sys_bus_name,               // Service to contact
-+                            sys_object_name,            // Object path
-+                            sys_intf_name,              // Interface name
-+                            "getObjectFromId",          // Method to be called
-+                            &bus_error,                 // object to return error
-+                            &response,                  // Response message on success
-+                            "ss",                       // input message (string,string)
-+                            "FRU_STR",                  // First argument to getObjectFromId
-+                            fru_area_name);             // Second Argument
-+
-+    if(rc < 0)
-+    {
-+        fprintf(stderr, "Failed to resolve fruid:[%d] to dbus: %s\n", iv_fruid, bus_error.message);
-+    }
-+    else
-+    {
-+        // Method getObjectFromId returns 3 parameters and all are strings, namely
-+        // bus_name , object_path and interface name for accessing that particular
-+        // FRU over Inventory SDBUS manager. 'sss' here mentions that format.
-+        rc = sd_bus_message_read(response, "(sss)", &inv_bus_name, &inv_obj_path, &inv_intf_name);
-+        if(rc < 0)
-+        {
-+            fprintf(stderr, "Failed to parse response message:[%s]\n", strerror(-rc));
-+        }
-+        else
-+        {
-+            // Update the paths in the area object
-+            update_dbus_paths(inv_bus_name, inv_obj_path, inv_intf_name);
-+        }
-+    }
-+
-+#ifdef __IPMI_DEBUG__
-+            printf("fru_area=[%s], inv_bus_name=[%s], inv_obj_path=[%s], inv_intf_name=[%s]\n",
-+                    fru_area_name, inv_bus_name, inv_obj_path, inv_intf_name);
-+#endif
-+
-+    sd_bus_error_free(&bus_error);
-+    sd_bus_message_unref(response);
-+
-+    return rc;
-+}
-+
- //------------------------------------------------
--// Takes the pointer to stream of bytes and length 
-+// Takes the pointer to stream of bytes and length
- // returns the 8 bit checksum per IPMI spec.
- //-------------------------------------------------
- unsigned char calculate_crc(unsigned char *data, int len)
-@@ -30,7 +235,7 @@ unsigned char calculate_crc(unsigned char *data, int len)
-     {
-         crc += *data++;
-     }
--    
-+
-     return(-crc);
- }
- 
-@@ -74,113 +279,35 @@ uint8_t get_fru_area_type(uint8_t area_offset)
- // Takes FRU data, invokes Parser for each fru record area and updates
- // Inventory
- //------------------------------------------------------------------------
--int ipmi_update_inventory(const uint8_t fruid, const uint8_t *fru_data, 
--                          fru_area_vec_t & area_vec, sd_bus *bus_type)
-+int ipmi_update_inventory(fru_area_vec_t & area_vec)
- {
--    // Now, use this fru dictionary object and connect with FRU Inventory Dbus
--    // and update the data for this FRU ID.
-+    // Generic error reporter
-     int rc = 0;
--    
-+
-     // Dictionary object to hold Name:Value pair
-     sd_bus_message *fru_dict = NULL;
- 
-     // SD Bus error report mechanism.
-     sd_bus_error bus_error = SD_BUS_ERROR_NULL;
- 
--    // Req message contains the specifics about which method etc that we want to
--    // access on which bus, object
-+    // Response from sd bus calls
-     sd_bus_message *response = NULL;
- 
-     // For each FRU area, extract the needed data , get it parsed and update
-     // the Inventory.
-     for(auto& iter : area_vec)
-     {
--        uint8_t area_type = (iter).type;
--
--        uint8_t area_data[(iter).len];
--        memset(area_data, 0x0, sizeof(area_data));
--
--        // Grab area specific data
--        memmove(area_data, (iter).offset, (iter).len);
--
--        // Need this to get respective DBUS objects
--        const char *area_name  = NULL;
--
--        if(area_type == IPMI_FRU_AREA_CHASSIS_INFO)
--        {
--            area_name = "CHASSIS_";
--        }
--        else if(area_type == IPMI_FRU_AREA_BOARD_INFO)
--        {
--            area_name = "BOARD_";
--        }
--        else if(area_type == IPMI_FRU_AREA_PRODUCT_INFO)
--        {
--            area_name = "PRODUCT_";
--        }
--        else
--        {
--            fprintf(stderr, "ERROR: Invalid Area type :[%d]",area_type);
--            break;
--        }
-- 
--        // What we need is BOARD_1, PRODUCT_1, CHASSIS_1 etc..
--        char fru_area_name[16] = {0};
--        sprintf(fru_area_name,"%s%d",area_name, fruid);
--
--#ifdef __IPMI_DEBUG__
--        printf("Updating Inventory with :[%s]\n",fru_area_name);
--#endif
--        // Each area needs a clean set.       
--        sd_bus_error_free(&bus_error);
--        sd_bus_message_unref(response);
--        sd_bus_message_unref(fru_dict);
--    
--        // We want to call a method "getObjectFromId" on System Bus that is
--        // made available over  OpenBmc system services.
--        rc = sd_bus_call_method(bus_type,                   // On the System Bus
--                                sys_bus_name,               // Service to contact
--                                sys_object_name,            // Object path 
--                                sys_intf_name,              // Interface name
--                                "getObjectFromId",          // Method to be called
--                                &bus_error,                 // object to return error
--                                &response,                  // Response message on success
--                                "ss",                       // input message (string,byte)
--                                "FRU_STR",                  // First argument to getObjectFromId
--                                fru_area_name);             // Second Argument
--
--        if(rc < 0)
--        {
--            fprintf(stderr, "Failed to issue method call: %s\n", bus_error.message);
--            break;
--        }
--
--        // Method getObjectFromId returns 3 parameters and all are strings, namely
--        // bus_name , object_path and interface name for accessing that particular 
--        // FRU over Inventory SDBUS manager. 'sss' here mentions that format.
--        char *inv_bus_name, *inv_obj_path, *inv_intf_name;
--        rc = sd_bus_message_read(response, "(sss)", &inv_bus_name, &inv_obj_path, &inv_intf_name);
--        if(rc < 0)
--        {
--            fprintf(stderr, "Failed to parse response message:[%s]\n", strerror(-rc));
--            break;
--        }
--
--#ifdef __IPMI_DEBUG__
--        printf("fru_area=[%s], inv_bus_name=[%s], inv_obj_path=[%s],inv_intf_name=[%s]\n",
--                fru_area_name, inv_bus_name, inv_obj_path, inv_intf_name);
--#endif
--
-         // Constructor to allow further initializations and customization.
--        rc = sd_bus_message_new_method_call(bus_type,
-+        rc = sd_bus_message_new_method_call((iter)->get_bus_type(),
-                                             &fru_dict,
--                                            inv_bus_name,
--                                            inv_obj_path,
--                                            inv_intf_name,
-+                                            (iter)->get_bus_name(),
-+                                            (iter)->get_obj_path(),
-+                                            (iter)->get_intf_name(),
-                                             "update");
-         if(rc < 0)
-         {
--            fprintf(stderr,"ERROR: creating a update method call\n");
-+            fprintf(stderr,"ERROR: creating a update method call for bus_name:[%s]\n",
-+                    (iter)->get_bus_name());
-             break;
-         }
- 
-@@ -193,7 +320,7 @@ int ipmi_update_inventory(const uint8_t fruid, const uint8_t *fru_data,
-         }
- 
-         // Fill the container with information
--        rc = parse_fru_area((iter).type, (void *)area_data, (iter).len, fru_dict);
-+        rc = parse_fru_area((iter)->get_type(), (void *)(iter)->get_data(), (iter)->get_len(), fru_dict);
-         if(rc < 0)
-         {
-             fprintf(stderr,"ERROR parsing FRU records\n");
-@@ -205,258 +332,322 @@ int ipmi_update_inventory(const uint8_t fruid, const uint8_t *fru_data,
-         // Now, Make the actual call to update the FRU inventory database with the
-         // dictionary given by FRU Parser. There is no response message expected for
-         // this.
--        rc = sd_bus_call(bus_type,            // On the System Bus
--                         fru_dict,            // With the Name:value dictionary array
--                         0,                   // 
--                         &bus_error,          // Object to return error.
--                         &response);          // Response message if any.
-+        rc = sd_bus_call((iter)->get_bus_type(),     // On the System Bus
-+                         fru_dict,                   // With the Name:value dictionary array
-+                         0,                          //
-+                         &bus_error,                 // Object to return error.
-+                         &response);                 // Response message if any.
- 
-         if(rc < 0)
-         {
-             fprintf(stderr, "ERROR:[%s] updating FRU inventory for ID:[0x%X]\n",
--                    bus_error.message, fruid);
-+                    bus_error.message, (iter)->get_fruid());
-+        }
-+        else if((iter)->is_bmc_fru())
-+        {
-+            // For FRUs that are accessible by HostBoot, host boot does all of
-+            // these.
-+            printf("SUCCESS: Updated:[%s_%d] successfully. Setting Valid bit\n",
-+                    (iter)->get_name(), (iter)->get_fruid());
-+
-+            (iter)->set_valid(true);
-         }
-         else
-         {
--            printf("SUCCESS: Updated:[%s] successfully\n",fru_area_name);
-+            printf("SUCCESS: Updated:[%s_%d] successfully\n",
-+                        (iter)->get_name(), (iter)->get_fruid());
-         }
-     } // END walking the vector of areas and updating
- 
-     sd_bus_error_free(&bus_error);
-     sd_bus_message_unref(response);
-     sd_bus_message_unref(fru_dict);
--    sd_bus_unref(bus_type);
- 
-     return rc;
- }
- 
--//-------------------------------------------------------------------------
--// Validates the CRC and if found good, calls fru areas parser and calls
--// Inventory Dbus with the dictionary of Name:Value for updating. 
--//-------------------------------------------------------------------------
--int ipmi_validate_and_update_inventory(const uint8_t fruid, const uint8_t *fru_data, 
--                                       sd_bus *bus_type)
-+///----------------------------------------------------
-+// Checks if a particular fru area is populated or not
-+///----------------------------------------------------
-+bool remove_invalid_area(const std::unique_ptr<ipmi_fru> &fru_area)
- {
--    // Used for generic checksum calculation
--    uint8_t checksum = 0;
--
--    // This can point to any FRU entry.
--    uint8_t fru_entry;
-+    // Filter the ones that do not have dbus reference.
-+    if((strlen((fru_area)->get_bus_name()) == 0) ||
-+       (strlen((fru_area)->get_obj_path()) == 0)  ||
-+       (strlen((fru_area)->get_intf_name()) == 0))
-+    {
-+        return true;
-+    }
-+    return false;
-+}
- 
--    // A generic offset locator for any FRU record.
-+///----------------------------------------------------------------------------------
-+// Populates various FRU areas
-+///----------------------------------------------------------------------------------
-+int ipmi_populate_fru_areas(uint8_t *common_hdr, const size_t file_size,
-+                            fru_area_vec_t & fru_area_vec, FILE *fru_fp)
-+{
-     size_t area_offset = 0;
-+    size_t bytes_read = 0;
-+
-+    // Now walk the common header and see if the file size has atleast the last
-+    // offset mentioned by the common_hdr. If the file size is less than the
-+    // offset of any if the fru areas mentioned in the common header, then we do
-+    // not have a complete file.
-+    for(uint8_t fru_entry = IPMI_FRU_INTERNAL_OFFSET;
-+            fru_entry < (sizeof(struct common_header) -2); fru_entry++)
-+    {
-+        // Actual offset in the payload is the offset mentioned in common header
-+        // multipled by 8
-+        area_offset = common_hdr[fru_entry] * IPMI_EIGHT_BYTES;
-+        if(area_offset && (file_size < area_offset))
-+        {
-+            // Our file size is less than what it needs to be.
-+            fprintf(stderr, "fru file is incomplete\n");
-+            return -1;
-+        }
-+        else if(area_offset)
-+        {
-+            // Open the file, seek to offset and try to read the buffer data.
-+            if(fseek(fru_fp, area_offset, SEEK_SET))
-+            {
-+                perror("Error:");
-+                return -1;
-+            }
- 
--    // First 2 bytes in the record.
--    uint8_t fru_area_hdr[2] = {0};
-+            // Read 2 bytes to know the actual size of area.
-+            uint8_t area_hdr[2] = {0};
-+            bytes_read = fread(area_hdr, sizeof(area_hdr), 1, fru_fp);
-+            if(bytes_read != 1)
-+            {
-+                fprintf(stderr, "failed reading fru area header. Offset=:[%d]\n",area_offset);
-+                perror("Error:");
-+                return -1;
-+            }
-+            else
-+            {
-+                // Size of this area will be the 2nd byte in the fru area header.
-+                size_t  area_len = area_hdr[1] * IPMI_EIGHT_BYTES;
-+                uint8_t area_data[area_len] = {0};
-+                if(fseek(fru_fp, area_offset, SEEK_SET))
-+                {
-+                    perror("Error:");
-+                    return -1;
-+                }
-+
-+                bytes_read = fread(area_data, area_len, 1, fru_fp);
-+                if(bytes_read != 1)
-+                {
-+                    fprintf(stderr, "failed reading fru area data. Offset=:[%d]\n",area_offset);
-+                    perror("Error:");
-+                    return -1;
-+                }
-+
-+                // Validate for first byte to always have a value of [1]
-+                if(area_data[0] != IPMI_FRU_HDR_BYTE_ZERO)
-+                {
-+                    fprintf(stderr, "Invalid Area entry_1:[0x%X]\n",area_data[0]);
-+                    return -1;
-+                }
-+                else
-+                {
-+                    printf("SUCCESS: Validated [0x%X] in area data\n",area_data[0]);
-+                }
-+
-+                // See if the calculated CRC matches with the embedded one.
-+                if(calculate_crc(area_data, sizeof(area_data)))
-+                {
-+                    fprintf(stderr, "Area checksum mismatch.\n");
-+                    return -1;
-+                }
-+                else
-+                {
-+                    printf("Successfully verified area checksum at offset:[%d]\n",area_offset);
-+                }
-+
-+                // We already have a vector that is passed to us containing all
-+                // of the fields populated. Update the data portion now.
-+                for(auto& iter : fru_area_vec)
-+                {
-+                    if((iter)->get_type() == get_fru_area_type(fru_entry))
-+                    {
-+                        (iter)->set_data(area_data, area_len);
-+                    }
-+                }
-+            } // If we have data read correctly
-+        } // If the field had valid fru area offset.
-+    } // Walk common_hdr
-+
-+    // Not all the fields will be populated in a fru data. Mostly all cases will
-+    // not have more than 2 or 3.
-+    fru_area_vec.erase(std::remove_if(fru_area_vec.begin(), fru_area_vec.end(),
-+                       remove_invalid_area), fru_area_vec.end());
-+
-+    return EXIT_SUCCESS;
-+}
- 
--    // To hold info about individual FRU record areas.
--    fru_area_t fru_area;
-+///---------------------------------------------------------
-+// Validates the fru data per ipmi common header constructs.
-+// Returns with updated common_hdr and also file_size
-+//----------------------------------------------------------
-+int ipmi_validate_common_hdr(const char *fru_file_name, FILE *fru_fp,
-+                             uint8_t *common_hdr, size_t & file_size)
-+{
-+    size_t bytes_read = 0;
-+    uint8_t checksum = 0;
-+    int rc = -1;
- 
--    // For parsing and updating Inventory.
--    fru_area_vec_t fru_area_vec;
-+    // Get the size of the file to see if it meets minimum requirement
-+    if(fseek(fru_fp, 0, SEEK_END))
-+    {
-+        perror("Error:");
-+        return rc;
-+    }
- 
--    int rc = 0;
-+    // If the file size is atleast not 8 bytes, then we do not have the common
-+    // header section also. In those case, its safe to return a failure. Also
-+    // having just the common header section is no good.
-+    file_size = ftell(fru_fp);
-+    if(file_size <= sizeof(struct common_header))
-+    {
-+        fprintf(stderr, "Incomplete FRU file. Size:[%d]\n",file_size);
-+        return rc;
-+    }
- 
--    uint8_t common_hdr[sizeof(struct common_header)] = {0};
--    memset(common_hdr, 0x0, sizeof(common_hdr));
-+    // Read common_hdr into the buffer and validate it.
-+    rewind(fru_fp);
- 
--    // Copy first 8 bytes to verify common header
--    memcpy(common_hdr, fru_data, sizeof(common_hdr));
-+    bytes_read = fread(common_hdr, sizeof(struct common_header), 1, fru_fp);
-+    if(bytes_read != 1)
-+    {
-+        fprintf(stderr, "failed reading common header. Bytes read=:[%d]\n",bytes_read);
-+        perror("Error:");
-+        return rc;
-+    }
- 
-     // Validate for first byte to always have a value of [1]
-     if(common_hdr[0] != IPMI_FRU_HDR_BYTE_ZERO)
-     {
--        fprintf(stderr, "ERROR: Common Header entry_1:[0x%X] Invalid.\n",common_hdr[0]);
--        return -1;
-+        fprintf(stderr, "Invalid Common Header entry_1:[0x%X]\n",common_hdr[0]);
-+        return rc;
-     }
-     else
-     {
-         printf("SUCCESS: Validated [0x%X] in common header\n",common_hdr[0]);
-     }
- 
--    // Validate the header checskum that is at last byte ( Offset: 7 )
--    checksum = calculate_crc(common_hdr, sizeof(common_hdr)-1);
-+    // See if the calculated CRC matches with the embedded one.
-+    checksum = calculate_crc(common_hdr, sizeof(struct common_header)-1);
-     if(checksum != common_hdr[IPMI_FRU_HDR_CRC_OFFSET])
-     {
--#ifdef __IPMI__DEBUG__
--        fprintf(stderr, "ERROR: Common Header checksum mismatch."
--                " Calculated:[0x%X], Embedded:[0x%X]\n", 
-+#ifdef __IPMI_DEBUG__
-+        fprintf(stderr, "Common Header checksum mismatch."
-+                " Calculated:[0x%X], Embedded:[0x%X]\n",
-                 checksum, common_hdr[IPMI_FRU_HDR_CRC_OFFSET]);
--#endif    
--        return -1;
-+#endif
-+        return rc;
-     }
-     else
-     {
-         printf("SUCCESS: Common Header checksum MATCH:[0x%X]\n",checksum);
-     }
- 
--    //-------------------------------------------
--    // TODO:  Add support for Multi Record later
--    //-------------------------------------------
--
--    //  Now start walking the common_hdr array that has offsets into other FRU
--    //  record areas and validate those. Starting with second entry since the
--    //  first one is always a [0x01]
--    for(fru_entry = IPMI_FRU_INTERNAL_OFFSET; fru_entry < (sizeof(struct common_header) -2); fru_entry++)
--    {
--        // Offset is 'value given in' internal_offset * 8 from the START of
--        // common header. So an an example, 01 00 00 00 01 00 00 fe has
--        // product area set at the offset 01 * 8 --> 8 bytes from the START of
--        // common header. That means, soon after the header checksum.
--        area_offset = common_hdr[fru_entry] * IPMI_EIGHT_BYTES;
--        
--        if(area_offset)
--        {
--            memset((void *)&fru_area, 0x0, sizeof(fru_area_t));
--
--            // Enumerated FRU area.
--            fru_area.type = get_fru_area_type(fru_entry);
--
--            // From start of fru header + record offset, copy 2 bytes.
--            fru_area.offset = &((uint8_t *)fru_data)[area_offset];
--            memcpy(fru_area_hdr, fru_area.offset, sizeof(fru_area_hdr));
--
--            // A NON zero value means that the vpd packet has the data for that
--            // area. err if first element in the record header is _not_ a [0x01].
--            if(fru_area_hdr[0] != IPMI_FRU_HDR_BYTE_ZERO)
--            {
--                fprintf(stderr, "ERROR: Unexpected :[0x%X] found at Record header\n",
--                        fru_area_hdr[0]);
--
--                // This vector by now may have had some entries. Since this is a
--                // failure now, clear the state data.
--                fru_area_vec.clear();
--                return -1;
--            }
--            else
--            {
--                printf("SUCCESS: Validated [0x%X] in fru record:[%d] header\n",
--                        fru_area_hdr[0],fru_entry);
--            }
--
--            // Read Length bytes ( makes a complete record read now )
--            fru_area.len = fru_area_hdr[1] * IPMI_EIGHT_BYTES;
--#ifdef __IPMI_DEBUG__
--            printf("AREA NO[%d], SIZE = [%d]\n",fru_entry, fru_area.len);
--#endif
--            uint8_t fru_area_data[fru_area.len];
--            memset(fru_area_data, 0x0, sizeof(fru_area_data));
--
--            memmove(fru_area_data, fru_area.offset, sizeof(fru_area_data));
--
--            // Calculate checksum (from offset -> (Length-1)).
--            // All the bytes except the last byte( which is CRC :) ) will
--            // participate in calculating the checksum.
--            checksum = calculate_crc(fru_area_data, sizeof(fru_area_data)-1);
--
--            // Verify the embedded checksum in last byte with calculated checksum
--            // record_len -1 since length is some N but numbering is 0..N-1
--            if(checksum != fru_area_data[fru_area.len-1])
--            {
--#ifdef __IPMI_DEBUG__
--                fprintf(stderr, "ERROR: FRU Header checksum mismatch. "
--                        " Calculated:[0x%X], Embedded:[0x%X]\n", 
--                        checksum, fru_area_data[fru_area.len - 1]);
--#endif
--                // This vector by now may have had some entries. Since this is a
--                // failure now, clear the state data.
--                fru_area_vec.clear();
--                return -1;
--            }
--            else
--            {
--                printf("SUCCESS: FRU Header checksum MATCH:[0x%X]\n",checksum);
--            }
--
--            // Everything is rihgt about this particular FRU record,
--            fru_area_vec.push_back(fru_area);
--
--            // Update the internal structure with info about this entry that is
--            // needed while handling each areas.
--        } // If the packet has data for a particular data record.
--    } // End walking all the fru records.
--        
--    // If we reach here, then we have validated the crc for all the records and
--    // time to call FRU area parser to get a Name:Value pair dictionary.
--    // This will start iterating all over again on the buffer -BUT- now with the
--    // job of taking each areas, getting it parsed and then updating the
--    // DBUS.
--        
--    if(!(fru_area_vec.empty()))
--    {
--        rc =  ipmi_update_inventory(fruid, fru_data, fru_area_vec, bus_type);
--    }
-- 
--    // We are done with this FRU write packet. 
--    fru_area_vec.clear();
--
--    return rc;
-+    return EXIT_SUCCESS;
- }
- 
- ///-----------------------------------------------------
- // Accepts the filename and validates per IPMI FRU spec
- //----------------------------------------------------
--int ipmi_validate_fru_area(const uint8_t fruid, const char *fru_file_name, 
--						   sd_bus *bus_type)
-+int ipmi_validate_fru_area(const uint8_t fruid, const char *fru_file_name,
-+                           sd_bus *bus_type, const bool bmc_fru)
- {
--    int file_size = 0;
--    uint8_t *fru_data = NULL;
--    int bytes_read = 0;
--    int rc = 0;
-+    size_t file_size = 0;
-+    int rc = -1;
- 
--    FILE *fru_file = fopen(fru_file_name,"rb");
--    if(fru_file == NULL)
-+    // Vector that holds individual IPMI FRU AREAs. Although MULTI and INTERNAL
-+    // are not used, keeping it here for completeness.
-+    fru_area_vec_t fru_area_vec;
-+    for(uint8_t fru_entry = IPMI_FRU_INTERNAL_OFFSET;
-+        fru_entry < (sizeof(struct common_header) -2); fru_entry++)
-     {
--        fprintf(stderr, "ERROR: opening:[%s]\n",fru_file_name);
--        perror("Error:");
--        return -1;
--    }
-+        // Create an object and push onto a vector.
-+        std::unique_ptr<ipmi_fru> fru_area = std::make_unique<ipmi_fru>
-+                         (fruid, get_fru_area_type(fru_entry), bus_type, bmc_fru);
- 
--    // Get the size of the file to allocate buffer to hold the entire contents.
--    if(fseek(fru_file, 0, SEEK_END))
--    {
--        perror("Error:");
--        fclose(fru_file);
--        return -1;
--    }
-+        // Physically being present
-+        bool present = std::ifstream(fru_file_name);
-+        fru_area->set_present(present);
- 
--    file_size = ftell(fru_file);
--    fru_data = (uint8_t *)malloc(file_size);
-+        // And update the sd_bus paths as well.
-+        fru_area->setup_sd_bus_paths();
-+        fru_area_vec.emplace_back(std::move(fru_area));
-+    }
- 
--    // Read entire file contents to the internal buffer
--    if(fseek(fru_file, 0, SEEK_SET))
-+    FILE *fru_fp = fopen(fru_file_name,"rb");
-+    if(fru_fp == NULL)
-     {
-+        fprintf(stderr, "ERROR: opening:[%s]\n",fru_file_name);
-         perror("Error:");
--        fclose(fru_file);
--        return -1;
-+        fru_area_vec.clear();
-+        return rc;
-     }
- 
--    bytes_read = fread(fru_data, file_size, 1, fru_file);
--    if(bytes_read != 1)
-+    // Validate the common header for semantics and crc
-+    uint8_t common_hdr[sizeof(struct common_header)] = {0};
-+    rc = ipmi_validate_common_hdr(fru_file_name, fru_fp, common_hdr, file_size);
-+    if(rc < 0)
-     {
--        fprintf(stderr, "ERROR reading common header. Bytes read=:[%d]\n",bytes_read);
--        perror("Error:");
--        fclose(fru_file);
--        return -1;
-+        fprintf(stderr,"Failed validating common header");
-+        fru_area_vec.clear();
-+        fclose(fru_fp);
-+        return rc;
-     }
--    fclose(fru_file);
- 
--    rc = ipmi_validate_and_update_inventory(fruid, fru_data, bus_type);
--    if(rc == -1)
-+    // Now that we validated the common header, populate various fru sections if we have them here.
-+    rc = ipmi_populate_fru_areas(common_hdr, file_size, fru_area_vec, fru_fp);
-+    if(rc < 0)
-     {
--        printf("ERROR: Validation failed for:[%d]\n",fruid);
-+        fprintf(stderr,"Populating FRU areas failed for:[%d]\n",fruid);
-+        fru_area_vec.clear();
-+        fclose(fru_fp);
-+        return rc;
-     }
-     else
-     {
--        printf("SUCCESS: Validated:[%s]\n",fru_file_name);
-+        printf("SUCCESS: Populated FRU areas for:[%s]\n",fru_file_name);
-     }
- 
--    if(fru_data)
-+#ifdef __IPMI_DEBUG__
-+    for(auto& iter : fru_area_vec)
-     {
--        free(fru_data);
--        fru_data = NULL;
-+        printf("FRU ID : [%d]\n",(iter)->get_fruid());
-+        printf("AREA NAME : [%s]\n",(iter)->get_name());
-+        printf("TYPE : [%d]\n",(iter)->get_type());
-+        printf("LEN : [%d]\n",(iter)->get_len());
-+        printf("BUS NAME : [%s]\n", (iter)->get_bus_name());
-+        printf("OBJ PATH : [%s]\n", (iter)->get_obj_path());
-+        printf("INTF NAME :[%s]\n", (iter)->get_intf_name());
-+    }
-+#endif
-+
-+    // If the vector is populated with everything, then go ahead and update the
-+    // inventory.
-+    if(!(fru_area_vec.empty()))
-+    {
-+
-+#ifdef __IPMI_DEBUG__
-+        printf("\n SIZE of vector is : [%d] \n",fru_area_vec.size());
-+#endif
-+        rc = ipmi_update_inventory(fru_area_vec);
-+        if(rc <0)
-+        {
-+            fprintf(stderr, "Error updating inventory\n");
-+        }
-     }
- 
-+    // we are done with all that we wanted to do. This will do the job of
-+    // calling any destructors too.
-+    fru_area_vec.clear();
-+
-     return rc;
- }
--
-diff --git a/writefrudata.H b/writefrudata.H
-index 89c20ac..c65c21b 100644
---- a/writefrudata.H
-+++ b/writefrudata.H
-@@ -5,6 +5,10 @@
- #include <stddef.h>
- #include <systemd/sd-bus.h>
- 
-+#ifndef __cplusplus
-+#include <stdbool.h> // For bool variable
-+#endif
-+
- // IPMI commands for Storage net functions.
- enum ipmi_netfn_storage_cmds
- {
-@@ -12,7 +16,7 @@ enum ipmi_netfn_storage_cmds
- };
- 
- // Format of write fru data command
--struct write_fru_data_t 
-+struct write_fru_data_t
- {
-     uint8_t  frunum;
-     uint8_t  offsetls;
-@@ -33,14 +37,6 @@ struct common_header
-     uint8_t crc;
- }__attribute__((packed));
- 
--// Contains key info about a particular area.
--typedef struct
--{
--    uint8_t type;
--    uint8_t *offset;
--    size_t  len;
--}__attribute__((packed)) fru_area_t;
--
- // first byte in header is 1h per IPMI V2 spec.
- #define IPMI_FRU_HDR_BYTE_ZERO   1
- #define IPMI_FRU_INTERNAL_OFFSET offsetof(struct common_header, internal_offset)
-@@ -51,6 +47,13 @@ typedef struct
- #define IPMI_FRU_HDR_CRC_OFFSET  offsetof(struct common_header, crc)
- #define IPMI_EIGHT_BYTES         8
- 
--extern "C" int ipmi_validate_fru_area(const uint8_t, const char *, sd_bus *);
-+#ifdef __cplusplus
-+extern "C" {
-+#endif
-+
-+int ipmi_validate_fru_area(const uint8_t, const char *, sd_bus *, const bool);
- 
-+#ifdef __cplusplus
-+} // extern C
-+#endif
- #endif
--- 
-2.6.3
+You don't do that ! IE, dont send a series that
+
+ - Adds something
+ - Reverts it
+ - Adds a different version
+ - Modify it
+
+With barely contains any readable cset.
+
+At the very least the 3 first patches of the series should be squashed.
+The two others, if they only change the code just added, as well.
+Otherwise they need better descriptions.
+
+Ben.
+
+> ---
+>  apphandler.C       |  70 ++----------
+>  apphandler.h       |  33 +-----
+>  chassishandler.C   | 306 ++++++++++++++++++++++++++++++++++++++-----
+> ----------
+>  chassishandler.h   |  20 ++--
+>  ipmid-api.h        |  13 +--
+>  ipmid.C            |  26 ++---
+>  ipmisensor.C       |  35 +-----
+>  sensorhandler.C    |  17 ++-
+>  storageaddsel.C    |  42 ++++++--
+>  storagehandler.C   |  20 +---
+>  transporthandler.C |   2 +
+>  11 files changed, 304 insertions(+), 280 deletions(-)
+> 
+> diff --git a/apphandler.C b/apphandler.C
+> index 2c9ce6b..6467397 100644
+> --- a/apphandler.C
+> +++ b/apphandler.C
+> @@ -10,76 +10,20 @@ extern sd_bus *bus;
+>  
+>  void register_netfn_app_functions() __attribute__((constructor));
+>  
+> -//----------------------------------------------------------------
+> -----
+> -// Called by Host on seeing a SMS_ATN bit set. Return a hardcoded 
+> -// value of 0x2 indicating we need Host read some data.
+> -//----------------------------------------------------------------
+> ---
+> -ipmi_ret_t ipmi_app_get_msg_flags(ipmi_netfn_t netfn, ipmi_cmd_t
+> cmd,
+> -                             ipmi_request_t request, ipmi_response_t
+> response,
+> -                             ipmi_data_len_t data_len,
+> ipmi_context_t context)
+> -{
+> -	// Generic return from IPMI commands.
+> -    ipmi_ret_t rc = IPMI_CC_OK;
+> -
+> -    printf("IPMI APP GET MSG FLAGS returning with [bit:2] set\n");
+> -
+> -	// From IPMI spec V2.0 for Get Message Flags Command :
+> -	// bit:[1] from LSB : 1b = Event Message Buffer Full. 
+> -	// Return as 0 if Event Message Buffer is not supported, 
+> -	// or when the Event Message buffer is disabled.
+> -	// TODO. For now. assume its not disabled and send "0x2"
+> anyway:
+> -
+> -	uint8_t set_event_msg_buffer_full = 0x2;
+> -    *data_len = sizeof(set_event_msg_buffer_full);
+> -
+> -    // Pack the actual response
+> -    memcpy(response, &set_event_msg_buffer_full, *data_len);
+> -
+> -    return rc;
+> -}
+>  
+> -//----------------------------------------------------------------
+> ---
+> -// Called by Host post response from Get_Message_Flags
+> -//----------------------------------------------------------------
+> ---
+>  ipmi_ret_t ipmi_app_read_event(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+>                               ipmi_request_t request, ipmi_response_t
+> response,
+>                               ipmi_data_len_t data_len,
+> ipmi_context_t context)
+>  {
+>      ipmi_ret_t rc = IPMI_CC_OK;
+> -    printf("IPMI APP READ EVENT command received\n");
+> -
+> -	// TODO : For now, this is catering only to the Soft Power
+> Off via OEM SEL
+> -	//        mechanism. If we need to make this generically
+> used for some
+> -	//        other conditions, then we can take advantage of
+> context pointer.
+> -
+> -	struct oem_sel_timestamped soft_off = {0};
+> -    *data_len = sizeof(struct oem_sel_timestamped);
+> -
+> -	// either id[0] -or- id[1] can be filled in. We will use
+> id[0]
+> -	soft_off.id[0]	 = SEL_OEM_ID_0;
+> -	soft_off.id[1]	 = SEL_OEM_ID_0;
+> -	soft_off.type	 = SEL_RECORD_TYPE_OEM;
+> -
+> -	// Following 3 bytes are from IANA Manufactre_Id field. See
+> below
+> -	soft_off.manuf_id[0]= 0x41;
+> -	soft_off.manuf_id[1]= 0xA7;
+> -	soft_off.manuf_id[2]= 0x00;
+> -
+> -	// per IPMI spec NetFuntion for OEM
+> -	soft_off.netfun	 = 0x3A;
+> -
+> -	// Mechanism to kick start soft shutdown.
+> -	soft_off.cmd	 = CMD_POWER;
+> -	soft_off.data[0] = SOFT_OFF;
+> -
+> -	// All '0xFF' since unused.
+> -	memset(&soft_off.data[1], 0xFF, 3);
+> +    *data_len = 0;
+>  
+> -    // Pack the actual response
+> -    memcpy(response, &soft_off, *data_len);
+> +    printf("IPMI APP READ EVENT Ignoring for now\n");
+>      return rc;
+> +
+>  }
+>  
+> +
+>  ipmi_ret_t ipmi_app_set_acpi_power_state(ipmi_netfn_t netfn,
+> ipmi_cmd_t cmd,
+>                               ipmi_request_t request, ipmi_response_t
+> response,
+>                               ipmi_data_len_t data_len,
+> ipmi_context_t context)
+> @@ -184,7 +128,8 @@ ipmi_ret_t ipmi_app_get_device_guid(ipmi_netfn_t
+> netfn, ipmi_cmd_t cmd,
+>  
+>          for(i = 0; i < tmp_size; i++)
+>          {
+> -            char tmp_array[3] = {0}; // Holder of the 2 chars that
+> will become a byte
+> +            char tmp_array[3]; // Holder of the 2 chars that will
+> become a byte
+> +            tmp_array[3] = '\0';
+>              strncpy(tmp_array, id_octet, 2); // 2 chars at a time
+>  
+>              int resp_byte = strtoul(tmp_array, NULL, 16); // Convert
+> to hex byte
+> @@ -414,9 +359,6 @@ void register_netfn_app_functions()
+>      ipmi_register_callback(NETFUN_APP,
+> IPMI_CMD_SET_BMC_GLOBAL_ENABLES, NULL,
+>                                              ipmi_app_set_bmc_global_
+> enables);
+>  
+> -    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_APP,
+> IPMI_CMD_GET_MSG_FLAGS);
+> -    ipmi_register_callback(NETFUN_APP, IPMI_CMD_GET_MSG_FLAGS, NULL,
+> ipmi_app_get_msg_flags);
+> -
+>      return;
+>  }
+>  
+> diff --git a/apphandler.h b/apphandler.h
+> index aa2a55d..35a2b20 100644
+> --- a/apphandler.h
+> +++ b/apphandler.h
+> @@ -1,19 +1,6 @@
+>  #ifndef __HOST_IPMI_APP_HANDLER_H__
+>  #define __HOST_IPMI_APP_HANDLER_H__
+>  
+> -#include <stdint.h>
+> -
+> -// These are per skiboot ipmi-sel code
+> -
+> -// OEM_SEL type with Timestamp
+> -#define SEL_OEM_ID_0		0x55
+> -// SEL type is OEM and -not- general SEL
+> -#define SEL_RECORD_TYPE_OEM	0xC0
+> -// Minor command for soft shurdown
+> -#define SOFT_OFF			0x00
+> -// Major command for Any kind of power ops
+> -#define CMD_POWER			0x04
+> -
+>  // IPMI commands for App net functions.
+>  enum ipmi_netfn_app_cmds
+>  {
+> @@ -24,27 +11,9 @@ enum ipmi_netfn_app_cmds
+>      IPMI_CMD_RESET_WD               = 0x22,
+>      IPMI_CMD_SET_WD                 = 0x24,
+>      IPMI_CMD_SET_BMC_GLOBAL_ENABLES = 0x2E,
+> -    IPMI_CMD_GET_MSG_FLAGS          = 0x31,
+>      IPMI_CMD_READ_EVENT             = 0x35,
+>      IPMI_CMD_GET_CAP_BIT            = 0x36,
+> -};
+>  
+> -// A Mechanism to tell host to shtudown hosts by sending this PEM
+> SEL. Really
+> -// the only used fields by skiboot are:
+> -// id[0] / id[1] for ID_0 , ID_1
+> -// type : SEL_RECORD_TYPE_OEM as standard SELs are ignored by
+> skiboot
+> -// cmd : CMD_POWER for power functions
+> -// data[0], specific commands.  example Soft power off. power cycle,
+> etc.
+> -struct oem_sel_timestamped
+> -{
+> -	/* SEL header */
+> -	uint8_t id[2];
+> -	uint8_t type;
+> -	uint8_t manuf_id[3];
+> -	uint8_t timestamp[4];
+> -	/* OEM SEL data (6 bytes) follows */
+> -	uint8_t netfun;
+> -	uint8_t cmd;
+> -	uint8_t data[4];
+>  };
+> +
+>  #endif
+> diff --git a/chassishandler.C b/chassishandler.C
+> index 1389db9..7694bd5 100644
+> --- a/chassishandler.C
+> +++ b/chassishandler.C
+> @@ -4,10 +4,147 @@
+>  #include <string.h>
+>  #include <stdint.h>
+>  
+> -// OpenBMC Chassis Manager dbus framework
+> -const char  *chassis_bus_name      =  "org.openbmc.control.Chassis";
+> -const
+> char  *chassis_object_name   =  "/org/openbmc/control/chassis0";
+> -const char  *chassis_intf_name     =  "org.openbmc.control.Chassis";
+> +char* uint8_to_char(uint8_t *a, size_t size)
+> +{
+> +    char* buffer;
+> +    int i;
+> +
+> +    buffer = (char*)malloc(size * 2 + 1);
+> +    if (!buffer)
+> +        return NULL;
+> +
+> +    buffer[size * 2] = 0;
+> +    for (i = 0; i < size; i++) {
+> +        uint8_t msb = (a[i] >> 4) & 0xF;
+> +        uint8_t lsb = a[i] & 0xF;
+> +        buffer[2*i] = msb > 9 ? msb + 'A' - 10 : msb + '0';
+> +        buffer[2*i + 1] = lsb > 9 ? lsb + 'A' - 10 : lsb + '0';
+> +    }
+> +
+> +    return buffer;
+> +}
+> +
+> +uint8_t* char_to_uint8(char *a, size_t size)
+> +{
+> +    uint8_t* buffer;
+> +    int i;
+> +
+> +    buffer = (uint8_t*)malloc(size);
+> +    if (!buffer)
+> +        return NULL;
+> +
+> +    for (i = 0; i < size; i++) {
+> +        uint8_t msb = (uint8_t)(a[2*i] > '9' ? a[2*i] - 'A' + 10 :
+> a[2*i] - '0');
+> +        uint8_t lsb = (uint8_t)(a[2*i+1] > '9' ? a[2*i+1] - 'A' + 10
+> : a[2*i+1] - '0');
+> +        buffer[i] = ((msb << 4) | (lsb & 0xF)) & 0xFF;
+> +    }
+> +
+> +    return buffer;
+> +}
+> +
+> +// TODO: object mapper should be used instead of hard-coding.
+> +int dbus_get_property(char* buf)
+> +{
+> +    sd_bus_error error = SD_BUS_ERROR_NULL;
+> +    sd_bus_message *m = NULL;
+> +    sd_bus *bus = NULL;
+> +    char* temp_buf = NULL;
+> +    uint8_t* get_value = NULL;
+> +    int r, i;
+> +
+> +    // Open the system bus where most system services are provided. 
+> +    r = sd_bus_open_system(&bus);
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to connect to system bus: %s\n",
+> strerror(-r));
+> +        goto finish;
+> +    }
+> +
+> +    // Bus, service, object path, interface and method are provided
+> to call
+> +    // the method. 
+> +    // Signatures and input arguments are provided by the arguments
+> at the
+> +    // end.
+> +    r = sd_bus_call_method(bus,
+> +            "org.openbmc.settings.Host",                /* service
+> to contact */
+> +            "/org/openbmc/settings/host0",              /* object
+> path */
+> +            "org.freedesktop.DBus.Properties",          /* interface
+> name */
+> +            "Get",                                      /* method
+> name */
+> +            &error,                                     /* object to
+> return error in */
+> +            &m,                                         /* return
+> message on success */
+> +            "ss",                                       /* input
+> signature */
+> +            "org.freedesktop.DBus.Properties",          /* first
+> argument */
+> +            "boot_flags");                              /* second
+> argument */
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to issue method call: %s\n",
+> error.message);
+> +        goto finish;
+> +    }
+> +
+> +    // The output should be parsed exactly the same as the output
+> formatting
+> +    // specified.
+> +    r = sd_bus_message_read(m, "v", "s", &temp_buf);
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to parse response message: %s\n",
+> strerror(-r));
+> +        goto finish;
+> +    }
+> +
+> +    printf("IPMID boot option property get: {%s}.\n", (char*)
+> temp_buf);
+> +
+> +    memcpy(buf, temp_buf, 2*NUM_RETURN_BYTES_OF_GET_USED + 1);
+> +
+> +finish:
+> +    sd_bus_error_free(&error);
+> +    sd_bus_message_unref(m);
+> +    sd_bus_unref(bus);
+> +
+> +    return r;
+> +}
+> +
+> +// TODO: object mapper should be used instead of hard-coding.
+> +int dbus_set_property(const char* buf)
+> +{
+> +    sd_bus_error error = SD_BUS_ERROR_NULL;
+> +    sd_bus_message *m = NULL;
+> +    sd_bus *bus = NULL;
+> +    int r;
+> +
+> +    // Open the system bus where most system services are provided. 
+> +    r = sd_bus_open_system(&bus);
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to connect to system bus: %s\n",
+> strerror(-r));
+> +        goto finish;
+> +    }
+> +
+> +    // Bus, service, object path, interface and method are provided
+> to call
+> +    // the method. 
+> +    // Signatures and input arguments are provided by the arguments
+> at the
+> +    // end.
+> +    r = sd_bus_call_method(bus,
+> +            "org.openbmc.settings.Host",                /* service
+> to contact */
+> +            "/org/openbmc/settings/host0",              /* object
+> path */
+> +            "org.freedesktop.DBus.Properties",          /* interface
+> name */
+> +            "Set",                                      /* method
+> name */
+> +            &error,                                     /* object to
+> return error in */
+> +            &m,                                         /* return
+> message on success */
+> +            "ssv",                                      /* input
+> signature */
+> +            "org.freedesktop.DBus.Properties",          /* first
+> argument */
+> +            "boot_flags",                               /* second
+> argument */
+> +            "s",                                        /* third
+> argument */
+> +            buf);                                       /* fourth
+> argument */
+> +
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to issue method call: %s\n",
+> error.message);
+> +        goto finish;
+> +    }
+> +
+> +    printf("IPMID boot option property set: {%s}.\n", buf);
+> +
+> +finish:
+> +    sd_bus_error_free(&error);
+> +    sd_bus_message_unref(m);
+> +    sd_bus_unref(bus);
+> +
+> +    return r;
+> +}
+> +
+>  
+>  void register_netfn_chassis_functions()
+> __attribute__((constructor));
+>  
+> @@ -17,6 +154,15 @@ struct get_sys_boot_options_t {
+>      uint8_t block;
+>  }  __attribute__ ((packed));
+>  
+> +struct set_sys_boot_options_t {
+> +    uint8_t parameter;
+> +    uint8_t data1;
+> +    uint8_t data2;
+> +    uint8_t data3;
+> +    uint8_t data4;
+> +    uint8_t data5;
+> +}  __attribute__ ((packed));
+> +
+>  ipmi_ret_t ipmi_chassis_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+>                                ipmi_request_t request,
+> ipmi_response_t response, 
+>                                ipmi_data_len_t data_len,
+> ipmi_context_t context)
+> @@ -28,104 +174,74 @@ ipmi_ret_t ipmi_chassis_wildcard(ipmi_netfn_t
+> netfn, ipmi_cmd_t cmd,
+>      return rc;
+>  }
+>  
+> -//------------------------------------------------------------
+> -// Calls into Chassis Control Dbus object to do the power off
+> -//------------------------------------------------------------
+> -int ipmi_chassis_power_control(const char *method)
+> +ipmi_ret_t ipmi_chassis_get_sys_boot_options(ipmi_netfn_t netfn,
+> ipmi_cmd_t cmd, 
+> +                              ipmi_request_t request,
+> ipmi_response_t response, 
+> +                              ipmi_data_len_t data_len,
+> ipmi_context_t context)
+>  {
+> -	// sd_bus error
+> -	int rc = 0;
+> -
+> -    // SD Bus error report mechanism.
+> -    sd_bus_error bus_error = SD_BUS_ERROR_NULL;
+> -
+> -	// Response from the call. Although there is no response for
+> this call,
+> -	// obligated to mention this to make compiler happy.
+> -	sd_bus_message *response = NULL;
+> -
+> -	// Gets a hook onto either a SYSTEM or SESSION bus
+> -	sd_bus *bus_type = ipmid_get_sd_bus_connection();
+> -
+> -	rc = sd_bus_call_method(bus_type,        		 //
+> On the System Bus
+> -							chassis_bus_
+> name,        // Service to contact
+> -							chassis_obje
+> ct_name,     // Object path 
+> -							chassis_intf
+> _name,       // Interface name
+> -							method,     
+>  		 // Method to be called
+> -							&bus_error, 
+>      		 // object to return error
+> -							&response,	
+> 	 		 // Response buffer if any
+> -							NULL);	
+> 		 		 // No input arguments
+> -	if(rc < 0)
+> -	{
+> -		fprintf(stderr,"ERROR initiating Power
+> Off:[%s]\n",bus_error.message);
+> -	}
+> -	else
+> -	{
+> -		printf("Chassis Power Off initiated
+> successfully\n");
+> -	}
+> -
+> -    sd_bus_error_free(&bus_error);
+> -    sd_bus_message_unref(response);
+> -
+> -	return rc;
+> -}
+> +    ipmi_ret_t rc = IPMI_CC_OK;
+> +    *data_len = 0;
+> +
+> +    printf("IPMI GET_SYS_BOOT_OPTIONS\n");
+>  
+> +    get_sys_boot_options_t *reqptr = (get_sys_boot_options_t*)
+> request;
+>  
+> -//----------------------------------------------------------------
+> ------
+> -// Chassis Control commands
+> -//----------------------------------------------------------------
+> ------
+> -ipmi_ret_t ipmi_chassis_control(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
+> -                        ipmi_request_t request, ipmi_response_t
+> response, 
+> -                        ipmi_data_len_t data_len, ipmi_context_t
+> context)
+> -{
+> -	// Error from power off.
+> -	int rc = 0;
+> +    char* buf = (char*)malloc(NUM_RETURN_BYTES_OF_GET);
+>  
+> -	// No response for this command.
+> -    *data_len = 0;
+> +    if (reqptr->parameter == 5) // Parameter #5
+> +    {
+> +        dbus_get_property(buf);
+> +        uint8_t* return_value = char_to_uint8(buf,
+> NUM_RETURN_BYTES_OF_GET_USED);
+> +        *data_len = NUM_RETURN_BYTES_OF_GET;
+> +        // TODO: last 3 bytes
+> +        // (NUM_RETURN_BYTES_OF_GET - NUM_RETURN_BYTES_OF_GET_USED)
+> is meanlingless
+> +        memcpy(response, return_value, *data_len);
+> +        free(buf);
+> +        free(return_value);
+> +    }
+> +    else
+> +    {
+> +        *data_len = NUM_RETURN_BYTES_OF_GET;
+> +        // 0x80: parameter not supported
+> +        buf[0] = 0x80;
+> +        memcpy(response, buf, *data_len);
+> +        free(buf);
+> +        fprintf(stderr, "Unsupported parameter 0x%x\n", reqptr-
+> >parameter);
+> +        return IPMI_CC_PARM_NOT_SUPPORTED;        
+> +    }
+>  
+> -	// Catch the actual operaton by peeking into request buffer
+> -	uint8_t chassis_ctrl_cmd = *(uint8_t *)request;
+> -	printf("Chassis Control Command:
+> Operation:[0x%X]\n",chassis_ctrl_cmd);
+> -
+> -	switch(chassis_ctrl_cmd)
+> -	{
+> -		case CMD_POWER_OFF:
+> -			rc = ipmi_chassis_power_control("powerOff");
+> -			break;
+> -		case CMD_HARD_RESET:
+> -			rc = ipmi_chassis_power_control("reboot");
+> -			break;
+> -		default:
+> -		{
+> -			fprintf(stderr, "Invalid Chassis Control
+> command:[0x%X] received\n",chassis_ctrl_cmd);
+> -			rc = -1;
+> -		}
+> -	}
+> -
+> -	return ( (rc < 0) ? IPMI_CC_INVALID : IPMI_CC_OK);
+> +    return rc;
+>  }
+>  
+> -ipmi_ret_t ipmi_chassis_get_sys_boot_options(ipmi_netfn_t netfn,
+> ipmi_cmd_t cmd, 
+> +ipmi_ret_t ipmi_chassis_set_sys_boot_options(ipmi_netfn_t netfn,
+> ipmi_cmd_t cmd, 
+>                                ipmi_request_t request,
+> ipmi_response_t response, 
+>                                ipmi_data_len_t data_len,
+> ipmi_context_t context)
+>  {
+>      ipmi_ret_t rc = IPMI_CC_OK;
+> -    *data_len = 0;
+>  
+> -    printf("IPMI GET_SYS_BOOT_OPTIONS\n");
+> +    printf("IPMI SET_SYS_BOOT_OPTIONS\n");
+> +    printf("IPMID set command required return bytes: %i\n",
+> *data_len);
+>  
+> -    get_sys_boot_options_t *reqptr = (get_sys_boot_options_t*)
+> request;
+> +    set_sys_boot_options_t *reqptr = (set_sys_boot_options_t*)
+> request;
+>  
+> -    // TODO Return default values to OPAL until dbus interface is
+> available
+> +    char* output_buf = (char*)malloc(NUM_RETURN_BYTES_OF_SET);
+>  
+>      if (reqptr->parameter == 5) // Parameter #5
+>      {
+> -        uint8_t buf[] = {0x1,0x5,80,0,0,0,0};
+> -        *data_len = sizeof(buf);
+> -        memcpy(response, &buf, *data_len);
+> +        char* input_buf = uint8_to_char((uint8_t*)(&(reqptr-
+> >data1)), NUM_INPUT_BYTES_OF_SET);
+> +        dbus_set_property(input_buf);
+> +        *data_len = NUM_RETURN_BYTES_OF_SET;
+> +        // 0x0: return code OK.
+> +        output_buf[0] = 0x0;
+> +        memcpy(response, output_buf, *data_len);
+> +        free(output_buf);
+> +        free(input_buf);
+>      }
+>      else
+>      {
+> +        // 0x80: parameter not supported
+> +        output_buf[0] = 0x80;
+> +        memcpy(response, output_buf, *data_len);
+> +        free(output_buf);
+>          fprintf(stderr, "Unsupported parameter 0x%x\n", reqptr-
+> >parameter);
+>          return IPMI_CC_PARM_NOT_SUPPORTED;        
+>      }
+> @@ -141,6 +257,28 @@ void register_netfn_chassis_functions()
+>      printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_CHASSIS,
+> IPMI_CMD_GET_SYS_BOOT_OPTIONS);
+>      ipmi_register_callback(NETFUN_CHASSIS,
+> IPMI_CMD_GET_SYS_BOOT_OPTIONS, NULL,
+> ipmi_chassis_get_sys_boot_options);
+>  
+> -    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_CHASSIS,
+> IPMI_CMD_CHASSIS_CONTROL);
+> -    ipmi_register_callback(NETFUN_CHASSIS, IPMI_CMD_CHASSIS_CONTROL,
+> NULL, ipmi_chassis_control);
+> +    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_CHASSIS,
+> IPMI_CMD_SET_SYS_BOOT_OPTIONS);
+> +    ipmi_register_callback(NETFUN_CHASSIS,
+> IPMI_CMD_SET_SYS_BOOT_OPTIONS, NULL,
+> ipmi_chassis_set_sys_boot_options);
+> +
+> +    // TODO: Testing for dbus property set/get and related methods.
+> +    printf("----> Start of chassis handler testing.\n");
+> +    set_sys_boot_options_t req = {0x80, 0x10, 0xA2, 0x3B, 0x45,
+> 0x57}; 
+> +    char* set_value = uint8_to_char((uint8_t*)(&(req.data1)), 5);
+> +    dbus_set_property(set_value);
+> +    char* buf = (char*)malloc(NUM_RETURN_BYTES_OF_GET_USED * 2 + 1);
+> +    dbus_get_property(buf);
+> +    uint8_t* get_value = char_to_uint8(buf,
+> NUM_RETURN_BYTES_OF_GET_USED);
+> +    int i;
+> +    printf("buf: %s\n", (char*)buf);
+> +    printf("0x");
+> +    for (i = 0; i < 5; i++) {
+> +        printf("%2x", get_value[i]);
+> +    }
+> +    printf("\n");
+> +    printf("----> End of chassis handler testing.\n");
+> +    free(buf);
+> +    free(set_value);
+> +    free(get_value);
+>  }
+> +
+> +
+> diff --git a/chassishandler.h b/chassishandler.h
+> index 1a26411..80e40a8 100644
+> --- a/chassishandler.h
+> +++ b/chassishandler.h
+> @@ -1,14 +1,18 @@
+>  #ifndef __HOST_IPMI_CHASSIS_HANDLER_H__
+>  #define __HOST_IPMI_CHASSIS_HANDLER_H__
+>  
+> -#include <stdint.h>
+> +// TODO: Petitboot requires 8 bytes of response
+> +// however only 5 of them are used.
+> +#define NUM_RETURN_BYTES_OF_GET 8
+> +#define NUM_RETURN_BYTES_OF_GET_USED 5
+> +#define NUM_RETURN_BYTES_OF_SET 1
+> +#define NUM_INPUT_BYTES_OF_SET 5
+>  
+>  // IPMI commands for Chassis net functions.
+>  enum ipmi_netfn_app_cmds
+>  {
+> -	// Chassis Control
+> -	IPMI_CMD_CHASSIS_CONTROL	  = 0x02,
+>      // Get capability bits
+> +    IPMI_CMD_SET_SYS_BOOT_OPTIONS = 0x08,
+>      IPMI_CMD_GET_SYS_BOOT_OPTIONS = 0x09,
+>  };
+>  
+> @@ -18,15 +22,5 @@ enum ipmi_chassis_return_codes
+>      IPMI_CC_PARM_NOT_SUPPORTED = 0x80,
+>  };
+>  
+> -// Various Chassis operations under a single command.
+> -enum ipmi_chassis_control_cmds : uint8_t
+> -{
+> -	CMD_POWER_OFF 			   = 0x00,
+> -	CMD_POWER_ON 			   = 0x01,
+> -	CMD_POWER_CYCLE 		   = 0x02,
+> -	CMD_HARD_RESET 			   = 0x03,
+> -	CMD_PULSE_DIAGNOSTIC_INTR  = 0x04,
+> -	CMD_SOFT_OFF_VIA_OVER_TEMP = 0x05,
+> -};
+>  
+>  #endif
+> diff --git a/ipmid-api.h b/ipmid-api.h
+> index 4f4b9de..34d3bbe 100644
+> --- a/ipmid-api.h
+> +++ b/ipmid-api.h
+> @@ -3,10 +3,6 @@
+>  #include <stdlib.h>
+>  #include <systemd/sd-bus.h>
+>  
+> -#ifdef __cplusplus
+> -extern "C" {
+> -#endif
+> -
+>  // length of Completion Code and its ALWAYS _1_
+>  #define IPMI_CC_LEN 1
+>  
+> @@ -55,7 +51,9 @@ typedef ipmi_ret_t
+> (*ipmid_callback_t)(ipmi_netfn_t, ipmi_cmd_t, ipmi_request_t,
+>  // This is the constructor function that is called into by each
+> plugin handlers.
+>  // When ipmi sets up the callback handlers, a call is made to this
+> with
+>  // information of netfn, cmd, callback handler pointer and context
+> data.
+> -void ipmi_register_callback(ipmi_netfn_t, ipmi_cmd_t,
+> +// Making this a extern "C" so that plugin libraries written in C
+> can also use
+> +// it.
+> +extern "C" void ipmi_register_callback(ipmi_netfn_t, ipmi_cmd_t, 
+>                                         ipmi_context_t,
+> ipmid_callback_t);
+>  
+>  // These are the command network functions, the response
+> @@ -97,9 +95,4 @@ enum ipmi_return_codes
+>  };
+>  
+>  sd_bus *ipmid_get_sd_bus_connection(void);
+> -
+> -#ifdef __cplusplus
+> -}
+> -#endif
+> -
+>  #endif
+> diff --git a/ipmid.C b/ipmid.C
+> index 76e612d..64bc753 100644
+> --- a/ipmid.C
+> +++ b/ipmid.C
+> @@ -40,6 +40,7 @@ typedef std::pair<ipmid_callback_t, ipmi_context_t>
+> ipmi_fn_context_t;
+>  std::map<ipmi_fn_cmd_t, ipmi_fn_context_t> g_ipmid_router_map;
+>  
+>  
+> +
+>  #ifndef HEXDUMP_COLS
+>  #define HEXDUMP_COLS 16
+>  #endif
+> @@ -199,13 +200,13 @@ static int send_ipmi_message(sd_bus_message
+> *req, unsigned char seq, unsigned ch
+>      r = sd_bus_message_append(m, "yyyyy", seq, netfn, lun, cmd, cc);
+>      if (r < 0) {
+>          fprintf(stderr, "Failed add the netfn and others : %s\n",
+> strerror(-r));
+> -        goto final;
+> +        return -1;
+>      }
+>  
+>      r = sd_bus_message_append_array(m, 'y', buf, len);
+>      if (r < 0) {
+>          fprintf(stderr, "Failed to add the string of response bytes:
+> %s\n", strerror(-r));
+> -        goto final;
+> +        return -1;
+>      }
+>  
+>  
+> @@ -213,19 +214,18 @@ static int send_ipmi_message(sd_bus_message
+> *req, unsigned char seq, unsigned ch
+>      // Call the IPMI responder on the bus so the message can be sent
+> to the CEC
+>      r = sd_bus_call(bus, m, 0, &error, &reply);
+>      if (r < 0) {
+> -        fprintf(stderr, "Failed to call the method: %s\n",
+> strerror(-r));
+> -        goto final;
+> +        fprintf(stderr, "Failed to call the method: %s", strerror(-
+> r));
+> +        return -1;
+>      }
+>  
+>      r = sd_bus_message_read(reply, "x", &pty);
+>      if (r < 0) {
+>         fprintf(stderr, "Failed to get a rc from the method: %s\n",
+> strerror(-r));
+> +
+>      }
+>  
+> -final:
+>      sd_bus_error_free(&error);
+>      sd_bus_message_unref(m);
+> -    sd_bus_message_unref(reply);
+>  
+>  
+>      return r < 0 ? EXIT_FAILURE : EXIT_SUCCESS;
+> @@ -234,6 +234,7 @@ final:
+>  static int handle_ipmi_command(sd_bus_message *m, void *user_data,
+> sd_bus_error
+>                           *ret_error) {
+>      int r = 0;
+> +    const char *msg = NULL;
+>      unsigned char sequence, netfn, lun, cmd;
+>      const void *request;
+>      size_t sz;
+> @@ -375,11 +376,10 @@ int main(int argc, char *argv[])
+>  {
+>      sd_bus_slot *slot = NULL;
+>      int r;
+> +    char *mode = NULL;
+>      unsigned long tvalue;
+>      int c;
+>  
+> -
+> -
+>      // This file and subsequient switch is for turning on levels
+>      // of trace
+>      ipmicmddetails = ipmiio = ipmidbus =  fopen("/dev/null", "w");
+> @@ -416,19 +416,15 @@ int main(int argc, char *argv[])
+>      // Register all the handlers that provider implementation to
+> IPMI commands.
+>      ipmi_register_callback_handlers(HOST_IPMI_LIB_PATH);
+>  
+> -	// Start the Host Services Dbus Objects
+> -	start_host_service(bus, slot);
+> -
+> -	// Watch for BT messages
+>      r = sd_bus_add_match(bus, &slot, FILTER, handle_ipmi_command,
+> NULL);
+>      if (r < 0) {
+>          fprintf(stderr, "Failed: sd_bus_add_match: %s : %s\n",
+> strerror(-r), FILTER);
+>          goto finish;
+>      }
+>  
+> -
+>      for (;;) {
+>          /* Process requests */
+> +
+>          r = sd_bus_process(bus, NULL);
+>          if (r < 0) {
+>              fprintf(stderr, "Failed to process bus: %s\n",
+> strerror(-r));
+> @@ -457,7 +453,7 @@ finish:
+>  // step for mapping IPMI
+>  int find_interface_property_fru_type(dbus_interface_t *interface,
+> const char *property_name, char *property_value) {
+>  
+> -    char  *str1;
+> +    char  *str1, *str2, *str3;
+>      sd_bus_error error = SD_BUS_ERROR_NULL;
+>      sd_bus_message *reply = NULL, *m=NULL;
+>  
+> @@ -603,7 +599,7 @@ int set_sensor_dbus_state_v(uint8_t number, const
+> char *method, char *value) {
+>      dbus_interface_t a;
+>      int r;
+>      sd_bus_error error = SD_BUS_ERROR_NULL;
+> -    sd_bus_message *m=NULL;
+> +    sd_bus_message *reply = NULL, *m=NULL;
+>  
+>      fprintf(ipmidbus, "Attempting to set a dbus Variant Sensor
+> 0x%02x via %s with a value of %s\n",
+>          number, method, value);
+> diff --git a/ipmisensor.C b/ipmisensor.C
+> index 1f60f64..6d3d3bd 100644
+> --- a/ipmisensor.C
+> +++ b/ipmisensor.C
+> @@ -129,8 +129,6 @@ int set_sensor_dbus_state_fwprogress(const
+> sensorRES_t *pRec, const lookup_t *pT
+>  					break;
+>  		case 0x02 : snprintf(p, sizeof(valuestring), "FW
+> Progress, %s", event_data_lookup(g_fwprogress02h, pRec-
+> >event_data2));
+>  					break;
+> -		default : snprintf(p, sizeof(valuestring), "Internal
+> warning, fw_progres offset unknown (0x%02x)", pTable->offset);
+> -					break;
+>  	}
+>  
+>  	return set_sensor_dbus_state_v(pRec->sensor_number, pTable-
+> >method, p);
+> @@ -147,28 +145,6 @@ int set_sensor_dbus_state_osbootcount(const
+> sensorRES_t *pRec, const lookup_t *p
+>  	return set_sensor_dbus_state_v(pRec->sensor_number, pTable-
+> >method, pStr);
+>  }
+>  
+> -int set_sensor_dbus_state_system_event(const sensorRES_t *pRec,
+> const lookup_t *pTable, const char *value) {
+> -	char valuestring[128];
+> -	char* p = valuestring;
+> -
+> -	switch (pTable->offset) {
+> -
+> -		case 0x00 : snprintf(p, sizeof(valuestring), "System
+> Reconfigured");
+> -					break;
+> -		case 0x01 : snprintf(p, sizeof(valuestring), "OEM
+> Boot Event");
+> -					break;
+> -		case 0x02 : snprintf(p, sizeof(valuestring),
+> "Undetermine System Hardware Failure");
+> -					break;
+> -		case 0x03 : snprintf(p, sizeof(valuestring), "System
+> Failure see error log for more details (0x%02x)", pRec->event_data2);
+> -					break;
+> -		case 0x04 : snprintf(p, sizeof(valuestring), "System
+> Failure see PEF error log for more details (0x%02x)", pRec-
+> >event_data2);
+> -					break;
+> -		default : snprintf(p, sizeof(valuestring), "Internal
+> warning, system_event offset unknown (0x%02x)", pTable->offset);
+> -					break;
+> -	}
+> -
+> -	return set_sensor_dbus_state_v(pRec->sensor_number, pTable-
+> >method, p);
+> -}
+>  
+>  
+>  //  This table lists only senors we care about telling dbus about.
+> @@ -179,13 +155,13 @@ lookup_t g_ipmidbuslookup[] = {
+>  	{0xe9, 0x00, set_sensor_dbus_state_simple, "setValue",
+> "Disabled", ""}, // OCC Inactive 0
+>  	{0xe9, 0x01, set_sensor_dbus_state_simple, "setValue",
+> "Enabled", ""},   // OCC Active 1
+>  	{0x07, 0x07, set_sensor_dbus_state_simple, "setPresent",
+> "True", "False"},
+> -	{0x07, 0x08, set_sensor_dbus_state_simple,
+> "setFault",   "True", "False"},
+> +	{0x07, 0x08, set_sensor_dbus_state_simple,
+> "setFault",   "True", ""},
+>  	{0x0C, 0x06, set_sensor_dbus_state_simple, "setPresent",
+> "True", "False"},
+> -	{0x0C, 0x04, set_sensor_dbus_state_simple,
+> "setFault",   "True", "False"},
+> +	{0x0C, 0x04, set_sensor_dbus_state_simple,
+> "setFault",   "True", ""},
+>  	{0x0F, 0x02, set_sensor_dbus_state_fwprogress, "setValue",
+> "True", "False"},
+>  	{0x0F, 0x01, set_sensor_dbus_state_fwprogress, "setValue",
+> "True", "False"},
+>  	{0x0F, 0x00, set_sensor_dbus_state_fwprogress, "setValue",
+> "True", "False"},
+> -	{0xC7, 0x01, set_sensor_dbus_state_simple, "setFault",
+> "True", "False"},
+> +	{0xC7, 0x01, set_sensor_dbus_state_simple, "setFault",
+> "True", ""},
+>  	{0xc3, 0x00, set_sensor_dbus_state_osbootcount, "setValue",
+> "" ,""},
+>  	{0x1F, 0x00, set_sensor_dbus_state_simple, "setValue", "Boot
+> completed (00)", ""},
+>  	{0x1F, 0x01, set_sensor_dbus_state_simple, "setValue", "Boot
+> completed (01)", ""},
+> @@ -194,11 +170,6 @@ lookup_t g_ipmidbuslookup[] = {
+>  	{0x1F, 0x04, set_sensor_dbus_state_simple, "setValue", "CD-
+> ROM boot completed", ""},
+>  	{0x1F, 0x05, set_sensor_dbus_state_simple, "setValue", "ROM
+> boot completed", ""},
+>  	{0x1F, 0x06, set_sensor_dbus_state_simple, "setValue", "Boot
+> completed (06)", ""},
+> -	{0x12, 0x00, set_sensor_dbus_state_system_event, "setValue",
+> "", ""},
+> -	{0x12, 0x01, set_sensor_dbus_state_system_event, "setValue",
+> "", ""},
+> -	{0x12, 0x02, set_sensor_dbus_state_system_event, "setValue",
+> "", ""},
+> -	{0x12, 0x03, set_sensor_dbus_state_system_event, "setValue",
+> "", ""},
+> -	{0x12, 0x04, set_sensor_dbus_state_system_event, "setValue",
+> "", ""},
+>  
+>  	{0xFF, 0xFF, NULL, "", "", ""}
+>  };
+> diff --git a/sensorhandler.C b/sensorhandler.C
+> index c96b7a7..cd57dd4 100644
+> --- a/sensorhandler.C
+> +++ b/sensorhandler.C
+> @@ -29,13 +29,11 @@ sensorTypemap_t g_SensorTypeMap[] = {
+>      {0xe9, 0x09, "OccStatus"},  // E9 is an internal mapping to
+> handle sensor type code os 0x09
+>      {0xC3, 0x6F, "BootCount"},
+>      {0x1F, 0x6F, "OperatingSystemStatus"},
+> -    {0x12, 0x6F, "SYSTEM_EVENT"},
+> -    {0xC7, 0x03, "SYSTEM"},
+> -    {0xC7, 0x03, "MAIN_PLANAR"},
+>      {0xFF, 0x00, ""},
+>  };
+>  
+>  
+> +
+>  struct sensor_data_t {
+>      uint8_t sennum;
+>  }  __attribute__ ((packed)) ;
+> @@ -121,7 +119,15 @@ ipmi_ret_t ipmi_sen_get_sensor_type(ipmi_netfn_t
+> netfn, ipmi_cmd_t cmd,
+>  
+>      // HACK UNTIL Dbus gets updated or we find a better way
+>      if (buf[0] == 0) {
+> -        rc = IPMI_CC_SENSOR_INVALID;
+> +
+> +        switch(reqptr->sennum) {
+> +            case 0x35 : buf[0] = 0x12; buf[1] = 0x6F; break;
+> +            case 0x37 : buf[0] = 0xC7; buf[1] = 0x03; break;
+> +            case 0x38 : buf[0] = 0xC7; buf[1] = 0x03; break;
+> +            case 0x39 : buf[0] = 0xC7; buf[1] = 0x03; break;
+> +            case 0x3A : buf[0] = 0xC7; buf[1] = 0x03; break;
+> +            default: rc = IPMI_CC_SENSOR_INVALID;
+> +        }
+>      }
+>  
+>  
+> @@ -139,6 +145,9 @@ ipmi_ret_t ipmi_sen_set_sensor(ipmi_netfn_t
+> netfn, ipmi_cmd_t cmd,
+>  {
+>      sensor_data_t *reqptr = (sensor_data_t*)request;
+>      ipmi_ret_t rc = IPMI_CC_OK;
+> +    unsigned short rlen;
+> +
+> +    rlen = (unsigned short) *data_len;
+>  
+>      printf("IPMI SET_SENSOR [0x%02x]\n",reqptr->sennum);
+>  
+> diff --git a/storageaddsel.C b/storageaddsel.C
+> index 3c24ec0..64b0e6a 100644
+> --- a/storageaddsel.C
+> +++ b/storageaddsel.C
+> @@ -136,6 +136,7 @@ int create_esel_description(const uint8_t
+> *buffer, const char *sev, char **messa
+>  
+>  
+>  	ipmi_add_sel_request_t *p;
+> +	int r;
+>  	char *m;
+>  
+>  	p =  ( ipmi_add_sel_request_t *) buffer;
+> @@ -155,7 +156,7 @@ int send_esel_to_dbus(const char *desc, const
+> char *sev, const char *details, ui
+>  	sd_bus *mbus = NULL;
+>      sd_bus_error error = SD_BUS_ERROR_NULL;
+>      sd_bus_message *reply = NULL, *m=NULL;
+> -    uint16_t x;
+> +    uint16_t *pty;
+>      int r;
+>  
+>      mbus = ipmid_get_sd_bus_connection();
+> @@ -167,67 +168,88 @@ int send_esel_to_dbus(const char *desc, const
+> char *sev, const char *details, ui
+>      									
+> "acceptHostMessage");
+>      if (r < 0) {
+>          fprintf(stderr, "Failed to add the method object: %s\n",
+> strerror(-r));
+> -        goto finish;
+> +        return -1;
+>      }
+>  
+>      r = sd_bus_message_append(m, "sss", desc, sev, details);
+>      if (r < 0) {
+>          fprintf(stderr, "Failed add the message strings : %s\n",
+> strerror(-r));
+> -        goto finish;
+> +        return -1;
+>      }
+>  
+>      r = sd_bus_message_append_array(m, 'y', debug, debuglen);
+>      if (r < 0) {
+>          fprintf(stderr, "Failed to add the raw array of bytes:
+> %s\n", strerror(-r));
+> -        goto finish;
+> +        return -1;
+>      }
+> +
+>      // Call the IPMI responder on the bus so the message can be sent
+> to the CEC
+>      r = sd_bus_call(mbus, m, 0, &error, &reply);
+>      if (r < 0) {
+> -        fprintf(stderr, "Failed to call the method: %s %s\n",
+> __FUNCTION__, strerror(-r));
+> -        goto finish;
+> +        fprintf(stderr, "Failed to call the method: %s", strerror(-
+> r));
+> +        return -1;
+>      }
+> -    r = sd_bus_message_read(reply, "q", &x);
+> +
+> +    r = sd_bus_message_read(reply, "q", &pty);
+>      if (r < 0) {
+>          fprintf(stderr, "Failed to get a rc from the method: %s\n",
+> strerror(-r));
+> +    } else {
+> +        r = *pty;
+>      }
+>  
+>  finish:
+>      sd_bus_error_free(&error);
+>      sd_bus_message_unref(m);
+>      sd_bus_message_unref(reply);
+> +
+>      return r;
+>  }
+>  
+>  
+>  void send_esel(uint16_t recordid) {
+> -	char *desc, *assoc;
+> +	char *desc, *assoc, *ascii;
+>  	const char *sev;
+>  	uint8_t *buffer = NULL;
+> -	char *path;
+> +	char *path, *pathsent;
+>  	size_t sz;
+> +	int r;
+>  
+>  	uint8_t hack[] = {0x30, 0x32, 0x34};
+> +
+>  	asprintf(&path,"%s%04x", "/tmp/esel", recordid);
+> +
+>  	sz = getfilestream(path, &buffer);
+> +
+>  	if (sz == 0) {
+>  		printf("Error file does not exist %d\n",__LINE__);
+>  		free(path);
+>  		return;
+>  	}
+>  
+> +
+>  	sev = create_esel_severity(buffer);
+> +
+>  	create_esel_association(buffer, &assoc);
+> +
+>  	create_esel_description(buffer, sev, &desc);
+>  
+> +
+>  	// TODO until ISSUE https://github.com/openbmc/rest-dbus/iss
+> ues/2
+>  	// I cant send extended ascii chars.  So 0,2,4 for now...
+> -	send_esel_to_dbus(desc, sev, assoc, hack, 3);
+> +	r = send_esel_to_dbus(desc, sev, assoc, hack, 3);
+> +
+> +	asprintf(&pathsent,"%s_%d", path, r);
+> +
+> +
+> +	rename(path, pathsent);
+>  
+>  	free(path);
+> +	free(pathsent);
+>  	free(assoc);
+>  	free(desc);
+> +
+>  	delete[] buffer;
+>  
+> +
+>  	return;
+>  }
+> diff --git a/storagehandler.C b/storagehandler.C
+> index f3e2532..1459f94 100644
+> --- a/storagehandler.C
+> +++ b/storagehandler.C
+> @@ -2,7 +2,6 @@
+>  #include <string.h>
+>  #include <stdint.h>
+>  #include <time.h>
+> -#include <sys/time.h>
+>  #include <arpa/inet.h>
+>  
+>  #include "storagehandler.h"
+> @@ -53,25 +52,14 @@ ipmi_ret_t ipmi_storage_set_sel_time(ipmi_netfn_t
+> netfn, ipmi_cmd_t cmd,
+>                                ipmi_request_t request,
+> ipmi_response_t response,
+>                                ipmi_data_len_t data_len,
+> ipmi_context_t context)
+>  {
+> -    uint32_t* secs = (uint32_t*)request;
+> +    unsigned int *bufftype = (unsigned int *) request;
+>  
+>      printf("Handling Set-SEL-Time:[0x%X], Cmd:[0x%X]\n",netfn, cmd);
+> -    printf("Data: 0x%X]\n",*secs);
+> +    printf("Data: 0x%X]\n",*bufftype);
+> +
+> +    g_sel_time = *bufftype;
+>  
+> -    struct timeval sel_time;
+> -    sel_time.tv_sec = le32toh(*secs);
+>      ipmi_ret_t rc = IPMI_CC_OK;
+> -    int rct = settimeofday(&sel_time, NULL);
+> -
+> -    if(rct == 0)
+> -    {
+> -	system("hwclock -w");
+> -    }
+> -    else
+> -    {
+> -        printf("settimeofday() failed\n");
+> -        rc = IPMI_CC_UNSPECIFIED_ERROR;
+> -    }
+>      *data_len = 0;
+>      return rc;
+>  }
+> diff --git a/transporthandler.C b/transporthandler.C
+> index 0f7a730..ca8522d 100644
+> --- a/transporthandler.C
+> +++ b/transporthandler.C
+> @@ -31,6 +31,8 @@ ipmi_ret_t ipmi_transport_set_lan(ipmi_netfn_t
+> netfn, ipmi_cmd_t cmd,
+>  {
+>      ipmi_ret_t rc = IPMI_CC_OK;
+>      *data_len = 0;
+> +
+> +    int i = 0;
+>      char syscmd[128];
+>  
+>      printf("IPMI SET_LAN\n");
