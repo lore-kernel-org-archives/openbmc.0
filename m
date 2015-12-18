@@ -1,55 +1,28 @@
-Return-Path: <stewart@linux.vnet.ibm.com>
-Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
- (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
+Return-Path: <mikey@neuling.org>
+Received: from ozlabs.org (ozlabs.org [103.22.144.67])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id E5DB01A1A1B
- for <openbmc@lists.ozlabs.org>; Fri, 18 Dec 2015 15:07:38 +1100 (AEDT)
-Received: from localhost
- by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
- Thu, 17 Dec 2015 21:07:36 -0700
-Received: from d03dlp02.boulder.ibm.com (9.17.202.178)
- by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 17 Dec 2015 21:07:35 -0700
-X-IBM-Helo: d03dlp02.boulder.ibm.com
-X-IBM-MailFrom: stewart@linux.vnet.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from b03cxnp07028.gho.boulder.ibm.com
- (b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
- by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id 768923E4003E
- for <openbmc@lists.ozlabs.org>; Thu, 17 Dec 2015 21:07:34 -0700 (MST)
-Received: from d03av03.boulder.ibm.com (d03av03.boulder.ibm.com [9.17.195.169])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- tBI47Y1025821416
- for <openbmc@lists.ozlabs.org>; Thu, 17 Dec 2015 21:07:34 -0700
-Received: from d03av03.boulder.ibm.com (localhost [127.0.0.1])
- by d03av03.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- tBI47YCH031675
- for <openbmc@lists.ozlabs.org>; Thu, 17 Dec 2015 21:07:34 -0700
-Received: from birb.localdomain ([9.192.255.109])
- by d03av03.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- tBI47XpU031637; Thu, 17 Dec 2015 21:07:33 -0700
-Received: by birb.localdomain (Postfix, from userid 1000)
- id 5E1662286E32; Fri, 18 Dec 2015 15:07:32 +1100 (AEDT)
-From: Stewart Smith <stewart@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 7A3F11A1A1B
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Dec 2015 15:12:21 +1100 (AEDT)
+Received: from localhost.localdomain (localhost [127.0.0.1])
+ by ozlabs.org (Postfix) with ESMTP id 5660014010F;
+ Fri, 18 Dec 2015 15:12:21 +1100 (AEDT)
+Received: by localhost.localdomain (Postfix, from userid 1000)
+ id 4B99DEEB1D4; Fri, 18 Dec 2015 15:12:21 +1100 (AEDT)
+Message-ID: <1450411941.2791.83.camel@neuling.org>
+Subject: Re: [PATCH phosphor-host-ipmid v2] Add get/set ipmid command
+ support with correct DBUS property handling.
+From: Michael Neuling <mikey@neuling.org>
 To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
 Cc: shgoupf <shgoupf@cn.ibm.com>
-Subject: Re: [PATCH phosphor-host-ipmid v2] Add get/set ipmid command support
- with correct DBUS property handling.
+Date: Fri, 18 Dec 2015 15:12:21 +1100
 In-Reply-To: <1450407024-32509-2-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1450407024-32509-1-git-send-email-openbmc-patches@stwcx.xyz>
  <1450407024-32509-2-git-send-email-openbmc-patches@stwcx.xyz>
-User-Agent: Notmuch/0.21+24~gbceb651 (http://notmuchmail.org) Emacs/24.5.1
- (x86_64-redhat-linux-gnu)
-Date: Fri, 18 Dec 2015 15:07:32 +1100
-Message-ID: <87a8p85ri3.fsf@birb.au.ibm.com>
-MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 15121804-0025-0000-0000-00001FA98347
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Evolution 3.16.5-1ubuntu3.1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -61,62 +34,76 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Dec 2015 04:07:39 -0000
+X-List-Received-Date: Fri, 18 Dec 2015 04:12:21 -0000
 
-OpenBMC Patches <openbmc-patches@stwcx.xyz> writes:
-> +struct set_sys_boot_options_t {
-> +    uint8_t parameter;
-> +    union {
-> +        struct {
-> +            uint8_t d1;
-> +            uint8_t d2;
-> +            uint8_t d3;
-> +            uint8_t d4;
-> +            uint8_t d5;
-> +            uint8_t d6;
-> +            uint8_t d7;
-> +            uint8_t d8;
-> +        } data8;
-> +        uint64_t data64;
-> +    } data;
-> +}  __attribute__ ((packed));
+> +ipmi_ret_t ipmi_chassis_set_sys_boot_options(ipmi_netfn_t netfn, ipmi_cm=
+d_t cmd,=20
+> +                              ipmi_request_t request, ipmi_response_t re=
+sponse,=20
+> +                              ipmi_data_len_t data_len, ipmi_context_t c=
+ontext)
+> +{
+> +    ipmi_ret_t rc =3D IPMI_CC_OK;
+> +
+> +    printf("IPMI SET_SYS_BOOT_OPTIONS\n");
+> +    printf("IPMID set command required return bytes: %i\n", *data_len);
+> +
+> +    set_sys_boot_options_t *reqptr =3D (set_sys_boot_options_t*) request=
+;
+> +
+> +    char* output_buf =3D (char*)malloc(NUM_RETURN_BYTES_OF_SET);
 
-How is this going to be used in an endian safe manner?
+This seems to be allocating 1 byte.  Why not just allocate this
+locally on the stack with:
 
-Why not use sparse annotations?
+   char output_buf;
+
+then you can avoid the free and memory checks and a bunch of
+other complexity.
+
+I don't think you even need this buffer.
 
 > +
->  ipmi_ret_t ipmi_chassis_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
->                                ipmi_request_t request, ipmi_response_t response, 
->                                ipmi_data_len_t data_len, ipmi_context_t context)
-> @@ -116,16 +332,41 @@ ipmi_ret_t ipmi_chassis_get_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
->  
->      get_sys_boot_options_t *reqptr = (get_sys_boot_options_t*) request;
->  
-> -    // TODO Return default values to OPAL until dbus interface is available
-> +    char* buf = (char*)malloc(NUM_RETURN_BYTES_OF_GET*2 + 1);
+> +    if (output_buf =3D=3D NULL) {
+> +        fprintf(stderr, "Malloc failed for set_sys_boot_options.\n");
+> +        return IPMI_OUT_OF_SPACE;       =20
+> +    }
 > +
-> +    if (buf == NULL) {
-> +        fprintf(stderr, "Malloc failed for get_sys_boot_options.\n");
-> +        return IPMI_OUT_OF_SPACE;        
-
-trailing whitespace
-
->      if (reqptr->parameter == 5) // Parameter #5
-
-Why 5 ?
-
-comment is redundantly redundant.
-
->      {
-> -        uint8_t buf[] = {0x1,0x5,80,0,0,0,0};
-> -        *data_len = sizeof(buf);
-> -        memcpy(response, &buf, *data_len);
-> +        int r = dbus_get_property(buf);
+> +    if (reqptr->parameter =3D=3D 5) // Parameter #5
+> +    {
+> +        char input_buf[NUM_INPUT_BYTES_OF_SET*2 + 1];
+> +        sprintf(input_buf, "%llX", reqptr->data.data64);
+> +
+> +        int r =3D dbus_set_property(input_buf);
 > +
 > +        if (r < 0) {
-> +            fprintf(stderr, "Dbus get property failed for get_sys_boot_options.\n");
-> +            return IPMI_OUT_OF_SPACE;        
+> +            fprintf(stderr, "Dbus set property failed for set_sys_boot_o=
+ptions.\n");
+> +            return IPMI_OUT_OF_SPACE;
 > +        }
+> +
+> +        *data_len =3D NUM_RETURN_BYTES_OF_SET;
+> +        // 0x0: return code OK.
+> +        output_buf[0] =3D 0x0;
+> +        memcpy(response, output_buf, *data_len);
 
-trailing whitespace
+This is a memcpy of 1 byte.  Just assign it and remove the rest of the code=
+.
+     *response =3D 0;
+
+> +        free(output_buf);
+> +    }
+> +    else
+> +    {
+> +        // 0x80: parameter not supported
+> +        output_buf[0] =3D 0x80;
+> +        memcpy(response, output_buf, *data_len);
+
+*data_len is passed in, but output_buf is only 1 byte?  Doesn't make
+overflowing output_buf really easy?
+
+Or should this be a 1 byte copy too and then we can just assign it
+with something like:
+     *response =3D 0x80;
+
+Mikey
