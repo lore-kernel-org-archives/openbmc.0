@@ -1,55 +1,57 @@
 Return-Path: <stewart@linux.vnet.ibm.com>
-Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
  (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 0D6BD1A170E
- for <openbmc@lists.ozlabs.org>; Mon, 21 Dec 2015 14:10:30 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 0B61C1A170E
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Dec 2015 14:14:15 +1100 (AEDT)
 Received: from localhost
- by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
- Sun, 20 Dec 2015 22:10:27 -0500
-Received: from d01dlp01.pok.ibm.com (9.56.250.166)
- by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
+ Sun, 20 Dec 2015 20:14:14 -0700
+Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Sun, 20 Dec 2015 22:10:26 -0500
-X-IBM-Helo: d01dlp01.pok.ibm.com
+ Sun, 20 Dec 2015 20:14:11 -0700
+X-IBM-Helo: d03dlp03.boulder.ibm.com
 X-IBM-MailFrom: stewart@linux.vnet.ibm.com
 X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from b01cxnp23032.gho.pok.ibm.com (b01cxnp23032.gho.pok.ibm.com
- [9.57.198.27])
- by d01dlp01.pok.ibm.com (Postfix) with ESMTP id 09CD138C8026
- for <openbmc@lists.ozlabs.org>; Sun, 20 Dec 2015 21:57:43 -0500 (EST)
-Received: from d01av03.pok.ibm.com (d01av03.pok.ibm.com [9.56.224.217])
- by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- tBL3APHG23330998
- for <openbmc@lists.ozlabs.org>; Mon, 21 Dec 2015 03:10:25 GMT
-Received: from d01av03.pok.ibm.com (localhost [127.0.0.1])
- by d01av03.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- tBL3AOj8024515
- for <openbmc@lists.ozlabs.org>; Sun, 20 Dec 2015 22:10:24 -0500
+Received: from b03cxnp08026.gho.boulder.ibm.com
+ (b03cxnp08026.gho.boulder.ibm.com [9.17.130.18])
+ by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id E081219D8040
+ for <openbmc@lists.ozlabs.org>; Sun, 20 Dec 2015 20:02:14 -0700 (MST)
+Received: from d03av05.boulder.ibm.com (d03av05.boulder.ibm.com [9.17.195.85])
+ by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with
+ ESMTP id tBL3EAgO24641778
+ for <openbmc@lists.ozlabs.org>; Sun, 20 Dec 2015 20:14:10 -0700
+Received: from d03av05.boulder.ibm.com (localhost [127.0.0.1])
+ by d03av05.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ tBL3EATF016540
+ for <openbmc@lists.ozlabs.org>; Sun, 20 Dec 2015 20:14:10 -0700
 Received: from birb.localdomain ([9.80.227.185])
- by d01av03.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- tBL3ANdZ024465; Sun, 20 Dec 2015 22:10:24 -0500
+ by d03av05.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ tBL3E8V2016444; Sun, 20 Dec 2015 20:14:09 -0700
 Received: by birb.localdomain (Postfix, from userid 1000)
- id 551702286E32; Mon, 21 Dec 2015 14:10:18 +1100 (AEDT)
+ id 051982286E32; Mon, 21 Dec 2015 14:14:02 +1100 (AEDT)
 From: Stewart Smith <stewart@linux.vnet.ibm.com>
-To: Vishwanatha Subbanna <vishwanath@in.ibm.com>
-Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH phosphor-host-ipmid v3 1/6] Support host reboot
-In-Reply-To: <201512170646.tBH6kaOR019514@d28av01.in.ibm.com>
-References: <1450270225-2497-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1450270225-2497-2-git-send-email-openbmc-patches@stwcx.xyz>
- <87wpse5bkf.fsf@birb.au.ibm.com>
- <201512170646.tBH6kaOR019514@d28av01.in.ibm.com>
+To: Peng Fei BG Gou <shgoupf@cn.ibm.com>, Chris Austen <austenc@us.ibm.com>
+Cc: openbmc <openbmc@lists.ozlabs.org>,
+ OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Subject: Re: [PATCH phosphor-host-ipmid v3 2/6] Add get/set ipmid command
+ support with correct DBUS property handling.
+In-Reply-To: <OF0C1E11C2.B7E518C3-ON48257F1E.001E03A4-48257F1E.001E58F6@cn.ibm.com>
+References: <87twni5aqw.fsf@birb.au.ibm.com>
+ <OF6CA268B3.D580B2FE-ON00257F1E.0016143E-1450324869873@LocalDomain>
+ <OF0C1E11C2.B7E518C3-ON48257F1E.001E03A4-48257F1E.001E58F6@cn.ibm.com>
 User-Agent: Notmuch/0.21+24~gbceb651 (http://notmuchmail.org) Emacs/24.5.1
  (x86_64-redhat-linux-gnu)
-Date: Mon, 21 Dec 2015 14:10:18 +1100
-Message-ID: <874mfcmr8l.fsf@linux.vnet.ibm.com>
+Date: Mon, 21 Dec 2015 14:14:02 +1100
+Message-ID: <871tagmr2d.fsf@linux.vnet.ibm.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-TM-AS-MML: disable
-x-cbid: 15122103-0045-0000-0000-000002E3ABE9
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 15122103-0005-0000-0000-00001AC96E6C
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -61,22 +63,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Dec 2015 03:10:31 -0000
+X-List-Received-Date: Mon, 21 Dec 2015 03:14:16 -0000
 
-Vishwanatha Subbanna <vishwanath@in.ibm.com> writes:
+Peng Fei BG Gou <shgoupf@cn.ibm.com> writes:
+> 2) there is a lot of deletes.  Feels like this needs some additional eyes.
+> Yes, this pull request is too dirty and should be ignored.
+> Please refer to the new pull request which squashed unnecessary commits and
+> patched all together, as below:
+> https://github.com/openbmc/phosphor-host-ipmid/pull/55
 
-> CMD_POWER_OFF is for soft-off.
->
-> CMD_HARD_RESET is for hard reset.
+Please fix your mail client to properly quote.
 
-Why not spell that out in the defines?
-
-CMD_SOFT_POWER_OFF
-CMD_HARD_RESET
-
-which would imply the existence of:
-CMD_HARD_POWER_OFF
-CMD_SOFT_RESET
-
-Having hard/soft in define means it's obvious to anyone reading the code
-as to what it's meant to be doing.
+Note that this is impossible with IBM Verse: go get a different mail
+client.
