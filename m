@@ -1,86 +1,46 @@
-Return-Path: <njames@us.ibm.com>
-Received: from e38.co.us.ibm.com (e38.co.us.ibm.com [32.97.110.159])
- (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
+Return-Path: <cyrilbur@gmail.com>
+Received: from mail-pa0-x22e.google.com (mail-pa0-x22e.google.com
+ [IPv6:2607:f8b0:400e:c03::22e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 047481A1A20
- for <openbmc@lists.ozlabs.org>; Sun, 20 Dec 2015 00:22:35 +1100 (AEDT)
-Received: from localhost
- by e38.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <njames@us.ibm.com>;
- Sat, 19 Dec 2015 06:22:32 -0700
-Received: from d03dlp02.boulder.ibm.com (9.17.202.178)
- by e38.co.us.ibm.com (192.168.1.138) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Sat, 19 Dec 2015 06:22:12 -0700
-X-IBM-Helo: d03dlp02.boulder.ibm.com
-X-IBM-MailFrom: njames@us.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from b03cxnp08027.gho.boulder.ibm.com
- (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
- by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id B8FA03E40030
- for <openbmc@lists.ozlabs.org>; Sat, 19 Dec 2015 06:22:11 -0700 (MST)
-Received: from d03av04.boulder.ibm.com (d03av04.boulder.ibm.com [9.17.195.170])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- tBJDMBEU27263044
- for <openbmc@lists.ozlabs.org>; Sat, 19 Dec 2015 06:22:11 -0700
-Received: from d03av04.boulder.ibm.com (loopback [127.0.0.1])
- by d03av04.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- tBJDMBCH022662
- for <openbmc@lists.ozlabs.org>; Sat, 19 Dec 2015 06:22:11 -0700
-Received: from d50lp02.ny.us.ibm.com (d50lp02.pok.ibm.com [146.89.104.208])
- by d03av04.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- tBJDMA5W022634
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=OK)
- for <openbmc@lists.ozlabs.org>; Sat, 19 Dec 2015 06:22:11 -0700
-Message-Id: <201512191322.tBJDMA5W022634@d03av04.boulder.ibm.com>
-Received: from /spool/local
- by d50lp02.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <njames@us.ibm.com>;
- Sat, 19 Dec 2015 08:22:10 -0500
-Received: from smtp.notes.na.collabserv.com (192.155.248.90)
- by d50lp02.ny.us.ibm.com (158.87.18.21) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
- Sat, 19 Dec 2015 08:22:07 -0500
-Received: from /spool/local
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <njames@us.ibm.com>;
- Sat, 19 Dec 2015 13:22:06 -0000
-Received: from us1a3-smtp01.a3.dal06.isc4sb.com (10.106.154.100)
- by smtp.notes.na.collabserv.com (10.106.227.141) with
- smtp.notes.na.collabserv.com ESMTP; Sat, 19 Dec 2015 13:22:04 -0000
-Received: from us1a3-mail62.a3.dal09.isc4sb.com ([10.142.3.202])
- by us1a3-smtp01.a3.dal06.isc4sb.com
- with ESMTP id 2015121913221146-561593 ;
- Sat, 19 Dec 2015 13:22:11 +0000 
-In-Reply-To: <3F579BF6-7BBC-4F04-BE11-FBB4F2033E33@rackspace.com>
-Subject: Re: Fwd: OpenBMC workshop agenda (was: "Fwd: Foxconn/Rackspace
- workshop agenda")
-To: Nathan House <nathan.house@RACKSPACE.COM>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-From: "Norman James" <njames@us.ibm.com>
-Date: Sat, 19 Dec 2015 07:21:57 -0600
-References: <057792DD-43E4-4E85-9466-80984AB3BBEF@rackspace.com>
- <3F579BF6-7BBC-4F04-BE11-FBB4F2033E33@rackspace.com>
-X-KeepSent: 45ACA323:27701E28-86257F1F:0078EAD5;
- type=4; name=$KeepSent
-X-Mailer: IBM Notes Release 9.0.1FP2 SHF37 August 25, 2014
-X-LLNOutbound: False
-X-Disclaimed: 21995
-X-TNEFEvaluated: 1
-Content-type: multipart/related; 
- Boundary="0__=09BBF58CDFEB6C458f9e8a93df938690918c09BBF58CDFEB6C45"
-x-cbid: 15121913-0029-0000-0000-00000EF9F841
-X-IBM-ISS-SpamDetectors: Score=0.387138; BY=0.133132; FL=0; FP=0; FZ=0; HX=0; 
- KW=0; PH=0; SC=0.387138; ST=0; TS=0; UL=0; ISC=
-X-IBM-ISS-DetailInfo: BY=3.00004678; HX=3.00000237; KW=3.00000007;
- PH=3.00000004; SC=3.00000127; SDB=6.00632810; UDB=6.00283571; UTC=2015-12-19
- 13:22:05
-x-cbparentid: 15121913-7792-0000-0000-0000014B36B0
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
+ by lists.ozlabs.org (Postfix) with ESMTPS id B77461A1615
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Dec 2015 12:51:15 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=vATy7l+n; 
+ dkim-atps=neutral
+Received: by mail-pa0-x22e.google.com with SMTP id wq6so90626871pac.1
+ for <openbmc@lists.ozlabs.org>; Sun, 20 Dec 2015 17:51:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version:content-type:content-transfer-encoding;
+ bh=bWZnRIlDoYTaIfpmcGf/JpoRWy8yRFD/N4qEgJ/H/50=;
+ b=vATy7l+nbeo1qFDyE7ARz0+8hV3IQsY1iuKOS+5WdObT0DYVnLlw0VRoyhEPfUtCAe
+ FL1mkwgh0zTrLpOkbyymWrNQDa6esE6b4tx09KbqCvl6/SCm1unQQ6vKwMzdoFNdxrim
+ +UDnZwcuierdnsy9SRIZNLvy8WUgzIsT11Nyt62Rt65Lr83TmvWl0K1QudFdinAnYO+G
+ oZ3tFZt8jSNtfD6WwEgPdeD7mBYPo0rIE6C7jntVG0h2s79uUptkryZ0YXCkHzmi40zM
+ nlLY2HArbWbcbQlq+a27mko16CGR7bZxvgI2V05aibwVcVWR19MFPMlaUW72R/IkYVDo
+ PMtA==
+X-Received: by 10.66.216.7 with SMTP id om7mr23172366pac.90.1450662673450;
+ Sun, 20 Dec 2015 17:51:13 -0800 (PST)
+Received: from camb691 (c220-239-107-234.belrs4.nsw.optusnet.com.au.
+ [220.239.107.234])
+ by smtp.gmail.com with ESMTPSA id cn1sm30191330pad.11.2015.12.20.17.51.11
+ (version=TLSv1/SSLv3 cipher=OTHER);
+ Sun, 20 Dec 2015 17:51:13 -0800 (PST)
+Date: Mon, 21 Dec 2015 12:51:14 +1100
+From: Cyril Bur <cyrilbur@gmail.com>
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: [PATCH ipmi-fru-parser v3] Set Fault and Present status while
+ handling fru
+Message-ID: <20151221125114.22d167a7@camb691>
+In-Reply-To: <1450430409-11751-2-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1450430409-11751-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1450430409-11751-2-git-send-email-openbmc-patches@stwcx.xyz>
+X-Mailer: Claws Mail 3.13.0 (GTK+ 2.24.28; x86_64-unknown-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -92,331 +52,435 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 19 Dec 2015 13:22:36 -0000
+X-List-Received-Date: Mon, 21 Dec 2015 01:51:16 -0000
 
---0__=09BBF58CDFEB6C458f9e8a93df938690918c09BBF58CDFEB6C45
-Content-type: multipart/alternative; 
-	Boundary="1__=09BBF58CDFEB6C458f9e8a93df938690918c09BBF58CDFEB6C45"
+On Fri, 18 Dec 2015 03:20:09 -0600
+OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
 
+> From: vishwa <vishwanath@in.ibm.com>
+> 
 
---1__=09BBF58CDFEB6C458f9e8a93df938690918c09BBF58CDFEB6C45
-Content-Transfer-Encoding: base64
-Content-type: text/plain; charset=UTF-8
+A description of what is going on might be nice. It is also helpful to add a
+description of what changed from the previous version.
 
-VW5mb3J0dW5hdGVseSwgdGhlcmUgaXMgcXVpdGUgYSBiaXQgbW9yZSB0byBoYXZpbmcgT3BlbkJN
-QyBzdXBwb3J0IGEgZ2l2ZW4NCnN5c3RlbSAoeDg2IG9yIG90aGVyd2lzZSkuICAgVW5sZXNzIHlv
-dSBnb3QgcmVhbGx5IGx1Y2t5LCB0aGUgR1BJTydzIG9uDQp5b3VyIHg4NiBzeXN0ZW0gbGlrZWx5
-IGRvIHZhcmlvdXMgb3RoZXIgdGhpbmdzIHRoYW4gd2UgZG8uICAgQSBzaW1wbGUNCmV4YW1wbGUs
-IGlzIHdlIGhhdmUgYSBncGlvIHRvIGNvbnRyb2wgdGhlIHBvd2VyIHNlcXVlbmNlciB0byBwb3dl
-ciBvbg0Kc3lzdGVtLiAgIFRoZSB4ODYgc3lzdGVtIG1pZ2h0IGFsc28gdXNlIGEgZ3BpbywgYnV0
-IGNvdWxkIGJlIGEgZGlmZmVyZW50DQpncGlvIG9yIGl0IG1pZ2h0IGNvbnRyb2wgcG93ZXIgZnJv
-bSBzb3V0aGJyaWRnZS4gICB5b3Ugd291bGQgbmVlZCBhDQpzY2hlbWF0aWMgb2YgeW91ciBzeXN0
-ZW0gb3IgcmV2ZXJzZSBlbmdpbmVlciB0aGUgYm9hcmQgdG8ga25vdy4NCg0KDQpSZWdhcmRzLA0K
-Tm9ybWFuIEphbWVzDQpJQk0gLSBQT1dFUiBTeXN0ZW1zIEFyY2hpdGVjdA0KUGhvbmU6IDEtNTEy
-LTI4Ni02ODA3IChUL0w6IDM2My02ODA3KQ0KSW50ZXJuZXQ6IG5qYW1lc0B1cy5pYm0uY29tDQoN
-Cg0KDQoNCkZyb206CU5hdGhhbiBIb3VzZSA8bmF0aGFuLmhvdXNlQFJBQ0tTUEFDRS5DT00+DQpU
-bzoJIm9wZW5ibWNAbGlzdHMub3psYWJzLm9yZyIgPG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZz4N
-CkRhdGU6CTEyLzE4LzIwMTUgMDM6NTcgUE0NClN1YmplY3Q6CUZ3ZDogT3BlbkJNQyB3b3Jrc2hv
-cCBhZ2VuZGEgKHdhczogIkZ3ZDogRm94Y29ubi9SYWNrc3BhY2UNCiAgICAgICAgICAgIHdvcmtz
-aG9wIGFnZW5kYSIpDQpTZW50IGJ5Ogkib3BlbmJtYyIgPG9wZW5ibWMtYm91bmNlcytuamFtZXM9
-dXMuaWJtLmNvbUBsaXN0cy5vemxhYnMub3JnPg0KDQoNCg0KRm9yd2FyZGluZyB0aGlzIGhlcmUu
-ICBMb29raW5nIGZvciBhIGxpdHRsZSBndWlkYW5jZSBvbiBpbyBtYXAgZGVmaW5pdGlvbnMNCmV4
-dHJhY3RlZCBmcm9tIGFuIHg4NiBwbGF0Zm9ybS4NCg0KVGhhbmtzIQ0KDQogTmF0ZSBIb3VzZQ0K
-DQoNCiAgICAgIEJlZ2luIGZvcndhcmRlZCBtZXNzYWdlOg0KDQogICAgICBTdWJqZWN0OiBSZTog
-T3BlbkJNQyB3b3Jrc2hvcCBhZ2VuZGEgKHdhczogIkZ3ZDogRm94Y29ubi9SYWNrc3BhY2UNCiAg
-ICAgIHdvcmtzaG9wIGFnZW5kYSIpDQogICAgICBGcm9tOiBOYXRoYW4gSG91c2UgPG5hdGhhbi5o
-b3VzZUByYWNrc3BhY2UuY29tPg0KICAgICAgRGF0ZTogRGVjZW1iZXIgMTYsIDIwMTUgYXQgNDow
-MDo1MSBQTSBDU1QNCiAgICAgIENjOiBBZGkgR2FuZ2lkaSA8YWRpLmdhbmdpZGlAcmFja3NwYWNl
-LmNvbT4sIEtlbm5ldGggV2lsa2UgPA0KICAgICAga2VubmV0aC53aWxrZUBSQUNLU1BBQ0UuQ09N
-PiwgTWFqb3IgSGF5ZGVuIDwNCiAgICAgIG1ham9yLmhheWRlbkByYWNrc3BhY2UuY29tPiwgQW50
-b255IE1lc3NlcmxpIDxhbWVzc2VybEByYWNrc3BhY2UuY29tDQogICAgICA+LCBOb3JtYW4gSmFt
-ZXMvQXVzdGluL0lCTSA8bmphbWVzQHVzLmlibS5jb20+LCA8amtAb3psYWJzLm9yZz4sIDwNCiAg
-ICAgIGNhdXN0ZW5AdXMuaWJtLmNvbT4sIDxwd2lsbGlhbXNAdXMuaWJtLmNvbT4NCiAgICAgIFRv
-OiBBYXJvbiBTdWxsaXZhbiA8YWFyb24uc3VsbGl2YW5AcmFja3NwYWNlLmNvbT4NCg0KICAgICAg
-SGV5IEd1eXMsDQoNCiAgICAgIEluIG15IGF0dGVtcHRzIHRvIGtlZXAgc29tZSBtb21lbnR1bSBn
-b2luZyBmb2xsb3dpbmcgdGhlIHdvcmtzaG9wIEkNCiAgICAgIHdhcyBkaWdnaW5nIG9uIG9uZSBv
-ZiBvdXIgeDg2IHBsYXRmb3JtcyBhc3QyNDAwIHZlbmRvciBwcm92aWRlZA0KICAgICAgaW1hZ2Vz
-LiAgTG9va2luZyBmb3Igd2hhdCBuZWVkcyB0byBjaGFuZ2UgdG8gbWFrZSBhIHdvcmtpbmcgaW1h
-Z2UgZm9yDQogICAgICB0aGVtIGV0Yy4gIEkgdGhpbmsgd2l0aCB0aGUgZGV2IGFkZHJlc3MgZGVm
-cyBpdCB3b3VsZCBnZXQgaGFsZiB3YXkgaWYNCiAgICAgIG5vdCBtb3JlLiAgTG9hZGVkIHRoZWly
-IGJtYyBmdyBiaW4gaW50byBiaW53YWxrIGFuZCBkaXNjb3ZlcmVkIHNvbWUNCiAgICAgIGludGVy
-ZXN0aW5nIGJpbmFyeSBkYXRhIHRoYXQgbWlnaHQgaGF2ZSB3aGF0IGlzIG5lZWRlZC4gIEJlbG93
-IGlzIGENCiAgICAgIGdpc3Qgb2YgdGhlIGNvbnRlbnRzIHdoaWNoIGFwcGVhciBtaWdodCBiZSBy
-ZWZzIHRvIGFkZHJlc3NlcyBmb3INCiAgICAgIGRpZmZlcmVudCBpbyBhbmQgc2Vuc29ycy4NCg0K
-ICAgICAgaHR0cHM6Ly9naXN0LmdpdGh1Yi5jb20vbmF0ZXJoL2MwMGNhZjljOTQwNTc4ZWVjMTM4
-DQoNCiAgICAgIFdoYXQgbmVlZHMgdG8gYmUgYWRkZWQgdG8gdGhlIHNrZWxldG9uIHRvIG1ha2Ug
-dGhpcyBoYXBwZW4uICBJ4oCZbQ0KICAgICAgdGhpbmtpbmcgaXQgd291bGQgbmVlZCBhIG5ldyBt
-b2R1bGUgaW4gYmluLyBhbmQgbWF5YmUgYSBiaXQgb2Ygd29yaw0KICAgICAgaW4gb2JqZWN0cy8g
-YW5kIGl0cyBzdWIgZGlycy4gIE91dHNpZGUgb2YgdGhhdCBwcm9qZWN0IGFuZCBsb29raW5nIGF0
-DQogICAgICB0aGUgZXhpc3Rpbmcgd29ya2luZyBwbGF0Zm9ybXMsIEkgd2FzIGdvaW5nIHRvIHRy
-eSB0byBiYXNlIG9mZiBvZg0KICAgICAgcGFsbWV0dG8gYW5kIHNlZSB3aGVyZSB0aGF0IGdldHMg
-bWUuICBBbnl0aGluZyBlbHNlIEnigJltIG1pc3Npbmc/DQoNCiAgICAgIEZlZWwgZnJlZSB0byBp
-bmNsdWRlIG9yIGRyb3Agb2ZmIGFueW9uZSBmcm9tIHRoaXMgdGhyZWFkIGFzIHNvbWUgb2YNCiAg
-ICAgIHRoZSBhZGRyZXNzZXMgbWlnaHQgYmUgaW5jb3JyZWN0LiAgV2FzIHNvbWV0aGluZyBJ4oCZ
-ZCBmb3Jnb3QgdG8gZ2V0DQogICAgICBiZWZvcmUgdGFraW5nIG9mZi4NCg0KICAgICAgVGhhbmtz
-IQ0KDQogICAgICBOYXRlIEhvdXNlDQoNCiAgICAgICAgICAgIE9uIERlYyAxMCwgMjAxNSwgYXQg
-Mjo1MiBQTSwgQWFyb24gU3VsbGl2YW4gPA0KICAgICAgICAgICAgYWFyb24uc3VsbGl2YW5AcmFj
-a3NwYWNlLmNvbT4gd3JvdGU6DQoNCiAgICAgICAgICAgIFNlZSBiZWxvdy4gIFN0aWxsIG1pZ2h0
-IGNoYW5nZSwgYnV0IGp1c3QgYSBiaXQuDQoNCiAgICAgICAgICAgIFNlbnQgZnJvbSBteSBtb2Jp
-bGUNCiAgICAgICAgICAgICAgICAgIE1vbmRheSBEZWMgMTR0aA0KDQogICAgICAgICAgICAgICAg
-ICBUaW1lIFRvcGljIERldGFpbHMgUHJlc2VudGVyDQoNCiAgICAgICAgICAgICAgICAgIDk6MDBh
-bSAxNSBtaW4gS2lja29mZiBJbnRyb3MsIHByZXNlbnQgb2JqZWN0aXZlLCBhZ2VuZGENCiAgICAg
-ICAgICAgICAgICAgIE5vcm0NCg0KICAgICAgICAgICAgICAgICAgOToxNSA0NSBtaW4gRGJ1cyBE
-YnVzIHR1dG9yaWFsLiBTdW1tYXJpemUgYmluZGluZ3MNCiAgICAgICAgICAgICAgICAgIChweXRo
-b24sIHNkYnVzLCBnZGJ1cykgUGF0cmljayBvciBOb3JtPw0KICAgICAgICAgICAgICAgICAgRXZl
-biB0aG91Z2ggd2UgYXJlbid0IHVzaW5nIGdkYnVzLCB0aGV5IHdpbGwgY29tZSBhY3Jvc3MNCiAg
-ICAgICAgICAgICAgICAgIGl0DQogICAgICAgICAgICAgICAgICB3aGVuIHNlYXJjaGluZyBhbmQg
-ZG9uJ3Qgd2FudCBhbnkgY29uZnVzaW9uDQoNCiAgICAgICAgICAgICAgICAgIDEwOjAwIDE1IG1p
-biBEYnVzIGFuZCBJUE1JIEhpZ2hsaWdodCBkaWZmZXJlbmNlcyBmcm9tDQogICAgICAgICAgICAg
-ICAgICBJUE1JLCBzdWNoIGFzIGludmVudG9yeSB2cyBzZW5zb3JzIE5vcm0NCg0KICAgICAgICAg
-ICAgICAgICAgMTA6MTUgMTUgbWluIEJSRUFLDQoNCiAgICAgICAgICAgICAgICAgIDEwOjMwIDEg
-aHIgRGJ1cyBleGFtcGxlIFdhbGsgdGhyb3VnaCBhIGN1cnJlbnQgZGJ1cw0KICAgICAgICAgICAg
-ICAgICAgaW1wbGVtZW50YXRpb24gQ2hyaXMNCg0KICAgICAgICAgICAgICAgICAgMTE6MzAgMS41
-IGhyIExVTkNIDQoNCiAgICAgICAgICAgICAgICAgIDE6MDBwbSAzMCBtaW4gR2l0aHVwIG92ZXJ2
-aWV3IFJldmlldyBvZiB0aGUgZ2lodWINCiAgICAgICAgICAgICAgICAgIHJlcG9zaXRvcmllcyBh
-bmQgd2hhdCBlYWNoIGNvbnRhaW5zIEJyYWQNCg0KICAgICAgICAgICAgICAgICAgMTozMCAxIGhy
-IFRyZWUgY29kZSBzdHJ1Y3QgUmV2aWV3IG9mIHRoZSBvcGVuYm1jIHRyZWUNCiAgICAgICAgICAg
-ICAgICAgIGNvZGUgc3RydWN0dXJlIGluIHlvY3RvIGVudiBCcmFkDQoNCiAgICAgICAgICAgICAg
-ICAgIDI6MzAgMTUgbWluIEJSRUFLDQoNCiAgICAgICAgICAgICAgICAgIDI6NDUgMSBociBEYnVz
-IG9iamVjdHMgT3ZlcnZpZXcgb2YgYWxsIGNyZWF0ZWQgZGJ1cw0KICAgICAgICAgICAgICAgICAg
-b2JqZWN0cyBXaG9ldmVyIGNyZWF0ZWQgdGhlIGRidXMgb2JqZWN0IGNhbiB0YWxrIGZvciBpdA0K
-DQogICAgICAgICAgICAgICAgICAzOjQ1IDFociBSb3VuZHRhYmxlIFF1ZXN0aW9ucyB0byBGb3hj
-b25uL1JhY2tzcGFjZSwgc3VjaA0KICAgICAgICAgICAgICAgICAgYXMgbWZnIHRvb2xzLA0KICAg
-ICAgICAgICAgICAgICAgaG93IHRoZXkgcHJvdmlzaW9uIHRoZWlyIHN5c3RlbXMsDQogICAgICAg
-ICAgICAgICAgICBob3cgdGhlaXIgYWRtaW5zIHN1cHBvcnQgdGhlIHN5c3RlbXMsIGFjY2VzcyB0
-byByb290DQogICAgICAgICAgICAgICAgICBsZXZlbA0KICAgICAgICAgICAgICAgICAgdGhpbmdz
-IG9uIGRidXMgc3VjaCBhcyBmbGFzaGluZywgc2hvdWxkIHRoYXQgYmUgc29tZXRoaW5nDQogICAg
-ICAgICAgICAgICAgICBjbGllbnRzIGhhdmUgYWNjZXNzIHRvPw0KICAgICAgICAgICAgICAgICAg
-QW55IGZlYXR1cmVzIHRoZXkgd2FudCB1cyB0byB3b3JrIC8gZm9jdXMgb24NCiAgICAgICAgICAg
-ICAgICAgIE5UUCBjbG9jaywgTUFDIGFkZHJlc3NlcywgUmFja3NwYWNlJ3MgSXJvbmljDQoNCiAg
-ICAgICAgICAgICAgICAgIDQ6NDUgMTUgbWluIFdSQVAtVVAgUXVlc3Rpb25zDQoNCiAgICAgICAg
-ICAgICAgICAgIDU6MDAgRU5EDQoNCg0KDQogICAgICAgICAgICAgICAgICBUdWVzZGF5IERlYyAx
-NXRoDQoNCiAgICAgICAgICAgICAgICAgIFRpbWUgVG9waWMgRGV0YWlscyBQcmVzZW50ZXINCg0K
-ICAgICAgICAgICAgICAgICAgOTowMGFtIDE1IG1pbiBJbnRybyBBZ2VuZGEgZm9yIHRoZSBkYXkN
-Cg0KICAgICAgICAgICAgICAgICAgOToxNSAxIGhyIEh3bW9uIEh3bW9uIHR1dG9yaWFsIGFuZCBv
-dmVydmlldyBvZiBPQ0MgZHJpdmVyDQogICAgICAgICAgICAgICAgICBMaSBZaQ0KDQogICAgICAg
-ICAgICAgICAgICAxMDoxNSAxNSBtaW4gQlJFQUsNCg0KICAgICAgICAgICAgICAgICAgMTA6MzAg
-NDUgbWluIEtlcm5lbCAtIENvdmVyIG5ldyBrZXJuZWwgYWR2YW50YWdlcywNCiAgICAgICAgICAg
-ICAgICAgIGxpbWl0YXRpb25zLCBkZXZpY2UgdHJlZSBvdmVydmlldyAtIEplcmVteQ0KDQogICAg
-ICAgICAgICAgICAgICAxMToxNSA0NSBtaW4gRXZlbnQgbG9ncyBFdmVudCBsb2dzIGFuZCBmcnUg
-aXNvbGF0aW9uDQogICAgICAgICAgICAgICAgICBzdHJhdGVneSBDaHJpcw0KDQogICAgICAgICAg
-ICAgICAgICAxMjowMCAxIGhyIExVTkNIDQoNCiAgICAgICAgICAgICAgICAgIDE6MDBwbSAxIGhy
-IFJlc3QgSG93IHRvIGFjY2VzcyBtZXRob2RzIHRocm91Z2ggUkVTVCBCcmFkDQoNCiAgICAgICAg
-ICAgICAgICAgIDI6MDAgMTUgbWluIFJlc3QgYWR2YW50YWdlcyBTaG93IGhvdyBzZWFtbGVzc2x5
-IHRoZSBSRVNUDQogICAgICAgICAgICAgICAgICBpbXBsZW1lbnRhdGlvbiBpcyBCcmFkDQoNCiAg
-ICAgICAgICAgICAgICAgIDI6MTUgMTUgbWluIEJSRUFLDQoNCiAgICAgICAgICAgICAgICAgIDI6
-MzAgMS41IGhyIEhhbmRzLW9uIFdyaXRlIGEgZGJ1cyBpbXBsZW1lbnRhdGlvbiAoVEJEKSAtDQog
-ICAgICAgICAgICAgICAgICBTeXN0ZW0gaW5mbyAoZnJlZSB0ZXh0IGFyZWEpIENocmlzDQoNCiAg
-ICAgICAgICAgICAgICAgIDQ6MDAgMzAgbWluIEZ1dHVyZSBXaGVyZSB3ZSdyZSBnb2luZyBuZXh0
-IGFuZCB3aGVyZSB3ZSdyZQ0KICAgICAgICAgICAgICAgICAgaGVhZGluZyA/Pz8NCiAgICAgICAg
-ICAgICAgICAgIC0gRGlzY3VzcyB4ODYgYW5kIG1heWJlIHJlZmFjdG9yaW5nIEZhY2Vib29rIE9w
-ZW5ibWMNCiAgICAgICAgICAgICAgICAgIGZvciBZb3NlbWl0ZSB0byBkYnVzIGFyY2hpdGVjdHVy
-ZSBhbmQgbmV3IGtlcm5lbA0KDQogICAgICAgICAgICAgICAgICA0OjMwIDMwIG1pbiBXUkFQLVVQ
-IFF1ZXN0aW9ucywgd29ya3Nob3AgcmVjYXAsIGNvbmNsdXNpb24NCg0KICAgICAgICAgICAgICAg
-ICAgNTowMCBFTkQNCg0KDQogICAgICAgICAgICAgICAgICAyIHRvcGljcyB0byBhZGQ6DQogICAg
-ICAgICAgICAgICAgICAtIENvdmVyIG5ldyBrZXJuZWwgYWR2YW50YWdlcywgbGltaXRhdGlvbnMs
-IGRldmljZSB0cmVlDQogICAgICAgICAgICAgICAgICBvdmVydmlldyAtIEplcmVteQ0KICAgICAg
-ICAgICAgICAgICAgLSBEaXNjdXNzIHg4NiBhbmQgbWF5YmUgcmVmYWN0b3JpbmcgRmFjZWJvb2sg
-T3BlbmJtYyBmb3INCiAgICAgICAgICAgICAgICAgIFlvc2VtaXRlIHRvIGRidXMgYXJjaGl0ZWN0
-dXJlIGFuZCBuZXcga2VybmVsDQoNCg0KDQoNCiAgICAgICAgICAgIDxncmF5Y29sLmdpZj4NCg0K
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCm9wZW5ibWMg
-bWFpbGluZyBsaXN0DQpvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcNCmh0dHBzOi8vbGlzdHMub3ps
-YWJzLm9yZy9saXN0aW5mby9vcGVuYm1jDQoNCg==
+Stewart responded with some comments on v2 and it looks like they've been
+entirely ignored, please address Stewarts points from v2.
 
---1__=09BBF58CDFEB6C458f9e8a93df938690918c09BBF58CDFEB6C45
-Content-Transfer-Encoding: base64
-Content-type: text/html; charset=UTF-8
-Content-Disposition: inline
+> ---
+>  fru-area.H      | 153 ++++++++++++
+>  readeeprom.C    |   9 +-
+>  strgfnhandler.C |  21 +-
+>  writefrudata.C  | 759 ++++++++++++++++++++++++++++++++++++--------------------
+>  writefrudata.H  |  23 +-
+>  5 files changed, 669 insertions(+), 296 deletions(-)
+>  create mode 100644 fru-area.H
+> 
+> diff --git a/fru-area.H b/fru-area.H
+> new file mode 100644
+> index 0000000..90dd92b
+> --- /dev/null
+> +++ b/fru-area.H
+> @@ -0,0 +1,153 @@
+> +#ifndef __IPMI_FRU_AREA_H__
+> +#define __IPMI_FRU_AREA_H__
+> +
+> +#include <stdint.h>
+> +#include <stddef.h>
+> +#include <systemd/sd-bus.h>
+> +#include <string>
+> +#include <vector>
+> +#include <memory>
+> +#include "writefrudata.H"
+> +
+> +class ipmi_fru;
+> +typedef std::vector<std::unique_ptr<ipmi_fru>> fru_area_vec_t;
+> +
+> +class ipmi_fru
+> +{
+> +    private:
+> +        // FRU ID
+> +        uint8_t iv_fruid;
+> +
+> +        // Type of the fru matching offsets in common header
+> +        uint8_t iv_type;
+> +
+> +        // Name of the fru area. ( BOARD/CHASSIS/PRODUCT )
+> +        std::string iv_name;
+> +
+> +        // Length of a specific fru area.
+> +        size_t  iv_len;
+> +
+> +        // Special bit for BMC readable eeprom only.
+> +        bool iv_bmc_fru;
+> +
+> +        // If a FRU is physically present.
+> +        bool iv_present;
+> +
+> +        // Whether a particular area is valid ?
+> +        bool iv_valid;
+> +
+> +        // Actual area data.
+> +        uint8_t *iv_data;
+> +
+> +        // fru inventory dbus name
+> +        std::string iv_bus_name;
+> +
+> +        // fru inventory dbus object path
+> +        std::string iv_obj_path;
+> +
+> +        // fru inventory dbus interface name
+> +        std::string iv_intf_name;
+> +
+> +        // sd_bus handle
+> +        sd_bus *iv_bus_type;
+> +
+> +        // Default constructor disabled.
+> +        ipmi_fru();
+> +
+> +    public:
+> +        // constructor
+> +        ipmi_fru(const uint8_t fruid, const uint8_t type,
+> +                 sd_bus *bus_type, bool bmc_fru = false);
+> +
+> +        // Destructor
+> +        virtual ~ipmi_fru();
+> +
+> +        // If a particular area has been marked valid / invalid
+> +        inline bool get_valid() const
+> +        {
+> +            return iv_valid;
+> +        }
+> +
+> +        // Sets the present bit
+> +        inline void set_present(const bool present)
+> +        {
+> +            iv_present = present;
+> +        }
+> +
+> +        // Sets the valid bit for a corresponding area.
+> +        inline void set_valid(const bool valid)
+> +        {
+> +            iv_valid = valid;
+> +        }
+> +
+> +        // If a particular area accessible only by BMC
+> +        inline bool is_bmc_fru() const
+> +        {
+> +            return iv_bmc_fru;
+> +        }
+> +
+> +        // returns fru id;
+> +        uint8_t get_fruid() const
+> +        {
+> +            return iv_fruid;
+> +        }
+> +
+> +        // Returns the length.
+> +        size_t get_len() const
+> +        {
+> +            return iv_len;
+> +        }
+> +
+> +        // Returns the type of the current fru area
+> +        uint8_t get_type() const
+> +        {
+> +            return iv_type;
+> +        }
+> +
+> +        // Returns the name
+> +        const char *get_name() const
+> +        {
+> +            return iv_name.c_str();
+> +        }
+> +
+> +        // Returns SD bus name
+> +        const char *get_bus_name() const
+> +        {
+> +            return iv_bus_name.c_str();
+> +        }
+> +
+> +        // Retrns SD bus object path
+> +        const char *get_obj_path() const
+> +        {
+> +            return iv_obj_path.c_str();
+> +        }
+> +
+> +        // Returns SD bus interface name
+> +        const char *get_intf_name() const
+> +        {
+> +            return iv_intf_name.c_str();
+> +        }
+> +
+> +        // Returns the data portion
+> +        inline uint8_t *get_data() const
+> +        {
+> +           return iv_data;
+> +        }
+> +
+> +        // Returns the bus type.
+> +        inline sd_bus *get_bus_type() const
+> +        {
+> +            return iv_bus_type;
+> +        }
+> +
+> +        // Sets up the sd_bus variables for the given AREA type
+> +        int setup_sd_bus_paths(void);
+> +
+> +        // Accepts a pointer to data and sets it in the object.
+> +        void set_data(const uint8_t *, const size_t);
+> +
+> +        // Sets the dbus parameters
+> +        void update_dbus_paths(const char *, const char *, const char *);
+> +};
+> +
+> +#endif
+> diff --git a/readeeprom.C b/readeeprom.C
+> index b9c6f69..b78f35e 100644
+> --- a/readeeprom.C
+> +++ b/readeeprom.C
+> @@ -12,7 +12,7 @@ static void exit_with_error(const char* err, char** argv)
+>  }
+>  
+>  //--------------------------------------------------------------------------
+> -// This gets called by udev monitor soon after seeing hog plugs for EEPROMS. 
+> +// This gets called by udev monitor soon after seeing hog plugs for EEPROMS.
+>  //--------------------------------------------------------------------------
+>  int main(int argc, char **argv)
+>  {
+> @@ -21,7 +21,7 @@ int main(int argc, char **argv)
+>  
+>      // Handle to per process system bus
+>      sd_bus *bus_type = NULL;
+> -    
+> +
+>      // Read the arguments.
+>      auto cli_options = std::make_unique<ArgumentParser>(argc, argv);
+>  
+> @@ -53,7 +53,7 @@ int main(int argc, char **argv)
+>  
+>      // Get a handle to System Bus
+>      rc = sd_bus_open_system(&bus_type);
+> -    if (rc < 0) 
+> +    if (rc < 0)
+>      {
 
-PGh0bWw+PGJvZHk+PHA+VW5mb3J0dW5hdGVseSwgdGhlcmUgaXMgcXVpdGUgYSBiaXQgbW9yZSB0
-byBoYXZpbmcgT3BlbkJNQyBzdXBwb3J0IGEgZ2l2ZW4gc3lzdGVtICh4ODYgb3Igb3RoZXJ3aXNl
-KS4gICBVbmxlc3MgeW91IGdvdCByZWFsbHkgbHVja3ksIHRoZSBHUElPJ3Mgb24geW91ciB4ODYg
-c3lzdGVtIGxpa2VseSBkbyB2YXJpb3VzIG90aGVyIHRoaW5ncyB0aGFuIHdlIGRvLiAgIEEgc2lt
-cGxlIGV4YW1wbGUsIGlzIHdlIGhhdmUgYSBncGlvIHRvIGNvbnRyb2wgdGhlIHBvd2VyIHNlcXVl
-bmNlciB0byBwb3dlciBvbiBzeXN0ZW0uICAgVGhlIHg4NiBzeXN0ZW0gbWlnaHQgYWxzbyB1c2Ug
-YSBncGlvLCBidXQgY291bGQgYmUgYSBkaWZmZXJlbnQgZ3BpbyBvciBpdCBtaWdodCBjb250cm9s
-IHBvd2VyIGZyb20gc291dGhicmlkZ2UuICAgeW91IHdvdWxkIG5lZWQgYSBzY2hlbWF0aWMgb2Yg
-eW91ciBzeXN0ZW0gb3IgcmV2ZXJzZSBlbmdpbmVlciB0aGUgYm9hcmQgdG8ga25vdy48YnI+PGJy
-Pjxicj5SZWdhcmRzLDxicj5Ob3JtYW4gSmFtZXM8YnI+SUJNIC0gUE9XRVIgU3lzdGVtcyBBcmNo
-aXRlY3Q8YnI+UGhvbmU6IDEtNTEyLTI4Ni02ODA3IChUL0w6IDM2My02ODA3KTxicj5JbnRlcm5l
-dDogbmphbWVzQHVzLmlibS5jb208YnI+PGJyPjxicj48aW1nIHdpZHRoPSIxNiIgaGVpZ2h0PSIx
-NiIgc3JjPSJjaWQ6MV9fPTA5QkJGNThDREZFQjZDNDU4ZjllOGE5M2RmOTM4NjkwOTE4YzA5QkAi
-IGJvcmRlcj0iMCIgYWx0PSJJbmFjdGl2ZSBoaWRlIGRldGFpbHMgZm9yIE5hdGhhbiBIb3VzZSAt
-LS0xMi8xOC8yMDE1IDAzOjU3OjE5IFBNLS0tRm9yd2FyZGluZyB0aGlzIGhlcmUuICBMb29raW5n
-IGZvciBhIGxpdHRsZSBndWlkYW5jZSBvbiBpbyBtIj48Zm9udCBjb2xvcj0iIzQyNDI4MiI+TmF0
-aGFuIEhvdXNlIC0tLTEyLzE4LzIwMTUgMDM6NTc6MTkgUE0tLS1Gb3J3YXJkaW5nIHRoaXMgaGVy
-ZS4gIExvb2tpbmcgZm9yIGEgbGl0dGxlIGd1aWRhbmNlIG9uIGlvIG1hcCBkZWZpbml0aW9ucyBl
-eHRyYWN0ZWQgZnJvbSBhbiB4ODYgcGxhPC9mb250Pjxicj48YnI+PGZvbnQgc2l6ZT0iMiIgY29s
-b3I9IiM1RjVGNUYiPkZyb206ICAgICAgICA8L2ZvbnQ+PGZvbnQgc2l6ZT0iMiI+TmF0aGFuIEhv
-dXNlICZsdDtuYXRoYW4uaG91c2VAUkFDS1NQQUNFLkNPTSZndDs8L2ZvbnQ+PGJyPjxmb250IHNp
-emU9IjIiIGNvbG9yPSIjNUY1RjVGIj5UbzogICAgICAgIDwvZm9udD48Zm9udCBzaXplPSIyIj4m
-cXVvdDtvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcmcXVvdDsgJmx0O29wZW5ibWNAbGlzdHMub3ps
-YWJzLm9yZyZndDs8L2ZvbnQ+PGJyPjxmb250IHNpemU9IjIiIGNvbG9yPSIjNUY1RjVGIj5EYXRl
-OiAgICAgICAgPC9mb250Pjxmb250IHNpemU9IjIiPjEyLzE4LzIwMTUgMDM6NTcgUE08L2ZvbnQ+
-PGJyPjxmb250IHNpemU9IjIiIGNvbG9yPSIjNUY1RjVGIj5TdWJqZWN0OiAgICAgICAgPC9mb250
-Pjxmb250IHNpemU9IjIiPkZ3ZDogT3BlbkJNQyB3b3Jrc2hvcCBhZ2VuZGEgKHdhczogJnF1b3Q7
-RndkOiBGb3hjb25uL1JhY2tzcGFjZSB3b3Jrc2hvcCBhZ2VuZGEmcXVvdDspPC9mb250Pjxicj48
-Zm9udCBzaXplPSIyIiBjb2xvcj0iIzVGNUY1RiI+U2VudCBieTogICAgICAgIDwvZm9udD48Zm9u
-dCBzaXplPSIyIj4mcXVvdDtvcGVuYm1jJnF1b3Q7ICZsdDtvcGVuYm1jLWJvdW5jZXMrbmphbWVz
-PXVzLmlibS5jb21AbGlzdHMub3psYWJzLm9yZyZndDs8L2ZvbnQ+PGJyPjxociB3aWR0aD0iMTAw
-JSIgc2l6ZT0iMiIgYWxpZ249ImxlZnQiIG5vc2hhZGUgc3R5bGU9ImNvbG9yOiM4MDkxQTU7ICI+
-PGJyPjxicj48YnI+PGZvbnQgc2l6ZT0iNCI+Rm9yd2FyZGluZyB0aGlzIGhlcmUuICBMb29raW5n
-IGZvciBhIGxpdHRsZSBndWlkYW5jZSBvbiBpbyBtYXAgZGVmaW5pdGlvbnMgZXh0cmFjdGVkIGZy
-b20gYW4geDg2IHBsYXRmb3JtLiA8L2ZvbnQ+PGJyPjxicj48Zm9udCBzaXplPSI0Ij5UaGFua3Mh
-PC9mb250Pjxicj48YnI+PGZvbnQgc2l6ZT0iNCI+IE5hdGUgSG91c2U8L2ZvbnQ+PGJyPjxicj4N
-Cjx1bD48dWw+PGZvbnQgc2l6ZT0iNCI+QmVnaW4gZm9yd2FyZGVkIG1lc3NhZ2U6PC9mb250Pjxi
-cj48YnI+PGI+PGZvbnQgc2l6ZT0iNCI+U3ViamVjdDogUmU6IE9wZW5CTUMgd29ya3Nob3AgYWdl
-bmRhICh3YXM6ICZxdW90O0Z3ZDogRm94Y29ubi9SYWNrc3BhY2Ugd29ya3Nob3AgYWdlbmRhJnF1
-b3Q7KTwvZm9udD48L2I+PGJyPjxiPjxmb250IHNpemU9IjQiPkZyb206IDwvZm9udD48L2I+PGZv
-bnQgc2l6ZT0iNCI+TmF0aGFuIEhvdXNlICZsdDs8L2ZvbnQ+PGEgaHJlZj0ibWFpbHRvOm5hdGhh
-bi5ob3VzZUByYWNrc3BhY2UuY29tIj48dT48Zm9udCBzaXplPSI0IiBjb2xvcj0iIzAwMDBGRiI+
-bmF0aGFuLmhvdXNlQHJhY2tzcGFjZS5jb208L2ZvbnQ+PC91PjwvYT48Zm9udCBzaXplPSI0Ij4m
-Z3Q7PC9mb250Pjxicj48Yj48Zm9udCBzaXplPSI0Ij5EYXRlOiA8L2ZvbnQ+PC9iPjxmb250IHNp
-emU9IjQiPkRlY2VtYmVyIDE2LCAyMDE1IGF0IDQ6MDA6NTEgUE0gQ1NUPC9mb250Pjxicj48Yj48
-Zm9udCBzaXplPSI0Ij5DYzogPC9mb250PjwvYj48Zm9udCBzaXplPSI0Ij5BZGkgR2FuZ2lkaSAm
-bHQ7PC9mb250PjxhIGhyZWY9Im1haWx0bzphZGkuZ2FuZ2lkaUByYWNrc3BhY2UuY29tIj48dT48
-Zm9udCBzaXplPSI0IiBjb2xvcj0iIzAwMDBGRiI+YWRpLmdhbmdpZGlAcmFja3NwYWNlLmNvbTwv
-Zm9udD48L3U+PC9hPjxmb250IHNpemU9IjQiPiZndDssIEtlbm5ldGggV2lsa2UgJmx0OzwvZm9u
-dD48YSBocmVmPSJtYWlsdG86a2VubmV0aC53aWxrZUBSQUNLU1BBQ0UuQ09NIj48dT48Zm9udCBz
-aXplPSI0IiBjb2xvcj0iIzAwMDBGRiI+a2VubmV0aC53aWxrZUBSQUNLU1BBQ0UuQ09NPC9mb250
-PjwvdT48L2E+PGZvbnQgc2l6ZT0iNCI+Jmd0OywgTWFqb3IgSGF5ZGVuICZsdDs8L2ZvbnQ+PGEg
-aHJlZj0ibWFpbHRvOm1ham9yLmhheWRlbkByYWNrc3BhY2UuY29tIj48dT48Zm9udCBzaXplPSI0
-IiBjb2xvcj0iIzAwMDBGRiI+bWFqb3IuaGF5ZGVuQHJhY2tzcGFjZS5jb208L2ZvbnQ+PC91Pjwv
-YT48Zm9udCBzaXplPSI0Ij4mZ3Q7LCBBbnRvbnkgTWVzc2VybGkgJmx0OzwvZm9udD48YSBocmVm
-PSJtYWlsdG86YW1lc3NlcmxAcmFja3NwYWNlLmNvbSI+PHU+PGZvbnQgc2l6ZT0iNCIgY29sb3I9
-IiMwMDAwRkYiPmFtZXNzZXJsQHJhY2tzcGFjZS5jb208L2ZvbnQ+PC91PjwvYT48Zm9udCBzaXpl
-PSI0Ij4mZ3Q7LCBOb3JtYW4gSmFtZXMvQXVzdGluL0lCTSAmbHQ7PC9mb250PjxhIGhyZWY9Im1h
-aWx0bzpuamFtZXNAdXMuaWJtLmNvbSI+PHU+PGZvbnQgc2l6ZT0iNCIgY29sb3I9IiMwMDAwRkYi
-Pm5qYW1lc0B1cy5pYm0uY29tPC9mb250PjwvdT48L2E+PGZvbnQgc2l6ZT0iNCI+Jmd0OywgJmx0
-OzwvZm9udD48YSBocmVmPSJtYWlsdG86amtAb3psYWJzLm9yZyI+PHU+PGZvbnQgc2l6ZT0iNCIg
-Y29sb3I9IiMwMDAwRkYiPmprQG96bGFicy5vcmc8L2ZvbnQ+PC91PjwvYT48Zm9udCBzaXplPSI0
-Ij4mZ3Q7LCAmbHQ7PC9mb250PjxhIGhyZWY9Im1haWx0bzpjYXVzdGVuQHVzLmlibS5jb20iPjx1
-Pjxmb250IHNpemU9IjQiIGNvbG9yPSIjMDAwMEZGIj5jYXVzdGVuQHVzLmlibS5jb208L2ZvbnQ+
-PC91PjwvYT48Zm9udCBzaXplPSI0Ij4mZ3Q7LCAmbHQ7PC9mb250PjxhIGhyZWY9Im1haWx0bzpw
-d2lsbGlhbXNAdXMuaWJtLmNvbSI+PHU+PGZvbnQgc2l6ZT0iNCIgY29sb3I9IiMwMDAwRkYiPnB3
-aWxsaWFtc0B1cy5pYm0uY29tPC9mb250PjwvdT48L2E+PGZvbnQgc2l6ZT0iNCI+Jmd0OzwvZm9u
-dD48YnI+PGI+PGZvbnQgc2l6ZT0iNCI+VG86IDwvZm9udD48L2I+PGZvbnQgc2l6ZT0iNCI+QWFy
-b24gU3VsbGl2YW4gJmx0OzwvZm9udD48YSBocmVmPSJtYWlsdG86YWFyb24uc3VsbGl2YW5AcmFj
-a3NwYWNlLmNvbSI+PHU+PGZvbnQgc2l6ZT0iNCIgY29sb3I9IiMwMDAwRkYiPmFhcm9uLnN1bGxp
-dmFuQHJhY2tzcGFjZS5jb208L2ZvbnQ+PC91PjwvYT48Zm9udCBzaXplPSI0Ij4mZ3Q7PC9mb250
-Pjxicj48YnI+PGZvbnQgc2l6ZT0iNCI+SGV5IEd1eXMsIDwvZm9udD48YnI+PGJyPjxmb250IHNp
-emU9IjQiPkluIG15IGF0dGVtcHRzIHRvIGtlZXAgc29tZSBtb21lbnR1bSBnb2luZyBmb2xsb3dp
-bmcgdGhlIHdvcmtzaG9wIEkgd2FzIGRpZ2dpbmcgb24gb25lIG9mIG91ciB4ODYgcGxhdGZvcm1z
-IGFzdDI0MDAgdmVuZG9yIHByb3ZpZGVkIGltYWdlcy4gIExvb2tpbmcgZm9yIHdoYXQgbmVlZHMg
-dG8gY2hhbmdlIHRvIG1ha2UgYSB3b3JraW5nIGltYWdlIGZvciB0aGVtIGV0Yy4gIEkgdGhpbmsg
-d2l0aCB0aGUgZGV2IGFkZHJlc3MgZGVmcyBpdCB3b3VsZCBnZXQgaGFsZiB3YXkgaWYgbm90IG1v
-cmUuICBMb2FkZWQgdGhlaXIgYm1jIGZ3IGJpbiBpbnRvIGJpbndhbGsgYW5kIGRpc2NvdmVyZWQg
-c29tZSBpbnRlcmVzdGluZyBiaW5hcnkgZGF0YSB0aGF0IG1pZ2h0IGhhdmUgd2hhdCBpcyBuZWVk
-ZWQuICBCZWxvdyBpcyBhIGdpc3Qgb2YgdGhlIGNvbnRlbnRzIHdoaWNoIGFwcGVhciBtaWdodCBi
-ZSByZWZzIHRvIGFkZHJlc3NlcyBmb3IgZGlmZmVyZW50IGlvIGFuZCBzZW5zb3JzLiAgPC9mb250
-Pjxicj48YnI+PGEgaHJlZj0iaHR0cHM6Ly9naXN0LmdpdGh1Yi5jb20vbmF0ZXJoL2MwMGNhZjlj
-OTQwNTc4ZWVjMTM4Ij48dT48Zm9udCBzaXplPSI0IiBjb2xvcj0iIzAwMDBGRiI+aHR0cHM6Ly9n
-aXN0LmdpdGh1Yi5jb20vbmF0ZXJoL2MwMGNhZjljOTQwNTc4ZWVjMTM4PC9mb250PjwvdT48L2E+
-PGJyPjxicj48Zm9udCBzaXplPSI0Ij5XaGF0IG5lZWRzIHRvIGJlIGFkZGVkIHRvIHRoZSBza2Vs
-ZXRvbiB0byBtYWtlIHRoaXMgaGFwcGVuLiAgSeKAmW0gdGhpbmtpbmcgaXQgd291bGQgbmVlZCBh
-IG5ldyBtb2R1bGUgaW4gYmluLyBhbmQgbWF5YmUgYSBiaXQgb2Ygd29yayBpbiBvYmplY3RzLyBh
-bmQgaXRzIHN1YiBkaXJzLiAgT3V0c2lkZSBvZiB0aGF0IHByb2plY3QgYW5kIGxvb2tpbmcgYXQg
-dGhlIGV4aXN0aW5nIHdvcmtpbmcgcGxhdGZvcm1zLCBJIHdhcyBnb2luZyB0byB0cnkgdG8gYmFz
-ZSBvZmYgb2YgcGFsbWV0dG8gYW5kIHNlZSB3aGVyZSB0aGF0IGdldHMgbWUuICBBbnl0aGluZyBl
-bHNlIEnigJltIG1pc3Npbmc/PC9mb250Pjxicj48YnI+PGZvbnQgc2l6ZT0iNCI+RmVlbCBmcmVl
-IHRvIGluY2x1ZGUgb3IgZHJvcCBvZmYgYW55b25lIGZyb20gdGhpcyB0aHJlYWQgYXMgc29tZSBv
-ZiB0aGUgYWRkcmVzc2VzIG1pZ2h0IGJlIGluY29ycmVjdC4gIFdhcyBzb21ldGhpbmcgSeKAmWQg
-Zm9yZ290IHRvIGdldCBiZWZvcmUgdGFraW5nIG9mZi4gPC9mb250Pjxicj48YnI+PGZvbnQgc2l6
-ZT0iNCI+VGhhbmtzITwvZm9udD48YnI+PGJyPjxmb250IHNpemU9IjQiPk5hdGUgSG91c2U8L2Zv
-bnQ+PGJyPjxmb250IHNpemU9IjQiPiA8L2ZvbnQ+PHVsPjx1bD48Zm9udCBzaXplPSI0Ij5PbiBE
-ZWMgMTAsIDIwMTUsIGF0IDI6NTIgUE0sIEFhcm9uIFN1bGxpdmFuICZsdDs8L2ZvbnQ+PGEgaHJl
-Zj0ibWFpbHRvOmFhcm9uLnN1bGxpdmFuQHJhY2tzcGFjZS5jb20iPjx1Pjxmb250IHNpemU9IjQi
-IGNvbG9yPSIjMDAwMEZGIj5hYXJvbi5zdWxsaXZhbkByYWNrc3BhY2UuY29tPC9mb250PjwvdT48
-L2E+PGZvbnQgc2l6ZT0iNCI+Jmd0OyB3cm90ZTo8L2ZvbnQ+PGJyPjxicj48Zm9udCBzaXplPSI0
-Ij5TZWUgYmVsb3cuICBTdGlsbCBtaWdodCBjaGFuZ2UsIGJ1dCBqdXN0IGEgYml0Ljxicj48YnI+
-U2VudCBmcm9tIG15IG1vYmlsZTwvZm9udD48dWw+PHVsPjxiPjx1Pjxmb250IHNpemU9IjQiPk1v
-bmRheSBEZWMgMTR0aDwvZm9udD48L3U+PC9iPjxmb250IHNpemU9IjQiPjxicj48L2ZvbnQ+PGI+
-PGZvbnQgc2l6ZT0iNCI+PGJyPlRpbWUgVG9waWMgRGV0YWlscyBQcmVzZW50ZXI8L2ZvbnQ+PC9i
-Pjxmb250IHNpemU9IjQiPjxicj48YnI+OTowMGFtIDE1IG1pbiBLaWNrb2ZmIEludHJvcywgcHJl
-c2VudCBvYmplY3RpdmUsIGFnZW5kYSBOb3JtPGJyPjxicj45OjE1IDQ1IG1pbiBEYnVzIERidXMg
-dHV0b3JpYWwuIDwvZm9udD48Yj48Zm9udCBzaXplPSI0IiBjb2xvcj0iIzAwMDBGRiI+U3VtbWFy
-aXplIGJpbmRpbmdzIChweXRob24sIHNkYnVzLCBnZGJ1cykgPC9mb250PjwvYj48Yj48Zm9udCBz
-aXplPSI0IiBjb2xvcj0iIzAwODAwMCI+UGF0cmljayBvciBOb3JtPzwvZm9udD48L2I+PGZvbnQg
-c2l6ZT0iNCIgY29sb3I9IiMwMDAwRkYiPjxicj5FdmVuIHRob3VnaCB3ZSBhcmVuJ3QgdXNpbmcg
-Z2RidXMsIHRoZXkgd2lsbCBjb21lIGFjcm9zcyBpdDxicj53aGVuIHNlYXJjaGluZyBhbmQgZG9u
-J3Qgd2FudCBhbnkgY29uZnVzaW9uPC9mb250Pjxmb250IHNpemU9IjQiPjxicj48YnI+MTA6MDAg
-MTUgbWluIERidXMgYW5kIElQTUkgSGlnaGxpZ2h0IGRpZmZlcmVuY2VzIGZyb20gSVBNSSwgc3Vj
-aCBhcyBpbnZlbnRvcnkgdnMgc2Vuc29ycyA8L2ZvbnQ+PGI+PGZvbnQgc2l6ZT0iNCIgY29sb3I9
-IiMwMDAwRkYiPk5vcm08L2ZvbnQ+PC9iPjxmb250IHNpemU9IjQiPjxicj48YnI+MTA6MTUgMTUg
-bWluIEJSRUFLPGJyPjxicj4xMDozMCAxIGhyIERidXMgZXhhbXBsZSBXYWxrIHRocm91Z2ggYSBj
-dXJyZW50IGRidXMgaW1wbGVtZW50YXRpb24gPC9mb250PjxiPjxmb250IHNpemU9IjQiIGNvbG9y
-PSIjMDA4MDAwIj5DaHJpczwvZm9udD48L2I+PGZvbnQgc2l6ZT0iNCI+IDxicj48YnI+MTE6MzAg
-MS41IGhyIExVTkNIPGJyPjxicj4xOjAwcG0gMzAgbWluIEdpdGh1cCBvdmVydmlldyBSZXZpZXcg
-b2YgdGhlIGdpaHViIHJlcG9zaXRvcmllcyBhbmQgd2hhdCBlYWNoIGNvbnRhaW5zIDwvZm9udD48
-Yj48Zm9udCBzaXplPSI0IiBjb2xvcj0iIzAwMDBGRiI+QnJhZDwvZm9udD48L2I+PGZvbnQgc2l6
-ZT0iNCI+PGJyPjxicj4xOjMwIDEgaHIgVHJlZSBjb2RlIHN0cnVjdCBSZXZpZXcgb2YgdGhlIG9w
-ZW5ibWMgdHJlZSBjb2RlIHN0cnVjdHVyZSBpbiB5b2N0byBlbnYgPC9mb250PjxiPjxmb250IHNp
-emU9IjQiIGNvbG9yPSIjMDAwMEZGIj5CcmFkPC9mb250PjwvYj48Zm9udCBzaXplPSI0Ij48YnI+
-PGJyPjI6MzAgMTUgbWluIEJSRUFLPGJyPjxicj4yOjQ1IDEgaHIgRGJ1cyBvYmplY3RzIE92ZXJ2
-aWV3IG9mIGFsbCBjcmVhdGVkIGRidXMgb2JqZWN0cyA8L2ZvbnQ+PGI+PGZvbnQgc2l6ZT0iNCIg
-Y29sb3I9IiMwMDgwMDAiPldob2V2ZXIgY3JlYXRlZCB0aGUgZGJ1cyBvYmplY3QgY2FuIHRhbGsg
-Zm9yIGl0PC9mb250PjwvYj48Zm9udCBzaXplPSI0Ij48YnI+PGJyPjM6NDUgMWhyIFJvdW5kdGFi
-bGUgUXVlc3Rpb25zIHRvIEZveGNvbm4vUmFja3NwYWNlLCBzdWNoIGFzIG1mZyB0b29scyw8YnI+
-aG93IHRoZXkgcHJvdmlzaW9uIHRoZWlyIHN5c3RlbXMsPGJyPmhvdyB0aGVpciBhZG1pbnMgc3Vw
-cG9ydCB0aGUgc3lzdGVtcywgYWNjZXNzIHRvIHJvb3QgbGV2ZWw8YnI+dGhpbmdzIG9uIGRidXMg
-c3VjaCBhcyBmbGFzaGluZywgc2hvdWxkIHRoYXQgYmUgc29tZXRoaW5nIGNsaWVudHMgaGF2ZSBh
-Y2Nlc3MgdG8/PGJyPkFueSBmZWF0dXJlcyB0aGV5IHdhbnQgdXMgdG8gd29yayAvIGZvY3VzIG9u
-PC9mb250PjxiPjxmb250IHNpemU9IjQiIGNvbG9yPSIjMDA4MDAwIj48YnI+TlRQIGNsb2NrLCBN
-QUMgYWRkcmVzc2VzLCBSYWNrc3BhY2UncyBJcm9uaWM8L2ZvbnQ+PC9iPjxmb250IHNpemU9IjQi
-Pjxicj48YnI+NDo0NSAxNSBtaW4gV1JBUC1VUCBRdWVzdGlvbnM8YnI+PGJyPjU6MDAgRU5EPGJy
-Pjxicj48YnI+PC9mb250PjxiPjx1Pjxmb250IHNpemU9IjQiPjxicj5UdWVzZGF5IERlYyAxNXRo
-PC9mb250PjwvdT48L2I+PGZvbnQgc2l6ZT0iNCI+PGJyPjwvZm9udD48Yj48Zm9udCBzaXplPSI0
-Ij48YnI+VGltZSBUb3BpYyBEZXRhaWxzIFByZXNlbnRlcjwvZm9udD48L2I+PGZvbnQgc2l6ZT0i
-NCI+PGJyPjxicj45OjAwYW0gMTUgbWluIEludHJvIEFnZW5kYSBmb3IgdGhlIGRheSA8YnI+PGJy
-Pjk6MTUgMSBociBId21vbiBId21vbiB0dXRvcmlhbCBhbmQgb3ZlcnZpZXcgb2YgT0NDIGRyaXZl
-ciA8L2ZvbnQ+PGI+PGZvbnQgc2l6ZT0iNCIgY29sb3I9IiMwMDAwRkYiPkxpIFlpPC9mb250Pjwv
-Yj48Zm9udCBzaXplPSI0Ij48YnI+PGJyPjEwOjE1IDE1IG1pbiBCUkVBSzxicj48YnI+MTA6MzAg
-NDUgbWluIEtlcm5lbCA8L2ZvbnQ+PGI+PGZvbnQgc2l6ZT0iNCIgY29sb3I9IiMwMDAwRkYiPi0g
-Q292ZXIgbmV3IGtlcm5lbCBhZHZhbnRhZ2VzLCBsaW1pdGF0aW9ucywgZGV2aWNlIHRyZWUgb3Zl
-cnZpZXcgLSBKZXJlbXk8L2ZvbnQ+PC9iPjxmb250IHNpemU9IjQiPjxicj48YnI+MTE6MTUgNDUg
-bWluIEV2ZW50IGxvZ3MgRXZlbnQgbG9ncyBhbmQgZnJ1IGlzb2xhdGlvbiBzdHJhdGVneSA8L2Zv
-bnQ+PGI+PGZvbnQgc2l6ZT0iNCIgY29sb3I9IiMwMDAwRkYiPkNocmlzPC9mb250PjwvYj48Zm9u
-dCBzaXplPSI0Ij48YnI+PGJyPjEyOjAwIDEgaHIgTFVOQ0g8YnI+PGJyPjE6MDBwbSAxIGhyIFJl
-c3QgSG93IHRvIGFjY2VzcyBtZXRob2RzIHRocm91Z2ggUkVTVCA8L2ZvbnQ+PGI+PGZvbnQgc2l6
-ZT0iNCIgY29sb3I9IiMwMDAwRkYiPkJyYWQ8L2ZvbnQ+PC9iPjxmb250IHNpemU9IjQiPjxicj48
-YnI+MjowMCAxNSBtaW4gUmVzdCBhZHZhbnRhZ2VzIFNob3cgaG93IHNlYW1sZXNzbHkgdGhlIFJF
-U1QgaW1wbGVtZW50YXRpb24gaXMgPC9mb250PjxiPjxmb250IHNpemU9IjQiIGNvbG9yPSIjMDAw
-MEZGIj5CcmFkPC9mb250PjwvYj48Zm9udCBzaXplPSI0Ij48YnI+PGJyPjI6MTUgMTUgbWluIEJS
-RUFLPGJyPjxicj4yOjMwIDEuNSBociBIYW5kcy1vbiBXcml0ZSBhIGRidXMgaW1wbGVtZW50YXRp
-b24gKFRCRCkgPC9mb250PjxiPjxmb250IHNpemU9IjQiIGNvbG9yPSIjMDA4MDAwIj4tIFN5c3Rl
-bSBpbmZvIChmcmVlIHRleHQgYXJlYSk8L2ZvbnQ+PC9iPjxmb250IHNpemU9IjQiPiA8L2ZvbnQ+
-PGI+PGZvbnQgc2l6ZT0iNCIgY29sb3I9IiMwMDAwRkYiPkNocmlzPC9mb250PjwvYj48Zm9udCBz
-aXplPSI0Ij48YnI+PGJyPjQ6MDAgMzAgbWluIEZ1dHVyZSBXaGVyZSB3ZSdyZSBnb2luZyBuZXh0
-IGFuZCB3aGVyZSB3ZSdyZSBoZWFkaW5nIDwvZm9udD48Yj48Zm9udCBzaXplPSI0IiBjb2xvcj0i
-IzAwODAwMCI+Pz8/PC9mb250PjwvYj48Yj48Zm9udCBzaXplPSI0IiBjb2xvcj0iIzAwMDBGRiI+
-PGJyPi0gRGlzY3VzcyB4ODYgYW5kIG1heWJlIHJlZmFjdG9yaW5nIEZhY2Vib29rIE9wZW5ibWM8
-YnI+Zm9yIFlvc2VtaXRlIHRvIGRidXMgYXJjaGl0ZWN0dXJlIGFuZCBuZXcga2VybmVsPC9mb250
-PjwvYj48Zm9udCBzaXplPSI0Ij48YnI+PGJyPjQ6MzAgMzAgbWluIFdSQVAtVVAgUXVlc3Rpb25z
-LCB3b3Jrc2hvcCByZWNhcCwgY29uY2x1c2lvbjxicj48YnI+NTowMCBFTkQ8YnI+PGJyPjwvZm9u
-dD48Yj48Zm9udCBzaXplPSI0IiBjb2xvcj0iIzAwMDBGRiI+PGJyPjIgdG9waWNzIHRvIGFkZDo8
-YnI+LSBDb3ZlciBuZXcga2VybmVsIGFkdmFudGFnZXMsIGxpbWl0YXRpb25zLCBkZXZpY2UgdHJl
-ZSBvdmVydmlldyAtIEplcmVteTxicj4tIERpc2N1c3MgeDg2IGFuZCBtYXliZSByZWZhY3Rvcmlu
-ZyBGYWNlYm9vayBPcGVuYm1jIGZvciBZb3NlbWl0ZSB0byBkYnVzIGFyY2hpdGVjdHVyZSBhbmQg
-bmV3IGtlcm5lbDwvZm9udD48L2I+PGZvbnQgc2l6ZT0iNCI+PGJyPjxicj48YnI+PGJyPjwvZm9u
-dD48L3VsPjwvdWw+PGZvbnQgc2l6ZT0iNCI+Jmx0O2dyYXljb2wuZ2lmJmd0OzwvZm9udD48L3Vs
-PjwvdWw+PC91bD48L3VsPjx0dD5fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXzxicj5vcGVuYm1jIG1haWxpbmcgbGlzdDxicj5vcGVuYm1jQGxpc3RzLm96bGFi
-cy5vcmc8YnI+PC90dD48dHQ+PGEgaHJlZj0iaHR0cHM6Ly9saXN0cy5vemxhYnMub3JnL2xpc3Rp
-bmZvL29wZW5ibWMiPmh0dHBzOi8vbGlzdHMub3psYWJzLm9yZy9saXN0aW5mby9vcGVuYm1jPC9h
-PjwvdHQ+PHR0Pjxicj48L3R0Pjxicj48QlI+DQo8L2JvZHk+PC9odG1sPg0K
+... unchanged ...
 
---1__=09BBF58CDFEB6C458f9e8a93df938690918c09BBF58CDFEB6C45--
+>          fprintf(stderr, "Failed to connect to system bus: %s\n",strerror(-rc));
+>      }
+> @@ -61,7 +61,8 @@ int main(int argc, char **argv)
+>      {
+>          // Now that we have the file that contains the eeprom data, go read it and
 
+[snip]
 
---0__=09BBF58CDFEB6C458f9e8a93df938690918c09BBF58CDFEB6C45
-Content-type: image/gif; 
-	name="graycol.gif"
-Content-Disposition: inline; filename="graycol.gif"
-Content-ID: <1__=09BBF58CDFEB6C458f9e8a93df938690918c09B@>
-Content-Transfer-Encoding: base64
+>  
+>  ///-----------------------------------------------------
+>  // Accepts the filename and validates per IPMI FRU spec
+>  //----------------------------------------------------
+> -int ipmi_validate_fru_area(const uint8_t fruid, const char *fru_file_name, 
+> -						   sd_bus *bus_type)
+> +int ipmi_validate_fru_area(const uint8_t fruid, const char *fru_file_name,
+> +                           sd_bus *bus_type, const bool bmc_fru)
+>  {
+> -    int file_size = 0;
+> -    uint8_t *fru_data = NULL;
+> -    int bytes_read = 0;
+> -    int rc = 0;
+> +    size_t data_len = 0;
+> +    size_t bytes_read = 0;
+> +    int rc = -1;
+>  
+> -    FILE *fru_file = fopen(fru_file_name,"rb");
+> -    if(fru_file == NULL)
+> +    // Vector that holds individual IPMI FRU AREAs. Although MULTI and INTERNAL
+> +    // are not used, keeping it here for completeness.
+> +    fru_area_vec_t fru_area_vec;
+> +    for(uint8_t fru_entry = IPMI_FRU_INTERNAL_OFFSET;
+> +        fru_entry < (sizeof(struct common_header) -2); fru_entry++)
+> +    {
+> +        // Create an object and push onto a vector.
+> +        std::unique_ptr<ipmi_fru> fru_area = std::make_unique<ipmi_fru>
+> +                         (fruid, get_fru_area_type(fru_entry), bus_type, bmc_fru);
+> +
+> +        // Physically being present
+> +        bool present = std::ifstream(fru_file_name);
+> +        fru_area->set_present(present);
+> +
+> +        // And update the sd_bus paths as well.
+> +        fru_area->setup_sd_bus_paths();
+> +        fru_area_vec.emplace_back(std::move(fru_area));
+> +    }
+> +
+> +    FILE *fru_fp = fopen(fru_file_name,"rb");
 
-R0lGODlhEAAQAKECAMzMzAAAAP///wAAACH5BAEAAAIALAAAAAAQABAAAAIXlI+py+0PopwxUbpu
-ZRfKZ2zgSJbmSRYAIf4fT3B0aW1pemVkIGJ5IFVsZWFkIFNtYXJ0U2F2ZXIhAAA7
+Was changing fru_file to fru_fp absolutely necessary... I would argue fru_file
+is a better name anyway, it isn't an fp. If you really must, do it in a separate
+patch.
 
+> +    if(fru_fp == NULL)
+>      {
+>          fprintf(stderr, "ERROR: opening:[%s]\n",fru_file_name);
+>          perror("Error:");
+> -        return -1;
+> +        return cleanup_error(fru_fp, fru_area_vec);
+>      }
+>  
+> -    // Get the size of the file to allocate buffer to hold the entire contents.
+> -    if(fseek(fru_file, 0, SEEK_END))
+> +    // Get the size of the file to see if it meets minimum requirement
+> +    if(fseek(fru_fp, 0, SEEK_END))
+>      {
+>          perror("Error:");
+> -        fclose(fru_file);
+> -        return -1;
+> +        return cleanup_error(fru_fp, fru_area_vec);
+>      }
+>  
+> -    file_size = ftell(fru_file);
+> -    fru_data = (uint8_t *)malloc(file_size);
+> +    // Allocate a buffer to hold entire file content
+> +    data_len = ftell(fru_fp);
+> +    uint8_t fru_data[data_len] = {0};
 
---0__=09BBF58CDFEB6C458f9e8a93df938690918c09BBF58CDFEB6C45--
+Why this change? I don't think this is going to do what you want.
+
+>  
+> -    // Read entire file contents to the internal buffer
+> -    if(fseek(fru_file, 0, SEEK_SET))
+> +    rewind(fru_fp);
+> +    bytes_read = fread(fru_data, data_len, 1, fru_fp);
+> +    if(bytes_read != 1)
+>      {
+> +        fprintf(stderr, "Failed reading fru data. Bytes_read=[%d]\n",bytes_read);
+>          perror("Error:");
+> -        fclose(fru_file);
+> -        return -1;
+> +        return cleanup_error(fru_fp, fru_area_vec);
+>      }
+>  
+> -    bytes_read = fread(fru_data, file_size, 1, fru_file);
+> -    if(bytes_read != 1)
+> +    // We are done reading.
+> +    fclose(fru_fp);
+> +    fru_fp = NULL;
+> +
+> +    rc = ipmi_validate_common_hdr(fru_data, data_len);
+> +    if(rc < 0)
+>      {
+> -        fprintf(stderr, "ERROR reading common header. Bytes read=:[%d]\n",bytes_read);
+> -        perror("Error:");
+> -        fclose(fru_file);
+> -        return -1;
+> +        return cleanup_error(fru_fp, fru_area_vec);
+>      }
+> -    fclose(fru_file);
+>  
+> -    rc = ipmi_validate_and_update_inventory(fruid, fru_data, bus_type);
+> -    if(rc == -1)
+> +    // Now that we validated the common header, populate various fru sections if we have them here.
+> +    rc = ipmi_populate_fru_areas(fru_data, data_len, fru_area_vec);
+> +    if(rc < 0)
+>      {
+> -        printf("ERROR: Validation failed for:[%d]\n",fruid);
+> +        fprintf(stderr,"Populating FRU areas failed for:[%d]\n",fruid);
+> +        return cleanup_error(fru_fp, fru_area_vec);
+>      }
+>      else
+>      {
+> -        printf("SUCCESS: Validated:[%s]\n",fru_file_name);
+> +        printf("SUCCESS: Populated FRU areas for:[%s]\n",fru_file_name);
+>      }
+>  
+> -    if(fru_data)
+> +#ifdef __IPMI_DEBUG__
+> +    for(auto& iter : fru_area_vec)
+>      {
+> -        free(fru_data);
+> -        fru_data = NULL;
+> +        printf("FRU ID : [%d]\n",(iter)->get_fruid());
+> +        printf("AREA NAME : [%s]\n",(iter)->get_name());
+> +        printf("TYPE : [%d]\n",(iter)->get_type());
+> +        printf("LEN : [%d]\n",(iter)->get_len());
+> +        printf("BUS NAME : [%s]\n", (iter)->get_bus_name());
+> +        printf("OBJ PATH : [%s]\n", (iter)->get_obj_path());
+> +        printf("INTF NAME :[%s]\n", (iter)->get_intf_name());
+>      }
+> +#endif
+> +
+> +    // If the vector is populated with everything, then go ahead and update the
+> +    // inventory.
+> +    if(!(fru_area_vec.empty()))
+> +    {
+> +
+> +#ifdef __IPMI_DEBUG__
+> +        printf("\n SIZE of vector is : [%d] \n",fru_area_vec.size());
+> +#endif
+> +        rc = ipmi_update_inventory(fru_area_vec);
+> +        if(rc <0)
+> +        {
+> +            fprintf(stderr, "Error updating inventory\n");
+> +        }
+> +    }
+> +
+> +    // we are done with all that we wanted to do. This will do the job of
+> +    // calling any destructors too.
+> +    fru_area_vec.clear();
+>  
+>      return rc;
+>  }
+> -
+> diff --git a/writefrudata.H b/writefrudata.H
+> index 89c20ac..c65c21b 100644
+> --- a/writefrudata.H
+> +++ b/writefrudata.H
+> @@ -5,6 +5,10 @@
+>  #include <stddef.h>
+>  #include <systemd/sd-bus.h>
+>  
+> +#ifndef __cplusplus
+> +#include <stdbool.h> // For bool variable
+> +#endif
+> +
+>  // IPMI commands for Storage net functions.
+>  enum ipmi_netfn_storage_cmds
+>  {
+> @@ -12,7 +16,7 @@ enum ipmi_netfn_storage_cmds
+>  };
+>  
+>  // Format of write fru data command
+> -struct write_fru_data_t 
+> +struct write_fru_data_t
+>  {
+>      uint8_t  frunum;
+>      uint8_t  offsetls;
+> @@ -33,14 +37,6 @@ struct common_header
+>      uint8_t crc;
+>  }__attribute__((packed));
+>  
+> -// Contains key info about a particular area.
+> -typedef struct
+> -{
+> -    uint8_t type;
+> -    uint8_t *offset;
+> -    size_t  len;
+> -}__attribute__((packed)) fru_area_t;
+> -
+>  // first byte in header is 1h per IPMI V2 spec.
+>  #define IPMI_FRU_HDR_BYTE_ZERO   1
+>  #define IPMI_FRU_INTERNAL_OFFSET offsetof(struct common_header, internal_offset)
+> @@ -51,6 +47,13 @@ typedef struct
+>  #define IPMI_FRU_HDR_CRC_OFFSET  offsetof(struct common_header, crc)
+>  #define IPMI_EIGHT_BYTES         8
+>  
+> -extern "C" int ipmi_validate_fru_area(const uint8_t, const char *, sd_bus *);
+> +#ifdef __cplusplus
+> +extern "C" {
+> +#endif
+> +
+> +int ipmi_validate_fru_area(const uint8_t, const char *, sd_bus *, const bool);
+>  
+> +#ifdef __cplusplus
+> +} // extern C
+> +#endif
+>  #endif
