@@ -1,54 +1,21 @@
-Return-Path: <stewart@linux.vnet.ibm.com>
-Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
- (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
+Return-Path: <openbmc-patches@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 701C01A08ED
- for <openbmc@lists.ozlabs.org>; Wed, 23 Dec 2015 12:09:56 +1100 (AEDT)
-Received: from localhost
- by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
- Tue, 22 Dec 2015 18:09:53 -0700
-Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
- by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 22 Dec 2015 18:09:51 -0700
-X-IBM-Helo: d03dlp03.boulder.ibm.com
-X-IBM-MailFrom: stewart@linux.vnet.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from b03cxnp08028.gho.boulder.ibm.com
- (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
- by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id 5F2D219D8026
- for <openbmc@lists.ozlabs.org>; Tue, 22 Dec 2015 17:57:54 -0700 (MST)
-Received: from d03av03.boulder.ibm.com (d03av03.boulder.ibm.com [9.17.195.169])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- tBN19o7X18743486
- for <openbmc@lists.ozlabs.org>; Tue, 22 Dec 2015 18:09:50 -0700
-Received: from d03av03.boulder.ibm.com (localhost [127.0.0.1])
- by d03av03.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- tBN19ok4011898
- for <openbmc@lists.ozlabs.org>; Tue, 22 Dec 2015 18:09:50 -0700
-Received: from birb.localdomain ([9.81.192.176])
- by d03av03.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with SMTP id
- tBN19exF011564; Tue, 22 Dec 2015 18:09:49 -0700
-Received: by birb.localdomain (Postfix, from userid 1000)
- id F0C60229EAB2; Wed, 23 Dec 2015 12:09:37 +1100 (AEDT)
-From: Stewart Smith <stewart@linux.vnet.ibm.com>
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: Re: [PATCH skeleton 03/15] Fix THROTTLE typo:
-In-Reply-To: <1450482035-4530-4-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1450482035-4530-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1450482035-4530-4-git-send-email-openbmc-patches@stwcx.xyz>
-User-Agent: Notmuch/0.21+24~gbceb651 (http://notmuchmail.org) Emacs/24.5.1
- (x86_64-redhat-linux-gnu)
-Date: Wed, 23 Dec 2015 12:09:37 +1100
-Message-ID: <87egeekm26.fsf@linux.vnet.ibm.com>
-MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 15122301-0021-0000-0000-0000157CFA2E
+ by lists.ozlabs.org (Postfix) with ESMTPS id 9CAA71A0935
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Dec 2015 13:30:31 +1100 (AEDT)
+Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
+ with SMTPS id 1450837828240693.9551027560514;
+ Tue, 22 Dec 2015 18:30:28 -0800 (PST)
+From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH phosphor-host-ipmid v3] Add get/set ipmid command support with
+ correct DBUS property handling.
+Date: Tue, 22 Dec 2015 20:30:26 -0600
+Message-Id: <1450837827-22614-1-git-send-email-openbmc-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.6.3
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -60,26 +27,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Dec 2015 01:09:57 -0000
+X-List-Received-Date: Wed, 23 Dec 2015 02:30:33 -0000
 
-OpenBMC Patches <openbmc-patches@stwcx.xyz> writes:
-> From: Ken <ken.sk.lai@mail.foxconn.com>
->
-> ---
->  objects/control_host_obj.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/objects/control_host_obj.c b/objects/control_host_obj.c
-> index 56b02de..ac72b6e 100755
-> --- a/objects/control_host_obj.c
-> +++ b/objects/control_host_obj.c
-> @@ -21,7 +21,7 @@ GPIO fsi_data     = (GPIO){ "FSI_DATA" };
->  GPIO fsi_clk      = (GPIO){ "FSI_CLK" };
->  GPIO fsi_enable   = (GPIO){ "FSI_ENABLE" };
->  GPIO cronus_sel   = (GPIO){ "CRONUS_SEL" };
-> -GPIO Throttle   = (GPIO){ "BMC_TROTTLE" };
-> +GPIO Throttle     = (GPIO){ "BMC_THROTTLE" };
->  
->  /* Bit bang patterns */
+1) Two methods to handle the dbus property set and get:
+    a) dbus_set_property()
+    b) dbus_get_property()
+2) The property is stored as a 10 character strings which representsd 5-byte information.
+3) ipmid set method is registered and implemented since petitboot will use it to clear the boot options.
+4) Get service name via object mapper
+    a) The connection name is got via objectmapper.
+    b) The method used to get the connection name is object_mapper_get_connection().
+    c) dbus_get_property/dbus_set_property will get the connection name via the above method instead of hard coding.
+5) Error code are properly handled.
+6) Use sprinf/sscanf for int/string conversion.
+    a) Instead of reinventing the wheel by defining methods converting int to string, use sprintf/sscanf should be a more clean and robust way.
 
-Should be squashed into previous commit.
+https://github.com/openbmc/phosphor-host-ipmid/pull/55
+
+shgoupf (1):
+  Add get/set ipmid command support with correct DBUS property handling.
+
+ chassishandler.C | 320 ++++++++++++++++++++++++++++++++++++++++++++++++++++---
+ chassishandler.h |  17 +++
+ 2 files changed, 325 insertions(+), 12 deletions(-)
+
+-- 
+2.6.3
