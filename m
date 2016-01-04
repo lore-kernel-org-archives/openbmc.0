@@ -1,27 +1,45 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <cyrilbur@gmail.com>
+Received: from mail-pf0-x235.google.com (mail-pf0-x235.google.com
+ [IPv6:2607:f8b0:400e:c00::235])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 75F751A0EB4
- for <openbmc@lists.ozlabs.org>; Fri,  1 Jan 2016 04:50:33 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1451584227380717.8625530221888;
- Thu, 31 Dec 2015 09:50:27 -0800 (PST)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Cc: William <bjlinan@cn.ibm.com>
-Subject: [PATCH phosphor-host-ipmid] Add ipmi cold-reset command, which call a
- dbus method. 1. A method dbus_cold_reset() to talk with the dbus method
- 'place_holder'; 2. Also get service name by object mapper which is
- object_mapper_get_connection(); 3. Register the ipmi command;
- 4. Add related .o to the Makefile.
-Date: Thu, 31 Dec 2015 11:50:25 -0600
-Message-Id: <1451584225-22761-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.4
-In-Reply-To: <1451584225-22761-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1451584225-22761-1-git-send-email-openbmc-patches@stwcx.xyz>
-X-Zoho-Virus-Status: 1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CBB51A0174
+ for <openbmc@lists.ozlabs.org>; Mon,  4 Jan 2016 17:39:04 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=A5CRyOdU; 
+ dkim-atps=neutral
+Received: by mail-pf0-x235.google.com with SMTP id e65so144449844pfe.1
+ for <openbmc@lists.ozlabs.org>; Sun, 03 Jan 2016 22:39:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version:content-type:content-transfer-encoding;
+ bh=IuRyLqt5tdl2Dj1iLCTqoXjGipXXp49f/VC1o7adH0I=;
+ b=A5CRyOdUDyqYj4ejgkgPRqjthKLOCBsdvi2vTpykiSsCUlcDHxssyWENYQK/eIRjgq
+ eOAp/Q5gyKLWbZNDdmZ1aMIjT4/IrgeJ+8vSttF1r5BSrXptFXkH1iiW87dDVEv7zXL+
+ xM/6zvUCA3JHUnwFzm1WoOId6IA69PwCLn9w590IxD456ADAueWvfGUjkuV46QcoIURC
+ 6GHqdFgQf+Wh1iy1ugk9DULt/Z8Pd1eVyTAD+ZFjDkoUKeE2wTS5bEJp8WTUpHbaZAV0
+ KqPzoFpkcmujq9tAlXSl32jMhudUOwyZsBxtMLdQ9uJk9rabG4/+axGDqco1hLKFbppz
+ 9xrA==
+X-Received: by 10.98.42.5 with SMTP id q5mr64461391pfq.74.1451889542096;
+ Sun, 03 Jan 2016 22:39:02 -0800 (PST)
+Received: from camb691 ([122.99.82.10])
+ by smtp.gmail.com with ESMTPSA id h90sm82719018pfj.23.2016.01.03.22.39.00
+ (version=TLSv1/SSLv3 cipher=OTHER);
+ Sun, 03 Jan 2016 22:39:01 -0800 (PST)
+Date: Mon, 4 Jan 2016 17:38:54 +1100
+From: Cyril Bur <cyrilbur@gmail.com>
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, shgoupf <shgoupf@cn.ibm.com>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: [PATCH phosphor-host-ipmid v3] Add get/set ipmid command
+ support with correct DBUS property handling.
+Message-ID: <20160104173854.2da52ef6@camb691>
+In-Reply-To: <1450837827-22614-2-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1450837827-22614-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1450837827-22614-2-git-send-email-openbmc-patches@stwcx.xyz>
+X-Mailer: Claws Mail 3.13.1 (GTK+ 2.24.29; x86_64-unknown-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -33,214 +51,531 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 Dec 2015 17:50:34 -0000
+X-List-Received-Date: Mon, 04 Jan 2016 06:39:06 -0000
 
-From: William <bjlinan@cn.ibm.com>
+On Tue, 22 Dec 2015 20:30:27 -0600
+OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
 
----
- Makefile        |   2 +-
- globalhandler.C | 160 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- globalhandler.h |  12 +++++
- 3 files changed, 173 insertions(+), 1 deletion(-)
- create mode 100644 globalhandler.C
- create mode 100644 globalhandler.h
+> From: shgoupf <shgoupf@cn.ibm.com>
+> 
 
-diff --git a/Makefile b/Makefile
-index 57ad6fe..2c9b37e 100644
---- a/Makefile
-+++ b/Makefile
-@@ -15,7 +15,7 @@ LIB_APP_OBJ = apphandler.o     \
-               ipmisensor.o     \
-               storageaddsel.o  \
-               transporthandler.o  \
--
-+              globalhandler.o  \
- 
- TESTADDSEL_OBJ = $(TESTADDSEL).o \
-                  storageaddsel.o
-diff --git a/globalhandler.C b/globalhandler.C
-new file mode 100644
-index 0000000..0e2aec4
---- /dev/null
-+++ b/globalhandler.C
-@@ -0,0 +1,160 @@
-+#include "globalhandler.h"
-+#include "ipmid-api.h"
-+#include <stdio.h>
-+#include <string.h>
-+#include <stdint.h>
-+
-+const char  *control_object_name  =  "/org/openbmc/control/bmc0";
-+const char  *control_intf_name    =  "org.openbmc.control.Bmc";
-+
-+const char  *objectmapper_service_name =  "org.openbmc.objectmapper";
-+const char  *objectmapper_object_name  =  "/org/openbmc/objectmapper/objectmapper";
-+const char  *objectmapper_intf_name    =  "org.openbmc.objectmapper.ObjectMapper";
-+
-+void register_netfn_global_functions() __attribute__((constructor));
-+
-+int obj_mapper_get_connection(char** buf, const char* obj_path)
-+{
-+    sd_bus_error error = SD_BUS_ERROR_NULL;
-+    sd_bus_message *m = NULL;
-+    sd_bus *bus = NULL;
-+    char *temp_buf = NULL, *intf = NULL;
-+    size_t buf_size = 0;
-+    int r;
-+
-+    // Open the system bus where most system services are provided.
-+    r = sd_bus_open_system(&bus);
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to connect to system bus: %s\n", strerror(-r));
-+        goto finish;
-+    }
-+
-+    // Bus, service, object path, interface and method are provided to call
-+    // the method.
-+    // Signatures and input arguments are provided by the arguments at the
-+    // end.
-+    r = sd_bus_call_method(bus,
-+            objectmapper_service_name,                      /* service to contact */
-+            objectmapper_object_name,                       /* object path */
-+            objectmapper_intf_name,                         /* interface name */
-+            "GetObject",                                 /* method name */
-+            &error,                                      /* object to return error in */
-+            &m,                                          /* return message on success */
-+            "s",                                         /* input signature */
-+            obj_path                                     /* first argument */
-+            );
-+
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to issue method call: %s\n", error.message);
-+        goto finish;
-+    }
-+
-+    // Get the key, aka, the connection name
-+    sd_bus_message_read(m, "a{sas}", 1, &temp_buf, 1, &intf);
-+    // TODO: check the return code. Currently for no reason the message
-+    // parsing of object mapper is always complaining about
-+    // "Device or resource busy", but the result seems OK for now. Need
-+    // further checks.
-+    //r = sd_bus_message_read(m, "a{sas}", 1, &temp_buf, 1, &intf);
-+    //if (r < 0) {
-+    //    fprintf(stderr, "Failed to parse response message: %s\n", strerror(-r));
-+    //    goto finish;
-+    //}
-+
-+    buf_size = strlen(temp_buf) + 1;
-+    printf("IPMID connection name: %s\n", temp_buf);
-+    *buf = (char*)malloc(buf_size);
-+
-+    if (*buf == NULL) {
-+        fprintf(stderr, "Malloc failed for get_sys_boot_options");
-+        r = -1;
-+        goto finish;
-+    }
-+
-+    memcpy(*buf, temp_buf, buf_size);
-+
-+finish:
-+    sd_bus_error_free(&error);
-+    sd_bus_message_unref(m);
-+    sd_bus_unref(bus);
-+
-+    return r;
-+}
-+
-+int dbus_cold_reset()
-+{
-+    sd_bus_error error = SD_BUS_ERROR_NULL;
-+    sd_bus_message *m = NULL;
-+    sd_bus *bus = NULL;
-+    char* temp_buf = NULL;
-+    uint8_t* get_value = NULL;
-+    char* connection = NULL;
-+    int r, i;
-+
-+    r = obj_mapper_get_connection(&connection, control_object_name);
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to get connection, return value: %d.\n", r);
-+        goto finish;
-+    }
-+
-+    printf("connection: %s\n", connection);
-+
-+    // Open the system bus where most system services are provided.
-+    r = sd_bus_open_system(&bus);
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to connect to system bus: %s\n", strerror(-r));
-+        goto finish;
-+    }
-+
-+    // Bus, service, object path, interface and method are provided to call
-+    // the method.
-+    // Signatures and input arguments are provided by the arguments at the
-+    // end.
-+    // TODO: the method is a place holder, not cold reset, need to call the correct
-+    // method.
-+    r = sd_bus_call_method(bus,
-+            connection,                                /* service to contact */
-+            control_object_name,                       /* object path */
-+            control_intf_name,                         /* interface name */
-+            "place_holder",                            /* method name */
-+            &error,                                    /* object to return error in */
-+            &m,                                        /* return message on success */
-+            NULL,
-+            NULL
-+            );
-+
-+    if (r < 0) {
-+        fprintf(stderr, "Failed to issue method call: %s\n", error.message);
-+        goto finish;
-+    }
-+
-+finish:
-+    sd_bus_error_free(&error);
-+    sd_bus_message_unref(m);
-+    sd_bus_unref(bus);
-+    free(connection);
-+
-+    return r;
-+}
-+
-+ipmi_ret_t ipmi_global_cold_reset(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-+                              ipmi_request_t request, ipmi_response_t response,
-+                              ipmi_data_len_t data_len, ipmi_context_t context)
-+{
-+    printf("Handling GLOBAL COLD RESET Netfn:[0x%X], Cmd:[0x%X]\n",netfn, cmd);
-+
-+    // TODO: call the correct dbus method for cold reset.
-+    // Currently the reboot method called is just a placeholder. 
-+    dbus_cold_reset();
-+
-+    // Status code.
-+    ipmi_ret_t rc = IPMI_CC_OK;
-+    *data_len = 0;
-+    return rc;
-+}
-+
-+void register_netfn_global_functions()
-+{
-+    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_APP, IPMI_CMD_COLD_RESET);
-+    ipmi_register_callback(NETFUN_APP, IPMI_CMD_COLD_RESET, NULL, ipmi_global_cold_reset);
-+}
-diff --git a/globalhandler.h b/globalhandler.h
-new file mode 100644
-index 0000000..185e7df
---- /dev/null
-+++ b/globalhandler.h
-@@ -0,0 +1,12 @@
-+#ifndef __HOST_IPMI_GLOBAL_HANDLER_H__
-+#define __HOST_IPMI_GLOBAL_HANDLER_H__
-+
-+#include <stdint.h>
-+
-+// Various GLOBAL operations under a single command.
-+enum ipmi_global_control_cmds : uint8_t
-+{
-+	IPMI_CMD_COLD_RESET 			   = 0x02,
-+};
-+
-+#endif
--- 
-2.6.4
+Hi shgoupf,
+
+The patch needs work, unfortunately it appears there are some problems you've
+inherited here but lets not continue them.
+
+I've outlined some concerns below.
+
+> 1) Two methods to handle the dbus property set and get:
+>     a) dbus_set_property()
+>     b) dbus_get_property()
+> 2) The property is stored as a 10 character strings which representsd 5-byte information.
+> 3) ipmid set method is registered and implemented since petitboot will use it to clear the boot options.
+> 4) Get service name via object mapper
+>     a) The connection name is got via objectmapper.
+>     b) The method used to get the connection name is object_mapper_get_connection().
+>     c) dbus_get_property/dbus_set_property will get the connection name via the above method instead of hard coding.
+> 5) Error code are properly handled.
+> 6) Use sprinf/sscanf for int/string conversion.
+>     a) Instead of reinventing the wheel by defining methods converting int to string, use sprintf/sscanf should be a more clean and robust way.
+> ---
+>  chassishandler.C | 320 ++++++++++++++++++++++++++++++++++++++++++++++++++++---
+>  chassishandler.h |  17 +++
+>  2 files changed, 325 insertions(+), 12 deletions(-)
+> 
+> diff --git a/chassishandler.C b/chassishandler.C
+> index 1389db9..d68b5a8 100644
+> --- a/chassishandler.C
+> +++ b/chassishandler.C
+> @@ -9,6 +9,205 @@ const char  *chassis_bus_name      =  "org.openbmc.control.Chassis";
+>  const char  *chassis_object_name   =  "/org/openbmc/control/chassis0";
+>  const char  *chassis_intf_name     =  "org.openbmc.control.Chassis";
+>  
+> +// Host settings in dbus
+> +// Service name should be referenced by connection name got via object mapper
+> +// const char  *settings_service_name =  "org.openbmc.settings.Host";
+> +const char  *settings_object_name  =  "/org/openbmc/settings/host0";
+> +const char  *settings_intf_name    =  "org.freedesktop.DBus.Properties";
+> +
+> +const char  *objmapper_service_name =  "org.openbmc.objectmapper";
+> +const char  *objmapper_object_name  =  "/org/openbmc/objectmapper/objectmapper";
+> +const char  *objmapper_intf_name    =  "org.openbmc.objectmapper.ObjectMapper";
+> +
+> +int object_mapper_get_connection(char** buf, const char* obj_path)
+> +{
+> +    sd_bus_error error = SD_BUS_ERROR_NULL;
+> +    sd_bus_message *m = NULL;
+> +    sd_bus *bus = NULL;
+> +    char *temp_buf = NULL, *intf = NULL;
+> +    size_t buf_size = 0;
+> +    int r;
+> +
+> +    // Open the system bus where most system services are provided.
+> +    r = sd_bus_open_system(&bus);
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to connect to system bus: %s\n", strerror(-r));
+> +        goto finish;
+> +    }
+> +
+> +    // Bus, service, object path, interface and method are provided to call
+> +    // the method.
+> +    // Signatures and input arguments are provided by the arguments at the
+> +    // end.
+
+Multiline comments should use the multiline comment style /* */, so:
+
+       /*
+        * Bus, service, object path, interface and method are provided to call
+        * the method.
+        * Signatures and input arguments are provided by the arguments at the
+        * end.
+        */
+
+> +    r = sd_bus_call_method(bus,
+> +            objmapper_service_name,                      /* service to contact */
+> +            objmapper_object_name,                       /* object path */
+> +            objmapper_intf_name,                         /* interface name */
+> +            "GetObject",                                 /* method name */
+> +            &error,                                      /* object to return error in */
+> +            &m,                                          /* return message on success */
+> +            "s",                                         /* input signature */
+> +            obj_path                                     /* first argument */
+> +            );
+> +
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to issue method call: %s\n", error.message);
+> +        goto finish;
+> +    }
+> +
+> +    // Get the key, aka, the connection name
+> +    sd_bus_message_read(m, "a{sas}", 1, &temp_buf, 1, &intf);
+> +    // TODO: check the return code. Currently for no reason the message
+> +    // parsing of object mapper is always complaining about
+> +    // "Device or resource busy", but the result seems OK for now. Need
+> +    // further checks.
+
+So how sure are you that what you're doing now is robust?
+
+> +    //r = sd_bus_message_read(m, "a{sas}", 1, &temp_buf, 1, &intf);
+> +    //if (r < 0) {
+> +    //    fprintf(stderr, "Failed to parse response message: %s\n", strerror(-r));
+> +    //    goto finish;
+> +    //}
+
+Is there a reason you're sending commented code?
+
+> +
+> +    buf_size = strlen(temp_buf) + 1;
+> +    printf("IPMID connection name: %s\n", temp_buf);
+> +    *buf = (char*)malloc(buf_size);
+> +
+> +    if (*buf == NULL) {
+> +        fprintf(stderr, "Malloc failed for get_sys_boot_options");
+> +        r = -1;
+> +        goto finish;
+> +    }
+> +
+> +    memcpy(*buf, temp_buf, buf_size);
+> +
+> +finish:
+> +    sd_bus_error_free(&error);
+> +    sd_bus_message_unref(m);
+> +    sd_bus_unref(bus);
+> +
+> +    return r;
+> +}
+> +
+> +int dbus_get_property(char* buf)
+> +{
+> +    sd_bus_error error = SD_BUS_ERROR_NULL;
+> +    sd_bus_message *m = NULL;
+> +    sd_bus *bus = NULL;
+> +    char* temp_buf = NULL;
+> +    uint8_t* get_value = NULL;
+> +    char* connection = NULL;
+> +    int r, i;
+> +
+> +    r = object_mapper_get_connection(&connection, settings_object_name);
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to get connection, return value: %d.\n", r);
+> +        goto finish;
+> +    }
+> +
+> +    printf("connection: %s\n", connection);
+> +
+> +    // Open the system bus where most system services are provided.
+> +    r = sd_bus_open_system(&bus);
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to connect to system bus: %s\n", strerror(-r));
+> +        goto finish;
+> +    }
+> +
+> +    // Bus, service, object path, interface and method are provided to call
+> +    // the method.
+> +    // Signatures and input arguments are provided by the arguments at the
+> +    // end.
+> +    r = sd_bus_call_method(bus,
+> +            connection,                                 /* service to contact */
+> +            settings_object_name,                       /* object path */
+> +            settings_intf_name,                         /* interface name */
+> +            "Get",                                      /* method name */
+> +            &error,                                     /* object to return error in */
+> +            &m,                                         /* return message on success */
+> +            "ss",                                       /* input signature */
+> +            settings_intf_name,                         /* first argument */
+> +            "boot_flags");                              /* second argument */
+> +
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to issue method call: %s\n", error.message);
+> +        goto finish;
+> +    }
+> +
+> +    // The output should be parsed exactly the same as the output formatting
+> +    // specified.
+> +    r = sd_bus_message_read(m, "v", "s", &temp_buf);
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to parse response message: %s\n", strerror(-r));
+> +        goto finish;
+> +    }
+> +
+> +    printf("IPMID boot option property get: {%s}.\n", (char*) temp_buf);
+> +
+> +    memcpy(buf, temp_buf, 2*NUM_RETURN_BYTES_OF_GET_USED + 1);
+
+This isn't the only place you do this 2*value + 1, I also don't see a place
+you've used NUM_RETURN_BYTES_OF_GET_USED do you just want to make the #define
+11? What are you trying to do?
+
+> +
+> +finish:
+> +    sd_bus_error_free(&error);
+> +    sd_bus_message_unref(m);
+> +    sd_bus_unref(bus);
+> +    free(connection);
+> +
+> +    return r;
+> +}
+> +
+> +int dbus_set_property(const char* buf)
+> +{
+> +    sd_bus_error error = SD_BUS_ERROR_NULL;
+> +    sd_bus_message *m = NULL;
+> +    sd_bus *bus = NULL;
+> +    char* connection = NULL;
+> +    int r;
+> +
+> +    r = object_mapper_get_connection(&connection, settings_object_name);
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to get connection, return value: %d.\n", r);
+> +        goto finish;
+> +    }
+> +    printf("connection: %s\n", connection);
+> +
+> +    // Open the system bus where most system services are provided.
+> +    r = sd_bus_open_system(&bus);
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to connect to system bus: %s\n", strerror(-r));
+> +        goto finish;
+> +    }
+> +
+> +    // Bus, service, object path, interface and method are provided to call
+> +    // the method.
+> +    // Signatures and input arguments are provided by the arguments at the
+> +    // end.
+> +    r = sd_bus_call_method(bus,
+> +            connection,                                 /* service to contact */
+> +            settings_object_name,                       /* object path */
+> +            settings_intf_name,                         /* interface name */
+> +            "Set",                                      /* method name */
+> +            &error,                                     /* object to return error in */
+> +            &m,                                         /* return message on success */
+> +            "ssv",                                      /* input signature */
+> +            settings_intf_name,                         /* first argument */
+> +            "boot_flags",                               /* second argument */
+> +            "s",                                        /* third argument */
+> +            buf);                                       /* fourth argument */
+> +
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to issue method call: %s\n", error.message);
+> +        goto finish;
+> +    }
+> +
+> +    printf("IPMID boot option property set: {%s}.\n", buf);
+> +
+> +finish:
+> +    sd_bus_error_free(&error);
+> +    sd_bus_message_unref(m);
+> +    sd_bus_unref(bus);
+> +    free(connection);
+> +
+> +    return r;
+> +}
+> +
+>  void register_netfn_chassis_functions() __attribute__((constructor));
+>  
+>  struct get_sys_boot_options_t {
+> @@ -17,8 +216,25 @@ struct get_sys_boot_options_t {
+>      uint8_t block;
+>  }  __attribute__ ((packed));
+>  
+> -ipmi_ret_t ipmi_chassis_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
+> -                              ipmi_request_t request, ipmi_response_t response, 
+> +struct set_sys_boot_options_t {
+> +    uint8_t parameter;
+> +    union {
+> +        struct {
+> +            uint8_t d1;
+> +            uint8_t d2;
+> +            uint8_t d3;
+> +            uint8_t d4;
+> +            uint8_t d5;
+> +            uint8_t d6;
+> +            uint8_t d7;
+> +            uint8_t d8;
+> +        } data8;
+> +        uint64_t data64;
+> +    } data;
+> +}  __attribute__ ((packed));
+
+Ok so I'm opposed to casting an array into a struct however, after having
+read part 28.12 - how can you be sure that the data portion is going to be 8
+bytes? It looks like you could get zero data...
+
+"Passing 0-bytes of parameter data allows the parameter valid bit to be
+changed without affecting the present parameter setting. "
+
+I'm worried.
+
+> +
+> +ipmi_ret_t ipmi_chassis_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+> +                              ipmi_request_t request, ipmi_response_t response,
+>                                ipmi_data_len_t data_len, ipmi_context_t context)
+>  {
+>      printf("Handling CHASSIS WILDCARD Netfn:[0x%X], Cmd:[0x%X]\n",netfn, cmd);
+> @@ -48,7 +264,7 @@ int ipmi_chassis_power_control(const char *method)
+>  
+>  	rc = sd_bus_call_method(bus_type,        		 // On the System Bus
+>  							chassis_bus_name,        // Service to contact
+> -							chassis_object_name,     // Object path 
+> +							chassis_object_name,     // Object path
+>  							chassis_intf_name,       // Interface name
+>  							method,      		 // Method to be called
+>  							&bus_error,      		 // object to return error
+> @@ -73,8 +289,8 @@ int ipmi_chassis_power_control(const char *method)
+>  //----------------------------------------------------------------------
+>  // Chassis Control commands
+>  //----------------------------------------------------------------------
+> -ipmi_ret_t ipmi_chassis_control(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
+> -                        ipmi_request_t request, ipmi_response_t response, 
+> +ipmi_ret_t ipmi_chassis_control(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+> +                        ipmi_request_t request, ipmi_response_t response,
+>                          ipmi_data_len_t data_len, ipmi_context_t context)
+>  {
+>  	// Error from power off.
+> @@ -105,8 +321,8 @@ ipmi_ret_t ipmi_chassis_control(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+>  	return ( (rc < 0) ? IPMI_CC_INVALID : IPMI_CC_OK);
+>  }
+>  
+> -ipmi_ret_t ipmi_chassis_get_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
+> -                              ipmi_request_t request, ipmi_response_t response, 
+> +ipmi_ret_t ipmi_chassis_get_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+> +                              ipmi_request_t request, ipmi_response_t response,
+>                                ipmi_data_len_t data_len, ipmi_context_t context)
+>  {
+>      ipmi_ret_t rc = IPMI_CC_OK;
+> @@ -116,23 +332,100 @@ ipmi_ret_t ipmi_chassis_get_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+>  
+>      get_sys_boot_options_t *reqptr = (get_sys_boot_options_t*) request;
+>  
+> -    // TODO Return default values to OPAL until dbus interface is available
+> +    char* buf = (char*)malloc(NUM_RETURN_BYTES_OF_GET*2 + 1);
+
+Why are you mallocing buf, whats wrong with having it on the stack?
+
+See my previous comment about the 2*value + 1, where you've used it twice with
+2* +1 and once without, what's going on?
+> +
+> +    if (buf == NULL) {
+> +        fprintf(stderr, "Malloc failed for get_sys_boot_options.\n");
+> +        return IPMI_OUT_OF_SPACE;
+> +    }
+> +
+> +    // Init the buffer to all zero.
+> +    memset(buf, 0, NUM_RETURN_BYTES_OF_GET*2 + 1);
+> +
+
+Might I suggest you use calloc(1, <size>); rather than malloc if you want
+zeroed memory?
+
+> +    // Parameter #5 means boot flags. Please refer to 28.13 of ipmi doc.
+> +    // This is the only parameter used by petitboot.
+> +    if (reqptr->parameter == 5) 
+> +    {
+> +        int r = dbus_get_property(buf);
+> +
+> +        if (r < 0) {
+> +            fprintf(stderr, "Dbus get property failed for get_sys_boot_options.\n");
+
+If I'm not mistaken you'll have a leak of buf here?
+
+> +            return IPMI_OUT_OF_SPACE;
+> +        }
+> +
+> +        uint64_t return_value;
+> +        sscanf(buf, "%llX", &return_value);
+
+atoll()?
+
+> +
+> +        *data_len = NUM_RETURN_BYTES_OF_GET;
+> +        // TODO: last 3 bytes
+> +        // (NUM_RETURN_BYTES_OF_GET - NUM_RETURN_BYTES_OF_GET_USED) is meanlingless
+> +        memcpy(response, (uint8_t*)(&return_value), *data_len);
+> +        free(buf);
+> +    }
+> +    else
+> +    {
+> +        *data_len = NUM_RETURN_BYTES_OF_GET;
+> +        // 0x80: parameter not supported
+> +        buf[0] = 0x80;
+
+#define?
+
+> +        memcpy(response, buf, *data_len);
+> +        free(buf);
+> +        fprintf(stderr, "Unsupported parameter 0x%x\n", reqptr->parameter);
+> +        return IPMI_CC_PARM_NOT_SUPPORTED;
+> +    }
+> +
+> +    return rc;
+> +}
+> +
+> +ipmi_ret_t ipmi_chassis_set_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+> +                              ipmi_request_t request, ipmi_response_t response,
+> +                              ipmi_data_len_t data_len, ipmi_context_t context)
+> +{
+> +    ipmi_ret_t rc = IPMI_CC_OK;
+> +
+> +    printf("IPMI SET_SYS_BOOT_OPTIONS\n");
+> +    printf("IPMID set command required return bytes: %i\n", *data_len);
+> +
+> +    set_sys_boot_options_t *reqptr = (set_sys_boot_options_t*) request;
+> +
+> +    char* output_buf = (char*)malloc(NUM_RETURN_BYTES_OF_SET);
+> +
+> +    if (output_buf == NULL) {
+> +        fprintf(stderr, "Malloc failed for set_sys_boot_options.\n");
+> +        return IPMI_OUT_OF_SPACE;
+> +    }
+>  
+
+You didn't zero the memory here? get/sets should probably do the same in this
+respect.
+
+>      if (reqptr->parameter == 5) // Parameter #5
+>      {
+> -        uint8_t buf[] = {0x1,0x5,80,0,0,0,0};
+> -        *data_len = sizeof(buf);
+> -        memcpy(response, &buf, *data_len);
+> +        char input_buf[NUM_INPUT_BYTES_OF_SET*2 + 1];
+
+Gah those odd maths again? 
+
+> +        sprintf(input_buf, "%llX", reqptr->data.data64);
+> +
+> +        int r = dbus_set_property(input_buf);
+> +
+> +        if (r < 0) {
+> +            fprintf(stderr, "Dbus set property failed for set_sys_boot_options.\n");
+
+Leak of output_buf?
+
+> +            return IPMI_OUT_OF_SPACE;
+> +        }
+> +
+> +        *data_len = NUM_RETURN_BYTES_OF_SET;
+> +        // 0x0: return code OK.
+> +        output_buf[0] = 0x0;
+
+#define?
+
+> +        memcpy(response, output_buf, *data_len);
+> +        free(output_buf);
+>      }
+>      else
+>      {
+> +        // 0x80: parameter not supported
+> +        output_buf[0] = 0x80;
+
+#define?
+
+> +        memcpy(response, output_buf, *data_len);
+> +        free(output_buf);
+>          fprintf(stderr, "Unsupported parameter 0x%x\n", reqptr->parameter);
+> -        return IPMI_CC_PARM_NOT_SUPPORTED;        
+> +        return IPMI_CC_PARM_NOT_SUPPORTED;
+>      }
+>  
+>      return rc;
+>  }
+>  
+> +
+>  void register_netfn_chassis_functions()
+>  {
+>      printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_CHASSIS, IPMI_CMD_WILDCARD);
+> @@ -141,6 +434,9 @@ void register_netfn_chassis_functions()
+>      printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_CHASSIS, IPMI_CMD_GET_SYS_BOOT_OPTIONS);
+>      ipmi_register_callback(NETFUN_CHASSIS, IPMI_CMD_GET_SYS_BOOT_OPTIONS, NULL, ipmi_chassis_get_sys_boot_options);
+>  
+> +    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_CHASSIS, IPMI_CMD_SET_SYS_BOOT_OPTIONS);
+> +    ipmi_register_callback(NETFUN_CHASSIS, IPMI_CMD_SET_SYS_BOOT_OPTIONS, NULL, ipmi_chassis_set_sys_boot_options);
+> +
+>      printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_CHASSIS, IPMI_CMD_CHASSIS_CONTROL);
+>      ipmi_register_callback(NETFUN_CHASSIS, IPMI_CMD_CHASSIS_CONTROL, NULL, ipmi_chassis_control);
+>  }
+> diff --git a/chassishandler.h b/chassishandler.h
+> index 1a26411..4676667 100644
+> --- a/chassishandler.h
+> +++ b/chassishandler.h
+> @@ -3,12 +3,22 @@
+>  
+>  #include <stdint.h>
+>  
+> +// TODO: Petitboot requires 8 bytes of response
+> +// however only 5 of them are used. The remaining
+> +// 3 bytes are not used in petitboot and the value
+> +// of them are all zero.
+
+Just so I'm understanding correctly, you're writing an IPMI daemon here? I'm
+not sure you should be noting quirks of petitboot, you should be doing what the
+IPMI spec says
+
+> +#define NUM_RETURN_BYTES_OF_GET 8
+> +#define NUM_RETURN_BYTES_OF_GET_USED 5
+> +#define NUM_RETURN_BYTES_OF_SET 1
+> +#define NUM_INPUT_BYTES_OF_SET 5
+> +
+>  // IPMI commands for Chassis net functions.
+>  enum ipmi_netfn_app_cmds
+>  {
+>  	// Chassis Control
+>  	IPMI_CMD_CHASSIS_CONTROL	  = 0x02,
+>      // Get capability bits
+> +    IPMI_CMD_SET_SYS_BOOT_OPTIONS = 0x08,
+>      IPMI_CMD_GET_SYS_BOOT_OPTIONS = 0x09,
+>  };
+>  
+> @@ -18,6 +28,13 @@ enum ipmi_chassis_return_codes
+>      IPMI_CC_PARM_NOT_SUPPORTED = 0x80,
+>  };
+>  
+> +// Generic completion codes,
+> +// see IPMI doc section 5.2
+> +enum ipmi_generic_return_codes
+> +{
+> +    IPMI_OUT_OF_SPACE = 0xC4,
+> +};
+> +
+>  // Various Chassis operations under a single command.
+>  enum ipmi_chassis_control_cmds : uint8_t
+>  {
