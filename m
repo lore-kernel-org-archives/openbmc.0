@@ -1,22 +1,86 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <shliyi@cn.ibm.com>
+Received: from e23smtp04.au.ibm.com (e23smtp04.au.ibm.com [202.81.31.146])
+ (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 071D01A00E9
- for <openbmc@lists.ozlabs.org>; Tue,  5 Jan 2016 18:00:40 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1451977236069434.1455856501782;
- Mon, 4 Jan 2016 23:00:36 -0800 (PST)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux] [PATCH] HWMON: Add OCC hwmon driver
-Date: Tue,  5 Jan 2016 01:00:34 -0600
-Message-Id: <1451977234-31446-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.4
-In-Reply-To: <1451977234-31446-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1451977234-31446-1-git-send-email-openbmc-patches@stwcx.xyz>
-X-Zoho-Virus-Status: 1
+ by lists.ozlabs.org (Postfix) with ESMTPS id E91D61A00E9
+ for <openbmc@lists.ozlabs.org>; Tue,  5 Jan 2016 19:30:14 +1100 (AEDT)
+Received: from localhost
+ by e23smtp04.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <shliyi@cn.ibm.com>;
+ Tue, 5 Jan 2016 18:30:13 +1000
+Received: from d23dlp02.au.ibm.com (202.81.31.213)
+ by e23smtp04.au.ibm.com (202.81.31.210) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Tue, 5 Jan 2016 18:30:11 +1000
+X-IBM-Helo: d23dlp02.au.ibm.com
+X-IBM-MailFrom: shliyi@cn.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d23relay09.au.ibm.com (d23relay09.au.ibm.com [9.185.63.181])
+ by d23dlp02.au.ibm.com (Postfix) with ESMTP id 5D7A82BB0057
+ for <openbmc@lists.ozlabs.org>; Tue,  5 Jan 2016 19:30:11 +1100 (EST)
+Received: from d23av01.au.ibm.com (d23av01.au.ibm.com [9.190.234.96])
+ by d23relay09.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u058U36934734200
+ for <openbmc@lists.ozlabs.org>; Tue, 5 Jan 2016 19:30:11 +1100
+Received: from d23av01.au.ibm.com (localhost [127.0.0.1])
+ by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u058Tcc0025256
+ for <openbmc@lists.ozlabs.org>; Tue, 5 Jan 2016 19:29:38 +1100
+Received: from d50lp02.ny.us.ibm.com ([146.89.104.208])
+ by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u058TamO024023
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Tue, 5 Jan 2016 19:29:38 +1100
+Message-Id: <201601050829.u058TamO024023@d23av01.au.ibm.com>
+Received: from /spool/local
+ by d50lp02.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <shliyi@cn.ibm.com>;
+ Tue, 5 Jan 2016 03:28:42 -0500
+Received: from smtp.notes.na.collabserv.com (192.155.248.73)
+ by d50lp02.ny.us.ibm.com (158.87.18.21) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
+ Tue, 5 Jan 2016 03:28:40 -0500
+Received: from /spool/local
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <shliyi@cn.ibm.com>;
+ Tue, 5 Jan 2016 08:28:37 -0000
+Received: from us1a3-smtp03.a3.dal06.isc4sb.com (10.106.154.94)
+ by smtp.notes.na.collabserv.com (10.106.227.90) with
+ smtp.notes.na.collabserv.com ESMTP; Tue, 5 Jan 2016 08:28:34 -0000
+Received: from us1a3-mail141.a3.dal06.isc4sb.com ([10.146.38.85])
+ by us1a3-smtp03.a3.dal06.isc4sb.com
+ with ESMTP id 2016010508290327-74054 ;
+ Tue, 5 Jan 2016 08:29:03 +0000 
+In-Reply-To: <CACPK8XcUA=4m7QH1QL0eRaupRPevQtm9VeMCwoR1GdVam6JJfQ@mail.gmail.com>
+Subject: Re: [PATCH occ hwmon v3] Add OCC hwmon driver to Kernel
+To: Joel Stanley <joel@jms.id.au>
+Cc: Yi Li <adamliyi@msn.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Jeremy Kerr <jk@ozlabs.org>
+From: "Yi TZ Li" <shliyi@cn.ibm.com>
+Date: Tue, 5 Jan 2016 16:28:26 +0800
+References: <BLU436-SMTP1997C66B56E367DA0D3E402D9080@phx.gbl>
+ <CACPK8XcUA=4m7QH1QL0eRaupRPevQtm9VeMCwoR1GdVam6JJfQ@mail.gmail.com>
+X-KeepSent: EEF9689A:0F7422FF-00257F2E:00333F58;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1SHF211 December 19, 2013
+X-LLNOutbound: False
+X-Disclaimed: 2203
+X-TNEFEvaluated: 1
+Content-type: multipart/alternative; 
+ Boundary="0__=8FBBF5BDDFA0B9C88f9e8a93df938690918c8FBBF5BDDFA0B9C8"
+Content-Disposition: inline
+x-cbid: 16010508-0013-0000-0000-0000027A078D
+X-IBM-ISS-SpamDetectors: Score=0.449102; BY=0.293258; FL=0; FP=0; FZ=0; HX=0; 
+ KW=0; PH=0; SC=0.449102; ST=0; TS=0; UL=0; ISC=
+X-IBM-ISS-DetailInfo: BY=3.00004757; HX=3.00000237; KW=3.00000007;
+ PH=3.00000004; SC=3.00000130; SDB=6.00640766; UDB=6.00288357; UTC=2016-01-05
+ 08:28:35
+x-cbparentid: 16010508-0598-0000-0000-000005D81F74
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,1446 +92,442 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Jan 2016 07:00:42 -0000
+X-List-Received-Date: Tue, 05 Jan 2016 08:30:15 -0000
 
-From: Yi Li <adamliyi@msn.com>
 
-This patch add a hwmon driver for BMC to monitor POWER CPU sensors
-via OCC (On-Chip-Controller).
+--0__=8FBBF5BDDFA0B9C88f9e8a93df938690918c8FBBF5BDDFA0B9C8
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/plain; charset=US-ASCII
 
-Changes for this version:
-1. Fixed checkpatch.pl warnings and errors.
-2. Fixed issue from Joel Stanley's review
-3. Add a new sysfs interface: '/sys/class/i2c-adaptor/i2c-x/x-yyyy/online',
-to notify the driver OCC is active.
-4. Use device table to instantiate the occ-i2c device.
+Hi Joel,
 
-Signed-off-by: Yi Li <adamliyi@msn.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts |   10 +
- arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts  |    7 +
- drivers/hwmon/Kconfig                          |   10 +
- drivers/hwmon/Makefile                         |    1 +
- drivers/hwmon/occ_i2c.c                        | 1339 ++++++++++++++++++++++++
- 5 files changed, 1367 insertions(+)
- create mode 100644 drivers/hwmon/occ_i2c.c
+Thanks many for your time to review the driver.
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-index 38a4fd0..a3518b0 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-@@ -25,6 +25,16 @@
- 						reg = <0x4a>;
- 					};
- 				};
-+				i2c3: i2c-bus@100 {
-+					occ@50 {
-+						compatible = "ibm,occ-i2c";
-+						reg = <0x50>;
-+					};
-+					occ@51 {
-+						compatible = "ibm,occ-i2c";
-+						reg = <0x51>;
-+					};
-+				};
- 
- 				i2c6: i2c-bus@1c0 {
- 					nct7904@2d {
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-index 92a7c77..45a032d 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-@@ -29,6 +29,13 @@
- 						reg = <0x4c>;
- 					};
- 				};
-+
-+				i2c3: i2c-bus@100 {
-+					occ@50 {
-+						compatible = "ibm,occ-i2c";
-+						reg = <0x50>;
-+					};
-+				};
- 			};
- 		};
- 	};
-diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-index e13c902..7c74854 100644
---- a/drivers/hwmon/Kconfig
-+++ b/drivers/hwmon/Kconfig
-@@ -1167,6 +1167,16 @@ config SENSORS_NCT7904
- 	  This driver can also be built as a module.  If so, the module
- 	  will be called nct7904.
- 
-+config SENSORS_OCC
-+	tristate "OCC sensor BMC driver"
-+	depends on I2C
-+	help
-+	  If you say yes here you get support for BMC to monitor IBM
-+	  Power CPU sensors via the On-Chip-Controller (OCC).
-+
-+	  This driver can aslo be built as a module. If so, the module
-+	  will be called occ_i2c.
-+
- config SENSORS_PCF8591
- 	tristate "Philips PCF8591 ADC/DAC"
- 	depends on I2C
-diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
-index 9e0f3dd..d6fa923 100644
---- a/drivers/hwmon/Makefile
-+++ b/drivers/hwmon/Makefile
-@@ -123,6 +123,7 @@ obj-$(CONFIG_SENSORS_NCT6775)	+= nct6775.o
- obj-$(CONFIG_SENSORS_NCT7802)	+= nct7802.o
- obj-$(CONFIG_SENSORS_NCT7904)	+= nct7904.o
- obj-$(CONFIG_SENSORS_NTC_THERMISTOR)	+= ntc_thermistor.o
-+obj-$(CONFIG_SENSORS_OCC)	+= occ_i2c.o
- obj-$(CONFIG_SENSORS_PC87360)	+= pc87360.o
- obj-$(CONFIG_SENSORS_PC87427)	+= pc87427.o
- obj-$(CONFIG_SENSORS_PCF8591)	+= pcf8591.o
-diff --git a/drivers/hwmon/occ_i2c.c b/drivers/hwmon/occ_i2c.c
+I re-submitted to patch, fixed most of the issues you pointed out, except a
+few showed bellow.
+Please see my reply bellow for details:
+
+joel.stan@gmail.com wrote on 12/10/2015 12:02:19 PM:
+
+> From: Joel Stanley <joel@jms.id.au>
+> To: Yi Li <adamliyi@msn.com>
+> Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Jeremy Kerr
+> <jk@ozlabs.org>, Yi TZ Li/China/IBM@IBMCN
+> Date: 12/10/2015 12:03 PM
+> Subject: Re: [PATCH occ hwmon v3] Add OCC hwmon driver to Kernel
+> Sent by: joel.stan@gmail.com
+>
+> Hello Adam,
+>
+> On Tue, Dec 8, 2015 at 6:59 PM, Yi Li <adamliyi@msn.com> wrote:
+> > The default patch triggered by git pull request is hard to read.
+> > I resend a clean patch to the list. Please review.
+>
+> Thanks! This is the preferred method for reviewing code. Even better
+> would be if you used git format-patch to create the email, that way we
+> can review your commit message as well.
+>
+> Before you submit next, please run your patch through
+> scripts/checkpatch.pl in the kernel tree and fix all of the errors and
+> warnings. It will warn you about common style and syntax mistakes.
+>
+> ./scripts/checkpatch.pl -f drivers/hwmon/occ=5Fi2c.c
+>
+> [...]
+>
+> total: 24 errors, 21 warnings, 1315 lines checked
+
+I run the checkpatch.pl against the new patch, here are the result:
+
+scripts/checkpatch.pl occ=5Fv4.patch
+WARNING: DT compatible string "ibm,occ-i2c" appears un-documented --
+check ./Documentation/devicetree/bindings/
+#11: FILE: arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts:30:
++                                               compatible =3D "ibm,occ-i2c=
+";
+
+WARNING: DT compatible string "ibm,occ-i2c" appears un-documented --
+check ./Documentation/devicetree/bindings/
+#15: FILE: arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts:34:
++                                               compatible =3D "ibm,occ-i2c=
+";
+
+WARNING: DT compatible string "ibm,occ-i2c" appears un-documented --
+check ./Documentation/devicetree/bindings/
+#33: FILE: arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts:35:
++                                               compatible =3D "ibm,occ-i2c=
+";
+
+WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
+#74:
 new file mode 100644
-index 0000000..38be953
---- /dev/null
-+++ b/drivers/hwmon/occ_i2c.c
-@@ -0,0 +1,1339 @@
-+/*
-+ * BMC OCC HWMON driver - read IBM Power8 OCC (On Chip Controller)
-+ * sensor data via i2c.
+
+WARNING: line over 80 characters
+#127: FILE: drivers/hwmon/occ=5Fi2c.c:49:
 + *
-+ * Copyright (c) 2015 IBM (Alvin Wang, Li Yi)
+https://github.com/open-power/docs/blob/master/occ/OCC=5FOpenPwr=5FFW=5FInt=
+erfaces.pdf
+
+WARNING: line over 80 characters
+#420: FILE: drivers/hwmon/occ=5Fi2c.c:342:
 + *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation; either version 2 of the License, or
-+ * (at your option) any later version.
-+ *
-+ * This program is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ * GNU General Public License for more details.
-+ */
-+
-+#include <linux/module.h>
-+#include <linux/init.h>
-+#include <linux/slab.h>
-+#include <linux/jiffies.h>
-+#include <linux/i2c.h>
-+#include <linux/hwmon.h>
-+#include <linux/hwmon-sysfs.h>
-+#include <linux/err.h>
-+#include <linux/mutex.h>
-+#include <linux/of.h>
-+#include <linux/delay.h>
-+#include <linux/kernel.h>
-+#include <linux/device.h>
-+
-+
-+#define OCC_I2C_ADDR 0x50
-+#define OCC_I2C_NAME "occ-i2c"
-+
-+#define OCC_DATA_MAX	4096 /* 4KB at most */
-+/* i2c read and write occ sensors */
-+#define I2C_READ_ERROR	1
-+#define I2C_WRITE_ERROR	2
-+
-+/* To generate attn to OCC */
-+#define ATTN_DATA	0x0006B035
-+/* For BMC to read/write SRAM */
-+#define OCB_ADDRESS		0x0006B070
-+#define OCB_DATA		0x0006B075
-+#define OCB_STATUS_CONTROL_AND	0x0006B072
-+#define OCB_STATUS_CONTROL_OR	0x0006B073
-+/* See definition in:
-+ * https://github.com/open-power/docs/blob/master/occ/OCC_OpenPwr_FW_Interfaces.pdf
-+ */
-+#define OCC_COMMAND_ADDR	0xFFFF6000
-+#define OCC_RESPONSE_ADDR	0xFFFF7000
-+
-+/* OCC sensor data format */
-+struct occ_sensor {
-+	uint16_t sensor_id;
-+	uint16_t value;
-+};
-+
-+struct power_sensor {
-+	uint16_t sensor_id;
-+	uint32_t update_tag;
-+	uint32_t accumulator;
-+	uint16_t value;
-+};
-+
-+struct caps_sensor {
-+	uint16_t curr_powercap;
-+	uint16_t curr_powerreading;
-+	uint16_t norm_powercap;
-+	uint16_t max_powercap;
-+	uint16_t min_powercap;
-+	uint16_t user_powerlimit;
-+};
-+
-+struct sensor_data_block {
-+	uint8_t sensor_type[4];
-+	uint8_t reserved0;
-+	uint8_t sensor_format;
-+	uint8_t sensor_length;
-+	uint8_t num_of_sensors;
-+	struct occ_sensor *sensor;
-+	struct power_sensor *power;
-+	struct caps_sensor *caps;
-+};
-+
-+struct occ_poll_header {
-+	uint8_t status;
-+	uint8_t ext_status;
-+	uint8_t occs_present;
-+	uint8_t config;
-+	uint8_t occ_state;
-+	uint8_t reserved0;
-+	uint8_t reserved1;
-+	uint8_t error_log_id;
-+	uint32_t error_log_addr_start;
-+	uint16_t error_log_length;
-+	uint8_t reserved2;
-+	uint8_t reserved3;
-+	uint8_t occ_code_level[16];
-+	uint8_t sensor_eye_catcher[6];
-+	uint8_t sensor_block_num;
-+	uint8_t sensor_data_version;
-+};
-+
-+struct occ_response {
-+	uint8_t sequence_num;
-+	uint8_t cmd_type;
-+	uint8_t rtn_status;
-+	uint16_t data_length;
-+	struct occ_poll_header header;
-+	struct sensor_data_block *blocks;
-+	uint16_t chk_sum;
-+	int temp_block_id;
-+	int freq_block_id;
-+	int power_block_id;
-+	int caps_block_id;
-+};
-+
-+/* data private to each client */
-+struct occ_drv_data {
-+	struct i2c_client	*client;
-+	struct device		*hwmon_dev;
-+	struct mutex		update_lock;
-+	bool			valid;
-+	unsigned long		last_updated;
-+	/* Minimum timer interval for sampling In jiffies */
-+	unsigned long		update_interval;
-+	unsigned long		occ_online;
-+	struct occ_response	occ_resp;
-+};
-+
-+enum sensor_t {
-+	freq,
-+	temp,
-+	power,
-+	caps
-+};
-+
-+static void deinit_occ_resp_buf(struct occ_response *p)
-+{
-+	int i;
-+
-+	if (!p)
-+		return;
-+
-+	if (!p->blocks)
-+		return;
-+
-+	for (i = 0; i < p->header.sensor_block_num; i++) {
-+		kfree(p->blocks[i].sensor);
-+		kfree(p->blocks[i].power);
-+		kfree(p->blocks[i].caps);
-+	}
-+
-+	kfree(p->blocks);
-+
-+	memset(p, 0, sizeof(*p));
-+	p->freq_block_id = -1;
-+	p->temp_block_id = -1;
-+	p->power_block_id = -1;
-+	p->caps_block_id = -1;
-+}
-+
-+static ssize_t occ_i2c_read(struct i2c_client *client, void *buf, size_t count)
-+{
-+	WARN_ON(count > OCC_DATA_MAX);
-+
-+	dev_dbg(&client->dev, "i2c_read: reading %zu bytes @0x%x.\n",
-+		count, client->addr);
-+	return i2c_master_recv(client, buf, count);
-+}
-+
-+static ssize_t occ_i2c_write(struct i2c_client *client, const void *buf,
-+				size_t count)
-+{
-+	WARN_ON(count > OCC_DATA_MAX);
-+
-+	dev_dbg(&client->dev, "i2c_write: writing %zu bytes @0x%x.\n",
-+		count, client->addr);
-+	return i2c_master_send(client, buf, count);
-+}
-+
-+/* read 8-byte value and put into data[offset] */
-+static int occ_getscomb(struct i2c_client *client, uint32_t address,
-+		uint8_t *data, int offset)
-+{
-+	uint32_t ret;
-+	char buf[8];
-+	int i = 0;
-+
-+	/* P8 i2c slave requires address to be shifted by 1 */
-+	address = address << 1;
-+
-+	ret = occ_i2c_write(client, &address,
-+		sizeof(address));
-+
-+	if (ret != sizeof(address))
-+		return -I2C_WRITE_ERROR;
-+
-+	ret = occ_i2c_read(client, buf, sizeof(buf));
-+	if (ret != sizeof(buf))
-+		return -I2C_READ_ERROR;
-+
-+	for (i = 0; i < 8; i++)
-+		data[offset + i] = buf[7 - i];
-+
-+	return 0;
-+}
-+
-+static int occ_putscom(struct i2c_client *client, uint32_t address,
-+		uint32_t data0, uint32_t data1)
-+{
-+	uint32_t buf[3];
-+	uint32_t ret;
-+
-+	/* P8 i2c slave requires address to be shifted by 1 */
-+	address = address << 1;
-+
-+	buf[0] = address;
-+	buf[1] = data1;
-+	buf[2] = data0;
-+
-+	ret = occ_i2c_write(client, buf, sizeof(buf));
-+	if (ret != sizeof(buf))
-+		return I2C_WRITE_ERROR;
-+
-+	return 0;
-+}
-+
-+static void *occ_get_sensor_by_type(struct occ_response *resp, enum sensor_t t)
-+{
-+	void *sensor;
-+
-+	if (!resp->blocks)
-+		return NULL;
-+
-+	switch (t) {
-+	case temp:
-+		sensor = (resp->temp_block_id == -1) ? NULL :
-+			resp->blocks[resp->temp_block_id].sensor;
-+		break;
-+	case freq:
-+		sensor = (resp->freq_block_id == -1) ? NULL :
-+			resp->blocks[resp->freq_block_id].sensor;
-+		break;
-+	case power:
-+		sensor = (resp->power_block_id == -1) ? NULL :
-+			resp->blocks[resp->power_block_id].power;
-+		break;
-+	case caps:
-+		sensor = (resp->caps_block_id == -1) ? NULL :
-+			resp->blocks[resp->caps_block_id].caps;
-+		break;
-+	default:
-+		sensor = NULL;
-+		break;
-+	}
-+
-+	return sensor;
-+}
-+
-+static int occ_renew_sensor(struct occ_response *resp, uint8_t sensor_length,
-+	uint8_t num_of_sensors, enum sensor_t t, int block)
-+{
-+	void *sensor;
-+	int ret;
-+
-+	sensor = occ_get_sensor_by_type(resp, t);
-+
-+	/* empty sensor block, release older sensor data */
-+	if (num_of_sensors == 0 || sensor_length == 0) {
-+		kfree(sensor);
-+		return -1;
-+	}
-+
-+	switch (t) {
-+	case temp:
-+		if (!sensor || num_of_sensors !=
-+			resp->blocks[resp->temp_block_id].num_of_sensors) {
-+			kfree(sensor);
-+			resp->blocks[block].sensor =
-+				kcalloc(num_of_sensors,
-+					sizeof(struct occ_sensor), GFP_KERNEL);
-+			if (!resp->blocks[block].sensor) {
-+				ret = -ENOMEM;
-+				goto err;
-+			}
-+		}
-+		break;
-+	case freq:
-+		if (!sensor || num_of_sensors !=
-+			resp->blocks[resp->freq_block_id].num_of_sensors) {
-+			kfree(sensor);
-+			resp->blocks[block].sensor =
-+				kcalloc(num_of_sensors,
-+					sizeof(struct occ_sensor), GFP_KERNEL);
-+			if (!resp->blocks[block].sensor) {
-+				ret = -ENOMEM;
-+				goto err;
-+			}
-+		}
-+		break;
-+	case power:
-+		if (!sensor || num_of_sensors !=
-+			resp->blocks[resp->power_block_id].num_of_sensors) {
-+			kfree(sensor);
-+			resp->blocks[block].power =
-+				kcalloc(num_of_sensors,
-+				sizeof(struct power_sensor), GFP_KERNEL);
-+			if (!resp->blocks[block].power) {
-+				ret = -ENOMEM;
-+				goto err;
-+			}
-+		}
-+		break;
-+	case caps:
-+		if (!sensor || num_of_sensors !=
-+			resp->blocks[resp->caps_block_id].num_of_sensors) {
-+			kfree(sensor);
-+			resp->blocks[block].caps =
-+				kcalloc(num_of_sensors,
-+					sizeof(struct caps_sensor), GFP_KERNEL);
-+			if (!resp->blocks[block].caps) {
-+				ret = -ENOMEM;
-+				goto err;
-+			}
-+		}
-+		break;
-+	default:
-+		sensor = NULL;
-+		break;
-+	}
-+
-+	return 0;
-+err:
-+	deinit_occ_resp_buf(resp);
-+	return ret;
-+}
-+
-+/* refer to OCC interface document for Poll Return Packet format
-+ * https://github.com/open-power/docs/blob/master/occ/OCC_OpenPwr_FW_Interfaces.pdf
-+ */
-+#define RESP_DATA_LENGTH	3
-+#define RESP_HEADER_OFFSET	5
-+#define SENSOR_STR_OFFSET	37
-+#define SENSOR_BLOCK_NUM_OFFSET	43
-+#define SENSOR_BLOCK_OFFSET	45
-+
-+static inline uint16_t get_occdata_length(uint8_t *data)
-+{
-+	return be16_to_cpup(&data[RESP_DATA_LENGTH]);
-+}
-+
-+static int parse_occ_response(struct i2c_client *client,
-+		uint8_t *data, struct occ_response *resp)
-+{
-+	int b;
-+	int s;
-+	int ret;
-+	int dnum = SENSOR_BLOCK_OFFSET;
-+	struct occ_sensor *f_sensor;
-+	struct occ_sensor *t_sensor;
-+	struct power_sensor *p_sensor;
-+	struct caps_sensor *c_sensor;
-+	uint8_t sensor_block_num;
-+	uint8_t sensor_type[4];
-+	uint8_t sensor_format;
-+	uint8_t sensor_length;
-+	uint8_t num_of_sensors;
-+
-+	/* check if the data is valid */
-+	if (strncmp(&data[SENSOR_STR_OFFSET], "SENSOR", 6) != 0) {
-+		dev_err(&client->dev,
-+			"ERROR: no SENSOR String in response\n");
-+		ret = -1;
-+		goto err;
-+	}
-+
-+	sensor_block_num = data[SENSOR_BLOCK_NUM_OFFSET];
-+	if (sensor_block_num == 0) {
-+		dev_err(&client->dev, "ERROR: SENSOR block num is 0\n");
-+		ret = -1;
-+		goto err;
-+	}
-+
-+	/* if sensor block has changed, re-malloc */
-+	if (sensor_block_num != resp->header.sensor_block_num) {
-+		deinit_occ_resp_buf(resp);
-+		resp->blocks = kcalloc(sensor_block_num,
-+			sizeof(struct sensor_data_block), GFP_KERNEL);
-+		if (!resp->blocks)
-+			return -ENOMEM;
-+	}
-+
-+	memcpy(&resp->header, &data[RESP_HEADER_OFFSET], sizeof(resp->header));
-+	resp->header.error_log_addr_start =
-+		be32_to_cpu(resp->header.error_log_addr_start);
-+	resp->header.error_log_length =
-+		be16_to_cpu(resp->header.error_log_length);
-+
-+	dev_dbg(&client->dev, "Reading %d sensor blocks\n",
-+		resp->header.sensor_block_num);
-+	for (b = 0; b < sensor_block_num; b++) {
-+		/* 8-byte sensor block head */
-+		strncpy(sensor_type, &data[dnum], 4);
-+		sensor_format = data[dnum+5];
-+		sensor_length = data[dnum+6];
-+		num_of_sensors = data[dnum+7];
-+		dnum = dnum + 8;
-+
-+		dev_dbg(&client->dev,
-+			"sensor block[%d]: type: %s, num_of_sensors: %d\n",
-+			b, sensor_type, num_of_sensors);
-+
-+		if (strncmp(sensor_type, "FREQ", 4) == 0) {
-+			ret = occ_renew_sensor(resp, sensor_length,
-+				num_of_sensors, freq, b);
-+			if (ret)
-+				continue;
-+
-+			resp->freq_block_id = b;
-+			for (s = 0; s < num_of_sensors; s++) {
-+				f_sensor = &resp->blocks[b].sensor[s];
-+				f_sensor->sensor_id = be16_to_cpup(&data[dnum]);
-+				f_sensor->value = be16_to_cpup(&data[dnum+2]);
-+				dev_dbg(&client->dev,
-+					"sensor[%d]-[%d]: id: %u, value: %u\n",
-+					b, s, f_sensor->sensor_id,
-+					f_sensor->value);
-+				dnum = dnum + sensor_length;
-+			}
-+		} else if (strncmp(sensor_type, "TEMP", 4) == 0) {
-+			ret = occ_renew_sensor(resp, sensor_length,
-+				num_of_sensors, temp, b);
-+			if (ret)
-+				continue;
-+
-+			resp->temp_block_id = b;
-+			for (s = 0; s < num_of_sensors; s++) {
-+				t_sensor = &resp->blocks[b].sensor[s];
-+				t_sensor->sensor_id = be16_to_cpup(&data[dnum]);
-+				t_sensor->value = be16_to_cpup(&data[dnum+2]);
-+				dev_dbg(&client->dev,
-+					"sensor[%d]-[%d]: id: %u, value: %u\n",
-+					b, s, t_sensor->sensor_id,
-+					t_sensor->value);
-+				dnum = dnum + sensor_length;
-+			}
-+		} else if (strncmp(sensor_type, "POWR", 4) == 0) {
-+			ret = occ_renew_sensor(resp, sensor_length,
-+				num_of_sensors, power, b);
-+			if (ret)
-+				continue;
-+
-+			resp->power_block_id = b;
-+			for (s = 0; s < num_of_sensors; s++) {
-+				p_sensor = &resp->blocks[b].power[s];
-+				p_sensor->sensor_id = be16_to_cpup(&data[dnum]);
-+				p_sensor->update_tag =
-+					be32_to_cpup(&data[dnum+2]);
-+				p_sensor->accumulator =
-+					be32_to_cpup(&data[dnum+6]);
-+				p_sensor->value = be16_to_cpup(&data[dnum+10]);
-+
-+				dev_dbg(&client->dev,
-+					"sensor[%d]-[%d]: id: %u, value: %u\n",
-+					b, s, p_sensor->sensor_id,
-+					p_sensor->value);
-+
-+				dnum = dnum + sensor_length;
-+			}
-+		} else if (strncmp(sensor_type, "CAPS", 4) == 0) {
-+			ret = occ_renew_sensor(resp, sensor_length,
-+				num_of_sensors, caps, b);
-+			if (ret)
-+				continue;
-+
-+			resp->caps_block_id = b;
-+			for (s = 0; s < num_of_sensors; s++) {
-+				c_sensor = &resp->blocks[b].caps[s];
-+				c_sensor->curr_powercap =
-+					be16_to_cpup(&data[dnum]);
-+				c_sensor->curr_powerreading =
-+					be16_to_cpup(&data[dnum+2]);
-+				c_sensor->norm_powercap =
-+					be16_to_cpup(&data[dnum+4]);
-+				c_sensor->max_powercap =
-+					be16_to_cpup(&data[dnum+6]);
-+				c_sensor->min_powercap =
-+					be16_to_cpup(&data[dnum+8]);
-+				c_sensor->user_powerlimit =
-+					be16_to_cpup(&data[dnum+10]);
-+
-+				dnum = dnum + sensor_length;
-+				dev_dbg(&client->dev, "CAPS sensor #%d:\n", s);
-+				dev_dbg(&client->dev, "curr_powercap is %x\n",
-+					c_sensor->curr_powercap);
-+				dev_dbg(&client->dev,
-+					"curr_powerreading is %x\n",
-+					c_sensor->curr_powerreading);
-+				dev_dbg(&client->dev, "norm_powercap is %x\n",
-+					c_sensor->norm_powercap);
-+				dev_dbg(&client->dev, "max_powercap is %x\n",
-+					c_sensor->max_powercap);
-+				dev_dbg(&client->dev, "min_powercap is %x\n",
-+					c_sensor->min_powercap);
-+				dev_dbg(&client->dev, "user_powerlimit is %x\n",
-+					c_sensor->user_powerlimit);
-+			}
-+
-+		} else {
-+			dev_err(&client->dev,
-+				"ERROR: sensor type %s not supported\n",
-+				resp->blocks[b].sensor_type);
-+			ret = -1;
-+			goto err;
-+		}
-+
-+		strncpy(resp->blocks[b].sensor_type, sensor_type, 4);
-+		resp->blocks[b].sensor_format = sensor_format;
-+		resp->blocks[b].sensor_length = sensor_length;
-+		resp->blocks[b].num_of_sensors = num_of_sensors;
-+	}
-+
-+	return 0;
-+err:
-+	deinit_occ_resp_buf(resp);
-+	return ret;
-+}
-+
-+static int occ_get_all(struct i2c_client *client, struct occ_response *occ_resp)
-+{
-+	uint8_t occ_data[OCC_DATA_MAX];
-+	uint16_t num_bytes;
-+	int i;
-+	int ret;
-+
-+	/* Init OCB */
-+	occ_putscom(client, OCB_STATUS_CONTROL_OR,  0x08000000, 0x00000000);
-+	occ_putscom(client, OCB_STATUS_CONTROL_AND, 0xFBFFFFFF, 0xFFFFFFFF);
-+
-+	/* Send poll command to OCC */
-+	occ_putscom(client, OCB_ADDRESS, OCC_COMMAND_ADDR, 0x00000000);
-+	occ_putscom(client, OCB_ADDRESS, OCC_COMMAND_ADDR, 0x00000000);
-+	occ_putscom(client, OCB_DATA, 0x00000001, 0x10001100);
-+
-+	/* Trigger ATTN */
-+	occ_putscom(client, ATTN_DATA, 0x01010000, 0x00000000);
-+
-+	/* Get response data */
-+	occ_putscom(client, OCB_ADDRESS, OCC_RESPONSE_ADDR, 0x00000000);
-+	occ_getscomb(client, OCB_DATA, occ_data, 0);
-+
-+	num_bytes = get_occdata_length(occ_data);
-+
-+	dev_dbg(&client->dev, "OCC data length: %d\n", num_bytes);
-+
-+	if (num_bytes > OCC_DATA_MAX) {
-+		dev_err(&client->dev, "ERROR: OCC data length must be < 4KB\n");
-+		return -1;
-+	}
-+
-+	if (num_bytes <= 0) {
-+		dev_err(&client->dev, "ERROR: OCC data length is zero\n");
-+		return -1;
-+	}
-+
-+	for (i = 8; i < num_bytes + 8; i = i + 8)
-+		occ_getscomb(client, OCB_DATA, occ_data, i);
-+
-+	ret = parse_occ_response(client, occ_data, occ_resp);
-+
-+	return ret;
-+}
-+
-+
-+static int occ_update_device(struct device *dev)
-+{
-+	struct occ_drv_data *data = dev_get_drvdata(dev);
-+	struct i2c_client *client = data->client;
-+	int ret = 0;
-+
-+	mutex_lock(&data->update_lock);
-+
-+	if (time_after(jiffies, data->last_updated + data->update_interval)
-+	    || !data->valid) {
-+		data->valid = 1;
-+		ret = occ_get_all(client, &data->occ_resp);
-+		if (ret)
-+			data->valid = 0;
-+		data->last_updated = jiffies;
-+	}
-+	mutex_unlock(&data->update_lock);
-+
-+	return ret;
-+}
-+
-+
-+static void *occ_get_sensor(struct device *hwmon_dev, enum sensor_t t)
-+{
-+	struct device *dev = hwmon_dev->parent;
-+	struct occ_drv_data *data = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = occ_update_device(dev);
-+	if (ret != 0) {
-+		dev_err(dev, "ERROR: cannot get occ sensor data: %d\n", ret);
-+		return NULL;
-+	}
-+
-+	return occ_get_sensor_by_type(&data->occ_resp, t);
-+}
-+
-+/* sysfs attributes for hwmon */
-+static ssize_t show_occ_temp_input(struct device *hwmon_dev,
-+		struct device_attribute *da, char *buf)
-+{
-+	struct sensor_device_attribute *attr = to_sensor_dev_attr(da);
-+	int n = attr->index;
-+	struct occ_sensor *sensor;
-+	int val;
-+
-+	sensor = occ_get_sensor(hwmon_dev, temp);
-+	if (!sensor)
-+		val = -1;
-+	else
-+		/* in millidegree Celsius */
-+		val = sensor[n].value * 1000;
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
-+}
-+
-+static ssize_t show_occ_temp_label(struct device *hwmon_dev,
-+		struct device_attribute *da, char *buf)
-+{
-+	struct sensor_device_attribute *attr = to_sensor_dev_attr(da);
-+	int n = attr->index;
-+	struct occ_sensor *sensor;
-+	int val;
-+
-+	sensor = occ_get_sensor(hwmon_dev, temp);
-+	if (!sensor)
-+		val = -1;
-+	else
-+		val = sensor[n].sensor_id;
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
-+}
-+
-+static ssize_t show_occ_power_label(struct device *hwmon_dev,
-+		struct device_attribute *da, char *buf)
-+{
-+	struct sensor_device_attribute *attr = to_sensor_dev_attr(da);
-+	int n = attr->index;
-+	struct power_sensor *sensor;
-+	int val;
-+
-+	sensor = occ_get_sensor(hwmon_dev, power);
-+	if (!sensor)
-+		val = -1;
-+	else
-+		val = sensor[n].sensor_id;
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
-+}
-+
-+
-+static ssize_t show_occ_power_input(struct device *hwmon_dev,
-+		struct device_attribute *da, char *buf)
-+{
-+	struct sensor_device_attribute *attr = to_sensor_dev_attr(da);
-+	int n = attr->index;
-+	struct power_sensor *sensor;
-+	int val;
-+
-+	sensor = occ_get_sensor(hwmon_dev, power);
-+	if (!sensor)
-+		val = -1;
-+	else
-+		val = sensor[n].value;
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
-+
-+}
-+
-+
-+static ssize_t show_occ_freq_label(struct device *hwmon_dev,
-+		struct device_attribute *da, char *buf)
-+{
-+	struct sensor_device_attribute *attr = to_sensor_dev_attr(da);
-+	int n = attr->index;
-+	struct occ_sensor *sensor;
-+	int val;
-+
-+	sensor = occ_get_sensor(hwmon_dev, freq);
-+	if (!sensor)
-+		val = -1;
-+	else
-+		val = sensor[n].sensor_id;
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
-+}
-+
-+
-+static ssize_t show_occ_freq_input(struct device *hwmon_dev,
-+		struct device_attribute *da, char *buf)
-+{
-+	struct sensor_device_attribute *attr = to_sensor_dev_attr(da);
-+	int n = attr->index;
-+	struct occ_sensor *sensor;
-+	int val;
-+
-+	sensor = occ_get_sensor(hwmon_dev, freq);
-+	if (!sensor)
-+		val = -1;
-+	else
-+		val = sensor[n].value;
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
-+}
-+
-+static ssize_t show_occ_caps(struct device *hwmon_dev,
-+		struct device_attribute *da, char *buf)
-+{
-+	struct sensor_device_attribute_2 *attr = to_sensor_dev_attr_2(da);
-+	int nr = attr->nr;
-+	int n = attr->index;
-+	struct caps_sensor *sensor;
-+	int val;
-+
-+	sensor = occ_get_sensor(hwmon_dev, caps);
-+	if (!sensor) {
-+		val = -1;
-+		return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
-+	}
-+
-+	switch (nr) {
-+	case 0:
-+		val = sensor[n].curr_powercap;
-+		break;
-+	case 1:
-+		val = sensor[n].curr_powerreading;
-+		break;
-+	case 2:
-+		val = sensor[n].norm_powercap;
-+		break;
-+	case 3:
-+		val = sensor[n].max_powercap;
-+		break;
-+	case 4:
-+		val = sensor[n].min_powercap;
-+		break;
-+	case 5:
-+		val = sensor[n].user_powerlimit;
-+		break;
-+	default:
-+		val = -1;
-+	}
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
-+}
-+
-+static struct sensor_device_attribute temp_input[] = {
-+	SENSOR_ATTR(temp1_input, S_IRUGO, show_occ_temp_input, NULL, 0),
-+	SENSOR_ATTR(temp2_input, S_IRUGO, show_occ_temp_input, NULL, 1),
-+	SENSOR_ATTR(temp3_input, S_IRUGO, show_occ_temp_input, NULL, 2),
-+	SENSOR_ATTR(temp4_input, S_IRUGO, show_occ_temp_input, NULL, 3),
-+	SENSOR_ATTR(temp5_input, S_IRUGO, show_occ_temp_input, NULL, 4),
-+	SENSOR_ATTR(temp6_input, S_IRUGO, show_occ_temp_input, NULL, 5),
-+	SENSOR_ATTR(temp7_input, S_IRUGO, show_occ_temp_input, NULL, 6),
-+	SENSOR_ATTR(temp8_input, S_IRUGO, show_occ_temp_input, NULL, 7),
-+	SENSOR_ATTR(temp9_input, S_IRUGO, show_occ_temp_input, NULL, 8),
-+	SENSOR_ATTR(temp10_input, S_IRUGO, show_occ_temp_input, NULL, 9),
-+	SENSOR_ATTR(temp11_input, S_IRUGO, show_occ_temp_input, NULL, 10),
-+	SENSOR_ATTR(temp12_input, S_IRUGO, show_occ_temp_input, NULL, 11),
-+	SENSOR_ATTR(temp13_input, S_IRUGO, show_occ_temp_input, NULL, 12),
-+	SENSOR_ATTR(temp14_input, S_IRUGO, show_occ_temp_input, NULL, 13),
-+	SENSOR_ATTR(temp15_input, S_IRUGO, show_occ_temp_input, NULL, 14),
-+	SENSOR_ATTR(temp16_input, S_IRUGO, show_occ_temp_input, NULL, 15),
-+	SENSOR_ATTR(temp17_input, S_IRUGO, show_occ_temp_input, NULL, 16),
-+	SENSOR_ATTR(temp18_input, S_IRUGO, show_occ_temp_input, NULL, 17),
-+	SENSOR_ATTR(temp19_input, S_IRUGO, show_occ_temp_input, NULL, 18),
-+	SENSOR_ATTR(temp20_input, S_IRUGO, show_occ_temp_input, NULL, 19),
-+	SENSOR_ATTR(temp21_input, S_IRUGO, show_occ_temp_input, NULL, 20),
-+	SENSOR_ATTR(temp22_input, S_IRUGO, show_occ_temp_input, NULL, 21),
-+};
-+
-+static struct sensor_device_attribute temp_label[] = {
-+	SENSOR_ATTR(temp1_label, S_IRUGO, show_occ_temp_label, NULL, 0),
-+	SENSOR_ATTR(temp2_label, S_IRUGO, show_occ_temp_label, NULL, 1),
-+	SENSOR_ATTR(temp3_label, S_IRUGO, show_occ_temp_label, NULL, 2),
-+	SENSOR_ATTR(temp4_label, S_IRUGO, show_occ_temp_label, NULL, 3),
-+	SENSOR_ATTR(temp5_label, S_IRUGO, show_occ_temp_label, NULL, 4),
-+	SENSOR_ATTR(temp6_label, S_IRUGO, show_occ_temp_label, NULL, 5),
-+	SENSOR_ATTR(temp7_label, S_IRUGO, show_occ_temp_label, NULL, 6),
-+	SENSOR_ATTR(temp8_label, S_IRUGO, show_occ_temp_label, NULL, 7),
-+	SENSOR_ATTR(temp9_label, S_IRUGO, show_occ_temp_label, NULL, 8),
-+	SENSOR_ATTR(temp10_label, S_IRUGO, show_occ_temp_label, NULL, 9),
-+	SENSOR_ATTR(temp11_label, S_IRUGO, show_occ_temp_label, NULL, 10),
-+	SENSOR_ATTR(temp12_label, S_IRUGO, show_occ_temp_label, NULL, 11),
-+	SENSOR_ATTR(temp13_label, S_IRUGO, show_occ_temp_label, NULL, 12),
-+	SENSOR_ATTR(temp14_label, S_IRUGO, show_occ_temp_label, NULL, 13),
-+	SENSOR_ATTR(temp15_label, S_IRUGO, show_occ_temp_label, NULL, 14),
-+	SENSOR_ATTR(temp16_label, S_IRUGO, show_occ_temp_label, NULL, 15),
-+	SENSOR_ATTR(temp17_label, S_IRUGO, show_occ_temp_label, NULL, 16),
-+	SENSOR_ATTR(temp18_label, S_IRUGO, show_occ_temp_label, NULL, 17),
-+	SENSOR_ATTR(temp19_label, S_IRUGO, show_occ_temp_label, NULL, 18),
-+	SENSOR_ATTR(temp20_label, S_IRUGO, show_occ_temp_label, NULL, 19),
-+	SENSOR_ATTR(temp21_label, S_IRUGO, show_occ_temp_label, NULL, 20),
-+	SENSOR_ATTR(temp22_label, S_IRUGO, show_occ_temp_label, NULL, 21),
-+
-+};
-+
-+#define TEMP_UNIT_ATTRS(X)                      \
-+{	&temp_input[X].dev_attr.attr,           \
-+	&temp_label[X].dev_attr.attr,          \
-+	NULL                                    \
-+}
-+
-+/* 10-core CPU, occ has 22 temp sensors, more socket, more sensors */
-+static struct attribute *occ_temp_attr[][3] = {
-+	TEMP_UNIT_ATTRS(0),
-+	TEMP_UNIT_ATTRS(1),
-+	TEMP_UNIT_ATTRS(2),
-+	TEMP_UNIT_ATTRS(3),
-+	TEMP_UNIT_ATTRS(4),
-+	TEMP_UNIT_ATTRS(5),
-+	TEMP_UNIT_ATTRS(6),
-+	TEMP_UNIT_ATTRS(7),
-+	TEMP_UNIT_ATTRS(8),
-+	TEMP_UNIT_ATTRS(9),
-+	TEMP_UNIT_ATTRS(10),
-+	TEMP_UNIT_ATTRS(11),
-+	TEMP_UNIT_ATTRS(12),
-+	TEMP_UNIT_ATTRS(13),
-+	TEMP_UNIT_ATTRS(14),
-+	TEMP_UNIT_ATTRS(15),
-+	TEMP_UNIT_ATTRS(16),
-+	TEMP_UNIT_ATTRS(17),
-+	TEMP_UNIT_ATTRS(18),
-+	TEMP_UNIT_ATTRS(19),
-+	TEMP_UNIT_ATTRS(20),
-+	TEMP_UNIT_ATTRS(21),
-+};
-+
-+static const struct attribute_group occ_temp_attr_group[] = {
-+	{ .attrs = occ_temp_attr[0] },
-+	{ .attrs = occ_temp_attr[1] },
-+	{ .attrs = occ_temp_attr[2] },
-+	{ .attrs = occ_temp_attr[3] },
-+	{ .attrs = occ_temp_attr[4] },
-+	{ .attrs = occ_temp_attr[5] },
-+	{ .attrs = occ_temp_attr[6] },
-+	{ .attrs = occ_temp_attr[7] },
-+	{ .attrs = occ_temp_attr[8] },
-+	{ .attrs = occ_temp_attr[9] },
-+	{ .attrs = occ_temp_attr[10] },
-+	{ .attrs = occ_temp_attr[11] },
-+	{ .attrs = occ_temp_attr[12] },
-+	{ .attrs = occ_temp_attr[13] },
-+	{ .attrs = occ_temp_attr[14] },
-+	{ .attrs = occ_temp_attr[15] },
-+	{ .attrs = occ_temp_attr[16] },
-+	{ .attrs = occ_temp_attr[17] },
-+	{ .attrs = occ_temp_attr[18] },
-+	{ .attrs = occ_temp_attr[19] },
-+	{ .attrs = occ_temp_attr[20] },
-+	{ .attrs = occ_temp_attr[21] },
-+};
-+
-+
-+static struct sensor_device_attribute freq_input[] = {
-+	SENSOR_ATTR(freq1_input, S_IRUGO, show_occ_freq_input, NULL, 0),
-+	SENSOR_ATTR(freq2_input, S_IRUGO, show_occ_freq_input, NULL, 1),
-+	SENSOR_ATTR(freq3_input, S_IRUGO, show_occ_freq_input, NULL, 2),
-+	SENSOR_ATTR(freq4_input, S_IRUGO, show_occ_freq_input, NULL, 3),
-+	SENSOR_ATTR(freq5_input, S_IRUGO, show_occ_freq_input, NULL, 4),
-+	SENSOR_ATTR(freq6_input, S_IRUGO, show_occ_freq_input, NULL, 5),
-+	SENSOR_ATTR(freq7_input, S_IRUGO, show_occ_freq_input, NULL, 6),
-+	SENSOR_ATTR(freq8_input, S_IRUGO, show_occ_freq_input, NULL, 7),
-+	SENSOR_ATTR(freq9_input, S_IRUGO, show_occ_freq_input, NULL, 8),
-+	SENSOR_ATTR(freq10_input, S_IRUGO, show_occ_freq_input, NULL, 9),
-+};
-+
-+static struct sensor_device_attribute freq_label[] = {
-+	SENSOR_ATTR(freq1_label, S_IRUGO, show_occ_freq_label, NULL, 0),
-+	SENSOR_ATTR(freq2_label, S_IRUGO, show_occ_freq_label, NULL, 1),
-+	SENSOR_ATTR(freq3_label, S_IRUGO, show_occ_freq_label, NULL, 2),
-+	SENSOR_ATTR(freq4_label, S_IRUGO, show_occ_freq_label, NULL, 3),
-+	SENSOR_ATTR(freq5_label, S_IRUGO, show_occ_freq_label, NULL, 4),
-+	SENSOR_ATTR(freq6_label, S_IRUGO, show_occ_freq_label, NULL, 5),
-+	SENSOR_ATTR(freq7_label, S_IRUGO, show_occ_freq_label, NULL, 6),
-+	SENSOR_ATTR(freq8_label, S_IRUGO, show_occ_freq_label, NULL, 7),
-+	SENSOR_ATTR(freq9_label, S_IRUGO, show_occ_freq_label, NULL, 8),
-+	SENSOR_ATTR(freq10_label, S_IRUGO, show_occ_freq_label, NULL, 9),
-+
-+};
-+
-+#define FREQ_UNIT_ATTRS(X)                      \
-+{	&freq_input[X].dev_attr.attr,           \
-+	&freq_label[X].dev_attr.attr,          \
-+	NULL                                    \
-+}
-+
-+/* 10-core CPU, occ has 22 freq sensors, more socket, more sensors */
-+static struct attribute *occ_freq_attr[][3] = {
-+	FREQ_UNIT_ATTRS(0),
-+	FREQ_UNIT_ATTRS(1),
-+	FREQ_UNIT_ATTRS(2),
-+	FREQ_UNIT_ATTRS(3),
-+	FREQ_UNIT_ATTRS(4),
-+	FREQ_UNIT_ATTRS(5),
-+	FREQ_UNIT_ATTRS(6),
-+	FREQ_UNIT_ATTRS(7),
-+	FREQ_UNIT_ATTRS(8),
-+	FREQ_UNIT_ATTRS(9),
-+};
-+
-+static const struct attribute_group occ_freq_attr_group[] = {
-+	{ .attrs = occ_freq_attr[0] },
-+	{ .attrs = occ_freq_attr[1] },
-+	{ .attrs = occ_freq_attr[2] },
-+	{ .attrs = occ_freq_attr[3] },
-+	{ .attrs = occ_freq_attr[4] },
-+	{ .attrs = occ_freq_attr[5] },
-+	{ .attrs = occ_freq_attr[6] },
-+	{ .attrs = occ_freq_attr[7] },
-+	{ .attrs = occ_freq_attr[8] },
-+	{ .attrs = occ_freq_attr[9] },
-+};
-+
-+static struct sensor_device_attribute_2 caps_curr_powercap[] = {
-+	SENSOR_ATTR_2(caps_curr_powercap, S_IRUGO, show_occ_caps, NULL, 0, 0),
-+};
-+static struct sensor_device_attribute_2 caps_curr_powerreading[] = {
-+	SENSOR_ATTR_2(caps_curr_powerreading, S_IRUGO,
-+		show_occ_caps, NULL, 1, 0),
-+};
-+static struct sensor_device_attribute_2 caps_norm_powercap[] = {
-+	SENSOR_ATTR_2(caps_norm_powercap, S_IRUGO, show_occ_caps,
-+		NULL, 2, 0),
-+};
-+static struct sensor_device_attribute_2 caps_max_powercap[] = {
-+	SENSOR_ATTR_2(caps_max_powercap, S_IRUGO, show_occ_caps, NULL, 3, 0),
-+};
-+static struct sensor_device_attribute_2 caps_min_powercap[] = {
-+	SENSOR_ATTR_2(caps_min_powercap, S_IRUGO, show_occ_caps, NULL, 4, 0),
-+};
-+static struct sensor_device_attribute_2 caps_user_powerlimit[] = {
-+	SENSOR_ATTR_2(caps_user_powerlimit, S_IRUGO, show_occ_caps, NULL, 5, 0),
-+};
-+#define CAPS_UNIT_ATTRS(X)                      \
-+{	&caps_curr_powercap[X].dev_attr.attr,           \
-+	&caps_curr_powerreading[X].dev_attr.attr,           \
-+	&caps_norm_powercap[X].dev_attr.attr,           \
-+	&caps_max_powercap[X].dev_attr.attr,           \
-+	&caps_min_powercap[X].dev_attr.attr,           \
-+	&caps_user_powerlimit[X].dev_attr.attr,           \
-+	NULL                                    \
-+}
-+
-+/* 10-core CPU, occ has 1 caps sensors */
-+static struct attribute *occ_caps_attr[][7] = {
-+	CAPS_UNIT_ATTRS(0),
-+};
-+static const struct attribute_group occ_caps_attr_group[] = {
-+	{ .attrs = occ_caps_attr[0] },
-+};
-+
-+static struct sensor_device_attribute power_input[] = {
-+	SENSOR_ATTR(power1_input, S_IRUGO, show_occ_power_input, NULL, 0),
-+	SENSOR_ATTR(power2_input, S_IRUGO, show_occ_power_input, NULL, 1),
-+	SENSOR_ATTR(power3_input, S_IRUGO, show_occ_power_input, NULL, 2),
-+	SENSOR_ATTR(power4_input, S_IRUGO, show_occ_power_input, NULL, 3),
-+	SENSOR_ATTR(power5_input, S_IRUGO, show_occ_power_input, NULL, 4),
-+	SENSOR_ATTR(power6_input, S_IRUGO, show_occ_power_input, NULL, 5),
-+	SENSOR_ATTR(power7_input, S_IRUGO, show_occ_power_input, NULL, 6),
-+	SENSOR_ATTR(power8_input, S_IRUGO, show_occ_power_input, NULL, 7),
-+	SENSOR_ATTR(power9_input, S_IRUGO, show_occ_power_input, NULL, 8),
-+	SENSOR_ATTR(power10_input, S_IRUGO, show_occ_power_input, NULL, 9),
-+	SENSOR_ATTR(power11_input, S_IRUGO, show_occ_power_input, NULL, 10),
-+};
-+
-+static struct sensor_device_attribute power_label[] = {
-+	SENSOR_ATTR(power1_label, S_IRUGO, show_occ_power_label, NULL, 0),
-+	SENSOR_ATTR(power2_label, S_IRUGO, show_occ_power_label, NULL, 1),
-+	SENSOR_ATTR(power3_label, S_IRUGO, show_occ_power_label, NULL, 2),
-+	SENSOR_ATTR(power4_label, S_IRUGO, show_occ_power_label, NULL, 3),
-+	SENSOR_ATTR(power5_label, S_IRUGO, show_occ_power_label, NULL, 4),
-+	SENSOR_ATTR(power6_label, S_IRUGO, show_occ_power_label, NULL, 5),
-+	SENSOR_ATTR(power7_label, S_IRUGO, show_occ_power_label, NULL, 6),
-+	SENSOR_ATTR(power8_label, S_IRUGO, show_occ_power_label, NULL, 7),
-+	SENSOR_ATTR(power9_label, S_IRUGO, show_occ_power_label, NULL, 8),
-+	SENSOR_ATTR(power10_label, S_IRUGO, show_occ_power_label, NULL, 9),
-+	SENSOR_ATTR(power11_label, S_IRUGO, show_occ_power_label, NULL, 10),
-+};
-+
-+#define POWER_UNIT_ATTRS(X)                      \
-+{	&power_input[X].dev_attr.attr,           \
-+	&power_label[X].dev_attr.attr,          \
-+	NULL                                    \
-+}
-+
-+/* 10-core CPU, occ has 11 power sensors, more socket, more sensors */
-+static struct attribute *occ_power_attr[][3] = {
-+	POWER_UNIT_ATTRS(0),
-+	POWER_UNIT_ATTRS(1),
-+	POWER_UNIT_ATTRS(2),
-+	POWER_UNIT_ATTRS(3),
-+	POWER_UNIT_ATTRS(4),
-+	POWER_UNIT_ATTRS(5),
-+	POWER_UNIT_ATTRS(6),
-+	POWER_UNIT_ATTRS(7),
-+	POWER_UNIT_ATTRS(8),
-+	POWER_UNIT_ATTRS(9),
-+	POWER_UNIT_ATTRS(10),
-+};
-+
-+static const struct attribute_group occ_power_attr_group[] = {
-+	{ .attrs = occ_power_attr[0] },
-+	{ .attrs = occ_power_attr[1] },
-+	{ .attrs = occ_power_attr[2] },
-+	{ .attrs = occ_power_attr[3] },
-+	{ .attrs = occ_power_attr[4] },
-+	{ .attrs = occ_power_attr[5] },
-+	{ .attrs = occ_power_attr[6] },
-+	{ .attrs = occ_power_attr[7] },
-+	{ .attrs = occ_power_attr[8] },
-+	{ .attrs = occ_power_attr[9] },
-+	{ .attrs = occ_power_attr[10] },
-+};
-+
-+static ssize_t show_update_interval(struct device *hwmon_dev,
-+				struct device_attribute *attr, char *buf)
-+{
-+	struct device *dev = hwmon_dev->parent;
-+	struct occ_drv_data *data = dev_get_drvdata(dev);
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%u\n",
-+		jiffies_to_msecs(data->update_interval));
-+}
-+
-+static ssize_t set_update_interval(struct device *hwmon_dev,
-+				struct device_attribute *attr,
-+				const char *buf, size_t count)
-+{
-+	struct device *dev = hwmon_dev->parent;
-+	struct occ_drv_data *data = dev_get_drvdata(dev);
-+	unsigned long val;
-+	int err;
-+
-+	err = kstrtoul(buf, 10, &val);
-+	if (err)
-+		return err;
-+
-+	data->update_interval = msecs_to_jiffies(val);
-+	return count;
-+}
-+static DEVICE_ATTR(update_interval, S_IWUSR | S_IRUGO,
-+		show_update_interval, set_update_interval);
-+
-+static ssize_t show_name(struct device *hwmon_dev,
-+				struct device_attribute *attr, char *buf)
-+{
-+	return snprintf(buf, PAGE_SIZE - 1, "%s\n", OCC_I2C_NAME);
-+}
-+static DEVICE_ATTR(name, S_IRUGO, show_name, NULL);
-+
-+
-+static void occ_remove_sysfs_files(struct device *dev)
-+{
-+	int i = 0;
-+
-+	if (!dev)
-+		return;
-+
-+	device_remove_file(dev, &dev_attr_update_interval);
-+	device_remove_file(dev, &dev_attr_name);
-+
-+	for (i = 0; i < ARRAY_SIZE(occ_temp_attr_group); i++)
-+		sysfs_remove_group(&dev->kobj, &occ_temp_attr_group[i]);
-+
-+	for (i = 0; i < ARRAY_SIZE(occ_freq_attr_group); i++)
-+		sysfs_remove_group(&dev->kobj, &occ_freq_attr_group[i]);
-+
-+	for (i = 0; i < ARRAY_SIZE(occ_power_attr_group); i++)
-+		sysfs_remove_group(&dev->kobj, &occ_power_attr_group[i]);
-+
-+	for (i = 0; i < ARRAY_SIZE(occ_caps_attr_group); i++)
-+		sysfs_remove_group(&dev->kobj, &occ_caps_attr_group[i]);
-+}
-+
-+static int occ_create_hwmon_attribute(struct device *dev)
-+{
-+	/* The sensor number varies for different
-+	 * platform depending on core number. We'd better
-+	 * create them dynamically
-+	 */
-+	struct occ_drv_data *drv_data = dev_get_drvdata(dev);
-+	int i = 0;
-+	int num_of_sensors = 0;
-+	int ret = 0;
-+	struct occ_response *rsp = NULL;
-+
-+	/* get sensor number from occ. */
-+	rsp = &drv_data->occ_resp;
-+
-+	rsp->freq_block_id = -1;
-+	rsp->temp_block_id = -1;
-+	rsp->power_block_id = -1;
-+	rsp->caps_block_id = -1;
-+
-+	ret = occ_update_device(dev);
-+	if (ret != 0) {
-+		dev_err(dev, "ERROR: cannot get occ sensor data: %d\n", ret);
-+		return ret;
-+	}
-+
-+	if (!rsp->blocks)
-+		return -1;
-+
-+	ret = device_create_file(drv_data->hwmon_dev,
-+			&dev_attr_name);
-+	if (ret)
-+		goto error;
-+
-+	ret = device_create_file(drv_data->hwmon_dev,
-+			&dev_attr_update_interval);
-+	if (ret)
-+		goto error;
-+
-+	/* temp sensors */
-+	if (rsp->temp_block_id >= 0) {
-+		num_of_sensors =
-+			rsp->blocks[rsp->temp_block_id].num_of_sensors;
-+		for (i = 0; i < num_of_sensors; i++) {
-+			ret = sysfs_create_group(&drv_data->hwmon_dev->kobj,
-+				&occ_temp_attr_group[i]);
-+			if (ret) {
-+				dev_err(dev, "error create temp sysfs entry\n");
-+				goto error;
-+			}
-+		}
-+	}
-+
-+	/* freq sensors */
-+	if (rsp->freq_block_id >= 0) {
-+		num_of_sensors =
-+			rsp->blocks[rsp->freq_block_id].num_of_sensors;
-+		for (i = 0; i < num_of_sensors; i++) {
-+			ret = sysfs_create_group(&drv_data->hwmon_dev->kobj,
-+				&occ_freq_attr_group[i]);
-+			if (ret) {
-+				dev_err(dev, "error create freq sysfs entry\n");
-+				goto error;
-+			}
-+		}
-+	}
-+
-+	/* power sensors */
-+	if (rsp->power_block_id >= 0) {
-+		num_of_sensors =
-+			rsp->blocks[rsp->power_block_id].num_of_sensors;
-+		for (i = 0; i < num_of_sensors; i++) {
-+			ret = sysfs_create_group(&drv_data->hwmon_dev->kobj,
-+				&occ_power_attr_group[i]);
-+			if (ret) {
-+				dev_err(dev, "error create power sysfs entry\n");
-+				goto error;
-+			}
-+		}
-+	}
-+
-+	/* caps sensors */
-+	if (rsp->caps_block_id >= 0) {
-+		num_of_sensors =
-+			rsp->blocks[rsp->caps_block_id].num_of_sensors;
-+		for (i = 0; i < num_of_sensors; i++) {
-+			ret = sysfs_create_group(&drv_data->hwmon_dev->kobj,
-+				&occ_caps_attr_group[i]);
-+			if (ret) {
-+				dev_err(dev, "error create caps sysfs entry\n");
-+				goto error;
-+			}
-+		}
-+	}
-+
-+	return 0;
-+error:
-+	occ_remove_sysfs_files(drv_data->hwmon_dev);
-+	return ret;
-+}
-+
-+static ssize_t show_occ_online(struct device *dev,
-+				struct device_attribute *attr, char *buf)
-+{
-+	struct occ_drv_data *data = dev_get_drvdata(dev);
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%lu\n", data->occ_online);
-+}
-+
-+static ssize_t set_occ_online(struct device *dev,
-+				struct device_attribute *attr,
-+				const char *buf, size_t count)
-+{
-+	struct occ_drv_data *data = dev_get_drvdata(dev);
-+	unsigned long val;
-+	int err;
-+
-+	err = kstrtoul(buf, 10, &val);
-+	if (err)
-+		return err;
-+
-+	if (val == 1) {
-+		if (data->occ_online == 1)
-+			return count;
-+
-+		/* populate hwmon sysfs attr using sensor data */
-+		dev_dbg(dev, "occ register hwmon @0x%x\n", data->client->addr);
-+
-+		data->hwmon_dev = hwmon_device_register(dev);
-+		if (IS_ERR(data->hwmon_dev))
-+			return PTR_ERR(data->hwmon_dev);
-+
-+		err = occ_create_hwmon_attribute(dev);
-+		if (err) {
-+			hwmon_device_unregister(data->hwmon_dev);
-+			return err;
-+		}
-+		data->hwmon_dev->parent = dev;
-+		dev_dbg(dev, "%s: sensor '%s'\n",
-+			dev_name(data->hwmon_dev), data->client->name);
-+	} else if (val == 0) {
-+		if (data->occ_online == 0)
-+			return count;
-+
-+		occ_remove_sysfs_files(data->hwmon_dev);
-+		hwmon_device_unregister(data->hwmon_dev);
-+		data->hwmon_dev = NULL;
-+	} else
-+		return -EINVAL;
-+
-+	data->occ_online = val;
-+	return count;
-+}
-+
-+static DEVICE_ATTR(online, S_IWUSR | S_IRUGO,
-+		show_occ_online, set_occ_online);
-+
-+static int occ_create_sysfs_attribute(struct device *dev)
-+{
-+	/* create a sysfs attribute, to indicate whether OCC is active */
-+	return device_create_file(dev, &dev_attr_online);
-+}
-+
-+
-+/* device probe and removal */
-+
-+enum occ_type {
-+	occ_id,
-+};
-+
-+static int occ_probe(struct i2c_client *client, const struct i2c_device_id *id)
-+{
-+	struct device *dev = &client->dev;
-+	struct occ_drv_data *data;
-+
-+	data = devm_kzalloc(dev, sizeof(struct occ_drv_data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	data->client = client;
-+	i2c_set_clientdata(client, data);
-+	mutex_init(&data->update_lock);
-+	data->update_interval = HZ;
-+
-+	occ_create_sysfs_attribute(dev);
-+
-+	dev_info(dev, "occ i2c driver ready: i2c addr@0x%x\n", client->addr);
-+
-+	return 0;
-+}
-+
-+static int occ_remove(struct i2c_client *client)
-+{
-+	struct occ_drv_data *data = i2c_get_clientdata(client);
-+
-+	/* free allocated sensor memory */
-+	deinit_occ_resp_buf(&data->occ_resp);
-+
-+	device_remove_file(&client->dev, &dev_attr_online);
-+
-+	if (!data->hwmon_dev)
-+		return 0;
-+
-+	occ_remove_sysfs_files(data->hwmon_dev);
-+	hwmon_device_unregister(data->hwmon_dev);
-+	return 0;
-+}
-+
-+/* used by old-style board info. */
-+static const struct i2c_device_id occ_ids[] = {
-+	{ OCC_I2C_NAME, occ_id, },
-+	{ /* LIST END */ }
-+};
-+MODULE_DEVICE_TABLE(i2c, occ_ids);
-+
-+/* use by device table */
-+static const struct of_device_id i2c_occ_of_match[] = {
-+	{.compatible = "ibm,occ-i2c"},
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, i2c_occ_of_match);
-+
-+/* i2c-core uses i2c-detect() to detect device in bellow address list.
-+ *  If exists, address will be assigned to client.
-+ * It is also possible to read address from device table.
-+ */
-+static const unsigned short normal_i2c[] = {0x50, 0x51, I2C_CLIENT_END };
-+
-+static struct i2c_driver occ_driver = {
-+	.class		= I2C_CLASS_HWMON,
-+	.driver = {
-+		.name	= OCC_I2C_NAME,
-+		.pm	= NULL,
-+		.of_match_table = i2c_occ_of_match,
-+	},
-+	.probe		= occ_probe,
-+	.remove		= occ_remove,
-+	.id_table       = occ_ids,
-+	.address_list	= normal_i2c,
-+};
-+
-+module_i2c_driver(occ_driver);
-+
-+MODULE_AUTHOR("Li Yi <shliyi@cn.ibm.com>");
-+MODULE_DESCRIPTION("BMC OCC hwmon driver");
-+MODULE_LICENSE("GPL");
--- 
-2.6.4
+https://github.com/open-power/docs/blob/master/occ/OCC=5FOpenPwr=5FFW=5FInt=
+erfaces.pdf
+
+WARNING: DT compatible string "ibm,occ-i2c" appears un-documented --
+check ./Documentation/devicetree/bindings/
+#1389: FILE: drivers/hwmon/occ=5Fi2c.c:1311:
++       {.compatible =3D "ibm,occ-i2c"},
+
+ERROR: Missing Signed-off-by: line(s)
+
+total: 1 errors, 7 warnings, 1391 lines checked
+
+occ=5Fv4.patch has style problems, please review.
+
+1) For  "DT compatible" warnings, I am not sure whether it is necessary,
+since I run "scripts/checkpatch.pl -f
+arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts",
+it will report many warnings. I can add a description if necessary.
+
+2) for "line over 80" warnings, it would break the link if wrap at 80
+characters.
+
+> > +
+> > +/* To generate attn to OCC */
+> > +#define ATTN=5FDATA      0x0006B035
+> > +/* For BMC to read/write SRAM */
+> > +#define OCB=5FADDRESS            0x0006B070
+> > +#define OCB=5FDATA               0x0006B075
+> > +#define OCB=5FSTATUS=5FCONTROL=5FAND 0x0006B072
+> > +#define OCB=5FSTATUS=5FCONTROL=5FOR  0x0006B073
+> > +#define OCC=5FCOMMAND=5FADDR       0xFFFF6000
+> > +#define OCC=5FRESPONSE=5FADDR      0xFFFF7000
+>
+> Are these addresses going to change with different versions of the
+> OCC firmware?
+>
+
+Actually I did not find the document for most of the addresses. I copied
+them from Alvin's OCC code.
+If anyone know the source (possibly from OCC firmware developers), please
+help.
+The only OCC document I can find is:
+https://github.com/open-power/docs/blob/master/occ/OCC=5FOpenPwr=5FFW=5FInt=
+erfaces.pdf
+It defines OCC=5FCOMMAND=5FADDR and OCC=5FRESPONSE=5FADDR only.
+
+>
+> > +
+> > +       if (!p)
+> > +               return;
+>
+> It's common in kernel code to omit checking for null arguments.
+>
+> If you think there is a likely hood of this happening, then perhaps
+> WARN=5FON(!b) would be better; this way we get a backtrace in the kernel
+> log.
+>
+
+The deinit=5Focc=5Fresp=5Fbuf() function is supposed to be called in multip=
+le
+situation.
+E.g, error handling code in a function. In those case, pointer might be
+NULL.
+So WARN=5FON() is not expected in that case.
+
+
+> > +
+> > +       if (!p->blocks)
+> > +               return;
+> > +
+> > +       for (b =3D 0; b < p->header.sensor=5Fblock=5Fnum; b++) {
+> > +               if (p->blocks[b].sensor)
+> > +                       kfree(p->blocks[b].sensor);
+> > +               if (p->blocks[b].power)
+> > +                       kfree(p->blocks[b].power);
+> > +               if (p->blocks[b].caps)
+> > +                       kfree(p->blocks[b].caps);
+> > +       }
+>
+> I think Jeremy suggested in his review that you statically allocate
+> these instead of kmalloc and kfreeing at runtime.
+>
+
+The OCC sensor type and sensor number will change depending on whether OCC
+is master or slave.
+Also there is possible of bad cores and the number of sensors may change.
+So using dynamically allocated sensor block is nature I think.
+It is possible that the driver allocates a block of memory and manage
+itself.
+But looks there is no great benefit.
+
+> > +{
+> > +       int b;
+> > +       int s;
+> > +       int ret;
+> > +       int dnum =3D SENSOR=5FBLOCK=5FOFFSET;
+> > +       struct occ=5Fsensor *f=5Fsensor;
+> > +       struct occ=5Fsensor *t=5Fsensor;
+> > +       struct power=5Fsensor *p=5Fsensor;
+> > +       struct caps=5Fsensor *c=5Fsensor;
+> > +       uint8=5Ft sensor=5Fblock=5Fnum;
+> > +       uint8=5Ft sensor=5Ftype[4];
+> > +       uint8=5Ft sensor=5Fformat;
+> > +       uint8=5Ft sensor=5Flength;
+> > +       uint8=5Ft num=5Fof=5Fsensors;
+> > +
+> > +       /* check if the data is valid */
+> > +       if (strncmp(&d[SENSOR=5FSTR=5FOFFSET], "SENSOR", 6) !=3D 0) {
+>
+> If you have a literal string you don't need to use strncmp.
+>
+
+"d[SENSOR=5FSTR=5FOFFSET]" does not have '\0' to terminate a string. So hav=
+e to
+use strncmp.
+
+
+>
+> > +                               p=5Fsensor->accumulator =3D
+> > +                                       (d[dnum+6] << 24) | (d
+> [dnum+7] << 16) |
+> > +                                       (d[dnum+8] << 8) | d[dnum+9];
+> > +                               p=5Fsensor->value =3D
+> > +                                       (d[dnum+10] << 8) | d[dnum+11];
+> > +
+> > +                               dev=5Fdbg(&client->dev,
+> > +                                       "sensor[%d]-[%d]: id: %u,
+> value: %u\n",
+> > +                                       b, s, p=5Fsensor->sensor=5Fid,
+> > +                                       p=5Fsensor->value);
+> > +
+> > +                               dnum =3D dnum + sensor=5Flength;
+> > +                       }
+> > +               } else if (strncmp(sensor=5Ftype, "CAPS", 4) =3D=3D 0) {
+>
+> If you have a literal string you don't need to use strncmp.
+
+"sensor=5Ftype" has no '\0' to terminate it. strncmp() is necessary.
+
+
+> > +               val =3D -1;
+> > +       else
+> > +               /* in millidegree Celsius */
+> > +               val =3D sensor[n].value * 1000;
+> > +
+> > +       return sprintf(buf, "%d\n", val);
+>
+> How do you know "%d\n" will fit into buf?
+
+Do you mean using snprintf()? After reading the man page:
+"Because  sprintf()  and vsprintf() assume an arbitrarily long string,
+callers must be careful not to overflow the actual space; this
+       is often impossible to assure.  Note that the length of the strings
+produced is locale-dependent  and  difficult  to  predict.   Use
+       snprintf() and vsnprintf() instead (or asprintf(3) and vasprintf
+(3))."
+
+snprintf() seems more safe, but we can find a lot of "sprintf()" in sysfs
+show* functions in drivers/hwmon/. Looks to me not a big issue.
+Anyway, I will change to snprintf() to be safer:
+I use the same code as driver/hwmon/lm95241.c
+
+"        return snprintf(buf, PAGE=5FSIZE - 1,
+                        data->config & to=5Fsensor=5Fdev=5Fattr(attr)->inde=
+x ?
+                        "127000\n" : "255000\n");
+"
+
+Thanks,
+-adam
+
+
+
+--0__=8FBBF5BDDFA0B9C88f9e8a93df938690918c8FBBF5BDDFA0B9C8
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/html; charset=US-ASCII
+Content-Disposition: inline
+
+<html><body><p><tt>Hi Joel,</tt><br><br><tt>Thanks many for your time to re=
+view the driver.</tt><br><br><tt>I re-submitted to patch, fixed most of the=
+ issues you pointed out, except a few showed bellow.</tt><br><tt>Please see=
+ my reply bellow for details:</tt><br><br><tt>joel.stan@gmail.com wrote on =
+12/10/2015 12:02:19 PM:<br><br>&gt; From: Joel Stanley &lt;joel@jms.id.au&g=
+t;</tt><br><tt>&gt; To: Yi Li &lt;adamliyi@msn.com&gt;</tt><br><tt>&gt; Cc:=
+ OpenBMC Maillist &lt;openbmc@lists.ozlabs.org&gt;, Jeremy Kerr <br>&gt; &l=
+t;jk@ozlabs.org&gt;, Yi TZ Li/China/IBM@IBMCN</tt><br><tt>&gt; Date: 12/10/=
+2015 12:03 PM</tt><br><tt>&gt; Subject: Re: [PATCH occ hwmon v3] Add OCC hw=
+mon driver to Kernel</tt><br><tt>&gt; Sent by: joel.stan@gmail.com</tt><br>=
+<tt>&gt; <br>&gt; Hello Adam,<br>&gt; <br>&gt; On Tue, Dec 8, 2015 at 6:59 =
+PM, Yi Li &lt;adamliyi@msn.com&gt; wrote:<br>&gt; &gt; The default patch tr=
+iggered by git pull request is hard to read.<br>&gt; &gt; I resend a clean =
+patch to the list. Please review.<br>&gt; <br>&gt; Thanks! This is the pref=
+erred method for reviewing code. Even better<br>&gt; would be if you used g=
+it format-patch to create the email, that way we<br>&gt; can review your co=
+mmit message as well.<br>&gt; <br>&gt; Before you submit next, please run y=
+our patch through<br>&gt; scripts/checkpatch.pl in the kernel tree and fix =
+all of the errors and<br>&gt; warnings. It will warn you about common style=
+ and syntax mistakes.<br>&gt; <br>&gt; ./scripts/checkpatch.pl -f drivers/h=
+wmon/occ=5Fi2c.c<br>&gt; <br>&gt; [...]<br>&gt; <br>&gt; total: 24 errors, =
+21 warnings, 1315 lines checked<br></tt><br><tt>I run the checkpatch.pl aga=
+inst the new patch, here are the result:</tt><br><br><tt>scripts/checkpatch=
+.pl occ=5Fv4.patch</tt><br><tt>WARNING: DT compatible string &quot;ibm,occ-=
+i2c&quot; appears un-documented -- check ./Documentation/devicetree/binding=
+s/</tt><br><tt>#11: FILE: arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts:30=
+:</tt><br><tt>+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; compatible =3D &quot;ibm,occ-i2c&quot;;</tt><br>=
+<br><tt>WARNING: DT compatible string &quot;ibm,occ-i2c&quot; appears un-do=
+cumented -- check ./Documentation/devicetree/bindings/</tt><br><tt>#15: FIL=
+E: arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts:34:</tt><br><tt>+ &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; compatible =3D &quot;ibm,occ-i2c&quot;;</tt><br><br><tt>WARNING: DT com=
+patible string &quot;ibm,occ-i2c&quot; appears un-documented -- check ./Doc=
+umentation/devicetree/bindings/</tt><br><tt>#33: FILE: arch/arm/boot/dts/as=
+peed-bmc-opp-palmetto.dts:35:</tt><br><tt>+ &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compatible =3D &quot=
+;ibm,occ-i2c&quot;;</tt><br><br><tt>WARNING: added, moved or deleted file(s=
+), does MAINTAINERS need updating?</tt><br><tt>#74:</tt><br><tt>new file mo=
+de 100644</tt><br><br><tt>WARNING: line over 80 characters</tt><br><tt>#127=
+: FILE: drivers/hwmon/occ=5Fi2c.c:49:</tt><br><tt>+ * </tt><a href=3D"https=
+://github.com/open-power/docs/blob/master/occ/OCC=5FOpenPwr=5FFW=5FInterfac=
+es.pdf"><tt>https://github.com/open-power/docs/blob/master/occ/OCC=5FOpenPw=
+r=5FFW=5FInterfaces.pdf</tt></a><br><br><tt>WARNING: line over 80 character=
+s</tt><br><tt>#420: FILE: drivers/hwmon/occ=5Fi2c.c:342:</tt><br><tt>+ * </=
+tt><a href=3D"https://github.com/open-power/docs/blob/master/occ/OCC=5FOpen=
+Pwr=5FFW=5FInterfaces.pdf"><tt>https://github.com/open-power/docs/blob/mast=
+er/occ/OCC=5FOpenPwr=5FFW=5FInterfaces.pdf</tt></a><br><br><tt>WARNING: DT =
+compatible string &quot;ibm,occ-i2c&quot; appears un-documented -- check ./=
+Documentation/devicetree/bindings/</tt><br><tt>#1389: FILE: drivers/hwmon/o=
+cc=5Fi2c.c:1311:</tt><br><tt>+ &nbsp; &nbsp; &nbsp; {.compatible =3D &quot;=
+ibm,occ-i2c&quot;},</tt><br><br><tt>ERROR: Missing Signed-off-by: line(s)</=
+tt><br><br><tt>total: 1 errors, 7 warnings, 1391 lines checked</tt><br><br>=
+<tt>occ=5Fv4.patch has style problems, please review. <br></tt><br><tt>1) F=
+or &nbsp;&quot;DT compatible&quot; warnings, I am not sure whether it is ne=
+cessary, since I run &quot;</tt><tt>scripts/checkpatch.pl -f arch/arm/boot/=
+dts/aspeed-bmc-opp-barreleye.dts</tt><tt>&quot;,</tt><br><tt>it will report=
+ many warnings. I can add a description if necessary.</tt><br><br><tt>2) fo=
+r &quot;line over 80&quot; warnings, it would break the link if wrap at 80 =
+characters.</tt><br><tt>&nbsp;<br>&gt; &gt; +<br>&gt; &gt; +/* To generate =
+attn to OCC */<br>&gt; &gt; +#define ATTN=5FDATA &nbsp; &nbsp; &nbsp;0x0006=
+B035<br>&gt; &gt; +/* For BMC to read/write SRAM */<br>&gt; &gt; +#define O=
+CB=5FADDRESS &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0x0006B070<br>&gt; &g=
+t; +#define OCB=5FDATA &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0x0=
+006B075<br>&gt; &gt; +#define OCB=5FSTATUS=5FCONTROL=5FAND 0x0006B072<br>&g=
+t; &gt; +#define OCB=5FSTATUS=5FCONTROL=5FOR &nbsp;0x0006B073<br>&gt; &gt; =
++#define OCC=5FCOMMAND=5FADDR &nbsp; &nbsp; &nbsp; 0xFFFF6000<br>&gt; &gt; =
++#define OCC=5FRESPONSE=5FADDR &nbsp; &nbsp; &nbsp;0xFFFF7000<br>&gt; <br>&=
+gt; Are these addresses going to change with different versions of the <br>=
+&gt; OCC firmware?<br>&gt;</tt><br><br><tt>Actually I did not find the docu=
+ment for most of the addresses. I copied them from Alvin's OCC code.</tt><b=
+r><tt>If anyone know the source (possibly from OCC firmware developers), pl=
+ease help.</tt><br><tt>The only OCC document I can find is:</tt><br><a href=
+=3D"https://github.com/open-power/docs/blob/master/occ/OCC=5FOpenPwr=5FFW=
+=5FInterfaces.pdf"><tt>https://github.com/open-power/docs/blob/master/occ/O=
+CC=5FOpenPwr=5FFW=5FInterfaces.pdf</tt></a><br><tt>It defines OCC=5FCOMMAND=
+=5FADDR and OCC=5FRESPONSE=5FADDR only.</tt><br><br><tt>&gt; <br>&gt; &gt; =
++<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; if (!p)<br>&gt; &gt; + &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return;<br>&gt; <br>&gt; It's common in =
+kernel code to omit checking for null arguments.<br>&gt; <br>&gt; If you th=
+ink there is a likely hood of this happening, then perhaps<br>&gt; WARN=5FO=
+N(!b) would be better; this way we get a backtrace in the kernel<br>&gt; lo=
+g.<br>&gt; <br></tt><br><tt>The </tt><tt>deinit=5Focc=5Fresp=5Fbuf() functi=
+on is supposed to be called in multiple situation.</tt><br><tt>E.g, error h=
+andling code in a function. In those case, pointer might be NULL.</tt><br><=
+tt>So WARN=5FON() is not expected in that case.</tt><br><br><br><tt>&gt; &g=
+t; +<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; if (!p-&gt;blocks)<br>&gt; &gt; + =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return;<br>&gt; &gt; +<br>=
+&gt; &gt; + &nbsp; &nbsp; &nbsp; for (b =3D 0; b &lt; p-&gt;header.sensor=
+=5Fblock=5Fnum; b++) {<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; if (p-&gt;blocks[b].sensor)<br>&gt; &gt; + &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; kfree(p-&gt;blocks=
+[b].sensor);<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; if (p-&gt;blocks[b].power)<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; kfree(p-&gt;blocks[b].power);=
+<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (p-&gt;=
+blocks[b].caps)<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; kfree(p-&gt;blocks[b].caps);<br>&gt; &gt; =
++ &nbsp; &nbsp; &nbsp; }<br>&gt; <br>&gt; I think Jeremy suggested in his r=
+eview that you statically allocate<br>&gt; these instead of kmalloc and kfr=
+eeing at runtime.<br>&gt; <br></tt><br><tt>The OCC sensor type and sensor n=
+umber will change depending on whether OCC is master or slave.</tt><br><tt>=
+Also there is possible of bad cores and the number of sensors may change.</=
+tt><br><tt>So using dynamically allocated sensor block is nature I think.</=
+tt><br><tt>It is possible that the driver allocates a block of memory and m=
+anage itself.</tt><br><tt>But looks there is no great benefit.</tt><br><tt>=
+<br>&gt; &gt; +{<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; int b;<br>&gt; &gt; + =
+&nbsp; &nbsp; &nbsp; int s;<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; int ret;<br=
+>&gt; &gt; + &nbsp; &nbsp; &nbsp; int dnum =3D SENSOR=5FBLOCK=5FOFFSET;<br>=
+&gt; &gt; + &nbsp; &nbsp; &nbsp; struct occ=5Fsensor *f=5Fsensor;<br>&gt; &=
+gt; + &nbsp; &nbsp; &nbsp; struct occ=5Fsensor *t=5Fsensor;<br>&gt; &gt; + =
+&nbsp; &nbsp; &nbsp; struct power=5Fsensor *p=5Fsensor;<br>&gt; &gt; + &nbs=
+p; &nbsp; &nbsp; struct caps=5Fsensor *c=5Fsensor;<br>&gt; &gt; + &nbsp; &n=
+bsp; &nbsp; uint8=5Ft sensor=5Fblock=5Fnum;<br>&gt; &gt; + &nbsp; &nbsp; &n=
+bsp; uint8=5Ft sensor=5Ftype[4];<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; uint8=
+=5Ft sensor=5Fformat;<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; uint8=5Ft sensor=
+=5Flength;<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; uint8=5Ft num=5Fof=5Fsensors=
+;<br>&gt; &gt; +<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; /* check if the data i=
+s valid */<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; if (strncmp(&amp;d[SENSOR=5F=
+STR=5FOFFSET], &quot;SENSOR&quot;, 6) !=3D 0) {<br>&gt; <br>&gt; If you hav=
+e a literal string you don't need to use strncmp.<br>&gt; <br></tt><br><tt>=
+&quot;d[SENSOR=5FSTR=5FOFFSET]&quot; does not have '\0' to terminate a stri=
+ng. So have to use strncmp.<br></tt><br><br><tt>&gt; <br>&gt; &gt; + &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; p=5Fsensor-&gt;accumulator =3D<br>&gt; &gt; + &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (d[dnum+6] &lt;&lt; 24=
+) | (d<br>&gt; [dnum+7] &lt;&lt; 16) |<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (d[dnum+8] &lt;&lt; 8) | d[dnum+9];<br=
+>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; p=5Fsensor-&gt;value =3D<br>&gt;=
+ &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (d[dnum+1=
+0] &lt;&lt; 8) | d[dnum+11];<br>&gt; &gt; +<br>&gt; &gt; + &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; dev=5Fdbg(&amp;client-&gt;dev,<br>&gt; &gt; + &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;sensor[%d]-[%d]: id: %u, <=
+br>&gt; value: %u\n&quot;,<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; b, s, p=5Fsensor-&gt;sensor=5Fid,<br>&gt; &gt; + &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; p=5Fsensor-&gt;val=
+ue);<br>&gt; &gt; +<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dnum =3D d=
+num + sensor=5Flength;</tt><br><tt>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br>&gt; &gt; + &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } else if (strncmp(sensor=5Ftype, &=
+quot;CAPS&quot;, 4) =3D=3D 0) {<br>&gt; <br>&gt; If you have a literal stri=
+ng you don't need to use strncmp.</tt><br><br><tt>&quot;sensor=5Ftype&quot;=
+ has no '\0' to terminate it. strncmp() is necessary. </tt><br><tt><br><br>=
+&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; val =3D -1;<br=
+>&gt; &gt; + &nbsp; &nbsp; &nbsp; else<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; /* in millidegree Celsius */<br>&gt; &gt; + &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; val =3D sensor[n].value * 100=
+0;<br>&gt; &gt; +<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; return sprintf(buf, &=
+quot;%d\n&quot;, val);<br>&gt; <br>&gt; How do you know &quot;%d\n&quot; wi=
+ll fit into buf?</tt><br><br><tt>Do you mean using snprintf()? After readin=
+g the man page:</tt><br><tt>&quot;Because &nbsp;sprintf() &nbsp;and vsprint=
+f() assume an arbitrarily long string, callers must be careful not to overf=
+low the actual space; this</tt><br><tt>&nbsp; &nbsp; &nbsp; &nbsp;is often =
+impossible to assure. &nbsp;Note that the length of the strings produced is=
+ locale-dependent &nbsp;and &nbsp;difficult &nbsp;to &nbsp;predict. &nbsp; =
+Use</tt><br><tt>&nbsp; &nbsp; &nbsp; &nbsp;snprintf() and vsnprintf() inste=
+ad (or asprintf(3) and vasprintf(3)).&quot;</tt><br><br><tt>snprintf() seem=
+s more safe, but we can find a lot of &quot;sprintf()&quot; in sysfs show* =
+functions in drivers/hwmon/. Looks to me not a big issue.</tt><br><tt>Anywa=
+y, I will change to snprintf() to be safer:</tt><br><tt>I use the same code=
+ as driver/hwmon/</tt><tt>lm95241.c</tt><br><br><tt>&quot;</tt><tt>&nbsp; &=
+nbsp; &nbsp; &nbsp; return snprintf(buf, PAGE=5FSIZE - 1,</tt><br><tt>&nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; data-&gt;config &amp; to=5Fsensor=5Fdev=5Fattr(attr)-&gt;index ?</tt><b=
+r><tt>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &quot;127000\n&quot; : &quot;255000\n&quot;);</tt><br><tt>&q=
+uot;</tt><br><br><tt>Thanks,</tt><br><tt>-adam</tt><br><br><tt><br></tt><BR>
+</body></html>
+
+--0__=8FBBF5BDDFA0B9C88f9e8a93df938690918c8FBBF5BDDFA0B9C8--
