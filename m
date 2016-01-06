@@ -1,89 +1,45 @@
-Return-Path: <njames@us.ibm.com>
-Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
- (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
+Return-Path: <cyrilbur@gmail.com>
+Received: from mail-pf0-x22f.google.com (mail-pf0-x22f.google.com
+ [IPv6:2607:f8b0:400e:c00::22f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 8F6C11A1147
- for <openbmc@lists.ozlabs.org>; Wed,  6 Jan 2016 01:28:05 +1100 (AEDT)
-Received: from localhost
- by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <njames@us.ibm.com>;
- Tue, 5 Jan 2016 07:28:02 -0700
-Received: from d03dlp02.boulder.ibm.com (9.17.202.178)
- by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 5 Jan 2016 07:28:00 -0700
-X-IBM-Helo: d03dlp02.boulder.ibm.com
-X-IBM-MailFrom: njames@us.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from b03cxnp08028.gho.boulder.ibm.com
- (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
- by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id 2B1F53E40044
- for <openbmc@lists.ozlabs.org>; Tue,  5 Jan 2016 07:28:00 -0700 (MST)
-Received: from d03av02.boulder.ibm.com (d03av02.boulder.ibm.com [9.17.195.168])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u05ES0Ov26148866
- for <openbmc@lists.ozlabs.org>; Tue, 5 Jan 2016 07:28:00 -0700
-Received: from d03av02.boulder.ibm.com (localhost [127.0.0.1])
- by d03av02.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u05ERxni015986
- for <openbmc@lists.ozlabs.org>; Tue, 5 Jan 2016 07:27:59 -0700
-Received: from e39.co.us.ibm.com (e39.boulder.ibm.com [9.17.249.49])
- by d03av02.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u05ERvU9015890
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=OK)
- for <openbmc@lists.ozlabs.org>; Tue, 5 Jan 2016 07:27:58 -0700
-Message-Id: <201601051427.u05ERvU9015890@d03av02.boulder.ibm.com>
-Received: from localhost
- by e39.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <njames@us.ibm.com>;
- Tue, 5 Jan 2016 07:27:57 -0700
-Received: from smtp.notes.na.collabserv.com (192.155.248.82)
- by e39.co.us.ibm.com (192.168.2.139) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
- Tue, 5 Jan 2016 07:27:56 -0700
-X-IBM-Helo: smtp.notes.na.collabserv.com
-X-IBM-MailFrom: njames@us.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from /spool/local
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <njames@us.ibm.com>;
- Tue, 5 Jan 2016 14:27:54 -0000
-Received: from us1a3-smtp01.a3.dal06.isc4sb.com (10.106.154.100)
- by smtp.notes.na.collabserv.com (10.106.227.105) with
- smtp.notes.na.collabserv.com ESMTP; Tue, 5 Jan 2016 14:27:52 -0000
-Received: from us1a3-mail64.a3.dal09.isc4sb.com ([10.142.3.135])
- by us1a3-smtp01.a3.dal06.isc4sb.com
- with ESMTP id 2016010514283159-237159 ;
- Tue, 5 Jan 2016 14:28:31 +0000 
-In-Reply-To: <201601050829.u058TamO024023@d23av01.au.ibm.com>
-Subject: Re: [PATCH occ hwmon v3] Add OCC hwmon driver to Kernel
-To: "Yi TZ Li" <shliyi@cn.ibm.com>
-Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: "Norman James" <njames@us.ibm.com>
-Date: Tue, 5 Jan 2016 06:59:54 -0600
-References: <BLU436-SMTP1997C66B56E367DA0D3E402D9080@phx.gbl>
- <CACPK8XcUA=4m7QH1QL0eRaupRPevQtm9VeMCwoR1GdVam6JJfQ@mail.gmail.com>
- <201601050829.u058TamO024023@d23av01.au.ibm.com>
-X-KeepSent: A2ED26E4:C9645634-86257F31:00474597;
- type=4; name=$KeepSent
-X-Mailer: IBM Notes Release 9.0.1FP2 SHF37 August 25, 2014
-X-LLNOutbound: False
-X-Disclaimed: 41555
-X-TNEFEvaluated: 1
-Content-type: multipart/related; 
- Boundary="0__=09BBF5A2DFD4C3078f9e8a93df938690918c09BBF5A2DFD4C307"
-x-cbid: 16010514-0021-0000-0000-000015CA9B47
-X-IBM-ISS-SpamDetectors: Score=0.410717; BY=0.290183; FL=0; FP=0; FZ=0; HX=0; 
- KW=0; PH=0; SC=0.410717; ST=0; TS=0; UL=0; ISC=
-X-IBM-ISS-DetailInfo: BY=3.00004758; HX=3.00000237; KW=3.00000007;
- PH=3.00000004; SC=3.00000130; SDB=6.00640886; UDB=6.00288429; UTC=2016-01-05
- 14:27:54
-x-cbparentid: 16010514-9900-0000-0000-0000058D3CB6
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
+ by lists.ozlabs.org (Postfix) with ESMTPS id 5D8561A118D
+ for <openbmc@lists.ozlabs.org>; Wed,  6 Jan 2016 16:09:46 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=sdAZ7O5d; 
+ dkim-atps=neutral
+Received: by mail-pf0-x22f.google.com with SMTP id q63so196400462pfb.0
+ for <openbmc@lists.ozlabs.org>; Tue, 05 Jan 2016 21:09:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version:content-type:content-transfer-encoding;
+ bh=S5cUlqgOcnQdmSka8jj6mIbXy+XlaIdrJIQ7zgFd1N8=;
+ b=sdAZ7O5dkwsQJW6Opj6xeAT5nylz5roCxL4a1vrBGrcOzZpN+cbywbXgHOGVcai0Hk
+ Z7aqd0QP6tJmwtwZ3DDXD53C7urqgDD/ia0kOMxsiKr79LpO6GQx2YPzm0beOegANEFw
+ 2SESfLJrHAUOaeYty7BoJQBfrSE/hLLhlCvle+51DNNhGYwUZdZc4Hukutu3UKURn0bc
+ 8ZFbrFpc8dvap0NH675ufPZ6gPx5oIgCsTNGsrN5NEEXxaccXGU5DuM8FWwqSC6vNsvf
+ T7F4S5K+4tZLF/bEfFmhOPZfO0U6V0d7DzQmWDRI0dL7WKrdcqQDt7QiP74xSV2GToDs
+ wBmw==
+X-Received: by 10.98.80.15 with SMTP id e15mr61796642pfb.20.1452056984028;
+ Tue, 05 Jan 2016 21:09:44 -0800 (PST)
+Received: from camb691 ([122.99.82.10])
+ by smtp.gmail.com with ESMTPSA id by2sm82983996pab.6.2016.01.05.21.09.41
+ (version=TLSv1/SSLv3 cipher=OTHER);
+ Tue, 05 Jan 2016 21:09:43 -0800 (PST)
+Date: Wed, 6 Jan 2016 16:09:34 +1100
+From: Cyril Bur <cyrilbur@gmail.com>
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, shgoupf <shgoupf@cn.ibm.com>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: [PATCH phosphor-host-ipmid v4] Add get/set boot option ipmid
+ command support with correct DBUS property handling.
+Message-ID: <20160106160934.493e446f@camb691>
+In-Reply-To: <1451956226-19954-2-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1451956226-19954-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1451956226-19954-2-git-send-email-openbmc-patches@stwcx.xyz>
+X-Mailer: Claws Mail 3.13.1 (GTK+ 2.24.29; x86_64-unknown-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -95,555 +51,748 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Jan 2016 14:28:06 -0000
-
---0__=09BBF5A2DFD4C3078f9e8a93df938690918c09BBF5A2DFD4C307
-Content-type: multipart/alternative; 
-	Boundary="1__=09BBF5A2DFD4C3078f9e8a93df938690918c09BBF5A2DFD4C307"
-
-
---1__=09BBF5A2DFD4C3078f9e8a93df938690918c09BBF5A2DFD4C307
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/plain; charset=US-ASCII
-
-
-The OCC register definitions are set by the hardware and can be found in
-the P8 SCOM register documentation.   They won't ever change for P8 and P8
-+.
-
-
-> > +
-> > +/* To generate attn to OCC */
-> > +#define ATTN=5FDATA      0x0006B035
-> > +/* For BMC to read/write SRAM */
-> > +#define OCB=5FADDRESS            0x0006B070
-> > +#define OCB=5FDATA               0x0006B075
-> > +#define OCB=5FSTATUS=5FCONTROL=5FAND 0x0006B072
-> > +#define OCB=5FSTATUS=5FCONTROL=5FOR  0x0006B073
-> > +#define OCC=5FCOMMAND=5FADDR       0xFFFF6000
-> > +#define OCC=5FRESPONSE=5FADDR      0xFFFF7000
-
-Regards,
-Norman James
-IBM - POWER Systems Architect
-Phone: 1-512-286-6807 (T/L: 363-6807)
-Internet: njames@us.ibm.com
-
-
-
-
-From:	"Yi TZ Li" <shliyi@cn.ibm.com>
-To:	Joel Stanley <joel@jms.id.au>
-Cc:	OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date:	01/05/2016 02:30 AM
-Subject:	Re: [PATCH occ hwmon v3] Add OCC hwmon driver to Kernel
-Sent by:	"openbmc" <openbmc-bounces+njames=3Dus.ibm.com@lists.ozlabs.org>
-
-
-
-Hi Joel,
-
-Thanks many for your time to review the driver.
-
-I re-submitted to patch, fixed most of the issues you pointed out, except a
-few showed bellow.
-Please see my reply bellow for details:
-
-joel.stan@gmail.com wrote on 12/10/2015 12:02:19 PM:
-
-> From: Joel Stanley <joel@jms.id.au>
-> To: Yi Li <adamliyi@msn.com>
-> Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Jeremy Kerr
-> <jk@ozlabs.org>, Yi TZ Li/China/IBM@IBMCN
-> Date: 12/10/2015 12:03 PM
-> Subject: Re: [PATCH occ hwmon v3] Add OCC hwmon driver to Kernel
-> Sent by: joel.stan@gmail.com
->
-> Hello Adam,
->
-> On Tue, Dec 8, 2015 at 6:59 PM, Yi Li <adamliyi@msn.com> wrote:
-> > The default patch triggered by git pull request is hard to read.
-> > I resend a clean patch to the list. Please review.
->
-> Thanks! This is the preferred method for reviewing code. Even better
-> would be if you used git format-patch to create the email, that way we
-> can review your commit message as well.
->
-> Before you submit next, please run your patch through
-> scripts/checkpatch.pl in the kernel tree and fix all of the errors and
-> warnings. It will warn you about common style and syntax mistakes.
->
-> ./scripts/checkpatch.pl -f drivers/hwmon/occ=5Fi2c.c
->
-> [...]
->
-> total: 24 errors, 21 warnings, 1315 lines checked
-
-I run the checkpatch.pl against the new patch, here are the result:
-
-scripts/checkpatch.pl occ=5Fv4.patch
-WARNING: DT compatible string "ibm,occ-i2c" appears un-documented --
-check ./Documentation/devicetree/bindings/
-#11: FILE: arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts:30:
-+                                               compatible =3D "ibm,occ-i2c=
-";
-
-WARNING: DT compatible string "ibm,occ-i2c" appears un-documented --
-check ./Documentation/devicetree/bindings/
-#15: FILE: arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts:34:
-+                                               compatible =3D "ibm,occ-i2c=
-";
-
-WARNING: DT compatible string "ibm,occ-i2c" appears un-documented --
-check ./Documentation/devicetree/bindings/
-#33: FILE: arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts:35:
-+                                               compatible =3D "ibm,occ-i2c=
-";
-
-WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
-#74:
-new file mode 100644
-
-WARNING: line over 80 characters
-#127: FILE: drivers/hwmon/occ=5Fi2c.c:49:
-+ *
-https://github.com/open-power/docs/blob/master/occ/OCC=5FOpenPwr=5FFW=5FInt=
-erfaces.pdf
-
-
-WARNING: line over 80 characters
-#420: FILE: drivers/hwmon/occ=5Fi2c.c:342:
-+ *
-https://github.com/open-power/docs/blob/master/occ/OCC=5FOpenPwr=5FFW=5FInt=
-erfaces.pdf
-
-
-WARNING: DT compatible string "ibm,occ-i2c" appears un-documented --
-check ./Documentation/devicetree/bindings/
-#1389: FILE: drivers/hwmon/occ=5Fi2c.c:1311:
-+       {.compatible =3D "ibm,occ-i2c"},
-
-ERROR: Missing Signed-off-by: line(s)
-
-total: 1 errors, 7 warnings, 1391 lines checked
-
-occ=5Fv4.patch has style problems, please review.
-
-1) For  "DT compatible" warnings, I am not sure whether it is necessary,
-since I run "scripts/checkpatch.pl -f
-arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts",
-it will report many warnings. I can add a description if necessary.
-
-2) for "line over 80" warnings, it would break the link if wrap at 80
-characters.
-
-> > +
-> > +/* To generate attn to OCC */
-> > +#define ATTN=5FDATA      0x0006B035
-> > +/* For BMC to read/write SRAM */
-> > +#define OCB=5FADDRESS            0x0006B070
-> > +#define OCB=5FDATA               0x0006B075
-> > +#define OCB=5FSTATUS=5FCONTROL=5FAND 0x0006B072
-> > +#define OCB=5FSTATUS=5FCONTROL=5FOR  0x0006B073
-> > +#define OCC=5FCOMMAND=5FADDR       0xFFFF6000
-> > +#define OCC=5FRESPONSE=5FADDR      0xFFFF7000
->
-> Are these addresses going to change with different versions of the
-> OCC firmware?
->
-
-Actually I did not find the document for most of the addresses. I copied
-them from Alvin's OCC code.
-If anyone know the source (possibly from OCC firmware developers), please
-help.
-The only OCC document I can find is:
-https://github.com/open-power/docs/blob/master/occ/OCC=5FOpenPwr=5FFW=5FInt=
-erfaces.pdf
-
-It defines OCC=5FCOMMAND=5FADDR and OCC=5FRESPONSE=5FADDR only.
-
->
-> > +
-> > +       if (!p)
-> > +               return;
->
-> It's common in kernel code to omit checking for null arguments.
->
-> If you think there is a likely hood of this happening, then perhaps
-> WARN=5FON(!b) would be better; this way we get a backtrace in the kernel
-> log.
->
-
-The deinit=5Focc=5Fresp=5Fbuf() function is supposed to be called in multip=
-le
-situation.
-E.g, error handling code in a function. In those case, pointer might be
-NULL.
-So WARN=5FON() is not expected in that case.
-
-
-> > +
-> > +       if (!p->blocks)
-> > +               return;
-> > +
-> > +       for (b =3D 0; b < p->header.sensor=5Fblock=5Fnum; b++) {
-> > +               if (p->blocks[b].sensor)
-> > +                       kfree(p->blocks[b].sensor);
-> > +               if (p->blocks[b].power)
-> > +                       kfree(p->blocks[b].power);
-> > +               if (p->blocks[b].caps)
-> > +                       kfree(p->blocks[b].caps);
-> > +       }
->
-> I think Jeremy suggested in his review that you statically allocate
-> these instead of kmalloc and kfreeing at runtime.
->
-
-The OCC sensor type and sensor number will change depending on whether OCC
-is master or slave.
-Also there is possible of bad cores and the number of sensors may change.
-So using dynamically allocated sensor block is nature I think.
-It is possible that the driver allocates a block of memory and manage
-itself.
-But looks there is no great benefit.
-
-> > +{
-> > +       int b;
-> > +       int s;
-> > +       int ret;
-> > +       int dnum =3D SENSOR=5FBLOCK=5FOFFSET;
-> > +       struct occ=5Fsensor *f=5Fsensor;
-> > +       struct occ=5Fsensor *t=5Fsensor;
-> > +       struct power=5Fsensor *p=5Fsensor;
-> > +       struct caps=5Fsensor *c=5Fsensor;
-> > +       uint8=5Ft sensor=5Fblock=5Fnum;
-> > +       uint8=5Ft sensor=5Ftype[4];
-> > +       uint8=5Ft sensor=5Fformat;
-> > +       uint8=5Ft sensor=5Flength;
-> > +       uint8=5Ft num=5Fof=5Fsensors;
-> > +
-> > +       /* check if the data is valid */
-> > +       if (strncmp(&d[SENSOR=5FSTR=5FOFFSET], "SENSOR", 6) !=3D 0) {
->
-> If you have a literal string you don't need to use strncmp.
->
-
-"d[SENSOR=5FSTR=5FOFFSET]" does not have '\0' to terminate a string. So hav=
-e to
-use strncmp.
-
-
->
-> > +                               p=5Fsensor->accumulator =3D
-> > +                                       (d[dnum+6] << 24) | (d
-> [dnum+7] << 16) |
-> > +                                       (d[dnum+8] << 8) | d[dnum+9];
-> > +                               p=5Fsensor->value =3D
-> > +                                       (d[dnum+10] << 8) | d[dnum+11];
-> > +
-> > +                               dev=5Fdbg(&client->dev,
-> > +                                       "sensor[%d]-[%d]: id: %u,
-> value: %u\n",
-> > +                                       b, s, p=5Fsensor->sensor=5Fid,
-> > +                                       p=5Fsensor->value);
-> > +
-> > +                               dnum =3D dnum + sensor=5Flength;
-> > +                       }
-> > +               } else if (strncmp(sensor=5Ftype, "CAPS", 4) =3D=3D 0) {
->
-> If you have a literal string you don't need to use strncmp.
-
-"sensor=5Ftype" has no '\0' to terminate it. strncmp() is necessary.
-
-
-> > +               val =3D -1;
-> > +       else
-> > +               /* in millidegree Celsius */
-> > +               val =3D sensor[n].value * 1000;
-> > +
-> > +       return sprintf(buf, "%d\n", val);
->
-> How do you know "%d\n" will fit into buf?
-
-Do you mean using snprintf()? After reading the man page:
-"Because  sprintf()  and vsprintf() assume an arbitrarily long string,
-callers must be careful not to overflow the actual space; this
-       is often impossible to assure.  Note that the length of the strings
-produced is locale-dependent  and  difficult  to  predict.   Use
-       snprintf() and vsnprintf() instead (or asprintf(3) and vasprintf
-(3))."
-
-snprintf() seems more safe, but we can find a lot of "sprintf()" in sysfs
-show* functions in drivers/hwmon/. Looks to me not a big issue.
-Anyway, I will change to snprintf() to be safer:
-I use the same code as driver/hwmon/lm95241.c
-
-"        return snprintf(buf, PAGE=5FSIZE - 1,
-                        data->config & to=5Fsensor=5Fdev=5Fattr(attr)->inde=
-x ?
-                        "127000\n" : "255000\n");
-"
-
-Thanks,
--adam
-
-
-=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
-=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F
-openbmc mailing list
-openbmc@lists.ozlabs.org
-https://lists.ozlabs.org/listinfo/openbmc
-
-
---1__=09BBF5A2DFD4C3078f9e8a93df938690918c09BBF5A2DFD4C307
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/html; charset=US-ASCII
-Content-Disposition: inline
-
-<html><body><p>The OCC register definitions are set by the hardware and can=
- be found in the P8 SCOM register documentation.   They won't ever change f=
-or P8 and P8+.<br><br><br><tt><font size=3D"4">&gt; &gt; +<br>&gt; &gt; +/*=
- To generate attn to OCC */<br>&gt; &gt; +#define ATTN=5FDATA &nbsp; &nbsp;=
- &nbsp;0x0006B035<br>&gt; &gt; +/* For BMC to read/write SRAM */<br>&gt; &g=
-t; +#define OCB=5FADDRESS &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0x0006B0=
-70<br>&gt; &gt; +#define OCB=5FDATA &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; 0x0006B075<br>&gt; &gt; +#define OCB=5FSTATUS=5FCONTROL=5FAND 0x0=
-006B072<br>&gt; &gt; +#define OCB=5FSTATUS=5FCONTROL=5FOR &nbsp;0x0006B073<=
-br>&gt; &gt; +#define OCC=5FCOMMAND=5FADDR &nbsp; &nbsp; &nbsp; 0xFFFF6000<=
-br>&gt; &gt; +#define OCC=5FRESPONSE=5FADDR &nbsp; &nbsp; &nbsp;0xFFFF7000<=
-/font></tt><br><br>Regards,<br>Norman James<br>IBM - POWER Systems Architec=
-t<br>Phone: 1-512-286-6807 (T/L: 363-6807)<br>Internet: njames@us.ibm.com<b=
-r><br><br><img width=3D"16" height=3D"16" src=3D"cid:1=5F=5F=3D09BBF5A2DFD4=
-C3078f9e8a93df938690918c09B@" border=3D"0" alt=3D"Inactive hide details for=
- &quot;Yi TZ Li&quot; ---01/05/2016 02:30:26 AM---Hi Joel, Thanks many for =
-your time to review the driver."><font color=3D"#424282">&quot;Yi TZ Li&quo=
-t; ---01/05/2016 02:30:26 AM---Hi Joel, Thanks many for your time to review=
- the driver.</font><br><br><font size=3D"2" color=3D"#5F5F5F">From:        =
-</font><font size=3D"2">&quot;Yi TZ Li&quot; &lt;shliyi@cn.ibm.com&gt;</fon=
-t><br><font size=3D"2" color=3D"#5F5F5F">To:        </font><font size=3D"2"=
->Joel Stanley &lt;joel@jms.id.au&gt;</font><br><font size=3D"2" color=3D"#5=
-F5F5F">Cc:        </font><font size=3D"2">OpenBMC Maillist &lt;openbmc@list=
-s.ozlabs.org&gt;</font><br><font size=3D"2" color=3D"#5F5F5F">Date:        =
-</font><font size=3D"2">01/05/2016 02:30 AM</font><br><font size=3D"2" colo=
-r=3D"#5F5F5F">Subject:        </font><font size=3D"2">Re: [PATCH occ hwmon =
-v3] Add OCC hwmon driver to Kernel</font><br><font size=3D"2" color=3D"#5F5=
-F5F">Sent by:        </font><font size=3D"2">&quot;openbmc&quot; &lt;openbm=
-c-bounces+njames=3Dus.ibm.com@lists.ozlabs.org&gt;</font><br><hr width=3D"1=
-00%" size=3D"2" align=3D"left" noshade style=3D"color:#8091A5; "><br><br><b=
-r><tt><font size=3D"4">Hi Joel,</font></tt><font size=3D"4"><br></font><tt>=
-<font size=3D"4"><br>Thanks many for your time to review the driver.</font>=
-</tt><font size=3D"4"><br></font><tt><font size=3D"4"><br>I re-submitted to=
- patch, fixed most of the issues you pointed out, except a few showed bello=
-w.<br>Please see my reply bellow for details:</font></tt><font size=3D"4"><=
-br></font><tt><font size=3D"4"><br>joel.stan@gmail.com wrote on 12/10/2015 =
-12:02:19 PM:<br><br>&gt; From: Joel Stanley &lt;joel@jms.id.au&gt;<br>&gt; =
-To: Yi Li &lt;adamliyi@msn.com&gt;<br>&gt; Cc: OpenBMC Maillist &lt;openbmc=
-@lists.ozlabs.org&gt;, Jeremy Kerr <br>&gt; &lt;jk@ozlabs.org&gt;, Yi TZ Li=
-/China/IBM@IBMCN<br>&gt; Date: 12/10/2015 12:03 PM<br>&gt; Subject: Re: [PA=
-TCH occ hwmon v3] Add OCC hwmon driver to Kernel<br>&gt; Sent by: joel.stan=
-@gmail.com<br>&gt; <br>&gt; Hello Adam,<br>&gt; <br>&gt; On Tue, Dec 8, 201=
-5 at 6:59 PM, Yi Li &lt;adamliyi@msn.com&gt; wrote:<br>&gt; &gt; The defaul=
-t patch triggered by git pull request is hard to read.<br>&gt; &gt; I resen=
-d a clean patch to the list. Please review.<br>&gt; <br>&gt; Thanks! This i=
-s the preferred method for reviewing code. Even better<br>&gt; would be if =
-you used git format-patch to create the email, that way we<br>&gt; can revi=
-ew your commit message as well.<br>&gt; <br>&gt; Before you submit next, pl=
-ease run your patch through<br>&gt; scripts/checkpatch.pl in the kernel tre=
-e and fix all of the errors and<br>&gt; warnings. It will warn you about co=
-mmon style and syntax mistakes.<br>&gt; <br>&gt; ./scripts/checkpatch.pl -f=
- drivers/hwmon/occ=5Fi2c.c<br>&gt; <br>&gt; [...]<br>&gt; <br>&gt; total: 2=
-4 errors, 21 warnings, 1315 lines checked</font></tt><font size=3D"4"><br><=
-/font><tt><font size=3D"4"><br>I run the checkpatch.pl against the new patc=
-h, here are the result:</font></tt><font size=3D"4"><br></font><tt><font si=
-ze=3D"4"><br>scripts/checkpatch.pl occ=5Fv4.patch<br>WARNING: DT compatible=
- string &quot;ibm,occ-i2c&quot; appears un-documented -- check ./Documentat=
-ion/devicetree/bindings/<br>#11: FILE: arch/arm/boot/dts/aspeed-bmc-opp-bar=
-releye.dts:30:<br>+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp; compatible =3D &quot;ibm,occ-i2c&quot;;</fon=
-t></tt><font size=3D"4"><br></font><tt><font size=3D"4"><br>WARNING: DT com=
-patible string &quot;ibm,occ-i2c&quot; appears un-documented -- check ./Doc=
-umentation/devicetree/bindings/<br>#15: FILE: arch/arm/boot/dts/aspeed-bmc-=
-opp-barreleye.dts:34:<br>+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compatible =3D &quot;ibm,occ-i2c&quot=
-;;</font></tt><font size=3D"4"><br></font><tt><font size=3D"4"><br>WARNING:=
- DT compatible string &quot;ibm,occ-i2c&quot; appears un-documented -- chec=
-k ./Documentation/devicetree/bindings/<br>#33: FILE: arch/arm/boot/dts/aspe=
-ed-bmc-opp-palmetto.dts:35:<br>+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compatible =3D &quot;ibm,occ-i2=
-c&quot;;</font></tt><font size=3D"4"><br></font><tt><font size=3D"4"><br>WA=
-RNING: added, moved or deleted file(s), does MAINTAINERS need updating?<br>=
-#74:<br>new file mode 100644</font></tt><font size=3D"4"><br></font><tt><fo=
-nt size=3D"4"><br>WARNING: line over 80 characters<br>#127: FILE: drivers/h=
-wmon/occ=5Fi2c.c:49:<br>+ * </font></tt><a href=3D"https://github.com/open-=
-power/docs/blob/master/occ/OCC=5FOpenPwr=5FFW=5FInterfaces.pdf"><tt><u><fon=
-t size=3D"4" color=3D"#0000FF">https://github.com/open-power/docs/blob/mast=
-er/occ/OCC=5FOpenPwr=5FFW=5FInterfaces.pdf</font></u></tt></a><font size=3D=
-"4"><br></font><tt><font size=3D"4"><br>WARNING: line over 80 characters<br=
->#420: FILE: drivers/hwmon/occ=5Fi2c.c:342:<br>+ * </font></tt><a href=3D"h=
-ttps://github.com/open-power/docs/blob/master/occ/OCC=5FOpenPwr=5FFW=5FInte=
-rfaces.pdf"><tt><u><font size=3D"4" color=3D"#0000FF">https://github.com/op=
-en-power/docs/blob/master/occ/OCC=5FOpenPwr=5FFW=5FInterfaces.pdf</font></u=
-></tt></a><font size=3D"4"><br></font><tt><font size=3D"4"><br>WARNING: DT =
-compatible string &quot;ibm,occ-i2c&quot; appears un-documented -- check ./=
-Documentation/devicetree/bindings/<br>#1389: FILE: drivers/hwmon/occ=5Fi2c.=
-c:1311:<br>+ &nbsp; &nbsp; &nbsp; {.compatible =3D &quot;ibm,occ-i2c&quot;}=
-,</font></tt><font size=3D"4"><br></font><tt><font size=3D"4"><br>ERROR: Mi=
-ssing Signed-off-by: line(s)</font></tt><font size=3D"4"><br></font><tt><fo=
-nt size=3D"4"><br>total: 1 errors, 7 warnings, 1391 lines checked</font></t=
-t><font size=3D"4"><br></font><tt><font size=3D"4"><br>occ=5Fv4.patch has s=
-tyle problems, please review. </font></tt><font size=3D"4"><br></font><tt><=
-font size=3D"4"><br>1) For &nbsp;&quot;DT compatible&quot; warnings, I am n=
-ot sure whether it is necessary, since I run &quot;scripts/checkpatch.pl -f=
- arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts&quot;,<br>it will report ma=
-ny warnings. I can add a description if necessary.</font></tt><font size=3D=
-"4"><br></font><tt><font size=3D"4"><br>2) for &quot;line over 80&quot; war=
-nings, it would break the link if wrap at 80 characters.<br> <br>&gt; &gt; =
-+<br>&gt; &gt; +/* To generate attn to OCC */<br>&gt; &gt; +#define ATTN=5F=
-DATA &nbsp; &nbsp; &nbsp;0x0006B035<br>&gt; &gt; +/* For BMC to read/write =
-SRAM */<br>&gt; &gt; +#define OCB=5FADDRESS &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp;0x0006B070<br>&gt; &gt; +#define OCB=5FDATA &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp; 0x0006B075<br>&gt; &gt; +#define OCB=5FSTATUS=
-=5FCONTROL=5FAND 0x0006B072<br>&gt; &gt; +#define OCB=5FSTATUS=5FCONTROL=5F=
-OR &nbsp;0x0006B073<br>&gt; &gt; +#define OCC=5FCOMMAND=5FADDR &nbsp; &nbsp=
-; &nbsp; 0xFFFF6000<br>&gt; &gt; +#define OCC=5FRESPONSE=5FADDR &nbsp; &nbs=
-p; &nbsp;0xFFFF7000<br>&gt; <br>&gt; Are these addresses going to change wi=
-th different versions of the <br>&gt; OCC firmware?<br>&gt;</font></tt><fon=
-t size=3D"4"><br></font><tt><font size=3D"4"><br>Actually I did not find th=
-e document for most of the addresses. I copied them from Alvin's OCC code.<=
-br>If anyone know the source (possibly from OCC firmware developers), pleas=
-e help.<br>The only OCC document I can find is:</font></tt><u><font size=3D=
-"4" color=3D"#0000FF"><br></font></u><a href=3D"https://github.com/open-pow=
-er/docs/blob/master/occ/OCC=5FOpenPwr=5FFW=5FInterfaces.pdf"><tt><u><font s=
-ize=3D"4" color=3D"#0000FF">https://github.com/open-power/docs/blob/master/=
-occ/OCC=5FOpenPwr=5FFW=5FInterfaces.pdf</font></u></tt></a><tt><font size=
-=3D"4"><br>It defines OCC=5FCOMMAND=5FADDR and OCC=5FRESPONSE=5FADDR only.<=
-/font></tt><font size=3D"4"><br></font><tt><font size=3D"4"><br>&gt; <br>&g=
-t; &gt; +<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; if (!p)<br>&gt; &gt; + &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return;<br>&gt; <br>&gt; It's co=
-mmon in kernel code to omit checking for null arguments.<br>&gt; <br>&gt; I=
-f you think there is a likely hood of this happening, then perhaps<br>&gt; =
-WARN=5FON(!b) would be better; this way we get a backtrace in the kernel<br=
->&gt; log.<br>&gt; </font></tt><font size=3D"4"><br></font><tt><font size=
-=3D"4"><br>The deinit=5Focc=5Fresp=5Fbuf() function is supposed to be calle=
-d in multiple situation.<br>E.g, error handling code in a function. In thos=
-e case, pointer might be NULL.<br>So WARN=5FON() is not expected in that ca=
-se.</font></tt><font size=3D"4"><br><br></font><tt><font size=3D"4"><br>&gt=
-; &gt; +<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; if (!p-&gt;blocks)<br>&gt; &gt=
-; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return;<br>&gt; &gt; +=
-<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; for (b =3D 0; b &lt; p-&gt;header.sens=
-or=5Fblock=5Fnum; b++) {<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; if (p-&gt;blocks[b].sensor)<br>&gt; &gt; + &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; kfree(p-&gt;bloc=
-ks[b].sensor);<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; if (p-&gt;blocks[b].power)<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; kfree(p-&gt;blocks[b].power=
-);<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (p-&g=
-t;blocks[b].caps)<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; kfree(p-&gt;blocks[b].caps);<br>&gt; &gt=
-; + &nbsp; &nbsp; &nbsp; }<br>&gt; <br>&gt; I think Jeremy suggested in his=
- review that you statically allocate<br>&gt; these instead of kmalloc and k=
-freeing at runtime.<br>&gt; </font></tt><font size=3D"4"><br></font><tt><fo=
-nt size=3D"4"><br>The OCC sensor type and sensor number will change dependi=
-ng on whether OCC is master or slave.<br>Also there is possible of bad core=
-s and the number of sensors may change.<br>So using dynamically allocated s=
-ensor block is nature I think.<br>It is possible that the driver allocates =
-a block of memory and manage itself.<br>But looks there is no great benefit=
-.<br><br>&gt; &gt; +{<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; int b;<br>&gt; &g=
-t; + &nbsp; &nbsp; &nbsp; int s;<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; int re=
-t;<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; int dnum =3D SENSOR=5FBLOCK=5FOFFSET=
-;<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; struct occ=5Fsensor *f=5Fsensor;<br>&=
-gt; &gt; + &nbsp; &nbsp; &nbsp; struct occ=5Fsensor *t=5Fsensor;<br>&gt; &g=
-t; + &nbsp; &nbsp; &nbsp; struct power=5Fsensor *p=5Fsensor;<br>&gt; &gt; +=
- &nbsp; &nbsp; &nbsp; struct caps=5Fsensor *c=5Fsensor;<br>&gt; &gt; + &nbs=
-p; &nbsp; &nbsp; uint8=5Ft sensor=5Fblock=5Fnum;<br>&gt; &gt; + &nbsp; &nbs=
-p; &nbsp; uint8=5Ft sensor=5Ftype[4];<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; u=
-int8=5Ft sensor=5Fformat;<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; uint8=5Ft sen=
-sor=5Flength;<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; uint8=5Ft num=5Fof=5Fsens=
-ors;<br>&gt; &gt; +<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; /* check if the dat=
-a is valid */<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; if (strncmp(&amp;d[SENSOR=
-=5FSTR=5FOFFSET], &quot;SENSOR&quot;, 6) !=3D 0) {<br>&gt; <br>&gt; If you =
-have a literal string you don't need to use strncmp.<br>&gt; </font></tt><f=
-ont size=3D"4"><br></font><tt><font size=3D"4"><br>&quot;d[SENSOR=5FSTR=5FO=
-FFSET]&quot; does not have '\0' to terminate a string. So have to use strnc=
-mp.</font></tt><font size=3D"4"><br><br></font><tt><font size=3D"4"><br>&gt=
-; <br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; p=5Fsensor-&gt;accumulator =
-=3D<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
-; (d[dnum+6] &lt;&lt; 24) | (d<br>&gt; [dnum+7] &lt;&lt; 16) |<br>&gt; &gt;=
- + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (d[dnum+8] &lt=
-;&lt; 8) | d[dnum+9];<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; p=5Fsens=
-or-&gt;value =3D<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; (d[dnum+10] &lt;&lt; 8) | d[dnum+11];<br>&gt; &gt; +<br>&gt;=
- &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dev=5Fdbg(&amp;client-&gt;dev,<br>&gt=
-; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;se=
-nsor[%d]-[%d]: id: %u, <br>&gt; value: %u\n&quot;,<br>&gt; &gt; + &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; b, s, p=5Fsensor-&gt;senso=
-r=5Fid,<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; p=5Fsensor-&gt;value);<br>&gt; &gt; +<br>&gt; &gt; + &nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; dnum =3D dnum + sensor=5Flength;<br>&gt; &gt; + &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br>&gt; &=
-gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } else if (strncmp(s=
-ensor=5Ftype, &quot;CAPS&quot;, 4) =3D=3D 0) {<br>&gt; <br>&gt; If you have=
- a literal string you don't need to use strncmp.</font></tt><font size=3D"4=
-"><br></font><tt><font size=3D"4"><br>&quot;sensor=5Ftype&quot; has no '\0'=
- to terminate it. strncmp() is necessary. <br><br><br>&gt; &gt; + &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; val =3D -1;<br>&gt; &gt; + &nbsp; &=
-nbsp; &nbsp; else<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; /* in millidegree Celsius */<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; val =3D sensor[n].value * 1000;<br>&gt; &gt; +<br>=
-&gt; &gt; + &nbsp; &nbsp; &nbsp; return sprintf(buf, &quot;%d\n&quot;, val)=
-;<br>&gt; <br>&gt; How do you know &quot;%d\n&quot; will fit into buf?</fon=
-t></tt><font size=3D"4"><br></font><tt><font size=3D"4"><br>Do you mean usi=
-ng snprintf()? After reading the man page:<br>&quot;Because &nbsp;sprintf()=
- &nbsp;and vsprintf() assume an arbitrarily long string, callers must be ca=
-reful not to overflow the actual space; this<br> &nbsp; &nbsp; &nbsp; is of=
-ten impossible to assure. &nbsp;Note that the length of the strings produce=
-d is locale-dependent &nbsp;and &nbsp;difficult &nbsp;to &nbsp;predict. &nb=
-sp; Use<br> &nbsp; &nbsp; &nbsp; snprintf() and vsnprintf() instead (or asp=
-rintf(3) and vasprintf(3)).&quot;</font></tt><font size=3D"4"><br></font><t=
-t><font size=3D"4"><br>snprintf() seems more safe, but we can find a lot of=
- &quot;sprintf()&quot; in sysfs show* functions in drivers/hwmon/. Looks to=
- me not a big issue.<br>Anyway, I will change to snprintf() to be safer:<br=
->I use the same code as driver/hwmon/lm95241.c</font></tt><font size=3D"4">=
-<br></font><tt><font size=3D"4"><br>&quot; &nbsp; &nbsp; &nbsp; &nbsp;retur=
-n snprintf(buf, PAGE=5FSIZE - 1,<br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;data-&gt;config &amp; to=5Fsen=
-sor=5Fdev=5Fattr(attr)-&gt;index ?<br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&quot;127000\n&quot; : &quot=
-;255000\n&quot;);<br>&quot;</font></tt><font size=3D"4"><br></font><tt><fon=
-t size=3D"4"><br>Thanks,<br>-adam</font></tt><font size=3D"4"><br></font><t=
-t><font size=3D"4"><br></font></tt><font size=3D"4"><br></font><tt>=5F=5F=
-=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
-=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F<br>openbmc mai=
-ling list<br>openbmc@lists.ozlabs.org<br></tt><tt><a href=3D"https://lists.=
-ozlabs.org/listinfo/openbmc">https://lists.ozlabs.org/listinfo/openbmc</a><=
-/tt><tt><br></tt><br><BR>
-</body></html>
-
---1__=09BBF5A2DFD4C3078f9e8a93df938690918c09BBF5A2DFD4C307--
-
-
---0__=09BBF5A2DFD4C3078f9e8a93df938690918c09BBF5A2DFD4C307
-Content-type: image/gif; 
-	name="graycol.gif"
-Content-Disposition: inline; filename="graycol.gif"
-Content-ID: <1__=09BBF5A2DFD4C3078f9e8a93df938690918c09B@>
-Content-Transfer-Encoding: base64
-
-R0lGODlhEAAQAKECAMzMzAAAAP///wAAACH5BAEAAAIALAAAAAAQABAAAAIXlI+py+0PopwxUbpu
-ZRfKZ2zgSJbmSRYAIf4fT3B0aW1pemVkIGJ5IFVsZWFkIFNtYXJ0U2F2ZXIhAAA7
-
-
---0__=09BBF5A2DFD4C3078f9e8a93df938690918c09BBF5A2DFD4C307--
+X-List-Received-Date: Wed, 06 Jan 2016 05:09:47 -0000
+
+On Mon,  4 Jan 2016 19:10:26 -0600
+OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
+
+> From: shgoupf <shgoupf@cn.ibm.com>
+> 
+
+Hi again,
+
+> 1) Add support for IPMI get/set boot option command.
+>     a) boot options stored in dbus property.
+>     b) IPMI get boot option command get boot option from the dbus
+>     property.
+>     c) IPMI set boot option coomand set boot option to the dbus
+>     property.
+> 2) Two methods to handle the dbus property set and get:
+>     a) dbus_set_property()
+>     b) dbus_get_property()
+> 3) The property is stored as a 10 character strings which representsd 5-byte information.
+> 4) ipmid set method is registered and implemented since petitboot will use it to clear the boot options.
+> 5) Get service name via object mapper
+>     a) The connection name is got via objectmapper.
+>     b) The method used to get the connection name is object_mapper_get_connection().
+>     c) dbus_get_property/dbus_set_property will get the connection name via the above method instead of hard coding.
+> 6) Error code are properly handled.
+> 7) Use sprinf/sscanf for int/string conversion.
+>     a) Instead of reinventing the wheel by defining methods converting int to string, use sprintf/sscanf should be a more clean and robust way.
+
+Plus 1 for not reinventing the wheel but perhaps consider using the best tool
+for the job, sscanf can and does do what you want however atoi, atol, atoll,
+strtol, strtoll, strtoq functions are all designed for this exact purpose. They
+will perform much better than sscanf, also the str* versions give great control
+and error detection capabilities.
+
+
+> 8) Fix issues addressed by the community.
+>     a) change malloc heap to stack local variable.
+>     b) Fix multi line comment style from "//" to "/**/".
+>     c) Add defines for return codes.
+>     d) Add more comments.
+
+It looks like you're adding more and more into this same patch. A single patch
+should be one clearly defined piece of work. So you're implementing some new
+functionality, that should be its own patch. You're also adding some error
+handling paths - also, its own patch. You've changed some whitespace (some of
+which was a bad thing) but the good whitespace changes should also be their own
+patch.
+
+>  chassishandler.C | 492 +++++++++++++++++++++++++++++++++++++++++++++----------
+>  chassishandler.h |  18 ++
+>  2 files changed, 423 insertions(+), 87 deletions(-)
+> 
+> diff --git a/chassishandler.C b/chassishandler.C
+> index 1389db9..4d941e8 100644
+> --- a/chassishandler.C
+> +++ b/chassishandler.C
+> @@ -5,11 +5,235 @@
+>  #include <stdint.h>
+>  
+>  // OpenBMC Chassis Manager dbus framework
+> -const char  *chassis_bus_name      =  "org.openbmc.control.Chassis";
+> -const char  *chassis_object_name   =  "/org/openbmc/control/chassis0";
+> -const char  *chassis_intf_name     =  "org.openbmc.control.Chassis";
+> +const char * chassis_bus_name      =  "org.openbmc.control.Chassis";
+> +const char * chassis_object_name   =  "/org/openbmc/control/chassis0";
+> +const char * chassis_intf_name     =  "org.openbmc.control.Chassis";
+>  
+
+Not necessary, if anything you should remove the double space but what you've
+done doesn't look good.
+
+> -void register_netfn_chassis_functions() __attribute__((constructor));
+> +// Host settings in dbus
+> +// Service name should be referenced by connection name got via object mapper
+> +const char * settings_object_name  =  "/org/openbmc/settings/host0";
+> +const char * settings_intf_name    =  "org.freedesktop.DBus.Properties";
+> +
+> +const char * objmapper_service_name =  "org.openbmc.objectmapper";
+> +const char * objmapper_object_name  =  "/org/openbmc/objectmapper/objectmapper";
+> +const char * objmapper_intf_name    =  "org.openbmc.objectmapper.ObjectMapper";
+> +
+
+We probably want to try to keep a consistent style. I looked at ipmid.C and
+that file isn't consistent but it seems to be mostly "type *name;" and that's
+the most common way everywhere else with C code.
+
+> +int object_mapper_get_connection (char ** buf, const char * obj_path)
+> +{
+> +    sd_bus_error error = SD_BUS_ERROR_NULL;
+> +    sd_bus_message * m = NULL;
+> +    sd_bus * bus = NULL;
+> +    char * temp_buf = NULL, *intf = NULL;
+> +    size_t buf_size = 0;
+> +    int r;
+> +
+> +    // Open the system bus where most system services are provided.
+> +    r = sd_bus_open_system (&bus);
+> +
+
+As an added stylistic note, again for consistency, ipmid.C, you should avoid
+having a space between the function name and the parameters 
+
+> +    if (r < 0) {
+> +        fprintf (stderr, "Failed to connect to system bus: %s\n", strerror (-r));
+> +        goto finish;
+> +    }
+> +
+> +    /*
+> +     * Bus, service, object path, interface and method are provided to call
+> +     * the method.
+> +     * Signatures and input arguments are provided by the arguments at the
+> +     * end.
+> +     */
+> +    r = sd_bus_call_method (bus,
+> +                            objmapper_service_name,                      /* service to contact */
+> +                            objmapper_object_name,                       /* object path */
+> +                            objmapper_intf_name,                         /* interface name */
+> +                            "GetObject",                                 /* method name */
+> +                            &error,                                      /* object to return error in */
+> +                            &m,                                          /* return message on success */
+> +                            "s",                                         /* input signature */
+> +                            obj_path                                     /* first argument */
+> +                           );
+> +
+> +    if (r < 0) {
+> +        fprintf (stderr, "Failed to issue method call: %s\n", error.message);
+> +        goto finish;
+> +    }
+> +
+> +    // Get the key, aka, the connection name
+> +    sd_bus_message_read (m, "a{sas}", 1, &temp_buf, 1, &intf);
+> +
+
+This seems very roundabout, could you explain this method call. What are you
+expecting to receive? From the looks of what you're using it for wouldn't it
+make more sense to just sd_bus_message_read a "s"?
+
+> +    /*
+> +     * TODO: check the return code. Currently for no reason the message
+> +     * parsing of object mapper is always complaining about
+> +     * "Device or resource busy", but the result seems OK for now. Need
+> +     * further checks.
+
+If sd_bus_message_read returns a negative value, something definitely went
+wrong, I highly highly doubt you can use the result if it turns a negative.
+
+> +     * TODO: The following code is preserved in the comments so that it can be
+> +     * resumed after the problem aforementioned is resolved.
+> +     *r = sd_bus_message_read(m, "a{sas}", 1, &temp_buf, 1, &intf);
+> +     *if (r < 0) {
+> +     *    fprintf(stderr, "Failed to parse response message: %s\n", strerror(-r));
+> +     *    goto finish;
+> +     *}
+
+The code is in git, it is saved there, delete it now and when someone wants to
+add it back they can look in the git history for what was deleted. Having said
+that, the error check should be there, if you're hitting it, you should figure
+out why.
+
+> +     */
+> +
+> +    buf_size = strlen (temp_buf) + 1;
+> +    printf ("IPMID connection name: %s\n", temp_buf);
+> +    *buf = (char *)malloc (buf_size);
+> +
+> +    if (*buf == NULL) {
+> +        fprintf (stderr, "Malloc failed for get_sys_boot_options");
+> +        r = -1;
+> +        goto finish;
+> +    }
+> +
+
+I don't mind using malloc but these are strings no? Couldn't strndup be used,
+might make life easier? Not a big concern.
+
+> +    memcpy (*buf, temp_buf, buf_size);
+> +
+> +finish:
+> +    sd_bus_error_free (&error);
+> +    sd_bus_message_unref (m);
+> +    sd_bus_unref (bus);
+> +
+
+Spaces between name and params
+
+> +    return r;
+> +}
+> +
+> +int dbus_get_property (char * buf)
+> +{
+> +    sd_bus_error error = SD_BUS_ERROR_NULL;
+> +    sd_bus_message * m = NULL;
+> +    sd_bus * bus = NULL;
+> +    char * temp_buf = NULL;
+> +    uint8_t * get_value = NULL;
+> +    char * connection = NULL;
+> +    int r, i;
+> +
+> +    r = object_mapper_get_connection (&connection, settings_object_name);
+> +
+> +    if (r < 0) {
+> +        fprintf (stderr, "Failed to get connection, return value: %d.\n", r);
+> +        goto finish;
+> +    }
+> +
+> +    printf ("connection: %s\n", connection);
+> +
+> +    // Open the system bus where most system services are provided.
+> +    r = sd_bus_open_system (&bus);
+> +
+> +    if (r < 0) {
+> +        fprintf (stderr, "Failed to connect to system bus: %s\n", strerror (-r));
+> +        goto finish;
+> +    }
+> +
+> +    /*
+> +     * Bus, service, object path, interface and method are provided to call
+> +     * the method.
+> +     * Signatures and input arguments are provided by the arguments at the
+> +     * end.
+> +     */
+> +    r = sd_bus_call_method (bus,
+> +                            connection,                                 /* service to contact */
+> +                            settings_object_name,                       /* object path */
+> +                            settings_intf_name,                         /* interface name */
+> +                            "Get",                                      /* method name */
+> +                            &error,                                     /* object to return error in */
+> +                            &m,                                         /* return message on success */
+> +                            "ss",                                       /* input signature */
+> +                            settings_intf_name,                         /* first argument */
+> +                            "boot_flags");                              /* second argument */
+> +
+> +    if (r < 0) {
+> +        fprintf (stderr, "Failed to issue method call: %s\n", error.message);
+> +        goto finish;
+> +    }
+> +
+> +    /*
+> +     * The output should be parsed exactly the same as the output formatting
+> +     * specified.
+> +     */
+> +    r = sd_bus_message_read (m, "v", "s", &temp_buf);
+> +
+
+Why not just read a "s"?
+
+> +    if (r < 0) {
+> +        fprintf (stderr, "Failed to parse response message: %s\n", strerror (-r));
+> +        goto finish;
+> +    }
+> +
+> +    printf ("IPMID boot option property get: {%s}.\n", (char *) temp_buf);
+> +
+> +    /*
+> +     * To represent a hex in string, e.g., "A0A0", which represents two bytes
+> +     * in the hex, but requires 5 bytes to store it as string, i.e., 4
+> +     * characters to store the "A0A0" and 1 additional space for "\0".
+> +     * Thereby we have 2 * <number of bytes> + 1 for the string buffer.
+> +     */
+
+So why don't you have #define NUM_RETURN_BYTES_OF_GET_USED 11 ? 
+
+This question is out of scope of this patch but why are we passing around
+numbers as strings? dbus handles other types...
+
+> +    memcpy (buf, temp_buf, 2 * NUM_RETURN_BYTES_OF_GET_USED + 1);
+> +
+> +finish:
+> +    sd_bus_error_free (&error);
+> +    sd_bus_message_unref (m);
+> +    sd_bus_unref (bus);
+> +    free (connection);
+> +
+> +    return r;
+> +}
+> +
+> +int dbus_set_property (const char * buf)
+> +{
+> +    sd_bus_error error = SD_BUS_ERROR_NULL;
+> +    sd_bus_message * m = NULL;
+> +    sd_bus * bus = NULL;
+> +    char * connection = NULL;
+> +    int r;
+> +
+> +    r = object_mapper_get_connection (&connection, settings_object_name);
+> +
+> +    if (r < 0) {
+> +        fprintf (stderr, "Failed to get connection, return value: %d.\n", r);
+> +        goto finish;
+> +    }
+> +
+> +    printf ("connection: %s\n", connection);
+> +
+> +    // Open the system bus where most system services are provided.
+> +    r = sd_bus_open_system (&bus);
+> +
+> +    if (r < 0) {
+> +        fprintf (stderr, "Failed to connect to system bus: %s\n", strerror (-r));
+> +        goto finish;
+> +    }
+> +
+> +    /*
+> +     * Bus, service, object path, interface and method are provided to call
+> +     * the method.
+> +     * Signatures and input arguments are provided by the arguments at the
+> +     * end.
+> +     */
+> +    r = sd_bus_call_method (bus,
+> +                            connection,                                 /* service to contact */
+> +                            settings_object_name,                       /* object path */
+> +                            settings_intf_name,                         /* interface name */
+> +                            "Set",                                      /* method name */
+> +                            &error,                                     /* object to return error in */
+> +                            &m,                                         /* return message on success */
+> +                            "ssv",                                      /* input signature */
+> +                            settings_intf_name,                         /* first argument */
+> +                            "boot_flags",                               /* second argument */
+> +                            "s",                                        /* third argument */
+> +                            buf);                                       /* fourth argument */
+> +
+
+Are we documenting these interfaces at all, I don't understand why "ssv" and
+then a hardcoded "s", why not "sss"?
+
+> +    if (r < 0) {
+> +        fprintf (stderr, "Failed to issue method call: %s\n", error.message);
+> +        goto finish;
+> +    }
+> +
+> +    printf ("IPMID boot option property set: {%s}.\n", buf);
+> +
+> +finish:
+> +    sd_bus_error_free (&error);
+> +    sd_bus_message_unref (m);
+> +    sd_bus_unref (bus);
+> +    free (connection);
+> +
+> +    return r;
+> +}
+> +
+> +void register_netfn_chassis_functions () __attribute__ ((constructor));
+>  
+>  struct get_sys_boot_options_t {
+>      uint8_t parameter;
+> @@ -17,11 +241,28 @@ struct get_sys_boot_options_t {
+>      uint8_t block;
+>  }  __attribute__ ((packed));
+>  
+> -ipmi_ret_t ipmi_chassis_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
+> -                              ipmi_request_t request, ipmi_response_t response, 
+> -                              ipmi_data_len_t data_len, ipmi_context_t context)
+> +struct set_sys_boot_options_t {
+> +    uint8_t parameter;
+> +    union {
+> +        struct {
+> +            uint8_t d1;
+> +            uint8_t d2;
+> +            uint8_t d3;
+> +            uint8_t d4;
+> +            uint8_t d5;
+> +            uint8_t d6;
+> +            uint8_t d7;
+> +            uint8_t d8;
+> +        } data8;
+> +        uint64_t data64;
+> +    } data;
+> +}  __attribute__ ((packed));
+> +
+> +ipmi_ret_t ipmi_chassis_wildcard (ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+> +                                  ipmi_request_t request, ipmi_response_t response,
+> +                                  ipmi_data_len_t data_len, ipmi_context_t context)
+>  {
+> -    printf("Handling CHASSIS WILDCARD Netfn:[0x%X], Cmd:[0x%X]\n",netfn, cmd);
+> +    printf ("Handling CHASSIS WILDCARD Netfn:[0x%X], Cmd:[0x%X]\n", netfn, cmd);
+
+Be careful with changes like this, you didn't change this code...
+
+>      // Status code.
+>      ipmi_ret_t rc = IPMI_CC_OK;
+>      *data_len = 0;
+> @@ -31,116 +272,193 @@ ipmi_ret_t ipmi_chassis_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+>  //------------------------------------------------------------
+>  // Calls into Chassis Control Dbus object to do the power off
+>  //------------------------------------------------------------
+> -int ipmi_chassis_power_control(const char *method)
+> +int ipmi_chassis_power_control (const char * method)
+>  {
+> -	// sd_bus error
+> -	int rc = 0;
+> +    // sd_bus error
+> +    int rc = 0;
+>  
+>      // SD Bus error report mechanism.
+>      sd_bus_error bus_error = SD_BUS_ERROR_NULL;
+>  
+> -	// Response from the call. Although there is no response for this call,
+> -	// obligated to mention this to make compiler happy.
+> -	sd_bus_message *response = NULL;
+> -
+> -	// Gets a hook onto either a SYSTEM or SESSION bus
+> -	sd_bus *bus_type = ipmid_get_sd_bus_connection();
+> -
+> -	rc = sd_bus_call_method(bus_type,        		 // On the System Bus
+> -							chassis_bus_name,        // Service to contact
+> -							chassis_object_name,     // Object path 
+> -							chassis_intf_name,       // Interface name
+> -							method,      		 // Method to be called
+> -							&bus_error,      		 // object to return error
+> -							&response,		 		 // Response buffer if any
+> -							NULL);			 		 // No input arguments
+> -	if(rc < 0)
+> -	{
+> -		fprintf(stderr,"ERROR initiating Power Off:[%s]\n",bus_error.message);
+> -	}
+> -	else
+> -	{
+> -		printf("Chassis Power Off initiated successfully\n");
+> -	}
+> -
+> -    sd_bus_error_free(&bus_error);
+> -    sd_bus_message_unref(response);
+> -
+> -	return rc;
+> +    /*
+> +     * Response from the call. Although there is no response for this call,
+> +     * obligated to mention this to make compiler happy.
+> +     */
+> +    sd_bus_message * response = NULL;
+> +
+> +    // Gets a hook onto either a SYSTEM or SESSION bus
+> +    sd_bus * bus_type = ipmid_get_sd_bus_connection ();
+> +
+> +    rc = sd_bus_call_method (bus_type,                /* On the System Bus*/
+> +                             chassis_bus_name,        /* Service to contact*/
+> +                             chassis_object_name,     /* Object path*/
+> +                             chassis_intf_name,       /* Interface name*/
+> +                             method,                  /* Method to be called*/
+> +                             &bus_error,              /* object to return error*/
+> +                             &response,               /* Response buffer if any*/
+> +                             NULL);                   /* No input arguments*/
+> +
+> +    if (rc < 0) {
+> +        fprintf (stderr, "ERROR initiating Power Off:[%s]\n", bus_error.message);
+> +    } else {
+> +        printf ("Chassis Power Off initiated successfully\n");
+> +    }
+> +
+> +    sd_bus_error_free (&bus_error);
+> +    sd_bus_message_unref (response);
+> +
+> +    return rc;
+
+Cleanups are great but please send them as a separate patch, this helps people
+a lot when reviewing patches, if it is just a cleanup then people can focus on
+checking that you didn't change behaviour OR if you're sending a functional
+change patch people can focus on checking that you're achieving what you set
+out to do.
+
+>  }
+>  
+>  
+>  //----------------------------------------------------------------------
+>  // Chassis Control commands
+>  //----------------------------------------------------------------------
+> -ipmi_ret_t ipmi_chassis_control(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
+> -                        ipmi_request_t request, ipmi_response_t response, 
+> -                        ipmi_data_len_t data_len, ipmi_context_t context)
+> +ipmi_ret_t ipmi_chassis_control (ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+> +                                 ipmi_request_t request, ipmi_response_t response,
+> +                                 ipmi_data_len_t data_len, ipmi_context_t context)
+>  {
+> -	// Error from power off.
+> -	int rc = 0;
+> +    // Error from power off.
+> +    int rc = 0;
+>  
+> -	// No response for this command.
+> +    // No response for this command.
+>      *data_len = 0;
+>  
+> -	// Catch the actual operaton by peeking into request buffer
+> -	uint8_t chassis_ctrl_cmd = *(uint8_t *)request;
+> -	printf("Chassis Control Command: Operation:[0x%X]\n",chassis_ctrl_cmd);
+> -
+> -	switch(chassis_ctrl_cmd)
+> -	{
+> -		case CMD_POWER_OFF:
+> -			rc = ipmi_chassis_power_control("powerOff");
+> -			break;
+> -		case CMD_HARD_RESET:
+> -			rc = ipmi_chassis_power_control("reboot");
+> -			break;
+> -		default:
+> -		{
+> -			fprintf(stderr, "Invalid Chassis Control command:[0x%X] received\n",chassis_ctrl_cmd);
+> -			rc = -1;
+> -		}
+> -	}
+> -
+> -	return ( (rc < 0) ? IPMI_CC_INVALID : IPMI_CC_OK);
+> +    // Catch the actual operaton by peeking into request buffer
+> +    uint8_t chassis_ctrl_cmd = * (uint8_t *)request;
+> +    printf ("Chassis Control Command: Operation:[0x%X]\n", chassis_ctrl_cmd);
+> +
+> +    switch (chassis_ctrl_cmd) {
+> +    case CMD_POWER_OFF:
+> +        rc = ipmi_chassis_power_control ("powerOff");
+> +        break;
+> +
+> +    case CMD_HARD_RESET:
+> +        rc = ipmi_chassis_power_control ("reboot");
+> +        break;
+> +
+> +    default: {
+> +        fprintf (stderr, "Invalid Chassis Control command:[0x%X] received\n", chassis_ctrl_cmd);
+> +        rc = -1;
+> +    }
+> +    }
+> +
+> +    return ((rc < 0) ? IPMI_CC_INVALID : IPMI_CC_OK);
+>  }
+>  
+> -ipmi_ret_t ipmi_chassis_get_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
+> -                              ipmi_request_t request, ipmi_response_t response, 
+> -                              ipmi_data_len_t data_len, ipmi_context_t context)
+> +ipmi_ret_t ipmi_chassis_get_sys_boot_options (ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+> +        ipmi_request_t request, ipmi_response_t response,
+> +        ipmi_data_len_t data_len, ipmi_context_t context)
+>  {
+>      ipmi_ret_t rc = IPMI_CC_OK;
+>      *data_len = 0;
+>  
+> -    printf("IPMI GET_SYS_BOOT_OPTIONS\n");
+> +    printf ("IPMI GET_SYS_BOOT_OPTIONS\n");
+> +
+> +    get_sys_boot_options_t * reqptr = (get_sys_boot_options_t *) request;
+> +
+> +    /*
+> +     * To represent a hex in string, e.g., "A0A0", which represents two bytes
+> +     * in the hex, but requires 5 bytes to store it as string, i.e., 4
+> +     * characters to store the "A0A0" and 1 additional space for "\0".
+> +     * Thereby we have 2 * <number of bytes> + 1 for the string buffer.
+> +     */
+> +    char buf[NUM_RETURN_BYTES_OF_GET * 2 + 1] = {0};
+
+Once again, why not #define NUM_RETURN_BYTES_OF_GET 11
+
+>  
+> -    get_sys_boot_options_t *reqptr = (get_sys_boot_options_t*) request;
+> +    /*
+> +     * Parameter #5 means boot flags. Please refer to 28.13 of ipmi doc.
+> +     * This is the only parameter used by petitboot.
+> +     */
+> +    if (reqptr->parameter == 5) {
+> +        int r = dbus_get_property (buf);
+>  
+> -    // TODO Return default values to OPAL until dbus interface is available
+> +        if (r < 0) {
+> +            fprintf (stderr, "Dbus get property failed for get_sys_boot_options.\n");
+> +            return IPMI_OUT_OF_SPACE;
+> +        }
+>  
+> -    if (reqptr->parameter == 5) // Parameter #5
+> -    {
+> -        uint8_t buf[] = {0x1,0x5,80,0,0,0,0};
+> -        *data_len = sizeof(buf);
+> -        memcpy(response, &buf, *data_len);
+> +        uint64_t return_value;
+> +        sscanf (buf, "%llX", &return_value);
+
+See my comment at the top about the best tool for the job.
+
+> +
+> +        *data_len = NUM_RETURN_BYTES_OF_GET;
+> +        /*
+> +         * TODO: last 3 bytes
+> +         *(NUM_RETURN_BYTES_OF_GET - NUM_RETURN_BYTES_OF_GET_USED) is meanlingless
+> +         */
+> +        memcpy (response, (uint8_t *) (&return_value), *data_len);
+
+So this interests me, does whoever is going to be reading response know to read
+it as a uint64_t on success but as an array of chars on failure, also, rather
+than #defineing, wouldn't:
+
+*data_len = sizeof(return_value);
+
+be better?
+
+
+I've done some looking around in ipmid.C and I don't think what you've done
+will work,
+https://github.com/openbmc/phosphor-host-ipmid/blob/master/ipmid.C#L276
+appears to use the first byte of response as the completion code but you've
+just written whatever the first byte of your uint64_t is into response[0]...
+
+Also, 28.13 in the IPMI spec doesn't seem to match up with whats going on here,
+am I missing something?
+
+> +    } else {
+> +        *data_len = NUM_RETURN_BYTES_OF_GET;
+> +        // Parameter not supported
+> +        buf[0] = IPMI_CC_PARM_NOT_SUPPORTED;
+> +        memcpy (response, buf, *data_len);
+> +        fprintf (stderr, "Unsupported parameter 0x%x\n", reqptr->parameter);
+> +        return IPMI_CC_PARM_NOT_SUPPORTED;
+>      }
+> -    else
+> -    {
+> -        fprintf(stderr, "Unsupported parameter 0x%x\n", reqptr->parameter);
+> -        return IPMI_CC_PARM_NOT_SUPPORTED;        
+> +
+> +    return rc;
+> +}
+> +
+> +ipmi_ret_t ipmi_chassis_set_sys_boot_options (ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+> +        ipmi_request_t request, ipmi_response_t response,
+> +        ipmi_data_len_t data_len, ipmi_context_t context)
+> +{
+> +    ipmi_ret_t rc = IPMI_CC_OK;
+> +
+> +    printf ("IPMI SET_SYS_BOOT_OPTIONS\n");
+> +    printf ("IPMID set command required return bytes: %i\n", *data_len);
+> +
+> +    set_sys_boot_options_t * reqptr = (set_sys_boot_options_t *) request;
+> +
+> +    char output_buf[NUM_RETURN_BYTES_OF_SET] = {0};
+> +
+> +    /*
+> +     * Parameter #5 means boot flags. Please refer to 28.13 of ipmi doc.
+> +     * This is the only parameter used by petitboot.
+> +     */
+> +    if (reqptr->parameter == 5) { 
+> +        /*
+> +         * To represent a hex in string, e.g., "A0A0", which represents two bytes
+> +         * in the hex, but requires 5 bytes to store it as string, i.e., 4
+> +         * characters to store the "A0A0" and 1 additional space for "\0".
+> +         * Thereby we have 2 * <number of bytes> + 1 for the string buffer.
+> +         */
+> +        char input_buf[NUM_INPUT_BYTES_OF_SET * 2 + 1];
+> +        sprintf (input_buf, "%llX", reqptr->data.data64);
+> +
+> +        int r = dbus_set_property (input_buf);
+> +
+> +        if (r < 0) {
+> +            fprintf (stderr, "Dbus set property failed for set_sys_boot_options.\n");
+> +            return IPMI_OUT_OF_SPACE;
+> +        }
+> +
+> +        *data_len = NUM_RETURN_BYTES_OF_SET;
+> +        // Return code OK.
+> +        output_buf[0] = IPMI_OK;
+> +        memcpy (response, output_buf, *data_len);
+> +    } else {
+> +        // Parameter not supported
+> +        output_buf[0] = IPMI_CC_PARM_NOT_SUPPORTED;
+> +        memcpy (response, output_buf, *data_len);
+> +        fprintf (stderr, "Unsupported parameter 0x%x\n", reqptr->parameter);
+> +        return IPMI_CC_PARM_NOT_SUPPORTED;
+
+As far as I can see you're simply using output_buf to assign the first byte of
+response to either IPMI_OK or IPMI_CC_PARM_NOT_SUPPORTED and you're using
+memcpy.
+
+Wouldn't it be nicer to 
+memset(response, 0, *data_len);
+(or not even memset since NUM_RETURN_BYTES_OF_SET is 1) and
+*response = IPMI_OK; 
+or
+*response = IPMI_CC_PARM_NOT_SUPPORTED;
+and avoid having output_buf at all?
+
+Which makes me wonder why response is actually a void *, is this a good idea?
+
+>      }
+>  
+>      return rc;
+>  }
+>  
+> -void register_netfn_chassis_functions()
+> +void register_netfn_chassis_functions ()
+>  {
+> -    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_CHASSIS, IPMI_CMD_WILDCARD);
+> -    ipmi_register_callback(NETFUN_CHASSIS, IPMI_CMD_WILDCARD, NULL, ipmi_chassis_wildcard);
+> +    printf ("Registering NetFn:[0x%X], Cmd:[0x%X]\n", NETFUN_CHASSIS, IPMI_CMD_WILDCARD);
+> +    ipmi_register_callback (NETFUN_CHASSIS, IPMI_CMD_WILDCARD, NULL, ipmi_chassis_wildcard);
+>  
+> -    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_CHASSIS, IPMI_CMD_GET_SYS_BOOT_OPTIONS);
+> -    ipmi_register_callback(NETFUN_CHASSIS, IPMI_CMD_GET_SYS_BOOT_OPTIONS, NULL, ipmi_chassis_get_sys_boot_options);
+> +    printf ("Registering NetFn:[0x%X], Cmd:[0x%X]\n", NETFUN_CHASSIS, IPMI_CMD_GET_SYS_BOOT_OPTIONS);
+> +    ipmi_register_callback (NETFUN_CHASSIS, IPMI_CMD_GET_SYS_BOOT_OPTIONS, NULL, ipmi_chassis_get_sys_boot_options);
+>  
+> -    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_CHASSIS, IPMI_CMD_CHASSIS_CONTROL);
+> -    ipmi_register_callback(NETFUN_CHASSIS, IPMI_CMD_CHASSIS_CONTROL, NULL, ipmi_chassis_control);
+> +    printf ("Registering NetFn:[0x%X], Cmd:[0x%X]\n", NETFUN_CHASSIS, IPMI_CMD_SET_SYS_BOOT_OPTIONS);
+> +    ipmi_register_callback (NETFUN_CHASSIS, IPMI_CMD_SET_SYS_BOOT_OPTIONS, NULL, ipmi_chassis_set_sys_boot_options);
+> +
+> +    printf ("Registering NetFn:[0x%X], Cmd:[0x%X]\n", NETFUN_CHASSIS, IPMI_CMD_CHASSIS_CONTROL);
+> +    ipmi_register_callback (NETFUN_CHASSIS, IPMI_CMD_CHASSIS_CONTROL, NULL, ipmi_chassis_control);
+>  }
+> +
+> diff --git a/chassishandler.h b/chassishandler.h
+> index 1a26411..a310741 100644
+> --- a/chassishandler.h
+> +++ b/chassishandler.h
+> @@ -3,21 +3,39 @@
+>  
+>  #include <stdint.h>
+>  
+> +// TODO: Petitboot requires 8 bytes of response
+> +// however only 5 of them are used. The remaining
+> +// 3 bytes are not used in petitboot and the value
+> +// of them are all zero.
+> +#define NUM_RETURN_BYTES_OF_GET 8
+> +#define NUM_RETURN_BYTES_OF_GET_USED 5
+> +#define NUM_RETURN_BYTES_OF_SET 1
+> +#define NUM_INPUT_BYTES_OF_SET 5
+> +
+>  // IPMI commands for Chassis net functions.
+>  enum ipmi_netfn_app_cmds
+>  {
+>  	// Chassis Control
+>  	IPMI_CMD_CHASSIS_CONTROL	  = 0x02,
+>      // Get capability bits
+> +    IPMI_CMD_SET_SYS_BOOT_OPTIONS = 0x08,
+>      IPMI_CMD_GET_SYS_BOOT_OPTIONS = 0x09,
+>  };
+>  
+>  // Command specific completion codes
+>  enum ipmi_chassis_return_codes
+>  {
+> +    IPMI_OK = 0x0,
+>      IPMI_CC_PARM_NOT_SUPPORTED = 0x80,
+>  };
+>  
+> +// Generic completion codes,
+> +// see IPMI doc section 5.2
+> +enum ipmi_generic_return_codes
+> +{
+> +    IPMI_OUT_OF_SPACE = 0xC4,
+> +};
+> +
+>  // Various Chassis operations under a single command.
+>  enum ipmi_chassis_control_cmds : uint8_t
+>  {
