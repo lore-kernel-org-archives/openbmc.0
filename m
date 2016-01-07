@@ -1,55 +1,45 @@
-Return-Path: <stewart@linux.vnet.ibm.com>
-Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
- (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
+Return-Path: <cyrilbur@gmail.com>
+Received: from mail-io0-x235.google.com (mail-io0-x235.google.com
+ [IPv6:2607:f8b0:4001:c06::235])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 1D20A1A00E9
- for <openbmc@lists.ozlabs.org>; Thu,  7 Jan 2016 16:51:16 +1100 (AEDT)
-Received: from localhost
- by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
- Wed, 6 Jan 2016 22:51:14 -0700
-Received: from d03dlp02.boulder.ibm.com (9.17.202.178)
- by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 6 Jan 2016 22:51:12 -0700
-X-IBM-Helo: d03dlp02.boulder.ibm.com
-X-IBM-MailFrom: stewart@linux.vnet.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from b03cxnp07029.gho.boulder.ibm.com
- (b03cxnp07029.gho.boulder.ibm.com [9.17.130.16])
- by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id 63A253E4003B
- for <openbmc@lists.ozlabs.org>; Wed,  6 Jan 2016 22:51:12 -0700 (MST)
-Received: from d03av04.boulder.ibm.com (d03av04.boulder.ibm.com [9.17.195.170])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u075pCVD26673336
- for <openbmc@lists.ozlabs.org>; Wed, 6 Jan 2016 22:51:12 -0700
-Received: from d03av04.boulder.ibm.com (loopback [127.0.0.1])
- by d03av04.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u075pBB4005427
- for <openbmc@lists.ozlabs.org>; Wed, 6 Jan 2016 22:51:12 -0700
-Received: from birb.localdomain ([9.81.192.176])
- by d03av04.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with SMTP id
- u075p2eq005071; Wed, 6 Jan 2016 22:51:10 -0700
-Received: by birb.localdomain (Postfix, from userid 1000)
- id 49956229EAAE; Thu,  7 Jan 2016 16:50:59 +1100 (AEDT)
-From: Stewart Smith <stewart@linux.vnet.ibm.com>
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-Cc: shgoupf <shgoupf@cn.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id BF9891A00E9
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Jan 2016 16:55:37 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=M/bNoCU0; 
+ dkim-atps=neutral
+Received: by mail-io0-x235.google.com with SMTP id g73so43554887ioe.3
+ for <openbmc@lists.ozlabs.org>; Wed, 06 Jan 2016 21:55:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version:content-type:content-transfer-encoding;
+ bh=3fUyfR3hhQ8MfxY0I/Rg/r87XG1fGDT8gDNTPQTG93I=;
+ b=M/bNoCU0/dfADzSrc7WCeN6HXWZxYVA5umOFZYK+hGSS1i1TejWms7RxDyoCGzvT7v
+ 6BSwNv1Mdx57wRbdVF900RlVK750zCYIPDwMgLpRqPXetUT2r5mW2Iw7e7EeNMuN4+3M
+ FAVGq/oWd2niODWYxitdO9loMBmI+RokddQk0feYMdiNNb3qs0KrQkauI7Z+uPmQdpNd
+ zBcOhLikOZzxT8XC4AMCLuxiIv6q1/WBdvGyepkBwsmCfy11CiVR+SbdooFYX2/cp9Qn
+ 5+cmkzl57v2LsRkc8r02RTc4dblcasM5uetvTVixERFvyCSKDYNXUdTKY0BUUzvIcq/A
+ tsww==
+X-Received: by 10.107.128.201 with SMTP id k70mr56376088ioi.3.1452146135366;
+ Wed, 06 Jan 2016 21:55:35 -0800 (PST)
+Received: from camb691 ([122.99.82.10])
+ by smtp.gmail.com with ESMTPSA id 187sm39266688iof.26.2016.01.06.21.55.33
+ (version=TLSv1/SSLv3 cipher=OTHER);
+ Wed, 06 Jan 2016 21:55:35 -0800 (PST)
+Date: Thu, 7 Jan 2016 16:55:26 +1100
+From: Cyril Bur <cyrilbur@gmail.com>
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, shgoupf <shgoupf@cn.ibm.com>
+Cc: openbmc@lists.ozlabs.org
 Subject: Re: [PATCH phosphor-host-ipmid v5] Add get/set boot option ipmid
  command support with correct DBUS property handling.
+Message-ID: <20160107165526.7070d265@camb691>
 In-Reply-To: <1452069029-12958-2-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1452069029-12958-1-git-send-email-openbmc-patches@stwcx.xyz>
  <1452069029-12958-2-git-send-email-openbmc-patches@stwcx.xyz>
-User-Agent: Notmuch/0.21+24~gbceb651 (http://notmuchmail.org) Emacs/24.5.1
- (x86_64-redhat-linux-gnu)
-Date: Thu, 07 Jan 2016 16:50:59 +1100
-Message-ID: <87r3huhr98.fsf@linux.vnet.ibm.com>
+X-Mailer: Claws Mail 3.13.1 (GTK+ 2.24.29; x86_64-unknown-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16010705-8236-0000-0000-000014F0E35B
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -61,11 +51,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Jan 2016 05:51:17 -0000
+X-List-Received-Date: Thu, 07 Jan 2016 05:55:39 -0000
 
-OpenBMC Patches <openbmc-patches@stwcx.xyz> writes:
+On Wed,  6 Jan 2016 02:30:29 -0600
+OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
+
+Hi Peng,
+
+Thanks for following my recommendations, much appreciated.
+
+Ultimately we have a common goal which is to have the best possible code go
+into the project, lets work together on this.
+
+
+
 > From: shgoupf <shgoupf@cn.ibm.com>
->
+> 
 > 1) Add support for IPMI get/set boot option command.
 >     a) boot options stored in dbus property.
 >     b) IPMI get boot option command get boot option from the dbus
@@ -89,17 +90,482 @@ OpenBMC Patches <openbmc-patches@stwcx.xyz> writes:
 >     b) Fix multi line comment style from "//" to "/**/".
 >     c) Add defines for return codes.
 >     d) Add more comments.
-
-A commit message should describe the change/feature being implemented
-and provide additional explanation, this reads like the story of how you
-got to this point rather than describing what's going on.
-
+> ---
+>  chassishandler.C | 472 ++++++++++++++++++++++++++++++++++++++++++++++---------
+>  chassishandler.h |  18 +++
+>  2 files changed, 413 insertions(+), 77 deletions(-)
+> 
 > diff --git a/chassishandler.C b/chassishandler.C
 > index 1389db9..8d516de 100644
 > --- a/chassishandler.C
 > +++ b/chassishandler.C
 > @@ -5,9 +5,233 @@
-<snip>
+>  #include <stdint.h>
+>  
+>  // OpenBMC Chassis Manager dbus framework
+> -const char  *chassis_bus_name      =  "org.openbmc.control.Chassis";
+> -const char  *chassis_object_name   =  "/org/openbmc/control/chassis0";
+> -const char  *chassis_intf_name     =  "org.openbmc.control.Chassis";
+> +const char *chassis_bus_name      =  "org.openbmc.control.Chassis";
+> +const char *chassis_object_name   =  "/org/openbmc/control/chassis0";
+> +const char *chassis_intf_name     =  "org.openbmc.control.Chassis";
+> +
+> +// Host settings in dbus
+> +// Service name should be referenced by connection name got via object mapper
+> +const char *settings_object_name  =  "/org/openbmc/settings/host0";
+> +const char *settings_intf_name    =  "org.freedesktop.DBus.Properties";
+> +
+> +const char *objmapper_service_name =  "org.openbmc.objectmapper";
+> +const char *objmapper_object_name  =  "/org/openbmc/objectmapper/objectmapper";
+> +const char *objmapper_intf_name    =  "org.openbmc.objectmapper.ObjectMapper";
+> +
+> +int object_mapper_get_connection(char ** buf, const char * obj_path)
+> +{
+> +    sd_bus_error error = SD_BUS_ERROR_NULL;
+> +    sd_bus_message * m = NULL;
+> +    sd_bus * bus = NULL;
+> +    char * temp_buf = NULL, *intf = NULL;
+
+Still strange spacing with the * character
+
+> +    size_t buf_size = 0;
+> +    int r;
+> +
+> +    // Open the system bus where most system services are provided.
+> +    r = sd_bus_open_system(&bus);
+> +
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to connect to system bus: %s\n", strerror(-r));
+> +        goto finish;
+> +    }
+> +
+> +    /*
+> +     * Bus, service, object path, interface and method are provided to call
+> +     * the method.
+> +     * Signatures and input arguments are provided by the arguments at the
+> +     * end.
+> +     */
+> +    r = sd_bus_call_method(bus,
+> +                           objmapper_service_name,                      /* service to contact */
+> +                           objmapper_object_name,                       /* object path */
+> +                           objmapper_intf_name,                         /* interface name */
+> +                           "GetObject",                                 /* method name */
+> +                           &error,                                      /* object to return error in */
+> +                           &m,                                          /* return message on success */
+> +                           "s",                                         /* input signature */
+> +                           obj_path                                     /* first argument */
+> +                          );
+> +
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to issue method call: %s\n", error.message);
+> +        goto finish;
+> +    }
+> +
+> +    // Get the key, aka, the connection name
+> +    sd_bus_message_read(m, "a{sas}", 1, &temp_buf, 1, &intf);
+> +
+
+Still unsure about these interfaces, are you commenting them in the docs repo?
+
+
+> +    /*
+> +     * TODO: check the return code. Currently for no reason the message
+> +     * parsing of object mapper is always complaining about
+> +     * "Device or resource busy", but the result seems OK for now. Need
+> +     * further checks.
+> +     * TODO: The following code is preserved in the comments so that it can be
+> +     * resumed after the problem aforementioned is resolved.
+> +     *r = sd_bus_message_read(m, "a{sas}", 1, &temp_buf, 1, &intf);
+> +     *if (r < 0) {
+> +     *    fprintf(stderr, "Failed to parse response message: %s\n", strerror(-r));
+> +     *    goto finish;
+> +     *}
+> +     */
+
+This still worries me a lot, I've been looking through sd_bus_message_read(),
+feel free to take a look,
+https://fossies.org/dox/systemd-228/dir_2d204f9a98721f367282e89b81571312.html.
+
+If it returns a negative value there is absolutely no guarantee that it has
+correctly set the parameters you passed, it may not have at all depending on at
+which point it detects the error. This means you might be reading from an
+invalid pointer later on.
+
+I know you say it works, I'm concerned that you might be getting quite lucky
+and that it only appears to work.
+
+> +
+> +    buf_size = strlen(temp_buf) + 1;
+> +    printf("IPMID connection name: %s\n", temp_buf);
+> +    *buf = (char *)malloc(buf_size);
+> +
+> +    if (*buf == NULL) {
+> +        fprintf(stderr, "Malloc failed for get_sys_boot_options");
+> +        r = -1;
+> +        goto finish;
+> +    }
+> +
+> +    memcpy(*buf, temp_buf, buf_size);
+> +
+> +finish:
+> +    sd_bus_error_free(&error);
+> +    sd_bus_message_unref(m);
+> +    sd_bus_unref(bus);
+> +
+> +    return r;
+> +}
+> +
+> +int dbus_get_property(char * buf)
+> +{
+> +    sd_bus_error error = SD_BUS_ERROR_NULL;
+> +    sd_bus_message * m = NULL;
+> +    sd_bus * bus = NULL;
+> +    char * temp_buf = NULL;
+> +    uint8_t * get_value = NULL;
+> +    char * connection = NULL;
+
+More strange spacing around the *
+
+> +    int r, i;
+> +
+> +    r = object_mapper_get_connection(&connection, settings_object_name);
+> +
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to get connection, return value: %d.\n", r);
+> +        goto finish;
+> +    }
+> +
+> +    printf("connection: %s\n", connection);
+> +
+> +    // Open the system bus where most system services are provided.
+> +    r = sd_bus_open_system(&bus);
+> +
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to connect to system bus: %s\n", strerror(-r));
+> +        goto finish;
+> +    }
+> +
+> +    /*
+> +     * Bus, service, object path, interface and method are provided to call
+> +     * the method.
+> +     * Signatures and input arguments are provided by the arguments at the
+> +     * end.
+> +     */
+> +    r = sd_bus_call_method(bus,
+> +                           connection,                                 /* service to contact */
+> +                           settings_object_name,                       /* object path */
+> +                           settings_intf_name,                         /* interface name */
+> +                           "Get",                                      /* method name */
+> +                           &error,                                     /* object to return error in */
+> +                           &m,                                         /* return message on success */
+> +                           "ss",                                       /* input signature */
+> +                           settings_intf_name,                         /* first argument */
+> +                           "boot_flags");                              /* second argument */
+> +
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to issue method call: %s\n", error.message);
+> +        goto finish;
+> +    }
+> +
+> +    /*
+> +     * The output should be parsed exactly the same as the output formatting
+> +     * specified.
+> +     */
+> +    r = sd_bus_message_read(m, "v", "s", &temp_buf);
+> +
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to parse response message: %s\n", strerror(-r));
+> +        goto finish;
+> +    }
+> +
+> +    printf("IPMID boot option property get: {%s}.\n", (char *) temp_buf);
+> +
+> +    /*
+> +     * To represent a hex in string, e.g., "A0A0", which represents two bytes
+> +     * in the hex, but requires 5 bytes to store it as string, i.e., 4
+> +     * characters to store the "A0A0" and 1 additional space for "\0".
+> +     * Thereby we have 2 * <number of bytes> + 1 for the string buffer.
+> +     */
+> +    memcpy(buf, temp_buf, 2 * NUM_RETURN_BYTES_OF_GET_USED + 1);
+> +
+> +finish:
+> +    sd_bus_error_free(&error);
+> +    sd_bus_message_unref(m);
+> +    sd_bus_unref(bus);
+> +    free(connection);
+> +
+> +    return r;
+> +}
+> +
+> +int dbus_set_property(const char * buf)
+> +{
+> +    sd_bus_error error = SD_BUS_ERROR_NULL;
+> +    sd_bus_message * m = NULL;
+> +    sd_bus * bus = NULL;
+> +    char * connection = NULL;
+> +    int r;
+> +
+> +    r = object_mapper_get_connection(&connection, settings_object_name);
+> +
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to get connection, return value: %d.\n", r);
+> +        goto finish;
+> +    }
+> +
+> +    printf("connection: %s\n", connection);
+> +
+> +    // Open the system bus where most system services are provided.
+> +    r = sd_bus_open_system(&bus);
+> +
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to connect to system bus: %s\n", strerror(-r));
+> +        goto finish;
+> +    }
+> +
+> +    /*
+> +     * Bus, service, object path, interface and method are provided to call
+> +     * the method.
+> +     * Signatures and input arguments are provided by the arguments at the
+> +     * end.
+> +     */
+> +    r = sd_bus_call_method(bus,
+> +                           connection,                                 /* service to contact */
+> +                           settings_object_name,                       /* object path */
+> +                           settings_intf_name,                         /* interface name */
+> +                           "Set",                                      /* method name */
+> +                           &error,                                     /* object to return error in */
+> +                           &m,                                         /* return message on success */
+> +                           "ssv",                                      /* input signature */
+> +                           settings_intf_name,                         /* first argument */
+> +                           "boot_flags",                               /* second argument */
+> +                           "s",                                        /* third argument */
+> +                           buf);                                       /* fourth argument */
+
+Still unsure about these interfaces, are you commenting them in the docs repo?
+
+> +
+> +    if (r < 0) {
+> +        fprintf(stderr, "Failed to issue method call: %s\n", error.message);
+> +        goto finish;
+> +    }
+> +
+> +    printf("IPMID boot option property set: {%s}.\n", buf);
+> +
+> +finish:
+> +    sd_bus_error_free(&error);
+> +    sd_bus_message_unref(m);
+> +    sd_bus_unref(bus);
+> +    free(connection);
+> +
+> +    return r;
+> +}
+>  
+>  void register_netfn_chassis_functions() __attribute__((constructor));
+>  
+> @@ -15,13 +239,30 @@ struct get_sys_boot_options_t {
+>      uint8_t parameter;
+>      uint8_t set;
+>      uint8_t block;
+> -}  __attribute__ ((packed));
+> +}  __attribute__((packed));
+>  
+> -ipmi_ret_t ipmi_chassis_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
+> -                              ipmi_request_t request, ipmi_response_t response, 
+> -                              ipmi_data_len_t data_len, ipmi_context_t context)
+> +struct set_sys_boot_options_t {
+> +    uint8_t parameter;
+> +    union {
+> +        struct {
+> +            uint8_t d1;
+> +            uint8_t d2;
+> +            uint8_t d3;
+> +            uint8_t d4;
+> +            uint8_t d5;
+> +            uint8_t d6;
+> +            uint8_t d7;
+> +            uint8_t d8;
+> +        } data8;
+> +        uint64_t data64;
+> +    } data;
+> +}  __attribute__((packed));
+> +
+> +ipmi_ret_t ipmi_chassis_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+> +                                 ipmi_request_t request, ipmi_response_t response,
+> +                                 ipmi_data_len_t data_len, ipmi_context_t context)
+>  {
+> -    printf("Handling CHASSIS WILDCARD Netfn:[0x%X], Cmd:[0x%X]\n",netfn, cmd);
+> +    printf("Handling CHASSIS WILDCARD Netfn:[0x%X], Cmd:[0x%X]\n", netfn, cmd);
+>      // Status code.
+>      ipmi_ret_t rc = IPMI_CC_OK;
+>      *data_len = 0;
+> @@ -31,103 +272,176 @@ ipmi_ret_t ipmi_chassis_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+>  //------------------------------------------------------------
+>  // Calls into Chassis Control Dbus object to do the power off
+>  //------------------------------------------------------------
+> -int ipmi_chassis_power_control(const char *method)
+> +int ipmi_chassis_power_control(const char * method)
+>  {
+> -	// sd_bus error
+> -	int rc = 0;
+> +    // sd_bus error
+> +    int rc = 0;
+>  
+>      // SD Bus error report mechanism.
+>      sd_bus_error bus_error = SD_BUS_ERROR_NULL;
+>  
+> -	// Response from the call. Although there is no response for this call,
+> -	// obligated to mention this to make compiler happy.
+> -	sd_bus_message *response = NULL;
+> -
+> -	// Gets a hook onto either a SYSTEM or SESSION bus
+> -	sd_bus *bus_type = ipmid_get_sd_bus_connection();
+> -
+> -	rc = sd_bus_call_method(bus_type,        		 // On the System Bus
+> -							chassis_bus_name,        // Service to contact
+> -							chassis_object_name,     // Object path 
+> -							chassis_intf_name,       // Interface name
+> -							method,      		 // Method to be called
+> -							&bus_error,      		 // object to return error
+> -							&response,		 		 // Response buffer if any
+> -							NULL);			 		 // No input arguments
+> -	if(rc < 0)
+> -	{
+> -		fprintf(stderr,"ERROR initiating Power Off:[%s]\n",bus_error.message);
+> -	}
+> -	else
+> -	{
+> -		printf("Chassis Power Off initiated successfully\n");
+> -	}
+> +    /*
+> +     * Response from the call. Although there is no response for this call,
+> +     * obligated to mention this to make compiler happy.
+> +     */
+> +    sd_bus_message * response = NULL;
+> +
+> +    // Gets a hook onto either a SYSTEM or SESSION bus
+> +    sd_bus * bus_type = ipmid_get_sd_bus_connection();
+> +
+> +    rc = sd_bus_call_method(bus_type,                /* On the System Bus*/
+> +                            chassis_bus_name,        /* Service to contact*/
+> +                            chassis_object_name,     /* Object path*/
+> +                            chassis_intf_name,       /* Interface name*/
+> +                            method,                  /* Method to be called*/
+> +                            &bus_error,              /* object to return error*/
+> +                            &response,               /* Response buffer if any*/
+> +                            NULL);                   /* No input arguments*/
+> +
+> +    if (rc < 0) {
+> +        fprintf(stderr, "ERROR initiating Power Off:[%s]\n", bus_error.message);
+> +    } else {
+> +        printf("Chassis Power Off initiated successfully\n");
+> +    }
+>  
+>      sd_bus_error_free(&bus_error);
+>      sd_bus_message_unref(response);
+>  
+> -	return rc;
+> +    return rc;
+>  }
+>  
+>  
+>  //----------------------------------------------------------------------
+>  // Chassis Control commands
+>  //----------------------------------------------------------------------
+> -ipmi_ret_t ipmi_chassis_control(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
+> -                        ipmi_request_t request, ipmi_response_t response, 
+> -                        ipmi_data_len_t data_len, ipmi_context_t context)
+> +ipmi_ret_t ipmi_chassis_control(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+> +                                ipmi_request_t request, ipmi_response_t response,
+> +                                ipmi_data_len_t data_len, ipmi_context_t context)
+>  {
+> -	// Error from power off.
+> -	int rc = 0;
+> +    // Error from power off.
+> +    int rc = 0;
+>  
+> -	// No response for this command.
+> +    // No response for this command.
+>      *data_len = 0;
+>  
+> -	// Catch the actual operaton by peeking into request buffer
+> -	uint8_t chassis_ctrl_cmd = *(uint8_t *)request;
+> -	printf("Chassis Control Command: Operation:[0x%X]\n",chassis_ctrl_cmd);
+> -
+> -	switch(chassis_ctrl_cmd)
+> -	{
+> -		case CMD_POWER_OFF:
+> -			rc = ipmi_chassis_power_control("powerOff");
+> -			break;
+> -		case CMD_HARD_RESET:
+> -			rc = ipmi_chassis_power_control("reboot");
+> -			break;
+> -		default:
+> -		{
+> -			fprintf(stderr, "Invalid Chassis Control command:[0x%X] received\n",chassis_ctrl_cmd);
+> -			rc = -1;
+> -		}
+> -	}
+> -
+> -	return ( (rc < 0) ? IPMI_CC_INVALID : IPMI_CC_OK);
+> +    // Catch the actual operaton by peeking into request buffer
+> +    uint8_t chassis_ctrl_cmd = * (uint8_t *)request;
+> +    printf("Chassis Control Command: Operation:[0x%X]\n", chassis_ctrl_cmd);
+> +
+> +    switch (chassis_ctrl_cmd) {
+> +    case CMD_POWER_OFF:
+> +        rc = ipmi_chassis_power_control("powerOff");
+> +        break;
+> +
+> +    case CMD_HARD_RESET:
+> +        rc = ipmi_chassis_power_control("reboot");
+> +        break;
+> +
+> +    default: {
+> +        fprintf(stderr, "Invalid Chassis Control command:[0x%X] received\n", chassis_ctrl_cmd);
+> +        rc = -1;
+> +    }
+> +    }
+> +
+> +    return ((rc < 0) ? IPMI_CC_INVALID : IPMI_CC_OK);
+>  }
+>  
+> -ipmi_ret_t ipmi_chassis_get_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
+> -                              ipmi_request_t request, ipmi_response_t response, 
+> -                              ipmi_data_len_t data_len, ipmi_context_t context)
+> +ipmi_ret_t ipmi_chassis_get_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+> +        ipmi_request_t request, ipmi_response_t response,
+> +        ipmi_data_len_t data_len, ipmi_context_t context)
+>  {
+>      ipmi_ret_t rc = IPMI_CC_OK;
+>      *data_len = 0;
+>  
+>      printf("IPMI GET_SYS_BOOT_OPTIONS\n");
+>  
+> -    get_sys_boot_options_t *reqptr = (get_sys_boot_options_t*) request;
+> +    get_sys_boot_options_t * reqptr = (get_sys_boot_options_t *) request;
+> +
+> +    /*
+> +     * To represent a hex in string, e.g., "A0A0", which represents two bytes
+> +     * in the hex, but requires 5 bytes to store it as string, i.e., 4
+> +     * characters to store the "A0A0" and 1 additional space for "\0".
+> +     * Thereby we have 2 * <number of bytes> + 1 for the string buffer.
+> +     */
+> +    char buf[NUM_RETURN_BYTES_OF_GET * 2 + 1] = {0};
+
+I still don't follow why these odd #define numbers, why don't you put the * 2 +
+1 inside the #define?
+
+Or, really we should be discussing why numbers are being passed around as
+strings.
+>  
+> -    // TODO Return default values to OPAL until dbus interface is available
+> +    /*
+> +     * Parameter #5 means boot flags. Please refer to 28.13 of ipmi doc.
+> +     * This is the only parameter used by petitboot.
+> +     */
+> +    if (reqptr->parameter == 5) {
+> +        int r = dbus_get_property(buf);
+>  
 > -    if (reqptr->parameter == 5) // Parameter #5
 > -    {
 > -        uint8_t buf[] = {0x1,0x5,80,0,0,0,0};
@@ -113,7 +579,8 @@ got to this point rather than describing what's going on.
 > +        uint64_t return_value;
 > +        sscanf(buf, "%llX", &return_value);
 
-should this be PRIx64 ?
+Why can't we a) be passing numbers around as numbers b) use the correct tool
+for the job.
 
 > +
 > +        *data_len = NUM_RETURN_BYTES_OF_GET;
@@ -127,6 +594,9 @@ should this be PRIx64 ?
 > +        // Parameter not supported
 > +        buf[0] = IPMI_CC_PARM_NOT_SUPPORTED;
 > +        memcpy(response, buf, *data_len);
+
+... previous comments, there really is no need for the memcpy
+
 > +        fprintf(stderr, "Unsupported parameter 0x%x\n", reqptr->parameter);
 > +        return IPMI_CC_PARM_NOT_SUPPORTED;
 >      }
@@ -143,12 +613,7 @@ should this be PRIx64 ?
 > +    ipmi_ret_t rc = IPMI_CC_OK;
 > +
 > +    printf("IPMI SET_SYS_BOOT_OPTIONS\n");
-> +    printf("IPMID set command required return bytes: %i\n",
-> *data_len);
-
-these look like debugging printouts? Is there any plan to move to
-something better than printing to stdout?
-
+> +    printf("IPMID set command required return bytes: %i\n", *data_len);
 > +
 > +    set_sys_boot_options_t * reqptr = (set_sys_boot_options_t *) request;
 > +
@@ -167,13 +632,6 @@ something better than printing to stdout?
 > +         */
 > +        char input_buf[NUM_INPUT_BYTES_OF_SET * 2 + 1];
 > +        sprintf(input_buf, "%llX", reqptr->data.data64);
-
-snprintf is better as it can be more obviously correct, or rather, more
-obvious to see that it's not an outright buffer overflow.
-
-You also want to use C99 PRIx64 as otherwise this is incorrect on some
-platforms and will emit a warning.
-
 > +
 > +        int r = dbus_set_property(input_buf);
 > +
@@ -190,12 +648,12 @@ platforms and will emit a warning.
 > +        // Parameter not supported
 > +        output_buf[0] = IPMI_CC_PARM_NOT_SUPPORTED;
 > +        memcpy(response, output_buf, *data_len);
+
+... previous comments, there really is no need for the memcpy
+
 >          fprintf(stderr, "Unsupported parameter 0x%x\n", reqptr->parameter);
 > -        return IPMI_CC_PARM_NOT_SUPPORTED;        
 > +        return IPMI_CC_PARM_NOT_SUPPORTED;
-
-Keep whitespace fixes in a separate patch.
-
 >      }
 >  
 >      return rc;
@@ -204,11 +662,7 @@ Keep whitespace fixes in a separate patch.
 >  void register_netfn_chassis_functions()
 >  {
 > -    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_CHASSIS, IPMI_CMD_WILDCARD);
-> +    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n", NETFUN_CHASSIS,
->  IPMI_CMD_WILDCARD);
-
-same here, separate patch for pure whitespace fix.
-
+> +    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n", NETFUN_CHASSIS, IPMI_CMD_WILDCARD);
 >      ipmi_register_callback(NETFUN_CHASSIS, IPMI_CMD_WILDCARD, NULL, ipmi_chassis_wildcard);
 >  
 > -    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN_CHASSIS, IPMI_CMD_GET_SYS_BOOT_OPTIONS);
@@ -220,11 +674,7 @@ same here, separate patch for pure whitespace fix.
 > +    ipmi_register_callback(NETFUN_CHASSIS, IPMI_CMD_SET_SYS_BOOT_OPTIONS, NULL, ipmi_chassis_set_sys_boot_options);
 > +
 > +    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n", NETFUN_CHASSIS, IPMI_CMD_CHASSIS_CONTROL);
->      ipmi_register_callback(NETFUN_CHASSIS, IPMI_CMD_CHASSIS_CONTROL,
-> NULL, ipmi_chassis_control);
-
-and teh same for these.
-
+>      ipmi_register_callback(NETFUN_CHASSIS, IPMI_CMD_CHASSIS_CONTROL, NULL, ipmi_chassis_control);
 >  }
 > +
 > diff --git a/chassishandler.h b/chassishandler.h
@@ -239,8 +689,35 @@ and teh same for these.
 > +// however only 5 of them are used. The remaining
 > +// 3 bytes are not used in petitboot and the value
 > +// of them are all zero.
-
-where? why? why will it never change?
--- 
-Stewart Smith
-OPAL Architect, IBM.
+> +#define NUM_RETURN_BYTES_OF_GET 8
+> +#define NUM_RETURN_BYTES_OF_GET_USED 5
+> +#define NUM_RETURN_BYTES_OF_SET 1
+> +#define NUM_INPUT_BYTES_OF_SET 5
+> +
+>  // IPMI commands for Chassis net functions.
+>  enum ipmi_netfn_app_cmds
+>  {
+>  	// Chassis Control
+>  	IPMI_CMD_CHASSIS_CONTROL	  = 0x02,
+>      // Get capability bits
+> +    IPMI_CMD_SET_SYS_BOOT_OPTIONS = 0x08,
+>      IPMI_CMD_GET_SYS_BOOT_OPTIONS = 0x09,
+>  };
+>  
+>  // Command specific completion codes
+>  enum ipmi_chassis_return_codes
+>  {
+> +    IPMI_OK = 0x0,
+>      IPMI_CC_PARM_NOT_SUPPORTED = 0x80,
+>  };
+>  
+> +// Generic completion codes,
+> +// see IPMI doc section 5.2
+> +enum ipmi_generic_return_codes
+> +{
+> +    IPMI_OUT_OF_SPACE = 0xC4,
+> +};
+> +
+>  // Various Chassis operations under a single command.
+>  enum ipmi_chassis_control_cmds : uint8_t
+>  {
