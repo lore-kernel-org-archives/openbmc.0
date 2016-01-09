@@ -3,20 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 2BE9D1A06BC
- for <openbmc@lists.ozlabs.org>; Sun, 10 Jan 2016 02:40:23 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 8C6C71A06C7
+ for <openbmc@lists.ozlabs.org>; Sun, 10 Jan 2016 02:40:24 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1452354021767657.123859652623;
- Sat, 9 Jan 2016 07:40:21 -0800 (PST)
+ with SMTPS id 1452354020966809.4116131890264;
+ Sat, 9 Jan 2016 07:40:20 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Antony Messerli <amesserl@rackspace.com>
 Subject: [PATCH openbmc v3] Adding Fedora 23 requirements to README
-Date: Sat,  9 Jan 2016 09:40:20 -0600
-Message-Id: <1452354020-27234-2-git-send-email-openbmc-patches@stwcx.xyz>
+Date: Sat,  9 Jan 2016 09:40:19 -0600
+Message-Id: <1452354020-27234-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
-In-Reply-To: <1452354020-27234-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1452354020-27234-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -29,29 +26,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 09 Jan 2016 15:40:24 -0000
+X-List-Received-Date: Sat, 09 Jan 2016 15:40:25 -0000
 
-From: Antony Messerli <amesserl@rackspace.com>
+https://github.com/openbmc/openbmc/pull/123
 
----
+Antony Messerli (1):
+  Adding Fedora 23 requirements to README
+
  README.md | 5 +++++
  1 file changed, 5 insertions(+)
 
-diff --git a/README.md b/README.md
-index 49d4f94..fb8b981 100644
---- a/README.md
-+++ b/README.md
-@@ -8,6 +8,11 @@ OpenBMC uses Yocto/Open-Embedded for a build system, which supports an
- out-of-tree build.  It is recommended that you create an empty directory
- somewhere to hold the build.  This directory will get big.
- 
-+On Fedora 23 the following packages are required to build the default target:
-+
-+    dnf install -y git patch diffstat texinfo chrpath SDL-devel bitbake
-+    dnf groupinstall "C Development Tools and Libraries"
-+
- To start a build:
- 
-     cd <builddir>
 -- 
 2.6.4
