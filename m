@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 9B19B1A0202
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 03:50:31 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 7BD441A09C0
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 03:50:34 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1452531028060375.9019958859526;
- Mon, 11 Jan 2016 08:50:28 -0800 (PST)
+ with SMTPS id 1452531032332535.8744786506018;
+ Mon, 11 Jan 2016 08:50:32 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Manjunath Kumatagi <manjunath@oc1275007250.ibm.com>
-Subject: [PATCH openbmc-test-automation 01/60] first commit
-Date: Mon, 11 Jan 2016 10:49:27 -0600
-Message-Id: <1452531026-13715-2-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: manjunath <manjunath@localhost.localdomain>
+Subject: [PATCH openbmc-test-automation 05/60] added testcase for etc passwd
+Date: Mon, 11 Jan 2016 10:49:31 -0600
+Message-Id: <1452531026-13715-6-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 In-Reply-To: <1452531026-13715-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1452531026-13715-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,17 +29,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Jan 2016 16:50:32 -0000
+X-List-Received-Date: Mon, 11 Jan 2016 16:50:35 -0000
 
-From: Manjunath Kumatagi <manjunath@oc1275007250.ibm.com>
+From: manjunath <manjunath@localhost.localdomain>
 
 ---
- README.md | 0
- 1 file changed, 0 insertions(+), 0 deletions(-)
- create mode 100644 README.md
+ tests/test_ssh.robot | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/README.md b/README.md
-new file mode 100644
-index 0000000..e69de29
+diff --git a/tests/test_ssh.robot b/tests/test_ssh.robot
+index e9dcf9e..cabcea0 100644
+--- a/tests/test_ssh.robot
++++ b/tests/test_ssh.robot
+@@ -50,6 +50,14 @@ File Not Found
+     Should Be Equal    ${rc}    ${2}
+     Should Contain    ${stderr}    No such file or directory
+ 
++etc passwd entry
++    [Documentation]    This testcase is for testing /etc/passwd entry
++    ${output}    ${stderr}    ${rc}=    Execute Command    grep manjunath /etc/passwd    return_stderr=True    return_rc=True
++    ${msg}=    Catenate    output:${output}    stderr:${stderr}    rc:${rc}
++    Log To Console    ${msg}
++    Should Be Equal    ${rc}    ${0}
++    Should Contain    ${output}    manjunath
++
+ *** Keywords ***
+ Open Connection And Log In
+     Open Connection    ${HOST}
 -- 
 2.6.4
