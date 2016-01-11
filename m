@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 1A5641A0CFD
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 03:51:29 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 37E231A0D00
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 03:51:30 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 145253108302592.57325299086472;
+ with SMTPS id 1452531083926609.751548345597;
  Mon, 11 Jan 2016 08:51:23 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc-test-automation 57/60] Fix Errors in
- test_obmcrest.robot and removed the empty testcases.
-Date: Mon, 11 Jan 2016 10:50:23 -0600
-Message-Id: <1452531026-13715-58-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc-test-automation 58/60] Added one more testcase to test
+ non-ssl connection to port 443
+Date: Mon, 11 Jan 2016 10:50:24 -0600
+Message-Id: <1452531026-13715-59-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 In-Reply-To: <1452531026-13715-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1452531026-13715-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -34,69 +34,34 @@ X-List-Received-Date: Mon, 11 Jan 2016 16:51:30 -0000
 From: Manjunath A Kumatagi <mkumatag@in.ibm.com>
 
 ---
- tests/test_obmcrest.robot | 47 +++++++++++------------------------------------
- 1 file changed, 11 insertions(+), 36 deletions(-)
+ tests/security/test_ssl.robot | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/tests/test_obmcrest.robot b/tests/test_obmcrest.robot
-index caf9085..382107f 100644
---- a/tests/test_obmcrest.robot
-+++ b/tests/test_obmcrest.robot
-@@ -11,45 +11,20 @@ Resource		../lib/rest_client.robot
+diff --git a/tests/security/test_ssl.robot b/tests/security/test_ssl.robot
+index 3c098b0..b376a62 100644
+--- a/tests/security/test_ssl.robot
++++ b/tests/security/test_ssl.robot
+@@ -17,9 +17,18 @@ Test SSL Connection
+     ${jsondata}=    To Json    ${resp.content}
+     Should Not Be Empty     ${jsondata}
  
- *** Test Cases ***
- Good connection for testing
--	${content} =	Read Properties	/
--	${c}= 		get from List 	${content} 	0
--	Should Contain		"/org"	${c}
--
-+    ${content}=    Read Properties     /
-+    ${c}=          get from List       ${content}      0
-+    Should Be Equal    ${c}     /org
- 
- Get an object with no properties 
--	${content} =	Read Properties	/org/openbmc/inventory
--	Should Be Empty	${content}
--
-+    ${content}=    Read Properties     /org/openbmc/inventory
-+    Should Be Empty     ${content}
- 
- Get a Property
--	${resp} =	Read Attribute	/org/openbmc/inventory/system/chassis/motherboard/cpu0	is_fru
--	Should Contain		1	${resp}	
--
-+    ${resp}=   Read Attribute      /org/openbmc/inventory/system/chassis/motherboard/cpu0      is_fru
-+    Should Be Equal    ${resp}     ${1}
- 
- Get a null Property
--	${resp} =	Read Attribute	/org/openbmc/inventory	is_fru
--	Should Contain		1	${resp}	
--
--
--Enumeration object
--
--
--List object
--
--
--Invoke a method without properties
--
--
--Invoke a method with properties
--
--
--Issue a POST
--
--
--Issue a PUT
--
--
--
--
--
--*** Keywords ***
-+    ${resp} =    OpenBMC Get Request    /org/openbmc/inventory/attr/is_fru
-+    Should Be Equal As Strings    ${resp.status_code}    ${HTTP_NOT_FOUND}
-+    ${jsondata}=    To Json    ${resp.content}
-+    Should Be Equal     ${jsondata['data']['description']}      The specified property cannot be found: ''is_fru''
+-Test non-SSL Connection - Negative
++Test non-SSL Connection to port 80
+     [Documentation]     This testcase is for test to check OpenBMC machine
+-    ...     will not accepts the non-secure connection that is with http.
+-    ...     Expected a connection error when we try making a call
++    ...     will not accepts the non-secure connection that is with http to
++    ...     port 80 and expect a connection error
+     Create Session    openbmc    http://${OPENBMC_HOST}/
+     Run Keyword And Expect Error    ConnectionError*   Get Request    openbmc   /list
++
++Test non-SSL Connection to port 443
++    [Documentation]     This testcase is for test to check OpenBMC machine
++    ...     will not accepts the non-secure connection that is with http to
++    ...     port 443 and expect 400 in response
++    Create Session    openbmc    http://${OPENBMC_HOST}:443/
++    ${resp}=    Get Request    openbmc   /list
++    Should Be Equal As Strings    ${resp.status_code}    ${HTTP_BAD_REQUEST}
++    Should Be Equal     ${resp.content}     Bad Request
 -- 
 2.6.4
