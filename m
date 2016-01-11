@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id A9D7D1A0D13
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 03:50:43 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 35B021A0D1F
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 03:50:44 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1452531036481773.8547082247177;
- Mon, 11 Jan 2016 08:50:36 -0800 (PST)
+ with SMTPS id 1452531040428315.44004098943185;
+ Mon, 11 Jan 2016 08:50:40 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc-test-automation 09/60] Added Inventory list testcase
-Date: Mon, 11 Jan 2016 10:49:35 -0600
-Message-Id: <1452531026-13715-10-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc-test-automation 13/60] fixed review comments
+Date: Mon, 11 Jan 2016 10:49:39 -0600
+Message-Id: <1452531026-13715-14-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 In-Reply-To: <1452531026-13715-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1452531026-13715-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,126 +29,77 @@ List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Mon, 11 Jan 2016 16:50:44 -0000
-X-List-Received-Date: Mon, 11 Jan 2016 16:50:44 -0000
 
-From: Manjunath A Kumatagi <mkumatag@in.ibm.com>
+From: Chris Austen <austenc@us.ibm.com>
 
 ---
- data/variables.py          | 31 +++++++++++++++++++++++++++++++
- lib/resource.txt           | 18 +++++++++++++-----
- lib/rest_client.robot      |  7 +------
- tests/test_inventory.robot | 16 ++++++++++++++++
- 4 files changed, 61 insertions(+), 11 deletions(-)
- create mode 100644 data/variables.py
- create mode 100644 tests/test_inventory.robot
+ tests/test_sensors.robot | 33 ++++++++++-----------------------
+ 1 file changed, 10 insertions(+), 23 deletions(-)
 
-diff --git a/data/variables.py b/data/variables.py
-new file mode 100644
-index 0000000..099a21e
---- /dev/null
-+++ b/data/variables.py
-@@ -0,0 +1,31 @@
-+INVENTORY={
-+    "palmetto": ["/org/openbmc/inventory/system/chassis/io_board/pcie_slot0", 
-+                 "/org/openbmc/inventory/system/chassis/io_board/pcie_slot1", 
-+                 "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core9", 
-+                 "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core8", 
-+                 "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core7", 
-+                 "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core6", 
-+                 "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core5", 
-+                 "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core4", 
-+                 "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core3", 
-+                 "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core2", 
-+                 "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core1", 
-+                 "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core0", 
-+                 "/org/openbmc/inventory/system/chassis/motherboard/dimm3", 
-+                 "/org/openbmc/inventory/system/chassis/motherboard/dimm2", 
-+                 "/org/openbmc/inventory/system/chassis/motherboard/dimm1", 
-+                 "/org/openbmc/inventory/system/chassis/motherboard/dimm0", 
-+                 "/org/openbmc/inventory/system/chassis/fan4", 
-+                 "/org/openbmc/inventory/system/chassis/fan2", 
-+                 "/org/openbmc/inventory/system", 
-+                 "/org/openbmc/inventory/system/chassis/fan0", 
-+                 "/org/openbmc/inventory/system/chassis/fan1", 
-+                 "/org/openbmc/inventory/system/chassis/motherboard/cpu0", 
-+                 "/org/openbmc/inventory/system/chassis", 
-+                 "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core11", 
-+                 "/org/openbmc/inventory/system/chassis/motherboard/cpu0/core10", 
-+                 "/org/openbmc/inventory/system/chassis/motherboard/centaur0", 
-+                 "/org/openbmc/inventory/system/chassis/motherboard", 
-+                 "/org/openbmc/inventory/system/chassis/motherboard/bmc", 
-+                 "/org/openbmc/inventory/system/chassis/fan3"]
-+}
-\ No newline at end of file
-diff --git a/lib/resource.txt b/lib/resource.txt
-index c34e026..fd10050 100644
---- a/lib/resource.txt
-+++ b/lib/resource.txt
-@@ -3,10 +3,18 @@ Library           Collections
- Library           String
- Library           RequestsLibrary.RequestsKeywords
- Library           OperatingSystem
-+Variables         ../data/variables.py
+diff --git a/tests/test_sensors.robot b/tests/test_sensors.robot
+index b36b059..79ba4d7 100644
+--- a/tests/test_sensors.robot
++++ b/tests/test_sensors.robot
+@@ -5,7 +5,7 @@ Documentation          This example demonstrates executing commands on a remote
+ ...                    Notice how connections are handled as part of the suite setup and
+ ...                    teardown. This saves some time when executing several test cases.
+ 
+-Resource          ../lib/rest_client.robot
++Resource		../lib/rest_client.robot
+ 
+ 
+ Library                SSHLibrary
+@@ -13,42 +13,29 @@ Suite Setup            Open Connection And Log In
+ Suite Teardown         Close All Connections
  
  *** Variables ***
--${OPENBMC_HOST}           192.168.122.100    # openbmc ip address
--${PORT}           3000
--${AUTH_URI}       http://${HOST}:${PORT}
--${OPENBMC_USERNAME}       root
--${OPENBMC_PASSWORD}       abc123
-+${OPENBMC_HOST}    192.168.122.100    # openbmc ip address
-+${DBUS_PREFIX}    ${EMPTY}
-+${PORT}           ${EMPTY}
-+${AUTH_URI}       http://${OPENBMC_HOST}:${PORT}
-+${OPENBMC_USERNAME}    root
-+${OPENBMC_PASSWORD}    0penBmc
-+${MACHINE_TYPE}    palmetto
-+
-+*** Keywords ***
-+Get Inventory Schema
-+    [Arguments]    ${machine}
-+    [Return]    &{INVENTORY}[${machine}]
-diff --git a/lib/rest_client.robot b/lib/rest_client.robot
-index 45c4226..b972195 100644
---- a/lib/rest_client.robot
-+++ b/lib/rest_client.robot
-@@ -3,14 +3,9 @@ Library           Collections
- Library           String
- Library           RequestsLibrary.RequestsKeywords
- Library           OperatingSystem
-+Resource          ../lib/resource.txt
+-${HOST}                9.3.164.147
+-${USERNAME}            root
+-${PASSWORD}            0penBmc
  
- *** Variables ***
--${OPENBMC_HOST}           192.168.122.100    # openbmc ip address
--${DBUS_PREFIX}    /bus/session
--${PORT}           3000
--${AUTH_URI}       http://${OPENBMC_HOST}:${PORT}
--${OPENBMC_USERNAME}       root
--${OPENBMC_PASSWORD}       abc123
- # Response codes
- ${HTTP_CONTINUE}    100
- ${HTTP_SWITCHING_PROTOCOLS}    101
-diff --git a/tests/test_inventory.robot b/tests/test_inventory.robot
-new file mode 100644
-index 0000000..2e5bfaa
---- /dev/null
-+++ b/tests/test_inventory.robot
-@@ -0,0 +1,16 @@
-+*** Settings ***
-+Documentation     This testsuite is for testing inventory
-+Suite Teardown    Delete All Sessions
-+Resource          ../lib/rest_client.robot
-+Resource          ../lib/resource.txt
-+
+-*** Test Cases ***
+-Execute Command And Verify Output
+-	[Documentation]    Execute Command on the remote machine.
+-	${output}=    Execute Command    echo Hello
+-	Should Be Equal    ${output}    Hello
+-
+-Execute Sending a file
+-	put file    ./tfile /home/root
+ 
 +*** Test Cases ***
-+List Inventory
-+    [Documentation]     This testcase will get the inventory for the openbmc
-+    ...                 machine and validates with the expected inventory
-+    ${resp} =    OpenBMC Get Request    org/openbmc/inventory/list
-+    Should Be Equal As Strings    ${resp.status_code}    ${HTTP_OK}
-+    ${jsondata}=    To Json    ${resp.content}
-+    ${ret}=    Get Inventory Schema    ${MACHINE_TYPE}
-+    : FOR    ${ELEMENT}    IN    @{ret}
-+    \    Should Contain    ${jsondata}    ${ELEMENT}
+ Execute ipmi BT capabilities command
+-	${output}=    Execute Command    /home/root/ipmitool -I dbus raw 0x06 0x36
+-	Should Be Equal    "${output}"    " 01 3f 3f 0a 01"
+-
+-Execute Boot Sensoripmi BT capabilities command
+-	${output}=    Execute Command    /home/root/ipmitool -I dbus raw 0x06 0x36
+-	Should Be Equal    "${output}"    " 01 3f 3f 0a 01"
++	${output}=    Run IPMI command 		0x06 0x36
++	Should Be Equal		"${output}"		" 01 3f 3f 0a 01"
+ 
+ Execute Set Sensor boot count
+ 	Run IPMI command  0x04 0x30 0x09 0x01 0x00 0x35 0x00 0x00 0x00 0x00 0x00 0x00
+ 	${value} =  Read attribute	/org/openbmc/sensor/virtual/BootCount	value
+-	Should Be Equal ${value}    "53"
++	Should Be Equal		${value}	"53"
+ 
+ 
+ 
+ *** Keywords ***
+ Open Connection And Log In
+-   Open Connection    ${HOST}
+-   Login    ${USERNAME}    ${PASSWORD}
++	Open connection 	${OPENBMC_HOST}
++	Login	${OPENBMC_USERNAME}	${OPENBMC_PASSWORD}
+ 
+ Run IPMI Command
+-	[arguments]     ${args}
+-	${output}=      Execute Command    /home/root/ipmitool -I dbus raw ${args}
++	[arguments]	${args}
++	${output}=	Execute Command    /home/root/ipmitool -I dbus raw ${args}
++	[return]	${output}
+ 
+ Read attribute
+ 	[arguments]	${uri}	${attr}
 -- 
 2.6.4
