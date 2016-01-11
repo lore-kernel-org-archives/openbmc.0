@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 35B021A0D1F
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 03:50:44 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 90FBC1A0CFD
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 03:50:45 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1452531040428315.44004098943185;
- Mon, 11 Jan 2016 08:50:40 -0800 (PST)
+ with SMTPS id 1452531041427140.62645418659645;
+ Mon, 11 Jan 2016 08:50:41 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc-test-automation 13/60] fixed review comments
-Date: Mon, 11 Jan 2016 10:49:39 -0600
-Message-Id: <1452531026-13715-14-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc-test-automation 14/60] created loops for tests
+Date: Mon, 11 Jan 2016 10:49:40 -0600
+Message-Id: <1452531026-13715-15-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 In-Reply-To: <1452531026-13715-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1452531026-13715-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,78 +28,100 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Jan 2016 16:50:44 -0000
+X-List-Received-Date: Mon, 11 Jan 2016 16:50:46 -0000
 
 From: Chris Austen <austenc@us.ibm.com>
 
 ---
- tests/test_sensors.robot | 33 ++++++++++-----------------------
- 1 file changed, 10 insertions(+), 23 deletions(-)
+ data/variables.py          |  4 ++++
+ lib/resource.txt           |  4 ++++
+ tests/test_inventory.robot | 26 +++++++++++++-------------
+ 3 files changed, 21 insertions(+), 13 deletions(-)
 
-diff --git a/tests/test_sensors.robot b/tests/test_sensors.robot
-index b36b059..79ba4d7 100644
---- a/tests/test_sensors.robot
-+++ b/tests/test_sensors.robot
-@@ -5,7 +5,7 @@ Documentation          This example demonstrates executing commands on a remote
- ...                    Notice how connections are handled as part of the suite setup and
- ...                    teardown. This saves some time when executing several test cases.
+diff --git a/data/variables.py b/data/variables.py
+index 820a251..a342701 100644
+--- a/data/variables.py
++++ b/data/variables.py
+@@ -28,6 +28,10 @@ INVENTORY={
+                  "/org/openbmc/inventory/system/chassis/motherboard", 
+                  "/org/openbmc/inventory/system/chassis/motherboard/bmc", 
+                  "/org/openbmc/inventory/system/chassis/fan3"],
++}
++
++
++INVENTORY_ITEMS={
  
--Resource          ../lib/rest_client.robot
-+Resource		../lib/rest_client.robot
+     "DIMM" : [  "Asset Tag",
+                 "Custom Field 1",
+diff --git a/lib/resource.txt b/lib/resource.txt
+index 85bf2fd..a8b8614 100644
+--- a/lib/resource.txt
++++ b/lib/resource.txt
+@@ -19,6 +19,10 @@ Get Inventory Schema
+     [Arguments]    ${machine}
+     [Return]    &{INVENTORY}[${machine}]
+ 
++Get Inventory Items Schema
++    [Arguments]    ${machine}
++    [Return]    &{INVENTORY_ITEMS}[${machine}]
++
+ Get Sensor Schema
+     [Arguments]    ${machine}
+     [Return]    &{SENSORS}[${machine}]
+\ No newline at end of file
+diff --git a/tests/test_inventory.robot b/tests/test_inventory.robot
+index f326a72..fde52e1 100644
+--- a/tests/test_inventory.robot
++++ b/tests/test_inventory.robot
+@@ -4,6 +4,8 @@ Suite Teardown    Delete All Sessions
+ Resource          ../lib/rest_client.robot
+ Resource          ../lib/resource.txt
+ 
++Library           String
++
+ *** Test Cases ***
+ List Inventory
+     ${resp} =    OpenBMC Get Request    /org/openbmc/inventory/list
+@@ -14,29 +16,27 @@ List Inventory
+     \    Should Contain    ${jsondata}    ${ELEMENT}
  
  
- Library                SSHLibrary
-@@ -13,42 +13,29 @@ Suite Setup            Open Connection And Log In
- Suite Teardown         Close All Connections
+-Verify dimm0 vpd
+-	${value} =	Read attribute	/org/openbmc/inventory/system/chassis/motherboard/dimm0	fru_type
+-	Should Be Equal	${value}	"DIMM"
++Verify dimm vpd
++	: FOR 	${INDEX} 	IN RANGE 	0 	4
++	\	log 	${INDEX}
++	\	${value} =	Read attribute	/org/openbmc/inventory/system/chassis/motherboard/dimm${INDEX}	fru_type
++	\	Should Be Equal	${value}	"DIMM"
  
- *** Variables ***
--${HOST}                9.3.164.147
--${USERNAME}            root
--${PASSWORD}            0penBmc
  
--*** Test Cases ***
--Execute Command And Verify Output
--	[Documentation]    Execute Command on the remote machine.
--	${output}=    Execute Command    echo Hello
--	Should Be Equal    ${output}    Hello
--
--Execute Sending a file
--	put file    ./tfile /home/root
+-Verify dimm1 vpd
+-	${value} =	Read attribute	/org/openbmc/inventory/system/chassis/motherboard/dimm1	fru_type
+-	Should Be Equal	${value}	"DIMM"
++Verify dimm vpd properties
++	: FOR 	${INDEX} 	IN RANGE 	0 	4
++	\	log 	${INDEX}
++	\	${props} =	Read Properties	/org/openbmc/inventory/system/chassis/motherboard/dimm${INDEX}
++	\	Should Be Valid Dimm Properties	${props}
  
-+*** Test Cases ***
- Execute ipmi BT capabilities command
--	${output}=    Execute Command    /home/root/ipmitool -I dbus raw 0x06 0x36
--	Should Be Equal    "${output}"    " 01 3f 3f 0a 01"
--
--Execute Boot Sensoripmi BT capabilities command
--	${output}=    Execute Command    /home/root/ipmitool -I dbus raw 0x06 0x36
--	Should Be Equal    "${output}"    " 01 3f 3f 0a 01"
-+	${output}=    Run IPMI command 		0x06 0x36
-+	Should Be Equal		"${output}"		" 01 3f 3f 0a 01"
+-Verify dimm0 properties
+-	${props} =	Read Properties	/org/openbmc/inventory/system/chassis/motherboard/dimm0
+-	Should Be Valid Dimm Properties	${props}
  
- Execute Set Sensor boot count
- 	Run IPMI command  0x04 0x30 0x09 0x01 0x00 0x35 0x00 0x00 0x00 0x00 0x00 0x00
- 	${value} =  Read attribute	/org/openbmc/sensor/virtual/BootCount	value
--	Should Be Equal ${value}    "53"
-+	Should Be Equal		${value}	"53"
+-Verify dimm1 properties
+-	${props} =	Read Properties	/org/openbmc/inventory/system/chassis/motherboard/dimm1
+-	Should Be Valid Dimm Properties	${props}
  
  
  
  *** Keywords ***
- Open Connection And Log In
--   Open Connection    ${HOST}
--   Login    ${USERNAME}    ${PASSWORD}
-+	Open connection 	${OPENBMC_HOST}
-+	Login	${OPENBMC_USERNAME}	${OPENBMC_PASSWORD}
+ Should Be Valid Dimm Properties
+ 	[arguments]	${props}
+-	${ret}=    Get Inventory Schema	DIMM
++	${ret}=    Get Inventory Items Schema	DIMM
+ 	: FOR    ${ELEMENT}    IN    @{ret}
+ 	\    Should Contain    ${props}    ${ELEMENT}
  
- Run IPMI Command
--	[arguments]     ${args}
--	${output}=      Execute Command    /home/root/ipmitool -I dbus raw ${args}
-+	[arguments]	${args}
-+	${output}=	Execute Command    /home/root/ipmitool -I dbus raw ${args}
-+	[return]	${output}
- 
- Read attribute
- 	[arguments]	${uri}	${attr}
 -- 
 2.6.4
