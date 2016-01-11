@@ -3,17 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id BEA031A0C0E
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 03:51:12 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id D27431A0CFA
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 03:51:14 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1452531064670399.2232804763188;
- Mon, 11 Jan 2016 08:51:04 -0800 (PST)
+ with SMTPS id 1452531070589827.8864915322613;
+ Mon, 11 Jan 2016 08:51:10 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc-test-automation 38/60] Update README for better html
- display
-Date: Mon, 11 Jan 2016 10:50:04 -0600
-Message-Id: <1452531026-13715-39-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc-test-automation 44/60] created loops for tests
+Date: Mon, 11 Jan 2016 10:50:10 -0600
+Message-Id: <1452531026-13715-45-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 In-Reply-To: <1452531026-13715-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1452531026-13715-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,41 +28,100 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Jan 2016 16:51:13 -0000
+X-List-Received-Date: Mon, 11 Jan 2016 16:51:15 -0000
 
-From: Manjunath A Kumatagi <mkumatag@in.ibm.com>
+From: Chris Austen <austenc@us.ibm.com>
 
 ---
- README.md | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ data/variables.py          |  4 ++++
+ lib/resource.txt           |  4 ++++
+ tests/test_inventory.robot | 26 +++++++++++++-------------
+ 3 files changed, 21 insertions(+), 13 deletions(-)
 
-diff --git a/README.md b/README.md
-index 589d693..5d869a0 100644
---- a/README.md
-+++ b/README.md
-@@ -6,13 +6,19 @@ Quickstart
- To run openbmc-automation first you need to install the prerequisite python
- packages which will help to invoke tests through tox.
+diff --git a/data/variables.py b/data/variables.py
+index 820a251..a342701 100644
+--- a/data/variables.py
++++ b/data/variables.py
+@@ -28,6 +28,10 @@ INVENTORY={
+                  "/org/openbmc/inventory/system/chassis/motherboard", 
+                  "/org/openbmc/inventory/system/chassis/motherboard/bmc", 
+                  "/org/openbmc/inventory/system/chassis/fan3"],
++}
++
++
++INVENTORY_ITEMS={
  
--1. Install the python dependencies for tox
--    $ easy_install tox pip
-+Install the python dependencies for tox
-+```shell
-+    $easy_install tox pip
-+```
+     "DIMM" : [  "Asset Tag",
+                 "Custom Field 1",
+diff --git a/lib/resource.txt b/lib/resource.txt
+index 85bf2fd..a8b8614 100644
+--- a/lib/resource.txt
++++ b/lib/resource.txt
+@@ -19,6 +19,10 @@ Get Inventory Schema
+     [Arguments]    ${machine}
+     [Return]    &{INVENTORY}[${machine}]
  
--2. Initilize the following environment variable which will used while testing
-+Initilize the following environment variable which will used while testing
-+```shell
-     $ export OPENBMC_HOST=<openbmc machine ip address>
-     $ export OPENBMC_PASSWORD=<openbmc username>
-     $ export OPENBMC_USERNAME=<openbmc password>
-+```
++Get Inventory Items Schema
++    [Arguments]    ${machine}
++    [Return]    &{INVENTORY_ITEMS}[${machine}]
++
+ Get Sensor Schema
+     [Arguments]    ${machine}
+     [Return]    &{SENSORS}[${machine}]
+\ No newline at end of file
+diff --git a/tests/test_inventory.robot b/tests/test_inventory.robot
+index f326a72..fde52e1 100644
+--- a/tests/test_inventory.robot
++++ b/tests/test_inventory.robot
+@@ -4,6 +4,8 @@ Suite Teardown    Delete All Sessions
+ Resource          ../lib/rest_client.robot
+ Resource          ../lib/resource.txt
  
--3. Run tests
-+Run tests
-+```shell
-     $ tox -e tests
-+```
++Library           String
++
+ *** Test Cases ***
+ List Inventory
+     ${resp} =    OpenBMC Get Request    /org/openbmc/inventory/list
+@@ -14,29 +16,27 @@ List Inventory
+     \    Should Contain    ${jsondata}    ${ELEMENT}
+ 
+ 
+-Verify dimm0 vpd
+-	${value} =	Read attribute	/org/openbmc/inventory/system/chassis/motherboard/dimm0	fru_type
+-	Should Be Equal	${value}	"DIMM"
++Verify dimm vpd
++	: FOR 	${INDEX} 	IN RANGE 	0 	4
++	\	log 	${INDEX}
++	\	${value} =	Read attribute	/org/openbmc/inventory/system/chassis/motherboard/dimm${INDEX}	fru_type
++	\	Should Be Equal	${value}	"DIMM"
+ 
+ 
+-Verify dimm1 vpd
+-	${value} =	Read attribute	/org/openbmc/inventory/system/chassis/motherboard/dimm1	fru_type
+-	Should Be Equal	${value}	"DIMM"
++Verify dimm vpd properties
++	: FOR 	${INDEX} 	IN RANGE 	0 	4
++	\	log 	${INDEX}
++	\	${props} =	Read Properties	/org/openbmc/inventory/system/chassis/motherboard/dimm${INDEX}
++	\	Should Be Valid Dimm Properties	${props}
+ 
+-Verify dimm0 properties
+-	${props} =	Read Properties	/org/openbmc/inventory/system/chassis/motherboard/dimm0
+-	Should Be Valid Dimm Properties	${props}
+ 
+-Verify dimm1 properties
+-	${props} =	Read Properties	/org/openbmc/inventory/system/chassis/motherboard/dimm1
+-	Should Be Valid Dimm Properties	${props}
+ 
+ 
+ 
+ *** Keywords ***
+ Should Be Valid Dimm Properties
+ 	[arguments]	${props}
+-	${ret}=    Get Inventory Schema	DIMM
++	${ret}=    Get Inventory Items Schema	DIMM
+ 	: FOR    ${ELEMENT}    IN    @{ret}
+ 	\    Should Contain    ${props}    ${ELEMENT}
+ 
 -- 
 2.6.4
