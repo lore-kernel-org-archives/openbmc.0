@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 6B0B01A0C12
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 03:51:16 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id C5EE41A0C0E
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 03:51:17 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1452531071717876.9300722076946;
- Mon, 11 Jan 2016 08:51:11 -0800 (PST)
+ with SMTPS id 1452531075531570.6536149958928;
+ Mon, 11 Jan 2016 08:51:15 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc-test-automation 45/60] Add initial rest test cases
- Support to test Null properties
-Date: Mon, 11 Jan 2016 10:50:11 -0600
-Message-Id: <1452531026-13715-46-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: Chris Austen <causten@users.noreply.github.com>
+Subject: [PATCH openbmc-test-automation 49/60] Update README.md
+Date: Mon, 11 Jan 2016 10:50:15 -0600
+Message-Id: <1452531026-13715-50-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 In-Reply-To: <1452531026-13715-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1452531026-13715-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,86 +29,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Jan 2016 16:51:17 -0000
+X-List-Received-Date: Mon, 11 Jan 2016 16:51:18 -0000
 
-From: Chris Austen <austenc@us.ibm.com>
+From: Chris Austen <causten@users.noreply.github.com>
 
 ---
- tests/test_obmcrest.robot | 65 +++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 65 insertions(+)
- create mode 100644 tests/test_obmcrest.robot
+ README.md | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/tests/test_obmcrest.robot b/tests/test_obmcrest.robot
-new file mode 100644
-index 0000000..0c3d5ea
---- /dev/null
-+++ b/tests/test_obmcrest.robot
-@@ -0,0 +1,65 @@
-+*** Settings ***
-+Documentation		This suite will verifiy all OpenBMC rest interfaces
-+...					Details of valid interfaces can be found here...
-+...					https://github.com/openbmc/docs/blob/master/rest-api.md
+diff --git a/README.md b/README.md
+index 5d869a0..cb8bd02 100644
+--- a/README.md
++++ b/README.md
+@@ -22,3 +22,8 @@ Run tests
+ ```shell
+     $ tox -e tests
+ ```
 +
-+Resource		../lib/rest_client.robot
-+
-+
-+*** Variables ***
-+
-+
-+*** Test Cases ***
-+Good connection for testing
-+	${resp} =	Read Properties	/
-+	${jdata}=	To Json 	${resp.content}
-+	${c}= 		get from List 	${jdata} 	0
-+	Should Contain		"/org"	${c}	
-+
-+
-+Get an object with no properties 
-+	${resp} =	Read Properties	/org/openbmc/inventory
-+	Should Be Empty	${resp.content}
-+
-+
-+Get a Property
-+	${resp} =	Read attribute	/org/openbmc/inventory/system/chassis/motherboard/cpu0	is_fru
-+	Should Contain		1	${resp}	
-+
-+
-+Get a null Property
-+	${resp} =	Read attribute	/org/openbmc/inventory	is_fru
-+	Should Contain		1	${resp}	
-+
-+
-+Enumeration object
-+
-+
-+List object
-+
-+
-+Invoke a method without properties
-+
-+
-+Invoke a method with properties
-+
-+
-+Issue a POST
-+
-+
-+Issue a PUT
-+
-+
-+
-+
-+
-+*** Keywords ***
-+Read Properties
-+	[arguments]	${uri}
-+	${resp} =	OpenBMC Get Request	${uri}
-+	[return]	${resp}
-+
-+Read attribute
-+	[arguments]	${uri}	${attr}
-+	${resp} =	OpenBMC Get Request	${uri}/attr/${attr}
-+	[return]	${resp.content}
-\ No newline at end of file
++It can also be run by pasing variables from the cli...
++```shell
++    $  pybot -v OPENBMC_HOST:<ip> -v OPENBMC_USERNAME:root -v OPENBMC_PASSWORD:0penBmc 
++```
 -- 
 2.6.4
