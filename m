@@ -3,16 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 1EC721A0D10
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 03:51:14 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 70B2D1A0D13
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 03:51:15 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1452531069669262.961164551073;
- Mon, 11 Jan 2016 08:51:09 -0800 (PST)
+ with SMTPS id 1452531068513630.9170015688353;
+ Mon, 11 Jan 2016 08:51:08 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc-test-automation 43/60] fixed review comments
-Date: Mon, 11 Jan 2016 10:50:09 -0600
-Message-Id: <1452531026-13715-44-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc-test-automation 42/60] fixed errors in tox and
+ generate_argumentfile.sh script
+Date: Mon, 11 Jan 2016 10:50:08 -0600
+Message-Id: <1452531026-13715-43-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 In-Reply-To: <1452531026-13715-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1452531026-13715-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,78 +29,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Jan 2016 16:51:15 -0000
+X-List-Received-Date: Mon, 11 Jan 2016 16:51:16 -0000
 
-From: Chris Austen <austenc@us.ibm.com>
+From: Manjunath A Kumatagi <mkumatag@in.ibm.com>
 
 ---
- tests/test_sensors.robot | 33 ++++++++++-----------------------
- 1 file changed, 10 insertions(+), 23 deletions(-)
+ .gitignore                     | 1 +
+ tools/generate_argumentfile.sh | 2 +-
+ tox.ini                        | 3 +++
+ 3 files changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/tests/test_sensors.robot b/tests/test_sensors.robot
-index b36b059..79ba4d7 100644
---- a/tests/test_sensors.robot
-+++ b/tests/test_sensors.robot
-@@ -5,7 +5,7 @@ Documentation          This example demonstrates executing commands on a remote
- ...                    Notice how connections are handled as part of the suite setup and
- ...                    teardown. This saves some time when executing several test cases.
+diff --git a/.gitignore b/.gitignore
+index 8aea548..eb901c8 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -1,3 +1,4 @@
++*.pyc
+ /log.html
+ /output.xml
+ /report.html
+diff --git a/tools/generate_argumentfile.sh b/tools/generate_argumentfile.sh
+index 518a48f..4869261 100755
+--- a/tools/generate_argumentfile.sh
++++ b/tools/generate_argumentfile.sh
+@@ -2,4 +2,4 @@
  
--Resource          ../lib/rest_client.robot
-+Resource		../lib/rest_client.robot
+ echo "--variable OPENBMC_HOST:$OPENBMC_HOST" > $ARG_FILE
+ echo "--variable OPENBMC_USERNAME:$OPENBMC_USERNAME" >> $ARG_FILE
+-echo "--variable OPENBMC_HOST:$OPENBMC_HOST" >> $ARG_FILE
++echo "--variable OPENBMC_PASSWORD:$OPENBMC_PASSWORD" >> $ARG_FILE
+diff --git a/tox.ini b/tox.ini
+index 75ab527..fa0d198 100644
+--- a/tox.ini
++++ b/tox.ini
+@@ -8,12 +8,14 @@ whitelist_externals = *
+ install_command = pip install -U {opts} {packages}
+ deps = -r{toxinidir}/requirements.txt
+ commands =
++    bash {toxinidir}/tools/generate_argumentfile.sh
+     python -m robot.run --argumentfile {env:ARG_FILE:/tmp/argument_file.txt} {posargs}
  
+ [testenv:full]
+ deps = {[testenv]deps}
+ setenv = {[testenv]setenv}
+ commands =
++    bash {toxinidir}/tools/generate_argumentfile.sh
+     python -m robot.run --argumentfile {env:ARG_FILE:/tmp/argument_file.txt} .
  
- Library                SSHLibrary
-@@ -13,42 +13,29 @@ Suite Setup            Open Connection And Log In
- Suite Teardown         Close All Connections
- 
- *** Variables ***
--${HOST}                9.3.164.147
--${USERNAME}            root
--${PASSWORD}            0penBmc
- 
--*** Test Cases ***
--Execute Command And Verify Output
--	[Documentation]    Execute Command on the remote machine.
--	${output}=    Execute Command    echo Hello
--	Should Be Equal    ${output}    Hello
--
--Execute Sending a file
--	put file    ./tfile /home/root
- 
-+*** Test Cases ***
- Execute ipmi BT capabilities command
--	${output}=    Execute Command    /home/root/ipmitool -I dbus raw 0x06 0x36
--	Should Be Equal    "${output}"    " 01 3f 3f 0a 01"
--
--Execute Boot Sensoripmi BT capabilities command
--	${output}=    Execute Command    /home/root/ipmitool -I dbus raw 0x06 0x36
--	Should Be Equal    "${output}"    " 01 3f 3f 0a 01"
-+	${output}=    Run IPMI command 		0x06 0x36
-+	Should Be Equal		"${output}"		" 01 3f 3f 0a 01"
- 
- Execute Set Sensor boot count
- 	Run IPMI command  0x04 0x30 0x09 0x01 0x00 0x35 0x00 0x00 0x00 0x00 0x00 0x00
- 	${value} =  Read attribute	/org/openbmc/sensor/virtual/BootCount	value
--	Should Be Equal ${value}    "53"
-+	Should Be Equal		${value}	"53"
- 
- 
- 
- *** Keywords ***
- Open Connection And Log In
--   Open Connection    ${HOST}
--   Login    ${USERNAME}    ${PASSWORD}
-+	Open connection 	${OPENBMC_HOST}
-+	Login	${OPENBMC_USERNAME}	${OPENBMC_PASSWORD}
- 
- Run IPMI Command
--	[arguments]     ${args}
--	${output}=      Execute Command    /home/root/ipmitool -I dbus raw ${args}
-+	[arguments]	${args}
-+	${output}=	Execute Command    /home/root/ipmitool -I dbus raw ${args}
-+	[return]	${output}
- 
- Read attribute
- 	[arguments]	${uri}	${attr}
+ [testenv:tests]
+@@ -27,4 +29,5 @@ commands =
+ deps = {[testenv]deps}
+ setenv = {[testenv]setenv}
+ commands =
++    bash {toxinidir}/tools/generate_argumentfile.sh
+     python -m robot.run --argumentfile {env:ARG_FILE:/tmp/argument_file.txt} {posargs}
+\ No newline at end of file
 -- 
 2.6.4
