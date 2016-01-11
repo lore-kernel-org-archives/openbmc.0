@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id C42191A09C0
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 03:50:57 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 045851A08BB
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 03:50:59 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1452531052037263.3147899383023;
- Mon, 11 Jan 2016 08:50:52 -0800 (PST)
+ with SMTPS id 1452531057732334.8556301109501;
+ Mon, 11 Jan 2016 08:50:57 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc-test-automation 25/60] update readme file with tox
- version
-Date: Mon, 11 Jan 2016 10:49:51 -0600
-Message-Id: <1452531026-13715-26-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: Manjunath Kumatagi <manjunath@oc1275007250.ibm.com>
+Subject: [PATCH openbmc-test-automation 31/60] first commit
+Date: Mon, 11 Jan 2016 10:49:57 -0600
+Message-Id: <1452531026-13715-32-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 In-Reply-To: <1452531026-13715-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1452531026-13715-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,27 +29,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Jan 2016 16:50:58 -0000
+X-List-Received-Date: Mon, 11 Jan 2016 16:51:00 -0000
 
-From: Manjunath A Kumatagi <mkumatag@in.ibm.com>
+From: Manjunath Kumatagi <manjunath@oc1275007250.ibm.com>
 
 ---
- README.md | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ README.md | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 README.md
 
 diff --git a/README.md b/README.md
-index cb8bd02..56048d7 100644
---- a/README.md
-+++ b/README.md
-@@ -8,7 +8,8 @@ packages which will help to invoke tests through tox.
- 
- Install the python dependencies for tox
- ```shell
--    $easy_install tox pip
-+    $ easy_install tox==2.1.1
-+    $ easy_install pip
- ```
- 
- Initilize the following environment variable which will used while testing
+new file mode 100644
+index 0000000..e69de29
 -- 
 2.6.4
