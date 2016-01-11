@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 532821A0C04
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 03:51:28 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 1A5641A0CFD
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 03:51:29 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1452531081197198.18762934999427;
- Mon, 11 Jan 2016 08:51:21 -0800 (PST)
+ with SMTPS id 145253108302592.57325299086472;
+ Mon, 11 Jan 2016 08:51:23 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc-test-automation 55/60] update readme file with tox
- version
-Date: Mon, 11 Jan 2016 10:50:21 -0600
-Message-Id: <1452531026-13715-56-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc-test-automation 57/60] Fix Errors in
+ test_obmcrest.robot and removed the empty testcases.
+Date: Mon, 11 Jan 2016 10:50:23 -0600
+Message-Id: <1452531026-13715-58-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 In-Reply-To: <1452531026-13715-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1452531026-13715-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,27 +29,74 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Jan 2016 16:51:28 -0000
+X-List-Received-Date: Mon, 11 Jan 2016 16:51:30 -0000
 
 From: Manjunath A Kumatagi <mkumatag@in.ibm.com>
 
 ---
- README.md | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ tests/test_obmcrest.robot | 47 +++++++++++------------------------------------
+ 1 file changed, 11 insertions(+), 36 deletions(-)
 
-diff --git a/README.md b/README.md
-index cb8bd02..56048d7 100644
---- a/README.md
-+++ b/README.md
-@@ -8,7 +8,8 @@ packages which will help to invoke tests through tox.
+diff --git a/tests/test_obmcrest.robot b/tests/test_obmcrest.robot
+index caf9085..382107f 100644
+--- a/tests/test_obmcrest.robot
++++ b/tests/test_obmcrest.robot
+@@ -11,45 +11,20 @@ Resource		../lib/rest_client.robot
  
- Install the python dependencies for tox
- ```shell
--    $easy_install tox pip
-+    $ easy_install tox==2.1.1
-+    $ easy_install pip
- ```
+ *** Test Cases ***
+ Good connection for testing
+-	${content} =	Read Properties	/
+-	${c}= 		get from List 	${content} 	0
+-	Should Contain		"/org"	${c}
+-
++    ${content}=    Read Properties     /
++    ${c}=          get from List       ${content}      0
++    Should Be Equal    ${c}     /org
  
- Initilize the following environment variable which will used while testing
+ Get an object with no properties 
+-	${content} =	Read Properties	/org/openbmc/inventory
+-	Should Be Empty	${content}
+-
++    ${content}=    Read Properties     /org/openbmc/inventory
++    Should Be Empty     ${content}
+ 
+ Get a Property
+-	${resp} =	Read Attribute	/org/openbmc/inventory/system/chassis/motherboard/cpu0	is_fru
+-	Should Contain		1	${resp}	
+-
++    ${resp}=   Read Attribute      /org/openbmc/inventory/system/chassis/motherboard/cpu0      is_fru
++    Should Be Equal    ${resp}     ${1}
+ 
+ Get a null Property
+-	${resp} =	Read Attribute	/org/openbmc/inventory	is_fru
+-	Should Contain		1	${resp}	
+-
+-
+-Enumeration object
+-
+-
+-List object
+-
+-
+-Invoke a method without properties
+-
+-
+-Invoke a method with properties
+-
+-
+-Issue a POST
+-
+-
+-Issue a PUT
+-
+-
+-
+-
+-
+-*** Keywords ***
++    ${resp} =    OpenBMC Get Request    /org/openbmc/inventory/attr/is_fru
++    Should Be Equal As Strings    ${resp.status_code}    ${HTTP_NOT_FOUND}
++    ${jsondata}=    To Json    ${resp.content}
++    Should Be Equal     ${jsondata['data']['description']}      The specified property cannot be found: ''is_fru''
 -- 
 2.6.4
