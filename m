@@ -1,44 +1,87 @@
-Return-Path: <cyrilbur@gmail.com>
-Received: from mail-pf0-x243.google.com (mail-pf0-x243.google.com
- [IPv6:2607:f8b0:400e:c00::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <austenc@us.ibm.com>
+Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
+ (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id D18BD1A0050
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 11:10:47 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=dgGvFC/o; 
- dkim-atps=neutral
-Received: by mail-pf0-x243.google.com with SMTP id 65so4157636pfd.1
- for <openbmc@lists.ozlabs.org>; Mon, 11 Jan 2016 16:10:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version:content-type:content-transfer-encoding;
- bh=UUeo9dLXe+DaEEDpxOBBdbXO9RsrbG5KvAU8Lr07WxQ=;
- b=dgGvFC/oAp+JJ5f8sKNxkcBCuiH90StJcgwpZLswlT4BnJReH53WVP6LPaGF9a4Jfv
- eMq6iEqPSvytOCMbkedIX4rGaWLsR+Mq8WdcAY8zzUfAYooiJ6XiiP/qqHROIK7WcYA1
- j0UEEdLCYmwCAbIsZAi9lGqDijiFIp3AOMUPqm9Igo7NSXnIDO/yfzBgHRf451JxRrI9
- zfNr+HQhLxmuOR1p5cb0aMDoALusZGObQsS4dLZzWq51IrIrIKPxUqlhoK2LVRvfRWqF
- 1pakDDuGv43aeqwpbs1GNowBYi1R0IIzY7YX3z02R3s92Bp8Nt+6141ee8UMacSmHo3j
- YVbA==
-X-Received: by 10.98.9.147 with SMTP id 19mr24900952pfj.163.1452557446117;
- Mon, 11 Jan 2016 16:10:46 -0800 (PST)
-Received: from camb691 ([122.99.82.10])
- by smtp.gmail.com with ESMTPSA id f27sm25705979pfj.0.2016.01.11.16.10.44
- (version=TLSv1/SSLv3 cipher=OTHER);
- Mon, 11 Jan 2016 16:10:45 -0800 (PST)
-Date: Tue, 12 Jan 2016 11:10:38 +1100
-From: Cyril Bur <cyrilbur@gmail.com>
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-Cc: openbmc@lists.ozlabs.org
-Subject: Re: [PATCH openbmc-test-automation 00/60] Pull Manjunath's
- automation repository
-Message-ID: <20160112111038.0915e033@camb691>
-In-Reply-To: <1452531026-13715-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1452531026-13715-1-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: Claws Mail 3.13.1 (GTK+ 2.24.29; x86_64-unknown-linux-gnu)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 6193A1A0050
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 11:21:42 +1100 (AEDT)
+Received: from localhost
+ by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Mon, 11 Jan 2016 17:21:40 -0700
+Received: from d03dlp01.boulder.ibm.com (9.17.202.177)
+ by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 11 Jan 2016 17:21:37 -0700
+X-IBM-Helo: d03dlp01.boulder.ibm.com
+X-IBM-MailFrom: austenc@us.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
+ [9.57.198.29])
+ by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id AF90FC40001
+ for <openbmc@lists.ozlabs.org>; Mon, 11 Jan 2016 17:09:47 -0700 (MST)
+Received: from d01av04.pok.ibm.com (d01av04.pok.ibm.com [9.56.224.64])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u0C0Lawv28901518
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 00:21:36 GMT
+Received: from d01av04.pok.ibm.com (localhost [127.0.0.1])
+ by d01av04.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u0C0LaSt028842
+ for <openbmc@lists.ozlabs.org>; Mon, 11 Jan 2016 19:21:36 -0500
+Received: from d50lp02.ny.us.ibm.com (d50lp02.pok.ibm.com [146.89.104.208])
+ by d01av04.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u0C0Lap7028792
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Mon, 11 Jan 2016 19:21:36 -0500
+Message-Id: <201601120021.u0C0Lap7028792@d01av04.pok.ibm.com>
+Received: from /spool/local
+ by d50lp02.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Mon, 11 Jan 2016 19:21:36 -0500
+Received: from smtp.notes.na.collabserv.com (192.155.248.67)
+ by d50lp02.ny.us.ibm.com (158.87.18.21) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
+ Mon, 11 Jan 2016 19:21:33 -0500
+Received: from /spool/local
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Tue, 12 Jan 2016 00:21:32 -0000
+Received: from us1a3-smtp01.a3.dal06.isc4sb.com (10.106.154.100)
+ by smtp.notes.na.collabserv.com (10.106.227.16) with
+ smtp.notes.na.collabserv.com ESMTP; Tue, 12 Jan 2016 00:21:29 -0000
+Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
+ by us1a3-smtp01.a3.dal06.isc4sb.com
+ with ESMTP id 2016011200222065-535120 ;
+ Tue, 12 Jan 2016 00:22:20 +0000 
+In-Reply-To: <877fjf7k3d.fsf@gamma.ozlabs.ibm.com>
+Subject: Re: [PATCH openbmc] pflash and linux updates
+From: "Chris Austen" <austenc@us.ibm.com>
+To: Daniel Axtens <dja@axtens.net>
+Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+Date: Tue, 12 Jan 2016 00:21:28 +0000
+Sensitivity: 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Importance: Normal
+X-Priority: 3 (Normal)
+References: <877fjf7k3d.fsf@gamma.ozlabs.ibm.com>,
+ <1452531631-14153-1-git-send-email-openbmc-patches@stwcx.xyz>
+X-Mailer: Lotus Domino Web Server Build V851SAAS_12072015_FP3 December 17, 2015
+X-LLNOutbound: False
+X-Disclaimed: 24539
+X-TNEFEvaluated: 1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+x-cbid: 16011200-0021-0000-0000-000016022F90
+X-IBM-ISS-SpamDetectors: Score=0.440876; BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0;
+ PH=0; SC=0.440876; ST=0; TS=0; UL=0; ISC=
+X-IBM-ISS-DetailInfo: BY=3.00004778; HX=3.00000239; KW=3.00000007;
+ PH=3.00000004; SC=3.00000131; SDB=6.00643948; UDB=6.00290257; UTC=2016-01-12
+ 00:21:30
+x-cbparentid: 16011200-5938-0000-0000-0000019977A7
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -50,124 +93,70 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Jan 2016 00:10:48 -0000
+X-List-Received-Date: Tue, 12 Jan 2016 00:21:44 -0000
 
-On Mon, 11 Jan 2016 10:49:26 -0600
-OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
+ I hope this comes through as plain text...
 
-> Pull Manjunath's repository: https://github.com/mkumatag/openbmc-automation
-> into openbmc.
-> 
+We are using the Robottest framework for automated testing.=C2=A0 I would l=
+ove some help making the last mile automated.=C2=A0 We have test cases.=C2=
+=A0 We have systems.=C2=A0 We have Jenkins.=C2=A0 There is some funny busin=
+ess to get the code started (setting up ip addresses, accepting ssh key cha=
+nges, copying a helper tool over to the victim box) but after that we are r=
+olling.=C2=A0=20
 
-Ummmm what happened here? It looks like the entire series is sent twice?
+If you are able to help swing a hammer I can provide all the materials you =
+need.=20
 
-I've had an initial skim read and it looks to me like you can squash A LOT of
-those patches together.
 
-The commits don't need to be a story of how you got from no code to the
-this point in time. Each commit should add a feature and associated
-documentation. It looks like most of patches 0-6 can be one commit, same for
-some subsequent patches.
+Chris Austen
+POWER Systems Enablement Manager=20
+(512) 286-5184 (T/L: 363-5184)
 
-Heres an example of some issues I've noticed:
+-----"openbmc" <openbmc-bounces+austenc=3Dus.ibm.com@lists.ozlabs.org> wrot=
+e: -----
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+From: Daniel Axtens=20
+Sent by: "openbmc"=20
+Date: 01/11/2016 06:04PM
+Subject: Re: [PATCH openbmc] pflash and linux updates
 
-In patch 2 you add tests/test_ssh.robot but then in patch 7 you delete 
-tests/test_ssh.robot. There are several examples of a patch adding a
-significant chunk of work and then a later patch removing this chunk of work, if
-after the series the chunk of work won't be in the repo then it shouldn't have
-appeared in the series at all.
+OpenBMC Patches <openbmc-patches@stwcx.xyz> writes:
 
-Patch 26 "Fix errors" should be squashed into the broken commit. Patch 22 looks
-that way too and Patch 17. The reason we do this is that way when something
-does go wrong and something doesn't work it makes it much easier to find the
-broken patch, you should never submit a patches that is broken even if it is
-fixed directly after this breaks the assumption that every commit we make is
-good and therefore when chasing a bug if a broken patch is found, is it likely
-to be that bug, much easier to automate.
+> I've tested on Barreleye
 
-Your patch 28 that "Adds one more ssl test" should be squashed into the patch
-adding the ssl tests, add them all once for this series. You can always more
-work on more later but this series you have one patch adding ssl tests, have
-all the ssl tests you're adding in that patch.
+I realise this might be a bit optimistic, but do we have any automated
+(or even semi-automated) testing for existing machine types?
 
-Hopefully that makes sense, please ask if I've just rambled!
+If not, I'm happy to start chipping away at little bits of it.
 
-Cyril
+Regards,
+Daniel
 
-> https://github.com/openbmc/openbmc-test-automation/pull/1
-> 
-> Chris Austen (16):
->   Added DIMM specific inventory tests
->   base add for sensor tests
->   fixed review comments
->   created loops for tests
->   Add initial rest test cases     Support to test Null properties
->   Added full sensor suite
->   Update README.md
->   Handle new rest client from Brad
->   Added DIMM specific inventory tests
->   base add for sensor tests
->   fixed review comments
->   created loops for tests
->   Add initial rest test cases     Support to test Null properties
->   Added full sensor suite
->   Update README.md
->   Handle new rest client from Brad
-> 
-> Manjunath A Kumatagi (34):
->   Added git ignore file
->   Use argumnet file with pyrobot and added instructions to READEME file.
->   Update README for better html display
->   Added Inventory list testcase
->   fixed errors in tox and generate_argumentfile.sh script
->   Moved Read Attribute and Read Properties to rest_client
->   fix review comment
->   Added SSL tests
->   Ran the tests and fixed errors in SSL tests
->   Modified the doc
->   Added firmware version validation test
->   update readme file with tox version
->   Fix errors
->   Fix Errors in test_obmcrest.robot and removed the empty testcases.
->   Added one more testcase to test non-ssl connection to port 443
->   OpenBMC REST Testing
->   updated the REST API for firmware version
->   Added git ignore file
->   Use argumnet file with pyrobot and added instructions to READEME file.
->   Update README for better html display
->   Added Inventory list testcase
->   fixed errors in tox and generate_argumentfile.sh script
->   Moved Read Attribute and Read Properties to rest_client
->   fix review comment
->   Added SSL tests
->   Ran the tests and fixed errors in SSL tests
->   Modified the doc
->   Added firmware version validation test
->   update readme file with tox version
->   Fix errors
->   Fix Errors in test_obmcrest.robot and removed the empty testcases.
->   Added one more testcase to test non-ssl connection to port 443
->   OpenBMC REST Testing
->   updated the REST API for firmware version
-> 
-> Manjunath Kumatagi (2):
->   first commit
->   first commit
-> 
-> manjunath (6):
->   added files
->   added log statement
->   added testcase for etc passwd
->   added files
->   added log statement
->   added testcase for etc passwd
-> 
-> mkumatag (2):
->   Update README.md
->   Update README.md
-> 
-> 
-> _______________________________________________
+>
+> https://github.com/openbmc/openbmc/pull/130
+>
+> Chris Austen (1):
+> =C2=A0 pflash and linux updates
+>
+> =C2=A0meta-phosphor/common/recipes-kernel/linux/linux-obmc=5F4.3.bb | 2 +-
+> =C2=A0meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb =C2=A0| =
+2 +-
+> =C2=A02 files changed, 2 insertions(+), 2 deletions(-)
+>
+> --=20
+> 2.6.4
+>
+>
+> =5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F
 > openbmc mailing list
 > openbmc@lists.ozlabs.org
 > https://lists.ozlabs.org/listinfo/openbmc
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F
+openbmc mailing list
+openbmc@lists.ozlabs.org
+https://lists.ozlabs.org/listinfo/openbmc
+
+
+[attachment "signature.asc" removed by Chris Austen/Austin/IBM]
