@@ -1,57 +1,56 @@
-Return-Path: <sam.mj@au1.ibm.com>
-Received: from e23smtp03.au.ibm.com (e23smtp03.au.ibm.com [202.81.31.145])
- (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
+Return-Path: <dja@axtens.net>
+Received: from mail-pa0-x242.google.com (mail-pa0-x242.google.com
+ [IPv6:2607:f8b0:400e:c03::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 2028D1A06BB
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 13:03:38 +1100 (AEDT)
-Received: from localhost
- by e23smtp03.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <sam.mj@au1.ibm.com>;
- Tue, 12 Jan 2016 12:03:36 +1000
-Received: from d23dlp01.au.ibm.com (202.81.31.203)
- by e23smtp03.au.ibm.com (202.81.31.209) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Tue, 12 Jan 2016 12:03:33 +1000
-X-IBM-Helo: d23dlp01.au.ibm.com
-X-IBM-MailFrom: sam.mj@au1.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from d23relay06.au.ibm.com (d23relay06.au.ibm.com [9.185.63.219])
- by d23dlp01.au.ibm.com (Postfix) with ESMTP id 064A02CE805B
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 13:03:26 +1100 (EST)
-Received: from d23av04.au.ibm.com (d23av04.au.ibm.com [9.190.235.139])
- by d23relay06.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u0C238sK15007858
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 13:03:16 +1100
-Received: from d23av04.au.ibm.com (localhost [127.0.0.1])
- by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u0C22rP1021523
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 13:02:53 +1100
-Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
- by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u0C22rsU020726; Tue, 12 Jan 2016 13:02:53 +1100
-Received: from localhost (haven.au.ibm.com [9.192.254.114])
- (using TLSv1.2 with cipher AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by ozlabs.au.ibm.com (Postfix) with ESMTPSA id C92A2A0118;
- Tue, 12 Jan 2016 13:02:28 +1100 (AEDT)
-Date: Tue, 12 Jan 2016 13:02:28 +1100
-From: Sam Mendoza-Jonas <sam@mendozajonas.com>
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-Cc: openbmc@lists.ozlabs.org, shgoupf <shgoupf@cn.ibm.com>
-Subject: Re: [PATCH phosphor-host-ipmid v7] Add get/set boot option ipmid
- command support with correct DBUS property handling.
-Message-ID: <20160112020228.GA19934@localhost.localdomain>
-References: <1452559839-27825-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1452559839-27825-2-git-send-email-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4D02C1A06BB
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 13:14:10 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=axtens.net header.i=@axtens.net header.b=qJOLoxtm; 
+ dkim-atps=neutral
+Received: by mail-pa0-x242.google.com with SMTP id yy13so25216413pab.1
+ for <openbmc@lists.ozlabs.org>; Mon, 11 Jan 2016 18:14:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axtens.net; s=google;
+ h=from:to:cc:subject:in-reply-to:references:user-agent:date
+ :message-id:mime-version:content-type;
+ bh=7FkZVXrXyUiC8mQhVccHX2CcJWVLPOJ8QJxhzNIdBlM=;
+ b=qJOLoxtmLsAjgEm/w+RhbFAUsFy/ywAKo4p2gSyO3RRwL6vBlVt5ph0g23+e15VpsL
+ HprpmfBjzwodIyYOBoI5bv8dQXz2DzAyjVnv4HSr25d91M+c87FIR3PvMsN/jt+uFX0g
+ 6BtFe8KuxWdBsrqLPDvCScTM2+92BdacHuU2A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:from:to:cc:subject:in-reply-to:references
+ :user-agent:date:message-id:mime-version:content-type;
+ bh=7FkZVXrXyUiC8mQhVccHX2CcJWVLPOJ8QJxhzNIdBlM=;
+ b=KDeGtA+9MKP8Ywhbdp+W3BVsR5sMgnXpEOTo38PAWb8goAtK8/mu6zdqkGkf8r6qvM
+ LYty29ZU84P8TAc1pn0KS66zLaDNgIc1AFPBo86KQXFUHFSKDZBByqSzaFnggL9e8dd4
+ VVGvNlgsAMqgdcR49LkltdEbBgTngAIZAZaLVLGJO8hxQqnBIe9TYRiJ8uhDISSVhoF+
+ nC7bKCZiYBOkcZP+TJLoj2KbWXA1lWARHyq8X5HV7HwaqNZVlWSqPwy+2wA+GGeXzxxQ
+ WF0TwYWKlpB+bzhbDZ7flflQ81GTGrDMS9OPEkSKlw5vCzPLtlu3g6OgdfdCoKjxVtQb
+ VBwQ==
+X-Gm-Message-State: ALoCoQlmDV+PhePfRxT6oXRjWJhyvBK7i7/5CMpJJW7ODXdFpBPaJwn+SdWPA4cbwaZVVTyA78z0DuDd+S/Ju+RUHoqint3Nlg==
+X-Received: by 10.66.184.15 with SMTP id eq15mr129207212pac.42.1452564845285; 
+ Mon, 11 Jan 2016 18:14:05 -0800 (PST)
+Received: from localhost (ppp121-45-193-224.lns20.cbr1.internode.on.net.
+ [121.45.193.224])
+ by smtp.gmail.com with ESMTPSA id m86sm26030377pfi.27.2016.01.11.18.14.03
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 11 Jan 2016 18:14:04 -0800 (PST)
+From: Daniel Axtens <dja@axtens.net>
+To: Chris Austen <austenc@us.ibm.com>
+Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH openbmc] pflash and linux updates
+In-Reply-To: <201601120021.u0C0LZJq018374@d03av03.boulder.ibm.com>
+References: <877fjf7k3d.fsf@gamma.ozlabs.ibm.com>
+ <1452531631-14153-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <201601120021.u0C0LZJq018374@d03av03.boulder.ibm.com>
+User-Agent: Notmuch/0.21 (http://notmuchmail.org) Emacs/24.5.1
+ (x86_64-pc-linux-gnu)
+Date: Tue, 12 Jan 2016 13:13:46 +1100
+Message-ID: <87y4bv5yud.fsf@gamma.ozlabs.ibm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <1452559839-27825-2-git-send-email-openbmc-patches@stwcx.xyz>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16011202-0009-0000-0000-000002BDB154
+Content-Type: multipart/signed; boundary="=-=-=";
+ micalg=pgp-sha512; protocol="application/pgp-signature"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -63,26 +62,113 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Jan 2016 02:03:38 -0000
+X-List-Received-Date: Tue, 12 Jan 2016 02:14:12 -0000
 
-Hi,
+--=-=-=
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jan 11, 2016 at 06:50:39PM -0600, OpenBMC Patches wrote:
-> From: shgoupf <shgoupf@cn.ibm.com>
+Hi Chris,
 
-(snip)
+Chris Austen <austenc@us.ibm.com> writes:
 
-> -        memcpy(response, &buf, *data_len);
-> +        uint64_t return_value;
-> +        sscanf(buf, "%PRIx64", &return_value);
+>  I hope this comes through as plain text...
+Yep! Something is a bit weird after your full stops in the next
+paragraph. Renders as a "=C2=A0" (looks like an underscore) for me. But yea=
+h,
+no HTML, so I'm happy.
 
-I just noticed this change from the previous version; have you tested
-this? I believe you need to use the PRIx64 specifier like this:
+>
+> We are using the Robottest framework for automated testing.=C2=A0 I would=
+ love some help making the last mile automated.=C2=A0 We have test cases.=
+=C2=A0 We have systems.=C2=A0 We have Jenkins.=C2=A0 There is some funny bu=
+siness to get the code started (setting up ip addresses, accepting ssh key =
+changes, copying a helper tool over to the victim box) but after that we ar=
+e rolling.=C2=A0=20
+>
+> If you are able to help swing a hammer I can provide all the materials yo=
+u need.=20
+>
+Sure! I have done some stuff with SSH keys and copying helper tools
+around for Skiboot, so hopefully some of that translates.
 
-	sscanf(buf, "%" PRIx64, &return_value);
-
-Where PRIx64 is not within the quotes. Do you get an error when you
-build this?
+(I realise some of this might be IBM specific: I'm daxtens@au1.ibm.com
+if you need an @ibm address.)
 
 Regards,
-Sam Mendoza-Jonas
+Daniel
+
+>
+> Chris Austen
+> POWER Systems Enablement Manager=20
+> (512) 286-5184 (T/L: 363-5184)
+>
+> -----"openbmc" <openbmc-bounces+austenc=3Dus.ibm.com@lists.ozlabs.org> wr=
+ote: -----
+> To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+> From: Daniel Axtens=20
+> Sent by: "openbmc"=20
+> Date: 01/11/2016 06:04PM
+> Subject: Re: [PATCH openbmc] pflash and linux updates
+>
+> OpenBMC Patches <openbmc-patches@stwcx.xyz> writes:
+>
+>> I've tested on Barreleye
+>
+> I realise this might be a bit optimistic, but do we have any automated
+> (or even semi-automated) testing for existing machine types?
+>
+> If not, I'm happy to start chipping away at little bits of it.
+>
+> Regards,
+> Daniel
+>
+>>
+>> https://github.com/openbmc/openbmc/pull/130
+>>
+>> Chris Austen (1):
+>> =C2=A0 pflash and linux updates
+>>
+>> =C2=A0meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.3.bb | 2 +-
+>> =C2=A0meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb =C2=A0|=
+ 2 +-
+>> =C2=A02 files changed, 2 insertions(+), 2 deletions(-)
+>>
+>> --=20
+>> 2.6.4
+>>
+>>
+>> _______________________________________________
+>> openbmc mailing list
+>> openbmc@lists.ozlabs.org
+>> https://lists.ozlabs.org/listinfo/openbmc
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+>
+>
+> [attachment "signature.asc" removed by Chris Austen/Austin/IBM]
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+Comment: GPGTools - https://gpgtools.org
+
+iQIcBAEBCgAGBQJWlGFcAAoJEPC3R3P2I92FNAwP/R+Mm0IBKV+ZM4V+rpQVNexi
+EflBKso74LCMedc11/6WMoUloDDaz+oIoVXLfWIlR2A7a9RJ9JP9fTXpoU/ayCwL
+Cv48q43Oz9PLepGAzTKauo73pNP0eTvcCJMem7Q7EzYCMbsgUpVuwyjUOs15PBpN
+58j7osfQ/RIC9j2pPAqLN/CtyccWPXW+JLQ39s4rgnYNcE73KxwmQ2zJLd1p+V/7
+u5/YDI/aqpJZE2t/SbvvuzqZOTP+rlL86NiU183VNLCAkAtmUdaMMQEJGPNGiC01
+3F3rnA47ykZfkjgRuOFLsXGHLXmge4rdOjpKk5aZW0pFAMQ76eP7knw5yJStCCFJ
+UVi3yrmwULPWvKpSbh1pxJ1YZotuoVrEkvnV5oE+f/tpgIbxwlvRYlyrD1Tl9X6I
+51pb1ATRxEggC56h/oF5CN4HyUCg9sgU2J+oB6JkgExdyJYxGH+KaGvnx9bW8CEb
+hlkj45xt9iRP4TcvXIDwo3aAx/3Sj0Rsbj2SOb6n/xRdItIcrUPulJoXPW+aY+o4
+JGIiYgksLAFyjvfEQfhNsmN+OEa2+jDJQPLelMs0s2BNIvp+6m1JbMnE8vruV5q3
+JNzxScV24dNd3XhzEmP7JeHAv2577CUoTr1BczsaO29CRYWzIvfr9eGJSEnJEX7X
+hmhkUOfbS75XEJcFFBSv
+=4VsB
+-----END PGP SIGNATURE-----
+--=-=-=--
