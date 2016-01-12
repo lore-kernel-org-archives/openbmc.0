@@ -1,85 +1,54 @@
-Return-Path: <austenc@us.ibm.com>
-Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
- (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
+Return-Path: <cyrilbur@gmail.com>
+Received: from mail-pa0-x22f.google.com (mail-pa0-x22f.google.com
+ [IPv6:2607:f8b0:400e:c03::22f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id AF9E41A06AF
- for <openbmc@lists.ozlabs.org>; Wed, 13 Jan 2016 10:09:34 +1100 (AEDT)
-Received: from localhost
- by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
- Tue, 12 Jan 2016 16:09:32 -0700
-Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
- by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 12 Jan 2016 16:09:30 -0700
-X-IBM-Helo: d03dlp03.boulder.ibm.com
-X-IBM-MailFrom: austenc@us.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com
- [9.57.198.26])
- by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id 60DAB19D8041
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 15:57:31 -0700 (MST)
-Received: from d01av04.pok.ibm.com (d01av04.pok.ibm.com [9.56.224.64])
- by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u0CN9TVv7667952
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 23:09:29 GMT
-Received: from d01av04.pok.ibm.com (localhost [127.0.0.1])
- by d01av04.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u0CN9TlC006112
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 18:09:29 -0500
-Received: from d50lp01.ny.us.ibm.com (d50lp01.pok.ibm.com [146.89.104.207])
- by d01av04.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u0CN9SAg005900
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=OK)
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 18:09:28 -0500
-Message-Id: <201601122309.u0CN9SAg005900@d01av04.pok.ibm.com>
-Received: from /spool/local
- by d50lp01.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
- Tue, 12 Jan 2016 18:09:28 -0500
-Received: from smtp.notes.na.collabserv.com (192.155.248.91)
- by d50lp01.ny.us.ibm.com (158.87.18.20) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
- Tue, 12 Jan 2016 18:09:26 -0500
-Received: from /spool/local
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
- Tue, 12 Jan 2016 23:09:25 -0000
-Received: from us1a3-smtp03.a3.dal06.isc4sb.com (10.106.154.94)
- by smtp.notes.na.collabserv.com (10.106.227.143) with
- smtp.notes.na.collabserv.com ESMTP; Tue, 12 Jan 2016 23:09:23 -0000
-Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
- by us1a3-smtp03.a3.dal06.isc4sb.com
- with ESMTP id 2016011223100405-526163 ;
- Tue, 12 Jan 2016 23:10:04 +0000 
-In-Reply-To: 
-Subject: Automated test migration
-From: "Chris Austen" <austenc@us.ibm.com>
-To: openbmc@lists.ozlabs.org
-Date: Tue, 12 Jan 2016 23:09:22 +0000
-Sensitivity: 
+ by lists.ozlabs.org (Postfix) with ESMTPS id C8F4C1A06B3
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Jan 2016 10:30:05 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=RQ2M5NtS; 
+ dkim-atps=neutral
+Received: by mail-pa0-x22f.google.com with SMTP id uo6so331016093pac.1
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2016 15:30:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=date:from:to:subject:message-id:in-reply-to:references:mime-version
+ :content-type:content-transfer-encoding;
+ bh=tXVDXzNGcU1cV4gL3UHMNMVDC8AwICWnL0zIOX6/yJ4=;
+ b=RQ2M5NtS7ekiO64wXl34B5iwHO/cTmRb8dQZ8V5HKtmSu/SHZ3EUr9bq73W7Tp2QEK
+ rdXPWVlRWwB6IbejioRtufL4bHyXJ/dytTA29I6u4/p9e0mIi+YrlXCd1fBPWIhanZXf
+ kRpXmJq4nE8o7IA3UlWoRWxR+y6QtKc2j/7En2TsxchZtGyrMlaCjxPZX+N6rzUrRWUO
+ aVE4D6mck7SbIE7Jxt0zGHcGFEjIgVjOU9fYgsa5sOXlcAGLe7dzLvKnJmKBVKzOB1Z7
+ 3iNh2sAWUjqxVMcWpfq9r/25AujYMz+Lw9NnKNBYA6RsqlicuAj+BOBCGEB1TW3N4HEO
+ yidQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:date:from:to:subject:message-id:in-reply-to
+ :references:mime-version:content-type:content-transfer-encoding;
+ bh=tXVDXzNGcU1cV4gL3UHMNMVDC8AwICWnL0zIOX6/yJ4=;
+ b=dUTGs/V4/7AOH6rDvhsSQamtZ3lVy2AzpB8HvHmlkkNrDIAIexvz2u2mJ1vj6ktZK3
+ NYpwQi4huntghhOZgolfvA+r38C/TvTpVyt8D2nB06z/jkugTvG7ziTYp8xx6rjuup3c
+ Mk6ixwfhOsOP5SDGFRfkn67GixnLXvAJNMVrKEjvQbqY2vIobxndjVs1P7hcGedXt9Zi
+ +rjsAUg5QvJfWdDs6sNKXhMyQfGOuqaCnwDC+FEUl0JNLrXZrqn5sM383XhkkylvWPBP
+ wMWgstMh/YZnF1d0Ks/gIwT3IFZqv2O6ZTz7TclU8K+77KUDR7M2gVNCaDk84oUo2hlN
+ oryw==
+X-Gm-Message-State: ALoCoQlczuvY9qOOM1nwVrJamJVSZ3MOl/OcQ+E4TTjxvEJJx/KCriuuKxM9VAkNf9OZ4d3REu2nEofpyEYWSxENcvA5/PorjA==
+X-Received: by 10.66.192.42 with SMTP id hd10mr189859752pac.111.1452641402918; 
+ Tue, 12 Jan 2016 15:30:02 -0800 (PST)
+Received: from camb691 ([122.99.82.10])
+ by smtp.gmail.com with ESMTPSA id ud10sm195261373pab.27.2016.01.12.15.30.01
+ (version=TLSv1/SSLv3 cipher=OTHER);
+ Tue, 12 Jan 2016 15:30:02 -0800 (PST)
+Date: Wed, 13 Jan 2016 10:29:54 +1100
+From: Cyril Bur <cyrilbur@gmail.com>
+To: "Chris Austen" <austenc@us.ibm.com>, openbmc@lists.ozlabs.org
+Subject: Re: Automated test migration
+Message-ID: <20160113102954.6df6e334@camb691>
+In-Reply-To: <201601122309.u0CN9SAg005900@d01av04.pok.ibm.com>
+References: <201601122309.u0CN9SAg005900@d01av04.pok.ibm.com>
+X-Mailer: Claws Mail 3.13.1 (GTK+ 2.24.29; x86_64-unknown-linux-gnu)
 MIME-Version: 1.0
-Importance: Normal
-X-Priority: 3 (Normal)
-References: 
-X-Mailer: Lotus Domino Web Server Build V851SAAS_12072015_FP3 December 17, 2015
-X-LLNOutbound: False
-X-Disclaimed: 40551
-X-TNEFEvaluated: 1
-Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-x-cbid: 16011223-0005-0000-0000-00001B613F44
-X-IBM-ISS-SpamDetectors: Score=0.431006; BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0;
- PH=0; SC=0.431006; ST=0; TS=0; UL=0; ISC=
-X-IBM-ISS-DetailInfo: BY=3.00004780; HX=3.00000239; KW=3.00000007;
- PH=3.00000004; SC=3.00000131; SDB=6.00644402; UDB=6.00290526; UTC=2016-01-12
- 23:09:24
-x-cbparentid: 16011223-4778-0000-0000-0000018C2965
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -91,33 +60,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Jan 2016 23:09:35 -0000
+X-List-Received-Date: Tue, 12 Jan 2016 23:30:06 -0000
 
- I've known for a while that we would eventually move the automated test su=
-ites from https://github.com/mkumatag/openbmc-automation to https://github.=
-com/openbmc/openbmc-test-automation.=C2=A0 That day came yesterday.=C2=A0 M=
-anjuanth and I have adhered to code review principals making sure that we n=
-ever merged without the others review.=C2=A0 However I will admit the commi=
-t message and the amount of commits per pull request was not my top priorit=
-y.=C2=A0 To be honest just getting to the state where dev and test were dev=
-eloping code in the same sprint was good enough, all other things be damned=
-.=C2=A0 Now I see there are a lot of review comments aimed at the style of =
-committing.=C2=A0=20
+On Tue, 12 Jan 2016 23:09:22 +0000
+"Chris Austen" <austenc@us.ibm.com> wrote:
 
-So now we are at a junction.=C2=A0 Should I ask Manjuanth to stop test auto=
-mation development to work on squashing logical commits or should I keep hi=
-m working on automating the code we are developing.=C2=A0 I certainly under=
-stand the need for a git history that tells the story.=C2=A0 It also makes =
-sense to read commit best practices as those listed by Stewart and Patrick =
-and become better developers for it.
+>  I've known for a while that we would eventually move the automated test =
+suites from https://github.com/mkumatag/openbmc-automation to https://githu=
+b.com/openbmc/openbmc-test-automation.=C2=A0 That day came yesterday.=C2=A0=
+ Manjuanth and I have adhered to code review principals making sure that we=
+ never merged without the others review.=C2=A0 However I will admit the com=
+mit message and the amount of commits per pull request was not my top prior=
+ity.=C2=A0 To be honest just getting to the state where dev and test were d=
+eveloping code in the same sprint was good enough, all other things be damn=
+ed.=C2=A0 Now I see there are a lot of review comments aimed at the style o=
+f committing.=C2=A0=20
+>=20
 
-I ask is there anything that would put a hold on merging the pull request a=
-s is?=C2=A0 I do need a response from those with comments as you are the on=
-es that put the time and effort in to reviewing it in the first place.=C2=
+Hi Chris,
+
+I agree with you.
+
+> So now we are at a junction.=C2=A0 Should I ask Manjuanth to stop test au=
+tomation development to work on squashing logical commits or should I keep =
+him working on automating the code we are developing.=C2=A0 I certainly und=
+erstand the need for a git history that tells the story.=C2=A0 It also make=
+s sense to read commit best practices as those listed by Stewart and Patric=
+k and become better developers for it.
+>=20
+
+Becoming better developers is always a good thing no?
+
+> I ask is there anything that would put a hold on merging the pull request=
+ as is?=C2=A0 I do need a response from those with comments as you are the =
+ones that put the time and effort in to reviewing it in the first place.=C2=
 =A0=20
+>=20
 
+I think it would be best not to merge the series as is. I'm willing to let a
+lot slide for tests because yay tests and if Manjuanth can address the bigg=
+est
+issues that would be fantastic!
 
+Highest on my list of big problems with the series is that it appears
+duplicated, I'm not even sure how that could have happened. Other issues ar=
+e:
+The need for squashed patches.
+ - Fixes to patches in the same series
+ - Having a patch to add tests and then a subsequent one to add more
+ - Multiple readme patches
+ - Adding and then removing files within the same series.
 
-Chris Austen
-POWER Systems Enablement Manager=20
-(512) 286-5184 (T/L: 363-5184)
+Even just that, running a few git commands to make the series easier to fol=
+low
+would be 80% of the way to making it perfect and tests > perfection.
+
+Other things which wouldn't be much work would be typo issues and commit
+messages.
+
+The overall content of the patches looks like something we can live with for
+the sake of having tests and if making this series Linux kernel level perfe=
+ct
+comes at the cost of more tests then I definitely vote for doing the easy 8=
+0%.
+
+Regards,
+
+Cyril
+>=20
+>=20
+> Chris Austen
+> POWER Systems Enablement Manager=20
+> (512) 286-5184 (T/L: 363-5184)
+>=20
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
