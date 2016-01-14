@@ -1,53 +1,57 @@
-Return-Path: <stewart@linux.vnet.ibm.com>
-Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
- (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
+Return-Path: <cyrilbur@gmail.com>
+Received: from mail-pa0-x242.google.com (mail-pa0-x242.google.com
+ [IPv6:2607:f8b0:400e:c03::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id ADE6F1A0C9A
- for <openbmc@lists.ozlabs.org>; Thu, 14 Jan 2016 13:59:56 +1100 (AEDT)
-Received: from localhost
- by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
- Wed, 13 Jan 2016 19:59:54 -0700
-Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
- by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 13 Jan 2016 19:59:53 -0700
-X-IBM-Helo: d03dlp03.boulder.ibm.com
-X-IBM-MailFrom: stewart@linux.vnet.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from b03cxnp08025.gho.boulder.ibm.com
- (b03cxnp08025.gho.boulder.ibm.com [9.17.130.17])
- by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id 1211C19D8040
- for <openbmc@lists.ozlabs.org>; Wed, 13 Jan 2016 19:47:54 -0700 (MST)
-Received: from d03av05.boulder.ibm.com (d03av05.boulder.ibm.com [9.17.195.85])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with
- ESMTP id u0E2xqLY30867508
- for <openbmc@lists.ozlabs.org>; Wed, 13 Jan 2016 19:59:52 -0700
-Received: from d03av05.boulder.ibm.com (localhost [127.0.0.1])
- by d03av05.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u0E2xqmX011644
- for <openbmc@lists.ozlabs.org>; Wed, 13 Jan 2016 19:59:52 -0700
-Received: from birb.localdomain (birb.au.ibm.com [9.185.120.230])
- by d03av05.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u0E2xjw0011290; Wed, 13 Jan 2016 19:59:51 -0700
-Received: by birb.localdomain (Postfix, from userid 1000)
- id 37C2E22B7CFE; Thu, 14 Jan 2016 13:59:42 +1100 (AEDT)
-From: Stewart Smith <stewart@linux.vnet.ibm.com>
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH skeleton 10/15] add new flash ids
-In-Reply-To: <1450482035-4530-11-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1450482035-4530-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1450482035-4530-11-git-send-email-openbmc-patches@stwcx.xyz>
-User-Agent: Notmuch/0.21+24~gbceb651 (http://notmuchmail.org) Emacs/24.5.1
- (x86_64-redhat-linux-gnu)
-Date: Thu, 14 Jan 2016 13:59:42 +1100
-Message-ID: <87mvs8c1cx.fsf@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 059181A0C9A
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Jan 2016 14:05:20 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=uFvGVcxT; 
+ dkim-atps=neutral
+Received: by mail-pa0-x242.google.com with SMTP id gi1so35120155pac.2
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Jan 2016 19:05:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version:content-type:content-transfer-encoding;
+ bh=wwzsQJ3HVqpO4CdqLPujPhBwlU+wfUZ9diKPvt2U9tk=;
+ b=uFvGVcxTxLXLamkN5ZWAkuVhYWiAd5CK5ututlNPrlSBf7Sb33dmNGjU/weKAeWduu
+ t04svNSOyzuI8YELWtKe72MMrQ4uN9TAsDvv8/2WbcZPMfGE+gs1chsc59RGTU+WJnu/
+ YH/JkWjd+m1XRZDAptWg6i2z+KM5L8ahVIQhmPFkQj7lZRhem99QRNfYeqeBX5YrAqEn
+ /SM1I5G9PsPqay67psFsPPN3S4uftWOAaVe2CzmevEDTkp4cNW6RLCTqJVXMm91Kg8kT
+ RGGi8KSo+LGj3n73sBL6v0QLCMkgtNnFJ6fn8FeNgvyt3REcnmRyeSxpJK+/Ni44Ro+3
+ 2AdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version:content-type:content-transfer-encoding;
+ bh=wwzsQJ3HVqpO4CdqLPujPhBwlU+wfUZ9diKPvt2U9tk=;
+ b=bEdTTuwMQD5uIKUVo+rby3y/TQu/FakWbl3ys0vzylb2YIoIslGBqFywSWpDesaClZ
+ 8/m2R5oTMpBXKoR4p/eVofRa53SfGL5GfC89/lkwRANIjTMLzem8fdbCvffioTNsdflY
+ J5mGWraYZpUCxnX8gBEvXBCRanEfgK+rFg+GhbjXz/cNg56CuFIuQdBNs/K6Z9tLDudP
+ ty5oYMijJivH60oynyLHPxCUd7zf66RihJ29KqBnz+X6S/c2zKdgVHLdi7yVmNgivcFy
+ II7DJ0yFkkEwLK0ggJ+9a4FOMgb+y9jOezGZPQ4EoNh/Z7JmMgQxMmgGzqxnOfrtdKYE
+ 69wA==
+X-Gm-Message-State: ALoCoQmetgG3EKZ41eGKsVkOiZc5x8raTZQOUXwNza3mi/td1aEnsqle96vTPrIatixILf9wzxBqwewH5Kpk3/7fvBZ2zNSiXg==
+X-Received: by 10.66.65.203 with SMTP id z11mr2440800pas.152.1452740717680;
+ Wed, 13 Jan 2016 19:05:17 -0800 (PST)
+Received: from camb691 ([122.99.82.10])
+ by smtp.gmail.com with ESMTPSA id y26sm5431456pfi.88.2016.01.13.19.05.16
+ (version=TLSv1/SSLv3 cipher=OTHER);
+ Wed, 13 Jan 2016 19:05:17 -0800 (PST)
+Date: Thu, 14 Jan 2016 14:05:11 +1100
+From: Cyril Bur <cyrilbur@gmail.com>
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: [PATCH phosphor-host-ipmid] Re submitting plugin support for
+ Host Services
+Message-ID: <20160114140511.1b131e3f@camb691>
+In-Reply-To: <1452672030-18329-2-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1452672030-18329-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1452672030-18329-2-git-send-email-openbmc-patches@stwcx.xyz>
+X-Mailer: Claws Mail 3.13.1 (GTK+ 2.24.29; x86_64-unknown-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16011402-0013-0000-0000-00001BDD3A28
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -59,17 +63,356 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Jan 2016 02:59:57 -0000
+X-List-Received-Date: Thu, 14 Jan 2016 03:05:20 -0000
 
-OpenBMC Patches <openbmc-patches@stwcx.xyz> writes:
-> From: Norman James <njames@us.ibm.com>
->
+On Wed, 13 Jan 2016 02:00:30 -0600
+OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
+
+> From: vishwa <vishwanath@in.ibm.com>
+> 
+
+Hi Vishwa,
+
+Patch looks good but could you please split the whitespace changes out into a
+separate patch and commit it as such, this makes the review process easier.
+
+Thanks,
+
+Cyril
+
 > ---
->  objects/pflash/libflash/libflash.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-
-has this gone upstream to pflash?
-
--- 
-Stewart Smith
-OPAL Architect, IBM.
+>  Makefile        |  12 +++-
+>  host-services.c | 171 +++++++++++++++++++++++++++++++-------------------------
+>  ipmid-api.h     |   1 +
+>  ipmid.C         |  15 +++--
+>  4 files changed, 111 insertions(+), 88 deletions(-)
+> 
+> diff --git a/Makefile b/Makefile
+> index 57ad6fe..472bfaa 100644
+> --- a/Makefile
+> +++ b/Makefile
+> @@ -5,7 +5,7 @@ TESTER = testit
+>  TESTADDSEL = testaddsel
+>  
+>  DAEMON = ipmid
+> -DAEMON_OBJ  = ipmid.o host-services.o
+> +DAEMON_OBJ  = ipmid.o
+>  
+>  LIB_APP_OBJ = apphandler.o     \
+>                sensorhandler.o  \
+> @@ -16,6 +16,7 @@ LIB_APP_OBJ = apphandler.o     \
+>                storageaddsel.o  \
+>                transporthandler.o  \
+>  
+> +LIB_HOST_SRV_OBJ = host-services.o
+>  
+>  TESTADDSEL_OBJ = $(TESTADDSEL).o \
+>                   storageaddsel.o
+> @@ -24,7 +25,9 @@ TESTER_OBJ = ipmisensor.o 	   \
+>  	     testit.o
+>  
+>  LIB_APP     = libapphandler.so
+> -INSTALLED_LIBS += $(LIB_APP)
+> +LIB_HOST_SRV = libhostservice.so
+> +
+> +INSTALLED_LIBS += $(LIB_APP) $(LIB_HOST_SRV)
+>  INSTALLED_HEADERS = ipmid-api.h
+>  
+>  CXXFLAGS += -Wall -Wno-unused-result
+> @@ -39,7 +42,7 @@ SBINDIR ?= /usr/sbin
+>  INCLUDEDIR ?= /usr/include
+>  LIBDIR ?= /usr/lib
+>  
+> -all: $(DAEMON) $(LIB_APP) $(TESTER)
+> +all: $(DAEMON) $(LIB_APP) $(LIB_HOST_SRV) $(TESTER)
+>  
+>  %.o: %.C
+>  	$(CXX) -std=c++14 -fpic -c $< $(CXXFLAGS) $(INC_FLAG) $(IPMID_PATH) -o $@
+> @@ -47,6 +50,9 @@ all: $(DAEMON) $(LIB_APP) $(TESTER)
+>  $(LIB_APP): $(LIB_APP_OBJ)
+>  	$(CXX) $^ -shared $(LDFLAGS) $(LIB_FLAG) -o $@
+>  
+> +$(LIB_HOST_SRV): $(LIB_HOST_SRV_OBJ)
+> +	$(CXX) $^ -shared $(LDFLAGS) $(LIB_FLAG) -o $@
+> +
+>  $(DAEMON): $(DAEMON_OBJ)
+>  	$(CXX) $^ $(LDFLAGS) $(LIB_FLAG) -o $@ -ldl
+>  
+> diff --git a/host-services.c b/host-services.c
+> index ab9cfcc..23aa55e 100644
+> --- a/host-services.c
+> +++ b/host-services.c
+> @@ -5,6 +5,8 @@
+>  
+>  #include "ipmid-api.h"
+>  
+> +void register_host_services() __attribute__((constructor));
+> +
+>  // OpenBMC Host IPMI dbus framework
+>  const char  *bus_name      =  "org.openbmc.HostIpmi";
+>  const char  *object_name   =  "/org/openbmc/HostIpmi/1";
+> @@ -13,69 +15,69 @@ const char  *intf_name     =  "org.openbmc.HostIpmi";
+>  //-------------------------------------------------------------------
+>  // Gets called by PowerOff handler when a Soft Power off is requested
+>  //-------------------------------------------------------------------
+> -static int soft_power_off(sd_bus_message *m, void *userdata, sd_bus_error *ret_error) 
+> +static int soft_power_off(sd_bus_message *m, void *userdata, sd_bus_error *ret_error)
+>  {
+> -	int64_t bt_resp = -1;
+> -	int rc = 0;
+> -
+> -	// Steps to be taken when we get this.
+> -	// 	1: Send a SMS_ATN to the Host
+> -	// 	2: Host receives it and sends a GetMsgFlags IPMI command
+> -	// 	3: IPMID app handler will respond to that with a MSgFlag with bit:0x2
+> -	// 	   set indicating we have a message for Host
+> -	// 	4: Host sends a GetMsgBuffer command and app handler will respond to
+> -	// 	   that with a OEM-SEL with certain fields packed indicating to the 
+> -	// 	   host	that it do a shutdown of the partitions.   
+> -	// 	5: Host does the partition shutdown and calls Chassis Power off command
+> -	// 	6: App handler handles the command by making a call to ChassisManager
+> -	// 	   Dbus
+> -	
+> -	// Now the job is to send the SMS_ATTN.
+> -	
+> +    int64_t bt_resp = -1;
+> +    int rc = 0;
+> +
+> +    // Steps to be taken when we get this.
+> +    //  1: Send a SMS_ATN to the Host
+> +    //  2: Host receives it and sends a GetMsgFlags IPMI command
+> +    //  3: IPMID app handler will respond to that with a MSgFlag with bit:0x2
+> +    //     set indicating we have a message for Host
+> +    //  4: Host sends a GetMsgBuffer command and app handler will respond to
+> +    //     that with a OEM-SEL with certain fields packed indicating to the
+> +    //     host that it do a shutdown of the partitions.
+> +    //  5: Host does the partition shutdown and calls Chassis Power off command
+> +    //  6: App handler handles the command by making a call to ChassisManager
+> +    //     Dbus
+> +
+> +    // Now the job is to send the SMS_ATTN.
+> +
+>      // Req message contains the specifics about which method etc that we want to
+>      // access on which bus, object
+>      sd_bus_message *response = NULL;
+>  
+> -	// Error return mechanism
+> +    // Error return mechanism
+>      sd_bus_error bus_error = SD_BUS_ERROR_NULL;
+>  
+> -	// Gets a hook onto either a SYSTEM or SESSION bus
+> -	sd_bus *bus = ipmid_get_sd_bus_connection();
+> -
+> -	rc = sd_bus_call_method(bus,        // On the System Bus
+> -							bus_name,        // Service to contact
+> -							object_name,     // Object path 
+> -							intf_name,       // Interface name
+> -							"setAttention",  // Method to be called
+> -							&bus_error,      // object to return error
+> -							&response,		 // Response buffer if any
+> -							NULL);			 // No input arguments
+> -	if(rc < 0)
+> -	{
+> -		fprintf(stderr,"ERROR initiating Power Off:[%s]\n",bus_error.message);
+> -		goto finish;
+> -	}
+> -
+> -	// See if we were able to successfully raise SMS_ATN
+> +    // Gets a hook onto either a SYSTEM or SESSION bus
+> +    sd_bus *bus = ipmid_get_sd_bus_connection();
+> +
+> +    rc = sd_bus_call_method(bus,             // In the System Bus
+> +                            bus_name,        // Service to contact
+> +                            object_name,     // Object path
+> +                            intf_name,       // Interface name
+> +                            "setAttention",  // Method to be called
+> +                            &bus_error,      // object to return error
+> +                            &response,       // Response buffer if any
+> +                            NULL);           // No input arguments
+> +    if(rc < 0)
+> +    {
+> +        fprintf(stderr,"ERROR initiating Power Off:[%s]\n",bus_error.message);
+> +        goto finish;
+> +    }
+> +
+> +    // See if we were able to successfully raise SMS_ATN
+>      rc = sd_bus_message_read(response, "x", &bt_resp);
+> -    if (rc < 0) 
+> -	{
+> -		fprintf(stderr, "Failed to get a rc from BT for SMS_ATN: %s\n", strerror(-rc));
+> -		goto finish;
+> +    if (rc < 0)
+> +    {
+> +        fprintf(stderr, "Failed to get a rc from BT for SMS_ATN: %s\n", strerror(-rc));
+> +        goto finish;
+>      }
+>  
+>  finish:
+>      sd_bus_error_free(&bus_error);
+>      sd_bus_message_unref(response);
+>  
+> -	if(rc < 0)
+> -	{
+> -		return sd_bus_reply_method_return(m, "x", rc);
+> -	}
+> -	else
+> -	{
+> -		return sd_bus_reply_method_return(m, "x", bt_resp);
+> -	}
+> +    if(rc < 0)
+> +    {
+> +        return sd_bus_reply_method_return(m, "x", rc);
+> +    }
+> +    else
+> +    {
+> +        return sd_bus_reply_method_return(m, "x", bt_resp);
+> +    }
+>  }
+>  
+>  //-------------------------------------------
+> @@ -83,10 +85,10 @@ finish:
+>  //-------------------------------------------
+>  static const sd_bus_vtable host_services_vtable[] =
+>  {
+> -	SD_BUS_VTABLE_START(0),
+> -	// Takes No("") arguments -but- returns a value of type 64 bit integer("x")
+> -	SD_BUS_METHOD("SoftPowerOff", "", "x", &soft_power_off, SD_BUS_VTABLE_UNPRIVILEGED),
+> -	SD_BUS_VTABLE_END,
+> +    SD_BUS_VTABLE_START(0),
+> +    // Takes No("") arguments -but- returns a value of type 64 bit integer("x")
+> +    SD_BUS_METHOD("SoftPowerOff", "", "x", &soft_power_off, SD_BUS_VTABLE_UNPRIVILEGED),
+> +    SD_BUS_VTABLE_END,
+>  };
+>  
+>  //------------------------------------------------------
+> @@ -94,28 +96,43 @@ static const sd_bus_vtable host_services_vtable[] =
+>  // -----------------------------------------------------
+>  int start_host_service(sd_bus *bus, sd_bus_slot *slot)
+>  {
+> -	int rc = 0;
+> -
+> -	/* Install the object */
+> -	rc = sd_bus_add_object_vtable(bus,
+> -								 &slot,
+> -								"/org/openbmc/HostServices",  /* object path */
+> -								"org.openbmc.HostServices",   /* interface name */
+> -								host_services_vtable,
+> -								NULL);
+> -	if (rc < 0) 
+> -	{
+> -		fprintf(stderr, "Failed to issue method call: %s\n", strerror(-rc));
+> -	}
+> -	else
+> -	{
+> -		/* Take one in OpenBmc */
+> -		rc = sd_bus_request_name(bus, "org.openbmc.HostServices", 0);
+> -		if (rc < 0) 
+> -		{
+> -			fprintf(stderr, "Failed to acquire service name: %s\n", strerror(-rc));
+> -		}
+> -	}
+> -
+> -	return rc < 0 ? EXIT_FAILURE : EXIT_SUCCESS;
+> +    int rc = 0;
+> +
+> +    /* Install the object */
+> +    rc = sd_bus_add_object_vtable(bus,
+> +                                 &slot,
+> +                                "/org/openbmc/HostServices",  /* object path */
+> +                                "org.openbmc.HostServices",   /* interface name */
+> +                                host_services_vtable,
+> +                                NULL);
+> +    if (rc < 0)
+> +    {
+> +        fprintf(stderr, "Failed to issue method call: %s\n", strerror(-rc));
+> +    }
+> +    else
+> +    {
+> +        /* Take one in OpenBmc */
+> +        rc = sd_bus_request_name(bus, "org.openbmc.HostServices", 0);
+> +        if (rc < 0)
+> +        {
+> +            fprintf(stderr, "Failed to acquire service name: %s\n", strerror(-rc));
+> +        }
+> +    }
+> +
+> +    return rc < 0 ? EXIT_FAILURE : EXIT_SUCCESS;
+> +}
+> +
+> +//------------------------------------------------------
+> +// Callback register function
+> +// -----------------------------------------------------
+> +void register_host_services()
+> +{
+> +    // Gets a hook onto SYSTEM bus used by host-ipmid
+> +    sd_bus *bus = ipmid_get_sd_bus_connection();
+> +
+> +    // Gets a hook onto SYSTEM bus slot used by host-ipmid
+> +    sd_bus_slot *ipmid_slot = ipmid_get_sd_bus_slot();
+> +
+> +    //start_host_service(bus, ipmid_slot);
+> +    start_host_service(bus, ipmid_slot);
+>  }
+> diff --git a/ipmid-api.h b/ipmid-api.h
+> index 4f4b9de..4f00798 100644
+> --- a/ipmid-api.h
+> +++ b/ipmid-api.h
+> @@ -97,6 +97,7 @@ enum ipmi_return_codes
+>  };
+>  
+>  sd_bus *ipmid_get_sd_bus_connection(void);
+> +sd_bus_slot *ipmid_get_sd_bus_slot(void);
+>  
+>  #ifdef __cplusplus
+>  }
+> diff --git a/ipmid.C b/ipmid.C
+> index 6071cb3..0126779 100644
+> --- a/ipmid.C
+> +++ b/ipmid.C
+> @@ -13,9 +13,8 @@
+>  #include <errno.h>
+>  #include "sensorhandler.h"
+>  
+> -
+> -
+>  sd_bus *bus = NULL;
+> +sd_bus_slot *ipmid_slot = NULL;
+>  
+>  FILE *ipmiio, *ipmidbus, *ipmicmddetails;
+>  
+> @@ -373,9 +372,12 @@ sd_bus *ipmid_get_sd_bus_connection(void) {
+>      return bus;
+>  }
+>  
+> +sd_bus_slot *ipmid_get_sd_bus_slot(void) {
+> +    return ipmid_slot;
+> +}
+> +
+>  int main(int argc, char *argv[])
+>  {
+> -    sd_bus_slot *slot = NULL;
+>      int r;
+>      unsigned long tvalue;
+>      int c;
+> @@ -418,11 +420,8 @@ int main(int argc, char *argv[])
+>      // Register all the handlers that provider implementation to IPMI commands.
+>      ipmi_register_callback_handlers(HOST_IPMI_LIB_PATH);
+>  
+> -	// Start the Host Services Dbus Objects
+> -	start_host_service(bus, slot);
+> -
+>  	// Watch for BT messages
+> -    r = sd_bus_add_match(bus, &slot, FILTER, handle_ipmi_command, NULL);
+> +    r = sd_bus_add_match(bus, &ipmid_slot, FILTER, handle_ipmi_command, NULL);
+>      if (r < 0) {
+>          fprintf(stderr, "Failed: sd_bus_add_match: %s : %s\n", strerror(-r), FILTER);
+>          goto finish;
+> @@ -448,7 +447,7 @@ int main(int argc, char *argv[])
+>      }
+>  
+>  finish:
+> -    sd_bus_slot_unref(slot);
+> +    sd_bus_slot_unref(ipmid_slot);
+>      sd_bus_unref(bus);
+>      return r < 0 ? EXIT_FAILURE : EXIT_SUCCESS;
+>  
