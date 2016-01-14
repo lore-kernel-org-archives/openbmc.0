@@ -1,23 +1,53 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <stewart@linux.vnet.ibm.com>
+Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
+ (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id ACC201A0C93
- for <openbmc@lists.ozlabs.org>; Thu, 14 Jan 2016 11:50:30 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 14527326263791015.7035347961613;
- Wed, 13 Jan 2016 16:50:26 -0800 (PST)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Cc: "Milton D. Miller II" <miltonm@us.ibm.com>
-Subject: [PATCH linux] rtc: aspeed month is off-by-one
-Date: Wed, 13 Jan 2016 18:50:24 -0600
-Message-Id: <1452732624-17345-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.4
-In-Reply-To: <1452732624-17345-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1452732624-17345-1-git-send-email-openbmc-patches@stwcx.xyz>
-X-Zoho-Virus-Status: 1
+ by lists.ozlabs.org (Postfix) with ESMTPS id ADE6F1A0C9A
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Jan 2016 13:59:56 +1100 (AEDT)
+Received: from localhost
+ by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
+ Wed, 13 Jan 2016 19:59:54 -0700
+Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
+ by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 13 Jan 2016 19:59:53 -0700
+X-IBM-Helo: d03dlp03.boulder.ibm.com
+X-IBM-MailFrom: stewart@linux.vnet.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from b03cxnp08025.gho.boulder.ibm.com
+ (b03cxnp08025.gho.boulder.ibm.com [9.17.130.17])
+ by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id 1211C19D8040
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Jan 2016 19:47:54 -0700 (MST)
+Received: from d03av05.boulder.ibm.com (d03av05.boulder.ibm.com [9.17.195.85])
+ by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with
+ ESMTP id u0E2xqLY30867508
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Jan 2016 19:59:52 -0700
+Received: from d03av05.boulder.ibm.com (localhost [127.0.0.1])
+ by d03av05.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u0E2xqmX011644
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Jan 2016 19:59:52 -0700
+Received: from birb.localdomain (birb.au.ibm.com [9.185.120.230])
+ by d03av05.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u0E2xjw0011290; Wed, 13 Jan 2016 19:59:51 -0700
+Received: by birb.localdomain (Postfix, from userid 1000)
+ id 37C2E22B7CFE; Thu, 14 Jan 2016 13:59:42 +1100 (AEDT)
+From: Stewart Smith <stewart@linux.vnet.ibm.com>
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH skeleton 10/15] add new flash ids
+In-Reply-To: <1450482035-4530-11-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1450482035-4530-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1450482035-4530-11-git-send-email-openbmc-patches@stwcx.xyz>
+User-Agent: Notmuch/0.21+24~gbceb651 (http://notmuchmail.org) Emacs/24.5.1
+ (x86_64-redhat-linux-gnu)
+Date: Thu, 14 Jan 2016 13:59:42 +1100
+Message-ID: <87mvs8c1cx.fsf@linux.vnet.ibm.com>
+MIME-Version: 1.0
+Content-Type: text/plain
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16011402-0013-0000-0000-00001BDD3A28
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -29,36 +59,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Jan 2016 00:50:31 -0000
+X-List-Received-Date: Thu, 14 Jan 2016 02:59:57 -0000
 
-From: "Milton D. Miller II" <miltonm@us.ibm.com>
+OpenBMC Patches <openbmc-patches@stwcx.xyz> writes:
+> From: Norman James <njames@us.ibm.com>
+>
+> ---
+>  objects/pflash/libflash/libflash.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
 
-Norm reported hwclock set the date one hour different from what it
-read back.
+has this gone upstream to pflash?
 
-The mktime64 call takes the month as the 1-based counted month not
-the 0-based months since January like struct rtc_tm and struct tm.
-No adjustment from the harware is needed.  Also mask off a few 0 bits.
-
-Reported-by: Norman James <nkskjames@gmail.com>
-Signed-off-by: Milton Miller <miltonm@us.ibm.com>
----
- drivers/rtc/rtc-aspeed.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/rtc/rtc-aspeed.c b/drivers/rtc/rtc-aspeed.c
-index cfb5ee0..1a5bbd1 100644
---- a/drivers/rtc/rtc-aspeed.c
-+++ b/drivers/rtc/rtc-aspeed.c
-@@ -48,8 +48,7 @@ static int aspeed_rtc_read_time(struct device *dev, struct rtc_time *tm)
- 	sec  = (reg1 >>  0) & 0x3f;
- 	cent = (reg2 >> 16) & 0x1f;
- 	year = (reg2 >>  8) & 0x7f;
--	/* struct rtc_time counts from 0 to 11, but hardware is 1 to 12 */
--	mon  = ((reg2 >>  0) & 0x3f) - 1;
-+	mon  = (reg2 >>  0) & 0xf;	/* mktime64 and hardware use 1 = Jan */
- 
- 	rtc_time64_to_tm(mktime64(cent*100 + year, mon, day, hour, min, sec),
- 			 tm);
 -- 
-2.6.4
+Stewart Smith
+OPAL Architect, IBM.
