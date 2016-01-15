@@ -1,29 +1,23 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <openbmc-patches@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 69CBA1A0050
- for <openbmc@lists.ozlabs.org>; Fri, 15 Jan 2016 13:19:04 +1100 (AEDT)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 3A18F1401DE;
- Fri, 15 Jan 2016 13:19:04 +1100 (AEDT)
-Subject: Re: [PATCH docs] Add doc for contribution guidelines
-To: Sam Mendoza-Jonas <sam@mendozajonas.com>
-References: <1452762609-724-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1452762609-724-2-git-send-email-openbmc-patches@stwcx.xyz>
- <20160115020444.GA2639@localhost.localdomain>
-Cc: openbmc@lists.ozlabs.org
-From: Jeremy Kerr <jk@ozlabs.org>
-Message-ID: <56985717.6090002@ozlabs.org>
-Date: Fri, 15 Jan 2016 10:19:03 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
- Thunderbird/38.4.0
-MIME-Version: 1.0
-In-Reply-To: <20160115020444.GA2639@localhost.localdomain>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 2A92E1A02A5
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Jan 2016 14:30:27 +1100 (AEDT)
+Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
+ with SMTPS id 1452828622629975.1288913012152;
+ Thu, 14 Jan 2016 19:30:22 -0800 (PST)
+From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+To: openbmc@lists.ozlabs.org
+Cc: Cyril Bur <cyril.bur@au1.ibm.com>
+Subject: [PATCH openbmc] btbridged: Update to include bt_q_drop() bugfix
+Date: Thu, 14 Jan 2016 21:30:21 -0600
+Message-Id: <1452828621-2189-2-git-send-email-openbmc-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.6.4
+In-Reply-To: <1452828621-2189-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1452828621-2189-1-git-send-email-openbmc-patches@stwcx.xyz>
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -35,23 +29,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Jan 2016 02:19:04 -0000
+X-List-Received-Date: Fri, 15 Jan 2016 03:30:28 -0000
 
-Hi Sam,
+From: Cyril Bur <cyril.bur@au1.ibm.com>
 
-> <snip>
->> +OpenBMC has quite a module structure, consisting of small daemons with a
->> +limited set of responsibilities. These communicate over dbus with other
->> +components, to implement the complete BMC system.
-> <snip>
->
-> Just a nitpick: should that be s/module/modular?
+---
+ meta-phosphor/common/recipes-phosphor/host-ipmid/btbridged.bb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Yes, it should be. I'll queue this change with any other small fixes 
-that come in.
-
-Thanks!
-
-
-
-Jeremy
+diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/btbridged.bb b/meta-phosphor/common/recipes-phosphor/host-ipmid/btbridged.bb
+index 595214e..a1a32d9 100644
+--- a/meta-phosphor/common/recipes-phosphor/host-ipmid/btbridged.bb
++++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/btbridged.bb
+@@ -11,7 +11,7 @@ inherit obmc-phosphor-host-ipmi-hw
+ 
+ S = "${WORKDIR}/git"
+ SRC_URI += "git://github.com/openbmc/btbridge"
+-SRCREV="e640165dfac0b35d69544ec725edb77cee1ae747"
++SRCREV="39b3700766d851009258544aa0f75365f024c597"
+ 
+ # This is how linux-libc-headers says to include custom uapi headers
+ EXTRA_OEMAKE_append = "CFLAGS=-I${STAGING_KERNEL_DIR}/include/uapi"
+-- 
+2.6.4
