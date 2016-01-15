@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 29EB31A0050
- for <openbmc@lists.ozlabs.org>; Fri, 15 Jan 2016 14:30:27 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 9D6441A1803
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Jan 2016 17:10:39 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1452828621869404.70509339609464;
- Thu, 14 Jan 2016 19:30:21 -0800 (PST)
+ with SMTPS id 1452838236183955.6196512600573;
+ Thu, 14 Jan 2016 22:10:36 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc] btbridged: Update to include bt_q_drop() bugfix
-Date: Thu, 14 Jan 2016 21:30:20 -0600
-Message-Id: <1452828621-2189-1-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v4 0/5] Add inventory fan5
+Date: Fri, 15 Jan 2016 00:10:30 -0600
+Message-Id: <1452838235-6961-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -26,15 +26,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Jan 2016 03:30:28 -0000
+X-List-Received-Date: Fri, 15 Jan 2016 06:10:40 -0000
 
-https://github.com/openbmc/openbmc/pull/136
+https://github.com/openbmc/skeleton/pull/25
 
-Cyril Bur (1):
-  btbridged: Update to include bt_q_drop() bugfix
+Ken (5):
+  Add inventory fan5
+  Initial fan LED status
+  Remove reboot function in power button, reboot is in reset button.
+  Solve auto power on issue, confirm GPIO status before send the signal
+  Reset button does not power on when dc off
 
- meta-phosphor/common/recipes-phosphor/host-ipmid/btbridged.bb | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ bin/Barreleye.py           |  1 +
+ bin/chassis_control.py     |  7 ++-----
+ bin/startup_hacks.sh       |  7 +++++++
+ objects/button_power_obj.c | 37 ++++++++++++++++++++++++-------------
+ 4 files changed, 34 insertions(+), 18 deletions(-)
+ mode change 100644 => 100755 objects/button_power_obj.c
 
 -- 
 2.6.4
