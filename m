@@ -3,17 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 9D6441A1803
- for <openbmc@lists.ozlabs.org>; Fri, 15 Jan 2016 17:10:39 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 435031A1853
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Jan 2016 17:10:47 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1452838236183955.6196512600573;
+ with SMTPS id 1452838236960306.3005729263484;
  Thu, 14 Jan 2016 22:10:36 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH skeleton v4 0/5] Add inventory fan5
-Date: Fri, 15 Jan 2016 00:10:30 -0600
-Message-Id: <1452838235-6961-1-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: Ken <ken.sk.lai@mail.foxconn.com>
+Subject: [PATCH skeleton v4 1/5] Add inventory fan5
+Date: Fri, 15 Jan 2016 00:10:31 -0600
+Message-Id: <1452838235-6961-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
+In-Reply-To: <1452838235-6961-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1452838235-6961-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -26,23 +29,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Jan 2016 06:10:40 -0000
+X-List-Received-Date: Fri, 15 Jan 2016 06:10:47 -0000
 
-https://github.com/openbmc/skeleton/pull/25
+From: Ken <ken.sk.lai@mail.foxconn.com>
 
-Ken (5):
-  Add inventory fan5
-  Initial fan LED status
-  Remove reboot function in power button, reboot is in reset button.
-  Solve auto power on issue, confirm GPIO status before send the signal
-  Reset button does not power on when dc off
+---
+ bin/Barreleye.py | 1 +
+ 1 file changed, 1 insertion(+)
 
- bin/Barreleye.py           |  1 +
- bin/chassis_control.py     |  7 ++-----
- bin/startup_hacks.sh       |  7 +++++++
- objects/button_power_obj.c | 37 ++++++++++++++++++++++++-------------
- 4 files changed, 34 insertions(+), 18 deletions(-)
- mode change 100644 => 100755 objects/button_power_obj.c
-
+diff --git a/bin/Barreleye.py b/bin/Barreleye.py
+index f068ea1..ec4fab5 100755
+--- a/bin/Barreleye.py
++++ b/bin/Barreleye.py
+@@ -223,6 +223,7 @@ FRU_INSTANCES = {
+ 	'<inventory_root>/system/chassis/fan2' : { 'fru_type' : 'FAN','is_fru' : True, },
+ 	'<inventory_root>/system/chassis/fan3' : { 'fru_type' : 'FAN','is_fru' : True, },
+ 	'<inventory_root>/system/chassis/fan4' : { 'fru_type' : 'FAN','is_fru' : True, },
++        '<inventory_root>/system/chassis/fan5' : { 'fru_type' : 'FAN','is_fru' : True, },
+ 
+ 	'<inventory_root>/system/chassis/motherboard/bmc' : { 'fru_type' : 'BMC','is_fru' : False, 'manufacturer' : 'ASPEED' },
+ 
 -- 
 2.6.4
