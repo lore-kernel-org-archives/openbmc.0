@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 77AAA1A18E6
+ by lists.ozlabs.org (Postfix) with ESMTPS id 75DFE1A186C
  for <openbmc@lists.ozlabs.org>; Fri, 15 Jan 2016 17:10:47 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1452838239885469.2752575544167;
- Thu, 14 Jan 2016 22:10:39 -0800 (PST)
+ with SMTPS id 1452838237689133.9335018374893;
+ Thu, 14 Jan 2016 22:10:37 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton v4 5/5] Reset button does not power on when dc off
-Date: Fri, 15 Jan 2016 00:10:35 -0600
-Message-Id: <1452838235-6961-6-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v4 2/5] Initial fan LED status
+Date: Fri, 15 Jan 2016 00:10:32 -0600
+Message-Id: <1452838235-6961-3-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 In-Reply-To: <1452838235-6961-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1452838235-6961-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -34,21 +34,23 @@ X-List-Received-Date: Fri, 15 Jan 2016 06:10:48 -0000
 From: Ken <ken.sk.lai@mail.foxconn.com>
 
 ---
- bin/chassis_control.py | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ bin/startup_hacks.sh | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/bin/chassis_control.py b/bin/chassis_control.py
-index 0a0b44d..1b6065e 100755
---- a/bin/chassis_control.py
-+++ b/bin/chassis_control.py
-@@ -126,7 +126,7 @@ class ChassisControlObject(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
- 	def reboot(self):
- 		print "Rebooting"
- 		if self.getPowerState() == POWER_OFF:
--			self.powerOn();
-+			print "Power off, no reboot."
- 		else:
- 			self.Set(DBUS_NAME,"reboot",1)
- 			self.powerOff()
+diff --git a/bin/startup_hacks.sh b/bin/startup_hacks.sh
+index 18582ae..02fd3a8 100755
+--- a/bin/startup_hacks.sh
++++ b/bin/startup_hacks.sh
+@@ -2,3 +2,10 @@
+ 
+ systemctl stop serial-getty@ttyS0
+ 
++# Set to output pin
++i2cset -y 0x06 0x20 0x06 0x00
++i2cset -y 0x06 0x20 0x07 0x00
++
++# Turn on all fan LED to BLUE
++i2cset -y 0x06 0x20 0x03 0x55
++i2cset -y 0x06 0x20 0x02 0xaa
 -- 
 2.6.4
