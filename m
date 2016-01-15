@@ -1,43 +1,56 @@
-Return-Path: <andrew@aj.id.au>
-Received: from hapkido.dreamhost.com (hapkido.dreamhost.com [66.33.216.122])
- by lists.ozlabs.org (Postfix) with ESMTP id B60A01A0050
- for <openbmc@lists.ozlabs.org>; Fri, 15 Jan 2016 12:04:37 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=vcUvW7gq; 
- dkim-atps=neutral
-Received: from homiemail-a20.g.dreamhost.com (sub3.mail.dreamhost.com
- [69.163.253.7])
- by hapkido.dreamhost.com (Postfix) with ESMTP id 57AA09B930
- for <openbmc@lists.ozlabs.org>; Thu, 14 Jan 2016 17:04:36 -0800 (PST)
-Received: from homiemail-a20.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a20.g.dreamhost.com (Postfix) with ESMTP id 411617EC061;
- Thu, 14 Jan 2016 17:04:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=date:subject
- :message-id:in-reply-to:from:to:cc:mime-version:content-type:
- content-transfer-encoding; s=aj.id.au; bh=zrYDC4R3mzuIK/vRIg3BM0
- eex1s=; b=vcUvW7gq6ohH7/m+Vaw6AQenNznKVt09NjiqS9YFB6fcFUlXWTHU2u
- vi5btnhwe7NqmkH+gaccZrOH1Rxtdu3umYE/D2sR74aMxJVkPyppf6ZeV8I+Z/TB
- wRi++uV16DGmKYrNs/dqZZeqLzq5AC5Tc6R9Tes19Eda61OzHtkq4=
-Received: from [10.206.192.11] (unknown [120.20.224.65])
- (using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <sam.mj@au1.ibm.com>
+Received: from e23smtp03.au.ibm.com (e23smtp03.au.ibm.com [202.81.31.145])
+ (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- (Authenticated sender: andrew@aj.id.au)
- by homiemail-a20.g.dreamhost.com (Postfix) with ESMTPSA id E159A7EC060;
- Thu, 14 Jan 2016 17:04:32 -0800 (PST)
-Date: Fri, 15 Jan 2016 11:34:10 +1030
-Subject: Re: [PATCH docs] Add doc for contribution guidelines
-Message-ID: <32f49598-7459-4ef3-bcca-3acddadb8e2c@email.android.com>
-X-Android-Message-ID: <32f49598-7459-4ef3-bcca-3acddadb8e2c@email.android.com>
-In-Reply-To: <1452762609-724-2-git-send-email-openbmc-patches@stwcx.xyz>
-From: Andrew Jeffery <andrew@aj.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id D48131A0050
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Jan 2016 13:05:47 +1100 (AEDT)
+Received: from localhost
+ by e23smtp03.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <sam.mj@au1.ibm.com>;
+ Fri, 15 Jan 2016 12:05:45 +1000
+Received: from d23dlp03.au.ibm.com (202.81.31.214)
+ by e23smtp03.au.ibm.com (202.81.31.209) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Fri, 15 Jan 2016 12:05:43 +1000
+X-IBM-Helo: d23dlp03.au.ibm.com
+X-IBM-MailFrom: sam.mj@au1.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d23relay07.au.ibm.com (d23relay07.au.ibm.com [9.190.26.37])
+ by d23dlp03.au.ibm.com (Postfix) with ESMTP id 07B213578055
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Jan 2016 13:05:42 +1100 (EST)
+Received: from d23av02.au.ibm.com (d23av02.au.ibm.com [9.190.235.138])
+ by d23relay07.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u0F25Zxj18940148
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Jan 2016 13:05:43 +1100
+Received: from d23av02.au.ibm.com (localhost [127.0.0.1])
+ by d23av02.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u0F2592D024378
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Jan 2016 13:05:09 +1100
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av02.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u0F259Bv023534; Fri, 15 Jan 2016 13:05:09 +1100
+Received: from localhost (haven.au.ibm.com [9.192.254.114])
+ (using TLSv1.2 with cipher AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id E10DCA0118;
+ Fri, 15 Jan 2016 13:04:44 +1100 (AEDT)
+Date: Fri, 15 Jan 2016 13:04:44 +1100
+From: Sam Mendoza-Jonas <sam@mendozajonas.com>
 To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 Cc: openbmc@lists.ozlabs.org
-Importance: Normal
-X-Priority: 3
-X-MSMail-Priority: Normal
+Subject: Re: [PATCH docs] Add doc for contribution guidelines
+Message-ID: <20160115020444.GA2639@localhost.localdomain>
+References: <1452762609-724-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1452762609-724-2-git-send-email-openbmc-patches@stwcx.xyz>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: base64
+Content-Disposition: inline
+In-Reply-To: <1452762609-724-2-git-send-email-openbmc-patches@stwcx.xyz>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16011502-0009-0000-0000-000002C58C27
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -49,123 +62,14 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Jan 2016 01:04:38 -0000
+X-List-Received-Date: Fri, 15 Jan 2016 02:05:48 -0000
 
-Ck9uIDE0LzAxLzIwMTYgNzo0MCBQTSwgT3BlbkJNQyBQYXRjaGVzIDxvcGVuYm1jLXBhdGNoZXNA
-c3R3Y3gueHl6PiB3cm90ZToKPgo+IEZyb206IEplcmVteSBLZXJyIDxqa0BvemxhYnMub3JnPgo+
-Cj4gU3RhcnQgc29tZXdoZXJlIHRvIGRvY3VtZW50IG91ciBkZXZlbG9wbWVudCBjb252ZW50aW9u
-cy4KCkxvb2tzIGdvb2QgdG8gbWUsIG11Y2ggYmV0dGVyIHRvIHNwZWxsIG91dCBleHBlY3RhdGlv
-bnMgdGhhbiBsZWF2ZSB0aGVtIHRvIGJlIGltcGxpZWQuCgpSZXZpZXdlZC1ieTogQW5kcmV3IEpl
-ZmZlcnkgPGFuZHJld0Bhai5pZC4gYXU+Cgo+Cj4gU2lnbmVkLW9mZi1ieTogSmVyZW15IEtlcnIg
-PGprQG96bGFicy5vcmc+Cj4gLS0tCj4gY29udHJpYnV0aW5nLm1kIHwgMTQ1ICsrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrCj4gMSBmaWxlIGNo
-YW5nZWQsIDE0NSBpbnNlcnRpb25zKCspCj4gY3JlYXRlIG1vZGUgMTAwNjQ0IGNvbnRyaWJ1dGlu
-Zy5tZAo+Cj4gZGlmZiAtLWdpdCBhL2NvbnRyaWJ1dGluZy5tZCBiL2NvbnRyaWJ1dGluZy5tZAo+
-IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4gaW5kZXggMDAwMDAwMC4uYmYzNjM2Mwo+IC0tLSAvZGV2
-L251bGwKPiArKysgYi9jb250cmlidXRpbmcubWQKPiBAQCAtMCwwICsxLDE0NSBAQAo+ICtDb250
-cmlidXRpbmcgdG8gT3BlbkJNQwo+ICs9PT09PT09PT09PT09PT09PT09PT09PQo+ICsKPiArSGVy
-ZSdzIGEgbGl0dGxlIGd1aWRlIHRvIHdvcmtpbmcgb24gT3BlbkJNQy4gVGhpcyBkb2N1bWVudCB3
-aWxsIGFsd2F5cyBiZQo+ICthIHdvcmstaW4tcHJvZ3Jlc3MsIGZlZWwgZnJlZSB0byBwcm9wb3Nl
-IGNoYW5nZXMuCj4gKwo+ICtBdXRob3JzOgo+ICsKPiArwqAgSmVyZW15IEtlcnIgPGprQG96bGFi
-cy5vcmc+Cj4gKwo+ICtTdHJ1Y3R1cmUKPiArLS0tLS0tLS0tCj4gKwo+ICtPcGVuQk1DIGhhcyBx
-dWl0ZSBhIG1vZHVsZSBzdHJ1Y3R1cmUsIGNvbnNpc3Rpbmcgb2Ygc21hbGwgZGFlbW9ucyB3aXRo
-IGEKPiArbGltaXRlZCBzZXQgb2YgcmVzcG9uc2liaWxpdGllcy4gVGhlc2UgY29tbXVuaWNhdGUg
-b3ZlciBkYnVzIHdpdGggb3RoZXIKPiArY29tcG9uZW50cywgdG8gaW1wbGVtZW50IHRoZSBjb21w
-bGV0ZSBCTUMgc3lzdGVtLgo+ICsKPiArVGhlIEJNQydzIGludGVyZmFjZXMgdG8gdGhlIGV4dGVy
-bmFsIHdvcmxkIGFyZSB0eXBpY2FsbHkgdGhyb3VnaCBhIHNlcGFyYXRlCj4gK2RhZW1vbiwgd2hp
-Y2ggdGhlbiB0cmFuc2xhdGVzIHRob3NlIHJlcXVlc3RzIHRvIGRidXMgbWVzc2FnZXMuCj4gKwo+
-ICtUaGVzZSBzZXBhcmF0ZSBwcm9qZWN0cyBhcmUgdGhlbiBjb21waWxlZCBpbnRvIHRoZSBmaW5h
-bCBzeXN0ZW0gYnkgdGhlCj4gK292ZXJhbGwgJ29wZW5ibWMnIGJ1aWxkIGluZnJhc3RydWN0dXJl
-Lgo+ICsKPiArRm9yIGZ1dHVyZSBkZXZlbG9wbWVudCwga2VlcCB0aGlzIGRlc2lnbiBpbiBtaW5k
-LiBDb21wb25lbnRzJyBmdW5jdGlvbmFsaXR5Cj4gK3Nob3VsZCBiZSBsb2dpY2FsbHkgZ3JvdXBl
-ZCwgYW5kIGtlZXAgcmVsYXRlZCBwYXJ0cyB0b2dldGhlciB3aGVyZSBpdAo+ICttYWtlcyBzZW5z
-ZS4KPiArCj4gK0NvZGluZyBzdHlsZQo+ICstLS0tLS0tLS0tLS0KPiArCj4gK0NvbXBvbmVudHMg
-b2YgdGhlIE9wZW5CTUMgc291cmNlcyBzaG91bGQgaGF2ZSBjb25zaXN0ZW50IHN0eWxlLgo+ICsK
-PiArRm9yIEMgY29kZSwgd2UgdHlwaWNhbGx5IHVzZSB0aGUgTGludXggY29kaW5nIHN0eWxlLCB3
-aGljaCBpcyBkb2N1bWVudGVkIGF0Ogo+ICsKPiArwqAgaHR0cDovL2dpdC5rZXJuZWwub3JnL2Nn
-aXQvbGludXgva2VybmVsL2dpdC90b3J2YWxkcy9saW51eC5naXQvdHJlZS9Eb2N1bWVudGF0aW9u
-L0NvZGluZ1N0eWxlCj4gKwo+ICtJbiBzaG9ydDoKPiArCj4gK8KgIC0gSW5kZW50IHdpdGggdGFi
-cyBpbnN0ZWFkIG9mIHNwYWNlcywgc2V0IGF0IDggY29sdW1ucwo+ICsKPiArwqAgLSA4MC1jb2x1
-bW4gbGluZXMKPiArCj4gK8KgIC0gT3BlbmluZyBicmFjZXMgb24gdGhlIGVuZCBvZiBhIGxpbmUs
-IGV4Y2VwdCBmb3IgZnVuY3Rpb25zCj4gKwo+ICsKPiArU3VibWl0dGluZyBjaGFuZ2VzCj4gKy0t
-LS0tLS0tLS0tLS0tLS0tLQo+ICsKPiArV2UgdXNlIGdpdCBmb3IgYWxtb3N0IGV2ZXJ5dGhpbmcu
-IENoYW5nZXMgc2hvdWxkIGJlIHNlbnQgYXMgcGF0Y2hlcyB0byB0aGVpcgo+ICtyZWxldmFudCBz
-b3VyY2UgdHJlZSAtIG9yIGEgZ2l0IHB1bGwgcmVxdWVzdCBmb3IgY29udmVuaWVuY2UuCj4gKwo+
-ICtFYWNoIGNvbW1pdCBzaG91bGQgYmUgYSBzZWxmLWNvbnRhaW5lZCBsb2dpY2FsIHVuaXQsIGFu
-ZCBzbWFsbGVyIHBhdGNoZXMgYXJlCj4gK3VzdWFsbHkgYmV0dGVyLiBIb3dldmVyLCBpZiB0aGVy
-ZSBpcyBubyBjbGVhciBkaXZpc2lvbiwgYSBsYXJnZXIgcGF0Y2ggaXMKPiArb2theS4gRHVyaW5n
-IGRldmVsb3BtZW50LCBpdCBjYW4gYmUgdXNlZnVsIHRvIGNvbnNpZGVyIGhvdyB5b3VyIGNoYW5n
-ZSBjYW4gYmUKPiArc3VibWl0dGVkIGFzIGxvZ2ljYWwgdW5pdHMuCj4gKwo+ICtDb21taXQgbWVz
-c2FnZXMgYXJlIGltcG9ydGFudC4gVGhleSBzaG91bGQgZGVzY3JpYmUgd2h5IHRoZSBjaGFuZ2Ug
-aXMgbmVlZGVkLAo+ICthbmQgd2hhdCBlZmZlY3RzIGl0IHdpbGwgaGF2ZSBvbiB0aGUgc3lzdGVt
-LiBEbyBub3QgZGVzY3JpYmUgdGhlIGFjdHVhbAo+ICtjb2RlIGNoYW5nZSBtYWRlIGJ5IHRoZSBw
-YXRjaDsgdGhhdCdzIHdoYXQgdGhlIHBhdGNoIGl0c2VsZiBpcyBmb3IuCj4gKwo+ICtVc2UgeW91
-ciBmdWxsIG5hbWUgZm9yIGNvbnRyaWJ1dGlvbnMsIGFuZCBpbmNsdWRlIGEgIlNpZ25lZC1vZmYt
-YnkiIGxpbmUsCj4gK3RvIGluZGljYXRlIHRoYXQgeW91IGFncmVlIHRvIHRoZSBEZXZlbG9wZXJz
-IENlcnRpZmljYXRlIG9mIE9yaWdpbiAoc2VlIGJlbG93KS4KPiArCj4gK0Vuc3VyZSB0aGF0IHlv
-dXIgcGF0Y2ggZG9lc24ndCBjaGFuZ2UgdW5yZWxhdGVkIGFyZWFzLiBCZSBjYXJlZnVsIG9mCj4g
-K2FjY2lkZW50YWwgd2hpdGVzcGFjZSBjaGFuZ2VzIC0gdGhpcyBtYWtlcyByZXZpZXcgdW5uZWNl
-c3NhcmlseSBkaWZmaWN1bHQuCj4gKwo+ICtUaGUgZ3VpZGVsaW5lcyBpbiB0aGUgTGludXgga2Vy
-bmVsIGFyZSB2ZXJ5IHVzZWZ1bDoKPiArCj4gKyBodHRwOi8vZ2l0Lmtlcm5lbC5vcmcvY2dpdC9s
-aW51eC9rZXJuZWwvZ2l0L3RvcnZhbGRzL2xpbnV4LmdpdC90cmVlL0RvY3VtZW50YXRpb24vU3Vi
-bWl0dGluZ1BhdGNoZXMKPiArCj4gK1lvdXIgY29udHJpYnV0aW9uIHdpbGwgZ2VuZXJhbGx5IG5l
-ZWQgdG8gYmUgcmV2aWV3ZWQgYmVmb3JlIGJlaW5nIGFjY2VwdGVkLgo+ICsKPiArQXZvaWQgcmVm
-ZXJlbmNlcyB0byBub24tcHVibGljIHJlc291cmNlcwo+ICstLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tCj4gKwo+ICtDb2RlIGFuZCBjb21taXQgbWVzc2FnZXMgc2hvdWxk
-IG5vdCByZWZlciB0byBjb21wYW5pZXMnIGludGVybmFsIGRvY3VtZW50cwo+ICtvciBzeXN0ZW1z
-IChpbmNsdWRpbmcgYnVnIHRyYWNrZXJzKS4gT3RoZXIgZGV2ZWxvcGVycyBtYXkgbm90IGhhdmUg
-YWNjZXNzIHRvCj4gK3RoZXNlLCBtYWtpbmcgZnV0dXJlIG1haW50ZW5hbmNlIGRpZmZpY3VsdC4K
-PiArCj4gKwo+ICtCZXN0IHByYWN0aWNlcyBmb3IgZGJ1cyBpbnRlcmZhY2VzCj4gKy0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KPiArCj4gKyAqIE5ldyBkYnVzIGludGVyZmFjZXMg
-c2hvdWxkIGJlIHJldXNhYmxlCj4gKwo+ICsgKiBUeXBlIHNpZ25hdHVyZXMgc2hvdWxkIGFuZCB1
-c2UgdGhlIHNpbXBsZXN0IHR5cGVzIHBvc3NpYmxlLCBhcHByb3ByaWF0ZQo+ICvCoMKgIGZvciB0
-aGUgZGF0YSBwYXNzZWQuIEZvciBleGFtcGxlLCBkb24ndCBwYXNzIG51bWJlcnMgYXMgQVNDSUkg
-c3RyaW5ncy4KPiArCj4gKyAqIE5ldyBkYnVzIGludGVyZmFjZXMgc2hvdWxkIGJlIGRvY3VtZW50
-ZWQgaW4gdGhlICdkb2NzJyByZXBvc2l0b3J5LCBhdDoKPiArCj4gK8KgwqDCoMKgIGh0dHBzOi8v
-Z2l0aHViLmNvbS9vcGVuYm1jL2RvY3MvYmxvYi9tYXN0ZXIvZGJ1cy1pbnRlcmZhY2VzLm1kCj4g
-Kwo+ICtTZWUgYWxzbzogaHR0cDovL2RidXMuZnJlZWRlc2t0b3Aub3JnL2RvYy9kYnVzLWFwaS1k
-ZXNpZ24uaHRtbAo+ICsKPiArCj4gK0Jlc3QgcHJhY3RpY2VzIGZvciBDCj4gKy0tLS0tLS0tLS0t
-LS0tLS0tLS0tCj4gKwo+ICtUaGVyZSBhcmUgbnVtZXJvdXMgcmVzb3VyY2VzIGF2YWlhbGJsZSBl
-bHNld2hlcmUsIGJ1dCBhIGZldyBpdGVtcyB0aGF0IGFyZQo+ICtyZWxldmFudCB0byBPcGVuQk1D
-IHdvcms6Cj4gKwo+ICsgKiBZb3UgYWxtb3N0IG5ldmVyIG5lZWQgdG8gdXNlIGBzeXN0ZW0oPHNv
-bWUgc2hlbGwgcGlwZWxpbmU+KWAuIFJlYWRpbmcgYW5kCj4gK8KgwqAgd3JpdGluZyBmcm9tIGZp
-bGVzIHNob3VsZCBiZSBkb25lIHdpdGggdGhlIGFwcHJvcHJpYXRlIHN5c3RlbSBjYWxscy4KPiAr
-Cj4gK8KgwqAgR2VuZXJhbGx5LCBpdCdzIG11Y2ggYmV0dGVyIHRvIHVzZSBgZm9yaygpOyBleGVj
-dmUoKWAgaWYgeW91IGRvIG5lZWQgdG8KPiArwqDCoCBzcGF3biBhIHByb2Nlc3MsIGVzcGVjaWFs
-bHkgaWYgeW91IG5lZWQgdG8gcHJvdmlkZSB2YXJpYWJsZSBhcmd1bWVudHMuCj4gKwo+ICsgKiBV
-c2UgdGhlIGBzdGRpbnRgIHR5cGVzIChlZywgYHVpbnQzMl90YCwgYGludDhfdGApIGZvciBkYXRh
-IHRoYXQgbmVlZHMgdG8gYmUKPiArwqDCoCBhIGNlcnRhaW4gc2l6ZS4gVXNlIHRoZSBgUFJJeHhg
-IG1hY3JvcyBmb3IgcHJpbnRmLCBpZiBuZWNlc3NhcnkuCj4gKwo+ICsgKiBEb24ndCBhc3N1bWUg
-dGhhdCBgY2hhcmAgaXMgc2lnbmVkIG9yIHVuc2lnbmVkLgo+ICsKPiArICogQmV3YXJlIG9mIGVu
-ZGlhbiBjb25zaWRlcmF0aW9ucyB3aGVuIHJlYWRpbmcgdG8gJiB3cml0aW5nIGZyb20KPiArwqDC
-oCBDIHR5cGVzCj4gKwo+ICsgKiBEZWNsYXJlIGludGVybmFsLW9ubHkgZnVuY3Rpb25zIGFzIGBz
-dGF0aWNgLCBkZWNsYXJlIHJlYWQtb25seSBkYXRhCj4gK8KgwqAgYXMgYGNvbnN0YCB3aGVyZSBw
-b3NzYmxlLgo+ICsKPiArCj4gK0RldmVsb3BlcidzIENlcnRpZmljYXRlIG9mIE9yaWdpbiAxLjEK
-PiArLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+ICsKPiArwqDCoMKgIEJ5
-IG1ha2luZyBhIGNvbnRyaWJ1dGlvbiB0byB0aGlzIHByb2plY3QsIEkgY2VydGlmeSB0aGF0Ogo+
-ICvCoMKgwqAgCj4gK8KgwqDCoCAoYSkgVGhlIGNvbnRyaWJ1dGlvbiB3YXMgY3JlYXRlZCBpbiB3
-aG9sZSBvciBpbiBwYXJ0IGJ5IG1lIGFuZCBJCj4gK8KgwqDCoMKgwqDCoMKgIGhhdmUgdGhlIHJp
-Z2h0IHRvIHN1Ym1pdCBpdCB1bmRlciB0aGUgb3BlbiBzb3VyY2UgbGljZW5zZQo+ICvCoMKgwqDC
-oMKgwqDCoCBpbmRpY2F0ZWQgaW4gdGhlIGZpbGU7IG9yCj4gK8KgwqDCoCAKPiArwqDCoMKgIChi
-KSBUaGUgY29udHJpYnV0aW9uIGlzIGJhc2VkIHVwb24gcHJldmlvdXMgd29yayB0aGF0LCB0byB0
-aGUgYmVzdAo+ICvCoMKgwqDCoMKgwqDCoCBvZiBteSBrbm93bGVkZ2UsIGlzIGNvdmVyZWQgdW5k
-ZXIgYW4gYXBwcm9wcmlhdGUgb3BlbiBzb3VyY2UKPiArwqDCoMKgwqDCoMKgwqAgbGljZW5zZSBh
-bmQgSSBoYXZlIHRoZSByaWdodCB1bmRlciB0aGF0IGxpY2Vuc2UgdG8gc3VibWl0IHRoYXQKPiAr
-wqDCoMKgwqDCoMKgwqAgd29yayB3aXRoIG1vZGlmaWNhdGlvbnMsIHdoZXRoZXIgY3JlYXRlZCBp
-biB3aG9sZSBvciBpbiBwYXJ0Cj4gK8KgwqDCoMKgwqDCoMKgIGJ5IG1lLCB1bmRlciB0aGUgc2Ft
-ZSBvcGVuIHNvdXJjZSBsaWNlbnNlICh1bmxlc3MgSSBhbQo+ICvCoMKgwqDCoMKgwqDCoCBwZXJt
-aXR0ZWQgdG8gc3VibWl0IHVuZGVyIGEgZGlmZmVyZW50IGxpY2Vuc2UpLCBhcyBpbmRpY2F0ZWQK
-PiArwqDCoMKgwqDCoMKgwqAgaW4gdGhlIGZpbGU7IG9yCj4gK8KgwqDCoCAKPiArwqDCoMKgIChj
-KSBUaGUgY29udHJpYnV0aW9uIHdhcyBwcm92aWRlZCBkaXJlY3RseSB0byBtZSBieSBzb21lIG90
-aGVyCj4gK8KgwqDCoMKgwqDCoMKgIHBlcnNvbiB3aG8gY2VydGlmaWVkIChhKSwgKGIpIG9yIChj
-KSBhbmQgSSBoYXZlIG5vdCBtb2RpZmllZAo+ICvCoMKgwqDCoMKgwqDCoCBpdC4KPiArwqDCoMKg
-IAo+ICvCoMKgwqAgKGQpIEkgdW5kZXJzdGFuZCBhbmQgYWdyZWUgdGhhdCB0aGlzIHByb2plY3Qg
-YW5kIHRoZSBjb250cmlidXRpb24KPiArwqDCoMKgwqDCoMKgwqAgYXJlIHB1YmxpYyBhbmQgdGhh
-dCBhIHJlY29yZCBvZiB0aGUgY29udHJpYnV0aW9uIChpbmNsdWRpbmcgYWxsCj4gK8KgwqDCoMKg
-wqDCoMKgIHBlcnNvbmFsIGluZm9ybWF0aW9uIEkgc3VibWl0IHdpdGggaXQsIGluY2x1ZGluZyBt
-eSBzaWduLW9mZikgaXMKPiArwqDCoMKgwqDCoMKgwqAgbWFpbnRhaW5lZCBpbmRlZmluaXRlbHkg
-YW5kIG1heSBiZSByZWRpc3RyaWJ1dGVkIGNvbnNpc3RlbnQgd2l0aAo+ICvCoMKgwqDCoMKgwqDC
-oCB0aGlzIHByb2plY3Qgb3IgdGhlIG9wZW4gc291cmNlIGxpY2Vuc2UocykgaW52b2x2ZWQuCj4g
-LS0gCj4gMi42LjQKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCj4gb3BlbmJtYyBtYWlsaW5nIGxpc3QKPiBvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcK
-PiBodHRwczovL2xpc3RzLm96bGFicy5vcmcvbGlzdGluZm8vb3BlbmJtYwo=
+On Thu, Jan 14, 2016 at 03:10:09AM -0600, OpenBMC Patches wrote:
+> From: Jeremy Kerr <jk@ozlabs.org>
+<snip>
+> +OpenBMC has quite a module structure, consisting of small daemons with a
+> +limited set of responsibilities. These communicate over dbus with other
+> +components, to implement the complete BMC system.
+<snip>
+
+Just a nitpick: should that be s/module/modular?
