@@ -1,24 +1,86 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <austenc@us.ibm.com>
+Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
+ (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id B59E71A0075
- for <openbmc@lists.ozlabs.org>; Sat, 16 Jan 2016 17:31:26 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1452925879799730.4589259627498;
- Fri, 15 Jan 2016 22:31:19 -0800 (PST)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Cc: William <bjlinan@cn.ibm.com>
-Subject: [PATCH skeleton] skeleton: Add BMC cold_reset() method to
- org.openbmc.control.Bmc dbus interface
-Date: Sat, 16 Jan 2016 00:31:18 -0600
-Message-Id: <1452925878-19525-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.4
+ by lists.ozlabs.org (Postfix) with ESMTPS id A97EF1A0075
+ for <openbmc@lists.ozlabs.org>; Sat, 16 Jan 2016 18:23:30 +1100 (AEDT)
+Received: from localhost
+ by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Sat, 16 Jan 2016 00:23:28 -0700
+Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
+ by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Sat, 16 Jan 2016 00:23:26 -0700
+X-IBM-Helo: d03dlp03.boulder.ibm.com
+X-IBM-MailFrom: austenc@us.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from b01cxnp23032.gho.pok.ibm.com (b01cxnp23032.gho.pok.ibm.com
+ [9.57.198.27])
+ by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id 5071619D8026
+ for <openbmc@lists.ozlabs.org>; Sat, 16 Jan 2016 00:11:27 -0700 (MST)
+Received: from d01av01.pok.ibm.com (d01av01.pok.ibm.com [9.56.224.215])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u0G7NPPP32833694
+ for <openbmc@lists.ozlabs.org>; Sat, 16 Jan 2016 07:23:25 GMT
+Received: from d01av01.pok.ibm.com (localhost [127.0.0.1])
+ by d01av01.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u0G7NP5O014817
+ for <openbmc@lists.ozlabs.org>; Sat, 16 Jan 2016 02:23:25 -0500
+Received: from d50lp01.ny.us.ibm.com (d50lp01.pok.ibm.com [146.89.104.207])
+ by d01av01.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u0G7NPMm014807
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Sat, 16 Jan 2016 02:23:25 -0500
+Message-Id: <201601160723.u0G7NPMm014807@d01av01.pok.ibm.com>
+Received: from /spool/local
+ by d50lp01.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Sat, 16 Jan 2016 02:23:25 -0500
+Received: from smtp.notes.na.collabserv.com (192.155.248.72)
+ by d50lp01.ny.us.ibm.com (158.87.18.20) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
+ Sat, 16 Jan 2016 02:23:23 -0500
+Received: from /spool/local
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Sat, 16 Jan 2016 07:23:22 -0000
+Received: from us1a3-smtp01.a3.dal06.isc4sb.com (10.106.154.100)
+ by smtp.notes.na.collabserv.com (10.106.227.158) with
+ smtp.notes.na.collabserv.com ESMTP; Sat, 16 Jan 2016 07:23:21 -0000
+Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
+ by us1a3-smtp01.a3.dal06.isc4sb.com
+ with ESMTP id 2016011607242195-19521 ;
+ Sat, 16 Jan 2016 07:24:21 +0000 
+To: "OpenBMC Patches" <openbmc-patches@stwcx.xyz>
 In-Reply-To: <1452925878-19525-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1452925878-19525-1-git-send-email-openbmc-patches@stwcx.xyz>
-X-Zoho-Virus-Status: 1
+Date: Sat, 16 Jan 2016 07:23:21 +0000
+From: "Chris Austen" <austenc@us.ibm.com>
+Subject: Re: [PATCH skeleton] skeleton: Add BMC cold_reset() method to
+ org.openbmc.control.Bmc dbus interface
+Cc: "openbmc" <openbmc@lists.ozlabs.org>
+Importance: Normal
+MIME-Version: 1.0
+X-Mailer: IBM Traveler 9.0.1.9 Build 201512301413_20
+X-KeepSent: A5D5A368:0252597D-00257F3C:00289714;
+ type=4; name=$KeepSent
+X-LLNOutbound: False
+X-Disclaimed: 45167
+X-TNEFEvaluated: 1
+Content-Type: multipart/alternative; 
+ boundary="----=_Part_33_1036271044.1452929001336"
+x-cbid: 16011607-0013-0000-0000-00001BF08FE9
+X-IBM-ISS-SpamDetectors: Score=0.429909; BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0;
+ PH=0; SC=0.429909; ST=0; TS=0; UL=0; ISC=
+X-IBM-ISS-DetailInfo: BY=3.00004795; HX=3.00000239; KW=3.00000007;
+ PH=3.00000004; SC=3.00000133; SDB=6.00645967; UDB=6.00291476; UTC=2016-01-16
+ 07:23:22
+x-cbparentid: 16011607-5090-0000-0000-000006AE6384
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -30,326 +92,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 16 Jan 2016 06:31:27 -0000
+X-List-Received-Date: Sat, 16 Jan 2016 07:23:31 -0000
 
-From: William <bjlinan@cn.ibm.com>
 
-The host sends IPMI 'cold reset' command to reset BMC. Ipmid
-calls the org.openbmc.control.Bmc::cold_reset() to do reset.
-cold_reset() just invoke "reboot --force", which in effect
-same as a 'cold' reset.
----
- interfaces/openbmc_intf.c | 56 +++++++++++++++++++++++------------------------
- interfaces/openbmc_intf.h | 10 ++++-----
- objects/control_bmc_obj.c | 35 +++++++++++++++++++++++++----
- xml/openbmc_intf.xml      |  2 +-
- 4 files changed, 65 insertions(+), 38 deletions(-)
+------=_Part_33_1036271044.1452929001336
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-diff --git a/interfaces/openbmc_intf.c b/interfaces/openbmc_intf.c
-index 1619115..0b53486 100644
---- a/interfaces/openbmc_intf.c
-+++ b/interfaces/openbmc_intf.c
-@@ -14419,22 +14419,22 @@ control_skeleton_new (void)
- 
- /* ---- Introspection data for org.openbmc.control.Bmc ---- */
- 
--static const _ExtendedGDBusMethodInfo _control_bmc_method_info_place_holder =
-+static const _ExtendedGDBusMethodInfo _control_bmc_method_info_cold_reset =
- {
-   {
-     -1,
--    (gchar *) "place_holder",
-+    (gchar *) "cold_reset",
-     NULL,
-     NULL,
-     NULL
-   },
--  "handle-place-holder",
-+  "handle-cold-reset",
-   FALSE
- };
- 
- static const _ExtendedGDBusMethodInfo * const _control_bmc_method_info_pointers[] =
- {
--  &_control_bmc_method_info_place_holder,
-+  &_control_bmc_method_info_cold_reset,
-   NULL
- };
- 
-@@ -14492,7 +14492,7 @@ control_bmc_override_properties (GObjectClass *klass, guint property_id_begin)
- /**
-  * ControlBmcIface:
-  * @parent_iface: The parent interface.
-- * @handle_place_holder: Handler for the #ControlBmc::handle-place-holder signal.
-+ * @handle_cold_reset: Handler for the #ControlBmc::handle-cold-reset signal.
-  *
-  * Virtual table for the D-Bus interface <link linkend="gdbus-interface-org-openbmc-control-Bmc.top_of_page">org.openbmc.control.Bmc</link>.
-  */
-@@ -14505,20 +14505,20 @@ control_bmc_default_init (ControlBmcIface *iface)
- {
-   /* GObject signals for incoming D-Bus method calls: */
-   /**
--   * ControlBmc::handle-place-holder:
-+   * ControlBmc::handle-cold-reset:
-    * @object: A #ControlBmc.
-    * @invocation: A #GDBusMethodInvocation.
-    *
--   * Signal emitted when a remote caller is invoking the <link linkend="gdbus-method-org-openbmc-control-Bmc.place_holder">place_holder()</link> D-Bus method.
-+   * Signal emitted when a remote caller is invoking the <link linkend="gdbus-method-org-openbmc-control-Bmc.cold_reset">cold_reset()</link> D-Bus method.
-    *
--   * If a signal handler returns %TRUE, it means the signal handler will handle the invocation (e.g. take a reference to @invocation and eventually call control_bmc_complete_place_holder() or e.g. g_dbus_method_invocation_return_error() on it) and no order signal handlers will run. If no signal handler handles the invocation, the %G_DBUS_ERROR_UNKNOWN_METHOD error is returned.
-+   * If a signal handler returns %TRUE, it means the signal handler will handle the invocation (e.g. take a reference to @invocation and eventually call control_bmc_complete_cold_reset() or e.g. g_dbus_method_invocation_return_error() on it) and no order signal handlers will run. If no signal handler handles the invocation, the %G_DBUS_ERROR_UNKNOWN_METHOD error is returned.
-    *
-    * Returns: %TRUE if the invocation was handled, %FALSE to let other signal handlers run.
-    */
--  g_signal_new ("handle-place-holder",
-+  g_signal_new ("handle-cold-reset",
-     G_TYPE_FROM_INTERFACE (iface),
-     G_SIGNAL_RUN_LAST,
--    G_STRUCT_OFFSET (ControlBmcIface, handle_place_holder),
-+    G_STRUCT_OFFSET (ControlBmcIface, handle_cold_reset),
-     g_signal_accumulator_true_handled,
-     NULL,
-     g_cclosure_marshal_generic,
-@@ -14529,27 +14529,27 @@ control_bmc_default_init (ControlBmcIface *iface)
- }
- 
- /**
-- * control_bmc_call_place_holder:
-+ * control_bmc_call_cold_reset:
-  * @proxy: A #ControlBmcProxy.
-  * @cancellable: (allow-none): A #GCancellable or %NULL.
-  * @callback: A #GAsyncReadyCallback to call when the request is satisfied or %NULL.
-  * @user_data: User data to pass to @callback.
-  *
-- * Asynchronously invokes the <link linkend="gdbus-method-org-openbmc-control-Bmc.place_holder">place_holder()</link> D-Bus method on @proxy.
-+ * Asynchronously invokes the <link linkend="gdbus-method-org-openbmc-control-Bmc.cold_reset">cold_reset()</link> D-Bus method on @proxy.
-  * When the operation is finished, @callback will be invoked in the <link linkend="g-main-context-push-thread-default">thread-default main loop</link> of the thread you are calling this method from.
-- * You can then call control_bmc_call_place_holder_finish() to get the result of the operation.
-+ * You can then call control_bmc_call_cold_reset_finish() to get the result of the operation.
-  *
-- * See control_bmc_call_place_holder_sync() for the synchronous, blocking version of this method.
-+ * See control_bmc_call_cold_reset_sync() for the synchronous, blocking version of this method.
-  */
- void
--control_bmc_call_place_holder (
-+control_bmc_call_cold_reset (
-     ControlBmc *proxy,
-     GCancellable *cancellable,
-     GAsyncReadyCallback callback,
-     gpointer user_data)
- {
-   g_dbus_proxy_call (G_DBUS_PROXY (proxy),
--    "place_holder",
-+    "cold_reset",
-     g_variant_new ("()"),
-     G_DBUS_CALL_FLAGS_NONE,
-     -1,
-@@ -14559,17 +14559,17 @@ control_bmc_call_place_holder (
- }
- 
- /**
-- * control_bmc_call_place_holder_finish:
-+ * control_bmc_call_cold_reset_finish:
-  * @proxy: A #ControlBmcProxy.
-- * @res: The #GAsyncResult obtained from the #GAsyncReadyCallback passed to control_bmc_call_place_holder().
-+ * @res: The #GAsyncResult obtained from the #GAsyncReadyCallback passed to control_bmc_call_cold_reset().
-  * @error: Return location for error or %NULL.
-  *
-- * Finishes an operation started with control_bmc_call_place_holder().
-+ * Finishes an operation started with control_bmc_call_cold_reset().
-  *
-  * Returns: (skip): %TRUE if the call succeded, %FALSE if @error is set.
-  */
- gboolean
--control_bmc_call_place_holder_finish (
-+control_bmc_call_cold_reset_finish (
-     ControlBmc *proxy,
-     GAsyncResult *res,
-     GError **error)
-@@ -14586,26 +14586,26 @@ _out:
- }
- 
- /**
-- * control_bmc_call_place_holder_sync:
-+ * control_bmc_call_cold_reset_sync:
-  * @proxy: A #ControlBmcProxy.
-  * @cancellable: (allow-none): A #GCancellable or %NULL.
-  * @error: Return location for error or %NULL.
-  *
-- * Synchronously invokes the <link linkend="gdbus-method-org-openbmc-control-Bmc.place_holder">place_holder()</link> D-Bus method on @proxy. The calling thread is blocked until a reply is received.
-+ * Synchronously invokes the <link linkend="gdbus-method-org-openbmc-control-Bmc.cold_reset">cold_reset()</link> D-Bus method on @proxy. The calling thread is blocked until a reply is received.
-  *
-- * See control_bmc_call_place_holder() for the asynchronous version of this method.
-+ * See control_bmc_call_cold_reset() for the asynchronous version of this method.
-  *
-  * Returns: (skip): %TRUE if the call succeded, %FALSE if @error is set.
-  */
- gboolean
--control_bmc_call_place_holder_sync (
-+control_bmc_call_cold_reset_sync (
-     ControlBmc *proxy,
-     GCancellable *cancellable,
-     GError **error)
- {
-   GVariant *_ret;
-   _ret = g_dbus_proxy_call_sync (G_DBUS_PROXY (proxy),
--    "place_holder",
-+    "cold_reset",
-     g_variant_new ("()"),
-     G_DBUS_CALL_FLAGS_NONE,
-     -1,
-@@ -14621,16 +14621,16 @@ _out:
- }
- 
- /**
-- * control_bmc_complete_place_holder:
-+ * control_bmc_complete_cold_reset:
-  * @object: A #ControlBmc.
-  * @invocation: (transfer full): A #GDBusMethodInvocation.
-  *
-- * Helper function used in service implementations to finish handling invocations of the <link linkend="gdbus-method-org-openbmc-control-Bmc.place_holder">place_holder()</link> D-Bus method. If you instead want to finish handling an invocation by returning an error, use g_dbus_method_invocation_return_error() or similar.
-+ * Helper function used in service implementations to finish handling invocations of the <link linkend="gdbus-method-org-openbmc-control-Bmc.cold_reset">cold_reset()</link> D-Bus method. If you instead want to finish handling an invocation by returning an error, use g_dbus_method_invocation_return_error() or similar.
-  *
-  * This method will free @invocation, you cannot use it afterwards.
-  */
- void
--control_bmc_complete_place_holder (
-+control_bmc_complete_cold_reset (
-     ControlBmc *object,
-     GDBusMethodInvocation *invocation)
- {
-diff --git a/interfaces/openbmc_intf.h b/interfaces/openbmc_intf.h
-index bb71e45..4d0801c 100644
---- a/interfaces/openbmc_intf.h
-+++ b/interfaces/openbmc_intf.h
-@@ -1850,7 +1850,7 @@ struct _ControlBmcIface
- {
-   GTypeInterface parent_iface;
- 
--  gboolean (*handle_place_holder) (
-+  gboolean (*handle_cold_reset) (
-     ControlBmc *object,
-     GDBusMethodInvocation *invocation);
- 
-@@ -1863,25 +1863,25 @@ guint control_bmc_override_properties (GObjectClass *klass, guint property_id_be
- 
- 
- /* D-Bus method call completion functions: */
--void control_bmc_complete_place_holder (
-+void control_bmc_complete_cold_reset (
-     ControlBmc *object,
-     GDBusMethodInvocation *invocation);
- 
- 
- 
- /* D-Bus method calls: */
--void control_bmc_call_place_holder (
-+void control_bmc_call_cold_reset (
-     ControlBmc *proxy,
-     GCancellable *cancellable,
-     GAsyncReadyCallback callback,
-     gpointer user_data);
- 
--gboolean control_bmc_call_place_holder_finish (
-+gboolean control_bmc_call_cold_reset_finish (
-     ControlBmc *proxy,
-     GAsyncResult *res,
-     GError **error);
- 
--gboolean control_bmc_call_place_holder_sync (
-+gboolean control_bmc_call_cold_reset_sync (
-     ControlBmc *proxy,
-     GCancellable *cancellable,
-     GError **error);
-diff --git a/objects/control_bmc_obj.c b/objects/control_bmc_obj.c
-index 6b92235..77c34ed 100644
---- a/objects/control_bmc_obj.c
-+++ b/objects/control_bmc_obj.c
-@@ -67,7 +67,7 @@ void reg_init()
- 
- 	//UART
- 
--	
-+
- 	bmcreg = memmap(mem_fd,UART_BASE);
- 	devmem(bmcreg+0x00,0x00000000);  //Set Baud rate divisor -> 13 (Baud 115200)
- 	devmem(bmcreg+0x04,0x00000000);  //Set Baud rate divisor -> 13 (Baud 115200)
-@@ -109,9 +109,31 @@ on_init (Control          *control,
- 	//#endif
- 	control_complete_init(control,invocation);
- 	//control_emit_goto_system_state(control,"BMC_STARTING");
--	
-+
-+	return TRUE;
-+}
-+
-+static gboolean
-+on_cold_reset (Control          *control,
-+         GDBusMethodInvocation  *invocation,
-+         gpointer                user_data)
-+{
-+	GError *err = NULL;
-+	/* wait a while before reboot, so the caller can get respond */
-+	/* note that g_spawn_command_line_async cannot parse ';' as
-+	 * a command separator. Need to use 'sh -c' to let shell parse it. */
-+	gchar *reboot_command = "/bin/sh -c 'sleep 3;reboot --force'";
-+
-+	g_spawn_command_line_async(reboot_command, &err);
-+	if (err != NULL) {
-+		fprintf(stderr, "cold_reset() err: %s\n", err->message);
-+		g_error_free (err);
-+	}
-+
-+	control_bmc_complete_cold_reset(control,invocation);
- 	return TRUE;
- }
-+
- gboolean go(gpointer user_data)
- {
-  	cmdline *cmd = user_data;
-@@ -125,7 +147,7 @@ gboolean go(gpointer user_data)
- 	return FALSE;
- }
- 
--static void 
-+static void
- on_bus_acquired (GDBusConnection *connection,
-                  const gchar     *name,
-                  gpointer         user_data)
-@@ -153,6 +175,11 @@ on_bus_acquired (GDBusConnection *connection,
-                	    G_CALLBACK (on_init),
-                	    NULL); /* user_data */
- 
-+	g_signal_connect (control_bmc,
-+       	            "handle-cold-reset",
-+               	    G_CALLBACK (on_cold_reset),
-+               	    NULL); /* user_data */
-+
- 	/* Export the object (@manager takes its own reference to @object) */
- 	g_dbus_object_manager_server_export (manager, G_DBUS_OBJECT_SKELETON (object));
- 	g_object_unref (object);
-@@ -210,7 +237,7 @@ main (gint argc, gchar *argv[])
-                        NULL);
- 
-   g_main_loop_run (loop);
--  
-+
-   g_bus_unown_name (id);
-   g_main_loop_unref (loop);
-   return 0;
-diff --git a/xml/openbmc_intf.xml b/xml/openbmc_intf.xml
-index 791fc48..27965a1 100644
---- a/xml/openbmc_intf.xml
-+++ b/xml/openbmc_intf.xml
-@@ -107,7 +107,7 @@
- 		<signal name="Started"/>
- 	</interface>
- 	<interface name="org.openbmc.control.Bmc">
--		<method name="place_holder"/>
-+		<method name="cold_reset"/>
- 	</interface>
- 	<interface name="org.openbmc.control.Host">
- 		<method name="boot"/>
--- 
-2.6.4
+Needs to move out of skeleton.  Use sdbus no gdbus=0A =0A Sent from my iPho=
+ne using IBM Verse=0A =0A On Jan 16, 2016, 12:31:39 AM, "OpenBMC Patches" <=
+openbmc-patches@stwcx.xyz> wrote:=0A =0A   The host sends IPMI 'cold reset'=
+ command to reset BMC. Ipmid=0A  calls the org.openbmc.control.Bmc::cold=5F=
+reset() to do reset.=0A  cold=5Freset() just invoke "reboot --force", which=
+ in effect=0A  same as a 'cold' reset.=0A  https://github.com/openbmc/skele=
+ton/pull/28=0A  William (1):=0A   skeleton: Add BMC cold=5Freset() method t=
+o org.openbmc.control.Bmc dbus=0A     interface=0A  interfaces/openbmc=5Fin=
+tf.c | 56 +++++++++++++++++++++++------------------------=0A  interfaces/op=
+enbmc=5Fintf.h | 10 ++++-----=0A  objects/control=5Fbmc=5Fobj.c | 35 ++++++=
++++++++++++++++++++----=0A  xml/openbmc=5Fintf.xml      |  2 +-=0A  4 files=
+ changed, 65 insertions(+), 38 deletions(-)=0A  -- =0A  2.6.4=0A  =5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=0A  openbmc maili=
+ng list=0A  openbmc@lists.ozlabs.org=0A  https://lists.ozlabs.org/listinfo/=
+openbmc
+
+------=_Part_33_1036271044.1452929001336
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=utf-8
+
+<html><head><META http-equiv=3D"Content-Type" content=3D"text/html;charset=
+=3Dutf-8"></head><body><div id=3D"content" contenteditable=3D"true" spellch=
+eck=3D"true" autocorrect=3D"true" autocapitalize=3D"true" style=3D"font-fam=
+ily: Helvetica;">Needs to move out of skeleton. &nbsp;Use sdbus no gdbus<br=
+><br>Sent from my iPhone using IBM Verse<br><br><hr>On Jan 16, 2016, 12:31:=
+39 AM, "OpenBMC Patches" &lt;openbmc-patches@stwcx.xyz&gt; wrote:<br><div s=
+tyle=3D"margin-left: 15px;" id=3D"MaaS360PIMSDKOriginalMessageId">The&nbsp;=
+host&nbsp;sends&nbsp;IPMI&nbsp;'cold&nbsp;reset'&nbsp;command&nbsp;to&nbsp;=
+reset&nbsp;BMC.&nbsp;Ipmid<br>calls&nbsp;the&nbsp;org.openbmc.control.Bmc::=
+cold=5Freset()&nbsp;to&nbsp;do&nbsp;reset.<br>cold=5Freset()&nbsp;just&nbsp=
+;invoke&nbsp;"reboot&nbsp;--force",&nbsp;which&nbsp;in&nbsp;effect<br>same&=
+nbsp;as&nbsp;a&nbsp;'cold'&nbsp;reset.<br>https://github.com/openbmc/skelet=
+on/pull/28<br>William&nbsp;(1):<br>&nbsp;skeleton:&nbsp;Add&nbsp;BMC&nbsp;c=
+old=5Freset()&nbsp;method&nbsp;to&nbsp;org.openbmc.control.Bmc&nbsp;dbus<br=
+>&nbsp;&nbsp;&nbsp;interface<br>interfaces/openbmc=5Fintf.c&nbsp;|&nbsp;56&=
+nbsp;+++++++++++++++++++++++------------------------<br>interfaces/openbmc=
+=5Fintf.h&nbsp;|&nbsp;10&nbsp;++++-----<br>objects/control=5Fbmc=5Fobj.c&nb=
+sp;|&nbsp;35&nbsp;+++++++++++++++++++++++++----<br>xml/openbmc=5Fintf.xml&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;2&nbsp;+-<br>4&nbsp;files&nb=
+sp;changed,&nbsp;65&nbsp;insertions(+),&nbsp;38&nbsp;deletions(-)<br>--&nbs=
+p;<br>2.6.4<br>=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F<br>openbmc&nbsp;mailing&nbsp;list<br>openbmc@lists.ozlabs.org<br>htt=
+ps://lists.ozlabs.org/listinfo/openbmc<br></div></div><BR>
+</body></html>
+
+------=_Part_33_1036271044.1452929001336--
