@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id EBF471A0146
+ by lists.ozlabs.org (Postfix) with ESMTPS id 2A90E1A040B
  for <openbmc@lists.ozlabs.org>; Mon, 18 Jan 2016 13:40:57 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1453084837279159.59266253330622;
- Sun, 17 Jan 2016 18:40:37 -0800 (PST)
+ with SMTPS id 1453084840194282.66472847891;
+ Sun, 17 Jan 2016 18:40:40 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton v5 1/5] Add inventory fan5
-Date: Sun, 17 Jan 2016 20:40:31 -0600
-Message-Id: <1453084835-12886-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v5 5/5] Reset button does not power on when dc off
+Date: Sun, 17 Jan 2016 20:40:35 -0600
+Message-Id: <1453084835-12886-6-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 In-Reply-To: <1453084835-12886-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1453084835-12886-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -34,20 +34,21 @@ X-List-Received-Date: Mon, 18 Jan 2016 02:40:58 -0000
 From: Ken <ken.sk.lai@mail.foxconn.com>
 
 ---
- bin/Barreleye.py | 1 +
- 1 file changed, 1 insertion(+)
+ bin/chassis_control.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/bin/Barreleye.py b/bin/Barreleye.py
-index e9b188b..07d368a 100755
---- a/bin/Barreleye.py
-+++ b/bin/Barreleye.py
-@@ -223,6 +223,7 @@ FRU_INSTANCES = {
- 	'<inventory_root>/system/chassis/fan2' : { 'fru_type' : 'FAN','is_fru' : True, },
- 	'<inventory_root>/system/chassis/fan3' : { 'fru_type' : 'FAN','is_fru' : True, },
- 	'<inventory_root>/system/chassis/fan4' : { 'fru_type' : 'FAN','is_fru' : True, },
-+        '<inventory_root>/system/chassis/fan5' : { 'fru_type' : 'FAN','is_fru' : True, },
- 
- 	'<inventory_root>/system/chassis/motherboard/bmc' : { 'fru_type' : 'BMC','is_fru' : False, 'manufacturer' : 'ASPEED' },
- 
+diff --git a/bin/chassis_control.py b/bin/chassis_control.py
+index 07d1aaf..8298aee 100755
+--- a/bin/chassis_control.py
++++ b/bin/chassis_control.py
+@@ -130,7 +130,7 @@ class ChassisControlObject(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
+ 	def reboot(self):
+ 		print "Rebooting"
+ 		if self.getPowerState() == POWER_OFF:
+-			self.powerOn();
++			print "Power off, no reboot."
+ 		else:
+ 			self.Set(DBUS_NAME,"reboot",1)
+ 			self.powerOff()
 -- 
 2.6.4
