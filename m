@@ -1,53 +1,53 @@
 Return-Path: <cyrilbur@gmail.com>
-Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
- [IPv6:2607:f8b0:400e:c00::241])
+Received: from mail-pf0-x242.google.com (mail-pf0-x242.google.com
+ [IPv6:2607:f8b0:400e:c00::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id A2A371A0023
- for <openbmc@lists.ozlabs.org>; Tue, 19 Jan 2016 09:58:28 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id E175A1A0023
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Jan 2016 10:00:12 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=A0ee3Tbv; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=kITnkRJl; 
  dkim-atps=neutral
-Received: by mail-pf0-x241.google.com with SMTP id e65so12306729pfe.0
- for <openbmc@lists.ozlabs.org>; Mon, 18 Jan 2016 14:58:28 -0800 (PST)
+Received: by mail-pf0-x242.google.com with SMTP id 65so12267017pff.2
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Jan 2016 15:00:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=date:from:to:cc:subject:message-id:in-reply-to:references
  :mime-version:content-type:content-transfer-encoding;
- bh=bqBDMSoEpqWck7rSXnn5Fr8qSLvAzkVnebCGrGnz5VU=;
- b=A0ee3TbvZW7s35A/wn/i4TmyRf750dj5zsafPjevacs35mWP8II1OB27pJmdoDj3CQ
- WJMCzcvfJuTcrgnqt6K0S294EoHV754z89V2Xh9N8VXJMqAXYQ+cfdFCGQaLiuJKsWXc
- WS4ptI6IC6yKDn9AsHwDrIhW5qWrZ0NS+JoB7aus9jPUivByrSm5ZNDi81gMBpEYCNRN
- gTKy3KXeI2U+hwGV9jP5Wb8Oemj2zxwSCKRzAls4oT0umfOGtlNwjoTfuEYGvqcSmvQl
- m9Kfq6RJvYTXG7vd8U5/5rbYKosybGEx4OHW0Vy3DZ45PB8qxtnHILEKN/+i53tGnnNN
- aIaQ==
+ bh=z1chn48xP0EghBUBkI1JXkFskp8a4gmCkUP8EAui02I=;
+ b=kITnkRJlAkOxTtasoeGcswC/8kg8ovc/e1wc77F0hzg8jAe4XgOnamthOjSNaUMNvN
+ 915ri8g06DbrHHxlTbzKN87w1gXuDM19cxrQ98Kcvo35slLUNU7fIoTiDJ1AoV8tpzJB
+ 7f963S8ZaCY23IbzOnWlpGaCNlNnfDnYvALe8B96VBC88XyPsyySKkbwSXIRUb+IAT/Q
+ m9HHlK7DNZRBIifwHeHiW5I8MwZL065IrpkHxkXNHor0NR2W8hEv825sw4ckvVuZevMJ
+ AR0CS5zYe1c+9fNLwWFts1WQP9QNOGyaWSjMOIdT8UsC/8rGNctk+Hv0LQTEh7limr1z
+ icLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
  :references:mime-version:content-type:content-transfer-encoding;
- bh=bqBDMSoEpqWck7rSXnn5Fr8qSLvAzkVnebCGrGnz5VU=;
- b=dtpNgu7iuopZPRkJHcpZw1+2FOwX0FkS1oEdh2Kpdut1fZbUqTM2Dl884iE/8GaLda
- oLV8KEGN56yM+cFyLzQ5LBt4PYWIia8rpSqZ+jXTfuyFO0vl8Te+zXtUVU+sSGCGeNKK
- 2qQUmuPtu2kCYTx4TxQbjG0nP16VJzmRll90x7VQirsmgrZ4tREZYYVxkqm9ORFWgeCa
- Mc9zbGtQWRU7IAB/horGxxeJXlzR9ZxjMSO02fDr+qGqqJPvoPWMHMgMTeijoV78jxNe
- VyhTB8u8JbYdPv6kTkxNz3fRwfLltXG7dQmuWly7HoRquNRn70dXOZKsqTUDnBmrU4fF
- 9WhA==
-X-Gm-Message-State: ALoCoQnNjoPZkJ35kN/2rS/OSvq2TvuJ6FSBOiKW+ocNpIc1aTvol3HdB2lCSvuTBku0oPP8kswLW294cvsrnBhJoy6nbrRVkw==
-X-Received: by 10.98.80.135 with SMTP id g7mr40064610pfj.132.1453157906515;
- Mon, 18 Jan 2016 14:58:26 -0800 (PST)
+ bh=z1chn48xP0EghBUBkI1JXkFskp8a4gmCkUP8EAui02I=;
+ b=J62XXwUkK1HBrcs5AKuDEbNtBy5qzjHNn7nDNdywQEg91EdpiIO59mQ+3FvXv98uhh
+ aSY/k6CowJ7dVcks+V5xy841xmzx6SPmgyAnoaFwcvJLSyieZppR0NQPDaX4wo4/bw4F
+ 1W3WSa9puTvsMs2+j8vjvv5XAktDEdYVJp5B3qdugGCAnzRmYALACmtD2CqsZkYrNdjF
+ MaauKlBf1d/a7i6QYKmELz9KuIy1KwBm1brVSOGt06veiL8EoGnZIvxLrcRd1jvK1WJm
+ /YO648avWp5eM5Lus/4cAP5ZzEINEucuK85GwuS2sXJxCc+oCrk/E4YUOXuQ/vaqLvtd
+ K+RQ==
+X-Gm-Message-State: ALoCoQn1Va/T63zgpY0GCNMILsx1CGIXL9nGba0JIwLLItLHdQJh4MYb6L2uV8MvbtFwgFkHDgIbTI2VhE6iSG025odyyWhwcw==
+X-Received: by 10.98.70.17 with SMTP id t17mr39624667pfa.107.1453158010903;
+ Mon, 18 Jan 2016 15:00:10 -0800 (PST)
 Received: from camb691 ([122.99.82.10])
- by smtp.gmail.com with ESMTPSA id dz12sm36550773pac.2.2016.01.18.14.58.24
+ by smtp.gmail.com with ESMTPSA id mj1sm36454867pab.34.2016.01.18.15.00.09
  (version=TLSv1/SSLv3 cipher=OTHER);
- Mon, 18 Jan 2016 14:58:26 -0800 (PST)
-Date: Tue, 19 Jan 2016 09:58:18 +1100
+ Mon, 18 Jan 2016 15:00:10 -0800 (PST)
+Date: Tue, 19 Jan 2016 10:00:03 +1100
 From: Cyril Bur <cyrilbur@gmail.com>
 To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 Cc: openbmc@lists.ozlabs.org, Ken <ken.sk.lai@mail.foxconn.com>
-Subject: Re: [PATCH skeleton v3 4/4] Solve auto power on issue, confirm GPIO
+Subject: Re: [PATCH skeleton v5 4/5] Solve auto power on issue, confirm GPIO
  status before send the signal
-Message-ID: <20160119095818.3e7c3193@camb691>
-In-Reply-To: <1452772237-6542-5-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1452772237-6542-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1452772237-6542-5-git-send-email-openbmc-patches@stwcx.xyz>
+Message-ID: <20160119100003.00279380@camb691>
+In-Reply-To: <1453084835-12886-5-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1453084835-12886-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1453084835-12886-5-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: Claws Mail 3.13.1 (GTK+ 2.24.29; x86_64-unknown-linux-gnu)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -63,9 +63,9 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Jan 2016 22:58:29 -0000
+X-List-Received-Date: Mon, 18 Jan 2016 23:00:13 -0000
 
-On Thu, 14 Jan 2016 05:50:37 -0600
+On Sun, 17 Jan 2016 20:40:34 -0600
 OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
 
 > From: Ken <ken.sk.lai@mail.foxconn.com>
@@ -73,15 +73,11 @@ OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
 
 Hi Ken,
 
-Just a few comments mostly around style here, Jeremy has gone to some effort to
-put up some docs on guidelines to follow when sending patches:
-https://github.com/openbmc/docs/blob/master/contributing.md
+Sorry I responded to this patch in v3 but my comments are still relevant here.
 
-Please be careful with whitespace changes, you have a few lines in your diff
-that are functionally equivalent but just change whitespace.
+Apologies,
 
-If you do want to clean up whitespace problems, no objections but please have
-them changes in a separate patch.
+Cyril
 
 > ---
 >  objects/button_power_obj.c | 37 ++++++++++++++++++++++++-------------
@@ -136,20 +132,10 @@ them changes in a separate patch.
 > +		//	{
 > +		//		button_emit_pressed_long(button);
 > +		//	} else {
-
-The benefit of using version control is that code can simply be deleted when it
-is need to be non functional but will exist forever in the history and can
-easily be looked up if/when it is needed again.
-
-If you want to remove code even temporarily, please delete it.
-
 > +			rc1 =  gpio_open(&gpio_button);
 > +			rc1 = gpio_read(&gpio_button,&val);
 > +			if (val == 1)
 > +			button_emit_released(button);
-
-Please indent.
-
 > +
 > +			//	if (press_time > 1)
 > +			//	sleep(1);
