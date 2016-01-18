@@ -3,17 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id CEA711A004E
+ by lists.ozlabs.org (Postfix) with ESMTPS id EED071A03ED
  for <openbmc@lists.ozlabs.org>; Mon, 18 Jan 2016 13:40:57 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1453084838008125.28176597600202;
+ with SMTPS id 1453084838785161.84432535982535;
  Sun, 17 Jan 2016 18:40:38 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton v5 2/5] Initial fan LED status
-Date: Sun, 17 Jan 2016 20:40:32 -0600
-Message-Id: <1453084835-12886-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v5 3/5] Remove reboot function in power button,
+ reboot is in reset button.
+Date: Sun, 17 Jan 2016 20:40:33 -0600
+Message-Id: <1453084835-12886-4-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 In-Reply-To: <1453084835-12886-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1453084835-12886-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -34,23 +35,31 @@ X-List-Received-Date: Mon, 18 Jan 2016 02:40:58 -0000
 From: Ken <ken.sk.lai@mail.foxconn.com>
 
 ---
- bin/startup_hacks.sh | 7 +++++++
- 1 file changed, 7 insertions(+)
+ bin/chassis_control.py | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/bin/startup_hacks.sh b/bin/startup_hacks.sh
-index 18582ae..02fd3a8 100755
---- a/bin/startup_hacks.sh
-+++ b/bin/startup_hacks.sh
-@@ -2,3 +2,10 @@
+diff --git a/bin/chassis_control.py b/bin/chassis_control.py
+index fa3b9b6..07d1aaf 100755
+--- a/bin/chassis_control.py
++++ b/bin/chassis_control.py
+@@ -57,9 +57,6 @@ class ChassisControlObject(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
+ 		bus.add_signal_receiver(self.power_button_signal_handler, 
+ 					dbus_interface = "org.openbmc.Button", signal_name = "Released", 
+ 					path="/org/openbmc/buttons/power0" )
+-		bus.add_signal_receiver(self.reset_button_signal_handler, 
+-					dbus_interface = "org.openbmc.Button", signal_name = "PressedLong", 
+-					path="/org/openbmc/buttons/power0" )
+ 		bus.add_signal_receiver(self.softreset_button_signal_handler, 
+ 					dbus_interface = "org.openbmc.Button", signal_name = "Released", 
+ 					path="/org/openbmc/buttons/reset0" )
+@@ -188,7 +185,7 @@ class ChassisControlObject(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
+ 		self.reboot();
  
- systemctl stop serial-getty@ttyS0
- 
-+# Set to output pin
-+i2cset -y 0x06 0x20 0x06 0x00
-+i2cset -y 0x06 0x20 0x07 0x00
-+
-+# Turn on all fan LED to BLUE
-+i2cset -y 0x06 0x20 0x03 0x55
-+i2cset -y 0x06 0x20 0x02 0xaa
+ 	def softreset_button_signal_handler(self):
+-		self.softReboot();
++		self.reboot();
+ 		
+ 	def host_watchdog_signal_handler(self):
+ 		print "Watchdog Error, Hard Rebooting"
 -- 
 2.6.4
