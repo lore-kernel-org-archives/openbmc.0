@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 7C43B1A004E
- for <openbmc@lists.ozlabs.org>; Mon, 18 Jan 2016 17:47:50 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id F347B1A003F
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Jan 2016 19:10:15 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1453099208827892.334636668287;
- Sun, 17 Jan 2016 22:40:08 -0800 (PST)
+ with SMTPS id 1453104609012540.7113835850914;
+ Mon, 18 Jan 2016 00:10:09 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH docs] Update cheatsheet.md
-Date: Mon, 18 Jan 2016 00:40:07 -0600
-Message-Id: <1453099208-19798-1-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH docs] README: Add overview page with index
+Date: Mon, 18 Jan 2016 02:10:07 -0600
+Message-Id: <1453104608-22459-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -26,15 +26,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Jan 2016 06:47:51 -0000
+X-List-Received-Date: Mon, 18 Jan 2016 08:10:16 -0000
 
-https://github.com/openbmc/docs/pull/12
+Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
 
-Joel Stanley (1):
-  Update cheatsheet.md
+https://github.com/openbmc/docs/pull/14
 
- cheatsheet.md | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Jeremy Kerr (1):
+  README: Add overview page with index
+
+ README.md | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
 -- 
 2.6.4
