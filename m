@@ -3,17 +3,19 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4EC8C1A0146
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4F7151A03ED
  for <openbmc@lists.ozlabs.org>; Mon, 18 Jan 2016 20:30:16 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1453109411290806.9587785878515;
- Mon, 18 Jan 2016 01:30:11 -0800 (PST)
+ with SMTPS id 145310941211369.24494586176434;
+ Mon, 18 Jan 2016 01:30:12 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Subject: [PATCH docs] doc: Add doc for BMC dbus object
-Date: Mon, 18 Jan 2016 03:30:09 -0600
-Message-Id: <1453109410-24851-1-git-send-email-openbmc-patches@stwcx.xyz>
+Date: Mon, 18 Jan 2016 03:30:10 -0600
+Message-Id: <1453109410-24851-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
+In-Reply-To: <1453109410-24851-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1453109410-24851-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -28,17 +30,29 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Mon, 18 Jan 2016 09:30:18 -0000
 
+From: Yi Li <adamliyi@msn.com>
+
 Add coldReset() method.
 
 Signed-off-by: Yi Li <adamliyi@msn.com>
-
-https://github.com/openbmc/docs/pull/15
-
-Yi Li (1):
-  doc: Add doc for BMC dbus object
-
+---
  dbus-interfaces.md | 6 ++++++
  1 file changed, 6 insertions(+)
 
+diff --git a/dbus-interfaces.md b/dbus-interfaces.md
+index 28fe410..21bf56c 100644
+--- a/dbus-interfaces.md
++++ b/dbus-interfaces.md
+@@ -151,4 +151,10 @@ properties:
+ 
+   *  `state`
+ 
++# BMC
+ 
++## `/org/openbmc/control/bmc/bmc0`
++
++methods:
++
++  * `coldReset()`
 -- 
 2.6.4
