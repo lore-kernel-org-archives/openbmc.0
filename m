@@ -3,19 +3,21 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id BD7471A0026
- for <openbmc@lists.ozlabs.org>; Tue, 19 Jan 2016 08:30:34 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id BE1BC1A00AF
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Jan 2016 08:30:35 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1453152627992994.4445103426234;
- Mon, 18 Jan 2016 13:30:27 -0800 (PST)
+ with SMTPS id 1453152628864875.0890928972908;
+ Mon, 18 Jan 2016 13:30:28 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Norman James <nkskjames@gmail.com>
-Subject: [PATCH linux] Adds HDD backplane and SAS expander board VPD to device
- tree
-Date: Mon, 18 Jan 2016 15:30:26 -0600
-Message-Id: <1453152627-13304-1-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: Norman James <njames@us.ibm.com>,
+	Norman James <nkskjames@gmail.com>
+Subject: [PATCH linux] Add HDD backplane and SAS expander VPD to device tree
+Date: Mon, 18 Jan 2016 15:30:27 -0600
+Message-Id: <1453152627-13304-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
+In-Reply-To: <1453152627-13304-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1453152627-13304-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -30,15 +32,33 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Mon, 18 Jan 2016 21:30:36 -0000
 
-Signed-off-by:  Norman James <nkskjames@gmail.com>
+From: Norman James <njames@us.ibm.com>
 
-https://github.com/openbmc/linux/pull/40
-
-Norman James (1):
-  Add HDD backplane and SAS expander VPD to device tree
-
+Signed-off-by: Norman James <nkskjames@gmail.com>
+---
  arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts | 10 ++++++++++
  1 file changed, 10 insertions(+)
 
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+index 38a4fd0..27a503f 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+@@ -35,6 +35,16 @@
+ 						compatible = "nuvoton,nct7904";
+ 						reg = <0x2e>;
+ 					};
++					eeprom@51 {
++						compatible = "atmel,24c256";
++						reg = <0x51>;
++						pagesize = <64>;
++					};
++					eeprom@55 {
++						compatible = "atmel,24c256";
++						reg = <0x55>;
++						pagesize = <64>;
++					};
+ 				};
+ 			};
+ 		};
 -- 
 2.6.4
