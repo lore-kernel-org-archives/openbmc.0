@@ -3,19 +3,21 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 0A6DF1A001D
- for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2016 07:10:31 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id E520D1A001D
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2016 07:10:34 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1453234227655214.62044560391985;
- Tue, 19 Jan 2016 12:10:27 -0800 (PST)
+ with SMTPS id 14532342289271021.6692578647251;
+ Tue, 19 Jan 2016 12:10:28 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Norman James <nkskjames@gmail.com>
-Subject: [PATCH linux v2] Adds HDD backplane and SAS expander board VPD to
- device tree
-Date: Tue, 19 Jan 2016 14:10:25 -0600
-Message-Id: <1453234226-16200-1-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: Norman James <njames@us.ibm.com>,
+	Norman James <nkskjames@gmail.com>
+Subject: [PATCH linux v2] Add HDD backplane and SAS expander VPD to device tree
+Date: Tue, 19 Jan 2016 14:10:26 -0600
+Message-Id: <1453234226-16200-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
+In-Reply-To: <1453234226-16200-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1453234226-16200-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -28,17 +30,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Jan 2016 20:10:32 -0000
+X-List-Received-Date: Tue, 19 Jan 2016 20:10:35 -0000
 
-Signed-off-by:  Norman James <nkskjames@gmail.com>
+From: Norman James <njames@us.ibm.com>
 
-https://github.com/openbmc/linux/pull/40
-
-Norman James (1):
-  Add HDD backplane and SAS expander VPD to device tree
-
+Signed-off-by: Norman James <nkskjames@gmail.com>
+---
  arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts | 10 ++++++++++
  1 file changed, 10 insertions(+)
 
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+index 38a4fd0..ebf86bb 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+@@ -35,6 +35,16 @@
+ 						compatible = "nuvoton,nct7904";
+ 						reg = <0x2e>;
+ 					};
++					eeprom@51 {
++						compatible = "atmel,24c02";
++						reg = <0x51>;
++						pagesize = <8>;
++					};
++					eeprom@55 {
++						compatible = "atmel,24c02";
++						reg = <0x55>;
++						pagesize = <8>;
++					};
+ 				};
+ 			};
+ 		};
 -- 
 2.6.4
