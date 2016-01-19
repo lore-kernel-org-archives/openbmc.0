@@ -3,21 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 65AB91A0FFF
- for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2016 07:20:24 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 321341A0E50
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2016 08:00:30 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 14532348188541013.1561075885083;
- Tue, 19 Jan 2016 12:20:18 -0800 (PST)
+ with SMTPS id 1453237229005186.20307429135585;
+ Tue, 19 Jan 2016 13:00:29 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Norman James <njames@us.ibm.com>,
-	Norman James <nkskjames@gmail.com>
-Subject: [PATCH linux] Add HDD backplane and SAS expander VPD to device tree
-Date: Tue, 19 Jan 2016 14:20:17 -0600
-Message-Id: <1453234817-17178-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc] uboot tftp can not handle noise
+Date: Tue, 19 Jan 2016 15:00:27 -0600
+Message-Id: <1453237228-21013-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
-In-Reply-To: <1453234817-17178-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1453234817-17178-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -30,35 +26,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Jan 2016 20:20:24 -0000
+X-List-Received-Date: Tue, 19 Jan 2016 21:00:31 -0000
 
-From: Norman James <njames@us.ibm.com>
+Pull in the fixes that allows netbooting to work well
+Without this change netbooting was impossible due to
+timeout problems downloading images for netbooting.
+Sometimes I would get timeouts right away, other times
+it would take longer but every time it fail to copy
+the file completely before timeouts would hit.
 
-Signed-off-by: Norman James <nkskjames@gmail.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+https://github.com/openbmc/openbmc/pull/138
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-index 38a4fd0..ebf86bb 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-@@ -35,6 +35,16 @@
- 						compatible = "nuvoton,nct7904";
- 						reg = <0x2e>;
- 					};
-+					eeprom@51 {
-+						compatible = "atmel,24c02";
-+						reg = <0x51>;
-+						pagesize = <8>;
-+					};
-+					eeprom@55 {
-+						compatible = "atmel,24c02";
-+						reg = <0x55>;
-+						pagesize = <8>;
-+					};
- 				};
- 			};
- 		};
+Chris Austen (1):
+  uboot tftp can not handle noise
+
+ .../recipes-bsp/u-boot/u-boot_2013.07%.bbappend    |  6 +-
+ ...h-Add-use-DEFAULT_LINUX_BOOT_ENV-environm.patch | 74 ----------------------
+ .../common/recipes-bsp/u-boot/u-boot_2013.07.bb    |  7 +-
+ 3 files changed, 4 insertions(+), 83 deletions(-)
+ delete mode 100644 meta-phosphor/common/recipes-bsp/u-boot/files/0001-am335x_evm.h-Add-use-DEFAULT_LINUX_BOOT_ENV-environm.patch
+
 -- 
 2.6.4
