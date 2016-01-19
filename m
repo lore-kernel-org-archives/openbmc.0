@@ -3,20 +3,19 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 1617A1A0D21
- for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2016 00:40:44 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 0A6DF1A001D
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2016 07:10:31 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1453210837539789.6090954823604;
- Tue, 19 Jan 2016 05:40:37 -0800 (PST)
+ with SMTPS id 1453234227655214.62044560391985;
+ Tue, 19 Jan 2016 12:10:27 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: =?UTF-8?q?=5BPATCH=20skeleton=5D=20skeleton=3A=20Rewrite=20setValue=28=29=20method=20for=20Dbus=20object=20/org/openbmc/sens=E2=80=A6?=
-Date: Tue, 19 Jan 2016 07:40:35 -0600
-Message-Id: <1453210836-15319-1-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: Norman James <nkskjames@gmail.com>
+Subject: [PATCH linux v2] Adds HDD backplane and SAS expander board VPD to
+ device tree
+Date: Tue, 19 Jan 2016 14:10:25 -0600
+Message-Id: <1453234226-16200-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -29,27 +28,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Jan 2016 13:40:45 -0000
+X-List-Received-Date: Tue, 19 Jan 2016 20:10:32 -0000
 
-…ors/host/PowerCap
+Signed-off-by:  Norman James <nkskjames@gmail.com>
 
-obmc uses dbus interface 'org.openbmc.SensorValue' of the object
-'/org/openbmc/sensors/host/PowerCap' to set Host PowerCap.
-Rewrite the setValue() method to set PowerCap via the
-"/sys/class/hwmon/hwmonX/user_powercap" OCC-HWMON sysfs attribute.
-BMC will sends a "Set User PowerCap" command to OCC.
+https://github.com/openbmc/linux/pull/40
 
-Signed-off-by: Yi Li <adamliyi@msn.com>
+Norman James (1):
+  Add HDD backplane and SAS expander VPD to device tree
 
-https://github.com/openbmc/skeleton/pull/30
-
-Yi Li (1):
-  skeleton: Rewrite setValue() method for Dbus object
-    /org/openbmc/sensors/host/PowerCap
-
- bin/Sensors.py         | 22 ++++++++++++++++++----
- bin/sensor_manager2.py |  7 ++++++-
- 2 files changed, 24 insertions(+), 5 deletions(-)
+ arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
 -- 
 2.6.4
