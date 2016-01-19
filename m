@@ -1,44 +1,22 @@
-Return-Path: <andrew@aj.id.au>
-Received: from hapkido.dreamhost.com (hapkido.dreamhost.com [66.33.216.122])
- by lists.ozlabs.org (Postfix) with ESMTP id 810D21A0023
- for <openbmc@lists.ozlabs.org>; Tue, 19 Jan 2016 11:24:48 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=do3lq0d5; 
- dkim-atps=neutral
-Received: from homiemail-a75.g.dreamhost.com (sub3.mail.dreamhost.com
- [69.163.253.7])
- by hapkido.dreamhost.com (Postfix) with ESMTP id 562468C7BA
- for <openbmc@lists.ozlabs.org>; Mon, 18 Jan 2016 16:24:46 -0800 (PST)
-Received: from homiemail-a75.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a75.g.dreamhost.com (Postfix) with ESMTP id 8F3935EC079;
- Mon, 18 Jan 2016 16:24:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
- :subject:from:reply-to:to:date:in-reply-to:references
- :content-type:mime-version:content-transfer-encoding; s=aj.id.au
- ; bh=JT/QPKRlxKw/mYrz2WvVO7NThoQ=; b=do3lq0d5TOvrRbWG6bK65HhngIq
- PuqQziSSNVPdaqOavNS0kFjc8WTv97aAiDuRHOznnNwVH8oJi9xmWMIqOnNxjOXz
- Gn81BcscnkldLbZjxjn2ocV3NFJwxD+7KiIoEpZ9YU5swsnYRf43/BS/3k2rYsO2
- KsOZZ+h1bf6d5BWQ=
-Received: from keelia (unknown [203.0.153.9])
- (using TLSv1 with cipher AES128-SHA (128/128 bits))
+Return-Path: <openbmc-patches@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- (Authenticated sender: andrew@aj.id.au)
- by homiemail-a75.g.dreamhost.com (Postfix) with ESMTPSA id C575F5EC072;
- Mon, 18 Jan 2016 16:24:42 -0800 (PST)
-Message-ID: <1453163031.2773.2.camel@aj.id.au>
-Subject: Re: [PATCH docs] README: Add overview page with index
-From: Andrew Jeffery <andrew@aj.id.au>
-Reply-To: andrew@aj.id.au
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-Date: Tue, 19 Jan 2016 10:53:51 +1030
-In-Reply-To: <1453104608-22459-2-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1453104608-22459-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1453104608-22459-2-git-send-email-openbmc-patches@stwcx.xyz>
-Organization: IBM OzLabs
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.16.5-1ubuntu3.1 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3CCDF1A00AF
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Jan 2016 15:40:44 +1100 (AEDT)
+Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
+ with SMTPS id 1453178437602831.5593828144818;
+ Mon, 18 Jan 2016 20:40:37 -0800 (PST)
+From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+To: openbmc@lists.ozlabs.org
+Cc: Nan Li <bjlinan@cn.ibm.com>
+Subject: [PATCH skeleton] skeleton: Add BMC coldReset() method to
+ org.openbmc.control.Bmc dbus interface
+Date: Mon, 18 Jan 2016 22:40:35 -0600
+Message-Id: <1453178436-26125-1-git-send-email-openbmc-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.6.4
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -50,47 +28,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Jan 2016 00:24:49 -0000
+X-List-Received-Date: Tue, 19 Jan 2016 04:40:46 -0000
 
-On Mon, 2016-01-18 at 02:10 -0600, OpenBMC Patches wrote:
-> From: Jeremy Kerr <jk@ozlabs.org>
-> 
-> Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
-> ---
->  README.md | 15 ++++++++++++++-
->  1 file changed, 14 insertions(+), 1 deletion(-)
-> 
-> diff --git a/README.md b/README.md
-> index 9b69328..689cd3d 100644
-> --- a/README.md
-> +++ b/README.md
-> @@ -1 +1,14 @@
-> -# docs
-> +# OpenBMC documentation
-> +
-> +This repository contains documentation for OpenBMC as a whole. There
-> may
-> +be component-specific documentation in the repository for each
-> component.
-> +
-> + - cheatsheet.md: Quick reference for some common development tasks
+The host sends IPMI 'cold reset' command to reset BMC. Ipmid
+calls the org.openbmc.control.Bmc::coldReset() to do reset.
+coldReset() just invokes "reboot --force", which in effect
+same as a 'cold' reset.
 
-It'd be nice to make all of these relative links[1], so:
+Signed-off-by: Nan Li <bjlinan@cn.ibm.com>
 
-    [cheatsheet.md](cheetsheet.md): Quick ...
+https://github.com/openbmc/skeleton/pull/29
 
-And so on for the remaining bullets
+William (1):
+  skeleton: Add BMC coldReset() method to org.openbmc.control.Bmc dbus
+    interface
 
-> +
-> + - contributing.md: Guidelines for contributing to OpenBMC
-> +
-> + - dbus-interfaces.md: Reference for APIs exposed to dbus
-> +
-> + - kernel-development.md: Reference for common kernel development
-> tasks
-> +
-> + - rest-api.md: Introduction to using the OpenBMC REST API
+ interfaces/openbmc_intf.c | 56 +++++++++++++++++++++++------------------------
+ interfaces/openbmc_intf.h | 10 ++++-----
+ objects/control_bmc_obj.c | 37 ++++++++++++++++++++++++++-----
+ xml/openbmc_intf.xml      |  2 +-
+ 4 files changed, 66 insertions(+), 39 deletions(-)
 
-Andrew
-
-[1] https://github.com/blog/1395-relative-links-in-markup-files
+-- 
+2.6.4
