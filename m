@@ -3,18 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id A6A251A184F
- for <openbmc@lists.ozlabs.org>; Thu, 21 Jan 2016 10:10:29 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 50A131A1881
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Jan 2016 10:10:30 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1453331425767503.8660412901428;
+ with SMTPS id 1453331425048348.65472591724495;
  Wed, 20 Jan 2016 15:10:25 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: "Milton D. Miller II" <miltonm@us.ibm.com>
-Subject: [PATCH openbmc 6/6] phosphor: Create image class image-overlay and
- move phosphor to use it
-Date: Wed, 20 Jan 2016 17:10:20 -0600
-Message-Id: <1453331420-6524-7-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 5/6] create u-boot-fw-utils for our u-boot version
+Date: Wed, 20 Jan 2016 17:10:19 -0600
+Message-Id: <1453331420-6524-6-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 In-Reply-To: <1453331420-6524-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1453331420-6524-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -34,165 +33,99 @@ X-List-Received-Date: Wed, 20 Jan 2016 23:10:30 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-This commit creates a new class image-overlay based on how the
-image-live class is structured.  It takes parameters for the base
-and overlayed file system types but the initfs only support ext4
-over squashfs presently.
+This commit creates a class and recipie based on the upstream 2015
+branch of u-boot and patches it with our fw_env.config.
 
-It then moves invoking the generation of the flash image from a
-post image creation command to a seperate task invoked from the
-overlay image so that building the initramfs image by itself does
-not try to create
-a flash image.
+Having these tools for the initfs will allow us to modify the u-boot
+enviornment to do things like boot from network for update and set the
+bmc mac addresses in the environment for u-boot and use by the kernel.
+
+Unfornately its broken in that it produces a host binary instead of
+a target binary when building the base package.  I have not been able
+to resolve this despite several attempts.
 ---
- meta-phosphor/classes/image-overlay.bbclass        | 18 +++++++
- .../obmc-phosphor-image_types_uboot.bbclass        | 55 +++++++++++++++-------
- meta-phosphor/conf/distro/openbmc-phosphor.conf    |  1 +
- .../conf/machine/include/obmc-bsp-common.inc       | 10 +++-
- 4 files changed, 65 insertions(+), 19 deletions(-)
- create mode 100644 meta-phosphor/classes/image-overlay.bbclass
+ .../u-boot/u-boot-fw-utils_2013.07%.bbappend       | 13 ++++++
+ .../recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb  | 52 ++++++++++++++++++++++
+ 2 files changed, 65 insertions(+)
+ create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/u-boot-fw-utils_2013.07%.bbappend
+ create mode 100644 meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb
 
-diff --git a/meta-phosphor/classes/image-overlay.bbclass b/meta-phosphor/classes/image-overlay.bbclass
+diff --git a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/u-boot-fw-utils_2013.07%.bbappend b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/u-boot-fw-utils_2013.07%.bbappend
 new file mode 100644
-index 0000000..1c6137d
+index 0000000..4020696
 --- /dev/null
-+++ b/meta-phosphor/classes/image-overlay.bbclass
-@@ -0,0 +1,18 @@
++++ b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/u-boot-fw-utils_2013.07%.bbappend
+@@ -0,0 +1,13 @@
++FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 +
-+INITRD_IMAGE ?= "core-image-minimal-initramfs"
-+INITRD ?= "${DEPLOY_DIR_IMAGE}/${INITRD_IMAGE}-${MACHINE}.cpio.${INITRD_CTYPE}${uboot}"
++SRC_URI += "file://fw_env.config"
++SRC_URI += "file://config.patch"
 +
-+IMAGE_BASETYPE ?= "squashfs-xz"
-+OVERLAY_BASETYPE ?= "ext4"
++do_install_append() {
++    if [ -e ${WORKDIR}/fw_env.config ] ; then
++        install -d ${D}${sysconfdir}
++        install -m 644 ${WORKDIR}/fw_env.config ${D}${sysconfdir}/fw_env.config
++    fi
++}
 +
-+IMAGE_TYPES_${PN} += "${IMAGE_BASETYPE}"
++BBCLASSEXTEND += "native"
+diff --git a/meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb b/meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb
+new file mode 100644
+index 0000000..6f72945
+--- /dev/null
++++ b/meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb
+@@ -0,0 +1,52 @@
++SUMMARY = "U-Boot bootloader fw_printenv/setenv utilities"
++SECTION = "bootloader"
++DEPENDS = "mtd-utils"
 +
-+IMAGE_TYPEDEP_overlay = "${IMAGE_BASETYPE} ${OVERLAY_BASETYPE}"
-+IMAGE_TYPES_MASKED += "overlay"
++LICENSE = "GPLv2+"
++LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb \
++                    file://README;beginline=1;endline=22;md5=78b195c11cb6ef63e6985140db7d7bab"
 +
-+ROOTFS ?= "${DEPLOY_DIR_IMAGE}/${IMAGE_BASENAME}-${MACHINE}.${IMAGE_BASETYPE}"
++# This revision corresponds to the tag "v2013.07"
++# We use the revision in order to avoid having to fetch it from the
++# repo during parse
++# SRCREV = "62c175fbb8a0f9a926c88294ea9f7e88eb898f6c"
++SRCREV="${AUTOREV}"
 +
-+do_generate_flash[depends] += "${INITRD_IMAGE}:do_rootfs"
-+do_generate_flash[depends] += "${PN}:do_rootfs"
++PV = "v2013.07+git${SRCPV}"
 +
-+addtask generate_flash after do_rootfs before do_build
-diff --git a/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass b/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
-index 835e890..14e9289 100644
---- a/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
-+++ b/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
-@@ -4,44 +4,65 @@ inherit image_types_uboot
- # the image load address and entry point. Override it here.
- 
- oe_mkimage () {
--    mkimage -A ${UBOOT_ARCH} -O linux -T ramdisk -C $2 -n ${IMAGE_NAME} \
-+    mkimage -A ${UBOOT_ARCH} -O linux -T ramdisk -C $2 -n ${IMAGE_BASENAME} \
-         -a ${INITRD_IMAGE_LOADADDRESS} -e ${INITRD_IMAGE_ENTRYPOINT} \
-         -d ${DEPLOY_DIR_IMAGE}/$1 ${DEPLOY_DIR_IMAGE}/$1.u-boot
- }
- 
- INITRD_IMAGE_ENTRYPOINT ?= "0x40800000"
- INITRD_IMAGE_LOADADDRESS ?= "${INITRD_IMAGE_ENTRYPOINT}"
-+INITRD_LINK_NAME = "${INITRD_IMAGE}-${MACHINE}${INITRAMFS_FSTYPE}"
- 
- FLASH_IMAGE_NAME ?= "flash-${MACHINE}-${DATETIME}"
- FLASH_IMAGE_LINK ?= "flash-${MACHINE}"
- 
- FLASH_UBOOT_OFFSET ?= "0"
- FLASH_KERNEL_OFFSET ?= "512"
--FLASH_ROOTFS_OFFSET ?= "3072"
-+FLASH_INITRD_OFFSET ?= "3072"
-+FLASH_ROFS_OFFSET ?= "4864"
-+FLASH_RWFS_OFFSET ?= "28672"
-+RWFS_SIZE ?= "4096"
- 
--IMAGE_POSTPROCESS_COMMAND += "do_generate_flash"
-+# $(( ${FLASH_SIZE} - ${FLASH_RWFS_OFFSET} ))
++UBRANCH = "v2013.07-aspeed-openbmc"
++SRC_URI = "git://git@github.com/openbmc/u-boot.git;branch=${UBRANCH};protocol=https"
++S = "${WORKDIR}/git"
 +
-+# IMAGE_POSTPROCESS_COMMAND += "do_generate_flash"
- 
- do_generate_flash() {
--       kernel="${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}"
--       uboot="${DEPLOY_DIR_IMAGE}/u-boot.${UBOOT_SUFFIX}"
--       rootfs="${DEPLOY_DIR_IMAGE}/${IMAGE_LINK_NAME}.cpio.${IMAGE_CTYPE}.u-boot"
--       if [ ! -f $kernel ]; then
--              bbfatal "Kernel file ${kernel} does not exist"
-+       INITRD_CTYPE=${INITRAMFS_CTYPE}
-+       ddir="${DEPLOY_DIR_IMAGE}"
-+       kernel="${KERNEL_IMAGETYPE}"
-+       uboot="u-boot.${UBOOT_SUFFIX}"
-+       initrd="${INITRD_LINK_NAME}.cpio.${INITRD_CTYPE}"
-+       uinitrd="${initrd}.u-boot"
-+       rootfs="${IMAGE_LINK_NAME}.${IMAGE_BASETYPE}"
-+       rwfs="rwfs.${OVERLAY_BASETYPE}"
++INSANE_SKIP_${PN} = "already-stripped"
++EXTRA_OEMAKE_class-target = 'CROSS_COMPILE=${TARGET_PREFIX} CC="${CC} ${CFLAGS} ${LDFLAGS}" V=1'
++EXTRA_OEMAKE_class-cross = 'ARCH=${TARGET_ARCH} CC="${CC} ${CFLAGS} ${LDFLAGS}" V=1'
 +
-+       if [ ! -f $ddir/$kernel ]; then
-+              bbfatal "Kernel file ${ddir}/${kernel} does not exist"
-        fi
--       if [ ! -f $uboot ]; then
--              bbfatal "U-boot file ${uboot} does not exist"
-+       if [ ! -f $ddir/$uboot ]; then
-+              bbfatal "U-boot file ${ddir}/${uboot} does not exist"
-        fi
--       if [ ! -f $rootfs ]; then
--              bbfatal "Rootfs file ${rootfs} does not exist"
-+       if [ ! -f $ddir/$initrd ]; then
-+              bbfatal "initrd file ${ddir}/${initrd} does not exist"
-        fi
-+       if [ ! -f $ddir/$rootfs ]; then
-+              bbfatal "Rootfs file ${ddir}/${rootfs} does not exist"
-+       fi
++inherit uboot-config
 +
-+       oe_mkimage  "${initrd}" "${INITRD_CTYPE}" || bbfatal "oe_mkimage initrd"
-+       dd if=/dev/zero of=${ddir}/${rwfs} bs=1k count=${RWFS_SIZE}
-+       mkfs.${OVERLAY_BASETYPE} -b 4096 -F -O^huge_file ${ddir}/${rwfs} || bbfatal "mkfs rwfs"
- 
--       dst="${DEPLOY_DIR_IMAGE}/${FLASH_IMAGE_NAME}"
-+       dst="${ddir}/${FLASH_IMAGE_NAME}"
-        rm -rf $dst
-        dd if=/dev/zero of=${dst} bs=1k count=${FLASH_SIZE}
--       dd if=${uboot} of=${dst} bs=1k seek=${FLASH_UBOOT_OFFSET}
--       dd if=${kernel} of=${dst} bs=1k seek=${FLASH_KERNEL_OFFSET}
--       dd if=${rootfs} of=${dst} bs=1k seek=${FLASH_ROOTFS_OFFSET}
--       dstlink="${DEPLOY_DIR_IMAGE}/${FLASH_IMAGE_LINK}"
-+       dd if=${ddir}/${uboot} of=${dst} bs=1k seek=${FLASH_UBOOT_OFFSET}
-+       dd if=${ddir}/${kernel} of=${dst} bs=1k seek=${FLASH_KERNEL_OFFSET}
-+       dd if=${ddir}/${uinitrd} of=${dst} bs=1k seek=${FLASH_INITRD_OFFSET}
-+       dd if=${ddir}/${rootfs} of=${dst} bs=1k seek=${FLASH_ROFS_OFFSET}
-+       dd if=${ddir}/${rwfs} of=${dst} bs=1k seek=${FLASH_RWFS_OFFSET}
-+       dstlink="${ddir}/${FLASH_IMAGE_LINK}"
-        rm -rf $dstlink
-        ln -sf ${FLASH_IMAGE_NAME} $dstlink
- }
-diff --git a/meta-phosphor/conf/distro/openbmc-phosphor.conf b/meta-phosphor/conf/distro/openbmc-phosphor.conf
-index b59715d..418a98e 100644
---- a/meta-phosphor/conf/distro/openbmc-phosphor.conf
-+++ b/meta-phosphor/conf/distro/openbmc-phosphor.conf
-@@ -7,6 +7,7 @@ TARGET_VENDOR="-openbmc"
- 
- GCCVERSION ?= "4.9.3"
- IMAGE_FSTYPES += "cpio.gz"
-+IMAGE_FSTYPES += "squashfs-xz"
- IMAGE_LINGUAS = "en-us"
- 
- VIRTUAL-RUNTIME_keymaps = ""
-diff --git a/meta-phosphor/conf/machine/include/obmc-bsp-common.inc b/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
-index d7a681c..916fa48 100644
---- a/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
-+++ b/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
-@@ -13,6 +13,12 @@ UBOOT_SUFFIX ?= "bin"
- 
- MACHINEOVERRIDES =. "openbmc:"
- 
-+IMAGE_FSTYPES += "overlay"
++do_compile () {
++	oe_runmake ${UBOOT_MACHINE}
++	oe_runmake env
++}
 +
- IMAGE_CLASSES += "obmc-phosphor-image_types_uboot"
--IMAGE_CTYPE = "lzma"
--IMAGE_FSTYPES += "cpio.${IMAGE_CTYPE}.u-boot"
-+IMAGE_CLASSES += "image-overlay"
++do_install () {
++	install -d ${D}${base_sbindir}
++	install -d ${D}${sysconfdir}
++	install -m 755 ${S}/tools/env/fw_printenv ${D}${base_sbindir}/fw_printenv
++	install -m 755 ${S}/tools/env/fw_printenv ${D}${base_sbindir}/fw_setenv
++	install -m 0644 ${S}/tools/env/fw_env.config ${D}${sysconfdir}/fw_env.config
++}
 +
-+INITRAMFS_CTYPE ?= "lzma"
-+INITRAMFS_FSTYPES += "cpio.${INITRAMFS_CTYPE}"
++do_install_class-cross () {
++	install -d ${D}${bindir_cross}
++	install -m 755 ${S}/tools/env/fw_printenv ${D}${bindir_cross}/fw_printenv
++	install -m 755 ${S}/tools/env/fw_printenv ${D}${bindir_cross}/fw_setenv
++}
 +
++SYSROOT_PREPROCESS_FUNCS_class-cross = "uboot_fw_utils_cross"
++uboot_fw_utils_cross() {
++	sysroot_stage_dir ${D}${bindir_cross} ${SYSROOT_DESTDIR}${bindir_cross}
++}
 +
++PACKAGE_ARCH = "${MACHINE_ARCH}"
++BBCLASSEXTEND = "cross native"
 -- 
 2.6.4
