@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 078DC1A1803
- for <openbmc@lists.ozlabs.org>; Thu, 21 Jan 2016 10:10:26 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 427581A1803
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Jan 2016 10:10:28 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1453331421879401.1760987605686;
- Wed, 20 Jan 2016 15:10:21 -0800 (PST)
+ with SMTPS id 1453331424318493.8915435204109;
+ Wed, 20 Jan 2016 15:10:24 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: "Milton D. Miller II" <miltonm@us.ibm.com>
-Subject: [PATCH openbmc 1/6] create obmc-phosphor-initfs
-Date: Wed, 20 Jan 2016 17:10:15 -0600
-Message-Id: <1453331420-6524-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 4/6] u-boot : switch to repro, add fw_env.config
+Date: Wed, 20 Jan 2016 17:10:18 -0600
+Message-Id: <1453331420-6524-5-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 In-Reply-To: <1453331420-6524-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1453331420-6524-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,365 +29,75 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Jan 2016 23:10:27 -0000
+X-List-Received-Date: Wed, 20 Jan 2016 23:10:28 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-This recipe holds the key scripts for an initramfs image.  Written in
-sh to run with busybox, these three scripts handle mounting, unmounting,
-and updating a set of mtd partitions to form a read/write overlay on a
-read/only compressed base.
+Switch to the obmc repro so that u-boot can effectively download the
+kernel and initrd for recovery from corrupted flash partitions.
 
-The init script will mount the base sysfs, proc, and devtmpfs as well
-as run.  It copies itself to run/initramfs to create the shutdown and
-update environment.   The shutdown script will unmount the remaining
-nodev and root filesystems from oldroot where systemd-shutdown pivots
-the old file system, then looks for image- files an if found invokes
-upate otherwise it performs the final reboot, powerdown, or kexec, or
-halt.  The update script will attempt to mount the read/write overlay
-and preserve selected files and directories based on a whitelist.
-It then unmounts and writes all image files to their named mtd partition
-using flashcp, mounts and restores the saved files, and finally
-unmounts the fs and performs the final reboot or halt etc.
+Add the fw_env.config pointing to /dev/mtd2 as 128k, which the
+current flash layout.
 ---
- meta-phosphor/classes/obmc-phosphor-initfs.bbclass |   4 +
- .../obmc-phosphor-initfs/files/obmc-init.sh        |  78 ++++++++++++++++
- .../obmc-phosphor-initfs/files/obmc-shutdown.sh    |  55 +++++++++++
- .../obmc-phosphor-initfs/files/obmc-update.sh      | 102 +++++++++++++++++++++
- .../obmc-phosphor-initfs/files/whitelist           |   8 ++
- .../obmc-phosphor-initfs/obmc-phosphor-init.bb     |  28 ++++++
- .../common/recipes-phosphor/skeleton/skeleton.bb   |   2 +-
- 7 files changed, 276 insertions(+), 1 deletion(-)
- create mode 100644 meta-phosphor/classes/obmc-phosphor-initfs.bbclass
- create mode 100644 meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
- create mode 100644 meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
- create mode 100755 meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
- create mode 100644 meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/whitelist
- create mode 100644 meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb
+ .../meta-ast2400/recipes-bsp/u-boot/files/fw_env.config          | 4 ++--
+ .../meta-ast2400/recipes-bsp/u-boot/u-boot_2013.07%.bbappend     | 7 ++-----
+ meta-phosphor/common/recipes-bsp/u-boot/u-boot_2013.07.bb        | 9 +++++----
+ 3 files changed, 9 insertions(+), 11 deletions(-)
 
-diff --git a/meta-phosphor/classes/obmc-phosphor-initfs.bbclass b/meta-phosphor/classes/obmc-phosphor-initfs.bbclass
-new file mode 100644
-index 0000000..de7923e
---- /dev/null
-+++ b/meta-phosphor/classes/obmc-phosphor-initfs.bbclass
-@@ -0,0 +1,4 @@
-+# Common code for recipes that implement Phosphor OpenBMC filesystem
-+
-+RPROVIDES_${PN} += "obmc-phosphor-initfs"
-+PROVIDES += "obmc-phosphor-initfs"
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-new file mode 100644
-index 0000000..08b62e8
---- /dev/null
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-@@ -0,0 +1,78 @@
-+#!/bin/sh
-+
-+rodir=run/initramfs/ro 
-+rwdir=run/initramfs/rw
-+upper=$rwdir/cow
-+work=$rwdir/work
-+
-+cd /
-+mkdir -p sys proc dev run
-+mount dev dev -tdevtmpfs
-+mount sys sys -tsysfs
-+mount proc proc -tproc
-+if ! grep run proc/mounts
-+then
-+	mount tmpfs run -t tmpfs -o mode=755,nodev
-+fi
-+
-+mkdir -p $rodir $rwdir
-+
-+cp -rp init shutdown update whitelist bin sbin usr lib etc var run/initramfs
-+
-+# To start a interactive shell with job control at this point, run
-+# getty 38400 ttyS4
-+
-+findmtd() {
-+	m=$(grep -xl "$1" /sys/class/mtd/*/name)
-+	m=${m%/name}
-+	m=${m##*/}
-+	echo $m
-+}
-+
-+rofs=$(findmtd rofs)
-+rwfs=$(findmtd rwfs)
-+
-+rofst=squashfs
-+rwfst=ext4
-+
-+echo rofs = $rofs $rofst   rwfs = $rwfs $rwfst
-+
-+if grep -w debug-init-sh /proc/cmdline ||
-+	! mount -o rw /dev/mtdblock${rwfs#mtd} $rwdir -t $rwfst
-+then
-+	echo Please mount the rw file system on $rwdir from this shell
-+	while ! sulogin && ! test -f /takeover
-+	do
-+		echo getty failed, retrying
-+	done
-+fi
-+
-+# Touch /takeover in the above getty to become pid 1
-+if test -e /takeover
-+then
-+	export PS1=init#\ 
-+	exec /bin/sh
-+fi
-+
-+mount -o ro /dev/mtdblock${rofs#mtd} $rodir -t $rofst
-+
-+rm -rf $work
-+mkdir -p $upper
-+mkdir -p $work
-+
-+mount -t overlay -o lowerdir=$rodir,upperdir=$upper,workdir=$work cow /root
-+
-+if ! chroot /root /bin/sh -c exit
-+then
-+	echo 'chroot test failed; invoking emergency shell.'
-+	PS1=rescue#\  sulogin
-+fi
-+
-+for f in sys dev proc run
-+do
-+	mount --move $f root/$f
-+done
-+
-+# switch_root /root /sbin/init
-+exec chroot /root /sbin/init
-+
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
-new file mode 100644
-index 0000000..85fd1e9
---- /dev/null
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
-@@ -0,0 +1,55 @@
-+#!/bin/sh
-+
-+echo shutdown: "$@"
-+
-+export PS1=shutdown-sh#\ 
-+# exec bin/sh
-+
-+if [ ! -e /proc/mounts ]
-+then
-+	mkdir -p /proc
-+	mount  proc proc -tproc
-+	umount_proc=1
-+else
-+	umount_proc=
-+fi
-+
-+# remove an empty oldroot, that means we are not invoked from systemd-shutdown
-+rmdir /oldroot 2>/dev/null
-+
-+set -x
-+for f in $( awk '/oldroot/ { print $2 }' < /proc/mounts | sort -r )
-+do
-+	umount $f
-+done
-+set +x
-+
-+
-+if test -x /update && ls image-* > /dev/null 2>&1
-+then
-+	exec /update ${1+"$@"}
-+fi
-+
-+echo Remaining mounts:
-+cat /proc/mounts
-+
-+test "umount_proc" && umount /proc && rmdir /proc
-+
-+
-+
-+# Execute the command systemd told us to ...
-+if test -d /oldroot  && test "$1"
-+then
-+	if test "$1" -eq kexec
-+	then
-+		$1 -f -e
-+	else
-+		$1 -f
-+	fi
-+fi
-+
-+
-+echo "Execute ${1-reboot} -f if all unounted ok, or exec /init"
-+
-+export PS1=shutdown-sh#\ 
-+exec /bin/sh
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-new file mode 100755
-index 0000000..9606459
---- /dev/null
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -0,0 +1,102 @@
-+#!/bin/sh
-+
-+echo update: "$@"
-+
-+export PS1=update-sh#\ 
-+# exec /bin/sh
-+
-+cd /
-+if ! test -r /proc/mounts || ! test -f /proc/mounts
-+then
-+	mkdir -p /proc
-+	mount -t proc proc proc
-+fi
-+if ! test -d /sys/class
-+then
-+	mkdir -p /sys
-+	mount -t sysfs sys sys
-+fi
-+if ! test -c /dev/null
-+then
-+	mkdir -p /dev
-+	mount -t devtmpfs dev dev
-+fi
-+while grep mtd /proc/mounts
-+do
-+	echo 1>&2 "Error: A mtd device is mounted."
-+	sulogin
-+	# exec /bin/sh
-+done
-+
-+findmtd() {
-+	m=$(grep -xl "$1" /sys/class/mtd/*/name)
-+	m=${m%/name}
-+	m=${m##*/}
-+	echo $m
-+}
-+
-+rofs=$(findmtd rofs)
-+rwfs=$(findmtd rwfs)
-+
-+rofst=squahsfs
-+rwfst=ext4
-+
-+if test -n "$rwfs" && test -s whitelist
-+then
-+
-+	mkdir -p rw
-+	mount /dev/mtdblock${rwfs#mtd} rw -oro -t $rwfst
-+
-+	while read f
-+	do
-+		if ! test -e rw/cow/$f
-+		then
-+			continue
-+		fi
-+		d="save/cow/$f"
-+		mkdir -p "${d%/*}"
-+		cp -rp rw/cow/$f "${d%/*}/"
-+	done < whitelist
-+
-+	umount rw
-+fi
-+
-+
-+for f in image-*
-+do
-+	m=$(findmtd ${f#image-})
-+	if test -z "$m" 
-+	then
-+		echo 1>&2  "Unable to find mtd partiton for $f"
-+		exec /bin/sh
-+	fi
-+
-+	echo "Updating ${f#image-}"
-+	# flasheraseall /dev/$m && dd if=$f of=/dev/$m
-+	flashcp -v $f /dev/$m
-+done
-+
-+
-+if test -d save/cow
-+then
-+	mount /dev/mtdblock${rwfs#mtd} rw -o rw -t $rwfst
-+	cp -rp save/cow/. rw/cow/
-+	umount rw
-+fi
-+
-+# Execute the command systemd told us to ...
-+if test -d /oldroot && test -x "/sbin/$1" && test -f "/sbin/$1"
-+then
-+	if test "$1" -eq kexec
-+	then
-+		/sbin/$1 -f -e
-+	else
-+		/sbin/$1 -f
-+	fi
-+fi
-+
-+
-+echo "Execute ${1-reboot} -f if all is ok"
-+
-+export PS1=update-sh#\ 
-+exec /bin/sh
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/whitelist b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/whitelist
-new file mode 100644
-index 0000000..80f9c81
---- /dev/null
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/whitelist
-@@ -0,0 +1,8 @@
-+/etc/dropbear/dropbear_rsa_host_key
-+/etc/systemd/network
-+/etc/resolv.conf
-+/etc/machine-id
-+/etc/passwd
-+/etc/group
-+/etc/shadow
-+/etc/gshadow
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb
-new file mode 100644
-index 0000000..81ab8f0
---- /dev/null
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb
-@@ -0,0 +1,28 @@
-+SUMMARY = "Phosphor OpenBMC pre-init scripts"
-+DESCRIPTION = "Phosphor OpenBMC filesytem mount reference implementation."
-+PR = "r1"
-+
-+inherit obmc-phosphor-license
-+inherit obmc-phosphor-initfs
-+
-+S = "${WORKDIR}"
-+SRC_URI += "file://obmc-init.sh"
-+SRC_URI += "file://obmc-shutdown.sh"
-+SRC_URI += "file://obmc-update.sh"
-+SRC_URI += "file://whitelist"
-+
-+do_install() {
-+	if ${OVERLAY_BASETYPE} != ext4 -o ${IMAGE_BASETYPE} != squashfs-xz
-+	then
-+		bbfatal only ext4 overlayed  squashfs-xz is currently supported
-+	fi
-+
-+        install -m 0755 ${WORKDIR}/obmc-init.sh ${D}/init
-+        install -m 0755 ${WORKDIR}/obmc-shutdown.sh ${D}/shutdown
-+        install -m 0755 ${WORKDIR}/obmc-update.sh ${D}/update
-+        install -m 0644 ${WORKDIR}/whitelist ${D}/whitelist
-+        install -d ${D}/dev
-+        mknod -m 622 ${D}/dev/console c 5 1
-+}
-+
-+FILES_${PN} += " /init /shutdown /update /whitelist /dev "
-diff --git a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
-index 0e596d7..ab753b1 100644
---- a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
-+++ b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
-@@ -16,7 +16,7 @@ DEPENDS += "glib-2.0"
- RDEPENDS_${PN} += "python-subprocess python-tftpy"
- SRC_URI += "git://github.com/openbmc/skeleton"
+diff --git a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/files/fw_env.config b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/files/fw_env.config
+index 9cb3ad2..07be77a 100644
+--- a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/files/fw_env.config
++++ b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/files/fw_env.config
+@@ -7,8 +7,8 @@
  
--SRCREV = "5968064479270edf233739d97dc6e37f04069d38"
-+SRCREV = "51fb4a1840058a70387b39210cb4663577941c17"
+ # NOR example
+ # MTD device name	Device offset	Env. size	Flash sector size	Number of sectors
+-/dev/mtd1		0x0000		0x20000		0x20000
+-#/dev/mtd2		0x0000		0x4000		0x4000
++#/dev/mtd1		0x0000		0x20000		0x20000
++/dev/mtd2		0x0000		0x20000		0x10000
  
- S = "${WORKDIR}"
+ # MTD SPI-dataflash example
+ # MTD device name	Device offset	Env. size	Flash sector size	Number of sectors
+diff --git a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/u-boot_2013.07%.bbappend b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/u-boot_2013.07%.bbappend
+index 6d4a18f..50adb9f 100644
+--- a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/u-boot_2013.07%.bbappend
++++ b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/u-boot_2013.07%.bbappend
+@@ -1,10 +1,7 @@
+ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+ 
+-#SRC_URI += "file://fw_env.config
+-SRC_URI += "file://patch-2013.07/0000-u-boot-aspeed-064.patch \
+-           file://patch-2013.07/0001-u-boot-openbmc.patch \
+-           file://config.patch \
+-           "
++SRC_URI += "file://fw_env.config"
++SRC_URI += "file://config.patch"
+ 
+ # Do not install u-boot in rootfs
+ #do_install[postfuncs] += "remove_uboot_from_rootfs"
+diff --git a/meta-phosphor/common/recipes-bsp/u-boot/u-boot_2013.07.bb b/meta-phosphor/common/recipes-bsp/u-boot/u-boot_2013.07.bb
+index f3e2f56..6349d97 100644
+--- a/meta-phosphor/common/recipes-bsp/u-boot/u-boot_2013.07.bb
++++ b/meta-phosphor/common/recipes-bsp/u-boot/u-boot_2013.07.bb
+@@ -12,13 +12,14 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb \
+ 
+ # This revision corresponds to the tag "v2013.07"
+ # We use the revision in order to avoid having to fetch it from the repo during parse
+-SRCREV = "62c175fbb8a0f9a926c88294ea9f7e88eb898f6c"
++# SRCREV = "62c175fbb8a0f9a926c88294ea9f7e88eb898f6c"
++SRCREV="${AUTOREV}"
++
+ 
+ PV = "v2013.07+git${SRCPV}"
+ 
+-SRC_URI = "git://git.denx.de/u-boot.git;branch=master \
+-          file://0001-am335x_evm.h-Add-use-DEFAULT_LINUX_BOOT_ENV-environm.patch \
+-          "
++UBRANCH = "v2013.07-aspeed-openbmc"
++SRC_URI = "git://git@github.com/openbmc/u-boot.git;branch=${UBRANCH};protocol=https"
+ 
+ S = "${WORKDIR}/git"
  
 -- 
 2.6.4
