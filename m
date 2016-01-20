@@ -1,57 +1,89 @@
-Return-Path: <cyrilbur@gmail.com>
-Received: from mail-pf0-x244.google.com (mail-pf0-x244.google.com
- [IPv6:2607:f8b0:400e:c00::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <shliyi@cn.ibm.com>
+Received: from e23smtp03.au.ibm.com (e23smtp03.au.ibm.com [202.81.31.145])
+ (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 003FC1A1023
- for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2016 10:56:52 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=gPeqvFu5; 
- dkim-atps=neutral
-Received: by mail-pf0-x244.google.com with SMTP id e65so13872732pfe.0
- for <openbmc@lists.ozlabs.org>; Tue, 19 Jan 2016 15:56:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version:content-type:content-transfer-encoding;
- bh=uIdYbN5osj1OUSpxTb/teF5buSutJP92gr5u3rwD8jU=;
- b=gPeqvFu5Mq4KVZH+3ujQTTyGaS2nkJXGNKcq4+QYrsrO829tGyctXii4l2mLuOIhxq
- JRn4ncRUvCZ/dH2jYQtuc2fh4VGiIyy6IUHs2mgqJkMTQp2ODtyzRGiNv8y/7P1kCpKn
- pJ9e+CArkzEv/7/svIIznmA56B4JGh0Witf4mx2z98yZ85SFASyVtmtguLgBBaZsL/lY
- kGiOHYCPt8KyKvC+qBlYsUT7xRoia3Yj2SrVTSyY4BxsS6bQlPzaLRt3LVwFakkq8qC4
- 83Jltvb1dYIh0tNprSg55Nn7SV3eV8KNuHJz8x73UgXdW7vwz/MXfmtUneVtuW5YVxYn
- aK5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version:content-type:content-transfer-encoding;
- bh=uIdYbN5osj1OUSpxTb/teF5buSutJP92gr5u3rwD8jU=;
- b=E9ByhVy4s/a6HlyNncFUT+G4xMhFsTz5KzEFcV1+Ozn/1nU+zYJ4xQJHzVShf/gthi
- a2wqbUMywRYbJufQUgsP/80BTIF1tLc9AJbm07ymakQEwQ4mZOO7z93k99Ne3SPRrENF
- gE5JU4q/mwxHlIszcFA+GqPBR8zux4sLYCLCefxEr35Nj3u2RZ09BcKE0Smd2fsDE+eg
- SjGP0iex2BaxHxgVKOJzWBlwELlMQ3/L7kLFINEQ05CXLwGKL/qZGeAqeTCXpu2MAjv7
- WXYQOCyq/7ekhF14rkL2yOvn1DGm7AolcBefxqzi5kBNQzu+tXBfYGM9pvc7ztklZNRl
- oZAg==
-X-Gm-Message-State: ALoCoQkA245pINcB73zLXdA/ailmD/VMBKJ/jmnTruW24xVRy3KZcPt9ILgtqvwyLwvKh5QSbS6Tf98Rwyl1m/zkUKe/d7IzIw==
-X-Received: by 10.98.70.90 with SMTP id t87mr48229259pfa.110.1453247809380;
- Tue, 19 Jan 2016 15:56:49 -0800 (PST)
-Received: from camb691 ([122.99.82.10])
- by smtp.gmail.com with ESMTPSA id g10sm43968595pfd.49.2016.01.19.15.56.47
- (version=TLSv1/SSLv3 cipher=OTHER);
- Tue, 19 Jan 2016 15:56:49 -0800 (PST)
-Date: Wed, 20 Jan 2016 10:56:39 +1100
-From: Cyril Bur <cyrilbur@gmail.com>
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-Cc: openbmc@lists.ozlabs.org, William <bjlinan@cn.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 08EC01A17EB
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2016 14:40:11 +1100 (AEDT)
+Received: from localhost
+ by e23smtp03.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <shliyi@cn.ibm.com>;
+ Wed, 20 Jan 2016 13:40:08 +1000
+Received: from d23dlp02.au.ibm.com (202.81.31.213)
+ by e23smtp03.au.ibm.com (202.81.31.209) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Wed, 20 Jan 2016 13:40:05 +1000
+X-IBM-Helo: d23dlp02.au.ibm.com
+X-IBM-MailFrom: shliyi@cn.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d23relay10.au.ibm.com (d23relay10.au.ibm.com [9.190.26.77])
+ by d23dlp02.au.ibm.com (Postfix) with ESMTP id 4ED322BB0054
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2016 14:40:05 +1100 (EST)
+Received: from d23av02.au.ibm.com (d23av02.au.ibm.com [9.190.235.138])
+ by d23relay10.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u0K3dvg419267604
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2016 14:40:05 +1100
+Received: from d23av02.au.ibm.com (localhost [127.0.0.1])
+ by d23av02.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u0K3dXoJ014152
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2016 14:39:33 +1100
+Received: from d50lp02.ny.us.ibm.com (d50lp02.pok.ibm.com [146.89.104.208])
+ by d23av02.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u0K3dUnC013866
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2016 14:39:32 +1100
+Message-Id: <201601200339.u0K3dUnC013866@d23av02.au.ibm.com>
+Received: from /spool/local
+ by d50lp02.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <shliyi@cn.ibm.com>;
+ Tue, 19 Jan 2016 22:39:22 -0500
+Received: from smtp.notes.na.collabserv.com (192.155.248.91)
+ by d50lp02.ny.us.ibm.com (158.87.18.21) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
+ Tue, 19 Jan 2016 22:39:19 -0500
+Received: from /spool/local
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <shliyi@cn.ibm.com>;
+ Wed, 20 Jan 2016 03:39:18 -0000
+Received: from us1a3-smtp01.a3.dal06.isc4sb.com (10.106.154.100)
+ by smtp.notes.na.collabserv.com (10.106.227.143) with
+ smtp.notes.na.collabserv.com ESMTP; Wed, 20 Jan 2016 03:39:16 -0000
+Received: from us1a3-mail141.a3.dal06.isc4sb.com ([10.146.38.85])
+ by us1a3-smtp01.a3.dal06.isc4sb.com
+ with ESMTP id 2016012003402393-6354 ;
+ Wed, 20 Jan 2016 03:40:23 +0000 
+In-Reply-To: <20160120105639.74309c70@camb691>
 Subject: Re: [PATCH skeleton] skeleton: Add BMC coldReset() method to
  org.openbmc.control.Bmc dbus interface
-Message-ID: <20160120105639.74309c70@camb691>
-In-Reply-To: <1453178436-26125-2-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1453178436-26125-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1453178436-26125-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: Claws Mail 3.13.1 (GTK+ 2.24.29; x86_64-unknown-linux-gnu)
+From: "Yi TZ Li" <shliyi@cn.ibm.com>
+To: Cyril Bur <cyrilbur@gmail.com>
+Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org,
+ "Nan KX Li" <bjlinan@cn.ibm.com>
+Date: Wed, 20 Jan 2016 03:39:16 +0000
+Sensitivity: 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Importance: Normal
+X-Priority: 3 (Normal)
+References: <20160120105639.74309c70@camb691>,
+ <1453178436-26125-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1453178436-26125-2-git-send-email-openbmc-patches@stwcx.xyz>
+X-Mailer: Lotus Domino Web Server Build V851SAAS_01042016_FP2 January 15, 2016
+X-LLNOutbound: False
+X-Disclaimed: 42371
+X-TNEFEvaluated: 1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=UTF-8
+x-cbid: 16012003-0009-0000-0000-000002CDFA19
+X-IBM-ISS-SpamDetectors: Score=0.371236; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.371236; ST=0; TS=0; UL=0; ISC=
+X-IBM-ISS-DetailInfo: BY=3.00004815; HX=3.00000239; KW=3.00000007;
+ PH=3.00000004; SC=3.00000134; SDB=6.00647787; UDB=6.00292555; UTC=2016-01-20
+ 03:39:17
+x-cbparentid: 16012003-4778-0000-0000-000001A22126
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -63,362 +95,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Jan 2016 23:56:54 -0000
+X-List-Received-Date: Wed, 20 Jan 2016 03:40:12 -0000
 
-On Mon, 18 Jan 2016 22:40:36 -0600
-OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
-
-> From: William <bjlinan@cn.ibm.com>
-> 
-
-Hi William,
-
-Is there a reason you're using glib? I was under the impression that the
-preferred dbus library was sd_bus. I suppose this is in openbmc/skeleton so it
-is destined to be rewritten in which case I don't have too much of and issue
-with glib for now.
-
-I do have one concern below.
-
-> The host sends IPMI 'cold reset' command to reset BMC. Ipmid
-> calls the org.openbmc.control.Bmc::coldReset() to do reset.
-> coldReset() just invokes "reboot --force", which in effect
-> same as a 'cold' reset.
-> 
-> Signed-off-by: Nan Li <bjlinan@cn.ibm.com>
-> ---
->  interfaces/openbmc_intf.c | 56 +++++++++++++++++++++++------------------------
->  interfaces/openbmc_intf.h | 10 ++++-----
->  objects/control_bmc_obj.c | 37 ++++++++++++++++++++++++++-----
->  xml/openbmc_intf.xml      |  2 +-
->  4 files changed, 66 insertions(+), 39 deletions(-)
-> 
-> diff --git a/interfaces/openbmc_intf.c b/interfaces/openbmc_intf.c
-> index 1619115..913ccc7 100644
-> --- a/interfaces/openbmc_intf.c
-> +++ b/interfaces/openbmc_intf.c
-> @@ -14419,22 +14419,22 @@ control_skeleton_new (void)
->  
->  /* ---- Introspection data for org.openbmc.control.Bmc ---- */
->  
-> -static const _ExtendedGDBusMethodInfo _control_bmc_method_info_place_holder =
-> +static const _ExtendedGDBusMethodInfo _control_bmc_method_info_cold_reset =
->  {
->    {
->      -1,
-> -    (gchar *) "place_holder",
-> +    (gchar *) "coldReset",
->      NULL,
->      NULL,
->      NULL
->    },
-> -  "handle-place-holder",
-> +  "handle-cold-reset",
->    FALSE
->  };
->  
->  static const _ExtendedGDBusMethodInfo * const _control_bmc_method_info_pointers[] =
->  {
-> -  &_control_bmc_method_info_place_holder,
-> +  &_control_bmc_method_info_cold_reset,
->    NULL
->  };
->  
-> @@ -14492,7 +14492,7 @@ control_bmc_override_properties (GObjectClass *klass, guint property_id_begin)
->  /**
->   * ControlBmcIface:
->   * @parent_iface: The parent interface.
-> - * @handle_place_holder: Handler for the #ControlBmc::handle-place-holder signal.
-> + * @handle_cold_reset: Handler for the #ControlBmc::handle-cold-reset signal.
->   *
->   * Virtual table for the D-Bus interface <link linkend="gdbus-interface-org-openbmc-control-Bmc.top_of_page">org.openbmc.control.Bmc</link>.
->   */
-> @@ -14505,20 +14505,20 @@ control_bmc_default_init (ControlBmcIface *iface)
->  {
->    /* GObject signals for incoming D-Bus method calls: */
->    /**
-> -   * ControlBmc::handle-place-holder:
-> +   * ControlBmc::handle-cold-reset:
->     * @object: A #ControlBmc.
->     * @invocation: A #GDBusMethodInvocation.
->     *
-> -   * Signal emitted when a remote caller is invoking the <link linkend="gdbus-method-org-openbmc-control-Bmc.place_holder">place_holder()</link> D-Bus method.
-> +   * Signal emitted when a remote caller is invoking the <link linkend="gdbus-method-org-openbmc-control-Bmc.coldReset">coldReset()</link> D-Bus method.
->     *
-> -   * If a signal handler returns %TRUE, it means the signal handler will handle the invocation (e.g. take a reference to @invocation and eventually call control_bmc_complete_place_holder() or e.g. g_dbus_method_invocation_return_error() on it) and no order signal handlers will run. If no signal handler handles the invocation, the %G_DBUS_ERROR_UNKNOWN_METHOD error is returned.
-> +   * If a signal handler returns %TRUE, it means the signal handler will handle the invocation (e.g. take a reference to @invocation and eventually call control_bmc_complete_cold_reset() or e.g. g_dbus_method_invocation_return_error() on it) and no order signal handlers will run. If no signal handler handles the invocation, the %G_DBUS_ERROR_UNKNOWN_METHOD error is returned.
->     *
->     * Returns: %TRUE if the invocation was handled, %FALSE to let other signal handlers run.
->     */
-> -  g_signal_new ("handle-place-holder",
-> +  g_signal_new ("handle-cold-reset",
->      G_TYPE_FROM_INTERFACE (iface),
->      G_SIGNAL_RUN_LAST,
-> -    G_STRUCT_OFFSET (ControlBmcIface, handle_place_holder),
-> +    G_STRUCT_OFFSET (ControlBmcIface, handle_cold_reset),
->      g_signal_accumulator_true_handled,
->      NULL,
->      g_cclosure_marshal_generic,
-> @@ -14529,27 +14529,27 @@ control_bmc_default_init (ControlBmcIface *iface)
->  }
->  
->  /**
-> - * control_bmc_call_place_holder:
-> + * control_bmc_call_cold_reset:
->   * @proxy: A #ControlBmcProxy.
->   * @cancellable: (allow-none): A #GCancellable or %NULL.
->   * @callback: A #GAsyncReadyCallback to call when the request is satisfied or %NULL.
->   * @user_data: User data to pass to @callback.
->   *
-> - * Asynchronously invokes the <link linkend="gdbus-method-org-openbmc-control-Bmc.place_holder">place_holder()</link> D-Bus method on @proxy.
-> + * Asynchronously invokes the <link linkend="gdbus-method-org-openbmc-control-Bmc.coldReset">coldReset()</link> D-Bus method on @proxy.
->   * When the operation is finished, @callback will be invoked in the <link linkend="g-main-context-push-thread-default">thread-default main loop</link> of the thread you are calling this method from.
-> - * You can then call control_bmc_call_place_holder_finish() to get the result of the operation.
-> + * You can then call control_bmc_call_cold_reset_finish() to get the result of the operation.
->   *
-> - * See control_bmc_call_place_holder_sync() for the synchronous, blocking version of this method.
-> + * See control_bmc_call_cold_reset_sync() for the synchronous, blocking version of this method.
->   */
->  void
-> -control_bmc_call_place_holder (
-> +control_bmc_call_cold_reset (
->      ControlBmc *proxy,
->      GCancellable *cancellable,
->      GAsyncReadyCallback callback,
->      gpointer user_data)
->  {
->    g_dbus_proxy_call (G_DBUS_PROXY (proxy),
-> -    "place_holder",
-> +    "coldReset",
->      g_variant_new ("()"),
->      G_DBUS_CALL_FLAGS_NONE,
->      -1,
-> @@ -14559,17 +14559,17 @@ control_bmc_call_place_holder (
->  }
->  
->  /**
-> - * control_bmc_call_place_holder_finish:
-> + * control_bmc_call_cold_reset_finish:
->   * @proxy: A #ControlBmcProxy.
-> - * @res: The #GAsyncResult obtained from the #GAsyncReadyCallback passed to control_bmc_call_place_holder().
-> + * @res: The #GAsyncResult obtained from the #GAsyncReadyCallback passed to control_bmc_call_cold_reset().
->   * @error: Return location for error or %NULL.
->   *
-> - * Finishes an operation started with control_bmc_call_place_holder().
-> + * Finishes an operation started with control_bmc_call_cold_reset().
->   *
->   * Returns: (skip): %TRUE if the call succeded, %FALSE if @error is set.
->   */
->  gboolean
-> -control_bmc_call_place_holder_finish (
-> +control_bmc_call_cold_reset_finish (
->      ControlBmc *proxy,
->      GAsyncResult *res,
->      GError **error)
-> @@ -14586,26 +14586,26 @@ _out:
->  }
->  
->  /**
-> - * control_bmc_call_place_holder_sync:
-> + * control_bmc_call_cold_reset_sync:
->   * @proxy: A #ControlBmcProxy.
->   * @cancellable: (allow-none): A #GCancellable or %NULL.
->   * @error: Return location for error or %NULL.
->   *
-> - * Synchronously invokes the <link linkend="gdbus-method-org-openbmc-control-Bmc.place_holder">place_holder()</link> D-Bus method on @proxy. The calling thread is blocked until a reply is received.
-> + * Synchronously invokes the <link linkend="gdbus-method-org-openbmc-control-Bmc.coldReset">coldReset()</link> D-Bus method on @proxy. The calling thread is blocked until a reply is received.
->   *
-> - * See control_bmc_call_place_holder() for the asynchronous version of this method.
-> + * See control_bmc_call_cold_reset() for the asynchronous version of this method.
->   *
->   * Returns: (skip): %TRUE if the call succeded, %FALSE if @error is set.
->   */
->  gboolean
-> -control_bmc_call_place_holder_sync (
-> +control_bmc_call_cold_reset_sync (
->      ControlBmc *proxy,
->      GCancellable *cancellable,
->      GError **error)
->  {
->    GVariant *_ret;
->    _ret = g_dbus_proxy_call_sync (G_DBUS_PROXY (proxy),
-> -    "place_holder",
-> +    "coldReset",
->      g_variant_new ("()"),
->      G_DBUS_CALL_FLAGS_NONE,
->      -1,
-> @@ -14621,16 +14621,16 @@ _out:
->  }
->  
->  /**
-> - * control_bmc_complete_place_holder:
-> + * control_bmc_complete_cold_reset:
->   * @object: A #ControlBmc.
->   * @invocation: (transfer full): A #GDBusMethodInvocation.
->   *
-> - * Helper function used in service implementations to finish handling invocations of the <link linkend="gdbus-method-org-openbmc-control-Bmc.place_holder">place_holder()</link> D-Bus method. If you instead want to finish handling an invocation by returning an error, use g_dbus_method_invocation_return_error() or similar.
-> + * Helper function used in service implementations to finish handling invocations of the <link linkend="gdbus-method-org-openbmc-control-Bmc.coldReset">coldReset()</link> D-Bus method. If you instead want to finish handling an invocation by returning an error, use g_dbus_method_invocation_return_error() or similar.
->   *
->   * This method will free @invocation, you cannot use it afterwards.
->   */
->  void
-> -control_bmc_complete_place_holder (
-> +control_bmc_complete_cold_reset (
->      ControlBmc *object,
->      GDBusMethodInvocation *invocation)
->  {
-> diff --git a/interfaces/openbmc_intf.h b/interfaces/openbmc_intf.h
-> index bb71e45..4d0801c 100644
-> --- a/interfaces/openbmc_intf.h
-> +++ b/interfaces/openbmc_intf.h
-> @@ -1850,7 +1850,7 @@ struct _ControlBmcIface
->  {
->    GTypeInterface parent_iface;
->  
-> -  gboolean (*handle_place_holder) (
-> +  gboolean (*handle_cold_reset) (
->      ControlBmc *object,
->      GDBusMethodInvocation *invocation);
->  
-> @@ -1863,25 +1863,25 @@ guint control_bmc_override_properties (GObjectClass *klass, guint property_id_be
->  
->  
->  /* D-Bus method call completion functions: */
-> -void control_bmc_complete_place_holder (
-> +void control_bmc_complete_cold_reset (
->      ControlBmc *object,
->      GDBusMethodInvocation *invocation);
->  
->  
->  
->  /* D-Bus method calls: */
-> -void control_bmc_call_place_holder (
-> +void control_bmc_call_cold_reset (
->      ControlBmc *proxy,
->      GCancellable *cancellable,
->      GAsyncReadyCallback callback,
->      gpointer user_data);
->  
-> -gboolean control_bmc_call_place_holder_finish (
-> +gboolean control_bmc_call_cold_reset_finish (
->      ControlBmc *proxy,
->      GAsyncResult *res,
->      GError **error);
->  
-> -gboolean control_bmc_call_place_holder_sync (
-> +gboolean control_bmc_call_cold_reset_sync (
->      ControlBmc *proxy,
->      GCancellable *cancellable,
->      GError **error);
-> diff --git a/objects/control_bmc_obj.c b/objects/control_bmc_obj.c
-> index 6b92235..818b063 100644
-> --- a/objects/control_bmc_obj.c
-> +++ b/objects/control_bmc_obj.c
-> @@ -67,7 +67,6 @@ void reg_init()
->  
->  	//UART
->  
-> -	
->  	bmcreg = memmap(mem_fd,UART_BASE);
->  	devmem(bmcreg+0x00,0x00000000);  //Set Baud rate divisor -> 13 (Baud 115200)
->  	devmem(bmcreg+0x04,0x00000000);  //Set Baud rate divisor -> 13 (Baud 115200)
-> @@ -109,9 +108,31 @@ on_init (Control          *control,
->  	//#endif
->  	control_complete_init(control,invocation);
->  	//control_emit_goto_system_state(control,"BMC_STARTING");
-> -	
->  	return TRUE;
->  }
-> +
-> +static gboolean
-> +on_cold_reset (ControlBmc	*bmc,
-> +         GDBusMethodInvocation	*invocation,
-> +         gpointer		user_data)
-> +{
-> +	GError *err = NULL;
-> +	/* Wait a while before reboot, so the caller can be responded.
-> +	 * Note that g_spawn_command_line_async() cannot parse ';' as
-> +	 * a command separator. Need to use 'sh -c' to let shell parse it.
-> +	 */
-> +	gchar *reboot_command = "/bin/sh -c 'sleep 3;reboot --force'";
-
-This doesn't seem like a good idea, I'm not exactly sure how
-g_spawn_command_line_async() works but calling out to the shell to reboot(2)
-doesn't seem like the best way of going about things.
-
-Also, sleep 3; is probably fine all of the time but it doesn't actually provide
-any guarantee that on_cold_reset() will ever return, it looks like there's a
-(however unlikely) race here.
-
-Again, I consider just ignoring these issues for now since I believe this code
-is going to be replaced, however, this is starting to differ greatly from what
-the finished product will be.
-
-If this code is being put here to exercise these codepathes and not just for the
-bare requirement of bringing up a machine, it would be good if it looked more
-like the finished product.
-
-
-Cheers,
-
-Cyril
-> +
-> +	g_spawn_command_line_async(reboot_command, &err);
-> +	if (err != NULL) {
-> +		fprintf(stderr, "coldReset() error: %s\n", err->message);
-> +		g_error_free(err);
-> +	}
-> +
-> +	control_bmc_complete_cold_reset(bmc, invocation);
-> +	return TRUE;
-> +}
-> +
->  gboolean go(gpointer user_data)
->  {
->   	cmdline *cmd = user_data;
-> @@ -124,8 +145,8 @@ gboolean go(gpointer user_data)
->  	//g_main_loop_quit(cmd->loop);
->  	return FALSE;
->  }
-> -
-> -static void 
-> +
-> +static void
->  on_bus_acquired (GDBusConnection *connection,
->                   const gchar     *name,
->                   gpointer         user_data)
-> @@ -153,6 +174,12 @@ on_bus_acquired (GDBusConnection *connection,
->                 	    G_CALLBACK (on_init),
->                 	    NULL); /* user_data */
->  
-> +
-> +	g_signal_connect (control_bmc,
-> +		"handle-cold-reset",
-> +		G_CALLBACK (on_cold_reset),
-> +		NULL); /* user_data */
-> +
->  	/* Export the object (@manager takes its own reference to @object) */
->  	g_dbus_object_manager_server_export (manager, G_DBUS_OBJECT_SKELETON (object));
->  	g_object_unref (object);
-> @@ -210,7 +237,7 @@ main (gint argc, gchar *argv[])
->                         NULL);
->  
->    g_main_loop_run (loop);
-> -  
-> +
->    g_bus_unown_name (id);
->    g_main_loop_unref (loop);
->    return 0;
-> diff --git a/xml/openbmc_intf.xml b/xml/openbmc_intf.xml
-> index 791fc48..6099599 100644
-> --- a/xml/openbmc_intf.xml
-> +++ b/xml/openbmc_intf.xml
-> @@ -107,7 +107,7 @@
->  		<signal name="Started"/>
->  	</interface>
->  	<interface name="org.openbmc.control.Bmc">
-> -		<method name="place_holder"/>
-> +		<method name="coldReset"/>
->  	</interface>
->  	<interface name="org.openbmc.control.Host">
->  		<method name="boot"/>
+<font face=3D"Default Sans Serif,Verdana,Arial,Helvetica,sans-serif" size=
+=3D"2">Hi Cyril,<br><br>Thank you for the comments. Please see my reply bel=
+low:<br><br><font color=3D"#990099">-----"openbmc" &lt;<a target=3D"=5Fblan=
+k" href=3D"mailto:openbmc-bounces+shliyi=3Dcn.ibm.com@lists.ozlabs.org">ope=
+nbmc-bounces+shliyi=3Dcn.ibm.com@lists.ozlabs.org</a>&gt; wrote: -----</fon=
+t><br><br>&gt;To: OpenBMC Patches &lt;<a target=3D"=5Fblank" href=3D"mailto=
+:openbmc-patches@stwcx.xyz">openbmc-patches@stwcx.xyz</a>&gt;<br>&gt;From: =
+Cyril Bur <br>&gt;Sent by: "openbmc" <br>&gt;Date: 01/20/2016 07:58AM<br>&g=
+t;Cc: <a target=3D"=5Fblank" href=3D"mailto:openbmc@lists.ozlabs.org">openb=
+mc@lists.ozlabs.org</a>, Nan KX Li/China/IBM@IBMCN<br>&gt;Subject: Re: [PAT=
+CH skeleton] skeleton: Add BMC coldReset() method to<br>&gt;org.openbmc.con=
+trol.Bmc dbus interface<br>&gt;<br>&gt;On Mon, 18 Jan 2016 22:40:36 -0600<b=
+r>&gt;OpenBMC Patches &lt;<a target=3D"=5Fblank" href=3D"mailto:openbmc-pat=
+ches@stwcx.xyz">openbmc-patches@stwcx.xyz</a>&gt; wrote:<br>&gt;<br>&gt;&gt=
+; From: William &lt;<a target=3D"=5Fblank" href=3D"mailto:bjlinan@cn.ibm.co=
+m">bjlinan@cn.ibm.com</a>&gt;<br>&gt;&gt; <br>&gt;<br>&gt;Hi William,<br>&g=
+t;<br>&gt;Is there a reason you're using glib? I was under the impression t=
+hat<br>&gt;the<br>&gt;preferred dbus library was sd=5Fbus. I suppose this i=
+s in<br>&gt;openbmc/skeleton so it<br>&gt;is destined to be rewritten in wh=
+ich case I don't have too much of<br>&gt;and issue<br>&gt;with glib for now=
+.<br><br>Current skeleton dbus interface is writing using glib. I also hear=
+d from Chris we will shift to sd=5Fbus.<br>If we got details, we can rewrit=
+e it using sd=5Fbus.<br><br>&gt;<br>&gt;I do have one concern below.<br>&gt=
+;<br><br>&gt;&gt; +static gboolean<br>&gt;&gt; +on=5Fcold=5Freset (ControlB=
+mc        *bmc,<br>&gt;&gt; +         GDBusMethodInvocation        *invocat=
+ion,<br>&gt;&gt; +         gpointer                user=5Fdata)<br>&gt;&gt;=
+ +{<br>&gt;&gt; +        GError *err =3D NULL;<br>&gt;&gt; +        /* Wait=
+ a while before reboot, so the caller can be responded.<br>&gt;&gt; +      =
+   * Note that g=5Fspawn=5Fcommand=5Fline=5Fasync() cannot parse ';' as<br>=
+&gt;&gt; +         * a command separator. Need to use 'sh -c' to let shell =
+parse<br>&gt;it.<br>&gt;&gt; +         */<br>&gt;&gt; +        gchar *reboo=
+t=5Fcommand =3D "/bin/sh -c 'sleep 3;reboot --force'";<br>&gt;<br>&gt;This =
+doesn't seem like a good idea, I'm not exactly sure how<br>&gt;g=5Fspawn=5F=
+command=5Fline=5Fasync() works but calling out to the shell to<br>&gt;reboo=
+t(2)<br>&gt;doesn't seem like the best way of going about things.<br>&gt;<b=
+r><br>The main idea is to reboot the system, while leave a few seconds for =
+the coldReset() caller (e.g, REST client) get responded firstly.<br>The RES=
+T server can have some time to send respond the caller.<br><br>We have been=
+ thinking of using libc function "int reboot(cmd)". Since we need to wait b=
+efore<br>reboot, using shell command is more straightforward.<br>Linux rebo=
+ot man page says:<br>"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; When called with=
+ --force or when in runlevel 0 or 6, this tool&nbsp; invokes<br>&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; the&nbsp; reboot(2)&nbsp; system call itself (wit=
+h REBOOTCOMMAND argument passed)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; an=
+d directly reboots the system."<br><br>Also "g=5Fspawn=5Fcommand=5Fline=5Fa=
+sync()" execute the reboot command *in background*. The coldReset() method =
+can return<br>firstly. Then after 3 seconds, BMC reboots. 3 second is just =
+a magic, it can be other proper value.<br><br>&gt;Also, sleep 3; is probabl=
+y fine all of the time but it doesn't<br>&gt;actually provide<br>&gt;any gu=
+arantee that on=5Fcold=5Freset() will ever return, it looks like<br>&gt;the=
+re's a<br>&gt;(however unlikely) race here.<br>&gt;<br><br>"g=5Fspawn=5Fcom=
+mand=5Fline=5Fasync()" can help on that.<br><br>&gt;Again, I consider just =
+ignoring these issues for now since I believe<br>&gt;this code<br>&gt;is go=
+ing to be replaced, however, this is starting to differ greatly<br>&gt;from=
+ what<br>&gt;the finished product will be.<br>&gt;<br>&gt;If this code is b=
+eing put here to exercise these codepathes and not<br>&gt;just for the<br>&=
+gt;bare requirement of bringing up a machine, it would be good if it<br>&gt=
+;looked more<br>&gt;like the finished product.<br>&gt;<br><br>We will refin=
+e the code based on feedback.<br><br>Thanks,<br>-Yi<br></font><BR>
