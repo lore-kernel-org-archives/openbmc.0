@@ -3,18 +3,21 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 153AE1A1803
- for <openbmc@lists.ozlabs.org>; Thu, 21 Jan 2016 10:10:24 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 078DC1A1803
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Jan 2016 10:10:26 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1453331421046551.6540389601789;
+ with SMTPS id 1453331421879401.1760987605686;
  Wed, 20 Jan 2016 15:10:21 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 0/6] Persistent 1
-Date: Wed, 20 Jan 2016 17:10:14 -0600
-Message-Id: <1453331420-6524-1-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: "Milton D. Miller II" <miltonm@us.ibm.com>
+Subject: [PATCH openbmc 1/6] create obmc-phosphor-initfs
+Date: Wed, 20 Jan 2016 17:10:15 -0600
+Message-Id: <1453331420-6524-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
-X-Zoho-Virus-Status: 2
+In-Reply-To: <1453331420-6524-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1453331420-6524-1-git-send-email-openbmc-patches@stwcx.xyz>
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -26,195 +29,365 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Jan 2016 23:10:25 -0000
+X-List-Received-Date: Wed, 20 Jan 2016 23:10:27 -0000
 
-Announcing the persistent file system ready for testing
+From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
+This recipe holds the key scripts for an initramfs image.  Written in
+sh to run with busybox, these three scripts handle mounting, unmounting,
+and updating a set of mtd partitions to form a read/write overlay on a
+read/only compressed base.
 
-I hereby submit for your consideration the bitbake metadata
-to build a persistent, upgradeable file system for openbmc
-phosphor stack systems.
-
-The openbmc-phosphor include has been updated to build two
-file systems: an initramfs packaged into an initrd for
-setting up the root file system, and a read-only squashfs
-with xz compression to hold the main data.  The final 4MB
-of the 32MB flash is used to hold a read/write overlay over
-the squashfs maintaining updates for any files changed
-that are not mounted in a tmpfs directory.
-
-Warning: the main file system is using several parts of the
-flash.  Updating those partitions while running will likely
-crash your system.
-
-The initramfs clones itself for a shutdown and update
-located at /run/initramfs/.  The shutdown script is invoked
-when a normal (not -f) shutdown, halt, or poweroff command
-is run via systemd.  More documentation on that interface is
-available at [1].
-
-To schedule an update, simply drop images for the partitions
-you want to update into /run/initramfs/image-{mtd-name}, where
-{mtd-name} is the label of the mtd partition or whole flash.
-This can be obtained from /proc/mtd or via the name attribute 
-under the /sys/class/mtd/ directory.  Files listed in the
-/run/initramfs/whitelist will be copied from the overlay before
-applying images and restored afterwards.  This file is configured
-to hold password, group, shadow, systemd networkd settings, and
-the dropbear rsa host key file.   You can add additional files
-as needed.
-
-[1]http://www.freedesktop.org/wiki/Software/systemd/InitrdInterface/
-
-
-Tips and Tricks:
-
-To preserve your u-boot environment with your mac address, u-boot
-network settings and bootargs overrides execute:
-
-	cp /dev/mtd2 /run/initramfs/image-u-boot-env
-
-To get a shell with the file systems unmounted but available (will
-probably change in the future):
-
-	touch /run/initramfs/image-break
-
-from that shell (prompt update-fs# ) you can mount the file systems,
-copy additional images, etc.   When done unmount file systems and
-either do
-
-	mv /image-break /image-rwfs
-	/update reboot
-
-or if you have preserved the rwfs and do not wish to update, simply
-
-	reboot -f
-
-You can download images either while running, or from the reboot/init
-environment.  Full busybox with ifconfig, route, wget, and tftp commands
-are available.   If your flash is corrupted but you have not overwritten
-u-boot (and don't have a crazy 0-timeout boot script), you can recover
-by downloading the kernel and initrd and booting into it.  Assuming the
-default 43000000 tftp default address, setup the environment as needed:
-
-	setenv ethaddr xx:xx:xx:xx:xx:xx
-	setenv ipaddr xxx.xxx.xxx.xxx
-	setenv netmask xxx.xxx.xxx.xxx
-	setenv gateway xxx.xxx.xxx.xxx
-	setenv server xxx.xxx.xxx.xxx
-	saveenv
-
-(the above IP addresses can also acquired by DHCP).
-
-	tftp initrd
-	tftp 40080000 cuImage
-	bootm 40080000 43000000
-
-The above commands could be packaged into a u-boot script that is packaged
-with the mkimage command for scripted booting.
-
-
-Known Limitations, BUGS, and TODOs:
-
-The read/write overlay is ext4 without a journal (too few blocks), but
-no fsck repair is available to fix it after a forced reboot.  The 
-existing ext4 tools are too big for the space allocated in the fs.
-This may be fixable by running them from the ro squashfs, by copying
-fsck and libraries to the /run/initramfs shutdown environment, or
-by copying a fresh empty overlay to /run/initramfs/image-rwfs.
-
-Erasing the flash, executed as part of the flashcp command, is extremely
-slow.  It is calling erase for each 4k sector and printing a message, but
-the print does not seem to make a significant difference to the speed.
-Expect a full 32MB flash to take approximately 35 minutes, plus 5 min
-to reboot with a clean overlay as first-boot items are run.
-
-The first-boot is triggering systemd-update-hwdb.service which is trying
-to recreate a 60MB file in our 4MB file system.  It obviously fails, but
-it also sometimes times out and causes the ttyS4.device and ttyS0.device
-files that are trying to run concurrently to also fail.   This causes the
-console getty to not be started.  If this occurs you can login over the
-network if you had previously setup systemd (or set ip= in bootargs from
-u-boot), otherwise you will need to reboot then address the unclean ext4
-fsck issue above.
-
-The u-boot-fw-utils fw_setenv and fw_printenv are not building correctly
-and are therefore not in the image.  These will allow us to update
-the u-boot environment for such things as Ethernet mac address, net-boot,
-and other overrides such as passing kernel command line via bootargs
-that could be used to trigger init to update.
-
-Generating the flash needs to be given a layout with images for each type
-and their sizes.  This should also create a dtsi with the flash partitions.
-
-Making the overlay should take FSTYPE parameters (actually OVERLAY_BASETYPE)
-for the additional options, in addition some user and some system.
-
-The an empty rwfs should be able to be created via mkfs in the initrd
-environment.  The fsck should be applied.
-
-Mounting the rwfs and rofs and several other commands should be error trapped.
-Today if the rwfs fails to mount the underlying tmpfs of /run will be
-the overlay, resulting in writable but ram-backed non-persistent booting.
-Providing a image-rwfs will probably copy the whitelisted files to the image
-from this error state.
-
-More systemd setup should be in the base layer: systemd tmpfiles service
-changes /etc/mtab from /proc/mounts in base-files to /proc/self/mounts, and
-there are several service user ids added to the passwd and group databases.
-
-The updated passwd and shadow files should be copied into run/initramfs under
-some policy for the sulogin recovery of shutdown.  Some parameter to trigger
-admin sulogin should be available (eg the sulogin allowing a touch of /takeover
-to takeover pid 1 in the init script).
-
-
-https://github.com/openbmc/openbmc/pull/140
-
-Milton D. Miller II (6):
-  create obmc-phosphor-initfs
-  phosphor: modify use obmc-phosphor-initfs
-  linux-obmc: apply the aspeed-spi-nor controller patchset
-  u-boot : switch to repro, add fw_env.config
-  create u-boot-fw-utils for our u-boot version
-  phosphor: Create image class image-overlay and move phosphor to use it
-
- .../recipes-bsp/u-boot/files/fw_env.config         |   4 +-
- .../u-boot/u-boot-fw-utils_2013.07%.bbappend       |  13 +
- .../recipes-bsp/u-boot/u-boot_2013.07%.bbappend    |   7 +-
- ...-Add-SPI-memory-controllers-for-ASPEED-AS.patch | 686 +++++++++++++++++++++
- .../0001-rtc-aspeed-month-is-off-by-one.patch      |  35 ++
- .../recipes-kernel/linux/linux-obmc/defconfig      |   5 +
- .../linux/linux-obmc/spinor-dts.patch              | 147 +++++
- .../recipes-kernel/linux/linux-obmc_%.bbappend     |   5 +-
- meta-phosphor/classes/image-overlay.bbclass        |  18 +
- .../obmc-phosphor-image_types_uboot.bbclass        |  55 +-
+The init script will mount the base sysfs, proc, and devtmpfs as well
+as run.  It copies itself to run/initramfs to create the shutdown and
+update environment.   The shutdown script will unmount the remaining
+nodev and root filesystems from oldroot where systemd-shutdown pivots
+the old file system, then looks for image- files an if found invokes
+upate otherwise it performs the final reboot, powerdown, or kexec, or
+halt.  The update script will attempt to mount the read/write overlay
+and preserve selected files and directories based on a whitelist.
+It then unmounts and writes all image files to their named mtd partition
+using flashcp, mounts and restores the saved files, and finally
+unmounts the fs and performs the final reboot or halt etc.
+---
  meta-phosphor/classes/obmc-phosphor-initfs.bbclass |   4 +
- .../recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb  |  52 ++
- .../common/recipes-bsp/u-boot/u-boot_2013.07.bb    |   9 +-
- .../images/core-image-minimal-initramfs.bbappend   |   3 +
- .../obmc-phosphor-initfs/files/obmc-init.sh        |  78 +++
- .../obmc-phosphor-initfs/files/obmc-shutdown.sh    |  55 ++
- .../obmc-phosphor-initfs/files/obmc-update.sh      | 102 +++
- .../obmc-phosphor-initfs/files/whitelist           |   8 +
- .../obmc-phosphor-initfs/obmc-phosphor-init.bb     |  28 +
+ .../obmc-phosphor-initfs/files/obmc-init.sh        |  78 ++++++++++++++++
+ .../obmc-phosphor-initfs/files/obmc-shutdown.sh    |  55 +++++++++++
+ .../obmc-phosphor-initfs/files/obmc-update.sh      | 102 +++++++++++++++++++++
+ .../obmc-phosphor-initfs/files/whitelist           |   8 ++
+ .../obmc-phosphor-initfs/obmc-phosphor-init.bb     |  28 ++++++
  .../common/recipes-phosphor/skeleton/skeleton.bb   |   2 +-
- meta-phosphor/conf/distro/openbmc-phosphor.conf    |   1 +
- .../conf/machine/include/obmc-bsp-common.inc       |  10 +-
- 22 files changed, 1295 insertions(+), 32 deletions(-)
- create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/u-boot-fw-utils_2013.07%.bbappend
- create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/0001-mtd-spi-nor-Add-SPI-memory-controllers-for-ASPEED-AS.patch
- create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/0001-rtc-aspeed-month-is-off-by-one.patch
- create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/spinor-dts.patch
- create mode 100644 meta-phosphor/classes/image-overlay.bbclass
+ 7 files changed, 276 insertions(+), 1 deletion(-)
  create mode 100644 meta-phosphor/classes/obmc-phosphor-initfs.bbclass
- create mode 100644 meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb
- create mode 100644 meta-phosphor/common/recipes-core/images/core-image-minimal-initramfs.bbappend
  create mode 100644 meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
  create mode 100644 meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
  create mode 100755 meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
  create mode 100644 meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/whitelist
  create mode 100644 meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb
 
+diff --git a/meta-phosphor/classes/obmc-phosphor-initfs.bbclass b/meta-phosphor/classes/obmc-phosphor-initfs.bbclass
+new file mode 100644
+index 0000000..de7923e
+--- /dev/null
++++ b/meta-phosphor/classes/obmc-phosphor-initfs.bbclass
+@@ -0,0 +1,4 @@
++# Common code for recipes that implement Phosphor OpenBMC filesystem
++
++RPROVIDES_${PN} += "obmc-phosphor-initfs"
++PROVIDES += "obmc-phosphor-initfs"
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+new file mode 100644
+index 0000000..08b62e8
+--- /dev/null
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+@@ -0,0 +1,78 @@
++#!/bin/sh
++
++rodir=run/initramfs/ro 
++rwdir=run/initramfs/rw
++upper=$rwdir/cow
++work=$rwdir/work
++
++cd /
++mkdir -p sys proc dev run
++mount dev dev -tdevtmpfs
++mount sys sys -tsysfs
++mount proc proc -tproc
++if ! grep run proc/mounts
++then
++	mount tmpfs run -t tmpfs -o mode=755,nodev
++fi
++
++mkdir -p $rodir $rwdir
++
++cp -rp init shutdown update whitelist bin sbin usr lib etc var run/initramfs
++
++# To start a interactive shell with job control at this point, run
++# getty 38400 ttyS4
++
++findmtd() {
++	m=$(grep -xl "$1" /sys/class/mtd/*/name)
++	m=${m%/name}
++	m=${m##*/}
++	echo $m
++}
++
++rofs=$(findmtd rofs)
++rwfs=$(findmtd rwfs)
++
++rofst=squashfs
++rwfst=ext4
++
++echo rofs = $rofs $rofst   rwfs = $rwfs $rwfst
++
++if grep -w debug-init-sh /proc/cmdline ||
++	! mount -o rw /dev/mtdblock${rwfs#mtd} $rwdir -t $rwfst
++then
++	echo Please mount the rw file system on $rwdir from this shell
++	while ! sulogin && ! test -f /takeover
++	do
++		echo getty failed, retrying
++	done
++fi
++
++# Touch /takeover in the above getty to become pid 1
++if test -e /takeover
++then
++	export PS1=init#\ 
++	exec /bin/sh
++fi
++
++mount -o ro /dev/mtdblock${rofs#mtd} $rodir -t $rofst
++
++rm -rf $work
++mkdir -p $upper
++mkdir -p $work
++
++mount -t overlay -o lowerdir=$rodir,upperdir=$upper,workdir=$work cow /root
++
++if ! chroot /root /bin/sh -c exit
++then
++	echo 'chroot test failed; invoking emergency shell.'
++	PS1=rescue#\  sulogin
++fi
++
++for f in sys dev proc run
++do
++	mount --move $f root/$f
++done
++
++# switch_root /root /sbin/init
++exec chroot /root /sbin/init
++
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
+new file mode 100644
+index 0000000..85fd1e9
+--- /dev/null
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
+@@ -0,0 +1,55 @@
++#!/bin/sh
++
++echo shutdown: "$@"
++
++export PS1=shutdown-sh#\ 
++# exec bin/sh
++
++if [ ! -e /proc/mounts ]
++then
++	mkdir -p /proc
++	mount  proc proc -tproc
++	umount_proc=1
++else
++	umount_proc=
++fi
++
++# remove an empty oldroot, that means we are not invoked from systemd-shutdown
++rmdir /oldroot 2>/dev/null
++
++set -x
++for f in $( awk '/oldroot/ { print $2 }' < /proc/mounts | sort -r )
++do
++	umount $f
++done
++set +x
++
++
++if test -x /update && ls image-* > /dev/null 2>&1
++then
++	exec /update ${1+"$@"}
++fi
++
++echo Remaining mounts:
++cat /proc/mounts
++
++test "umount_proc" && umount /proc && rmdir /proc
++
++
++
++# Execute the command systemd told us to ...
++if test -d /oldroot  && test "$1"
++then
++	if test "$1" -eq kexec
++	then
++		$1 -f -e
++	else
++		$1 -f
++	fi
++fi
++
++
++echo "Execute ${1-reboot} -f if all unounted ok, or exec /init"
++
++export PS1=shutdown-sh#\ 
++exec /bin/sh
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
+new file mode 100755
+index 0000000..9606459
+--- /dev/null
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
+@@ -0,0 +1,102 @@
++#!/bin/sh
++
++echo update: "$@"
++
++export PS1=update-sh#\ 
++# exec /bin/sh
++
++cd /
++if ! test -r /proc/mounts || ! test -f /proc/mounts
++then
++	mkdir -p /proc
++	mount -t proc proc proc
++fi
++if ! test -d /sys/class
++then
++	mkdir -p /sys
++	mount -t sysfs sys sys
++fi
++if ! test -c /dev/null
++then
++	mkdir -p /dev
++	mount -t devtmpfs dev dev
++fi
++while grep mtd /proc/mounts
++do
++	echo 1>&2 "Error: A mtd device is mounted."
++	sulogin
++	# exec /bin/sh
++done
++
++findmtd() {
++	m=$(grep -xl "$1" /sys/class/mtd/*/name)
++	m=${m%/name}
++	m=${m##*/}
++	echo $m
++}
++
++rofs=$(findmtd rofs)
++rwfs=$(findmtd rwfs)
++
++rofst=squahsfs
++rwfst=ext4
++
++if test -n "$rwfs" && test -s whitelist
++then
++
++	mkdir -p rw
++	mount /dev/mtdblock${rwfs#mtd} rw -oro -t $rwfst
++
++	while read f
++	do
++		if ! test -e rw/cow/$f
++		then
++			continue
++		fi
++		d="save/cow/$f"
++		mkdir -p "${d%/*}"
++		cp -rp rw/cow/$f "${d%/*}/"
++	done < whitelist
++
++	umount rw
++fi
++
++
++for f in image-*
++do
++	m=$(findmtd ${f#image-})
++	if test -z "$m" 
++	then
++		echo 1>&2  "Unable to find mtd partiton for $f"
++		exec /bin/sh
++	fi
++
++	echo "Updating ${f#image-}"
++	# flasheraseall /dev/$m && dd if=$f of=/dev/$m
++	flashcp -v $f /dev/$m
++done
++
++
++if test -d save/cow
++then
++	mount /dev/mtdblock${rwfs#mtd} rw -o rw -t $rwfst
++	cp -rp save/cow/. rw/cow/
++	umount rw
++fi
++
++# Execute the command systemd told us to ...
++if test -d /oldroot && test -x "/sbin/$1" && test -f "/sbin/$1"
++then
++	if test "$1" -eq kexec
++	then
++		/sbin/$1 -f -e
++	else
++		/sbin/$1 -f
++	fi
++fi
++
++
++echo "Execute ${1-reboot} -f if all is ok"
++
++export PS1=update-sh#\ 
++exec /bin/sh
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/whitelist b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/whitelist
+new file mode 100644
+index 0000000..80f9c81
+--- /dev/null
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/whitelist
+@@ -0,0 +1,8 @@
++/etc/dropbear/dropbear_rsa_host_key
++/etc/systemd/network
++/etc/resolv.conf
++/etc/machine-id
++/etc/passwd
++/etc/group
++/etc/shadow
++/etc/gshadow
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb
+new file mode 100644
+index 0000000..81ab8f0
+--- /dev/null
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb
+@@ -0,0 +1,28 @@
++SUMMARY = "Phosphor OpenBMC pre-init scripts"
++DESCRIPTION = "Phosphor OpenBMC filesytem mount reference implementation."
++PR = "r1"
++
++inherit obmc-phosphor-license
++inherit obmc-phosphor-initfs
++
++S = "${WORKDIR}"
++SRC_URI += "file://obmc-init.sh"
++SRC_URI += "file://obmc-shutdown.sh"
++SRC_URI += "file://obmc-update.sh"
++SRC_URI += "file://whitelist"
++
++do_install() {
++	if ${OVERLAY_BASETYPE} != ext4 -o ${IMAGE_BASETYPE} != squashfs-xz
++	then
++		bbfatal only ext4 overlayed  squashfs-xz is currently supported
++	fi
++
++        install -m 0755 ${WORKDIR}/obmc-init.sh ${D}/init
++        install -m 0755 ${WORKDIR}/obmc-shutdown.sh ${D}/shutdown
++        install -m 0755 ${WORKDIR}/obmc-update.sh ${D}/update
++        install -m 0644 ${WORKDIR}/whitelist ${D}/whitelist
++        install -d ${D}/dev
++        mknod -m 622 ${D}/dev/console c 5 1
++}
++
++FILES_${PN} += " /init /shutdown /update /whitelist /dev "
+diff --git a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
+index 0e596d7..ab753b1 100644
+--- a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
++++ b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
+@@ -16,7 +16,7 @@ DEPENDS += "glib-2.0"
+ RDEPENDS_${PN} += "python-subprocess python-tftpy"
+ SRC_URI += "git://github.com/openbmc/skeleton"
+ 
+-SRCREV = "5968064479270edf233739d97dc6e37f04069d38"
++SRCREV = "51fb4a1840058a70387b39210cb4663577941c17"
+ 
+ S = "${WORKDIR}"
+ 
 -- 
 2.6.4
