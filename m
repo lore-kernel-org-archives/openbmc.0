@@ -1,22 +1,29 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (ozlabs.org [103.22.144.67])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id D1B1E1A18AB
- for <openbmc@lists.ozlabs.org>; Thu, 21 Jan 2016 17:00:29 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1453356023843892.0293632777256;
- Wed, 20 Jan 2016 22:00:23 -0800 (PST)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 572A91A001D
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Jan 2016 17:10:48 +1100 (AEDT)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.org (Postfix) with ESMTPSA id 21C4E1402D9;
+ Thu, 21 Jan 2016 17:10:48 +1100 (AEDT)
+Subject: Re: [PATCH openbmc 1/6] create obmc-phosphor-initfs
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc] pulled in bugs fixes for sprint 4
-Date: Thu, 21 Jan 2016 00:00:22 -0600
-Message-Id: <1453356022-18497-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.4
-In-Reply-To: <1453356022-18497-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1453356022-18497-1-git-send-email-openbmc-patches@stwcx.xyz>
-X-Zoho-Virus-Status: 1
+References: <1453331420-6524-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1453331420-6524-2-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: "Milton D. Miller II" <miltonm@us.ibm.com>
+From: Jeremy Kerr <jk@ozlabs.org>
+X-Enigmail-Draft-Status: N1110
+Message-ID: <56A07667.8020800@ozlabs.org>
+Date: Thu, 21 Jan 2016 14:10:47 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+ Thunderbird/38.5.1
+MIME-Version: 1.0
+In-Reply-To: <1453331420-6524-2-git-send-email-openbmc-patches@stwcx.xyz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,28 +35,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Jan 2016 06:00:30 -0000
+X-List-Received-Date: Thu, 21 Jan 2016 06:10:48 -0000
 
-From: Chris Austen <austenc@us.ibm.com>
+Hi Milton,
 
-noisy uboot
-hconsole crashing
----
- meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Looks good to me. One suggestion:
 
-diff --git a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
-index 0e596d7..fab50ea 100644
---- a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
-+++ b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
-@@ -16,7 +16,7 @@ DEPENDS += "glib-2.0"
- RDEPENDS_${PN} += "python-subprocess python-tftpy"
- SRC_URI += "git://github.com/openbmc/skeleton"
- 
--SRCREV = "5968064479270edf233739d97dc6e37f04069d38"
-+SRCREV = "abe4953f941f63b4a3f531af15f6dba68870f3a9"
- 
- S = "${WORKDIR}"
- 
--- 
-2.6.4
+
+> +	echo Please mount the rw file system on $rwdir from this shell
+> +	while ! sulogin && ! test -f /takeover
+> +	do
+> +		echo getty failed, retrying
+> +	done
+
+Can we make this message a little more descriptive? Something like:
+
+cat <<EOF
+Failed to mount read/write filesystem (mtdblock${rwfs#mtd})
+Please manually mount it on $rwdir from this shell, or
+exit the shell to continue without a rw filesystem.
+
+EOF
+
+> diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
+> new file mode 100644
+> index 0000000..85fd1e9
+> --- /dev/null
+> +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
+> @@ -0,0 +1,55 @@
+
+Just to clarify: this shutdown script is completely separate from the
+update mechanism, right? In what situations do you see it being used?
+
+Cheers,
+
+
+Jeremy
