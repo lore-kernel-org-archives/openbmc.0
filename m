@@ -1,28 +1,20 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <openbmc-patches@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 47E661A001D
- for <openbmc@lists.ozlabs.org>; Thu, 21 Jan 2016 17:14:24 +1100 (AEDT)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 09A841402D9;
- Thu, 21 Jan 2016 17:14:23 +1100 (AEDT)
-Subject: Re: [PATCH openbmc 4/6] u-boot : switch to repro, add fw_env.config
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-References: <1453331420-6524-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1453331420-6524-5-git-send-email-openbmc-patches@stwcx.xyz>
-Cc: "Milton D. Miller II" <miltonm@us.ibm.com>
-From: Jeremy Kerr <jk@ozlabs.org>
-Message-ID: <56A0773F.6000109@ozlabs.org>
-Date: Thu, 21 Jan 2016 14:14:23 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
- Thunderbird/38.5.1
-MIME-Version: 1.0
-In-Reply-To: <1453331420-6524-5-git-send-email-openbmc-patches@stwcx.xyz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 340381A001D
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Jan 2016 08:00:29 +1100 (AEDT)
+Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
+ with SMTPS id 1453410025323910.3054792979618;
+ Thu, 21 Jan 2016 13:00:25 -0800 (PST)
+From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH openbmc] Moving up Linux
+Date: Thu, 21 Jan 2016 15:00:23 -0600
+Message-Id: <1453410024-12778-1-git-send-email-openbmc-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.6.4
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -34,21 +26,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Jan 2016 06:14:24 -0000
+X-List-Received-Date: Thu, 21 Jan 2016 21:00:30 -0000
 
-Hi Milton,
+Time for a move up.  Feature list can be found...
+https://github.com/openbmc/linux/releases/tag/openbmc-20160120-1
 
-> +# SRCREV = "62c175fbb8a0f9a926c88294ea9f7e88eb898f6c"
-> +SRCREV="${AUTOREV}"
-> +
+https://github.com/openbmc/openbmc/pull/142
 
-We should use a tag here. Just to confirm, you've tested against
-c45e7515, right?
+Chris Austen (1):
+  Moving up Linux
 
-Or should we be using the v2013.07-aspeed-openbmc branch, currently at
-e00b3cc6?	
+ meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.3.bb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Cheers,
-
-
-Jeremy
+-- 
+2.6.4
