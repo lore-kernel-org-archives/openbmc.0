@@ -3,20 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 1A32B1A08DD
- for <openbmc@lists.ozlabs.org>; Fri, 22 Jan 2016 14:50:28 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id DF5221A0E9C
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Jan 2016 14:50:30 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1453434623775153.38897399934285;
- Thu, 21 Jan 2016 19:50:23 -0800 (PST)
+ with SMTPS id 1453434627824413.50962470514764;
+ Thu, 21 Jan 2016 19:50:27 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: "Milton D. Miller II" <miltonm@us.ibm.com>
-Subject: [PATCH linux 2/3] aspeed: update bmc dts with attached flash
-Date: Thu, 21 Jan 2016 21:50:20 -0600
-Message-Id: <1453434621-22227-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH linux 0/2] [RFC] ncsi: Fix not releasing lock in ncsi_rcv_rsp()
+Date: Thu, 21 Jan 2016 21:50:25 -0600
+Message-Id: <1453434627-22282-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
-In-Reply-To: <1453434621-22227-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1453434621-22227-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -29,148 +26,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Jan 2016 03:50:29 -0000
+X-List-Received-Date: Fri, 22 Jan 2016 03:50:31 -0000
 
-From: "Milton D. Miller II" <miltonm@us.ibm.com>
+I've found a locking problem which I believe might address issue #8. With this patch applied I also cannot reproduce #17.
 
-Add the attached spi flash chips attached to the static memory controller
-and the SPI memory controller.  The partitions and label for the SMC
-attached flash are included in a seperate file for import from other
-build systems.
+I'm not sure this is the correct fix:
+ncsi_free_req() takes ndp_req_lock again so this is 1 possible solution. Unfortunately I don't know the code enough to be sure it is safe to drop the lock before calling ncsi_free_req(), it is possible that dropping the lock could allow someone else to jump in and use the same nr possibly resulting in a double free.
 
-Signed-off-by: Milton Miller <miltonm@us.ibm.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts     | 35 ++++++++++++++++++++++
- arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi | 28 +++++++++++++++++
- arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts      | 35 ++++++++++++++++++++++
- 3 files changed, 98 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
+Furthermore, after investigating other LOCKDEP issues I wrote that this patch:
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-index ebf86bb..cba561a 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-@@ -7,6 +7,41 @@
- 	model = "Barrelye BMC";
- 	compatible = "rackspace,barreleye-bmc", "aspeed,ast2400";
- 	ahb {
-+		fmc@1e620000 {
-+			reg = < 0x1e620000 0x94
-+				0x20000000 0x02000000 >;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "aspeed,fmc";
-+			flash@0 {
-+				reg = < 0 >;
-+				compatible = "jedec,spi-nor" ;
-+				/*
-+				 * Possibly required props:
-+				 * spi-max-frequency = <>
-+				 * spi-tx-bus-width = <>
-+				 * spi-rx-bus-width  = <>
-+				 * m25p,fast-read
-+				 * spi-cpol if inverse clock polarity (CPOL)
-+				 * spi-cpha if shifted clock phase (CPHA)
-+				 */
-+#include "aspeed-bmc-opp-flash-layout.dtsi"
-+			};
-+		};
-+		spi@1e630000 {
-+			reg = < 0x1e630000 0x18
-+				0x30000000 0x02000000 >;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "aspeed,smc";
-+			flash {
-+				reg = < 0 >;
-+				compatible = "jedec,spi-nor" ;
-+				label = "pnor";
-+				/* spi-max-frequency = <>; */
-+				/* m25p,fast-read; */
-+			};
-+		};
- 		apb {
- 			i2c: i2c@1e78a040 {
- 				i2c0: i2c-bus@40 {
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
-new file mode 100644
-index 0000000..ca8639b
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
-@@ -0,0 +1,28 @@
-+/* This file is the label for the bmc primary flash and its partitions */
-+				label = "bmc";
-+				#address-cells = < 1 >;
-+				#size-cells = < 1 >;
-+				u-boot {
-+					reg = < 0 0x60000 >;
-+					label = "u-boot";
-+				};
-+				u-boot-env {
-+					reg = < 0x60000 0x20000 >;
-+					label = "u-boot-env";
-+				};
-+				kernel  {
-+					reg = < 0x80000 0x280000 >;
-+					label = "kernel";
-+				};
-+				initramfs {
-+					reg = < 0x300000 0x1c0000 >;
-+					label = "initramfs";
-+				};
-+				rofs  {
-+					reg = < 0x4c0000 0x1740000 >;
-+					label = "rofs";
-+				};
-+				rwfs  {
-+					reg = < 0x1c00000 0x400000 >;
-+					label = "rwfs";
-+				};
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-index 92a7c77..9aacae7 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-@@ -8,6 +8,41 @@
- 	compatible = "tyan,palmetto-bmc", "aspeed,ast2400";
+```
+commit e19be46436cc50cf6842d38fb5c44bca92ebb26f
+Author: Cyril Bur <cyrilbur@gmail.com>
+Date:   Thu Jan 21 11:30:26 2016 +1100
+
+    i2c: aspeed spin_lock_init() on cmd_lock
+
+diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
+index 3b858d3..e4bf88a3 100644
+--- a/drivers/i2c/busses/i2c-aspeed.c
++++ b/drivers/i2c/busses/i2c-aspeed.c
+@@ -721,6 +721,7 @@ static int ast_i2c_probe_bus(struct platform_device *pdev)
+        }
  
- 	ahb {
-+		fmc@1e620000 {
-+			reg = < 0x1e620000 0x94
-+				0x20000000 0x02000000 >;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "aspeed,fmc";
-+			flash@0 {
-+				reg = < 0 >;
-+				compatible = "jedec,spi-nor" ;
-+				/*
-+				 * Possibly required props:
-+				 * spi-max-frequency = <>
-+				 * spi-tx-bus-width = <>
-+				 * spi-rx-bus-width  = <>
-+				 * m25p,fast-read
-+				 * spi-cpol if inverse clock polarity (CPOL)
-+				 * spi-cpha if shifted clock phase (CPHA)
-+				 */
-+#include "aspeed-bmc-opp-flash-layout.dtsi"
-+			};
-+		};
-+		spi@1e630000 {
-+			reg = < 0x1e630000 0x18
-+				0x30000000 0x02000000 >;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "aspeed,smc";
-+			flash {
-+				reg = < 0 >;
-+				compatible = "jedec,spi-nor" ;
-+				label = "pnor";
-+				/* spi-max-frequency = <>; */
-+				/* m25p,fast-read; */
-+			};
-+		};
- 		apb {
- 			i2c: i2c@1e78a040 {
- 				i2c0: i2c-bus@40 {
+        /* Initialize the I2C adapter */
++       spin_lock_init(&bus->cmd_lock);
+        bus->adap.nr = bus_num;
+        bus->adap.owner = THIS_MODULE;
+        bus->adap.retries = 0;
+```
+
+Breaks networking! I also found this extraordinarily hard to believe as well but it's absolutely the case. Please help understand why!
+
+https://github.com/openbmc/linux/pull/42
+
+Cyril Bur (2):
+  ncsi: Fix not releasing lock in ncsi_rcv_rsp()
+  i2c: aspeed spin_lock_init() on cmd_lock
+
+ drivers/i2c/busses/i2c-aspeed.c | 1 +
+ net/ncsi/ncsi-rsp.c             | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
 -- 
 2.6.4
