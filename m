@@ -1,43 +1,60 @@
-Return-Path: <andrew@aj.id.au>
-X-Greylist: delayed 1237 seconds by postgrey-1.35 at bilbo;
- Mon, 25 Jan 2016 11:42:54 AEDT
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=ogiFJnwQ; 
- dkim-atps=neutral
-Received: from homiemail-a19.g.dreamhost.com (sub3.mail.dreamhost.com
- [69.163.253.7])
- by lists.ozlabs.org (Postfix) with ESMTP id 4FDB41A05D0
- for <openbmc@lists.ozlabs.org>; Mon, 25 Jan 2016 11:42:54 +1100 (AEDT)
-Received: from homiemail-a19.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a19.g.dreamhost.com (Postfix) with ESMTP id 26926604076;
- Sun, 24 Jan 2016 16:42:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
- :subject:from:reply-to:to:cc:date:in-reply-to:references
- :content-type:mime-version:content-transfer-encoding; s=aj.id.au
- ; bh=FIZSUi4wVCxN4w3mfthX0A6RKYU=; b=ogiFJnwQllw7J62q+Mv9NzVirM5
- bTS54ziDqLTvlwxMXk5nrqbm+EZMT4ka8k6iCY368hJdve0q3qqcOSeAGkaTAg10
- kj2FKkIiIkEbgaFBuCCo2ruxJo7bj4Qbob1TzWTpdA6grBUaamoZ0nfQdDA7PbLA
- U9R6ngUYC6MkItak=
-Received: from keelia (unknown [203.0.153.9])
- (using TLSv1 with cipher AES128-SHA (128/128 bits))
+Return-Path: <andrew.donnellan@au1.ibm.com>
+Received: from e23smtp03.au.ibm.com (e23smtp03.au.ibm.com [202.81.31.145])
+ (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- (Authenticated sender: andrew@aj.id.au)
- by homiemail-a19.g.dreamhost.com (Postfix) with ESMTPSA id 31894604069;
- Sun, 24 Jan 2016 16:42:51 -0800 (PST)
-Message-ID: <1453682569.2773.26.camel@aj.id.au>
-Subject: Re: [PATCH openbmc 5/6] create u-boot-fw-utils for our u-boot version
-From: Andrew Jeffery <andrew@aj.id.au>
-Reply-To: andrew@aj.id.au
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-Date: Mon, 25 Jan 2016 11:12:49 +1030
-In-Reply-To: <1453331420-6524-6-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1453331420-6524-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1453331420-6524-6-git-send-email-openbmc-patches@stwcx.xyz>
-Organization: IBM OzLabs
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.16.5-1ubuntu3.1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 8BDC11A05D0
+ for <openbmc@lists.ozlabs.org>; Mon, 25 Jan 2016 12:10:00 +1100 (AEDT)
+Received: from localhost
+ by e23smtp03.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <andrew.donnellan@au1.ibm.com>;
+ Mon, 25 Jan 2016 11:09:58 +1000
+Received: from d23dlp01.au.ibm.com (202.81.31.203)
+ by e23smtp03.au.ibm.com (202.81.31.209) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Mon, 25 Jan 2016 11:09:57 +1000
+X-IBM-Helo: d23dlp01.au.ibm.com
+X-IBM-MailFrom: andrew.donnellan@au1.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d23relay07.au.ibm.com (d23relay07.au.ibm.com [9.190.26.37])
+ by d23dlp01.au.ibm.com (Postfix) with ESMTP id 798D12CE8055
+ for <openbmc@lists.ozlabs.org>; Mon, 25 Jan 2016 12:09:56 +1100 (EST)
+Received: from d23av04.au.ibm.com (d23av04.au.ibm.com [9.190.235.139])
+ by d23relay07.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u0P19nvl38600864
+ for <openbmc@lists.ozlabs.org>; Mon, 25 Jan 2016 12:09:58 +1100
+Received: from d23av04.au.ibm.com (localhost [127.0.0.1])
+ by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u0P19Nvx008189
+ for <openbmc@lists.ozlabs.org>; Mon, 25 Jan 2016 12:09:23 +1100
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u0P19Ncd007731; Mon, 25 Jan 2016 12:09:23 +1100
+Received: from [10.61.2.248] (haven.au.ibm.com [9.192.254.114])
+ (using TLSv1.2 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 831E5A01E2;
+ Mon, 25 Jan 2016 12:08:59 +1100 (AEDT)
+Subject: Re: [PATCH openbmc 3/6] linux-obmc: apply the aspeed-spi-nor
+ controller patchset
+To: Milton Miller II <miltonm@us.ibm.com>, Jeremy Kerr <jk@ozlabs.org>
+References: <56A06F64.8050501@ozlabs.org>
+ <1453331420-6524-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1453331420-6524-4-git-send-email-openbmc-patches@stwcx.xyz>
+ <201601211606.u0LG6uMr000899@d03av01.boulder.ibm.com>
+Cc: openbmc@lists.ozlabs.org
+From: Andrew Donnellan <andrew.donnellan@au1.ibm.com>
+Message-ID: <56A575AB.1000704@au1.ibm.com>
+Date: Mon, 25 Jan 2016 12:08:59 +1100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+ Icedove/38.5.0
+MIME-Version: 1.0
+In-Reply-To: <201601211606.u0LG6uMr000899@d03av01.boulder.ibm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16012501-0009-0000-0000-000002D6CC4D
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -49,109 +66,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Jan 2016 00:42:54 -0000
+X-List-Received-Date: Mon, 25 Jan 2016 01:10:00 -0000
 
-Hi Milton
+On 22/01/16 03:06, Milton Miller II wrote:
+>>> +diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspeed-smc.c
+>>> +new file mode 100644
+>>> +index 0000000..2497648
+>>> +--- /dev/null
+>>> ++++ b/drivers/mtd/spi-nor/aspeed-smc.c
+>>> +@@ -0,0 +1,539 @@
+>>> ++/* ASPEED Static Memory Controller driver
+>>>> ++ * Copyright 2015
+>>> ++ * Milton Miller
+>>> ++ *
+>>> ++ */
+>>
+>> Make sure you have the right copyright headers on this one.
+>
+> This is a literal post of what I had submitted in 2015.  However I
+> admit I am a noob at copyright headers and detailed advice will
+> be gladly accepted.
 
-On Wed, 2016-01-20 at 17:10 -0600, OpenBMC Patches wrote:
-> From: "Milton D. Miller II" <miltonm@us.ibm.com>
-> 
-> This commit creates a class and recipie based on the upstream 2015
-> branch of u-boot and patches it with our fw_env.config.
-> 
-> Having these tools for the initfs will allow us to modify the u-boot
-> enviornment to do things like boot from network for update and set the
-> bmc mac addresses in the environment for u-boot and use by the kernel.
-> 
-> Unfornately its broken in that it produces a host binary instead of
-> a target binary when building the base package.  I have not been able
-> to resolve this despite several attempts.
+My preferred copyright header for IBM kernel work is as follows:
 
-Not sure what you tried, but maybe a hacky approach is to work around
-the u-boot build system and set HOSTCC=$CC in the .bb? Would this have
-any negative interactions with BBCLASSEXTEND="cross native"? 
+/*
+  * [Description of file]
+  *
+  * Copyright (C) [Years] IBM Corporation.
+  * Author: [Name] <[User]@[Country].ibm.com>
+  *
+  * This program is free software; you can redistribute it and/or
+  * modify it under the terms of the GNU General Public License
+  * as published by the Free Software Foundation; either version
+  * 2 of the License, or (at your option) any later version.
+  */
 
-> ---
->  .../u-boot/u-boot-fw-utils_2013.07%.bbappend       | 13 ++++++
->  .../recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb  | 52 ++++++++++++++++++++++
->  2 files changed, 65 insertions(+)
->  create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/u-boot-fw-utils_2013.07%.bbappend
->  create mode 100644 meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb
-> 
-> diff --git a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/u-boot-fw-utils_2013.07%.bbappend b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/u-boot-fw-utils_2013.07%.bbappend
-> new file mode 100644
-> index 0000000..4020696
-> --- /dev/null
-> +++ b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/u-boot-fw-utils_2013.07%.bbappend
-> @@ -0,0 +1,13 @@
-> +FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-> +
-> +SRC_URI += "file://fw_env.config"
-> +SRC_URI += "file://config.patch"
-> +
-> +do_install_append() {
-> +    if [ -e ${WORKDIR}/fw_env.config ] ; then
-> +        install -d ${D}${sysconfdir}
-> +        install -m 644 ${WORKDIR}/fw_env.config ${D}${sysconfdir}/fw_env.config
-> +    fi
-> +}
-> +
-> +BBCLASSEXTEND += "native"
-> diff --git a/meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb b/meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb
-> new file mode 100644
-> index 0000000..6f72945
-> --- /dev/null
-> +++ b/meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb
-> @@ -0,0 +1,52 @@
-> +SUMMARY = "U-Boot bootloader fw_printenv/setenv utilities"
-> +SECTION = "bootloader"
-> +DEPENDS = "mtd-utils"
-> +
-> +LICENSE = "GPLv2+"
-> +LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb \
-> +                    file://README;beginline=1;endline=22;md5=78b195c11cb6ef63e6985140db7d7bab"
-> +
-> +# This revision corresponds to the tag "v2013.07"
-> +# We use the revision in order to avoid having to fetch it from the
-> +# repo during parse
-> +# SRCREV = "62c175fbb8a0f9a926c88294ea9f7e88eb898f6c"
-> +SRCREV="${AUTOREV}"
-> +
-> +PV = "v2013.07+git${SRCPV}"
-> +
-> +UBRANCH = "v2013.07-aspeed-openbmc"
-> +SRC_URI = "git://git@github.com/openbmc/u-boot.git;branch=${UBRANCH};protocol=https"
-> +S = "${WORKDIR}/git"
-> +
-> +INSANE_SKIP_${PN} = "already-stripped"
-> +EXTRA_OEMAKE_class-target = 'CROSS_COMPILE=${TARGET_PREFIX} CC="${CC} ${CFLAGS} ${LDFLAGS}" V=1'
-> +EXTRA_OEMAKE_class-cross = 'ARCH=${TARGET_ARCH} CC="${CC} ${CFLAGS} ${LDFLAGS}" V=1'
-> +
-> +inherit uboot-config
-> +
-> +do_compile () {
-> +> 	> oe_runmake ${UBOOT_MACHINE}
-> +> 	> oe_runmake env
-> +}
-> +
-> +do_install () {
-> +> 	> install -d ${D}${base_sbindir}
-> +> 	> install -d ${D}${sysconfdir}
-> +> 	> install -m 755 ${S}/tools/env/fw_printenv ${D}${base_sbindir}/fw_printenv
-> +> 	> install -m 755 ${S}/tools/env/fw_printenv ${D}${base_sbindir}/fw_setenv
-> +> 	> install -m 0644 ${S}/tools/env/fw_env.config ${D}${sysconfdir}/fw_env.config
-> +}
-> +
-> +do_install_class-cross () {
-> +> 	> install -d ${D}${bindir_cross}
-> +> 	> install -m 755 ${S}/tools/env/fw_printenv ${D}${bindir_cross}/fw_printenv
-> +> 	> install -m 755 ${S}/tools/env/fw_printenv ${D}${bindir_cross}/fw_setenv
-> +}
-> +
-> +SYSROOT_PREPROCESS_FUNCS_class-cross = "uboot_fw_utils_cross"
-> +uboot_fw_utils_cross() {
-> +> 	> sysroot_stage_dir ${D}${bindir_cross} ${SYSROOT_DESTDIR}${bindir_cross}
-> +}
-> +
-> +PACKAGE_ARCH = "${MACHINE_ARCH}"
-> +BBCLASSEXTEND = "cross native"
+
+-- 
+Andrew Donnellan              Software Engineer, OzLabs
+andrew.donnellan@au1.ibm.com  Australia Development Lab, Canberra
++61 2 6201 8874 (work)        IBM Australia Limited
