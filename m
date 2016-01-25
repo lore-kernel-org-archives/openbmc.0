@@ -1,37 +1,37 @@
 Return-Path: <andrew@aj.id.au>
-Received: from homiemail-a15.g.dreamhost.com (sub3.mail.dreamhost.com
+Received: from homiemail-a76.g.dreamhost.com (sub3.mail.dreamhost.com
  [69.163.253.7])
- by lists.ozlabs.org (Postfix) with ESMTP id 960591A001D
- for <openbmc@lists.ozlabs.org>; Tue, 26 Jan 2016 00:20:02 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTP id BF3F11A023C
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Jan 2016 00:47:35 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=sHXTwqqf; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=VmDNQI3J; 
  dkim-atps=neutral
-Received: from homiemail-a15.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a15.g.dreamhost.com (Postfix) with ESMTP id 6DB0676C072;
- Mon, 25 Jan 2016 05:20:01 -0800 (PST)
+Received: from homiemail-a76.g.dreamhost.com (localhost [127.0.0.1])
+ by homiemail-a76.g.dreamhost.com (Postfix) with ESMTP id 9D96F458081;
+ Mon, 25 Jan 2016 05:47:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
  :subject:from:reply-to:to:cc:date:in-reply-to:references
  :content-type:mime-version:content-transfer-encoding; s=aj.id.au
- ; bh=H+j8JM8qUyN6XJio8f0GxNssY3s=; b=sHXTwqqfg4oggcfiDNYE6pT5x1r
- OBLukvn5aHvDR7vsEt6LXXc5D65scY9YNbXq3bf67WoEMwaTUsjFWMmZGzHrPAC+
- WZzgd2SYLiLo0QZKlRR/ZSapXX9RY2ehAWLwrskMpgu5Mk2ki97KVCZRi2S20UVE
- PZC285TZvN8JhzOw=
+ ; bh=yyi2uyy1e5h42xcjnscqiaAeJRo=; b=VmDNQI3JetOo6lR7x6X+F4FAqj6
+ FvIuKIScYoUFquEGJWOKzgwUgWRJh94ioEuCCc5CPxEqGug3G56G4ouluT/BPyRN
+ Eq7gHdfhXz1/hUxNYLc6c9E/UxCmi3kKb/lGhgQYG5Z8xCIhiYFqBodKFpRXdFTd
+ mNB/yOfSqoBlk2Tg=
 Received: from keelia (ppp203-122-213-247.static.internode.on.net
  [203.122.213.247])
  (using TLSv1 with cipher AES128-SHA (128/128 bits))
  (No client certificate requested)
  (Authenticated sender: andrew@aj.id.au)
- by homiemail-a15.g.dreamhost.com (Postfix) with ESMTPSA id 0F2D776C069;
- Mon, 25 Jan 2016 05:19:59 -0800 (PST)
-Message-ID: <1453727996.2773.66.camel@aj.id.au>
-Subject: Re: [PATCH linux 3/3] aspeed: update defconfig
+ by homiemail-a76.g.dreamhost.com (Postfix) with ESMTPSA id 7046545807B;
+ Mon, 25 Jan 2016 05:47:33 -0800 (PST)
+Message-ID: <1453729650.2773.69.camel@aj.id.au>
+Subject: Re: [PATCH linux] rtc: aspeed month is off-by-one
 From: Andrew Jeffery <andrew@aj.id.au>
 Reply-To: andrew@aj.id.au
 To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-Date: Mon, 25 Jan 2016 23:49:56 +1030
-In-Reply-To: <1453434621-22227-4-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1453434621-22227-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1453434621-22227-4-git-send-email-openbmc-patches@stwcx.xyz>
+Date: Tue, 26 Jan 2016 00:17:30 +1030
+In-Reply-To: <1452732624-17345-2-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1452732624-17345-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1452732624-17345-2-git-send-email-openbmc-patches@stwcx.xyz>
 Organization: IBM OzLabs
 Content-Type: text/plain; charset="UTF-8"
 X-Mailer: Evolution 3.16.5-1ubuntu3.1 
@@ -48,50 +48,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Jan 2016 13:20:03 -0000
+X-List-Received-Date: Mon, 25 Jan 2016 13:47:36 -0000
 
-On Thu, 2016-01-21 at 21:50 -0600, OpenBMC Patches wrote:
+Hi Milton,
+
+On Wed, 2016-01-13 at 18:50 -0600, OpenBMC Patches wrote:
 > From: "Milton D. Miller II" <miltonm@us.ibm.com>
 > 
-> Turn on the new spi memory controller driver, plus some file systems
-> that will be used on the new mtd.
+> Norm reported hwclock set the date one hour
+
+'hour' here is meant to be 'month'? The patch only touches the month
+calculation.
+
+>  different from what it
+> read back.
 > 
-> Signed-off-by: Milton Miller <miltonm@us.ibm.com>
+> The mktime64 call takes the month as the 1-based counted month not
+> the 0-based months since January like struct rtc_tm and struct tm.
+> No adjustment from the harware
+
+WARNING: 'harware' may be misspelled - perhaps 'hardware'?
+Otherwise:
 
 Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 
-> ---
->  arch/arm/configs/aspeed_defconfig | 7 +++++++
->  1 file changed, 7 insertions(+)
+>  is needed.  Also mask off a few 0 bits.
 > 
-> diff --git a/arch/arm/configs/aspeed_defconfig
-> b/arch/arm/configs/aspeed_defconfig
-> index a83da91..9727eba 100644
-> --- a/arch/arm/configs/aspeed_defconfig
-> +++ b/arch/arm/configs/aspeed_defconfig
-> @@ -57,6 +57,8 @@ CONFIG_MTD_BLOCK=y
->  CONFIG_MTD_PARTITIONED_MASTER=y
->  CONFIG_MTD_DATAFLASH=y
->  CONFIG_MTD_NAND=y
-> +CONFIG_MTD_SPI_NOR=y
-> +CONFIG_ASPEED_FLASH_SPI=y
->  CONFIG_MTD_UBI=y
->  CONFIG_MTD_UBI_GLUEBI=y
->  CONFIG_BLK_DEV_LOOP=y
-> @@ -170,11 +172,16 @@ CONFIG_PWM=y
->  CONFIG_FIRMWARE_MEMMAP=y
->  CONFIG_EXT4_FS=y
->  CONFIG_FANOTIFY=y
-> +CONFIG_AUTOFS4_FS=y
-> +CONFIG_OVERLAY_FS=y
->  CONFIG_TMPFS=y
->  CONFIG_TMPFS_POSIX_ACL=y
-> +CONFIG_TMPFS_XATTR=y
->  CONFIG_JFFS2_FS=y
-> +CONFIG_JFFS2_XATTR=y
->  CONFIG_JFFS2_SUMMARY=y
->  CONFIG_SQUASHFS=y
-> +CONFIG_SQUASHFS_XZ=y
->  CONFIG_NFS_FS=y
->  CONFIG_ROOT_NFS=y
->  CONFIG_NLS_CODEPAGE_437=y
+> Reported-by: Norman James <nkskjames@gmail.com>
+> Signed-off-by: Milton Miller <miltonm@us.ibm.com>
+> ---
+>  drivers/rtc/rtc-aspeed.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/rtc/rtc-aspeed.c b/drivers/rtc/rtc-aspeed.c
+> index cfb5ee0..1a5bbd1 100644
+> --- a/drivers/rtc/rtc-aspeed.c
+> +++ b/drivers/rtc/rtc-aspeed.c
+> @@ -48,8 +48,7 @@ static int aspeed_rtc_read_time(struct device *dev, struct rtc_time *tm)
+>  > 	> sec  = (reg1 >>  0) & 0x3f;
+>  > 	> cent = (reg2 >> 16) & 0x1f;
+>  > 	> year = (reg2 >>  8) & 0x7f;
+> -> 	> /* struct rtc_time counts from 0 to 11, but hardware is 1 to 12 */
+> -> 	> mon  = ((reg2 >>  0) & 0x3f) - 1;
+> +> 	> mon  = (reg2 >>  0) & 0xf;> 	> /* mktime64 and hardware use 1 = Jan */
+>  
+>  > 	> rtc_time64_to_tm(mktime64(cent*100 + year, mon, day, hour, min, sec),
+>  > 	> 	> 	>  tm);
