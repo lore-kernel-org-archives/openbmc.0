@@ -1,24 +1,60 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <benh@au1.ibm.com>
+Received: from e23smtp01.au.ibm.com (e23smtp01.au.ibm.com [202.81.31.143])
+ (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id E97731A05D0
- for <openbmc@lists.ozlabs.org>; Tue, 23 Feb 2016 02:21:03 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1456154453340188.39576862929096;
- Mon, 22 Feb 2016 07:20:53 -0800 (PST)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Cc: Norman James <njames@us.ibm.com>,
-	Norman James <nkskjames@gmail.com>
-Subject: [PATCH u-boot v3] Move UART setup outside DRAM init
-Date: Mon, 22 Feb 2016 09:20:49 -0600
-Message-Id: <1456154449-26383-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1456154449-26383-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1456154449-26383-1-git-send-email-openbmc-patches@stwcx.xyz>
-X-Zoho-Virus-Status: 1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 293491A0054
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jan 2016 10:25:28 +1100 (AEDT)
+Received: from localhost
+ by e23smtp01.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <benh@au1.ibm.com>;
+ Thu, 28 Jan 2016 09:25:27 +1000
+Received: from d23dlp03.au.ibm.com (202.81.31.214)
+ by e23smtp01.au.ibm.com (202.81.31.207) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Thu, 28 Jan 2016 09:25:24 +1000
+X-IBM-Helo: d23dlp03.au.ibm.com
+X-IBM-MailFrom: benh@au1.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d23relay07.au.ibm.com (d23relay07.au.ibm.com [9.190.26.37])
+ by d23dlp03.au.ibm.com (Postfix) with ESMTP id BAF583578056
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jan 2016 10:25:23 +1100 (EST)
+Received: from d23av01.au.ibm.com (d23av01.au.ibm.com [9.190.234.96])
+ by d23relay07.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u0RNPHQB10289366
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jan 2016 10:25:25 +1100
+Received: from d23av01.au.ibm.com (localhost [127.0.0.1])
+ by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u0RNOoDJ005250
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jan 2016 10:24:51 +1100
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u0RNOoki004886; Thu, 28 Jan 2016 10:24:50 +1100
+Received: from pasglop.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
+ (using TLSv1.2 with cipher AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 702F4A0124;
+ Thu, 28 Jan 2016 10:24:26 +1100 (AEDT)
+Message-ID: <1453937066.3148.28.camel@au1.ibm.com>
+Subject: Re: [PATCH skeleton v2] Refactored LED control dbus methods
+From: Benjamin Herrenschmidt <benh@au1.ibm.com>
+Reply-To: benh@au1.ibm.com
+To: Cyril Bur <cyrilbur@gmail.com>, OpenBMC Patches
+ <openbmc-patches@stwcx.xyz>, vishwanath@in.ibm.com
+Cc: openbmc@lists.ozlabs.org
+In-Reply-To: <20160127145416.6569f93b@camb691>
+References: <1453465242-8067-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1453465242-8067-2-git-send-email-openbmc-patches@stwcx.xyz>
+ <20160127145416.6569f93b@camb691>
+Organization: IBM Australia
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.18.3 (3.18.3-1.fc23) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16012723-1618-0000-0000-000003950D6C
+X-Mailman-Approved-At: Tue, 23 Feb 2016 07:11:17 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -30,121 +66,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Feb 2016 15:21:04 -0000
+Date: Wed, 27 Jan 2016 23:25:29 -0000
+X-Original-Date: Thu, 28 Jan 2016 10:24:26 +1100
+X-List-Received-Date: Wed, 27 Jan 2016 23:25:29 -0000
 
-From: Norman James <njames@us.ibm.com>
+On Wed, 2016-01-27 at 14:54 +1100, Cyril Bur wrote:
+> +const char *power_ctrl = "brightness";
+> > +const char *blink_ctrl = "trigger";
+> > +const char *duty_on   = "delay_on";
+> > +const char *duty_off  = "delay_off";
+> 
+> Why can't these be #defined?
 
-When a BMC reboot occurs an SOC reset is performed.
-An SOC reset does not reset the DRAM.  The uboot platform
-code initialized UART in dram init section.  So an SOC
-reset was causing the UART to not be initialized on reboot.
-This moves the UART setup code before dram init stage.
-This change should be integrated if SOC reset method is used
-to reboot BMC otherwise you won't see a u-boot console.
+Ugh ? A const string is better, more strongly typed and guarantees
+there is going to be only one (though compilers are smart these days).
 
-Signed-off-by: Norman James <nkskjames@gmail.com>
----
- board/aspeed/ast2400/platform.S | 81 +++++++++++++++++++++--------------------
- 1 file changed, 42 insertions(+), 39 deletions(-)
-
-diff --git a/board/aspeed/ast2400/platform.S b/board/aspeed/ast2400/platform.S
-index dd94da0..5e048a5 100644
---- a/board/aspeed/ast2400/platform.S
-+++ b/board/aspeed/ast2400/platform.S
-@@ -184,6 +184,48 @@ LPC_Patch_E:
- 
- .globl lowlevel_init
- lowlevel_init:
-+    /* setup UART */
-+    ldr r0, =CONFIG_ASPEED_COM_LCR
-+    mov r1, #0x83
-+    str r1, [r0]
-+
-+    ldr r0, =0x1e6e202c
-+    ldr r1, =0x00000010
-+    str r1, [r0]
-+
-+    ldr r2, [r0]
-+    mov r2, r2, lsr #12
-+    tst r2, #0x01
-+    ldr r0, =CONFIG_ASPEED_COM
-+#if CONFIG_BAUDRATE == 115200
-+    moveq r1, #0x0D                              @ Baudrate 115200
-+    movne r1, #0x01                              @ Baudrate 115200, div13
-+#endif
-+#if CONFIG_BAUDRATE == 57600
-+    moveq r1, #0x1A                              @ Baudrate 57600
-+    movne r1, #0x02                              @ Baudrate 57600, div13
-+#endif
-+#if CONFIG_BAUDRATE == 38400
-+    moveq r1, #0x27                              @ Baudrate 38400
-+    movne r1, #0x03                              @ Baudrate 38400 , div13
-+#endif
-+#if CONFIG_BAUDRATE == 9600
-+    moveq r1, #0x9c                              @ Baudrate 9600
-+    movne r1, #0x0C                              @ Baudrate 9600 , div13
-+#endif
-+    str r1, [r0]
-+
-+    ldr r0, =CONFIG_ASPEED_COM_IER
-+    mov r1, #0x00
-+    str r1, [r0]
-+
-+    ldr r0, =CONFIG_ASPEED_COM_LCR
-+    mov r1, #0x03
-+    str r1, [r0]
-+
-+    ldr r0, =CONFIG_ASPEED_COM_IIR
-+    mov r1, #0x07
-+    str r1, [r0]
- 
- init_dram:
-     /* save lr */
-@@ -338,45 +380,6 @@ set_MPLL:
-     ldr r1, =0xFFFF0000                          @ enable UART3 and UART4
-     str r1, [r0]
- 
--    ldr r0, =CONFIG_ASPEED_COM_LCR
--    mov r1, #0x83
--    str r1, [r0]
--
--    ldr r0, =0x1e6e202c
--    ldr r2, [r0]
--    mov r2, r2, lsr #12
--    tst r2, #0x01
--    ldr r0, =CONFIG_ASPEED_COM
--#if CONFIG_BAUDRATE == 115200
--    moveq r1, #0x0D                              @ Baudrate 115200
--    movne r1, #0x01                              @ Baudrate 115200, div13
--#endif
--#if CONFIG_BAUDRATE == 57600
--    moveq r1, #0x1A                              @ Baudrate 57600
--    movne r1, #0x02                              @ Baudrate 57600, div13
--#endif
--#if CONFIG_BAUDRATE == 38400
--    moveq r1, #0x27                              @ Baudrate 38400
--    movne r1, #0x03                              @ Baudrate 38400 , div13
--#endif
--#if CONFIG_BAUDRATE == 9600
--    moveq r1, #0x9c                              @ Baudrate 9600
--    movne r1, #0x0C                              @ Baudrate 9600 , div13
--#endif
--    str r1, [r0]
--
--    ldr r0, =CONFIG_ASPEED_COM_IER
--    mov r1, #0x00
--    str r1, [r0]
--
--    ldr r0, =CONFIG_ASPEED_COM_LCR
--    mov r1, #0x03
--    str r1, [r0]
--
--    ldr r0, =CONFIG_ASPEED_COM_IIR
--    mov r1, #0x07
--    str r1, [r0]
--
-     ldr r0, =CONFIG_ASPEED_COM
-     mov r1, #0x0D                                @ '\r'
-     str r1, [r0]
--- 
-2.7.1
+Cheers,
+Ben.
