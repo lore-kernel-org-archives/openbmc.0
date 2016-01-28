@@ -3,16 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id A1B5C1A1A76
- for <openbmc@lists.ozlabs.org>; Fri, 29 Jan 2016 09:50:29 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 54BCA1A1054
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Jan 2016 09:50:30 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1454021425335300.16992633333643;
- Thu, 28 Jan 2016 14:50:25 -0800 (PST)
+ with SMTPS id 1454021426199118.16761764112994;
+ Thu, 28 Jan 2016 14:50:26 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 6/8] create u-boot-fw-utils for our u-boot version
-Date: Thu, 28 Jan 2016 16:50:17 -0600
-Message-Id: <1454021419-16743-7-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: "Milton D. Miller II" <miltonm@us.ibm.com>,
+ Milton Miller <miltonmm@us.ibm.com>
+Subject: [PATCH openbmc 7/8] Hack to make fw_setenv work
+Date: Thu, 28 Jan 2016 16:50:18 -0600
+Message-Id: <1454021419-16743-8-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 In-Reply-To: <1454021419-16743-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1454021419-16743-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -32,108 +34,77 @@ X-List-Received-Date: Thu, 28 Jan 2016 22:50:30 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-This commit creates a class and recipie based on the upstream 2015
-branch of u-boot and patches it with our fw_env.config.
+The fw_setenv is not working with the kernel mtd driver.  It works
+on a plain flat file, and flashcp which is used in /update works.
 
-Having these tools for the initfs will allow us to modify the u-boot
-enviornment to do things like boot from network for update and set the
-bmc mac addresses in the environment for u-boot and use by the kernel.
+Find the u-boot-env mtd, link it in run and copy the contents to a
+plain file in /run during init.  In shutdown, check for the link,
+the file having data, no current image update for the u-boot-env,
+and that the content differs from the mtd via the link.  If all
+are true create a symlink to the file and trigger the update.
 
-This commit is based on the upstream fw-utils commit.  However, the
-initial commit was not creating target binaries.  After commenting
-out the cross class support for creating host binaries to prepare
-an environment, a study of the u-boot Makefile showed that HOSTCC
-etc needed to be set.  It is anticipated something to the commented
-lines will be necessary for merging upstream but this addresses our
-immediate use case.
+Along wtih changing the fw_env.config this causes the fw_setenv
+and fw_printenv utilities to set and update this cached file which
+will be synced during a normal bmc reboot.  This will allow us to
+set the ethaddr variable which already requires a reboot to activate.
 
-Signed-off-by: Milton Miller <miltonm@us.ibm.com>
+Note: the links are directly in /run because the fw_{set,print}env
+utilities limit the env file name to 16 characters.
+
+Signed-off-by: Milton Miller <miltonmm@us.ibm.com>
 ---
- .../u-boot/u-boot-fw-utils_2013.07%.bbappend       | 13 +++++
- .../recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb  | 55 ++++++++++++++++++++++
- 2 files changed, 68 insertions(+)
- create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/u-boot-fw-utils_2013.07%.bbappend
- create mode 100644 meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb
+ .../meta-ast2400/recipes-bsp/u-boot/files/fw_env.config            | 3 ++-
+ .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh       | 7 +++++++
+ .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh   | 5 +++++
+ 3 files changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/u-boot-fw-utils_2013.07%.bbappend b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/u-boot-fw-utils_2013.07%.bbappend
-new file mode 100644
-index 0000000..4020696
---- /dev/null
-+++ b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/u-boot-fw-utils_2013.07%.bbappend
-@@ -0,0 +1,13 @@
-+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+diff --git a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/files/fw_env.config b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/files/fw_env.config
+index fe09890..978e4d6 100644
+--- a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/files/fw_env.config
++++ b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/files/fw_env.config
+@@ -12,7 +12,8 @@
+ 
+ # MTD SPI-dataflash example
+ # MTD device name	Device offset	Env. size	Flash sector size	Number of sectors
+-/dev/mtd2		0x00000		0x20000
++#/dev/mtd2		0x00000		0x20000
++/run/fw_env		0x00000		0x20000
+ #/dev/mtd5		0x4200		0x4200
+ #/dev/mtd6		0x4200		0x4200
+ 
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+index 431780a..0dc4c35 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+@@ -29,6 +29,13 @@ findmtd() {
+ 	echo $m
+ }
+ 
++env=$(findmtd u-boot-env)
++if test -n $env
++then
++	ln -s /dev/$env /run/mtd:u-boot-env
++	cp /run/mtd:u-boot-env /run/fw_env
++fi
 +
-+SRC_URI += "file://fw_env.config"
-+SRC_URI += "file://config.patch"
-+
-+do_install_append() {
-+    if [ -e ${WORKDIR}/fw_env.config ] ; then
-+        install -d ${D}${sysconfdir}
-+        install -m 644 ${WORKDIR}/fw_env.config ${D}${sysconfdir}/fw_env.config
-+    fi
-+}
-+
-+BBCLASSEXTEND += "native"
-diff --git a/meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb b/meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb
-new file mode 100644
-index 0000000..c8ae846
---- /dev/null
-+++ b/meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb
-@@ -0,0 +1,55 @@
-+#require recipes-bsp/u-boot/u-boot.inc
-+
-+SUMMARY = "U-Boot bootloader fw_printenv/setenv utilities"
-+SECTION = "bootloader"
-+DEPENDS = "mtd-utils"
-+
-+LICENSE = "GPLv2+"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb \
-+                    file://README;beginline=1;endline=22;md5=78b195c11cb6ef63e6985140db7d7bab"
-+
-+# This revision corresponds to the tag "v2013.07"
-+# We use the revision in order to avoid having to fetch it from the
-+# repo during parse
-+# SRCREV = "62c175fbb8a0f9a926c88294ea9f7e88eb898f6c"
-+SRCREV="${AUTOREV}"
-+
-+PV = "v2013.07+git${SRCPV}"
-+
-+UBRANCH = "v2013.07-aspeed-openbmc"
-+SRC_URI = "git://git@github.com/openbmc/u-boot.git;branch=${UBRANCH};protocol=https"
-+S = "${WORKDIR}/git"
-+
-+#INSANE_SKIP_${PN} = "already-stripped"
-+#EXTRA_OEMAKE_class-target = 'CROSS_COMPILE=${TARGET_PREFIX} CC="${CC} ${CFLAGS} ${LDFLAGS}" V=1'
-+#EXTRA_OEMAKE_class-cross = 'ARCH=${TARGET_ARCH} CC="${CC} ${CFLAGS} ${LDFLAGS}" V=1'
-+EXTRA_OEMAKE = 'HOSTCC="${CC}" CC="${CC}" HOSTSTRIP="true"'
-+
-+inherit uboot-config
-+
-+do_compile () {
-+	oe_runmake ${UBOOT_MACHINE}
-+	oe_runmake env
-+}
-+
-+do_install () {
-+	install -d ${D}${base_sbindir}
-+	install -d ${D}${sysconfdir}
-+	install -m 755 ${S}/tools/env/fw_printenv ${D}${base_sbindir}/fw_printenv
-+	ln -sf fw_printenv ${D}${base_sbindir}/fw_setenv
-+	install -m 0644 ${S}/tools/env/fw_env.config ${D}${sysconfdir}/fw_env.config
-+}
-+
-+#do_install_class-cross () {
-+#	install -d ${D}${bindir_cross}
-+#	install -m 755 ${S}/tools/env/fw_printenv ${D}${bindir_cross}/fw_printenv
-+#	install -m 755 ${S}/tools/env/fw_printenv ${D}${bindir_cross}/fw_setenv
-+#}
-+
-+#SYSROOT_PREPROCESS_FUNCS_class-cross = "uboot_fw_utils_cross"
-+#uboot_fw_utils_cross() {
-+#	sysroot_stage_dir ${D}${bindir_cross} ${SYSROOT_DESTDIR}${bindir_cross}
-+#}
-+
-+PACKAGE_ARCH = "${MACHINE_ARCH}"
-+#BBCLASSEXTEND = "cross native"
+ rofs=$(findmtd rofs)
+ rwfs=$(findmtd rwfs)
+ 
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
+index 029cd65..cc076fd 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
+@@ -24,6 +24,11 @@ do
+ done
+ set +x
+ 
++if test -s /run/fw_env -a -c /run/mtd:u-boot-env -a ! -e /image-u-boot-env &&
++	! cmp /run/mtd:u-boot-env /run/fw_env
++then
++	ln -s /run/fw_env /image-u-boot-env
++fi
+ 
+ if test -x /update && ls image-* > /dev/null 2>&1
+ then
 -- 
 2.6.4
