@@ -1,59 +1,17 @@
-Return-Path: <cyrilbur@gmail.com>
-Received: from mail-pa0-x244.google.com (mail-pa0-x244.google.com
- [IPv6:2607:f8b0:400e:c03::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 033E91A0E27
- for <openbmc@lists.ozlabs.org>; Fri, 29 Jan 2016 15:43:35 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=Qsz/3+Pt; 
- dkim-atps=neutral
-Received: by mail-pa0-x244.google.com with SMTP id pv5so2994362pac.0
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jan 2016 20:43:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version:content-type:content-transfer-encoding;
- bh=iTeFnaCJNgAUXzAQ3Olx13ISFL3YYVzDXHJMUFbz7qU=;
- b=Qsz/3+PtQHFEaY+3yWGv8W2RDj1kjuwiiBYOeVQvUELiSsGvbRW06yeqTJe696Lcgs
- XPe68pTyyXInDVmZFQTKgUtcMv+xRlipuMKXzSYTLjULWjmTgvNhM54oUQN6hmYYzdJM
- +YbhDS+v37+QYVwpr3kdm803/HC/jFVI48gN8Xkc5fM05PV2nnwTgNqGEvzgJSBSsGmo
- IK+gzLoSj8e+K82Y2SnOxUWNKUi9/jRB5IABQEqZQ+6k+v81cbB4Wte7y5sybjyZFZEP
- HAYEJcv+QEyrNVhYVZiblFep450xT9owNI+XCGS93z7Pwh64lMairnD2ijTEoA4IUhKj
- 1x4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version:content-type:content-transfer-encoding;
- bh=iTeFnaCJNgAUXzAQ3Olx13ISFL3YYVzDXHJMUFbz7qU=;
- b=UeBRUcS2PWMeQhqsjhkABal+htwZmpcBGV/+03oHniOK9Sk7HS7Ag99zxEd2rWm6es
- t3Cam2ylZQUq3iOSPN/6xc1Ah3hs9wZ/jABWXiHAA6nZ9WUqW+mZk2w3WC85HJ25I3qu
- okY8EtA2tHuw9aVhV2QjA5sky0lT8Zl8xtdczP6WkrLU7XXTDrjvJQop90BxzRg8m+wE
- SuIt/uCftLwf/H30E2yROs6Z6112o+M5703SOP6J7CO5aqW2DDFY15sYZZ2RMKuFcGGD
- NB1cppV4FqLLTmC/gViuR6i4t2axJnxjsKlA46HqeHcoKhjKXRUE/2yY6wPuLxN+2NMK
- tVIw==
-X-Gm-Message-State: AG10YOTIsJ5oZYOXsUqwQibrtKvwD04J/upPw8mr6bVX3TTNNjGT6br23Lt+kqc1AYDo/w==
-X-Received: by 10.67.14.234 with SMTP id fj10mr10323042pad.149.1454042613787; 
- Thu, 28 Jan 2016 20:43:33 -0800 (PST)
-Received: from camb691 ([122.99.82.10])
- by smtp.gmail.com with ESMTPSA id xv2sm19965922pab.10.2016.01.28.20.43.31
- (version=TLSv1/SSLv3 cipher=OTHER);
- Thu, 28 Jan 2016 20:43:33 -0800 (PST)
-Date: Fri, 29 Jan 2016 15:43:26 +1100
-From: Cyril Bur <cyrilbur@gmail.com>
-To: "Peng Fei BG Gou" <shgoupf@cn.ibm.com>
-Cc: openbmc-patches@stwcx.xyz, openbmc@lists.ozlabs.org
-Subject: Re: =?UTF-8?B?5Zue5aSN77ya5Zue5aSN77yaW1BBVENI?=
- phosphor-rest-server] The streaming support for obmc-rest.
-Message-ID: <20160129154326.7c11f275@camb691>
-In-Reply-To: <201601290423.u0T4NYkd013405@d23av02.au.ibm.com>
-References: <20160129130826.477d4fcd@camb691>
- <OF66059493.03804909-ON00257F49.000380B3-1454027895800@LocalDomain>
- <201601290049.u0T0nquh003020@d23av02.au.ibm.com>
- <201601290423.u0T4NYkd013405@d23av02.au.ibm.com>
-X-Mailer: Claws Mail 3.13.2 (GTK+ 2.24.29; x86_64-unknown-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id F25FF1A1A0C
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Jan 2016 15:59:23 +1100 (AEDT)
+Received: by ozlabs.org (Postfix, from userid 1023)
+ id D950D140C37; Fri, 29 Jan 2016 15:59:23 +1100 (AEDT)
+From: Jeremy Kerr <jk@ozlabs.org>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH 1/2] drivers/serial: Add driver for Aspeed virtual UART
+Date: Fri, 29 Jan 2016 12:55:47 +0800
+Message-Id: <1454043348-11432-1-git-send-email-jk@ozlabs.org>
+X-Mailer: git-send-email 2.5.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -65,352 +23,384 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Jan 2016 04:43:37 -0000
+X-List-Received-Date: Fri, 29 Jan 2016 04:59:24 -0000
 
-On Fri, 29 Jan 2016 04:23:21 +0000
-"Peng Fei BG Gou" <shgoupf@cn.ibm.com> wrote:
+This change adds a driver for the 16550-based Aspeed virtual UART
+device. We use a similar process to the of_serial driver for device
+probe, but expose some VUART-specific functions through sysfs too.
 
-> Yes Cyril, your suggestion is fair, we should keep it consistent across a=
-ll files in a project. There is always debating between tabs and whitespace=
-s. Even though personally I prefer white spaces (that's why my editor autom=
-atically convert tab to whitespace for me), I agree that for this project, =
-I should use tabs. Will make an update soon.
+Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
+---
+ Documentation/devicetree/bindings/serial/8250.txt |   1 +
+ drivers/tty/serial/Kconfig                        |  10 +
+ drivers/tty/serial/Makefile                       |   1 +
+ drivers/tty/serial/aspeed-vuart.c                 | 313 ++++++++++++++++++++++
+ 4 files changed, 325 insertions(+)
+ create mode 100644 drivers/tty/serial/aspeed-vuart.c
 
-So not being a Python person I was not all over PEP8 that Andrew mentioned
-(which states 4 space indenting), we should probably enforce that all new
-Python, even new entire functions/classes be PEP8 but single lines changes
-are just going to make the code illegible.  Unfortunately we'll have to live
-with whats been written.
-
-I'll send a pull request to the docs I suppose.
-
-> =20
-> GOU, Peng Fei (=E8=8B=9F=E9=B9=8F=E9=A3=9E), Ph.D.
-> OpenPOWER Enablement.
-> +86-21-609-28631
-> =20
-> =20
-> ----- Original message -----
-> From: Cyril Bur <cyrilbur@gmail.com>
-> To: Peng Fei BG Gou/China/IBM@IBMCN
-> Cc: "openbmc" <openbmc@lists.ozlabs.org>, "OpenBMC Patches" <openbmc-patc=
-hes@stwcx.xyz>
-> Subject: Re: =E5=9B=9E=E5=A4=8D=EF=BC=9A=E5=9B=9E=E5=A4=8D=EF=BC=9A[PATCH=
- phosphor-rest-server] The streaming support for obmc-rest.
-> Date: Fri, Jan 29, 2016 10:09 AM
-> =20
-> On Fri, 29 Jan 2016 00:49:39 +0000
-> "Peng Fei BG Gou" <shgoupf@cn.ibm.com> wrote:
->=20
-> > And the white space you saw in the email thread and coding is probably =
-caused by the mixing use of tab and white space. The original code uses tab=
- for indent, while I prefer to use 4 white spaces for indent. I will discus=
-s with Brad regarding the indent convention for our code. Will fix it up if=
- we strictly need tab in our project.
->=20
-> In a world where we all have to read each others code, we should make an =
-effort
-> to not make it hard for everyone. What you have done here is mix different
-> indenting styles which only makes it harder to read for everyone to read =
-the
-> code. Imagine a world where I preferred 8 space indenting and I went thro=
-ugh
-> and my additions to the file were 8 space indented, this would be impossi=
-ble to
-> read.
->=20
-> Typically when a file has been written in one way, it is left that way un=
-less
-> that particular way is absolutely abhorrent (5 space indenting...). Tabs =
-are a
-> perfectly valid way of indenting, I don't see the issue here.
->=20
-> Futhurmore, I know this isn't really for python, if in doubt we should pr=
-obably
-> be falling back to the openbmc/docs/contributing file and I quote:
->=20
-> Components of the OpenBMC sources should have consistent style.
->=20
-> For C code, we typically use the Linux coding style, which is
-> documented at:
->=20
-> http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Docum=
-entation/CodingStyle
->=20
-> (unless you want to write a completely separate Python document, and chan=
-ge all
-> the python in this project, I suggest we follow this one where appropriat=
-e)
->=20
-> Indent with tabs instead of spaces, set at 8 columns
->=20
-> tl;dr
->=20
-> Don't mix indenting styles, way too hard to read the code.
->=20
-> > =20
-> > =20
-> > =20
-> >  =E5=9C=A8 2016=E5=B9=B41=E6=9C=8829=E6=97=A5=EF=BC=8C=E4=B8=8A=E5=8D=
-=888:38:15=EF=BC=8C"Peng Fei BG Gou" <shgoupf@cn.ibm.com> =E5=86=99=E9=81=
-=93=EF=BC=9A
-> > =20
-> >       Python is indent based languang, so the function will fail if we =
-have
-> > incorrect indenting. I have tested this in real bmc machine so I believ=
-e the
-> > indenting should be fine for now. Please let Brad review this change si=
-nce he
-> > is familiar with Python.
-> >    =E5=9C=A8 2016=E5=B9=B41=E6=9C=8829=E6=97=A5=EF=BC=8C=E4=B8=8A=E5=8D=
-=888:24:58=EF=BC=8C"Cyril Bur" <cyrilbur@gmail.com> =E5=86=99=E9=81=93=EF=
-=BC=9A
-> >   =20
-> >        On Thu, 28 Jan 2016 02:00:37 -0600
-> >     OpenBMC Patches  wrote:
-> >     > From: shgoupf
-> >     > =20
-> >     Hi Peng,
-> >     So I'm don't really know python all that well but I do believe this
-> > language is white space sensitive... I'll let a pythoner respond about =
-the
-> > rest...
-> >     > Changes:
-> >     > 1) The main idea of this change is to have a streaming path as be=
-low:
-> >     >     dbus signal -> obmc-rest capture the dbus signal -> obmc-rest
-> >     > notify the client of the signal receiving. 2) Replace rocket with
-> >     > gevent WSGI server to support multiple async accesses. 3) Use gev=
-ent
-> >     > queue to notify the dbus signal receiving. 4) The uri to the stre=
-aming
-> >     > should be in the form as below: https:////stream/
-> >     > ---
-> >     >  obmc-rest | 115
-> >     > ++++++++++++++++++++++++++++++++++++++++++++++++++++++++------ 1 =
-file
-> >     > changed, 104 insertions(+), 11 deletions(-) mode change 100644 =
-=3D>
-> >     > 100755 obmc-rest
-> >     >
-> >     > diff --git a/obmc-rest b/obmc-rest
-> >     > old mode 100644
-> >     > new mode 100755
-> >     > index c6d2949..481dafa
-> >     > --- a/obmc-rest
-> >     > +++ b/obmc-rest
-> >     > @@ -3,7 +3,9 @@
-> >     >  import os
-> >     >  import sys
-> >     >  import dbus
-> >     > +import gobject
-> >     >  import dbus.exceptions
-> >     > +import dbus.mainloop.glib
-> >     >  import json
-> >     >  import logging
-> >     >  from xml.etree import ElementTree
-> >     > @@ -14,6 +16,10 @@ from OpenBMCMapper import Mapper, PathTree,
-> >     > IntrospectionNodeParser, ListMatch import spwd
-> >     >  import grp
-> >     >  import crypt
-> >     > +import threading
-> >     > +import gevent
-> >     > +from gevent.pywsgi import WSGIServer
-> >     > +from gevent.queue import Queue
-> >     > =20
-> >     >  DBUS_UNKNOWN_INTERFACE =3D 'org.freedesktop.UnknownInterface'
-> >     >  DBUS_UNKNOWN_METHOD =3D 'org.freedesktop.DBus.Error.UnknownMetho=
-d'
-> >     > @@ -59,12 +65,13 @@ def makelist(data):
-> >     > =20
-> >     >  class RouteHandler(object):
-> >     >   _require_auth =3D makelist(valid_user)
-> >     > - def __init__(self, app, bus, verbs, rules):
-> >     > + def __init__(self, app, bus, verbs, rules, skips =3D []):
-> >     >   self.app =3D app
-> >     >   self.bus =3D bus
-> >     >   self.mapper =3D Mapper(bus)
-> >     >   self._verbs =3D makelist(verbs)
-> >     >   self._rules =3D rules
-> >     > +                self._skips =3D skips
-> >     > =20
-> >     >   def _setup(self, **kw):
-> >     >   request.route_data =3D {}
-> >     > @@ -79,7 +86,7 @@ class RouteHandler(object):
-> >     >   return getattr(self, 'do_' + request.method.lower())(**kw)
-> >     > =20
-> >     >   def install(self):
-> >     > - self.app.route(self._rules, callback =3D self,
-> >     &gt; + self.app.route(self._rules, callback =3D self, skip =3D self=
-._skips,
-> >     >   method =3D ['GET', 'PUT', 'PATCH', 'POST', 'DELETE'])
-> >     > =20
-> >     >   @staticmethod
-> >     > @@ -108,6 +115,58 @@ class RouteHandler(object):
-> >     >   return None
-> >     >   raise
-> >     > =20
-> >     > +class SignalHandler(RouteHandler):
-> >     > + verbs =3D ['GET']
-> >     > + rules =3D '/stream/'
-> >     > +
-> >     > + def __init__(self, app, bus):
-> >     > + super(SignalHandler, self).__init__(
-> >     > + app, bus, self.verbs, self.rules)
-> >     > +
-> >     > + def find(self, path, signal):
-> >     > + busses =3D self.try_mapper_call(self.mapper.get_object,
-> >     > + path =3D path)
-> >     > + for items in busses.iteritems():
-> >     > + s =3D self.find_signal_on_bus(path, signal, *items)
-> >     > + if s:
-> >     > + return s
-> >     > +
-> >     > + abort(404, _4034_msg %('signal', 'found', signal))
-> >     > +
-> >     > + def setup(self, path, signal):
-> >     > + request.route_data['map'] =3D self.find(path, signal)
-> >     > +
-> >     > + def do_get(self, path, signal):
-> >     > +                body =3D Queue()
-> >     > +                dsignal =3D DbusSignal(bus, request.route_data['=
-map'][0],
-> >     > +                                     request.route_data['map'][1=
-],
-> >     > path)
-> >     > +                dsignal.onData(body.put)
-> >     > +                dsignal.onFinish(lambda: body.put(StopIteration))
-> >     > +                dsignal.signalSnooping()
-> >     > +                return body
-> >     > +
-> >     > + @staticmethod
-> >     > + def find_signal(signal, signals):
-> >     > + if signals is None:
-> >     > + return None
-> >     > +
-> >     > + signal =3D find_case_insensitive(signal, signals.keys())
-> >     > + if signal is not None:
-> >     > +                        return signal
-> >     > +
-> >     > + def find_signal_on_bus(self, path, signal, bus, interfaces):
-> >     > + obj =3D self.bus.get_object(bus, path, introspect =3D False)
-> >     > + iface =3D dbus.Interface(obj, dbus.INTROSPECTABLE_IFACE)
-> >     > + data =3D iface.Introspect()
-> >     > + parser =3D IntrospectionNodeParser(
-> >     > + ElementTree.fromstring(data),
-> >     > + intf_match =3D ListMatch(interfaces))
-> >     > + for x,y in parser.get_interfaces().iteritems():
-> >     > + s =3D self.find_signal(signal,
-> >     > +                                             y.get('signal'))
-> >     > + if s:
-> >     > + return (x,s)
-> >     > +
-> >     >  class DirectoryHandler(RouteHandler):
-> >     >   verbs =3D 'GET'
-> >     >   rules =3D '/'
-> >     > @@ -715,7 +774,8 @@ class RestApp(Bottle):
-> >     >   self.install(JSONPlugin(**json_kw))
-> >     >   self.install(JsonApiErrorsPlugin(**json_kw))
-> >     >   self.install(AuthorizationPlugin())
-> >     > - self.install(JsonApiResponsePlugin())
-> >     > +                self.json_response_plugin =3D JsonApiResponsePlu=
-gin() =20
-> >     Indenting?
-> >     > + self.install(self.json_response_plugin)
-> >     >   self.install(JsonApiRequestPlugin())
-> >     >   self.install(JsonApiRequestTypePlugin())
-> >     > =20
-> >     > @@ -726,6 +786,7 @@ class RestApp(Bottle):
-> >     > =20
-> >     >   def create_handlers(self):
-> >     >   # create route handlers
-> >     > + self.signal_handler =3D SignalHandler(self, self.bus)
-> >     >   self.session_handler =3D SessionHandler(self, self.bus)
-> >     >   self.directory_handler =3D DirectoryHandler(self, self.bus)
-> >     >   self.list_names_handler =3D ListNamesHandler(self, self.bus)
-> >     > @@ -736,6 +797,11 @@ class RestApp(Bottle):
-> >     >   self.instance_handler =3D InstanceHandler(self, self.bus)
-> >     > =20
-> >     >   def install_handlers(self):
-> >     > +                # Skip json response for signal handler because =
-it
-> >     > requires to
-> >     > +                # return a gevent iterable which cannot be handl=
-ed by
-> >     > json
-> >     > +                # response plugin
-> >     > +                self.signal_handler._skips =3D
-> >     > [self.json_response_plugin] =20
-> >     Indenting?
-> >     > + self.signal_handler.install()
-> >     >   self.session_handler.install()
-> >     >   self.directory_handler.install()
-> >     >   self.list_names_handler.install()
-> >     > @@ -766,21 +832,48 @@ class RestApp(Bottle):
-> >     >   parts =3D filter(bool, path.split('/'))
-> >     >   request.environ['PATH_INFO'] =3D '/' + '/'.join(parts) + traili=
-ng
-> >     > =20
-> >     > +class DbusSignal():
-> >     > +    def __init__(self, bus, dbus_interface, signal_name, path):
-> >     > +        # Register the dbus recieve handler
-> >     > +        bus.add_signal_receiver(self.signalReciever,
-> >     > +                                dbus_interface =3D dbus_interfac=
-e,
-> >     > +                                signal_name =3D signal_name,
-> >     > +                                path =3D path)
-> >     > +
-> >     > +        self.snooping =3D True
-> >     > +
-> >     > +    def signalReciever(self, msg):
-> >     > +        self.send("Recieved message: %s" % msg)
-> >     > +        self.snooping =3D False
-> >     > +
-> >     > +    def onData(self, send):
-> >     > +        self.send =3D send
-> >     > +
-> >     > +    def onFinish(self, f):
-> >     > +        self.finish =3D f
-> >     > +
-> >     > +    def signalSnooping(self):
-> >     > +        while self.snooping:
-> >     > +            mainloop =3D gobject.MainLoop()
-> >     > +            gevent.sleep(1)
-> >     > +            gobject.timeout_add(1, mainloop.quit)
-> >     > +            mainloop.run()
-> >     > +
-> >     > +        self.finish()
-> >     > +
-> >     >  if __name__ =3D=3D '__main__':
-> >     >   log =3D logging.getLogger('Rocket.Errors')
-> >     >   log.setLevel(logging.INFO)
-> >     >   log.addHandler(logging.StreamHandler(sys.stdout))
-> >     > =20
-> >     > +        dbus.mainloop.glib.DBusGMainLoop(set_as_default=3DTrue) =
-=20
-> >     Indenting?
-> >     >   bus =3D dbus.SystemBus()
-> >     >   app =3D RestApp(bus)
-> >     > + =20
-> >     ?
-> >     >   default_cert =3D os.path.join(sys.prefix, 'share',
-> >     >   os.path.basename(__file__), 'cert.pem')
-> >     > =20
-> >     > - server =3D Rocket(('0.0.0.0',
-> >     > - 443,
-> >     > - default_cert,
-> >     > - default_cert),
-> >     > - 'wsgi', {'wsgi_app': app},
-> >     > - min_threads =3D 1,
-> >     > - max_threads =3D 1)
-> >     > - server.start()
-> >     > +        server =3D WSGIServer(("0.0.0.0", 443), app, keyfile =3D
-> >     > default_cert,
-> >     > +                            certfile =3D default_cert)
-> >     > +
-> >     > +        server.serve_forever() =20
-> >     Indenting?
-> =20
-> =20
->=20
->=20
+diff --git a/Documentation/devicetree/bindings/serial/8250.txt b/Documentation/devicetree/bindings/serial/8250.txt
+index 91d5ab0..1b887f2 100644
+--- a/Documentation/devicetree/bindings/serial/8250.txt
++++ b/Documentation/devicetree/bindings/serial/8250.txt
+@@ -20,6 +20,7 @@ Required properties:
+ 	- "altr,16550-FIFO128"
+ 	- "fsl,16550-FIFO64"
+ 	- "fsl,ns16550"
++	- "aspeed,vuart"
+ 	- "serial" if the port type is unknown.
+ - reg : offset and length of the register set for the device.
+ - interrupts : should contain uart interrupt.
+diff --git a/drivers/tty/serial/Kconfig b/drivers/tty/serial/Kconfig
+index 687b1ea..ffb59b4 100644
+--- a/drivers/tty/serial/Kconfig
++++ b/drivers/tty/serial/Kconfig
+@@ -1093,6 +1093,16 @@ config SERIAL_NETX_CONSOLE
+ 	  If you have enabled the serial port on the Hilscher NetX SoC
+ 	  you can make it the console by answering Y to this option.
+ 
++config SERIAL_ASPEED_VUART
++	tristate "Aspeed Virtual UART"
++	depends on OF
++	depends on SERIAL_8250
++	help
++	  If you want to use the virtual UART (VUART) device on Aspeed
++	  BMC platforms, enable this option. This enables the 16550A-
++	  compatible device on the local LPC bus, giving a UART device
++	  with no physical RS232 connections.
++
+ config SERIAL_OF_PLATFORM
+ 	tristate "Serial port on Open Firmware platform bus"
+ 	depends on OF
+diff --git a/drivers/tty/serial/Makefile b/drivers/tty/serial/Makefile
+index 5ab4111..72dc094 100644
+--- a/drivers/tty/serial/Makefile
++++ b/drivers/tty/serial/Makefile
+@@ -65,6 +65,7 @@ obj-$(CONFIG_SERIAL_MSM) += msm_serial.o
+ obj-$(CONFIG_SERIAL_NETX) += netx-serial.o
+ obj-$(CONFIG_SERIAL_OF_PLATFORM) += of_serial.o
+ obj-$(CONFIG_SERIAL_OF_PLATFORM_NWPSERIAL) += nwpserial.o
++obj-$(CONFIG_SERIAL_ASPEED_VUART) += aspeed-vuart.o
+ obj-$(CONFIG_SERIAL_KGDB_NMI) += kgdb_nmi.o
+ obj-$(CONFIG_SERIAL_KS8695) += serial_ks8695.o
+ obj-$(CONFIG_SERIAL_OMAP) += omap-serial.o
+diff --git a/drivers/tty/serial/aspeed-vuart.c b/drivers/tty/serial/aspeed-vuart.c
+new file mode 100644
+index 0000000..f1988dd
+--- /dev/null
++++ b/drivers/tty/serial/aspeed-vuart.c
+@@ -0,0 +1,313 @@
++/*
++ *  Serial Port driver for Aspeed VUART device
++ *
++ *    Copyright (C) 2016 Jeremy Kerr <jk@ozlabs.org>, IBM Corp.
++ *    Copyright (C) 2006 Arnd Bergmann <arnd@arndb.de>, IBM Corp.
++ *
++ *  This program is free software; you can redistribute it and/or
++ *  modify it under the terms of the GNU General Public License
++ *  as published by the Free Software Foundation; either version
++ *  2 of the License, or (at your option) any later version.
++ *
++ */
++#include <linux/device.h>
++#include <linux/module.h>
++#include <linux/of_address.h>
++#include <linux/of_irq.h>
++#include <linux/of_platform.h>
++#include <linux/clk.h>
++
++#include "8250/8250.h"
++
++#define AST_VUART_GCRA		0x20
++#define AST_VUART_GCRA_VUART_EN		0x1
++#define AST_VUART_GCRB		0x24
++#define AST_VUART_GCRB_HOST_SIRQ_MASK	0xf0
++#define AST_VUART_GCRB_HOST_SIRQ_SHIFT	4
++#define AST_VUART_ADDRL		0x28
++#define AST_VUART_ADDRH		0x2c
++
++struct ast_vuart {
++	struct platform_device *pdev;
++	void __iomem		*regs;
++	struct clk		*clk;
++	int			line;
++};
++
++static ssize_t ast_vuart_show_enabled(struct device *dev,
++		struct device_attribute *attr, char *buf)
++{
++	struct ast_vuart *vuart = dev_get_drvdata(dev);
++	u8 reg;
++
++	reg = readb(vuart->regs + AST_VUART_GCRA) & AST_VUART_GCRA_VUART_EN;
++
++	return snprintf(buf, PAGE_SIZE - 1, "%u\n", reg ? 1 : 0);
++}
++
++static ssize_t ast_vuart_set_enabled(struct device *dev,
++		struct device_attribute *attr,
++		const char *buf, size_t count)
++{
++	struct ast_vuart *vuart = dev_get_drvdata(dev);
++	unsigned long val;
++	int err;
++	u8 reg;
++
++	err = kstrtoul(buf, 0, &val);
++	if (err)
++		return err;
++
++	reg = readb(vuart->regs + AST_VUART_GCRA);
++	reg &= ~AST_VUART_GCRA_VUART_EN;
++	if (val)
++		reg |= AST_VUART_GCRA_VUART_EN;
++	writeb(reg, vuart->regs + AST_VUART_GCRA);
++
++	return count;
++}
++
++static DEVICE_ATTR(enabled, S_IWUSR | S_IRUGO,
++		ast_vuart_show_enabled, ast_vuart_set_enabled);
++
++static ssize_t ast_vuart_show_addr(struct device *dev,
++		struct device_attribute *attr, char *buf)
++{
++	struct ast_vuart *vuart = dev_get_drvdata(dev);
++	u16 addr;
++
++	addr = (readb(vuart->regs + AST_VUART_ADDRH) << 8) |
++		(readb(vuart->regs + AST_VUART_ADDRL));
++
++	return snprintf(buf, PAGE_SIZE - 1, "0x%x\n", addr);
++}
++
++static ssize_t ast_vuart_set_addr(struct device *dev,
++		struct device_attribute *attr,
++		const char *buf, size_t count)
++{
++	struct ast_vuart *vuart = dev_get_drvdata(dev);
++	unsigned long val;
++	int err;
++
++	err = kstrtoul(buf, 0, &val);
++	if (err)
++		return err;
++
++	writeb((val >> 8) & 0xff, vuart->regs + AST_VUART_ADDRH);
++	writeb((val >> 0) & 0xff, vuart->regs + AST_VUART_ADDRL);
++
++	return count;
++}
++
++static DEVICE_ATTR(lpc_address, S_IWUSR | S_IRUGO,
++		ast_vuart_show_addr, ast_vuart_set_addr);
++
++static ssize_t ast_vuart_show_sirq(struct device *dev,
++		struct device_attribute *attr, char *buf)
++{
++	struct ast_vuart *vuart = dev_get_drvdata(dev);
++	u8 reg;
++
++	reg = readb(vuart->regs + AST_VUART_GCRB);
++	reg &= AST_VUART_GCRB_HOST_SIRQ_MASK;
++	reg >>= AST_VUART_GCRB_HOST_SIRQ_SHIFT;
++
++	return snprintf(buf, PAGE_SIZE - 1, "%u\n", reg);
++}
++
++static ssize_t ast_vuart_set_sirq(struct device *dev,
++		struct device_attribute *attr,
++		const char *buf, size_t count)
++{
++	struct ast_vuart *vuart = dev_get_drvdata(dev);
++	unsigned long val;
++	int err;
++	u8 reg;
++
++	err = kstrtoul(buf, 0, &val);
++	if (err)
++		return err;
++
++	val <<= AST_VUART_GCRB_HOST_SIRQ_SHIFT;
++	val &= AST_VUART_GCRB_HOST_SIRQ_MASK;
++
++	reg = readb(vuart->regs + AST_VUART_GCRB);
++	reg &= ~AST_VUART_GCRB_HOST_SIRQ_MASK;
++	reg |= val;
++	writeb(reg, vuart->regs + AST_VUART_GCRB);
++
++	return count;
++}
++
++static DEVICE_ATTR(sirq, S_IWUSR | S_IRUGO,
++		ast_vuart_show_sirq, ast_vuart_set_sirq);
++
++/**
++ * The device tree parsinc code here is heavily based on that of the of_serial
++ * driver, but we have a few core differences, as we need to use our own
++ * ioremapping for extra register support
++ */
++static int ast_vuart_probe(struct platform_device *pdev)
++{
++	struct uart_8250_port port;
++	struct resource resource;
++	struct ast_vuart *vuart;
++	struct device_node *np;
++	u32 clk, prop;
++	int rc;
++
++	np = pdev->dev.of_node;
++
++	vuart = devm_kzalloc(&pdev->dev, sizeof(*vuart), GFP_KERNEL);
++	if (!vuart)
++		return -ENOMEM;
++
++	vuart->pdev = pdev;
++	rc = of_address_to_resource(np, 0, &resource);
++	if (rc) {
++		dev_warn(&pdev->dev, "invalid address\n");
++		return rc;
++	}
++
++	/* create our own mapping for VUART-specific registers */
++	vuart->regs = devm_ioremap_resource(&pdev->dev, &resource);
++	if (IS_ERR(vuart->regs)) {
++		dev_warn(&pdev->dev, "failed to map registers\n");
++		return PTR_ERR(vuart->regs);
++	}
++
++	memset(&port, 0, sizeof(port));
++	port.port.membase = vuart->regs;
++	port.port.mapbase = resource.start;
++	port.port.mapsize = resource_size(&resource);
++
++	if (of_property_read_u32(np, "clock-frequency", &clk)) {
++		vuart->clk = devm_clk_get(&pdev->dev, NULL);
++		if (IS_ERR(vuart->clk)) {
++			dev_warn(&pdev->dev,
++				"clk or clock-frequency not defined\n");
++			return PTR_ERR(vuart->clk);
++		}
++
++		rc = clk_prepare_enable(vuart->clk);
++		if (rc < 0)
++			return rc;
++
++		clk = clk_get_rate(vuart->clk);
++	}
++
++	/* If current-speed was set, then try not to change it. */
++	if (of_property_read_u32(np, "current-speed", &prop) == 0)
++		port.port.custom_divisor = clk / (16 * prop);
++
++	/* Check for shifted address mapping */
++	if (of_property_read_u32(np, "reg-offset", &prop) == 0)
++		port.port.mapbase += prop;
++
++	/* Check for registers offset within the devices address range */
++	if (of_property_read_u32(np, "reg-shift", &prop) == 0)
++		port.port.regshift = prop;
++
++	/* Check for fifo size */
++	if (of_property_read_u32(np, "fifo-size", &prop) == 0)
++		port.port.fifosize = prop;
++
++	/* Check for a fixed line number */
++	rc = of_alias_get_id(np, "serial");
++	if (rc >= 0)
++		port.port.line = rc;
++
++	port.port.irq = irq_of_parse_and_map(np, 0);
++	port.port.iotype = UPIO_MEM;
++	if (of_property_read_u32(np, "reg-io-width", &prop) == 0) {
++		switch (prop) {
++		case 1:
++			port.port.iotype = UPIO_MEM;
++			break;
++		case 4:
++			port.port.iotype = of_device_is_big_endian(np) ?
++				       UPIO_MEM32BE : UPIO_MEM32;
++			break;
++		default:
++			dev_warn(&pdev->dev, "unsupported reg-io-width (%d)\n",
++				 prop);
++			rc = -EINVAL;
++			goto err_clk_disable;
++		}
++	}
++
++	port.port.type = PORT_16550A;
++	port.port.uartclk = clk;
++	port.port.flags = UPF_SHARE_IRQ | UPF_BOOT_AUTOCONF
++		| UPF_FIXED_PORT | UPF_FIXED_TYPE;
++
++	if (of_find_property(np, "no-loopback-test", NULL))
++		port.port.flags |= UPF_SKIP_TEST;
++
++	port.port.dev = &pdev->dev;
++
++	if (port.port.fifosize)
++		port.capabilities = UART_CAP_FIFO;
++
++	if (of_property_read_bool(pdev->dev.of_node,
++				  "auto-flow-control"))
++		port.capabilities |= UART_CAP_AFE;
++
++	rc = serial8250_register_8250_port(&port);
++	if (rc < 0)
++		goto err_clk_disable;
++
++
++	vuart->line = rc;
++	platform_set_drvdata(pdev, vuart);
++
++	/* extra sysfs control */
++	rc = device_create_file(&pdev->dev, &dev_attr_lpc_address);
++	if (rc)
++		dev_warn(&pdev->dev, "can't create lpc_address file\n");
++	rc = device_create_file(&pdev->dev, &dev_attr_sirq);
++	if (rc)
++		dev_warn(&pdev->dev, "can't create sirq file\n");
++	rc = device_create_file(&pdev->dev, &dev_attr_enabled);
++	if (rc)
++		dev_warn(&pdev->dev, "can't create enabled file\n");
++
++	return 0;
++
++err_clk_disable:
++	if (vuart->clk)
++		clk_disable_unprepare(vuart->clk);
++
++	irq_dispose_mapping(port.port.irq);
++	return rc;
++}
++
++static int ast_vuart_remove(struct platform_device *pdev)
++{
++	struct ast_vuart *vuart = platform_get_drvdata(pdev);
++
++	if (vuart->clk)
++		clk_disable_unprepare(vuart->clk);
++	return 0;
++}
++
++static const struct of_device_id ast_vuart_table[] = {
++	{ .compatible = "aspeed,vuart" },
++	{ },
++};
++
++static struct platform_driver ast_vuart_driver = {
++	.driver = {
++		.name = "aspeed-vuart",
++		.of_match_table = ast_vuart_table,
++	},
++	.probe = ast_vuart_probe,
++	.remove = ast_vuart_remove,
++};
++
++module_platform_driver(ast_vuart_driver);
++
++MODULE_AUTHOR("Jeremy Kerr <jk@ozlabs.org>");
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("Driver for Aspeed VUART device");
+-- 
+2.5.0
