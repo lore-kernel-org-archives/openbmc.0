@@ -1,51 +1,49 @@
 Return-Path: <benh@au1.ibm.com>
-Received: from e23smtp01.au.ibm.com (e23smtp01.au.ibm.com [202.81.31.143])
+Received: from e23smtp02.au.ibm.com (e23smtp02.au.ibm.com [202.81.31.144])
  (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 293491A0054
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jan 2016 10:25:28 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id E02531A1052
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Jan 2016 11:20:50 +1100 (AEDT)
 Received: from localhost
- by e23smtp01.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e23smtp02.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <benh@au1.ibm.com>;
- Thu, 28 Jan 2016 09:25:27 +1000
+ Fri, 29 Jan 2016 10:20:50 +1000
 Received: from d23dlp03.au.ibm.com (202.81.31.214)
- by e23smtp01.au.ibm.com (202.81.31.207) with IBM ESMTP SMTP Gateway:
+ by e23smtp02.au.ibm.com (202.81.31.208) with IBM ESMTP SMTP Gateway:
  Authorized Use Only! Violators will be prosecuted; 
- Thu, 28 Jan 2016 09:25:24 +1000
+ Fri, 29 Jan 2016 10:20:47 +1000
 X-IBM-Helo: d23dlp03.au.ibm.com
 X-IBM-MailFrom: benh@au1.ibm.com
 X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from d23relay07.au.ibm.com (d23relay07.au.ibm.com [9.190.26.37])
- by d23dlp03.au.ibm.com (Postfix) with ESMTP id BAF583578056
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jan 2016 10:25:23 +1100 (EST)
+Received: from d23relay06.au.ibm.com (d23relay06.au.ibm.com [9.185.63.219])
+ by d23dlp03.au.ibm.com (Postfix) with ESMTP id 4C4A23578053
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Jan 2016 11:20:44 +1100 (EST)
 Received: from d23av01.au.ibm.com (d23av01.au.ibm.com [9.190.234.96])
- by d23relay07.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u0RNPHQB10289366
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jan 2016 10:25:25 +1100
+ by d23relay06.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u0T0KMpY47907026
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Jan 2016 11:20:33 +1100
 Received: from d23av01.au.ibm.com (localhost [127.0.0.1])
  by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u0RNOoDJ005250
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jan 2016 10:24:51 +1100
+ u0T0K8b9008449
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Jan 2016 11:20:08 +1100
 Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
  by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u0RNOoki004886; Thu, 28 Jan 2016 10:24:50 +1100
+ u0T0K8iD008016; Fri, 29 Jan 2016 11:20:08 +1100
 Received: from pasglop.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
  (using TLSv1.2 with cipher AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 702F4A0124;
- Thu, 28 Jan 2016 10:24:26 +1100 (AEDT)
-Message-ID: <1453937066.3148.28.camel@au1.ibm.com>
-Subject: Re: [PATCH skeleton v2] Refactored LED control dbus methods
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 39511A0197;
+ Fri, 29 Jan 2016 11:19:44 +1100 (AEDT)
+Message-ID: <1454026784.3148.70.camel@au1.ibm.com>
+Subject: Re: [PATCH openbmc 7/8] Hack to make fw_setenv work
 From: Benjamin Herrenschmidt <benh@au1.ibm.com>
 Reply-To: benh@au1.ibm.com
-To: Cyril Bur <cyrilbur@gmail.com>, OpenBMC Patches
- <openbmc-patches@stwcx.xyz>, vishwanath@in.ibm.com
-Cc: openbmc@lists.ozlabs.org
-In-Reply-To: <20160127145416.6569f93b@camb691>
-References: <1453465242-8067-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1453465242-8067-2-git-send-email-openbmc-patches@stwcx.xyz>
- <20160127145416.6569f93b@camb691>
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+Cc: Milton Miller <miltonmm@us.ibm.com>
+In-Reply-To: <1454021419-16743-8-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1454021419-16743-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1454021419-16743-8-git-send-email-openbmc-patches@stwcx.xyz>
 Organization: IBM Australia
 Content-Type: text/plain; charset="UTF-8"
 X-Mailer: Evolution 3.18.3 (3.18.3-1.fc23) 
@@ -53,7 +51,7 @@ Mime-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-MML: disable
 X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16012723-1618-0000-0000-000003950D6C
+x-cbid: 16012900-0005-0000-0000-00000336CF17
 X-Mailman-Approved-At: Tue, 23 Feb 2016 07:11:17 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -66,20 +64,102 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Date: Wed, 27 Jan 2016 23:25:29 -0000
-X-Original-Date: Thu, 28 Jan 2016 10:24:26 +1100
-X-List-Received-Date: Wed, 27 Jan 2016 23:25:29 -0000
+Date: Fri, 29 Jan 2016 00:20:51 -0000
+X-Original-Date: Fri, 29 Jan 2016 11:19:44 +1100
+X-List-Received-Date: Fri, 29 Jan 2016 00:20:51 -0000
 
-On Wed, 2016-01-27 at 14:54 +1100, Cyril Bur wrote:
-> +const char *power_ctrl = "brightness";
-> > +const char *blink_ctrl = "trigger";
-> > +const char *duty_on   = "delay_on";
-> > +const char *duty_off  = "delay_off";
+On Thu, 2016-01-28 at 16:50 -0600, OpenBMC Patches wrote:
+> From: "Milton D. Miller II" <miltonm@us.ibm.com>
 > 
-> Why can't these be #defined?
+> The fw_setenv is not working with the kernel mtd driver.  It works
+> on a plain flat file, and flashcp which is used in /update works.
 
-Ugh ? A const string is better, more strongly typed and guarantees
-there is going to be only one (though compilers are smart these days).
+Do we know why the kernel mtd driver doesn't work ? This worries me ...
+we should root cause this first.
 
-Cheers,
-Ben.
+> Find the u-boot-env mtd, link it in run and copy the contents to a
+> plain file in /run during init.  In shutdown, check for the link,
+> the file having data, no current image update for the u-boot-env,
+> and that the content differs from the mtd via the link.  If all
+> are true create a symlink to the file and trigger the update.
+> 
+> Along wtih changing the fw_env.config this causes the fw_setenv
+> and fw_printenv utilities to set and update this cached file which
+> will be synced during a normal bmc reboot.  This will allow us to
+> set the ethaddr variable which already requires a reboot to activate.
+> 
+> Note: the links are directly in /run because the fw_{set,print}env
+> utilities limit the env file name to 16 characters.
+> 
+> Signed-off-by: Milton Miller <miltonmm@us.ibm.com>
+> ---
+>  .../meta-ast2400/recipes-bsp/u-boot/files/fw_env.config            | 
+> 3 ++-
+>  .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh       | 
+> 7 +++++++
+>  .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh   | 
+> 5 +++++
+>  3 files changed, 14 insertions(+), 1 deletion(-)
+> 
+> diff --git a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-
+> boot/files/fw_env.config b/meta-openbmc-bsp/meta-aspeed/meta-
+> ast2400/recipes-bsp/u-boot/files/fw_env.config
+> index fe09890..978e4d6 100644
+> --- a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-
+> boot/files/fw_env.config
+> +++ b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-
+> boot/files/fw_env.config
+> @@ -12,7 +12,8 @@
+>  
+>  # MTD SPI-dataflash example
+>  # MTD device name	Device offset	Env. size	Flash
+> sector size	Number of sectors
+> -/dev/mtd2		0x00000		0x20000
+> +#/dev/mtd2		0x00000		0x20000
+> +/run/fw_env		0x00000		0x20000
+>  #/dev/mtd5		0x4200		0x4200
+>  #/dev/mtd6		0x4200		0x4200
+>  
+> diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-
+> initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-
+> phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+> index 431780a..0dc4c35 100644
+> --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-
+> initfs/files/obmc-init.sh
+> +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-
+> initfs/files/obmc-init.sh
+> @@ -29,6 +29,13 @@ findmtd() {
+>  	echo $m
+>  }
+>  
+> +env=$(findmtd u-boot-env)
+> +if test -n $env
+> +then
+> +	ln -s /dev/$env /run/mtd:u-boot-env
+> +	cp /run/mtd:u-boot-env /run/fw_env
+> +fi
+> +
+>  rofs=$(findmtd rofs)
+>  rwfs=$(findmtd rwfs)
+>  
+> diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-
+> initfs/files/obmc-shutdown.sh b/meta-phosphor/common/recipes-
+> phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
+> index 029cd65..cc076fd 100644
+> --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-
+> initfs/files/obmc-shutdown.sh
+> +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-
+> initfs/files/obmc-shutdown.sh
+> @@ -24,6 +24,11 @@ do
+>  done
+>  set +x
+>  
+> +if test -s /run/fw_env -a -c /run/mtd:u-boot-env -a ! -e /image-u-
+> boot-env &&
+> +	! cmp /run/mtd:u-boot-env /run/fw_env
+> +then
+> +	ln -s /run/fw_env /image-u-boot-env
+> +fi
+>  
+>  if test -x /update && ls image-* > /dev/null 2>&1
+>  then
