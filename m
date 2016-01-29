@@ -1,59 +1,55 @@
-Return-Path: <andrew.donnellan@au1.ibm.com>
-Received: from e23smtp02.au.ibm.com (e23smtp02.au.ibm.com [202.81.31.144])
+Return-Path: <stewart@linux.vnet.ibm.com>
+Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
  (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 1051A1A0E27
- for <openbmc@lists.ozlabs.org>; Fri, 29 Jan 2016 14:28:38 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 0B5841A0E27
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Jan 2016 14:55:00 +1100 (AEDT)
 Received: from localhost
- by e23smtp02.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <andrew.donnellan@au1.ibm.com>;
- Fri, 29 Jan 2016 13:28:36 +1000
-Received: from d23dlp02.au.ibm.com (202.81.31.213)
- by e23smtp02.au.ibm.com (202.81.31.208) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Fri, 29 Jan 2016 13:28:35 +1000
-X-IBM-Helo: d23dlp02.au.ibm.com
-X-IBM-MailFrom: andrew.donnellan@au1.ibm.com
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
+ Thu, 28 Jan 2016 22:54:58 -0500
+Received: from d01dlp03.pok.ibm.com (9.56.250.168)
+ by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 28 Jan 2016 22:54:57 -0500
+X-IBM-Helo: d01dlp03.pok.ibm.com
+X-IBM-MailFrom: stewart@linux.vnet.ibm.com
 X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from d23relay10.au.ibm.com (d23relay10.au.ibm.com [9.190.26.77])
- by d23dlp02.au.ibm.com (Postfix) with ESMTP id 094D02BB0055
- for <openbmc@lists.ozlabs.org>; Fri, 29 Jan 2016 14:28:35 +1100 (EST)
-Received: from d23av01.au.ibm.com (d23av01.au.ibm.com [9.190.234.96])
- by d23relay10.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u0T3SQHw56426684
- for <openbmc@lists.ozlabs.org>; Fri, 29 Jan 2016 14:28:34 +1100
-Received: from d23av01.au.ibm.com (localhost [127.0.0.1])
- by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u0T3S23T031259
- for <openbmc@lists.ozlabs.org>; Fri, 29 Jan 2016 14:28:02 +1100
-Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
- by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u0T3S2AP030478
- for <openbmc@lists.ozlabs.org>; Fri, 29 Jan 2016 14:28:02 +1100
-Received: from [10.61.2.248] (haven.au.ibm.com [9.192.254.114])
- (using TLSv1.2 with cipher DHE-RSA-AES128-SHA (128/128 bits))
- (No client certificate requested)
- by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 42F2AA0195
- for <openbmc@lists.ozlabs.org>; Fri, 29 Jan 2016 14:27:38 +1100 (AEDT)
-Subject: =?UTF-8?B?UmU6IOWbnuWkje+8muWbnuWkje+8mltQQVRDSCBwaG9zcGhvci1yZXN0?=
- =?UTF-8?Q?-server]_The_streaming_support_for_obmc-rest.?=
-To: openbmc@lists.ozlabs.org
-References: <OF66059493.03804909-ON00257F49.000380B3-1454027895800@LocalDomain>
- <201601290049.u0T0nquh003020@d23av02.au.ibm.com>
- <20160129130826.477d4fcd@camb691>
-From: Andrew Donnellan <andrew.donnellan@au1.ibm.com>
-Message-ID: <56AADC2A.4020101@au1.ibm.com>
-Date: Fri, 29 Jan 2016 14:27:38 +1100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
- Icedove/38.5.0
+Received: from b01cxnp22034.gho.pok.ibm.com (b01cxnp22034.gho.pok.ibm.com
+ [9.57.198.24])
+ by d01dlp03.pok.ibm.com (Postfix) with ESMTP id D22C3C90027
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jan 2016 22:54:54 -0500 (EST)
+Received: from d01av05.pok.ibm.com (d01av05.pok.ibm.com [9.56.224.195])
+ by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u0T3su2226738896
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Jan 2016 03:54:56 GMT
+Received: from d01av05.pok.ibm.com (localhost [127.0.0.1])
+ by d01av05.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u0T3nspl007824
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jan 2016 22:49:54 -0500
+Received: from birb.localdomain (birb.au.ibm.com [9.185.120.228])
+ by d01av05.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u0T3nhmu007687; Thu, 28 Jan 2016 22:49:53 -0500
+Received: by birb.localdomain (Postfix, from userid 1000)
+ id EB2C92298E45; Fri, 29 Jan 2016 14:54:41 +1100 (AEDT)
+From: Stewart Smith <stewart@linux.vnet.ibm.com>
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+Cc: shgoupf <shgoupf@cn.ibm.com>
+Subject: Re: [PATCH phosphor-host-ipmid v9] Add get/set boot option ipmid
+ command support with correct DBUS property handling.
+In-Reply-To: <1453445426-28994-2-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1453445426-28994-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1453445426-28994-2-git-send-email-openbmc-patches@stwcx.xyz>
+User-Agent: Notmuch/0.21+24~gbceb651 (http://notmuchmail.org) Emacs/24.5.1
+ (x86_64-redhat-linux-gnu)
+Date: Fri, 29 Jan 2016 14:54:41 +1100
+Message-ID: <87y4b9yr9a.fsf@linux.vnet.ibm.com>
 MIME-Version: 1.0
-In-Reply-To: <20160129130826.477d4fcd@camb691>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 X-TM-AS-MML: disable
 X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16012903-0005-0000-0000-0000033721D4
+x-cbid: 16012903-0045-0000-0000-0000032DFE8D
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -65,17 +61,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Jan 2016 03:28:39 -0000
+X-List-Received-Date: Fri, 29 Jan 2016 03:55:01 -0000
 
-On 29/01/16 13:08, Cyril Bur wrote:
-> (unless you want to write a completely separate Python document, and change all
-> the python in this project, I suggest we follow this one where appropriate)
->
-> 	Indent with tabs instead of spaces, set at 8 columns
+OpenBMC Patches <openbmc-patches@stwcx.xyz> writes:
+>  struct get_sys_boot_options_t {
+>      uint8_t parameter;
+>      uint8_t set;
+>      uint8_t block;
+>  }  __attribute__ ((packed));
+>  
+> +struct set_sys_boot_options_t {
+> +    uint8_t parameter;
+> +    union {
+> +        struct {
+> +            uint8_t d1;
+> +            uint8_t d2;
+> +            uint8_t d3;
+> +            uint8_t d4;
+> +            uint8_t d5;
+> +            uint8_t d6;
+> +            uint8_t d7;
+> +            uint8_t d8;
+> +        } data8;
+> +        uint64_t data64;
+> +    } data;
+> +}  __attribute__ ((packed));
 
-As someone who has written Python for a living before - PEP8, please!
+Why not "uint8_t d[8]" ?
+
 
 -- 
-Andrew Donnellan              Software Engineer, OzLabs
-andrew.donnellan@au1.ibm.com  Australia Development Lab, Canberra
-+61 2 6201 8874 (work)        IBM Australia Limited
+Stewart Smith
+OPAL Architect, IBM.
