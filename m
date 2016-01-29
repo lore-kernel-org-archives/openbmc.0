@@ -1,17 +1,19 @@
 Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
+Received: from ozlabs.org (ozlabs.org [103.22.144.67])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id F25FF1A1A0C
+ by lists.ozlabs.org (Postfix) with ESMTPS id EFCDB1A0E27
  for <openbmc@lists.ozlabs.org>; Fri, 29 Jan 2016 15:59:23 +1100 (AEDT)
 Received: by ozlabs.org (Postfix, from userid 1023)
- id D950D140C37; Fri, 29 Jan 2016 15:59:23 +1100 (AEDT)
+ id CC83E140C43; Fri, 29 Jan 2016 15:59:23 +1100 (AEDT)
 From: Jeremy Kerr <jk@ozlabs.org>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH 1/2] drivers/serial: Add driver for Aspeed virtual UART
-Date: Fri, 29 Jan 2016 12:55:47 +0800
-Message-Id: <1454043348-11432-1-git-send-email-jk@ozlabs.org>
+Subject: [PATCH 2/2] arm/aspeed: Enable VUART driver
+Date: Fri, 29 Jan 2016 12:55:48 +0800
+Message-Id: <1454043348-11432-2-git-send-email-jk@ozlabs.org>
 X-Mailer: git-send-email 2.5.0
+In-Reply-To: <1454043348-11432-1-git-send-email-jk@ozlabs.org>
+References: <1454043348-11432-1-git-send-email-jk@ozlabs.org>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -25,382 +27,68 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Fri, 29 Jan 2016 04:59:24 -0000
 
-This change adds a driver for the 16550-based Aspeed virtual UART
-device. We use a similar process to the of_serial driver for device
-probe, but expose some VUART-specific functions through sysfs too.
+This change makes use of the new VUART device driver. We need a separate
+compatible property for the VUART node, and a fix for the interrupt
+definitions. We also change the SCU setup to notify host firmware that the
+VUART is available.
 
 Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
 ---
- Documentation/devicetree/bindings/serial/8250.txt |   1 +
- drivers/tty/serial/Kconfig                        |  10 +
- drivers/tty/serial/Makefile                       |   1 +
- drivers/tty/serial/aspeed-vuart.c                 | 313 ++++++++++++++++++++++
- 4 files changed, 325 insertions(+)
- create mode 100644 drivers/tty/serial/aspeed-vuart.c
+ arch/arm/boot/dts/ast2400.dtsi    | 7 ++++---
+ arch/arm/configs/aspeed_defconfig | 3 +++
+ arch/arm/mach-aspeed/aspeed.c     | 2 +-
+ 3 files changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/serial/8250.txt b/Documentation/devicetree/bindings/serial/8250.txt
-index 91d5ab0..1b887f2 100644
---- a/Documentation/devicetree/bindings/serial/8250.txt
-+++ b/Documentation/devicetree/bindings/serial/8250.txt
-@@ -20,6 +20,7 @@ Required properties:
- 	- "altr,16550-FIFO128"
- 	- "fsl,16550-FIFO64"
- 	- "fsl,ns16550"
-+	- "aspeed,vuart"
- 	- "serial" if the port type is unknown.
- - reg : offset and length of the register set for the device.
- - interrupts : should contain uart interrupt.
-diff --git a/drivers/tty/serial/Kconfig b/drivers/tty/serial/Kconfig
-index 687b1ea..ffb59b4 100644
---- a/drivers/tty/serial/Kconfig
-+++ b/drivers/tty/serial/Kconfig
-@@ -1093,6 +1093,16 @@ config SERIAL_NETX_CONSOLE
- 	  If you have enabled the serial port on the Hilscher NetX SoC
- 	  you can make it the console by answering Y to this option.
+diff --git a/arch/arm/boot/dts/ast2400.dtsi b/arch/arm/boot/dts/ast2400.dtsi
+index 70c0883..de816a9 100644
+--- a/arch/arm/boot/dts/ast2400.dtsi
++++ b/arch/arm/boot/dts/ast2400.dtsi
+@@ -344,15 +344,16 @@
+ 			};
+ #endif
  
-+config SERIAL_ASPEED_VUART
-+	tristate "Aspeed Virtual UART"
-+	depends on OF
-+	depends on SERIAL_8250
-+	help
-+	  If you want to use the virtual UART (VUART) device on Aspeed
-+	  BMC platforms, enable this option. This enables the 16550A-
-+	  compatible device on the local LPC bus, giving a UART device
-+	  with no physical RS232 connections.
+-			uart6: serial@1e787000 {
+-			       compatible = "ns16550a";
++			uart6: vuart@1e787000 {
++			       compatible = "aspeed,vuart";
+ 			       reg = <0x1e787000 0x1000>;
+ 			       reg-shift = <2>;
+-			       interrupts = <10>;
++			       interrupts = <8>;
+ 			       clock-frequency = < 1843200 >;
+ 			       current-speed = < 38400 >;
+ 			       no-loopback-test;
+ 			};
 +
- config SERIAL_OF_PLATFORM
- 	tristate "Serial port on Open Firmware platform bus"
- 	depends on OF
-diff --git a/drivers/tty/serial/Makefile b/drivers/tty/serial/Makefile
-index 5ab4111..72dc094 100644
---- a/drivers/tty/serial/Makefile
-+++ b/drivers/tty/serial/Makefile
-@@ -65,6 +65,7 @@ obj-$(CONFIG_SERIAL_MSM) += msm_serial.o
- obj-$(CONFIG_SERIAL_NETX) += netx-serial.o
- obj-$(CONFIG_SERIAL_OF_PLATFORM) += of_serial.o
- obj-$(CONFIG_SERIAL_OF_PLATFORM_NWPSERIAL) += nwpserial.o
-+obj-$(CONFIG_SERIAL_ASPEED_VUART) += aspeed-vuart.o
- obj-$(CONFIG_SERIAL_KGDB_NMI) += kgdb_nmi.o
- obj-$(CONFIG_SERIAL_KS8695) += serial_ks8695.o
- obj-$(CONFIG_SERIAL_OMAP) += omap-serial.o
-diff --git a/drivers/tty/serial/aspeed-vuart.c b/drivers/tty/serial/aspeed-vuart.c
-new file mode 100644
-index 0000000..f1988dd
---- /dev/null
-+++ b/drivers/tty/serial/aspeed-vuart.c
-@@ -0,0 +1,313 @@
-+/*
-+ *  Serial Port driver for Aspeed VUART device
-+ *
-+ *    Copyright (C) 2016 Jeremy Kerr <jk@ozlabs.org>, IBM Corp.
-+ *    Copyright (C) 2006 Arnd Bergmann <arnd@arndb.de>, IBM Corp.
-+ *
-+ *  This program is free software; you can redistribute it and/or
-+ *  modify it under the terms of the GNU General Public License
-+ *  as published by the Free Software Foundation; either version
-+ *  2 of the License, or (at your option) any later version.
-+ *
-+ */
-+#include <linux/device.h>
-+#include <linux/module.h>
-+#include <linux/of_address.h>
-+#include <linux/of_irq.h>
-+#include <linux/of_platform.h>
-+#include <linux/clk.h>
-+
-+#include "8250/8250.h"
-+
-+#define AST_VUART_GCRA		0x20
-+#define AST_VUART_GCRA_VUART_EN		0x1
-+#define AST_VUART_GCRB		0x24
-+#define AST_VUART_GCRB_HOST_SIRQ_MASK	0xf0
-+#define AST_VUART_GCRB_HOST_SIRQ_SHIFT	4
-+#define AST_VUART_ADDRL		0x28
-+#define AST_VUART_ADDRH		0x2c
-+
-+struct ast_vuart {
-+	struct platform_device *pdev;
-+	void __iomem		*regs;
-+	struct clk		*clk;
-+	int			line;
-+};
-+
-+static ssize_t ast_vuart_show_enabled(struct device *dev,
-+		struct device_attribute *attr, char *buf)
-+{
-+	struct ast_vuart *vuart = dev_get_drvdata(dev);
-+	u8 reg;
-+
-+	reg = readb(vuart->regs + AST_VUART_GCRA) & AST_VUART_GCRA_VUART_EN;
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%u\n", reg ? 1 : 0);
-+}
-+
-+static ssize_t ast_vuart_set_enabled(struct device *dev,
-+		struct device_attribute *attr,
-+		const char *buf, size_t count)
-+{
-+	struct ast_vuart *vuart = dev_get_drvdata(dev);
-+	unsigned long val;
-+	int err;
-+	u8 reg;
-+
-+	err = kstrtoul(buf, 0, &val);
-+	if (err)
-+		return err;
-+
-+	reg = readb(vuart->regs + AST_VUART_GCRA);
-+	reg &= ~AST_VUART_GCRA_VUART_EN;
-+	if (val)
-+		reg |= AST_VUART_GCRA_VUART_EN;
-+	writeb(reg, vuart->regs + AST_VUART_GCRA);
-+
-+	return count;
-+}
-+
-+static DEVICE_ATTR(enabled, S_IWUSR | S_IRUGO,
-+		ast_vuart_show_enabled, ast_vuart_set_enabled);
-+
-+static ssize_t ast_vuart_show_addr(struct device *dev,
-+		struct device_attribute *attr, char *buf)
-+{
-+	struct ast_vuart *vuart = dev_get_drvdata(dev);
-+	u16 addr;
-+
-+	addr = (readb(vuart->regs + AST_VUART_ADDRH) << 8) |
-+		(readb(vuart->regs + AST_VUART_ADDRL));
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "0x%x\n", addr);
-+}
-+
-+static ssize_t ast_vuart_set_addr(struct device *dev,
-+		struct device_attribute *attr,
-+		const char *buf, size_t count)
-+{
-+	struct ast_vuart *vuart = dev_get_drvdata(dev);
-+	unsigned long val;
-+	int err;
-+
-+	err = kstrtoul(buf, 0, &val);
-+	if (err)
-+		return err;
-+
-+	writeb((val >> 8) & 0xff, vuart->regs + AST_VUART_ADDRH);
-+	writeb((val >> 0) & 0xff, vuart->regs + AST_VUART_ADDRL);
-+
-+	return count;
-+}
-+
-+static DEVICE_ATTR(lpc_address, S_IWUSR | S_IRUGO,
-+		ast_vuart_show_addr, ast_vuart_set_addr);
-+
-+static ssize_t ast_vuart_show_sirq(struct device *dev,
-+		struct device_attribute *attr, char *buf)
-+{
-+	struct ast_vuart *vuart = dev_get_drvdata(dev);
-+	u8 reg;
-+
-+	reg = readb(vuart->regs + AST_VUART_GCRB);
-+	reg &= AST_VUART_GCRB_HOST_SIRQ_MASK;
-+	reg >>= AST_VUART_GCRB_HOST_SIRQ_SHIFT;
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%u\n", reg);
-+}
-+
-+static ssize_t ast_vuart_set_sirq(struct device *dev,
-+		struct device_attribute *attr,
-+		const char *buf, size_t count)
-+{
-+	struct ast_vuart *vuart = dev_get_drvdata(dev);
-+	unsigned long val;
-+	int err;
-+	u8 reg;
-+
-+	err = kstrtoul(buf, 0, &val);
-+	if (err)
-+		return err;
-+
-+	val <<= AST_VUART_GCRB_HOST_SIRQ_SHIFT;
-+	val &= AST_VUART_GCRB_HOST_SIRQ_MASK;
-+
-+	reg = readb(vuart->regs + AST_VUART_GCRB);
-+	reg &= ~AST_VUART_GCRB_HOST_SIRQ_MASK;
-+	reg |= val;
-+	writeb(reg, vuart->regs + AST_VUART_GCRB);
-+
-+	return count;
-+}
-+
-+static DEVICE_ATTR(sirq, S_IWUSR | S_IRUGO,
-+		ast_vuart_show_sirq, ast_vuart_set_sirq);
-+
-+/**
-+ * The device tree parsinc code here is heavily based on that of the of_serial
-+ * driver, but we have a few core differences, as we need to use our own
-+ * ioremapping for extra register support
-+ */
-+static int ast_vuart_probe(struct platform_device *pdev)
-+{
-+	struct uart_8250_port port;
-+	struct resource resource;
-+	struct ast_vuart *vuart;
-+	struct device_node *np;
-+	u32 clk, prop;
-+	int rc;
-+
-+	np = pdev->dev.of_node;
-+
-+	vuart = devm_kzalloc(&pdev->dev, sizeof(*vuart), GFP_KERNEL);
-+	if (!vuart)
-+		return -ENOMEM;
-+
-+	vuart->pdev = pdev;
-+	rc = of_address_to_resource(np, 0, &resource);
-+	if (rc) {
-+		dev_warn(&pdev->dev, "invalid address\n");
-+		return rc;
-+	}
-+
-+	/* create our own mapping for VUART-specific registers */
-+	vuart->regs = devm_ioremap_resource(&pdev->dev, &resource);
-+	if (IS_ERR(vuart->regs)) {
-+		dev_warn(&pdev->dev, "failed to map registers\n");
-+		return PTR_ERR(vuart->regs);
-+	}
-+
-+	memset(&port, 0, sizeof(port));
-+	port.port.membase = vuart->regs;
-+	port.port.mapbase = resource.start;
-+	port.port.mapsize = resource_size(&resource);
-+
-+	if (of_property_read_u32(np, "clock-frequency", &clk)) {
-+		vuart->clk = devm_clk_get(&pdev->dev, NULL);
-+		if (IS_ERR(vuart->clk)) {
-+			dev_warn(&pdev->dev,
-+				"clk or clock-frequency not defined\n");
-+			return PTR_ERR(vuart->clk);
-+		}
-+
-+		rc = clk_prepare_enable(vuart->clk);
-+		if (rc < 0)
-+			return rc;
-+
-+		clk = clk_get_rate(vuart->clk);
-+	}
-+
-+	/* If current-speed was set, then try not to change it. */
-+	if (of_property_read_u32(np, "current-speed", &prop) == 0)
-+		port.port.custom_divisor = clk / (16 * prop);
-+
-+	/* Check for shifted address mapping */
-+	if (of_property_read_u32(np, "reg-offset", &prop) == 0)
-+		port.port.mapbase += prop;
-+
-+	/* Check for registers offset within the devices address range */
-+	if (of_property_read_u32(np, "reg-shift", &prop) == 0)
-+		port.port.regshift = prop;
-+
-+	/* Check for fifo size */
-+	if (of_property_read_u32(np, "fifo-size", &prop) == 0)
-+		port.port.fifosize = prop;
-+
-+	/* Check for a fixed line number */
-+	rc = of_alias_get_id(np, "serial");
-+	if (rc >= 0)
-+		port.port.line = rc;
-+
-+	port.port.irq = irq_of_parse_and_map(np, 0);
-+	port.port.iotype = UPIO_MEM;
-+	if (of_property_read_u32(np, "reg-io-width", &prop) == 0) {
-+		switch (prop) {
-+		case 1:
-+			port.port.iotype = UPIO_MEM;
-+			break;
-+		case 4:
-+			port.port.iotype = of_device_is_big_endian(np) ?
-+				       UPIO_MEM32BE : UPIO_MEM32;
-+			break;
-+		default:
-+			dev_warn(&pdev->dev, "unsupported reg-io-width (%d)\n",
-+				 prop);
-+			rc = -EINVAL;
-+			goto err_clk_disable;
-+		}
-+	}
-+
-+	port.port.type = PORT_16550A;
-+	port.port.uartclk = clk;
-+	port.port.flags = UPF_SHARE_IRQ | UPF_BOOT_AUTOCONF
-+		| UPF_FIXED_PORT | UPF_FIXED_TYPE;
-+
-+	if (of_find_property(np, "no-loopback-test", NULL))
-+		port.port.flags |= UPF_SKIP_TEST;
-+
-+	port.port.dev = &pdev->dev;
-+
-+	if (port.port.fifosize)
-+		port.capabilities = UART_CAP_FIFO;
-+
-+	if (of_property_read_bool(pdev->dev.of_node,
-+				  "auto-flow-control"))
-+		port.capabilities |= UART_CAP_AFE;
-+
-+	rc = serial8250_register_8250_port(&port);
-+	if (rc < 0)
-+		goto err_clk_disable;
-+
-+
-+	vuart->line = rc;
-+	platform_set_drvdata(pdev, vuart);
-+
-+	/* extra sysfs control */
-+	rc = device_create_file(&pdev->dev, &dev_attr_lpc_address);
-+	if (rc)
-+		dev_warn(&pdev->dev, "can't create lpc_address file\n");
-+	rc = device_create_file(&pdev->dev, &dev_attr_sirq);
-+	if (rc)
-+		dev_warn(&pdev->dev, "can't create sirq file\n");
-+	rc = device_create_file(&pdev->dev, &dev_attr_enabled);
-+	if (rc)
-+		dev_warn(&pdev->dev, "can't create enabled file\n");
-+
-+	return 0;
-+
-+err_clk_disable:
-+	if (vuart->clk)
-+		clk_disable_unprepare(vuart->clk);
-+
-+	irq_dispose_mapping(port.port.irq);
-+	return rc;
-+}
-+
-+static int ast_vuart_remove(struct platform_device *pdev)
-+{
-+	struct ast_vuart *vuart = platform_get_drvdata(pdev);
-+
-+	if (vuart->clk)
-+		clk_disable_unprepare(vuart->clk);
-+	return 0;
-+}
-+
-+static const struct of_device_id ast_vuart_table[] = {
-+	{ .compatible = "aspeed,vuart" },
-+	{ },
-+};
-+
-+static struct platform_driver ast_vuart_driver = {
-+	.driver = {
-+		.name = "aspeed-vuart",
-+		.of_match_table = ast_vuart_table,
-+	},
-+	.probe = ast_vuart_probe,
-+	.remove = ast_vuart_remove,
-+};
-+
-+module_platform_driver(ast_vuart_driver);
-+
-+MODULE_AUTHOR("Jeremy Kerr <jk@ozlabs.org>");
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("Driver for Aspeed VUART device");
+ 		};
+ 	};
+ };
+diff --git a/arch/arm/configs/aspeed_defconfig b/arch/arm/configs/aspeed_defconfig
+index 9727eba..8dd6351 100644
+--- a/arch/arm/configs/aspeed_defconfig
++++ b/arch/arm/configs/aspeed_defconfig
+@@ -122,6 +122,9 @@ CONFIG_SERIAL_8250_CONSOLE=y
+ # CONFIG_SERIAL_8250_DMA is not set
+ CONFIG_SERIAL_8250_NR_UARTS=6
+ CONFIG_SERIAL_8250_RUNTIME_UARTS=6
++CONFIG_SERIAL_8250_EXTENDED=y
++CONFIG_SERIAL_8250_SHARE_IRQ=y
++CONFIG_SERIAL_ASPEED_VUART=y
+ CONFIG_SERIAL_OF_PLATFORM=y
+ CONFIG_HW_RANDOM=y
+ CONFIG_I2C=y
+diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+index cdab46b..2feb161 100644
+--- a/arch/arm/mach-aspeed/aspeed.c
++++ b/arch/arm/mach-aspeed/aspeed.c
+@@ -123,7 +123,7 @@ static void __init do_common_setup(void)
+ 
+ 	/* Setup scratch registers */
+ 	writel(0x00000042, AST_IO(AST_BASE_LPC | 0x170));
+-	writel(0x00004000, AST_IO(AST_BASE_LPC | 0x174));
++	writel(0x00008000, AST_IO(AST_BASE_LPC | 0x174));
+ }
+ 
+ static void __init do_barreleye_setup(void)
 -- 
 2.5.0
