@@ -3,19 +3,19 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4C82C1A01D2
- for <openbmc@lists.ozlabs.org>; Tue,  2 Feb 2016 13:50:25 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3239D1A01DC
+ for <openbmc@lists.ozlabs.org>; Tue,  2 Feb 2016 14:10:24 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 145438142126364.8506327954151;
- Mon, 1 Feb 2016 18:50:21 -0800 (PST)
+ with SMTPS id 145438262142948.16165523656946;
+ Mon, 1 Feb 2016 19:10:21 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc] meta-phosphor: Update kernel version
-Date: Mon,  1 Feb 2016 20:50:19 -0600
-Message-Id: <1454381419-8562-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v2 1/2] meta-phosphor: Update kernel version
+Date: Mon,  1 Feb 2016 21:10:18 -0600
+Message-Id: <1454382619-9088-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
-In-Reply-To: <1454381419-8562-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1454381419-8562-1-git-send-email-openbmc-patches@stwcx.xyz>
+In-Reply-To: <1454382619-9088-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1454382619-9088-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -28,7 +28,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 02 Feb 2016 02:50:25 -0000
+X-List-Received-Date: Tue, 02 Feb 2016 03:10:25 -0000
 
 From: Joel Stanley <joel@jms.id.au>
 
