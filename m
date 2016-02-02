@@ -3,19 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 30E531A01D8
- for <openbmc@lists.ozlabs.org>; Tue,  2 Feb 2016 14:10:24 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3BB721A01E7
+ for <openbmc@lists.ozlabs.org>; Tue,  2 Feb 2016 14:10:36 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 145438262218060.930753693845304;
- Mon, 1 Feb 2016 19:10:22 -0800 (PST)
+ with SMTPS id 1454382633303797.0091312248022;
+ Mon, 1 Feb 2016 19:10:33 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v2 2/2] meta-phosphor: Update kernel version
-Date: Mon,  1 Feb 2016 21:10:19 -0600
-Message-Id: <1454382619-9088-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-networkd v2] Enable DHCP
+Date: Mon,  1 Feb 2016 21:10:31 -0600
+Message-Id: <1454382632-9193-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
-In-Reply-To: <1454382619-9088-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1454382619-9088-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -28,30 +26,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 02 Feb 2016 03:10:25 -0000
+X-List-Received-Date: Tue, 02 Feb 2016 03:10:36 -0000
 
-From: Joel Stanley <joel@jms.id.au>
+Enable DHCP when network service starts by creating an 80-dhcp.network
+file. Only setup if file doesn't exist already, this allows for a one
+time setup.
 
-Move to openbmc-20160202-2. This brings two fixes for i2c and ncsi
-found using lockdep.
+https://github.com/openbmc/phosphor-networkd/pull/3
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.3.bb | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Adriana Kobylak (1):
+  Fix typos
 
-diff --git a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.3.bb b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.3.bb
-index 490ed8e..fe00ce3 100644
---- a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.3.bb
-+++ b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.3.bb
-@@ -10,7 +10,7 @@ SRC_URI = "git://github.com/openbmc/linux;protocol=git;branch=${KBRANCH}"
- LINUX_VERSION ?= "4.3"
- LINUX_VERSION_EXTENSION ?= "-${SRCREV}"
- 
--SRCREV="openbmc-20160202-1"
-+SRCREV="openbmc-20160202-2"
- 
- PV = "${LINUX_VERSION}+git${SRCPV}"
- 
+ netman.py | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
 -- 
 2.6.4
