@@ -1,60 +1,64 @@
-Return-Path: <njames@us.ibm.com>
-Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
+Return-Path: <bjlinan@cn.ibm.com>
+Received: from e23smtp08.au.ibm.com (e23smtp08.au.ibm.com [202.81.31.141])
  (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id BA2011A01D8
- for <openbmc@lists.ozlabs.org>; Tue,  2 Feb 2016 15:12:59 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id B45831A01D8
+ for <openbmc@lists.ozlabs.org>; Tue,  2 Feb 2016 15:16:45 +1100 (AEDT)
 Received: from localhost
- by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e23smtp08.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <njames@us.ibm.com>;
- Mon, 1 Feb 2016 21:12:57 -0700
-Received: from d03dlp01.boulder.ibm.com (9.17.202.177)
- by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 1 Feb 2016 21:12:55 -0700
-X-IBM-Helo: d03dlp01.boulder.ibm.com
-X-IBM-MailFrom: njames@us.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from b03cxnp07029.gho.boulder.ibm.com
- (b03cxnp07029.gho.boulder.ibm.com [9.17.130.16])
- by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id C680B1FF0043
- for <openbmc@lists.ozlabs.org>; Mon,  1 Feb 2016 21:01:04 -0700 (MST)
-Received: from d03av03.boulder.ibm.com (d03av03.boulder.ibm.com [9.17.195.169])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u124Csnp27459604
- for <openbmc@lists.ozlabs.org>; Mon, 1 Feb 2016 21:12:54 -0700
-Received: from d03av03.boulder.ibm.com (localhost [127.0.0.1])
- by d03av03.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u124CsqS018666
- for <openbmc@lists.ozlabs.org>; Mon, 1 Feb 2016 21:12:54 -0700
-Received: from d50lp02.ny.us.ibm.com (d50lp02.pok.ibm.com [146.89.104.208])
- by d03av03.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u124CrgD018631
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=OK)
- for <openbmc@lists.ozlabs.org>; Mon, 1 Feb 2016 21:12:54 -0700
-Message-Id: <201602020412.u124CrgD018631@d03av03.boulder.ibm.com>
-Received: from /spool/local
- by d50lp02.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <njames@us.ibm.com>;
- Mon, 1 Feb 2016 23:12:53 -0500
-Received: from smtp.notes.na.collabserv.com (192.155.248.91)
- by d50lp02.ny.us.ibm.com (158.87.18.21) with IBM ESMTP SMTP Gateway:
+ for <openbmc@lists.ozlabs.org> from <bjlinan@cn.ibm.com>;
+ Tue, 2 Feb 2016 14:16:43 +1000
+Received: from d23dlp02.au.ibm.com (202.81.31.213)
+ by e23smtp08.au.ibm.com (202.81.31.205) with IBM ESMTP SMTP Gateway:
  Authorized Use Only! Violators will be prosecuted; 
+ Tue, 2 Feb 2016 14:16:41 +1000
+X-IBM-Helo: d23dlp02.au.ibm.com
+X-IBM-MailFrom: bjlinan@cn.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d23relay06.au.ibm.com (d23relay06.au.ibm.com [9.185.63.219])
+ by d23dlp02.au.ibm.com (Postfix) with ESMTP id 6116E2BB004D
+ for <openbmc@lists.ozlabs.org>; Tue,  2 Feb 2016 15:16:41 +1100 (EST)
+Received: from d23av05.au.ibm.com (d23av05.au.ibm.com [9.190.234.119])
+ by d23relay06.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u124GMrK42598588
+ for <openbmc@lists.ozlabs.org>; Tue, 2 Feb 2016 15:16:30 +1100
+Received: from d23av05.au.ibm.com (localhost [127.0.0.1])
+ by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u124G9GV014094
+ for <openbmc@lists.ozlabs.org>; Tue, 2 Feb 2016 15:16:09 +1100
+Received: from e39.co.us.ibm.com (e39.boulder.ibm.com [9.17.249.49])
+ by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u124G6UK013852
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Tue, 2 Feb 2016 15:16:08 +1100
+Message-Id: <201602020416.u124G6UK013852@d23av05.au.ibm.com>
+Received: from localhost
+ by e39.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <bjlinan@cn.ibm.com>;
+ Mon, 1 Feb 2016 21:15:58 -0700
+Received: from smtp.notes.na.collabserv.com (192.155.248.90)
+ by e39.co.us.ibm.com (192.168.2.139) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
  (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
- Mon, 1 Feb 2016 23:12:51 -0500
+ Mon, 1 Feb 2016 21:15:56 -0700
+X-IBM-Helo: smtp.notes.na.collabserv.com
+X-IBM-MailFrom: bjlinan@cn.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
 Received: from /spool/local
  by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <njames@us.ibm.com>;
- Tue, 2 Feb 2016 04:12:50 -0000
+ for <openbmc@lists.ozlabs.org> from <bjlinan@cn.ibm.com>;
+ Tue, 2 Feb 2016 04:15:55 -0000
 Received: from us1a3-smtp03.a3.dal06.isc4sb.com (10.106.154.94)
- by smtp.notes.na.collabserv.com (10.106.227.143) with
- smtp.notes.na.collabserv.com ESMTP; Tue, 2 Feb 2016 04:12:47 -0000
-Received: from us1a3-mail62.a3.dal09.isc4sb.com ([10.142.3.202])
+ by smtp.notes.na.collabserv.com (10.106.227.141) with
+ smtp.notes.na.collabserv.com ESMTP; Tue, 2 Feb 2016 04:15:54 -0000
+Received: from us1a3-mail166.a3.dal06.isc4sb.com ([10.146.71.123])
  by us1a3-smtp03.a3.dal06.isc4sb.com
- with ESMTP id 2016020204135796-8446 ; Tue, 2 Feb 2016 04:13:57 +0000 
+ with ESMTP id 2016020204170563-8973 ; Tue, 2 Feb 2016 04:17:05 +0000 
 In-Reply-To: <20160202034239.GA2337@localhost.localdomain>
+To: Sam Mendoza-Jonas <sam@mendozajonas.com>
+Cc: openbmc@lists.ozlabs.org, OpenBMC Patches <openbmc-patches@stwcx.xyz>
 Subject: Re: [PATCH phosphor-host-ipmid v3] Add ipmi coldReset command,
  which call a
  dbus method, belongs to NETFUN_APP. 1. A method dbus_warm_reset() to talk
@@ -63,29 +67,27 @@ Subject: Re: [PATCH phosphor-host-ipmid v3] Add ipmi coldReset command,
  3. Register
  the ipmi command; 4. Add related .o to the Makefile; 5. Add wildcard
  function.
-To: Sam Mendoza-Jonas <sam@mendozajonas.com>
-Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org,
- William <bjlinan@cn.ibm.com>
-From: "Norman James" <njames@us.ibm.com>
-Date: Mon, 1 Feb 2016 22:12:41 -0600
+From: "Nan KX Li" <bjlinan@cn.ibm.com>
+Date: Tue, 2 Feb 2016 12:15:53 +0800
 References: <1454308825-13334-1-git-send-email-openbmc-patches@stwcx.xyz>
  <1454308825-13334-2-git-send-email-openbmc-patches@stwcx.xyz>
  <20160202034239.GA2337@localhost.localdomain>
-X-KeepSent: 62E7F988:2EF612A2-86257F4D:0016EED0;
+MIME-Version: 1.0
+X-KeepSent: D41B1884:29305558-48257F4D:00175C4B;
  type=4; name=$KeepSent
 X-Mailer: IBM Notes Release 9.0.1FP2 SHF37 August 25, 2014
 X-LLNOutbound: False
-X-Disclaimed: 32171
+X-Disclaimed: 60867
 X-TNEFEvaluated: 1
-Content-type: multipart/related; 
- Boundary="0__=09BBF5DEDF8568408f9e8a93df938690918c09BBF5DEDF856840"
-x-cbid: 16020204-0025-0000-0000-000020F77971
-X-IBM-ISS-SpamDetectors: Score=0.421136; BY=0.132429; FL=0; FP=0; FZ=0; HX=0; 
- KW=0; PH=0; SC=0.421136; ST=0; TS=0; UL=0; ISC=
+Content-Type: multipart/alternative;
+ boundary="=_alternative 00176D1448257F4D_="
+x-cbid: 16020204-0029-0000-0000-000043F8CF05
+X-IBM-ISS-SpamDetectors: Score=0.449102; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.449102; ST=0; TS=0; UL=0; ISC=
 X-IBM-ISS-DetailInfo: BY=3.00004867; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000138; SDB=6.00653964; UDB=6.00296253; UTC=2016-02-02
- 04:12:48
-x-cbparentid: 16020204-4778-0000-0000-000001D00173
+ PH=3.00000004; SC=3.00000138; SDB=6.00653965; UDB=6.00296254; UTC=2016-02-02
+ 04:15:55
+x-cbparentid: 16020204-7792-0000-0000-000001CCD1DC
 X-TM-AS-MML: disable
 X-Content-Scanned: Fidelis XPS MAILER
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -99,580 +101,452 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 02 Feb 2016 04:13:00 -0000
-
---0__=09BBF5DEDF8568408f9e8a93df938690918c09BBF5DEDF856840
-Content-type: multipart/alternative; 
-	Boundary="1__=09BBF5DEDF8568408f9e8a93df938690918c09BBF5DEDF856840"
+X-List-Received-Date: Tue, 02 Feb 2016 04:16:45 -0000
 
 
---1__=09BBF5DEDF8568408f9e8a93df938690918c09BBF5DEDF856840
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/plain; charset=US-ASCII
-
-
-Too late.  Cyril had already approved this code.   If you want to step up
-the priority on fixing the TODO, you could open an issue so we can make
-sure it gets addressed in a timely fashion.
-
-
-Regards,
-Norman James
-IBM - POWER Systems Architect
-Phone: 1-512-286-6807 (T/L: 363-6807)
-Internet: njames@us.ibm.com
-
-
-
-
-From:	Sam Mendoza-Jonas <sam@mendozajonas.com>
-To:	OpenBMC Patches <openbmc-patches@stwcx.xyz>
-Cc:	openbmc@lists.ozlabs.org, William <bjlinan@cn.ibm.com>
-Date:	02/01/2016 09:44 PM
-Subject:	Re: [PATCH phosphor-host-ipmid v3] Add ipmi coldReset command,
-            which call a dbus method, belongs to NETFUN=5FAPP. 1. A method
-            dbus=5Fwarm=5Freset() to talk with the dbus method 'warmRest'; =
-2.
-            Also get service name by ipmid=5Fget=5Fsd=5Fbus=5Fconnection() =
-instead
-            of object=5Fmapper=5Fget=5Fconnection(); 3. Register the ipmi
-            command; 4. Add related .o to the Makefile; 5. Add wildcard
-            function.
-Sent by:	"openbmc" <openbmc-bounces+njames=3Dus.ibm.com@lists.ozlabs.org>
-
-
-
-Hi William, a question below;
-
-On Mon, Feb 01, 2016 at 12:40:25AM -0600, OpenBMC Patches wrote:
-> From: William <bjlinan@cn.ibm.com>
->
-> ---
->  Makefile        |   1 +
->  globalhandler.C | 171 ++++++++++++++++++++++++++++++++++++++++++++++++++
-++++++
->  globalhandler.h |  12 ++++
->  3 files changed, 184 insertions(+)
->  create mode 100644 globalhandler.C
->  create mode 100644 globalhandler.h
->
-> diff --git a/Makefile b/Makefile
-> index 472bfaa..58e7310 100644
-> --- a/Makefile
-> +++ b/Makefile
-> @@ -15,6 +15,7 @@ LIB=5FAPP=5FOBJ =3D apphandler.o     \
->                ipmisensor.o     \
->                storageaddsel.o  \
->                transporthandler.o  \
-> +              globalhandler.o
->
->  LIB=5FHOST=5FSRV=5FOBJ =3D host-services.o
->
-> diff --git a/globalhandler.C b/globalhandler.C
-> new file mode 100644
-> index 0000000..e68ea79
-> --- /dev/null
-> +++ b/globalhandler.C
-> @@ -0,0 +1,171 @@
-> +#include "globalhandler.h"
-> +#include "ipmid-api.h"
-> +#include <stdio.h>
-> +#include <string.h>
-> +#include <stdint.h>
-> +
-> +const char  *control=5Fobject=5Fname  =3D  "/org/openbmc/control/bmc0";
-> +const char  *control=5Fintf=5Fname    =3D  "org.openbmc.control.Bmc";
-> +
-> +const char  *objectmapper=5Fservice=5Fname =3D  "org.openbmc.objectmappe=
-r";
-> +const char  *objectmapper=5Fobject=5Fname  =3D
-"/org/openbmc/objectmapper/objectmapper";
-> +const char  *objectmapper=5Fintf=5Fname    =3D
-"org.openbmc.objectmapper.ObjectMapper";
-> +
-> +void register=5Fnetfn=5Fglobal=5Ffunctions() =5F=5Fattribute=5F=5F((cons=
-tructor));
-> +
-> +int obj=5Fmapper=5Fget=5Fconnection(char** buf, const char* obj=5Fpath)
-> +{
-> +    sd=5Fbus=5Ferror error =3D SD=5FBUS=5FERROR=5FNULL;
-> +    sd=5Fbus=5Fmessage *m =3D NULL;
-> +    sd=5Fbus *bus =3D NULL;
-> +    char *temp=5Fbuf =3D NULL, *intf =3D NULL;
-> +    size=5Ft buf=5Fsize =3D 0;
-> +    int r;
-> +
-> +    //Get the system bus where most system services are provided.
-> +    bus =3D ipmid=5Fget=5Fsd=5Fbus=5Fconnection();
-> +
-> +    /*
-> +     * Bus, service, object path, interface and method are provided to
-call
-> +     * the method.
-> +     * Signatures and input arguments are provided by the arguments at
-the
-> +     * end.
-> +     */
-> +    r =3D sd=5Fbus=5Fcall=5Fmethod(bus,
-> +            objectmapper=5Fservice=5Fname,                      /* servi=
-ce
-to contact */
-> +            objectmapper=5Fobject=5Fname,                       /* object
-path */
-> +            objectmapper=5Fintf=5Fname,                         /* inter=
-face
-name */
-> +            "GetObject",                                    /* method
-name */
-> +            &error,                                         /* object to
-return error in */
-> +            &m,                                             /* return
-message on success */
-> +            "s",                                            /* input
-signature */
-> +            obj=5Fpath                                        /* first
-argument */
-> +            );
-> +
-> +    if (r < 0) {
-> +        fprintf(stderr, "Failed to issue method call: %s\n",
-error.message);
-> +        goto finish;
-> +    }
-> +
-> +    // Get the key, aka, the connection name
-> +    sd=5Fbus=5Fmessage=5Fread(m, "a{sas}", 1, &temp=5Fbuf, 1, &intf);
-> +
-> +		 /*
-> +     * TODO: check the return code. Currently for no reason the message
-> +     * parsing of object mapper is always complaining about
-> +     * "Device or resource busy", but the result seems OK for now. Need
-> +     *  further checks.
-> +     */
-
-I've seen this comment before and it worries me a bit. Why are we
-getting the error? How do you know temp=5Fbuf is allocated properly? What
-does it mean that the result "seems OK"?
-You check return codes before and after this, but if you get unlucky
-here you could easily segfault or read nonsense.
-
-I think this issue should be figured out before merging the code, both
-here and wherever else it appears.
-
-Thanks,
-Sam
-
-> +
-> +    buf=5Fsize =3D strlen(temp=5Fbuf) + 1;
-> +    printf("IPMID connection name: %s\n", temp=5Fbuf);
-> +    *buf =3D (char*)malloc(buf=5Fsize);
-> +
-> +    if (*buf =3D=3D NULL) {
-> +        fprintf(stderr, "Malloc failed for warm reset");
-> +        r =3D -1;
-> +        goto finish;
-> +    }
-> +
-> +    memcpy(*buf, temp=5Fbuf, buf=5Fsize);
-> +
-> +finish:
-> +    sd=5Fbus=5Ferror=5Ffree(&error);
-> +    sd=5Fbus=5Fmessage=5Funref(m);
-> +
-> +    return r;
-> +}
-> +
-> +int dbus=5Fwarm=5Freset()
-> +{
-> +    sd=5Fbus=5Ferror error =3D SD=5FBUS=5FERROR=5FNULL;
-> +    sd=5Fbus=5Fmessage *m =3D NULL;
-> +    sd=5Fbus *bus =3D NULL;
-> +    char* temp=5Fbuf =3D NULL;
-> +    uint8=5Ft* get=5Fvalue =3D NULL;
-> +    char* connection =3D NULL;
-> +    int r, i;
-> +
-> +    r =3D obj=5Fmapper=5Fget=5Fconnection(&connection, control=5Fobject=
-=5Fname);
-> +    if (r < 0) {
-> +        fprintf(stderr, "Failed to get connection, return value: %d.\n",
-r);
-> +        goto finish;
-> +    }
-> +
-> +    printf("connection: %s\n", connection);
-> +
-> +    // Open the system bus where most system services are provided.
-> +    bus =3D ipmid=5Fget=5Fsd=5Fbus=5Fconnection();
-> +
-> +    /*
-> +     * Bus, service, object path, interface and method are provided to
-call
-> +     * the method.
-> +     * Signatures and input arguments are provided by the arguments at
-the
-> +     * end.
-> +		  */
-> +    r =3D sd=5Fbus=5Fcall=5Fmethod(bus,
-> +            connection,                                /* service to
-contact */
-> +            control=5Fobject=5Fname,                       /* object pat=
-h */
-> +            control=5Fintf=5Fname,                         /* interface =
-name
-*/
-> +            "warmReset",                               /* method name */
-> +            &error,                                    /* object to
-return error in */
-> +            &m,                                        /* return message
-on success */
-> +            NULL,
-> +            NULL
-> +            );
-> +
-> +    if (r < 0) {
-> +        fprintf(stderr, "Failed to issue method call: %s\n",
-error.message);
-> +        goto finish;
-> +    }
-> +
-> +finish:
-> +    sd=5Fbus=5Ferror=5Ffree(&error);
-> +    sd=5Fbus=5Fmessage=5Funref(m);
-> +    free(connection);
-> +
-> +    return r;
-> +}
-> +
-> +ipmi=5Fret=5Ft ipmi=5Fglobal=5Fwarm=5Freset(ipmi=5Fnetfn=5Ft netfn, ipmi=
-=5Fcmd=5Ft cmd,
-> +                              ipmi=5Frequest=5Ft request, ipmi=5Frespons=
-e=5Ft
-response,
-> +                              ipmi=5Fdata=5Flen=5Ft data=5Flen, ipmi=5Fc=
-ontext=5Ft
-context)
-> +{
-> +    printf("Handling GLOBAL warmReset Netfn:[0x%X], Cmd:[0x%X]\n",netfn,
-cmd);
-> +
-> +    // TODO: call the correct dbus method for warmReset.
-> +    dbus=5Fwarm=5Freset();
-> +
-> +    // Status code.
-> +    ipmi=5Fret=5Ft rc =3D IPMI=5FCC=5FOK;
-> +    *data=5Flen =3D 0;
-> +    return rc;
-> +}
-> +
-> +ipmi=5Fret=5Ft ipmi=5Fglobal=5Fwildcard=5Fhandler(ipmi=5Fnetfn=5Ft netfn=
-, ipmi=5Fcmd=5Ft
-cmd,
-> +                              ipmi=5Frequest=5Ft request, ipmi=5Frespons=
-e=5Ft
-response,
-> +                              ipmi=5Fdata=5Flen=5Ft data=5Flen, ipmi=5Fc=
-ontext=5Ft
-context)
-> +{
-> +    printf("Handling WILDCARD Netfn:[0x%X], Cmd:[0x%X]\n",netfn, cmd);
-> +
-> +    // Status code.
-> +    ipmi=5Fret=5Ft rc =3D IPMI=5FCC=5FOK;
-> +
-> +    *data=5Flen =3D strlen("THIS IS WILDCARD");
-> +
-> +    // Now pack actual response
-> +    memcpy(response, "THIS IS WILDCARD", *data=5Flen);
-> +
-> +    return rc;
-> +}
-> +
-> +void register=5Fnetfn=5Fglobal=5Ffunctions()
-> +{
-> +    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN=5FAPP,
-IPMI=5FCMD=5FWARM=5FRESET);
-> +    ipmi=5Fregister=5Fcallback(NETFUN=5FAPP, IPMI=5FCMD=5FWARM=5FRESET, =
-NULL,
-ipmi=5Fglobal=5Fwarm=5Freset);
-> +
-> +    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN=5FAPP,
-IPMI=5FCMD=5FWILDCARD);
-> +    ipmi=5Fregister=5Fcallback(NETFUN=5FAPP, IPMI=5FCMD=5FWILDCARD, NULL,
-ipmi=5Fglobal=5Fwildcard=5Fhandler);
-> +
-> +		 return;
-> +}
-> diff --git a/globalhandler.h b/globalhandler.h
-> new file mode 100644
-> index 0000000..608df3b
-> --- /dev/null
-> +++ b/globalhandler.h
-> @@ -0,0 +1,12 @@
-> +#ifndef =5F=5FHOST=5FIPMI=5FGLOBAL=5FHANDLER=5FH=5F=5F
-> +#define =5F=5FHOST=5FIPMI=5FGLOBAL=5FHANDLER=5FH=5F=5F
-> +
-> +#include <stdint.h>
-> +
-> +// Various GLOBAL operations under a single command.
-> +enum ipmi=5Fglobal=5Fcontrol=5Fcmds : uint8=5Ft
-> +{
-> +IPMI=5FCMD=5FWARM=5FRESET 		 		 		    =3D 0x02,
-> +};
-> +
-> +#endif
-> --
-> 2.6.4
->
->
-> =5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
-=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
-
-=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
-=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F
-openbmc mailing list
-openbmc@lists.ozlabs.org
-https://lists.ozlabs.org/listinfo/openbmc
-
-
---1__=09BBF5DEDF8568408f9e8a93df938690918c09BBF5DEDF856840
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/html; charset=US-ASCII
-Content-Disposition: inline
-
-<html><body><p>Too late.  Cyril had already approved this code.   If you wa=
-nt to step up the priority on fixing the TODO, you could open an issue so w=
-e can make sure it gets addressed in a timely fashion.  <br><br><br>Regards=
-,<br>Norman James<br>IBM - POWER Systems Architect<br>Phone: 1-512-286-6807=
- (T/L: 363-6807)<br>Internet: njames@us.ibm.com<br><br><br><img width=3D"16=
-" height=3D"16" src=3D"cid:1=5F=5F=3D09BBF5DEDF8568408f9e8a93df938690918c09=
-B@" border=3D"0" alt=3D"Inactive hide details for Sam Mendoza-Jonas ---02/0=
-1/2016 09:44:21 PM---Hi William, a question below; On Mon, Feb 01, 2016 at =
-1"><font color=3D"#424282">Sam Mendoza-Jonas ---02/01/2016 09:44:21 PM---Hi=
- William, a question below; On Mon, Feb 01, 2016 at 12:40:25AM -0600, OpenB=
-MC Patches wrote:</font><br><br><font size=3D"2" color=3D"#5F5F5F">From:   =
-     </font><font size=3D"2">Sam Mendoza-Jonas &lt;sam@mendozajonas.com&gt;=
-</font><br><font size=3D"2" color=3D"#5F5F5F">To:        </font><font size=
-=3D"2">OpenBMC Patches &lt;openbmc-patches@stwcx.xyz&gt;</font><br><font si=
-ze=3D"2" color=3D"#5F5F5F">Cc:        </font><font size=3D"2">openbmc@lists=
-.ozlabs.org, William &lt;bjlinan@cn.ibm.com&gt;</font><br><font size=3D"2" =
-color=3D"#5F5F5F">Date:        </font><font size=3D"2">02/01/2016 09:44 PM<=
-/font><br><font size=3D"2" color=3D"#5F5F5F">Subject:        </font><font s=
-ize=3D"2">Re: [PATCH phosphor-host-ipmid v3] Add ipmi coldReset command, wh=
-ich call a dbus method, belongs to NETFUN=5FAPP. 1. A method dbus=5Fwarm=5F=
-reset() to talk with the dbus method 'warmRest'; 2. Also get service name b=
-y ipmid=5Fget=5Fsd=5Fbus=5Fconnection() instead of object=5Fmapper=5Fget=5F=
-connection(); 3. Register the ipmi command; 4. Add related .o to the Makefi=
-le; 5. Add wildcard function.</font><br><font size=3D"2" color=3D"#5F5F5F">=
-Sent by:        </font><font size=3D"2">&quot;openbmc&quot; &lt;openbmc-bou=
-nces+njames=3Dus.ibm.com@lists.ozlabs.org&gt;</font><br><hr width=3D"100%" =
-size=3D"2" align=3D"left" noshade style=3D"color:#8091A5; "><br><br><br><tt=
->Hi William, a question below;<br><br>On Mon, Feb 01, 2016 at 12:40:25AM -0=
-600, OpenBMC Patches wrote:<br>&gt; From: William &lt;bjlinan@cn.ibm.com&gt=
-;<br>&gt; <br>&gt; ---<br>&gt; &nbsp;Makefile &nbsp; &nbsp; &nbsp; &nbsp;| =
-&nbsp; 1 +<br>&gt; &nbsp;globalhandler.C | 171 ++++++++++++++++++++++++++++=
-++++++++++++++++++++++++++++<br>&gt; &nbsp;globalhandler.h | &nbsp;12 ++++<=
-br>&gt; &nbsp;3 files changed, 184 insertions(+)<br>&gt; &nbsp;create mode =
-100644 globalhandler.C<br>&gt; &nbsp;create mode 100644 globalhandler.h<br>=
-&gt; <br>&gt; diff --git a/Makefile b/Makefile<br>&gt; index 472bfaa..58e73=
-10 100644<br>&gt; --- a/Makefile<br>&gt; +++ b/Makefile<br>&gt; @@ -15,6 +1=
-5,7 @@ LIB=5FAPP=5FOBJ =3D apphandler.o &nbsp; &nbsp; \<br>&gt; &nbsp; &nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ipmisensor.o &nbsp; &nbsp; \<br=
->&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;storageaddsel.=
-o &nbsp;\<br>&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;tr=
-ansporthandler.o &nbsp;\<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp;globalhandler.o &nbsp;<br>&gt; &nbsp;<br>&gt; &nbsp;LIB=5FHOST=5FSR=
-V=5FOBJ =3D host-services.o<br>&gt; &nbsp;<br>&gt; diff --git a/globalhandl=
-er.C b/globalhandler.C<br>&gt; new file mode 100644<br>&gt; index 0000000..=
-e68ea79<br>&gt; --- /dev/null<br>&gt; +++ b/globalhandler.C<br>&gt; @@ -0,0=
- +1,171 @@<br>&gt; +#include &quot;globalhandler.h&quot;<br>&gt; +#include =
-&quot;ipmid-api.h&quot;<br>&gt; +#include &lt;stdio.h&gt;<br>&gt; +#include=
- &lt;string.h&gt;<br>&gt; +#include &lt;stdint.h&gt;<br>&gt; +<br>&gt; +con=
-st char &nbsp;*control=5Fobject=5Fname &nbsp;=3D &nbsp;&quot;/org/openbmc/c=
-ontrol/bmc0&quot;;<br>&gt; +const char &nbsp;*control=5Fintf=5Fname &nbsp; =
-&nbsp;=3D &nbsp;&quot;org.openbmc.control.Bmc&quot;;<br>&gt; +<br>&gt; +con=
-st char &nbsp;*objectmapper=5Fservice=5Fname =3D &nbsp;&quot;org.openbmc.ob=
-jectmapper&quot;;<br>&gt; +const char &nbsp;*objectmapper=5Fobject=5Fname &=
-nbsp;=3D &nbsp;&quot;/org/openbmc/objectmapper/objectmapper&quot;;<br>&gt; =
-+const char &nbsp;*objectmapper=5Fintf=5Fname &nbsp; &nbsp;=3D &nbsp;&quot;=
-org.openbmc.objectmapper.ObjectMapper&quot;;<br>&gt; +<br>&gt; +void regist=
-er=5Fnetfn=5Fglobal=5Ffunctions() =5F=5Fattribute=5F=5F((constructor));<br>=
-&gt; +<br>&gt; +int obj=5Fmapper=5Fget=5Fconnection(char** buf, const char*=
- obj=5Fpath)<br>&gt; +{<br>&gt; + &nbsp; &nbsp;sd=5Fbus=5Ferror error =3D S=
-D=5FBUS=5FERROR=5FNULL;<br>&gt; + &nbsp; &nbsp;sd=5Fbus=5Fmessage *m =3D NU=
-LL;<br>&gt; + &nbsp; &nbsp;sd=5Fbus *bus =3D NULL;<br>&gt; + &nbsp; &nbsp;c=
-har *temp=5Fbuf =3D NULL, *intf =3D NULL;<br>&gt; + &nbsp; &nbsp;size=5Ft b=
-uf=5Fsize =3D 0;<br>&gt; + &nbsp; &nbsp;int r;<br>&gt; +<br>&gt; + &nbsp; &=
-nbsp;//Get the system bus where most system services are provided.<br>&gt; =
-+ &nbsp; &nbsp;bus =3D ipmid=5Fget=5Fsd=5Fbus=5Fconnection();<br>&gt; +<br>=
-&gt; + &nbsp; &nbsp;/*<br>&gt; + &nbsp; &nbsp; * Bus, service, object path,=
- interface and method are provided to call<br>&gt; + &nbsp; &nbsp; * the me=
-thod.<br>&gt; + &nbsp; &nbsp; * Signatures and input arguments are provided=
- by the arguments at the<br>&gt; + &nbsp; &nbsp; * end.<br>&gt; + &nbsp; &n=
-bsp; */<br>&gt; + &nbsp; &nbsp;r =3D sd=5Fbus=5Fcall=5Fmethod(bus,<br>&gt; =
-+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;objectmapper=5Fservice=5Fname, &=
-nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
-/* service to contact */<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
-;objectmapper=5Fobject=5Fname, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; /* object path */<br>&gt; + &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp;objectmapper=5Fintf=5Fname, &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* interfac=
-e name */<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&quot;GetObjec=
-t&quot;, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* method name *=
-/<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&amp;error, &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* object to return =
-error in */<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&amp;m, &nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-/* return message on success */<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp;&quot;s&quot;, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp;/* input signature */<br>&gt; + &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp;obj=5Fpath &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp;/* first argument */<br>&gt; + &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp;);<br>&gt; +<br>&gt; + &nbsp; &nbsp;if (r &lt; 0) {<br=
->&gt; + &nbsp; &nbsp; &nbsp; &nbsp;fprintf(stderr, &quot;Failed to issue me=
-thod call: %s\n&quot;, error.message);<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp=
-;goto finish;<br>&gt; + &nbsp; &nbsp;}<br>&gt; +<br>&gt; + &nbsp; &nbsp;// =
-Get the key, aka, the connection name<br>&gt; + &nbsp; &nbsp;sd=5Fbus=5Fmes=
-sage=5Fread(m, &quot;a{sas}&quot;, 1, &amp;temp=5Fbuf, 1, &amp;intf);<br>&g=
-t; + &nbsp; &nbsp;<br>&gt; +                 /* <br>&gt; + &nbsp; &nbsp; * =
-TODO: check the return code. Currently for no reason the message<br>&gt; + =
-&nbsp; &nbsp; * parsing of object mapper is always complaining about<br>&gt=
-; + &nbsp; &nbsp; * &quot;Device or resource busy&quot;, but the result see=
-ms OK for now. Need<br>&gt; + &nbsp; &nbsp; * &nbsp;further checks.<br>&gt;=
- + &nbsp; &nbsp; */<br><br>I've seen this comment before and it worries me =
-a bit. Why are we<br>getting the error? How do you know temp=5Fbuf is alloc=
-ated properly? What<br>does it mean that the result &quot;seems OK&quot;?<b=
-r>You check return codes before and after this, but if you get unlucky<br>h=
-ere you could easily segfault or read nonsense.<br><br>I think this issue s=
-hould be figured out before merging the code, both<br>here and wherever els=
-e it appears.<br><br>Thanks,<br>Sam<br><br>&gt; +<br>&gt; + &nbsp; &nbsp;bu=
-f=5Fsize =3D strlen(temp=5Fbuf) + 1;<br>&gt; + &nbsp; &nbsp;printf(&quot;IP=
-MID connection name: %s\n&quot;, temp=5Fbuf);<br>&gt; + &nbsp; &nbsp;*buf =
-=3D (char*)malloc(buf=5Fsize);<br>&gt; +<br>&gt; + &nbsp; &nbsp;if (*buf =
-=3D=3D NULL) {<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp;fprintf(stderr, &quot;M=
-alloc failed for warm reset&quot;);<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp;r =
-=3D -1;<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp;goto finish;<br>&gt; + &nbsp; =
-&nbsp;}<br>&gt; +<br>&gt; + &nbsp; &nbsp;memcpy(*buf, temp=5Fbuf, buf=5Fsiz=
-e);<br>&gt; +<br>&gt; +finish:<br>&gt; + &nbsp; &nbsp;sd=5Fbus=5Ferror=5Ffr=
-ee(&amp;error);<br>&gt; + &nbsp; &nbsp;sd=5Fbus=5Fmessage=5Funref(m);<br>&g=
-t; +<br>&gt; + &nbsp; &nbsp;return r;<br>&gt; +}<br>&gt; +<br>&gt; +int dbu=
-s=5Fwarm=5Freset()<br>&gt; +{<br>&gt; + &nbsp; &nbsp;sd=5Fbus=5Ferror error=
- =3D SD=5FBUS=5FERROR=5FNULL;<br>&gt; + &nbsp; &nbsp;sd=5Fbus=5Fmessage *m =
-=3D NULL;<br>&gt; + &nbsp; &nbsp;sd=5Fbus *bus =3D NULL;<br>&gt; + &nbsp; &=
-nbsp;char* temp=5Fbuf =3D NULL;<br>&gt; + &nbsp; &nbsp;uint8=5Ft* get=5Fval=
-ue =3D NULL;<br>&gt; + &nbsp; &nbsp;char* connection =3D NULL;<br>&gt; + &n=
-bsp; &nbsp;int r, i;<br>&gt; +<br>&gt; + &nbsp; &nbsp;r =3D obj=5Fmapper=5F=
-get=5Fconnection(&amp;connection, control=5Fobject=5Fname);<br>&gt; + &nbsp=
-; &nbsp;if (r &lt; 0) {<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp;fprintf(stderr=
-, &quot;Failed to get connection, return value: %d.\n&quot;, r);<br>&gt; + =
-&nbsp; &nbsp; &nbsp; &nbsp;goto finish;<br>&gt; + &nbsp; &nbsp;}<br>&gt; +<=
-br>&gt; + &nbsp; &nbsp;printf(&quot;connection: %s\n&quot;, connection);<br=
->&gt; +<br>&gt; + &nbsp; &nbsp;// Open the system bus where most system ser=
-vices are provided.<br>&gt; + &nbsp; &nbsp;bus =3D ipmid=5Fget=5Fsd=5Fbus=
-=5Fconnection();<br>&gt; + &nbsp; &nbsp;<br>&gt; + &nbsp; &nbsp;/*<br>&gt; =
-+ &nbsp; &nbsp; * Bus, service, object path, interface and method are provi=
-ded to call<br>&gt; + &nbsp; &nbsp; * the method.<br>&gt; + &nbsp; &nbsp; *=
- Signatures and input arguments are provided by the arguments at the<br>&gt=
-; + &nbsp; &nbsp; * end.<br>&gt; +                 &nbsp;*/<br>&gt; + &nbsp=
-; &nbsp;r =3D sd=5Fbus=5Fcall=5Fmethod(bus,<br>&gt; + &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp;connection, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* serv=
-ice to contact */<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;contro=
-l=5Fobject=5Fname, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp; /* object path */<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp;control=5Fintf=5Fname, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* interface name */<br>&gt;=
- + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&quot;warmReset&quot;, &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; /* method name */<br>&gt; + &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp;&amp;error, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp;/* object to return error in */<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp;&amp;m, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp;/* return message on success */<br>&gt; + &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp;NULL,<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;NU=
-LL<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;);<br>&gt; +<br>&gt; =
-+ &nbsp; &nbsp;if (r &lt; 0) {<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp;fprintf=
-(stderr, &quot;Failed to issue method call: %s\n&quot;, error.message);<br>=
-&gt; + &nbsp; &nbsp; &nbsp; &nbsp;goto finish;<br>&gt; + &nbsp; &nbsp;}<br>=
-&gt; +<br>&gt; +finish:<br>&gt; + &nbsp; &nbsp;sd=5Fbus=5Ferror=5Ffree(&amp=
-;error);<br>&gt; + &nbsp; &nbsp;sd=5Fbus=5Fmessage=5Funref(m);<br>&gt; + &n=
-bsp; &nbsp;free(connection);<br>&gt; +<br>&gt; + &nbsp; &nbsp;return r;<br>=
-&gt; +}<br>&gt; +<br>&gt; +ipmi=5Fret=5Ft ipmi=5Fglobal=5Fwarm=5Freset(ipmi=
-=5Fnetfn=5Ft netfn, ipmi=5Fcmd=5Ft cmd,<br>&gt; + &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp;ipmi=5Frequest=5Ft request, ipmi=5Fresponse=5Ft response,<br>&gt; + &nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp;ipmi=5Fdata=5Flen=5Ft data=5Flen, ipmi=5Fcontext=
-=5Ft context)<br>&gt; +{<br>&gt; + &nbsp; &nbsp;printf(&quot;Handling GLOBA=
-L warmReset Netfn:[0x%X], Cmd:[0x%X]\n&quot;,netfn, cmd);<br>&gt; +<br>&gt;=
- + &nbsp; &nbsp;// TODO: call the correct dbus method for warmReset.<br>&gt=
-; + &nbsp; &nbsp;dbus=5Fwarm=5Freset();<br>&gt; +<br>&gt; + &nbsp; &nbsp;//=
- Status code.<br>&gt; + &nbsp; &nbsp;ipmi=5Fret=5Ft rc =3D IPMI=5FCC=5FOK;<=
-br>&gt; + &nbsp; &nbsp;*data=5Flen =3D 0;<br>&gt; + &nbsp; &nbsp;return rc;=
-<br>&gt; +}<br>&gt; +<br>&gt; +ipmi=5Fret=5Ft ipmi=5Fglobal=5Fwildcard=5Fha=
-ndler(ipmi=5Fnetfn=5Ft netfn, ipmi=5Fcmd=5Ft cmd,<br>&gt; + &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp;ipmi=5Frequest=5Ft request, ipmi=5Fresponse=5Ft response,<br>=
-&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ipmi=5Fdata=5Flen=5Ft data=5Flen, ipmi=
-=5Fcontext=5Ft context)<br>&gt; +{<br>&gt; + &nbsp; &nbsp;printf(&quot;Hand=
-ling WILDCARD Netfn:[0x%X], Cmd:[0x%X]\n&quot;,netfn, cmd);<br>&gt; +<br>&g=
-t; + &nbsp; &nbsp;// Status code.<br>&gt; + &nbsp; &nbsp;ipmi=5Fret=5Ft rc =
-=3D IPMI=5FCC=5FOK;<br>&gt; +<br>&gt; + &nbsp; &nbsp;*data=5Flen =3D strlen=
-(&quot;THIS IS WILDCARD&quot;);<br>&gt; +<br>&gt; + &nbsp; &nbsp;// Now pac=
-k actual response<br>&gt; + &nbsp; &nbsp;memcpy(response, &quot;THIS IS WIL=
-DCARD&quot;, *data=5Flen);<br>&gt; +<br>&gt; + &nbsp; &nbsp;return rc;<br>&=
-gt; +}<br>&gt; +<br>&gt; +void register=5Fnetfn=5Fglobal=5Ffunctions()<br>&=
-gt; +{<br>&gt; + &nbsp; &nbsp;printf(&quot;Registering NetFn:[0x%X], Cmd:[0=
-x%X]\n&quot;,NETFUN=5FAPP, IPMI=5FCMD=5FWARM=5FRESET);<br>&gt; + &nbsp; &nb=
-sp;ipmi=5Fregister=5Fcallback(NETFUN=5FAPP, IPMI=5FCMD=5FWARM=5FRESET, NULL=
-, ipmi=5Fglobal=5Fwarm=5Freset);<br>&gt; +<br>&gt; + &nbsp; &nbsp;printf(&q=
-uot;Registering NetFn:[0x%X], Cmd:[0x%X]\n&quot;,NETFUN=5FAPP, IPMI=5FCMD=
-=5FWILDCARD);<br>&gt; + &nbsp; &nbsp;ipmi=5Fregister=5Fcallback(NETFUN=5FAP=
-P, IPMI=5FCMD=5FWILDCARD, NULL, ipmi=5Fglobal=5Fwildcard=5Fhandler);<br>&gt=
-; +<br>&gt; +                 return;<br>&gt; +}<br>&gt; diff --git a/globa=
-lhandler.h b/globalhandler.h<br>&gt; new file mode 100644<br>&gt; index 000=
-0000..608df3b<br>&gt; --- /dev/null<br>&gt; +++ b/globalhandler.h<br>&gt; @=
-@ -0,0 +1,12 @@<br>&gt; +#ifndef =5F=5FHOST=5FIPMI=5FGLOBAL=5FHANDLER=5FH=
-=5F=5F<br>&gt; +#define =5F=5FHOST=5FIPMI=5FGLOBAL=5FHANDLER=5FH=5F=5F<br>&=
-gt; +<br>&gt; +#include &lt;stdint.h&gt;<br>&gt; +<br>&gt; +// Various GLOB=
-AL operations under a single command.<br>&gt; +enum ipmi=5Fglobal=5Fcontrol=
-=5Fcmds : uint8=5Ft<br>&gt; +{<br>&gt; +IPMI=5FCMD=5FWARM=5FRESET          =
-                                          &nbsp; &nbsp;=3D 0x02,<br>&gt; +}=
-;<br>&gt; +<br>&gt; +#endif<br>&gt; -- <br>&gt; 2.6.4<br>&gt; <br>&gt; <br>=
-&gt; =5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
-=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F<br=
->&gt; openbmc mailing list<br>&gt; openbmc@lists.ozlabs.org<br>&gt; </tt><t=
-t><a href=3D"https://lists.ozlabs.org/listinfo/openbmc">https://lists.ozlab=
-s.org/listinfo/openbmc</a></tt><tt><br><br>=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
-=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
-=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F<br>openbmc mailing list<br>openbmc@lis=
-ts.ozlabs.org<br></tt><tt><a href=3D"https://lists.ozlabs.org/listinfo/open=
-bmc">https://lists.ozlabs.org/listinfo/openbmc</a></tt><tt><br></tt><br><BR>
-</body></html>
-
---1__=09BBF5DEDF8568408f9e8a93df938690918c09BBF5DEDF856840--
-
-
---0__=09BBF5DEDF8568408f9e8a93df938690918c09BBF5DEDF856840
-Content-type: image/gif; 
-	name="graycol.gif"
-Content-Disposition: inline; filename="graycol.gif"
-Content-ID: <1__=09BBF5DEDF8568408f9e8a93df938690918c09B@>
+--=_alternative 00176D1448257F4D_=
 Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="GB2312"
 
-R0lGODlhEAAQAKECAMzMzAAAAP///wAAACH5BAEAAAIALAAAAAAQABAAAAIXlI+py+0PopwxUbpu
-ZRfKZ2zgSJbmSRYAIf4fT3B0aW1pemVkIGJ5IFVsZWFkIFNtYXJ0U2F2ZXIhAAA7
+SGksDQpUaGFua3MgU2FtLg0KSSB3aWxsIHRoaW5rIG9mIGl0Lg0KDQpSZWdhcmRzLA0KDQpXaWxs
+aWFtIExpICggTGkgTmFuLCDA7umqICkgDQoNCkZpcm13YXJlIEVuZ2luZWVyaW5nIFByb2Zlc3Np
+b25hbA0KT3BlblBvd2VyIEFFIFRlYW0gfCBJQk0gU3lzdGVtICYgVGVjaG5vbG9neSBMYWINCk1v
+YmlsZTogKzg2LTE4Ni0xMDgxIDY2MDUsICs4Ni0xMzgtMTE4OCA1OTU0DQoNCkJlaWppbmcsIENo
+aW5hDQoNCg0KDQpGcm9tOiAgIFNhbSBNZW5kb3phLUpvbmFzIDxzYW1AbWVuZG96YWpvbmFzLmNv
+bT4NClRvOiAgICAgT3BlbkJNQyBQYXRjaGVzIDxvcGVuYm1jLXBhdGNoZXNAc3R3Y3gueHl6Pg0K
+Q2M6ICAgICBvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcsIE5hbiBLWCBMaS9DaGluYS9JQk1ASUJN
+Q04NCkRhdGU6ICAgMDIvMDIvMjAxNiAxMTo0NA0KU3ViamVjdDogICAgICAgIFJlOiBbUEFUQ0gg
+cGhvc3Bob3ItaG9zdC1pcG1pZCB2M10gQWRkIGlwbWkgY29sZFJlc2V0IA0KY29tbWFuZCwgd2hp
+Y2ggY2FsbCBhIGRidXMgbWV0aG9kLCBiZWxvbmdzIHRvIE5FVEZVTl9BUFAuIDEuIEEgbWV0aG9k
+IA0KZGJ1c193YXJtX3Jlc2V0KCkgdG8gdGFsayB3aXRoIHRoZSBkYnVzIG1ldGhvZCAnd2FybVJl
+c3QnOyAyLiBBbHNvIGdldCANCnNlcnZpY2UgbmFtZSBieSBpcG1pZF9nZXRfc2RfYnVzX2Nvbm5l
+Y3Rpb24oKSBpbnN0ZWFkIG9mIA0Kb2JqZWN0X21hcHBlcl9nZXRfY29ubmVjdGlvbigpOyAzLiBS
+ZWdpc3RlciB0aGUgaXBtaSBjb21tYW5kOyA0LiBBZGQgDQpyZWxhdGVkIC5vIHRvIHRoZSBNYWtl
+ZmlsZTsgNS4gQWRkIHdpbGRjYXJkIGZ1bmN0aW9uLg0KDQoNCg0KSGkgV2lsbGlhbSwgYSBxdWVz
+dGlvbiBiZWxvdzsNCg0KT24gTW9uLCBGZWIgMDEsIDIwMTYgYXQgMTI6NDA6MjVBTSAtMDYwMCwg
+T3BlbkJNQyBQYXRjaGVzIHdyb3RlOg0KPiBGcm9tOiBXaWxsaWFtIDxiamxpbmFuQGNuLmlibS5j
+b20+DQo+IA0KPiAtLS0NCj4gIE1ha2VmaWxlICAgICAgICB8ICAgMSArDQo+ICBnbG9iYWxoYW5k
+bGVyLkMgfCAxNzEgDQorKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKw0KPiAgZ2xvYmFsaGFuZGxlci5oIHwgIDEyICsrKysNCj4gIDMgZmlsZXMg
+Y2hhbmdlZCwgMTg0IGluc2VydGlvbnMoKykNCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBnbG9iYWxo
+YW5kbGVyLkMNCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBnbG9iYWxoYW5kbGVyLmgNCj4gDQo+IGRp
+ZmYgLS1naXQgYS9NYWtlZmlsZSBiL01ha2VmaWxlDQo+IGluZGV4IDQ3MmJmYWEuLjU4ZTczMTAg
+MTAwNjQ0DQo+IC0tLSBhL01ha2VmaWxlDQo+ICsrKyBiL01ha2VmaWxlDQo+IEBAIC0xNSw2ICsx
+NSw3IEBAIExJQl9BUFBfT0JKID0gYXBwaGFuZGxlci5vICAgICBcDQo+ICAgICAgICAgICAgICAg
+IGlwbWlzZW5zb3IubyAgICAgXA0KPiAgICAgICAgICAgICAgICBzdG9yYWdlYWRkc2VsLm8gIFwN
+Cj4gICAgICAgICAgICAgICAgdHJhbnNwb3J0aGFuZGxlci5vICBcDQo+ICsgICAgICAgICAgICAg
+IGdsb2JhbGhhbmRsZXIubyANCj4gDQo+ICBMSUJfSE9TVF9TUlZfT0JKID0gaG9zdC1zZXJ2aWNl
+cy5vDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZ2xvYmFsaGFuZGxlci5DIGIvZ2xvYmFsaGFuZGxlci5D
+DQo+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0DQo+IGluZGV4IDAwMDAwMDAuLmU2OGVhNzkNCj4gLS0t
+IC9kZXYvbnVsbA0KPiArKysgYi9nbG9iYWxoYW5kbGVyLkMNCj4gQEAgLTAsMCArMSwxNzEgQEAN
+Cj4gKyNpbmNsdWRlICJnbG9iYWxoYW5kbGVyLmgiDQo+ICsjaW5jbHVkZSAiaXBtaWQtYXBpLmgi
+DQo+ICsjaW5jbHVkZSA8c3RkaW8uaD4NCj4gKyNpbmNsdWRlIDxzdHJpbmcuaD4NCj4gKyNpbmNs
+dWRlIDxzdGRpbnQuaD4NCj4gKw0KPiArY29uc3QgY2hhciAgKmNvbnRyb2xfb2JqZWN0X25hbWUg
+ID0gICIvb3JnL29wZW5ibWMvY29udHJvbC9ibWMwIjsNCj4gK2NvbnN0IGNoYXIgICpjb250cm9s
+X2ludGZfbmFtZSAgICA9ICAib3JnLm9wZW5ibWMuY29udHJvbC5CbWMiOw0KPiArDQo+ICtjb25z
+dCBjaGFyICAqb2JqZWN0bWFwcGVyX3NlcnZpY2VfbmFtZSA9ICAib3JnLm9wZW5ibWMub2JqZWN0
+bWFwcGVyIjsNCj4gK2NvbnN0IGNoYXIgICpvYmplY3RtYXBwZXJfb2JqZWN0X25hbWUgID0gDQoi
+L29yZy9vcGVuYm1jL29iamVjdG1hcHBlci9vYmplY3RtYXBwZXIiOw0KPiArY29uc3QgY2hhciAg
+Km9iamVjdG1hcHBlcl9pbnRmX25hbWUgICAgPSANCiJvcmcub3BlbmJtYy5vYmplY3RtYXBwZXIu
+T2JqZWN0TWFwcGVyIjsNCj4gKw0KPiArdm9pZCByZWdpc3Rlcl9uZXRmbl9nbG9iYWxfZnVuY3Rp
+b25zKCkgX19hdHRyaWJ1dGVfXygoY29uc3RydWN0b3IpKTsNCj4gKw0KPiAraW50IG9ial9tYXBw
+ZXJfZ2V0X2Nvbm5lY3Rpb24oY2hhcioqIGJ1ZiwgY29uc3QgY2hhciogb2JqX3BhdGgpDQo+ICt7
+DQo+ICsgICAgc2RfYnVzX2Vycm9yIGVycm9yID0gU0RfQlVTX0VSUk9SX05VTEw7DQo+ICsgICAg
+c2RfYnVzX21lc3NhZ2UgKm0gPSBOVUxMOw0KPiArICAgIHNkX2J1cyAqYnVzID0gTlVMTDsNCj4g
+KyAgICBjaGFyICp0ZW1wX2J1ZiA9IE5VTEwsICppbnRmID0gTlVMTDsNCj4gKyAgICBzaXplX3Qg
+YnVmX3NpemUgPSAwOw0KPiArICAgIGludCByOw0KPiArDQo+ICsgICAgLy9HZXQgdGhlIHN5c3Rl
+bSBidXMgd2hlcmUgbW9zdCBzeXN0ZW0gc2VydmljZXMgYXJlIHByb3ZpZGVkLg0KPiArICAgIGJ1
+cyA9IGlwbWlkX2dldF9zZF9idXNfY29ubmVjdGlvbigpOw0KPiArDQo+ICsgICAgLyoNCj4gKyAg
+ICAgKiBCdXMsIHNlcnZpY2UsIG9iamVjdCBwYXRoLCBpbnRlcmZhY2UgYW5kIG1ldGhvZCBhcmUg
+cHJvdmlkZWQgdG8gDQpjYWxsDQo+ICsgICAgICogdGhlIG1ldGhvZC4NCj4gKyAgICAgKiBTaWdu
+YXR1cmVzIGFuZCBpbnB1dCBhcmd1bWVudHMgYXJlIHByb3ZpZGVkIGJ5IHRoZSBhcmd1bWVudHMg
+YXQgDQp0aGUNCj4gKyAgICAgKiBlbmQuDQo+ICsgICAgICovDQo+ICsgICAgciA9IHNkX2J1c19j
+YWxsX21ldGhvZChidXMsDQo+ICsgICAgICAgICAgICBvYmplY3RtYXBwZXJfc2VydmljZV9uYW1l
+LCAgICAgICAgICAgICAgICAgICAgICAvKiBzZXJ2aWNlIA0KdG8gY29udGFjdCAqLw0KPiArICAg
+ICAgICAgICAgb2JqZWN0bWFwcGVyX29iamVjdF9uYW1lLCAgICAgICAgICAgICAgICAgICAgICAg
+Lyogb2JqZWN0IA0KcGF0aCAqLw0KPiArICAgICAgICAgICAgb2JqZWN0bWFwcGVyX2ludGZfbmFt
+ZSwgICAgICAgICAgICAgICAgICAgICAgICAgLyogDQppbnRlcmZhY2UgbmFtZSAqLw0KPiArICAg
+ICAgICAgICAgIkdldE9iamVjdCIsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+LyogbWV0aG9kIA0KbmFtZSAqLw0KPiArICAgICAgICAgICAgJmVycm9yLCAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgLyogb2JqZWN0IA0KdG8gcmV0dXJuIGVycm9yIGlu
+ICovDQo+ICsgICAgICAgICAgICAmbSwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAvKiByZXR1cm4gDQptZXNzYWdlIG9uIHN1Y2Nlc3MgKi8NCj4gKyAgICAgICAg
+ICAgICJzIiwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC8qIGlu
+cHV0IA0Kc2lnbmF0dXJlICovDQo+ICsgICAgICAgICAgICBvYmpfcGF0aCAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAvKiBmaXJzdCANCmFyZ3VtZW50ICovDQo+ICsgICAg
+ICAgICAgICApOw0KPiArDQo+ICsgICAgaWYgKHIgPCAwKSB7DQo+ICsgICAgICAgIGZwcmludGYo
+c3RkZXJyLCAiRmFpbGVkIHRvIGlzc3VlIG1ldGhvZCBjYWxsOiAlc1xuIiwgDQplcnJvci5tZXNz
+YWdlKTsNCj4gKyAgICAgICAgZ290byBmaW5pc2g7DQo+ICsgICAgfQ0KPiArDQo+ICsgICAgLy8g
+R2V0IHRoZSBrZXksIGFrYSwgdGhlIGNvbm5lY3Rpb24gbmFtZQ0KPiArICAgIHNkX2J1c19tZXNz
+YWdlX3JlYWQobSwgImF7c2FzfSIsIDEsICZ0ZW1wX2J1ZiwgMSwgJmludGYpOw0KPiArIA0KPiAr
+ICAgICAgICAgICAgICAvKiANCj4gKyAgICAgKiBUT0RPOiBjaGVjayB0aGUgcmV0dXJuIGNvZGUu
+IEN1cnJlbnRseSBmb3Igbm8gcmVhc29uIHRoZSBtZXNzYWdlDQo+ICsgICAgICogcGFyc2luZyBv
+ZiBvYmplY3QgbWFwcGVyIGlzIGFsd2F5cyBjb21wbGFpbmluZyBhYm91dA0KPiArICAgICAqICJE
+ZXZpY2Ugb3IgcmVzb3VyY2UgYnVzeSIsIGJ1dCB0aGUgcmVzdWx0IHNlZW1zIE9LIGZvciBub3cu
+IE5lZWQNCj4gKyAgICAgKiAgZnVydGhlciBjaGVja3MuDQo+ICsgICAgICovDQoNCkkndmUgc2Vl
+biB0aGlzIGNvbW1lbnQgYmVmb3JlIGFuZCBpdCB3b3JyaWVzIG1lIGEgYml0LiBXaHkgYXJlIHdl
+DQpnZXR0aW5nIHRoZSBlcnJvcj8gSG93IGRvIHlvdSBrbm93IHRlbXBfYnVmIGlzIGFsbG9jYXRl
+ZCBwcm9wZXJseT8gV2hhdA0KZG9lcyBpdCBtZWFuIHRoYXQgdGhlIHJlc3VsdCAic2VlbXMgT0si
+Pw0KWW91IGNoZWNrIHJldHVybiBjb2RlcyBiZWZvcmUgYW5kIGFmdGVyIHRoaXMsIGJ1dCBpZiB5
+b3UgZ2V0IHVubHVja3kNCmhlcmUgeW91IGNvdWxkIGVhc2lseSBzZWdmYXVsdCBvciByZWFkIG5v
+bnNlbnNlLg0KDQpJIHRoaW5rIHRoaXMgaXNzdWUgc2hvdWxkIGJlIGZpZ3VyZWQgb3V0IGJlZm9y
+ZSBtZXJnaW5nIHRoZSBjb2RlLCBib3RoDQpoZXJlIGFuZCB3aGVyZXZlciBlbHNlIGl0IGFwcGVh
+cnMuDQoNClRoYW5rcywNClNhbQ0KDQo+ICsNCj4gKyAgICBidWZfc2l6ZSA9IHN0cmxlbih0ZW1w
+X2J1ZikgKyAxOw0KPiArICAgIHByaW50ZigiSVBNSUQgY29ubmVjdGlvbiBuYW1lOiAlc1xuIiwg
+dGVtcF9idWYpOw0KPiArICAgICpidWYgPSAoY2hhciopbWFsbG9jKGJ1Zl9zaXplKTsNCj4gKw0K
+PiArICAgIGlmICgqYnVmID09IE5VTEwpIHsNCj4gKyAgICAgICAgZnByaW50ZihzdGRlcnIsICJN
+YWxsb2MgZmFpbGVkIGZvciB3YXJtIHJlc2V0Iik7DQo+ICsgICAgICAgIHIgPSAtMTsNCj4gKyAg
+ICAgICAgZ290byBmaW5pc2g7DQo+ICsgICAgfQ0KPiArDQo+ICsgICAgbWVtY3B5KCpidWYsIHRl
+bXBfYnVmLCBidWZfc2l6ZSk7DQo+ICsNCj4gK2ZpbmlzaDoNCj4gKyAgICBzZF9idXNfZXJyb3Jf
+ZnJlZSgmZXJyb3IpOw0KPiArICAgIHNkX2J1c19tZXNzYWdlX3VucmVmKG0pOw0KPiArDQo+ICsg
+ICAgcmV0dXJuIHI7DQo+ICt9DQo+ICsNCj4gK2ludCBkYnVzX3dhcm1fcmVzZXQoKQ0KPiArew0K
+PiArICAgIHNkX2J1c19lcnJvciBlcnJvciA9IFNEX0JVU19FUlJPUl9OVUxMOw0KPiArICAgIHNk
+X2J1c19tZXNzYWdlICptID0gTlVMTDsNCj4gKyAgICBzZF9idXMgKmJ1cyA9IE5VTEw7DQo+ICsg
+ICAgY2hhciogdGVtcF9idWYgPSBOVUxMOw0KPiArICAgIHVpbnQ4X3QqIGdldF92YWx1ZSA9IE5V
+TEw7DQo+ICsgICAgY2hhciogY29ubmVjdGlvbiA9IE5VTEw7DQo+ICsgICAgaW50IHIsIGk7DQo+
+ICsNCj4gKyAgICByID0gb2JqX21hcHBlcl9nZXRfY29ubmVjdGlvbigmY29ubmVjdGlvbiwgY29u
+dHJvbF9vYmplY3RfbmFtZSk7DQo+ICsgICAgaWYgKHIgPCAwKSB7DQo+ICsgICAgICAgIGZwcmlu
+dGYoc3RkZXJyLCAiRmFpbGVkIHRvIGdldCBjb25uZWN0aW9uLCByZXR1cm4gdmFsdWU6IA0KJWQu
+XG4iLCByKTsNCj4gKyAgICAgICAgZ290byBmaW5pc2g7DQo+ICsgICAgfQ0KPiArDQo+ICsgICAg
+cHJpbnRmKCJjb25uZWN0aW9uOiAlc1xuIiwgY29ubmVjdGlvbik7DQo+ICsNCj4gKyAgICAvLyBP
+cGVuIHRoZSBzeXN0ZW0gYnVzIHdoZXJlIG1vc3Qgc3lzdGVtIHNlcnZpY2VzIGFyZSBwcm92aWRl
+ZC4NCj4gKyAgICBidXMgPSBpcG1pZF9nZXRfc2RfYnVzX2Nvbm5lY3Rpb24oKTsNCj4gKyANCj4g
+KyAgICAvKg0KPiArICAgICAqIEJ1cywgc2VydmljZSwgb2JqZWN0IHBhdGgsIGludGVyZmFjZSBh
+bmQgbWV0aG9kIGFyZSBwcm92aWRlZCB0byANCmNhbGwNCj4gKyAgICAgKiB0aGUgbWV0aG9kLg0K
+PiArICAgICAqIFNpZ25hdHVyZXMgYW5kIGlucHV0IGFyZ3VtZW50cyBhcmUgcHJvdmlkZWQgYnkg
+dGhlIGFyZ3VtZW50cyBhdCANCnRoZQ0KPiArICAgICAqIGVuZC4NCj4gKyAgICAgICAgICAgICAg
+ICovDQo+ICsgICAgciA9IHNkX2J1c19jYWxsX21ldGhvZChidXMsDQo+ICsgICAgICAgICAgICBj
+b25uZWN0aW9uLCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLyogc2VydmljZSB0byAN
+CmNvbnRhY3QgKi8NCj4gKyAgICAgICAgICAgIGNvbnRyb2xfb2JqZWN0X25hbWUsICAgICAgICAg
+ICAgICAgICAgICAgICAvKiBvYmplY3QgcGF0aCANCiovDQo+ICsgICAgICAgICAgICBjb250cm9s
+X2ludGZfbmFtZSwgICAgICAgICAgICAgICAgICAgICAgICAgLyogaW50ZXJmYWNlIA0KbmFtZSAq
+Lw0KPiArICAgICAgICAgICAgIndhcm1SZXNldCIsICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIC8qIG1ldGhvZCBuYW1lIA0KKi8NCj4gKyAgICAgICAgICAgICZlcnJvciwgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAvKiBvYmplY3QgdG8gDQpyZXR1cm4gZXJyb3IgaW4g
+Ki8NCj4gKyAgICAgICAgICAgICZtLCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAvKiByZXR1cm4gDQptZXNzYWdlIG9uIHN1Y2Nlc3MgKi8NCj4gKyAgICAgICAgICAgIE5V
+TEwsDQo+ICsgICAgICAgICAgICBOVUxMDQo+ICsgICAgICAgICAgICApOw0KPiArDQo+ICsgICAg
+aWYgKHIgPCAwKSB7DQo+ICsgICAgICAgIGZwcmludGYoc3RkZXJyLCAiRmFpbGVkIHRvIGlzc3Vl
+IG1ldGhvZCBjYWxsOiAlc1xuIiwgDQplcnJvci5tZXNzYWdlKTsNCj4gKyAgICAgICAgZ290byBm
+aW5pc2g7DQo+ICsgICAgfQ0KPiArDQo+ICtmaW5pc2g6DQo+ICsgICAgc2RfYnVzX2Vycm9yX2Zy
+ZWUoJmVycm9yKTsNCj4gKyAgICBzZF9idXNfbWVzc2FnZV91bnJlZihtKTsNCj4gKyAgICBmcmVl
+KGNvbm5lY3Rpb24pOw0KPiArDQo+ICsgICAgcmV0dXJuIHI7DQo+ICt9DQo+ICsNCj4gK2lwbWlf
+cmV0X3QgaXBtaV9nbG9iYWxfd2FybV9yZXNldChpcG1pX25ldGZuX3QgbmV0Zm4sIGlwbWlfY21k
+X3QgY21kLA0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaXBtaV9yZXF1ZXN0X3Qg
+cmVxdWVzdCwgaXBtaV9yZXNwb25zZV90IA0KcmVzcG9uc2UsDQo+ICsgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBpcG1pX2RhdGFfbGVuX3QgZGF0YV9sZW4sIGlwbWlfY29udGV4dF90IA0K
+Y29udGV4dCkNCj4gK3sNCj4gKyAgICBwcmludGYoIkhhbmRsaW5nIEdMT0JBTCB3YXJtUmVzZXQg
+TmV0Zm46WzB4JVhdLCANCkNtZDpbMHglWF1cbiIsbmV0Zm4sIGNtZCk7DQo+ICsNCj4gKyAgICAv
+LyBUT0RPOiBjYWxsIHRoZSBjb3JyZWN0IGRidXMgbWV0aG9kIGZvciB3YXJtUmVzZXQuDQo+ICsg
+ICAgZGJ1c193YXJtX3Jlc2V0KCk7DQo+ICsNCj4gKyAgICAvLyBTdGF0dXMgY29kZS4NCj4gKyAg
+ICBpcG1pX3JldF90IHJjID0gSVBNSV9DQ19PSzsNCj4gKyAgICAqZGF0YV9sZW4gPSAwOw0KPiAr
+ICAgIHJldHVybiByYzsNCj4gK30NCj4gKw0KPiAraXBtaV9yZXRfdCBpcG1pX2dsb2JhbF93aWxk
+Y2FyZF9oYW5kbGVyKGlwbWlfbmV0Zm5fdCBuZXRmbiwgaXBtaV9jbWRfdCANCmNtZCwNCj4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlwbWlfcmVxdWVzdF90IHJlcXVlc3QsIGlwbWlf
+cmVzcG9uc2VfdCANCnJlc3BvbnNlLA0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+aXBtaV9kYXRhX2xlbl90IGRhdGFfbGVuLCBpcG1pX2NvbnRleHRfdCANCmNvbnRleHQpDQo+ICt7
+DQo+ICsgICAgcHJpbnRmKCJIYW5kbGluZyBXSUxEQ0FSRCBOZXRmbjpbMHglWF0sIENtZDpbMHgl
+WF1cbiIsbmV0Zm4sIGNtZCk7DQo+ICsNCj4gKyAgICAvLyBTdGF0dXMgY29kZS4NCj4gKyAgICBp
+cG1pX3JldF90IHJjID0gSVBNSV9DQ19PSzsNCj4gKw0KPiArICAgICpkYXRhX2xlbiA9IHN0cmxl
+bigiVEhJUyBJUyBXSUxEQ0FSRCIpOw0KPiArDQo+ICsgICAgLy8gTm93IHBhY2sgYWN0dWFsIHJl
+c3BvbnNlDQo+ICsgICAgbWVtY3B5KHJlc3BvbnNlLCAiVEhJUyBJUyBXSUxEQ0FSRCIsICpkYXRh
+X2xlbik7DQo+ICsNCj4gKyAgICByZXR1cm4gcmM7DQo+ICt9DQo+ICsNCj4gK3ZvaWQgcmVnaXN0
+ZXJfbmV0Zm5fZ2xvYmFsX2Z1bmN0aW9ucygpDQo+ICt7DQo+ICsgICAgcHJpbnRmKCJSZWdpc3Rl
+cmluZyBOZXRGbjpbMHglWF0sIENtZDpbMHglWF1cbiIsTkVURlVOX0FQUCwgDQpJUE1JX0NNRF9X
+QVJNX1JFU0VUKTsNCj4gKyAgICBpcG1pX3JlZ2lzdGVyX2NhbGxiYWNrKE5FVEZVTl9BUFAsIElQ
+TUlfQ01EX1dBUk1fUkVTRVQsIE5VTEwsIA0KaXBtaV9nbG9iYWxfd2FybV9yZXNldCk7DQo+ICsN
+Cj4gKyAgICBwcmludGYoIlJlZ2lzdGVyaW5nIE5ldEZuOlsweCVYXSwgQ21kOlsweCVYXVxuIixO
+RVRGVU5fQVBQLCANCklQTUlfQ01EX1dJTERDQVJEKTsNCj4gKyAgICBpcG1pX3JlZ2lzdGVyX2Nh
+bGxiYWNrKE5FVEZVTl9BUFAsIElQTUlfQ01EX1dJTERDQVJELCBOVUxMLCANCmlwbWlfZ2xvYmFs
+X3dpbGRjYXJkX2hhbmRsZXIpOw0KPiArDQo+ICsgICAgICAgICAgICAgIHJldHVybjsNCj4gK30N
+Cj4gZGlmZiAtLWdpdCBhL2dsb2JhbGhhbmRsZXIuaCBiL2dsb2JhbGhhbmRsZXIuaA0KPiBuZXcg
+ZmlsZSBtb2RlIDEwMDY0NA0KPiBpbmRleCAwMDAwMDAwLi42MDhkZjNiDQo+IC0tLSAvZGV2L251
+bGwNCj4gKysrIGIvZ2xvYmFsaGFuZGxlci5oDQo+IEBAIC0wLDAgKzEsMTIgQEANCj4gKyNpZm5k
+ZWYgX19IT1NUX0lQTUlfR0xPQkFMX0hBTkRMRVJfSF9fDQo+ICsjZGVmaW5lIF9fSE9TVF9JUE1J
+X0dMT0JBTF9IQU5ETEVSX0hfXw0KPiArDQo+ICsjaW5jbHVkZSA8c3RkaW50Lmg+DQo+ICsNCj4g
+Ky8vIFZhcmlvdXMgR0xPQkFMIG9wZXJhdGlvbnMgdW5kZXIgYSBzaW5nbGUgY29tbWFuZC4NCj4g
+K2VudW0gaXBtaV9nbG9iYWxfY29udHJvbF9jbWRzIDogdWludDhfdA0KPiArew0KPiArSVBNSV9D
+TURfV0FSTV9SRVNFVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICA9IA0KMHgwMiwNCj4gK307DQo+ICsNCj4gKyNlbmRpZg0KPiAtLSANCj4gMi42LjQNCj4gDQo+
+IA0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBv
+cGVuYm1jIG1haWxpbmcgbGlzdA0KPiBvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcNCj4gaHR0cHM6
+Ly9saXN0cy5vemxhYnMub3JnL2xpc3RpbmZvL29wZW5ibWMNCg0KDQoNCg==
 
+--=_alternative 00176D1448257F4D_=
+Content-Transfer-Encoding: base64
+Content-Type: text/html; charset="GB2312"
 
---0__=09BBF5DEDF8568408f9e8a93df938690918c09BBF5DEDF856840--
+PGZvbnQgc2l6ZT0yIGZhY2U9InNhbnMtc2VyaWYiPkhpLDwvZm9udD48YnI+PGZvbnQgc2l6ZT0y
+IGZhY2U9InNhbnMtc2VyaWYiPlRoYW5rcyBTYW0uPC9mb250Pjxicj48Zm9udCBzaXplPTIgZmFj
+ZT0ic2Fucy1zZXJpZiI+SSB3aWxsIHRoaW5rIG9mIGl0Ljxicj48L2ZvbnQ+PGJyPjxmb250IHNp
+emU9MyBjb2xvcj0jNDI0MjgyIGZhY2U9IkNhbGlicmkiPlJlZ2FyZHMsPC9mb250Pjxicj48YnI+
+PGZvbnQgc2l6ZT0zIGNvbG9yPSM0MjQyODIgZmFjZT0iQ2FsaWJyaSI+V2lsbGlhbSBMaSAoIExp
+IE5hbiwgwO7pqg0KKSAmbmJzcDsgJm5ic3A7PC9mb250Pjxicj48YnI+PGZvbnQgc2l6ZT0zIGNv
+bG9yPSM0MjQyODIgZmFjZT0iQ2FsaWJyaSI+RmlybXdhcmUgRW5naW5lZXJpbmcgUHJvZmVzc2lv
+bmFsPC9mb250Pjxicj48Zm9udCBzaXplPTMgY29sb3I9IzQyNDI4MiBmYWNlPSJDYWxpYnJpIj5P
+cGVuUG93ZXIgQUUgVGVhbSB8IElCTSBTeXN0ZW0NCiZhbXA7IFRlY2hub2xvZ3kgTGFiPC9mb250
+Pjxicj48Zm9udCBzaXplPTMgY29sb3I9IzQyNDI4MiBmYWNlPSJDYWxpYnJpIj5Nb2JpbGU6ICs4
+Ni0xODYtMTA4MSA2NjA1LA0KKzg2LTEzOC0xMTg4IDU5NTQ8L2ZvbnQ+PGJyPjxicj48Zm9udCBz
+aXplPTMgY29sb3I9IzQyNDI4MiBmYWNlPSJDYWxpYnJpIj5CZWlqaW5nLCBDaGluYTwvZm9udD48
+YnI+PGJyPjxicj48YnI+PGZvbnQgc2l6ZT0xIGNvbG9yPSM1ZjVmNWYgZmFjZT0ic2Fucy1zZXJp
+ZiI+RnJvbTogJm5ic3A7ICZuYnNwOyAmbmJzcDsNCiZuYnNwOzwvZm9udD48Zm9udCBzaXplPTEg
+ZmFjZT0ic2Fucy1zZXJpZiI+U2FtIE1lbmRvemEtSm9uYXMgJmx0O3NhbUBtZW5kb3pham9uYXMu
+Y29tJmd0OzwvZm9udD48YnI+PGZvbnQgc2l6ZT0xIGNvbG9yPSM1ZjVmNWYgZmFjZT0ic2Fucy1z
+ZXJpZiI+VG86ICZuYnNwOyAmbmJzcDsgJm5ic3A7DQombmJzcDs8L2ZvbnQ+PGZvbnQgc2l6ZT0x
+IGZhY2U9InNhbnMtc2VyaWYiPk9wZW5CTUMgUGF0Y2hlcyAmbHQ7b3BlbmJtYy1wYXRjaGVzQHN0
+d2N4Lnh5eiZndDs8L2ZvbnQ+PGJyPjxmb250IHNpemU9MSBjb2xvcj0jNWY1ZjVmIGZhY2U9InNh
+bnMtc2VyaWYiPkNjOiAmbmJzcDsgJm5ic3A7ICZuYnNwOw0KJm5ic3A7PC9mb250Pjxmb250IHNp
+emU9MSBmYWNlPSJzYW5zLXNlcmlmIj5vcGVuYm1jQGxpc3RzLm96bGFicy5vcmcsDQpOYW4gS1gg
+TGkvQ2hpbmEvSUJNQElCTUNOPC9mb250Pjxicj48Zm9udCBzaXplPTEgY29sb3I9IzVmNWY1ZiBm
+YWNlPSJzYW5zLXNlcmlmIj5EYXRlOiAmbmJzcDsgJm5ic3A7ICZuYnNwOw0KJm5ic3A7PC9mb250
+Pjxmb250IHNpemU9MSBmYWNlPSJzYW5zLXNlcmlmIj4wMi8wMi8yMDE2IDExOjQ0PC9mb250Pjxi
+cj48Zm9udCBzaXplPTEgY29sb3I9IzVmNWY1ZiBmYWNlPSJzYW5zLXNlcmlmIj5TdWJqZWN0OiAm
+bmJzcDsgJm5ic3A7DQombmJzcDsgJm5ic3A7PC9mb250Pjxmb250IHNpemU9MSBmYWNlPSJzYW5z
+LXNlcmlmIj5SZTogW1BBVENIIHBob3NwaG9yLWhvc3QtaXBtaWQNCnYzXSBBZGQgaXBtaSBjb2xk
+UmVzZXQgY29tbWFuZCwgd2hpY2ggY2FsbCBhIGRidXMgbWV0aG9kLCBiZWxvbmdzIHRvIE5FVEZV
+Tl9BUFAuDQoxLiBBIG1ldGhvZCBkYnVzX3dhcm1fcmVzZXQoKSB0byB0YWxrIHdpdGggdGhlIGRi
+dXMgbWV0aG9kICd3YXJtUmVzdCc7DQoyLiBBbHNvIGdldCBzZXJ2aWNlIG5hbWUgYnkgaXBtaWRf
+Z2V0X3NkX2J1c19jb25uZWN0aW9uKCkgaW5zdGVhZCBvZiBvYmplY3RfbWFwcGVyX2dldF9jb25u
+ZWN0aW9uKCk7DQozLiBSZWdpc3RlciB0aGUgaXBtaSBjb21tYW5kOyA0LiBBZGQgcmVsYXRlZCAu
+byB0byB0aGUgTWFrZWZpbGU7IDUuIEFkZA0Kd2lsZGNhcmQgZnVuY3Rpb24uPC9mb250Pjxicj48
+aHIgbm9zaGFkZT48YnI+PGJyPjxicj48dHQ+PGZvbnQgc2l6ZT0yPkhpIFdpbGxpYW0sIGEgcXVl
+c3Rpb24gYmVsb3c7PGJyPjxicj5PbiBNb24sIEZlYiAwMSwgMjAxNiBhdCAxMjo0MDoyNUFNIC0w
+NjAwLCBPcGVuQk1DIFBhdGNoZXMgd3JvdGU6PGJyPiZndDsgRnJvbTogV2lsbGlhbSAmbHQ7Ymps
+aW5hbkBjbi5pYm0uY29tJmd0Ozxicj4mZ3Q7IDxicj4mZ3Q7IC0tLTxicj4mZ3Q7ICZuYnNwO01h
+a2VmaWxlICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwO3wgJm5ic3A7IDEgKzxicj4mZ3Q7ICZu
+YnNwO2dsb2JhbGhhbmRsZXIuQyB8IDE3MSArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKzxicj4mZ3Q7ICZuYnNwO2dsb2JhbGhhbmRsZXIuaCB8
+ICZuYnNwOzEyICsrKys8YnI+Jmd0OyAmbmJzcDszIGZpbGVzIGNoYW5nZWQsIDE4NCBpbnNlcnRp
+b25zKCspPGJyPiZndDsgJm5ic3A7Y3JlYXRlIG1vZGUgMTAwNjQ0IGdsb2JhbGhhbmRsZXIuQzxi
+cj4mZ3Q7ICZuYnNwO2NyZWF0ZSBtb2RlIDEwMDY0NCBnbG9iYWxoYW5kbGVyLmg8YnI+Jmd0OyA8
+YnI+Jmd0OyBkaWZmIC0tZ2l0IGEvTWFrZWZpbGUgYi9NYWtlZmlsZTxicj4mZ3Q7IGluZGV4IDQ3
+MmJmYWEuLjU4ZTczMTAgMTAwNjQ0PGJyPiZndDsgLS0tIGEvTWFrZWZpbGU8YnI+Jmd0OyArKysg
+Yi9NYWtlZmlsZTxicj4mZ3Q7IEBAIC0xNSw2ICsxNSw3IEBAIExJQl9BUFBfT0JKID0gYXBwaGFu
+ZGxlci5vICZuYnNwOyAmbmJzcDsgXDxicj4mZ3Q7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtpcG1pc2Vuc29yLm8NCiZuYnNwOyAmbmJzcDsg
+XDxicj4mZ3Q7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAmbmJzcDtzdG9yYWdlYWRkc2VsLm8NCiZuYnNwO1w8YnI+Jmd0OyAmbmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7dHJhbnNwb3J0aGFuZGxlci5v
+DQombmJzcDtcPGJyPiZndDsgKyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDtnbG9iYWxoYW5kbGVyLm8NCiZuYnNwOzxicj4mZ3Q7ICZuYnNwOzxicj4mZ3Q7
+ICZuYnNwO0xJQl9IT1NUX1NSVl9PQkogPSBob3N0LXNlcnZpY2VzLm88YnI+Jmd0OyAmbmJzcDs8
+YnI+Jmd0OyBkaWZmIC0tZ2l0IGEvZ2xvYmFsaGFuZGxlci5DIGIvZ2xvYmFsaGFuZGxlci5DPGJy
+PiZndDsgbmV3IGZpbGUgbW9kZSAxMDA2NDQ8YnI+Jmd0OyBpbmRleCAwMDAwMDAwLi5lNjhlYTc5
+PGJyPiZndDsgLS0tIC9kZXYvbnVsbDxicj4mZ3Q7ICsrKyBiL2dsb2JhbGhhbmRsZXIuQzxicj4m
+Z3Q7IEBAIC0wLDAgKzEsMTcxIEBAPGJyPiZndDsgKyNpbmNsdWRlICZxdW90O2dsb2JhbGhhbmRs
+ZXIuaCZxdW90Ozxicj4mZ3Q7ICsjaW5jbHVkZSAmcXVvdDtpcG1pZC1hcGkuaCZxdW90Ozxicj4m
+Z3Q7ICsjaW5jbHVkZSAmbHQ7c3RkaW8uaCZndDs8YnI+Jmd0OyArI2luY2x1ZGUgJmx0O3N0cmlu
+Zy5oJmd0Ozxicj4mZ3Q7ICsjaW5jbHVkZSAmbHQ7c3RkaW50LmgmZ3Q7PGJyPiZndDsgKzxicj4m
+Z3Q7ICtjb25zdCBjaGFyICZuYnNwOypjb250cm9sX29iamVjdF9uYW1lICZuYnNwOz0gJm5ic3A7
+JnF1b3Q7L29yZy9vcGVuYm1jL2NvbnRyb2wvYm1jMCZxdW90Ozs8YnI+Jmd0OyArY29uc3QgY2hh
+ciAmbmJzcDsqY29udHJvbF9pbnRmX25hbWUgJm5ic3A7ICZuYnNwOz0gJm5ic3A7JnF1b3Q7b3Jn
+Lm9wZW5ibWMuY29udHJvbC5CbWMmcXVvdDs7PGJyPiZndDsgKzxicj4mZ3Q7ICtjb25zdCBjaGFy
+ICZuYnNwOypvYmplY3RtYXBwZXJfc2VydmljZV9uYW1lID0gJm5ic3A7JnF1b3Q7b3JnLm9wZW5i
+bWMub2JqZWN0bWFwcGVyJnF1b3Q7Ozxicj4mZ3Q7ICtjb25zdCBjaGFyICZuYnNwOypvYmplY3Rt
+YXBwZXJfb2JqZWN0X25hbWUgJm5ic3A7PSAmbmJzcDsmcXVvdDsvb3JnL29wZW5ibWMvb2JqZWN0
+bWFwcGVyL29iamVjdG1hcHBlciZxdW90Ozs8YnI+Jmd0OyArY29uc3QgY2hhciAmbmJzcDsqb2Jq
+ZWN0bWFwcGVyX2ludGZfbmFtZSAmbmJzcDsgJm5ic3A7PSAmbmJzcDsmcXVvdDtvcmcub3BlbmJt
+Yy5vYmplY3RtYXBwZXIuT2JqZWN0TWFwcGVyJnF1b3Q7Ozxicj4mZ3Q7ICs8YnI+Jmd0OyArdm9p
+ZCByZWdpc3Rlcl9uZXRmbl9nbG9iYWxfZnVuY3Rpb25zKCkgX19hdHRyaWJ1dGVfXygoY29uc3Ry
+dWN0b3IpKTs8YnI+Jmd0OyArPGJyPiZndDsgK2ludCBvYmpfbWFwcGVyX2dldF9jb25uZWN0aW9u
+KGNoYXIqKiBidWYsIGNvbnN0IGNoYXIqIG9ial9wYXRoKTxicj4mZ3Q7ICt7PGJyPiZndDsgKyAm
+bmJzcDsgJm5ic3A7c2RfYnVzX2Vycm9yIGVycm9yID0gU0RfQlVTX0VSUk9SX05VTEw7PGJyPiZn
+dDsgKyAmbmJzcDsgJm5ic3A7c2RfYnVzX21lc3NhZ2UgKm0gPSBOVUxMOzxicj4mZ3Q7ICsgJm5i
+c3A7ICZuYnNwO3NkX2J1cyAqYnVzID0gTlVMTDs8YnI+Jmd0OyArICZuYnNwOyAmbmJzcDtjaGFy
+ICp0ZW1wX2J1ZiA9IE5VTEwsICppbnRmID0gTlVMTDs8YnI+Jmd0OyArICZuYnNwOyAmbmJzcDtz
+aXplX3QgYnVmX3NpemUgPSAwOzxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwO2ludCByOzxicj4mZ3Q7
+ICs8YnI+Jmd0OyArICZuYnNwOyAmbmJzcDsvL0dldCB0aGUgc3lzdGVtIGJ1cyB3aGVyZSBtb3N0
+IHN5c3RlbSBzZXJ2aWNlcyBhcmUNCnByb3ZpZGVkLjxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwO2J1
+cyA9IGlwbWlkX2dldF9zZF9idXNfY29ubmVjdGlvbigpOzxicj4mZ3Q7ICs8YnI+Jmd0OyArICZu
+YnNwOyAmbmJzcDsvKjxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwOyAqIEJ1cywgc2VydmljZSwgb2Jq
+ZWN0IHBhdGgsIGludGVyZmFjZSBhbmQgbWV0aG9kDQphcmUgcHJvdmlkZWQgdG8gY2FsbDxicj4m
+Z3Q7ICsgJm5ic3A7ICZuYnNwOyAqIHRoZSBtZXRob2QuPGJyPiZndDsgKyAmbmJzcDsgJm5ic3A7
+ICogU2lnbmF0dXJlcyBhbmQgaW5wdXQgYXJndW1lbnRzIGFyZSBwcm92aWRlZCBieSB0aGUNCmFy
+Z3VtZW50cyBhdCB0aGU8YnI+Jmd0OyArICZuYnNwOyAmbmJzcDsgKiBlbmQuPGJyPiZndDsgKyAm
+bmJzcDsgJm5ic3A7ICovPGJyPiZndDsgKyAmbmJzcDsgJm5ic3A7ciA9IHNkX2J1c19jYWxsX21l
+dGhvZChidXMsPGJyPiZndDsgKyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
+YnNwO29iamVjdG1hcHBlcl9zZXJ2aWNlX25hbWUsDQombmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7LyoNCnNl
+cnZpY2UgdG8gY29udGFjdCAqLzxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDtvYmplY3RtYXBwZXJfb2JqZWN0X25hbWUsDQombmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7DQovKiBvYmplY3QgcGF0aCAqLzxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7ICZuYnNwOyAmbmJzcDtvYmplY3RtYXBwZXJfaW50Zl9uYW1lLA0KJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
+YnNwOw0KJm5ic3A7IC8qIGludGVyZmFjZSBuYW1lICovPGJyPiZndDsgKyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyZxdW90O0dldE9iamVjdCZxdW90OywNCiZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsNCiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOy8qIG1ldGhvZCBuYW1lICovPGJyPiZndDsgKyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwOyZhbXA7ZXJyb3IsICZuYnNwOyAmbmJzcDsNCiZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAmbmJzcDsNCiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAvKiBvYmplY3QgdG8gcmV0dXJuIGVycm9yDQppbiAqLzxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsmYW1wO20sICZuYnNwOyAmbmJzcDsgJm5ic3A7
+DQombmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7DQombmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7IC8qIHJldHVybiBtZXNzYWdlDQpvbiBzdWNjZXNzICovPGJy
+PiZndDsgKyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyZxdW90O3Mm
+cXVvdDssICZuYnNwOyAmbmJzcDsNCiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsNCiZuYnNwOyAmbmJzcDsg
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7LyogaW5wdXQN
+CnNpZ25hdHVyZSAqLzxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAmbmJzcDtvYmpfcGF0aCAmbmJzcDsgJm5ic3A7DQombmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7DQombmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsvKiBmaXJzdCBhcmd1
+bWVudCAqLzxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDspOzxicj4mZ3Q7ICs8YnI+Jmd0OyArICZuYnNwOyAmbmJzcDtpZiAociAmbHQ7IDApIHs8YnI+
+Jmd0OyArICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwO2ZwcmludGYoc3RkZXJyLCAmcXVvdDtG
+YWlsZWQgdG8gaXNzdWUNCm1ldGhvZCBjYWxsOiAlc1xuJnF1b3Q7LCBlcnJvci5tZXNzYWdlKTs8
+YnI+Jmd0OyArICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwO2dvdG8gZmluaXNoOzxicj4mZ3Q7
+ICsgJm5ic3A7ICZuYnNwO308YnI+Jmd0OyArPGJyPiZndDsgKyAmbmJzcDsgJm5ic3A7Ly8gR2V0
+IHRoZSBrZXksIGFrYSwgdGhlIGNvbm5lY3Rpb24gbmFtZTxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNw
+O3NkX2J1c19tZXNzYWdlX3JlYWQobSwgJnF1b3Q7YXtzYXN9JnF1b3Q7LCAxLCAmYW1wO3RlbXBf
+YnVmLA0KMSwgJmFtcDtpbnRmKTs8YnI+Jmd0OyArICZuYnNwOyAmbmJzcDs8YnI+Jmd0OyArICZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsNCi8q
+IDxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwOyAqIFRPRE86IGNoZWNrIHRoZSByZXR1cm4gY29kZS4g
+Q3VycmVudGx5IGZvciBubyByZWFzb24NCnRoZSBtZXNzYWdlPGJyPiZndDsgKyAmbmJzcDsgJm5i
+c3A7ICogcGFyc2luZyBvZiBvYmplY3QgbWFwcGVyIGlzIGFsd2F5cyBjb21wbGFpbmluZyBhYm91
+dDxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwOyAqICZxdW90O0RldmljZSBvciByZXNvdXJjZSBidXN5
+JnF1b3Q7LCBidXQgdGhlIHJlc3VsdA0Kc2VlbXMgT0sgZm9yIG5vdy4gTmVlZDxicj4mZ3Q7ICsg
+Jm5ic3A7ICZuYnNwOyAqICZuYnNwO2Z1cnRoZXIgY2hlY2tzLjxicj4mZ3Q7ICsgJm5ic3A7ICZu
+YnNwOyAqLzxicj48YnI+SSd2ZSBzZWVuIHRoaXMgY29tbWVudCBiZWZvcmUgYW5kIGl0IHdvcnJp
+ZXMgbWUgYSBiaXQuIFdoeSBhcmUgd2U8YnI+Z2V0dGluZyB0aGUgZXJyb3I/IEhvdyBkbyB5b3Ug
+a25vdyB0ZW1wX2J1ZiBpcyBhbGxvY2F0ZWQgcHJvcGVybHk/IFdoYXQ8YnI+ZG9lcyBpdCBtZWFu
+IHRoYXQgdGhlIHJlc3VsdCAmcXVvdDtzZWVtcyBPSyZxdW90Oz88YnI+WW91IGNoZWNrIHJldHVy
+biBjb2RlcyBiZWZvcmUgYW5kIGFmdGVyIHRoaXMsIGJ1dCBpZiB5b3UgZ2V0IHVubHVja3k8YnI+
+aGVyZSB5b3UgY291bGQgZWFzaWx5IHNlZ2ZhdWx0IG9yIHJlYWQgbm9uc2Vuc2UuPGJyPjxicj5J
+IHRoaW5rIHRoaXMgaXNzdWUgc2hvdWxkIGJlIGZpZ3VyZWQgb3V0IGJlZm9yZSBtZXJnaW5nIHRo
+ZSBjb2RlLCBib3RoPGJyPmhlcmUgYW5kIHdoZXJldmVyIGVsc2UgaXQgYXBwZWFycy48YnI+PGJy
+PlRoYW5rcyw8YnI+U2FtPGJyPjxicj4mZ3Q7ICs8YnI+Jmd0OyArICZuYnNwOyAmbmJzcDtidWZf
+c2l6ZSA9IHN0cmxlbih0ZW1wX2J1ZikgKyAxOzxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwO3ByaW50
+ZigmcXVvdDtJUE1JRCBjb25uZWN0aW9uIG5hbWU6ICVzXG4mcXVvdDssIHRlbXBfYnVmKTs8YnI+
+Jmd0OyArICZuYnNwOyAmbmJzcDsqYnVmID0gKGNoYXIqKW1hbGxvYyhidWZfc2l6ZSk7PGJyPiZn
+dDsgKzxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwO2lmICgqYnVmID09IE5VTEwpIHs8YnI+Jmd0OyAr
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwO2ZwcmludGYoc3RkZXJyLCAmcXVvdDtNYWxsb2Mg
+ZmFpbGVkIGZvcg0Kd2FybSByZXNldCZxdW90Oyk7PGJyPiZndDsgKyAmbmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDtyID0gLTE7PGJyPiZndDsgKyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtn
+b3RvIGZpbmlzaDs8YnI+Jmd0OyArICZuYnNwOyAmbmJzcDt9PGJyPiZndDsgKzxicj4mZ3Q7ICsg
+Jm5ic3A7ICZuYnNwO21lbWNweSgqYnVmLCB0ZW1wX2J1ZiwgYnVmX3NpemUpOzxicj4mZ3Q7ICs8
+YnI+Jmd0OyArZmluaXNoOjxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwO3NkX2J1c19lcnJvcl9mcmVl
+KCZhbXA7ZXJyb3IpOzxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwO3NkX2J1c19tZXNzYWdlX3VucmVm
+KG0pOzxicj4mZ3Q7ICs8YnI+Jmd0OyArICZuYnNwOyAmbmJzcDtyZXR1cm4gcjs8YnI+Jmd0OyAr
+fTxicj4mZ3Q7ICs8YnI+Jmd0OyAraW50IGRidXNfd2FybV9yZXNldCgpPGJyPiZndDsgK3s8YnI+
+Jmd0OyArICZuYnNwOyAmbmJzcDtzZF9idXNfZXJyb3IgZXJyb3IgPSBTRF9CVVNfRVJST1JfTlVM
+TDs8YnI+Jmd0OyArICZuYnNwOyAmbmJzcDtzZF9idXNfbWVzc2FnZSAqbSA9IE5VTEw7PGJyPiZn
+dDsgKyAmbmJzcDsgJm5ic3A7c2RfYnVzICpidXMgPSBOVUxMOzxicj4mZ3Q7ICsgJm5ic3A7ICZu
+YnNwO2NoYXIqIHRlbXBfYnVmID0gTlVMTDs8YnI+Jmd0OyArICZuYnNwOyAmbmJzcDt1aW50OF90
+KiBnZXRfdmFsdWUgPSBOVUxMOzxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwO2NoYXIqIGNvbm5lY3Rp
+b24gPSBOVUxMOzxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwO2ludCByLCBpOzxicj4mZ3Q7ICs8YnI+
+Jmd0OyArICZuYnNwOyAmbmJzcDtyID0gb2JqX21hcHBlcl9nZXRfY29ubmVjdGlvbigmYW1wO2Nv
+bm5lY3Rpb24sIGNvbnRyb2xfb2JqZWN0X25hbWUpOzxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwO2lm
+IChyICZsdDsgMCkgezxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ZnByaW50
+ZihzdGRlcnIsICZxdW90O0ZhaWxlZCB0byBnZXQgY29ubmVjdGlvbiwNCnJldHVybiB2YWx1ZTog
+JWQuXG4mcXVvdDssIHIpOzxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7Z290
+byBmaW5pc2g7PGJyPiZndDsgKyAmbmJzcDsgJm5ic3A7fTxicj4mZ3Q7ICs8YnI+Jmd0OyArICZu
+YnNwOyAmbmJzcDtwcmludGYoJnF1b3Q7Y29ubmVjdGlvbjogJXNcbiZxdW90OywgY29ubmVjdGlv
+bik7PGJyPiZndDsgKzxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwOy8vIE9wZW4gdGhlIHN5c3RlbSBi
+dXMgd2hlcmUgbW9zdCBzeXN0ZW0gc2VydmljZXMgYXJlDQpwcm92aWRlZC48YnI+Jmd0OyArICZu
+YnNwOyAmbmJzcDtidXMgPSBpcG1pZF9nZXRfc2RfYnVzX2Nvbm5lY3Rpb24oKTs8YnI+Jmd0OyAr
+ICZuYnNwOyAmbmJzcDs8YnI+Jmd0OyArICZuYnNwOyAmbmJzcDsvKjxicj4mZ3Q7ICsgJm5ic3A7
+ICZuYnNwOyAqIEJ1cywgc2VydmljZSwgb2JqZWN0IHBhdGgsIGludGVyZmFjZSBhbmQgbWV0aG9k
+DQphcmUgcHJvdmlkZWQgdG8gY2FsbDxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwOyAqIHRoZSBtZXRo
+b2QuPGJyPiZndDsgKyAmbmJzcDsgJm5ic3A7ICogU2lnbmF0dXJlcyBhbmQgaW5wdXQgYXJndW1l
+bnRzIGFyZSBwcm92aWRlZCBieSB0aGUNCmFyZ3VtZW50cyBhdCB0aGU8YnI+Jmd0OyArICZuYnNw
+OyAmbmJzcDsgKiBlbmQuPGJyPiZndDsgKyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7DQombmJzcDsqLzxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNw
+O3IgPSBzZF9idXNfY2FsbF9tZXRob2QoYnVzLDxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtjb25uZWN0aW9uLCAmbmJzcDsgJm5ic3A7DQombmJzcDsg
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7DQombmJzcDsgJm5ic3A7ICZuYnNwOy8qIHNlcnZpY2UgdG8gY29udGFjdCAq
+Lzxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtjb250
+cm9sX29iamVjdF9uYW1lLCAmbmJzcDsNCiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAvKg0Kb2JqZWN0IHBhdGggKi88
+YnI+Jmd0OyArICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7Y29udHJv
+bF9pbnRmX25hbWUsICZuYnNwOw0KJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOw0KLyogaW50ZXJmYWNlIG5h
+bWUgKi88YnI+Jmd0OyArICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+JnF1b3Q7d2FybVJlc2V0JnF1b3Q7LA0KJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOw0KJm5ic3A7ICZuYnNw
+OyAmbmJzcDsgJm5ic3A7IC8qIG1ldGhvZCBuYW1lICovPGJyPiZndDsgKyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyZhbXA7ZXJyb3IsICZuYnNwOyAmbmJzcDsNCiZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7ICZuYnNwOyAmbmJzcDsNCiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsvKiBv
+YmplY3QgdG8gcmV0dXJuIGVycm9yIGluICovPGJyPiZndDsgKyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyZhbXA7bSwgJm5ic3A7ICZuYnNwOyAmbmJzcDsNCiZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsNCiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+LyogcmV0dXJuIG1lc3NhZ2Ugb24gc3VjY2VzcyAqLzxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtOVUxMLDxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtOVUxMPGJyPiZndDsgKyAmbmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyk7PGJyPiZndDsgKzxicj4mZ3Q7ICsgJm5ic3A7ICZu
+YnNwO2lmIChyICZsdDsgMCkgezxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ZnByaW50ZihzdGRlcnIsICZxdW90O0ZhaWxlZCB0byBpc3N1ZQ0KbWV0aG9kIGNhbGw6ICVzXG4m
+cXVvdDssIGVycm9yLm1lc3NhZ2UpOzxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7Z290byBmaW5pc2g7PGJyPiZndDsgKyAmbmJzcDsgJm5ic3A7fTxicj4mZ3Q7ICs8YnI+Jmd0
+OyArZmluaXNoOjxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwO3NkX2J1c19lcnJvcl9mcmVlKCZhbXA7
+ZXJyb3IpOzxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwO3NkX2J1c19tZXNzYWdlX3VucmVmKG0pOzxi
+cj4mZ3Q7ICsgJm5ic3A7ICZuYnNwO2ZyZWUoY29ubmVjdGlvbik7PGJyPiZndDsgKzxicj4mZ3Q7
+ICsgJm5ic3A7ICZuYnNwO3JldHVybiByOzxicj4mZ3Q7ICt9PGJyPiZndDsgKzxicj4mZ3Q7ICtp
+cG1pX3JldF90IGlwbWlfZ2xvYmFsX3dhcm1fcmVzZXQoaXBtaV9uZXRmbl90IG5ldGZuLCBpcG1p
+X2NtZF90DQpjbWQsPGJyPiZndDsgKyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsNCiZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDtpcG1pX3JlcXVlc3RfdCByZXF1ZXN0LCBpcG1pX3Jlc3BvbnNlX3QNCnJl
+c3BvbnNlLDxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7DQombmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7aXBtaV9kYXRhX2xlbl90IGRhdGFfbGVuLCBpcG1pX2NvbnRleHRfdA0KY29udGV4
+dCk8YnI+Jmd0OyArezxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwO3ByaW50ZigmcXVvdDtIYW5kbGlu
+ZyBHTE9CQUwgd2FybVJlc2V0IE5ldGZuOlsweCVYXSwNCkNtZDpbMHglWF1cbiZxdW90OyxuZXRm
+biwgY21kKTs8YnI+Jmd0OyArPGJyPiZndDsgKyAmbmJzcDsgJm5ic3A7Ly8gVE9ETzogY2FsbCB0
+aGUgY29ycmVjdCBkYnVzIG1ldGhvZCBmb3Igd2FybVJlc2V0Ljxicj4mZ3Q7ICsgJm5ic3A7ICZu
+YnNwO2RidXNfd2FybV9yZXNldCgpOzxicj4mZ3Q7ICs8YnI+Jmd0OyArICZuYnNwOyAmbmJzcDsv
+LyBTdGF0dXMgY29kZS48YnI+Jmd0OyArICZuYnNwOyAmbmJzcDtpcG1pX3JldF90IHJjID0gSVBN
+SV9DQ19PSzs8YnI+Jmd0OyArICZuYnNwOyAmbmJzcDsqZGF0YV9sZW4gPSAwOzxicj4mZ3Q7ICsg
+Jm5ic3A7ICZuYnNwO3JldHVybiByYzs8YnI+Jmd0OyArfTxicj4mZ3Q7ICs8YnI+Jmd0OyAraXBt
+aV9yZXRfdCBpcG1pX2dsb2JhbF93aWxkY2FyZF9oYW5kbGVyKGlwbWlfbmV0Zm5fdCBuZXRmbiwg
+aXBtaV9jbWRfdA0KY21kLDxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7DQombmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDsgJm5ic3A7aXBtaV9yZXF1ZXN0X3QgcmVxdWVzdCwgaXBtaV9yZXNwb25zZV90
+DQpyZXNwb25zZSw8YnI+Jmd0OyArICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOw0KJm5ic3A7ICZuYnNwOyAmbmJzcDsg
+Jm5ic3A7ICZuYnNwO2lwbWlfZGF0YV9sZW5fdCBkYXRhX2xlbiwgaXBtaV9jb250ZXh0X3QNCmNv
+bnRleHQpPGJyPiZndDsgK3s8YnI+Jmd0OyArICZuYnNwOyAmbmJzcDtwcmludGYoJnF1b3Q7SGFu
+ZGxpbmcgV0lMRENBUkQgTmV0Zm46WzB4JVhdLCBDbWQ6WzB4JVhdXG4mcXVvdDssbmV0Zm4sDQpj
+bWQpOzxicj4mZ3Q7ICs8YnI+Jmd0OyArICZuYnNwOyAmbmJzcDsvLyBTdGF0dXMgY29kZS48YnI+
+Jmd0OyArICZuYnNwOyAmbmJzcDtpcG1pX3JldF90IHJjID0gSVBNSV9DQ19PSzs8YnI+Jmd0OyAr
+PGJyPiZndDsgKyAmbmJzcDsgJm5ic3A7KmRhdGFfbGVuID0gc3RybGVuKCZxdW90O1RISVMgSVMg
+V0lMRENBUkQmcXVvdDspOzxicj4mZ3Q7ICs8YnI+Jmd0OyArICZuYnNwOyAmbmJzcDsvLyBOb3cg
+cGFjayBhY3R1YWwgcmVzcG9uc2U8YnI+Jmd0OyArICZuYnNwOyAmbmJzcDttZW1jcHkocmVzcG9u
+c2UsICZxdW90O1RISVMgSVMgV0lMRENBUkQmcXVvdDssICpkYXRhX2xlbik7PGJyPiZndDsgKzxi
+cj4mZ3Q7ICsgJm5ic3A7ICZuYnNwO3JldHVybiByYzs8YnI+Jmd0OyArfTxicj4mZ3Q7ICs8YnI+
+Jmd0OyArdm9pZCByZWdpc3Rlcl9uZXRmbl9nbG9iYWxfZnVuY3Rpb25zKCk8YnI+Jmd0OyArezxi
+cj4mZ3Q7ICsgJm5ic3A7ICZuYnNwO3ByaW50ZigmcXVvdDtSZWdpc3RlcmluZyBOZXRGbjpbMHgl
+WF0sIENtZDpbMHglWF1cbiZxdW90OyxORVRGVU5fQVBQLA0KSVBNSV9DTURfV0FSTV9SRVNFVCk7
+PGJyPiZndDsgKyAmbmJzcDsgJm5ic3A7aXBtaV9yZWdpc3Rlcl9jYWxsYmFjayhORVRGVU5fQVBQ
+LCBJUE1JX0NNRF9XQVJNX1JFU0VULA0KTlVMTCwgaXBtaV9nbG9iYWxfd2FybV9yZXNldCk7PGJy
+PiZndDsgKzxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwO3ByaW50ZigmcXVvdDtSZWdpc3RlcmluZyBO
+ZXRGbjpbMHglWF0sIENtZDpbMHglWF1cbiZxdW90OyxORVRGVU5fQVBQLA0KSVBNSV9DTURfV0lM
+RENBUkQpOzxicj4mZ3Q7ICsgJm5ic3A7ICZuYnNwO2lwbWlfcmVnaXN0ZXJfY2FsbGJhY2soTkVU
+RlVOX0FQUCwgSVBNSV9DTURfV0lMRENBUkQsDQpOVUxMLCBpcG1pX2dsb2JhbF93aWxkY2FyZF9o
+YW5kbGVyKTs8YnI+Jmd0OyArPGJyPiZndDsgKyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7DQpyZXR1cm47PGJyPiZndDsgK308YnI+Jmd0OyBk
+aWZmIC0tZ2l0IGEvZ2xvYmFsaGFuZGxlci5oIGIvZ2xvYmFsaGFuZGxlci5oPGJyPiZndDsgbmV3
+IGZpbGUgbW9kZSAxMDA2NDQ8YnI+Jmd0OyBpbmRleCAwMDAwMDAwLi42MDhkZjNiPGJyPiZndDsg
+LS0tIC9kZXYvbnVsbDxicj4mZ3Q7ICsrKyBiL2dsb2JhbGhhbmRsZXIuaDxicj4mZ3Q7IEBAIC0w
+LDAgKzEsMTIgQEA8YnI+Jmd0OyArI2lmbmRlZiBfX0hPU1RfSVBNSV9HTE9CQUxfSEFORExFUl9I
+X188YnI+Jmd0OyArI2RlZmluZSBfX0hPU1RfSVBNSV9HTE9CQUxfSEFORExFUl9IX188YnI+Jmd0
+OyArPGJyPiZndDsgKyNpbmNsdWRlICZsdDtzdGRpbnQuaCZndDs8YnI+Jmd0OyArPGJyPiZndDsg
+Ky8vIFZhcmlvdXMgR0xPQkFMIG9wZXJhdGlvbnMgdW5kZXIgYSBzaW5nbGUgY29tbWFuZC48YnI+
+Jmd0OyArZW51bSBpcG1pX2dsb2JhbF9jb250cm9sX2NtZHMgOiB1aW50OF90PGJyPiZndDsgK3s8
+YnI+Jmd0OyArSVBNSV9DTURfV0FSTV9SRVNFVCAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
+Jm5ic3A7ICZuYnNwOw0KJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
+Jm5ic3A7ICZuYnNwOw0KJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
+Jm5ic3A7ICZuYnNwOw0KJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyA9IDB4MDIs
+PGJyPiZndDsgK307PGJyPiZndDsgKzxicj4mZ3Q7ICsjZW5kaWY8YnI+Jmd0OyAtLSA8YnI+Jmd0
+OyAyLjYuNDxicj4mZ3Q7IDxicj4mZ3Q7IDxicj4mZ3Q7IF9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fPGJyPiZndDsgb3BlbmJtYyBtYWlsaW5nIGxpc3Q8YnI+
+Jmd0OyBvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc8YnI+Jmd0OyA8L2ZvbnQ+PC90dD48YSBocmVm
+PWh0dHBzOi8vbGlzdHMub3psYWJzLm9yZy9saXN0aW5mby9vcGVuYm1jPjx0dD48Zm9udCBzaXpl
+PTI+aHR0cHM6Ly9saXN0cy5vemxhYnMub3JnL2xpc3RpbmZvL29wZW5ibWM8L2ZvbnQ+PC90dD48
+L2E+PHR0Pjxmb250IHNpemU9Mj48YnI+PC9mb250PjwvdHQ+PGJyPjxCUj4NCg==
+--=_alternative 00176D1448257F4D_=--
