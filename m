@@ -1,23 +1,53 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <dja@axtens.net>
+Received: from mail-pf0-x244.google.com (mail-pf0-x244.google.com
+ [IPv6:2607:f8b0:400e:c00::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id DDCB41A0202
- for <openbmc@lists.ozlabs.org>; Wed,  3 Feb 2016 05:10:42 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1454436634831977.4242690555266;
- Tue, 2 Feb 2016 10:10:34 -0800 (PST)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-networkd] org.openbmc.NetworkManager : Bug fixes,
- SetHwAddress & EnableDHCP
-Date: Tue,  2 Feb 2016 12:10:32 -0600
-Message-Id: <1454436632-30694-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.6.4
-In-Reply-To: <1454436632-30694-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1454436632-30694-1-git-send-email-openbmc-patches@stwcx.xyz>
-X-Zoho-Virus-Status: 1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 5B5411A001D
+ for <openbmc@lists.ozlabs.org>; Wed,  3 Feb 2016 09:28:09 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=axtens.net header.i=@axtens.net header.b=WVx25VSx; 
+ dkim-atps=neutral
+Received: by mail-pf0-x244.google.com with SMTP id n128so96702pfn.3
+ for <openbmc@lists.ozlabs.org>; Tue, 02 Feb 2016 14:28:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axtens.net; s=google;
+ h=from:to:subject:in-reply-to:references:user-agent:date:message-id
+ :mime-version:content-type;
+ bh=mBLy+dlmiuWsD9k+z/SloofxqR5Bwp/FUzs9tCVhuII=;
+ b=WVx25VSxzZV1bHxjf8umZNiPxACMZMx6zC8rSKi3o0ouNH8cqy47RvmEYtXVH0hOKt
+ NC/f6h3F2TACA76p2XvDNPPepIMOVwvcJoIaGr/gX2jY4KQ5MoDBmtvDn8u+viE5x1Fw
+ ao4DdiQYYW+KjXNrmM+lHw5MifrTyMnwWeNNM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:from:to:subject:in-reply-to:references
+ :user-agent:date:message-id:mime-version:content-type;
+ bh=mBLy+dlmiuWsD9k+z/SloofxqR5Bwp/FUzs9tCVhuII=;
+ b=StiUKDDlppFfah15C2HT1N6eAzgJ23dOtFmeuXcu2qlLOtK2mNE3PSHK/zKQPQEH3x
+ dEKtNyUnLyqIN2t4SwgKDc0D7UWRb4xdTX5ClYuCek2F0Ksq9+GHpvzBePGDZWmntpxA
+ hobgn0R0hLOBpU5pIfpEcjkPcvBo0ByQkLn+6sXZIcD/iwxTUrEn2FGlsn/zc+fq/tpf
+ vvy1vH1iin/7QZUN2ctJuwyJU4jxmuEPjL3LyzgFp9C6IUWH9jnzDLt9uoo/SecyV8ip
+ ejk62px+V70Lm8gqpAwt5Rz0WAOGFYnoBZuaqLh8bPd7J6LgXmqd1IF2qKQxExqB7Cvw
+ LKlQ==
+X-Gm-Message-State: AG10YOSv9r59gPScbCI/hL9nODdI6qc64R/npNnXu/dBP+9dWL+3iwg4Wb/w0wKkd9DpAw==
+X-Received: by 10.98.7.14 with SMTP id b14mr25703711pfd.40.1454452087205;
+ Tue, 02 Feb 2016 14:28:07 -0800 (PST)
+Received: from localhost ([138.44.250.25])
+ by smtp.gmail.com with ESMTPSA id ss5sm4914918pab.15.2016.02.02.14.28.05
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 02 Feb 2016 14:28:06 -0800 (PST)
+From: Daniel Axtens <dja@axtens.net>
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH skeleton 2/2] Makefile changes to fix LED build failures
+ in bitbake
+In-Reply-To: <1454401846-16840-3-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1454401846-16840-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1454401846-16840-3-git-send-email-openbmc-patches@stwcx.xyz>
+User-Agent: Notmuch/0.21 (http://notmuchmail.org) Emacs/24.5.1
+ (x86_64-pc-linux-gnu)
+Date: Wed, 03 Feb 2016 09:28:02 +1100
+Message-ID: <87lh72iw7h.fsf@gamma.ozlabs.ibm.com>
+MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -29,342 +59,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 02 Feb 2016 18:10:44 -0000
+X-List-Received-Date: Tue, 02 Feb 2016 22:28:11 -0000
 
-From: Hariharasubramanian R <hramasub@in.ibm.com>
+OpenBMC Patches <openbmc-patches@stwcx.xyz> writes:
 
----
- netman.py | 324 ++++++++++++++++++++++++++++++++++----------------------------
- 1 file changed, 178 insertions(+), 146 deletions(-)
+> From: vishwa <vishwanath@in.ibm.com>
+>
+> ---
+>  Makefile | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/Makefile b/Makefile
+> index e787990..1a8e88e 100755
+> --- a/Makefile
+> +++ b/Makefile
+> @@ -6,7 +6,7 @@ OBJS2   = progress.o ast-sf-ctrl.o libflash.o libffs.o arm_io.o
+>  OBJS3   = obj/progress.o obj/ast-sf-ctrl.o obj/libflash.o obj/libffs.o obj/arm_io.o
+>  INCLUDES=$(shell pkg-config --cflags gio-unix-2.0 glib-2.0) -Iincludes -Iobjects/pflash -I.
+>  LIBS=$(shell pkg-config --libs gio-unix-2.0 glib-2.0) -Llib -lopenbmc_intf
+> -INC_FLAG += $(shell pkg-config --cflags --libs libsystemd) -I. -O2
+> +INCLUDES += $(shell pkg-config --cflags --libs libsystemd) -I. -O2
 
-diff --git a/netman.py b/netman.py
-index 8f0fb80..5b18712 100755
---- a/netman.py
-+++ b/netman.py
-@@ -1,146 +1,178 @@
--#!/usr/bin/env python
--
--from subprocess import call
--import sys
--import subprocess
--import dbus
--import string
--import os
--import fcntl
--import glib
--import gobject
--import dbus.service
--import dbus.mainloop.glib
--
--DBUS_NAME = 'org.openbmc.NetworkManager'
--OBJ_NAME = '/org/openbmc/NetworkManager/Interface'
--
--network_providers = {
--	'networkd' : { 
--		'bus_name' : 'org.freedesktop.network1',
--		'ip_object_name' : '/org/freedesktop/network1/network/default',
--		'hw_object_name' : '/org/freedesktop/network1/link/_31',
--		'interface_name' : 'org.freedesktop.network1.Network',
--		'method' : 'org.freedesktop.network1.Network.SetAddr'
--	},
--	'NetworkManager' : {
--		'bus_name' : 'org.freedesktop.NetworkManager',
--		'ip_object_name' : '/org/freedesktop/NetworkManager',
--		'hw_object_name' : '/org/freedesktop/NetworkManager',
--		'interface_name' : 'org.freedesktop.NetworkManager',
--		'method' : 'org.freedesktop.NetworkManager' # FIXME: 
--	},	
--}
--
--def getPrefixLen(mask):
--	prefixLen = sum([bin(int(x)).count('1') for x in mask.split('.')])
--	return prefixLen
--
--class IfAddr ():
--    def __init__ (self, family, scope, flags, prefixlen, addr, gw):
--        self.family     = family
--        self.scope      = scope
--        self.flags      = flags
--        self.prefixlen  = prefixlen
--        self.addr       = addr
--        self.gw         = gw
--
--class NetMan (dbus.service.Object):
--    def __init__(self, bus, name):
--        self.bus = bus
--        self.name = name
--        dbus.service.Object.__init__(self,bus,name)
--
--    def setNetworkProvider(self, provider):
--        self.provider = provider
--
--    def _setAddr (self, op, device, ipaddr, netmask, family, flags, scope, gateway):
--        netprov     = network_providers [self.provider]
--        bus_name    = netprov ['bus_name']
--        obj_path    = netprov ['ip_object_name']
--        intf_name   = netprov ['interface_name']
--
--        obj = self.bus.get_object(bus_name, obj_path)
--        intf = dbus.Interface(obj, intf_name)
--        if (op == "add"):
--            return intf.AddAddress (device, ipaddr, netmask, family, flags, scope, gateway)
--
--        if (op == "del"):
--            return intf.DelAddress (device, ipaddr, netmask, family, flags, scope, gateway)
--
--    def _getAddr (self, target, device):
--        netprov     = network_providers [self.provider]
--        bus_name    = netprov ['bus_name']
--
--        if (target == "ip"):
--            intf_name   = 'org.freedesktop.network1.Network'
--            obj_path    = netprov ['ip_object_name']
--            obj = self.bus.get_object(bus_name, obj_path)
--            intf = dbus.Interface(obj, intf_name)
--            return intf.GetAddress (device)
--
--        if (target == "mac"):
--            intf_name   = 'org.freedesktop.network1.Link'
--            obj_path    = netprov ['hw_object_name']
--            obj = self.bus.get_object(bus_name, obj_path)
--            intf = dbus.Interface(obj, intf_name)
--            mac = intf.GetAddress (device)
--            print mac
--            return mac
--
--
--
--    @dbus.service.method(DBUS_NAME, "", "")
--    def test(self):
--        print("TEST")
--
--    @dbus.service.method(DBUS_NAME, "ssss", "x")
--    def AddAddress4 (self, device, ipaddr, netmask, gateway):
--        prefixLen = getPrefixLen (netmask)
--        confFile = "/etc/systemd/network/10-bmc-" + device + ".network"
--
--        print("Making .network file...")
--        networkconf = open (confFile, "w+") 
--        networkconf.write ('[Match]'+ '\n')
--        networkconf.write ('Name=' + (device) + '\n')
--        networkconf.write ('[Network]' + '\n')
--        networkconf.write ('Address=' + ipaddr + '/' + str(prefixLen) +  '\n')
--        networkconf.write ('Gateway=' + gateway + '\n')
--        networkconf.close()
--
--        print("Restarting networkd service...")
--        call(["ip", "addr", "flush", device])
--        return 0
--        #return self._setAddr ("add", device, ipaddr, netmask, 2, 0, 253, gateway
--
--    @dbus.service.method(DBUS_NAME, "ssss", "x")
--    def DelAddress4 (self, device, ipaddr, netmask, gateway):
--        prefixLen = getPrefixLen (netmask)
--        confFile = "/etc/systemd/network/10-bmc-" + device + ".network"
--        if not (os.path.exists(confFile)):
--            return 1
--
--        self._setAddr ("del", device, ipaddr, netmask, 2, 0, 253, gateway)
--        os.remove (confFile)
--        return  0;
--
--    @dbus.service.method(DBUS_NAME, "s", "a(iyyus)s")
--    def GetAddress4 (self, device):
--        return self._getAddr ("ip", device)
--
--    @dbus.service.method(DBUS_NAME, "s", "s")
--    def GetHwAddress (self, device):
--        return self._getAddr ("mac", device)
--
--def main():
--    dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
--    bus = dbus.SystemBus()
--    name = dbus.service.BusName(DBUS_NAME, bus)
--    obj = NetMan (bus, OBJ_NAME)
--    obj.setNetworkProvider ("networkd")
--    mainloop = gobject.MainLoop()
--    print("Started")
--    mainloop.run()
--
--if __name__ == '__main__':
--    sys.exit(main())
-+#!/usr/bin/env python
-+
-+from subprocess import call
-+import sys
-+import subprocess
-+import dbus
-+import string
-+import os
-+import fcntl
-+import glib
-+import gobject
-+import dbus.service
-+import dbus.mainloop.glib
-+
-+DBUS_NAME = 'org.openbmc.NetworkManager'
-+OBJ_NAME = '/org/openbmc/NetworkManager/Interface'
-+
-+network_providers = {
-+	'networkd' : { 
-+		'bus_name' : 'org.freedesktop.network1',
-+		'ip_object_name' : '/org/freedesktop/network1/network/default',
-+		'hw_object_name' : '/org/freedesktop/network1/link/_31',
-+		'ip_if_name' : 'org.freedesktop.network1.Network',
-+		'hw_if_name' : 'org.freedesktop.network1.Link',
-+		'method' : 'org.freedesktop.network1.Network.SetAddr'
-+	},
-+	'NetworkManager' : {
-+		'bus_name' : 'org.freedesktop.NetworkManager',
-+		'ip_object_name' : '/org/freedesktop/NetworkManager',
-+		'hw_object_name' : '/org/freedesktop/NetworkManager',
-+		'ip_if_name' : 'org.freedesktop.NetworkManager',
-+		'hw_if_name' : 'org.freedesktop.NetworkManager',
-+		'method' : 'org.freedesktop.NetworkManager' # FIXME: 
-+	},	
-+}
-+
-+def getPrefixLen(mask):
-+	prefixLen = sum([bin(int(x)).count('1') for x in mask.split('.')])
-+	return prefixLen
-+
-+class IfAddr ():
-+    def __init__ (self, family, scope, flags, prefixlen, addr, gw):
-+        self.family     = family
-+        self.scope      = scope
-+        self.flags      = flags
-+        self.prefixlen  = prefixlen
-+        self.addr       = addr
-+        self.gw         = gw
-+
-+class NetMan (dbus.service.Object):
-+    def __init__(self, bus, name):
-+        self.bus = bus
-+        self.name = name
-+        dbus.service.Object.__init__(self,bus,name)
-+
-+    def setNetworkProvider(self, provider):
-+        self.provider = provider
-+
-+    def _setAddr (self, op, device, ipaddr, netmask, family, flags, scope, gateway):
-+        netprov     = network_providers [self.provider]
-+        bus_name    = netprov ['bus_name']
-+        obj_path    = netprov ['ip_object_name']
-+        intf_name   = netprov ['ip_if_name']
-+
-+        obj = self.bus.get_object(bus_name, obj_path)
-+        intf = dbus.Interface(obj, intf_name)
-+        if (op == "add"):
-+            return intf.AddAddress (device, ipaddr, netmask, family, flags, scope, gateway)
-+
-+        if (op == "del"):
-+            return intf.DelAddress (device, ipaddr, netmask, family, flags, scope, gateway)
-+
-+    def _getAddr (self, target, device):
-+        netprov     = network_providers [self.provider]
-+        bus_name    = netprov ['bus_name']
-+
-+        if (target == "ip"):
-+            intf_name   = netprov ['ip_if_name'] #'org.freedesktop.network1.Network'
-+            obj_path    = netprov ['ip_object_name']
-+            obj = self.bus.get_object(bus_name, obj_path)
-+            intf = dbus.Interface(obj, intf_name)
-+            return intf.GetAddress (device)
-+
-+        if (target == "mac"):
-+            intf_name   = netprov ['hw_if_name'] #'org.freedesktop.network1.Link'
-+            obj_path    = netprov ['hw_object_name']
-+            obj = self.bus.get_object(bus_name, obj_path)
-+            intf = dbus.Interface(obj, intf_name)
-+            mac = intf.GetAddress (device)
-+            print mac
-+            return mac
-+
-+    @dbus.service.method(DBUS_NAME, "", "")
-+    def test(self):
-+        print("TEST")
-+
-+    @dbus.service.method(DBUS_NAME, "s", "x")
-+    def EnableDHCP (self, device):
-+        confFile = "/etc/systemd/network/10-bmc-" + device + "-" + "dhcp.network"
-+        if os.path.exists(confFile):
-+            return 0
-+
-+        print("Making .network file...")
-+        networkconf = open (confFile, "w+") 
-+        networkconf.write ('[Match]'+ '\n')
-+        networkconf.write ('Name=' + (device) + '\n')
-+        networkconf.write ('[Network]' + '\n')
-+        networkconf.write ('DHCP=yes')
-+        networkconf.close ()
-+
-+        print("Restarting networkd service...")
-+        call(["systemctl", "restart", "systemd-networkd.service"])
-+        return 0
-+        #return self._setAddr ("add", device, ipaddr, netmask, 2, 0, 253, gateway)
-+
-+    @dbus.service.method(DBUS_NAME, "ssss", "x")
-+    def AddAddress4 (self, device, ipaddr, netmask, gateway):
-+        prefixLen = getPrefixLen (netmask)
-+        confFile = "/etc/systemd/network/10-bmc-" + device + "-" + ipaddr + '_' + str(prefixLen) + ".network"
-+        if os.path.exists(confFile):
-+            return 0
-+
-+        print("Making .network file...")
-+        networkconf = open (confFile, "w+") 
-+        networkconf.write ('[Match]'+ '\n')
-+        networkconf.write ('Name=' + (device) + '\n')
-+        networkconf.write ('[Network]' + '\n')
-+        networkconf.write ('Address=' + ipaddr + '/' + str(prefixLen) +  '\n')
-+        networkconf.write ('Gateway=' + gateway + '\n')
-+        networkconf.close()
-+
-+        print("Restarting networkd service...")
-+        call(["ip", "addr", "flush", device])
-+        return 0
-+        #return self._setAddr ("add", device, ipaddr, netmask, 2, 0, 253, gateway
-+
-+    @dbus.service.method(DBUS_NAME, "ssss", "x")
-+    def DelAddress4 (self, device, ipaddr, netmask, gateway):
-+        prefixLen = getPrefixLen (netmask)
-+        confFile = "/etc/systemd/network/10-bmc-" + device + "-" + ipaddr + '_' + str(prefixLen) + ".network"
-+        if not (os.path.exists(confFile)):
-+            return 1
-+
-+        self._setAddr ("del", device, ipaddr, netmask, 2, 0, 253, gateway)
-+        os.remove (confFile)
-+        return  0;
-+
-+    @dbus.service.method(DBUS_NAME, "s", "a(iyyus)s")
-+    def GetAddress4 (self, device):
-+        return self._getAddr ("ip", device)
-+
-+    @dbus.service.method(DBUS_NAME, "s", "s")
-+    def GetHwAddress (self, device):
-+        return self._getAddr ("mac", device)
-+
-+    @dbus.service.method(DBUS_NAME, "ss", "s")
-+    def SetHwAddress (self, device, mac):
-+        netprov     = network_providers [self.provider]
-+        bus_name    = netprov ['bus_name']
-+        obj_path    = netprov ['hw_object_name']
-+        intf_name   = netprov ['hw_if_name']
-+
-+        obj = self.bus.get_object(bus_name, obj_path)
-+        intf = dbus.Interface(obj, intf_name)
-+        return intf.SetAddress (device, mac)
-+
-+def main():
-+    dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
-+    bus = dbus.SystemBus()
-+    name = dbus.service.BusName(DBUS_NAME, bus)
-+    obj = NetMan (bus, OBJ_NAME)
-+    obj.setNetworkProvider ("networkd")
-+    mainloop = gobject.MainLoop()
-+    print("Started")
-+    mainloop.run()
-+
-+if __name__ == '__main__':
-+    sys.exit(main())
--- 
-2.6.4
+Would this be better as $(CFLAGS) rather than $(INCLUDES)?
+
+Regards,
+Daniel
+
+>  LIB_FLAG += $(shell pkg-config  --libs libsystemd)
+>  
+>  %.o: interfaces/%.c 
+> @@ -42,7 +42,7 @@ led_controller: led_controller.o gpio.o object_mapper.o libopenbmc_intf
+>  	$(CC) -o bin/$@.exe obj/gpio.o obj/led_controller.o obj/object_mapper.o $(LDFLAGS) $(LIBS)
+>  
+>  led_controller_new: led_controller_new.o
+> -	$(CC) $(INC_FLAG) -o bin/$@.exe obj/led_controller_new.o $(LDFLAGS) $(LIBS) $(LIB_FLAG)
+> +	$(CC) -o bin/$@.exe obj/led_controller_new.o $(LDFLAGS) $(LIB_FLAG)
+>  
+>  button_power: button_power_obj.o gpio.o object_mapper.o libopenbmc_intf
+>  	$(CC) -o bin/$@.exe obj/button_power_obj.o obj/gpio.o obj/object_mapper.o $(LDFLAGS) $(LIBS)
+> -- 
+> 2.6.4
+>
+>
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
