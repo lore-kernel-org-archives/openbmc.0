@@ -1,31 +1,31 @@
 Return-Path: <andrew@aj.id.au>
 Received: from homiemail-a23.g.dreamhost.com (sub3.mail.dreamhost.com
  [69.163.253.7])
- by lists.ozlabs.org (Postfix) with ESMTP id C851E1A020A
- for <openbmc@lists.ozlabs.org>; Wed,  3 Feb 2016 16:46:47 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTP id 789401A0204
+ for <openbmc@lists.ozlabs.org>; Wed,  3 Feb 2016 16:46:48 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=esbz7RQ2; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=kyuBcYwS; 
  dkim-atps=neutral
 Received: from homiemail-a23.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a23.g.dreamhost.com (Postfix) with ESMTP id C72E74B006F
- for <openbmc@lists.ozlabs.org>; Tue,  2 Feb 2016 21:46:46 -0800 (PST)
+ by homiemail-a23.g.dreamhost.com (Postfix) with ESMTP id 7FB1B4B007C
+ for <openbmc@lists.ozlabs.org>; Tue,  2 Feb 2016 21:46:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=from:to
  :subject:date:message-id:in-reply-to:references; s=aj.id.au; bh=
- 5WzSXGPOx8wPoOXqnVgUSlYItkM=; b=esbz7RQ2+DMl4f7s9OXhyGDoJq3/O4RG
- HHZ++Wby8FrvpNJP9VV1Ivr8+XGs5KKUUT/HOTz9Zy2IxyBqKOshLqauDc9O3v2p
- VQiHz7/P1aKUJMywMEqjd3pFm/V/21oOV3+28bKdiw9LbFJx2KsJAXBQN9s1fsnN
- N4+Y810GkZM=
+ f1V6th11n2K6bjq6aY6TuAAvaeU=; b=kyuBcYwSaMkyOQJjC0q7A6GdKPWh/ORz
+ aOMhGggYYe5SuCzkMZqFKb3/pPpHEQB37xlYbtpiUEoijU4T4J4xzkLY7JIiiCRK
+ E1DhWJ2paMUENs6Ty7WJ5B6OiUAsPsM9QE5sgNLN9cV4SHeuBXpg+2JYK0lu7mcJ
+ loffbGfZBgE=
 Received: from localhost.localdomain (unknown [138.44.251.155])
  (using TLSv1 with cipher AES128-SHA (128/128 bits))
  (No client certificate requested)
  (Authenticated sender: andrew@aj.id.au)
- by homiemail-a23.g.dreamhost.com (Postfix) with ESMTPSA id 6D4184B0062
+ by homiemail-a23.g.dreamhost.com (Postfix) with ESMTPSA id 2521D4B0062
  for <openbmc@lists.ozlabs.org>; Tue,  2 Feb 2016 21:46:46 -0800 (PST)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH 2/3] intc: Add (new) ASPEED AST2400 AVIC device model
-Date: Wed,  3 Feb 2016 16:46:32 +1100
-Message-Id: <1454478393-11973-3-git-send-email-andrew@aj.id.au>
+Subject: [PATCH 3/3] ast2400: Add ASPEED AST2400 machine type
+Date: Wed,  3 Feb 2016 16:46:33 +1100
+Message-Id: <1454478393-11973-4-git-send-email-andrew@aj.id.au>
 X-Mailer: git-send-email 2.5.0
 In-Reply-To: <1454478393-11973-1-git-send-email-andrew@aj.id.au>
 References: <1454478393-11973-1-git-send-email-andrew@aj.id.au>
@@ -40,383 +40,209 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 03 Feb 2016 05:46:48 -0000
+X-List-Received-Date: Wed, 03 Feb 2016 05:46:49 -0000
 
-Implement a minimal ASPEED AVIC device model, enough to boot a Linux
-kernel configured with aspeed_defconfig. The VIC implements the 'new'
-register set and expects this to be reflected in the device tree.
+Adds the AST2400 machine type with ASPEED AVIC and timer models. The
+new machine type is functional enough to boot Linux to userspace.
 
-The implementation is a little awkward as the hardware uses 32bit
-registers to manage 51 IRQs, and makes use of low and high registers for
-each conceptual register. The model's implementation uses 64bit data
-types to store the register values but must cope with access offset values
-in multiples of 4 passed to the callbacks. As such the read() and
-write() implementations process the provided offset to understand
-whether the access is requesting the lower or upper 32bits of the 64bit
-quantity.
+Also, update the build infrastructure to only build the AST2400 code if
+arm-softmmu is in target-list.
 
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- hw/intc/Makefile.objs        |   1 +
- hw/intc/aspeed_vic.c         | 288 +++++++++++++++++++++++++++++++++++++++++++
- include/hw/intc/aspeed_vic.h |  42 +++++++
- 3 files changed, 331 insertions(+)
- create mode 100644 hw/intc/aspeed_vic.c
- create mode 100644 include/hw/intc/aspeed_vic.h
+ default-configs/arm-softmmu.mak |   2 +
+ hw/arm/Makefile.objs            |   1 +
+ hw/arm/ast2400.c                | 126 ++++++++++++++++++++++++++++++++++++++++
+ hw/intc/Makefile.objs           |   2 +-
+ hw/timer/Makefile.objs          |   3 +-
+ 5 files changed, 132 insertions(+), 2 deletions(-)
+ create mode 100644 hw/arm/ast2400.c
 
-diff --git a/hw/intc/Makefile.objs b/hw/intc/Makefile.objs
-index 004b0c2..9763e50 100644
---- a/hw/intc/Makefile.objs
-+++ b/hw/intc/Makefile.objs
-@@ -14,6 +14,7 @@ common-obj-$(CONFIG_ARM_GIC) += arm_gic.o
- common-obj-$(CONFIG_ARM_GIC) += arm_gicv2m.o
- common-obj-$(CONFIG_ARM_GIC) += arm_gicv3_common.o
- common-obj-$(CONFIG_OPENPIC) += openpic.o
-+common-obj-y += aspeed_vic.o
- 
- obj-$(CONFIG_APIC) += apic.o apic_common.o
- obj-$(CONFIG_ARM_GIC_KVM) += arm_gic_kvm.o
-diff --git a/hw/intc/aspeed_vic.c b/hw/intc/aspeed_vic.c
+diff --git a/default-configs/arm-softmmu.mak b/default-configs/arm-softmmu.mak
+index d9b90a5..ef79e69 100644
+--- a/default-configs/arm-softmmu.mak
++++ b/default-configs/arm-softmmu.mak
+@@ -109,3 +109,5 @@ CONFIG_IOH3420=y
+ CONFIG_I82801B11=y
+ CONFIG_ACPI=y
+ CONFIG_SMBIOS=y
++
++CONFIG_ASPEED_SOC=y
+diff --git a/hw/arm/Makefile.objs b/hw/arm/Makefile.objs
+index 2195b60..2045110 100644
+--- a/hw/arm/Makefile.objs
++++ b/hw/arm/Makefile.objs
+@@ -15,3 +15,4 @@ obj-$(CONFIG_STM32F205_SOC) += stm32f205_soc.o
+ obj-$(CONFIG_XLNX_ZYNQMP) += xlnx-zynqmp.o xlnx-ep108.o
+ obj-$(CONFIG_FSL_IMX25) += fsl-imx25.o imx25_pdk.o
+ obj-$(CONFIG_FSL_IMX31) += fsl-imx31.o kzm.o
++obj-$(CONFIG_ASPEED_SOC) += ast2400.o
+diff --git a/hw/arm/ast2400.c b/hw/arm/ast2400.c
 new file mode 100644
-index 0000000..0bcce76
+index 0000000..b85f5b6
 --- /dev/null
-+++ b/hw/intc/aspeed_vic.c
-@@ -0,0 +1,288 @@
++++ b/hw/arm/ast2400.c
+@@ -0,0 +1,126 @@
 +/*
-+ * ASPEED Interrupt Controller (New)
++ * Aspeed 2400
 + *
-+ * Andrew Jeffery <andrew@aj.id.au>
++ * Copyright (c) 2015 IBM
 + *
-+ * Copyright 2015 IBM Corp.
-+ *
-+ * This code is licensed under the GPL version 2 or later.  See
-+ * the COPYING file in the top-level directory.
-+ *
-+ * Based off of the i.MX31 Vectored Interrupt Controller
-+ *
-+ * Note that this device model does not implement the legacy register space.
-+ * The assumption is that the device base address is exposed such that all
-+ * offsets are calculated relative to the address of the first "new" register.
++ * Authors: Jeremy Kerr, Andrew Jeffery
 + */
-+#include <inttypes.h>
++
++#include "exec/address-spaces.h"
++#include "hw/arm/arm.h"
++#include "hw/boards.h"
++#include "hw/char/serial.h"
++#include "hw/sysbus.h"
 +#include "hw/intc/aspeed_vic.h"
++#include "hw/timer/aspeed_timer.h"
 +
-+#ifdef DEBUG
-+# define DPRINTF(format, ...) fprintf(stderr, format , ## __VA_ARGS__)
-+#else
-+# define DPRINTF(format, ...) do { } while (0)
-+#endif
++#define ASPEED_SDRAM_ADDR 0x40000000
++#define ASPEED_IOMEM_BASE 0x1e600000
++#define ASPEED_IOMEM_SIZE 0x00200000
 +
-+#define AVIC_EDGE_STATUS 0x60
++static struct arm_boot_info ast2400_binfo = {
++    .loader_start = ASPEED_SDRAM_ADDR,
++    .board_id = 0,
++};
 +
-+#define AVIC_L_MASK 0xFFFFFFFF
-+#define AVIC_H_MASK 0x00007FFF
-+#define AVIC_INT_EVENT_W_MASK (UINT64_C(0x78000) << 32)
-+
-+static void aspeed_vic_update(AspeedVICState *s)
++/*
++ * IO handler: simply catch any reads/writes to IO addresses that aren't
++ * handled by a device mapping.
++ */
++static uint64_t ast2400_io_read(void *p, hwaddr offset, unsigned size)
 +{
-+    int i;
-+    uint64_t new = (s->edge_status & s->int_enable);
-+    uint64_t flags;
-+
-+    flags = new & s->int_select;
-+    qemu_set_irq(s->fiq, !!flags);
-+
-+    flags = new & ~s->int_select;
-+    if (!flags) {
-+        qemu_set_irq(s->irq, !!flags);
-+        return;
-+    }
-+
-+    for (i = 0; i < ASPEED_VIC_NR_IRQS; i++) {
-+        if (flags & (UINT64_C(1) << i)) {
-+            qemu_set_irq(s->irq, 1);
-+            return;
-+        }
-+    }
-+
-+    qemu_set_irq(s->irq, 0);
++    printf("%s: 0x%" HWADDR_PRIx "[%d]\n", __func__, offset, size);
++    return 0;
 +}
 +
-+static void aspeed_vic_set_irq(void *opaque, int irq, int level)
++static void ast2400_io_write(void *opaque, hwaddr offset, uint64_t value,
++                unsigned size)
 +{
-+    AspeedVICState *s = (AspeedVICState *)opaque;
-+    if (irq > ASPEED_VIC_NR_IRQS) {
-+        qemu_log_mask(LOG_GUEST_ERROR, "Out-of-range interrupt number: %d\n",
-+                      irq);
-+        return;
-+    }
-+
-+    if (level) {
-+        DPRINTF("Raising IRQ %d\n", irq);
-+        s->edge_status |= (UINT64_C(1) << irq);
-+    } else {
-+        DPRINTF("Clearing IRQ %d\n", irq);
-+        s->edge_status &= ~(UINT64_C(1) << irq);
-+    }
-+
-+    aspeed_vic_update(s);
++    printf("%s: 0x%" HWADDR_PRIx "[%d] <- 0x%" PRIx64 "\n",
++            __func__, offset, size, value);
 +}
 +
-+static uint64_t aspeed_vic_read(void *opaque, hwaddr offset, unsigned size)
-+{
-+    uint64_t val;
-+    const bool high = !!(offset & 0x4);
-+    const hwaddr n_offset = (offset & ~0x4);
-+    AspeedVICState *s = (AspeedVICState *)opaque;
-+
-+    if (offset > AVIC_EDGE_STATUS + 4) {
-+        qemu_log_mask(LOG_GUEST_ERROR,
-+                      "Out of bounds register access with offset %ld\n",
-+                      offset);
-+        return 0;
-+    }
-+
-+    if (size != sizeof(uint32_t)) {
-+        qemu_log_mask(LOG_GUEST_ERROR,
-+                      "Unexpected read size %d with offset %ld\n", size,
-+                      offset);
-+        return 0;
-+    }
-+
-+    switch (n_offset) {
-+    case 0x0: /* AVIC_IRQ_STATUS */
-+        val = s->edge_status & ~s->int_select & s->int_enable;
-+        break;
-+    case 0x08: /* AVIC_FIQ_STATUS */
-+        val = s->edge_status & s->int_select & s->int_enable;
-+        break;
-+    case 0x10: /* AVIC_RAW_STATUS */
-+        val = s->edge_status;
-+        break;
-+    case 0x18: /* AVIC_INT_SELECT */
-+        val = s->int_select;
-+        break;
-+    case 0x20: /* AVIC_INT_ENABLE */
-+        val = s->int_enable;
-+        break;
-+    case 0x30: /* AVIC_INT_TRIGGER */
-+        val = s->int_trigger;
-+        break;
-+    case 0x40: /* AVIC_INT_SENSE */
-+        val = s->int_sense;
-+        break;
-+    case 0x48: /* AVIC_INT_DUAL_EDGE */
-+        val = s->int_dual_edge;
-+        break;
-+    case 0x50: /* AVIC_INT_EVENT */
-+        val = s->int_event;
-+        break;
-+    case 0x60: /* AVIC_EDGE_STATUS */
-+        val = s->edge_status;
-+        break;
-+        /* Illegal */
-+    case 0x28: /* AVIC_INT_ENABLE_CLR */
-+    case 0x38: /* AVIC_INT_TRIGGER_CLR */
-+    case 0x58: /* AVIC_EDGE_CLR */
-+        qemu_log_mask(LOG_GUEST_ERROR,
-+                "Read of write-only register with offset 0x%" HWADDR_PRIx "\n",
-+                offset);
-+        val = 0;
-+        break;
-+    default:
-+        qemu_log_mask(LOG_GUEST_ERROR,
-+                "[%s]%s: Bad register at offset 0x%" HWADDR_PRIx "\n",
-+                TYPE_ASPEED_VIC, __func__, offset);
-+        val = 0;
-+        break;
-+    }
-+    if (high) {
-+        val >>= 32;
-+        val &= AVIC_H_MASK;
-+    }
-+    DPRINTF("offset=0x%" HWADDR_PRIx ", size=%u, val=0x%" PRIx64 "\n",
-+            offset, size, val);
-+    return val;
-+}
-+
-+static void aspeed_vic_write(void *opaque, hwaddr offset, uint64_t data,
-+                             unsigned size)
-+{
-+    const bool high = !!(offset & 0x4);
-+    const hwaddr n_offset = (offset & ~0x4);
-+    AspeedVICState *s = (AspeedVICState *)opaque;
-+
-+    if (size != sizeof(uint32_t)) {
-+        qemu_log_mask(LOG_GUEST_ERROR,
-+                "Write of unexpected size %u with offset 0x%" HWADDR_PRIx "\n",
-+                size, offset);
-+        return;
-+    }
-+
-+    if (offset > AVIC_EDGE_STATUS + 4) {
-+        qemu_log_mask(LOG_GUEST_ERROR,
-+                "Out of bounds access with offset 0x%" HWADDR_PRIx "\n",
-+                offset);
-+        return;
-+    }
-+    DPRINTF("offset=0x%" HWADDR_PRIx ", size=%u, data=0x%" PRIx64 "\n",
-+            offset, data, size);
-+
-+    if (high) {
-+        data &= AVIC_H_MASK;
-+        data <<= 32;
-+    } else {
-+        data &= AVIC_L_MASK;
-+    }
-+    DPRINTF("After %s masking, value is 0x%" PRIx64 "\n",
-+            high ? "high" : "low", data);
-+
-+    switch (n_offset) {
-+    case 0x18: /* AVIC_INT_SELECT */
-+        if (high) {
-+            s->int_select &= AVIC_L_MASK;
-+        } else {
-+            s->int_select &= ((UINT64_C(0) | AVIC_H_MASK) << 32);
-+        }
-+        s->int_select |= data;
-+        break;
-+    case 0x20: /* AVIC_INT_ENABLE */
-+        s->int_enable |= data;
-+        break;
-+    case 0x28: /* AVIC_INT_ENABLE_CLR */
-+        s->int_enable &= ~data;
-+        break;
-+    case 0x30: /* AVIC_INT_TRIGGER */
-+        s->int_trigger |= data;
-+        break;
-+    case 0x38: /* AVIC_INT_TRIGGER_CLR */
-+        s->int_trigger &= ~data;
-+        break;
-+    case 0x50: /* AVIC_INT_EVENT */
-+        s->int_event &= ~AVIC_INT_EVENT_W_MASK;
-+        s->int_event |= (data & AVIC_INT_EVENT_W_MASK);
-+        break;
-+    case 0x58: /* AVIC_EDGE_CLR */
-+        s->edge_status &= ~data;
-+        break;
-+    case 0x00: /* AVIC_IRQ_STATUS */
-+    case 0x08: /* AVIC_FIQ_STATUS */
-+    case 0x10: /* AVIC_RAW_STATUS */
-+    case 0x40: /* AVIC_INT_SENSE */
-+    case 0x48: /* AVIC_INT_DUAL_EDGE */
-+    case 0x60: /* AVIC_EDGE_STATUS */
-+        qemu_log_mask(LOG_GUEST_ERROR,
-+                "Write of read-only register with offset %" HWADDR_PRIx "\n",
-+                offset);
-+        break;
-+
-+    default:
-+        qemu_log_mask(LOG_GUEST_ERROR,
-+                "[%s]%s: Bad register at offset 0x%" HWADDR_PRIx "\n",
-+                TYPE_ASPEED_VIC, __func__, offset);
-+        break;
-+    }
-+    aspeed_vic_update(s);
-+}
-+
-+static const MemoryRegionOps aspeed_vic_ops = {
-+    .read = aspeed_vic_read,
-+    .write = aspeed_vic_write,
++static const MemoryRegionOps ast2400_io_ops = {
++    .read = ast2400_io_read,
++    .write = ast2400_io_write,
 +    .endianness = DEVICE_NATIVE_ENDIAN,
 +};
 +
-+static void aspeed_vic_reset(DeviceState *dev)
-+{
-+    AspeedVICState *s = ASPEED_VIC(dev);
++typedef struct AspeedState {
++    ARMCPU *cpu;
++    MemoryRegion *address_space;
++    MemoryRegion *ram;
++    ram_addr_t ram_size;
++    MemoryRegion *iomem;
++    AspeedVICState avic;
++    AspeedTimerState timer;
++} AspeedState;
 +
-+    s->int_select = 0;
-+    s->int_enable = 0;
-+    s->int_trigger = 0;
-+    s->int_sense = (UINT64_C(0x1F07) << 32) | 0xFFF8FFFF;
-+    s->int_dual_edge = (UINT64_C(0xF8) << 32) | 0x00070000;
-+    s->int_event = (UINT64_C(0x5F07) << 32) | 0xFFF8FFFF;
-+    s->edge_status = 0;
++static void ast2400_init(MachineState *machine)
++{
++    AspeedState ast2400;
++    DeviceState *dev;
++    qemu_irq pic[ASPEED_VIC_NR_IRQS] = {0};
++    int i;
++
++    if (!machine->cpu_model) {
++        machine->cpu_model = "arm926";
++    }
++
++    ast2400.cpu = cpu_arm_init(machine->cpu_model);
++    if (!ast2400.cpu) {
++        fprintf(stderr, "Unable to find CPU definition\n");
++        exit(1);
++    }
++
++    ast2400.address_space = get_system_memory();
++    ram_size = machine->ram_size;
++
++    /* System RAM */
++    ast2400.ram = g_new(MemoryRegion, 1);
++    memory_region_allocate_system_memory(ast2400.ram, NULL, "ast2400.ram",
++            ram_size);
++    memory_region_add_subregion(ast2400.address_space, ASPEED_SDRAM_ADDR,
++            ast2400.ram);
++
++    /* IO space */
++    ast2400.iomem = g_new(MemoryRegion, 1);
++    memory_region_init_io(ast2400.iomem, NULL, &ast2400_io_ops, NULL,
++            "ast2400.io", ASPEED_IOMEM_SIZE);
++    memory_region_add_subregion(ast2400.address_space, ASPEED_IOMEM_BASE,
++            ast2400.iomem);
++
++    /* AVIC */
++    dev = sysbus_create_varargs(TYPE_ASPEED_VIC, ASPEED_VIC_BASE,
++                    qdev_get_gpio_in(DEVICE(ast2400.cpu), ARM_CPU_IRQ),
++                    qdev_get_gpio_in(DEVICE(ast2400.cpu), ARM_CPU_FIQ),
++                    NULL);
++
++    for (i = 0; i < ASPEED_VIC_NR_IRQS; i++) {
++        pic[i] = qdev_get_gpio_in(dev, i);
++    }
++
++    /* Timer */
++    sysbus_create_varargs(TYPE_ASPEED_TIMER, TIMER_BASE, pic[16], pic[17],
++            pic[18], pic[35], pic[36], pic[37], pic[38], pic[39], NULL);
++
++    /* UART - attach an 8250 to the IO space as our UART5 */
++    if (serial_hds[0]) {
++            serial_mm_init(ast2400.iomem, 0x184000, 2, pic[10], 38400,
++                    serial_hds[0], DEVICE_NATIVE_ENDIAN);
++    }
++
++    ast2400_binfo.kernel_filename = machine->kernel_filename;
++    ast2400_binfo.initrd_filename = machine->initrd_filename;
++    ast2400_binfo.kernel_cmdline = machine->kernel_cmdline;
++    ast2400_binfo.ram_size = ram_size;
++    arm_load_kernel(ast2400.cpu, &ast2400_binfo);
 +}
 +
-+static void aspeed_vic_realize(DeviceState *dev, Error **errp)
++static void ast2400_machine_init(MachineClass *mc)
 +{
-+    SysBusDevice *sbd = SYS_BUS_DEVICE(dev);
-+    AspeedVICState *s = ASPEED_VIC(dev);
-+
-+    memory_region_init_io(&s->iomem, OBJECT(s), &aspeed_vic_ops, s,
-+                          TYPE_ASPEED_VIC, 0x20000);
-+
-+    sysbus_init_mmio(sbd, &s->iomem);
-+
-+    qdev_init_gpio_in(dev, aspeed_vic_set_irq, ASPEED_VIC_NR_IRQS);
-+    sysbus_init_irq(sbd, &s->irq);
-+    sysbus_init_irq(sbd, &s->fiq);
++    mc->desc = "ASpeed ast2400 BMC (ARM926EJ-S)";
++    mc->init = ast2400_init;
 +}
 +
-+static void aspeed_vic_class_init(ObjectClass *klass, void *data)
-+{
-+    DeviceClass *dc = DEVICE_CLASS(klass);
-+    dc->realize = aspeed_vic_realize;
-+    dc->reset = aspeed_vic_reset;
-+    dc->desc = "ASPEED Interrupt Controller (New)";
-+}
++DEFINE_MACHINE("ast2400", ast2400_machine_init);
+diff --git a/hw/intc/Makefile.objs b/hw/intc/Makefile.objs
+index 9763e50..6c52a8b 100644
+--- a/hw/intc/Makefile.objs
++++ b/hw/intc/Makefile.objs
+@@ -14,7 +14,6 @@ common-obj-$(CONFIG_ARM_GIC) += arm_gic.o
+ common-obj-$(CONFIG_ARM_GIC) += arm_gicv2m.o
+ common-obj-$(CONFIG_ARM_GIC) += arm_gicv3_common.o
+ common-obj-$(CONFIG_OPENPIC) += openpic.o
+-common-obj-y += aspeed_vic.o
+ 
+ obj-$(CONFIG_APIC) += apic.o apic_common.o
+ obj-$(CONFIG_ARM_GIC_KVM) += arm_gic_kvm.o
+@@ -31,3 +30,4 @@ obj-$(CONFIG_XICS_KVM) += xics_kvm.o
+ obj-$(CONFIG_ALLWINNER_A10_PIC) += allwinner-a10-pic.o
+ obj-$(CONFIG_S390_FLIC) += s390_flic.o
+ obj-$(CONFIG_S390_FLIC_KVM) += s390_flic_kvm.o
++obj-$(CONFIG_ASPEED_SOC) += aspeed_vic.o
+diff --git a/hw/timer/Makefile.objs b/hw/timer/Makefile.objs
+index c22ccf3..f6f7351 100644
+--- a/hw/timer/Makefile.objs
++++ b/hw/timer/Makefile.objs
+@@ -17,7 +17,6 @@ common-obj-$(CONFIG_IMX) += imx_epit.o
+ common-obj-$(CONFIG_IMX) += imx_gpt.o
+ common-obj-$(CONFIG_LM32) += lm32_timer.o
+ common-obj-$(CONFIG_MILKYMIST) += milkymist-sysctl.o
+-common-obj-y += aspeed_timer.o
+ 
+ obj-$(CONFIG_EXYNOS4) += exynos4210_mct.o
+ obj-$(CONFIG_EXYNOS4) += exynos4210_pwm.o
+@@ -34,3 +33,5 @@ obj-$(CONFIG_MC146818RTC) += mc146818rtc.o
+ obj-$(CONFIG_ALLWINNER_A10_PIT) += allwinner-a10-pit.o
+ 
+ common-obj-$(CONFIG_STM32F2XX_TIMER) += stm32f2xx_timer.o
 +
-+static const TypeInfo aspeed_vic_info = {
-+    .name = TYPE_ASPEED_VIC,
-+    .parent = TYPE_SYS_BUS_DEVICE,
-+    .instance_size = sizeof(AspeedVICState),
-+    .class_init = aspeed_vic_class_init,
-+};
-+
-+static void aspeed_vic_register_types(void)
-+{
-+    type_register_static(&aspeed_vic_info);
-+}
-+
-+type_init(aspeed_vic_register_types);
-diff --git a/include/hw/intc/aspeed_vic.h b/include/hw/intc/aspeed_vic.h
-new file mode 100644
-index 0000000..1eed03d
---- /dev/null
-+++ b/include/hw/intc/aspeed_vic.h
-@@ -0,0 +1,42 @@
-+/*
-+ * ASPEED Interrupt Controller (New)
-+ *
-+ * Andrew Jeffery <andrew@aj.id.au>
-+ *
-+ * Copyright 2015 IBM Corp.
-+ *
-+ * This code is licensed under the GPL version 2 or later.  See
-+ * the COPYING file in the top-level directory.
-+ *
-+ * Need to add SVIC and CVIC support
-+ */
-+#ifndef ASPEED_VIC_H
-+#define ASPEED_VIC_H
-+
-+#include "hw/sysbus.h"
-+
-+#define TYPE_ASPEED_VIC "aspeed.vic"
-+#define ASPEED_VIC(obj) OBJECT_CHECK(AspeedVICState, (obj), TYPE_ASPEED_VIC)
-+
-+#define ASPEED_VIC_NR_IRQS 51
-+
-+#define ASPEED_VIC_BASE 0x1e6c0080
-+
-+typedef struct AspeedVICState {
-+    /*< private >*/
-+    SysBusDevice parent_obj;
-+
-+    /*< public >*/
-+    MemoryRegion iomem;
-+    uint64_t int_select;
-+    uint64_t int_enable;
-+    uint64_t int_trigger;
-+    uint64_t int_sense;
-+    uint64_t int_dual_edge;
-+    uint64_t int_event;
-+    uint64_t edge_status;
-+    qemu_irq irq;
-+    qemu_irq fiq;
-+} AspeedVICState;
-+
-+#endif /* ASPEED_VIC_H */
++common-obj-$(CONFIG_ASPEED_SOC) += aspeed_timer.o
 -- 
 2.5.0
