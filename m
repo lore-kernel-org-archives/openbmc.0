@@ -3,17 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 65E9B1A0205
+ by lists.ozlabs.org (Postfix) with ESMTPS id E1B441A0193
  for <openbmc@lists.ozlabs.org>; Sat,  6 Feb 2016 11:20:37 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1454718032312463.0098572107195;
- Fri, 5 Feb 2016 16:20:32 -0800 (PST)
+ with SMTPS id 145471803397867.00652517390256;
+ Fri, 5 Feb 2016 16:20:33 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 2/7] obmc-initfs: look for images in
- /run/initramfs/image-
-Date: Fri,  5 Feb 2016 18:20:24 -0600
-Message-Id: <1454718029-3441-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 4/7] obmc-initfs: factor debug and takeover
+Date: Fri,  5 Feb 2016 18:20:26 -0600
+Message-Id: <1454718029-3441-5-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 In-Reply-To: <1454718029-3441-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1454718029-3441-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -33,73 +32,82 @@ X-List-Received-Date: Sat, 06 Feb 2016 00:20:38 -0000
 
 From: Milton Miller <miltonm@us.ibm.com>
 
-Teach update to look for /run/initramfs/image- not /image-*.
-
-When describing how to recover from a corrupted flash by grabbing
-the images and running update from the init debug shell, it
-became aparent that while at systemd shutdown /run/initramfs/
-is mounted at /, it is not the case during init.  Use variable
-image to hold this pathname.
+Factor out sulogin and init takeover with a message.  This is mostly
+a refactor and message update with no significant logic flow.  It
+makes the repair opertunity logic consistent.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../obmc-phosphor-initfs/files/obmc-shutdown.sh              |  7 ++++---
- .../obmc-phosphor-initfs/files/obmc-update.sh                | 12 ++++++------
- 2 files changed, 10 insertions(+), 9 deletions(-)
+ .../obmc-phosphor-initfs/files/obmc-init.sh        | 46 ++++++++++++++++------
+ 1 file changed, 35 insertions(+), 11 deletions(-)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
-index c550e06..d530265 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
-@@ -25,13 +25,14 @@ do
- done
- set +x
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+index af50953..ec1e7f1 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+@@ -30,6 +30,32 @@ findmtd() {
+ 	echo $m
+ }
  
--if test -s /run/fw_env -a -c /run/mtd:u-boot-env -a ! -e /image-u-boot-env &&
-+image=/run/initramfs/image-
-+if test -s /run/fw_env -a -c /run/mtd:u-boot-env -a ! -e ${image}u-boot-env &&
- 	! cmp /run/mtd:u-boot-env /run/fw_env
++debug_takeover() {
++	echo "$@"
++	test -n "$@" && echo Enter password to try to manually fix.
++	cat << HERE
++After fixing run exit to continue this script, or reboot -f to retry, or
++touch /takeover and exit to become PID 1 allowing editing of this script.
++HERE
++
++	while ! sulogin && ! test -f /takeover
++	do
++		echo getty failed, retrying
++	done
++
++	# Touch /takeover in the above getty to become pid 1
++	if test -e /takeover
++	then
++		cat << HERE
++Takeover of init requested.  Executing /bin/sh as PID 1.
++When finished exec new init or cleanup and run reboot -f.
++Warning: No job control!  Shell exit will panic the system!
++HERE
++		export PS1=init#\ 
++		exec /bin/sh
++	fi
++}
++
+ env=$(findmtd u-boot-env)
+ if test -n $env
  then
--	ln -sn /run/fw_env /image-u-boot-env
-+	ln -sn /run/fw_env ${image}u-boot-env
- fi
+@@ -52,21 +78,19 @@ init=/sbin/init
  
--if test -x /update && ls /image-* > /dev/null 2>&1
-+if test -x /update && ls $image* > /dev/null 2>&1
+ echo rofs = $rofs $rofst   rwfs = $rwfs $rwfst
+ 
+-if grep -w debug-init-sh /proc/cmdline ||
+-	! mount $rwdev $rwdir -t $rwfst -o $rwopts
++if grep -w debug-init-sh /proc/cmdline
  then
- 	exec /update ${1+"$@"}
- fi
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index 1122e83..f83b1ad 100755
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -61,10 +61,10 @@ then
- 	umount rw
+-	echo Please mount the rw file system on $rwdir from this shell
+-	while ! sulogin && ! test -f /takeover
+-	do
+-		echo getty failed, retrying
+-	done
++	debug_takeover "Debug initial shell requested by command line."
  fi
  
--
--for f in image-*
-+image=/run/initramfs/image-
-+for f in $image*
- do
--	m=$(findmtd ${f#image-})
-+	m=$(findmtd ${f#$image})
- 	if test -z "$m"
- 	then
- 		echo 1>&2  "Unable to find mtd partiton for $f"
-@@ -72,10 +72,10 @@ do
- 	fi
- done
+-# Touch /takeover in the above getty to become pid 1
+-if test -e /takeover
++if ! mount $rwdev $rwdir -t $rwfst -o $rwopts
+ then
+-	export PS1=init#\ 
+-	exec /bin/sh
++	msg="$(cat)" << HERE
++Mounting read-write $rwdev filesystem failed.  Please fix and run
++	mount $rwdev $rwdir -t $rwfs -o $rwopts
++to to continue, or do change nothing to run from RAM for this boot.
++HERE
++	debug_takeover "$msg"
+ fi
  
--for f in image-*
-+for f in $image*
- do
--	m=$(findmtd ${f#image-})
--	echo "Updating ${f#image-}"
-+	m=$(findmtd ${f#$image})
-+	echo "Updating ${f#$image}..."
- 	# flasheraseall /dev/$m && dd if=$f of=/dev/$m
- 	flashcp -v $f /dev/$m
- done
+ mount $rodir $rodir -t $rofst -o $roopts
 -- 
 2.6.4
