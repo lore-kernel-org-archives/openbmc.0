@@ -3,16 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3EDCF1A02C0
+ by lists.ozlabs.org (Postfix) with ESMTPS id BD1D01A02C2
  for <openbmc@lists.ozlabs.org>; Sun,  7 Feb 2016 11:00:28 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 145480322296843.99300341073115;
- Sat, 6 Feb 2016 16:00:22 -0800 (PST)
+ with SMTPS id 1454803223835536.2947022767919;
+ Sat, 6 Feb 2016 16:00:23 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 1/7] obmc-initfs: minor updates
-Date: Sat,  6 Feb 2016 18:00:15 -0600
-Message-Id: <1454803221-12014-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 2/7] obmc-initfs: look for images in
+ /run/initramfs/image-
+Date: Sat,  6 Feb 2016 18:00:16 -0600
+Message-Id: <1454803221-12014-3-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 In-Reply-To: <1454803221-12014-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1454803221-12014-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,71 +29,77 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 07 Feb 2016 00:00:28 -0000
+X-List-Received-Date: Sun, 07 Feb 2016 00:00:29 -0000
 
 From: Milton Miller <miltonm@us.ibm.com>
 
-In shutdown, Like init and update, cd to / to be clear the
-expected environment.  Although shorter names are not used, it
-prevents problems with unmounting filesystems, even if this is
-the normal state for a call of this script by systemd.  Also
-make a few paths absolute and don't follow symlinks in ln.
+Teach update to look for /run/initramfs/image- not /image-*.
 
-In init, check the new init is an executable file with non-zero
-size in addition to the shell being executable with its shared
-libraries.
+When describing how to recover from a corrupted flash by grabbing
+the images and running update from the init debug shell, it
+became aparent that while at systemd shutdown /run/initramfs/
+is mounted at /, it is not the case during init.  Use variable
+image to hold this pathname.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh       | 4 ++--
- .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh   | 7 ++++---
- 2 files changed, 6 insertions(+), 5 deletions(-)
+ .../obmc-phosphor-initfs/files/obmc-shutdown.sh              |  7 ++++---
+ .../obmc-phosphor-initfs/files/obmc-update.sh                | 12 ++++++------
+ 2 files changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-index 0dc4c35..f0d8522 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-@@ -69,9 +69,9 @@ mkdir -p $work
- 
- mount -t overlay -o lowerdir=$rodir,upperdir=$upper,workdir=$work cow /root
- 
--if ! chroot /root /bin/sh -c exit
-+if ! chroot /root /bin/sh -c "test -x /sbin/init -a -s /sbin/init"
- then
--	echo 'chroot test failed; invoking emergency shell.'
-+	echo "Change Root test failed!  Invoking emergency shell."
- 	PS1=rescue#\  sulogin
- fi
- 
 diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
-index cc076fd..c550e06 100644
+index c550e06..d530265 100644
 --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
 +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
-@@ -5,10 +5,11 @@ echo shutdown: "$@"
- export PS1=shutdown-sh#\ 
- # exec bin/sh
+@@ -25,13 +25,14 @@ do
+ done
+ set +x
  
-+cd /
- if [ ! -e /proc/mounts ]
- then
- 	mkdir -p /proc
--	mount  proc proc -tproc
-+	mount  proc /proc -tproc
- 	umount_proc=1
- else
- 	umount_proc=
-@@ -27,10 +28,10 @@ set +x
- if test -s /run/fw_env -a -c /run/mtd:u-boot-env -a ! -e /image-u-boot-env &&
+-if test -s /run/fw_env -a -c /run/mtd:u-boot-env -a ! -e /image-u-boot-env &&
++image=/run/initramfs/image-
++if test -s /run/fw_env -a -c /run/mtd:u-boot-env -a ! -e ${image}u-boot-env &&
  	! cmp /run/mtd:u-boot-env /run/fw_env
  then
--	ln -s /run/fw_env /image-u-boot-env
-+	ln -sn /run/fw_env /image-u-boot-env
+-	ln -sn /run/fw_env /image-u-boot-env
++	ln -sn /run/fw_env ${image}u-boot-env
  fi
  
--if test -x /update && ls image-* > /dev/null 2>&1
-+if test -x /update && ls /image-* > /dev/null 2>&1
+-if test -x /update && ls /image-* > /dev/null 2>&1
++if test -x /update && ls $image* > /dev/null 2>&1
  then
  	exec /update ${1+"$@"}
  fi
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
+index 1122e83..f83b1ad 100755
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
+@@ -61,10 +61,10 @@ then
+ 	umount rw
+ fi
+ 
+-
+-for f in image-*
++image=/run/initramfs/image-
++for f in $image*
+ do
+-	m=$(findmtd ${f#image-})
++	m=$(findmtd ${f#$image})
+ 	if test -z "$m"
+ 	then
+ 		echo 1>&2  "Unable to find mtd partiton for $f"
+@@ -72,10 +72,10 @@ do
+ 	fi
+ done
+ 
+-for f in image-*
++for f in $image*
+ do
+-	m=$(findmtd ${f#image-})
+-	echo "Updating ${f#image-}"
++	m=$(findmtd ${f#$image})
++	echo "Updating ${f#$image}..."
+ 	# flasheraseall /dev/$m && dd if=$f of=/dev/$m
+ 	flashcp -v $f /dev/$m
+ done
 -- 
 2.6.4
