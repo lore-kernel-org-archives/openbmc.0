@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id BD1D01A02C2
+ by lists.ozlabs.org (Postfix) with ESMTPS id 24B751A02C0
  for <openbmc@lists.ozlabs.org>; Sun,  7 Feb 2016 11:00:28 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1454803223835536.2947022767919;
- Sat, 6 Feb 2016 16:00:23 -0800 (PST)
+ with SMTPS id 1454803224722515.4515657549636;
+ Sat, 6 Feb 2016 16:00:24 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 2/7] obmc-initfs: look for images in
- /run/initramfs/image-
-Date: Sat,  6 Feb 2016 18:00:16 -0600
-Message-Id: <1454803221-12014-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 3/7] obmc-initfs: use varables for paths and mount
+ arguments
+Date: Sat,  6 Feb 2016 18:00:17 -0600
+Message-Id: <1454803221-12014-4-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 In-Reply-To: <1454803221-12014-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1454803221-12014-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -33,73 +33,167 @@ X-List-Received-Date: Sun, 07 Feb 2016 00:00:29 -0000
 
 From: Milton Miller <miltonm@us.ibm.com>
 
-Teach update to look for /run/initramfs/image- not /image-*.
+Create variables for all mount parameters and paths related to
+the read-only and read-write mounts, including fs type, full
+device name, and options.  Reorder mount arguments to always
+place options last.
 
-When describing how to recover from a corrupted flash by grabbing
-the images and running update from the init debug shell, it
-became aparent that while at systemd shutdown /run/initramfs/
-is mounted at /, it is not the case during init.  Use variable
-image to hold this pathname.
+Also add variables for update save directory and real init.
+
+This allows easy testing of a file systems by changing a few
+parameters including making the rofs an image in ram.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../obmc-phosphor-initfs/files/obmc-shutdown.sh              |  7 ++++---
- .../obmc-phosphor-initfs/files/obmc-update.sh                | 12 ++++++------
- 2 files changed, 10 insertions(+), 9 deletions(-)
+ .../obmc-phosphor-initfs/files/obmc-init.sh        | 22 ++++++++++-----
+ .../obmc-phosphor-initfs/files/obmc-update.sh      | 32 ++++++++++++----------
+ 2 files changed, 33 insertions(+), 21 deletions(-)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
-index c550e06..d530265 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
-@@ -25,13 +25,14 @@ do
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+index f0d8522..0109925 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+@@ -1,12 +1,13 @@
+ #!/bin/sh
+ 
++fslist="proc sys dev run"
+ rodir=run/initramfs/ro
+ rwdir=run/initramfs/rw
+ upper=$rwdir/cow
+ work=$rwdir/work
+ 
+ cd /
+-mkdir -p sys proc dev run
++mkdir -p $fslist
+ mount dev dev -tdevtmpfs
+ mount sys sys -tsysfs
+ mount proc proc -tproc
+@@ -39,13 +40,20 @@ fi
+ rofs=$(findmtd rofs)
+ rwfs=$(findmtd rwfs)
+ 
++rodev=/dev/mtdblock${rofs#mtd}
++rwdev=/dev/mtdblock${rwfs#mtd}
++
+ rofst=squashfs
+ rwfst=ext4
++roopts=ro
++rwopts=rw
++
++init=/sbin/init
+ 
+ echo rofs = $rofs $rofst   rwfs = $rwfs $rwfst
+ 
+ if grep -w debug-init-sh /proc/cmdline ||
+-	! mount -o rw /dev/mtdblock${rwfs#mtd} $rwdir -t $rwfst
++	! mount $rwdev $rwdir -t $rwfst -o $rwopts
+ then
+ 	echo Please mount the rw file system on $rwdir from this shell
+ 	while ! sulogin && ! test -f /takeover
+@@ -61,7 +69,7 @@ then
+ 	exec /bin/sh
+ fi
+ 
+-mount -o ro /dev/mtdblock${rofs#mtd} $rodir -t $rofst
++mount $rodev $rodir -t $rofst -o $roopts
+ 
+ rm -rf $work
+ mkdir -p $upper
+@@ -69,17 +77,17 @@ mkdir -p $work
+ 
+ mount -t overlay -o lowerdir=$rodir,upperdir=$upper,workdir=$work cow /root
+ 
+-if ! chroot /root /bin/sh -c "test -x /sbin/init -a -s /sbin/init"
++if ! chroot /root /bin/sh -c "test -x '$init' -a -s '$init'"
+ then
+ 	echo "Change Root test failed!  Invoking emergency shell."
+ 	PS1=rescue#\  sulogin
+ fi
+ 
+-for f in sys dev proc run
++for f in $fslist
+ do
+ 	mount --move $f root/$f
  done
- set +x
  
--if test -s /run/fw_env -a -c /run/mtd:u-boot-env -a ! -e /image-u-boot-env &&
-+image=/run/initramfs/image-
-+if test -s /run/fw_env -a -c /run/mtd:u-boot-env -a ! -e ${image}u-boot-env &&
- 	! cmp /run/mtd:u-boot-env /run/fw_env
- then
--	ln -sn /run/fw_env /image-u-boot-env
-+	ln -sn /run/fw_env ${image}u-boot-env
- fi
+-# switch_root /root /sbin/init
+-exec chroot /root /sbin/init
++# switch_root /root $init
++exec chroot /root $init
  
--if test -x /update && ls /image-* > /dev/null 2>&1
-+if test -x /update && ls $image* > /dev/null 2>&1
- then
- 	exec /update ${1+"$@"}
- fi
 diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index 1122e83..f83b1ad 100755
+index f83b1ad..ec4a769 100755
 --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
 +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -61,10 +61,10 @@ then
- 	umount rw
+@@ -35,30 +35,35 @@ findmtd() {
+ 	echo $m
+ }
+ 
+-rofs=$(findmtd rofs)
+ rwfs=$(findmtd rwfs)
+ 
+-rofst=squahsfs
++rwdev=/dev/mtdblock${rwfs#mtd}
+ rwfst=ext4
++rwopts=rw
++rorwopts=ro${rwopts#rw}
++
++rwdir=rw
++upper=$rwdir/cow
++save=save/${upper##*/}
+ 
+ if test -n "$rwfs" && test -s whitelist
+ then
+ 
+-	mkdir -p rw
+-	mount /dev/mtdblock${rwfs#mtd} rw -oro -t $rwfst
++	mkdir -p $rwdir
++	mount $rwdev $rwdir -t $rwfst -o $rorwopts
+ 
+ 	while read f
+ 	do
+-		if ! test -e rw/cow/$f
++		if ! test -e $upper/$f
+ 		then
+ 			continue
+ 		fi
+-		d="save/cow/$f"
++		d="$save/$f"
+ 		mkdir -p "${d%/*}"
+-		cp -rp rw/cow/$f "${d%/*}/"
++		cp -rp $upper/$f "${d%/*}/"
+ 	done < whitelist
+ 
+-	umount rw
++	umount $rwdir
  fi
  
--
--for f in image-*
-+image=/run/initramfs/image-
-+for f in $image*
- do
--	m=$(findmtd ${f#image-})
-+	m=$(findmtd ${f#$image})
+ image=/run/initramfs/image-
+@@ -67,7 +72,7 @@ do
+ 	m=$(findmtd ${f#$image})
  	if test -z "$m"
  	then
- 		echo 1>&2  "Unable to find mtd partiton for $f"
-@@ -72,10 +72,10 @@ do
+-		echo 1>&2  "Unable to find mtd partiton for $f"
++		echo 1>&2  "Unable to find mtd partiton for ${f##*/}."
+ 		exec /bin/sh
  	fi
  done
- 
--for f in image-*
-+for f in $image*
- do
--	m=$(findmtd ${f#image-})
--	echo "Updating ${f#image-}"
-+	m=$(findmtd ${f#$image})
-+	echo "Updating ${f#$image}..."
- 	# flasheraseall /dev/$m && dd if=$f of=/dev/$m
+@@ -80,12 +85,11 @@ do
  	flashcp -v $f /dev/$m
  done
+ 
+-
+-if test -d save/cow
++if test -d $save
+ then
+-	mount /dev/mtdblock${rwfs#mtd} rw -o rw -t $rwfst
+-	cp -rp save/cow/. rw/cow/
+-	umount rw
++	mount $rwdev rw -t $rwfst -o rw
++	cp -rp $save/. $upper/
++	umount $rwdir
+ fi
+ 
+ # Execute the command systemd told us to ...
 -- 
 2.6.4
