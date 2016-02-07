@@ -3,17 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 24B751A02C0
- for <openbmc@lists.ozlabs.org>; Sun,  7 Feb 2016 11:00:28 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id F0A051A02C0
+ for <openbmc@lists.ozlabs.org>; Sun,  7 Feb 2016 11:00:29 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1454803224722515.4515657549636;
- Sat, 6 Feb 2016 16:00:24 -0800 (PST)
+ with SMTPS id 1454803225546645.9372555939854;
+ Sat, 6 Feb 2016 16:00:25 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 3/7] obmc-initfs: use varables for paths and mount
- arguments
-Date: Sat,  6 Feb 2016 18:00:17 -0600
-Message-Id: <1454803221-12014-4-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 4/7] obmc-initfs: factor debug and takeover
+Date: Sat,  6 Feb 2016 18:00:18 -0600
+Message-Id: <1454803221-12014-5-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 In-Reply-To: <1454803221-12014-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1454803221-12014-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,171 +28,86 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 07 Feb 2016 00:00:29 -0000
+X-List-Received-Date: Sun, 07 Feb 2016 00:00:30 -0000
 
 From: Milton Miller <miltonm@us.ibm.com>
 
-Create variables for all mount parameters and paths related to
-the read-only and read-write mounts, including fs type, full
-device name, and options.  Reorder mount arguments to always
-place options last.
-
-Also add variables for update save directory and real init.
-
-This allows easy testing of a file systems by changing a few
-parameters including making the rofs an image in ram.
+Factor out sulogin and init takeover with a message.  This is mostly
+a refactor and message update with no significant logic flow.  It
+makes the repair opertunity logic consistent.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../obmc-phosphor-initfs/files/obmc-init.sh        | 22 ++++++++++-----
- .../obmc-phosphor-initfs/files/obmc-update.sh      | 32 ++++++++++++----------
- 2 files changed, 33 insertions(+), 21 deletions(-)
+ .../obmc-phosphor-initfs/files/obmc-init.sh        | 46 ++++++++++++++++------
+ 1 file changed, 35 insertions(+), 11 deletions(-)
 
 diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-index f0d8522..0109925 100644
+index 0109925..daa4f5c 100644
 --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
 +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-@@ -1,12 +1,13 @@
- #!/bin/sh
- 
-+fslist="proc sys dev run"
- rodir=run/initramfs/ro
- rwdir=run/initramfs/rw
- upper=$rwdir/cow
- work=$rwdir/work
- 
- cd /
--mkdir -p sys proc dev run
-+mkdir -p $fslist
- mount dev dev -tdevtmpfs
- mount sys sys -tsysfs
- mount proc proc -tproc
-@@ -39,13 +40,20 @@ fi
- rofs=$(findmtd rofs)
- rwfs=$(findmtd rwfs)
- 
-+rodev=/dev/mtdblock${rofs#mtd}
-+rwdev=/dev/mtdblock${rwfs#mtd}
-+
- rofst=squashfs
- rwfst=ext4
-+roopts=ro
-+rwopts=rw
-+
-+init=/sbin/init
- 
- echo rofs = $rofs $rofst   rwfs = $rwfs $rwfst
- 
- if grep -w debug-init-sh /proc/cmdline ||
--	! mount -o rw /dev/mtdblock${rwfs#mtd} $rwdir -t $rwfst
-+	! mount $rwdev $rwdir -t $rwfst -o $rwopts
- then
- 	echo Please mount the rw file system on $rwdir from this shell
- 	while ! sulogin && ! test -f /takeover
-@@ -61,7 +69,7 @@ then
- 	exec /bin/sh
- fi
- 
--mount -o ro /dev/mtdblock${rofs#mtd} $rodir -t $rofst
-+mount $rodev $rodir -t $rofst -o $roopts
- 
- rm -rf $work
- mkdir -p $upper
-@@ -69,17 +77,17 @@ mkdir -p $work
- 
- mount -t overlay -o lowerdir=$rodir,upperdir=$upper,workdir=$work cow /root
- 
--if ! chroot /root /bin/sh -c "test -x /sbin/init -a -s /sbin/init"
-+if ! chroot /root /bin/sh -c "test -x '$init' -a -s '$init'"
- then
- 	echo "Change Root test failed!  Invoking emergency shell."
- 	PS1=rescue#\  sulogin
- fi
- 
--for f in sys dev proc run
-+for f in $fslist
- do
- 	mount --move $f root/$f
- done
- 
--# switch_root /root /sbin/init
--exec chroot /root /sbin/init
-+# switch_root /root $init
-+exec chroot /root $init
- 
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index f83b1ad..ec4a769 100755
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -35,30 +35,35 @@ findmtd() {
+@@ -30,6 +30,32 @@ findmtd() {
  	echo $m
  }
  
--rofs=$(findmtd rofs)
- rwfs=$(findmtd rwfs)
- 
--rofst=squahsfs
-+rwdev=/dev/mtdblock${rwfs#mtd}
- rwfst=ext4
-+rwopts=rw
-+rorwopts=ro${rwopts#rw}
++debug_takeover() {
++	echo "$@"
++	test -n "$@" && echo Enter password to try to manually fix.
++	cat << HERE
++After fixing run exit to continue this script, or reboot -f to retry, or
++touch /takeover and exit to become PID 1 allowing editing of this script.
++HERE
 +
-+rwdir=rw
-+upper=$rwdir/cow
-+save=save/${upper##*/}
- 
- if test -n "$rwfs" && test -s whitelist
++	while ! sulogin && ! test -f /takeover
++	do
++		echo getty failed, retrying
++	done
++
++	# Touch /takeover in the above getty to become pid 1
++	if test -e /takeover
++	then
++		cat << HERE
++Takeover of init requested.  Executing /bin/sh as PID 1.
++When finished exec new init or cleanup and run reboot -f.
++Warning: No job control!  Shell exit will panic the system!
++HERE
++		export PS1=init#\ 
++		exec /bin/sh
++	fi
++}
++
+ env=$(findmtd u-boot-env)
+ if test -n $env
  then
+@@ -52,21 +78,19 @@ init=/sbin/init
  
--	mkdir -p rw
--	mount /dev/mtdblock${rwfs#mtd} rw -oro -t $rwfst
-+	mkdir -p $rwdir
-+	mount $rwdev $rwdir -t $rwfst -o $rorwopts
+ echo rofs = $rofs $rofst   rwfs = $rwfs $rwfst
  
- 	while read f
- 	do
--		if ! test -e rw/cow/$f
-+		if ! test -e $upper/$f
- 		then
- 			continue
- 		fi
--		d="save/cow/$f"
-+		d="$save/$f"
- 		mkdir -p "${d%/*}"
--		cp -rp rw/cow/$f "${d%/*}/"
-+		cp -rp $upper/$f "${d%/*}/"
- 	done < whitelist
- 
--	umount rw
-+	umount $rwdir
+-if grep -w debug-init-sh /proc/cmdline ||
+-	! mount $rwdev $rwdir -t $rwfst -o $rwopts
++if grep -w debug-init-sh /proc/cmdline
+ then
+-	echo Please mount the rw file system on $rwdir from this shell
+-	while ! sulogin && ! test -f /takeover
+-	do
+-		echo getty failed, retrying
+-	done
++	debug_takeover "Debug initial shell requested by command line."
  fi
  
- image=/run/initramfs/image-
-@@ -67,7 +72,7 @@ do
- 	m=$(findmtd ${f#$image})
- 	if test -z "$m"
- 	then
--		echo 1>&2  "Unable to find mtd partiton for $f"
-+		echo 1>&2  "Unable to find mtd partiton for ${f##*/}."
- 		exec /bin/sh
- 	fi
- done
-@@ -80,12 +85,11 @@ do
- 	flashcp -v $f /dev/$m
- done
- 
--
--if test -d save/cow
-+if test -d $save
+-# Touch /takeover in the above getty to become pid 1
+-if test -e /takeover
++if ! mount $rwdev $rwdir -t $rwfst -o $rwopts
  then
--	mount /dev/mtdblock${rwfs#mtd} rw -o rw -t $rwfst
--	cp -rp save/cow/. rw/cow/
--	umount rw
-+	mount $rwdev rw -t $rwfst -o rw
-+	cp -rp $save/. $upper/
-+	umount $rwdir
+-	export PS1=init#\ 
+-	exec /bin/sh
++	msg="$(cat)" << HERE
++Mounting read-write $rwdev filesystem failed.  Please fix and run
++	mount $rwdev $rwdir -t $rwfs -o $rwopts
++to to continue, or do change nothing to run from RAM for this boot.
++HERE
++	debug_takeover "$msg"
  fi
  
- # Execute the command systemd told us to ...
+ mount $rodev $rodir -t $rofst -o $roopts
 -- 
 2.6.4
