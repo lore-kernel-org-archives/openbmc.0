@@ -1,26 +1,23 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-X-Greylist: delayed 442 seconds by postgrey-1.35 at bilbo;
- Tue, 09 Feb 2016 03:33:21 AEDT
+Return-Path: <brad@bwbmail.net>
 Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id AA1F61A02C1
- for <openbmc@lists.ozlabs.org>; Tue,  9 Feb 2016 03:33:20 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 479B21A0018
+ for <openbmc@lists.ozlabs.org>; Tue,  9 Feb 2016 03:37:38 +1100 (AEDT)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Sender: bradleyb@bajor.fuzziesquirrel.com
 Content-Type: text/plain; charset=us-ascii
 Mime-Version: 1.0 (Mac OS X Mail 9.2 \(3112\))
-Subject: Re: [PATCH openbmc 2/7] obmc-initfs: look for images in
- /run/initramfs/image-
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <1454803221-12014-3-git-send-email-openbmc-patches@stwcx.xyz>
-Date: Mon, 8 Feb 2016 11:25:54 -0500
+Subject: Re: [PATCH openbmc 3/7] obmc-initfs: use varables for paths and mount
+ arguments
+From: Brad Bishop <brad@bwbmail.net>
+In-Reply-To: <1454803221-12014-4-git-send-email-openbmc-patches@stwcx.xyz>
+Date: Mon, 8 Feb 2016 11:37:35 -0500
 Cc: openbmc@lists.ozlabs.org
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <5F7D89AD-A56B-4AC3-B20A-81038EA239AB@fuzziesquirrel.com>
+Message-Id: <86DB8BF7-3062-4E9E-B339-1BC9A5F21DA9@bwbmail.net>
 References: <1454803221-12014-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1454803221-12014-3-git-send-email-openbmc-patches@stwcx.xyz>
+ <1454803221-12014-4-git-send-email-openbmc-patches@stwcx.xyz>
 To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -33,7 +30,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 Feb 2016 16:33:22 -0000
+X-List-Received-Date: Mon, 08 Feb 2016 16:37:38 -0000
 
 Reviewed-by: Brad Bishop <brad@bwbmail.net>
 
@@ -42,94 +39,187 @@ Reviewed-by: Brad Bishop <brad@bwbmail.net>
 >=20
 > From: Milton Miller <miltonm@us.ibm.com>
 >=20
-> Teach update to look for /run/initramfs/image- not /image-*.
+> Create variables for all mount parameters and paths related to
+> the read-only and read-write mounts, including fs type, full
+> device name, and options.  Reorder mount arguments to always
+> place options last.
 >=20
-> When describing how to recover from a corrupted flash by grabbing
-> the images and running update from the init debug shell, it
-> became aparent that while at systemd shutdown /run/initramfs/
-> is mounted at /, it is not the case during init.  Use variable
-> image to hold this pathname.
+> Also add variables for update save directory and real init.
+>=20
+> This allows easy testing of a file systems by changing a few
+> parameters including making the rofs an image in ram.
 >=20
 > Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 > ---
-> .../obmc-phosphor-initfs/files/obmc-shutdown.sh              |  7 =
-++++---
-> .../obmc-phosphor-initfs/files/obmc-update.sh                | 12 =
-++++++------
-> 2 files changed, 10 insertions(+), 9 deletions(-)
+> .../obmc-phosphor-initfs/files/obmc-init.sh        | 22 =
+++++++++++-----
+> .../obmc-phosphor-initfs/files/obmc-update.sh      | 32 =
+++++++++++++----------
+> 2 files changed, 33 insertions(+), 21 deletions(-)
 >=20
 > diff --git =
-a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-sh=
-utdown.sh =
-b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-sh=
-utdown.sh
-> index c550e06..d530265 100644
+a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-in=
+it.sh =
+b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-in=
+it.sh
+> index f0d8522..0109925 100644
 > --- =
-a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-sh=
-utdown.sh
+a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-in=
+it.sh
 > +++ =
-b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-sh=
-utdown.sh
-> @@ -25,13 +25,14 @@ do
+b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-in=
+it.sh
+> @@ -1,12 +1,13 @@
+> #!/bin/sh
+>=20
+> +fslist=3D"proc sys dev run"
+> rodir=3Drun/initramfs/ro
+> rwdir=3Drun/initramfs/rw
+> upper=3D$rwdir/cow
+> work=3D$rwdir/work
+>=20
+> cd /
+> -mkdir -p sys proc dev run
+> +mkdir -p $fslist
+> mount dev dev -tdevtmpfs
+> mount sys sys -tsysfs
+> mount proc proc -tproc
+> @@ -39,13 +40,20 @@ fi
+> rofs=3D$(findmtd rofs)
+> rwfs=3D$(findmtd rwfs)
+>=20
+> +rodev=3D/dev/mtdblock${rofs#mtd}
+> +rwdev=3D/dev/mtdblock${rwfs#mtd}
+> +
+> rofst=3Dsquashfs
+> rwfst=3Dext4
+> +roopts=3Dro
+> +rwopts=3Drw
+> +
+> +init=3D/sbin/init
+>=20
+> echo rofs =3D $rofs $rofst   rwfs =3D $rwfs $rwfst
+>=20
+> if grep -w debug-init-sh /proc/cmdline ||
+> -	! mount -o rw /dev/mtdblock${rwfs#mtd} $rwdir -t $rwfst
+> +	! mount $rwdev $rwdir -t $rwfst -o $rwopts
+> then
+> 	echo Please mount the rw file system on $rwdir from this shell
+> 	while ! sulogin && ! test -f /takeover
+> @@ -61,7 +69,7 @@ then
+> 	exec /bin/sh
+> fi
+>=20
+> -mount -o ro /dev/mtdblock${rofs#mtd} $rodir -t $rofst
+> +mount $rodev $rodir -t $rofst -o $roopts
+>=20
+> rm -rf $work
+> mkdir -p $upper
+> @@ -69,17 +77,17 @@ mkdir -p $work
+>=20
+> mount -t overlay -o lowerdir=3D$rodir,upperdir=3D$upper,workdir=3D$work =
+cow /root
+>=20
+> -if ! chroot /root /bin/sh -c "test -x /sbin/init -a -s /sbin/init"
+> +if ! chroot /root /bin/sh -c "test -x '$init' -a -s '$init'"
+> then
+> 	echo "Change Root test failed!  Invoking emergency shell."
+> 	PS1=3Drescue#\  sulogin
+> fi
+>=20
+> -for f in sys dev proc run
+> +for f in $fslist
+> do
+> 	mount --move $f root/$f
 > done
-> set +x
 >=20
-> -if test -s /run/fw_env -a -c /run/mtd:u-boot-env -a ! -e =
-/image-u-boot-env &&
-> +image=3D/run/initramfs/image-
-> +if test -s /run/fw_env -a -c /run/mtd:u-boot-env -a ! -e =
-${image}u-boot-env &&
-> 	! cmp /run/mtd:u-boot-env /run/fw_env
-> then
-> -	ln -sn /run/fw_env /image-u-boot-env
-> +	ln -sn /run/fw_env ${image}u-boot-env
-> fi
+> -# switch_root /root /sbin/init
+> -exec chroot /root /sbin/init
+> +# switch_root /root $init
+> +exec chroot /root $init
 >=20
-> -if test -x /update && ls /image-* > /dev/null 2>&1
-> +if test -x /update && ls $image* > /dev/null 2>&1
-> then
-> 	exec /update ${1+"$@"}
-> fi
 > diff --git =
 a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-up=
 date.sh =
 b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-up=
 date.sh
-> index 1122e83..f83b1ad 100755
+> index f83b1ad..ec4a769 100755
 > --- =
 a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-up=
 date.sh
 > +++ =
 b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-up=
 date.sh
-> @@ -61,10 +61,10 @@ then
-> 	umount rw
+> @@ -35,30 +35,35 @@ findmtd() {
+> 	echo $m
+> }
+>=20
+> -rofs=3D$(findmtd rofs)
+> rwfs=3D$(findmtd rwfs)
+>=20
+> -rofst=3Dsquahsfs
+> +rwdev=3D/dev/mtdblock${rwfs#mtd}
+> rwfst=3Dext4
+> +rwopts=3Drw
+> +rorwopts=3Dro${rwopts#rw}
+> +
+> +rwdir=3Drw
+> +upper=3D$rwdir/cow
+> +save=3Dsave/${upper##*/}
+>=20
+> if test -n "$rwfs" && test -s whitelist
+> then
+>=20
+> -	mkdir -p rw
+> -	mount /dev/mtdblock${rwfs#mtd} rw -oro -t $rwfst
+> +	mkdir -p $rwdir
+> +	mount $rwdev $rwdir -t $rwfst -o $rorwopts
+>=20
+> 	while read f
+> 	do
+> -		if ! test -e rw/cow/$f
+> +		if ! test -e $upper/$f
+> 		then
+> 			continue
+> 		fi
+> -		d=3D"save/cow/$f"
+> +		d=3D"$save/$f"
+> 		mkdir -p "${d%/*}"
+> -		cp -rp rw/cow/$f "${d%/*}/"
+> +		cp -rp $upper/$f "${d%/*}/"
+> 	done < whitelist
+>=20
+> -	umount rw
+> +	umount $rwdir
 > fi
 >=20
-> -
-> -for f in image-*
-> +image=3D/run/initramfs/image-
-> +for f in $image*
-> do
-> -	m=3D$(findmtd ${f#image-})
-> +	m=3D$(findmtd ${f#$image})
+> image=3D/run/initramfs/image-
+> @@ -67,7 +72,7 @@ do
+> 	m=3D$(findmtd ${f#$image})
 > 	if test -z "$m"
 > 	then
-> 		echo 1>&2  "Unable to find mtd partiton for $f"
-> @@ -72,10 +72,10 @@ do
+> -		echo 1>&2  "Unable to find mtd partiton for $f"
+> +		echo 1>&2  "Unable to find mtd partiton for ${f##*/}."
+> 		exec /bin/sh
 > 	fi
 > done
->=20
-> -for f in image-*
-> +for f in $image*
-> do
-> -	m=3D$(findmtd ${f#image-})
-> -	echo "Updating ${f#image-}"
-> +	m=3D$(findmtd ${f#$image})
-> +	echo "Updating ${f#$image}..."
-> 	# flasheraseall /dev/$m && dd if=3D$f of=3D/dev/$m
+> @@ -80,12 +85,11 @@ do
 > 	flashcp -v $f /dev/$m
 > done
+>=20
+> -
+> -if test -d save/cow
+> +if test -d $save
+> then
+> -	mount /dev/mtdblock${rwfs#mtd} rw -o rw -t $rwfst
+> -	cp -rp save/cow/. rw/cow/
+> -	umount rw
+> +	mount $rwdev rw -t $rwfst -o rw
+> +	cp -rp $save/. $upper/
+> +	umount $rwdir
+> fi
+>=20
+> # Execute the command systemd told us to ...
 > --=20
 > 2.6.4
 >=20
