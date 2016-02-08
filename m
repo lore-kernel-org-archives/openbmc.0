@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 330511A001D
- for <openbmc@lists.ozlabs.org>; Tue,  9 Feb 2016 09:00:31 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3DDC01A001D
+ for <openbmc@lists.ozlabs.org>; Tue,  9 Feb 2016 10:40:31 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1454968826018345.6675651196464;
- Mon, 8 Feb 2016 14:00:26 -0800 (PST)
+ with SMTPS id 1454974828237351.0994076364685;
+ Mon, 8 Feb 2016 15:40:28 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc] linux: turn on vuart driver
-Date: Mon,  8 Feb 2016 16:00:24 -0600
-Message-Id: <1454968825-7310-1-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid] Get MAC address
+Date: Mon,  8 Feb 2016 17:40:26 -0600
+Message-Id: <1454974827-10588-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -26,24 +26,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 Feb 2016 22:00:33 -0000
+X-List-Received-Date: Mon, 08 Feb 2016 23:40:32 -0000
 
-Enable the vuart driver in the defconfig.
+Support for Get MAC address command.
+Address review comments from Set MAC command.
 
-Based on the update to aspeed_defconfig in the linux repository.
+https://github.com/openbmc/phosphor-host-ipmid/pull/63
 
-Won't actually be enabled until the base recipe has the driver
-merged again.
+Adriana Kobylak (1):
+  Get MAC address
 
-Signed-off-by: Milton Miller <miltonm@us.ibm.com>
-
-https://github.com/openbmc/openbmc/pull/167
-
-Milton D. Miller II (1):
-  linux: turn on vuart driver
-
- .../meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/defconfig | 3 +++
- 1 file changed, 3 insertions(+)
+ transporthandler.C | 100 ++++++++++++++++++++++++++++++-----------------------
+ transporthandler.h |   9 +++++
+ 2 files changed, 66 insertions(+), 43 deletions(-)
 
 -- 
 2.6.4
