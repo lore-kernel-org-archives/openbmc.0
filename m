@@ -3,16 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id F018F1A0396
- for <openbmc@lists.ozlabs.org>; Wed, 10 Feb 2016 05:00:43 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 578071A0396
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Feb 2016 05:00:47 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1455040839096830.3055166750576;
- Tue, 9 Feb 2016 10:00:39 -0800 (PST)
+ with SMTPS id 1455040840894359.82605937198207;
+ Tue, 9 Feb 2016 10:00:40 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 8/9] obmc-initfs: run update as a sub-script
-Date: Tue,  9 Feb 2016 12:00:21 -0600
-Message-Id: <1455040822-14038-9-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 9/9] obmc-initfs: shutdown when rofs is a loop mounted
+ image in /run
+Date: Tue,  9 Feb 2016 12:00:22 -0600
+Message-Id: <1455040822-14038-10-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 In-Reply-To: <1455040822-14038-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1455040822-14038-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,69 +29,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 09 Feb 2016 18:00:44 -0000
+X-List-Received-Date: Tue, 09 Feb 2016 18:00:48 -0000
 
 From: Milton Miller <miltonm@us.ibm.com>
 
-The update script has replicated logic to do the final reboot, kexec,
-halt, or poweroff command.  Instead of transferring control via exec
-just call it as a normal command, and return to shutdown for the
-final mounted fs debug print and command.
+If one sets rodir=/run/image-rofs roopts=ro,loop and transfers
+an image one can run from a base image in ram.  However, the
+shutdown will fail to unmount /run because it is busy and then
+fails to unmount /cow which causes oldroot to be still mounted.
+
+By moving the mount to the side everything cleans up (as long
+as there are no other mounts under run, and systemd-shutdown
+tried to do as much as possible).
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../obmc-phosphor-initfs/files/obmc-shutdown.sh           |  3 +--
- .../obmc-phosphor-initfs/files/obmc-update.sh             | 15 ++++-----------
- 2 files changed, 5 insertions(+), 13 deletions(-)
+ .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
-index d530265..7d1157a 100644
+index 7d1157a..3eff1ea 100644
 --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
 +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
-@@ -34,7 +34,7 @@ fi
- 
- if test -x /update && ls $image* > /dev/null 2>&1
- then
--	exec /update ${1+"$@"}
-+	/update ${1+"$@"}
+@@ -15,11 +15,16 @@ else
+ 	umount_proc=
  fi
  
- echo Remaining mounts:
-@@ -43,7 +43,6 @@ cat /proc/mounts
- test "umount_proc" && umount /proc && rmdir /proc
+-# remove an empty oldroot, that means we are not invoked from systemd-shutdown
++# Remove an empty oldroot, that means we are not invoked from systemd-shutdown
+ rmdir /oldroot 2>/dev/null
  
- 
--
- # Execute the command systemd told us to ...
- if test -d /oldroot  && test "$1"
- then
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index 32e83e6..face06d 100755
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -92,19 +92,12 @@ then
- 	umount $rwdir
- fi
- 
--# Execute the command systemd told us to ...
--if test -d /oldroot && test -x "/sbin/$1" && test -f "/sbin/$1"
--then
--	if test "$1" == kexec
--	then
--		/sbin/$1 -f -e
--	else
--		/sbin/$1 -f
--	fi
--fi
-+exit
- 
-+# NOT REACHED without edit
-+# NOT REACHED without edit
- 
--echo "Execute ${1-reboot} -f if all is ok"
-+echo "Flash completed.  Inspect, cleanup and reboot -f to continue."
- 
- export PS1=update-sh#\ 
- exec /bin/sh
++# Move /oldroot/run to /mnt in case it has the underlying rofs loop mounted.
++# Ordered before /oldroot the overlay is unmounted before the loop mount
++mkdir -p /mnt
++mount --move /oldroot/run /mnt
++
+ set -x
+-for f in $( awk '/oldroot/ { print $2 }' < /proc/mounts | sort -r )
++for f in $( awk '/oldroot|mnt/ { print $2 }' < /proc/mounts | sort -r )
+ do
+ 	umount $f
+ done
 -- 
 2.6.4
