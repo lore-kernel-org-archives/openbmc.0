@@ -1,37 +1,36 @@
 Return-Path: <andrew@aj.id.au>
-Received: from homiemail-a21.g.dreamhost.com (sub3.mail.dreamhost.com
+Received: from homiemail-a101.g.dreamhost.com (sub3.mail.dreamhost.com
  [69.163.253.7])
- by lists.ozlabs.org (Postfix) with ESMTP id A9EE21A02C4
- for <openbmc@lists.ozlabs.org>; Tue,  9 Feb 2016 11:46:41 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTP id 643E41A001D
+ for <openbmc@lists.ozlabs.org>; Tue,  9 Feb 2016 11:55:38 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=QnI95lpT; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=SyZJ10PZ; 
  dkim-atps=neutral
-Received: from homiemail-a21.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a21.g.dreamhost.com (Postfix) with ESMTP id A0EED300064;
- Mon,  8 Feb 2016 16:46:38 -0800 (PST)
+Received: from homiemail-a101.g.dreamhost.com (localhost [127.0.0.1])
+ by homiemail-a101.g.dreamhost.com (Postfix) with ESMTP id 3EC86117E06C;
+ Mon,  8 Feb 2016 16:55:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
  :subject:from:reply-to:to:date:in-reply-to:references
  :content-type:mime-version:content-transfer-encoding; s=aj.id.au
- ; bh=+/vfj7PRiT4Vpd1x1+bIuGUShP0=; b=QnI95lpTNqZqlEVeeXbTbwianBV
- vHxWEoV0CKkcZqeZxbLbNPja/GhI4k74pW4JQoavW+vchAIgiR093KJC3IhYvRIW
- dy1LpsMLm6qONTaYwrtiHEKCGfK0cBTIohz7t+H+sM0XtcIFiUxPXnvyOW/foKNG
- PvslKzWGrLJ1Fixs=
+ ; bh=kVB/B68qCdJoB2cPumCLU3lQq6s=; b=SyZJ10PZc4qhEkx+aXgqRrdA54e
+ 3I5mKVttHmvmc5kfiqSm3pc/uj1cs988LNC0OIZiRY+2HCzGZOCNGUy3Fi5zUxlv
+ Bqkm9hyFt6CgkiD/8kt38GSa1Is3mxQbcsXOXCUsqk6+excE3NIcSyvX0QElJv6P
+ ucpFrsbH4qjioBrU=
 Received: from keelia (unknown [203.0.153.9])
  (using TLSv1 with cipher AES128-SHA (128/128 bits))
  (No client certificate requested)
  (Authenticated sender: andrew@aj.id.au)
- by homiemail-a21.g.dreamhost.com (Postfix) with ESMTPSA id D9637300059;
- Mon,  8 Feb 2016 16:46:37 -0800 (PST)
-Message-ID: <1454978795.3153.7.camel@aj.id.au>
-Subject: Re: [PATCH openbmc 3/7] obmc-initfs: use varables for paths and
- mount arguments
+ by homiemail-a101.g.dreamhost.com (Postfix) with ESMTPSA id 6EF2E117E06A;
+ Mon,  8 Feb 2016 16:55:36 -0800 (PST)
+Message-ID: <1454979333.3153.15.camel@aj.id.au>
+Subject: Re: [PATCH openbmc 1/7] obmc-initfs: minor updates
 From: Andrew Jeffery <andrew@aj.id.au>
 Reply-To: andrew@aj.id.au
 To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-Date: Tue, 09 Feb 2016 11:16:35 +1030
-In-Reply-To: <1454803221-12014-4-git-send-email-openbmc-patches@stwcx.xyz>
+Date: Tue, 09 Feb 2016 11:25:33 +1030
+In-Reply-To: <1454803221-12014-2-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1454803221-12014-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1454803221-12014-4-git-send-email-openbmc-patches@stwcx.xyz>
+ <1454803221-12014-2-git-send-email-openbmc-patches@stwcx.xyz>
 Organization: IBM OzLabs
 Content-Type: text/plain; charset="UTF-8"
 X-Mailer: Evolution 3.16.5-1ubuntu3.1 
@@ -48,185 +47,99 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 09 Feb 2016 00:46:42 -0000
+X-List-Received-Date: Tue, 09 Feb 2016 00:55:38 -0000
 
 On Sat, 2016-02-06 at 18:00 -0600, OpenBMC Patches wrote:
 > From: Milton Miller <miltonm@us.ibm.com>
 > 
-> Create variables for all mount parameters and paths related to
-> the read-only and read-write mounts, including fs type, full
-> device name, and options.  Reorder mount arguments to always
-> place options last.
+> In shutdown, Like init and update, cd to / to be clear the
+> expected environment.  Although shorter names are not used, it
+> prevents problems with unmounting filesystems, even if this is
+> the normal state for a call of this script by systemd.  Also
+> make a few paths absolute and don't follow symlinks in ln.
 > 
-> Also add variables for update save directory and real init.
-> 
-> This allows easy testing of a file systems by changing a few
-> parameters including making the rofs an image in ram.
+> In init, check the new init is an executable file with non-zero
+> size in addition to the shell being executable with its shared
+> libraries.
+
+From a process point of view, these paragraphs appear to be separate
+concerns and so my preference (in the future) is they be separate
+patches. That way we avoid confusion around subtle interactions between
+the changes. If the changes need to happen together then that should be
+stated, along with an explanation as to why.
+
 > 
 > Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 > ---
->  .../obmc-phosphor-initfs/files/obmc-init.sh        | 22 ++++++++++--
-> ---
->  .../obmc-phosphor-initfs/files/obmc-update.sh      | 32 ++++++++++++
-> ----------
->  2 files changed, 33 insertions(+), 21 deletions(-)
+>  .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh       |
+> 4 ++--
+>  .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh   |
+> 7 ++++---
+>  2 files changed, 6 insertions(+), 5 deletions(-)
 > 
-> diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-> index f0d8522..0109925 100644
-> --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-> +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-> @@ -1,12 +1,13 @@
->  #!/bin/sh
->  
-> +fslist="proc sys dev run"
->  rodir=run/initramfs/ro
->  rwdir=run/initramfs/rw
->  upper=$rwdir/cow
->  work=$rwdir/work
->  
->  cd /
-> -mkdir -p sys proc dev run
-> +mkdir -p $fslist
->  mount dev dev -tdevtmpfs
->  mount sys sys -tsysfs
->  mount proc proc -tproc
-> @@ -39,13 +40,20 @@ fi
->  rofs=$(findmtd rofs)
->  rwfs=$(findmtd rwfs)
->  
-> +rodev=/dev/mtdblock${rofs#mtd}
-> +rwdev=/dev/mtdblock${rwfs#mtd}
-> +
->  rofst=squashfs
->  rwfst=ext4
-> +roopts=ro
-> +rwopts=rw
-> +
-> +init=/sbin/init
->  
->  echo rofs = $rofs $rofst   rwfs = $rwfs $rwfst
->  
->  if grep -w debug-init-sh /proc/cmdline ||
-> -	! mount -o rw /dev/mtdblock${rwfs#mtd} $rwdir -t $rwfst
-> +	! mount $rwdev $rwdir -t $rwfst -o $rwopts
->  then
->  	echo Please mount the rw file system on $rwdir from this
-> shell
->  	while ! sulogin && ! test -f /takeover
-> @@ -61,7 +69,7 @@ then
->  	exec /bin/sh
->  fi
->  
-> -mount -o ro /dev/mtdblock${rofs#mtd} $rodir -t $rofst
-> +mount $rodev $rodir -t $rofst -o $roopts
->  
->  rm -rf $work
->  mkdir -p $upper
-> @@ -69,17 +77,17 @@ mkdir -p $work
+> diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor
+> -initfs/files/obmc-init.sh b/meta-phosphor/common/recipes
+> -phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+> index 0dc4c35..f0d8522 100644
+> --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor
+> -initfs/files/obmc-init.sh
+> +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor
+> -initfs/files/obmc-init.sh
+> @@ -69,9 +69,9 @@ mkdir -p $work
 >  
 >  mount -t overlay -o lowerdir=$rodir,upperdir=$upper,workdir=$work
 > cow /root
 >  
-> -if ! chroot /root /bin/sh -c "test -x /sbin/init -a -s /sbin/init"
-> +if ! chroot /root /bin/sh -c "test -x '$init' -a -s '$init'"
+> -if ! chroot /root /bin/sh -c exit
+> +if ! chroot /root /bin/sh -c "test -x /sbin/init -a -s /sbin/init"
 >  then
->  	echo "Change Root test failed!  Invoking emergency shell."
+> -	echo 'chroot test failed; invoking emergency shell.'
+> +	echo "Change Root test failed!  Invoking emergency shell."
+
+Maybe it would be nice to tell the user exactly what test failed? Given
+it's an emergency shell I think it would be nice to have as much info
+as possible about what went wrong. Maybe something like "Will not
+chroot to /root: /sbin/init is not functional in /root. Invoking
+emergency shell".
+
+Even here 'not functional' could be seen as vague, though that's around
+where my line in the sand exists. Thoughts?
+
 >  	PS1=rescue#\  sulogin
 >  fi
 >  
-> -for f in sys dev proc run
-> +for f in $fslist
->  do
->  	mount --move $f root/$f
->  done
->  
-> -# switch_root /root /sbin/init
-> -exec chroot /root /sbin/init
-> +# switch_root /root $init
-> +exec chroot /root $init
->  
 > diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor
-> -initfs/files/obmc-update.sh b/meta-phosphor/common/recipes
-> -phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-> index f83b1ad..ec4a769 100755
+> -initfs/files/obmc-shutdown.sh b/meta-phosphor/common/recipes
+> -phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
+> index cc076fd..c550e06 100644
 > --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor
-> -initfs/files/obmc-update.sh
+> -initfs/files/obmc-shutdown.sh
 > +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor
-> -initfs/files/obmc-update.sh
-> @@ -35,30 +35,35 @@ findmtd() {
->  	echo $m
->  }
+> -initfs/files/obmc-shutdown.sh
+> @@ -5,10 +5,11 @@ echo shutdown: "$@"
+>  export PS1=shutdown-sh#\ 
+>  # exec bin/sh
 >  
-> -rofs=$(findmtd rofs)
->  rwfs=$(findmtd rwfs)
->  
-> -rofst=squahsfs
-> +rwdev=/dev/mtdblock${rwfs#mtd}
->  rwfst=ext4
-> +rwopts=rw
-> +rorwopts=ro${rwopts#rw}
-> +
-> +rwdir=rw
-> +upper=$rwdir/cow
-> +save=save/${upper##*/}
->  
->  if test -n "$rwfs" && test -s whitelist
+> +cd /
+>  if [ ! -e /proc/mounts ]
 >  then
->  
-> -	mkdir -p rw
-> -	mount /dev/mtdblock${rwfs#mtd} rw -oro -t $rwfst
-> +	mkdir -p $rwdir
-> +	mount $rwdev $rwdir -t $rwfst -o $rorwopts
->  
->  	while read f
->  	do
-> -		if ! test -e rw/cow/$f
-> +		if ! test -e $upper/$f
->  		then
->  			continue
->  		fi
-> -		d="save/cow/$f"
-> +		d="$save/$f"
->  		mkdir -p "${d%/*}"
-> -		cp -rp rw/cow/$f "${d%/*}/"
-> +		cp -rp $upper/$f "${d%/*}/"
->  	done < whitelist
->  
-> -	umount rw
-> +	umount $rwdir
+>  	mkdir -p /proc
+> -	mount  proc proc -tproc
+> +	mount  proc /proc -tproc
+>  	umount_proc=1
+>  else
+>  	umount_proc=
+> @@ -27,10 +28,10 @@ set +x
+>  if test -s /run/fw_env -a -c /run/mtd:u-boot-env -a ! -e /image-u
+> -boot-env &&
+>  	! cmp /run/mtd:u-boot-env /run/fw_env
+>  then
+> -	ln -s /run/fw_env /image-u-boot-env
+> +	ln -sn /run/fw_env /image-u-boot-env
 >  fi
 >  
->  image=/run/initramfs/image-
-> @@ -67,7 +72,7 @@ do
->  	m=$(findmtd ${f#$image})
->  	if test -z "$m"
->  	then
-> -		echo 1>&2  "Unable to find mtd partiton for $f"
-> +		echo 1>&2  "Unable to find mtd partiton for
-> ${f##*/}."
->  		exec /bin/sh
->  	fi
->  done
-> @@ -80,12 +85,11 @@ do
->  	flashcp -v $f /dev/$m
->  done
->  
-> -
-> -if test -d save/cow
-> +if test -d $save
+> -if test -x /update && ls image-* > /dev/null 2>&1
+> +if test -x /update && ls /image-* > /dev/null 2>&1
 >  then
-> -	mount /dev/mtdblock${rwfs#mtd} rw -o rw -t $rwfst
-> -	cp -rp save/cow/. rw/cow/
-> -	umount rw
-> +	mount $rwdev rw -t $rwfst -o rw
-
-Shouldn't this be as below in line with the stated aim of the patch
-(use of variables for mount parameters)?
-
-	mount $rwdev $rwdir -t $rwfst -o $rwopts
-
-> +	cp -rp $save/. $upper/
-> +	umount $rwdir
+>  	exec /update ${1+"$@"}
 >  fi
->  
->  # Execute the command systemd told us to ...
