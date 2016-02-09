@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 91B0E1A0392
+ by lists.ozlabs.org (Postfix) with ESMTPS id F018F1A0396
  for <openbmc@lists.ozlabs.org>; Wed, 10 Feb 2016 05:00:43 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 145504083750041.06371178140648;
- Tue, 9 Feb 2016 10:00:37 -0800 (PST)
+ with SMTPS id 1455040839096830.3055166750576;
+ Tue, 9 Feb 2016 10:00:39 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 7/9] obmc-initfs: run fsck on read/write file system
-Date: Tue,  9 Feb 2016 12:00:20 -0600
-Message-Id: <1455040822-14038-8-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 8/9] obmc-initfs: run update as a sub-script
+Date: Tue,  9 Feb 2016 12:00:21 -0600
+Message-Id: <1455040822-14038-9-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.6.4
 In-Reply-To: <1455040822-14038-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1455040822-14038-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -32,70 +32,65 @@ X-List-Received-Date: Tue, 09 Feb 2016 18:00:44 -0000
 
 From: Milton Miller <miltonm@us.ibm.com>
 
-Good practice is to run fsck to repair minor damage and make a
-filesystem consistent before mounting it.  We don't have space
-in the initramfs to add fsck, but we can mount the read-only
-reference partition first and run fsck from there.
+The update script has replicated logic to do the final reboot, kexec,
+halt, or poweroff command.  Instead of transferring control via exec
+just call it as a normal command, and return to shutdown for the
+final mounted fs debug print and command.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../obmc-phosphor-initfs/files/obmc-init.sh        | 29 +++++++++++++++++++---
- 1 file changed, 25 insertions(+), 4 deletions(-)
+ .../obmc-phosphor-initfs/files/obmc-shutdown.sh           |  3 +--
+ .../obmc-phosphor-initfs/files/obmc-update.sh             | 15 ++++-----------
+ 2 files changed, 5 insertions(+), 13 deletions(-)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-index 4c2a98a..6750de3 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-@@ -77,6 +77,8 @@ roopts=ro
- rwopts=rw
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
+index d530265..7d1157a 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
+@@ -34,7 +34,7 @@ fi
  
- init=/sbin/init
-+fsck=/sbin/fsck.$rwfst
-+fsckopts=-a
- 
- echo rofs = $rofs $rofst   rwfs = $rwfs $rwfst
- 
-@@ -85,6 +87,28 @@ then
- 	debug_takeover "Debug initial shell requested by command line."
- fi
- 
-+mount $rodev $rodir -t $rofst -o $roopts
-+
-+if test -x $rodir$fsck
-+then
-+	for fs in $fslist
-+	do
-+		mount --bind $fs $rodir/$fs
-+	done
-+	chroot $rodir $fsck $fsckopts $rwdev
-+	rc=$?
-+	for fs in $fslist
-+	do
-+		umount $rodir/$fs
-+	done
-+	if test $rc -gt 1
-+	then
-+		debug_takeover "fsck of read-write fs on $rwdev failed (rc=$rc)"
-+	fi
-+else
-+	echo "No '$fsck' in read only fs, skipping fsck."
-+fi
-+
- if ! mount $rwdev $rwdir -t $rwfst -o $rwopts
+ if test -x /update && ls $image* > /dev/null 2>&1
  then
- 	msg="$(cat)" << HERE
-@@ -96,11 +120,8 @@ HERE
- 	debug_takeover "$msg"
+-	exec /update ${1+"$@"}
++	/update ${1+"$@"}
  fi
  
--mount $rodev $rodir -t $rofst -o $roopts
+ echo Remaining mounts:
+@@ -43,7 +43,6 @@ cat /proc/mounts
+ test "umount_proc" && umount /proc && rmdir /proc
+ 
+ 
 -
- rm -rf $work
--mkdir -p $upper
--mkdir -p $work
-+mkdir -p $upper $work
+ # Execute the command systemd told us to ...
+ if test -d /oldroot  && test "$1"
+ then
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
+index 32e83e6..face06d 100755
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
+@@ -92,19 +92,12 @@ then
+ 	umount $rwdir
+ fi
  
- mount -t overlay -o lowerdir=$rodir,upperdir=$upper,workdir=$work cow /root
+-# Execute the command systemd told us to ...
+-if test -d /oldroot && test -x "/sbin/$1" && test -f "/sbin/$1"
+-then
+-	if test "$1" == kexec
+-	then
+-		/sbin/$1 -f -e
+-	else
+-		/sbin/$1 -f
+-	fi
+-fi
++exit
  
++# NOT REACHED without edit
++# NOT REACHED without edit
+ 
+-echo "Execute ${1-reboot} -f if all is ok"
++echo "Flash completed.  Inspect, cleanup and reboot -f to continue."
+ 
+ export PS1=update-sh#\ 
+ exec /bin/sh
 -- 
 2.6.4
