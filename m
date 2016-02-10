@@ -1,53 +1,62 @@
-Return-Path: <dja@axtens.net>
-Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
- [IPv6:2607:f8b0:400e:c00::241])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-ob0-x233.google.com (mail-ob0-x233.google.com
+ [IPv6:2607:f8b0:4003:c01::233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 985041A039F
- for <openbmc@lists.ozlabs.org>; Wed, 10 Feb 2016 14:58:17 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=axtens.net header.i=@axtens.net header.b=CZ06Z3AT; 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 63EED1A006D
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Feb 2016 16:40:23 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=BBarWpyA; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=YPr3sxX4; 
  dkim-atps=neutral
-Received: by mail-pf0-x241.google.com with SMTP id c10so369491pfc.0
- for <openbmc@lists.ozlabs.org>; Tue, 09 Feb 2016 19:58:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axtens.net; s=google;
- h=from:to:subject:in-reply-to:references:user-agent:date:message-id
- :mime-version:content-type;
- bh=GUDQjwvJpQclnHte2xXar++S3P19N4VQqseQ7jKxs5U=;
- b=CZ06Z3ATUsfncNkGoaqSZU59td3IkFn/B0SEZn2UCmw5iXUFxDOI+7rysgccWDkUob
- nJv8n++ckdaAE8nmGLFg76j9a8HstXB/h1I9shvOLg3jina/OnUdFEAS9fcCIcnr4pW8
- oLEYqMoOuazthP1MB5h+NtyG20UMGjSsuLETw=
+Received: by mail-ob0-x233.google.com with SMTP id is5so13492417obc.0
+ for <openbmc@lists.ozlabs.org>; Tue, 09 Feb 2016 21:40:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-type;
+ bh=dMHJ7b1ReIScRj5t6iVk8xCXQPsH0oSq22GCguGDDb8=;
+ b=BBarWpyApb/gbJwT94lzDhvY+c+U+m90Qr/JeaKI7RqZ+GQsFOhyUJDmwZtNeW6Lhf
+ N0n1ucewgroJbpMTKTHbj+BskFXS93tfzNy0tLE2dhhK5MGt7bPJtSD9flgQHs++7FkI
+ C5FJFceGu7+A9bssJNJip/t15knLFiq5iv2kwOmZpiKXkWo2Z6usidObmlauvoo7wZBD
+ jifsbfnWZYYT9Dc8be0aYifCAw9nfHFQ+HxOR5Y9QimWI3woGp+GmWe6FPJ5vtcllIcG
+ A7tTVwYGnVXPLhkVF0+5nLEHHbKiz5bYnbRjqHTin1K5BSuGfw4E6wUxJ4Rq2sijmC75
+ KIig==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-type;
+ bh=dMHJ7b1ReIScRj5t6iVk8xCXQPsH0oSq22GCguGDDb8=;
+ b=YPr3sxX44woswGCu12Uv4mWbFNo/1AOmzxIfSY9BP8EjXQapMifGSASA6/bDmIj0qK
+ cSAuqs2J0r7C0c7M811fqRrFb7G5aDMDWikFw89dVZDiqRLs1RerPmrUXcI4TnlmYQHb
+ TNXmWoWKOAOO+COa0QBpPqW4v9X8C+o4vZJwc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:subject:in-reply-to:references
- :user-agent:date:message-id:mime-version:content-type;
- bh=GUDQjwvJpQclnHte2xXar++S3P19N4VQqseQ7jKxs5U=;
- b=ELfNd0vZ47BvmdkTDPD5HLaRcdBiXDCffGQFExmrYs9633f0AnD06lA0PtHw0mf3mN
- 5pIHnS+Y0LCv1eCpMvNbPKRmfKw33UHFuCTITiOnzAKyJNPTnBNpFw0AGLHVvWRiLNI6
- eDNePwBg6pMkFe0x19bK32PHQEAM2cxTD9xrybzif8q6QRNOC5Qes9QkPRZF7OCcJEaJ
- 1ylb54SGYJUpDP8YUiBhPRK963Ba5r8mGwjOP6DRJNAgduNa3SB4Gm6J1PbO6y+7fl8Y
- 9Uq9P1MA+/5ODml6vhMyR50upWGjJ83O7e9EweevHlHT1rLc3MUMjvgaMRFvfbcapUZJ
- m1DA==
-X-Gm-Message-State: AG10YORhbTqhu2JHxE6SVAChTycMm8FNmnT3sdXRkD3+H68n00sUm7n+y94W3fi0zOL4aw==
-X-Received: by 10.98.66.81 with SMTP id p78mr55753723pfa.43.1455076694726;
- Tue, 09 Feb 2016 19:58:14 -0800 (PST)
-Received: from localhost ([122.99.82.10])
- by smtp.gmail.com with ESMTPSA id f21sm1098332pfd.6.2016.02.09.19.58.13
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 09 Feb 2016 19:58:14 -0800 (PST)
-From: Daniel Axtens <dja@axtens.net>
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH phosphor-networkd 1/2] org.openbmc.NetworkManager : Bug
- fixes, SetHwAddress & EnableDHCP
-In-Reply-To: <1455022832-4842-2-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1455022832-4842-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1455022832-4842-2-git-send-email-openbmc-patches@stwcx.xyz>
-User-Agent: Notmuch/0.21 (http://notmuchmail.org) Emacs/24.5.1
- (x86_64-pc-linux-gnu)
-Date: Wed, 10 Feb 2016 14:58:09 +1100
-Message-ID: <87ziv9jjxq.fsf@gamma.ozlabs.ibm.com>
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-type;
+ bh=dMHJ7b1ReIScRj5t6iVk8xCXQPsH0oSq22GCguGDDb8=;
+ b=KC+XGv77t9c7uU9h9dM9U932uSr49ak9RZlbL3MK8xprug1qVP+pYK3ikmVIcO+4Qy
+ Xu9v8d8MFUGayQbva2OS0kZ4cz8wstkyksjfV0lXGE3xjBhgkBoAEDWT8DDYgNaxQm98
+ FM3sr7K7xCIvXLl2OUP3Hcj4/8d/eZM/fouLKlXl6l3oGXk541IvX31X6yuCOFfkv8J5
+ FhqZo9rM9XiJ9xnONqj7YAtHyao1sIXIZbguNnAdJ2CFdNs9irJLTW7jsvks6YLjNaA4
+ JS6ZUhA0EYjcfvelXlCgf+f6w/I9/CqqxyDCHhiupT4qC+XUcEITOO03kHMVkIpT3Unl
+ fGnw==
+X-Gm-Message-State: AG10YOR0lpQe1fvDLXckGh7G7t5d69541T62uyJv2kJzFVaf4Fd5Jy0thCF0sQ6JierPK5bWGhgru3SFHGaWTg==
+X-Received: by 10.60.125.7 with SMTP id mm7mr20488906oeb.18.1455082821079;
+ Tue, 09 Feb 2016 21:40:21 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain
+Sender: joel.stan@gmail.com
+Received: by 10.60.121.1 with HTTP; Tue, 9 Feb 2016 21:40:01 -0800 (PST)
+In-Reply-To: <1455027957-9524-1-git-send-email-jk@ozlabs.org>
+References: <1455027957-9524-1-git-send-email-jk@ozlabs.org>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 10 Feb 2016 16:10:01 +1030
+X-Google-Sender-Auth: r4T9xN0luuuUM0B8lHIIprkzOCs
+Message-ID: <CACPK8Xe4+YUnOc=+Qn75knMx+cFvpWx0V8QCeDiXO45Nxg_s1A@mail.gmail.com>
+Subject: Re: [PATCH] serial/aspeed-vuart: Disable host TX discard mode during
+ init
+To: Jeremy Kerr <jk@ozlabs.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -59,182 +68,70 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Feb 2016 03:58:19 -0000
+X-List-Received-Date: Wed, 10 Feb 2016 05:40:25 -0000
 
-OpenBMC Patches <openbmc-patches@stwcx.xyz> writes:
-
-Hi,
-
-Thanks for your patch.
-
-Could you please split it into different parts for the different things
-you do?
-
-I can see whitespace fixes and several different changes - it's really
-difficult to review it if all these things are mixed together.
-
-Thanks in advance!
-
-Regards,
-Daniel
-
-> From: Hariharasubramanian R <hramasub@in.ibm.com>
+On Wed, Feb 10, 2016 at 12:55 AM, Jeremy Kerr <jk@ozlabs.org> wrote:
+> If host TX discard mode is enabled, we don't see the LSR[RBR} bit
+> getting set on new characters written on the host side. This makes the
+> VUART a little useless.
 >
+> This change set this bit during VUART initialisation, to disable host
+> TX discard.
+
+Thanks! I've pulled it in; I'll push it out once I've given it a spin.
+
+Do you have some notes on how you tested it?
+
+>
+> Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
+
+Reviewed-by: Joel Stanley <joel@jms.id.au>
 > ---
->  netman.py | 82 +++++++++++++++++++++++++++++++++++++++++----------------------
->  1 file changed, 54 insertions(+), 28 deletions(-)
+>  drivers/tty/serial/aspeed-vuart.c | 15 ++++++++++++++-
+>  1 file changed, 14 insertions(+), 1 deletion(-)
 >
-> diff --git a/netman.py b/netman.py
-> index 3978cef..7f9d14e 100755
-> --- a/netman.py
-> +++ b/netman.py
-> @@ -16,25 +16,27 @@ DBUS_NAME = 'org.openbmc.NetworkManager'
->  OBJ_NAME = '/org/openbmc/NetworkManager/Interface'
->  
->  network_providers = {
-> -    'networkd' : { 
-> -        'bus_name' : 'org.freedesktop.network1',
-> -        'ip_object_name' : '/org/freedesktop/network1/network/default',
-> -        'hw_object_name' : '/org/freedesktop/network1/link/_31',
-> -        'interface_name' : 'org.freedesktop.network1.Network',
-> -        'method' : 'org.freedesktop.network1.Network.SetAddr'
-> -    },
-> -    'NetworkManager' : {
-> -        'bus_name' : 'org.freedesktop.NetworkManager',
-> -        'ip_object_name' : '/org/freedesktop/NetworkManager',
-> -        'hw_object_name' : '/org/freedesktop/NetworkManager',
-> -        'interface_name' : 'org.freedesktop.NetworkManager',
-> -        'method' : 'org.freedesktop.NetworkManager' # FIXME: 
-> -    },  
-> +	'networkd' : { 
-> +		'bus_name' : 'org.freedesktop.network1',
-> +		'ip_object_name' : '/org/freedesktop/network1/network/default',
-> +		'hw_object_name' : '/org/freedesktop/network1/link/_31',
-> +		'ip_if_name' : 'org.freedesktop.network1.Network',
-> +		'hw_if_name' : 'org.freedesktop.network1.Link',
-> +		'method' : 'org.freedesktop.network1.Network.SetAddr'
-> +	},
-> +	'NetworkManager' : {
-> +		'bus_name' : 'org.freedesktop.NetworkManager',
-> +		'ip_object_name' : '/org/freedesktop/NetworkManager',
-> +		'hw_object_name' : '/org/freedesktop/NetworkManager',
-> +		'ip_if_name' : 'org.freedesktop.NetworkManager',
-> +		'hw_if_name' : 'org.freedesktop.NetworkManager',
-> +		'method' : 'org.freedesktop.NetworkManager' # FIXME: 
-> +	},	
->  }
->  
->  def getPrefixLen(mask):
-> -    prefixLen = sum([bin(int(x)).count('1') for x in mask.split('.')])
-> -    return prefixLen
-> +	prefixLen = sum([bin(int(x)).count('1') for x in mask.split('.')])
-> +	return prefixLen
->  
->  class IfAddr ():
->      def __init__ (self, family, scope, flags, prefixlen, addr, gw):
-> @@ -58,7 +60,7 @@ class NetMan (dbus.service.Object):
->          netprov     = network_providers [self.provider]
->          bus_name    = netprov ['bus_name']
->          obj_path    = netprov ['ip_object_name']
-> -        intf_name   = netprov ['interface_name']
-> +        intf_name   = netprov ['ip_if_name']
->  
->          obj = self.bus.get_object(bus_name, obj_path)
->          intf = dbus.Interface(obj, intf_name)
-> @@ -73,14 +75,14 @@ class NetMan (dbus.service.Object):
->          bus_name    = netprov ['bus_name']
->  
->          if (target == "ip"):
-> -            intf_name   = 'org.freedesktop.network1.Network'
-> +            intf_name   = netprov ['ip_if_name'] #'org.freedesktop.network1.Network'
->              obj_path    = netprov ['ip_object_name']
->              obj = self.bus.get_object(bus_name, obj_path)
->              intf = dbus.Interface(obj, intf_name)
->              return intf.GetAddress (device)
->  
->          if (target == "mac"):
-> -            intf_name   = 'org.freedesktop.network1.Link'
-> +            intf_name   = netprov ['hw_if_name'] #'org.freedesktop.network1.Link'
->              obj_path    = netprov ['hw_object_name']
->              obj = self.bus.get_object(bus_name, obj_path)
->              intf = dbus.Interface(obj, intf_name)
-> @@ -88,16 +90,35 @@ class NetMan (dbus.service.Object):
->              print mac
->              return mac
->  
-> -
-> -
->      @dbus.service.method(DBUS_NAME, "", "")
->      def test(self):
->          print("TEST")
->  
-> +    @dbus.service.method(DBUS_NAME, "s", "x")
-> +    def EnableDHCP (self, device):
-> +        confFile = "/etc/systemd/network/10-bmc-" + device + "-" + "dhcp.network"
-> +        if os.path.exists(confFile):
-> +            return 0
-> +
-> +        print("Making .network file...")
-> +        networkconf = open (confFile, "w+") 
-> +        networkconf.write ('[Match]'+ '\n')
-> +        networkconf.write ('Name=' + (device) + '\n')
-> +        networkconf.write ('[Network]' + '\n')
-> +        networkconf.write ('DHCP=yes')
-> +        networkconf.close ()
-> +
-> +        print("Restarting networkd service...")
-> +        call(["systemctl", "restart", "systemd-networkd.service"])
-> +        return 0
-> +        #return self._setAddr ("add", device, ipaddr, netmask, 2, 0, 253, gateway)
-> +
->      @dbus.service.method(DBUS_NAME, "ssss", "x")
->      def AddAddress4 (self, device, ipaddr, netmask, gateway):
->          prefixLen = getPrefixLen (netmask)
-> -        confFile = "/etc/systemd/network/10-bmc-" + device + ".network"
-> +        confFile = "/etc/systemd/network/10-bmc-" + device + "-" + ipaddr + '_' + str(prefixLen) + ".network"
-> +        if os.path.exists(confFile):
-> +            return 0
->  
->          print("Making .network file...")
->          networkconf = open (confFile, "w+") 
-> @@ -116,7 +137,7 @@ class NetMan (dbus.service.Object):
->      @dbus.service.method(DBUS_NAME, "ssss", "x")
->      def DelAddress4 (self, device, ipaddr, netmask, gateway):
->          prefixLen = getPrefixLen (netmask)
-> -        confFile = "/etc/systemd/network/10-bmc-" + device + ".network"
-> +        confFile = "/etc/systemd/network/10-bmc-" + device + "-" + ipaddr + '_' + str(prefixLen) + ".network"
->          if not (os.path.exists(confFile)):
->              return 1
->  
-> @@ -132,10 +153,16 @@ class NetMan (dbus.service.Object):
->      def GetHwAddress (self, device):
->          return self._getAddr ("mac", device)
->  
-> -    @dbus.service.method(DBUS_NAME, "s", "i")
-> -    def SetHwAddress (self, mac):
-> -        rc = subprocess.call(["fw_setenv", "ethaddr", mac])
-> -        return rc
-> +    @dbus.service.method(DBUS_NAME, "ss", "s")
-> +    def SetHwAddress (self, device, mac):
-> +        netprov     = network_providers [self.provider]
-> +        bus_name    = netprov ['bus_name']
-> +        obj_path    = netprov ['hw_object_name']
-> +        intf_name   = netprov ['hw_if_name']
-> +
-> +        obj = self.bus.get_object(bus_name, obj_path)
-> +        intf = dbus.Interface(obj, intf_name)
-> +        return intf.SetAddress (device, mac)
->  
->  def main():
->      dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
-> @@ -149,4 +176,3 @@ def main():
->  
->  if __name__ == '__main__':
->      sys.exit(main())
-> -
-> -- 
-> 2.6.4
+> diff --git a/drivers/tty/serial/aspeed-vuart.c b/drivers/tty/serial/aspeed-vuart.c
+> index f1988dd..a56d3a9 100644
+> --- a/drivers/tty/serial/aspeed-vuart.c
+> +++ b/drivers/tty/serial/aspeed-vuart.c
+> @@ -20,7 +20,8 @@
+>  #include "8250/8250.h"
 >
+>  #define AST_VUART_GCRA         0x20
+> -#define AST_VUART_GCRA_VUART_EN                0x1
+> +#define AST_VUART_GCRA_VUART_EN                0x01
+> +#define AST_VUART_GCRA_HOST_TX_DISCARD 0x20
+>  #define AST_VUART_GCRB         0x24
+>  #define AST_VUART_GCRB_HOST_SIRQ_MASK  0xf0
+>  #define AST_VUART_GCRB_HOST_SIRQ_SHIFT 4
+> @@ -143,6 +144,17 @@ static ssize_t ast_vuart_set_sirq(struct device *dev,
+>  static DEVICE_ATTR(sirq, S_IWUSR | S_IRUGO,
+>                 ast_vuart_show_sirq, ast_vuart_set_sirq);
+>
+> +static void ast_vuart_setup(struct ast_vuart *vuart)
+> +{
+> +       u8 reg;
+> +
+> +       /* disable TX discard mode */
+> +       reg = readb(vuart->regs + AST_VUART_GCRA);
+> +       reg |= AST_VUART_GCRA_HOST_TX_DISCARD;
+> +       writeb(reg, vuart->regs + AST_VUART_GCRA);
+> +}
+> +
+> +
+>  /**
+>   * The device tree parsinc code here is heavily based on that of the of_serial
+>   * driver, but we have a few core differences, as we need to use our own
+> @@ -261,6 +273,7 @@ static int ast_vuart_probe(struct platform_device *pdev)
+>
+>         vuart->line = rc;
+>         platform_set_drvdata(pdev, vuart);
+> +       ast_vuart_setup(vuart);
+>
+>         /* extra sysfs control */
+>         rc = device_create_file(&pdev->dev, &dev_attr_lpc_address);
+> --
+> 2.5.0
 >
 > _______________________________________________
 > openbmc mailing list
