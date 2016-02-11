@@ -1,53 +1,55 @@
 Return-Path: <stewart@linux.vnet.ibm.com>
-Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
- (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
+Received: from e19.ny.us.ibm.com (e19.ny.us.ibm.com [129.33.205.209])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id A276C1A001D
- for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 14:57:05 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id B94A41A003D
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 16:36:44 +1100 (AEDT)
 Received: from localhost
- by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e19.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
- Wed, 10 Feb 2016 20:57:03 -0700
-Received: from d03dlp01.boulder.ibm.com (9.17.202.177)
- by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
+ Thu, 11 Feb 2016 00:36:42 -0500
+Received: from d01dlp01.pok.ibm.com (9.56.250.166)
+ by e19.ny.us.ibm.com (146.89.104.206) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
- Wed, 10 Feb 2016 20:57:01 -0700
-X-IBM-Helo: d03dlp01.boulder.ibm.com
+ Thu, 11 Feb 2016 00:36:39 -0500
+X-IBM-Helo: d01dlp01.pok.ibm.com
 X-IBM-MailFrom: stewart@linux.vnet.ibm.com
 X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from b03cxnp07028.gho.boulder.ibm.com
- (b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
- by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id CDD7B1FF0045
- for <openbmc@lists.ozlabs.org>; Wed, 10 Feb 2016 20:45:10 -0700 (MST)
-Received: from d03av03.boulder.ibm.com (d03av03.boulder.ibm.com [9.17.195.169])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u1B3v08P24379410
- for <openbmc@lists.ozlabs.org>; Wed, 10 Feb 2016 20:57:00 -0700
-Received: from d03av03.boulder.ibm.com (localhost [127.0.0.1])
- by d03av03.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u1B3v01p028149
- for <openbmc@lists.ozlabs.org>; Wed, 10 Feb 2016 20:57:00 -0700
+Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com
+ [9.57.198.26])
+ by d01dlp01.pok.ibm.com (Postfix) with ESMTP id DB5CE38C8026
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 00:36:38 -0500 (EST)
+Received: from d01av04.pok.ibm.com (d01av04.pok.ibm.com [9.56.224.64])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u1B5acjI34209794
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 05:36:38 GMT
+Received: from d01av04.pok.ibm.com (localhost [127.0.0.1])
+ by d01av04.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u1B5acak004427
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 00:36:38 -0500
 Received: from birb.localdomain ([9.83.0.6])
- by d03av03.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with SMTP id
- u1B3upLE027682; Wed, 10 Feb 2016 20:57:00 -0700
+ by d01av04.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with SMTP id
+ u1B5aQIL003881; Thu, 11 Feb 2016 00:36:37 -0500
 Received: by birb.localdomain (Postfix, from userid 1000)
- id 0A6142286E20; Thu, 11 Feb 2016 14:56:50 +1100 (AEDT)
+ id 777552286E20; Thu, 11 Feb 2016 16:36:18 +1100 (AEDT)
 From: Stewart Smith <stewart@linux.vnet.ibm.com>
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH phosphor-host-ipmid] IPMI Get IP Support
-In-Reply-To: <1455134445-29477-2-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1455134445-29477-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1455134445-29477-2-git-send-email-openbmc-patches@stwcx.xyz>
+To: andrew@aj.id.au, OpenBMC Patches <openbmc-patches@stwcx.xyz>,
+ openbmc@lists.ozlabs.org
+Subject: Re: [PATCH phosphor-host-ipmid v2] IPMI Get IP Support
+In-Reply-To: <1455152677.3153.81.camel@aj.id.au>
+References: <1455140430-32605-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1455140430-32605-2-git-send-email-openbmc-patches@stwcx.xyz>
+ <1455152677.3153.81.camel@aj.id.au>
 User-Agent: Notmuch/0.21+24~gbceb651 (http://notmuchmail.org) Emacs/24.5.1
  (x86_64-redhat-linux-gnu)
-Date: Thu, 11 Feb 2016 14:56:49 +1100
-Message-ID: <87wpqbq4qm.fsf@linux.vnet.ibm.com>
+Date: Thu, 11 Feb 2016 16:36:18 +1100
+Message-ID: <87io1vq04t.fsf@linux.vnet.ibm.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-TM-AS-MML: disable
 X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16021103-0005-0000-0000-00001C479625
+x-cbid: 16021105-0057-0000-0000-00000364AFD0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -59,15 +61,14 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Feb 2016 03:57:06 -0000
+X-List-Received-Date: Thu, 11 Feb 2016 05:36:45 -0000
 
-OpenBMC Patches <openbmc-patches@stwcx.xyz> writes:
-> +        while (digit != NULL)
-> +        {
-> +            int resp_byte = strtoul(digit, NULL, 10);
-> +            memcpy((void*)&buf[i+1], &resp_byte, 1);
+Andrew Jeffery <andrew@aj.id.au> writes:
+> I realise this has already been merged, but I feel like I should point
+> out some issues below for future improvements.
 
-memcpy here? Really?
+Perhaps unreviewed code shouldn't be merged. Especially considering that
+there's been so many comments on so many patches in this project.
 
 -- 
 Stewart Smith
