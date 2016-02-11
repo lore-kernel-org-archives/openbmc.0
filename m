@@ -2,17 +2,19 @@ Return-Path: <jk@ozlabs.org>
 Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 2AA371A003C
- for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 19:26:24 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 8B15B1A0038
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 19:29:33 +1100 (AEDT)
 Received: by ozlabs.org (Postfix, from userid 1023)
- id 16CC0140157; Thu, 11 Feb 2016 19:26:24 +1100 (AEDT)
+ id 7767B140B9E; Thu, 11 Feb 2016 19:29:33 +1100 (AEDT)
 From: Jeremy Kerr <jk@ozlabs.org>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH 1/2] serial/aspeed-vuart: Only disable host tx discard when
+Subject: [PATCH 1/2 v2] serial/aspeed-vuart: Only disable host tx discard when
  serial port is in use
-Date: Thu, 11 Feb 2016 16:26:04 +0800
-Message-Id: <1455179165-13252-1-git-send-email-jk@ozlabs.org>
+Date: Thu, 11 Feb 2016 16:29:26 +0800
+Message-Id: <1455179366-13956-1-git-send-email-jk@ozlabs.org>
 X-Mailer: git-send-email 2.5.0
+In-Reply-To: <1455179165-13252-1-git-send-email-jk@ozlabs.org>
+References: <1455179165-13252-1-git-send-email-jk@ozlabs.org>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -24,13 +26,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Feb 2016 08:26:24 -0000
+X-List-Received-Date: Thu, 11 Feb 2016 08:29:33 -0000
 
 OpenPOWER firmware doesn't like it when the host-side of the VUART's
-FIFO is not drained. This change shifts only disables host TX discard
-mode when the port has been opened.
+FIFO is not drained. This change only disables host TX discard mode when
+the port has been opened.
 
 Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
+
+--
+
+v2:
+  Fix wording of changelog
+
 ---
  drivers/tty/serial/aspeed-vuart.c | 40 +++++++++++++++++++++++++++++++++++----
  1 file changed, 36 insertions(+), 4 deletions(-)
