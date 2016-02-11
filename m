@@ -1,27 +1,47 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from homiemail-a101.g.dreamhost.com (sub3.mail.dreamhost.com
+ [69.163.253.7])
+ by lists.ozlabs.org (Postfix) with ESMTP id 681731A004B
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Feb 2016 10:09:34 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=wMYb3ZXJ; 
+ dkim-atps=neutral
+Received: from homiemail-a101.g.dreamhost.com (localhost [127.0.0.1])
+ by homiemail-a101.g.dreamhost.com (Postfix) with ESMTP id 860DB117E06C;
+ Thu, 11 Feb 2016 15:09:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
+ :subject:from:reply-to:to:cc:date:in-reply-to:references
+ :content-type:mime-version; s=aj.id.au; bh=OLmHazcpxmbO0X3C3ZS0M
+ 72AmPM=; b=wMYb3ZXJUepVr0xF85Z98SOD3uyz3rNBUolLryCJG0w0pDkdNuNbN
+ LazQPhgTHZ6gE/BsfNZ/wFm6sX7zvYR6zAZnCbwHto5LQ76pe+VNd9CVke+wePbv
+ grmm1PfMOt5NSRJwikv6Owke+rIPyjA+ALVvc0WlTuOdDb1rs0+Uac=
+Received: from keelia (ppp203-122-213-247.static.internode.on.net
+ [203.122.213.247])
+ (using TLSv1 with cipher AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 0E25E1A004D
- for <openbmc@lists.ozlabs.org>; Fri, 12 Feb 2016 09:39:50 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Sender: bradleyb@bajor.fuzziesquirrel.com
-Content-Type: multipart/alternative;
- boundary="Apple-Mail=_0DBAD4A7-ADDA-4F80-9941-E7FBB62A2C30"
-Mime-Version: 1.0 (Mac OS X Mail 9.2 \(3112\))
-Subject: Re: [PATCH phosphor-networkd] Validating user & group names prior to
- system call and wait() on proc spawned with pexpect.
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <87egcioppp.fsf@linux.vnet.ibm.com>
-Date: Thu, 11 Feb 2016 17:39:46 -0500
-Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>,
- openbmc@lists.ozlabs.org
-Message-Id: <754A40FE-3C77-4D68-B0CF-D6877D306613@fuzziesquirrel.com>
-References: <1455224447-11108-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1455224447-11108-2-git-send-email-openbmc-patches@stwcx.xyz>
- <87egcioppp.fsf@linux.vnet.ibm.com>
-To: Stewart Smith <stewart@linux.vnet.ibm.com>
+ (Authenticated sender: andrew@aj.id.au)
+ by homiemail-a101.g.dreamhost.com (Postfix) with ESMTPSA id 1649E117E065;
+ Thu, 11 Feb 2016 15:09:30 -0800 (PST)
+Message-ID: <1455232163.2576.27.camel@aj.id.au>
+Subject: Re: [PATCH phosphor-host-ipmid v2] IPMI Get IP Support
+From: Andrew Jeffery <andrew@aj.id.au>
+Reply-To: andrew@aj.id.au
+To: Stewart Smith <stewart@linux.vnet.ibm.com>, Chris Austen
+ <austenc@us.ibm.com>
+Cc: openbmc-patches@stwcx.xyz, openbmc@lists.ozlabs.org
+Date: Fri, 12 Feb 2016 09:39:23 +1030
+In-Reply-To: <87vb5vne33.fsf@linux.vnet.ibm.com>
+References: <87io1vq04t.fsf@linux.vnet.ibm.com>
+ <1455140430-32605-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1455140430-32605-2-git-send-email-openbmc-patches@stwcx.xyz>
+ <1455152677.3153.81.camel@aj.id.au>
+ <201602110544.u1B5ilIu004589@d03av01.boulder.ibm.com>
+ <87vb5vne33.fsf@linux.vnet.ibm.com>
+Organization: IBM OzLabs
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-zpe2wY1tcqpe5JPscbtA"
+X-Mailer: Evolution 3.16.5-1ubuntu3.1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -33,461 +53,90 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Feb 2016 22:39:51 -0000
+X-List-Received-Date: Thu, 11 Feb 2016 23:09:35 -0000
 
 
---Apple-Mail=_0DBAD4A7-ADDA-4F80-9941-E7FBB62A2C30
+--=-zpe2wY1tcqpe5JPscbtA
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=utf-8
 
-Sorry about the dup Stewart=E2=80=A6
-
-grp just parses the file and returns a dictionary.  It doesn=E2=80=99t =
-do anything mutable.
-
-The only thing I could find was libuser=E2=80=A6.
-
--brad
-
-> On Feb 11, 2016, at 5:18 PM, Stewart Smith =
-<stewart@linux.vnet.ibm.com> wrote:
+On Fri, 2016-02-12 at 08:15 +1100, Stewart Smith wrote:
+> Chris Austen <austenc@us.ibm.com> writes:
+> > Open an issue to migrate to inet_pton.
 >=20
-> OpenBMC Patches <openbmc-patches@stwcx.xyz =
-<mailto:openbmc-patches@stwcx.xyz>> writes:
->> From: Hariharasubramanian R <hramasub@in.ibm.com>
->>=20
->> ---
->> userman.py | 106 =
-++++++++++++++++++++++++++++++++++++++++++++-----------------
->> 1 file changed, 76 insertions(+), 30 deletions(-)
->>=20
->> diff --git a/userman.py b/userman.py
->> index 6109582..033d3d1 100755
->> --- a/userman.py
->> +++ b/userman.py
->> @@ -25,7 +25,8 @@ OBJ_NAME_USER =3D '/org/openbmc/UserManager/User'
->>     Object Path > /org/openbmc/UserManager/Groups
->>         Interface:Method > org.openbmc.Enrol.GroupAddSys =
-string:"groupname"
->>         Interface:Method > org.openbmc.Enrol.GroupAddUsr =
-string:"groupname"
->> -        Interface:Method > org.openbmc.Enrol.GroupList
->> +        Interface:Method > org.openbmc.Enrol.GroupListUsr
->> +        Interface:Method > org.openbmc.Enrol.GroupListSys
->>     Object Path > /org/openbmc/UserManager/Group
->>         Interface:Method > org.openbmc.Enrol.GroupDel =
-string:"groupname"
->>     Object Path > /org/openbmc/UserManager/Users
->> @@ -60,16 +61,26 @@ class UserManGroups (dbus.service.Object):
->>=20
->>     @dbus.service.method(INTF_NAME, "s", "x")
->>     def GroupAddUsr (self, groupname):
->> +        if not groupname : return 1
->> +
->> +        groups =3D self.GroupListAll ()
->> +        if groupname in groups: return 1
->> +
->>         r =3D call (["addgroup", groupname])
->>         return r
->>=20
->>     @dbus.service.method(INTF_NAME, "s", "x")
->>     def GroupAddSys (self, groupname):
->> +        if not groupname : return 1
->> +
->> +        groups =3D self.GroupListAll ()
->> +        if groupname in groups: return 1
->> +
->>         r =3D call (["addgroup", "-S", groupname])
->>         return 0
->>=20
->>     @dbus.service.method(INTF_NAME, "", "as")
->> -    def GroupList (self):
->> +    def GroupListUsr (self):
->>         groupList =3D []
->>         with open("/etc/group", "r") as f:
->>             for grent in f:
->> @@ -78,6 +89,23 @@ class UserManGroups (dbus.service.Object):
->>                     groupList.append(groupParams[0])
->>         return groupList
->>=20
->> +    @dbus.service.method(INTF_NAME, "", "as")
->> +    def GroupListSys (self):
->> +        groupList =3D []
->> +        with open("/etc/group", "r") as f:
->> +            for grent in f:
->> +                groupParams =3D grent.split (":")
->> +                if (int(groupParams[2]) > 100 and =
-int(groupParams[2]) < 1000): groupList.append(groupParams[0])
->> +        return groupList
+> Fixing such things in code review is a much better approach.
 >=20
-> Why aren't you using an existing python module such as grp rather than
-> writing your own (likely buggy) parser?
+> For the submitter, it helps get quick feedback on tehir code, and
+> promotes a culture of examining your own code closely for things before
+> submitting it.
 >=20
-> It seems to have existed since at least python 2.6...
-> https://docs.python.org/2.6/library/grp.html =
-<https://docs.python.org/2.6/library/grp.html>
+> For maintainers and those who hare going to have to debug the systems,
+> it means that it's *very* quick and cheap (in time) to point out odd
+> things.
 >=20
->> @@ -111,39 +144,31 @@ class UserManUsers (dbus.service.Object):
->>=20
->>     @dbus.service.method(INTF_NAME, "ssss", "x")
->>     def UserAdd (self, gecos, username, groupname, passwd):
->> +        if not username: return 1
->> +
->> +        users =3D self.UserList ()
->> +        if username in users : return 1
->> +
->>         if groupname:
->> -            cmd =3D "adduser "  + " -g "  + gecos + " -G ", =
-groupname + " " + username
->> +            groups =3D Groupsobj.GroupListAll ()
->> +            if groupname not in groups: return 1
->> +
->> +        opts =3D ""
->> +        if gecos: opts =3D " -g " + '"' + gecos + '"'
->> +
->> +        if groupname:
->> +            cmd =3D "adduser "  + opts + " " + " -G " + groupname + =
-" " + username
->>         else:
->> -            cmd =3D "adduser "  + " -g "  + gecos + username
->> +            cmd =3D "adduser "  + opts + " " + username
->=20
-> I note there's a python-libuser package on ubuntu, is that a library
-> that could be used instead?
->=20
-> --=20
-> Stewart Smith
-> OPAL Architect, IBM.
->=20
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org <mailto:openbmc@lists.ozlabs.org>
-> https://lists.ozlabs.org/listinfo/openbmc =
-<https://lists.ozlabs.org/listinfo/openbmc>
+> Opening issues is approximately an order of magnitude slower.
 
---Apple-Mail=_0DBAD4A7-ADDA-4F80-9941-E7FBB62A2C30
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=utf-8
+For transparency, I sent the email despite knowing the code had been
+merged at the point I hit send because the timeline went along the
+lines of: Open my laptop for the day, start reading email, come across
+the patch, find some areas that I think we can improve on, write 90% of
+the reply, head to github to check a small detail, discover the patch
+has already been merged.
 
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html =
-charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
--webkit-nbsp-mode: space; -webkit-line-break: after-white-space;" =
-class=3D""><div class=3D"">Sorry about the dup Stewart=E2=80=A6</div><div =
-class=3D""><br class=3D""></div><div class=3D""><div class=3D"">grp just =
-parses the file and returns a dictionary. &nbsp;It doesn=E2=80=99t do =
-anything mutable.</div><div class=3D""><br class=3D""></div><div =
-class=3D"">The only thing I could find was libuser=E2=80=A6.</div><div =
-class=3D""><br class=3D""></div><div class=3D"">-brad</div></div><br =
-class=3D""><div><blockquote type=3D"cite" class=3D""><div class=3D"">On =
-Feb 11, 2016, at 5:18 PM, Stewart Smith &lt;<a =
-href=3D"mailto:stewart@linux.vnet.ibm.com" =
-class=3D"">stewart@linux.vnet.ibm.com</a>&gt; wrote:</div><br =
-class=3D"Apple-interchange-newline"><div class=3D""><span =
-style=3D"font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant: normal; font-weight: normal; letter-spacing: normal; =
-orphans: auto; text-align: start; text-indent: 0px; text-transform: =
-none; white-space: normal; widows: auto; word-spacing: 0px; =
--webkit-text-stroke-width: 0px; float: none; display: inline =
-!important;" class=3D"">OpenBMC Patches &lt;</span><a =
-href=3D"mailto:openbmc-patches@stwcx.xyz" style=3D"font-family: =
-Helvetica; font-size: 12px; font-style: normal; font-variant: normal; =
-font-weight: normal; letter-spacing: normal; orphans: auto; text-align: =
-start; text-indent: 0px; text-transform: none; white-space: normal; =
-widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;" =
-class=3D"">openbmc-patches@stwcx.xyz</a><span style=3D"font-family: =
-Helvetica; font-size: 12px; font-style: normal; font-variant: normal; =
-font-weight: normal; letter-spacing: normal; orphans: auto; text-align: =
-start; text-indent: 0px; text-transform: none; white-space: normal; =
-widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: =
-none; display: inline !important;" class=3D"">&gt; writes:</span><br =
-style=3D"font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant: normal; font-weight: normal; letter-spacing: normal; =
-orphans: auto; text-align: start; text-indent: 0px; text-transform: =
-none; white-space: normal; widows: auto; word-spacing: 0px; =
--webkit-text-stroke-width: 0px;" class=3D""><blockquote type=3D"cite" =
-style=3D"font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant: normal; font-weight: normal; letter-spacing: normal; =
-orphans: auto; text-align: start; text-indent: 0px; text-transform: =
-none; white-space: normal; widows: auto; word-spacing: 0px; =
--webkit-text-stroke-width: 0px;" class=3D"">From: Hariharasubramanian R =
-&lt;<a href=3D"mailto:hramasub@in.ibm.com" =
-class=3D"">hramasub@in.ibm.com</a>&gt;<br class=3D""><br class=3D"">---<br=
- class=3D"">userman.py | 106 =
-++++++++++++++++++++++++++++++++++++++++++++-----------------<br =
-class=3D"">1 file changed, 76 insertions(+), 30 deletions(-)<br =
-class=3D""><br class=3D"">diff --git a/userman.py b/userman.py<br =
-class=3D"">index 6109582..033d3d1 100755<br class=3D"">--- =
-a/userman.py<br class=3D"">+++ b/userman.py<br class=3D"">@@ -25,7 +25,8 =
-@@ OBJ_NAME_USER =3D '/org/openbmc/UserManager/User'<br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;Object Path &gt; =
-/org/openbmc/UserManager/Groups<br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Interface:Metho=
-d &gt; org.openbmc.Enrol.GroupAddSys string:"groupname"<br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Interface:Metho=
-d &gt; org.openbmc.Enrol.GroupAddUsr string:"groupname"<br class=3D"">- =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Interface:Method &gt; =
-org.openbmc.Enrol.GroupList<br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Interface:Method &gt; =
-org.openbmc.Enrol.GroupListUsr<br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Interface:Method &gt; =
-org.openbmc.Enrol.GroupListSys<br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;Object Path &gt; =
-/org/openbmc/UserManager/Group<br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Interface:Metho=
-d &gt; org.openbmc.Enrol.GroupDel string:"groupname"<br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;Object Path &gt; =
-/org/openbmc/UserManager/Users<br class=3D"">@@ -60,16 +61,26 @@ class =
-UserManGroups (dbus.service.Object):<br class=3D""><br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;@dbus.service.method(INTF_NAME, "s", =
-"x")<br class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;def GroupAddUsr (self, =
-groupname):<br class=3D"">+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if =
-not groupname : return 1<br class=3D"">+<br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;groups =3D self.GroupListAll =
-()<br class=3D"">+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if =
-groupname in groups: return 1<br class=3D"">+<br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;r =3D call =
-(["addgroup", groupname])<br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return r<br =
-class=3D""><br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;@dbus.service.method(INTF_NAME, "s", =
-"x")<br class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;def GroupAddSys (self, =
-groupname):<br class=3D"">+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if =
-not groupname : return 1<br class=3D"">+<br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;groups =3D self.GroupListAll =
-()<br class=3D"">+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if =
-groupname in groups: return 1<br class=3D"">+<br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;r =3D call =
-(["addgroup", "-S", groupname])<br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 0<br =
-class=3D""><br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;@dbus.service.method(INTF_NAME, "", =
-"as")<br class=3D"">- &nbsp;&nbsp;&nbsp;def GroupList (self):<br =
-class=3D"">+ &nbsp;&nbsp;&nbsp;def GroupListUsr (self):<br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;groupList =3D =
-[]<br class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with =
-open("/etc/group", "r") as f:<br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;for grent in f:<br class=3D"">@@ -78,6 +89,23 @@ class =
-UserManGroups (dbus.service.Object):<br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;groupList.append(=
-groupParams[0])<br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return =
-groupList<br class=3D""><br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;@dbus.service.method(INTF_NAME, "", "as")<br =
-class=3D"">+ &nbsp;&nbsp;&nbsp;def GroupListSys (self):<br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;groupList =3D []<br class=3D"">+=
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with open("/etc/group", "r") =
-as f:<br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for =
-grent in f:<br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;groupParams =3D grent.split (":")<br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;if (int(groupParams[2]) &gt; 100 and int(groupParams[2]) =
-&lt; 1000): groupList.append(groupParams[0])<br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return groupList<br =
-class=3D""></blockquote><br style=3D"font-family: Helvetica; font-size: =
-12px; font-style: normal; font-variant: normal; font-weight: normal; =
-letter-spacing: normal; orphans: auto; text-align: start; text-indent: =
-0px; text-transform: none; white-space: normal; widows: auto; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px;" class=3D""><span =
-style=3D"font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant: normal; font-weight: normal; letter-spacing: normal; =
-orphans: auto; text-align: start; text-indent: 0px; text-transform: =
-none; white-space: normal; widows: auto; word-spacing: 0px; =
--webkit-text-stroke-width: 0px; float: none; display: inline =
-!important;" class=3D"">Why aren't you using an existing python module =
-such as grp rather than</span><br style=3D"font-family: Helvetica; =
-font-size: 12px; font-style: normal; font-variant: normal; font-weight: =
-normal; letter-spacing: normal; orphans: auto; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; widows: =
-auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;" class=3D""><span=
- style=3D"font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant: normal; font-weight: normal; letter-spacing: normal; =
-orphans: auto; text-align: start; text-indent: 0px; text-transform: =
-none; white-space: normal; widows: auto; word-spacing: 0px; =
--webkit-text-stroke-width: 0px; float: none; display: inline =
-!important;" class=3D"">writing your own (likely buggy) =
-parser?</span><br style=3D"font-family: Helvetica; font-size: 12px; =
-font-style: normal; font-variant: normal; font-weight: normal; =
-letter-spacing: normal; orphans: auto; text-align: start; text-indent: =
-0px; text-transform: none; white-space: normal; widows: auto; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px;" class=3D""><br =
-style=3D"font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant: normal; font-weight: normal; letter-spacing: normal; =
-orphans: auto; text-align: start; text-indent: 0px; text-transform: =
-none; white-space: normal; widows: auto; word-spacing: 0px; =
--webkit-text-stroke-width: 0px;" class=3D""><span style=3D"font-family: =
-Helvetica; font-size: 12px; font-style: normal; font-variant: normal; =
-font-weight: normal; letter-spacing: normal; orphans: auto; text-align: =
-start; text-indent: 0px; text-transform: none; white-space: normal; =
-widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: =
-none; display: inline !important;" class=3D"">It seems to have existed =
-since at least python 2.6...</span><br style=3D"font-family: Helvetica; =
-font-size: 12px; font-style: normal; font-variant: normal; font-weight: =
-normal; letter-spacing: normal; orphans: auto; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; widows: =
-auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;" class=3D""><a =
-href=3D"https://docs.python.org/2.6/library/grp.html" =
-style=3D"font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant: normal; font-weight: normal; letter-spacing: normal; =
-orphans: auto; text-align: start; text-indent: 0px; text-transform: =
-none; white-space: normal; widows: auto; word-spacing: 0px; =
--webkit-text-stroke-width: 0px;" =
-class=3D"">https://docs.python.org/2.6/library/grp.html</a><br =
-style=3D"font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant: normal; font-weight: normal; letter-spacing: normal; =
-orphans: auto; text-align: start; text-indent: 0px; text-transform: =
-none; white-space: normal; widows: auto; word-spacing: 0px; =
--webkit-text-stroke-width: 0px;" class=3D""><br style=3D"font-family: =
-Helvetica; font-size: 12px; font-style: normal; font-variant: normal; =
-font-weight: normal; letter-spacing: normal; orphans: auto; text-align: =
-start; text-indent: 0px; text-transform: none; white-space: normal; =
-widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;" =
-class=3D""><blockquote type=3D"cite" style=3D"font-family: Helvetica; =
-font-size: 12px; font-style: normal; font-variant: normal; font-weight: =
-normal; letter-spacing: normal; orphans: auto; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; widows: =
-auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;" class=3D"">@@ =
--111,39 +144,31 @@ class UserManUsers (dbus.service.Object):<br =
-class=3D""><br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;@dbus.service.method(INTF_NAME, =
-"ssss", "x")<br class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;def UserAdd (self, =
-gecos, username, groupname, passwd):<br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if not username: return 1<br =
-class=3D"">+<br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;users =3D self.UserList ()<br =
-class=3D"">+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if username in =
-users : return 1<br class=3D"">+<br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if =
-groupname:<br class=3D"">- =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cmd =3D =
-"adduser " &nbsp;+ " -g " &nbsp;+ gecos + " -G ", groupname + " " + =
-username<br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;groups =
-=3D Groupsobj.GroupListAll ()<br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if =
-groupname not in groups: return 1<br class=3D"">+<br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;opts =3D ""<br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if gecos: opts =3D " -g " + =
-'"' + gecos + '"'<br class=3D"">+<br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if groupname:<br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cmd =3D =
-"adduser " &nbsp;+ opts + " " + " -G " + groupname + " " + username<br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br =
-class=3D"">- =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cmd =3D =
-"adduser " &nbsp;+ " -g " &nbsp;+ gecos + username<br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cmd =3D =
-"adduser " &nbsp;+ opts + " " + username<br class=3D""></blockquote><br =
-style=3D"font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant: normal; font-weight: normal; letter-spacing: normal; =
-orphans: auto; text-align: start; text-indent: 0px; text-transform: =
-none; white-space: normal; widows: auto; word-spacing: 0px; =
--webkit-text-stroke-width: 0px;" class=3D""><span style=3D"font-family: =
-Helvetica; font-size: 12px; font-style: normal; font-variant: normal; =
-font-weight: normal; letter-spacing: normal; orphans: auto; text-align: =
-start; text-indent: 0px; text-transform: none; white-space: normal; =
-widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: =
-none; display: inline !important;" class=3D"">I note there's a =
-python-libuser package on ubuntu, is that a library</span><br =
-style=3D"font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant: normal; font-weight: normal; letter-spacing: normal; =
-orphans: auto; text-align: start; text-indent: 0px; text-transform: =
-none; white-space: normal; widows: auto; word-spacing: 0px; =
--webkit-text-stroke-width: 0px;" class=3D""><span style=3D"font-family: =
-Helvetica; font-size: 12px; font-style: normal; font-variant: normal; =
-font-weight: normal; letter-spacing: normal; orphans: auto; text-align: =
-start; text-indent: 0px; text-transform: none; white-space: normal; =
-widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: =
-none; display: inline !important;" class=3D"">that could be used =
-instead?</span><br style=3D"font-family: Helvetica; font-size: 12px; =
-font-style: normal; font-variant: normal; font-weight: normal; =
-letter-spacing: normal; orphans: auto; text-align: start; text-indent: =
-0px; text-transform: none; white-space: normal; widows: auto; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px;" class=3D""><br =
-style=3D"font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant: normal; font-weight: normal; letter-spacing: normal; =
-orphans: auto; text-align: start; text-indent: 0px; text-transform: =
-none; white-space: normal; widows: auto; word-spacing: 0px; =
--webkit-text-stroke-width: 0px;" class=3D""><span style=3D"font-family: =
-Helvetica; font-size: 12px; font-style: normal; font-variant: normal; =
-font-weight: normal; letter-spacing: normal; orphans: auto; text-align: =
-start; text-indent: 0px; text-transform: none; white-space: normal; =
-widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: =
-none; display: inline !important;" class=3D"">--<span =
-class=3D"Apple-converted-space">&nbsp;</span></span><br =
-style=3D"font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant: normal; font-weight: normal; letter-spacing: normal; =
-orphans: auto; text-align: start; text-indent: 0px; text-transform: =
-none; white-space: normal; widows: auto; word-spacing: 0px; =
--webkit-text-stroke-width: 0px;" class=3D""><span style=3D"font-family: =
-Helvetica; font-size: 12px; font-style: normal; font-variant: normal; =
-font-weight: normal; letter-spacing: normal; orphans: auto; text-align: =
-start; text-indent: 0px; text-transform: none; white-space: normal; =
-widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: =
-none; display: inline !important;" class=3D"">Stewart Smith</span><br =
-style=3D"font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant: normal; font-weight: normal; letter-spacing: normal; =
-orphans: auto; text-align: start; text-indent: 0px; text-transform: =
-none; white-space: normal; widows: auto; word-spacing: 0px; =
--webkit-text-stroke-width: 0px;" class=3D""><span style=3D"font-family: =
-Helvetica; font-size: 12px; font-style: normal; font-variant: normal; =
-font-weight: normal; letter-spacing: normal; orphans: auto; text-align: =
-start; text-indent: 0px; text-transform: none; white-space: normal; =
-widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: =
-none; display: inline !important;" class=3D"">OPAL Architect, =
-IBM.</span><br style=3D"font-family: Helvetica; font-size: 12px; =
-font-style: normal; font-variant: normal; font-weight: normal; =
-letter-spacing: normal; orphans: auto; text-align: start; text-indent: =
-0px; text-transform: none; white-space: normal; widows: auto; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px;" class=3D""><br =
-style=3D"font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant: normal; font-weight: normal; letter-spacing: normal; =
-orphans: auto; text-align: start; text-indent: 0px; text-transform: =
-none; white-space: normal; widows: auto; word-spacing: 0px; =
--webkit-text-stroke-width: 0px;" class=3D""><span style=3D"font-family: =
-Helvetica; font-size: 12px; font-style: normal; font-variant: normal; =
-font-weight: normal; letter-spacing: normal; orphans: auto; text-align: =
-start; text-indent: 0px; text-transform: none; white-space: normal; =
-widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: =
-none; display: inline !important;" =
-class=3D"">_______________________________________________</span><br =
-style=3D"font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant: normal; font-weight: normal; letter-spacing: normal; =
-orphans: auto; text-align: start; text-indent: 0px; text-transform: =
-none; white-space: normal; widows: auto; word-spacing: 0px; =
--webkit-text-stroke-width: 0px;" class=3D""><span style=3D"font-family: =
-Helvetica; font-size: 12px; font-style: normal; font-variant: normal; =
-font-weight: normal; letter-spacing: normal; orphans: auto; text-align: =
-start; text-indent: 0px; text-transform: none; white-space: normal; =
-widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: =
-none; display: inline !important;" class=3D"">openbmc mailing =
-list</span><br style=3D"font-family: Helvetica; font-size: 12px; =
-font-style: normal; font-variant: normal; font-weight: normal; =
-letter-spacing: normal; orphans: auto; text-align: start; text-indent: =
-0px; text-transform: none; white-space: normal; widows: auto; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px;" class=3D""><a =
-href=3D"mailto:openbmc@lists.ozlabs.org" style=3D"font-family: =
-Helvetica; font-size: 12px; font-style: normal; font-variant: normal; =
-font-weight: normal; letter-spacing: normal; orphans: auto; text-align: =
-start; text-indent: 0px; text-transform: none; white-space: normal; =
-widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;" =
-class=3D"">openbmc@lists.ozlabs.org</a><br style=3D"font-family: =
-Helvetica; font-size: 12px; font-style: normal; font-variant: normal; =
-font-weight: normal; letter-spacing: normal; orphans: auto; text-align: =
-start; text-indent: 0px; text-transform: none; white-space: normal; =
-widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;" =
-class=3D""><a href=3D"https://lists.ozlabs.org/listinfo/openbmc" =
-style=3D"font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant: normal; font-weight: normal; letter-spacing: normal; =
-orphans: auto; text-align: start; text-indent: 0px; text-transform: =
-none; white-space: normal; widows: auto; word-spacing: 0px; =
--webkit-text-stroke-width: 0px;" =
-class=3D"">https://lists.ozlabs.org/listinfo/openbmc</a></div></blockquote=
-></div><br class=3D""></body></html>=
+Since I'd spent some time composing the review I didn't want to throw
+it away or spend further time to massaging it into a github issue with
+the necessary context, so I reworded the first paragraph to reflect the
+fact that it was already merged and hit send. This dovetails into
+Stewart's point below, primarily the one about github issues lacking
+the code context for the comments (without some manual effort). To be
+fair as it stands the github issue I created doesn't (yet) contain any
+of the context or comments provided in the email review, but at least
+that's available through the list archives (and can be easily linked in
+a comment).
 
---Apple-Mail=_0DBAD4A7-ADDA-4F80-9941-E7FBB62A2C30--
+Maybe this should be a separate thread, but anyway: I find the mailing
+-list/github split a little awkward - is there a way we can improve
+this? Use one xor the other?
+
+Andrew
+
+>=20
+> I can hit reply, type ten words and hit send in maybe a few seconds. For
+> an issue, you're adding a couple of seconds in network round trip to
+> browse to the project, go to issues, click create issue, then type a
+> whole description of the problem because you don't have the context of
+> what you're trying to reply to, and then manage the issue by adding
+> tags, target releases, closing it when something is finally merged (and
+> having the submitter have to open another pull request and keep track of
+> it)... Urgh.
+>=20
+> Good code review provides a positive feedback loop of improvement to
+> code with a positive reinforcement at the end of "patch merged!"
+> Contrast this to the negative re-inforcement of filing bugs, of which
+> there is little to no direct motivation for the code author to go and fix=
+.
+>=20
+--=-zpe2wY1tcqpe5JPscbtA
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQIcBAABCgAGBQJWvRSjAAoJEJ0dnzgO5LT52UoQAJtuIKHqFvxDYkQLrQzDESag
+BrWRTuAkCGTq5o76l+QqGJxYwmtFNqvUYGqwUzH818X3tyWAQCmKGgXbKrG4rMyn
+NBivrJDsjBSsj854tcc7rjftlzHMgOPM943p2ajGb/S7r3DExWQGzkMc28A4y4cP
+zERCSlLdJ08H4+gkvXsXoxz9xR9nYMvRxtelZB96mQEz2wnQFyVEVRegybaqTn2N
+ph6iqrB9XIq7PCiC2cy+P7/ZMWV0OE7fKlhg8g6qH8JExPFHvo+DV+6/miWIMhKa
+Stf1YF/8wFJkBPz+pr/PuYkfCMcG3LHYwNjTmgwhagDqg56pDrCwFrG20dCMjXKx
+BRlVE1zMbeZBxXLec35f4Dv+Z20YpopijOQQnRM3nc2l/uFAL7cEKflUbsv5MqfR
+zGWkRzGeX/+m/MdlqwqoSZHcMAkssjiNQdNv42Dyq7UuSmQlFTyBGYYIqJdCN25n
+VTEJl2Q7laoJy0DS3cpntAdEmJ8DwylszXqIQ5QxBea1hfRjCHHRASeNkf0KyRLG
+mhhgE2zy7mMOeibp5S2QS0S8rsKVZpfA/E4jzwAtomktv0VJPVlJBflIN7GheQq9
+LcJds9LvBnujlq/bkhaPx6vha0eSPJ9nnAp4ePOlw6WpOu0C5P/ZY1vr7hiRXKYu
+uxq3XAg0iqQjAcRkcEMj
+=3TrP
+-----END PGP SIGNATURE-----
+
+--=-zpe2wY1tcqpe5JPscbtA--
