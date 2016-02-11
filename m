@@ -2,19 +2,24 @@ Return-Path: <jk@ozlabs.org>
 Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 8B15B1A0038
- for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 19:29:33 +1100 (AEDT)
-Received: by ozlabs.org (Postfix, from userid 1023)
- id 7767B140B9E; Thu, 11 Feb 2016 19:29:33 +1100 (AEDT)
-From: Jeremy Kerr <jk@ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 71EE31A003C
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 19:44:36 +1100 (AEDT)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.org (Postfix) with ESMTPSA id 452BD14090B
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 19:44:36 +1100 (AEDT)
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH 1/2 v2] serial/aspeed-vuart: Only disable host tx discard when
- serial port is in use
-Date: Thu, 11 Feb 2016 16:29:26 +0800
-Message-Id: <1455179366-13956-1-git-send-email-jk@ozlabs.org>
-X-Mailer: git-send-email 2.5.0
-In-Reply-To: <1455179165-13252-1-git-send-email-jk@ozlabs.org>
-References: <1455179165-13252-1-git-send-email-jk@ozlabs.org>
+From: Jeremy Kerr <jk@ozlabs.org>
+Subject: Code review and deadlines around initial OpenBMC prototypes
+X-Enigmail-Draft-Status: N1110
+Message-ID: <56BC49F3.8070809@ozlabs.org>
+Date: Thu, 11 Feb 2016 16:44:35 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+ Thunderbird/38.5.1
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -26,98 +31,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Feb 2016 08:29:33 -0000
+X-List-Received-Date: Thu, 11 Feb 2016 08:44:36 -0000
 
-OpenPOWER firmware doesn't like it when the host-side of the VUART's
-FIFO is not drained. This change only disables host TX discard mode when
-the port has been opened.
+Hi all,
 
-Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
+The IBMers working on OpenBMC are sprinting for a first internal
+prototype of the code, with a few functional components still in
+development.
 
---
+Because of this, here's a lot of churn happening at the moment (to get
+this prototype launched), but we don't want to let code quality be left
+aside as a result.
 
-v2:
-  Fix wording of changelog
+So, a request to contributors: please take note of any review to your
+patch. If you can rework your change in response, please make it a
+priority to do so. To save time, most of the folks conducting review are
+also available on our IRC channel, #openbmc on irc.freenode.net.
 
----
- drivers/tty/serial/aspeed-vuart.c | 40 +++++++++++++++++++++++++++++++++++----
- 1 file changed, 36 insertions(+), 4 deletions(-)
+If you see a review for your code *after it has been committed*, and/or
+you do not have bandwidth to address the feedback, please file an issue
+on the relevant github project. I have created the "code-review" label
+on the main openbmc project; please use this for such issues. If you
+need it for other github repos, send me a private mail and I'll create one.
 
-diff --git a/drivers/tty/serial/aspeed-vuart.c b/drivers/tty/serial/aspeed-vuart.c
-index f34884a..73bb0e7 100644
---- a/drivers/tty/serial/aspeed-vuart.c
-+++ b/drivers/tty/serial/aspeed-vuart.c
-@@ -144,16 +144,45 @@ static ssize_t ast_vuart_set_sirq(struct device *dev,
- static DEVICE_ATTR(sirq, S_IWUSR | S_IRUGO,
- 		ast_vuart_show_sirq, ast_vuart_set_sirq);
- 
--static void ast_vuart_setup(struct ast_vuart *vuart)
-+static void ast_vuart_set_host_tx_discard(struct ast_vuart *vuart, bool discard)
- {
- 	u8 reg;
- 
--	/* disable TX discard mode */
- 	reg = readb(vuart->regs + AST_VUART_GCRA);
--	reg |= AST_VUART_GCRA_HOST_TX_DISCARD;
-+
-+	/* if the HOST_TX_DISCARD bit is set, discard is *disabled* */
-+	reg &= ~AST_VUART_GCRA_HOST_TX_DISCARD;
-+	if (!discard)
-+		reg |= AST_VUART_GCRA_HOST_TX_DISCARD;
-+
- 	writeb(reg, vuart->regs + AST_VUART_GCRA);
- }
- 
-+static int ast_vuart_startup(struct uart_port *uart_port)
-+{
-+	struct uart_8250_port *uart_8250_port = up_to_u8250p(uart_port);
-+	struct ast_vuart *vuart = uart_8250_port->port.private_data;
-+	int rc;
-+
-+	rc = serial8250_do_startup(uart_port);
-+	if (rc)
-+		return rc;
-+
-+	ast_vuart_set_host_tx_discard(vuart, false);
-+
-+	return 0;
-+}
-+
-+static void ast_vuart_shutdown(struct uart_port *uart_port)
-+{
-+	struct uart_8250_port *uart_8250_port = up_to_u8250p(uart_port);
-+	struct ast_vuart *vuart = uart_8250_port->port.private_data;
-+
-+	ast_vuart_set_host_tx_discard(vuart, true);
-+
-+	serial8250_do_shutdown(uart_port);
-+}
-+
- 
- /**
-  * The device tree parsing code here is heavily based on that of the of_serial
-@@ -190,9 +219,12 @@ static int ast_vuart_probe(struct platform_device *pdev)
- 	}
- 
- 	memset(&port, 0, sizeof(port));
-+	port.port.private_data = vuart;
- 	port.port.membase = vuart->regs;
- 	port.port.mapbase = resource.start;
- 	port.port.mapsize = resource_size(&resource);
-+	port.port.startup = ast_vuart_startup;
-+	port.port.shutdown = ast_vuart_shutdown;
- 
- 	if (of_property_read_u32(np, "clock-frequency", &clk)) {
- 		vuart->clk = devm_clk_get(&pdev->dev, NULL);
-@@ -272,8 +304,8 @@ static int ast_vuart_probe(struct platform_device *pdev)
- 
- 
- 	vuart->line = rc;
-+	ast_vuart_set_host_tx_discard(vuart, true);
- 	platform_set_drvdata(pdev, vuart);
--	ast_vuart_setup(vuart);
- 
- 	/* extra sysfs control */
- 	rc = device_create_file(&pdev->dev, &dev_attr_lpc_address);
--- 
-2.5.0
+During the next few weeks, it'll be especially important to do this, as
+we don't want reviews to remain unaddressed after this prototyping work
+is complete. Provided we address the issues raised, I don't foresee us
+having to continue the issue-filing long-term.
+
+Another note: we have the contribution guidelines available:
+
+  https://github.com/openbmc/docs/blob/master/contributing.md
+
+if you haven't already, please take the time to read this, and follow
+the when contributing.
+
+Regards,
+
+
+Jeremy
