@@ -1,58 +1,88 @@
-Return-Path: <clg@fr.ibm.com>
-Received: from e06smtp08.uk.ibm.com (e06smtp08.uk.ibm.com [195.75.94.104])
- (using TLSv1 with cipher CAMELLIA256-SHA (256/256 bits))
+Return-Path: <njames@us.ibm.com>
+Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 319A61A003D
- for <openbmc@lists.ozlabs.org>; Fri, 12 Feb 2016 01:33:00 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 1712F1A0045
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Feb 2016 05:34:25 +1100 (AEDT)
 Received: from localhost
- by e06smtp08.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <clg@fr.ibm.com>;
- Thu, 11 Feb 2016 14:32:57 -0000
-Received: from d06dlp03.portsmouth.uk.ibm.com (9.149.20.15)
- by e06smtp08.uk.ibm.com (192.168.101.138) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Thu, 11 Feb 2016 14:32:54 -0000
-X-IBM-Helo: d06dlp03.portsmouth.uk.ibm.com
-X-IBM-MailFrom: clg@fr.ibm.com
+ for <openbmc@lists.ozlabs.org> from <njames@us.ibm.com>;
+ Thu, 11 Feb 2016 11:34:23 -0700
+Received: from d03dlp01.boulder.ibm.com (9.17.202.177)
+ by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 11 Feb 2016 11:34:22 -0700
+X-IBM-Helo: d03dlp01.boulder.ibm.com
+X-IBM-MailFrom: njames@us.ibm.com
 X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from b06cxnps4074.portsmouth.uk.ibm.com
- (d06relay11.portsmouth.uk.ibm.com [9.149.109.196])
- by d06dlp03.portsmouth.uk.ibm.com (Postfix) with ESMTP id 25D2D1B08061
- for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 14:33:08 +0000 (GMT)
-Received: from d06av07.portsmouth.uk.ibm.com (d06av07.portsmouth.uk.ibm.com
- [9.149.37.248])
- by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u1BEWsfJ31260892
- for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 14:32:54 GMT
-Received: from d06av07.portsmouth.uk.ibm.com (localhost [127.0.0.1])
- by d06av07.portsmouth.uk.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u1BEWr2t003687
- for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 09:32:53 -0500
-Received: from smtp.lab.toulouse-stg.fr.ibm.com
- (srv01.lab.toulouse-stg.fr.ibm.com [9.101.4.1])
- by d06av07.portsmouth.uk.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u1BEWrd1003663; Thu, 11 Feb 2016 09:32:53 -0500
-Received: from [9.167.239.38] (icon-9-167-239-38.megacenter.de.ibm.com
- [9.167.239.38])
- by smtp.lab.toulouse-stg.fr.ibm.com (Postfix) with ESMTP id 0E00C220586;
- Thu, 11 Feb 2016 15:32:51 +0100 (CET)
-Subject: Re: [PATCH 1/3] timers: Add ASPEED AST2400 timer device model
-To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
-References: <1454478393-11973-1-git-send-email-andrew@aj.id.au>
- <1454478393-11973-2-git-send-email-andrew@aj.id.au>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@fr.ibm.com>
-Message-ID: <56BC9B91.1090806@fr.ibm.com>
-Date: Thu, 11 Feb 2016 15:32:49 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
- Icedove/38.5.0
-MIME-Version: 1.0
-In-Reply-To: <1454478393-11973-2-git-send-email-andrew@aj.id.au>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Received: from b01cxnp23033.gho.pok.ibm.com (b01cxnp23033.gho.pok.ibm.com
+ [9.57.198.28])
+ by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id 92C4C1FF0041
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 11:22:31 -0700 (MST)
+Received: from d01av02.pok.ibm.com (d01av02.pok.ibm.com [9.56.224.216])
+ by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u1BIYLxm30539860
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 18:34:21 GMT
+Received: from d01av02.pok.ibm.com (localhost [127.0.0.1])
+ by d01av02.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u1BIYLip019665
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 13:34:21 -0500
+Received: from e39.co.us.ibm.com (e39.boulder.ibm.com [9.17.249.49])
+ by d01av02.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u1BIYK4d019583
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 13:34:20 -0500
+Message-Id: <201602111834.u1BIYK4d019583@d01av02.pok.ibm.com>
+Received: from localhost
+ by e39.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <njames@us.ibm.com>;
+ Thu, 11 Feb 2016 11:34:20 -0700
+Received: from smtp.notes.na.collabserv.com (192.155.248.82)
+ by e39.co.us.ibm.com (192.168.2.139) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
+ Thu, 11 Feb 2016 11:34:18 -0700
+X-IBM-Helo: smtp.notes.na.collabserv.com
+X-IBM-MailFrom: njames@us.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from /spool/local
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <njames@us.ibm.com>;
+ Thu, 11 Feb 2016 18:34:17 -0000
+Received: from us1a3-smtp02.a3.dal06.isc4sb.com (10.106.154.103)
+ by smtp.notes.na.collabserv.com (10.106.227.105) with
+ smtp.notes.na.collabserv.com ESMTP; Thu, 11 Feb 2016 18:34:15 -0000
+Received: from us1a3-mail62.a3.dal09.isc4sb.com ([10.142.3.202])
+ by us1a3-smtp02.a3.dal06.isc4sb.com
+ with ESMTP id 2016021118361175-407505 ;
+ Thu, 11 Feb 2016 18:36:11 +0000 
+In-Reply-To: <1455179165-13252-1-git-send-email-jk@ozlabs.org>
+Subject: Re: [PATCH 1/2] serial/aspeed-vuart: Only disable host tx discard when
+ serial port is in use
+To: Jeremy Kerr <jk@ozlabs.org>
+Cc: openbmc@lists.ozlabs.org
+From: "Norman James" <njames@us.ibm.com>
+Date: Thu, 11 Feb 2016 12:34:08 -0600
+References: <1455179165-13252-1-git-send-email-jk@ozlabs.org>
+X-KeepSent: DE43A6B4:C4D97E9E-00257F56:0065C5A7;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1FP2 SHF37 August 25, 2014
+X-LLNOutbound: False
+X-Disclaimed: 4071
+X-TNEFEvaluated: 1
+Content-type: multipart/related; 
+ Boundary="0__=8FBBF5C5DFF643378f9e8a93df938690918c8FBBF5C5DFF64337"
+x-cbid: 16021118-0025-0000-0000-0000214A4056
+X-IBM-ISS-SpamDetectors: Score=0.410717; BY=0.287489; FL=0; FP=0; FZ=0; HX=0; 
+ KW=0; PH=0; SC=0.410717; ST=0; TS=0; UL=0; ISC=
+X-IBM-ISS-DetailInfo: BY=3.00004905; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000143; SDB=6.00658497; UDB=6.00298985; UTC=2016-02-11
+ 18:34:16
+x-cbparentid: 16021118-9900-0000-0000-00000615E2DD
 X-TM-AS-MML: disable
 X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16021114-0033-0000-0000-000005B0D3D9
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -64,470 +94,243 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Feb 2016 14:33:02 -0000
+X-List-Received-Date: Thu, 11 Feb 2016 18:34:26 -0000
 
-Hello Andrew,
+--0__=8FBBF5C5DFF643378f9e8a93df938690918c8FBBF5C5DFF64337
+Content-type: multipart/alternative; 
+	Boundary="1__=8FBBF5C5DFF643378f9e8a93df938690918c8FBBF5C5DFF64337"
 
-Some comments below. 
 
-On 02/03/2016 06:46 AM, Andrew Jeffery wrote:
-> Implement basic AST2400 timer functionality: Timers can be configured,
-> enabled, reset and disabled.
-> 
-> A number of hardware features are not implemented:
-> 
-> * Clock selection (internal vs external)
-> * Timer Overflow interrupts
-> * Clock value matching
-> * Pulse generation
-> 
-> The implementation is enough to boot the Linux kernel configured with
-> aspeed_defconfig.
-> 
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> ---
->  hw/timer/Makefile.objs          |   1 +
->  hw/timer/aspeed_timer.c         | 301 ++++++++++++++++++++++++++++++++++++++++
->  include/hw/timer/aspeed_timer.h |  52 +++++++
->  3 files changed, 354 insertions(+)
->  create mode 100644 hw/timer/aspeed_timer.c
->  create mode 100644 include/hw/timer/aspeed_timer.h
-> 
-> diff --git a/hw/timer/Makefile.objs b/hw/timer/Makefile.objs
-> index 133bd0d..c22ccf3 100644
-> --- a/hw/timer/Makefile.objs
-> +++ b/hw/timer/Makefile.objs
-> @@ -17,6 +17,7 @@ common-obj-$(CONFIG_IMX) += imx_epit.o
->  common-obj-$(CONFIG_IMX) += imx_gpt.o
->  common-obj-$(CONFIG_LM32) += lm32_timer.o
->  common-obj-$(CONFIG_MILKYMIST) += milkymist-sysctl.o
-> +common-obj-y += aspeed_timer.o
+--1__=8FBBF5C5DFF643378f9e8a93df938690918c8FBBF5C5DFF64337
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/plain; charset=US-ASCII
 
-Don't we have a config option for ASPEED ? It would look better.
-  
->  obj-$(CONFIG_EXYNOS4) += exynos4210_mct.o
->  obj-$(CONFIG_EXYNOS4) += exynos4210_pwm.o
-> diff --git a/hw/timer/aspeed_timer.c b/hw/timer/aspeed_timer.c
-> new file mode 100644
-> index 0000000..88b5cef
-> --- /dev/null
-> +++ b/hw/timer/aspeed_timer.c
-> @@ -0,0 +1,301 @@
-> +/*
-> + *  ASPEED AST2400 Timer
-> + *
-> + *  Andrew Jeffery <andrew@aj.id.au>
-> + *
-> + *  Copyright (C) 2015 IBM Corp.
-> + *
-> + *  This program is free software; you can redistribute it and/or modify
-> + *  it under the terms of the GNU General Public License as published by
-> + *  the Free Software Foundation; either version 2 of the License, or
-> + *  (at your option) any later version.
-> + *
-> + *  This program is distributed in the hope that it will be useful,
-> + *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-> + *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> + *  GNU General Public License for more details.
-> + *
-> + *  You should have received a copy of the GNU General Public License along
-> + *  with this program; if not, write to the Free Software Foundation, Inc.,
-> + *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-> + */
-> +
-> +#include <assert.h>
-> +#include <stdio.h>
-> +#include "hw/sysbus.h"
-> +#include "qemu/timer.h"
-> +#include "qemu-common.h"
-> +#include "hw/ptimer.h"
-> +#include "qemu/main-loop.h"
-> +#include "hw/timer/aspeed_timer.h"
-> +
-> +#define TIMER_NUM_TIMERS 8
-> +#define TIMER_NUM_REGS 4
-> +
-> +#define TIMER_CTRL 0
-> +#define TIMER_CTRL2 1
-> +#define TIMER_CTRL_BITS 4
-> +
-> +#ifdef DEBUG
-> +# define DPRINTF(format, ...) fprintf(stderr, format , ## __VA_ARGS__)
-> +#else
-> +# define DPRINTF(format, ...) do { } while (0)
-> +#endif
 
-We should use trace events instead of printfs.
+I tried this with various cases of console usage.  Starting console in
+beginning, in the middle, never, etc.  Seems to work.  Please get merged
+ASAP.  Thanks!
 
-> +static void aspeed_timer_update(AspeedTimer *t)
-> +{
-> +    if (t->enabled) {
-> +        qemu_irq_raise(t->irq);
-> +    } else {
-> +        qemu_irq_lower(t->irq);
-> +    }
-> +}
-> +
-> +static void aspeed_timer_tick(void *opaque)
-> +{
-> +    AspeedTimer *t = opaque;
-> +
-> +    aspeed_timer_update(t);
-> +}
-> +
-> +#define L_OFFSET_TO_TIMER(o) (o / (TIMER_NUM_REGS * sizeof(uint32_t)))
-> +#define H_OFFSET_TO_TIMER(o) (L_OFFSET_TO_TIMER((o) - 0x40) + 4)
-> +#define OFFSET_TO_REG(o) ((o / sizeof(uint32_t)) % TIMER_NUM_REGS)
 
-These defines looks complex to me. See a proposal below.
+Regards,
+Norman James
+IBM - POWER Systems Architect
+Phone: 1-512-286-6807 (T/L: 363-6807)
+Internet: njames@us.ibm.com
 
-> +static uint64_t aspeed_timer_get_value(AspeedTimerState *s, int timer, int reg)
-> +{
-> +    if (timer > TIMER_NUM_TIMERS) {
-> +        qemu_log_mask(LOG_UNIMP, "Programming error, unknown timer: %d\n",
-> +                      timer);
-> +        return 0;
-> +    }
 
-I am not sure we need this test. It would mean we got something wrong 
-in aspeed_timer_read() which can not happen with the arithmetic we are 
-doing. 
 
-> +    switch (reg) {
-> +    case 0: /* Status */
-> +        return ptimer_get_count(s->timers[timer].timer);
-> +    case 1: /* Reload */
-> +        return s->timers[timer].reload;
-> +    case 2: /* First match */
-> +    case 3: /* Second match */
-> +        return s->timers[timer].match[reg - 2];
-> +    default:
-> +        qemu_log_mask(LOG_UNIMP, "Programming error: unexpected reg: %d\n",
-> +                      reg);
-> +        break;
-> +    }
-> +    return 0;
-> +}
-> +
-> +static uint64_t aspeed_timer_read(void *opaque, hwaddr offset, unsigned size)
-> +{
 
-If we define :
+From:	Jeremy Kerr <jk@ozlabs.org>
+To:	openbmc@lists.ozlabs.org
+Date:	02/11/2016 03:03 AM
+Subject:	[PATCH 1/2] serial/aspeed-vuart: Only disable host tx discard
+            when serial port is in use
+Sent by:	"openbmc" <openbmc-bounces+njames=3Dus.ibm.com@lists.ozlabs.org>
 
-	int reg = (offset & 0xf) / 4;
 
-then we can use it below :
 
-> +    AspeedTimerState *s = opaque;
-> +    switch (offset) {
-> +    case 0x30: /* Control Register */
-> +        return s->control[TIMER_CTRL];
-> +    case 0x34: /* Control Register 2 */
-> +        return s->control[TIMER_CTRL2];
-> +    case 0x00 ... 0x2c: /* Timers 1 - 4 */
-> +        return aspeed_timer_get_value(s, L_OFFSET_TO_TIMER(offset),
-> +                                      OFFSET_TO_REG(offset));
+OpenPOWER firmware doesn't like it when the host-side of the VUART's
+FIFO is not drained. This change shifts only disables host TX discard
+mode when the port has been opened.
 
-           return aspeed_timer_get_value(s, (offset >> 4) + 1, reg);
+Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
+---
+ drivers/tty/serial/aspeed-vuart.c | 40 ++++++++++++++++++++++++++++++++++
++----
+ 1 file changed, 36 insertions(+), 4 deletions(-)
 
-> +    case 0x40 ... 0x8c: /* Timers 5 - 8 */
-> +        return aspeed_timer_get_value(s, H_OFFSET_TO_TIMER(offset),
-> +                                      OFFSET_TO_REG(offset));
+diff --git a/drivers/tty/serial/aspeed-vuart.c
+b/drivers/tty/serial/aspeed-vuart.c
+index f34884a..73bb0e7 100644
+--- a/drivers/tty/serial/aspeed-vuart.c
++++ b/drivers/tty/serial/aspeed-vuart.c
+@@ -144,16 +144,45 @@ static ssize=5Ft ast=5Fvuart=5Fset=5Fsirq(struct devi=
+ce *dev,
+ static DEVICE=5FATTR(sirq, S=5FIWUSR | S=5FIRUGO,
+ 		 		 ast=5Fvuart=5Fshow=5Fsirq, ast=5Fvuart=5Fset=5Fsirq);
 
-           return aspeed_timer_get_value(s, (offset >> 4), reg);
+-static void ast=5Fvuart=5Fsetup(struct ast=5Fvuart *vuart)
++static void ast=5Fvuart=5Fset=5Fhost=5Ftx=5Fdiscard(struct ast=5Fvuart *vu=
+art, bool
+discard)
+ {
+ 		 u8 reg;
 
-I believe this is correct and does the same ? 
+-		 /* disable TX discard mode */
+ 		 reg =3D readb(vuart->regs + AST=5FVUART=5FGCRA);
+-		 reg |=3D AST=5FVUART=5FGCRA=5FHOST=5FTX=5FDISCARD;
++
++		 /* if the HOST=5FTX=5FDISCARD bit is set, discard is *disabled* */
++		 reg &=3D ~AST=5FVUART=5FGCRA=5FHOST=5FTX=5FDISCARD;
++		 if (!discard)
++		 		 reg |=3D AST=5FVUART=5FGCRA=5FHOST=5FTX=5FDISCARD;
++
+ 		 writeb(reg, vuart->regs + AST=5FVUART=5FGCRA);
+ }
 
-> +    /* Illegal */
-> +    case 0x38:
-> +    case 0x3C:
-> +    default:
-> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: Bad offset %x\n", __func__,
-> +                      (int)offset);
-> +        break;
-> +    }
-> +    return 0;
-> +}
-> +
-> +static void aspeed_timer_set_value(AspeedTimerState *s, int timer, int reg,
-> +                                   uint32_t value)
-> +{
-> +    AspeedTimer *t;
-> +
-> +    if (timer > TIMER_NUM_TIMERS) {
-> +        qemu_log_mask(LOG_UNIMP, "Programming error, unknown timer: %d\n",
-> +                      timer);
-> +        return;
-> +    }
-> +    t = &s->timers[timer];
-> +    switch (reg) {
-> +    case 0: /* Status */
-> +        ptimer_get_count(t->timer);
-> +        break;
-> +    case 1: /* Reload */
-> +        t->reload = value;
-> +        ptimer_set_limit(t->timer, value, 1);
-> +        break;
-> +    case 2: /* First match */
-> +    case 3: /* Second match */
-> +        /* Nothing is done to make matching work, we just record the value */
-> +        t->match[reg - 2] = value;
-> +        break;
-> +    default:
-> +        qemu_log_mask(LOG_UNIMP, "Programming error: unexpected reg: %d\n",
-> +                      reg);
-> +        break;
-> +    }
-> +}
-> +
-> +static void aspeed_timer_set_ctrl(AspeedTimerState *s, uint32_t new)
-> +{
-> +    int i;
-> +    uint32_t changed = s->control[TIMER_CTRL] ^ new;
-> +
-> +    while (32 > (i = ctz32(changed))) {
-> +        int timer, op;
-> +        bool set;
-> +        AspeedTimer *t;
-> +
-> +        timer = i / TIMER_CTRL_BITS;
-> +        assert(timer < TIMER_NUM_TIMERS);
-> +        t = &s->timers[timer];
-> +        op = i % TIMER_CTRL_BITS;
-> +        set = new & (1U << i);
-> +        switch (op) {
-> +        case 0: /* Timer Enable */
-> +            if (set) {
-> +                ptimer_run(t->timer, 0);
-> +                DPRINTF("Timer %d (%p) running\n", timer, t->timer);
-> +            } else {
-> +                DPRINTF("Stopping timer %d\n", timer);
-> +                ptimer_stop(t->timer);
-> +                ptimer_set_limit(t->timer, t->reload, 1);
-> +            }
-> +            t->enabled = set;
-> +            break;
-> +        case 1: /* Clock Selection */
-> +            if (set) {
-> +                DPRINTF("External clock\n");
-> +            } else {
-> +                DPRINTF("Internal clock\n");
-> +            }
++static int ast=5Fvuart=5Fstartup(struct uart=5Fport *uart=5Fport)
++{
++		 struct uart=5F8250=5Fport *uart=5F8250=5Fport =3D up=5Fto=5Fu8250p
+(uart=5Fport);
++		 struct ast=5Fvuart *vuart =3D uart=5F8250=5Fport->port.private=5Fdata;
++		 int rc;
++
++		 rc =3D serial8250=5Fdo=5Fstartup(uart=5Fport);
++		 if (rc)
++		 		 return rc;
++
++		 ast=5Fvuart=5Fset=5Fhost=5Ftx=5Fdiscard(vuart, false);
++
++		 return 0;
++}
++
++static void ast=5Fvuart=5Fshutdown(struct uart=5Fport *uart=5Fport)
++{
++		 struct uart=5F8250=5Fport *uart=5F8250=5Fport =3D up=5Fto=5Fu8250p
+(uart=5Fport);
++		 struct ast=5Fvuart *vuart =3D uart=5F8250=5Fport->port.private=5Fdata;
++
++		 ast=5Fvuart=5Fset=5Fhost=5Ftx=5Fdiscard(vuart, true);
++
++		 serial8250=5Fdo=5Fshutdown(uart=5Fport);
++}
++
 
-if we are interested with these debug messages, may be we could use a 
-global trace event for the routine aspeed_timer_set_ctrl() and remove 
-all the DPRINTF()
+ /**
+  * The device tree parsing code here is heavily based on that of the
+of=5Fserial
+@@ -190,9 +219,12 @@ static int ast=5Fvuart=5Fprobe(struct platform=5Fdevice
+*pdev)
+ 		 }
 
-> +            break;
-> +        case 2: /* Overflow Interrupt */
-> +            if (set) {
-> +                DPRINTF("Overflow interrupt enabled\n");
-> +            } else {
-> +                DPRINTF("Overflow interrupt disabled\n");
-> +            }
-> +            break;
-> +        case 3: /* Pulse Generation and Output Enable */
-> +            if (timer < 4) {
-> +                qemu_log_mask(LOG_GUEST_ERROR,
-> +                              "Timer %d does not support pulse mode\n", timer);
-> +            } else if (set) {
-> +                DPRINTF("Pulse enabled\n");
-> +            } else {
-> +                DPRINTF("Pulse disabled\n");
-> +            }
-> +            break;
-> +        default:
-> +            qemu_log_mask(LOG_UNIMP, "Programming error, unexpected op: %d\n",
-> +                          op);
-> +            break;
-> +        }
-> +        changed &= ~(1U << i);
-> +    }
-> +    s->control[TIMER_CTRL] = new;
-> +}
-> +
-> +static void aspeed_timer_set_ctrl2(AspeedTimerState *s, uint32_t value)
-> +{
-> +    DPRINTF("value=0x%" PRIx32 "\n", value);
-> +}
-> +
-> +static void aspeed_timer_write(void *opaque, hwaddr offset, uint64_t value,
-> +                               unsigned size)
-> +{
-> +    AspeedTimerState *s = opaque;
-> +    uint32_t tv = (uint32_t)(value & 0xFFFFFFFF);
-> +
-> +    if (size != sizeof(uint32_t)) {
-> +        qemu_log_mask(LOG_GUEST_ERROR, "Unexpected register write size: %d\n",
-> +                      size);
-> +        return;
-> +    }
+ 		 memset(&port, 0, sizeof(port));
++		 port.port.private=5Fdata =3D vuart;
+ 		 port.port.membase =3D vuart->regs;
+ 		 port.port.mapbase =3D resource.start;
+ 		 port.port.mapsize =3D resource=5Fsize(&resource);
++		 port.port.startup =3D ast=5Fvuart=5Fstartup;
++		 port.port.shutdown =3D ast=5Fvuart=5Fshutdown;
 
-This should be caught by the MemoryRegionOps ops if you define :
+ 		 if (of=5Fproperty=5Fread=5Fu32(np, "clock-frequency", &clk)) {
+ 		 		 vuart->clk =3D devm=5Fclk=5Fget(&pdev->dev, NULL);
+@@ -272,8 +304,8 @@ static int ast=5Fvuart=5Fprobe(struct platform=5Fdevice
+*pdev)
 
-	.min_access_size = 4,
-        .max_access_size = 4,
 
-> +    switch (offset) {
-> +    /* Control Registers */
-> +    case 0x30:
-> +        aspeed_timer_set_ctrl(s, tv);
-> +        break;
-> +    case 0x34:
-> +        aspeed_timer_set_ctrl2(s, tv);
-> +        break;
-> +    /* Timer Registers */
-> +    case 0x00 ... 0x2c:
-> +        aspeed_timer_set_value(s, L_OFFSET_TO_TIMER(offset),
-> +                               OFFSET_TO_REG(offset), tv);
+ 		 vuart->line =3D rc;
++		 ast=5Fvuart=5Fset=5Fhost=5Ftx=5Fdiscard(vuart, true);
+ 		 platform=5Fset=5Fdrvdata(pdev, vuart);
+-		 ast=5Fvuart=5Fsetup(vuart);
 
-same remark than for the read.
+ 		 /* extra sysfs control */
+ 		 rc =3D device=5Fcreate=5Ffile(&pdev->dev, &dev=5Fattr=5Flpc=5Faddress);
+--
+2.5.0
 
-> +        break;
-> +    case 0x40 ... 0x8c:
-> +        aspeed_timer_set_value(s, H_OFFSET_TO_TIMER(offset),
-> +                               OFFSET_TO_REG(offset), tv);
-> +        break;
-> +    /* Illegal */
-> +    case 0x38:
-> +    case 0x3C:
-> +    default:
-> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: Bad offset %" HWADDR_PRIx "\n",
-> +                __func__, offset);
-> +        break;
-> +    }
-> +}
-> +
-> +static const MemoryRegionOps aspeed_timer_ops = {
-> +    .read = aspeed_timer_read,
-> +    .write = aspeed_timer_write,
-> +    .endianness = DEVICE_NATIVE_ENDIAN,
-> +};
-> +
-> +static void aspeed_timer_init(AspeedTimer *t, uint32_t freq)
-> +{
-> +    QEMUBH *bh;
-> +
-> +    bh = qemu_bh_new(aspeed_timer_tick, t);
-> +    assert(bh);
-> +    t->timer = ptimer_init(bh);
-> +    assert(t->timer);
-> +    ptimer_set_freq(t->timer, freq);
-> +}
-> +
-> +static void aspeed_timers_realize(DeviceState *dev, Error **errp)
-> +{
-> +    int i;
-> +    SysBusDevice *sbd = SYS_BUS_DEVICE(dev);
-> +    AspeedTimerState *s = ASPEED_TIMER(dev);
-> +
-> +    /* Hard-code the APB 24MHz clock rate for the moment */
-> +    for (i = 0; i < TIMER_NUM_TIMERS; i++) {
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F
+openbmc mailing list
+openbmc@lists.ozlabs.org
+https://lists.ozlabs.org/listinfo/openbmc
 
-we could use ARRAY_SIZE() instead of TIMER_NUM_TIMERS
 
-> +        aspeed_timer_init(&s->timers[i], 24000000);
+--1__=8FBBF5C5DFF643378f9e8a93df938690918c8FBBF5C5DFF64337
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/html; charset=US-ASCII
+Content-Disposition: inline
 
-The freq can be changed with the control register 1. May be we could 
-have a freq attribute to  struct AspeedTimer to begin with ? 
+<html><body><p>I tried this with various cases of console usage.  Starting =
+console in beginning, in the middle, never, etc.  Seems to work.  Please ge=
+t merged ASAP.  Thanks!<br><br><br>Regards,<br>Norman James<br>IBM - POWER =
+Systems Architect<br>Phone: 1-512-286-6807 (T/L: 363-6807)<br>Internet: nja=
+mes@us.ibm.com<br><br><br><img width=3D"16" height=3D"16" src=3D"cid:1=5F=
+=5F=3D8FBBF5C5DFF643378f9e8a93df938690918c8FB@" border=3D"0" alt=3D"Inactiv=
+e hide details for Jeremy Kerr ---02/11/2016 03:03:20 AM---OpenPOWER firmwa=
+re doesn't like it when the host-side of the "><font color=3D"#424282">Jere=
+my Kerr ---02/11/2016 03:03:20 AM---OpenPOWER firmware doesn't like it when=
+ the host-side of the VUART's FIFO is not drained. This chang</font><br><br=
+><font size=3D"2" color=3D"#5F5F5F">From:        </font><font size=3D"2">Je=
+remy Kerr &lt;jk@ozlabs.org&gt;</font><br><font size=3D"2" color=3D"#5F5F5F=
+">To:        </font><font size=3D"2">openbmc@lists.ozlabs.org</font><br><fo=
+nt size=3D"2" color=3D"#5F5F5F">Date:        </font><font size=3D"2">02/11/=
+2016 03:03 AM</font><br><font size=3D"2" color=3D"#5F5F5F">Subject:        =
+</font><font size=3D"2">[PATCH 1/2] serial/aspeed-vuart: Only disable host =
+tx discard when serial port is in use</font><br><font size=3D"2" color=3D"#=
+5F5F5F">Sent by:        </font><font size=3D"2">&quot;openbmc&quot; &lt;ope=
+nbmc-bounces+njames=3Dus.ibm.com@lists.ozlabs.org&gt;</font><br><hr width=
+=3D"100%" size=3D"2" align=3D"left" noshade style=3D"color:#8091A5; "><br><=
+br><br><tt>OpenPOWER firmware doesn't like it when the host-side of the VUA=
+RT's<br>FIFO is not drained. This change shifts only disables host TX disca=
+rd<br>mode when the port has been opened.<br><br>Signed-off-by: Jeremy Kerr=
+ &lt;jk@ozlabs.org&gt;<br>---<br> drivers/tty/serial/aspeed-vuart.c | 40 ++=
++++++++++++++++++++++++++++++++++----<br> 1 file changed, 36 insertions(+),=
+ 4 deletions(-)<br><br>diff --git a/drivers/tty/serial/aspeed-vuart.c b/dri=
+vers/tty/serial/aspeed-vuart.c<br>index f34884a..73bb0e7 100644<br>--- a/dr=
+ivers/tty/serial/aspeed-vuart.c<br>+++ b/drivers/tty/serial/aspeed-vuart.c<=
+br>@@ -144,16 +144,45 @@ static ssize=5Ft ast=5Fvuart=5Fset=5Fsirq(struct d=
+evice *dev,<br> static DEVICE=5FATTR(sirq, S=5FIWUSR | S=5FIRUGO,<br>      =
+                             ast=5Fvuart=5Fshow=5Fsirq, ast=5Fvuart=5Fset=
+=5Fsirq);<br> <br>-static void ast=5Fvuart=5Fsetup(struct ast=5Fvuart *vuar=
+t)<br>+static void ast=5Fvuart=5Fset=5Fhost=5Ftx=5Fdiscard(struct ast=5Fvua=
+rt *vuart, bool discard)<br> {<br>                  u8 reg;<br> <br>-      =
+           /* disable TX discard mode */<br>                  reg =3D readb=
+(vuart-&gt;regs + AST=5FVUART=5FGCRA);<br>-                 reg |=3D AST=5F=
+VUART=5FGCRA=5FHOST=5FTX=5FDISCARD;<br>+<br>+                 /* if the HOS=
+T=5FTX=5FDISCARD bit is set, discard is *disabled* */<br>+                 =
+reg &amp;=3D ~AST=5FVUART=5FGCRA=5FHOST=5FTX=5FDISCARD;<br>+               =
+  if (!discard)<br>+                                  reg |=3D AST=5FVUART=
+=5FGCRA=5FHOST=5FTX=5FDISCARD;<br>+<br>                  writeb(reg, vuart-=
+&gt;regs + AST=5FVUART=5FGCRA);<br> }<br> <br>+static int ast=5Fvuart=5Fsta=
+rtup(struct uart=5Fport *uart=5Fport)<br>+{<br>+                 struct uar=
+t=5F8250=5Fport *uart=5F8250=5Fport =3D up=5Fto=5Fu8250p(uart=5Fport);<br>+=
+                 struct ast=5Fvuart *vuart =3D uart=5F8250=5Fport-&gt;port.=
+private=5Fdata;<br>+                 int rc;<br>+<br>+                 rc =
+=3D serial8250=5Fdo=5Fstartup(uart=5Fport);<br>+                 if (rc)<br=
+>+                                  return rc;<br>+<br>+                 as=
+t=5Fvuart=5Fset=5Fhost=5Ftx=5Fdiscard(vuart, false);<br>+<br>+             =
+    return 0;<br>+}<br>+<br>+static void ast=5Fvuart=5Fshutdown(struct uart=
+=5Fport *uart=5Fport)<br>+{<br>+                 struct uart=5F8250=5Fport =
+*uart=5F8250=5Fport =3D up=5Fto=5Fu8250p(uart=5Fport);<br>+                =
+ struct ast=5Fvuart *vuart =3D uart=5F8250=5Fport-&gt;port.private=5Fdata;<=
+br>+<br>+                 ast=5Fvuart=5Fset=5Fhost=5Ftx=5Fdiscard(vuart, tr=
+ue);<br>+<br>+                 serial8250=5Fdo=5Fshutdown(uart=5Fport);<br>=
++}<br>+<br> <br> /**<br> &nbsp;* The device tree parsing code here is heavi=
+ly based on that of the of=5Fserial<br>@@ -190,9 +219,12 @@ static int ast=
+=5Fvuart=5Fprobe(struct platform=5Fdevice *pdev)<br>                  }<br>=
+ <br>                  memset(&amp;port, 0, sizeof(port));<br>+            =
+     port.port.private=5Fdata =3D vuart;<br>                  port.port.mem=
+base =3D vuart-&gt;regs;<br>                  port.port.mapbase =3D resourc=
+e.start;<br>                  port.port.mapsize =3D resource=5Fsize(&amp;re=
+source);<br>+                 port.port.startup =3D ast=5Fvuart=5Fstartup;<=
+br>+                 port.port.shutdown =3D ast=5Fvuart=5Fshutdown;<br> <br=
+>                  if (of=5Fproperty=5Fread=5Fu32(np, &quot;clock-frequency=
+&quot;, &amp;clk)) {<br>                                   vuart-&gt;clk =
+=3D devm=5Fclk=5Fget(&amp;pdev-&gt;dev, NULL);<br>@@ -272,8 +304,8 @@ stati=
+c int ast=5Fvuart=5Fprobe(struct platform=5Fdevice *pdev)<br> <br> <br>    =
+              vuart-&gt;line =3D rc;<br>+                 ast=5Fvuart=5Fset=
+=5Fhost=5Ftx=5Fdiscard(vuart, true);<br>                  platform=5Fset=5F=
+drvdata(pdev, vuart);<br>-                 ast=5Fvuart=5Fsetup(vuart);<br> =
+<br>                  /* extra sysfs control */<br>                  rc =3D=
+ device=5Fcreate=5Ffile(&amp;pdev-&gt;dev, &amp;dev=5Fattr=5Flpc=5Faddress)=
+;<br>-- <br>2.5.0<br><br>=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F<br>openbmc mailing list<br>openbmc@lists.ozlabs.org<br><=
+/tt><tt><a href=3D"https://lists.ozlabs.org/listinfo/openbmc">https://lists=
+.ozlabs.org/listinfo/openbmc</a></tt><tt><br></tt><br><BR>
+</body></html>
 
-> +        sysbus_init_irq(sbd, &s->timers[i].irq);
-> +    }
-> +    memory_region_init_io(&s->iomem, OBJECT(s), &aspeed_timer_ops, s,
-> +                          TYPE_ASPEED_TIMER, 0x1000);
-> +    sysbus_init_mmio(sbd, &s->iomem);
-> +}
-> +
-> +static void timer_class_init(ObjectClass *klass, void *data)
-> +{
-> +    DeviceClass *dc = DEVICE_CLASS(klass);
-> +
-> +    dc->realize = aspeed_timers_realize;
-> +    dc->desc = "ASPEED Timer";
-> +}
-> +
-> +static const TypeInfo aspeed_timer_info = {
-> +    .name = TYPE_ASPEED_TIMER,
-> +    .parent = TYPE_SYS_BUS_DEVICE,
-> +    .instance_size = sizeof(AspeedTimerState),
-> +    .class_init = timer_class_init,
-> +};
-> +
-> +static void aspeed_timer_register_types(void)
-> +{
-> +    type_register_static(&aspeed_timer_info);
-> +}
-> +
-> +type_init(aspeed_timer_register_types);
-> diff --git a/include/hw/timer/aspeed_timer.h b/include/hw/timer/aspeed_timer.h
-> new file mode 100644
-> index 0000000..d6e0efc
-> --- /dev/null
-> +++ b/include/hw/timer/aspeed_timer.h
-> @@ -0,0 +1,52 @@
-> +/*
-> + *  ASPEED AST2400 Timer
-> + *
-> + *  Andrew Jeffery <andrew@aj.id.au>
-> + *
-> + *  Copyright (C) 2016 IBM Corp.
-> + *
-> + *  This program is free software; you can redistribute it and/or modify
-> + *  it under the terms of the GNU General Public License as published by
-> + *  the Free Software Foundation; either version 2 of the License, or
-> + *  (at your option) any later version.
-> + *
-> + *  This program is distributed in the hope that it will be useful,
-> + *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-> + *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> + *  GNU General Public License for more details.
-> + *
-> + *  You should have received a copy of the GNU General Public License along
-> + *  with this program; if not, write to the Free Software Foundation, Inc.,
-> + *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-> + */
-> +#ifndef ASPEED_TIMER_H
-> +#define ASPEED_TIMER_H
-> +
-> +#include "hw/ptimer.h"
-> +
-> +#define ASPEED_TIMER(obj) \
-> +    OBJECT_CHECK(AspeedTimerState, (obj), TYPE_ASPEED_TIMER);
-> +#define TYPE_ASPEED_TIMER "aspeed.timer"
-> +#define TIMER_BASE 0x1E782000
+--1__=8FBBF5C5DFF643378f9e8a93df938690918c8FBBF5C5DFF64337--
 
-I think this address define should be in ast2400.c
 
-> +#define TIMER_NR_TIMERS 8
+--0__=8FBBF5C5DFF643378f9e8a93df938690918c8FBBF5C5DFF64337
+Content-type: image/gif; 
+	name="graycol.gif"
+Content-Disposition: inline; filename="graycol.gif"
+Content-ID: <1__=8FBBF5C5DFF643378f9e8a93df938690918c8FB@>
+Content-Transfer-Encoding: base64
 
-May be use a ASPEED_ prefix to protect the namespace.
+R0lGODlhEAAQAKECAMzMzAAAAP///wAAACH5BAEAAAIALAAAAAAQABAAAAIXlI+py+0PopwxUbpu
+ZRfKZ2zgSJbmSRYAIf4fT3B0aW1pemVkIGJ5IFVsZWFkIFNtYXJ0U2F2ZXIhAAA7
 
-#define ASPEED_TIMER_NR_TIMERS 8
 
-> +
-> +typedef struct AspeedTimer {
-> +    ptimer_state *timer;
-> +    uint32_t reload;
-> +    uint32_t match[2];
-> +    qemu_irq irq;
-> +    bool enabled;
-
-freq ? just to say we might need to take it into account ? 
-
-C.
- 
-> +} AspeedTimer;
-> +
-> +typedef struct AspeedTimerState {
-> +    /* < private > */
-> +    SysBusDevice parent;
-> +
-> +    /* < public > */
-> +    MemoryRegion iomem;
-> +    AspeedTimer timers[TIMER_NR_TIMERS];
-> +    uint32_t control[2];
-> +    qemu_irq irq;
-> +} AspeedTimerState;
-> +
-> +#endif /* ASPEED_TIMER_H */
-> 
+--0__=8FBBF5C5DFF643378f9e8a93df938690918c8FBBF5C5DFF64337--
