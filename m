@@ -3,19 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 5923A1A0048
- for <openbmc@lists.ozlabs.org>; Fri, 12 Feb 2016 15:50:26 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 32A581A0048
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Feb 2016 16:20:26 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1455252622603828.6483143338941;
- Thu, 11 Feb 2016 20:50:22 -0800 (PST)
+ with SMTPS id 145525442320275.92800233858452;
+ Thu, 11 Feb 2016 21:20:23 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc] meta-phosphor: Bump kernel to 20160212-1
-Date: Thu, 11 Feb 2016 22:50:20 -0600
-Message-Id: <1455252620-25931-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc-build-scripts] build-setup: Ensure we fail the build
+ when a step fails
+Date: Thu, 11 Feb 2016 23:20:21 -0600
+Message-Id: <1455254421-26850-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1455252620-25931-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1455252620-25931-1-git-send-email-openbmc-patches@stwcx.xyz>
+In-Reply-To: <1455254421-26850-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1455254421-26850-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -28,33 +29,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Feb 2016 04:50:26 -0000
+X-List-Received-Date: Fri, 12 Feb 2016 05:20:28 -0000
 
 From: Joel Stanley <joel@jms.id.au>
 
-Fixes in serial/aspeed-vuart:
- - Perform enable/disable on driver bind/unbind
- - Only disable host tx discard when serial port is in use
-
-Plus a small device tree fix from Milton.
-
 Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.3.bb | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ build-setup.sh | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.3.bb b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.3.bb
-index 14aaa30..cd20762 100644
---- a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.3.bb
-+++ b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.3.bb
-@@ -10,7 +10,7 @@ SRC_URI = "git://github.com/openbmc/linux;protocol=git;branch=${KBRANCH}"
- LINUX_VERSION ?= "4.3"
- LINUX_VERSION_EXTENSION ?= "-${SRCREV}"
+diff --git a/build-setup.sh b/build-setup.sh
+index a96ed44..f2a37fa 100755
+--- a/build-setup.sh
++++ b/build-setup.sh
+@@ -7,8 +7,8 @@
+ #   distro = fedora|ubuntu
+ #   WORKSPACE = 
  
--SRCREV="openbmc-20160210-1"
-+SRCREV="openbmc-20160212-1"
+-# Trace bash processing
+-set -x
++# Trace bash processing. Set -e so when a step fails, we fail the build
++set -xe
  
- PV = "${LINUX_VERSION}+git${SRCPV}"
+ # Default variables
+ target=${target:-qemu}
+@@ -100,7 +100,7 @@ mkdir -p ${WORKSPACE}
+ cat > "${WORKSPACE}"/build.sh << EOF_SCRIPT
+ #!/bin/bash
+ 
+-set -x
++set -ex
+ 
+ cd ${WORKSPACE}
  
 -- 
 2.7.1
