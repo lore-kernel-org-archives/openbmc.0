@@ -1,60 +1,61 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-ob0-x242.google.com (mail-ob0-x242.google.com
- [IPv6:2607:f8b0:4003:c01::242])
+Received: from mail-ob0-x243.google.com (mail-ob0-x243.google.com
+ [IPv6:2607:f8b0:4003:c01::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 1410A1A002B
- for <openbmc@lists.ozlabs.org>; Fri, 12 Feb 2016 15:23:04 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 5C9801A002B
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Feb 2016 15:40:08 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=poN+6lIG; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=Ane1Z1ow; 
  dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=A2DCvyOs; 
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=LWcKCZL2; 
  dkim-atps=neutral
-Received: by mail-ob0-x242.google.com with SMTP id x5so7637834obg.1
- for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 20:23:03 -0800 (PST)
+Received: by mail-ob0-x243.google.com with SMTP id wg8so7666253obc.3
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 20:40:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc:content-type;
- bh=Md0pLqkNcw2Nug5vCI//XmU7y36zuDKFP4yJ7B2kmRw=;
- b=poN+6lIGUdVBmfrEmDkwaF3umQw/ahWO3sgvpb7DGSn9F1coABc4Nnz2hjusfs8qqO
- C3fdYM+Av/w+X8hc8LsFEUEP7g+If+fwdJvXavICLqPhwnTx5rZgnuGwBmvWaikSGCPs
- Wl5QaTrmm/beHAz2TlbaauhXt8g2O89ZSCw8YzoQNVZljshtbkexq/oSMGRGMs0/tn6u
- S/GZJe3leUrrXiq5ZqXopzXuGNBfIMTNkihgQhcv18QPSdFFv+BLeqpi2CYBLR+mM0bI
- M63VTikuMTJq8U1ktnxVJfc4Mhd5Y3PQ0oZxjmY1GtE1X0GtfETmf6YnWtL6QAG9unbl
- r9Gg==
+ bh=W8UXSRceHPLNVD8jn25L7NAfAYbkqjKtI2DNod5iE54=;
+ b=Ane1Z1ows8AocT4+SfV0UEEb+ynH7750szZqMyeYFvHVcNMzoTckV1DoS9lV+AGSgV
+ fpFpD6tHvsdJ7AvONczwQ5MuL6pNqU6EEdo57kpsWcFs54yY1xLzV7/eRZsypGpA4XUM
+ aXI+He8DDy1op9zGXqkpVn85rB66CZJd8Q6wbQZQU21vcUrU+3fdiYYHX0FEZtiZFV5Y
+ ccVhhQjY+7SFY9JrWwKiL+dl66sX8IYrVaxSGUamWrKKJnFYO1zsk6rdrwkmg7Kg/reT
+ mLLCaRj2CRH8i1v6pNnMHkj0ZRP7lj+wbLb+cQNA1lYH22Zo+SORtfo4810Ukyq41bkz
+ 2Mng==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc:content-type;
- bh=Md0pLqkNcw2Nug5vCI//XmU7y36zuDKFP4yJ7B2kmRw=;
- b=A2DCvyOsX8wxGD7H12pf6ewYx8hp9zho9jXyPhF2YFOB0milUB8qfB0+oyYNUR+aXR
- /Zl9IVUn4dQqniODJdlAWvVSncJEU84cQLwFHCgE40oqcWzSQLmYILLIUy89D0prM1PP
- qWgwmwo7ONqzamUgO9NpntKBrl/ElJVWscGko=
+ bh=W8UXSRceHPLNVD8jn25L7NAfAYbkqjKtI2DNod5iE54=;
+ b=LWcKCZL2TGyDc1mN9pzBbkFZam+Eva40AJuDMMlbZ8oRdKwZ9Vgio0LFR2V0MwLpP4
+ qKf9ZJOlk4eiLOcNeOZMn72YoXYEvcs6f5J30yKH+KurGv8hGK99r2cBa79DoHEI4T24
+ S9OhaDGbD6jTyrMeA0cRZYOG7/MmugpKCQrl4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc:content-type;
- bh=Md0pLqkNcw2Nug5vCI//XmU7y36zuDKFP4yJ7B2kmRw=;
- b=Uk5i+hJJgPVX7LtoMeXrM8f/EGo6sJmVqaW21gpa6gdBD8/+NfAoKZVpevQWguDExk
- m1F1c2jDklZF0oNS1624WSAmyJPkUNM3vc/iYDXpfD4DQntoC8iHcdnioc7PM1JA/cms
- nQ+7ZmOah6CPyMjBYwcMcOBqCuKGcCycwQPNFGbYdRF2pJp1q1mjDGGA+BWSPG+xCGz9
- 4JjUMqEYDMXzukJyfnGX9duLAY2C5sCbMkALlv0QdpndVaPWqWK05irt1zT5+zK+0a/F
- tdrNLzd/Et2/wFSVsFYakt0BucDURE/cR2xoIo6R0szblJgB5bndMBOWCr5QAn+vgb4A
- 3QXg==
-X-Gm-Message-State: AG10YOQiHkcbRAyAR4nHhBgz9zwSIqtULwOVDN0ZcaTyewZLsCMNRMxd8ztHArqBQ+aywVAP4cCnHvFtTgqbow==
-X-Received: by 10.182.148.39 with SMTP id tp7mr49688939obb.87.1455250981896;
- Thu, 11 Feb 2016 20:23:01 -0800 (PST)
+ bh=W8UXSRceHPLNVD8jn25L7NAfAYbkqjKtI2DNod5iE54=;
+ b=CnKma0pkjJKyHPh1+VwqI9c0QvbnjH42dKw2m735u5LhfTRTgIPo3o2bILnqMwCwM6
+ 2lwdI6n3Q4wHQo0aYQW/7Hn3/Xzr5ToB33j0GVxJq3aFsZCdxJkRb6YrXqiZ0pIQtRqM
+ Ea9VxF8MtRXnoS/dDuXKRNT/UNuHJ0BuDVDfxyJENnOkocmbtIw7zUfxqWUluX3DCH0T
+ xz9h/Cmx4waiC838T8f5A4qrsnuaa6Oc6DY34atk2mtKvpbqQ6xRwovBC2eutdJWCGPF
+ Bhxs+TTQU74PIQIW49+2ceLqlEHMNcyfvbVF1SCvddYxHDtfgVdn5SsOonLSlu/jwfNw
+ GQ1A==
+X-Gm-Message-State: AG10YOS+s+UH5V9U1AOR4gEqjhrH853uCL7uCa2tBmgXIcupKMbwO81c4SB/RUIZPh6I01jt28Eoug0ZI+US6A==
+X-Received: by 10.60.232.99 with SMTP id tn3mr48389829oec.8.1455252006978;
+ Thu, 11 Feb 2016 20:40:06 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.60.121.1 with HTTP; Thu, 11 Feb 2016 20:22:42 -0800 (PST)
-In-Reply-To: <1455154228-7217-2-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1455154228-7217-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1455154228-7217-2-git-send-email-openbmc-patches@stwcx.xyz>
+Received: by 10.60.121.1 with HTTP; Thu, 11 Feb 2016 20:39:47 -0800 (PST)
+In-Reply-To: <1455179165-13252-2-git-send-email-jk@ozlabs.org>
+References: <1455179165-13252-1-git-send-email-jk@ozlabs.org>
+ <1455179165-13252-2-git-send-email-jk@ozlabs.org>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 12 Feb 2016 14:52:42 +1030
-X-Google-Sender-Auth: rHmcFF5zKWxTKrGxfM2fdw3Id4g
-Message-ID: <CACPK8XedTDoPRTc2madutwo_qJcJ4VinuXnXfFGpiQaJ1iinng@mail.gmail.com>
-Subject: Re: [PATCH linux 1/2] i2c: aspeed: Don't rename added devices
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Date: Fri, 12 Feb 2016 15:09:47 +1030
+X-Google-Sender-Auth: wdPy6EcHFG1W9OLOie8CPEw51pQ
+Message-ID: <CACPK8XcrC=VUaDAkd1Yoye7VyjmsmfgAfHKQAPykjNthR_jQnQ@mail.gmail.com>
+Subject: Re: [RFC PATCH 2/2] serial/aspeed-vuart: Perform enable/disable on
+ driver bind/unbind
+To: Jeremy Kerr <jk@ozlabs.org>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -68,81 +69,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Feb 2016 04:23:05 -0000
+X-List-Received-Date: Fri, 12 Feb 2016 04:40:10 -0000
 
-On Thu, Feb 11, 2016 at 12:00 PM, OpenBMC Patches
-<openbmc-patches@stwcx.xyz> wrote:
-> From: "Milton D. Miller II" <miltonm@us.ibm.com>
+On Thu, Feb 11, 2016 at 6:56 PM, Jeremy Kerr <jk@ozlabs.org> wrote:
+> Rather than exposing an enable sysfs attribute, we can just set the
+> VUART enabled bit when we bind to the device, and clear it on unbind.
 >
-> Changing the name of a device with dev_set_name after device_add
-> is not allowed.
+> We don't want to do this on open/release, as the host may be using this
+> bit to configure serial output modes, which is independent of whether
+> the devices has been opened by BMC userspace.
 >
-> However, of_create_device takes a bus_id parameter that specifies
-> the name of the platform device being added.
->
-> This does mean the bus property has to be retrieved multiple times.
-> Creation is skiped if there is trouble retrieving or formatting
-> the name.
+> Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
 
-Ok, this approach looks alright.
+Applied, as discussed on IRC.
 
-> diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
-> index 5488233..ccb438f 100644
-> --- a/drivers/i2c/busses/i2c-aspeed.c
-> +++ b/drivers/i2c/busses/i2c-aspeed.c
-> @@ -693,13 +693,6 @@ static int ast_i2c_probe_bus(struct platform_device *pdev)
->         if (ret)
->                 return -ENXIO;
->
-> -       /*
-> -        * Set a useful name derived from the bus number; the device tree
-> -        * should provide us with one that corresponds to the hardware
-> -        * numbering
-> -        */
-> -       dev_set_name(&pdev->dev, "i2c-%d", bus_num);
-> -
->         bus->pclk = devm_clk_get(&pdev->dev, NULL);
->         if (IS_ERR(bus->pclk)) {
->                 dev_dbg(&pdev->dev, "clk_get failed\n");
-> @@ -828,7 +821,26 @@ static int ast_i2c_probe_controller(struct platform_device *pdev)
->                         controller->irq);
->
->         for_each_child_of_node(pdev->dev.of_node, np) {
-> -               of_platform_device_create(np, NULL, &pdev->dev);
-> +               int ret;
-> +               u32 bus_num;
-> +               char bus_id[sizeof("i2c-12345")];
+Cheers,
 
-Clever, but I don't think it's kernel style. A constant will do.
-
-> +
-> +               /*
-> +                * Set a useful name derived from the bus number; the device
-> +                * tree should provide us with one that corresponds to the
-> +                * hardware numbering.  If the property is missing the
-> +                * probe would fail so just skip it here.
-> +                */
-> +
-> +               ret = of_property_read_u32(np, "bus", &bus_num);
-> +               if (ret)
-> +                       continue;
-> +
-> +               ret = snprintf(bus_id, sizeof(bus_id), "i2c-%u", bus_num);
-> +               if (ret >= sizeof(bus_id))
-> +                       continue;
-
-You should check for a negative value as well.
-
-> +
-> +               of_platform_device_create(np, bus_id, &pdev->dev);
->                 of_node_put(np);
->         }
->
-> --
-> 2.7.1
->
->
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+Joel
