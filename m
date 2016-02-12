@@ -1,41 +1,89 @@
-Return-Path: <andrew@aj.id.au>
-Received: from homiemail-a15.g.dreamhost.com (sub3.mail.dreamhost.com
- [69.163.253.7])
- by lists.ozlabs.org (Postfix) with ESMTP id 768E01A002B
- for <openbmc@lists.ozlabs.org>; Fri, 12 Feb 2016 13:59:41 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=Z/li2RWu; 
- dkim-atps=neutral
-Received: from homiemail-a15.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a15.g.dreamhost.com (Postfix) with ESMTP id 8FD5D76C069;
- Thu, 11 Feb 2016 18:59:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
- :subject:from:reply-to:to:date:in-reply-to:references
- :content-type:mime-version; s=aj.id.au; bh=K7idPhdXEyCZ9Q55N5U5n
- NiWDTI=; b=Z/li2RWuvxvBqGoB1ecBkmJevKnkK7TBIPRsqkk37SawSR6G4patR
- BrnIYWT+bcgaKjRXpciKnXebP1I3choDhO3kOhUMxQPJX1eKs9BDQhxIOjWif0vR
- XDPjKElN6TZ7GaGmE5/VYmyNY7MtneFhafrkXhw1gSY6jkE2CFGkco=
-Received: from keelia (unknown [203.0.153.9])
- (using TLSv1 with cipher AES128-SHA (128/128 bits))
+Return-Path: <austenc@us.ibm.com>
+Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- (Authenticated sender: andrew@aj.id.au)
- by homiemail-a15.g.dreamhost.com (Postfix) with ESMTPSA id C3DA476C065;
- Thu, 11 Feb 2016 18:59:39 -0800 (PST)
-Message-ID: <1455245970.24478.26.camel@aj.id.au>
-Subject: Re: [PATCH linux] mtd: spi-nor: aspeed-smc: Use io string accessors
- to fifo
-From: Andrew Jeffery <andrew@aj.id.au>
-Reply-To: andrew@aj.id.au
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-Date: Fri, 12 Feb 2016 13:29:30 +1030
-In-Reply-To: <1455162625-11142-2-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1455162625-11142-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1455162625-11142-2-git-send-email-openbmc-patches@stwcx.xyz>
-Organization: IBM OzLabs
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-lOjTNQXkiTPTJQKG/GKv"
-X-Mailer: Evolution 3.16.5-1ubuntu3.1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id CEE3E1A002B
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Feb 2016 14:12:23 +1100 (AEDT)
+Received: from localhost
+ by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Thu, 11 Feb 2016 20:12:21 -0700
+Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
+ by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 11 Feb 2016 20:12:19 -0700
+X-IBM-Helo: d03dlp03.boulder.ibm.com
+X-IBM-MailFrom: austenc@us.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from b03cxnp08027.gho.boulder.ibm.com
+ (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
+ by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id D0F6019D803E
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 20:00:16 -0700 (MST)
+Received: from d03av03.boulder.ibm.com (d03av03.boulder.ibm.com [9.17.195.169])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u1C3CIl030867598
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 20:12:18 -0700
+Received: from d03av03.boulder.ibm.com (localhost [127.0.0.1])
+ by d03av03.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u1C3CII7030263
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 20:12:18 -0700
+Received: from d50lp02.ny.us.ibm.com (d50lp02.pok.ibm.com [146.89.104.208])
+ by d03av03.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u1C3CHKi030217
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Feb 2016 20:12:17 -0700
+Message-Id: <201602120312.u1C3CHKi030217@d03av03.boulder.ibm.com>
+Received: from /spool/local
+ by d50lp02.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Thu, 11 Feb 2016 22:12:17 -0500
+Received: from smtp.notes.na.collabserv.com (192.155.248.73)
+ by d50lp02.ny.us.ibm.com (158.87.18.21) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
+ Thu, 11 Feb 2016 22:12:15 -0500
+Received: from /spool/local
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Fri, 12 Feb 2016 03:12:14 -0000
+Received: from us1a3-smtp04.a3.dal06.isc4sb.com (10.106.154.237)
+ by smtp.notes.na.collabserv.com (10.106.227.90) with
+ smtp.notes.na.collabserv.com ESMTP; Fri, 12 Feb 2016 03:12:11 -0000
+Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
+ by us1a3-smtp04.a3.dal06.isc4sb.com
+ with ESMTP id 2016021203121067-560330 ;
+ Fri, 12 Feb 2016 03:12:10 +0000 
+To: "andrew@aj.id.au" <andrew@aj.id.au>
+In-Reply-To: <1455232163.2576.27.camel@aj.id.au>
+Date: Fri, 12 Feb 2016 03:12:11 +0000
+From: "Chris Austen" <austenc@us.ibm.com>
+Subject: Re: [PATCH phosphor-host-ipmid v2] IPMI Get IP Support
+Cc: "openbmc-patches" <openbmc-patches@stwcx.xyz>, "openbmc"
+ <openbmc@lists.ozlabs.org>, "Stewart Smith" <stewart@linux.vnet.ibm.com>
+Importance: Normal
+MIME-Version: 1.0
+X-Mailer: IBM Traveler 9.0.1.10 Build 201602011006_20 on behalf of device with
+ id mdmxxIBM_IOS_ApplFFMQ18K3G5MD,
+ type 1600 (iosibm) and description iPhone 6:Apple
+ iOS 9.2.1:IBM Traveler/9.3.1.20160121
+X-KeepSent: AECB91A3:1F241BDA-00257F57:0011985F;
+ type=4; name=$KeepSent
+X-LLNOutbound: False
+X-Disclaimed: 26043
+X-TNEFEvaluated: 1
+Content-Type: multipart/alternative; 
+ boundary="----=_Part_316_984234666.1455246731316"
+x-cbid: 16021203-0025-0000-0000-0000214DF4DC
+X-IBM-ISS-SpamDetectors: Score=0.417846; BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0;
+ PH=0; SC=0.417846; ST=0; TS=0; UL=0; ISC=
+X-IBM-ISS-DetailInfo: BY=3.00004906; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000143; SDB=6.00658667; UDB=6.00299087; UTC=2016-02-12
+ 03:12:13
+x-cbparentid: 16021203-0598-0000-0000-00000661B8E0
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -47,369 +95,140 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Feb 2016 02:59:43 -0000
+X-List-Received-Date: Fri, 12 Feb 2016 03:12:24 -0000
 
 
---=-lOjTNQXkiTPTJQKG/GKv
-Content-Type: text/plain; charset="UTF-8"
+------=_Part_316_984234666.1455246731316
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Hi Milton,
+Would it make sense to integrate gerrit?  =0A   =0A    I love the review I'=
+m all for it.  I asked for the issue because I knew it was merged. No issue=
+s at all with comments. =0A    =0A    I've work a project with gerrit and i=
+t seems that would resolve the issue with losing context=0A  =0A  Sent from=
+ my iPhone using IBM Verse=0A  =0A  On Feb 11, 2016, 5:09:41 PM, "Andrew Je=
+ffery" <andrew@aj.id.au> wrote:=0A  =0A     On Fri, 2016-02-12 at 08:15 +11=
+00, Stewart Smith wrote:=0A   > Chris Austen  writes:=0A   > > Open an issu=
+e to migrate to inet=5Fpton.=0A   > =0A   > Fixing such things in code revi=
+ew is a much better approach.=0A   > =0A   > For the submitter, it helps ge=
+t quick feedback on tehir code, and=0A   > promotes a culture of examining =
+your own code closely for things before=0A   > submitting it.=0A   > =0A   =
+> For maintainers and those who hare going to have to debug the systems,=0A=
+   > it means that it's *very* quick and cheap (in time) to point out odd=
+=0A   > things.=0A   > =0A   > Opening issues is approximately an order of =
+magnitude slower.=0A   For transparency, I sent the email despite knowing t=
+he code had been=0A   merged at the point I hit send because the timeline w=
+ent along the=0A   lines of: Open my laptop for the day, start reading emai=
+l, come across=0A   the patch, find some areas that I think we can improve =
+on, write 90% of=0A   the reply, head to github to check a small detail, di=
+scover the patch=0A   has already been merged.=0A   Since I'd spent some ti=
+me composing the review I didn't want to throw=0A   it away or spend furthe=
+r time to massaging it into a github issue with=0A   the necessary context,=
+ so I reworded the first paragraph to reflect the=0A   fact that it was alr=
+eady merged and hit send. This dovetails into=0A   Stewart's point below, p=
+rimarily the one about github issues lacking=0A   the code context for the =
+comments (without some manual effort). To be=0A   fair as it stands the git=
+hub issue I created doesn't (yet) contain any=0A   of the context or commen=
+ts provided in the email review, but at least=0A   that's available through=
+ the list archives (and can be easily linked in=0A   a comment).=0A   Maybe=
+ this should be a separate thread, but anyway: I find the mailing=0A   -lis=
+t/github split a little awkward - is there a way we can improve=0A   this? =
+Use one xor the other?=0A   Andrew=0A   > =0A   > I can hit reply, type ten=
+ words and hit send in maybe a few seconds. For=0A   > an issue, you're add=
+ing a couple of seconds in network round trip to=0A   > browse to the proje=
+ct, go to issues, click create issue, then type a=0A   > whole description =
+of the problem because you don't have the context of=0A   > what you're try=
+ing to reply to, and then manage the issue by adding=0A   > tags, target re=
+leases, closing it when something is finally merged (and=0A   > having the =
+submitter have to open another pull request and keep track of=0A   > it)...=
+ Urgh.=0A   > =0A   > Good code review provides a positive feedback loop of=
+ improvement to=0A   > code with a positive reinforcement at the end of "pa=
+tch merged!"=0A   > Contrast this to the negative re-inforcement of filing =
+bugs, of which=0A   > there is little to no direct motivation for the code =
+author to go and fix.=0A   >
 
-Excuse the unnecessary quote markers that might appear through the
-patch, my mail client (Evolution) seems to have a mind of its own
-sometimes. Starting to shave that yak. Anyway.
+------=_Part_316_984234666.1455246731316
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=utf-8
 
-As an aside I've tested an earlier version of the code and confirmed
-the approach works (i.e. no JFFS2 corruption on re-mount).
+<html><head><META http-equiv=3D"Content-Type" content=3D"text/html;charset=
+=3Dutf-8"></head><body><div id=3D"content" contenteditable=3D"true" spellch=
+eck=3D"true" autocorrect=3D"true" autocapitalize=3D"true" style=3D"font-fam=
+ily: Helvetica;">Would it make sense to integrate gerrit? &nbsp;<div><br></=
+div><div>I love the review I'm all for it. &nbsp;I asked for the issue beca=
+use I knew it was merged. No issues at all with comments.&nbsp;</div><div><=
+br></div><div>I've work a project with gerrit and it seems that would resol=
+ve the issue with losing context<br><br>Sent from my iPhone using IBM Verse=
+<br><br><hr>On Feb 11, 2016, 5:09:41 PM, "Andrew Jeffery" &lt;andrew@aj.id.=
+au&gt; wrote:<br><div style=3D"margin-left: 15px;" id=3D"MaaS360PIMSDKOrigi=
+nalMessageId">On&nbsp;Fri,&nbsp;2016-02-12&nbsp;at&nbsp;08:15&nbsp;+1100,&n=
+bsp;Stewart&nbsp;Smith&nbsp;wrote:<br>&gt;&nbsp;Chris&nbsp;Austen&nbsp;<aus=
+tenc@us.ibm.com>&nbsp;writes:<br>&gt;&nbsp;&gt;&nbsp;Open&nbsp;an&nbsp;issu=
+e&nbsp;to&nbsp;migrate&nbsp;to&nbsp;inet=5Fpton.<br>&gt;&nbsp;<br>&gt;&nbsp=
+;Fixing&nbsp;such&nbsp;things&nbsp;in&nbsp;code&nbsp;review&nbsp;is&nbsp;a&=
+nbsp;much&nbsp;better&nbsp;approach.<br>&gt;&nbsp;<br>&gt;&nbsp;For&nbsp;th=
+e&nbsp;submitter,&nbsp;it&nbsp;helps&nbsp;get&nbsp;quick&nbsp;feedback&nbsp=
+;on&nbsp;tehir&nbsp;code,&nbsp;and<br>&gt;&nbsp;promotes&nbsp;a&nbsp;cultur=
+e&nbsp;of&nbsp;examining&nbsp;your&nbsp;own&nbsp;code&nbsp;closely&nbsp;for=
+&nbsp;things&nbsp;before<br>&gt;&nbsp;submitting&nbsp;it.<br>&gt;&nbsp;<br>=
+&gt;&nbsp;For&nbsp;maintainers&nbsp;and&nbsp;those&nbsp;who&nbsp;hare&nbsp;=
+going&nbsp;to&nbsp;have&nbsp;to&nbsp;debug&nbsp;the&nbsp;systems,<br>&gt;&n=
+bsp;it&nbsp;means&nbsp;that&nbsp;it's&nbsp;*very*&nbsp;quick&nbsp;and&nbsp;=
+cheap&nbsp;(in&nbsp;time)&nbsp;to&nbsp;point&nbsp;out&nbsp;odd<br>&gt;&nbsp=
+;things.<br>&gt;&nbsp;<br>&gt;&nbsp;Opening&nbsp;issues&nbsp;is&nbsp;approx=
+imately&nbsp;an&nbsp;order&nbsp;of&nbsp;magnitude&nbsp;slower.<br>For&nbsp;=
+transparency,&nbsp;I&nbsp;sent&nbsp;the&nbsp;email&nbsp;despite&nbsp;knowin=
+g&nbsp;the&nbsp;code&nbsp;had&nbsp;been<br>merged&nbsp;at&nbsp;the&nbsp;poi=
+nt&nbsp;I&nbsp;hit&nbsp;send&nbsp;because&nbsp;the&nbsp;timeline&nbsp;went&=
+nbsp;along&nbsp;the<br>lines&nbsp;of:&nbsp;Open&nbsp;my&nbsp;laptop&nbsp;fo=
+r&nbsp;the&nbsp;day,&nbsp;start&nbsp;reading&nbsp;email,&nbsp;come&nbsp;acr=
+oss<br>the&nbsp;patch,&nbsp;find&nbsp;some&nbsp;areas&nbsp;that&nbsp;I&nbsp=
+;think&nbsp;we&nbsp;can&nbsp;improve&nbsp;on,&nbsp;write&nbsp;90%&nbsp;of<b=
+r>the&nbsp;reply,&nbsp;head&nbsp;to&nbsp;github&nbsp;to&nbsp;check&nbsp;a&n=
+bsp;small&nbsp;detail,&nbsp;discover&nbsp;the&nbsp;patch<br>has&nbsp;alread=
+y&nbsp;been&nbsp;merged.<br>Since&nbsp;I'd&nbsp;spent&nbsp;some&nbsp;time&n=
+bsp;composing&nbsp;the&nbsp;review&nbsp;I&nbsp;didn't&nbsp;want&nbsp;to&nbs=
+p;throw<br>it&nbsp;away&nbsp;or&nbsp;spend&nbsp;further&nbsp;time&nbsp;to&n=
+bsp;massaging&nbsp;it&nbsp;into&nbsp;a&nbsp;github&nbsp;issue&nbsp;with<br>=
+the&nbsp;necessary&nbsp;context,&nbsp;so&nbsp;I&nbsp;reworded&nbsp;the&nbsp=
+;first&nbsp;paragraph&nbsp;to&nbsp;reflect&nbsp;the<br>fact&nbsp;that&nbsp;=
+it&nbsp;was&nbsp;already&nbsp;merged&nbsp;and&nbsp;hit&nbsp;send.&nbsp;This=
+&nbsp;dovetails&nbsp;into<br>Stewart's&nbsp;point&nbsp;below,&nbsp;primaril=
+y&nbsp;the&nbsp;one&nbsp;about&nbsp;github&nbsp;issues&nbsp;lacking<br>the&=
+nbsp;code&nbsp;context&nbsp;for&nbsp;the&nbsp;comments&nbsp;(without&nbsp;s=
+ome&nbsp;manual&nbsp;effort).&nbsp;To&nbsp;be<br>fair&nbsp;as&nbsp;it&nbsp;=
+stands&nbsp;the&nbsp;github&nbsp;issue&nbsp;I&nbsp;created&nbsp;doesn't&nbs=
+p;(yet)&nbsp;contain&nbsp;any<br>of&nbsp;the&nbsp;context&nbsp;or&nbsp;comm=
+ents&nbsp;provided&nbsp;in&nbsp;the&nbsp;email&nbsp;review,&nbsp;but&nbsp;a=
+t&nbsp;least<br>that's&nbsp;available&nbsp;through&nbsp;the&nbsp;list&nbsp;=
+archives&nbsp;(and&nbsp;can&nbsp;be&nbsp;easily&nbsp;linked&nbsp;in<br>a&nb=
+sp;comment).<br>Maybe&nbsp;this&nbsp;should&nbsp;be&nbsp;a&nbsp;separate&nb=
+sp;thread,&nbsp;but&nbsp;anyway:&nbsp;I&nbsp;find&nbsp;the&nbsp;mailing<br>=
+-list/github&nbsp;split&nbsp;a&nbsp;little&nbsp;awkward&nbsp;-&nbsp;is&nbsp=
+;there&nbsp;a&nbsp;way&nbsp;we&nbsp;can&nbsp;improve<br>this?&nbsp;Use&nbsp=
+;one&nbsp;xor&nbsp;the&nbsp;other?<br>Andrew<br>&gt;&nbsp;<br>&gt;&nbsp;I&n=
+bsp;can&nbsp;hit&nbsp;reply,&nbsp;type&nbsp;ten&nbsp;words&nbsp;and&nbsp;hi=
+t&nbsp;send&nbsp;in&nbsp;maybe&nbsp;a&nbsp;few&nbsp;seconds.&nbsp;For<br>&g=
+t;&nbsp;an&nbsp;issue,&nbsp;you're&nbsp;adding&nbsp;a&nbsp;couple&nbsp;of&n=
+bsp;seconds&nbsp;in&nbsp;network&nbsp;round&nbsp;trip&nbsp;to<br>&gt;&nbsp;=
+browse&nbsp;to&nbsp;the&nbsp;project,&nbsp;go&nbsp;to&nbsp;issues,&nbsp;cli=
+ck&nbsp;create&nbsp;issue,&nbsp;then&nbsp;type&nbsp;a<br>&gt;&nbsp;whole&nb=
+sp;description&nbsp;of&nbsp;the&nbsp;problem&nbsp;because&nbsp;you&nbsp;don=
+'t&nbsp;have&nbsp;the&nbsp;context&nbsp;of<br>&gt;&nbsp;what&nbsp;you're&nb=
+sp;trying&nbsp;to&nbsp;reply&nbsp;to,&nbsp;and&nbsp;then&nbsp;manage&nbsp;t=
+he&nbsp;issue&nbsp;by&nbsp;adding<br>&gt;&nbsp;tags,&nbsp;target&nbsp;relea=
+ses,&nbsp;closing&nbsp;it&nbsp;when&nbsp;something&nbsp;is&nbsp;finally&nbs=
+p;merged&nbsp;(and<br>&gt;&nbsp;having&nbsp;the&nbsp;submitter&nbsp;have&nb=
+sp;to&nbsp;open&nbsp;another&nbsp;pull&nbsp;request&nbsp;and&nbsp;keep&nbsp=
+;track&nbsp;of<br>&gt;&nbsp;it)...&nbsp;Urgh.<br>&gt;&nbsp;<br>&gt;&nbsp;Go=
+od&nbsp;code&nbsp;review&nbsp;provides&nbsp;a&nbsp;positive&nbsp;feedback&n=
+bsp;loop&nbsp;of&nbsp;improvement&nbsp;to<br>&gt;&nbsp;code&nbsp;with&nbsp;=
+a&nbsp;positive&nbsp;reinforcement&nbsp;at&nbsp;the&nbsp;end&nbsp;of&nbsp;"=
+patch&nbsp;merged!"<br>&gt;&nbsp;Contrast&nbsp;this&nbsp;to&nbsp;the&nbsp;n=
+egative&nbsp;re-inforcement&nbsp;of&nbsp;filing&nbsp;bugs,&nbsp;of&nbsp;whi=
+ch<br>&gt;&nbsp;there&nbsp;is&nbsp;little&nbsp;to&nbsp;no&nbsp;direct&nbsp;=
+motivation&nbsp;for&nbsp;the&nbsp;code&nbsp;author&nbsp;to&nbsp;go&nbsp;and=
+&nbsp;fix.<br>&gt;&nbsp;<br></austenc@us.ibm.com></div></div></div><BR>
+</body></html>
 
-On Wed, 2016-02-10 at 21:50 -0600, OpenBMC Patches wrote:
-> From: "Milton D. Miller II" <miltonm@us.ibm.com>
->=20
-> Make and use new routines to access the fifo when in user mode.
-> Instead of using memcpy_fromio, base the new routines on the io
-> port string accessors.
->=20
-> When the smc controllers are configured to transfer in user mode,
-> the exact address within the chip select region is ignored and
-> all valid data bytes are sent to the device fifo.  It has been
-> determined the reason _memcpy_fromio, an arm specific byte-by-byte
-> variant of memcpy_fromio was required in read_reg, is that the
-> later will stutter when coping from memory, discarding some
-> bytes read, when switching from words to bytes for the final
-> unaligned length.
->=20
-> This change includes a hack to make inw/outw work.  The default
-> generic IO_SPACE_LIMIT is 0, and twenty bits when PCI is selected.
-> While there is a PCMCIA SOC config to select the full 4GB space it
-> would bring in the PCMCIA core for no use to the ast2400.  We want
-> to be part of the generic multi-platform arm kernel and therefore
-> mach/io.h is not going to work.  However, the limit is under an
-> ifndef, so define it in this file an check it was not redefine
-> at probe time.  To avoid redefinition errors or warnings, guard
-> the setting with CONFIG_ARM for cross-arch compile testing and
-> with a Kconfig dependency for arm cross-compile tests.  While some
-> other architecture may not accept unsigne
-
-typo: unsigned
-
->  long addresses as ioport
-> cookies, that can be addressed when, if ever, the hardware appears
-> on another arch.
->=20
-> While the change to use the designed-for-memory optimised copy
-> template, even reusing the bytes of memcpy, was a recent change
-> and only for little endian arm, designing and proposing a patch
-> will take some time and there could be debate if the routine
-> needs to work on changing memory.
->=20
-> Signed-off-by: Milton Miller <miltonm@us.ibm.com>
-> ---
->  drivers/mtd/spi-nor/Kconfig      |   2 +
->  drivers/mtd/spi-nor/aspeed-smc.c | 142 +++++++++++++++++++++++++++++++++=
-+++---
->  2 files changed, 135 insertions(+), 9 deletions(-)
->=20
-> diff --git a/drivers/mtd/spi-nor/Kconfig b/drivers/mtd/spi-nor/Kconfig
-> index c7554d8..4a963c4 100644
-> --- a/drivers/mtd/spi-nor/Kconfig
-> +++ b/drivers/mtd/spi-nor/Kconfig
-> @@ -44,6 +44,8 @@ config ASPEED_FLASH_SPI
->  > 	> tristate "Aspeed flash controllers in SPI mode"
->  > 	> depends on HAS_IOMEM && OF
->  > 	> depends on ARCH_ASPEED || COMPILE_TEST
-> +> 	> # IO_SPACE_LIMIT must be equivalent to (~0UL)
-> +> 	> depends on !NEED_MACH_IO_H
->  > 	> help
->  > 	>   This enables support for the New Static Memory Controller (FMC)
->  > 	>   in the AST2400 when attached to SPI nor chips, and support for
-> diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspee=
-d-smc.c
-> index 9dd4609..74127d8 100644
-> --- a/drivers/mtd/spi-nor/aspeed-smc.c
-> +++ b/drivers/mtd/spi-nor/aspeed-smc.c
-> @@ -8,6 +8,12 @@
->   *
->   */
-> =20
-> +/* See comment by aspeed_smc_from_fifo */
-> +#ifdef CONFIG_ARM
-> +#define IO_SPACE_LIMIT (~0UL)
-> +#endif
-> +
-> +#include=20
->  #include=20
->  #include=20
->  #include=20
-> @@ -19,6 +25,116 @@
->  #include=20
->  #include=20
-> =20
-> +#include=20
-> +
-> +static void *ins_align(unsigned long io, void *buf, size_t len)
-> +{
-> +> 	> BUILD_BUG_ON(0 & len & ~3);
-
-Should just be BUG_ON()? Given that you disabled it with '0 &', do we
-want it at all?
-
-> +
-> +> 	> if (len & 2) {
-> +> 	> 	> put_unaligned(inw(io), (u16 *)buf);
-> +> 	> 	> buf +=3D sizeof(u16);
-> +> 	> }
-> +> 	> if (len & 1) {
-> +> 	> 	> put_unaligned(inb(io), (u8 *)buf);
-> +> 	> 	> buf +=3D sizeof(u8);
-> +> 	> }
-> +> 	> return buf;
-> +}
-> +
-> +static const void *outs_align(unsigned long io, const void *buf, size_t =
-len)
-> +{
-> +> 	> BUILD_BUG_ON(0 & len & ~3);
-
-As above
-
-> +	if (len & 2) {
-> +> 	> 	> outw(get_unaligned((u16 *)buf), io);
-> +> 	> 	> buf +=3D sizeof(u16);
-> +> 	> }
-> +> 	> if (len & 1) {
-> +> 	> 	> outb(get_unaligned((u8 *)buf), io);
-> +> 	> 	> buf +=3D sizeof(u8);
-> +> 	> }
-> +> 	> return buf;
-> +}
-> +
-> +
-> +/*
-> + * On the arm architecture, as of Linux version 4.3, memcpy_fromio
-> + * stutters discarding some of the bytes read if the destination is
-> + * unaligned, so we can't use it for reading from a fifo to a buffer
-> + * of unknown alignment.  Instead use the ins (l, w, b) family
-> + * to read from the fifo.   However, ARM tries to hide io port
-> + * accesses from drivers unless there is a PCMCIA or PCI device, so
-> + * we define the limit before all include files.  There is a
-> + * check in probe to make sure this will work, as long as the
-> + * architecture uses an identity iomap.
-> + */
-> +
-> +static void aspeed_smc_from_fifo(void *buf, const void __iomem *iop, siz=
-e_t len)
-> +{
-> +> 	> unsigned long io =3D (__force unsigned long)iop;
-> +
-> +> 	> if (io & 1) {
-> +> 	> 	> insb(io, buf, len);
-> +> 	> } else if ((unsigned long)io & 2) {
-> +> 	> 	> size_t l =3D (2 - (unsigned long)buf) & 1;
-> +
-> +> 	> 	> l =3D min(l, len);
-> +> 	> 	> buf =3D ins_align(io, buf, l);
-> +> 	> 	> len -=3D l;
-> +
-> +> 	> 	> if (len >=3D 2) {
-> +> 	> 	> 	> insw(io, buf, len >> 1);
-> +> 	> 	> 	> buf +=3D len & ~1;
-> +> 	> 	> }
-> +> 	> 	> buf =3D ins_align(io, buf, len & 1);
-> +> 	> } else {
-> +> 	> 	> size_t l =3D (4 - (unsigned long)buf) & 3;
-> +
-> +> 	> 	> l =3D min(l, len);
-> +> 	> 	> buf =3D ins_align(io, buf, l);
-> +> 	> 	> len -=3D l;
-> +
-> +> 	> 	> if (len >=3D 4) {
-> +> 	> 	> 	> insl(io, buf, len >> 2);
-> +> 	> 	> 	> buf +=3D len & ~3;
-> +> 	> 	> }
-> +> 	> 	> buf =3D ins_align(io, buf, len & 3);
-> +> 	> }
-
-So I've tried deduplicating this function - the code in the latter two
-cases is largely the same bar the magic numbers and insw vs insl. I've
-come up with the code below (note that I haven't actually probed the
-modifications), but I'm not convinced it's much of a win in terms of
-clarity:
-
-/* Is this available somewhere else? Rusty doesn't think so.
- * Probably needs a better name (first set value) */
-#define FS_VAL(x) ((x) & ~((x) - 1))
-
-static void aspeed_smc_from_fifo(void *buf, const void __iomem *iop, size_t=
- len)
-{
-	unsigned long io =3D (__force unsigned long)iop;
-        u8 align =3D FS_VAL((io & 7) | 4); /* align is one of 1, 2 or 4 */
-        u8 mask =3D align - 1;
-        size_t to_align =3D align - ((unsigned long)buf) & mask);
-
-	if (align =3D=3D 1) {
-		insb(io, buf, len);
-                return;
-	}
-        to_align =3D min(to_align, len);
-        buf =3D ins_align(io, buf, to_align);
-        len -=3D to_align;
-	if (len >=3D align) {
-		size_t nr_blocks =3D len / align;
-		if (align =3D=3D 2) {
-			insw(io, buf, nr_blocks);
-		} else {
-			insl(io, buf, nr_blocks);
-		}
-		buf +=3D (nr_blocks * align);
-	}
-        buf =3D ins_align(io, buf, len & mask);
-
-Is it worth it? A similar approach can be taken for
-aspeed_smc_to_fifo() if so.
-
-As for whether there's a better approach short of fixing mmiocpy(), I
-don't know, so no further suggestions really (i.e. I guess we just live
-with the IO_SPACE_LIMIT jiggery-pokery).
-
-> +}
-> +
-> +static void aspeed_smc_to_fifo(void __iomem *iop, const void *buf, size_=
-t len)
-> +{
-> +> 	> unsigned long io =3D (__force unsigned long)iop;
-> +
-> +> 	> if (io & 1) {
-> +> 	> 	> outsb(io, buf, len);
-> +> 	> } else if (io & 2) {
-> +> 	> 	> size_t l =3D (2 - (unsigned long)buf) & 1;
-> +
-> +> 	> 	> len =3D min(l, len);
-> +> 	> 	> buf =3D outs_align(io, buf, l);
-> +> 	> 	> len -=3D l;
-> +
-> +> 	> 	> if (len >=3D 2) {
-> +> 	> 	> 	> outsw(io, buf, len >> 1);
-> +> 	> 	> 	> buf +=3D len & ~(size_t)1;
-> +> 	> 	> }
-> +> 	> 	> buf =3D outs_align(io, buf, len & 1);
-> +> 	> } else {
-> +> 	> 	> size_t l =3D (4 - (unsigned long)buf) & 3;
-> +
-> +> 	> 	> l =3D min(l, len);
-> +> 	> 	> buf =3D outs_align(io, buf, l);
-> +> 	> 	> len -=3D l;
-> +
-> +> 	> 	> if (len >=3D 4) {
-> +> 	> 	> 	> outsl(io, buf, len >> 2);
-> +> 	> 	> 	> buf +=3D len & ~(size_t)3;
-> +> 	> 	> }
-> +> 	> 	> buf =3D outs_align(io, buf, len & 3);
-> +> 	> }
-> +}
-> +
->  enum smc_flash_type {
->  > 	> smc_type_nor =3D 0,> 	> /* controller connected to nor flash */
->  > 	> smc_type_nand =3D 1,> 	> /* controller connected to nand flash */
-> @@ -165,8 +281,8 @@ static int aspeed_smc_read_reg(struct spi_nor *nor, u=
-8 opcode, u8 *buf, int len)
->  > 	> struct aspeed_smc_chip *chip =3D nor->priv;
-> =20
->  > 	> aspeed_smc_start_user(nor);
-> -> 	> writeb(opcode, chip->base);
-> -> 	> _memcpy_fromio(buf, chip->base, len);
-> +> 	> aspeed_smc_to_fifo(chip->base, &opcode, 1);
-> +> 	> aspeed_smc_from_fifo(buf, chip->base, len);
->  > 	> aspeed_smc_stop_user(nor);
-> =20
->  > 	> return 0;
-> @@ -178,8 +294,8 @@ static int aspeed_smc_write_reg(struct spi_nor *nor, =
-u8 opcode, u8 *buf,
->  > 	> struct aspeed_smc_chip *chip =3D nor->priv;
-> =20
->  > 	> aspeed_smc_start_user(nor);
-> -> 	> writeb(opcode, chip->base);
-> -> 	> _memcpy_toio(chip->base, buf, len);
-> +> 	> aspeed_smc_to_fifo(chip->base, &opcode, 1);
-> +> 	> aspeed_smc_to_fifo(chip->base, buf, len);
->  > 	> aspeed_smc_stop_user(nor);
-> =20
->  > 	> return 0;
-> @@ -202,12 +318,12 @@ static void aspeed_smc_send_cmd_addr(struct spi_nor=
- *nor, u8 cmd, u32 addr)
->  > 	> 	> cmdaddr |=3D (u32)cmd << 24;
-> =20
->  > 	> 	> temp =3D cpu_to_be32(cmdaddr);
-> -> 	> 	> memcpy_toio(chip->base, &temp, 4);
-> +> 	> 	> aspeed_smc_to_fifo(chip->base, &temp, 4);
->  > 	> 	> break;
->  > 	> case 4:
->  > 	> 	> temp =3D cpu_to_be32(addr);
-> -> 	> 	> writeb(cmd, chip->base);
-> -> 	> 	> memcpy_toio(chip->base, &temp, 4);
-> +> 	> 	> aspeed_smc_to_fifo(chip->base, &cmd, 1);
-> +> 	> 	> aspeed_smc_to_fifo(chip->base, &temp, 4);
->  > 	> 	> break;
->  > 	> }
->  }
-> @@ -219,7 +335,7 @@ static int aspeed_smc_read_user(struct spi_nor *nor, =
-loff_t from, size_t len,
-> =20
->  > 	> aspeed_smc_start_user(nor);
->  > 	> aspeed_smc_send_cmd_addr(nor, nor->read_opcode, from);
-> -> 	> memcpy_fromio(read_buf, chip->base, len);
-> +> 	> aspeed_smc_from_fifo(read_buf, chip->base, len);
->  > 	> *retlen +=3D len;
->  > 	> aspeed_smc_stop_user(nor);
-> =20
-> @@ -233,7 +349,7 @@ static void aspeed_smc_write_user(struct spi_nor *nor=
-, loff_t to, size_t len,
-> =20
->  > 	> aspeed_smc_start_user(nor);
->  > 	> aspeed_smc_send_cmd_addr(nor, nor->program_opcode, to);
-> -> 	> memcpy_toio(chip->base, write_buf, len);
-> +> 	> aspeed_smc_to_fifo(chip->base, write_buf, len);
->  > 	> *retlen +=3D len;
->  > 	> aspeed_smc_stop_user(nor);
->  }
-> @@ -292,6 +408,14 @@ static int aspeed_smc_probe(struct platform_device *=
-dev)
->  > 	> int err =3D 0;
->  > 	> unsigned int n;
-> =20
-> +> 	> /*
-> +> 	>  * This driver passes ioremap addresses to io port accessors.
-> +> 	>  * This works on arm if the IO_SPACE_LIMIT does not truncate
-> +> 	>  * the address.
-> +> 	>  */
-> +> 	> if (~(unsigned long)IO_SPACE_LIMIT)
-> +> 	> 	> return -ENODEV;
-> +
->  > 	> match =3D of_match_device(aspeed_smc_matches, &dev->dev);
->  > 	> if (!match || !match->data)
->  > 	> 	> return -ENODEV;
---=-lOjTNQXkiTPTJQKG/GKv
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
-
-iQIcBAABCgAGBQJWvUqSAAoJEJ0dnzgO5LT5JsMP/2DtPdswhwjkh0CqZErnw1Eh
-h/3hMpkZUyKe/rQl3O16xPP/ePODdnntHcgscIuIEYtoqXji6FeNk1NQ3o2zp6N9
-Rh6Mw4Tlxe+D+ArC0EnSaNs/yiDv13Ah5I0jsJuuWjBwoAz7ksPp/wMwM1o9ixO9
-2D2CpuR1iweGjLgEPFeiyNR/Kx5q0fXUSmp86WQ/j5wfjeex2aHkruP8y47PpPdY
-9LDukPWJKwNcB9liYYWmjlfNtrSgsoifXcdCQPUusqPxKz2KzOc/PWKQpDQii1E8
-rvRCUf0AmVb8UJnc6Ranz7vcDOETO8RGFqtRLp9jWrarXUGYQz9k1C4dg0e1whDu
-RWxLjeLv63NuDupl8KgU3zZ+f5+nHnloGcsSUxEz49CMjb8WvZSw7MlZrjsXdRkF
-1QBefeM3j2mC4fXhDSrmHKfOYu+k1B7gA9XwmzjvM7CIYdXQ9krX+QqGv0fGeUVA
-SI5Dr0p1kvK/yhjeG+7pzHa+zmRmS4dQA38J47R2Roy8YkAY1pyelzL8jIr+l5s0
-2qFQFdNug6r2Zpv4fmK6M5Q101DGMswiRwoq0g9I2sqneUjp+RqXKQZCltctdA2a
-fiL+RpAiZfDNGrVFGVBO73/i0SejKnz+3TDvIyHjNlaPjS2sqwz5LSCQVfdHjyvZ
-33PFtAuaVCI3aqpTqJvI
-=C0f6
------END PGP SIGNATURE-----
-
---=-lOjTNQXkiTPTJQKG/GKv--
+------=_Part_316_984234666.1455246731316--
