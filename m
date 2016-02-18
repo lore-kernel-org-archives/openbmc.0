@@ -3,19 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 689881A04DF
- for <openbmc@lists.ozlabs.org>; Thu, 18 Feb 2016 17:00:37 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 23E571A04B3
+ for <openbmc@lists.ozlabs.org>; Thu, 18 Feb 2016 17:10:31 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1455775233575591.4530010153155;
- Wed, 17 Feb 2016 22:00:33 -0800 (PST)
+ with SMTPS id 1455775828160927.0601399011201;
+ Wed, 17 Feb 2016 22:10:28 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-event v2 3/3] build: Run make check
-Date: Thu, 18 Feb 2016 00:00:30 -0600
-Message-Id: <1455775230-21657-4-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-event v3 0/5] Add build script and gitignore
+Date: Thu, 18 Feb 2016 00:10:22 -0600
+Message-Id: <1455775827-22005-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1455775230-21657-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1455775230-21657-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -28,24 +26,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 Feb 2016 06:00:38 -0000
+X-List-Received-Date: Thu, 18 Feb 2016 06:10:32 -0000
 
-From: Joel Stanley <joel@jms.id.au>
+This adds a build script for compiling the software under docker.
+It will be used for continuous integration on our Jenkins instance,
+and can be used by developers.
 
 Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- .build.sh | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/.build.sh b/.build.sh
-index 0be2e19..d2e8ea3 100755
---- a/.build.sh
-+++ b/.build.sh
-@@ -20,3 +20,5 @@ gcc --version
- 
- docker run --rm=true --user="${USER}" \
-  -w "${PWD}" -v "${HOME}":"${HOME}" openbmc/phosphor-event make
-+docker run --rm=true --user="${USER}" \
-+ -w "${PWD}" -v "${HOME}":"${HOME}" openbmc/phosphor-event make check
+https://github.com/openbmc/phosphor-event/pull/9
+
+Joel Stanley (5):
+  Add a script to build inside Docker
+  Add gitignore
+  build: Run make check
+  build: Don't run upgrade
+  build: Print the gcc in the container, not the host
+
+ .build.sh  | 25 +++++++++++++++++++++++++
+ .gitignore |  3 +++
+ 2 files changed, 28 insertions(+)
+ create mode 100755 .build.sh
+ create mode 100644 .gitignore
+
 -- 
 2.7.1
