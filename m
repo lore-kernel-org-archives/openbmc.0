@@ -3,17 +3,19 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 23E571A04B3
- for <openbmc@lists.ozlabs.org>; Thu, 18 Feb 2016 17:10:31 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 5F1A91A04D4
+ for <openbmc@lists.ozlabs.org>; Thu, 18 Feb 2016 17:10:32 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1455775828160927.0601399011201;
- Wed, 17 Feb 2016 22:10:28 -0800 (PST)
+ with SMTPS id 1455775829836939.2645703048669;
+ Wed, 17 Feb 2016 22:10:29 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-event v3 0/5] Add build script and gitignore
-Date: Thu, 18 Feb 2016 00:10:22 -0600
-Message-Id: <1455775827-22005-1-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-event v3 2/5] Add gitignore
+Date: Thu, 18 Feb 2016 00:10:24 -0600
+Message-Id: <1455775827-22005-3-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
+In-Reply-To: <1455775827-22005-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1455775827-22005-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -28,26 +30,22 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 18 Feb 2016 06:10:32 -0000
 
-This adds a build script for compiling the software under docker.
-It will be used for continuous integration on our Jenkins instance,
-and can be used by developers.
+From: Joel Stanley <joel@jms.id.au>
 
 Signed-off-by: Joel Stanley <joel@jms.id.au>
-
-https://github.com/openbmc/phosphor-event/pull/9
-
-Joel Stanley (5):
-  Add a script to build inside Docker
-  Add gitignore
-  build: Run make check
-  build: Don't run upgrade
-  build: Print the gcc in the container, not the host
-
- .build.sh  | 25 +++++++++++++++++++++++++
- .gitignore |  3 +++
- 2 files changed, 28 insertions(+)
- create mode 100755 .build.sh
+---
+ .gitignore | 3 +++
+ 1 file changed, 3 insertions(+)
  create mode 100644 .gitignore
 
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..9243535
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,3 @@
++*.o
++*.swp
++event_messaged
 -- 
 2.7.1
