@@ -3,17 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4F1C01A04D4
+ by lists.ozlabs.org (Postfix) with ESMTPS id 485171A04B3
  for <openbmc@lists.ozlabs.org>; Thu, 18 Feb 2016 17:10:34 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1455775832276530.4746251784143;
- Wed, 17 Feb 2016 22:10:32 -0800 (PST)
+ with SMTPS id 1455775831445303.07223034912306;
+ Wed, 17 Feb 2016 22:10:31 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-event v3 5/5] build: Print the gcc in the container,
- not the host
-Date: Thu, 18 Feb 2016 00:10:27 -0600
-Message-Id: <1455775827-22005-6-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-event v3 4/5] build: Don't run upgrade
+Date: Thu, 18 Feb 2016 00:10:26 -0600
+Message-Id: <1455775827-22005-5-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1455775827-22005-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1455775827-22005-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -33,26 +32,26 @@ X-List-Received-Date: Thu, 18 Feb 2016 06:10:34 -0000
 
 From: Joel Stanley <joel@jms.id.au>
 
+We don't need to do this every time. Pulling the fresh image from docker
+should be enough.
+
 Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- .build.sh | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ .build.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/.build.sh b/.build.sh
-index 83a155b..bfe2e45 100755
+index d2e8ea3..83a155b 100755
 --- a/.build.sh
 +++ b/.build.sh
-@@ -16,9 +16,10 @@ EOF
- docker pull ubuntu:15.10
- docker build -t openbmc/phosphor-event - <<< "${Dockerfile}"
+@@ -4,7 +4,7 @@ set -ex
  
--gcc --version
- 
- docker run --rm=true --user="${USER}" \
-+ -w "${PWD}" -v "${HOME}":"${HOME}" openbmc/phosphor-event gcc --version
-+docker run --rm=true --user="${USER}" \
-  -w "${PWD}" -v "${HOME}":"${HOME}" openbmc/phosphor-event make
- docker run --rm=true --user="${USER}" \
-  -w "${PWD}" -v "${HOME}":"${HOME}" openbmc/phosphor-event make check
+ Dockerfile=$(cat << EOF
+ FROM ubuntu:15.10
+-RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get upgrade -yy
++RUN DEBIAN_FRONTEND=noninteractive apt-get update
+ RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -yy \
+ 	make gcc g++ libsystemd-dev libc6-dev pkg-config
+ RUN groupadd -g ${GROUPS} ${USER} && useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
 -- 
 2.7.1
