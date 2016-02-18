@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id F0CFE1A046D
- for <openbmc@lists.ozlabs.org>; Thu, 18 Feb 2016 16:40:34 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id F013E1A0468
+ for <openbmc@lists.ozlabs.org>; Thu, 18 Feb 2016 16:40:33 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1455774030305863.2793985744412;
- Wed, 17 Feb 2016 21:40:30 -0800 (PST)
+ with SMTPS id 1455774029461549.9605375911319;
+ Wed, 17 Feb 2016 21:40:29 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-event 2/2] Add gitignore
-Date: Wed, 17 Feb 2016 23:40:27 -0600
-Message-Id: <1455774027-20972-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-event 1/2] Add a script to build inside Docker
+Date: Wed, 17 Feb 2016 23:40:26 -0600
+Message-Id: <1455774027-20972-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1455774027-20972-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1455774027-20972-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -32,20 +32,45 @@ X-List-Received-Date: Thu, 18 Feb 2016 05:40:35 -0000
 
 From: Joel Stanley <joel@jms.id.au>
 
+This allows phosphor-event to be on a machine with Docker installed
+that does not have all the dependencies installed.
+
+A docker container is built and used for the build process, with the
+binary built in-place.
+
 Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- .gitignore | 3 +++
- 1 file changed, 3 insertions(+)
- create mode 100644 .gitignore
+ .build.sh | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+ create mode 100755 .build.sh
 
-diff --git a/.gitignore b/.gitignore
-new file mode 100644
-index 0000000..9243535
+diff --git a/.build.sh b/.build.sh
+new file mode 100755
+index 0000000..0be2e19
 --- /dev/null
-+++ b/.gitignore
-@@ -0,0 +1,3 @@
-+*.o
-+*.swp
-+event_messaged
++++ b/.build.sh
+@@ -0,0 +1,22 @@
++#!/bin/bash
++
++set -ex
++
++Dockerfile=$(cat << EOF
++FROM ubuntu:15.10
++RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get upgrade -yy
++RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -yy \
++	make gcc g++ libsystemd-dev libc6-dev pkg-config
++RUN groupadd -g ${GROUPS} ${USER} && useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
++USER ${USER}
++ENV HOME ${HOME}
++EOF
++)
++
++docker pull ubuntu:15.10
++docker build -t openbmc/phosphor-event - <<< "${Dockerfile}"
++
++gcc --version
++
++docker run --rm=true --user="${USER}" \
++ -w "${PWD}" -v "${HOME}":"${HOME}" openbmc/phosphor-event make
 -- 
 2.7.1
