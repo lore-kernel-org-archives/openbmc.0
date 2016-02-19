@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id DCB461A07E0
- for <openbmc@lists.ozlabs.org>; Sat, 20 Feb 2016 06:11:07 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id C85E71A0795
+ for <openbmc@lists.ozlabs.org>; Sat, 20 Feb 2016 06:11:10 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1455909059667859.7429106732471;
- Fri, 19 Feb 2016 11:10:59 -0800 (PST)
+ with SMTPS id 1455909067533305.4968721456944;
+ Fri, 19 Feb 2016 11:11:07 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH skeleton] skeleton: fixed hard-coding for master OCC hwmon
- sysfs path
-Date: Fri, 19 Feb 2016 13:10:57 -0600
-Message-Id: <1455909058-21748-1-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: Norman James <nkskjames@gmail.com>
+Subject: [PATCH u-boot] Move UART setup outside DRAM init
+Date: Fri, 19 Feb 2016 13:11:05 -0600
+Message-Id: <1455909066-21813-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -27,23 +27,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 19 Feb 2016 19:11:08 -0000
+X-List-Received-Date: Fri, 19 Feb 2016 19:11:11 -0000
 
-Currently master OCC hwmon sysfs path is hardcoded to '/sys/class/hwmon/hwmon3/'.
-This make the '/org/openbmc/sensors/host/PowerCap' interface cannot work when
-master OCC is initilized as hwmon device other than 'hwmon3'.
+Signed-off-by: Norman James <nkskjames@gmail.com>
 
-This would fix the issue: https://github.com/openbmc/skeleton/issues/42
+https://github.com/openbmc/u-boot/pull/2
 
-Signed-off-by: Yi Li <adamliyi@msn.com>
+Norman James (1):
+  Move UART setup outside DRAM init
 
-https://github.com/openbmc/skeleton/pull/48
-
-Yi Li (1):
-  skeleton: fixed hard-coding for master OCC hwmon sysfs path
-
- bin/sensor_manager2.py | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ board/aspeed/ast2400/platform.S | 81 +++++++++++++++++++++--------------------
+ 1 file changed, 42 insertions(+), 39 deletions(-)
 
 -- 
 2.7.1
