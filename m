@@ -1,63 +1,41 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-oi0-x22c.google.com (mail-oi0-x22c.google.com
- [IPv6:2607:f8b0:4003:c06::22c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 6347C1A0609
- for <openbmc@lists.ozlabs.org>; Mon, 22 Feb 2016 11:59:06 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=YyTLKx3b; 
- dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=lFUBxYQk; 
+Return-Path: <andrew@aj.id.au>
+Received: from homiemail-a19.g.dreamhost.com (sub3.mail.dreamhost.com
+ [69.163.253.7])
+ by lists.ozlabs.org (Postfix) with ESMTP id EA3231A0350
+ for <openbmc@lists.ozlabs.org>; Mon, 22 Feb 2016 12:32:12 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=bV5oRxwX; 
  dkim-atps=neutral
-Received: by mail-oi0-x22c.google.com with SMTP id j125so46084946oih.0
- for <openbmc@lists.ozlabs.org>; Sun, 21 Feb 2016 16:59:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-type;
- bh=vjqgDzaqLCDvTv3JR9YuRnn8gtdeY8eplrOJONUBn6U=;
- b=YyTLKx3bxNflnoxITss1S8qyy8Blh24gI+T/FG28VWba5vRuR1L7Y/b4+jWx2iABap
- 3eUmRIOh1hGLoav8yE7CIytH57YtEwqU662itMcTK7JQoWNJJqYI+g2saplDqG7/PgmE
- CqYZJIQqDY3zhxNN3UNPkqVMJO7i7ST+MLlLb6vvBmtnhCu1BV6B+RGWj/VhJJ/bX00F
- OIAldqaa4t2CDOaocc1T2ezC6ybaLh4w0Dhlv8Bozp7sUJ8fLKTixMfoZt8zcrUPAK0H
- 562RYu1CKQdqB+wS6lAiYCJ7I2eNgFy+OOIjcRGXsOuhB/cCVf8UE0hWj5dHKkPDu4r0
- I8bA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-type;
- bh=vjqgDzaqLCDvTv3JR9YuRnn8gtdeY8eplrOJONUBn6U=;
- b=lFUBxYQkVw3q7Ho6FpuEE9q72s19XJ4rtnh0vJCSUq5lRswP2CP5F9t8/RCWUF+2WE
- Yf7N3jdblUbKaxEf3KAYuOaUB6vd18FmQDMvdq8OakFFeYy77QOAEkus59QLGLoWnbau
- J8hgekjxM50bRcViia0+/8uH4wjb5l7RrUlro=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-type;
- bh=vjqgDzaqLCDvTv3JR9YuRnn8gtdeY8eplrOJONUBn6U=;
- b=N6pYaP4pUPIuL8guntU1dy9KRZI12oD42I0NOu767uPaGxkCRSXTLMUKrT1Eq6pCb/
- XoxEgqmpUTCjMEFIj4SuaZoepYBZ5nfki8wuKJJ3l2F41814CoDxJ7z2NUtBaa65ijmX
- l4nsZlCHeZXvKNlrWwLCmXQymYjl0odIHQfRy2Q81JyG24Ook/iciOZ0YOtLiHl19bcM
- gbviDkMLqOBJAj1L8hIuONoivL1uR5ERAjzfc9O4J8OCyHZnQvCvgmBCzDLWRC2uqPSJ
- X5rKyfkflPb+fujU6tJQ547sL2vZIGw9DdK4e0+9rBkB847rZ3GSe4Xk79nTMHQYpOzk
- eCfA==
-X-Gm-Message-State: AG10YOQ+PcT8Q0Pjs8e4EbZG358+oT4mR4l4tLnyMFAnr1dVyr3C1GNKESYiSaIqBMdZrGbe1X13Tmfnuj8P3A==
-X-Received: by 10.202.196.208 with SMTP id u199mr19638378oif.71.1456102744540; 
- Sun, 21 Feb 2016 16:59:04 -0800 (PST)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.60.121.1 with HTTP; Sun, 21 Feb 2016 16:58:45 -0800 (PST)
-In-Reply-To: <1455909023-21506-2-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1455909023-21506-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1455909023-21506-2-git-send-email-openbmc-patches@stwcx.xyz>
-From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 22 Feb 2016 11:28:45 +1030
-X-Google-Sender-Auth: XCBUIwNjsREOozHNB0rkGgn2rxQ
-Message-ID: <CACPK8Xfguq9sVJKgx_WV-gXPevG3L=7g+OrooD+doihOvFhbAg@mail.gmail.com>
-Subject: Re: [PATCH linux] Remove GPIO and LPC from WDT reset list
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Norman James <nkskjames@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Received: from homiemail-a19.g.dreamhost.com (localhost [127.0.0.1])
+ by homiemail-a19.g.dreamhost.com (Postfix) with ESMTP id B8CD5604076;
+ Sun, 21 Feb 2016 17:32:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
+ :subject:from:reply-to:to:date:in-reply-to:references
+ :content-type:mime-version; s=aj.id.au; bh=h1gM6ed3hk+JxFfyx6HNO
+ Wd8obE=; b=bV5oRxwXBy982TTjCJfY/C2UeTBqf8Dmz7/pOvDfdoxMbCBoIb6pB
+ T8OqGkrvTdWNK8RgdPlb1R0R1Gsjt385cnwBx9qG/8bh3NnRUn0sFf2FqE/FyKn5
+ 2SLT4DPyvPWgl1UicALT6dfG9YsujlHjvBb/md7d+SsPzQgrSnN2ko=
+Received: from keelia (unknown [203.0.153.9])
+ (using TLSv1 with cipher AES128-SHA (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: andrew@aj.id.au)
+ by homiemail-a19.g.dreamhost.com (Postfix) with ESMTPSA id 04BD8604061;
+ Sun, 21 Feb 2016 17:32:10 -0800 (PST)
+Message-ID: <1456104727.3064.29.camel@aj.id.au>
+Subject: Re: [PATCH skeleton] skeleton: fixed hard-coding for master OCC
+ hwmon sysfs path
+From: Andrew Jeffery <andrew@aj.id.au>
+Reply-To: andrew@aj.id.au
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+Date: Mon, 22 Feb 2016 12:02:07 +1030
+In-Reply-To: <1455909058-21748-2-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1455909058-21748-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1455909058-21748-2-git-send-email-openbmc-patches@stwcx.xyz>
+Organization: IBM OzLabs
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-PwIRfdEuKNgjH86k+1w6"
+X-Mailer: Evolution 3.16.5-1ubuntu3.1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -69,69 +47,109 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Feb 2016 00:59:06 -0000
+X-List-Received-Date: Mon, 22 Feb 2016 01:32:13 -0000
 
-On Sat, Feb 20, 2016 at 5:40 AM, OpenBMC Patches
-<openbmc-patches@stwcx.xyz> wrote:
-> From: Norman James <njames@us.ibm.com>
->
-> WDT reset mode must also be set to SOC mode
 
-Can you elaborate? What does this fix?
+--=-PwIRfdEuKNgjH86k+1w6
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
->
-> Signed-off-by: Norman James <nkskjames@gmail.com>
+Hi Yi Li,
+
+On Fri, 2016-02-19 at 13:10 -0600, OpenBMC Patches wrote:
+> From: Yi Li <adamliyi@msn.com>
+>=20
+> Currently master OCC hwmon sysfs path is hardcoded to '/sys/class/hwmon/h=
+wmon3/'.
+> This make the '/org/openbmc/sensors/host/PowerCap' interface cannot work =
+when
+> master OCC is initilized as hwmon device other than 'hwmon3'.
+>=20
+> This would fix the issue: https://github.com/openbmc/skeleton/issues/42
+>=20
+> Signed-off-by: Yi Li <adamliyi@msn.com>
 > ---
->  arch/arm/mach-aspeed/aspeed.c | 5 +++--
->  drivers/watchdog/aspeed_wdt.c | 3 ++-
->  2 files changed, 5 insertions(+), 3 deletions(-)
->
-> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
-> index 2feb161..6ebd6c0 100644
-> --- a/arch/arm/mach-aspeed/aspeed.c
-> +++ b/arch/arm/mach-aspeed/aspeed.c
-> @@ -191,9 +191,10 @@ static void __init aspeed_init_early(void)
->         writel(0, AST_IO(AST_BASE_WDT | 0x2c));
->
->         /*
-> -        * ensure all IPs are reset on watchdog expiry
-> +        * ensure all IPs except GPIO and LPC are reset on watchdog expiry
->          */
-> -       writel(0x003ffff3, AST_IO(AST_BASE_SCU | 0x9C));
-> +       writel(0x001fdff3, AST_IO(AST_BASE_SCU | 0x9C));
-> +       //writel(0x003ffff3, AST_IO(AST_BASE_SCU | 0x9C));
+>  bin/sensor_manager2.py | 11 ++++++++---
+>  1 file changed, 8 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/bin/sensor_manager2.py b/bin/sensor_manager2.py
+> index b5aac53..4fc9dc2 100755
+> --- a/bin/sensor_manager2.py
+> +++ b/bin/sensor_manager2.py
+> @@ -2,6 +2,7 @@
+> =20
+>  import sys
+>  import os
+> +import glob
+>  import gobject
+>  import dbus
+>  import dbus.service
+> @@ -54,9 +55,13 @@ if __name__ =3D=3D '__main__':
+> =20
+>  > 	> obj_path =3D OBJ_PATH+"/host/PowerCap"
+>  > 	> sensor_obj =3D Sensors.PowerCap(bus,obj_path)
+> -> 	> ## hwmon3 is default for master OCC on Barreleye.
+> -> 	> ## should rewrite sensor_manager to remove hardcode
+> -> 	> sensor_obj.sysfs_attr =3D "/sys/class/hwmon/hwmon3/user_powercap"
+> +> 	> ## scan hwmon sysfs for master occ's user_powercap attribute
+> +> 	> for pcap_file in glob.glob('/sys/class/hwmon/*/user_powercap'):
+> +> 	> 	> occ_i2c_dev =3D os.path.dirname(pcap_file)+'/device'
+> +> 	> 	> occ_i2c_dev =3D os.path.realpath(occ_i2c_dev).split('/').pop()
+> +> 	> 	> # master OCC address
+> +> 	> 	> if occ_i2c_dev =3D=3D '3-0050':
+> +> 	> 	> 	> sensor_obj.sysfs_attr =3D pcap_file
 
-Lets not leave commented out code in the tree.
+Have you tested the code in the for loop? Because running the body in a
+Python shell doesn't give me confidence the if-condition will ever be
+satisfied:
 
->
->         /*
->          * Temporary setup of AST registers until pinmux driver is complete
-> diff --git a/drivers/watchdog/aspeed_wdt.c b/drivers/watchdog/aspeed_wdt.c
-> index 07ae815..a1ea4c2 100644
-> --- a/drivers/watchdog/aspeed_wdt.c
-> +++ b/drivers/watchdog/aspeed_wdt.c
-> @@ -37,6 +37,7 @@ MODULE_DEVICE_TABLE(of, aspeed_wdt_of_table);
->  #define WDT_RELOAD_VALUE       0x04
->  #define WDT_RESTART            0x08
->  #define WDT_CTRL               0x0C
-> +#define   WDT_CTRL_RESET_MODE_SOC      (0x00 << 5)
->  #define   WDT_CTRL_RESET_MODE_FULL_CHIP        (0x01 << 5)
->  #define   WDT_CTRL_RESET_SYSTEM                (0x1  << 1)
->  #define   WDT_CTRL_ENABLE              (0x1  << 0)
-> @@ -45,7 +46,7 @@ MODULE_DEVICE_TABLE(of, aspeed_wdt_of_table);
->
->  static void aspeed_wdt_enable(struct aspeed_wdt *wdt, int count)
->  {
-> -       u32 ctrl = WDT_CTRL_RESET_MODE_FULL_CHIP | WDT_CTRL_RESET_SYSTEM |
-> +       u32 ctrl = WDT_CTRL_RESET_MODE_SOC | WDT_CTRL_RESET_SYSTEM |
->                 WDT_CTRL_ENABLE;
->
->         writel(0, wdt->base + WDT_CTRL);
-> --
-> 2.7.1
->
->
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+    andrew@keelia    :~$ python
+    Python 2.7.10 (default, Oct 14 2015, 16:09:02)=20
+    [GCC 5.2.1 20151010] on linux2
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>> import os
+    >>> pcap_file =3D     "/sys/class/hwmon/hwmon3/user_powercap"
+>>> os.path.dirname(pcap_file)+"/device"
+'/sys/class/hwmon/hwmon3/device'
+>>> os.path.realpath(_).split('/')
+['', 'sys', 'class', 'hwmon', 'hwmon3', 'device']
+>>> _.pop()
+'device'
+>>>=20
+
+I can't see how occ_i2c_dev will ever take the value '3-0050'? Are we
+missing additional globbing and/or reading of files?
+
+>  	root_sensor.add(obj_path,sensor_obj)
+
+Have you given consideration to what should be done if the if-condition
+in the for loop above never fires? Is it still valid to add sensor_obj?
+
+Andrew
+
+> =20
+>  > 	> obj_path =3D OBJ_PATH+"/host/BootProgress"
+--=-PwIRfdEuKNgjH86k+1w6
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQIcBAABCgAGBQJWymUXAAoJEJ0dnzgO5LT5PLAP/Aizci/+oi/5VvYJZeqijrZL
+Z/HPLXsTsqjOUAS0oLL5V/hj0Xn3pZUO+wpogbhSYzQU93TcF39beoNRFx7E7G5P
+V6QR8Yyn++RI9mmpVUknEj0cn4TWBREj4XeIG6md+mmZX83aCH0Id3jZmWNz1l+c
+kvzXQGAvQX+MLJ7i+9DdiNzHoBVxL8rCk+1WNftTEwb8C3SlAvM7k0FqHsdya4d6
+xkbbIqAa6zI+XOkhi9oZs7sC3+D29Ia5hF/pJK7cYWsIDwVoq0rbgsyYTG7TuFbk
+Mei1ftJENR5Kl7fylMnQN8lJsuWc6w1LFne2f+6XABvMQG4v7Tgu3SmbNCwXKbx7
+taVRIeSal42KJnxOm3z35HMYNaxHrwOn6sl6VJ3HCl18Ph9oDXxEJVOrnbofabJ5
+z82h8qZfHrpzlkU7Dnt8BEThVHSo6aFxY0VqbPCWW8fhmCDXatrV1Qn6Xd/6qHk0
+RQr9BWKgHFPxIM5Rkz682T/WDCQY1sl/pFszJ9ag/T3UdJoMz1F+9mVVhuI46D2D
+O61/5rF3j6G5LYC+RzoKL4CIQf+7++17SDEJUQOomtOTx0vxOR6/FHAOnXvEEpAb
+oPS7Y6uLhMv0qOSFCgkc4jDigd9p6JfKo2ZuDbqdeFboCEnIfWHubcE2EhhlsrQj
+MAmL+c447i5UkGmazMoO
+=szK/
+-----END PGP SIGNATURE-----
+
+--=-PwIRfdEuKNgjH86k+1w6--
