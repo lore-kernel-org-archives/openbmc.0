@@ -1,26 +1,56 @@
-Return-Path: <mdmii@outlook.com>
-X-Greylist: delayed 312 seconds by postgrey-1.35 at bilbo;
- Fri, 29 Jan 2016 16:16:33 AEDT
-Received: from SNT004-OMC2S9.hotmail.com (snt004-omc2s9.hotmail.com
- [65.55.90.84])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <joel.stanley@au1.ibm.com>
+Received: from e23smtp04.au.ibm.com (e23smtp04.au.ibm.com [202.81.31.146])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id E3ABD1A0E27
- for <openbmc@lists.ozlabs.org>; Fri, 29 Jan 2016 16:16:33 +1100 (AEDT)
-Received: from SNT405-EAS224 ([65.55.90.73]) by SNT004-OMC2S9.hotmail.com over
- TLS secured channel with Microsoft SMTPSVC(7.5.7601.23008); 
- Thu, 28 Jan 2016 21:11:17 -0800
-X-TMN: [TDeVn1ZCZHqR+JKpUqqkoZJuhSOi2A+o]
-X-Originating-Email: [mdmii@outlook.com]
-Message-ID: <SNT405-EAS22476105302E2B0347B3B12B8DB0@phx.gbl>
-MIME-Version: 1.0
-To: <openbmc@lists.ozlabs.org>
-From: Milton Miller <mdmii@outlook.com>
-Subject: Re: [PATCH openbmc 8/8] Add u-boot fw-utils to the image
-Content-Type: multipart/alternative;
- boundary="_CC612D5D-E1D8-4FF1-9250-1A8FDDD7E095_"
-X-OriginalArrivalTime: 29 Jan 2016 05:11:17.0990 (UTC)
- FILETIME=[7C045860:01D15A53]
+ by lists.ozlabs.org (Postfix) with ESMTPS id 615901A05D7
+ for <openbmc@lists.ozlabs.org>; Mon, 22 Feb 2016 11:55:06 +1100 (AEDT)
+Received: from localhost
+ by e23smtp04.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <joel.stanley@au1.ibm.com>;
+ Mon, 22 Feb 2016 10:55:04 +1000
+Received: from d23dlp01.au.ibm.com (202.81.31.203)
+ by e23smtp04.au.ibm.com (202.81.31.210) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Mon, 22 Feb 2016 10:55:02 +1000
+X-IBM-Helo: d23dlp01.au.ibm.com
+X-IBM-MailFrom: joel.stanley@au1.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d23relay10.au.ibm.com (d23relay10.au.ibm.com [9.190.26.77])
+ by d23dlp01.au.ibm.com (Postfix) with ESMTP id 3CB352CE8056
+ for <openbmc@lists.ozlabs.org>; Mon, 22 Feb 2016 11:55:02 +1100 (EST)
+Received: from d23av03.au.ibm.com (d23av03.au.ibm.com [9.190.234.97])
+ by d23relay10.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u1M0ssrJ65011732
+ for <openbmc@lists.ozlabs.org>; Mon, 22 Feb 2016 11:55:02 +1100
+Received: from d23av03.au.ibm.com (localhost [127.0.0.1])
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u1M0sT1G025913
+ for <openbmc@lists.ozlabs.org>; Mon, 22 Feb 2016 11:54:29 +1100
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u1M0sTRE025518; Mon, 22 Feb 2016 11:54:29 +1100
+Received: from icarus (unknown [9.192.177.121])
+ (using TLSv1.2 with cipher AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 3FD41A01EE;
+ Mon, 22 Feb 2016 11:54:05 +1100 (AEDT)
+Message-ID: <1456102444.15159.3.camel@au1.ibm.com>
+Subject: Re: Linux 4.3.x gone?
+From: Joel Stanley <joel.stanley@au1.ibm.com>
+To: Chris Austen <austenc@us.ibm.com>, openbmc@lists.ozlabs.org
+Cc: Patrick Williams III <iawillia@us.ibm.com>, Jeremy Kerr
+ <jeremy.kerr@au1.ibm.com>
+Date: Mon, 22 Feb 2016 11:24:04 +1030
+In-Reply-To: <201602200707.u1K77Htb001722@d01av03.pok.ibm.com>
+References: <201602200707.u1K77Htb001722@d01av03.pok.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.18.4-0ubuntu1 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16022200-0013-0000-0000-000002C5C5CD
 X-Mailman-Approved-At: Tue, 23 Feb 2016 07:11:17 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -33,29 +63,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Date: Fri, 29 Jan 2016 05:16:34 -0000
-X-Original-Date: Thu, 28 Jan 2016 23:10:36 -0600
-X-List-Received-Date: Fri, 29 Jan 2016 05:16:34 -0000
+X-List-Received-Date: Mon, 22 Feb 2016 00:55:06 -0000
 
---_CC612D5D-E1D8-4FF1-9250-1A8FDDD7E095_
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="Windows-1252"
+Hi Chris,
 
-It looks like some content escaped to this patch from patch 4/8  create the=
- overlay type.
+On Sat, 2016-02-20 at 07:07 +0000, Chris Austen wrote:
+> http://lkml.iu.edu/hypermail/linux/kernel/1602.2/03670.html
+>  
+> How does this effect your up-streaming?  When are we moving to 4.4?
 
-The final content was tested.
+This doesn't affect the upstreaming at all. As I mentioned on the call
+the other day, I have a tree that is based on 4.5-rc3, and this is what
+I will send upstream once we've had a chance to review it.
 
-Milton =
+We can move to 4.4 as soon as you and the rest of the team are
+comfortable. As with any change, there is a small risk of regressions,
+so we want to do this at an appropriate time.
 
---_CC612D5D-E1D8-4FF1-9250-1A8FDDD7E095_
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset="Windows-1252"
+Cheers,
 
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; charset=
-=3Dwindows-1252"></head><body><div><div style=3D"font-family: Calibri,sans-=
-serif; font-size: 11pt;">It looks like some content escaped to this patch f=
-rom patch 4/8&nbsp; create the overlay type.<br><br>The final content was t=
-ested.<br><br>Milton </div></div></body></html>=
-
---_CC612D5D-E1D8-4FF1-9250-1A8FDDD7E095_--
+Joel
