@@ -3,18 +3,21 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id ACE281A05D0
- for <openbmc@lists.ozlabs.org>; Tue, 23 Feb 2016 02:21:01 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id E97731A05D0
+ for <openbmc@lists.ozlabs.org>; Tue, 23 Feb 2016 02:21:03 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1456154451209310.5937121260839;
- Mon, 22 Feb 2016 07:20:51 -0800 (PST)
+ with SMTPS id 1456154453340188.39576862929096;
+ Mon, 22 Feb 2016 07:20:53 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Norman James <nkskjames@gmail.com>
+Cc: Norman James <njames@us.ibm.com>,
+	Norman James <nkskjames@gmail.com>
 Subject: [PATCH u-boot v3] Move UART setup outside DRAM init
-Date: Mon, 22 Feb 2016 09:20:48 -0600
-Message-Id: <1456154449-26383-1-git-send-email-openbmc-patches@stwcx.xyz>
+Date: Mon, 22 Feb 2016 09:20:49 -0600
+Message-Id: <1456154449-26383-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
+In-Reply-To: <1456154449-26383-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1456154449-26383-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -27,17 +30,121 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Feb 2016 15:21:02 -0000
+X-List-Received-Date: Mon, 22 Feb 2016 15:21:04 -0000
+
+From: Norman James <njames@us.ibm.com>
+
+When a BMC reboot occurs an SOC reset is performed.
+An SOC reset does not reset the DRAM.  The uboot platform
+code initialized UART in dram init section.  So an SOC
+reset was causing the UART to not be initialized on reboot.
+This moves the UART setup code before dram init stage.
+This change should be integrated if SOC reset method is used
+to reboot BMC otherwise you won't see a u-boot console.
 
 Signed-off-by: Norman James <nkskjames@gmail.com>
-
-https://github.com/openbmc/u-boot/pull/2
-
-Norman James (1):
-  Move UART setup outside DRAM init
-
+---
  board/aspeed/ast2400/platform.S | 81 +++++++++++++++++++++--------------------
  1 file changed, 42 insertions(+), 39 deletions(-)
 
+diff --git a/board/aspeed/ast2400/platform.S b/board/aspeed/ast2400/platform.S
+index dd94da0..5e048a5 100644
+--- a/board/aspeed/ast2400/platform.S
++++ b/board/aspeed/ast2400/platform.S
+@@ -184,6 +184,48 @@ LPC_Patch_E:
+ 
+ .globl lowlevel_init
+ lowlevel_init:
++    /* setup UART */
++    ldr r0, =CONFIG_ASPEED_COM_LCR
++    mov r1, #0x83
++    str r1, [r0]
++
++    ldr r0, =0x1e6e202c
++    ldr r1, =0x00000010
++    str r1, [r0]
++
++    ldr r2, [r0]
++    mov r2, r2, lsr #12
++    tst r2, #0x01
++    ldr r0, =CONFIG_ASPEED_COM
++#if CONFIG_BAUDRATE == 115200
++    moveq r1, #0x0D                              @ Baudrate 115200
++    movne r1, #0x01                              @ Baudrate 115200, div13
++#endif
++#if CONFIG_BAUDRATE == 57600
++    moveq r1, #0x1A                              @ Baudrate 57600
++    movne r1, #0x02                              @ Baudrate 57600, div13
++#endif
++#if CONFIG_BAUDRATE == 38400
++    moveq r1, #0x27                              @ Baudrate 38400
++    movne r1, #0x03                              @ Baudrate 38400 , div13
++#endif
++#if CONFIG_BAUDRATE == 9600
++    moveq r1, #0x9c                              @ Baudrate 9600
++    movne r1, #0x0C                              @ Baudrate 9600 , div13
++#endif
++    str r1, [r0]
++
++    ldr r0, =CONFIG_ASPEED_COM_IER
++    mov r1, #0x00
++    str r1, [r0]
++
++    ldr r0, =CONFIG_ASPEED_COM_LCR
++    mov r1, #0x03
++    str r1, [r0]
++
++    ldr r0, =CONFIG_ASPEED_COM_IIR
++    mov r1, #0x07
++    str r1, [r0]
+ 
+ init_dram:
+     /* save lr */
+@@ -338,45 +380,6 @@ set_MPLL:
+     ldr r1, =0xFFFF0000                          @ enable UART3 and UART4
+     str r1, [r0]
+ 
+-    ldr r0, =CONFIG_ASPEED_COM_LCR
+-    mov r1, #0x83
+-    str r1, [r0]
+-
+-    ldr r0, =0x1e6e202c
+-    ldr r2, [r0]
+-    mov r2, r2, lsr #12
+-    tst r2, #0x01
+-    ldr r0, =CONFIG_ASPEED_COM
+-#if CONFIG_BAUDRATE == 115200
+-    moveq r1, #0x0D                              @ Baudrate 115200
+-    movne r1, #0x01                              @ Baudrate 115200, div13
+-#endif
+-#if CONFIG_BAUDRATE == 57600
+-    moveq r1, #0x1A                              @ Baudrate 57600
+-    movne r1, #0x02                              @ Baudrate 57600, div13
+-#endif
+-#if CONFIG_BAUDRATE == 38400
+-    moveq r1, #0x27                              @ Baudrate 38400
+-    movne r1, #0x03                              @ Baudrate 38400 , div13
+-#endif
+-#if CONFIG_BAUDRATE == 9600
+-    moveq r1, #0x9c                              @ Baudrate 9600
+-    movne r1, #0x0C                              @ Baudrate 9600 , div13
+-#endif
+-    str r1, [r0]
+-
+-    ldr r0, =CONFIG_ASPEED_COM_IER
+-    mov r1, #0x00
+-    str r1, [r0]
+-
+-    ldr r0, =CONFIG_ASPEED_COM_LCR
+-    mov r1, #0x03
+-    str r1, [r0]
+-
+-    ldr r0, =CONFIG_ASPEED_COM_IIR
+-    mov r1, #0x07
+-    str r1, [r0]
+-
+     ldr r0, =CONFIG_ASPEED_COM
+     mov r1, #0x0D                                @ '\r'
+     str r1, [r0]
 -- 
 2.7.1
