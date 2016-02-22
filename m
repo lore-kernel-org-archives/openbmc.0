@@ -1,59 +1,59 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-ob0-x234.google.com (mail-ob0-x234.google.com
- [IPv6:2607:f8b0:4003:c01::234])
+Received: from mail-oi0-x22c.google.com (mail-oi0-x22c.google.com
+ [IPv6:2607:f8b0:4003:c06::22c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 13D031A0609
- for <openbmc@lists.ozlabs.org>; Mon, 22 Feb 2016 11:58:03 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 6347C1A0609
+ for <openbmc@lists.ozlabs.org>; Mon, 22 Feb 2016 11:59:06 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=cL7qQ9Ld; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=YyTLKx3b; 
  dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=IGEArXBn; 
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=lFUBxYQk; 
  dkim-atps=neutral
-Received: by mail-ob0-x234.google.com with SMTP id xk3so154324155obc.2
- for <openbmc@lists.ozlabs.org>; Sun, 21 Feb 2016 16:58:02 -0800 (PST)
+Received: by mail-oi0-x22c.google.com with SMTP id j125so46084946oih.0
+ for <openbmc@lists.ozlabs.org>; Sun, 21 Feb 2016 16:59:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc:content-type;
- bh=jkDfQ/901E9T4mQxtdO1L+MEUb3FfnJcfHqWw0du/0M=;
- b=cL7qQ9LdTOARkIge+yh0tBsSc+KTaMzgBrRG7KNQkHDpr0dBYUxvgbqVyykUD778Ya
- SgphcJTfpPJiE4cltfiZzC7/EvJ4V3XE6GwaIeHbMF+qVmXEXH3lOcBCAUn9EU4o6mml
- W/gPQHpUyKSqhgEku2V1VoACsGzjeJMiPNIrRFiULT4T3fvCn8R4V3mp/+cpEWQxDCIm
- yRtBbSR27FhF/O2/pGwwhLUk8QT8rBPH15elajQ6AUBwNSne/ReyKadYpfFgXHouZxgw
- UCL48KFaTb0gpkY4itnpT+/idVPQNn48Pe/istDOxTrUclngD+YbHXdXFkLQhnEgFGpC
- AuhQ==
+ bh=vjqgDzaqLCDvTv3JR9YuRnn8gtdeY8eplrOJONUBn6U=;
+ b=YyTLKx3bxNflnoxITss1S8qyy8Blh24gI+T/FG28VWba5vRuR1L7Y/b4+jWx2iABap
+ 3eUmRIOh1hGLoav8yE7CIytH57YtEwqU662itMcTK7JQoWNJJqYI+g2saplDqG7/PgmE
+ CqYZJIQqDY3zhxNN3UNPkqVMJO7i7ST+MLlLb6vvBmtnhCu1BV6B+RGWj/VhJJ/bX00F
+ OIAldqaa4t2CDOaocc1T2ezC6ybaLh4w0Dhlv8Bozp7sUJ8fLKTixMfoZt8zcrUPAK0H
+ 562RYu1CKQdqB+wS6lAiYCJ7I2eNgFy+OOIjcRGXsOuhB/cCVf8UE0hWj5dHKkPDu4r0
+ I8bA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc:content-type;
- bh=jkDfQ/901E9T4mQxtdO1L+MEUb3FfnJcfHqWw0du/0M=;
- b=IGEArXBnRrkGq9M+RS1Qm7/fw04WxTcrWltPs5C/d7HuN0kmNvPX8oEkUsp5T+Wb4+
- 4Qi2M+TI71d722vDsn7C1+pUyaiHOQXcXfE2a8WPvuui7Wex4KG8ClepGk3M0p1WJ/LJ
- 10ONaizi+I2V6r8kvl0reu1IRg5bbmmOA5kb0=
+ bh=vjqgDzaqLCDvTv3JR9YuRnn8gtdeY8eplrOJONUBn6U=;
+ b=lFUBxYQkVw3q7Ho6FpuEE9q72s19XJ4rtnh0vJCSUq5lRswP2CP5F9t8/RCWUF+2WE
+ Yf7N3jdblUbKaxEf3KAYuOaUB6vd18FmQDMvdq8OakFFeYy77QOAEkus59QLGLoWnbau
+ J8hgekjxM50bRcViia0+/8uH4wjb5l7RrUlro=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc:content-type;
- bh=jkDfQ/901E9T4mQxtdO1L+MEUb3FfnJcfHqWw0du/0M=;
- b=MqfUYm8OaJ37YIKTRLJ31QlCSWJlP2B0lnCiW7tTvf8R8S0LrS30y2T1QHxKRLvV1q
- 19i+xs/QZZ9NAZS8jrxbEARRQLUGtystvSyelmbYud8qx+rVLCvta/fIptwnOJwiFbHb
- VmY/AXnp9M1t6gmLHBnz4NPg7FuLkOuXfjNyPW8kRfk6eWaI71F4ImOfdTASGZsmr8Ti
- OZxxrehpjVkBLPHvxNGTa1Rso+bAa2rvWZVXCi3XjxHUBZ5MwvLp1kM6A16Lp1SC1dM6
- uYCYYp+1OifxjhTMShHkzG69uJEXcofSdgtMKz9+XjUOSzSV9h8IMy/9SJO7Qh9N0/r3
- /tzw==
-X-Gm-Message-State: AG10YOTn8lCdZ7gcllL3BnUDDZFxZprYfgeMw8UzoRCmnPgTFUjAxg8gI0aQT+UpNJBL3oeizb0ECX6C5Bv7FA==
-X-Received: by 10.182.92.234 with SMTP id cp10mr20594505obb.79.1456102681189; 
- Sun, 21 Feb 2016 16:58:01 -0800 (PST)
+ bh=vjqgDzaqLCDvTv3JR9YuRnn8gtdeY8eplrOJONUBn6U=;
+ b=N6pYaP4pUPIuL8guntU1dy9KRZI12oD42I0NOu767uPaGxkCRSXTLMUKrT1Eq6pCb/
+ XoxEgqmpUTCjMEFIj4SuaZoepYBZ5nfki8wuKJJ3l2F41814CoDxJ7z2NUtBaa65ijmX
+ l4nsZlCHeZXvKNlrWwLCmXQymYjl0odIHQfRy2Q81JyG24Ook/iciOZ0YOtLiHl19bcM
+ gbviDkMLqOBJAj1L8hIuONoivL1uR5ERAjzfc9O4J8OCyHZnQvCvgmBCzDLWRC2uqPSJ
+ X5rKyfkflPb+fujU6tJQ547sL2vZIGw9DdK4e0+9rBkB847rZ3GSe4Xk79nTMHQYpOzk
+ eCfA==
+X-Gm-Message-State: AG10YOQ+PcT8Q0Pjs8e4EbZG358+oT4mR4l4tLnyMFAnr1dVyr3C1GNKESYiSaIqBMdZrGbe1X13Tmfnuj8P3A==
+X-Received: by 10.202.196.208 with SMTP id u199mr19638378oif.71.1456102744540; 
+ Sun, 21 Feb 2016 16:59:04 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.60.121.1 with HTTP; Sun, 21 Feb 2016 16:57:41 -0800 (PST)
-In-Reply-To: <1455909066-21813-2-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1455909066-21813-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1455909066-21813-2-git-send-email-openbmc-patches@stwcx.xyz>
+Received: by 10.60.121.1 with HTTP; Sun, 21 Feb 2016 16:58:45 -0800 (PST)
+In-Reply-To: <1455909023-21506-2-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1455909023-21506-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1455909023-21506-2-git-send-email-openbmc-patches@stwcx.xyz>
 From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 22 Feb 2016 11:27:41 +1030
-X-Google-Sender-Auth: RVgl3yPERjbOy6ISAf5XuJqa--4
-Message-ID: <CACPK8Xc9bh32KzZ9ovFncnuKDz_=esr0R7KZjc3Pj_Jpj7yJYw@mail.gmail.com>
-Subject: Re: [PATCH u-boot] Move UART setup outside DRAM init
+Date: Mon, 22 Feb 2016 11:28:45 +1030
+X-Google-Sender-Auth: XCBUIwNjsREOozHNB0rkGgn2rxQ
+Message-ID: <CACPK8Xfguq9sVJKgx_WV-gXPevG3L=7g+OrooD+doihOvFhbAg@mail.gmail.com>
+Subject: Re: [PATCH linux] Remove GPIO and LPC from WDT reset list
 To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Norman James <nkskjames@gmail.com>
@@ -69,127 +69,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Feb 2016 00:58:04 -0000
+X-List-Received-Date: Mon, 22 Feb 2016 00:59:06 -0000
 
-Hey Norm,
-
-On Sat, Feb 20, 2016 at 5:41 AM, OpenBMC Patches
+On Sat, Feb 20, 2016 at 5:40 AM, OpenBMC Patches
 <openbmc-patches@stwcx.xyz> wrote:
 > From: Norman James <njames@us.ibm.com>
 >
+> WDT reset mode must also be set to SOC mode
+
+Can you elaborate? What does this fix?
+
+>
 > Signed-off-by: Norman James <nkskjames@gmail.com>
-
-We need a commit message here explaining why this change is being
-made. Is there a bug you can reference?
-
-Cheers,
-
-Joel
-
-
 > ---
->  board/aspeed/ast2400/platform.S | 81 +++++++++++++++++++++--------------------
->  1 file changed, 42 insertions(+), 39 deletions(-)
+>  arch/arm/mach-aspeed/aspeed.c | 5 +++--
+>  drivers/watchdog/aspeed_wdt.c | 3 ++-
+>  2 files changed, 5 insertions(+), 3 deletions(-)
 >
-> diff --git a/board/aspeed/ast2400/platform.S b/board/aspeed/ast2400/platform.S
-> index dd94da0..5e048a5 100644
-> --- a/board/aspeed/ast2400/platform.S
-> +++ b/board/aspeed/ast2400/platform.S
-> @@ -184,6 +184,48 @@ LPC_Patch_E:
+> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+> index 2feb161..6ebd6c0 100644
+> --- a/arch/arm/mach-aspeed/aspeed.c
+> +++ b/arch/arm/mach-aspeed/aspeed.c
+> @@ -191,9 +191,10 @@ static void __init aspeed_init_early(void)
+>         writel(0, AST_IO(AST_BASE_WDT | 0x2c));
 >
->  .globl lowlevel_init
->  lowlevel_init:
-> +    /* setup UART */
-> +    ldr r0, =CONFIG_ASPEED_COM_LCR
-> +    mov r1, #0x83
-> +    str r1, [r0]
-> +
-> +    ldr r0, =0x1e6e202c
-> +    ldr r1, =0x00000010
-> +    str r1, [r0]
-> +
-> +    ldr r2, [r0]
-> +    mov r2, r2, lsr #12
-> +    tst r2, #0x01
-> +    ldr r0, =CONFIG_ASPEED_COM
-> +#if CONFIG_BAUDRATE == 115200
-> +    moveq r1, #0x0D                              @ Baudrate 115200
-> +    movne r1, #0x01                              @ Baudrate 115200, div13
-> +#endif
-> +#if CONFIG_BAUDRATE == 57600
-> +    moveq r1, #0x1A                              @ Baudrate 57600
-> +    movne r1, #0x02                              @ Baudrate 57600, div13
-> +#endif
-> +#if CONFIG_BAUDRATE == 38400
-> +    moveq r1, #0x27                              @ Baudrate 38400
-> +    movne r1, #0x03                              @ Baudrate 38400 , div13
-> +#endif
-> +#if CONFIG_BAUDRATE == 9600
-> +    moveq r1, #0x9c                              @ Baudrate 9600
-> +    movne r1, #0x0C                              @ Baudrate 9600 , div13
-> +#endif
-> +    str r1, [r0]
-> +
-> +    ldr r0, =CONFIG_ASPEED_COM_IER
-> +    mov r1, #0x00
-> +    str r1, [r0]
-> +
-> +    ldr r0, =CONFIG_ASPEED_COM_LCR
-> +    mov r1, #0x03
-> +    str r1, [r0]
-> +
-> +    ldr r0, =CONFIG_ASPEED_COM_IIR
-> +    mov r1, #0x07
-> +    str r1, [r0]
+>         /*
+> -        * ensure all IPs are reset on watchdog expiry
+> +        * ensure all IPs except GPIO and LPC are reset on watchdog expiry
+>          */
+> -       writel(0x003ffff3, AST_IO(AST_BASE_SCU | 0x9C));
+> +       writel(0x001fdff3, AST_IO(AST_BASE_SCU | 0x9C));
+> +       //writel(0x003ffff3, AST_IO(AST_BASE_SCU | 0x9C));
+
+Lets not leave commented out code in the tree.
+
 >
->  init_dram:
->      /* save lr */
-> @@ -338,45 +380,6 @@ set_MPLL:
->      ldr r1, =0xFFFF0000                          @ enable UART3 and UART4
->      str r1, [r0]
+>         /*
+>          * Temporary setup of AST registers until pinmux driver is complete
+> diff --git a/drivers/watchdog/aspeed_wdt.c b/drivers/watchdog/aspeed_wdt.c
+> index 07ae815..a1ea4c2 100644
+> --- a/drivers/watchdog/aspeed_wdt.c
+> +++ b/drivers/watchdog/aspeed_wdt.c
+> @@ -37,6 +37,7 @@ MODULE_DEVICE_TABLE(of, aspeed_wdt_of_table);
+>  #define WDT_RELOAD_VALUE       0x04
+>  #define WDT_RESTART            0x08
+>  #define WDT_CTRL               0x0C
+> +#define   WDT_CTRL_RESET_MODE_SOC      (0x00 << 5)
+>  #define   WDT_CTRL_RESET_MODE_FULL_CHIP        (0x01 << 5)
+>  #define   WDT_CTRL_RESET_SYSTEM                (0x1  << 1)
+>  #define   WDT_CTRL_ENABLE              (0x1  << 0)
+> @@ -45,7 +46,7 @@ MODULE_DEVICE_TABLE(of, aspeed_wdt_of_table);
 >
-> -    ldr r0, =CONFIG_ASPEED_COM_LCR
-> -    mov r1, #0x83
-> -    str r1, [r0]
-> -
-> -    ldr r0, =0x1e6e202c
-> -    ldr r2, [r0]
-> -    mov r2, r2, lsr #12
-> -    tst r2, #0x01
-> -    ldr r0, =CONFIG_ASPEED_COM
-> -#if CONFIG_BAUDRATE == 115200
-> -    moveq r1, #0x0D                              @ Baudrate 115200
-> -    movne r1, #0x01                              @ Baudrate 115200, div13
-> -#endif
-> -#if CONFIG_BAUDRATE == 57600
-> -    moveq r1, #0x1A                              @ Baudrate 57600
-> -    movne r1, #0x02                              @ Baudrate 57600, div13
-> -#endif
-> -#if CONFIG_BAUDRATE == 38400
-> -    moveq r1, #0x27                              @ Baudrate 38400
-> -    movne r1, #0x03                              @ Baudrate 38400 , div13
-> -#endif
-> -#if CONFIG_BAUDRATE == 9600
-> -    moveq r1, #0x9c                              @ Baudrate 9600
-> -    movne r1, #0x0C                              @ Baudrate 9600 , div13
-> -#endif
-> -    str r1, [r0]
-> -
-> -    ldr r0, =CONFIG_ASPEED_COM_IER
-> -    mov r1, #0x00
-> -    str r1, [r0]
-> -
-> -    ldr r0, =CONFIG_ASPEED_COM_LCR
-> -    mov r1, #0x03
-> -    str r1, [r0]
-> -
-> -    ldr r0, =CONFIG_ASPEED_COM_IIR
-> -    mov r1, #0x07
-> -    str r1, [r0]
-> -
->      ldr r0, =CONFIG_ASPEED_COM
->      mov r1, #0x0D                                @ '\r'
->      str r1, [r0]
+>  static void aspeed_wdt_enable(struct aspeed_wdt *wdt, int count)
+>  {
+> -       u32 ctrl = WDT_CTRL_RESET_MODE_FULL_CHIP | WDT_CTRL_RESET_SYSTEM |
+> +       u32 ctrl = WDT_CTRL_RESET_MODE_SOC | WDT_CTRL_RESET_SYSTEM |
+>                 WDT_CTRL_ENABLE;
+>
+>         writel(0, wdt->base + WDT_CTRL);
 > --
 > 2.7.1
 >
