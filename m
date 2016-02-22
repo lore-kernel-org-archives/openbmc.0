@@ -1,41 +1,91 @@
-Return-Path: <andrew@aj.id.au>
-Received: from homiemail-a19.g.dreamhost.com (sub3.mail.dreamhost.com
- [69.163.253.7])
- by lists.ozlabs.org (Postfix) with ESMTP id EA3231A0350
- for <openbmc@lists.ozlabs.org>; Mon, 22 Feb 2016 12:32:12 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=bV5oRxwX; 
- dkim-atps=neutral
-Received: from homiemail-a19.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a19.g.dreamhost.com (Postfix) with ESMTP id B8CD5604076;
- Sun, 21 Feb 2016 17:32:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
- :subject:from:reply-to:to:date:in-reply-to:references
- :content-type:mime-version; s=aj.id.au; bh=h1gM6ed3hk+JxFfyx6HNO
- Wd8obE=; b=bV5oRxwXBy982TTjCJfY/C2UeTBqf8Dmz7/pOvDfdoxMbCBoIb6pB
- T8OqGkrvTdWNK8RgdPlb1R0R1Gsjt385cnwBx9qG/8bh3NnRUn0sFf2FqE/FyKn5
- 2SLT4DPyvPWgl1UicALT6dfG9YsujlHjvBb/md7d+SsPzQgrSnN2ko=
-Received: from keelia (unknown [203.0.153.9])
- (using TLSv1 with cipher AES128-SHA (128/128 bits))
+Return-Path: <austenc@us.ibm.com>
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- (Authenticated sender: andrew@aj.id.au)
- by homiemail-a19.g.dreamhost.com (Postfix) with ESMTPSA id 04BD8604061;
- Sun, 21 Feb 2016 17:32:10 -0800 (PST)
-Message-ID: <1456104727.3064.29.camel@aj.id.au>
-Subject: Re: [PATCH skeleton] skeleton: fixed hard-coding for master OCC
- hwmon sysfs path
-From: Andrew Jeffery <andrew@aj.id.au>
-Reply-To: andrew@aj.id.au
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-Date: Mon, 22 Feb 2016 12:02:07 +1030
-In-Reply-To: <1455909058-21748-2-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1455909058-21748-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1455909058-21748-2-git-send-email-openbmc-patches@stwcx.xyz>
-Organization: IBM OzLabs
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-PwIRfdEuKNgjH86k+1w6"
-X-Mailer: Evolution 3.16.5-1ubuntu3.1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id BDA291A061E
+ for <openbmc@lists.ozlabs.org>; Mon, 22 Feb 2016 12:53:42 +1100 (AEDT)
+Received: from localhost
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Sun, 21 Feb 2016 18:53:40 -0700
+Received: from d03dlp01.boulder.ibm.com (9.17.202.177)
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Sun, 21 Feb 2016 18:53:39 -0700
+X-IBM-Helo: d03dlp01.boulder.ibm.com
+X-IBM-MailFrom: austenc@us.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from b01cxnp23032.gho.pok.ibm.com (b01cxnp23032.gho.pok.ibm.com
+ [9.57.198.27])
+ by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id B04851FF001F
+ for <openbmc@lists.ozlabs.org>; Sun, 21 Feb 2016 18:41:48 -0700 (MST)
+Received: from d01av03.pok.ibm.com (d01av03.pok.ibm.com [9.56.224.217])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u1M1rc6X36503610
+ for <openbmc@lists.ozlabs.org>; Mon, 22 Feb 2016 01:53:38 GMT
+Received: from d01av03.pok.ibm.com (localhost [127.0.0.1])
+ by d01av03.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u1M1rc8V021591
+ for <openbmc@lists.ozlabs.org>; Sun, 21 Feb 2016 20:53:38 -0500
+Received: from d50lp02.ny.us.ibm.com (d50lp02.pok.ibm.com [146.89.104.208])
+ by d01av03.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u1M1rcq2021588
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Sun, 21 Feb 2016 20:53:38 -0500
+Message-Id: <201602220153.u1M1rcq2021588@d01av03.pok.ibm.com>
+Received: from localhost
+ by d50lp02.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Sun, 21 Feb 2016 20:53:38 -0500
+Received: from smtp.notes.na.collabserv.com (192.155.248.72)
+ by d50lp02.ny.us.ibm.com (158.87.18.21) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
+ Sun, 21 Feb 2016 20:53:35 -0500
+X-IBM-Helo: smtp.notes.na.collabserv.com
+X-IBM-MailFrom: austenc@us.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from /spool/local
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Mon, 22 Feb 2016 01:53:34 -0000
+Received: from us1a3-smtp01.a3.dal06.isc4sb.com (10.106.154.95)
+ by smtp.notes.na.collabserv.com (10.106.227.158) with
+ smtp.notes.na.collabserv.com ESMTP; Mon, 22 Feb 2016 01:53:33 -0000
+Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
+ by us1a3-smtp01.a3.dal06.isc4sb.com
+ with ESMTP id 2016022201533184-138548 ;
+ Mon, 22 Feb 2016 01:53:31 +0000 
+Subject: Re: Linux 4.3.x gone?
+In-Reply-To: <1456102444.15159.3.camel@au1.ibm.com>
+From: "Chris Austen" <austenc@us.ibm.com>
+To: joel.stanley@au1.ibm.com
+Cc: jeremy.kerr@au1.ibm.com, openbmc@lists.ozlabs.org, "Patrick Williams III"
+ <iawillia@us.ibm.com>
+Date: Mon, 22 Feb 2016 01:53:32 +0000
+Sensitivity: 
+MIME-Version: 1.0
+References: <1456102444.15159.3.camel@au1.ibm.com>,
+ <201602200707.u1K77Htb001722@d01av03.pok.ibm.com>
+Importance: Normal
+X-Priority: 3 (Normal)
+X-Mailer: Lotus Domino Web Server Build V851SAAS_02082016_FP1 February 18, 2016
+X-LLNOutbound: False
+X-Disclaimed: 6971
+X-TNEFEvaluated: 1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=UTF-8
+x-cbid: 16022201-0005-0000-0000-00001CA289FD
+X-IBM-ISS-SpamDetectors: Score=0.397008; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.397008; ST=0; TS=0; UL=0; ISC=
+X-IBM-ISS-DetailInfo: BY=3.00004945; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000145; SDB=6.00663158; UDB=6.00301905; UTC=2016-02-22
+ 01:53:33
+x-cbparentid: 16022201-5090-0000-0000-0000073C2EFD
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -47,109 +97,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Feb 2016 01:32:13 -0000
+X-List-Received-Date: Mon, 22 Feb 2016 01:53:43 -0000
 
-
---=-PwIRfdEuKNgjH86k+1w6
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Yi Li,
-
-On Fri, 2016-02-19 at 13:10 -0600, OpenBMC Patches wrote:
-> From: Yi Li <adamliyi@msn.com>
->=20
-> Currently master OCC hwmon sysfs path is hardcoded to '/sys/class/hwmon/h=
-wmon3/'.
-> This make the '/org/openbmc/sensors/host/PowerCap' interface cannot work =
-when
-> master OCC is initilized as hwmon device other than 'hwmon3'.
->=20
-> This would fix the issue: https://github.com/openbmc/skeleton/issues/42
->=20
-> Signed-off-by: Yi Li <adamliyi@msn.com>
-> ---
->  bin/sensor_manager2.py | 11 ++++++++---
->  1 file changed, 8 insertions(+), 3 deletions(-)
->=20
-> diff --git a/bin/sensor_manager2.py b/bin/sensor_manager2.py
-> index b5aac53..4fc9dc2 100755
-> --- a/bin/sensor_manager2.py
-> +++ b/bin/sensor_manager2.py
-> @@ -2,6 +2,7 @@
-> =20
->  import sys
->  import os
-> +import glob
->  import gobject
->  import dbus
->  import dbus.service
-> @@ -54,9 +55,13 @@ if __name__ =3D=3D '__main__':
-> =20
->  > 	> obj_path =3D OBJ_PATH+"/host/PowerCap"
->  > 	> sensor_obj =3D Sensors.PowerCap(bus,obj_path)
-> -> 	> ## hwmon3 is default for master OCC on Barreleye.
-> -> 	> ## should rewrite sensor_manager to remove hardcode
-> -> 	> sensor_obj.sysfs_attr =3D "/sys/class/hwmon/hwmon3/user_powercap"
-> +> 	> ## scan hwmon sysfs for master occ's user_powercap attribute
-> +> 	> for pcap_file in glob.glob('/sys/class/hwmon/*/user_powercap'):
-> +> 	> 	> occ_i2c_dev =3D os.path.dirname(pcap_file)+'/device'
-> +> 	> 	> occ_i2c_dev =3D os.path.realpath(occ_i2c_dev).split('/').pop()
-> +> 	> 	> # master OCC address
-> +> 	> 	> if occ_i2c_dev =3D=3D '3-0050':
-> +> 	> 	> 	> sensor_obj.sysfs_attr =3D pcap_file
-
-Have you tested the code in the for loop? Because running the body in a
-Python shell doesn't give me confidence the if-condition will ever be
-satisfied:
-
-    andrew@keelia    :~$ python
-    Python 2.7.10 (default, Oct 14 2015, 16:09:02)=20
-    [GCC 5.2.1 20151010] on linux2
-    Type "help", "copyright", "credits" or "license" for more information.
-    >>> import os
-    >>> pcap_file =3D     "/sys/class/hwmon/hwmon3/user_powercap"
->>> os.path.dirname(pcap_file)+"/device"
-'/sys/class/hwmon/hwmon3/device'
->>> os.path.realpath(_).split('/')
-['', 'sys', 'class', 'hwmon', 'hwmon3', 'device']
->>> _.pop()
-'device'
->>>=20
-
-I can't see how occ_i2c_dev will ever take the value '3-0050'? Are we
-missing additional globbing and/or reading of files?
-
->  	root_sensor.add(obj_path,sensor_obj)
-
-Have you given consideration to what should be done if the if-condition
-in the for loop above never fires? Is it still valid to add sensor_obj?
-
-Andrew
-
-> =20
->  > 	> obj_path =3D OBJ_PATH+"/host/BootProgress"
---=-PwIRfdEuKNgjH86k+1w6
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
-
-iQIcBAABCgAGBQJWymUXAAoJEJ0dnzgO5LT5PLAP/Aizci/+oi/5VvYJZeqijrZL
-Z/HPLXsTsqjOUAS0oLL5V/hj0Xn3pZUO+wpogbhSYzQU93TcF39beoNRFx7E7G5P
-V6QR8Yyn++RI9mmpVUknEj0cn4TWBREj4XeIG6md+mmZX83aCH0Id3jZmWNz1l+c
-kvzXQGAvQX+MLJ7i+9DdiNzHoBVxL8rCk+1WNftTEwb8C3SlAvM7k0FqHsdya4d6
-xkbbIqAa6zI+XOkhi9oZs7sC3+D29Ia5hF/pJK7cYWsIDwVoq0rbgsyYTG7TuFbk
-Mei1ftJENR5Kl7fylMnQN8lJsuWc6w1LFne2f+6XABvMQG4v7Tgu3SmbNCwXKbx7
-taVRIeSal42KJnxOm3z35HMYNaxHrwOn6sl6VJ3HCl18Ph9oDXxEJVOrnbofabJ5
-z82h8qZfHrpzlkU7Dnt8BEThVHSo6aFxY0VqbPCWW8fhmCDXatrV1Qn6Xd/6qHk0
-RQr9BWKgHFPxIM5Rkz682T/WDCQY1sl/pFszJ9ag/T3UdJoMz1F+9mVVhuI46D2D
-O61/5rF3j6G5LYC+RzoKL4CIQf+7++17SDEJUQOomtOTx0vxOR6/FHAOnXvEEpAb
-oPS7Y6uLhMv0qOSFCgkc4jDigd9p6JfKo2ZuDbqdeFboCEnIfWHubcE2EhhlsrQj
-MAmL+c447i5UkGmazMoO
-=szK/
------END PGP SIGNATURE-----
-
---=-PwIRfdEuKNgjH86k+1w6--
+<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial;fo=
+nt-size:10.5pt" ><div dir=3D"ltr" >4.4 is lts (supported to 2018)&nbsp; and=
+ 4.3.x is not?&nbsp; I'm thinking we should have this discussion on our wee=
+kly interlock and come up with a migration plan (or not).
+<div>&nbsp;</div>
+<div>&nbsp;
+<div><br>Chris Austen<br>POWER Systems Enablement Manager<br>(512) 286-5184=
+ (T/L: 363-5184)
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<blockquote data-history-content-modified=3D"1" style=3D"border-left:solid =
+#aaaaaa 2px; margin-left:5px; padding-left:5px; direction:ltr; margin-right=
+:0px" >----- Original message -----<br>From: Joel Stanley &lt;joel.stanley@=
+au1.ibm.com&gt;<br>To: Chris Austen/Austin/IBM@IBMUS, openbmc@lists.ozlabs.=
+org<br>Cc: Patrick Williams III/Rochester/IBM@IBMUS, Jeremy Kerr &lt;jeremy=
+.kerr@au1.ibm.com&gt;<br>Subject: Re: Linux 4.3.x gone?<br>Date: Sun, Feb 2=
+1, 2016 6:55 PM<br>&nbsp;
+<div><font face=3D"Default Monospace,Courier New,Courier,monospace" size=3D=
+"2" >Hi Chris,<br><br>On Sat, 2016-02-20 at 07:07 +0000, Chris Austen wrote=
+:<br>&gt; <a href=3D"http://lkml.iu.edu/hypermail/linux/kernel/1602.2/03670=
+.html" target=3D"=5Fblank" >http://lkml.iu.edu/hypermail/linux/kernel/1602.=
+2/03670.html</a><br>&gt; &nbsp;<br>&gt; How does this effect your up-stream=
+ing?&nbsp; When are we moving to 4.4?<br><br>This doesn't affect the upstre=
+aming at all. As I mentioned on the call<br>the other day, I have a tree th=
+at is based on 4.5-rc3, and this is what<br>I will send upstream once we've=
+ had a chance to review it.<br><br>We can move to 4.4 as soon as you and th=
+e rest of the team are<br>comfortable. As with any change, there is a small=
+ risk of regressions,<br>so we want to do this at an appropriate time.<br><=
+br>Cheers,<br><br>Joel</font></div></blockquote></div></div></div></div><BR>
