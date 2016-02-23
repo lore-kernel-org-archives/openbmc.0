@@ -1,59 +1,59 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-ob0-x22a.google.com (mail-ob0-x22a.google.com
- [IPv6:2607:f8b0:4003:c01::22a])
+Received: from mail-oi0-x22f.google.com (mail-oi0-x22f.google.com
+ [IPv6:2607:f8b0:4003:c06::22f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3573D1A0622
- for <openbmc@lists.ozlabs.org>; Wed, 24 Feb 2016 09:55:06 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 9E7B21A0622
+ for <openbmc@lists.ozlabs.org>; Wed, 24 Feb 2016 09:56:17 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=yioCDtA8; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=EOJXKY+l; 
  dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=HBlNAU0/; 
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=J6mycJKZ; 
  dkim-atps=neutral
-Received: by mail-ob0-x22a.google.com with SMTP id gc3so837036obb.3
- for <openbmc@lists.ozlabs.org>; Tue, 23 Feb 2016 14:55:06 -0800 (PST)
+Received: by mail-oi0-x22f.google.com with SMTP id x21so706036oix.2
+ for <openbmc@lists.ozlabs.org>; Tue, 23 Feb 2016 14:56:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc:content-type;
- bh=zNBJYoN6vthxCUmtyyf1QdOvyTa6Juy0Z3SobfbsRsY=;
- b=yioCDtA8+3BDi2x2C+u2U3G/F6u6lUwCQCGNZb5CAOcR+qplyjkvIEX6XvlIV9O7We
- 4mePmfJkLSz95TjF+qavml2yuYI9G7q2fkoHUzjY0xIPUZBrB/MF/gSAnNhJ+2dGtI8X
- UiesES+4dZ+ht+IlH9FZp+j8qszTjig6KAg833VBgMWSm6ZMotahWQiXc0qjlZqz7Emt
- 05jgmE2abe62/tXaboGXSZZj7Riy/5hjcXuXLIK67eX+PgRbnnBVnt/GKuaZWosFCUn4
- XF3zsN/kxNH26/ojPXawGMBF9NwdpiQUiRhS0Z/Yocg7dAFVswFA2EdnN3U9BcncgZj2
- LVIg==
+ bh=4TdzvX5k1SCdB0ISE9OE/Z6A/YbDKY8Y34SFbffw8go=;
+ b=EOJXKY+lfluYHCflMG6Pe1Zlt7gbgEmSRAH3oQUnsA0fld+Fr3lifFm+JB+Qua5y78
+ 2YzyFD+ntDFKqWWRvEY7h97zg4nK/39HVdzG9y2CcLTLEJxXkF3UR4Lw20aYU22cjp2a
+ ku7uxn7kSq6nbvuvo42QkYIBg6tUFIl5PxcOSrMXd3nrMG582sAirp0qARjJZCl1XW4b
+ he9suuejvEqpccwg9UnPKIiVppcmt05hGlWoZOwtuzHOVTqkukDIeAHDB2wAw6FLW/bN
+ 9KCs7SXTUmmQ7fLU6EmSog3tM8x8Y7vOem1bwBYgx+IG2x0AMzyitRjwhLX5sTFqtE6j
+ 6DuQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc:content-type;
- bh=zNBJYoN6vthxCUmtyyf1QdOvyTa6Juy0Z3SobfbsRsY=;
- b=HBlNAU0/RY06x1u+dgM0sQGW1PDNhe2pjScNmLjbgOWlilTR6hoMrcwGM1QsrqatPN
- B/J7t9xHNw6dTQ8UgUtZCwggWMjcuGkT1NOzq+NFnzBdefbaTyVFjtqpqKmDTPA91NfB
- uQ5XrKafUnj5e1UWgjVawW7pV+TX14b9M8rxU=
+ bh=4TdzvX5k1SCdB0ISE9OE/Z6A/YbDKY8Y34SFbffw8go=;
+ b=J6mycJKZvrF+O6Ubc5KF9GvtdQzzNR+7iTxk2Ic9L/x/6iBVPA8q9lcfHU3YY5HV0/
+ rvKZpZicKUWdgxbyq0Y1iJ3q7JAfS2Aas23BcKjo7B4MuBlQQ1fo7Uc3cT2uSJV7YF0s
+ 6m8Pb+sAHt+qZqQuJ/TXsMgnjh5mUlZfhYg9c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc:content-type;
- bh=zNBJYoN6vthxCUmtyyf1QdOvyTa6Juy0Z3SobfbsRsY=;
- b=f46+b4wCLyz/fRzMuO8FeD3+Mngc4r4L7BeK1T8vLcJvlf/vPmngIbETa/br7jmw1C
- NNK4/jFboKhtWwEasgMZoBiq8mZRsk7tTLaPRjc02NnSdnLaEWso/kXaN48WetMp+FXQ
- DeCIF5eD6+8RWOubmz+HZKJYlZ7V42MieKb/u/iRRKPgEL/QpYyM7RyiyQzzlWEAH2YL
- 7knnQAxr0lQDpltSOc+O6h56cBoxpixtv2bRYMZh/W0xYE8JteihYRSKeLd9lhkbXM+k
- eHuflaQCeDyVDiqfCRbM5x4cHD2Jv28Ec+8q8mWY4cGoGRPdqtp8112LQoSZMDkoo/iN
- v7Sg==
-X-Gm-Message-State: AG10YOTqtiLZhSFLBu8WfmQ4vrSk5z3I2s5GyD/PYcckH1xdLCkbnLvS7xXEFhN75ArOzy3uGvxo5EyGbhcJAQ==
-X-Received: by 10.60.79.102 with SMTP id i6mr29402889oex.4.1456268102883; Tue,
- 23 Feb 2016 14:55:02 -0800 (PST)
+ bh=4TdzvX5k1SCdB0ISE9OE/Z6A/YbDKY8Y34SFbffw8go=;
+ b=G6fMf56lKg3CcQjlFRdH6bdok1Ejxg2MfbxjcGzU46F7tXoLXLqQiMPXUkTXss1TVB
+ epD1ZlLrzEnSMc4zdHbElw15dp/xds4xUpp4gzZz10QB2b+4x5mWJ74h2vJ5EvF1E0IP
+ hKgPaxF0i8ISHIhQp4WKnM2FQYxs+Xn0XSGX6STekTqYRd/exGKRExC50dbkY2woQSMh
+ LZqnl8KMM/SrEPAHT+MEfPUZAv32lo5VQPTt6oTeezYjAbcN5nzoNhv+zuK2vUPDldDW
+ RyL+YuaHEvIepqaZ+78IRwVCLK0XBcA1Ww4B9MgvEaeMdIA7wDF5oVdRbxJPe4mp82zw
+ NsfQ==
+X-Gm-Message-State: AG10YOStjxUm2HCE5Q5Ie1iCoyVHpWC++Nv9D/lcqwnJh/LC7LjPVcu8xVwQdZfEtcPKd3EqAJ+MIWEnXcZFOg==
+X-Received: by 10.202.104.169 with SMTP id o41mr28724337oik.57.1456268175601; 
+ Tue, 23 Feb 2016 14:56:15 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.60.121.1 with HTTP; Tue, 23 Feb 2016 14:54:43 -0800 (PST)
-In-Reply-To: <1456238703-11117-2-git-send-email-andrew@aj.id.au>
+Received: by 10.60.121.1 with HTTP; Tue, 23 Feb 2016 14:55:56 -0800 (PST)
+In-Reply-To: <1456238703-11117-3-git-send-email-andrew@aj.id.au>
 References: <1456238703-11117-1-git-send-email-andrew@aj.id.au>
- <1456238703-11117-2-git-send-email-andrew@aj.id.au>
+ <1456238703-11117-3-git-send-email-andrew@aj.id.au>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 24 Feb 2016 09:24:43 +1030
-X-Google-Sender-Auth: zdyCkbiPfX-tORETtWd78J4FTos
-Message-ID: <CACPK8XeAq+0RHcdDLP=ezEetCimnAPhDEFz0GJkqFYg4iE4-Lw@mail.gmail.com>
-Subject: Re: [PATCH v3 1/6] oe_mkimage: Use consistent indentation
+Date: Wed, 24 Feb 2016 09:25:56 +1030
+X-Google-Sender-Auth: MFkP9vEbN403BHUXxRx-MX2YdXU
+Message-ID: <CACPK8XeSaRoLM04GdCJbWpx50j-kmMP-=vMroJag7ye9_=+a4g@mail.gmail.com>
+Subject: Re: [PATCH v3 2/6] obmc-init.sh: Fix FS type in mount failure message
 To: Andrew Jeffery <andrew@aj.id.au>
 Cc: OpenBMC <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
@@ -68,42 +68,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Feb 2016 22:55:08 -0000
+X-List-Received-Date: Tue, 23 Feb 2016 22:56:19 -0000
 
 On Wed, Feb 24, 2016 at 1:14 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> It was inconsistent with the rest of the file, which seems to use 7
-> spaces. In particular, vim-sleuth was detecting the indentation style
-> from the first indent(s) in the file, which were in the oe_mkimage
-> function.
-
-7 spaces seems kind of unusual.
-
-Upstream bbclass files are a mixture; I'd go with 8 spaces as I
-suspect that was the intent in this file.
-
->
 > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+
+Reviewed-by: Joel Stanley <joel@jms.id.au>
+
 > ---
->  meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+>  .../common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh     | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass b/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
-> index c390c36..bf987bb 100644
-> --- a/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
-> +++ b/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
-> @@ -4,9 +4,9 @@ inherit image_types_uboot
->  # the image load address and entry point. Override it here.
+> diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+> index 6750de3..9674765 100644
+> --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+> +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+> @@ -114,7 +114,7 @@ then
+>         msg="$(cat)" << HERE
 >
->  oe_mkimage () {
-> -    mkimage -A ${UBOOT_ARCH} -O linux -T ramdisk -C $2 -n ${IMAGE_BASENAME} \
-> -        -a ${INITRD_IMAGE_LOADADDRESS} -e ${INITRD_IMAGE_ENTRYPOINT} \
-> -        -d ${DEPLOY_DIR_IMAGE}/$1 ${DEPLOY_DIR_IMAGE}/$1.u-boot
-> +       mkimage -A ${UBOOT_ARCH} -O linux -T ramdisk -C $2 -n ${IMAGE_BASENAME} \
-> +              -a ${INITRD_IMAGE_LOADADDRESS} -e ${INITRD_IMAGE_ENTRYPOINT} \
-> +              -d ${DEPLOY_DIR_IMAGE}/$1 ${DEPLOY_DIR_IMAGE}/$1.u-boot
->  }
->
->  INITRD_IMAGE_ENTRYPOINT ?= "0x40800000"
+>  Mounting read-write $rwdev filesystem failed.  Please fix and run
+> -       mount $rwdev $rwdir -t $rwfs -o $rwopts
+> +       mount $rwdev $rwdir -t $rwfst -o $rwopts
+>  to to continue, or do change nothing to run from RAM for this boot.
+>  HERE
+>         debug_takeover "$msg"
 > --
 > 2.5.0
 >
