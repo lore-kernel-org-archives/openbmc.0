@@ -1,25 +1,55 @@
-Return-Path: <brad@bwbmail.net>
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <gwshan@linux.vnet.ibm.com>
+Received: from e23smtp03.au.ibm.com (e23smtp03.au.ibm.com [202.81.31.145])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 1E8951A04B8
- for <openbmc@lists.ozlabs.org>; Fri, 26 Feb 2016 23:52:02 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Sender: bradleyb@bajor.fuzziesquirrel.com
-Content-Type: text/plain; charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 9.2 \(3112\))
-Subject: Re: [PATCH skeleton v3] skeleton: fixed hard-coding of master OCC
- hwmon sysfs path for PowerCap object
-From: Brad Bishop <brad@bwbmail.net>
-In-Reply-To: <1456488645-11725-2-git-send-email-openbmc-patches@stwcx.xyz>
-Date: Fri, 26 Feb 2016 07:52:10 -0500
-Cc: openbmc@lists.ozlabs.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <B7312321-087F-4E7A-8450-D8489ABEA3C6@bwbmail.net>
-References: <1456488645-11725-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1456488645-11725-2-git-send-email-openbmc-patches@stwcx.xyz>
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 0AA601A0341
+ for <openbmc@lists.ozlabs.org>; Wed, 24 Feb 2016 13:51:10 +1100 (AEDT)
+Received: from localhost
+ by e23smtp03.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <gwshan@linux.vnet.ibm.com>;
+ Wed, 24 Feb 2016 12:51:07 +1000
+Received: from d23dlp03.au.ibm.com (202.81.31.214)
+ by e23smtp03.au.ibm.com (202.81.31.209) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Wed, 24 Feb 2016 12:51:06 +1000
+X-IBM-Helo: d23dlp03.au.ibm.com
+X-IBM-MailFrom: gwshan@linux.vnet.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d23relay10.au.ibm.com (d23relay10.au.ibm.com [9.190.26.77])
+ by d23dlp03.au.ibm.com (Postfix) with ESMTP id 81AC93578052
+ for <openbmc@lists.ozlabs.org>; Wed, 24 Feb 2016 13:51:05 +1100 (EST)
+Received: from d23av03.au.ibm.com (d23av03.au.ibm.com [9.190.234.97])
+ by d23relay10.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u1O2ovc01048994
+ for <openbmc@lists.ozlabs.org>; Wed, 24 Feb 2016 13:51:05 +1100
+Received: from d23av03.au.ibm.com (localhost [127.0.0.1])
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u1O2oWoE002053
+ for <openbmc@lists.ozlabs.org>; Wed, 24 Feb 2016 13:50:32 +1100
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u1O2oWpf000898; Wed, 24 Feb 2016 13:50:32 +1100
+Received: from bran.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
+ by ozlabs.au.ibm.com (Postfix) with ESMTP id 7796CA01B8;
+ Wed, 24 Feb 2016 13:49:37 +1100 (AEDT)
+Received: from gwshan (shangw.ozlabs.ibm.com [10.61.2.199])
+ by bran.ozlabs.ibm.com (Postfix) with ESMTP id 69696E39CE;
+ Wed, 24 Feb 2016 13:49:37 +1100 (AEDT)
+Received: by gwshan (Postfix, from userid 1000)
+ id 2BA2E941B5C; Wed, 24 Feb 2016 13:49:37 +1100 (AEDT)
+From: Gavin Shan <gwshan@linux.vnet.ibm.com>
+To: joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org, cyrilbur@gmail.com,
+ Gavin Shan <gwshan@linux.vnet.ibm.com>
+Subject: [PATCH] net/ncsi: Fix race condition dropping response packet
+Date: Wed, 24 Feb 2016 13:49:36 +1100
+Message-Id: <1456282176-26532-1-git-send-email-gwshan@linux.vnet.ibm.com>
+X-Mailer: git-send-email 2.1.0
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16022402-0009-0000-0000-0000030A7AC1
+X-Mailman-Approved-At: Sat, 27 Feb 2016 03:54:26 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -31,128 +61,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 26 Feb 2016 12:52:04 -0000
+X-List-Received-Date: Wed, 24 Feb 2016 02:51:10 -0000
 
+The pair of NCSI command/response are associated with NCSI request.
+There is one field in the struct (@nr_timer_enabled) that indicates
+the timer associated with the NCSI request has been enabled. That
+also implicitly indicates the NCSI request packet has been sent out
+successfully. Any received NCSI responses that don't have the
+accompanying NCSI request will be dropped. We could possibly run
+into race condition in ncsi_xmit_cmd(): dev_queue_xmit() is called
+to send the NCSI request packet, then we receive it's response
+packet before nr->nr_timer_enabled is set to true. That leads to
+the NCSI response packet is dropped and NCSI interface can't be
+brought up successfully.
 
-> On Feb 26, 2016, at 7:10 AM, OpenBMC Patches =
-<openbmc-patches@stwcx.xyz> wrote:
->=20
-> From: Yi Li <adamliyi@msn.com>
->=20
-> Currently master OCC hwmon sysfs path is hardcoded to =
-'/sys/class/hwmon/hwmon3/'.
-> This make the '/org/openbmc/sensors/host/PowerCap' interface cannot =
-work when
-> master OCC is initilized as hwmon device other than 'hwmon3'.
->=20
-> 'usr_powercap' attribute should be searched when OCC is active.
-> When skeleton creates 'PowerCap' objects, OCC may not be active.
-> So do the search each time setting power cap. Raise an exception when
-> there is no 'user_powercap' attribute.
->=20
-> This would fix the issue: =
-https://github.com/openbmc/skeleton/issues/42
->=20
-> Also raise an exception when setting power cap fails. The exception
-> will be returned to REST API caller. Need to specify the exception
-> name to trigger a '400' return code.
-> This would fix the issue:
-> https://github.com/openbmc/skeleton/issues/43
->=20
-> Signed-off-by: Yi Li <adamliyi@msn.com>
-> ---
-> bin/Sensors.py         | 23 +++++++++++++++++++----
-> bin/sensor_manager2.py |  3 ---
-> 2 files changed, 19 insertions(+), 7 deletions(-)
->=20
-> diff --git a/bin/Sensors.py b/bin/Sensors.py
-> index f951eeb..a337a4c 100755
-> --- a/bin/Sensors.py
-> +++ b/bin/Sensors.py
-> @@ -8,6 +8,7 @@ import dbus
-> import dbus.service
-> import dbus.mainloop.glib
-> import os
-> +import glob
-> import Openbmc
->=20
-> ## Abstract class, must subclass
-> @@ -137,17 +138,31 @@ class PowerCap(VirtualSensor):
-> 	def __init__(self, bus, name):
-> 		VirtualSensor.__init__(self, bus, name)
-> 		SensorValue.setValue(self, 0)
-> -		self.sysfs_attr =3D =
-"/sys/class/hwmon/hwmon3/user_powercap"
-> 	##override setValue method
-> 	@dbus.service.method(SensorValue.IFACE_NAME,
-> 		in_signature=3D'v', out_signature=3D'')
-> 	def setValue(self, value):
-> +		# master occ hwmon path is created dymanically when occ =
-is active
-> +		# scan hwmon sysfs directory for update
-> +		for pcap_file in =
-glob.glob('/sys/class/hwmon/*/user_powercap'):
-> +			occ_i2c_dev =3D =
-os.path.dirname(pcap_file)+'/device'
-> +			occ_i2c_dev =3D =
-os.path.realpath(occ_i2c_dev).split('/').pop()
-> +			if occ_i2c_dev =3D=3D '3-0050':
-> +				self.sysfs_attr =3D pcap_file
-> +				break
-> +		else:
-> +			raise dbus.exceptions.DBusException(
-> +				"Cannot find user_powercap hwmon =
-attribute, "+
-> +				"check occ status.",
-> +				=
-name=3D'org.freedesktop.DBus.Python.TypeError=E2=80=99)
+This fixes the issue by setting the flag (nr->nr_timer_enabled) to
+true before ncsi_xmit_cmd() is called.
 
-You don=E2=80=99t need a return statement after throwing an exception.
+Reported-by: Cyril Bur <cyrilbur@gmail.com>
+Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
+Tested-by: Cyril Bur <cyrilbur@gmail.com>
+---
+ net/ncsi/ncsi-cmd.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-> +			return
-> 		try:
-> -			cmd_str =3D "echo "+str(value)+" > =
-"+self.sysfs_attr
-> +			cmd_str =3D 'echo '+str(value)+' > =
-'+self.sysfs_attr
-> 			ret =3D subprocess.check_output(cmd_str, =
-shell=3DTrue)
-> 		except subprocess.CalledProcessError as powerexc:
-> -			print "Set PowerCap Error", powerexc.returncode,
-> -			powerexc.output
-
-Would be nice to know if this was a real error or just user-error.  =
-Since this is external, user input, it probably makes sense to do all =
-sorts of validation up front before passing it down lower in the stack =
-rather than just relying on the called process to do it.
-
-> +			raise dbus.exceptions.DBusException(
-> +				"Set PowerCap error: check value range",
-> +				=
-name=3D'org.freedesktop.DBus.Error.InvalidArgs')
-> 			return
-> 		print "Set PowerCap: ", value
-> 		SensorValue.setValue(self, value)
-> diff --git a/bin/sensor_manager2.py b/bin/sensor_manager2.py
-> index b5aac53..926bfea 100755
-> --- a/bin/sensor_manager2.py
-> +++ b/bin/sensor_manager2.py
-> @@ -54,9 +54,6 @@ if __name__ =3D=3D '__main__':
->=20
-> 	obj_path =3D OBJ_PATH+"/host/PowerCap"
-> 	sensor_obj =3D Sensors.PowerCap(bus,obj_path)
-> -	## hwmon3 is default for master OCC on Barreleye.
-> -	## should rewrite sensor_manager to remove hardcode
-> -	sensor_obj.sysfs_attr =3D =
-"/sys/class/hwmon/hwmon3/user_powercap"
-> 	root_sensor.add(obj_path,sensor_obj)
->=20
-> 	obj_path =3D OBJ_PATH+"/host/BootProgress"
-> --=20
-> 2.7.1
->=20
->=20
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+diff --git a/net/ncsi/ncsi-cmd.c b/net/ncsi/ncsi-cmd.c
+index b8503e1..8f75828 100644
+--- a/net/ncsi/ncsi-cmd.c
++++ b/net/ncsi/ncsi-cmd.c
+@@ -359,12 +359,6 @@ int ncsi_xmit_cmd(struct ncsi_cmd_arg *nca)
+ 		eh->h_source[i] = 0xff;
+ 	}
+ 
+-	/* Send NCSI packet */
+-	skb_get(nr->nr_cmd);
+-	ret = dev_queue_xmit(nr->nr_cmd);
+-	if (ret)
+-		goto out;
+-
+ 	/* Start the timer for the request that might not have
+ 	 * corresponding response. I'm not sure 1 second delay
+ 	 * here is enough. Anyway, NCSI is internal network, so
+@@ -373,6 +367,13 @@ int ncsi_xmit_cmd(struct ncsi_cmd_arg *nca)
+ 	nr->nr_timer_enabled = true;
+ 	mod_timer(&nr->nr_timer, jiffies + 1 * HZ);
+ 
++
++	/* Send NCSI packet */
++	skb_get(nr->nr_cmd);
++	ret = dev_queue_xmit(nr->nr_cmd);
++	if (ret)
++		goto out;
++
+ 	return 0;
+ out:
+ 	ncsi_free_req(nr, false, false);
+-- 
+2.1.0
