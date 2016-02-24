@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id E53021A04D4
- for <openbmc@lists.ozlabs.org>; Thu, 25 Feb 2016 05:40:34 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 8C2001A04F9
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Feb 2016 05:40:37 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1456339229871930.8599879017261;
- Wed, 24 Feb 2016 10:40:29 -0800 (PST)
+ with SMTPS id 1456339231346233.53027835004355;
+ Wed, 24 Feb 2016 10:40:31 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 3/9] obmc-{init,
- update}.sh: Cope with alternate RW FS types
-Date: Wed, 24 Feb 2016 12:40:18 -0600
-Message-Id: <1456339224-27295-4-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 4/9] openbmc: Generate images with empty NOR sections
+ in the erased state
+Date: Wed, 24 Feb 2016 12:40:19 -0600
+Message-Id: <1456339224-27295-5-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1456339224-27295-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1456339224-27295-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,105 +29,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 24 Feb 2016 18:40:35 -0000
+X-List-Received-Date: Wed, 24 Feb 2016 18:40:38 -0000
 
 From: Andrew Jeffery <andrew@aj.id.au>
 
-Busybox's blkid is a little hamstrung, requiring some processing of the
-output to emulate what can be achieved with a couple of options with
-blkid from util-linux.
+An erased NOR partition is considered to be a valid JFFS2 filesystem
+(i.e. can be successfully mounted as JFFS2). As such there's no need to
+execute mkfs to produce an empty JFFS2 image if the target partition is
+in the erased state. Thus, when generating the flash-palmetto and
+image-rwfs image files, start with a base image file in the erased state
+(with all bits set).
 
-Similar to findmtd(), the code for probe_fs_type() and blkid_fs_type()
-is duplicated between obmc-{init,update}.sh. Some consideration should
-be given to splitting out common functionality into well-defined
-sourcable scripts.
+The change shifts the common logic to generate the base image files into
+a shell function.
 
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- .../obmc-phosphor-initfs/files/obmc-init.sh           | 16 +++++++++++++++-
- .../obmc-phosphor-initfs/files/obmc-update.sh         | 19 ++++++++++++++++---
- 2 files changed, 31 insertions(+), 4 deletions(-)
+ meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-index 9674765..7fc6587 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-@@ -30,6 +30,20 @@ findmtd() {
- 	echo $m
- }
+diff --git a/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass b/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
+index bf987bb..96193a3 100644
+--- a/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
++++ b/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
+@@ -27,6 +27,13 @@ RWFS_SIZE ?= "4096"
  
-+blkid_fs_type() {
-+	# Emulate util-linux's `blkid -s TYPE -o value $1`
-+	# Example busybox blkid output:
-+	#    # blkid /dev/mtdblock5
-+	#    /dev/mtdblock5: TYPE="squashfs"
-+	# Process output to extract TYPE value "squashfs".
-+	blkid $1 | sed -e 's/^.*TYPE="//' -e 's/".*$//'
+ # IMAGE_POSTPROCESS_COMMAND += "do_generate_flash"
+ 
++mk_nor_image() {
++       image_dst="$1"
++       image_size_kb=$2
++       dd if=/dev/zero bs=1k count=${image_size_kb} \
++              | tr '\000' '\377' > ${image_dst}
 +}
 +
-+probe_fs_type() {
-+	fst=$(blkid_fs_type $1)
-+	echo ${fst:=jffs2}
-+}
-+
- debug_takeover() {
- 	echo "$@"
- 	test -n "$@" && echo Enter password to try to manually fix.
-@@ -72,7 +86,7 @@ rodev=/dev/mtdblock${rofs#mtd}
- rwdev=/dev/mtdblock${rwfs#mtd}
+ do_generate_flash() {
+        INITRD_CTYPE=${INITRAMFS_CTYPE}
+        ddir="${DEPLOY_DIR_IMAGE}"
+@@ -51,12 +58,12 @@ do_generate_flash() {
+        fi
  
- rofst=squashfs
--rwfst=ext4
-+rwfst=$(probe_fs_type $rwdev)
- roopts=ro
- rwopts=rw
+        oe_mkimage  "${initrd}" "${INITRD_CTYPE}" || bbfatal "oe_mkimage initrd"
+-       dd if=/dev/zero of=${ddir}/${rwfs} bs=1k count=${RWFS_SIZE}
++       mk_nor_image ${ddir}/${rwfs} ${RWFS_SIZE}
+        mkfs.${OVERLAY_BASETYPE} -b 4096 -F -O^huge_file ${ddir}/${rwfs} || bbfatal "mkfs rwfs"
  
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index face06d..367c302 100755
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -35,10 +35,23 @@ findmtd() {
- 	echo $m
- }
- 
-+blkid_fs_type() {
-+	# Emulate util-linux's `blkid -s TYPE -o value $1`
-+	# Example busybox blkid output:
-+	#    # blkid /dev/mtdblock5
-+	#    /dev/mtdblock5: TYPE="squashfs"
-+	# Process output to extract TYPE value "squashfs".
-+	blkid $1 | sed -e 's/^.*TYPE="//' -e 's/".*$//'
-+}
-+
-+probe_fs_type() {
-+	fst=$(blkid_fs_type $1)
-+	echo ${fst:=jffs2}
-+}
-+
- rwfs=$(findmtd rwfs)
- 
- rwdev=/dev/mtdblock${rwfs#mtd}
--rwfst=ext4
- rwopts=rw
- rorwopts=ro${rwopts#rw}
- 
-@@ -50,7 +63,7 @@ if test -n "$rwfs" && test -s whitelist
- then
- 
- 	mkdir -p $rwdir
--	mount $rwdev $rwdir -t $rwfst -o $rorwopts
-+	mount $rwdev $rwdir -t $(probe_fs_type $rwdev) -o $rorwopts
- 
- 	while read f
- 	do
-@@ -87,7 +100,7 @@ done
- 
- if test -d $save
- then
--	mount $rwdev $rwdir -t $rwfst -o $rwopts
-+	mount $rwdev $rwdir -t $(probe_fs_type $rwdev) -o $rwopts
- 	cp -rp $save/. $upper/
- 	umount $rwdir
- fi
+        dst="${ddir}/${FLASH_IMAGE_NAME}"
+        rm -rf $dst
+-       dd if=/dev/zero of=${dst} bs=1k count=${FLASH_SIZE}
++       mk_nor_image ${dst} ${FLASH_SIZE}
+        dd if=${ddir}/${uboot} of=${dst} bs=1k seek=${FLASH_UBOOT_OFFSET}
+        dd if=${ddir}/${kernel} of=${dst} bs=1k seek=${FLASH_KERNEL_OFFSET}
+        dd if=${ddir}/${uinitrd} of=${dst} bs=1k seek=${FLASH_INITRD_OFFSET}
 -- 
 2.7.1
