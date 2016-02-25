@@ -1,62 +1,40 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-ob0-x241.google.com (mail-ob0-x241.google.com
- [IPv6:2607:f8b0:4003:c01::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 2E19E1A0035
- for <openbmc@lists.ozlabs.org>; Thu, 25 Feb 2016 14:31:50 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=R4XGiqwn; 
- dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=ISukbigF; 
+Return-Path: <andrew@aj.id.au>
+Received: from homiemail-a11.g.dreamhost.com (sub3.mail.dreamhost.com
+ [69.163.253.7])
+ by lists.ozlabs.org (Postfix) with ESMTP id 4BF491A0341
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Feb 2016 15:14:21 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=dm5oseyZ; 
  dkim-atps=neutral
-Received: by mail-ob0-x241.google.com with SMTP id u2so2235962obz.3
- for <openbmc@lists.ozlabs.org>; Wed, 24 Feb 2016 19:31:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-type;
- bh=RO27A88MUtqGA4UCuA5yV2UyToayBxWChsO2KhJr+c0=;
- b=R4XGiqwnVRD2SqPG9dfQ5L80por3cuJRAYwWs0Kld32Kn/VdPxJvVOfu9DXYi2oeJG
- P8kEczKn8D1dd0h12o+U2oAdCsYhjCs7VcjJpxkGHPZvnh7868kvMworCG/aPyb2qL5S
- PvcZLnP+Ti+lA4gorMBLw9Yg8dk2hWmfnLaEIUBnXcoTpiA9tjrXXvScGY6C+RH/1PqI
- 0i4g815PjZ244CEZCFhAQ6pS+w/siFE9Ma/mZNRywxshbjLRnXLKj5JqFy7u+ro9rMbc
- w1QwZSpBTlt5+Q8qOjGf7fSvBDWDd3Nh0StjBvVFMjLgS5d0rde2mNIr3xQ0mS533rfO
- NfhQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-type;
- bh=RO27A88MUtqGA4UCuA5yV2UyToayBxWChsO2KhJr+c0=;
- b=ISukbigFGzGc7H/wdMtEv+EDK1MSGNBBNd2JwCeZu/j2q4UpCR6PsTnaPC/7oxz7DL
- 1awp7Lnh9dAyYAhfhajLA0gZiEcYGgWwR8SvwhABHivpEdOfM9NQi66MnCmkc3BWs9T+
- P4+0CAP1p4OwpFcm2Wc7fh9s45RKOLyZfjfIc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-type;
- bh=RO27A88MUtqGA4UCuA5yV2UyToayBxWChsO2KhJr+c0=;
- b=PwSZ8qTIROhMSNtqh0EHjYAU8JfSbGzynriG6pgcG/zXg4ElDo+WHC2jQW/CHvjKGs
- xP5uztZzptbEIhLucvYv+w0u6yexpimhQTbBjHOY+wPeQupicGWB3e/beZErSfOSZWR8
- 1HXOb/vTsTVnpnr2oO9rzQfrWqlFBHAtswgef8ARtnq0oS+bF/tCpo2posgG4VF0uCtH
- 0mk36cnmOBGNDVfo5WL+E4aOsHcjMZBrBzcCssq+MG8DrGPQ5gXRLNWoseT3jrAwjE9P
- 11jvhI7VYSJ7SInmoE34pMG0hzBnQW4r8ZEK8nTLO4kBOzyYBn/QCmIXeg0cx1Pd3bCR
- CBWg==
-X-Gm-Message-State: AG10YOQFQFOQhrVmlLROpLusZQvMNs5oy7pa17HohPOQnxRqyQ5kbQ9VQ9XEPjypbD6XhFsDKf7eNF3TTaOVOQ==
-X-Received: by 10.182.92.234 with SMTP id cp10mr35003246obb.79.1456371107765; 
- Wed, 24 Feb 2016 19:31:47 -0800 (PST)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.60.121.1 with HTTP; Wed, 24 Feb 2016 19:31:28 -0800 (PST)
-In-Reply-To: <1456370426-11311-2-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1456370426-11311-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1456370426-11311-2-git-send-email-openbmc-patches@stwcx.xyz>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 25 Feb 2016 14:01:28 +1030
-X-Google-Sender-Auth: rPoGlvXNlunGkEmtlKETi15fabI
-Message-ID: <CACPK8Xf2LmYJ+bjd3EY-RRm_VW4mOXhTAYC_aMuf-nnPHQNuog@mail.gmail.com>
-Subject: Re: [PATCH linux] net/ncsi: Fix possible deadlock caught with lockdep
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Cyril Bur <cyrilbur@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Received: from homiemail-a11.g.dreamhost.com (localhost [127.0.0.1])
+ by homiemail-a11.g.dreamhost.com (Postfix) with ESMTP id 2D1E66E06C;
+ Wed, 24 Feb 2016 20:14:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
+ :subject:from:reply-to:to:cc:date:in-reply-to:references
+ :content-type:mime-version; s=aj.id.au; bh=ZGTQjZwiOVZ3nvwHcYPRI
+ xZqmik=; b=dm5oseyZhzzV04y9SK40Z3AQCNyohJXuhtS6AXUufemdFJmb8zoHj
+ 6Zm5LkHnaPJuPhCYRIgNK4cXVmnM9JoX3XH0C3M+1n67/NdP1gxihBIMl4ApqN5O
+ Mdf5iL2uT+ySH0rRIAAeMdQ3gyHqJZge/tGL4F49Itm2FEUAUoM6EM=
+Received: from keelia (unknown [203.0.153.9])
+ (using TLSv1 with cipher AES128-SHA (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: andrew@aj.id.au)
+ by homiemail-a11.g.dreamhost.com (Postfix) with ESMTPSA id 2CD6E6E06A;
+ Wed, 24 Feb 2016 20:14:18 -0800 (PST)
+Message-ID: <1456373652.27420.67.camel@aj.id.au>
+Subject: Re: [PATCH openbmc 9/9] initfs: Use stty to drain output before reboot
+From: Andrew Jeffery <andrew@aj.id.au>
+Reply-To: andrew@aj.id.au
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+Date: Thu, 25 Feb 2016 14:44:12 +1030
+In-Reply-To: <1456339224-27295-10-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1456339224-27295-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1456339224-27295-10-git-send-email-openbmc-patches@stwcx.xyz>
+Organization: IBM OzLabs
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-IRxa5J4W8GfVybub/hcI"
+X-Mailer: Evolution 3.16.5-1ubuntu3.1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -68,15 +46,117 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Feb 2016 03:31:51 -0000
+X-List-Received-Date: Thu, 25 Feb 2016 04:14:21 -0000
 
-On Thu, Feb 25, 2016 at 1:50 PM, OpenBMC Patches
-<openbmc-patches@stwcx.xyz> wrote:
-> From: Cyril Bur <cyrilbur@gmail.com>
->
 
-Can we have a commit message describing why, and how?
+--=-IRxa5J4W8GfVybub/hcI
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Cheers,
+On Wed, 2016-02-24 at 12:40 -0600, OpenBMC Patches wrote:
+> From: "Milton D. Miller II" <miltonm@us.ibm.com>
+>=20
+> To see all the messages during shutdown call stty cooked.
+>=20
+> A side effect of setting any mode is it will call ioctl(TIOC_DRAIN)
 
-Joel
+So due to past indiscretions and increasing my own understanding I
+tried to follow this up. Seems that:
+
+* TIOC_DRAIN doesn't appear to be a thing?
+* Google knows more about TIOCDRAIN, but not a lot?
+* TCSADRAIN might be more useful to mention here?
+
+If I were to follow it up the TIOC_DRAIN , where should I look?
+
+Should this part of the commit message be changed?
+
+However, I've followed the busybox stty implementation to the point of
+calling tcsetattr(..., TCSADRAIN, ...), so the change looks like it
+should do what we want. Also you've documented testing it below, so
+that helps :)
+
+> to drain the buffers first without regard to any change in the mode.
+>=20
+> Shutdown and flash update now show the final ouptut
+
+typo: output
+
+Otherwise,
+
+Acked-by: Andrew Jeffery <andrew@aj.id.au>
+
+>  and "Rebooting"
+> message before the reboot system call.
+>=20
+> Before:
+> + set +x
+> Remaining mounts:
+> tmpfs / tmpfs rw,nosuid,nodev,mode=3D755 0 0
+> dev /dev devtmpfs rw,relatime,size=3D126384k,nr_inodes=3D31596,mode=3D755=
+ 0 0
+> proc /proc proc rw,relatime 0 0
+> sys /s
+>=20
+> U-Boot 2013.07 (Feb 23 2016 - 10:21:23)
+>=20
+> After:
+> + set +x
+> Remaining mounts:
+> tmpfs / tmpfs rw,nosuid,nodev,mode=3D755 0 0
+> dev /dev devtmpfs rw,relatime,size=3D126384k,nr_inodes=3D31596,mode=3D755=
+ 0 0
+> proc /proc proc rw,relatime 0 0
+> sys /sys sysfs rw,relatime 0 0
+> tmpfs /run tmpfs rw,nosuid,nodev,mode=3D755 0 0
+> reboot: Restarting system
+>=20
+> U-Boot 2013.07 (Feb 23 2016 - 10:21:23)
+>=20
+> Signed-off-by: Milton Miller <miltonm@us.ibm.com>
+> ---
+>  .../common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh =
+| 2 ++
+>  1 file changed, 2 insertions(+)
+>=20
+> diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/f=
+iles/obmc-shutdown.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor=
+-initfs/files/obmc-shutdown.sh
+> index 3eff1ea..fc359c5 100644
+> --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/ob=
+mc-shutdown.sh
+> +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/ob=
+mc-shutdown.sh
+> @@ -47,6 +47,8 @@ cat /proc/mounts
+> =20
+>  test "umount_proc" && umount /proc && rmdir /proc
+> =20
+> +# ioctl(TIOC_DRAIN) to drain tty messages to console
+> +test -t 1 && stty cooked 0<&1
+> =20
+>  # Execute the command systemd told us to ...
+>  if test -d /oldroot  && test "$1"
+--=-IRxa5J4W8GfVybub/hcI
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQIcBAABCgAGBQJWzn+UAAoJEJ0dnzgO5LT52Q0P/1UeYUxa5JU+W0UjJMNbU8ZJ
+7WZOItucqwDfbPelLlWY3N3Q1FbHmlvBFQOM1mR3sQCtFffS00v8bOaEUCHZ8xMl
+GkL5/g1bvYjRidPaaqxIxcRM2Abx8pZbvys2dOacEfLVWzusNWlKPGOKWqQbfSEn
+5XpZvHcD/4sFsG8IhYStLN6GL6EKwLzmPLepa5yWGR7TzO2IDS9JYrKo9QC0vlWY
+JKB7hIUcR6LD2B+Btymk4nmvyOYdk3Ug2IskcgwWbjtpIqe0PwEUOufgdtFrFkBs
+ALx4nrE22azKMe0VSqcc2s5go7H4xcydjIyLBtDt7ycm+SnkWzJGKKpHMkmj2Y5t
+XOhheJ3NsLZd/6j5RlpfitzsN6P46DeGUjEm/5CprcwSY71/4lUrJeB2yxqBtc6Z
+8icbpO1uFffy3eP5jwi3GhYaputTv1ZJru9r+6bp+GL1L2BESjcQf2KMNqBHlJ6f
+zcuFAhwi+pnj3Syzg8a+WaEqybG/wtCPki274LxKZ712Sn1lBZGuthKQteYql9Sv
+NkioEqe0M2eWdy5zPLk6B/aHtBe+vA4DGz2fSi4Q/T3NinxJJYaqDf0FtWszLp33
+U15bIRqVxvrNvRLQhawPTzua0L4Dm6CxL9c2TkBkyjVhR2zSZjJKnPe6VO/z7oCq
+E9dqceXIOGnh3UHP/o4m
+=G16C
+-----END PGP SIGNATURE-----
+
+--=-IRxa5J4W8GfVybub/hcI--
