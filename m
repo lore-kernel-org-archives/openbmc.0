@@ -1,65 +1,93 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-oi0-x242.google.com (mail-oi0-x242.google.com
- [IPv6:2607:f8b0:4003:c06::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <austenc@us.ibm.com>
+Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id C5F641A04B8
- for <openbmc@lists.ozlabs.org>; Fri, 26 Feb 2016 17:40:02 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=uNJ8GsbG; 
- dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=Bc9r9mX/; 
- dkim-atps=neutral
-Received: by mail-oi0-x242.google.com with SMTP id i14so3840894oig.2
- for <openbmc@lists.ozlabs.org>; Thu, 25 Feb 2016 22:40:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-type;
- bh=HmzPSePch8CT8VGJN0s8hR7VZJT6wA7AKBE08+H6bn8=;
- b=uNJ8GsbGxfLgJZa5+aLqerGgS+2RL992FjX+kgc9rZz5LZ/AKK7BWnw6jYi0HJ2Tzx
- LmrbVP16/GE4+3M2ZMJD75kaW25xnlYacfWtorBg8wZEM5H8rY1KJOfb0a/i96+VS6cv
- FIWDdmjSmBJf+7NXsKV3+aNoamaFKThFROiMp35KvhVfH8QjMqPEUpfCYXH5VJq6RBPX
- g9DR1HX9/X0UPKsfYUZsXsXTk8rWs+GXpFI+MOPYgxVdwpWSf0+3LmyswTmj4HCCl/lC
- E7e50PJl3di6tv2z0+9WKjhpgxqR85F0c1NGZYxAj2ftgP8sueW2pkt99FHJHcyfwsJv
- 9nTw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-type;
- bh=HmzPSePch8CT8VGJN0s8hR7VZJT6wA7AKBE08+H6bn8=;
- b=Bc9r9mX/flIJG9LI5z3MFV4sKLW3vdOJmgPfh7hNuo9P5QQiheHbhPg2BXXAvmPK53
- fViRBvS/aKCThc2KttQrmwdMW7j8QpQcFfDle8ohZODm2MZixJuuBOGiNP8Ggf9TzmmR
- h64gKl5BS9HTcCJPJTwBfjX2HcVF5C0EIA9/M=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-type;
- bh=HmzPSePch8CT8VGJN0s8hR7VZJT6wA7AKBE08+H6bn8=;
- b=IDsqK8JN0UzbqSvnf5+jdtOMc7trfpUmUUPI5EVv4C2kA52JNOeLNvfb9GUUFJT86X
- WqJxSCwJSBgd5LlUsCJaVJlqxWrg5v7uE5cAsEKqY0tTP8LQnsxroT2kYqui93qYMEdb
- yiLxLVj3PFobjFpC4wRfAkazj0dtZWCMg2q52uQFcE6aHKHBd+WLl6uxLmiUERogX7WL
- w/m715qXy59AR+a6999fXX1P51jBD9DISYo7qO9C+NQHV2Oan8B7jFgQ8LDDI875rssm
- +hHSpZ9XVEwNiZbnhjzP1s5b8tQ0bQoIkJc5BS2mWU8ZyzA/0Nj+MEyauPABLDn820PN
- GSBw==
-X-Gm-Message-State: AD7BkJKYqn3Wpm8UDolhou/GqsRdsCwF3t7i9P50w9VqNbfb6kRRrkUN41FhG1x2nXbNsr6Pnd/CUZh9PPnGZw==
-X-Received: by 10.202.54.70 with SMTP id d67mr761781oia.110.1456468800122;
- Thu, 25 Feb 2016 22:40:00 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id B52D21A0341
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Feb 2016 22:42:51 +1100 (AEDT)
+Received: from localhost
+ by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Fri, 26 Feb 2016 04:42:49 -0700
+Received: from d03dlp02.boulder.ibm.com (9.17.202.178)
+ by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 26 Feb 2016 04:42:47 -0700
+X-IBM-Helo: d03dlp02.boulder.ibm.com
+X-IBM-MailFrom: austenc@us.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from b03cxnp07028.gho.boulder.ibm.com
+ (b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
+ by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id 640E03E40030
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Feb 2016 04:42:47 -0700 (MST)
+Received: from d03av04.boulder.ibm.com (d03av04.boulder.ibm.com [9.17.195.170])
+ by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u1QBgldr41484386
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Feb 2016 04:42:47 -0700
+Received: from d03av04.boulder.ibm.com (loopback [127.0.0.1])
+ by d03av04.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u1QBgkNJ012702
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Feb 2016 04:42:46 -0700
+Received: from d50lp31.co.us.ibm.com (d50lp31.boulder.ibm.com [9.17.249.32])
+ by d03av04.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u1QBgkTY012694
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Feb 2016 04:42:46 -0700
+Message-Id: <201602261142.u1QBgkTY012694@d03av04.boulder.ibm.com>
+Received: from localhost
+ by d50lp31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Fri, 26 Feb 2016 04:42:46 -0700
+Received: from smtp.notes.na.collabserv.com (192.155.248.66)
+ by d50lp31.co.us.ibm.com (192.168.2.141) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
+ Fri, 26 Feb 2016 04:42:45 -0700
+X-IBM-Helo: smtp.notes.na.collabserv.com
+X-IBM-MailFrom: austenc@us.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from /spool/local
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Fri, 26 Feb 2016 11:42:44 -0000
+Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
+ by smtp.notes.na.collabserv.com (10.106.227.127) with
+ smtp.notes.na.collabserv.com ESMTP; Fri, 26 Feb 2016 11:42:41 -0000
+Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
+ by us1a3-smtp05.a3.dal06.isc4sb.com
+ with ESMTP id 2016022611424058-145719 ;
+ Fri, 26 Feb 2016 11:42:40 +0000 
+To: "Cyril Bur" <cyrilbur@gmail.com>
+In-Reply-To: <20160226164757.0d9ec071@camb691>
+Date: Fri, 26 Feb 2016 11:42:40 +0000
+From: "Chris Austen" <austenc@us.ibm.com>
+Subject: Re: [PATCH phosphor-host-ipmid] Fixing the Duplicate registration for
+ NetFn [0x6], Cmd:[0xFF]
+Cc: "Ratan K Gupta" <ratagupt@in.ibm.com>, "openbmc"
+ <openbmc@lists.ozlabs.org>, "OpenBMC Patches" <openbmc-patches@stwcx.xyz>
+Importance: Normal
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.60.121.1 with HTTP; Thu, 25 Feb 2016 22:39:40 -0800 (PST)
-In-Reply-To: <20160226163612.4491a525@camb691>
-References: <1456370426-11311-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1456370426-11311-2-git-send-email-openbmc-patches@stwcx.xyz>
- <CACPK8Xf2LmYJ+bjd3EY-RRm_VW4mOXhTAYC_aMuf-nnPHQNuog@mail.gmail.com>
- <20160226163612.4491a525@camb691>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 26 Feb 2016 17:09:40 +1030
-X-Google-Sender-Auth: c2YV7CXfh5KcoYWiVHnxx2ptnmA
-Message-ID: <CACPK8XcNM2j-ehHWC9mF_HXLUeuqc4M2HZxE_=ZXy1OMoEAyfA@mail.gmail.com>
-Subject: Re: [PATCH linux] net/ncsi: Fix possible deadlock caught with lockdep
-To: Cyril Bur <cyrilbur@gmail.com>
-Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+X-Mailer: IBM Traveler 9.0.1.10 Build 201602121005_20 on behalf of device with
+ id mdmxxIBM_IOS_ApplFFMQ18K3G5MD,
+ type 1600 (iosibm) and description iPhone 6:Apple
+ iOS 9.2.1:IBM Traveler/9.3.2.20160208
+X-KeepSent: 3E995193:AAF18425-00257F65:004054C3;
+ type=4; name=$KeepSent
+X-LLNOutbound: False
+X-Disclaimed: 52639
+X-TNEFEvaluated: 1
+Content-Type: multipart/alternative; 
+ boundary="----=_Part_67_1016872092.1456486960707"
+x-cbid: 16022611-0017-0000-0000-00001280DA98
+X-IBM-ISS-SpamDetectors: Score=0.449102; BY=0.136802; FL=0; FP=0; FZ=0; HX=0; 
+ KW=0; PH=0; SC=0.449102; ST=0; TS=0; UL=0; ISC=
+X-IBM-ISS-DetailInfo: BY=3.00004966; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000148; SDB=6.00665195; UDB=6.00303142; UTC=2016-02-26
+ 11:42:42
+x-cbparentid: 16022611-9588-0000-0000-0000022459A4
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -71,14 +99,85 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 26 Feb 2016 06:40:05 -0000
+X-List-Received-Date: Fri, 26 Feb 2016 11:42:52 -0000
 
-On Fri, Feb 26, 2016 at 4:06 PM, Cyril Bur <cyrilbur@gmail.com> wrote:
-> In completely unrelated news is there a way we can fix that pressing reply to
-> all doesn't send any notification to the author of the patch...
 
-The best way to fix that is to use git-send-email to send patches to the list.
+------=_Part_67_1016872092.1456486960707
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Cheers,
+Removal looks good. =0A   =0A    The wildcard function exists in each of th=
+e ipmi .so files.  To remove them would be a decision to be discussed beyon=
+d the scope of this piece of work.  =0A    =0A    Signed off by Chris auste=
+n. <austenc@us.ibm.com>=0A    Sent from my iPhone using IBM Verse=0A  =0A  =
+On Feb 25, 2016, 11:48:22 PM, cyrilbur@gmail.com wrote:=0A  =0A  From: cyri=
+lbur@gmail.com=0A  To: openbmc-patches@stwcx.xyz=0A  Cc: ratagupt@in.ibm.co=
+m, openbmc@lists.ozlabs.org=0A  Date: Feb 25, 2016 11:48:22 PM=0A  Subject:=
+ Re: [PATCH phosphor-host-ipmid] Fixing the Duplicate registration for NetF=
+n [0x6], Cmd:[0xFF]=0A  =0A  =0A     On Thu, 25 Feb 2016 07:40:36 -0600=0A =
+  OpenBMC Patches  wrote:=0A   > From: Ratan Gupta =0A   > =0A   Hi Ratan,=
+=0A   Any reason you're not removing ipmi=5Fglobal=5Fwildcard=5Fhandler() a=
+s well. I assume=0A   it's now unused...=0A   Thanks,=0A   Cyril=0A   > ---=
+=0A   >  globalhandler.C | 5 +----=0A   >  1 file changed, 1 insertion(+), =
+4 deletions(-)=0A   > =0A   > diff --git a/globalhandler.C b/globalhandler.=
+C=0A   > index e68ea79..25ae26a 100644=0A   > --- a/globalhandler.C=0A   > =
++++ b/globalhandler.C=0A   > @@ -164,8 +164,5 @@ void register=5Fnetfn=5Fgl=
+obal=5Ffunctions()=0A   >      printf("Registering NetFn:[0x%X], Cmd:[0x%X]=
+\n",NETFUN=5FAPP, IPMI=5FCMD=5FWARM=5FRESET);=0A   >      ipmi=5Fregister=
+=5Fcallback(NETFUN=5FAPP, IPMI=5FCMD=5FWARM=5FRESET, NULL, ipmi=5Fglobal=5F=
+warm=5Freset);=0A   >  =0A   > -    printf("Registering NetFn:[0x%X], Cmd:[=
+0x%X]\n",NETFUN=5FAPP, IPMI=5FCMD=5FWILDCARD);=0A   > -    ipmi=5Fregister=
+=5Fcallback(NETFUN=5FAPP, IPMI=5FCMD=5FWILDCARD, NULL, ipmi=5Fglobal=5Fwild=
+card=5Fhandler);=0A   > -=0A   > - return;=0A   > +    return;=0A   >  }=0A=
+   =5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=0A   =
+openbmc mailing list=0A   openbmc@lists.ozlabs.org=0A   https://lists.ozlab=
+s.org/listinfo/openbmc
 
-Joel
+------=_Part_67_1016872092.1456486960707
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=utf-8
+
+<html><head><META http-equiv=3D"Content-Type" content=3D"text/html;charset=
+=3Dutf-8"></head><body><div id=3D"content" contenteditable=3D"true" spellch=
+eck=3D"true" autocorrect=3D"true" autocapitalize=3D"true" style=3D"font-fam=
+ily: Helvetica;">Removal looks good.&nbsp;<div><br></div><div>The wildcard =
+function exists in each of the ipmi .so files. &nbsp;To remove them would b=
+e a decision to be discussed beyond the scope of this piece of work. &nbsp;=
+</div><div><br></div><div>Signed off by Chris austen. &lt;austenc@us.ibm.co=
+m&gt;</div><div><br>Sent from my iPhone using IBM Verse<br><br><hr>On Feb 2=
+5, 2016, 11:48:22 PM, cyrilbur@gmail.com wrote:<br><br>From: cyrilbur@gmail=
+.com<br>To: openbmc-patches@stwcx.xyz<br>Cc: ratagupt@in.ibm.com, openbmc@l=
+ists.ozlabs.org<br>Date: Feb 25, 2016 11:48:22 PM<br>Subject: Re: [PATCH ph=
+osphor-host-ipmid] Fixing the Duplicate registration for NetFn [0x6], Cmd:[=
+0xFF]<br><br><div id=3D"MaaS360PIMSDKOriginalMessageId">On&nbsp;Thu,&nbsp;2=
+5&nbsp;Feb&nbsp;2016&nbsp;07:40:36&nbsp;-0600<br>OpenBMC&nbsp;Patches&nbsp;=
+<openbmc-patches@stwcx.xyz>&nbsp;wrote:<br>&gt;&nbsp;From:&nbsp;Ratan&nbsp;=
+Gupta&nbsp;<ratagupt@in.ibm.com><br>&gt;&nbsp;<br>Hi&nbsp;Ratan,<br>Any&nbs=
+p;reason&nbsp;you're&nbsp;not&nbsp;removing&nbsp;ipmi=5Fglobal=5Fwildcard=
+=5Fhandler()&nbsp;as&nbsp;well.&nbsp;I&nbsp;assume<br>it's&nbsp;now&nbsp;un=
+used...<br>Thanks,<br>Cyril<br>&gt;&nbsp;---<br>&gt;&nbsp;&nbsp;globalhandl=
+er.C&nbsp;|&nbsp;5&nbsp;+----<br>&gt;&nbsp;&nbsp;1&nbsp;file&nbsp;changed,&=
+nbsp;1&nbsp;insertion(+),&nbsp;4&nbsp;deletions(-)<br>&gt;&nbsp;<br>&gt;&nb=
+sp;diff&nbsp;--git&nbsp;a/globalhandler.C&nbsp;b/globalhandler.C<br>&gt;&nb=
+sp;index&nbsp;e68ea79..25ae26a&nbsp;100644<br>&gt;&nbsp;---&nbsp;a/globalha=
+ndler.C<br>&gt;&nbsp;+++&nbsp;b/globalhandler.C<br>&gt;&nbsp;@@&nbsp;-164,8=
+&nbsp;+164,5&nbsp;@@&nbsp;void&nbsp;register=5Fnetfn=5Fglobal=5Ffunctions()=
+<br>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("Registering&nbsp;NetFn:=
+[0x%X],&nbsp;Cmd:[0x%X]\n",NETFUN=5FAPP,&nbsp;IPMI=5FCMD=5FWARM=5FRESET);<b=
+r>&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ipmi=5Fregister=5Fcallback(NETFUN=
+=5FAPP,&nbsp;IPMI=5FCMD=5FWARM=5FRESET,&nbsp;NULL,&nbsp;ipmi=5Fglobal=5Fwar=
+m=5Freset);<br>&gt;&nbsp;&nbsp;<br>&gt;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;print=
+f("Registering&nbsp;NetFn:[0x%X],&nbsp;Cmd:[0x%X]\n",NETFUN=5FAPP,&nbsp;IPM=
+I=5FCMD=5FWILDCARD);<br>&gt;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;ipmi=5Fregister=
+=5Fcallback(NETFUN=5FAPP,&nbsp;IPMI=5FCMD=5FWILDCARD,&nbsp;NULL,&nbsp;ipmi=
+=5Fglobal=5Fwildcard=5Fhandler);<br>&gt;&nbsp;-<br>&gt;&nbsp;-        retur=
+n;<br>&gt;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;return;<br>&gt;&nbsp;&nbsp;}<br>=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F<br>openb=
+mc&nbsp;mailing&nbsp;list<br>openbmc@lists.ozlabs.org<br>https://lists.ozla=
+bs.org/listinfo/openbmc<br></ratagupt@in.ibm.com></openbmc-patches@stwcx.xy=
+z></div></div></div><BR>
+</body></html>
+
+------=_Part_67_1016872092.1456486960707--
