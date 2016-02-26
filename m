@@ -3,20 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 8A0AA1A04B8
- for <openbmc@lists.ozlabs.org>; Fri, 26 Feb 2016 23:01:02 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 8C4821A04B8
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Feb 2016 23:10:50 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1456488058835221.34759303740248;
- Fri, 26 Feb 2016 04:00:58 -0800 (PST)
+ with SMTPS id 1456488646744937.6776353954115;
+ Fri, 26 Feb 2016 04:10:46 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH skeleton v2] skeleton: fixed hard-coding of master OCC hwmon
+Subject: [PATCH skeleton v3] skeleton: fixed hard-coding of master OCC hwmon
  sysfs path for PowerCap object
-Date: Fri, 26 Feb 2016 06:00:57 -0600
-Message-Id: <1456488057-11363-2-git-send-email-openbmc-patches@stwcx.xyz>
+Date: Fri, 26 Feb 2016 06:10:45 -0600
+Message-Id: <1456488645-11725-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1456488057-11363-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1456488057-11363-1-git-send-email-openbmc-patches@stwcx.xyz>
+In-Reply-To: <1456488645-11725-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1456488645-11725-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -29,7 +29,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 26 Feb 2016 12:01:03 -0000
+X-List-Received-Date: Fri, 26 Feb 2016 12:10:51 -0000
 
 From: Yi Li <adamliyi@msn.com>
 
@@ -52,12 +52,12 @@ https://github.com/openbmc/skeleton/issues/43
 
 Signed-off-by: Yi Li <adamliyi@msn.com>
 ---
- bin/Sensors.py         | 22 ++++++++++++++++++----
+ bin/Sensors.py         | 23 +++++++++++++++++++----
  bin/sensor_manager2.py |  3 ---
- 2 files changed, 18 insertions(+), 7 deletions(-)
+ 2 files changed, 19 insertions(+), 7 deletions(-)
 
 diff --git a/bin/Sensors.py b/bin/Sensors.py
-index f951eeb..889590c 100755
+index f951eeb..a337a4c 100755
 --- a/bin/Sensors.py
 +++ b/bin/Sensors.py
 @@ -8,6 +8,7 @@ import dbus
@@ -68,7 +68,7 @@ index f951eeb..889590c 100755
  import Openbmc
  
  ## Abstract class, must subclass
-@@ -137,17 +138,30 @@ class PowerCap(VirtualSensor):
+@@ -137,17 +138,31 @@ class PowerCap(VirtualSensor):
  	def __init__(self, bus, name):
  		VirtualSensor.__init__(self, bus, name)
  		SensorValue.setValue(self, 0)
@@ -88,7 +88,8 @@ index f951eeb..889590c 100755
 +		else:
 +			raise dbus.exceptions.DBusException(
 +				"Cannot find user_powercap hwmon attribute, "+
-+				"check occ status.")
++				"check occ status.",
++				name='org.freedesktop.DBus.Python.TypeError')
 +			return
  		try:
 -			cmd_str = "echo "+str(value)+" > "+self.sysfs_attr
