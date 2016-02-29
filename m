@@ -1,66 +1,62 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-ob0-x242.google.com (mail-ob0-x242.google.com
- [IPv6:2607:f8b0:4003:c01::242])
+Received: from mail-ob0-x243.google.com (mail-ob0-x243.google.com
+ [IPv6:2607:f8b0:4003:c01::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id CF1911A0344
- for <openbmc@lists.ozlabs.org>; Mon, 29 Feb 2016 12:01:20 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 52AC81A0035
+ for <openbmc@lists.ozlabs.org>; Mon, 29 Feb 2016 12:24:25 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=iobN5g3I; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=fjjAobhD; 
  dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=k5+cNw7X; 
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=R17Lr4xX; 
  dkim-atps=neutral
-Received: by mail-ob0-x242.google.com with SMTP id u2so9225012obz.3
- for <openbmc@lists.ozlabs.org>; Sun, 28 Feb 2016 17:01:20 -0800 (PST)
+Received: by mail-ob0-x243.google.com with SMTP id hc1so1577278obb.0
+ for <openbmc@lists.ozlabs.org>; Sun, 28 Feb 2016 17:24:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=uosvn2zMFcbDYKKKCw7GTW8BNNtCZG7uT4/RTfOEzfU=;
- b=iobN5g3IVD3J94xfdCv1Nfq6OrQc4+C7vAuRRQmj7H40dn83m6MC9geAobo+XITm9B
- EAVmU/xbBITp34GhAGe3hoLsETaTD1qrxsrI9SyuNB8rJOy0GMMSRxk6RXMevRaPBI/0
- a2i9kmEaSBzbPPpTciKko1xHhE0FG3+juk1I9z9IZkKasrRzVGRHR6mKb5omElYlWdnm
- 7YXTYCgHUancnjt7L24yZuqblFEeWnf5S8f52vHI4vnTXxOG1nXl2izfiuXz57oSghBk
- 7kCDhpa8p7Vrg0jE9zUh8RxqMrH2HhaMnJKo/P3y0gt0Ck7iZ+sbWHtG8fdE/cX+EcpD
- 0xIQ==
+ bh=xiKlUn7Px3IJWf3PR0F6ldvVHVJf+RP44JH5LwvS/oc=;
+ b=fjjAobhDdWnTkkX4JOYvFfYO5Afih9oaSxiWZ6IVYs9hzqHiIyhTBER7KH5LAjdQKm
+ qtnDv4Nko0xpTIUSszA5JBszYKAwpdJpjmoK4Ypg7tF2zI3llEw4xdOxx5cjU6kurxBf
+ 2rvO8ThIuKVXjLL9zEJaLtb6f6pqqEYSlJQIlot/+yJVOP1UeL/7fp9EGL81iYCWh0Fh
+ 6at7TuQdv3r2jE9C8uv2dMj8mY1bpBUSU4NPa0wLZ+DV1TqxNQn9UICfLZSxRTeqzvm9
+ SJGyvrLFUL6BdkQ+YmG3m0+m4JgPQanEmKvZbgdV7Pt3J+UEW3mdKQ1zOt3AMubMvg7o
+ qpCw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=uosvn2zMFcbDYKKKCw7GTW8BNNtCZG7uT4/RTfOEzfU=;
- b=k5+cNw7X85HF7Q/cL9gtGD1oUR0EN+CiXMVVrdZgpoGdoaSs8wpoaKqDMBge5G6KOf
- 3uXOpKv/6V3wQDRzINlS/3rnNABR+kaf0j+fXd5d6q49MwYW8VZ54iukxV7JZrEAbPsg
- aoaxd4X45SHQ5CkUcs1Hfi9uxsMtqluB/qsS8=
+ bh=xiKlUn7Px3IJWf3PR0F6ldvVHVJf+RP44JH5LwvS/oc=;
+ b=R17Lr4xXY4FgTLpRSB/pEoidUbs9A350cdieWNoyIiJ29c3mAz8tWWnddmAw3oX4x2
+ JR8kbA5oDDgljWRlQmcJQaqBp61C9WqoggLq40YyBcM4CnX92rW5XxoEt1BObEcjEip/
+ +6It7WnxPGyvI0s3UK0ruPkdzpVNj1kP7qsNE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=uosvn2zMFcbDYKKKCw7GTW8BNNtCZG7uT4/RTfOEzfU=;
- b=G0jI0ccunP0vUe41x0QwksFXe9upc4/bbG9B/iJ0+R9V7DaiVxoy9CArSlDZhaUQ/X
- +DCqFgHVPIGgmRqtTxui3VqjYexctuuhR0wIWSO8sC1YlsG5Va5GhI9XUf9ym7WBJbFA
- D0oulPJttN2P7vToLd6r4qgkz35rcEXmEenrrZOpLOvyWgtgJn9Y8TKxYz3/sLqKuF5v
- wzSomaYMb8u6KWut/2sBADDrHL7s4yfBV23Sydg5JxljuW1OZuD138sR9lOl8fOG79XW
- jWoH7iO4dgJbrDiOsOwrDPrQlJiKGnuruYMkm1gP9dTh61X2nlIlXGmWmhM2wVtVeCBQ
- utZA==
-X-Gm-Message-State: AD7BkJKEBI+8NhwV0R4YGmKlO0FuRpXIW2zkKDzvfrqQkgQKooqoxsZ1a8RlyI/a9Yo/dncRvxbcbd9e/zRsnw==
-X-Received: by 10.182.144.133 with SMTP id sm5mr10296890obb.69.1456707678275; 
- Sun, 28 Feb 2016 17:01:18 -0800 (PST)
+ bh=xiKlUn7Px3IJWf3PR0F6ldvVHVJf+RP44JH5LwvS/oc=;
+ b=D/9fgEtS2VpmLKbi42SmJgd9NSv8BsbQ7oHAI8bMHkRGOh6kuKAiaCXb64deDp+vKx
+ LBSpzWRLy1ee6qKivu+UfmS4pIKfbDfTLyTBNFaDdMOW9gsR++kD9GOCOMLvHFWTVarQ
+ ymUeHEZnJ4+KZlF0u+Gnxp6jJvaWArmKQw3ZJE0K6NAcYT/RiqP2vxSENqkam1MrIExf
+ jkXe+lBTGpu1GggeGJEC4hDzwcev84z2GtLSMUzZwYjhG6lC+rDp2mEURchc3+BlZPA4
+ azuGUM5lUHHD5f1tahyy0P4jtrZlrzDtRXKoaH6vBQFpimOA1D5qNDkTvuYfZbh+r3Yx
+ G8Gw==
+X-Gm-Message-State: AD7BkJLsyB+mJ+3J2pJomI/mb0t12q+NYXyFUX/m/RCJa5M/T1yLcqx7jiAbxSg1F8PHeQCZRqr2GU3jvka2Rg==
+X-Received: by 10.60.134.15 with SMTP id pg15mr10294900oeb.23.1456709062930;
+ Sun, 28 Feb 2016 17:24:22 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.60.121.1 with HTTP; Sun, 28 Feb 2016 17:00:58 -0800 (PST)
-In-Reply-To: <20160229090853.3559a7af@camb691>
-References: <1456370426-11311-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1456370426-11311-2-git-send-email-openbmc-patches@stwcx.xyz>
- <CACPK8Xf2LmYJ+bjd3EY-RRm_VW4mOXhTAYC_aMuf-nnPHQNuog@mail.gmail.com>
- <20160226163612.4491a525@camb691>
- <CACPK8XcNM2j-ehHWC9mF_HXLUeuqc4M2HZxE_=ZXy1OMoEAyfA@mail.gmail.com>
- <20160229090853.3559a7af@camb691>
+Received: by 10.60.121.1 with HTTP; Sun, 28 Feb 2016 17:24:03 -0800 (PST)
+In-Reply-To: <1456467027-547-2-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1456467027-547-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1456467027-547-2-git-send-email-openbmc-patches@stwcx.xyz>
 From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 29 Feb 2016 11:30:58 +1030
-X-Google-Sender-Auth: mJLAUN03a0db4N9YlbhPGmF_YVs
-Message-ID: <CACPK8Xe4XQu9EcoJZ5J3q_LFgS_n_D36dfG+9fh_i7VRhvXUdA@mail.gmail.com>
-Subject: Re: [PATCH linux] net/ncsi: Fix possible deadlock caught with lockdep
-To: Cyril Bur <cyrilbur@gmail.com>
-Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Mon, 29 Feb 2016 11:54:03 +1030
+X-Google-Sender-Auth: 7imCL-z0OjLghjadjgPTrjzFnFU
+Message-ID: <CACPK8XfBP74bp628a_CHNX6GzDYe7MGwut_wFWSP7Rdv9jw_=w@mail.gmail.com>
+Subject: Re: [PATCH linux v2] net/ncsi: Fix possible deadlock caught with
+ lockdep
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Cyril Bur <cyrilbur@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -73,29 +69,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Feb 2016 01:01:21 -0000
+X-List-Received-Date: Mon, 29 Feb 2016 01:24:26 -0000
 
-On Mon, Feb 29, 2016 at 8:38 AM, Cyril Bur <cyrilbur@gmail.com> wrote:
-> On Fri, 26 Feb 2016 17:09:40 +1030
-> So that is the preferred workflow? Happy to not do pull req but I've sortof
-> just gone with the majority.
+On Fri, Feb 26, 2016 at 4:40 PM, OpenBMC Patches
+<openbmc-patches@stwcx.xyz> wrote:
+> From: Cyril Bur <cyrilbur@gmail.com>
+>
+> Bringing the interfaces down with ifdown -a directly after boot causes a
+> lockdep warning. It appears that a network interrupt would result in an
+> attempt to acquire that lock again.
+>
+> The solution is to soft disable interrupts.
 
-Yes. Doubly so for kernel patches (I'm the maintainer of that repo).
-
-We want the project to use the same workflow as most of the other
-projects that open source developers are familair with; xorg, kernel,
-skiboot, etc.
-
-I think the reason we're using the github -> mailinglist bridge is
-down people on the project not having access to real email servers
-they can use with git send-email.
-
-> There's simply no way with stuff coming from GitHub? I find myself misreplying
-> to a lot of those...
-
-The github to mailing list bridge is Patrick's work. I suggested to
-him that we pull the author's name from patches and cc them; he's
-added it to his list.
+Thanks. So we can boot with and without lockdep enabled and the
+interface always comes up now?
 
 Cheers,
 
