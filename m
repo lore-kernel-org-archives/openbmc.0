@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id E00501A06BA
- for <openbmc@lists.ozlabs.org>; Tue,  1 Mar 2016 21:30:47 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 89A801A01D6
+ for <openbmc@lists.ozlabs.org>; Wed,  2 Mar 2016 06:30:45 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1456828235730648.4336497228595;
- Tue, 1 Mar 2016 02:30:35 -0800 (PST)
+ with SMTPS id 1456860639654974.6682254531297;
+ Tue, 1 Mar 2016 11:30:39 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid v3] Fix memory leak in good paths in ipmid
-Date: Tue,  1 Mar 2016 04:30:33 -0600
-Message-Id: <1456828234-9888-1-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid] Read/Write Boot Count Sensor as int
+Date: Tue,  1 Mar 2016 13:30:37 -0600
+Message-Id: <1456860638-26968-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -26,23 +26,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Mar 2016 10:30:49 -0000
+X-List-Received-Date: Tue, 01 Mar 2016 19:30:47 -0000
 
-There are still leaks to be fixed in bad path.. this is a good path only.
+Change the dbus request to read/write the boot count sensor from byte to int.
+Passing a type of byte causes the dbus interfaces to fail with ENXIO (no such device or address).
 
-https://github.com/openbmc/phosphor-host-ipmid/pull/69
+https://github.com/openbmc/phosphor-host-ipmid/pull/70
 
-vishwa (1):
-  memory leak found during multiple reboots. it was found that in many
-    cases the     reply was not unref'ed
+Adriana Kobylak (1):
+  Read/Write Boot Count Sensor as int
 
- apphandler.C       | 150 ++++++++++++++++++----------------------
- host-services.c    |   2 +-
- ipmid.C            |  53 +++++++-------
- sensorhandler.C    |   2 +-
- storageaddsel.C    |   4 +-
- transporthandler.C | 199 +++++++++++++++++++++++------------------------------
- 6 files changed, 182 insertions(+), 228 deletions(-)
+ ipmid.C         |  4 ++--
+ sensorhandler.C | 10 +++++-----
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
 -- 
 2.7.1
