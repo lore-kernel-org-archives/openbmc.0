@@ -3,16 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 090991A045E
- for <openbmc@lists.ozlabs.org>; Fri,  4 Mar 2016 02:27:00 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 09A1B1A045E
+ for <openbmc@lists.ozlabs.org>; Fri,  4 Mar 2016 02:40:46 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1457017248429248.40335927559101;
- Thu, 3 Mar 2016 07:00:48 -0800 (PST)
+ with SMTPS id 1457019639877642.3266322196936;
+ Thu, 3 Mar 2016 07:40:39 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid] Refactoring of IPMI Transport Handler
-Date: Thu,  3 Mar 2016 09:00:46 -0600
-Message-Id: <1457017247-24213-1-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-networkd] netman and userman throws exceptions and
+ other bugfixes.
+Date: Thu,  3 Mar 2016 09:40:37 -0600
+Message-Id: <1457019638-25601-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -26,17 +27,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Mar 2016 15:27:01 -0000
+X-List-Received-Date: Thu, 03 Mar 2016 15:40:47 -0000
 
-Refactoring of IPMI Transport Handler to support ipmitool lan commands
+https://github.com/openbmc/phosphor-networkd/pull/12
 
-https://github.com/openbmc/phosphor-host-ipmid/pull/71
+Hariharasubramanian R (1):
+  netman and userman throws exceptions and other bugfixes.
 
-tomjose (1):
-  Refactoring of IPMI Transport Handler
-
- transporthandler.C | 359 ++++++++++++++++++++++++++---------------------------
- 1 file changed, 179 insertions(+), 180 deletions(-)
+ netman.py  | 168 ++++++++++++++++++++++++++++++++++++++++++-------------------
+ userman.py |  44 +++++++++-------
+ 2 files changed, 141 insertions(+), 71 deletions(-)
+ mode change 100755 => 100644 userman.py
 
 -- 
 2.7.1
