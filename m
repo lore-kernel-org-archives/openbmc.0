@@ -1,22 +1,28 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <adamliyi@msn.com>
+X-Greylist: delayed 313 seconds by postgrey-1.35 at bilbo;
+ Thu, 03 Mar 2016 16:13:33 AEDT
+Received: from BLU004-OMC2S3.hotmail.com (blu004-omc2s3.hotmail.com
+ [65.55.111.78])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 0D6581A01EA
- for <openbmc@lists.ozlabs.org>; Thu,  3 Mar 2016 15:50:35 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1456980631937111.27600119415035;
- Wed, 2 Mar 2016 20:50:31 -0800 (PST)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 8ED6C1A0060
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Mar 2016 16:13:33 +1100 (AEDT)
+Received: from BLU436-SMTP81 ([65.55.111.72]) by BLU004-OMC2S3.hotmail.com
+ over TLS secured channel with Microsoft SMTPSVC(7.5.7601.23008); 
+ Wed, 2 Mar 2016 21:08:16 -0800
+X-TMN: [BuxE/pZD1TwKYIemQNZaPr+FR8EMUbtz]
+X-Originating-Email: [adamliyi@msn.com]
+Message-ID: <BLU436-SMTP813B0A91E6A878CE72C805D9BD0@phx.gbl>
+Date: Thu, 3 Mar 2016 13:07:55 +0800
+From: Yi Li <adamliyi@msn.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux] hwmon: Add adm1278 support in adm1275 hwmon pmbus driver
-Date: Wed,  2 Mar 2016 22:50:30 -0600
-Message-Id: <1456980630-1383-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1456980630-1383-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1456980630-1383-1-git-send-email-openbmc-patches@stwcx.xyz>
-X-Zoho-Virus-Status: 1
+Subject: [PATCH] hwmon: Add adm1278 support in adm1275 hwmon pmbus driver
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-OriginalArrivalTime: 03 Mar 2016 05:08:15.0733 (UTC)
+ FILETIME=[B16DA250:01D1750A]
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,9 +34,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Mar 2016 04:50:37 -0000
-
-From: Yi Li <adamliyi@msn.com>
+X-List-Received-Date: Thu, 03 Mar 2016 05:13:34 -0000
 
 This patch adds adm1278 Hot Swap Controller and Digital Power and
 Energy Monitor support in the adm1275 hwmon pmbus driver.
@@ -246,4 +250,4 @@ index 188af4c..2ae7cd1 100644
  	case adm1294:
  		data->have_iout_min = true;
 -- 
-2.7.1
+1.9.1
