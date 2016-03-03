@@ -3,18 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id B9F8F1A0313
+ by lists.ozlabs.org (Postfix) with ESMTPS id 04E491A0324
  for <openbmc@lists.ozlabs.org>; Thu,  3 Mar 2016 18:00:33 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1456988429997433.83464168137675;
- Wed, 2 Mar 2016 23:00:29 -0800 (PST)
+ with SMTPS id 1456988430839872.2233178348841;
+ Wed, 2 Mar 2016 23:00:30 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Chris Smart <distroguy@gmail.com>
-Subject: [PATCH openbmc-build-scripts 1/2] fix: proxy file was not created
- correctly fix: don't create a user and group if already exist
-Date: Thu,  3 Mar 2016 01:00:27 -0600
-Message-Id: <1456988428-5863-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc-build-scripts 2/2] add: build a debug version of the
+ kernel with sparse and check structs (need multiverse repo)
+Date: Thu,  3 Mar 2016 01:00:28 -0600
+Message-Id: <1456988428-5863-3-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1456988428-5863-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1456988428-5863-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -34,43 +34,52 @@ X-List-Received-Date: Thu, 03 Mar 2016 07:00:34 -0000
 
 From: Chris Smart <distroguy@gmail.com>
 
+fix: don't need to force apt-get with date all the time
 ---
- build-setup.sh | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ kernel-build.sh | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
-diff --git a/build-setup.sh b/build-setup.sh
-index 5009114..86891a9 100755
---- a/build-setup.sh
-+++ b/build-setup.sh
-@@ -52,7 +52,8 @@ RUN dnf --refresh upgrade -y
- RUN dnf install -y git subversion gcc gcc-c++ make perl-Thread-Queue perl-Data-Dumper diffstat texinfo \
- chrpath wget SDL-devel patch bzip2 tar cpio findutils socat which python-devel perl-bignum
+diff --git a/kernel-build.sh b/kernel-build.sh
+index f74747a..af2bec0 100755
+--- a/kernel-build.sh
++++ b/kernel-build.sh
+@@ -23,9 +23,16 @@ FROM ubuntu:15.10
  
--RUN groupadd -g ${GROUPS} ${USER} && useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
-+RUN grep -q ${GROUPS} /etc/group || groupadd -g ${GROUPS} ${USER}
-+RUN grep -q ${UID} /etc/passwd || useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
+ ${PROXY}
+ 
+-RUN echo $(date +%s) && apt-get update
++# If we need to fetch new apt repo data, update the timestamp
++RUN echo 201603031716 && apt-get update
+ RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -yy
+ RUN DEBIAN_FRONTEND=noninteractive apt-get install -yy bc build-essential git gcc-powerpc64le-linux-gnu
++RUN DEBIAN_FRONTEND=noninteractive apt-get install -yy software-properties-common
++RUN apt-add-repository -y multiverse
++# If we need to fetch new apt repo data, update the timestamp
++RUN echo 201603031716 && apt-get update
++RUN apt-get update
++RUN DEBIAN_FRONTEND=noninteractive apt-get install -yy dwarves sparse
+ RUN groupadd -g ${GROUPS} ${USER} && useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
  
  USER ${USER}
- ENV HOME ${HOME}
-@@ -76,7 +77,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
- RUN DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential git subversion diffstat texinfo \
-   chrpath wget libthread-queue-any-perl libdata-dumper-simple-perl python libsdl1.2-dev gawk socat debianutils
+@@ -61,9 +68,18 @@ cd linux
+ # Record the version in the logs
+ powerpc64le-linux-gnu-gcc --version || exit 1
  
--RUN groupadd -g ${GROUPS} ${USER} && useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
-+RUN grep -q ${GROUPS} /etc/group || groupadd -g ${GROUPS} ${USER}
-+RUN grep -q ${UID} /etc/passwd || useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
+-# Build kernel
++# Build kernel prep
+ ARCH=powerpc CROSS_COMPILE=powerpc64le-linux-gnu- make clean || exit 1
+ ARCH=powerpc CROSS_COMPILE=powerpc64le-linux-gnu- make mrproper || exit 1
 +
++# Build kernel with debug
++ARCH=powerpc CROSS_COMPILE=powerpc64le-linux-gnu- make pseries_le_defconfig || exit 1
++echo "CONFIG_DEBUG_INFO=y" >> .config
++ARCH=powerpc CROSS_COMPILE=powerpc64le-linux-gnu- make olddefconfig || exit 1
++ARCH=powerpc CROSS_COMPILE=powerpc64le-linux-gnu- make -j$(nproc) -s C=2 CF=-D__CHECK_ENDIAN__ 2>&1 | gzip > sparse.log.gz
++pahole vmlinux 2>&1 | gzip > structs.dump.gz
++
++# Build kernel
+ ARCH=powerpc CROSS_COMPILE=powerpc64le-linux-gnu- make pseries_le_defconfig || exit 1
+ ARCH=powerpc CROSS_COMPILE=powerpc64le-linux-gnu- make -j$(nproc) || exit 1
  
- USER ${USER}
- ENV HOME ${HOME}
-@@ -115,7 +118,7 @@ mkdir -p ${WORKSPACE}/bin
- # Configure proxies for bitbake
- if [[ -n "${http_proxy}" ]]; then
- 
--  cat > ${WORKSPACE}/bin/git-proxy << EOF_GIT
-+  cat > ${WORKSPACE}/bin/git-proxy << \EOF_GIT
- #!/bin/bash
- # \$1 = hostname, \$2 = port
- PROXY=${PROXY_HOST}
 -- 
 2.7.1
