@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 539C01A0615
- for <openbmc@lists.ozlabs.org>; Fri,  4 Mar 2016 20:40:50 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id BB7851A045D
+ for <openbmc@lists.ozlabs.org>; Fri,  4 Mar 2016 20:50:48 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1457084446310334.8063880519853;
- Fri, 4 Mar 2016 01:40:46 -0800 (PST)
+ with SMTPS id 1457085044226670.3848703228208;
+ Fri, 4 Mar 2016 01:50:44 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH skeleton v4] skeleton: fixed hard-coding of master OCC hwmon
+Subject: [PATCH skeleton v5] skeleton: fixed hard-coding of master OCC hwmon
  sysfs path for PowerCap object
-Date: Fri,  4 Mar 2016 03:40:44 -0600
-Message-Id: <1457084445-31960-1-git-send-email-openbmc-patches@stwcx.xyz>
+Date: Fri,  4 Mar 2016 03:50:42 -0600
+Message-Id: <1457085043-32380-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -27,7 +27,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Mar 2016 09:40:52 -0000
+X-List-Received-Date: Fri, 04 Mar 2016 09:50:49 -0000
 
 Currently master OCC hwmon sysfs path is hardcoded to '/sys/class/hwmon/hwmon3/'.
 This make the '/org/openbmc/sensors/host/PowerCap' interface cannot work when
@@ -52,9 +52,9 @@ Yi Li (1):
   skeleton: fixed hard-coding of master OCC hwmon sysfs path for
     PowerCap object
 
- bin/Sensors.py         | 56 ++++++++++++++++++++++++++++++++++++++++++--------
- bin/sensor_manager2.py |  3 ---
- 2 files changed, 47 insertions(+), 12 deletions(-)
+ bin/Sensors.py         | 84 ++++++++++++++++++++++++++++++++++++++++++++------
+ bin/sensor_manager2.py |  3 --
+ 2 files changed, 75 insertions(+), 12 deletions(-)
 
 -- 
 2.7.1
