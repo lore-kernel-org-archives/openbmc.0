@@ -3,19 +3,19 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 7F8951A0341
- for <openbmc@lists.ozlabs.org>; Fri,  4 Mar 2016 16:40:31 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id D9D881A032F
+ for <openbmc@lists.ozlabs.org>; Fri,  4 Mar 2016 20:10:36 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1457070027878425.38169470183243;
- Thu, 3 Mar 2016 21:40:27 -0800 (PST)
+ with SMTPS id 1457082625742698.7906741996576;
+ Fri, 4 Mar 2016 01:10:25 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-event v2] Add association interface to each event log
-Date: Thu,  3 Mar 2016 23:40:26 -0600
-Message-Id: <1457070026-22023-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc] inarp: Add inverse ARP daemon
+Date: Fri,  4 Mar 2016 03:10:24 -0600
+Message-Id: <1457082624-30487-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1457070026-22023-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1457070026-22023-1-git-send-email-openbmc-patches@stwcx.xyz>
+In-Reply-To: <1457082624-30487-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1457082624-30487-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -28,267 +28,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Mar 2016 05:40:32 -0000
+X-List-Received-Date: Fri, 04 Mar 2016 09:10:37 -0000
 
-From: Chris Austen <austenc@us.ibm.com>
+From: Jeremy Kerr <jk@ozlabs.org>
 
-When a new event log is created we will create an interface
-with a name of org.openbmc.association.  That will have a
-single property named "association" which will be an a(sss).
-That will be enough information for the rest server to present
-it.
+This change adds 'inarp': A small daemon to listen for, and reply to
+inverse ARP requests.
 
-Lets say you want to run the acceptTestMessage method.  It
-will create an association between the event log and 2 dimms.
+This should be started at system init time, so we add a .service file.
 
-So
-/org/openbmc/inventory/system/chassis/motherboard/dimm2
-/org/openbmc/inventory/system/chassis/motherboard/dimm3
-
-/org/openbmc/records/events/1/fru
-should return
-data : {/org/openbmc/inventory/system/chassis/motherboard/dimm2 , /org/openbmc/inventory/system/chassis/motherboard/dimm3}
-
-You should also be able to go to the dimm and get the association in reverse
-
-/org/openbmc/inventory/system/chassis/motherboard/dimm2/event
-should return
-data : {/org/openbmc/records/events/1/}
-
-Fix warnings due to invalid number of parameters
-
-you cant have a fprintf with two parms but only one %s.
+Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
 ---
- event_messaged_sdbus.c | 105 ++++++++++++++++++++++++++++++++++++++++---------
- 1 file changed, 86 insertions(+), 19 deletions(-)
+ meta-phosphor/common/recipes-phosphor/inarp/inarp.bb    | 17 +++++++++++++++++
+ .../common/recipes-phosphor/inarp/inarp/inarp.service   |  8 ++++++++
+ 2 files changed, 25 insertions(+)
+ create mode 100644 meta-phosphor/common/recipes-phosphor/inarp/inarp.bb
+ create mode 100644 meta-phosphor/common/recipes-phosphor/inarp/inarp/inarp.service
 
-diff --git a/event_messaged_sdbus.c b/event_messaged_sdbus.c
-index fc4c911..1065567 100644
---- a/event_messaged_sdbus.c
-+++ b/event_messaged_sdbus.c
-@@ -1,3 +1,4 @@
-+#define _GNU_SOURCE
- #include <stdio.h>
- #include <stdlib.h>
- #include <errno.h>
-@@ -20,6 +21,7 @@
- /*     method_x  : callable dbus functions.                                  */
- /*                                                                           */
- /*****************************************************************************/
-+const char *event_path = "/org/openbmc/records/events";
- 
- sd_bus      *bus   = NULL;
- sd_bus_slot *slot  = NULL;
-@@ -31,6 +33,7 @@ typedef struct messageEntry_t {
- 	size_t         logid;
- 	sd_bus_slot   *messageslot;
- 	sd_bus_slot   *deleteslot;
-+	sd_bus_slot   *associationslot;
- 	event_manager *em;
- 
- } messageEntry_t;
-@@ -84,6 +87,53 @@ static event_record_t* message_record_open(event_manager *em, uint16_t logid)
- 	return (r ? gCachedRec : NULL);
- }
- 
-+static int prop_message_assoc(sd_bus *bus,
-+			const char *path,
-+			const char *interface,
-+			const char *property,
-+			sd_bus_message *reply,
-+			void *userdata,
-+			sd_bus_error *error)
-+{
-+	int r=0;
-+	messageEntry_t *m = (messageEntry_t*) userdata;
-+	event_record_t *rec;
-+	char *p;
-+	char *token;
+diff --git a/meta-phosphor/common/recipes-phosphor/inarp/inarp.bb b/meta-phosphor/common/recipes-phosphor/inarp/inarp.bb
+new file mode 100644
+index 0000000..a36bba1
+--- /dev/null
++++ b/meta-phosphor/common/recipes-phosphor/inarp/inarp.bb
+@@ -0,0 +1,17 @@
++SUMMARY = "Inverse ARP daemon"
++DESCRIPTION = "Daemon to respond to Inverse-ARP requests"
++HOMEPAGE = "http://github.com/openbmc/inarp"
++PR = "r1"
 +
-+	rec = message_record_open(m->em, m->logid);
-+	if (!rec) {
-+		fprintf(stderr,"Warning missing evnet log for %lx\n", m->logid);
-+		sd_bus_error_set(error,
-+			SD_BUS_ERROR_FILE_NOT_FOUND,
-+			"Could not find log file");
-+		return -1;
-+	}
++inherit obmc-phosphor-license
++inherit obmc-phosphor-c-daemon
 +
-+	p = rec->association;
++TARGET_CFLAGS   += "-fpic -O2"
 +
-+	token = strtok(p, " ");
-+	if (token) {
-+		r = sd_bus_message_open_container(reply, 'a', "(sss)");
-+		if (r < 0) {
-+			fprintf(stderr,"Error opening container %s to reply %s\n", token, strerror(-r));
-+		}
++RDEPENDS_${PN} += "network"
++SRC_URI += "git://github.com/openbmc/inarp"
 +
-+		while(token) {
++SRCREV = "19ed5170356495f5fc67189513c5739780ee6a81"
 +
-+			r = sd_bus_message_append(reply, "(sss)", "fru","event", token);
-+			if (r < 0) {
-+				fprintf(stderr,"Error adding properties for %s to reply %s\n", token, strerror(-r));
-+			}
++S = "${WORKDIR}/git"
++INSTALL_NAME = "inarp"
+diff --git a/meta-phosphor/common/recipes-phosphor/inarp/inarp/inarp.service b/meta-phosphor/common/recipes-phosphor/inarp/inarp/inarp.service
+new file mode 100644
+index 0000000..55517ab
+--- /dev/null
++++ b/meta-phosphor/common/recipes-phosphor/inarp/inarp/inarp.service
+@@ -0,0 +1,8 @@
++[Unit]
++Description=Phosphor Inverse ARP daemon
 +
-+			token = strtok(NULL, " ");
-+		}
++[Service]
++ExecStart=/usr/sbin/inarp
 +
-+		r = sd_bus_message_close_container(reply);
-+	}
-+
-+	return r;
-+}
- 
- 
- static int prop_message(sd_bus *bus,
-@@ -103,7 +153,7 @@ static int prop_message(sd_bus *bus,
- 
- 	rec = message_record_open(m->em, m->logid);
- 	if (!rec) {
--		fprintf(stderr,"Warning missing evnet log for %d\n", m->logid);
-+		fprintf(stderr,"Warning missing evnet log for %lx\n", m->logid);
- 		sd_bus_error_set(error,
- 			SD_BUS_ERROR_FILE_NOT_FOUND,
- 			"Could not find log file");
-@@ -114,8 +164,6 @@ static int prop_message(sd_bus *bus,
- 		p = rec->message;
- 	} else if (!strncmp("severity", property, 8)) {
- 		p = rec->severity;
--	} else if (!strncmp("association", property, 11)) {
--		p = rec->association;
- 	} else if (!strncmp("reported_by", property, 11)) {
- 		p = rec->reportedby;
- 	} else if (!strncmp("time", property, 4)) {
-@@ -174,7 +222,7 @@ static int method_accept_host_message(sd_bus_message *m,
- 				      void *userdata,
- 				      sd_bus_error *ret_error)
- {
--	char *message, *severity, *association, *s;
-+	char *message, *severity, *association;
- 	size_t   n = 4;
- 	uint8_t *p;
- 	int r;
-@@ -201,9 +249,7 @@ static int method_accept_host_message(sd_bus_message *m,
- 	rec.p           = (uint8_t*) p;
- 	rec.n           = n;
- 
--	asprintf(&s, "%s %s (%s)", rec.severity, rec.message, rec.association);
--	syslog(LOG_NOTICE, s);
--	free(s);
-+	syslog(LOG_NOTICE, "%s %s (%s)", rec.severity, rec.message, rec.association);
- 
- 	logid = message_create_new_log_event(em, &rec);
- 
-@@ -234,10 +280,7 @@ static int method_accept_test_message(sd_bus_message *m,
- 	rec.n           = 6;
- 
- 
--	asprintf(&s, "%s %s (%s)", rec.severity, rec.message, rec.association);
--	syslog(LOG_NOTICE, s);
--	free(s);
--
-+	syslog(LOG_NOTICE, "%s %s (%s)", rec.severity, rec.message, rec.association);
- 	logid = message_create_new_log_event(em, &rec);
- 	send_log_to_dbus(em, logid);
- 
-@@ -261,7 +304,7 @@ static int method_clearall(sd_bus_message *m, void *userdata, sd_bus_error *ret_
- 
- 	while (logid = message_next_event(em)) {
- 		snprintf(buffer, sizeof(buffer),
--			"/org/openbmc/records/events/%d", logid);
-+			"%s/%d", event_path, logid);
- 
- 		r = sd_bus_call_method_async(bus,
- 					     NULL,
-@@ -305,7 +348,6 @@ static const sd_bus_vtable recordlog_vtable[] = {
- 
- static const sd_bus_vtable log_vtable[] = {
- 	SD_BUS_VTABLE_START(0),   
--	SD_BUS_PROPERTY("association", "s",  prop_message,    0, SD_BUS_VTABLE_PROPERTY_CONST),
- 	SD_BUS_PROPERTY("message",     "s",  prop_message,    0, SD_BUS_VTABLE_PROPERTY_CONST),
- 	SD_BUS_PROPERTY("severity",    "s",  prop_message,    0, SD_BUS_VTABLE_PROPERTY_CONST),
- 	SD_BUS_PROPERTY("reported_by", "s",  prop_message,    0, SD_BUS_VTABLE_PROPERTY_CONST),
-@@ -321,13 +363,18 @@ static const sd_bus_vtable recordlog_delete_vtable[] = {
- 	SD_BUS_VTABLE_END
- };
- 
-+static const sd_bus_vtable recordlog_association_vtable[] = {
-+	SD_BUS_VTABLE_START(0),
-+	SD_BUS_PROPERTY("association", "a(ss)",  prop_message_assoc, 0, SD_BUS_VTABLE_PROPERTY_CONST),
-+	SD_BUS_VTABLE_END
-+};
-+
- static int remove_log_from_dbus(messageEntry_t *p)
- {
- 	int r;
- 	char buffer[32];
- 
--	snprintf(buffer, sizeof(buffer),
--		"/org/openbmc/records/events/%d", p->logid);
-+	snprintf(buffer, sizeof(buffer), "%s/%lu", event_path, p->logid);
- 
- 	printf("Attempting to delete %s\n", buffer);
- 
-@@ -338,6 +385,7 @@ static int remove_log_from_dbus(messageEntry_t *p)
- 	}	
- 	sd_bus_slot_unref(p->messageslot);
- 	sd_bus_slot_unref(p->deleteslot);
-+	sd_bus_slot_unref(p->associationslot);
- 
- 	message_entry_close(p);
- 
-@@ -350,8 +398,7 @@ int send_log_to_dbus(event_manager *em, const uint16_t logid)
- 	int r;
- 	messageEntry_t *m;
- 
--	snprintf(loglocation, sizeof(loglocation),
--		"/org/openbmc/records/events/%d", logid);
-+	snprintf(loglocation, sizeof(loglocation), "%s/%d", event_path, logid);
- 
- 	message_entry_new(&m, logid, em);
- 
-@@ -374,12 +421,32 @@ int send_log_to_dbus(event_manager *em, const uint16_t logid)
- 				     "org.openbmc.Object.Delete",
- 				     recordlog_delete_vtable,
- 				     m);
-+
-+	if (r < 0) {
-+		fprintf(stderr, "Failed to add delete object for: %s, %s\n",
-+			loglocation, strerror(-r));
-+		message_entry_close(m);
-+		return 0;
-+	}
- 	
--	printf("Event Log added %s\n", loglocation);
-+	r = sd_bus_add_object_vtable(bus,
-+				     &m->associationslot,
-+				     loglocation,
-+				     "org.openbmc.association",
-+				     recordlog_association_vtable,
-+				     m);
-+
-+	if (r < 0) {
-+		fprintf(stderr, "Failed to add association object for: %s %s\n",
-+			loglocation, strerror(-r));
-+		message_entry_close(m);
-+		return 0;
-+	}
- 
- 	r = sd_bus_emit_object_added(bus, loglocation);
- 	if (r < 0) {
- 		fprintf(stderr, "Failed to emit signal %s\n", strerror(-r));
-+		message_entry_close(m);
- 		return 0;
- 	}
- 
-@@ -445,7 +512,7 @@ int build_bus(event_manager *em)
- 	
- 	/* You want to add an object manager to support deleting stuff  */
- 	/* without it, dbus can show interfaces that no longer exist */
--	r = sd_bus_add_object_manager(bus, NULL, "/org/openbmc/records/events");
-+	r = sd_bus_add_object_manager(bus, NULL, event_path);
- 	if (r < 0) {
- 		fprintf(stderr, "Object Manager failure  %s\n", strerror(-r));
- 	}
++[Install]
++WantedBy=multi-user.target
 -- 
 2.7.1
