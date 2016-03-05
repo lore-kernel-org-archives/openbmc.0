@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 844B51A0324
- for <openbmc@lists.ozlabs.org>; Sat,  5 Mar 2016 23:30:41 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id A5E961A03DF
+ for <openbmc@lists.ozlabs.org>; Sat,  5 Mar 2016 23:30:44 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1457181038728776.8318770703783;
- Sat, 5 Mar 2016 04:30:38 -0800 (PST)
+ with SMTPS id 145718103955888.76272011953085;
+ Sat, 5 Mar 2016 04:30:39 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 18/32] update: Skip calling flashcp for empty files
-Date: Sat,  5 Mar 2016 06:30:09 -0600
-Message-Id: <1457181023-23569-19-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 19/32] init: Read options from a file
+Date: Sat,  5 Mar 2016 06:30:10 -0600
+Message-Id: <1457181023-23569-20-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1457181023-23569-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1457181023-23569-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,42 +28,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 05 Mar 2016 12:30:42 -0000
+X-List-Received-Date: Sat, 05 Mar 2016 12:30:45 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-Note explicitly when an empty image is provided that will not
-alter a flash partition.
+Grep options from a file instead of directly from /proc/cmdline
+which will allow additonal sources for options.
 
-While using flashcp on an empty file succeeds and does not alter
-the flash, it may be confusing to see 0/0 messages for the erase,
-write, and verify phases.
-
-These empty files are used to trigger the save and restore phases
-and may also be used by developers to cause the update to fail
-and break into a shell at shutdown for maintence.
+Initially the options file is just a copy of the kernel command
+line, but it may be edited at debug-init-sh or via a later
+debug_takeover point or before restarting init.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh      | 6 ++++++
- 1 file changed, 6 insertions(+)
+ .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh   | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index edaf195..aa8fd89 100755
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -136,6 +136,12 @@ done
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+index 12c5a2f..d3b4b9f 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+@@ -101,10 +101,16 @@ init=/sbin/init
+ fsckbase=/sbin/fsck.
+ fsck=$fsckbase$rwfst
+ fsckopts=-a
++optfile=/run/initramfs/init-options
++
++if test ! -f $optfile
++then
++	cat /proc/cmdline > $optfile
++fi
  
- for f in $image*
- do
-+	if test ! -s $f
-+	then
-+		echo "Skipping empty update of ${f#$image}."
-+		rm $f
-+		continue
-+	fi
- 	m=$(findmtd ${f#$image})
- 	echo "Updating ${f#$image}..."
- 	flashcp -v $f /dev/$m && rm $f
+ echo rofs = $rofs $rofst   rwfs = $rwfs $rwfst
+ 
+-if grep -w debug-init-sh /proc/cmdline
++if grep -w debug-init-sh $optfile
+ then
+ 	debug_takeover "Debug initial shell requested by command line."
+ fi
+@@ -118,7 +124,7 @@ then
+ 	mv /${imagebasename}* ${image%$imagebasename}
+ fi
+ 
+-if grep -w clean-rwfs-filesystem /proc/cmdline
++if grep -w clean-rwfs-filesystem $optfile
+ then
+ 	echo "Cleaning of read-write overlay filesystem requested."
+ 	touch $trigger
 -- 
 2.7.1
