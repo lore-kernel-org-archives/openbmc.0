@@ -3,17 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id D4CE21A045D
- for <openbmc@lists.ozlabs.org>; Sat,  5 Mar 2016 23:30:54 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id CD1791A036D
+ for <openbmc@lists.ozlabs.org>; Sat,  5 Mar 2016 23:32:50 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1457181049935867.6200210048734;
- Sat, 5 Mar 2016 04:30:49 -0800 (PST)
+ with SMTPS id 1457181042701366.22706415634775;
+ Sat, 5 Mar 2016 04:30:42 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 32/32] host-ipmid: OEM command will require clear-once
- service
-Date: Sat,  5 Mar 2016 06:30:23 -0600
-Message-Id: <1457181023-23569-33-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 23/32] init: Always move images from root
+Date: Sat,  5 Mar 2016 06:30:14 -0600
+Message-Id: <1457181023-23569-24-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1457181023-23569-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1457181023-23569-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,49 +28,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 05 Mar 2016 12:30:55 -0000
+X-List-Received-Date: Sat, 05 Mar 2016 12:32:51 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-Tell systemd the host-ipmid service wants the clear-once service
-to be started, and that it wants to run after the clear-once
-service.
+If images are to be updated before init continue to move them
+to /run/initramfs.  However, if they are not to be flashed before
+init instead move them to /run.
 
-The new OEM command will use the openbmc init run once variables
-set in the u-boot environment.  We want the u-boot variable
-cleared before the host can request it be set again.
-
-Tell bitbake to require the clean-once package.
+This will result in the image-rofs being loop mounted for this run,
+and all images will be available at runtime for flash update at
+runtime.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb          | 1 +
- .../common/recipes-phosphor/host-ipmid/host-ipmid/host-ipmid.service    | 2 ++
- 2 files changed, 3 insertions(+)
+ .../obmc-phosphor-initfs/files/obmc-init.sh               | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb
-index 68bd38b..9e25cd2 100644
---- a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb
-+++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb
-@@ -14,6 +14,7 @@ inherit obmc-phosphor-c-daemon
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+index 89e4538..7953176 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+@@ -115,13 +115,18 @@ then
+ 	debug_takeover "Debug initial shell requested by command line."
+ fi
  
- TARGET_CFLAGS   += "-fpic"
+-# If there are images in root move them to run/initramfs/ now.
++# If there are images in root move them to /run/initramfs/ or /run/ now.
+ imagebasename=${image##*/}
+-if test -n "${imagebasename}" -a "x$flash_images_before_init" = xy &&
+-	ls /${imagebasename}* > /dev/null 2>&1
++if test -n "${imagebasename}" && ls /${imagebasename}* > /dev/null 2>&1
+ then
+-	echo "Pending flash updates found."
+-	mv /${imagebasename}* ${image%$imagebasename}
++	if test "x$flash_images_before_init" = xy
++	then
++		echo "Flash images found, will update before starting init."
++		mv /${imagebasename}* ${image%$imagebasename}
++	else
++		echo "Flash images found, will use but deferring flash update."
++		mv /${imagebasename}* /run/
++	fi
+ fi
  
-+RDEPENDS_${PN} += "clear-once"
- RDEPENDS_${PN} += "settings"
- RDEPENDS_${PN} += "network"
- SRC_URI += "git://github.com/openbmc/phosphor-host-ipmid"
-diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid/host-ipmid.service b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid/host-ipmid.service
-index ee9ce1a..ce96dbc 100644
---- a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid/host-ipmid.service
-+++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid/host-ipmid.service
-@@ -1,5 +1,7 @@
- [Unit]
- Description=Phosphor OpenBMC IPMI daemon
-+Wants=clear-once.service
-+After=clear-once.service
- 
- [Service]
- ExecStart=/usr/sbin/ipmid
+ if grep -w clean-rwfs-filesystem $optfile
 -- 
 2.7.1
