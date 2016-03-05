@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id E66001A0341
+ by lists.ozlabs.org (Postfix) with ESMTPS id F24A71A09FE
  for <openbmc@lists.ozlabs.org>; Sat,  5 Mar 2016 23:30:40 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1457181037923402.15873662381944;
- Sat, 5 Mar 2016 04:30:37 -0800 (PST)
+ with SMTPS id 1457181035370897.3341023649369;
+ Sat, 5 Mar 2016 04:30:35 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 17/32] update: Remove images as they are successfully
- flashed
-Date: Sat,  5 Mar 2016 06:30:08 -0600
-Message-Id: <1457181023-23569-18-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 14/32] update: Save files using the same mount path as
+ init
+Date: Sat,  5 Mar 2016 06:30:05 -0600
+Message-Id: <1457181023-23569-15-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1457181023-23569-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1457181023-23569-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -33,34 +33,29 @@ X-List-Received-Date: Sat, 05 Mar 2016 12:30:41 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-Remove image files as they are flashed so a repeated call to
-update does not erase and write the image again.
+Use the full /run/initramfs/rw path for the mount point of the
+read-write filesystem.
 
-As we add the ability to call update at runtime repeated calls
-are expected.  This both signals successful copy and removes the
-need for callers to cleanup.
-
-Also remove commented alternate flash method using eraseall
-that was not tested.
+This prevents creating and directories in / when it is invoked
+before shutdown.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh  | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ .../common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh   | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index 6b0d7a0..edaf195 100755
+index 1a11953..e580561 100755
 --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
 +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -138,8 +138,7 @@ for f in $image*
- do
- 	m=$(findmtd ${f#$image})
- 	echo "Updating ${f#$image}..."
--	# flasheraseall /dev/$m && dd if=$f of=/dev/$m
--	flashcp -v $f /dev/$m
-+	flashcp -v $f /dev/$m && rm $f
- done
+@@ -55,7 +55,7 @@ rwdev=/dev/mtdblock${rwfs#mtd}
+ rwopts=rw
+ rorwopts=ro${rwopts#rw}
  
- if test "x$toram" = xy
+-rwdir=rw
++rwdir=/run/initramfs/rw
+ upper=$rwdir/cow
+ save=/run/save/${upper##*/}
+ 
 -- 
 2.7.1
