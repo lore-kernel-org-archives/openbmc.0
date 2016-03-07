@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 895F11A0366
- for <openbmc@lists.ozlabs.org>; Tue,  8 Mar 2016 08:41:04 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 1A4CA1A0324
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Mar 2016 08:41:07 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 145738624699833.04588183838234;
- Mon, 7 Mar 2016 13:30:46 -0800 (PST)
+ with SMTPS id 145738624865813.916091631215636;
+ Mon, 7 Mar 2016 13:30:48 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v2 27/34] init: Call update from initramfs directory
-Date: Mon,  7 Mar 2016 15:30:16 -0600
-Message-Id: <1457386223-5725-28-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v2 29/34] init: Look for options in u-boot environment
+Date: Mon,  7 Mar 2016 15:30:18 -0600
+Message-Id: <1457386223-5725-30-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1457386223-5725-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1457386223-5725-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,55 +28,69 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Mar 2016 21:41:05 -0000
+X-List-Received-Date: Mon, 07 Mar 2016 21:41:08 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-Use the copy in /run/initramfs/update to call update to be consistent
-with other uses.
+Look in the saved u-boot environment for init options in addition
+to the kernel command line.  This allows setting options to run
+in the u-boot environment instead of setting bootargs.
+
+Look at specific variables but not the whole environment so that
+users can setup variable to run.  Look at two variables so scripts
+can automatically clear one on successful boot as one-time options
+(defer that to the full filesystem).
+
+Instead of having the full fw_setenv / fw_getenv binaries which
+would overflow the existing space for the initramfs, just use the
+busybox strings command to extract the variables.  The oldest
+variable might get a crc32 character or flag byte if redundant
+environment were configured for nand but that is not expected
+to be these user defined variables.
+
+[1] The environment consists of a crc32, a flag byte if a
+redundant environment is configured, then a series of var=value
+strings separated by NUL bytes.  The flag byte is 1 (active) or 0
+(obsolete) for NOR flash, or a counter 0-255 in nand, the flag
+byte cycles through 0-255.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh  | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ .../obmc-phosphor-initfs/files/obmc-init.sh               | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
 diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-index 469beaf..b4d1569 100644
+index 9aa2131..29c72cf 100644
 --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
 +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-@@ -102,6 +102,7 @@ fsckbase=/sbin/fsck.
- fsck=$fsckbase$rwfst
- fsckopts=-a
- optfile=/run/initramfs/init-options
-+update=/run/initramfs/update
+@@ -44,6 +44,19 @@ probe_fs_type() {
+ 	echo ${fst:=jffs2}
+ }
  
++# This fw_get_env_var is a simple but slightly broken version of fw_printenv:
++# The u-boot environemnt starts with a crc32, followed by a flag byte
++# when a redundannt environment is configured, followed by var=value\0 sets.
++# The flag byte for nand is a 1 byte counter; for nor it is a 1 or 0 byte.
++# The crc and/or nand flag byte can contain printable characters and be
++# considered part of the first string and parsed as part of the variable
++# name.  In addition a variable could have a "\n" embedded in it, this code
++# would split that variable.  Ignore for now, the last set var is at the end.
++
++get_fw_env_var() {
++	strings /run/fw_env | sed -ne "s/^$1=//p"
++}
++
+ debug_takeover() {
+ 	echo "$@"
+ 	test -n "$@" && echo Enter password to try to manually fix.
+@@ -107,6 +120,8 @@ update=/run/initramfs/update
  if test ! -f $optfile
  then
-@@ -143,20 +144,20 @@ fi
+ 	cat /proc/cmdline > $optfile
++	get_fw_env_var openbmcinit >> $optfile
++	get_fw_env_var openbmconce >> $optfile
+ fi
  
- if ls $image* > /dev/null 2>&1
- then
--	if ! test -x /update
-+	if ! test -x $update
- 	then
--		debug_takeover "Flash update requested but /update missing!"
-+		debug_takeover "Flash update requested but $update missing!"
- 	elif test -f $trigger -a ! -s $trigger
- 	then
- 		echo "Saving selected files from read-write overlay filesystem."
--		/update --no-restore-files
-+		$update --no-restore-files
- 		echo "Clearing read-write overlay filesystem."
- 		flash_eraseall /dev/$rwfs
- 		echo "Restoring saved files to read-write overlay filesystem."
- 		touch $trigger
--		/update --no-save-files --clean-saved-files
-+		$update --no-save-files --clean-saved-files
- 	else
--		/update --clean-saved-files
-+		$update --clean-saved-files
- 	fi
- 
- 	rwfst=$(probe_fs_type $rwdev)
+ echo rofs = $rofs $rofst   rwfs = $rwfs $rwfst
 -- 
 2.7.1
