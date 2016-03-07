@@ -1,42 +1,62 @@
-Return-Path: <andrew@aj.id.au>
-Received: from homiemail-a11.g.dreamhost.com (sub3.mail.dreamhost.com
- [69.163.253.7])
- by lists.ozlabs.org (Postfix) with ESMTP id 096871A0311
- for <openbmc@lists.ozlabs.org>; Mon,  7 Mar 2016 14:11:00 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=JkywGTdw; 
- dkim-atps=neutral
-Received: from homiemail-a11.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a11.g.dreamhost.com (Postfix) with ESMTP id DFB1F6E06C;
- Sun,  6 Mar 2016 19:10:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
- :subject:from:reply-to:to:cc:date:in-reply-to:references
- :content-type:mime-version; s=aj.id.au; bh=dFs1knY/aXSFEN2oa84Nt
- aT/ugs=; b=JkywGTdwXtOpFLn5Zyvwspvwcrbinyr2waTz4URmiR4On1LRzt5ks
- wH5rMQLWploVEqlR2e2BP4JLU15Hb2sZq7FUsfQ0AqrQCBVHW18hhhN91orFax/K
- skI87UJ6V0fPoa0/iybKuSUs0Fpq/9yeJzu1roO3LppMxwqfHvFBXI=
-Received: from keelia (unknown [203.0.153.9])
- (using TLSv1 with cipher AES128-SHA (128/128 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-ob0-x244.google.com (mail-ob0-x244.google.com
+ [IPv6:2607:f8b0:4003:c01::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- (Authenticated sender: andrew@aj.id.au)
- by homiemail-a11.g.dreamhost.com (Postfix) with ESMTPSA id E97FA6E05B;
- Sun,  6 Mar 2016 19:10:57 -0800 (PST)
-Message-ID: <1457320246.10265.82.camel@aj.id.au>
-Subject: Re: [PATCH openbmc 30/32] init: Add a hook to download files
-From: Andrew Jeffery <andrew@aj.id.au>
-Reply-To: andrew@aj.id.au
-To: Joel Stanley <joel@jms.id.au>, OpenBMC Patches <openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 645B11A0008
+ for <openbmc@lists.ozlabs.org>; Mon,  7 Mar 2016 15:01:13 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=TrG54RfQ; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=gumfiPEJ; 
+ dkim-atps=neutral
+Received: by mail-ob0-x244.google.com with SMTP id hc1so7820425obb.0
+ for <openbmc@lists.ozlabs.org>; Sun, 06 Mar 2016 20:01:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=Yn0dvBDg2ZFRLNLMEnXalUsVesOdpzZha+8quA73tak=;
+ b=TrG54RfQFWBCRJegsZa9ww2NVpQ2HAD/7FtRsb5UfuMdjhNmpsz10Ndpb/LlTfPiCM
+ zrEXgvSi462VseLXLRl0ZZba7H6J2oV39GYFq+ax82BbEUTu6JGAHBQZAMVeC9toFk4o
+ 1tjkX89MjlAzGJ4Qhk8MrtT04HXPB6HeXaSwS6x0NyuokrZ2ni7F5scAU4LUVWR6ilI0
+ kmihpxgxDCU1G8Nmo6kg7mU5jRxVh26eWJWyKo+0gjxv6J5qfOqf6TN1BhtwV70IMvRW
+ 8P26QLdeeaZs1xCytfkzXUMQnxf2VnUEejBi8CqMG2DFadetaDFY9oZoMFY/N9qb2hIt
+ tXbQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=Yn0dvBDg2ZFRLNLMEnXalUsVesOdpzZha+8quA73tak=;
+ b=gumfiPEJn+p/HPm5okrT3rJjSCsZxyekwQ5ktCUpylHf1PfHvv9XViwv0Kh/k0UAKw
+ SQW7R3veX4D+SHjgiuGcK3qQ9eCvly+cWyjVz9GEclahQkgjmfvnpfd4i/xqjp5HbGfk
+ bMQ/+ErHNFjaB6SonkM1Lqj8UnVg+k4CPEHXA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=Yn0dvBDg2ZFRLNLMEnXalUsVesOdpzZha+8quA73tak=;
+ b=FpQrpAGEvfOB8FJ6frHY2vhwxyqAb+zDl+wgSL9cM8S1P63k4h8uFLf4pgCtlxwwoQ
+ OkmMHyLNa5GXpOoiYs10/H9zHe+HU4ZBslYozh11oj3zjkmkFENnQbM93a3tr/psNa38
+ ubF94BZcrcFarFoMvH9yHO2eudNn9OrxOjoBlBI3p/hKAoEs8fpGRZtgogXpFmgYdyWv
+ NLppSB6w2SX/ODYQHwVz7Bji8hVfPdroAIju3lWLS57hpbsRiT/4tt0JG9N032g3BUCB
+ bg7WgxTMdXsQVWop7mQvRqcpBenXmlO6vPbWxUynshxhQB6NdhQ+elLsVyqBMNmu872g
+ qhFw==
+X-Gm-Message-State: AD7BkJJgW9DuNX/yy0tcrdF3DffdzwYjiin3A/rb0A1Cp04PJyAy3luFLiORYcL1O0gjQiSIlD/qjGvDS1mPzA==
+X-Received: by 10.182.65.138 with SMTP id x10mr12379122obs.39.1457323271121;
+ Sun, 06 Mar 2016 20:01:11 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.60.246.10 with HTTP; Sun, 6 Mar 2016 20:00:51 -0800 (PST)
+In-Reply-To: <1457044213-7365-2-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1457044213-7365-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1457044213-7365-2-git-send-email-openbmc-patches@stwcx.xyz>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 7 Mar 2016 14:30:51 +1030
+X-Google-Sender-Auth: jpK1PShxwzYy7YaxII0zOCtNZY0
+Message-ID: <CACPK8XeHoDVNgd7WrdX=RuoFcjQJvK4YSh8SLArRJpBuZjbWAQ@mail.gmail.com>
+Subject: Re: [PATCH ipmi-fru-parser] RFC: use cmake.
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Mon, 07 Mar 2016 13:40:46 +1030
-In-Reply-To: <CACPK8XdiUZw01zdhAkYs=EfN73aTDiWu0KTvSQs13NoeMa2Fow@mail.gmail.com>
-References: <1457181023-23569-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1457181023-23569-31-git-send-email-openbmc-patches@stwcx.xyz>
- <CACPK8XdiUZw01zdhAkYs=EfN73aTDiWu0KTvSQs13NoeMa2Fow@mail.gmail.com>
-Organization: IBM OzLabs
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-lNuOxoUkwQlL/pR5tOsm"
-X-Mailer: Evolution 3.16.5-1ubuntu3.1 
-Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -48,72 +68,210 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Mar 2016 03:11:00 -0000
+X-List-Received-Date: Mon, 07 Mar 2016 04:01:14 -0000
 
+On Fri, Mar 4, 2016 at 9:00 AM, OpenBMC Patches
+<openbmc-patches@stwcx.xyz> wrote:
+> From: Patrick Williams <patrick@stwcx.xyz>
+>
+> There was a previous proposal to consider autotools (see
+> openbmc/ipmi-fru-parser#7).  This is an alternative implementation
+> using cmake.
 
---=-lNuOxoUkwQlL/pR5tOsm
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I'm not a fan of autotools; I have not chosen to use it on small
+projects in the past.
 
-On Mon, 2016-03-07 at 11:03 +1030, Joel Stanley wrote:
-> On Sat, Mar 5, 2016 at 11:00 PM, OpenBMC Patches
-> <openbmc-patches@stwcx.xyz> wrote:
-> > From: "Milton D. Miller II" <miltonm@us.ibm.com>
-> >
-> > Add a hook to run a shell command line that is stored in a u-boot
-> > environment variable.  Only execute this command if the previously
-> > established options file has a keyword trigger.  Do not even consider
-> > the option if a build option flag is not set to y.
->=20
-> This patch should not be merged. It creates a worrying backdoor into
-> our system where the boot process will run arbitrary commands from
-> untrusted u-boot variables.
+That said, I have stopped working on projects due to cmake's
+downsides. It's overly complex, and no clear way to implement rules,
+making it hard for newbies and experienced developers alike.
 
-+1
+I would prefer to see autotools implemented by one of our team members
+that has experience with it, and they can help the rest of us maintain
+it.
 
->=20
-> If we need to set state in u-boot in order to trigger an update, then
-> I can imagine we might allow a flag to be set that says "do_update=3D1",
-> and the system can pick up on this and grab updates from it's
-> configured update source.
+I noticed in my feeds a new project created by some of the Xorg
+developers that is a nice example of a clean, well structured project
+that uses systemd, dbus, and autotools can be found here:
 
-+1
+ https://github.com/libratbag/ratbagd
 
-However, how should we define the update source? Is burning it into the
-current boot environment too restrictive? Can we make it less
-restrictive but not go as far as arbitrary command execution? I take it
-there's something driving the inclusion of a automated network-fetch
--and-update-at-init feature for it to be included at all? We can
-already update the partitions during shutdown, and if we boot from the
-flash to trigger this process then we won't be running an updated
-kernel or initrd until the following reboot, right? I guess it does
-avoid multiple reboots to, say, resolve a kernel bug and then update
-the remaining partitions (i.e. update the kernel/initrd at shutdown,
-update the remainder at init), but I don't think that's worth executing
-arbitrary untrusted commands if it's the only use-case.
+Cheers,
 
-Andrew
---=-lNuOxoUkwQlL/pR5tOsm
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Joel
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
-
-iQIcBAABCgAGBQJW3PE2AAoJEJ0dnzgO5LT5064P/A04HdGIlcvY8X80cJh1n+XN
-qq6e4zlVsUkk1R1aBPJde1dYTwwqXxmDyhLg8GhagMNRcUZDxRhOd3t6tzf0GVlM
-kc1ApO6J05NtSuEclJVCd4UiZFeMXpY2HyKYtiH0cRpLTmVcJSgZ9L75+1FITTJG
-iZ6GwbDC3YKbPdRQaNcqcwAPT44DmRfV5sayxPLnxS+qDX8Tco6ROOYUk2joC3Lo
-SmWpkBUrZm0B4RXcY/hSRHyThSLMWzrAJJIkQYYQzn4R7O2V7HJk7GqHVxf/Dnlc
-HZCMG+DsoEcjzb+tUIry6342+HCoDnrp4WlKmtRkmaxaOnHDhw/7yTL7UTxddbpn
-VwKIj5oQnaXAuTB6RzDIzd09bzVp5gpcG/pHSBcQvy1P2Hi2D/1n12Ff3Mv5ip/j
-seIWj8FPKEBptH2htbuDDkF7LEuKh7fsD/oFYWMhCKFMa8xzxlcfH8Y92Z+P0OKa
-L3tDzohuVmTfSVtukvQSL8GTMaBHy47kYWyQTMyUQH2pz5UCpRJzwFvfCWePqs+R
-m2Wyb8ICT4Sm08yL3D7bCHkcxbmhsHhsWuX/XDW84HGP+16eIHV1LRDnnQBrLpzA
-CSTUhRiN3WRrBDcz8KPIadv6HvoJ27KyNeWn0saDtpa3yeDBpuEkdhvd/b2byPM3
-po5B4jMK+FVvWHO7QKoU
-=ckQL
------END PGP SIGNATURE-----
-
---=-lNuOxoUkwQlL/pR5tOsm--
+> ---
+>  .gitignore        | 12 +++++++++
+>  CMakeLists.txt    | 30 ++++++++++++++++++++++
+>  Makefile          | 75 -------------------------------------------------------
+>  cmake/sdbus.cmake | 16 ++++++++++++
+>  4 files changed, 58 insertions(+), 75 deletions(-)
+>  create mode 100644 .gitignore
+>  create mode 100644 CMakeLists.txt
+>  delete mode 100644 Makefile
+>  create mode 100644 cmake/sdbus.cmake
+>
+> diff --git a/.gitignore b/.gitignore
+> new file mode 100644
+> index 0000000..727471a
+> --- /dev/null
+> +++ b/.gitignore
+> @@ -0,0 +1,12 @@
+> +#### vi files ####
+> +*.swp
+> +#### --- vi --- ####
+> +
+> +#### CMAKE Files ####
+> +CMakeCache.txt
+> +CMakeFiles
+> +CMakeScripts
+> +Makefile
+> +cmake_install.cmake
+> +install_manifest.txt
+> +#### --- CMAKE --- ####
+> diff --git a/CMakeLists.txt b/CMakeLists.txt
+> new file mode 100644
+> index 0000000..0a00985
+> --- /dev/null
+> +++ b/CMakeLists.txt
+> @@ -0,0 +1,30 @@
+> +cmake_minimum_required(VERSION 3.1)
+> +project(ipmi-fru-parser)
+> +
+> +set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+> +set(CMAKE_CXX_STANDARD 14)
+> +set(CMAKE_CXX_STANDARD_REQUIRED on)
+> +
+> +include("cmake/sdbus.cmake")
+> +
+> +add_library(writefrudata SHARED
+> +    frup.c
+> +    writefrudata.C
+> +)
+> +target_link_libraries(writefrudata ${SYSTEMD_LIBRARY})
+> +install(TARGETS writefrudata LIBRARY DESTINATION lib/host-ipmid)
+> +
+> +add_library(strgfnhandler SHARED
+> +    strgfnhandler.C
+> +)
+> +target_link_libraries(strgfnhandler writefrudata)
+> +install(TARGETS strgfnhandler LIBRARY DESTINATION lib)
+> +
+> +add_executable(phosphor-read-eeprom
+> +    argument.C
+> +    readeeprom.C
+> +)
+> +target_link_libraries(phosphor-read-eeprom writefrudata)
+> +target_link_libraries(phosphor-read-eeprom ${SYSTEMD_LIBRARY})
+> +
+> +install(TARGETS phosphor-read-eeprom RUNTIME DESTINATION bin)
+> diff --git a/Makefile b/Makefile
+> deleted file mode 100644
+> index dc66a77..0000000
+> --- a/Makefile
+> +++ /dev/null
+> @@ -1,75 +0,0 @@
+> -LIBS += libwritefrudata.so
+> -HOST_LIBS += libstrgfnhandler.so
+> -libwritefrudata.so_OBJS  += frup.o writefrudata.o
+> -libstrgfnhandler.so_OBJS += strgfnhandler.o
+> -
+> -EXES += phosphor-read-eeprom
+> -
+> -phosphor-read-eeprom_OBJS  += readeeprom.o argument.o
+> -phosphor-read-eeprom_EXTRA_LIBS  += writefrudata
+> -libstrgfnhandler.so_EXTRA_LIBS  += writefrudata
+> -libwritefrudata.so_NEEDED  += libsystemd
+> -phosphor-read-eeprom_NEEDED  += libsystemd
+> -
+> -#### -----------------------------------------------------------------------####
+> -#                                                                              #
+> -##                       Compilare Regulas Sequi                              ##
+> -#                                                                              #
+> -#### -----------------------------------------------------------------------####
+> -OPTFLAGS ?= -O3 -g -pipe -G -K
+> -CFLAGS ?= $(OPTFLAGS)
+> -CXXFLAGS ?= $(OPTFLAGS)
+> -CFLAGS += -Wall -flto -fPIC
+> -CXXFLAGS += --std=gnu++14 -Wall -flto -fPIC
+> -
+> -__PKG_CONFIG = $(if $1,$(shell pkg-config $2 $1))
+> -__EXTRA_LIB_RESOLV = $(if $1,$1)
+> -
+> -define __BUILD_EXE
+> -$1 : $$($1_OBJS) | $$(LIBS) $$(HOST_LIBS)
+> -               $$(LINK.cpp) -o $$@ $$^ $(call __EXTRA_LIB_RESOLV,$(addprefix -l,$($1_EXTRA_LIBS))) -L. $(call __PKG_CONFIG,$($1_NEEDED),--libs)
+> -
+> -$(eval CXXFLAGS += $(call __PKG_CONFIG,$($1_NEEDED),--cflags))
+> -
+> -#include $$($1_OBJS:.o=.d)
+> -endef
+> -
+> -$(foreach exe,$(EXES),$(eval $(call __BUILD_EXE,$(exe))))
+> -
+> -define __BUILD_LIB
+> -$1 : $$($1_OBJS) | $$(addsuffix .so,$$(addprefix lib,$$($1_EXTRA_LIBS)))
+> -               $$(LINK.cpp) -fPIC -shared -o $$@ $$^ $(call __EXTRA_LIB_RESOLV,$(addprefix -l,$($1_EXTRA_LIBS))) -L. $(call __PKG_CONFIG,$($1_NEEDED),--libs)
+> -
+> -$(eval CXXFLAGS += $(call __PKG_CONFIG,$($1_NEEDED),--cflags))
+> -
+> -#include $$($1_OBJS:.o=.d)
+> -endef
+> -
+> -$(foreach lib,$(LIBS),$(eval $(call __BUILD_LIB,$(lib))))
+> -$(foreach lib,$(HOST_LIBS),$(eval $(call __BUILD_LIB,$(lib))))
+> -
+> -.PHONY: clean
+> -clean:
+> -               $(RM) $(foreach exe,$(EXES),$(exe) $($(exe)_OBJS)) \
+> -                         $(foreach lib,$(LIBS),$(lib) $($(lib)_OBJS)) \
+> -                         $(foreach lib,$(HOST_LIBS),$(lib) $($(lib)_OBJS))
+> -
+> -DESTDIR ?= /
+> -BINDIR ?= /usr/bin
+> -LIBDIR ?= /usr/lib
+> -
+> -.PHONY: install
+> -install:
+> -               $(if $(EXES),\
+> -               install -m 0755 -d $(DESTDIR)$(BINDIR) && \
+> -               install -m 0755 $(EXES) $(DESTDIR)$(BINDIR) \
+> -               )
+> -               $(if $(LIBS),\
+> -               install -m 0755 -d $(DESTDIR)$(LIBDIR)/host-ipmid && \
+> -               install -m 0755 $(HOST_LIBS) $(DESTDIR)$(LIBDIR)/host-ipmid && \
+> -               install -m 0755 $(LIBS) $(DESTDIR)$(LIBDIR) \
+> -               )
+> -
+> -.DEFAULT_GOAL: all
+> -.PHONY: all
+> -all: $(EXES) $(LIBS)
+> diff --git a/cmake/sdbus.cmake b/cmake/sdbus.cmake
+> new file mode 100644
+> index 0000000..90806f3
+> --- /dev/null
+> +++ b/cmake/sdbus.cmake
+> @@ -0,0 +1,16 @@
+> +find_library(SYSTEMD_LIBRARY systemd)
+> +if(NOT SYSTEMD_LIBRARY)
+> +    message(FATAL_ERROR "Cannot find libsystemd.")
+> +endif(NOT SYSTEMD_LIBRARY)
+> +
+> +find_path(SYSTEMD_SDBUS_INCLUDE "systemd/sd-bus.h")
+> +if(NOT SYSTEMD_SDBUS_INCLUDE)
+> +    message(FATAL_ERROR "Cannot find sd-bus.h, libsystemd doesn't support?")
+> +endif(NOT SYSTEMD_SDBUS_INCLUDE)
+> +include_directories(${SYSTEMD_SDBUS_INCLUDE})
+> +
+> +INCLUDE (CheckLibraryExists)
+> +CHECK_LIBRARY_EXISTS(systemd sd_bus_open SYSTEMD_LIBRARY SYSTEMD_HAVE_SDBUS)
+> +if(NOT SYSTEMD_HAVE_SDBUS)
+> +    message(FATAL_ERROR "libsystemd doesn't support sdbus functions.")
+> +endif(NOT SYSTEMD_HAVE_SDBUS)
+> --
+> 2.7.1
+>
+>
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
