@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id D5C401A0225
- for <openbmc@lists.ozlabs.org>; Tue,  8 Mar 2016 08:40:55 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 575781A02A0
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Mar 2016 08:41:00 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 145738623338278.54516913425334;
- Mon, 7 Mar 2016 13:30:33 -0800 (PST)
+ with SMTPS id 1457386242986238.02822048893188;
+ Mon, 7 Mar 2016 13:30:42 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v2 10/34] update: Read whitelist from the
- /run/initramfs directory
-Date: Mon,  7 Mar 2016 15:29:59 -0600
-Message-Id: <1457386223-5725-11-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v2 22/34] init: Run from RAM if file system type is
+ specified as none
+Date: Mon,  7 Mar 2016 15:30:11 -0600
+Message-Id: <1457386223-5725-23-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1457386223-5725-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1457386223-5725-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,59 +29,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Mar 2016 21:40:56 -0000
+X-List-Received-Date: Mon, 07 Mar 2016 21:41:00 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-Find the whitelist under /run/initramfs directory instead of
-looking in root directory.  This results in the whitelist always
-existing and being the same instance (copy) in all environments.
+Allow file system type none for rwfst, which means do not mount a
+separate file system but just use the directory in the tmpfs /run.
 
-Currently the update script is invoked from two places: from
-shutdown, where systemd bind-mounted the initramfs directory on
-itself and made it root (with its parent /run mounted underneath
-it in a twist), and from the initramfs init script where it
-copied the files from its root directory into the /run/initramfs
-directory for use at shutdown time when the original rootfs is
-no longer reachable.
+This will be used to allow the flash controller to not be used by
+the running image, allowing flash updates while the BMC is running
+the main application.
 
-By looking under /run/initramfs we will always look at one copy
-of the whitelist.  This will also allow future modes where the
-update script can be invoked while running from a copies of
-the file systems located in RAM.
+It could also be used for a file system less prone to corruption
+where the read-write overlay is only updated with whitelisted files
+at specific points in time with updates to the update script.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh      | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh      | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index f40a546..efdd913 100755
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -63,6 +63,9 @@ doclean=
- dosave=y
- dorestore=y
- 
-+whitelist=/run/initramfs/whitelist
-+image=/run/initramfs/image-
-+
- while test "$1" != "${1#-}"
- do
- 	case "$1" in
-@@ -104,12 +107,11 @@ then
- 		d="$save/$f"
- 		mkdir -p "${d%/*}"
- 		cp -rp $upper/$f "${d%/*}/"
--	done < whitelist
-+	done < $whitelist
- 
- 	umount $rwdir
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+index d4d2cc1..89e4538 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+@@ -183,12 +183,16 @@ then
+ 	then
+ 		debug_takeover "fsck of read-write fs on $rwdev failed (rc=$rc)"
+ 	fi
+-elif test "$rwfst" != jffs2
++elif test "$rwfst" != jffs2 -a "$rwfst" != none
+ then
+ 	echo "No '$fsck' in read only fs, skipping fsck."
  fi
  
--image=/run/initramfs/image-
- for f in $image*
- do
- 	m=$(findmtd ${f#$image})
+-if ! mount $rwdev $rwdir -t $rwfst -o $rwopts
++if test "$rwfst" = none
++then
++	echo "Running with read-write overlay in RAM for this boot."
++	echo "No state will be preserved unless flash update performed."
++elif ! mount $rwdev $rwdir -t $rwfst -o $rwopts
+ then
+ 	msg="$(cat)" << HERE
+ 
 -- 
 2.7.1
