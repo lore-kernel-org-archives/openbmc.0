@@ -3,16 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 8AEE61A02A0
- for <openbmc@lists.ozlabs.org>; Tue,  8 Mar 2016 08:30:44 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4D3411A0312
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Mar 2016 08:30:45 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1457386240591218.27303424808417;
- Mon, 7 Mar 2016 13:30:40 -0800 (PST)
+ with SMTPS id 145738624136549.533376659534156;
+ Mon, 7 Mar 2016 13:30:41 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v2 19/34] init: Read options from a file
-Date: Mon,  7 Mar 2016 15:30:08 -0600
-Message-Id: <1457386223-5725-20-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v2 20/34] init: Use image of read only file system in
+ RAM if present
+Date: Mon,  7 Mar 2016 15:30:09 -0600
+Message-Id: <1457386223-5725-21-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1457386223-5725-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1457386223-5725-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -32,48 +33,34 @@ X-List-Received-Date: Mon, 07 Mar 2016 21:30:45 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-Grep options from a file instead of directly from /proc/cmdline
-which will allow additonal sources for options.
+If a read-only file system image is in /run, specifically
+/run/image-rofs, then mount it instead of the mtd partition.
 
-Initially the options file is just a copy of the kernel command
-line, but it may be edited at debug-init-sh or via a later
-debug_takeover point or before restarting init.
+This will allow running from ram to allow the flash to be updated,
+either from a downloaded image, a packaged image, or an image
+copied at boot.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh   | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ .../common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-index 12c5a2f..d3b4b9f 100644
+index d3b4b9f..538299e 100644
 --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
 +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-@@ -101,10 +101,16 @@ init=/sbin/init
- fsckbase=/sbin/fsck.
- fsck=$fsckbase$rwfst
- fsckopts=-a
-+optfile=/run/initramfs/init-options
-+
-+if test ! -f $optfile
+@@ -159,6 +159,12 @@ then
+ 	fsck=$fsckbase$rwfst
+ fi
+ 
++if test -s /run/image-rofs
 +then
-+	cat /proc/cmdline > $optfile
++	rodev=/run/image-rofs
++	roopts=$roopts,loop
 +fi
++
+ mount $rodev $rodir -t $rofst -o $roopts
  
- echo rofs = $rofs $rofst   rwfs = $rwfs $rwfst
- 
--if grep -w debug-init-sh /proc/cmdline
-+if grep -w debug-init-sh $optfile
- then
- 	debug_takeover "Debug initial shell requested by command line."
- fi
-@@ -118,7 +124,7 @@ then
- 	mv /${imagebasename}* ${image%$imagebasename}
- fi
- 
--if grep -w clean-rwfs-filesystem /proc/cmdline
-+if grep -w clean-rwfs-filesystem $optfile
- then
- 	echo "Cleaning of read-write overlay filesystem requested."
- 	touch $trigger
+ if test -x $rodir$fsck
 -- 
 2.7.1
