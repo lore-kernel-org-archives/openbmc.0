@@ -3,16 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 1A4CA1A0324
- for <openbmc@lists.ozlabs.org>; Tue,  8 Mar 2016 08:41:07 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 7BC6F1A03DF
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Mar 2016 08:41:14 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 145738624865813.916091631215636;
- Mon, 7 Mar 2016 13:30:48 -0800 (PST)
+ with SMTPS id 1457386251045760.485137981036;
+ Mon, 7 Mar 2016 13:30:51 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v2 29/34] init: Look for options in u-boot environment
-Date: Mon,  7 Mar 2016 15:30:18 -0600
-Message-Id: <1457386223-5725-30-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v2 32/34] initfs: Install option and download files if
+ they exist
+Date: Mon,  7 Mar 2016 15:30:21 -0600
+Message-Id: <1457386223-5725-33-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1457386223-5725-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1457386223-5725-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,69 +29,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Mar 2016 21:41:08 -0000
+X-List-Received-Date: Mon, 07 Mar 2016 21:41:15 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-Look in the saved u-boot environment for init options in addition
-to the kernel command line.  This allows setting options to run
-in the u-boot environment instead of setting bootargs.
+Install the init-option and init-download-url if they exist in
+the build directory.
 
-Look at specific variables but not the whole environment so that
-users can setup variable to run.  Look at two variables so scripts
-can automatically clear one on successful boot as one-time options
-(defer that to the full filesystem).
-
-Instead of having the full fw_setenv / fw_getenv binaries which
-would overflow the existing space for the initramfs, just use the
-busybox strings command to extract the variables.  The oldest
-variable might get a crc32 character or flag byte if redundant
-environment were configured for nand but that is not expected
-to be these user defined variables.
-
-[1] The environment consists of a crc32, a flag byte if a
-redundant environment is configured, then a series of var=value
-strings separated by NUL bytes.  The flag byte is 1 (active) or 0
-(obsolete) for NOR flash, or a counter 0-255 in nand, the flag
-byte cycles through 0-255.
+This change to the bitbake recipe allows an override layer to
+simply add these files to the SRC_URI variable and then have them
+appear in the initramfs.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../obmc-phosphor-initfs/files/obmc-init.sh               | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ .../recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb   | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-index 9aa2131..29c72cf 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-@@ -44,6 +44,19 @@ probe_fs_type() {
- 	echo ${fst:=jffs2}
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb
+index 68ee00d..3fa88c9 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb
+@@ -12,6 +12,13 @@ SRC_URI += "file://obmc-update.sh"
+ SRC_URI += "file://whitelist"
+ 
+ do_install() {
++	for f in init-download-url init-options
++	do
++		if test -e $f
++		then
++			install -m 0755 ${WORKDIR}/$f ${D}/$f
++		fi
++	done
+         install -m 0755 ${WORKDIR}/obmc-init.sh ${D}/init
+         install -m 0755 ${WORKDIR}/obmc-shutdown.sh ${D}/shutdown
+         install -m 0755 ${WORKDIR}/obmc-update.sh ${D}/update
+@@ -21,3 +28,4 @@ do_install() {
  }
  
-+# This fw_get_env_var is a simple but slightly broken version of fw_printenv:
-+# The u-boot environemnt starts with a crc32, followed by a flag byte
-+# when a redundannt environment is configured, followed by var=value\0 sets.
-+# The flag byte for nand is a 1 byte counter; for nor it is a 1 or 0 byte.
-+# The crc and/or nand flag byte can contain printable characters and be
-+# considered part of the first string and parsed as part of the variable
-+# name.  In addition a variable could have a "\n" embedded in it, this code
-+# would split that variable.  Ignore for now, the last set var is at the end.
-+
-+get_fw_env_var() {
-+	strings /run/fw_env | sed -ne "s/^$1=//p"
-+}
-+
- debug_takeover() {
- 	echo "$@"
- 	test -n "$@" && echo Enter password to try to manually fix.
-@@ -107,6 +120,8 @@ update=/run/initramfs/update
- if test ! -f $optfile
- then
- 	cat /proc/cmdline > $optfile
-+	get_fw_env_var openbmcinit >> $optfile
-+	get_fw_env_var openbmconce >> $optfile
- fi
- 
- echo rofs = $rofs $rofst   rwfs = $rwfs $rwfst
+ FILES_${PN} += " /init /shutdown /update /whitelist /dev "
++FILES_${PN} += " /init-options /init-download-url "
 -- 
 2.7.1
