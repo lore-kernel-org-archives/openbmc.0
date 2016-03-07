@@ -3,17 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 283221A0312
+ by lists.ozlabs.org (Postfix) with ESMTPS id 8AEE61A02A0
  for <openbmc@lists.ozlabs.org>; Tue,  8 Mar 2016 08:30:44 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1457386235780901.053713316854;
- Mon, 7 Mar 2016 13:30:35 -0800 (PST)
+ with SMTPS id 1457386240591218.27303424808417;
+ Mon, 7 Mar 2016 13:30:40 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v2 13/34] update: Make cow directory before restoring
- saved files.
-Date: Mon,  7 Mar 2016 15:30:02 -0600
-Message-Id: <1457386223-5725-14-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v2 19/34] init: Read options from a file
+Date: Mon,  7 Mar 2016 15:30:08 -0600
+Message-Id: <1457386223-5725-20-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1457386223-5725-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1457386223-5725-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,30 +28,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Mar 2016 21:30:44 -0000
+X-List-Received-Date: Mon, 07 Mar 2016 21:30:45 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-This will ensure the cp command always writes to an existing
-directory but will also make any future component directories if
-the upper directory is later moved from the root of the filesystem.
+Grep options from a file instead of directly from /proc/cmdline
+which will allow additonal sources for options.
+
+Initially the options file is just a copy of the kernel command
+line, but it may be edited at debug-init-sh or via a later
+debug_takeover point or before restarting init.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh    | 1 +
- 1 file changed, 1 insertion(+)
+ .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh   | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index cab33e9..1a11953 100755
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -138,6 +138,7 @@ then
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+index 12c5a2f..d3b4b9f 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+@@ -101,10 +101,16 @@ init=/sbin/init
+ fsckbase=/sbin/fsck.
+ fsck=$fsckbase$rwfst
+ fsckopts=-a
++optfile=/run/initramfs/init-options
++
++if test ! -f $optfile
++then
++	cat /proc/cmdline > $optfile
++fi
  
- 	mkdir -p $rwdir
- 	mount $rwdev $rwdir -t $(probe_fs_type $rwdev) -o $rwopts
-+	mkdir -p $upper
- 	cp -rp $save/. $upper/
- 	umount $rwdir
- 	rmdir $rwdir
+ echo rofs = $rofs $rofst   rwfs = $rwfs $rwfst
+ 
+-if grep -w debug-init-sh /proc/cmdline
++if grep -w debug-init-sh $optfile
+ then
+ 	debug_takeover "Debug initial shell requested by command line."
+ fi
+@@ -118,7 +124,7 @@ then
+ 	mv /${imagebasename}* ${image%$imagebasename}
+ fi
+ 
+-if grep -w clean-rwfs-filesystem /proc/cmdline
++if grep -w clean-rwfs-filesystem $optfile
+ then
+ 	echo "Cleaning of read-write overlay filesystem requested."
+ 	touch $trigger
 -- 
 2.7.1
