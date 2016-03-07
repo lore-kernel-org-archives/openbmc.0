@@ -3,16 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 28BCF1A02EE
- for <openbmc@lists.ozlabs.org>; Tue,  8 Mar 2016 08:30:49 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 500C81A0367
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Mar 2016 08:30:50 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1457386239792377.72391933576796;
- Mon, 7 Mar 2016 13:30:39 -0800 (PST)
+ with SMTPS id 1457386246184430.8731810295234;
+ Mon, 7 Mar 2016 13:30:46 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v2 18/34] update: Skip calling flashcp for empty files
-Date: Mon,  7 Mar 2016 15:30:07 -0600
-Message-Id: <1457386223-5725-19-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v2 26/34] init: Be explicit about saving and restoring
+ files.
+Date: Mon,  7 Mar 2016 15:30:15 -0600
+Message-Id: <1457386223-5725-27-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1457386223-5725-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1457386223-5725-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -32,38 +33,38 @@ X-List-Received-Date: Mon, 07 Mar 2016 21:30:50 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-Note explicitly when an empty image is provided that will not
-alter a flash partition.
-
-While using flashcp on an empty file succeeds and does not alter
-the flash, it may be confusing to see 0/0 messages for the erase,
-write, and verify phases.
-
-These empty files are used to trigger the save and restore phases
-and may also be used by developers to cause the update to fail
-and break into a shell at shutdown for maintence.
+When calling update for save and restore phases be explicitly tell
+update to clean saved files when we are done and not bother trying
+to save or restore when we know we will do a split save, erase, and
+restore sequence.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh      | 6 ++++++
- 1 file changed, 6 insertions(+)
+ .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh       | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index edaf195..aa8fd89 100755
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -136,6 +136,12 @@ done
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+index f6a6b7b..469beaf 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+@@ -149,15 +149,14 @@ then
+ 	elif test -f $trigger -a ! -s $trigger
+ 	then
+ 		echo "Saving selected files from read-write overlay filesystem."
+-		/update && rm -f $image*
++		/update --no-restore-files
+ 		echo "Clearing read-write overlay filesystem."
+ 		flash_eraseall /dev/$rwfs
+ 		echo "Restoring saved files to read-write overlay filesystem."
+ 		touch $trigger
+-		/update 
+-		rm -rf /save $trigger
++		/update --no-save-files --clean-saved-files
+ 	else
+-		/update && rm -f $image*
++		/update --clean-saved-files
+ 	fi
  
- for f in $image*
- do
-+	if test ! -s $f
-+	then
-+		echo "Skipping empty update of ${f#$image}."
-+		rm $f
-+		continue
-+	fi
- 	m=$(findmtd ${f#$image})
- 	echo "Updating ${f#$image}..."
- 	flashcp -v $f /dev/$m && rm $f
+ 	rwfst=$(probe_fs_type $rwdev)
 -- 
 2.7.1
