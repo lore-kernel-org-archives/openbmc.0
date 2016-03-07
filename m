@@ -3,16 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 229651A0341
- for <openbmc@lists.ozlabs.org>; Tue,  8 Mar 2016 08:30:47 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 5CCBB1A02B5
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Mar 2016 08:30:48 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1457386243768971.0201815449598;
- Mon, 7 Mar 2016 13:30:43 -0800 (PST)
+ with SMTPS id 14573862445511014.5511280951818;
+ Mon, 7 Mar 2016 13:30:44 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v2 23/34] init: Always move images from root
-Date: Mon,  7 Mar 2016 15:30:12 -0600
-Message-Id: <1457386223-5725-24-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v2 24/34] init: Add option to run with writable
+ overlay in RAM
+Date: Mon,  7 Mar 2016 15:30:13 -0600
+Message-Id: <1457386223-5725-25-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1457386223-5725-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1457386223-5725-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -32,46 +33,29 @@ X-List-Received-Date: Mon, 07 Mar 2016 21:30:48 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-If images are to be updated before init continue to move them
-to /run/initramfs.  However, if they are not to be flashed before
-init instead move them to /run.
-
-This will result in the image-rofs being loop mounted for this run,
-and all images will be available at runtime for flash update at
-runtime.
+If overlay-filesystem-in-ram is found set rwfst=none suppressing
+the rwfs mount.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../obmc-phosphor-initfs/files/obmc-init.sh               | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ .../common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh  | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-index 89e4538..7953176 100644
+index 7953176..2e8467c 100644
 --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
 +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-@@ -115,13 +115,18 @@ then
- 	debug_takeover "Debug initial shell requested by command line."
+@@ -164,6 +164,11 @@ then
+ 	fsck=$fsckbase$rwfst
  fi
  
--# If there are images in root move them to run/initramfs/ now.
-+# If there are images in root move them to /run/initramfs/ or /run/ now.
- imagebasename=${image##*/}
--if test -n "${imagebasename}" -a "x$flash_images_before_init" = xy &&
--	ls /${imagebasename}* > /dev/null 2>&1
-+if test -n "${imagebasename}" && ls /${imagebasename}* > /dev/null 2>&1
++if grep -w overlay-filesystem-in-ram $optfile
++then
++	rwfst=none
++fi
++
+ if test -s /run/image-rofs
  then
--	echo "Pending flash updates found."
--	mv /${imagebasename}* ${image%$imagebasename}
-+	if test "x$flash_images_before_init" = xy
-+	then
-+		echo "Flash images found, will update before starting init."
-+		mv /${imagebasename}* ${image%$imagebasename}
-+	else
-+		echo "Flash images found, will use but deferring flash update."
-+		mv /${imagebasename}* /run/
-+	fi
- fi
- 
- if grep -w clean-rwfs-filesystem $optfile
+ 	rodev=/run/image-rofs
 -- 
 2.7.1
