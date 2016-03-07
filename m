@@ -3,17 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 1401C1A0341
- for <openbmc@lists.ozlabs.org>; Tue,  8 Mar 2016 08:30:46 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 229651A0341
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Mar 2016 08:30:47 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1457386242141623.0511630233947;
- Mon, 7 Mar 2016 13:30:42 -0800 (PST)
+ with SMTPS id 1457386243768971.0201815449598;
+ Mon, 7 Mar 2016 13:30:43 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v2 21/34] init: Suppress fsck command not present
- error by file system type
-Date: Mon,  7 Mar 2016 15:30:10 -0600
-Message-Id: <1457386223-5725-22-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v2 23/34] init: Always move images from root
+Date: Mon,  7 Mar 2016 15:30:12 -0600
+Message-Id: <1457386223-5725-24-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1457386223-5725-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1457386223-5725-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,32 +28,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Mar 2016 21:30:47 -0000
+X-List-Received-Date: Mon, 07 Mar 2016 21:30:48 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-Decide lack of fsck is not a problem by the type of the rwfs image
-instead of the full name of the fsck command.  This eliminates
-duplicates knowledge of how the fsck path is formed.
+If images are to be updated before init continue to move them
+to /run/initramfs.  However, if they are not to be flashed before
+init instead move them to /run.
 
-Suggested-by: Andrew Jeffery <andrew@aj.id.au>
+This will result in the image-rofs being loop mounted for this run,
+and all images will be available at runtime for flash update at
+runtime.
+
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh     | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../obmc-phosphor-initfs/files/obmc-init.sh               | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
 diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-index 538299e..d4d2cc1 100644
+index 89e4538..7953176 100644
 --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
 +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-@@ -183,7 +183,7 @@ then
- 	then
- 		debug_takeover "fsck of read-write fs on $rwdev failed (rc=$rc)"
- 	fi
--elif test $fsck != /sbin/fsck.jffs2
-+elif test "$rwfst" != jffs2
- then
- 	echo "No '$fsck' in read only fs, skipping fsck."
+@@ -115,13 +115,18 @@ then
+ 	debug_takeover "Debug initial shell requested by command line."
  fi
+ 
+-# If there are images in root move them to run/initramfs/ now.
++# If there are images in root move them to /run/initramfs/ or /run/ now.
+ imagebasename=${image##*/}
+-if test -n "${imagebasename}" -a "x$flash_images_before_init" = xy &&
+-	ls /${imagebasename}* > /dev/null 2>&1
++if test -n "${imagebasename}" && ls /${imagebasename}* > /dev/null 2>&1
+ then
+-	echo "Pending flash updates found."
+-	mv /${imagebasename}* ${image%$imagebasename}
++	if test "x$flash_images_before_init" = xy
++	then
++		echo "Flash images found, will update before starting init."
++		mv /${imagebasename}* ${image%$imagebasename}
++	else
++		echo "Flash images found, will use but deferring flash update."
++		mv /${imagebasename}* /run/
++	fi
+ fi
+ 
+ if grep -w clean-rwfs-filesystem $optfile
 -- 
 2.7.1
