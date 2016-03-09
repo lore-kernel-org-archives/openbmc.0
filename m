@@ -1,25 +1,55 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <stewart@linux.vnet.ibm.com>
+Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id C86EB1A004C
- for <openbmc@lists.ozlabs.org>; Wed,  9 Mar 2016 16:00:29 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1457499627262924.1268841822289;
- Tue, 8 Mar 2016 21:00:27 -0800 (PST)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Cc: Chris Smart <distroguy@gmail.com>
-Subject: [PATCH openbmc-build-scripts v2 2/2] fix: Dockerfile remove timestamp
- from apt-get/dnf calls altogether and put on one line so that a new package
- pulls in new everything
-Date: Tue,  8 Mar 2016 23:00:24 -0600
-Message-Id: <1457499624-3653-3-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1457499624-3653-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1457499624-3653-1-git-send-email-openbmc-patches@stwcx.xyz>
-X-Zoho-Virus-Status: 1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 1E3FE1A0060
+ for <openbmc@lists.ozlabs.org>; Wed,  9 Mar 2016 16:25:48 +1100 (AEDT)
+Received: from localhost
+ by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
+ Tue, 8 Mar 2016 22:25:46 -0700
+Received: from d03dlp01.boulder.ibm.com (9.17.202.177)
+ by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 8 Mar 2016 22:25:43 -0700
+X-IBM-Helo: d03dlp01.boulder.ibm.com
+X-IBM-MailFrom: stewart@linux.vnet.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from b03cxnp08027.gho.boulder.ibm.com
+ (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
+ by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id A8BA51FF001E
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Mar 2016 22:13:52 -0700 (MST)
+Received: from d03av05.boulder.ibm.com (d03av05.boulder.ibm.com [9.17.195.85])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with
+ ESMTP id u295Ph6B33751134
+ for <openbmc@lists.ozlabs.org>; Tue, 8 Mar 2016 22:25:43 -0700
+Received: from d03av05.boulder.ibm.com (localhost [127.0.0.1])
+ by d03av05.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u295Pgsr023276
+ for <openbmc@lists.ozlabs.org>; Tue, 8 Mar 2016 22:25:42 -0700
+Received: from birb.localdomain ([9.81.200.75])
+ by d03av05.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with SMTP id
+ u295PWIE022784; Tue, 8 Mar 2016 22:25:41 -0700
+Received: by birb.localdomain (Postfix, from userid 1000)
+ id 12530229DB26; Wed,  9 Mar 2016 16:25:30 +1100 (AEDT)
+From: Stewart Smith <stewart@linux.vnet.ibm.com>
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+Cc: Norman James <nkskjames@gmail.com>
+Subject: Re: [PATCH phosphor-host-ipmid v2] DCMI GET_POWER_LEVEL bad return
+ code
+In-Reply-To: <1457453438-9977-2-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1457453438-9977-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1457453438-9977-2-git-send-email-openbmc-patches@stwcx.xyz>
+User-Agent: Notmuch/0.21+24~gbceb651 (http://notmuchmail.org) Emacs/24.5.1
+ (x86_64-redhat-linux-gnu)
+Date: Wed, 09 Mar 2016 16:25:30 +1100
+Message-ID: <87io0w9q9h.fsf@linux.vnet.ibm.com>
+MIME-Version: 1.0
+Content-Type: text/plain
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16030905-8236-0000-0000-000016F88861
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -31,272 +61,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Mar 2016 05:00:30 -0000
+X-List-Received-Date: Wed, 09 Mar 2016 05:25:49 -0000
 
-From: Chris Smart <distroguy@gmail.com>
+OpenBMC Patches <openbmc-patches@stwcx.xyz> writes:
 
----
- build-setup.sh           | 48 ++++++++++++++++++++++++++++++++++---------
- initramfs-build.sh       | 18 +++++++++++-----
- kernel-build-setup.sh    | 31 ++++++++++++++++++++--------
- kernel-build.sh          | 25 +++++++++++++----------
- openpower-build-setup.sh | 53 +++++++++++++++++++++++++++++++++++++-----------
- 5 files changed, 128 insertions(+), 47 deletions(-)
+> From: Norman James <njames@us.ibm.com>
+>
+> This function uses static data and should always
+> return a good return code.  This was causing OCC
+> not to start.
+>
+> Signed-off-by: Norman James <nkskjames@gmail.com>
+> ---
+>  dcmihandler.C | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/dcmihandler.C b/dcmihandler.C
+> index fafebdc..5e7d879 100644
+> --- a/dcmihandler.C
+> +++ b/dcmihandler.C
+> @@ -11,7 +11,7 @@ ipmi_ret_t ipmi_dcmi_get_power_limit(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+>                                ipmi_request_t request, ipmi_response_t response, 
+>                                ipmi_data_len_t data_len, ipmi_context_t context)
+>  {
+> -    ipmi_ret_t rc = IPMI_DCMI_CC_NO_ACTIVE_POWER_LIMIT;
+> +    ipmi_ret_t rc = 0;
+>  
+>      // dcmi-v1-5-rev-spec.pdf 6.6.2.
 
-diff --git a/build-setup.sh b/build-setup.sh
-index d777906..b899d56 100755
---- a/build-setup.sh
-+++ b/build-setup.sh
-@@ -48,10 +48,28 @@ FROM fedora:latest
- 
- ${PROXY}
- 
--# change datestamp below to force a cache refresh
--RUN echo 201603091439 && dnf --refresh upgrade -y
--RUN dnf install -y git subversion gcc gcc-c++ make perl-Thread-Queue perl-Data-Dumper diffstat texinfo \
--chrpath wget SDL-devel patch bzip2 tar cpio findutils socat which python-devel perl-bignum
-+RUN dnf --refresh upgrade -y && dnf install -y \
-+	bzip2 \
-+	chrpath \
-+	cpio \
-+	diffstat \
-+	findutils \
-+	gcc \
-+	gcc-c++ \
-+	git \
-+	make \
-+	patch \
-+	perl-bignum \
-+	perl-Data-Dumper \
-+	perl-Thread-Queue \
-+	python-devel \
-+	SDL-devel \
-+	socat \
-+	subversion \
-+	tar \
-+	texinfo \
-+	wget \
-+	which
- 
- RUN grep -q ${GROUPS} /etc/group || groupadd -g ${GROUPS} ${USER}
- RUN grep -q ${UID} /etc/passwd || useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
-@@ -72,16 +90,26 @@ FROM ubuntu:latest
- 
- ${PROXY}
- 
--# update datestamp below to force a cache refresh
--RUN echo 201603091439 && apt-get update
--RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
--RUN DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential git subversion diffstat texinfo \
--  chrpath wget libthread-queue-any-perl libdata-dumper-simple-perl python libsdl1.2-dev gawk socat debianutils
-+ENV DEBIAN_FRONTEND noninteractive
-+RUN apt-get update && apt-get upgrade -yy && apt-get install -yy \
-+	build-essential \
-+	chrpath \
-+	debianutils \
-+	diffstat \
-+	gawk \
-+	git \
-+	libdata-dumper-simple-perl \
-+	libsdl1.2-dev \
-+	libthread-queue-any-perl \
-+	python \
-+	socat \
-+	subversion \
-+	texinfo \
-+	wget
- 
- RUN grep -q ${GROUPS} /etc/group || groupadd -g ${GROUPS} ${USER}
- RUN grep -q ${UID} /etc/passwd || useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
- 
--
- USER ${USER}
- ENV HOME ${HOME}
- RUN /bin/bash
-diff --git a/initramfs-build.sh b/initramfs-build.sh
-index 26d4bcf..5ef7e63 100755
---- a/initramfs-build.sh
-+++ b/initramfs-build.sh
-@@ -23,11 +23,19 @@ FROM ubuntu:15.10
- 
- ${PROXY}
- 
--# update datestamp below to force a cache refresh
--RUN echo 201603091439 && apt-get update
--RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -yy
--RUN DEBIAN_FRONTEND=noninteractive apt-get install -yy bc build-essential cpio git python unzip wget
--RUN groupadd -g ${GROUPS} ${USER} && useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
-+ENV DEBIAN_FRONTEND noninteractive
-+RUN apt-get update && apt-get upgrade -yy && apt-get install -yy \
-+	bc \
-+	build-essential \
-+	cpio \
-+	git \
-+	python \
-+	unzip \
-+	wget
-+
-+RUN grep -q ${GROUPS} /etc/group || groupadd -g ${GROUPS} ${USER}
-+RUN grep -q ${UID} /etc/passwd || useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
-+
- RUN locale-gen en_AU.utf8
- 
- USER ${USER}
-diff --git a/kernel-build-setup.sh b/kernel-build-setup.sh
-index 056f902..c17c119 100755
---- a/kernel-build-setup.sh
-+++ b/kernel-build-setup.sh
-@@ -29,10 +29,18 @@ FROM fedora:latest
- 
- ${PROXY}
- 
--# update datestamp below to force a cache refresh
--RUN echo 201603091439 && dnf --refresh upgrade -y
--RUN dnf install -y bc findutils git gcc gcc-arm-linux-gnu hostname make uboot-tools xz
--RUN groupadd -g ${GROUPS} ${USER} && useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
-+RUN dnf --refresh upgrade -y && dnf install -y \
-+	bc \
-+	findutils \
-+	git \
-+	gcc \
-+	gcc-arm-linux-gnu \
-+	hostname \
-+	make \
-+	uboot-tools xz
-+
-+RUN grep -q ${GROUPS} /etc/group || groupadd -g ${GROUPS} ${USER}
-+RUN grep -q ${UID} /etc/passwd || useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
- 
- USER ${USER}
- ENV HOME ${HOME}
-@@ -50,11 +58,16 @@ FROM ubuntu:latest
- 
- ${PROXY}
- 
--# update datestamp below to force a cache refresh
--RUN echo 201603091439 && apt-get update
--RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -yy
--RUN DEBIAN_FRONTEND=noninteractive apt-get install -yy bc build-essential git gcc-arm-none-eabi u-boot-tools
--RUN groupadd -g ${GROUPS} ${USER} && useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
-+ENV DEBIAN_FRONTEND noninteractive
-+RUN apt-get update && apt-get upgrade -yy && apt-get install -yy \
-+	bc \
-+	build-essential \
-+	git \
-+	gcc-arm-none-eabi \
-+	u-boot-tools
-+
-+RUN grep -q ${GROUPS} /etc/group || groupadd -g ${GROUPS} ${USER}
-+RUN grep -q ${UID} /etc/passwd || useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
- 
- USER ${USER}
- ENV HOME ${HOME}
-diff --git a/kernel-build.sh b/kernel-build.sh
-index a48bea7..141d490 100755
---- a/kernel-build.sh
-+++ b/kernel-build.sh
-@@ -23,17 +23,20 @@ FROM ubuntu:15.10
- 
- ${PROXY}
- 
--# update datestamp below to force a cache refresh
--RUN echo 201603091439 && apt-get update
--RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -yy
--RUN DEBIAN_FRONTEND=noninteractive apt-get install -yy bc build-essential git gcc-powerpc64le-linux-gnu
--RUN DEBIAN_FRONTEND=noninteractive apt-get install -yy software-properties-common
--RUN apt-add-repository -y multiverse
--# If we need to fetch new apt repo data, update the timestamp
--RUN echo 201603031716 && apt-get update
--RUN apt-get update
--RUN DEBIAN_FRONTEND=noninteractive apt-get install -yy dwarves sparse
--RUN groupadd -g ${GROUPS} ${USER} && useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
-+ENV DEBIAN_FRONTEND noninteractive 
-+RUN apt-get update && apt-get upgrade -yy && apt-get install -yy \
-+	bc \
-+	build-essential \
-+	git \
-+	gcc-powerpc64le-linux-gnu \
-+	software-properties-common
-+
-+RUN apt-add-repository -y multiverse && apt-get update && apt-get install -yy \
-+	dwarves \
-+	sparse
-+
-+RUN grep -q ${GROUPS} /etc/group || groupadd -g ${GROUPS} ${USER}
-+RUN grep -q ${UID} /etc/passwd || useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
- 
- USER ${USER}
- ENV HOME ${HOME}
-diff --git a/openpower-build-setup.sh b/openpower-build-setup.sh
-index 9ef0f2c..47dfa32 100755
---- a/openpower-build-setup.sh
-+++ b/openpower-build-setup.sh
-@@ -25,10 +25,21 @@ if [[ "${distro}" == fedora ]];then
-   Dockerfile=$(cat << EOF
- FROM fedora:latest
- 
--RUN dnf --refresh upgrade -y && \
--	dnf install -y vim gcc-c++ flex bison git ctags cscope expat-devel \
--	patch zlib-devel zlib-static perl
--RUN groupadd -g ${GROUPS} ${USER} && useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
-+RUN dnf --refresh upgrade -y && dnf install -y \
-+	vim \
-+	gcc-c++ \
-+	flex \
-+	bison \
-+	git \
-+	ctags \
-+  	cscope \
-+	expat-devel \
-+	patch \
-+	zlib-devel \
-+	zlib-static perl
-+
-+RUN grep -q ${GROUPS} /etc/group || groupadd -g ${GROUPS} ${USER}
-+RUN grep -q ${UID} /etc/passwd || useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
- 
- USER ${USER}
- ENV HOME ${HOME}
-@@ -42,14 +53,32 @@ elif [[ "${distro}" == ubuntu ]]; then
- FROM ubuntu:15.10
- 
- ENV DEBIAN_FRONTEND noninteractive
--# update datestamp below to force a cache refresh
--RUN echo 201603091439 && apt-get update
--RUN apt-get install -y \
--	cscope ctags libz-dev libexpat-dev python language-pack-en texinfo \
--	build-essential g++ git bison flex unzip libxml-simple-perl \
--	libxml-sax-perl libxml2-dev libxml2-utils xsltproc wget cpio bc \
--	vim-common
--RUN groupadd -g ${GROUPS} ${USER} && useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
-+RUN apt-get update && apt-get upgrade -yy && apt-get install -yy \
-+	bc \
-+	bison \
-+	build-essential \
-+	cscope \
-+       	cpio \
-+	ctags \
-+	flex \
-+	g++ \
-+	git \
-+	libexpat-dev \
-+	libz-dev \
-+	libxml-sax-perl \
-+	libxml-simple-perl \
-+	libxml2-dev \
-+	libxml2-utils \
-+	language-pack-en \
-+	python \
-+	texinfo \
-+	unzip \
-+	vim-common \
-+	wget\
-+	xsltproc
-+
-+RUN grep -q ${GROUPS} /etc/group || groupadd -g ${GROUPS} ${USER}
-+RUN grep -q ${UID} /etc/passwd || useradd -d ${HOME} -m -u ${UID} -g ${GROUPS} ${USER}
- 
- USER ${USER}
- ENV HOME ${HOME}
+Shouldn't the value of rc be something that is an ipmi_ret_t ?
+
+>      // This is good enough for OpenBMC support for OpenPOWER based systems
+> @@ -37,4 +37,3 @@ void register_netfn_dcmi_functions()
+>      ipmi_register_callback(NETFUN_GRPEXT, IPMI_CMD_DCMI_GET_POWER, NULL, ipmi_dcmi_get_power_limit);
+>      return;
+>  }
+> -// 956379
+> \ No newline at end of file
+
+Above hunk is irrelevant.
+
 -- 
-2.7.1
+Stewart Smith
+OPAL Architect, IBM.
