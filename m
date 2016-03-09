@@ -1,76 +1,76 @@
 Return-Path: <vishwanath@in.ibm.com>
-Received: from e28smtp07.in.ibm.com (e28smtp07.in.ibm.com [125.16.236.7])
+Received: from e28smtp09.in.ibm.com (e28smtp09.in.ibm.com [125.16.236.9])
  (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id A0F181A010D
- for <openbmc@lists.ozlabs.org>; Wed,  9 Mar 2016 16:54:43 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id D5C121A0007
+ for <openbmc@lists.ozlabs.org>; Wed,  9 Mar 2016 17:09:59 +1100 (AEDT)
 Received: from localhost
- by e28smtp07.in.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e28smtp09.in.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <vishwanath@in.ibm.com>;
- Wed, 9 Mar 2016 11:24:40 +0530
+ Wed, 9 Mar 2016 11:39:57 +0530
 Received: from d28relay05.in.ibm.com (9.184.220.62)
- by e28smtp07.in.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway:
+ by e28smtp09.in.ibm.com (192.168.1.139) with IBM ESMTP SMTP Gateway:
  Authorized Use Only! Violators will be prosecuted; 
- Wed, 9 Mar 2016 11:24:37 +0530
+ Wed, 9 Mar 2016 11:39:56 +0530
 X-IBM-Helo: d28relay05.in.ibm.com
 X-IBM-MailFrom: vishwanath@in.ibm.com
 X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from d50lp32.co.us.ibm.com (d50lp32.boulder.ibm.com [9.17.249.36])
+Received: from e39.co.us.ibm.com (e39.boulder.ibm.com [9.17.249.49])
  by d28relay05.in.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u295sMrT21365036
- for <openbmc@lists.ozlabs.org>; Wed, 9 Mar 2016 11:24:24 +0530
-Message-Id: <201603090554.u295sMrT21365036@d28relay05.in.ibm.com>
+ u2969XFJ20775402
+ for <openbmc@lists.ozlabs.org>; Wed, 9 Mar 2016 11:39:36 +0530
+Message-Id: <201603090609.u2969XFJ20775402@d28relay05.in.ibm.com>
 Received: from localhost
- by d50lp32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e39.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <vishwanath@in.ibm.com>;
- Tue, 8 Mar 2016 22:54:35 -0700
-Received: from smtp.notes.na.collabserv.com (192.155.248.91)
- by d50lp32.co.us.ibm.com (192.168.2.143) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Tue, 8 Mar 2016 22:54:33 -0700
+ Tue, 8 Mar 2016 23:09:46 -0700
+Received: from smtp.notes.na.collabserv.com (192.155.248.67)
+ by e39.co.us.ibm.com (192.168.2.139) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
+ Tue, 8 Mar 2016 23:09:44 -0700
 X-IBM-Helo: smtp.notes.na.collabserv.com
 X-IBM-MailFrom: vishwanath@in.ibm.com
 X-IBM-RcptTo: openbmc@lists.ozlabs.org
 Received: from /spool/local
  by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
  for <openbmc@lists.ozlabs.org> from <vishwanath@in.ibm.com>;
- Wed, 9 Mar 2016 05:54:32 -0000
-Received: from us1a3-smtp01.a3.dal06.isc4sb.com (10.106.154.95)
- by smtp.notes.na.collabserv.com (10.106.227.143) with
- smtp.notes.na.collabserv.com ESMTP; Wed, 9 Mar 2016 05:54:31 -0000
+ Wed, 9 Mar 2016 06:09:43 -0000
+Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
+ by smtp.notes.na.collabserv.com (10.106.227.16) with
+ smtp.notes.na.collabserv.com ESMTP; Wed, 9 Mar 2016 06:09:42 -0000
 Received: from us1a3-mail58.a3.dal09.isc4sb.com ([10.142.3.114])
- by us1a3-smtp01.a3.dal06.isc4sb.com
- with ESMTP id 2016030905543171-34931 ;
- Wed, 9 Mar 2016 05:54:31 +0000 
-In-Reply-To: <87io0w9q9h.fsf@linux.vnet.ibm.com>
-Subject: Re: [PATCH phosphor-host-ipmid v2] DCMI GET_POWER_LEVEL bad return
- code
-To: Stewart Smith <stewart@linux.vnet.ibm.com>
-Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org,
- Norman James <nkskjames@gmail.com>
+ by us1a3-smtp05.a3.dal06.isc4sb.com
+ with ESMTP id 2016030906094185-29005 ;
+ Wed, 9 Mar 2016 06:09:41 +0000 
+In-Reply-To: <20160309163435.220afa51@camb691>
+Subject: Re: [PATCH openpower-host-ipmi-oem] Add IPMI interface to allow FW
+ updates from Host
+To: "Adriana Kobylak" <anoo@us.ibm.com>
+Cc: openbmc@lists.ozlabs.org, OpenBMC Patches <openbmc-patches@stwcx.xyz>
 From: "Vishwanatha Subbanna" <vishwanath@in.ibm.com>
-Date: Wed, 9 Mar 2016 11:24:31 +0530
-References: <1457453438-9977-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1457453438-9977-2-git-send-email-openbmc-patches@stwcx.xyz>
- <87io0w9q9h.fsf@linux.vnet.ibm.com>
-X-KeepSent: 84E297C1:E038A937-65257F71:00205D6D;
+Date: Wed, 9 Mar 2016 11:39:41 +0530
+References: <1457115626-18686-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1457115626-18686-2-git-send-email-openbmc-patches@stwcx.xyz>
+ <20160309163435.220afa51@camb691>
+X-KeepSent: 6A45301B:41682124-65257F71:0020E373;
  type=4; name=$KeepSent
 X-Mailer: IBM Notes Release 9.0.1EXT September 15, 2015
 X-LLNOutbound: False
-X-Disclaimed: 25479
+X-Disclaimed: 2855
 X-TNEFEvaluated: 1
-Content-type: multipart/related; 
- Boundary="0__=EABBF5E2DFB3DBFD8f9e8a93df938690918cEABBF5E2DFB3DBFD"
-x-cbid: 16030905-0025-0000-0000-00000A6756EC
-X-IBM-ISS-SpamDetectors: Score=0.410717; BY=0.132496; FL=0; FP=0; FZ=0; HX=0; 
- KW=0; PH=0; SC=0.410717; ST=0; TS=0; UL=0; ISC=
+Content-type: multipart/alternative; 
+ Boundary="0__=EABBF5E2DFB365E38f9e8a93df938690918cEABBF5E2DFB365E3"
+Content-Disposition: inline
+x-cbid: 16030906-0041-0000-0000-000000D21408
+X-IBM-ISS-SpamDetectors: Score=0.449102; BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0;
+ PH=0; SC=0.449102; ST=0; TS=0; UL=0; ISC=
 X-IBM-ISS-DetailInfo: BY=3.00005014; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000150; SDB=6.00670704; UDB=6.00306437; UTC=2016-03-09
- 05:54:32
-x-cbparentid: 16030905-4778-0000-0000-000002583DBC
+ PH=3.00000004; SC=3.00000150; SDB=6.00670709; UDB=6.00306440; UTC=2016-03-09
+ 06:09:43
+x-cbparentid: 16030906-5938-0000-0000-0000026AFBFC
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -82,188 +82,299 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Mar 2016 05:54:44 -0000
-
---0__=EABBF5E2DFB3DBFD8f9e8a93df938690918cEABBF5E2DFB3DBFD
-Content-type: multipart/alternative; 
-	Boundary="1__=EABBF5E2DFB3DBFD8f9e8a93df938690918cEABBF5E2DFB3DBFD"
+X-List-Received-Date: Wed, 09 Mar 2016 06:10:00 -0000
 
 
---1__=EABBF5E2DFB3DBFD8f9e8a93df938690918cEABBF5E2DFB3DBFD
+--0__=EABBF5E2DFB365E38f9e8a93df938690918cEABBF5E2DFB365E3
 Content-Transfer-Encoding: quoted-printable
 Content-type: text/plain; charset=US-ASCII
 
+"openbmc" <openbmc-bounces+vishwanath=3Din.ibm.com@lists.ozlabs.org> wrote =
+on
+09/03/2016 11:04:35 am:
 
-Shouldn't the value of rc be something that is an ipmi=5Fret=5Ft ?
-
-Yes : It needs to be even though CC=5FOK and 0 are same.
-
-Thanks
-
----------------------------------------------------------------------------=
-----------
-
-Thanks and Regards,
-Vishwanath.
-Advisory Software Engineer,
-Power Firmware Development,
-Systems &Technology Lab,
-MG2-6F-255 , Manyata Embassy Business Park,
-Bangalore , KA , 560045
-Ph: +91-80-46678255
-E-mail: vishwanath@in.ibm.com
----------------------------------------------------------------------------=
--------
-
-
-
-From:	Stewart Smith <stewart@linux.vnet.ibm.com>
-To:	OpenBMC Patches <openbmc-patches@stwcx.xyz>,
-            openbmc@lists.ozlabs.org
-Cc:	Norman James <nkskjames@gmail.com>
-Date:	09/03/2016 10:56 am
-Subject:	Re: [PATCH phosphor-host-ipmid v2] DCMI GET=5FPOWER=5FLEVEL bad
-            return code
-Sent by:	"openbmc" <openbmc-bounces
-            +vishwanath=3Din.ibm.com@lists.ozlabs.org>
-
-
-
-OpenBMC Patches <openbmc-patches@stwcx.xyz> writes:
-
-> From: Norman James <njames@us.ibm.com>
+> From: Cyril Bur <cyrilbur@gmail.com>
+> To: anoo@us.ibm.com
+> Cc: openbmc@lists.ozlabs.org, OpenBMC Patches <openbmc-patches@stwcx.xyz>
+> Date: 09/03/2016 11:05 am
+> Subject: Re: [PATCH openpower-host-ipmi-oem] Add IPMI interface to
+> allow FW updates from Host
+> Sent by: "openbmc" <openbmc-bounces
++vishwanath=3Din.ibm.com@lists.ozlabs.org>
 >
-> This function uses static data and should always
-> return a good return code.  This was causing OCC
-> not to start.
+> On Fri,  4 Mar 2016 12:20:26 -0600
+> OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
 >
-> Signed-off-by: Norman James <nkskjames@gmail.com>
-> ---
->  dcmihandler.C | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
+> > From: Adriana Kobylak <anoo@us.ibm.com>
+> >
+> > New OEM IPMI command to execute commands that would allow the Host
+> to have access to the BMC to perform a FW update.
+> > ---
+> >  Makefile     |  2 +-
+> >  oemhandler.C | 52 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+> >  oemhandler.h |  1 +
+> >  3 files changed, 54 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/Makefile b/Makefile
+> > index eaa7324..bacdef9 100644
+> > --- a/Makefile
+> > +++ b/Makefile
+> > @@ -10,7 +10,7 @@ CXXFLAGS +=3D -fPIC -Wall
+> >  all:  $(LIB=5FOEM)
+> >
+> >  %.o: %.C
+> > -   $(CXX) -c $< $(CXXFLAGS) -o $@
+> > +   $(CXX) -std=3Dc++14 -c $< $(CXXFLAGS) -o $@
+> >
 >
-> diff --git a/dcmihandler.C b/dcmihandler.C
-> index fafebdc..5e7d879 100644
-> --- a/dcmihandler.C
-> +++ b/dcmihandler.C
-> @@ -11,7 +11,7 @@ ipmi=5Fret=5Ft ipmi=5Fdcmi=5Fget=5Fpower=5Flimit(ipmi=
-=5Fnetfn=5Ft
-netfn, ipmi=5Fcmd=5Ft cmd,
->                                ipmi=5Frequest=5Ft request, ipmi=5Frespons=
-e=5Ft
-response,
->                                ipmi=5Fdata=5Flen=5Ft data=5Flen, ipmi=5Fc=
-ontext=5Ft
-context)
->  {
-> -    ipmi=5Fret=5Ft rc =3D IPMI=5FDCMI=5FCC=5FNO=5FACTIVE=5FPOWER=5FLIMIT;
-> +    ipmi=5Fret=5Ft rc =3D 0;
+> This isn't a CXXFLAGS thing?
 >
->      // dcmi-v1-5-rev-spec.pdf 6.6.2.
+> >  $(LIB=5FOEM): $(LIB=5FOEM=5FOBJ)
+> >     $(CXX) $^ -shared $(LDFLAGS) -o $@
+> > diff --git a/oemhandler.C b/oemhandler.C
+> > index f577d67..22452d6 100644
+> > --- a/oemhandler.C
+> > +++ b/oemhandler.C
+> > @@ -1,7 +1,9 @@
+> >  #include "oemhandler.h"
+> >  #include <host-ipmid/ipmid-api.h>
+> > +#include <fstream>
+> >  #include <stdio.h>
+> >  #include <string.h>
+> > +#include <systemd/sd-bus.h>
+> >
+> >  void register=5Fnetfn=5Foem=5Fpartial=5Fesel() =5F=5Fattribute=5F=5F((=
+constructor));
+> >
+> > @@ -70,10 +72,60 @@ ipmi=5Fret=5Ft
+> ipmi=5Fibm=5Foem=5Fpartial=5Fesel(ipmi=5Fnetfn=5Ft netfn, ipmi=5Fcmd=5Ft =
+cmd,
+> >     return rc;
+> >  }
+> >
+> > +// Prepare for FW Update.
+> > +// Execute needed commands to prepare the system for a fw update
+> from the host.
+> > +ipmi=5Fret=5Ft ipmi=5Fibm=5Foem=5Fprep=5Ffw=5Fupdate(ipmi=5Fnetfn=5Ft =
+netfn, ipmi=5Fcmd=5Ft
+cmd,
+> > +                                     ipmi=5Frequest=5Ft request,
+> ipmi=5Fresponse=5Ft response,
+> > +                                     ipmi=5Fdata=5Flen=5Ft data=5Flen,
+> ipmi=5Fcontext=5Ft context)
+> > +{
+> > +    ipmi=5Fret=5Ft ipmi=5Frc =3D IPMI=5FCC=5FOK;
+> > +    *data=5Flen =3D 0;
+> > +
+> > +    int rc =3D 0;
+> > +    std::ofstream rwfs=5Ffile;
+> > +    const char  *busname =3D "org.openbmc.control.Bmc";
+> > +    const char  *objname =3D "/org/openbmc/control/bmc0";
+> > +    const char  *iface =3D "org.openbmc.control.Bmc";
+> > +    sd=5Fbus *bus =3D ipmid=5Fget=5Fsd=5Fbus=5Fconnection();
+> > +    sd=5Fbus=5Fmessage *reply =3D NULL;
+> > +    sd=5Fbus=5Ferror error =3D SD=5FBUS=5FERROR=5FNULL;
+> > +    int r =3D 0;
+> > +
+> > +    // Set one time flag
+> > +    rc =3D system("fw=5Fsetenv openbmconce copy-files-to-ram
+copy-base-filesystem-to-ram");
+> > +    rc =3D WEXITSTATUS(rc);
+> > +    if (rc !=3D 0) {
+> > +        fprintf(stderr, "fw=5Fsetenv openbmconce failed with rc=3D%d\n=
+",
+rc);
+> > +        return IPMI=5FCC=5FUNSPECIFIED=5FERROR;
+> > +    }
+> > +
+> > +    // Touch the image-rwfs file to perform an empty update to
+> force the save
+> > +    // in case we're already in ram and the flash is the same
+> causing the ram files
+> > +    // to not be copied back to flash
+> > +    rwfs=5Ffile.open("/run/initramfs/image-rwfs", std::ofstream::out |
+std::ofstream::app);
 
-Shouldn't the value of rc be something that is an ipmi=5Fret=5Ft ?
+Need to handle the file open and access errors. Also, any reason why
+std::ofstream used instead of fopen(3).
+fopen may have been lighter IMO.
 
->      // This is good enough for OpenBMC support for OpenPOWER based
-systems
-> @@ -37,4 +37,3 @@ void register=5Fnetfn=5Fdcmi=5Ffunctions()
->      ipmi=5Fregister=5Fcallback(NETFUN=5FGRPEXT, IPMI=5FCMD=5FDCMI=5FGET=
-=5FPOWER, NULL,
-ipmi=5Fdcmi=5Fget=5Fpower=5Flimit);
->      return;
->  }
-> -// 956379
-> \ No newline at end of file
+> > +    rwfs=5Ffile.close();
 
-Above hunk is irrelevant.
+Handle errors on closing. ?
 
---
-Stewart Smith
-OPAL Architect, IBM.
+> > +
+> > +    // Reboot the BMC for settings to take effect
+> > +    r =3D sd=5Fbus=5Fcall=5Fmethod(bus, busname, objname, iface,
+> > +                           "warmReset", &error, &reply, NULL);
+> > +    if (r < 0) {
+> > +        fprintf(stderr, "Failed to reset BMC: %s\n", strerror(-r));
+> > +        return -1;
+> > +    }
 
-=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
-=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F
-openbmc mailing list
-openbmc@lists.ozlabs.org
-https://lists.ozlabs.org/listinfo/openbmc
+Return needs to be one of the IPMI specified rc than a "-1". May be
+IPMI=5FCC=5FINVALID is better suited here. ?
+Also this has memory leak on error. Need to free the 'error' and 'reply'.
 
+Also, if this call results in BMC being rebooted, does this call ever
+return and the reboot is done Async ?.
 
+> > +    printf("Warning: BMC is going down for reboot!\n");
+> > +    sd=5Fbus=5Ferror=5Ffree(&error);
+> > +    reply =3D sd=5Fbus=5Fmessage=5Funref(reply);
+> > +
+> > +    return ipmi=5Frc;
+> > +}
+> >
+> >  void register=5Fnetfn=5Foem=5Fpartial=5Fesel()
+> >  {
+> >     printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n",NETFUN=5FOEM,
+> IPMI=5FCMD=5FPESEL);
+> >     ipmi=5Fregister=5Fcallback(NETFUN=5FOEM, IPMI=5FCMD=5FPESEL, NULL,
+> ipmi=5Fibm=5Foem=5Fpartial=5Fesel);
+> > +
+> > +    printf("Registering NetFn:[0x%X], Cmd:[0x%X]\n", NETFUN=5FOEM,
+> IPMI=5FCMD=5FPREP=5FFW=5FUPDATE);
+> > +    ipmi=5Fregister=5Fcallback(NETFUN=5FOEM, IPMI=5FCMD=5FPREP=5FFW=5F=
+UPDATE,
+> NULL, ipmi=5Fibm=5Foem=5Fprep=5Ffw=5Fupdate);
+> > +
+> >     return;
+> >  }
+> > diff --git a/oemhandler.h b/oemhandler.h
+> > index 9cc397f..71ae01c 100644
+> > --- a/oemhandler.h
+> > +++ b/oemhandler.h
+> > @@ -8,6 +8,7 @@
+> >  // IPMI commands for net functions.
+> >  enum ipmi=5Fnetfn=5Foem=5Fcmds
+> >  {
+> > +    IPMI=5FCMD=5FPREP=5FFW=5FUPDATE =3D 0x10,
+> >      IPMI=5FCMD=5FPESEL =3D 0xF0,
+> >  };
+> >
+>
+> =5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
 
---1__=EABBF5E2DFB3DBFD8f9e8a93df938690918cEABBF5E2DFB3DBFD
+--0__=EABBF5E2DFB365E38f9e8a93df938690918cEABBF5E2DFB365E3
 Content-Transfer-Encoding: quoted-printable
 Content-type: text/html; charset=US-ASCII
 Content-Disposition: inline
 
-<html><body><p><tt>Shouldn't the value of rc be something that is an ipmi=
-=5Fret=5Ft ?</tt><br><br>Yes : It needs to be even though CC=5FOK and 0 are=
- same.<br><br>Thanks<br><br>-----------------------------------------------=
---------------------------------------<br>Thanks and Regards,<br>Vishwanath=
-.<br>Advisory Software Engineer,<br>Power Firmware Development, <br>Systems=
- &amp;Technology Lab,<br>MG2-6F-255 , Manyata Embassy Business Park, <br>Ba=
-ngalore , KA , 560045<br>Ph: +91-80-46678255<br>E-mail: vishwanath@in.ibm.c=
-om<br>---------------------------------------------------------------------=
--------------<br><br><img width=3D"16" height=3D"16" src=3D"cid:1=5F=5F=3DE=
-ABBF5E2DFB3DBFD8f9e8a93df938690918cEAB@" border=3D"0" alt=3D"Inactive hide =
-details for Stewart Smith ---09/03/2016 10:56:02 am---OpenBMC Patches &lt;o=
-penbmc-patches@stwcx.xyz&gt; writes: &gt; From:"><font color=3D"#424282">St=
-ewart Smith ---09/03/2016 10:56:02 am---OpenBMC Patches &lt;openbmc-patches=
-@stwcx.xyz&gt; writes: &gt; From: Norman James &lt;njames@us.ibm.com&gt;</f=
-ont><br><br><font size=3D"2" color=3D"#5F5F5F">From:        </font><font si=
-ze=3D"2">Stewart Smith &lt;stewart@linux.vnet.ibm.com&gt;</font><br><font s=
-ize=3D"2" color=3D"#5F5F5F">To:        </font><font size=3D"2">OpenBMC Patc=
-hes &lt;openbmc-patches@stwcx.xyz&gt;, openbmc@lists.ozlabs.org</font><br><=
-font size=3D"2" color=3D"#5F5F5F">Cc:        </font><font size=3D"2">Norman=
- James &lt;nkskjames@gmail.com&gt;</font><br><font size=3D"2" color=3D"#5F5=
-F5F">Date:        </font><font size=3D"2">09/03/2016 10:56 am</font><br><fo=
-nt size=3D"2" color=3D"#5F5F5F">Subject:        </font><font size=3D"2">Re:=
- [PATCH phosphor-host-ipmid v2] DCMI GET=5FPOWER=5FLEVEL bad return code</f=
-ont><br><font size=3D"2" color=3D"#5F5F5F">Sent by:        </font><font siz=
-e=3D"2">&quot;openbmc&quot; &lt;openbmc-bounces+vishwanath=3Din.ibm.com@lis=
-ts.ozlabs.org&gt;</font><br><hr width=3D"100%" size=3D"2" align=3D"left" no=
-shade style=3D"color:#8091A5; "><br><br><br><tt>OpenBMC Patches &lt;openbmc=
--patches@stwcx.xyz&gt; writes:<br><br>&gt; From: Norman James &lt;njames@us=
-.ibm.com&gt;<br>&gt;<br>&gt; This function uses static data and should alwa=
-ys<br>&gt; return a good return code. &nbsp;This was causing OCC<br>&gt; no=
-t to start.<br>&gt;<br>&gt; Signed-off-by: Norman James &lt;nkskjames@gmail=
-.com&gt;<br>&gt; ---<br>&gt; &nbsp;dcmihandler.C | 3 +--<br>&gt; &nbsp;1 fi=
-le changed, 1 insertion(+), 2 deletions(-)<br>&gt;<br>&gt; diff --git a/dcm=
-ihandler.C b/dcmihandler.C<br>&gt; index fafebdc..5e7d879 100644<br>&gt; --=
-- a/dcmihandler.C<br>&gt; +++ b/dcmihandler.C<br>&gt; @@ -11,7 +11,7 @@ ipm=
-i=5Fret=5Ft ipmi=5Fdcmi=5Fget=5Fpower=5Flimit(ipmi=5Fnetfn=5Ft netfn, ipmi=
-=5Fcmd=5Ft cmd,<br>&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ipmi=5Frequest=
-=5Ft request, ipmi=5Fresponse=5Ft response, <br>&gt; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp;ipmi=5Fdata=5Flen=5Ft data=5Flen, ipmi=5Fcontext=5Ft context)=
-<br>&gt; &nbsp;{<br>&gt; - &nbsp; &nbsp;ipmi=5Fret=5Ft rc =3D IPMI=5FDCMI=
-=5FCC=5FNO=5FACTIVE=5FPOWER=5FLIMIT;<br>&gt; + &nbsp; &nbsp;ipmi=5Fret=5Ft =
-rc =3D 0;<br>&gt; &nbsp;<br>&gt; &nbsp; &nbsp; &nbsp;// dcmi-v1-5-rev-spec.=
-pdf 6.6.2.<br><br>Shouldn't the value of rc be something that is an ipmi=5F=
-ret=5Ft ?<br><br>&gt; &nbsp; &nbsp; &nbsp;// This is good enough for OpenBM=
-C support for OpenPOWER based systems<br>&gt; @@ -37,4 +37,3 @@ void regist=
-er=5Fnetfn=5Fdcmi=5Ffunctions()<br>&gt; &nbsp; &nbsp; &nbsp;ipmi=5Fregister=
-=5Fcallback(NETFUN=5FGRPEXT, IPMI=5FCMD=5FDCMI=5FGET=5FPOWER, NULL, ipmi=5F=
-dcmi=5Fget=5Fpower=5Flimit);<br>&gt; &nbsp; &nbsp; &nbsp;return;<br>&gt; &n=
-bsp;}<br>&gt; -// 956379<br>&gt; \ No newline at end of file<br><br>Above h=
-unk is irrelevant.<br><br>-- <br>Stewart Smith<br>OPAL Architect, IBM.<br><=
-br>=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
-=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F<br>op=
-enbmc mailing list<br>openbmc@lists.ozlabs.org<br></tt><tt><a href=3D"https=
-://lists.ozlabs.org/listinfo/openbmc">https://lists.ozlabs.org/listinfo/ope=
-nbmc</a></tt><tt><br></tt><br><br><BR>
+<html><body><p><tt>&quot;openbmc&quot; &lt;openbmc-bounces+vishwanath=3Din.=
+ibm.com@lists.ozlabs.org&gt; wrote on 09/03/2016 11:04:35 am:<br><br>&gt; F=
+rom: Cyril Bur &lt;cyrilbur@gmail.com&gt;</tt><br><tt>&gt; To: anoo@us.ibm.=
+com</tt><br><tt>&gt; Cc: openbmc@lists.ozlabs.org, OpenBMC Patches &lt;open=
+bmc-patches@stwcx.xyz&gt;</tt><br><tt>&gt; Date: 09/03/2016 11:05 am</tt><b=
+r><tt>&gt; Subject: Re: [PATCH openpower-host-ipmi-oem] Add IPMI interface =
+to <br>&gt; allow FW updates from Host</tt><br><tt>&gt; Sent by: &quot;open=
+bmc&quot; &lt;openbmc-bounces+vishwanath=3Din.ibm.com@lists.ozlabs.org&gt;<=
+/tt><br><tt>&gt; <br>&gt; On Fri, &nbsp;4 Mar 2016 12:20:26 -0600<br>&gt; O=
+penBMC Patches &lt;openbmc-patches@stwcx.xyz&gt; wrote:<br>&gt; <br>&gt; &g=
+t; From: Adriana Kobylak &lt;anoo@us.ibm.com&gt;<br>&gt; &gt; <br>&gt; &gt;=
+ New OEM IPMI command to execute commands that would allow the Host<br>&gt;=
+ to have access to the BMC to perform a FW update.<br>&gt; &gt; ---<br>&gt;=
+ &gt; &nbsp;Makefile &nbsp; &nbsp; | &nbsp;2 +-<br>&gt; &gt; &nbsp;oemhandl=
+er.C | 52 ++++++++++++++++++++++++++++++++++++++++++++++++++++<br>&gt; &gt;=
+ &nbsp;oemhandler.h | &nbsp;1 +<br>&gt; &gt; &nbsp;3 files changed, 54 inse=
+rtions(+), 1 deletion(-)<br>&gt; &gt; <br>&gt; &gt; diff --git a/Makefile b=
+/Makefile<br>&gt; &gt; index eaa7324..bacdef9 100644<br>&gt; &gt; --- a/Mak=
+efile<br>&gt; &gt; +++ b/Makefile<br>&gt; &gt; @@ -10,7 +10,7 @@ CXXFLAGS +=
+=3D -fPIC -Wall<br>&gt; &gt; &nbsp;all: &nbsp;$(LIB=5FOEM)<br>&gt; &gt; &nb=
+sp;<br>&gt; &gt; &nbsp;%.o: %.C<br>&gt; &gt; - &nbsp; $(CXX) -c $&lt; $(CXX=
+FLAGS) -o $@<br>&gt; &gt; + &nbsp; $(CXX) -std=3Dc++14 -c $&lt; $(CXXFLAGS)=
+ -o $@<br>&gt; &gt; &nbsp;<br>&gt; <br>&gt; This isn't a CXXFLAGS thing?<br=
+>&gt; <br>&gt; &gt; &nbsp;$(LIB=5FOEM): $(LIB=5FOEM=5FOBJ)<br>&gt; &gt; &nb=
+sp; &nbsp; $(CXX) $^ -shared $(LDFLAGS) -o $@<br>&gt; &gt; diff --git a/oem=
+handler.C b/oemhandler.C<br>&gt; &gt; index f577d67..22452d6 100644<br>&gt;=
+ &gt; --- a/oemhandler.C<br>&gt; &gt; +++ b/oemhandler.C<br>&gt; &gt; @@ -1=
+,7 +1,9 @@<br>&gt; &gt; &nbsp;#include &quot;oemhandler.h&quot;<br>&gt; &gt=
+; &nbsp;#include &lt;host-ipmid/ipmid-api.h&gt;<br>&gt; &gt; +#include &lt;=
+fstream&gt;<br>&gt; &gt; &nbsp;#include &lt;stdio.h&gt;<br>&gt; &gt; &nbsp;=
+#include &lt;string.h&gt;<br>&gt; &gt; +#include &lt;systemd/sd-bus.h&gt;<b=
+r>&gt; &gt; &nbsp;<br>&gt; &gt; &nbsp;void register=5Fnetfn=5Foem=5Fpartial=
+=5Fesel() =5F=5Fattribute=5F=5F((constructor));<br>&gt; &gt; &nbsp;<br>&gt;=
+ &gt; @@ -70,10 +72,60 @@ ipmi=5Fret=5Ft <br>&gt; ipmi=5Fibm=5Foem=5Fpartia=
+l=5Fesel(ipmi=5Fnetfn=5Ft netfn, ipmi=5Fcmd=5Ft cmd,<br>&gt; &gt; &nbsp; &n=
+bsp; return rc;<br>&gt; &gt; &nbsp;}<br>&gt; &gt; &nbsp;<br>&gt; &gt; +// P=
+repare for FW Update.<br>&gt; &gt; +// Execute needed commands to prepare t=
+he system for a fw update <br>&gt; from the host.<br>&gt; &gt; +ipmi=5Fret=
+=5Ft ipmi=5Fibm=5Foem=5Fprep=5Ffw=5Fupdate(ipmi=5Fnetfn=5Ft netfn, ipmi=5Fc=
+md=5Ft cmd,<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; ipmi=5Frequest=5Ft request, <br>&gt; ipmi=5Fresponse=5Ft response,<br>&g=
+t; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ipmi=5Fdata=5F=
+len=5Ft data=5Flen, <br>&gt; ipmi=5Fcontext=5Ft context)<br>&gt; &gt; +{<br=
+>&gt; &gt; + &nbsp; &nbsp;ipmi=5Fret=5Ft ipmi=5Frc =3D IPMI=5FCC=5FOK;<br>&=
+gt; &gt; + &nbsp; &nbsp;*data=5Flen =3D 0;<br>&gt; &gt; +<br>&gt; &gt; + &n=
+bsp; &nbsp;int rc =3D 0;<br>&gt; &gt; + &nbsp; &nbsp;std::ofstream rwfs=5Ff=
+ile;<br>&gt; &gt; + &nbsp; &nbsp;const char &nbsp;*busname =3D &quot;org.op=
+enbmc.control.Bmc&quot;;<br>&gt; &gt; + &nbsp; &nbsp;const char &nbsp;*objn=
+ame =3D &quot;/org/openbmc/control/bmc0&quot;;<br>&gt; &gt; + &nbsp; &nbsp;=
+const char &nbsp;*iface =3D &quot;org.openbmc.control.Bmc&quot;;<br>&gt; &g=
+t; + &nbsp; &nbsp;sd=5Fbus *bus =3D ipmid=5Fget=5Fsd=5Fbus=5Fconnection();<=
+br>&gt; &gt; + &nbsp; &nbsp;sd=5Fbus=5Fmessage *reply =3D NULL;<br>&gt; &gt=
+; + &nbsp; &nbsp;sd=5Fbus=5Ferror error =3D SD=5FBUS=5FERROR=5FNULL;<br>&gt=
+; &gt; + &nbsp; &nbsp;int r =3D 0;<br>&gt; &gt; +<br>&gt; &gt; + &nbsp; &nb=
+sp;// Set one time flag<br>&gt; &gt; + &nbsp; &nbsp;rc =3D system(&quot;fw=
+=5Fsetenv openbmconce copy-files-to-ram copy-base-filesystem-to-ram&quot;);=
+<br>&gt; &gt; + &nbsp; &nbsp;rc =3D WEXITSTATUS(rc);<br>&gt; &gt; + &nbsp; =
+&nbsp;if (rc !=3D 0) {<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp;fprintf(st=
+derr, &quot;fw=5Fsetenv openbmconce failed with rc=3D%d\n&quot;, rc);<br>&g=
+t; &gt; + &nbsp; &nbsp; &nbsp; &nbsp;return IPMI=5FCC=5FUNSPECIFIED=5FERROR=
+; <br>&gt; &gt; + &nbsp; &nbsp;}<br>&gt; &gt; +<br>&gt; &gt; + &nbsp; &nbsp=
+;// Touch the image-rwfs file to perform an empty update to <br>&gt; force =
+the save<br>&gt; &gt; + &nbsp; &nbsp;// in case we're already in ram and th=
+e flash is the same <br>&gt; causing the ram files<br>&gt; &gt; + &nbsp; &n=
+bsp;// to not be copied back to flash<br>&gt; &gt; + &nbsp; &nbsp;rwfs=5Ffi=
+le.open(&quot;/run/initramfs/image-rwfs&quot;, std::ofstream::out | std::of=
+stream::app);</tt><br><br><tt>Need to handle the file open and access error=
+s. Also, any reason why std::ofstream used instead of fopen(3).</tt><br><tt=
+>fopen may have been lighter IMO.</tt><br><tt><br>&gt; &gt; + &nbsp; &nbsp;=
+rwfs=5Ffile.close();</tt><br><br><tt>Handle errors on closing. ?</tt><br><t=
+t><br>&gt; &gt; +<br>&gt; &gt; + &nbsp; &nbsp;// Reboot the BMC for setting=
+s to take effect<br>&gt; &gt; + &nbsp; &nbsp;r =3D sd=5Fbus=5Fcall=5Fmethod=
+(bus, busname, objname, iface,<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;warmRes=
+et&quot;, &amp;error, &amp;reply, NULL);<br>&gt; &gt; + &nbsp; &nbsp;if (r =
+&lt; 0) {<br>&gt; &gt; + &nbsp; &nbsp; &nbsp; &nbsp;fprintf(stderr, &quot;F=
+ailed to reset BMC: %s\n&quot;, strerror(-r));<br>&gt; &gt; + &nbsp; &nbsp;=
+ &nbsp; &nbsp;return -1;<br>&gt; &gt; + &nbsp; &nbsp;}</tt><br><br><tt>Retu=
+rn needs to be one of the IPMI specified rc than a &quot;-1&quot;. May be I=
+PMI=5FCC=5FINVALID is better suited here. ?</tt><br><tt>Also this has memor=
+y leak on error. Need to free the 'error' and 'reply'.</tt><br><br><tt>Also=
+, if this call results in BMC being rebooted, does this call ever return an=
+d the reboot is done Async ?.</tt><br><tt><br>&gt; &gt; + &nbsp; &nbsp;prin=
+tf(&quot;Warning: BMC is going down for reboot!\n&quot;);<br>&gt; &gt; + &n=
+bsp; &nbsp;sd=5Fbus=5Ferror=5Ffree(&amp;error);<br>&gt; &gt; + &nbsp; &nbsp=
+;reply =3D sd=5Fbus=5Fmessage=5Funref(reply);<br>&gt; &gt; +<br>&gt; &gt; +=
+ &nbsp; &nbsp;return ipmi=5Frc;<br>&gt; &gt; +}<br>&gt; &gt; &nbsp;<br>&gt;=
+ &gt; &nbsp;void register=5Fnetfn=5Foem=5Fpartial=5Fesel()<br>&gt; &gt; &nb=
+sp;{<br>&gt; &gt; &nbsp; &nbsp; printf(&quot;Registering NetFn:[0x%X], Cmd:=
+[0x%X]\n&quot;,NETFUN=5FOEM, <br>&gt; IPMI=5FCMD=5FPESEL);<br>&gt; &gt; &nb=
+sp; &nbsp; ipmi=5Fregister=5Fcallback(NETFUN=5FOEM, IPMI=5FCMD=5FPESEL, NUL=
+L, <br>&gt; ipmi=5Fibm=5Foem=5Fpartial=5Fesel);<br>&gt; &gt; +<br>&gt; &gt;=
+ + &nbsp; &nbsp;printf(&quot;Registering NetFn:[0x%X], Cmd:[0x%X]\n&quot;, =
+NETFUN=5FOEM, <br>&gt; IPMI=5FCMD=5FPREP=5FFW=5FUPDATE);<br>&gt; &gt; + &nb=
+sp; &nbsp;ipmi=5Fregister=5Fcallback(NETFUN=5FOEM, IPMI=5FCMD=5FPREP=5FFW=
+=5FUPDATE, <br>&gt; NULL, ipmi=5Fibm=5Foem=5Fprep=5Ffw=5Fupdate);<br>&gt; &=
+gt; +<br>&gt; &gt; &nbsp; &nbsp; return;<br>&gt; &gt; &nbsp;}<br>&gt; &gt; =
+diff --git a/oemhandler.h b/oemhandler.h<br>&gt; &gt; index 9cc397f..71ae01=
+c 100644<br>&gt; &gt; --- a/oemhandler.h<br>&gt; &gt; +++ b/oemhandler.h<br=
+>&gt; &gt; @@ -8,6 +8,7 @@<br>&gt; &gt; &nbsp;// IPMI commands for net func=
+tions.<br>&gt; &gt; &nbsp;enum ipmi=5Fnetfn=5Foem=5Fcmds<br>&gt; &gt; &nbsp=
+;{<br>&gt; &gt; + &nbsp; &nbsp;IPMI=5FCMD=5FPREP=5FFW=5FUPDATE =3D 0x10,<br=
+>&gt; &gt; &nbsp; &nbsp; &nbsp;IPMI=5FCMD=5FPESEL =3D 0xF0,<br>&gt; &gt; &n=
+bsp;};<br>&gt; &gt; &nbsp;<br>&gt; <br>&gt; =5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F<br>&gt; openbmc mailing list<br>&gt; o=
+penbmc@lists.ozlabs.org<br>&gt; <a href=3D"https://lists.ozlabs.org/listinf=
+o/openbmc">https://lists.ozlabs.org/listinfo/openbmc</a><br></tt><BR>
 </body></html>
 
---1__=EABBF5E2DFB3DBFD8f9e8a93df938690918cEABBF5E2DFB3DBFD--
-
-
---0__=EABBF5E2DFB3DBFD8f9e8a93df938690918cEABBF5E2DFB3DBFD
-Content-type: image/gif; 
-	name="graycol.gif"
-Content-Disposition: inline; filename="graycol.gif"
-Content-ID: <1__=EABBF5E2DFB3DBFD8f9e8a93df938690918cEAB@>
-Content-Transfer-Encoding: base64
-
-R0lGODlhEAAQAKECAMzMzAAAAP///wAAACH5BAEAAAIALAAAAAAQABAAAAIXlI+py+0PopwxUbpu
-ZRfKZ2zgSJbmSRYAIf4fT3B0aW1pemVkIGJ5IFVsZWFkIFNtYXJ0U2F2ZXIhAAA7
-
-
---0__=EABBF5E2DFB3DBFD8f9e8a93df938690918cEABBF5E2DFB3DBFD--
+--0__=EABBF5E2DFB365E38f9e8a93df938690918cEABBF5E2DFB365E3--
