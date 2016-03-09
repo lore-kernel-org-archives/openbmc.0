@@ -1,52 +1,53 @@
 Return-Path: <cyrilbur@gmail.com>
-Received: from mail-pf0-x242.google.com (mail-pf0-x242.google.com
- [IPv6:2607:f8b0:400e:c00::242])
+Received: from mail-pf0-x244.google.com (mail-pf0-x244.google.com
+ [IPv6:2607:f8b0:400e:c00::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 558911A033D
- for <openbmc@lists.ozlabs.org>; Wed,  9 Mar 2016 10:38:36 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46A251A0032
+ for <openbmc@lists.ozlabs.org>; Wed,  9 Mar 2016 11:51:46 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=SLkpeRBE; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=oGAkX0kU; 
  dkim-atps=neutral
-Received: by mail-pf0-x242.google.com with SMTP id 63so2188429pfe.0
- for <openbmc@lists.ozlabs.org>; Tue, 08 Mar 2016 15:38:36 -0800 (PST)
+Received: by mail-pf0-x244.google.com with SMTP id 184so2288833pff.1
+ for <openbmc@lists.ozlabs.org>; Tue, 08 Mar 2016 16:51:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=date:from:to:cc:subject:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=o31TIU1i0JvbZg+/YwtjRiEFQsSI1YhJ1XipSL99g8M=;
- b=SLkpeRBE5cLaJ4VhhichNg6+m5M5lpMCw6ebdwUvCDwlD2bIshMp2jCWhEgVaZYGvK
- 1UVf+Wt7dxJv91mLhCQD09IPN1LGbLDviiKoeaWqsZBnBZrQIzuQJzn+/bfxIpA3yulI
- p27u5egmjLinoxa8cmZbiO2QorDR5LAu3Z19jir4qD98ixqaJJqbPhPbo3hxZhCn0M93
- ZmftK6UE8ImQOeF7Pg7zjrcOB3++zAo05XrAsskdzyad7w0DIVVLIbJrLXFYba21XapX
- IHA96YIdCOMKnt8zAFIATtVL+3PXa8lQ5usQuVtDxv09KzI0Rw33CEPWzIWKGpzRA0KA
- 8Bsw==
+ bh=YLQDh7EgleUydd/jgoIXyJKsa0/Kx4X1yPebxOQ2msg=;
+ b=oGAkX0kU6rwaRLxLIxeaZDEJmHo9Gy5KjxKJjoTbD895J/kHph5fhy3ZTmUOXY5Jti
+ 8FEHrEp/rqd8Cz4Cw9BdnYwMjuoykGsdb64GeyaMfuWyNPHZxFmkiR6Scl3QOp9Gqq7K
+ rn0qOD1pM0sCPk9pGOfj1SHkqdjjHZiWHhUr5bPklvKolk8hotdu9uQvISxSL4FgLzvt
+ vYH6wj/y8tpTCuSritKMnTNmbQroP3l/3akUqA/0tCS0XyeiiuYoK5hKBTlkViPsPSbs
+ wrV0VassLTfKix7jot5p8NF177Y5zQR/SArJ2ao+BclXQjLkJZufLtIpCpNbfDE6gXEX
+ yyZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=o31TIU1i0JvbZg+/YwtjRiEFQsSI1YhJ1XipSL99g8M=;
- b=iXhA6JsY200e/rCug+EnLDU0CTtmStJBpsTGfGULSsGLkjuQx3xZTKxXqf/KEGj+Gi
- Gs2y5cJUeKxI+bLd/Sug8ZqOnIN+u9ahnHeKtYvJzJqoliRKv+SLy/u0WF9/rKdO2h8a
- +OHE2zfGe3C6jPBJ3q7RLL+E4qkfav5OpVkZkHiZe+5bl0gss4KsdylFV/saGoqdLsIt
- thGgMu4OEHMM2NK/DxCmsBdOXVYUMwqZFaetur6iAmNrnAHEUcWZ3vQapmWJQFWanEiH
- TpV02h5nsgE+3Htj1F4boTr20yct3YXNFYdmGnTd5sGceB4xGLfTzIUl79oP+g9w4jCh
- afnQ==
-X-Gm-Message-State: AD7BkJKvLjHBv/JS969k4kyRP1PUDnoVzRMexGKElhzXGJ5DdAqzgxrAQCA0zhe9DMdzmg==
-X-Received: by 10.98.68.209 with SMTP id m78mr28088772pfi.153.1457480314585;
- Tue, 08 Mar 2016 15:38:34 -0800 (PST)
+ bh=YLQDh7EgleUydd/jgoIXyJKsa0/Kx4X1yPebxOQ2msg=;
+ b=RaQICVwOsYRauVJfPaCihJY0JCXOsjmM7y6h96CakguEQLutIl7xDacD+54zkDW2QR
+ PgOH0/lFFNZIX8Ruzs5mIjsd0OpkmWHycXRKTGR4hiiEwMHGwr5eycFCI94QmL2IBpnk
+ u3y+zKwLSjXxV274p2lm1PzbGXSiXMvFnncJjGcqbCS9LCu/izUGw077378pph3EttTf
+ cvrBVvqdJdIBYbWirKGThXlBv2JiyVqzq9RUOs3nl0zPaMdz4uWt4jXY9w0yaThcpbpg
+ /KX2abhmk5j/31pTs9s7piwpifQuRKxAJ1V7d7ZLq4GpQQoOVwBrJkCqiH5zHhHl3ru4
+ tgww==
+X-Gm-Message-State: AD7BkJIjbxOK6yQPdUDnXG00t3eKmPGYGDduKqa/vCffg0ueBA+uXcdl84cRV/1DkWmP0Q==
+X-Received: by 10.98.89.22 with SMTP id n22mr46357884pfb.55.1457484702344;
+ Tue, 08 Mar 2016 16:51:42 -0800 (PST)
 Received: from camb691 ([122.99.82.10])
- by smtp.gmail.com with ESMTPSA id s14sm7392525pfa.3.2016.03.08.15.38.32
+ by smtp.gmail.com with ESMTPSA id 23sm7566139pfs.34.2016.03.08.16.51.39
  (version=TLSv1/SSLv3 cipher=OTHER);
- Tue, 08 Mar 2016 15:38:34 -0800 (PST)
-Date: Wed, 9 Mar 2016 10:38:26 +1100
+ Tue, 08 Mar 2016 16:51:41 -0800 (PST)
+Date: Wed, 9 Mar 2016 11:51:33 +1100
 From: Cyril Bur <cyrilbur@gmail.com>
-To: adamliyi@msn.com
+To: adamliyi@msn.com, joel@jms.id.au
 Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH linux v2 2/2] hwmon: Hide error message in OCC hwmon driver
-Message-ID: <20160309103826.2b356b38@camb691>
-In-Reply-To: <1456999831-12589-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: Re: [PATCH linux v2 1/2] hwmon: fix occ hwmon driver compile
+ warning message
+Message-ID: <20160309115133.27b2291e@camb691>
+In-Reply-To: <1456999831-12589-2-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1456999831-12589-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1456999831-12589-3-git-send-email-openbmc-patches@stwcx.xyz>
+ <1456999831-12589-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: Claws Mail 3.13.2 (GTK+ 2.24.29; x86_64-unknown-linux-gnu)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -62,160 +63,370 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Mar 2016 23:38:37 -0000
+X-List-Received-Date: Wed, 09 Mar 2016 00:51:47 -0000
 
-On Thu,  3 Mar 2016 04:10:31 -0600
+On Thu,  3 Mar 2016 04:10:30 -0600
 OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
 
 > From: Yi Li <adamliyi@msn.com>
 > 
-> This patch fixed issue in: https://github.com/openbmc/openbmc/issues/191
+> Fixed warning message when compiling occ hwmon driver.
+> The issue is tracked by: https://github.com/openbmc/linux/issues/44
 > 
-> User application will poll OCC when host is powered off. OCC can handle
-> the poll request, but no sensor data will be responded. Currently OCC driver
-> will report error message when reading sysfs hwmon sensor attribute in this case.
-> The error message is harmless but is anoying.
-> 
-> This patch hides the error message. Reading sysfs hwmon attribute in this case
-> will still get an error code, but no more error message.
-> 
-
-Hi Adam,
-
-Patch looks good. I'm not super sure the "ERROR:" string is needed in front of
-all the messages, I suspect it will be obvious. However I'm far more in favour
-of consistency ("ERROR:" everywhere) and you've done that so its fine with me.
-
-Just one question: You turned all the _err into _dbg except in one hunk for
-set_user_powercap() where you used _info. Might be worth a mention in a comment
-and/or in the commit message why that one is special.
-
-Thanks,
-
-Cyril
-
 > Signed-off-by: Yi Li <adamliyi@msn.com>
+
+Hi Yi,
+
+Sorry for not responding to you on V1, in future don't hesitate to poke me when
+I get too sidetracked.
+
+What I'm sort of talking about for declaring data void * is that you can have
+accessors which will allow you to either avoid the messy looking cast or hide
+it in one place.
+
+This is the kind of thing I'm talking about (I got talked out of void * ing
+everything), I haven't compiled this, just an example:
+
+diff --git a/drivers/hwmon/power8_occ_i2c.c b/drivers/hwmon/power8_occ_i2c.c
+index c9c70d1..edf35fd 100644
+--- a/drivers/hwmon/power8_occ_i2c.c
++++ b/drivers/hwmon/power8_occ_i2c.c
+@@ -351,6 +351,21 @@ static inline uint16_t get_occdata_length(uint8_t *data)
+        return be16_to_cpup(&data[RESP_DATA_LENGTH]);
+ }
+ 
++static uint8_t get_occdata_u8(uint8_t *data)
++{
++       return *data;
++}
++
++static uint16_t get_occdata_u16(uint8_t *data)
++{
++       return be16_to_cpup((const __be16 *)data);
++}
++
++static uint32_t get_occdata_u32(uint8_t *data)
++{
++       return be32_to_cpup((const __be32 *)data);
++}
++
+ static int parse_occ_response(struct i2c_client *client,
+                uint8_t *data, struct occ_response *resp)
+ {
+@@ -376,7 +391,7 @@ static int parse_occ_response(struct i2c_client *client,
+                goto err;
+        }
+ 
+-       sensor_block_num = data[SENSOR_BLOCK_NUM_OFFSET];
++       sensor_block_num = get_occdata_u8(&data[SENSOR_BLOCK_NUM_OFFSET]);
+        if (sensor_block_num == 0) {
+                dev_err(&client->dev, "ERROR: SENSOR block num is 0\n");
+                ret = -1;
+@@ -403,9 +418,9 @@ static int parse_occ_response(struct i2c_client *client,
+        for (b = 0; b < sensor_block_num; b++) {
+                /* 8-byte sensor block head */
+                strncpy(sensor_type, &data[dnum], 4);
+-               sensor_format = data[dnum+5];
+-               sensor_length = data[dnum+6];
+-               num_of_sensors = data[dnum+7];
++               sensor_format = get_occdata_u8(&data[dnum + 5]);
++               sensor_length = get_occdata_u8(&data[dnum + 6]);
++               num_of_sensors = get_occdata_u8(&data[dnum + 7]);
+                dnum = dnum + 8;
+ 
+                dev_dbg(&client->dev,
+@@ -421,8 +436,8 @@ static int parse_occ_response(struct i2c_client *client,
+                        resp->freq_block_id = b;
+                        for (s = 0; s < num_of_sensors; s++) {
+                                f_sensor = &resp->blocks[b].sensor[s];
+-                               f_sensor->sensor_id = be16_to_cpup(&data[dnum]);
+-                               f_sensor->value = be16_to_cpup(&data[dnum+2]);
++                               f_sensor->sensor_id = get_occdata_u16(&data[dnum]);
++                               f_sensor->value = get_occdata_u16(&data[dnum + 2]); 
+                                dev_dbg(&client->dev,
+                                        "sensor[%d]-[%d]: id: %u, value: %u\n",
+                                        b, s, f_sensor->sensor_id,
+@@ -438,8 +453,8 @@ static int parse_occ_response(struct i2c_client *client,
+                        resp->temp_block_id = b;
+                        for (s = 0; s < num_of_sensors; s++) {
+                                t_sensor = &resp->blocks[b].sensor[s];
+-                               t_sensor->sensor_id = be16_to_cpup(&data[dnum]);
+-                               t_sensor->value = be16_to_cpup(&data[dnum+2]);
++                               t_sensor->sensor_id = get_occdata_u16(&data[dnum]);
++                               t_sensor->value = get_occdata_u16(&data[dnum + 2]); 
+                                dev_dbg(&client->dev,
+                                        "sensor[%d]-[%d]: id: %u, value: %u\n",
+                                        b, s, t_sensor->sensor_id,
+@@ -455,12 +470,12 @@ static int parse_occ_response(struct i2c_client *client,
+                        resp->power_block_id = b;
+                        for (s = 0; s < num_of_sensors; s++) {
+                                p_sensor = &resp->blocks[b].power[s];
+-                               p_sensor->sensor_id = be16_to_cpup(&data[dnum]);
++                               p_sensor->sensor_id = get_occdata_u16(&data[dnum]); 
+                                p_sensor->update_tag =
+-                                       be32_to_cpup(&data[dnum+2]);
++                                       get_occdata_u32(&data[dnum + 2]);
+                                p_sensor->accumulator =
+-                                       be32_to_cpup(&data[dnum+6]);
+-                               p_sensor->value = be16_to_cpup(&data[dnum+10]);
++                                       get_occdata_u32(&data[dnum + 6]);
++                               p_sensor->value = get_occdata_u16(&data[dnum + 10]);
+
+
+Please note the spaces around the '+', I believe the Linux style guide says
+there should be spaces.
+
+As I was doing this I thought I'd try to address the problem with incrementing
+data. Not really sure this is necessary... might be too much... maybe Joel can
+chime in here:
+
+diff --git a/drivers/hwmon/power8_occ_i2c.c b/drivers/hwmon/power8_occ_i2c.c
+index c9c70d1..27b284f 100644
+--- a/drivers/hwmon/power8_occ_i2c.c
++++ b/drivers/hwmon/power8_occ_i2c.c
+@@ -351,6 +351,32 @@ static inline uint16_t get_occdata_length(uint8_t *data)
+        return be16_to_cpup(&data[RESP_DATA_LENGTH]);
+ }
+ 
++static void inc_occdata(uint8_t **update, int amount)
++{
++       *update = (*update) + amount;
++}
++
++static uint8_t get_occdata_u8(uint8_t **data)
++{
++       uint8_t val = **data;
++       *data = (*data) + sizeof(uint8_t);
++       return val;
++}
++
++static uint16_t get_occdata_u16(uint8_t **data)
++{
++       const __be16_t val = *((const __be16 *)*data);
++       *data = (*data) + sizeof(uint16_t);
++       return be16_to_cpu(val);
++}
++
++static uint32_t get_occdat_u32(uint8_t **data)
++{
++       const __be32 val = *((const __be32 *)*data);
++       *data = (*data) + sizeof(uint32_t);
++       return be32_to_cpu(val);
++}
++
+ static int parse_occ_response(struct i2c_client *client,
+                uint8_t *data, struct occ_response *resp)
+ {
+@@ -400,13 +426,15 @@ static int parse_occ_response(struct i2c_client *client,
+ 
+        dev_dbg(&client->dev, "Reading %d sensor blocks\n",
+                resp->header.sensor_block_num);
++
++       inc_occdata(&data, dnum);
+        for (b = 0; b < sensor_block_num; b++) {
+                /* 8-byte sensor block head */
+                strncpy(sensor_type, &data[dnum], 4);
+-               sensor_format = data[dnum+5];
+-               sensor_length = data[dnum+6];
+-               num_of_sensors = data[dnum+7];
+-               dnum = dnum + 8;
++               inc_occdata(&data, 5);
++               sensor_format = get_occdata_u8(&data);
++               sensor_length = get_occdata_u8(&data);
++               num_of_sensors = get_occdata_u8(&data);
+ 
+                dev_dbg(&client->dev,
+                        "sensor block[%d]: type: %s, num_of_sensors: %d\n",
+@@ -421,13 +449,18 @@ static int parse_occ_response(struct i2c_client *client,
+                        resp->freq_block_id = b;
+                        for (s = 0; s < num_of_sensors; s++) {
+                                f_sensor = &resp->blocks[b].sensor[s];
+-                               f_sensor->sensor_id = be16_to_cpup(&data[dnum]);
+-                               f_sensor->value = be16_to_cpup(&data[dnum+2]);
++                               f_sensor->sensor_id = get_occdata_u16(&data);
++                               f_sensor->value = get_occdata_u16(&data);
+                                dev_dbg(&client->dev,
+                                        "sensor[%d]-[%d]: id: %u, value: %u\n",
+                                        b, s, f_sensor->sensor_id,
+                                        f_sensor->value);
+-                               dnum = dnum + sensor_length;
++                               /*
++                                * Is sensor_length going to be 4 here? Should this be
++                                * double checked?
++                                * If not then (assuming it can't be LESS than 4...):
++                                * int_occdata(&data, sensor_length - 4);
++                                */
+                        }
+                } else if (strncmp(sensor_type, "TEMP", 4) == 0) {
+                        ret = occ_renew_sensor(resp, sensor_length,
+@@ -438,13 +471,13 @@ static int parse_occ_response(struct i2c_client *client,
+                        resp->temp_block_id = b;
+                        for (s = 0; s < num_of_sensors; s++) {
+                                t_sensor = &resp->blocks[b].sensor[s];
+-                               t_sensor->sensor_id = be16_to_cpup(&data[dnum]);
+-                               t_sensor->value = be16_to_cpup(&data[dnum+2]);
++                               t_sensor->sensor_id = get_occdata_u16(&data);
++                               t_sensor->value = get_occdata_u16(&data);
+                                dev_dbg(&client->dev,
+                                        "sensor[%d]-[%d]: id: %u, value: %u\n",
+                                        b, s, t_sensor->sensor_id,
+                                        t_sensor->value);
+-                               dnum = dnum + sensor_length;
++                               /* See previous comment block */
+                        }
+                } else if (strncmp(sensor_type, "POWR", 4) == 0) {
+                        ret = occ_renew_sensor(resp, sensor_length,
+@@ -455,19 +488,19 @@ static int parse_occ_response(struct i2c_client *client,
+                        resp->power_block_id = b;
+                        for (s = 0; s < num_of_sensors; s++) {
+                                p_sensor = &resp->blocks[b].power[s];
+-                               p_sensor->sensor_id = be16_to_cpup(&data[dnum]);
+-                               p_sensor->update_tag =
+-                                       be32_to_cpup(&data[dnum+2]);
+-                               p_sensor->accumulator =
+-                                       be32_to_cpup(&data[dnum+6]);
+-                               p_sensor->value = be16_to_cpup(&data[dnum+10]);
++                               p_sensor->sensor_id = get_occdata_u16(&data);
++                               p_sensor->update_tag = get_occdata_u32(&data);
++                               p_sensor->accumulator = get_occdata_u32(&data);
++                               p_sensor->value = get_occdata_u16(&data);
+ 
+                                dev_dbg(&client->dev,
+                                        "sensor[%d]-[%d]: id: %u, value: %u\n",
+                                        b, s, p_sensor->sensor_id,
+                                        p_sensor->value);
+-
+-                               dnum = dnum + sensor_length;
++                               /*
++                                * See previous comment block... although this time it
++                                * would be 12?
++                                */
+                        }
+                } else if (strncmp(sensor_type, "CAPS", 4) == 0) {
+                        ret = occ_renew_sensor(resp, sensor_length,
+
 > ---
->  drivers/hwmon/power8_occ_i2c.c | 32 +++++++++++++++++++-------------
->  1 file changed, 19 insertions(+), 13 deletions(-)
+>  drivers/hwmon/power8_occ_i2c.c | 54 ++++++++++++++++++++++++++++--------------
+>  1 file changed, 36 insertions(+), 18 deletions(-)
 > 
 > diff --git a/drivers/hwmon/power8_occ_i2c.c b/drivers/hwmon/power8_occ_i2c.c
-> index 37280a5..6352487c 100644
+> index c9c70d1..37280a5 100644
 > --- a/drivers/hwmon/power8_occ_i2c.c
 > +++ b/drivers/hwmon/power8_occ_i2c.c
-> @@ -370,7 +370,7 @@ static int parse_occ_response(struct i2c_client *client,
+> @@ -348,7 +348,7 @@ err:
 >  
->  	/* check if the data is valid */
->  	if (strncmp(&data[SENSOR_STR_OFFSET], "SENSOR", 6) != 0) {
-> -		dev_err(&client->dev,
-> +		dev_dbg(&client->dev,
->  			"ERROR: no SENSOR String in response\n");
->  		ret = -1;
->  		goto err;
-> @@ -378,7 +378,7 @@ static int parse_occ_response(struct i2c_client *client,
+>  static inline uint16_t get_occdata_length(uint8_t *data)
+>  {
+> -	return be16_to_cpup(&data[RESP_DATA_LENGTH]);
+> +	return be16_to_cpup((const __be16 *)&data[RESP_DATA_LENGTH]);
+>  }
 >  
->  	sensor_block_num = data[SENSOR_BLOCK_NUM_OFFSET];
->  	if (sensor_block_num == 0) {
-> -		dev_err(&client->dev, "ERROR: SENSOR block num is 0\n");
-> +		dev_dbg(&client->dev, "ERROR: SENSOR block num is 0\n");
->  		ret = -1;
->  		goto err;
->  	}
-> @@ -526,7 +526,7 @@ static int parse_occ_response(struct i2c_client *client,
->  			}
+>  static int parse_occ_response(struct i2c_client *client,
+> @@ -421,8 +421,11 @@ static int parse_occ_response(struct i2c_client *client,
+>  			resp->freq_block_id = b;
+>  			for (s = 0; s < num_of_sensors; s++) {
+>  				f_sensor = &resp->blocks[b].sensor[s];
+> -				f_sensor->sensor_id = be16_to_cpup(&data[dnum]);
+> -				f_sensor->value = be16_to_cpup(&data[dnum+2]);
+> +				f_sensor->sensor_id =
+> +					be16_to_cpup((const __be16 *)
+> +							&data[dnum]);
+> +				f_sensor->value = be16_to_cpup((const __be16 *)
+> +							&data[dnum+2]);
+>  				dev_dbg(&client->dev,
+>  					"sensor[%d]-[%d]: id: %u, value: %u\n",
+>  					b, s, f_sensor->sensor_id,
+> @@ -438,8 +441,11 @@ static int parse_occ_response(struct i2c_client *client,
+>  			resp->temp_block_id = b;
+>  			for (s = 0; s < num_of_sensors; s++) {
+>  				t_sensor = &resp->blocks[b].sensor[s];
+> -				t_sensor->sensor_id = be16_to_cpup(&data[dnum]);
+> -				t_sensor->value = be16_to_cpup(&data[dnum+2]);
+> +				t_sensor->sensor_id =
+> +					be16_to_cpup((const __be16 *)
+> +							&data[dnum]);
+> +				t_sensor->value = be16_to_cpup((const __be16 *)
+> +							&data[dnum+2]);
+>  				dev_dbg(&client->dev,
+>  					"sensor[%d]-[%d]: id: %u, value: %u\n",
+>  					b, s, t_sensor->sensor_id,
+> @@ -455,12 +461,17 @@ static int parse_occ_response(struct i2c_client *client,
+>  			resp->power_block_id = b;
+>  			for (s = 0; s < num_of_sensors; s++) {
+>  				p_sensor = &resp->blocks[b].power[s];
+> -				p_sensor->sensor_id = be16_to_cpup(&data[dnum]);
+> +				p_sensor->sensor_id =
+> +					be16_to_cpup((const __be16 *)
+> +							&data[dnum]);
+>  				p_sensor->update_tag =
+> -					be32_to_cpup(&data[dnum+2]);
+> +					be32_to_cpup((const __be32 *)
+> +							&data[dnum+2]);
+>  				p_sensor->accumulator =
+> -					be32_to_cpup(&data[dnum+6]);
+> -				p_sensor->value = be16_to_cpup(&data[dnum+10]);
+> +					be32_to_cpup((const __be32 *)
+> +							&data[dnum+6]);
+> +				p_sensor->value = be16_to_cpup((const __be16 *)
+> +							&data[dnum+10]);
 >  
->  		} else {
-> -			dev_err(&client->dev,
-> +			dev_dbg(&client->dev,
->  				"ERROR: sensor type %s not supported\n",
->  				resp->blocks[b].sensor_type);
->  			ret = -1;
-> @@ -617,13 +617,13 @@ static int occ_get_all(struct i2c_client *client, struct occ_response *occ_resp)
->  	dev_dbg(&client->dev, "OCC data length: %d\n", num_bytes);
+>  				dev_dbg(&client->dev,
+>  					"sensor[%d]-[%d]: id: %u, value: %u\n",
+> @@ -479,17 +490,23 @@ static int parse_occ_response(struct i2c_client *client,
+>  			for (s = 0; s < num_of_sensors; s++) {
+>  				c_sensor = &resp->blocks[b].caps[s];
+>  				c_sensor->curr_powercap =
+> -					be16_to_cpup(&data[dnum]);
+> +					be16_to_cpup((const __be16 *)
+> +							&data[dnum]);
+>  				c_sensor->curr_powerreading =
+> -					be16_to_cpup(&data[dnum+2]);
+> +					be16_to_cpup((const __be16 *)
+> +							&data[dnum+2]);
+>  				c_sensor->norm_powercap =
+> -					be16_to_cpup(&data[dnum+4]);
+> +					be16_to_cpup((const __be16 *)
+> +							&data[dnum+4]);
+>  				c_sensor->max_powercap =
+> -					be16_to_cpup(&data[dnum+6]);
+> +					be16_to_cpup((const __be16 *)
+> +							&data[dnum+6]);
+>  				c_sensor->min_powercap =
+> -					be16_to_cpup(&data[dnum+8]);
+> +					be16_to_cpup((const __be16 *)
+> +							&data[dnum+8]);
+>  				c_sensor->user_powerlimit =
+> -					be16_to_cpup(&data[dnum+10]);
+> +					be16_to_cpup((const __be16 *)
+> +							&data[dnum+10]);
 >  
->  	if (num_bytes > OCC_DATA_MAX) {
-> -		dev_err(&client->dev, "ERROR: OCC data length must be < 4KB\n");
-> +		dev_dbg(&client->dev, "ERROR: OCC data length must be < 4KB\n");
->  		ret = -EINVAL;
->  		goto out;
->  	}
+>  				dnum = dnum + sensor_length;
+>  				dev_dbg(&client->dev, "CAPS sensor #%d:\n", s);
+> @@ -539,6 +556,7 @@ static uint8_t occ_send_cmd(struct i2c_client *client, uint8_t seq,
+>  	uint16_t checksum;
+>  	int i;
 >  
->  	if (num_bytes <= 0) {
-> -		dev_err(&client->dev, "ERROR: OCC data length is zero\n");
-> +		dev_dbg(&client->dev, "ERROR: OCC data length is zero\n");
->  		ret = -EINVAL;
->  		goto out;
->  	}
-> @@ -670,7 +670,7 @@ static void *occ_get_sensor(struct device *hwmon_dev, enum sensor_t t)
+> +	length = cpu_to_le16(length);
+>  	cmd1 = (seq << 24) | (type << 16) | length;
+>  	memcpy(&cmd2, data, length);
+>  	cmd2 <<= ((4 - length) * 8);
+> @@ -1132,7 +1150,6 @@ static ssize_t set_user_powercap(struct device *hwmon_dev,
+>  	struct occ_drv_data *data = dev_get_drvdata(dev);
+>  	struct i2c_client *client = data->client;
+>  	uint16_t val;
+> -	uint32_t powercap;
+>  	uint8_t resp[8];
+>  	int err;
 >  
->  	ret = occ_update_device(dev);
->  	if (ret != 0) {
-> -		dev_err(dev, "ERROR: cannot get occ sensor data: %d\n", ret);
-> +		dev_dbg(dev, "ERROR: cannot get occ sensor data: %d\n", ret);
->  		return NULL;
->  	}
+> @@ -1140,8 +1157,9 @@ static ssize_t set_user_powercap(struct device *hwmon_dev,
+>  	if (err)
+>  		return err;
 >  
-> @@ -1161,10 +1161,12 @@ static ssize_t set_user_powercap(struct device *hwmon_dev,
->  	val = cpu_to_le16(val);
->  	err = occ_send_cmd(client, 0, 0x22, 2, (uint8_t *)&val, resp);
+> -	dev_dbg(dev, "set user powercap to: %lu\n", val);
+> -	err = occ_send_cmd(client, 0, 0x22, 2, &val, resp);
+> +	dev_dbg(dev, "set user powercap to: %u\n", val);
+> +	val = cpu_to_le16(val);
+> +	err = occ_send_cmd(client, 0, 0x22, 2, (uint8_t *)&val, resp);
 >  	if (err != 0) {
-> -		dev_err(dev, "Set User Powercap: wrong return status: %x\n",
-> +		dev_dbg(dev,
-> +			"ERROR: Set User Powercap: wrong return status: %x\n",
+>  		dev_err(dev, "Set User Powercap: wrong return status: %x\n",
 >  			err);
->  		if (err == 0x13)
-> -			dev_err(dev, "invalid powercap value: %x\n", val);
-> +			dev_info(dev,
-> +				"ERROR: set invalid powercap value: %x\n", val);
->  		return -EINVAL;
->  	}
->  	data->user_powercap = val;
-> @@ -1219,7 +1221,7 @@ static int occ_create_hwmon_attribute(struct device *dev)
->  
->  	ret = occ_update_device(dev);
->  	if (ret != 0) {
-> -		dev_err(dev, "ERROR: cannot get occ sensor data: %d\n", ret);
-> +		dev_dbg(dev, "ERROR: cannot get occ sensor data: %d\n", ret);
->  		return ret;
->  	}
->  
-> @@ -1244,7 +1246,8 @@ static int occ_create_hwmon_attribute(struct device *dev)
->  			ret = sysfs_create_group(&drv_data->hwmon_dev->kobj,
->  				&occ_temp_attr_group[i]);
->  			if (ret) {
-> -				dev_err(dev, "error create temp sysfs entry\n");
-> +				dev_dbg(dev,
-> +					"ERROR: cannot create sysfs entry\n");
->  				goto error;
->  			}
->  		}
-> @@ -1258,7 +1261,8 @@ static int occ_create_hwmon_attribute(struct device *dev)
->  			ret = sysfs_create_group(&drv_data->hwmon_dev->kobj,
->  				&occ_freq_attr_group[i]);
->  			if (ret) {
-> -				dev_err(dev, "error create freq sysfs entry\n");
-> +				dev_dbg(dev,
-> +					"ERROR: cannot create sysfs entry\n");
->  				goto error;
->  			}
->  		}
-> @@ -1272,7 +1276,8 @@ static int occ_create_hwmon_attribute(struct device *dev)
->  			ret = sysfs_create_group(&drv_data->hwmon_dev->kobj,
->  				&occ_power_attr_group[i]);
->  			if (ret) {
-> -				dev_err(dev, "error create power sysfs entry\n");
-> +				dev_dbg(dev,
-> +					"ERROR: cannot create sysfs entry\n");
->  				goto error;
->  			}
->  		}
-> @@ -1286,7 +1291,8 @@ static int occ_create_hwmon_attribute(struct device *dev)
->  			ret = sysfs_create_group(&drv_data->hwmon_dev->kobj,
->  				&occ_caps_attr_group[i]);
->  			if (ret) {
-> -				dev_err(dev, "error create caps sysfs entry\n");
-> +				dev_dbg(dev,
-> +					"ERROR: cannot create sysfs entry\n");
->  				goto error;
->  			}
->  		}
