@@ -1,56 +1,53 @@
 Return-Path: <cyrilbur@gmail.com>
-Received: from mail-pa0-x244.google.com (mail-pa0-x244.google.com
- [IPv6:2607:f8b0:400e:c03::244])
+Received: from mail-pf0-x243.google.com (mail-pf0-x243.google.com
+ [IPv6:2607:f8b0:400e:c00::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 59CEE1A02FA
- for <openbmc@lists.ozlabs.org>; Thu, 10 Mar 2016 11:10:08 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 1A8101A035C
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Mar 2016 11:40:52 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=caehNT+U; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=iPOx1I32; 
  dkim-atps=neutral
-Received: by mail-pa0-x244.google.com with SMTP id hj7so4365355pac.1
- for <openbmc@lists.ozlabs.org>; Wed, 09 Mar 2016 16:10:08 -0800 (PST)
+Received: by mail-pf0-x243.google.com with SMTP id u190so1424135pfb.2
+ for <openbmc@lists.ozlabs.org>; Wed, 09 Mar 2016 16:40:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=date:from:to:cc:subject:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=FWLlmm311eQbbpdJagmS28OwF/iZA8xhEWHJ8numD+0=;
- b=caehNT+UOI8DuqxG014fQu22yNb9aow60F+jXuyjy/RvaCwFTroJFvaAuFZpFyjYgJ
- ywM/ZTqbRz6ivFuiXpAz71bsHzJ+YZp6nopuureoCFGVML+MeRdfg5U9ZU41LDTO3dPF
- UWCf2CuOP2ZfI4knEmWW/Ftr4EurJO1bt2OBliuovwr7nc7M1T84pyhwDrkYlbvMqFNP
- ULFr6DOgFKs4jfvtOCR7L4Ds4IVPODxCAb2wNP/iWeo3fnJF/0Cci7ezHYwyBzBySgdn
- VL1bdPNse+j9l7mfE3UjNtydu6lbeYgf/QHSbpz+k2oxD+v/Cq1v3v7otLI9PR1uAAv1
- wKjg==
+ bh=m0QMyFrzLTPaP4D4j79bgDp7aKNQUD81B/LZErLn7Ng=;
+ b=iPOx1I32puHOJVX9VdXBO9A53Rh3DXCkVab+aa+FUuZuuXVEwWLQch3DngJHHxUfxF
+ A3nvZNmsltOZ3fCM9l4BDLM9Dk5nN9d41/6deUEzrXkynaV5dtuqqR5qWTHP/ZuUZUOg
+ bAZK9O0obmBxLZlxqZQNDRPc1f+1re4IgAlOymhM+FqaL4i7NIlKw8+bWhYiHcUaBvxn
+ W3mWSeEbtH+uHhNlzTjg8wceM6SabUKon3lCJZuyT+BVLq0FkQ01e1+DubidVmgYQLWk
+ J+ztQM+4U7QsYYxzKxRgc9zxYUb5AIVdkCQzob5f/DP/+59rSSwwf6/7KSy3nQMJivGa
+ /bfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=FWLlmm311eQbbpdJagmS28OwF/iZA8xhEWHJ8numD+0=;
- b=gteRB2GBD73DZxOoMT78y2Hm7b3EGVgkWspkb0WQlVhxKWJ1ExDWuiXxVKQ2vQCIV+
- VGsM8rj3X3ZzrIdeuUlsfQsCJn1J84WeJyeuAkT6JNnX6Y4ppfaVXD+vpiV++aRl0Unp
- T2cKCWrWg2FVYOZkZvNboyudVEgHAYNdy0Vkb7VopVsCwYkQYAHztusbg+5a2hkA2t57
- 5fHf9ODiZwV7XlZNYSeTOG4uVm6ewzNGYVHe0B3q6ZNp+28KTEWKdRsSGDPFqSAwzIex
- pjKjXnzgknK6KvfNJ6gIG7DXhc014fNSu7EvjEL4evCFVF7ErByTJ+5CFQFkeKaGkxbs
- xPdg==
-X-Gm-Message-State: AD7BkJKDRO6ZQ/Xg92dkBp/YkZalDVpO8N7AY6PbDS3bvp+SILZIoyi4h1aUMOXmSvZkLg==
-X-Received: by 10.66.248.168 with SMTP id yn8mr789902pac.24.1457568606233;
- Wed, 09 Mar 2016 16:10:06 -0800 (PST)
+ bh=m0QMyFrzLTPaP4D4j79bgDp7aKNQUD81B/LZErLn7Ng=;
+ b=kRKOMKqevdQ8X6b6JD5dVcXiLSm1OPPbR8XCI/LR24NsbfhIDNyygl7gQ99uuwk92p
+ OHosxfSvpIevvCp3h9rcdGPh3kj44UiVh+w50a/7ocg92/Z9gz380wdK6k1yohRLGRJm
+ M5Cm3MhzIUqB5hKL3pID1UmXMCLDmIX5KzbCskQMrOwZR9crbjE0dphIA5lETRLF080m
+ 7La+9ojm9ZVw181dZlVisn+p2wweSvnC51/0nKY1HahkKYA3+7YtD3IW2v/cmL1T0uLs
+ KcXzUPHAhjawT7iFLuC2yCozxeJw0uyZ62EfEmiigtKDyJ6Ci2wru5flv+kjzUUNQPe6
+ 6fOw==
+X-Gm-Message-State: AD7BkJJRkFYaspxiM5P79z7RXJv+L9Bf30e42a5gokK6wPGmtfM/Uq5sNOJ8xCyTPGh47Q==
+X-Received: by 10.98.16.15 with SMTP id y15mr909317pfi.114.1457570449920;
+ Wed, 09 Mar 2016 16:40:49 -0800 (PST)
 Received: from camb691 ([122.99.82.10])
- by smtp.gmail.com with ESMTPSA id wq3sm691202pac.44.2016.03.09.16.10.03
+ by smtp.gmail.com with ESMTPSA id zu10sm784748pab.31.2016.03.09.16.40.47
  (version=TLSv1/SSLv3 cipher=OTHER);
- Wed, 09 Mar 2016 16:10:05 -0800 (PST)
-Date: Thu, 10 Mar 2016 11:09:54 +1100
+ Wed, 09 Mar 2016 16:40:49 -0800 (PST)
+Date: Thu, 10 Mar 2016 11:40:40 +1100
 From: Cyril Bur <cyrilbur@gmail.com>
-To: "Vishwanatha Subbanna" <vishwanath@in.ibm.com>
-Cc: openbmc@lists.ozlabs.org, OpenBMC Patches <openbmc-patches@stwcx.xyz>
-Subject: Re: [PATCH phosphor-host-ipmid v4] memory leak found during
- multiple reboots. it was found that in many cases the reply was not
- unref'ed
-Message-ID: <20160310110954.02cbdc7a@camb691>
-In-Reply-To: <201603090552.u295quXu19398962@d28relay05.in.ibm.com>
-References: <1456900828-20255-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1456900828-20255-2-git-send-email-openbmc-patches@stwcx.xyz>
- <20160309102411.5654f1b3@camb691>
- <201603090552.u295quXu19398962@d28relay05.in.ibm.com>
+To: austenc@us.ibm.com
+Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH phosphor-event v3] Add association interface to each
+ event log
+Message-ID: <20160310114040.7acfe846@camb691>
+In-Reply-To: <1457382644-3823-2-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1457382644-3823-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1457382644-3823-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: Claws Mail 3.13.2 (GTK+ 2.24.29; x86_64-unknown-linux-gnu)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -66,1072 +63,284 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Mar 2016 00:10:11 -0000
+X-List-Received-Date: Thu, 10 Mar 2016 00:40:52 -0000
 
-On Wed, 9 Mar 2016 11:23:01 +0530
-"Vishwanatha Subbanna" <vishwanath@in.ibm.com> wrote:
+On Mon,  7 Mar 2016 14:30:44 -0600
+OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
 
-> Thanks for the comments.. I responded inline.
+> From: Chris Austen <austenc@us.ibm.com>
 > 
-> Thanks
+> When a new event log is created we will create an interface
+> with a name of org.openbmc.association.  That will have a
+> single property named "association" which will be an a(sss).
+> That will be enough information for the rest server to present
+> it.
 > 
-> -------------------------------------------------------------------------------------
+> Lets say you want to run the acceptTestMessage method.  It
+> will create an association between the event log and 2 dimms.
 > 
-> Thanks and Regards,
-> Vishwanath.
-> Advisory Software Engineer,
-> Power Firmware Development,
-> Systems &Technology Lab,
-> MG2-6F-255 , Manyata Embassy Business Park,
-> Bangalore , KA , 560045
-> Ph: +91-80-46678255
-> E-mail: vishwanath@in.ibm.com
-> ----------------------------------------------------------------------------------
+> So
+> /org/openbmc/inventory/system/chassis/motherboard/dimm2
+> /org/openbmc/inventory/system/chassis/motherboard/dimm3
 > 
-> Cyril Bur <cyrilbur@gmail.com> wrote on 09/03/2016 04:54:11 am:
+> /org/openbmc/records/events/1/fru
+> should return
+> data : {/org/openbmc/inventory/system/chassis/motherboard/dimm2 , /org/openbmc/inventory/system/chassis/motherboard/dimm3}
 > 
-> > From: Cyril Bur <cyrilbur@gmail.com>
-> > To: Vishwanatha Subbanna/India/IBM@IBMIN
-> > Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-> > Date: 09/03/2016 04:54 am
-> > Subject: Re: [PATCH phosphor-host-ipmid v4] memory leak found during
-> > multiple reboots. it was found that in many cases the reply was not  
-> unref'ed
-> >
-> > On Wed,  2 Mar 2016 00:40:28 -0600
-> > OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
-> >  
-> > > From: vishwa <vishwanath@in.ibm.com>
-> > >
-> > > --signed off by vishwanath@in.ibm.com---
-> > > ---
-> > >  apphandler.C       | 150 ++++++++++++++++++----------------------
-> > >  host-services.c    |   2 +-
-> > >  ipmid.C            |  53 +++++++-------
-> > >  sensorhandler.C    |   2 +-
-> > >  storageaddsel.C    |   4 +-
-> > >  transporthandler.C | 199 ++++++++++++++++++++++  
-> > +------------------------------  
-> > >  6 files changed, 182 insertions(+), 228 deletions(-)
-> > >
-> > > diff --git a/apphandler.C b/apphandler.C
-> > > index a48059f..a921643 100644
-> > > --- a/apphandler.C
-> > > +++ b/apphandler.C
-> > > @@ -119,11 +119,22 @@ ipmi_ret_t  
-> > ipmi_app_get_device_guid(ipmi_netfn_t netfn, ipmi_cmd_t cmd,  
-> > >      const char  *objname = "/org/openbmc/control/chassis0";
-> > >      const char  *iface = "org.freedesktop.DBus.Properties";
-> > >      const char  *chassis_iface = "org.openbmc.control.Chassis";
-> > > -    sd_bus_message *reply = NULL, *m = NULL;
-> > > +    sd_bus_message *reply = NULL;
-> > >      sd_bus_error error = SD_BUS_ERROR_NULL;
-> > >      int r = 0;
-> > >      char *uuid = NULL;
-> > >
-> > > +    // UUID is in RFC4122 format. Ex:  
-> 61a39523-78f2-11e5-9862-e6402cfc3223
-> > > +    // Per IPMI Spec 2.0 need to convert to 16 hex bytes and  
-> > reverse the byte order  
-> > > +    // Ex: 0x2332fc2c40e66298e511f2782395a361
-> > > +
-> > > +    const int resp_size = 16; // Response is 16 hex bytes per IPMI  
-> Spec
-> > > +    uint8_t resp_uuid[resp_size]; // Array to hold the formatted  
-> response
-> > > +    int resp_loc = resp_size-1; // Point resp end of array to  
-> > save in reverse order  
-> > > +    int i = 0;
-> > > +    char *tokptr = NULL;
-> > > +    char *id_octet = NULL;
-> > > +
-> > >      // Status code.
-> > >      ipmi_ret_t rc = IPMI_CC_OK;
-> > >      *data_len = 0;
-> > > @@ -131,49 +142,33 @@ ipmi_ret_t  
-> > ipmi_app_get_device_guid(ipmi_netfn_t netfn, ipmi_cmd_t cmd,  
-> > >      printf("IPMI GET DEVICE GUID\n");
-> > >
-> > >      // Call Get properties method with the interface and property name
-> > > -    r = sd_bus_message_new_method_call  
-> (bus,&m,busname,objname,iface,"Get");
-> > > -    if (r < 0) {
-> > > -        fprintf(stderr, "Failed to add the Get method object: %s  
-> > \n", strerror(-r));  
-> > > -        return IPMI_CC_UNSPECIFIED_ERROR;
-> > > -    }
-> > > -    r = sd_bus_message_append(m, "ss", chassis_iface, "uuid");
-> > > -    if (r < 0) {
-> > > -        fprintf(stderr, "Failed to append arguments: %s\n", strerror  
-> (-r));
-> > > -        return -1;
-> > > -    }
-> > > -    r = sd_bus_call(bus, m, 0, &error, &reply);
-> > > -    if (r < 0) {
-> > > -        fprintf(stderr, "Failed to call the Get method: %s\n",  
-> > strerror(-r));  
-> > > -        return IPMI_CC_UNSPECIFIED_ERROR;
-> > > +    r = sd_bus_call_method(bus,busname,objname,iface,
-> > > +                           "Get",&error, &reply, "ss",
-> > > +                           chassis_iface, "uuid");
-> > > +    if (r < 0)
-> > > +    {
-> > > +        fprintf(stderr, "Failed to call Get Method: %s\n", strerror  
-> (-r));
-> > > +        rc = IPMI_CC_UNSPECIFIED_ERROR;
-> > > +        goto finish;
-> > >      }
-> > > +  
-> >
-> > The above looks like a rework, not really addressing a memory leak
-> > specifically? The rework looks good to me but can we please start  
-> splitting
-> > patches up and do what the commit message says in each patch.
-> >
-> > This series would have been better with (at least) the above being in one
-> > commit entitled something like "Rework ipmi_app_get_device_guid() dbud  
-> message
-> > handling" and then an explanation as to why this way is better.
-> >  
+> You should also be able to go to the dimm and get the association in reverse
 > 
-> Okay... I had 2 approaches in front of me. Handle memory leak in the old
-> way first and then in the next patch, undo what I had done before and do it
-> using new API and handle the leak also in the new approach. I am not
-> totally agreeing on this since there is a do-undo-redo effort involved
-> here. BTW, is doing a code rework also not a method to fix the leaks if we
-> had some issues in the way it was before ?
+> /org/openbmc/inventory/system/chassis/motherboard/dimm2/event
+> should return
+> data : {/org/openbmc/records/events/1/}
 > 
+> Fix warnings due to invalid number of parameters
+> 
+> you cant have a fprintf with two parms but only one %s.
+> ---
+>  event_messaged_sdbus.c | 105 ++++++++++++++++++++++++++++++++++++++++---------
+>  1 file changed, 86 insertions(+), 19 deletions(-)
+> 
+> diff --git a/event_messaged_sdbus.c b/event_messaged_sdbus.c
+> index fc4c911..907ac53 100644
+> --- a/event_messaged_sdbus.c
+> +++ b/event_messaged_sdbus.c
+> @@ -1,3 +1,4 @@
+> +#define _GNU_SOURCE
+>  #include <stdio.h>
+>  #include <stdlib.h>
+>  #include <errno.h>
+> @@ -20,6 +21,7 @@
+>  /*     method_x  : callable dbus functions.                                  */
+>  /*                                                                           */
+>  /*****************************************************************************/
+> +const char *event_path = "/org/openbmc/records/events";
+>  
+>  sd_bus      *bus   = NULL;
+>  sd_bus_slot *slot  = NULL;
+> @@ -31,6 +33,7 @@ typedef struct messageEntry_t {
+>  	size_t         logid;
+>  	sd_bus_slot   *messageslot;
+>  	sd_bus_slot   *deleteslot;
+> +	sd_bus_slot   *associationslot;
+>  	event_manager *em;
+>  
+>  } messageEntry_t;
+> @@ -84,6 +87,53 @@ static event_record_t* message_record_open(event_manager *em, uint16_t logid)
+>  	return (r ? gCachedRec : NULL);
+>  }
+>  
+> +static int prop_message_assoc(sd_bus *bus,
+> +			const char *path,
+> +			const char *interface,
+> +			const char *property,
+> +			sd_bus_message *reply,
+> +			void *userdata,
+> +			sd_bus_error *error)
+> +{
+> +	int r=0;
+> +	messageEntry_t *m = (messageEntry_t*) userdata;
+> +	event_record_t *rec;
+> +	char *p;
+> +	char *token;
+> +
+> +	rec = message_record_open(m->em, m->logid);
+> +	if (!rec) {
+> +		fprintf(stderr,"Warning missing evnet log for %lx\n", m->logid);
 
-Sounds like your commit message probably should have been about the rework to
-address the currently inefficient way of doing things and the leakiness.
+It is customary to have a 0x before hex values.
 
-Not a super big deal really but it's just when I read a commit message that
-starts with "memory leak" I expect to see just fixing of memory leaks....
+> +		sd_bus_error_set(error,
+> +			SD_BUS_ERROR_FILE_NOT_FOUND,
+> +			"Could not find log file");
+> +		return -1;
+> +	}
+> +
+> +	p = rec->association;
+> +
+> +	token = strtok(p, " ");
+> +	if (token) {
+> +		r = sd_bus_message_open_container(reply, 'a', "(sss)");
+> +		if (r < 0) {
+> +			fprintf(stderr,"Error opening container %s to reply %s\n", token, strerror(-r));
+> +		}
+> +
+> +		while(token) {
+> +
+> +			r = sd_bus_message_append(reply, "(sss)", "fru", "event", token);
+> +			if (r < 0) {
+> +				fprintf(stderr,"Error adding properties for %s to reply %s\n", token, strerror(-r));
+> +			}
+> +
+> +			token = strtok(NULL, " ");
+> +		}
+> +
+> +		r = sd_bus_message_close_container(reply);
+> +	}
+> +
+> +	return r;
+> +}
+>  
+>  
+>  static int prop_message(sd_bus *bus,
+> @@ -103,7 +153,7 @@ static int prop_message(sd_bus *bus,
+>  
+>  	rec = message_record_open(m->em, m->logid);
+>  	if (!rec) {
+> -		fprintf(stderr,"Warning missing evnet log for %d\n", m->logid);
+> +		fprintf(stderr,"Warning missing evnet log for %lx\n", m->logid);
 
-> > >      r = sd_bus_message_read(reply, "v", "s", &uuid);
-> > > -    if (r < 0) {
-> > > -        fprintf(stderr, "Failed to get a response: %s", strerror(-r));
-> > > -        return IPMI_CC_RESPONSE_ERROR;
-> > > -    }
-> > > -    if (uuid == NULL)
-> > > +    if (r < 0 || uuid == NULL)
-> > >      {
-> > > -        fprintf(stderr, "Failed to get a valid response: %s",  
-> > strerror(-r));  
-> > > -        return IPMI_CC_RESPONSE_ERROR;
-> > > +        fprintf(stderr, "Failed to get a response: %s", strerror(-r));
-> > > +        rc = IPMI_CC_RESPONSE_ERROR;
-> > > +        goto finish;
-> > >      }
-> > >
-> > > -    // UUID is in RFC4122 format. Ex:  
-> 61a39523-78f2-11e5-9862-e6402cfc3223
-> > > -    // Per IPMI Spec 2.0 need to convert to 16 hex bytes and  
-> > reverse the byte order  
-> > > -    // Ex: 0x2332fc2c40e66298e511f2782395a361
-> > > -
-> > > -    const int resp_size = 16; // Response is 16 hex bytes per IPMI  
-> Spec
-> > > -    uint8_t resp_uuid[resp_size]; // Array to hold the formatted  
-> response
-> > > -    int resp_loc = resp_size-1; // Point resp end of array to  
-> > save in reverse order  
-> > > -    int i = 0;
-> > > -    char *tokptr = NULL;
-> > > -
-> > >      // Traverse the UUID
-> > > -    char* id_octet = strtok_r(uuid, "-", &tokptr); // Get the  
-> > UUID octects separated by dash  
-> > > +    id_octet = strtok_r(uuid, "-", &tokptr); // Get the UUID  
-> > octects separated by dash  
-> > >
-> > >      if (id_octet == NULL)
-> > > -    { // Error
-> > > +    {
-> > > +        // Error
-> > >          fprintf(stderr, "Unexpected UUID format: %s", uuid);
-> > > -        return IPMI_CC_RESPONSE_ERROR;
-> > > +        rc = IPMI_CC_RESPONSE_ERROR;
-> > > +        goto finish;
-> > >      }
-> > >
-> > >      while (id_octet != NULL)
-> > > @@ -201,8 +196,9 @@ ipmi_ret_t  
-> > ipmi_app_get_device_guid(ipmi_netfn_t netfn, ipmi_cmd_t cmd,  
-> > >      // Pack the actual response
-> > >      memcpy(response, &resp_uuid, *data_len);
-> > >
-> > > +finish:
-> > >      sd_bus_error_free(&error);
-> > > -    sd_bus_message_unref(m);
-> > > +    reply = sd_bus_message_unref(reply);
-> > >
-> > >      return rc;
-> > >  }
-> > > @@ -246,15 +242,13 @@ ipmi_ret_t  
-> > ipmi_app_set_watchdog(ipmi_netfn_t netfn, ipmi_cmd_t cmd,  
-> > >      const char  *busname = "org.openbmc.watchdog.Host";
-> > >      const char  *objname = "/org/openbmc/watchdog/host0";
-> > >      const char  *iface = "org.openbmc.Watchdog";
-> > > -    sd_bus_message *reply = NULL, *m = NULL;
-> > > +    sd_bus_message *reply = NULL;
-> > >      sd_bus_error error = SD_BUS_ERROR_NULL;
-> > >      int r = 0;
-> > >
-> > >      set_wd_data_t *reqptr = (set_wd_data_t*) request;
-> > >      uint16_t timer = 0;
-> > >      uint32_t timer_ms = 0;
-> > > -    // Status code.
-> > > -    ipmi_ret_t rc = IPMI_CC_OK;
-> > >
-> > >      *data_len = 0;
-> > >
-> > > @@ -266,53 +260,45 @@ ipmi_ret_t  
-> > ipmi_app_set_watchdog(ipmi_netfn_t netfn, ipmi_cmd_t cmd,  
-> > >      printf("WATCHDOG SET Timer:[0x%X] 100ms intervals\n",timer);
-> > >
-> > >      // Set watchdog timer
-> > > -    r = sd_bus_message_new_method_call  
-> (bus,&m,busname,objname,iface,"set");
-> > > -    if (r < 0) {
-> > > -        fprintf(stderr, "Failed to add the set method object: %s  
-> > \n", strerror(-r));  
-> > > -        return -1;
-> > > -    }
-> > > -    r = sd_bus_message_append(m, "i", timer_ms);
-> > > -    if (r < 0) {
-> > > -        fprintf(stderr, "Failed to add timer value: %s\n", strerror  
-> (-r));
-> > > -        return -1;
-> > > -    }
-> > > -    r = sd_bus_call(bus, m, 0, &error, &reply);
-> > > -    if (r < 0) {
-> > > -        fprintf(stderr, "Failed to call the set method: %s\n",  
-> > strerror(-r));  
-> > > -        return -1;
-> > > +    r = sd_bus_call_method(bus, busname, objname, iface,
-> > > +                           "set", &error, &reply, "i", timer_ms);
-> > > +    if(r < 0)
-> > > +    {
-> > > +        fprintf(stderr, "Failed to call the SET method: %s\n",  
-> > strerror(-r));  
-> > > +        goto finish;
-> > >      }
-> > >
-> > > +    sd_bus_error_free(&error);
-> > > +    reply = sd_bus_message_unref(reply);
-> > > +  
-> >
-> > So here you're sort of reworking AND fixing the leaks.
-> > In terms of fixing the leaks can't you just pass NULL instead of
-> > reply? I could
-> > be wrong here but I believe that sd_bus will handle passing NULL and  
-> realise
-> > that you don't care about the reply (which, AFAICT, you don't).
-> >  
-> 
-> Sorry but I don't understand "Pass the NULL instead of reply". Pass the
-> NULL where ?.
+Especially since you're changing this, to avoid confusion it is always nice to
+have a leading 0x before hex values.
 
-To sd_bus_call_method(), if you plan to ignore or you don't expect a response
-to the method, you can pass NULL as the reply parameter and sd_bus will do what
-you want it to do (unref it if it gets one).
-See:
-http://code.metager.de/source/xref/freedesktop/systemd/systemd/src/libsystemd/sd-bus/sd-bus.c#2014
+>  		sd_bus_error_set(error,
+>  			SD_BUS_ERROR_FILE_NOT_FOUND,
+>  			"Could not find log file");
+> @@ -114,8 +164,6 @@ static int prop_message(sd_bus *bus,
+>  		p = rec->message;
+>  	} else if (!strncmp("severity", property, 8)) {
+>  		p = rec->severity;
+> -	} else if (!strncmp("association", property, 11)) {
+> -		p = rec->association;
+>  	} else if (!strncmp("reported_by", property, 11)) {
+>  		p = rec->reportedby;
+>  	} else if (!strncmp("time", property, 4)) {
+> @@ -174,7 +222,7 @@ static int method_accept_host_message(sd_bus_message *m,
+>  				      void *userdata,
+>  				      sd_bus_error *ret_error)
+>  {
+> -	char *message, *severity, *association, *s;
+> +	char *message, *severity, *association;
+>  	size_t   n = 4;
+>  	uint8_t *p;
+>  	int r;
+> @@ -201,9 +249,7 @@ static int method_accept_host_message(sd_bus_message *m,
+>  	rec.p           = (uint8_t*) p;
+>  	rec.n           = n;
+>  
+> -	asprintf(&s, "%s %s (%s)", rec.severity, rec.message, rec.association);
+> -	syslog(LOG_NOTICE, s);
+> -	free(s);
+> +	syslog(LOG_NOTICE, "%s %s (%s)", rec.severity, rec.message, rec.association);
 
-If you read around there, you can actually do the same with the error parameter.
+Yes!
 
-> The way its done here is per one of the approaches followed in systemd code
-> and I followed the same.
-> I may have not consumed the reply here but just thinking futuristic to
-> avoid any dangling pointer issues if they were to be re used.
-> 
-> from sd-bus/bus-message.C
-> ---------------------------
-> 
-> _public_ sd_bus_message* sd_bus_message_unref(sd_bus_message *m) {
-> 
->         if (!m)
->                 return NULL;
-> 
->         assert(m->n_ref > 0);
->         m->n_ref--;
-> 
->         if (m->n_ref > 0)
->                 return NULL;
-> 
->         message_free(m);
->         return NULL;
-> }
-> 
+>  
+>  	logid = message_create_new_log_event(em, &rec);
+>  
+> @@ -234,10 +280,7 @@ static int method_accept_test_message(sd_bus_message *m,
+>  	rec.n           = 6;
+>  
+>  
+> -	asprintf(&s, "%s %s (%s)", rec.severity, rec.message, rec.association);
+> -	syslog(LOG_NOTICE, s);
+> -	free(s);
+> -
+> +	syslog(LOG_NOTICE, "%s %s (%s)", rec.severity, rec.message, rec.association);
+>  	logid = message_create_new_log_event(em, &rec);
+>  	send_log_to_dbus(em, logid);
+>  
+> @@ -261,7 +304,7 @@ static int method_clearall(sd_bus_message *m, void *userdata, sd_bus_error *ret_
+>  
+>  	while (logid = message_next_event(em)) {
+>  		snprintf(buffer, sizeof(buffer),
+> -			"/org/openbmc/records/events/%d", logid);
+> +			"%s/%d", event_path, logid);
+>  
+>  		r = sd_bus_call_method_async(bus,
+>  					     NULL,
+> @@ -305,7 +348,6 @@ static const sd_bus_vtable recordlog_vtable[] = {
+>  
+>  static const sd_bus_vtable log_vtable[] = {
+>  	SD_BUS_VTABLE_START(0),   
+> -	SD_BUS_PROPERTY("association", "s",  prop_message,    0, SD_BUS_VTABLE_PROPERTY_CONST),
+>  	SD_BUS_PROPERTY("message",     "s",  prop_message,    0, SD_BUS_VTABLE_PROPERTY_CONST),
+>  	SD_BUS_PROPERTY("severity",    "s",  prop_message,    0, SD_BUS_VTABLE_PROPERTY_CONST),
+>  	SD_BUS_PROPERTY("reported_by", "s",  prop_message,    0, SD_BUS_VTABLE_PROPERTY_CONST),
+> @@ -321,13 +363,18 @@ static const sd_bus_vtable recordlog_delete_vtable[] = {
+>  	SD_BUS_VTABLE_END
+>  };
+>  
+> +static const sd_bus_vtable recordlog_association_vtable[] = {
+> +	SD_BUS_VTABLE_START(0),
+> +	SD_BUS_PROPERTY("associations", "a(sss)",  prop_message_assoc, 0, SD_BUS_VTABLE_PROPERTY_CONST),
+> +	SD_BUS_VTABLE_END
+> +};
+> +
+>  static int remove_log_from_dbus(messageEntry_t *p)
+>  {
+>  	int r;
+>  	char buffer[32];
+>  
+> -	snprintf(buffer, sizeof(buffer),
+> -		"/org/openbmc/records/events/%d", p->logid);
+> +	snprintf(buffer, sizeof(buffer), "%s/%lu", event_path, p->logid);
+>  
+>  	printf("Attempting to delete %s\n", buffer);
+>  
+> @@ -338,6 +385,7 @@ static int remove_log_from_dbus(messageEntry_t *p)
+>  	}	
+>  	sd_bus_slot_unref(p->messageslot);
+>  	sd_bus_slot_unref(p->deleteslot);
+> +	sd_bus_slot_unref(p->associationslot);
+>  
+>  	message_entry_close(p);
+>  
+> @@ -350,8 +398,7 @@ int send_log_to_dbus(event_manager *em, const uint16_t logid)
+>  	int r;
+>  	messageEntry_t *m;
+>  
+> -	snprintf(loglocation, sizeof(loglocation),
+> -		"/org/openbmc/records/events/%d", logid);
+> +	snprintf(loglocation, sizeof(loglocation), "%s/%d", event_path, logid);
+>  
+>  	message_entry_new(&m, logid, em);
+>  
+> @@ -374,12 +421,32 @@ int send_log_to_dbus(event_manager *em, const uint16_t logid)
+>  				     "org.openbmc.Object.Delete",
+>  				     recordlog_delete_vtable,
+>  				     m);
+> +
+> +	if (r < 0) {
+> +		fprintf(stderr, "Failed to add delete object for: %s, %s\n",
+> +			loglocation, strerror(-r));
+> +		message_entry_close(m);
+> +		return 0;
+> +	}
 
-I responded to some of this below...
+So random question, we don't want to be passing errors back up the stack? I
+notice that some existing code already does this so not really a problem with
+your patch but just a question to someone who knows more about this code than I
+do...
 
-> 
-> > >      // Stop the current watchdog if any
-> > > -    r =  
-> > sd_bus_message_new_method_call(bus,&m,busname,objname,iface,"stop");  
-> > > -    if (r < 0) {
-> > > -        fprintf(stderr, "Failed to add the start method object:  
-> > %s\n", strerror(-r));  
-> > > -        return -1;
-> > > -    }
-> > > -    r = sd_bus_call(bus, m, 0, &error, &reply);
-> > > -    if (r < 0) {
-> > > -        fprintf(stderr, "Failed to call the start method: %s\n",  
-> > strerror(-r));  
-> > > -        return -1;
-> > > +    r = sd_bus_call_method(bus, busname, objname, iface,
-> > > +                           "stop", &error, &reply, NULL);
-> > > +    if(r < 0)
-> > > +    {
-> > > +        fprintf(stderr, "Failed to call the STOP method: %s\n",  
-> > strerror(-r));  
-> > > +        goto finish;
-> > >      }
-> > >
-> > > -    // Start the watchdog if requested
-> > >      if (reqptr->t_use & 0x40)
-> > >      {
-> > > -        r =  
-> > sd_bus_message_new_method_call(bus,&m,busname,objname,iface,"start");  
-> > > -        if (r < 0) {
-> > > -            fprintf(stderr, "Failed to add the start method  
-> > object: %s\n", strerror(-r));  
-> > > -            return -1;
-> > > -        }
-> > > -        r = sd_bus_call(bus, m, 0, &error, &reply);
-> > > -        if (r < 0) {
-> > > -            fprintf(stderr, "Failed to call the start method: %s  
-> > \n", strerror(-r));  
-> > > -            return -1;
-> > > +        sd_bus_error_free(&error);
-> > > +        reply = sd_bus_message_unref(reply);
-> > > +
-> > > +        // Start the watchdog if requested
-> > > +        r = sd_bus_call_method(bus, busname, objname, iface,
-> > > +                               "start", &error, &reply, NULL);
-> > > +        if(r < 0)
-> > > +        {
-> > > +            fprintf(stderr, "Failed to call the START method: %s  
-> > \n", strerror(-r));  
-> > >          }
-> > >      }
-> > >
-> > > +finish:
-> > >      sd_bus_error_free(&error);
-> > > -    sd_bus_message_unref(m);
-> > > +    reply = sd_bus_message_unref(reply);
-> > >
-> > > -    return rc;
-> > > +    return (r < 0) ? -1 : IPMI_CC_OK;
-> > >  }
-> > >
-> > >
-> > > @@ -323,7 +309,7 @@ ipmi_ret_t  
-> > ipmi_app_reset_watchdog(ipmi_netfn_t netfn, ipmi_cmd_t cmd,  
-> > >      const char  *busname = "org.openbmc.watchdog.Host";
-> > >      const char  *objname = "/org/openbmc/watchdog/host0";
-> > >      const char  *iface = "org.openbmc.Watchdog";
-> > > -    sd_bus_message *reply = NULL, *m = NULL;
-> > > +    sd_bus_message *reply = NULL;
-> > >      sd_bus_error error = SD_BUS_ERROR_NULL;
-> > >      int r = 0;
-> > >
-> > > @@ -334,19 +320,15 @@ ipmi_ret_t  
-> > ipmi_app_reset_watchdog(ipmi_netfn_t netfn, ipmi_cmd_t cmd,  
-> > >      printf("WATCHDOG RESET\n");
-> > >
-> > >      // Refresh watchdog
-> > > -    r =  
-> > sd_bus_message_new_method_call(bus,&m,busname,objname,iface,"poke");  
-> > > -    if (r < 0) {
-> > > -        fprintf(stderr, "Failed to add the method object: %s\n",  
-> > strerror(-r));  
-> > > -        return -1;
-> > > -    }
-> > > -    r = sd_bus_call(bus, m, 0, &error, &reply);
-> > > +    r = sd_bus_call_method(bus, busname, objname, iface,
-> > > +                           "poke", &error, &reply, NULL);
-> > >      if (r < 0) {
-> > > -        fprintf(stderr, "Failed to call the method: %s\n", strerror  
-> (-r));
-> > > -        return -1;
-> > > +        fprintf(stderr, "Failed to add reset  watchdog: %s\n",  
-> > strerror(-r));  
-> > > +        rc = -1;
-> > >      }
-> > >
-> > >      sd_bus_error_free(&error);
-> > > -    sd_bus_message_unref(m);
-> > > +    reply = sd_bus_message_unref(reply);
-> > >
-> > >      return rc;
-> > >  }
-> > > diff --git a/host-services.c b/host-services.c
-> > > index 23aa55e..cc47439 100644
-> > > --- a/host-services.c
-> > > +++ b/host-services.c
-> > > @@ -68,7 +68,7 @@ static int soft_power_off(sd_bus_message *m,  
-> > void *userdata, sd_bus_error *ret_e  
-> > >
-> > >  finish:
-> > >      sd_bus_error_free(&bus_error);
-> > > -    sd_bus_message_unref(response);
-> > > +    response = sd_bus_message_unref(response);
-> > >
-> > >      if(rc < 0)
-> > >      {
-> > > diff --git a/ipmid.C b/ipmid.C
-> > > index 0f4139c..06fbf05 100644
-> > > --- a/ipmid.C
-> > > +++ b/ipmid.C
-> > > @@ -225,9 +225,8 @@ static int send_ipmi_message(sd_bus_message  
-> > *req, unsigned char seq, unsigned ch  
-> > >
-> > >  final:
-> > >      sd_bus_error_free(&error);
-> > > -    sd_bus_message_unref(m);
-> > > -    sd_bus_message_unref(reply);
-> > > -
-> > > +    m = sd_bus_message_unref(m);
-> > > +    reply = sd_bus_message_unref(reply);  
-> >
-> > Why this change? You don't check m or reply/...  the unref already
-> > happens. The
-> > only thing I can think that you're doing is fixing warnings (in which  
-> case,
-> > separate patch and please say so) but quite frankly you shouldn't be  
-> enabling
-> > those warnings, they're a pain.
-> >  
-> 
-> I agree I am not consuming it here / passing the pointer back.. but it was
-> more of a good practise that I was following.
-> I am not sure which warning are you saying is a pain ?. Do you have an
-> example ? -or- are you generally saying
-> compiler should not warn for these types of message usages ?.
-> 
-
-You can get GCC to warn you about ignoring the return values of functions which
-can be useful but in practice just gets in the way, I was wondering if you were
-trying to avoid this message.
-
-So I agree with you that it is wise to sanitise pointers. However, when the
-pointer if function local this precaution is kind of overkill, anyone modifying
-this function won't be reusing that pointer and if they do well they probably
-shouldn't be working on it because they clearly don't understand whats going
-on, also, this is why we have code review.
-
-What I think when I see those lines is "Oh he has the intention of using the
-return value of sd_bus_message_unref(). Wait, what? The function returns right
-away, why did he do that?"...
-
-> BTW, I did not fix any warnings.. That code was just being futuristic.
-> 
-> > >
-> > >      return r < 0 ? EXIT_FAILURE : EXIT_SUCCESS;
-> > >  }
-> > > @@ -246,13 +245,13 @@ static int  
-> > handle_ipmi_command(sd_bus_message *m, void *user_data, sd_bus_error  
-> > >      r = sd_bus_message_read(m, "yyyy",  &sequence, &netfn, &lun,  
-> &cmd);
-> > >      if (r < 0) {
-> > >          fprintf(stderr, "Failed to parse signal message: %s\n",  
-> > strerror(-r));  
-> > > -        return -1;
-> > > +        goto final;
-> > >      }
-> > >
-> > >      r = sd_bus_message_read_array(m, 'y',  &request, &sz );
-> > >      if (r < 0) {
-> > >          fprintf(stderr, "Failed to parse signal message: %s\n",  
-> > strerror(-r));  
-> > > -        return -1;
-> > > +        goto final;
-> > >      }
-> > >
-> > >      fprintf(ipmiio, "IPMI Incoming: Seq 0x%02x, NetFn 0x%02x,  
-> > CMD: 0x%02x \n", sequence, netfn, cmd);  
-> > > @@ -268,6 +267,7 @@ static int handle_ipmi_command(sd_bus_message  
-> > *m, void *user_data, sd_bus_error  
-> > >      if(r != 0)
-> > >      {
-> > >          fprintf(stderr,"ERROR:[0x%X] handling NetFn:[0x%X], Cmd:  
-> > [0x%X]\n",r, netfn, cmd);  
-> > > +        goto final;
-> > >      }
-> > >
-> > >      fprintf(ipmiio, "IPMI Response:\n");
-> > > @@ -278,11 +278,12 @@ static int  
-> > handle_ipmi_command(sd_bus_message *m, void *user_data, sd_bus_error  
-> > >            ((unsigned char *)response) + 1, resplen - 1);
-> > >      if (r < 0) {
-> > >          fprintf(stderr, "Failed to send the response message\n");
-> > > -        return -1;
-> > >      }
-> > >
-> > > +final:
-> > > +    m = sd_bus_message_unref(m);
-> > >
-> > > -    return 0;
-> > > +    return (r < 0) ? -1 : 0;
-> > >  }
-> > >
-> > >
-> > > @@ -470,6 +471,7 @@ int  
-> > find_interface_property_fru_type(dbus_interface_t *interface, const char  
-> *pr
-> > >          fprintf(stderr, "Failed to create a method call: %s",  
-> > strerror(-r));  
-> > >          fprintf(stderr,"Bus: %s Path: %s Interface: %s \n",
-> > >                  interface->bus, interface->path, interface->  
-> interface);
-> > > +        goto final;
-> > >      }
-> > >
-> > >      r = sd_bus_message_append(m, "ss",  
-> > "org.openbmc.InventoryItem", property_name);  
-> > > @@ -477,6 +479,7 @@ int  
-> > find_interface_property_fru_type(dbus_interface_t *interface, const char  
-> *pr
-> > >          fprintf(stderr, "Failed to create a input parameter: %s",  
-> > strerror(-r));  
-> > >          fprintf(stderr,"Bus: %s Path: %s Interface: %s \n",
-> > >                  interface->bus, interface->path, interface->  
-> interface);
-> > > +        goto final;
-> > >      }
-> > >
-> > >      r = sd_bus_call(bus, m, 0, &error, &reply);
-> > > @@ -496,7 +499,8 @@ int  
-> > find_interface_property_fru_type(dbus_interface_t *interface, const char  
-> *pr
-> > >  final:
-> > >
-> > >      sd_bus_error_free(&error);
-> > > -    sd_bus_message_unref(m);
-> > > +    m = sd_bus_message_unref(m);
-> > > +    reply = sd_bus_message_unref(reply);
-> > >
-> > >      return r;
-> > >  }
-> > > @@ -512,29 +516,18 @@ int find_openbmc_path(const char *type,  
-> > const uint8_t num, dbus_interface_t *int  
-> > >
-> > >      char  *str1, *str2, *str3;
-> > >      sd_bus_error error = SD_BUS_ERROR_NULL;
-> > > -    sd_bus_message *reply = NULL, *m=NULL;
-> > > +    sd_bus_message *reply = NULL;
-> > >
-> > >
-> > >      int r;
-> > >
-> > > -    r =  
-> > sd_bus_message_new_method_call  
-> (bus,&m,busname,objname,busname,"getObjectFromByteId");
-> > > +    r = sd_bus_call_method(bus,busname,objname,busname,  
-> > "getObjectFromByteId",  
-> > > +                           &error, &reply, "sy", type, num);
-> > >      if (r < 0) {
-> > >          fprintf(stderr, "Failed to create a method call: %s",  
-> > strerror(-r));  
-> > > -    }
-> > > -
-> > > -    r = sd_bus_message_append(m, "sy", type, num);
-> > > -    if (r < 0) {
-> > > -        fprintf(stderr, "Failed to create a input parameter: %s",  
-> > strerror(-r));  
-> > > -    }
-> > > -
-> > > -    // Call the IPMI responder on the bus so the message can be  
-> > sent to the CEC  
-> > > -    r = sd_bus_call(bus, m, 0, &error, &reply);
-> > > -    if (r < 0) {
-> > > -        fprintf(stderr, "Failed to call the method: %s", strerror  
-> (-r));
-> > >          goto final;
-> > >      }
-> > >
-> > > -
-> > >      r = sd_bus_message_read(reply, "(sss)", &str1, &str2, &str3);
-> > >      if (r < 0) {
-> > >          fprintf(stderr, "Failed to get a response: %s", strerror(-r));
-> > > @@ -550,7 +543,7 @@ int find_openbmc_path(const char *type, const  
-> > uint8_t num, dbus_interface_t *int  
-> > >  final:
-> > >
-> > >      sd_bus_error_free(&error);
-> > > -    sd_bus_message_unref(m);
-> > > +    reply = sd_bus_message_unref(reply);
-> > >
-> > >      return r;
-> > >  }
-> > > @@ -577,11 +570,13 @@ int set_sensor_dbus_state_s(uint8_t number,  
-> > const char *method, const char *valu  
-> > >      r =  
-> > sd_bus_message_new_method_call(bus,&m,a.bus,a.path,a.interface,method);  
-> > >      if (r < 0) {
-> > >          fprintf(stderr, "Failed to create a method call: %s",  
-> > strerror(-r));  
-> > > +        goto final;
-> > >      }
-> > >
-> > >      r = sd_bus_message_append(m, "v", "s", value);
-> > >      if (r < 0) {
-> > >          fprintf(stderr, "Failed to create a input parameter: %s",  
-> > strerror(-r));  
-> > > +        goto final;
-> > >      }
-> > >
-> > >
-> > > @@ -590,9 +585,9 @@ int set_sensor_dbus_state_s(uint8_t number,  
-> > const char *method, const char *valu  
-> > >          fprintf(stderr, "Failed to call the method: %s", strerror  
-> (-r));
-> > >      }
-> > >
-> > > -
-> > > +final:
-> > >      sd_bus_error_free(&error);
-> > > -    sd_bus_message_unref(m);
-> > > +    m = sd_bus_message_unref(m);
-> > >
-> > >      return 0;
-> > >  }
-> > > @@ -612,11 +607,13 @@ int set_sensor_dbus_state_y(uint8_t number,  
-> > const char *method, const uint8_t va  
-> > >      r =  
-> > sd_bus_message_new_method_call(bus,&m,a.bus,a.path,a.interface,method);  
-> > >      if (r < 0) {
-> > >          fprintf(stderr, "Failed to create a method call: %s",  
-> > strerror(-r));  
-> > > +        goto final;
-> > >      }
-> > >
-> > >      r = sd_bus_message_append(m, "v", "y", value);
-> > >      if (r < 0) {
-> > >          fprintf(stderr, "Failed to create a input parameter: %s",  
-> > strerror(-r));  
-> > > +        goto final;
-> > >      }
-> > >
-> > >
-> > > @@ -625,9 +622,9 @@ int set_sensor_dbus_state_y(uint8_t number,  
-> > const char *method, const uint8_t va  
-> > >          fprintf(stderr, "12 Failed to call the method: %s", strerror  
-> (-r));
-> > >      }
-> > >
-> > > -
-> > > +final:
-> > >      sd_bus_error_free(&error);
-> > > -    sd_bus_message_unref(m);
-> > > +    m = sd_bus_message_unref(m);
-> > >
-> > >      return 0;
-> > > -}
-> > > \ No newline at end of file
-> > > +}
-> > > diff --git a/sensorhandler.C b/sensorhandler.C
-> > > index d171bf5..90bfd0f 100644
-> > > --- a/sensorhandler.C
-> > > +++ b/sensorhandler.C
-> > > @@ -221,7 +221,7 @@ ipmi_ret_t  
-> > ipmi_sen_get_sensor_reading(ipmi_netfn_t netfn, ipmi_cmd_t cmd,  
-> > >      }
-> > >
-> > >
-> > > -    sd_bus_message_unref(reply);
-> > > +    reply = sd_bus_message_unref(reply);
-> > >
-> > >      return rc;
-> > >  }
-> > > diff --git a/storageaddsel.C b/storageaddsel.C
-> > > index 51edc59..cb90aab 100644
-> > > --- a/storageaddsel.C
-> > > +++ b/storageaddsel.C
-> > > @@ -193,8 +193,8 @@ int send_esel_to_dbus(const char *desc, const  
-> > char *sev, const char *details, ui  
-> > >
-> > >  finish:
-> > >      sd_bus_error_free(&error);
-> > > -    sd_bus_message_unref(m);
-> > > -    sd_bus_message_unref(reply);
-> > > +    m = sd_bus_message_unref(m);
-> > > +    reply = sd_bus_message_unref(reply);
-> > >      return r;
-> > >  }
-> > >
-> > > diff --git a/transporthandler.C b/transporthandler.C
-> > > index d43f1f9..0fd25f9 100644
-> > > --- a/transporthandler.C
-> > > +++ b/transporthandler.C
-> > > @@ -55,7 +55,7 @@ ipmi_ret_t ipmi_transport_set_lan(ipmi_netfn_t  
-> > netfn, ipmi_cmd_t cmd,  
-> > >      ipmi_ret_t rc = IPMI_CC_OK;
-> > >      *data_len = 0;
-> > >      sd_bus *bus = ipmid_get_sd_bus_connection();
-> > > -    sd_bus_message *reply = NULL, *m = NULL;
-> > > +    sd_bus_message *reply = NULL;
-> > >      sd_bus_error error = SD_BUS_ERROR_NULL;
-> > >      int r = 0;
-> > >
-> > > @@ -84,20 +84,10 @@ ipmi_ret_t ipmi_transport_set_lan(ipmi_netfn_t  
-> > netfn, ipmi_cmd_t cmd,  
-> > >                  reqptr->data[4],
-> > >                  reqptr->data[5]);
-> > >
-> > > -        r =  
-> > sd_bus_message_new_method_call(bus,&m,app,obj,ifc,"SetHwAddress");  
-> > > -        if (r < 0) {
-> > > -            fprintf(stderr, "Failed to add method object: %s\n",  
-> > strerror(-r));  
-> > > -            return -1;
-> > > -        }
-> > > -        r = sd_bus_message_append(m, "s", mac);
-> > > -        if (r < 0) {
-> > > -            fprintf(stderr, "Failed to append message data: %s  
-> > \n", strerror(-r));  
-> > > -            return -1;
-> > > -        }
-> > > -        r = sd_bus_call(bus, m, 0, &error, &reply);
-> > > +        r = sd_bus_call_method(bus,app,obj,ifc,"SetHwAddress",
-> > > +                               &error, &reply, "s", mac);
-> > >          if (r < 0) {
-> > >              fprintf(stderr, "Failed to call method: %s\n", strerror  
-> (-r));
-> > > -            return -1;
-> > >          }
-> > >      }
-> > >      else if (reqptr->parameter == LAN_PARM_SUBNET)
-> > > @@ -112,84 +102,72 @@ ipmi_ret_t  
-> > ipmi_transport_set_lan(ipmi_netfn_t netfn, ipmi_cmd_t cmd,  
-> > >      }
-> > >      else if (reqptr->parameter == LAN_PARM_INPROGRESS) // Apply config
-> > >      {
-> > > -        int rc = 0;
-> > > -        sd_bus_message *req = NULL;
-> > > -        sd_bus_message *res = NULL;
-> > > -        sd_bus *bus1        = NULL;
-> > > -        sd_bus_error err    = SD_BUS_ERROR_NULL;
-> > > -
-> > >          if (!strcmp(new_ipaddr, "") || !strcmp (new_netmask, "")  
-> > || !strcmp (new_gateway, ""))  
-> > >          {
-> > >              fprintf(stderr,"ERROR: Incomplete LAN Parameters\n");
-> > >              return -1;
-> > >          }
-> > > -
-> > > -        rc = sd_bus_open_system(&bus1);
-> > > -        if(rc < 0)
-> > > -        {
-> > > -            fprintf(stderr,"ERROR: Getting a SYSTEM bus hook\n");
-> > > -            return -1;
-> > > -        }
-> > >
-> > >          if (strcmp(cur_ipaddr, ""))
-> > >          {
-> > > -            sd_bus_error_free(&err);
-> > > -            sd_bus_message_unref(req);
-> > > -            sd_bus_message_unref(res);
-> > > -
-> > > -            rc = sd_bus_call_method(bus1,            // On the System  
-> Bus
-> > > -                                    app,            // Service to  
-> contact
-> > > -                                    obj,            // Object path
-> > > -                                    ifc,            // Interface name
-> > > -                                    "DelAddress4",  // Method to be  
-> called
-> > > -                                    &err,           // object to  
-> > return error  
-> > > -                                    &res,           // Response  
-> > message on success  
-> > > -                                    "ssss",         // input  
-> > message (dev,ip,nm,gw)  
-> > > -                                    "eth0",
-> > > -                                    cur_ipaddr,
-> > > -                                    cur_netmask,
-> > > -                                    cur_gateway);
-> > > +            r = sd_bus_call_method(bus,           // On the System Bus
-> > > +                                   app,            // Service to  
-> contact
-> > > +                                   obj,            // Object path
-> > > +                                   ifc,            // Interface name
-> > > +                                   "DelAddress4",  // Method to be  
-> called
-> > > +                                   &error,         // object to  
-> > return error  
-> > > +                                   &reply,         // Response  
-> > message on success  
-> > > +                                   "ssss",         // input  
-> > message (dev,ip,nm,gw)  
-> > > +                                   "eth0",
-> > > +                                   cur_ipaddr,
-> > > +                                   cur_netmask,
-> > > +                                   cur_gateway);
-> > >          }
-> > >
-> > > -        if(rc < 0)
-> > > +        if(r < 0)
-> > >          {
-> > > -            fprintf(stderr, "Failed to remove existing IP %s: %s  
-> > \n", cur_ipaddr, err.message);  
-> > > -            return -1;
-> > > +            fprintf(stderr, "Failed to remove existing IP %s: %s  
-> > \n", cur_ipaddr, error.message);  
-> > > +            goto finish;
-> > >          }
-> > >
-> > > -        sd_bus_error_free(&err);
-> > > -        sd_bus_message_unref(req);
-> > > -        sd_bus_message_unref(res);
-> > > -
-> > > -        rc = sd_bus_call_method(bus1,            // On the System Bus
-> > > -                                app,            // Service to contact
-> > > -                                obj,            // Object path
-> > > -                                ifc,            // Interface name
-> > > -                                "AddAddress4",  // Method to be called
-> > > -                                &err,           // object to return  
-> error
-> > > -                                &res,           // Response  
-> > message on success  
-> > > -                                "ssss",         // input message  
-> > (dev,ip,nm,gw)  
-> > > -                                "eth0",
-> > > -                                new_ipaddr,
-> > > -                                new_netmask,
-> > > -                                new_gateway);
-> > > -        if(rc < 0)
-> > > +        sd_bus_error_free(&error);
-> > > +        reply = sd_bus_message_unref(reply);
-> > > +
-> > > +        r = sd_bus_call_method(bus,            // On the System Bus
-> > > +                               app,            // Service to contact
-> > > +                               obj,            // Object path
-> > > +                               ifc,            // Interface name
-> > > +                               "AddAddress4",  // Method to be called
-> > > +                               &error,         // object to return  
-> error
-> > > +                               &reply,         // Response  
-> > message on success  
-> > > +                               "ssss",         // input message  
-> > (dev,ip,nm,gw)  
-> > > +                               "eth0",
-> > > +                               new_ipaddr,
-> > > +                               new_netmask,
-> > > +                               new_gateway);
-> > > +        if(r < 0)
-> > >          {
-> > > -            fprintf(stderr, "Failed to set IP %s: %s\n",  
-> > new_ipaddr, err.message);  
-> > > -            return -1;
-> > > +            fprintf(stderr, "Failed to set IP %s: %s\n",  
-> > new_ipaddr, error.message);  
-> > > +        }
-> > > +        else
-> > > +        {
-> > > +            strcpy (cur_ipaddr, new_ipaddr);
-> > > +            strcpy (cur_netmask, new_netmask);
-> > > +            strcpy (cur_gateway, new_gateway);
-> > >          }
-> > > -
-> > > -        strcpy (cur_ipaddr, new_ipaddr);
-> > > -        strcpy (cur_netmask, new_netmask);
-> > > -        strcpy (cur_gateway, new_gateway);
-> > >      }
-> > >      else
-> > >      {
-> > >          fprintf(stderr, "Unsupported parameter 0x%x\n", reqptr->  
-> parameter);
-> > > -        return IPMI_CC_PARM_NOT_SUPPORTED;
-> > > +        rc = IPMI_CC_PARM_NOT_SUPPORTED;
-> > >      }
-> > >
-> > > -    return rc;
-> > > +finish:
-> > > +    // Clenaup the resources allocated reply and error
-> > > +    sd_bus_error_free(&error);
-> > > +    reply = sd_bus_message_unref(reply);
-> > > +
-> > > +    return (r < 0) ? -1 : rc;
-> > >  }
-> > >
-> > >  struct get_lan_t {
-> > > @@ -206,7 +184,7 @@ ipmi_ret_t ipmi_transport_get_lan(ipmi_netfn_t  
-> > netfn, ipmi_cmd_t cmd,  
-> > >      ipmi_ret_t rc = IPMI_CC_OK;
-> > >      *data_len = 0;
-> > >      sd_bus *bus = ipmid_get_sd_bus_connection();
-> > > -    sd_bus_message *reply = NULL, *m = NULL;
-> > > +    sd_bus_message *reply = NULL;
-> > >      sd_bus_error error = SD_BUS_ERROR_NULL;
-> > >      int r = 0;
-> > >      const uint8_t current_revision = 0x11; // Current rev per IPMI  
-> Spec 2.0
-> > > @@ -259,32 +237,27 @@ ipmi_ret_t  
-> > ipmi_transport_get_lan(ipmi_netfn_t netfn, ipmi_cmd_t cmd,  
-> > >          const char*         device             = "eth0";
-> > >          uint8_t buf[5]; // Size of expected IPMI response msg
-> > >
-> > > -        r =  
-> > sd_bus_message_new_method_call(bus,&m,app,obj,ifc,"GetAddress4");  
-> > > -        if (r < 0) {
-> > > -            fprintf(stderr, "Failed to add method object: %s\n",  
-> > strerror(-r));  
-> > > -            return -1;
-> > > -        }
-> > > -        r = sd_bus_message_append(m, "s", device);
-> > > -        if (r < 0) {
-> > > -            fprintf(stderr, "Failed to append message data: %s  
-> > \n", strerror(-r));  
-> > > -            return -1;
-> > > -        }
-> > > -        r = sd_bus_call(bus, m, 0, &error, &reply);
-> > > -        if (r < 0) {
-> > > +        r = sd_bus_call_method(bus,app,obj,ifc,"GetAddress4",
-> > > +                               &error, &reply, "s", device);
-> > > +        if (r < 0)
-> > > +        {
-> > >              fprintf(stderr, "Failed to call method: %s\n", strerror  
-> (-r));
-> > > -            return -1;
-> > > +            rc = -1;
-> > > +            goto finish;
-> > >          }
-> > > -        rc = sd_bus_message_enter_container (reply, 'a', "(iyyus)");
-> > > -        if(rc < 0)
-> > > +        r = sd_bus_message_enter_container (reply, 'a', "(iyyus)");
-> > > +        if(r < 0)
-> > >          {
-> > >              fprintf(stderr, "Failed to parse response message:  
-> > [%s]\n", strerror(-rc));  
-> > > -            return -1;
-> > > +            rc = -1;
-> > > +            goto finish;
-> > >          }
-> > > -        rc = sd_bus_message_read(reply, "(iyyus)", &family,  
-> > &prefixlen, &scope, &flags, &saddr);  
-> > > -        if (rc < 0)
-> > > +        r = sd_bus_message_read(reply, "(iyyus)", &family,  
-> > &prefixlen, &scope, &flags, &saddr);  
-> > > +        if (r < 0)
-> > >          {
-> > >              fprintf(stderr, "Failed to receive response: %s\n",  
-> > strerror(-r));  
-> > > -            return -1;
-> > > +            rc = -1;
-> > > +            goto finish;
-> > >          }
-> > >
-> > >          printf("%s:%d:%d:%d:%s\n", family==AF_INET?"IPv4":"IPv6",  
-> > prefixlen, scope, flags, saddr);  
-> > > @@ -297,7 +270,8 @@ ipmi_ret_t ipmi_transport_get_lan(ipmi_netfn_t  
-> > netfn, ipmi_cmd_t cmd,  
-> > >          if (digit == NULL)
-> > >          {
-> > >              fprintf(stderr, "Unexpected IP format: %s", saddr);
-> > > -            return IPMI_CC_RESPONSE_ERROR;
-> > > +            rc = IPMI_CC_RESPONSE_ERROR;
-> > > +            goto finish;
-> > >          }
-> > >          i = 0;
-> > >          while (digit != NULL)
-> > > @@ -311,7 +285,7 @@ ipmi_ret_t ipmi_transport_get_lan(ipmi_netfn_t  
-> > netfn, ipmi_cmd_t cmd,  
-> > >          *data_len = sizeof(buf);
-> > >          memcpy(response, &buf, *data_len);
-> > >
-> > > -        return IPMI_CC_OK;
-> > > +        rc = IPMI_CC_OK;
-> > >      }
-> > >      else if (reqptr->parameter == LAN_PARM_MAC)
-> > >      {
-> > > @@ -321,30 +295,26 @@ ipmi_ret_t  
-> > ipmi_transport_get_lan(ipmi_netfn_t netfn, ipmi_cmd_t cmd,  
-> > >          uint8_t             buf[7];
-> > >          char *eaddr1 = NULL;
-> > >
-> > > -        r =  
-> > sd_bus_message_new_method_call(bus,&m,app,obj,ifc,"GetHwAddress");  
-> > > -        if (r < 0) {
-> > > -            fprintf(stderr, "Failed to add method object: %s\n",  
-> > strerror(-r));  
-> > > -            return -1;
-> > > -        }
-> > > -        r = sd_bus_message_append(m, "s", device);
-> > > -        if (r < 0) {
-> > > -            fprintf(stderr, "Failed to append message data: %s  
-> > \n", strerror(-r));  
-> > > -            return -1;
-> > > -        }
-> > > -        r = sd_bus_call(bus, m, 0, &error, &reply);
-> > > -        if (r < 0) {
-> > > -            fprintf(stderr, "Failed to call method: %s\n", strerror  
-> (-r));
-> > > -            return -1;
-> > > +        r = sd_bus_call_method(bus,app,obj,ifc,"GetHwAddress",
-> > > +                               &error, &reply, "s", device);
-> > > +        if (r < 0)
-> > > +        {
-> > > +            fprintf(stderr, "Failed to call GetHwAddress: %s\n",  
-> > strerror(-r));  
-> > > +            rc = -1;
-> > > +            goto finish;
-> > >          }
-> > >          r = sd_bus_message_read(reply, "s", &eaddr1);
-> > > -        if (r < 0) {
-> > > +        if (r < 0)
-> > > +        {
-> > >              fprintf(stderr, "Failed to get a response: %s", strerror  
-> (-r));
-> > > -            return IPMI_CC_RESPONSE_ERROR;
-> > > +            rc = IPMI_CC_RESPONSE_ERROR;
-> > > +            goto finish;
-> > >          }
-> > >          if (eaddr1 == NULL)
-> > >          {
-> > >              fprintf(stderr, "Failed to get a valid response: %s",  
-> > strerror(-r));  
-> > > -            return IPMI_CC_RESPONSE_ERROR;
-> > > +            rc = IPMI_CC_RESPONSE_ERROR;
-> > > +            goto finish;
-> > >          }
-> > >
-> > >          memcpy((void*)&buf[0], &current_revision, 1);
-> > > @@ -354,7 +324,8 @@ ipmi_ret_t ipmi_transport_get_lan(ipmi_netfn_t  
-> > netfn, ipmi_cmd_t cmd,  
-> > >          if (digit == NULL)
-> > >          {
-> > >              fprintf(stderr, "Unexpected MAC format: %s", eaddr1);
-> > > -            return IPMI_CC_RESPONSE_ERROR;
-> > > +            rc = IPMI_CC_RESPONSE_ERROR;
-> > > +            goto finish;
-> > >          }
-> > >
-> > >          i=0;
-> > > @@ -369,14 +340,18 @@ ipmi_ret_t  
-> > ipmi_transport_get_lan(ipmi_netfn_t netfn, ipmi_cmd_t cmd,  
-> > >          *data_len = sizeof(buf);
-> > >          memcpy(response, &buf, *data_len);
-> > >
-> > > -        return IPMI_CC_OK;
-> > > +        rc = IPMI_CC_OK;
-> > >      }
-> > >      else
-> > >      {
-> > >          fprintf(stderr, "Unsupported parameter 0x%x\n", reqptr->  
-> parameter);
-> > > -        return IPMI_CC_PARM_NOT_SUPPORTED;
-> > > +        rc = IPMI_CC_PARM_NOT_SUPPORTED;
-> > >      }
-> > >
-> > > +finish:
-> > > +    sd_bus_error_free(&error);
-> > > +    reply = sd_bus_message_unref(reply);
-> > > +
-> > >      return rc;
-> > >  }
-> > >  
-> >  
+>  	
+> -	printf("Event Log added %s\n", loglocation);
+> +	r = sd_bus_add_object_vtable(bus,
+> +				     &m->associationslot,
+> +				     loglocation,
+> +				     "org.openbmc.Associations",
+> +				     recordlog_association_vtable,
+> +				     m);
+> +
+> +	if (r < 0) {
+> +		fprintf(stderr, "Failed to add association object for: %s %s\n",
+> +			loglocation, strerror(-r));
+> +		message_entry_close(m);
+> +		return 0;
+> +	}
+>  
+>  	r = sd_bus_emit_object_added(bus, loglocation);
+>  	if (r < 0) {
+>  		fprintf(stderr, "Failed to emit signal %s\n", strerror(-r));
+> +		message_entry_close(m);
+>  		return 0;
+>  	}
+>  
+> @@ -445,7 +512,7 @@ int build_bus(event_manager *em)
+>  	
+>  	/* You want to add an object manager to support deleting stuff  */
+>  	/* without it, dbus can show interfaces that no longer exist */
+> -	r = sd_bus_add_object_manager(bus, NULL, "/org/openbmc/records/events");
+> +	r = sd_bus_add_object_manager(bus, NULL, event_path);
+>  	if (r < 0) {
+>  		fprintf(stderr, "Object Manager failure  %s\n", strerror(-r));
+>  	}
