@@ -1,63 +1,63 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
- [IPv6:2607:f8b0:4003:c06::241])
+Received: from mail-oi0-x243.google.com (mail-oi0-x243.google.com
+ [IPv6:2607:f8b0:4003:c06::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 8DEAC1A0007
- for <openbmc@lists.ozlabs.org>; Thu, 10 Mar 2016 13:58:34 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id A72D71A0007
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Mar 2016 14:10:05 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=tKTqoHKN; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=zIJuuXEC; 
  dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=dQf7N3w9; 
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=SPoCqSng; 
  dkim-atps=neutral
-Received: by mail-oi0-x241.google.com with SMTP id c129so3991482oif.3
- for <openbmc@lists.ozlabs.org>; Wed, 09 Mar 2016 18:58:34 -0800 (PST)
+Received: by mail-oi0-x243.google.com with SMTP id c129so4004180oif.3
+ for <openbmc@lists.ozlabs.org>; Wed, 09 Mar 2016 19:10:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=6aIDFEdgk3+VCdJyez1drWzoYmprL3hgm3LtaqeSacI=;
- b=tKTqoHKNkG0qXL8d8tOOP53J4He7tBffv7Tjokl5dGpWJhh0NFAY+lCitGJ/9U1UEN
- Wd8IAIqoXdFagcZt01RidkFALquU8CdIchQ3CaMMWVOxNSMx3yba9cobCzBPLl7yE6Pp
- SUYsios1FJkkAJxLyCy7sGoAJRaAH6yADRhkPgEgSXxqgpd2QTvdhMcvUwpfkudiEzuL
- bKoBcfTESKQQmYWhvt/6v1SOjPRCpwsfTnAsYSlUuAHicn4shM8yvHqwy3eyN4+kQTZD
- sZSoTBwvf2xDk807oA2huhZDra8fP8eaWRQBExPlpMeDE0WHWaNZ4uxf2/fB9Dw7FPNl
- Rh7A==
+ bh=Y6pTJtCBEPzZV04t+7dTlqflOvc+AlJuuJGp0Uax0p0=;
+ b=zIJuuXECKI+7NfWWTgko9xG9qAZASTebwq7g2hFaUsEuJrTf49vJ8iYrmDrpFrrZQW
+ GOOrPa5iN0Q4wom68ZaWPmzCPhmZu1kM60eCvCPbS/dPf+oGzj3D6ihAu1t00+mSfheV
+ Tz1D2UGIPst8hI+twj23fRrmnF67r/z/niAkPeoGttFvpXL6otFvmRuhmljhJLTTchLS
+ eG8uN1brmqwglJ9WdZ7ulHhASMLXz6WicLxZ1AhZga5gWq2/2rYUQuxsOJV7BqTZ7JaA
+ +Dty3HWVwhQgb6OfOaE4/hzAkp8NqVHcgIPH+Geycuo2Za7k85FPWC85j+GujzOJ1gNJ
+ ri4g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=6aIDFEdgk3+VCdJyez1drWzoYmprL3hgm3LtaqeSacI=;
- b=dQf7N3w9BX6nBBk60/RmNba85QeHoW1ql4OYKyAW6oMxcEaQqPflPAuhg3/5RKRekr
- qseG9f6sefhPoFk/l/yu80ThwoF8q4lqGUvP0I+eaTxJ3NjbIktnDqOYY0X1ONZLuNpO
- xhbjnQFxH3nfta27t7AzH2FsBnt1AR5pAkrs0=
+ bh=Y6pTJtCBEPzZV04t+7dTlqflOvc+AlJuuJGp0Uax0p0=;
+ b=SPoCqSngr8xkVt0t574HCMXGuzDUExETM6QS/zY4fA6jqEL0gExYmP40aanzX3Lvm6
+ hfAfYfy45gfBwIFtm6v09po9U6Le9SM7LBo02L3T9gKMV3LDD6pfddFYa39ZNX/BAFk5
+ yCZiTy8i+NrWSgB8HT6yypjoTjDcQ0KbLTnhk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=6aIDFEdgk3+VCdJyez1drWzoYmprL3hgm3LtaqeSacI=;
- b=RutO9ZT6tL1VyG3Mljg23EFDeQsLSJCSiNOFCEWlWSs/OdAJdMj/lKLbcqJHvhWuDZ
- M1dlyYrgUpKJ4BDjU3SCUxgoATzbcI9lKKRiQ8vDJNRYrs327gGBT5gttbYXZtFmOtq6
- f/jsP7lgv9U0OwFuaehPwrd6X6rBkGATLr4duoxfvydSRjI9nnjtJw4YITbKWDYHJF6H
- 4OoLJLwtMWD0ZQqfSN0ZK9P0Efh9BWnthRkmO8gkanjpZG34XHgkfETSWG6NH3h9axvT
- lim/tDYmwaor/HhUt+ai864R25xxWMjjZIdb0kNE8nqtLMG0aVjIvn4/5Kp1NhXMXqJm
- 7Efg==
-X-Gm-Message-State: AD7BkJI8Q0nq/a4JFK3RrAsk8LnSCB4ytUZmawhHycE6TsTnfrfpW5OmmshG1UuWBaK7Qv5iyffzFL5zZUKstw==
-X-Received: by 10.202.77.81 with SMTP id a78mr598784oib.71.1457578711570; Wed,
- 09 Mar 2016 18:58:31 -0800 (PST)
+ bh=Y6pTJtCBEPzZV04t+7dTlqflOvc+AlJuuJGp0Uax0p0=;
+ b=gBqy67TdHK3wANCNninCQ8+ZvO2nHQvB62MuXrfykQmyjwJpqwTpXzyLvoIOpjooNR
+ rISjWrD4orgsMQHhc2C3G1pW0smmIQp9r7r2KjsqZ9q21uweO26h4/sm166ZU3Dahe1r
+ 1DVslkv2Y/G/0GUedIUR9qmYEQpf+PdUEpPq0+Dwz/LzhfdgUDklAihA97ZND0mNouVx
+ tOd5T11wbMRTZWPh+I2dPkeYOpDc3em0RoZ6TWuke4wVnjC66C+Dv0Ec5NfWDlhke/yu
+ 7u/Hr5t3HlxDVPm/dOdyFTQE2mXwU9wFpiu118c2u6Z4/DN8C+DAbrgIzbQUEkBun0EL
+ NBXA==
+X-Gm-Message-State: AD7BkJLfYa2ZM66+x3nVkOpKiI/jXQlvLyincg7Wb5J1AHPyXPrAX8AtlRXXrn63wJ1SIFZzSOHvW4Mlef7NUg==
+X-Received: by 10.202.205.196 with SMTP id d187mr628655oig.119.1457579403419; 
+ Wed, 09 Mar 2016 19:10:03 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.60.246.10 with HTTP; Wed, 9 Mar 2016 18:58:12 -0800 (PST)
-In-Reply-To: <20160309103826.2b356b38@camb691>
-References: <1456999831-12589-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1456999831-12589-3-git-send-email-openbmc-patches@stwcx.xyz>
- <20160309103826.2b356b38@camb691>
+Received: by 10.60.246.10 with HTTP; Wed, 9 Mar 2016 19:09:43 -0800 (PST)
+In-Reply-To: <1457382644-3823-2-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1457382644-3823-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1457382644-3823-2-git-send-email-openbmc-patches@stwcx.xyz>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 10 Mar 2016 13:28:12 +1030
-X-Google-Sender-Auth: PO9FzHHmmNhqlnGskb26jYQ3bR4
-Message-ID: <CACPK8XeAhb6cXQT0hV4B9oXWO5+KYxZzX3u9+kXFWmMHuGWyXw@mail.gmail.com>
-Subject: Re: [PATCH linux v2 2/2] hwmon: Hide error message in OCC hwmon driver
-To: Cyril Bur <cyrilbur@gmail.com>
-Cc: adamliyi <adamliyi@msn.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Date: Thu, 10 Mar 2016 13:39:43 +1030
+X-Google-Sender-Auth: eql1e54HPNHaXpL59nt51tqXtA4
+Message-ID: <CACPK8Xf5N7L5aGESUaJHbWH+e_Q=TRJP+s3oc1wyaPAX59O-_w@mail.gmail.com>
+Subject: Re: [PATCH phosphor-event v3] Add association interface to each event
+ log
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ chris austen <austenc@us.ibm.com>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -70,20 +70,65 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Mar 2016 02:58:36 -0000
+X-List-Received-Date: Thu, 10 Mar 2016 03:10:06 -0000
 
-Hey Adam,
+On Tue, Mar 8, 2016 at 7:00 AM, OpenBMC Patches
+<openbmc-patches@stwcx.xyz> wrote:
+>
+> +static int prop_message_assoc(sd_bus *bus,
+> +                       const char *path,
+> +                       const char *interface,
+> +                       const char *property,
+> +                       sd_bus_message *reply,
+> +                       void *userdata,
+> +                       sd_bus_error *error)
+> +{
+> +       int r=0;
+> +       messageEntry_t *m = (messageEntry_t*) userdata;
 
-On Wed, Mar 9, 2016 at 10:08 AM, Cyril Bur <cyrilbur@gmail.com> wrote:
-> Patch looks good. I'm not super sure the "ERROR:" string is needed in front of
-> all the messages, I suspect it will be obvious. However I'm far more in favour
-> of consistency ("ERROR:" everywhere) and you've done that so its fine with me.
+This is c, you don't need to cast a void * to your type.
 
-These are good fixes. In addition to the fixes you have made and
-Cyrils suggested improvements, you could perhaps better handle the
-case where the host is powered off by detecting a lack of any i2c
-response and aborting early.
+> +       event_record_t *rec;
+> +       char *p;
+> +       char *token;
+> +
+> +       rec = message_record_open(m->em, m->logid);
+> +       if (!rec) {
+> +               fprintf(stderr,"Warning missing evnet log for %lx\n", m->logid);
+> +               sd_bus_error_set(error,
+> +                       SD_BUS_ERROR_FILE_NOT_FOUND,
+> +                       "Could not find log file");
+> +               return -1;
+> +       }
+> +
+> +       p = rec->association;
+> +
+> +       token = strtok(p, " ");
+> +       if (token) {
+> +               r = sd_bus_message_open_container(reply, 'a', "(sss)");
+> +               if (r < 0) {
+> +                       fprintf(stderr,"Error opening container %s to reply %s\n", token, strerror(-r));
 
-Cheers,
+Do you need to exit here if the reply could not be opened?
 
-Joel
+> +               }
+> +
+> +               while(token) {
+> +
+> +                       r = sd_bus_message_append(reply, "(sss)", "fru", "event", token);
+> +                       if (r < 0) {
+> +                               fprintf(stderr,"Error adding properties for %s to reply %s\n", token, strerror(-r));
+> +                       }
+> +
+> +                       token = strtok(NULL, " ");
+> +               }
+> +
+> +               r = sd_bus_message_close_container(reply);
+> +       }
+
+Do you need to close the thing you opened with message_record_open?
+> +
+> +       return r;
+> +}
+>
+>
