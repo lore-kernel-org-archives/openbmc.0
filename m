@@ -1,63 +1,67 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-ob0-x242.google.com (mail-ob0-x242.google.com
- [IPv6:2607:f8b0:4003:c01::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <shays@mellanox.com>
+Received: from emea01-am1-obe.outbound.protection.outlook.com
+ (mail-am1on0068.outbound.protection.outlook.com [157.56.112.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 123441A02E6
- for <openbmc@lists.ozlabs.org>; Fri, 11 Mar 2016 00:48:17 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=MRBegVHO; 
- dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=T20XZXVK; 
+ by lists.ozlabs.org (Postfix) with ESMTPS id D448A1A02DE
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Mar 2016 02:32:07 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b=gghWsNxc; 
  dkim-atps=neutral
-Received: by mail-ob0-x242.google.com with SMTP id hc1so6277308obb.0
- for <openbmc@lists.ozlabs.org>; Thu, 10 Mar 2016 05:48:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=JD7UHbMTHdf4D1YUivvwQ2OIr0C8ynctyvudNx+K1nk=;
- b=MRBegVHOPwcKdDeVY7iIt0YsH4KCkd2gDu3BdM9si6BfK0+AHv/NJ/k6LPZYpNfqIZ
- cmbp+Jbau1gsK7TT9el2i0q4LXcl/5j/54Ai77MEp4jfNp+QscVRkSoS4nnJa0iau3Y2
- /F00eRojGhvxX/QfiiEGiIc7zXyjisZbFnvlfC97geeCTbG21O4GelPhQUSbcM+U2/1r
- x3sPWH1Rn/ewDzElTBBgBDsTGRBaXUe7bBIgvPcn9GMCnFnTp79NSqRU6lbVZEyK19a3
- 2cetytUJ7wArj6IK+Nxyj5sSXJFL8xemgt2OBYQgr7Ie8EjuNiVqkJoP4QmdCBtaAkzO
- NbDA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=JD7UHbMTHdf4D1YUivvwQ2OIr0C8ynctyvudNx+K1nk=;
- b=T20XZXVKZJRvxxoI3LmVhm64paVDMJsw7jJgTCZLmDR3FnwImr3v1UZKWcFaAkc+AT
- oM0rOYJCfZ5ZFLoEy6QPmcBkKT0ASZ8sOlGU4opvCK6+p8whnv02mnHZ0pAp7E9nwzHU
- Ch+QSPPXMwLsBgElgY59EUKGdKztxgMryeC7k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=JD7UHbMTHdf4D1YUivvwQ2OIr0C8ynctyvudNx+K1nk=;
- b=mimiK1Rrxpw8gPCFbRHiwwcEM0gUY8doT8vfivMpYWAl/a/2EiLK5tTC5cJs81407p
- y63xMJyk/aWynkLZb+LjrzxJohdDYXSzG9+lqQfl0fFwiyyARgL7dEuJ8jPTEaMFhCYX
- DaWddyLlhnUB7grMEkWInVDr4z/RBPfqdxtE/hYrWO+pUEoNlbQ24PrOVBNqmtIFF+s8
- VCu7lsPEoS1c/EVyKMXPrdUFSlzaUWR1/rulKLc1mlZN+fXGwsGUeYqBOGeZdH/b+dz4
- TxJ9J9mWYLOWKQdSJtfbdOe56eGPjyBsWx66JwLOfnhZZqxOJMNgTxuUbGCuHVKDXZd5
- e9gQ==
-X-Gm-Message-State: AD7BkJIvOthnKRGwwBBdNgyvtYMSclGjYqsk/G1ojGXjKx03nTBavUQIVsyqkrd3dkU1XWUX37dobuIpnKjCfQ==
-X-Received: by 10.60.232.162 with SMTP id tp2mr2184194oec.49.1457617692702;
- Thu, 10 Mar 2016 05:48:12 -0800 (PST)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.60.246.10 with HTTP; Thu, 10 Mar 2016 05:47:53 -0800 (PST)
-In-Reply-To: <DB4PR05MB09410DE4CC28F7164F053B26D5B40@DB4PR05MB0941.eurprd05.prod.outlook.com>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
+ s=selector1; h=From:To:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=q60UgUHdsHdDHvAJDFN7hC6qW8BhoGEF3uwGVuxKSn8=;
+ b=gghWsNxcLBuV0QRNfbOVqgJsjsOIY7mo1c90sznjOQ4IAsYa1ZGtHZ9iFc1pzW2Vji9XOszVtdICj3yGeJMvN+TZqqAU3hKq/WVJsKYGrKC/vBOGF7sUKFKs83lwulfj+8/7v4TFq7ipUmMIIot2GgnPU6o9zt2KM8R+uyGLSrs=
+Received: from DB4PR05MB0941.eurprd05.prod.outlook.com (10.161.249.145) by
+ DB4PR05MB0943.eurprd05.prod.outlook.com (10.161.249.147) with Microsoft SMTP
+ Server (TLS) id 15.1.415.20; Thu, 10 Mar 2016 15:17:51 +0000
+Received: from DB4PR05MB0941.eurprd05.prod.outlook.com ([10.161.249.145]) by
+ DB4PR05MB0941.eurprd05.prod.outlook.com ([10.161.249.145]) with mapi id
+ 15.01.0415.024; Thu, 10 Mar 2016 15:17:51 +0000
+From: Shay Slobodkin <shays@mellanox.com>
+To: Joel Stanley <joel@jms.id.au>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, Jeremy Kerr
+ <jk@ozlabs.org>, Anton Blanchard <anton@samba.org>
+Subject: RE: Assistance adding new system into openbmc project
+Thread-Topic: Assistance adding new system into openbmc project
+Thread-Index: AdF6tsG1sA6ZATX6RZWAH0oBLaL/cgAHK+2AAAJMYeA=
+Date: Thu, 10 Mar 2016 15:17:51 +0000
+Message-ID: <DB4PR05MB09411681923299FF0D8C08DFD5B40@DB4PR05MB0941.eurprd05.prod.outlook.com>
 References: <DB4PR05MB09410DE4CC28F7164F053B26D5B40@DB4PR05MB0941.eurprd05.prod.outlook.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 11 Mar 2016 00:17:53 +1030
-X-Google-Sender-Auth: V0wmp9_ZoHV2nHoSdhnsMrqrQn0
-Message-ID: <CACPK8XfOxhBq0th9JkooBeub3j0QmiJYEwrTRj+sMHnoqyr3OQ@mail.gmail.com>
-Subject: Re: Assistance adding new system into openbmc project
-To: Shay Slobodkin <shays@mellanox.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- Jeremy Kerr <jk@ozlabs.org>, Anton Blanchard <anton@samba.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+ <CACPK8XfOxhBq0th9JkooBeub3j0QmiJYEwrTRj+sMHnoqyr3OQ@mail.gmail.com>
+In-Reply-To: <CACPK8XfOxhBq0th9JkooBeub3j0QmiJYEwrTRj+sMHnoqyr3OQ@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: jms.id.au; dkim=none (message not signed)
+ header.d=none;jms.id.au; dmarc=none action=none header.from=mellanox.com;
+x-originating-ip: [193.47.165.251]
+x-microsoft-exchange-diagnostics: 1; DB4PR05MB0943;
+ 5:Yc6mn5LC32CbiGUXHlEmuhBK2DVmM4LT+4khWo/ACXYTSfHE+S9WlZJQnUcU9NTT3r0H0gxcQBuCct2igT8xzkZ+WjYayFL9pCqqO2NWpIqaA/9+8B/ypeICkPYUpsuXEDjSBcYoMp0gf9Ei5ReUlQ==;
+ 24:QkR39jwK0GPw/Rm+VpP/NniZl6HjLxkUgJOD9w6FYh1q2hEmr/m9+I2E1yYAHczcklMEigpLUrQJIX75TzWQho4ZGIVrbZ67JQWegzPt/ns=
+x-microsoft-antispam: UriScan:;BCL:0;PCL:0;RULEID:;SRVR:DB4PR05MB0943;
+x-ms-office365-filtering-correlation-id: 70658bfc-06a8-4493-8681-08d348f72585
+x-microsoft-antispam-prvs: <DB4PR05MB09434AF3026B8247165DD285D5B40@DB4PR05MB0943.eurprd05.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:;
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(601004)(2401047)(8121501046)(5005006)(10201501046)(3002001);
+ SRVR:DB4PR05MB0943; BCL:0; PCL:0; RULEID:; SRVR:DB4PR05MB0943; 
+x-forefront-prvs: 08770259B4
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(6009001)(53834002)(377454003)(52044002)(24454002)(54356999)(102836003)(5004730100002)(76176999)(50986999)(4326007)(1220700001)(87936001)(122556002)(66066001)(33656002)(6116002)(110136002)(74316001)(77096005)(92566002)(19580405001)(10400500002)(86362001)(15975445007)(11100500001)(19580395003)(3280700002)(81166005)(2900100001)(5008740100001)(3660700001)(586003)(2906002)(1096002)(2950100001)(3846002)(76576001)(5002640100001)(189998001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DB4PR05MB0943;
+ H:DB4PR05MB0941.eurprd05.prod.outlook.com; FPR:; SPF:None; MLV:sfv; LANG:en; 
+spamdiagnosticoutput: 1:23
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: Mellanox.com
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Mar 2016 15:17:51.1595 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR05MB0943
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -69,232 +73,122 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Mar 2016 13:48:18 -0000
+X-List-Received-Date: Thu, 10 Mar 2016 15:32:09 -0000
 
-Hello Shay,
-
-On Thu, Mar 10, 2016 at 11:33 PM, Shay Slobodkin <shays@mellanox.com> wrote=
-:
-> We are newbies for the openbmc project, read through the manuals and woul=
-d
-> like to work under the ast2520 system.
-
-Welcome! It's great to have you here. We look forward to working with
-you and your colleagues.
-
-We're a new project that is still finding it's feet, so feel free to
-jump in and help out wherever you feel.
-
-Jeremy has spent some time documenting some of our processes
-https://github.com/openbmc/docs/blob/master/contributing.md, which I
-encourage you and your team to have a read of.
-
-In addition to this list we hang out on irc.freenode.net in #openbmc.
-We're globally distributed, but US central time and all three of the
-Australian timezones are when you will find the most activity.
-
-> We have several questions regarding the tree structure and building.
-> tree additions to support our system.
->
-> Please let us know if you find the below as the complete and correct
-> additions.
-
-> root
->
-> |-- meta-openbmc-bsp
->
-> |   `-- meta-aspeed
->
-> |       |-- conf
->
-> |       |   `-- layer.conf
->
-> |       `-- meta-ast2520 (New SoC)
-
-This looks good.
-
-> |           |-- recipes-bsp
->
-> |           |   `-- u-boot
->
-> |           |       |-- files
->
-> |           |       |   |-- config.patch
->
-> |           |       |   |-- fw_env.config
->
-> |           |       |   `-- patch-2013.07
->
-> |           |       |       |-- 0000-u-boot-aspeed-064.patch (Exist)
->
-> |           |       |       |-- 0001-u-boot-openbmc.patch (Exist)
->
-> |           |       |       `-- 0002-u-boot-aspeed_2520_2500.patch (Patch
-> with 2500-2520 u-boot support)
-
-I believe we now build with u-boot from our git tree (which has these
-patches applied, plus some more fixes), so these should be removed.
-
- https://github.com/openbmc/u-boot/tree/v2013.07-aspeed-openbmc
-
-Submit your patch for 2520 support there and I'll get it merged in.
-
-The goal there is to get support for the ast chips in upstream u-boot
-so we don't need to carry any local patches.
-
->
-> |           |       |-- u-boot-fw-utils_2013.07%.bbappend
->
->
->
-> |           |       `-- u-boot_2013.07%.bbappend
->
-> |           |-- recipes-kernel
->
-> |           |   `-- linux
->
-> |           |       |-- linux-obmc
->
-> |           |       |   |-- defconfig
->
-> |           |       |   |-- files
->
-> |           |       |       `-- patch-4.3-dev (Or later, temporary till c=
-ode
-> upstream)
->
-> |           |       |           |-- 0000-kernel-aspeed_soc_2520.patch (Pa=
-tch
-> with 2520 SoC support)
->
-> |           |       |           |-- 0001-kernel-aspeed_2500_2520_dts.patc=
-h
-> (Patch with basic dts support)
-
-Again, send them to the mailing list and we will get them merged into
-our kernel tree:
-
- https://github.com/openbmc/linux/tree/dev-4.3
-
-I've got on a 4.4 based branch ready to go. We planned to switch to
-that once the v6 release was tagged, which has happened now, so I'll
-upload that change soon.
-
-As with u-boot we intend to upstream support and use that instead of
-our own tree.
-
->
-> |           |       |   `-- hwmon.cfg
->
-> |           |       `-- linux-obmc_%.bbappend
->
-> |           `-- recipes.txt
->
-> |-- meta-openbmc-x86-machines
->
-> |   `-- meta-mellanox
->
-> |   |   |-- conf
->
-> |   |   |   |-- layer.conf
->
-> |   |   |   `-- machine
->
-> |   |   |       `-- include
->
-> |   |   |           `-- mellanox.inc
->
-> |   |   `-- meta-mellanox-edr
->
-> |   |       |-- conf
->
-> |   |       |   |-- layer.conf
->
-> |   |       |   `-- machine
->
-> |   |       |       `-- include
->
-> |   |       |           `-- mellanox.inc
->
-> |   |       |-- recipes-kernel
->
-> |   |       |   `-- linux
->
-> |   |       |       |-- linux-obmc
->
-> |   |       |       |   |-- files
->
-> |   |       |       |       `-- patch-4.3-dev (Or later, temporary till c=
-ode
-> upstream)
->
-> |   |       |       |          |-- 0002-kernel-mellanox-dts.patch (Patch
-> with Mellanox dts support)
-
-We can include this in kernel tree if you want?
-
->
-> |   |       |       |   |-- mellanox-edr.cfg
->
-> |   |       |       |   `-- mellanox-edr.dts
->
-> |   |       |       `-- linux-obmc_%.bbappend
->
-> |   |       `-- recipes.txt
->
->
->
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D
->
->
->
-> Also, should we add a =E2=80=9Clocal.conf.sample=E2=80=9D file under the
-> =E2=80=9Cmeta-openbmc-x86-machines/conf=E2=80=9D path?
-
-I'll let one of the developers more familiar with our project layout
-and build system to help you out with the questions below.
->
-> If so, we were wondering about the following variables under the
-> local.conf.sample file (we took the phosphor one as example):
->
-> PACKAGE_CLASSES ?=3D "package_rpm"
->
-> SANITY_TESTED_DISTROS_append ?=3D " RedHatEnterpriseWorkstation-6.*"
-
-This is because some of our team members use RHEL6, and bitbake warns
-about unsupported distros.
-
-Many of the team use more recent Ubuntu releases, so it's up to you.
-
->
-> EXTRA_IMAGE_FEATURES =3D "debug-tweaks"
->
-> USER_CLASSES ?=3D "buildstats image-mklibs image-prelink"
->
-> PATCHRESOLVE =3D "noop"
->
-> BB_DISKMON_DIRS =3D "\
->
->     STOPTASKS,${TMPDIR},1G,100K \
->
->     STOPTASKS,${DL_DIR},1G,100K \
->
->     STOPTASKS,${SSTATE_DIR},1G,100K \
->
->     STOPTASKS,/tmp,100M,100K \
->
->     ABORT,${TMPDIR},100M,1K \
->
->     ABORT,${DL_DIR},100M,1K \
->
->     ABORT,${SSTATE_DIR},100M,1K \
->
->     ABORT,/tmp,10M,1K"
->
-> Guess we should use the =E2=80=9Cgenericx86-64=E2=80=9D as MACHINE variab=
-le
->
->
-> We were wondering what specific =E2=80=9Coe-init-build-env=E2=80=9D and s=
-imilar files we
-> should change, in order for the project to compile.
+VGhhbmsgeW91IEpvZWwgZm9yIHRoZSBncmVldGluZ3MgYW5kIGFzc2lzdGFuY2UhDQoNCk9uIFRo
+dSwgTWFyY2ggMTAsIDIwMTYgYXQgMzo0OCBQTSwgW2pvZWwuc3RhbkBnbWFpbC5jb21dIE9uIEJl
+aGFsZiBPZiBKb2VsIFN0YW5sZXkgd3JvdGU6DQo+IA0KPiBIZWxsbyBTaGF5LA0KPiANCj4gT24g
+VGh1LCBNYXIgMTAsIDIwMTYgYXQgMTE6MzMgUE0sIFNoYXkgU2xvYm9ka2luIDxzaGF5c0BtZWxs
+YW5veC5jb20+DQo+IHdyb3RlOg0KPiA+IFdlIGFyZSBuZXdiaWVzIGZvciB0aGUgb3BlbmJtYyBw
+cm9qZWN0LCByZWFkIHRocm91Z2ggdGhlIG1hbnVhbHMgYW5kDQo+ID4gd291bGQgbGlrZSB0byB3
+b3JrIHVuZGVyIHRoZSBhc3QyNTIwIHN5c3RlbS4NCj4gDQo+IFdlbGNvbWUhIEl0J3MgZ3JlYXQg
+dG8gaGF2ZSB5b3UgaGVyZS4gV2UgbG9vayBmb3J3YXJkIHRvIHdvcmtpbmcgd2l0aCB5b3UNCj4g
+YW5kIHlvdXIgY29sbGVhZ3Vlcy4NCj4gDQo+IFdlJ3JlIGEgbmV3IHByb2plY3QgdGhhdCBpcyBz
+dGlsbCBmaW5kaW5nIGl0J3MgZmVldCwgc28gZmVlbCBmcmVlIHRvIGp1bXAgaW4gYW5kDQo+IGhl
+bHAgb3V0IHdoZXJldmVyIHlvdSBmZWVsLg0KPiANCj4gSmVyZW15IGhhcyBzcGVudCBzb21lIHRp
+bWUgZG9jdW1lbnRpbmcgc29tZSBvZiBvdXIgcHJvY2Vzc2VzDQo+IGh0dHBzOi8vZ2l0aHViLmNv
+bS9vcGVuYm1jL2RvY3MvYmxvYi9tYXN0ZXIvY29udHJpYnV0aW5nLm1kLCB3aGljaCBJDQo+IGVu
+Y291cmFnZSB5b3UgYW5kIHlvdXIgdGVhbSB0byBoYXZlIGEgcmVhZCBvZi4NCj4gDQo+IEluIGFk
+ZGl0aW9uIHRvIHRoaXMgbGlzdCB3ZSBoYW5nIG91dCBvbiBpcmMuZnJlZW5vZGUubmV0IGluICNv
+cGVuYm1jLg0KPiBXZSdyZSBnbG9iYWxseSBkaXN0cmlidXRlZCwgYnV0IFVTIGNlbnRyYWwgdGlt
+ZSBhbmQgYWxsIHRocmVlIG9mIHRoZSBBdXN0cmFsaWFuDQo+IHRpbWV6b25lcyBhcmUgd2hlbiB5
+b3Ugd2lsbCBmaW5kIHRoZSBtb3N0IGFjdGl2aXR5Lg0KDQpXZSB3aWxsIHJlYWQgdGhpcyBkb2N1
+bWVudGF0aW9uIGFzIHdlbGwgYW5kIGxldCB5b3Uga25vdyBpZiB3ZSBoYXZlIGZ1cnRoZXIgcXVl
+c3Rpb25zLg0KDQo+IA0KPiA+IFdlIGhhdmUgc2V2ZXJhbCBxdWVzdGlvbnMgcmVnYXJkaW5nIHRo
+ZSB0cmVlIHN0cnVjdHVyZSBhbmQgYnVpbGRpbmcuDQo+ID4gdHJlZSBhZGRpdGlvbnMgdG8gc3Vw
+cG9ydCBvdXIgc3lzdGVtLg0KPiA+DQo+ID4gUGxlYXNlIGxldCB1cyBrbm93IGlmIHlvdSBmaW5k
+IHRoZSBiZWxvdyBhcyB0aGUgY29tcGxldGUgYW5kIGNvcnJlY3QNCj4gPiBhZGRpdGlvbnMuDQo+
+IA0KPiA+IHJvb3QNCj4gPg0KPiA+IHwtLSBtZXRhLW9wZW5ibWMtYnNwDQo+ID4NCj4gPiB8ICAg
+YC0tIG1ldGEtYXNwZWVkDQo+ID4NCj4gPiB8ICAgICAgIHwtLSBjb25mDQo+ID4NCj4gPiB8ICAg
+ICAgIHwgICBgLS0gbGF5ZXIuY29uZg0KPiA+DQo+ID4gfCAgICAgICBgLS0gbWV0YS1hc3QyNTIw
+IChOZXcgU29DKQ0KPiANCj4gVGhpcyBsb29rcyBnb29kLg0KPiANCj4gPiB8ICAgICAgICAgICB8
+LS0gcmVjaXBlcy1ic3ANCj4gPg0KPiA+IHwgICAgICAgICAgIHwgICBgLS0gdS1ib290DQo+ID4N
+Cj4gPiB8ICAgICAgICAgICB8ICAgICAgIHwtLSBmaWxlcw0KPiA+DQo+ID4gfCAgICAgICAgICAg
+fCAgICAgICB8ICAgfC0tIGNvbmZpZy5wYXRjaA0KPiA+DQo+ID4gfCAgICAgICAgICAgfCAgICAg
+ICB8ICAgfC0tIGZ3X2Vudi5jb25maWcNCj4gPg0KPiA+IHwgICAgICAgICAgIHwgICAgICAgfCAg
+IGAtLSBwYXRjaC0yMDEzLjA3DQo+ID4NCj4gPiB8ICAgICAgICAgICB8ICAgICAgIHwgICAgICAg
+fC0tIDAwMDAtdS1ib290LWFzcGVlZC0wNjQucGF0Y2ggKEV4aXN0KQ0KPiA+DQo+ID4gfCAgICAg
+ICAgICAgfCAgICAgICB8ICAgICAgIHwtLSAwMDAxLXUtYm9vdC1vcGVuYm1jLnBhdGNoIChFeGlz
+dCkNCj4gPg0KPiA+IHwgICAgICAgICAgIHwgICAgICAgfCAgICAgICBgLS0gMDAwMi11LWJvb3Qt
+YXNwZWVkXzI1MjBfMjUwMC5wYXRjaCAoUGF0Y2gNCj4gPiB3aXRoIDI1MDAtMjUyMCB1LWJvb3Qg
+c3VwcG9ydCkNCj4gDQo+IEkgYmVsaWV2ZSB3ZSBub3cgYnVpbGQgd2l0aCB1LWJvb3QgZnJvbSBv
+dXIgZ2l0IHRyZWUgKHdoaWNoIGhhcyB0aGVzZQ0KPiBwYXRjaGVzIGFwcGxpZWQsIHBsdXMgc29t
+ZSBtb3JlIGZpeGVzKSwgc28gdGhlc2Ugc2hvdWxkIGJlIHJlbW92ZWQuDQo+IA0KPiAgaHR0cHM6
+Ly9naXRodWIuY29tL29wZW5ibWMvdS1ib290L3RyZWUvdjIwMTMuMDctYXNwZWVkLW9wZW5ibWMN
+Cj4gDQo+IFN1Ym1pdCB5b3VyIHBhdGNoIGZvciAyNTIwIHN1cHBvcnQgdGhlcmUgYW5kIEknbGwg
+Z2V0IGl0IG1lcmdlZCBpbi4NCj4gDQo+IFRoZSBnb2FsIHRoZXJlIGlzIHRvIGdldCBzdXBwb3J0
+IGZvciB0aGUgYXN0IGNoaXBzIGluIHVwc3RyZWFtIHUtYm9vdCBzbyB3ZQ0KPiBkb24ndCBuZWVk
+IHRvIGNhcnJ5IGFueSBsb2NhbCBwYXRjaGVzLg0KDQpUaGFua3MhIFdpbGwgZG8gdGhhdCBvbmNl
+IHdlIGhhdmUgY29kZSByZWFkeS4NCg0KPiANCj4gPg0KPiA+IHwgICAgICAgICAgIHwgICAgICAg
+fC0tIHUtYm9vdC1mdy11dGlsc18yMDEzLjA3JS5iYmFwcGVuZA0KPiA+DQo+ID4NCj4gPg0KPiA+
+IHwgICAgICAgICAgIHwgICAgICAgYC0tIHUtYm9vdF8yMDEzLjA3JS5iYmFwcGVuZA0KPiA+DQo+
+ID4gfCAgICAgICAgICAgfC0tIHJlY2lwZXMta2VybmVsDQo+ID4NCj4gPiB8ICAgICAgICAgICB8
+ICAgYC0tIGxpbnV4DQo+ID4NCj4gPiB8ICAgICAgICAgICB8ICAgICAgIHwtLSBsaW51eC1vYm1j
+DQo+ID4NCj4gPiB8ICAgICAgICAgICB8ICAgICAgIHwgICB8LS0gZGVmY29uZmlnDQo+ID4NCj4g
+PiB8ICAgICAgICAgICB8ICAgICAgIHwgICB8LS0gZmlsZXMNCj4gPg0KPiA+IHwgICAgICAgICAg
+IHwgICAgICAgfCAgICAgICBgLS0gcGF0Y2gtNC4zLWRldiAoT3IgbGF0ZXIsIHRlbXBvcmFyeSB0
+aWxsIGNvZGUNCj4gPiB1cHN0cmVhbSkNCj4gPg0KPiA+IHwgICAgICAgICAgIHwgICAgICAgfCAg
+ICAgICAgICAgfC0tIDAwMDAta2VybmVsLWFzcGVlZF9zb2NfMjUyMC5wYXRjaCAoUGF0Y2gNCj4g
+PiB3aXRoIDI1MjAgU29DIHN1cHBvcnQpDQo+ID4NCj4gPiB8ICAgICAgICAgICB8ICAgICAgIHwg
+ICAgICAgICAgIHwtLSAwMDAxLWtlcm5lbC1hc3BlZWRfMjUwMF8yNTIwX2R0cy5wYXRjaA0KPiA+
+IChQYXRjaCB3aXRoIGJhc2ljIGR0cyBzdXBwb3J0KQ0KPiANCj4gQWdhaW4sIHNlbmQgdGhlbSB0
+byB0aGUgbWFpbGluZyBsaXN0IGFuZCB3ZSB3aWxsIGdldCB0aGVtIG1lcmdlZCBpbnRvIG91cg0K
+PiBrZXJuZWwgdHJlZToNCj4gDQo+ICBodHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9saW51eC90
+cmVlL2Rldi00LjMNCj4gDQo+IEkndmUgZ290IG9uIGEgNC40IGJhc2VkIGJyYW5jaCByZWFkeSB0
+byBnby4gV2UgcGxhbm5lZCB0byBzd2l0Y2ggdG8gdGhhdCBvbmNlDQo+IHRoZSB2NiByZWxlYXNl
+IHdhcyB0YWdnZWQsIHdoaWNoIGhhcyBoYXBwZW5lZCBub3csIHNvIEknbGwgdXBsb2FkIHRoYXQN
+Cj4gY2hhbmdlIHNvb24uDQo+IA0KPiBBcyB3aXRoIHUtYm9vdCB3ZSBpbnRlbmQgdG8gdXBzdHJl
+YW0gc3VwcG9ydCBhbmQgdXNlIHRoYXQgaW5zdGVhZCBvZiBvdXINCj4gb3duIHRyZWUuDQoNCkdy
+ZWF0LiBXaWxsIHRyYWNrIHRoYXQgYW5kIHVwZGF0ZSB3aGVuIGF2YWlsYWJsZS4NCg0KPiANCj4g
+Pg0KPiA+IHwgICAgICAgICAgIHwgICAgICAgfCAgIGAtLSBod21vbi5jZmcNCj4gPg0KPiA+IHwg
+ICAgICAgICAgIHwgICAgICAgYC0tIGxpbnV4LW9ibWNfJS5iYmFwcGVuZA0KPiA+DQo+ID4gfCAg
+ICAgICAgICAgYC0tIHJlY2lwZXMudHh0DQo+ID4NCj4gPiB8LS0gbWV0YS1vcGVuYm1jLXg4Ni1t
+YWNoaW5lcw0KPiA+DQo+ID4gfCAgIGAtLSBtZXRhLW1lbGxhbm94DQo+ID4NCj4gPiB8ICAgfCAg
+IHwtLSBjb25mDQo+ID4NCj4gPiB8ICAgfCAgIHwgICB8LS0gbGF5ZXIuY29uZg0KPiA+DQo+ID4g
+fCAgIHwgICB8ICAgYC0tIG1hY2hpbmUNCj4gPg0KPiA+IHwgICB8ICAgfCAgICAgICBgLS0gaW5j
+bHVkZQ0KPiA+DQo+ID4gfCAgIHwgICB8ICAgICAgICAgICBgLS0gbWVsbGFub3guaW5jDQo+ID4N
+Cj4gPiB8ICAgfCAgIGAtLSBtZXRhLW1lbGxhbm94LWVkcg0KPiA+DQo+ID4gfCAgIHwgICAgICAg
+fC0tIGNvbmYNCj4gPg0KPiA+IHwgICB8ICAgICAgIHwgICB8LS0gbGF5ZXIuY29uZg0KPiA+DQo+
+ID4gfCAgIHwgICAgICAgfCAgIGAtLSBtYWNoaW5lDQo+ID4NCj4gPiB8ICAgfCAgICAgICB8ICAg
+ICAgIGAtLSBpbmNsdWRlDQo+ID4NCj4gPiB8ICAgfCAgICAgICB8ICAgICAgICAgICBgLS0gbWVs
+bGFub3guaW5jDQo+ID4NCj4gPiB8ICAgfCAgICAgICB8LS0gcmVjaXBlcy1rZXJuZWwNCj4gPg0K
+PiA+IHwgICB8ICAgICAgIHwgICBgLS0gbGludXgNCj4gPg0KPiA+IHwgICB8ICAgICAgIHwgICAg
+ICAgfC0tIGxpbnV4LW9ibWMNCj4gPg0KPiA+IHwgICB8ICAgICAgIHwgICAgICAgfCAgIHwtLSBm
+aWxlcw0KPiA+DQo+ID4gfCAgIHwgICAgICAgfCAgICAgICB8ICAgICAgIGAtLSBwYXRjaC00LjMt
+ZGV2IChPciBsYXRlciwgdGVtcG9yYXJ5IHRpbGwgY29kZQ0KPiA+IHVwc3RyZWFtKQ0KPiA+DQo+
+ID4gfCAgIHwgICAgICAgfCAgICAgICB8ICAgICAgICAgIHwtLSAwMDAyLWtlcm5lbC1tZWxsYW5v
+eC1kdHMucGF0Y2ggKFBhdGNoDQo+ID4gd2l0aCBNZWxsYW5veCBkdHMgc3VwcG9ydCkNCj4gDQo+
+IFdlIGNhbiBpbmNsdWRlIHRoaXMgaW4ga2VybmVsIHRyZWUgaWYgeW91IHdhbnQ/DQoNCk9uY2Ug
+d2Ugd2lsbCBoYXZlIHRoZW0gcmVhZHksIHdlIHdpbGwgcHVibGlzaCB0byB0aGUgbGlzdC4NCg0K
+PiANCj4gPg0KPiA+IHwgICB8ICAgICAgIHwgICAgICAgfCAgIHwtLSBtZWxsYW5veC1lZHIuY2Zn
+DQo+ID4NCj4gPiB8ICAgfCAgICAgICB8ICAgICAgIHwgICBgLS0gbWVsbGFub3gtZWRyLmR0cw0K
+PiA+DQo+ID4gfCAgIHwgICAgICAgfCAgICAgICBgLS0gbGludXgtb2JtY18lLmJiYXBwZW5kDQo+
+ID4NCj4gPiB8ICAgfCAgICAgICBgLS0gcmVjaXBlcy50eHQNCj4gPg0KPiA+DQo+ID4NCj4gPiA9
+PT09PT09PT0NCj4gPg0KPiA+DQo+ID4NCj4gPiBBbHNvLCBzaG91bGQgd2UgYWRkIGEg4oCcbG9j
+YWwuY29uZi5zYW1wbGXigJ0gZmlsZSB1bmRlciB0aGUNCj4gPiDigJxtZXRhLW9wZW5ibWMteDg2
+LW1hY2hpbmVzL2NvbmbigJ0gcGF0aD8NCj4gDQo+IEknbGwgbGV0IG9uZSBvZiB0aGUgZGV2ZWxv
+cGVycyBtb3JlIGZhbWlsaWFyIHdpdGggb3VyIHByb2plY3QgbGF5b3V0IGFuZCBidWlsZA0KPiBz
+eXN0ZW0gdG8gaGVscCB5b3Ugb3V0IHdpdGggdGhlIHF1ZXN0aW9ucyBiZWxvdy4NCg0KVGhhbmsg
+eW91LiBUaGlzIHdpbGwgYmUgb2YgZ3JlYXQgYXNzaXN0YW5jZS4gTG9va2luZyBmb3J3YXJkIHdv
+cmtpbmcgd2l0aCBoaW0uDQoNCj4gPg0KPiA+IElmIHNvLCB3ZSB3ZXJlIHdvbmRlcmluZyBhYm91
+dCB0aGUgZm9sbG93aW5nIHZhcmlhYmxlcyB1bmRlciB0aGUNCj4gPiBsb2NhbC5jb25mLnNhbXBs
+ZSBmaWxlICh3ZSB0b29rIHRoZSBwaG9zcGhvciBvbmUgYXMgZXhhbXBsZSk6DQo+ID4NCj4gPiBQ
+QUNLQUdFX0NMQVNTRVMgPz0gInBhY2thZ2VfcnBtIg0KPiA+DQo+ID4gU0FOSVRZX1RFU1RFRF9E
+SVNUUk9TX2FwcGVuZCA/PSAiIFJlZEhhdEVudGVycHJpc2VXb3Jrc3RhdGlvbi02LioiDQo+IA0K
+PiBUaGlzIGlzIGJlY2F1c2Ugc29tZSBvZiBvdXIgdGVhbSBtZW1iZXJzIHVzZSBSSEVMNiwgYW5k
+IGJpdGJha2Ugd2FybnMNCj4gYWJvdXQgdW5zdXBwb3J0ZWQgZGlzdHJvcy4NCj4gDQo+IE1hbnkg
+b2YgdGhlIHRlYW0gdXNlIG1vcmUgcmVjZW50IFVidW50dSByZWxlYXNlcywgc28gaXQncyB1cCB0
+byB5b3UuDQo+IA0KPiA+DQo+ID4gRVhUUkFfSU1BR0VfRkVBVFVSRVMgPSAiZGVidWctdHdlYWtz
+Ig0KPiA+DQo+ID4gVVNFUl9DTEFTU0VTID89ICJidWlsZHN0YXRzIGltYWdlLW1rbGlicyBpbWFn
+ZS1wcmVsaW5rIg0KPiA+DQo+ID4gUEFUQ0hSRVNPTFZFID0gIm5vb3AiDQo+ID4NCj4gPiBCQl9E
+SVNLTU9OX0RJUlMgPSAiXA0KPiA+DQo+ID4gICAgIFNUT1BUQVNLUywke1RNUERJUn0sMUcsMTAw
+SyBcDQo+ID4NCj4gPiAgICAgU1RPUFRBU0tTLCR7RExfRElSfSwxRywxMDBLIFwNCj4gPg0KPiA+
+ICAgICBTVE9QVEFTS1MsJHtTU1RBVEVfRElSfSwxRywxMDBLIFwNCj4gPg0KPiA+ICAgICBTVE9Q
+VEFTS1MsL3RtcCwxMDBNLDEwMEsgXA0KPiA+DQo+ID4gICAgIEFCT1JULCR7VE1QRElSfSwxMDBN
+LDFLIFwNCj4gPg0KPiA+ICAgICBBQk9SVCwke0RMX0RJUn0sMTAwTSwxSyBcDQo+ID4NCj4gPiAg
+ICAgQUJPUlQsJHtTU1RBVEVfRElSfSwxMDBNLDFLIFwNCj4gPg0KPiA+ICAgICBBQk9SVCwvdG1w
+LDEwTSwxSyINCj4gPg0KPiA+IEd1ZXNzIHdlIHNob3VsZCB1c2UgdGhlIOKAnGdlbmVyaWN4ODYt
+NjTigJ0gYXMgTUFDSElORSB2YXJpYWJsZQ0KPiA+DQo+ID4NCj4gPiBXZSB3ZXJlIHdvbmRlcmlu
+ZyB3aGF0IHNwZWNpZmljIOKAnG9lLWluaXQtYnVpbGQtZW524oCdIGFuZCBzaW1pbGFyIGZpbGVz
+DQo+ID4gd2Ugc2hvdWxkIGNoYW5nZSwgaW4gb3JkZXIgZm9yIHRoZSBwcm9qZWN0IHRvIGNvbXBp
+bGUuDQo=
