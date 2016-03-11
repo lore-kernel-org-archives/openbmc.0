@@ -1,67 +1,58 @@
-Return-Path: <shays@mellanox.com>
-Received: from emea01-am1-obe.outbound.protection.outlook.com
- (mail-am1on0068.outbound.protection.outlook.com [157.56.112.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <stewart@linux.vnet.ibm.com>
+Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id D448A1A02DE
- for <openbmc@lists.ozlabs.org>; Fri, 11 Mar 2016 02:32:07 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b=gghWsNxc; 
- dkim-atps=neutral
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
- s=selector1; h=From:To:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=q60UgUHdsHdDHvAJDFN7hC6qW8BhoGEF3uwGVuxKSn8=;
- b=gghWsNxcLBuV0QRNfbOVqgJsjsOIY7mo1c90sznjOQ4IAsYa1ZGtHZ9iFc1pzW2Vji9XOszVtdICj3yGeJMvN+TZqqAU3hKq/WVJsKYGrKC/vBOGF7sUKFKs83lwulfj+8/7v4TFq7ipUmMIIot2GgnPU6o9zt2KM8R+uyGLSrs=
-Received: from DB4PR05MB0941.eurprd05.prod.outlook.com (10.161.249.145) by
- DB4PR05MB0943.eurprd05.prod.outlook.com (10.161.249.147) with Microsoft SMTP
- Server (TLS) id 15.1.415.20; Thu, 10 Mar 2016 15:17:51 +0000
-Received: from DB4PR05MB0941.eurprd05.prod.outlook.com ([10.161.249.145]) by
- DB4PR05MB0941.eurprd05.prod.outlook.com ([10.161.249.145]) with mapi id
- 15.01.0415.024; Thu, 10 Mar 2016 15:17:51 +0000
-From: Shay Slobodkin <shays@mellanox.com>
-To: Joel Stanley <joel@jms.id.au>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, Jeremy Kerr
- <jk@ozlabs.org>, Anton Blanchard <anton@samba.org>
-Subject: RE: Assistance adding new system into openbmc project
-Thread-Topic: Assistance adding new system into openbmc project
-Thread-Index: AdF6tsG1sA6ZATX6RZWAH0oBLaL/cgAHK+2AAAJMYeA=
-Date: Thu, 10 Mar 2016 15:17:51 +0000
-Message-ID: <DB4PR05MB09411681923299FF0D8C08DFD5B40@DB4PR05MB0941.eurprd05.prod.outlook.com>
-References: <DB4PR05MB09410DE4CC28F7164F053B26D5B40@DB4PR05MB0941.eurprd05.prod.outlook.com>
- <CACPK8XfOxhBq0th9JkooBeub3j0QmiJYEwrTRj+sMHnoqyr3OQ@mail.gmail.com>
-In-Reply-To: <CACPK8XfOxhBq0th9JkooBeub3j0QmiJYEwrTRj+sMHnoqyr3OQ@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: jms.id.au; dkim=none (message not signed)
- header.d=none;jms.id.au; dmarc=none action=none header.from=mellanox.com;
-x-originating-ip: [193.47.165.251]
-x-microsoft-exchange-diagnostics: 1; DB4PR05MB0943;
- 5:Yc6mn5LC32CbiGUXHlEmuhBK2DVmM4LT+4khWo/ACXYTSfHE+S9WlZJQnUcU9NTT3r0H0gxcQBuCct2igT8xzkZ+WjYayFL9pCqqO2NWpIqaA/9+8B/ypeICkPYUpsuXEDjSBcYoMp0gf9Ei5ReUlQ==;
- 24:QkR39jwK0GPw/Rm+VpP/NniZl6HjLxkUgJOD9w6FYh1q2hEmr/m9+I2E1yYAHczcklMEigpLUrQJIX75TzWQho4ZGIVrbZ67JQWegzPt/ns=
-x-microsoft-antispam: UriScan:;BCL:0;PCL:0;RULEID:;SRVR:DB4PR05MB0943;
-x-ms-office365-filtering-correlation-id: 70658bfc-06a8-4493-8681-08d348f72585
-x-microsoft-antispam-prvs: <DB4PR05MB09434AF3026B8247165DD285D5B40@DB4PR05MB0943.eurprd05.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:;
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(601004)(2401047)(8121501046)(5005006)(10201501046)(3002001);
- SRVR:DB4PR05MB0943; BCL:0; PCL:0; RULEID:; SRVR:DB4PR05MB0943; 
-x-forefront-prvs: 08770259B4
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(6009001)(53834002)(377454003)(52044002)(24454002)(54356999)(102836003)(5004730100002)(76176999)(50986999)(4326007)(1220700001)(87936001)(122556002)(66066001)(33656002)(6116002)(110136002)(74316001)(77096005)(92566002)(19580405001)(10400500002)(86362001)(15975445007)(11100500001)(19580395003)(3280700002)(81166005)(2900100001)(5008740100001)(3660700001)(586003)(2906002)(1096002)(2950100001)(3846002)(76576001)(5002640100001)(189998001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DB4PR05MB0943;
- H:DB4PR05MB0941.eurprd05.prod.outlook.com; FPR:; SPF:None; MLV:sfv; LANG:en; 
-spamdiagnosticoutput: 1:23
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 232A91A0350
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Mar 2016 14:55:41 +1100 (AEDT)
+Received: from localhost
+ by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
+ Thu, 10 Mar 2016 20:55:39 -0700
+Received: from d03dlp02.boulder.ibm.com (9.17.202.178)
+ by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 10 Mar 2016 20:55:37 -0700
+X-IBM-Helo: d03dlp02.boulder.ibm.com
+X-IBM-MailFrom: stewart@linux.vnet.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from b01cxnp22034.gho.pok.ibm.com (b01cxnp22034.gho.pok.ibm.com
+ [9.57.198.24])
+ by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id 35BCA3E4003B
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Mar 2016 20:55:37 -0700 (MST)
+Received: from d01av02.pok.ibm.com (d01av02.pok.ibm.com [9.56.224.216])
+ by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u2B3taAV23789626
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Mar 2016 03:55:36 GMT
+Received: from d01av02.pok.ibm.com (localhost [127.0.0.1])
+ by d01av02.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u2B3ta2F004194
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Mar 2016 22:55:36 -0500
+Received: from birb.localdomain (birb.au.ibm.com [9.185.16.92])
+ by d01av02.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u2B3tZql004163; Thu, 10 Mar 2016 22:55:36 -0500
+Received: by birb.localdomain (Postfix, from userid 1000)
+ id A926F229DB26; Fri, 11 Mar 2016 14:55:32 +1100 (AEDT)
+From: Stewart Smith <stewart@linux.vnet.ibm.com>
+To: Patrick Williams <patrick@stwcx.xyz>, Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Subject: Re: [PATCH ipmi-fru-parser] RFC: use cmake.
+In-Reply-To: <87y49tb8u9.fsf@linux.vnet.ibm.com>
+References: <1457044213-7365-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1457044213-7365-2-git-send-email-openbmc-patches@stwcx.xyz>
+ <CACPK8XeHoDVNgd7WrdX=RuoFcjQJvK4YSh8SLArRJpBuZjbWAQ@mail.gmail.com>
+ <20160308025325.GK6601@asimov.pw-on-the.net>
+ <87y49tb8u9.fsf@linux.vnet.ibm.com>
+User-Agent: Notmuch/0.21+24~gbceb651 (http://notmuchmail.org) Emacs/24.5.1
+ (x86_64-redhat-linux-gnu)
+Date: Fri, 11 Mar 2016 14:55:32 +1100
+Message-ID: <87y49p7jnv.fsf@linux.vnet.ibm.com>
 MIME-Version: 1.0
-X-OriginatorOrg: Mellanox.com
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Mar 2016 15:17:51.1595 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR05MB0943
+Content-Type: text/plain
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16031103-0025-0000-0000-00002260689C
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -73,122 +64,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Mar 2016 15:32:09 -0000
+X-List-Received-Date: Fri, 11 Mar 2016 03:55:42 -0000
 
-VGhhbmsgeW91IEpvZWwgZm9yIHRoZSBncmVldGluZ3MgYW5kIGFzc2lzdGFuY2UhDQoNCk9uIFRo
-dSwgTWFyY2ggMTAsIDIwMTYgYXQgMzo0OCBQTSwgW2pvZWwuc3RhbkBnbWFpbC5jb21dIE9uIEJl
-aGFsZiBPZiBKb2VsIFN0YW5sZXkgd3JvdGU6DQo+IA0KPiBIZWxsbyBTaGF5LA0KPiANCj4gT24g
-VGh1LCBNYXIgMTAsIDIwMTYgYXQgMTE6MzMgUE0sIFNoYXkgU2xvYm9ka2luIDxzaGF5c0BtZWxs
-YW5veC5jb20+DQo+IHdyb3RlOg0KPiA+IFdlIGFyZSBuZXdiaWVzIGZvciB0aGUgb3BlbmJtYyBw
-cm9qZWN0LCByZWFkIHRocm91Z2ggdGhlIG1hbnVhbHMgYW5kDQo+ID4gd291bGQgbGlrZSB0byB3
-b3JrIHVuZGVyIHRoZSBhc3QyNTIwIHN5c3RlbS4NCj4gDQo+IFdlbGNvbWUhIEl0J3MgZ3JlYXQg
-dG8gaGF2ZSB5b3UgaGVyZS4gV2UgbG9vayBmb3J3YXJkIHRvIHdvcmtpbmcgd2l0aCB5b3UNCj4g
-YW5kIHlvdXIgY29sbGVhZ3Vlcy4NCj4gDQo+IFdlJ3JlIGEgbmV3IHByb2plY3QgdGhhdCBpcyBz
-dGlsbCBmaW5kaW5nIGl0J3MgZmVldCwgc28gZmVlbCBmcmVlIHRvIGp1bXAgaW4gYW5kDQo+IGhl
-bHAgb3V0IHdoZXJldmVyIHlvdSBmZWVsLg0KPiANCj4gSmVyZW15IGhhcyBzcGVudCBzb21lIHRp
-bWUgZG9jdW1lbnRpbmcgc29tZSBvZiBvdXIgcHJvY2Vzc2VzDQo+IGh0dHBzOi8vZ2l0aHViLmNv
-bS9vcGVuYm1jL2RvY3MvYmxvYi9tYXN0ZXIvY29udHJpYnV0aW5nLm1kLCB3aGljaCBJDQo+IGVu
-Y291cmFnZSB5b3UgYW5kIHlvdXIgdGVhbSB0byBoYXZlIGEgcmVhZCBvZi4NCj4gDQo+IEluIGFk
-ZGl0aW9uIHRvIHRoaXMgbGlzdCB3ZSBoYW5nIG91dCBvbiBpcmMuZnJlZW5vZGUubmV0IGluICNv
-cGVuYm1jLg0KPiBXZSdyZSBnbG9iYWxseSBkaXN0cmlidXRlZCwgYnV0IFVTIGNlbnRyYWwgdGlt
-ZSBhbmQgYWxsIHRocmVlIG9mIHRoZSBBdXN0cmFsaWFuDQo+IHRpbWV6b25lcyBhcmUgd2hlbiB5
-b3Ugd2lsbCBmaW5kIHRoZSBtb3N0IGFjdGl2aXR5Lg0KDQpXZSB3aWxsIHJlYWQgdGhpcyBkb2N1
-bWVudGF0aW9uIGFzIHdlbGwgYW5kIGxldCB5b3Uga25vdyBpZiB3ZSBoYXZlIGZ1cnRoZXIgcXVl
-c3Rpb25zLg0KDQo+IA0KPiA+IFdlIGhhdmUgc2V2ZXJhbCBxdWVzdGlvbnMgcmVnYXJkaW5nIHRo
-ZSB0cmVlIHN0cnVjdHVyZSBhbmQgYnVpbGRpbmcuDQo+ID4gdHJlZSBhZGRpdGlvbnMgdG8gc3Vw
-cG9ydCBvdXIgc3lzdGVtLg0KPiA+DQo+ID4gUGxlYXNlIGxldCB1cyBrbm93IGlmIHlvdSBmaW5k
-IHRoZSBiZWxvdyBhcyB0aGUgY29tcGxldGUgYW5kIGNvcnJlY3QNCj4gPiBhZGRpdGlvbnMuDQo+
-IA0KPiA+IHJvb3QNCj4gPg0KPiA+IHwtLSBtZXRhLW9wZW5ibWMtYnNwDQo+ID4NCj4gPiB8ICAg
-YC0tIG1ldGEtYXNwZWVkDQo+ID4NCj4gPiB8ICAgICAgIHwtLSBjb25mDQo+ID4NCj4gPiB8ICAg
-ICAgIHwgICBgLS0gbGF5ZXIuY29uZg0KPiA+DQo+ID4gfCAgICAgICBgLS0gbWV0YS1hc3QyNTIw
-IChOZXcgU29DKQ0KPiANCj4gVGhpcyBsb29rcyBnb29kLg0KPiANCj4gPiB8ICAgICAgICAgICB8
-LS0gcmVjaXBlcy1ic3ANCj4gPg0KPiA+IHwgICAgICAgICAgIHwgICBgLS0gdS1ib290DQo+ID4N
-Cj4gPiB8ICAgICAgICAgICB8ICAgICAgIHwtLSBmaWxlcw0KPiA+DQo+ID4gfCAgICAgICAgICAg
-fCAgICAgICB8ICAgfC0tIGNvbmZpZy5wYXRjaA0KPiA+DQo+ID4gfCAgICAgICAgICAgfCAgICAg
-ICB8ICAgfC0tIGZ3X2Vudi5jb25maWcNCj4gPg0KPiA+IHwgICAgICAgICAgIHwgICAgICAgfCAg
-IGAtLSBwYXRjaC0yMDEzLjA3DQo+ID4NCj4gPiB8ICAgICAgICAgICB8ICAgICAgIHwgICAgICAg
-fC0tIDAwMDAtdS1ib290LWFzcGVlZC0wNjQucGF0Y2ggKEV4aXN0KQ0KPiA+DQo+ID4gfCAgICAg
-ICAgICAgfCAgICAgICB8ICAgICAgIHwtLSAwMDAxLXUtYm9vdC1vcGVuYm1jLnBhdGNoIChFeGlz
-dCkNCj4gPg0KPiA+IHwgICAgICAgICAgIHwgICAgICAgfCAgICAgICBgLS0gMDAwMi11LWJvb3Qt
-YXNwZWVkXzI1MjBfMjUwMC5wYXRjaCAoUGF0Y2gNCj4gPiB3aXRoIDI1MDAtMjUyMCB1LWJvb3Qg
-c3VwcG9ydCkNCj4gDQo+IEkgYmVsaWV2ZSB3ZSBub3cgYnVpbGQgd2l0aCB1LWJvb3QgZnJvbSBv
-dXIgZ2l0IHRyZWUgKHdoaWNoIGhhcyB0aGVzZQ0KPiBwYXRjaGVzIGFwcGxpZWQsIHBsdXMgc29t
-ZSBtb3JlIGZpeGVzKSwgc28gdGhlc2Ugc2hvdWxkIGJlIHJlbW92ZWQuDQo+IA0KPiAgaHR0cHM6
-Ly9naXRodWIuY29tL29wZW5ibWMvdS1ib290L3RyZWUvdjIwMTMuMDctYXNwZWVkLW9wZW5ibWMN
-Cj4gDQo+IFN1Ym1pdCB5b3VyIHBhdGNoIGZvciAyNTIwIHN1cHBvcnQgdGhlcmUgYW5kIEknbGwg
-Z2V0IGl0IG1lcmdlZCBpbi4NCj4gDQo+IFRoZSBnb2FsIHRoZXJlIGlzIHRvIGdldCBzdXBwb3J0
-IGZvciB0aGUgYXN0IGNoaXBzIGluIHVwc3RyZWFtIHUtYm9vdCBzbyB3ZQ0KPiBkb24ndCBuZWVk
-IHRvIGNhcnJ5IGFueSBsb2NhbCBwYXRjaGVzLg0KDQpUaGFua3MhIFdpbGwgZG8gdGhhdCBvbmNl
-IHdlIGhhdmUgY29kZSByZWFkeS4NCg0KPiANCj4gPg0KPiA+IHwgICAgICAgICAgIHwgICAgICAg
-fC0tIHUtYm9vdC1mdy11dGlsc18yMDEzLjA3JS5iYmFwcGVuZA0KPiA+DQo+ID4NCj4gPg0KPiA+
-IHwgICAgICAgICAgIHwgICAgICAgYC0tIHUtYm9vdF8yMDEzLjA3JS5iYmFwcGVuZA0KPiA+DQo+
-ID4gfCAgICAgICAgICAgfC0tIHJlY2lwZXMta2VybmVsDQo+ID4NCj4gPiB8ICAgICAgICAgICB8
-ICAgYC0tIGxpbnV4DQo+ID4NCj4gPiB8ICAgICAgICAgICB8ICAgICAgIHwtLSBsaW51eC1vYm1j
-DQo+ID4NCj4gPiB8ICAgICAgICAgICB8ICAgICAgIHwgICB8LS0gZGVmY29uZmlnDQo+ID4NCj4g
-PiB8ICAgICAgICAgICB8ICAgICAgIHwgICB8LS0gZmlsZXMNCj4gPg0KPiA+IHwgICAgICAgICAg
-IHwgICAgICAgfCAgICAgICBgLS0gcGF0Y2gtNC4zLWRldiAoT3IgbGF0ZXIsIHRlbXBvcmFyeSB0
-aWxsIGNvZGUNCj4gPiB1cHN0cmVhbSkNCj4gPg0KPiA+IHwgICAgICAgICAgIHwgICAgICAgfCAg
-ICAgICAgICAgfC0tIDAwMDAta2VybmVsLWFzcGVlZF9zb2NfMjUyMC5wYXRjaCAoUGF0Y2gNCj4g
-PiB3aXRoIDI1MjAgU29DIHN1cHBvcnQpDQo+ID4NCj4gPiB8ICAgICAgICAgICB8ICAgICAgIHwg
-ICAgICAgICAgIHwtLSAwMDAxLWtlcm5lbC1hc3BlZWRfMjUwMF8yNTIwX2R0cy5wYXRjaA0KPiA+
-IChQYXRjaCB3aXRoIGJhc2ljIGR0cyBzdXBwb3J0KQ0KPiANCj4gQWdhaW4sIHNlbmQgdGhlbSB0
-byB0aGUgbWFpbGluZyBsaXN0IGFuZCB3ZSB3aWxsIGdldCB0aGVtIG1lcmdlZCBpbnRvIG91cg0K
-PiBrZXJuZWwgdHJlZToNCj4gDQo+ICBodHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9saW51eC90
-cmVlL2Rldi00LjMNCj4gDQo+IEkndmUgZ290IG9uIGEgNC40IGJhc2VkIGJyYW5jaCByZWFkeSB0
-byBnby4gV2UgcGxhbm5lZCB0byBzd2l0Y2ggdG8gdGhhdCBvbmNlDQo+IHRoZSB2NiByZWxlYXNl
-IHdhcyB0YWdnZWQsIHdoaWNoIGhhcyBoYXBwZW5lZCBub3csIHNvIEknbGwgdXBsb2FkIHRoYXQN
-Cj4gY2hhbmdlIHNvb24uDQo+IA0KPiBBcyB3aXRoIHUtYm9vdCB3ZSBpbnRlbmQgdG8gdXBzdHJl
-YW0gc3VwcG9ydCBhbmQgdXNlIHRoYXQgaW5zdGVhZCBvZiBvdXINCj4gb3duIHRyZWUuDQoNCkdy
-ZWF0LiBXaWxsIHRyYWNrIHRoYXQgYW5kIHVwZGF0ZSB3aGVuIGF2YWlsYWJsZS4NCg0KPiANCj4g
-Pg0KPiA+IHwgICAgICAgICAgIHwgICAgICAgfCAgIGAtLSBod21vbi5jZmcNCj4gPg0KPiA+IHwg
-ICAgICAgICAgIHwgICAgICAgYC0tIGxpbnV4LW9ibWNfJS5iYmFwcGVuZA0KPiA+DQo+ID4gfCAg
-ICAgICAgICAgYC0tIHJlY2lwZXMudHh0DQo+ID4NCj4gPiB8LS0gbWV0YS1vcGVuYm1jLXg4Ni1t
-YWNoaW5lcw0KPiA+DQo+ID4gfCAgIGAtLSBtZXRhLW1lbGxhbm94DQo+ID4NCj4gPiB8ICAgfCAg
-IHwtLSBjb25mDQo+ID4NCj4gPiB8ICAgfCAgIHwgICB8LS0gbGF5ZXIuY29uZg0KPiA+DQo+ID4g
-fCAgIHwgICB8ICAgYC0tIG1hY2hpbmUNCj4gPg0KPiA+IHwgICB8ICAgfCAgICAgICBgLS0gaW5j
-bHVkZQ0KPiA+DQo+ID4gfCAgIHwgICB8ICAgICAgICAgICBgLS0gbWVsbGFub3guaW5jDQo+ID4N
-Cj4gPiB8ICAgfCAgIGAtLSBtZXRhLW1lbGxhbm94LWVkcg0KPiA+DQo+ID4gfCAgIHwgICAgICAg
-fC0tIGNvbmYNCj4gPg0KPiA+IHwgICB8ICAgICAgIHwgICB8LS0gbGF5ZXIuY29uZg0KPiA+DQo+
-ID4gfCAgIHwgICAgICAgfCAgIGAtLSBtYWNoaW5lDQo+ID4NCj4gPiB8ICAgfCAgICAgICB8ICAg
-ICAgIGAtLSBpbmNsdWRlDQo+ID4NCj4gPiB8ICAgfCAgICAgICB8ICAgICAgICAgICBgLS0gbWVs
-bGFub3guaW5jDQo+ID4NCj4gPiB8ICAgfCAgICAgICB8LS0gcmVjaXBlcy1rZXJuZWwNCj4gPg0K
-PiA+IHwgICB8ICAgICAgIHwgICBgLS0gbGludXgNCj4gPg0KPiA+IHwgICB8ICAgICAgIHwgICAg
-ICAgfC0tIGxpbnV4LW9ibWMNCj4gPg0KPiA+IHwgICB8ICAgICAgIHwgICAgICAgfCAgIHwtLSBm
-aWxlcw0KPiA+DQo+ID4gfCAgIHwgICAgICAgfCAgICAgICB8ICAgICAgIGAtLSBwYXRjaC00LjMt
-ZGV2IChPciBsYXRlciwgdGVtcG9yYXJ5IHRpbGwgY29kZQ0KPiA+IHVwc3RyZWFtKQ0KPiA+DQo+
-ID4gfCAgIHwgICAgICAgfCAgICAgICB8ICAgICAgICAgIHwtLSAwMDAyLWtlcm5lbC1tZWxsYW5v
-eC1kdHMucGF0Y2ggKFBhdGNoDQo+ID4gd2l0aCBNZWxsYW5veCBkdHMgc3VwcG9ydCkNCj4gDQo+
-IFdlIGNhbiBpbmNsdWRlIHRoaXMgaW4ga2VybmVsIHRyZWUgaWYgeW91IHdhbnQ/DQoNCk9uY2Ug
-d2Ugd2lsbCBoYXZlIHRoZW0gcmVhZHksIHdlIHdpbGwgcHVibGlzaCB0byB0aGUgbGlzdC4NCg0K
-PiANCj4gPg0KPiA+IHwgICB8ICAgICAgIHwgICAgICAgfCAgIHwtLSBtZWxsYW5veC1lZHIuY2Zn
-DQo+ID4NCj4gPiB8ICAgfCAgICAgICB8ICAgICAgIHwgICBgLS0gbWVsbGFub3gtZWRyLmR0cw0K
-PiA+DQo+ID4gfCAgIHwgICAgICAgfCAgICAgICBgLS0gbGludXgtb2JtY18lLmJiYXBwZW5kDQo+
-ID4NCj4gPiB8ICAgfCAgICAgICBgLS0gcmVjaXBlcy50eHQNCj4gPg0KPiA+DQo+ID4NCj4gPiA9
-PT09PT09PT0NCj4gPg0KPiA+DQo+ID4NCj4gPiBBbHNvLCBzaG91bGQgd2UgYWRkIGEg4oCcbG9j
-YWwuY29uZi5zYW1wbGXigJ0gZmlsZSB1bmRlciB0aGUNCj4gPiDigJxtZXRhLW9wZW5ibWMteDg2
-LW1hY2hpbmVzL2NvbmbigJ0gcGF0aD8NCj4gDQo+IEknbGwgbGV0IG9uZSBvZiB0aGUgZGV2ZWxv
-cGVycyBtb3JlIGZhbWlsaWFyIHdpdGggb3VyIHByb2plY3QgbGF5b3V0IGFuZCBidWlsZA0KPiBz
-eXN0ZW0gdG8gaGVscCB5b3Ugb3V0IHdpdGggdGhlIHF1ZXN0aW9ucyBiZWxvdy4NCg0KVGhhbmsg
-eW91LiBUaGlzIHdpbGwgYmUgb2YgZ3JlYXQgYXNzaXN0YW5jZS4gTG9va2luZyBmb3J3YXJkIHdv
-cmtpbmcgd2l0aCBoaW0uDQoNCj4gPg0KPiA+IElmIHNvLCB3ZSB3ZXJlIHdvbmRlcmluZyBhYm91
-dCB0aGUgZm9sbG93aW5nIHZhcmlhYmxlcyB1bmRlciB0aGUNCj4gPiBsb2NhbC5jb25mLnNhbXBs
-ZSBmaWxlICh3ZSB0b29rIHRoZSBwaG9zcGhvciBvbmUgYXMgZXhhbXBsZSk6DQo+ID4NCj4gPiBQ
-QUNLQUdFX0NMQVNTRVMgPz0gInBhY2thZ2VfcnBtIg0KPiA+DQo+ID4gU0FOSVRZX1RFU1RFRF9E
-SVNUUk9TX2FwcGVuZCA/PSAiIFJlZEhhdEVudGVycHJpc2VXb3Jrc3RhdGlvbi02LioiDQo+IA0K
-PiBUaGlzIGlzIGJlY2F1c2Ugc29tZSBvZiBvdXIgdGVhbSBtZW1iZXJzIHVzZSBSSEVMNiwgYW5k
-IGJpdGJha2Ugd2FybnMNCj4gYWJvdXQgdW5zdXBwb3J0ZWQgZGlzdHJvcy4NCj4gDQo+IE1hbnkg
-b2YgdGhlIHRlYW0gdXNlIG1vcmUgcmVjZW50IFVidW50dSByZWxlYXNlcywgc28gaXQncyB1cCB0
-byB5b3UuDQo+IA0KPiA+DQo+ID4gRVhUUkFfSU1BR0VfRkVBVFVSRVMgPSAiZGVidWctdHdlYWtz
-Ig0KPiA+DQo+ID4gVVNFUl9DTEFTU0VTID89ICJidWlsZHN0YXRzIGltYWdlLW1rbGlicyBpbWFn
-ZS1wcmVsaW5rIg0KPiA+DQo+ID4gUEFUQ0hSRVNPTFZFID0gIm5vb3AiDQo+ID4NCj4gPiBCQl9E
-SVNLTU9OX0RJUlMgPSAiXA0KPiA+DQo+ID4gICAgIFNUT1BUQVNLUywke1RNUERJUn0sMUcsMTAw
-SyBcDQo+ID4NCj4gPiAgICAgU1RPUFRBU0tTLCR7RExfRElSfSwxRywxMDBLIFwNCj4gPg0KPiA+
-ICAgICBTVE9QVEFTS1MsJHtTU1RBVEVfRElSfSwxRywxMDBLIFwNCj4gPg0KPiA+ICAgICBTVE9Q
-VEFTS1MsL3RtcCwxMDBNLDEwMEsgXA0KPiA+DQo+ID4gICAgIEFCT1JULCR7VE1QRElSfSwxMDBN
-LDFLIFwNCj4gPg0KPiA+ICAgICBBQk9SVCwke0RMX0RJUn0sMTAwTSwxSyBcDQo+ID4NCj4gPiAg
-ICAgQUJPUlQsJHtTU1RBVEVfRElSfSwxMDBNLDFLIFwNCj4gPg0KPiA+ICAgICBBQk9SVCwvdG1w
-LDEwTSwxSyINCj4gPg0KPiA+IEd1ZXNzIHdlIHNob3VsZCB1c2UgdGhlIOKAnGdlbmVyaWN4ODYt
-NjTigJ0gYXMgTUFDSElORSB2YXJpYWJsZQ0KPiA+DQo+ID4NCj4gPiBXZSB3ZXJlIHdvbmRlcmlu
-ZyB3aGF0IHNwZWNpZmljIOKAnG9lLWluaXQtYnVpbGQtZW524oCdIGFuZCBzaW1pbGFyIGZpbGVz
-DQo+ID4gd2Ugc2hvdWxkIGNoYW5nZSwgaW4gb3JkZXIgZm9yIHRoZSBwcm9qZWN0IHRvIGNvbXBp
-bGUuDQo=
+Stewart Smith <stewart@linux.vnet.ibm.com> writes:
+> Patrick Williams <patrick@stwcx.xyz> writes:
+>> On Mon, Mar 07, 2016 at 02:30:51PM +1030, Joel Stanley wrote:
+>>> On Fri, Mar 4, 2016 at 9:00 AM, OpenBMC Patches
+>>> <openbmc-patches@stwcx.xyz> wrote:
+>>> > From: Patrick Williams <patrick@stwcx.xyz>
+>>> >
+>>> > There was a previous proposal to consider autotools (see
+>>> > openbmc/ipmi-fru-parser#7).  This is an alternative implementation
+>>> > using cmake.
+>>> 
+>>> I'm not a fan of autotools; I have not chosen to use it on small
+>>> projects in the past.
+>>> 
+>>> That said, I have stopped working on projects due to cmake's
+>>> downsides. It's overly complex, and no clear way to implement rules,
+>>> making it hard for newbies and experienced developers alike.
+>>
+>> Can you elaborate on this?  I honestly don't have much experience with
+>> CMake but from the little I have played with it it seems 5x easier than
+>> makefiles (which autotools still use via Makefile.am).
+>
+> Some getting started bits are easier in CMake, that's true. But CMake
+> misses a few important things:
+
+Tridge on CMake:
+https://lists.samba.org/archive/samba-technical/2010-February/069670.html
+
+-- 
+Stewart Smith
+OPAL Architect, IBM.
