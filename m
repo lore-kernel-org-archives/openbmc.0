@@ -3,19 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 6F7FD1A0341
- for <openbmc@lists.ozlabs.org>; Sat, 12 Mar 2016 05:40:59 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id AA4471A004B
+ for <openbmc@lists.ozlabs.org>; Sat, 12 Mar 2016 09:40:34 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1457721649799524.2308766209769;
- Fri, 11 Mar 2016 10:40:49 -0800 (PST)
+ with SMTPS id 1457736031182502.6624262927651;
+ Fri, 11 Mar 2016 14:40:31 -0800 (PST)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH u-boot 5/5] net: aspeednic: Do not fill in a random MAC address
-Date: Fri, 11 Mar 2016 12:40:44 -0600
-Message-Id: <1457721644-29871-6-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-event v4 0/2] Add association interface to each event
+ log
+Date: Fri, 11 Mar 2016 16:40:28 -0600
+Message-Id: <1457736030-6801-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1457721644-29871-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1457721644-29871-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -28,53 +27,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Mar 2016 18:41:00 -0000
+X-List-Received-Date: Fri, 11 Mar 2016 22:40:35 -0000
 
-From: "Milton D. Miller II" <miltonm@us.ibm.com>
+When a new event log is created we will create an interface
+with a name of org.openbmc.association.  That will have a
+single property named "association" which will be an a(sss).
+That will be enough information for the rest server to present
+it.
 
-Do not check the u-boot environemnt or fill in a random address
-in the write_hwaddr hook, instead rely on the framework to do so.
+Lets say you want to run the acceptTestMessage method.  It
+will create an association between the event log and 2 dimms.
 
-The doc/README.ethaddr specifically states that random addresses
-are only to be assigned as part of a emergency such as a netboot
-recovery command.
+So
+/org/openbmc/inventory/system/chassis/motherboard/dimm2
+/org/openbmc/inventory/system/chassis/motherboard/dimm3
 
-The upstream commit created a config variable to assign a
-random mac when none is set leaving it zero and that has now
-been backported.
+/org/openbmc/records/events/1/fru
+should return
+data : {/org/openbmc/inventory/system/chassis/motherboard/dimm2 , /org/openbmc/inventory/system/chassis/motherboard/dimm3}
 
-Note: The hardware address is reset to 0 as part of the ethernet
-reset performed at boot.  If no valid MAC address is found in
-the environment the hardware will contain zeros and the operating
-system will assign a valid random MAC address if u-boot is
-configured not to.
+You should also be able to go to the dimm and get the association in reverse
 
-The net effect is an attempt to use the network will result in
-the ethernet address not set warning being printed if the ethaddr
-variable is not set, and a warning iwth the random mac address
-if the config is set.  If a valid ethernet address is set
-in the environment it will be programmed in the hardware and
-used by the operating system.
+/org/openbmc/inventory/system/chassis/motherboard/dimm2/event
+should return
+data : {/org/openbmc/records/events/1/}
 
-Signed-off-by: Milton Miller <miltonm@us.ibm.com>
+<!-- Reviewable:start -->
 ---
- drivers/net/aspeednic.c | 4 ----
- 1 file changed, 4 deletions(-)
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Review on Reviewable"/>](https://reviewable.io/reviews/openbmc/phosphor-event/14)
+<!-- Reviewable:end -->
 
-diff --git a/drivers/net/aspeednic.c b/drivers/net/aspeednic.c
-index 841df8b..e80561f 100644
---- a/drivers/net/aspeednic.c
-+++ b/drivers/net/aspeednic.c
-@@ -1363,10 +1363,6 @@ static void aspeednic_halt(struct eth_device* dev)
- 
- static int aspeednic_write_hwaddr(struct eth_device* dev)
- {
--  if (!eth_getenv_enetaddr_by_index("eth", 0, dev->enetaddr)) {
--    eth_random_enetaddr(dev->enetaddr);
--  }
--
-   OUTL(dev, ((dev->enetaddr[2] << 24) | (dev->enetaddr[3] << 16)
-              | (dev->enetaddr[4] << 8) | dev->enetaddr[5]), MAC_LADR_REG);
-   OUTL(dev, ((dev->enetaddr[0] << 8) | dev->enetaddr[1]), MAC_MADR_REG);
+
+https://github.com/openbmc/phosphor-event/pull/14
+
+Chris Austen (2):
+  Add association interface to each event log
+  Fixed Multiple associations occasionally geting truncated
+
+ event_messaged_sdbus.c | 110 ++++++++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 91 insertions(+), 19 deletions(-)
+
 -- 
 2.7.1
