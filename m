@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qPqqB6Rh3zDqPm
- for <openbmc@lists.ozlabs.org>; Wed, 16 Mar 2016 10:01:10 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qPqqD1DF0zDqjZ
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Mar 2016 10:01:12 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 145808286529724.566110991570667;
- Tue, 15 Mar 2016 16:01:05 -0700 (PDT)
+ with SMTPS id 145808286697333.35804373955182;
+ Tue, 15 Mar 2016 16:01:06 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH u-boot v2 3/5] net: aspeednic: Remove extra spaces before
- assignments
-Date: Tue, 15 Mar 2016 18:00:59 -0500
-Message-Id: <1458082861-23542-4-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH u-boot v2 5/5] net: aspeednic: Do not fill in a random MAC
+ address
+Date: Tue, 15 Mar 2016 18:01:01 -0500
+Message-Id: <1458082861-23542-6-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1458082861-23542-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1458082861-23542-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,62 +29,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Mar 2016 23:01:11 -0000
+X-List-Received-Date: Tue, 15 Mar 2016 23:01:12 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-The device method assignments had extra spaces before the =
-signs but all prior methods were 4 characters and so they
-were aligned.  Since write_hwaddr is significantly longer,
-the resulting spacing is not pleasing.  Since only a few other
-sites had simiar whitespace replace all multi-space sequences
-before an assignemnt with one space.
+Do not check the u-boot environemnt or fill in a random address
+in the write_hwaddr hook, instead rely on the framework to do so.
+
+The doc/README.ethaddr specifically states that random addresses
+are only to be assigned as part of a emergency such as a netboot
+recovery command.
+
+The upstream commit created a config variable to assign a
+random mac when none is set leaving it zero and that has now
+been backported.
+
+Note: The hardware address is reset to 0 as part of the ethernet
+reset performed at boot.  If no valid MAC address is found in
+the environment the hardware will contain zeros and the operating
+system will assign a valid random MAC address if u-boot is
+configured not to.
+
+The net effect is an attempt to use the network will result in
+the ethernet address not set warning being printed if the ethaddr
+variable is not set, and a warning iwth the random mac address
+if the config is set.  If a valid ethernet address is set
+in the environment it will be programmed in the hardware and
+used by the operating system.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- drivers/net/aspeednic.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/net/aspeednic.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
 diff --git a/drivers/net/aspeednic.c b/drivers/net/aspeednic.c
-index 90c0f0d..841df8b 100644
+index 841df8b..e80561f 100644
 --- a/drivers/net/aspeednic.c
 +++ b/drivers/net/aspeednic.c
-@@ -560,10 +560,10 @@ int aspeednic_initialize(bd_t *bis)
-   *(volatile u_long *)(SCU_BASE + SCU_SCRATCH_REGISTER) = cpu_to_le32((SCURegister & ~(0x3000)) | (CONFIG_MAC2_PHY_SETTING << 12));
+@@ -1363,10 +1363,6 @@ static void aspeednic_halt(struct eth_device* dev)
  
- 
--  dev->init   = aspeednic_init;
--  dev->halt   = aspeednic_halt;
--  dev->send   = aspeednic_send;
--  dev->recv   = aspeednic_recv;
-+  dev->init = aspeednic_init;
-+  dev->halt = aspeednic_halt;
-+  dev->send = aspeednic_send;
-+  dev->recv = aspeednic_recv;
-   dev->write_hwaddr = aspeednic_write_hwaddr;
- 
-   /* Ensure we're not sleeping. */
-@@ -1267,9 +1267,9 @@ static int aspeednic_send(struct eth_device* dev, volatile void *packet, int len
- //            memset ((void *)cpu_to_le32((u32) (packet + length)), 0, 60 - length);
-     length = 60;
-   }
--  tx_ring[tx_new].buf    = cpu_to_le32(((u32) packet));
--  tx_ring[tx_new].status   &= (~(0x3FFF));
--  tx_ring[tx_new].status   |= cpu_to_le32(LTS | FTS | length);
-+  tx_ring[tx_new].buf = cpu_to_le32(((u32) packet));
-+  tx_ring[tx_new].status &= (~(0x3FFF));
-+  tx_ring[tx_new].status |= cpu_to_le32(LTS | FTS | length);
-   tx_ring[tx_new].status |= cpu_to_le32(TXDMA_OWN);
- 
-   OUTL(dev, POLL_DEMAND, TXPD_REG);
-@@ -1297,7 +1297,7 @@ static int aspeednic_send(struct eth_device* dev, volatile void *packet, int len
- static int aspeednic_recv(struct eth_device* dev)
+ static int aspeednic_write_hwaddr(struct eth_device* dev)
  {
-   s32   status;
--  int   length    = 0;
-+  int   length = 0;
- 
-   for ( ; ; )
-   {
+-  if (!eth_getenv_enetaddr_by_index("eth", 0, dev->enetaddr)) {
+-    eth_random_enetaddr(dev->enetaddr);
+-  }
+-
+   OUTL(dev, ((dev->enetaddr[2] << 24) | (dev->enetaddr[3] << 16)
+              | (dev->enetaddr[4] << 8) | dev->enetaddr[5]), MAC_LADR_REG);
+   OUTL(dev, ((dev->enetaddr[0] << 8) | dev->enetaddr[1]), MAC_MADR_REG);
 -- 
 2.7.1
