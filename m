@@ -3,17 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qPL425ZydzDq7K
- for <openbmc@lists.ozlabs.org>; Tue, 15 Mar 2016 14:40:34 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qPL471sqMzDqyQ
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Mar 2016 14:40:39 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1458013231173773.1853627814196;
- Mon, 14 Mar 2016 20:40:31 -0700 (PDT)
+ with SMTPS id 1458013232848605.6240601888687;
+ Mon, 14 Mar 2016 20:40:32 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid v2 0/3] Unused code
-Date: Mon, 14 Mar 2016 22:40:27 -0500
-Message-Id: <1458013230-17330-1-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: Cyril Bur <cyril.bur@au1.ibm.com>
+Subject: [PATCH phosphor-host-ipmid v2 2/3] Remove unused dbus call
+Date: Mon, 14 Mar 2016 22:40:29 -0500
+Message-Id: <1458013230-17330-3-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
+In-Reply-To: <1458013230-17330-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1458013230-17330-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -26,59 +29,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Mar 2016 03:40:35 -0000
+X-List-Received-Date: Tue, 15 Mar 2016 03:40:39 -0000
 
-Wasn't able to compile this to test:
-```
-$ make
-g++ -std=c++14 -fpic -c ipmid.C -Wall -Wno-unused-result -lsystemd -I. -O2 -DHOST_IPMI_LIB_PATH=\"/usr/lib/host-ipmid/\" -o ipmid.o
-g++ ipmid.o  -lsystemd -rdynamic -o ipmid -ldl
-g++ -std=c++14 -fpic -c apphandler.C -Wall -Wno-unused-result -lsystemd -I. -O2 -DHOST_IPMI_LIB_PATH=\"/usr/lib/host-ipmid/\" -o apphandler.o
-g++ -std=c++14 -fpic -c sensorhandler.C -Wall -Wno-unused-result -lsystemd -I. -O2 -DHOST_IPMI_LIB_PATH=\"/usr/lib/host-ipmid/\" -o sensorhandler.o
-g++ -std=c++14 -fpic -c storagehandler.C -Wall -Wno-unused-result -lsystemd -I. -O2 -DHOST_IPMI_LIB_PATH=\"/usr/lib/host-ipmid/\" -o storagehandler.o
-g++ -std=c++14 -fpic -c chassishandler.C -Wall -Wno-unused-result -lsystemd -I. -O2 -DHOST_IPMI_LIB_PATH=\"/usr/lib/host-ipmid/\" -o chassishandler.o
-g++ -std=c++14 -fpic -c dcmihandler.C -Wall -Wno-unused-result -lsystemd -I. -O2 -DHOST_IPMI_LIB_PATH=\"/usr/lib/host-ipmid/\" -o dcmihandler.o
-g++ -std=c++14 -fpic -c ipmisensor.C -Wall -Wno-unused-result -lsystemd -I. -O2 -DHOST_IPMI_LIB_PATH=\"/usr/lib/host-ipmid/\" -o ipmisensor.o
-g++ -std=c++14 -fpic -c storageaddsel.C -Wall -Wno-unused-result -lsystemd -I. -O2 -DHOST_IPMI_LIB_PATH=\"/usr/lib/host-ipmid/\" -o storageaddsel.o
-g++ -std=c++14 -fpic -c transporthandler.C -Wall -Wno-unused-result -lsystemd -I. -O2 -DHOST_IPMI_LIB_PATH=\"/usr/lib/host-ipmid/\" -o transporthandler.o
-g++ -std=c++14 -fpic -c globalhandler.C -Wall -Wno-unused-result -lsystemd -I. -O2 -DHOST_IPMI_LIB_PATH=\"/usr/lib/host-ipmid/\" -o globalhandler.o
-g++ -std=c++14 -fpic -c groupext.C -Wall -Wno-unused-result -lsystemd -I. -O2 -DHOST_IPMI_LIB_PATH=\"/usr/lib/host-ipmid/\" -o groupext.o
-g++ apphandler.o sensorhandler.o storagehandler.o chassishandler.o dcmihandler.o ipmisensor.o storageaddsel.o transporthandler.o globalhandler.o groupext.o -shared  -lsystemd -rdynamic -o libapphandler.so
-cc -Wall -Wno-unused-result   -c -o host-services.o host-services.c
-g++ host-services.o -shared  -lsystemd -rdynamic -o libhostservice.so
-/usr/bin/ld: host-services.o: relocation R_X86_64_32 against `.rodata' can not be used when making a shared object; recompile with -fPIC
-host-services.o: error adding symbols: Bad value
-collect2: error: ld returned 1 exit status
-Makefile:56: recipe for target 'libhostservice.so' failed
-make: *** [libhostservice.so] Error 1
+From: Cyril Bur <cyril.bur@au1.ibm.com>
 
-$ g++ --version
-g++ (GCC) 5.3.0
-Copyright (C) 2015 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-```
+It appears that the reply to org.openbmc.HostIpmi sendMessage dbus method is
+unused. Remove it.
 
-Did make all the .o's so hopefully it is ok.
-
-<!-- Reviewable:start -->
+Signed-off-by: Cyril Bur <cyril.bur@au1.ibm.com>
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/phosphor-host-ipmid/79)
-<!-- Reviewable:end -->
+ ipmid.C | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
 
-
-https://github.com/openbmc/phosphor-host-ipmid/pull/79
-
-Cyril Bur (3):
-  Remove unused code
-  Remove unused dbus call
-  Remove unused variable warnings
-
- apphandler.C       | 30 ++++++------------------------
- globalhandler.C    |  8 ++------
- ipmid.C            | 42 +++++++++++++-----------------------------
- transporthandler.C | 18 ++++++------------
- 4 files changed, 27 insertions(+), 71 deletions(-)
-
+diff --git a/ipmid.C b/ipmid.C
+index a42e2c1..a12ff10 100644
+--- a/ipmid.C
++++ b/ipmid.C
+@@ -176,9 +176,9 @@ ipmi_ret_t ipmi_netfn_router(ipmi_netfn_t netfn, ipmi_cmd_t cmd, ipmi_request_t
+ 
+ static int send_ipmi_message(sd_bus_message *req, unsigned char seq, unsigned char netfn, unsigned char lun, unsigned char cmd, unsigned char cc, unsigned char *buf, unsigned char len) {
+ 
+-    sd_bus_message *reply = NULL, *m=NULL;
++    sd_bus_message *m=NULL;
+     const char *dest, *path;
+-    int r, pty;
++    int r;
+ 
+     dest = sd_bus_message_get_sender(req);
+     path = sd_bus_message_get_path(req);
+@@ -210,21 +210,15 @@ static int send_ipmi_message(sd_bus_message *req, unsigned char seq, unsigned ch
+ 
+ 
+     // Call the IPMI responder on the bus so the message can be sent to the CEC
+-    r = sd_bus_call(bus, m, 0, NULL, &reply);
++    r = sd_bus_call(bus, m, 0, NULL, NULL);
+     if (r < 0) {
+         fprintf(stderr, "Failed to call the method: %s\n", strerror(-r));
+         fprintf(stderr, "Dest: %s, Path: %s\n", dest, path);
+         goto final;
+     }
+ 
+-    r = sd_bus_message_read(reply, "x", &pty);
+-    if (r < 0) {
+-       fprintf(stderr, "Failed to get a rc from the method: %s\n", strerror(-r));
+-    }
+-
+ final:
+     sd_bus_message_unref(m);
+-    sd_bus_message_unref(reply);
+ 
+     return r < 0 ? EXIT_FAILURE : EXIT_SUCCESS;
+ }
 -- 
 2.7.1
