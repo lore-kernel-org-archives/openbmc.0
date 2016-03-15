@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qPL471sqMzDqyQ
- for <openbmc@lists.ozlabs.org>; Tue, 15 Mar 2016 14:40:39 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qPL483SZPzDqyp
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Mar 2016 14:40:40 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1458013232848605.6240601888687;
- Mon, 14 Mar 2016 20:40:32 -0700 (PDT)
+ with SMTPS id 1458013233753381.04641809128964;
+ Mon, 14 Mar 2016 20:40:33 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Cyril Bur <cyril.bur@au1.ibm.com>
-Subject: [PATCH phosphor-host-ipmid v2 2/3] Remove unused dbus call
-Date: Mon, 14 Mar 2016 22:40:29 -0500
-Message-Id: <1458013230-17330-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-host-ipmid v2 3/3] Remove unused variable warnings
+Date: Mon, 14 Mar 2016 22:40:30 -0500
+Message-Id: <1458013230-17330-4-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1458013230-17330-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1458013230-17330-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,56 +29,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Mar 2016 03:40:39 -0000
+X-List-Received-Date: Tue, 15 Mar 2016 03:40:41 -0000
 
 From: Cyril Bur <cyril.bur@au1.ibm.com>
 
-It appears that the reply to org.openbmc.HostIpmi sendMessage dbus method is
-unused. Remove it.
+Output from GCC:
+globalhandler.C: In function 'int dbus_warm_reset()':
+globalhandler.C:84:11: warning: unused variable 'temp_buf' [-Wunused-variable]
+     char* temp_buf = NULL;
+           ^
+globalhandler.C:85:14: warning: unused variable 'get_value' [-Wunused-variable]
+     uint8_t* get_value = NULL;
+              ^
+globalhandler.C:87:12: warning: unused variable 'i' [-Wunused-variable]
+     int r, i;
+            ^
 
 Signed-off-by: Cyril Bur <cyril.bur@au1.ibm.com>
 ---
- ipmid.C | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
+ globalhandler.C | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/ipmid.C b/ipmid.C
-index a42e2c1..a12ff10 100644
---- a/ipmid.C
-+++ b/ipmid.C
-@@ -176,9 +176,9 @@ ipmi_ret_t ipmi_netfn_router(ipmi_netfn_t netfn, ipmi_cmd_t cmd, ipmi_request_t
- 
- static int send_ipmi_message(sd_bus_message *req, unsigned char seq, unsigned char netfn, unsigned char lun, unsigned char cmd, unsigned char cc, unsigned char *buf, unsigned char len) {
- 
--    sd_bus_message *reply = NULL, *m=NULL;
-+    sd_bus_message *m=NULL;
-     const char *dest, *path;
--    int r, pty;
+diff --git a/globalhandler.C b/globalhandler.C
+index 0087455..7318969 100644
+--- a/globalhandler.C
++++ b/globalhandler.C
+@@ -80,10 +80,8 @@ int dbus_warm_reset()
+ {
+     sd_bus_error error = SD_BUS_ERROR_NULL;
+     sd_bus *bus = NULL;
+-    char* temp_buf = NULL;
+-    uint8_t* get_value = NULL;
+     char* connection = NULL;
+-    int r, i;
 +    int r;
  
-     dest = sd_bus_message_get_sender(req);
-     path = sd_bus_message_get_path(req);
-@@ -210,21 +210,15 @@ static int send_ipmi_message(sd_bus_message *req, unsigned char seq, unsigned ch
- 
- 
-     // Call the IPMI responder on the bus so the message can be sent to the CEC
--    r = sd_bus_call(bus, m, 0, NULL, &reply);
-+    r = sd_bus_call(bus, m, 0, NULL, NULL);
+     r = obj_mapper_get_connection(&connection, control_object_name);
      if (r < 0) {
-         fprintf(stderr, "Failed to call the method: %s\n", strerror(-r));
-         fprintf(stderr, "Dest: %s, Path: %s\n", dest, path);
-         goto final;
-     }
- 
--    r = sd_bus_message_read(reply, "x", &pty);
--    if (r < 0) {
--       fprintf(stderr, "Failed to get a rc from the method: %s\n", strerror(-r));
--    }
--
- final:
-     sd_bus_message_unref(m);
--    sd_bus_message_unref(reply);
- 
-     return r < 0 ? EXIT_FAILURE : EXIT_SUCCESS;
- }
 -- 
 2.7.1
