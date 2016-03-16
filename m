@@ -1,23 +1,56 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <cyrilbur@gmail.com>
+Received: from mail-pf0-x244.google.com (mail-pf0-x244.google.com
+ [IPv6:2607:f8b0:400e:c00::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qQRzf0mgQzDq7K
- for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2016 10:10:37 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 145816983224624.28847482061292;
- Wed, 16 Mar 2016 16:10:32 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-event v5 1/2] Add association interface to each event
- log
-Date: Wed, 16 Mar 2016 18:10:29 -0500
-Message-Id: <1458169830-7468-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1458169830-7468-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1458169830-7468-1-git-send-email-openbmc-patches@stwcx.xyz>
-X-Zoho-Virus-Status: 1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qQT4F5B7DzDqyb
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2016 10:59:41 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=gxRMfLL/; 
+ dkim-atps=neutral
+Received: by mail-pf0-x244.google.com with SMTP id u190so8651712pfb.2
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Mar 2016 16:59:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=eiFIaThf9LhCdbFBgCMRoviY9rWXXMKkdYO8BbHgDps=;
+ b=gxRMfLL/Ylmmf0wUJeUVcZ4bszkuZzeb6cn05rJzdtH6qnoMJXULe1ZfyNxRgfSN8D
+ DGs7OoDWO1wlKD8DNHT3YHkWAgMtzlzicFUGdcuUgsfktTaQewOJHvTBZM7bedbQeMFV
+ +02iZqCvNKv0cQH1+TDu1HrOqNJthvJ0xsCRZr/i28Apfq5zed2wMl9BaUPX3IgPbvhi
+ F585UnE+YUCvTk2f31UnAWOF+RXu2ijokjqNBfgazE77SP5RlwROCQ5euHbCNUN6aeQ7
+ N9t9Y0lPQvlBquEIaCdGB80yZRODo2lSFdesKP2vZlg2aY3RMlkmozL05fSM8ArInpqk
+ BSTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=eiFIaThf9LhCdbFBgCMRoviY9rWXXMKkdYO8BbHgDps=;
+ b=ItWsnPUky6MWBNI3bJTEUYjVa75VNprcIxK6WATTCssfL06VcvL+lC3UhNK4/MMlMr
+ bBsAx6GrcpKsmMoIcq7xBAAwqT0Wouie6ol5mJN1d8POwttDTCIfP/DX+cZwRIreTVB3
+ 2GuUSUL94lv6eOYyXWkeB7P+BNeBNw4iZyk9dmjrlWzKJ5nggVmBAvaJstBuVYYBUoaj
+ mQM6FLj+OyI1VANuq4nm1YDMFiL5cZgIz7Dr/t8THK1MAZtM01BKrDG7y+oHaYsNNoKB
+ JOWYqeTOKyHp6qU5vIdPLNYcsjQ7xs3PoJb7hHR72J5BMv7pobhb4IryCkt1shS+kA+Q
+ I+dg==
+X-Gm-Message-State: AD7BkJLiF05L0f6xAF1THYORha58hReVRXfeNIRMJw4qScf2KQ/ifunjcRzSpBJNJX8HPg==
+X-Received: by 10.98.75.10 with SMTP id y10mr10342656pfa.32.1458172779420;
+ Wed, 16 Mar 2016 16:59:39 -0700 (PDT)
+Received: from camb691 ([122.99.82.10])
+ by smtp.gmail.com with ESMTPSA id t87sm8251741pfa.54.2016.03.16.16.59.37
+ (version=TLSv1/SSLv3 cipher=OTHER);
+ Wed, 16 Mar 2016 16:59:38 -0700 (PDT)
+Date: Thu, 17 Mar 2016 10:59:31 +1100
+From: Cyril Bur <cyrilbur@gmail.com>
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: [PATCH u-boot v2 0/5] Only call aspeednic_init when preparing
+ to use network
+Message-ID: <20160317105931.1c1d0f18@camb691>
+In-Reply-To: <1458082861-23542-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1458082861-23542-1-git-send-email-openbmc-patches@stwcx.xyz>
+X-Mailer: Claws Mail 3.13.2 (GTK+ 2.24.30; x86_64-unknown-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -29,267 +62,67 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Mar 2016 23:10:38 -0000
+X-List-Received-Date: Wed, 16 Mar 2016 23:59:42 -0000
 
-From: Chris Austen <austenc@us.ibm.com>
+On Tue, 15 Mar 2016 18:00:56 -0500
+OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
 
-When a new event log is created we will create an interface
-with a name of org.openbmc.association.  That will have a
-single property named "association" which will be an a(sss).
-That will be enough information for the rest server to present
-it.
+> The aspeednic driver was calling init from its initialization function and
+> calling halt later.  This left the DMA engine running and writing to
+> memory when Ethernet traffic arrived when control was handed off
+> to the operating system.
+> 
+> Remove this call to init and rely on the framework to call
+> write_hwaddr with the assigned MAC address.
+> 
+> In addition upstream discourages setting the random address in
+> drivers.  Later upstream created a config for this behavior and I
+> back-ported that patch.
+> 
+> In my testing, the random mac address is about 90% 1 value after a
+> u-boot reset command but after a kernel reboot it does not repeat.
+> 
+> The code uses rand with timer as the seed source; the network stack
+> then uses the mac as the seed for random delays.  We may prefer
+> to only configure u-boot setting a random mac only after a better
+> source of entropy, letting the kernel use its sources to set it when
+> we do not net-boot.
+> 
+> milton
+> 
 
-Lets say you want to run the acceptTestMessage method.  It
-will create an association between the event log and 2 dimms.
+Hi Milton,
 
-So
-/org/openbmc/inventory/system/chassis/motherboard/dimm2
-/org/openbmc/inventory/system/chassis/motherboard/dimm3
+Looks good, I agree with your thoughts for patch 5/5. The way you have is
+safest so happy with that.
 
-/org/openbmc/records/events/1/fru
-should return
-data : {/org/openbmc/inventory/system/chassis/motherboard/dimm2 , /org/openbmc/inventory/system/chassis/motherboard/dimm3}
+Reviewed-by: Cyril Bur <cyrilbur@gmail.com>
 
-You should also be able to go to the dimm and get the association in reverse
+for the series.
 
-/org/openbmc/inventory/system/chassis/motherboard/dimm2/event
-should return
-data : {/org/openbmc/records/events/1/}
-
-Fix warnings due to invalid number of parameters
-
-you cant have a fprintf with two parms but only one %s.
----
- event_messaged_sdbus.c | 105 ++++++++++++++++++++++++++++++++++++++++---------
- 1 file changed, 86 insertions(+), 19 deletions(-)
-
-diff --git a/event_messaged_sdbus.c b/event_messaged_sdbus.c
-index fc4c911..907ac53 100644
---- a/event_messaged_sdbus.c
-+++ b/event_messaged_sdbus.c
-@@ -1,3 +1,4 @@
-+#define _GNU_SOURCE
- #include <stdio.h>
- #include <stdlib.h>
- #include <errno.h>
-@@ -20,6 +21,7 @@
- /*     method_x  : callable dbus functions.                                  */
- /*                                                                           */
- /*****************************************************************************/
-+const char *event_path = "/org/openbmc/records/events";
- 
- sd_bus      *bus   = NULL;
- sd_bus_slot *slot  = NULL;
-@@ -31,6 +33,7 @@ typedef struct messageEntry_t {
- 	size_t         logid;
- 	sd_bus_slot   *messageslot;
- 	sd_bus_slot   *deleteslot;
-+	sd_bus_slot   *associationslot;
- 	event_manager *em;
- 
- } messageEntry_t;
-@@ -84,6 +87,53 @@ static event_record_t* message_record_open(event_manager *em, uint16_t logid)
- 	return (r ? gCachedRec : NULL);
- }
- 
-+static int prop_message_assoc(sd_bus *bus,
-+			const char *path,
-+			const char *interface,
-+			const char *property,
-+			sd_bus_message *reply,
-+			void *userdata,
-+			sd_bus_error *error)
-+{
-+	int r=0;
-+	messageEntry_t *m = (messageEntry_t*) userdata;
-+	event_record_t *rec;
-+	char *p;
-+	char *token;
-+
-+	rec = message_record_open(m->em, m->logid);
-+	if (!rec) {
-+		fprintf(stderr,"Warning missing evnet log for %lx\n", m->logid);
-+		sd_bus_error_set(error,
-+			SD_BUS_ERROR_FILE_NOT_FOUND,
-+			"Could not find log file");
-+		return -1;
-+	}
-+
-+	p = rec->association;
-+
-+	token = strtok(p, " ");
-+	if (token) {
-+		r = sd_bus_message_open_container(reply, 'a', "(sss)");
-+		if (r < 0) {
-+			fprintf(stderr,"Error opening container %s to reply %s\n", token, strerror(-r));
-+		}
-+
-+		while(token) {
-+
-+			r = sd_bus_message_append(reply, "(sss)", "fru", "event", token);
-+			if (r < 0) {
-+				fprintf(stderr,"Error adding properties for %s to reply %s\n", token, strerror(-r));
-+			}
-+
-+			token = strtok(NULL, " ");
-+		}
-+
-+		r = sd_bus_message_close_container(reply);
-+	}
-+
-+	return r;
-+}
- 
- 
- static int prop_message(sd_bus *bus,
-@@ -103,7 +153,7 @@ static int prop_message(sd_bus *bus,
- 
- 	rec = message_record_open(m->em, m->logid);
- 	if (!rec) {
--		fprintf(stderr,"Warning missing evnet log for %d\n", m->logid);
-+		fprintf(stderr,"Warning missing evnet log for %lx\n", m->logid);
- 		sd_bus_error_set(error,
- 			SD_BUS_ERROR_FILE_NOT_FOUND,
- 			"Could not find log file");
-@@ -114,8 +164,6 @@ static int prop_message(sd_bus *bus,
- 		p = rec->message;
- 	} else if (!strncmp("severity", property, 8)) {
- 		p = rec->severity;
--	} else if (!strncmp("association", property, 11)) {
--		p = rec->association;
- 	} else if (!strncmp("reported_by", property, 11)) {
- 		p = rec->reportedby;
- 	} else if (!strncmp("time", property, 4)) {
-@@ -174,7 +222,7 @@ static int method_accept_host_message(sd_bus_message *m,
- 				      void *userdata,
- 				      sd_bus_error *ret_error)
- {
--	char *message, *severity, *association, *s;
-+	char *message, *severity, *association;
- 	size_t   n = 4;
- 	uint8_t *p;
- 	int r;
-@@ -201,9 +249,7 @@ static int method_accept_host_message(sd_bus_message *m,
- 	rec.p           = (uint8_t*) p;
- 	rec.n           = n;
- 
--	asprintf(&s, "%s %s (%s)", rec.severity, rec.message, rec.association);
--	syslog(LOG_NOTICE, s);
--	free(s);
-+	syslog(LOG_NOTICE, "%s %s (%s)", rec.severity, rec.message, rec.association);
- 
- 	logid = message_create_new_log_event(em, &rec);
- 
-@@ -234,10 +280,7 @@ static int method_accept_test_message(sd_bus_message *m,
- 	rec.n           = 6;
- 
- 
--	asprintf(&s, "%s %s (%s)", rec.severity, rec.message, rec.association);
--	syslog(LOG_NOTICE, s);
--	free(s);
--
-+	syslog(LOG_NOTICE, "%s %s (%s)", rec.severity, rec.message, rec.association);
- 	logid = message_create_new_log_event(em, &rec);
- 	send_log_to_dbus(em, logid);
- 
-@@ -261,7 +304,7 @@ static int method_clearall(sd_bus_message *m, void *userdata, sd_bus_error *ret_
- 
- 	while (logid = message_next_event(em)) {
- 		snprintf(buffer, sizeof(buffer),
--			"/org/openbmc/records/events/%d", logid);
-+			"%s/%d", event_path, logid);
- 
- 		r = sd_bus_call_method_async(bus,
- 					     NULL,
-@@ -305,7 +348,6 @@ static const sd_bus_vtable recordlog_vtable[] = {
- 
- static const sd_bus_vtable log_vtable[] = {
- 	SD_BUS_VTABLE_START(0),   
--	SD_BUS_PROPERTY("association", "s",  prop_message,    0, SD_BUS_VTABLE_PROPERTY_CONST),
- 	SD_BUS_PROPERTY("message",     "s",  prop_message,    0, SD_BUS_VTABLE_PROPERTY_CONST),
- 	SD_BUS_PROPERTY("severity",    "s",  prop_message,    0, SD_BUS_VTABLE_PROPERTY_CONST),
- 	SD_BUS_PROPERTY("reported_by", "s",  prop_message,    0, SD_BUS_VTABLE_PROPERTY_CONST),
-@@ -321,13 +363,18 @@ static const sd_bus_vtable recordlog_delete_vtable[] = {
- 	SD_BUS_VTABLE_END
- };
- 
-+static const sd_bus_vtable recordlog_association_vtable[] = {
-+	SD_BUS_VTABLE_START(0),
-+	SD_BUS_PROPERTY("associations", "a(sss)",  prop_message_assoc, 0, SD_BUS_VTABLE_PROPERTY_CONST),
-+	SD_BUS_VTABLE_END
-+};
-+
- static int remove_log_from_dbus(messageEntry_t *p)
- {
- 	int r;
- 	char buffer[32];
- 
--	snprintf(buffer, sizeof(buffer),
--		"/org/openbmc/records/events/%d", p->logid);
-+	snprintf(buffer, sizeof(buffer), "%s/%lu", event_path, p->logid);
- 
- 	printf("Attempting to delete %s\n", buffer);
- 
-@@ -338,6 +385,7 @@ static int remove_log_from_dbus(messageEntry_t *p)
- 	}	
- 	sd_bus_slot_unref(p->messageslot);
- 	sd_bus_slot_unref(p->deleteslot);
-+	sd_bus_slot_unref(p->associationslot);
- 
- 	message_entry_close(p);
- 
-@@ -350,8 +398,7 @@ int send_log_to_dbus(event_manager *em, const uint16_t logid)
- 	int r;
- 	messageEntry_t *m;
- 
--	snprintf(loglocation, sizeof(loglocation),
--		"/org/openbmc/records/events/%d", logid);
-+	snprintf(loglocation, sizeof(loglocation), "%s/%d", event_path, logid);
- 
- 	message_entry_new(&m, logid, em);
- 
-@@ -374,12 +421,32 @@ int send_log_to_dbus(event_manager *em, const uint16_t logid)
- 				     "org.openbmc.Object.Delete",
- 				     recordlog_delete_vtable,
- 				     m);
-+
-+	if (r < 0) {
-+		fprintf(stderr, "Failed to add delete object for: %s, %s\n",
-+			loglocation, strerror(-r));
-+		message_entry_close(m);
-+		return 0;
-+	}
- 	
--	printf("Event Log added %s\n", loglocation);
-+	r = sd_bus_add_object_vtable(bus,
-+				     &m->associationslot,
-+				     loglocation,
-+				     "org.openbmc.Associations",
-+				     recordlog_association_vtable,
-+				     m);
-+
-+	if (r < 0) {
-+		fprintf(stderr, "Failed to add association object for: %s %s\n",
-+			loglocation, strerror(-r));
-+		message_entry_close(m);
-+		return 0;
-+	}
- 
- 	r = sd_bus_emit_object_added(bus, loglocation);
- 	if (r < 0) {
- 		fprintf(stderr, "Failed to emit signal %s\n", strerror(-r));
-+		message_entry_close(m);
- 		return 0;
- 	}
- 
-@@ -445,7 +512,7 @@ int build_bus(event_manager *em)
- 	
- 	/* You want to add an object manager to support deleting stuff  */
- 	/* without it, dbus can show interfaces that no longer exist */
--	r = sd_bus_add_object_manager(bus, NULL, "/org/openbmc/records/events");
-+	r = sd_bus_add_object_manager(bus, NULL, event_path);
- 	if (r < 0) {
- 		fprintf(stderr, "Object Manager failure  %s\n", strerror(-r));
- 	}
--- 
-2.7.1
+> <!-- Reviewable:start -->
+> ---
+> 
+> v2: update README and README.ethaddr with backported CONFIG var name.
+> 
+> This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Review on Reviewable"/>](https://reviewable.io/reviews/openbmc/u-boot/4)
+> <!-- Reviewable:end -->
+> 
+> 
+> https://github.com/openbmc/u-boot/pull/4
+> 
+> Joe Hershberger (1):
+>   net: Implement random ethaddr fallback in eth.c
+> 
+> Milton D. Miller II (4):
+>   net: aspeednic: Create aspeed_write_hwaddr from set_mac_address
+>   net: aspeednic: Do not start hardware in initialize
+>   net: aspeednic: Remove extra spaces before assignments
+>   net: aspeednic: Do not fill in a random MAC address
+> 
+>  README                  |  3 ++-
+>  doc/README.enetaddr     |  2 ++
+>  drivers/net/aspeednic.c | 31 ++++++++++++++-----------------
+>  net/eth.c               | 13 ++++++++++++-
+>  4 files changed, 30 insertions(+), 19 deletions(-)
+> 
