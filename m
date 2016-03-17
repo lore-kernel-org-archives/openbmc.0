@@ -1,23 +1,91 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <austenc@us.ibm.com>
+Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qQdWj5qqbzDqWs
- for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2016 17:20:33 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1458195628764993.477422088797;
- Wed, 16 Mar 2016 23:20:28 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-event] Add support for limiting the size of the event
- log DB
-Date: Thu, 17 Mar 2016 01:20:27 -0500
-Message-Id: <1458195627-21825-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1458195627-21825-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1458195627-21825-1-git-send-email-openbmc-patches@stwcx.xyz>
-X-Zoho-Virus-Status: 1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qQgLY5tRNzDqWs
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2016 18:42:45 +1100 (AEDT)
+Received: from localhost
+ by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Thu, 17 Mar 2016 01:42:42 -0600
+Received: from d03dlp02.boulder.ibm.com (9.17.202.178)
+ by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 17 Mar 2016 01:42:33 -0600
+X-IBM-Helo: d03dlp02.boulder.ibm.com
+X-IBM-MailFrom: austenc@us.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from b03cxnp07029.gho.boulder.ibm.com
+ (b03cxnp07029.gho.boulder.ibm.com [9.17.130.16])
+ by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id 150FA3E40030
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2016 01:42:33 -0600 (MDT)
+Received: from d03av01.boulder.ibm.com (d03av01.boulder.ibm.com [9.17.195.167])
+ by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u2H7gVvx17104972
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2016 00:42:33 -0700
+Received: from d03av01.boulder.ibm.com (localhost [127.0.0.1])
+ by d03av01.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u2H7gVTv022693
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2016 01:42:31 -0600
+Received: from d50lp33.co.us.ibm.com (d50lp33.boulder.ibm.com [9.17.249.38])
+ by d03av01.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u2H7gV1L022606
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2016 01:42:31 -0600
+Message-Id: <201603170742.u2H7gV1L022606@d03av01.boulder.ibm.com>
+Received: from localhost
+ by d50lp33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Thu, 17 Mar 2016 01:42:31 -0600
+Received: from smtp.notes.na.collabserv.com (192.155.248.74)
+ by d50lp33.co.us.ibm.com (192.168.2.144) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
+ Thu, 17 Mar 2016 01:42:30 -0600
+X-IBM-Helo: smtp.notes.na.collabserv.com
+X-IBM-MailFrom: austenc@us.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from /spool/local
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Thu, 17 Mar 2016 07:42:25 -0000
+Received: from us1a3-smtp03.a3.dal06.isc4sb.com (10.106.154.98)
+ by smtp.notes.na.collabserv.com (10.106.227.92) with
+ smtp.notes.na.collabserv.com ESMTP; Thu, 17 Mar 2016 07:42:12 -0000
+Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
+ by us1a3-smtp03.a3.dal06.isc4sb.com
+ with ESMTP id 2016031707421178-57195 ;
+ Thu, 17 Mar 2016 07:42:11 +0000 
+In-Reply-To: <CACPK8XfWpkJ8HEbK4wOzWGrcfccBdRKoumsoQboj772jrgzUKA@mail.gmail.com>
+Subject: Re: [PATCH] runqemu: Add palmetto target
+From: "Chris Austen" <austenc@us.ibm.com>
+To: joel@jms.id.au
+Cc: andrew@aj.id.au, openbmc@lists.ozlabs.org
+Date: Thu, 17 Mar 2016 07:42:11 +0000
+Sensitivity: 
+MIME-Version: 1.0
+References: <CACPK8XfWpkJ8HEbK4wOzWGrcfccBdRKoumsoQboj772jrgzUKA@mail.gmail.com>,
+ <1458190368-24002-1-git-send-email-andrew@aj.id.au>
+ <1458190368-24002-2-git-send-email-andrew@aj.id.au>
+Importance: Normal
+X-Priority: 3 (Normal)
+X-Mailer: Lotus Domino Web Server Build V851SAAS_02292016_FP2 March 07, 2016
+X-LLNOutbound: False
+X-Disclaimed: 51703
+X-TNEFEvaluated: 1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=UTF-8
+x-cbid: 16031707-0025-0000-0000-000022DC18D4
+X-IBM-ISS-SpamDetectors: Score=0.397008; BY=0.059325; FL=0; FP=0; FZ=0; HX=0; 
+ KW=0; PH=0; SC=0.397008; ST=0; TS=0; UL=0; ISC=
+X-IBM-ISS-DetailInfo: BY=3.00005046; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000151; SDB=6.00674521; UDB=6.00308694; UTC=2016-03-17
+ 07:42:25
+x-cbparentid: 16031707-5920-0000-0000-000006AE3C3D
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -29,345 +97,79 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Mar 2016 06:20:34 -0000
+X-List-Received-Date: Thu, 17 Mar 2016 07:42:46 -0000
 
-From: Chris Austen <austenc@us.ibm.com>
-
-embedded systems only have so much space.  This feature enables the event deamon to
-limit the number of bytes used for logs via an input parameter
-
-Limit the DB to 1k...
-    /usr/sbin/phosphor-eventd -s 1000
-
-Without the parameter the db size is unlimited.
-
-When the db hits the limit, the event is NOT logged to the db.  It is however
-added (without debug data) to the syslog still AND an error message is posted
-in the syslog...
-
-     event logger reached maximum capacity, event not logged
-
-Interfaces exist already to clear the entire db and individual events.
----
- event_messaged.C | 30 +++++++++++++++++--
- message.C        | 87 +++++++++++++++++++++++++++++++++++++++++++++-----------
- message.H        |  5 +++-
- test.C           | 30 +++++++++++++++----
- 4 files changed, 128 insertions(+), 24 deletions(-)
-
-diff --git a/event_messaged.C b/event_messaged.C
-index 9addd3f..f7249fc 100644
---- a/event_messaged.C
-+++ b/event_messaged.C
-@@ -1,6 +1,8 @@
- #include <iostream>
- #include "message.H"
- #include "event_messaged_sdbus.h"
-+#include <string>
-+#include <unistd.h>
- 
- const char *path_to_messages = "/var/lib/obmc/events";
- 
-@@ -44,10 +46,34 @@ int load_existing_events(event_manager *em)
- 	return 0;
- }
- 
-+
-+void print_usage(void)
-+{
-+	cout << "[-s <x>] : Maximum bytes to use for event logger"  << endl;
-+	return;
-+}
-+
-+
- int main(int argc, char *argv[])
- {
--	int rc = 0;
--	event_manager em(path_to_messages);
-+	unsigned long maxsize=0;
-+	int rc, c;
-+
-+	while ((c = getopt (argc, argv, "s:")) != -1)
-+		switch (c) {
-+			case 's':
-+				maxsize =  strtoul(optarg, NULL, 10);
-+				break;
-+			case 'h':
-+			case '?':
-+				print_usage();
-+				return 1;
-+		}
-+
-+
-+	cout << maxsize <<endl;
-+	event_manager em(path_to_messages, maxsize);
-+
- 
- 	rc = build_bus(&em);
- 	if (rc < 0) {
-diff --git a/message.C b/message.C
-index 2e52b67..1bf7d8b 100644
---- a/message.C
-+++ b/message.C
-@@ -12,6 +12,7 @@
- #include <time.h>
- #include <stddef.h>
- #include <cstdio>
-+#include <syslog.h>
- 
- const uint32_t g_eyecatcher = 0x4F424D43; // OBMC
- const uint16_t g_version    = 1;
-@@ -29,14 +30,21 @@ struct logheader_t {
- 	uint16_t debugdatalen;
- };
- 
-+size_t get_file_size(string fn);
- 
--event_manager::event_manager(string path)
-+
-+event_manager::event_manager(string path, size_t reqmaxsize)
- {
- 	uint16_t x;
- 	eventpath = path;
- 	latestid = 0;
- 	dirp = NULL;
- 	logcount = 0;
-+	maxsize = -1;
-+	currentsize = 0;
-+
-+	if (reqmaxsize)
-+		maxsize = reqmaxsize;
- 
- 	// examine the files being managed and advance latestid to that value
- 	while ( (x = next_log()) ) {
-@@ -56,6 +64,15 @@ event_manager::~event_manager()
- 	return;
- }
- 
-+
-+bool event_manager::is_logid_a_log(uint16_t logid)
-+{
-+	std::ostringstream buffer;
-+	buffer  << int(logid);
-+	return is_file_a_log(buffer.str());
-+}
-+
-+
- bool event_manager::is_file_a_log(string str)
- {
- 	std::ostringstream buffer;
-@@ -161,6 +178,18 @@ inline uint16_t getlen(const char *s)
- }
- 
- 
-+size_t get_file_size(string fn)
-+{
-+	ifstream f;
-+	size_t len=0;
-+
-+	f.open(fn, ios::in|ios::binary|ios::ate);
-+	len = f.tellg();
-+	f.close();
-+	return (len);
-+}
-+
-+
- size_t event_manager::get_managed_size(void)
- {
- 	DIR *dirp;
-@@ -178,13 +207,9 @@ size_t event_manager::get_managed_size(void)
- 			string str(ent->d_name);
- 
- 			if (is_file_a_log(str)) {
--
- 				buffer.str("");
- 				buffer << eventpath << "/" << str.c_str();
--
--				f.open(buffer.str() , ios::in|ios::binary|ios::ate);
--				db_size += f.tellg();
--				f.close();
-+				db_size += get_file_size(buffer.str());
- 			}
- 		}
- 	}
-@@ -199,6 +224,7 @@ uint16_t event_manager::create_log_event(event_record_t *rec)
- 	std::ostringstream buffer;
- 	ofstream myfile;
- 	logheader_t hdr = {0};
-+	size_t event_size=0;
- 
- 	buffer << eventpath << "/" << int(rec->logid) ;
- 
-@@ -213,17 +239,35 @@ uint16_t event_manager::create_log_event(event_record_t *rec)
- 	hdr.reportedbylen  = getlen(rec->reportedby);
- 	hdr.debugdatalen   = rec->n;
- 
--	myfile.open(buffer.str() , ios::out|ios::binary);
--	myfile.write((char*) &hdr, sizeof(hdr));
--	myfile.write((char*) rec->message, hdr.messagelen);
--	myfile.write((char*) rec->severity, hdr.severitylen);
--	myfile.write((char*) rec->association, hdr.associationlen);
--	myfile.write((char*) rec->reportedby, hdr.reportedbylen);
--	myfile.write((char*) rec->p, hdr.debugdatalen);
--	myfile.flush();
--	myfile.close();
-+	event_size = sizeof(logheader_t) + \
-+			hdr.messagelen     + \
-+			hdr.severitylen    + \
-+			hdr.associationlen + \
-+			hdr.reportedbylen  + \
-+			hdr.debugdatalen;
- 
--	logcount++;
-+	if((event_size + currentsize)  >= maxsize) {
-+		syslog(LOG_ERR, "event logger reached maximum capacity, event not logged");
-+		rec->logid = 0;
-+
-+	} else {
-+		currentsize += event_size;
-+		myfile.open(buffer.str() , ios::out|ios::binary);
-+		myfile.write((char*) &hdr, sizeof(hdr));
-+		myfile.write((char*) rec->message, hdr.messagelen);
-+		myfile.write((char*) rec->severity, hdr.severitylen);
-+		myfile.write((char*) rec->association, hdr.associationlen);
-+		myfile.write((char*) rec->reportedby, hdr.reportedbylen);
-+		myfile.write((char*) rec->p, hdr.debugdatalen);
-+		myfile.close();
-+
-+		if (is_logid_a_log(rec->logid)) {
-+			logcount++;
-+		} else {
-+			cout << "Warning: Event not logged, failed to store data" << endl;
-+			rec->logid = 0;
-+		}
-+	}
- 
- 	return rec->logid;
- }
-@@ -288,11 +332,22 @@ int event_manager::remove(uint16_t logid)
- {
- 	std::stringstream buffer;
- 	string s;
-+	size_t event_size;
- 
- 	buffer << eventpath << "/" << int(logid);
- 
- 	s = buffer.str();
-+
-+	event_size = get_file_size(s);
- 	std::remove(s.c_str());
- 
-+	/* If everything is working correctly deleting all the logs would */ 
-+	/* result in currentsize being zero.  But  since size_t is unsigned */
-+	/* it's kind of dangerous to  assume life happens perfectly */
-+	if (currentsize < event_size)
-+		currentsize = 0;
-+	else
-+		currentsize -= event_size;
-+
- 	return 0;
- }
-diff --git a/message.H b/message.H
-index 5cc3484..d3a0a26 100644
---- a/message.H
-+++ b/message.H
-@@ -41,9 +41,11 @@ class event_manager {
- 	string   eventpath;
- 	DIR      *dirp;
- 	uint16_t logcount;
-+	size_t   maxsize;
-+	size_t   currentsize;
- 
- public:
--	event_manager(string path);
-+	event_manager(string path, size_t reqmaxsize);
- 	~event_manager();
- 
- 	uint16_t next_log(void);
-@@ -63,6 +65,7 @@ private:
- 	bool is_file_a_log(string str);
- 	uint16_t create_log_event(event_record_t *rec);
- 	uint16_t new_log_id(void);
-+	bool     is_logid_a_log(uint16_t logid);
- };
- #else
- typedef struct event_manager event_manager;
-diff --git a/test.C b/test.C
-index 1e00221..ee69b1c 100644
---- a/test.C
-+++ b/test.C
-@@ -4,7 +4,7 @@
- #include <stdint.h>
- #include <string>
- #include <assert.h>
--
-+#include <unistd.h>
- #include "message.H"
- 
- using namespace std;
-@@ -44,15 +44,17 @@ void setup(void)
- 	return;
- }
- 
-+
- int main(int argc, char *argv[])
- {
- 	uint8_t p[] = {0x3, 0x32, 0x34, 0x36};
- 	event_record_t rec, *prec;
- 	string s;
- 
-+
- 	setup();
- 
--	event_manager m(eventspath);
-+	event_manager m(eventspath, 0);
- 
- 	assert(m.get_managed_size() == 0);
- 
-@@ -99,22 +101,40 @@ int main(int argc, char *argv[])
- 	m.remove(1);
- 	assert(m.get_managed_size() == 75);
- 
--	event_manager q(eventspath);
-+	event_manager q(eventspath, 0);
- 	assert(q.latest_log_id() == 2);
- 	assert(q.log_count() == 1);
- 	m.next_log_refresh();
- 
- 	// Travese log list stuff
- 	system("exec rm -r ./events/* 2> /dev/null");
--	event_manager a(eventspath);
-+	event_manager a(eventspath, 0);
- 	assert(a.next_log() == 0);
- 
- 	build_event_record(&rec,"Testing list", "Info", "Association", "Test", p, 4);
- 	a.create(&rec);
- 	a.create(&rec);
- 
--	event_manager b(eventspath);
-+	event_manager b(eventspath, 0);
- 	assert(b.next_log() == 1);
- 
-+
-+	/* Testing the max limits for event logs */
-+	setup();
-+	event_manager d(eventspath, 75);
-+	build_event_record(&rec,"Testing Message1", "Info", "Association", "Test", p, 4);
-+	assert(d.create(&rec) == 0);
-+
-+	event_manager e(eventspath, 76);
-+	build_event_record(&rec,"Testing Message1", "Info", "Association", "Test", p, 4);
-+	assert(e.create(&rec) == 1);
-+
-+	setup();
-+	event_manager f(eventspath, 149);
-+	build_event_record(&rec,"Testing Message1", "Info", "Association", "Test", p, 4);
-+	assert(f.create(&rec) == 1);
-+	assert(f.create(&rec) == 0);
-+
-+
- 	return 0;
- }
-\ No newline at end of file
--- 
-2.7.1
+<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial;fo=
+nt-size:10.5pt" ><div dir=3D"ltr" style=3D"font-family:Arial;font-size:10.5=
+pt" ><div dir=3D"ltr" ><div>&nbsp;</div>
+<div>Add your command to the same help file here you see the existing qemua=
+rm target</div>
+<div>&nbsp;</div>
+<div>You can now run 'bitbake &lt;target&gt;'</div>
+<div>Common targets are:<br>&nbsp;&nbsp;&nbsp;&nbsp; obmc-phosphor-image</d=
+iv>
+<div>You can also run generated qemu images with a command like:<br>&nbsp;&=
+nbsp;&nbsp;&nbsp; runqemu qemuarm &lt;&lt;&lt;&lt;&lt;---------WHERE EVER T=
+HAT COMES FROM</div>
+<div>&nbsp;</div></div>
+<div dir=3D"ltr" ><div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>I hit a build failure, but it went away the 2nd time I tried.&nbsp; Pr=
+obably just ignore unless that is an interesting data point.</div>
+<div>&nbsp;</div>
+<div><div>| ERROR: Function failed: Fetcher failure for URL: 'git://git.qem=
+u.org/qemu.git;protocol=3Dgit'. Unable to fetch URL from any source.<br>ERR=
+OR: Task 71 (virtual:native:/home/causten/openbmc-barreleye/meta/recipes-de=
+vtools/qemu/qemu=5Fgit.bb, do=5Ffetch) failed with exit code '1'</div></div>
+<div><div>&nbsp;</div>
+<div>No network yet :(&nbsp;&nbsp; Makes things hard to use.&nbsp; Can you =
+add an ethernet device?</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><br>Chris Austen<br>POWER Systems Enablement Manager<br>(512) 286-5184=
+ (T/L: 363-5184)</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<blockquote data-history-content-modified=3D"1" style=3D"border-left:solid =
+#aaaaaa 2px; margin-left:5px; padding-left:5px; direction:ltr; margin-right=
+:0px" >----- Original message -----<br>From: Joel Stanley &lt;joel@jms.id.a=
+u&gt;<br>Sent by: "openbmc" &lt;openbmc-bounces+austenc=3Dus.ibm.com@lists.=
+ozlabs.org&gt;<br>To: Andrew Jeffery &lt;andrew@aj.id.au&gt;<br>Cc: OpenBMC=
+ &lt;openbmc@lists.ozlabs.org&gt;<br>Subject: Re: [PATCH] runqemu: Add palm=
+etto target<br>Date: Thu, Mar 17, 2016 12:20 AM<br>&nbsp;
+<div><font face=3D"Default Monospace,Courier New,Courier,monospace" size=3D=
+"2" >On Thu, Mar 17, 2016 at 3:22 PM, Andrew Jeffery &lt;andrew@aj.id.au&gt=
+; wrote:<br>&gt; The patch does a few things, but is more for inciting feed=
+back than for<br>&gt; merging:<br>&gt;<br>&gt; * Adds qemu=5Fgit.bb in favo=
+ur of qemu=5F2.4.0.bb<br>&gt; * Configured to build from master, at the com=
+mit merging the AST2400 support<br>&gt; * Adds a runqemu target 'palmetto'<=
+br><br>This is a good idea. Fix up the commit message so we can merge it :)=
+<br><br>&gt;<br>&gt; diff --git a/yocto-poky/meta/recipes-devtools/qemu/qem=
+u.inc b/yocto-poky/meta/recipes-devtools/qemu/qemu.inc<br>&gt; index f6c0ae=
+3..80ba2ca 100644<br>&gt; --- a/yocto-poky/meta/recipes-devtools/qemu/qemu.=
+inc<br>&gt; +++ b/yocto-poky/meta/recipes-devtools/qemu/qemu.inc<br><br>yoc=
+to-poky is supposed to be the upstream repository, and shouldn't be<br>patc=
+hed by us.<br><br>I don't know how poky lets us override built in recipies =
+with those<br>from other meta- packages. Can we carry your qemu-git.bb in<b=
+r>meta-whatever instead?<br><br>Patrick, do you have any suggestions here?<=
+br><br><br>&gt; diff --git a/yocto-poky/scripts/runqemu b/yocto-poky/script=
+s/runqemu<br>&gt; index 23cf5be..f09da50 100755<br>&gt; --- a/yocto-poky/sc=
+ripts/runqemu<br>&gt; +++ b/yocto-poky/scripts/runqemu<br><br>The changes t=
+o this script look like a good start.<br><br>&gt; @@ -110,7 +110,7 @@ while=
+ true; do<br>&gt; &nbsp; &nbsp; &nbsp;arg=3D${1}<br>&gt; &nbsp; &nbsp; &nbs=
+p;case "$arg" in<br>&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"qemux86" | "qem=
+ux86-64" | "qemuarm" | "qemuarm64" | "qemumips" | "qemumipsel" | \<br>&gt; =
+- &nbsp; &nbsp; &nbsp; &nbsp;"qemumips64" | "qemush4" &nbsp;| "qemuppc" | "=
+qemumicroblaze" | "qemuzynq")<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp;"qemumip=
+s64" | "qemush4" &nbsp;| "qemuppc" | "qemumicroblaze" | "qemuzynq" | "palme=
+tto")<br><br>Perhaps call it qemupalmetto? qemupalmbmc? to match the existi=
+ng ones.<br><br>&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;[ -z "=
+$MACHINE" ] &amp;&amp; MACHINE=3D$arg || \<br>&gt; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;error "conflicting MACHINE types [$MA=
+CHINE] and [$arg]"<br>&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+;;<br>&gt; @@ -236,13 +236,13 @@ fi<br>&gt;<br>=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F<br>openbmc mailing list<br>openbmc@=
+lists.ozlabs.org<br><a href=3D"https://lists.ozlabs.org/listinfo/openbmc" t=
+arget=3D"=5Fblank" >https://lists.ozlabs.org/listinfo/openbmc</a></font></d=
+iv></blockquote></div></div></div></div><BR>
