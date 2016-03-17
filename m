@@ -1,27 +1,42 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from homiemail-a76.g.dreamhost.com (sub3.mail.dreamhost.com
+ [69.163.253.7])
+ by lists.ozlabs.org (Postfix) with ESMTP id 3qR35n4Y9qzDq5s
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Mar 2016 09:33:01 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=vKDwpjqA; 
+ dkim-atps=neutral
+Received: from homiemail-a76.g.dreamhost.com (localhost [127.0.0.1])
+ by homiemail-a76.g.dreamhost.com (Postfix) with ESMTP id 326AD458083;
+ Thu, 17 Mar 2016 15:33:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
+ :subject:from:reply-to:to:cc:date:in-reply-to:references
+ :content-type:mime-version; s=aj.id.au; bh=VYQAugbV8JNp54EZOgplv
+ usy0Rk=; b=vKDwpjqAmNNEI92Cz64uEsb1ooGa9VBKih6Nl/7lBuTnTXpyCUOoX
+ wUERYuEqwiJdJfUofafv8PjRfR32mUqa9fDTghUkRhgwzfFIjg8k6fCIYO8jaoYW
+ HAg4uwKhPqmSWOwV9f3USnt0ONsim0IjgU2wsFm48v3YbGRUm3sfaA=
+Received: from keelia (unknown [203.0.153.9])
+ (using TLSv1 with cipher AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qQw0H6Zt9zDq6W
- for <openbmc@lists.ozlabs.org>; Fri, 18 Mar 2016 04:12:47 +1100 (AEDT)
-Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
- with SMTPS id 1458234760008777.0463046917986;
- Thu, 17 Mar 2016 10:12:40 -0700 (PDT)
-Date: Thu, 17 Mar 2016 12:12:38 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Shay Slobodkin <shays@mellanox.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Re: Assistance adding new system into openbmc project
-Message-ID: <20160317171238.GF6045@asimov.austin.ibm.com>
-References: <DB4PR05MB09410DE4CC28F7164F053B26D5B40@DB4PR05MB0941.eurprd05.prod.outlook.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="gMR3gsNFwZpnI/Ts"
-Content-Disposition: inline
-In-Reply-To: <DB4PR05MB09410DE4CC28F7164F053B26D5B40@DB4PR05MB0941.eurprd05.prod.outlook.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
+ (Authenticated sender: andrew@aj.id.au)
+ by homiemail-a76.g.dreamhost.com (Postfix) with ESMTPSA id 3BE17458080;
+ Thu, 17 Mar 2016 15:32:59 -0700 (PDT)
+Message-ID: <1458253971.27546.15.camel@aj.id.au>
+Subject: Re: [PATCH] runqemu: Add palmetto target
+From: Andrew Jeffery <andrew@aj.id.au>
+Reply-To: andrew@aj.id.au
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC <openbmc@lists.ozlabs.org>, Patrick Williams <patrick@stwcx.xyz>
+Date: Fri, 18 Mar 2016 09:02:51 +1030
+In-Reply-To: <CACPK8XfWpkJ8HEbK4wOzWGrcfccBdRKoumsoQboj772jrgzUKA@mail.gmail.com>
+References: <1458190368-24002-1-git-send-email-andrew@aj.id.au>
+ <1458190368-24002-2-git-send-email-andrew@aj.id.au>
+ <CACPK8XfWpkJ8HEbK4wOzWGrcfccBdRKoumsoQboj772jrgzUKA@mail.gmail.com>
+Organization: IBM OzLabs
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-V98cZ2+OSv5qC9303AnK"
+X-Mailer: Evolution 3.16.5-1ubuntu3.1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -33,123 +48,117 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Mar 2016 17:12:48 -0000
+X-List-Received-Date: Thu, 17 Mar 2016 22:33:02 -0000
 
 
---gMR3gsNFwZpnI/Ts
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--=-V98cZ2+OSv5qC9303AnK
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Shay,
-
-Sorry for my slow response on this.  Some comments below.
-
-On Thu, Mar 10, 2016 at 01:03:22PM +0000, Shay Slobodkin wrote:
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D
+On Thu, 2016-03-17 at 15:49 +1030, Joel Stanley wrote:
+> On Thu, Mar 17, 2016 at 3:22 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> > The patch does a few things, but is more for inciting feedback than for
+> > merging:
+> >=20
+> > * Adds qemu_git.bb in favour of qemu_2.4.0.bb
+> > * Configured to build from master, at the commit merging the AST2400 su=
+pport
+> > * Adds a runqemu target 'palmetto'
 >=20
-> root
-> |-- meta-openbmc-bsp
-> |   `-- meta-aspeed
-> |       |-- conf
-> |       |   `-- layer.conf
-> |       `-- meta-ast2520 (New SoC)
-
-Is the ast2500 the "class" like ast2400 or are ast2520 and ast2500 two
-different things?  If we can add most of the support as a 'class' of
-SOC, I would prefer that, so that we can reuse support between all the
-flavors of the ast25xx family.
-
-> |-- meta-openbmc-x86-machines
-
-This should be under meta-openbmc-machines I believe.  Then meta-x86?
-
-> |   `-- meta-mellanox
-> |   |   |-- conf
-> |   |   |   |-- layer.conf
-> |   |   |   `-- machine
-> |   |   |       `-- include
-> |   |   |           `-- mellanox.inc
-> |   |   `-- meta-mellanox-edr
-> |   |       |-- conf
-> |   |       |   |-- layer.conf
-> |   |       |   `-- machine
-> |   |       |       `-- include
-> |   |       |           `-- mellanox.inc
-
-This all looks fine otherwise.
-
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D
+> This is a good idea. Fix up the commit message so we can merge it :)
 >=20
-> Also, should we add a "local.conf.sample" file under the "meta-openbmc-x8=
-6-machines/conf" path?
-> If so, we were wondering about the following variables under the local.co=
-nf.sample file (we took the phosphor one as example):
-> PACKAGE_CLASSES ?=3D "package_rpm"
-> SANITY_TESTED_DISTROS_append ?=3D " RedHatEnterpriseWorkstation-6.*"
-> EXTRA_IMAGE_FEATURES =3D "debug-tweaks"
-> USER_CLASSES ?=3D "buildstats image-mklibs image-prelink"
-> PATCHRESOLVE =3D "noop"
-> BB_DISKMON_DIRS =3D "\
->     STOPTASKS,${TMPDIR},1G,100K \
->     STOPTASKS,${DL_DIR},1G,100K \
->     STOPTASKS,${SSTATE_DIR},1G,100K \
->     STOPTASKS,/tmp,100M,100K \
->     ABORT,${TMPDIR},100M,1K \
->     ABORT,${DL_DIR},100M,1K \
->     ABORT,${SSTATE_DIR},100M,1K \
->     ABORT,/tmp,10M,1K"
+> >=20
+> > diff --git a/yocto-poky/meta/recipes-devtools/qemu/qemu.inc b/yocto-pok=
+y/meta/recipes-devtools/qemu/qemu.inc
+> > index f6c0ae3..80ba2ca 100644
+> > --- a/yocto-poky/meta/recipes-devtools/qemu/qemu.inc
+> > +++ b/yocto-poky/meta/recipes-devtools/qemu/qemu.inc
 >=20
-> Guess we should use the "genericx86-64" as MACHINE variable
+> yocto-poky is supposed to be the upstream repository, and shouldn't be
+> patched by us.
 
-I think 'edr' would be your MACHINE variable value.  The openbmc build
-system doesn't care really what processor type the host has, except when
-it comes to the corresponding application suite needed to support that
-host processor.  (Host vs BMC in this context).
+Yep, I understand that :) My process here was "hack things 'til it
+builds and boots - oh look it works, I'll post the patch and get
+feedback".
 
 >=20
-> We were wondering what specific "oe-init-build-env" and similar files we =
-should change, in order for the project to compile.
+> I don't know how poky lets us override built in recipies with those
+> from other meta- packages. Can we carry your qemu-git.bb in
+> meta-whatever instead?
 
-Under meta-mellanox-edr you need a few files.  Compare with
-meta-palmetto as a reference.  The local.conf.sample you mentioned above
-actually goes under the machine.  You shouldn't need to update
-oe-init-build-env, because you pass in a TEMPLATECONF environment
-variable that selects the local.conf.sample associated with 'edr'.
+I wasn't immediately sure about the answer to this, so I used the most
+practical approach I thought would work :)
 
 >=20
-> Cheers,
-> Shay
+> Patrick, do you have any suggestions here?
 
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+I'll have a dig through the yocto/bitbake documentation, Patrick
+suggests there's plenty of override capability in a separate email.
 
+>=20
+>=20
+> > diff --git a/yocto-poky/scripts/runqemu b/yocto-poky/scripts/runqemu
+> > index 23cf5be..f09da50 100755
+> > --- a/yocto-poky/scripts/runqemu
+> > +++ b/yocto-poky/scripts/runqemu
+>=20
+> The changes to this script look like a good start.
+>=20
+> > @@ -110,7 +110,7 @@ while true; do
+> >      arg=3D${1}
+> >      case "$arg" in
+> >          "qemux86" | "qemux86-64" | "qemuarm" | "qemuarm64" | "qemumips=
+" | "qemumipsel" | \
+> > -        "qemumips64" | "qemush4"  | "qemuppc" | "qemumicroblaze" | "qe=
+muzynq")
+> > +        "qemumips64" | "qemush4"  | "qemuppc" | "qemumicroblaze" | "qe=
+muzynq" | "palmetto")
+>=20
+> Perhaps call it qemupalmetto? qemupalmbmc? to match the existing ones.
 
---=20
-Patrick Williams
+Right, I considered that. However, I went with 'palmetto' as the script
+searches for image names based on the machine name:
 
---gMR3gsNFwZpnI/Ts
+    findimage() {
+        ...
+        filename=3D`ls -t1 $where/*-image*$machine.$extension 2>/dev/null |=
+ head -n1`
+        if [ "x$filename" !=3D "x" ]; then
+            ROOTFS=3D$filename
+            return
+        fi
+        ...
+    }
+
+I guess we could strip off the qemu prefix in the qemupalmetto case, or
+we could change the image name to match *
+-image*qemupalmetto.$extension. Conditional stripping is certainly more
+sensible than changing the image name, but IMO going with 'palmetto' is
+easier and less redundant than doing either of the two. But less
+consistent.
+
+Andrew
+--=-V98cZ2+OSv5qC9303AnK
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+Version: GnuPG v1
 
-iQIcBAEBCAAGBQJW6uWGAAoJEKsDR8wtAMEZygkP/3iBoTdLZC1D8QcBT0vybW6h
-H8mPLEjHBg3gl0NruEXnNCeegGO/XXshzxpHEnb5Km78Njy2YwCLJbtdWfTWY5Xu
-ImpW/3kn6cNb5HuamWDD4kraGoW4TQ/fml68SWw8LFKyIgRZbqXNpP2I+57kTeqd
-XJ0glwTuwittowndHGIMDSHuCgG8MXItXelKw8n5onxMumyVG6r+BAE0vDHCHN+0
-M2xWQWQ4RSd/t4nEKRVKbUSK7WpvwKMFP5l8YszENbd518iHgtRfg5Uajc+MBTmC
-lJvlukbVlcoMyS/0zW4uKjYj5JcCaaXz/mEgvlaa5zQYZckYC78tfZS1uuUvkU4m
-USeqVzZ9Pac34jAKewBFGqEQmRWwtznWILmWS5A2yl1m/bVuMvbGSsMqqlVUE25U
-qVAiSrkolQU2rTSIsi/tyOb/5pWCp8TSN+u5ITYr//8GqpMfYRodRROnpPiQUNYf
-GjMJE+0tf5seX0HCtLlph+6dDqVCzClYYU3kn3EKFqRrQilIxZk85W+g0odyRT38
-wEhJWQ/6yIsSubFX1F9uBY4Lt4ONX8+qe8NKoboZ4Wtzlu15Dx3WCJkY5yNExBHG
-9sPrrhTaI2MrYMCf9MqwKj5w8Q4Z0DIq17s0t9UoTEWRbuYbSjocCWRFilAcGOqR
-TE6uOfTNhL1ULpSpueEi
-=MrQL
+iQIcBAABCgAGBQJW6zCTAAoJEJ0dnzgO5LT5YuoP/2NAzdV7dYPWt8yUwCLWmWxQ
+FdMhZK/zhQszFO/u/d6TapcB3FMF2W90EK5qwlp5zoGcTey0Ji3yky9yOvGkpIzZ
+t/EW0IwytuAFv64vG9HluvnhsRhrZ9DoIWRj/72yeGdtPuALgUhkb5r0+1KOQCaM
+AlgCRIALXU/wvklZ7bBfC1sSN/KYmgG/dwKFLqN2pgVaLeJ027B3cbY7maHXaLzY
+5zwpN3sRJvPpQpt1m1NA99er8wQDGOHueJN0m2/K+l6YYqMG2uAdBFk0Gx2IeXxf
+WxgNgzTpuozIhvA9SjfhOIqUxuOOKZ+kHm/SAgWx+BpOoBLxxIU0M2jaqNfwf8A1
+6HfRQktaybz0mlCEN6GCj6i4GeXq8k9dCHZQpeH4YEAca3QDmZtlWIBdyWmMW5z1
+KDjKL/kY7SWbCLUn1CMnq6+bitKNaEUJRt0kN1P+nnaQsbAf671zOWu1ufFyn4h8
+JzNr6hSVZAE/kfFmABgJrup+A4AmDC46brHYEhvL27MMVdJNCrydNMoQXzw+j89c
+SCwmE1rP7ExP6GyP4XumZiWawmj5bbhOgHvHhX4i32V6pRgToDuJNYGnAdMhK+pH
+Ey/VTfAqjy9IgedrHMJpvVnTXfTo/Be1ivwaj+6yjzBQwHkvqIgbk9wMTCWaktlE
+InBqbrtYOVX/LR6aiBfB
+=N78M
 -----END PGP SIGNATURE-----
 
---gMR3gsNFwZpnI/Ts--
+--=-V98cZ2+OSv5qC9303AnK--
