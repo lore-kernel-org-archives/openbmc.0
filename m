@@ -3,17 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qQsrC410QzDq6W
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qQsrC42KdzDq6y
  for <openbmc@lists.ozlabs.org>; Fri, 18 Mar 2016 02:35:38 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1458227434950650.026926741312;
- Thu, 17 Mar 2016 08:10:34 -0700 (PDT)
+ with SMTPS id 1458227436509751.9993167597574;
+ Thu, 17 Mar 2016 08:10:36 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
+Cc: Adi Gangidi <adi.gangidi@rackspace.com>
 Subject: [PATCH linux] Updated SCU88 register and SCU90 init values
-Date: Thu, 17 Mar 2016 10:10:32 -0500
-Message-Id: <1458227433-9505-1-git-send-email-openbmc-patches@stwcx.xyz>
+Date: Thu, 17 Mar 2016 10:10:33 -0500
+Message-Id: <1458227433-9505-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
+In-Reply-To: <1458227433-9505-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1458227433-9505-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -28,16 +31,18 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 17 Mar 2016 15:35:40 -0000
 
+From: Adi Gangidi <adi.gangidi@rackspace.com>
+
 Before This change:
 a) SCU90[0]=1, function pin Incorrectly defined. It must be pull down internally.
 b) For SCU88, bits 7:0 were set to 1. That is: We were reading : PWMx or VPIGx instead of GPIONx (GPIONx gives us the PCIe inventory status, where x is bit number). Because of this PCIe inventory was showing up wrong.
 
 After This Change:
-a) SCU90[0]=0 
-b) Bits (7:0) of SCU 88 are set to 0 . (According to Page 111 of data sheet these have to be set to 0 for us to to read GPION0 to GPIO N7 which indicate if PCIe device is present ). 
+a) SCU90[0]=0
+b) Bits (7:0) of SCU 88 are set to 0 . (According to Page 111 of data sheet these have to be set to 0 for us to to read GPION0 to GPIO N7 which indicate if PCIe device is present ).
 
 Description of pins 0 of SCU 90:
-Enable SD1 Function Pin 
+Enable SD1 Function Pin
 
 Description of pins 7:0 of SCU 88:
 7 RW Enable PWM7 or VPIG7 function pin  (SCU90[5:4]=0x2 select Video pin)
@@ -48,20 +53,24 @@ Description of pins 7:0 of SCU 88:
 2 RW Enable PWM2 or VPIG2 function pin        (SCU90[5:4]!=0 select Video pin)
 1 RW Enable PWM1 or VPIG1 function pin        (SCU90[5:4]=0x3 select Video pin)
 0 RW Enable PWM0 or VPIG0 function pin         (SCU90[5:4]=0x3 select Video pin)
-
-<!-- Reviewable:start -->
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/linux/63)
-<!-- Reviewable:end -->
-
-
-https://github.com/openbmc/linux/pull/63
-
-Adi Gangidi (1):
-  Updated SCU88 register and SCU90 init values
-
  arch/arm/mach-aspeed/aspeed.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+index 15672f5..684c1b7 100644
+--- a/arch/arm/mach-aspeed/aspeed.c
++++ b/arch/arm/mach-aspeed/aspeed.c
+@@ -118,8 +118,8 @@ static void __init do_common_setup(void)
+ 	/* SCU setup */
+ 	writel(0x01C000FF, AST_IO(AST_BASE_SCU | 0x88));
+ 	writel(0xC1C000FF, AST_IO(AST_BASE_SCU | 0x8c));
+-	writel(0x01C0007F, AST_IO(AST_BASE_SCU | 0x88));
+-	writel(0x003FA009, AST_IO(AST_BASE_SCU | 0x90));
++	writel(0x01C00000, AST_IO(AST_BASE_SCU | 0x88));    
++	writel(0x003FA008, AST_IO(AST_BASE_SCU | 0x90));
+ 
+ 	/* Setup scratch registers */
+ 	writel(0x00000042, AST_IO(AST_BASE_LPC | 0x170));
 -- 
 2.7.1
