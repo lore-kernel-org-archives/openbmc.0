@@ -1,41 +1,57 @@
-Return-Path: <andrew@aj.id.au>
-Received: from homiemail-a22.g.dreamhost.com (sub3.mail.dreamhost.com
- [69.163.253.7])
- by lists.ozlabs.org (Postfix) with ESMTP id 3qR3H06xchzDq70
- for <openbmc@lists.ozlabs.org>; Fri, 18 Mar 2016 09:41:00 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=Wt7wkdnS; 
- dkim-atps=neutral
-Received: from homiemail-a22.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a22.g.dreamhost.com (Postfix) with ESMTP id 00A4F11406C;
- Thu, 17 Mar 2016 15:41:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
- :subject:from:reply-to:to:cc:date:in-reply-to:references
- :content-type:mime-version; s=aj.id.au; bh=rwpo7Bjb9ryALiWuzNKTl
- 8l3kdw=; b=Wt7wkdnS0JvG6w4+lQD2Gvz274qdPBTYOhwGVJDdHiuffQFmylrEg
- 25nCPTWMewtFPi21fSJvdjKlEo5MZ/xhMvvl+1yTc0ypHb4ifPjqcGoUBg9UFNed
- TlV5GemsjEwFUsGV/Dy3CIq79gb8KTAOcuoO/uwnYx3EjcZS/G5wPg=
-Received: from keelia (unknown [203.0.153.9])
- (using TLSv1 with cipher AES128-SHA (128/128 bits))
+Return-Path: <cyrilbur@gmail.com>
+Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
+ [IPv6:2607:f8b0:400e:c00::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- (Authenticated sender: andrew@aj.id.au)
- by homiemail-a22.g.dreamhost.com (Postfix) with ESMTPSA id 3824F11406A;
- Thu, 17 Mar 2016 15:40:58 -0700 (PDT)
-Message-ID: <1458254455.27546.23.camel@aj.id.au>
-Subject: Re: [RFC PATCH] Add palmetto target to runqemu
-From: Andrew Jeffery <andrew@aj.id.au>
-Reply-To: andrew@aj.id.au
-To: Patrick Williams <patrick@stwcx.xyz>
-Cc: OpenBMC <openbmc@lists.ozlabs.org>
-Date: Fri, 18 Mar 2016 09:10:55 +1030
-In-Reply-To: <20160317155312.GA6045@asimov.austin.ibm.com>
-References: <1458190368-24002-1-git-send-email-andrew@aj.id.au>
- <20160317155312.GA6045@asimov.austin.ibm.com>
-Organization: IBM OzLabs
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-MBF2viVDA9LIlnuN4KIF"
-X-Mailer: Evolution 3.16.5-1ubuntu3.1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qR3XG2nQxzDq6W
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Mar 2016 09:52:30 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=MJZh2p81; 
+ dkim-atps=neutral
+Received: by mail-pf0-x241.google.com with SMTP id x3so13402450pfb.0
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2016 15:52:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=+MoJr+9yXei6YGXMUj/1rDdTONKG2EwhhLnqyQ/L5Uc=;
+ b=MJZh2p81+LiZe8TkoX8jY7SLvzlnnXUwpeRy2TQVfGTGpAjrQK+NoX2ixk5Ll1OMha
+ v7t61Q6d4Ugnt1gb4s+Hq1kXhNmdoYQsg/dnZEWhaVrh2cX4qyZHNAuAypd5XlkFBmMj
+ VzzivE5uGopq61tKMntPINM4ftEVwCbOPsy2g4rh5jcSDEheaTl6F2vcgD940kbLwLV8
+ PM8U1CEnTDNsW+cJqce5tfhZzyivcMe6co9o9XgONYhxtI2jQ5Spk3k2w1SM7RuNcSBl
+ JB+5Gvzj05Y+pY9X/4dcjeiJPFSrlohqShmULYm16kIS0w4+04jH2hcEy4u0Znh1hB00
+ WDoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=+MoJr+9yXei6YGXMUj/1rDdTONKG2EwhhLnqyQ/L5Uc=;
+ b=Df+5r3WDxYgN/Wf5wPAL6bbpGHn3mGlzVZxMa8NRW2OK85A7kZgaINzTno5EXMG0Z6
+ 4OrHY9UYDub0qw8hINiSWf853L+GRJtBBfKNGxosGHlAil1G9QH5OdaejVJtSiUCwopO
+ q9Rt98cSlc/nJnuUExvOy5zEr0DZyG7FP2T3/Ak8dt7YFekprzK6J7xeANqSRxrIuLQ6
+ QK+GM30MlaedEs8eBNz9CElJ4yNaFtRclkXbEDPW/cbTNlgoaVzeeH2QhD07BsI1QGtj
+ 7cKuESkRlmKb5gsBL7wPtw1T79R2J0Ef1U6SRm/5hMWVkSJDIKz/sDh16bQpGv/s+ueA
+ Ncgg==
+X-Gm-Message-State: AD7BkJJ51MvSvrVUu3O79plntphBexb6jsBARgfqCPbsLgyh8oYLAg422OYHHrjGKWhlnA==
+X-Received: by 10.67.5.9 with SMTP id ci9mr18644403pad.101.1458255148331;
+ Thu, 17 Mar 2016 15:52:28 -0700 (PDT)
+Received: from camb691 ([122.99.82.10])
+ by smtp.gmail.com with ESMTPSA id m10sm15807099pfi.32.2016.03.17.15.52.25
+ (version=TLSv1/SSLv3 cipher=OTHER);
+ Thu, 17 Mar 2016 15:52:27 -0700 (PDT)
+Date: Fri, 18 Mar 2016 09:52:18 +1100
+From: Cyril Bur <cyrilbur@gmail.com>
+To: Chris Austen <austenc@us.ibm.com>
+Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH phosphor-event v7] Add association interface
+ capabilities for event logs
+Message-ID: <20160318095218.23ed5b95@camb691>
+In-Reply-To: <1458193827-20868-2-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1458193827-20868-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1458193827-20868-2-git-send-email-openbmc-patches@stwcx.xyz>
+X-Mailer: Claws Mail 3.13.2 (GTK+ 2.24.30; x86_64-unknown-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -47,88 +63,371 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Mar 2016 22:41:01 -0000
+X-List-Received-Date: Thu, 17 Mar 2016 22:52:31 -0000
 
+On Thu, 17 Mar 2016 00:50:27 -0500
+OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
 
---=-MBF2viVDA9LIlnuN4KIF
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> From: Chris Austen <austenc@us.ibm.com>
+> 
+> When a new event log is created it may create an interface
+> with a name of org.openbmc.association.  If there are associations
+> between the log and other entites it will have a single property
+> named "association" which will be an a(sss).
+> That will be enough information for the rest server to present
+> it.
+> 
+> Note if the log does not have FRU call outs no association interface will exist
+> 
+> Lets say you want to run the acceptTestMessage method.  It
+> will create an association between the event log and 2 dimms.
+> 
+> So
+> /org/openbmc/inventory/system/chassis/motherboard/dimm2
+> /org/openbmc/inventory/system/chassis/motherboard/dimm3
+> 
+> /org/openbmc/records/events/1/fru
+> should return
+> data : {/org/openbmc/inventory/system/chassis/motherboard/dimm2 , /org/openbmc/inventory/system/chassis/motherboard/dimm3}
+> 
+> You should also be able to go to the dimm and get the association in reverse
+> 
+> /org/openbmc/inventory/system/chassis/motherboard/dimm2/event
+> should return
+> data : {/org/openbmc/records/events/1/}
 
-On Thu, 2016-03-17 at 10:53 -0500, Patrick Williams wrote:
-> On Thu, Mar 17, 2016 at 03:22:47PM +1030, Andrew Jeffery wrote:
-> > Hi all,
-> >=20
-> > The patches modelling a bare-bones AST2400 in QEMU have been merged int=
-o
-> > master for the upcoming 2.6 release. Attached is a half-hearted attempt=
- at
-> > integrating the necessary bits into openbmc so we can `bitbake
-> > obmc-phosphor-image` then `runqemu palmetto` to boot the BMC kernel and=
- some
-> > representation of the userspace.
-> >=20
-> > I'm not sure if the hacks I've made to runqemu{,-internal} are the righ=
-t
-> > approach or even something we'd want to carry going forward. Similarly,=
- a
-> > wholesale switch to qemu_git.bb might be a bit extreme - any thoughts t=
-here? I
-> > must admit I haven't tried applying the AST2400 patches to 2.4, maybe t=
-hat's a
-> > better approach? Regardless, depending on 2.6 when it gets released is
-> > prefereble, but that's probably a month or so away.
-> >=20
-> > I'll split the patches up in the future, just wanted to get this on the=
- list
-> > for some feedback.
-> >=20
-> > Cheers,
-> >=20
-> > Andrew
-> >=20
-> > Andrew Jeffery (1):
-> >   RFC: Add palmetto target to runqemu
-> >=20
-> >  yocto-poky/meta/recipes-devtools/qemu/qemu.inc     | 17 --------------=
----
-> >  .../meta/recipes-devtools/qemu/qemu_2.4.0.bb       | 22 --------------=
---------
-> >  yocto-poky/meta/recipes-devtools/qemu/qemu_git.bb  | 21 ++++++++++++++=
-+++++++
-> >  yocto-poky/scripts/runqemu                         |  9 ++++++---
-> >  yocto-poky/scripts/runqemu-internal                | 12 ++++++++++++
->=20
-> Please refrain from making changes to content in the yocto-poky tree.
-> This is intended to be a clean mirror of upstream yocto.  Yocto has lots
-> of capability for overrides in the openbmc parts of the tree.
+Hi Chris,
 
-Yep, just wasn't sure how to go about it, so I took the sledgehammer
-approach and got something working. I'll take a look at the
-Yocto/bitbake documentation to see how this is best achieved. Do you
-have any good links on the subject?
+Thanks for squashing the two and addressing previous comments, it makes it so
+much easier to give it another pass. I'm pretty happy with it, just two
+questions.
 
-Andrew
---=-MBF2viVDA9LIlnuN4KIF
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Thanks,
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
+Cyril
+> ---
+>  event_messaged.C       |   6 ++-
+>  event_messaged_sdbus.c | 135 ++++++++++++++++++++++++++++++++++++++++---------
+>  event_messaged_sdbus.h |   2 +-
+>  3 files changed, 117 insertions(+), 26 deletions(-)
+> 
+> diff --git a/event_messaged.C b/event_messaged.C
+> index 9addd3f..f2a308a 100644
+> --- a/event_messaged.C
+> +++ b/event_messaged.C
+> @@ -36,9 +36,13 @@ int message_delete_log(event_manager *em, uint16_t logid)
+>  int load_existing_events(event_manager *em)
+>  {
+>  	uint16_t id;
+> +	event_record_t *rec;
+>  
+>  	while ( (id = em->next_log()) != 0) {
+> -		send_log_to_dbus(em, id);
+> +
+> +		em->open(id, &rec);
+> +		send_log_to_dbus(em, id, rec->association);
+> +		em->close(rec);
+>  	}
+>  
+>  	return 0;
+> diff --git a/event_messaged_sdbus.c b/event_messaged_sdbus.c
+> index fc4c911..af09c36 100644
+> --- a/event_messaged_sdbus.c
+> +++ b/event_messaged_sdbus.c
+> @@ -1,3 +1,4 @@
+> +#define _GNU_SOURCE
+>  #include <stdio.h>
+>  #include <stdlib.h>
+>  #include <errno.h>
+> @@ -20,6 +21,7 @@
+>  /*     method_x  : callable dbus functions.                                  */
+>  /*                                                                           */
+>  /*****************************************************************************/
+> +const char *event_path = "/org/openbmc/records/events";
+>  
+>  sd_bus      *bus   = NULL;
+>  sd_bus_slot *slot  = NULL;
+> @@ -31,6 +33,7 @@ typedef struct messageEntry_t {
+>  	size_t         logid;
+>  	sd_bus_slot   *messageslot;
+>  	sd_bus_slot   *deleteslot;
+> +	sd_bus_slot   *associationslot;
+>  	event_manager *em;
+>  
+>  } messageEntry_t;
+> @@ -84,6 +87,67 @@ static event_record_t* message_record_open(event_manager *em, uint16_t logid)
+>  	return (r ? gCachedRec : NULL);
+>  }
+>  
+> +static int prop_message_assoc(sd_bus *bus,
+> +			const char *path,
+> +			const char *interface,
+> +			const char *property,
+> +			sd_bus_message *reply,
+> +			void *userdata,
+> +			sd_bus_error *error)
+> +{
+> +	int r=0;
+> +	messageEntry_t *m = (messageEntry_t*) userdata;
+> +	event_record_t *rec;
+> +	char *p;
+> +	char *token, *saveptr;
+> +
+> +	rec = message_record_open(m->em, m->logid);
 
-iQIcBAABCgAGBQJW6zJ3AAoJEJ0dnzgO5LT5rdsP/3kvDC02ObrKRU8hfL//wmjT
-QjFvYIBxfnLciaGCjH3Bx6cdBXwThf1N2gZE6ExWkCv41gMmCFbX8FWv6UQOADbc
-WYVx2K5in4Sqf1lDpKPA9f+bhTb+Ml/qNFVLgVLOhJA710YJtUzJgSEV4Jszr8vl
-hstftTjAKA3YMJLIJtUkNn1NwPrcdpc4oMjS5MbBXuibVZ8uoT1C8zPI7Ehnvwt3
-8y8DwOOinMCP5YnsGKi89T11t1FXXj9QATAwIX8IUM6AlXz8ogdNBNxjvfVvYRiB
-TcWNiSkY6DVVc2r+nqV58RE0rMghYM0vPOIySRy4QWnGFXyupiyfyZnLPUg7q2Aj
-IahH4Sqx83n1ewpRqYdANwGILr2QQUfz4NH+4gvX+ppPGSyriB5jI6dEJ+OiaUzn
-QPepJ2btdEgrCPqYBn5PopbgHXLncJAzJExtmGSeIQ53P8hCFCtTQtLjGdTEsqzZ
-9SHKryLwUOxGwzgLlsxSb+2NfzyGc9HuiggtH6r3tEXDRYkBBQ+exQfQT5a2FPc6
-nck/sQ0fky+fR3OQuSmZKFouJmy6dLFVEREK6WRPSJH2K/cIlE2kFwlA1mh0iumh
-2Izh/5YDLk7T9wD0Mwbk2FibX5LB3ivHSAImk+dEbT3/FPCdZNFx/a77NcZb4SKz
-M0apmt/D0xUZ90vbACxD
-=gJbW
------END PGP SIGNATURE-----
+I think Joel asked this previously, is there an equivalent
+message_record_close() you should be calling before exiting this function?
 
---=-MBF2viVDA9LIlnuN4KIF--
+> +	if (!rec) {
+> +		fprintf(stderr,"Warning missing event log for %lx\n", m->logid);
+> +		sd_bus_error_set(error,
+> +			SD_BUS_ERROR_FILE_NOT_FOUND,
+> +			"Could not find log file");
+> +		return -1;
+> +	}
+> +
+> +	/* strtok manipulates a string.  It turns out that message_record_open */
+> +	/* implements a caching mechcanism which means the oiginal string is   */
+> +	/* To avoid that, I will make a copy and mess with that                */
+> +	p = strdup(rec->association);
+> +
+> +	if (!p) {
+> +		/* no association string == no associations */
+> +		sd_bus_error_set(error,
+> +			SD_BUS_ERROR_NO_MEMORY,
+> +			"Not enough memory for association");
+> +		return -1;
+> +	}
+> +
+> +	token = strtok(p, " ");
+> +
+> +	if (token) {
+> +
+> +		r = sd_bus_message_open_container(reply, 'a', "(sss)");
+> +		if (r < 0) {
+> +			fprintf(stderr,"Error opening container %s to reply %s\n", token, strerror(-r));
+> +		}
+> +
+> +		while(token) {
+> +			r = sd_bus_message_append(reply, "(sss)", "fru", "event", token);
+> +			if (r < 0) {
+> +				fprintf(stderr,"Error adding properties for %s to reply %s\n", token, strerror(-r));
+> +			}
+> +
+> +			token = strtok(NULL, " ");
+> +		}
+> +
+> +		r = sd_bus_message_close_container(reply);
+> +	}
+> +
+> +	free(p);
+> +
+> +	return r;
+> +}
+>  
+>  
+>  static int prop_message(sd_bus *bus,
+> @@ -98,12 +162,12 @@ static int prop_message(sd_bus *bus,
+>  	messageEntry_t *m = (messageEntry_t*) userdata;
+>  	char *p;
+>  	struct tm *tm_info;
+> -	char buffer[32];
+> +	char buffer[36];
+>  	event_record_t *rec;
+>  
+>  	rec = message_record_open(m->em, m->logid);
+>  	if (!rec) {
+> -		fprintf(stderr,"Warning missing evnet log for %d\n", m->logid);
+> +		fprintf(stderr,"Warning missing event log for %lx\n", m->logid);
+>  		sd_bus_error_set(error,
+>  			SD_BUS_ERROR_FILE_NOT_FOUND,
+>  			"Could not find log file");
+> @@ -114,8 +178,6 @@ static int prop_message(sd_bus *bus,
+>  		p = rec->message;
+>  	} else if (!strncmp("severity", property, 8)) {
+>  		p = rec->severity;
+> -	} else if (!strncmp("association", property, 11)) {
+> -		p = rec->association;
+>  	} else if (!strncmp("reported_by", property, 11)) {
+>  		p = rec->reportedby;
+>  	} else if (!strncmp("time", property, 4)) {
+> @@ -174,7 +236,7 @@ static int method_accept_host_message(sd_bus_message *m,
+>  				      void *userdata,
+>  				      sd_bus_error *ret_error)
+>  {
+> -	char *message, *severity, *association, *s;
+> +	char *message, *severity, *association;
+>  	size_t   n = 4;
+>  	uint8_t *p;
+>  	int r;
+> @@ -201,14 +263,12 @@ static int method_accept_host_message(sd_bus_message *m,
+>  	rec.p           = (uint8_t*) p;
+>  	rec.n           = n;
+>  
+> -	asprintf(&s, "%s %s (%s)", rec.severity, rec.message, rec.association);
+> -	syslog(LOG_NOTICE, s);
+> -	free(s);
+> +	syslog(LOG_NOTICE, "%s %s (%s)", rec.severity, rec.message, rec.association);
+>  
+>  	logid = message_create_new_log_event(em, &rec);
+>  
+>  	if (logid) 
+> -		r = send_log_to_dbus(em, logid);
+> +		r = send_log_to_dbus(em, logid, rec.association);
+>  
+>  	return sd_bus_reply_method_return(m, "q", logid);
+>  }
+> @@ -234,12 +294,11 @@ static int method_accept_test_message(sd_bus_message *m,
+>  	rec.n           = 6;
+>  
+>  
+> -	asprintf(&s, "%s %s (%s)", rec.severity, rec.message, rec.association);
+> -	syslog(LOG_NOTICE, s);
+> -	free(s);
+> -
+> +	syslog(LOG_NOTICE, "%s %s (%s)", rec.severity, rec.message, rec.association);
+>  	logid = message_create_new_log_event(em, &rec);
+> -	send_log_to_dbus(em, logid);
+> +
+> +	if (logid)
+> +		send_log_to_dbus(em, logid, rec.association);
+>  
+>  	return sd_bus_reply_method_return(m, "q", logid);
+>  }
+> @@ -261,7 +320,7 @@ static int method_clearall(sd_bus_message *m, void *userdata, sd_bus_error *ret_
+>  
+>  	while (logid = message_next_event(em)) {
+>  		snprintf(buffer, sizeof(buffer),
+> -			"/org/openbmc/records/events/%d", logid);
+> +			"%s/%d", event_path, logid);
+>  
+>  		r = sd_bus_call_method_async(bus,
+>  					     NULL,
+> @@ -305,7 +364,6 @@ static const sd_bus_vtable recordlog_vtable[] = {
+>  
+>  static const sd_bus_vtable log_vtable[] = {
+>  	SD_BUS_VTABLE_START(0),   
+> -	SD_BUS_PROPERTY("association", "s",  prop_message,    0, SD_BUS_VTABLE_PROPERTY_CONST),
+>  	SD_BUS_PROPERTY("message",     "s",  prop_message,    0, SD_BUS_VTABLE_PROPERTY_CONST),
+>  	SD_BUS_PROPERTY("severity",    "s",  prop_message,    0, SD_BUS_VTABLE_PROPERTY_CONST),
+>  	SD_BUS_PROPERTY("reported_by", "s",  prop_message,    0, SD_BUS_VTABLE_PROPERTY_CONST),
+> @@ -321,13 +379,18 @@ static const sd_bus_vtable recordlog_delete_vtable[] = {
+>  	SD_BUS_VTABLE_END
+>  };
+>  
+> +static const sd_bus_vtable recordlog_association_vtable[] = {
+> +	SD_BUS_VTABLE_START(0),
+> +	SD_BUS_PROPERTY("associations", "a(sss)",  prop_message_assoc, 0, SD_BUS_VTABLE_PROPERTY_CONST),
+> +	SD_BUS_VTABLE_END
+> +};
+> +
+>  static int remove_log_from_dbus(messageEntry_t *p)
+>  {
+>  	int r;
+>  	char buffer[32];
+>  
+> -	snprintf(buffer, sizeof(buffer),
+> -		"/org/openbmc/records/events/%d", p->logid);
+> +	snprintf(buffer, sizeof(buffer), "%s/%lu", event_path, p->logid);
+>  
+>  	printf("Attempting to delete %s\n", buffer);
+>  
+> @@ -339,19 +402,21 @@ static int remove_log_from_dbus(messageEntry_t *p)
+>  	sd_bus_slot_unref(p->messageslot);
+>  	sd_bus_slot_unref(p->deleteslot);
+>  
+> +	if (p->associationslot)
+> +		sd_bus_slot_unref(p->associationslot);
+> +
+
+In some parts of the project we're supposed to set ALL pointers to NULL even
+pointers on the stack right before a function exits...
+
+And yet here (and this isn't just you, those two context lines are also doing
+it) we accept a messageEntry_t pointer from (not sure where).
+
+Would this not be a valid use case of enforcing NULLing pointers?
+
+p->messageslot = sd_bus_slot_unref(p->messageslot);
+p->deleteslot = sd_bus_slot_unref(p->deleteslot)
+
+if (p->associationslot)
+	p->associationslot = sd_bus_slot_unref(p->associationslot);
+
+>  	message_entry_close(p);
+>  
+>  	return 0;
+>  }
+>  
+> -int send_log_to_dbus(event_manager *em, const uint16_t logid)
+> +int send_log_to_dbus(event_manager *em, const uint16_t logid, const char *association)
+>  {
+>  	char loglocation[64];
+>  	int r;
+>  	messageEntry_t *m;
+>  
+> -	snprintf(loglocation, sizeof(loglocation),
+> -		"/org/openbmc/records/events/%d", logid);
+> +	snprintf(loglocation, sizeof(loglocation), "%s/%d", event_path, logid);
+>  
+>  	message_entry_new(&m, logid, em);
+>  
+> @@ -374,12 +439,34 @@ int send_log_to_dbus(event_manager *em, const uint16_t logid)
+>  				     "org.openbmc.Object.Delete",
+>  				     recordlog_delete_vtable,
+>  				     m);
+> -	
+> -	printf("Event Log added %s\n", loglocation);
+> +
+> +	if (r < 0) {
+> +		fprintf(stderr, "Failed to add delete object for: %s, %s\n",
+> +			loglocation, strerror(-r));
+> +		message_entry_close(m);
+> +		return 0;
+> +	}
+> +
+> +	m->associationslot = NULL;
+> +	if (strlen(association) > 0) {
+> +		r = sd_bus_add_object_vtable(bus,
+> +					     &m->associationslot,
+> +					     loglocation,
+> +					     "org.openbmc.Associations",
+> +					     recordlog_association_vtable,
+> +					     m);
+> +		if (r < 0) {
+> +			fprintf(stderr, "Failed to add association object for: %s %s\n",
+> +				loglocation, strerror(-r));
+> +			message_entry_close(m);
+> +			return 0;
+> +		}
+> +	}
+>  
+>  	r = sd_bus_emit_object_added(bus, loglocation);
+>  	if (r < 0) {
+>  		fprintf(stderr, "Failed to emit signal %s\n", strerror(-r));
+> +		message_entry_close(m);
+>  		return 0;
+>  	}
+>  
+> @@ -445,7 +532,7 @@ int build_bus(event_manager *em)
+>  	
+>  	/* You want to add an object manager to support deleting stuff  */
+>  	/* without it, dbus can show interfaces that no longer exist */
+> -	r = sd_bus_add_object_manager(bus, NULL, "/org/openbmc/records/events");
+> +	r = sd_bus_add_object_manager(bus, NULL, event_path);
+>  	if (r < 0) {
+>  		fprintf(stderr, "Object Manager failure  %s\n", strerror(-r));
+>  	}
+> diff --git a/event_messaged_sdbus.h b/event_messaged_sdbus.h
+> index 4565af8..b3cec2c 100644
+> --- a/event_messaged_sdbus.h
+> +++ b/event_messaged_sdbus.h
+> @@ -5,7 +5,7 @@ extern "C" {
+>  #endif
+>  	int start_event_monitor(void);
+>  	int build_bus(event_manager *em);
+> -	int send_log_to_dbus(event_manager *em, const uint16_t logid);
+> +	int send_log_to_dbus(event_manager *em, const uint16_t logid, const char* association);
+>  	void cleanup_event_monitor(void);
+>  #ifdef __cplusplus
+>  }
