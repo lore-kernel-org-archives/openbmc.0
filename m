@@ -3,27 +3,28 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qRVDd4wTMzDq5d
- for <openbmc@lists.ozlabs.org>; Sat, 19 Mar 2016 02:54:47 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qRVRm6HLVzDq5d
+ for <openbmc@lists.ozlabs.org>; Sat, 19 Mar 2016 03:05:08 +1100 (AEDT)
 Received: from localhost (32.97.110.55 [32.97.110.55]) by mx.zohomail.com
- with SMTPS id 1458316481995423.29568819900567;
- Fri, 18 Mar 2016 08:54:41 -0700 (PDT)
-Date: Fri, 18 Mar 2016 10:54:39 -0500
+ with SMTPS id 1458317095014654.3794964139357;
+ Fri, 18 Mar 2016 09:04:55 -0700 (PDT)
+Date: Fri, 18 Mar 2016 11:04:52 -0500
 From: Patrick Williams <patrick@stwcx.xyz>
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: OpenBMC <openbmc@lists.ozlabs.org>
-Subject: Re: [RFC PATCH] Add palmetto target to runqemu
-Message-ID: <20160318155438.GB11491@asimov.austin.ibm.com>
-References: <1458190368-24002-1-git-send-email-andrew@aj.id.au>
- <20160317155312.GA6045@asimov.austin.ibm.com>
- <1458254455.27546.23.camel@aj.id.au>
+To: Chris Austen <austenc@us.ibm.com>
+Cc: openbmc <openbmc@lists.ozlabs.org>, Tom Joseph2 <tomjoseph@in.ibm.com>,
+ OpenBMC Patches <openbmc-patches@stwcx.xyz>, Cyril Bur <cyrilbur@gmail.com>
+Subject: Re: [PATCH phosphor-host-ipmid] ipmi daemon return code modification
+Message-ID: <20160318160452.GC11491@asimov.austin.ibm.com>
+References: <20160309170110.GM6601@asimov.pw-on-the.net>
+ <201603091856.u29Iua5p031849@d03av01.boulder.ibm.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="MfFXiAuoTsnnDAfZ"
+ protocol="application/pgp-signature"; boundary="kfjH4zxOES6UT95V"
 Content-Disposition: inline
-In-Reply-To: <1458254455.27546.23.camel@aj.id.au>
+In-Reply-To: <201603091856.u29Iua5p031849@d03av01.boulder.ibm.com>
 User-Agent: Mutt/1.5.24 (2015-08-30)
 X-Zoho-Virus-Status: 1
+X-ZohoMail: Z_61896388 SPT_1 Z_56716064 SPT_1 SLF_D
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -35,103 +36,133 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Mar 2016 15:55:30 -0000
+X-List-Received-Date: Fri, 18 Mar 2016 16:05:09 -0000
 
 
---MfFXiAuoTsnnDAfZ
+--kfjH4zxOES6UT95V
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Mar 18, 2016 at 09:10:55AM +1030, Andrew Jeffery wrote:
-> On Thu, 2016-03-17 at 10:53 -0500, Patrick Williams wrote:
-> > On Thu, Mar 17, 2016 at 03:22:47PM +1030, Andrew Jeffery wrote:
-> > > Hi all,
-> > >=20
-> > > The patches modelling a bare-bones AST2400 in QEMU have been merged i=
-nto
-> > > master for the upcoming 2.6 release. Attached is a half-hearted attem=
-pt at
-> > > integrating the necessary bits into openbmc so we can `bitbake
-> > > obmc-phosphor-image` then `runqemu palmetto` to boot the BMC kernel a=
-nd some
-> > > representation of the userspace.
-> > >=20
-> > > I'm not sure if the hacks I've made to runqemu{,-internal} are the ri=
-ght
-> > > approach or even something we'd want to carry going forward. Similarl=
-y, a
-> > > wholesale switch to qemu_git.bb might be a bit extreme - any thoughts=
- there? I
-> > > must admit I haven't tried applying the AST2400 patches to 2.4, maybe=
- that's a
-> > > better approach? Regardless, depending on 2.6 when it gets released is
-> > > prefereble, but that's probably a month or so away.
-> > >=20
-> > > I'll split the patches up in the future, just wanted to get this on t=
-he list
-> > > for some feedback.
-> > >=20
-> > > Cheers,
-> > >=20
-> > > Andrew
-> > >=20
-> > > Andrew Jeffery (1):
-> > >   RFC: Add palmetto target to runqemu
-> > >=20
-> > >  yocto-poky/meta/recipes-devtools/qemu/qemu.inc     | 17 ------------=
------
-> > >  .../meta/recipes-devtools/qemu/qemu_2.4.0.bb       | 22 ------------=
-----------
-> > >  yocto-poky/meta/recipes-devtools/qemu/qemu_git.bb  | 21 ++++++++++++=
-+++++++++
-> > >  yocto-poky/scripts/runqemu                         |  9 ++++++---
-> > >  yocto-poky/scripts/runqemu-internal                | 12 ++++++++++++
-> >=20
-> > Please refrain from making changes to content in the yocto-poky tree.
-> > This is intended to be a clean mirror of upstream yocto.  Yocto has lots
-> > of capability for overrides in the openbmc parts of the tree.
->=20
-> Yep, just wasn't sure how to go about it, so I took the sledgehammer
-> approach and got something working. I'll take a look at the
-> Yocto/bitbake documentation to see how this is best achieved. Do you
-> have any good links on the subject?
->=20
-> Andrew
+On Wed, Mar 09, 2016 at 06:56:17PM +0000, Chris Austen wrote:
+> Patrick is there work needed to fix something here?   If so open an issue=
+=20
+>   =20
 
-I understand it was just RFC quality code.
+Opened https://github.com/openbmc/phosphor-host-ipmid/issues/80
 
-The "Mega Manual" is the definitive source of documentation on
-everything Yocto.  It is, unfortunately, rather complete.
 
-I would start with this chapter:
-
-http://www.yoctoproject.org/docs/1.8/mega-manual/mega-manual.html#using-bba=
-ppend-files
+>     I think the lesson here is we need more integration testing (aka warm=
+ hand offs) with Foxconn.  I chose channel 1 without thinking too much abou=
+t it.  Turns out they use channel 8. =20
+>    =20
+>    =20
+>     =20
+>        Sent from my iPhone using IBM Verse
+>   =20
+>    On Mar 9, 2016, 9:09:21 AM, patrick@stwcx.xyz wrote:
+>   =20
+>    From: patrick@stwcx.xyz
+>    To: cyrilbur@gmail.com
+>    Cc: openbmc@lists.ozlabs.org, tomjoseph@in.ibm.com, openbmc-patches@st=
+wcx.xyz
+>    Date: Mar 9, 2016 9:09:21 AM
+>    Subject: Re: [PATCH phosphor-host-ipmid] ipmi daemon return code modif=
+ication
+>   =20
+>   =20
+>        I agree with Cyril's comments.  This code should not have been mer=
+ged in
+>     the current state.
+>     The first line directly contradicts the comments.  Need to update the
+>     comment to explain why '8' is needed now.  And removing an error path=
+ is
+>     non-obvious.  Even the commit message doesn't really give any details=
+ on
+>     what / why this change was made.
+>     On Wed, Mar 09, 2016 at 01:31:23PM +1100, Cyril Bur wrote:
+>     > On Tue,  8 Mar 2016 14:10:33 -0600
+>     > OpenBMC Patches  wrote:
+>     >=20
+>     > > From: tomjose=20
+>     > >=20
+>     > > ---
+>     > >  apphandler.C | 2 +-
+>     > >  ipmid.C      | 1 -
+>     > >  2 files changed, 1 insertion(+), 2 deletions(-)
+>     > >=20
+>     > > diff --git a/apphandler.C b/apphandler.C
+>     > > index a921643..fc6c811 100644
+>     > > --- a/apphandler.C
+>     > > +++ b/apphandler.C
+>     > > @@ -358,7 +358,7 @@ ipmi_ret_t ipmi_app_channel_info(ipmi_netfn_t=
+ netfn, ipmi_cmd_t cmd,
+>     > >      printf("IPMI APP GET CHANNEL INFO\n");
+>     > > =20
+>     > >      // I"m only supporting channel 1.  0xE is the 'default chann=
+el'
+>     > > -    if (*p =3D=3D 0xe || *p =3D=3D 1) {
+>     > > +    if (*p =3D=3D 0xe || *p =3D=3D 1 || *p =3D=3D 8) {
+>     > > =20
+>     >=20
+>     > So I take it that the comment is no longer valid? Can we take a bre=
+ak on magic
+>     > numbers or at least quote and link the spec nearby?
+>     >=20
+>     > >          *data_len =3D sizeof(resp);
+>     > >          memcpy(response, resp, *data_len);
+>     > > diff --git a/ipmid.C b/ipmid.C
+>     > > index 6726a27..728ba0b 100644
+>     > > --- a/ipmid.C
+>     > > +++ b/ipmid.C
+>     > > @@ -267,7 +267,6 @@ static int handle_ipmi_command(sd_bus_message=
+ *m, void *user_data, sd_bus_error
+>     > >      if(r !=3D 0)
+>     > >      {
+>     > >          fprintf(stderr,"ERROR:[0x%X] handling NetFn:[0x%X], Cmd:=
+[0x%X]\n",r, netfn, cmd);
+>     > > -        return -1;
+>     > >      }
+>     >=20
+>     > Was this change intended?
+>     >=20
+>     > > =20
+>     > >      fprintf(ipmiio, "IPMI Response:\n");
+>     >=20
+>     > _______________________________________________
+>     > openbmc mailing list
+>     > openbmc@lists.ozlabs.org
+>     > https://lists.ozlabs.org/listinfo/openbmc
+>     --=20
+>     Patrick Williams
+>     _______________________________________________
+>     openbmc mailing list
+>     openbmc@lists.ozlabs.org
+>     https://lists.ozlabs.org/listinfo/openbmc
 
 --=20
 Patrick Williams
 
---MfFXiAuoTsnnDAfZ
+--kfjH4zxOES6UT95V
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJW7CS+AAoJEKsDR8wtAMEZhVEP/2Gg39BeTxXMOnFS+1SQleLL
-DJN8gcbMnF0RLWklOpUnabvuPYKtL9veclaHtCM7PibG+QfXlLag0JEW6evfrVkm
-iopxI9hpiBYT90b5+1JW/9sdIpUOmhRUV7iJDDh4NHQJY55LWuYQRUtyfFqknoy4
-56hJjLTlcF8GP0F6i1GOA4CFR0vYIK63ooUgAr5jwhTi0lsJIe3Z9Vi0Mq1iG3Wr
-4zFkS7eR06FHR8knA3HpU6uHJtXXACzfvKWuSZWscwuyLZtv8Syj2TQTsRF0+oel
-zUv5bnsZyDImrdBmtTRqOJjH+BiI5Jlj2o1qcGNvYBuIhxwSqRWL/1QrYGsR2Ni5
-7C4WBFr6SCYuoL3vbKwaGfmw3ia9vrSN/eEeLv5VeAhXr7kzl8dbpi6kdtnfEs5g
-Y1HGk4KVoL3xLUdAKpZj/YPcOezpYf12RGpo9CtNZ39qKRnINqMbTe71p88c3gTJ
-jy7jbZ8pnNBq0IFKagGGmKkWvaLjTiuzWLVKEuYeshXirozLzn+CfLEYcin0rRZC
-JGxlbIyg3MKQRbX6STnjsZXtw0KmVMjzSnX6WwqBVc4i+GSEi9X8cfBxc+zuw61A
-SW9C9uSR0TwbqdZrQp7hVXz9cyzNHGrGA35RpqYeyn8U4B+R2K/BcptLwg9IgIhs
-qZbI3uivZRBkP+4mOlE/
-=XZo+
+iQIcBAEBCAAGBQJW7CckAAoJEKsDR8wtAMEZWTAP/iUHLBNm7jwHX8h0FZ9+3gW0
+NUllpwyq1jqmLeQvdyaZt1rCQc3jJnP/js1uIvELtg97YMql0z3QVzytNmI6qO4+
+vTBZ50nm+nPclRIWOj97eFlWUIFtFdfsf7/3JWG9Yz2DX2+CCqAZOIDtkk/vE4hC
+HffhAqvQ4KK6cLEeaCC88ydKZwk2QD5uebsnX/7wjPet460Bn6AIIZiYGsFkon6A
+L488S33D3AHHoISWCtfsfRx3pRsKdZPIz5zEskznn81YiHTNgdOhyDBqC+quluBe
+lB/ogR2OqQPBFkDyGH8AanIV44Ulad1vE8CLjL+v5eSnB86dOIvJ7GSCLSmK9t/W
+Dh3KE0Px+OD30QvuqqVMhPdLWrAQP9MSRnyiGIQQ99vC2pL33t1o8iow9DZcDqF3
+7+GVPObGyx3LI0Wv1CqBsY5FFIUUwxYLvPdqtz36veXPtXP2uE80F0sx9fLdRFYW
+V0VXtCciXShpxWJQlvzuzwUv/E8T+VlCyoMwZcYuSgWDJFO5IRCahcnxGO/RuLgo
+tAt2zftaOGzy0sKponjgM+sD7mJmSj+0kiGrFFDhMojHMqmPNggv+xjg613XICCf
+SpzYyQHy8Lto6f2mclOeieR1rb1aD7Rcf1aaGIUy2yodO97e9l/OJPm5pZp83czf
+fV721W19V8xrtf/v2iGK
+=bsp5
 -----END PGP SIGNATURE-----
 
---MfFXiAuoTsnnDAfZ--
+--kfjH4zxOES6UT95V--
