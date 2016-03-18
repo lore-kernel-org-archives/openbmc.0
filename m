@@ -1,57 +1,20 @@
-Return-Path: <andrew.donnellan@au1.ibm.com>
-Received: from e23smtp07.au.ibm.com (e23smtp07.au.ibm.com [202.81.31.140])
- (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
+Return-Path: <openbmc-patches@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qR77D6bj8zDqGd
- for <openbmc@lists.ozlabs.org>; Fri, 18 Mar 2016 12:34:32 +1100 (AEDT)
-Received: from localhost
- by e23smtp07.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <andrew.donnellan@au1.ibm.com>;
- Fri, 18 Mar 2016 11:34:30 +1000
-Received: from d23dlp02.au.ibm.com (202.81.31.213)
- by e23smtp07.au.ibm.com (202.81.31.204) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Fri, 18 Mar 2016 11:34:27 +1000
-X-IBM-Helo: d23dlp02.au.ibm.com
-X-IBM-MailFrom: andrew.donnellan@au1.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from d23relay08.au.ibm.com (d23relay08.au.ibm.com [9.185.71.33])
- by d23dlp02.au.ibm.com (Postfix) with ESMTP id A596D2BB0071
- for <openbmc@lists.ozlabs.org>; Fri, 18 Mar 2016 12:33:54 +1100 (EST)
-Received: from d23av03.au.ibm.com (d23av03.au.ibm.com [9.190.234.97])
- by d23relay08.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u2I1XOwI39846054
- for <openbmc@lists.ozlabs.org>; Fri, 18 Mar 2016 12:33:49 +1100
-Received: from d23av03.au.ibm.com (localhost [127.0.0.1])
- by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u2I1Wd2l032273
- for <openbmc@lists.ozlabs.org>; Fri, 18 Mar 2016 12:32:39 +1100
-Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
- by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u2I1WbAt031415; Fri, 18 Mar 2016 12:32:38 +1100
-Received: from [10.61.2.248] (haven.au.ibm.com [9.192.254.114])
- (using TLSv1.2 with cipher DHE-RSA-AES128-SHA (128/128 bits))
- (No client certificate requested)
- by ozlabs.au.ibm.com (Postfix) with ESMTPSA id DB64CA0120;
- Fri, 18 Mar 2016 12:31:13 +1100 (AEDT)
-Subject: Re: [PATCH] inarp: Update to 19ed5170
-To: Patrick Williams <patrick@stwcx.xyz>, Jeremy Kerr <jk@ozlabs.org>
-References: <1458209312-4881-1-git-send-email-jk@ozlabs.org>
- <20160317163517.GD6045@asimov.austin.ibm.com>
-Cc: openbmc@lists.ozlabs.org
-From: Andrew Donnellan <andrew.donnellan@au1.ibm.com>
-Message-ID: <56EB5A61.9080504@au1.ibm.com>
-Date: Fri, 18 Mar 2016 12:31:13 +1100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
- Icedove/38.6.0
-MIME-Version: 1.0
-In-Reply-To: <20160317163517.GD6045@asimov.austin.ibm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16031801-0025-0000-0000-00000377017B
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qRCj32lL1zDqWX
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Mar 2016 16:00:39 +1100 (AEDT)
+Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
+ with SMTPS id 1458277236725415.4422544151886;
+ Thu, 17 Mar 2016 22:00:36 -0700 (PDT)
+From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH openbmc 0/2] Add palmetto target to runqemu
+Date: Fri, 18 Mar 2016 00:00:33 -0500
+Message-Id: <1458277235-5775-1-git-send-email-openbmc-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.7.1
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -63,17 +26,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Mar 2016 01:34:33 -0000
+X-List-Received-Date: Fri, 18 Mar 2016 05:00:40 -0000
 
-On 18/03/16 03:35, Patrick Williams wrote:
-> Did you use 'git send-email' for this instead of a github pull request?
-> Without a pull request we don't currently have a mechanism to trigger
-> Jenkins to test.
+The patches modelling a bare-bones AST2400 in QEMU have been merged into
+master for the upcoming 2.6 release. Attached is an attempt at integrating the
+necessary bits into openbmc so we can `bitbake obmc-phosphor-image` then
+`runqemu palmetto` to boot the BMC kernel and some representation of the
+userspace.
 
-A few of us are working on this, hopefully we'll have something to share 
-shortly :)
+There's no networking, but I'll be taking a look at how difficult adding some
+support might be. I've also asked in #yocto about if there's a better way to
+add the palmetto support to runqemu but haven't had a reply. I'll ask on the
+mailing list if that query goes unanswered, but from the way the scripts are
+written it doesn't look like there is much alternative.
+
+Cheers,
+
+Andrew
+
+PS: qemu doesn't terminate if you `poweroff`. To kill it, issue 'Ctrl-A c' to
+switch to the monitor, then 'quit'.
+
+Since the initial RFC:
+
+  * Split the patch in two: add qemu_git.bb, then modify runqemu
+  * Don't supplant yocto-poky qemu_2.4.0.bb
+  * Change qemu_git.bb's fetch URL to avoid failures and add flexibility
+  * Add a note about invoking `runqemu palmetto` on oe-init-build-env
+
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/210)
+<!-- Reviewable:end -->
+
+
+https://github.com/openbmc/openbmc/pull/210
+
+Andrew Jeffery (2):
+  meta-openbmc-bsp: Add qemu git recipe
+  runqemu: Add palmetto target
+
+ meta-openbmc-bsp/conf/layer.conf                   |   8 ++
+ .../recipes-devtools/qemu/qemu-targets.inc         |  22 ++++
+ meta-openbmc-bsp/recipes-devtools/qemu/qemu.inc    | 125 +++++++++++++++++++++
+ meta-openbmc-bsp/recipes-devtools/qemu/qemu_git.bb |  21 ++++
+ .../meta-palmetto/conf/bblayers.conf.sample        |   1 +
+ .../meta-ibm/meta-palmetto/conf/conf-notes.txt     |   3 +
+ .../meta-barreleye/conf/bblayers.conf.sample       |   1 +
+ yocto-poky/scripts/runqemu                         |   9 +-
+ yocto-poky/scripts/runqemu-internal                |  12 ++
+ 9 files changed, 199 insertions(+), 3 deletions(-)
+ create mode 100644 meta-openbmc-bsp/conf/layer.conf
+ create mode 100644 meta-openbmc-bsp/recipes-devtools/qemu/qemu-targets.inc
+ create mode 100644 meta-openbmc-bsp/recipes-devtools/qemu/qemu.inc
+ create mode 100644 meta-openbmc-bsp/recipes-devtools/qemu/qemu_git.bb
 
 -- 
-Andrew Donnellan              Software Engineer, OzLabs
-andrew.donnellan@au1.ibm.com  Australia Development Lab, Canberra
-+61 2 6201 8874 (work)        IBM Australia Limited
+2.7.1
