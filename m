@@ -3,19 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qRCj55p0qzDqWX
- for <openbmc@lists.ozlabs.org>; Fri, 18 Mar 2016 16:00:41 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qRFhw1Q04zDqWX
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Mar 2016 17:30:38 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1458277238897285.30954652014805;
- Thu, 17 Mar 2016 22:00:38 -0700 (PDT)
+ with SMTPS id 145828263453439.92933562026087;
+ Thu, 17 Mar 2016 23:30:34 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 2/2] runqemu: Add palmetto target
-Date: Fri, 18 Mar 2016 00:00:35 -0500
-Message-Id: <1458277235-5775-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH obmc-console 0/2] Add Travis CI building
+Date: Fri, 18 Mar 2016 01:30:26 -0500
+Message-Id: <1458282628-8978-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1458277235-5775-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1458277235-5775-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -28,113 +26,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Mar 2016 05:00:42 -0000
+X-List-Received-Date: Fri, 18 Mar 2016 06:30:40 -0000
 
-From: Andrew Jeffery <andrew@aj.id.au>
+No tests yet, just building with clang and gcc on the Ubuntu Trusty x86 host.
 
-Example use:
+https://github.com/openbmc/obmc-console/pull/1
 
-    $ bitbake obmc-phosphor-image
-    $ runqemu palmetto slirp
+Joel Stanley (2):
+  Add travis CI configuration
+  console-server: fix initialiser
 
-Specifying slirp avoids needing root to configure network, which won't
-work (yet). The palmetto-bmc machine currently only models the VIC and
-timers from the AST2400, and adds a 8250 UART for a console, so there's
-not much interesting to play with in terms of hardware support. But, we
-can now boot the one kernel both on the hardware and in QEMU.
+ .travis.yml      | 20 ++++++++++++++++++++
+ console-server.c |  2 +-
+ 2 files changed, 21 insertions(+), 1 deletion(-)
+ create mode 100644 .travis.yml
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- .../meta-ibm/meta-palmetto/conf/conf-notes.txt               |  3 +++
- yocto-poky/scripts/runqemu                                   |  9 ++++++---
- yocto-poky/scripts/runqemu-internal                          | 12 ++++++++++++
- 3 files changed, 21 insertions(+), 3 deletions(-)
-
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/conf-notes.txt b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/conf-notes.txt
-index 9b3c01a..24bfffe 100644
---- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/conf-notes.txt
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/conf/conf-notes.txt
-@@ -1,2 +1,5 @@
- Common targets are:
-      obmc-phosphor-image
-+
-+You can also run generated images with qemu:
-+     runqemu palmetto
-diff --git a/yocto-poky/scripts/runqemu b/yocto-poky/scripts/runqemu
-index 23cf5be..f09da50 100755
---- a/yocto-poky/scripts/runqemu
-+++ b/yocto-poky/scripts/runqemu
-@@ -110,7 +110,7 @@ while true; do
-     arg=${1}
-     case "$arg" in
-         "qemux86" | "qemux86-64" | "qemuarm" | "qemuarm64" | "qemumips" | "qemumipsel" | \
--        "qemumips64" | "qemush4"  | "qemuppc" | "qemumicroblaze" | "qemuzynq")
-+        "qemumips64" | "qemush4"  | "qemuppc" | "qemumicroblaze" | "qemuzynq" | "palmetto")
-             [ -z "$MACHINE" ] && MACHINE=$arg || \
-                 error "conflicting MACHINE types [$MACHINE] and [$arg]"
-             ;;
-@@ -236,13 +236,13 @@ fi
- 
- if [ -z "$MACHINE" ]; then
-     if [ "x$FSTYPE" = "xvmdk" ] || [ "x$FSTYPE" = "xhddimg" ] || [ "x$FSTYPE" = "xhdddirect" ]; then
--        MACHINE=`basename $VM | sed -n 's/.*\(qemux86-64\|qemux86\|qemuarm64\|qemuarm\|qemumips64\|qemumips\|qemuppc\|qemush4\).*/\1/p'`
-+        MACHINE=`basename $VM | sed -n 's/.*\(qemux86-64\|qemux86\|qemuarm64\|qemuarm\|qemumips64\|qemumips\|qemuppc\|qemush4|palmetto\).*/\1/p'`
-         if [ -z "$MACHINE" ]; then
-             error "Unable to set MACHINE from image filename [$VM]"
-         fi
-         echo "Set MACHINE to [$MACHINE] based on image [$VM]"
-     else
--        MACHINE=`basename $KERNEL | sed -n 's/.*\(qemux86-64\|qemux86\|qemuarm64\|qemuarm\|qemumips64\|qemumips\|qemuppc\|qemush4\).*/\1/p'`
-+        MACHINE=`basename $KERNEL | sed -n 's/.*\(qemux86-64\|qemux86\|qemuarm64\|qemuarm\|qemumips64\|qemumips\|qemuppc\|qemush4|palmetto\).*/\1/p'`
-         if [ -z "$MACHINE" ]; then
-             error "Unable to set MACHINE from kernel filename [$KERNEL]"
-         fi
-@@ -332,6 +332,9 @@ QEMUMICROBLAZE_DEFAULT_FSTYPE=cpio
- QEMUZYNQ_DEFAULT_KERNEL=uImage
- QEMUZYNQ_DEFAULT_FSTYPE=cpio
- 
-+PALMETTO_DEFAULT_KERNEL=cuImage
-+PALMETTO_DEFAULT_FSTYPE=cpio.gz
-+
- AKITA_DEFAULT_KERNEL=zImage-akita.bin
- AKITA_DEFAULT_FSTYPE=jffs2
- 
-diff --git a/yocto-poky/scripts/runqemu-internal b/yocto-poky/scripts/runqemu-internal
-index 1527268..479d61c 100755
---- a/yocto-poky/scripts/runqemu-internal
-+++ b/yocto-poky/scripts/runqemu-internal
-@@ -53,6 +53,9 @@ else
-         "qemuarm64")
-             mem_size=512
-             ;;
-+        "palmetto")
-+            mem_size=512
-+            ;;
-         "qemumicroblaze")
-             mem_size=64
-             ;;
-@@ -295,6 +298,7 @@ fi
- 
- case "$MACHINE" in
-     "qemuarm") ;;
-+    "palmetto") ;;
-     "qemuarm64") ;;
-     "qemumicroblaze") ;;
-     "qemumips") ;;
-@@ -384,6 +388,14 @@ if [ "$MACHINE" = "qemuarm" -o "$MACHINE" = "qemuarmv6" -o "$MACHINE" = "qemuarm
-     fi
- fi
- 
-+if [ "$MACHINE" = "palmetto" ]; then
-+    QEMU=qemu-system-arm
-+    MACHINE_SUBTYPE=palmetto-bmc
-+    export QEMU_AUDIO_DRV="none"
-+    KERNCMDLINE="console=ttyS4"
-+    QEMUOPTIONS="$QEMU_NETWORK_CMD -M ${MACHINE_SUBTYPE} -initrd $ROOTFS -no-reboot -nographic"
-+fi
-+
- if [ "$MACHINE" = "qemuarm64" ]; then
-     QEMU=qemu-system-aarch64
- 
 -- 
 2.7.1
