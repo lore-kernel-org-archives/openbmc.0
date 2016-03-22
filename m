@@ -3,20 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qThBN696qzDqCj
- for <openbmc@lists.ozlabs.org>; Tue, 22 Mar 2016 16:31:08 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qTlkR73CPzDq6X
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Mar 2016 19:10:39 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1458624665292136.13659093800686;
- Mon, 21 Mar 2016 22:31:05 -0700 (PDT)
+ with SMTPS id 1458634234911206.91325262114935;
+ Tue, 22 Mar 2016 01:10:34 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Adi Gangidi <adi.gangidi@rackspace.com>
-Subject: [PATCH linux v4 4/4] Updated SCU88 register and SCU90 init values
-Date: Tue, 22 Mar 2016 00:30:36 -0500
-Message-Id: <1458624636-15845-5-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: =?UTF-8?q?=5BPATCH=20linux=5D=20hwmon=3A=20power8=5Focc=5Fi2c=3A=20Add=20more=20hwmon=20sysfs=20attribute=20definition=20to=20s=E2=80=A6?=
+Date: Tue, 22 Mar 2016 03:10:28 -0500
+Message-Id: <1458634229-22400-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1458624636-15845-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1458624636-15845-1-git-send-email-openbmc-patches@stwcx.xyz>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -29,29 +29,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Mar 2016 05:31:09 -0000
+X-List-Received-Date: Tue, 22 Mar 2016 08:10:40 -0000
 
-From: Adi Gangidi <adi.gangidi@rackspace.com>
+…upport more sensors
 
-a) Updated SCU88 init value in barreleye init
-b) Updated SCU90 init values in common init
-c) Removed some some white spaces
+This patch fixes issue: https://github.com/openbmc/skeleton/issues/58
+
+The hwmon sys attributes are created using statically defined arrays.
+Some POWER CPU has 10-core, while some POWER CPU has 12-core.
+The more cores, the more OCC sensors. E.g, for 12-core CPU,
+there will be 28 temperature sensors. The statically defined
+array will overflow in this case.
+
+This is a temporary fix. Will need to generate the hwmon sysfs attributes
+dynamically based on sensor number.
+
+<!-- Reviewable:start -->
 ---
- arch/arm/mach-aspeed/aspeed.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/linux/65)
+<!-- Reviewable:end -->
 
-diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
-index 5c18316..fa76c40 100644
---- a/arch/arm/mach-aspeed/aspeed.c
-+++ b/arch/arm/mach-aspeed/aspeed.c
-@@ -118,7 +118,7 @@ static void __init do_common_setup(void)
- 	/* SCU setup */
- 	writel(0x01C000FF, AST_IO(AST_BASE_SCU | 0x88));
- 	writel(0xC1C000FF, AST_IO(AST_BASE_SCU | 0x8c));
--	writel(0x01C0007F, AST_IO(AST_BASE_SCU | 0x88));  
-+	writel(0x01C0007F, AST_IO(AST_BASE_SCU | 0x88));
- 	writel(0x003FA008, AST_IO(AST_BASE_SCU | 0x90));
- 
- 	/* Setup scratch registers */
+
+https://github.com/openbmc/linux/pull/65
+
+Yi Li (1):
+  hwmon: power8_occ_i2c: Add more hwmon sysfs attribute definition to
+    support more sensors
+
+ drivers/hwmon/power8_occ_i2c.c | 52 +++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 51 insertions(+), 1 deletion(-)
+
 -- 
 2.7.1
