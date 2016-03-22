@@ -3,19 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qV3jS4mghzDq6X
- for <openbmc@lists.ozlabs.org>; Wed, 23 Mar 2016 07:10:52 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qV3jX0gblzDqDX
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Mar 2016 07:10:55 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1458677444379737.4438729359177;
- Tue, 22 Mar 2016 13:10:44 -0700 (PDT)
+ with SMTPS id 145867744142933.0754512545999;
+ Tue, 22 Mar 2016 13:10:41 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 2/4] update phosphor-event recipe
-Date: Tue, 22 Mar 2016 15:10:37 -0500
-Message-Id: <1458677439-17628-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 0/4] Update kernel, u-boot, and eventd server
+Date: Tue, 22 Mar 2016 15:10:35 -0500
+Message-Id: <1458677439-17628-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1458677439-17628-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1458677439-17628-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -28,30 +26,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Mar 2016 20:10:53 -0000
+X-List-Received-Date: Tue, 22 Mar 2016 20:10:56 -0000
 
-From: "Milton D. Miller II" <miltonm@us.ibm.com>
-
-Update phosphor-event to the latest revision including support
-for limmiiting the size of the event log DB.
+This request updates the kernel, boot loader, and the event logging application in the file system
+to address issues encountered in testing.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
----
- .../common/recipes-phosphor/obmc-phosphor-event/obmc-phosphor-event.bb  | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-event/obmc-phosphor-event.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-event/obmc-phosphor-event.bb
-index 5ce5818..06422cf 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-event/obmc-phosphor-event.bb
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-event/obmc-phosphor-event.bb
-@@ -13,7 +13,7 @@ TARGET_CPPFLAGS += "-std=c++11 -fpic"
- 
- SRC_URI += "git://github.com/openbmc/phosphor-event"
- 
--SRCREV = "127c8cf513ba9ed6bcc460fbea29b36eb8d23bac"
-+SRCREV = "b7ea1b9f322f705e4f1a086367733f8a6d46eb96"
- 
- RDEPENDS_${PN} += "libsystemd"
- DEPENDS += "systemd"
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/213)
+<!-- Reviewable:end -->
+
+
+https://github.com/openbmc/openbmc/pull/213
+
+Milton D. Miller II (4):
+  u-boot: Apply patch to stop aspeednic dma
+  update phosphor-event recipe
+  Add upstream jffs2 fixes to our 4.3 kernel
+  Add kernel fixes for Inventory and OCC
+
+ .../u-boot/files/aspeednic-mac-stop.patch          |  36 ++++
+ .../recipes-bsp/u-boot/u-boot_2013.07%.bbappend    |   1 +
+ ...ectory-hardlinks-from-deleted-directories.patch | 195 +++++++++++++++++++++
+ ...2-Fix-lock-acquisition-order-bug-in-jffs2.patch | 134 ++++++++++++++
+ ...ated-SCU88-register-and-SCU90-init-values.patch |  70 ++++++++
+ ...8_occ_i2c-Add-more-hwmon-sysfs-attribute-.patch | 148 ++++++++++++++++
+ .../0002-jffs2-Fix-page-lock-f-sem-deadlock.patch  |  75 ++++++++
+ .../recipes-kernel/linux/linux-obmc_%.bbappend     |   7 +
+ .../obmc-phosphor-event/obmc-phosphor-event.bb     |   2 +-
+ 9 files changed, 667 insertions(+), 1 deletion(-)
+ create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/files/aspeednic-mac-stop.patch
+ create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/0001-Fix-directory-hardlinks-from-deleted-directories.patch
+ create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/0001-Revert-jffs2-Fix-lock-acquisition-order-bug-in-jffs2.patch
+ create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/0001-Updated-SCU88-register-and-SCU90-init-values.patch
+ create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/0001-hwmon-power8_occ_i2c-Add-more-hwmon-sysfs-attribute-.patch
+ create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/0002-jffs2-Fix-page-lock-f-sem-deadlock.patch
+
 -- 
 2.7.1
