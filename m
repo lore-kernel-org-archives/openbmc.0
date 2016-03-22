@@ -1,45 +1,22 @@
-Return-Path: <andrew@aj.id.au>
-Received: from homiemail-a39.g.dreamhost.com (sub3.mail.dreamhost.com
- [69.163.253.7])
- by lists.ozlabs.org (Postfix) with ESMTP id 3qTrBt1J9qzDq6X
- for <openbmc@lists.ozlabs.org>; Tue, 22 Mar 2016 22:32:05 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
- dkim=fail reason="signature verification failed" (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=ARPYTU0H; 
- dkim-atps=neutral
-Received: from homiemail-a39.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a39.g.dreamhost.com (Postfix) with ESMTP id 168DA150078;
- Tue, 22 Mar 2016 04:32:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
- :subject:from:reply-to:to:cc:date:in-reply-to:references
- :content-type:mime-version; s=aj.id.au; bh=qp9W5+KvFJRFk3sSs79g1
- eHEL7k=; b=ARPYTU0H0+SmhoEmn+t7BuIiMt9MY83djk4Dx+ixMTFg0LtDCAXwc
- auQbWeslbY4m+OVveoPpunWB/6MevpahVuhHkQvbrAXIwiGwRJWjSZ5whgkhk6K7
- JqlToiJJBFRR25ojsb3EukWiyBKj4hh0HXQZyNyU3BzXmnroY39gxY=
-Received: from keelia (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- (using TLSv1 with cipher AES128-SHA (128/128 bits))
+Return-Path: <openbmc-patches@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- (Authenticated sender: andrew@aj.id.au)
- by homiemail-a39.g.dreamhost.com (Postfix) with ESMTPSA id F1D8B15006D;
- Tue, 22 Mar 2016 04:32:02 -0700 (PDT)
-Message-ID: <1458646315.2336.23.camel@aj.id.au>
-Subject: Re: [PATCH] runqemu: Add palmetto target
-From: Andrew Jeffery <andrew@aj.id.au>
-Reply-To: andrew@aj.id.au
-To: Chris Austen <austenc@us.ibm.com>, joel@jms.id.au
-Cc: openbmc@lists.ozlabs.org
-Date: Tue, 22 Mar 2016 22:01:55 +1030
-In-Reply-To: <201603170742.u2H7gVIF013244@d03av03.boulder.ibm.com>
-References: <CACPK8XfWpkJ8HEbK4wOzWGrcfccBdRKoumsoQboj772jrgzUKA@mail.gmail.com>
- ,<1458190368-24002-1-git-send-email-andrew@aj.id.au>
- <1458190368-24002-2-git-send-email-andrew@aj.id.au>
- <201603170742.u2H7gVIF013244@d03av03.boulder.ibm.com>
-Organization: IBM OzLabs
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-RDsftUeWZimzUtSvdnKJ"
-X-Mailer: Evolution 3.16.5-1ubuntu3.1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qV3jN668bzDq6X
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Mar 2016 07:10:48 +1100 (AEDT)
+Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
+ with SMTPS id 1458677442867486.8702687926062;
+ Tue, 22 Mar 2016 13:10:42 -0700 (PDT)
+From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH openbmc 1/4] u-boot: Apply patch to stop aspeednic dma
+Date: Tue, 22 Mar 2016 15:10:36 -0500
+Message-Id: <1458677439-17628-2-git-send-email-openbmc-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.7.1
+In-Reply-To: <1458677439-17628-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1458677439-17628-1-git-send-email-openbmc-patches@stwcx.xyz>
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -51,51 +28,77 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Mar 2016 11:32:07 -0000
+X-List-Received-Date: Tue, 22 Mar 2016 20:10:49 -0000
 
+From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
---=-RDsftUeWZimzUtSvdnKJ
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Apply Norm's mac-stop patch that calls the halt method after calling
+the init method in the aspeednic initialize function.
 
-Hi Chris,
+While alternative patches exist that touch less hardware, this simple
+patch will prevent the memory alteration when the network is not used
+during u-boot.
 
-On Thu, 2016-03-17 at 07:42 +0000, Chris Austen wrote:
-> No network yet :(   Makes things hard to use.  Can you add an
-> ethernet device?
+Signed-off-by: Milton Miller <miltonm@us.ibm.com>
+---
+ .../u-boot/files/aspeednic-mac-stop.patch          | 36 ++++++++++++++++++++++
+ .../recipes-bsp/u-boot/u-boot_2013.07%.bbappend    |  1 +
+ 2 files changed, 37 insertions(+)
+ create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/files/aspeednic-mac-stop.patch
 
-Give this branch a go:
-
-https://github.com/amboar/openbmc/tree/runqemu-palmetto
-
-This time invoke `runqemu palmetto` (i.e. without 'slirp'): It will
-configure tun/tap for full network capabilities, but you'll need sudo
-powers for it to be successful.
-
-Let me know what you think.
-
-Andrew
---=-RDsftUeWZimzUtSvdnKJ
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
-
-iQIcBAABCgAGBQJW8S0rAAoJEJ0dnzgO5LT5B0MP/2nOrF6t6H0skwWdtWJ08ipj
-4qzO4gRegev41jSqUmoW4IjJuKg3T5Tm3eXGmkxXComNSvz3Q1X4hqT4fKnlupne
-cVpp27HzJ70NeLJh1B88Z0xqDm2r2dB2/GIe4hCKjBB/ywVZtQZWh7lHBySoX+X6
-yczOCYlnj18kJEzf3l6DcpdzW6zGjQavJTjHtGqWlpRpck8xuSUB1FaE6Y0J40zJ
-5sf6JzVtXtu/VcK+Ti7rm0/y3TvS/YXvhWfQgkNqupGCe3LO+a4fElR0osC4/rka
-G54ziqftGwrIVrBW8e+O277tDqd0ZGUIFmihTVz/Q1N9OgdcB5Miv74x9vIv+ZzH
-u6HqSkWQEGN42ZhcUpYgOb461V2ZtXGAMAL8c5xO520ugiOZJmRamQTrD/+JR+Wk
-9mWOYjzutBPjD8ugs9fH21iD4pDLYc/c7dU8405T5fk+61Dy6c2ucJLueBEmn8Ln
-nD1/qxvwKfI11do3w2gGpQhSywdEc/LkYEUx4zEhHiE+bJVOe1Jd2MN4TWHQ9ER9
-f1sN5FbnnPCxGGAxciXJZWDasWyiRQN4VB6B0YZbCwBLpZ+iXqk/h0u8GLMUiv4Z
-Q71RhYdEIRyGvkudau7LRRpBp7HIuodxwDKzZhZnNy7N5GCmAKBRSpBIuaaH9x5Z
-06qm4LopUDJ5Ur7U5RKX
-=VJ10
------END PGP SIGNATURE-----
-
---=-RDsftUeWZimzUtSvdnKJ--
+diff --git a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/files/aspeednic-mac-stop.patch b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/files/aspeednic-mac-stop.patch
+new file mode 100644
+index 0000000..bb53c40
+--- /dev/null
++++ b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/files/aspeednic-mac-stop.patch
+@@ -0,0 +1,36 @@
++commit a7517cfcebd9ea45d65b3fbc6438602dd28cae86
++Author: Norman James <njames@us.ibm.com>
++Commit: Norman James <njames@us.ibm.com>
++
++    MAC needs to be stopped after starting
++    
++    We found that u-boot network was corrupting kernel memory.
++    This is because aspeednic_init is called at startup,
++    but if the u-boot network is not used, the network driver
++    is not cleaned up.  This fix is a temporary hack and just calls
++    the halt function after the init. This driver needs to be
++    reworked to not start network initially and use set_hwaddr hook
++    to setup MAC address.
++    
++    Signed-off-by: Norman James <nkskjames@gmail.com>
++
++diff --git a/drivers/net/aspeednic.c b/drivers/net/aspeednic.c
++index d70c7ab..a870c4a 100644
++--- a/drivers/net/aspeednic.c
+++++ b/drivers/net/aspeednic.c
++@@ -580,6 +580,7 @@ int aspeednic_initialize(bd_t *bis)
++ #if defined(CONFIG_MII) || defined(CONFIG_CMD_MII)
++   miiphy_register(dev->name, faraday_mdio_read, faraday_mdio_write);
++ #endif
+++  dev->halt(dev);
++ 
++   return 1;
++ }
++@@ -1359,6 +1360,7 @@ static int aspeednic_recv(struct eth_device* dev)
++ 
++ static void aspeednic_halt(struct eth_device* dev)
++ {
+++  printf("Stopping Network\n");
++   STOP_MAC(dev);
++ }
++ 
+diff --git a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/u-boot_2013.07%.bbappend b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/u-boot_2013.07%.bbappend
+index 50adb9f..774419f 100644
+--- a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/u-boot_2013.07%.bbappend
++++ b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/u-boot_2013.07%.bbappend
+@@ -2,6 +2,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+ 
+ SRC_URI += "file://fw_env.config"
+ SRC_URI += "file://config.patch"
++SRC_URI += "file://aspeednic-mac-stop.patch"
+ 
+ # Do not install u-boot in rootfs
+ #do_install[postfuncs] += "remove_uboot_from_rootfs"
+-- 
+2.7.1
