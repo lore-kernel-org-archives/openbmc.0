@@ -1,27 +1,20 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <openbmc-patches@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qTbBf159FzDq6X
- for <openbmc@lists.ozlabs.org>; Tue, 22 Mar 2016 12:46:02 +1100 (AEDT)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 3qTbBd6SGcz9s3T;
- Tue, 22 Mar 2016 12:46:01 +1100 (AEDT)
-Subject: Re: [PATCH 2/2] hwmon/adm1275: Support sense resistor parameter from
- dt
-To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
-References: <1458610171-11894-1-git-send-email-joel@jms.id.au>
-From: Jeremy Kerr <jk@ozlabs.org>
-Message-ID: <56F0A3D9.5030008@ozlabs.org>
-Date: Tue, 22 Mar 2016 09:46:01 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
- Thunderbird/38.5.1
-MIME-Version: 1.0
-In-Reply-To: <1458610171-11894-1-git-send-email-joel@jms.id.au>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qTg486qGpzDq6X
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Mar 2016 15:40:40 +1100 (AEDT)
+Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
+ with SMTPS id 1458621636405418.8069164334531;
+ Mon, 21 Mar 2016 21:40:36 -0700 (PDT)
+From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux v2 0/2] Updated SCU88 register and SCU90 init values
+Date: Mon, 21 Mar 2016 23:40:28 -0500
+Message-Id: <1458621630-14179-1-git-send-email-openbmc-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.7.1
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -33,35 +26,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Mar 2016 01:46:02 -0000
+X-List-Received-Date: Tue, 22 Mar 2016 04:40:41 -0000
 
-Hi Joel,
+Before This change:
+a) SCU90[0]=1, function pin Incorrectly defined. It must be pull down internally.
+b) For SCU88, bits 7:0 were set to 1. That is: We were reading : PWMx or VPIGx instead of GPIONx (GPIONx gives us the PCIe inventory status, where x is bit number). Because of this PCIe inventory was showing up wrong.
 
-> +adm1275 temperature sensor
-> +--------------------------
-> +
-> +Required property:
-> +
-> + - compatible: "adi,adm1278"
-> + - reg: i2c device address 
-> +
-> +Optional property:
-> +
-> +- sense-resistor: external sense resistor value in milliOhms
+After This Change:
+a) SCU90[0]=0 
+b) Bits (7:0) of SCU 88 are set to 0 . (According to Page 111 of data sheet these have to be set to 0 for us to to read GPION0 to GPIO N7 which indicate if PCIe device is present ). 
 
-This is just a multiplier, right? We shouldn't need to care what the
-hardware implementation is, just that we do need to scale the value.
+Description of pins 0 of SCU 90:
+Enable SD1 Function Pin 
 
-So, how about:
+Description of pins 7:0 of SCU 88:
+7 RW Enable PWM7 or VPIG7 function pin  (SCU90[5:4]=0x2 select Video pin)
+6 RW Enable PWM6 or VPIG6 function pin   (SCU90[5:4]=0x2 select Video pin)
+5 RW Enable PWM5 or VPIG5 function pin    (SCU90[5:4]!=0 select Video pin)
+4 RW Enable PWM4 or VPIG4 function pin     (SCU90[5:4]!=0 select Video pin)
+3 RW Enable PWM3 or VPIG3 function pin      (SCU90[5:4]!=0 select Video pin)
+2 RW Enable PWM2 or VPIG2 function pin        (SCU90[5:4]!=0 select Video pin)
+1 RW Enable PWM1 or VPIG1 function pin        (SCU90[5:4]=0x3 select Video pin)
+0 RW Enable PWM0 or VPIG0 function pin         (SCU90[5:4]=0x3 select Video pin)
 
-  Optional property:
-
-  - multiplier: multiplier to be applied to sensor readings (eg, to
-                account for a sense resistor on the device input)
-
-Other than that, all looks good to me.
-
-Cheers,
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/linux/63)
+<!-- Reviewable:end -->
 
 
-Jeremy
+https://github.com/openbmc/linux/pull/63
+
+Adi Gangidi (2):
+  Updated SCU88 register and SCU90 init values
+  Barreleye SCU88 Setup to do_barreleye_setup
+
+ arch/arm/mach-aspeed/aspeed.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+-- 
+2.7.1
