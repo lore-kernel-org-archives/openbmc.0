@@ -3,17 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qVFTT3d7fzDqDX
- for <openbmc@lists.ozlabs.org>; Wed, 23 Mar 2016 14:31:09 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qVFTV6BTYzDqF7
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Mar 2016 14:31:10 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1458703866254808.8783750989876;
- Tue, 22 Mar 2016 20:31:06 -0700 (PDT)
+ with SMTPS id 1458703868631138.1155625113155;
+ Tue, 22 Mar 2016 20:31:08 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: johnhcwang <hsienchiang@gmail.com>
-Subject: [PATCH skeleton v3 09/12] Add I2C-6 lm75 outlet temperature sensor
-Date: Tue, 22 Mar 2016 22:30:50 -0500
-Message-Id: <1458703853-32708-10-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v3 11/12] Fill in the threshold settings for CPU and
+ DIMM
+Date: Tue, 22 Mar 2016 22:30:52 -0500
+Message-Id: <1458703853-32708-12-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1458703853-32708-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1458703853-32708-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,62 +30,232 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Mar 2016 03:31:10 -0000
+X-List-Received-Date: Wed, 23 Mar 2016 03:31:11 -0000
 
 From: johnhcwang <hsienchiang@gmail.com>
 
-Add lm75 outlet temperature sensor on I2C-6 for Barreleye
+Fill in the threshold settings for CPU and DIMM based on the
+Barreleye_sys_behaivor_Thermal_table_x03 from
+thermal team
 ---
- bin/Barreleye.py           |  5 +++++
- objects/hwmons_barreleye.c | 15 ++++++++-------
- 2 files changed, 13 insertions(+), 7 deletions(-)
+ bin/Barreleye.py | 171 ++++++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 106 insertions(+), 65 deletions(-)
 
 diff --git a/bin/Barreleye.py b/bin/Barreleye.py
-index 9cbf777..71ebf6c 100755
+index 597d93b..38c18b8 100755
 --- a/bin/Barreleye.py
 +++ b/bin/Barreleye.py
-@@ -620,6 +620,11 @@ HWMON_CONFIG = {
-                         'in14_input' : { 'object_path' : 'voltage/P1V35_CPU1_BUF3','poll_interval' : 10000,'scale' : 1,'units' : '' },
- 		}
-          },
-+	'6-0048' : {
-+		'names' : {
-+                        'temp1_input' : { 'object_path' : 'temperature/outlet','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
-+		}
-+	},
- 	'3-0050' : {
+@@ -574,7 +574,8 @@ def convertGpio(name):
+ HWMON_CONFIG = {
+ 	'0-004a' :  {
  		'names' : {
- 			'caps_curr_powercap' : { 'object_path' : 'powercap/curr_cap','poll_interval' : 10000,'scale' : 1,'units' : 'W' },
-diff --git a/objects/hwmons_barreleye.c b/objects/hwmons_barreleye.c
-index 5acde7c..9cc555b 100644
---- a/objects/hwmons_barreleye.c
-+++ b/objects/hwmons_barreleye.c
-@@ -20,18 +20,19 @@ typedef struct {
-   int fd;
- } HWMON;
- 
--#define  NUM_HWMONS 7
-+#define  NUM_HWMONS 8
- 
- // TODO: Don't hardcode
- //Hardcoded for barreleye
- HWMON hwmons[NUM_HWMONS] = { 
- 	(HWMON){"/sys/class/hwmon/hwmon0/temp1_input","temperature/ambient",3000,"C",1000},
--	(HWMON){"/sys/class/hwmon/hwmon1/pwm1","speed/fan0",30000,"",1},
--	(HWMON){"/sys/class/hwmon/hwmon1/pwm2","speed/fan1",30000,"",1},
--	(HWMON){"/sys/class/hwmon/hwmon1/pwm3","speed/fan2",30000,"",1},
--	(HWMON){"/sys/class/hwmon/hwmon2/pwm1","speed/fan3",30000,"",1},
--	(HWMON){"/sys/class/hwmon/hwmon2/pwm2","speed/fan4",30000,"",1},
--	(HWMON){"/sys/class/hwmon/hwmon2/pwm3","speed/fan5",30000,"",1},
-+	(HWMON){"/sys/class/hwmon/hwmon1/temp1_input","temperature/outlet",5000,"C",1000},
-+	(HWMON){"/sys/class/hwmon/hwmon2/pwm1","speed/fan0",30000,"",1},
-+	(HWMON){"/sys/class/hwmon/hwmon2/pwm2","speed/fan1",30000,"",1},
-+	(HWMON){"/sys/class/hwmon/hwmon2/pwm3","speed/fan2",30000,"",1},
-+	(HWMON){"/sys/class/hwmon/hwmon3/pwm1","speed/fan3",30000,"",1},
-+	(HWMON){"/sys/class/hwmon/hwmon3/pwm2","speed/fan4",30000,"",1},
-+	(HWMON){"/sys/class/hwmon/hwmon3/pwm3","speed/fan5",30000,"",1},
- };
- bool is_hwmon_valid(HWMON* hwmon)
- {
+-			'temp1_input' : { 'object_path' : 'temperature/ambient','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++			'temp1_input' : { 'object_path' : 'temperature/ambient','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++					'critical_upper' : 40, 'warning_upper' : 36, 'emergency_enabled' : True },
+ 		}
+ 	},
+ 	'6-002d' : {
+@@ -635,97 +636,137 @@ HWMON_CONFIG = {
+ 		},
+ 		'labels' : {
+ 		'176' :  { 'object_path' : 'temperature/cpu0/core0','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'177' :  { 'object_path' : 'temperature/cpu0/core1','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'178' :  { 'object_path' : 'temperature/cpu0/core2','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'179' :  { 'object_path' : 'temperature/cpu0/core3','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'180' :  { 'object_path' : 'temperature/cpu0/core4','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'181' :  { 'object_path' : 'temperature/cpu0/core5','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'182' :  { 'object_path' : 'temperature/cpu0/core6','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'183' :  { 'object_path' : 'temperature/cpu0/core7','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'184' :  { 'object_path' : 'temperature/cpu0/core8','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'185' :  { 'object_path' : 'temperature/cpu0/core9','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'186' :  { 'object_path' : 'temperature/cpu0/core10','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'187' :  { 'object_path' : 'temperature/cpu0/core11','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+-		'102' :  { 'object_path' : 'temperature/dimm0','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'103' :  { 'object_path' : 'temperature/dimm1','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'104' :  { 'object_path' : 'temperature/dimm2','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'105' :  { 'object_path' : 'temperature/dimm3','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'106' :  { 'object_path' : 'temperature/dimm4','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'107' :  { 'object_path' : 'temperature/dimm5','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'108' :  { 'object_path' : 'temperature/dimm6','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'109' :  { 'object_path' : 'temperature/dimm7','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'110' :  { 'object_path' : 'temperature/dimm8','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'111' :  { 'object_path' : 'temperature/dimm9','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'112' :  { 'object_path' : 'temperature/dimm10','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'113' :  { 'object_path' : 'temperature/dimm11','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'114' :  { 'object_path' : 'temperature/dimm12','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'115' :  { 'object_path' : 'temperature/dimm13','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'116' :  { 'object_path' : 'temperature/dimm14','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'117' :  { 'object_path' : 'temperature/dimm15','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'94' :  { 'object_path' : 'temperature/membuf0','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'95' :  { 'object_path' : 'temperature/membuf1','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'96' :  { 'object_path' : 'temperature/membuf2','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'97' :  { 'object_path' : 'temperature/membuf3','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'102' :  { 'object_path' : 'temperature/dimm0','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'103' :  { 'object_path' : 'temperature/dimm1','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'104' :  { 'object_path' : 'temperature/dimm2','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'105' :  { 'object_path' : 'temperature/dimm3','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'106' :  { 'object_path' : 'temperature/dimm4','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'107' :  { 'object_path' : 'temperature/dimm5','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'108' :  { 'object_path' : 'temperature/dimm6','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'109' :  { 'object_path' : 'temperature/dimm7','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'110' :  { 'object_path' : 'temperature/dimm8','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'111' :  { 'object_path' : 'temperature/dimm9','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'112' :  { 'object_path' : 'temperature/dimm10','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'113' :  { 'object_path' : 'temperature/dimm11','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'114' :  { 'object_path' : 'temperature/dimm12','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'115' :  { 'object_path' : 'temperature/dimm13','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'116' :  { 'object_path' : 'temperature/dimm14','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'117' :  { 'object_path' : 'temperature/dimm15','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'94' :  { 'object_path' : 'temperature/membuf0','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 100, 'warning_upper' : 93, 'emergency_enabled' : True },
++		'95' :  { 'object_path' : 'temperature/membuf1','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 100, 'warning_upper' : 93, 'emergency_enabled' : True },
++		'96' :  { 'object_path' : 'temperature/membuf2','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 100, 'warning_upper' : 93, 'emergency_enabled' : True },
++		'97' :  { 'object_path' : 'temperature/membuf3','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 100, 'warning_upper' : 93, 'emergency_enabled' : True },
+ 		}
+ 	},
+ 	'3-0051' : {
+ 		'labels' :  {
+ 		'188' :  { 'object_path' : 'temperature/cpu1/core0','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'189' :  { 'object_path' : 'temperature/cpu1/core1','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'190' :  { 'object_path' : 'temperature/cpu1/core2','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'191' :  { 'object_path' : 'temperature/cpu1/core3','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'192' :  { 'object_path' : 'temperature/cpu1/core4','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'193' :  { 'object_path' : 'temperature/cpu1/core5','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'194' :  { 'object_path' : 'temperature/cpu1/core6','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'195' :  { 'object_path' : 'temperature/cpu1/core7','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'196' :  { 'object_path' : 'temperature/cpu1/core8','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'197' :  { 'object_path' : 'temperature/cpu1/core9','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'198' :  { 'object_path' : 'temperature/cpu1/core10','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
+ 		'199' :  { 'object_path' : 'temperature/cpu1/core11','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+-		'118' :  { 'object_path' : 'temperature/dimm16','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'119' :  { 'object_path' : 'temperature/dimm17','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'120' :  { 'object_path' : 'temperature/dimm18','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'121' :  { 'object_path' : 'temperature/dimm19','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'122' :  { 'object_path' : 'temperature/dimm20','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'123' :  { 'object_path' : 'temperature/dimm21','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'124' :  { 'object_path' : 'temperature/dimm22','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'125' :  { 'object_path' : 'temperature/dimm23','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'126' :  { 'object_path' : 'temperature/dimm24','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'127' :  { 'object_path' : 'temperature/dimm25','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'128' :  { 'object_path' : 'temperature/dimm26','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'129' :  { 'object_path' : 'temperature/dimm27','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'130' :  { 'object_path' : 'temperature/dimm28','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'131' :  { 'object_path' : 'temperature/dimm29','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'132' :  { 'object_path' : 'temperature/dimm30','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'133' :  { 'object_path' : 'temperature/dimm31','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'98' :  { 'object_path' : 'temperature/membuf4','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'99' :  { 'object_path' : 'temperature/membuf5','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'100' :  { 'object_path' : 'temperature/membuf6','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		'101' :  { 'object_path' : 'temperature/membuf7','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++			'critical_upper' : 90, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'118' :  { 'object_path' : 'temperature/dimm16','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'119' :  { 'object_path' : 'temperature/dimm17','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'120' :  { 'object_path' : 'temperature/dimm18','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'121' :  { 'object_path' : 'temperature/dimm19','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'122' :  { 'object_path' : 'temperature/dimm20','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'123' :  { 'object_path' : 'temperature/dimm21','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'124' :  { 'object_path' : 'temperature/dimm22','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'125' :  { 'object_path' : 'temperature/dimm23','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'126' :  { 'object_path' : 'temperature/dimm24','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'127' :  { 'object_path' : 'temperature/dimm25','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'128' :  { 'object_path' : 'temperature/dimm26','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'129' :  { 'object_path' : 'temperature/dimm27','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'130' :  { 'object_path' : 'temperature/dimm28','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'131' :  { 'object_path' : 'temperature/dimm29','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'132' :  { 'object_path' : 'temperature/dimm30','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'133' :  { 'object_path' : 'temperature/dimm31','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 95, 'warning_upper' : 85, 'emergency_enabled' : True },
++		'98' :  { 'object_path' : 'temperature/membuf4','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 100, 'warning_upper' : 93, 'emergency_enabled' : True },
++		'99' :  { 'object_path' : 'temperature/membuf5','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 100, 'warning_upper' : 93, 'emergency_enabled' : True },
++		'100' :  { 'object_path' : 'temperature/membuf6','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 100, 'warning_upper' : 93, 'emergency_enabled' : True },
++		'101' :  { 'object_path' : 'temperature/membuf7','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
++			'critical_upper' : 100, 'warning_upper' : 93, 'emergency_enabled' : True },
+ 		}
+ 	},
+ }
 -- 
 2.7.1
