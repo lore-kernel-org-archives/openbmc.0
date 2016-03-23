@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qVDb3039szDq6W
- for <openbmc@lists.ozlabs.org>; Wed, 23 Mar 2016 13:50:54 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qVDb3376RzDq6y
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Mar 2016 13:50:55 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 145870145135169.83234105088627;
- Tue, 22 Mar 2016 19:50:51 -0700 (PDT)
+ with SMTPS id 1458701452608456.82160893511787;
+ Tue, 22 Mar 2016 19:50:52 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken1029@gmail.com>
-Subject: [PATCH skeleton v2 03/11] fix info memory leak
-Date: Tue, 22 Mar 2016 21:50:37 -0500
-Message-Id: <1458701445-31175-4-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v2 04/11] Setup FUNC_MODE[2:0]
+Date: Tue, 22 Mar 2016 21:50:38 -0500
+Message-Id: <1458701445-31175-5-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1458701445-31175-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1458701445-31175-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -34,21 +34,200 @@ X-List-Received-Date: Wed, 23 Mar 2016 02:50:55 -0000
 From: Ken <ken1029@gmail.com>
 
 ---
- objects/info.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ objects/control_bmc_barreleye.c |  2 +-
+ objects/control_bmc_obj.c       | 88 ++++++++++++++++++++---------------------
+ 2 files changed, 45 insertions(+), 45 deletions(-)
 
-diff --git a/objects/info.c b/objects/info.c
-index ab2d98c..76c17d9 100644
---- a/objects/info.c
-+++ b/objects/info.c
-@@ -145,7 +145,7 @@ int get_hdd_status(void)
+diff --git a/objects/control_bmc_barreleye.c b/objects/control_bmc_barreleye.c
+index ddfde88..84f79f5 100644
+--- a/objects/control_bmc_barreleye.c
++++ b/objects/control_bmc_barreleye.c
+@@ -96,7 +96,7 @@ void reg_init()
+ 	devmem(bmcreg+0x80,0xCB000000);
+ 	devmem(bmcreg+0x88,0x01C000FF);
+ 	devmem(bmcreg+0x8c,0xC1C000FF);
+-	devmem(bmcreg+0x90,0x003FA009);
++	devmem(bmcreg+0x90,0x003FA008);
+ 	devmem(bmcreg+0x88,0x01C0007F);
  
-     g_read_tmp[2]=g_read_bytes[2];
-     g_read_tmp[3]=g_read_bytes[3];
+ 
+diff --git a/objects/control_bmc_obj.c b/objects/control_bmc_obj.c
+index f1a47c7..a02f369 100644
+--- a/objects/control_bmc_obj.c
++++ b/objects/control_bmc_obj.c
+@@ -22,11 +22,11 @@ static const gchar* dbus_name        = "org.openbmc.control.Bmc";
+ #define LPC_HICR7		0x88
+ #define LPC_HICR8		0x8c
+ #define SPI_BASE		(off_t)0x1e630000
+-#define SCU_BASE                (off_t)0x1e780000
++#define SCU_BASE                (off_t)0x1e6e2000
+ #define UART_BASE               (off_t)0x1e783000
+ #define COM_BASE                (off_t)0x1e789000
+ #define COM_BASE2               (off_t)0x1e789100
+-#define GPIO_BASE		(off_t)0x1e6e2000
++#define GPIO_BASE		(off_t)0x1e780000
+ 
+ static GDBusObjectManagerServer *manager = NULL;
+ 
+@@ -45,7 +45,7 @@ void* memmap(int mem_fd,off_t base)
+ 
+ void reg_init()
+ {
+-	g_print("BMC init\n");
++	g_print("===============BMC init===============\n");
+ 	// BMC init done here
+ 
+ 	void *bmcreg;
+@@ -54,7 +54,9 @@ void reg_init()
+ 		printf("ERROR: Unable to open /dev/mem");
+ 		exit(1);
+ 	}
 -
-+    close(fd);
- }
++	bmcreg = memmap(mem_fd,SCU_BASE);
++	devmem(bmcreg+0x90,0x003FA008);
++/*
+ 	bmcreg = memmap(mem_fd,LPC_BASE);
+ 	devmem(bmcreg+LPC_HICR6,0x00000500); //Enable LPC FWH cycles, Enable LPC to AHB bridge
+ 	devmem(bmcreg+LPC_HICR7,0x30000E00); //32M PNOR
+@@ -66,7 +68,6 @@ void reg_init()
+ 	devmem(bmcreg+0x04,0x00002404);
  
- int send_esel_to_dbus(const char *desc, const char *sev, const char *details, uint8_t *debug, size_t debuglen) {
+ 	//UART
+-
+ 	bmcreg = memmap(mem_fd,UART_BASE);
+ 	devmem(bmcreg+0x00,0x00000000);  //Set Baud rate divisor -> 13 (Baud 115200)
+ 	devmem(bmcreg+0x04,0x00000000);  //Set Baud rate divisor -> 13 (Baud 115200)
+@@ -74,26 +75,24 @@ void reg_init()
+ 	bmcreg = memmap(mem_fd,COM_BASE);
+ 	devmem(bmcreg+0x9C,0x00000000);  //Set UART routing
+ 
+-	bmcreg = memmap(mem_fd,SCU_BASE);
++	bmcreg = memmap(mem_fd,GPIO_BASE);
+ 	devmem(bmcreg+0x00,0x13008CE7);
+ 	devmem(bmcreg+0x04,0x0370E677);
+ 	devmem(bmcreg+0x20,0xDF48F7FF);
+ 	devmem(bmcreg+0x24,0xC738F202);
+-
+-
+-	//GPIO
+-	bmcreg = memmap(mem_fd,GPIO_BASE);
++	
++	bmcreg = memmap(mem_fd,SCU_BASE);
+ 	devmem(bmcreg+0x84,0x00fff0c0);  //Enable UART1
+         devmem(bmcreg+0x70,0x120CE406);
+ 	devmem(bmcreg+0x80,0xCB000000);
+ 	devmem(bmcreg+0x88,0x01C000FF);
+ 	devmem(bmcreg+0x8c,0xC1C000FF);
+-	devmem(bmcreg+0x90,0x003FA009);
++	devmem(bmcreg+0x90,0x003FA008);
+ 
+ 	bmcreg = memmap(mem_fd,COM_BASE);
+ 	devmem(bmcreg+0x170,0x00000042);
+ 	devmem(bmcreg+0x174,0x00004000);
+-
++*/
+ 
+ 	close(mem_fd);
+ }
+@@ -110,29 +109,29 @@ on_init (Control          *control,
+ 	//control_emit_goto_system_state(control,"BMC_STARTING");
+ 	return TRUE;
+ }
+-
+-static gboolean
+-on_warm_reset (ControlBmc            	*bmc,
+-               GDBusMethodInvocation	*invocation,
+-               gpointer		            user_data)
+-{
+-	GError *err = NULL;
+-	/* Wait a while before reboot, so the caller can be responded.
+-	 * Note that g_spawn_command_line_async() cannot parse ';' as
+-	 * a command separator. Need to use 'sh -c' to let shell parse it.
+-	 */
+-	gchar *reboot_command = "/bin/sh -c 'sleep 3;reboot'";
+-
+-	g_spawn_command_line_async(reboot_command, &err);
+-	if (err != NULL) {
+-		fprintf(stderr, "warmReset() error: %s\n", err->message);
+-		g_error_free(err);
+-	}
+-
+-	control_bmc_complete_warm_reset(bmc, invocation);
+-	return TRUE;
+-}
+-
++
++static gboolean
++on_warm_reset (ControlBmc            	*bmc,
++               GDBusMethodInvocation	*invocation,
++               gpointer		            user_data)
++{
++	GError *err = NULL;
++	/* Wait a while before reboot, so the caller can be responded.
++	 * Note that g_spawn_command_line_async() cannot parse ';' as
++	 * a command separator. Need to use 'sh -c' to let shell parse it.
++	 */
++	gchar *reboot_command = "/bin/sh -c 'sleep 3;reboot'";
++
++	g_spawn_command_line_async(reboot_command, &err);
++	if (err != NULL) {
++		fprintf(stderr, "warmReset() error: %s\n", err->message);
++		g_error_free(err);
++	}
++
++	control_bmc_complete_warm_reset(bmc, invocation);
++	return TRUE;
++}
++
+ gboolean go(gpointer user_data)
+ {
+  	cmdline *cmd = user_data;
+@@ -145,8 +144,8 @@ gboolean go(gpointer user_data)
+ 	//g_main_loop_quit(cmd->loop);
+ 	return FALSE;
+ }
+-
+-static void
++
++static void
+ on_bus_acquired (GDBusConnection *connection,
+                  const gchar     *name,
+                  gpointer         user_data)
+@@ -174,12 +173,12 @@ on_bus_acquired (GDBusConnection *connection,
+                	    G_CALLBACK (on_init),
+                	    NULL); /* user_data */
+ 
+-
+-	g_signal_connect (control_bmc,
+-		"handle-warm-reset",
+-		G_CALLBACK (on_warm_reset),
+-		NULL); /* user_data */
+-
++
++	g_signal_connect (control_bmc,
++		"handle-warm-reset",
++		G_CALLBACK (on_warm_reset),
++		NULL); /* user_data */
++
+ 	/* Export the object (@manager takes its own reference to @object) */
+ 	g_dbus_object_manager_server_export (manager, G_DBUS_OBJECT_SKELETON (object));
+ 	g_object_unref (object);
+@@ -225,6 +224,7 @@ main (gint argc, gchar *argv[])
+   guint id;
+   loop = g_main_loop_new (NULL, FALSE);
+   cmd.loop = loop;
++  reg_init();
+ 
+   id = g_bus_own_name (DBUS_TYPE,
+                        dbus_name,
+@@ -237,7 +237,7 @@ main (gint argc, gchar *argv[])
+                        NULL);
+ 
+   g_main_loop_run (loop);
+-
++
+   g_bus_unown_name (id);
+   g_main_loop_unref (loop);
+   return 0;
 -- 
 2.7.1
