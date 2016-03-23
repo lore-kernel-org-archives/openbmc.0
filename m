@@ -3,18 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qVDbB1r9VzDqD7
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qVDbB24KLzDqDV
  for <openbmc@lists.ozlabs.org>; Wed, 23 Mar 2016 13:51:02 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1458701453822678.325929195624;
- Tue, 22 Mar 2016 19:50:53 -0700 (PDT)
+ with SMTPS id 1458701455068256.5117399916818;
+ Tue, 22 Mar 2016 19:50:55 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: johnhcwang <john.hc.wang@foxconn.com>
-Subject: [PATCH skeleton v2 05/11] Fill in the threshold settings for CPU and
+Subject: [PATCH skeleton v2 06/11] Fill in the threshold settings for CPU and
  DIMM
-Date: Tue, 22 Mar 2016 21:50:39 -0500
-Message-Id: <1458701445-31175-6-git-send-email-openbmc-patches@stwcx.xyz>
+Date: Tue, 22 Mar 2016 21:50:40 -0500
+Message-Id: <1458701445-31175-7-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1458701445-31175-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1458701445-31175-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -30,7 +30,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Mar 2016 02:51:02 -0000
+X-List-Received-Date: Wed, 23 Mar 2016 02:51:03 -0000
 
 From: johnhcwang <john.hc.wang@foxconn.com>
 
