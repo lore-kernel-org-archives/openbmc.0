@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qVFTJ6Kb7zDq6y
- for <openbmc@lists.ozlabs.org>; Wed, 23 Mar 2016 14:31:00 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qVFTK35KFzDq6W
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Mar 2016 14:31:01 +1100 (AEDT)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1458703857455587.3444867918091;
- Tue, 22 Mar 2016 20:30:57 -0700 (PDT)
+ with SMTPS id 1458703858659734.3441637951003;
+ Tue, 22 Mar 2016 20:30:58 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken1029@gmail.com>
-Subject: [PATCH skeleton v3 02/12] Heartbeat Led function
-Date: Tue, 22 Mar 2016 22:30:43 -0500
-Message-Id: <1458703853-32708-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v3 03/12] fix info memory leak
+Date: Tue, 22 Mar 2016 22:30:44 -0500
+Message-Id: <1458703853-32708-4-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1458703853-32708-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1458703853-32708-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,29 +29,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Mar 2016 03:31:01 -0000
+X-List-Received-Date: Wed, 23 Mar 2016 03:31:02 -0000
 
 From: Ken <ken1029@gmail.com>
 
 ---
- bin/Barreleye.py | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ objects/info.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/bin/Barreleye.py b/bin/Barreleye.py
-index 08a91a9..ff6690b 100755
---- a/bin/Barreleye.py
-+++ b/bin/Barreleye.py
-@@ -68,9 +68,9 @@ ENTER_STATE_CALLBACK = {
+diff --git a/objects/info.c b/objects/info.c
+index ab2d98c..76c17d9 100644
+--- a/objects/info.c
++++ b/objects/info.c
+@@ -145,7 +145,7 @@ int get_hdd_status(void)
  
- 	},
- 	'BMC_READY' : {
--		'setOn' : {
-+		'setBlinkSlow' : {
- 			'bus_name'   : 'org.openbmc.control.led',
--			'obj_name'   : '/org/openbmc/control/led/beep',
-+			'obj_name'   : '/org/openbmc/control/led/heartbeat',
- 			'interface_name' : 'org.openbmc.Led',
- 		},
- 		'init' : {
+     g_read_tmp[2]=g_read_bytes[2];
+     g_read_tmp[3]=g_read_bytes[3];
+-
++    close(fd);
+ }
+ 
+ int send_esel_to_dbus(const char *desc, const char *sev, const char *details, uint8_t *debug, size_t debuglen) {
 -- 
 2.7.1
