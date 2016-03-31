@@ -1,23 +1,51 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <stewart@linux.vnet.ibm.com>
+Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qZn7S2RsMzDq71
- for <openbmc@lists.ozlabs.org>; Wed, 30 Mar 2016 23:31:16 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1459341061136977.0677163783257;
- Wed, 30 Mar 2016 05:31:01 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-networkd v2] Enabling updates to /etc/resolve.conf
- either manually or using DHCP supplied DNS IP
-Date: Wed, 30 Mar 2016 07:30:55 -0500
-Message-Id: <1459341055-2680-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1459341055-2680-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1459341055-2680-1-git-send-email-openbmc-patches@stwcx.xyz>
-X-Zoho-Virus-Status: 1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qbDdD5Gb9zDq5v
+ for <openbmc@lists.ozlabs.org>; Thu, 31 Mar 2016 17:10:08 +1100 (AEDT)
+Received: from localhost
+ by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
+ Thu, 31 Mar 2016 00:10:06 -0600
+Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
+ by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 31 Mar 2016 00:10:05 -0600
+X-IBM-Helo: d03dlp03.boulder.ibm.com
+X-IBM-MailFrom: stewart@linux.vnet.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from b03cxnp08028.gho.boulder.ibm.com
+ (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
+ by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id 4287919D85BE
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Mar 2016 23:50:30 -0600 (MDT)
+Received: from d03av02.boulder.ibm.com (d03av02.boulder.ibm.com [9.17.195.168])
+ by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u2V62b6N35848436
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Mar 2016 23:02:37 -0700
+Received: from d03av02.boulder.ibm.com (localhost [127.0.0.1])
+ by d03av02.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u2V62aF9018843
+ for <openbmc@lists.ozlabs.org>; Thu, 31 Mar 2016 00:02:36 -0600
+Received: from birb.localdomain ([9.83.7.76])
+ by d03av02.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with SMTP id
+ u2V62QcQ018048
+ for <openbmc@lists.ozlabs.org>; Thu, 31 Mar 2016 00:02:35 -0600
+Received: by birb.localdomain (Postfix, from userid 1000)
+ id 36EB62298E5D; Thu, 31 Mar 2016 17:02:23 +1100 (AEDT)
+From: Stewart Smith <stewart@linux.vnet.ibm.com>
+To: openbmc <openbmc@lists.ozlabs.org>
+Subject: obmcutil is slow, nonsensical output
+User-Agent: Notmuch/0.21+24~gbceb651 (http://notmuchmail.org) Emacs/24.5.1
+ (x86_64-redhat-linux-gnu)
+Date: Thu, 31 Mar 2016 17:02:23 +1100
+Message-ID: <87wpojtcb4.fsf@birb.au.ibm.com>
+MIME-Version: 1.0
+Content-Type: text/plain
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16033106-0017-0000-0000-00001C081031
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -29,422 +57,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 Mar 2016 12:31:16 -0000
+X-List-Received-Date: Thu, 31 Mar 2016 06:10:09 -0000
 
-From: vishwa <vishwanath@in.ibm.com>
+root@palmetto:~# time obmcutil 2>&1 > /dev/null
 
----
- Makefile           |  29 +++++
- netman.py          |  26 +++++
- netman_watch_dns.c | 327 +++++++++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 382 insertions(+)
- create mode 100644 Makefile
- create mode 100644 netman_watch_dns.c
+real    0m3.301s
+user    0m3.030s
+sys     0m0.230s
 
-diff --git a/Makefile b/Makefile
-new file mode 100644
-index 0000000..110d284
---- /dev/null
-+++ b/Makefile
-@@ -0,0 +1,29 @@
-+CC?= $(CROSS_COMPILE)gcc
-+
-+EXE = netman_watch_dns
-+EXE_OBJ = $(EXE).o
-+
-+INSTALLED_EXE += $(EXE)
-+
-+CFLAGS += -Wall -Wno-unused-result
-+
-+INC_FLAG += $(shell pkg-config --cflags --libs libsystemd) -I. -O2
-+LIB_FLAG += $(shell pkg-config  --libs libsystemd)
-+
-+DESTDIR ?= /
-+SBINDIR ?= /usr/sbin
-+
-+all: $(EXE)
-+
-+%.o: %.C
-+	$(CC) -c $< $(CFLAGS) $(INC_FLAG)-o $@
-+
-+$(EXE): $(EXE_OBJ)
-+	$(CC) $^ $(LDFLAGS) $(LIB_FLAG) -o $@
-+
-+clean:
-+	rm -f $(EXE) *.o
-+
-+install:
-+		install -m 0755 -d $(DESTDIR)$(SBINDIR)
-+		install -m 0755 $(EXE) $(DESTDIR)$(SBINDIR)
-diff --git a/netman.py b/netman.py
-index 377833d..3a474b2 100755
---- a/netman.py
-+++ b/netman.py
-@@ -219,6 +219,32 @@ class NetMan (dbus.service.Object):
-         rc = call(["systemctl", "restart", "systemd-networkd.service"])
-         return rc
- 
-+    #string of nameservers
-+    @dbus.service.method(DBUS_NAME,"s", "s")
-+    def SetNameServers (self, nameservers):
-+        dns_entry = nameservers.split()
-+        fail_msg = ''
-+        file_opened = False
-+        if len(dns_entry) > 0:
-+            for dns in dns_entry:
-+                if not self._isvalidip (socket.AF_INET, dns):
-+                    print "Malformed DNS Address [" + dns + "]"
-+                    fail_msg = fail_msg + '[' + dns + ']'
-+                else:
-+                    #Only over write on a first valid input
-+                    if file_opened == False:
-+                        resolv_conf = open("/etc/resolv.conf",'w')
-+                        file_opened = True
-+                    dns_ip = 'nameserver ' + dns + '\n'
-+                    resolv_conf.write(dns_ip)
-+            resolv_conf.close()
-+        else:
-+            raise ValueError, "Invalid DNS entry"
-+        if len(fail_msg) > 0:
-+            return 'Failures encountered processing' + fail_msg
-+        else:
-+            return "DNS entries updated Successfully"
-+
- def main():
-     dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
-     bus = dbus.SystemBus()
-diff --git a/netman_watch_dns.c b/netman_watch_dns.c
-new file mode 100644
-index 0000000..d3366ad
---- /dev/null
-+++ b/netman_watch_dns.c
-@@ -0,0 +1,327 @@
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/inotify.h>
-+#include <limits.h>
-+#include <errno.h>
-+#include <unistd.h>
-+#include <systemd/sd-bus.h>
-+
-+/* Dbus settings to get the DNS entries updated in resolv.conf */
-+const char *bus_name = "org.openbmc.NetworkManager";
-+const char *object_path = "/org/openbmc/NetworkManager/Interface";
-+const char *intf_name = "org.openbmc.NetworkManager";
-+
-+/*
-+ * ----------------------------------------------
-+ *  Receives the buffer that has the IPs of DNS
-+ *  and then makes a dbus call to have these DNS
-+ *  entries updated in /etc/resolv.conf
-+ *  --------------------------------------------
-+ */
-+int update_resolv_conf(const char *dns_entry)
-+{
-+    /* To read the message sent by dbus handler */
-+    const char *resp_msg = NULL;
-+
-+    /* Generic error handler */
-+    int rc = 0;
-+
-+    if(dns_entry == NULL || !(strlen(dns_entry)))
-+    {
-+        fprintf(stderr,"Invalid DNS entry\n");
-+        return -1;
-+    }
-+
-+    /*
-+     * Since 'state' file gets touched many a times during the network setting,
-+     * it does not make sense to  have the same DNS entry updated in
-+     * resolv.conf. SO we can actually have a cache of what was previously
-+     * updated and not update if the same DNS info is supplied again.
-+     * Eventhough this approach is a gain performance wise, it will
-+     * open up windows. Assume a case where DHCP has given 1.2.3.4 as IP and
-+     * user goes and updates the DNS as 4.5.6.7 and then user restarts the
-+     * network and thus getting the value of 1.2.3.4. If we maintain a cache of
-+     * what was previously updated, since we get 1.2.3.4 again, we will not
-+     * update with 1.2.3.4 eventhough that is needed since 4.5.6.7 would not
-+     * make sense. So doing updates to resolv.conf each time is bit of a
-+     * overkill but its error proof.
-+     */
-+
-+    /* Encapsulated respose by dbus handler */
-+    sd_bus_message *response = NULL;
-+
-+    /* Errors reported by dbus handler */
-+    sd_bus_error bus_error = SD_BUS_ERROR_NULL;
-+
-+    /*
-+     * Gets a hook onto SYSTEM bus. This API may get called multiple
-+     * times so do not want to have so many instances of bus as it
-+     * leads to system resource issues. Re use the one that is present.
-+     */
-+    static sd_bus *bus_type = NULL;
-+    if(bus_type == NULL)
-+    {
-+        rc = sd_bus_open_system(&bus_type);
-+        if(rc < 0)
-+        {
-+            fprintf(stderr,"Error:[%s] getting system bus\n",strerror(-rc));
-+            return rc;
-+        }
-+    }
-+
-+    rc = sd_bus_call_method(
-+                            bus_type,        /* In the System Bus */
-+                            bus_name,        /* Service to contact */
-+                            object_path,     /* Object path */
-+                            intf_name,       /* Interface name */
-+                            "SetNameServers",/* Method to be called */
-+                            &bus_error,      /* object to return error */
-+                            &response,       /* Response buffer if any */
-+                            "s",             /* Input as strings */
-+                            dns_entry,       /* string of DNS IPs */
-+                            NULL);           /* No return message expected */
-+    if(rc < 0)
-+    {
-+        fprintf(stderr,"ERROR updating DNS entries:[%s]\n",bus_error.message);
-+        goto finish;
-+    }
-+
-+    /* Extract the encapsulated response message */
-+    rc = sd_bus_message_read(response, "s", &resp_msg);
-+    if (rc < 0)
-+    {
-+        fprintf(stderr,"Error:[%s] reading dns"
-+                " updation status\n",strerror(-rc));
-+    }
-+    else
-+    {
-+        printf("%s\n",resp_msg);
-+    }
-+
-+finish:
-+    sd_bus_error_free(&bus_error);
-+    response = sd_bus_message_unref(response);
-+
-+    return rc;
-+}
-+
-+/*
-+ * ----------------------------------------------
-+ *  Gets invoked by inotify handler whenever the
-+ *  netif/state file gets modified
-+ *  -or- when this binary first gets launched.
-+ *  --------------------------------------------
-+ */
-+int read_netif_state_file(const char *netif_dir, const char *state_file)
-+{
-+    FILE *fp;
-+    char *line = NULL;
-+    size_t len = 0;
-+    int rc = 0;
-+
-+    char netif_state_file[strlen(netif_dir) + strlen(state_file) + 2];
-+    sprintf(netif_state_file,"%s%s", netif_dir,state_file);
-+
-+    fp = fopen(netif_state_file,"r");
-+    if(fp == NULL)
-+    {
-+        fprintf(stderr,"Error opening[%s]\n",netif_state_file);
-+        return -1;
-+    }
-+
-+    /*
-+     * Read the file line by line and look for the one that starts with DNS
-+     * If there is one, then what appears after DNS= are the IPs of the DNS
-+     * Just checking for DNS here since any non standard IP is rejected by
-+     * the dbus handler. This is to cater to cases where file may have DNS =
-+     */
-+    while ((getline(&line, &len, fp)) != -1)
-+    {
-+        if(!(strncmp(line,"DNS",3)))
-+        {
-+            /* Go all the way until the start of IPs */
-+            char *dns_entry = strrchr(line, '=');
-+
-+            /* Advance to the first character after = */
-+            dns_entry = &((char *)dns_entry)[1];
-+
-+            /*
-+             * We have found atleast one -or- some DNS entries.
-+             * Have them updated in /etc/resolv.conf
-+             */
-+            rc = update_resolv_conf(dns_entry);
-+            if(rc < 0)
-+            {
-+                fprintf(stderr,"Error updating resolv.conf with:[%s]\n",dns_entry);
-+            }
-+        }
-+
-+        /* Memory is allocated by getline and user needs to free */
-+        if(line)
-+        {
-+            free(line);
-+            line = NULL;
-+        }
-+    }
-+    return 0;
-+}
-+
-+void usage(void)
-+{
-+    printf("Usage: netman_watch_dns <Absolute path of DHCP netif state file>\n"
-+            "Example: netman_watch_dns /run/systemd/netif/state\n");
-+    return;
-+}
-+
-+/*
-+ * ------------------------------------------------------
-+ *  Registers a inotify watch on the state file and calls
-+ *  into handling the state file whenever there is a change.
-+ * ------------------------------------------------------
-+ */
-+int watch_for_dns_change(char *netif_dir, char *state_file)
-+{
-+    int inotify_fd, wd;
-+
-+    /* the aligned statement below is per the recommendation by inotify(7) */
-+    char event_data[4096]
-+        __attribute__ ((aligned(__alignof__(struct inotify_event))));
-+
-+    /* To check the number of bytes read from inotify event */
-+    ssize_t bytes_read = 0;
-+
-+    /* To walk event by event when inotify returns */
-+    char *ptr = NULL;
-+
-+    /* Variable to hold individual event notification */
-+    const struct inotify_event *event = NULL;
-+
-+    /* Generic error handler */
-+    int rc = 0;
-+
-+    /* Create inotify instance */
-+    inotify_fd = inotify_init();
-+    if(inotify_fd == -1)
-+    {
-+        fprintf(stderr,"Error:[%s] initializing Inotify",strerror(errno));
-+        return -1;
-+    }
-+
-+    /* Register to write actions on the netif directory */
-+    wd = inotify_add_watch(inotify_fd, netif_dir, IN_MODIFY);
-+    if(wd == -1)
-+    {
-+        fprintf(stderr,"Error:[%s] adding watch for:[%s]\n",
-+                strerror(errno), netif_dir);
-+        return -1;
-+    }
-+
-+    /*
-+     * When this is first launched, we need to go see
-+     * if there is anything present in the state file.
-+     * Doing it here to close any gaps between the file
-+     * getting created before registering inotifier.
-+     */
-+    rc = read_netif_state_file(netif_dir, state_file);
-+    if(rc < 0)
-+    {
-+        fprintf(stderr,"Error doing initial processing of state file\n");
-+    }
-+
-+    /* Read events forever */
-+    for (;;)
-+    {
-+        memset(event_data, 0x0, sizeof(event_data));
-+        bytes_read = read(inotify_fd, event_data, sizeof(event_data));
-+        if(bytes_read <= 0)
-+        {
-+            fprintf(stderr,"event_data read from inotify fd was Invalid\n");
-+            continue;
-+        }
-+
-+        /* Process all of the events in buffer returned by read() */
-+        for(ptr = event_data; ptr < event_data + bytes_read;
-+            ptr += sizeof(struct inotify_event) + event->len)
-+        {
-+            event = (struct inotify_event *)ptr;
-+
-+            /*
-+             * We are not interested in anything other than updates to
-+             * state file. Now when this code is being written, its in
-+             * /run/systemd/netif/state.
-+             */
-+            if((event->len > 0) && (strstr(event->name, state_file)))
-+            {
-+                rc = read_netif_state_file(netif_dir, state_file);
-+                if(rc < 0)
-+                {
-+                    fprintf(stderr,"Error processing inotify event\n");
-+                }
-+            }
-+        } /* Processing all inotify events. */
-+    } /* Endless loop waiting for events. */
-+
-+    /*
-+     * Technically, we should not reach here since the monitor function
-+     * is not supposed to stop even on error. But for completeness.....
-+     */
-+    inotify_rm_watch(inotify_fd, wd);
-+    close(inotify_fd);
-+
-+    return 0;
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+    /* Generic error handler */
-+    int rc = 0;
-+
-+    /* Sanity checking */
-+    if(argc != 2 || argv[1] == NULL)
-+    {
-+        usage();
-+        return -1;
-+    }
-+
-+    /*
-+     * We now have the job of extracting the directory and
-+     * the state file from the user supplied input.
-+     */
-+    char netif_dir[strlen(argv[1]) + 1];
-+    memset(netif_dir, 0x0, sizeof(netif_dir));
-+
-+    /* File where the actual DNS= entry is found */
-+    char *state_file = NULL;
-+
-+    /* Filter invalid inputs */
-+    state_file = strrchr(argv[1], '/');
-+    if(strlen(state_file) <= 1)
-+    {
-+        fprintf(stderr,"Invalid state file :[%s] specified\n",state_file);
-+        return -1;
-+    }
-+    else
-+    {
-+        /* we have /state now and what we need is just the 'state' */
-+        state_file = &((char *)state_file)[1];
-+
-+        /*
-+         * Also extract the Absolute Path of the directory
-+         * containing this state file
-+         */
-+        strncpy(netif_dir, argv[1], strlen(argv[1]) - strlen(state_file));
-+        strcat(netif_dir,"\0");
-+    }
-+
-+    printf("Watching for changes in DNS settings..\n");
-+
-+    /* Now that we have checked it once. rest is all notification bases. */
-+    rc = watch_for_dns_change(netif_dir, state_file);
-+    if(rc < 0)
-+    {
-+        fprintf(stderr,"Error watching for DNS changes\n");
-+    }
-+
-+    return 0;
-+}
+root@palmetto:~# obmcutil poweron
+ = None
+
+The above is really confusing as to what is actually going on... does
+that mean success? Does that mean there's no power? Does that mean no
+action was taken?
+
+
 -- 
-2.7.1
+Stewart Smith
+OPAL Architect, IBM.
