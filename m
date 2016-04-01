@@ -3,24 +3,23 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qc6F412z6zDq5y
- for <openbmc@lists.ozlabs.org>; Sat,  2 Apr 2016 03:25:43 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qc6GN3xTfzDq5y
+ for <openbmc@lists.ozlabs.org>; Sat,  2 Apr 2016 03:26:52 +1100 (AEDT)
 Received: from localhost (32.97.110.54 [32.97.110.54]) by mx.zohomail.com
- with SMTPS id 1459527933033465.00249498489313;
- Fri, 1 Apr 2016 09:25:33 -0700 (PDT)
-Date: Fri, 1 Apr 2016 11:25:31 -0500
+ with SMTPS id 1459528009526695.8006159771555;
+ Fri, 1 Apr 2016 09:26:49 -0700 (PDT)
+Date: Fri, 1 Apr 2016 11:26:47 -0500
 From: Patrick Williams <patrick@stwcx.xyz>
 To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-Cc: openbmc@lists.ozlabs.org, tomjose <tomjoseph@in.ibm.com>
-Subject: Re: [PATCH phosphor-settingsd] Add Restricted mode as a host setting
-Message-ID: <20160401162531.GI11491@asimov.austin.ibm.com>
-References: <1459195274-17203-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1459195274-17203-2-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: [PATCH phosphor-rest-server] Add support for serving jsonp
+Message-ID: <20160401162647.GJ11491@asimov.austin.ibm.com>
+References: <1459266057-23662-1-git-send-email-openbmc-patches@stwcx.xyz>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="2NLGdgz3UMHa/lqP"
+ protocol="application/pgp-signature"; boundary="YrlhzR9YrZtruaFS"
 Content-Disposition: inline
-In-Reply-To: <1459195274-17203-2-git-send-email-openbmc-patches@stwcx.xyz>
+In-Reply-To: <1459266057-23662-1-git-send-email-openbmc-patches@stwcx.xyz>
 User-Agent: Mutt/1.5.24 (2015-08-30)
 X-Zoho-Virus-Status: 1
 X-ZohoMail: Z_61896388 SPT_1 Z_56716064 SPT_1 SLF_D
@@ -35,45 +34,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Apr 2016 16:25:44 -0000
+X-List-Received-Date: Fri, 01 Apr 2016 16:26:53 -0000
 
 
---2NLGdgz3UMHa/lqP
+--YrlhzR9YrZtruaFS
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Mar 28, 2016 at 03:01:14PM -0500, OpenBMC Patches wrote:
-> From: tomjose <tomjoseph@in.ibm.com>
+On Tue, Mar 29, 2016 at 10:40:56AM -0500, OpenBMC Patches wrote:
+> Jsonp adds a javascript wrapper to json responses.  It allows client
+> applications to work around cross domain restrictions imposed by some
+> browsers.  For more information on jsonp:
+> https://en.wikipedia.org/wiki/JSONP
 >=20
+> To get a jsonp response, an application adds a callback url parameter
+> with the desired name of the wrapper:
+> https://192.168.252.1/list?callback=3Dmy_callback
+>=20
+> <!-- Reviewable:start -->
 > ---
-> diff --git a/settings_file.py b/settings_file.py
-> index 3efad0b..698d941 100644
-> --- a/settings_file.py
-> +++ b/settings_file.py
-> @@ -1,2 +1,2 @@
->  #!/usr/bin/python -u
-> -SETTINGS=3D{'host': {'bootflags': {'default': 'default', 'type': 's', 'n=
-ame': 'boot_flags'}, 'powerpolicy': {'default': 'RESTORE_LAST_STATE', 'type=
-': 's', 'name': 'power_policy'}, 'powercap': {'name': 'power_cap', 'min': 0=
-, 'default': 0, 'max': 1000, 'type': 'i', 'unit': 'watts'}, 'sysstate': {'d=
-efault': '', 'type': 's', 'name': 'system_state'}}}
-> \ No newline at end of file
-> +SETTINGS=3D{'host': {'bootflags': {'default': 'default', 'type': 's', 'n=
-ame': 'boot_flags'}, 'powerpolicy': {'default': 'RESTORE_LAST_STATE', 'type=
-': 's', 'name': 'power_policy'}, 'restrictedmode': {'default': False, 'type=
-': 'b', 'name': 'restricted_mode'}, 'powercap': {'name': 'power_cap', 'min'=
-: 0, 'default': 0, 'max': 1000, 'type': 'i', 'unit': 'watts'}, 'sysstate': =
-{'default': '', 'type': 's', 'name': 'system_state'}}}
-> \ No newline at end of file
-
-Would be nice for us to do a refactor of this to either:
-    1) Generate from the YAML.
-    2) Be defined on multiple lines so you can added a new entry without
-       changing the whole variable.
-
-Reviewed-by: Patrick Williams <patrick@stwcx.xyz>
-
+> This change is [<img src=3D"https://reviewable.io/review_button.svg" heig=
+ht=3D"35" align=3D"absmiddle" alt=3D"Reviewable"/>](https://reviewable.io/r=
+eviews/openbmc/phosphor-rest-server/17)
+> <!-- Reviewable:end -->
+>=20
+>=20
+> https://github.com/openbmc/phosphor-rest-server/pull/17
+>=20
+> Brad Bishop (1):
+>   Add support for serving jsonp
+>=20
+>  obmc-rest | 30 ++++++++++++++++++++++++++++--
+>  1 file changed, 28 insertions(+), 2 deletions(-)
+>=20
 > --=20
 > 2.7.1
 >=20
@@ -83,29 +77,31 @@ Reviewed-by: Patrick Williams <patrick@stwcx.xyz>
 > openbmc@lists.ozlabs.org
 > https://lists.ozlabs.org/listinfo/openbmc
 
+Reviewed-by: Patrick Williams <patrick@stwcx.xyz>
+
 --=20
 Patrick Williams
 
---2NLGdgz3UMHa/lqP
+--YrlhzR9YrZtruaFS
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJW/qD7AAoJEKsDR8wtAMEZ4voP/06W+Y1lgBag2HYxzFCGj46U
-m6aNczVRZ9ycRCm7lSTE14QWy7TdW7sFXIHNeqGC1EW3HfhOlOI5y5TEfrOZJWel
-9MMQtPCvf1YmZZAXOT3/sZLRXfWwXvBPA3sQK80K1PxXvhDPOjXP2MZJA6lcN7KP
-4f0fOsQIN5L+zOeXzhdpZyDcS831vyoRzWCj0s0Edgoi07l1wdeR403BRP87bBCo
-SlotdzDHycBrNxiULH/7bx/0KoWyuVR+OfB0rPN2e4gyvSy4mU62ZEWd8wmhkDHv
-9byd/ZS8IVtncS8VOx0Xc1wZqxtrVgqt+S+SpHhgu5tX83C5kCojYzE+1ett1cPR
-pEXaKqYiCrzz9LZn/eTIX4ovyF+I0Ap3StuyXigXWS13cGe776wdKQ2ojE83H41S
-yqwsKYJSLLUMAOqz6i7theYBTB8zdrYu7G+PKafT7NzMxHXuBL6ohmmJBlVxEi19
-wsCK567npJav/ltFU1csFe43FQaESzjyQ+lUsWy6oqXEM5xwF0xy8pP9SrZRsKE9
-xKpELSULLqxdqKL2PEYYeT/FnZN+gYyUNgPA/WUvzB/rPKmv3DAECdWsQ6+8CW4R
-vw0nA2ILq2a+6OcTmg8jOjU6g2sdmHy9QF/S4peUjN7GceTib/WlxI1jW2w2xGMB
-Pjm8Yq5TCe4S9TK5hrJg
-=a86R
+iQIcBAEBCAAGBQJW/qFHAAoJEKsDR8wtAMEZQPIQAJKhzoR3vZ80YvOT3mhPQwR1
+nuMCqKb2YJ5HUs/UXY/qwQgQT0HrFrD4DMNhgoy1CQvjnP+huaTLV3/BZdELLprF
+rOCSwUZNAY6WzZ1LkKrHI50sUGGFw9k8KspCtA5xYFSff4bX6s6em0zywoOm1xrP
+djP73zYzE2nZ44Mmy+PnotbdKbnVek7itnNyX1IchYXt0Jtjn1xiCNEXkawIKHHW
+K9Q3qYgNQBmzUGBqhfUZz5NxO5bjjMre+At9AAXJPvwfMPyFqa9MZV921MpHdfWi
+YI4WuUAkPuyVgdeP0pa/L76+52nVW8ILb8/Lba7JITKJOqjQtZZo+bFhXyoFVj0+
+uQVPMoxU0lfxUgqpVo7a7PcIP1Sliys1qBCsbKbaYCOCLnopQkZRSV7TUG2PYMKA
+uTZJSGggvXqC7Mxu2n72LjNZnHSlJhA752cV9b2+OWAwzzdiUdjFAZN77Poe+A88
+NNbD0pM2ZcCoUlkAJPsytNCTcPrXVCld1fqxDhagT+07ajKuLzJKqcj66J1bX9lI
+68+e3OI7CAvdVzuzY2pf6Y2gtTasSRdjuVWmfIUY9XwSty/wcMLwgtslcoFvhP0x
+Qcu89ZHbqOYsRygLRNadIh106oUxJY+ACynipaxKBSNY64xjglUgmQyzBGIOdkP+
+m3cinNc9FWM9vFFyr8uJ
+=ctIE
 -----END PGP SIGNATURE-----
 
---2NLGdgz3UMHa/lqP--
+--YrlhzR9YrZtruaFS--
