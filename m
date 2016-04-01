@@ -1,23 +1,29 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
+Return-Path: <patrick@stwcx.xyz>
 Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qc1Fh3DgLzDq6y
- for <openbmc@lists.ozlabs.org>; Fri,  1 Apr 2016 23:40:56 +1100 (AEDT)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 14595144440985.145780543083561;
- Fri, 1 Apr 2016 05:40:44 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-networkd] Log management service to stream
- journals/syslogs to a remote syslog server.
-Date: Fri,  1 Apr 2016 07:40:39 -0500
-Message-Id: <1459514439-19493-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1459514439-19493-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1459514439-19493-1-git-send-email-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qc6F412z6zDq5y
+ for <openbmc@lists.ozlabs.org>; Sat,  2 Apr 2016 03:25:43 +1100 (AEDT)
+Received: from localhost (32.97.110.54 [32.97.110.54]) by mx.zohomail.com
+ with SMTPS id 1459527933033465.00249498489313;
+ Fri, 1 Apr 2016 09:25:33 -0700 (PDT)
+Date: Fri, 1 Apr 2016 11:25:31 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Cc: openbmc@lists.ozlabs.org, tomjose <tomjoseph@in.ibm.com>
+Subject: Re: [PATCH phosphor-settingsd] Add Restricted mode as a host setting
+Message-ID: <20160401162531.GI11491@asimov.austin.ibm.com>
+References: <1459195274-17203-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1459195274-17203-2-git-send-email-openbmc-patches@stwcx.xyz>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="2NLGdgz3UMHa/lqP"
+Content-Disposition: inline
+In-Reply-To: <1459195274-17203-2-git-send-email-openbmc-patches@stwcx.xyz>
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-Zoho-Virus-Status: 1
+X-ZohoMail: Z_61896388 SPT_1 Z_56716064 SPT_1 SLF_D
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -29,286 +35,77 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Apr 2016 12:40:57 -0000
+X-List-Received-Date: Fri, 01 Apr 2016 16:25:44 -0000
 
-From: Hariharasubramanian R <hramasub@in.ibm.com>
 
----
- logman.py | 266 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 266 insertions(+)
- create mode 100755 logman.py
+--2NLGdgz3UMHa/lqP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/logman.py b/logman.py
-new file mode 100755
-index 0000000..05ca191
---- /dev/null
-+++ b/logman.py
-@@ -0,0 +1,266 @@
-+#!/usr/bin/env python
-+
-+from subprocess import call
-+import sys
-+import subprocess
-+import dbus
-+import string
-+import socket
-+import os
-+import fcntl
-+import time
-+import glib
-+import gobject
-+import dbus.service
-+import dbus.mainloop.glib
-+
-+DBUS_NAME = 'org.openbmc.LogManager'
-+ERRL_INTF_NAME = 'org.openbmc.Errl'
-+SRVC_INTF_NAME = 'org.openbmc.Service'
-+OBJ_NAME_RSYSLOG = '/org/openbmc/LogManager/rsyslog'
-+
-+'''
-+    Object Path > /org/openbmc/LogManager/rsyslog
-+        Interface:Method > org.openbmc.Service.Enable dict:string:string
-+        Interface:Method > org.openbmc.Service.Disable
-+'''
-+
-+class JournalUtils ():
-+    def _isvalidip(self, family, ipaddr):
-+        if family == socket.AF_INET:
-+            try:
-+                socket.inet_pton(socket.AF_INET, ipaddr)
-+            except AttributeError:  # no inet_pton here, sorry
-+                try:
-+                    socket.inet_aton(ipaddr)
-+                except socket.error:
-+                    return False
-+                return ipaddr.count('.') == 3
-+            except socket.error:  # not a valid address
-+                return False
-+
-+            return True
-+
-+        elif family == socket.AF_INET6:
-+            try:
-+                socket.inet_pton(socket.AF_INET6, ipaddr)
-+            except socket.error:  # not a valid address
-+                return False
-+            return True
-+
-+        else: return False
-+
-+class Rsyslog (dbus.service.Object):
-+    def __init__(self, bus, name):
-+        self.bus = bus
-+        self.name = name
-+        dbus.service.Object.__init__(self,bus,name)
-+
-+    @dbus.service.method(dbus.PROPERTIES_IFACE, "ss", "v")
-+    def Get(self, iface, ppty):
-+        return self.GetAll(iface)[ppty]
-+
-+    @dbus.service.method(dbus.PROPERTIES_IFACE, 's', 'a{sv}')
-+    def GetAll(self, iface):
-+        if iface == ERRL_INTF_NAME:
-+            status, remote_ip, remote_port = self.Status()
-+            return {'status': status, 'ipaddr': remote_ip, 'port': remote_port }
-+        else:
-+            raise dbus.exceptions.DBusException('org.openbmc.UnknownInterface',
-+                                'This object does not implement the %s interface' % iface)
-+
-+    @dbus.service.method(SRVC_INTF_NAME, "a{sv}", "x")
-+    def Enable (self, argv_dict):
-+        remote_ip = ""
-+        remote_port = 0
-+
-+        params = len (argv_dict)
-+        if params > 2 : ValueError("Invalid Parameters")
-+
-+        for property_name in argv_dict:
-+            if property_name == "ipaddr":
-+                remote_ip = argv_dict [property_name]
-+            elif property_name == "port":
-+                remote_port = argv_dict [property_name]
-+            else: 
-+                raise ValueError("Invalid Argument: IP Address/Port expected.")
-+
-+        if not remote_ip: 
-+            cur_remote = self._GetConfig ('Remote')
-+            if not cur_remote: 
-+                raise ValueError("Invalid Remote Syslog IP Address")
-+            else:
-+                cur_remote = cur_remote[3:]
-+                remote_ip, port_str = cur_remote.split (":")
-+                remote_port = int(port_str)
-+        if not util._isvalidip (socket.AF_INET, remote_ip): raise ValueError, "Malformed IP Address"
-+        if not remote_port : remote_port = 514
-+        if remote_port > 65535 : raise ValueError("Invalid Remote Syslog Port")
-+        
-+        remote_addr = remote_ip + ":" + str(remote_port)
-+        r = self._ModifyService('Remote', remote_addr)
-+
-+        cur_options = self._GetConfig ('Options')
-+        new_options = self._GetOptions()
-+
-+        if cur_options != new_options:
-+            r = self._ModifyService('Options', new_options)
-+            r = self._RestartService ()
-+
-+        return r
-+
-+    @dbus.service.method(SRVC_INTF_NAME, "as", "x")
-+    def Disable (self, argv_list):
-+        params = len (argv_list)
-+        if params : ValueError("Invalid Parameters")
-+
-+        remote = self._GetConfig ('Remote')
-+        if not remote : return 0
-+
-+        r = self._ModifyService('Options', '-C') # FIXME: Restore current options minus the remote.
-+        r = self._RestartService ()
-+        return r
-+
-+    def Status (self):
-+        remote = self._GetConfig ('Remote')
-+        if not remote : return ("Disabled", "0.0.0.0", 0)
-+
-+        cur_remote = remote[3:]
-+        remote_ip, remote_port = cur_remote.split (":")
-+        
-+        options = self._GetConfig ('Options')
-+        if not options : return ("Disabled", remote_ip, remote_port)
-+
-+        if remote in options : return ("Enabled", remote_ip, remote_port)
-+
-+        return ("Disabled", remote_ip, remote_port)
-+
-+    def _ModifyService (self, opt, val):
-+        if not os.path.isfile(syslog_service_bbx_file):
-+            r = call (["cp", syslog_service_lib_file, syslog_service_bbx_file])
-+            r = call (["ln", "-s", syslog_service_bbx_file, syslog_service_cfg_file])
-+
-+        if not os.path.isfile(syslog_service_env_file):
-+            env_file = open(syslog_service_env_file, 'w')
-+            env_file.write ("OPTIONS=\"-C\"")
-+            env_file.close()
-+
-+        if opt not in OptionKeys: raise ValueError("Invalid Option")
-+
-+        self._ModifyParam (opt, val)
-+
-+        return 0
-+
-+    def _StopService (self):
-+        r = call (["systemctl", "stop", "syslog"])
-+        r = call (["systemctl", "--no-reload", "kill", "syslog"])
-+        return r
-+
-+    def _StartService (self):
-+        r = call (["systemctl", "daemon-reload"])
-+        r = call (["systemctl", "start", "syslog"])
-+        return r
-+
-+    def _RestartService (self):
-+        r = self._StopService()
-+        r = self._StartService()
-+        return r
-+    
-+    def _ModifyParam (self, opt, val):
-+        env_file = open(syslog_service_env_file, 'r') 
-+        tmp_file = open(syslog_service_tmp_file, 'w')
-+
-+        optkey = OptionKeySwitchMap [opt]['key']
-+        for line in env_file:
-+            if line[0] == '#': 
-+                tmp_file.write(line)
-+                continue
-+            curkey = line.strip().split ("=")[0]
-+            if curkey != optkey : 
-+                tmp_file.write(line)
-+
-+        tmp_file.write(optkey + "=\""  + OptionKeySwitchMap[opt]['switch'] + val + "\"" + "\n")
-+
-+        env_file.close ()
-+        tmp_file.close ()
-+
-+        r = call (["cp", syslog_service_tmp_file, syslog_service_env_file])
-+        return r
-+
-+    def _GetConfig (self, opt):
-+        with open(syslog_service_env_file, "r") as f:
-+            for line in f:
-+                if line[0] == '#': continue
-+                config = line.split ("=")
-+                var = config [0]
-+                if var == OptionKeySwitchMap[opt]['key']:
-+                    val = config [1]
-+                    val = val[1:-2] # FIXME: Why is there a trailing space ???
-+                    return val
-+        return ""
-+
-+    def _GetOptions(self):
-+        cfg = {}
-+        i = 0
-+
-+        for opt in OptionKeys:
-+            if opt == 'Options' : continue
-+            cfg [i] = self._GetConfig(opt)
-+            i+=1
-+            
-+        options = ''
-+        j = 0
-+        while j<i-1:
-+            if cfg[j] : options += cfg [j]
-+            j+=1
-+
-+        return options
-+
-+def main():
-+    dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
-+    bus = dbus.SystemBus()
-+    name = dbus.service.BusName(DBUS_NAME, bus)
-+
-+    global util
-+    global rsys
-+    global syslog_service_lib_file
-+    global syslog_service_bbx_file
-+    global syslog_service_cfg_file
-+    global syslog_service_env_file
-+    global syslog_service_tmp_file
-+    global OptionKeys
-+    global OptionKeySwitchMap
-+
-+    OptionKeys = ['Options', 'Outfile', 'Priority', 'Smaller', 'RotateSize', 'RotateNum', 'Remote', 'LocalAndNet', 'DropDup', 'SharedMem', 'ConfFile', 'MarkTime', 'Printk']
-+    OptionKeySwitchMap = {
-+        'Options'       : { 'switch' : "",    'key' : "OPTIONS" },
-+        'Outfile'       : { 'switch' : "-O ", 'key' : "OBMC_SYSLOG_OUTFILE" },
-+        'Priority'      : { 'switch' : "-O ", 'key' : "OBMC_SYSLOG_PRIORITY" },
-+        'Smaller'       : { 'switch' : "-S ", 'key' : "OBMC_SYSLOG_SMALLER" },
-+        'RotateSize'    : { 'switch' : "-s ", 'key' : "OBMC_SYSLOG_ROTATESIZE" },
-+        'RotateNum'     : { 'switch' : "-b ", 'key' : "OBMC_SYSLOG_ROTATENUM" },
-+        'Remote'        : { 'switch' : "-R ", 'key' : "OBMC_SYSLOG_REMOTE" },
-+        'LocalAndNet'   : { 'switch' : "-L ", 'key' : "OBMC_SYSLOG_LOCALNET" },
-+        'DropDup'       : { 'switch' : "-D ", 'key' : "OBMC_SYSLOG_DROPDUP" },
-+        'SharedMem'     : { 'switch' : "-C ", 'key' : "OBMC_SYSLOG_SHAREDMEM" },
-+        'ConfFile'      : { 'switch' : "-f ", 'key' : "OBMC_SYSLOG_CONFFILE" },
-+        'MarkTime'      : { 'switch' : "-m ", 'key' : "OBMC_SYSLOG_MARKTIME" },
-+        'Printk'        : { 'switch' : "-K ", 'key' : "OBMC_SYSLOG_PRINTK" }
-+    }
-+
-+    syslog_service_lib_file = '/lib/systemd/system/busybox-syslog.service'
-+    syslog_service_bbx_file = '/etc/systemd/system/busybox-syslog.service'
-+    syslog_service_cfg_file = '/etc/systemd/system/syslog.service'
-+    syslog_service_env_file = '/etc/default/busybox-syslog'
-+    syslog_service_tmp_file = '/tmp/busybox-syslog.tmp'
-+
-+    util    = JournalUtils ()
-+    rsys    = Rsyslog (bus, OBJ_NAME_RSYSLOG)
-+
-+    mainloop = gobject.MainLoop()
-+    print("Started")
-+    mainloop.run()
-+
-+if __name__ == '__main__':
-+    sys.exit(main())
-+
--- 
-2.7.1
+On Mon, Mar 28, 2016 at 03:01:14PM -0500, OpenBMC Patches wrote:
+> From: tomjose <tomjoseph@in.ibm.com>
+>=20
+> ---
+> diff --git a/settings_file.py b/settings_file.py
+> index 3efad0b..698d941 100644
+> --- a/settings_file.py
+> +++ b/settings_file.py
+> @@ -1,2 +1,2 @@
+>  #!/usr/bin/python -u
+> -SETTINGS=3D{'host': {'bootflags': {'default': 'default', 'type': 's', 'n=
+ame': 'boot_flags'}, 'powerpolicy': {'default': 'RESTORE_LAST_STATE', 'type=
+': 's', 'name': 'power_policy'}, 'powercap': {'name': 'power_cap', 'min': 0=
+, 'default': 0, 'max': 1000, 'type': 'i', 'unit': 'watts'}, 'sysstate': {'d=
+efault': '', 'type': 's', 'name': 'system_state'}}}
+> \ No newline at end of file
+> +SETTINGS=3D{'host': {'bootflags': {'default': 'default', 'type': 's', 'n=
+ame': 'boot_flags'}, 'powerpolicy': {'default': 'RESTORE_LAST_STATE', 'type=
+': 's', 'name': 'power_policy'}, 'restrictedmode': {'default': False, 'type=
+': 'b', 'name': 'restricted_mode'}, 'powercap': {'name': 'power_cap', 'min'=
+: 0, 'default': 0, 'max': 1000, 'type': 'i', 'unit': 'watts'}, 'sysstate': =
+{'default': '', 'type': 's', 'name': 'system_state'}}}
+> \ No newline at end of file
+
+Would be nice for us to do a refactor of this to either:
+    1) Generate from the YAML.
+    2) Be defined on multiple lines so you can added a new entry without
+       changing the whole variable.
+
+Reviewed-by: Patrick Williams <patrick@stwcx.xyz>
+
+> --=20
+> 2.7.1
+>=20
+>=20
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+
+--=20
+Patrick Williams
+
+--2NLGdgz3UMHa/lqP
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJW/qD7AAoJEKsDR8wtAMEZ4voP/06W+Y1lgBag2HYxzFCGj46U
+m6aNczVRZ9ycRCm7lSTE14QWy7TdW7sFXIHNeqGC1EW3HfhOlOI5y5TEfrOZJWel
+9MMQtPCvf1YmZZAXOT3/sZLRXfWwXvBPA3sQK80K1PxXvhDPOjXP2MZJA6lcN7KP
+4f0fOsQIN5L+zOeXzhdpZyDcS831vyoRzWCj0s0Edgoi07l1wdeR403BRP87bBCo
+SlotdzDHycBrNxiULH/7bx/0KoWyuVR+OfB0rPN2e4gyvSy4mU62ZEWd8wmhkDHv
+9byd/ZS8IVtncS8VOx0Xc1wZqxtrVgqt+S+SpHhgu5tX83C5kCojYzE+1ett1cPR
+pEXaKqYiCrzz9LZn/eTIX4ovyF+I0Ap3StuyXigXWS13cGe776wdKQ2ojE83H41S
+yqwsKYJSLLUMAOqz6i7theYBTB8zdrYu7G+PKafT7NzMxHXuBL6ohmmJBlVxEi19
+wsCK567npJav/ltFU1csFe43FQaESzjyQ+lUsWy6oqXEM5xwF0xy8pP9SrZRsKE9
+xKpELSULLqxdqKL2PEYYeT/FnZN+gYyUNgPA/WUvzB/rPKmv3DAECdWsQ6+8CW4R
+vw0nA2ILq2a+6OcTmg8jOjU6g2sdmHy9QF/S4peUjN7GceTib/WlxI1jW2w2xGMB
+Pjm8Yq5TCe4S9TK5hrJg
+=a86R
+-----END PGP SIGNATURE-----
+
+--2NLGdgz3UMHa/lqP--
