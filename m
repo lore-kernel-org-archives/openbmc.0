@@ -3,22 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qcFgx4G9BzDq6y
- for <openbmc@lists.ozlabs.org>; Sat,  2 Apr 2016 09:01:01 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qd82y6w7WzDq8w
+ for <openbmc@lists.ozlabs.org>; Sun,  3 Apr 2016 18:50:33 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1459548058411288.00457888601;
- Fri, 1 Apr 2016 15:00:58 -0700 (PDT)
+ with SMTPS id 1459673429901160.14950217052956;
+ Sun, 3 Apr 2016 01:50:29 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-settingsd 2/2] settings_file.py: update with pprint'd
- output.
-Date: Fri,  1 Apr 2016 17:00:54 -0500
-Message-Id: <1459548054-10473-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc] Revert "Back off GCC to 4.9.3"
+Date: Sun,  3 Apr 2016 03:50:27 -0500
+Message-Id: <1459673428-23381-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1459548054-10473-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1459548054-10473-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
-X-ZohoMail: Z_56716065 SPT_1 Z_56716064 SPT_1 SLF_D
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -30,39 +26,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Apr 2016 22:01:02 -0000
+X-List-Received-Date: Sun, 03 Apr 2016 08:50:35 -0000
 
-From: Patrick Williams <patrick@stwcx.xyz>
+This reverts commit f23f11b41c167f1827c073fa305a46cde1ff4760.
 
-Signed-off-by: Patrick Williams <patrick@stwcx.xyz>
+As of linux 4.2 SRA is disabled when building the kernel for ARM.
+
+ https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit?id=a077224fd35b2f7fbc93f14cf67074fc792fbac2
+
+It is suspect that this was the cause of the failure to boot.
+
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+
+<!-- Reviewable:start -->
 ---
- settings_file.py | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/227)
+<!-- Reviewable:end -->
 
-diff --git a/settings_file.py b/settings_file.py
-index 698d941..fe852ba 100644
---- a/settings_file.py
-+++ b/settings_file.py
-@@ -1,2 +1,18 @@
- #!/usr/bin/python -u
--SETTINGS={'host': {'bootflags': {'default': 'default', 'type': 's', 'name': 'boot_flags'}, 'powerpolicy': {'default': 'RESTORE_LAST_STATE', 'type': 's', 'name': 'power_policy'}, 'restrictedmode': {'default': False, 'type': 'b', 'name': 'restricted_mode'}, 'powercap': {'name': 'power_cap', 'min': 0, 'default': 0, 'max': 1000, 'type': 'i', 'unit': 'watts'}, 'sysstate': {'default': '', 'type': 's', 'name': 'system_state'}}}
-\ No newline at end of file
-+SETTINGS=\
-+{'host': {'bootflags': {'default': 'default',
-+                        'name': 'boot_flags',
-+                        'type': 's'},
-+          'powercap': {'default': 0,
-+                       'max': 1000,
-+                       'min': 0,
-+                       'name': 'power_cap',
-+                       'type': 'i',
-+                       'unit': 'watts'},
-+          'powerpolicy': {'default': 'RESTORE_LAST_STATE',
-+                          'name': 'power_policy',
-+                          'type': 's'},
-+          'restrictedmode': {'default': False,
-+                             'name': 'restricted_mode',
-+                             'type': 'b'},
-+          'sysstate': {'default': '', 'name': 'system_state', 'type': 's'}}}
+
+https://github.com/openbmc/openbmc/pull/227
+
+Joel Stanley (1):
+  Revert "Back off GCC to 4.9.3"
+
+ meta-phosphor/conf/distro/openbmc-phosphor.conf | 1 -
+ 1 file changed, 1 deletion(-)
+
 -- 
 2.7.1
