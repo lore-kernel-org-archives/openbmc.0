@@ -3,17 +3,19 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qdttP1dyczDq6C
- for <openbmc@lists.ozlabs.org>; Tue,  5 Apr 2016 00:00:44 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qdttP6ZGKzDq6C
+ for <openbmc@lists.ozlabs.org>; Tue,  5 Apr 2016 00:00:45 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1459778438080869.465128118227;
- Mon, 4 Apr 2016 07:00:38 -0700 (PDT)
+ with SMTPS id 1459778440304638.8061882116447;
+ Mon, 4 Apr 2016 07:00:40 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v3 0/2] Revert "Back off GCC to 4.9.3"
-Date: Mon,  4 Apr 2016 09:00:33 -0500
-Message-Id: <1459778435-28142-1-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v3 1/2] meta-phosphor/u-boot: Move to newer version
+Date: Mon,  4 Apr 2016 09:00:34 -0500
+Message-Id: <1459778435-28142-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
+In-Reply-To: <1459778435-28142-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1459778435-28142-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -26,33 +28,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Apr 2016 14:00:45 -0000
+X-List-Received-Date: Mon, 04 Apr 2016 14:00:46 -0000
 
-This reverts commit f23f11b41c167f1827c073fa305a46cde1ff4760.
+From: Joel Stanley <joel@jms.id.au>
 
-As of linux 4.2 SRA is disabled when building the kernel for ARM.
+Fixes from Milton for u-boot leaving ethernet device running after
+loading linux:
 
- https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit?id=a077224fd35b2f7fbc93f14cf67074fc792fbac2
+      net: aspeednic: Create aspeed_write_hwaddr from set_mac_address
+      net: aspeednic: Do not start hardware in initialize
+      net: aspeednic: Remove extra spaces before assignments
+      net: aspeednic: Do not fill in a random MAC address
+      net: Implement random ethaddr fallback in eth.c
 
-It is suspect that this was the cause of the failure to boot.
+Backports from upstream from me to support building under modern GCC
+versions:
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
+      common: main.c: make show_boot_progress __weak
+      ARM:asm:io.h use static inline
+      arm: board: use __weak
+      net: Implement random ethaddr fallback in eth.c
+      compiler*.h: sync include/linux/compiler*.h with Linux 4.5-rc6
 
-<!-- Reviewable:start -->
+Signeo-off-by: Joel Stanley <joel@jms.id.au>
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/227)
-<!-- Reviewable:end -->
-
-
-https://github.com/openbmc/openbmc/pull/227
-
-Joel Stanley (2):
-  meta-phosphor/u-boot: Move to newer version
-  Revert "Back off GCC to 4.9.3"
-
  meta-phosphor/common/recipes-bsp/u-boot/u-boot_2013.07.bb | 3 +--
- meta-phosphor/conf/distro/openbmc-phosphor.conf           | 1 -
- 2 files changed, 1 insertion(+), 3 deletions(-)
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
+diff --git a/meta-phosphor/common/recipes-bsp/u-boot/u-boot_2013.07.bb b/meta-phosphor/common/recipes-bsp/u-boot/u-boot_2013.07.bb
+index 6070fbf..f2434ad 100644
+--- a/meta-phosphor/common/recipes-bsp/u-boot/u-boot_2013.07.bb
++++ b/meta-phosphor/common/recipes-bsp/u-boot/u-boot_2013.07.bb
+@@ -10,9 +10,8 @@ LICENSE = "GPLv2+"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb \
+                     file://README;beginline=1;endline=22;md5=78b195c11cb6ef63e6985140db7d7bab"
+ 
+-# This revision corresponds to the tag "v2013.07"
+ # We use the revision in order to avoid having to fetch it from the repo during parse
+-SRCREV = "4b44678c11ac82c7c797bb115e276181752ad54d"
++SRCREV = "44f1262bdf39ad93032d39f17a298165372be82e"
+ 
+ PV = "v2013.07+git${SRCPV}"
+ 
 -- 
 2.7.1
