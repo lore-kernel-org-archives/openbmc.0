@@ -3,20 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qdqn448ZMzDq6S
- for <openbmc@lists.ozlabs.org>; Mon,  4 Apr 2016 21:40:56 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qdttP1dyczDq6C
+ for <openbmc@lists.ozlabs.org>; Tue,  5 Apr 2016 00:00:44 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1459770045986509.00132533429485;
- Mon, 4 Apr 2016 04:40:45 -0700 (PDT)
+ with SMTPS id 1459778438080869.465128118227;
+ Mon, 4 Apr 2016 07:00:38 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: ratagupt <ratagupt@in.ibm.com>
-Subject: [PATCH phosphor-settingsd] Adding the boot_policy attribute
-Date: Mon,  4 Apr 2016 06:40:42 -0500
-Message-Id: <1459770042-23039-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v3 0/2] Revert "Back off GCC to 4.9.3"
+Date: Mon,  4 Apr 2016 09:00:33 -0500
+Message-Id: <1459778435-28142-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1459770042-23039-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1459770042-23039-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -29,22 +26,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Apr 2016 11:40:57 -0000
+X-List-Received-Date: Mon, 04 Apr 2016 14:00:45 -0000
 
-From: ratagupt <ratagupt@in.ibm.com>
+This reverts commit f23f11b41c167f1827c073fa305a46cde1ff4760.
 
+As of linux 4.2 SRA is disabled when building the kernel for ARM.
+
+ https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit?id=a077224fd35b2f7fbc93f14cf67074fc792fbac2
+
+It is suspect that this was the cause of the failure to boot.
+
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+
+<!-- Reviewable:start -->
 ---
- settings_file.py | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/227)
+<!-- Reviewable:end -->
 
-diff --git a/settings_file.py b/settings_file.py
-index 698d941..a416b51 100644
---- a/settings_file.py
-+++ b/settings_file.py
-@@ -1,2 +1,2 @@
- #!/usr/bin/python -u
--SETTINGS={'host': {'bootflags': {'default': 'default', 'type': 's', 'name': 'boot_flags'}, 'powerpolicy': {'default': 'RESTORE_LAST_STATE', 'type': 's', 'name': 'power_policy'}, 'restrictedmode': {'default': False, 'type': 'b', 'name': 'restricted_mode'}, 'powercap': {'name': 'power_cap', 'min': 0, 'default': 0, 'max': 1000, 'type': 'i', 'unit': 'watts'}, 'sysstate': {'default': '', 'type': 's', 'name': 'system_state'}}}
-\ No newline at end of file
-+SETTINGS={'host': {'bootflags': {'default': 'default', 'type': 's', 'name': 'boot_flags'},'bootpolicy':{'default': 'ONETIME', 'type': 's', 'name': 'boot_policy'},'powerpolicy': {'default': 'RESTORE_LAST_STATE', 'type': 's', 'name': 'power_policy'}, 'restrictedmode': {'default': False, 'type': 'b', 'name': 'restricted_mode'}, 'powercap': {'name': 'power_cap', 'min': 0, 'default': 0, 'max': 1000, 'type': 'i', 'unit': 'watts'}, 'sysstate': {'default': '', 'type': 's', 'name': 'system_state'}}}
+
+https://github.com/openbmc/openbmc/pull/227
+
+Joel Stanley (2):
+  meta-phosphor/u-boot: Move to newer version
+  Revert "Back off GCC to 4.9.3"
+
+ meta-phosphor/common/recipes-bsp/u-boot/u-boot_2013.07.bb | 3 +--
+ meta-phosphor/conf/distro/openbmc-phosphor.conf           | 1 -
+ 2 files changed, 1 insertion(+), 3 deletions(-)
+
 -- 
 2.7.1
