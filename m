@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qgbdr6Rh4zDq6L
- for <openbmc@lists.ozlabs.org>; Thu,  7 Apr 2016 18:40:47 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qgf4C6NNrzDq6h
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Apr 2016 20:30:18 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1460018437483365.63764759433525;
- Thu, 7 Apr 2016 01:40:37 -0700 (PDT)
+ with SMTPS id 1460025014987229.957125696734;
+ Thu, 7 Apr 2016 03:30:14 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid v2] Support for restricted mode for IPMI
- commands
-Date: Thu,  7 Apr 2016 03:40:35 -0500
-Message-Id: <1460018436-21243-1-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH ipmi-fru-parser v2] Fix 'dbus.String not found in lookup'
+ error message
+Date: Thu,  7 Apr 2016 05:30:12 -0500
+Message-Id: <1460025013-27284-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -27,35 +27,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Apr 2016 08:40:49 -0000
+X-List-Received-Date: Thu, 07 Apr 2016 10:30:20 -0000
 
-Only IPMI whitelisted commands are supported in restricted mode.Following commands are restricted in restricted mode.
+Previously the ipmi-fru-parser will call dbus method getObjectFromId()
+for each fru areas to get the dbus object path of fru area,
+even if the fru area does not exist.
+Also ipmi_validate_fru_area() may be invoked multipul times before
+full fru data is parsed. This will generate duplicated error
+messages from SystemManager:, e.g:
+"ERROR SystemManager: dbus.String(u'INTERNAL_13') not found in lookup".
+In this case, "INTERNAL" area does not exists for FRU 13.
 
-1) Warm Reset  (Netfn: APP, Cmd: 0x02)
-2) Set LAN Parameters  (Netfn: STORAGE, Cmd: 0x01)
-4)Set ACPI Power State - Currently No Op
-5) Wilcard Commands(APP, CHASSIS, SENSOR, STORAGE, TRANSPORT) - Currently No Op
+This patch tries to reduce the messages. For FRUs managed by
+hostboot, ipmi-fru-parser only asks for dbus object path when
+updating the fru data to BMC inventory.
+
+For FRUs mananged by BMC (eeprom), ipmi-fru-parser also asks for dbus
+object path when setting the fru's 'present' and 'fault' status.
+ipmi-fru-parser needs to call getObjectFromId() to know whether a
+fru should be present, in order to decide the 'present' and 'fault'
+status. So this message will still be triggered when SystemManager
+does not define object path for a fru area.
+
+This patch also sets 'present' and 'fault' properly when there is error
+processing a BMC managed FRU.
+
+Signed-off-by: Yi Li <adamliyi@msn.com>
 
 <!-- Reviewable:start -->
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/phosphor-host-ipmid/81)
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/ipmi-fru-parser/13)
 <!-- Reviewable:end -->
 
 
-https://github.com/openbmc/phosphor-host-ipmid/pull/81
+https://github.com/openbmc/ipmi-fru-parser/pull/13
 
-tomjose (1):
-  Support for restricted mode for IPMI commands
+Yi Li (1):
+  Fix 'dbus.String not found in lookup' error message
 
- apphandler.C       | 12 ++++++++++++
- chassishandler.C   |  7 ++++++-
- globalhandler.C    |  7 ++++++-
- ipmid-api.h        |  4 ++++
- ipmid.C            | 53 +++++++++++++++++++++++++++++++++++++++++++++++++++--
- sensorhandler.C    |  5 +++++
- storagehandler.C   |  5 +++++
- transporthandler.C | 13 +++++++++++--
- 8 files changed, 100 insertions(+), 6 deletions(-)
+ writefrudata.C | 85 +++++++++++++++++++++++++++++++++++-----------------------
+ 1 file changed, 51 insertions(+), 34 deletions(-)
 
 -- 
 2.7.1
