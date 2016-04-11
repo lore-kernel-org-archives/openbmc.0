@@ -3,20 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qjr7S22yNzDqZJ
- for <openbmc@lists.ozlabs.org>; Mon, 11 Apr 2016 10:10:43 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qjshQ17fFzDqGd
+ for <openbmc@lists.ozlabs.org>; Mon, 11 Apr 2016 11:20:53 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1460333442009919.551684725406;
- Sun, 10 Apr 2016 17:10:42 -0700 (PDT)
+ with SMTPS id 146033765018051.84705776932742;
+ Sun, 10 Apr 2016 18:20:50 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 7/7] runqemu-internal: Configure tun/tap network for
- palmetto-bmc
-Date: Sun, 10 Apr 2016 19:10:31 -0500
-Message-Id: <1460333431-28399-8-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v5 00/19] Add fan control algorithm
+Date: Sun, 10 Apr 2016 20:20:29 -0500
+Message-Id: <1460337648-30919-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1460333431-28399-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1460333431-28399-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -29,42 +26,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Apr 2016 00:10:44 -0000
+X-List-Received-Date: Mon, 11 Apr 2016 01:20:54 -0000
 
-From: Andrew Jeffery <andrew@aj.id.au>
 
-The palmetto-bmc QEMU machine can now be invoked with tun/tap network
-support through Poky's `runqemu` script:
 
-    $ bitbake obmc-phosphor-image
-    $ runqemu palmetto
+<!-- Reviewable:start -->
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/skeleton/59)
+<!-- Reviewable:end -->
 
-Note that this requires root for tun/tap configuration, however the
-benefit is full network access with no port-forwarding required to
-reach services running inside the VM.
 
-When running in tun/tap mode, the IP address for the VM is 192.168.7.2.
+https://github.com/openbmc/skeleton/pull/59
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- yocto-poky/scripts/runqemu-internal | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Ken (8):
+  add i2craw tool and hdd status function
+  Heartbeat Led function
+  fix info memory leak
+  Setup FUNC_MODE[2:0]
+  fix info memory leak
+  Revert "Fill in the threshold settings for CPU and DIMM"
+  Add fan control algorithm
+  Fix skeleton Makefile
 
-diff --git a/yocto-poky/scripts/runqemu-internal b/yocto-poky/scripts/runqemu-internal
-index 78b19c1..228301c 100755
---- a/yocto-poky/scripts/runqemu-internal
-+++ b/yocto-poky/scripts/runqemu-internal
-@@ -378,7 +378,10 @@ if [ "$MACHINE" = "palmetto" ]; then
-     QEMU=qemu-system-arm
-     MACHINE_SUBTYPE=palmetto-bmc
-     export QEMU_AUDIO_DRV="none"
--    KERNCMDLINE="console=ttyS4"
-+    if [ "$SLIRP_ENABLED" != "yes" ]; then
-+        KERNEL_NETWORK_CMD=${KERNEL_NETWORK_CMD}"::eth0"
-+    fi
-+    KERNCMDLINE="console=ttyS4 $KERNEL_NETWORK_CMD mem=$QEMU_MEMORY highres=off"
-     KERNELDTB=${DEPLOY_DIR_IMAGE}/${PALMETTO_DEFAULT_KERNEL}-aspeed-bmc-opp-qemu${MACHINE}.dtb
-     QEMUOPTIONS="$QEMU_NETWORK_CMD -M ${MACHINE_SUBTYPE} -dtb $KERNELDTB -initrd $ROOTFS -no-reboot -nographic"
- fi
--- 
-2.7.1
+johnhcwang (11):
+  Fill in the threshold settings for CPU and DIMM
+  Fill in the threshold settings for CPU and DIMM
+  Add I2C-6 lm75 outlet temperature sensor
+  Modify the hard-coded hwmon ID for PowerCap
+  Fill in the threshold settings for CPU and DIMM
+  Set lower threshold for ambient/CPU/DIMM sensors
+  Fix memory leak
+  Support FAN tach sensors
+  Generate thermaltrip event
+  Keep original design to generate thermaltrip event
+  Support FAN LED feature
