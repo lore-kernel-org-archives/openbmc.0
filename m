@@ -3,17 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qjshq3S6rzDqZL
- for <openbmc@lists.ozlabs.org>; Mon, 11 Apr 2016 11:21:15 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qjshr6n4rzDqW7
+ for <openbmc@lists.ozlabs.org>; Mon, 11 Apr 2016 11:21:16 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1460337672304236.6606270597972;
- Sun, 10 Apr 2016 18:21:12 -0700 (PDT)
+ with SMTPS id 1460337673584675.5079003157724;
+ Sun, 10 Apr 2016 18:21:13 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: johnhcwang <hsienchiang@gmail.com>
-Subject: [PATCH skeleton v5 17/19] Generate thermaltrip event
-Date: Sun, 10 Apr 2016 20:20:46 -0500
-Message-Id: <1460337648-30919-18-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v5 18/19] Keep original design to generate
+ thermaltrip event
+Date: Sun, 10 Apr 2016 20:20:47 -0500
+Message-Id: <1460337648-30919-19-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1460337648-30919-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1460337648-30919-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,183 +30,144 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Apr 2016 01:21:16 -0000
+X-List-Received-Date: Mon, 11 Apr 2016 01:21:17 -0000
 
 From: johnhcwang <hsienchiang@gmail.com>
 
-Keep the original design from v2.10
----
- objects/info.c | 121 ++++++++++++++++++++++++++++++++++++++++++++-------------
- 1 file changed, 95 insertions(+), 26 deletions(-)
+The shutdown action have to execute by info instead of emergency
+shutdown, otherwise probably can't log the event in time.
+So disable emergency for all CPU core in Barreleye.py.
 
+The bast implementation is do log in EmergencyShutdown function.
+Improve in the future.
+---
+ bin/Barreleye.py | 48 ++++++++++++++++++++++++------------------------
+ objects/info.c   | 19 ++++++++++++++++++-
+ 2 files changed, 42 insertions(+), 25 deletions(-)
+
+diff --git a/bin/Barreleye.py b/bin/Barreleye.py
+index dc7b14a..86a5a97 100755
+--- a/bin/Barreleye.py
++++ b/bin/Barreleye.py
+@@ -649,29 +649,29 @@ HWMON_CONFIG = {
+ 		},
+ 		'labels' : {
+ 		'176' :  { 'object_path' : 'temperature/cpu0/core0','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'177' :  { 'object_path' : 'temperature/cpu0/core1','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'178' :  { 'object_path' : 'temperature/cpu0/core2','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'179' :  { 'object_path' : 'temperature/cpu0/core3','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'180' :  { 'object_path' : 'temperature/cpu0/core4','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'181' :  { 'object_path' : 'temperature/cpu0/core5','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'182' :  { 'object_path' : 'temperature/cpu0/core6','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'183' :  { 'object_path' : 'temperature/cpu0/core7','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'184' :  { 'object_path' : 'temperature/cpu0/core8','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'185' :  { 'object_path' : 'temperature/cpu0/core9','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'186' :  { 'object_path' : 'temperature/cpu0/core10','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'187' :  { 'object_path' : 'temperature/cpu0/core11','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'102' :  { 'object_path' : 'temperature/dimm0','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+ 			'critical_upper' : 95, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'103' :  { 'object_path' : 'temperature/dimm1','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+@@ -717,29 +717,29 @@ HWMON_CONFIG = {
+ 	'3-0051' : {
+ 		'labels' :  {
+ 		'188' :  { 'object_path' : 'temperature/cpu1/core0','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'189' :  { 'object_path' : 'temperature/cpu1/core1','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'190' :  { 'object_path' : 'temperature/cpu1/core2','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'191' :  { 'object_path' : 'temperature/cpu1/core3','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'192' :  { 'object_path' : 'temperature/cpu1/core4','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'193' :  { 'object_path' : 'temperature/cpu1/core5','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'194' :  { 'object_path' : 'temperature/cpu1/core6','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'195' :  { 'object_path' : 'temperature/cpu1/core7','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'196' :  { 'object_path' : 'temperature/cpu1/core8','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'197' :  { 'object_path' : 'temperature/cpu1/core9','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'198' :  { 'object_path' : 'temperature/cpu1/core10','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'199' :  { 'object_path' : 'temperature/cpu1/core11','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
++			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
+ 		'118' :  { 'object_path' : 'temperature/dimm16','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+ 			'critical_upper' : 95, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'119' :  { 'object_path' : 'temperature/dimm17','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
 diff --git a/objects/info.c b/objects/info.c
-index 8e08974..386133c 100644
+index 386133c..2da0dbc 100644
 --- a/objects/info.c
 +++ b/objects/info.c
-@@ -6,9 +6,37 @@
- #include "i2c-dev.h"
- #include "log.h"
+@@ -360,13 +360,30 @@ int start_system_information(void)
  
+ 		if(HighestCPUtemp >= 90) {
+ 			thermaltrip_lock = 1;
+-			send_esel_to_dbus("CPU thermal trip", "High", "assoc", "hack", 3);
++			send_esel_to_dbus("thermal shutdown, CPU temperature = 90degC", "High", "assoc", "hack", 3);
 +
-+#define NUM_CPU_CORE	12
-+
- const char *gService = "org.openbmc.Sensors";
--const char *gObjPath = "/org/openbmc/sensors/temperature/cpu0/core0";
--const char *gObjPath_o = "/org/openbmc/sensors/host/OccStatus";
-+const char *gCPU0ObjPath[NUM_CPU_CORE] = {"/org/openbmc/sensors/temperature/cpu0/core0",
-+						"/org/openbmc/sensors/temperature/cpu0/core1",
-+						"/org/openbmc/sensors/temperature/cpu0/core2",
-+						"/org/openbmc/sensors/temperature/cpu0/core3",
-+						"/org/openbmc/sensors/temperature/cpu0/core4",
-+						"/org/openbmc/sensors/temperature/cpu0/core5",
-+						"/org/openbmc/sensors/temperature/cpu0/core6",
-+						"/org/openbmc/sensors/temperature/cpu0/core7",
-+						"/org/openbmc/sensors/temperature/cpu0/core8",
-+						"/org/openbmc/sensors/temperature/cpu0/core9",
-+						"/org/openbmc/sensors/temperature/cpu0/core10",
-+						"/org/openbmc/sensors/temperature/cpu0/core11"};
-+
-+const char *gCPU1ObjPath[NUM_CPU_CORE] = {"/org/openbmc/sensors/temperature/cpu1/core0",
-+						"/org/openbmc/sensors/temperature/cpu1/core1",
-+						"/org/openbmc/sensors/temperature/cpu1/core2",
-+						"/org/openbmc/sensors/temperature/cpu1/core3",
-+						"/org/openbmc/sensors/temperature/cpu1/core4",
-+						"/org/openbmc/sensors/temperature/cpu1/core5",
-+						"/org/openbmc/sensors/temperature/cpu1/core6",
-+						"/org/openbmc/sensors/temperature/cpu1/core7",
-+						"/org/openbmc/sensors/temperature/cpu1/core8",
-+						"/org/openbmc/sensors/temperature/cpu1/core9",
-+						"/org/openbmc/sensors/temperature/cpu1/core10",
-+						"/org/openbmc/sensors/temperature/cpu1/core11"};
-+
-+const char *gObjPath_o = "/org/openbmc/sensors/host/cpu0/OccStatus";
- const char *gIntPath = "org.openbmc.SensorValue";
- 
- const char *gService_c = "org.openbmc.control.Chassis";
-@@ -207,7 +235,7 @@ int start_system_information(void)
- 	sd_bus *bus = NULL;
- 	sd_bus_error bus_error = SD_BUS_ERROR_NULL;
- 	sd_bus_message *response = NULL;
--	int ret = 0, value = 0;
-+	int ret = 0, value = 0, i = 0, HighestCPUtemp = 0, thermaltrip_lock = 0;
- 	char *OccStatus = NULL;
- 
- 	/* Connect to the user bus this time */
-@@ -242,13 +270,16 @@ int start_system_information(void)
- 		sd_bus_error_free(&bus_error);
- 		response = sd_bus_message_unref(response);
- //		fprintf(stderr,"PowerState value = [%d] \n",value);
--		if (value == 0 )
-+		if (value == 0 ) {
-+			thermaltrip_lock = 0;
- 			goto finish;
-+		} else {
-+			if (thermaltrip_lock == 1)	//probabily log two thermaltrip events, so block by this flag
++			ret = sd_bus_call_method(bus,                   // On the System Bus
++						gService_c,               // Service to contact
++						gObjPath_c,            // Object path
++						gIntPath_c,              // Interface name
++						"powerOff",          // Method to be called
++						&bus_error,                 // object to return error
++						&response,                  // Response message on success
++						NULL);                       // input message (string,byte)
++			if(ret < 0)
++			{
++				fprintf(stderr, "Failed to power off from dbus: %s\n", bus_error.message);
 +				goto finish;
-+		}
- 	
- 		get_hdd_status();
- 
--		sleep(1);
--
- 		ret = sd_bus_call_method(bus,                   // On the System Bus
- 					gService,               // Service to contact
- 					gObjPath_o,            // Object path
-@@ -268,37 +299,75 @@ int start_system_information(void)
- 		}
- 		sd_bus_error_free(&bus_error);
- 		response = sd_bus_message_unref(response);
--		fprintf(stderr,"OCCState value = [%s][%d] \n",OccStatus,strcmp(OccStatus, "Disable"));
-+//		fprintf(stderr,"OCCState value = [%s][%d] \n",OccStatus,strcmp(OccStatus, "Disable"));
- 		if (strcmp(OccStatus, "Disable") != 1 )
- 			goto finish;
- 
--		ret = sd_bus_call_method(bus,                   // On the System Bus
--					gService,               // Service to contact
--					gObjPath,            // Object path
--					gIntPath,              // Interface name
--					"getValue",          // Method to be called
--					&bus_error,                 // object to return error
--					&response,                  // Response message on success
--					NULL);                       // input message (string,byte)
--		if(ret < 0) {
--			fprintf(stderr, "Failed to get CPU core0 temperature from dbus: %s\n", bus_error.message);
--			goto finish;
-+		for(i=0; i<NUM_CPU_CORE; i++) {
-+			ret = sd_bus_call_method(bus,                   // On the System Bus
-+						gService,               // Service to contact
-+						gCPU0ObjPath[i],            // Object path
-+						gIntPath,              // Interface name
-+						"getValue",          // Method to be called
-+						&bus_error,                 // object to return error
-+						&response,                  // Response message on success
-+						NULL);                       // input message (string,byte)
-+			if(ret < 0) {
-+//				fprintf(stderr, "Failed to get CPU 0 temperature from dbus: %s\n", bus_error.message);
-+				value = 0;
-+			} else {
-+				ret = sd_bus_message_read(response, "v","i", &value);
-+				if (ret < 0 ) {
-+					fprintf(stderr, "Failed to parse GetCpu0Temp response message:[%s]\n", strerror(-ret));
-+					value = 0;
-+				}
 +			}
-+//			fprintf(stderr, "CPU0 core %d temperature is %d\n",i ,value);
-+			if(value > HighestCPUtemp)
-+				HighestCPUtemp = value;
-+
 +			sd_bus_error_free(&bus_error);
 +			response = sd_bus_message_unref(response);
  		}
--		ret = sd_bus_message_read(response, "v","i", &value);
--		if (ret < 0 ) {
--			fprintf(stderr, "Failed to parse GetCpuCore0Temp response message:[%s]\n", strerror(-ret));
--			goto finish;
-+
-+		for(i=0; i<NUM_CPU_CORE; i++) {
-+			ret = sd_bus_call_method(bus,                   // On the System Bus
-+						gService,               // Service to contact
-+						gCPU1ObjPath[i],            // Object path
-+						gIntPath,              // Interface name
-+						"getValue",          // Method to be called
-+						&bus_error,                 // object to return error
-+						&response,                  // Response message on success
-+						NULL);                       // input message (string,byte)
-+			if(ret < 0) {
-+//				fprintf(stderr, "Failed to get CPU 1 temperature from dbus: %s\n", bus_error.message);
-+				value = 0;
-+			} else {
-+				ret = sd_bus_message_read(response, "v","i", &value);
-+				if (ret < 0 ) {
-+					fprintf(stderr, "Failed to parse GetCpu1Temp response message:[%s]\n", strerror(-ret));
-+					value = 0;
-+				}
-+			}
-+//			fprintf(stderr, "CPU1 core %d temperature is %d\n",i ,value);
-+			if(value > HighestCPUtemp )
-+				HighestCPUtemp = value;
-+
-+			sd_bus_error_free(&bus_error);
-+			response = sd_bus_message_unref(response);
- 		}
--		sd_bus_error_free(&bus_error);
--		response = sd_bus_message_unref(response);
--		fprintf(stderr,"CPU value = [%d] \n",value);
--		if(value >= 90)
-+//		fprintf(stderr, "Highest CPU temperature = [%d]\n", HighestCPUtemp);
-+
-+		if(HighestCPUtemp >= 90) {
-+			thermaltrip_lock = 1;
- 			send_esel_to_dbus("CPU thermal trip", "High", "assoc", "hack", 3);
-+		}
  	
  finish:
  		sd_bus_error_free(&bus_error);
  		response = sd_bus_message_unref(response);
  		sd_bus_flush(bus);
-+		HighestCPUtemp = 0;
++		OccStatus = NULL;
+ 		HighestCPUtemp = 0;
  		sleep(1);
  	}
- 
 -- 
 2.7.1
