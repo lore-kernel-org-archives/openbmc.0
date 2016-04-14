@@ -1,38 +1,56 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-Received: from mail.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <clg@fr.ibm.com>
+Received: from e06smtp17.uk.ibm.com (e06smtp17.uk.ibm.com [195.75.94.113])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qm27w6qbrzDq5y
- for <openbmc@lists.ozlabs.org>; Thu, 14 Apr 2016 23:48:44 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com
- header.b=E+6lHDWe; dkim-atps=neutral
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.fuzziesquirrel.com 9D9F420AFB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fuzziesquirrel.com;
- s=mail; t=1460641721;
- bh=/9W+MvpCSZ8BI5AH+LqT7n8XzSKTAeXs0Sx8cPsljEo=;
- h=Subject:From:In-Reply-To:Date:Cc:References:To:From;
- b=E+6lHDWe3kwYgQdZNNARS5xUtLMzYwlOvhn5wNo3dglL/hWyP+bPcowngrSEyTkd0
- f5UN8vsXzqPodnXxR5ObkV6bhsoxEwBWIcX46ldy+ZYWxB00q5HdVcHivgRhcOWB18
- YCE73eOdysxEWFGiVx2eaBOODbYso2as6P0lOenE=
-Received: from [192.168.253.29] (unknown [192.168.253.29])
- by mail.fuzziesquirrel.com (Postfix) with ESMTPSA id 8D5BA20AA7;
- Thu, 14 Apr 2016 09:48:40 -0400 (EDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qm2kq1CWQzDq5y
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Apr 2016 00:15:30 +1000 (AEST)
+Received: from localhost
+ by e06smtp17.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <clg@fr.ibm.com>;
+ Thu, 14 Apr 2016 15:15:26 +0100
+Received: from d06dlp02.portsmouth.uk.ibm.com (9.149.20.14)
+ by e06smtp17.uk.ibm.com (192.168.101.147) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Thu, 14 Apr 2016 15:15:23 +0100
+X-IBM-Helo: d06dlp02.portsmouth.uk.ibm.com
+X-IBM-MailFrom: clg@fr.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from b06cxnps4076.portsmouth.uk.ibm.com
+ (d06relay13.portsmouth.uk.ibm.com [9.149.109.198])
+ by d06dlp02.portsmouth.uk.ibm.com (Postfix) with ESMTP id 5C2CD2190061
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Apr 2016 15:15:01 +0100 (BST)
+Received: from d06av09.portsmouth.uk.ibm.com (d06av09.portsmouth.uk.ibm.com
+ [9.149.37.250])
+ by b06cxnps4076.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u3EEFM3062455906
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Apr 2016 14:15:22 GMT
+Received: from d06av09.portsmouth.uk.ibm.com (localhost [127.0.0.1])
+ by d06av09.portsmouth.uk.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u3EEFM4i030273
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Apr 2016 08:15:22 -0600
+Received: from smtp.lab.toulouse-stg.fr.ibm.com
+ (srv01.lab.toulouse-stg.fr.ibm.com [9.101.4.1])
+ by d06av09.portsmouth.uk.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u3EEFLL0030232; Thu, 14 Apr 2016 08:15:21 -0600
+Received: from [9.101.4.42] (hermes.lab.toulouse-stg.fr.ibm.com [9.101.4.42])
+ by smtp.lab.toulouse-stg.fr.ibm.com (Postfix) with ESMTP id
+ 2CA012204C4; Thu, 14 Apr 2016 16:15:21 +0200 (CEST)
+Subject: Re: [PATCH openbmc 0/3] Re-enable obmc-console and add a ssh endpoint
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+References: <1460615435-26806-1-git-send-email-openbmc-patches@stwcx.xyz>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@fr.ibm.com>
+Message-ID: <570FA5F1.1020201@fr.ibm.com>
+Date: Thu, 14 Apr 2016 16:15:13 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+ Icedove/38.7.0
+MIME-Version: 1.0
+In-Reply-To: <1460615435-26806-1-git-send-email-openbmc-patches@stwcx.xyz>
 Content-Type: text/plain; charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 9.3 \(3124\))
-Subject: Re: [PATCH phosphor-rest-server] Add support for serving jsonp
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <1459463240.2457.13.camel@aj.id.au>
-Date: Thu, 14 Apr 2016 09:48:40 -0400
-Cc: OpenBMC Patches <openbmc@lists.ozlabs.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <761E1918-7D5E-4F3C-9EA9-375501525A74@fuzziesquirrel.com>
-References: <1459266057-23662-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1459463240.2457.13.camel@aj.id.au>
-To: andrew@aj.id.au
-X-Mailer: Apple Mail (2.3124)
+Content-Transfer-Encoding: 7bit
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16041414-0005-0000-0000-000013A015B2
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -44,64 +62,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Apr 2016 13:48:46 -0000
+X-List-Received-Date: Thu, 14 Apr 2016 14:15:32 -0000
 
-Hi Andrew
+Hello,
 
-JSONP lets you bypass cross-domain policies in web browsers.  That =
-sounds hacky and unsafe, and some people think it is, but the concerns =
-with it are all on the client side.
+I tried it on a palmetto. Very nice. This is perfect for me.
 
-One use case would be writing some javascript on a PC ( so the =
-=E2=80=9Corigin=E2=80=9D is the PC ).  The browser running the script =
-would not allow xmlhttprequests to the BMC.  We have a web developer =
-writing an application doing exactly this:
+For my education on the topic, what are the plans for the OpenBMC 
+host console ? Is obmc-console a temporary or a final solution ? 
 
-https://github.com/LRRoberts0122/openbmc =
-<https://github.com/LRRoberts0122/openbmc>
+May be adding websockets would provide an easier integration in 
+a www ui. 
 
-thx - brad
+Thanks.
 
-> On Mar 31, 2016, at 6:27 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
->=20
-> Hi Brad,
->=20
-> On Tue, 2016-03-29 at 10:40 -0500, OpenBMC Patches wrote:
->> Jsonp adds a javascript wrapper to json responses.  It allows client
->> applications to work around cross domain restrictions imposed by some
->> browsers.  For more information on jsonp:
->> https://en.wikipedia.org/wiki/JSONP
->>=20
->> To get a jsonp response, an application adds a callback url parameter
->> with the desired name of the wrapper:
->> https://192.168.252.1/list?callback=3Dmy_callback
->=20
-> This description covers the what and the how, but I'm not clear on the
-> why. Can you add some words describing the motivation for the change
-> and/or use-cases this enables? Maybe it's my ignorance of web
-> development shining through :)
->=20
-> Cheers,
->=20
-> Andrew
->=20
->>=20
->> <!-- Reviewable:start -->
->> ---
->> This change is [<img src=3D"https://reviewable.io/review_button.svg"
->> height=3D"35" align=3D"absmiddle" alt=3D"Reviewable"/>](
->> https://reviewable.io/reviews/openbmc/phosphor-rest-server/17)
->> <!-- Reviewable:end -->
->>=20
->>=20
->> https://github.com/openbmc/phosphor-rest-server/pull/17
->>=20
->> Brad Bishop (1):
->>  Add support for serving jsonp
->>=20
->> obmc-rest | 30 ++++++++++++++++++++++++++++--
->> 1 file changed, 28 insertions(+), 2 deletions(-)
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+C.
+
+On 04/14/2016 08:30 AM, OpenBMC Patches wrote:
+> Following the previous disable, this bumps us to a working obmc-console version, and adds infrastructure for a ssh-based remote console connection.
+> 
+> <!-- Reviewable:start -->
+> ---
+> This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/232)
+> <!-- Reviewable:end -->
+> 
+> 
+> https://github.com/openbmc/openbmc/pull/232
+> 
+> Jeremy Kerr (3):
+>   Enable obmc-console project
+>   dropbear: Add patch for -c <command> option to dropbear
+>   obmc-console: Add ssh endpoint
+> 
+>  meta-phosphor/classes/obmc-phosphor-image.bbclass  |  1 +
+>  ...d-c-command-option-to-force-a-specific-co.patch | 91 ++++++++++++++++++++++
+>  .../recipes-core/dropbear/dropbear_%.bbappend      |  3 +-
+>  .../recipes-phosphor/obmc-console/obmc-console.bb  | 22 +++++-
+>  .../obmc-console/obmc-console-ssh.socket           | 11 +++
+>  .../obmc-console/obmc-console-ssh@.service         | 11 +++
+>  6 files changed, 136 insertions(+), 3 deletions(-)
+>  create mode 100644 meta-phosphor/common/recipes-core/dropbear/dropbear/0001-dropbear-Add-c-command-option-to-force-a-specific-co.patch
+>  create mode 100644 meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console-ssh.socket
+>  create mode 100644 meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console-ssh@.service
+> 
