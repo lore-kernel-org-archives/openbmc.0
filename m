@@ -1,21 +1,38 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <bradleyb@fuzziesquirrel.com>
+Received: from mail.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qlrQg4CXxzDqBg
- for <openbmc@lists.ozlabs.org>; Thu, 14 Apr 2016 16:30:51 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 146061544475163.78262895655246;
- Wed, 13 Apr 2016 23:30:44 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 3/3] obmc-console: Add ssh endpoint
-Date: Thu, 14 Apr 2016 01:30:35 -0500
-Message-Id: <1460615435-26806-4-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1460615435-26806-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1460615435-26806-1-git-send-email-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qm27w6qbrzDq5y
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Apr 2016 23:48:44 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com
+ header.b=E+6lHDWe; dkim-atps=neutral
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.fuzziesquirrel.com 9D9F420AFB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fuzziesquirrel.com;
+ s=mail; t=1460641721;
+ bh=/9W+MvpCSZ8BI5AH+LqT7n8XzSKTAeXs0Sx8cPsljEo=;
+ h=Subject:From:In-Reply-To:Date:Cc:References:To:From;
+ b=E+6lHDWe3kwYgQdZNNARS5xUtLMzYwlOvhn5wNo3dglL/hWyP+bPcowngrSEyTkd0
+ f5UN8vsXzqPodnXxR5ObkV6bhsoxEwBWIcX46ldy+ZYWxB00q5HdVcHivgRhcOWB18
+ YCE73eOdysxEWFGiVx2eaBOODbYso2as6P0lOenE=
+Received: from [192.168.253.29] (unknown [192.168.253.29])
+ by mail.fuzziesquirrel.com (Postfix) with ESMTPSA id 8D5BA20AA7;
+ Thu, 14 Apr 2016 09:48:40 -0400 (EDT)
+Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 9.3 \(3124\))
+Subject: Re: [PATCH phosphor-rest-server] Add support for serving jsonp
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <1459463240.2457.13.camel@aj.id.au>
+Date: Thu, 14 Apr 2016 09:48:40 -0400
+Cc: OpenBMC Patches <openbmc@lists.ozlabs.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <761E1918-7D5E-4F3C-9EA9-375501525A74@fuzziesquirrel.com>
+References: <1459266057-23662-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1459463240.2457.13.camel@aj.id.au>
+To: andrew@aj.id.au
+X-Mailer: Apple Mail (2.3124)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -27,88 +44,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Apr 2016 06:30:52 -0000
+X-List-Received-Date: Thu, 14 Apr 2016 13:48:46 -0000
 
-From: Jeremy Kerr <jk@ozlabs.org>
+Hi Andrew
 
-Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
----
- .../recipes-phosphor/obmc-console/obmc-console.bb    | 20 +++++++++++++++++++-
- .../obmc-console/obmc-console-ssh.socket             | 11 +++++++++++
- .../obmc-console/obmc-console-ssh@.service           | 11 +++++++++++
- 3 files changed, 41 insertions(+), 1 deletion(-)
- create mode 100644 meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console-ssh.socket
- create mode 100644 meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console-ssh@.service
+JSONP lets you bypass cross-domain policies in web browsers.  That =
+sounds hacky and unsafe, and some people think it is, but the concerns =
+with it are all on the client side.
 
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console.bb b/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console.bb
-index 75a1d84..e5553fe 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console.bb
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console.bb
-@@ -10,12 +10,30 @@ inherit autotools
- TARGET_CFLAGS   += "-fpic -O2"
- 
- SRC_URI += "git://github.com/openbmc/obmc-console"
--SRC_URI += "file://${PN}.conf"
-+SRC_URI += "file://${PN}.conf \
-+	    file://obmc-console-ssh.socket \
-+	    file://obmc-console-ssh@.service"
-+
- SRCREV = "2eacda524e98c7964e542e01aabf82360cf60344"
- 
-+FILES_${PN} += "${systemd_unitdir}/system/obmc-console-ssh@.service \
-+		${systemd_unitdir}/system/obmc-console-ssh.socket"
-+
-+SYSTEMD_SERVICE_${PN} = "${BPN}.service ${BPN}-ssh.socket"
-+
- do_install_append() {
-         install -m 0755 -d ${D}${sysconfdir}
-         install -m 0644 ${WORKDIR}/${PN}.conf ${D}${sysconfdir}/${PN}.conf
-+
-+	# add additional unit files for ssh-based console server
-+	install -d ${D}${systemd_unitdir}/system
-+	install -m 0644 ${WORKDIR}/obmc-console-ssh@.service ${D}${systemd_unitdir}/system
-+	install -m 0644 ${WORKDIR}/obmc-console-ssh.socket ${D}${systemd_unitdir}/system
-+	sed -i -e 's,@BASE_BINDIR@,${base_bindir},g' \
-+		-e 's,@BINDIR@,${bindir},g' \
-+		-e 's,@SBINDIR@,${sbindir},g' \
-+		${D}${systemd_unitdir}/system/obmc-console-ssh@.service \
-+		${D}${systemd_unitdir}/system/obmc-console-ssh.socket
- }
- 
- S = "${WORKDIR}/git"
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console-ssh.socket b/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console-ssh.socket
-new file mode 100644
-index 0000000..3fbfd99
---- /dev/null
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console-ssh.socket
-@@ -0,0 +1,11 @@
-+[Unit]
-+Description=OpenBMC console ssh server socket
-+Conflicts=obmc-console-ssh.service
-+Requires=obmc-console.service
-+
-+[Socket]
-+ListenStream=2200
-+Accept=yes
-+
-+[Install]
-+WantedBy=sockets.target
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console-ssh@.service b/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console-ssh@.service
-new file mode 100644
-index 0000000..74d5a7a
---- /dev/null
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console-ssh@.service
-@@ -0,0 +1,11 @@
-+[Unit]
-+Description=OBMC console SSH Per-Connection Server
-+Wants=obmc-console.service
-+
-+[Service]
-+Environment="DROPBEAR_RSAKEY_DIR=/etc/dropbear"
-+EnvironmentFile=-/etc/default/dropbear
-+ExecStart=-@SBINDIR@/dropbear -i -r ${DROPBEAR_RSAKEY_DIR}/dropbear_rsa_host_key -c @BINDIR@/obmc-console-client $DROPBEAR_EXTRA_ARGS
-+ExecReload=@BASE_BINDIR@/kill -HUP $MAINPID
-+StandardInput=socket
-+KillMode=process
--- 
-2.7.1
+One use case would be writing some javascript on a PC ( so the =
+=E2=80=9Corigin=E2=80=9D is the PC ).  The browser running the script =
+would not allow xmlhttprequests to the BMC.  We have a web developer =
+writing an application doing exactly this:
+
+https://github.com/LRRoberts0122/openbmc =
+<https://github.com/LRRoberts0122/openbmc>
+
+thx - brad
+
+> On Mar 31, 2016, at 6:27 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+>=20
+> Hi Brad,
+>=20
+> On Tue, 2016-03-29 at 10:40 -0500, OpenBMC Patches wrote:
+>> Jsonp adds a javascript wrapper to json responses.  It allows client
+>> applications to work around cross domain restrictions imposed by some
+>> browsers.  For more information on jsonp:
+>> https://en.wikipedia.org/wiki/JSONP
+>>=20
+>> To get a jsonp response, an application adds a callback url parameter
+>> with the desired name of the wrapper:
+>> https://192.168.252.1/list?callback=3Dmy_callback
+>=20
+> This description covers the what and the how, but I'm not clear on the
+> why. Can you add some words describing the motivation for the change
+> and/or use-cases this enables? Maybe it's my ignorance of web
+> development shining through :)
+>=20
+> Cheers,
+>=20
+> Andrew
+>=20
+>>=20
+>> <!-- Reviewable:start -->
+>> ---
+>> This change is [<img src=3D"https://reviewable.io/review_button.svg"
+>> height=3D"35" align=3D"absmiddle" alt=3D"Reviewable"/>](
+>> https://reviewable.io/reviews/openbmc/phosphor-rest-server/17)
+>> <!-- Reviewable:end -->
+>>=20
+>>=20
+>> https://github.com/openbmc/phosphor-rest-server/pull/17
+>>=20
+>> Brad Bishop (1):
+>>  Add support for serving jsonp
+>>=20
+>> obmc-rest | 30 ++++++++++++++++++++++++++++--
+>> 1 file changed, 28 insertions(+), 2 deletions(-)
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
