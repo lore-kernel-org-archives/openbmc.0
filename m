@@ -3,17 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qlrQb5P8qzDqBH
- for <openbmc@lists.ozlabs.org>; Thu, 14 Apr 2016 16:30:47 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qlrQg4CXxzDqBg
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Apr 2016 16:30:51 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1460615441690675.3028493255928;
- Wed, 13 Apr 2016 23:30:41 -0700 (PDT)
+ with SMTPS id 146061544475163.78262895655246;
+ Wed, 13 Apr 2016 23:30:44 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 2/3] dropbear: Add patch for -c <command> option to
- dropbear
-Date: Thu, 14 Apr 2016 01:30:34 -0500
-Message-Id: <1460615435-26806-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 3/3] obmc-console: Add ssh endpoint
+Date: Thu, 14 Apr 2016 01:30:35 -0500
+Message-Id: <1460615435-26806-4-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1460615435-26806-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1460615435-26806-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,122 +27,88 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Apr 2016 06:30:48 -0000
+X-List-Received-Date: Thu, 14 Apr 2016 06:30:52 -0000
 
 From: Jeremy Kerr <jk@ozlabs.org>
 
 Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
 ---
- ...d-c-command-option-to-force-a-specific-co.patch | 91 ++++++++++++++++++++++
- .../recipes-core/dropbear/dropbear_%.bbappend      |  3 +-
- 2 files changed, 93 insertions(+), 1 deletion(-)
- create mode 100644 meta-phosphor/common/recipes-core/dropbear/dropbear/0001-dropbear-Add-c-command-option-to-force-a-specific-co.patch
+ .../recipes-phosphor/obmc-console/obmc-console.bb    | 20 +++++++++++++++++++-
+ .../obmc-console/obmc-console-ssh.socket             | 11 +++++++++++
+ .../obmc-console/obmc-console-ssh@.service           | 11 +++++++++++
+ 3 files changed, 41 insertions(+), 1 deletion(-)
+ create mode 100644 meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console-ssh.socket
+ create mode 100644 meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console-ssh@.service
 
-diff --git a/meta-phosphor/common/recipes-core/dropbear/dropbear/0001-dropbear-Add-c-command-option-to-force-a-specific-co.patch b/meta-phosphor/common/recipes-core/dropbear/dropbear/0001-dropbear-Add-c-command-option-to-force-a-specific-co.patch
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console.bb b/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console.bb
+index 75a1d84..e5553fe 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console.bb
++++ b/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console.bb
+@@ -10,12 +10,30 @@ inherit autotools
+ TARGET_CFLAGS   += "-fpic -O2"
+ 
+ SRC_URI += "git://github.com/openbmc/obmc-console"
+-SRC_URI += "file://${PN}.conf"
++SRC_URI += "file://${PN}.conf \
++	    file://obmc-console-ssh.socket \
++	    file://obmc-console-ssh@.service"
++
+ SRCREV = "2eacda524e98c7964e542e01aabf82360cf60344"
+ 
++FILES_${PN} += "${systemd_unitdir}/system/obmc-console-ssh@.service \
++		${systemd_unitdir}/system/obmc-console-ssh.socket"
++
++SYSTEMD_SERVICE_${PN} = "${BPN}.service ${BPN}-ssh.socket"
++
+ do_install_append() {
+         install -m 0755 -d ${D}${sysconfdir}
+         install -m 0644 ${WORKDIR}/${PN}.conf ${D}${sysconfdir}/${PN}.conf
++
++	# add additional unit files for ssh-based console server
++	install -d ${D}${systemd_unitdir}/system
++	install -m 0644 ${WORKDIR}/obmc-console-ssh@.service ${D}${systemd_unitdir}/system
++	install -m 0644 ${WORKDIR}/obmc-console-ssh.socket ${D}${systemd_unitdir}/system
++	sed -i -e 's,@BASE_BINDIR@,${base_bindir},g' \
++		-e 's,@BINDIR@,${bindir},g' \
++		-e 's,@SBINDIR@,${sbindir},g' \
++		${D}${systemd_unitdir}/system/obmc-console-ssh@.service \
++		${D}${systemd_unitdir}/system/obmc-console-ssh.socket
+ }
+ 
+ S = "${WORKDIR}/git"
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console-ssh.socket b/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console-ssh.socket
 new file mode 100644
-index 0000000..88d0ac0
+index 0000000..3fbfd99
 --- /dev/null
-+++ b/meta-phosphor/common/recipes-core/dropbear/dropbear/0001-dropbear-Add-c-command-option-to-force-a-specific-co.patch
-@@ -0,0 +1,91 @@
-+From b4e094381ec846f4387dc6a3c210c2205a8db58a Mon Sep 17 00:00:00 2001
-+From: Jeremy Kerr <jk@ozlabs.org>
-+Date: Tue, 12 Apr 2016 11:11:40 +0800
-+Subject: [PATCH] dropbear: Add -c <command> option to force a specific command
++++ b/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console-ssh.socket
+@@ -0,0 +1,11 @@
++[Unit]
++Description=OpenBMC console ssh server socket
++Conflicts=obmc-console-ssh.service
++Requires=obmc-console.service
 +
-+This change adds a -c option to dropbear, to force the session to use a
-+specific command, in a similar fashion to OpenSSH's ForceCommand
-+configuration option.
++[Socket]
++ListenStream=2200
++Accept=yes
 +
-+This is useful to provide a simple fixed service over ssh, without
-+requiring an authorized key file for the per-key forced_command option.
++[Install]
++WantedBy=sockets.target
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console-ssh@.service b/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console-ssh@.service
+new file mode 100644
+index 0000000..74d5a7a
+--- /dev/null
++++ b/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console-ssh@.service
+@@ -0,0 +1,11 @@
++[Unit]
++Description=OBMC console SSH Per-Connection Server
++Wants=obmc-console.service
 +
-+This setting takes precedence over the channel session's provided
-+command, and the per-key forced_command setting.
-+
-+Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
-+---
-+ runopts.h         |  2 ++
-+ svr-chansession.c | 12 ++++++++++--
-+ svr-runopts.c     |  5 +++++
-+ 3 files changed, 17 insertions(+), 2 deletions(-)
-+
-+diff --git a/runopts.h b/runopts.h
-+index f7c869d..ffb573e 100644
-+--- a/runopts.h
-++++ b/runopts.h
-+@@ -114,6 +114,8 @@ typedef struct svr_runopts {
-+ 	buffer * banner;
-+ 	char * pidfile;
-+ 
-++	char * command;
-++
-+ } svr_runopts;
-+ 
-+ extern svr_runopts svr_opts;
-+diff --git a/svr-chansession.c b/svr-chansession.c
-+index bfaf7f6..d6c9330 100644
-+--- a/svr-chansession.c
-++++ b/svr-chansession.c
-+@@ -671,8 +671,16 @@ static int sessioncommand(struct Channel *channel, struct ChanSess *chansess,
-+ 		}
-+ 	}
-+ 	
-+-	/* take public key option 'command' into account */
-+-	svr_pubkey_set_forced_command(chansess);
-++
-++	/* take global command into account */
-++	if (svr_opts.command) {
-++		chansess->original_command = chansess->cmd ? : m_strdup("");
-++		chansess->cmd = m_strdup(svr_opts.command);
-++	} else {
-++		/* take public key option 'command' into account */
-++		svr_pubkey_set_forced_command(chansess);
-++	}
-++
-+ 
-+ #ifdef LOG_COMMANDS
-+ 	if (chansess->cmd) {
-+diff --git a/svr-runopts.c b/svr-runopts.c
-+index 8f60059..f845300 100644
-+--- a/svr-runopts.c
-++++ b/svr-runopts.c
-+@@ -79,6 +79,7 @@ static void printhelp(const char * progname) {
-+ #ifdef ENABLE_SVR_REMOTETCPFWD
-+ 					"-k		Disable remote port forwarding\n"
-+ 					"-a		Allow connections to forwarded ports from any host\n"
-++					"-c command	Force executed command\n"
-+ #endif
-+ 					"-p [address:]port\n"
-+ 					"		Listen on specified tcp port (and optionally address),\n"
-+@@ -125,6 +126,7 @@ void svr_getopts(int argc, char ** argv) {
-+ 	/* see printhelp() for options */
-+ 	svr_opts.bannerfile = NULL;
-+ 	svr_opts.banner = NULL;
-++	svr_opts.command = NULL;
-+ 	svr_opts.forkbg = 1;
-+ 	svr_opts.norootlogin = 0;
-+ 	svr_opts.noauthpass = 0;
-+@@ -177,6 +179,9 @@ void svr_getopts(int argc, char ** argv) {
-+ 				case 'b':
-+ 					next = &svr_opts.bannerfile;
-+ 					break;
-++				case 'c':
-++					next = &svr_opts.command;
-++					break;
-+ 				case 'd':
-+ 				case 'r':
-+ 					next = &keyfile;
-+-- 
-+2.5.0
-+
-diff --git a/meta-phosphor/common/recipes-core/dropbear/dropbear_%.bbappend b/meta-phosphor/common/recipes-core/dropbear/dropbear_%.bbappend
-index 36c0dcd..52a38bd 100644
---- a/meta-phosphor/common/recipes-core/dropbear/dropbear_%.bbappend
-+++ b/meta-phosphor/common/recipes-core/dropbear/dropbear_%.bbappend
-@@ -1,2 +1,3 @@
- FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
--SRC_URI += "file://dropbearkey.service"
-+SRC_URI += "file://dropbearkey.service \
-+	    file://0001-dropbear-Add-c-command-option-to-force-a-specific-co.patch"
++[Service]
++Environment="DROPBEAR_RSAKEY_DIR=/etc/dropbear"
++EnvironmentFile=-/etc/default/dropbear
++ExecStart=-@SBINDIR@/dropbear -i -r ${DROPBEAR_RSAKEY_DIR}/dropbear_rsa_host_key -c @BINDIR@/obmc-console-client $DROPBEAR_EXTRA_ARGS
++ExecReload=@BASE_BINDIR@/kill -HUP $MAINPID
++StandardInput=socket
++KillMode=process
 -- 
 2.7.1
