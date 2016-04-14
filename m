@@ -1,56 +1,20 @@
-Return-Path: <clg@fr.ibm.com>
-Received: from e06smtp17.uk.ibm.com (e06smtp17.uk.ibm.com [195.75.94.113])
- (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
+Return-Path: <openbmc-patches@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qm2kq1CWQzDq5y
- for <openbmc@lists.ozlabs.org>; Fri, 15 Apr 2016 00:15:30 +1000 (AEST)
-Received: from localhost
- by e06smtp17.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <clg@fr.ibm.com>;
- Thu, 14 Apr 2016 15:15:26 +0100
-Received: from d06dlp02.portsmouth.uk.ibm.com (9.149.20.14)
- by e06smtp17.uk.ibm.com (192.168.101.147) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Thu, 14 Apr 2016 15:15:23 +0100
-X-IBM-Helo: d06dlp02.portsmouth.uk.ibm.com
-X-IBM-MailFrom: clg@fr.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from b06cxnps4076.portsmouth.uk.ibm.com
- (d06relay13.portsmouth.uk.ibm.com [9.149.109.198])
- by d06dlp02.portsmouth.uk.ibm.com (Postfix) with ESMTP id 5C2CD2190061
- for <openbmc@lists.ozlabs.org>; Thu, 14 Apr 2016 15:15:01 +0100 (BST)
-Received: from d06av09.portsmouth.uk.ibm.com (d06av09.portsmouth.uk.ibm.com
- [9.149.37.250])
- by b06cxnps4076.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u3EEFM3062455906
- for <openbmc@lists.ozlabs.org>; Thu, 14 Apr 2016 14:15:22 GMT
-Received: from d06av09.portsmouth.uk.ibm.com (localhost [127.0.0.1])
- by d06av09.portsmouth.uk.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u3EEFM4i030273
- for <openbmc@lists.ozlabs.org>; Thu, 14 Apr 2016 08:15:22 -0600
-Received: from smtp.lab.toulouse-stg.fr.ibm.com
- (srv01.lab.toulouse-stg.fr.ibm.com [9.101.4.1])
- by d06av09.portsmouth.uk.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u3EEFLL0030232; Thu, 14 Apr 2016 08:15:21 -0600
-Received: from [9.101.4.42] (hermes.lab.toulouse-stg.fr.ibm.com [9.101.4.42])
- by smtp.lab.toulouse-stg.fr.ibm.com (Postfix) with ESMTP id
- 2CA012204C4; Thu, 14 Apr 2016 16:15:21 +0200 (CEST)
-Subject: Re: [PATCH openbmc 0/3] Re-enable obmc-console and add a ssh endpoint
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-References: <1460615435-26806-1-git-send-email-openbmc-patches@stwcx.xyz>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@fr.ibm.com>
-Message-ID: <570FA5F1.1020201@fr.ibm.com>
-Date: Thu, 14 Apr 2016 16:15:13 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
- Icedove/38.7.0
-MIME-Version: 1.0
-In-Reply-To: <1460615435-26806-1-git-send-email-openbmc-patches@stwcx.xyz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16041414-0005-0000-0000-000013A015B2
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qm54c1jxDzDq5y
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Apr 2016 02:01:03 +1000 (AEST)
+Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
+ with SMTPS id 1460649657465964.2458582878686;
+ Thu, 14 Apr 2016 09:00:57 -0700 (PDT)
+From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH skeleton 0/5] Remove custom org.openbmc.Object.ObjectMapper
+ usage
+Date: Thu, 14 Apr 2016 11:00:50 -0500
+Message-Id: <1460649655-15109-1-git-send-email-openbmc-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.7.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -62,46 +26,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Apr 2016 14:15:32 -0000
+X-List-Received-Date: Thu, 14 Apr 2016 16:01:04 -0000
 
-Hello,
 
-I tried it on a palmetto. Very nice. This is perfect for me.
 
-For my education on the topic, what are the plans for the OpenBMC 
-host console ? Is obmc-console a temporary or a final solution ? 
+<!-- Reviewable:start -->
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/skeleton/61)
+<!-- Reviewable:end -->
 
-May be adding websockets would provide an easier integration in 
-a www ui. 
 
-Thanks.
+https://github.com/openbmc/skeleton/pull/61
 
-C.
+Brad Bishop (5):
+  Remove fan control support from Palmetto
+  Add gitignore file
+  Whitespace fixes for objects/*.c
+  Fix compiler warnings for objects/*
+  Remove custom org.openbmc.Object.ObjectMapper
 
-On 04/14/2016 08:30 AM, OpenBMC Patches wrote:
-> Following the previous disable, this bumps us to a working obmc-console version, and adds infrastructure for a ssh-based remote console connection.
-> 
-> <!-- Reviewable:start -->
-> ---
-> This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/232)
-> <!-- Reviewable:end -->
-> 
-> 
-> https://github.com/openbmc/openbmc/pull/232
-> 
-> Jeremy Kerr (3):
->   Enable obmc-console project
->   dropbear: Add patch for -c <command> option to dropbear
->   obmc-console: Add ssh endpoint
-> 
->  meta-phosphor/classes/obmc-phosphor-image.bbclass  |  1 +
->  ...d-c-command-option-to-force-a-specific-co.patch | 91 ++++++++++++++++++++++
->  .../recipes-core/dropbear/dropbear_%.bbappend      |  3 +-
->  .../recipes-phosphor/obmc-console/obmc-console.bb  | 22 +++++-
->  .../obmc-console/obmc-console-ssh.socket           | 11 +++
->  .../obmc-console/obmc-console-ssh@.service         | 11 +++
->  6 files changed, 136 insertions(+), 3 deletions(-)
->  create mode 100644 meta-phosphor/common/recipes-core/dropbear/dropbear/0001-dropbear-Add-c-command-option-to-force-a-specific-co.patch
->  create mode 100644 meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console-ssh.socket
->  create mode 100644 meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console-ssh@.service
-> 
+ .gitignore                      |    6 +
+ Makefile                        |   28 +-
+ bin/Palmetto.py                 |    7 -
+ bin/system_manager.py           |    4 +-
+ includes/object_mapper.c        |   31 --
+ includes/object_mapper.h        |   10 -
+ includes/openbmc.h              |    2 +-
+ objects/board_vpd_obj.c         |  119 ++---
+ objects/button_power_obj.c      |  345 ++++++------
+ objects/button_reset_obj.c      |  180 +++----
+ objects/control_bmc_barreleye.c |  496 +++++++++--------
+ objects/control_bmc_obj.c       |  445 ++++++++--------
+ objects/control_host_obj.c      |  540 +++++++++----------
+ objects/fan_generic_obj.c       |  263 +++++----
+ objects/flash_bios_obj.c        |  838 ++++++++++++++---------------
+ objects/flasher_obj.c           |  877 +++++++++++++++---------------
+ objects/host_watchdog_obj.c     |  365 +++++++------
+ objects/hwmons_barreleye.c      |  433 ++++++++-------
+ objects/hwmons_palmetto.c       |  422 +++++++--------
+ objects/led_controller.c        | 1124 ++++++++++++++++++++-------------------
+ objects/pcie_slot_present_obj.c |  327 ++++++------
+ objects/power_control_obj.c     |  633 +++++++++++-----------
+ 22 files changed, 3656 insertions(+), 3839 deletions(-)
+ create mode 100644 .gitignore
+ delete mode 100644 includes/object_mapper.c
+ delete mode 100644 includes/object_mapper.h
+ mode change 100755 => 100644 objects/button_reset_obj.c
+ mode change 100755 => 100644 objects/control_host_obj.c
+ mode change 100755 => 100644 objects/led_controller.c
+
+-- 
+2.7.1
