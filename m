@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qm54m6FYPzDqBh
- for <openbmc@lists.ozlabs.org>; Fri, 15 Apr 2016 02:01:12 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qm54q68WTzDq9m
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Apr 2016 02:01:15 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1460649665965317.7012570062752;
- Thu, 14 Apr 2016 09:01:05 -0700 (PDT)
+ with SMTPS id 1460649667776285.33768730893996;
+ Thu, 14 Apr 2016 09:01:07 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@us.ibm.com>
-Subject: [PATCH skeleton 4/5] Fix compiler warnings for objects/*
-Date: Thu, 14 Apr 2016 11:00:54 -0500
-Message-Id: <1460649655-15109-5-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton 5/5] Remove custom org.openbmc.Object.ObjectMapper
+Date: Thu, 14 Apr 2016 11:00:55 -0500
+Message-Id: <1460649655-15109-6-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1460649655-15109-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1460649655-15109-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,501 +28,599 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Apr 2016 16:01:14 -0000
+X-List-Received-Date: Thu, 14 Apr 2016 16:01:16 -0000
 
 From: Brad Bishop <bradleyb@us.ibm.com>
 
----
- includes/openbmc.h              |  2 +-
- objects/board_vpd_obj.c         |  3 +-
- objects/button_power_obj.c      |  4 +--
- objects/button_reset_obj.c      |  4 +--
- objects/control_host_obj.c      |  1 -
- objects/flash_bios_obj.c        | 65 +++++------------------------------------
- objects/flasher_obj.c           | 46 +----------------------------
- objects/host_watchdog_obj.c     |  3 +-
- objects/hwmons_barreleye.c      |  5 ++--
- objects/led_controller.c        | 17 +++++++----
- objects/pcie_slot_present_obj.c |  6 +---
- objects/power_control_obj.c     |  3 --
- 12 files changed, 28 insertions(+), 131 deletions(-)
+Use the standard freedesktop ObjectManager interface.
 
-diff --git a/includes/openbmc.h b/includes/openbmc.h
-index a6d420b..e338dda 100644
---- a/includes/openbmc.h
-+++ b/includes/openbmc.h
-@@ -20,7 +20,7 @@
- #ifdef __arm__
- static inline void devmem(void* addr, uint32_t val)
- {
--	printf("devmem 0x%08x = 0x%08x\n",addr,val);
-+	printf("devmem 0x%08x = 0x%08x\n",(uint32_t)addr,val);
-         asm volatile("" : : : "memory");
-         *(volatile uint32_t *)addr = val;
- }
-diff --git a/objects/board_vpd_obj.c b/objects/board_vpd_obj.c
-index a6576db..c64c250 100644
---- a/objects/board_vpd_obj.c
-+++ b/objects/board_vpd_obj.c
-@@ -12,7 +12,6 @@ main(gint argc, gchar *argv[])
- 	GDBusProxy *p;
- 	GError *error;
- 	GVariant *parm;
--	GVariant *result;
+Moved gdbus OM export calls to the correct place so these
+signals are emitted as expected by system_manager.py.
+Python apps that use pyobmc are already emitting these
+correctly.
+
+Change system_manager.py to watch for the freedesktop
+signal rather than the custom one.
+
+Added an sd_bus OM to led_controller.
+---
+ Makefile                    | 28 ++++++++++++++--------------
+ bin/system_manager.py       |  4 ++--
+ includes/object_mapper.c    | 31 -------------------------------
+ includes/object_mapper.h    | 10 ----------
+ objects/button_power_obj.c  | 10 +---------
+ objects/button_reset_obj.c  | 10 +---------
+ objects/control_host_obj.c  | 10 +---------
+ objects/fan_generic_obj.c   | 10 +---------
+ objects/flash_bios_obj.c    |  9 +--------
+ objects/host_watchdog_obj.c | 10 +---------
+ objects/hwmons_barreleye.c  |  9 +--------
+ objects/hwmons_palmetto.c   |  9 +--------
+ objects/led_controller.c    | 28 +++++++++++++++++++++++++---
+ objects/power_control_obj.c | 10 +---------
+ 14 files changed, 50 insertions(+), 138 deletions(-)
+ delete mode 100644 includes/object_mapper.c
+ delete mode 100644 includes/object_mapper.h
+
+diff --git a/Makefile b/Makefile
+index 8a88a37..7129082 100755
+--- a/Makefile
++++ b/Makefile
+@@ -35,27 +35,27 @@ clean:
+ libopenbmc_intf: openbmc_intf.o
+ 	$(CC) -shared -o lib/$@.so obj/openbmc_intf.o $(LDFLAGS)
  
- 	loop = g_main_loop_new(NULL, FALSE);
+-power_control: power_control_obj.o gpio.o object_mapper.o libopenbmc_intf
+-	$(CC) -o bin/$@.exe obj/gpio.o obj/power_control_obj.o obj/object_mapper.o $(LDFLAGS) $(LIBS)
++power_control: power_control_obj.o gpio.o libopenbmc_intf
++	$(CC) -o bin/$@.exe obj/gpio.o obj/power_control_obj.o $(LDFLAGS) $(LIBS)
  
-@@ -44,7 +43,7 @@ main(gint argc, gchar *argv[])
- 	parm = g_variant_new("(v)",dict);
+ led_controller: led_controller.o
+ 	$(CC) -o bin/$@.exe obj/led_controller.o $(LDFLAGS) $(LIB_FLAG)
  
- 	error = NULL;
--	result = g_dbus_proxy_call_sync(p,
-+	(void)g_dbus_proxy_call_sync(p,
- 			"update",
- 			parm,
- 			G_DBUS_CALL_FLAGS_NONE,
+-button_power: button_power_obj.o gpio.o object_mapper.o libopenbmc_intf
+-	$(CC) -o bin/$@.exe obj/button_power_obj.o obj/gpio.o obj/object_mapper.o $(LDFLAGS) $(LIBS)
++button_power: button_power_obj.o gpio.o libopenbmc_intf
++	$(CC) -o bin/$@.exe obj/button_power_obj.o obj/gpio.o $(LDFLAGS) $(LIBS)
+ 
+-button_reset: button_reset_obj.o gpio.o object_mapper.o libopenbmc_intf
+-	$(CC) -o bin/$@.exe obj/button_reset_obj.o obj/gpio.o obj/object_mapper.o $(LDFLAGS) $(LIBS)
++button_reset: button_reset_obj.o gpio.o libopenbmc_intf
++	$(CC) -o bin/$@.exe obj/button_reset_obj.o obj/gpio.o $(LDFLAGS) $(LIBS)
+ 
+ 
+-control_host: control_host_obj.o gpio.o object_mapper.o libopenbmc_intf
+-	$(CC) -o bin/$@.exe obj/gpio.o obj/control_host_obj.o obj/object_mapper.o $(LDFLAGS) $(LIBS)
++control_host: control_host_obj.o gpio.o libopenbmc_intf
++	$(CC) -o bin/$@.exe obj/gpio.o obj/control_host_obj.o $(LDFLAGS) $(LIBS)
+ 
+-flash_bios:  flash_bios_obj.o object_mapper.o libopenbmc_intf
+-	$(CC) -o bin/$@.exe obj/flash_bios_obj.o obj/object_mapper.o $(LDFLAGS) $(LIBS)
++flash_bios:  flash_bios_obj.o libopenbmc_intf
++	$(CC) -o bin/$@.exe obj/flash_bios_obj.o $(LDFLAGS) $(LIBS)
+ 
+-host_watchdog: host_watchdog_obj.o object_mapper.o libopenbmc_intf
+-	$(CC) -o bin/$@.exe obj/host_watchdog_obj.o obj/object_mapper.o  $(LDFLAGS) $(LIBS)
++host_watchdog: host_watchdog_obj.o libopenbmc_intf
++	$(CC) -o bin/$@.exe obj/host_watchdog_obj.o $(LDFLAGS) $(LIBS)
+ 
+ board_vpd: board_vpd_obj.o libopenbmc_intf
+ 	$(CC) -o bin/$@.exe obj/board_vpd_obj.o $(LDFLAGS) $(LIBS)
+@@ -69,8 +69,8 @@ flasher:  $(OBJS2) flasher_obj.o libopenbmc_intf
+ pflash:  $(OBJS2) pflash.o
+ 	$(CC) -o bin/$@ obj/pflash.o $(OBJS3) $(LDFLAGS)
+ 
+-hwmons_barreleye: hwmons_barreleye.o object_mapper.o libopenbmc_intf
+-	$(CC) -o bin/$@.exe obj/hwmons_barreleye.o obj/object_mapper.o  $(LDFLAGS) $(LIBS)
++hwmons_barreleye: hwmons_barreleye.o libopenbmc_intf
++	$(CC) -o bin/$@.exe obj/hwmons_barreleye.o $(LDFLAGS) $(LIBS)
+ 
+ control_bmc: control_bmc_obj.o libopenbmc_intf
+ 	$(CC) -o bin/$@.exe obj/control_bmc_obj.o $(LDFLAGS) $(LIBS)
+diff --git a/bin/system_manager.py b/bin/system_manager.py
+index 004d978..e74788a 100755
+--- a/bin/system_manager.py
++++ b/bin/system_manager.py
+@@ -34,7 +34,7 @@ class SystemManager(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
+ 		dbus.service.Object.__init__(self,bus,obj_name)
+ 
+ 		bus.add_signal_receiver(self.NewObjectHandler,
+-			signal_name = "ObjectAdded", sender_keyword = 'bus_name')
++			signal_name = "InterfacesAdded", sender_keyword = 'bus_name')
+ 		bus.add_signal_receiver(self.SystemStateHandler,signal_name = "GotoSystemState")
+ 
+ 		self.Set(DBUS_NAME,"current_state","")
+@@ -173,7 +173,7 @@ class SystemManager(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
+ 	
+ 		return True
+ 
+-	def NewObjectHandler(self,obj_path, interface_name, bus_name = None):
++	def NewObjectHandler(self, obj_path, iprops, bus_name = None):
+ 		current_state = self.Get(DBUS_NAME,"current_state")
+ 		if (self.bus_name_lookup.has_key(obj_path)):
+ 			if (self.bus_name_lookup[obj_path] == bus_name):
+diff --git a/includes/object_mapper.c b/includes/object_mapper.c
+deleted file mode 100644
+index 1164251..0000000
+--- a/includes/object_mapper.c
++++ /dev/null
+@@ -1,31 +0,0 @@
+-#include "object_mapper.h"
+-
+-
+-void
+-emit_object_added(GDBusObjectManager *manager)
+-{
+-    GList *objects;
+-    GList *l;
+-
+-    objects = g_dbus_object_manager_get_objects(manager);
+-    for (l = objects; l != NULL; l = l->next)
+-    {
+-        GDBusObject *object = l->data;
+-	ObjectMapper* map = object_get_object_mapper((Object*)object);
+-
+-        GList *interfaces;
+-        GList *ll;
+-	const gchar *object_path = g_dbus_object_get_object_path(G_DBUS_OBJECT(object));
+-
+-        interfaces = g_dbus_object_get_interfaces(G_DBUS_OBJECT(object));
+-        for (ll = interfaces; ll != NULL; ll = ll->next)
+-        {
+-            GDBusInterface *interface = G_DBUS_INTERFACE(ll->data);
+-            object_mapper_emit_object_added(map,object_path,
+-		g_dbus_interface_get_info(interface)->name);
+-        }
+-        g_list_free_full(interfaces, g_object_unref);
+-    }
+-    g_list_free_full(objects, g_object_unref);
+-}
+-
+diff --git a/includes/object_mapper.h b/includes/object_mapper.h
+deleted file mode 100644
+index b0a97a7..0000000
+--- a/includes/object_mapper.h
++++ /dev/null
+@@ -1,10 +0,0 @@
+-#ifndef __OBJECTMAPPER2_H__
+-#define __OBJECTMAPPER2_H__
+-
+-#include "interfaces/openbmc_intf.h"
+-
+-
+-void emit_object_added(GDBusObjectManager*);
+-
+-
+-#endif
 diff --git a/objects/button_power_obj.c b/objects/button_power_obj.c
-index f9a2b09..d1dbef0 100644
+index d1dbef0..f103e81 100644
 --- a/objects/button_power_obj.c
 +++ b/objects/button_power_obj.c
-@@ -44,7 +44,7 @@ on_button_interrupt( GIOChannel *channel,
- 	gchar buf[2];
- 	buf[1] = '\0';
- 	g_io_channel_seek_position( channel, 0, G_SEEK_SET, 0 );
--	GIOStatus rc = g_io_channel_read_chars( channel,
-+	(void)g_io_channel_read_chars(channel,
- 			buf, 1,
- 			&bytes_read,
- 			&error );
-@@ -84,9 +84,7 @@ on_bus_acquired(GDBusConnection *connection,
- {
- 	ObjectSkeleton *object;
- 	//g_print ("Acquired a message bus connection: %s\n",name);
--	cmdline *cmd = user_data;
- 	manager = g_dbus_object_manager_server_new(dbus_object_path);
--	int i=0;
- 	gchar *s;
- 	s = g_strdup_printf("%s/%s",dbus_object_path,instance_name);
- 	object = object_skeleton_new(s);
+@@ -2,7 +2,6 @@
+ #include "interfaces/openbmc_intf.h"
+ #include "gpio.h"
+ #include "openbmc.h"
+-#include "object_mapper.h"
+ 
+ /* ------------------------------------------------------------------------- */
+ static const gchar* dbus_object_path = "/org/openbmc/buttons";
+@@ -94,10 +93,6 @@ on_bus_acquired(GDBusConnection *connection,
+ 	object_skeleton_set_button(object, button);
+ 	g_object_unref(button);
+ 
+-	ObjectMapper* mapper = object_mapper_skeleton_new();
+-	object_skeleton_set_object_mapper(object, mapper);
+-	g_object_unref(mapper);
+-
+ 	//define method callbacks
+ 	g_signal_connect(button,
+ 			"handle-is-on",
+@@ -110,12 +105,10 @@ on_bus_acquired(GDBusConnection *connection,
+ 
+ 
+ 	/* Export the object (@manager takes its own reference to @object) */
++	g_dbus_object_manager_server_set_connection(manager, connection);
+ 	g_dbus_object_manager_server_export(manager, G_DBUS_OBJECT_SKELETON(object));
+ 	g_object_unref(object);
+ 
+-	/* Export all objects */
+-	g_dbus_object_manager_server_set_connection(manager, connection);
+-
+ 	// get gpio device paths
+ 	int rc = GPIO_OK;
+ 	do {
+@@ -128,7 +121,6 @@ on_bus_acquired(GDBusConnection *connection,
+ 	{
+ 		printf("ERROR PowerButton: GPIO setup (rc=%d)\n",rc);
+ 	}
+-	emit_object_added((GDBusObjectManager*)manager);
+ }
+ 
+ static void
 diff --git a/objects/button_reset_obj.c b/objects/button_reset_obj.c
-index 6e915a5..22e98c5 100644
+index 22e98c5..e15ce98 100644
 --- a/objects/button_reset_obj.c
 +++ b/objects/button_reset_obj.c
-@@ -44,7 +44,7 @@ on_button_interrupt( GIOChannel *channel,
- 	gchar buf[2];
- 	buf[1] = '\0';
- 	g_io_channel_seek_position( channel, 0, G_SEEK_SET, 0 );
--	GIOStatus rc = g_io_channel_read_chars( channel,
-+	(void)g_io_channel_read_chars( channel,
- 			buf, 1,
- 			&bytes_read,
- 			&error );
-@@ -84,9 +84,7 @@ on_bus_acquired(GDBusConnection *connection,
- {
- 	ObjectSkeleton *object;
- 	//g_print ("Acquired a message bus connection: %s\n",name);
--	cmdline *cmd = user_data;
- 	manager = g_dbus_object_manager_server_new(dbus_object_path);
--	int i=0;
- 	gchar *s;
- 	s = g_strdup_printf("%s/%s",dbus_object_path,instance_name);
- 	object = object_skeleton_new(s);
+@@ -2,7 +2,6 @@
+ #include "interfaces/openbmc_intf.h"
+ #include "gpio.h"
+ #include "openbmc.h"
+-#include "object_mapper.h"
+ 
+ /* ------------------------------------------------------------------------- */
+ static const gchar* dbus_object_path = "/org/openbmc/buttons";
+@@ -94,10 +93,6 @@ on_bus_acquired(GDBusConnection *connection,
+ 	object_skeleton_set_button(object, button);
+ 	g_object_unref(button);
+ 
+-	ObjectMapper* mapper = object_mapper_skeleton_new();
+-	object_skeleton_set_object_mapper(object, mapper);
+-	g_object_unref(mapper);
+-
+ 	//define method callbacks
+ 	g_signal_connect(button,
+ 			"handle-is-on",
+@@ -110,12 +105,10 @@ on_bus_acquired(GDBusConnection *connection,
+ 
+ 
+ 	/* Export the object (@manager takes its own reference to @object) */
++	g_dbus_object_manager_server_set_connection(manager, connection);
+ 	g_dbus_object_manager_server_export(manager, G_DBUS_OBJECT_SKELETON(object));
+ 	g_object_unref(object);
+ 
+-	/* Export all objects */
+-	g_dbus_object_manager_server_set_connection(manager, connection);
+-
+ 	// get gpio device paths
+ 	int rc = GPIO_OK;
+ 	do {
+@@ -128,7 +121,6 @@ on_bus_acquired(GDBusConnection *connection,
+ 	{
+ 		printf("ERROR PowerButton: GPIO setup (rc=%d)\n",rc);
+ 	}
+-	emit_object_added((GDBusObjectManager*)manager);
+ }
+ 
+ static void
 diff --git a/objects/control_host_obj.c b/objects/control_host_obj.c
-index 3e7f2ae..e8d1745 100644
+index e8d1745..9253007 100644
 --- a/objects/control_host_obj.c
 +++ b/objects/control_host_obj.c
-@@ -182,7 +182,6 @@ on_bus_acquired(GDBusConnection *connection,
- {
- 	ObjectSkeleton *object;
- 	//g_print ("Acquired a message bus connection: %s\n",name);
--	cmdline *cmd = user_data;
- 	manager = g_dbus_object_manager_server_new(dbus_object_path);
- 
- 	gchar *s;
-diff --git a/objects/flash_bios_obj.c b/objects/flash_bios_obj.c
-index e661545..a46c5cb 100644
---- a/objects/flash_bios_obj.c
-+++ b/objects/flash_bios_obj.c
-@@ -1,6 +1,8 @@
- #include <stdio.h>
- #include <stdbool.h>
- #include <string.h>
-+#include <sys/wait.h>
-+#include <sys/types.h>
+@@ -8,7 +8,6 @@
  #include "interfaces/openbmc_intf.h"
  #include "openbmc.h"
- #include "object_mapper.h"
-@@ -9,8 +11,6 @@
- static const gchar* dbus_object_path = "/org/openbmc/control/flash";
- static const gchar* dbus_name = "org.openbmc.control.Flash";
- static const gchar* FLASHER_BIN = "flasher.exe";
--static const gchar* DLOAD_BUS = "org.openbmc.managers.Download";
--static const gchar* DLOAD_OBJ = "/org/openbmc/managers/Download";
+ #include "gpio.h"
+-#include "object_mapper.h"
  
- static GDBusObjectManagerServer *manager = NULL;
- 
-@@ -142,9 +142,8 @@ on_error(Flash *flash,
- 		gchar* error_msg,
- 		gpointer user_data)
- {
--	int rc = 0;
- 	SharedResource *lock = object_get_shared_resource((Object*)user_data);
--	gboolean locked = shared_resource_get_lock(lock);
-+	(void)shared_resource_get_lock(lock);
- 	flash_set_status(flash, error_msg);
- 	flash_complete_error(flash,invocation);
- 	printf("ERROR: %s.  Clearing locks\n",error_msg);
-@@ -161,7 +160,7 @@ on_done(Flash *flash,
- {
- 	int rc = 0;
- 	SharedResource *lock = object_get_shared_resource((Object*)user_data);
--	gboolean locked = shared_resource_get_lock(lock);
-+	(void)shared_resource_get_lock(lock);
- 	flash_set_status(flash, "Flash Done");
- 	flash_complete_done(flash,invocation);
- 	printf("Flash Done. Clearing locks\n");
-@@ -221,9 +220,9 @@ on_flash_progress(GDBusConnection* connection,
- 		gpointer user_data)
- {
- 	Flash *flash = object_get_flash((Object*)user_data);
--	SharedResource *lock = object_get_shared_resource((Object*)user_data);
-+	(void)object_get_shared_resource((Object*)user_data);
- 	GVariantIter *iter = g_variant_iter_new(parameters);
--	GVariant* v_filename = g_variant_iter_next_value(iter);
-+	(void)g_variant_iter_next_value(iter);
- 	GVariant* v_progress = g_variant_iter_next_value(iter);
- 
- 	uint8_t progress = g_variant_get_byte(v_progress);
-@@ -235,55 +234,6 @@ on_flash_progress(GDBusConnection* connection,
- }
- 
- static void
--on_flash_done(GDBusConnection* connection,
--		const gchar* sender_name,
--		const gchar* object_path,
--		const gchar* interface_name,
--		const gchar* signal_name,
--		GVariant* parameters,
--		gpointer user_data)
--{
--	Flash *flash = object_get_flash((Object*)user_data);
--	SharedResource *lock = object_get_shared_resource((Object*)user_data);
--	printf("Flash succeeded; unlocking flash\n");
--	shared_resource_set_lock(lock,false);
--	shared_resource_set_name(lock,"");
--	flash_set_status(flash,"Flash Done");
--}
--
--static void
--on_flash_error(GDBusConnection* connection,
--		const gchar* sender_name,
--		const gchar* object_path,
--		const gchar* interface_name,
--		const gchar* signal_name,
--		GVariant* parameters,
--		gpointer user_data)
--{
--	Flash *flash = object_get_flash((Object*)user_data);
--	SharedResource *lock = object_get_shared_resource((Object*)user_data);
--	printf("Flash Error; unlocking flash\n");
--	shared_resource_set_lock(lock,false);
--	shared_resource_set_name(lock,"");
--}
--
--static void
--on_download_error(GDBusConnection* connection,
--		const gchar* sender_name,
--		const gchar* object_path,
--		const gchar* interface_name,
--		const gchar* signal_name,
--		GVariant* parameters,
--		gpointer user_data)
--{
--	Flash *flash = object_get_flash((Object*)user_data);
--	SharedResource *lock = object_get_shared_resource((Object*)user_data);
--	printf("ERROR: FlashBios:  Download error; clearing flash lock\n");
--	shared_resource_set_lock(lock,false);
--	shared_resource_set_name(lock,"");
--}
--
--static void
- on_bus_acquired(GDBusConnection *connection,
- 		const gchar *name,
- 		gpointer user_data)
-@@ -296,8 +246,7 @@ on_bus_acquired(GDBusConnection *connection,
- 	//TODO: don't use fixed buffer
- 	char flasher_path[512];
- 	memset(flasher_path, '\0', sizeof(flasher_path));
--	bool found = false;
--	gchar *flasher_file;
-+	gchar *flasher_file = NULL;
- 	int c = strlen(cmd->argv[0]);
- 	while(c>0)
- 	{
-diff --git a/objects/flasher_obj.c b/objects/flasher_obj.c
-index 2d80847..1f1e5a5 100644
---- a/objects/flasher_obj.c
-+++ b/objects/flasher_obj.c
-@@ -24,7 +24,6 @@
- #include "includes/openbmc.h"
- 
+ /* ------------------------------------------------------------------------- */
  static const gchar* dbus_object_path = "/org/openbmc/control";
--static const gchar* dbus_object_name = "Flasher_0";
- static const gchar* dbus_name = "org.openbmc.control.Flasher";
+@@ -197,10 +196,6 @@ on_bus_acquired(GDBusConnection *connection,
+ 	object_skeleton_set_control(object, control);
+ 	g_object_unref(control);
  
- static GDBusObjectManagerServer *manager = NULL;
-@@ -33,10 +32,7 @@ static GDBusObjectManagerServer *manager = NULL;
+-	ObjectMapper* mapper = object_mapper_skeleton_new();
+-	object_skeleton_set_object_mapper(object, mapper);
+-	g_object_unref(mapper);
+-
+ 	//define method callbacks here
+ 	g_signal_connect(control_host,
+ 			"handle-boot",
+@@ -215,18 +210,15 @@ on_bus_acquired(GDBusConnection *connection,
+ 	control_host_set_flash_side(control_host,"primary");
  
- #define PFLASH_VERSION	"0.8.6"
+ 	/* Export the object (@manager takes its own reference to @object) */
++	g_dbus_object_manager_server_set_connection(manager, connection);
+ 	g_dbus_object_manager_server_export(manager, G_DBUS_OBJECT_SKELETON(object));
+ 	g_object_unref(object);
  
--static bool must_confirm = false;
--static bool dummy_run;
- static bool need_relock;
--static bool bmc_flash;
- #ifdef __powerpc__
- static bool using_sfc;
- #endif
-@@ -54,7 +50,6 @@ static int32_t			ffs_index = -1;
- static uint8_t FLASH_OK = 0;
- static uint8_t FLASH_ERROR = 0x01;
- static uint8_t FLASH_SETUP_ERROR = 0x02;
--static struct blocklevel_device *bl;
- 
- static int
- erase_chip(void)
-@@ -80,7 +75,6 @@ flash_message(GDBusConnection* connection,char* obj_path,char* method, char* err
- 	GDBusProxy *proxy;
- 	GError *error;
- 	GVariant *parm = NULL;
--	GVariant *result;
- 	error = NULL;
- 	proxy = g_dbus_proxy_new_sync(connection,
- 			G_DBUS_PROXY_FLAGS_NONE,
-@@ -96,7 +90,7 @@ flash_message(GDBusConnection* connection,char* obj_path,char* method, char* err
- 	if(strcmp(method,"error")==0) {
- 		parm = g_variant_new("(s)",error_msg);
- 	}
--	result = g_dbus_proxy_call_sync(proxy,
-+	(void)g_dbus_proxy_call_sync(proxy,
- 			method,
- 			parm,
- 			G_DBUS_CALL_FLAGS_NONE,
-@@ -167,44 +161,6 @@ program_file(FlashControl* flash_control, const char *file, uint32_t start, uint
+-	/* Export all objects */
+-	g_dbus_object_manager_server_set_connection(manager, connection);
+-
+ 	gpio_init(connection,&fsi_data);
+ 	gpio_init(connection,&fsi_clk);
+ 	gpio_init(connection,&fsi_enable);
+ 	gpio_init(connection,&cronus_sel);
+ 	gpio_init(connection,&Throttle);
+-	emit_object_added((GDBusObjectManager*)manager);
  }
  
  static void
--do_read_file(const char *file, uint32_t start, uint32_t size)
--{
--	int fd, rc;
--	ssize_t len;
--	uint32_t done = 0;
+diff --git a/objects/fan_generic_obj.c b/objects/fan_generic_obj.c
+index 72bfb11..61083ae 100644
+--- a/objects/fan_generic_obj.c
++++ b/objects/fan_generic_obj.c
+@@ -1,6 +1,5 @@
+ #include "interfaces/openbmc_intf.h"
+ #include "openbmc.h"
+-#include "object_mapper.h"
+ 
+ /* ------------------------------------------------------------------------- */
+ 
+@@ -64,10 +63,6 @@ on_bus_acquired(GDBusConnection *connection,
+ 		object_skeleton_set_fan(object, fan);
+ 		g_object_unref(fan);
+ 
+-		ObjectMapper* mapper = object_mapper_skeleton_new();
+-		object_skeleton_set_object_mapper(object, mapper);
+-		g_object_unref(mapper);
 -
--	fd = open(file, O_WRONLY | O_TRUNC | O_CREAT, 00666);
--	if(fd == -1) {
--		perror("Failed to open file");
--		exit(1);
--	}
--	printf("Reading to \"%s\" from 0x%08x..0x%08x !\n",
--			file, start, size);
+ 		//define method callbacks here
+ 		g_signal_connect(fan,
+ 				"handle-get-speed",
+@@ -81,13 +76,10 @@ on_bus_acquired(GDBusConnection *connection,
+ 		//g_timeout_add(poll_interval, poll_sensor, object);
+ 
+ 		/* Export the object (@manager takes its own reference to @object) */
++		g_dbus_object_manager_server_set_connection(manager, connection);
+ 		g_dbus_object_manager_server_export(manager, G_DBUS_OBJECT_SKELETON(object));
+ 		g_object_unref(object);
+ 	}
 -
--	progress_init(size >> 8);
--	while(size) {
--		len = size > FILE_BUF_SIZE ? FILE_BUF_SIZE : size;
--		rc = flash_read(fl_chip, start, file_buf, len);
--		if(rc) {
--			fprintf(stderr, "Flash read error %d for"
--					" chunk at 0x%08x\n", rc, start);
--			exit(1);
--		}
--		rc = write(fd, file_buf, len);
--		if(rc < 0) {
--			perror("Error writing file");
--			exit(1);
--		}
--		start += len;
--		size -= len;
--		done += len;
--		progress_tick(done >> 8);
--	}
--	progress_end();
--	close(fd);
--}
+-	/* Export all objects */
+-	g_dbus_object_manager_server_set_connection(manager, connection);
+-	emit_object_added((GDBusObjectManager*)manager);
+ }
+ 
+ static void
+diff --git a/objects/flash_bios_obj.c b/objects/flash_bios_obj.c
+index a46c5cb..1a24856 100644
+--- a/objects/flash_bios_obj.c
++++ b/objects/flash_bios_obj.c
+@@ -5,7 +5,6 @@
+ #include <sys/types.h>
+ #include "interfaces/openbmc_intf.h"
+ #include "openbmc.h"
+-#include "object_mapper.h"
+ 
+ /* ------------------------------------------------------------------------- */
+ static const gchar* dbus_object_path = "/org/openbmc/control/flash";
+@@ -275,10 +274,6 @@ on_bus_acquired(GDBusConnection *connection,
+ 		object_skeleton_set_shared_resource(object, lock);
+ 		g_object_unref(lock);
+ 
+-		ObjectMapper* mapper = object_mapper_skeleton_new();
+-		object_skeleton_set_object_mapper(object, mapper);
+-		g_object_unref(mapper);
 -
--static void
- flash_access_cleanup_bmc(void)
- {
- 	if(ffsh)
+ 		shared_resource_set_lock(lock,false);
+ 		shared_resource_set_name(lock,"");
+ 
+@@ -344,13 +339,11 @@ on_bus_acquired(GDBusConnection *connection,
+ 
+ 		flash_set_filename(flash,"");
+ 		/* Export the object (@manager takes its own reference to @object) */
++		g_dbus_object_manager_server_set_connection(manager, connection);
+ 		g_dbus_object_manager_server_export(manager, G_DBUS_OBJECT_SKELETON(object));
+ 		g_object_unref(object);
+ 	}
+ 	g_free(flasher_file);
+-	/* Export all objects */
+-	g_dbus_object_manager_server_set_connection(manager, connection);
+-	emit_object_added((GDBusObjectManager*)manager);
+ }
+ 
+ static void
 diff --git a/objects/host_watchdog_obj.c b/objects/host_watchdog_obj.c
-index 0b3b149..2e0ef15 100644
+index 2e0ef15..e922dc3 100644
 --- a/objects/host_watchdog_obj.c
 +++ b/objects/host_watchdog_obj.c
-@@ -40,6 +40,7 @@ remove_watchdog(void)
- 		g_source_remove(watchdogid);
- 		watchdogid = 0;
- 	}
-+	return TRUE;
+@@ -1,6 +1,5 @@
+ #include "interfaces/openbmc_intf.h"
+ #include "openbmc.h"
+-#include "object_mapper.h"
+ 
+ /* ------------------------------------------------------------------------- */
+ 
+@@ -105,10 +104,6 @@ on_bus_acquired(GDBusConnection *connection,
+ 	object_skeleton_set_watchdog(object, wd);
+ 	g_object_unref(wd);
+ 
+-	ObjectMapper* mapper = object_mapper_skeleton_new();
+-	object_skeleton_set_object_mapper(object, mapper);
+-	g_object_unref(mapper);
+-
+ 	// set properties
+ 	watchdog_set_watchdog(wd,1);
+ 
+@@ -134,12 +129,9 @@ on_bus_acquired(GDBusConnection *connection,
+ 			object); /* user_data */
+ 
+ 	/* Export the object (@manager takes its own reference to @object) */
++	g_dbus_object_manager_server_set_connection(manager, connection);
+ 	g_dbus_object_manager_server_export(manager, G_DBUS_OBJECT_SKELETON(object));
+ 	g_object_unref(object);
+-
+-	/* Export all objects */
+-	g_dbus_object_manager_server_set_connection(manager, connection);
+-	emit_object_added((GDBusObjectManager*)manager);
  }
  
- static gboolean
-@@ -51,6 +52,7 @@ set_poll_interval(Watchdog *wd,
- 	g_print("Setting watchdog poll interval to: %d\n", interval);
- 	watchdog_set_poll_interval(wd, interval);
- 	watchdog_complete_set(wd,invocation);
-+	return TRUE;
- }
- 
- static gboolean
-@@ -93,7 +95,6 @@ on_bus_acquired(GDBusConnection *connection,
- 		const gchar *name,
- 		gpointer user_data)
- {
--	cmdline *cmd = user_data;
- 	manager = g_dbus_object_manager_server_new(dbus_object_path);
- 	gchar *s;
- 	s = g_strdup_printf("%s/%s",dbus_object_path,instance_name);
+ static void
 diff --git a/objects/hwmons_barreleye.c b/objects/hwmons_barreleye.c
-index 06b1554..b9dfff6 100644
+index b9dfff6..00713ab 100644
 --- a/objects/hwmons_barreleye.c
 +++ b/objects/hwmons_barreleye.c
-@@ -1,5 +1,6 @@
- #include "interfaces/openbmc_intf.h"
- #include <stdio.h>
-+#include <stdlib.h>
+@@ -4,7 +4,6 @@
  #include <fcntl.h>
  #include "openbmc.h"
  #include "gpio.h"
-@@ -70,7 +71,7 @@ poll_hwmon(gpointer user_data)
+-#include "object_mapper.h"
  
- 			}
- 			guint32 value = atoi(buf)/scale;
--			GVariant* v = NEW_VARIANT_U(value);
-+			(void)NEW_VARIANT_U(value);
- 			GVariant* old_value = sensor_value_get_value(sensor);
- 			bool do_set = false;
- 			if(old_value == NULL)
-@@ -130,8 +131,6 @@ on_bus_acquired(GDBusConnection *connection,
- {
- 	ObjectSkeleton *object;
+ /* ------------------------------------------------------------------------- */
+ static const gchar* dbus_object_path = "/org/openbmc/sensors";
+@@ -149,10 +148,6 @@ on_bus_acquired(GDBusConnection *connection,
+ 		object_skeleton_set_sensor_value(object, sensor);
+ 		g_object_unref(sensor);
  
--	cmdline *cmd = user_data;
+-		ObjectMapper* mapper = object_mapper_skeleton_new();
+-		object_skeleton_set_object_mapper(object, mapper);
+-		g_object_unref(mapper);
 -
- 	manager = g_dbus_object_manager_server_new(dbus_object_path);
- 	int i = 0;
- 	for(i=0;i<NUM_HWMONS;i++)
+ 		hwmon_set_sysfs_path(hwmon,hwmons[i].filename);
+ 		hwmon_set_scale(hwmon,hwmons[i].scale);
+ 		sensor_value_set_units(sensor,hwmons[i].units);
+@@ -168,12 +163,10 @@ on_bus_acquired(GDBusConnection *connection,
+ 			g_timeout_add(hwmons[i].poll_interval, poll_hwmon, object);
+ 		}
+ 		/* Export the object (@manager takes its own reference to @object) */
++		g_dbus_object_manager_server_set_connection(manager, connection);
+ 		g_dbus_object_manager_server_export(manager, G_DBUS_OBJECT_SKELETON(object));
+ 		g_object_unref(object);
+ 	}
+-	/* Export all objects */
+-	g_dbus_object_manager_server_set_connection(manager, connection);
+-	emit_object_added((GDBusObjectManager*)manager);
+ }
+ 
+ static void
+diff --git a/objects/hwmons_palmetto.c b/objects/hwmons_palmetto.c
+index c627d27..7d76c91 100644
+--- a/objects/hwmons_palmetto.c
++++ b/objects/hwmons_palmetto.c
+@@ -3,7 +3,6 @@
+ #include <fcntl.h>
+ #include "openbmc.h"
+ #include "gpio.h"
+-#include "object_mapper.h"
+ 
+ /* ------------------------------------------------------------------------- */
+ static const gchar* dbus_object_path = "/org/openbmc/sensors";
+@@ -144,10 +143,6 @@ on_bus_acquired(GDBusConnection *connection,
+ 		object_skeleton_set_sensor_value(object, sensor);
+ 		g_object_unref(sensor);
+ 
+-		ObjectMapper* mapper = object_mapper_skeleton_new();
+-		object_skeleton_set_object_mapper(object, mapper);
+-		g_object_unref(mapper);
+-
+ 		hwmon_set_sysfs_path(hwmon,hwmons[i].filename);
+ 		hwmon_set_scale(hwmon,hwmons[i].scale);
+ 		sensor_value_set_units(sensor,hwmons[i].units);
+@@ -163,12 +158,10 @@ on_bus_acquired(GDBusConnection *connection,
+ 			g_timeout_add(hwmons[i].poll_interval, poll_hwmon, object);
+ 		}
+ 		/* Export the object (@manager takes its own reference to @object) */
++		g_dbus_object_manager_server_set_connection(manager, connection);
+ 		g_dbus_object_manager_server_export(manager, G_DBUS_OBJECT_SKELETON(object));
+ 		g_object_unref(object);
+ 	}
+-	/* Export all objects */
+-	g_dbus_object_manager_server_set_connection(manager, connection);
+-	emit_object_added((GDBusObjectManager*)manager);
+ }
+ 
+ static void
 diff --git a/objects/led_controller.c b/objects/led_controller.c
-index 1f542e1..96e7ad1 100644
+index 96e7ad1..9eda9ee 100644
 --- a/objects/led_controller.c
 +++ b/objects/led_controller.c
-@@ -5,6 +5,11 @@
- #include <dirent.h>
- #include <systemd/sd-bus.h>
- 
-+static int led_stable_state_function(const char *, const char *);
-+static int led_default_blink(const char *, const char *);
-+static int read_led(const char *, const char *, void *, const size_t);
-+static int led_custom_blink(const char *, sd_bus_message *);
+@@ -431,6 +431,8 @@ led_select(const struct dirent *entry)
+ int
+ start_led_services()
+ {
++	static const char *led_dbus_root = "/org/openbmc/control/led";
 +
- /*
-  * These are control files that are present for each led under
-  *'/sys/class/leds/<led_name>/' which are used to trigger action
-@@ -156,8 +161,8 @@ led_function_router(sd_bus_message *msg, void *user_data,
-  * Turn On or Turn Off the LED
-  * --------------------------------------------------------------
-  */
--int
--led_stable_state_function(char *led_name, char *led_function)
-+static int
-+led_stable_state_function(const char *led_name, const char *led_function)
- {
  	/* Generic error reporter. */
  	int rc = -1;
-@@ -244,8 +249,8 @@ blink_led(const char *led_name, const char *on_duration, const char *off_duratio
-  * Default blink action on the LED.
-  * ----------------------------------------------------
-  */
--int
--led_default_blink(char *led_name, char *blink_type)
-+static int
-+led_default_blink(const char *led_name, const char *blink_type)
- {
- 	/* Generic error reporter */
- 	int rc = -1;
-@@ -281,7 +286,7 @@ led_default_blink(char *led_name, char *blink_type)
-  * Blinks at user defined 'on' and 'off' intervals.
-  * -------------------------------------------------
-  */
--int
-+static int
- led_custom_blink(const char *led_name, sd_bus_message *msg)
- {
- 	/* Generic error reporter. */
-@@ -342,7 +347,7 @@ led_custom_blink(const char *led_name, sd_bus_message *msg)
-  * size -or- entire contents of file whichever is smaller
-  * ----------------------------------------------------------------
-  */
--int
-+static int
- read_led(const char *name, const char *ctrl_file,
- 		void *value, const size_t len)
- {
-diff --git a/objects/pcie_slot_present_obj.c b/objects/pcie_slot_present_obj.c
-index a71ba2d..0c9258e 100644
---- a/objects/pcie_slot_present_obj.c
-+++ b/objects/pcie_slot_present_obj.c
-@@ -87,7 +87,6 @@ update_fru_obj(GDBusConnection* connection, object_info* obj_info, const char* p
- 	GDBusProxy *proxy;
- 	GError *error;
- 	GVariant *parm;
--	GVariant *result;
+ 	int num_leds = 0;
+@@ -462,6 +464,17 @@ start_led_services()
+ 		return rc;
+ 	}
  
- 	error = NULL;
- 	proxy = g_dbus_proxy_new_sync(connection,
-@@ -103,7 +102,7 @@ update_fru_obj(GDBusConnection* connection, object_info* obj_info, const char* p
- 	error = NULL;
- 	parm = g_variant_new("(s)",present);
- 
--	result = g_dbus_proxy_call_sync(proxy,
-+	(void)g_dbus_proxy_call_sync(proxy,
- 			"setPresent",
- 			parm,
- 			G_DBUS_CALL_FLAGS_NONE,
-@@ -121,8 +120,6 @@ main(gint argc, gchar *argv[])
- 	GDBusConnection *c;
- 	GDBusProxy *sys_proxy;
- 	GError *error;
--	GVariant *parm;
--	GVariant *result;
- 
- 	loop = g_main_loop_new(NULL, FALSE);
- 
-@@ -146,7 +143,6 @@ main(gint argc, gchar *argv[])
++	/* Install a freedesktop object manager */
++	rc = sd_bus_add_object_manager(bus_type, NULL, led_dbus_root);
++	if(rc < 0) {
++		fprintf(stderr, "Failed to add object to dbus: %s\n",
++				strerror(-rc));
++
++		sd_bus_slot_unref(led_slot);
++		sd_bus_unref(bus_type);
++		return rc;
++	}
++
+ 	/* Fully qualified Dbus object for a particular LED */
+ 	char led_object[128] = {0};
+ 	int len = 0;
+@@ -471,8 +484,8 @@ start_led_services()
  	{
- 		object_info obj_info;
- 		uint8_t present;
--		char* chr_present;
- 		do {
- 			rc = get_object(sys_proxy,&slots[i],&obj_info);
- 			if(rc) { break; }
+ 		memset(led_object, 0x0, sizeof(led_object));
+ 
+-		len = snprintf(led_object, sizeof(led_object), "%s%s",
+-				"/org/openbmc/control/led/", led_list[num_leds]->d_name);
++		len = snprintf(led_object, sizeof(led_object), "%s%s%s",
++				led_dbus_root, "/", led_list[num_leds]->d_name);
+ 
+ 		if(len >= sizeof(led_object))
+ 		{
+@@ -494,6 +507,15 @@ start_led_services()
+ 			fprintf(stderr, "Failed to add object to dbus: %s\n", strerror(-rc));
+ 			break;
+ 		}
++
++		rc = sd_bus_emit_object_added(bus_type, led_object);
++
++		if(rc < 0)
++		{
++			fprintf(stderr, "Failed to emit InterfacesAdded "
++					"signal: %s\n", strerror(-rc));
++			break;
++		}
+ 	}
+ 
+ 	/* Done with all registration. */
+@@ -504,7 +526,7 @@ start_led_services()
+ 	free(led_list);
+ 
+ 	/* If we had success in adding the providers, request for a bus name. */
+-	if(rc == 0)
++	if(rc >= 0)
+ 	{
+ 		/* Take one in OpenBmc */
+ 		rc = sd_bus_request_name(bus_type, "org.openbmc.control.led", 0);
 diff --git a/objects/power_control_obj.c b/objects/power_control_obj.c
-index 72947f5..da69413 100644
+index da69413..85a8cff 100644
 --- a/objects/power_control_obj.c
 +++ b/objects/power_control_obj.c
-@@ -36,8 +36,6 @@ poll_pgood(gpointer user_data)
- 	Control* control = object_get_control((Object*)user_data);
+@@ -10,7 +10,6 @@
+ #include "interfaces/openbmc_intf.h"
+ #include "openbmc.h"
+ #include "gpio.h"
+-#include "object_mapper.h"
  
- 	//send the heartbeat
--	const gchar* obj_path = g_dbus_object_get_object_path((GDBusObject*)user_data);
+ /* ------------------------------------------------------------------------- */
+ static const gchar* dbus_object_path = "/org/openbmc/control";
+@@ -202,10 +201,6 @@ on_bus_acquired(GDBusConnection *connection,
+ 	object_skeleton_set_control(object, control);
+ 	g_object_unref(control);
+ 
+-	ObjectMapper* mapper = object_mapper_skeleton_new();
+-	object_skeleton_set_object_mapper(object, mapper);
+-	g_object_unref(mapper);
 -
- 	guint poll_int = control_get_poll_interval(control);
- 	if(poll_int == 0)
- 	{
-@@ -119,7 +117,6 @@ on_set_power_state(ControlPower *pwr,
- 		gpointer user_data)
- {
- 	Control* control = object_get_control((Object*)user_data);
--	const gchar* obj_path = g_dbus_object_get_object_path((GDBusObject*)user_data);
- 	if(state > 1)
- 	{
- 		g_dbus_method_invocation_return_dbus_error(invocation,
+ 	//define method callbacks here
+ 	g_signal_connect(control_power,
+ 			"handle-set-power-state",
+@@ -224,12 +219,10 @@ on_bus_acquired(GDBusConnection *connection,
+ 
+ 
+ 	/* Export the object (@manager takes its own reference to @object) */
++	g_dbus_object_manager_server_set_connection(manager, connection);
+ 	g_dbus_object_manager_server_export(manager, G_DBUS_OBJECT_SKELETON(object));
+ 	g_object_unref(object);
+ 
+-	/* Export all objects */
+-	g_dbus_object_manager_server_set_connection(manager, connection);
+-
+ 	// get gpio device paths
+ 	int rc = GPIO_OK;
+ 	do {
+@@ -268,7 +261,6 @@ on_bus_acquired(GDBusConnection *connection,
+ 		control_power_set_pgood_timeout(control_power,pgood_timeout);
+ 		g_timeout_add(poll_interval, poll_pgood, object);
+ 	}
+-	emit_object_added((GDBusObjectManager*)manager);
+ }
+ 
+ static void
 -- 
 2.7.1
