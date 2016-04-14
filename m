@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qm54h2tplzDq5y
- for <openbmc@lists.ozlabs.org>; Fri, 15 Apr 2016 02:01:08 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qm54j1hHZzDq64
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Apr 2016 02:01:09 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1460649660289177.2361983407892;
- Thu, 14 Apr 2016 09:01:00 -0700 (PDT)
+ with SMTPS id 1460649662033232.2168675864135;
+ Thu, 14 Apr 2016 09:01:02 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@us.ibm.com>
-Subject: [PATCH skeleton 1/5] Remove fan control support from Palmetto
-Date: Thu, 14 Apr 2016 11:00:51 -0500
-Message-Id: <1460649655-15109-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton 2/5] Add gitignore file
+Date: Thu, 14 Apr 2016 11:00:52 -0500
+Message-Id: <1460649655-15109-3-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1460649655-15109-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1460649655-15109-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,32 +28,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Apr 2016 16:01:09 -0000
+X-List-Received-Date: Thu, 14 Apr 2016 16:01:10 -0000
 
 From: Brad Bishop <bradleyb@us.ibm.com>
 
-It never had any hardware to support this in the first place.
 ---
- bin/Palmetto.py | 7 -------
- 1 file changed, 7 deletions(-)
+ .gitignore | 6 ++++++
+ 1 file changed, 6 insertions(+)
+ create mode 100644 .gitignore
 
-diff --git a/bin/Palmetto.py b/bin/Palmetto.py
-index 7172364..09fbe06 100755
---- a/bin/Palmetto.py
-+++ b/bin/Palmetto.py
-@@ -142,13 +142,6 @@ APPS = {
- 		'monitor_process' : True,
- 		'process_name'    : 'chassis_control.py',
- 	},
--	'fans' : {
--		'system_state'    : 'BMC_STARTING',
--		'start_process'   : True,
--		'monitor_process' : True,
--		'process_name'    : 'fan.exe',
--		'args'            : [ 'fan0','fan1','fan2','fan3','fan4' ]
--	},
- 	'bmc_control' : {
- 		'system_state'    : 'BMC_STARTING',
- 		'start_process'   : True,
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..28e70be
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,6 @@
++lib/*
++obj/*
++bin/*.exe
++bin/pflash
++*.swp
++*.swo
 -- 
 2.7.1
