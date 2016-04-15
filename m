@@ -3,20 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qmVNM0YdxzDq64
- for <openbmc@lists.ozlabs.org>; Fri, 15 Apr 2016 18:01:06 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qmVb35c6dzDq62
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Apr 2016 18:10:23 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 146070726317221.562714490107737;
- Fri, 15 Apr 2016 01:01:03 -0700 (PDT)
+ with SMTPS id 1460707817501110.18795192480479;
+ Fri, 15 Apr 2016 01:10:17 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH skeleton] skeleton: add a new dbus method
- System::getFRUArea(fru_id)
-Date: Fri, 15 Apr 2016 03:00:59 -0500
-Message-Id: <1460707259-26459-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH ipmi-fru-parser v2] Using new getFRUOjbect() API to fix 'not
+ found in lookup' error message
+Date: Fri, 15 Apr 2016 03:10:14 -0500
+Message-Id: <1460707815-26679-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1460707259-26459-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1460707259-26459-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,47 +26,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Apr 2016 08:01:07 -0000
+X-List-Received-Date: Fri, 15 Apr 2016 08:10:24 -0000
 
-From: Yi Li <adamliyi@msn.com>
+The ipmi-fru-parser calls the dbus method
+SystemManager::getObjectFromId('FRU_STR', fru_area_name) for each fru areas
+to get the dbus object path of fru area, even if the fru area does not exist.
+Also ipmi_validate_fru_area() may be invoked multipul times before
+full fru data is parsed. This will generate duplicated error
+messages from SystemManager:, e.g:
+"ERROR SystemManager: dbus.String(u'INTERNAL_13') not found in lookup".
+In this case, "INTERNAL" area does not exists for FRU
 
-This method will be used by ipmi-fru-parser to get fru area names defined
-in ID_LOOKUP table. The ID_LOOKUP table defines FRUs that should be
-present in the system.
+For FRUs mananged by BMC (eeprom), ipmi-fru-parser sets the
+'present' and 'fault' status of a fru area.
+ipmi-fru-parser needs to know whether a fru should be present, based on
+whether getObjectFromId() returns valid dbus object path.
+So it is expected that getObjectFromId() may be called with
+a 'fru_area_name' not defined in Skeleton's ID_LOOKUP table.
+
+In another pull request for skeleton, a new method:
+getFRUObject('fru_area_name') is added specially for ipmi-fru-parser.
+See PR: https://github.com/openbmc/skeleton/pull/60.
+
+This new method does not report any error message when 'fru_area_name'
+not defined in skeleton.
 
 Signed-off-by: Yi Li <adamliyi@msn.com>
----
- bin/system_manager.py | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
 
-diff --git a/bin/system_manager.py b/bin/system_manager.py
-index 004d978..05671e7 100755
---- a/bin/system_manager.py
-+++ b/bin/system_manager.py
-@@ -139,7 +139,23 @@ class SystemManager(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
- 	def getObjectFromByteId(self,category,key):
- 		byte = int(key)
- 		return self.doObjectLookup(category,byte)
--	
-+
-+	# Get the FRU area names defined in ID_LOOKUP table given a fru_id.
-+	# If serval areas are defined for a fru_id, the areas are returned
-+	# together as a string with each area name seperated with ','.
-+	# If no fru area defined in ID_LOOKUP, an empty string will be returned.
-+	@dbus.service.method(DBUS_NAME,
-+		in_signature='y', out_signature='s')
-+	def getFRUArea(self,fru_id):
-+		ret_str = ''
-+		fru_id = '_' + str(fru_id)
-+		area_list = [area for area in System.ID_LOOKUP['FRU_STR'].keys() \
-+				if area.endswith(fru_id)]
-+		for area in area_list:
-+			ret_str = area + ',' + ret_str
-+		# remove the last ','
-+		return ret_str[:-1]
-+
- 	def start_process(self,name):
- 		if (System.APPS[name]['start_process'] == True):
- 			app = System.APPS[name]
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/ipmi-fru-parser/14)
+<!-- Reviewable:end -->
+
+
+https://github.com/openbmc/ipmi-fru-parser/pull/14
+
+Yi Li (1):
+  Using new getFRUArea() API to fix 'not found in lookup' error message
+
+ writefrudata.C | 91 ++++++++++++++++++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 86 insertions(+), 5 deletions(-)
+
 -- 
 2.7.1
