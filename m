@@ -3,21 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qmT585F6ZzDqBs
- for <openbmc@lists.ozlabs.org>; Fri, 15 Apr 2016 17:02:52 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qmVNM0JhGzDq62
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Apr 2016 18:01:06 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1460703766859626.791416872582;
- Fri, 15 Apr 2016 00:02:46 -0700 (PDT)
+ with SMTPS id 1460707260287393.35573637961636;
+ Fri, 15 Apr 2016 01:01:00 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Ken Lai <ken1029@gmail.com>
-Subject: [PATCH skeleton v6 20/20] Revert "Add I2C-6 lm75 outlet temperature
- sensor"
-Date: Fri, 15 Apr 2016 02:01:57 -0500
-Message-Id: <1460703717-23960-21-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton] skeleton: add a new dbus method
+ System::getFRUArea(fru_id)
+Date: Fri, 15 Apr 2016 03:00:58 -0500
+Message-Id: <1460707259-26459-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1460703717-23960-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1460703717-23960-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -29,62 +26,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Apr 2016 07:02:53 -0000
+X-List-Received-Date: Fri, 15 Apr 2016 08:01:07 -0000
 
-From: Ken Lai <ken1029@gmail.com>
+This method will be used by ipmi-fru-parser to get fru area names defined
+in ID_LOOKUP table. The ID_LOOKUP table defines FRUs that should be
+present in the system.
 
-This reverts commit 0428fb4215889eaa151f63b4e904bdc61551295f.
+Signed-off-by: Yi Li <adamliyi@msn.com>
+
+<!-- Reviewable:start -->
 ---
- bin/Barreleye.py           |  5 -----
- objects/hwmons_barreleye.c | 15 +++++++--------
- 2 files changed, 7 insertions(+), 13 deletions(-)
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/skeleton/62)
+<!-- Reviewable:end -->
 
-diff --git a/bin/Barreleye.py b/bin/Barreleye.py
-index 86a5a97..ffe515d 100755
---- a/bin/Barreleye.py
-+++ b/bin/Barreleye.py
-@@ -633,11 +633,6 @@ HWMON_CONFIG = {
-                         'in14_input' : { 'object_path' : 'voltage/P1V35_CPU1_BUF3','poll_interval' : 10000,'scale' : 1,'units' : '' },
- 		}
-          },
--	'6-0048' : {
--		'names' : {
--                        'temp1_input' : { 'object_path' : 'temperature/outlet','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
--		}
--	},
- 	'3-0050' : {
- 		'names' : {
- 			'caps_curr_powercap' : { 'object_path' : 'powercap/curr_cap','poll_interval' : 10000,'scale' : 1,'units' : 'W' },
-diff --git a/objects/hwmons_barreleye.c b/objects/hwmons_barreleye.c
-index 9cc555b..5acde7c 100644
---- a/objects/hwmons_barreleye.c
-+++ b/objects/hwmons_barreleye.c
-@@ -20,19 +20,18 @@ typedef struct {
-   int fd;
- } HWMON;
- 
--#define  NUM_HWMONS 8
-+#define  NUM_HWMONS 7
- 
- // TODO: Don't hardcode
- //Hardcoded for barreleye
- HWMON hwmons[NUM_HWMONS] = { 
- 	(HWMON){"/sys/class/hwmon/hwmon0/temp1_input","temperature/ambient",3000,"C",1000},
--	(HWMON){"/sys/class/hwmon/hwmon1/temp1_input","temperature/outlet",5000,"C",1000},
--	(HWMON){"/sys/class/hwmon/hwmon2/pwm1","speed/fan0",30000,"",1},
--	(HWMON){"/sys/class/hwmon/hwmon2/pwm2","speed/fan1",30000,"",1},
--	(HWMON){"/sys/class/hwmon/hwmon2/pwm3","speed/fan2",30000,"",1},
--	(HWMON){"/sys/class/hwmon/hwmon3/pwm1","speed/fan3",30000,"",1},
--	(HWMON){"/sys/class/hwmon/hwmon3/pwm2","speed/fan4",30000,"",1},
--	(HWMON){"/sys/class/hwmon/hwmon3/pwm3","speed/fan5",30000,"",1},
-+	(HWMON){"/sys/class/hwmon/hwmon1/pwm1","speed/fan0",30000,"",1},
-+	(HWMON){"/sys/class/hwmon/hwmon1/pwm2","speed/fan1",30000,"",1},
-+	(HWMON){"/sys/class/hwmon/hwmon1/pwm3","speed/fan2",30000,"",1},
-+	(HWMON){"/sys/class/hwmon/hwmon2/pwm1","speed/fan3",30000,"",1},
-+	(HWMON){"/sys/class/hwmon/hwmon2/pwm2","speed/fan4",30000,"",1},
-+	(HWMON){"/sys/class/hwmon/hwmon2/pwm3","speed/fan5",30000,"",1},
- };
- bool is_hwmon_valid(HWMON* hwmon)
- {
+
+https://github.com/openbmc/skeleton/pull/62
+
+Yi Li (1):
+  skeleton: add a new dbus method System::getFRUArea(fru_id)
+
+ bin/system_manager.py | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
+
 -- 
 2.7.1
