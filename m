@@ -3,17 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qmT4W6LrzzDqBF
- for <openbmc@lists.ozlabs.org>; Fri, 15 Apr 2016 17:02:19 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qmT4f2PsJzDqBs
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Apr 2016 17:02:26 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1460703736467896.3033076084492;
- Fri, 15 Apr 2016 00:02:16 -0700 (PDT)
+ with SMTPS id 146070374295916.546250899994902;
+ Fri, 15 Apr 2016 00:02:22 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Ken <ken1029@gmail.com>
-Subject: [PATCH skeleton v6 04/20] Setup FUNC_MODE[2:0]
-Date: Fri, 15 Apr 2016 02:01:41 -0500
-Message-Id: <1460703717-23960-5-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v6 08/20] Revert "Fill in the threshold settings for
+ CPU and DIMM"
+Date: Fri, 15 Apr 2016 02:01:45 -0500
+Message-Id: <1460703717-23960-9-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1460703717-23960-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1460703717-23960-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,205 +29,230 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Apr 2016 07:02:20 -0000
+X-List-Received-Date: Fri, 15 Apr 2016 07:02:27 -0000
 
 From: Ken <ken1029@gmail.com>
 
+This reverts commit b78d66784fbd9f28d7252b4983465553d461e456.
 ---
- objects/control_bmc_barreleye.c |  2 +-
- objects/control_bmc_obj.c       | 88 ++++++++++++++++++++---------------------
- 2 files changed, 45 insertions(+), 45 deletions(-)
+ bin/Barreleye.py | 171 +++++++++++++++++++++----------------------------------
+ 1 file changed, 65 insertions(+), 106 deletions(-)
 
-diff --git a/objects/control_bmc_barreleye.c b/objects/control_bmc_barreleye.c
-index ddfde88..84f79f5 100644
---- a/objects/control_bmc_barreleye.c
-+++ b/objects/control_bmc_barreleye.c
-@@ -96,7 +96,7 @@ void reg_init()
- 	devmem(bmcreg+0x80,0xCB000000);
- 	devmem(bmcreg+0x88,0x01C000FF);
- 	devmem(bmcreg+0x8c,0xC1C000FF);
--	devmem(bmcreg+0x90,0x003FA009);
-+	devmem(bmcreg+0x90,0x003FA008);
- 	devmem(bmcreg+0x88,0x01C0007F);
- 
- 
-diff --git a/objects/control_bmc_obj.c b/objects/control_bmc_obj.c
-index f1a47c7..a02f369 100644
---- a/objects/control_bmc_obj.c
-+++ b/objects/control_bmc_obj.c
-@@ -22,11 +22,11 @@ static const gchar* dbus_name        = "org.openbmc.control.Bmc";
- #define LPC_HICR7		0x88
- #define LPC_HICR8		0x8c
- #define SPI_BASE		(off_t)0x1e630000
--#define SCU_BASE                (off_t)0x1e780000
-+#define SCU_BASE                (off_t)0x1e6e2000
- #define UART_BASE               (off_t)0x1e783000
- #define COM_BASE                (off_t)0x1e789000
- #define COM_BASE2               (off_t)0x1e789100
--#define GPIO_BASE		(off_t)0x1e6e2000
-+#define GPIO_BASE		(off_t)0x1e780000
- 
- static GDBusObjectManagerServer *manager = NULL;
- 
-@@ -45,7 +45,7 @@ void* memmap(int mem_fd,off_t base)
- 
- void reg_init()
- {
--	g_print("BMC init\n");
-+	g_print("===============BMC init===============\n");
- 	// BMC init done here
- 
- 	void *bmcreg;
-@@ -54,7 +54,9 @@ void reg_init()
- 		printf("ERROR: Unable to open /dev/mem");
- 		exit(1);
- 	}
--
-+	bmcreg = memmap(mem_fd,SCU_BASE);
-+	devmem(bmcreg+0x90,0x003FA008);
-+/*
- 	bmcreg = memmap(mem_fd,LPC_BASE);
- 	devmem(bmcreg+LPC_HICR6,0x00000500); //Enable LPC FWH cycles, Enable LPC to AHB bridge
- 	devmem(bmcreg+LPC_HICR7,0x30000E00); //32M PNOR
-@@ -66,7 +68,6 @@ void reg_init()
- 	devmem(bmcreg+0x04,0x00002404);
- 
- 	//UART
--
- 	bmcreg = memmap(mem_fd,UART_BASE);
- 	devmem(bmcreg+0x00,0x00000000);  //Set Baud rate divisor -> 13 (Baud 115200)
- 	devmem(bmcreg+0x04,0x00000000);  //Set Baud rate divisor -> 13 (Baud 115200)
-@@ -74,26 +75,24 @@ void reg_init()
- 	bmcreg = memmap(mem_fd,COM_BASE);
- 	devmem(bmcreg+0x9C,0x00000000);  //Set UART routing
- 
--	bmcreg = memmap(mem_fd,SCU_BASE);
-+	bmcreg = memmap(mem_fd,GPIO_BASE);
- 	devmem(bmcreg+0x00,0x13008CE7);
- 	devmem(bmcreg+0x04,0x0370E677);
- 	devmem(bmcreg+0x20,0xDF48F7FF);
- 	devmem(bmcreg+0x24,0xC738F202);
--
--
--	//GPIO
--	bmcreg = memmap(mem_fd,GPIO_BASE);
-+	
-+	bmcreg = memmap(mem_fd,SCU_BASE);
- 	devmem(bmcreg+0x84,0x00fff0c0);  //Enable UART1
-         devmem(bmcreg+0x70,0x120CE406);
- 	devmem(bmcreg+0x80,0xCB000000);
- 	devmem(bmcreg+0x88,0x01C000FF);
- 	devmem(bmcreg+0x8c,0xC1C000FF);
--	devmem(bmcreg+0x90,0x003FA009);
-+	devmem(bmcreg+0x90,0x003FA008);
- 
- 	bmcreg = memmap(mem_fd,COM_BASE);
- 	devmem(bmcreg+0x170,0x00000042);
- 	devmem(bmcreg+0x174,0x00004000);
--
-+*/
- 
- 	close(mem_fd);
+diff --git a/bin/Barreleye.py b/bin/Barreleye.py
+index 9cbf777..ff6690b 100755
+--- a/bin/Barreleye.py
++++ b/bin/Barreleye.py
+@@ -574,8 +574,7 @@ def convertGpio(name):
+ HWMON_CONFIG = {
+ 	'0-004a' :  {
+ 		'names' : {
+-			'temp1_input' : { 'object_path' : 'temperature/ambient','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-					'critical_upper' : 40, 'warning_upper' : 36, 'emergency_enabled' : True },
++			'temp1_input' : { 'object_path' : 'temperature/ambient','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+ 		}
+ 	},
+ 	'6-002d' : {
+@@ -631,137 +630,97 @@ HWMON_CONFIG = {
+ 		},
+ 		'labels' : {
+ 		'176' :  { 'object_path' : 'temperature/cpu0/core0','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'177' :  { 'object_path' : 'temperature/cpu0/core1','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'178' :  { 'object_path' : 'temperature/cpu0/core2','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'179' :  { 'object_path' : 'temperature/cpu0/core3','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'180' :  { 'object_path' : 'temperature/cpu0/core4','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'181' :  { 'object_path' : 'temperature/cpu0/core5','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'182' :  { 'object_path' : 'temperature/cpu0/core6','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'183' :  { 'object_path' : 'temperature/cpu0/core7','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'184' :  { 'object_path' : 'temperature/cpu0/core8','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'185' :  { 'object_path' : 'temperature/cpu0/core9','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'186' :  { 'object_path' : 'temperature/cpu0/core10','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'187' :  { 'object_path' : 'temperature/cpu0/core11','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'102' :  { 'object_path' : 'temperature/dimm0','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'103' :  { 'object_path' : 'temperature/dimm1','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'104' :  { 'object_path' : 'temperature/dimm2','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'105' :  { 'object_path' : 'temperature/dimm3','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'106' :  { 'object_path' : 'temperature/dimm4','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'107' :  { 'object_path' : 'temperature/dimm5','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'108' :  { 'object_path' : 'temperature/dimm6','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'109' :  { 'object_path' : 'temperature/dimm7','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'110' :  { 'object_path' : 'temperature/dimm8','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'111' :  { 'object_path' : 'temperature/dimm9','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'112' :  { 'object_path' : 'temperature/dimm10','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'113' :  { 'object_path' : 'temperature/dimm11','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'114' :  { 'object_path' : 'temperature/dimm12','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'115' :  { 'object_path' : 'temperature/dimm13','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'116' :  { 'object_path' : 'temperature/dimm14','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'117' :  { 'object_path' : 'temperature/dimm15','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'94' :  { 'object_path' : 'temperature/membuf0','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 92, 'warning_upper' : 92, 'emergency_enabled' : False },
+-		'95' :  { 'object_path' : 'temperature/membuf1','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 92, 'warning_upper' : 92, 'emergency_enabled' : False },
+-		'96' :  { 'object_path' : 'temperature/membuf2','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 92, 'warning_upper' : 92, 'emergency_enabled' : False },
+-		'97' :  { 'object_path' : 'temperature/membuf3','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 92, 'warning_upper' : 92, 'emergency_enabled' : False },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++		'102' :  { 'object_path' : 'temperature/dimm0','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'103' :  { 'object_path' : 'temperature/dimm1','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'104' :  { 'object_path' : 'temperature/dimm2','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'105' :  { 'object_path' : 'temperature/dimm3','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'106' :  { 'object_path' : 'temperature/dimm4','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'107' :  { 'object_path' : 'temperature/dimm5','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'108' :  { 'object_path' : 'temperature/dimm6','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'109' :  { 'object_path' : 'temperature/dimm7','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'110' :  { 'object_path' : 'temperature/dimm8','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'111' :  { 'object_path' : 'temperature/dimm9','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'112' :  { 'object_path' : 'temperature/dimm10','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'113' :  { 'object_path' : 'temperature/dimm11','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'114' :  { 'object_path' : 'temperature/dimm12','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'115' :  { 'object_path' : 'temperature/dimm13','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'116' :  { 'object_path' : 'temperature/dimm14','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'117' :  { 'object_path' : 'temperature/dimm15','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'94' :  { 'object_path' : 'temperature/membuf0','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'95' :  { 'object_path' : 'temperature/membuf1','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'96' :  { 'object_path' : 'temperature/membuf2','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'97' :  { 'object_path' : 'temperature/membuf3','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+ 		}
+ 	},
+ 	'3-0051' : {
+ 		'labels' :  {
+ 		'188' :  { 'object_path' : 'temperature/cpu1/core0','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'189' :  { 'object_path' : 'temperature/cpu1/core1','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'190' :  { 'object_path' : 'temperature/cpu1/core2','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'191' :  { 'object_path' : 'temperature/cpu1/core3','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'192' :  { 'object_path' : 'temperature/cpu1/core4','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'193' :  { 'object_path' : 'temperature/cpu1/core5','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'194' :  { 'object_path' : 'temperature/cpu1/core6','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'195' :  { 'object_path' : 'temperature/cpu1/core7','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'196' :  { 'object_path' : 'temperature/cpu1/core8','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'197' :  { 'object_path' : 'temperature/cpu1/core9','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'198' :  { 'object_path' : 'temperature/cpu1/core10','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
+ 		'199' :  { 'object_path' : 'temperature/cpu1/core11','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 90, 'critical_lower' : 82, 'warning_upper' : 88, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'118' :  { 'object_path' : 'temperature/dimm16','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'119' :  { 'object_path' : 'temperature/dimm17','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'120' :  { 'object_path' : 'temperature/dimm18','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'121' :  { 'object_path' : 'temperature/dimm19','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'122' :  { 'object_path' : 'temperature/dimm20','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'123' :  { 'object_path' : 'temperature/dimm21','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'124' :  { 'object_path' : 'temperature/dimm22','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'125' :  { 'object_path' : 'temperature/dimm23','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'126' :  { 'object_path' : 'temperature/dimm24','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'127' :  { 'object_path' : 'temperature/dimm25','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'128' :  { 'object_path' : 'temperature/dimm26','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'129' :  { 'object_path' : 'temperature/dimm27','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'130' :  { 'object_path' : 'temperature/dimm28','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'131' :  { 'object_path' : 'temperature/dimm29','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'132' :  { 'object_path' : 'temperature/dimm30','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'133' :  { 'object_path' : 'temperature/dimm31','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 95, 'critical_lower' : 82, 'warning_upper' : 90, 'warning_lower' : 84, 'emergency_enabled' : True },
+-		'98' :  { 'object_path' : 'temperature/membuf4','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 92, 'warning_upper' : 92, 'emergency_enabled' : False },
+-		'99' :  { 'object_path' : 'temperature/membuf5','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 92, 'warning_upper' : 92, 'emergency_enabled' : False },
+-		'100' :  { 'object_path' : 'temperature/membuf6','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 92, 'warning_upper' : 92, 'emergency_enabled' : False },
+-		'101' :  { 'object_path' : 'temperature/membuf7','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
+-			'critical_upper' : 92, 'warning_upper' : 92, 'emergency_enabled' : False },
++			'critical_upper' : 100, 'critical_lower' : -100, 'warning_upper' : 90, 'warning_lower' : -99, 'emergency_enabled' : True },
++		'118' :  { 'object_path' : 'temperature/dimm16','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'119' :  { 'object_path' : 'temperature/dimm17','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'120' :  { 'object_path' : 'temperature/dimm18','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'121' :  { 'object_path' : 'temperature/dimm19','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'122' :  { 'object_path' : 'temperature/dimm20','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'123' :  { 'object_path' : 'temperature/dimm21','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'124' :  { 'object_path' : 'temperature/dimm22','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'125' :  { 'object_path' : 'temperature/dimm23','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'126' :  { 'object_path' : 'temperature/dimm24','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'127' :  { 'object_path' : 'temperature/dimm25','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'128' :  { 'object_path' : 'temperature/dimm26','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'129' :  { 'object_path' : 'temperature/dimm27','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'130' :  { 'object_path' : 'temperature/dimm28','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'131' :  { 'object_path' : 'temperature/dimm29','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'132' :  { 'object_path' : 'temperature/dimm30','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'133' :  { 'object_path' : 'temperature/dimm31','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'98' :  { 'object_path' : 'temperature/membuf4','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'99' :  { 'object_path' : 'temperature/membuf5','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'100' :  { 'object_path' : 'temperature/membuf6','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		'101' :  { 'object_path' : 'temperature/membuf7','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+ 		}
+ 	},
  }
-@@ -110,29 +109,29 @@ on_init (Control          *control,
- 	//control_emit_goto_system_state(control,"BMC_STARTING");
- 	return TRUE;
- }
--
--static gboolean
--on_warm_reset (ControlBmc            	*bmc,
--               GDBusMethodInvocation	*invocation,
--               gpointer		            user_data)
--{
--	GError *err = NULL;
--	/* Wait a while before reboot, so the caller can be responded.
--	 * Note that g_spawn_command_line_async() cannot parse ';' as
--	 * a command separator. Need to use 'sh -c' to let shell parse it.
--	 */
--	gchar *reboot_command = "/bin/sh -c 'sleep 3;reboot'";
--
--	g_spawn_command_line_async(reboot_command, &err);
--	if (err != NULL) {
--		fprintf(stderr, "warmReset() error: %s\n", err->message);
--		g_error_free(err);
--	}
--
--	control_bmc_complete_warm_reset(bmc, invocation);
--	return TRUE;
--}
--
-+
-+static gboolean
-+on_warm_reset (ControlBmc            	*bmc,
-+               GDBusMethodInvocation	*invocation,
-+               gpointer		            user_data)
-+{
-+	GError *err = NULL;
-+	/* Wait a while before reboot, so the caller can be responded.
-+	 * Note that g_spawn_command_line_async() cannot parse ';' as
-+	 * a command separator. Need to use 'sh -c' to let shell parse it.
-+	 */
-+	gchar *reboot_command = "/bin/sh -c 'sleep 3;reboot'";
-+
-+	g_spawn_command_line_async(reboot_command, &err);
-+	if (err != NULL) {
-+		fprintf(stderr, "warmReset() error: %s\n", err->message);
-+		g_error_free(err);
-+	}
-+
-+	control_bmc_complete_warm_reset(bmc, invocation);
-+	return TRUE;
-+}
-+
- gboolean go(gpointer user_data)
- {
-  	cmdline *cmd = user_data;
-@@ -145,8 +144,8 @@ gboolean go(gpointer user_data)
- 	//g_main_loop_quit(cmd->loop);
- 	return FALSE;
- }
--
--static void
-+
-+static void
- on_bus_acquired (GDBusConnection *connection,
-                  const gchar     *name,
-                  gpointer         user_data)
-@@ -174,12 +173,12 @@ on_bus_acquired (GDBusConnection *connection,
-                	    G_CALLBACK (on_init),
-                	    NULL); /* user_data */
- 
--
--	g_signal_connect (control_bmc,
--		"handle-warm-reset",
--		G_CALLBACK (on_warm_reset),
--		NULL); /* user_data */
--
-+
-+	g_signal_connect (control_bmc,
-+		"handle-warm-reset",
-+		G_CALLBACK (on_warm_reset),
-+		NULL); /* user_data */
-+
- 	/* Export the object (@manager takes its own reference to @object) */
- 	g_dbus_object_manager_server_export (manager, G_DBUS_OBJECT_SKELETON (object));
- 	g_object_unref (object);
-@@ -225,6 +224,7 @@ main (gint argc, gchar *argv[])
-   guint id;
-   loop = g_main_loop_new (NULL, FALSE);
-   cmd.loop = loop;
-+  reg_init();
- 
-   id = g_bus_own_name (DBUS_TYPE,
-                        dbus_name,
-@@ -237,7 +237,7 @@ main (gint argc, gchar *argv[])
-                        NULL);
- 
-   g_main_loop_run (loop);
--
-+
-   g_bus_unown_name (id);
-   g_main_loop_unref (loop);
-   return 0;
 -- 
 2.7.1
