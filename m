@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qmcpq5gxWzDq9m
- for <openbmc@lists.ozlabs.org>; Fri, 15 Apr 2016 22:50:59 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qmcq237GzzDqBx
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Apr 2016 22:51:10 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1460724654031702.9217164887999;
- Fri, 15 Apr 2016 05:50:54 -0700 (PDT)
+ with SMTPS id 1460724651508658.6795593975609;
+ Fri, 15 Apr 2016 05:50:51 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@us.ibm.com>
-Subject: [PATCH pyphosphor 4/4] Move common code from REST server
-Date: Fri, 15 Apr 2016 07:50:47 -0500
-Message-Id: <1460724647-4184-5-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH pyphosphor 2/4] Add dictionary export to PathTree
+Date: Fri, 15 Apr 2016 07:50:45 -0500
+Message-Id: <1460724647-4184-3-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
 In-Reply-To: <1460724647-4184-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1460724647-4184-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,150 +28,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Apr 2016 12:51:00 -0000
+X-List-Received-Date: Fri, 15 Apr 2016 12:51:11 -0000
 
 From: Brad Bishop <bradleyb@us.ibm.com>
 
-Moving a bunch of code with common utility out of the rest server.
-No new functionality provided.
----
- obmc/mapper.py | 120 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 120 insertions(+)
+PathTree is a dictionary extension with paths as keys and lets
+you do things like iterate on subpaths, etc.  Internally it is
+implemented as a nested dictionary but on the outside it acts
+like a normal dictionary.
 
-diff --git a/obmc/mapper.py b/obmc/mapper.py
-index 3f9df5d..68ffb63 100644
---- a/obmc/mapper.py
-+++ b/obmc/mapper.py
-@@ -15,6 +15,9 @@
- # permissions and limitations under the License.
- 
- import dbus
-+import obmc.dbuslib.enums
-+import obmc.utils.misc
-+import obmc.utils.pathtree
- 
- MAPPER_NAME = 'org.openbmc.objectmapper'
- MAPPER_IFACE = MAPPER_NAME + '.ObjectMapper'
-@@ -41,3 +44,120 @@ class Mapper:
- 
-     def get_ancestors(self, path):
-         return self.iface.GetAncestors(path)
+This change enables exporting a PathTree structure as a nested
+dictionary, which is useful for python_2_xyz encoders that understand
+nested data structures.
+---
+ obmc/utils/pathtree.py | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/obmc/utils/pathtree.py b/obmc/utils/pathtree.py
+index 221495e..a13c6cb 100644
+--- a/obmc/utils/pathtree.py
++++ b/obmc/utils/pathtree.py
+@@ -181,3 +181,17 @@ class PathTree:
+         if not self.root:
+             return {}.iteritems()
+         return PathTreeItemIterator(self, subtree, depth)
 +
-+    @staticmethod
-+    def __try_properties_interface(f, *a):
-+        try:
-+            return f(*a)
-+        except dbus.exceptions.DBusException, e:
-+            if obmc.dbuslib.enums.DBUS_UNKNOWN_INTERFACE in \
-+                    e.get_dbus_message():
-+                # interface doesn't have any properties
-+                return None
-+            if obmc.dbuslib.enums.DBUS_UNKNOWN_METHOD == e.get_dbus_name():
-+                # properties interface not implemented at all
-+                return None
-+            raise
++    def dumpd(self, subtree='/'):
++        result = {}
++        d = result
 +
-+    @staticmethod
-+    def __get_properties_on_iface(properties_iface, iface):
-+        properties = Mapper.__try_properties_interface(
-+            properties_iface.GetAll, iface)
-+        if properties is None:
-+            return {}
-+        return properties
++        for k, v in self.iteritems(subtree):
++            elements = ['/'] + filter(bool, k.split('/'))
++            d = result
++            for k in elements:
++                d = d.setdefault(k, {})
++            if v is not None:
++                d.update(v)
 +
-+    def __get_properties_on_bus(self, path, bus, interfaces, match):
-+        properties = {}
-+        obj = self.bus.get_object(bus, path, introspect=False)
-+        properties_iface = dbus.Interface(
-+            obj, dbus_interface=dbus.PROPERTIES_IFACE)
-+        for i in interfaces:
-+            if not match(i):
-+                continue
-+            properties.update(self.__get_properties_on_iface(
-+                properties_iface, i))
-+
-+        return properties
-+
-+    def enumerate_object(
-+            self, path,
-+            match=obmc.utils.misc.org_dot_openbmc_match,
-+            mapper_data=None):
-+        if mapper_data is None:
-+            mapper_data = {path: self.get_object(path)}
-+
-+        obj = {}
-+
-+        for owner, interfaces in mapper_data[path].iteritems():
-+            obj.update(
-+                self.__get_properties_on_bus(
-+                    path, owner, interfaces, match))
-+
-+        return obj
-+
-+    def enumerate_subtree(
-+            self, path='/',
-+            match=obmc.utils.misc.org_dot_openbmc_match,
-+            mapper_data=None):
-+        if mapper_data is None:
-+            mapper_data = self.get_subtree(path)
-+        managers = {}
-+        owners = []
-+
-+        # look for objectmanager implementations as they result
-+        # in fewer dbus calls
-+        for path, bus_data in mapper_data.iteritems():
-+            for owner, interfaces in bus_data.iteritems():
-+                owners.append(owner)
-+                if dbus.BUS_DAEMON_IFACE + '.ObjectManager' in interfaces:
-+                    managers[owner] = path
-+
-+        # also look in the parent objects
-+        ancestors = self.get_ancestors(path)
-+
-+        # finally check the root for one too
-+        try:
-+            ancestors.update({path: self.get_object(path)})
-+        except dbus.exceptions.DBusException, e:
-+            if e.get_dbus_name() != obmc.mapper.MAPPER_NOT_FOUND:
-+                raise
-+
-+        for path, bus_data in ancestors.iteritems():
-+            for owner, interfaces in bus_data.iteritems():
-+                if dbus.BUS_DAEMON_IFACE + '.ObjectManager' in interfaces:
-+                    managers[owner] = path
-+
-+        # make all the manager gmo (get managed objects) calls
-+        results = {}
-+        for owner, path in managers.iteritems():
-+            if owner not in owners:
-+                continue
-+            obj = self.bus.get_object(owner, path, introspect=False)
-+            iface = dbus.Interface(
-+                obj, dbus.BUS_DAEMON_IFACE + '.ObjectManager')
-+
-+            # flatten (remove interface names) gmo results
-+            for path, interfaces in iface.GetManagedObjects().iteritems():
-+                if path not in mapper_data.iterkeys():
-+                    continue
-+                properties = {}
-+                for iface, props in interfaces.iteritems():
-+                    properties.update(props)
-+                results.setdefault(path, {}).setdefault(owner, properties)
-+
-+        # make dbus calls for any remaining objects
-+        for path, bus_data in mapper_data.iteritems():
-+            for owner, interfaces in bus_data.iteritems():
-+                if results.setdefault(path, {}).setdefault(owner, {}):
-+                    continue
-+                results[path][owner].update(
-+                    self.__get_properties_on_bus(
-+                        path, owner, interfaces, match))
-+
-+        objs = obmc.utils.pathtree.PathTree()
-+        for path, owners in results.iteritems():
-+            for owner, properties in owners.iteritems():
-+                objs.setdefault(path, {}).update(properties)
-+
-+        return objs
++        return result
 -- 
 2.7.1
