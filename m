@@ -3,17 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qmd2J4H8MzDqDW
- for <openbmc@lists.ozlabs.org>; Fri, 15 Apr 2016 23:00:56 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qmd2L4sQ4zDqKg
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Apr 2016 23:00:58 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1460725248600468.21435836639216;
- Fri, 15 Apr 2016 06:00:48 -0700 (PDT)
+ with SMTPS id 1460725249897935.1424215973723;
+ Fri, 15 Apr 2016 06:00:49 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-objmgr 0/7] association support
-Date: Fri, 15 Apr 2016 08:00:40 -0500
-Message-Id: <1460725247-4587-1-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: Brad Bishop <bradleyb@us.ibm.com>
+Subject: [PATCH phosphor-objmgr 1/7] Add gitignore
+Date: Fri, 15 Apr 2016 08:00:41 -0500
+Message-Id: <1460725247-4587-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.7.1
+In-Reply-To: <1460725247-4587-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1460725247-4587-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -25,33 +28,109 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Apr 2016 13:00:57 -0000
+X-List-Received-Date: Fri, 15 Apr 2016 13:00:59 -0000
 
+From: Brad Bishop <bradleyb@us.ibm.com>
 
-
-<!-- Reviewable:start -->
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/phosphor-objmgr/9)
-<!-- Reviewable:end -->
-
-
-https://github.com/openbmc/phosphor-objmgr/pull/9
-
-Brad Bishop (7):
-  Add gitignore
-  Use pyobmc package
-  Update license year from 2015 to 2016
-  Add cache access and signal validation wrappers
-  Minor refactoring
-  Add support for associations
-  Add ObjectManager interfaces automatically
-
- .gitignore       |  87 ++++++++++
- OpenBMCMapper.py | 364 ------------------------------------------
- phosphor-mapper  | 473 +++++++++++++++++++++++++++++++++++++++++++++----------
- setup.py         |   3 +-
- 4 files changed, 478 insertions(+), 449 deletions(-)
+Lifted from
+https://github.com/github/gitignore/blob/master/Python.gitignore
+---
+ .gitignore | 87 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 87 insertions(+)
  create mode 100644 .gitignore
- delete mode 100644 OpenBMCMapper.py
 
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..7c0d83f
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,87 @@
++# Copyright (c) 2016 GitHub, Inc.
++#
++# Permission is hereby granted,  free of charge,  to any person obtaining a
++# copy of this software and associated documentation files (the "Software"),
++# to deal in the Software without restriction, including without limitation
++# the rights to  use, copy, modify, merge, publish, distribute, sublicense,
++# and/or sell copies of the Software, and to permit persons to whom the
++# Software is furnished to do so, subject to the following conditions:
++#
++# The above copyright notice and this permission notice shall be included in
++# all copies or substantial portions of the Software.
++#
++# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
++# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
++# DEALINGS IN THE SOFTWARE.
++
++# source: https://github.com/github/gitignore/blob/master/Python.gitignore
++
++# Byte-compiled / optimized / DLL files
++__pycache__/
++*.py[cod]
++*$py.class
++
++# C extensions
++*.so
++
++# Distribution / packaging
++.Python
++env/
++build/
++develop-eggs/
++dist/
++downloads/
++eggs/
++.eggs/
++lib/
++lib64/
++parts/
++sdist/
++var/
++*.egg-info/
++.installed.cfg
++*.egg
++
++# PyInstaller
++#  Usually these files are written by a python script from a template
++#  before PyInstaller builds the exe, so as to inject date/other infos into it.
++*.manifest
++*.spec
++
++# Installer logs
++pip-log.txt
++pip-delete-this-directory.txt
++
++# Unit test / coverage reports
++htmlcov/
++.tox/
++.coverage
++.coverage.*
++.cache
++nosetests.xml
++coverage.xml
++*,cover
++.hypothesis/
++
++# Translations
++*.mo
++*.pot
++
++# Django stuff:
++*.log
++
++# Sphinx documentation
++docs/_build/
++
++# PyBuilder
++target/
++
++#Ipython Notebook
++.ipynb_checkpoints
++
++*.swo
++*.swp
 -- 
 2.7.1
