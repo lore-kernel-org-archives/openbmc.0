@@ -1,42 +1,58 @@
-Return-Path: <andrew@aj.id.au>
-Received: from homiemail-a76.g.dreamhost.com (sub3.mail.dreamhost.com
- [69.163.253.7])
- (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-oi0-x244.google.com (mail-oi0-x244.google.com
+ [IPv6:2607:f8b0:4003:c06::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qmrw95Gs5zDq62
- for <openbmc@lists.ozlabs.org>; Sat, 16 Apr 2016 07:56:25 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=NEMwGlMn; 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qn1Gl3F3MzDq5v
+ for <openbmc@lists.ozlabs.org>; Sat, 16 Apr 2016 14:13:02 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=JLMHXmU5; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=CrM9HpGi; 
  dkim-atps=neutral
-Received: from homiemail-a76.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a76.g.dreamhost.com (Postfix) with ESMTP id ECEF845807B;
- Fri, 15 Apr 2016 14:56:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
- :subject:from:reply-to:to:date:in-reply-to:references
- :content-type:mime-version; s=aj.id.au; bh=6qyIsSBmg/1Id07m+Kvqk
- cl46aI=; b=NEMwGlMn8TJWSDL82H+BZ50DBYZQwXP9/Tpmp7HYlVshJYOk1kusR
- m4ih8VaMkXtw19Pcn/bY+5T8qhpha1+eojz+oaYKj3hmw3pAm+FE+l2+AA40FP9K
- P31M0BaHTwcwTS1n0UHW1HURo++QPN3/235Z1w/y87Ih2sx2XPrTXM=
-Received: from keelia (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- (using TLSv1 with cipher AES128-SHA (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: andrew@aj.id.au)
- by homiemail-a76.g.dreamhost.com (Postfix) with ESMTPSA id B2D7F458071;
- Fri, 15 Apr 2016 14:56:21 -0700 (PDT)
-Message-ID: <1460757373.3978.125.camel@aj.id.au>
-Subject: Re: Resolving the lonely pull request
-From: Andrew Jeffery <andrew@aj.id.au>
-Reply-To: andrew@aj.id.au
-To: Chris Austen <austenc@us.ibm.com>, openbmc@lists.ozlabs.org
-Date: Sat, 16 Apr 2016 07:26:13 +0930
-In-Reply-To: <201604151853.u3FIrYF0024455@d03av03.boulder.ibm.com>
-References: <201604151853.u3FIrYF0024455@d03av03.boulder.ibm.com>
-Organization: IBM OzLabs
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-XKKSG5Ebx2kdkkWAvnkc"
-X-Mailer: Evolution 3.16.5-1ubuntu3.1 
-Mime-Version: 1.0
+Received: by mail-oi0-x244.google.com with SMTP id r186so1100814oie.2
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Apr 2016 21:13:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:from:date:message-id:subject:to:cc;
+ bh=wG/eQUC+eNjnyqphNLTbd9mnIIJnM2p3dMtEiClMU9s=;
+ b=JLMHXmU5sVswLWze7+s6V2SZHpRaCKohczUli4s4YfONgfrOWFnBmklcJku09gynFE
+ vstuQPIjXg82RKgKteQ85Sj+lvYpGbSrdTH8/RaiS7BpHEpuUTnH1JTwWnNtkSbdjKu0
+ d7/GpF7euLE2Z3Cx/lBLr8Hadab4oV0zF7Barf7ASucDwf1d8jOEwHoH7iFvgQ9lF3AT
+ cLWGIKGGpQCG4+VYxGiCQWYLxOscmKYgTqkuVCzAiv8l6qQxiD/BqWVXokFJ8Euy6Bcl
+ RXDcgNH0cSd89L9PQLab+fkHhXfDmPsuuKKzThRJbm1KuILEfBNFhG2wc5maaPYiYJ0t
+ 0MIQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:from:date:message-id:subject:to:cc;
+ bh=wG/eQUC+eNjnyqphNLTbd9mnIIJnM2p3dMtEiClMU9s=;
+ b=CrM9HpGiDgqG2qcb6/pDEZ5w00s+nMBPSRYh9Wma2okSWmWORGEW5x7XLexR7euyRl
+ dKv/RMtPbBLVtR0+2xn5GTOOwI0Dtr/b8uyuA6VkXUjO50OrdFxQguVrs3yxovu4TSAS
+ pnxPc4K9kUK1gDpBOj4qzu1lx7GEkTqNSnwlU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
+ :to:cc;
+ bh=wG/eQUC+eNjnyqphNLTbd9mnIIJnM2p3dMtEiClMU9s=;
+ b=g2A6j4KHFnQkD6zW+oDoaORfMLZqqC8BHp0Hp5vQgDu0oMWhcUpaIMrfupmgBZwdd2
+ y9nhCVxISQ2e4Q0PyfV07+HPHcXeSnp1Qyld1GSHXDHx4dgH+PAKl33YGH1kAGzyKzr0
+ SAptN8aM0p+QGckaWx8sDHwsqauPSezamOOwZPYUiwrIn2+U5qtTMlypK2N9iBHVcZWZ
+ LnGq1viVD2c37u4GM04H+bTJqcfH2t7IRuvJzQhFr3RkfAuuELHu2D/hx3ni3aofnbE5
+ AQ2SvSqSyb86Sovb0RWfXX9yJ4QaAzHtRYf/+c/OvR6fr0/y+/lkH7F9rtWRZvXoHXD1
+ t+mw==
+X-Gm-Message-State: AOPr4FVBgxW7iVKu7Y+yVUDzcHewsB3DZ/ULqR18FRmlnQNXT8sIcdE2Z656iAVBXAwVLnpKogWIDsOJ5GpeqQ==
+X-Received: by 10.157.5.144 with SMTP id 16mr11433353otd.188.1460779978347;
+ Fri, 15 Apr 2016 21:12:58 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.60.79.200 with HTTP; Fri, 15 Apr 2016 21:12:38 -0700 (PDT)
+From: Joel Stanley <joel@jms.id.au>
+Date: Sat, 16 Apr 2016 13:42:38 +0930
+X-Google-Sender-Auth: xalqU00iG3RMOZmoD9izpAjMxOs
+Message-ID: <CACPK8XcnceWNFUNijp7haUvaBn9H607ceaMQN+pvKxYO0WuJVA@mail.gmail.com>
+Subject: Aspeed u-boot trees
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@fr.ibm.com>, 
+ Teddy Reed V <teddy@prosauce.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -48,42 +64,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Apr 2016 21:56:26 -0000
+X-List-Received-Date: Sat, 16 Apr 2016 04:13:05 -0000
 
+Hello All,
 
---=-XKKSG5Ebx2kdkkWAvnkc
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I wanted everyone who has been helping out with u-boot to get on the
+same page. We have a few trees floating around, and the last thing we
+want is to be doubling up on work.
 
-On Fri, 2016-04-15 at 18:53 +0000, Chris Austen wrote:
-> qemu - Andrew J
+Ted's tree
+ - ast2400 patches that Facebook were using
+ - rebased on 2016.03
+ - cleanups
+ - https://github.com/theopolis/u-boot-openbmc/tree/v2016.03-openbmc-r1
 
-Yep, I'll review any qemu work. I want to get around to reviewing code
-for other repos as well, just I need the time to work up the context to
-provide something more than spelling and whitespace suggestions ;)
+Cedric's tree:
+ - ast2400 patches that the IBM team were using
+ - rebased on 2016.03+
+ - https://github.com/legoater/u-boot
 
-Andrew
---=-XKKSG5Ebx2kdkkWAvnkc
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Joel's tree
+ - Cedric's tree, after deleting a lot of unused code
+ - https://github.com/shenki/u-boot/tree/aspeed/openbmc-cleanups
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
+Finally, I took a copy of Aspeed's latest BSP that supports the
+ast2500 as well as SoCs supported by the existing code and pushed it:
 
-iQIcBAABCgAGBQJXEWN9AAoJEJ0dnzgO5LT5V68QAJBgboovECHhAUc/6ime+pyC
-KhMBsXrG7Ak1gGgH6T6M1SXCopb8qhY2IDJ01FVkdJ+v8X+DpeWTFST54wYp1TW1
-2P0elKujai0QlIOdbSoM2/Stq7RAZ20fqM6f9oclrHAYWvrPgOLQMnNT8DsvJ9fk
-QrgE37AnVPrGLAPRmcxyM4dH7ZMKL9VtQMOvmcm7GXZiTHlzMr7cm0gscFCJIBLL
-PgfjMcvW29oU61FVPMj1KeckerirdSuS3oCQtqYxTjCallKgIraHlMs4mALbHU8g
-OzWmpNaBpRS3w4wnyjbo/GrxzBpXZsSwq7DEyhRGW0xqWG+7PUaluz92Tx5z9IoV
-tKsDjZi0J6cds7kPsf0SG1kF6UBaU8dSglPVM04ut6rnHQK4bMM/D8oghTDdwABR
-mHTReoMbuhgGktDk9MfrF3hEsHxo0nmT0N3ahjQKAuqNuEL4bbxMgX2snhBQBsBW
-iVTwIZ5tXnLBWe0E5Ob4Va4lFcoH6NNsYaPgMAx59BcUXZB4/p/McccjOOzmmDpj
-2AQtfDP7q/RpyT70FMIJdRldgajgfiKpeZx5wC2/nRnjYgcISBwhO++7i0EgPapA
-XDIDCgdaPqM4NYzVLLrfsy8BqTHp7d+P2vVwsxDkEonIxZ+pbBgasut/wGv+w3ER
-fBlNM7/Fg93aA8Xb8RZT
-=OLCN
------END PGP SIGNATURE-----
+  https://github.com/shenki/u-boot/tree/v2013.01-aspeed-ast2500
 
---=-XKKSG5Ebx2kdkkWAvnkc--
+This tree is somewhat cleaner than the previous. It groups boards in
+generation 3, 4, and 5. This is an attractive option for focusing our
+cleanup and upstream efforts from here.
+
+Ted, what are your plans for your tree? Do you have time, or would you
+like some help?
+
+Cedric, I think you have some cycles available to do some u-boot work.
+Which tree do you think is best to work from?
+
+Cheers,
+
+Joel
