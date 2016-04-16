@@ -1,88 +1,55 @@
-Return-Path: <austenc@us.ibm.com>
-Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
- (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
+Return-Path: <teddy@prosauce.org>
+Received: from mail-wm0-x235.google.com (mail-wm0-x235.google.com
+ [IPv6:2a00:1450:400c:c09::235])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qpXJP0cNkzDq5f
- for <openbmc@lists.ozlabs.org>; Tue, 19 Apr 2016 01:34:44 +1000 (AEST)
-Received: from localhost
- by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
- Mon, 18 Apr 2016 09:34:40 -0600
-Received: from d03dlp02.boulder.ibm.com (9.17.202.178)
- by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 18 Apr 2016 09:34:39 -0600
-X-IBM-Helo: d03dlp02.boulder.ibm.com
-X-IBM-MailFrom: austenc@us.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from b03cxnp08026.gho.boulder.ibm.com
- (b03cxnp08026.gho.boulder.ibm.com [9.17.130.18])
- by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id 47F5D3E4005B
- for <openbmc@lists.ozlabs.org>; Mon, 18 Apr 2016 09:34:39 -0600 (MDT)
-Received: from d03av04.boulder.ibm.com (d03av04.boulder.ibm.com [9.17.195.170])
- by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u3IFYdrd39387180
- for <openbmc@lists.ozlabs.org>; Mon, 18 Apr 2016 08:34:39 -0700
-Received: from d03av04.boulder.ibm.com (loopback [127.0.0.1])
- by d03av04.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u3IFYdvi012550
- for <openbmc@lists.ozlabs.org>; Mon, 18 Apr 2016 09:34:39 -0600
-Received: from d50lp31.co.us.ibm.com (d50lp31.boulder.ibm.com [9.17.249.32])
- by d03av04.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u3IFYcXt012538
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=FAIL)
- for <openbmc@lists.ozlabs.org>; Mon, 18 Apr 2016 09:34:38 -0600
-Message-Id: <201604181534.u3IFYcXt012538@d03av04.boulder.ibm.com>
-Received: from localhost
- by d50lp31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
- Mon, 18 Apr 2016 09:34:38 -0600
-Received: from smtp.notes.na.collabserv.com (192.155.248.82)
- by d50lp31.co.us.ibm.com (192.168.2.141) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
- Mon, 18 Apr 2016 09:34:36 -0600
-X-IBM-Helo: smtp.notes.na.collabserv.com
-X-IBM-MailFrom: austenc@us.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from /spool/local
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
- Mon, 18 Apr 2016 15:34:34 -0000
-Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
- by smtp.notes.na.collabserv.com (10.106.227.105) with
- smtp.notes.na.collabserv.com ESMTP; Mon, 18 Apr 2016 15:34:31 -0000
-Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
- by us1a3-smtp05.a3.dal06.isc4sb.com
- with ESMTP id 2016041815343061-297685 ;
- Mon, 18 Apr 2016 15:34:30 +0000 
-In-Reply-To: 
-Subject: Out of the Box experience for a new system
-From: "Chris Austen" <austenc@us.ibm.com>
-To: openbmc@lists.ozlabs.org
-Date: Mon, 18 Apr 2016 15:34:30 +0000
-Sensitivity: 
-References: 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qn4mc17khzDq5v
+ for <openbmc@lists.ozlabs.org>; Sat, 16 Apr 2016 16:50:39 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=prosauce-org.20150623.gappssmtp.com
+ header.i=@prosauce-org.20150623.gappssmtp.com header.b=Q+k69OWQ; 
+ dkim-atps=neutral
+Received: by mail-wm0-x235.google.com with SMTP id v188so56133009wme.1
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Apr 2016 23:50:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=prosauce-org.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+ :cc; bh=9N4uRbuUxq1gq3+///LmhM3xzkE1qLvYuRGUjuPjE6A=;
+ b=Q+k69OWQSEEZlLkbaXd9GybDKb6uTS0GERhlfJgspNNdR/Ui1j6up9Rqhbp1ApzgGn
+ nDzCTYkuLOmeO1myrZeMrBQm4p30svOF4jADkkb21U8JKw47h4cbX6tA8O+klsd8u4U7
+ uUGOf5EGCyO47JakjkVhj/E3p9Tz21LralLqLyr0awdCjET/+hDY4+MQN4MioqRMSrcY
+ DtcYCjVoiFBFCv6PdXRU8d2CwOHHBZzduqI0eTbXb2PbglIo40I9Mcscb9pyv2AN8Q4l
+ ToI+kL8IZBoOwH2PKfuHKgBPZ+8hzFgdwiiN3iSx7JJv8xIwEyvp6pR2ZOrO5fQ+M2tS
+ WF7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:in-reply-to:references:date
+ :message-id:subject:from:to:cc;
+ bh=9N4uRbuUxq1gq3+///LmhM3xzkE1qLvYuRGUjuPjE6A=;
+ b=VXUDHKBQ3Z+3eb+JHjV0xNLSE5G+Cj+kuumcp2/KVMLWvWQsctMhXrh640LlpDhF7M
+ Qbr7OKQv5iKkxBNzXBqc044tfSbfdr/LTZ/SUggxzY60sl5XeSGU2gex65hiZ56cF7kc
+ ae2ylWj3nJxznTYfWCqrLDsbfKKVA78d4UWZnkrxehOGDY7iVRoqtBZ9XQLLF+xtH8rz
+ VBDVUq83uCwetybI3snb+58fG06hVfJ3WcXw6J+qZwFBG5Bf/rF6pYU6VJaetlwET9zD
+ I79DASLrSlA3WQLTjnEJl/e4kPmsLgqSlR04uyEizHmzO8iC4V3A/xf9dLRtKdzA2uWS
+ JPQA==
+X-Gm-Message-State: AOPr4FUKerdEK8eq+pWeeQJ//T9PoUe8OkSsXJuDXLEhLeYTvV05m8sUJdSGcUEDGkstssvi4bjQNnOZYX3uIQ==
 MIME-Version: 1.0
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: Lotus Domino Web Server Build V851SAAS_04042016_FP5 April 14, 2016
-X-LLNOutbound: False
-X-Disclaimed: 42879
-X-TNEFEvaluated: 1
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset=UTF-8
-x-cbid: 16041815-8236-0000-0000-0000262B4B63
-X-IBM-ISS-SpamDetectors: Score=0.423878; BY=0.067671; FL=0; FP=0; FZ=0; HX=0; 
- KW=0; PH=0; SC=0.423878; ST=0; TS=0; UL=0; ISC=
-X-IBM-ISS-DetailInfo: BY=3.00005172; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000159; SDB=6.00689885; UDB=6.00317817; UTC=2016-04-18
- 15:34:32
-x-cbparentid: 16041815-9900-0000-0000-0000073E1C49
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
+X-Received: by 10.28.179.7 with SMTP id c7mr8702368wmf.46.1460789433876; Fri,
+ 15 Apr 2016 23:50:33 -0700 (PDT)
+Received: by 10.194.94.163 with HTTP; Fri, 15 Apr 2016 23:50:33 -0700 (PDT)
+X-Originating-IP: [24.6.55.56]
+In-Reply-To: <CACPK8XcnceWNFUNijp7haUvaBn9H607ceaMQN+pvKxYO0WuJVA@mail.gmail.com>
+References: <CACPK8XcnceWNFUNijp7haUvaBn9H607ceaMQN+pvKxYO0WuJVA@mail.gmail.com>
+Date: Fri, 15 Apr 2016 23:50:33 -0700
+Message-ID: <CADUykeqpzJfuk5=NXYMdLweBat6ujVLx_P-hfq063gCU80qLTw@mail.gmail.com>
+Subject: Re: Aspeed u-boot trees
+From: Teddy Reed <teddy@prosauce.org>
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@fr.ibm.com>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Content-Type: text/plain; charset=UTF-8
+X-Mailman-Approved-At: Tue, 19 Apr 2016 01:53:57 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -94,40 +61,76 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Apr 2016 15:34:46 -0000
+X-List-Received-Date: Sat, 16 Apr 2016 06:50:41 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial;fo=
-nt-size:10.5pt" ><div dir=3D"ltr" ><h3 dir=3D"ltr" >It is not very often we=
- have a chance to see a system straight from manufacturing. I'd like to bui=
-ld a list of things to do when a new system arrives.&nbsp; Box openings are=
- first impressions and I would like to make sure we delight our clients wit=
-h this powerful server</h3></div>
-<div dir=3D"ltr" ><h3 dir=3D"ltr" >Prep for a new opening</h3>
-<p dir=3D"ltr" >What you need... debug serial cable</p>
-<p dir=3D"ltr" >mac@ labels, where are they?&nbsp; Is there any labels/pape=
-rs indicating how to connect to the server for the first time?</p>
-<div dir=3D"ltr" >DHCP should be the default, if you program the DHCP serve=
-r to recognize the MAC does it connect cleanly?</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" ><h3 dir=3D"ltr" >Document prior to first boot</h3>VPD, lo=
-g VPD to files</div>
-<p dir=3D"ltr" >&lt;insert commands here&gt;</p>
-<p dir=3D"ltr" >Capture the journald output</p>
-<p dir=3D"ltr" >&lt;insert commands here&gt;</p>
-<p dir=3D"ltr" >Capture the build level</p>
-<p dir=3D"ltr" >cat /etc/os-release &gt; &lt;file&gt;</p>
-<p dir=3D"ltr" >Capture the rw filesystem</p>
-<p dir=3D"ltr" >in tmp create a tarfile of <span class=3D"pl-s" >/var/lib/o=
-bmc</span></p>
-<p dir=3D"ltr" >&nbsp;</p>
-<p dir=3D"ltr" >&nbsp;</p>
-<h4 dir=3D"ltr" >Capturing the first boot</h4>
-<div dir=3D"ltr" >Power on the system, once at petitboot (hmmm. I wonder if=
- first boot even will stop at Petitboot)</div>
-<p dir=3D"ltr" >record petitboot default boot devices</p>
-<p dir=3D"ltr" >recapture the journald output</p>
-<p dir=3D"ltr" >recapture the rw filesystem</p>
-<p dir=3D"ltr" >&nbsp;</p>&nbsp;
+Thanks for summarizing Joel!
 
-<div><br>Chris Austen<br>POWER Systems Enablement Manager<br>(512) 286-5184=
- (T/L: 363-5184)</div></div></div><BR>
+On Fri, Apr 15, 2016 at 9:12 PM, Joel Stanley <joel@jms.id.au> wrote:
+> Hello All,
+>
+> I wanted everyone who has been helping out with u-boot to get on the
+> same page. We have a few trees floating around, and the last thing we
+> want is to be doubling up on work.
+>
+> Ted's tree
+>  - ast2400 patches that Facebook were using
+>  - rebased on 2016.03
+>  - cleanups
+>  - https://github.com/theopolis/u-boot-openbmc/tree/v2016.03-openbmc-r1
+>
+> Cedric's tree:
+>  - ast2400 patches that the IBM team were using
+>  - rebased on 2016.03+
+>  - https://github.com/legoater/u-boot
+>
+> Joel's tree
+>  - Cedric's tree, after deleting a lot of unused code
+>  - https://github.com/shenki/u-boot/tree/aspeed/openbmc-cleanups
+>
+> Finally, I took a copy of Aspeed's latest BSP that supports the
+> ast2500 as well as SoCs supported by the existing code and pushed it:
+>
+>   https://github.com/shenki/u-boot/tree/v2013.01-aspeed-ast2500
+>
+> This tree is somewhat cleaner than the previous. It groups boards in
+> generation 3, 4, and 5. This is an attractive option for focusing our
+> cleanup and upstream efforts from here.
+>
+> Ted, what are your plans for your tree? Do you have time, or would you
+> like some help?
+>
+
+I have a lot of time to spend with u-boot and I'm happy to help
+however possible.
+In tandem with the QEMU and kernel work you've done, it would be best
+to begin upstreaming to u-boot.
+
+I'd like to organize 3 patches to upstream:
+Patch 1: I can attempt to bundle the most basic set of patches from
+the various trees which are based on v2016.03 for the 2400 boards. My
+goal for the first patch is the simplest possible bit of code, based
+on the 2400 SDK.
+Patch 2: From there we can iterate with support for 2500 and include
+the fixups Cedric has to the ASPEED-provided SDK code.
+Patch 3+4: Finally, in a perhaps another two patches we can add the
+Palmetto and Facebook board support.
+
+I have one concern with this approach (aside from eagerly waiting for
+your constructive criticism!):
+The SDK provides helpful system level tests (SLTs) that we use
+internally quite often. I want to continue having them available, but
+u-boot does not facilitate this from what I can tell. They definitely
+should be removed from the CPU and board definitions-- they might be
+ok as u-boot commands. They could also be amalgamated into a command
+suite. That said, CPU/board specific commands are very rare.
+
+Any recommendations on how to support the SLTs within u-boot, or
+perhaps recommendations or examples on how folks "vendor in" these
+sorts of tests? Ideally they would still exist in the output u-boot
+code for validation testing and runtime debugging.
+
+> Cedric, I think you have some cycles available to do some u-boot work.
+> Which tree do you think is best to work from?
+
+-- 
+Teddy Reed V
