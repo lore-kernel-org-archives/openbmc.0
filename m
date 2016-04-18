@@ -1,22 +1,88 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <austenc@us.ibm.com>
+Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qpQgV2DhPzDqBn
- for <openbmc@lists.ozlabs.org>; Mon, 18 Apr 2016 21:20:53 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 14609784432731020.7565207243778;
- Mon, 18 Apr 2016 04:20:43 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qpXJP0cNkzDq5f
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Apr 2016 01:34:44 +1000 (AEST)
+Received: from localhost
+ by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Mon, 18 Apr 2016 09:34:40 -0600
+Received: from d03dlp02.boulder.ibm.com (9.17.202.178)
+ by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 18 Apr 2016 09:34:39 -0600
+X-IBM-Helo: d03dlp02.boulder.ibm.com
+X-IBM-MailFrom: austenc@us.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from b03cxnp08026.gho.boulder.ibm.com
+ (b03cxnp08026.gho.boulder.ibm.com [9.17.130.18])
+ by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id 47F5D3E4005B
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Apr 2016 09:34:39 -0600 (MDT)
+Received: from d03av04.boulder.ibm.com (d03av04.boulder.ibm.com [9.17.195.170])
+ by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u3IFYdrd39387180
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Apr 2016 08:34:39 -0700
+Received: from d03av04.boulder.ibm.com (loopback [127.0.0.1])
+ by d03av04.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u3IFYdvi012550
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Apr 2016 09:34:39 -0600
+Received: from d50lp31.co.us.ibm.com (d50lp31.boulder.ibm.com [9.17.249.32])
+ by d03av04.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u3IFYcXt012538
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Apr 2016 09:34:38 -0600
+Message-Id: <201604181534.u3IFYcXt012538@d03av04.boulder.ibm.com>
+Received: from localhost
+ by d50lp31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Mon, 18 Apr 2016 09:34:38 -0600
+Received: from smtp.notes.na.collabserv.com (192.155.248.82)
+ by d50lp31.co.us.ibm.com (192.168.2.141) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
+ Mon, 18 Apr 2016 09:34:36 -0600
+X-IBM-Helo: smtp.notes.na.collabserv.com
+X-IBM-MailFrom: austenc@us.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from /spool/local
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Mon, 18 Apr 2016 15:34:34 -0000
+Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
+ by smtp.notes.na.collabserv.com (10.106.227.105) with
+ smtp.notes.na.collabserv.com ESMTP; Mon, 18 Apr 2016 15:34:31 -0000
+Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
+ by us1a3-smtp05.a3.dal06.isc4sb.com
+ with ESMTP id 2016041815343061-297685 ;
+ Mon, 18 Apr 2016 15:34:30 +0000 
+In-Reply-To: 
+Subject: Out of the Box experience for a new system
+From: "Chris Austen" <austenc@us.ibm.com>
 To: openbmc@lists.ozlabs.org
-Cc: ratagupt <ratagupt@in.ibm.com>
-Subject: [PATCH phosphor-host-ipmid v2 2/2] Review Comment added for 146621
-Date: Mon, 18 Apr 2016 06:20:39 -0500
-Message-Id: <1460978439-16510-3-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.7.1
-In-Reply-To: <1460978439-16510-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1460978439-16510-1-git-send-email-openbmc-patches@stwcx.xyz>
+Date: Mon, 18 Apr 2016 15:34:30 +0000
+Sensitivity: 
+References: 
+MIME-Version: 1.0
+Importance: Normal
+X-Priority: 3 (Normal)
+X-Mailer: Lotus Domino Web Server Build V851SAAS_04042016_FP5 April 14, 2016
+X-LLNOutbound: False
+X-Disclaimed: 42879
+X-TNEFEvaluated: 1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=UTF-8
+x-cbid: 16041815-8236-0000-0000-0000262B4B63
+X-IBM-ISS-SpamDetectors: Score=0.423878; BY=0.067671; FL=0; FP=0; FZ=0; HX=0; 
+ KW=0; PH=0; SC=0.423878; ST=0; TS=0; UL=0; ISC=
+X-IBM-ISS-DetailInfo: BY=3.00005172; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000159; SDB=6.00689885; UDB=6.00317817; UTC=2016-04-18
+ 15:34:32
+x-cbparentid: 16041815-9900-0000-0000-0000073E1C49
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -28,78 +94,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Apr 2016 11:20:54 -0000
+X-List-Received-Date: Mon, 18 Apr 2016 15:34:46 -0000
 
-From: ratagupt <ratagupt@in.ibm.com>
+<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial;fo=
+nt-size:10.5pt" ><div dir=3D"ltr" ><h3 dir=3D"ltr" >It is not very often we=
+ have a chance to see a system straight from manufacturing. I'd like to bui=
+ld a list of things to do when a new system arrives.&nbsp; Box openings are=
+ first impressions and I would like to make sure we delight our clients wit=
+h this powerful server</h3></div>
+<div dir=3D"ltr" ><h3 dir=3D"ltr" >Prep for a new opening</h3>
+<p dir=3D"ltr" >What you need... debug serial cable</p>
+<p dir=3D"ltr" >mac@ labels, where are they?&nbsp; Is there any labels/pape=
+rs indicating how to connect to the server for the first time?</p>
+<div dir=3D"ltr" >DHCP should be the default, if you program the DHCP serve=
+r to recognize the MAC does it connect cleanly?</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" ><h3 dir=3D"ltr" >Document prior to first boot</h3>VPD, lo=
+g VPD to files</div>
+<p dir=3D"ltr" >&lt;insert commands here&gt;</p>
+<p dir=3D"ltr" >Capture the journald output</p>
+<p dir=3D"ltr" >&lt;insert commands here&gt;</p>
+<p dir=3D"ltr" >Capture the build level</p>
+<p dir=3D"ltr" >cat /etc/os-release &gt; &lt;file&gt;</p>
+<p dir=3D"ltr" >Capture the rw filesystem</p>
+<p dir=3D"ltr" >in tmp create a tarfile of <span class=3D"pl-s" >/var/lib/o=
+bmc</span></p>
+<p dir=3D"ltr" >&nbsp;</p>
+<p dir=3D"ltr" >&nbsp;</p>
+<h4 dir=3D"ltr" >Capturing the first boot</h4>
+<div dir=3D"ltr" >Power on the system, once at petitboot (hmmm. I wonder if=
+ first boot even will stop at Petitboot)</div>
+<p dir=3D"ltr" >record petitboot default boot devices</p>
+<p dir=3D"ltr" >recapture the journald output</p>
+<p dir=3D"ltr" >recapture the rw filesystem</p>
+<p dir=3D"ltr" >&nbsp;</p>&nbsp;
 
----
- chassishandler.C | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
-
-diff --git a/chassishandler.C b/chassishandler.C
-index 1a5508f..5144e15 100644
---- a/chassishandler.C
-+++ b/chassishandler.C
-@@ -92,7 +92,7 @@ finish:
-     return r;
- }
- 
--int dbus_get_property(const char *name,char **buf)
-+int dbus_get_property(const char *name, char **buf)
- {
-     sd_bus_error error = SD_BUS_ERROR_NULL;
-     sd_bus_message *m = NULL;
-@@ -161,7 +161,7 @@ finish:
-     return r;
- }
- 
--int dbus_set_property(const char * name,const char *value)
-+int dbus_set_property(const char * name, const char *value)
- {
-     sd_bus_error error = SD_BUS_ERROR_NULL;
-     sd_bus_message *m = NULL;
-@@ -198,7 +198,7 @@ int dbus_set_property(const char * name,const char *value)
-                            host_intf_name,                             /* first argument */
-                            name,                                       /* second argument */
-                            "s",                                        /* third argument */
--                           value);                                       /* fourth argument */
-+                           value);                                     /* fourth argument */
- 
-     if (r < 0) {
-         fprintf(stderr, "Failed to issue method call: %s\n", error.message);
-@@ -374,8 +374,9 @@ char* get_boot_option_by_ipmi(uint8_t p) {
- }
- 
- #define SET_PARM_VERSION 1
--#define SET_PARM_BOOT_FLAGS_VALID_ONE_TIME   0x80
--#define SET_PARM_BOOT_FLAGS_VALID_PERMANENT  0xC0
-+#define SET_PARM_BOOT_FLAGS_VALID_ONE_TIME   0x80 //boot flags data1 8th bit on
-+#define SET_PARM_BOOT_FLAGS_VALID_PERMANENT  0xC0 //boot flags data1 7&8 bit on 
-+#define SET_PARM_BOOT_FLAGS_ONETIME 0x40 //boot flags data1 7th bit on
- 
- ipmi_ret_t ipmi_chassis_get_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
-                               ipmi_request_t request, ipmi_response_t response, 
-@@ -433,7 +434,9 @@ ipmi_ret_t ipmi_chassis_get_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-         } else {
- 
-             printf("BootPolicy is[%s]", p); 
--            resp->data[0] = (strcmp(p,"ONETIME")==0)?SET_PARM_BOOT_FLAGS_VALID_ONE_TIME:SET_PARM_BOOT_FLAGS_VALID_PERMANENT;
-+            resp->data[0] = (strncmp(p,"ONETIME",strlen("ONETIME"))==0) ? 
-+                            SET_PARM_BOOT_FLAGS_VALID_ONE_TIME:
-+                            SET_PARM_BOOT_FLAGS_VALID_PERMANENT;
-             rc = IPMI_CC_OK;
- 
-         }
-@@ -489,7 +492,9 @@ ipmi_ret_t ipmi_chassis_set_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-         }
-       
-         /* setting the boot policy */
--        s= (char *)(((reqptr->data[0] & 0x40) == 0x40) ?"PERMANENT":"ONETIME");
-+        s = (char *)(((reqptr->data[0] & SET_PARM_BOOT_FLAGS_ONETIME) == 
-+                       SET_PARM_BOOT_FLAGS_ONETIME) ?"PERMANENT":"ONETIME");
-+
-         printf ( "\nBoot Policy is %s",s); 
-         int r = dbus_set_property("boot_policy",s);
- 
--- 
-2.7.1
+<div><br>Chris Austen<br>POWER Systems Enablement Manager<br>(512) 286-5184=
+ (T/L: 363-5184)</div></div></div><BR>
