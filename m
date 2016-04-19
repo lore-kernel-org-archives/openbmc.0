@@ -1,56 +1,56 @@
-Return-Path: <sam.mj@au1.ibm.com>
-Received: from e23smtp07.au.ibm.com (e23smtp07.au.ibm.com [202.81.31.140])
- (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
+Return-Path: <teddy@prosauce.org>
+Received: from mail-wm0-x231.google.com (mail-wm0-x231.google.com
+ [IPv6:2a00:1450:400c:c09::231])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qpstG09CwzDq5y
- for <openbmc@lists.ozlabs.org>; Tue, 19 Apr 2016 14:46:45 +1000 (AEST)
-Received: from localhost
- by e23smtp07.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <sam.mj@au1.ibm.com>;
- Tue, 19 Apr 2016 14:46:45 +1000
-Received: from d23dlp01.au.ibm.com (202.81.31.203)
- by e23smtp07.au.ibm.com (202.81.31.204) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Tue, 19 Apr 2016 14:46:42 +1000
-X-IBM-Helo: d23dlp01.au.ibm.com
-X-IBM-MailFrom: sam.mj@au1.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from d23relay06.au.ibm.com (d23relay06.au.ibm.com [9.185.63.219])
- by d23dlp01.au.ibm.com (Postfix) with ESMTP id 22DA32CE8056
- for <openbmc@lists.ozlabs.org>; Tue, 19 Apr 2016 14:46:35 +1000 (EST)
-Received: from d23av04.au.ibm.com (d23av04.au.ibm.com [9.190.235.139])
- by d23relay06.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u3J4kR9p63635676
- for <openbmc@lists.ozlabs.org>; Tue, 19 Apr 2016 14:46:35 +1000
-Received: from d23av04.au.ibm.com (localhost [127.0.0.1])
- by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u3J4k2Kx027268
- for <openbmc@lists.ozlabs.org>; Tue, 19 Apr 2016 14:46:02 +1000
-Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
- by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u3J4k1pA026744; Tue, 19 Apr 2016 14:46:02 +1000
-Received: from localhost (haven.au.ibm.com [9.192.254.114])
- (using TLSv1.2 with cipher AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 7D531A01E7;
- Tue, 19 Apr 2016 14:45:37 +1000 (AEST)
-Date: Tue, 19 Apr 2016 14:45:37 +1000
-From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-Cc: openbmc@lists.ozlabs.org, ratagupt <ratagupt@in.ibm.com>
-Subject: Re: [PATCH phosphor-host-ipmid v2 2/2] Review Comment added for 146621
-Message-ID: <20160419044537.GA21932@localhost.localdomain>
-References: <1460978439-16510-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1460978439-16510-3-git-send-email-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qptY64QjqzDq5y
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Apr 2016 15:16:57 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=prosauce-org.20150623.gappssmtp.com
+ header.i=@prosauce-org.20150623.gappssmtp.com header.b=Z8ZqLiwl; 
+ dkim-atps=neutral
+Received: by mail-wm0-x231.google.com with SMTP id a140so147210205wma.0
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Apr 2016 22:16:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=prosauce-org.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+ :cc; bh=PhhBbC5cUbNgT9sDSzk1Dn7mi/IWWknIbo+ruJAUw3c=;
+ b=Z8ZqLiwlBToLZ/kNuFDTkdGTpD3K9HBE8qp+/wqlKFq9g8B7FNG9AfWrx4lQdjncY5
+ CsAszS6PATku+nTlgJEU81kAwD4xmkho97SMS6ecKRLJJPs4a3kx2hLDS3qmt2VawDJh
+ Y5r8kas0cmVENC6Q4xCpuvps2BFjxD2POl7xjHyJOeg5ec0ae4gMLUScCQbCNYgkabeO
+ nMP4Xzl2ixtYxxU7Z3VyLVwkIeejoc7/+Yo2dTJ70l7xVVNYVXrcNhNl93uRnVbW8GC9
+ /S5qo/TPAnkb402I3P6tnW+S6IpnBMshOsHO1P6/OijhoyTwaBlXK1M01fNvK6/ivCJw
+ lZtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:in-reply-to:references:date
+ :message-id:subject:from:to:cc;
+ bh=PhhBbC5cUbNgT9sDSzk1Dn7mi/IWWknIbo+ruJAUw3c=;
+ b=AalUos4zC9oJqBgTZQRP1SFnPu1Hbw9YhqhXdzDfRZb2pUVeB1FoMGuBRV2Wz4ioHh
+ PiyO60hHErhFkmzAtVF7OViEXAPfBSAOg8cuU1b2DWDzd4sl9eCm/qZ7R+XrbC8ghvBg
+ y3+KJXOUm1A8vajtDDsIVMs7DcQ8vVpWnv6gygJ3bad6SGVFvFJB1V7hraF/7/wmmark
+ RNcyOC6nvC3IdHBCy0WwkAUScp7A6uuMuN2acbDxoY83N+IAxBqXzeyqYm6hrqXqC2jk
+ 9vsejM4O8m3Y6lH+DEr1UI1nLR39mMmz8hVO+Sj0T6JJha65puUIRyg6GUosQrbX0NOl
+ +s7A==
+X-Gm-Message-State: AOPr4FUwErAGSuSTSX8G4vG2n9il7yNLoZ6rTvu2uAMhyFYbB7KKebVPNcgrhYyLx9sezZh9l3eQiOxST6fVXQ==
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <1460978439-16510-3-git-send-email-openbmc-patches@stwcx.xyz>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16041904-0025-0000-0000-000004538A5A
+X-Received: by 10.28.141.18 with SMTP id p18mr1269683wmd.57.1461043013812;
+ Mon, 18 Apr 2016 22:16:53 -0700 (PDT)
+Received: by 10.194.94.163 with HTTP; Mon, 18 Apr 2016 22:16:53 -0700 (PDT)
+X-Originating-IP: [24.6.55.56]
+In-Reply-To: <CACPK8Xd47ADhTRR-EEdmnLKrf6qUjPW+yMYDWOU2f3XgaFY9RA@mail.gmail.com>
+References: <CACPK8XcnceWNFUNijp7haUvaBn9H607ceaMQN+pvKxYO0WuJVA@mail.gmail.com>
+ <CADUykeqpzJfuk5=NXYMdLweBat6ujVLx_P-hfq063gCU80qLTw@mail.gmail.com>
+ <CACPK8Xd47ADhTRR-EEdmnLKrf6qUjPW+yMYDWOU2f3XgaFY9RA@mail.gmail.com>
+Date: Mon, 18 Apr 2016 22:16:53 -0700
+Message-ID: <CADUykeo9-FXACRRdCEYBcNbP5=gmT3jT6pHTF-fQXRadu8e=WA@mail.gmail.com>
+Subject: Re: Aspeed u-boot trees
+From: Teddy Reed <teddy@prosauce.org>
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@fr.ibm.com>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -62,93 +62,76 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Apr 2016 04:46:46 -0000
+X-List-Received-Date: Tue, 19 Apr 2016 05:16:59 -0000
 
-Hi Ratan,
+On Mon, Apr 18, 2016 at 6:57 PM, Joel Stanley <joel@jms.id.au> wrote:
+> On Sat, Apr 16, 2016 at 4:20 PM, Teddy Reed <teddy@prosauce.org> wrote:
+>> I have a lot of time to spend with u-boot and I'm happy to help
+>> however possible.
+>> In tandem with the QEMU and kernel work you've done, it would be best
+>> to begin upstreaming to u-boot.
+>
+> Great to hear! We'll let you push ahead with your work for a week or
+> two, and then see where we're at.
+>
+>> I'd like to organize 3 patches to upstream:
+>> Patch 1: I can attempt to bundle the most basic set of patches from
+>> the various trees which are based on v2016.03 for the 2400 boards. My
+>> goal for the first patch is the simplest possible bit of code, based
+>> on the 2400 SDK.
+>> Patch 2: From there we can iterate with support for 2500 and include
+>> the fixups Cedric has to the ASPEED-provided SDK code.
+>
+> This sounds good. I recommend taking a look at the ast2500 support
+> tree, as I think we want to move to using the g4/g5 naming for our
+> platforms, and then we have the specific boards like ast2400-palmetto,
+> etc. I plan on doing something similar for the kernel; you can see my
+> current hacks here:
+>
+>  https://github.com/shenki/linux/commits/ast2400/base
+>
+> This is the u-boot tree with ast2500 support:
+>
+>  https://github.com/shenki/u-boot/tree/v2013.01-aspeed-ast2500
+>
 
-When addressing comments it's best to squash your changes into the
-original patch; please resend this as one patch.
+Ok perfect, I'm aiming for something you can test in two days. My
+initial refactors failed miserably, but now I'm doing a CB
+(continuous-brick) on our most complicated board, the Yosemite-- and
+making a bit of progress with the SDK cleanup and SPI driver refactor.
 
-Thanks!
-Sam
+>> Patch 3+4: Finally, in a perhaps another two patches we can add the
+>> Palmetto and Facebook board support.
+>
+> Let me know whenever you want some testing. I have a palmetto with
+> socketed SPI flash on my desk; it's handy for recovering from
+> accidental bricking :)
+>
+>> Any recommendations on how to support the SLTs within u-boot, or
+>> perhaps recommendations or examples on how folks "vendor in" these
+>> sorts of tests? Ideally they would still exist in the output u-boot
+>> code for validation testing and runtime debugging.
+>
+> Could they be standalone payloads that u-boot runs? I can see how this
+> would introduce it's own challenges, but it would decouple you from
+> u-boot.
+>
+> I had a poke around the chromiumos u-boot, and they appear to keep a
+> top level directory with their own hacks in it.
+>
 
-On Mon, Apr 18, 2016 at 06:20:39AM -0500, OpenBMC Patches wrote:
-> From: ratagupt <ratagupt@in.ibm.com>
-> 
-> ---
->  chassishandler.C | 19 ++++++++++++-------
->  1 file changed, 12 insertions(+), 7 deletions(-)
-> 
-> diff --git a/chassishandler.C b/chassishandler.C
-> index 1a5508f..5144e15 100644
-> --- a/chassishandler.C
-> +++ b/chassishandler.C
-> @@ -92,7 +92,7 @@ finish:
->      return r;
->  }
->  
-> -int dbus_get_property(const char *name,char **buf)
-> +int dbus_get_property(const char *name, char **buf)
->  {
->      sd_bus_error error = SD_BUS_ERROR_NULL;
->      sd_bus_message *m = NULL;
-> @@ -161,7 +161,7 @@ finish:
->      return r;
->  }
->  
-> -int dbus_set_property(const char * name,const char *value)
-> +int dbus_set_property(const char * name, const char *value)
->  {
->      sd_bus_error error = SD_BUS_ERROR_NULL;
->      sd_bus_message *m = NULL;
-> @@ -198,7 +198,7 @@ int dbus_set_property(const char * name,const char *value)
->                             host_intf_name,                             /* first argument */
->                             name,                                       /* second argument */
->                             "s",                                        /* third argument */
-> -                           value);                                       /* fourth argument */
-> +                           value);                                     /* fourth argument */
->  
->      if (r < 0) {
->          fprintf(stderr, "Failed to issue method call: %s\n", error.message);
-> @@ -374,8 +374,9 @@ char* get_boot_option_by_ipmi(uint8_t p) {
->  }
->  
->  #define SET_PARM_VERSION 1
-> -#define SET_PARM_BOOT_FLAGS_VALID_ONE_TIME   0x80
-> -#define SET_PARM_BOOT_FLAGS_VALID_PERMANENT  0xC0
-> +#define SET_PARM_BOOT_FLAGS_VALID_ONE_TIME   0x80 //boot flags data1 8th bit on
-> +#define SET_PARM_BOOT_FLAGS_VALID_PERMANENT  0xC0 //boot flags data1 7&8 bit on 
-> +#define SET_PARM_BOOT_FLAGS_ONETIME 0x40 //boot flags data1 7th bit on
->  
->  ipmi_ret_t ipmi_chassis_get_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
->                                ipmi_request_t request, ipmi_response_t response, 
-> @@ -433,7 +434,9 @@ ipmi_ret_t ipmi_chassis_get_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
->          } else {
->  
->              printf("BootPolicy is[%s]", p); 
-> -            resp->data[0] = (strcmp(p,"ONETIME")==0)?SET_PARM_BOOT_FLAGS_VALID_ONE_TIME:SET_PARM_BOOT_FLAGS_VALID_PERMANENT;
-> +            resp->data[0] = (strncmp(p,"ONETIME",strlen("ONETIME"))==0) ? 
-> +                            SET_PARM_BOOT_FLAGS_VALID_ONE_TIME:
-> +                            SET_PARM_BOOT_FLAGS_VALID_PERMANENT;
->              rc = IPMI_CC_OK;
->  
->          }
-> @@ -489,7 +492,9 @@ ipmi_ret_t ipmi_chassis_set_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
->          }
->        
->          /* setting the boot policy */
-> -        s= (char *)(((reqptr->data[0] & 0x40) == 0x40) ?"PERMANENT":"ONETIME");
-> +        s = (char *)(((reqptr->data[0] & SET_PARM_BOOT_FLAGS_ONETIME) == 
-> +                       SET_PARM_BOOT_FLAGS_ONETIME) ?"PERMANENT":"ONETIME");
-> +
->          printf ( "\nBoot Policy is %s",s); 
->          int r = dbus_set_property("boot_policy",s);
->  
-> -- 
-> 2.7.1
-> 
-> 
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+Good suggestion, I'll take a look!
+
+> That's a tough one. Perhaps we could start a discussion on the u-boot list?
+>
+
+TBH I haven't researched or dug at all into out-of-tree application
+builds. There might be existing tooling already. :D
+I'll reach out to the mailing list after I do some homework later this week.
+
+> Cheers,
+>
+> Joel
+
+Take care!
+-Ted
