@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qrLX04ymLzDqdm
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qrLX0396TzDqdX
  for <openbmc@lists.ozlabs.org>; Fri, 22 Apr 2016 00:21:04 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 146124845696796.30595371572599;
- Thu, 21 Apr 2016 07:20:56 -0700 (PDT)
+ with SMTPS id 1461248455661105.97611826803882;
+ Thu, 21 Apr 2016 07:20:55 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@us.ibm.com>
-Subject: [PATCH skeleton v2 2/5] Add gitignore file
-Date: Thu, 21 Apr 2016 09:20:50 -0500
-Message-Id: <1461248453-8652-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v2 1/5] Remove fan control support from Palmetto
+Date: Thu, 21 Apr 2016 09:20:49 -0500
+Message-Id: <1461248453-8652-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.1
 In-Reply-To: <1461248453-8652-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1461248453-8652-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -32,22 +32,28 @@ X-List-Received-Date: Thu, 21 Apr 2016 14:21:05 -0000
 
 From: Brad Bishop <bradleyb@us.ibm.com>
 
+It never had any hardware to support this in the first place.
 ---
- .gitignore | 6 ++++++
- 1 file changed, 6 insertions(+)
- create mode 100644 .gitignore
+ bin/Palmetto.py | 7 -------
+ 1 file changed, 7 deletions(-)
 
-diff --git a/.gitignore b/.gitignore
-new file mode 100644
-index 0000000..28e70be
---- /dev/null
-+++ b/.gitignore
-@@ -0,0 +1,6 @@
-+lib/*
-+obj/*
-+bin/*.exe
-+bin/pflash
-+*.swp
-+*.swo
+diff --git a/bin/Palmetto.py b/bin/Palmetto.py
+index 7172364..09fbe06 100755
+--- a/bin/Palmetto.py
++++ b/bin/Palmetto.py
+@@ -142,13 +142,6 @@ APPS = {
+ 		'monitor_process' : True,
+ 		'process_name'    : 'chassis_control.py',
+ 	},
+-	'fans' : {
+-		'system_state'    : 'BMC_STARTING',
+-		'start_process'   : True,
+-		'monitor_process' : True,
+-		'process_name'    : 'fan.exe',
+-		'args'            : [ 'fan0','fan1','fan2','fan3','fan4' ]
+-	},
+ 	'bmc_control' : {
+ 		'system_state'    : 'BMC_STARTING',
+ 		'start_process'   : True,
 -- 
 2.8.1
