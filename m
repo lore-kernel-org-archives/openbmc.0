@@ -3,17 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qsDFW352PzDq5k
- for <openbmc@lists.ozlabs.org>; Sat, 23 Apr 2016 10:41:35 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qsDFZ43bmzDq9s
+ for <openbmc@lists.ozlabs.org>; Sat, 23 Apr 2016 10:41:38 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1461372093031330.23874050319785;
- Fri, 22 Apr 2016 17:41:33 -0700 (PDT)
+ with SMTPS id 1461372094115803.1494757324456;
+ Fri, 22 Apr 2016 17:41:34 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
+Cc: Brad Bishop <bradleyb@us.ibm.com>
 Subject: [PATCH linux] Removed firestone from dt makefile.
-Date: Fri, 22 Apr 2016 19:41:31 -0500
-Message-Id: <1461372092-23839-1-git-send-email-openbmc-patches@stwcx.xyz>
+Date: Fri, 22 Apr 2016 19:41:32 -0500
+Message-Id: <1461372092-23839-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.1
+In-Reply-To: <1461372092-23839-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1461372092-23839-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -25,23 +28,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 23 Apr 2016 00:41:36 -0000
+X-List-Received-Date: Sat, 23 Apr 2016 00:41:39 -0000
+
+From: Brad Bishop <bradleyb@us.ibm.com>
 
 There isn't any firestone dts to compile.
-
-<!-- Reviewable:start -->
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/linux/72)
-<!-- Reviewable:end -->
-
-
-https://github.com/openbmc/linux/pull/72
-
-Brad Bishop (1):
-  Removed firestone from dt makefile.
-
  arch/arm/boot/dts/Makefile | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index aa4daf2..9697ea5 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -779,8 +779,7 @@ dtb-$(CONFIG_ARCH_MEDIATEK) += \
+ dtb-$(CONFIG_ARCH_ZX) += zx296702-ad1.dtb
+ dtb-$(CONFIG_MACH_OPP_PALMETTO_BMC) += \
+ 	aspeed-bmc-opp-palmetto.dtb \
+-	aspeed-bmc-opp-barreleye.dtb \
+-	aspeed-bmc-opp-firestone.dtb
++	aspeed-bmc-opp-barreleye.dtb
+ endif
+ 
+ dtstree		:= $(srctree)/$(src)
 -- 
 2.8.1
