@@ -3,18 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qtPTH6vXgzDqBC
- for <openbmc@lists.ozlabs.org>; Mon, 25 Apr 2016 08:40:51 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qtPTK0xsgzDqBY
+ for <openbmc@lists.ozlabs.org>; Mon, 25 Apr 2016 08:40:52 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1461537646336739.9210924298483;
- Sun, 24 Apr 2016 15:40:46 -0700 (PDT)
+ with SMTPS id 1461537647335549.3816209084112;
+ Sun, 24 Apr 2016 15:40:47 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@us.ibm.com>
-Subject: [PATCH phosphor-rest-server v2 2/3] Handle differing dbus exception
- implementations
-Date: Sun, 24 Apr 2016 17:40:41 -0500
-Message-Id: <1461537642-10215-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-rest-server v2 3/3] Remove redundant makelist and
+ search functions
+Date: Sun, 24 Apr 2016 17:40:42 -0500
+Message-Id: <1461537642-10215-4-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.1
 In-Reply-To: <1461537642-10215-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1461537642-10215-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,37 +29,66 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 24 Apr 2016 22:40:52 -0000
+X-List-Received-Date: Sun, 24 Apr 2016 22:40:53 -0000
 
 From: Brad Bishop <bradleyb@us.ibm.com>
 
-sdbus and python-dbus don't report the unknown interface
-exception the same way, so add a workaround.
+Use the functions in the new pyphosphor library.
 ---
- obmc-rest | 4 ++++
- 1 file changed, 4 insertions(+)
+ obmc-rest | 21 ++++-----------------
+ 1 file changed, 4 insertions(+), 17 deletions(-)
 
 diff --git a/obmc-rest b/obmc-rest
-index 3a36406..226b1b7 100644
+index 226b1b7..e7dbbba 100644
 --- a/obmc-rest
 +++ b/obmc-rest
-@@ -34,6 +34,7 @@ import grp
- import crypt
+@@ -69,27 +69,14 @@ class UserInGroup:
+             abort(403, 'Insufficient access')
  
- DBUS_UNKNOWN_INTERFACE = 'org.freedesktop.UnknownInterface'
-+DBUS_UNKNOWN_INTERFACE_ERROR = 'org.freedesktop.DBus.Error.UnknownInterface'
- DBUS_UNKNOWN_METHOD = 'org.freedesktop.DBus.Error.UnknownMethod'
- DBUS_INVALID_ARGS = 'org.freedesktop.DBus.Error.InvalidArgs'
- DBUS_TYPE_ERROR = 'org.freedesktop.DBus.Python.TypeError'
-@@ -130,6 +131,9 @@ class RouteHandler(object):
-             if DBUS_UNKNOWN_INTERFACE in e.get_dbus_message():
-                 # interface doesn't have any properties
-                 return None
-+            if DBUS_UNKNOWN_INTERFACE_ERROR in e.get_dbus_name():
-+                # interface doesn't have any properties
-+                return None
-             if DBUS_UNKNOWN_METHOD == e.get_dbus_name():
-                 # properties interface not implemented at all
-                 return None
+ 
+-def find_case_insensitive(value, lst):
+-    return next((x for x in lst if x.lower() == value.lower()), None)
+-
+-
+-def makelist(data):
+-    if isinstance(data, list):
+-        return data
+-    elif data:
+-        return [data]
+-    else:
+-        return []
+-
+-
+ class RouteHandler(object):
+-    _require_auth = makelist(valid_user)
++    _require_auth = obmc.utils.misc.makelist(valid_user)
+ 
+     def __init__(self, app, bus, verbs, rules):
+         self.app = app
+         self.bus = bus
+         self.mapper = obmc.mapper.Mapper(bus)
+-        self._verbs = makelist(verbs)
++        self._verbs = obmc.utils.misc.makelist(verbs)
+         self._rules = rules
+         self.intf_match = obmc.utils.misc.org_dot_openbmc_match
+ 
+@@ -240,7 +227,7 @@ class MethodHandler(RouteHandler):
+         if methods is None:
+             return None
+ 
+-        method = find_case_insensitive(method, methods.keys())
++        method = obmc.utils.misc.find_case_insensitive(method, methods.keys())
+         if method is not None:
+             iface = dbus.Interface(obj, interface)
+             return iface.get_dbus_method(method)
+@@ -318,7 +305,7 @@ class PropertyHandler(RouteHandler):
+             properties = self.try_properties_interface(iface.GetAll, i)
+             if properties is None:
+                 continue
+-            prop = find_case_insensitive(prop, properties.keys())
++            prop = obmc.utils.misc.find_case_insensitive(prop, properties.keys())
+             if prop is None:
+                 continue
+             return prop, i
 -- 
 2.8.1
