@@ -1,56 +1,40 @@
-Return-Path: <cyrilbur@gmail.com>
-Received: from mail-pa0-x243.google.com (mail-pa0-x243.google.com
- [IPv6:2607:f8b0:400e:c03::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <bradleyb@fuzziesquirrel.com>
+Received: from mail.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qv3zK2pfxzDq5s
- for <openbmc@lists.ozlabs.org>; Tue, 26 Apr 2016 10:35:41 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=NsTg/Ovg; 
- dkim-atps=neutral
-Received: by mail-pa0-x243.google.com with SMTP id yl2so14059326pac.1
- for <openbmc@lists.ozlabs.org>; Mon, 25 Apr 2016 17:35:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=QzNyzNw1RTs6fv96r1XDXih+5BkMWROuY0dQxLNAMKk=;
- b=NsTg/Ovgi/p0nbgVc3B1RS12Ald7aUQtne8eBGiE9ppg38oJAKjCXOeNLB+DoVYVde
- itPBGMBP+ybiI4du98bWaLcNUUj0UCD2Nq19JwkIN3VsZkab4rPRxYJkMPCvb+uHenaS
- HWDtfZNLa9ATNMb1fenAIgBECq5rqT6OCb6r+qlhi56h2lzs8M75U5b18WCA0bEKt9gN
- jho6GFLbPyVaKY7Hhk1ZEFDKFORb/1XWo20GcEJSQoLQ/wX4uvc02ZktiUXTCyNanRC3
- Z4Ic/5qF4YNFt8OgNvMhdsRSuziHt1X7u1SlucS0DLWwzH7KL7aM/+qyZe9+NxxXLCJC
- QNKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=QzNyzNw1RTs6fv96r1XDXih+5BkMWROuY0dQxLNAMKk=;
- b=YzzJrGUGGX5SqLppqi+azGYExXXNACNvu1Sj9uK3dtfzylySrveG+t8IhQ3Q6HH5Lc
- /q+WcSQla7YZd21b9w+ST9B8m4th27tpGvAdskizwpjJDUGDC5iA+wEc1AIAyryBjpOR
- XgYtFquEdDeEVirEyEMkTCRDNq8YmOG/mK4CHmnT20KwQPmNo0WkqHGAUOLamjP5a5JV
- wNYbRIr2XFK1sBVxXLaCRRnMagfdup9ziFATMeiGvuEJMyDCAwTtlkDpe7xx3NxLx1+I
- skNWlVA0OUsrJUbRZ48GSqU2U/0x5i2IO7fEQirrO56aK9ppM0+OGM7Y0+kL/4mtp/5w
- WZ/Q==
-X-Gm-Message-State: AOPr4FW9dhY76j5eL5IL0CJxE7K8frBvDMeslBN4lL3ZQWSDMW7yOTZoPktGSYirPwufpQ==
-X-Received: by 10.66.232.226 with SMTP id tr2mr611393pac.44.1461630939294;
- Mon, 25 Apr 2016 17:35:39 -0700 (PDT)
-Received: from camb691 ([122.99.82.10])
- by smtp.gmail.com with ESMTPSA id gp9sm32962067pac.8.2016.04.25.17.35.37
- (version=TLSv1/SSLv3 cipher=OTHER);
- Mon, 25 Apr 2016 17:35:38 -0700 (PDT)
-Date: Tue, 26 Apr 2016 10:35:29 +1000
-From: Cyril Bur <cyrilbur@gmail.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qv4cb6ksFzDq5s
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Apr 2016 11:04:31 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com
+ header.b=oNYUoeLC; dkim-atps=neutral
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.fuzziesquirrel.com 2E413234B1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fuzziesquirrel.com;
+ s=mail; t=1461632669;
+ bh=SlWu846ave9g9scYK2YRqwK0ZmyRUvLgOLzrGSSStRI=;
+ h=Subject:From:In-Reply-To:Date:Cc:References:To:From;
+ b=oNYUoeLCyTVWjX2W2iYrxEnyShO2h5IuZeXHnODr2rVJHjz+AL5ny9RLOgNBRIR6i
+ BdyhIYYdGPtZ6tyuc+64JvV3D54gmS5H+R+u2XSWN7VKcJQ5rL8geF6QwIG9z8+G2D
+ ajRJN4/7v+BR+kn0FAKm9qj54y3ZnP58RJIbV0fU=
+Received: from brads-mbp.dyn.fuzziesquirrel.com
+ (Brads-MBP.dyn.fuzziesquirrel.com [192.168.253.29])
+ by mail.fuzziesquirrel.com (Postfix) with ESMTPSA id 306FB2347F;
+ Mon, 25 Apr 2016 21:04:28 -0400 (EDT)
+Content-Type: text/plain; charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 9.3 \(3124\))
 Subject: Re: [PATCH openbmc] Build a tftpboot friendly image.
-Message-ID: <20160426103529.2c4ff3fa@camb691>
-In-Reply-To: <1461273629-24609-2-git-send-email-openbmc-patches@stwcx.xyz>
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <20160426103529.2c4ff3fa@camb691>
+Date: Mon, 25 Apr 2016 21:04:28 -0400
+Cc: OpenBMC Patches <openbmc@lists.ozlabs.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <C4DFF7E3-7207-4F86-AB93-E36CF6B31DDC@fuzziesquirrel.com>
 References: <1461273629-24609-1-git-send-email-openbmc-patches@stwcx.xyz>
  <1461273629-24609-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: Claws Mail 3.13.2 (GTK+ 2.24.30; x86_64-unknown-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+ <20160426103529.2c4ff3fa@camb691>
+To: Cyril Bur <cyrilbur@gmail.com>
+X-Mailer: Apple Mail (2.3124)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -62,43 +46,61 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Apr 2016 00:35:43 -0000
+X-List-Received-Date: Tue, 26 Apr 2016 01:04:32 -0000
 
-On Thu, 21 Apr 2016 16:20:29 -0500
-OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
+Yep, thats what it does.  Did you use =
+obmc-phosphor-image-<machine>.cpio.lzma.u-boot?
 
-> From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-> 
-> Build a rootfs cpio uimage with everything along with the other
-> images.
+-brad
 
-There isn't much to go with, are you saying you're building a initramfs image
-that contains the full openbmc userspace so that a booting system doesn't need
-access to the flash at all. This is exactly what I need right now, thankyou!!
-
-I've applied this patch, and I THINK I booted with the right file... doesn't
-appear to have worked, it still tried to mount the flash and because I can't
-flash openbmc on my machine I got dropped into recovery shell.
-
-Thoughts?
-
-Thanks anyway...
-
-Cyril
-
-> ---
->  meta-phosphor/conf/machine/include/obmc-bsp-common.inc | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/meta-phosphor/conf/machine/include/obmc-bsp-common.inc b/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
-> index 60ed088..260cc90 100644
-> --- a/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
-> +++ b/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
-> @@ -14,6 +14,7 @@ UBOOT_SUFFIX ?= "bin"
->  MACHINEOVERRIDES =. "openbmc:"
->  
->  IMAGE_FSTYPES += "overlay"
-> +IMAGE_FSTYPES += "cpio.${INITRAMFS_CTYPE}.u-boot"
->  IMAGE_INSTALL += "u-boot-fw-utils"
->  
->  IMAGE_CLASSES += "obmc-phosphor-image_types_uboot"
+> On Apr 25, 2016, at 8:35 PM, Cyril Bur <cyrilbur@gmail.com> wrote:
+>=20
+> On Thu, 21 Apr 2016 16:20:29 -0500
+> OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
+>=20
+>> From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+>>=20
+>> Build a rootfs cpio uimage with everything along with the other
+>> images.
+>=20
+> There isn't much to go with, are you saying you're building a =
+initramfs image
+> that contains the full openbmc userspace so that a booting system =
+doesn't need
+> access to the flash at all. This is exactly what I need right now, =
+thankyou!!
+>=20
+> I've applied this patch, and I THINK I booted with the right file... =
+doesn't
+> appear to have worked, it still tried to mount the flash and because I =
+can't
+> flash openbmc on my machine I got dropped into recovery shell.
+>=20
+> Thoughts?
+>=20
+> Thanks anyway...
+>=20
+> Cyril
+>=20
+>> ---
+>> meta-phosphor/conf/machine/include/obmc-bsp-common.inc | 1 +
+>> 1 file changed, 1 insertion(+)
+>>=20
+>> diff --git a/meta-phosphor/conf/machine/include/obmc-bsp-common.inc =
+b/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
+>> index 60ed088..260cc90 100644
+>> --- a/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
+>> +++ b/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
+>> @@ -14,6 +14,7 @@ UBOOT_SUFFIX ?=3D "bin"
+>> MACHINEOVERRIDES =3D. "openbmc:"
+>>=20
+>> IMAGE_FSTYPES +=3D "overlay"
+>> +IMAGE_FSTYPES +=3D "cpio.${INITRAMFS_CTYPE}.u-boot"
+>> IMAGE_INSTALL +=3D "u-boot-fw-utils"
+>>=20
+>> IMAGE_CLASSES +=3D "obmc-phosphor-image_types_uboot"
+>=20
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
