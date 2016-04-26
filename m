@@ -1,49 +1,49 @@
 Return-Path: <cyrilbur@gmail.com>
-Received: from mail-pa0-x242.google.com (mail-pa0-x242.google.com
- [IPv6:2607:f8b0:400e:c03::242])
+Received: from mail-pa0-x244.google.com (mail-pa0-x244.google.com
+ [IPv6:2607:f8b0:400e:c03::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qv4lw6MHDzDq5s
- for <openbmc@lists.ozlabs.org>; Tue, 26 Apr 2016 11:10:52 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qv5dp403WzDq5s
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Apr 2016 11:50:38 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=dIusTXqN; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=jMx0JWkL; 
  dkim-atps=neutral
-Received: by mail-pa0-x242.google.com with SMTP id yl2so2069pac.1
- for <openbmc@lists.ozlabs.org>; Mon, 25 Apr 2016 18:10:52 -0700 (PDT)
+Received: by mail-pa0-x244.google.com with SMTP id yl2so77801pac.1
+ for <openbmc@lists.ozlabs.org>; Mon, 25 Apr 2016 18:50:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=date:from:to:cc:subject:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=U3bVCWQ1+9NUz0ShNUs5rvcsQOWMYppxT/TxnoGKHEk=;
- b=dIusTXqNybJoQORcu/lQKAWGcTT2K6CBqhT21Ygos6e1W/IL9ikNFE12uMzZTh5GLW
- WmNjR/yiy4gsbp+yXl64LyjqR7+29jdRsr/QDe9npiWOA9KIkxrzgyKlLB89kP/Rg3/W
- I7bqJ+GclYv7nO3pjp3p1qIcIQvaTzejB2APL3BdSUa/7eg2VRpra7fnTwD58gRk8U6p
- 7Vt+8UNvo27GGUdZ3W5Oeh7v/VuAFW1/jd3IcmbX28D2WYsAmofsJ0znsQaBkhdgAbHh
- dDRFiJn0dIOvA1zKifWoYGlijlBKsQwTufDQBFmA2bOktUsKl6gxmVjQppPwNUBCX2jg
- C1vQ==
+ bh=DDq/m6kYGgAvi/SXzAArJRUkmmvkjuV2Q4CSIF0d8SY=;
+ b=jMx0JWkLMsf7DBWc+UEjew8WFqxg96VQNh1KC/mTukcVN2mfwqLBSRqNwHayru4ULi
+ HRkO/ne5WYQrES2YWP+KShWUeFYjlxhmkFA6yYcvMXAuUMB7Da7k+/O/tGp3giuhinIn
+ vx4HID8CwSK3/M42CJj+uKrQuzdnE6GlWcu1/z2j/rqKaqAh27vgFsHkHG7LsVjcEiCo
+ fjOXQTKra6j2SOKKkQtoaNQZqsggVG2w0FMr/ykA65/0c4u8QrAEad9fxl5qRrsKolJ4
+ iD9C3TyxGfHhk/wzKvdwsNUA24vEyi/yyT6ruNYEYAYKWviW2PCWEzh27l/qjLscYebx
+ 4+Mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=U3bVCWQ1+9NUz0ShNUs5rvcsQOWMYppxT/TxnoGKHEk=;
- b=bJ/ilCJyn2Vb2EXbhpq24W92LOPwwT7XZooi+Fa/PXgR90zrJ5U+7mIEdJvb2MV54T
- DJmzmalTxSSEmmifKYxgiGp3hO3Ugxbvzj4KPBFkWiPZ0HYAGH52xyWBwTIn4YUfaXuo
- LoX6r6efwdbBmuKRiXD8Z+tpdIpQ558VVsUcvzVKpH+cOWXJewl4a42RowM0pfY0RHFa
- UydcGuuQAXKp12RnikURt/rffd2X29iq9dqHsmQ8pmVXDywHlOJ4683aRSZ1lQ6xGMqk
- PRCzbOxvXpzVSufcNSbeZDF4byQmUFHXQwjaRkzD1WnBiFv67mSg55FWr9oPu8wsb1tW
- R4nQ==
-X-Gm-Message-State: AOPr4FWMOB8/i7NTwhLO8/Ja12nG21lZjGsq2N9t5MmW/mS3/ZQYMb/L7C8vFD2kd3NsnA==
-X-Received: by 10.66.100.197 with SMTP id fa5mr617331pab.25.1461633051000;
- Mon, 25 Apr 2016 18:10:51 -0700 (PDT)
+ bh=DDq/m6kYGgAvi/SXzAArJRUkmmvkjuV2Q4CSIF0d8SY=;
+ b=f+BVVFZIYkzkJ5xRhXwKOimqk4Wy9UQHpnQkv4dbSBV5HdzioOzKfm1smqpxamm9Ng
+ pmHQnpC9xzWE+37a348R+8/YG87e5qID1vIHJHNdSMi4S3TEcf8iosRGh3Ehe0S0toaV
+ AAnQel8p7F8E33l/CdMnyc9+gEAJuNRIPrKoFpzHDNWuYQBXlkuA437j6brSOEj/C6Be
+ atYDvi16Nd8eKKHArzL7lHMCmVsMie8gPO30h+RA4hHIJYnEEdjRXipP2nuF3Q87XjSc
+ qWRMF+sQmKhfjOnKCvQGJHDytCWvIzNXpZm1ht391MhgVDs+Vm4Zz7+Wp/2AilTeTIIz
+ KZxw==
+X-Gm-Message-State: AOPr4FVAYlvqBKgal35HXsmf2S0YjBbaO6oJg30EMTU+SQIChVNCLLSbuu/yJtF/H98nRg==
+X-Received: by 10.66.168.177 with SMTP id zx17mr814088pab.3.1461635436813;
+ Mon, 25 Apr 2016 18:50:36 -0700 (PDT)
 Received: from camb691 ([122.99.82.10])
- by smtp.gmail.com with ESMTPSA id rw2sm33031647pab.30.2016.04.25.18.10.49
+ by smtp.gmail.com with ESMTPSA id kl14sm33190623pab.23.2016.04.25.18.50.35
  (version=TLSv1/SSLv3 cipher=OTHER);
- Mon, 25 Apr 2016 18:10:50 -0700 (PDT)
-Date: Tue, 26 Apr 2016 11:10:42 +1000
+ Mon, 25 Apr 2016 18:50:36 -0700 (PDT)
+Date: Tue, 26 Apr 2016 11:50:28 +1000
 From: Cyril Bur <cyrilbur@gmail.com>
 To: Brad Bishop <bradleyb@fuzziesquirrel.com>
 Cc: OpenBMC Patches <openbmc@lists.ozlabs.org>
 Subject: Re: [PATCH openbmc] Build a tftpboot friendly image.
-Message-ID: <20160426111042.086edc4e@camb691>
+Message-ID: <20160426115028.6482189b@camb691>
 In-Reply-To: <C4DFF7E3-7207-4F86-AB93-E36CF6B31DDC@fuzziesquirrel.com>
 References: <1461273629-24609-1-git-send-email-openbmc-patches@stwcx.xyz>
  <1461273629-24609-2-git-send-email-openbmc-patches@stwcx.xyz>
@@ -64,7 +64,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Apr 2016 01:10:53 -0000
+X-List-Received-Date: Tue, 26 Apr 2016 01:50:39 -0000
 
 On Mon, 25 Apr 2016 21:04:28 -0400
 Brad Bishop <bradleyb@fuzziesquirrel.com> wrote:
@@ -72,12 +72,15 @@ Brad Bishop <bradleyb@fuzziesquirrel.com> wrote:
 > Yep, thats what it does.  Did you use obmc-phosphor-image-<machine>.cpio.lzma.u-boot?
 > 
 
-Ah, nope that file doesn't appear to exist in my images directory. This must be
-my fault, I don't really have any idea how to use bitbake more than what is on
-the openbmc wiki, I hoped simply rerunning `bitbake openbmc-phosphor-image`
-would have worked... doesn't appear to have created the file.
+So just did a clean build, I removed the entire build directory and started
+again. Still no file of that name...
 
-Thanks for the quick response.
+Just to confirm, I'm definitely looking for
+`obmc-phosphor-image-<machine>.cpio.lzma.u-boot`? Based off your patch that is
+what I would expect and I don't see any files that appear to be what I want
+anyway...
+
+Thanks,
 
 Cyril
 
@@ -93,9 +96,10 @@ Cyril
 > >> Build a rootfs cpio uimage with everything along with the other
 > >> images.  
 > > 
-> > There isn't much to go with, are you saying you're building a initramfs image
-> > that contains the full openbmc userspace so that a booting system doesn't need
-> > access to the flash at all. This is exactly what I need right now, thankyou!!
+> > There isn't much to go with, are you saying you're building a initramfs
+> > image that contains the full openbmc userspace so that a booting system
+> > doesn't need access to the flash at all. This is exactly what I need right
+> > now, thankyou!!
 > > 
 > > I've applied this patch, and I THINK I booted with the right file... doesn't
 > > appear to have worked, it still tried to mount the flash and because I can't
@@ -111,12 +115,12 @@ Cyril
 > >> meta-phosphor/conf/machine/include/obmc-bsp-common.inc | 1 +
 > >> 1 file changed, 1 insertion(+)
 > >> 
-> >> diff --git a/meta-phosphor/conf/machine/include/obmc-bsp-common.inc b/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
-> >> index 60ed088..260cc90 100644
-> >> --- a/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
-> >> +++ b/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
-> >> @@ -14,6 +14,7 @@ UBOOT_SUFFIX ?= "bin"
-> >> MACHINEOVERRIDES =. "openbmc:"
+> >> diff --git a/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
+> >> b/meta-phosphor/conf/machine/include/obmc-bsp-common.inc index
+> >> 60ed088..260cc90 100644 ---
+> >> a/meta-phosphor/conf/machine/include/obmc-bsp-common.inc +++
+> >> b/meta-phosphor/conf/machine/include/obmc-bsp-common.inc @@ -14,6 +14,7 @@
+> >> UBOOT_SUFFIX ?= "bin" MACHINEOVERRIDES =. "openbmc:"
 > >> 
 > >> IMAGE_FSTYPES += "overlay"
 > >> +IMAGE_FSTYPES += "cpio.${INITRAMFS_CTYPE}.u-boot"
