@@ -1,58 +1,53 @@
-Return-Path: <cyrilbur@gmail.com>
-Received: from mail-pa0-x243.google.com (mail-pa0-x243.google.com
- [IPv6:2607:f8b0:400e:c03::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <stewart@linux.vnet.ibm.com>
+Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qvjKs00MBzDq60
- for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2016 11:38:56 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=DxEitwkL; 
- dkim-atps=neutral
-Received: by mail-pa0-x243.google.com with SMTP id i5so2982636pag.3
- for <openbmc@lists.ozlabs.org>; Tue, 26 Apr 2016 18:38:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=OCzxy3ixrTavaWG9WRq3nOEuLo3zBeiuzAQ3bOx3WIE=;
- b=DxEitwkLylNob6vcN3Lw+iZiaAG7uu2Rjs454RZScz/cLRrHOxQzc+/vKPK+/MP8xg
- EaAFYCaMDfU71JnVAKAiosfP6ScKgFqAry7WO1NuS9vNkxQ7xEHIPkUHtGnry9GaRH4J
- Qo3GbtT4tCCPpjN7TFvotyoJ8oJD9U56Qyn4Jsy12bYZs7g0COFaokZf6x1LZqpOL2/j
- yGIK5KoOpP9qOqCAdjPURuVN92A5NlTDNIXbh1q3tVPLCW/rs0wxVY2XUIgwRC+OUgIw
- gwgDuKzUYDHbHFAUPbg4fXYhJhAaTYLSom3ahLdDlQ/azimPAU/GxI9nnfrDUPN+VZF0
- flgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=OCzxy3ixrTavaWG9WRq3nOEuLo3zBeiuzAQ3bOx3WIE=;
- b=H8kSQ4MIVPZTF1SmGRcppnUH1X0po9yvNzBgm4+fI5SScxZAVcSXGi5rBsyXtZ6OZw
- kkVP2MTeVb1RxWXXEneJysaqCBlug3hHhCbn7X7U+FVStTZ/NlMTYHS7Sm/sjfAfroU5
- f6f75P0duKpJSR6mO3BqpWdhpczYJzVPkFVUxE7k0nNZbdrPhjubyHIiJ/pl+r5gnzYm
- gR6RDaQwqWOhzuaHNS8bOB6qTnE7zv891CgfbFycW3oKOboQxmyyczuD2DtSE0LEvEht
- g7l371dJKWL+jxSg5npipV9U7yuURhkUREb+rT/s32ZWrpSR+vkkx6B96hUmNtSEuF/c
- Itsg==
-X-Gm-Message-State: AOPr4FV3hDglvmaZEoQu7FmgDjozyqBfQpEG3xZtIdw1r1Kp/jIRkplD7nuT+x5V43n7CA==
-X-Received: by 10.66.193.202 with SMTP id hq10mr7957390pac.6.1461721135075;
- Tue, 26 Apr 2016 18:38:55 -0700 (PDT)
-Received: from camb691 ([122.99.82.10])
- by smtp.gmail.com with ESMTPSA id b140sm1407866pfb.19.2016.04.26.18.38.53
- (version=TLSv1/SSLv3 cipher=OTHER);
- Tue, 26 Apr 2016 18:38:54 -0700 (PDT)
-Date: Wed, 27 Apr 2016 11:38:45 +1000
-From: Cyril Bur <cyrilbur@gmail.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC Patches <openbmc@lists.ozlabs.org>
-Subject: Re: [PATCH openbmc] Build a tftpboot friendly image.
-Message-ID: <20160427113845.0ea38dfc@camb691>
-In-Reply-To: <C4DFF7E3-7207-4F86-AB93-E36CF6B31DDC@fuzziesquirrel.com>
-References: <1461273629-24609-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1461273629-24609-2-git-send-email-openbmc-patches@stwcx.xyz>
- <20160426103529.2c4ff3fa@camb691>
- <C4DFF7E3-7207-4F86-AB93-E36CF6B31DDC@fuzziesquirrel.com>
-X-Mailer: Claws Mail 3.13.2 (GTK+ 2.24.30; x86_64-unknown-linux-gnu)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qvjtG1wCZzDq5s
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2016 12:03:34 +1000 (AEST)
+Received: from localhost
+ by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
+ Tue, 26 Apr 2016 20:03:32 -0600
+Received: from d03dlp01.boulder.ibm.com (9.17.202.177)
+ by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 26 Apr 2016 20:03:30 -0600
+X-IBM-Helo: d03dlp01.boulder.ibm.com
+X-IBM-MailFrom: stewart@linux.vnet.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from b03cxnp08026.gho.boulder.ibm.com
+ (b03cxnp08026.gho.boulder.ibm.com [9.17.130.18])
+ by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id 2BDD41FF005D
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Apr 2016 20:03:15 -0600 (MDT)
+Received: from d03av04.boulder.ibm.com (d03av04.boulder.ibm.com [9.17.195.170])
+ by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u3R23T2246268508
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Apr 2016 19:03:29 -0700
+Received: from d03av04.boulder.ibm.com (loopback [127.0.0.1])
+ by d03av04.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u3R23TQd021103
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Apr 2016 20:03:29 -0600
+Received: from birb.localdomain (birb.au.ibm.com [9.185.32.142])
+ by d03av04.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u3R23SGP021044; Tue, 26 Apr 2016 20:03:29 -0600
+Received: by birb.localdomain (Postfix, from userid 1000)
+ id 31CAF2286E21; Wed, 27 Apr 2016 10:46:58 +1000 (AEST)
+From: Stewart Smith <stewart@linux.vnet.ibm.com>
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH openbmc 1/4] pflash: Add pflash recipe
+In-Reply-To: <1460737833-13353-2-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1460737833-13353-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1460737833-13353-2-git-send-email-openbmc-patches@stwcx.xyz>
+User-Agent: Notmuch/0.21+24~gbceb651 (http://notmuchmail.org) Emacs/24.5.1
+ (x86_64-redhat-linux-gnu)
+Date: Wed, 27 Apr 2016 10:46:58 +1000
+Message-ID: <87k2jjkhdp.fsf@linux.vnet.ibm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16042702-8236-0000-0000-000029B6081C
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -64,66 +59,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Apr 2016 01:38:57 -0000
+X-List-Received-Date: Wed, 27 Apr 2016 02:03:34 -0000
 
-On Mon, 25 Apr 2016 21:04:28 -0400
-Brad Bishop <bradleyb@fuzziesquirrel.com> wrote:
+OpenBMC Patches <openbmc-patches@stwcx.xyz> writes:
+>  .../0001-pflash-Allow-building-under-yocto.patch   | 98
+>  ++++++++++++++++++++++
 
-> Yep, thats what it does.  Did you use obmc-phosphor-image-<machine>.cpio.lzma.u-boot?
-> 
+FYI, this patch won't be needed with the very-soon-to-be-tagged skiboot
+5.2.1.
 
-It appears I had my machine configuration missing a file.
-
-The file spawns now, works great!
-
-I'll add my tested by here
-
-Tested-by: Cyril Bur <cyrilbur@gmail.com>
-
-> -brad
-> 
-> > On Apr 25, 2016, at 8:35 PM, Cyril Bur <cyrilbur@gmail.com> wrote:
-> > 
-> > On Thu, 21 Apr 2016 16:20:29 -0500
-> > OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
-> > 
-> >> From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-> >> 
-> >> Build a rootfs cpio uimage with everything along with the other
-> >> images.
-> > 
-> > There isn't much to go with, are you saying you're building a initramfs image
-> > that contains the full openbmc userspace so that a booting system doesn't need
-> > access to the flash at all. This is exactly what I need right now, thankyou!!
-> > 
-> > I've applied this patch, and I THINK I booted with the right file... doesn't
-> > appear to have worked, it still tried to mount the flash and because I can't
-> > flash openbmc on my machine I got dropped into recovery shell.
-> > 
-> > Thoughts?
-> > 
-> > Thanks anyway...
-> > 
-> > Cyril
-> > 
-> >> ---
-> >> meta-phosphor/conf/machine/include/obmc-bsp-common.inc | 1 +
-> >> 1 file changed, 1 insertion(+)
-> >> 
-> >> diff --git a/meta-phosphor/conf/machine/include/obmc-bsp-common.inc b/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
-> >> index 60ed088..260cc90 100644
-> >> --- a/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
-> >> +++ b/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
-> >> @@ -14,6 +14,7 @@ UBOOT_SUFFIX ?= "bin"
-> >> MACHINEOVERRIDES =. "openbmc:"
-> >> 
-> >> IMAGE_FSTYPES += "overlay"
-> >> +IMAGE_FSTYPES += "cpio.${INITRAMFS_CTYPE}.u-boot"
-> >> IMAGE_INSTALL += "u-boot-fw-utils"
-> >> 
-> >> IMAGE_CLASSES += "obmc-phosphor-image_types_uboot"
-> > 
-> > _______________________________________________
-> > openbmc mailing list
-> > openbmc@lists.ozlabs.org
-> > https://lists.ozlabs.org/listinfo/openbmc
+-- 
+Stewart Smith
+OPAL Architect, IBM.
