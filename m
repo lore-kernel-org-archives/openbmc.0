@@ -1,67 +1,19 @@
-Return-Path: <shays@mellanox.com>
-Received: from emea01-am1-obe.outbound.protection.outlook.com
- (mail-am1on0068.outbound.protection.outlook.com [157.56.112.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <openbmc-patches@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qwDWD72s6zDqB3
- for <openbmc@lists.ozlabs.org>; Thu, 28 Apr 2016 08:03:51 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b=fO8Kb6re; 
- dkim-atps=neutral
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
- s=selector1; h=From:To:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=VgRvPw4tHQnw/OqR90TO0UtWAOkMYv3VFPK8kqeT05U=;
- b=fO8Kb6reE1CMPp7uobPCH86Om8Hw5FKqX81dwflsYcYOn7HBMsy40C6CdLlKnEGVrEIGw7BuM7Eo3Pxv71GlsIiGtmmlgBvykP563JHoVw9JiGakyumLqcWOYc8cL7qt6oK5QB9v5/WrdURTjmwhtZuf4RoDBXtrVgUCEiGUjvM=
-Received: from DB4PR05MB0941.eurprd05.prod.outlook.com (10.161.249.145) by
- DB4PR05MB0942.eurprd05.prod.outlook.com (10.161.249.146) with Microsoft SMTP
- Server (TLS) id 15.1.477.8; Wed, 27 Apr 2016 21:28:51 +0000
-Received: from DB4PR05MB0941.eurprd05.prod.outlook.com ([10.161.249.145]) by
- DB4PR05MB0941.eurprd05.prod.outlook.com ([10.161.249.145]) with mapi id
- 15.01.0477.012; Wed, 27 Apr 2016 21:28:51 +0000
-From: Shay Slobodkin <shays@mellanox.com>
-To: Joel Stanley <joel@jms.id.au>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>
-Subject: RE: Several general questions
-Thread-Topic: Several general questions
-Thread-Index: AdGaShEMFapWaepKQmKUQ5Lg9DJbFQAX1o2AAYhB7VA=
-Date: Wed, 27 Apr 2016 21:28:50 +0000
-Message-ID: <DB4PR05MB0941B0F2D2CD2DA0062F5C7AD5640@DB4PR05MB0941.eurprd05.prod.outlook.com>
-References: <DB4PR05MB0941E4F3E91B9059E718B644D56C0@DB4PR05MB0941.eurprd05.prod.outlook.com>
- <CACPK8XeFo0-=wTNH_qvbE-ujCe-vYzpR-z_0CRop-0cYWVH+kA@mail.gmail.com>
-In-Reply-To: <CACPK8XeFo0-=wTNH_qvbE-ujCe-vYzpR-z_0CRop-0cYWVH+kA@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: jms.id.au; dkim=none (message not signed)
- header.d=none;jms.id.au; dmarc=none action=none header.from=mellanox.com;
-x-originating-ip: [84.108.116.108]
-x-ms-office365-filtering-correlation-id: 87f04682-f06b-4e34-2f9c-08d36ee2ed3e
-x-microsoft-exchange-diagnostics: 1; DB4PR05MB0942;
- 5:U+WSKQF+TOQhYUKDBo8e/hfaT0b1feMyORtuADt96LCJZbILtI8uPky9BAxasoMw0KoY7iweR5qqZgKXwsuQso4HzdFZyloAWusm0SQDxbnBWteu6NUqEOilYpReBA++BjpvJtuxZHhb1U+eOxuKuA==;
- 24:Canvl7QLWtd7beNxB4TUExxpdr5ruJ6CsbrXKQMYqbOmweLMbZckeVwg5K050U7YXy9eF33RgHJpAAGznkfZ23dH0ENHx9rKYN0sgMbcPEU=;
- 7:gz7DFPPfpTj4UgUs1ZH6ufbszZkSAKORtrXtJ8BP6UqwoDbNx0M/L1iA29VXXftYLFuZGfEwl1+REGlfkYTO0+VJr/oflnqR2yBcYtEus6W0ACFli0CJ2uk7RLu+V8My1AyXAQA6NtocwRSwdIrOdqiU1b4fkwKiiH4ePqoJLMQDPNeRDFp2eMCHXkZRmSZ4
-x-microsoft-antispam: UriScan:;BCL:0;PCL:0;RULEID:;SRVR:DB4PR05MB0942;
-x-microsoft-antispam-prvs: <DB4PR05MB09427E75F037E3106179B59AD5640@DB4PR05MB0942.eurprd05.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:;
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(9101521072)(601004)(2401047)(5005006)(8121501046)(10201501046)(3002001)(6055026);
- SRVR:DB4PR05MB0942; BCL:0; PCL:0; RULEID:; SRVR:DB4PR05MB0942; 
-x-forefront-prvs: 0925081676
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(6009001)(51444003)(24454002)(13464003)(377454003)(76576001)(77096005)(2950100001)(15975445007)(2900100001)(11100500001)(50986999)(54356999)(76176999)(3660700001)(1720100001)(10400500002)(66066001)(5001770100001)(81166005)(5004730100002)(9686002)(122556002)(19580395003)(3846002)(1220700001)(87936001)(107886002)(3280700002)(5008740100001)(2906002)(586003)(19580405001)(74316001)(6116002)(102836003)(86362001)(5890100001)(2501003)(5002640100001)(189998001)(5003600100002)(33656002)(92566002)(1096002)(3480700004);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DB4PR05MB0942;
- H:DB4PR05MB0941.eurprd05.prod.outlook.com; FPR:; SPF:None; MLV:sfv; LANG:en; 
-spamdiagnosticoutput: 1:23
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-OriginatorOrg: Mellanox.com
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Apr 2016 21:28:50.9280 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR05MB0942
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qwFKz2SxzzDqHY
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Apr 2016 08:40:54 +1000 (AEST)
+Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
+ with SMTPS id 1461796852414517.2312957625807;
+ Wed, 27 Apr 2016 15:40:52 -0700 (PDT)
+From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH skeleton] Remove CHASSIS_2 from Barreleye.py
+Date: Wed, 27 Apr 2016 17:40:50 -0500
+Message-Id: <1461796851-3417-1-git-send-email-openbmc-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.8.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -73,77 +25,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Apr 2016 22:03:55 -0000
+X-List-Received-Date: Wed, 27 Apr 2016 22:40:57 -0000
 
-VGhhbmsgeW91IGd1eXMgZm9yIHlvdSBxdWljayByZXBseSBhbmQgYXNzaXN0YW5jZS4NCldlIGhh
-dmUgdGFraW5nIHlvdXIgaW5wdXQgaW50byBvdXIgZGVzaWduLCBzdGlsbCBkaWdlc3RpbmcsIGFu
-ZCBsZXQgeW91IGtub3cgaWYgd2UgaGF2ZSBtb3JlIHF1ZXN0aW9ucy4NCg0KV2UgaGF2ZSBhbHNv
-IGFkZGVkIGEgdHVuaW5nIGZpbGUgdW5kZXI6DQp5b2N0by1wb2t5L21ldGEvY29uZi9tYWNoaW5l
-L2luY2x1ZGUvdHVuZS1hcm0xMTc2anpmLXMuaW5jDQoNCldvdWxkIHlvdSBwdXQgdGhlIGZpbGUg
-ZWxzZXdoZXJlPw0KDQpXZSB3b25kZXIgaWYgdGhlcmUgaXMgYW55dGhpbmcgZWxzZSB3ZSBzaG91
-bGQgYWRkL3JlbW92ZSBmcm9tIHRoaXMgZmlsZS4NCkN1cnJlbnQgY29udGVudCBpczoNCg0KICAg
-IEVGQVVMVFRVTkUgPz0gImFybXY2Ig0KDQogICAgcmVxdWlyZSBjb25mL21hY2hpbmUvaW5jbHVk
-ZS9hcm0vYXJjaC1hcm12Ni5pbmMNCg0KICAgIFRVTkVWQUxJRFthcm0xMTc2anpmLXNdID0gIkVu
-YWJsZSBhcm0xMTc2anpmLXMgc3BlY2lmaWMgcHJvY2Vzc29yIG9wdGltaXphdGlvbnMiDQogICAg
-VFVORV9DQ0FSR1MgLj0gIiR7QGJiLnV0aWxzLmNvbnRhaW5zKCJUVU5FX0ZFQVRVUkVTIiwgImFy
-bTExNzZqemYtcyIsICIgLW10dW5lPWFybTExNzZqemYtcyIsICIiLCBkKX0iDQoNCiAgICBBVkFJ
-TFRVTkVTICs9ICJhcm0xMTc2anpmLXMiDQogICBBUk1QS0dBUkNIX3R1bmUtYXJtMTE3Nmp6Zi1z
-ID0gImFybTExNzZqemYtcyINCiAgIFRVTkVfRkVBVFVSRVNfdHVuZS1hcm0xMTc2anpmLXMgPSAi
-JHtUVU5FX0ZFQVRVUkVTX3R1bmUtYXJtdjZ9IGFybTExNzZqemYtcyINCiAgIFBBQ0tBR0VfRVhU
-UkFfQVJDSFNfdHVuZS1hcm0xMTc2anpmLXMgPSAiJHtQQUNLQUdFX0VYVFJBX0FSQ0hTX3R1bmUt
-YXJtdjZ9IGFybTExNzZqemYtcy12ZnAiDQoNClRoYW5rcywNClNoYXkNCg0KPiAtLS0tLU9yaWdp
-bmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBqb2VsLnN0YW5AZ21haWwuY29tIFttYWlsdG86am9l
-bC5zdGFuQGdtYWlsLmNvbV0gT24gQmVoYWxmIE9mIEpvZWwNCj4gU3RhbmxleQ0KPiBTZW50OiBX
-ZWRuZXNkYXksIEFwcmlsIDIwLCAyMDE2IDU6MDggQU0NCj4gVG86IFNoYXkgU2xvYm9ka2luIDxz
-aGF5c0BtZWxsYW5veC5jb20+DQo+IENjOiBvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcNCj4gU3Vi
-amVjdDogUmU6IFNldmVyYWwgZ2VuZXJhbCBxdWVzdGlvbnMNCj4gDQo+IEhlbGxvIFNoYXksDQo+
-IA0KPiBOaWNlIHRvIGhlYXIgZnJvbSB5b3UgYWdhaW4uDQo+IA0KPiBPbiBXZWQsIEFwciAyMCwg
-MjAxNiBhdCAxMjoyNiBBTSwgU2hheSBTbG9ib2RraW4gPHNoYXlzQG1lbGxhbm94LmNvbT4NCj4g
-d3JvdGU6DQo+IA0KPiA+IDIuIFNldmVyYWwgdS1ib290IHZlcnNpb25zIHdlcmUgbWVudGlvbmVk
-IHRoaXMgd2VlayBhdCBtYWlsaW5nIGxpc3QsDQo+ID4gd2UgY3VycmVudGx5IHVzZSB1LWJvb3Qg
-YmFzZWQgb24gMjAxMy43IHdpdGggcG9ydGluZyBBU1QyNTIwIHN0dWZmDQo+ID4gZnJvbSBBc3Bl
-ZWQgRVZCIHUtYm9vdC4gQ2FuIHlvdSBzdWdnZXN0IGEgdS1ib290IHZlcnNpb24gdG8gbWVyZ2Ug
-d2l0aD8NCj4gDQo+IFdlJ3JlIGluIHRoZSBwcm9jZXNzIG9mIGNsZWFuaW5nIHVwIHRoZSB1LWJv
-b3QuIFlvdSBoYXZlIHRocmVlIG9wdGlvbnMNCj4gDQo+ICAxLiB2MjAxMy4wNy1hc3BlZWQtb3Bl
-bmJtYyB0cmVlLiBUaGlzIGlzIHRoZSB0cmVlIHVzZWQgaW4gQmFycmVsZXllICAyLg0KPiB2MjAx
-Ni4wMy1vcGVuYm1jIHRyZWUuIFRoZXJlJ3MgYSBmZXcgdmVyc2lvbnMgZmxvYXRpbmcgYXJvdW5k
-LCBidXQgaXQncyB0aGUNCj4gYmFycmVsZXllIHRyZWUgcmViYXNlZCBvbiAyMDE2LjAzLg0KPiAg
-My4gd2FpdCBmb3IgdXMgdG8gYWRkIGFzcGVlZCBzdXBwb3J0IHRvIHVwc3RyZWFtIHUtYm9vdC4g
-VGhpcyBpc24ndCByZWFkeSB5ZXQNCj4gDQo+IEl0IG1pZ2h0IG1ha2Ugc2Vuc2UgdG8gZ28gd2l0
-aCAxIHdpdGggdGhlIGludGVudGlvbiBvZiBtb3ZpbmcgdG8gMyB3aGVuIGl0J3MNCj4gcmVhZHks
-IGJ1dCBpdCdzIHVwIHRvIHlvdSB0by4NCj4gDQo+ID4gNC4gV2Ugc2F3IHRoYXQgbW9zdCBvcGVu
-Ym1jIHN5c3RlbXMgYXJlIHVzaW5nIGpmZnMyIGZpbGUgc3lzdGVtLiBXZQ0KPiA+IHRob3VnaHQg
-dG8gdXNlIHViaWZzIGFzIGl0IGhhcyBzb21lIGFkdmFudGFnZXMgb3ZlciBqZmZzMi4gQ2FuIHlv
-dQ0KPiA+IHNoYXJlIHRoZSBtb3RpdmF0aW9uIG9mIHVzaW5nIGpmZnMyIGZvciBCTUMgcHJvamVj
-dCBhbmQgaXMgdGhlcmUNCj4gPiBzcGVjaWFsIHJlYXNvbiBmb3IgZG9pbmcgc28/DQo+IA0KPiBU
-aGlzIHdhcyBhIGRlc2lnbiBkZWNpc2lvbiBtYWRlIHdoZW4gaW1wbGVtZW50aW5nIHRoaXMgcGFy
-dCBvZiB0aGUgc3lzdGVtLg0KPiBNaWx0b24gbWlnaHQgYmUgYWJsZSB0byByZW1pbmQgdXMgd2hh
-dCB0aGUgcmVhc29ucyB3ZXJlLg0KPiANCj4gSWYgeW91IHdpc2ggdG8gaW5zdGVhZCB1c2UgdWJp
-ZnMgSSB0aGluayB0aGF0IGl0IGlzIGEgZ29vZCBjaG9pY2UuDQo+IA0KPiA+IDUuIFNvbWUgQXNw
-ZWVkIEVWQiBkcml2ZXJzIHN1Y2ggYXMgVVNCLCBQV00gd2VyZSBub3QgcG9ydGVkIHRvDQo+IG9w
-ZW5ibWMNCj4gPiBrZXJuZWwgdHJlZSB5ZXQuIFdlIHdlcmUgcGxhbm5pbmcgdG8gcG9ydCB0aGVt
-IGFuZCB3b25kZXIgaWYgdGhlcmUgaXMNCj4gPiBhbnkgc3BlY2lhbCByZWFzb24gdGhleSB3ZXJl
-buKAmXQgcG9ydGVkIHlldC4NCj4gDQo+IEFzIENocmlzIG1lbnRpb25lZCwgdGhpcyB3YXMgc2lt
-cGx5IGJlY2F1c2Ugd2UgZGlkbid0IHJlcXVpcmUgdGhlbS4NCj4gT3VyIGRldi00LjQgdHJlZSBj
-b250YWlucyBzdXBwb3J0IGZvciB0aGUgZm9sbG93aW5nOg0KPiANCj4gIC0gaXJxIGNvbnRyb2xs
-ZXIsIHVhcnRzIGFuZCB0aW1lci4gdGhlc2UgYXJlIHRoZSBiYXNpY3MgcmVxdWlyZWQgdG8gYm9v
-dA0KPiAgLSBpMmMgbWFzdGVyLiBPbmx5IGJ5dGUtYXQtYS10aW1lLCBubyBETUEgc3VwcG9ydA0K
-PiAgLSBncGlvLiBkaXJlY3Rpb24sIHN0YXRlLCBhbmQgaW50ZXJydXB0cyBhcmUgc3VwcG9ydGVk
-DQo+ICAtIGludGVybmFsIHJ0Yy4gdGhpcyBpc24ndCBiYXR0ZXJ5IGJhY2tlZCBzbyB3ZSBkaXNh
-YmxlIGl0IGFuZCBpbnN0ZWFkIHVzZSBhIGkyYw0KPiBhdHRhY2hlZCBiYXR0ZXJ5IGJhY2tlZCBy
-dGMNCj4gIC0gd2F0Y2hkb2cuIHJlcXVpcmVkIGZvciByZWJvb3RpbmcgdGhlIHNvYw0KPiAgLSBz
-cGktbm9yLiB0aGlzIGlzIHRoZSBtb2RlIHdlIHVzZSBvdXIgZmxhc2ggaW47IGl0IHN1cHBvcnRz
-IGJvdGggdGhlIFNNQyBhbmQNCj4gRk1DDQo+ICAtIGV0aGVybmV0IG1hYyB3aXRoIE5TQ0kNCj4g
-IC0gYnQgY2hhcmFjdGVyIGRldmljZSwgZm9yIGluLWJhbmQgSVBNSSBjb21tdW5pY2F0aW9uIHdp
-dGggdGhlIGhvc3QNCj4gIC0gdnVhcnQNCj4gDQo+IEFzIHdlIGRpZG4ndCB1c2UgdGhlIFBXTSwg
-VVNCIGhvc3Qgbm9yIFVTQiBkZXZpY2Ugb24gQmFycmVsZXllIHNvIG5vIHRpbWUNCj4gd2FzIHNw
-ZW50IG9uIHRoZXNlLg0KPiANCj4gSWYgdGhlcmUgaXMgaW50ZXJlc3QgaW4gd3JpdGluZyBjbGVh
-biBkcml2ZXJzIGZvciB0aGVzZSBkZXZpY2VzIEkgd291bGQgd2VsY29tZQ0KPiBwYXRjaGVzLCBh
-bmQgY2FuIGFzc2lzdCB3aXRoIHJldmlldyBhbmQgaW50ZWdyYXRpb24uDQo+IA0KPiBJJ20gbm8g
-bG9uZ2VyIHdvcmtpbmcgb24gb3VyIG93biB0cmVlLiBNeSBmb2N1cyBpcyBub3cgY2xlYW5pbmcg
-dXAgcGF0Y2hlcw0KPiBhbmQgc3VibWl0dGluZyB0aGVtIHVwc3RyZWFtLiBMYXN0IHdlZWsgSSBz
-ZW50IG91dCBhIHNlcmllcyB0aGF0IGFkZHMgYmFzaWMNCj4gc3VwcG9ydCBmb3IgdGhlIGFzdDI0
-MDA6DQo+IA0KPiAgaHR0cDovL2xpc3RzLmluZnJhZGVhZC5vcmcvcGlwZXJtYWlsL2xpbnV4LWFy
-bS1rZXJuZWwvMjAxNi0NCj4gQXByaWwvNDIyMTEwLmh0bWwNCj4gDQo+IEkgaW50ZW5kIHRvIGZv
-bGxvdyB0aGF0IHVwIHdpdGggc29tZSBmaXhlcyBhcyB3ZWxsIGFzIGFzdDI1MDAgc3VwcG9ydCB0
-b2RheS4NCj4gDQo+IENoZWVycywNCj4gDQo+IEpvZWwNCg==
+FRU_ID 2 corresponds to CPU1 and it doesn't have a CHASSIS section,
+so removing CHASSIS_2 since it causes an error on parsing the vpd
+data from hostboot and therefore it doesn't get added to the
+inventory.
+
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/skeleton/68)
+<!-- Reviewable:end -->
+
+
+https://github.com/openbmc/skeleton/pull/68
+
+Adriana Kobylak (1):
+  Remove CHASSIS_2 from Barreleye.py
+
+ bin/Barreleye.py | 1 -
+ 1 file changed, 1 deletion(-)
+
+-- 
+2.8.1
