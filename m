@@ -1,54 +1,61 @@
-Return-Path: <stewart@linux.vnet.ibm.com>
-Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
- (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-oi0-x242.google.com (mail-oi0-x242.google.com
+ [IPv6:2607:f8b0:4003:c06::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qwSYy3d3zzDq62
- for <openbmc@lists.ozlabs.org>; Thu, 28 Apr 2016 17:07:02 +1000 (AEST)
-Received: from localhost
- by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.vnet.ibm.com>;
- Thu, 28 Apr 2016 03:06:59 -0400
-Received: from d01dlp03.pok.ibm.com (9.56.250.168)
- by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 28 Apr 2016 03:06:57 -0400
-X-IBM-Helo: d01dlp03.pok.ibm.com
-X-IBM-MailFrom: stewart@linux.vnet.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from b01cxnp22034.gho.pok.ibm.com (b01cxnp22034.gho.pok.ibm.com
- [9.57.198.24])
- by d01dlp03.pok.ibm.com (Postfix) with ESMTP id E660CC90052
- for <openbmc@lists.ozlabs.org>; Thu, 28 Apr 2016 03:06:50 -0400 (EDT)
-Received: from d01av01.pok.ibm.com (d01av01.pok.ibm.com [9.56.224.215])
- by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u3S76uYI34471978
- for <openbmc@lists.ozlabs.org>; Thu, 28 Apr 2016 07:06:56 GMT
-Received: from d01av01.pok.ibm.com (localhost [127.0.0.1])
- by d01av01.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u3S76uie005237
- for <openbmc@lists.ozlabs.org>; Thu, 28 Apr 2016 03:06:56 -0400
-Received: from birb.localdomain ([9.83.3.217])
- by d01av01.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with SMTP id
- u3S76iBt004315; Thu, 28 Apr 2016 03:06:54 -0400
-Received: by birb.localdomain (Postfix, from userid 1000)
- id 0EC00229DB26; Thu, 28 Apr 2016 17:06:21 +1000 (AEST)
-From: Stewart Smith <stewart@linux.vnet.ibm.com>
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH openbmc] meta-openpower: Bump pflash version to 5.2.1
-In-Reply-To: <1461818429-17191-2-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1461818429-17191-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1461818429-17191-2-git-send-email-openbmc-patches@stwcx.xyz>
-User-Agent: Notmuch/0.21+24~gbceb651 (http://notmuchmail.org) Emacs/24.5.1
- (x86_64-redhat-linux-gnu)
-Date: Thu, 28 Apr 2016 17:06:21 +1000
-Message-ID: <87oa8ugqky.fsf@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qwSmm6LxbzDq5g
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Apr 2016 17:16:24 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=WwqF2MIz; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=HSlU6MQp; 
+ dkim-atps=neutral
+Received: by mail-oi0-x242.google.com with SMTP id w198so7460561oiw.2
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Apr 2016 00:16:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=XIbbLcjG1nWE9QqOoNFiiNuS/bb9C4X+ZwSGQ0a61k8=;
+ b=WwqF2MIzou7lbWsMXGJOFpzvKQb4PmNGNKnN4icc9GJoYliXczu3giDp2hC5FmZYGZ
+ 87Gskz50jVh8etJTxr5UNZHwp/pLJHwj83VjyDruaf4/gjBHkto4G5PstyIvZtqurTv3
+ ZXX9Nt9p/5F3JF++Phdzdo5ao3rt9UfZO1aUjIQDd0O8rxgu+b6QU8O1bvHFCXxOdnHa
+ iHDPUnckF6P7mU2R5+CETsR27rDdp87/VXxAzmWqD11dtgOsIzTdq7/qpBzagvpfGYB0
+ f/DlPH3sbCmQx6VrOge6GDKTHZget7AhvXH+C7ofW3TqLCufu/g3pNevfsL1gF7650Jb
+ bXMg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=XIbbLcjG1nWE9QqOoNFiiNuS/bb9C4X+ZwSGQ0a61k8=;
+ b=HSlU6MQpzJEn1TO72uRYDFh3DK1Q2QT1ddePq2SG+8st4f83lRSvstn0QaYFtnD7JP
+ ZPIkScaG6HLevcGzZqhgPyvrzXEZJ3D7W6mGl5iBJz61bvuPRcN29N7OAqfFb4kCttzg
+ m++Y7gIHWGUNiUfg6VKzCoiz/gVwcXyDeXWyo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=XIbbLcjG1nWE9QqOoNFiiNuS/bb9C4X+ZwSGQ0a61k8=;
+ b=BhtBiRwMOkF4WMM8ronk4EsenSuLS8h50xzD0W4e9Mnkqdure0ZSviYqTfyr61zy5X
+ /uQMPC3HIJEI5W2jm9GK5Bvj3SXvv1wQb9g0lheg/j/tQf1i1o0RJKWViTveglrzCZcq
+ vAjlPEmvLdcgJOBkc8kFW3MgZyKGTAOsk3vzdEyYhUF+WLxpCGb9XbDYOo1bHj+xIOYa
+ WWpwFhhbBqsqExuG7Y+439my8dx6ORzkXoesJZGktPd6VV+TccrfBpHvFwP56MF2FFyd
+ dj3ZEmrVRH/YjaK2yfoT22jNZOLtn57/NlvgAlMPwjPRhN22P5ZUaCUPbF/wnzHORReN
+ AkWg==
+X-Gm-Message-State: AOPr4FW6pJBjXfciVfA1nLSt/HlgV/ejJIkYSsbJssx89vGOMPieBTH2MbkGJLemCDUNnZzctJf1scn99Z7/qw==
+X-Received: by 10.157.35.113 with SMTP id k46mr6013584otd.34.1461827782507;
+ Thu, 28 Apr 2016 00:16:22 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16042807-0045-0000-0000-0000040C100F
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+Sender: joel.stan@gmail.com
+Received: by 10.60.79.200 with HTTP; Thu, 28 Apr 2016 00:16:03 -0700 (PDT)
+In-Reply-To: <1461820769-10414-1-git-send-email-jk@ozlabs.org>
+References: <1461820769-10414-1-git-send-email-jk@ozlabs.org>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 28 Apr 2016 16:46:03 +0930
+X-Google-Sender-Auth: a4JFfW6EEBIPQW6OVh2ZAWJfJZQ
+Message-ID: <CACPK8XdPjLeuFDocm+8x6L9nknfB6WBq5t2o17oVkPrZ-OOTbQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] server: Allow handlers to fail init
+To: Jeremy Kerr <jk@ozlabs.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -60,19 +67,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Apr 2016 07:07:03 -0000
+X-List-Received-Date: Thu, 28 Apr 2016 07:16:25 -0000
 
-OpenBMC Patches <openbmc-patches@stwcx.xyz> writes:
-> From: Joel Stanley <joel@jms.id.au>
+On Thu, Apr 28, 2016 at 2:49 PM, Jeremy Kerr <jk@ozlabs.org> wrote:
+> If a handler fails its init, we don't want to invoke its callbacks.
 >
-> No major changes.
+> This change adds a flag to struct handlers, to indicate whether a
+> handler is active (ie, init() has returned success). Only active
+> handlers are used.
 >
-> Upstream now carries the patch we had in tree, so that can go.
->
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
+> We also change the handler list output to indicate which are active.
 
-Acked-by: Stewart Smith <stewart@linux.vnet.ibm.com>
+Looks good. A minor comment below.
 
--- 
-Stewart Smith
-OPAL Architect, IBM.
+> Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
+
+Reviewed-by: Joel Stanley <joel@jms.id.au>
+
+> ---
+>  console-server.c | 17 ++++++++++++-----
+>  console-server.h |  2 ++
+>  2 files changed, 14 insertions(+), 5 deletions(-)
+>
+> diff --git a/console-server.c b/console-server.c
+> index f8feb52..45dd07a 100644
+> --- a/console-server.c
+> +++ b/console-server.c
+> @@ -257,7 +257,7 @@ static void handlers_init(struct console *console, struct config *config)
+>  {
+>         extern struct handler *__start_handlers, *__stop_handlers;
+>         struct handler *handler;
+> -       int i;
+> +       int i, rc;
+>
+>         console->n_handlers = &__stop_handlers - &__start_handlers;
+>         console->handlers = &__start_handlers;
+> @@ -268,10 +268,14 @@ static void handlers_init(struct console *console, struct config *config)
+>         for (i = 0; i < console->n_handlers; i++) {
+>                 handler = console->handlers[i];
+>
+> -               printf("  %s\n", handler->name);
+> -
+> +               rc = 0;
+>                 if (handler->init)
+> -                       handler->init(handler, console, config);
+> +                       rc = handler->init(handler, console, config);
+
+you could do handler->active = handler-init(), and drop the rc all together.
+
+> +
+> +               handler->active = rc == 0;
+> +
+> +               printf("  %s [%sactive]\n", handler->name,
+> +                               handler->active ? "" : "in");
+>         }
+>  }
