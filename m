@@ -1,21 +1,17 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (ozlabs.org [103.22.144.67])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qwPXX71nwzDq5f
- for <openbmc@lists.ozlabs.org>; Thu, 28 Apr 2016 14:50:36 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1461819032589659.4223799219749;
- Wed, 27 Apr 2016 21:50:32 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qwQB40hQYzDq62
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Apr 2016 15:19:40 +1000 (AEST)
+Received: by ozlabs.org (Postfix, from userid 1023)
+ id 3qwQB36f3fz9t3l; Thu, 28 Apr 2016 15:19:39 +1000 (AEST)
+From: Jeremy Kerr <jk@ozlabs.org>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc] DON'T MERGE
-Date: Wed, 27 Apr 2016 23:50:30 -0500
-Message-Id: <1461819030-17684-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.8.1
-In-Reply-To: <1461819030-17684-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1461819030-17684-1-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH 1/2] server: Allow handlers to fail init
+Date: Thu, 28 Apr 2016 13:19:28 +0800
+Message-Id: <1461820769-10414-1-git-send-email-jk@ozlabs.org>
+X-Mailer: git-send-email 2.5.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -27,41 +23,91 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Apr 2016 04:50:37 -0000
+X-List-Received-Date: Thu, 28 Apr 2016 05:19:40 -0000
 
-From: Joel Stanley <joel@jms.id.au>
+If a handler fails its init, we don't want to invoke its callbacks.
 
-This adds memory debugging to the kernel.
+This change adds a flag to struct handlers, to indicate whether a
+handler is active (ie, init() has returned success). Only active
+handlers are used.
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
+We also change the handler list output to indicate which are active.
+
+Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
 ---
- .../meta-barreleye/recipes-kernel/linux/linux-obmc/debug_mem.cfg  | 8 ++++++++
- .../meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend     | 2 ++
- 2 files changed, 10 insertions(+)
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/debug_mem.cfg
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend
+ console-server.c | 17 ++++++++++++-----
+ console-server.h |  2 ++
+ 2 files changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/debug_mem.cfg b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/debug_mem.cfg
-new file mode 100644
-index 0000000..f323eb9
---- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/debug_mem.cfg
-@@ -0,0 +1,8 @@
-+CONFIG_UBSAN=y
-+CONFIG_UBSAN_ALIGNMENT=y
-+CONFIG_DEBUG_OBJECTS=y
-+CONFIG_DEBUG_OBJECTS_FREE=y
-+CONFIG_DEBUG_SLAB=y
-+CONFIG_DEBUG_SLAB_LEAK=y
-+CONFIG_DEBUG_KMEMLEAK=y
-+CONFIG_DEBUG_MEMORY_INIT=y
-diff --git a/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend
-new file mode 100644
-index 0000000..f0d4e20
---- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend
-@@ -0,0 +1,2 @@
-+FILESEXTRAPATHS_prepend := "${THISDIR}/linux-obmc:"
-+SRC_URI += "file://debug_mem.cfg"
+diff --git a/console-server.c b/console-server.c
+index f8feb52..45dd07a 100644
+--- a/console-server.c
++++ b/console-server.c
+@@ -257,7 +257,7 @@ static void handlers_init(struct console *console, struct config *config)
+ {
+ 	extern struct handler *__start_handlers, *__stop_handlers;
+ 	struct handler *handler;
+-	int i;
++	int i, rc;
+ 
+ 	console->n_handlers = &__stop_handlers - &__start_handlers;
+ 	console->handlers = &__start_handlers;
+@@ -268,10 +268,14 @@ static void handlers_init(struct console *console, struct config *config)
+ 	for (i = 0; i < console->n_handlers; i++) {
+ 		handler = console->handlers[i];
+ 
+-		printf("  %s\n", handler->name);
+-
++		rc = 0;
+ 		if (handler->init)
+-			handler->init(handler, console, config);
++			rc = handler->init(handler, console, config);
++
++		handler->active = rc == 0;
++
++		printf("  %s [%sactive]\n", handler->name,
++				handler->active ? "" : "in");
+ 	}
+ }
+ 
+@@ -282,7 +286,7 @@ static void handlers_fini(struct console *console)
+ 
+ 	for (i = 0; i < console->n_handlers; i++) {
+ 		handler = console->handlers[i];
+-		if (handler->fini)
++		if (handler->fini && handler->active)
+ 			handler->fini(handler);
+ 	}
+ }
+@@ -297,6 +301,9 @@ static int handlers_data_in(struct console *console, uint8_t *buf, size_t len)
+ 	for (i = 0; i < console->n_handlers; i++) {
+ 		handler = console->handlers[i];
+ 
++		if (!handler->active)
++			continue;
++
+ 		if (!handler->data_in)
+ 			continue;
+ 
+diff --git a/console-server.h b/console-server.h
+index 1a9e813..2658e89 100644
+--- a/console-server.h
++++ b/console-server.h
+@@ -16,6 +16,7 @@
+ 
+ #include <poll.h>
+ #include <stdint.h>
++#include <stdbool.h>
+ 
+ struct console;
+ struct config;
+@@ -34,6 +35,7 @@ struct handler {
+ 	int		(*data_in)(struct handler *handler,
+ 				uint8_t *buf, size_t len);
+ 	void		(*fini)(struct handler *handler);
++	bool		active;
+ };
+ 
+ #define __handler_name(n) __handler_  ## n
 -- 
-2.8.1
+2.5.0
