@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qxWv75vtjzDqB2
- for <openbmc@lists.ozlabs.org>; Sat, 30 Apr 2016 10:40:35 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qxWv82MDDzDq9s
+ for <openbmc@lists.ozlabs.org>; Sat, 30 Apr 2016 10:40:36 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1461976832036242.85785242241536;
- Fri, 29 Apr 2016 17:40:32 -0700 (PDT)
+ with SMTPS id 1461976831113249.7019620486799;
+ Fri, 29 Apr 2016 17:40:31 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@us.ibm.com>
-Subject: [PATCH openbmc 3/5] Whitespace fixes for obmc-rest.bb
-Date: Fri, 29 Apr 2016 19:40:26 -0500
-Message-Id: <1461976828-9800-4-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 2/5] New recipe for openpower-inventory-upload
+Date: Fri, 29 Apr 2016 19:40:25 -0500
+Message-Id: <1461976828-9800-3-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.1
 In-Reply-To: <1461976828-9800-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1461976828-9800-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -32,29 +32,66 @@ X-List-Received-Date: Sat, 30 Apr 2016 00:40:36 -0000
 
 From: Brad Bishop <bradleyb@us.ibm.com>
 
-OE style guidelines dictate no tabs.
+This script uploads the BMC inventory to a partition in PNOR
+on POWER systems for inclusion in the host device tree.
 ---
- meta-phosphor/common/recipes-phosphor/dbus/obmc-rest.bb | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ .../images/obmc-phosphor-image.bbappend              |  3 +++
+ .../inventory-upload/inventory-upload.bb             | 20 ++++++++++++++++++++
+ meta-openbmc-machines/meta-openpower/conf/layer.conf |  4 +++-
+ 3 files changed, 26 insertions(+), 1 deletion(-)
+ create mode 100644 meta-openbmc-machines/meta-openpower/common/recipes-phosphor/images/obmc-phosphor-image.bbappend
+ create mode 100644 meta-openbmc-machines/meta-openpower/common/recipes-phosphor/inventory-upload/inventory-upload.bb
 
-diff --git a/meta-phosphor/common/recipes-phosphor/dbus/obmc-rest.bb b/meta-phosphor/common/recipes-phosphor/dbus/obmc-rest.bb
-index f66dd26..944199f 100644
---- a/meta-phosphor/common/recipes-phosphor/dbus/obmc-rest.bb
-+++ b/meta-phosphor/common/recipes-phosphor/dbus/obmc-rest.bb
-@@ -13,10 +13,10 @@ RDEPENDS_${PN} += " \
-         python-xml \
-         python-dbus \
-         python-pygobject \
--	obmc-mapper \
--	python-rocket \
--	python-bottle \
--	python-spwd \
-+        obmc-mapper \
-+        python-rocket \
-+        python-bottle \
-+        python-spwd \
-         "
- SRC_URI += "git://github.com/openbmc/phosphor-rest-server"
+diff --git a/meta-openbmc-machines/meta-openpower/common/recipes-phosphor/images/obmc-phosphor-image.bbappend b/meta-openbmc-machines/meta-openpower/common/recipes-phosphor/images/obmc-phosphor-image.bbappend
+new file mode 100644
+index 0000000..7b8aa6f
+--- /dev/null
++++ b/meta-openbmc-machines/meta-openpower/common/recipes-phosphor/images/obmc-phosphor-image.bbappend
+@@ -0,0 +1,3 @@
++IMAGE_INSTALL += " \
++        inventory-upload \
++"
+diff --git a/meta-openbmc-machines/meta-openpower/common/recipes-phosphor/inventory-upload/inventory-upload.bb b/meta-openbmc-machines/meta-openpower/common/recipes-phosphor/inventory-upload/inventory-upload.bb
+new file mode 100644
+index 0000000..8c0bd34
+--- /dev/null
++++ b/meta-openbmc-machines/meta-openpower/common/recipes-phosphor/inventory-upload/inventory-upload.bb
+@@ -0,0 +1,20 @@
++SUMMARY = "Inventory upload"
++DESCRIPTION = "Inventory upload."
++HOMEPAGE = "http://github.com/openbmc/openpower-inventory-upload"
++PR = "r1"
++LICENSE = "Apache-2.0"
++LIC_FILES_CHKSUM = "file://${S}/LICENSE;md5=e3fc50a88d0a364313df4b21ef20c29e"
++
++inherit allarch
++inherit setuptools
++
++RDEPENDS_${PN} += " \
++        pyphosphor \
++        dtc \
++        "
++
++SRC_URI += "git://github.com/openbmc/openpower-inventory-upload"
++
++SRCREV = "5909e7859a1a56bdc902cf774093d9fae29612ea"
++
++S = "${WORKDIR}/git"
+diff --git a/meta-openbmc-machines/meta-openpower/conf/layer.conf b/meta-openbmc-machines/meta-openpower/conf/layer.conf
+index 46c5a5d..6824543 100644
+--- a/meta-openbmc-machines/meta-openpower/conf/layer.conf
++++ b/meta-openbmc-machines/meta-openpower/conf/layer.conf
+@@ -1,8 +1,10 @@
+ # We have a conf and classes directory, add to BBPATH
+ BBPATH .= ":${LAYERDIR}"
  
++# We have recipes-* directories, add to BBFILES
+ BBFILES += "${LAYERDIR}/common/recipes-*/*/*.bb \
+             ${LAYERDIR}/common/recipes-*/*/*.bbappend"
+ 
+ BBFILE_COLLECTIONS += "openpower"
+-BBFILE_PATTERN_openpower = ""
++BBFILE_PATTERN_openpower = "^${LAYERDIR}/"
++LAYERVERSION_openpower = "1"
 -- 
 2.8.1
