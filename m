@@ -1,63 +1,60 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-oi0-x243.google.com (mail-oi0-x243.google.com
- [IPv6:2607:f8b0:4003:c06::243])
+Received: from mail-oi0-x22a.google.com (mail-oi0-x22a.google.com
+ [IPv6:2607:f8b0:4003:c06::22a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qyn9Z2s48zDqC8
- for <openbmc@lists.ozlabs.org>; Mon,  2 May 2016 11:42:25 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qypN928FLzDqBs
+ for <openbmc@lists.ozlabs.org>; Mon,  2 May 2016 12:36:41 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=cd003pkb; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=VWHWonqf; 
  dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=CTmj5L9S; 
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=Hp5B2ii/; 
  dkim-atps=neutral
-Received: by mail-oi0-x243.google.com with SMTP id f63so25910566oig.0
- for <openbmc@lists.ozlabs.org>; Sun, 01 May 2016 18:42:25 -0700 (PDT)
+Received: by mail-oi0-x22a.google.com with SMTP id v145so142666252oie.0
+ for <openbmc@lists.ozlabs.org>; Sun, 01 May 2016 19:36:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=vhfoJMfJtJ49NSs5/fHWt38a+HdiWTb25uc5VoI2gk4=;
- b=cd003pkbsQuxO2f1LjmiHADcmMtFOnh7hmXSSKQtItWQvAYdCPMGeKGygLT7FK3BqH
- 66tFImx1ek5Ll3CdQM+UIXo8/wW2mzilkmq13gw2ZzSjyQVq7txGyeK57/EB421gHqoc
- PhkJTzJGBoMs8Z9PuSOVA6JbnTGc/fCE9+Lvc+ApCgZt9CHYFCThmcVKrMa9uI79Ih7Q
- bzdOu/PK1yTpxyO+RH68R8w1SYisffnYH10BxybBd88ibR1ShCeyZeOideZ/CzRWEyr2
- +81dxeaL7z6IDIRygu67kx9e690M0yRgo2ymGmLyYMq3URV0oUnUCrdCveF9v1kAMB6f
- wklg==
+ bh=eu4haQWzYoREDVYcNU/Udseu0EUfkrMx8xwJAH3TmvA=;
+ b=VWHWonqf/m0SElaOtif9ztP7hHZo9W62TfkqW8IklB9iLyHMxgYRNf/g2AyZ/VuzZx
+ B0Fio1Ei1axx2g1pg6eckin9qa7RWNtQTd/vaHKoVuzsWZUrt0m3OACxXiDi9GGQoCZV
+ bnlme3D+7+jmCvlexC5nJDO+sowC3rWTW5vYF6N1ongYNPoRXaLPGPHFJXf2qlxOAcDa
+ x43fKvq+2G3BrnTPmS1pIAF69teXXH/WUUibIW6JurjBAI21gPkFAczuNk1ZbDZxSMPm
+ 41c4tFj43nUQC7NJtmbH+AuR1lwuExrIjuh1raDRw7oTCzNHneDUbB9yrlFgcK7pp1Rr
+ aRfw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=vhfoJMfJtJ49NSs5/fHWt38a+HdiWTb25uc5VoI2gk4=;
- b=CTmj5L9SUU0heYny3GrV8lbnEVYwD2zBkFkdThewyV+wUk37V6cbXbF924iqNlxu1C
- ilsXR9C01THZNC57tzAOC0WbHfYOonSFiaTZJiPBl2VwKYiG/qWTFIz07523FsZPbb8q
- 61ZaIYSXiBSl+XAVPZjBy+9L6rfQXcgmBhG/E=
+ bh=eu4haQWzYoREDVYcNU/Udseu0EUfkrMx8xwJAH3TmvA=;
+ b=Hp5B2ii/1nxOz2RSoOmFXeXD5a/LXmfSv7FLQ3o8GY/af2ev8pj74SGmpLIf6rx0xw
+ lsjN9R6b+T64BfL8lCNe3vLD5/96eaJcagUYWXUgIjFhajOLJ6+rl7cqoYeQ8DvoU0WW
+ hQQYk5xMBI5tlmJbuHMaj/C/UMnp2PGgfFytA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=vhfoJMfJtJ49NSs5/fHWt38a+HdiWTb25uc5VoI2gk4=;
- b=JXnOAS6qeLRnxvaMRJeFuTZwkEvnGh2L0dzfd0P+7mPhwgo3DsBo2MOr0NUwTiIlcH
- TpPVZJJaY2YGHDB0W1E2dI6+fRt9XL23PJXUi4RoRiamJQTtZXCTff+ddl+GholZpqMn
- PcphwP82o8OlOmtZ811BvQm2Jh9tXB8/rRX/X21n3TDXyEXS8dN/u3yltADFmZzmvFv2
- 6F9390zdUE5OzdbCwhjQtOyGtF7ol3m4GRY4WD0R/aXDF8t0LFLUHh6dfBWStCWxU1FC
- kGiGfHDvvJUi2R1AhViMGeN/p2OrqccmxxaNKjbMb4HCrMxEfdJSVMJeUrtxkjjX/Yf4
- QieQ==
-X-Gm-Message-State: AOPr4FX0C3PeICLJn3R5vL2TxCykMuRxSaGd099L4k4WF7wv9Ca0NyiRVYUhFxRNgo0UyruqdyBk2+qvnmsV7w==
-X-Received: by 10.202.199.71 with SMTP id x68mr12174062oif.150.1462153343412; 
- Sun, 01 May 2016 18:42:23 -0700 (PDT)
+ bh=eu4haQWzYoREDVYcNU/Udseu0EUfkrMx8xwJAH3TmvA=;
+ b=G3lIB1DXgKARpJavD/Hlr+eGf6HKTBMI42y4Uk5HCcQkKbqFwrYpdoC0npPeAKKIQR
+ iBxRnLmLQXVFH8Xx8p2dryEIiNy2NT4LSHCnprtLKAE98xOwFFfoP8uP4MUqjtPJwjyd
+ VxRk6gg4PglutEkHpNtc2x5y36BzR5wUCfgpYmTAlhmoXDOWkyT2q+hadpwUeQYkT9gB
+ IyHF/IbdGMdBF7YVL7X+oZw7RacLpHerFLpmX0dxDYExqXItQ5f6lai2C4S18oqi2YUp
+ WwEPUR+zhZDnG8OIaZ2ywVXwvq5ORRNQS6GvFzKU4l1l7CCgQbdCcB6ylFJz1IcIrypD
+ poaA==
+X-Gm-Message-State: AOPr4FW8r7CBPKXro/1xuMNGoty+O3y3zSTnx8hZodZWOZ7vd1BtldabYvBpBriylrAaYH+J9KfiWpVk1cmADA==
+X-Received: by 10.202.230.137 with SMTP id d131mr14204872oih.168.1462156598997; 
+ Sun, 01 May 2016 19:36:38 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.60.79.200 with HTTP; Sun, 1 May 2016 18:42:03 -0700 (PDT)
-In-Reply-To: <1461908454-24209-2-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1461908454-24209-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1461908454-24209-2-git-send-email-openbmc-patches@stwcx.xyz>
+Received: by 10.60.79.200 with HTTP; Sun, 1 May 2016 19:36:19 -0700 (PDT)
+In-Reply-To: <CADUykeoN5=KtG7FKuCOrDEY5u46VjJN3mvqmuC8CpkaemFrMNw@mail.gmail.com>
+References: <CADUykeoN5=KtG7FKuCOrDEY5u46VjJN3mvqmuC8CpkaemFrMNw@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 2 May 2016 11:12:03 +0930
-X-Google-Sender-Auth: rX0GadqCoJndVAVycUueZmacAa4
-Message-ID: <CACPK8XdBaCC5npZ8UvfxEaeLuDL72n3p98-sx_XnpwbaRqYuHQ@mail.gmail.com>
-Subject: Re: [PATCH linux] Add debounce for power button, pull down gpioQ7 to
- unlock identify LED
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Ken <ken.sk.lai@mail.foxconn.com>
+Date: Mon, 2 May 2016 12:06:19 +0930
+X-Google-Sender-Auth: d6CjKhFXD9dfUIZmK2unCAIN9qU
+Message-ID: <CACPK8XeO=pANLMuVKW-1MkJ3eRymHMynH0Q-PjjJNnTX-TeLTg@mail.gmail.com>
+Subject: Re: qemu: Question about including Facebook's Yosemite board
+To: Teddy Reed <teddy.reed@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.20
@@ -70,56 +67,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 02 May 2016 01:42:28 -0000
+X-List-Received-Date: Mon, 02 May 2016 02:36:41 -0000
 
-Hello Ken,
-
-On Fri, Apr 29, 2016 at 3:10 PM, OpenBMC Patches
-<openbmc-patches@stwcx.xyz> wrote:
-> From: Ken <ken.sk.lai@mail.foxconn.com>
+On Sun, May 1, 2016 at 5:57 AM, Teddy Reed <teddy.reed@gmail.com> wrote:
+> I'd like to model the Facebook Yosemite board in QEMU, which from the
+> QEMU model perspective, is almost equivalent to the Palmetto. The only
+> requirement for the board, outside of the AST2400 capabilities, is the
+> inclusion of 2 flashes.
 >
+> Here's an example of what I mean:
+> https://github.com/theopolis/qemu/blob/bc20ef6a7a17f8424571234d4429e7e6b67f17e8/hw/arm/fbyosemite-bmc.c#L78
 
-We need to include a description of why this change is being made.
-What does it fix? Why does the previous behaviour need to be modified?
+Great! This is really useful.
 
-> ---
->  arch/arm/mach-aspeed/aspeed.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->  mode change 100644 => 100755 arch/arm/mach-aspeed/aspeed.c
->
-> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
-> old mode 100644
-> new mode 100755
-> index 594a781..fa5d467
-> --- a/arch/arm/mach-aspeed/aspeed.c
-> +++ b/arch/arm/mach-aspeed/aspeed.c
-> @@ -138,9 +138,10 @@ static void __init do_barreleye_setup(void)
->         /* GPIO setup */
->         writel(0x9E82FCE7, AST_IO(AST_BASE_GPIO | 0x00));
->         writel(0x0370E677, AST_IO(AST_BASE_GPIO | 0x04));
-> -
-> +       writel(0x00001080, AST_IO(AST_BASE_GPIO | 0x84));
+> If you don't mind including those flash definitions in the Palmetto
+> model I can save some QEMU complexity by not adding another board
+> definition, which IMO is ideal. If that's the case, I can also submit
+> a patch to add the flashes ASAP.
 
-We have a GPIO driver that handles setting this register.
+I'm torn. Similar to Andrew's work to get the GEM ethernet device
+working in the palmetto board, I'm not sure we want to add hacks to
+that don't represent the physical system. OTOH, it's nice to be able
+to boot a flash image in Qemu.
 
->         /* SCU setup */
->         writel(0x01C00000, AST_IO(AST_BASE_SCU | 0x88));
-> +       writel(0x010FFFFF, AST_IO(AST_BASE_SCU | 0xA8));
+What do you think?
 
-Can you explain each of these you're setting each of these bits?
+Cheers,
 
->         /*
->          * Do read/modify/write on power gpio to prevent resetting power on
-> @@ -150,7 +151,10 @@ static void __init do_barreleye_setup(void)
->         reg |= 0xCFC8F7FD;
->         writel(reg, AST_IO(AST_BASE_GPIO | 0x20));
->         writel(0xC738F20A, AST_IO(AST_BASE_GPIO | 0x24));
-> -       writel(0x0031FFAF, AST_IO(AST_BASE_GPIO | 0x80));
-> +       writel(0x0031FF2F, AST_IO(AST_BASE_GPIO | 0x80));
-> +       writel(0x00000001, AST_IO(AST_BASE_GPIO | 0x48));
-> +       writel(0x00000001, AST_IO(AST_BASE_GPIO | 0x4C));
-> +       writel(0x00075300, AST_IO(AST_BASE_GPIO | 0x58));
-
-As above; we have a GPIO driver that handles setting this register.
-Changing these states needs to be done from userspace. See
-https://github.com/openbmc/skeleton/blob/master/bin/Barreleye.py#L531
+Joel
