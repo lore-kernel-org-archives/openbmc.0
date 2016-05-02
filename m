@@ -1,63 +1,47 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-oi0-x22a.google.com (mail-oi0-x22a.google.com
- [IPv6:2607:f8b0:4003:c06::22a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from homiemail-a11.g.dreamhost.com (sub3.mail.dreamhost.com
+ [69.163.253.7])
+ (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qypN928FLzDqBs
- for <openbmc@lists.ozlabs.org>; Mon,  2 May 2016 12:36:41 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=VWHWonqf; 
- dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=Hp5B2ii/; 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qywW94kQLzDqCQ
+ for <openbmc@lists.ozlabs.org>; Mon,  2 May 2016 17:13:09 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+ dkim=fail reason="signature verification failed" (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=osyc/qwx; 
  dkim-atps=neutral
-Received: by mail-oi0-x22a.google.com with SMTP id v145so142666252oie.0
- for <openbmc@lists.ozlabs.org>; Sun, 01 May 2016 19:36:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=eu4haQWzYoREDVYcNU/Udseu0EUfkrMx8xwJAH3TmvA=;
- b=VWHWonqf/m0SElaOtif9ztP7hHZo9W62TfkqW8IklB9iLyHMxgYRNf/g2AyZ/VuzZx
- B0Fio1Ei1axx2g1pg6eckin9qa7RWNtQTd/vaHKoVuzsWZUrt0m3OACxXiDi9GGQoCZV
- bnlme3D+7+jmCvlexC5nJDO+sowC3rWTW5vYF6N1ongYNPoRXaLPGPHFJXf2qlxOAcDa
- x43fKvq+2G3BrnTPmS1pIAF69teXXH/WUUibIW6JurjBAI21gPkFAczuNk1ZbDZxSMPm
- 41c4tFj43nUQC7NJtmbH+AuR1lwuExrIjuh1raDRw7oTCzNHneDUbB9yrlFgcK7pp1Rr
- aRfw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=eu4haQWzYoREDVYcNU/Udseu0EUfkrMx8xwJAH3TmvA=;
- b=Hp5B2ii/1nxOz2RSoOmFXeXD5a/LXmfSv7FLQ3o8GY/af2ev8pj74SGmpLIf6rx0xw
- lsjN9R6b+T64BfL8lCNe3vLD5/96eaJcagUYWXUgIjFhajOLJ6+rl7cqoYeQ8DvoU0WW
- hQQYk5xMBI5tlmJbuHMaj/C/UMnp2PGgfFytA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=eu4haQWzYoREDVYcNU/Udseu0EUfkrMx8xwJAH3TmvA=;
- b=G3lIB1DXgKARpJavD/Hlr+eGf6HKTBMI42y4Uk5HCcQkKbqFwrYpdoC0npPeAKKIQR
- iBxRnLmLQXVFH8Xx8p2dryEIiNy2NT4LSHCnprtLKAE98xOwFFfoP8uP4MUqjtPJwjyd
- VxRk6gg4PglutEkHpNtc2x5y36BzR5wUCfgpYmTAlhmoXDOWkyT2q+hadpwUeQYkT9gB
- IyHF/IbdGMdBF7YVL7X+oZw7RacLpHerFLpmX0dxDYExqXItQ5f6lai2C4S18oqi2YUp
- WwEPUR+zhZDnG8OIaZ2ywVXwvq5ORRNQS6GvFzKU4l1l7CCgQbdCcB6ylFJz1IcIrypD
- poaA==
-X-Gm-Message-State: AOPr4FW8r7CBPKXro/1xuMNGoty+O3y3zSTnx8hZodZWOZ7vd1BtldabYvBpBriylrAaYH+J9KfiWpVk1cmADA==
-X-Received: by 10.202.230.137 with SMTP id d131mr14204872oih.168.1462156598997; 
- Sun, 01 May 2016 19:36:38 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.60.79.200 with HTTP; Sun, 1 May 2016 19:36:19 -0700 (PDT)
-In-Reply-To: <CADUykeoN5=KtG7FKuCOrDEY5u46VjJN3mvqmuC8CpkaemFrMNw@mail.gmail.com>
-References: <CADUykeoN5=KtG7FKuCOrDEY5u46VjJN3mvqmuC8CpkaemFrMNw@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 2 May 2016 12:06:19 +0930
-X-Google-Sender-Auth: d6CjKhFXD9dfUIZmK2unCAIN9qU
-Message-ID: <CACPK8XeO=pANLMuVKW-1MkJ3eRymHMynH0Q-PjjJNnTX-TeLTg@mail.gmail.com>
+Received: from homiemail-a11.g.dreamhost.com (localhost [127.0.0.1])
+ by homiemail-a11.g.dreamhost.com (Postfix) with ESMTP id CEEFA6E074;
+ Mon,  2 May 2016 00:13:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
+ :subject:from:reply-to:to:cc:date:in-reply-to:references
+ :content-type:mime-version:content-transfer-encoding; s=aj.id.au
+ ; bh=p4qvizDbmT2SBocXjM/PnlpWo+I=; b=osyc/qwxJUC3yFfD40cGmy3opMf
+ T0fEUtLA82/76BjLuGwtnyr20gYJmu0LE/N2FeWjLLZNGXeB3D61qQdR/fI0AzcM
+ VzPM/5bOWQGB7Jg8xcgQD72U/ddTvCNHm0ALlYGMtIiyY5/bCQLkfz2qQqJhRNJR
+ rKEpDlh493gW3Lnk=
+Received: from keelia (unknown [203.0.153.9])
+ (using TLSv1 with cipher AES128-SHA (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: andrew@aj.id.au)
+ by homiemail-a11.g.dreamhost.com (Postfix) with ESMTPSA id 99EBB6E072;
+ Mon,  2 May 2016 00:13:05 -0700 (PDT)
+Message-ID: <1462173181.3462.29.camel@aj.id.au>
 Subject: Re: qemu: Question about including Facebook's Yosemite board
-To: Teddy Reed <teddy.reed@gmail.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+Reply-To: andrew@aj.id.au
+To: Joel Stanley <joel@jms.id.au>, Teddy Reed <teddy.reed@gmail.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+Date: Mon, 02 May 2016 16:43:01 +0930
+In-Reply-To: <CACPK8XeO=pANLMuVKW-1MkJ3eRymHMynH0Q-PjjJNnTX-TeLTg@mail.gmail.com>
+References: <CADUykeoN5=KtG7FKuCOrDEY5u46VjJN3mvqmuC8CpkaemFrMNw@mail.gmail.com>
+ <CACPK8XeO=pANLMuVKW-1MkJ3eRymHMynH0Q-PjjJNnTX-TeLTg@mail.gmail.com>
+Organization: IBM OzLabs
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.18.5.2-0ubuntu1 
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
-X-Mailman-Version: 2.1.20
+X-Mailman-Version: 2.1.22
 Precedence: list
 List-Id: Development list for OpenBMC <openbmc.lists.ozlabs.org>
 List-Unsubscribe: <https://lists.ozlabs.org/options/openbmc>,
@@ -67,31 +51,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 02 May 2016 02:36:41 -0000
+X-List-Received-Date: Mon, 02 May 2016 07:13:10 -0000
 
-On Sun, May 1, 2016 at 5:57 AM, Teddy Reed <teddy.reed@gmail.com> wrote:
-> I'd like to model the Facebook Yosemite board in QEMU, which from the
-> QEMU model perspective, is almost equivalent to the Palmetto. The only
-> requirement for the board, outside of the AST2400 capabilities, is the
-> inclusion of 2 flashes.
->
-> Here's an example of what I mean:
-> https://github.com/theopolis/qemu/blob/bc20ef6a7a17f8424571234d4429e7e6b67f17e8/hw/arm/fbyosemite-bmc.c#L78
+On Mon, 2016-05-02 at 12:06 +0930, Joel Stanley wrote:
+> On Sun, May 1, 2016 at 5:57 AM, Teddy Reed <teddy.reed@gmail.com> wrote=
+:
+> >=20
+> > I'd like to model the Facebook Yosemite board in QEMU, which from the
+> > QEMU model perspective, is almost equivalent to the Palmetto. The onl=
+y
+> > requirement for the board, outside of the AST2400 capabilities, is th=
+e
+> > inclusion of 2 flashes.
+> >=20
+> > Here's an example of what I mean:
+> > https://github.com/theopolis/qemu/blob/bc20ef6a7a17f8424571234d4429e7=
+e6b67f17e8/hw/arm/fbyosemite-bmc.c#L78
+> Great! This is really useful.
+>=20
+> >=20
+> > If you don't mind including those flash definitions in the Palmetto
+> > model I can save some QEMU complexity by not adding another board
+> > definition, which IMO is ideal. If that's the case, I can also submit
+> > a patch to add the flashes ASAP.
+> I'm torn. Similar to Andrew's work to get the GEM ethernet device
+> working in the palmetto board, I'm not sure we want to add hacks to
+> that don't represent the physical system. OTOH, it's nice to be able
+> to boot a flash image in Qemu.
 
-Great! This is really useful.
+I think we need to be a bit nuanced about it to avoid throwing the baby
+out with the bath water. We haven't yet modelled the flash controller,
+and the hack (almost*) gives us the ability to boot the bitbake flash
+output file. Regarding the GEM NIC: we have a ftgmac100 QEMU model, but
+it has issues; having networking is an advantage if you consider
+running automated testing[0] as part of a CI setup. It's better if the
+models reflect the hardware but since they are not ready to go I think
+the benefit the hack is reasonable.
 
-> If you don't mind including those flash definitions in the Palmetto
-> model I can save some QEMU complexity by not adding another board
-> definition, which IMO is ideal. If that's the case, I can also submit
-> a patch to add the flashes ASAP.
+We're in the right place if we're making an up-front decision about
+technical debt and having a plan for paying it down. With networking we
+can resolve it by fixing up the bugs in the existing (but not upstream)
+ftgmac100 model, and ripping out the Cadence GEM. In the case of the
+flash controller we have to write it from scratch, but we need to do
+that regardless. I think what we should push back against is bad code,
+which we can do with code review.
 
-I'm torn. Similar to Andrew's work to get the GEM ethernet device
-working in the palmetto board, I'm not sure we want to add hacks to
-that don't represent the physical system. OTOH, it's nice to be able
-to boot a flash image in Qemu.
+Andrew
 
-What do you think?
+* Should, with the DRAM-training-SCU-bit-workaround
 
-Cheers,
-
-Joel
+[0]=C2=A0https://github.com/mkumatag/openbmc-automation
