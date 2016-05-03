@@ -1,22 +1,44 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from homiemail-a21.g.dreamhost.com (sub3.mail.dreamhost.com
+ [69.163.253.7])
+ (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3qzMXT57b4zDqBs
- for <openbmc@lists.ozlabs.org>; Tue,  3 May 2016 10:30:49 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 146223544494555.77299876493362;
- Mon, 2 May 2016 17:30:44 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-host-ipmid v3] ipmid crashing with simplified
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3qzN0x588PzDqBs
+ for <openbmc@lists.ozlabs.org>; Tue,  3 May 2016 10:52:01 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=FCDxb1n7; 
+ dkim-atps=neutral
+Received: from homiemail-a21.g.dreamhost.com (localhost [127.0.0.1])
+ by homiemail-a21.g.dreamhost.com (Postfix) with ESMTP id 42A2B300072;
+ Mon,  2 May 2016 17:51:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
+ :subject:from:reply-to:to:date:in-reply-to:references
+ :content-type:mime-version:content-transfer-encoding; s=aj.id.au
+ ; bh=907sON7cOvfMBYFC+MQcyO5rTeI=; b=FCDxb1n7jEhBf62ppH1IDwjUJbf
+ y8RFUbiRCQp/oWKw9jjQm/dlrz4yaSBM+W853AO58g7Jd9L7Ii4nCulM+u8jGK9B
+ bZEzYoNHJOeM5AUey4dgxKxJRtvR1I0MCQmfht0hL0FqTIFvo454je9wwmm+poJr
+ PH2XvpZVHdfKTr2A=
+Received: from keelia (unknown [203.0.153.9])
+ (using TLSv1 with cipher AES128-SHA (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: andrew@aj.id.au)
+ by homiemail-a21.g.dreamhost.com (Postfix) with ESMTPSA id 66844300061;
+ Mon,  2 May 2016 17:51:58 -0700 (PDT)
+Message-ID: <1462236712.3462.34.camel@aj.id.au>
+Subject: Re: [PATCH phosphor-host-ipmid] ipmid crashing with simplified
  VERSION_ID
-Date: Mon,  2 May 2016 19:30:42 -0500
-Message-Id: <1462235442-15082-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.8.1
-In-Reply-To: <1462235442-15082-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1462235442-15082-1-git-send-email-openbmc-patches@stwcx.xyz>
+From: Andrew Jeffery <andrew@aj.id.au>
+Reply-To: andrew@aj.id.au
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+Date: Tue, 03 May 2016 10:21:52 +0930
+In-Reply-To: <1462052436-1235-2-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1462052436-1235-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1462052436-1235-2-git-send-email-openbmc-patches@stwcx.xyz>
+Organization: IBM OzLabs
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.18.5.2-0ubuntu1 
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,104 +50,72 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 May 2016 00:30:50 -0000
+X-List-Received-Date: Tue, 03 May 2016 00:52:02 -0000
 
-From: Chris Austen <austenc@us.ibm.com>
+On Sat, 2016-04-30 at 16:40 -0500, OpenBMC Patches wrote:
+> From: Chris Austen <austenc@us.ibm.com>
+>=20
+> if the VERSION_ID is v0.1 instead of v0.1-1 then the code will crash.=C2=
+=A0=C2=A0The fix is to always check
+> for a NULL token each time.
 
-if the VERSION_ID is v0.1 instead of v0.1-1 then the code will crash.  The fix is to always check
-for a NULL token each time.
+Do we have a test suite? This kind of patch feels like it should come
+with some tests so we don't break things in similar ways in the future.
 
-Change ipmitool output to reflect hex value
+Andrew
 
-VERSION_ID is equal to v0.6-36-gece9f78-dirty
-I was forcing the '36' to be shown as 36.  Turns out
-that the ipmitool prepends the "Aux" section with a
-'0x' indicating the value is in hex.  So Rather then
-it show up as 0x36  I made it actually be 0x24.
-
-root@barreleye:~# ./ipmitool -I dbus mc info
-IPMI GROUP EXTENTIONS
-IPMI GROUP EXTENTIONS
-Device ID                 : 0
-Device Revision           : 0
-Firmware Revision         : 0.06
-IPMI Version              : 2.0
-Manufacturer ID           : 42817
-Manufacturer Name         : Unknown (0xA741)
-Product ID                : 16451 (0x4043)
-Product Name              : Unknown (0x4043)
-Device Available          : yes
-Provides Device SDRs      : no
-Additional Device Support :
-    Sensor Device
-    SEL Device
-    FRU Inventory Device
-Aux Firmware Rev Info     :
-    0x00
-    0x24   <---- is decimal 36
-    0x01
-    0x00
-root@barreleye:~#
----
- apphandler.C | 27 ++++++++++++++-------------
- 1 file changed, 14 insertions(+), 13 deletions(-)
-
-diff --git a/apphandler.C b/apphandler.C
-index 53a83d3..71dba66 100644
---- a/apphandler.C
-+++ b/apphandler.C
-@@ -100,7 +100,7 @@ typedef struct
- {
-     char major;
-     char minor;
--    uint8_t d[4];
-+    uint16_t d[2];
- } rev_t;
- 
- 
-@@ -119,6 +119,7 @@ int convert_version(const char *p, rev_t *rev)
-     char *s, *token;
-     char hexbyte[5];
-     int l;
-+    uint16_t commits;
- 
-     if (*p != 'v')
-         return -1;
-@@ -135,23 +136,23 @@ int convert_version(const char *p, rev_t *rev)
-     // Capture the number of commits on top of the minor tag.
-     // I'm using BE format like the ipmi spec asked for
-     token = strtok(NULL,".-");
--    l = strlen(token);
--    if (l > 4)
--        l = 4;
- 
--    memset(hexbyte,'0', 4);
--    memcpy(&hexbyte[4-l], token, l);
--    sscanf(&hexbyte[0], "%2hhX", &rev->d[0]);
--    sscanf(&hexbyte[2], "%2hhX", &rev->d[1]);
-+    if (token) {
-+        commits = (int16_t) atoi(token);
-+        rev->d[0] = (commits>>8) | (commits<<8);
- 
--    rev->d[2] = 0;
-+        // commit number we skip
-+        token = strtok(NULL,".-");
- 
--    // commit number we skip
--    token = strtok(NULL,".-");
-+    } else {
-+        rev->d[0] = 0;
-+    }
- 
-     // Any value of the optional parameter forces it to 1
--    token = strtok(NULL,".-");
--        rev->d[3] = (token != NULL) ? 1 : 0;
-+    if (token)
-+        token = strtok(NULL,".-");
-+
-+    rev->d[1] = (token != NULL) ? 1 : 0;
- 
-     free(s);
-     return 0;
--- 
-2.8.1
+> ---
+> =C2=A0apphandler.C | 24 ++++++++++++++++--------
+> =C2=A01 file changed, 16 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/apphandler.C b/apphandler.C
+> index 53a83d3..80f239c 100644
+> --- a/apphandler.C
+> +++ b/apphandler.C
+> @@ -135,9 +135,18 @@ int convert_version(const char *p, rev_t *rev)
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0// Capture the number of commits on top o=
+f the minor tag.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0// I'm using BE format like the ipmi spec=
+ asked for
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0token =3D strtok(NULL,".-");
+> -=C2=A0=C2=A0=C2=A0=C2=A0l =3D strlen(token);
+> -=C2=A0=C2=A0=C2=A0=C2=A0if (l > 4)
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0l =3D 4;
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0if (token) {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0l =3D strlen(token);
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (l > 4)
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+l =3D 4;
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0// commit number we sk=
+ip
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0token =3D strtok(NULL,=
+".-");
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0} else {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0l =3D 0;
+> +=C2=A0=C2=A0=C2=A0=C2=A0}
+> =C2=A0
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0memset(hexbyte,'0', 4);
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0memcpy(&hexbyte[4-l], token, l);
+> @@ -146,12 +155,11 @@ int convert_version(const char *p, rev_t *rev)
+> =C2=A0
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0rev->d[2] =3D 0;
+> =C2=A0
+> -=C2=A0=C2=A0=C2=A0=C2=A0// commit number we skip
+> -=C2=A0=C2=A0=C2=A0=C2=A0token =3D strtok(NULL,".-");
+> -
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0// Any value of the optional parameter fo=
+rces it to 1
+> -=C2=A0=C2=A0=C2=A0=C2=A0token =3D strtok(NULL,".-");
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0rev->d[3] =3D (token !=
+=3D NULL) ? 1 : 0;
+> +=C2=A0=C2=A0=C2=A0=C2=A0if (token)
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0token =3D strtok(NULL,=
+".-");
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0rev->d[3] =3D (token !=3D NULL) ? 1 : 0;
+> =C2=A0
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0free(s);
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return 0;
