@@ -1,60 +1,59 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-ob0-x241.google.com (mail-ob0-x241.google.com
- [IPv6:2607:f8b0:4003:c01::241])
+Received: from mail-oi0-x243.google.com (mail-oi0-x243.google.com
+ [IPv6:2607:f8b0:4003:c06::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r0wXs2CCnzDq5y
- for <openbmc@lists.ozlabs.org>; Thu,  5 May 2016 23:21:33 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r0wbW1whqzDq5y
+ for <openbmc@lists.ozlabs.org>; Thu,  5 May 2016 23:23:51 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=gE7fBFdz; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=dtmowmnf; 
  dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=d7eZLJNV; 
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=gEGnKqux; 
  dkim-atps=neutral
-Received: by mail-ob0-x241.google.com with SMTP id aq1so4697063obc.0
- for <openbmc@lists.ozlabs.org>; Thu, 05 May 2016 06:21:33 -0700 (PDT)
+Received: by mail-oi0-x243.google.com with SMTP id i2so13698532oib.3
+ for <openbmc@lists.ozlabs.org>; Thu, 05 May 2016 06:23:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=TjGb85B0K3noYkTX8GSPHyn9UGYKgMX1qHiOa8Jgn/s=;
- b=gE7fBFdzxN3J05yD+HabkXx8VbZSVtFaFiyXltnK1RL3MUESGzvldK7rORVV0PWmGy
- 6m2aHhTpuOTYKC/fXy5TqHxv89ag2JGkGcC/HLH1tmV7RX4pviKD6MFo4ANipqMo9klH
- +mLI2PuDbKiNSTz8L3nVy2mw/u6cXBrkhW22eXyczNDbTzaUcnlWzhH66fUTpnB5DxPb
- C1Y7aGl9VVXt6b7l33PlYw4rjVa5oGMRFh72AiTfaxQk8uYoKv6MTIyneRnN6Sy3okSF
- eKDC3V2xLPkWGD5XsNDlG0hKtPqzcJ+XZebZFWXuEGljCScyZfHRYUqE/KvJCIRlJESI
- WfOQ==
+ bh=q4Q/O3szVLHk4+yHm0xhPfgS5mc7meaUZGhsyq8zCJo=;
+ b=dtmowmnf00D3MyIc3Fe4jB5c8d2jCXm4aMtUQW6OfN88ryq/ftn5lrr+WJZkGJKEfd
+ HEX8P9vKxKWO6M944+x/HFZRg1rETukV1tEygtZbhSnn6NrwS5HTd4HzjTaLeraUp6rQ
+ +oMoQFAkWU/PYiguGu+kdXy31d/M4JjcUrEtRDvcdoT/yLy49p/Mhd3sK9z58pe77MGp
+ Fr9qkpSorSySMVCapjXoq+ve5nXRp6N37ZFzDcF/trw9SQ1mlaYS9BTTPDVtsBo+jYdD
+ twrZIuVioZZYRgkxxBt6cmwBUFQHLOAh2uOFE1AgwFgOt6ipGK3783+N0MkL9J7HpOn6
+ jSbQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=TjGb85B0K3noYkTX8GSPHyn9UGYKgMX1qHiOa8Jgn/s=;
- b=d7eZLJNVLBRlyD6YA8xJxox2ZP2SbRwkWyHSvN2ajoF7y2jM/kSAPp8RJIWwv+fMm7
- 3fko6BXOnt1mlNqCrlCDlS00f3F2tDtpmWruH4/V3aAvTTtevNaN/fhVbBhW/gGHcf9r
- 6NmRduoIJkI12Dh9IV9sI41y+yZL/UMQYr4wM=
+ bh=q4Q/O3szVLHk4+yHm0xhPfgS5mc7meaUZGhsyq8zCJo=;
+ b=gEGnKquxdeQLrsl/sZzUoioHUSYstFfDNNZ/13fJIGPgqWfD8Ruvb9r2Uj31XVleWE
+ 7dKpVciKNlFdgGE1R5BSRP/pMNtrCRFEgYmUICqQktW1B0Hn4cWoaso1JrEKCuyqEewa
+ EymmgIHZslqQ8gXckg1w1NHUo3+QrjY2Eh0fQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=TjGb85B0K3noYkTX8GSPHyn9UGYKgMX1qHiOa8Jgn/s=;
- b=cIIYs0jMMno/Vqhp8615/YA/17SUefxHbqdBV1GvLJC7fErnn7uxg5CoPUMWkoxPWT
- DYpzRKLUU2Vs9A03AwXKhZfhq9Z1UEAqL4R7k7u0IpATSjtfTlG8Z1n2TKiAGobzhAAk
- y5Byr6sJ0GwReE7DJTT5npAFih840O3BHF1r6+Tk06g0CLm1bJvQPIr9dzzglJg21peW
- Q0O5UFnyvsPf56HZUzXWyyu/44eF4KUm515Lbe7mymMvU9s8ppO1bFthN7W8hrN0KV5n
- R8NvUVOHlwUlrtDcXt8BFT34Sd4YjGKIVm0V+UcNeVzRbkyqY6vcmraTAZQfY7D1+Q5m
- fQyQ==
-X-Gm-Message-State: AOPr4FVJD4VAWcWYJfVIMO7oEaSlnNSR6Ei29GdNkPc+DSFvw6sYy+vJ551xFOS9P8+MA5NwZoP6cFb3ZLYcwg==
-X-Received: by 10.182.224.137 with SMTP id rc9mr6649313obc.39.1462454490946;
- Thu, 05 May 2016 06:21:30 -0700 (PDT)
+ bh=q4Q/O3szVLHk4+yHm0xhPfgS5mc7meaUZGhsyq8zCJo=;
+ b=aW4BhdJcJH1P2fA40Tkd7zj0g30OEUGg9uoDga2y5X5lyqMhftkYR65HjXXvkerwvt
+ m8za8a+qcpJ6xj+b+5aWIBWiA8zYt8PEHyk5LrGHnqzSNXCvLP1owdz+/YgFLspcF3Ep
+ 8zhoK46JBsXtuXg5zc05rcy9o+1alT7BWPUa1D3PAWc1OOYmE2pITCEC3FPQCWMbbG/z
+ AHyVV0aCcE5LjcJrtldi1x5BEXlOz73ULekvH9b5d5lWqorxaUTE/+rjlo3+gP/rgTZg
+ HUeUQeav3n7YKwo6q8bOQ9ncE2+RIk+kQ/Sm47YU/tWILroX0mf9TsSEKQLL1YEigJyc
+ /alw==
+X-Gm-Message-State: AOPr4FVFEfvv80cgsfv8vrbg7pRkNJAHGIc1lTikkZvDOHkS4ee2vapk5aqB89ebdR8gkV1pIu43wf2eB/hunA==
+X-Received: by 10.157.41.202 with SMTP id g10mr7205210otd.122.1462454629344;
+ Thu, 05 May 2016 06:23:49 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.60.79.200 with HTTP; Thu, 5 May 2016 06:21:11 -0700 (PDT)
-In-Reply-To: <1462411636-7225-5-git-send-email-cyrilbur@gmail.com>
+Received: by 10.60.79.200 with HTTP; Thu, 5 May 2016 06:23:29 -0700 (PDT)
+In-Reply-To: <1462411636-7225-2-git-send-email-cyrilbur@gmail.com>
 References: <1462411636-7225-1-git-send-email-cyrilbur@gmail.com>
- <1462411636-7225-5-git-send-email-cyrilbur@gmail.com>
+ <1462411636-7225-2-git-send-email-cyrilbur@gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 5 May 2016 22:51:11 +0930
-X-Google-Sender-Auth: LJGxOUoikzx2bZfA7RjG9AkFiPg
-Message-ID: <CACPK8Xf7Bzi99E3=69Pi_O1aZTG9EOUNy+1uNO6+-87=zbTF1w@mail.gmail.com>
-Subject: Re: [PATCH 4/6] arm/dts: Set I2C_TEN_BIT_ADDRESS in Firestone BMC
- board i2c addresses
+Date: Thu, 5 May 2016 22:53:29 +0930
+X-Google-Sender-Auth: ovzSNMahvDWvgJbLafXUX3j09T4
+Message-ID: <CACPK8XcdrVKtq==hH7-FCPowMWvnxVfgL4eyx+08x-qjW6NZ_Q@mail.gmail.com>
+Subject: Re: [PATCH 1/6] phy/broadcom: Add support for the BCM54210E
 To: Cyril Bur <cyrilbur@gmail.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Gavin Shan <gwshan@linux.vnet.ibm.com>
@@ -70,69 +69,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 May 2016 13:21:34 -0000
+X-List-Received-Date: Thu, 05 May 2016 13:23:51 -0000
 
 On Thu, May 5, 2016 at 10:57 AM, Cyril Bur <cyrilbur@gmail.com> wrote:
+> From: Joel Stanley <joel@jms.id.au>
 
-Did you work out why we needed this, and why it fixes things?
+Are you happy that this is correct? I will submit it upstream if so.
 
-Should we be doing it for all the device trees?
-
+>
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
 > Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
 > ---
->  arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> index 2b988e7..379b561 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> @@ -75,7 +75,7 @@
->                                 i2c5: i2c-bus@180 {
->                                         tmp423@98 {
->                                                 compatible = "ti,tmp423";
-> -                                               reg = <0x98>;
-> +                                               reg = <0x80000098>;
->                                         };
->                                 };
->                                 i2c6: i2c-bus@1c0 {
-> @@ -98,27 +98,27 @@
->                                         status = "okay";
->                                         leds@c0 {
->                                                 compatible = "pca,pca9552led";
-> -                                               reg = <0xc0>;
-> +                                               reg = <0x800000c0>;
->                                                 // led9 - led_fault_n
->                                                 // led10 - pwr_led_n
->                                                 // led11 - rear_id_led_n
->                                         };
->                                         rtc@d0 {
->                                                 compatible = "dallas,ds3231";
-> -                                               reg = <0xd0>;
-> +                                               reg = <0x800000d0>;
->                                         };
->                                         si5338a@e2 {
->                                                 // SiLabs clock generator
-> -                                               reg =<0xe2>;
-> +                                               reg =<0x800000e2>;
->                                         };
->
->                                         idt@d6 {
->                                                 // IDT 9DBV0641 clock buffer
-> -                                               reg = <0xd6>;
-> +                                               reg = <0x800000d6>;
->                                         };
->
->                                         tpm@a3 {
-> -                                               reg = <0xa3>;
-> +                                               reg = <0x800000a3>;
->                                         };
->                                 };
->                                 i2c12: i2c-bus@440 {
-> --
-> 2.8.2
->
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+>  drivers/net/phy/broadcom.c | 13 +++++++++++++
+>  include/linux/brcmphy.h    |  2 ++
+>  2 files changed, 15 insertions(+)
