@@ -1,53 +1,52 @@
 Return-Path: <cyrilbur@gmail.com>
-Received: from e23smtp06.au.ibm.com (e23smtp06.au.ibm.com [202.81.31.148])
+Received: from e23smtp08.au.ibm.com (e23smtp08.au.ibm.com [202.81.31.141])
  (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r0ckM693QzDq5v
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r0ckM6fbQzDq5g
  for <openbmc@lists.ozlabs.org>; Thu,  5 May 2016 11:28:43 +1000 (AEST)
 Received: from localhost
- by e23smtp06.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e23smtp08.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <cyrilbur@gmail.com>;
  Thu, 5 May 2016 11:28:42 +1000
-Received: from d23dlp02.au.ibm.com (202.81.31.213)
- by e23smtp06.au.ibm.com (202.81.31.212) with IBM ESMTP SMTP Gateway:
+Received: from d23dlp03.au.ibm.com (202.81.31.214)
+ by e23smtp08.au.ibm.com (202.81.31.205) with IBM ESMTP SMTP Gateway:
  Authorized Use Only! Violators will be prosecuted; 
  Thu, 5 May 2016 11:28:40 +1000
-X-IBM-Helo: d23dlp02.au.ibm.com
+X-IBM-Helo: d23dlp03.au.ibm.com
 X-IBM-MailFrom: cyrilbur@gmail.com
 X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from d23relay09.au.ibm.com (d23relay09.au.ibm.com [9.185.63.181])
- by d23dlp02.au.ibm.com (Postfix) with ESMTP id 932E42BB005E
- for <openbmc@lists.ozlabs.org>; Thu,  5 May 2016 11:28:39 +1000 (EST)
-Received: from d23av03.au.ibm.com (d23av03.au.ibm.com [9.190.234.97])
- by d23relay09.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u451SVtl60817602
- for <openbmc@lists.ozlabs.org>; Thu, 5 May 2016 11:28:39 +1000
-Received: from d23av03.au.ibm.com (localhost [127.0.0.1])
- by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u451S7r3005392
- for <openbmc@lists.ozlabs.org>; Thu, 5 May 2016 11:28:07 +1000
+Received: from d23relay10.au.ibm.com (d23relay10.au.ibm.com [9.190.26.77])
+ by d23dlp03.au.ibm.com (Postfix) with ESMTP id DB29F3578053
+ for <openbmc@lists.ozlabs.org>; Thu,  5 May 2016 11:28:38 +1000 (EST)
+Received: from d23av01.au.ibm.com (d23av01.au.ibm.com [9.190.234.96])
+ by d23relay10.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u451SU0h6423012
+ for <openbmc@lists.ozlabs.org>; Thu, 5 May 2016 11:28:38 +1000
+Received: from d23av01.au.ibm.com (localhost [127.0.0.1])
+ by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u451S5d5025799
+ for <openbmc@lists.ozlabs.org>; Thu, 5 May 2016 11:28:05 +1000
 Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
- by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u451S6Ar004960; Thu, 5 May 2016 11:28:06 +1000
+ by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u451S4uA025355; Thu, 5 May 2016 11:28:05 +1000
 Received: from camb691.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
  (using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
  (No client certificate requested)
- by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 2AEE8A030E;
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 08096A0282;
  Thu,  5 May 2016 11:27:40 +1000 (AEST)
 From: Cyril Bur <cyrilbur@gmail.com>
 To: openbmc@lists.ozlabs.org
 Cc: gwshan@linux.vnet.ibm.com
-Subject: [PATCH 4/6] arm/dts: Set I2C_TEN_BIT_ADDRESS in Firestone BMC board
- i2c addresses
-Date: Thu,  5 May 2016 11:27:14 +1000
-Message-Id: <1462411636-7225-5-git-send-email-cyrilbur@gmail.com>
+Subject: [PATCH 1/6] phy/broadcom: Add support for the BCM54210E
+Date: Thu,  5 May 2016 11:27:11 +1000
+Message-Id: <1462411636-7225-2-git-send-email-cyrilbur@gmail.com>
 X-Mailer: git-send-email 2.8.2
 In-Reply-To: <1462411636-7225-1-git-send-email-cyrilbur@gmail.com>
 References: <1462411636-7225-1-git-send-email-cyrilbur@gmail.com>
 X-TM-AS-MML: disable
 X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16050501-0021-0000-0000-000009738ED4
+x-cbid: 16050501-0029-0000-0000-0000458C5E43
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -61,56 +60,58 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 05 May 2016 01:28:44 -0000
 
+From: Joel Stanley <joel@jms.id.au>
+
+Signed-off-by: Joel Stanley <joel@jms.id.au>
 Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
 ---
- arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/net/phy/broadcom.c | 13 +++++++++++++
+ include/linux/brcmphy.h    |  2 ++
+ 2 files changed, 15 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-index 2b988e7..379b561 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-@@ -75,7 +75,7 @@
- 				i2c5: i2c-bus@180 {
- 					tmp423@98 {
- 						compatible = "ti,tmp423";
--						reg = <0x98>;
-+						reg = <0x80000098>;
- 					};
- 				};
- 				i2c6: i2c-bus@1c0 {
-@@ -98,27 +98,27 @@
- 					status = "okay";
- 					leds@c0 {
- 						compatible = "pca,pca9552led";
--						reg = <0xc0>;
-+						reg = <0x800000c0>;
- 						// led9 - led_fault_n
- 						// led10 - pwr_led_n
- 						// led11 - rear_id_led_n
- 					};
- 					rtc@d0 {
- 						compatible = "dallas,ds3231";
--						reg = <0xd0>;
-+						reg = <0x800000d0>;
- 					};
- 					si5338a@e2 {
- 						// SiLabs clock generator
--						reg =<0xe2>;
-+						reg =<0x800000e2>;
- 					};
+diff --git a/drivers/net/phy/broadcom.c b/drivers/net/phy/broadcom.c
+index 3ce5d95..3743164 100644
+--- a/drivers/net/phy/broadcom.c
++++ b/drivers/net/phy/broadcom.c
+@@ -604,6 +604,18 @@ static struct phy_driver broadcom_drivers[] = {
+ 	.ack_interrupt	= brcm_fet_ack_interrupt,
+ 	.config_intr	= brcm_fet_config_intr,
+ 	.driver		= { .owner = THIS_MODULE },
++}, {
++	.phy_id		= PHY_ID_BCM54210E,
++	.phy_id_mask	= 0xfffffff0,
++	.name		= "Broadcom BCM54210E",
++	.features	= PHY_GBIT_FEATURES |
++			  SUPPORTED_Pause | SUPPORTED_Asym_Pause,
++	.flags		= PHY_HAS_MAGICANEG | PHY_HAS_INTERRUPT,
++	.config_init	= bcm54xx_config_init,
++	.config_aneg	= genphy_config_aneg,
++	.read_status	= genphy_read_status,
++	.ack_interrupt	= bcm_phy_ack_intr,
++	.config_intr	= bcm_phy_config_intr,
+ } };
  
- 					idt@d6 {
- 						// IDT 9DBV0641 clock buffer
--						reg = <0xd6>;
-+						reg = <0x800000d6>;
- 					};
+ module_phy_driver(broadcom_drivers);
+@@ -621,6 +633,7 @@ static struct mdio_device_id __maybe_unused broadcom_tbl[] = {
+ 	{ PHY_ID_BCM57780, 0xfffffff0 },
+ 	{ PHY_ID_BCMAC131, 0xfffffff0 },
+ 	{ PHY_ID_BCM5241, 0xfffffff0 },
++	{ PHY_ID_BCM54210E, 0xfffffff0},
+ 	{ }
+ };
  
- 					tpm@a3 {
--						reg = <0xa3>;
-+						reg = <0x800000a3>;
- 					};
- 				};
- 				i2c12: i2c-bus@440 {
+diff --git a/include/linux/brcmphy.h b/include/linux/brcmphy.h
+index 59f4a73..3d644da 100644
+--- a/include/linux/brcmphy.h
++++ b/include/linux/brcmphy.h
+@@ -32,6 +32,8 @@
+ 
+ #define PHY_ID_BCM_CYGNUS		0xae025200
+ 
++#define PHY_ID_BCM54210E		0x600d84a0
++
+ #define PHY_BCM_OUI_MASK		0xfffffc00
+ #define PHY_BCM_OUI_1			0x00206000
+ #define PHY_BCM_OUI_2			0x0143bc00
 -- 
 2.8.2
