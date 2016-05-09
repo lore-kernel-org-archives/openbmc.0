@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r3HFT0lL1zDq64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r3HFT0l4nzDq5m
  for <openbmc@lists.ozlabs.org>; Mon,  9 May 2016 19:31:24 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 146278628237131.922215253918125;
- Mon, 9 May 2016 02:31:22 -0700 (PDT)
+ with SMTPS id 146278628035320.27331687010667;
+ Mon, 9 May 2016 02:31:20 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Ken Lai <ken1029@gmail.com>
-Subject: [PATCH skeleton v7 21/21] Revert "Setup FUNC_MODE[2:0]"
-Date: Mon,  9 May 2016 04:30:54 -0500
-Message-Id: <1462786254-18000-22-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: johnhcwang <hsienchiang@gmail.com>
+Subject: [PATCH skeleton v7 19/21] Support FAN LED feature
+Date: Mon,  9 May 2016 04:30:52 -0500
+Message-Id: <1462786254-18000-20-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.1
 In-Reply-To: <1462786254-18000-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1462786254-18000-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -30,1010 +30,591 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Mon, 09 May 2016 09:31:25 -0000
 
-From: Ken Lai <ken1029@gmail.com>
+From: johnhcwang <hsienchiang@gmail.com>
 
-This reverts commit c648d4d6484a9ec789b853b709db17dfb94d8187.
-
-Conflicts:
-	objects/control_bmc_barreleye.c
-	objects/control_bmc_obj.c
 ---
- Makefile                        |   5 +-
- objects/control_bmc_barreleye.c | 496 ++++++++++++++++++++--------------------
- objects/control_bmc_obj.c       | 445 +++++++++++++++++------------------
- 3 files changed, 473 insertions(+), 473 deletions(-)
+ objects/fan_algorithm.c | 475 ++++++++++++++++++++++++++----------------------
+ 1 file changed, 261 insertions(+), 214 deletions(-)
 
-diff --git a/Makefile b/Makefile
-index 78e48b8..e2aac60 100755
---- a/Makefile
-+++ b/Makefile
-@@ -24,7 +24,7 @@ LIB_FLAG += $(shell pkg-config  --libs libsystemd)
- %.o: objects/pflash/libflash/%.c
- 	$(CC) -c -o obj/$@ $< $(CFLAGS) $(INCLUDES)
+diff --git a/objects/fan_algorithm.c b/objects/fan_algorithm.c
+index 9665860..9bb3f4c 100755
+--- a/objects/fan_algorithm.c
++++ b/objects/fan_algorithm.c
+@@ -6,45 +6,59 @@
+ #include "i2c-dev.h"
+ #include "log.h"
  
--all: setup libopenbmc_intf power_control led_controller button_power button_reset control_host host_watchdog board_vpd pcie_slot_present flash_bios flasher pflash hwmons_barreleye control_bmc i2craw info fan_algorithm
-+all: setup libopenbmc_intf power_control led_controller button_power button_reset control_host host_watchdog board_vpd pcie_slot_present flash_bios flasher pflash hwmons_barreleye control_bmc info fan_algorithm
++
++#define NUM_DIMM	32
++#define NUM_FAN		12
++#define NUM_CPU_CORE	12
++#define NUM_PWM		6
++
+ const char *gService = "org.openbmc.Sensors";
+ const char *fanService = "org.openbmc.control.Fans";
+-
+-const char *gfanflagObjPath = "/org/openbmc/sensors/FanParameter/flag";
+-const char *gfanCPUvaribleObjPath = "/org/openbmc/sensors/FanParameter/flag";
+-const char *gfanDIMMvaribleObjPath = "/org/openbmc/sensors/FanParameter/flag";
+-			
+-const char *gfanpidObjPath [3] = {"/org/openbmc/sensors/FanParameter/Kp",
+-							      "/org/openbmc/sensors/FanParameter/Ki",
+-							      "/org/openbmc/sensors/FanParameter/Kd"};
+-
+-
+-const char *gCPU0ObjPath [12] = {"/org/openbmc/sensors/temperature/cpu0/core0",
+-								 "/org/openbmc/sensors/temperature/cpu0/core1",
+-								 "/org/openbmc/sensors/temperature/cpu0/core2",
+-								 "/org/openbmc/sensors/temperature/cpu0/core3",
+-								 "/org/openbmc/sensors/temperature/cpu0/core4",
+-								 "/org/openbmc/sensors/temperature/cpu0/core5",
+-								 "/org/openbmc/sensors/temperature/cpu0/core6",
+-								 "/org/openbmc/sensors/temperature/cpu0/core7",
+-								 "/org/openbmc/sensors/temperature/cpu0/core8",
+-								 "/org/openbmc/sensors/temperature/cpu0/core9",
+-								 "/org/openbmc/sensors/temperature/cpu0/core10",
+-								 "/org/openbmc/sensors/temperature/cpu0/core11"};
++const char *gService_Power = "org.openbmc.control.Chassis";
++const char *gObjPath_Power = "/org/openbmc/control/chassis0";
++const char *gIntPath_Power = "org.openbmc.control.Chassis";
++
++const char *fanInObjPath [NUM_FAN] = {"/org/openbmc/sensors/tach/fan0H",
++				"/org/openbmc/sensors/tach/fan0L",
++				"/org/openbmc/sensors/tach/fan1H",
++				"/org/openbmc/sensors/tach/fan1L",
++				"/org/openbmc/sensors/tach/fan2H",
++				"/org/openbmc/sensors/tach/fan2L",
++				"/org/openbmc/sensors/tach/fan3H",
++				"/org/openbmc/sensors/tach/fan3L",
++				"/org/openbmc/sensors/tach/fan4H",
++				"/org/openbmc/sensors/tach/fan4L",
++				"/org/openbmc/sensors/tach/fan5H",
++				"/org/openbmc/sensors/tach/fan5L",
++				};
++
++const char *gCPU0ObjPath[NUM_CPU_CORE] = {"/org/openbmc/sensors/temperature/cpu0/core0",
++						 "/org/openbmc/sensors/temperature/cpu0/core1",
++						 "/org/openbmc/sensors/temperature/cpu0/core2",
++						 "/org/openbmc/sensors/temperature/cpu0/core3",
++						 "/org/openbmc/sensors/temperature/cpu0/core4",
++						 "/org/openbmc/sensors/temperature/cpu0/core5",
++						 "/org/openbmc/sensors/temperature/cpu0/core6",
++						 "/org/openbmc/sensors/temperature/cpu0/core7",
++						 "/org/openbmc/sensors/temperature/cpu0/core8",
++						 "/org/openbmc/sensors/temperature/cpu0/core9",
++						 "/org/openbmc/sensors/temperature/cpu0/core10",
++						 "/org/openbmc/sensors/temperature/cpu0/core11"};
+ 								
+-const char *gCPU1ObjPath [12] = {"/org/openbmc/sensors/temperature/cpu0/core0",
+-								 "/org/openbmc/sensors/temperature/cpu0/core1",
+-								 "/org/openbmc/sensors/temperature/cpu0/core2",
+-								 "/org/openbmc/sensors/temperature/cpu0/core3",
+-								 "/org/openbmc/sensors/temperature/cpu0/core4",
+-								 "/org/openbmc/sensors/temperature/cpu0/core5",
+-								 "/org/openbmc/sensors/temperature/cpu0/core6",
+-								 "/org/openbmc/sensors/temperature/cpu0/core7",
+-								 "/org/openbmc/sensors/temperature/cpu0/core8",
+-								 "/org/openbmc/sensors/temperature/cpu0/core9",
+-								 "/org/openbmc/sensors/temperature/cpu0/core10",
+-								 "/org/openbmc/sensors/temperature/cpu0/core11"};
+-
+-const char *gDIMMObjPath [32] = {"/org/openbmc/sensors/temperature/dimm0",
++const char *gCPU1ObjPath[NUM_CPU_CORE] = {"/org/openbmc/sensors/temperature/cpu1/core0",
++						 "/org/openbmc/sensors/temperature/cpu1/core1",
++						 "/org/openbmc/sensors/temperature/cpu1/core2",
++						 "/org/openbmc/sensors/temperature/cpu1/core3",
++						 "/org/openbmc/sensors/temperature/cpu1/core4",
++						 "/org/openbmc/sensors/temperature/cpu1/core5",
++						 "/org/openbmc/sensors/temperature/cpu1/core6",
++						 "/org/openbmc/sensors/temperature/cpu1/core7",
++						 "/org/openbmc/sensors/temperature/cpu1/core8",
++						 "/org/openbmc/sensors/temperature/cpu1/core9",
++						 "/org/openbmc/sensors/temperature/cpu1/core10",
++						 "/org/openbmc/sensors/temperature/cpu1/core11"};
++
++const char *gDIMMObjPath [NUM_DIMM] = {"/org/openbmc/sensors/temperature/dimm0",
+ 								 "/org/openbmc/sensors/temperature/dimm1",
+ 								 "/org/openbmc/sensors/temperature/dimm2",
+ 								 "/org/openbmc/sensors/temperature/dimm3",
+@@ -91,22 +105,6 @@ const char *fanObjPath [6] ={"/org/openbmc/sensors/speed/fan0",
+ const char *gIntPath = "org.openbmc.SensorValue";
  
- setup: 
- 	mkdir -p obj lib
-@@ -69,9 +69,6 @@ flasher:  $(OBJS2) flasher_obj.o libopenbmc_intf
- pflash:  $(OBJS2) pflash.o
- 	$(CC) -o bin/$@ obj/pflash.o $(OBJS3) $(LDFLAGS)
  
--i2craw:  $(OBJS2) i2craw.o
--	$(CC) -o bin/$@ obj/i2craw.o $(LDFLAGS)
+-char *gMessage = NULL;
 -
- info:   info.o
- 	$(CC) -o bin/$@ obj/info.o $(LDFLAGS) $(LIBS_info)
+-#define MAX_BYTES 255
+-
+-int g_use_pec = 0;
+-int g_has_write = 1;
+-int g_n_write = 0;
+-uint8_t g_write_bytes[MAX_BYTES];
+-uint8_t g_write_color_bytes[MAX_BYTES];
+-
+-int g_has_read = 1;
+-int g_n_read = -1;
+-uint8_t g_read_bytes[MAX_BYTES];
+-uint8_t g_read_tmp[MAX_BYTES];
+-uint8_t g_bus = -1;
+-uint8_t g_slave_addr = 0xff;
+ double g_Kp = 0.7;
+ double g_Ki = -0.025;
+ double g_Kd = 1.0;
+@@ -120,18 +118,16 @@ int Interal_DIMM_Err[20]={0};
  
-diff --git a/objects/control_bmc_barreleye.c b/objects/control_bmc_barreleye.c
-index f09e379..ddfde88 100644
---- a/objects/control_bmc_barreleye.c
-+++ b/objects/control_bmc_barreleye.c
-@@ -1,247 +1,249 @@
--#include <stdint.h>
--#include <stdio.h>
--#include <stdlib.h>
--#include <string.h>
--#include <fcntl.h>
--#include <unistd.h>
--#include <sys/stat.h>
--#include <sys/mman.h>
--#include "interfaces/openbmc_intf.h"
--#include "openbmc.h"
--#include "gpio.h"
--
--/* ------------------------------------------------------------------------- */
--static const gchar* dbus_object_path = "/org/openbmc/control";
--static const gchar* instance_name = "bmc0";
--static const gchar* dbus_name = "org.openbmc.control.Bmc";
--static const gchar* i2c_dev = "/sys/bus/i2c/devices";
--
--//this probably should come from some global SOC config
--
--#define LPC_BASE		(off_t)0x1e789000
--#define LPC_HICR6		0x80
--#define LPC_HICR7		0x88
--#define LPC_HICR8		0x8c
--#define SPI_BASE		(off_t)0x1e630000
--#define SCU_BASE		(off_t)0x1e780000
--#define UART_BASE		(off_t)0x1e783000
--#define COM_BASE		(off_t)0x1e789000
--#define COM_BASE2		(off_t)0x1e789100
--#define GPIO_BASE		(off_t)0x1e6e2000
--
--static GDBusObjectManagerServer *manager = NULL;
--
--void*
--memmap(int mem_fd,off_t base)
--{
--	void* bmcreg;
--	bmcreg = mmap(NULL, getpagesize(),
--			PROT_READ | PROT_WRITE, MAP_SHARED, mem_fd, base);
--
--	if(bmcreg == MAP_FAILED) {
--		printf("ERROR: Unable to map LPC register memory");
--		exit(1);
--	}
--	return bmcreg;
--}
--
--void
--reg_init()
--{
--	g_print("BMC init\n");
--	// BMC init done here
--
--	void *bmcreg;
--	int mem_fd = open("/dev/mem", O_RDWR | O_SYNC);
--	if(mem_fd < 0) {
--		printf("ERROR: Unable to open /dev/mem");
--		exit(1);
--	}
--
--	bmcreg = memmap(mem_fd,LPC_BASE);
--	devmem(bmcreg+LPC_HICR6,0x00000500); //Enable LPC FWH cycles, Enable LPC to AHB bridge
--	devmem(bmcreg+LPC_HICR7,0x30000C00); //32M PNOR
--	devmem(bmcreg+LPC_HICR8,0xFC0003FF);
--
--	//flash controller
--	bmcreg = memmap(mem_fd,SPI_BASE);
--	devmem(bmcreg+0x00,0x00000003);
--	devmem(bmcreg+0x04,0x00002404);
--
--	//UART
--	bmcreg = memmap(mem_fd,UART_BASE);
--	devmem(bmcreg+0x00,0x00000000);  //Set Baud rate divisor -> 13 (Baud 115200)
--	devmem(bmcreg+0x04,0x00000000);  //Set Baud rate divisor -> 13 (Baud 115200)
--	devmem(bmcreg+0x08,0x000000c1);  //Disable Parity, 1 stop bit, 8 bits
--	bmcreg = memmap(mem_fd,COM_BASE);
--	devmem(bmcreg+0x9C,0x00000000);  //Set UART routing
--
--	bmcreg = memmap(mem_fd,SCU_BASE);
--	devmem(bmcreg+0x00,0x9e82fce7);
--	//devmem(bmcreg+0x00,0x9f82fce7); // B2?
--	devmem(bmcreg+0x04,0x0370e677);
--
--	// do not modify state of power pin, otherwise
--	// if this is a reboot, host will shutdown
--	uint32_t reg_20 = devmem_read(bmcreg+0x20);
--	reg_20 = reg_20 & 0x00000002;
--	devmem(bmcreg+0x20,0xcfc8f7fd | reg_20);
--	devmem(bmcreg+0x24,0xc738f20a);
--	devmem(bmcreg+0x80,0x0031ffaf);
--
--
--	//GPIO
--	bmcreg = memmap(mem_fd,GPIO_BASE);
--	devmem(bmcreg+0x84,0x00fff0c0);  //Enable UART1
--	devmem(bmcreg+0x80,0xCB000000);
--	devmem(bmcreg+0x88,0x01C000FF);
--	devmem(bmcreg+0x8c,0xC1C000FF);
--	devmem(bmcreg+0x90,0x003FA009);
--	devmem(bmcreg+0x88,0x01C0007F);
--
--
--	bmcreg = memmap(mem_fd,COM_BASE);
--	devmem(bmcreg+0x170,0x00000042);
--	devmem(bmcreg+0x174,0x00004000);
--
--	close(mem_fd);
--}
--
--int
--init_i2c_driver(int i2c_bus, const char* device, int address,bool delete)
--{
--	char dev[255];
--	g_print("Initing: device = %s, address = %02x\n",device,address);
--	if(!delete) {
--		sprintf(dev,"%s/i2c-%d/new_device",i2c_dev,i2c_bus);
--	} else {
--		sprintf(dev,"%s/i2c-%d/delete_device",i2c_dev,i2c_bus);
--	}
--	int fd = open(dev, O_WRONLY);
--	if(fd == -1) {
--		g_print("ERROR control_bmc: Unable to open device %s\n",dev);
--		return 1;
--	}
--	if(!delete) {
--		sprintf(dev,"%s 0x%02x",device,address);
--	} else {
--		sprintf(dev,"0x%02x",address);
--	}
--	int rc = write(fd,dev,strlen(dev));
--	close(fd);
--	if(rc != strlen(dev)) {
--		g_print("ERROR control_bmc: Unable to write %s\n",dev);
--		return 2;
--	}
--	return 0;
--}
--
--static gboolean
--on_init(Control *control,
--		GDBusMethodInvocation *invocation,
--		gpointer user_data)
--{
--	control_complete_init(control,invocation);
--
--	return TRUE;
--}
--
--gboolean
--go(gpointer user_data)
--{
--	cmdline *cmd = user_data;
--	Control* control = object_get_control((Object*)cmd->user_data);
--#ifdef __arm__
--	reg_init();
--#endif
--	control_emit_goto_system_state(control,"BMC_STARTING");
--
--	return FALSE;
--}
--
--static void
--on_bus_acquired(GDBusConnection *connection,
--		const gchar *name,
--		gpointer user_data)
--{
--	ObjectSkeleton *object;
--	cmdline *cmd = user_data;
--	manager = g_dbus_object_manager_server_new(dbus_object_path);
--
--	gchar *s;
--	s = g_strdup_printf("%s/%s",dbus_object_path,instance_name);
--	object = object_skeleton_new(s);
--	g_free(s);
--
--	ControlBmc* control_bmc = control_bmc_skeleton_new();
--	object_skeleton_set_control_bmc(object, control_bmc);
--	g_object_unref(control_bmc);
--
--	Control* control = control_skeleton_new();
--	object_skeleton_set_control(object, control);
--	g_object_unref(control);
--
--	//define method callbacks here
--	g_signal_connect(control,
--			"handle-init",
--			G_CALLBACK(on_init),
--			NULL); /* user_data */
--
--	/* Export the object (@manager takes its own reference to @object) */
--	g_dbus_object_manager_server_export(manager, G_DBUS_OBJECT_SKELETON(object));
--	g_object_unref(object);
--
--	/* Export all objects */
--	g_dbus_object_manager_server_set_connection(manager, connection);
--
--	//TODO:  This is a bad hack to wait for object to be on bus
--	//sleep(1);
--	cmd->user_data = object;
--	g_idle_add(go,cmd);
--}
--
--static void
--on_name_acquired(GDBusConnection *connection,
--		const gchar *name,
--		gpointer user_data)
--{
--}
--
--static void
--on_name_lost(GDBusConnection *connection,
--		const gchar     *name,
--		gpointer         user_data)
--{
--}
--
--/*----------------------------------------------------------------*/
--/* Main Event Loop                                                */
--
--gint
--main(gint argc, gchar *argv[])
--{
--	GMainLoop *loop;
--	cmdline cmd;
--	cmd.argc = argc;
--	cmd.argv = argv;
--
--	guint id;
--	loop = g_main_loop_new(NULL, FALSE);
--	cmd.loop = loop;
--
--	id = g_bus_own_name(DBUS_TYPE,
--			dbus_name,
--			G_BUS_NAME_OWNER_FLAGS_ALLOW_REPLACEMENT |
--			G_BUS_NAME_OWNER_FLAGS_REPLACE,
--			on_bus_acquired,
--			on_name_acquired,
--			on_name_lost,
--			&cmd,
--			NULL);
--
--	g_main_loop_run(loop);
--
--	g_bus_unown_name(id);
--	g_main_loop_unref(loop);
--	return 0;
--}
-+#include <stdint.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <fcntl.h>
-+#include <unistd.h>
-+#include <sys/stat.h>
-+#include <sys/mman.h>
-+#include "interfaces/openbmc_intf.h"
-+#include "openbmc.h"
-+#include "gpio.h"
-+
-+/* ---------------------------------------------------------------------------------------------------- */
-+static const gchar* dbus_object_path = "/org/openbmc/control";
-+static const gchar* instance_name = "bmc0";
-+static const gchar* dbus_name        = "org.openbmc.control.Bmc";
-+static const gchar* i2c_dev = "/sys/bus/i2c/devices";
-+
-+//this probably should come from some global SOC config
-+
-+#define LPC_BASE		(off_t)0x1e789000
-+#define LPC_HICR6		0x80
-+#define LPC_HICR7		0x88
-+#define LPC_HICR8		0x8c
-+#define SPI_BASE		(off_t)0x1e630000
-+#define SCU_BASE                (off_t)0x1e780000
-+#define UART_BASE               (off_t)0x1e783000
-+#define COM_BASE                (off_t)0x1e789000
-+#define COM_BASE2               (off_t)0x1e789100
-+#define GPIO_BASE		(off_t)0x1e6e2000
-+
-+static GDBusObjectManagerServer *manager = NULL;
-+
-+void* memmap(int mem_fd,off_t base)
-+{
-+	void* bmcreg;
-+	bmcreg = mmap(NULL, getpagesize(),
-+			PROT_READ | PROT_WRITE, MAP_SHARED, mem_fd, base);
-+
-+	if (bmcreg == MAP_FAILED) {
-+		printf("ERROR: Unable to map LPC register memory");
-+		exit(1);
-+	}
-+	return bmcreg;
-+}
-+
-+void reg_init()
-+{
-+	g_print("BMC init\n");
-+	// BMC init done here
-+
-+	void *bmcreg;
-+	int mem_fd = open("/dev/mem", O_RDWR | O_SYNC);
-+	if (mem_fd < 0) {
-+		printf("ERROR: Unable to open /dev/mem");
-+		exit(1);
-+	}
-+
-+	bmcreg = memmap(mem_fd,LPC_BASE);
-+	devmem(bmcreg+LPC_HICR6,0x00000500); //Enable LPC FWH cycles, Enable LPC to AHB bridge
-+	devmem(bmcreg+LPC_HICR7,0x30000C00); //32M PNOR
-+	devmem(bmcreg+LPC_HICR8,0xFC0003FF);
-+
-+	//flash controller
-+	bmcreg = memmap(mem_fd,SPI_BASE);
-+	devmem(bmcreg+0x00,0x00000003);
-+	devmem(bmcreg+0x04,0x00002404);
-+
-+	//UART
-+
-+	
-+	bmcreg = memmap(mem_fd,UART_BASE);
-+	devmem(bmcreg+0x00,0x00000000);  //Set Baud rate divisor -> 13 (Baud 115200)
-+	devmem(bmcreg+0x04,0x00000000);  //Set Baud rate divisor -> 13 (Baud 115200)
-+	devmem(bmcreg+0x08,0x000000c1);  //Disable Parity, 1 stop bit, 8 bits
-+	bmcreg = memmap(mem_fd,COM_BASE);
-+	devmem(bmcreg+0x9C,0x00000000);  //Set UART routing
-+
-+	bmcreg = memmap(mem_fd,SCU_BASE);
-+	devmem(bmcreg+0x00,0x9e82fce7);
-+	//devmem(bmcreg+0x00,0x9f82fce7); // B2?
-+	devmem(bmcreg+0x04,0x0370e677);
-+	
-+	// do not modify state of power pin, otherwise 
-+	// if this is a reboot, host will shutdown
-+	uint32_t reg_20 = devmem_read(bmcreg+0x20);
-+	reg_20 = reg_20 & 0x00000002;	
-+	devmem(bmcreg+0x20,0xcfc8f7fd | reg_20);
-+	devmem(bmcreg+0x24,0xc738f20a);
-+	devmem(bmcreg+0x80,0x0031ffaf);
-+
-+
-+	//GPIO
-+	bmcreg = memmap(mem_fd,GPIO_BASE);
-+	devmem(bmcreg+0x84,0x00fff0c0);  //Enable UART1
-+	devmem(bmcreg+0x80,0xCB000000);
-+	devmem(bmcreg+0x88,0x01C000FF);
-+	devmem(bmcreg+0x8c,0xC1C000FF);
-+	devmem(bmcreg+0x90,0x003FA009);
-+	devmem(bmcreg+0x88,0x01C0007F);
-+
-+
-+	bmcreg = memmap(mem_fd,COM_BASE);
-+	devmem(bmcreg+0x170,0x00000042);
-+	devmem(bmcreg+0x174,0x00004000);
-+
-+	close(mem_fd);
-+}
-+
-+int init_i2c_driver(int i2c_bus, const char* device, int address,bool delete)
-+{
-+	char dev[255];
-+	g_print("Initing: device = %s, address = %02x\n",device,address);
-+	if (!delete) {
-+		sprintf(dev,"%s/i2c-%d/new_device",i2c_dev,i2c_bus);
-+	} else {
-+		sprintf(dev,"%s/i2c-%d/delete_device",i2c_dev,i2c_bus);
-+	}
-+	int fd = open(dev, O_WRONLY);
-+	if (fd == -1) {
-+		g_print("ERROR control_bmc: Unable to open device %s\n",dev);
-+		return 1;
-+	}
-+	if (!delete) {
-+		sprintf(dev,"%s 0x%02x",device,address);
-+	} else {
-+		sprintf(dev,"0x%02x",address);
-+	}
-+	int rc = write(fd,dev,strlen(dev));
-+	close(fd);
-+	if (rc != strlen(dev)) {
-+		g_print("ERROR control_bmc: Unable to write %s\n",dev);
-+		return 2;
-+	}
-+	return 0;
-+}
-+
-+
-+static gboolean
-+on_init (Control          *control,
-+         GDBusMethodInvocation  *invocation,
-+         gpointer                user_data)
-+{
-+	control_complete_init(control,invocation);
-+	
-+	return TRUE;
-+}
-+gboolean go(gpointer user_data)
-+{
-+ 	cmdline *cmd = user_data;
-+	Control* control = object_get_control((Object*)cmd->user_data);
-+	#ifdef __arm__
-+	reg_init();
-+	#endif
-+	control_emit_goto_system_state(control,"BMC_STARTING");
-+	
-+	return FALSE;
-+}
-+
-+static void 
-+on_bus_acquired (GDBusConnection *connection,
-+                 const gchar     *name,
-+                 gpointer         user_data)
-+{
-+	ObjectSkeleton *object;
-+ 	cmdline *cmd = user_data;
-+  	manager = g_dbus_object_manager_server_new (dbus_object_path);
-+
-+	gchar *s;
-+	s = g_strdup_printf ("%s/%s",dbus_object_path,instance_name);
-+	object = object_skeleton_new (s);
-+	g_free (s);
-+
-+	ControlBmc* control_bmc = control_bmc_skeleton_new ();
-+	object_skeleton_set_control_bmc (object, control_bmc);
-+	g_object_unref (control_bmc);
-+
-+	Control* control = control_skeleton_new ();
-+	object_skeleton_set_control (object, control);
-+	g_object_unref (control);
-+
-+	//define method callbacks here
-+	g_signal_connect (control,
-+       	            "handle-init",
-+               	    G_CALLBACK (on_init),
-+               	    NULL); /* user_data */
-+
-+	/* Export the object (@manager takes its own reference to @object) */
-+	g_dbus_object_manager_server_export (manager, G_DBUS_OBJECT_SKELETON (object));
-+	g_object_unref (object);
-+
-+	/* Export all objects */
-+	g_dbus_object_manager_server_set_connection (manager, connection);
-+
-+	//TODO:  This is a bad hack to wait for object to be on bus
-+	//sleep(1);
-+	cmd->user_data = object;
-+	g_idle_add(go,cmd);
-+}
-+
-+
-+static void
-+on_name_acquired (GDBusConnection *connection,
-+                  const gchar     *name,
-+                  gpointer         user_data)
-+{
-+
-+
-+}
-+
-+static void
-+on_name_lost (GDBusConnection *connection,
-+              const gchar     *name,
-+              gpointer         user_data)
-+{
-+}
-+
-+
-+/*----------------------------------------------------------------*/
-+/* Main Event Loop                                                */
-+
-+gint
-+main (gint argc, gchar *argv[])
-+{
-+  GMainLoop *loop;
-+  cmdline cmd;
-+  cmd.argc = argc;
-+  cmd.argv = argv;
-+
-+  guint id;
-+  loop = g_main_loop_new (NULL, FALSE);
-+  cmd.loop = loop;
-+
-+  id = g_bus_own_name (DBUS_TYPE,
-+                       dbus_name,
-+                       G_BUS_NAME_OWNER_FLAGS_ALLOW_REPLACEMENT |
-+                       G_BUS_NAME_OWNER_FLAGS_REPLACE,
-+                       on_bus_acquired,
-+                       on_name_acquired,
-+                       on_name_lost,
-+                       &cmd,
-+                       NULL);
-+
-+  g_main_loop_run (loop);
-+  
-+  g_bus_unown_name (id);
-+  g_main_loop_unref (loop);
-+  return 0;
-+}
-diff --git a/objects/control_bmc_obj.c b/objects/control_bmc_obj.c
-index f3571cd..f1a47c7 100644
---- a/objects/control_bmc_obj.c
-+++ b/objects/control_bmc_obj.c
-@@ -1,122 +1,120 @@
--#include <stdint.h>
--#include <stdio.h>
--#include <stdlib.h>
--#include <string.h>
--#include <fcntl.h>
--#include <unistd.h>
--#include <sys/stat.h>
--#include <sys/mman.h>
--#include "interfaces/openbmc_intf.h"
--#include "openbmc.h"
--#include "gpio.h"
--
--/* ------------------------------------------------------------------------- */
--static const gchar* dbus_object_path = "/org/openbmc/control";
--static const gchar* instance_name = "bmc0";
--static const gchar* dbus_name = "org.openbmc.control.Bmc";
--
--//this probably should come from some global SOC config
--
--#define LPC_BASE		(off_t)0x1e789000
--#define LPC_HICR6		0x80
--#define LPC_HICR7		0x88
--#define LPC_HICR8		0x8c
--#define SPI_BASE		(off_t)0x1e630000
--#define SCU_BASE		(off_t)0x1e780000
--#define UART_BASE		(off_t)0x1e783000
--#define COM_BASE		(off_t)0x1e789000
--#define COM_BASE2		(off_t)0x1e789100
--#define GPIO_BASE		(off_t)0x1e6e2000
--
--static GDBusObjectManagerServer *manager = NULL;
--
--void*
--memmap(int mem_fd,off_t base)
--{
--	void* bmcreg;
--	bmcreg = mmap(NULL, getpagesize(),
--			PROT_READ | PROT_WRITE, MAP_SHARED, mem_fd, base);
--
--	if(bmcreg == MAP_FAILED) {
--		printf("ERROR: Unable to map LPC register memory");
--		exit(1);
--	}
--	return bmcreg;
--}
--
--void
--reg_init()
--{
--	g_print("BMC init\n");
--	// BMC init done here
--
--	void *bmcreg;
--	int mem_fd = open("/dev/mem", O_RDWR | O_SYNC);
--	if(mem_fd < 0) {
--		printf("ERROR: Unable to open /dev/mem");
--		exit(1);
--	}
--
--	bmcreg = memmap(mem_fd,LPC_BASE);
--	devmem(bmcreg+LPC_HICR6,0x00000500); //Enable LPC FWH cycles, Enable LPC to AHB bridge
--	devmem(bmcreg+LPC_HICR7,0x30000E00); //32M PNOR
--	devmem(bmcreg+LPC_HICR8,0xFE0001FF);
--
--	//flash controller
--	bmcreg = memmap(mem_fd,SPI_BASE);
--	devmem(bmcreg+0x00,0x00000003);
--	devmem(bmcreg+0x04,0x00002404);
--
--	//UART
--
--	bmcreg = memmap(mem_fd,UART_BASE);
--	devmem(bmcreg+0x00,0x00000000);  //Set Baud rate divisor -> 13 (Baud 115200)
--	devmem(bmcreg+0x04,0x00000000);  //Set Baud rate divisor -> 13 (Baud 115200)
--	devmem(bmcreg+0x08,0x000000c1);  //Disable Parity, 1 stop bit, 8 bits
--	bmcreg = memmap(mem_fd,COM_BASE);
--	devmem(bmcreg+0x9C,0x00000000);  //Set UART routing
--
--	bmcreg = memmap(mem_fd,SCU_BASE);
--	devmem(bmcreg+0x00,0x13008CE7);
--	devmem(bmcreg+0x04,0x0370E677);
--	devmem(bmcreg+0x20,0xDF48F7FF);
--	devmem(bmcreg+0x24,0xC738F202);
--
--
--	//GPIO
--	bmcreg = memmap(mem_fd,GPIO_BASE);
--	devmem(bmcreg+0x84,0x00fff0c0);  //Enable UART1
--	devmem(bmcreg+0x70,0x120CE406);
--	devmem(bmcreg+0x80,0xCB000000);
--	devmem(bmcreg+0x88,0x01C000FF);
--	devmem(bmcreg+0x8c,0xC1C000FF);
--	devmem(bmcreg+0x90,0x003FA009);
--
--	bmcreg = memmap(mem_fd,COM_BASE);
--	devmem(bmcreg+0x170,0x00000042);
--	devmem(bmcreg+0x174,0x00004000);
--
--
--	close(mem_fd);
--}
-+#include <stdint.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <fcntl.h>
-+#include <unistd.h>
-+#include <sys/stat.h>
-+#include <sys/mman.h>
-+#include "interfaces/openbmc_intf.h"
-+#include "openbmc.h"
-+#include "gpio.h"
-+
-+/* ---------------------------------------------------------------------------------------------------- */
-+static const gchar* dbus_object_path = "/org/openbmc/control";
-+static const gchar* instance_name = "bmc0";
-+static const gchar* dbus_name        = "org.openbmc.control.Bmc";
-+
-+//this probably should come from some global SOC config
-+
-+#define LPC_BASE		(off_t)0x1e789000
-+#define LPC_HICR6		0x80
-+#define LPC_HICR7		0x88
-+#define LPC_HICR8		0x8c
-+#define SPI_BASE		(off_t)0x1e630000
-+#define SCU_BASE                (off_t)0x1e780000
-+#define UART_BASE               (off_t)0x1e783000
-+#define COM_BASE                (off_t)0x1e789000
-+#define COM_BASE2               (off_t)0x1e789100
-+#define GPIO_BASE		(off_t)0x1e6e2000
-+
-+static GDBusObjectManagerServer *manager = NULL;
-+
-+void* memmap(int mem_fd,off_t base)
-+{
-+	void* bmcreg;
-+	bmcreg = mmap(NULL, getpagesize(),
-+			PROT_READ | PROT_WRITE, MAP_SHARED, mem_fd, base);
-+
-+	if (bmcreg == MAP_FAILED) {
-+		printf("ERROR: Unable to map LPC register memory");
-+		exit(1);
-+	}
-+	return bmcreg;
-+}
-+
-+void reg_init()
-+{
-+	g_print("BMC init\n");
-+	// BMC init done here
-+
-+	void *bmcreg;
-+	int mem_fd = open("/dev/mem", O_RDWR | O_SYNC);
-+	if (mem_fd < 0) {
-+		printf("ERROR: Unable to open /dev/mem");
-+		exit(1);
-+	}
-+
-+	bmcreg = memmap(mem_fd,LPC_BASE);
-+	devmem(bmcreg+LPC_HICR6,0x00000500); //Enable LPC FWH cycles, Enable LPC to AHB bridge
-+	devmem(bmcreg+LPC_HICR7,0x30000E00); //32M PNOR
-+	devmem(bmcreg+LPC_HICR8,0xFE0001FF);
-+
-+	//flash controller
-+	bmcreg = memmap(mem_fd,SPI_BASE);
-+	devmem(bmcreg+0x00,0x00000003);
-+	devmem(bmcreg+0x04,0x00002404);
-+
-+	//UART
-+
-+	bmcreg = memmap(mem_fd,UART_BASE);
-+	devmem(bmcreg+0x00,0x00000000);  //Set Baud rate divisor -> 13 (Baud 115200)
-+	devmem(bmcreg+0x04,0x00000000);  //Set Baud rate divisor -> 13 (Baud 115200)
-+	devmem(bmcreg+0x08,0x000000c1);  //Disable Parity, 1 stop bit, 8 bits
-+	bmcreg = memmap(mem_fd,COM_BASE);
-+	devmem(bmcreg+0x9C,0x00000000);  //Set UART routing
-+
-+	bmcreg = memmap(mem_fd,SCU_BASE);
-+	devmem(bmcreg+0x00,0x13008CE7);
-+	devmem(bmcreg+0x04,0x0370E677);
-+	devmem(bmcreg+0x20,0xDF48F7FF);
-+	devmem(bmcreg+0x24,0xC738F202);
-+
-+
-+	//GPIO
-+	bmcreg = memmap(mem_fd,GPIO_BASE);
-+	devmem(bmcreg+0x84,0x00fff0c0);  //Enable UART1
-+        devmem(bmcreg+0x70,0x120CE406);
-+	devmem(bmcreg+0x80,0xCB000000);
-+	devmem(bmcreg+0x88,0x01C000FF);
-+	devmem(bmcreg+0x8c,0xC1C000FF);
-+	devmem(bmcreg+0x90,0x003FA009);
-+
-+	bmcreg = memmap(mem_fd,COM_BASE);
-+	devmem(bmcreg+0x170,0x00000042);
-+	devmem(bmcreg+0x174,0x00004000);
-+
-+
-+	close(mem_fd);
-+}
-+
-+static gboolean
-+on_init (Control          *control,
-+         GDBusMethodInvocation  *invocation,
-+         gpointer                user_data)
-+{
-+	//#ifdef __arm__
-+	//reg_init();
-+	//#endif
-+	control_complete_init(control,invocation);
-+	//control_emit_goto_system_state(control,"BMC_STARTING");
-+	return TRUE;
-+}
+ int g_fanspeed = 0;
  
- static gboolean
--on_init(Control *control,
--		GDBusMethodInvocation *invocation,
--		gpointer user_data)
--{
--	//#ifdef __arm__
--	//reg_init();
--	//#endif
--	control_complete_init(control,invocation);
--	//control_emit_goto_system_state(control,"BMC_STARTING");
--	return TRUE;
--}
 -
--static gboolean
--on_warm_reset(ControlBmc *bmc,
--		GDBusMethodInvocation *invocation,
--		gpointer user_data)
-+on_warm_reset (ControlBmc            	*bmc,
-+               GDBusMethodInvocation	*invocation,
-+               gpointer		            user_data)
+ int Openloopspeed = 0;
+ int Closeloopspeed = 0;
+ int Finalfanspeed = 0;
+ 
+-static int i2c_open()
++static int i2c_open(int bus)
  {
- 	GError *err = NULL;
- 	/* Wait a while before reboot, so the caller can be responded.
-@@ -126,7 +124,7 @@ on_warm_reset(ControlBmc *bmc,
- 	gchar *reboot_command = "/bin/sh -c 'sleep 3;reboot'";
+ 	int rc = 0, fd = -1;
+ 	char fn[32];
  
- 	g_spawn_command_line_async(reboot_command, &err);
--	if(err != NULL) {
-+	if (err != NULL) {
- 		fprintf(stderr, "warmReset() error: %s\n", err->message);
- 		g_error_free(err);
- 	}
-@@ -135,109 +133,112 @@ on_warm_reset(ControlBmc *bmc,
- 	return TRUE;
+-	g_bus = 6;
+-	snprintf(fn, sizeof(fn), "/dev/i2c-%d", g_bus);
++	snprintf(fn, sizeof(fn), "/dev/i2c-%d", bus);
+ 	fd = open(fn, O_RDWR);
+ 	if (fd == -1) {
+ 		LOG_ERR(errno, "Failed to open i2c device %s", fn);
+@@ -141,48 +137,30 @@ static int i2c_open()
+ 	return fd;
  }
  
--gboolean
--go(gpointer user_data)
--{
--	cmdline *cmd = user_data;
--	Control* control = object_get_control((Object*)cmd->user_data);
--#ifdef __arm__
--	reg_init();
--#endif
--	control_emit_goto_system_state(control,"BMC_STARTING");
--
--	//g_main_loop_quit(cmd->loop);
--	return FALSE;
--}
--
--static void
--on_bus_acquired(GDBusConnection *connection,
--		const gchar *name,
--		gpointer user_data)
--{
--	ObjectSkeleton *object;
--	cmdline *cmd = user_data;
--	manager = g_dbus_object_manager_server_new(dbus_object_path);
--
--	gchar *s;
--	s = g_strdup_printf("%s/%s",dbus_object_path,instance_name);
--	object = object_skeleton_new(s);
--	g_free(s);
--
--	ControlBmc* control_bmc = control_bmc_skeleton_new();
--	object_skeleton_set_control_bmc(object, control_bmc);
--	g_object_unref(control_bmc);
--
--	Control* control = control_skeleton_new();
--	object_skeleton_set_control(object, control);
--	g_object_unref(control);
--
--	//define method callbacks here
--	g_signal_connect(control,
--			"handle-init",
--			G_CALLBACK(on_init),
--			NULL); /* user_data */
--
--
--	g_signal_connect(control_bmc,
--			"handle-warm-reset",
--			G_CALLBACK(on_warm_reset),
--			NULL); /* user_data */
--
--	/* Export the object (@manager takes its own reference to @object) */
--	g_dbus_object_manager_server_export(manager, G_DBUS_OBJECT_SKELETON(object));
--	g_object_unref(object);
--
--	/* Export all objects */
--	g_dbus_object_manager_server_set_connection(manager, connection);
--
--	//TODO:  This is a bad hack to wait for object to be on bus
--	//sleep(1);
--	cmd->user_data = object;
--	//g_idle_add(go,cmd);
--}
-+gboolean go(gpointer user_data)
-+{
-+ 	cmdline *cmd = user_data;
-+	Control* control = object_get_control((Object*)cmd->user_data);
-+	#ifdef __arm__
-+	reg_init();
-+	#endif
-+	control_emit_goto_system_state(control,"BMC_STARTING");
-+
-+	//g_main_loop_quit(cmd->loop);
-+	return FALSE;
-+}
+-static int SetFanLed(int fd,int color)
++#define CMD_OUTPUT_PORT_0 2
++#define PCA9535_ADDR 0x20
++static int SetFanLed(int fd, uint8_t port0, uint8_t port1)
+ {
+ 	struct i2c_rdwr_ioctl_data data;
+-	struct i2c_msg msg[2];
+-	int rc = 0, n_msg = 0;
++	struct i2c_msg msg[1];
++	int rc = 0, use_pec = 0;
++	uint8_t write_bytes[3];
  
- static void
--on_name_acquired(GDBusConnection *connection,
--		const gchar *name,
--		gpointer user_data)
--{
--}
+-	memset(&msg, 0, sizeof(msg));
++//	fprintf(stderr,"SetFanLed: port0 = %02X,port1 = %02X\n",port0,port1);
+ 
+-	g_slave_addr = 0x20;
+-	g_use_pec = 0;
+-	g_n_write = 2;
++	memset(&msg, 0, sizeof(msg));
+ 
+-	if(color == 1) {
+-		//blue light
+-		g_write_bytes[0] = 0x03;
+-		g_write_bytes[1] = 0x55;
+-		g_write_color_bytes[0] = 0x02;
+-		g_write_color_bytes[1] = 0xaa;
+-	} else {
+-		//red light
+-		g_write_bytes[0] = 0x03;
+-		g_write_bytes[1] = 0xaa;
+-		g_write_color_bytes[0] = 0x02;
+-		g_write_color_bytes[1] = 0x55;
+-	}
++	write_bytes[0] = CMD_OUTPUT_PORT_0;
++	write_bytes[1] = port0;
++	write_bytes[2] = port1;
+   
+-	if (1) {
+-		msg[n_msg].addr = g_slave_addr;
+-		msg[n_msg].flags = (g_use_pec) ? I2C_CLIENT_PEC : 0;
+-		msg[n_msg].len = g_n_write;
+-		msg[n_msg].buf = g_write_bytes;
+-		n_msg++;
+-	}
+-	 if (1) {
+-		msg[n_msg].addr = g_slave_addr;
+-		msg[n_msg].flags = (g_use_pec) ? I2C_CLIENT_PEC : 0;
+-		msg[n_msg].len = g_n_write;
+-		msg[n_msg].buf = g_write_color_bytes;
+-		n_msg++;
+-	}
++	msg[0].addr = PCA9535_ADDR;
++	msg[0].flags = (use_pec) ? I2C_CLIENT_PEC : 0;
++	msg[0].len = sizeof(write_bytes);
++	msg[0].buf = write_bytes;
++
+ 	data.msgs = msg;
+-	data.nmsgs = n_msg;
++	data.nmsgs = 1;
+ 	rc = ioctl(fd, I2C_RDWR, &data);
+ 	if (rc < 0) {
+ 		LOG_ERR(errno, "Failed to do raw io");
+@@ -302,22 +280,26 @@ int OpenLoop (int sensorreading)
+ 	return 0;
+ }
+ 
 -
--static void
--on_name_lost(GDBusConnection *connection,
--		const gchar *name,
--		gpointer user_data)
--{
--}
++#define FAN_LED_OFF     0xFF
++#define FAN_LED_PORT0_ALL_BLUE  0xAA
++#define FAN_LED_PORT1_ALL_BLUE  0x55
++#define FAN_LED_PORT0_ALL_RED   0x55
++#define FAN_LED_PORT1_ALL_RED   0xAA
++#define PORT0_FAN_LED_RED_MASK  0x02
++#define PORT0_FAN_LED_BLUE_MASK	0x01
++#define PORT1_FAN_LED_RED_MASK  0x40
++#define PORT1_FAN_LED_BLUE_MASK	0x80
+ int Fan_control_algorithm(void)
+ {
+ 	sd_bus *bus = NULL;
+ 	sd_bus_error bus_error = SD_BUS_ERROR_NULL;
+ 	sd_bus_message *response = NULL;
+-	int Ambient_reading = 0, rc = 0, i = 0;
+-	int CPU0_core_temperature[12];
+-	int CPU1_core_temperature[12];
+-	int DIMM_temperature[32];
+-	int HighestCPUtemp = 0;
+-	int HighestDIMMtemp = 0;
+-	int CPUnocore[2];
+-	int fd = -1;
+-	int FinalFanSpeed = 0;
+-	int CPUtemp = 0;
++	int rc = 0, i = 0, fd = -1, offset = 0;
++	int CPU0_core_temperature[NUM_CPU_CORE], CPU1_core_temperature[NUM_CPU_CORE], HighestCPUtemp = 0;
++	int DIMM_temperature[NUM_DIMM], HighestDIMMtemp = 0;
++	int Ambient_reading = 0;
++	int Fan_tach[NUM_FAN], FinalFanSpeed = 255;
++	int Power_state = 0, fan_led_port0 = 0xFF, fan_led_port1 = 0xFF;
+ 	
+ 	do {
+ 		/* Connect to the user bus this time */
+@@ -330,147 +312,209 @@ int Fan_control_algorithm(void)
+ 	} while (rc < 0);
+ 
+ 	while (1) {
+-		CPUtemp = 0;
+-		for(i=0; i<12; i++) {
+-			rc = sd_bus_call_method(bus,                   // On the System Bus
+-						gService,               // Service to contact
+-						gCPU0ObjPath[i],            // Object path
+-						gIntPath,              // Interface name
+-						"getValue",          // Method to be called
+-						&bus_error,                 // object to return error
+-						&response,                  // Response message on success
+-						NULL);                       // input message (string,byte)
+-			if(rc < 0) {
+-//				fprintf(stderr, "Failed to get CPU 0 temperature from dbus: %s\n", bus_error.message);
+-				CPU0_core_temperature[i] = 0;
+-			} else {
+-				rc = sd_bus_message_read(response, "v","i", &CPU0_core_temperature[i]);
+-				if (rc < 0 ) {
+-					fprintf(stderr, "Failed to parse GetCpu0Temp response message:[%s]\n", strerror(-rc));
++		rc = sd_bus_call_method(bus,					// On the System Bus
++					gService_Power,				// Service to contact
++					gObjPath_Power,			 // Object path
++					gIntPath_Power,			   // Interface name
++					"getPowerState",			// Method to be called
++					&bus_error,				  // object to return error
++					&response,				  // Response message on success
++					NULL);					   // input message (string,byte)
++		if(rc < 0) {
++			fprintf(stderr, "Failed to get power state from dbus: %s\n", bus_error.message);
++			goto finish;
++		}
++
++		rc = sd_bus_message_read(response, "i", &Power_state);
++		if (rc < 0 ) {
++			fprintf(stderr, "Failed to parse GetPowerState response message:[%s]\n", strerror(-rc));
++			goto finish;
++		}
++		sd_bus_error_free(&bus_error);
++		response = sd_bus_message_unref(response);
++//		fprintf(stderr,"Power State = [%d]\n",Power_state);
++
++		if (Power_state == 1 ) {
++			for(i=0; i<NUM_CPU_CORE; i++) {
++				rc = sd_bus_call_method(bus,                   // On the System Bus
++							gService,               // Service to contact
++							gCPU0ObjPath[i],            // Object path
++							gIntPath,              // Interface name
++							"getValue",          // Method to be called
++							&bus_error,                 // object to return error
++							&response,                  // Response message on success
++							NULL);                       // input message (string,byte)
++				if(rc < 0) {
++//					fprintf(stderr, "Failed to get CPU 0 temperature from dbus: %s\n", bus_error.message);
+ 					CPU0_core_temperature[i] = 0;
++				} else {
++					rc = sd_bus_message_read(response, "v","i", &CPU0_core_temperature[i]);
++					if (rc < 0 ) {
++						fprintf(stderr, "Failed to parse GetCpu0Temp response message:[%s]\n", strerror(-rc));
++						CPU0_core_temperature[i] = 0;
++					}
+ 				}
++//				fprintf(stderr, "CPU0 core %d temperature is %d\n",i ,CPU0_core_temperature[i]);
++				if(CPU0_core_temperature[i] > HighestCPUtemp)
++					HighestCPUtemp = CPU0_core_temperature[i];
++
++				sd_bus_error_free(&bus_error);
++				response = sd_bus_message_unref(response);
+ 			}
+-//			fprintf(stderr, "CPU0 core %d temperature is %d\n",i ,CPU0_core_temperature[i]);
+-			if(CPU0_core_temperature[i] > HighestCPUtemp) {
+-				HighestCPUtemp = CPU0_core_temperature[i];
+-				CPUnocore[0] = 0;
+-				CPUnocore[1] = i;
+-			}
+-			CPUtemp = CPUtemp + CPU0_core_temperature[i];
+-			sd_bus_error_free(&bus_error);
+-			response = sd_bus_message_unref(response);
+-		}
+ 
+-		for(i=0; i<12; i++) {
+-			rc = sd_bus_call_method(bus,                   // On the System Bus
+-						gService,               // Service to contact
+-						gCPU1ObjPath[i],            // Object path
+-						gIntPath,              // Interface name
+-						"getValue",          // Method to be called
+-						&bus_error,                 // object to return error
+-						&response,                  // Response message on success
+-						NULL);                       // input message (string,byte)
+-			if(rc < 0) {
+-//				fprintf(stderr, "Failed to get CPU 1 temperature from dbus: %s\n", bus_error.message);
+-				CPU1_core_temperature[i] = 0;
+-			} else {
+-				rc = sd_bus_message_read(response, "v","i", &CPU1_core_temperature[i]);
+-				if (rc < 0 ) {
+-					fprintf(stderr, "Failed to parse GetCpu1Temp response message:[%s]\n", strerror(-rc));
++			for(i=0; i<NUM_CPU_CORE; i++) {
++				rc = sd_bus_call_method(bus,                   // On the System Bus
++							gService,               // Service to contact
++							gCPU1ObjPath[i],            // Object path
++							gIntPath,              // Interface name
++							"getValue",          // Method to be called
++							&bus_error,                 // object to return error
++							&response,                  // Response message on success
++							NULL);                       // input message (string,byte)
++				if(rc < 0) {
++//					fprintf(stderr, "Failed to get CPU 1 temperature from dbus: %s\n", bus_error.message);
+ 					CPU1_core_temperature[i] = 0;
++				} else {
++					rc = sd_bus_message_read(response, "v","i", &CPU1_core_temperature[i]);
++					if (rc < 0 ) {
++						fprintf(stderr, "Failed to parse GetCpu1Temp response message:[%s]\n", strerror(-rc));
++						CPU1_core_temperature[i] = 0;
++					}
+ 				}
++//				fprintf(stderr, "CPU1 core %d temperature is %d\n",i ,CPU1_core_temperature[i]);
++				if(CPU1_core_temperature[i] > HighestCPUtemp )
++					HighestCPUtemp = CPU1_core_temperature[i];
++
++				sd_bus_error_free(&bus_error);
++				response = sd_bus_message_unref(response);
+ 			}
+-//			fprintf(stderr, "CPU1 core %d temperature is %d\n",i ,CPU1_core_temperature[i]);
+-			if(CPU1_core_temperature[i] > HighestCPUtemp ) {
+-				HighestCPUtemp = CPU1_core_temperature[i];
+-				CPUnocore[0] = 1;
+-				CPUnocore[1] = i;
+-			}
+-			sd_bus_error_free(&bus_error);
+-			response = sd_bus_message_unref(response);
+-		}
+-//		fprintf(stderr, "Highest CPU temperature = [%d]\n", HighestCPUtemp);
+-	
+-		for(i=0; i<32; i++) {
++//			fprintf(stderr, "Highest CPU temperature = [%d]\n", HighestCPUtemp);
++
+ 			rc = sd_bus_call_method(bus,                   // On the System Bus
+ 						gService,               // Service to contact
+-						gDIMMObjPath[i],            // Object path
++						gObjPath_Ambient,            // Object path
+ 						gIntPath,              // Interface name
+ 						"getValue",          // Method to be called
+ 						&bus_error,                 // object to return error
+ 						&response,                  // Response message on success
+ 						NULL);                       // input message (string,byte)
+ 			if(rc < 0) {
+-//				fprintf(stderr, "Failed to get DIMM temperature from dbus: %s\n", bus_error.message);
+-				DIMM_temperature[i] = 0;
++				fprintf(stderr, "Failed to get ambient temperature from dbus: %s\n", bus_error.message);
++				Ambient_reading = 0;
+ 			} else {
+-				rc = sd_bus_message_read(response, "v","i", &DIMM_temperature[i]);
++				rc = sd_bus_message_read(response, "v","i", &Ambient_reading);
+ 				if (rc < 0 ) {
+ 					fprintf(stderr, "Failed to parse GetDimmTemp response message:[%s]\n", strerror(-rc));
+-					DIMM_temperature[i] = 0;
++					Ambient_reading = 0;
+ 				}
+ 			}
+-//			fprintf(stderr, "DIMM %d temperature is %d\n", i, DIMM_temperature[i]);
+-			if(DIMM_temperature[i] > HighestDIMMtemp )
+-				HighestDIMMtemp = DIMM_temperature[i];
+ 			sd_bus_error_free(&bus_error);
+ 			response = sd_bus_message_unref(response);
+-		}
+-//		fprintf(stderr, "Highest DIMM temperature = [%d]\n",HighestDIMMtemp);
 -
--/*----------------------------------------------------------------*/
--/* Main Event Loop                                                */
--
--gint
--main(gint argc, gchar *argv[])
--{
--	GMainLoop *loop;
--	cmdline cmd;
--	cmd.argc = argc;
--	cmd.argv = argv;
--
--	guint id;
--	loop = g_main_loop_new(NULL, FALSE);
--	cmd.loop = loop;
--
--	id = g_bus_own_name(DBUS_TYPE,
--			dbus_name,
--			G_BUS_NAME_OWNER_FLAGS_ALLOW_REPLACEMENT |
--			G_BUS_NAME_OWNER_FLAGS_REPLACE,
--			on_bus_acquired,
--			on_name_acquired,
--			on_name_lost,
--			&cmd,
--			NULL);
--
--	g_main_loop_run(loop);
--
--	g_bus_unown_name(id);
--	g_main_loop_unref(loop);
--	return 0;
--}
-+on_bus_acquired (GDBusConnection *connection,
-+                 const gchar     *name,
-+                 gpointer         user_data)
-+{
-+	ObjectSkeleton *object;
-+ 	cmdline *cmd = user_data;
-+  	manager = g_dbus_object_manager_server_new (dbus_object_path);
+-		rc = sd_bus_call_method(bus,                   // On the System Bus
+-					gService,               // Service to contact
+-					gObjPath_Ambient,            // Object path
+-					gIntPath,              // Interface name
+-					"getValue",          // Method to be called
+-					&bus_error,                 // object to return error
+-					&response,                  // Response message on success
+-					NULL);                       // input message (string,byte)
+-		if(rc < 0) {
+-//			fprintf(stderr, "Failed to get ambient temperature from dbus: %s\n", bus_error.message);
+-			Ambient_reading = 0;
+-		} else {
+-			rc = sd_bus_message_read(response, "v","i", &Ambient_reading);
+-			if (rc < 0 ) {
+-				fprintf(stderr, "Failed to parse GetDimmTemp response message:[%s]\n", strerror(-rc));
+-				Ambient_reading = 0;
+-			}
+-		}
+-		sd_bus_error_free(&bus_error);
+-		response = sd_bus_message_unref(response);
+-//		fprintf(stderr, "Highest ambient inlet temperature = [%d]\n", HighestCPUtemp);
++//			fprintf(stderr, "Highest ambient inlet temperature = [%d]\n", HighestCPUtemp);
 +
-+	gchar *s;
-+	s = g_strdup_printf ("%s/%s",dbus_object_path,instance_name);
-+	object = object_skeleton_new (s);
-+	g_free (s);
++			if (HighestCPUtemp > 0 && Ambient_reading > 0) {
++				for(i=0; i<NUM_DIMM; i++) {
++					rc = sd_bus_call_method(bus,                   // On the System Bus
++								gService,               // Service to contact
++								gDIMMObjPath[i],            // Object path
++								gIntPath,              // Interface name
++								"getValue",          // Method to be called
++								&bus_error,                 // object to return error
++								&response,                  // Response message on success
++								NULL);                       // input message (string,byte)
++					if(rc < 0) {
++//						fprintf(stderr, "Failed to get DIMM temperature from dbus: %s\n", bus_error.message);
++						DIMM_temperature[i] = 0;
++					} else {
++						rc = sd_bus_message_read(response, "v","i", &DIMM_temperature[i]);
++						if (rc < 0 ) {
++							fprintf(stderr, "Failed to parse GetDimmTemp response message:[%s]\n", strerror(-rc));
++							DIMM_temperature[i] = 0;
++						}
++					}
++//					fprintf(stderr, "DIMM %d temperature is %d\n", i, DIMM_temperature[i]);
++					if(DIMM_temperature[i] > HighestDIMMtemp )
++						HighestDIMMtemp = DIMM_temperature[i];
++					sd_bus_error_free(&bus_error);
++					response = sd_bus_message_unref(response);
++				}
++//				fprintf(stderr, "Highest DIMM temperature = [%d]\n",HighestDIMMtemp);
+ 
+-		if (CPUtemp == 0)	{
+-			HighestCPUtemp = 0;
+-			HighestDIMMtemp = 0;
+-		}
++				CloseLoop(HighestCPUtemp,HighestDIMMtemp);
++				OpenLoop(Ambient_reading);
+ 
+-		CloseLoop(HighestCPUtemp,HighestDIMMtemp);
+-		OpenLoop(Ambient_reading);
++				if(Openloopspeed > Closeloopspeed)
++					g_fanspeed = Openloopspeed;
++				else
++					g_fanspeed = Closeloopspeed;
+ 
+-		if(Openloopspeed > Closeloopspeed)
+-			g_fanspeed = Openloopspeed;
+-		else
+-			g_fanspeed = Closeloopspeed;
+-	
+-		fd = i2c_open();
+-		if (fd == -1) {
+-			fprintf(stderr, "Fail to set FAN LED\n");
+-		} else {
+-			if(g_fanspeed > 30)
+-				SetFanLed(fd,1);
+-			else
+-				SetFanLed(fd,2);
+-			close(fd);
+-		}
++				FinalFanSpeed = g_fanspeed * 255;
++				FinalFanSpeed = FinalFanSpeed / 100;
+ 
+-		FinalFanSpeed = g_fanspeed * 255;
+-		FinalFanSpeed = FinalFanSpeed / 100;
++				if(g_fanspeed > 30) {
++					fan_led_port0 = FAN_LED_PORT0_ALL_BLUE;
++					fan_led_port1 = FAN_LED_PORT1_ALL_BLUE;
++				} else {
++					fan_led_port0 = FAN_LED_PORT0_ALL_RED;
++					fan_led_port1 = FAN_LED_PORT1_ALL_RED;
++				}
++			} else {//HighestCPUtemp == 0 || Ambient_reading == 0
++				FinalFanSpeed = 255;
++				fan_led_port0 = FAN_LED_PORT0_ALL_BLUE;
++				fan_led_port1 = FAN_LED_PORT1_ALL_BLUE;
++			}
+ 
+-		if(HighestCPUtemp == 0) //OCC sensor does not enable
++//			fprintf(stderr,"fan_led compute: port0=%02X,port1=%02X\n",fan_led_port0,fan_led_port1);
++			for(i=0;i<NUM_FAN;i++) {
++				rc = sd_bus_call_method(bus,                               // On the System Bus
++							gService,                               // Service to contact
++							fanInObjPath[i],                        // Object path
++							gIntPath,                          // Interface name
++							"getValue",              // Method to be called
++							&bus_error,                             // object to return error
++							&response,                                      // Response message on success
++							NULL);                                           // input message (string,byte)
++				if(rc < 0) {
++					fprintf(stderr, "Failed to get fan tach from dbus: %s\n", bus_error.message);
++					Fan_tach[i] = 0;
++				} else {
++					rc = sd_bus_message_read(response, "v","i", &Fan_tach[i]);
++					if (rc < 0 ) {
++						fprintf(stderr, "Failed to parse GetFanTach response message:[%s]\n", strerror(-rc));
++						Fan_tach[i] = 0;
++					}
++				}
++				sd_bus_error_free(&bus_error);
++				response = sd_bus_message_unref(response);
 +
-+	ControlBmc* control_bmc = control_bmc_skeleton_new ();
-+	object_skeleton_set_control_bmc (object, control_bmc);
-+	g_object_unref (control_bmc);
++				if (Fan_tach[i] == 0) {
++					FinalFanSpeed = 255;
++					if (i <= 3) { //FAN 1 & 2
++						offset = i / 2 * 2;
++						fan_led_port1 &= ~(PORT1_FAN_LED_RED_MASK >> offset); //turn on red led
++						fan_led_port1 |= PORT1_FAN_LED_BLUE_MASK >> offset; //turn off blue led
++//						fprintf(stderr,"i=%d,offset=%d,fan_led_port1=%02X\n",i,offset,fan_led_port1);
++					} else { //FAN 3~6
++						offset = (i - 4) / 2 * 2;
++						fan_led_port0 &= ~(PORT0_FAN_LED_RED_MASK << offset); //turn on red led
++						fan_led_port0 |= PORT0_FAN_LED_BLUE_MASK << offset; //turn off blue led
++//						fprintf(stderr,"i=%d,offset=%d,fan_led_port0=%02X\n",i,offset,fan_led_port0);
++					}
++				}
++			}
++		} else {//Power_state == 0
+ 			FinalFanSpeed = 255;
++			fan_led_port0 = FAN_LED_OFF;
++			fan_led_port1 = FAN_LED_OFF;
++		}
 +
-+	Control* control = control_skeleton_new ();
-+	object_skeleton_set_control (object, control);
-+	g_object_unref (control);
-+
-+	//define method callbacks here
-+	g_signal_connect (control,
-+       	            "handle-init",
-+               	    G_CALLBACK (on_init),
-+               	    NULL); /* user_data */
-+
-+
-+	g_signal_connect (control_bmc,
-+		"handle-warm-reset",
-+		G_CALLBACK (on_warm_reset),
-+		NULL); /* user_data */
-+
-+	/* Export the object (@manager takes its own reference to @object) */
-+	g_dbus_object_manager_server_export (manager, G_DBUS_OBJECT_SKELETON (object));
-+	g_object_unref (object);
-+
-+	/* Export all objects */
-+	g_dbus_object_manager_server_set_connection (manager, connection);
-+
-+	//TODO:  This is a bad hack to wait for object to be on bus
-+	//sleep(1);
-+	cmd->user_data = object;
-+	//g_idle_add(go,cmd);
-+}
-+
-+
-+static void
-+on_name_acquired (GDBusConnection *connection,
-+                  const gchar     *name,
-+                  gpointer         user_data)
-+{
-+
-+
-+}
-+
-+static void
-+on_name_lost (GDBusConnection *connection,
-+              const gchar     *name,
-+              gpointer         user_data)
-+{
-+}
-+
-+
-+/*----------------------------------------------------------------*/
-+/* Main Event Loop                                                */
-+
-+gint
-+main (gint argc, gchar *argv[])
-+{
-+  GMainLoop *loop;
-+  cmdline cmd;
-+  cmd.argc = argc;
-+  cmd.argv = argv;
-+
-+  guint id;
-+  loop = g_main_loop_new (NULL, FALSE);
-+  cmd.loop = loop;
-+
-+  id = g_bus_own_name (DBUS_TYPE,
-+                       dbus_name,
-+                       G_BUS_NAME_OWNER_FLAGS_ALLOW_REPLACEMENT |
-+                       G_BUS_NAME_OWNER_FLAGS_REPLACE,
-+                       on_bus_acquired,
-+                       on_name_acquired,
-+                       on_name_lost,
-+                       &cmd,
-+                       NULL);
-+
-+  g_main_loop_run (loop);
-+
-+  g_bus_unown_name (id);
-+  g_main_loop_unref (loop);
-+  return 0;
-+}
++		fd = i2c_open(6);
++		if (fd != -1) {
++			SetFanLed(fd,fan_led_port0,fan_led_port1);
++			close(fd);
++		}
+ 
+-		for(i=0; i<6; i++) {
++		for(i=0; i<NUM_PWM; i++) {
+ 			rc = sd_bus_call_method(bus,				   // On the System Bus
+ 						gService,			   // Service to contact
+ 						fanObjPath[i],			// Object path
+@@ -490,6 +534,9 @@ finish:
+ 		sd_bus_error_free(&bus_error);
+ 		response = sd_bus_message_unref(response);
+ 		sd_bus_flush(bus);
++		HighestCPUtemp = 0;
++		HighestDIMMtemp = 0;
++		Ambient_reading = 0;
+ 		sleep(1);
+ 	}
+ 	bus = sd_bus_flush_close_unref(bus);
 -- 
 2.8.1
