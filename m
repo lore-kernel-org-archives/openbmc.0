@@ -1,55 +1,55 @@
 Return-Path: <gwshan@linux.vnet.ibm.com>
-Received: from e23smtp07.au.ibm.com (e23smtp07.au.ibm.com [202.81.31.140])
+Received: from e23smtp09.au.ibm.com (e23smtp09.au.ibm.com [202.81.31.142])
  (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r34zB71KhzDq5v
- for <openbmc@lists.ozlabs.org>; Mon,  9 May 2016 11:48:22 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r34zD1Xv3zDq5v
+ for <openbmc@lists.ozlabs.org>; Mon,  9 May 2016 11:48:24 +1000 (AEST)
 Received: from localhost
- by e23smtp07.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e23smtp09.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <gwshan@linux.vnet.ibm.com>;
- Mon, 9 May 2016 11:48:22 +1000
-Received: from d23dlp01.au.ibm.com (202.81.31.203)
- by e23smtp07.au.ibm.com (202.81.31.204) with IBM ESMTP SMTP Gateway:
+ Mon, 9 May 2016 11:48:23 +1000
+Received: from d23dlp02.au.ibm.com (202.81.31.213)
+ by e23smtp09.au.ibm.com (202.81.31.206) with IBM ESMTP SMTP Gateway:
  Authorized Use Only! Violators will be prosecuted; 
  Mon, 9 May 2016 11:48:20 +1000
-X-IBM-Helo: d23dlp01.au.ibm.com
+X-IBM-Helo: d23dlp02.au.ibm.com
 X-IBM-MailFrom: gwshan@linux.vnet.ibm.com
 X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from d23relay09.au.ibm.com (d23relay09.au.ibm.com [9.185.63.181])
- by d23dlp01.au.ibm.com (Postfix) with ESMTP id 841AD2CE8054
+Received: from d23relay10.au.ibm.com (d23relay10.au.ibm.com [9.190.26.77])
+ by d23dlp02.au.ibm.com (Postfix) with ESMTP id 912F62BB0054
  for <openbmc@lists.ozlabs.org>; Mon,  9 May 2016 11:48:19 +1000 (EST)
-Received: from d23av01.au.ibm.com (d23av01.au.ibm.com [9.190.234.96])
- by d23relay09.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u491mBvr7340336
+Received: from d23av04.au.ibm.com (d23av04.au.ibm.com [9.190.235.139])
+ by d23relay10.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u491mBdu9568614
  for <openbmc@lists.ozlabs.org>; Mon, 9 May 2016 11:48:19 +1000
-Received: from d23av01.au.ibm.com (localhost [127.0.0.1])
- by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u491llBK009416
+Received: from d23av04.au.ibm.com (localhost [127.0.0.1])
+ by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u491llaC020922
  for <openbmc@lists.ozlabs.org>; Mon, 9 May 2016 11:47:47 +1000
 Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
- by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u491ll6w008702; Mon, 9 May 2016 11:47:47 +1000
+ by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u491llE0020257; Mon, 9 May 2016 11:47:47 +1000
 Received: from bran.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
- by ozlabs.au.ibm.com (Postfix) with ESMTP id 7BBB0A034A;
+ by ozlabs.au.ibm.com (Postfix) with ESMTP id A603AA038E;
  Mon,  9 May 2016 11:47:21 +1000 (AEST)
 Received: from gwshan (shangw.ozlabs.ibm.com [10.61.2.199])
- by bran.ozlabs.ibm.com (Postfix) with ESMTP id 7CF36E3A5A;
+ by bran.ozlabs.ibm.com (Postfix) with ESMTP id A45C1E3A5A;
  Mon,  9 May 2016 11:47:21 +1000 (AEST)
 Received: by gwshan (Postfix, from userid 1000)
- id 70220942B91; Mon,  9 May 2016 11:47:21 +1000 (AEST)
+ id 97705942B91; Mon,  9 May 2016 11:47:21 +1000 (AEST)
 From: Gavin Shan <gwshan@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: Gavin Shan <gwshan@linux.vnet.ibm.com>
-Subject: [PATCH 4/8] net/ncsi: Remove ncsi_stop_dev()
-Date: Mon,  9 May 2016 11:47:15 +1000
-Message-Id: <1462758439-27910-5-git-send-email-gwshan@linux.vnet.ibm.com>
+Subject: [PATCH 5/8] net/ncsi: Enable AEN on active channel
+Date: Mon,  9 May 2016 11:47:16 +1000
+Message-Id: <1462758439-27910-6-git-send-email-gwshan@linux.vnet.ibm.com>
 X-Mailer: git-send-email 2.1.0
 In-Reply-To: <1462758439-27910-1-git-send-email-gwshan@linux.vnet.ibm.com>
 References: <1462758439-27910-1-git-send-email-gwshan@linux.vnet.ibm.com>
 X-TM-AS-MML: disable
 X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16050901-0025-0000-0000-000004985A12
+x-cbid: 16050901-0033-0000-0000-000005D2550D
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
@@ -62,73 +62,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 May 2016 01:48:23 -0000
+X-List-Received-Date: Mon, 09 May 2016 01:48:24 -0000
 
-This drops API ncsi_stop_dev() as it does nothing.
+NCSI AEN packets are transmitted by far end to notify the network
+status change. We had the wrong assumption that the functionality
+is enabled in far end by default.
+
+This transmits a AEN enablement packet when configuring the active
+channel.
 
 Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
 ---
- drivers/net/ethernet/faraday/ftgmac100.c | 6 ------
- include/net/ncsi.h                       | 6 ------
- net/ncsi/ncsi-manage.c                   | 5 -----
- 3 files changed, 17 deletions(-)
+ net/ncsi/internal.h    | 1 +
+ net/ncsi/ncsi-manage.c | 6 ++++++
+ 2 files changed, 7 insertions(+)
 
-diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
-index 2fcb7f9..87ddc97 100644
---- a/drivers/net/ethernet/faraday/ftgmac100.c
-+++ b/drivers/net/ethernet/faraday/ftgmac100.c
-@@ -1216,12 +1216,6 @@ static int ftgmac100_stop_dev(struct net_device *netdev)
- 
- static int ftgmac100_stop(struct net_device *netdev)
- {
--	struct ftgmac100 *priv = netdev_priv(netdev);
--
--	/* Stop NCSI device */
--	if (priv->use_ncsi)
--		ncsi_stop_dev(priv->ndev);
--
- 	return ftgmac100_stop_dev(netdev);
- }
- static int ftgmac100_hard_start_xmit(struct sk_buff *skb,
-diff --git a/include/net/ncsi.h b/include/net/ncsi.h
-index bf70b8d..fa50ab5 100644
---- a/include/net/ncsi.h
-+++ b/include/net/ncsi.h
-@@ -34,7 +34,6 @@ struct ncsi_dev *ncsi_register_dev(struct net_device *dev,
- 				   void (*notifier)(struct ncsi_dev *nd));
- int ncsi_start_dev(struct ncsi_dev *nd);
- int ncsi_suspend_dev(struct ncsi_dev *nd);
--void ncsi_stop_dev(struct ncsi_dev *nd);
- void ncsi_unregister_dev(struct ncsi_dev *nd);
- #else /* !CONFIG_NET_NCSI */
- static inline struct ncsi_dev *ncsi_register_dev(struct net_device *dev,
-@@ -53,11 +52,6 @@ static inline int ncsi_suspend_dev(struct ncsi_dev *nd)
- 	return -ENOTTY;
- }
- 
--static inline void ncsi_stop_dev(struct ncsi_dev *nd)
--{
--
--}
--
- void inline ncsi_unregister_dev(struct ncsi_dev *nd)
- {
- }
+diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
+index cc37d9b..2525229 100644
+--- a/net/ncsi/internal.h
++++ b/net/ncsi/internal.h
+@@ -64,6 +64,7 @@ enum {
+ 	ncsi_dev_state_config_ebf,
+ 	ncsi_dev_state_config_ecnt,
+ 	ncsi_dev_state_config_ec,
++	ncsi_dev_state_config_ae,
+ 	ncsi_dev_state_config_gls,
+ 	ncsi_dev_state_config_done,
+ 	ncsi_dev_state_suspend_select	= 0x0401,
 diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-index c32a919..05619f8 100644
+index 05619f8..9ed51f2 100644
 --- a/net/ncsi/ncsi-manage.c
 +++ b/net/ncsi/ncsi-manage.c
-@@ -899,11 +899,6 @@ int ncsi_suspend_dev(struct ncsi_dev *nd)
- }
- EXPORT_SYMBOL_GPL(ncsi_suspend_dev);
+@@ -421,6 +421,7 @@ static void ncsi_dev_config(struct ncsi_dev_priv *ndp)
+ 	case ncsi_dev_state_config_ebf:
+ 	case ncsi_dev_state_config_ecnt:
+ 	case ncsi_dev_state_config_ec:
++	case ncsi_dev_state_config_ae:
+ 	case ncsi_dev_state_config_gls:
+ 		atomic_set(&ndp->ndp_pending_reqs, 1);
  
--void ncsi_stop_dev(struct ncsi_dev *nd)
--{
--}
--EXPORT_SYMBOL_GPL(ncsi_stop_dev);
--
- void ncsi_unregister_dev(struct ncsi_dev *nd)
- {
- 	struct ncsi_dev_priv *ndp = TO_NCSI_DEV_PRIV(nd);
+@@ -447,6 +448,11 @@ static void ncsi_dev_config(struct ncsi_dev_priv *ndp)
+ 			nd->nd_state = ncsi_dev_state_config_ec;
+ 		} else if (nd->nd_state == ncsi_dev_state_config_ec) {
+ 			nca.nca_type = NCSI_PKT_CMD_EC;
++			nd->nd_state = ncsi_dev_state_config_ae;
++		} else if (nd->nd_state == ncsi_dev_state_config_ae) {
++			nca.nca_type = NCSI_PKT_CMD_AE;
++			nca.nca_bytes[0] = 0;
++			nca.nca_dwords[1] = 0x7;
+ 			nd->nd_state = ncsi_dev_state_config_gls;
+ 		} else if (nd->nd_state == ncsi_dev_state_config_gls) {
+ 			nca.nca_type = NCSI_PKT_CMD_GLS;
 -- 
 2.1.0
