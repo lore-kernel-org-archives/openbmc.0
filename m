@@ -1,21 +1,56 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <gwshan@linux.vnet.ibm.com>
+Received: from e23smtp06.au.ibm.com (e23smtp06.au.ibm.com [202.81.31.148])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r2rqb1r5nzDq64
- for <openbmc@lists.ozlabs.org>; Mon,  9 May 2016 02:40:59 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1462725651963314.5210517408008;
- Sun, 8 May 2016 09:40:51 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r34z90Fg6zDq5v
+ for <openbmc@lists.ozlabs.org>; Mon,  9 May 2016 11:48:21 +1000 (AEST)
+Received: from localhost
+ by e23smtp06.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <gwshan@linux.vnet.ibm.com>;
+ Mon, 9 May 2016 11:48:19 +1000
+Received: from d23dlp03.au.ibm.com (202.81.31.214)
+ by e23smtp06.au.ibm.com (202.81.31.212) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Mon, 9 May 2016 11:48:18 +1000
+X-IBM-Helo: d23dlp03.au.ibm.com
+X-IBM-MailFrom: gwshan@linux.vnet.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d23relay08.au.ibm.com (d23relay08.au.ibm.com [9.185.71.33])
+ by d23dlp03.au.ibm.com (Postfix) with ESMTP id DF6F13578056
+ for <openbmc@lists.ozlabs.org>; Mon,  9 May 2016 11:48:17 +1000 (EST)
+Received: from d23av04.au.ibm.com (d23av04.au.ibm.com [9.190.235.139])
+ by d23relay08.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u491m9ZV55050478
+ for <openbmc@lists.ozlabs.org>; Mon, 9 May 2016 11:48:17 +1000
+Received: from d23av04.au.ibm.com (localhost [127.0.0.1])
+ by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u491ljfU020895
+ for <openbmc@lists.ozlabs.org>; Mon, 9 May 2016 11:47:45 +1000
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u491ljaB020186; Mon, 9 May 2016 11:47:45 +1000
+Received: from bran.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
+ by ozlabs.au.ibm.com (Postfix) with ESMTP id C84E3A0257;
+ Mon,  9 May 2016 11:47:20 +1000 (AEST)
+Received: from gwshan (shangw.ozlabs.ibm.com [10.61.2.199])
+ by bran.ozlabs.ibm.com (Postfix) with ESMTP id C585DE3A5A;
+ Mon,  9 May 2016 11:47:20 +1000 (AEST)
+Received: by gwshan (Postfix, from userid 1000)
+ id B897F942B91; Mon,  9 May 2016 11:47:20 +1000 (AEST)
+From: Gavin Shan <gwshan@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH skeleton] Enable and Handle Checkstop gpio sensor.
-Date: Sun,  8 May 2016 11:40:49 -0500
-Message-Id: <1462725649-28798-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.8.1
-In-Reply-To: <1462725649-28798-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1462725649-28798-1-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: Gavin Shan <gwshan@linux.vnet.ibm.com>
+Subject: [PATCH 1/8] net/ncsi: Remove netlink support
+Date: Mon,  9 May 2016 11:47:12 +1000
+Message-Id: <1462758439-27910-2-git-send-email-gwshan@linux.vnet.ibm.com>
+X-Mailer: git-send-email 2.1.0
+In-Reply-To: <1462758439-27910-1-git-send-email-gwshan@linux.vnet.ibm.com>
+References: <1462758439-27910-1-git-send-email-gwshan@linux.vnet.ibm.com>
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16050901-0021-0000-0000-0000098656B4
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -27,685 +62,1250 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 08 May 2016 16:40:59 -0000
+X-List-Received-Date: Mon, 09 May 2016 01:48:21 -0000
 
-From: Hariharasubramanian R <hramasub@in.ibm.com>
+This removes NCSI netlink support that was designed as user interface
+to retrieve available packages and their associated channels. Until
+now, nobody is using this interface. Generally, it reverts commit
+4972fc2 ("net/ncsi: Netlink support"). After the NCSI core becomes
+stablized, we need revisit the user interface.
 
+Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
 ---
- Makefile                   |  24 +++---
- bin/Barreleye.py           |   1 +
- bin/Openbmc.py             |   3 +-
- bin/chassis_control.py     |  10 ++-
- includes/gpio-init-gdbus.c | 100 +++++++++++++++++++++++
- includes/gpio-init-sdbus.c |  94 ++++++++++++++++++++++
- includes/gpio.c            |  93 +---------------------
- includes/gpio.h            |   9 ++-
- objects/host_xstop_obj.c   | 194 +++++++++++++++++++++++++++++++++++++++++++++
- 9 files changed, 417 insertions(+), 111 deletions(-)
- create mode 100644 includes/gpio-init-gdbus.c
- create mode 100644 includes/gpio-init-sdbus.c
- create mode 100644 objects/host_xstop_obj.c
+ include/uapi/linux/netlink.h |    1 -
+ net/ncsi/Makefile            |    2 +-
+ net/ncsi/internal.h          |   15 -
+ net/ncsi/ncsi-cmd.c          |    8 -
+ net/ncsi/ncsi-manage.c       |   10 -
+ net/ncsi/ncsi-netlink.c      | 1042 ------------------------------------------
+ net/ncsi/ncsi.c              |   49 --
+ 7 files changed, 1 insertion(+), 1126 deletions(-)
+ delete mode 100644 net/ncsi/ncsi-netlink.c
+ delete mode 100644 net/ncsi/ncsi.c
 
-diff --git a/Makefile b/Makefile
-index 7129082..d4a4a73 100755
---- a/Makefile
-+++ b/Makefile
-@@ -35,21 +35,20 @@ clean:
- libopenbmc_intf: openbmc_intf.o
- 	$(CC) -shared -o lib/$@.so obj/openbmc_intf.o $(LDFLAGS)
+diff --git a/include/uapi/linux/netlink.h b/include/uapi/linux/netlink.h
+index c572cf5..f095155 100644
+--- a/include/uapi/linux/netlink.h
++++ b/include/uapi/linux/netlink.h
+@@ -27,7 +27,6 @@
+ #define NETLINK_ECRYPTFS	19
+ #define NETLINK_RDMA		20
+ #define NETLINK_CRYPTO		21	/* Crypto layer */
+-#define NETLINK_NCSI		22	/* NCSI */
  
--power_control: power_control_obj.o gpio.o libopenbmc_intf
--	$(CC) -o bin/$@.exe obj/gpio.o obj/power_control_obj.o $(LDFLAGS) $(LIBS)
-+power_control: power_control_obj.o gpio.o gpio-init-gdbus.o object_mapper.o libopenbmc_intf
-+	$(CC) -o bin/$@.exe obj/gpio.o obj/gpio-init-gdbus.o obj/power_control_obj.o obj/object_mapper.o $(LDFLAGS) $(LIBS)
+ #define NETLINK_INET_DIAG	NETLINK_SOCK_DIAG
  
- led_controller: led_controller.o
- 	$(CC) -o bin/$@.exe obj/led_controller.o $(LDFLAGS) $(LIB_FLAG)
+diff --git a/net/ncsi/Makefile b/net/ncsi/Makefile
+index bf9f7a9..e4094c2 100644
+--- a/net/ncsi/Makefile
++++ b/net/ncsi/Makefile
+@@ -2,4 +2,4 @@
+ # Makefile for NCSI API
+ #
+ obj-$(CONFIG_NET_NCSI) += ncsi-cmd.o ncsi-rsp.o ncsi-aen.o \
+-			  ncsi-manage.o ncsi-netlink.o ncsi.o
++			  ncsi-manage.o
+diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
+index e87991b..ac5f129 100644
+--- a/net/ncsi/internal.h
++++ b/net/ncsi/internal.h
+@@ -37,14 +37,6 @@ struct ncsi_package {
+ 	struct list_head	np_node;
+ };
  
--button_power: button_power_obj.o gpio.o libopenbmc_intf
--	$(CC) -o bin/$@.exe obj/button_power_obj.o obj/gpio.o $(LDFLAGS) $(LIBS)
-+button_power: button_power_obj.o gpio.o gpio-init-gdbus.o object_mapper.o libopenbmc_intf
-+	$(CC) -o bin/$@.exe obj/button_power_obj.o obj/gpio.o obj/gpio-init-gdbus.o obj/object_mapper.o $(LDFLAGS) $(LIBS)
- 
--button_reset: button_reset_obj.o gpio.o libopenbmc_intf
--	$(CC) -o bin/$@.exe obj/button_reset_obj.o obj/gpio.o $(LDFLAGS) $(LIBS)
-+button_reset: button_reset_obj.o gpio.o gpio-init-gdbus.o object_mapper.o libopenbmc_intf
-+	$(CC) -o bin/$@.exe obj/button_reset_obj.o obj/gpio.o obj/gpio-init-gdbus.o obj/object_mapper.o $(LDFLAGS) $(LIBS)
- 
+-struct ncsi_skb_parms {
+-	unsigned int		nsp_valid;
+-	unsigned int		nsp_portid;
+-	struct nlmsghdr		nsp_nlh;
+-};
 -
--control_host: control_host_obj.o gpio.o libopenbmc_intf
--	$(CC) -o bin/$@.exe obj/gpio.o obj/control_host_obj.o $(LDFLAGS) $(LIBS)
-+control_host: control_host_obj.o gpio.o gpio-init-gdbus.o object_mapper.o libopenbmc_intf
-+	$(CC) -o bin/$@.exe obj/gpio.o obj/gpio-init-gdbus.o obj/control_host_obj.o obj/object_mapper.o $(LDFLAGS) $(LIBS)
- 
- flash_bios:  flash_bios_obj.o libopenbmc_intf
- 	$(CC) -o bin/$@.exe obj/flash_bios_obj.o $(LDFLAGS) $(LIBS)
-@@ -57,11 +56,14 @@ flash_bios:  flash_bios_obj.o libopenbmc_intf
- host_watchdog: host_watchdog_obj.o libopenbmc_intf
- 	$(CC) -o bin/$@.exe obj/host_watchdog_obj.o $(LDFLAGS) $(LIBS)
- 
-+host_xstop: host_xstop_obj.o gpio.o gpio-init-sdbus.o
-+	$(CC) -o bin/$@.exe obj/host_xstop_obj.o obj/gpio.o obj/gpio-init-gdbus.o $(LDFLAGS) $(LIBS) -lsystemd
-+
- board_vpd: board_vpd_obj.o libopenbmc_intf
- 	$(CC) -o bin/$@.exe obj/board_vpd_obj.o $(LDFLAGS) $(LIBS)
- 
--pcie_slot_present: pcie_slot_present_obj.o gpio.o libopenbmc_intf
--	$(CC) -o bin/$@.exe obj/pcie_slot_present_obj.o obj/gpio.o $(LDFLAGS) $(LIBS)
-+pcie_slot_present: pcie_slot_present_obj.o gpio.o gpio-init-gdbus.o libopenbmc_intf
-+	$(CC) -o bin/$@.exe obj/pcie_slot_present_obj.o obj/gpio.o obj/gpio-init-gdbus.o $(LDFLAGS) $(LIBS)
- 
- flasher:  $(OBJS2) flasher_obj.o libopenbmc_intf
- 	$(CC) -o bin/$@.exe obj/flasher_obj.o $(OBJS3) $(LDFLAGS) $(LIBS)
-diff --git a/bin/Barreleye.py b/bin/Barreleye.py
-index 0cf55a1..002de51 100755
---- a/bin/Barreleye.py
-+++ b/bin/Barreleye.py
-@@ -545,6 +545,7 @@ GPIO_CONFIG['CPLD_TCK']    	  =   { 'gpio_pin': 'P0', 'direction': 'out' }
- GPIO_CONFIG['CPLD_TDO']    	  =   { 'gpio_pin': 'P1', 'direction': 'out' }
- GPIO_CONFIG['CPLD_TDI']    	  =   { 'gpio_pin': 'P2', 'direction': 'out' }
- GPIO_CONFIG['CPLD_TMS']    	  =   { 'gpio_pin': 'P3', 'direction': 'out' }
-+GPIO_CONFIG['CHECKSTOP']      =   { 'gpio_pin': 'P5', 'direction': 'in' }
- 
- GPIO_CONFIG['SLOT0_RISER_PRESENT'] =   { 'gpio_pin': 'N0', 'direction': 'in' }
- GPIO_CONFIG['SLOT1_RISER_PRESENT'] =   { 'gpio_pin': 'N1', 'direction': 'in' }
-diff --git a/bin/Openbmc.py b/bin/Openbmc.py
-index b87fec8..70e9bd8 100755
---- a/bin/Openbmc.py
-+++ b/bin/Openbmc.py
-@@ -60,8 +60,7 @@ class DbusProperties(dbus.service.Object):
-         		self.properties[interface_name][property_name] = new_value
- 			self.PropertiesChanged(interface_name,{ property_name: new_value }, [])
- 
--	@dbus.service.method("org.openbmc.Object.Properties",
--		in_signature='sa{sv}')
-+	@dbus.service.method("org.openbmc.Object.Properties", in_signature='sa{sv}')
- 	def SetMultiple(self, interface_name, prop_dict):
- 		if (self.properties.has_key(interface_name) == False):
- 			self.properties[interface_name] = {}
-diff --git a/bin/chassis_control.py b/bin/chassis_control.py
-index 334fbbf..470564c 100755
---- a/bin/chassis_control.py
-+++ b/bin/chassis_control.py
-@@ -92,6 +92,10 @@ class ChassisControlObject(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
- 		bus.add_signal_receiver(self.SystemStateHandler,signal_name = "GotoSystemState")
- 		self.InterfacesAdded(name,self.properties)
- 
-+		bus.add_signal_receiver(self.host_xstop_signal_handler, 
-+					dbus_interface = "org.openbmc.SensorValue", signal_name = "Changed", 
-+					path="/org/openbmc/sensors/host/cpu0/XStop" )
-+
- 
- 	def getInterface(self,name):
- 		o = self.dbus_objects[name]
-@@ -210,7 +214,10 @@ class ChassisControlObject(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
- 		print "Emergency Shutdown!"
- 		self.powerOff()
- 		
--		
-+	def host_xstop_signal_handler(self):
-+		print "Checkstop Error, Waiting for 30sec before Hard Rebooting"
-+		self.Set(DBUS_NAME,"reboot",1)
-+		self.reboot()
- 
- if __name__ == '__main__':
-     dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
-@@ -222,4 +229,3 @@ if __name__ == '__main__':
-     
-     print "Running ChassisControlService"
-     mainloop.run()
+-#define NCSI_CB(skb)	(*(struct ncsi_skb_parms*)&((skb)->cb))
 -
-diff --git a/includes/gpio-init-gdbus.c b/includes/gpio-init-gdbus.c
-new file mode 100644
-index 0000000..b9d7712
---- /dev/null
-+++ b/includes/gpio-init-gdbus.c
-@@ -0,0 +1,100 @@
-+#include <stdint.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <fcntl.h>
-+#include <unistd.h>
-+#include <argp.h>
-+#include <sys/stat.h>
-+#include <sys/mman.h>
-+#include "interfaces/openbmc_intf.h"
-+#include "gpio.h"
-+
-+
-+// Gets the gpio device path from gpio manager object
-+int gpio_init(void *connection, GPIO* gpio)
-+{
-+	int rc = GPIO_OK;
-+	GDBusProxy *proxy;
-+	GError *error;
-+	GVariant *result;
-+
-+	error = NULL;
-+	g_assert_no_error (error);
-+	error = NULL;
-+	proxy = g_dbus_proxy_new_sync ((GDBusConnection*)connection,
-+                                 G_DBUS_PROXY_FLAGS_NONE,
-+                                 NULL,                      /* GDBusInterfaceInfo */
-+                                 "org.openbmc.managers.System", /* name */
-+                                 "/org/openbmc/managers/System", /* object path */
-+                                 "org.openbmc.managers.System",        /* interface */
-+                                 NULL, /* GCancellable */
-+                                 &error);
-+	if (error != NULL) {
-+		return GPIO_LOOKUP_ERROR;
-+	}
-+
-+	result = g_dbus_proxy_call_sync (proxy,
-+                                   "gpioInit",
-+                                   g_variant_new ("(s)", gpio->name),
-+                                   G_DBUS_CALL_FLAGS_NONE,
-+                                   -1,
-+                                   NULL,
-+                                   &error);
-+  
-+	if (error != NULL) {
-+		return GPIO_LOOKUP_ERROR;
-+	}
-+	g_assert (result != NULL);
-+	g_variant_get (result, "(&si&s)", &gpio->dev,&gpio->num,&gpio->direction);
-+	g_print("GPIO Lookup:  %s = %d,%s\n",gpio->name,gpio->num,gpio->direction);
-+	
-+	//export and set direction
-+	char dev[254];
-+	char data[4];
-+	int fd;
-+	do {
-+		struct stat st;
-+		
-+		sprintf(dev,"%s/gpio%d/value",gpio->dev,gpio->num);
-+		//check if gpio is exported, if not export
-+    		int result = stat(dev, &st);
-+    		if (result)
-+		{
-+			sprintf(dev,"%s/export",gpio->dev);
-+			fd = open(dev, O_WRONLY);
-+			if (fd == GPIO_ERROR) {
-+				rc = GPIO_OPEN_ERROR;
-+				break;
-+			} 
-+			sprintf(data,"%d",gpio->num);
-+			rc = write(fd,data,strlen(data));
-+			close(fd);
-+			if (rc != strlen(data)) {
-+				rc = GPIO_WRITE_ERROR;
-+				break;
-+			}
-+		}
-+		const char* file = "edge";
-+		if (strcmp(gpio->direction,"in")==0 || strcmp(gpio->direction,"out")==0)
-+		{
-+			file = "direction";
-+		}
-+		sprintf(dev,"%s/gpio%d/%s",gpio->dev,gpio->num,file);
-+		fd = open(dev,O_WRONLY);
-+		if (fd == GPIO_ERROR) {
-+			rc = GPIO_WRITE_ERROR;
-+			break;
-+		}
-+		rc = write(fd,gpio->direction,strlen(gpio->direction));
-+		if (rc != strlen(gpio->direction)) {
-+			rc = GPIO_WRITE_ERROR;
-+			break;
-+		}
-+
-+		close(fd);
-+		rc = GPIO_OK;
-+	} while(0);
-+
-+	return rc;
-+}
-diff --git a/includes/gpio-init-sdbus.c b/includes/gpio-init-sdbus.c
-new file mode 100644
-index 0000000..f756038
---- /dev/null
-+++ b/includes/gpio-init-sdbus.c
-@@ -0,0 +1,94 @@
-+#include <stdint.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <fcntl.h>
-+#include <unistd.h>
-+#include <argp.h>
-+#include <sys/stat.h>
-+#include <sys/mman.h>
-+#include "gpio.h"
-+#include <systemd/sd-bus.h>
-+
-+
-+// Gets the gpio device path from gpio manager object
-+int gpio_init(void *connection, GPIO* gpio)
-+{
-+	int rc = GPIO_OK;
-+    sd_bus_error err    = SD_BUS_ERROR_NULL;
-+    sd_bus_message *res = NULL;
-+
-+    sd_bus_error_free(&err);
-+    sd_bus_message_unref(res);
-+
-+    rc = sd_bus_call_method ((sd_bus*)connection,
-+                                "org.openbmc.managers.System",  /* name */
-+                                "/org/openbmc/managers/System", /* object path */
-+                                "org.openbmc.managers.System",  /* interface */
-+                                "gpioInit",
-+                                &err,
-+                                &res,
-+                                "s",
-+                                gpio->name);
-+                             
-+    if(rc < 0)
-+    {
-+        fprintf(stderr, "Failed to init gpio for %s : %s\n", gpio->name, err.message);
-+        return -1;
-+    }
-+    
-+    rc = sd_bus_message_read (res, "sis", &gpio->dev, &gpio->num, &gpio->direction);
-+    if (rc < 0)
-+        return -1;
-+    else
-+        g_print("GPIO Lookup:  %s = %d,%s\n",gpio->name,gpio->num,gpio->direction);
-+	
-+	//export and set direction
-+	char dev[254];
-+	char data[4];
-+	int fd;
-+	do {
-+		struct stat st;
-+		
-+		sprintf(dev,"%s/gpio%d/value",gpio->dev,gpio->num);
-+		//check if gpio is exported, if not export
-+    		int result = stat(dev, &st);
-+    		if (result)
-+		{
-+			sprintf(dev,"%s/export",gpio->dev);
-+			fd = open(dev, O_WRONLY);
-+			if (fd == GPIO_ERROR) {
-+				rc = GPIO_OPEN_ERROR;
-+				break;
-+			} 
-+			sprintf(data,"%d",gpio->num);
-+			rc = write(fd,data,strlen(data));
-+			close(fd);
-+			if (rc != strlen(data)) {
-+				rc = GPIO_WRITE_ERROR;
-+				break;
-+			}
-+		}
-+		const char* file = "edge";
-+		if (strcmp(gpio->direction,"in")==0 || strcmp(gpio->direction,"out")==0)
-+		{
-+			file = "direction";
-+		}
-+		sprintf(dev,"%s/gpio%d/%s",gpio->dev,gpio->num,file);
-+		fd = open(dev,O_WRONLY);
-+		if (fd == GPIO_ERROR) {
-+			rc = GPIO_WRITE_ERROR;
-+			break;
-+		}
-+		rc = write(fd,gpio->direction,strlen(gpio->direction));
-+		if (rc != strlen(gpio->direction)) {
-+			rc = GPIO_WRITE_ERROR;
-+			break;
-+		}
-+
-+		close(fd);
-+		rc = GPIO_OK;
-+	} while(0);
-+
-+	return rc;
-+}
-diff --git a/includes/gpio.c b/includes/gpio.c
-index 25a9df8..b6fbf13 100755
---- a/includes/gpio.c
-+++ b/includes/gpio.c
-@@ -7,7 +7,6 @@
- #include <argp.h>
- #include <sys/stat.h>
- #include <sys/mman.h>
--#include "interfaces/openbmc_intf.h"
- #include "gpio.h"
+ struct ncsi_req {
+ 	unsigned char		nr_id;
+ 	bool			nr_used;
+@@ -107,7 +99,6 @@ struct ncsi_cmd_arg {
+ 	unsigned char		nca_package;
+ 	unsigned char		nca_channel;
+ 	unsigned short		nca_payload;
+-	struct nlmsghdr		*nca_nlh;
+ 	unsigned int		nca_portid;
+ 	union {
+ 		unsigned char	nca_bytes[16];
+@@ -156,10 +147,4 @@ int ncsi_xmit_cmd(struct ncsi_cmd_arg *nca);
+ int ncsi_rcv_rsp(struct sk_buff *skb, struct net_device *dev,
+ 		 struct packet_type *pt, struct net_device *orig_dev);
+ int ncsi_aen_handler(struct ncsi_dev_priv *ndp, struct sk_buff *skb);
+-
+-/* Netlink */
+-int __net_init ncsi_netlink_init(struct net *net);
+-void __net_exit ncsi_netlink_exit(struct net *net);
+-void ncsi_netlink_reply(struct nlmsghdr *h,
+-			unsigned int portid, bool timeout);
+ #endif /* __NCSI_INTERNAL_H__ */
+diff --git a/net/ncsi/ncsi-cmd.c b/net/ncsi/ncsi-cmd.c
+index b8503e1..28f297ac 100644
+--- a/net/ncsi/ncsi-cmd.c
++++ b/net/ncsi/ncsi-cmd.c
+@@ -307,14 +307,6 @@ static struct ncsi_req *ncsi_alloc_cmd_req(struct ncsi_cmd_arg *nca)
+ 	skb->dev = dev;
+ 	skb->protocol = htons(ETH_P_NCSI);
  
- 
-@@ -65,6 +64,7 @@ int gpio_read(GPIO* gpio, uint8_t *value)
- 	}
- 	return r;
- }
-+
- int gpio_clock_cycle(GPIO* gpio, int num_clks) {
- 	g_assert (gpio != NULL);
-         int i=0;
-@@ -82,97 +82,6 @@ int gpio_clock_cycle(GPIO* gpio, int num_clks) {
- 	return r;
+-	if (nca->nca_nlh) {
+-		NCSI_CB(skb).nsp_valid = 1;
+-		memcpy(&NCSI_CB(skb).nsp_nlh, nca->nca_nlh,
+-		       nlmsg_total_size(sizeof(struct ncsi_msg)));
+-	} else {
+-		NCSI_CB(skb).nsp_valid = 0;
+-	}
+-
+ 	return nr;
  }
  
--// Gets the gpio device path from gpio manager object
--int gpio_init(GDBusConnection *connection, GPIO* gpio)
+diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+index ef1de7f..1bb09eb 100644
+--- a/net/ncsi/ncsi-manage.c
++++ b/net/ncsi/ncsi-manage.c
+@@ -353,13 +353,6 @@ void ncsi_free_req(struct ncsi_req *nr, bool check, bool timeout)
+ 	nr->nr_used = false;
+ 	spin_unlock_irqrestore(&ndp->ndp_req_lock, flags);
+ 
+-	/* If the NCSI command was sent because of netlink
+-	 * messages, we need reply with the result or error.
+-	 */
+-	if (check && cmd && NCSI_CB(cmd).nsp_valid)
+-		ncsi_netlink_reply(&NCSI_CB(cmd).nsp_nlh,
+-				   NCSI_CB(cmd).nsp_portid, timeout);
+-
+ 	if (check && cmd && atomic_dec_return(&ndp->ndp_pending_reqs) == 0)
+ 		schedule_work(&ndp->ndp_work);
+ 	/* Release command and response */
+@@ -410,7 +403,6 @@ static void ncsi_dev_config(struct ncsi_dev_priv *ndp)
+ 	int ret;
+ 
+ 	nca.nca_ndp = ndp;
+-	nca.nca_nlh = NULL;
+ 
+ 	/* When we're reconfiguring the active channel, the active package
+ 	 * should be selected and the old setting on the active channel
+@@ -522,7 +514,6 @@ static void ncsi_dev_start(struct ncsi_dev_priv *ndp)
+ 	int ret;
+ 
+ 	nca.nca_ndp = ndp;
+-	nca.nca_nlh = NULL;
+ 	switch (nd->nd_state) {
+ 	case ncsi_dev_state_start:
+ 		nd->nd_state = ncsi_dev_state_start_deselect;
+@@ -696,7 +687,6 @@ static void ncsi_dev_suspend(struct ncsi_dev_priv *ndp)
+ 	int ret;
+ 
+ 	nca.nca_ndp = ndp;
+-	nca.nca_nlh = NULL;
+ 	switch (nd->nd_state) {
+ 	case ncsi_dev_state_suspend:
+ 		/* If there're no active channel, we're done */
+diff --git a/net/ncsi/ncsi-netlink.c b/net/ncsi/ncsi-netlink.c
+deleted file mode 100644
+index bcabd39..0000000
+--- a/net/ncsi/ncsi-netlink.c
++++ /dev/null
+@@ -1,1042 +0,0 @@
+-/*
+- * Copyright Gavin Shan, IBM Corporation 2015.
+- *
+- * This program is free software; you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License as published by
+- * the Free Software Foundation; either version 2 of the License, or
+- * (at your option) any later version.
+- */
+-
+-#include <linux/module.h>
+-#include <linux/kernel.h>
+-#include <linux/init.h>
+-#include <linux/netdevice.h>
+-#include <linux/skbuff.h>
+-#include <linux/netlink.h>
+-
+-#include <net/ncsi.h>
+-#include <net/net_namespace.h>
+-#include <net/sock.h>
+-
+-#include "internal.h"
+-#include "ncsi-pkt.h"
+-
+-static struct sock *ncsi_sock;
+-
+-static void ncsi_netlink_error(struct nlmsghdr *h,
+-			       unsigned int portid,
+-			       int errcode)
 -{
--	int rc = GPIO_OK;
--	GDBusProxy *proxy;
--	GError *error;
--	GVariant *result;
+-	struct sk_buff *skb;
+-	struct nlmsghdr *nlh;
+-	struct ncsi_msg *src, *dst;
+-	int ret;
 -
--	error = NULL;
--	g_assert_no_error (error);
--	error = NULL;
--	proxy = g_dbus_proxy_new_sync (connection,
--                                 G_DBUS_PROXY_FLAGS_NONE,
--                                 NULL,                      /* GDBusInterfaceInfo */
--                                 "org.openbmc.managers.System", /* name */
--                                 "/org/openbmc/managers/System", /* object path */
--                                 "org.openbmc.managers.System",        /* interface */
--                                 NULL, /* GCancellable */
--                                 &error);
--	if (error != NULL) {
--		return GPIO_LOOKUP_ERROR;
+-	skb = nlmsg_new(sizeof(*dst), GFP_ATOMIC);
+-	if (!skb)
+-		return;
+-
+-	/* The request might not have the common data instance */
+-	nlh = nlmsg_put(skb, h->nlmsg_pid, h->nlmsg_seq,
+-			h->nlmsg_type, sizeof(*dst), 0);
+-	dst = nlmsg_data(nlh);
+-	if (nlmsg_len(h) >= sizeof(*src)) {
+-		src = nlmsg_data(h);
+-		memcpy(dst, src, sizeof(*dst));
+-		dst->nm_flag &= ~NCSI_FLAG_REQUEST;
+-		dst->nm_flag |= NCSI_FLAG_RESPONSE;
+-		dst->nm_errcode = errcode;
+-	} else {
+-		memset(dst, 0, sizeof(*dst));
+-		dst->nm_flag = NCSI_FLAG_RESPONSE;
+-		dst->nm_errcode = errcode;
 -	}
 -
--	result = g_dbus_proxy_call_sync (proxy,
--                                   "gpioInit",
--                                   g_variant_new ("(s)", gpio->name),
--                                   G_DBUS_CALL_FLAGS_NONE,
--                                   -1,
--                                   NULL,
--                                   &error);
--  
--	if (error != NULL) {
--		return GPIO_LOOKUP_ERROR;
+-	nlmsg_end(skb, nlh);
+-	ret = nlmsg_notify(ncsi_sock, skb, portid, 0, 1, 0);
+-	if (ret) {
+-		pr_warn("%s: Error %d sending message (%d)\n",
+-			__func__, ret, errcode);
+-		nlmsg_free(skb);
 -	}
--	g_assert (result != NULL);
--	g_variant_get (result, "(&si&s)", &gpio->dev,&gpio->num,&gpio->direction);
--	g_print("GPIO Lookup:  %s = %d,%s\n",gpio->name,gpio->num,gpio->direction);
--	
--	//export and set direction
--	char dev[254];
--	char data[4];
--	int fd;
--	do {
--		struct stat st;
--		
--		sprintf(dev,"%s/gpio%d/value",gpio->dev,gpio->num);
--		//check if gpio is exported, if not export
--    		int result = stat(dev, &st);
--    		if (result)
--		{
--			sprintf(dev,"%s/export",gpio->dev);
--			fd = open(dev, O_WRONLY);
--			if (fd == GPIO_ERROR) {
--				rc = GPIO_OPEN_ERROR;
--				break;
--			} 
--			sprintf(data,"%d",gpio->num);
--			rc = write(fd,data,strlen(data));
--			close(fd);
--			if (rc != strlen(data)) {
--				rc = GPIO_WRITE_ERROR;
--				break;
--			}
--		}
--		const char* file = "edge";
--		if (strcmp(gpio->direction,"in")==0 || strcmp(gpio->direction,"out")==0)
--		{
--			file = "direction";
--		}
--		sprintf(dev,"%s/gpio%d/%s",gpio->dev,gpio->num,file);
--		fd = open(dev,O_WRONLY);
--		if (fd == GPIO_ERROR) {
--			rc = GPIO_WRITE_ERROR;
--			break;
--		}
--		rc = write(fd,gpio->direction,strlen(gpio->direction));
--		if (rc != strlen(gpio->direction)) {
--			rc = GPIO_WRITE_ERROR;
--			break;
--		}
--
--		close(fd);
--		rc = GPIO_OK;
--	} while(0);
--
--	return rc;
 -}
 -
+-static struct sk_buff *ncsi_netlink_get_layout(struct nlmsghdr *h,
+-					       int *errcode)
+-{
+-	struct net_device *dev;
+-	struct ncsi_dev *nd;
+-	struct ncsi_dev_priv *ndp;
+-	struct ncsi_package *np;
+-	struct ncsi_channel *nc;
+-	struct sk_buff *skb;
+-	struct nlmsghdr *nlh;
+-	struct ncsi_msg nm, *src, *dst;
+-	size_t size = sizeof(*dst);;
 -
+-	/* Find the NCSI device */
+-	src = nlmsg_data(h);
+-	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
+-	nd = dev ? ncsi_find_dev(dev) : NULL;
+-	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
+-	if (!ndp) {
+-		*errcode = NCSI_ERR_NO_DEV;
+-		return NULL;
+-	}
 -
+-	/* Allocate response */
+-	NCSI_FOR_EACH_PACKAGE(ndp, np)
+-		size += nla_total_size(sizeof(nm)) *
+-			atomic_read(&np->np_channel_num);
+-	if (size <= sizeof(nm)) {
+-		*errcode = NCSI_ERR_NO_DEV;
+-		return NULL;
+-	}
+-	skb = nlmsg_new(size, GFP_KERNEL);
+-	if (!skb) {
+-		*errcode = NCSI_ERR_NO_MEM;
+-		return NULL;
+-	}
 -
- char* get_gpio_dev(GPIO* gpio)
- {
- 	char* buf;
-diff --git a/includes/gpio.h b/includes/gpio.h
-index 8cfc59f..6c693a1 100644
---- a/includes/gpio.h
-+++ b/includes/gpio.h
-@@ -6,10 +6,10 @@
- #include <stdbool.h>
- 
- typedef struct {
--  gchar* name;
--  gchar* dev;
-+  char* name;
-+  char* dev;
-   uint16_t num;
--  gchar* direction;
-+  char* direction;
-   int fd;
-   bool irq_inited;
- } GPIO;
-@@ -24,7 +24,8 @@ typedef struct {
- #define GPIO_WRITE_ERROR  0x10
- #define GPIO_LOOKUP_ERROR 0x20
- 
--int gpio_init(GDBusConnection*, GPIO*);
-+/*int gpio_init(GDBusConnection*, GPIO*);*/
-+int gpio_init(void*, GPIO*);
- void gpio_close(GPIO*);
- int  gpio_open(GPIO*);
- int gpio_open_interrupt(GPIO*, GIOFunc, gpointer);
-diff --git a/objects/host_xstop_obj.c b/objects/host_xstop_obj.c
-new file mode 100644
-index 0000000..4f4d87b
---- /dev/null
-+++ b/objects/host_xstop_obj.c
-@@ -0,0 +1,194 @@
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <stdbool.h>
-+#include <errno.h>
-+#include <string.h>
-+#include <time.h>
-+#include <sys/types.h>
-+#include <sys/stat.h>
-+#include <fcntl.h>
-+#include <systemd/sd-bus.h>
-+#include "gpio.h"
-+
-+/* 
-+ * -----------------------------------------------
-+ * FIXME: Fetch GPIO NUM from MRW instead?
-+ * -----------------------------------------------
-+ */
-+GPIO gpio_xstop    = (GPIO){ "CHECKSTOP" }; /* This object will use these GPIOs */
-+const int gpio_num_xstop    = 440;
-+const char* gpio_dev_path   = "/sys/class/gpio";
-+const char* gpio_dev_exp    = "/sys/class/gpio/export";
-+const char* gpio_dev_xstop  = "/sys/class/gpio/gpio440";
-+const char* gpio_val_xstop  = "/sys/class/gpio/gpio440/value";
-+const char* gpio_dir_xstop  = "/sys/class/gpio/gpio440/direction";
-+
-+typedef struct {
-+    bool isXstopped;
-+} HostState;
-+
-+HostState hostState = (HostState) {false};
-+
-+static const char* xstop0      = "/org/openbmc/sensors/host/cpu0/Xstop";
-+static const char* srvc_name   = "org.openbmc.Sensors";
-+static const char* iface_name  = "org.openbmc.SensorValue";
-+
-+int bus_property_get_bool(sd_bus *bus, const char *path, const char *interface, const char *property, sd_bus_message *reply, void *userdata, sd_bus_error *error)
-+{ 
-+}
-+
-+static const sd_bus_vtable host_xstop_vtable[] =
-+{
-+    SD_BUS_VTABLE_START(0),
-+    SD_BUS_PROPERTY("IsXstopped", "b", bus_property_get_bool, offsetof(HostState, isXstopped), SD_BUS_VTABLE_PROPERTY_EMITS_CHANGE),
-+    SD_BUS_VTABLE_END,
-+};
-+
-+
-+sd_bus* bus         = NULL;
-+sd_bus_slot* slot   = NULL;
-+
-+static gboolean
-+on_host_xstop (GIOChannel *channel, 
-+                GIOCondition condition, 
-+                gpointer user_data)
-+{
-+
-+	GError* error       = 0;
-+	gsize bytes_read    = 0;
-+	gchar buf[2]; 
-+	buf[1] = '\0';
-+	g_io_channel_seek_position(channel, 0, G_SEEK_SET, 0);
-+	GIOStatus rc = g_io_channel_read_chars(channel,
-+                                            buf, 1,
-+                                            &bytes_read,
-+                                            &error);
-+	printf("%s\n",buf);
-+	
-+	if (gpio_xstop.irq_inited)
-+	{
-+        hostState.isXstopped = true;
-+        /* Wait for 30 secs */ 
-+        /* and Reboot the host. */
-+	} 
-+	else 
-+    { 
-+        gpio_xstop.irq_inited = true; 
-+    }
-+
-+	return true;
-+}
-+
-+int main(void)
-+{
-+    int rc              = 0;
-+    int fd              = 0;
-+    int result          = 0;
-+    struct stat st;
-+	char data[4];
-+
-+    sd_bus_error err    = SD_BUS_ERROR_NULL;
-+    sd_bus_message *res = NULL;
-+
-+    /* Latch onto system bus. */
-+    rc = sd_bus_open_system(&bus);
-+    if(rc < 0)
-+    {
-+        fprintf(stderr,"Error opening system bus.\n");
-+        goto cleanup;
-+    }
-+
-+    /* Install object for Host0 */
-+    rc = sd_bus_add_object_vtable (bus,
-+                                    &slot,
-+                                    xstop0,
-+                                    iface_name,
-+                                    host_xstop_vtable,
-+                                    NULL);
-+    if (rc < 0)
-+    {
-+        fprintf(stderr, "Failed to add object to dbus: %s\n", strerror(-rc));
-+        goto cleanup;
-+    }
-+
-+    /*
-+     * Setup GPIO IRQ for Host xstop
-+     */
-+	rc = GPIO_OK;
-+	do {
-+		rc = gpio_init(bus, &gpio_xstop);
-+		if (rc != GPIO_OK) { goto cleanup; }
-+		rc = gpio_open_interrupt(&gpio_xstop, on_host_xstop, NULL/*object*/);
-+		if (rc != GPIO_OK) { goto cleanup; }
-+	} while(0);
-+
-+	if (rc != GPIO_OK)
-+	{
-+		printf("ERROR PowerButton: GPIO setup (rc=%d)\n",rc);
-+        goto cleanup;
-+	}
-+
-+    /* Register as a dbus service */
-+    rc = sd_bus_request_name (bus, srvc_name, 0);
-+    if (rc < 0)
-+    {
-+        fprintf(stderr, "Failed to register service: %s\n", strerror(-rc));
-+        goto cleanup;
-+    }
-+
-+    /* Register for GPIO IRQ */
-+    gpio_xstop.irq_inited = false;
-+	fd = open(gpio_val_xstop, O_RDONLY | O_NONBLOCK );
-+	if (fd == -1)
-+	{
-+		rc = -1;
-+        goto cleanup;
-+	}
-+	else
-+	{
-+		GIOChannel* channel = g_io_channel_unix_new(fd);
-+		g_io_add_watch(channel, G_IO_PRI, on_host_xstop, NULL);
-+	}
-+
-+    /* Register with Sensor Manager */
-+    sd_bus_error_free(&err);
-+    sd_bus_message_unref(res);
-+
-+    rc = sd_bus_call_method (bus,
-+                                "org.openbmc.Sensors",  /* name */
-+                                "/org/openbmc/sensors", /* object path */
-+                                "org.openbmc.Sensors",  /* interface */
-+                                "register",
-+                                &err,
-+                                &res,
-+                                "ss",
-+                                xstop0,
-+                                "HostXstopSensor"); /* FIXME: register method needs the Sensor class name ! */
-+                             
-+    if(rc < 0)
-+    {
-+        fprintf(stderr, "Failed to init gpio for %s : %s\n", xstop0, err.message);
-+        return -1;
-+    }
-+    for (;;) {
-+        rc = sd_bus_process (bus, NULL);
-+        if (rc < 0)
-+        {
-+            fprintf(stderr, "Failed to process bus: %s\n", strerror(-rc));
-+            goto cleanup;
-+        }
-+        if (rc > 0) continue;
-+
-+        rc = sd_bus_wait (bus, (uint64_t)-1);
-+        if (rc < 0)
-+        {
-+            fprintf(stderr, "Failed to wait on bus: %s\n", strerror(-rc));
-+            goto cleanup;
-+        }
-+    }
-+                                
-+cleanup:
-+    sd_bus_slot_unref (slot);
-+    sd_bus_unref (bus);
-+    return rc;
-+}
+-	/* Fill header */
+-	nlh = nlmsg_put(skb, h->nlmsg_pid, h->nlmsg_seq,
+-			h->nlmsg_type, sizeof(nm), 0);
+-	dst = nlmsg_data(nlh);
+-	memcpy(dst, src, sizeof(*dst));
+-	dst->nm_flag &= ~NCSI_FLAG_REQUEST;
+-	dst->nm_flag |= NCSI_FLAG_RESPONSE;
+-
+-	/* All available channels */
+-	NCSI_FOR_EACH_PACKAGE(ndp, np) {
+-		NCSI_FOR_EACH_CHANNEL(np, nc) {
+-			nm.nm_flag = 0;
+-			if (nc == ndp->ndp_active_channel)
+-				nm.nm_flag = NCSI_FLAG_ACTIVE_CHANNEL;
+-			nm.nm_ifindex = src->nm_ifindex;
+-			nm.nm_package_id = np->np_id;
+-			nm.nm_channel_id = nc->nc_id;
+-			nm.nm_index = 0;
+-			nm.nm_index = NCSI_SUCCESS;
+-
+-			if (nla_put(skb, 0, sizeof(nm), &nm)) {
+-				*errcode = NCSI_ERR_INTERNAL;
+-				nlmsg_free(skb);
+-				return NULL;
+-			}
+-		}
+-	}
+-
+-	nlmsg_end(skb, nlh);
+-	return skb;
+-}
+-
+-static struct sk_buff *ncsi_netlink_get_version(struct nlmsghdr *h,
+-						int *errcode)
+-{
+-	struct net_device *dev;
+-	struct ncsi_dev *nd;
+-	struct ncsi_dev_priv *ndp;
+-	struct ncsi_package *np;
+-	struct ncsi_channel *nc;
+-	struct ncsi_channel_version *ncv;
+-	struct sk_buff *skb;
+-	struct nlmsghdr *nlh;
+-	struct ncsi_msg *src, *dst;
+-	size_t size = sizeof(*dst);;
+-
+-	/* Find the NCSI device */
+-	src = nlmsg_data(h);
+-	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
+-	nd = dev ? ncsi_find_dev(dev) : NULL;
+-	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
+-	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
+-	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
+-	if (!nc) {
+-		*errcode = NCSI_ERR_NO_DEV;
+-		return NULL;
+-	}
+-
+-	/* Allocate response */
+-	size += nla_total_size(sizeof(*ncv));
+-	skb = nlmsg_new(size, GFP_KERNEL);
+-	if (!skb) {
+-		*errcode = NCSI_ERR_NO_MEM;
+-		return NULL;
+-	}
+-
+-	/* Fill header */
+-	nlh = nlmsg_put(skb, h->nlmsg_pid, h->nlmsg_seq,
+-			h->nlmsg_type, sizeof(*dst), 0);
+-	dst = nlmsg_data(nlh);
+-	memcpy(dst, src, sizeof(*dst));
+-	dst->nm_flag &= ~NCSI_FLAG_REQUEST;
+-	dst->nm_flag |= NCSI_FLAG_RESPONSE;
+-
+-	/* Fill channel version */
+-	ncv = &nc->nc_version;
+-	if (nla_put(skb, 0, sizeof(*ncv), ncv)) {
+-		*errcode = NCSI_ERR_INTERNAL;
+-		nlmsg_free(skb);
+-		return NULL;
+-	}
+-
+-	nlmsg_end(skb, nlh);
+-	return skb;
+-}
+-
+-static struct sk_buff *ncsi_netlink_get_cap(struct nlmsghdr *h,
+-					    int *errcode)
+-{
+-	struct net_device *dev;
+-	struct ncsi_dev *nd;
+-	struct ncsi_dev_priv *ndp;
+-	struct ncsi_package *np;
+-	struct ncsi_channel *nc;
+-	struct ncsi_channel_cap *ncc;
+-	struct sk_buff *skb;
+-	struct nlmsghdr *nlh;
+-	struct ncsi_msg *src, *dst;
+-	size_t size = sizeof(*dst);
+-	int index;
+-
+-	/* Find the NCSI device */
+-	src = nlmsg_data(h);
+-	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
+-	nd = dev ? ncsi_find_dev(dev) : NULL;
+-	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
+-	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
+-	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
+-	if (!nc) {
+-		*errcode = NCSI_ERR_NO_DEV;
+-		return NULL;
+-	}
+-
+-	/* Allocate response */
+-	if (src->nm_index > NCSI_CAP_MAX) {
+-		*errcode = NCSI_ERR_PARAM;
+-		return NULL;
+-	} else if (src->nm_index == NCSI_CAP_MAX) {
+-		size += nla_total_size(sizeof(*ncc)) * NCSI_CAP_MAX;
+-	} else {
+-		size += nla_total_size(sizeof(*ncc));
+-	}
+-	skb = nlmsg_new(size, GFP_KERNEL);
+-	if (!skb) {
+-		*errcode = NCSI_ERR_NO_MEM;
+-		return NULL;
+-	}
+-
+-	/* Fill header */
+-	nlh = nlmsg_put(skb, h->nlmsg_pid, h->nlmsg_seq,
+-			h->nlmsg_type, sizeof(*dst), 0);
+-	dst = nlmsg_data(nlh);
+-	memcpy(dst, src, sizeof(*dst));
+-	dst->nm_flag &= ~NCSI_FLAG_REQUEST;
+-	dst->nm_flag |= NCSI_FLAG_RESPONSE;
+-
+-	/* Fill one or all capabilities */
+-	for (index = 0; index < NCSI_CAP_MAX; index++) {
+-		ncc = &nc->nc_caps[index];
+-		if (src->nm_index == NCSI_CAP_MAX ||
+-		    src->nm_index == index) {
+-			if (nla_put(skb, 0, sizeof(*ncc), ncc)) {
+-				*errcode = NCSI_ERR_INTERNAL;
+-				nlmsg_free(skb);
+-				return NULL;
+-			}
+-		}
+-	}
+-
+-	nlmsg_end(skb, nlh);
+-	return skb;
+-}
+-
+-static struct sk_buff *ncsi_netlink_get_mode(struct nlmsghdr *h,
+-					     int *errcode)
+-{
+-	struct net_device *dev;
+-	struct ncsi_dev *nd;
+-	struct ncsi_dev_priv *ndp;
+-	struct ncsi_package *np;
+-	struct ncsi_channel *nc;
+-	struct ncsi_cmd_arg nca;
+-	struct ncsi_msg *src;
+-
+-	/* Find the NCSI device */
+-	src = nlmsg_data(h);
+-	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
+-	nd = dev ? ncsi_find_dev(dev) : NULL;
+-	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
+-	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
+-	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
+-	if (!nc) {
+-		*errcode = NCSI_ERR_NO_DEV;
+-		return NULL;
+-	}
+-	if (nd->nd_state != ncsi_dev_state_functional ||
+-	    ndp->ndp_active_channel != nc) {
+-		*errcode = NCSI_ERR_NOT_ACTIVE;
+-		return NULL;
+-	}
+-	if (src->nm_index > NCSI_MODE_MAX) {
+-		*errcode = NCSI_ERR_PARAM;
+-		return NULL;
+-	}
+-
+-	/* Send NCSI GP command */
+-	nca.nca_ndp = ndp;
+-	nca.nca_nlh = h;
+-	nca.nca_type = NCSI_PKT_CMD_GP;
+-	nca.nca_package = np->np_id;
+-	nca.nca_channel = nc->nc_id;
+-	if (ncsi_xmit_cmd(&nca)) {
+-		*errcode = NCSI_ERR_INTERNAL;
+-		return NULL;
+-	}
+-
+-	*errcode = NCSI_SUCCESS;
+-	return NULL;
+-}
+-
+-static struct sk_buff *ncsi_netlink_get_filter(struct nlmsghdr *h,
+-					       int *errcode)
+-{
+-	struct net_device *dev;
+-	struct ncsi_dev *nd;
+-	struct ncsi_dev_priv *ndp;
+-	struct ncsi_package *np;
+-	struct ncsi_channel *nc;
+-	struct ncsi_cmd_arg nca;
+-	struct ncsi_msg *src;
+-
+-	/* Find the NCSI device */
+-	src = nlmsg_data(h);
+-	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
+-	nd = dev ? ncsi_find_dev(dev) : NULL;
+-	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
+-	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
+-	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
+-	if (!nc) {
+-		*errcode = NCSI_ERR_NO_DEV;
+-		return NULL;
+-	}
+-	if (nd->nd_state != ncsi_dev_state_functional ||
+-	    ndp->ndp_active_channel != nc) {
+-		*errcode = NCSI_ERR_NOT_ACTIVE;
+-		return NULL;
+-	}
+-	if (src->nm_index > NCSI_FILTER_MAX) {
+-		*errcode = NCSI_ERR_PARAM;
+-		return NULL;
+-	}
+-
+-	/* Send NCSI GP command */
+-	nca.nca_ndp = ndp;
+-	nca.nca_nlh = h;
+-	nca.nca_type = NCSI_PKT_CMD_GP;
+-	nca.nca_package = np->np_id;
+-	nca.nca_channel = nc->nc_id;
+-	if (ncsi_xmit_cmd(&nca)) {
+-		*errcode = NCSI_ERR_INTERNAL;
+-		return NULL;
+-	}
+-
+-	*errcode = NCSI_SUCCESS;
+-	return NULL;
+-}
+-
+-struct sk_buff *ncsi_netlink_get_stats(struct nlmsghdr *h, int *errcode)
+-{
+-	struct net_device *dev;
+-	struct ncsi_dev *nd;
+-	struct ncsi_dev_priv *ndp;
+-	struct ncsi_package *np;
+-	struct ncsi_channel *nc;
+-	struct ncsi_msg *src;
+-	struct ncsi_cmd_arg nca;
+-	unsigned char cmd;
+-
+-	/* Find the NCSI device */
+-	src = nlmsg_data(h);
+-	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
+-	nd = dev ? ncsi_find_dev(dev) : NULL;
+-	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
+-	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
+-	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
+-	if (!nc) {
+-		*errcode = NCSI_ERR_NO_DEV;
+-		return NULL;
+-	}
+-	if (nd->nd_state != ncsi_dev_state_functional ||
+-	    ndp->ndp_active_channel != nc) {
+-		*errcode = NCSI_ERR_NOT_ACTIVE;
+-		return NULL;
+-	}
+-	if (src->nm_index > NCSI_FILTER_MAX) {
+-		*errcode = NCSI_ERR_PARAM;
+-		return NULL;
+-	}
+-
+-	/* Get NIC statistics */
+-	nca.nca_ndp = ndp;
+-	nca.nca_nlh = NULL;
+-	nca.nca_type = NCSI_PKT_CMD_GCPS;
+-	nca.nca_package = np->np_id;
+-	nca.nca_channel = nc->nc_id;
+-	for (cmd = NCSI_PKT_CMD_GCPS; cmd <= NCSI_PKT_CMD_GNPTS; cmd++) {
+-		nca.nca_type = cmd;
+-		if (cmd == NCSI_PKT_CMD_GNPTS)
+-			nca.nca_nlh = h;
+-		if (ncsi_xmit_cmd(&nca)) {
+-			*errcode = NCSI_ERR_INTERNAL;
+-			return NULL;
+-		}
+-	}
+-
+-	*errcode = NCSI_SUCCESS;
+-	return NULL;
+-}
+-
+-struct sk_buff *ncsi_netlink_set_mode(struct nlmsghdr *h, int *errcode)
+-{
+-	struct net_device *dev;
+-	struct ncsi_dev *nd;
+-	struct ncsi_dev_priv *ndp;
+-	struct ncsi_package *np;
+-	struct ncsi_channel *nc;
+-	struct ncsi_channel_mode *ncm;
+-	struct ncsi_msg *src;
+-	struct nlattr *nla;
+-	struct ncsi_cmd_arg nca;
+-
+-	/* Find the NCSI device */
+-	src = nlmsg_data(h);
+-	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
+-	nd = dev ? ncsi_find_dev(dev) : NULL;
+-	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
+-	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
+-	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
+-	if (!nc) {
+-		*errcode = NCSI_ERR_NO_DEV;
+-		return NULL;
+-	}
+-	if (nd->nd_state != ncsi_dev_state_functional ||
+-	    ndp->ndp_active_channel != nc) {
+-		*errcode = NCSI_ERR_NOT_ACTIVE;
+-		return NULL;
+-	}
+-
+-	/* Get NIC statistics */
+-	nla = nlmsg_attrdata(h, sizeof(*src));
+-	ncm = nla_data(nla);
+-
+-	nca.nca_ndp = ndp;
+-	nca.nca_nlh = h;
+-	nca.nca_package = np->np_id;
+-	nca.nca_channel = nc->nc_id;
+-	switch (src->nm_index) {
+-	case NCSI_MODE_ENABLE:
+-		if (ncm->ncm_enable) {
+-			nca.nca_type = NCSI_PKT_CMD_EC;
+-		} else {
+-			nca.nca_type = NCSI_PKT_CMD_DC;
+-			nca.nca_bytes[0] = ncm->ncm_data[0];
+-		}
+-		break;
+-	case NCSI_MODE_TX_ENABLE:
+-		if (ncm->ncm_enable)
+-			nca.nca_type = NCSI_PKT_CMD_ECNT;
+-		else
+-			nca.nca_type = NCSI_PKT_CMD_DCNT;
+-		break;
+-	case NCSI_MODE_LINK:
+-		nca.nca_type = NCSI_PKT_CMD_SL;
+-		nca.nca_dwords[0] = ncm->ncm_data[0];
+-		nca.nca_dwords[1] = ncm->ncm_data[1];
+-		break;
+-	case NCSI_MODE_VLAN:
+-		if (ncm->ncm_enable) {
+-			nca.nca_type = NCSI_PKT_CMD_EV;
+-			nca.nca_bytes[0] = ncm->ncm_data[0];
+-		} else {
+-			nca.nca_type = NCSI_PKT_CMD_DV;
+-		}
+-		break;
+-	case NCSI_MODE_BC:
+-		if (ncm->ncm_enable) {
+-			nca.nca_type = NCSI_PKT_CMD_EBF;
+-			nca.nca_dwords[0] = ncm->ncm_data[0];
+-		} else {
+-			nca.nca_type = NCSI_PKT_CMD_DBF;
+-		}
+-		break;
+-	case NCSI_MODE_MC:
+-		if (ncm->ncm_enable) {
+-			nca.nca_type = NCSI_PKT_CMD_EGMF;
+-			nca.nca_dwords[0] = ncm->ncm_data[0];
+-		} else {
+-			nca.nca_type = NCSI_PKT_CMD_DGMF;
+-		}
+-		break;
+-	case NCSI_MODE_AEN:
+-		nca.nca_type = NCSI_PKT_CMD_AE;
+-		nca.nca_bytes[0] = ncm->ncm_data[0];
+-		nca.nca_dwords[1] = ncm->ncm_data[1];
+-		break;
+-	case NCSI_MODE_FC:
+-		nca.nca_type = NCSI_PKT_CMD_SNFC;
+-		nca.nca_bytes[0] = ncm->ncm_data[0];
+-		break;
+-	default:
+-		*errcode = NCSI_ERR_PARAM;
+-		return NULL;
+-	}
+-
+-	if (ncsi_xmit_cmd(&nca)) {
+-		*errcode = NCSI_ERR_INTERNAL;
+-		return NULL;
+-	}
+-
+-	*errcode = NCSI_SUCCESS;
+-	return NULL;
+-}
+-
+-struct sk_buff *ncsi_netlink_set_filter(struct nlmsghdr *h, int *errcode)
+-{
+-	struct net_device *dev;
+-	struct ncsi_dev *nd;
+-	struct ncsi_dev_priv *ndp;
+-	struct ncsi_package *np;
+-	struct ncsi_channel *nc;
+-	struct ncsi_channel_filter *ncf;
+-	struct ncsi_msg *src;
+-	struct nlattr *nla;
+-	struct ncsi_cmd_arg nca;
+-
+-	/* Find the NCSI device */
+-	src = nlmsg_data(h);
+-	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
+-	nd = dev ? ncsi_find_dev(dev) : NULL;
+-	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
+-	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
+-	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
+-	if (!nc) {
+-		*errcode = NCSI_ERR_NO_DEV;
+-		return NULL;
+-	}
+-	if (nd->nd_state != ncsi_dev_state_functional ||
+-	    ndp->ndp_active_channel != nc) {
+-		*errcode = NCSI_ERR_NOT_ACTIVE;
+-		return NULL;
+-	}
+-
+-	/* Get NIC statistics */
+-	nla = nlmsg_attrdata(h, sizeof(*src));
+-	ncf = nla_data(nla);
+-
+-	nca.nca_ndp = ndp;
+-	nca.nca_nlh = h;
+-	nca.nca_package = np->np_id;
+-	nca.nca_channel = nc->nc_id;
+-	switch (src->nm_index) {
+-	case NCSI_FILTER_VLAN:
+-		nca.nca_type = NCSI_PKT_CMD_SVF;
+-		memcpy(nca.nca_bytes, ncf->ncf_data, 4);
+-		break;
+-	case NCSI_FILTER_UC:
+-	case NCSI_FILTER_MC:
+-		memcpy(nca.nca_bytes, ncf->ncf_data, 8);
+-		nca.nca_bytes[7] &= 0x1f;
+-		if (src->nm_index == NCSI_FILTER_MC)
+-			nca.nca_bytes[7] |= 0x20;
+-		break;
+-	default:
+-		*errcode = NCSI_ERR_PARAM;
+-		return NULL;
+-	}
+-
+-	if (ncsi_xmit_cmd(&nca)) {
+-		*errcode = NCSI_ERR_INTERNAL;
+-		return NULL;
+-	}
+-
+-	*errcode = NCSI_SUCCESS;
+-	return NULL;
+-}
+-
+-static struct sk_buff *ncsi_netlink_get_mode_reply(struct nlmsghdr *h,
+-						   int *errcode)
+-{
+-	struct net_device *dev;
+-	struct ncsi_dev *nd;
+-	struct ncsi_dev_priv *ndp;
+-	struct ncsi_package *np;
+-	struct ncsi_channel *nc;
+-	struct ncsi_channel_mode *ncm;
+-	struct sk_buff *skb;
+-	struct nlmsghdr *nlh;
+-	struct ncsi_msg *src, *dst;
+-	size_t size = sizeof(*dst);
+-	int index;
+-
+-	/* Find the NCSI device */
+-	src = nlmsg_data(h);
+-	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
+-	nd = dev ? ncsi_find_dev(dev) : NULL;
+-	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
+-	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
+-	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
+-	if (!nc) {
+-		*errcode = NCSI_ERR_NO_DEV;
+-		return NULL;
+-	}
+-
+-	/* Allocate response */
+-	if (src->nm_index > NCSI_MODE_MAX) {
+-		*errcode = NCSI_ERR_PARAM;
+-		return NULL;
+-	} else if (src->nm_index == NCSI_MODE_MAX) {
+-		size += nla_total_size(sizeof(*ncm)) * NCSI_MODE_MAX;
+-	} else {
+-		size += nla_total_size(sizeof(*ncm));
+-	}
+-	skb = nlmsg_new(size, GFP_ATOMIC);
+-	if (!skb) {
+-		*errcode = NCSI_ERR_NO_MEM;
+-		return NULL;
+-	}
+-
+-	/* Fill header */
+-	nlh = nlmsg_put(skb, h->nlmsg_pid, h->nlmsg_seq,
+-			h->nlmsg_type, sizeof(*dst), 0);
+-	dst = nlmsg_data(nlh);
+-	memcpy(dst, src, sizeof(*dst));
+-	dst->nm_flag &= ~NCSI_FLAG_REQUEST;
+-	dst->nm_flag |= NCSI_FLAG_RESPONSE;
+-
+-	/* Fill one or all modes */
+-	for (index = 0; index < NCSI_MODE_MAX; index++) {
+-		ncm = &nc->nc_modes[index];
+-		if (src->nm_index == NCSI_MODE_MAX ||
+-		    src->nm_index == index) {
+-			if (nla_put(skb, 0, sizeof(*ncm), ncm)) {
+-				*errcode = NCSI_ERR_INTERNAL;
+-				nlmsg_free(skb);
+-				return NULL;
+-			}
+-		}
+-	}
+-
+-	nlmsg_end(skb, nlh);
+-	return skb;
+-}
+-
+-static struct sk_buff *ncsi_netlink_get_filter_reply(struct nlmsghdr *h,
+-						     int *errcode)
+-{
+-	struct net_device *dev;
+-	struct ncsi_dev *nd;
+-	struct ncsi_dev_priv *ndp;
+-	struct ncsi_package *np;
+-	struct ncsi_channel *nc;
+-	struct ncsi_channel_filter *ncf;
+-	struct sk_buff *skb;
+-	struct nlmsghdr *nlh;
+-	struct ncsi_msg *src, *dst;
+-	size_t entry_size, size = sizeof(*dst);
+-	int index;
+-
+-	/* Find the NCSI device */
+-	src = nlmsg_data(h);
+-	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
+-	nd = dev ? ncsi_find_dev(dev) : NULL;
+-	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
+-	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
+-	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
+-	if (!nc) {
+-		*errcode = NCSI_ERR_NO_DEV;
+-		return NULL;
+-	}
+-
+-	/* Allocate response */
+-	if (src->nm_index > NCSI_FILTER_MAX) {
+-		*errcode = NCSI_ERR_PARAM;
+-		return NULL;
+-	}
+-
+-	for (index = 0; index < NCSI_FILTER_MAX; index++) {
+-		ncf = nc->nc_filters[index];
+-		switch (index) {
+-		case NCSI_FILTER_VLAN:
+-			entry_size = 2;
+-			break;
+-		case NCSI_FILTER_UC:
+-		case NCSI_FILTER_MC:
+-		case NCSI_FILTER_MIXED:
+-			entry_size = 6;
+-			break;
+-		default:
+-			continue;
+-		}
+-
+-		if (src->nm_index == NCSI_FILTER_MAX ||
+-		    src->nm_index == index) {
+-			if (!ncf)
+-				continue;
+-
+-			size += nla_total_size(sizeof(*ncf) +
+-					       entry_size * ncf->ncf_total);
+-		}
+-	}
+-
+-	skb = nlmsg_new(size, GFP_ATOMIC);
+-	if (!skb) {
+-		*errcode = NCSI_ERR_NO_MEM;
+-		return NULL;
+-	}
+-
+-	/* Fill header */
+-	nlh = nlmsg_put(skb, h->nlmsg_pid, h->nlmsg_seq,
+-			h->nlmsg_type, sizeof(*dst), 0);
+-	dst = nlmsg_data(nlh);
+-	memcpy(dst, src, sizeof(*dst));
+-	dst->nm_flag &= ~NCSI_FLAG_REQUEST;
+-	dst->nm_flag |= NCSI_FLAG_RESPONSE;
+-
+-	/* Fill one or all filters */
+-	for (index = 0; index < NCSI_FILTER_MAX; index++) {
+-		ncf = nc->nc_filters[index];
+-		switch (index) {
+-		case NCSI_FILTER_VLAN:
+-			entry_size = 2;
+-			break;
+-		case NCSI_FILTER_UC:
+-		case NCSI_FILTER_MC:
+-		case NCSI_FILTER_MIXED:
+-			entry_size = 6;
+-			break;
+-		default:
+-			continue;
+-		}
+-
+-		if (src->nm_index == NCSI_FILTER_MAX ||
+-		    src->nm_index == index) {
+-			if (!ncf)
+-				continue;
+-
+-			size = sizeof(*ncf) + entry_size * ncf->ncf_total;
+-			if (nla_put(skb, 0, size, ncf)) {
+-				nlmsg_free(skb);
+-				*errcode = NCSI_ERR_INTERNAL;
+-				return NULL;
+-			}
+-		}
+-	}
+-
+-	nlmsg_end(skb, nlh);
+-	return skb;
+-}
+-
+-struct sk_buff *ncsi_netlink_get_stats_reply(struct nlmsghdr *h, int *errcode)
+-{
+-	struct net_device *dev;
+-	struct ncsi_dev *nd;
+-	struct ncsi_dev_priv *ndp;
+-	struct ncsi_package *np;
+-	struct ncsi_channel *nc;
+-	struct ncsi_channel_stats *ncs;
+-	struct sk_buff *skb;
+-	struct nlmsghdr *nlh;
+-	struct ncsi_msg *src, *dst;
+-	size_t size = sizeof(*dst);
+-
+-	/* Find the NCSI device */
+-	src = nlmsg_data(h);
+-	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
+-	nd = dev ? ncsi_find_dev(dev) : NULL;
+-	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
+-	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
+-	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
+-	if (!nc) {
+-		*errcode = NCSI_ERR_NO_DEV;
+-		return NULL;
+-	}
+-
+-	/* Allocate response */
+-	size += nla_total_size(sizeof(*ncs));
+-	skb = nlmsg_new(size, GFP_ATOMIC);
+-	if (!skb) {
+-		*errcode = NCSI_ERR_NO_MEM;
+-		return NULL;
+-	}
+-
+-	/* Fill header */
+-	nlh = nlmsg_put(skb, h->nlmsg_pid, h->nlmsg_seq,
+-			h->nlmsg_type, sizeof(*dst), 0);
+-	dst = nlmsg_data(nlh);
+-	memcpy(dst, src, sizeof(*dst));
+-	dst->nm_flag &= ~NCSI_FLAG_REQUEST;
+-	dst->nm_flag |= NCSI_FLAG_RESPONSE;
+-
+-	/* Fill one or all filters */
+-	ncs = &nc->nc_stats;
+-	if (nla_put(skb, 0, sizeof(*ncs), ncs)) {
+-		nlmsg_free(skb);
+-		*errcode = NCSI_ERR_INTERNAL;
+-		return NULL;
+-	}
+-
+-	nlmsg_end(skb, nlh);
+-	return skb;
+-}
+-
+-struct sk_buff *ncsi_netlink_set_mode_reply(struct nlmsghdr *h, int *errcode)
+-{
+-	struct net_device *dev;
+-	struct ncsi_dev *nd;
+-	struct ncsi_dev_priv *ndp;
+-	struct ncsi_package *np;
+-	struct ncsi_channel *nc;
+-	struct sk_buff *skb;
+-	struct nlmsghdr *nlh;
+-	struct nlattr *nla;
+-	struct ncsi_msg *src, *dst;
+-	struct ncsi_channel_mode *ncm;
+-	size_t size = sizeof(*dst);
+-
+-	/* Find the NCSI device */
+-	src = nlmsg_data(h);
+-	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
+-	nd = dev ? ncsi_find_dev(dev) : NULL;
+-	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
+-	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
+-	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
+-	if (!nc) {
+-		*errcode = NCSI_ERR_NO_DEV;
+-		return NULL;
+-	}
+-
+-	/* Allocate response */
+-	size += nla_total_size(sizeof(*ncm));
+-	skb = nlmsg_new(size, GFP_ATOMIC);
+-	if (!skb) {
+-		*errcode = NCSI_ERR_NO_MEM;
+-		return NULL;
+-	}
+-
+-	/* Fill header */
+-	nlh = nlmsg_put(skb, h->nlmsg_pid, h->nlmsg_seq,
+-			h->nlmsg_type, sizeof(*dst), 0);
+-	dst = nlmsg_data(nlh);
+-	memcpy(dst, src, sizeof(*dst));
+-	dst->nm_flag &= ~NCSI_FLAG_REQUEST;
+-	dst->nm_flag |= NCSI_FLAG_RESPONSE;
+-
+-	/* Fill one or all filters */
+-	nla = nlmsg_attrdata(h, sizeof(*dst));
+-	ncm = nla_data(nla);
+-	if (nla_put(skb, 0, sizeof(*ncm), ncm)) {
+-		*errcode = NCSI_ERR_INTERNAL;
+-		return NULL;
+-	}
+-
+-	nlmsg_end(skb, nlh);
+-	return skb;
+-}
+-
+-struct sk_buff *ncsi_netlink_set_filter_reply(struct nlmsghdr *h, int *errcode)
+-{
+-	struct net_device *dev;
+-	struct ncsi_dev *nd;
+-	struct ncsi_dev_priv *ndp;
+-	struct ncsi_package *np;
+-	struct ncsi_channel *nc;
+-	struct sk_buff *skb;
+-	struct nlmsghdr *nlh;
+-	struct nlattr *nla;
+-	struct ncsi_msg *src, *dst;
+-	struct ncsi_channel_filter *ncf;
+-	size_t extra, size = sizeof(*dst);
+-
+-	/* Find the NCSI device */
+-	src = nlmsg_data(h);
+-	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
+-	nd = dev ? ncsi_find_dev(dev) : NULL;
+-	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
+-	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
+-	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
+-	if (!nc) {
+-		*errcode = NCSI_ERR_NO_DEV;
+-		return NULL;
+-	}
+-
+-	/* Allocate response */
+-	size += nla_total_size(sizeof(*ncf) + 16);
+-	skb = nlmsg_new(size, GFP_ATOMIC);
+-	if (!skb) {
+-		*errcode = NCSI_ERR_NO_MEM;
+-		return NULL;
+-	}
+-
+-	/* Fill header */
+-	nlh = nlmsg_put(skb, h->nlmsg_pid, h->nlmsg_seq,
+-			h->nlmsg_type, sizeof(*dst), 0);
+-	dst = nlmsg_data(nlh);
+-	memcpy(dst, src, sizeof(*dst));
+-	dst->nm_flag &= ~NCSI_FLAG_REQUEST;
+-	dst->nm_flag |= NCSI_FLAG_RESPONSE;
+-
+-	/* Fill one or all filters */
+-	nla = nlmsg_attrdata(h, sizeof(*dst));
+-	ncf = nla_data(nla);
+-	switch(src->nm_index) {
+-	case NCSI_FILTER_VLAN:
+-		extra = 2;
+-		break;
+-	case NCSI_FILTER_UC:
+-	case NCSI_FILTER_MC:
+-		extra = 6;
+-		break;
+-	default:
+-		nlmsg_free(skb);
+-		*errcode = NCSI_ERR_PARAM;
+-		return NULL;
+-	}
+-
+-	if (nla_put(skb, 0, sizeof(*ncf) + extra, ncf)) {
+-		*errcode = NCSI_ERR_INTERNAL;
+-		return NULL;
+-	}
+-
+-	nlmsg_end(skb, nlh);
+-	return skb;
+-}
+-
+-void ncsi_netlink_reply(struct nlmsghdr *h, unsigned int portid, bool timeout)
+-{
+-	struct sk_buff *skb;
+-	int errcode = NCSI_SUCCESS;
+-	struct sk_buff *(*func)(struct nlmsghdr *, int *) = NULL;
+-
+-	if (timeout) {
+-		ncsi_netlink_error(h, portid, NCSI_ERR_INTERNAL);
+-		return;
+-	}
+-
+-	switch (h->nlmsg_type) {
+-	case NCSI_MSG_GET_MODE:
+-		func = ncsi_netlink_get_mode_reply;
+-		break;
+-	case NCSI_MSG_GET_FILTER:
+-		func = ncsi_netlink_get_filter_reply;
+-		break;
+-	case NCSI_MSG_GET_STATS:
+-		func = ncsi_netlink_get_stats_reply;
+-		break;
+-	case NCSI_MSG_SET_MODE:
+-		func = ncsi_netlink_set_mode_reply;
+-		break;
+-	case NCSI_MSG_SET_FILTER:
+-		func = ncsi_netlink_set_filter_reply;
+-		break;
+-	default:
+-		errcode = NCSI_ERR_PARAM;
+-		goto out;
+-	}
+-
+-	skb = func(h, &errcode);
+-	if (!skb)
+-		goto out;
+-
+-	nlmsg_notify(ncsi_sock, skb, portid, 0, 0, GFP_ATOMIC);
+-	return;
+-out:
+-	ncsi_netlink_error(h, portid, errcode);
+-}
+-
+-static int ncsi_netlink_rcv_msg(struct sk_buff *cmd, struct nlmsghdr *h)
+-{
+-	struct ncsi_msg *nm;
+-	struct sk_buff *skb;
+-	int errcode = NCSI_SUCCESS;
+-	unsigned int portid = NETLINK_CB(cmd).portid;
+-	struct sk_buff *(*func)(struct nlmsghdr *, int *) = NULL;
+-
+-	if (h->nlmsg_type >= NCSI_MSG_MAX ||
+-	    nlmsg_len(h) < sizeof(*nm)) {
+-		errcode = NCSI_ERR_PARAM;
+-		goto out;
+-	}
+-
+-	nm = nlmsg_data(h);
+-	if (!(nm->nm_flag & NCSI_FLAG_REQUEST)) {
+-		errcode = NCSI_ERR_PARAM;
+-		goto out;
+-	}
+-
+-	switch (h->nlmsg_type) {
+-	case NCSI_MSG_GET_LAYOUT:
+-		func = ncsi_netlink_get_layout;
+-		break;
+-	case NCSI_MSG_GET_VERSION:
+-		func = ncsi_netlink_get_version;
+-		break;
+-	case NCSI_MSG_GET_CAP:
+-		func = ncsi_netlink_get_cap;
+-		break;
+-	case NCSI_MSG_GET_MODE:
+-		func = ncsi_netlink_get_mode;
+-		break;
+-	case NCSI_MSG_GET_FILTER:
+-		func = ncsi_netlink_get_filter;
+-		break;
+-	case NCSI_MSG_GET_STATS:
+-		func = ncsi_netlink_get_stats;
+-		break;
+-	case NCSI_MSG_SET_MODE:
+-		func = ncsi_netlink_set_mode;
+-		break;
+-	case NCSI_MSG_SET_FILTER:
+-		func = ncsi_netlink_set_filter;
+-		break;
+-	default:
+-		goto out;
+-	}
+-
+-	skb = func(h, &errcode);
+-	if (errcode != NCSI_SUCCESS)
+-		goto out;
+-
+-	/* Split transactions */
+-	if (!skb)
+-		return 0;
+-
+-	return nlmsg_notify(ncsi_sock, skb, portid, 0, 0, GFP_KERNEL);
+-out:
+-	ncsi_netlink_error(h, portid, errcode);
+-	return -EINTR;
+-}
+-
+-static void ncsi_netlink_rcv(struct sk_buff *skb)
+-{
+-	netlink_rcv_skb(skb, &ncsi_netlink_rcv_msg);
+-}
+-
+-int __net_init ncsi_netlink_init(struct net *net)
+-{
+-	struct netlink_kernel_cfg cfg = {
+-		.groups   = 0,
+-		.flags    = NL_CFG_F_NONROOT_RECV |
+-			    NL_CFG_F_NONROOT_SEND,
+-		.input    = ncsi_netlink_rcv,
+-	};
+-
+-	ncsi_sock = netlink_kernel_create(net, NETLINK_NCSI, &cfg);
+-	return ncsi_sock ? 0 : -ENOMEM;
+-}
+-
+-void __net_exit ncsi_netlink_exit(struct net *net)
+-{
+-	netlink_kernel_release(ncsi_sock);
+-	ncsi_sock = NULL;
+-}
+diff --git a/net/ncsi/ncsi.c b/net/ncsi/ncsi.c
+deleted file mode 100644
+index c84939e..0000000
+--- a/net/ncsi/ncsi.c
++++ /dev/null
+@@ -1,49 +0,0 @@
+-/*
+- * Copyright Gavin Shan, IBM Corporation 2015.
+- *
+- * This program is free software; you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License as published by
+- * the Free Software Foundation; either version 2 of the License, or
+- * (at your option) any later version.
+- */
+-
+-#include <linux/module.h>
+-#include <linux/kernel.h>
+-#include <linux/init.h>
+-#include <linux/netdevice.h>
+-#include <linux/skbuff.h>
+-
+-#include <net/ncsi.h>
+-#include <net/net_namespace.h>
+-#include <net/sock.h>
+-
+-#include "internal.h"
+-
+-struct net *ncsi_net = NULL;
+-
+-static int __net_init ncsi_net_init(struct net *net)
+-{
+-	ncsi_net = net;
+-	return ncsi_netlink_init(net);
+-}
+-
+-static void __net_exit ncsi_net_exit(struct net *net)
+-{
+-	ncsi_netlink_exit(net);
+-	ncsi_net = NULL;
+-}
+-
+-static struct pernet_operations ncsi_net_ops = {
+-	.init = ncsi_net_init,
+-	.exit = ncsi_net_exit,
+-};
+-
+-static int __init ncsi_init(void)
+-{
+-	if (ncsi_net)
+-		return -EEXIST;
+-
+-	return register_pernet_subsys(&ncsi_net_ops);
+-}
+-
+-fs_initcall_sync(ncsi_init);
 -- 
-2.8.1
+2.1.0
