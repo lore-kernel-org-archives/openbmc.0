@@ -3,18 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r3BLJ13MgzDq5m
- for <openbmc@lists.ozlabs.org>; Mon,  9 May 2016 15:50:15 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r3BLK71SWzDq5m
+ for <openbmc@lists.ozlabs.org>; Mon,  9 May 2016 15:50:17 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1462773011314252.6362588138643;
- Sun, 8 May 2016 22:50:11 -0700 (PDT)
+ with SMTPS id 1462773012682771.8467706539029;
+ Sun, 8 May 2016 22:50:12 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Subject: [PATCH docs] userguide: Generate userguide.tex to include \tightlist
  macro
-Date: Mon,  9 May 2016 00:50:09 -0500
-Message-Id: <1462773010-7208-1-git-send-email-openbmc-patches@stwcx.xyz>
+Date: Mon,  9 May 2016 00:50:10 -0500
+Message-Id: <1462773010-7208-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.1
+In-Reply-To: <1462773010-7208-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1462773010-7208-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -26,7 +28,9 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 May 2016 05:50:16 -0000
+X-List-Received-Date: Mon, 09 May 2016 05:50:18 -0000
+
+From: Andrew Jeffery <andrew@aj.id.au>
 
 Allow xelatex to build userguide.pdf without errors.
 
@@ -35,20 +39,27 @@ xelatex to choke. By processing the hand-rolled userguide.tex with
 pandoc the definition is injected and xelatex can build the PDF.
 
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-
-<!-- Reviewable:start -->
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/docs/23)
-<!-- Reviewable:end -->
-
-
-https://github.com/openbmc/docs/pull/23
-
-Andrew Jeffery (1):
-  userguide: Generate userguide.tex to include \tightlist macro
-
  Makefile | 5 ++++-
  1 file changed, 4 insertions(+), 1 deletion(-)
 
+diff --git a/Makefile b/Makefile
+index 82ec1c3..c00b79c 100644
+--- a/Makefile
++++ b/Makefile
+@@ -6,9 +6,12 @@ all: userguide.pdf
+ 
+ .PHONY: all clean
+ 
+-userguide.pdf: userguide/userguide.tex
++userguide.pdf: userguide.tex
+ 	$(tex) $^
+ 
++userguide.tex: userguide/userguide.tex
++	pandoc -f latex -t latex -s -o $@ $^
++
+ userguide/userguide.tex: rest-api.tex host-management.tex console.tex code-update.tex
+ 
+ %.tex: %.md
 -- 
 2.8.1
