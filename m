@@ -1,55 +1,55 @@
 Return-Path: <gwshan@linux.vnet.ibm.com>
-Received: from e23smtp06.au.ibm.com (e23smtp06.au.ibm.com [202.81.31.148])
+Received: from e23smtp03.au.ibm.com (e23smtp03.au.ibm.com [202.81.31.145])
  (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r34z90Fg6zDq5v
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r34z90sDszDq5y
  for <openbmc@lists.ozlabs.org>; Mon,  9 May 2016 11:48:21 +1000 (AEST)
 Received: from localhost
- by e23smtp06.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e23smtp03.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <gwshan@linux.vnet.ibm.com>;
  Mon, 9 May 2016 11:48:19 +1000
-Received: from d23dlp03.au.ibm.com (202.81.31.214)
- by e23smtp06.au.ibm.com (202.81.31.212) with IBM ESMTP SMTP Gateway:
+Received: from d23dlp02.au.ibm.com (202.81.31.213)
+ by e23smtp03.au.ibm.com (202.81.31.209) with IBM ESMTP SMTP Gateway:
  Authorized Use Only! Violators will be prosecuted; 
  Mon, 9 May 2016 11:48:18 +1000
-X-IBM-Helo: d23dlp03.au.ibm.com
+X-IBM-Helo: d23dlp02.au.ibm.com
 X-IBM-MailFrom: gwshan@linux.vnet.ibm.com
 X-IBM-RcptTo: openbmc@lists.ozlabs.org
 Received: from d23relay08.au.ibm.com (d23relay08.au.ibm.com [9.185.71.33])
- by d23dlp03.au.ibm.com (Postfix) with ESMTP id DF6F13578056
- for <openbmc@lists.ozlabs.org>; Mon,  9 May 2016 11:48:17 +1000 (EST)
-Received: from d23av04.au.ibm.com (d23av04.au.ibm.com [9.190.235.139])
+ by d23dlp02.au.ibm.com (Postfix) with ESMTP id 210822BB0059
+ for <openbmc@lists.ozlabs.org>; Mon,  9 May 2016 11:48:18 +1000 (EST)
+Received: from d23av03.au.ibm.com (d23av03.au.ibm.com [9.190.234.97])
  by d23relay08.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u491m9ZV55050478
- for <openbmc@lists.ozlabs.org>; Mon, 9 May 2016 11:48:17 +1000
-Received: from d23av04.au.ibm.com (localhost [127.0.0.1])
- by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u491ljfU020895
+ u491mAcK60489788
+ for <openbmc@lists.ozlabs.org>; Mon, 9 May 2016 11:48:18 +1000
+Received: from d23av03.au.ibm.com (localhost [127.0.0.1])
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u491ljYe005809
  for <openbmc@lists.ozlabs.org>; Mon, 9 May 2016 11:47:45 +1000
 Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
- by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u491ljaB020186; Mon, 9 May 2016 11:47:45 +1000
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u491ljrD005125; Mon, 9 May 2016 11:47:45 +1000
 Received: from bran.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
- by ozlabs.au.ibm.com (Postfix) with ESMTP id C84E3A0257;
- Mon,  9 May 2016 11:47:20 +1000 (AEST)
+ by ozlabs.au.ibm.com (Postfix) with ESMTP id 50D2BA0332;
+ Mon,  9 May 2016 11:47:21 +1000 (AEST)
 Received: from gwshan (shangw.ozlabs.ibm.com [10.61.2.199])
- by bran.ozlabs.ibm.com (Postfix) with ESMTP id C585DE3A5A;
- Mon,  9 May 2016 11:47:20 +1000 (AEST)
+ by bran.ozlabs.ibm.com (Postfix) with ESMTP id 50144E3A5A;
+ Mon,  9 May 2016 11:47:21 +1000 (AEST)
 Received: by gwshan (Postfix, from userid 1000)
- id B897F942B91; Mon,  9 May 2016 11:47:20 +1000 (AEST)
+ id 4524A942B91; Mon,  9 May 2016 11:47:21 +1000 (AEST)
 From: Gavin Shan <gwshan@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: Gavin Shan <gwshan@linux.vnet.ibm.com>
-Subject: [PATCH 1/8] net/ncsi: Remove netlink support
-Date: Mon,  9 May 2016 11:47:12 +1000
-Message-Id: <1462758439-27910-2-git-send-email-gwshan@linux.vnet.ibm.com>
+Subject: [PATCH 3/8] net/ncsi: Enumerate NCSI channels in advance
+Date: Mon,  9 May 2016 11:47:14 +1000
+Message-Id: <1462758439-27910-4-git-send-email-gwshan@linux.vnet.ibm.com>
 X-Mailer: git-send-email 2.1.0
 In-Reply-To: <1462758439-27910-1-git-send-email-gwshan@linux.vnet.ibm.com>
 References: <1462758439-27910-1-git-send-email-gwshan@linux.vnet.ibm.com>
 X-TM-AS-MML: disable
 X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16050901-0021-0000-0000-0000098656B4
+x-cbid: 16050901-0009-0000-0000-0000071F604C
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
@@ -64,1248 +64,382 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Mon, 09 May 2016 01:48:21 -0000
 
-This removes NCSI netlink support that was designed as user interface
-to retrieve available packages and their associated channels. Until
-now, nobody is using this interface. Generally, it reverts commit
-4972fc2 ("net/ncsi: Netlink support"). After the NCSI core becomes
-stablized, we need revisit the user interface.
+All NCSI packages and channels are enumerated when user brings up
+the interface. The enumeration is heavy task and consumes lots of
+time. We can just do it for once when considering the fact: NCSI
+physical topology won't change.
+
+This enumerates NCSI packages and channels when user activates the
+interface for the first time, meaing the procedure won't be revisited
+when user reactivates the interface. The time consumed by it will
+be saved and the response time is improved. In order for it, we
+replace ncsi_dev_config() with ncsi_dev_probe() that is triggered
+on first call to ncsi_start_dev(). Similarly, the NCSI packages and
+channels are not released in ncsi_stop_dev() which is triggered when
+the interface is closed. It means the release is postponed until the
+interface is unregistered.
 
 Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
 ---
- include/uapi/linux/netlink.h |    1 -
- net/ncsi/Makefile            |    2 +-
- net/ncsi/internal.h          |   15 -
- net/ncsi/ncsi-cmd.c          |    8 -
- net/ncsi/ncsi-manage.c       |   10 -
- net/ncsi/ncsi-netlink.c      | 1042 ------------------------------------------
- net/ncsi/ncsi.c              |   49 --
- 7 files changed, 1 insertion(+), 1126 deletions(-)
- delete mode 100644 net/ncsi/ncsi-netlink.c
- delete mode 100644 net/ncsi/ncsi.c
+ include/net/ncsi.h     |   4 +-
+ net/ncsi/internal.h    |  17 +++--
+ net/ncsi/ncsi-manage.c | 190 ++++++++++++++++++++++++-------------------------
+ 3 files changed, 105 insertions(+), 106 deletions(-)
 
-diff --git a/include/uapi/linux/netlink.h b/include/uapi/linux/netlink.h
-index c572cf5..f095155 100644
---- a/include/uapi/linux/netlink.h
-+++ b/include/uapi/linux/netlink.h
-@@ -27,7 +27,6 @@
- #define NETLINK_ECRYPTFS	19
- #define NETLINK_RDMA		20
- #define NETLINK_CRYPTO		21	/* Crypto layer */
--#define NETLINK_NCSI		22	/* NCSI */
- 
- #define NETLINK_INET_DIAG	NETLINK_SOCK_DIAG
- 
-diff --git a/net/ncsi/Makefile b/net/ncsi/Makefile
-index bf9f7a9..e4094c2 100644
---- a/net/ncsi/Makefile
-+++ b/net/ncsi/Makefile
-@@ -2,4 +2,4 @@
- # Makefile for NCSI API
- #
- obj-$(CONFIG_NET_NCSI) += ncsi-cmd.o ncsi-rsp.o ncsi-aen.o \
--			  ncsi-manage.o ncsi-netlink.o ncsi.o
-+			  ncsi-manage.o
-diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-index e87991b..ac5f129 100644
---- a/net/ncsi/internal.h
-+++ b/net/ncsi/internal.h
-@@ -37,14 +37,6 @@ struct ncsi_package {
- 	struct list_head	np_node;
+diff --git a/include/net/ncsi.h b/include/net/ncsi.h
+index dd07b76..bf70b8d 100644
+--- a/include/net/ncsi.h
++++ b/include/net/ncsi.h
+@@ -17,9 +17,9 @@
+ enum {
+ 	ncsi_dev_state_registered	= 0x0000,
+ 	ncsi_dev_state_functional	= 0x0100,
+-	ncsi_dev_state_start		= 0x0200,
++	ncsi_dev_state_probe		= 0x0200,
+ 	ncsi_dev_state_config		= 0x0300,
+-	ncsi_dev_state_suspend		= 0x0400
++	ncsi_dev_state_suspend		= 0x0400,
  };
  
--struct ncsi_skb_parms {
--	unsigned int		nsp_valid;
--	unsigned int		nsp_portid;
--	struct nlmsghdr		nsp_nlh;
--};
--
--#define NCSI_CB(skb)	(*(struct ncsi_skb_parms*)&((skb)->cb))
--
- struct ncsi_req {
- 	unsigned char		nr_id;
- 	bool			nr_used;
-@@ -107,7 +99,6 @@ struct ncsi_cmd_arg {
- 	unsigned char		nca_package;
- 	unsigned char		nca_channel;
- 	unsigned short		nca_payload;
--	struct nlmsghdr		*nca_nlh;
- 	unsigned int		nca_portid;
- 	union {
- 		unsigned char	nca_bytes[16];
-@@ -156,10 +147,4 @@ int ncsi_xmit_cmd(struct ncsi_cmd_arg *nca);
- int ncsi_rcv_rsp(struct sk_buff *skb, struct net_device *dev,
- 		 struct packet_type *pt, struct net_device *orig_dev);
- int ncsi_aen_handler(struct ncsi_dev_priv *ndp, struct sk_buff *skb);
--
--/* Netlink */
--int __net_init ncsi_netlink_init(struct net *net);
--void __net_exit ncsi_netlink_exit(struct net *net);
--void ncsi_netlink_reply(struct nlmsghdr *h,
--			unsigned int portid, bool timeout);
- #endif /* __NCSI_INTERNAL_H__ */
-diff --git a/net/ncsi/ncsi-cmd.c b/net/ncsi/ncsi-cmd.c
-index b8503e1..28f297ac 100644
---- a/net/ncsi/ncsi-cmd.c
-+++ b/net/ncsi/ncsi-cmd.c
-@@ -307,14 +307,6 @@ static struct ncsi_req *ncsi_alloc_cmd_req(struct ncsi_cmd_arg *nca)
- 	skb->dev = dev;
- 	skb->protocol = htons(ETH_P_NCSI);
- 
--	if (nca->nca_nlh) {
--		NCSI_CB(skb).nsp_valid = 1;
--		memcpy(&NCSI_CB(skb).nsp_nlh, nca->nca_nlh,
--		       nlmsg_total_size(sizeof(struct ncsi_msg)));
--	} else {
--		NCSI_CB(skb).nsp_valid = 0;
--	}
--
- 	return nr;
- }
- 
+ struct ncsi_dev {
+diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
+index 51b43f5..cc37d9b 100644
+--- a/net/ncsi/internal.h
++++ b/net/ncsi/internal.h
+@@ -50,15 +50,14 @@ struct ncsi_req {
+ enum {
+ 	ncsi_dev_state_major		= 0xff00,
+ 	ncsi_dev_state_minor		= 0x00ff,
+-	ncsi_dev_state_start_deselect	= 0x0201,
+-	ncsi_dev_state_start_package,
+-	ncsi_dev_state_start_channel,
+-	ncsi_dev_state_start_sp,
+-	ncsi_dev_state_start_cis,
+-	ncsi_dev_state_start_gvi,
+-	ncsi_dev_state_start_gc,
+-	ncsi_dev_state_start_dp,
+-	ncsi_dev_state_start_active,
++	ncsi_dev_state_probe_deselect	= 0x0201,
++	ncsi_dev_state_probe_package,
++	ncsi_dev_state_probe_channel,
++	ncsi_dev_state_probe_cis,
++	ncsi_dev_state_probe_gvi,
++	ncsi_dev_state_probe_gc,
++	ncsi_dev_state_probe_gls,
++	ncsi_dev_state_probe_dp,
+ 	ncsi_dev_state_config_sp	= 0x0301,
+ 	ncsi_dev_state_config_cis,
+ 	ncsi_dev_state_config_sma,
 diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-index ef1de7f..1bb09eb 100644
+index 1bb09eb..c32a919 100644
 --- a/net/ncsi/ncsi-manage.c
 +++ b/net/ncsi/ncsi-manage.c
-@@ -353,13 +353,6 @@ void ncsi_free_req(struct ncsi_req *nr, bool check, bool timeout)
- 	nr->nr_used = false;
- 	spin_unlock_irqrestore(&ndp->ndp_req_lock, flags);
+@@ -372,26 +372,6 @@ struct ncsi_dev *ncsi_find_dev(struct net_device *dev)
+ 	return NULL;
+ }
  
--	/* If the NCSI command was sent because of netlink
--	 * messages, we need reply with the result or error.
--	 */
--	if (check && cmd && NCSI_CB(cmd).nsp_valid)
--		ncsi_netlink_reply(&NCSI_CB(cmd).nsp_nlh,
--				   NCSI_CB(cmd).nsp_portid, timeout);
--
- 	if (check && cmd && atomic_dec_return(&ndp->ndp_pending_reqs) == 0)
- 		schedule_work(&ndp->ndp_work);
- 	/* Release command and response */
-@@ -410,7 +403,6 @@ static void ncsi_dev_config(struct ncsi_dev_priv *ndp)
- 	int ret;
- 
- 	nca.nca_ndp = ndp;
--	nca.nca_nlh = NULL;
- 
- 	/* When we're reconfiguring the active channel, the active package
- 	 * should be selected and the old setting on the active channel
-@@ -522,7 +514,6 @@ static void ncsi_dev_start(struct ncsi_dev_priv *ndp)
- 	int ret;
- 
- 	nca.nca_ndp = ndp;
--	nca.nca_nlh = NULL;
- 	switch (nd->nd_state) {
- 	case ncsi_dev_state_start:
- 		nd->nd_state = ncsi_dev_state_start_deselect;
-@@ -696,7 +687,6 @@ static void ncsi_dev_suspend(struct ncsi_dev_priv *ndp)
- 	int ret;
- 
- 	nca.nca_ndp = ndp;
--	nca.nca_nlh = NULL;
- 	switch (nd->nd_state) {
- 	case ncsi_dev_state_suspend:
- 		/* If there're no active channel, we're done */
-diff --git a/net/ncsi/ncsi-netlink.c b/net/ncsi/ncsi-netlink.c
-deleted file mode 100644
-index bcabd39..0000000
---- a/net/ncsi/ncsi-netlink.c
-+++ /dev/null
-@@ -1,1042 +0,0 @@
--/*
-- * Copyright Gavin Shan, IBM Corporation 2015.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- */
--
--#include <linux/module.h>
--#include <linux/kernel.h>
--#include <linux/init.h>
--#include <linux/netdevice.h>
--#include <linux/skbuff.h>
--#include <linux/netlink.h>
--
--#include <net/ncsi.h>
--#include <net/net_namespace.h>
--#include <net/sock.h>
--
--#include "internal.h"
--#include "ncsi-pkt.h"
--
--static struct sock *ncsi_sock;
--
--static void ncsi_netlink_error(struct nlmsghdr *h,
--			       unsigned int portid,
--			       int errcode)
+-static int ncsi_select_active_channel(struct ncsi_dev_priv *ndp)
 -{
--	struct sk_buff *skb;
--	struct nlmsghdr *nlh;
--	struct ncsi_msg *src, *dst;
--	int ret;
--
--	skb = nlmsg_new(sizeof(*dst), GFP_ATOMIC);
--	if (!skb)
--		return;
--
--	/* The request might not have the common data instance */
--	nlh = nlmsg_put(skb, h->nlmsg_pid, h->nlmsg_seq,
--			h->nlmsg_type, sizeof(*dst), 0);
--	dst = nlmsg_data(nlh);
--	if (nlmsg_len(h) >= sizeof(*src)) {
--		src = nlmsg_data(h);
--		memcpy(dst, src, sizeof(*dst));
--		dst->nm_flag &= ~NCSI_FLAG_REQUEST;
--		dst->nm_flag |= NCSI_FLAG_RESPONSE;
--		dst->nm_errcode = errcode;
--	} else {
--		memset(dst, 0, sizeof(*dst));
--		dst->nm_flag = NCSI_FLAG_RESPONSE;
--		dst->nm_errcode = errcode;
--	}
--
--	nlmsg_end(skb, nlh);
--	ret = nlmsg_notify(ncsi_sock, skb, portid, 0, 1, 0);
--	if (ret) {
--		pr_warn("%s: Error %d sending message (%d)\n",
--			__func__, ret, errcode);
--		nlmsg_free(skb);
--	}
--}
--
--static struct sk_buff *ncsi_netlink_get_layout(struct nlmsghdr *h,
--					       int *errcode)
--{
--	struct net_device *dev;
--	struct ncsi_dev *nd;
--	struct ncsi_dev_priv *ndp;
 -	struct ncsi_package *np;
 -	struct ncsi_channel *nc;
--	struct sk_buff *skb;
--	struct nlmsghdr *nlh;
--	struct ncsi_msg nm, *src, *dst;
--	size_t size = sizeof(*dst);;
 -
--	/* Find the NCSI device */
--	src = nlmsg_data(h);
--	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
--	nd = dev ? ncsi_find_dev(dev) : NULL;
--	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
--	if (!ndp) {
--		*errcode = NCSI_ERR_NO_DEV;
--		return NULL;
--	}
--
--	/* Allocate response */
--	NCSI_FOR_EACH_PACKAGE(ndp, np)
--		size += nla_total_size(sizeof(nm)) *
--			atomic_read(&np->np_channel_num);
--	if (size <= sizeof(nm)) {
--		*errcode = NCSI_ERR_NO_DEV;
--		return NULL;
--	}
--	skb = nlmsg_new(size, GFP_KERNEL);
--	if (!skb) {
--		*errcode = NCSI_ERR_NO_MEM;
--		return NULL;
--	}
--
--	/* Fill header */
--	nlh = nlmsg_put(skb, h->nlmsg_pid, h->nlmsg_seq,
--			h->nlmsg_type, sizeof(nm), 0);
--	dst = nlmsg_data(nlh);
--	memcpy(dst, src, sizeof(*dst));
--	dst->nm_flag &= ~NCSI_FLAG_REQUEST;
--	dst->nm_flag |= NCSI_FLAG_RESPONSE;
--
--	/* All available channels */
+-	/* For now, we simply choose the first valid channel as active one.
+-	 * There might be more factors, like the channel's capacity, can
+-	 * be considered to pick the active channel in future.
+-	 */
 -	NCSI_FOR_EACH_PACKAGE(ndp, np) {
 -		NCSI_FOR_EACH_CHANNEL(np, nc) {
--			nm.nm_flag = 0;
--			if (nc == ndp->ndp_active_channel)
--				nm.nm_flag = NCSI_FLAG_ACTIVE_CHANNEL;
--			nm.nm_ifindex = src->nm_ifindex;
--			nm.nm_package_id = np->np_id;
--			nm.nm_channel_id = nc->nc_id;
--			nm.nm_index = 0;
--			nm.nm_index = NCSI_SUCCESS;
--
--			if (nla_put(skb, 0, sizeof(nm), &nm)) {
--				*errcode = NCSI_ERR_INTERNAL;
--				nlmsg_free(skb);
--				return NULL;
--			}
+-			ndp->ndp_active_package = np;
+-			ndp->ndp_active_channel = nc;
+-			return 0;
 -		}
 -	}
 -
--	nlmsg_end(skb, nlh);
--	return skb;
+-	return -ENXIO;
 -}
 -
--static struct sk_buff *ncsi_netlink_get_version(struct nlmsghdr *h,
--						int *errcode)
--{
--	struct net_device *dev;
--	struct ncsi_dev *nd;
--	struct ncsi_dev_priv *ndp;
--	struct ncsi_package *np;
--	struct ncsi_channel *nc;
--	struct ncsi_channel_version *ncv;
--	struct sk_buff *skb;
--	struct nlmsghdr *nlh;
--	struct ncsi_msg *src, *dst;
--	size_t size = sizeof(*dst);;
--
--	/* Find the NCSI device */
--	src = nlmsg_data(h);
--	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
--	nd = dev ? ncsi_find_dev(dev) : NULL;
--	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
--	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
--	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
--	if (!nc) {
--		*errcode = NCSI_ERR_NO_DEV;
--		return NULL;
--	}
--
--	/* Allocate response */
--	size += nla_total_size(sizeof(*ncv));
--	skb = nlmsg_new(size, GFP_KERNEL);
--	if (!skb) {
--		*errcode = NCSI_ERR_NO_MEM;
--		return NULL;
--	}
--
--	/* Fill header */
--	nlh = nlmsg_put(skb, h->nlmsg_pid, h->nlmsg_seq,
--			h->nlmsg_type, sizeof(*dst), 0);
--	dst = nlmsg_data(nlh);
--	memcpy(dst, src, sizeof(*dst));
--	dst->nm_flag &= ~NCSI_FLAG_REQUEST;
--	dst->nm_flag |= NCSI_FLAG_RESPONSE;
--
--	/* Fill channel version */
--	ncv = &nc->nc_version;
--	if (nla_put(skb, 0, sizeof(*ncv), ncv)) {
--		*errcode = NCSI_ERR_INTERNAL;
--		nlmsg_free(skb);
--		return NULL;
--	}
--
--	nlmsg_end(skb, nlh);
--	return skb;
--}
--
--static struct sk_buff *ncsi_netlink_get_cap(struct nlmsghdr *h,
--					    int *errcode)
--{
--	struct net_device *dev;
--	struct ncsi_dev *nd;
--	struct ncsi_dev_priv *ndp;
--	struct ncsi_package *np;
--	struct ncsi_channel *nc;
--	struct ncsi_channel_cap *ncc;
--	struct sk_buff *skb;
--	struct nlmsghdr *nlh;
--	struct ncsi_msg *src, *dst;
--	size_t size = sizeof(*dst);
--	int index;
--
--	/* Find the NCSI device */
--	src = nlmsg_data(h);
--	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
--	nd = dev ? ncsi_find_dev(dev) : NULL;
--	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
--	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
--	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
--	if (!nc) {
--		*errcode = NCSI_ERR_NO_DEV;
--		return NULL;
--	}
--
--	/* Allocate response */
--	if (src->nm_index > NCSI_CAP_MAX) {
--		*errcode = NCSI_ERR_PARAM;
--		return NULL;
--	} else if (src->nm_index == NCSI_CAP_MAX) {
--		size += nla_total_size(sizeof(*ncc)) * NCSI_CAP_MAX;
--	} else {
--		size += nla_total_size(sizeof(*ncc));
--	}
--	skb = nlmsg_new(size, GFP_KERNEL);
--	if (!skb) {
--		*errcode = NCSI_ERR_NO_MEM;
--		return NULL;
--	}
--
--	/* Fill header */
--	nlh = nlmsg_put(skb, h->nlmsg_pid, h->nlmsg_seq,
--			h->nlmsg_type, sizeof(*dst), 0);
--	dst = nlmsg_data(nlh);
--	memcpy(dst, src, sizeof(*dst));
--	dst->nm_flag &= ~NCSI_FLAG_REQUEST;
--	dst->nm_flag |= NCSI_FLAG_RESPONSE;
--
--	/* Fill one or all capabilities */
--	for (index = 0; index < NCSI_CAP_MAX; index++) {
--		ncc = &nc->nc_caps[index];
--		if (src->nm_index == NCSI_CAP_MAX ||
--		    src->nm_index == index) {
--			if (nla_put(skb, 0, sizeof(*ncc), ncc)) {
--				*errcode = NCSI_ERR_INTERNAL;
--				nlmsg_free(skb);
--				return NULL;
--			}
--		}
--	}
--
--	nlmsg_end(skb, nlh);
--	return skb;
--}
--
--static struct sk_buff *ncsi_netlink_get_mode(struct nlmsghdr *h,
--					     int *errcode)
--{
--	struct net_device *dev;
--	struct ncsi_dev *nd;
--	struct ncsi_dev_priv *ndp;
--	struct ncsi_package *np;
--	struct ncsi_channel *nc;
--	struct ncsi_cmd_arg nca;
--	struct ncsi_msg *src;
--
--	/* Find the NCSI device */
--	src = nlmsg_data(h);
--	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
--	nd = dev ? ncsi_find_dev(dev) : NULL;
--	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
--	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
--	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
--	if (!nc) {
--		*errcode = NCSI_ERR_NO_DEV;
--		return NULL;
--	}
--	if (nd->nd_state != ncsi_dev_state_functional ||
--	    ndp->ndp_active_channel != nc) {
--		*errcode = NCSI_ERR_NOT_ACTIVE;
--		return NULL;
--	}
--	if (src->nm_index > NCSI_MODE_MAX) {
--		*errcode = NCSI_ERR_PARAM;
--		return NULL;
--	}
--
--	/* Send NCSI GP command */
--	nca.nca_ndp = ndp;
--	nca.nca_nlh = h;
--	nca.nca_type = NCSI_PKT_CMD_GP;
--	nca.nca_package = np->np_id;
--	nca.nca_channel = nc->nc_id;
--	if (ncsi_xmit_cmd(&nca)) {
--		*errcode = NCSI_ERR_INTERNAL;
--		return NULL;
--	}
--
--	*errcode = NCSI_SUCCESS;
--	return NULL;
--}
--
--static struct sk_buff *ncsi_netlink_get_filter(struct nlmsghdr *h,
--					       int *errcode)
--{
--	struct net_device *dev;
--	struct ncsi_dev *nd;
--	struct ncsi_dev_priv *ndp;
--	struct ncsi_package *np;
--	struct ncsi_channel *nc;
--	struct ncsi_cmd_arg nca;
--	struct ncsi_msg *src;
--
--	/* Find the NCSI device */
--	src = nlmsg_data(h);
--	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
--	nd = dev ? ncsi_find_dev(dev) : NULL;
--	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
--	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
--	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
--	if (!nc) {
--		*errcode = NCSI_ERR_NO_DEV;
--		return NULL;
--	}
--	if (nd->nd_state != ncsi_dev_state_functional ||
--	    ndp->ndp_active_channel != nc) {
--		*errcode = NCSI_ERR_NOT_ACTIVE;
--		return NULL;
--	}
--	if (src->nm_index > NCSI_FILTER_MAX) {
--		*errcode = NCSI_ERR_PARAM;
--		return NULL;
--	}
--
--	/* Send NCSI GP command */
--	nca.nca_ndp = ndp;
--	nca.nca_nlh = h;
--	nca.nca_type = NCSI_PKT_CMD_GP;
--	nca.nca_package = np->np_id;
--	nca.nca_channel = nc->nc_id;
--	if (ncsi_xmit_cmd(&nca)) {
--		*errcode = NCSI_ERR_INTERNAL;
--		return NULL;
--	}
--
--	*errcode = NCSI_SUCCESS;
--	return NULL;
--}
--
--struct sk_buff *ncsi_netlink_get_stats(struct nlmsghdr *h, int *errcode)
--{
--	struct net_device *dev;
--	struct ncsi_dev *nd;
--	struct ncsi_dev_priv *ndp;
--	struct ncsi_package *np;
--	struct ncsi_channel *nc;
--	struct ncsi_msg *src;
--	struct ncsi_cmd_arg nca;
--	unsigned char cmd;
--
--	/* Find the NCSI device */
--	src = nlmsg_data(h);
--	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
--	nd = dev ? ncsi_find_dev(dev) : NULL;
--	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
--	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
--	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
--	if (!nc) {
--		*errcode = NCSI_ERR_NO_DEV;
--		return NULL;
--	}
--	if (nd->nd_state != ncsi_dev_state_functional ||
--	    ndp->ndp_active_channel != nc) {
--		*errcode = NCSI_ERR_NOT_ACTIVE;
--		return NULL;
--	}
--	if (src->nm_index > NCSI_FILTER_MAX) {
--		*errcode = NCSI_ERR_PARAM;
--		return NULL;
--	}
--
--	/* Get NIC statistics */
--	nca.nca_ndp = ndp;
--	nca.nca_nlh = NULL;
--	nca.nca_type = NCSI_PKT_CMD_GCPS;
--	nca.nca_package = np->np_id;
--	nca.nca_channel = nc->nc_id;
--	for (cmd = NCSI_PKT_CMD_GCPS; cmd <= NCSI_PKT_CMD_GNPTS; cmd++) {
--		nca.nca_type = cmd;
--		if (cmd == NCSI_PKT_CMD_GNPTS)
--			nca.nca_nlh = h;
--		if (ncsi_xmit_cmd(&nca)) {
--			*errcode = NCSI_ERR_INTERNAL;
--			return NULL;
--		}
--	}
--
--	*errcode = NCSI_SUCCESS;
--	return NULL;
--}
--
--struct sk_buff *ncsi_netlink_set_mode(struct nlmsghdr *h, int *errcode)
--{
--	struct net_device *dev;
--	struct ncsi_dev *nd;
--	struct ncsi_dev_priv *ndp;
--	struct ncsi_package *np;
--	struct ncsi_channel *nc;
--	struct ncsi_channel_mode *ncm;
--	struct ncsi_msg *src;
--	struct nlattr *nla;
--	struct ncsi_cmd_arg nca;
--
--	/* Find the NCSI device */
--	src = nlmsg_data(h);
--	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
--	nd = dev ? ncsi_find_dev(dev) : NULL;
--	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
--	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
--	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
--	if (!nc) {
--		*errcode = NCSI_ERR_NO_DEV;
--		return NULL;
--	}
--	if (nd->nd_state != ncsi_dev_state_functional ||
--	    ndp->ndp_active_channel != nc) {
--		*errcode = NCSI_ERR_NOT_ACTIVE;
--		return NULL;
--	}
--
--	/* Get NIC statistics */
--	nla = nlmsg_attrdata(h, sizeof(*src));
--	ncm = nla_data(nla);
--
--	nca.nca_ndp = ndp;
--	nca.nca_nlh = h;
--	nca.nca_package = np->np_id;
--	nca.nca_channel = nc->nc_id;
--	switch (src->nm_index) {
--	case NCSI_MODE_ENABLE:
--		if (ncm->ncm_enable) {
--			nca.nca_type = NCSI_PKT_CMD_EC;
+ static void ncsi_dev_config(struct ncsi_dev_priv *ndp)
+ {
+ 	struct ncsi_dev *nd = &ndp->ndp_ndev;
+@@ -504,7 +484,28 @@ error:
+ 	nd->nd_handler(nd);
+ }
+ 
+-static void ncsi_dev_start(struct ncsi_dev_priv *ndp)
++static void ncsi_choose_active_channel(struct ncsi_dev_priv *ndp)
++{
++	struct ncsi_package *np;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_mode *ncm;
++
++	ndp->ndp_active_package = NULL;
++	ndp->ndp_active_channel = NULL;
++	NCSI_FOR_EACH_PACKAGE(ndp, np) {
++		NCSI_FOR_EACH_CHANNEL(np, nc) {
++			ncm = &nc->nc_modes[NCSI_MODE_LINK];
++			if (ndp->ndp_active_channel ||
++			    !(ncm->ncm_data[2] & 0x1))
++				continue;
++
++			ndp->ndp_active_package = np;
++			ndp->ndp_active_channel = nc;
++		}
++	}
++}
++
++static void ncsi_dev_probe(struct ncsi_dev_priv *ndp)
+ {
+ 	struct ncsi_dev *nd = &ndp->ndp_ndev;
+ 	struct ncsi_package *np;
+@@ -515,10 +516,10 @@ static void ncsi_dev_start(struct ncsi_dev_priv *ndp)
+ 
+ 	nca.nca_ndp = ndp;
+ 	switch (nd->nd_state) {
+-	case ncsi_dev_state_start:
+-		nd->nd_state = ncsi_dev_state_start_deselect;
++	case ncsi_dev_state_probe:
++		nd->nd_state = ncsi_dev_state_probe_deselect;
+ 		/* Fall through */
+-	case ncsi_dev_state_start_deselect:
++	case ncsi_dev_state_probe_deselect:
+ 		atomic_set(&ndp->ndp_pending_reqs, 8);
+ 
+ 		/* Deselect all possible packages */
+@@ -531,9 +532,9 @@ static void ncsi_dev_start(struct ncsi_dev_priv *ndp)
+ 				goto error;
+ 		}
+ 
+-		nd->nd_state = ncsi_dev_state_start_package;
++		nd->nd_state = ncsi_dev_state_probe_package;
+ 		break;
+-	case ncsi_dev_state_start_package:
++	case ncsi_dev_state_probe_package:
+ 		atomic_set(&ndp->ndp_pending_reqs, 16);
+ 
+ 		/* Select all possible packages */
+@@ -556,34 +557,45 @@ static void ncsi_dev_start(struct ncsi_dev_priv *ndp)
+ 				goto error;
+ 		}
+ 
+-		nd->nd_state = ncsi_dev_state_start_channel;
++		nd->nd_state = ncsi_dev_state_probe_channel;
+ 		break;
+-	case ncsi_dev_state_start_channel:
+-		/* The available packages should have been detected. To
+-		 * iterate every package to probe its channels.
++	case ncsi_dev_state_probe_channel:
++		if (!ndp->ndp_active_package)
++			ndp->ndp_active_package = list_first_or_null_rcu(
++							&ndp->ndp_packages,
++							struct ncsi_package,
++							np_node);
++		else if (list_is_last(&ndp->ndp_active_package->np_node,
++				      &ndp->ndp_packages))
++			ndp->ndp_active_package = NULL;
++		else
++			ndp->ndp_active_package = list_next_entry(
++							ndp->ndp_active_package,
++							np_node);
++
++		/*
++		 * All available packages and channels are enumerated. The
++		 * enumeration happens for once when the NCSI interface is
++		 * started. So we need continue to start the interface after
++		 * the enumeration.
++		 *
++		 * We have to choose an active channel before configuring it.
++		 * Note that we possibly don't have active channel in extreme
++		 * situation.
+ 		 */
+ 		if (!ndp->ndp_active_package) {
+-			ndp->ndp_active_package = list_first_or_null_rcu(
+-				&ndp->ndp_packages, struct ncsi_package,
+-				np_node);
+-			if (!ndp->ndp_active_package)
++			ndp->ndp_flags |= NCSI_DEV_PRIV_FLAG_POPULATED;
++
++			ncsi_choose_active_channel(ndp);
++			if (!ndp->ndp_active_channel)
+ 				goto error;
 -		} else {
--			nca.nca_type = NCSI_PKT_CMD_DC;
--			nca.nca_bytes[0] = ncm->ncm_data[0];
--		}
--		break;
--	case NCSI_MODE_TX_ENABLE:
--		if (ncm->ncm_enable)
--			nca.nca_type = NCSI_PKT_CMD_ECNT;
+-			if (list_is_last(&ndp->ndp_active_package->np_node,
+-					 &ndp->ndp_packages)) {
+-				nd->nd_state = ncsi_dev_state_start_active;
+-				goto choose_active_channel;
+-			}
+-
+-			ndp->ndp_active_package = list_entry_rcu(
+-				ndp->ndp_active_package->np_node.next,
+-				struct ncsi_package, np_node);
++
++			nd->nd_state = ncsi_dev_state_config;
++			return ncsi_dev_config(ndp);
+ 		}
+-		/* Fall through */
+-	case ncsi_dev_state_start_sp:
+-		atomic_set(&ndp->ndp_pending_reqs, 1);
+ 
+-		/* Select the specific package */
++		/* Select the active package */
++		atomic_set(&ndp->ndp_pending_reqs, 1);
+ 		nca.nca_type = NCSI_PKT_CMD_SP;
+ 		nca.nca_bytes[0] = 1;
+ 		nca.nca_package = ndp->ndp_active_package->np_id;
+@@ -592,9 +604,9 @@ static void ncsi_dev_start(struct ncsi_dev_priv *ndp)
+ 		if (ret)
+ 			goto error;
+ 
+-		nd->nd_state = ncsi_dev_state_start_cis;
++		nd->nd_state = ncsi_dev_state_probe_cis;
+ 		break;
+-	case ncsi_dev_state_start_cis:
++	case ncsi_dev_state_probe_cis:
+ 		atomic_set(&ndp->ndp_pending_reqs, 0x20);
+ 
+ 		/* Clear initial state */
+@@ -607,22 +619,22 @@ static void ncsi_dev_start(struct ncsi_dev_priv *ndp)
+ 				goto error;
+ 		}
+ 
+-		nd->nd_state = ncsi_dev_state_start_gvi;
++		nd->nd_state = ncsi_dev_state_probe_gvi;
+ 		break;
+-	case ncsi_dev_state_start_gvi:
+-	case ncsi_dev_state_start_gc:
+-		/* The available channels of the active package should have
+-		 * been populated.
+-		 */
++	case ncsi_dev_state_probe_gvi:
++	case ncsi_dev_state_probe_gc:
++	case ncsi_dev_state_probe_gls:
+ 		np = ndp->ndp_active_package;
+ 		atomic_set(&ndp->ndp_pending_reqs,
+ 			   atomic_read(&np->np_channel_num));
+ 
+ 		/* Get version information or get capacity */
+-		if (nd->nd_state == ncsi_dev_state_start_gvi)
++		if (nd->nd_state == ncsi_dev_state_probe_gvi)
+ 			nca.nca_type = NCSI_PKT_CMD_GVI;
 -		else
--			nca.nca_type = NCSI_PKT_CMD_DCNT;
--		break;
--	case NCSI_MODE_LINK:
--		nca.nca_type = NCSI_PKT_CMD_SL;
--		nca.nca_dwords[0] = ncm->ncm_data[0];
--		nca.nca_dwords[1] = ncm->ncm_data[1];
--		break;
--	case NCSI_MODE_VLAN:
--		if (ncm->ncm_enable) {
--			nca.nca_type = NCSI_PKT_CMD_EV;
--			nca.nca_bytes[0] = ncm->ncm_data[0];
--		} else {
--			nca.nca_type = NCSI_PKT_CMD_DV;
--		}
--		break;
--	case NCSI_MODE_BC:
--		if (ncm->ncm_enable) {
--			nca.nca_type = NCSI_PKT_CMD_EBF;
--			nca.nca_dwords[0] = ncm->ncm_data[0];
--		} else {
--			nca.nca_type = NCSI_PKT_CMD_DBF;
--		}
--		break;
--	case NCSI_MODE_MC:
--		if (ncm->ncm_enable) {
--			nca.nca_type = NCSI_PKT_CMD_EGMF;
--			nca.nca_dwords[0] = ncm->ncm_data[0];
--		} else {
--			nca.nca_type = NCSI_PKT_CMD_DGMF;
--		}
--		break;
--	case NCSI_MODE_AEN:
--		nca.nca_type = NCSI_PKT_CMD_AE;
--		nca.nca_bytes[0] = ncm->ncm_data[0];
--		nca.nca_dwords[1] = ncm->ncm_data[1];
--		break;
--	case NCSI_MODE_FC:
--		nca.nca_type = NCSI_PKT_CMD_SNFC;
--		nca.nca_bytes[0] = ncm->ncm_data[0];
--		break;
--	default:
--		*errcode = NCSI_ERR_PARAM;
--		return NULL;
--	}
--
--	if (ncsi_xmit_cmd(&nca)) {
--		*errcode = NCSI_ERR_INTERNAL;
--		return NULL;
--	}
--
--	*errcode = NCSI_SUCCESS;
--	return NULL;
--}
--
--struct sk_buff *ncsi_netlink_set_filter(struct nlmsghdr *h, int *errcode)
--{
--	struct net_device *dev;
--	struct ncsi_dev *nd;
--	struct ncsi_dev_priv *ndp;
--	struct ncsi_package *np;
--	struct ncsi_channel *nc;
--	struct ncsi_channel_filter *ncf;
--	struct ncsi_msg *src;
--	struct nlattr *nla;
--	struct ncsi_cmd_arg nca;
--
--	/* Find the NCSI device */
--	src = nlmsg_data(h);
--	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
--	nd = dev ? ncsi_find_dev(dev) : NULL;
--	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
--	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
--	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
--	if (!nc) {
--		*errcode = NCSI_ERR_NO_DEV;
--		return NULL;
--	}
--	if (nd->nd_state != ncsi_dev_state_functional ||
--	    ndp->ndp_active_channel != nc) {
--		*errcode = NCSI_ERR_NOT_ACTIVE;
--		return NULL;
--	}
--
--	/* Get NIC statistics */
--	nla = nlmsg_attrdata(h, sizeof(*src));
--	ncf = nla_data(nla);
--
--	nca.nca_ndp = ndp;
--	nca.nca_nlh = h;
--	nca.nca_package = np->np_id;
--	nca.nca_channel = nc->nc_id;
--	switch (src->nm_index) {
--	case NCSI_FILTER_VLAN:
--		nca.nca_type = NCSI_PKT_CMD_SVF;
--		memcpy(nca.nca_bytes, ncf->ncf_data, 4);
--		break;
--	case NCSI_FILTER_UC:
--	case NCSI_FILTER_MC:
--		memcpy(nca.nca_bytes, ncf->ncf_data, 8);
--		nca.nca_bytes[7] &= 0x1f;
--		if (src->nm_index == NCSI_FILTER_MC)
--			nca.nca_bytes[7] |= 0x20;
--		break;
--	default:
--		*errcode = NCSI_ERR_PARAM;
--		return NULL;
--	}
--
--	if (ncsi_xmit_cmd(&nca)) {
--		*errcode = NCSI_ERR_INTERNAL;
--		return NULL;
--	}
--
--	*errcode = NCSI_SUCCESS;
--	return NULL;
--}
--
--static struct sk_buff *ncsi_netlink_get_mode_reply(struct nlmsghdr *h,
--						   int *errcode)
--{
--	struct net_device *dev;
--	struct ncsi_dev *nd;
--	struct ncsi_dev_priv *ndp;
--	struct ncsi_package *np;
--	struct ncsi_channel *nc;
--	struct ncsi_channel_mode *ncm;
--	struct sk_buff *skb;
--	struct nlmsghdr *nlh;
--	struct ncsi_msg *src, *dst;
--	size_t size = sizeof(*dst);
--	int index;
--
--	/* Find the NCSI device */
--	src = nlmsg_data(h);
--	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
--	nd = dev ? ncsi_find_dev(dev) : NULL;
--	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
--	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
--	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
--	if (!nc) {
--		*errcode = NCSI_ERR_NO_DEV;
--		return NULL;
--	}
--
--	/* Allocate response */
--	if (src->nm_index > NCSI_MODE_MAX) {
--		*errcode = NCSI_ERR_PARAM;
--		return NULL;
--	} else if (src->nm_index == NCSI_MODE_MAX) {
--		size += nla_total_size(sizeof(*ncm)) * NCSI_MODE_MAX;
--	} else {
--		size += nla_total_size(sizeof(*ncm));
--	}
--	skb = nlmsg_new(size, GFP_ATOMIC);
--	if (!skb) {
--		*errcode = NCSI_ERR_NO_MEM;
--		return NULL;
--	}
--
--	/* Fill header */
--	nlh = nlmsg_put(skb, h->nlmsg_pid, h->nlmsg_seq,
--			h->nlmsg_type, sizeof(*dst), 0);
--	dst = nlmsg_data(nlh);
--	memcpy(dst, src, sizeof(*dst));
--	dst->nm_flag &= ~NCSI_FLAG_REQUEST;
--	dst->nm_flag |= NCSI_FLAG_RESPONSE;
--
--	/* Fill one or all modes */
--	for (index = 0; index < NCSI_MODE_MAX; index++) {
--		ncm = &nc->nc_modes[index];
--		if (src->nm_index == NCSI_MODE_MAX ||
--		    src->nm_index == index) {
--			if (nla_put(skb, 0, sizeof(*ncm), ncm)) {
--				*errcode = NCSI_ERR_INTERNAL;
--				nlmsg_free(skb);
--				return NULL;
--			}
--		}
--	}
--
--	nlmsg_end(skb, nlh);
--	return skb;
--}
--
--static struct sk_buff *ncsi_netlink_get_filter_reply(struct nlmsghdr *h,
--						     int *errcode)
--{
--	struct net_device *dev;
--	struct ncsi_dev *nd;
--	struct ncsi_dev_priv *ndp;
--	struct ncsi_package *np;
--	struct ncsi_channel *nc;
--	struct ncsi_channel_filter *ncf;
--	struct sk_buff *skb;
--	struct nlmsghdr *nlh;
--	struct ncsi_msg *src, *dst;
--	size_t entry_size, size = sizeof(*dst);
--	int index;
--
--	/* Find the NCSI device */
--	src = nlmsg_data(h);
--	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
--	nd = dev ? ncsi_find_dev(dev) : NULL;
--	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
--	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
--	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
--	if (!nc) {
--		*errcode = NCSI_ERR_NO_DEV;
--		return NULL;
--	}
--
--	/* Allocate response */
--	if (src->nm_index > NCSI_FILTER_MAX) {
--		*errcode = NCSI_ERR_PARAM;
--		return NULL;
--	}
--
--	for (index = 0; index < NCSI_FILTER_MAX; index++) {
--		ncf = nc->nc_filters[index];
--		switch (index) {
--		case NCSI_FILTER_VLAN:
--			entry_size = 2;
--			break;
--		case NCSI_FILTER_UC:
--		case NCSI_FILTER_MC:
--		case NCSI_FILTER_MIXED:
--			entry_size = 6;
--			break;
--		default:
--			continue;
--		}
--
--		if (src->nm_index == NCSI_FILTER_MAX ||
--		    src->nm_index == index) {
--			if (!ncf)
--				continue;
--
--			size += nla_total_size(sizeof(*ncf) +
--					       entry_size * ncf->ncf_total);
--		}
--	}
--
--	skb = nlmsg_new(size, GFP_ATOMIC);
--	if (!skb) {
--		*errcode = NCSI_ERR_NO_MEM;
--		return NULL;
--	}
--
--	/* Fill header */
--	nlh = nlmsg_put(skb, h->nlmsg_pid, h->nlmsg_seq,
--			h->nlmsg_type, sizeof(*dst), 0);
--	dst = nlmsg_data(nlh);
--	memcpy(dst, src, sizeof(*dst));
--	dst->nm_flag &= ~NCSI_FLAG_REQUEST;
--	dst->nm_flag |= NCSI_FLAG_RESPONSE;
--
--	/* Fill one or all filters */
--	for (index = 0; index < NCSI_FILTER_MAX; index++) {
--		ncf = nc->nc_filters[index];
--		switch (index) {
--		case NCSI_FILTER_VLAN:
--			entry_size = 2;
--			break;
--		case NCSI_FILTER_UC:
--		case NCSI_FILTER_MC:
--		case NCSI_FILTER_MIXED:
--			entry_size = 6;
--			break;
--		default:
--			continue;
--		}
--
--		if (src->nm_index == NCSI_FILTER_MAX ||
--		    src->nm_index == index) {
--			if (!ncf)
--				continue;
--
--			size = sizeof(*ncf) + entry_size * ncf->ncf_total;
--			if (nla_put(skb, 0, size, ncf)) {
--				nlmsg_free(skb);
--				*errcode = NCSI_ERR_INTERNAL;
--				return NULL;
--			}
--		}
--	}
--
--	nlmsg_end(skb, nlh);
--	return skb;
--}
--
--struct sk_buff *ncsi_netlink_get_stats_reply(struct nlmsghdr *h, int *errcode)
--{
--	struct net_device *dev;
--	struct ncsi_dev *nd;
--	struct ncsi_dev_priv *ndp;
--	struct ncsi_package *np;
--	struct ncsi_channel *nc;
--	struct ncsi_channel_stats *ncs;
--	struct sk_buff *skb;
--	struct nlmsghdr *nlh;
--	struct ncsi_msg *src, *dst;
--	size_t size = sizeof(*dst);
--
--	/* Find the NCSI device */
--	src = nlmsg_data(h);
--	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
--	nd = dev ? ncsi_find_dev(dev) : NULL;
--	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
--	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
--	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
--	if (!nc) {
--		*errcode = NCSI_ERR_NO_DEV;
--		return NULL;
--	}
--
--	/* Allocate response */
--	size += nla_total_size(sizeof(*ncs));
--	skb = nlmsg_new(size, GFP_ATOMIC);
--	if (!skb) {
--		*errcode = NCSI_ERR_NO_MEM;
--		return NULL;
--	}
--
--	/* Fill header */
--	nlh = nlmsg_put(skb, h->nlmsg_pid, h->nlmsg_seq,
--			h->nlmsg_type, sizeof(*dst), 0);
--	dst = nlmsg_data(nlh);
--	memcpy(dst, src, sizeof(*dst));
--	dst->nm_flag &= ~NCSI_FLAG_REQUEST;
--	dst->nm_flag |= NCSI_FLAG_RESPONSE;
--
--	/* Fill one or all filters */
--	ncs = &nc->nc_stats;
--	if (nla_put(skb, 0, sizeof(*ncs), ncs)) {
--		nlmsg_free(skb);
--		*errcode = NCSI_ERR_INTERNAL;
--		return NULL;
--	}
--
--	nlmsg_end(skb, nlh);
--	return skb;
--}
--
--struct sk_buff *ncsi_netlink_set_mode_reply(struct nlmsghdr *h, int *errcode)
--{
--	struct net_device *dev;
--	struct ncsi_dev *nd;
--	struct ncsi_dev_priv *ndp;
--	struct ncsi_package *np;
--	struct ncsi_channel *nc;
--	struct sk_buff *skb;
--	struct nlmsghdr *nlh;
--	struct nlattr *nla;
--	struct ncsi_msg *src, *dst;
--	struct ncsi_channel_mode *ncm;
--	size_t size = sizeof(*dst);
--
--	/* Find the NCSI device */
--	src = nlmsg_data(h);
--	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
--	nd = dev ? ncsi_find_dev(dev) : NULL;
--	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
--	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
--	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
--	if (!nc) {
--		*errcode = NCSI_ERR_NO_DEV;
--		return NULL;
--	}
--
--	/* Allocate response */
--	size += nla_total_size(sizeof(*ncm));
--	skb = nlmsg_new(size, GFP_ATOMIC);
--	if (!skb) {
--		*errcode = NCSI_ERR_NO_MEM;
--		return NULL;
--	}
--
--	/* Fill header */
--	nlh = nlmsg_put(skb, h->nlmsg_pid, h->nlmsg_seq,
--			h->nlmsg_type, sizeof(*dst), 0);
--	dst = nlmsg_data(nlh);
--	memcpy(dst, src, sizeof(*dst));
--	dst->nm_flag &= ~NCSI_FLAG_REQUEST;
--	dst->nm_flag |= NCSI_FLAG_RESPONSE;
--
--	/* Fill one or all filters */
--	nla = nlmsg_attrdata(h, sizeof(*dst));
--	ncm = nla_data(nla);
--	if (nla_put(skb, 0, sizeof(*ncm), ncm)) {
--		*errcode = NCSI_ERR_INTERNAL;
--		return NULL;
--	}
--
--	nlmsg_end(skb, nlh);
--	return skb;
--}
--
--struct sk_buff *ncsi_netlink_set_filter_reply(struct nlmsghdr *h, int *errcode)
--{
--	struct net_device *dev;
--	struct ncsi_dev *nd;
--	struct ncsi_dev_priv *ndp;
--	struct ncsi_package *np;
--	struct ncsi_channel *nc;
--	struct sk_buff *skb;
--	struct nlmsghdr *nlh;
--	struct nlattr *nla;
--	struct ncsi_msg *src, *dst;
--	struct ncsi_channel_filter *ncf;
--	size_t extra, size = sizeof(*dst);
--
--	/* Find the NCSI device */
--	src = nlmsg_data(h);
--	dev = dev_get_by_index(ncsi_net, src->nm_ifindex);
--	nd = dev ? ncsi_find_dev(dev) : NULL;
--	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
--	np = ndp ? ncsi_find_package(ndp, src->nm_package_id) : NULL;
--	nc = np ? ncsi_find_channel(np, src->nm_channel_id) : NULL;
--	if (!nc) {
--		*errcode = NCSI_ERR_NO_DEV;
--		return NULL;
--	}
--
--	/* Allocate response */
--	size += nla_total_size(sizeof(*ncf) + 16);
--	skb = nlmsg_new(size, GFP_ATOMIC);
--	if (!skb) {
--		*errcode = NCSI_ERR_NO_MEM;
--		return NULL;
--	}
--
--	/* Fill header */
--	nlh = nlmsg_put(skb, h->nlmsg_pid, h->nlmsg_seq,
--			h->nlmsg_type, sizeof(*dst), 0);
--	dst = nlmsg_data(nlh);
--	memcpy(dst, src, sizeof(*dst));
--	dst->nm_flag &= ~NCSI_FLAG_REQUEST;
--	dst->nm_flag |= NCSI_FLAG_RESPONSE;
--
--	/* Fill one or all filters */
--	nla = nlmsg_attrdata(h, sizeof(*dst));
--	ncf = nla_data(nla);
--	switch(src->nm_index) {
--	case NCSI_FILTER_VLAN:
--		extra = 2;
--		break;
--	case NCSI_FILTER_UC:
--	case NCSI_FILTER_MC:
--		extra = 6;
--		break;
--	default:
--		nlmsg_free(skb);
--		*errcode = NCSI_ERR_PARAM;
--		return NULL;
--	}
--
--	if (nla_put(skb, 0, sizeof(*ncf) + extra, ncf)) {
--		*errcode = NCSI_ERR_INTERNAL;
--		return NULL;
--	}
--
--	nlmsg_end(skb, nlh);
--	return skb;
--}
--
--void ncsi_netlink_reply(struct nlmsghdr *h, unsigned int portid, bool timeout)
--{
--	struct sk_buff *skb;
--	int errcode = NCSI_SUCCESS;
--	struct sk_buff *(*func)(struct nlmsghdr *, int *) = NULL;
--
--	if (timeout) {
--		ncsi_netlink_error(h, portid, NCSI_ERR_INTERNAL);
--		return;
--	}
--
--	switch (h->nlmsg_type) {
--	case NCSI_MSG_GET_MODE:
--		func = ncsi_netlink_get_mode_reply;
--		break;
--	case NCSI_MSG_GET_FILTER:
--		func = ncsi_netlink_get_filter_reply;
--		break;
--	case NCSI_MSG_GET_STATS:
--		func = ncsi_netlink_get_stats_reply;
--		break;
--	case NCSI_MSG_SET_MODE:
--		func = ncsi_netlink_set_mode_reply;
--		break;
--	case NCSI_MSG_SET_FILTER:
--		func = ncsi_netlink_set_filter_reply;
--		break;
--	default:
--		errcode = NCSI_ERR_PARAM;
--		goto out;
--	}
--
--	skb = func(h, &errcode);
--	if (!skb)
--		goto out;
--
--	nlmsg_notify(ncsi_sock, skb, portid, 0, 0, GFP_ATOMIC);
--	return;
--out:
--	ncsi_netlink_error(h, portid, errcode);
--}
--
--static int ncsi_netlink_rcv_msg(struct sk_buff *cmd, struct nlmsghdr *h)
--{
--	struct ncsi_msg *nm;
--	struct sk_buff *skb;
--	int errcode = NCSI_SUCCESS;
--	unsigned int portid = NETLINK_CB(cmd).portid;
--	struct sk_buff *(*func)(struct nlmsghdr *, int *) = NULL;
--
--	if (h->nlmsg_type >= NCSI_MSG_MAX ||
--	    nlmsg_len(h) < sizeof(*nm)) {
--		errcode = NCSI_ERR_PARAM;
--		goto out;
--	}
--
--	nm = nlmsg_data(h);
--	if (!(nm->nm_flag & NCSI_FLAG_REQUEST)) {
--		errcode = NCSI_ERR_PARAM;
--		goto out;
--	}
--
--	switch (h->nlmsg_type) {
--	case NCSI_MSG_GET_LAYOUT:
--		func = ncsi_netlink_get_layout;
--		break;
--	case NCSI_MSG_GET_VERSION:
--		func = ncsi_netlink_get_version;
--		break;
--	case NCSI_MSG_GET_CAP:
--		func = ncsi_netlink_get_cap;
--		break;
--	case NCSI_MSG_GET_MODE:
--		func = ncsi_netlink_get_mode;
--		break;
--	case NCSI_MSG_GET_FILTER:
--		func = ncsi_netlink_get_filter;
--		break;
--	case NCSI_MSG_GET_STATS:
--		func = ncsi_netlink_get_stats;
--		break;
--	case NCSI_MSG_SET_MODE:
--		func = ncsi_netlink_set_mode;
--		break;
--	case NCSI_MSG_SET_FILTER:
--		func = ncsi_netlink_set_filter;
--		break;
--	default:
--		goto out;
--	}
--
--	skb = func(h, &errcode);
--	if (errcode != NCSI_SUCCESS)
--		goto out;
--
--	/* Split transactions */
--	if (!skb)
--		return 0;
--
--	return nlmsg_notify(ncsi_sock, skb, portid, 0, 0, GFP_KERNEL);
--out:
--	ncsi_netlink_error(h, portid, errcode);
--	return -EINTR;
--}
--
--static void ncsi_netlink_rcv(struct sk_buff *skb)
--{
--	netlink_rcv_skb(skb, &ncsi_netlink_rcv_msg);
--}
--
--int __net_init ncsi_netlink_init(struct net *net)
--{
--	struct netlink_kernel_cfg cfg = {
--		.groups   = 0,
--		.flags    = NL_CFG_F_NONROOT_RECV |
--			    NL_CFG_F_NONROOT_SEND,
--		.input    = ncsi_netlink_rcv,
--	};
--
--	ncsi_sock = netlink_kernel_create(net, NETLINK_NCSI, &cfg);
--	return ncsi_sock ? 0 : -ENOMEM;
--}
--
--void __net_exit ncsi_netlink_exit(struct net *net)
--{
--	netlink_kernel_release(ncsi_sock);
--	ncsi_sock = NULL;
--}
-diff --git a/net/ncsi/ncsi.c b/net/ncsi/ncsi.c
-deleted file mode 100644
-index c84939e..0000000
---- a/net/ncsi/ncsi.c
-+++ /dev/null
-@@ -1,49 +0,0 @@
--/*
-- * Copyright Gavin Shan, IBM Corporation 2015.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- */
--
--#include <linux/module.h>
--#include <linux/kernel.h>
--#include <linux/init.h>
--#include <linux/netdevice.h>
--#include <linux/skbuff.h>
--
--#include <net/ncsi.h>
--#include <net/net_namespace.h>
--#include <net/sock.h>
--
--#include "internal.h"
--
--struct net *ncsi_net = NULL;
--
--static int __net_init ncsi_net_init(struct net *net)
--{
--	ncsi_net = net;
--	return ncsi_netlink_init(net);
--}
--
--static void __net_exit ncsi_net_exit(struct net *net)
--{
--	ncsi_netlink_exit(net);
--	ncsi_net = NULL;
--}
--
--static struct pernet_operations ncsi_net_ops = {
--	.init = ncsi_net_init,
--	.exit = ncsi_net_exit,
--};
--
--static int __init ncsi_init(void)
--{
--	if (ncsi_net)
--		return -EEXIST;
--
--	return register_pernet_subsys(&ncsi_net_ops);
--}
--
--fs_initcall_sync(ncsi_init);
++		else if (nd->nd_state == ncsi_dev_state_probe_gc)
+ 			nca.nca_type = NCSI_PKT_CMD_GC;
++		else
++			nca.nca_type = NCSI_PKT_CMD_GLS;
+ 
+ 		nca.nca_package = np->np_id;
+ 		NCSI_FOR_EACH_CHANNEL(np, nc) {
+@@ -632,12 +644,14 @@ static void ncsi_dev_start(struct ncsi_dev_priv *ndp)
+ 				goto error;
+ 		}
+ 
+-		if (nd->nd_state == ncsi_dev_state_start_gvi)
+-			nd->nd_state = ncsi_dev_state_start_gc;
++		if (nd->nd_state == ncsi_dev_state_probe_gvi)
++			nd->nd_state = ncsi_dev_state_probe_gc;
++		else if (nd->nd_state == ncsi_dev_state_probe_gc)
++			nd->nd_state = ncsi_dev_state_probe_gls;
+ 		else
+-			nd->nd_state = ncsi_dev_state_start_dp;
++			nd->nd_state = ncsi_dev_state_probe_dp;
+ 		break;
+-	case ncsi_dev_state_start_dp:
++	case ncsi_dev_state_probe_dp:
+ 		atomic_set(&ndp->ndp_pending_reqs, 1);
+ 
+ 		/* Deselect the active package */
+@@ -648,31 +662,16 @@ static void ncsi_dev_start(struct ncsi_dev_priv *ndp)
+ 		if (ret)
+ 			goto error;
+ 
+-		nd->nd_state = ncsi_dev_state_start_channel;
++		/* Scan channels in next package */
++		nd->nd_state = ncsi_dev_state_probe_channel;
+ 		break;
+-	case ncsi_dev_state_start_active:
+-choose_active_channel:
+-		/* All packages and channels should have been populated. Also,
+-		 * the information for all channels should have been retrieved.
+-		 */
+-		ndp->ndp_active_package = NULL;
+-		ncsi_select_active_channel(ndp);
+-		if (!ndp->ndp_active_package ||
+-		    !ndp->ndp_active_channel)
+-			goto error;
+-
+-		/* To configure the active channel */
+-		nd->nd_state = ncsi_dev_state_config_sma;
+-		ncsi_dev_config(ndp);
+ 	default:
+-		pr_debug("%s: Unrecognized NCSI dev state 0x%x\n",
+-			 __func__, nd->nd_state);
++		pr_warn("%s: Unrecognized NCSI dev state 0x%x\n",
++			__func__, nd->nd_state);
+ 	}
+ 
+ 	return;
+-
+ error:
+-	ndp->ndp_flags &= ~NCSI_DEV_PRIV_FLAG_CHANGE_ACTIVE;
+ 	nd->nd_state = ncsi_dev_state_functional;
+ 	nd->nd_link_up = 0;
+ 	nd->nd_handler(nd);
+@@ -745,8 +744,8 @@ done:
+ 			nd->nd_link_up = 0;
+ 			nd->nd_handler(nd);
+ 		} else {
+-			nd->nd_state = ncsi_dev_state_start;
+-			ncsi_dev_start(ndp);
++			nd->nd_state = ncsi_dev_state_config;
++			ncsi_dev_config(ndp);
+ 		}
+ 
+ 		break;
+@@ -763,8 +762,8 @@ static void ncsi_dev_work(struct work_struct *work)
+ 	struct ncsi_dev *nd = &ndp->ndp_ndev;
+ 
+ 	switch (nd->nd_state & ncsi_dev_state_major) {
+-	case ncsi_dev_state_start:
+-		ncsi_dev_start(ndp);
++	case ncsi_dev_state_probe:
++		ncsi_dev_probe(ndp);
+ 		break;
+ 	case ncsi_dev_state_suspend:
+ 		ncsi_dev_suspend(ndp);
+@@ -858,10 +857,18 @@ int ncsi_start_dev(struct ncsi_dev *nd)
+ 	    nd->nd_state != ncsi_dev_state_functional)
+ 		return -ENOTTY;
+ 
+-	nd->nd_state = ncsi_dev_state_start;
+-	schedule_work(&ndp->ndp_work);
++	if (!(ndp->ndp_flags & NCSI_DEV_PRIV_FLAG_POPULATED)) {
++		nd->nd_state = ncsi_dev_state_probe;
++		schedule_work(&ndp->ndp_work);
++		return 0;
++	}
+ 
+-	return 0;
++	/* Choose active package and channel */
++	ncsi_choose_active_channel(ndp);
++	if (!ndp->ndp_active_channel)
++		return -ENXIO;
++
++	return ncsi_config_dev(nd);
+ }
+ EXPORT_SYMBOL_GPL(ncsi_start_dev);
+ 
+@@ -894,13 +901,6 @@ EXPORT_SYMBOL_GPL(ncsi_suspend_dev);
+ 
+ void ncsi_stop_dev(struct ncsi_dev *nd)
+ {
+-	struct ncsi_dev_priv *ndp = TO_NCSI_DEV_PRIV(nd);
+-	struct ncsi_package *tmp, *np;
+-
+-	spin_lock_bh(&ndp->ndp_package_lock);
+-	list_for_each_entry_safe(np, tmp, &ndp->ndp_packages, np_node)
+-		ncsi_release_package(np);
+-	spin_unlock_bh(&ndp->ndp_package_lock);
+ }
+ EXPORT_SYMBOL_GPL(ncsi_stop_dev);
+ 
 -- 
 2.1.0
