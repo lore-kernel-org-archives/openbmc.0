@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r3CvD1DWjzDqBt
- for <openbmc@lists.ozlabs.org>; Mon,  9 May 2016 17:00:24 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r3CvL1wwwzDqBy
+ for <openbmc@lists.ozlabs.org>; Mon,  9 May 2016 17:00:30 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1462777218365574.4251949410511;
- Mon, 9 May 2016 00:00:18 -0700 (PDT)
+ with SMTPS id 1462777216308733.5666427038225;
+ Mon, 9 May 2016 00:00:16 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH docs 2/2] rest-api: Fix capitalisation of 'Just'
-Date: Mon,  9 May 2016 02:00:12 -0500
-Message-Id: <1462777212-10680-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH docs 1/2] rest-api.md: Fix 'emumerate' typo
+Date: Mon,  9 May 2016 02:00:11 -0500
+Message-Id: <1462777212-10680-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.1
 In-Reply-To: <1462777212-10680-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1462777212-10680-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -27,7 +27,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 May 2016 07:00:24 -0000
+X-List-Received-Date: Mon, 09 May 2016 07:00:30 -0000
 
 From: Andrew Jeffery <andrew@aj.id.au>
 
@@ -37,17 +37,17 @@ Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/rest-api.md b/rest-api.md
-index 1d61eb5..10b01e9 100644
+index d0be259..1d61eb5 100644
 --- a/rest-api.md
 +++ b/rest-api.md
-@@ -151,7 +151,7 @@ Alternatively specify the json inline with -d:
-         -d '{"data": <value>}' \
-         https://bmc/org/openbmc/control/flash/bios/attr/flasher_path
+@@ -102,7 +102,7 @@ They are:
+         $ curl -b cjar -k https://palm5-bmc/list
+         [output omitted]
  
--When using '-d' Just remember that json requires quoting.
-+When using '-d' just remember that json requires quoting.
+- - Adding `/emumerate` instead of `/list` will also include the attributes of
++ - Adding `/enumerate` instead of `/list` will also include the attributes of
+    the listed objects.
  
- ## HTTP POST operations
- POST operations are for calling methods, but also for creating new resources
+ 
 -- 
 2.8.1
