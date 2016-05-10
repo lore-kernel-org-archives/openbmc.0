@@ -3,17 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r3jQn3Vs4zDq9s
- for <openbmc@lists.ozlabs.org>; Tue, 10 May 2016 12:10:55 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r3jQn3YnJzDqBR
+ for <openbmc@lists.ozlabs.org>; Tue, 10 May 2016 12:10:56 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 146284625129288.95601799462145;
- Mon, 9 May 2016 19:10:51 -0700 (PDT)
+ with SMTPS id 1462846253178771.3044428069182;
+ Mon, 9 May 2016 19:10:53 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH skeleton v8 00/22] Add fan control algorithm
-Date: Mon,  9 May 2016 21:10:28 -0500
-Message-Id: <1462846250-29392-1-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: Ken <ken1029@gmail.com>
+Subject: [PATCH skeleton v8 02/22] Heartbeat Led function
+Date: Mon,  9 May 2016 21:10:30 -0500
+Message-Id: <1462846250-29392-3-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.1
+In-Reply-To: <1462846250-29392-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1462846250-29392-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,39 +31,27 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
 X-List-Received-Date: Tue, 10 May 2016 02:10:58 -0000
 X-List-Received-Date: Tue, 10 May 2016 02:10:58 -0000
 
+From: Ken <ken1029@gmail.com>
 
+---
+ bin/Barreleye.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-<!-- Reviewable:start -->
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/skeleton/59)
-<!-- Reviewable:end -->
-
-
-https://github.com/openbmc/skeleton/pull/59
-
-Ken (8):
-  add i2craw tool and hdd status function
-  Heartbeat Led function
-  fix info memory leak
-  Setup FUNC_MODE[2:0]
-  fix info memory leak
-  Revert "Fill in the threshold settings for CPU and DIMM"
-  Add fan control algorithm
-  Fix skeleton Makefile
-
-Ken Lai (3):
-  Revert "Add I2C-6 lm75 outlet temperature sensor"
-  Revert "Setup FUNC_MODE[2:0]"
-  Fix Makefile issue
-
-johnhcwang (11):
-  Fill in the threshold settings for CPU and DIMM
-  Fill in the threshold settings for CPU and DIMM
-  Add I2C-6 lm75 outlet temperature sensor
-  Modify the hard-coded hwmon ID for PowerCap
-  Fill in the threshold settings for CPU and DIMM
-  Set lower threshold for ambient/CPU/DIMM sensors
-  Fix memory leak
-  Support FAN tach sensors
-  Generate thermaltrip event
-  Keep original design to generate thermaltrip event
-  Support FAN LED feature
+diff --git a/bin/Barreleye.py b/bin/Barreleye.py
+index 08a91a9..ff6690b 100755
+--- a/bin/Barreleye.py
++++ b/bin/Barreleye.py
+@@ -68,9 +68,9 @@ ENTER_STATE_CALLBACK = {
+ 
+ 	},
+ 	'BMC_READY' : {
+-		'setOn' : {
++		'setBlinkSlow' : {
+ 			'bus_name'   : 'org.openbmc.control.led',
+-			'obj_name'   : '/org/openbmc/control/led/beep',
++			'obj_name'   : '/org/openbmc/control/led/heartbeat',
+ 			'interface_name' : 'org.openbmc.Led',
+ 		},
+ 		'init' : {
+-- 
+2.8.1
