@@ -1,22 +1,92 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <shliyi@cn.ibm.com>
+Received: from e23smtp05.au.ibm.com (e23smtp05.au.ibm.com [202.81.31.147])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r3rJV1k33zDq5s
- for <openbmc@lists.ozlabs.org>; Tue, 10 May 2016 17:20:58 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1462864852916104.85080288184452;
- Tue, 10 May 2016 00:20:52 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH skeleton v6] skeleton: fixed hard-coding of master OCC hwmon
- sysfs path for PowerCap object
-Date: Tue, 10 May 2016 02:20:50 -0500
-Message-Id: <1462864850-8983-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.8.1
-In-Reply-To: <1462864850-8983-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1462864850-8983-1-git-send-email-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r3tVW6sXwzDq5s
+ for <openbmc@lists.ozlabs.org>; Tue, 10 May 2016 18:59:47 +1000 (AEST)
+Received: from localhost
+ by e23smtp05.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <shliyi@cn.ibm.com>;
+ Tue, 10 May 2016 18:59:45 +1000
+Received: from d23dlp02.au.ibm.com (202.81.31.213)
+ by e23smtp05.au.ibm.com (202.81.31.211) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Tue, 10 May 2016 18:59:43 +1000
+X-IBM-Helo: d23dlp02.au.ibm.com
+X-IBM-MailFrom: shliyi@cn.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d23relay06.au.ibm.com (d23relay06.au.ibm.com [9.185.63.219])
+ by d23dlp02.au.ibm.com (Postfix) with ESMTP id B8D452BB00AF
+ for <openbmc@lists.ozlabs.org>; Tue, 10 May 2016 18:57:47 +1000 (EST)
+Received: from d23av06.au.ibm.com (d23av06.au.ibm.com [9.190.235.151])
+ by d23relay06.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u4A8vdvw57671802
+ for <openbmc@lists.ozlabs.org>; Tue, 10 May 2016 18:57:42 +1000
+Received: from d23av06.au.ibm.com (localhost [127.0.0.1])
+ by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u4A8uSw2028770
+ for <openbmc@lists.ozlabs.org>; Tue, 10 May 2016 18:56:28 +1000
+Received: from d50lp33.co.us.ibm.com (d50lp33.boulder.ibm.com [9.17.249.38])
+ by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u4A8uQ9u028419
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Tue, 10 May 2016 18:56:27 +1000
+Received: from localhost
+ by d50lp33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <shliyi@cn.ibm.com>;
+ Tue, 10 May 2016 02:46:08 -0600
+Received: from smtp.notes.na.collabserv.com (192.155.248.93)
+ by d50lp33.co.us.ibm.com (192.168.2.144) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
+ Tue, 10 May 2016 02:46:07 -0600
+X-IBM-Helo: smtp.notes.na.collabserv.com
+X-IBM-MailFrom: shliyi@cn.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from /spool/local
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <shliyi@cn.ibm.com>;
+ Tue, 10 May 2016 08:46:05 -0000
+Received: from us1a3-smtp04.a3.dal06.isc4sb.com (10.106.154.237)
+ by smtp.notes.na.collabserv.com (10.106.227.39) with
+ smtp.notes.na.collabserv.com ESMTP; Tue, 10 May 2016 08:46:04 -0000
+Received: from us1a3-mail141.a3.dal06.isc4sb.com ([10.146.38.85])
+ by us1a3-smtp04.a3.dal06.isc4sb.com
+ with ESMTP id 2016051008460284-88885 ;
+ Tue, 10 May 2016 08:46:02 +0000 
+MIME-Version: 1.0
+In-Reply-To: <1462859449-5466-11-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: Re: [PATCH skeleton v9 10/23] Modify the hard-coded hwmon ID for
+ PowerCap
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Cc: openbmc@lists.ozlabs.org, johnhcwang <hsienchiang@gmail.com>
+From: "Yi TZ Li" <shliyi@cn.ibm.com>
+Date: Tue, 10 May 2016 16:42:51 +0800
+References: <1462859449-5466-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1462859449-5466-11-git-send-email-openbmc-patches@stwcx.xyz>
+X-KeepSent: 3C9C595E:A406A5BD-48257FAF:002FAE8A;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1EXT September 15, 2015
+X-LLNOutbound: False
+X-Disclaimed: 51131
+X-TNEFEvaluated: 1
+Content-type: multipart/alternative; 
+ Boundary="0__=C7BBF53CDFBC281A8f9e8a93df938690918cC7BBF53CDFBC281A"
+Content-Disposition: inline
+x-cbid: 16051008-0017-0000-0000-000004858233
+X-IBM-ISS-SpamDetectors: Score=0.433748; BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0;
+ PH=0; SC=0.433748; ST=0; TS=0; UL=0; ISC=
+X-IBM-ISS-DetailInfo: BY=3.00005262; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000166; SDB=6.00700053; UDB=6.00323937; UTC=2016-05-10
+ 08:46:05
+x-cbparentid: 16051008-3202-0000-0000-00000034AB52
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+Message-Id: <OF3C9C595E.A406A5BD-ON48257FAF.002FAE8A-48257FAF.002FDE7A@notes.na.collabserv.com>
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,159 +98,133 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 May 2016 07:20:58 -0000
+X-List-Received-Date: Tue, 10 May 2016 08:59:48 -0000
 
-From: Yi Li <adamliyi@msn.com>
 
-Currently master OCC hwmon sysfs path is hardcoded to '/sys/class/hwmon/hwmon3/'.
-This make the '/org/openbmc/sensors/host/PowerCap' interface cannot work when
-master OCC is initilized as hwmon device other than 'hwmon3'.
+--0__=C7BBF53CDFBC281A8f9e8a93df938690918cC7BBF53CDFBC281A
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/plain; charset=US-ASCII
 
-'usr_powercap' attribute should be searched when OCC is active.
-When skeleton creates 'PowerCap' objects, OCC may not be active.
-So do the search each time setting power cap. Raise an exception when
-there is no 'user_powercap' attribute.
-Fixes: openbmc/skeleton#42
+The hard-coded 'PowerCap' hwmon sysfs file path is fixed in pull request:
+https://github.com/openbmc/skeleton/pull/50
 
-Also raise an exception when setting power cap fails. The exception
-will be returned to REST API caller. Need to specify the exception
-name to trigger a '400' return code.
-Fixes: openbmc/skeleton#43
+Please have a look.
 
-Add code to validate input user powercap value.
+Thanks,
+-Yi
 
-Changed the logic of "reading powercap" using PowerCap.getValue().
-Previously PowerCap.getValue() returns current user set powercap value.
-Now PowerCap.getValue() returns actual system powercap reading from OCC.
+"openbmc" <openbmc-bounces+shliyi=3Dcn.ibm.com@lists.ozlabs.org> wrote on
+05/10/2016 01:50:36 PM:
 
-Signed-off-by: Yi Li <adamliyi@msn.com>
----
- bin/Sensors.py         | 78 ++++++++++++++++++++++++++++++++++++++++++++------
- bin/sensor_manager2.py |  3 --
- 2 files changed, 69 insertions(+), 12 deletions(-)
+> From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+> To: openbmc@lists.ozlabs.org
+> Cc: johnhcwang <hsienchiang@gmail.com>
+> Date: 05/10/2016 01:54 PM
+> Subject: [PATCH skeleton v9 10/23] Modify the hard-coded hwmon ID for
+PowerCap
+> Sent by: "openbmc" <openbmc-bounces+shliyi=3Dcn.ibm.com@lists.ozlabs.org>
+>
+> From: johnhcwang <hsienchiang@gmail.com>
+>
+> After we enable I2C-6 lm75 outlet sensor in device stree, the hwmon ID
+> of PowerCap won't be 3 anymore. So we have to modify it as real ID.
+> ---
+>  bin/Sensors.py         | 2 +-
+>  bin/sensor=5Fmanager2.py | 4 ++--
+>  2 files changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/bin/Sensors.py b/bin/Sensors.py
+> index f951eeb..1c6a961 100755
+> --- a/bin/Sensors.py
+> +++ b/bin/Sensors.py
+> @@ -137,7 +137,7 @@ class PowerCap(VirtualSensor):
+>     def =5F=5Finit=5F=5F(self, bus, name):
+>        VirtualSensor.=5F=5Finit=5F=5F(self, bus, name)
+>        SensorValue.setValue(self, 0)
+> -      self.sysfs=5Fattr =3D "/sys/class/hwmon/hwmon3/user=5Fpowercap"
+> +      self.sysfs=5Fattr =3D "/sys/class/hwmon/hwmon4/user=5Fpowercap"
+>     ##override setValue method
+>     @dbus.service.method(SensorValue.IFACE=5FNAME,
+>        in=5Fsignature=3D'v', out=5Fsignature=3D'')
+> diff --git a/bin/sensor=5Fmanager2.py b/bin/sensor=5Fmanager2.py
+> index b5aac53..6aaef3e 100755
+> --- a/bin/sensor=5Fmanager2.py
+> +++ b/bin/sensor=5Fmanager2.py
+> @@ -54,9 +54,9 @@ if =5F=5Fname=5F=5F =3D=3D '=5F=5Fmain=5F=5F':
+>
+>     obj=5Fpath =3D OBJ=5FPATH+"/host/PowerCap"
+>     sensor=5Fobj =3D Sensors.PowerCap(bus,obj=5Fpath)
+> -   ## hwmon3 is default for master OCC on Barreleye.
+> +   ## hwmon4 is default for master OCC on Barreleye.
+>     ## should rewrite sensor=5Fmanager to remove hardcode
+> -   sensor=5Fobj.sysfs=5Fattr =3D "/sys/class/hwmon/hwmon3/user=5Fpowerca=
+p"
+> +   sensor=5Fobj.sysfs=5Fattr =3D "/sys/class/hwmon/hwmon4/user=5Fpowerca=
+p"
+>     root=5Fsensor.add(obj=5Fpath,sensor=5Fobj)
+>
+>     obj=5Fpath =3D OBJ=5FPATH+"/host/BootProgress"
+> --
+> 2.8.1
+>
+>
+> =5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
 
-diff --git a/bin/Sensors.py b/bin/Sensors.py
-index f951eeb..9b154b5 100755
---- a/bin/Sensors.py
-+++ b/bin/Sensors.py
-@@ -1,13 +1,13 @@
- #!/usr/bin/python -u
- 
- import sys
--import subprocess
- #from gi.repository import GObject
- import gobject
- import dbus
- import dbus.service
- import dbus.mainloop.glib
- import os
-+import glob
- import Openbmc
- 
- ## Abstract class, must subclass
-@@ -137,21 +137,81 @@ class PowerCap(VirtualSensor):
- 	def __init__(self, bus, name):
- 		VirtualSensor.__init__(self, bus, name)
- 		SensorValue.setValue(self, 0)
--		self.sysfs_attr = "/sys/class/hwmon/hwmon3/user_powercap"
- 	##override setValue method
- 	@dbus.service.method(SensorValue.IFACE_NAME,
- 		in_signature='v', out_signature='')
- 	def setValue(self, value):
- 		try:
--			cmd_str = "echo "+str(value)+" > "+self.sysfs_attr
--			ret = subprocess.check_output(cmd_str, shell=True)
--		except subprocess.CalledProcessError as powerexc:
--			print "Set PowerCap Error", powerexc.returncode,
--			powerexc.output
--			return
-+			value = int(value)
-+		except ValueError:
-+			raise dbus.exceptions.DBusException(
-+				"Set an integer value",
-+				name='org.freedesktop.DBus.Python.TypeError')
-+
-+		# master occ hwmon path is created dymanically
-+		# when occ is active scan hwmon sysfs directory for update
-+		for pcap_file in glob.glob('/sys/class/hwmon/*/user_powercap'):
-+			# only master occ has 'user_powercap' attribute
-+			setcap_file = pcap_file
-+			break
-+		else:
-+			raise dbus.exceptions.DBusException(
-+				"Cannot find user_powercap hwmon attribute, "+
-+				"check occ status.",
-+				name='org.freedesktop.DBus.Python.TypeError')
-+
-+		# verify the user set value is in the range [min_cap, max_cap]
-+		try:
-+			caps_file = open(os.path.dirname(setcap_file) +
-+					'/caps_min_powercap', 'r')
-+			min_cap = caps_file.readline()
-+			caps_file = open(os.path.dirname(setcap_file) +
-+					'/caps_max_powercap', 'r')
-+			max_cap = caps_file.readline()
-+		except IOError:
-+			raise dbus.exceptions.DBusException(
-+				"Cannot get caps_min or caps_max",
-+				name='org.freedesktop.DBus.Error.InvalidArgs')
-+
-+		if value != 0 and (value < int(min_cap)
-+				or value > int(max_cap)):
-+			raise dbus.exceptions.DBusException(
-+				"Set a value in the range [%d, %d]"
-+				% (int(min_cap), int(max_cap)),
-+				name='org.freedesktop.DBus.Error.InvalidArgs')
-+
-+		try:
-+			open(setcap_file, 'w').write(str(value));
-+		except IOError:
-+			raise dbus.exceptions.DBusException(
-+				"Cannot set PowerCap",
-+				name='org.freedesktop.DBus.Python.TypeError')
- 		print "Set PowerCap: ", value
- 		SensorValue.setValue(self, value)
--		
-+	@dbus.service.method(SensorValue.IFACE_NAME,
-+		in_signature='', out_signature='v')
-+	def getValue(self):
-+		# Read current powercap sensor. OCC will set system powercap
-+		# based on its algorithm
-+		for pcap_file in glob.glob(
-+				'/sys/class/hwmon/*/caps_curr_powercap'):
-+			# only master occ has 'caps_curr_powercap' attribute
-+			curr_cap_file = pcap_file
-+			break
-+		else:
-+			raise dbus.exceptions.DBusException(
-+				"Cannot find caps_curr_powercap" +
-+				"hwmon attribute, " + "check occ status.",
-+				name='org.freedesktop.DBus.Python.TypeError')
-+
-+		try:
-+			cap_val = open(curr_cap_file, 'r').read()
-+		except IOError:
-+			raise dbus.exceptions.DBusException(
-+				"Cannot read current powercap",
-+				name='org.freedesktop.DBus.Python.TypeError')
-+		return cap_val
-+
- class BootProgressSensor(VirtualSensor):
- 	def __init__(self,bus,name):
- 		VirtualSensor.__init__(self,bus,name)
-diff --git a/bin/sensor_manager2.py b/bin/sensor_manager2.py
-index b5aac53..926bfea 100755
---- a/bin/sensor_manager2.py
-+++ b/bin/sensor_manager2.py
-@@ -54,9 +54,6 @@ if __name__ == '__main__':
- 
- 	obj_path = OBJ_PATH+"/host/PowerCap"
- 	sensor_obj = Sensors.PowerCap(bus,obj_path)
--	## hwmon3 is default for master OCC on Barreleye.
--	## should rewrite sensor_manager to remove hardcode
--	sensor_obj.sysfs_attr = "/sys/class/hwmon/hwmon3/user_powercap"
- 	root_sensor.add(obj_path,sensor_obj)
- 
- 	obj_path = OBJ_PATH+"/host/BootProgress"
--- 
-2.8.1
+--0__=C7BBF53CDFBC281A8f9e8a93df938690918cC7BBF53CDFBC281A
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/html; charset=US-ASCII
+Content-Disposition: inline
+
+<html><body><p>The hard-coded 'PowerCap' hwmon sysfs file path is fixed in =
+pull request: <a href=3D"https://github.com/openbmc/skeleton/pull/50">https=
+://github.com/openbmc/skeleton/pull/50</a><br><br>Please have a look.<br><b=
+r>Thanks,<br>-Yi<br><br><tt>&quot;openbmc&quot; &lt;openbmc-bounces+shliyi=
+=3Dcn.ibm.com@lists.ozlabs.org&gt; wrote on 05/10/2016 01:50:36 PM:<br><br>=
+&gt; From: OpenBMC Patches &lt;openbmc-patches@stwcx.xyz&gt;</tt><br><tt>&g=
+t; To: openbmc@lists.ozlabs.org</tt><br><tt>&gt; Cc: johnhcwang &lt;hsiench=
+iang@gmail.com&gt;</tt><br><tt>&gt; Date: 05/10/2016 01:54 PM</tt><br><tt>&=
+gt; Subject: [PATCH skeleton v9 10/23] Modify the hard-coded hwmon ID for P=
+owerCap</tt><br><tt>&gt; Sent by: &quot;openbmc&quot; &lt;openbmc-bounces+s=
+hliyi=3Dcn.ibm.com@lists.ozlabs.org&gt;</tt><br><tt>&gt; <br>&gt; From: joh=
+nhcwang &lt;hsienchiang@gmail.com&gt;<br>&gt; <br>&gt; After we enable I2C-=
+6 lm75 outlet sensor in device stree, the hwmon ID<br>&gt; of PowerCap won'=
+t be 3 anymore. So we have to modify it as real ID.<br>&gt; ---<br>&gt; &nb=
+sp;bin/Sensors.py &nbsp; &nbsp; &nbsp; &nbsp; | 2 +-<br>&gt; &nbsp;bin/sens=
+or=5Fmanager2.py | 4 ++--<br>&gt; &nbsp;2 files changed, 3 insertions(+), 3=
+ deletions(-)<br>&gt; <br>&gt; diff --git a/bin/Sensors.py b/bin/Sensors.py=
+<br>&gt; index f951eeb..1c6a961 100755<br>&gt; --- a/bin/Sensors.py<br>&gt;=
+ +++ b/bin/Sensors.py<br>&gt; @@ -137,7 +137,7 @@ class PowerCap(VirtualSen=
+sor):<br>&gt; &nbsp; &nbsp; def =5F=5Finit=5F=5F(self, bus, name):<br>&gt; =
+&nbsp; &nbsp; &nbsp; &nbsp;VirtualSensor.=5F=5Finit=5F=5F(self, bus, name)<=
+br>&gt; &nbsp; &nbsp; &nbsp; &nbsp;SensorValue.setValue(self, 0)<br>&gt; - =
+&nbsp; &nbsp; &nbsp;self.sysfs=5Fattr =3D &quot;/sys/class/hwmon/hwmon3/use=
+r=5Fpowercap&quot;<br>&gt; + &nbsp; &nbsp; &nbsp;self.sysfs=5Fattr =3D &quo=
+t;/sys/class/hwmon/hwmon4/user=5Fpowercap&quot;<br>&gt; &nbsp; &nbsp; ##ove=
+rride setValue method<br>&gt; &nbsp; &nbsp; @dbus.service.method(SensorValu=
+e.IFACE=5FNAME,<br>&gt; &nbsp; &nbsp; &nbsp; &nbsp;in=5Fsignature=3D'v', ou=
+t=5Fsignature=3D'')<br>&gt; diff --git a/bin/sensor=5Fmanager2.py b/bin/sen=
+sor=5Fmanager2.py<br>&gt; index b5aac53..6aaef3e 100755<br>&gt; --- a/bin/s=
+ensor=5Fmanager2.py<br>&gt; +++ b/bin/sensor=5Fmanager2.py<br>&gt; @@ -54,9=
+ +54,9 @@ if =5F=5Fname=5F=5F =3D=3D '=5F=5Fmain=5F=5F':<br>&gt; &nbsp;<br>=
+&gt; &nbsp; &nbsp; obj=5Fpath =3D OBJ=5FPATH+&quot;/host/PowerCap&quot;<br>=
+&gt; &nbsp; &nbsp; sensor=5Fobj =3D Sensors.PowerCap(bus,obj=5Fpath)<br>&gt=
+; - &nbsp; ## hwmon3 is default for master OCC on Barreleye.<br>&gt; + &nbs=
+p; ## hwmon4 is default for master OCC on Barreleye.<br>&gt; &nbsp; &nbsp; =
+## should rewrite sensor=5Fmanager to remove hardcode<br>&gt; - &nbsp; sens=
+or=5Fobj.sysfs=5Fattr =3D &quot;/sys/class/hwmon/hwmon3/user=5Fpowercap&quo=
+t;<br>&gt; + &nbsp; sensor=5Fobj.sysfs=5Fattr =3D &quot;/sys/class/hwmon/hw=
+mon4/user=5Fpowercap&quot;<br>&gt; &nbsp; &nbsp; root=5Fsensor.add(obj=5Fpa=
+th,sensor=5Fobj)<br>&gt; &nbsp;<br>&gt; &nbsp; &nbsp; obj=5Fpath =3D OBJ=5F=
+PATH+&quot;/host/BootProgress&quot;<br>&gt; -- <br>&gt; 2.8.1<br>&gt; <br>&=
+gt; <br>&gt; =5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F<br>&gt; openbmc mailing list<br>&gt; openbmc@lists.ozlabs.org<br>&gt=
+; <a href=3D"https://lists.ozlabs.org/listinfo/openbmc">https://lists.ozlab=
+s.org/listinfo/openbmc</a><br></tt><BR>
+</body></html>
+
+--0__=C7BBF53CDFBC281A8f9e8a93df938690918cC7BBF53CDFBC281A--
