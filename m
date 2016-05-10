@@ -1,56 +1,65 @@
-Return-Path: <sam.mj@au1.ibm.com>
-Received: from e23smtp02.au.ibm.com (e23smtp02.au.ibm.com [202.81.31.144])
- (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
+Return-Path: <cyrilbur@gmail.com>
+Received: from mail-pf0-x235.google.com (mail-pf0-x235.google.com
+ [IPv6:2607:f8b0:400e:c00::235])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r3kpp1z4pzDq9s
- for <openbmc@lists.ozlabs.org>; Tue, 10 May 2016 13:13:21 +1000 (AEST)
-Received: from localhost
- by e23smtp02.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <sam.mj@au1.ibm.com>;
- Tue, 10 May 2016 13:13:20 +1000
-Received: from d23dlp03.au.ibm.com (202.81.31.214)
- by e23smtp02.au.ibm.com (202.81.31.208) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Tue, 10 May 2016 13:13:18 +1000
-X-IBM-Helo: d23dlp03.au.ibm.com
-X-IBM-MailFrom: sam.mj@au1.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from d23relay08.au.ibm.com (d23relay08.au.ibm.com [9.185.71.33])
- by d23dlp03.au.ibm.com (Postfix) with ESMTP id 5C8E4357805B
- for <openbmc@lists.ozlabs.org>; Tue, 10 May 2016 13:13:18 +1000 (EST)
-Received: from d23av02.au.ibm.com (d23av02.au.ibm.com [9.190.235.138])
- by d23relay08.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u4A3DBUM1311118
- for <openbmc@lists.ozlabs.org>; Tue, 10 May 2016 13:13:18 +1000
-Received: from d23av02.au.ibm.com (localhost [127.0.0.1])
- by d23av02.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u4A3CjKg008124
- for <openbmc@lists.ozlabs.org>; Tue, 10 May 2016 13:12:45 +1000
-Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
- by d23av02.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u4A3CjQ6006832; Tue, 10 May 2016 13:12:45 +1000
-Received: from localhost (haven.au.ibm.com [9.192.254.114])
- (using TLSv1.2 with cipher AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 6F1BBA01A5;
- Tue, 10 May 2016 13:11:52 +1000 (AEST)
-Date: Tue, 10 May 2016 13:11:49 +1000
-From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-Cc: openbmc@lists.ozlabs.org
-Subject: Re: [PATCH skeleton v8 00/22] Add fan control algorithm
-Message-ID: <20160510031149.GA10410@localhost.localdomain>
-References: <1462846250-29392-1-git-send-email-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r3msT5RyBzDq9s
+ for <openbmc@lists.ozlabs.org>; Tue, 10 May 2016 14:45:49 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=nKtjERts; 
+ dkim-atps=neutral
+Received: by mail-pf0-x235.google.com with SMTP id 77so988584pfv.2
+ for <openbmc@lists.ozlabs.org>; Mon, 09 May 2016 21:45:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=Tv7xoRLMP8yIc5Cg8NnTBaBXiRkWS1mbvjZpYNNFq7Y=;
+ b=nKtjERtse02I8uG2oEGbdhHSOkRygpUqDAc0bE6rhKUr1bI3xztmNceOPUpLDoOtrM
+ 7M0ODVcxsARdEvi0JxzaFzZxF4gHo3TBH9iT7/cldXJ1Ko8IHKhsK56oSQNZafaCeMUR
+ AMbgH99zIJaUYV7k6WUzl/H5An89Y6q3MU38dcHoOI4kU15kdGyGwa84Z8jidDGuL5lw
+ GWXmDwSDyB6OjgarFTWPr1CJ7jhiI3L9Ee4neimAjkOMpqXnN13jjBmXdGKyf09x25F7
+ NwvjvXR9y7lstUS2IGe+zniA9LyHsm3kYHa5Rv9axUovk3aEnb/oqdW1Dx2wBRXSO9mC
+ IftA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=Tv7xoRLMP8yIc5Cg8NnTBaBXiRkWS1mbvjZpYNNFq7Y=;
+ b=SFtK4CH/gZ0N4KpUOgVg1TQ9o7BVhilduobOyA+Tk/Ocr7UxzMP4cs6o9cn3L/aLoQ
+ 7MVtktSOIeaoaFM39+Rkn4qu2zoKaolvcd5+ojqyiYXbWlH19DMZwz71G2oGn7QFRukt
+ n3fBRtnwlFgeu8Kh26KnkG0897ubh9x+smQsaln6iAV6EXCIOJHx+mjWKsaKbiT1exak
+ R8cYregOm/+MrU64gbZLCqy8xTaAsWe5wkBSu8BeS1tEp0nWceWq/H9nd5Aa37rjt+OH
+ tFhh7iq4vGNjUgp8vcA1TuB3AJ3R8/jPRt1EZPQ+Yfk8xfMm+Xiydo3tcECOHKqwuni3
+ FSfQ==
+X-Gm-Message-State: AOPr4FX98Dv788pf7PDVj6qR9QIbRYo6AoC78NtLtFPgYYO9T4t+h5bTXcvLuaPvs4B8sQ==
+X-Received: by 10.98.64.79 with SMTP id n76mr55704740pfa.149.1462855547662;
+ Mon, 09 May 2016 21:45:47 -0700 (PDT)
+Received: from camb691 ([122.99.82.10])
+ by smtp.gmail.com with ESMTPSA id d186sm467115pfa.45.2016.05.09.21.45.44
+ (version=TLSv1/SSLv3 cipher=OTHER);
+ Mon, 09 May 2016 21:45:47 -0700 (PDT)
+Date: Tue, 10 May 2016 14:45:38 +1000
+From: Cyril Bur <cyrilbur@gmail.com>
+To: Benjamin Herrenschmidt <benh@au1.ibm.com>
+Cc: Sertac Cakici <cakici@us.ibm.com>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>, benh@ozlabs.au.ibm.com, Gavin Shan
+ <gwshan@linux.vnet.ibm.com>, Raguraman Tumaati-Krishnan <ragu@us.ibm.com>
+Subject: Re: [PATCH 6/6] net/phy: Expose 100base-T capability only
+Message-ID: <20160510144538.324016c0@camb691>
+In-Reply-To: <1462847606.20290.137.camel@au1.ibm.com>
+References: <1462411636-7225-1-git-send-email-cyrilbur@gmail.com>
+ <1462411636-7225-7-git-send-email-cyrilbur@gmail.com>
+ <CACPK8XcK3PN01EiNOx8+v5x6f=UOf7A4QnMAZ8D3bnX+vqAuzg@mail.gmail.com>
+ <1462496402.20290.49.camel@au1.ibm.com>
+ <20160506113218.4adf5db7@camb691>
+ <1462578052.20290.61.camel@au1.ibm.com>
+ <201605091951.u49Jp4Yc017604@d03av05.boulder.ibm.com>
+ <20160510103800.730f98fa@camb691>
+ <1462847606.20290.137.camel@au1.ibm.com>
+X-Mailer: Claws Mail 3.13.2 (GTK+ 2.24.30; x86_64-unknown-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <1462846250-29392-1-git-send-email-openbmc-patches@stwcx.xyz>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16051003-0005-0000-0000-000007B31194
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -62,65 +71,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 May 2016 03:13:22 -0000
+X-List-Received-Date: Tue, 10 May 2016 04:45:50 -0000
 
-Are these:
->   Revert "Fill in the threshold settings for CPU and DIMM"
->   Revert "Add I2C-6 lm75 outlet temperature sensor"
->   Revert "Setup FUNC_MODE[2:0]"
+On Tue, 10 May 2016 12:33:26 +1000
+Benjamin Herrenschmidt <benh@au1.ibm.com> wrote:
 
-just reverts of these in the same series? Just don't include these
-patches instead.
->   Fill in the threshold settings for CPU and DIMM
-	(duplicated?)
->   Fill in the threshold settings for CPU and DIMM
->   Add I2C-6 lm75 outlet temperature sensor
->   Setup FUNC_MODE[2:0]
+> On Tue, 2016-05-10 at 10:38 +1000, Cyril Bur wrote:
+> > I got access to fr112 and only managed to get tftp booting going on it
+> > yesterday, all good though, I've tested what I need. Interestingly on that
+> > machine networking behaves as we expected and Gavins workaround isn't needed.
+> > 
+> > I know this is a long shot but do you know how our firestones in Canberra (which
+> > are clearly pre GA) might differ?  
+> 
+> Cyril, could it just be a different uBoot messing with the pin/strap
+> config ?
+> 
 
-It also looks like
->   Revert "Setup FUNC_MODE[2:0]"
-isn't actually a real revert of
->   Setup FUNC_MODE[2:0]
-as it touches a bunch more stuff, was this done manually?
+I can't find any difference between the u-boot config registers on fstn2 and
+fr112. Joel did suggest the PHY might have strapping difference but I can't
+find anything that suggests it can be changed in software.
 
-On Mon, May 09, 2016 at 09:10:28PM -0500, OpenBMC Patches wrote:
-> 
-> 
-> <!-- Reviewable:start -->
-> This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/skeleton/59)
-> <!-- Reviewable:end -->
-> 
-> 
-> https://github.com/openbmc/skeleton/pull/59
-> 
-> Ken (8):
->   add i2craw tool and hdd status function
->   Heartbeat Led function
->   fix info memory leak
->   Setup FUNC_MODE[2:0]
->   fix info memory leak
->   Revert "Fill in the threshold settings for CPU and DIMM"
->   Add fan control algorithm
->   Fix skeleton Makefile
-> 
-> Ken Lai (3):
->   Revert "Add I2C-6 lm75 outlet temperature sensor"
->   Revert "Setup FUNC_MODE[2:0]"
->   Fix Makefile issue
-> 
-> johnhcwang (11):
->   Fill in the threshold settings for CPU and DIMM
->   Fill in the threshold settings for CPU and DIMM
->   Add I2C-6 lm75 outlet temperature sensor
->   Modify the hard-coded hwmon ID for PowerCap
->   Fill in the threshold settings for CPU and DIMM
->   Set lower threshold for ambient/CPU/DIMM sensors
->   Fix memory leak
->   Support FAN tach sensors
->   Generate thermaltrip event
->   Keep original design to generate thermaltrip event
->   Support FAN LED feature
-> 
+I will try putting identical versions of AMI firmware (ours is slightly old),
+maybe they updated their u-boot to do something special.
+
+> Ben.
 > 
 > _______________________________________________
 > openbmc mailing list
