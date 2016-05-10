@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r3jQq75gMzDqBM
- for <openbmc@lists.ozlabs.org>; Tue, 10 May 2016 12:10:59 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r3jQs5FnxzDq9s
+ for <openbmc@lists.ozlabs.org>; Tue, 10 May 2016 12:11:01 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1462846257720470.23421417266525;
- Mon, 9 May 2016 19:10:57 -0700 (PDT)
+ with SMTPS id 1462846259536862.4967677341264;
+ Mon, 9 May 2016 19:10:59 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Ken <ken1029@gmail.com>
-Subject: [PATCH skeleton v8 07/22] fix info memory leak
-Date: Mon,  9 May 2016 21:10:35 -0500
-Message-Id: <1462846250-29392-8-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: johnhcwang <hsienchiang@gmail.com>
+Subject: [PATCH skeleton v8 09/22] Add I2C-6 lm75 outlet temperature sensor
+Date: Mon,  9 May 2016 21:10:37 -0500
+Message-Id: <1462846250-29392-10-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.1
 In-Reply-To: <1462846250-29392-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1462846250-29392-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,50 +28,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 May 2016 02:11:00 -0000
+X-List-Received-Date: Tue, 10 May 2016 02:11:02 -0000
 
-From: Ken <ken1029@gmail.com>
+From: johnhcwang <hsienchiang@gmail.com>
 
+Add lm75 outlet temperature sensor on I2C-6 for Barreleye
 ---
- objects/info.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ bin/Barreleye.py           |  5 +++++
+ objects/hwmons_barreleye.c | 15 ++++++++-------
+ 2 files changed, 13 insertions(+), 7 deletions(-)
 
-diff --git a/objects/info.c b/objects/info.c
-index ab2d98c..d872c3f 100644
---- a/objects/info.c
-+++ b/objects/info.c
-@@ -42,6 +42,7 @@ static int i2c_open() {
-   fd = open(fn, O_RDWR);
-   if (fd == -1) {
-     LOG_ERR(errno, "Failed to open i2c device %s", fn);
-+    close(fd);
-     return -1;
-   }
+diff --git a/bin/Barreleye.py b/bin/Barreleye.py
+index 9cbf777..71ebf6c 100755
+--- a/bin/Barreleye.py
++++ b/bin/Barreleye.py
+@@ -620,6 +620,11 @@ HWMON_CONFIG = {
+                         'in14_input' : { 'object_path' : 'voltage/P1V35_CPU1_BUF3','poll_interval' : 10000,'scale' : 1,'units' : '' },
+ 		}
+          },
++	'6-0048' : {
++		'names' : {
++                        'temp1_input' : { 'object_path' : 'temperature/outlet','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
++		}
++	},
+ 	'3-0050' : {
+ 		'names' : {
+ 			'caps_curr_powercap' : { 'object_path' : 'powercap/curr_cap','poll_interval' : 10000,'scale' : 1,'units' : 'W' },
+diff --git a/objects/hwmons_barreleye.c b/objects/hwmons_barreleye.c
+index 5acde7c..9cc555b 100644
+--- a/objects/hwmons_barreleye.c
++++ b/objects/hwmons_barreleye.c
+@@ -20,18 +20,19 @@ typedef struct {
+   int fd;
+ } HWMON;
  
-@@ -108,6 +109,7 @@ static int i2c_io(int fd) {
-   rc = ioctl(fd, I2C_RDWR, &data);
-   if (rc < 0) {
-     LOG_ERR(errno, "Failed to do raw io");
-+    close(fd);
-     return -1;
-   }
+-#define  NUM_HWMONS 7
++#define  NUM_HWMONS 8
  
-@@ -126,6 +128,7 @@ int get_hdd_status(void)
-   }
- 
-   if (i2c_io(fd) < 0) {
-+    close(fd);
-     return -1;
-   }
- 
-@@ -145,7 +148,7 @@ int get_hdd_status(void)
- 
-     g_read_tmp[2]=g_read_bytes[2];
-     g_read_tmp[3]=g_read_bytes[3];
--
-+    close(fd);
- }
- 
- int send_esel_to_dbus(const char *desc, const char *sev, const char *details, uint8_t *debug, size_t debuglen) {
+ // TODO: Don't hardcode
+ //Hardcoded for barreleye
+ HWMON hwmons[NUM_HWMONS] = { 
+ 	(HWMON){"/sys/class/hwmon/hwmon0/temp1_input","temperature/ambient",3000,"C",1000},
+-	(HWMON){"/sys/class/hwmon/hwmon1/pwm1","speed/fan0",30000,"",1},
+-	(HWMON){"/sys/class/hwmon/hwmon1/pwm2","speed/fan1",30000,"",1},
+-	(HWMON){"/sys/class/hwmon/hwmon1/pwm3","speed/fan2",30000,"",1},
+-	(HWMON){"/sys/class/hwmon/hwmon2/pwm1","speed/fan3",30000,"",1},
+-	(HWMON){"/sys/class/hwmon/hwmon2/pwm2","speed/fan4",30000,"",1},
+-	(HWMON){"/sys/class/hwmon/hwmon2/pwm3","speed/fan5",30000,"",1},
++	(HWMON){"/sys/class/hwmon/hwmon1/temp1_input","temperature/outlet",5000,"C",1000},
++	(HWMON){"/sys/class/hwmon/hwmon2/pwm1","speed/fan0",30000,"",1},
++	(HWMON){"/sys/class/hwmon/hwmon2/pwm2","speed/fan1",30000,"",1},
++	(HWMON){"/sys/class/hwmon/hwmon2/pwm3","speed/fan2",30000,"",1},
++	(HWMON){"/sys/class/hwmon/hwmon3/pwm1","speed/fan3",30000,"",1},
++	(HWMON){"/sys/class/hwmon/hwmon3/pwm2","speed/fan4",30000,"",1},
++	(HWMON){"/sys/class/hwmon/hwmon3/pwm3","speed/fan5",30000,"",1},
+ };
+ bool is_hwmon_valid(HWMON* hwmon)
+ {
 -- 
 2.8.1
