@@ -1,22 +1,66 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <benh@au1.ibm.com>
+Received: from e23smtp05.au.ibm.com (e23smtp05.au.ibm.com [202.81.31.147])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r3jRJ1Dl3zDqCJ
- for <openbmc@lists.ozlabs.org>; Tue, 10 May 2016 12:11:24 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1462846262323701.6513628251034;
- Mon, 9 May 2016 19:11:02 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Cc: Ken <ken.sk.lai@mail.foxconn.com>
-Subject: [PATCH skeleton v8 12/22] Add fan control algorithm
-Date: Mon,  9 May 2016 21:10:40 -0500
-Message-Id: <1462846250-29392-13-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.8.1
-In-Reply-To: <1462846250-29392-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1462846250-29392-1-git-send-email-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r3jxx5wS5zDq9s
+ for <openbmc@lists.ozlabs.org>; Tue, 10 May 2016 12:34:29 +1000 (AEST)
+Received: from localhost
+ by e23smtp05.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <benh@au1.ibm.com>;
+ Tue, 10 May 2016 12:34:27 +1000
+Received: from d23dlp03.au.ibm.com (202.81.31.214)
+ by e23smtp05.au.ibm.com (202.81.31.211) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Tue, 10 May 2016 12:34:25 +1000
+X-IBM-Helo: d23dlp03.au.ibm.com
+X-IBM-MailFrom: benh@au1.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d23relay07.au.ibm.com (d23relay07.au.ibm.com [9.190.26.37])
+ by d23dlp03.au.ibm.com (Postfix) with ESMTP id 85A943578057
+ for <openbmc@lists.ozlabs.org>; Tue, 10 May 2016 12:34:24 +1000 (EST)
+Received: from d23av02.au.ibm.com (d23av02.au.ibm.com [9.190.235.138])
+ by d23relay07.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u4A2YGok4850036
+ for <openbmc@lists.ozlabs.org>; Tue, 10 May 2016 12:34:24 +1000
+Received: from d23av02.au.ibm.com (localhost [127.0.0.1])
+ by d23av02.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u4A2XpLp029718
+ for <openbmc@lists.ozlabs.org>; Tue, 10 May 2016 12:33:51 +1000
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av02.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u4A2Xp22028883; Tue, 10 May 2016 12:33:51 +1000
+Received: from pasglop.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
+ (using TLSv1.2 with cipher AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id EF2FEA0257;
+ Tue, 10 May 2016 12:33:26 +1000 (AEST)
+Message-ID: <1462847606.20290.137.camel@au1.ibm.com>
+Subject: Re: [PATCH 6/6] net/phy: Expose 100base-T capability only
+From: Benjamin Herrenschmidt <benh@au1.ibm.com>
+Reply-To: benh@au1.ibm.com
+To: Cyril Bur <cyrilbur@gmail.com>, Sertac Cakici <cakici@us.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Raguraman Tumaati-Krishnan
+ <ragu@us.ibm.com>,
+ Gavin Shan <gwshan@linux.vnet.ibm.com>, benh@ozlabs.au.ibm.com
+Date: Tue, 10 May 2016 12:33:26 +1000
+In-Reply-To: <20160510103800.730f98fa@camb691>
+References: <1462411636-7225-1-git-send-email-cyrilbur@gmail.com>
+ <1462411636-7225-7-git-send-email-cyrilbur@gmail.com>
+ <CACPK8XcK3PN01EiNOx8+v5x6f=UOf7A4QnMAZ8D3bnX+vqAuzg@mail.gmail.com>
+ <1462496402.20290.49.camel@au1.ibm.com> <20160506113218.4adf5db7@camb691>
+ <1462578052.20290.61.camel@au1.ibm.com>
+ <201605091951.u49Jp4Yc017604@d03av05.boulder.ibm.com>
+ <20160510103800.730f98fa@camb691>
+Organization: IBM Australia
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.18.5.2 (3.18.5.2-1.fc23) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16051002-0017-0000-0000-00000483B4E0
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,671 +72,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 May 2016 02:11:24 -0000
+X-List-Received-Date: Tue, 10 May 2016 02:34:29 -0000
 
-From: Ken <ken.sk.lai@mail.foxconn.com>
+On Tue, 2016-05-10 at 10:38 +1000, Cyril Bur wrote:
+> I got access to fr112 and only managed to get tftp booting going on it
+> yesterday, all good though, I've tested what I need. Interestingly on that
+> machine networking behaves as we expected and Gavins workaround isn't needed.
+> 
+> I know this is a long shot but do you know how our firestones in Canberra (which
+> are clearly pre GA) might differ?
 
----
- Makefile                |  10 +-
- bin/Barreleye.py        |  13 +-
- bin/startup_hacks.sh    |   4 +-
- objects/fan_algorithm.c | 566 ++++++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 584 insertions(+), 9 deletions(-)
- create mode 100755 objects/fan_algorithm.c
+Cyril, could it just be a different uBoot messing with the pin/strap
+config ?
 
-diff --git a/Makefile b/Makefile
-index 3b8a2ae..0752813 100755
---- a/Makefile
-+++ b/Makefile
-@@ -29,7 +29,7 @@ LIBS_info += $(shell pkg-config --libs $(DEPPKGS))
- %.o: objects/pflash/libflash/%.c
- 	$(CC) -c -o obj/$@ $< $(CFLAGS) $(INCLUDES)
- 
--all: setup libopenbmc_intf power_control led_controller button_power button_reset control_host host_watchdog board_vpd pcie_slot_present flash_bios flasher pflash hwmons_barreleye control_bmc i2craw info
-+all: setup libopenbmc_intf power_control led_controller button_power button_reset control_host host_watchdog board_vpd pcie_slot_present flash_bios flasher pflash hwmons_barreleye control_bmc i2craw info fan_algorithm
- 
- setup: 
- 	mkdir -p obj lib
-@@ -80,9 +80,17 @@ i2craw:  $(OBJS2) i2craw.o
- info:   info.o
- 	$(CC) -o bin/$@ obj/info.o $(LDFLAGS) $(LIBS_info)
- 
-+fan_algorithm:   fan_algorithm.o
-+	$(CC) -o bin/$@ obj/fan_algorithm.o $(LDFLAGS) $(LIBS_info)
-+
- hwmons_barreleye: hwmons_barreleye.o object_mapper.o libopenbmc_intf
- 	$(CC) -o bin/$@.exe obj/hwmons_barreleye.o obj/object_mapper.o  $(LDFLAGS) $(LIBS)
- 
- control_bmc: control_bmc_obj.o libopenbmc_intf
- 	$(CC) -o bin/$@.exe obj/control_bmc_obj.o $(LDFLAGS) $(LIBS)
- 
-+i2craw:  $(OBJS2) i2craw.o
-+        $(CC) -o bin/$@ obj/i2craw.o $(LDFLAGS)
-+
-+info:   info.o
-+        $(CC) -o bin/$@ obj/info.o $(LDFLAGS) $(LIBS_info)
-diff --git a/bin/Barreleye.py b/bin/Barreleye.py
-index 597d93b..646177f 100755
---- a/bin/Barreleye.py
-+++ b/bin/Barreleye.py
-@@ -48,11 +48,6 @@ ENTER_STATE_CALLBACK = {
- 			'obj_name'    : '/org/openbmc/control/host0',
- 			'interface_name' : 'org.openbmc.control.Host',
- 		},
--		'setMax' : {
--			'bus_name'    : 'org.openbmc.control.Fans',
--			'obj_name'    : '/org/openbmc/control/fans',
--			'interface_name' : 'org.openbmc.control.Fans',
--		},
- 		'setOn' : {
- 			'bus_name'   : 'org.openbmc.control.led',
- 			'obj_name'   : '/org/openbmc/control/led/identify',
-@@ -210,12 +205,18 @@ APPS = {
- 		'monitor_process' : False,
- 		'process_name'    : 'discover_system_state.py',
- 	},
--        'info' : {
-+    'info' : {
-                 'system_state'    : 'BMC_STARTING2',
-                 'start_process'   : True,
-                 'monitor_process' : True,
-                 'process_name'    : 'info',
-         },
-+    'fan_algorithm' : {
-+                'system_state'    : 'HOST_POWERED_ON',
-+                'start_process'   : True,
-+                'monitor_process' : True,
-+                'process_name'    : 'fan_algorithm',
-+    },
- 	'bmc_control' : {
- 		'system_state'    : 'BMC_STARTING',
- 		'start_process'   : True,
-diff --git a/bin/startup_hacks.sh b/bin/startup_hacks.sh
-index cf3632a..357a4da 100755
---- a/bin/startup_hacks.sh
-+++ b/bin/startup_hacks.sh
-@@ -7,8 +7,8 @@ systemctl stop serial-getty@ttyS0
-  i2cset -y 0x06 0x20 0x07 0x00
-  
-  # Turn on all fan LED to BLUE
-- i2cset -y 0x06 0x20 0x03 0x55
-- i2cset -y 0x06 0x20 0x02 0xaa
-+ # i2cset -y 0x06 0x20 0x03 0x55
-+ # i2cset -y 0x06 0x20 0x02 0xaa
- 
- # Setup VUART
- VUART=/sys/devices/platform/ahb/ahb:apb/1e787000.vuart
-diff --git a/objects/fan_algorithm.c b/objects/fan_algorithm.c
-new file mode 100755
-index 0000000..477b7cb
---- /dev/null
-+++ b/objects/fan_algorithm.c
-@@ -0,0 +1,566 @@
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <systemd/sd-bus.h>
-+#include "i2c-dev.h"
-+#include "log.h"
-+
-+const char *gService = "org.openbmc.Sensors";
-+const char *fanService = "org.openbmc.control.Fans";
-+
-+const char *gfanflagObjPath = "/org/openbmc/sensors/FanParameter/flag";
-+const char *gfanCPUvaribleObjPath = "/org/openbmc/sensors/FanParameter/flag";
-+const char *gfanDIMMvaribleObjPath = "/org/openbmc/sensors/FanParameter/flag";
-+			
-+const char *gfanpidObjPath [3] = {"/org/openbmc/sensors/FanParameter/Kp",
-+							      "/org/openbmc/sensors/FanParameter/Ki",
-+							      "/org/openbmc/sensors/FanParameter/Kd"};
-+
-+
-+const char *gCPU0ObjPath [12] = {"/org/openbmc/sensors/temperature/cpu0/core0",
-+								 "/org/openbmc/sensors/temperature/cpu0/core1",
-+								 "/org/openbmc/sensors/temperature/cpu0/core2",
-+								 "/org/openbmc/sensors/temperature/cpu0/core3",
-+								 "/org/openbmc/sensors/temperature/cpu0/core4",
-+								 "/org/openbmc/sensors/temperature/cpu0/core5",
-+								 "/org/openbmc/sensors/temperature/cpu0/core6",
-+								 "/org/openbmc/sensors/temperature/cpu0/core7",
-+								 "/org/openbmc/sensors/temperature/cpu0/core8",
-+								 "/org/openbmc/sensors/temperature/cpu0/core9",
-+								 "/org/openbmc/sensors/temperature/cpu0/core10",
-+								 "/org/openbmc/sensors/temperature/cpu0/core11"};
-+								
-+const char *gCPU1ObjPath [12] = {"/org/openbmc/sensors/temperature/cpu0/core0",
-+								 "/org/openbmc/sensors/temperature/cpu0/core1",
-+								 "/org/openbmc/sensors/temperature/cpu0/core2",
-+								 "/org/openbmc/sensors/temperature/cpu0/core3",
-+								 "/org/openbmc/sensors/temperature/cpu0/core4",
-+								 "/org/openbmc/sensors/temperature/cpu0/core5",
-+								 "/org/openbmc/sensors/temperature/cpu0/core6",
-+								 "/org/openbmc/sensors/temperature/cpu0/core7",
-+								 "/org/openbmc/sensors/temperature/cpu0/core8",
-+								 "/org/openbmc/sensors/temperature/cpu0/core9",
-+								 "/org/openbmc/sensors/temperature/cpu0/core10",
-+								 "/org/openbmc/sensors/temperature/cpu0/core11"};
-+
-+const char *gDIMMObjPath [32] = {"/org/openbmc/sensors/temperature/dimm0",
-+								 "/org/openbmc/sensors/temperature/dimm1",
-+								 "/org/openbmc/sensors/temperature/dimm2",
-+								 "/org/openbmc/sensors/temperature/dimm3",
-+								 "/org/openbmc/sensors/temperature/dimm4",
-+								 "/org/openbmc/sensors/temperature/dimm5",
-+								 "/org/openbmc/sensors/temperature/dimm6",
-+								 "/org/openbmc/sensors/temperature/dimm7",
-+								 "/org/openbmc/sensors/temperature/dimm8",
-+								 "/org/openbmc/sensors/temperature/dimm9",
-+								 "/org/openbmc/sensors/temperature/dimm10",
-+								 "/org/openbmc/sensors/temperature/dimm11",
-+								 "/org/openbmc/sensors/temperature/dimm12",
-+								 "/org/openbmc/sensors/temperature/dimm13",
-+								 "/org/openbmc/sensors/temperature/dimm14",
-+								 "/org/openbmc/sensors/temperature/dimm15",
-+								 "/org/openbmc/sensors/temperature/dimm16",
-+								 "/org/openbmc/sensors/temperature/dimm17",
-+								 "/org/openbmc/sensors/temperature/dimm18",
-+								 "/org/openbmc/sensors/temperature/dimm19",
-+								 "/org/openbmc/sensors/temperature/dimm20",
-+								 "/org/openbmc/sensors/temperature/dimm21",
-+								 "/org/openbmc/sensors/temperature/dimm22",
-+								 "/org/openbmc/sensors/temperature/dimm23",
-+								 "/org/openbmc/sensors/temperature/dimm24",
-+								 "/org/openbmc/sensors/temperature/dimm25",
-+								 "/org/openbmc/sensors/temperature/dimm26",
-+								 "/org/openbmc/sensors/temperature/dimm27",
-+								 "/org/openbmc/sensors/temperature/dimm28",
-+								 "/org/openbmc/sensors/temperature/dimm29",
-+								 "/org/openbmc/sensors/temperature/dimm30",
-+								 "/org/openbmc/sensors/temperature/dimm31"};
-+
-+
-+const char *gObjPath_Ambient = "/org/openbmc/sensors/temperature/ambient";
-+const char *fanObjPath [6] ={"/org/openbmc/sensors/speed/fan0",
-+							 "/org/openbmc/sensors/speed/fan1",
-+							 "/org/openbmc/sensors/speed/fan2",
-+							 "/org/openbmc/sensors/speed/fan3",
-+							 "/org/openbmc/sensors/speed/fan4",
-+							 "/org/openbmc/sensors/speed/fan5"};
-+
-+
-+
-+const char *gIntPath = "org.openbmc.SensorValue";
-+
-+
-+char *gMessage = NULL;
-+sd_bus *bus = NULL;
-+
-+#define MAX_BYTES 255
-+
-+int g_use_pec = 0;
-+int g_has_write = 1;
-+int g_n_write = 0;
-+uint8_t g_write_bytes[MAX_BYTES];
-+uint8_t g_write_color_bytes[MAX_BYTES];
-+
-+int g_has_read = 1;
-+int g_n_read = -1;
-+uint8_t g_read_bytes[MAX_BYTES];
-+uint8_t g_read_tmp[MAX_BYTES];
-+uint8_t g_bus = -1;
-+uint8_t g_slave_addr = 0xff;
-+double g_Kp = 0.7;
-+double g_Ki = -0.025;
-+double g_Kd = 1.0;
-+int g_CPUVariable = 80;
-+int g_DIMMVariable = 75;
-+
-+int g_Sampling_N = 20;
-+int intergral_i = 0;
-+int Interal_CPU_Err[20]={0};
-+int Interal_DIMM_Err[20]={0};
-+
-+int g_fanspeed = 0;
-+
-+
-+int Openloopspeed = 0;
-+int Closeloopspeed = 0;
-+int Finalfanspeed = 0;
-+
-+static int i2c_open() {
-+  int fd;
-+  char fn[32];
-+  int rc;
-+
-+  g_bus = 6;
-+  snprintf(fn, sizeof(fn), "/dev/i2c-%d", g_bus);
-+  fd = open(fn, O_RDWR);
-+  if (fd == -1) {
-+    LOG_ERR(errno, "Failed to open i2c device %s", fn);
-+	close(fd);
-+    return -1;
-+  }
-+  return fd;
-+}
-+
-+static int SetFanLed(int fd,int color) {
-+  struct i2c_rdwr_ioctl_data data;
-+  struct i2c_msg msg[2];
-+  int n_msg = 0;
-+  int rc;
-+
-+  memset(&msg, 0, sizeof(msg));
-+
-+  g_slave_addr = 0x20;
-+  g_use_pec = 0;
-+  g_n_write = 2;
-+
-+  if(color==1) //blue light
-+  {
-+  g_write_bytes[0] = 0x03;
-+  g_write_bytes[1] = 0x55;
-+  g_write_color_bytes[0] = 0x02;
-+  g_write_color_bytes[1] = 0xaa;
-+  }
-+    else //red light
-+	{
-+    g_write_bytes[0] = 0x03;
-+   	g_write_bytes[1] = 0xaa;
-+    g_write_color_bytes[0] = 0x02;
-+    g_write_color_bytes[1] = 0x55;
-+  	}
-+  
-+  if (1) {
-+    msg[n_msg].addr = g_slave_addr;
-+    msg[n_msg].flags = (g_use_pec) ? I2C_CLIENT_PEC : 0;
-+    msg[n_msg].len = g_n_write;
-+    msg[n_msg].buf = g_write_bytes;
-+    n_msg++;
-+  }
-+  if (1) {
-+	  msg[n_msg].addr = g_slave_addr;
-+	  msg[n_msg].flags = (g_use_pec) ? I2C_CLIENT_PEC : 0;
-+	  msg[n_msg].len = g_n_write;
-+	  msg[n_msg].buf = g_write_color_bytes;
-+	  n_msg++;
-+  }
-+  data.msgs = msg;
-+  data.nmsgs = n_msg;
-+  rc = ioctl(fd, I2C_RDWR, &data);
-+  if (rc < 0) {
-+    LOG_ERR(errno, "Failed to do raw io");
-+	close(fd);
-+    return -1;
-+  }
-+
-+  return 0;
-+}
-+
-+
-+int CloseLoop (int cpureading,int dimmreading)
-+{
-+	int i,rc;
-+	int flag = 0;
-+	double pid [3] = {0};
-+	int CPUvarible;
-+	int DIMMvarible = 0;
-+	
-+	int CPU_PWM_speed = 0;
-+	static int CPU_PID_value = 0;
-+	static int CPU_tracking_error = 0; 
-+	static int CPU_integral_error = 0;
-+	static int CPU_differential_error = 0;
-+	static int CPU_last_error = 0;
-+
-+	int DIMM_PWM_speed = 0;
-+	static int DIMM_PID_value = 0;
-+	static int DIMM_tracking_error = 0;
-+	static int DIMM_integral_error = 0;
-+	static int DIMM_differential_error = 0;
-+	static int DIMM_last_error = 0;
-+		
-+//CPU closeloop
-+CPU_tracking_error = cpureading - g_CPUVariable;
-+Interal_CPU_Err[intergral_i]=CPU_tracking_error;
-+CPU_integral_error = 0;
-+for(i=0;i<g_Sampling_N;i++)
-+{
-+	CPU_integral_error += Interal_CPU_Err[i] ;
-+}			
-+
-+CPU_differential_error = CPU_tracking_error - CPU_last_error;			
-+CPU_PID_value = g_Kp * CPU_tracking_error +  g_Ki * CPU_integral_error + g_Kd * CPU_differential_error;
-+
-+CPU_PWM_speed= CPU_PID_value + g_fanspeed;
-+if(CPU_PWM_speed > 100)
-+{
-+	CPU_PWM_speed = 100;
-+}
-+if(CPU_PWM_speed < 0)
-+{
-+	CPU_PWM_speed = 0;
-+}
-+
-+CPU_last_error = CPU_tracking_error;
-+
-+
-+//DIMM closeloop
-+
-+	DIMM_tracking_error = dimmreading - g_DIMMVariable;
-+		Interal_DIMM_Err[intergral_i]=DIMM_tracking_error;
-+		intergral_i++;		
-+		DIMM_integral_error = 0;
-+		for(i=0;i<g_Sampling_N;i++)
-+		{
-+			DIMM_integral_error += Interal_DIMM_Err[i] ;
-+		}	
-+		if(intergral_i == g_Sampling_N)
-+			intergral_i = 0;
-+		
-+
-+    	DIMM_differential_error = DIMM_tracking_error - DIMM_last_error;			
-+		DIMM_PID_value = g_Kp * DIMM_tracking_error +  g_Ki * DIMM_integral_error + g_Kd * DIMM_differential_error;		
-+		DIMM_PWM_speed = DIMM_PID_value + g_fanspeed;
-+
-+		if(DIMM_PWM_speed > 100)
-+		{
-+			DIMM_PWM_speed = 100;
-+		}
-+		if(DIMM_PWM_speed < 0)
-+		{
-+			DIMM_PWM_speed = 0;
-+		}
-+	
-+		DIMM_last_error = DIMM_tracking_error;
-+
-+	if (DIMM_PWM_speed>CPU_PWM_speed)
-+		Closeloopspeed=DIMM_PWM_speed;
-+	else
-+		Closeloopspeed=CPU_PWM_speed;
-+
-+	if(intergral_i == g_Sampling_N)
-+		intergral_i = 0;
-+
-+
-+}
-+
-+
-+int OpenLoop (int sensorreading)
-+{
-+
-+
-+	int speed = 0;
-+	float paramA= 0;
-+	float paramB= 2; 
-+	float paramC= 0;
-+	int Low_Amb = 20;
-+	int Up_Amb = 40;
-+	
-+    if (sensorreading >= Up_Amb)
-+    {
-+    	speed = 100;
-+		//printf("## Ambient >=%dC, the Fan duty is %d \n",Up_Amb,speed);	
-+    }
-+	else if (sensorreading <= Low_Amb)
-+    {
-+    	speed = 40;
-+		//printf("## Ambient <=%dC, the Fan duty is %d \n",Low_Amb,speed);	
-+    }
-+	else
-+	{
-+		speed = ( paramA * sensorreading * sensorreading ) + ( paramB * sensorreading ) + paramC;
-+		if(speed > 100)
-+		{
-+			speed = 100;
-+		}	
-+		if(speed < 40)
-+		{
-+			speed = 40;
-+		}
-+	//	printf("The Fan duty is %d \n",speed);
-+
-+	}
-+
-+	Openloopspeed=speed;
-+
-+return 0;
-+}
-+
-+
-+
-+
-+int Fan_control_algorithm(void) {
-+
-+	sd_bus *bus;
-+	sd_bus_slot *slot;
-+	int r, Ambient_reading, rc,retry,i;
-+	int CPU0_core_temperature[12];
-+	int CPU1_core_temperature[12];
-+	int DIMM_temperature[32];
-+	int HighestCPUtemp = 0;
-+	int HighestDIMMtemp = 0;
-+	int CPUnocore[2];
-+	int fd;
-+	int FinalFanSpeed = 0;
-+	int CPUtemp=0;
-+	
-+	r = -1;
-+	while(r < 0) {
-+	/* Connect to the user bus this time */
-+	r = sd_bus_open_system(&bus);
-+		if(r < 0){	
-+			fprintf(stderr, "fan 1 Failed to connect to system bus: %s\n", strerror(-r));
-+		sleep(1);
-+			}
-+	
-+		}
-+	// SD Bus error report mechanism.
-+	sd_bus_error bus_error = SD_BUS_ERROR_NULL;
-+	sd_bus_message *response = NULL, *m = NULL;;
-+    sd_bus_error_free(&bus_error);
-+    sd_bus_message_unref(response);
-+
-+
-+while(1){
-+  	fd = i2c_open();
-+	CPUtemp=0;
-+	for(i=0;i<12;i++){
-+       sd_bus_error_free(&bus_error);
-+
-+        rc = sd_bus_call_method(bus,                   // On the System Bus
-+                                gService,               // Service to contact
-+                                gCPU0ObjPath[i],            // Object path
-+                                gIntPath,              // Interface name
-+                                "getValue",          // Method to be called
-+                                &bus_error,                 // object to return error
-+                                &response,                  // Response message on success
-+                                NULL);                       // input message (string,byte)
-+
-+        if(rc < 0)
-+        {
-+            //fprintf(stderr, "gCPU0ObjPath Failed to resolve fruid to dbus: %s\n", bus_error.message);
-+           // goto finish;
-+           CPU0_core_temperature[i]=0;
-+        }
-+		else
-+		{
-+			rc = sd_bus_message_read(response, "v","i", &CPU0_core_temperature[i]);
-+			if (rc < 0 )
-+			{ 
-+         	 // fprintf(stderr, "gCPU0ObjPath Failed to parse response message:[%s]\n", strerror(-rc));
-+          // goto finish;
-+			}
-+		}
-+	//printf("CPU0 core %d value=[%d] \n",i,CPU0_core_temperature[i]);
-+	if(CPU0_core_temperature[i] > HighestCPUtemp )
-+		{
-+		HighestCPUtemp = CPU0_core_temperature[i];
-+		CPUnocore[0]=0;
-+		CPUnocore[1]=i;
-+		}
-+	CPUtemp=CPUtemp+CPU0_core_temperature[i];
-+	}
-+	
-+	for(i=0;i<12;i++){
-+       sd_bus_error_free(&bus_error);
-+
-+        rc = sd_bus_call_method(bus,                   // On the System Bus
-+                                gService,               // Service to contact
-+                                gCPU1ObjPath[i],            // Object path
-+                                gIntPath,              // Interface name
-+                                "getValue",          // Method to be called
-+                                &bus_error,                 // object to return error
-+                                &response,                  // Response message on success
-+                                NULL);                       // input message (string,byte)
-+
-+        if(rc < 0)
-+        {
-+            //fprintf(stderr, "gCPU1ObjPath Failed to resolve fruid to dbus: %s\n", bus_error.message);
-+			CPU1_core_temperature[i]=0;
-+			//goto finish;
-+        }
-+		else
-+		{
-+		rc = sd_bus_message_read(response, "v","i", &CPU1_core_temperature[i]);
-+
-+		}
-+
-+
-+		if(CPU1_core_temperature[i] > HighestCPUtemp )
-+		{
-+		HighestCPUtemp = CPU1_core_temperature[i];
-+		CPUnocore[0]=1;
-+		CPUnocore[1]=i;
-+		}
-+
-+	}
-+
-+	
-+	for(i=0;i<32;i++){
-+       sd_bus_error_free(&bus_error);
-+
-+        rc = sd_bus_call_method(bus,                   // On the System Bus
-+                                gService,               // Service to contact
-+                                gDIMMObjPath[i],            // Object path
-+                                gIntPath,              // Interface name
-+                                "getValue",          // Method to be called
-+                                &bus_error,                 // object to return error
-+                                &response,                  // Response message on success
-+                                NULL);                       // input message (string,byte)
-+
-+        if(rc < 0)
-+        {
-+  
-+            DIMM_temperature[i]=0;
-+        }
-+		else
-+		{
-+		rc = sd_bus_message_read(response, "v","i", &DIMM_temperature[i]);
-+
-+			if (rc < 0 )
-+			{ 
-+         	  fprintf(stderr, "gDIMMObjPath Failed to parse response message:[%s]\n", strerror(-rc));
-+      
-+			}
-+
-+		}
-+
-+	if(DIMM_temperature[i] > HighestDIMMtemp )
-+		HighestDIMMtemp = DIMM_temperature[i];
-+	}
-+	printf("Highest DIMM temperatur is value %d \n",HighestDIMMtemp);
-+
-+
-+
-+	sd_bus_error_free(&bus_error);
-+     rc = sd_bus_call_method(bus,                   // On the System Bus
-+                                gService,               // Service to contact
-+                                gObjPath_Ambient,            // Object path
-+                                gIntPath,              // Interface name
-+                                "getValue",          // Method to be called
-+                                &bus_error,                 // object to return error
-+                                &response,                  // Response message on success
-+                                NULL);                       // input message (string,byte)
-+                                // NULL);                  // First argument to getObjectFromId
-+                                //"BOARD_1");             // Second Argument
-+
-+        if(rc < 0)
-+        {
-+            fprintf(stderr, "fan2 Failed to resolve fruid to dbus: %s\n", bus_error.message);
-+       
-+        }
-+
-+	rc = sd_bus_message_read(response, "v","i", &Ambient_reading);
-+	if (rc < 0 )
-+	{ 
-+           fprintf(stderr, "fan3 Failed to parse response message:[%s]\n", strerror(-rc));
-+  
-+	}
-+
-+	  if (CPUtemp==0)
-+	  	{
-+		HighestCPUtemp=0;
-+		HighestDIMMtemp=0;
-+	  	}
-+
-+	CloseLoop(HighestCPUtemp,HighestDIMMtemp);
-+	OpenLoop(Ambient_reading);
-+
-+	
-+
-+		if(Openloopspeed>Closeloopspeed)
-+		g_fanspeed=Openloopspeed;
-+		else
-+		g_fanspeed=Closeloopspeed;
-+	
-+	if(g_fanspeed>30) 
-+		SetFanLed(fd,1);
-+	else
-+		SetFanLed(fd,2);
-+
-+	FinalFanSpeed=g_fanspeed*255;
-+	FinalFanSpeed=FinalFanSpeed/100;
-+
-+	if(HighestCPUtemp==0) //OCC sensor does not enable
-+	{
-+	FinalFanSpeed=255;
-+	}
-+
-+
-+ 	for(i=0;i<6;i++){
-+		
-+		sd_bus_error_free(&bus_error);
-+	rc = sd_bus_call_method(bus,				   // On the System Bus
-+							   gService,			   // Service to contact
-+							   fanObjPath[i],			// Object path
-+							   gIntPath,			  // Interface name
-+							   "setValue",			// Method to be called
-+							   &bus_error,				   // object to return error
-+							   &response,				   // Response message on success
-+							   "i",						// input message (string,byte)
-+							   FinalFanSpeed);                  // First argument
-+
-+	  if(rc < 0)
-+        {
-+            fprintf(stderr, "fanObjPath Failed to resolve fruid to dbus: %s\n", bus_error.message);
-+          //  goto finish;
-+        }
-+
-+
-+ 	}
-+
-+	close(fd);
-+	sleep(1);
-+	
-+
-+	finish:
-+		sd_bus_unref(bus);
-+		sleep(1);
-+}
-+	return r < 0 ? EXIT_FAILURE : EXIT_SUCCESS;
-+}
-+
-+
-+int main(int argc, char *argv[]) {
-+
-+	return Fan_control_algorithm();
-+}
--- 
-2.8.1
+Ben.
