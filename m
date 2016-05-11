@@ -3,19 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r4N313NT9zDqGD
- for <openbmc@lists.ozlabs.org>; Wed, 11 May 2016 14:11:09 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r4PMg5BPHzDqCK
+ for <openbmc@lists.ozlabs.org>; Wed, 11 May 2016 15:10:39 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1462939862857679.8321948329957;
- Tue, 10 May 2016 21:11:02 -0700 (PDT)
+ with SMTPS id 1462943432458903.4800966057466;
+ Tue, 10 May 2016 22:10:32 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux] [hwmon pmbus]: Enable adm1278 VOUT sampling
-Date: Tue, 10 May 2016 23:11:00 -0500
-Message-Id: <1462939860-27192-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc] [openbmc]: Build adm1275 pmbus driver into Barreleye
+ kernel
+Date: Wed, 11 May 2016 00:10:30 -0500
+Message-Id: <1462943431-29445-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.1
-In-Reply-To: <1462939860-27192-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1462939860-27192-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -27,43 +26,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 May 2016 04:11:09 -0000
+X-List-Received-Date: Wed, 11 May 2016 05:10:40 -0000
 
-From: Yi Li <adamliyi@msn.com>
-
-The reset value of ADM1278 PMON_CONFIG register does not enable VOUT sampling.
-This patch enables VOUT sampling in ADM1278 PMON_CONFIG register.
-
-The patch fixes issue: https://github.com/openbmc/linux/issues/71.
+Barreleye has adm1278 devices. Build the driver into kernel.
 
 Signed-off-by: Yi Li <adamliyi@msn.com>
----
- drivers/hwmon/pmbus/adm1275.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/hwmon/pmbus/adm1275.c b/drivers/hwmon/pmbus/adm1275.c
-index 1476a12..006b1ef 100644
---- a/drivers/hwmon/pmbus/adm1275.c
-+++ b/drivers/hwmon/pmbus/adm1275.c
-@@ -514,6 +514,19 @@ static int adm1275_probe(struct i2c_client *client,
- 		tindex = 3;
- 
- 		info->func[0] |= PMBUS_HAVE_PIN | PMBUS_HAVE_STATUS_INPUT;
-+
-+		/* By default when reset VOUT is not enabled */
-+		if (!(config & ADM1278_VOUT_EN)) {
-+			config |= ADM1278_VOUT_EN;
-+			ret = i2c_smbus_write_byte_data(client,
-+					ADM1275_PMON_CONFIG, (u8)config);
-+			if (ret < 0) {
-+				dev_err(&client->dev,
-+					"Fail to write ADM1275_PMON_CONFIG\n");
-+				return ret;
-+			}
-+		}
-+
- 		if (config & ADM1278_TEMP1_EN)
- 			info->func[0] |=
- 				PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP;
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/269)
+<!-- Reviewable:end -->
+
+
+https://github.com/openbmc/openbmc/pull/269
+
+Yi Li (1):
+  [openbmc]: Build adm1275 pmbus driver into Barreleye kernel
+
+ .../meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.cfg       | 3 +++
+ .../meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend          | 2 ++
+ 2 files changed, 5 insertions(+)
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.cfg
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend
+
 -- 
 2.8.1
