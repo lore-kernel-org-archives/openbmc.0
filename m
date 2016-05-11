@@ -3,18 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r4LxV31kRzDqGn
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r4LxW0QzzzDqKD
  for <openbmc@lists.ozlabs.org>; Wed, 11 May 2016 13:21:18 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1462936874486930.1995078121624;
- Tue, 10 May 2016 20:21:14 -0700 (PDT)
+ with SMTPS id 1462936876649674.4231128311021;
+ Tue, 10 May 2016 20:21:16 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: johnhcwang <hsienchiang@gmail.com>
-Subject: [PATCH skeleton v10 18/22] Keep original design to generate
- thermaltrip event
-Date: Tue, 10 May 2016 22:20:48 -0500
-Message-Id: <1462936852-25327-19-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: Ken Lai <ken1029@gmail.com>
+Subject: [PATCH skeleton v10 20/22] Revert "Add I2C-6 lm75 outlet temperature
+ sensor"
+Date: Tue, 10 May 2016 22:20:50 -0500
+Message-Id: <1462936852-25327-21-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.1
 In-Reply-To: <1462936852-25327-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1462936852-25327-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -29,144 +29,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 May 2016 03:21:18 -0000
+X-List-Received-Date: Wed, 11 May 2016 03:21:20 -0000
 
-From: johnhcwang <hsienchiang@gmail.com>
+From: Ken Lai <ken1029@gmail.com>
 
-The shutdown action have to execute by info instead of emergency
-shutdown, otherwise probably can't log the event in time.
-So disable emergency for all CPU core in Barreleye.py.
-
-The bast implementation is do log in EmergencyShutdown function.
-Improve in the future.
+This reverts commit 0428fb4215889eaa151f63b4e904bdc61551295f.
 ---
- bin/Barreleye.py | 48 ++++++++++++++++++++++++------------------------
- objects/info.c   | 19 ++++++++++++++++++-
- 2 files changed, 42 insertions(+), 25 deletions(-)
+ bin/Barreleye.py           |  5 -----
+ objects/hwmons_barreleye.c | 15 +++++++--------
+ 2 files changed, 7 insertions(+), 13 deletions(-)
 
 diff --git a/bin/Barreleye.py b/bin/Barreleye.py
-index dc7b14a..86a5a97 100755
+index 86a5a97..ffe515d 100755
 --- a/bin/Barreleye.py
 +++ b/bin/Barreleye.py
-@@ -649,29 +649,29 @@ HWMON_CONFIG = {
- 		},
- 		'labels' : {
- 		'176' :  { 'object_path' : 'temperature/cpu0/core0','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'177' :  { 'object_path' : 'temperature/cpu0/core1','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'178' :  { 'object_path' : 'temperature/cpu0/core2','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'179' :  { 'object_path' : 'temperature/cpu0/core3','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'180' :  { 'object_path' : 'temperature/cpu0/core4','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'181' :  { 'object_path' : 'temperature/cpu0/core5','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'182' :  { 'object_path' : 'temperature/cpu0/core6','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'183' :  { 'object_path' : 'temperature/cpu0/core7','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'184' :  { 'object_path' : 'temperature/cpu0/core8','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'185' :  { 'object_path' : 'temperature/cpu0/core9','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'186' :  { 'object_path' : 'temperature/cpu0/core10','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'187' :  { 'object_path' : 'temperature/cpu0/core11','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'102' :  { 'object_path' : 'temperature/dimm0','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
- 			'critical_upper' : 95, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
- 		'103' :  { 'object_path' : 'temperature/dimm1','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
-@@ -717,29 +717,29 @@ HWMON_CONFIG = {
- 	'3-0051' : {
- 		'labels' :  {
- 		'188' :  { 'object_path' : 'temperature/cpu1/core0','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'189' :  { 'object_path' : 'temperature/cpu1/core1','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'190' :  { 'object_path' : 'temperature/cpu1/core2','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'191' :  { 'object_path' : 'temperature/cpu1/core3','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'192' :  { 'object_path' : 'temperature/cpu1/core4','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'193' :  { 'object_path' : 'temperature/cpu1/core5','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'194' :  { 'object_path' : 'temperature/cpu1/core6','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'195' :  { 'object_path' : 'temperature/cpu1/core7','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'196' :  { 'object_path' : 'temperature/cpu1/core8','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'197' :  { 'object_path' : 'temperature/cpu1/core9','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'198' :  { 'object_path' : 'temperature/cpu1/core10','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'199' :  { 'object_path' : 'temperature/cpu1/core11','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
--			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
-+			'critical_upper' : 90, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : False },
- 		'118' :  { 'object_path' : 'temperature/dimm16','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
- 			'critical_upper' : 95, 'critical_lower' : -100, 'warning_upper' : 85, 'warning_lower' : -99, 'emergency_enabled' : True },
- 		'119' :  { 'object_path' : 'temperature/dimm17','poll_interval' : 5000,'scale' : 1000,'units' : 'C',
-diff --git a/objects/info.c b/objects/info.c
-index 386133c..2da0dbc 100644
---- a/objects/info.c
-+++ b/objects/info.c
-@@ -360,13 +360,30 @@ int start_system_information(void)
- 
- 		if(HighestCPUtemp >= 90) {
- 			thermaltrip_lock = 1;
--			send_esel_to_dbus("CPU thermal trip", "High", "assoc", "hack", 3);
-+			send_esel_to_dbus("thermal shutdown, CPU temperature = 90degC", "High", "assoc", "hack", 3);
-+
-+			ret = sd_bus_call_method(bus,                   // On the System Bus
-+						gService_c,               // Service to contact
-+						gObjPath_c,            // Object path
-+						gIntPath_c,              // Interface name
-+						"powerOff",          // Method to be called
-+						&bus_error,                 // object to return error
-+						&response,                  // Response message on success
-+						NULL);                       // input message (string,byte)
-+			if(ret < 0)
-+			{
-+				fprintf(stderr, "Failed to power off from dbus: %s\n", bus_error.message);
-+				goto finish;
-+			}
-+			sd_bus_error_free(&bus_error);
-+			response = sd_bus_message_unref(response);
+@@ -633,11 +633,6 @@ HWMON_CONFIG = {
+                         'in14_input' : { 'object_path' : 'voltage/P1V35_CPU1_BUF3','poll_interval' : 10000,'scale' : 1,'units' : '' },
  		}
- 	
- finish:
- 		sd_bus_error_free(&bus_error);
- 		response = sd_bus_message_unref(response);
- 		sd_bus_flush(bus);
-+		OccStatus = NULL;
- 		HighestCPUtemp = 0;
- 		sleep(1);
- 	}
+          },
+-	'6-0048' : {
+-		'names' : {
+-                        'temp1_input' : { 'object_path' : 'temperature/outlet','poll_interval' : 5000,'scale' : 1000,'units' : 'C' },
+-		}
+-	},
+ 	'3-0050' : {
+ 		'names' : {
+ 			'caps_curr_powercap' : { 'object_path' : 'powercap/curr_cap','poll_interval' : 10000,'scale' : 1,'units' : 'W' },
+diff --git a/objects/hwmons_barreleye.c b/objects/hwmons_barreleye.c
+index 9cc555b..5acde7c 100644
+--- a/objects/hwmons_barreleye.c
++++ b/objects/hwmons_barreleye.c
+@@ -20,19 +20,18 @@ typedef struct {
+   int fd;
+ } HWMON;
+ 
+-#define  NUM_HWMONS 8
++#define  NUM_HWMONS 7
+ 
+ // TODO: Don't hardcode
+ //Hardcoded for barreleye
+ HWMON hwmons[NUM_HWMONS] = { 
+ 	(HWMON){"/sys/class/hwmon/hwmon0/temp1_input","temperature/ambient",3000,"C",1000},
+-	(HWMON){"/sys/class/hwmon/hwmon1/temp1_input","temperature/outlet",5000,"C",1000},
+-	(HWMON){"/sys/class/hwmon/hwmon2/pwm1","speed/fan0",30000,"",1},
+-	(HWMON){"/sys/class/hwmon/hwmon2/pwm2","speed/fan1",30000,"",1},
+-	(HWMON){"/sys/class/hwmon/hwmon2/pwm3","speed/fan2",30000,"",1},
+-	(HWMON){"/sys/class/hwmon/hwmon3/pwm1","speed/fan3",30000,"",1},
+-	(HWMON){"/sys/class/hwmon/hwmon3/pwm2","speed/fan4",30000,"",1},
+-	(HWMON){"/sys/class/hwmon/hwmon3/pwm3","speed/fan5",30000,"",1},
++	(HWMON){"/sys/class/hwmon/hwmon1/pwm1","speed/fan0",30000,"",1},
++	(HWMON){"/sys/class/hwmon/hwmon1/pwm2","speed/fan1",30000,"",1},
++	(HWMON){"/sys/class/hwmon/hwmon1/pwm3","speed/fan2",30000,"",1},
++	(HWMON){"/sys/class/hwmon/hwmon2/pwm1","speed/fan3",30000,"",1},
++	(HWMON){"/sys/class/hwmon/hwmon2/pwm2","speed/fan4",30000,"",1},
++	(HWMON){"/sys/class/hwmon/hwmon2/pwm3","speed/fan5",30000,"",1},
+ };
+ bool is_hwmon_valid(HWMON* hwmon)
+ {
 -- 
 2.8.1
