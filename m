@@ -1,62 +1,63 @@
-Return-Path: <gwshan@linux.vnet.ibm.com>
-Received: from e23smtp01.au.ibm.com (e23smtp01.au.ibm.com [202.81.31.143])
- (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-oi0-x236.google.com (mail-oi0-x236.google.com
+ [IPv6:2607:f8b0:4003:c06::236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r53FN3K3wzDqCQ
- for <openbmc@lists.ozlabs.org>; Thu, 12 May 2016 16:37:28 +1000 (AEST)
-Received: from localhost
- by e23smtp01.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <gwshan@linux.vnet.ibm.com>;
- Thu, 12 May 2016 16:37:27 +1000
-Received: from d23dlp01.au.ibm.com (202.81.31.203)
- by e23smtp01.au.ibm.com (202.81.31.207) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Thu, 12 May 2016 16:37:25 +1000
-X-IBM-Helo: d23dlp01.au.ibm.com
-X-IBM-MailFrom: gwshan@linux.vnet.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from d23relay07.au.ibm.com (d23relay07.au.ibm.com [9.190.26.37])
- by d23dlp01.au.ibm.com (Postfix) with ESMTP id 145342CE805F
- for <openbmc@lists.ozlabs.org>; Thu, 12 May 2016 16:37:14 +1000 (EST)
-Received: from d23av02.au.ibm.com (d23av02.au.ibm.com [9.190.235.138])
- by d23relay07.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u4C6b0bE61079770
- for <openbmc@lists.ozlabs.org>; Thu, 12 May 2016 16:37:08 +1000
-Received: from d23av02.au.ibm.com (localhost [127.0.0.1])
- by d23av02.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u4C6a8Gl016119
- for <openbmc@lists.ozlabs.org>; Thu, 12 May 2016 16:36:08 +1000
-Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
- by d23av02.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u4C6a81A014700; Thu, 12 May 2016 16:36:08 +1000
-Received: from bran.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
- by ozlabs.au.ibm.com (Postfix) with ESMTP id ADACBA0330;
- Thu, 12 May 2016 16:34:56 +1000 (AEST)
-Received: from gwshan (shangw.ozlabs.ibm.com [10.61.2.199])
- by bran.ozlabs.ibm.com (Postfix) with ESMTP id 54C36E3A65;
- Thu, 12 May 2016 16:34:46 +1000 (AEST)
-Received: by gwshan (Postfix, from userid 1000)
- id 093D39404ED; Thu, 12 May 2016 16:34:45 +1000 (AEST)
-Date: Thu, 12 May 2016 16:34:45 +1000
-From: Gavin Shan <gwshan@linux.vnet.ibm.com>
-To: Joel Stanley <joel@jms.id.au>
-Cc: Gavin Shan <gwshan@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: [PATCH 0/8] NSCI Improvement
-Message-ID: <20160512063445.GA8400@gwshan>
-Reply-To: Gavin Shan <gwshan@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r53pb6pKMzDqBs
+ for <openbmc@lists.ozlabs.org>; Thu, 12 May 2016 17:02:47 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=REqWlE/A; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=bHJj7ftI; 
+ dkim-atps=neutral
+Received: by mail-oi0-x236.google.com with SMTP id v145so105589584oie.0
+ for <openbmc@lists.ozlabs.org>; Thu, 12 May 2016 00:02:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=N9Z4uArmG+TfBuj8N1ruaeYVqTj/qXJnBBF1qAtyEGU=;
+ b=REqWlE/ANIT1aeaa8HwK/WurpobBllnGQeHs6pvPAb50tO7kiS0wGrVOcnjgFwJ5QZ
+ gfmNIxXo5NZj02zNtrm+4KGe+Rcfaauu6KHhTJVKquHGcDB8eZayrH2+qSOKaFirL2hd
+ SmPMi5aDkVDw3Oiey0Ib/0LnlOLKp8TmEEbiDzDXzLBClwaFj/eCJh2gmhg87MkOu8dx
+ /iNoQa8nlJvxxl9UX2LqqH91tyLu6+FZUYztDrC/1yN5CEDEvRcdoRJQzqDoDIjQG7eS
+ /D1ceeL8gBIbKbWpJrkfzcwc6CvYkqamtPqQBsGcgIEyr3AAehrwCr98c3gujI+e7uaw
+ yCkQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=N9Z4uArmG+TfBuj8N1ruaeYVqTj/qXJnBBF1qAtyEGU=;
+ b=bHJj7ftI6L4N6wOU+Pwjzz3AhgK2Klr6fpcH9/6A+lq3roXfO/3Xma9NGHgVtSKMGs
+ YLBz2CdgXZ4G+mfYwHwdzw/SChfTlKhjane9PsgqqtwlllSbMFyZsByOAkNqiahImmwA
+ Tg7LNQ7Udxt4CXC+vQbA+BudInwSn4SG58i0k=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=N9Z4uArmG+TfBuj8N1ruaeYVqTj/qXJnBBF1qAtyEGU=;
+ b=bzzqnJh8JKHyRAzXwUDPYlNp7ewjE5wFa+8ezUyExiqIbAEJkF/WuGulZGIUkjlTb7
+ 2LjMlJC4g046MeXTOYQyY1uAWzWHk+bhOQP6ih4eL4pOtdJB3HjOdo7OfOiOqZBF/vwS
+ 0j3hnMovkrrvTaHuerd+1F78iL+vCFjLXbg66YCwsllFQ75v6i77h4wnCr3C2YzJm6OR
+ 6gY+HKGeD4nGpwAxUPf1b/gibBAE87MlHuKW6uFxp6TaUuIA7cfKQwI3hf5bHuEDOiXy
+ kV0En3/hZ8yNTydZtSKRd79mivyvlf1TWSZr9h2MIyebgpp23tWuoQ/tTGbGc/pMagkS
+ +Vwg==
+X-Gm-Message-State: AOPr4FUFaZBqC47S1yg/eieGQOhUdFHGYiHIO8ImnX08qMRTbfK/cCIRQoqYEaGTwOoK97Zb/5U2Ms+i+wGo0g==
+X-Received: by 10.202.71.134 with SMTP id u128mr4601121oia.189.1463036565903; 
+ Thu, 12 May 2016 00:02:45 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.60.3.102 with HTTP; Thu, 12 May 2016 00:02:26 -0700 (PDT)
+In-Reply-To: <20160512063445.GA8400@gwshan>
 References: <1462758439-27910-1-git-send-email-gwshan@linux.vnet.ibm.com>
  <CACPK8Xf3-THRo2bj-+kd8-oU-qqwt=TR=KSV_sdoDj1t7ZPb_A@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CACPK8Xf3-THRo2bj-+kd8-oU-qqwt=TR=KSV_sdoDj1t7ZPb_A@mail.gmail.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16051206-1618-0000-0000-000045BCC6C3
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+ <20160512063445.GA8400@gwshan>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 12 May 2016 16:32:26 +0930
+X-Google-Sender-Auth: tsKvK9EXHqHT3_y6YsjM68Nj9vQ
+Message-ID: <CACPK8XeTVbarxS5+ujEKt2yVvP5kjeChOPXaRH6sysQBr5y+-A@mail.gmail.com>
+Subject: Re: [PATCH 0/8] NSCI Improvement
+To: Gavin Shan <gwshan@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -68,52 +69,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 May 2016 06:37:28 -0000
+X-List-Received-Date: Thu, 12 May 2016 07:02:48 -0000
 
-On Wed, May 11, 2016 at 03:13:40PM +0930, Joel Stanley wrote:
->On Mon, May 9, 2016 at 11:17 AM, Gavin Shan <gwshan@linux.vnet.ibm.com> wrote:
->> This series bases on branch dev-4.4. Couple of things are improved as below:
->>
->>    * Remove netlink stuff as nobody starts to use it. Lets focus on the core
->>      for now.
->>    * The available packages and channels are enumerated for once when user
->>      brings up the network interface for the first time. Afterwords, less
->>      time (3 to 4 seconds) are reduced to bring up the interface.
->>    * Explicitly enable AEN that is disabled by default.
->>    * The LSC (Link Status Change) AEN handler helps switching active channel
->>      properly after the packet can be received without problem. In order to
->>      listen for ingress AEN packet, the MAC has to be ready for reception
->>      after the interface is brought up.
->>
->> This series is to fix the bug: https://github.com/openbmc/linux/issues/61
->> With this series applied (based on dev-4.4), it should fix the issue. Note
->> that I had the test on palm4-bmc.
->>
->>    * From uboot, download the kernel image;
->>    * Unplug the ethernet cable;
->>    * From uboot, boot the kernel image;
->>    * Configure the ethernet interface when the kernel boots up completely.
->>      The NCSI interface should be down;
->>    * Plug the cable, the NCSI interface is up automatically. The interface
->>      is pingable from external.
->
->Great work Gavin. Thanks for getting to the bottom of this and testing
->the patches.
->
->I've applied them to dev-4.4 and tagged a release that includes your changes:
->
-> https://github.com/openbmc/linux/releases/tag/openbmc-20160511-1
->
+On Thu, May 12, 2016 at 4:04 PM, Gavin Shan <gwshan@linux.vnet.ibm.com> wrote:
+> Thanks, Joel. Note that I had no chance to test it out on barreleye where
+> the issue was reported. I cannot find a barreleye BMC in local lab. could
+> you please tell if I can access any one of this kind of machine in case
+> you know one?
 
-Thanks, Joel. Note that I had no chance to test it out on barreleye where
-the issue was reported. I cannot find a barreleye BMC in local lab. could
-you please tell if I can access any one of this kind of machine in case
-you know one?
+Currently the only ones we have access to are in a lab at IBM in
+Austin. I'll send you the details.
 
-Thanks,
-Gavin
+I think we should have another go at sending the patches upstream. Can
+you create a series against 4.6? I'm looking in to finding us some
+reviewers; I'll let you know when I hear something.
 
->Cheers,
->
->Joel
->
+Cheers,
+
+Joel
