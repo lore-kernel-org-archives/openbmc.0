@@ -1,64 +1,64 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
- [IPv6:2607:f8b0:4003:c06::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <gwshan@linux.vnet.ibm.com>
+Received: from e23smtp01.au.ibm.com (e23smtp01.au.ibm.com [202.81.31.143])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r54095xKfzDqBs
- for <openbmc@lists.ozlabs.org>; Thu, 12 May 2016 17:11:05 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=jc7Knt/U; 
- dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=XuQTfw+R; 
- dkim-atps=neutral
-Received: by mail-oi0-x241.google.com with SMTP id t140so7839545oie.0
- for <openbmc@lists.ozlabs.org>; Thu, 12 May 2016 00:11:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=zhlEdPG5mxQ/GILRjd2sHT6821qlaSCgDBDerrXPvec=;
- b=jc7Knt/UGYWrmP1eXDL0BdxSWqmmSFceshgmdRZPoF+kdxhL/hoCVxtLvixYyzQC9U
- 3l0mQUZtCcca4aC0lQKZwh93y76LW8FCnaz/agzocSAs4PxxjLqO5VhPXL11qZJRlUMK
- 93Bdn4YQAm1iQj7orJLhNS7fA3lEqLoOctyVwJRJKoSvWnQhR5Ru8SFF/pMEFAwWXLBW
- 6M+NUNdiQ9Cn13h7v0Fy06aoqqsjAzjNMHOPkgf3IvNdKYbCVFFmBs/2AyEd4NoEtiK6
- NHP5LrPVrdXkOAufANtVYNwk9xAgnx2Sft9/OiAu70I33Eu2bPCHFJa5WEjqllxi4ken
- exmw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=zhlEdPG5mxQ/GILRjd2sHT6821qlaSCgDBDerrXPvec=;
- b=XuQTfw+RduJlpaBy8IeEK/tzKqtZSNh+Q0P7mADM3nOD/wcYhKOOWbhtY+oxC8oTGf
- NvboF3ooMz9s6LUuUtG2m1mFOEJwOEd022xKjaz6/LbbVlA6+j1+F8YXOKECP5jjYAz1
- qn5vkP3piQvZFsycPJz+rl0CTIwjrtKE6gUsw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=zhlEdPG5mxQ/GILRjd2sHT6821qlaSCgDBDerrXPvec=;
- b=MFVcv83zr2a9l2+kpFHubS9w2Ss7uDYfpfXcuoMbJl9NdNjquUIimbch94j8U0VmKn
- qlVdB7alBGH3bnzZiu0I7Tn6f4KDO7EDJ5YQhGHdT/kBHrms7RIjKSaYfUd92bvK6f+U
- 99rfbqgMeZj3oT5vwLvsi5DWOt3mXnCCGXUA4Rm1LZKIsLoIXoCi5PiICEybRA/jSQQw
- VPmE8UBDwLHWlrp0AsRf/8jJKOVfRXT6hncps7GzB1bR+TDhQzH+k9kb3Cjws1Dhh4op
- YCdbFa06AAh7zw0UIhEwCGjCqjwCbvZcHsjAXuDW4GQk6Iw86965yI+4Sf59jWw/I2H5
- 9lMg==
-X-Gm-Message-State: AOPr4FU+EZLgY3IZFTMF/xzkYkBpauetK34XDTbyuq8kiS18ykL8XVE557rcO3QeW+VrMJYjIqVhufg+6bdz7Q==
-X-Received: by 10.157.41.202 with SMTP id g10mr4834977otd.122.1463037062611;
- Thu, 12 May 2016 00:11:02 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r545g1zS1zDqBs
+ for <openbmc@lists.ozlabs.org>; Thu, 12 May 2016 17:15:51 +1000 (AEST)
+Received: from localhost
+ by e23smtp01.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <gwshan@linux.vnet.ibm.com>;
+ Thu, 12 May 2016 17:15:49 +1000
+Received: from d23dlp01.au.ibm.com (202.81.31.203)
+ by e23smtp01.au.ibm.com (202.81.31.207) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Thu, 12 May 2016 17:15:46 +1000
+X-IBM-Helo: d23dlp01.au.ibm.com
+X-IBM-MailFrom: gwshan@linux.vnet.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d23relay10.au.ibm.com (d23relay10.au.ibm.com [9.190.26.77])
+ by d23dlp01.au.ibm.com (Postfix) with ESMTP id D29A02CE8085
+ for <openbmc@lists.ozlabs.org>; Thu, 12 May 2016 17:15:15 +1000 (EST)
+Received: from d23av02.au.ibm.com (d23av02.au.ibm.com [9.190.235.138])
+ by d23relay10.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u4C7Evnl42074220
+ for <openbmc@lists.ozlabs.org>; Thu, 12 May 2016 17:15:05 +1000
+Received: from d23av02.au.ibm.com (localhost [127.0.0.1])
+ by d23av02.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u4C7EIDk009311
+ for <openbmc@lists.ozlabs.org>; Thu, 12 May 2016 17:14:18 +1000
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av02.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u4C7EIlP008701; Thu, 12 May 2016 17:14:18 +1000
+Received: from bran.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
+ by ozlabs.au.ibm.com (Postfix) with ESMTP id 276FBA0330;
+ Thu, 12 May 2016 17:12:48 +1000 (AEST)
+Received: from gwshan (shangw.ozlabs.ibm.com [10.61.2.199])
+ by bran.ozlabs.ibm.com (Postfix) with ESMTP id E626FE3A65;
+ Thu, 12 May 2016 17:12:47 +1000 (AEST)
+Received: by gwshan (Postfix, from userid 1000)
+ id 9A144940558; Thu, 12 May 2016 17:12:47 +1000 (AEST)
+Date: Thu, 12 May 2016 17:12:47 +1000
+From: Gavin Shan <gwshan@linux.vnet.ibm.com>
+To: Joel Stanley <joel@jms.id.au>
+Cc: Gavin Shan <gwshan@linux.vnet.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: [PATCH 0/8] NSCI Improvement
+Message-ID: <20160512071247.GA12372@gwshan>
+Reply-To: Gavin Shan <gwshan@linux.vnet.ibm.com>
+References: <1462758439-27910-1-git-send-email-gwshan@linux.vnet.ibm.com>
+ <CACPK8Xf3-THRo2bj-+kd8-oU-qqwt=TR=KSV_sdoDj1t7ZPb_A@mail.gmail.com>
+ <20160512063445.GA8400@gwshan>
+ <CACPK8XeTVbarxS5+ujEKt2yVvP5kjeChOPXaRH6sysQBr5y+-A@mail.gmail.com>
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.60.3.102 with HTTP; Thu, 12 May 2016 00:10:43 -0700 (PDT)
-In-Reply-To: <CACPK8XdBaCC5npZ8UvfxEaeLuDL72n3p98-sx_XnpwbaRqYuHQ@mail.gmail.com>
-References: <1461908454-24209-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1461908454-24209-2-git-send-email-openbmc-patches@stwcx.xyz>
- <CACPK8XdBaCC5npZ8UvfxEaeLuDL72n3p98-sx_XnpwbaRqYuHQ@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 12 May 2016 16:40:43 +0930
-X-Google-Sender-Auth: bm0AAAt9BwCgbiZzhPHbdzG4UCQ
-Message-ID: <CACPK8Xfwb3TJeUHWZYY6LRHUK+eyjPfo5B2Hq=jcJ4p2UUFd2A@mail.gmail.com>
-Subject: Re: [PATCH linux] Add debounce for power button, pull down gpioQ7 to
- unlock identify LED
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, ken.th.liu@foxconn.com
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CACPK8XeTVbarxS5+ujEKt2yVvP5kjeChOPXaRH6sysQBr5y+-A@mail.gmail.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16051207-1618-0000-0000-000045BD0CD6
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -70,57 +70,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 May 2016 07:11:06 -0000
+X-List-Received-Date: Thu, 12 May 2016 07:15:51 -0000
 
-ping
+On Thu, May 12, 2016 at 04:32:26PM +0930, Joel Stanley wrote:
+>On Thu, May 12, 2016 at 4:04 PM, Gavin Shan <gwshan@linux.vnet.ibm.com> wrote:
+>> Thanks, Joel. Note that I had no chance to test it out on barreleye where
+>> the issue was reported. I cannot find a barreleye BMC in local lab. could
+>> you please tell if I can access any one of this kind of machine in case
+>> you know one?
+>
+>Currently the only ones we have access to are in a lab at IBM in
+>Austin. I'll send you the details.
+>
+>I think we should have another go at sending the patches upstream. Can
+>you create a series against 4.6? I'm looking in to finding us some
+>reviewers; I'll let you know when I hear something.
+>
 
-On Mon, May 2, 2016 at 11:12 AM, Joel Stanley <joel@jms.id.au> wrote:
-> On Fri, Apr 29, 2016 at 3:10 PM, OpenBMC Patches
-> <openbmc-patches@stwcx.xyz> wrote:
->> From: Ken <ken.sk.lai@mail.foxconn.com>
->>
->
-> We need to include a description of why this change is being made.
-> What does it fix? Why does the previous behaviour need to be modified?
->
->> ---
->>  arch/arm/mach-aspeed/aspeed.c | 8 ++++++--
->>  1 file changed, 6 insertions(+), 2 deletions(-)
->>  mode change 100644 => 100755 arch/arm/mach-aspeed/aspeed.c
->>
->> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
->> old mode 100644
->> new mode 100755
->> index 594a781..fa5d467
->> --- a/arch/arm/mach-aspeed/aspeed.c
->> +++ b/arch/arm/mach-aspeed/aspeed.c
->> @@ -138,9 +138,10 @@ static void __init do_barreleye_setup(void)
->>         /* GPIO setup */
->>         writel(0x9E82FCE7, AST_IO(AST_BASE_GPIO | 0x00));
->>         writel(0x0370E677, AST_IO(AST_BASE_GPIO | 0x04));
->> -
->> +       writel(0x00001080, AST_IO(AST_BASE_GPIO | 0x84));
->
-> We have a GPIO driver that handles setting this register.
->
->>         /* SCU setup */
->>         writel(0x01C00000, AST_IO(AST_BASE_SCU | 0x88));
->> +       writel(0x010FFFFF, AST_IO(AST_BASE_SCU | 0xA8));
->
-> Can you explain each of these you're setting each of these bits?
->
->>         /*
->>          * Do read/modify/write on power gpio to prevent resetting power on
->> @@ -150,7 +151,10 @@ static void __init do_barreleye_setup(void)
->>         reg |= 0xCFC8F7FD;
->>         writel(reg, AST_IO(AST_BASE_GPIO | 0x20));
->>         writel(0xC738F20A, AST_IO(AST_BASE_GPIO | 0x24));
->> -       writel(0x0031FFAF, AST_IO(AST_BASE_GPIO | 0x80));
->> +       writel(0x0031FF2F, AST_IO(AST_BASE_GPIO | 0x80));
->> +       writel(0x00000001, AST_IO(AST_BASE_GPIO | 0x48));
->> +       writel(0x00000001, AST_IO(AST_BASE_GPIO | 0x4C));
->> +       writel(0x00075300, AST_IO(AST_BASE_GPIO | 0x58));
->
-> As above; we have a GPIO driver that handles setting this register.
-> Changing these states needs to be done from userspace. See
-> https://github.com/openbmc/skeleton/blob/master/bin/Barreleye.py#L531
+Sure, I will do that after finishing the PCI hotplug stuff at hand.
+Thanks for your helps (machine access & code review), Joel.
+
+Thanks,
+Gavin
