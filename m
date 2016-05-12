@@ -1,64 +1,28 @@
-Return-Path: <gwshan@linux.vnet.ibm.com>
-Received: from e23smtp01.au.ibm.com (e23smtp01.au.ibm.com [202.81.31.143])
- (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (ozlabs.org [103.22.144.67])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r545g1zS1zDqBs
- for <openbmc@lists.ozlabs.org>; Thu, 12 May 2016 17:15:51 +1000 (AEST)
-Received: from localhost
- by e23smtp01.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <gwshan@linux.vnet.ibm.com>;
- Thu, 12 May 2016 17:15:49 +1000
-Received: from d23dlp01.au.ibm.com (202.81.31.203)
- by e23smtp01.au.ibm.com (202.81.31.207) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Thu, 12 May 2016 17:15:46 +1000
-X-IBM-Helo: d23dlp01.au.ibm.com
-X-IBM-MailFrom: gwshan@linux.vnet.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from d23relay10.au.ibm.com (d23relay10.au.ibm.com [9.190.26.77])
- by d23dlp01.au.ibm.com (Postfix) with ESMTP id D29A02CE8085
- for <openbmc@lists.ozlabs.org>; Thu, 12 May 2016 17:15:15 +1000 (EST)
-Received: from d23av02.au.ibm.com (d23av02.au.ibm.com [9.190.235.138])
- by d23relay10.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u4C7Evnl42074220
- for <openbmc@lists.ozlabs.org>; Thu, 12 May 2016 17:15:05 +1000
-Received: from d23av02.au.ibm.com (localhost [127.0.0.1])
- by d23av02.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u4C7EIDk009311
- for <openbmc@lists.ozlabs.org>; Thu, 12 May 2016 17:14:18 +1000
-Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
- by d23av02.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u4C7EIlP008701; Thu, 12 May 2016 17:14:18 +1000
-Received: from bran.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
- by ozlabs.au.ibm.com (Postfix) with ESMTP id 276FBA0330;
- Thu, 12 May 2016 17:12:48 +1000 (AEST)
-Received: from gwshan (shangw.ozlabs.ibm.com [10.61.2.199])
- by bran.ozlabs.ibm.com (Postfix) with ESMTP id E626FE3A65;
- Thu, 12 May 2016 17:12:47 +1000 (AEST)
-Received: by gwshan (Postfix, from userid 1000)
- id 9A144940558; Thu, 12 May 2016 17:12:47 +1000 (AEST)
-Date: Thu, 12 May 2016 17:12:47 +1000
-From: Gavin Shan <gwshan@linux.vnet.ibm.com>
-To: Joel Stanley <joel@jms.id.au>
-Cc: Gavin Shan <gwshan@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: [PATCH 0/8] NSCI Improvement
-Message-ID: <20160512071247.GA12372@gwshan>
-Reply-To: Gavin Shan <gwshan@linux.vnet.ibm.com>
-References: <1462758439-27910-1-git-send-email-gwshan@linux.vnet.ibm.com>
- <CACPK8Xf3-THRo2bj-+kd8-oU-qqwt=TR=KSV_sdoDj1t7ZPb_A@mail.gmail.com>
- <20160512063445.GA8400@gwshan>
- <CACPK8XeTVbarxS5+ujEKt2yVvP5kjeChOPXaRH6sysQBr5y+-A@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r56KQ6CnBzDqCm
+ for <openbmc@lists.ozlabs.org>; Thu, 12 May 2016 18:56:10 +1000 (AEST)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.org (Postfix) with ESMTPSA id 3r56KQ32H5z9sds;
+ Thu, 12 May 2016 18:56:10 +1000 (AEST)
+Subject: Re: [PATCH docs] Take a stab at a proper DBUS API document.
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+References: <1462996814-824-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1462996814-824-2-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, Andrew Jeffery <andrew@aj.id.au>
+From: Jeremy Kerr <jk@ozlabs.org>
+Message-ID: <57344529.8020901@ozlabs.org>
+Date: Thu, 12 May 2016 16:56:09 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+ Thunderbird/38.7.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CACPK8XeTVbarxS5+ujEKt2yVvP5kjeChOPXaRH6sysQBr5y+-A@mail.gmail.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16051207-1618-0000-0000-000045BD0CD6
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+In-Reply-To: <1462996814-824-2-git-send-email-openbmc-patches@stwcx.xyz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -70,25 +34,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 May 2016 07:15:51 -0000
+X-List-Received-Date: Thu, 12 May 2016 08:56:10 -0000
 
-On Thu, May 12, 2016 at 04:32:26PM +0930, Joel Stanley wrote:
->On Thu, May 12, 2016 at 4:04 PM, Gavin Shan <gwshan@linux.vnet.ibm.com> wrote:
->> Thanks, Joel. Note that I had no chance to test it out on barreleye where
->> the issue was reported. I cannot find a barreleye BMC in local lab. could
->> you please tell if I can access any one of this kind of machine in case
->> you know one?
->
->Currently the only ones we have access to are in a lab at IBM in
->Austin. I'll send you the details.
->
->I think we should have another go at sending the patches upstream. Can
->you create a series against 4.6? I'm looking in to finding us some
->reviewers; I'll let you know when I hear something.
->
+Hi Brad,
 
-Sure, I will do that after finishing the PCI hotplug stuff at hand.
-Thanks for your helps (machine access & code review), Joel.
+This is awesome, thanks for taking the time and writing up the proper
+content here.
 
-Thanks,
-Gavin
+Since your change will establish a few conventions around how the
+interfaces will be properly documented, I'm being extra-nitpicky about
+this, so have a few changes listed below. If you'd prefer, I can do this
+reformatting myself, but we should still address this somehow, before
+merging.
+
+
+> +# OpenBMC DBUS API
+
+Most of the other docs use the ====/---- style of for level 1 & level 2
+headers, as it makes the text version of the markdown look more like a
+header.
+
+> +The Phosphor distibution provides sample applications that implement off all the interfaces and objects listed below.  Alternative or more feature complete applications are possible by implementing parts of this DBUS API.
+
+Can we wrap at 80 columns, where it makes sense? Things that *need* to
+be wider are fine, but this makes things readable for folks who use
+80-cols by default.
+
+> +| name         | in signature | out signature | description                              |
+> +| ------------ | ------------ | ------------- | ---------------------------------------- |
+> +| sendMessage  | yyyyyay      | x             | Send an IPMI message to the host processor firmware. |
+
+Should we backtick-escape these names (and paths)? It'll also avoid any
+issues with inline < and > characters (which Chris picked up in his
+review).
+
+Looks like this table format is also compatible with the pandoc markdown
+implementation, which is great news if/when we want to create a PDF
+document including this.
+
+Speaking of which, pandoc also supports a few different methods of doing
+tables, some of which allow us to break long lines (which may make the
+text-format of the doc easier to read):
+
+  http://pandoc.org/README.html#tables
+
+However, if we do end up using one of these, we'll need to check that it
+still renders correctly in github.
+
+Cheers,
+
+
+Jeremy
