@@ -3,19 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r4xmZ0YR3zDqDW
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r4xmZ0Wc1zDqBg
  for <openbmc@lists.ozlabs.org>; Thu, 12 May 2016 12:30:37 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1463020234518223.80252831867801;
- Wed, 11 May 2016 19:30:34 -0700 (PDT)
+ with SMTPS id 1463020233595764.6173480242096;
+ Wed, 11 May 2016 19:30:33 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Subject: [PATCH openbmc v2] meta-phosphor: Move to openbmc-20160511-1
-Date: Wed, 11 May 2016 21:30:32 -0500
-Message-Id: <1463020232-16507-2-git-send-email-openbmc-patches@stwcx.xyz>
+Date: Wed, 11 May 2016 21:30:31 -0500
+Message-Id: <1463020232-16507-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.1
-In-Reply-To: <1463020232-16507-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1463020232-16507-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -29,28 +27,26 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 12 May 2016 02:30:38 -0000
 
-From: Joel Stanley <joel@jms.id.au>
-
  - Enables network cable link detection
  - Adds support for VOUT sampling to the adm1275 driver
 
+Fixes https://github.com/openbmc/linux/issues/71 and https://github.com/openbmc/linux/issues/61
+
 Signed-off-by: Joel Stanley <joel@jms.id.au>
+
+<!-- Reviewable:start -->
 ---
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/270)
+<!-- Reviewable:end -->
+
+
+https://github.com/openbmc/openbmc/pull/270
+
+Joel Stanley (1):
+  meta-phosphor: Move to openbmc-20160511-1
+
  meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb
-index 525abc4..24cde9f 100644
---- a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb
-+++ b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb
-@@ -10,7 +10,7 @@ SRC_URI = "git://github.com/openbmc/linux;protocol=git;branch=${KBRANCH}"
- LINUX_VERSION ?= "4.4"
- LINUX_VERSION_EXTENSION ?= "-${SRCREV}"
- 
--SRCREV="openbmc-20160505-1"
-+SRCREV="openbmc-20160511-1"
- 
- PV = "${LINUX_VERSION}+git${SRCPV}"
- 
 -- 
 2.8.1
