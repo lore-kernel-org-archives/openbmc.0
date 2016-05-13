@@ -3,18 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r5pN71ptmzDq7s
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r5pN71rGKzDq7v
  for <openbmc@lists.ozlabs.org>; Fri, 13 May 2016 22:00:54 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1463140846354510.60115580768706;
- Fri, 13 May 2016 05:00:46 -0700 (PDT)
+ with SMTPS id 1463140847525102.67264226499549;
+ Fri, 13 May 2016 05:00:47 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Nan Li <bjlinan@cn.ibm.com>
 Subject: [PATCH phosphor-host-ipmid v2] Handle errors finding openbmc_path #75
-Date: Fri, 13 May 2016 07:00:44 -0500
-Message-Id: <1463140845-1854-1-git-send-email-openbmc-patches@stwcx.xyz>
+Date: Fri, 13 May 2016 07:00:45 -0500
+Message-Id: <1463140845-1854-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.1
+In-Reply-To: <1463140845-1854-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1463140845-1854-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,24 +30,70 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Fri, 13 May 2016 12:00:56 -0000
 
+From: Nan Li <bjlinan@cn.ibm.com>
+
 1.Check return value properly.
 
 Signed-off-by: Nan Li <bjlinan@cn.ibm.com>
-
-<!-- Reviewable:start -->
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/phosphor-host-ipmid/86)
-<!-- Reviewable:end -->
-
-
-https://github.com/openbmc/phosphor-host-ipmid/pull/86
-
-Nan Li (1):
-  Handle errors finding openbmc_path #75
-
  ipmid.C         | 10 ++++++++++
  sensorhandler.C |  9 ++++++++-
  2 files changed, 18 insertions(+), 1 deletion(-)
 
+diff --git a/ipmid.C b/ipmid.C
+index 728ba0b..413c2b7 100644
+--- a/ipmid.C
++++ b/ipmid.C
+@@ -565,6 +565,11 @@ int set_sensor_dbus_state_s(uint8_t number, const char *method, const char *valu
+ 
+     r = find_openbmc_path("SENSOR", number, &a);
+ 
++    if (r < 0) {
++        fprintf(stderr, "Failed to find Sensor 0x%02x\n", number);
++        goto final;
++    }
++
+     r = sd_bus_message_new_method_call(bus,&m,a.bus,a.path,a.interface,method);
+     if (r < 0) {
+         fprintf(stderr, "Failed to create a method call: %s", strerror(-r));
+@@ -602,6 +607,11 @@ int set_sensor_dbus_state_y(uint8_t number, const char *method, const uint8_t va
+ 
+     r = find_openbmc_path("SENSOR", number, &a);
+ 
++    if (r < 0) {
++        fprintf(stderr, "Failed to find Sensor 0x%02x\n", number);
++        goto final;
++    }
++
+     r = sd_bus_message_new_method_call(bus,&m,a.bus,a.path,a.interface,method);
+     if (r < 0) {
+         fprintf(stderr, "Failed to create a method call: %s", strerror(-r));
+diff --git a/sensorhandler.C b/sensorhandler.C
+index bb14e7a..9c7c2cd 100644
+--- a/sensorhandler.C
++++ b/sensorhandler.C
+@@ -180,6 +180,13 @@ ipmi_ret_t ipmi_sen_get_sensor_reading(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+ 
+     r = find_openbmc_path("SENSOR", reqptr->sennum, &a);
+ 
++    if (r < 0) {
++        fprintf(stderr, "Failed to find Sensor 0x%02x\n", reqptr->sennum);
++        *data_len=0;
++        rc = IPMI_CC_SENSOR_INVALID;
++        goto final;
++    }
++
+     type = find_sensor(reqptr->sennum);
+ 
+     fprintf(stderr, "Bus: %s, Path: %s, Interface: %s\n", a.bus, a.path, a.interface);
+@@ -220,7 +227,7 @@ ipmi_ret_t ipmi_sen_get_sensor_reading(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+             break;
+     }
+ 
+-
++final:
+     reply = sd_bus_message_unref(reply);
+ 
+     return rc;
 -- 
 2.8.1
