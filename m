@@ -3,20 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r7wQt2xYrzDq6B
- for <openbmc@lists.ozlabs.org>; Tue, 17 May 2016 08:40:38 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r7wfN16dSzDq68
+ for <openbmc@lists.ozlabs.org>; Tue, 17 May 2016 08:50:35 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1463438433246526.1950823581291;
- Mon, 16 May 2016 15:40:33 -0700 (PDT)
+ with SMTPS id 1463439032284126.20509878308746;
+ Mon, 16 May 2016 15:50:32 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH openbmc] Allow multiple systemd service files
-Date: Mon, 16 May 2016 17:40:31 -0500
-Message-Id: <1463438431-19253-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc] Re-enable out of tree device trees
+Date: Mon, 16 May 2016 17:50:30 -0500
+Message-Id: <1463439031-19754-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.2
-In-Reply-To: <1463438431-19253-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1463438431-19253-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,78 +25,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 May 2016 22:40:39 -0000
+X-List-Received-Date: Mon, 16 May 2016 22:50:36 -0000
 
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+This snippet was mistakenly removed with 8ef9fee.
 
-Enhance the obmc-phosphor-systemd class such that an array
-of service files in SYSTEMD_SERVICES works.
+Note that this isn't a matter of policy, it simply enables
+the option to do it.  The in-tree device tree is still the default.
+
+<!-- Reviewable:start -->
 ---
- meta-phosphor/classes/obmc-phosphor-systemd.bbclass    | 18 +++++++++++++-----
- .../host-ipmi-hw-example/host-ipmi-hw-example.service  |  8 --------
- .../host-ipmi-hw-example/host-ipmi-hw.service          |  8 ++++++++
- 3 files changed, 21 insertions(+), 13 deletions(-)
- delete mode 100644 meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-hw-example/host-ipmi-hw-example.service
- create mode 100644 meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-hw-example/host-ipmi-hw.service
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/275)
+<!-- Reviewable:end -->
 
-diff --git a/meta-phosphor/classes/obmc-phosphor-systemd.bbclass b/meta-phosphor/classes/obmc-phosphor-systemd.bbclass
-index 12e0bc1..44d363e 100644
---- a/meta-phosphor/classes/obmc-phosphor-systemd.bbclass
-+++ b/meta-phosphor/classes/obmc-phosphor-systemd.bbclass
-@@ -2,13 +2,21 @@
- 
- inherit systemd
- 
--SYSTEMD_SERVICE_${PN} = "${BPN}.service"
--SRC_URI += " \
--        file://${BPN}.service \
--        "
-+SYSTEMD_SERVICE_${PN} ?= "${BPN}.service"
-+
-+python() {
-+        service_files = d.getVar(
-+                'SYSTEMD_SERVICE_' + d.getVar('BPN', True),
-+                True)
-+        if service_files:
-+                uris = " ".join(['file://' + s for s in service_files.split()])
-+                d.appendVar('SRC_URI', ' ' + uris)
-+}
- 
- do_install_append() {
-         # install systemd unit files
-         install -d ${D}${systemd_unitdir}/system
--        install -m 0644 ${WORKDIR}/${BPN}.service ${D}${systemd_unitdir}/system
-+        for i in ${SYSTEMD_SERVICE_${PN}}; do
-+                install -m 0644 ${WORKDIR}/$i ${D}${systemd_unitdir}/system
-+        done
- }
-diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-hw-example/host-ipmi-hw-example.service b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-hw-example/host-ipmi-hw-example.service
-deleted file mode 100644
-index b6baa6f..0000000
---- a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-hw-example/host-ipmi-hw-example.service
-+++ /dev/null
-@@ -1,8 +0,0 @@
--[Unit]
--Description=Phosphor OpenBMC host IPMI to DBUS example implementation
--
--[Service]
--ExecStart=/usr/sbin/host-ipmi-hw
--
--[Install]
--WantedBy=multi-user.target
-diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-hw-example/host-ipmi-hw.service b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-hw-example/host-ipmi-hw.service
-new file mode 100644
-index 0000000..b6baa6f
---- /dev/null
-+++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-hw-example/host-ipmi-hw.service
-@@ -0,0 +1,8 @@
-+[Unit]
-+Description=Phosphor OpenBMC host IPMI to DBUS example implementation
-+
-+[Service]
-+ExecStart=/usr/sbin/host-ipmi-hw
-+
-+[Install]
-+WantedBy=multi-user.target
+
+https://github.com/openbmc/openbmc/pull/275
+
+Brad Bishop (1):
+  Re-enable out of tree device trees
+
+ meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
 -- 
 2.8.2
