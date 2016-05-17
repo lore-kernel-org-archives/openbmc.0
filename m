@@ -3,20 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r8KJ43fWwzDqCT
- for <openbmc@lists.ozlabs.org>; Wed, 18 May 2016 00:21:08 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r8KWF5JNMzDqBK
+ for <openbmc@lists.ozlabs.org>; Wed, 18 May 2016 00:30:49 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 146349485910157.61448235138505;
- Tue, 17 May 2016 07:20:59 -0700 (PDT)
+ with SMTPS id 1463495437206627.677639554063;
+ Tue, 17 May 2016 07:30:37 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH skeleton 2/3] Deprecate PropertyCacher.py
-Date: Tue, 17 May 2016 09:20:52 -0500
-Message-Id: <1463494853-27441-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc] Add pflash to SDK
+Date: Tue, 17 May 2016 09:30:35 -0500
+Message-Id: <1463495436-27711-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.2
-In-Reply-To: <1463494853-27441-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1463494853-27441-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,109 +26,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 May 2016 14:21:09 -0000
+X-List-Received-Date: Tue, 17 May 2016 14:30:50 -0000
 
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-
-The pyphosphor package provides equivalent function
-so use that and drop the duplicated code.
+Make use of the skiboot external/shared support for dynamic so/bin.
+This allows us to completely remove pflash from skeleton.
 
 Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
----
- bin/PropertyCacher.py  | 49 -------------------------------------------------
- bin/inventory_items.py |  3 +--
- bin/system_manager.py  |  2 +-
- 3 files changed, 2 insertions(+), 52 deletions(-)
- delete mode 100644 bin/PropertyCacher.py
 
-diff --git a/bin/PropertyCacher.py b/bin/PropertyCacher.py
-deleted file mode 100644
-index dfbb0b9..0000000
---- a/bin/PropertyCacher.py
-+++ /dev/null
-@@ -1,49 +0,0 @@
--import os
--import cPickle
--import json
--
--CACHE_PATH = '/var/cache/obmc/'
--
--def getCacheFilename(obj_path, iface_name):
--	name = obj_path.replace('/','.')
--	filename = CACHE_PATH+name[1:]+"@"+iface_name+".props"
--	return filename
--
--def save(obj_path, iface_name, properties):
--	print "Caching: "+obj_path
--	try:
--		
--		filename = getCacheFilename(obj_path, iface_name)
--		output = open(filename, 'wb')
--		try:
--			## use json module to convert dbus datatypes
--			props = json.dumps(properties[iface_name])
--			prop_obj = json.loads(props)
--			cPickle.dump(prop_obj,output)
--		except Exception as e:
--			print "ERROR: "+str(e)
--		finally:
--			output.close()
--	except:
--		print "ERROR opening cache file: "+filename
--
--
--def load(obj_path, iface_name, properties):
--	## overlay with pickled data
--	filename=getCacheFilename(obj_path, iface_name)
--	if (os.path.isfile(filename)):
--		if (properties.has_key(iface_name) == False):
--			properties[iface_name] = {}
--		print "Loading from cache: "+filename
--		try:			
--			p = open(filename, 'rb')
--			data = cPickle.load(p)
--			for prop in data.keys():
--				properties[iface_name][prop] = data[prop]
--						
--		except Exception as e:
--			print "ERROR: Loading cache file: " +str(e)
--		finally:
--			p.close()
--
--
-diff --git a/bin/inventory_items.py b/bin/inventory_items.py
-index bf7f414..1b0fa39 100755
---- a/bin/inventory_items.py
-+++ b/bin/inventory_items.py
-@@ -8,7 +8,7 @@ import dbus.service
- import dbus.mainloop.glib
- import cPickle
- import json
--import PropertyCacher
-+from obmc.dbuslib.propertycacher import PropertyCacher
- from obmc.dbuslib.bindings import get_dbus, DbusProperties, DbusObjectManager
- 
- if (len(sys.argv) < 2):
-@@ -37,7 +37,6 @@ class InventoryItem(DbusProperties):
- 		self.name = name
- 		
- 		## this will load properties from cache
--		# PropertyCacher.load(name,INTF_NAME,self.properties)
- 		if (data.has_key('present') == False):
- 			data['present'] = 'False'
- 		if (data.has_key('fault') == False):
-diff --git a/bin/system_manager.py b/bin/system_manager.py
-index 2331131..fdb1bf1 100755
---- a/bin/system_manager.py
-+++ b/bin/system_manager.py
-@@ -8,7 +8,7 @@ import dbus.service
- import dbus.mainloop.glib
- import os
- import time
--import PropertyCacher
-+from obmc.dbuslib.propertycacher import PropertyCacher
- from obmc.dbuslib.bindings import DbusProperties, DbusObjectManager, get_dbus
- import obmc.enums
- 
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/276)
+<!-- Reviewable:end -->
+
+
+https://github.com/openbmc/openbmc/pull/276
+
+Brad Bishop (1):
+  Add pflash to SDK
+
+ .../common/recipes-bsp/pflash/pflash.bb            |   8 +-
+ .../pflash/pflash/0001-pflash-Build-solib.patch    | 119 +++++++++++++++++++++
+ .../common/recipes-phosphor/skeleton/skeleton.bb   |   7 +-
+ 3 files changed, 127 insertions(+), 7 deletions(-)
+ create mode 100644 meta-openbmc-machines/meta-openpower/common/recipes-bsp/pflash/pflash/0001-pflash-Build-solib.patch
+
 -- 
 2.8.2
