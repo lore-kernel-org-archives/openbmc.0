@@ -1,43 +1,38 @@
 Return-Path: <andrew@aj.id.au>
-Received: from homiemail-a21.g.dreamhost.com (sub3.mail.dreamhost.com
+Received: from homiemail-a17.g.dreamhost.com (sub3.mail.dreamhost.com
  [69.163.253.7])
  (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r7yw36060zDq66
- for <openbmc@lists.ozlabs.org>; Tue, 17 May 2016 10:32:35 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r7zsY00CJzDq66
+ for <openbmc@lists.ozlabs.org>; Tue, 17 May 2016 11:15:28 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=VolM6CPq; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=b4tUxsUC; 
  dkim-atps=neutral
-Received: from homiemail-a21.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a21.g.dreamhost.com (Postfix) with ESMTP id 8DF28300072;
- Mon, 16 May 2016 17:32:33 -0700 (PDT)
+Received: from homiemail-a17.g.dreamhost.com (localhost [127.0.0.1])
+ by homiemail-a17.g.dreamhost.com (Postfix) with ESMTP id EB6A92B206E;
+ Mon, 16 May 2016 18:15:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
- :subject:from:reply-to:to:cc:date:in-reply-to:references
- :content-type:mime-version; s=aj.id.au; bh=arskj/bdv34nHy4cjrtfs
- Oqo6w0=; b=VolM6CPqCXMgB3bO/bhcpMAo5x/Z1w7DsAsrpDuUqTNqLTsw5x7I3
- pSUmoJkIV90rHb5LufTW1wj6TLkeCTxUWwy0u6aA61dpudN4dwQKeqCXqkEsKSGt
- BOAoi6QadqfLyn5aG/irYqXpLNWoK9T9RsvFbQxfyeWd3AR8LCIU6A=
+ :subject:from:reply-to:to:cc:date:content-type:mime-version; s=
+ aj.id.au; bh=07f7ec+2s3MCshwDrDT4LbxMnUA=; b=b4tUxsUCXjJchmEGiOl
+ OvfJ+d++9HwEw9ZeuYw7Xs+H6cavGWciILKu0aLUkgGZvVN/oPMazb2TOqtdOEmE
+ B5ReasdOwMSd0woa3pj+9Lt+hCLOGiFx/RodVEZDStQLcmjCaN4eRmLprDQ0THcW
+ 2lJnbZutCoM+ZkyIW5Izgtyw=
 Received: from keelia (unknown [203.0.153.9])
  (using TLSv1 with cipher AES128-SHA (128/128 bits))
  (No client certificate requested)
  (Authenticated sender: andrew@aj.id.au)
- by homiemail-a21.g.dreamhost.com (Postfix) with ESMTPSA id 9B344300061;
- Mon, 16 May 2016 17:32:32 -0700 (PDT)
-Message-ID: <1463445148.2703.86.camel@aj.id.au>
-Subject: Re: [RFC PATCH openbmc v3 8/8] runqemu-internal: Configure tun/tap
- network for palmetto-bmc
+ by homiemail-a17.g.dreamhost.com (Postfix) with ESMTPSA id 168E42B2065;
+ Mon, 16 May 2016 18:15:24 -0700 (PDT)
+Message-ID: <1463447715.2703.112.camel@aj.id.au>
+Subject: Extending runqemu/runqemu-internal with new machines
 From: Andrew Jeffery <andrew@aj.id.au>
 Reply-To: andrew@aj.id.au
-To: Patrick Williams <patrick@stwcx.xyz>
-Cc: OpenBMC <openbmc@lists.ozlabs.org>
-Date: Tue, 17 May 2016 10:02:28 +0930
-In-Reply-To: <20160516202028.GL19968@asimov.austin.ibm.com>
-References: <1458720215-25302-1-git-send-email-andrew@aj.id.au>
- <1458720215-25302-9-git-send-email-andrew@aj.id.au>
- <20160516202028.GL19968@asimov.austin.ibm.com>
+To: Yocto Project <yocto@yoctoproject.org>
+Cc: OpenBMC <openbmc@lists.ozlabs.org>, Patrick Williams <patrick@stwcx.xyz>
+Date: Tue, 17 May 2016 10:45:15 +0930
 Organization: IBM OzLabs
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-FBxjjUC+udMDB9p489BK"
+ protocol="application/pgp-signature"; boundary="=-pUkIokhvVy5Imflxox41"
 X-Mailer: Evolution 3.18.5.2-0ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -51,50 +46,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 May 2016 00:32:36 -0000
+X-List-Received-Date: Tue, 17 May 2016 01:15:29 -0000
 
 
---=-FBxjjUC+udMDB9p489BK
+--=-pUkIokhvVy5Imflxox41
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2016-05-16 at 15:20 -0500, Patrick Williams wrote:
-> On Wed, Mar 23, 2016 at 06:33:35PM +1030, Andrew Jeffery wrote:
-> >=20
-> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> > ---
-> > =C2=A0yocto-poky/scripts/runqemu-internal | 5 ++++-
-> > =C2=A01 file changed, 4 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/yocto-poky/scripts/runqemu-internal b/yocto-poky/scripts/r=
-unqemu-internal
-> > index f461e9f..bdaea01 100755
-> > --- a/yocto-poky/scripts/runqemu-internal
-> > +++ b/yocto-poky/scripts/runqemu-internal
-> > @@ -392,7 +392,10 @@ if [ "$MACHINE" =3D "palmetto" ]; then
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0QEMU=3Dqemu-system-arm
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0MACHINE_SUBTYPE=3Dpalmetto-bmc
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0export QEMU_AUDIO_DRV=3D"none"
-> > -=C2=A0=C2=A0=C2=A0=C2=A0KERNCMDLINE=3D"console=3DttyS4"
-> > +=C2=A0=C2=A0=C2=A0=C2=A0if [ "$SLIRP_ENABLED" !=3D "yes" ]; then
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0KERNEL_NETWORK_CMD=3D$=
-{KERNEL_NETWORK_CMD}"::eth0"
-> > +=C2=A0=C2=A0=C2=A0=C2=A0fi
-> > +=C2=A0=C2=A0=C2=A0=C2=A0KERNCMDLINE=3D"console=3DttyS4 $KERNEL_NETWORK=
-_CMD mem=3D$QEMU_MEMORY highres=3Doff"
-> Lots of stuff that is "palmetto" specific shoved in to the
-> runqemu-internal.=C2=A0=C2=A0I think we need to propose a way to upstream=
- to add
-> machine-specific gorp in here from the meta layer.
+Hi all,
 
-Yep, as mentioned in another reply I'll close the pull-req and start a
-conversation with upstream.
+I'm interested in how to best extend the runqemu/runqemu-internal
+scripts to add support for more specific machine types. The OpenBMC
+project[1] (which uses Yocto) has been working on upstreaming support
+for the Aspeed AST2400 and AST2500 SoCs[3] in the kernel and qemu, and
+we'd like to run the same configuration in qemu as we do on hardware.
+
+As it stands the qemuarm configuration runs a versatilepb machine, but
+as we have more relevant machine types in upstream qemu (e.g. palmetto-
+bmc) we'd like to invoke them instead.
+
+In the OpenBMC repo we have Yocto as a subtree to which we apply
+updates from upstream. Given that, it's best if we have no changes to
+the subtree so that upstream patches apply without fuss. If we want to
+provide additional machine types in runqemu/runqemu-internal it seems
+that we cannot avoid carrying patches to the scripts, which will need
+to be reworked when we apply the upstream patches.
+
+Is there a better way to work that might avoid these issues?
+Alternatively, should we start looking at reworking the
+runqemu/runqemu-internal scripts such that we don't have to patch them
+to support our use-case? If so, what sort of approach would the
+community be happy with?
 
 Cheers,
 
 Andrew
 
---=-FBxjjUC+udMDB9p489BK
+[1]=C2=A0https://github.com/openbmc/docs#openbmc-goals
+[2]=C2=A0https://github.com/openbmc/openbmc/
+[3]=C2=A0http://www.aspeedtech.com/products.php?fPath=3D20
+--=-pUkIokhvVy5Imflxox41
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
@@ -102,19 +93,19 @@ Content-Transfer-Encoding: 7bit
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAABCgAGBQJXOmacAAoJEJ0dnzgO5LT5cYwQALYVHvLot482+4MbCcsAPziY
-ZpTm661L+7/P7rCkYYDkoxfz9hra0h3fRWzB4xdzOqBBUeDepmBxPllCHlaUXAy+
-/5+RTCJ+XUfUFO4xT0crvI6p4vruLYyYII1EGKrCp7IEvq3fbFd3MXDgBaSL1eCO
-FashsFWirMUefGBEbxCnhwsvUJkdbi1igBEVQiaa6w549bXom1lIXrlfAS4UU5uN
-tuZSIJKFwCc/KJMHehg5Ug/95fXYoBO6GwPWu1sODa9/zMICuSEILJ6sZHJxVagk
-2j7kDRt4N7Y0oVgX+2fJQFbi6IVVys0mX1IFOfiNXb66IwCDDdrZneGt78JQYpIj
-zGI83W+YlhDTyP0bD2QY+QRnsE0V14PqdG5MiX2vvptIco+/NryG/JuISb71eSO5
-qP5gbgFL8zUKbrET6EbKJD1fm3vT4/zpvbEwcz5/gFv5CLqi9PH1htYonBe3nSIH
-A3ZBOgz6JSd8/oz7GJDN7fX/HFNkwOQYr97tbME4pCyncMKiEj1PJlgZB0BO13q9
-OFtzr1KPAAdWwzjTyPhuS/wX+CuhKH+DUiGLXRc9Xk+m2TYh7EmXy9AZpMnZkAV0
-qi/B4yT1djGeh22k/ceN+xE9L2HtuayJGE7Kuoz4or4VAYkcz0yU2xIl5I9Gp0u3
-fDtLVuSxf9dN5NCXPCja
-=khtA
+iQIcBAABCgAGBQJXOnCjAAoJEJ0dnzgO5LT53sEQAI0tLg8W0hfqMFhQdaiVElsF
+sdVZEQGlj7nZFvLS+WCrADs6+mxiJtpmAnw57fN7SkDAwkPrjC6bYR+286NqarmA
+jj67hkgBr7tjKPCnNkeVmjzwgG/qcRU/UmDtHAPIlGIRtIZw16Nlx5mjbxjW/ErU
+0G3NYpw6SLeQIyL2JxWoGaO34dxOnktODsUg2myxFiFwvzx88pjl2AISai9V/eTn
+4wCjNCOjxu9m9JaCx6k7/ktdRHVS/ZSxNh9xwmpJXnGoahsMkHuQEj1t5f16wDd5
+/thYYQDACeiAK4Kg5wD+AyhXd2vFKZS1AIOui29vZ5srb2jUikZTDaNfEKVPLlDq
+9ow4eQyvCABlVFv86/ghKON0jVACu92yTW9N8PZR2k7WZThY2rGBQn5dYbQo4nqM
+1AFuefwYP4sibFxkWCu/RPWZzQi1xjHqfBD0ps3jBRlULeZEecyaRs/WaQcERYZ2
+Tdwcb9zepB2buZRjVXIoRvUpuLQTdezP+n7i8qY+TE0ZxDK26vHJhYyKZBmUcOI+
+v21km0mcNTTF8qcr1hnHo1GA0Y5aAeFmAvr++SKCBsB0gnvJIYzZtOX9OT1C+w/P
+oiFKG6kovNjGHL+jO5ZSAR3w5tWkpLnfj3MGxXfr/awsSAj4NL4EYH0sgj98Z/Sj
+XKsrpPciYq3h/Kfx+hW1
+=fIxi
 -----END PGP SIGNATURE-----
 
---=-FBxjjUC+udMDB9p489BK--
+--=-pUkIokhvVy5Imflxox41--
