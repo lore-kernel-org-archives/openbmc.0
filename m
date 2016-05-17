@@ -1,54 +1,46 @@
-Return-Path: <dja@axtens.net>
-Received: from mail-pf0-x242.google.com (mail-pf0-x242.google.com
- [IPv6:2607:f8b0:400e:c00::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from homiemail-a75.g.dreamhost.com (sub3.mail.dreamhost.com
+ [69.163.253.7])
+ (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r7wmt5MCzzDq68
- for <openbmc@lists.ozlabs.org>; Tue, 17 May 2016 08:56:13 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r7yLV2dpxzDq66
+ for <openbmc@lists.ozlabs.org>; Tue, 17 May 2016 10:06:58 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=axtens.net header.i=@axtens.net header.b=SkmqvKDU; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=cW9nY2rP; 
  dkim-atps=neutral
-Received: by mail-pf0-x242.google.com with SMTP id g132so16876579pfb.3
- for <openbmc@lists.ozlabs.org>; Mon, 16 May 2016 15:56:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axtens.net; s=google;
- h=from:to:subject:in-reply-to:references:user-agent:date:message-id
- :mime-version; bh=J+9R0Az9RbV3KK6TbqTy2me6Lgb37ZcY8BQtmBXsM7E=;
- b=SkmqvKDUT5ggqBZyDc4PYUhlkVLjrqRMVtCkZl2CCpTPPAA1EFeMBUos+Uuud65/IZ
- HtpyOaBbMCuROIEX06g6HB4AQkYp+AlqY/6Z+GRZur/iC/vZa2RhZyU2nN6rCzZyR4qx
- haEp0fWlugAs/96YGVRKRjzHWn3J9T1c4LRB8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:subject:in-reply-to:references
- :user-agent:date:message-id:mime-version;
- bh=J+9R0Az9RbV3KK6TbqTy2me6Lgb37ZcY8BQtmBXsM7E=;
- b=A0gzYxH5pQnr+irWXs+rVFTCRAePgwlR0TXz0cM2xvwG0xUeD0QWUQaq2stN0cCEEQ
- 8edw0xc44txmILXV3S/VHGHQ674GBilcdT0lmBsSWeP21Id+gWjgMG3Jzxcu3Y2ieLOy
- zN2Nkb+20Z4NSegUM4lrgX+c2j4yhCL1SOl/NjvnyA18PiveQzlArYXy1Ac64QHJGH/n
- crxND0hDfmgWpHP1wXOD5hVEg39fCNkj0KkUXX1yEiSE094i1FSImREfZp819HaqY4FY
- xgfsd1RITNcCtiePzk5YrpsdJSWCqKyYIxkI8BfiQQdEMiK/vJ67aZbnZ3z3uvhhrNLM
- ObYg==
-X-Gm-Message-State: AOPr4FXEllJ03gaCpFO222o7mSjP9P7ip4mmsTdkAgnJecwrIffR17hKwXpGfzPtF4h4cA==
-X-Received: by 10.98.101.199 with SMTP id z190mr49176605pfb.1.1463439371284;
- Mon, 16 May 2016 15:56:11 -0700 (PDT)
-Received: from localhost (ppp121-45-219-137.lns20.cbr1.internode.on.net.
- [121.45.219.137])
- by smtp.gmail.com with ESMTPSA id q129sm49588807pfb.16.2016.05.16.15.56.09
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 16 May 2016 15:56:10 -0700 (PDT)
-From: Daniel Axtens <dja@axtens.net>
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org,
- anoo@us.ibm.com
-Subject: Re: [PATCH ipmi-fru-parser v2] Replace uint8_t buffer length variable
- with size_t
-In-Reply-To: <1463427614-11252-2-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1463427614-11252-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1463427614-11252-2-git-send-email-openbmc-patches@stwcx.xyz>
-User-Agent: Notmuch/0.21 (http://notmuchmail.org) Emacs/24.5.1
- (x86_64-pc-linux-gnu)
-Date: Tue, 17 May 2016 08:56:06 +1000
-Message-ID: <878tz9bojd.fsf@gamma.ozlabs.ibm.com>
-MIME-Version: 1.0
-Content-Type: text/plain
+Received: from homiemail-a75.g.dreamhost.com (localhost [127.0.0.1])
+ by homiemail-a75.g.dreamhost.com (Postfix) with ESMTP id ABCCB5EC07C;
+ Mon, 16 May 2016 17:06:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
+ :subject:from:reply-to:to:cc:date:in-reply-to:references
+ :content-type:mime-version; s=aj.id.au; bh=VjN8bUFG3D16kw+DdnIlX
+ Mxi/8U=; b=cW9nY2rPHWJfaxRNMENqPqddzoxrZRkNzMhnjpkTOJRgNkNnS7FCE
+ iqkX5C8A4za2C7OdLeY6VUBv90anmANEXiPt4qT3lFEDXuekbXVXi5M+NWe73xs6
+ Cy2+d2SsBK5ouydNoZb5HEGbqWBPGQT8eQSSMwEy4a0vB/T9xCjGnI=
+Received: from keelia (unknown [203.0.153.9])
+ (using TLSv1 with cipher AES128-SHA (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: andrew@aj.id.au)
+ by homiemail-a75.g.dreamhost.com (Postfix) with ESMTPSA id 555195EC072;
+ Mon, 16 May 2016 17:06:54 -0700 (PDT)
+Message-ID: <1463443604.2703.74.camel@aj.id.au>
+Subject: Re: [PATCH phosphor-host-ipmid v2] Handle errors finding
+ openbmc_path #75
+From: Andrew Jeffery <andrew@aj.id.au>
+Reply-To: andrew@aj.id.au
+To: Nan KX Li <bjlinan@cn.ibm.com>
+Cc: openbmc@lists.ozlabs.org, OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Date: Tue, 17 May 2016 09:36:44 +0930
+In-Reply-To: <OFC9B509DC.8C0346F0-ON48257FB5.002F5961-48257FB5.004DE485@notes.na.collabserv.com>
+References: <1463140845-1854-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1463140845-1854-2-git-send-email-openbmc-patches@stwcx.xyz>
+ <1463365542.2703.68.camel@aj.id.au>
+ <OFC9B509DC.8C0346F0-ON48257FB5.002F5961-48257FB5.004DE485@notes.na.collabserv.com>
+Organization: IBM OzLabs
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-IVoR0ETj9VCUpBIAQkhR"
+X-Mailer: Evolution 3.18.5.2-0ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -60,65 +52,125 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 May 2016 22:56:15 -0000
+X-List-Received-Date: Tue, 17 May 2016 00:06:59 -0000
+
+
+--=-IVoR0ETj9VCUpBIAQkhR
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
 Hi,
 
-Looks good to me!
+On Mon, 2016-05-16 at 22:10 +0800, Nan KX Li wrote:
+> Thanks Andrew.=C2=A0
+> I think you are right. I'll improve my code accordingly. Also I give some=
+ comments below.
+>=20
+>=20
+> Regards,
+>=20
+> William Li ( Li Nan, =E6=9D=8E=E6=A5=A0 )=C2=A0
+> =C2=A0 =C2=A0
+>=20
+> Firmware Engineering Professional
+> OpenPower AE Team | IBM System & Technology Lab
+> Mobile: +86-186-1081 6605
+>=20
+> Beijing, China
+>=20
+>=20
+>=20
+> From: =C2=A0 =C2=A0 =C2=A0 =C2=A0Andrew Jeffery <andrew@aj.id.au>
+> To: =C2=A0 =C2=A0 =C2=A0 =C2=A0OpenBMC Patches <openbmc-patches@stwcx.xyz=
+>, openbmc@lists.ozlabs.org
+> Cc: =C2=A0 =C2=A0 =C2=A0 =C2=A0Nan KX Li/China/IBM@IBMCN
+> Date: =C2=A0 =C2=A0 =C2=A0 =C2=A005/16/2016 10:27
+> Subject: =C2=A0 =C2=A0 =C2=A0 =C2=A0Re: [PATCH phosphor-host-ipmid v2] Ha=
+ndle errors finding openbmc_path #75
+>=20
+>=20
+>=20
+> > Hi Nan Li,
+> >=C2=A0
+> > Thanks for the patch. I've had a look at the files you're modifying and
+> > it seems like the error handling is ripe for improvement beyond the
+> > issues you've fixed. However, resolving those problems is probably
+> > beyond the scope of your patch, so never mind that.
+> >=C2=A0
+> > On Fri, 2016-05-13 at 07:00 -0500, OpenBMC Patches wrote:
+> > > From: Nan Li <bjlinan@cn.ibm.com>
+> > >=C2=A0
+> > > 1.Check return value properly.
+> > >=C2=A0
+> > > Signed-off-by: Nan Li <bjlinan@cn.ibm.com>
+> > > ---
+> > > =C2=A0ipmid.C=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0| =
+10 ++++++++++
+> > > =C2=A0sensorhandler.C |=C2=A0=C2=A09 ++++++++-
+> > > =C2=A02 files changed, 18 insertions(+), 1 deletion(-)
+> > >=C2=A0
+> > > diff --git a/ipmid.C b/ipmid.C
+> > > index 728ba0b..413c2b7 100644
+> > > --- a/ipmid.C
+> > > +++ b/ipmid.C
+> > > @@ -565,6 +565,11 @@ int set_sensor_dbus_state_s(uint8_t number,=C2=
+=A0
+> > const char *method, const char *valu
+> > > =C2=A0
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0r =3D find_openbmc_path("SENSOR", numbe=
+r, &a);
+> > > =C2=A0
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0if (r < 0) {
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0fprintf(stderr, "Fai=
+led to find Sensor 0x%02x\n", number);
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0goto final;
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0}
+> > > +
+> >=C2=A0
+> > We jump to the final label which is consistent with the existing error
+> > handling, but we don't appear to need any of the clean-up that's done
+> > there. Maybe we should just return instead?
+> >=C2=A0
+> > If we return, we need to return a value. Looking at the existing code
+> > it seems that 0 is returned regardless of whether an error has
+> > occurred. This doesn't seem useful (i.e. should this just be a void
+> > function?), but also means that you don't need to choose an error
+> > value...
+> >=C2=A0
+>=20
+> I think that changing it to a void function will lead to more code change=
+, like struct lookup_t[].=C2=A0
+> I'm not sure if those change are acceptable. so I prefer to keep things a=
+s they are.
 
-Reviewed-by: Daniel Axtens <dja@axtens.net>
+Yeah, I agree. This is the kind of thing I was referring to as in my
+opening paragraph - it'd be nice to clean it up but I wouldn't bother
+with that here. I think returning 0 should be enough.
 
-Regards,
-Daniel
+Cheers,
 
-OpenBMC Patches <openbmc-patches@stwcx.xyz> writes:
+Andrew
+--=-IVoR0ETj9VCUpBIAQkhR
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-> From: Adriana Kobylak <anoo@us.ibm.com>
->
-> The latest Barreleye vpd contains additional custom fields in one
-> of the board sections, pushing the size of the buffer over 0x100.
->
-> The current variable that stores the buffer size is set to be
-> size_t, but the function using it crops it to uint8_t  which
-> doesn't fit the extended size. Changing the function to use size_t.
->
-> Signed-off-by: Adriana Kobylak <anoo@us.ibm.com>
-> ---
->  frup.c | 2 +-
->  frup.h | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/frup.c b/frup.c
-> index 7bdf35f..49718ba 100644
-> --- a/frup.c
-> +++ b/frup.c
-> @@ -948,7 +948,7 @@ parse_fru (const void* msgbuf, sd_bus_message* vpdtbl)
->    return (rv);
->  }
->  
-> -int parse_fru_area (const uint8_t area, const void* msgbuf, const uint8_t len, sd_bus_message* vpdtbl)
-> +int parse_fru_area (const uint8_t area, const void* msgbuf, const size_t len, sd_bus_message* vpdtbl)
->  {
->    int ret = 0;
->    int rv = -1;
-> diff --git a/frup.h b/frup.h
-> index 8400951..64a0562 100644
-> --- a/frup.h
-> +++ b/frup.h
-> @@ -10,7 +10,7 @@ extern "C"
->  
->  /* Parse an IPMI write fru data message into a dictionary containing name value pair of VPD entries.*/
->  int parse_fru (const void* msgbuf, sd_bus_message* vpdtbl);
-> -int parse_fru_area (const uint8_t area, const void* msgbuf, const uint8_t len, sd_bus_message* vpdtbl);
-> +int parse_fru_area (const uint8_t area, const void* msgbuf, const size_t len, sd_bus_message* vpdtbl);
->  
->  #ifdef __cplusplus
->  }
-> -- 
-> 2.8.2
->
->
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAABCgAGBQJXOmCUAAoJEJ0dnzgO5LT5cMUP/0MBaxugEf7UekxdSuVthkU7
+yJGtvv7NYqKq/l23B2uehMxt86D6x5MmRvKZ4Rl6d0nFD0Wr2QApD6QmZ9ECcieq
+njDYOyCIzmdqvmqDl8B8w3l9bK0T3UKaVdCHGQHOMwBCSkkvuUeBlGnmx5L2W9EG
+BsBAgP6PU+fShpEbWfDghYAeyR7efVV9RQ9NgpSNPdzZ5/ZmHh3ep9A82R+YErpl
+L1tF4nKTECfZ4L5k5nBkJtBAKe0pQKTzmpF9o7uXSwNYXnDMTmYNhY1M1NXb/bX7
+7r9ULcHvBoHQvHDKTIHdPTtBOTE7Pdgbt5H3I43h8ImDjfsqunB2dErXKyxu70KJ
+gZHLlFWqvehf+VL370p5tJzGZN71+BXtB77rny7cNhsMWfHKxRrbFOfehx0H5MHx
+QqL/ADMRN+yu+RAp0suqWCs6OcqmlsNdmIgpsRYLl0gX/hNmrNdSMrVQICdS78LJ
+5jf/TCUCFuRJzfyV2/aBGV4UtFjkkYqjhsoTG2TeNbEiGprdbkG49W1jSUKiUtQA
+KXAuY85AnPtphZe33Cd8Dpzt44C8BGeVXou5j0mnLVGLoZgEhWKSB5OxPjhP5lYY
+yoxaTtGaw53U0j9rvNfaj4Sj4Rt86ff4g8pjXGTLD/8Rp0oOrTnmpVdEq/DGvQ2Y
+/y6wWbg5dHD2ZKk3DOTi
+=eutn
+-----END PGP SIGNATURE-----
+
+--=-IVoR0ETj9VCUpBIAQkhR--
