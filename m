@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r8Hyb0FNRzDq9p
- for <openbmc@lists.ozlabs.org>; Tue, 17 May 2016 23:20:54 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r8JPf2K8KzDqBM
+ for <openbmc@lists.ozlabs.org>; Tue, 17 May 2016 23:40:54 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1463491241693934.8981983129271;
- Tue, 17 May 2016 06:20:41 -0700 (PDT)
+ with SMTPS id 14634924489787.412476691882716;
+ Tue, 17 May 2016 06:40:48 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Nan Li <bjlinan@cn.ibm.com>
-Subject: [PATCH phosphor-host-ipmid v3] Handle errors finding openbmc_path #75
-Date: Tue, 17 May 2016 08:20:39 -0500
-Message-Id: <1463491240-24607-1-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-settingsd] Use pyphosphor rather than skeleton
+ Openbmc.py
+Date: Tue, 17 May 2016 08:40:46 -0500
+Message-Id: <1463492447-25545-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.2
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
@@ -26,26 +26,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 May 2016 13:20:55 -0000
+X-List-Received-Date: Tue, 17 May 2016 13:40:54 -0000
 
-1.Check return value properly.
+The Openbmc module in skeleton is going away so move to using the
+bindings add ons in the pyphosphor package.
 
-Signed-off-by: Nan Li <bjlinan@cn.ibm.com>
+Signed-of-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
 <!-- Reviewable:start -->
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/phosphor-host-ipmid/86)
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/phosphor-settingsd/10)
 <!-- Reviewable:end -->
 
 
-https://github.com/openbmc/phosphor-host-ipmid/pull/86
+https://github.com/openbmc/phosphor-settingsd/pull/10
 
-Nan Li (1):
-  Handle errors finding openbmc_path #75
+Brad Bishop (1):
+  Use pyphosphor rather than skeleton Openbmc.py
 
- ipmid.C         | 10 ++++++++++
- sensorhandler.C |  5 +++++
- 2 files changed, 15 insertions(+)
+ settings_manager.py | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 -- 
 2.8.2
