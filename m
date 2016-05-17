@@ -3,17 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r8KWQ5XL3zDqDf
- for <openbmc@lists.ozlabs.org>; Wed, 18 May 2016 00:30:58 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r8KWW3Ts2zDqDQ
+ for <openbmc@lists.ozlabs.org>; Wed, 18 May 2016 00:31:03 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1463495454201484.3084699131623;
- Tue, 17 May 2016 07:30:54 -0700 (PDT)
+ with SMTPS id 146349544939265.8320592661629;
+ Tue, 17 May 2016 07:30:49 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v2] Allow multiple systemd service files
-Date: Tue, 17 May 2016 09:30:52 -0500
-Message-Id: <1463495453-27825-1-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Subject: [PATCH openbmc v2] Re-enable out of tree device trees
+Date: Tue, 17 May 2016 09:30:41 -0500
+Message-Id: <1463495441-27767-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.2
+In-Reply-To: <1463495441-27767-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1463495441-27767-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -25,28 +28,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 May 2016 14:30:59 -0000
+X-List-Received-Date: Tue, 17 May 2016 14:31:04 -0000
 
-Enhance the obmc-phosphor-systemd class such that an array
-of service files in SYSTEMD_SERVICES works.
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
-<!-- Reviewable:start -->
+This snippet was mistakenly removed with 8ef9fee.
+
+Note that this isn't a matter of policy, it simply enables
+the option to do it.  The in-tree device tree is still the default.
+
+This enables things like workbook or schematic generated device
+trees.  It also addresses the inevitable fact that the upstream kernel
+will probably not want device trees for every board in the world.
+
+Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/274)
-<!-- Reviewable:end -->
+ meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-
-https://github.com/openbmc/openbmc/pull/274
-
-Brad Bishop (1):
-  Allow multiple systemd service files
-
- meta-phosphor/classes/obmc-phosphor-systemd.bbclass    | 18 +++++++++++++-----
- .../host-ipmi-hw-example/host-ipmi-hw-example.service  |  8 --------
- .../host-ipmi-hw-example/host-ipmi-hw.service          |  8 ++++++++
- 3 files changed, 21 insertions(+), 13 deletions(-)
- delete mode 100644 meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-hw-example/host-ipmi-hw-example.service
- create mode 100644 meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-hw-example/host-ipmi-hw.service
-
+diff --git a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb
+index 24cde9f..945b43d 100644
+--- a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb
++++ b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb
+@@ -18,3 +18,13 @@ COMPATIBLE_MACHINE_${MACHINE} = "openbmc"
+ 
+ inherit kernel
+ require recipes-kernel/linux/linux-yocto.inc
++
++do_patch_append() {
++        for DTB in "${KERNEL_DEVICETREE}"; do
++               DT=`basename ${DTB} .dtb`
++                if [ -r "${WORKDIR}/${DT}.dts" ]; then
++                        cp ${WORKDIR}/${DT}.dts \
++                                ${STAGING_KERNEL_DIR}/arch/${ARCH}/boot/dts
++               fi
++       done
++}
 -- 
 2.8.2
