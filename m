@@ -1,44 +1,42 @@
 Return-Path: <andrew@aj.id.au>
-Received: from homiemail-a75.g.dreamhost.com (sub3.mail.dreamhost.com
+Received: from homiemail-a17.g.dreamhost.com (sub3.mail.dreamhost.com
  [69.163.253.7])
  (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r7yLV2dpxzDq66
- for <openbmc@lists.ozlabs.org>; Tue, 17 May 2016 10:06:58 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r7ydH6QPFzDq66
+ for <openbmc@lists.ozlabs.org>; Tue, 17 May 2016 10:19:47 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=cW9nY2rP; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=hzG1gEEB; 
  dkim-atps=neutral
-Received: from homiemail-a75.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a75.g.dreamhost.com (Postfix) with ESMTP id ABCCB5EC07C;
- Mon, 16 May 2016 17:06:55 -0700 (PDT)
+Received: from homiemail-a17.g.dreamhost.com (localhost [127.0.0.1])
+ by homiemail-a17.g.dreamhost.com (Postfix) with ESMTP id 1A1062B206A;
+ Mon, 16 May 2016 17:19:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
  :subject:from:reply-to:to:cc:date:in-reply-to:references
- :content-type:mime-version; s=aj.id.au; bh=VjN8bUFG3D16kw+DdnIlX
- Mxi/8U=; b=cW9nY2rPHWJfaxRNMENqPqddzoxrZRkNzMhnjpkTOJRgNkNnS7FCE
- iqkX5C8A4za2C7OdLeY6VUBv90anmANEXiPt4qT3lFEDXuekbXVXi5M+NWe73xs6
- Cy2+d2SsBK5ouydNoZb5HEGbqWBPGQT8eQSSMwEy4a0vB/T9xCjGnI=
+ :content-type:mime-version; s=aj.id.au; bh=AhfoDv7ldZFI3YJXZMZU+
+ gvj6nE=; b=hzG1gEEBNd9h30utrPiODFo7j0W3zjCSHV0zVPnqhzfmX0EHzdJmT
+ b9zqDH6ikyoW2M8+sKK5w0jFaTdSOUma7PygA+yHlpDdy4Vulxvz7ktjRtkneoCj
+ cvLkix/JcZcZ8wzFRIrbIziPLb/ywTJMHNSj7Nvw/2Y6kCQb8KfAUI=
 Received: from keelia (unknown [203.0.153.9])
  (using TLSv1 with cipher AES128-SHA (128/128 bits))
  (No client certificate requested)
  (Authenticated sender: andrew@aj.id.au)
- by homiemail-a75.g.dreamhost.com (Postfix) with ESMTPSA id 555195EC072;
- Mon, 16 May 2016 17:06:54 -0700 (PDT)
-Message-ID: <1463443604.2703.74.camel@aj.id.au>
-Subject: Re: [PATCH phosphor-host-ipmid v2] Handle errors finding
- openbmc_path #75
+ by homiemail-a17.g.dreamhost.com (Postfix) with ESMTPSA id 27BCA2B2065;
+ Mon, 16 May 2016 17:19:44 -0700 (PDT)
+Message-ID: <1463444380.2703.83.camel@aj.id.au>
+Subject: Re: [RFC PATCH openbmc v3 1/8] meta-openbmc-bsp: Add qemu git recipe
 From: Andrew Jeffery <andrew@aj.id.au>
 Reply-To: andrew@aj.id.au
-To: Nan KX Li <bjlinan@cn.ibm.com>
-Cc: openbmc@lists.ozlabs.org, OpenBMC Patches <openbmc-patches@stwcx.xyz>
-Date: Tue, 17 May 2016 09:36:44 +0930
-In-Reply-To: <OFC9B509DC.8C0346F0-ON48257FB5.002F5961-48257FB5.004DE485@notes.na.collabserv.com>
-References: <1463140845-1854-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1463140845-1854-2-git-send-email-openbmc-patches@stwcx.xyz>
- <1463365542.2703.68.camel@aj.id.au>
- <OFC9B509DC.8C0346F0-ON48257FB5.002F5961-48257FB5.004DE485@notes.na.collabserv.com>
+To: Patrick Williams <patrick@stwcx.xyz>
+Cc: OpenBMC <openbmc@lists.ozlabs.org>
+Date: Tue, 17 May 2016 09:49:40 +0930
+In-Reply-To: <20160516201453.GH19968@asimov.austin.ibm.com>
+References: <1458720215-25302-1-git-send-email-andrew@aj.id.au>
+ <1458720215-25302-2-git-send-email-andrew@aj.id.au>
+ <20160516201453.GH19968@asimov.austin.ibm.com>
 Organization: IBM OzLabs
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-IVoR0ETj9VCUpBIAQkhR"
+ protocol="application/pgp-signature"; boundary="=-+1MjJYXQqARCLMLSf5Oe"
 X-Mailer: Evolution 3.18.5.2-0ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -52,105 +50,140 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 May 2016 00:06:59 -0000
+X-List-Received-Date: Tue, 17 May 2016 00:19:48 -0000
 
 
---=-IVoR0ETj9VCUpBIAQkhR
+--=-+1MjJYXQqARCLMLSf5Oe
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Hi Patrick,
 
-On Mon, 2016-05-16 at 22:10 +0800, Nan KX Li wrote:
-> Thanks Andrew.=C2=A0
-> I think you are right. I'll improve my code accordingly. Also I give some=
- comments below.
->=20
->=20
-> Regards,
->=20
-> William Li ( Li Nan, =E6=9D=8E=E6=A5=A0 )=C2=A0
-> =C2=A0 =C2=A0
->=20
-> Firmware Engineering Professional
-> OpenPower AE Team | IBM System & Technology Lab
-> Mobile: +86-186-1081 6605
->=20
-> Beijing, China
->=20
->=20
->=20
-> From: =C2=A0 =C2=A0 =C2=A0 =C2=A0Andrew Jeffery <andrew@aj.id.au>
-> To: =C2=A0 =C2=A0 =C2=A0 =C2=A0OpenBMC Patches <openbmc-patches@stwcx.xyz=
->, openbmc@lists.ozlabs.org
-> Cc: =C2=A0 =C2=A0 =C2=A0 =C2=A0Nan KX Li/China/IBM@IBMCN
-> Date: =C2=A0 =C2=A0 =C2=A0 =C2=A005/16/2016 10:27
-> Subject: =C2=A0 =C2=A0 =C2=A0 =C2=A0Re: [PATCH phosphor-host-ipmid v2] Ha=
-ndle errors finding openbmc_path #75
->=20
->=20
->=20
-> > Hi Nan Li,
-> >=C2=A0
-> > Thanks for the patch. I've had a look at the files you're modifying and
-> > it seems like the error handling is ripe for improvement beyond the
-> > issues you've fixed. However, resolving those problems is probably
-> > beyond the scope of your patch, so never mind that.
-> >=C2=A0
-> > On Fri, 2016-05-13 at 07:00 -0500, OpenBMC Patches wrote:
-> > > From: Nan Li <bjlinan@cn.ibm.com>
-> > >=C2=A0
-> > > 1.Check return value properly.
-> > >=C2=A0
-> > > Signed-off-by: Nan Li <bjlinan@cn.ibm.com>
-> > > ---
-> > > =C2=A0ipmid.C=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0| =
-10 ++++++++++
-> > > =C2=A0sensorhandler.C |=C2=A0=C2=A09 ++++++++-
-> > > =C2=A02 files changed, 18 insertions(+), 1 deletion(-)
-> > >=C2=A0
-> > > diff --git a/ipmid.C b/ipmid.C
-> > > index 728ba0b..413c2b7 100644
-> > > --- a/ipmid.C
-> > > +++ b/ipmid.C
-> > > @@ -565,6 +565,11 @@ int set_sensor_dbus_state_s(uint8_t number,=C2=
-=A0
-> > const char *method, const char *valu
-> > > =C2=A0
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0r =3D find_openbmc_path("SENSOR", numbe=
-r, &a);
-> > > =C2=A0
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0if (r < 0) {
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0fprintf(stderr, "Fai=
-led to find Sensor 0x%02x\n", number);
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0goto final;
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0}
-> > > +
-> >=C2=A0
-> > We jump to the final label which is consistent with the existing error
-> > handling, but we don't appear to need any of the clean-up that's done
-> > there. Maybe we should just return instead?
-> >=C2=A0
-> > If we return, we need to return a value. Looking at the existing code
-> > it seems that 0 is returned regardless of whether an error has
-> > occurred. This doesn't seem useful (i.e. should this just be a void
-> > function?), but also means that you don't need to choose an error
-> > value...
-> >=C2=A0
->=20
-> I think that changing it to a void function will lead to more code change=
-, like struct lookup_t[].=C2=A0
-> I'm not sure if those change are acceptable. so I prefer to keep things a=
-s they are.
+Thanks for the feedback.
 
-Yeah, I agree. This is the kind of thing I was referring to as in my
-opening paragraph - it'd be nice to clean it up but I wouldn't bother
-with that here. I think returning 0 should be enough.
+On Mon, 2016-05-16 at 15:14 -0500, Patrick Williams wrote:
+> On Wed, Mar 23, 2016 at 06:33:28PM +1030, Andrew Jeffery wrote:
+> ...
+> >=20
+> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> > ---
+> > =C2=A0meta-openbmc-bsp/conf/layer.conf=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0|=C2=A0=C2=A0=C2=A08 ++
+> >=20
+> > =C2=A0.../recipes-devtools/qemu/qemu-targets.inc=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0|=C2=A0=C2=A022 ++++
+> > =C2=A0meta-openbmc-bsp/recipes-devtools/qemu/qemu.inc=C2=A0=C2=A0=C2=A0=
+=C2=A0| 125 +++++++++++++++++++++
+> These files are originally in meta/recipes-devtools/qemu.=C2=A0=C2=A0We s=
+hould
+> be able to continue to use those.
 
-Cheers,
+As pointed out in my comment on the pull-req[1] qemu.inc isn't a bit-
+for-bit copy, I've changed (removed) some parts. However it's likely
+there is a better approach than deleting parts of the configuration.
 
-Andrew
---=-IVoR0ETj9VCUpBIAQkhR
+qemu-targets.inc was a straight copy, but I don't know of a way to
+reference it from the new qemu recipe. Removing it doesn't make the new
+recipe find it in the old recipe's directory...
+
+>=20
+> >=20
+> > =C2=A0meta-openbmc-bsp/recipes-devtools/qemu/qemu_git.bb |=C2=A0=C2=A02=
+1 ++++
+> I would prefer this under
+> meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp , since it is the
+> 2400 specific qemu tree.
+>=20
+> I think you can avoid the layer.conf and bblayers.conf changes if you
+> use the (already supported) meta-ast2400 tree as well.
+
+Yeah, happy to do that. I asked where people prefer I put it (can't
+remember where I asked though) and got no feedback, so for the patch I
+put it here on the basis that if people disagreed they'd have an
+opinion :)
+
+>=20
+> >=20
+> > =C2=A0.../meta-palmetto/conf/bblayers.conf.sample=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0|=C2=A0=C2=A0=C2=A01 +
+> > =C2=A0.../meta-barreleye/conf/bblayers.conf.sample=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0|=C2=A0=C2=A0=C2=A01 +
+> >=20
+> > diff --git a/meta-openbmc-bsp/conf/layer.conf b/meta-openbmc-bsp/conf/l=
+ayer.conf
+> > new file mode 100644
+> > index 0000000..7f07802
+> > --- /dev/null
+> > +++ b/meta-openbmc-bsp/conf/layer.conf
+> > @@ -0,0 +1,8 @@
+> > +# We have a conf and classes directory, add to BBPATH
+> > +BBPATH .=3D ":${LAYERDIR}"
+> > +# We have a recipes directory containing .bb and .bbappend files, add =
+to BBFILES
+> > +BBFILES :=3D "${BBFILES} ${LAYERDIR}/recipes*/*/*.bb \ ${LAYERDIR}/rec=
+ipes*/*/*.bbappend"
+> > +
+> > +BBFILE_COLLECTIONS +=3D "openbmc-bsp"
+> > +BBFILE_PATTERN_openbmc-bsp =3D ""
+> > +BBFILE_PRIORITY =3D "1"
+> I think we can remove this by moving to meta-ast2400.=C2=A0=C2=A0Not sure=
+ I
+> understand why this was required.
+
+Yeah it's likely we can remove it. It was an experiment that I don't
+think is required and shouldn't have made it into the pull-req.
+
+>=20
+> >=20
+> > diff --git a/meta-openbmc-bsp/recipes-devtools/qemu/qemu_git.bb b/meta-=
+openbmc-bsp/recipes-devtools/qemu/qemu_git.bb
+> > new file mode 100644
+> > index 0000000..97667ba
+> > --- /dev/null
+> > +++ b/meta-openbmc-bsp/recipes-devtools/qemu/qemu_git.bb
+> > @@ -0,0 +1,21 @@
+> > +# Based off of [1], appears to be MIT licensed [2].
+> > +#
+> > +# [1] https://github.com/dirtybit/gumstix-yocto/blob/master/meta/recip=
+es-devtools/qemu/qemu_git.bb
+> > +# [2] https://github.com/dirtybit/gumstix-yocto/blob/master/meta/COPYI=
+NG.MIT
+> I don't think you need to say this.=C2=A0=C2=A0This doesn't look that muc=
+h
+> different from qemu_2.4.0.bb except for the SRCREV / SRC_URI / S
+> variables and those are really standard with other of our recipes.
+>=20
+
+Yeah I'll strip it out. Initially it looked more like the linked
+content, but I stripped it back as I went.
+
+> >=20
+> > +
+> > +require qemu.inc
+> > +
+> > +SRCREV =3D "d1f8764099022bc1173f2413331b26d4ff609a0c"
+> > +
+> > +LIC_FILES_CHKSUM =3D "file://COPYING;md5=3D441c28d2cf86e15a37fa47e15a7=
+2fbac \
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0file://COPYING.LIB;endli=
+ne=3D24;md5=3Dc04def7ae38850e7d3ef548588159913"
+> > +
+> > +SRC_URI =3D "git://github.com/openbmc/qemu.git;protocol=3Dhttps"
+> > +S =3D "${WORKDIR}/git"
+> > +
+> > +COMPATIBLE_HOST_class-target_mips64 =3D "null"
+> > +
+> > +do_install_append() {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0# Prevent QA warnings about installed ${locals=
+tatedir}/run
+> > +=C2=A0=C2=A0=C2=A0=C2=A0if [ -d ${D}${localstatedir}/run ]; then rmdir=
+ ${D}${localstatedir}/run; fi
+> > +}
+
+[1]=C2=A0https://github.com/openbmc/openbmc/pull/230#issuecomment-212228955
+--=-+1MjJYXQqARCLMLSf5Oe
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
@@ -158,19 +191,19 @@ Content-Transfer-Encoding: 7bit
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAABCgAGBQJXOmCUAAoJEJ0dnzgO5LT5cMUP/0MBaxugEf7UekxdSuVthkU7
-yJGtvv7NYqKq/l23B2uehMxt86D6x5MmRvKZ4Rl6d0nFD0Wr2QApD6QmZ9ECcieq
-njDYOyCIzmdqvmqDl8B8w3l9bK0T3UKaVdCHGQHOMwBCSkkvuUeBlGnmx5L2W9EG
-BsBAgP6PU+fShpEbWfDghYAeyR7efVV9RQ9NgpSNPdzZ5/ZmHh3ep9A82R+YErpl
-L1tF4nKTECfZ4L5k5nBkJtBAKe0pQKTzmpF9o7uXSwNYXnDMTmYNhY1M1NXb/bX7
-7r9ULcHvBoHQvHDKTIHdPTtBOTE7Pdgbt5H3I43h8ImDjfsqunB2dErXKyxu70KJ
-gZHLlFWqvehf+VL370p5tJzGZN71+BXtB77rny7cNhsMWfHKxRrbFOfehx0H5MHx
-QqL/ADMRN+yu+RAp0suqWCs6OcqmlsNdmIgpsRYLl0gX/hNmrNdSMrVQICdS78LJ
-5jf/TCUCFuRJzfyV2/aBGV4UtFjkkYqjhsoTG2TeNbEiGprdbkG49W1jSUKiUtQA
-KXAuY85AnPtphZe33Cd8Dpzt44C8BGeVXou5j0mnLVGLoZgEhWKSB5OxPjhP5lYY
-yoxaTtGaw53U0j9rvNfaj4Sj4Rt86ff4g8pjXGTLD/8Rp0oOrTnmpVdEq/DGvQ2Y
-/y6wWbg5dHD2ZKk3DOTi
-=eutn
+iQIcBAABCgAGBQJXOmOdAAoJEJ0dnzgO5LT5bEgP/jAzZWtuDXj2RRfO24H5gsMR
+/8Q6itYO/46hQNnGJ1r+8Ux004Sv+LEB+zIor2dkTSfBk9B0lzP/SngJs9VI/Uyf
+iaTz6FcxsJoZJBQouYFF51YEQ/aDdsfQFXHiirija9LRdC9r7mL3z7rrkNvlUc1k
+DtU9SzPnMRWv4xbZdXMhK3huwedKXxm+zFQpSJf3BTWAFShHibQjy4rB3yuM2hbQ
+LywTCddMcQSfzcQg5mwegEwnUMgr13v0/MflkxcS2KhUUHEzLCgpo7Nb0ohqmlwi
+HyeEQhNH+UaP1BX62/9oqsEag8ldyJYwYHq9/ZSzQgpMeqp01LyYaiZi4t5KTCAX
+zWLaT+/Sl++jddmmhTY0StLpuRqYzrl5ActoNgeXTBv95HebeC29MAhhFVWGMAfJ
+1mSvP1TXTYbQePF+U6ZlE6ojNSxkNwFzZMJay99i0fjTDfHs15Mgm6YBaeYnI4Yf
+3DaaixckiA124i0pp47VZoCLdw4VoMwCZhY0m0G7fkEKtkdHmR1oaP90WHt8f6Pq
+BNgM4ZDqm5FWXP0DoHtwfhPSJS4C/hWwylp0cBYUkzw9O2MIHOVbSeehMcH7ze0k
+pxtkr4RXVHTUGEc9uOze9M3yjoO6yXYCgPVNKbW1PCPEJhJMwZ6o/IuZ1Q1ptvSH
+fgA+Zod7XX7Eh6eb7U25
+=adO5
 -----END PGP SIGNATURE-----
 
---=-IVoR0ETj9VCUpBIAQkhR--
+--=-+1MjJYXQqARCLMLSf5Oe--
