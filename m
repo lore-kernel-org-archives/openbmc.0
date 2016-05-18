@@ -3,17 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r8bVR0lKtzDqBh
- for <openbmc@lists.ozlabs.org>; Wed, 18 May 2016 11:01:01 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r8bVR5mlTzDqBY
+ for <openbmc@lists.ozlabs.org>; Wed, 18 May 2016 11:01:03 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1463533257006300.7172067899894;
- Tue, 17 May 2016 18:00:57 -0700 (PDT)
+ with SMTPS id 1463533259318336.64313684968056;
+ Tue, 17 May 2016 18:00:59 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH skeleton v2 0/3] Deprecate modules provided by pyphosphor
-Date: Tue, 17 May 2016 20:00:53 -0500
-Message-Id: <1463533256-19471-1-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Subject: [PATCH skeleton v2 2/3] Deprecate PropertyCacher.py
+Date: Tue, 17 May 2016 20:00:55 -0500
+Message-Id: <1463533256-19471-3-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.2
+In-Reply-To: <1463533256-19471-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1463533256-19471-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -25,38 +28,109 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 May 2016 01:01:03 -0000
+X-List-Received-Date: Wed, 18 May 2016 01:01:04 -0000
 
-Removing a number of modules provided by the pyphosphor package.
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
-<!-- Reviewable:start -->
+The pyphosphor package provides equivalent function
+so use that and drop the duplicated code.
+
+Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/skeleton/82)
-<!-- Reviewable:end -->
-
-
-https://github.com/openbmc/skeleton/pull/82
-
-Brad Bishop (3):
-  Deprecate Openbmc.py
-  Deprecate PropertyCacher.py
-  Deprecate Sensors.py
-
- bin/Openbmc.py          | 146 -------------------------------
- bin/PropertyCacher.py   |  50 -----------
- bin/Sensors.py          | 223 ------------------------------------------------
- bin/bmc_update.py       |  10 +--
- bin/chassis_control.py  |  11 ++-
- bin/download_manager.py |   5 +-
- bin/fan_control.py      |  10 +--
- bin/hwmon.py            |  10 +--
- bin/inventory_items.py  |  17 ++--
- bin/sensor_manager2.py  |  26 +++---
- bin/system_manager.py   |  16 ++--
- 11 files changed, 52 insertions(+), 472 deletions(-)
- delete mode 100755 bin/Openbmc.py
+ bin/PropertyCacher.py  | 49 -------------------------------------------------
+ bin/inventory_items.py |  3 +--
+ bin/system_manager.py  |  2 +-
+ 3 files changed, 2 insertions(+), 52 deletions(-)
  delete mode 100644 bin/PropertyCacher.py
- delete mode 100755 bin/Sensors.py
 
+diff --git a/bin/PropertyCacher.py b/bin/PropertyCacher.py
+deleted file mode 100644
+index dfbb0b9..0000000
+--- a/bin/PropertyCacher.py
++++ /dev/null
+@@ -1,49 +0,0 @@
+-import os
+-import cPickle
+-import json
+-
+-CACHE_PATH = '/var/cache/obmc/'
+-
+-def getCacheFilename(obj_path, iface_name):
+-	name = obj_path.replace('/','.')
+-	filename = CACHE_PATH+name[1:]+"@"+iface_name+".props"
+-	return filename
+-
+-def save(obj_path, iface_name, properties):
+-	print "Caching: "+obj_path
+-	try:
+-		
+-		filename = getCacheFilename(obj_path, iface_name)
+-		output = open(filename, 'wb')
+-		try:
+-			## use json module to convert dbus datatypes
+-			props = json.dumps(properties[iface_name])
+-			prop_obj = json.loads(props)
+-			cPickle.dump(prop_obj,output)
+-		except Exception as e:
+-			print "ERROR: "+str(e)
+-		finally:
+-			output.close()
+-	except:
+-		print "ERROR opening cache file: "+filename
+-
+-
+-def load(obj_path, iface_name, properties):
+-	## overlay with pickled data
+-	filename=getCacheFilename(obj_path, iface_name)
+-	if (os.path.isfile(filename)):
+-		if (properties.has_key(iface_name) == False):
+-			properties[iface_name] = {}
+-		print "Loading from cache: "+filename
+-		try:			
+-			p = open(filename, 'rb')
+-			data = cPickle.load(p)
+-			for prop in data.keys():
+-				properties[iface_name][prop] = data[prop]
+-						
+-		except Exception as e:
+-			print "ERROR: Loading cache file: " +str(e)
+-		finally:
+-			p.close()
+-
+-
+diff --git a/bin/inventory_items.py b/bin/inventory_items.py
+index bf7f414..1b0fa39 100755
+--- a/bin/inventory_items.py
++++ b/bin/inventory_items.py
+@@ -8,7 +8,7 @@ import dbus.service
+ import dbus.mainloop.glib
+ import cPickle
+ import json
+-import PropertyCacher
++from obmc.dbuslib.propertycacher import PropertyCacher
+ from obmc.dbuslib.bindings import get_dbus, DbusProperties, DbusObjectManager
+ 
+ if (len(sys.argv) < 2):
+@@ -37,7 +37,6 @@ class InventoryItem(DbusProperties):
+ 		self.name = name
+ 		
+ 		## this will load properties from cache
+-		# PropertyCacher.load(name,INTF_NAME,self.properties)
+ 		if (data.has_key('present') == False):
+ 			data['present'] = 'False'
+ 		if (data.has_key('fault') == False):
+diff --git a/bin/system_manager.py b/bin/system_manager.py
+index 2331131..fdb1bf1 100755
+--- a/bin/system_manager.py
++++ b/bin/system_manager.py
+@@ -8,7 +8,7 @@ import dbus.service
+ import dbus.mainloop.glib
+ import os
+ import time
+-import PropertyCacher
++from obmc.dbuslib.propertycacher import PropertyCacher
+ from obmc.dbuslib.bindings import DbusProperties, DbusObjectManager, get_dbus
+ import obmc.enums
+ 
 -- 
 2.8.2
