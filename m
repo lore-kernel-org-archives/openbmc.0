@@ -1,23 +1,66 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-qk0-x242.google.com (mail-qk0-x242.google.com
+ [IPv6:2607:f8b0:400d:c09::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r8wZl5zghzDqCG
- for <openbmc@lists.ozlabs.org>; Wed, 18 May 2016 23:50:55 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1463579445730924.8994948178089;
- Wed, 18 May 2016 06:50:45 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Cc: Nan Li <bjlinan@cn.ibm.com>
-Subject: [PATCH phosphor-host-ipmid] Cleanup phosphor-host-ipmid
- storageaddsel.C
-Date: Wed, 18 May 2016 08:50:40 -0500
-Message-Id: <1463579440-22774-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.8.2
-In-Reply-To: <1463579440-22774-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1463579440-22774-1-git-send-email-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r8wwt4dKbzDqCH
+ for <openbmc@lists.ozlabs.org>; Thu, 19 May 2016 00:06:38 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=XMo9cd/M; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=NAvBGakA; 
+ dkim-atps=neutral
+Received: by mail-qk0-x242.google.com with SMTP id l68so4444806qkf.3
+ for <openbmc@lists.ozlabs.org>; Wed, 18 May 2016 07:06:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=IDCOrlHmDSGQVC/9TxAlSeZaLZ6CIIG0ynWh+5ygeN8=;
+ b=XMo9cd/MdYRuDs76c7UnlHSj/0CMsIxtPAw4CjGg9wqAqcAGcHsjS0zRsqOHsXmcck
+ XM2HWykHct6s4BX7spG2LP6Z3IEG3u2mNXVRRqeinrHO2s1vkESF6gilmXhi/eQMdWVJ
+ fF5GhaOtVznBWNnYOiA0V5+24+9iMINGecQsmZ+98tRgJsvzcGixsuk9QKZ9c/rYCOyd
+ LE9hk5kqRYJWGuiZmfDCRAz10kB/oYa8or2Ih+iTaU5XdG1uz+LphVNGGkUiLo6QXreL
+ ejU5Z5jmzk7PHxnaiclXGwSGgoooqpgQE8ErZEC7NSf6r8sAnOLCrtzvjGUAMzaKx0oD
+ le+g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=IDCOrlHmDSGQVC/9TxAlSeZaLZ6CIIG0ynWh+5ygeN8=;
+ b=NAvBGakA7/MbrQykNmGLyOwJPUSNxLM8KHV8C78nzh8XrR7sOscXAcafDZn0uikNar
+ N3QvY3L08NxBx2PMocacvEZVAEgQv+xPvENufMsGEYG+LDnZOOujuyJp6FuDfq5UJtUy
+ flmIo3Cfuaj5HYqSe2nQvNZQjnbkkhizwPai4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=IDCOrlHmDSGQVC/9TxAlSeZaLZ6CIIG0ynWh+5ygeN8=;
+ b=bFfX0vnRf0hIZcINL3PqDS31b22NoyCUU7HN7mzx2tSojzh4eKnSQ7FFYoYq9Q2L7x
+ x3I5e0RHEoTqwGgVUpuOa7Gg62f60/RAZZXpIMZsrGVnDUmnIQHcDiQ6Z/Xv7B6hVPOU
+ 9H2wkEfw4M25OVbLZHAE0YZzs9PZFoPdaUIeGBnqFGxZcm0t+oraUX4fys7TBTPgve+T
+ cMp06FGkMDA6SJb95+NQ9uIBQ0f6RPl9YL6FKulBpqq49VGUzVy1T5yLu5WD3nkIFRCW
+ M+/qh5jcgD/vqIe0DGHWLULtqrYgp7Zwf2EP7mzYsYGtjfo5Ffm0FCinO36HEutaDD3a
+ s+bg==
+X-Gm-Message-State: AOPr4FXA4dhmx9p5eItHVnmRVNmWLjeT9vuBMoFleY7QiZ4AYIhyGS3N4GXdGdmhAdtqafcurpVbmeacXYnu7g==
+X-Received: by 10.55.46.197 with SMTP id u188mr8189270qkh.210.1463580395817;
+ Wed, 18 May 2016 07:06:35 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.237.51.135 with HTTP; Wed, 18 May 2016 07:06:16 -0700 (PDT)
+In-Reply-To: <573C7223.10002@kaod.org>
+References: <1463513102-14135-1-git-send-email-clg@kaod.org>
+ <1463513102-14135-3-git-send-email-clg@kaod.org>
+ <CACPK8XdKaan0TN38dhonHWs=mZhn=0=Oqw10Wcqg6h7J_4Xtzg@mail.gmail.com>
+ <573C7223.10002@kaod.org>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 18 May 2016 23:36:16 +0930
+X-Google-Sender-Auth: nl7CTl3paA7zTgOjNrK97LBEZyI
+Message-ID: <CACPK8XdLk84OOSN_Ke_Hc6Hwc=ng2NmB7ZjvNZRYipv26Ttbfg@mail.gmail.com>
+Subject: Re: [PATCH qemu 2/3] ast2400: add a rtc device on I2C bus 0
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Andrew Jeffery <andrew@aj.id.au>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -29,83 +72,61 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 May 2016 13:50:56 -0000
+X-List-Received-Date: Wed, 18 May 2016 14:06:39 -0000
 
-From: Nan Li <bjlinan@cn.ibm.com>
+On Wed, May 18, 2016 at 11:16 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrot=
+e:
+> On 05/18/2016 03:33 PM, Joel Stanley wrote:
+>> Hey Cedric,
+>>
+>> On Wed, May 18, 2016 at 4:55 AM, C=C3=A9dric Le Goater <clg@kaod.org> wr=
+ote:
+>>> The palmetto platform has a ds3231 RTC device but not qemu. Let's use
+>>> a ds1338 instead.
+>>>
+>>> The aspeed-bmc-opp-palmetto dts file needs to be changed consequently
+>>> with :
+>>>
+>>>         rtc@68 {
+>>>                 compatible =3D "dallas,ds1338";
+>>>                 reg =3D <0x68>;
+>>>         };
+>>
+>> Please see my comments for the tmp device.
+>>
+>> How much does the register layout differ between the 1338 and the 3231?
+>
+> Will tell you soon.
+>
+> But on my palmetto running OpenBMC, I see :
+>
+>         [    5.630000] rtc-ds1307: probe of 0-0068 failed with error -5
+>
+> So do we really have a RTC available on this bus ?
 
-1.Check returns and handle errors for file IO.
+The schematic I have suggests it's at  0x0e on the Palmetto. But I am
+sure we've used that device tree as-is and the clock works on the
+hardware. I will check tomorrow.
 
-Signed-off-by: Nan Li <bjlinan@cn.ibm.com>
----
- storageaddsel.C | 35 +++++++++++++++++++++++++++++++----
- 1 file changed, 31 insertions(+), 4 deletions(-)
+>         root@palmetto:~# i2cdetect -y 0
+>              0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+>         00:          -- -- -- -- -- -- -- -- -- -- -- -- --
+>         10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>         20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>         30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>         40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>         50: UU -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>         60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>         70: -- -- -- -- -- -- -- --
+>
+> There are plenty of other devices on the other busses though, but
+> none with Ox68.
+>
+> There is also a RTC directly connected to APB bus. I guess we need a
+> model for this one also.
 
-diff --git a/storageaddsel.C b/storageaddsel.C
-index cb90aab..3343772 100644
---- a/storageaddsel.C
-+++ b/storageaddsel.C
-@@ -80,16 +80,39 @@ size_t getfilestream(const char *fn, uint8_t **buffer) {
- 
- 	FILE *fp;
- 	size_t size = 0;
-+	int r;
- 
- 	if ((fp = fopen(fn, "rb")) != NULL) {
- 
--		fseek(fp, 0, SEEK_END);
-+		r = fseek(fp, 0, SEEK_END);
-+		if (r) {
-+			fprintf(stderr,"Fseek failed\n");
-+			goto fclose_fp;
-+		}
-+
- 		size = ftell(fp);
--		fseek(fp, 0, SEEK_SET);
-+		if (size == -1L) {
-+			fprintf(stderr,"Ftell failed for %s\n", strerror(errno));
-+			size = 0;
-+			goto fclose_fp;
-+		}
-+
-+		r = fseek(fp, 0, SEEK_SET);
-+		if (r) {
-+			fprintf(stderr,"Fseek failed\n");
-+			size = 0;
-+			goto fclose_fp;
-+		}
- 
- 		*buffer = new uint8_t [size];
- 
--		fread(*buffer, 1, size, fp);
-+		r = fread(*buffer, 1, size, fp);
-+		if ( r != size) {
-+			size = 0;
-+			fprintf(stderr,"Fread failed\n");
-+		}
-+
-+fclose_fp:
- 		fclose(fp);
- 	}
- 
-@@ -205,6 +228,7 @@ void send_esel(uint16_t recordid) {
- 	uint8_t *buffer = NULL;
- 	const char *path = "/tmp/esel";
- 	size_t sz;
-+	int r;
- 
- 	sz = getfilestream(path, &buffer);
- 	if (sz == 0) {
-@@ -216,7 +240,10 @@ void send_esel(uint16_t recordid) {
- 	create_esel_association(buffer, &assoc);
- 	create_esel_description(buffer, sev, &desc);
- 
--	send_esel_to_dbus(desc, sev, assoc, buffer, sz);
-+	r = send_esel_to_dbus(desc, sev, assoc, buffer, sz);
-+	if (r < 0) {
-+		fprintf(stderr, "Failed to send esel to dbus\n");
-+	}
- 
- 	free(assoc);
- 	free(desc);
--- 
-2.8.2
+That one in the SoC isn't battery backed. It's currently disabled in
+the device tree for openbmc machines to avoid confusion with the
+battery backed i2c device.
+
+I'd suggest it's a low priority to model the internal one.
