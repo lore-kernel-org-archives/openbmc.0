@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r8bxQ2KR2zDqGb
- for <openbmc@lists.ozlabs.org>; Wed, 18 May 2016 11:20:58 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r8bxW6KTWzDqHj
+ for <openbmc@lists.ozlabs.org>; Wed, 18 May 2016 11:21:03 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1463534453261674.9159549850733;
- Tue, 17 May 2016 18:20:53 -0700 (PDT)
+ with SMTPS id 1463534455289399.5871933803958;
+ Tue, 17 May 2016 18:20:55 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH skeleton v3 1/3] Deprecate Openbmc.py
-Date: Tue, 17 May 2016 20:20:49 -0500
-Message-Id: <1463534451-20356-2-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v3 3/3] Deprecate Sensors.py
+Date: Tue, 17 May 2016 20:20:51 -0500
+Message-Id: <1463534451-20356-4-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.2
 In-Reply-To: <1463534451-20356-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1463534451-20356-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,7 +28,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 May 2016 01:20:58 -0000
+X-List-Received-Date: Wed, 18 May 2016 01:21:04 -0000
 
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
@@ -37,534 +37,342 @@ so use that and drop the duplicated code.
 
 Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
- bin/Openbmc.py          | 146 ------------------------------------------------
- bin/PropertyCacher.py   |   1 -
- bin/Sensors.py          |  11 ++--
- bin/bmc_update.py       |  10 ++--
- bin/chassis_control.py  |  11 ++--
- bin/download_manager.py |   5 +-
- bin/fan_control.py      |  10 ++--
- bin/hwmon.py            |   4 +-
- bin/inventory_items.py  |  14 ++---
- bin/sensor_manager2.py  |  10 ++--
- bin/system_manager.py   |  14 ++---
- 11 files changed, 44 insertions(+), 192 deletions(-)
- delete mode 100755 bin/Openbmc.py
+ bin/Sensors.py         | 222 -------------------------------------------------
+ bin/hwmon.py           |   6 +-
+ bin/inventory_items.py |   2 +-
+ bin/sensor_manager2.py |  16 ++--
+ bin/system_manager.py  |   2 +-
+ 5 files changed, 13 insertions(+), 235 deletions(-)
+ delete mode 100755 bin/Sensors.py
 
-diff --git a/bin/Openbmc.py b/bin/Openbmc.py
+diff --git a/bin/Sensors.py b/bin/Sensors.py
 deleted file mode 100755
-index b87fec8..0000000
---- a/bin/Openbmc.py
+index 7c58c97..0000000
+--- a/bin/Sensors.py
 +++ /dev/null
-@@ -1,146 +0,0 @@
+@@ -1,222 +0,0 @@
+-#!/usr/bin/python -u
+-
+-import sys
+-import subprocess
+-#from gi.repository import GObject
+-import gobject
 -import dbus
+-import dbus.service
+-import dbus.mainloop.glib
+-import os
+-from obmc.dbuslib.bindings import DbusProperties
 -
--BUS_PREFIX = 'org.openbmc'
--OBJ_PREFIX = "/org/openbmc"
--GPIO_DEV = '/sys/class/gpio'
--BUS = "system"
--
--def getSystemName():
--	#use filename as system name, strip off path and ext
--	parts = __file__.replace('.pyc','').replace('.py','').split('/')
--	return parts[len(parts)-1]
--
--def getDBus():
--	bus = None
--	if (BUS == "session"):
--		bus = dbus.SessionBus()
--	else:
--		bus = dbus.SystemBus()
--	return bus
--
--class DbusProperties(dbus.service.Object):
--	def __init__(self):
--		dbus.service.Object.__init__(self)
--		self.properties = {}
--		self.object_path = ""
--
--	@dbus.service.method(dbus.PROPERTIES_IFACE,
--		in_signature='ss', out_signature='v')
--	def Get(self, interface_name, property_name):
--		d = self.GetAll(interface_name)
--		try:
--			v = d[property_name]
--			return v
--		except:
-- 			raise dbus.exceptions.DBusException(
--				"org.freedesktop.UnknownPropery: "+property_name)
--
--	@dbus.service.method(dbus.PROPERTIES_IFACE,
--		in_signature='s', out_signature='a{sv}')
--	def GetAll(self, interface_name):
--		try:
--			d = self.properties[interface_name]
--			return d
-- 		except:
-- 			raise dbus.exceptions.DBusException(
--				"org.freedesktop.UnknownInterface: "+interface_name)
--
--	@dbus.service.method(dbus.PROPERTIES_IFACE,
--		in_signature='ssv')
--	def Set(self, interface_name, property_name, new_value):
--		if (self.properties.has_key(interface_name) == False):
--			self.properties[interface_name] = {}
--		try:
--			old_value = self.properties[interface_name][property_name] 
--			if (old_value != new_value):
--				self.properties[interface_name][property_name] = new_value
--				self.PropertiesChanged(interface_name,{ property_name: new_value }, [])
--				
--		except:
--        		self.properties[interface_name][property_name] = new_value
--			self.PropertiesChanged(interface_name,{ property_name: new_value }, [])
--
--	@dbus.service.method("org.openbmc.Object.Properties",
--		in_signature='sa{sv}')
--	def SetMultiple(self, interface_name, prop_dict):
--		if (self.properties.has_key(interface_name) == False):
--			self.properties[interface_name] = {}
--
--		value_changed  = False
--		for property_name in prop_dict:
--			new_value = prop_dict[property_name]
--			try:
--				old_value = self.properties[interface_name][property_name] 
--				if (old_value != new_value):
--					self.properties[interface_name][property_name] = new_value
--					value_changed = True
--				
--			except:
--        			self.properties[interface_name][property_name] = new_value
--				value_changed = True
--		if (value_changed == True):
--			self.PropertiesChanged(interface_name, prop_dict, [])
--	
--	@dbus.service.signal(dbus.PROPERTIES_IFACE,
--		signature='sa{sv}as')
--	def PropertiesChanged(self, interface_name, changed_properties,
--		invalidated_properties):
--		pass
--
--class DbusObjectManager(dbus.service.Object):
--	def __init__(self):
--		dbus.service.Object.__init__(self)
--		self.objects = {}
--
--	def add(self,object_path,obj):
--		self.objects[object_path] = obj
--		self.InterfacesAdded(object_path,obj.properties)
--
--	def remove(self,object_path):
--		obj = self.objects.pop(object_path,None)
--		obj.remove_from_connection()
--		self.InterfacesRemoved(object_path,obj.properties.keys())
--
--	def get(self,object_path):
--		return self.objects[object_path]
--
--	@dbus.service.method("org.freedesktop.DBus.ObjectManager",
--		in_signature='', out_signature='a{oa{sa{sv}}}')
--	def GetManagedObjects(self):
--		data = {}
--		for objpath in self.objects.keys():
--			data[objpath] = self.objects[objpath].properties
--		return data
--
--	@dbus.service.signal("org.freedesktop.DBus.ObjectManager",
--		signature='oa{sa{sv}}')
--	def InterfacesAdded(self,object_path,properties):
--		self.ObjectAdded(object_path,"")
--
--	@dbus.service.signal("org.freedesktop.DBus.ObjectManager",
--		signature='oas')
--	def InterfacesRemoved(self,object_path,interfaces):
--		pass
--
--	## Legacy support, need to eventually refactor out
--	@dbus.service.signal("org.openbmc.Object.ObjectMapper",
--		signature='ss')
--	def ObjectAdded(self,object_path,interface_name):
--		pass
--
--	## flattens interfaces
--	@dbus.service.method('org.openbmc.Object.Enumerate',
--		in_signature='', out_signature='a{sa{sv}}')
--	def enumerate(self):
--		data = {}
--		for objpath in self.objects.keys():
--			props = self.objects[objpath].properties
--			data[objpath] = { }
--			for iface in props.keys():
--				data[objpath].update(props[iface])
--				
--		return data
+-## Abstract class, must subclass
+-class SensorValue(DbusProperties):
+-	IFACE_NAME = 'org.openbmc.SensorValue'
+-	def __init__(self,bus,name):
+-		self.Set(SensorValue.IFACE_NAME,'units',"")
+-		self.Set(SensorValue.IFACE_NAME,'error',False)
 -		
+-	@dbus.service.method(IFACE_NAME,
+-		in_signature='v', out_signature='')
+-	def setValue(self,value):
+-		self.Set(SensorValue.IFACE_NAME,'value',value)
+-
+-	@dbus.service.method(IFACE_NAME,
+-		in_signature='', out_signature='v')
+-	def getValue(self):
+-		return self.Get(SensorValue.IFACE_NAME,'value')
+-
+-class SensorThresholds(DbusProperties):
+-	IFACE_NAME = 'org.openbmc.SensorThresholds'
+-	def __init__(self,bus,name):
+-		self.Set(SensorThresholds.IFACE_NAME,'thresholds_enabled',False)
+-		self.Set(SensorThresholds.IFACE_NAME,'emergency_enabled',False)
+-		self.Set(SensorThresholds.IFACE_NAME,'warning_upper',0)
+-		self.Set(SensorThresholds.IFACE_NAME,'warning_lower',0)
+-		self.Set(SensorThresholds.IFACE_NAME,'critical_upper',0)
+-		self.Set(SensorThresholds.IFACE_NAME,'critical_lower',0)
+-		self.Set(SensorThresholds.IFACE_NAME,'critical_lower',0)
+-		self.Set(SensorThresholds.IFACE_NAME,'threshold_state',"NORMAL")
+-		self.Set(SensorThresholds.IFACE_NAME,'worst_threshold_state',"NORMAL")
+-	
+-	@dbus.service.method(IFACE_NAME,
+-		in_signature='', out_signature='')
+-	def resetThresholdState(self):
+-		self.Set(SensorThresholds.IFACE_NAME,'worst_threshold_state',"NORMAL")
+-
+-	def check_thresholds(self,value):
+-		iface = SensorThresholds.IFACE_NAME
+-		if (self.Get(iface,'thresholds_enabled') == False):
+-			return False
+-		rtn = False
+-		current_state = "NORMAL"
+-		if (value >= self.properties[iface]['critical_upper']):
+-			current_state = "CRITICAL"
+-			rtn = True
+-		elif (value <= self.properties[iface]['critical_lower']):
+-			current_state = "CRITICAL"
+-			rtn = True
+-		elif (value >= self.properties[iface]['warning_upper']):
+-			current_state = "WARNING"
+-			rtn = True
+-		elif (value <= self.properties[iface]['warning_lower']):
+-			current_state = "WARNING"
+-			rtn = True
+-
+-		if (self.Get(iface,'threshold_state') != current_state and
+-		 		current_state == "CRITICAL" and
+-				self.Get(iface,'emergency_enabled') == True):
+-			self.Emergency()
+-
+-		self.Set(iface,'threshold_state',current_state)
+-		worst = self.properties[iface]['worst_threshold_state']
+-		if (current_state == "CRITICAL" or 
+-		   (current_state == "WARNING" and worst != "CRITICAL")):
+-			self.Set(iface,'worst_threshold_state',current_state)
+-
+-		return rtn
+-
+-	@dbus.service.signal(IFACE_NAME,signature='')
+-	def Emergency(self):
+-		pass
 -
 -
+-class VirtualSensor(SensorValue):
+-	def __init__(self,bus,name):
+-		DbusProperties.__init__(self)
+-		SensorValue.__init__(self,bus,name)
+-		dbus.service.Object.__init__(self,bus,name)
 -
-diff --git a/bin/PropertyCacher.py b/bin/PropertyCacher.py
-index b10edcb..dfbb0b9 100644
---- a/bin/PropertyCacher.py
-+++ b/bin/PropertyCacher.py
-@@ -1,7 +1,6 @@
- import os
+-class HwmonSensor(SensorValue,SensorThresholds):
+-	IFACE_NAME = 'org.openbmc.HwmonSensor'
+-	def __init__(self,bus,name):
+-		DbusProperties.__init__(self)
+-		SensorValue.__init__(self,bus,name)
+-		SensorThresholds.__init__(self,bus,name)
+-		self.Set(HwmonSensor.IFACE_NAME,'scale',1)
+-		self.Set(HwmonSensor.IFACE_NAME,'offset',0)
+-		self.Set(HwmonSensor.IFACE_NAME,'filename','')
+-		self.value_dirty = False
+-
+-		# need to cache value to know if changed
+-		self.value = None
+-		dbus.service.Object.__init__(self,bus,name)
+-
+-	@dbus.service.method(SensorValue.IFACE_NAME,
+-		in_signature='v', out_signature='')
+-	def setValue(self,value):
+-		self.value_dirty = True
+-		SensorValue.setValue(self,value)
+-
+-	## Called by sensor process to update value from polling
+-	## if returns not None, then sensor process will update hwmon value
+-	@dbus.service.method(IFACE_NAME,
+-		in_signature='v', out_signature='(bv)')
+-	def setByPoll(self,value):
+-		scale = self.properties[HwmonSensor.IFACE_NAME]['scale']
+-		offset = self.properties[HwmonSensor.IFACE_NAME]['offset']
+-		if (self.value_dirty == True):
+-			## new value externally set, so just return to hwmon
+-			## process to write value
+-			self.value_dirty = False
+-			val = (self.properties[SensorValue.IFACE_NAME]['value']-offset) * scale
+-			return [True,val]
+-		else:
+-			# Keep the val as integer. scale may be floating point
+-			val = int(value/scale + offset)
+-			if (val != self.value):
+-				SensorValue.setValue(self,val)
+-				self.check_thresholds(val)
+-				self.value = val
+-
+-			return [False,0]
+-		
+-CONTROL_IFACE = 'org.openbmc.Control'
+-class PowerCap(VirtualSensor):
+-	def __init__(self, bus, name):
+-		VirtualSensor.__init__(self, bus, name)
+-		SensorValue.setValue(self, 0)
+-		self.sysfs_attr = "/sys/class/hwmon/hwmon3/user_powercap"
+-	##override setValue method
+-	@dbus.service.method(SensorValue.IFACE_NAME,
+-		in_signature='v', out_signature='')
+-	def setValue(self, value):
+-		try:
+-			cmd_str = "echo "+str(value)+" > "+self.sysfs_attr
+-			ret = subprocess.check_output(cmd_str, shell=True)
+-		except subprocess.CalledProcessError as powerexc:
+-			print "Set PowerCap Error", powerexc.returncode,
+-			powerexc.output
+-			return
+-		print "Set PowerCap: ", value
+-		SensorValue.setValue(self, value)
+-		
+-class BootProgressSensor(VirtualSensor):
+-	def __init__(self,bus,name):
+-		VirtualSensor.__init__(self,bus,name)
+-		self.setValue("Off")
+-		bus.add_signal_receiver(self.SystemStateHandler,signal_name = "GotoSystemState")
+-
+-	def SystemStateHandler(self,state):
+-		if (state == "HOST_POWERED_OFF"):
+-			self.setValue("Off")
+-
+-
+-	##override setValue method
+-	@dbus.service.method(SensorValue.IFACE_NAME,
+-		in_signature='v', out_signature='')
+-	def setValue(self,value):
+-		SensorValue.setValue(self,value)
+-		if (value == "FW Progress, Starting OS"):
+-			self.GotoSystemState("HOST_BOOTED")
+-			
+-	@dbus.service.signal(CONTROL_IFACE,signature='s')
+-	def GotoSystemState(self,state):
+-		pass
+-		
+-class OccStatusSensor(VirtualSensor):
+-	def __init__(self,bus,name, sysfs = None):
+-		## default path. can be override
+-		if sysfs is None:
+-			self.sysfs_attr = "/sys/class/i2c-adapter/i2c-3/3-0050/online"
+-		else:
+-			self.sysfs_attr = sysfs
+-		VirtualSensor.__init__(self,bus,name)
+-		self.setValue("Disabled")
+-		bus.add_signal_receiver(self.SystemStateHandler,signal_name = "GotoSystemState")
+-
+-	def SystemStateHandler(self,state):
+-		if (state == "HOST_POWERED_OFF"):
+-			self.setValue("Disabled")
+-
+-	##override setValue method
+-	@dbus.service.method(SensorValue.IFACE_NAME,
+-		in_signature='v', out_signature='')
+-	def setValue(self,value):
+-		if (value == "Enabled"):
+-			print "Installing OCC device"
+-			os.system("echo 1 > " +  self.sysfs_attr)
+-		else:
+-			print "Deleting OCC device"
+-			os.system("echo 0 > " +  self.sysfs_attr)
+-		SensorValue.setValue(self,value)
+-			
+-	@dbus.service.signal(CONTROL_IFACE,signature='s')
+-	def GotoSystemState(self,state):
+-		pass
+-	
+-class BootCountSensor(VirtualSensor):
+-	def __init__(self,bus,name):
+-		VirtualSensor.__init__(self,bus,name)
+-		self.setValue(2)
+-
+-class OperatingSystemStatusSensor(VirtualSensor):
+-	def __init__(self,bus,name):
+-		VirtualSensor.__init__(self,bus,name)
+-		self.setValue("Off")
+-		bus.add_signal_receiver(self.SystemStateHandler,signal_name = "GotoSystemState")
+-
+-	def SystemStateHandler(self,state):
+-		if (state == "HOST_POWERED_OFF"):
+-			self.setValue("Off")
+diff --git a/bin/hwmon.py b/bin/hwmon.py
+index 7e1858e..0cf570c 100755
+--- a/bin/hwmon.py
++++ b/bin/hwmon.py
+@@ -10,9 +10,9 @@ import dbus.mainloop.glib
+ import re
+ from obmc.dbuslib.bindings import get_dbus
+ 
+-from Sensors import SensorValue as SensorValue
+-from Sensors import HwmonSensor as HwmonSensor
+-from Sensors import SensorThresholds as SensorThresholds
++from obmc.sensors import SensorValue as SensorValue
++from obmc.sensors import HwmonSensor as HwmonSensor
++from obmc.sensors import SensorThresholds as SensorThresholds
+ 
+ if (len(sys.argv) < 2):
+ 	print "Usage:  sensors_hwmon.py [system name]"
+diff --git a/bin/inventory_items.py b/bin/inventory_items.py
+index 1b0fa39..5e53293 100755
+--- a/bin/inventory_items.py
++++ b/bin/inventory_items.py
+@@ -8,7 +8,7 @@ import dbus.service
+ import dbus.mainloop.glib
  import cPickle
  import json
--import Openbmc
+-from obmc.dbuslib.propertycacher import PropertyCacher
++import obmc.dbuslib.propertycacher as PropertyCacher
+ from obmc.dbuslib.bindings import get_dbus, DbusProperties, DbusObjectManager
  
- CACHE_PATH = '/var/cache/obmc/'
- 
-diff --git a/bin/Sensors.py b/bin/Sensors.py
-index ecdac91..7c58c97 100755
---- a/bin/Sensors.py
-+++ b/bin/Sensors.py
-@@ -8,13 +8,12 @@ import dbus
- import dbus.service
- import dbus.mainloop.glib
- import os
--import Openbmc
-+from obmc.dbuslib.bindings import DbusProperties
- 
- ## Abstract class, must subclass
--class SensorValue(Openbmc.DbusProperties):
-+class SensorValue(DbusProperties):
- 	IFACE_NAME = 'org.openbmc.SensorValue'
- 	def __init__(self,bus,name):
--		#Openbmc.DbusProperties.__init__(self)
- 		self.Set(SensorValue.IFACE_NAME,'units',"")
- 		self.Set(SensorValue.IFACE_NAME,'error',False)
- 		
-@@ -28,7 +27,7 @@ class SensorValue(Openbmc.DbusProperties):
- 	def getValue(self):
- 		return self.Get(SensorValue.IFACE_NAME,'value')
- 
--class SensorThresholds(Openbmc.DbusProperties):
-+class SensorThresholds(DbusProperties):
- 	IFACE_NAME = 'org.openbmc.SensorThresholds'
- 	def __init__(self,bus,name):
- 		self.Set(SensorThresholds.IFACE_NAME,'thresholds_enabled',False)
-@@ -85,14 +84,14 @@ class SensorThresholds(Openbmc.DbusProperties):
- 
- class VirtualSensor(SensorValue):
- 	def __init__(self,bus,name):
--		Openbmc.DbusProperties.__init__(self)
-+		DbusProperties.__init__(self)
- 		SensorValue.__init__(self,bus,name)
- 		dbus.service.Object.__init__(self,bus,name)
- 
- class HwmonSensor(SensorValue,SensorThresholds):
- 	IFACE_NAME = 'org.openbmc.HwmonSensor'
- 	def __init__(self,bus,name):
--		Openbmc.DbusProperties.__init__(self)
-+		DbusProperties.__init__(self)
- 		SensorValue.__init__(self,bus,name)
- 		SensorThresholds.__init__(self,bus,name)
- 		self.Set(HwmonSensor.IFACE_NAME,'scale',1)
-diff --git a/bin/bmc_update.py b/bin/bmc_update.py
-index a3032cf..0555fd3 100755
---- a/bin/bmc_update.py
-+++ b/bin/bmc_update.py
-@@ -4,10 +4,10 @@ import gobject
- import dbus
- import dbus.service
- import dbus.mainloop.glib
--import Openbmc
- import shutil
- import tarfile
- import os
-+from obmc.dbuslib.bindings import get_dbus, DbusProperties, DbusObjectManager
- 
- DBUS_NAME = 'org.openbmc.control.BmcFlash'
- OBJ_NAME = '/org/openbmc/control/flash/bmc'
-@@ -23,11 +23,11 @@ def doExtract(members,files):
-             yield tarinfo
- 
- 
--class BmcFlashControl(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
-+class BmcFlashControl(DbusProperties,DbusObjectManager):
- 	def __init__(self,bus,name):
- 		self.dbus_objects = { }
--		Openbmc.DbusProperties.__init__(self)
--		Openbmc.DbusObjectManager.__init__(self)
-+		DbusProperties.__init__(self)
-+		DbusObjectManager.__init__(self)
- 		dbus.service.Object.__init__(self,bus,name)
- 		
- 		self.Set(DBUS_NAME,"status","Idle")
-@@ -122,7 +122,7 @@ class BmcFlashControl(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
- if __name__ == '__main__':
-     dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
- 
--    bus = Openbmc.getDBus()
-+    bus = get_dbus()
-     name = dbus.service.BusName(DBUS_NAME, bus)
-     obj = BmcFlashControl(bus, OBJ_NAME)
-     mainloop = gobject.MainLoop()
-diff --git a/bin/chassis_control.py b/bin/chassis_control.py
-index 334fbbf..376e0e9 100755
---- a/bin/chassis_control.py
-+++ b/bin/chassis_control.py
-@@ -2,12 +2,11 @@
- 
- import sys
- import uuid
--#from gi.repository import GObject
- import gobject
- import dbus
- import dbus.service
- import dbus.mainloop.glib
--import Openbmc
-+from obmc.dbuslib.bindings import get_dbus, DbusProperties, DbusObjectManager
- 
- DBUS_NAME = 'org.openbmc.control.Chassis'
- OBJ_NAME = '/org/openbmc/control/chassis0'
-@@ -20,7 +19,7 @@ POWER_ON = 1
- 
- BOOTED = 100
- 
--class ChassisControlObject(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
-+class ChassisControlObject(DbusProperties,DbusObjectManager):
- 	def getUuid(self):
- 		uuid = "";
- 		try:
-@@ -37,8 +36,8 @@ class ChassisControlObject(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
-  
- 	def __init__(self,bus,name):
- 		self.dbus_objects = { }
--		Openbmc.DbusProperties.__init__(self)
--		Openbmc.DbusObjectManager.__init__(self)
-+		DbusProperties.__init__(self)
-+		DbusObjectManager.__init__(self)
- 		dbus.service.Object.__init__(self,bus,name)
- 		## load utilized objects
- 		self.dbus_objects = {
-@@ -215,7 +214,7 @@ class ChassisControlObject(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
- if __name__ == '__main__':
-     dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
- 
--    bus = Openbmc.getDBus()
-+    bus = get_dbus()
-     name = dbus.service.BusName(DBUS_NAME, bus)
-     obj = ChassisControlObject(bus, OBJ_NAME)
-     mainloop = gobject.MainLoop()
-diff --git a/bin/download_manager.py b/bin/download_manager.py
-index 36005d5..ba502da 100755
---- a/bin/download_manager.py
-+++ b/bin/download_manager.py
-@@ -6,7 +6,8 @@ import dbus
- import dbus.service
- import dbus.mainloop.glib
- import subprocess
--import Openbmc
-+from obmc.dbuslib.bindings import get_dbus
-+
  if (len(sys.argv) < 2):
- 	print "Usage:  download_manager.py [system name]"
- 	exit(1)
-@@ -73,7 +74,7 @@ class DownloadManagerObject(dbus.service.Object):
- 
- if __name__ == '__main__':
-     dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
--    bus = Openbmc.getDBus()
-+    bus = get_dbus()
-     name = dbus.service.BusName(DBUS_NAME, bus)
-     obj = DownloadManagerObject(bus, OBJ_NAME)
-     mainloop = gobject.MainLoop()
-diff --git a/bin/fan_control.py b/bin/fan_control.py
-index bb070e5..cea2215 100755
---- a/bin/fan_control.py
-+++ b/bin/fan_control.py
+diff --git a/bin/sensor_manager2.py b/bin/sensor_manager2.py
+index b06b9a5..52c33b7 100755
+--- a/bin/sensor_manager2.py
++++ b/bin/sensor_manager2.py
 @@ -6,7 +6,7 @@ import gobject
  import dbus
  import dbus.service
  import dbus.mainloop.glib
--import Openbmc
-+from obmc.dbuslib.bindings import get_dbus, DbusProperties, DbusObjectManager
- 
- DBUS_NAME = 'org.openbmc.control.Fans'
- OBJ_PATH = '/org/openbmc/control/fans'
-@@ -23,10 +23,10 @@ FAN_OBJS = [
- ]
- FAN_IFACE = 'org.openbmc.SensorValue'
- 
--class FanControl(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
-+class FanControl(DbusProperties,DbusObjectManager):
- 	def __init__(self,bus,name):
--		Openbmc.DbusProperties.__init__(self)
--		Openbmc.DbusObjectManager.__init__(self)
-+		DbusProperties.__init__(self)
-+		DbusObjectManager.__init__(self)
- 		dbus.service.Object.__init__(self,bus,name)
- 		self.Set(IFACE_NAME,"floor",250)
- 		self.Set(IFACE_NAME,"ceiling",255)
-@@ -49,7 +49,7 @@ class FanControl(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
- if __name__ == '__main__':
- 	
- 	dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
--	bus = Openbmc.getDBus()
-+	bus = get_dbus()
- 	name = dbus.service.BusName(DBUS_NAME,bus)
- 	fan_control = FanControl(bus,OBJ_PATH)
- 	mainloop = gobject.MainLoop()
-diff --git a/bin/hwmon.py b/bin/hwmon.py
-index 08c6f06..7e1858e 100755
---- a/bin/hwmon.py
-+++ b/bin/hwmon.py
-@@ -7,8 +7,8 @@ import glob
- import dbus
- import dbus.service
- import dbus.mainloop.glib
--import Openbmc
- import re
-+from obmc.dbuslib.bindings import get_dbus
- 
- from Sensors import SensorValue as SensorValue
- from Sensors import HwmonSensor as HwmonSensor
-@@ -159,7 +159,7 @@ class Hwmons():
- if __name__ == '__main__':
- 	
- 	dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
--	bus = Openbmc.getDBus()
-+	bus = get_dbus()
- 	root_sensor = Hwmons(bus)
- 	mainloop = gobject.MainLoop()
- 
-diff --git a/bin/inventory_items.py b/bin/inventory_items.py
-index e0351a8..bf7f414 100755
---- a/bin/inventory_items.py
-+++ b/bin/inventory_items.py
-@@ -9,29 +9,29 @@ import dbus.mainloop.glib
- import cPickle
- import json
- import PropertyCacher
-+from obmc.dbuslib.bindings import get_dbus, DbusProperties, DbusObjectManager
- 
- if (len(sys.argv) < 2):
- 	print "Usage:  inventory_items.py [system name]"
- 	exit(1)
- System = __import__(sys.argv[1])
--import Openbmc
- 
- 
- INTF_NAME = 'org.openbmc.InventoryItem'
- DBUS_NAME = 'org.openbmc.Inventory'
- FRUS = System.FRU_INSTANCES
- 
--class Inventory(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
-+class Inventory(DbusProperties,DbusObjectManager):
- 	def __init__(self,bus,name):
--		Openbmc.DbusProperties.__init__(self)
--		Openbmc.DbusObjectManager.__init__(self)
-+		DbusProperties.__init__(self)
-+		DbusObjectManager.__init__(self)
- 		dbus.service.Object.__init__(self,bus,name)
- 		self.InterfacesAdded(name,self.properties)
- 
- 
--class InventoryItem(Openbmc.DbusProperties):
-+class InventoryItem(DbusProperties):
- 	def __init__(self,bus,name,data):		
--		Openbmc.DbusProperties.__init__(self)
-+		DbusProperties.__init__(self)
- 		dbus.service.Object.__init__(self,bus,name)
- 
- 		self.name = name
-@@ -78,7 +78,7 @@ def getVersion():
- 
- if __name__ == '__main__':
-     dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
--    bus = Openbmc.getDBus()
-+    bus = get_dbus()
-     mainloop = gobject.MainLoop()
-     obj_parent = Inventory(bus, '/org/openbmc/inventory')
- 
-diff --git a/bin/sensor_manager2.py b/bin/sensor_manager2.py
-index b5aac53..b06b9a5 100755
---- a/bin/sensor_manager2.py
-+++ b/bin/sensor_manager2.py
-@@ -6,17 +6,17 @@ import gobject
- import dbus
- import dbus.service
- import dbus.mainloop.glib
--import Openbmc
- import Sensors
-+from obmc.dbuslib.bindings import DbusProperties, DbusObjectManager, get_dbus
+-import Sensors
++import obmc.sensors
+ from obmc.dbuslib.bindings import DbusProperties, DbusObjectManager, get_dbus
  
  DBUS_NAME = 'org.openbmc.Sensors'
- OBJ_PATH = '/org/openbmc/sensors'
+@@ -25,7 +25,7 @@ class SensorManager(DbusProperties,DbusObjectManager):
+ 	def register(self,object_name,obj_path):
+ 		if (self.objects.has_key(obj_path) == False):
+ 			print "Register: "+object_name+" : "+obj_path
+-			sensor = eval('Sensors.'+object_name+'(bus,obj_path)')
++			sensor = eval('obmc.sensors.'+object_name+'(bus,obj_path)')
+ 			self.add(obj_path,sensor)
  
+ 	@dbus.service.method(DBUS_NAME,
+@@ -53,29 +53,29 @@ if __name__ == '__main__':
+ 	## TODO: this should not be hardcoded
  
--class SensorManager(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
-+class SensorManager(DbusProperties,DbusObjectManager):
- 	def __init__(self,bus,name):
--		Openbmc.DbusProperties.__init__(self)
--		Openbmc.DbusObjectManager.__init__(self)
-+		DbusProperties.__init__(self)
-+		DbusObjectManager.__init__(self)
- 		dbus.service.Object.__init__(self,bus,name)
- 		self.InterfacesAdded(name,self.properties)
+ 	obj_path = OBJ_PATH+"/host/PowerCap"
+-	sensor_obj = Sensors.PowerCap(bus,obj_path)
++	sensor_obj = obmc.sensors.PowerCap(bus,obj_path)
+ 	## hwmon3 is default for master OCC on Barreleye.
+ 	## should rewrite sensor_manager to remove hardcode
+ 	sensor_obj.sysfs_attr = "/sys/class/hwmon/hwmon3/user_powercap"
+ 	root_sensor.add(obj_path,sensor_obj)
  
-@@ -43,7 +43,7 @@ class SensorManager(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
- 			
- if __name__ == '__main__':
- 	dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
--	bus = Openbmc.getDBus()
-+	bus = get_dbus()
- 	name = dbus.service.BusName(DBUS_NAME,bus)
- 	root_sensor = SensorManager(bus,OBJ_PATH)
+ 	obj_path = OBJ_PATH+"/host/BootProgress"
+-	root_sensor.add(obj_path,Sensors.BootProgressSensor(bus,obj_path))
++	root_sensor.add(obj_path,obmc.sensors.BootProgressSensor(bus,obj_path))
  
+ 	obj_path = OBJ_PATH+"/host/cpu0/OccStatus"
+-	sensor_obj = Sensors.OccStatusSensor(bus,obj_path)
++	sensor_obj = obmc.sensors.OccStatusSensor(bus,obj_path)
+ 	sensor_obj.sysfs_attr = "/sys/class/i2c-adapter/i2c-3/3-0050/online"
+ 	root_sensor.add(obj_path,sensor_obj)
+ 
+ 	obj_path = OBJ_PATH+"/host/cpu1/OccStatus"
+-	sensor_obj = Sensors.OccStatusSensor(bus,obj_path)
++	sensor_obj = obmc.sensors.OccStatusSensor(bus,obj_path)
+ 	sensor_obj.sysfs_attr = "/sys/class/i2c-adapter/i2c-3/3-0051/online"
+ 	root_sensor.add(obj_path,sensor_obj)
+ 
+ 	obj_path = OBJ_PATH+"/host/BootCount"
+-	root_sensor.add(obj_path,Sensors.BootCountSensor(bus,obj_path))
++	root_sensor.add(obj_path,obmc.sensors.BootCountSensor(bus,obj_path))
+ 	obj_path = OBJ_PATH+"/host/OperatingSystemStatus"
+-	root_sensor.add(obj_path,Sensors.OperatingSystemStatusSensor(bus,obj_path))
++	root_sensor.add(obj_path,obmc.sensors.OperatingSystemStatusSensor(bus,obj_path))
+ 
+ 	mainloop = gobject.MainLoop()
+ 	print "Starting sensor manager"
 diff --git a/bin/system_manager.py b/bin/system_manager.py
-index e74788a..2331131 100755
+index fdb1bf1..ad22f4a 100755
 --- a/bin/system_manager.py
 +++ b/bin/system_manager.py
-@@ -9,14 +9,14 @@ import dbus.mainloop.glib
+@@ -8,7 +8,7 @@ import dbus.service
+ import dbus.mainloop.glib
  import os
  import time
- import PropertyCacher
--import Openbmc
-+from obmc.dbuslib.bindings import DbusProperties, DbusObjectManager, get_dbus
-+import obmc.enums
+-from obmc.dbuslib.propertycacher import PropertyCacher
++import obmc.dbuslib.propertycacher as PropertyCacher
+ from obmc.dbuslib.bindings import DbusProperties, DbusObjectManager, get_dbus
+ import obmc.enums
  
- if (len(sys.argv) < 2):
- 	print "Usage:  system_manager.py [system name]"
- 	exit(1)
- 
- System = __import__(sys.argv[1])
--import Openbmc
- 
- DBUS_NAME = 'org.openbmc.managers.System'
- OBJ_NAME = '/org/openbmc/managers/System'
-@@ -27,10 +27,10 @@ INTF_ITEM = 'org.openbmc.InventoryItem'
- INTF_CONTROL = 'org.openbmc.Control'
- 
- 
--class SystemManager(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
-+class SystemManager(DbusProperties,DbusObjectManager):
- 	def __init__(self,bus,obj_name):
--		Openbmc.DbusProperties.__init__(self)
--		Openbmc.DbusObjectManager.__init__(self)
-+		DbusProperties.__init__(self)
-+		DbusObjectManager.__init__(self)
- 		dbus.service.Object.__init__(self,bus,obj_name)
- 
- 		bus.add_signal_receiver(self.NewObjectHandler,
-@@ -218,14 +218,14 @@ class SystemManager(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
- 					print "ERROR: SystemManager - GPIO lookup failed for "+name
- 		
- 			if (gpio_num != -1):
--				r = [Openbmc.GPIO_DEV, gpio_num, gpio['direction']]
-+				r = [obmc.enums.GPIO_DEV, gpio_num, gpio['direction']]
- 		return r
- 
- 		
- 
- if __name__ == '__main__':
-     dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
--    bus = Openbmc.getDBus()
-+    bus = get_dbus()
-     name = dbus.service.BusName(DBUS_NAME,bus)
-     obj = SystemManager(bus,OBJ_NAME)
-     mainloop = gobject.MainLoop()
 -- 
 2.8.2
