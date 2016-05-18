@@ -1,56 +1,58 @@
 Return-Path: <cyrilbur@gmail.com>
-Received: from mail-pa0-x242.google.com (mail-pa0-x242.google.com
- [IPv6:2607:f8b0:400e:c03::242])
+Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
+ [IPv6:2607:f8b0:400e:c00::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r8cCs2BDWzDqBM
- for <openbmc@lists.ozlabs.org>; Wed, 18 May 2016 11:33:29 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r8cWr3xy1zDqBP
+ for <openbmc@lists.ozlabs.org>; Wed, 18 May 2016 11:47:20 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=AAhpWKOh; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=iEnq9GnD; 
  dkim-atps=neutral
-Received: by mail-pa0-x242.google.com with SMTP id yl2so3325563pac.1
- for <openbmc@lists.ozlabs.org>; Tue, 17 May 2016 18:33:29 -0700 (PDT)
+Received: by mail-pf0-x241.google.com with SMTP id g132so3471723pfb.3
+ for <openbmc@lists.ozlabs.org>; Tue, 17 May 2016 18:47:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=date:from:to:cc:subject:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=jutbEH5tLXJpnzugwsj80ovICC4H4q4QwQib8EKtnqA=;
- b=AAhpWKOhTMkYPPjqp8bgtTOpgwPHoutFThTrCnpfYellRrPhB89D5Ev7SSpnvmhpOB
- bGNs+kX5tJsAYeP0OsExS4icl7bPZhOTOVSHQHkEmQFE1VYXeTMWrnrTllZRsXruQBBI
- uHlOu2wRg12bSTBbjT83+6qoY2GogmCZ2GMFgxdMCGBrGBil+qY8ZGCLuKQgQVRa6yLs
- Qa4ZabpoKRTQod0Rj16MDeYpI+AJMn1EuZVVu6/uxG2x+4Uv72Lj3JAWU2q5KSD7TOcO
- 1W0t33rOPr7S0wFk5RVQyIPodlhvylhxP9ouXWTuk4ooczz8m9XCzO2XFIVp9489m3s4
- L6SQ==
+ bh=WL8K4LV1pbggpWtf0zQ9S0YLkDkRUncyike1mno+vOk=;
+ b=iEnq9GnDB/mvr4yNYBaN1eNkiWprupE3MiNlIb0OguZ3Kc/FHg4W9CSN6zHraqXoB7
+ Kxiz8hnQWdwLUbUBDSCklHgHFNegslboZRUnvPnH7EXZXX/QVVvVmNJsszNghC9Xc8bl
+ OqdkmwxTIPqHsL2db5SVldf7jCDBrnHLD8W/dvzNeX0VLlYD8pLD389jptYuhTvozpKZ
+ 0INmj1DiUTXlWV7BhmBu80Gu2Xo1XslFE0faTODJSFbLV20lkOIz0t4a8yt7IIQN2a7I
+ NMdIP3PuabEt10Kcsxb8BxJpBvNDfD0CpcaDUVSBk1XWH2fynYDeTulWCzl+o+syotR3
+ 4NSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=jutbEH5tLXJpnzugwsj80ovICC4H4q4QwQib8EKtnqA=;
- b=KHEtDrV1ZYQA5lI4BZ9PTwuEQllhebCtasjoU240u1NK6BnjJSuGoubMjaBg6TcbLm
- zQOVsElQMtEHWLKEboVYOwwmjKLRZyvG1D8fSMDIKv55pwBQUqE0U9cyM7GfJTazcLqL
- ZoGqDl1y64EfCG4u91dsZkQobG/FMJF2FUPiCWTFE2XAWP8t9+NKG5dgZeDe5RE84Jvw
- IMypb+2RX9HGm/wf4ZVPJ+ywaK8Gy0xwgRtp3SU6+pogcW3+Ul7+zbADRrI8tftJ/v3/
- kul2sr10YrEykGyvShAXJ//jCDUkwoI4Loe4O4fWiSCWiEXMRwjbrkqAkO/jLLe8VJTH
- FLuA==
-X-Gm-Message-State: AOPr4FUzZBFCpfi3tsUXJZa6tOlQXo+pmiJeEwNKTsihX1CQM0KO8k2emQ7ZmCWdLp9XLw==
-X-Received: by 10.66.122.175 with SMTP id lt15mr6679559pab.51.1463535207529;
- Tue, 17 May 2016 18:33:27 -0700 (PDT)
+ bh=WL8K4LV1pbggpWtf0zQ9S0YLkDkRUncyike1mno+vOk=;
+ b=cLeHf79OKQZWhUQXAvbKP4t1Ngal0P25Ux57CwjY6DoO36yXpsH13D165COuXSphD9
+ hEdRKzqGWZF3CaMo+OeIDd6At4en8spENJhT/Y+BVGWvl8Y0nRvULKZY+7j9LgAZLEDy
+ xb/P+T8HmkBCkZD8HjQ9Qx0o7pjrw1IjrxaHeYHft+YobbGm/2LKGh8pPHvKXSdx99v0
+ 5CzoRc9FviNLw2L2wASHKwy68xQlxPLxIHdcZhFBSoLQs0io17ZkQoWBZsxM22yGQ/wY
+ RlhUex67OoluP38nngK4ViQmZqWgJ+Io1W5zFsaM1P6ohy9cLCMP1P/eHY3ZNk3XB/5c
+ RuuA==
+X-Gm-Message-State: AOPr4FUnQSoTWzTOIDAk9uNx0gDqvYZIshAHvLVxDjU4sFmvX9BORhHR9DLvpYMW9KPZ6A==
+X-Received: by 10.98.3.135 with SMTP id 129mr6729411pfd.42.1463536038793;
+ Tue, 17 May 2016 18:47:18 -0700 (PDT)
 Received: from camb691 ([122.99.82.10])
- by smtp.gmail.com with ESMTPSA id pw3sm7585949pac.6.2016.05.17.18.33.25
+ by smtp.gmail.com with ESMTPSA id y2sm7595909pfi.39.2016.05.17.18.47.16
  (version=TLSv1/SSLv3 cipher=OTHER);
- Tue, 17 May 2016 18:33:27 -0700 (PDT)
-Date: Wed, 18 May 2016 11:33:21 +1000
+ Tue, 17 May 2016 18:47:18 -0700 (PDT)
+Date: Wed, 18 May 2016 11:47:10 +1000
 From: Cyril Bur <cyrilbur@gmail.com>
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-Cc: openbmc@lists.ozlabs.org, Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: Re: [PATCH skeleton v2 3/3] Deprecate Sensors.py
-Message-ID: <20160518113321.06d576f9@camb691>
-In-Reply-To: <1463533256-19471-4-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1463533256-19471-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1463533256-19471-4-git-send-email-openbmc-patches@stwcx.xyz>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH openbmc] Add pflash to SDK
+Message-ID: <20160518114710.15ba0fac@camb691>
+In-Reply-To: <E341EB3A-EC7A-4246-A5BA-0D95371F127D@fuzziesquirrel.com>
+References: <1463495436-27711-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1463495436-27711-2-git-send-email-openbmc-patches@stwcx.xyz>
+ <20160518113020.21dd30af@camb691>
+ <E341EB3A-EC7A-4246-A5BA-0D95371F127D@fuzziesquirrel.com>
 X-Mailer: Claws Mail 3.13.2 (GTK+ 2.24.30; x86_64-unknown-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -62,358 +64,254 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 May 2016 01:33:29 -0000
+X-List-Received-Date: Wed, 18 May 2016 01:47:21 -0000
 
-On Tue, 17 May 2016 20:00:56 -0500
-OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
+On Tue, 17 May 2016 21:32:41 -0400
+Brad Bishop <bradleyb@fuzziesquirrel.com> wrote:
 
-> From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-> 
-> The pyphosphor package provides equivalent function
-> so use that and drop the duplicated code.
-> 
-> Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+> Thanks for the review Cyril.
+>=20
+> > On May 17, 2016, at 9:30 PM, Cyril Bur <cyrilbur@gmail.com> wrote:
+> >=20
+> > On Tue, 17 May 2016 09:30:36 -0500
+> > OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
+> >=20
+> >> From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+> >>=20
+> >> Make use of the skiboot external/shared support for dynamic so/bin.
+> >> This allows us to completely remove pflash from skeleton.
+> >>=20
+> >=20
+> > Hey Brad, this looks great!
+> >=20
+> > This is a pet hate of mine, getting roped into extra work - so I'm tota=
+lly
+> > prepared to do it but we should consider upstreaming the pflash patch. =
+I'm not
+> > sure it can be upstreamed as is but the end product is definitely right=
+ for
+> > upstream.
+> >=20
+>=20
+> Actually I submitted this upstream also:  https://patchwork.ozlabs.org/pa=
+tch/623309/ <https://patchwork.ozlabs.org/patch/623309/>
+>=20
 
-Love deleting duplicated code!
+*falls of chair* You did too. Perfect!
 
-Reviewed-by: Cyril Bur <cyrilbur@gmail.com>
-
-
-> ---
->  bin/Sensors.py         | 222 -------------------------------------------------
->  bin/hwmon.py           |   6 +-
->  bin/inventory_items.py |   2 +-
->  bin/sensor_manager2.py |  16 ++--
->  bin/system_manager.py  |   2 +-
->  5 files changed, 13 insertions(+), 235 deletions(-)
->  delete mode 100755 bin/Sensors.py
-> 
-> diff --git a/bin/Sensors.py b/bin/Sensors.py
-> deleted file mode 100755
-> index 7c58c97..0000000
-> --- a/bin/Sensors.py
-> +++ /dev/null
-> @@ -1,222 +0,0 @@
-> -#!/usr/bin/python -u
-> -
-> -import sys
-> -import subprocess
-> -#from gi.repository import GObject
-> -import gobject
-> -import dbus
-> -import dbus.service
-> -import dbus.mainloop.glib
-> -import os
-> -from obmc.dbuslib.bindings import DbusProperties
-> -
-> -## Abstract class, must subclass
-> -class SensorValue(DbusProperties):
-> -	IFACE_NAME = 'org.openbmc.SensorValue'
-> -	def __init__(self,bus,name):
-> -		self.Set(SensorValue.IFACE_NAME,'units',"")
-> -		self.Set(SensorValue.IFACE_NAME,'error',False)
-> -		
-> -	@dbus.service.method(IFACE_NAME,
-> -		in_signature='v', out_signature='')
-> -	def setValue(self,value):
-> -		self.Set(SensorValue.IFACE_NAME,'value',value)
-> -
-> -	@dbus.service.method(IFACE_NAME,
-> -		in_signature='', out_signature='v')
-> -	def getValue(self):
-> -		return self.Get(SensorValue.IFACE_NAME,'value')
-> -
-> -class SensorThresholds(DbusProperties):
-> -	IFACE_NAME = 'org.openbmc.SensorThresholds'
-> -	def __init__(self,bus,name):
-> -		self.Set(SensorThresholds.IFACE_NAME,'thresholds_enabled',False)
-> -		self.Set(SensorThresholds.IFACE_NAME,'emergency_enabled',False)
-> -		self.Set(SensorThresholds.IFACE_NAME,'warning_upper',0)
-> -		self.Set(SensorThresholds.IFACE_NAME,'warning_lower',0)
-> -		self.Set(SensorThresholds.IFACE_NAME,'critical_upper',0)
-> -		self.Set(SensorThresholds.IFACE_NAME,'critical_lower',0)
-> -		self.Set(SensorThresholds.IFACE_NAME,'critical_lower',0)
-> -		self.Set(SensorThresholds.IFACE_NAME,'threshold_state',"NORMAL")
-> -		self.Set(SensorThresholds.IFACE_NAME,'worst_threshold_state',"NORMAL")
-> -	
-> -	@dbus.service.method(IFACE_NAME,
-> -		in_signature='', out_signature='')
-> -	def resetThresholdState(self):
-> -		self.Set(SensorThresholds.IFACE_NAME,'worst_threshold_state',"NORMAL")
-> -
-> -	def check_thresholds(self,value):
-> -		iface = SensorThresholds.IFACE_NAME
-> -		if (self.Get(iface,'thresholds_enabled') == False):
-> -			return False
-> -		rtn = False
-> -		current_state = "NORMAL"
-> -		if (value >= self.properties[iface]['critical_upper']):
-> -			current_state = "CRITICAL"
-> -			rtn = True
-> -		elif (value <= self.properties[iface]['critical_lower']):
-> -			current_state = "CRITICAL"
-> -			rtn = True
-> -		elif (value >= self.properties[iface]['warning_upper']):
-> -			current_state = "WARNING"
-> -			rtn = True
-> -		elif (value <= self.properties[iface]['warning_lower']):
-> -			current_state = "WARNING"
-> -			rtn = True
-> -
-> -		if (self.Get(iface,'threshold_state') != current_state and
-> -		 		current_state == "CRITICAL" and
-> -				self.Get(iface,'emergency_enabled') == True):
-> -			self.Emergency()
-> -
-> -		self.Set(iface,'threshold_state',current_state)
-> -		worst = self.properties[iface]['worst_threshold_state']
-> -		if (current_state == "CRITICAL" or 
-> -		   (current_state == "WARNING" and worst != "CRITICAL")):
-> -			self.Set(iface,'worst_threshold_state',current_state)
-> -
-> -		return rtn
-> -
-> -	@dbus.service.signal(IFACE_NAME,signature='')
-> -	def Emergency(self):
-> -		pass
-> -
-> -
-> -class VirtualSensor(SensorValue):
-> -	def __init__(self,bus,name):
-> -		DbusProperties.__init__(self)
-> -		SensorValue.__init__(self,bus,name)
-> -		dbus.service.Object.__init__(self,bus,name)
-> -
-> -class HwmonSensor(SensorValue,SensorThresholds):
-> -	IFACE_NAME = 'org.openbmc.HwmonSensor'
-> -	def __init__(self,bus,name):
-> -		DbusProperties.__init__(self)
-> -		SensorValue.__init__(self,bus,name)
-> -		SensorThresholds.__init__(self,bus,name)
-> -		self.Set(HwmonSensor.IFACE_NAME,'scale',1)
-> -		self.Set(HwmonSensor.IFACE_NAME,'offset',0)
-> -		self.Set(HwmonSensor.IFACE_NAME,'filename','')
-> -		self.value_dirty = False
-> -
-> -		# need to cache value to know if changed
-> -		self.value = None
-> -		dbus.service.Object.__init__(self,bus,name)
-> -
-> -	@dbus.service.method(SensorValue.IFACE_NAME,
-> -		in_signature='v', out_signature='')
-> -	def setValue(self,value):
-> -		self.value_dirty = True
-> -		SensorValue.setValue(self,value)
-> -
-> -	## Called by sensor process to update value from polling
-> -	## if returns not None, then sensor process will update hwmon value
-> -	@dbus.service.method(IFACE_NAME,
-> -		in_signature='v', out_signature='(bv)')
-> -	def setByPoll(self,value):
-> -		scale = self.properties[HwmonSensor.IFACE_NAME]['scale']
-> -		offset = self.properties[HwmonSensor.IFACE_NAME]['offset']
-> -		if (self.value_dirty == True):
-> -			## new value externally set, so just return to hwmon
-> -			## process to write value
-> -			self.value_dirty = False
-> -			val = (self.properties[SensorValue.IFACE_NAME]['value']-offset) * scale
-> -			return [True,val]
-> -		else:
-> -			# Keep the val as integer. scale may be floating point
-> -			val = int(value/scale + offset)
-> -			if (val != self.value):
-> -				SensorValue.setValue(self,val)
-> -				self.check_thresholds(val)
-> -				self.value = val
-> -
-> -			return [False,0]
-> -		
-> -CONTROL_IFACE = 'org.openbmc.Control'
-> -class PowerCap(VirtualSensor):
-> -	def __init__(self, bus, name):
-> -		VirtualSensor.__init__(self, bus, name)
-> -		SensorValue.setValue(self, 0)
-> -		self.sysfs_attr = "/sys/class/hwmon/hwmon3/user_powercap"
-> -	##override setValue method
-> -	@dbus.service.method(SensorValue.IFACE_NAME,
-> -		in_signature='v', out_signature='')
-> -	def setValue(self, value):
-> -		try:
-> -			cmd_str = "echo "+str(value)+" > "+self.sysfs_attr
-> -			ret = subprocess.check_output(cmd_str, shell=True)
-> -		except subprocess.CalledProcessError as powerexc:
-> -			print "Set PowerCap Error", powerexc.returncode,
-> -			powerexc.output
-> -			return
-> -		print "Set PowerCap: ", value
-> -		SensorValue.setValue(self, value)
-> -		
-> -class BootProgressSensor(VirtualSensor):
-> -	def __init__(self,bus,name):
-> -		VirtualSensor.__init__(self,bus,name)
-> -		self.setValue("Off")
-> -		bus.add_signal_receiver(self.SystemStateHandler,signal_name = "GotoSystemState")
-> -
-> -	def SystemStateHandler(self,state):
-> -		if (state == "HOST_POWERED_OFF"):
-> -			self.setValue("Off")
-> -
-> -
-> -	##override setValue method
-> -	@dbus.service.method(SensorValue.IFACE_NAME,
-> -		in_signature='v', out_signature='')
-> -	def setValue(self,value):
-> -		SensorValue.setValue(self,value)
-> -		if (value == "FW Progress, Starting OS"):
-> -			self.GotoSystemState("HOST_BOOTED")
-> -			
-> -	@dbus.service.signal(CONTROL_IFACE,signature='s')
-> -	def GotoSystemState(self,state):
-> -		pass
-> -		
-> -class OccStatusSensor(VirtualSensor):
-> -	def __init__(self,bus,name, sysfs = None):
-> -		## default path. can be override
-> -		if sysfs is None:
-> -			self.sysfs_attr = "/sys/class/i2c-adapter/i2c-3/3-0050/online"
-> -		else:
-> -			self.sysfs_attr = sysfs
-> -		VirtualSensor.__init__(self,bus,name)
-> -		self.setValue("Disabled")
-> -		bus.add_signal_receiver(self.SystemStateHandler,signal_name = "GotoSystemState")
-> -
-> -	def SystemStateHandler(self,state):
-> -		if (state == "HOST_POWERED_OFF"):
-> -			self.setValue("Disabled")
-> -
-> -	##override setValue method
-> -	@dbus.service.method(SensorValue.IFACE_NAME,
-> -		in_signature='v', out_signature='')
-> -	def setValue(self,value):
-> -		if (value == "Enabled"):
-> -			print "Installing OCC device"
-> -			os.system("echo 1 > " +  self.sysfs_attr)
-> -		else:
-> -			print "Deleting OCC device"
-> -			os.system("echo 0 > " +  self.sysfs_attr)
-> -		SensorValue.setValue(self,value)
-> -			
-> -	@dbus.service.signal(CONTROL_IFACE,signature='s')
-> -	def GotoSystemState(self,state):
-> -		pass
-> -	
-> -class BootCountSensor(VirtualSensor):
-> -	def __init__(self,bus,name):
-> -		VirtualSensor.__init__(self,bus,name)
-> -		self.setValue(2)
-> -
-> -class OperatingSystemStatusSensor(VirtualSensor):
-> -	def __init__(self,bus,name):
-> -		VirtualSensor.__init__(self,bus,name)
-> -		self.setValue("Off")
-> -		bus.add_signal_receiver(self.SystemStateHandler,signal_name = "GotoSystemState")
-> -
-> -	def SystemStateHandler(self,state):
-> -		if (state == "HOST_POWERED_OFF"):
-> -			self.setValue("Off")
-> diff --git a/bin/hwmon.py b/bin/hwmon.py
-> index 7e1858e..0cf570c 100755
-> --- a/bin/hwmon.py
-> +++ b/bin/hwmon.py
-> @@ -10,9 +10,9 @@ import dbus.mainloop.glib
->  import re
->  from obmc.dbuslib.bindings import get_dbus
->  
-> -from Sensors import SensorValue as SensorValue
-> -from Sensors import HwmonSensor as HwmonSensor
-> -from Sensors import SensorThresholds as SensorThresholds
-> +from obmc.sensors import SensorValue as SensorValue
-> +from obmc.sensors import HwmonSensor as HwmonSensor
-> +from obmc.sensors import SensorThresholds as SensorThresholds
->  
->  if (len(sys.argv) < 2):
->  	print "Usage:  sensors_hwmon.py [system name]"
-> diff --git a/bin/inventory_items.py b/bin/inventory_items.py
-> index 1b0fa39..5e53293 100755
-> --- a/bin/inventory_items.py
-> +++ b/bin/inventory_items.py
-> @@ -8,7 +8,7 @@ import dbus.service
->  import dbus.mainloop.glib
->  import cPickle
->  import json
-> -from obmc.dbuslib.propertycacher import PropertyCacher
-> +import obmc.dbuslib.propertycacher as PropertyCacher
->  from obmc.dbuslib.bindings import get_dbus, DbusProperties, DbusObjectManager
->  
->  if (len(sys.argv) < 2):
-> diff --git a/bin/sensor_manager2.py b/bin/sensor_manager2.py
-> index b06b9a5..9ed51f3 100755
-> --- a/bin/sensor_manager2.py
-> +++ b/bin/sensor_manager2.py
-> @@ -6,7 +6,7 @@ import gobject
->  import dbus
->  import dbus.service
->  import dbus.mainloop.glib
-> -import Sensors
-> +import obmc.sensors
->  from obmc.dbuslib.bindings import DbusProperties, DbusObjectManager, get_dbus
->  
->  DBUS_NAME = 'org.openbmc.Sensors'
-> @@ -25,7 +25,7 @@ class SensorManager(DbusProperties,DbusObjectManager):
->  	def register(self,object_name,obj_path):
->  		if (self.objects.has_key(obj_path) == False):
->  			print "Register: "+object_name+" : "+obj_path
-> -			sensor = eval('Sensors.'+object_name+'(bus,obj_path)')
-> +			sensor = eval('obmc.sensors.Sensors.'+object_name+'(bus,obj_path)')
->  			self.add(obj_path,sensor)
->  
->  	@dbus.service.method(DBUS_NAME,
-> @@ -53,29 +53,29 @@ if __name__ == '__main__':
->  	## TODO: this should not be hardcoded
->  
->  	obj_path = OBJ_PATH+"/host/PowerCap"
-> -	sensor_obj = Sensors.PowerCap(bus,obj_path)
-> +	sensor_obj = obmc.sensors.PowerCap(bus,obj_path)
->  	## hwmon3 is default for master OCC on Barreleye.
->  	## should rewrite sensor_manager to remove hardcode
->  	sensor_obj.sysfs_attr = "/sys/class/hwmon/hwmon3/user_powercap"
->  	root_sensor.add(obj_path,sensor_obj)
->  
->  	obj_path = OBJ_PATH+"/host/BootProgress"
-> -	root_sensor.add(obj_path,Sensors.BootProgressSensor(bus,obj_path))
-> +	root_sensor.add(obj_path,obmc.sensors.BootProgressSensor(bus,obj_path))
->  
->  	obj_path = OBJ_PATH+"/host/cpu0/OccStatus"
-> -	sensor_obj = Sensors.OccStatusSensor(bus,obj_path)
-> +	sensor_obj = obmc.sensors.OccStatusSensor(bus,obj_path)
->  	sensor_obj.sysfs_attr = "/sys/class/i2c-adapter/i2c-3/3-0050/online"
->  	root_sensor.add(obj_path,sensor_obj)
->  
->  	obj_path = OBJ_PATH+"/host/cpu1/OccStatus"
-> -	sensor_obj = Sensors.OccStatusSensor(bus,obj_path)
-> +	sensor_obj = obmc.sensors.OccStatusSensor(bus,obj_path)
->  	sensor_obj.sysfs_attr = "/sys/class/i2c-adapter/i2c-3/3-0051/online"
->  	root_sensor.add(obj_path,sensor_obj)
->  
->  	obj_path = OBJ_PATH+"/host/BootCount"
-> -	root_sensor.add(obj_path,Sensors.BootCountSensor(bus,obj_path))
-> +	root_sensor.add(obj_path,obmc.sensors.BootCountSensor(bus,obj_path))
->  	obj_path = OBJ_PATH+"/host/OperatingSystemStatus"
-> -	root_sensor.add(obj_path,Sensors.OperatingSystemStatusSensor(bus,obj_path))
-> +	root_sensor.add(obj_path,obmc.sensors.OperatingSystemStatusSensor(bus,obj_path))
->  
->  	mainloop = gobject.MainLoop()
->  	print "Starting sensor manager"
-> diff --git a/bin/system_manager.py b/bin/system_manager.py
-> index fdb1bf1..ad22f4a 100755
-> --- a/bin/system_manager.py
-> +++ b/bin/system_manager.py
-> @@ -8,7 +8,7 @@ import dbus.service
->  import dbus.mainloop.glib
->  import os
->  import time
-> -from obmc.dbuslib.propertycacher import PropertyCacher
-> +import obmc.dbuslib.propertycacher as PropertyCacher
->  from obmc.dbuslib.bindings import DbusProperties, DbusObjectManager, get_dbus
->  import obmc.enums
->  
+> Let me know if it needs any work=E2=80=A6.
+>=20
+> > Do you or does anyone have any thoughts as to how to integrate into ups=
+tream?
+> > `make shared` target just as an idea off the top of my head.
+> >=20
+> >> Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+> >=20
+> > Reviewed-by: Cyril Bur <cyrilbur@gmail.com>
+> >=20
+> >> ---
+> >> .../common/recipes-bsp/pflash/pflash.bb            |   8 +-
+> >> .../pflash/pflash/0001-pflash-Build-solib.patch    | 119 +++++++++++++=
+++++++++
+> >> .../common/recipes-phosphor/skeleton/skeleton.bb   |   7 +-
+> >> 3 files changed, 127 insertions(+), 7 deletions(-)
+> >> create mode 100644 meta-openbmc-machines/meta-openpower/common/recipes=
+-bsp/pflash/pflash/0001-pflash-Build-solib.patch
+> >>=20
+> >> diff --git a/meta-openbmc-machines/meta-openpower/common/recipes-bsp/p=
+flash/pflash.bb b/meta-openbmc-machines/meta-openpower/common/recipes-bsp/p=
+flash/pflash.bb
+> >> index 5c0cfa4..862f4fb 100644
+> >> --- a/meta-openbmc-machines/meta-openpower/common/recipes-bsp/pflash/p=
+flash.bb
+> >> +++ b/meta-openbmc-machines/meta-openpower/common/recipes-bsp/pflash/p=
+flash.bb
+> >> @@ -8,15 +8,19 @@ LIC_FILES_CHKSUM =3D "file://${S}/LICENCE;md5=3D3b83=
+ef96387f14655fc854ddc3c6bd57"
+> >>=20
+> >> SRCREV =3D "skiboot-5.2.1"
+> >> PV =3D "5.2.1"
+> >> +SRC_URI +=3D "file://0001-pflash-Build-solib.patch"
+> >>=20
+> >> S =3D "${WORKDIR}/git"
+> >>=20
+> >> EXTRA_OEMAKE =3D 'CROSS_COMPILE=3D${TARGET_PREFIX} PFLASH_VERSION=3D${=
+PV} V=3D1'
+> >> +CFLAGS_append =3D ' -fPIC'
+> >>=20
+> >> do_compile () {
+> >> -        oe_runmake -C external/pflash all
+> >> +        oe_runmake -C external/shared all
+> >> }
+> >>=20
+> >> do_install () {
+> >> -        oe_runmake -C external/pflash install DESTDIR=3D${D}
+> >> +        oe_runmake -C external/shared install DESTDIR=3D${D}
+> >> }
+> >> +
+> >> +BBCLASSEXTEND =3D "nativesdk"
+> >> diff --git a/meta-openbmc-machines/meta-openpower/common/recipes-bsp/p=
+flash/pflash/0001-pflash-Build-solib.patch b/meta-openbmc-machines/meta-ope=
+npower/common/recipes-bsp/pflash/pflash/0001-pflash-Build-solib.patch
+> >> new file mode 100644
+> >> index 0000000..59f2ebc
+> >> --- /dev/null
+> >> +++ b/meta-openbmc-machines/meta-openpower/common/recipes-bsp/pflash/p=
+flash/0001-pflash-Build-solib.patch
+> >> @@ -0,0 +1,119 @@
+> >> +diff --git a/external/pflash/rules.mk b/external/pflash/rules.mk
+> >> +index aa426b5..c0199e3 100644
+> >> +--- a/external/pflash/rules.mk
+> >> ++++ b/external/pflash/rules.mk
+> >> +@@ -1,12 +1,12 @@
+> >> + .DEFAULT_GOAL :=3D all
+> >> +=20
+> >> + override CFLAGS  +=3D -O2 -Wall -I.
+> >> +-OBJS    =3D pflash.o progress.o version.o
+> >> ++PFLASH_OBJS    =3D pflash.o progress.o version.o common-arch_flash.o
+> >> + LIBFLASH_FILES :=3D libflash.c libffs.c ecc.c blocklevel.c file.c
+> >> + LIBFLASH_OBJS :=3D $(addprefix libflash-, $(LIBFLASH_FILES:.c=3D.o))
+> >> + LIBFLASH_SRC :=3D $(addprefix libflash/,$(LIBFLASH_FILES))
+> >> ++OBJS	+=3D $(PFLASH_OBJS)
+> >> + OBJS	+=3D $(LIBFLASH_OBJS)
+> >> +-OBJS	+=3D common-arch_flash.o
+> >> + EXE     =3D pflash
+> >> +=20
+> >> + PFLASH_VERSION ?=3D $(shell ../../make_version.sh $(EXE))
+> >> +diff --git a/external/shared/.gitignore b/external/shared/.gitignore
+> >> +new file mode 100644
+> >> +index 0000000..541d2a2
+> >> +--- /dev/null
+> >> ++++ b/external/shared/.gitignore
+> >> +@@ -0,0 +1,2 @@
+> >> ++pflash-dynamic
+> >> ++libflash.so*
+> >> +diff --git a/external/shared/Makefile b/external/shared/Makefile
+> >> +index 4c31657..aa1d881 100644
+> >> +--- a/external/shared/Makefile
+> >> ++++ b/external/shared/Makefile
+> >> +@@ -1,56 +1,44 @@
+> >> +-.DEFAULT_GOAL :=3D all
+> >> + GET_ARCH =3D ../../external/common/get_arch.sh
+> >> ++include ../../external/pflash/rules.mk
+> >> + include ../../external/common/rules.mk
+> >> +=20
+> >> +-PREFIX ?=3D /usr/local/
+> >> +-LIBDIR =3D $(PREFIX)/lib
+> >> +-INCDIR =3D $(PREFIX)/include/libflash
+> >> ++libdir=3D/usr/lib
+> >> ++incdir=3D/usr/include
+> >> ++sbindir=3D/usr/sbin
+> >> +=20
+> >> +-VERSION =3D $(shell ../../make_version.sh)
+> >> ++PFLASH_DIR=3D../pflash/
+> >> ++EXE=3Dpflash-dynamic
+> >> ++LIB=3Dlibflash.so
+> >> ++SONAME=3D$(LIB).1
+> >> ++VERSION =3D $(shell ../../make_version.sh "$(SONAME)")
+> >> ++OBJS=3D$(addprefix $(PFLASH_DIR), $(LIBFLASH_OBJS))
+> >> ++OBJS+=3D$(addprefix $(PFLASH_DIR), $(ARCH_OBJS))
+> >> ++DYN_OBJS=3D$(addprefix $(PFLASH_DIR), $(PFLASH_OBJS))
+> >> +=20
+> >> +-CFLAGS +=3D -m64 -Werror -Wall -g2 -ggdb -I. -fPIC
+> >> ++LIBFLASH_HEADERS=3Dlibffs.h libflash.h blocklevel.h errors.h ffs.h
+> >> ++ARCHFLASH_HEADERS=3Darch_flash.h io.h
+> >> +=20
+> >> +-.PHONY: links
+> >> +-links: libflash ccan common
+> >> ++all: $(EXE)
+> >> +=20
+> >> +-libflash:
+> >> +-	ln -sf ../../libflash .
+> >> ++$(LIB):
+> >> ++	$(MAKE) -C $(PFLASH_DIR)
+> >> ++	$(Q_CC)$(CC) -shared -fPIC -Wl,-soname,$(SONAME) $(OBJS) -o $(VERSI=
+ON)
+> >> +=20
+> >> +-common:
+> >> +-	ln -sf ../common .
+> >> ++$(EXE): $(LIB)
+> >> ++	$(Q_CC)$(CC) $(CFLAGS) $(DYN_OBJS) $(VERSION) -lrt -o $(EXE)
+> >> +=20
+> >> +-ccan:
+> >> +-	ln -sf ../../ccan .
+> >> ++install: install-bins install-headers
+> >> +=20
+> >> +-LIBFLASH_OBJS =3D libflash-file.o libflash-libflash.o libflash-libff=
+s.o libflash-ecc.o libflash-blocklevel.o
+> >> +-ARCHFLASH_OBJS =3D common-arch_flash.o
+> >> +-OBJS =3D $(LIBFLASH_OBJS) $(ARCHFLASH_OBJS)
+> >> ++install-headers:
+> >> ++	$(Q_MKDIR)mkdir -p $(DESTDIR)$(incdir)/libflash $(DESTDIR)$(incdir)=
+/common
+> >> ++	install -m644 $(addprefix $(PFLASH_DIR)libflash/, $(LIBFLASH_HEADER=
+S)) $(DESTDIR)$(incdir)/libflash
+> >> ++	install -m644 $(addprefix $(PFLASH_DIR)common/, $(ARCHFLASH_HEADERS=
+)) $(DESTDIR)$(incdir)/common
+> >> +=20
+> >> +-LIBFLASH_H =3D libflash/file.h libflash/libflash.h libflash/libffs.h=
+ libflash/ffs.h libflash/ecc.h libflash/blocklevel.h libflash/errors.h
+> >> +-ARCHFLASH_H =3D common/arch_flash.h
+> >> +-
+> >> +-$(LIBFLASH_OBJS) : libflash-%.o : libflash/%.c
+> >> +-	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+> >> ++install-bins: all
+> >> ++	install -D $(EXE) $(DESTDIR)$(sbindir)/pflash
+> >> ++	install -D $(VERSION) $(DESTDIR)$(libdir)/$(VERSION)
+> >> ++	$(Q_LN)ln -sf $(VERSION) $(DESTDIR)$(libdir)/$(SONAME)
+> >> ++	$(Q_LN)ln -sf $(VERSION) $(DESTDIR)$(libdir)/$(LIB)
+> >> +=20
+> >> + clean:
+> >> +-	rm -f $(OBJS) common-*.o *.so*
+> >> +-
+> >> +-distclean: clean
+> >> +-	rm -f ccan libflash common
+> >> +-
+> >> +-all: links arch_links $(OBJS)
+> >> +-	$(CC) -shared -Wl,-soname,libflash.so -o libflash.so.$(VERSION) $(O=
+BJS)
+> >> +-
+> >> +-install-lib: all
+> >> +-	install -D -m 0755 libflash.so.$(VERSION) $(LIBDIR)/libflash.so.$(V=
+ERSION)
+> >> +-	ln -sf libflash.so.$(VERSION) $(LIBDIR)/libflash.so
+> >> +-
+> >> +-install-dev: links arch_links
+> >> +-	mkdir -p $(INCDIR)
+> >> +-	install -m 0644 $(LIBFLASH_H) $(ARCHFLASH_H) $(INCDIR)
+> >> +-
+> >> +-install: install-lib install-dev
+> >> +-
+> >> +-uninstall:
+> >> +-	rm -f $(LIBDIR)/libflash*
+> >> +-	rm -rf $(INCDIR)
+> >> ++	rm -rf $(LIB).* $(EXE)
+> >> diff --git a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.b=
+b b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
+> >> index 1553314..8a11ee1 100644
+> >> --- a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
+> >> +++ b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
+> >> @@ -16,9 +16,9 @@ DEPENDS +=3D "glib-2.0 systemd"
+> >> RDEPENDS_${PN} +=3D "python-subprocess python-compression libsystemd"
+> >> SRC_URI +=3D "git://github.com/openbmc/skeleton"
+> >>=20
+> >> -# RDEPEND on pflash if the openpower-pflash machine feature is set.
+> >> +# DEPEND/RDEPEND on pflash if the openpower-pflash machine feature is=
+ set.
+> >> PACKAGECONFIG ??=3D "${@bb.utils.contains('MACHINE_FEATURES', 'openpow=
+er-pflash', 'openpower-pflash', '', d)}"
+> >> -PACKAGECONFIG[openpower-pflash] =3D ",,,pflash"
+> >> +PACKAGECONFIG[openpower-pflash] =3D ",,pflash,pflash"
+> >>=20
+> >> SRCREV =3D "264009617c231447d6c8fc61264cf3c6ea7f49d5"
+> >>=20
+> >> @@ -26,9 +26,6 @@ S =3D "${WORKDIR}"
+> >>=20
+> >> do_compile() {
+> >>         oe_runmake -C git
+> >> -
+> >> -        # Remove deprecated files.
+> >> -        rm ${S}/git/bin/pflash
+> >> }
+> >>=20
+> >> do_install() {
