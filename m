@@ -1,37 +1,20 @@
-Return-Path: <clg@kaod.org>
-Received: from 13.mo6.mail-out.ovh.net (13.mo6.mail-out.ovh.net
- [188.165.56.124])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <openbmc-patches@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r8zkk3gSKzDqCQ
- for <openbmc@lists.ozlabs.org>; Thu, 19 May 2016 02:13:01 +1000 (AEST)
-Received: from player693.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo6.mail-out.ovh.net (Postfix) with ESMTP id B1F07FFC936
- for <openbmc@lists.ozlabs.org>; Wed, 18 May 2016 15:46:29 +0200 (CEST)
-Received: from [192.168.124.3] (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
- [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player693.ha.ovh.net (Postfix) with ESMTPSA id E44B9440094;
- Wed, 18 May 2016 15:46:22 +0200 (CEST)
-Subject: Re: [PATCH qemu 2/3] ast2400: add a rtc device on I2C bus 0
-To: Joel Stanley <joel@jms.id.au>
-References: <1463513102-14135-1-git-send-email-clg@kaod.org>
- <1463513102-14135-3-git-send-email-clg@kaod.org>
- <CACPK8XdKaan0TN38dhonHWs=mZhn=0=Oqw10Wcqg6h7J_4Xtzg@mail.gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Andrew Jeffery <andrew@aj.id.au>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <573C7223.10002@kaod.org>
-Date: Wed, 18 May 2016 15:46:11 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
- Icedove/38.7.0
-MIME-Version: 1.0
-In-Reply-To: <CACPK8XdKaan0TN38dhonHWs=mZhn=0=Oqw10Wcqg6h7J_4Xtzg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 8228357998122666923
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeekledrfedtgdeihecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r911M2wXQzDqCH
+ for <openbmc@lists.ozlabs.org>; Thu, 19 May 2016 03:10:46 +1000 (AEST)
+Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
+ with SMTPS id 1463591441352733.3754618443095;
+ Wed, 18 May 2016 10:10:41 -0700 (PDT)
+From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH phosphor-host-ipmid v3] Support for restricted mode for IPMI
+ commands
+Date: Wed, 18 May 2016 12:10:39 -0500
+Message-Id: <1463591440-32553-1-git-send-email-openbmc-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.8.2
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -43,52 +26,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 May 2016 16:13:02 -0000
+X-List-Received-Date: Wed, 18 May 2016 17:10:48 -0000
 
-On 05/18/2016 03:33 PM, Joel Stanley wrote:
-> Hey Cedric,
-> 
-> On Wed, May 18, 2016 at 4:55 AM, Cédric Le Goater <clg@kaod.org> wrote:
->> The palmetto platform has a ds3231 RTC device but not qemu. Let's use
->> a ds1338 instead.
->>
->> The aspeed-bmc-opp-palmetto dts file needs to be changed consequently
->> with :
->>
->>         rtc@68 {
->>                 compatible = "dallas,ds1338";
->>                 reg = <0x68>;
->>         };
-> 
-> Please see my comments for the tmp device.
-> 
-> How much does the register layout differ between the 1338 and the 3231?
+Only IPMI whitelisted commands are supported in restricted mode.Following commands are restricted in restricted mode.
 
-Will tell you soon.
+1) Warm Reset  (Netfn: APP, Cmd: 0x02)
+2) Set LAN Parameters  (Netfn: STORAGE, Cmd: 0x01)
+4)Set ACPI Power State - Currently No Op
+5) Wilcard Commands(APP, CHASSIS, SENSOR, STORAGE, TRANSPORT) - Currently No Op
 
-But on my palmetto running OpenBMC, I see : 
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/phosphor-host-ipmid/81)
+<!-- Reviewable:end -->
 
-	[    5.630000] rtc-ds1307: probe of 0-0068 failed with error -5
 
-So do we really have a RTC available on this bus ? 
+https://github.com/openbmc/phosphor-host-ipmid/pull/81
 
-	root@palmetto:~# i2cdetect -y 0
-	     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
-	00:          -- -- -- -- -- -- -- -- -- -- -- -- -- 
-	10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-	20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-	30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-	40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-	50: UU -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-	60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-	70: -- -- -- -- -- -- -- --                         
+tomjose (1):
+  Support for restricted mode for IPMI commands
 
-There are plenty of other devices on the other busses though, but 
-none with Ox68.
+ apphandler.C       | 23 +++++++++--------
+ chassishandler.C   | 10 ++++----
+ dcmihandler.C      |  4 +--
+ globalhandler.C    |  4 +--
+ groupext.C         |  2 +-
+ ipmid-api.h        | 13 ++++++++--
+ ipmid.C            | 73 ++++++++++++++++++++++++++++++++++++++++++++++++------
+ sensorhandler.C    |  8 +++---
+ storagehandler.C   | 13 +++++-----
+ transporthandler.C |  9 +++----
+ 10 files changed, 114 insertions(+), 45 deletions(-)
 
-There is also a RTC directly connected to APB bus. I guess we need a 
-model for this one also. 
-
-Cheers, 
-
-C.
+-- 
+2.8.2
