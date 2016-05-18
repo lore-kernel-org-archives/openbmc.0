@@ -1,44 +1,54 @@
-Return-Path: <andrew@aj.id.au>
-Received: from homiemail-a13.g.dreamhost.com (sub3.mail.dreamhost.com
- [69.163.253.7])
- (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+Return-Path: <ross.burton@intel.com>
+Received: from mail-io0-x22d.google.com (mail-io0-x22d.google.com
+ [IPv6:2607:f8b0:4001:c06::22d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r8n6B0c1fzDqCJ
- for <openbmc@lists.ozlabs.org>; Wed, 18 May 2016 18:14:09 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=j3HJZJBO; 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r8s1P0kjtzDqCJ
+ for <openbmc@lists.ozlabs.org>; Wed, 18 May 2016 21:10:15 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=intel-com.20150623.gappssmtp.com
+ header.i=@intel-com.20150623.gappssmtp.com header.b=Wn2LS++D; 
  dkim-atps=neutral
-Received: from homiemail-a13.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a13.g.dreamhost.com (Postfix) with ESMTP id 8E285334076;
- Wed, 18 May 2016 01:14:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
- :subject:from:reply-to:to:cc:date:in-reply-to:references
- :content-type:mime-version; s=aj.id.au; bh=lViFlmHTPWpzB8Yuw+OWF
- 64OF8Q=; b=j3HJZJBOrbSgtt3FOf49rq/crcjkl8leI7EcSkgQFB25Zh4Jfp/sv
- 4W4PTNDXwaIerA71iJw3kTJshpMrnHAML0aAlO16a21tUmTh0FuD7PTmlVNrmJIy
- ohXROTZ/Np0kzGeBK/SzFgSsNZh+5Cq4pZhblGgqdOzdET75bXvBGM=
-Received: from keelia (unknown [203.0.153.9])
- (using TLSv1 with cipher AES128-SHA (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: andrew@aj.id.au)
- by homiemail-a13.g.dreamhost.com (Postfix) with ESMTPSA id 743C7334075;
- Wed, 18 May 2016 01:14:05 -0700 (PDT)
-Message-ID: <1463559230.2703.118.camel@aj.id.au>
-Subject: Re: [yocto] Extending runqemu/runqemu-internal with new machines
-From: Andrew Jeffery <andrew@aj.id.au>
-Reply-To: andrew@aj.id.au
-To: "Burton, Ross" <ross.burton@intel.com>
-Cc: Yocto Project <yocto@yoctoproject.org>, Patrick Williams
- <patrick@stwcx.xyz>,  OpenBMC <openbmc@lists.ozlabs.org>
-Date: Wed, 18 May 2016 17:43:50 +0930
-In-Reply-To: <CAJTo0LbX7qrAc5e0OSJzTJ=ish7rLuGzm9LA7LbKF4DK+jy+PA@mail.gmail.com>
+Received: by mail-io0-x22d.google.com with SMTP id 190so60021745iow.1
+ for <openbmc@lists.ozlabs.org>; Wed, 18 May 2016 04:10:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=intel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=X024nIZ0lc3U/wMCo4Vd/tyaPH7WCVIX+2h+r38jZRY=;
+ b=Wn2LS++DAtcWJfYWrj06q8Rmbn/VW6UEfyLr/ViFGqHR5ujJrqNZVVtmFaAkJmmOIN
+ 09QiMQ/RryJHC1U2qWnQqWk0Puq2CbLqbRvBGm2VLw7XrFNNsSO1tlIFeU2jclIl1Wpb
+ Qo6+PReXAMJu4CVjl4IDkqB0wdDpL++GQ2tu3y8vSOzzSOJvPb9NWWRaXS2YFoTTRrJ0
+ lfAEalusjBH2V83ZZt8EEVxFS3gHcgXMcYTierSjtEhXhkjYWgLBHV9OT1q/R4ZagvhK
+ jiwPUHjf/UWDaSOnttH/Cm2HMN4fgseWpoT+PjOzyS2/Inn0jwxLxTMpd4Cf7/HDobR0
+ d4WA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=X024nIZ0lc3U/wMCo4Vd/tyaPH7WCVIX+2h+r38jZRY=;
+ b=Ao8VEjPohHWO7QcGmBQswpCtRE7iXgT2rQ6W3OBTjF8G61LTGnh8L1qsszFZLNb1Rm
+ exTXvg4SLu+u9OaNc3Q+1GFZcYdzu0nin6ViUgmvcpgiEg7ThBvw9E+j7Jl84IbY16LD
+ 0yCssmtiCVzsPFwGlZi1z7p0/chs8YtpmsjzL2aEh4d8w9W8QeVmgo9H12RskMn8NYGz
+ WFot+1uurbNWWcGDFjHeq3mYuzWcVQE2zsfu0fabNExdN71Hr49Nsfi1g+aE2LEXXpun
+ Yif0SYn0WM2/XtPMvtl0iuIVrvPhzv7udgKci2+a+/3abMW3fQk5qtssxqzRqAOzX0sh
+ Hj2w==
+X-Gm-Message-State: AOPr4FWsRMP39jBbMLUqVdA8qWyn0f/8OXV1LtHvEEofdP7MRxHuSkVAF+PyH24Re4x2mNjZ8+ZOCKsu4mv2tK6c
+X-Received: by 10.36.160.136 with SMTP id o130mr18159711ite.38.1463569812737; 
+ Wed, 18 May 2016 04:10:12 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.107.162.6 with HTTP; Wed, 18 May 2016 04:09:53 -0700 (PDT)
+In-Reply-To: <1463559230.2703.118.camel@aj.id.au>
 References: <1463447715.2703.112.camel@aj.id.au>
  <CAJTo0LbX7qrAc5e0OSJzTJ=ish7rLuGzm9LA7LbKF4DK+jy+PA@mail.gmail.com>
-Organization: IBM OzLabs
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-1IaYjFqGZjdMFM3fQtVv"
-X-Mailer: Evolution 3.18.5.2-0ubuntu1 
-Mime-Version: 1.0
+ <1463559230.2703.118.camel@aj.id.au>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Wed, 18 May 2016 12:09:53 +0100
+Message-ID: <CAJTo0LayTmPkF9qO0SrybbLWVdQh_T7K-+xW_JYAF2K5=nM2fQ@mail.gmail.com>
+Subject: Re: [yocto] Extending runqemu/runqemu-internal with new machines
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Yocto Project <yocto@yoctoproject.org>,
+ Patrick Williams <patrick@stwcx.xyz>, OpenBMC <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary=94eb2c04a148caf8e605331be6f5
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -50,61 +60,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 May 2016 08:14:11 -0000
+X-List-Received-Date: Wed, 18 May 2016 11:10:17 -0000
 
+--94eb2c04a148caf8e605331be6f5
+Content-Type: text/plain; charset=UTF-8
 
---=-1IaYjFqGZjdMFM3fQtVv
-Content-Type: text/plain; charset="UTF-8"
+On 18 May 2016 at 09:13, Andrew Jeffery <andrew@aj.id.au> wrote:
+
+> Thanks for the pointer. Is this the patchset you're referring to?
+>
+>
+> http://lists.openembedded.org/pipermail/openembedded-core/2016-March/118982.html
+>
+> A brief look suggests it might get us some of the way there, but I'll
+> take a more detailed look in the next day or so.
+>
+
+I was actually thinking of
+http://lists.openembedded.org/pipermail/openembedded-core/2016-May/121180.html
+.
+
+Your use case is exactly what this sort of work is aiming to solve (put the
+machine-specific qemu knowledge into the BSP instead of runqemu) so
+feedback would be greatly appreciated.
+
+Ross
+
+--94eb2c04a148caf8e605331be6f5
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Ross,
+<div dir=3D"ltr"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
+On 18 May 2016 at 09:13, Andrew Jeffery <span dir=3D"ltr">&lt;<a href=3D"ma=
+ilto:andrew@aj.id.au" target=3D"_blank">andrew@aj.id.au</a>&gt;</span> wrot=
+e:<br><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
+order-left-width:1px;border-left-color:rgb(204,204,204);border-left-style:s=
+olid;padding-left:1ex"><div id=3D":8yn" class=3D"">Thanks for the pointer. =
+Is this the patchset you&#39;re referring to?<br>
+<br>
+<a href=3D"http://lists.openembedded.org/pipermail/openembedded-core/2016-M=
+arch/118982.html" rel=3D"noreferrer" target=3D"_blank">http://lists.openemb=
+edded.org/pipermail/openembedded-core/2016-March/118982.html</a><br>
+<br>
+A brief look suggests it might get us some of the way there, but I&#39;ll<b=
+r>
+take a more detailed look in the next day or so.</div></blockquote></div><b=
+r>I was actually thinking of=C2=A0<a href=3D"http://lists.openembedded.org/=
+pipermail/openembedded-core/2016-May/121180.html">http://lists.openembedded=
+.org/pipermail/openembedded-core/2016-May/121180.html</a>.</div><div class=
+=3D"gmail_extra"><br></div><div class=3D"gmail_extra">Your use case is exac=
+tly what this sort of work is aiming to solve (put the machine-specific qem=
+u knowledge into the BSP instead of runqemu) so feedback would be greatly a=
+ppreciated.</div><div class=3D"gmail_extra"><br></div><div class=3D"gmail_e=
+xtra">Ross</div></div>
 
-On Tue, 2016-05-17 at 14:20 +0100, Burton, Ross wrote:
->=20
-> On 17 May 2016 at 02:15, Andrew Jeffery <andrew@aj.id.au> wrote:
-> > Is there a better way to work that might avoid these issues?
-> > Alternatively, should we start looking at reworking the
-> > runqemu/runqemu-internal scripts such that we don't have to patch
-> > them
-> > to support our use-case? If so, what sort of approach would the
-> > community be happy with?
-> >=20
-> Dig back a few weeks and you'll a RFC series by Robert Yang
-> refactoring runqemu for exactly this problem.=C2=A0 I've not yet looked a=
-t
-> it myself but if you could see if that solves your problems then that
-> would be much appreciated.
-
-Thanks for the pointer. Is this the patchset you're referring to?
-
-http://lists.openembedded.org/pipermail/openembedded-core/2016-March/118982=
-.html
-
-A brief look suggests it might get us some of the way there, but I'll
-take a more detailed look in the next day or so.
-
-Andrew
---=-1IaYjFqGZjdMFM3fQtVv
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAABCgAGBQJXPCQ+AAoJEJ0dnzgO5LT5brkQAJaObLVIrRnT/+H1lDX6o7yG
-8d44sg7tdi60XRZcb1QsKRtbCSttYo0X8SipoUqkwCQDdIUe8K9vm0XlFtHtIrBr
-4G3/tkOfkZZp5o0XeNoq9wcDL1RIx03HBNRPlIc2sjD2s+IcVAX7BVAeGwNX2GIT
-zv0WAxOa3SuL+VhzPvLgtBry9doGqd92B6Ii2Aspn17prrdWUUELFM3S0QCQr5HB
-mMt1U/bR4Qw+gl6DQ981aS+crzzOMhTyMigAcQos2HEoh6RsP3S5kobxBOWaM45g
-3fViPf0+A+RdAGVIlY8Bj5YBzDdM/840Z1sDlelujAIOMUruAPP0KpK1Bogb3P28
-DJ1xFYzQu6pS/IcM3v6x9xfwvTdv0rfU/q27vHVRkJ2Q9e46awljJN9v/GPMQr5l
-MOsba3FgaZPKihkEyBsFPKIEk85M4w/5GOAqaQNJGkNGR3F/FAawlll11DSmyXg+
-JH1qB8WXgnykkhk6kqo1NuSWuqtdHWK8/K3OqynsTjvNdjv1bskYXm7lN/B96XxZ
-/eQzQfRDWze30VY4D2PB2o2HrGcsgCGzdkDLuYV7NjzNVBVutS/CtTddwEDty7Ui
-/4zE8giPYCgeO+QPh7FnF2Dx+3/jo5I8yuK4GcmPcqPCrXDi9GDbtsWYFTk/oH37
-PKw3/OlEA8tAMIvNLn/6
-=SLs6
------END PGP SIGNATURE-----
-
---=-1IaYjFqGZjdMFM3fQtVv--
+--94eb2c04a148caf8e605331be6f5--
