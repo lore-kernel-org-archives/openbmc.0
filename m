@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r8bVR5mlTzDqBY
- for <openbmc@lists.ozlabs.org>; Wed, 18 May 2016 11:01:03 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r8bVT2cFGzDqBY
+ for <openbmc@lists.ozlabs.org>; Wed, 18 May 2016 11:01:05 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1463533259318336.64313684968056;
- Tue, 17 May 2016 18:00:59 -0700 (PDT)
+ with SMTPS id 1463533260501899.1684746093206;
+ Tue, 17 May 2016 18:01:00 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH skeleton v2 2/3] Deprecate PropertyCacher.py
-Date: Tue, 17 May 2016 20:00:55 -0500
-Message-Id: <1463533256-19471-3-git-send-email-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v2 3/3] Deprecate Sensors.py
+Date: Tue, 17 May 2016 20:00:56 -0500
+Message-Id: <1463533256-19471-4-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.2
 In-Reply-To: <1463533256-19471-1-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1463533256-19471-1-git-send-email-openbmc-patches@stwcx.xyz>
@@ -28,7 +28,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 May 2016 01:01:04 -0000
+X-List-Received-Date: Wed, 18 May 2016 01:01:05 -0000
 
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
@@ -37,98 +37,340 @@ so use that and drop the duplicated code.
 
 Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
- bin/PropertyCacher.py  | 49 -------------------------------------------------
- bin/inventory_items.py |  3 +--
- bin/system_manager.py  |  2 +-
- 3 files changed, 2 insertions(+), 52 deletions(-)
- delete mode 100644 bin/PropertyCacher.py
+ bin/Sensors.py         | 222 -------------------------------------------------
+ bin/hwmon.py           |   6 +-
+ bin/inventory_items.py |   2 +-
+ bin/sensor_manager2.py |  16 ++--
+ bin/system_manager.py  |   2 +-
+ 5 files changed, 13 insertions(+), 235 deletions(-)
+ delete mode 100755 bin/Sensors.py
 
-diff --git a/bin/PropertyCacher.py b/bin/PropertyCacher.py
-deleted file mode 100644
-index dfbb0b9..0000000
---- a/bin/PropertyCacher.py
+diff --git a/bin/Sensors.py b/bin/Sensors.py
+deleted file mode 100755
+index 7c58c97..0000000
+--- a/bin/Sensors.py
 +++ /dev/null
-@@ -1,49 +0,0 @@
+@@ -1,222 +0,0 @@
+-#!/usr/bin/python -u
+-
+-import sys
+-import subprocess
+-#from gi.repository import GObject
+-import gobject
+-import dbus
+-import dbus.service
+-import dbus.mainloop.glib
 -import os
--import cPickle
--import json
+-from obmc.dbuslib.bindings import DbusProperties
 -
--CACHE_PATH = '/var/cache/obmc/'
--
--def getCacheFilename(obj_path, iface_name):
--	name = obj_path.replace('/','.')
--	filename = CACHE_PATH+name[1:]+"@"+iface_name+".props"
--	return filename
--
--def save(obj_path, iface_name, properties):
--	print "Caching: "+obj_path
--	try:
+-## Abstract class, must subclass
+-class SensorValue(DbusProperties):
+-	IFACE_NAME = 'org.openbmc.SensorValue'
+-	def __init__(self,bus,name):
+-		self.Set(SensorValue.IFACE_NAME,'units',"")
+-		self.Set(SensorValue.IFACE_NAME,'error',False)
 -		
--		filename = getCacheFilename(obj_path, iface_name)
--		output = open(filename, 'wb')
+-	@dbus.service.method(IFACE_NAME,
+-		in_signature='v', out_signature='')
+-	def setValue(self,value):
+-		self.Set(SensorValue.IFACE_NAME,'value',value)
+-
+-	@dbus.service.method(IFACE_NAME,
+-		in_signature='', out_signature='v')
+-	def getValue(self):
+-		return self.Get(SensorValue.IFACE_NAME,'value')
+-
+-class SensorThresholds(DbusProperties):
+-	IFACE_NAME = 'org.openbmc.SensorThresholds'
+-	def __init__(self,bus,name):
+-		self.Set(SensorThresholds.IFACE_NAME,'thresholds_enabled',False)
+-		self.Set(SensorThresholds.IFACE_NAME,'emergency_enabled',False)
+-		self.Set(SensorThresholds.IFACE_NAME,'warning_upper',0)
+-		self.Set(SensorThresholds.IFACE_NAME,'warning_lower',0)
+-		self.Set(SensorThresholds.IFACE_NAME,'critical_upper',0)
+-		self.Set(SensorThresholds.IFACE_NAME,'critical_lower',0)
+-		self.Set(SensorThresholds.IFACE_NAME,'critical_lower',0)
+-		self.Set(SensorThresholds.IFACE_NAME,'threshold_state',"NORMAL")
+-		self.Set(SensorThresholds.IFACE_NAME,'worst_threshold_state',"NORMAL")
+-	
+-	@dbus.service.method(IFACE_NAME,
+-		in_signature='', out_signature='')
+-	def resetThresholdState(self):
+-		self.Set(SensorThresholds.IFACE_NAME,'worst_threshold_state',"NORMAL")
+-
+-	def check_thresholds(self,value):
+-		iface = SensorThresholds.IFACE_NAME
+-		if (self.Get(iface,'thresholds_enabled') == False):
+-			return False
+-		rtn = False
+-		current_state = "NORMAL"
+-		if (value >= self.properties[iface]['critical_upper']):
+-			current_state = "CRITICAL"
+-			rtn = True
+-		elif (value <= self.properties[iface]['critical_lower']):
+-			current_state = "CRITICAL"
+-			rtn = True
+-		elif (value >= self.properties[iface]['warning_upper']):
+-			current_state = "WARNING"
+-			rtn = True
+-		elif (value <= self.properties[iface]['warning_lower']):
+-			current_state = "WARNING"
+-			rtn = True
+-
+-		if (self.Get(iface,'threshold_state') != current_state and
+-		 		current_state == "CRITICAL" and
+-				self.Get(iface,'emergency_enabled') == True):
+-			self.Emergency()
+-
+-		self.Set(iface,'threshold_state',current_state)
+-		worst = self.properties[iface]['worst_threshold_state']
+-		if (current_state == "CRITICAL" or 
+-		   (current_state == "WARNING" and worst != "CRITICAL")):
+-			self.Set(iface,'worst_threshold_state',current_state)
+-
+-		return rtn
+-
+-	@dbus.service.signal(IFACE_NAME,signature='')
+-	def Emergency(self):
+-		pass
+-
+-
+-class VirtualSensor(SensorValue):
+-	def __init__(self,bus,name):
+-		DbusProperties.__init__(self)
+-		SensorValue.__init__(self,bus,name)
+-		dbus.service.Object.__init__(self,bus,name)
+-
+-class HwmonSensor(SensorValue,SensorThresholds):
+-	IFACE_NAME = 'org.openbmc.HwmonSensor'
+-	def __init__(self,bus,name):
+-		DbusProperties.__init__(self)
+-		SensorValue.__init__(self,bus,name)
+-		SensorThresholds.__init__(self,bus,name)
+-		self.Set(HwmonSensor.IFACE_NAME,'scale',1)
+-		self.Set(HwmonSensor.IFACE_NAME,'offset',0)
+-		self.Set(HwmonSensor.IFACE_NAME,'filename','')
+-		self.value_dirty = False
+-
+-		# need to cache value to know if changed
+-		self.value = None
+-		dbus.service.Object.__init__(self,bus,name)
+-
+-	@dbus.service.method(SensorValue.IFACE_NAME,
+-		in_signature='v', out_signature='')
+-	def setValue(self,value):
+-		self.value_dirty = True
+-		SensorValue.setValue(self,value)
+-
+-	## Called by sensor process to update value from polling
+-	## if returns not None, then sensor process will update hwmon value
+-	@dbus.service.method(IFACE_NAME,
+-		in_signature='v', out_signature='(bv)')
+-	def setByPoll(self,value):
+-		scale = self.properties[HwmonSensor.IFACE_NAME]['scale']
+-		offset = self.properties[HwmonSensor.IFACE_NAME]['offset']
+-		if (self.value_dirty == True):
+-			## new value externally set, so just return to hwmon
+-			## process to write value
+-			self.value_dirty = False
+-			val = (self.properties[SensorValue.IFACE_NAME]['value']-offset) * scale
+-			return [True,val]
+-		else:
+-			# Keep the val as integer. scale may be floating point
+-			val = int(value/scale + offset)
+-			if (val != self.value):
+-				SensorValue.setValue(self,val)
+-				self.check_thresholds(val)
+-				self.value = val
+-
+-			return [False,0]
+-		
+-CONTROL_IFACE = 'org.openbmc.Control'
+-class PowerCap(VirtualSensor):
+-	def __init__(self, bus, name):
+-		VirtualSensor.__init__(self, bus, name)
+-		SensorValue.setValue(self, 0)
+-		self.sysfs_attr = "/sys/class/hwmon/hwmon3/user_powercap"
+-	##override setValue method
+-	@dbus.service.method(SensorValue.IFACE_NAME,
+-		in_signature='v', out_signature='')
+-	def setValue(self, value):
 -		try:
--			## use json module to convert dbus datatypes
--			props = json.dumps(properties[iface_name])
--			prop_obj = json.loads(props)
--			cPickle.dump(prop_obj,output)
--		except Exception as e:
--			print "ERROR: "+str(e)
--		finally:
--			output.close()
--	except:
--		print "ERROR opening cache file: "+filename
+-			cmd_str = "echo "+str(value)+" > "+self.sysfs_attr
+-			ret = subprocess.check_output(cmd_str, shell=True)
+-		except subprocess.CalledProcessError as powerexc:
+-			print "Set PowerCap Error", powerexc.returncode,
+-			powerexc.output
+-			return
+-		print "Set PowerCap: ", value
+-		SensorValue.setValue(self, value)
+-		
+-class BootProgressSensor(VirtualSensor):
+-	def __init__(self,bus,name):
+-		VirtualSensor.__init__(self,bus,name)
+-		self.setValue("Off")
+-		bus.add_signal_receiver(self.SystemStateHandler,signal_name = "GotoSystemState")
+-
+-	def SystemStateHandler(self,state):
+-		if (state == "HOST_POWERED_OFF"):
+-			self.setValue("Off")
 -
 -
--def load(obj_path, iface_name, properties):
--	## overlay with pickled data
--	filename=getCacheFilename(obj_path, iface_name)
--	if (os.path.isfile(filename)):
--		if (properties.has_key(iface_name) == False):
--			properties[iface_name] = {}
--		print "Loading from cache: "+filename
--		try:			
--			p = open(filename, 'rb')
--			data = cPickle.load(p)
--			for prop in data.keys():
--				properties[iface_name][prop] = data[prop]
--						
--		except Exception as e:
--			print "ERROR: Loading cache file: " +str(e)
--		finally:
--			p.close()
+-	##override setValue method
+-	@dbus.service.method(SensorValue.IFACE_NAME,
+-		in_signature='v', out_signature='')
+-	def setValue(self,value):
+-		SensorValue.setValue(self,value)
+-		if (value == "FW Progress, Starting OS"):
+-			self.GotoSystemState("HOST_BOOTED")
+-			
+-	@dbus.service.signal(CONTROL_IFACE,signature='s')
+-	def GotoSystemState(self,state):
+-		pass
+-		
+-class OccStatusSensor(VirtualSensor):
+-	def __init__(self,bus,name, sysfs = None):
+-		## default path. can be override
+-		if sysfs is None:
+-			self.sysfs_attr = "/sys/class/i2c-adapter/i2c-3/3-0050/online"
+-		else:
+-			self.sysfs_attr = sysfs
+-		VirtualSensor.__init__(self,bus,name)
+-		self.setValue("Disabled")
+-		bus.add_signal_receiver(self.SystemStateHandler,signal_name = "GotoSystemState")
 -
+-	def SystemStateHandler(self,state):
+-		if (state == "HOST_POWERED_OFF"):
+-			self.setValue("Disabled")
 -
+-	##override setValue method
+-	@dbus.service.method(SensorValue.IFACE_NAME,
+-		in_signature='v', out_signature='')
+-	def setValue(self,value):
+-		if (value == "Enabled"):
+-			print "Installing OCC device"
+-			os.system("echo 1 > " +  self.sysfs_attr)
+-		else:
+-			print "Deleting OCC device"
+-			os.system("echo 0 > " +  self.sysfs_attr)
+-		SensorValue.setValue(self,value)
+-			
+-	@dbus.service.signal(CONTROL_IFACE,signature='s')
+-	def GotoSystemState(self,state):
+-		pass
+-	
+-class BootCountSensor(VirtualSensor):
+-	def __init__(self,bus,name):
+-		VirtualSensor.__init__(self,bus,name)
+-		self.setValue(2)
+-
+-class OperatingSystemStatusSensor(VirtualSensor):
+-	def __init__(self,bus,name):
+-		VirtualSensor.__init__(self,bus,name)
+-		self.setValue("Off")
+-		bus.add_signal_receiver(self.SystemStateHandler,signal_name = "GotoSystemState")
+-
+-	def SystemStateHandler(self,state):
+-		if (state == "HOST_POWERED_OFF"):
+-			self.setValue("Off")
+diff --git a/bin/hwmon.py b/bin/hwmon.py
+index 7e1858e..0cf570c 100755
+--- a/bin/hwmon.py
++++ b/bin/hwmon.py
+@@ -10,9 +10,9 @@ import dbus.mainloop.glib
+ import re
+ from obmc.dbuslib.bindings import get_dbus
+ 
+-from Sensors import SensorValue as SensorValue
+-from Sensors import HwmonSensor as HwmonSensor
+-from Sensors import SensorThresholds as SensorThresholds
++from obmc.sensors import SensorValue as SensorValue
++from obmc.sensors import HwmonSensor as HwmonSensor
++from obmc.sensors import SensorThresholds as SensorThresholds
+ 
+ if (len(sys.argv) < 2):
+ 	print "Usage:  sensors_hwmon.py [system name]"
 diff --git a/bin/inventory_items.py b/bin/inventory_items.py
-index bf7f414..1b0fa39 100755
+index 1b0fa39..5e53293 100755
 --- a/bin/inventory_items.py
 +++ b/bin/inventory_items.py
 @@ -8,7 +8,7 @@ import dbus.service
  import dbus.mainloop.glib
  import cPickle
  import json
--import PropertyCacher
-+from obmc.dbuslib.propertycacher import PropertyCacher
+-from obmc.dbuslib.propertycacher import PropertyCacher
++import obmc.dbuslib.propertycacher as PropertyCacher
  from obmc.dbuslib.bindings import get_dbus, DbusProperties, DbusObjectManager
  
  if (len(sys.argv) < 2):
-@@ -37,7 +37,6 @@ class InventoryItem(DbusProperties):
- 		self.name = name
- 		
- 		## this will load properties from cache
--		# PropertyCacher.load(name,INTF_NAME,self.properties)
- 		if (data.has_key('present') == False):
- 			data['present'] = 'False'
- 		if (data.has_key('fault') == False):
+diff --git a/bin/sensor_manager2.py b/bin/sensor_manager2.py
+index b06b9a5..9ed51f3 100755
+--- a/bin/sensor_manager2.py
++++ b/bin/sensor_manager2.py
+@@ -6,7 +6,7 @@ import gobject
+ import dbus
+ import dbus.service
+ import dbus.mainloop.glib
+-import Sensors
++import obmc.sensors
+ from obmc.dbuslib.bindings import DbusProperties, DbusObjectManager, get_dbus
+ 
+ DBUS_NAME = 'org.openbmc.Sensors'
+@@ -25,7 +25,7 @@ class SensorManager(DbusProperties,DbusObjectManager):
+ 	def register(self,object_name,obj_path):
+ 		if (self.objects.has_key(obj_path) == False):
+ 			print "Register: "+object_name+" : "+obj_path
+-			sensor = eval('Sensors.'+object_name+'(bus,obj_path)')
++			sensor = eval('obmc.sensors.Sensors.'+object_name+'(bus,obj_path)')
+ 			self.add(obj_path,sensor)
+ 
+ 	@dbus.service.method(DBUS_NAME,
+@@ -53,29 +53,29 @@ if __name__ == '__main__':
+ 	## TODO: this should not be hardcoded
+ 
+ 	obj_path = OBJ_PATH+"/host/PowerCap"
+-	sensor_obj = Sensors.PowerCap(bus,obj_path)
++	sensor_obj = obmc.sensors.PowerCap(bus,obj_path)
+ 	## hwmon3 is default for master OCC on Barreleye.
+ 	## should rewrite sensor_manager to remove hardcode
+ 	sensor_obj.sysfs_attr = "/sys/class/hwmon/hwmon3/user_powercap"
+ 	root_sensor.add(obj_path,sensor_obj)
+ 
+ 	obj_path = OBJ_PATH+"/host/BootProgress"
+-	root_sensor.add(obj_path,Sensors.BootProgressSensor(bus,obj_path))
++	root_sensor.add(obj_path,obmc.sensors.BootProgressSensor(bus,obj_path))
+ 
+ 	obj_path = OBJ_PATH+"/host/cpu0/OccStatus"
+-	sensor_obj = Sensors.OccStatusSensor(bus,obj_path)
++	sensor_obj = obmc.sensors.OccStatusSensor(bus,obj_path)
+ 	sensor_obj.sysfs_attr = "/sys/class/i2c-adapter/i2c-3/3-0050/online"
+ 	root_sensor.add(obj_path,sensor_obj)
+ 
+ 	obj_path = OBJ_PATH+"/host/cpu1/OccStatus"
+-	sensor_obj = Sensors.OccStatusSensor(bus,obj_path)
++	sensor_obj = obmc.sensors.OccStatusSensor(bus,obj_path)
+ 	sensor_obj.sysfs_attr = "/sys/class/i2c-adapter/i2c-3/3-0051/online"
+ 	root_sensor.add(obj_path,sensor_obj)
+ 
+ 	obj_path = OBJ_PATH+"/host/BootCount"
+-	root_sensor.add(obj_path,Sensors.BootCountSensor(bus,obj_path))
++	root_sensor.add(obj_path,obmc.sensors.BootCountSensor(bus,obj_path))
+ 	obj_path = OBJ_PATH+"/host/OperatingSystemStatus"
+-	root_sensor.add(obj_path,Sensors.OperatingSystemStatusSensor(bus,obj_path))
++	root_sensor.add(obj_path,obmc.sensors.OperatingSystemStatusSensor(bus,obj_path))
+ 
+ 	mainloop = gobject.MainLoop()
+ 	print "Starting sensor manager"
 diff --git a/bin/system_manager.py b/bin/system_manager.py
-index 2331131..fdb1bf1 100755
+index fdb1bf1..ad22f4a 100755
 --- a/bin/system_manager.py
 +++ b/bin/system_manager.py
 @@ -8,7 +8,7 @@ import dbus.service
  import dbus.mainloop.glib
  import os
  import time
--import PropertyCacher
-+from obmc.dbuslib.propertycacher import PropertyCacher
+-from obmc.dbuslib.propertycacher import PropertyCacher
++import obmc.dbuslib.propertycacher as PropertyCacher
  from obmc.dbuslib.bindings import DbusProperties, DbusObjectManager, get_dbus
  import obmc.enums
  
