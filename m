@@ -1,41 +1,56 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-Received: from mail.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <cyrilbur@gmail.com>
+Received: from mail-pf0-x243.google.com (mail-pf0-x243.google.com
+ [IPv6:2607:f8b0:400e:c00::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r8cC257HpzDqBM
- for <openbmc@lists.ozlabs.org>; Wed, 18 May 2016 11:32:45 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com
- header.b=zHrM+ZXr; dkim-atps=neutral
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.fuzziesquirrel.com 41AC4242F5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fuzziesquirrel.com;
- s=mail; t=1463535163;
- bh=EEzkRhZ0m3RKdHpVzOQnNQy0TAWJIhlMnkku6Lrl1lI=;
- h=Subject:From:In-Reply-To:Date:Cc:References:To:From;
- b=zHrM+ZXryeD7aoowI8m91nRwxSjB/BsZu9XXCvaDwBEfrCmGGnTRrBVU36tRriST1
- 0CnmutA90ld0ZgvwBeqxHLzz21AwbHYd/0q8ICJuxMhWQQv0AWRsPjcfkbqhX7ZL31
- 749iYXS3/gljisSW7kwgK/9lwCHGnyWCSjmwoYRY=
-Received: from brads-mbp.dyn.fuzziesquirrel.com
- (Brads-MBP.dyn.fuzziesquirrel.com [192.168.253.29])
- by mail.fuzziesquirrel.com (Postfix) with ESMTPSA id 931D1242AC;
- Tue, 17 May 2016 21:32:41 -0400 (EDT)
-Content-Type: text/plain; charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 9.3 \(3124\))
-Subject: Re: [PATCH openbmc] Add pflash to SDK
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <20160518113020.21dd30af@camb691>
-Date: Tue, 17 May 2016 21:32:41 -0400
-Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>,
- openbmc@lists.ozlabs.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <E341EB3A-EC7A-4246-A5BA-0D95371F127D@fuzziesquirrel.com>
-References: <1463495436-27711-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1463495436-27711-2-git-send-email-openbmc-patches@stwcx.xyz>
- <20160518113020.21dd30af@camb691>
-To: Cyril Bur <cyrilbur@gmail.com>
-X-Mailer: Apple Mail (2.3124)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r8cCD5q5TzDqD3
+ for <openbmc@lists.ozlabs.org>; Wed, 18 May 2016 11:32:56 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=mnwVeRRL; 
+ dkim-atps=neutral
+Received: by mail-pf0-x243.google.com with SMTP id 145so3449880pfz.1
+ for <openbmc@lists.ozlabs.org>; Tue, 17 May 2016 18:32:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=3ybAAiSYUxVVQphgGGwbHznw/Mq8EzhGBEpiVT4dHhM=;
+ b=mnwVeRRLfTtx195qR8dUsrDtp60wnnld6BUi2MyC3OWDb5ydf7Xyh3LQY19zNIcMRO
+ aTWDpOvM1ZXESCbWFq5Z/Uji3jyXjJoojXOBBdfxFrrbGAHHgRfIHnq9+Dn2zp3v/44i
+ KN0WZXaRJd/I6C0cDCPVV4XstyuDRye1xOwIwj4cq0IfbYmpbJXkpl6V/ntCpiK46W4l
+ XHv8Eci0jMQ4hv+oZYcXNlII9lEUr9cArV3w0SnuVWJjLB3iIec+wdLqwIsakokIuXag
+ VjNpCM1VWVGcAxEzy5+zjjvkw6JljFzE+DPI09vz/7BxkMdlTfdlA9yWGWThfaOA4Cwo
+ 1/ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=3ybAAiSYUxVVQphgGGwbHznw/Mq8EzhGBEpiVT4dHhM=;
+ b=CB/Yzx0nsz8n+pUHDzT3hgv91WEgoe8Xx/ApkcmBSSpu5fXOkETIbVx6yrFjLA3f+T
+ bUMP9Vm0tpckFkPggprCGXOBxH6uMmMyjDGvoqdHjrlgc3tyFECgmC0w6BVhNGXX8jWE
+ rvzsY8fXQ/0P5EbWL6BonoyfybF098DsFQ/RxdCoLex0/JnXJTOqhO5LRAWF1R0ml4Xl
+ DfDnqU4lti6ai/q95ubgY7hEkKYP1RbnNepNycvQnyOqvswnVwIB6njVswtjvBt/or1i
+ BEMP/ywmSm3x50wZS8PfngfB0bF3lthprtVkeez0qt0zMUe0JyYlutUhvF2YRJr1msgO
+ ou2Q==
+X-Gm-Message-State: AOPr4FWiczvSbaqMQipmNjRkekqfsUuV85V2Iwp+Z0HhD/nNBSYch2FRcuE9xG2bheeU/g==
+X-Received: by 10.98.1.202 with SMTP id 193mr6869221pfb.10.1463535155260;
+ Tue, 17 May 2016 18:32:35 -0700 (PDT)
+Received: from camb691 ([122.99.82.10])
+ by smtp.gmail.com with ESMTPSA id ry2sm7581021pac.9.2016.05.17.18.32.33
+ (version=TLSv1/SSLv3 cipher=OTHER);
+ Tue, 17 May 2016 18:32:35 -0700 (PDT)
+Date: Wed, 18 May 2016 11:32:26 +1000
+From: Cyril Bur <cyrilbur@gmail.com>
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Cc: openbmc@lists.ozlabs.org, Brad Bishop <bradleyb@fuzziesquirrel.com>
+Subject: Re: [PATCH skeleton v2 1/3] Deprecate Openbmc.py
+Message-ID: <20160518113226.49aa8f0e@camb691>
+In-Reply-To: <1463533256-19471-2-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1463533256-19471-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1463533256-19471-2-git-send-email-openbmc-patches@stwcx.xyz>
+X-Mailer: Claws Mail 3.13.2 (GTK+ 2.24.30; x86_64-unknown-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -47,260 +62,549 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 May 2016 01:32:50 -0000
+X-List-Received-Date: Wed, 18 May 2016 01:32:57 -0000
 
-Thanks for the review Cyril.
+On Tue, 17 May 2016 20:00:54 -0500
+OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
 
-> On May 17, 2016, at 9:30 PM, Cyril Bur <cyrilbur@gmail.com> wrote:
->=20
-> On Tue, 17 May 2016 09:30:36 -0500
-> OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
->=20
->> From: Brad Bishop <bradleyb@fuzziesquirrel.com>
->>=20
->> Make use of the skiboot external/shared support for dynamic so/bin.
->> This allows us to completely remove pflash from skeleton.
->>=20
->=20
-> Hey Brad, this looks great!
->=20
-> This is a pet hate of mine, getting roped into extra work - so I'm =
-totally
-> prepared to do it but we should consider upstreaming the pflash patch. =
-I'm not
-> sure it can be upstreamed as is but the end product is definitely =
-right for
-> upstream.
->=20
+> From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+> 
+> The pyphosphor package provides equivalent function
+> so use that and drop the duplicated code.
+> 
+> Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
-Actually I submitted this upstream also:  =
-https://patchwork.ozlabs.org/patch/623309/ =
-<https://patchwork.ozlabs.org/patch/623309/>
+Love deleting duplicated code!
 
-Let me know if it needs any work=E2=80=A6.
+Reviewed-by: Cyril Bur <cyrilbur@gmail.com>
 
-> Do you or does anyone have any thoughts as to how to integrate into =
-upstream?
-> `make shared` target just as an idea off the top of my head.
->=20
->> Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
->=20
-> Reviewed-by: Cyril Bur <cyrilbur@gmail.com>
->=20
->> ---
->> .../common/recipes-bsp/pflash/pflash.bb            |   8 +-
->> .../pflash/pflash/0001-pflash-Build-solib.patch    | 119 =
-+++++++++++++++++++++
->> .../common/recipes-phosphor/skeleton/skeleton.bb   |   7 +-
->> 3 files changed, 127 insertions(+), 7 deletions(-)
->> create mode 100644 =
-meta-openbmc-machines/meta-openpower/common/recipes-bsp/pflash/pflash/0001=
--pflash-Build-solib.patch
->>=20
->> diff --git =
-a/meta-openbmc-machines/meta-openpower/common/recipes-bsp/pflash/pflash.bb=
- =
-b/meta-openbmc-machines/meta-openpower/common/recipes-bsp/pflash/pflash.bb=
-
->> index 5c0cfa4..862f4fb 100644
->> --- =
-a/meta-openbmc-machines/meta-openpower/common/recipes-bsp/pflash/pflash.bb=
-
->> +++ =
-b/meta-openbmc-machines/meta-openpower/common/recipes-bsp/pflash/pflash.bb=
-
->> @@ -8,15 +8,19 @@ LIC_FILES_CHKSUM =3D =
-"file://${S}/LICENCE;md5=3D3b83ef96387f14655fc854ddc3c6bd57"
->>=20
->> SRCREV =3D "skiboot-5.2.1"
->> PV =3D "5.2.1"
->> +SRC_URI +=3D "file://0001-pflash-Build-solib.patch"
->>=20
->> S =3D "${WORKDIR}/git"
->>=20
->> EXTRA_OEMAKE =3D 'CROSS_COMPILE=3D${TARGET_PREFIX} =
-PFLASH_VERSION=3D${PV} V=3D1'
->> +CFLAGS_append =3D ' -fPIC'
->>=20
->> do_compile () {
->> -        oe_runmake -C external/pflash all
->> +        oe_runmake -C external/shared all
->> }
->>=20
->> do_install () {
->> -        oe_runmake -C external/pflash install DESTDIR=3D${D}
->> +        oe_runmake -C external/shared install DESTDIR=3D${D}
->> }
->> +
->> +BBCLASSEXTEND =3D "nativesdk"
->> diff --git =
-a/meta-openbmc-machines/meta-openpower/common/recipes-bsp/pflash/pflash/00=
-01-pflash-Build-solib.patch =
-b/meta-openbmc-machines/meta-openpower/common/recipes-bsp/pflash/pflash/00=
-01-pflash-Build-solib.patch
->> new file mode 100644
->> index 0000000..59f2ebc
->> --- /dev/null
->> +++ =
-b/meta-openbmc-machines/meta-openpower/common/recipes-bsp/pflash/pflash/00=
-01-pflash-Build-solib.patch
->> @@ -0,0 +1,119 @@
->> +diff --git a/external/pflash/rules.mk b/external/pflash/rules.mk
->> +index aa426b5..c0199e3 100644
->> +--- a/external/pflash/rules.mk
->> ++++ b/external/pflash/rules.mk
->> +@@ -1,12 +1,12 @@
->> + .DEFAULT_GOAL :=3D all
->> +=20
->> + override CFLAGS  +=3D -O2 -Wall -I.
->> +-OBJS    =3D pflash.o progress.o version.o
->> ++PFLASH_OBJS    =3D pflash.o progress.o version.o =
-common-arch_flash.o
->> + LIBFLASH_FILES :=3D libflash.c libffs.c ecc.c blocklevel.c file.c
->> + LIBFLASH_OBJS :=3D $(addprefix libflash-, $(LIBFLASH_FILES:.c=3D.o))
->> + LIBFLASH_SRC :=3D $(addprefix libflash/,$(LIBFLASH_FILES))
->> ++OBJS	+=3D $(PFLASH_OBJS)
->> + OBJS	+=3D $(LIBFLASH_OBJS)
->> +-OBJS	+=3D common-arch_flash.o
->> + EXE     =3D pflash
->> +=20
->> + PFLASH_VERSION ?=3D $(shell ../../make_version.sh $(EXE))
->> +diff --git a/external/shared/.gitignore b/external/shared/.gitignore
->> +new file mode 100644
->> +index 0000000..541d2a2
->> +--- /dev/null
->> ++++ b/external/shared/.gitignore
->> +@@ -0,0 +1,2 @@
->> ++pflash-dynamic
->> ++libflash.so*
->> +diff --git a/external/shared/Makefile b/external/shared/Makefile
->> +index 4c31657..aa1d881 100644
->> +--- a/external/shared/Makefile
->> ++++ b/external/shared/Makefile
->> +@@ -1,56 +1,44 @@
->> +-.DEFAULT_GOAL :=3D all
->> + GET_ARCH =3D ../../external/common/get_arch.sh
->> ++include ../../external/pflash/rules.mk
->> + include ../../external/common/rules.mk
->> +=20
->> +-PREFIX ?=3D /usr/local/
->> +-LIBDIR =3D $(PREFIX)/lib
->> +-INCDIR =3D $(PREFIX)/include/libflash
->> ++libdir=3D/usr/lib
->> ++incdir=3D/usr/include
->> ++sbindir=3D/usr/sbin
->> +=20
->> +-VERSION =3D $(shell ../../make_version.sh)
->> ++PFLASH_DIR=3D../pflash/
->> ++EXE=3Dpflash-dynamic
->> ++LIB=3Dlibflash.so
->> ++SONAME=3D$(LIB).1
->> ++VERSION =3D $(shell ../../make_version.sh "$(SONAME)")
->> ++OBJS=3D$(addprefix $(PFLASH_DIR), $(LIBFLASH_OBJS))
->> ++OBJS+=3D$(addprefix $(PFLASH_DIR), $(ARCH_OBJS))
->> ++DYN_OBJS=3D$(addprefix $(PFLASH_DIR), $(PFLASH_OBJS))
->> +=20
->> +-CFLAGS +=3D -m64 -Werror -Wall -g2 -ggdb -I. -fPIC
->> ++LIBFLASH_HEADERS=3Dlibffs.h libflash.h blocklevel.h errors.h ffs.h
->> ++ARCHFLASH_HEADERS=3Darch_flash.h io.h
->> +=20
->> +-.PHONY: links
->> +-links: libflash ccan common
->> ++all: $(EXE)
->> +=20
->> +-libflash:
->> +-	ln -sf ../../libflash .
->> ++$(LIB):
->> ++	$(MAKE) -C $(PFLASH_DIR)
->> ++	$(Q_CC)$(CC) -shared -fPIC -Wl,-soname,$(SONAME) $(OBJS) -o =
-$(VERSION)
->> +=20
->> +-common:
->> +-	ln -sf ../common .
->> ++$(EXE): $(LIB)
->> ++	$(Q_CC)$(CC) $(CFLAGS) $(DYN_OBJS) $(VERSION) -lrt -o $(EXE)
->> +=20
->> +-ccan:
->> +-	ln -sf ../../ccan .
->> ++install: install-bins install-headers
->> +=20
->> +-LIBFLASH_OBJS =3D libflash-file.o libflash-libflash.o =
-libflash-libffs.o libflash-ecc.o libflash-blocklevel.o
->> +-ARCHFLASH_OBJS =3D common-arch_flash.o
->> +-OBJS =3D $(LIBFLASH_OBJS) $(ARCHFLASH_OBJS)
->> ++install-headers:
->> ++	$(Q_MKDIR)mkdir -p $(DESTDIR)$(incdir)/libflash =
-$(DESTDIR)$(incdir)/common
->> ++	install -m644 $(addprefix $(PFLASH_DIR)libflash/, =
-$(LIBFLASH_HEADERS)) $(DESTDIR)$(incdir)/libflash
->> ++	install -m644 $(addprefix $(PFLASH_DIR)common/, =
-$(ARCHFLASH_HEADERS)) $(DESTDIR)$(incdir)/common
->> +=20
->> +-LIBFLASH_H =3D libflash/file.h libflash/libflash.h =
-libflash/libffs.h libflash/ffs.h libflash/ecc.h libflash/blocklevel.h =
-libflash/errors.h
->> +-ARCHFLASH_H =3D common/arch_flash.h
->> +-
->> +-$(LIBFLASH_OBJS) : libflash-%.o : libflash/%.c
->> +-	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
->> ++install-bins: all
->> ++	install -D $(EXE) $(DESTDIR)$(sbindir)/pflash
->> ++	install -D $(VERSION) $(DESTDIR)$(libdir)/$(VERSION)
->> ++	$(Q_LN)ln -sf $(VERSION) $(DESTDIR)$(libdir)/$(SONAME)
->> ++	$(Q_LN)ln -sf $(VERSION) $(DESTDIR)$(libdir)/$(LIB)
->> +=20
->> + clean:
->> +-	rm -f $(OBJS) common-*.o *.so*
->> +-
->> +-distclean: clean
->> +-	rm -f ccan libflash common
->> +-
->> +-all: links arch_links $(OBJS)
->> +-	$(CC) -shared -Wl,-soname,libflash.so -o libflash.so.$(VERSION) =
-$(OBJS)
->> +-
->> +-install-lib: all
->> +-	install -D -m 0755 libflash.so.$(VERSION) =
-$(LIBDIR)/libflash.so.$(VERSION)
->> +-	ln -sf libflash.so.$(VERSION) $(LIBDIR)/libflash.so
->> +-
->> +-install-dev: links arch_links
->> +-	mkdir -p $(INCDIR)
->> +-	install -m 0644 $(LIBFLASH_H) $(ARCHFLASH_H) $(INCDIR)
->> +-
->> +-install: install-lib install-dev
->> +-
->> +-uninstall:
->> +-	rm -f $(LIBDIR)/libflash*
->> +-	rm -rf $(INCDIR)
->> ++	rm -rf $(LIB).* $(EXE)
->> diff --git =
-a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb =
-b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
->> index 1553314..8a11ee1 100644
->> --- a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
->> +++ b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
->> @@ -16,9 +16,9 @@ DEPENDS +=3D "glib-2.0 systemd"
->> RDEPENDS_${PN} +=3D "python-subprocess python-compression libsystemd"
->> SRC_URI +=3D "git://github.com/openbmc/skeleton"
->>=20
->> -# RDEPEND on pflash if the openpower-pflash machine feature is set.
->> +# DEPEND/RDEPEND on pflash if the openpower-pflash machine feature =
-is set.
->> PACKAGECONFIG ??=3D "${@bb.utils.contains('MACHINE_FEATURES', =
-'openpower-pflash', 'openpower-pflash', '', d)}"
->> -PACKAGECONFIG[openpower-pflash] =3D ",,,pflash"
->> +PACKAGECONFIG[openpower-pflash] =3D ",,pflash,pflash"
->>=20
->> SRCREV =3D "264009617c231447d6c8fc61264cf3c6ea7f49d5"
->>=20
->> @@ -26,9 +26,6 @@ S =3D "${WORKDIR}"
->>=20
->> do_compile() {
->>         oe_runmake -C git
->> -
->> -        # Remove deprecated files.
->> -        rm ${S}/git/bin/pflash
->> }
->>=20
->> do_install() {
+> ---
+>  bin/Openbmc.py          | 146 ------------------------------------------------
+>  bin/PropertyCacher.py   |   1 -
+>  bin/Sensors.py          |  11 ++--
+>  bin/bmc_update.py       |  10 ++--
+>  bin/chassis_control.py  |  11 ++--
+>  bin/download_manager.py |   5 +-
+>  bin/fan_control.py      |  10 ++--
+>  bin/hwmon.py            |   4 +-
+>  bin/inventory_items.py  |  14 ++---
+>  bin/sensor_manager2.py  |  10 ++--
+>  bin/system_manager.py   |  14 ++---
+>  11 files changed, 44 insertions(+), 192 deletions(-)
+>  delete mode 100755 bin/Openbmc.py
+> 
+> diff --git a/bin/Openbmc.py b/bin/Openbmc.py
+> deleted file mode 100755
+> index b87fec8..0000000
+> --- a/bin/Openbmc.py
+> +++ /dev/null
+> @@ -1,146 +0,0 @@
+> -import dbus
+> -
+> -BUS_PREFIX = 'org.openbmc'
+> -OBJ_PREFIX = "/org/openbmc"
+> -GPIO_DEV = '/sys/class/gpio'
+> -BUS = "system"
+> -
+> -def getSystemName():
+> -	#use filename as system name, strip off path and ext
+> -	parts = __file__.replace('.pyc','').replace('.py','').split('/')
+> -	return parts[len(parts)-1]
+> -
+> -def getDBus():
+> -	bus = None
+> -	if (BUS == "session"):
+> -		bus = dbus.SessionBus()
+> -	else:
+> -		bus = dbus.SystemBus()
+> -	return bus
+> -
+> -class DbusProperties(dbus.service.Object):
+> -	def __init__(self):
+> -		dbus.service.Object.__init__(self)
+> -		self.properties = {}
+> -		self.object_path = ""
+> -
+> -	@dbus.service.method(dbus.PROPERTIES_IFACE,
+> -		in_signature='ss', out_signature='v')
+> -	def Get(self, interface_name, property_name):
+> -		d = self.GetAll(interface_name)
+> -		try:
+> -			v = d[property_name]
+> -			return v
+> -		except:
+> - 			raise dbus.exceptions.DBusException(
+> -				"org.freedesktop.UnknownPropery: "+property_name)
+> -
+> -	@dbus.service.method(dbus.PROPERTIES_IFACE,
+> -		in_signature='s', out_signature='a{sv}')
+> -	def GetAll(self, interface_name):
+> -		try:
+> -			d = self.properties[interface_name]
+> -			return d
+> - 		except:
+> - 			raise dbus.exceptions.DBusException(
+> -				"org.freedesktop.UnknownInterface: "+interface_name)
+> -
+> -	@dbus.service.method(dbus.PROPERTIES_IFACE,
+> -		in_signature='ssv')
+> -	def Set(self, interface_name, property_name, new_value):
+> -		if (self.properties.has_key(interface_name) == False):
+> -			self.properties[interface_name] = {}
+> -		try:
+> -			old_value = self.properties[interface_name][property_name] 
+> -			if (old_value != new_value):
+> -				self.properties[interface_name][property_name] = new_value
+> -				self.PropertiesChanged(interface_name,{ property_name: new_value }, [])
+> -				
+> -		except:
+> -        		self.properties[interface_name][property_name] = new_value
+> -			self.PropertiesChanged(interface_name,{ property_name: new_value }, [])
+> -
+> -	@dbus.service.method("org.openbmc.Object.Properties",
+> -		in_signature='sa{sv}')
+> -	def SetMultiple(self, interface_name, prop_dict):
+> -		if (self.properties.has_key(interface_name) == False):
+> -			self.properties[interface_name] = {}
+> -
+> -		value_changed  = False
+> -		for property_name in prop_dict:
+> -			new_value = prop_dict[property_name]
+> -			try:
+> -				old_value = self.properties[interface_name][property_name] 
+> -				if (old_value != new_value):
+> -					self.properties[interface_name][property_name] = new_value
+> -					value_changed = True
+> -				
+> -			except:
+> -        			self.properties[interface_name][property_name] = new_value
+> -				value_changed = True
+> -		if (value_changed == True):
+> -			self.PropertiesChanged(interface_name, prop_dict, [])
+> -	
+> -	@dbus.service.signal(dbus.PROPERTIES_IFACE,
+> -		signature='sa{sv}as')
+> -	def PropertiesChanged(self, interface_name, changed_properties,
+> -		invalidated_properties):
+> -		pass
+> -
+> -class DbusObjectManager(dbus.service.Object):
+> -	def __init__(self):
+> -		dbus.service.Object.__init__(self)
+> -		self.objects = {}
+> -
+> -	def add(self,object_path,obj):
+> -		self.objects[object_path] = obj
+> -		self.InterfacesAdded(object_path,obj.properties)
+> -
+> -	def remove(self,object_path):
+> -		obj = self.objects.pop(object_path,None)
+> -		obj.remove_from_connection()
+> -		self.InterfacesRemoved(object_path,obj.properties.keys())
+> -
+> -	def get(self,object_path):
+> -		return self.objects[object_path]
+> -
+> -	@dbus.service.method("org.freedesktop.DBus.ObjectManager",
+> -		in_signature='', out_signature='a{oa{sa{sv}}}')
+> -	def GetManagedObjects(self):
+> -		data = {}
+> -		for objpath in self.objects.keys():
+> -			data[objpath] = self.objects[objpath].properties
+> -		return data
+> -
+> -	@dbus.service.signal("org.freedesktop.DBus.ObjectManager",
+> -		signature='oa{sa{sv}}')
+> -	def InterfacesAdded(self,object_path,properties):
+> -		self.ObjectAdded(object_path,"")
+> -
+> -	@dbus.service.signal("org.freedesktop.DBus.ObjectManager",
+> -		signature='oas')
+> -	def InterfacesRemoved(self,object_path,interfaces):
+> -		pass
+> -
+> -	## Legacy support, need to eventually refactor out
+> -	@dbus.service.signal("org.openbmc.Object.ObjectMapper",
+> -		signature='ss')
+> -	def ObjectAdded(self,object_path,interface_name):
+> -		pass
+> -
+> -	## flattens interfaces
+> -	@dbus.service.method('org.openbmc.Object.Enumerate',
+> -		in_signature='', out_signature='a{sa{sv}}')
+> -	def enumerate(self):
+> -		data = {}
+> -		for objpath in self.objects.keys():
+> -			props = self.objects[objpath].properties
+> -			data[objpath] = { }
+> -			for iface in props.keys():
+> -				data[objpath].update(props[iface])
+> -				
+> -		return data
+> -		
+> -
+> -
+> -
+> diff --git a/bin/PropertyCacher.py b/bin/PropertyCacher.py
+> index b10edcb..dfbb0b9 100644
+> --- a/bin/PropertyCacher.py
+> +++ b/bin/PropertyCacher.py
+> @@ -1,7 +1,6 @@
+>  import os
+>  import cPickle
+>  import json
+> -import Openbmc
+>  
+>  CACHE_PATH = '/var/cache/obmc/'
+>  
+> diff --git a/bin/Sensors.py b/bin/Sensors.py
+> index ecdac91..7c58c97 100755
+> --- a/bin/Sensors.py
+> +++ b/bin/Sensors.py
+> @@ -8,13 +8,12 @@ import dbus
+>  import dbus.service
+>  import dbus.mainloop.glib
+>  import os
+> -import Openbmc
+> +from obmc.dbuslib.bindings import DbusProperties
+>  
+>  ## Abstract class, must subclass
+> -class SensorValue(Openbmc.DbusProperties):
+> +class SensorValue(DbusProperties):
+>  	IFACE_NAME = 'org.openbmc.SensorValue'
+>  	def __init__(self,bus,name):
+> -		#Openbmc.DbusProperties.__init__(self)
+>  		self.Set(SensorValue.IFACE_NAME,'units',"")
+>  		self.Set(SensorValue.IFACE_NAME,'error',False)
+>  		
+> @@ -28,7 +27,7 @@ class SensorValue(Openbmc.DbusProperties):
+>  	def getValue(self):
+>  		return self.Get(SensorValue.IFACE_NAME,'value')
+>  
+> -class SensorThresholds(Openbmc.DbusProperties):
+> +class SensorThresholds(DbusProperties):
+>  	IFACE_NAME = 'org.openbmc.SensorThresholds'
+>  	def __init__(self,bus,name):
+>  		self.Set(SensorThresholds.IFACE_NAME,'thresholds_enabled',False)
+> @@ -85,14 +84,14 @@ class SensorThresholds(Openbmc.DbusProperties):
+>  
+>  class VirtualSensor(SensorValue):
+>  	def __init__(self,bus,name):
+> -		Openbmc.DbusProperties.__init__(self)
+> +		DbusProperties.__init__(self)
+>  		SensorValue.__init__(self,bus,name)
+>  		dbus.service.Object.__init__(self,bus,name)
+>  
+>  class HwmonSensor(SensorValue,SensorThresholds):
+>  	IFACE_NAME = 'org.openbmc.HwmonSensor'
+>  	def __init__(self,bus,name):
+> -		Openbmc.DbusProperties.__init__(self)
+> +		DbusProperties.__init__(self)
+>  		SensorValue.__init__(self,bus,name)
+>  		SensorThresholds.__init__(self,bus,name)
+>  		self.Set(HwmonSensor.IFACE_NAME,'scale',1)
+> diff --git a/bin/bmc_update.py b/bin/bmc_update.py
+> index a3032cf..0555fd3 100755
+> --- a/bin/bmc_update.py
+> +++ b/bin/bmc_update.py
+> @@ -4,10 +4,10 @@ import gobject
+>  import dbus
+>  import dbus.service
+>  import dbus.mainloop.glib
+> -import Openbmc
+>  import shutil
+>  import tarfile
+>  import os
+> +from obmc.dbuslib.bindings import get_dbus, DbusProperties, DbusObjectManager
+>  
+>  DBUS_NAME = 'org.openbmc.control.BmcFlash'
+>  OBJ_NAME = '/org/openbmc/control/flash/bmc'
+> @@ -23,11 +23,11 @@ def doExtract(members,files):
+>              yield tarinfo
+>  
+>  
+> -class BmcFlashControl(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
+> +class BmcFlashControl(DbusProperties,DbusObjectManager):
+>  	def __init__(self,bus,name):
+>  		self.dbus_objects = { }
+> -		Openbmc.DbusProperties.__init__(self)
+> -		Openbmc.DbusObjectManager.__init__(self)
+> +		DbusProperties.__init__(self)
+> +		DbusObjectManager.__init__(self)
+>  		dbus.service.Object.__init__(self,bus,name)
+>  		
+>  		self.Set(DBUS_NAME,"status","Idle")
+> @@ -122,7 +122,7 @@ class BmcFlashControl(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
+>  if __name__ == '__main__':
+>      dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+>  
+> -    bus = Openbmc.getDBus()
+> +    bus = get_dbus()
+>      name = dbus.service.BusName(DBUS_NAME, bus)
+>      obj = BmcFlashControl(bus, OBJ_NAME)
+>      mainloop = gobject.MainLoop()
+> diff --git a/bin/chassis_control.py b/bin/chassis_control.py
+> index 334fbbf..376e0e9 100755
+> --- a/bin/chassis_control.py
+> +++ b/bin/chassis_control.py
+> @@ -2,12 +2,11 @@
+>  
+>  import sys
+>  import uuid
+> -#from gi.repository import GObject
+>  import gobject
+>  import dbus
+>  import dbus.service
+>  import dbus.mainloop.glib
+> -import Openbmc
+> +from obmc.dbuslib.bindings import get_dbus, DbusProperties, DbusObjectManager
+>  
+>  DBUS_NAME = 'org.openbmc.control.Chassis'
+>  OBJ_NAME = '/org/openbmc/control/chassis0'
+> @@ -20,7 +19,7 @@ POWER_ON = 1
+>  
+>  BOOTED = 100
+>  
+> -class ChassisControlObject(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
+> +class ChassisControlObject(DbusProperties,DbusObjectManager):
+>  	def getUuid(self):
+>  		uuid = "";
+>  		try:
+> @@ -37,8 +36,8 @@ class ChassisControlObject(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
+>   
+>  	def __init__(self,bus,name):
+>  		self.dbus_objects = { }
+> -		Openbmc.DbusProperties.__init__(self)
+> -		Openbmc.DbusObjectManager.__init__(self)
+> +		DbusProperties.__init__(self)
+> +		DbusObjectManager.__init__(self)
+>  		dbus.service.Object.__init__(self,bus,name)
+>  		## load utilized objects
+>  		self.dbus_objects = {
+> @@ -215,7 +214,7 @@ class ChassisControlObject(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
+>  if __name__ == '__main__':
+>      dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+>  
+> -    bus = Openbmc.getDBus()
+> +    bus = get_dbus()
+>      name = dbus.service.BusName(DBUS_NAME, bus)
+>      obj = ChassisControlObject(bus, OBJ_NAME)
+>      mainloop = gobject.MainLoop()
+> diff --git a/bin/download_manager.py b/bin/download_manager.py
+> index 36005d5..ba502da 100755
+> --- a/bin/download_manager.py
+> +++ b/bin/download_manager.py
+> @@ -6,7 +6,8 @@ import dbus
+>  import dbus.service
+>  import dbus.mainloop.glib
+>  import subprocess
+> -import Openbmc
+> +from obmc.dbuslib.bindings import get_dbus
+> +
+>  if (len(sys.argv) < 2):
+>  	print "Usage:  download_manager.py [system name]"
+>  	exit(1)
+> @@ -73,7 +74,7 @@ class DownloadManagerObject(dbus.service.Object):
+>  
+>  if __name__ == '__main__':
+>      dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+> -    bus = Openbmc.getDBus()
+> +    bus = get_dbus()
+>      name = dbus.service.BusName(DBUS_NAME, bus)
+>      obj = DownloadManagerObject(bus, OBJ_NAME)
+>      mainloop = gobject.MainLoop()
+> diff --git a/bin/fan_control.py b/bin/fan_control.py
+> index bb070e5..cea2215 100755
+> --- a/bin/fan_control.py
+> +++ b/bin/fan_control.py
+> @@ -6,7 +6,7 @@ import gobject
+>  import dbus
+>  import dbus.service
+>  import dbus.mainloop.glib
+> -import Openbmc
+> +from obmc.dbuslib.bindings import get_dbus, DbusProperties, DbusObjectManager
+>  
+>  DBUS_NAME = 'org.openbmc.control.Fans'
+>  OBJ_PATH = '/org/openbmc/control/fans'
+> @@ -23,10 +23,10 @@ FAN_OBJS = [
+>  ]
+>  FAN_IFACE = 'org.openbmc.SensorValue'
+>  
+> -class FanControl(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
+> +class FanControl(DbusProperties,DbusObjectManager):
+>  	def __init__(self,bus,name):
+> -		Openbmc.DbusProperties.__init__(self)
+> -		Openbmc.DbusObjectManager.__init__(self)
+> +		DbusProperties.__init__(self)
+> +		DbusObjectManager.__init__(self)
+>  		dbus.service.Object.__init__(self,bus,name)
+>  		self.Set(IFACE_NAME,"floor",250)
+>  		self.Set(IFACE_NAME,"ceiling",255)
+> @@ -49,7 +49,7 @@ class FanControl(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
+>  if __name__ == '__main__':
+>  	
+>  	dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+> -	bus = Openbmc.getDBus()
+> +	bus = get_dbus()
+>  	name = dbus.service.BusName(DBUS_NAME,bus)
+>  	fan_control = FanControl(bus,OBJ_PATH)
+>  	mainloop = gobject.MainLoop()
+> diff --git a/bin/hwmon.py b/bin/hwmon.py
+> index 08c6f06..7e1858e 100755
+> --- a/bin/hwmon.py
+> +++ b/bin/hwmon.py
+> @@ -7,8 +7,8 @@ import glob
+>  import dbus
+>  import dbus.service
+>  import dbus.mainloop.glib
+> -import Openbmc
+>  import re
+> +from obmc.dbuslib.bindings import get_dbus
+>  
+>  from Sensors import SensorValue as SensorValue
+>  from Sensors import HwmonSensor as HwmonSensor
+> @@ -159,7 +159,7 @@ class Hwmons():
+>  if __name__ == '__main__':
+>  	
+>  	dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+> -	bus = Openbmc.getDBus()
+> +	bus = get_dbus()
+>  	root_sensor = Hwmons(bus)
+>  	mainloop = gobject.MainLoop()
+>  
+> diff --git a/bin/inventory_items.py b/bin/inventory_items.py
+> index e0351a8..bf7f414 100755
+> --- a/bin/inventory_items.py
+> +++ b/bin/inventory_items.py
+> @@ -9,29 +9,29 @@ import dbus.mainloop.glib
+>  import cPickle
+>  import json
+>  import PropertyCacher
+> +from obmc.dbuslib.bindings import get_dbus, DbusProperties, DbusObjectManager
+>  
+>  if (len(sys.argv) < 2):
+>  	print "Usage:  inventory_items.py [system name]"
+>  	exit(1)
+>  System = __import__(sys.argv[1])
+> -import Openbmc
+>  
+>  
+>  INTF_NAME = 'org.openbmc.InventoryItem'
+>  DBUS_NAME = 'org.openbmc.Inventory'
+>  FRUS = System.FRU_INSTANCES
+>  
+> -class Inventory(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
+> +class Inventory(DbusProperties,DbusObjectManager):
+>  	def __init__(self,bus,name):
+> -		Openbmc.DbusProperties.__init__(self)
+> -		Openbmc.DbusObjectManager.__init__(self)
+> +		DbusProperties.__init__(self)
+> +		DbusObjectManager.__init__(self)
+>  		dbus.service.Object.__init__(self,bus,name)
+>  		self.InterfacesAdded(name,self.properties)
+>  
+>  
+> -class InventoryItem(Openbmc.DbusProperties):
+> +class InventoryItem(DbusProperties):
+>  	def __init__(self,bus,name,data):		
+> -		Openbmc.DbusProperties.__init__(self)
+> +		DbusProperties.__init__(self)
+>  		dbus.service.Object.__init__(self,bus,name)
+>  
+>  		self.name = name
+> @@ -78,7 +78,7 @@ def getVersion():
+>  
+>  if __name__ == '__main__':
+>      dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+> -    bus = Openbmc.getDBus()
+> +    bus = get_dbus()
+>      mainloop = gobject.MainLoop()
+>      obj_parent = Inventory(bus, '/org/openbmc/inventory')
+>  
+> diff --git a/bin/sensor_manager2.py b/bin/sensor_manager2.py
+> index b5aac53..b06b9a5 100755
+> --- a/bin/sensor_manager2.py
+> +++ b/bin/sensor_manager2.py
+> @@ -6,17 +6,17 @@ import gobject
+>  import dbus
+>  import dbus.service
+>  import dbus.mainloop.glib
+> -import Openbmc
+>  import Sensors
+> +from obmc.dbuslib.bindings import DbusProperties, DbusObjectManager, get_dbus
+>  
+>  DBUS_NAME = 'org.openbmc.Sensors'
+>  OBJ_PATH = '/org/openbmc/sensors'
+>  
+>  
+> -class SensorManager(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
+> +class SensorManager(DbusProperties,DbusObjectManager):
+>  	def __init__(self,bus,name):
+> -		Openbmc.DbusProperties.__init__(self)
+> -		Openbmc.DbusObjectManager.__init__(self)
+> +		DbusProperties.__init__(self)
+> +		DbusObjectManager.__init__(self)
+>  		dbus.service.Object.__init__(self,bus,name)
+>  		self.InterfacesAdded(name,self.properties)
+>  
+> @@ -43,7 +43,7 @@ class SensorManager(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
+>  			
+>  if __name__ == '__main__':
+>  	dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+> -	bus = Openbmc.getDBus()
+> +	bus = get_dbus()
+>  	name = dbus.service.BusName(DBUS_NAME,bus)
+>  	root_sensor = SensorManager(bus,OBJ_PATH)
+>  
+> diff --git a/bin/system_manager.py b/bin/system_manager.py
+> index e74788a..2331131 100755
+> --- a/bin/system_manager.py
+> +++ b/bin/system_manager.py
+> @@ -9,14 +9,14 @@ import dbus.mainloop.glib
+>  import os
+>  import time
+>  import PropertyCacher
+> -import Openbmc
+> +from obmc.dbuslib.bindings import DbusProperties, DbusObjectManager, get_dbus
+> +import obmc.enums
+>  
+>  if (len(sys.argv) < 2):
+>  	print "Usage:  system_manager.py [system name]"
+>  	exit(1)
+>  
+>  System = __import__(sys.argv[1])
+> -import Openbmc
+>  
+>  DBUS_NAME = 'org.openbmc.managers.System'
+>  OBJ_NAME = '/org/openbmc/managers/System'
+> @@ -27,10 +27,10 @@ INTF_ITEM = 'org.openbmc.InventoryItem'
+>  INTF_CONTROL = 'org.openbmc.Control'
+>  
+>  
+> -class SystemManager(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
+> +class SystemManager(DbusProperties,DbusObjectManager):
+>  	def __init__(self,bus,obj_name):
+> -		Openbmc.DbusProperties.__init__(self)
+> -		Openbmc.DbusObjectManager.__init__(self)
+> +		DbusProperties.__init__(self)
+> +		DbusObjectManager.__init__(self)
+>  		dbus.service.Object.__init__(self,bus,obj_name)
+>  
+>  		bus.add_signal_receiver(self.NewObjectHandler,
+> @@ -218,14 +218,14 @@ class SystemManager(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
+>  					print "ERROR: SystemManager - GPIO lookup failed for "+name
+>  		
+>  			if (gpio_num != -1):
+> -				r = [Openbmc.GPIO_DEV, gpio_num, gpio['direction']]
+> +				r = [obmc.enums.GPIO_DEV, gpio_num, gpio['direction']]
+>  		return r
+>  
+>  		
+>  
+>  if __name__ == '__main__':
+>      dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+> -    bus = Openbmc.getDBus()
+> +    bus = get_dbus()
+>      name = dbus.service.BusName(DBUS_NAME,bus)
+>      obj = SystemManager(bus,OBJ_NAME)
+>      mainloop = gobject.MainLoop()
