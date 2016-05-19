@@ -1,43 +1,59 @@
-Return-Path: <andrew@aj.id.au>
-Received: from homiemail-a12.g.dreamhost.com (sub3.mail.dreamhost.com
- [69.163.253.7])
- (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+Return-Path: <cyril.bur@au1.ibm.com>
+Received: from e23smtp05.au.ibm.com (e23smtp05.au.ibm.com [202.81.31.147])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r9LbN0q92zDqTT
- for <openbmc@lists.ozlabs.org>; Thu, 19 May 2016 16:22:56 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=vFThoyU+; 
- dkim-atps=neutral
-Received: from homiemail-a12.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a12.g.dreamhost.com (Postfix) with ESMTP id 5552A103005E;
- Wed, 18 May 2016 23:22:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
- :subject:from:reply-to:to:cc:date:content-type:mime-version; s=
- aj.id.au; bh=C5ktLqGbuxmDIqAYnnN30Z2vefk=; b=vFThoyU+bxxq8qpo9Cj
- soIWpmHg0weUGOd+1Q4eM8xabe6X1HaNVefI4joxwCjGztonReDnt1JLmkNChFI2
- XhnKpgGQw/TpbzfANzrEFnOAQJnEikBl+WTGPxvOw45hnLHqW8MWeK7fjk/PQa2v
- +lCW6pMAf86mundQNvmRMkQk=
-Received: from keelia (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- (using TLSv1 with cipher AES128-SHA (128/128 bits))
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r9M49680bzDqCc
+ for <openbmc@lists.ozlabs.org>; Thu, 19 May 2016 16:44:25 +1000 (AEST)
+Received: from localhost
+ by e23smtp05.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cyril.bur@au1.ibm.com>;
+ Thu, 19 May 2016 16:44:24 +1000
+Received: from d23dlp02.au.ibm.com (202.81.31.213)
+ by e23smtp05.au.ibm.com (202.81.31.211) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Thu, 19 May 2016 16:44:21 +1000
+X-IBM-Helo: d23dlp02.au.ibm.com
+X-IBM-MailFrom: cyril.bur@au1.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d23relay07.au.ibm.com (d23relay07.au.ibm.com [9.190.26.37])
+ by d23dlp02.au.ibm.com (Postfix) with ESMTP id A99332BB005E
+ for <openbmc@lists.ozlabs.org>; Thu, 19 May 2016 16:44:15 +1000 (EST)
+Received: from d23av01.au.ibm.com (d23av01.au.ibm.com [9.190.234.96])
+ by d23relay07.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u4J6i2kj1966360
+ for <openbmc@lists.ozlabs.org>; Thu, 19 May 2016 16:44:10 +1000
+Received: from d23av01.au.ibm.com (localhost [127.0.0.1])
+ by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u4J6hOpe030567
+ for <openbmc@lists.ozlabs.org>; Thu, 19 May 2016 16:43:24 +1000
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u4J6hNIh029211; Thu, 19 May 2016 16:43:24 +1000
+Received: from camb691 (haven.au.ibm.com [9.192.254.114])
+ (using TLSv1.2 with cipher AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- (Authenticated sender: andrew@aj.id.au)
- by homiemail-a12.g.dreamhost.com (Postfix) with ESMTPSA id C1B951030063;
- Wed, 18 May 2016 23:22:51 -0700 (PDT)
-Message-ID: <1463638966.2703.209.camel@aj.id.au>
-Subject: Aims for BMC emulation in qemu
-From: Andrew Jeffery <andrew@aj.id.au>
-Reply-To: andrew@aj.id.au
-To: OpenBMC <openbmc@lists.ozlabs.org>
-Cc: Patrick Williams <patrick@stwcx.xyz>, Teddy Reed <teddy.reed@gmail.com>,
- =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, Joel Stanley
- <joel@jms.id.au>, Chris Austen <austenc@us.ibm.com>
-Date: Thu, 19 May 2016 15:52:46 +0930
-Organization: IBM OzLabs
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-tzD61UPGnzGraq14+EpT"
-X-Mailer: Evolution 3.18.5.2-0ubuntu1 
-Mime-Version: 1.0
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 2A29AA0196;
+ Thu, 19 May 2016 16:41:30 +1000 (AEST)
+Date: Thu, 19 May 2016 16:41:24 +1000
+From: Cyril Bur <cyril.bur@au1.ibm.com>
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH btbridge v4 5/6] Travis CI: Bump to Ubuntu 16.04
+Message-ID: <20160519164124.577faad8@camb691>
+In-Reply-To: <1463635726.2703.174.camel@aj.id.au>
+References: <1462324208-11150-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1462324208-11150-6-git-send-email-openbmc-patches@stwcx.xyz>
+ <1463635726.2703.174.camel@aj.id.au>
+Organization: IBM
+X-Mailer: Claws Mail 3.13.2 (GTK+ 2.24.30; x86_64-unknown-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16051906-0017-0000-0000-000004A85528
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -49,80 +65,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 May 2016 06:22:56 -0000
+X-List-Received-Date: Thu, 19 May 2016 06:44:26 -0000
 
+On Thu, 19 May 2016 14:58:46 +0930
+Andrew Jeffery <andrew@aj.id.au> wrote:
 
---=-tzD61UPGnzGraq14+EpT
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> On Tue, 2016-05-03 at 20:10 -0500, OpenBMC Patches wrote:
+> > From: Cyril Bur <cyril.bur@au1.ibm.com>
+> >=20
+> > Signed-off-by: Cyril Bur <cyril.bur@au1.ibm.com>
+> > ---
+> > =C2=A0travis/build.sh | 4 ++--
+> > =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/travis/build.sh b/travis/build.sh
+> > index e330afd..6b7f0fb 100755
+> > --- a/travis/build.sh
+> > +++ b/travis/build.sh
+> > @@ -2,7 +2,7 @@
+> > =C2=A0set -evx
+> > =C2=A0
+> > =C2=A0Dockerfile=3D$(cat << EOF
+> > -FROM ubuntu:15.10
+> > +FROM ubuntu:16.04
+> > =C2=A0RUN DEBIAN_FRONTEND=3Dnoninteractive apt-get update && apt-get up=
+grade -yy
+> > =C2=A0RUN DEBIAN_FRONTEND=3Dnoninteractive apt-get install --no-install=
+-recommends -yy make gcc libsystemd-dev libc6-dev pkg-config
+> > =C2=A0RUN mkdir /var/run/dbus
+> > @@ -13,7 +13,7 @@ RUN /bin/bash
+> > =C2=A0EOF
+> > =C2=A0)
+> > =C2=A0
+> > -docker pull ubuntu:15.10
+> > +docker pull ubuntu:16.04 =20
+>=20
+> Are there reasons for this beyond it being new and shiny? Whether there
+> are or not, can you please add a description of the motivation to the
+> commit message?
 
-Hey all,
+I like shiny things. Mostly shinyness but 16.04 being LTS is a nice bonus :=
+).
+Will do.
 
-There's some divide as to whether our qemu machine types should
-accurately describe the hardware, or whether compromises can be made.
-We've been at one extreme with the poky vexpress-based qemuarm system,
-but are progressing towards machine types that are a better reflection
-of the Aspeed SoCs.
-
-C=C3=A9dric, Teddy, Joel and myself have been working on modelling the SoCs=
-'
-devices but some are more complex than others. For example getting
-network up and running is desirable, but the the ftgmac100 code that
-exists[1] has critical bugs and isn't upstream (though we've started
-fixing it[2][3]). We could use a different NIC (e.g. the Cadence GEM),
-but this doesn't reflect the hardware.
-
-So, do we compromise or not, or can we avoid the problem altogether?
-
-Accuracy of the models is useful for kernel and u-boot development,
-where you can iterate quickly on your own machine to gain confidence
-before deploying to hardware (but obviously requires the models to
-exist).
-
-Alternatively, compromising on the models can allow us to accelerate
-userspace development, where some of the hardware details are
-abstracted. For example, it would be useful to add a network device so
-the robotframework=C2=A0tests[4] can be run. Depending on what you are
-testing, you might not care for any hardware details.
-
-At the moment we have a palmetto-bmc machine type in upstream qemu
-(2.6.0) which describes the core devices. Maybe the solution is to keep
-such machine types as an accurate reflection of the hardware, and
-define others that have relaxed accuracy constraints for different
-circumstances. I expect we'd be maintaining a fork if we did so, but it
-would evaporate over time as more models were developed.
-
-What are your thoughts?
-
-Andrew
-
-
-[1]=C2=A0https://lists.gnu.org/archive/html/qemu-devel/2013-03/msg02601.htm=
-l
-[2]=C2=A0https://github.com/shenki/qemu/tree/ftgmac100
-[3]=C2=A0https://github.com/amboar/qemu/tree/ast2400-net-ftgmac100
-[4]=C2=A0https://github.com/mkumatag/openbmc-automation
---=-tzD61UPGnzGraq14+EpT
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAABCgAGBQJXPVu3AAoJEJ0dnzgO5LT5SAIP/1XEKycIjJv6dsPVJ0PAxA6Y
-2sS5ZKn5kY75lOpU5FAqfpeeeLBr7YxgntQaWaQZeHscHWmkUH4/DqrBzChzsi1E
-hd4Ez7eEDqPfJNgkmuzrLUegh3tqepkflpWCcGU1Sx5MXwPYCc1wD9lII3/UjFLC
-Z4Aij4p4AaZfJv38548OnMRuDIglMkE25qwwYgfmycrsBYmyzhr4N7E1Fij/6z0A
-apFAV2BpMqU/oVX6wNvirWAtnU89RymS5gBYQLF3Q9hRIDHTfiePnYVEQ0342LZL
-A8EEly/c32WYJ/dU0QWVNXEMtHAoSIKAMhiVekTxFbWy9CbleIocCkj2f+Mj6QSA
-Rr0u1RRzjqFZkf3FgnxmHBg4UyYA0VNaL7HWx6k0hhs3KmcqESi6Fw7GEHcVmzY6
-eCkZstwPOsJN11bSxY8A/ufLdcJ7oNAvNaEaGmIRA9x+xgBmAN4Rbj9WS14GB3hz
-P0DAW57KGiQcGTBBRRJiFIP/MR9G4lLcSiILY0m4LkhUY6xcMWsoBOPIwHIV2/bX
-qSfo/EZCLzneXj9RTybV1gQlWjtjyRfSBzYtoSzouipL8A+LokmI6DPe1EykMxHi
-tk9VDWzRodUk28QKs29Wv0O3rg79wTB7FdRsxGcsCHnC3XS2wod0nal21aiAieGg
-MwhgA8KaeBzWMNMeuZjG
-=ux1y
------END PGP SIGNATURE-----
-
---=-tzD61UPGnzGraq14+EpT--
+>=20
+> > =C2=A0docker build -t temp - <<< "${Dockerfile}"
+> > =C2=A0
+> > =C2=A0sudo cp ./travis/org.openbmc.HostIpmi.conf.test /etc/dbus-1/syste=
+m.d/org.openbmc.HostIpmi.conf =20
+>=20
+> Cheers,
+>=20
+> Andrew
