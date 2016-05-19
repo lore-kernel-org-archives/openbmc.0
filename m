@@ -1,21 +1,36 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Return-Path: <clg@kaod.org>
+X-Greylist: delayed 97247 seconds by postgrey-1.35 at bilbo;
+ Fri, 20 May 2016 03:03:47 AEST
+Received: from mo178.mail-out.ovh.net (mo178.mail-out.ovh.net [178.32.228.178])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r9WfM3G5RzDqBK
- for <openbmc@lists.ozlabs.org>; Thu, 19 May 2016 23:11:07 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1463663461333527.1184993309372;
- Thu, 19 May 2016 06:11:01 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH skeleton v4] Enable and Handle Checkstop gpio sensor.
-Date: Thu, 19 May 2016 08:10:57 -0500
-Message-Id: <1463663457-28446-2-git-send-email-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.8.2
-In-Reply-To: <1463663457-28446-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1463663457-28446-1-git-send-email-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r9cpq29SfzDqFC
+ for <openbmc@lists.ozlabs.org>; Fri, 20 May 2016 03:03:47 +1000 (AEST)
+Received: from player791.ha.ovh.net (b9.ovh.net [213.186.33.59])
+ by mo178.mail-out.ovh.net (Postfix) with ESMTP id 9A446100C7AF
+ for <openbmc@lists.ozlabs.org>; Thu, 19 May 2016 18:54:55 +0200 (CEST)
+Received: from [192.168.124.3] (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: clg@kaod.org)
+ by player791.ha.ovh.net (Postfix) with ESMTPSA id 6CD0142006C;
+ Thu, 19 May 2016 18:54:53 +0200 (CEST)
+Subject: Re: [PATCH qemu 1/3] i2c: add aspeed i2c crontroller
+To: andrew@aj.id.au, openbmc@lists.ozlabs.org
+References: <1463513102-14135-1-git-send-email-clg@kaod.org>
+ <1463513102-14135-2-git-send-email-clg@kaod.org>
+ <1463622062.2703.132.camel@aj.id.au>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <573DEFD0.7070403@kaod.org>
+Date: Thu, 19 May 2016 18:54:40 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+ Icedove/38.7.0
+MIME-Version: 1.0
+In-Reply-To: <1463622062.2703.132.camel@aj.id.au>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 17284533898975087362
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeekledrfedvgddutddvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfenuceurghilhhouhhtmecufedttdenuc
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -27,689 +42,687 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 May 2016 13:11:08 -0000
+X-List-Received-Date: Thu, 19 May 2016 17:03:48 -0000
 
-From: Hariharasubramanian R <hramasub@in.ibm.com>
+Hello Andrew,
 
----
- Makefile                   |  24 ++++----
- bin/Barreleye.py           |   7 +++
- bin/Openbmc.py             |   3 +-
- bin/Sensors.py             |   9 +++
- bin/chassis_control.py     |  26 +++++---
- includes/gpio-init-gdbus.c |  98 ++++++++++++++++++++++++++++++
- includes/gpio-init-sdbus.c |  93 ++++++++++++++++++++++++++++
- includes/gpio.c            |  94 +----------------------------
- includes/gpio.h            |   9 +--
- objects/host_xstop_obj.c   | 147 +++++++++++++++++++++++++++++++++++++++++++++
- 10 files changed, 391 insertions(+), 119 deletions(-)
- create mode 100644 includes/gpio-init-gdbus.c
- create mode 100644 includes/gpio-init-sdbus.c
- create mode 100644 objects/host_xstop_obj.c
+On 05/19/2016 03:41 AM, Andrew Jeffery wrote:
+> Hi Cédric,
+> 
+> Looks good to me as well. I have made a few comments.
+> 
+> On Tue, 2016-05-17 at 21:25 +0200, Cédric Le Goater wrote:
+>> The Aspeed AST2400 integrates a set of 14 I2C/SMBus bus controllers
+>> directly connected to APB bus which can be programmed as a master or
+>> slave.
+>>
+>> This patch offers a device model for the master mode only, slave mode
+>> is not supported.
+>>
+>> On the TODO list, we also have :
+>>
+>>  - improve and harden the state machine. This is really a first
+>>    version.
+> 
+> What are your thoughts here? Validating the transitions? Something
+> more?
 
-diff --git a/Makefile b/Makefile
-index 7129082..d4a4a73 100755
---- a/Makefile
-+++ b/Makefile
-@@ -35,21 +35,20 @@ clean:
- libopenbmc_intf: openbmc_intf.o
- 	$(CC) -shared -o lib/$@.so obj/openbmc_intf.o $(LDFLAGS)
- 
--power_control: power_control_obj.o gpio.o libopenbmc_intf
--	$(CC) -o bin/$@.exe obj/gpio.o obj/power_control_obj.o $(LDFLAGS) $(LIBS)
-+power_control: power_control_obj.o gpio.o gpio-init-gdbus.o object_mapper.o libopenbmc_intf
-+	$(CC) -o bin/$@.exe obj/gpio.o obj/gpio-init-gdbus.o obj/power_control_obj.o obj/object_mapper.o $(LDFLAGS) $(LIBS)
- 
- led_controller: led_controller.o
- 	$(CC) -o bin/$@.exe obj/led_controller.o $(LDFLAGS) $(LIB_FLAG)
- 
--button_power: button_power_obj.o gpio.o libopenbmc_intf
--	$(CC) -o bin/$@.exe obj/button_power_obj.o obj/gpio.o $(LDFLAGS) $(LIBS)
-+button_power: button_power_obj.o gpio.o gpio-init-gdbus.o object_mapper.o libopenbmc_intf
-+	$(CC) -o bin/$@.exe obj/button_power_obj.o obj/gpio.o obj/gpio-init-gdbus.o obj/object_mapper.o $(LDFLAGS) $(LIBS)
- 
--button_reset: button_reset_obj.o gpio.o libopenbmc_intf
--	$(CC) -o bin/$@.exe obj/button_reset_obj.o obj/gpio.o $(LDFLAGS) $(LIBS)
-+button_reset: button_reset_obj.o gpio.o gpio-init-gdbus.o object_mapper.o libopenbmc_intf
-+	$(CC) -o bin/$@.exe obj/button_reset_obj.o obj/gpio.o obj/gpio-init-gdbus.o obj/object_mapper.o $(LDFLAGS) $(LIBS)
- 
--
--control_host: control_host_obj.o gpio.o libopenbmc_intf
--	$(CC) -o bin/$@.exe obj/gpio.o obj/control_host_obj.o $(LDFLAGS) $(LIBS)
-+control_host: control_host_obj.o gpio.o gpio-init-gdbus.o object_mapper.o libopenbmc_intf
-+	$(CC) -o bin/$@.exe obj/gpio.o obj/gpio-init-gdbus.o obj/control_host_obj.o obj/object_mapper.o $(LDFLAGS) $(LIBS)
- 
- flash_bios:  flash_bios_obj.o libopenbmc_intf
- 	$(CC) -o bin/$@.exe obj/flash_bios_obj.o $(LDFLAGS) $(LIBS)
-@@ -57,11 +56,14 @@ flash_bios:  flash_bios_obj.o libopenbmc_intf
- host_watchdog: host_watchdog_obj.o libopenbmc_intf
- 	$(CC) -o bin/$@.exe obj/host_watchdog_obj.o $(LDFLAGS) $(LIBS)
- 
-+host_xstop: host_xstop_obj.o gpio.o gpio-init-sdbus.o
-+	$(CC) -o bin/$@.exe obj/host_xstop_obj.o obj/gpio.o obj/gpio-init-gdbus.o $(LDFLAGS) $(LIBS) -lsystemd
-+
- board_vpd: board_vpd_obj.o libopenbmc_intf
- 	$(CC) -o bin/$@.exe obj/board_vpd_obj.o $(LDFLAGS) $(LIBS)
- 
--pcie_slot_present: pcie_slot_present_obj.o gpio.o libopenbmc_intf
--	$(CC) -o bin/$@.exe obj/pcie_slot_present_obj.o obj/gpio.o $(LDFLAGS) $(LIBS)
-+pcie_slot_present: pcie_slot_present_obj.o gpio.o gpio-init-gdbus.o libopenbmc_intf
-+	$(CC) -o bin/$@.exe obj/pcie_slot_present_obj.o obj/gpio.o obj/gpio-init-gdbus.o $(LDFLAGS) $(LIBS)
- 
- flasher:  $(OBJS2) flasher_obj.o libopenbmc_intf
- 	$(CC) -o bin/$@.exe obj/flasher_obj.o $(OBJS3) $(LDFLAGS) $(LIBS)
-diff --git a/bin/Barreleye.py b/bin/Barreleye.py
-index 6c28fc2..b3b8fc1 100755
---- a/bin/Barreleye.py
-+++ b/bin/Barreleye.py
-@@ -127,6 +127,12 @@ APPS = {
- 		'monitor_process' : True,
- 		'process_name'    : 'host_watchdog.exe',
- 	},
-+	'host_xstop' : {
-+		'system_state'    : 'BMC_STARTING',
-+		'start_process'   : True,
-+		'monitor_process' : True,
-+		'process_name'    : 'host_xstop.exe',
-+	},
- 	'power_control' : {
- 		'system_state'    : 'BMC_STARTING',
- 		'start_process'   : True,
-@@ -546,6 +552,7 @@ GPIO_CONFIG['CPLD_TCK']    	  =   { 'gpio_pin': 'P0', 'direction': 'out' }
- GPIO_CONFIG['CPLD_TDO']    	  =   { 'gpio_pin': 'P1', 'direction': 'out' }
- GPIO_CONFIG['CPLD_TDI']    	  =   { 'gpio_pin': 'P2', 'direction': 'out' }
- GPIO_CONFIG['CPLD_TMS']    	  =   { 'gpio_pin': 'P3', 'direction': 'out' }
-+GPIO_CONFIG['CHECKSTOP0']			=   { 'gpio_pin': 'P5', 'direction': 'in' }
- 
- GPIO_CONFIG['SLOT0_RISER_PRESENT'] =   { 'gpio_pin': 'N0', 'direction': 'in' }
- GPIO_CONFIG['SLOT1_RISER_PRESENT'] =   { 'gpio_pin': 'N1', 'direction': 'in' }
-diff --git a/bin/Openbmc.py b/bin/Openbmc.py
-index b87fec8..70e9bd8 100755
---- a/bin/Openbmc.py
-+++ b/bin/Openbmc.py
-@@ -60,8 +60,7 @@ class DbusProperties(dbus.service.Object):
-         		self.properties[interface_name][property_name] = new_value
- 			self.PropertiesChanged(interface_name,{ property_name: new_value }, [])
- 
--	@dbus.service.method("org.openbmc.Object.Properties",
--		in_signature='sa{sv}')
-+	@dbus.service.method("org.openbmc.Object.Properties", in_signature='sa{sv}')
- 	def SetMultiple(self, interface_name, prop_dict):
- 		if (self.properties.has_key(interface_name) == False):
- 			self.properties[interface_name] = {}
-diff --git a/bin/Sensors.py b/bin/Sensors.py
-index ecdac91..7349067 100755
---- a/bin/Sensors.py
-+++ b/bin/Sensors.py
-@@ -221,3 +221,12 @@ class OperatingSystemStatusSensor(VirtualSensor):
- 	def SystemStateHandler(self,state):
- 		if (state == "HOST_POWERED_OFF"):
- 			self.setValue("Off")
-+
-+class HostXstopSensor(VirtualSensor):
-+	def __init__(self,bus,name):
-+		VirtualSensor.__init__(self,bus,name)
-+		self.setValue("Off")
-+		bus.add_signal_receiver(self.SystemStateHandler,signal_name = "GotoSystemState")
-+
-+	def SystemStateHandler(self,state):
-+        print "Host Checkstop Asserted"
-diff --git a/bin/chassis_control.py b/bin/chassis_control.py
-index 334fbbf..7b39a9f 100755
---- a/bin/chassis_control.py
-+++ b/bin/chassis_control.py
-@@ -2,6 +2,7 @@
- 
- import sys
- import uuid
-+import time
- #from gi.repository import GObject
- import gobject
- import dbus
-@@ -92,6 +93,10 @@ class ChassisControlObject(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
- 		bus.add_signal_receiver(self.SystemStateHandler,signal_name = "GotoSystemState")
- 		self.InterfacesAdded(name,self.properties)
- 
-+		bus.add_signal_receiver(self.host_xstop_signal_handler, 
-+					dbus_interface = "org.freedesktop.DBus.Properties", signal_name = "PropertiesChanged", 
-+					path="/org/openbmc/sensors/host/cpu0/XStop" )
-+
- 
- 	def getInterface(self,name):
- 		o = self.dbus_objects[name]
-@@ -210,16 +215,19 @@ class ChassisControlObject(Openbmc.DbusProperties,Openbmc.DbusObjectManager):
- 		print "Emergency Shutdown!"
- 		self.powerOff()
- 		
--		
-+	def host_xstop_signal_handler(self):
-+		print "Checkstop Error, Waiting for 30sec before Hard Rebooting"
-+		time.sleep(30)
-+		self.Set(DBUS_NAME,"reboot",1)
-+		self.reboot()
- 
- if __name__ == '__main__':
--    dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
-+		dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
- 
--    bus = Openbmc.getDBus()
--    name = dbus.service.BusName(DBUS_NAME, bus)
--    obj = ChassisControlObject(bus, OBJ_NAME)
--    mainloop = gobject.MainLoop()
--    
--    print "Running ChassisControlService"
--    mainloop.run()
-+		bus = Openbmc.getDBus()
-+		name = dbus.service.BusName(DBUS_NAME, bus)
-+		obj = ChassisControlObject(bus, OBJ_NAME)
-+		mainloop = gobject.MainLoop()
- 
-+		print "Running ChassisControlService"
-+		mainloop.run()
-diff --git a/includes/gpio-init-gdbus.c b/includes/gpio-init-gdbus.c
-new file mode 100644
-index 0000000..cf47fb1
---- /dev/null
-+++ b/includes/gpio-init-gdbus.c
-@@ -0,0 +1,98 @@
-+#include <stdint.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <fcntl.h>
-+#include <unistd.h>
-+#include <argp.h>
-+#include <sys/stat.h>
-+#include <sys/mman.h>
-+#include "interfaces/openbmc_intf.h"
-+#include "gpio.h"
-+
-+
-+// Gets the gpio device path from gpio manager object
-+int gpio_init(void *connection, GPIO* gpio)
-+{
-+	int rc = GPIO_OK;
-+	GDBusProxy *proxy;
-+	GError *error;
-+	GVariant *result;
-+
-+	error = NULL;
-+	g_assert_no_error (error);
-+	error = NULL;
-+	proxy = g_dbus_proxy_new_sync ((GDBusConnection*)connection,
-+						 G_DBUS_PROXY_FLAGS_NONE,
-+						 NULL,							/* GDBusInterfaceInfo */
-+						 "org.openbmc.managers.System",	/* name */
-+						 "/org/openbmc/managers/System",/* object path */
-+						 "org.openbmc.managers.System", /* interface */
-+						 NULL,							/* GCancellable */
-+						 &error);
-+	if (error != NULL) {
-+		return GPIO_LOOKUP_ERROR;
-+	}
-+
-+	result = g_dbus_proxy_call_sync (proxy,
-+                                   "gpioInit",
-+                                   g_variant_new ("(s)", gpio->name),
-+                                   G_DBUS_CALL_FLAGS_NONE,
-+                                   -1,
-+                                   NULL,
-+                                   &error);
-+  
-+	if (error != NULL) {
-+		return GPIO_LOOKUP_ERROR;
-+	}
-+	g_assert (result != NULL);
-+	g_variant_get (result, "(&si&s)", &gpio->dev,&gpio->num,&gpio->direction);
-+	g_print("GPIO Lookup:  %s = %d,%s\n",gpio->name,gpio->num,gpio->direction);
-+	
-+	//export and set direction
-+	char dev[254];
-+	char data[4];
-+	int fd;
-+	do {
-+		struct stat st;
-+		
-+		sprintf(dev,"%s/gpio%d/value",gpio->dev,gpio->num);
-+		//check if gpio is exported, if not export
-+		int result = stat(dev, &st);
-+		if (result) {
-+			sprintf(dev,"%s/export",gpio->dev);
-+			fd = open(dev, O_WRONLY);
-+			if (fd == GPIO_ERROR) {
-+				rc = GPIO_OPEN_ERROR;
-+				break;
-+			} 
-+			sprintf(data,"%d",gpio->num);
-+			rc = write(fd,data,strlen(data));
-+			close(fd);
-+			if (rc != strlen(data)) {
-+				rc = GPIO_WRITE_ERROR;
-+				break;
-+			}
-+		}
-+		const char* file = "edge";
-+		if (strcmp(gpio->direction,"in")==0 || strcmp(gpio->direction,"out")==0) {
-+			file = "direction";
-+		}
-+		sprintf(dev,"%s/gpio%d/%s",gpio->dev,gpio->num,file);
-+		fd = open(dev,O_WRONLY);
-+		if (fd == GPIO_ERROR) {
-+			rc = GPIO_WRITE_ERROR;
-+			break;
-+		}
-+		rc = write(fd,gpio->direction,strlen(gpio->direction));
-+		if (rc != strlen(gpio->direction)) {
-+			rc = GPIO_WRITE_ERROR;
-+			break;
-+		}
-+
-+		close(fd);
-+		rc = GPIO_OK;
-+	} while(0);
-+
-+	return rc;
-+}
-diff --git a/includes/gpio-init-sdbus.c b/includes/gpio-init-sdbus.c
-new file mode 100644
-index 0000000..d2d0a42
---- /dev/null
-+++ b/includes/gpio-init-sdbus.c
-@@ -0,0 +1,93 @@
-+#include <stdint.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <fcntl.h>
-+#include <unistd.h>
-+#include <argp.h>
-+#include <sys/stat.h>
-+#include <sys/mman.h>
-+#include "gpio.h"
-+#include <systemd/sd-bus.h>
-+
-+// Gets the gpio device path from gpio manager object
-+int gpio_init(void *connection, GPIO* gpio)
-+{
-+	int rc = GPIO_OK;
-+	sd_bus_error err    = SD_BUS_ERROR_NULL;
-+	sd_bus_message *res = NULL;
-+
-+	sd_bus_error_free(&err);
-+	sd_bus_message_unref(res);
-+
-+	rc = sd_bus_call_method ((sd_bus*)connection,
-+							"org.openbmc.managers.System",  /* name */
-+							"/org/openbmc/managers/System", /* object path */
-+							"org.openbmc.managers.System",  /* interface */
-+							"gpioInit",
-+							&err,
-+							&res,
-+							"s",
-+							gpio->name);
-+                             
-+	if(rc < 0)
-+	{
-+		fprintf(stderr, "Failed to init gpio for %s : %s\n", gpio->name, err.message);
-+		return -1;
-+	}
-+    
-+	rc = sd_bus_message_read (res, "sis", &gpio->dev, &gpio->num, &gpio->direction);
-+	if (rc < 0)
-+		return -1;
-+	else
-+		g_print("GPIO Lookup:  %s = %d,%s\n",gpio->name,gpio->num,gpio->direction);
-+	
-+	//export and set direction
-+	char dev[254];
-+	char data[4];
-+	int fd;
-+	do {
-+		struct stat st;
-+
-+		sprintf(dev,"%s/gpio%d/value",gpio->dev,gpio->num);
-+		//check if gpio is exported, if not export
-+		int result = stat(dev, &st);
-+		if (result)
-+		{
-+			sprintf(dev,"%s/export",gpio->dev);
-+			fd = open(dev, O_WRONLY);
-+			if (fd == GPIO_ERROR) {
-+				rc = GPIO_OPEN_ERROR;
-+				break;
-+			} 
-+			sprintf(data,"%d",gpio->num);
-+			rc = write(fd,data,strlen(data));
-+			close(fd);
-+			if (rc != strlen(data)) {
-+				rc = GPIO_WRITE_ERROR;
-+				break;
-+			}
-+		}
-+		const char* file = "edge";
-+		if (strcmp(gpio->direction,"in")==0 || strcmp(gpio->direction,"out")==0)
-+		{
-+			file = "direction";
-+		}
-+		sprintf(dev,"%s/gpio%d/%s",gpio->dev,gpio->num,file);
-+		fd = open(dev,O_WRONLY);
-+		if (fd == GPIO_ERROR) {
-+			rc = GPIO_WRITE_ERROR;
-+			break;
-+		}
-+		rc = write(fd,gpio->direction,strlen(gpio->direction));
-+		if (rc != strlen(gpio->direction)) {
-+			rc = GPIO_WRITE_ERROR;
-+			break;
-+		}
-+
-+		close(fd);
-+		rc = GPIO_OK;
-+	} while(0);
-+
-+	return rc;
-+}
-diff --git a/includes/gpio.c b/includes/gpio.c
-index 25a9df8..52cfaeb 100755
---- a/includes/gpio.c
-+++ b/includes/gpio.c
-@@ -7,10 +7,8 @@
- #include <argp.h>
- #include <sys/stat.h>
- #include <sys/mman.h>
--#include "interfaces/openbmc_intf.h"
- #include "gpio.h"
- 
--
- int gpio_writec(GPIO* gpio, char value)
- {
- 	g_assert (gpio != NULL);
-@@ -65,6 +63,7 @@ int gpio_read(GPIO* gpio, uint8_t *value)
- 	}
- 	return r;
- }
-+
- int gpio_clock_cycle(GPIO* gpio, int num_clks) {
- 	g_assert (gpio != NULL);
-         int i=0;
-@@ -82,97 +81,6 @@ int gpio_clock_cycle(GPIO* gpio, int num_clks) {
- 	return r;
- }
- 
--// Gets the gpio device path from gpio manager object
--int gpio_init(GDBusConnection *connection, GPIO* gpio)
--{
--	int rc = GPIO_OK;
--	GDBusProxy *proxy;
--	GError *error;
--	GVariant *result;
--
--	error = NULL;
--	g_assert_no_error (error);
--	error = NULL;
--	proxy = g_dbus_proxy_new_sync (connection,
--                                 G_DBUS_PROXY_FLAGS_NONE,
--                                 NULL,                      /* GDBusInterfaceInfo */
--                                 "org.openbmc.managers.System", /* name */
--                                 "/org/openbmc/managers/System", /* object path */
--                                 "org.openbmc.managers.System",        /* interface */
--                                 NULL, /* GCancellable */
--                                 &error);
--	if (error != NULL) {
--		return GPIO_LOOKUP_ERROR;
--	}
--
--	result = g_dbus_proxy_call_sync (proxy,
--                                   "gpioInit",
--                                   g_variant_new ("(s)", gpio->name),
--                                   G_DBUS_CALL_FLAGS_NONE,
--                                   -1,
--                                   NULL,
--                                   &error);
--  
--	if (error != NULL) {
--		return GPIO_LOOKUP_ERROR;
--	}
--	g_assert (result != NULL);
--	g_variant_get (result, "(&si&s)", &gpio->dev,&gpio->num,&gpio->direction);
--	g_print("GPIO Lookup:  %s = %d,%s\n",gpio->name,gpio->num,gpio->direction);
--	
--	//export and set direction
--	char dev[254];
--	char data[4];
--	int fd;
--	do {
--		struct stat st;
--		
--		sprintf(dev,"%s/gpio%d/value",gpio->dev,gpio->num);
--		//check if gpio is exported, if not export
--    		int result = stat(dev, &st);
--    		if (result)
--		{
--			sprintf(dev,"%s/export",gpio->dev);
--			fd = open(dev, O_WRONLY);
--			if (fd == GPIO_ERROR) {
--				rc = GPIO_OPEN_ERROR;
--				break;
--			} 
--			sprintf(data,"%d",gpio->num);
--			rc = write(fd,data,strlen(data));
--			close(fd);
--			if (rc != strlen(data)) {
--				rc = GPIO_WRITE_ERROR;
--				break;
--			}
--		}
--		const char* file = "edge";
--		if (strcmp(gpio->direction,"in")==0 || strcmp(gpio->direction,"out")==0)
--		{
--			file = "direction";
--		}
--		sprintf(dev,"%s/gpio%d/%s",gpio->dev,gpio->num,file);
--		fd = open(dev,O_WRONLY);
--		if (fd == GPIO_ERROR) {
--			rc = GPIO_WRITE_ERROR;
--			break;
--		}
--		rc = write(fd,gpio->direction,strlen(gpio->direction));
--		if (rc != strlen(gpio->direction)) {
--			rc = GPIO_WRITE_ERROR;
--			break;
--		}
--
--		close(fd);
--		rc = GPIO_OK;
--	} while(0);
--
--	return rc;
--}
--
--
--
--
- char* get_gpio_dev(GPIO* gpio)
- {
- 	char* buf;
-diff --git a/includes/gpio.h b/includes/gpio.h
-index 8cfc59f..6c693a1 100644
---- a/includes/gpio.h
-+++ b/includes/gpio.h
-@@ -6,10 +6,10 @@
- #include <stdbool.h>
- 
- typedef struct {
--  gchar* name;
--  gchar* dev;
-+  char* name;
-+  char* dev;
-   uint16_t num;
--  gchar* direction;
-+  char* direction;
-   int fd;
-   bool irq_inited;
- } GPIO;
-@@ -24,7 +24,8 @@ typedef struct {
- #define GPIO_WRITE_ERROR  0x10
- #define GPIO_LOOKUP_ERROR 0x20
- 
--int gpio_init(GDBusConnection*, GPIO*);
-+/*int gpio_init(GDBusConnection*, GPIO*);*/
-+int gpio_init(void*, GPIO*);
- void gpio_close(GPIO*);
- int  gpio_open(GPIO*);
- int gpio_open_interrupt(GPIO*, GIOFunc, gpointer);
-diff --git a/objects/host_xstop_obj.c b/objects/host_xstop_obj.c
-new file mode 100644
-index 0000000..d1f8491
---- /dev/null
-+++ b/objects/host_xstop_obj.c
-@@ -0,0 +1,147 @@
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <stdbool.h>
-+#include <errno.h>
-+#include <string.h>
-+#include <time.h>
-+#include <sys/types.h>
-+#include <sys/stat.h>
-+#include <fcntl.h>
-+#include <systemd/sd-bus.h>
-+#include "gpio.h"
-+
-+static const char* xstop0      = "/org/openbmc/sensors/host/cpu0/Xstop";
-+static const char* srvc_name   = "org.openbmc.Sensors";
-+static const char* iface_name  = "org.openbmc.SensorValue";
-+
-+GPIO gpio_xstop0	= (GPIO){ "CHECKSTOP0" }; /* This object will use these GPIOs */
-+sd_bus* bus         = NULL;
-+sd_bus_slot* slot   = NULL;
-+
-+typedef struct {
-+    bool isXstopped;
-+} HostState;
-+
-+HostState hostState0 = (HostState) {false};
-+
-+int bus_property_get_bool(sd_bus *bus, const char *path, const char *interface, const char *property, sd_bus_message *reply, void *userdata, sd_bus_error *error)
-+{ 
-+        int b = *(bool*) userdata;
-+
-+        return sd_bus_message_append_basic(reply, 'b', &b);
-+}
-+
-+static const sd_bus_vtable host_xstop_vtable[] =
-+{
-+    SD_BUS_VTABLE_START(0),
-+    SD_BUS_PROPERTY("IsXstopped", "b", bus_property_get_bool, offsetof(HostState, isXstopped), SD_BUS_VTABLE_PROPERTY_EMITS_CHANGE),
-+    SD_BUS_VTABLE_END,
-+};
-+
-+static gboolean
-+on_host_xstop (GIOChannel *channel, GIOCondition condition, gpointer user_data)
-+{
-+	GError* error       = 0;
-+	gsize bytes_read    = 0;
-+	gchar buf[2]; 
-+	buf[1] = '\0';
-+
-+	g_io_channel_seek_position(channel, 0, G_SEEK_SET, 0);
-+	GIOStatus rc = g_io_channel_read_chars(channel, buf, 1, &bytes_read, &error);
-+
-+	if (gpio_xstop0.irq_inited) {
-+         hostState0.isXstopped = true;
-+    }
-+    else {
-+        gpio_xstop0.irq_inited = true;
-+    }
-+
-+	return true;
-+}
-+
-+int main(void)
-+{
-+    int rc              = 0;
-+    sd_bus_error err    = SD_BUS_ERROR_NULL;
-+    sd_bus_message *res = NULL;
-+
-+    /* Latch onto system bus. */
-+    rc = sd_bus_open_system(&bus);
-+    if(rc < 0) {
-+        fprintf(stderr,"Error opening system bus.\n");
-+        goto cleanup;
-+    }
-+
-+    /* Install object for Host0 */
-+    rc = sd_bus_add_object_vtable (bus,
-+                                    &slot,
-+                                    xstop0,
-+                                    iface_name,
-+                                    host_xstop_vtable,
-+                                    NULL);
-+    if (rc < 0) {
-+        fprintf(stderr, "Failed to add object to dbus: %s\n", strerror(-rc));
-+        goto cleanup;
-+    }
-+
-+    /* Setup GPIO IRQ for Host xstop */
-+	rc = GPIO_OK;
-+	do {
-+		rc = gpio_init(bus, &gpio_xstop0);
-+		if (rc != GPIO_OK) { goto cleanup; }
-+		rc = gpio_open_interrupt(&gpio_xstop0, on_host_xstop, NULL/*object*/);
-+		if (rc != GPIO_OK) { goto cleanup; }
-+	} while(0);
-+
-+	if (rc != GPIO_OK) {
-+		fprintf(stderr, "ERROR CHECKSTOP0: GPIO setup =%d\n", rc);
-+        goto cleanup;
-+	}
-+
-+    /* Register as a dbus service */
-+    rc = sd_bus_request_name (bus, srvc_name, 0);
-+    if (rc < 0) {
-+        fprintf(stderr, "Failed to register service: %s\n", strerror(-rc));
-+        goto cleanup;
-+    }
-+
-+    /* Register with Sensor Manager */
-+    sd_bus_error_free(&err);
-+    sd_bus_message_unref(res);
-+
-+    rc = sd_bus_call_method (bus,
-+                                "org.openbmc.Sensors",  /* name */
-+                                "/org/openbmc/sensors", /* object path */
-+                                "org.openbmc.Sensors",  /* interface */
-+                                "register",
-+                                &err,
-+                                &res,
-+                                "ss",
-+                                xstop0,
-+                                "HostXstopSensor");
-+
-+    if(rc < 0) {
-+        fprintf(stderr, "Failed to init gpio for %s : %s\n", xstop0, err.message);
-+        return -1;
-+    }
-+
-+    for (;;) {
-+        rc = sd_bus_process (bus, NULL);
-+        if (rc < 0) {
-+            fprintf(stderr, "Failed to process bus: %s\n", strerror(-rc));
-+            goto cleanup;
-+        }
-+        if (rc > 0) continue;
-+
-+        rc = sd_bus_wait (bus, (uint64_t)-1);
-+        if (rc < 0) {
-+            fprintf(stderr, "Failed to wait on bus: %s\n", strerror(-rc));
-+            goto cleanup;
-+        }
-+    }
-+                                
-+cleanup:
-+    sd_bus_slot_unref (slot);
-+    sd_bus_unref (bus);
-+    return rc;
-+}
--- 
-2.8.2
+Well, this was tested with the linux driver with known and unknown 
+devices. But to be complete, the device model and the transfer state 
+machine should be stressed a little more with really buggy devices and 
+drivers. 
+
+I should have addressed your comments on : 
+
+	https://github.com/legoater/qemu/commits/aspeed
+
+in which I also added a device model for the TMP42{1,2,3} temperature 
+sensors to fit the palmetto dts. 
+
+Tell me when you want a resend.
+
+Thanks,
+
+C. 
+
+>>  - bus recovery support (used by the Linux driver).
+>>  - transfer mode state machine bits. this is not strictly necessary as
+>>    it is mostly used for debug. The bus busy bit is deducted from the
+>>    I2C core engine of qemu.
+>>  - support of the pool buffer: 2048 bytes of internal SRAM (not used
+>>    by the Linux driver).
+>>
+>> Signed-off-by: Cédric Le Goater <clg@kaod.org>
+>> ---
+>>  hw/arm/ast2400.c            |  16 ++
+>>  hw/i2c/Makefile.objs        |   1 +
+>>  hw/i2c/aspeed_i2c.c         | 448 ++++++++++++++++++++++++++++++++++++++++++++
+>>  include/hw/arm/ast2400.h    |   2 +
+>>  include/hw/i2c/aspeed_i2c.h |  62 ++++++
+>>  5 files changed, 529 insertions(+)
+>>  create mode 100644 hw/i2c/aspeed_i2c.c
+>>  create mode 100644 include/hw/i2c/aspeed_i2c.h
+>>
+>> diff --git a/hw/arm/ast2400.c b/hw/arm/ast2400.c
+>> index cf9f37e6a301..4576e67cd483 100644
+>> --- a/hw/arm/ast2400.c
+>> +++ b/hw/arm/ast2400.c
+>> @@ -18,6 +18,7 @@
+>>  #include "hw/arm/ast2400.h"
+>>  #include "hw/char/serial.h"
+>>  #include "hw/boards.h"
+>> +#include "hw/i2c/aspeed_i2c.h"
+>>  
+>>  #define AST2400_UART_5_BASE      0x00184000
+>>  #define AST2400_IOMEM_SIZE       0x00200000
+>> @@ -25,6 +26,7 @@
+>>  #define AST2400_VIC_BASE         0x1E6C0000
+>>  #define AST2400_SCU_BASE         0x1E6E2000
+>>  #define AST2400_TIMER_BASE       0x1E782000
+>> +#define AST2400_I2C_BASE         0x1E78A000
+>>  
+>>  static const int uart_irqs[] = { 9, 32, 33, 34, 10 };
+>>  static const int timer_irqs[] = { 16, 17, 18, 35, 36, 37, 38, 39, };
+>> @@ -71,6 +73,10 @@ static void ast2400_init(Object *obj)
+>>      object_initialize(&s->scu, sizeof(s->scu), TYPE_ASPEED_SCU);
+>>      object_property_add_child(obj, "scu", OBJECT(&s->scu), NULL);
+>>      qdev_set_parent_bus(DEVICE(&s->scu), sysbus_get_default());
+>> +
+>> +    object_initialize(&s->i2c, sizeof(s->i2c), TYPE_ASPEED_I2C);
+>> +    object_property_add_child(obj, "i2c", OBJECT(&s->i2c), NULL);
+>> +    qdev_set_parent_bus(DEVICE(&s->i2c), sysbus_get_default());
+>>  }
+>>  
+>>  static void ast2400_realize(DeviceState *dev, Error **errp)
+>> @@ -143,6 +149,16 @@ static void ast2400_realize(DeviceState *dev, Error **errp)
+>>          serial_mm_init(&s->iomem, AST2400_UART_5_BASE, 2,
+>>                         uart5, 38400, serial_hds[0], DEVICE_LITTLE_ENDIAN);
+>>      }
+>> +
+>> +    /* I2C */
+>> +    object_property_set_bool(OBJECT(&s->i2c), true, "realized", &err);
+>> +    if (err) {
+>> +        error_propagate(errp, err);
+>> +        return;
+>> +    }
+>> +    sysbus_mmio_map(SYS_BUS_DEVICE(&s->i2c), 0, AST2400_I2C_BASE);
+>> +    sysbus_connect_irq(SYS_BUS_DEVICE(&s->i2c), 0,
+>> +                       qdev_get_gpio_in(DEVICE(&s->vic), 12));
+>>  }
+>>  
+>>  static void ast2400_class_init(ObjectClass *oc, void *data)
+>> diff --git a/hw/i2c/Makefile.objs b/hw/i2c/Makefile.objs
+>> index aeb8f38d70f1..1fd54edf4c23 100644
+>> --- a/hw/i2c/Makefile.objs
+>> +++ b/hw/i2c/Makefile.objs
+>> @@ -5,4 +5,5 @@ common-obj-$(CONFIG_APM) += pm_smbus.o
+>>  common-obj-$(CONFIG_BITBANG_I2C) += bitbang_i2c.o
+>>  common-obj-$(CONFIG_EXYNOS4) += exynos4210_i2c.o
+>>  common-obj-$(CONFIG_IMX_I2C) += imx_i2c.o
+>> +common-obj-$(CONFIG_ASPEED_SOC) += aspeed_i2c.o
+>>  obj-$(CONFIG_OMAP) += omap_i2c.o
+>> diff --git a/hw/i2c/aspeed_i2c.c b/hw/i2c/aspeed_i2c.c
+>> new file mode 100644
+>> index 000000000000..f512e64d827a
+>> --- /dev/null
+>> +++ b/hw/i2c/aspeed_i2c.c
+>> @@ -0,0 +1,448 @@
+>> +/*
+>> + * ARM Aspeed I2C controller
+>> + *
+>> + * Copyright (C) 2016 IBM Corp.
+>> + *
+>> + * This program is free software; you can redistribute it and/or
+>> + * modify it under the terms of the GNU General Public License
+>> + * as published by the Free Software Foundation; either version 2
+>> + * of the License, or (at your option) any later version.
+>> + *
+>> + * This program is distributed in the hope that it will be useful,
+>> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+>> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+>> + * GNU General Public License for more details.
+>> + *
+>> + * You should have received a copy of the GNU General Public License
+>> + * along with this program; if not, see .
+>> + *
+>> + */
+>> +
+>> +#include "qemu/osdep.h"
+>> +#include "hw/sysbus.h"
+>> +#include "hw/i2c/aspeed_i2c.h"
+>> +
+>> +/* I2C Global Register */
+>> +
+>> +#define I2C_CTRL_STATUS         0x00        /* Device Interrupt Status */
+>> +#define I2C_CTRL_ASSIGN         0x08        /* Device Interrupt Target
+>> +                                               Assignment */
+>> +
+>> +/* I2C Device (Bus) Register */
+>> +
+>> +#define I2CD_FUN_CTRL_REG       0x00       /* I2CD Function Control  */
+>> +#define   I2CD_BUFF_SEL_MASK               (0x7 << 20)
+>> +#define   I2CD_BUFF_SEL(x)                 (x << 20)
+>> +#define   I2CD_M_SDA_LOCK_EN               (0x1 << 16)
+>> +#define   I2CD_MULTI_MASTER_DIS            (0x1 << 15)
+>> +#define   I2CD_M_SCL_DRIVE_EN              (0x1 << 14)
+>> +#define   I2CD_MSB_STS                     (0x1 << 9)
+>> +#define   I2CD_SDA_DRIVE_1T_EN             (0x1 << 8)
+>> +#define   I2CD_M_SDA_DRIVE_1T_EN           (0x1 << 7)
+>> +#define   I2CD_M_HIGH_SPEED_EN             (0x1 << 6)
+>> +#define   I2CD_DEF_ADDR_EN                 (0x1 << 5)
+>> +#define   I2CD_DEF_ALERT_EN                (0x1 << 4)
+>> +#define   I2CD_DEF_ARP_EN                  (0x1 << 3)
+>> +#define   I2CD_DEF_GCALL_EN                (0x1 << 2)
+>> +#define   I2CD_SLAVE_EN                    (0x1 << 1)
+>> +#define   I2CD_MASTER_EN                   (0x1)
+>> +
+>> +#define I2CD_AC_TIMING_REG1     0x04       /* Clock and AC Timing Control #1 */
+>> +#define I2CD_AC_TIMING_REG2     0x08       /* Clock and AC Timing Control #1 */
+>> +#define I2CD_INTR_CTRL_REG      0x0c       /* I2CD Interrupt Control */
+>> +#define I2CD_INTR_STS_REG       0x10       /* I2CD Interrupt Status */
+>> +#define   I2CD_INTR_SDA_DL_TIMEOUT         (0x1 << 14)
+>> +#define   I2CD_INTR_BUS_RECOVER_DONE       (0x1 << 13)
+>> +#define   I2CD_INTR_SMBUS_ALERT            (0x1 << 12) /* Bus [0-3] only */
+>> +#define   I2CD_INTR_SMBUS_ARP_ADDR         (0x1 << 11) /* Removed */
+>> +#define   I2CD_INTR_SMBUS_DEV_ALERT_ADDR   (0x1 << 10) /* Removed */
+>> +#define   I2CD_INTR_SMBUS_DEF_ADDR         (0x1 << 9)  /* Removed */
+>> +#define   I2CD_INTR_GCALL_ADDR             (0x1 << 8)  /* Removed */
+>> +#define   I2CD_INTR_SLAVE_MATCH            (0x1 << 7)  /* use RX_DONE */
+>> +#define   I2CD_INTR_SCL_TIMEOUT            (0x1 << 6)
+>> +#define   I2CD_INTR_ABNORMAL               (0x1 << 5)
+>> +#define   I2CD_INTR_NORMAL_STOP            (0x1 << 4)
+>> +#define   I2CD_INTR_ARBIT_LOSS             (0x1 << 3)
+>> +#define   I2CD_INTR_RX_DONE                (0x1 << 2)
+>> +#define   I2CD_INTR_TX_NAK                 (0x1 << 1)
+>> +#define   I2CD_INTR_TX_ACK                 (0x1 << 0)
+>> +
+>> +#define I2CD_CMD_REG            0x14       /* I2CD Command/Status */
+>> +#define   I2CD_SDA_OE                      (0x1 << 28)
+>> +#define   I2CD_SDA_O                       (0x1 << 27)
+>> +#define   I2CD_SCL_OE                      (0x1 << 26)
+>> +#define   I2CD_SCL_O                       (0x1 << 25)
+>> +#define   I2CD_TX_TIMING                   (0x1 << 24)
+>> +#define   I2CD_TX_STATUS                   (0x1 << 23)
+>> +
+>> +#define   I2CD_TX_STATE_SHIFT              19 /* Tx State Machine */
+>> +#define   I2CD_TX_STATE_MASK                  0xf
+>> +#define     I2CD_IDLE                         0x0
+>> +#define     I2CD_MACTIVE                      0x8
+>> +#define     I2CD_MSTART                       0x9
+>> +#define     I2CD_MSTARTR                      0xa
+>> +#define     I2CD_MSTOP                        0xb
+>> +#define     I2CD_MTXD                         0xc
+>> +#define     I2CD_MRXACK                       0xd
+>> +#define     I2CD_MRXD                         0xe
+>> +#define     I2CD_MTXACK                       0xf
+>> +#define     I2CD_SWAIT                        0x1
+>> +#define     I2CD_SRXD                         0x4
+>> +#define     I2CD_STXACK                       0x5
+>> +#define     I2CD_STXD                         0x6
+>> +#define     I2CD_SRXACK                       0x7
+>> +#define     I2CD_RECOVER                      0x3
+>> +
+>> +#define   I2CD_SCL_LINE_STS                (0x1 << 18)
+>> +#define   I2CD_SDA_LINE_STS                (0x1 << 17)
+>> +#define   I2CD_BUS_BUSY_STS                (0x1 << 16)
+>> +#define   I2CD_SDA_OE_OUT_DIR              (0x1 << 15)
+>> +#define   I2CD_SDA_O_OUT_DIR               (0x1 << 14)
+>> +#define   I2CD_SCL_OE_OUT_DIR              (0x1 << 13)
+>> +#define   I2CD_SCL_O_OUT_DIR               (0x1 << 12)
+>> +#define   I2CD_BUS_RECOVER_CMD_EN          (0x1 << 11)
+>> +#define   I2CD_S_ALT_EN                    (0x1 << 10)
+>> +#define   I2CD_RX_DMA_ENABLE               (0x1 << 9)
+>> +#define   I2CD_TX_DMA_ENABLE               (0x1 << 8)
+>> +
+>> +/* Command Bit */
+>> +#define   I2CD_M_STOP_CMD                  (0x1 << 5)
+>> +#define   I2CD_M_S_RX_CMD_LAST             (0x1 << 4)
+>> +#define   I2CD_M_RX_CMD                    (0x1 << 3)
+>> +#define   I2CD_S_TX_CMD                    (0x1 << 2)
+>> +#define   I2CD_M_TX_CMD                    (0x1 << 1)
+>> +#define   I2CD_M_START_CMD                 (0x1)
+>> +
+>> +#define I2CD_DEV_ADDR_REG       0x18       /* Slave Device Address */
+>> +#define I2CD_BUF_CTRL_REG       0x1c       /* Pool Buffer Control */
+>> +#define I2CD_BYTE_BUF_REG       0x20       /* Transmit/Receive Byte Buffer */
+>> +#define   I2CD_BYTE_BUF_TX_SHIFT           0
+>> +#define   I2CD_BYTE_BUF_TX_MASK            0xff
+>> +#define   I2CD_BYTE_BUF_RX_SHIFT           8
+>> +#define   I2CD_BYTE_BUF_RX_MASK            0xff
+>> +
+>> +
+>> +static inline bool aspeed_i2c_bus_is_master(AspeedI2CBus *bus)
+>> +{
+>> +    return bus->ctrl & I2CD_MASTER_EN;
+>> +}
+>> +
+>> +static inline bool aspeed_i2c_bus_is_enabled(AspeedI2CBus *bus)
+>> +{
+>> +    return bus->ctrl & (I2CD_MASTER_EN | I2CD_SLAVE_EN);
+>> +}
+>> +
+>> +static inline void aspeed_i2c_bus_raise_interrupt(AspeedI2CBus *bus)
+>> +{
+>> +    bus->intr_status &= bus->intr_ctrl;
+>> +    if (bus->intr_status) {
+>> +        bus->controller->intr_status |= 1 << bus->id;
+>> +        qemu_irq_raise(bus->controller->irq);
+>> +    }
+>> +}
+>> +
+>> +static uint64_t aspeed_i2c_bus_read(void *opaque, hwaddr offset,
+>> +                                    unsigned size)
+>> +{
+>> +    AspeedI2CBus *bus = (AspeedI2CBus *) opaque;
+> 
+> Nitpick - we can avoid the cast here.
+> 
+>> +
+>> +    switch (offset) {
+>> +    case I2CD_FUN_CTRL_REG:
+>> +        return bus->ctrl;
+>> +    case I2CD_AC_TIMING_REG1:
+>> +        return bus->timing[0];
+>> +    case I2CD_AC_TIMING_REG2:
+>> +        return bus->timing[1];
+>> +    case I2CD_INTR_CTRL_REG:
+>> +        return bus->intr_ctrl;
+>> +    case I2CD_INTR_STS_REG:
+>> +        return bus->intr_status;
+>> +    case I2CD_BYTE_BUF_REG:
+>> +        return bus->buf;
+>> +    case I2CD_CMD_REG:
+>> +        return bus->cmd | (i2c_bus_busy(bus->bus) << 16);
+>> +    default:
+>> +        qemu_log_mask(LOG_GUEST_ERROR,
+>> +                      "%s: Bad offset 0x%" HWADDR_PRIx "\n", __func__, offset);
+>> +        return -1;
+>> +    }
+>> +}
+>> +
+>> +static inline uint64_t aspeed_i2c_bus_get_state(AspeedI2CBus *bus)
+>> +{
+>> +    return bus->cmd >> 19 & 0xF;
+>> +}
+>> +
+>> +static inline void aspeed_i2c_bus_set_state(AspeedI2CBus *bus, uint64_t value)
+>> +{
+>> +    bus->cmd |= (value & 0xF) << 19;
+>> +}
+>> +
+>> +static void aspeed_i2c_bus_handle_cmd(AspeedI2CBus *bus, uint64_t value)
+>> +{
+>> +    bus->cmd |= value & 0xFFFF;
+>> +    bus->intr_status = 0;
+>> +
+>> +    if (bus->cmd & I2CD_M_START_CMD) {
+>> +        if (i2c_start_transfer(bus->bus, extract32(bus->buf, 1, 7),
+>> +                               extract32(bus->buf, 0, 1))) {
+>> +            bus->intr_status |= I2CD_INTR_TX_NAK;
+>> +        } else {
+>> +            bus->intr_status |= I2CD_INTR_TX_ACK;
+>> +        }
+>> +
+>> +    } else if (bus->cmd & I2CD_M_TX_CMD) {
+>> +        if (i2c_send(bus->bus, bus->buf)) {
+>> +            bus->intr_status |= (I2CD_INTR_TX_NAK | I2CD_INTR_ABNORMAL);
+>> +            i2c_end_transfer(bus->bus);
+>> +        } else {
+>> +            bus->intr_status |= I2CD_INTR_TX_ACK;
+>> +        }
+>> +
+>> +    } else if (bus->cmd & I2CD_M_RX_CMD) {
+>> +        int ret = i2c_recv(bus->bus);
+>> +        if (ret < 0) {
+>> +            qemu_log_mask(LOG_GUEST_ERROR, "%s: read failed\n", __func__);
+>> +            ret = 0xff;
+>> +        } else {
+>> +            bus->intr_status |= I2CD_INTR_RX_DONE;
+>> +        }
+>> +        bus->buf = (ret & I2CD_BYTE_BUF_RX_MASK) << I2CD_BYTE_BUF_RX_SHIFT;
+>> +    }
+>> +
+>> +    if (bus->cmd & (I2CD_M_STOP_CMD | I2CD_M_S_RX_CMD_LAST)) {
+>> +        if (!i2c_bus_busy(bus->bus)) {
+>> +            bus->intr_status |= I2CD_INTR_ABNORMAL;
+>> +        } else {
+>> +            i2c_end_transfer(bus->bus);
+>> +            bus->intr_status |= I2CD_INTR_NORMAL_STOP;
+>> +        }
+>> +    }
+>> +
+>> +    /* command is handled, reset it and check for interrupts  */
+>> +    bus->cmd &= ~0xFFFF;
+>> +    aspeed_i2c_bus_raise_interrupt(bus);
+>> +}
+>> +
+>> +static void aspeed_i2c_bus_write(void *opaque, hwaddr offset,
+>> +                                 uint64_t value, unsigned size)
+>> +{
+>> +    AspeedI2CBus *bus = (AspeedI2CBus *) opaque;
+> 
+> As above
+> 
+>> +
+>> +    switch (offset) {
+>> +    case I2CD_FUN_CTRL_REG:
+>> +        if (value & I2CD_SLAVE_EN) {
+>> +            qemu_log_mask(LOG_UNIMP, "%s: slave mode not implemented\n",
+>> +                          __func__);
+>> +            break;
+>> +        }
+>> +        bus->ctrl = value & 0x0071C3FF;
+>> +        break;
+>> +    case I2CD_AC_TIMING_REG1:
+>> +        bus->timing[0] = value & 0xFFFFF0F;
+>> +        break;
+>> +    case I2CD_AC_TIMING_REG2:
+>> +        bus->timing[1] = value & 0x7;
+>> +        break;
+>> +    case I2CD_INTR_CTRL_REG:
+>> +        bus->intr_ctrl = value & 0x7FFF;
+>> +        break;
+>> +    case I2CD_INTR_STS_REG:
+>> +        bus->intr_status &= ~(value & 0x7FFF);
+>> +        bus->controller->intr_status &= ~(1 << bus->id);
+>> +        qemu_irq_lower(bus->controller->irq);
+>> +        break;
+>> +    case I2CD_DEV_ADDR_REG:
+>> +        qemu_log_mask(LOG_UNIMP, "%s: slave mode not implemented\n",
+>> +                      __func__);
+>> +        break;
+>> +    case I2CD_BYTE_BUF_REG:
+>> +        bus->buf = (value & I2CD_BYTE_BUF_TX_MASK) << I2CD_BYTE_BUF_TX_SHIFT;
+>> +        break;
+>> +    case I2CD_CMD_REG:
+>> +        if (!aspeed_i2c_bus_is_enabled(bus)) {
+>> +            break;
+>> +        }
+>> +
+>> +        if (!aspeed_i2c_bus_is_master(bus)) {
+>> +            qemu_log_mask(LOG_UNIMP, "%s: slave mode not implemented\n",
+>> +                          __func__);
+>> +            break;
+>> +        }
+>> +
+>> +        aspeed_i2c_bus_handle_cmd(bus, value);
+>> +        break;
+>> +
+>> +    default:
+>> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: Bad offset 0x%" HWADDR_PRIx "\n",
+>> +                      __func__, offset);
+>> +    }
+>> +}
+>> +
+>> +static uint64_t aspeed_i2c_ctrl_read(void *opaque, hwaddr offset,
+>> +                                   unsigned size)
+>> +{
+>> +    AspeedI2CState *s = (AspeedI2CState *)opaque;
+> 
+> As above
+> 
+>> +
+>> +    switch (offset) {
+>> +    case I2C_CTRL_STATUS:
+>> +        return s->intr_status;
+>> +    default:
+>> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: Bad offset 0x%" HWADDR_PRIx "\n",
+>> +                      __func__, offset);
+>> +        break;
+>> +    }
+>> +
+>> +    return -1;
+>> +}
+>> +
+>> +static void aspeed_i2c_ctrl_write(void *opaque, hwaddr offset,
+>> +                                  uint64_t value, unsigned size)
+>> +{
+>> +    switch (offset) {
+>> +    case I2C_CTRL_STATUS:
+>> +    default:
+>> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: Bad offset 0x%" HWADDR_PRIx "\n",
+>> +                      __func__, offset);
+>> +        break;
+>> +    }
+>> +}
+>> +
+>> +static const MemoryRegionOps aspeed_i2c_bus_ops = {
+>> +    .read = aspeed_i2c_bus_read,
+>> +    .write = aspeed_i2c_bus_write,
+>> +    .endianness = DEVICE_NATIVE_ENDIAN,
+> 
+> Alexey suggested I make these DEVICE_LITTLE_ENDIAN when he looked at my
+> timer and intc devices. We should be consistent one way or the other -
+> what's the right approach?
+> 
+>> +};
+>> +
+>> +static const MemoryRegionOps aspeed_i2c_ctrl_ops = {
+>> +    .read = aspeed_i2c_ctrl_read,
+>> +    .write = aspeed_i2c_ctrl_write,
+>> +    .endianness = DEVICE_NATIVE_ENDIAN,
+>> +};
+>> +
+>> +static const VMStateDescription aspeed_i2c_bus_vmstate = {
+>> +    .name = TYPE_ASPEED_I2C,
+>> +    .version_id = 1,
+>> +    .minimum_version_id = 1,
+>> +    .fields = (VMStateField[]) {
+>> +        VMSTATE_UINT8(id, AspeedI2CBus),
+>> +        VMSTATE_UINT32(ctrl, AspeedI2CBus),
+>> +        VMSTATE_UINT32_ARRAY(timing, AspeedI2CBus, 2),
+>> +        VMSTATE_UINT32(intr_ctrl, AspeedI2CBus),
+>> +        VMSTATE_UINT32(intr_status, AspeedI2CBus),
+>> +        VMSTATE_UINT32(cmd, AspeedI2CBus),
+>> +        VMSTATE_UINT32(buf, AspeedI2CBus),
+>> +        VMSTATE_END_OF_LIST()
+>> +    }
+>> +};
+>> +
+>> +static const VMStateDescription aspeed_i2c_vmstate = {
+>> +    .name = TYPE_ASPEED_I2C,
+>> +    .version_id = 1,
+>> +    .minimum_version_id = 1,
+>> +    .fields = (VMStateField[]) {
+>> +        VMSTATE_UINT32(intr_status, AspeedI2CState),
+>> +        VMSTATE_STRUCT_ARRAY(busses, AspeedI2CState,
+>> +                             ASPEED_I2C_NR_BUSSES, 1, aspeed_i2c_bus_vmstate,
+>> +                             AspeedI2CBus),
+>> +        VMSTATE_END_OF_LIST()
+>> +    }
+>> +};
+>> +
+>> +static void aspeed_i2c_reset(DeviceState *dev)
+>> +{
+>> +    int i;
+>> +    AspeedI2CState *s = ASPEED_I2C(dev);
+>> +
+>> +    s->intr_status = 0;
+>> +
+>> +    for (i = 0; i < ASPEED_I2C_NR_BUSSES; i++) {
+>> +        s->busses[i].intr_status = 0;
+> 
+> Should we also be resetting .intr_ctrl = 0? Datasheet says that's the
+> init value.
+> 
+>> +        s->busses[i].cmd = 0;
+>> +        s->busses[i].buf = 0;
+>> +        i2c_end_transfer(s->busses[i].bus);
+>> +    }
+>> +}
+>> +
+>> +/*
+>> + * Address Definitions
+>> + *
+>> + *   0x000 ... 0x03F: Global Register
+>> + *   0x040 ... 0x07F: Device 1
+>> + *   0x080 ... 0x0BF: Device 2
+>> + *   0x0C0 ... 0x0FF: Device 3
+>> + *   0x100 ... 0x13F: Device 4
+>> + *   0x140 ... 0x17F: Device 5
+>> + *   0x180 ... 0x1BF: Device 6
+>> + *   0x1C0 ... 0x1FF: Device 7
+>> + *   0x200 ... 0x2FF: Buffer Pool  (unused in linux driver)
+>> + *   0x300 ... 0x33F: Device 8
+>> + *   0x340 ... 0x37F: Device 9
+>> + *   0x380 ... 0x3BF: Device 10
+>> + *   0x3C0 ... 0x3FF: Device 11
+>> + *   0x400 ... 0x43F: Device 12
+>> + *   0x440 ... 0x47F: Device 13
+>> + *   0x480 ... 0x4BF: Device 14
+>> + *   0x800 ... 0xFFF: Buffer Pool  (unused in linux driver)
+>> + */
+>> +static void aspeed_i2c_realize(DeviceState *dev, Error **errp)
+>> +{
+>> +    int i;
+>> +    SysBusDevice *sbd = SYS_BUS_DEVICE(dev);
+>> +    AspeedI2CState *s = ASPEED_I2C(dev);
+>> +
+>> +    sysbus_init_irq(sbd, &s->irq);
+>> +    memory_region_init_io(&s->iomem, OBJECT(s), &aspeed_i2c_ctrl_ops, s,
+>> +                          "aspeed.i2c", 0x1000);
+>> +    sysbus_init_mmio(sbd, &s->iomem);
+>> +
+>> +    for (i = 0; i < ASPEED_I2C_NR_BUSSES; i++) {
+>> +        char name[16];
+>> +        int offset = i < 7 ? 1 : 5;
+>> +        snprintf(name, sizeof(name), "aspeed.i2c.%d", i);
+>> +        s->busses[i].controller = s;
+>> +        s->busses[i].id = i;
+>> +        s->busses[i].bus = i2c_init_bus(dev, name);
+>> +        memory_region_init_io(&s->busses[i].mr, OBJECT(dev),
+>> +                              &aspeed_i2c_bus_ops, &s->busses[i], name, 0x40);
+>> +        memory_region_add_subregion(&s->iomem, 0x40 * (i + offset),
+>> +                                    &s->busses[i].mr);
+>> +    }
+>> +}
+>> +
+>> +static void aspeed_i2c_class_init(ObjectClass *klass, void *data)
+>> +{
+>> +    DeviceClass *dc = DEVICE_CLASS(klass);
+>> +
+>> +    dc->vmsd = &aspeed_i2c_vmstate;
+>> +    dc->reset = aspeed_i2c_reset;
+>> +    dc->realize = aspeed_i2c_realize;
+>> +    dc->desc = "Aspeed I2C Controller";
+>> +}
+>> +
+>> +static const TypeInfo aspeed_i2c_info = {
+>> +    .name          = TYPE_ASPEED_I2C,
+>> +    .parent        = TYPE_SYS_BUS_DEVICE,
+>> +    .instance_size = sizeof(AspeedI2CState),
+>> +    .class_init    = aspeed_i2c_class_init,
+>> +};
+>> +
+>> +static void aspeed_i2c_register_types(void)
+>> +{
+>> +    type_register_static(&aspeed_i2c_info);
+>> +}
+>> +
+>> +type_init(aspeed_i2c_register_types)
+>> +
+>> +
+>> +I2CBus *aspeed_i2c_get_bus(DeviceState *dev, int busnr)
+>> +{
+>> +    AspeedI2CState *s = ASPEED_I2C(dev);
+>> +    I2CBus *bus = NULL;
+>> +
+>> +    if (busnr >= 0 && busnr < ASPEED_I2C_NR_BUSSES) {
+>> +        bus = s->busses[busnr].bus;
+>> +    }
+>> +
+>> +    return bus;
+>> +}
+>> diff --git a/include/hw/arm/ast2400.h b/include/hw/arm/ast2400.h
+>> index cf7102145355..e96e3db3fbea 100644
+>> --- a/include/hw/arm/ast2400.h
+>> +++ b/include/hw/arm/ast2400.h
+>> @@ -16,6 +16,7 @@
+>>  #include "hw/intc/aspeed_vic.h"
+>>  #include "hw/misc/aspeed_scu.h"
+>>  #include "hw/timer/aspeed_timer.h"
+>> +#include "hw/i2c/aspeed_i2c.h"
+>>  
+>>  typedef struct AST2400State {
+>>      /*< private >*/
+>> @@ -28,6 +29,7 @@ typedef struct AST2400State {
+>>      AspeedVICState vic;
+>>      AspeedTimerCtrlState timerctrl;
+>>      AspeedSCUState scu;
+>> +    AspeedI2CState i2c;
+>>  } AST2400State;
+>>  
+>>  #define TYPE_AST2400 "ast2400"
+>> diff --git a/include/hw/i2c/aspeed_i2c.h b/include/hw/i2c/aspeed_i2c.h
+>> new file mode 100644
+>> index 000000000000..f9020acdef30
+>> --- /dev/null
+>> +++ b/include/hw/i2c/aspeed_i2c.h
+>> @@ -0,0 +1,62 @@
+>> +/*
+>> + *  ASPEED AST2400 I2C Controller
+>> + *
+>> + *  Copyright (C) 2016 IBM Corp.
+>> + *
+>> + *  This program is free software; you can redistribute it and/or modify
+>> + *  it under the terms of the GNU General Public License as published by
+>> + *  the Free Software Foundation; either version 2 of the License, or
+>> + *  (at your option) any later version.
+>> + *
+>> + *  This program is distributed in the hope that it will be useful,
+>> + *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+>> + *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+>> + *  GNU General Public License for more details.
+>> + *
+>> + *  You should have received a copy of the GNU General Public License along
+>> + *  with this program; if not, write to the Free Software Foundation, Inc.,
+>> + *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+>> + */
+>> +#ifndef ASPEED_I2C_H
+>> +#define ASPEED_I2C_H
+>> +
+>> +#include "hw/i2c/i2c.h"
+>> +
+>> +#define TYPE_ASPEED_I2C "aspeed.i2c"
+>> +#define ASPEED_I2C(obj) \
+>> +    OBJECT_CHECK(AspeedI2CState, (obj), TYPE_ASPEED_I2C)
+>> +
+>> +#define ASPEED_I2C_NR_BUSSES 14
+>> +
+>> +struct AspeedI2CState;
+>> +
+>> +typedef struct AspeedI2CBus {
+>> +    struct AspeedI2CState *controller;
+>> +
+>> +    MemoryRegion mr;
+>> +
+>> +    I2CBus *bus;
+>> +    uint8_t id;
+>> +
+>> +    uint32_t ctrl;
+>> +    uint32_t timing[2];
+>> +    uint32_t intr_ctrl;
+>> +    uint32_t intr_status;
+>> +    uint32_t cmd;
+>> +    uint32_t buf;
+>> +} AspeedI2CBus;
+>> +
+>> +typedef struct AspeedI2CState {
+>> +    SysBusDevice parent_obj;
+>> +
+>> +    MemoryRegion iomem;
+>> +    qemu_irq irq;
+>> +
+>> +    uint32_t intr_status;
+>> +
+>> +    AspeedI2CBus busses[ASPEED_I2C_NR_BUSSES];
+>> +} AspeedI2CState;
+>> +
+>> +I2CBus *aspeed_i2c_get_bus(DeviceState *dev, int busnr);
+>> +
+>> +#endif /* ASPEED_I2C_H */
+> 
+> Cheers,
+> 
+> Andrew
+> 
