@@ -1,43 +1,43 @@
 Return-Path: <andrew@aj.id.au>
-Received: from homiemail-a19.g.dreamhost.com (sub3.mail.dreamhost.com
+Received: from homiemail-a17.g.dreamhost.com (sub3.mail.dreamhost.com
  [69.163.253.7])
  (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r9H6X1kt8zDqfr
- for <openbmc@lists.ozlabs.org>; Thu, 19 May 2016 13:46:12 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r9J0l5089zDqHc
+ for <openbmc@lists.ozlabs.org>; Thu, 19 May 2016 14:26:15 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=RFXxMfPQ; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=gyEnzmGC; 
  dkim-atps=neutral
-Received: from homiemail-a19.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a19.g.dreamhost.com (Postfix) with ESMTP id 26567604069;
- Wed, 18 May 2016 20:46:10 -0700 (PDT)
+Received: from homiemail-a17.g.dreamhost.com (localhost [127.0.0.1])
+ by homiemail-a17.g.dreamhost.com (Postfix) with ESMTP id 982FF2B206D;
+ Wed, 18 May 2016 21:26:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
  :subject:from:reply-to:to:cc:date:in-reply-to:references
- :content-type:mime-version; s=aj.id.au; bh=iE5I8usUMRrspIM5lDl7j
- B5sXGA=; b=RFXxMfPQ1pIvXQETnpmtCYfkaFeD7jigUxYDiVa/u7IgHWIMkip6o
- 20jrTxCNbkiNyqvS6Ati2cYHlC2685kvxB0TUjEgcFiduWctxkWnSRFpp6ZVfMJL
- 8fo33YoglQarcMGxtwQgCHf9kSrsTaYG2HUXq7Uc85j0UhnhIzrHY0=
+ :content-type:mime-version; s=aj.id.au; bh=1qh7IcuTr6DdQEUdDuOS3
+ M8+hnk=; b=gyEnzmGCyib5HliVFebOYIYu8jEm1Ye9F/y3ujvBGTw2fxC727TfR
+ JhscbuvAh4GzECcil8KdXPaRQXyibhZBJutYRUeXgxVPAOn6V6Ogzjmb0lRnvvwc
+ d0xbvRHC8RhhE5354/jWH+Z2tZEEV9pT1+hjBYxbMT/vz3BmH55OQg=
 Received: from keelia (ppp203-122-213-247.static.internode.on.net
  [203.122.213.247])
  (using TLSv1 with cipher AES128-SHA (128/128 bits))
  (No client certificate requested)
  (Authenticated sender: andrew@aj.id.au)
- by homiemail-a19.g.dreamhost.com (Postfix) with ESMTPSA id 95622604061;
- Wed, 18 May 2016 20:46:08 -0700 (PDT)
-Message-ID: <1463629553.2703.142.camel@aj.id.au>
-Subject: Re: [PATCH btbridge v4 2/6] Increase debugging output when
- receiving a response to message from dbus
+ by homiemail-a17.g.dreamhost.com (Postfix) with ESMTPSA id 8759E2B206A;
+ Wed, 18 May 2016 21:26:08 -0700 (PDT)
+Message-ID: <1463631955.2703.145.camel@aj.id.au>
+Subject: Re: [PATCH btbridge v4 3/6] Add travis dir to keep all the Travis
+ CI specific files together
 From: Andrew Jeffery <andrew@aj.id.au>
 Reply-To: andrew@aj.id.au
 To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
 Cc: Cyril Bur <cyril.bur@au1.ibm.com>
-Date: Thu, 19 May 2016 13:15:53 +0930
-In-Reply-To: <1462324208-11150-3-git-send-email-openbmc-patches@stwcx.xyz>
+Date: Thu, 19 May 2016 13:55:55 +0930
+In-Reply-To: <1462324208-11150-4-git-send-email-openbmc-patches@stwcx.xyz>
 References: <1462324208-11150-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1462324208-11150-3-git-send-email-openbmc-patches@stwcx.xyz>
+ <1462324208-11150-4-git-send-email-openbmc-patches@stwcx.xyz>
 Organization: IBM OzLabs
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-mdrsS+8DLbOqv1skDOes"
+ protocol="application/pgp-signature"; boundary="=-gKK84f4GI+4BQK+bOK8T"
 X-Mailer: Evolution 3.18.5.2-0ubuntu1 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -51,41 +51,112 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 May 2016 03:46:12 -0000
+X-List-Received-Date: Thu, 19 May 2016 04:26:16 -0000
 
 
---=-mdrsS+8DLbOqv1skDOes
+--=-gKK84f4GI+4BQK+bOK8T
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Tue, 2016-05-03 at 20:10 -0500, OpenBMC Patches wrote:
 > From: Cyril Bur <cyril.bur@au1.ibm.com>
 >=20
-> Signed-off-by: Cyril Bur <cyril.bur@au1.ibm.com>
+
+This needs a S-o-B tag.
 
 Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 
+
 > ---
-> =C2=A0btbridged.c | 2 ++
-> =C2=A01 file changed, 2 insertions(+)
+> =C2=A0.build.sh=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0| 23 -----------=
+------------
+> =C2=A0.travis.yml=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0|=C2=A0=C2=A02 +-
+> =C2=A0travis/build.sh | 23 +++++++++++++++++++++++
+> =C2=A03 files changed, 24 insertions(+), 24 deletions(-)
+> =C2=A0delete mode 100755 .build.sh
+> =C2=A0create mode 100755 travis/build.sh
 >=20
-> diff --git a/btbridged.c b/btbridged.c
-> index 3e261a9..be25eb9 100644
-> --- a/btbridged.c
-> +++ b/btbridged.c
-> @@ -317,6 +317,8 @@ static int method_send_message(sd_bus_message
-> *msg, void *userdata, sd_bus_error
-> =C2=A0		goto out;
-> =C2=A0	}
-> =C2=A0	MSG_OUT("Received a dbus response for msg with seq
-> 0x%02x\n", seq);
-> +	MSG_OUT("(netfn 0x%02x lun 0x%02x cmd 0x%02x cc 0x%02x with
-> data of size %lu)\n",
-> +			netfn, lun, cmd, cc, data_sz);
-> =C2=A0	bt_msg->call =3D sd_bus_message_ref(msg);
-> =C2=A0	bt_msg->rsp.netfn =3D netfn;
-> =C2=A0	bt_msg->rsp.lun =3D lun;
---=-mdrsS+8DLbOqv1skDOes
+> diff --git a/.build.sh b/.build.sh
+> deleted file mode 100755
+> index 79b0b5c..0000000
+> --- a/.build.sh
+> +++ /dev/null
+> @@ -1,23 +0,0 @@
+> -#!/bin/bash
+> -
+> -Dockerfile=3D$(cat << EOF
+> -FROM ubuntu:15.10
+> -RUN DEBIAN_FRONTEND=3Dnoninteractive apt-get update && apt-get upgrade
+> -yy
+> -RUN DEBIAN_FRONTEND=3Dnoninteractive apt-get install --no-install-
+> recommends -yy make gcc libsystemd-dev libc6-dev pkg-config
+> -RUN groupadd -g ${GROUPS} ${USER} && useradd -d ${HOME} -m -u ${UID}
+> -g ${GROUPS} ${USER}
+> -USER ${USER}
+> -ENV HOME ${HOME}
+> -RUN /bin/bash
+> -EOF
+> -)
+> -
+> -docker pull ubuntu:15.10
+> -docker build -t temp - <<< "${Dockerfile}"
+> -
+> -gcc --version
+> -
+> -mkdir -p linux
+> -wget https://raw.githubusercontent.com/openbmc/linux/dev-4.3/include
+> /uapi/linux/bt-host.h -O linux/bt-host.h
+> -
+> -docker run --cap-add=3Dsys_admin --net=3Dhost --rm=3Dtrue --user=3D"${US=
+ER}"=20
+> \
+> - -w "${PWD}" -v "${HOME}":"${HOME}" -t temp make KERNEL_HEADERS=3D$PWD
+> diff --git a/.travis.yml b/.travis.yml
+> index faaa918..bfdedab 100644
+> --- a/.travis.yml
+> +++ b/.travis.yml
+> @@ -6,4 +6,4 @@ services:
+> =C2=A0language: c
+> =C2=A0
+> =C2=A0script:
+> -=C2=A0=C2=A0=C2=A0=C2=A0- ./.build.sh
+> +=C2=A0=C2=A0=C2=A0=C2=A0- ./travis/build.sh
+> diff --git a/travis/build.sh b/travis/build.sh
+> new file mode 100755
+> index 0000000..79b0b5c
+> --- /dev/null
+> +++ b/travis/build.sh
+> @@ -0,0 +1,23 @@
+> +#!/bin/bash
+> +
+> +Dockerfile=3D$(cat << EOF
+> +FROM ubuntu:15.10
+> +RUN DEBIAN_FRONTEND=3Dnoninteractive apt-get update && apt-get upgrade
+> -yy
+> +RUN DEBIAN_FRONTEND=3Dnoninteractive apt-get install --no-install-
+> recommends -yy make gcc libsystemd-dev libc6-dev pkg-config
+> +RUN groupadd -g ${GROUPS} ${USER} && useradd -d ${HOME} -m -u ${UID}
+> -g ${GROUPS} ${USER}
+> +USER ${USER}
+> +ENV HOME ${HOME}
+> +RUN /bin/bash
+> +EOF
+> +)
+> +
+> +docker pull ubuntu:15.10
+> +docker build -t temp - <<< "${Dockerfile}"
+> +
+> +gcc --version
+> +
+> +mkdir -p linux
+> +wget https://raw.githubusercontent.com/openbmc/linux/dev-4.3/include
+> /uapi/linux/bt-host.h -O linux/bt-host.h
+> +
+> +docker run --cap-add=3Dsys_admin --net=3Dhost --rm=3Dtrue --user=3D"${US=
+ER}"=20
+> \
+> + -w "${PWD}" -v "${HOME}":"${HOME}" -t temp make KERNEL_HEADERS=3D$PWD
+--=-gKK84f4GI+4BQK+bOK8T
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
@@ -93,19 +164,19 @@ Content-Transfer-Encoding: 7bit
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAABCgAGBQJXPTbxAAoJEJ0dnzgO5LT5z7kP+gJrQCgY+xPyCdw6epDqT6bo
-Hab3u8zB1WWAgHX3nmqrX1S87zk7okBSB0/R7Dp302NFV8AAzM/N7SkJpblGzCoz
-NtsOUvMbe7syZ6weKvF/GxsTa/rVlZdMXygI6daohI8TexHHk3BQgYBLJWnZeLrs
-o5I78fXj5D5WzZwBIbCZw8/kYKbwru7eQILuDdw0UlsJfJxX0tjs2zcU7Mf/mywV
-3EdzCAcUL757srPZT3pi7dLtO2rRvViwazXUk0jllKOWzykltnygqgPQspbhr93X
-25vCupHu8FY8FLKYLL5T+MttmIPOEQiuy1jfJ0vDEeuLCcTFQUwrVpbwc2kgir0r
-SJFu91fclgco6N2x6H0ZiI0hH3WIkkRzS9JnNAo12/HU4d/rA4nDJIycxXT69CFU
-S710ufHUj0BouZH/VbSaA0VUYUmNUYRhAaysuvaO9yfxDEuIZNneOmmqphw3igIJ
-+vaa7yiKLlZFPzcGVmsEe8v0x0DgpUNYE3gr6hjmfJxJdlu01wETsSlLgTE6D5UA
-F1G4w8GuQFZfgW7bQbmT+zIm9DAmB2B/17gUA9kH+OwV3aeXE7WR6i8Mo+99V2ht
-iqGmEB79V/inGot9+1pWt0ZQKpxnsw4Gvc/duTZsOYjwQ7B4LFZEnAQGPjI4yxRD
-G2V9LkqC4xNIGh/Rlsfr
-=Qz+U
+iQIcBAABCgAGBQJXPUBTAAoJEJ0dnzgO5LT54EkP/2BDpGeY9eF0Rd9Y7CET98Xf
+qcj8k/WpEwqs3y7i/OyAUogTZdC6eK5zdIyYEFzQ5PNqLGTRCDhtLMb7CRlkQ8Qs
+O+nN848fdcwLVmGClWhxpHVL04OTotXjwvt27LwirIKt2kY8NT3FdMitWtOwNoDB
+QtRwu5Cn1kOV2GyDN5fj1e4sWAUjcE2/XDbroI2C/9z/gMdGsjZObWVxiR1GeyJ1
+nps2r/ZqzZqwqVg68jt5Ksi0dbiM5ngFYOgsT1ctPQtm+gNUyxsctONxesXpeeTv
+L/qQ0dOUb/mwfrjvGOAqOOT1AWg9yw21ROOOibZgN1oDBWMe8L0sF+ljqUYZlA2Z
+uUUX8ac91xH+1NNS7E4IDjDC2dOZb6GfcyoSxRHQWbgX7pjI4x7pdQ0VK849wg4J
+uOE48mpSjImSwmdNUJCuPmK1RSdHZCPiN0ASK3XXBRrYPlgKYNVpEkV4+c6D1+Et
+mfQps7bFYbFxIRw2FcAv24xkeOIoECd8kW5zROt++Dv1psjbQWppkewgezGbo/3M
+QlsTZnnyK7l7rkjTrSxp5dCuzW5dZAv2MTfuttytxVSa1mV6ukNDndDVJEwPMna8
+KognbtbxGEtqmBX5cQF0cGQVTJ6vePN8cq9pMCU1GjMr5PHk7+w+I6w94D4DlePw
+aRBLj/demENRopL4G6A8
+=FhUg
 -----END PGP SIGNATURE-----
 
---=-mdrsS+8DLbOqv1skDOes--
+--=-gKK84f4GI+4BQK+bOK8T--
