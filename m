@@ -1,36 +1,39 @@
 Return-Path: <clg@kaod.org>
-X-Greylist: delayed 97247 seconds by postgrey-1.35 at bilbo;
- Fri, 20 May 2016 03:03:47 AEST
-Received: from mo178.mail-out.ovh.net (mo178.mail-out.ovh.net [178.32.228.178])
+X-Greylist: delayed 2334 seconds by postgrey-1.35 at bilbo;
+ Fri, 20 May 2016 03:33:54 AEST
+Received: from 1.mo178.mail-out.ovh.net (1.mo178.mail-out.ovh.net
+ [178.33.251.53])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r9cpq29SfzDqFC
- for <openbmc@lists.ozlabs.org>; Fri, 20 May 2016 03:03:47 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r9dTZ4VvXzDqFC
+ for <openbmc@lists.ozlabs.org>; Fri, 20 May 2016 03:33:53 +1000 (AEST)
 Received: from player791.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo178.mail-out.ovh.net (Postfix) with ESMTP id 9A446100C7AF
- for <openbmc@lists.ozlabs.org>; Thu, 19 May 2016 18:54:55 +0200 (CEST)
+ by mo178.mail-out.ovh.net (Postfix) with ESMTP id C13F9100C752
+ for <openbmc@lists.ozlabs.org>; Thu, 19 May 2016 18:57:03 +0200 (CEST)
 Received: from [192.168.124.3] (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
  [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player791.ha.ovh.net (Postfix) with ESMTPSA id 6CD0142006C;
- Thu, 19 May 2016 18:54:53 +0200 (CEST)
+ by player791.ha.ovh.net (Postfix) with ESMTPSA id 0DD9D42006C;
+ Thu, 19 May 2016 18:57:00 +0200 (CEST)
 Subject: Re: [PATCH qemu 1/3] i2c: add aspeed i2c crontroller
-To: andrew@aj.id.au, openbmc@lists.ozlabs.org
+To: Joel Stanley <joel@jms.id.au>
 References: <1463513102-14135-1-git-send-email-clg@kaod.org>
  <1463513102-14135-2-git-send-email-clg@kaod.org>
- <1463622062.2703.132.camel@aj.id.au>
+ <CACPK8XfyU5iSe6s7hLYx3hb2on=3zp=BPoJhnJS8KKEBbZOA1g@mail.gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Andrew Jeffery <andrew@aj.id.au>
 From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <573DEFD0.7070403@kaod.org>
-Date: Thu, 19 May 2016 18:54:40 +0200
+Message-ID: <573DF050.2060409@kaod.org>
+Date: Thu, 19 May 2016 18:56:48 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
  Icedove/38.7.0
 MIME-Version: 1.0
-In-Reply-To: <1463622062.2703.132.camel@aj.id.au>
+In-Reply-To: <CACPK8XfyU5iSe6s7hLYx3hb2on=3zp=BPoJhnJS8KKEBbZOA1g@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 17284533898975087362
+X-Ovh-Tracer-Id: 17320562693481073579
 X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeekledrfedvgddutddvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfenuceurghilhhouhhtmecufedttdenuc
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeekledrfedvgddutddvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -42,49 +45,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 May 2016 17:03:48 -0000
+X-List-Received-Date: Thu, 19 May 2016 17:33:55 -0000
 
-Hello Andrew,
+Hello Joel,
 
-On 05/19/2016 03:41 AM, Andrew Jeffery wrote:
-> Hi Cédric,
+On 05/18/2016 03:26 PM, Joel Stanley wrote:
+> Hey Cedric,
 > 
-> Looks good to me as well. I have made a few comments.
-> 
-> On Tue, 2016-05-17 at 21:25 +0200, Cédric Le Goater wrote:
+> On Wed, May 18, 2016 at 4:55 AM, Cédric Le Goater <clg@kaod.org> wrote:
 >> The Aspeed AST2400 integrates a set of 14 I2C/SMBus bus controllers
 >> directly connected to APB bus which can be programmed as a master or
 >> slave.
+> 
+> Nice work!
+> 
 >>
 >> This patch offers a device model for the master mode only, slave mode
 >> is not supported.
->>
+> 
+> Cool. That's good enough for us to emulate a barreleye or palemtto.
+> 
+> We should look to extend it to support this as well as multi-byte
+> transfers using the pool buffer soon; both the model and the driver.
+
+Yes. That will help for the transfers with the OCC, which are quite
+heavy.
+
+Thanks,
+
+C.
+
+> 
+> I had a read of the code and it looks good to me for a first pass.
+> I'll let Andrew comment further and merge it into our staging tree.
+> 
 >> On the TODO list, we also have :
 >>
 >>  - improve and harden the state machine. This is really a first
 >>    version.
-> 
-> What are your thoughts here? Validating the transitions? Something
-> more?
-
-Well, this was tested with the linux driver with known and unknown 
-devices. But to be complete, the device model and the transfer state 
-machine should be stressed a little more with really buggy devices and 
-drivers. 
-
-I should have addressed your comments on : 
-
-	https://github.com/legoater/qemu/commits/aspeed
-
-in which I also added a device model for the TMP42{1,2,3} temperature 
-sensors to fit the palmetto dts. 
-
-Tell me when you want a resend.
-
-Thanks,
-
-C. 
-
 >>  - bus recovery support (used by the Linux driver).
 >>  - transfer mode state machine bits. this is not strictly necessary as
 >>    it is mostly used for debug. The bus busy bit is deducted from the
@@ -93,6 +91,9 @@ C.
 >>    by the Linux driver).
 >>
 >> Signed-off-by: Cédric Le Goater <clg@kaod.org>
+> 
+> Acked-by: Joel Stanley <joel@jms.id.au>
+> 
 >> ---
 >>  hw/arm/ast2400.c            |  16 ++
 >>  hw/i2c/Makefile.objs        |   1 +
@@ -112,7 +113,7 @@ C.
 >>  #include "hw/char/serial.h"
 >>  #include "hw/boards.h"
 >> +#include "hw/i2c/aspeed_i2c.h"
->>  
+>>
 >>  #define AST2400_UART_5_BASE      0x00184000
 >>  #define AST2400_IOMEM_SIZE       0x00200000
 >> @@ -25,6 +26,7 @@
@@ -120,7 +121,7 @@ C.
 >>  #define AST2400_SCU_BASE         0x1E6E2000
 >>  #define AST2400_TIMER_BASE       0x1E782000
 >> +#define AST2400_I2C_BASE         0x1E78A000
->>  
+>>
 >>  static const int uart_irqs[] = { 9, 32, 33, 34, 10 };
 >>  static const int timer_irqs[] = { 16, 17, 18, 35, 36, 37, 38, 39, };
 >> @@ -71,6 +73,10 @@ static void ast2400_init(Object *obj)
@@ -132,7 +133,7 @@ C.
 >> +    object_property_add_child(obj, "i2c", OBJECT(&s->i2c), NULL);
 >> +    qdev_set_parent_bus(DEVICE(&s->i2c), sysbus_get_default());
 >>  }
->>  
+>>
 >>  static void ast2400_realize(DeviceState *dev, Error **errp)
 >> @@ -143,6 +149,16 @@ static void ast2400_realize(DeviceState *dev, Error **errp)
 >>          serial_mm_init(&s->iomem, AST2400_UART_5_BASE, 2,
@@ -149,7 +150,7 @@ C.
 >> +    sysbus_connect_irq(SYS_BUS_DEVICE(&s->i2c), 0,
 >> +                       qdev_get_gpio_in(DEVICE(&s->vic), 12));
 >>  }
->>  
+>>
 >>  static void ast2400_class_init(ObjectClass *oc, void *data)
 >> diff --git a/hw/i2c/Makefile.objs b/hw/i2c/Makefile.objs
 >> index aeb8f38d70f1..1fd54edf4c23 100644
@@ -183,7 +184,7 @@ C.
 >> + * GNU General Public License for more details.
 >> + *
 >> + * You should have received a copy of the GNU General Public License
->> + * along with this program; if not, see .
+>> + * along with this program; if not, see <http://www.gnu.org/licenses/>.
 >> + *
 >> + */
 >> +
@@ -314,9 +315,6 @@ C.
 >> +                                    unsigned size)
 >> +{
 >> +    AspeedI2CBus *bus = (AspeedI2CBus *) opaque;
-> 
-> Nitpick - we can avoid the cast here.
-> 
 >> +
 >> +    switch (offset) {
 >> +    case I2CD_FUN_CTRL_REG:
@@ -400,9 +398,6 @@ C.
 >> +                                 uint64_t value, unsigned size)
 >> +{
 >> +    AspeedI2CBus *bus = (AspeedI2CBus *) opaque;
-> 
-> As above
-> 
 >> +
 >> +    switch (offset) {
 >> +    case I2CD_FUN_CTRL_REG:
@@ -458,9 +453,6 @@ C.
 >> +                                   unsigned size)
 >> +{
 >> +    AspeedI2CState *s = (AspeedI2CState *)opaque;
-> 
-> As above
-> 
 >> +
 >> +    switch (offset) {
 >> +    case I2C_CTRL_STATUS:
@@ -490,11 +482,6 @@ C.
 >> +    .read = aspeed_i2c_bus_read,
 >> +    .write = aspeed_i2c_bus_write,
 >> +    .endianness = DEVICE_NATIVE_ENDIAN,
-> 
-> Alexey suggested I make these DEVICE_LITTLE_ENDIAN when he looked at my
-> timer and intc devices. We should be consistent one way or the other -
-> what's the right approach?
-> 
 >> +};
 >> +
 >> +static const MemoryRegionOps aspeed_i2c_ctrl_ops = {
@@ -541,10 +528,6 @@ C.
 >> +
 >> +    for (i = 0; i < ASPEED_I2C_NR_BUSSES; i++) {
 >> +        s->busses[i].intr_status = 0;
-> 
-> Should we also be resetting .intr_ctrl = 0? Datasheet says that's the
-> init value.
-> 
 >> +        s->busses[i].cmd = 0;
 >> +        s->busses[i].buf = 0;
 >> +        i2c_end_transfer(s->busses[i].bus);
@@ -642,7 +625,7 @@ C.
 >>  #include "hw/misc/aspeed_scu.h"
 >>  #include "hw/timer/aspeed_timer.h"
 >> +#include "hw/i2c/aspeed_i2c.h"
->>  
+>>
 >>  typedef struct AST2400State {
 >>      /*< private >*/
 >> @@ -28,6 +29,7 @@ typedef struct AST2400State {
@@ -651,7 +634,7 @@ C.
 >>      AspeedSCUState scu;
 >> +    AspeedI2CState i2c;
 >>  } AST2400State;
->>  
+>>
 >>  #define TYPE_AST2400 "ast2400"
 >> diff --git a/include/hw/i2c/aspeed_i2c.h b/include/hw/i2c/aspeed_i2c.h
 >> new file mode 100644
@@ -721,8 +704,10 @@ C.
 >> +I2CBus *aspeed_i2c_get_bus(DeviceState *dev, int busnr);
 >> +
 >> +#endif /* ASPEED_I2C_H */
-> 
-> Cheers,
-> 
-> Andrew
-> 
+>> --
+>> 2.1.4
+>>
+>> _______________________________________________
+>> openbmc mailing list
+>> openbmc@lists.ozlabs.org
+>> https://lists.ozlabs.org/listinfo/openbmc
