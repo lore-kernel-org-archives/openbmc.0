@@ -3,20 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3r9hyY0g9hzDqCM
- for <openbmc@lists.ozlabs.org>; Fri, 20 May 2016 06:10:44 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3r9pkY08D0zDqCT
+ for <openbmc@lists.ozlabs.org>; Fri, 20 May 2016 10:30:43 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1463688637485549.4840412437793;
- Thu, 19 May 2016 13:10:37 -0700 (PDT)
+ with SMTPS id 1463704239198524.2740917020676;
+ Thu, 19 May 2016 17:30:39 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc] Bump version for console, object manager,
- and event logs
-Date: Thu, 19 May 2016 15:10:34 -0500
-Message-Id: <1463688634-15010-2-git-send-email-openbmc-patches@stwcx.xyz>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Subject: [PATCH openbmc] Bump pyphosphor version
+Date: Thu, 19 May 2016 19:30:37 -0500
+Message-Id: <1463704237-26655-2-git-send-email-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.2
-In-Reply-To: <1463688634-15010-1-git-send-email-openbmc-patches@stwcx.xyz>
-References: <1463688634-15010-1-git-send-email-openbmc-patches@stwcx.xyz>
+In-Reply-To: <1463704237-26655-1-git-send-email-openbmc-patches@stwcx.xyz>
+References: <1463704237-26655-1-git-send-email-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,71 +28,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 May 2016 20:10:45 -0000
+X-List-Received-Date: Fri, 20 May 2016 00:30:45 -0000
 
-From: Adriana Kobylak <anoo@us.ibm.com>
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
-Updates for:
-Console - Support for local tty mirroring
-Object manager - BMC boot performance improvements
-Event logs - Cap the number of event logs at 128
+This picks up a new enum for dbus - UnknownService.
+
+Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
- meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb               | 2 +-
- meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console.bb      | 2 +-
- .../obmc-phosphor-event/files/obmc-phosphor-event.service               | 2 +-
- .../common/recipes-phosphor/obmc-phosphor-event/obmc-phosphor-event.bb  | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
+ meta-phosphor/common/recipes-phosphor/skeleton/pyphosphor.bb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb b/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb
-index 2472917..615207a 100644
---- a/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb
-+++ b/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb
-@@ -18,6 +18,6 @@ RDEPENDS_${PN} += " \
-         "
- SRC_URI += "git://github.com/openbmc/phosphor-objmgr"
+diff --git a/meta-phosphor/common/recipes-phosphor/skeleton/pyphosphor.bb b/meta-phosphor/common/recipes-phosphor/skeleton/pyphosphor.bb
+index a44f19a..22f059e 100644
+--- a/meta-phosphor/common/recipes-phosphor/skeleton/pyphosphor.bb
++++ b/meta-phosphor/common/recipes-phosphor/skeleton/pyphosphor.bb
+@@ -10,6 +10,6 @@ inherit setuptools
  
--SRCREV = "2abc4d068cec75aa3893af8197108d29ff6f1bb4"
-+SRCREV = "f7aa902e465bfe1cf19b9079f1555633a88e7190"
+ SRC_URI += "git://github.com/openbmc/pyphosphor"
+ 
+-SRCREV = "1b3c05c1f44185f8176f46829a26ad6e50d0831f"
++SRCREV = "7c8263573fb5ed25001db9c78eb4a149c057358a"
  
  S = "${WORKDIR}/git"
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console.bb b/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console.bb
-index e5553fe..ce030fa 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console.bb
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console.bb
-@@ -14,7 +14,7 @@ SRC_URI += "file://${PN}.conf \
- 	    file://obmc-console-ssh.socket \
- 	    file://obmc-console-ssh@.service"
- 
--SRCREV = "2eacda524e98c7964e542e01aabf82360cf60344"
-+SRCREV = "bc1e893375e4887ef7676c5738779c4a2f5b1935"
- 
- FILES_${PN} += "${systemd_unitdir}/system/obmc-console-ssh@.service \
- 		${systemd_unitdir}/system/obmc-console-ssh.socket"
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-event/files/obmc-phosphor-event.service b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-event/files/obmc-phosphor-event.service
-index 828cb6a..2209629 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-event/files/obmc-phosphor-event.service
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-event/files/obmc-phosphor-event.service
-@@ -2,7 +2,7 @@
- Description=Phosphor OpenBMC event management daemon
- 
- [Service]
--ExecStart=/usr/sbin/obmc-phosphor-eventd -s 200000
-+ExecStart=/usr/sbin/obmc-phosphor-eventd -s 200000 -t 128
- 
- [Install]
- WantedBy=multi-user.target
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-event/obmc-phosphor-event.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-event/obmc-phosphor-event.bb
-index 4b9f60e..307fe90 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-event/obmc-phosphor-event.bb
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-event/obmc-phosphor-event.bb
-@@ -13,7 +13,7 @@ TARGET_CPPFLAGS += "-std=c++11 -fpic"
- 
- SRC_URI += "git://github.com/openbmc/phosphor-event"
- 
--SRCREV = "0396126c2d816529d57cee2b413727eb78f7cef3"
-+SRCREV = "d8fbb0a07dc0c68b3f5d074bddca96eccaca14b4"
- 
- RDEPENDS_${PN} += "libsystemd"
- DEPENDS += "systemd"
 -- 
 2.8.2
