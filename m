@@ -1,33 +1,73 @@
-Return-Path: <clg@kaod.org>
-Received: from mo178.mail-out.ovh.net (mo178.mail-out.ovh.net [178.32.228.178])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <hegdevasant@linux.vnet.ibm.com>
+X-Greylist: delayed 5109 seconds by postgrey-1.35 at bilbo;
+ Sat, 21 May 2016 05:51:59 AEST
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rB1Gz1RbwzDqCW
- for <openbmc@lists.ozlabs.org>; Fri, 20 May 2016 18:26:01 +1000 (AEST)
-Received: from player791.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo178.mail-out.ovh.net (Postfix) with ESMTP id 0B361FFAE08
- for <openbmc@lists.ozlabs.org>; Fri, 20 May 2016 10:25:57 +0200 (CEST)
-Received: from [192.168.124.3] (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
- [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player791.ha.ovh.net (Postfix) with ESMTPSA id 6C1B6420096;
- Fri, 20 May 2016 10:25:53 +0200 (CEST)
-Subject: Re: [PATCH] aspeed_defconfig: Enable SHMEM and TMPFS
-To: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>
-References: <1463729360-4883-1-git-send-email-andrew@aj.id.au>
-Cc: OpenBMC <openbmc@lists.ozlabs.org>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <573ECA04.5050509@kaod.org>
-Date: Fri, 20 May 2016 10:25:40 +0200
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rBJVR3h9ZzDqDv
+ for <openbmc@lists.ozlabs.org>; Sat, 21 May 2016 05:51:59 +1000 (AEST)
+Received: from pps.filterd (m0048817.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
+ u4KINlm8048254
+ for <openbmc@lists.ozlabs.org>; Fri, 20 May 2016 14:26:47 -0400
+Message-Id: <201605201826.u4KINlm8048254@mx0a-001b2d01.pphosted.com>
+Received: from e28smtp04.in.ibm.com (e28smtp04.in.ibm.com [125.16.236.4])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 231n7w1u37-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 20 May 2016 14:26:47 -0400
+Received: from localhost
+ by e28smtp04.in.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <hegdevasant@linux.vnet.ibm.com>;
+ Fri, 20 May 2016 23:56:43 +0530
+Received: from d28dlp01.in.ibm.com (9.184.220.126)
+ by e28smtp04.in.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Fri, 20 May 2016 23:56:42 +0530
+X-IBM-Helo: d28dlp01.in.ibm.com
+X-IBM-MailFrom: hegdevasant@linux.vnet.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d28relay03.in.ibm.com (d28relay03.in.ibm.com [9.184.220.60])
+ by d28dlp01.in.ibm.com (Postfix) with ESMTP id B768EE005F
+ for <openbmc@lists.ozlabs.org>; Fri, 20 May 2016 23:59:53 +0530 (IST)
+Received: from d28av03.in.ibm.com (d28av03.in.ibm.com [9.184.220.65])
+ by d28relay03.in.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u4KIQdeD262506
+ for <openbmc@lists.ozlabs.org>; Fri, 20 May 2016 23:56:39 +0530
+Received: from d28av03.in.ibm.com (localhost [127.0.0.1])
+ by d28av03.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u4KIQbvr007784
+ for <openbmc@lists.ozlabs.org>; Fri, 20 May 2016 23:56:38 +0530
+Received: from [9.80.69.205] ([9.80.69.205])
+ by d28av03.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u4KIQajp007750; Fri, 20 May 2016 23:56:37 +0530
+Subject: Re: Event Log parser
+To: openbmc@lists.ozlabs.org
+References: <201603220522.u2M5Mn0f014732@d01av04.pok.ibm.com>
+ <8760wfytha.fsf@birb.au.ibm.com>
+Cc: Stewart Smith <stewart@linux.vnet.ibm.com>,
+ Ananth N Mavinakayanahalli <ananth@in.ibm.com>
+From: Vasant Hegde <hegdevasant@linux.vnet.ibm.com>
+Date: Fri, 20 May 2016 23:56:36 +0530
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
- Icedove/38.7.0
+ Thunderbird/38.5.0
 MIME-Version: 1.0
-In-Reply-To: <1463729360-4883-1-git-send-email-andrew@aj.id.au>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 14561544971117431554
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeekledrfeeggddtudcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+In-Reply-To: <8760wfytha.fsf@birb.au.ibm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16052018-0012-0000-0000-0000027D7774
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 16052018-0013-0000-0000-00000CB51C07
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-05-20_05:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_spam_policy_notspam
+ policy=outbound_spam_policy score=0
+ spamscore=0 suspectscore=12 malwarescore=0 phishscore=0 adultscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1604210000 definitions=main-1605200226
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -39,53 +79,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 May 2016 08:26:03 -0000
+X-List-Received-Date: Fri, 20 May 2016 19:52:00 -0000
 
-Joel, 
+On 03/22/2016 10:55 AM, Stewart Smith wrote:
+> Chris Austen <austenc@us.ibm.com> writes:
+>> Here's a first pass at the event log parser. It has the stuff for the
+>> BMC viewer, the eSEL for (not sure really) and the Debug Data is a
+>> good old fashion PEL. Thoughts?
+>
+> Using opal-elog-parse to parse the PEL?
+>
 
-We do need these for OpenBMC. Don't we ? 
+Today I've merged Russel's patch to parse eSEL logs to ppc64-diag package [1].
+With this patch opal-elog-parse command can parse both PEL and eSEL logs.
 
-C.  
+[1] 
+https://sourceforge.net/p/linux-diag/ppc64-diag/ci/8ed317c447eee65363e6dec7e4e2bf284c8b78ac/
 
-On 05/20/2016 09:29 AM, Andrew Jeffery wrote:
-> Without enabling these options we get strange behaviour under qemu,
-> where it appears uevents aren't generated to create device nodes for
-> ttyS{0,4,5}. As a consequence we don't receive a getty on the console.
-> 
-> Cédric narrowed down the list of options initially at [1],
-> and with a patch to the qemu timer model[2] we can retain the
-> CONFIG_NO_HZ_IDLE=y configuration.
-> 
-> [1] https://github.com/openbmc/qemu/issues/4
-> [2] https://lists.ozlabs.org/pipermail/openbmc/2016-May/003209.html
-> 
-> Cc: Cédric Le Goater <clg@kaod.org>
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> ---
->  arch/arm/configs/aspeed_defconfig | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm/configs/aspeed_defconfig b/arch/arm/configs/aspeed_defconfig
-> index cd4cdeb07fd9..f08064c64cb2 100644
-> --- a/arch/arm/configs/aspeed_defconfig
-> +++ b/arch/arm/configs/aspeed_defconfig
-> @@ -13,7 +13,7 @@ CONFIG_BLK_DEV_INITRD=y
->  # CONFIG_RD_LZ4 is not set
->  CONFIG_CC_OPTIMIZE_FOR_SIZE=y
->  CONFIG_BPF_SYSCALL=y
-> -# CONFIG_SHMEM is not set
-> +CONFIG_SHMEM=y
->  # CONFIG_AIO is not set
->  CONFIG_EMBEDDED=y
->  # CONFIG_COMPAT_BRK is not set
-> @@ -128,6 +128,9 @@ CONFIG_FIRMWARE_MEMMAP=y
->  CONFIG_FANOTIFY=y
->  CONFIG_OVERLAY_FS=y
->  CONFIG_CONFIGFS_FS=y
-> +CONFIG_TMPFS=y
-> +CONFIG_TMPFS_POSIX_ACL=y
-> +CONFIG_TMPFS_XATTR=y
->  CONFIG_JFFS2_FS=y
->  CONFIG_JFFS2_SUMMARY=y
->  CONFIG_NFS_FS=y
-> 
+
+-Vasant
