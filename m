@@ -1,63 +1,36 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-qk0-x241.google.com (mail-qk0-x241.google.com
- [IPv6:2607:f8b0:400d:c09::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <clg@kaod.org>
+Received: from mo69.mail-out.ovh.net (mo69.mail-out.ovh.net [178.32.228.69])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rCqvd40W7zDqCn
- for <openbmc@lists.ozlabs.org>; Mon, 23 May 2016 17:30:37 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=wQN06yfK; 
- dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=irFFiSgj; 
- dkim-atps=neutral
-Received: by mail-qk0-x241.google.com with SMTP id q184so17216461qkf.0
- for <openbmc@lists.ozlabs.org>; Mon, 23 May 2016 00:30:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=RfNWrRD0fjvTDBji2/hQBsLZEwl2BR8e7Px8EiqzH1A=;
- b=wQN06yfKtTG2thto5fFPn5hoL911I1Mwslye5at5YP3X+DH6z8JL1wEzlRgDaBnIdM
- 3ju4jV/s4PcjyNxpYDGk5ARAeE1MPbxAWzxKHKWHkn0Clq7LKItKHmQ76ct2vIS2H/l+
- /jLxst7SGbTDLrP6j0UNTfiimPj2eOyal74ZV9VHJhFVtgYoapXledYD2U3C6uiLK2zg
- I+XtmWupK9YAlcGjFMWJ9fzra5LUsD9kvtaDVlYa158Ocx3haqthEB7VdbF33s49uKjO
- 12ZLm4MJwwNbgHGgB0URIKnDmywHKhsCwiw+PBPq/gtZAcKg7eJz5R+cQZFc3H1K0Tje
- LBtw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=RfNWrRD0fjvTDBji2/hQBsLZEwl2BR8e7Px8EiqzH1A=;
- b=irFFiSgjK4XbZ2jl4OYXaoA5k+KVziVga0zirAWa1Pf6ObKpUKK4Hu0qvFikUkCbTt
- NGAxgmHSDyNLUa1MKF5BRbJDwb6RIHxmkHypevYPpaTFxwlGvoI5pcyBwHrGNfnGMP13
- X7qNLqWQAudRzcTztd23b2ws5/b2/lScdpOAw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=RfNWrRD0fjvTDBji2/hQBsLZEwl2BR8e7Px8EiqzH1A=;
- b=TDjICwQ1EwO93DDA6zgxhoeUXR1f25WPEr4fmMG9HoV+QODj8su6Rc03V1KkkXiyv1
- F16nblLGuIEkDCTO8ufeQZj6CL85l6zrJ5BaRXUry/Uc6TWsR1n+e6lCTMn/4oUnhXbH
- QzJPKaopVwqKyHanqLvo7fiE3dmrd2M9q60c122k4aJP1pQ8Wp4+O5mmiBiH4CpGYbWo
- 1zmnaV5vODC1bGl5nO7XYmmmp4TyUmNrPON2F/qTIotVFjehNbmRHjbnYNH8j/EIk46F
- ICtEyIYZ5CtXZWEYNipupHFq/2ky7/XIkacg7xy5LUzuOdoskBcvmtp8g2JsjzNS5Q1c
- zXnw==
-X-Gm-Message-State: AOPr4FVS/fDcKRChrXTjQ1ShyOOkUSoAcC4ALU+vW7wFELjGJcD13MNTpCsGQiUPFNarlRJHxeKC+VnvXoP5Pg==
-X-Received: by 10.55.94.7 with SMTP id s7mr14231059qkb.181.1463988634874; Mon,
- 23 May 2016 00:30:34 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rD3BY1dXPzDqMb
+ for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 01:59:16 +1000 (AEST)
+Received: from player798.ha.ovh.net (b7.ovh.net [213.186.33.57])
+ by mo69.mail-out.ovh.net (Postfix) with ESMTP id 41078FF976D
+ for <openbmc@lists.ozlabs.org>; Mon, 23 May 2016 17:21:27 +0200 (CEST)
+Received: from [9.101.4.42] (deibp9eh1--blueice2n7.emea.ibm.com
+ [195.212.29.169]) (Authenticated sender: clg@kaod.org)
+ by player798.ha.ovh.net (Postfix) with ESMTPSA id DCF59540097;
+ Mon, 23 May 2016 17:21:19 +0200 (CEST)
+Subject: Re: Aims for BMC emulation in qemu
+To: andrew@aj.id.au, Chris Austen <austenc@us.ibm.com>
+References: <1463638966.2703.209.camel@aj.id.au>
+ <20160521223211.26848C6042@b03ledav006.gho.boulder.ibm.com>
+ <1463981199.2703.286.camel@aj.id.au>
+Cc: joel@jms.id.au, openbmc@lists.ozlabs.org, patrick@stwcx.xyz,
+ teddy.reed@gmail.com
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <57431FE2.3000506@kaod.org>
+Date: Mon, 23 May 2016 17:21:06 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+ Icedove/38.8.0
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.237.51.135 with HTTP; Mon, 23 May 2016 00:30:15 -0700 (PDT)
-In-Reply-To: <1463713461-5444-1-git-send-email-andrew@aj.id.au>
-References: <1463713461-5444-1-git-send-email-andrew@aj.id.au>
-From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 23 May 2016 17:00:15 +0930
-X-Google-Sender-Auth: -nX7FVLFXp4vo79yxmGkLoSd-jU
-Message-ID: <CACPK8XdAJ5U-mrWgb99-SQdZTrn+WoZKV9qbPmOpXhyJ7YCDtg@mail.gmail.com>
-Subject: Re: [PATCH qemu] hw/timer: Add clock value matching support to
- aspeed_timer
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: OpenBMC <openbmc@lists.ozlabs.org>,
- =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <1463981199.2703.286.camel@aj.id.au>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Ovh-Tracer-Id: 2303028260960111487
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeekledrfeelgdekhecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -69,179 +42,65 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 23 May 2016 07:30:39 -0000
+X-List-Received-Date: Mon, 23 May 2016 15:59:17 -0000
 
-On Fri, May 20, 2016 at 12:34 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> Clock value matching allows Linux to boot with CONFIG_NO_HZ_IDLE=y on
-> the palmetto-bmc machine. Two match registers are provided for each
-> timer.
+Hello,
 
-Thanks for implementing this.
+On 05/23/2016 07:26 AM, Andrew Jeffery wrote:
+> Hi Chris,
+> 
+> On Sat, 2016-05-21 at 22:32 +0000, Chris Austen wrote:
+>> So in short I think we want to create a build environment that allows
+>> for inaccurate systems.  Over time that environment should grow from
+>> palmettoish to wedgeish, Zaius and witherspoonish
+> 
+> I tend to agree. 
+> 
+> My thoughts are that in general we should try to work upstream first,
+> and to only send upstream something that's an accurate reflection of
+> the hardware. However, sometimes there are work-arounds with desirable
+> short-term benefits, and we should be able to accommodate these too.
 
-We also boot much faster now.
+yes. mainline qemu can also live with a slightly inaccurate model which 
+we can patch later.
 
+> As an alternative to a number of machines with different levels of
+> accuracy, we can give the qemu fork on github a defined role: To host
+> our integrated short-term work-arounds as we develop the right models
+> to send upstream. As a concrete example, whilst the ftgmac100 model
+> isn't functional, have the fork provide the Cadence GEM as a NIC. Once
+> the ftgmac100 model is functional, send it upstream and replace the
+> GEM.
 >
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> ---
->  hw/timer/aspeed_timer.c         | 132 +++++++++++++++++++++++++++++-----------
->  include/hw/timer/aspeed_timer.h |   5 +-
->  2 files changed, 101 insertions(+), 36 deletions(-)
->
-> diff --git a/hw/timer/aspeed_timer.c b/hw/timer/aspeed_timer.c
-> index 51e8303cdaa3..e88234e7823f 100644
-> --- a/hw/timer/aspeed_timer.c
-> +++ b/hw/timer/aspeed_timer.c
-> @@ -9,13 +9,12 @@
->   * the COPYING file in the top-level directory.
->   */
->
-> +#include <math.h>
->  #include "qemu/osdep.h"
-> -#include "hw/ptimer.h"
->  #include "hw/sysbus.h"
->  #include "hw/timer/aspeed_timer.h"
->  #include "qemu-common.h"
->  #include "qemu/bitops.h"
-> -#include "qemu/main-loop.h"
->  #include "qemu/timer.h"
->  #include "trace.h"
->
-> @@ -76,21 +75,96 @@ static inline bool timer_can_pulse(AspeedTimer *t)
->      return t->id >= TIMER_FIRST_CAP_PULSE;
->  }
->
-> +static inline bool timer_external_clock(AspeedTimer *t)
-> +{
-> +    return timer_ctrl_status(t, op_external_clock);
-> +}
-> +
-> +static inline double calculate_period(struct AspeedTimer *t)
-> +{
-> +    double rate;
-> +
-> +    rate = timer_external_clock(t) ? TIMER_CLOCK_EXT_HZ : TIMER_CLOCK_APB_HZ;
+> Any work-arounds included in the fork should have an obvious immediate
+> benefit and a plan to phase them out, and if that's not the case then
+> they should be rejected. If it's more work to maintain the hack than to
+> implement an accurate model, then we should do the latter.
 
-Would it make more sense return the rate from timer_external_clock
-(perhaps get_timer_clock?).
+Are we planning to use travis to boot the generated flash image with qemu ?
+and eventually run some tests in the guest ? 
 
-> +
-> +    return NANOSECONDS_PER_SECOND / rate;
-> +}
-> +
-> +static inline uint32_t calculate_ticks(struct AspeedTimer *t, uint64_t now_ns)
-> +{
-> +    double ticks;
-> +
-> +    ticks = floor((now_ns - t->start) / calculate_period(t));
-> +
-> +    return t->reload - MIN(t->reload, (uint32_t) ticks);
+> Is there any opposition to this approach?
 
-Ugh, Casty McCastface.
-
-Perhaps make ticks the uint32_t:
-
- uint32_t ticks = (uint32_t)floor( ... );
-
-> +}
-> +
-> +static inline uint64_t calculate_time(struct AspeedTimer *t, uint32_t ticks)
-> +{
-> +    double delta_ns;
-> +
-> +    ticks = MIN(t->reload, ticks);
-> +    delta_ns = floor((t->reload - ticks) * calculate_period(t));
-
-As above.
-
-> +
-> +    return t->start + (uint64_t) delta_ns;
-> +}
-> +
-> +static uint64_t calculate_next(struct AspeedTimer *t)
-> +{
-> +    uint64_t now;
-> +    uint64_t next;
-> +    int i;
-> +    uint64_t seq[] = {
-> +        MAX(t->match[0], t->match[1]),
-> +        MIN(t->match[0], t->match[1]),
-> +        0,
-> +    };
-
-Perhaps a comment on why you chose to do it like this? I only
-understand because you explained it to me.
-
-> +
-> +    now = qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL);
-> +    for (i = 0; i < ARRAY_SIZE(seq); i++) {
-> +        next = calculate_time(t, seq[i]);
-> +        if (now < next) {
-> +            return next;
-> +        }
-> +    }
-> +
-> +    {
-> +        uint64_t reload_ns;
-> +
-> +        reload_ns = (uint64_t) floor(t->reload * calculate_period(t));
-> +        t->start = now - ((now - t->start) % reload_ns);
-> +    }
-
-Why is this scoped like this?
-
-> +
-> +    return calculate_next(t);
-> +}
-> +
->  static void aspeed_timer_expire(void *opaque)
->  {
->      AspeedTimer *t = opaque;
-> +    bool interrupt = false;
-> +    uint32_t ticks;
->
-> -    /* Only support interrupts on match values of zero for the moment - this is
-> -     * sufficient to boot an aspeed_defconfig Linux kernel.
-> -     *
-> -     * TODO: matching on arbitrary values (see e.g. hw/timer/a9gtimer.c)
-> -     */
-> -    bool match = !(t->match[0] && t->match[1]);
-> -    bool interrupt = timer_overflow_interrupt(t) || match;
-> -    if (timer_enabled(t) && interrupt) {
-> +    if (!timer_enabled(t)) {
-> +        return;
-> +    }
-> +
-> +    ticks = calculate_ticks(t, qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL));
-> +
-> +    interrupt = !ticks && timer_overflow_interrupt(t);
-
-I think it's clearer to say
-
-if (!ticks && timer_overflow_interrupt)
-   interrupt = true;
+Looks good to me. 
 
 
-> +
-> +    if (!interrupt) {
-> +        interrupt = ticks <= MIN(t->match[0], t->match[1]);
-> +    }
+Here are some thoughts on devices we could work on to complete the model :
 
-if (!interrupt && ticks <=  MIN(t->match[0], t->match[1]))
-    interrupt = true;
+- uarts : quick one to get rid of the "serial8250: too much work for irq23"
 
-> +
-> +    if (!interrupt) {
-> +        interrupt = ticks <= MAX(t->match[0], t->match[1]);
-> +    }
+- occ sensor model : to stress the kernel and user space.
 
-As above. And the advantage of structuring it like this is these
-else..else if statements can be represented as such.
+- ftgmac100 : to be done.    
 
-> +
-> +    if (interrupt) {
->          t->level = !t->level;
->          qemu_set_irq(t->irq, t->level);
->      }
-> +
-> +    timer_mod(&t->timer, calculate_next(t));
->  }
+- bt : it would be interesting to establish a link with a powernv guest 
+  or an ipmi host simulator. there is already a ipmi bmc similator.  
+
+- smc : rfc available in my github. boots uboot. Mostly accurate I would
+  say but a little ugly in some parts.  
+
+- ...
+
+Cheers,
+
+C.
