@@ -1,44 +1,63 @@
-Return-Path: <andrew@aj.id.au>
-Received: from homiemail-a75.g.dreamhost.com (sub3.mail.dreamhost.com
- [69.163.253.7])
- (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-qk0-x241.google.com (mail-qk0-x241.google.com
+ [IPv6:2607:f8b0:400d:c09::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rCn914j1czDqCj
- for <openbmc@lists.ozlabs.org>; Mon, 23 May 2016 15:27:01 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=Wr0JMexs; 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rCqvd40W7zDqCn
+ for <openbmc@lists.ozlabs.org>; Mon, 23 May 2016 17:30:37 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=wQN06yfK; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=irFFiSgj; 
  dkim-atps=neutral
-Received: from homiemail-a75.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a75.g.dreamhost.com (Postfix) with ESMTP id 789885EC07C;
- Sun, 22 May 2016 22:26:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
- :subject:from:reply-to:to:cc:date:in-reply-to:references
- :content-type:mime-version; s=aj.id.au; bh=tnoPhmER6ngsjjJYVao+j
- 1lIhVc=; b=Wr0JMexsE8G9QmEeMDvt09f9tWsQDHUbbV04T2nXGa1WKFbUaScFZ
- T6f2o/g8mBfjHMp1uZuAGiFX89ZyKaW98t/LQdLiQG+Y+qjDUKJ8zetDaeg/EaIP
- BQyob1yi70VSUGFypdmCe4n5jPB8JLFiD/b77crwPcx/026JnOAbGI=
-Received: from keelia (unknown [203.0.153.9])
- (using TLSv1 with cipher AES128-SHA (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: andrew@aj.id.au)
- by homiemail-a75.g.dreamhost.com (Postfix) with ESMTPSA id AF4525EC079;
- Sun, 22 May 2016 22:26:57 -0700 (PDT)
-Message-ID: <1463981199.2703.286.camel@aj.id.au>
-Subject: Re: Aims for BMC emulation in qemu
-From: Andrew Jeffery <andrew@aj.id.au>
-Reply-To: andrew@aj.id.au
-To: Chris Austen <austenc@us.ibm.com>
-Cc: clg@kaod.org, joel@jms.id.au, openbmc@lists.ozlabs.org,
- patrick@stwcx.xyz,  teddy.reed@gmail.com
-Date: Mon, 23 May 2016 14:56:39 +0930
-In-Reply-To: <20160521223211.26848C6042@b03ledav006.gho.boulder.ibm.com>
-References: <1463638966.2703.209.camel@aj.id.au>
- <20160521223211.26848C6042@b03ledav006.gho.boulder.ibm.com>
-Organization: IBM OzLabs
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-AD6RH4UGZPVQ+jcTSbos"
-X-Mailer: Evolution 3.18.5.2-0ubuntu1 
-Mime-Version: 1.0
+Received: by mail-qk0-x241.google.com with SMTP id q184so17216461qkf.0
+ for <openbmc@lists.ozlabs.org>; Mon, 23 May 2016 00:30:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=RfNWrRD0fjvTDBji2/hQBsLZEwl2BR8e7Px8EiqzH1A=;
+ b=wQN06yfKtTG2thto5fFPn5hoL911I1Mwslye5at5YP3X+DH6z8JL1wEzlRgDaBnIdM
+ 3ju4jV/s4PcjyNxpYDGk5ARAeE1MPbxAWzxKHKWHkn0Clq7LKItKHmQ76ct2vIS2H/l+
+ /jLxst7SGbTDLrP6j0UNTfiimPj2eOyal74ZV9VHJhFVtgYoapXledYD2U3C6uiLK2zg
+ I+XtmWupK9YAlcGjFMWJ9fzra5LUsD9kvtaDVlYa158Ocx3haqthEB7VdbF33s49uKjO
+ 12ZLm4MJwwNbgHGgB0URIKnDmywHKhsCwiw+PBPq/gtZAcKg7eJz5R+cQZFc3H1K0Tje
+ LBtw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=RfNWrRD0fjvTDBji2/hQBsLZEwl2BR8e7Px8EiqzH1A=;
+ b=irFFiSgjK4XbZ2jl4OYXaoA5k+KVziVga0zirAWa1Pf6ObKpUKK4Hu0qvFikUkCbTt
+ NGAxgmHSDyNLUa1MKF5BRbJDwb6RIHxmkHypevYPpaTFxwlGvoI5pcyBwHrGNfnGMP13
+ X7qNLqWQAudRzcTztd23b2ws5/b2/lScdpOAw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=RfNWrRD0fjvTDBji2/hQBsLZEwl2BR8e7Px8EiqzH1A=;
+ b=TDjICwQ1EwO93DDA6zgxhoeUXR1f25WPEr4fmMG9HoV+QODj8su6Rc03V1KkkXiyv1
+ F16nblLGuIEkDCTO8ufeQZj6CL85l6zrJ5BaRXUry/Uc6TWsR1n+e6lCTMn/4oUnhXbH
+ QzJPKaopVwqKyHanqLvo7fiE3dmrd2M9q60c122k4aJP1pQ8Wp4+O5mmiBiH4CpGYbWo
+ 1zmnaV5vODC1bGl5nO7XYmmmp4TyUmNrPON2F/qTIotVFjehNbmRHjbnYNH8j/EIk46F
+ ICtEyIYZ5CtXZWEYNipupHFq/2ky7/XIkacg7xy5LUzuOdoskBcvmtp8g2JsjzNS5Q1c
+ zXnw==
+X-Gm-Message-State: AOPr4FVS/fDcKRChrXTjQ1ShyOOkUSoAcC4ALU+vW7wFELjGJcD13MNTpCsGQiUPFNarlRJHxeKC+VnvXoP5Pg==
+X-Received: by 10.55.94.7 with SMTP id s7mr14231059qkb.181.1463988634874; Mon,
+ 23 May 2016 00:30:34 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.237.51.135 with HTTP; Mon, 23 May 2016 00:30:15 -0700 (PDT)
+In-Reply-To: <1463713461-5444-1-git-send-email-andrew@aj.id.au>
+References: <1463713461-5444-1-git-send-email-andrew@aj.id.au>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 23 May 2016 17:00:15 +0930
+X-Google-Sender-Auth: -nX7FVLFXp4vo79yxmGkLoSd-jU
+Message-ID: <CACPK8XdAJ5U-mrWgb99-SQdZTrn+WoZKV9qbPmOpXhyJ7YCDtg@mail.gmail.com>
+Subject: Re: [PATCH qemu] hw/timer: Add clock value matching support to
+ aspeed_timer
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC <openbmc@lists.ozlabs.org>,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -50,64 +69,179 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 23 May 2016 05:27:02 -0000
+X-List-Received-Date: Mon, 23 May 2016 07:30:39 -0000
+
+On Fri, May 20, 2016 at 12:34 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> Clock value matching allows Linux to boot with CONFIG_NO_HZ_IDLE=y on
+> the palmetto-bmc machine. Two match registers are provided for each
+> timer.
+
+Thanks for implementing this.
+
+We also boot much faster now.
+
+>
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> ---
+>  hw/timer/aspeed_timer.c         | 132 +++++++++++++++++++++++++++++-----------
+>  include/hw/timer/aspeed_timer.h |   5 +-
+>  2 files changed, 101 insertions(+), 36 deletions(-)
+>
+> diff --git a/hw/timer/aspeed_timer.c b/hw/timer/aspeed_timer.c
+> index 51e8303cdaa3..e88234e7823f 100644
+> --- a/hw/timer/aspeed_timer.c
+> +++ b/hw/timer/aspeed_timer.c
+> @@ -9,13 +9,12 @@
+>   * the COPYING file in the top-level directory.
+>   */
+>
+> +#include <math.h>
+>  #include "qemu/osdep.h"
+> -#include "hw/ptimer.h"
+>  #include "hw/sysbus.h"
+>  #include "hw/timer/aspeed_timer.h"
+>  #include "qemu-common.h"
+>  #include "qemu/bitops.h"
+> -#include "qemu/main-loop.h"
+>  #include "qemu/timer.h"
+>  #include "trace.h"
+>
+> @@ -76,21 +75,96 @@ static inline bool timer_can_pulse(AspeedTimer *t)
+>      return t->id >= TIMER_FIRST_CAP_PULSE;
+>  }
+>
+> +static inline bool timer_external_clock(AspeedTimer *t)
+> +{
+> +    return timer_ctrl_status(t, op_external_clock);
+> +}
+> +
+> +static inline double calculate_period(struct AspeedTimer *t)
+> +{
+> +    double rate;
+> +
+> +    rate = timer_external_clock(t) ? TIMER_CLOCK_EXT_HZ : TIMER_CLOCK_APB_HZ;
+
+Would it make more sense return the rate from timer_external_clock
+(perhaps get_timer_clock?).
+
+> +
+> +    return NANOSECONDS_PER_SECOND / rate;
+> +}
+> +
+> +static inline uint32_t calculate_ticks(struct AspeedTimer *t, uint64_t now_ns)
+> +{
+> +    double ticks;
+> +
+> +    ticks = floor((now_ns - t->start) / calculate_period(t));
+> +
+> +    return t->reload - MIN(t->reload, (uint32_t) ticks);
+
+Ugh, Casty McCastface.
+
+Perhaps make ticks the uint32_t:
+
+ uint32_t ticks = (uint32_t)floor( ... );
+
+> +}
+> +
+> +static inline uint64_t calculate_time(struct AspeedTimer *t, uint32_t ticks)
+> +{
+> +    double delta_ns;
+> +
+> +    ticks = MIN(t->reload, ticks);
+> +    delta_ns = floor((t->reload - ticks) * calculate_period(t));
+
+As above.
+
+> +
+> +    return t->start + (uint64_t) delta_ns;
+> +}
+> +
+> +static uint64_t calculate_next(struct AspeedTimer *t)
+> +{
+> +    uint64_t now;
+> +    uint64_t next;
+> +    int i;
+> +    uint64_t seq[] = {
+> +        MAX(t->match[0], t->match[1]),
+> +        MIN(t->match[0], t->match[1]),
+> +        0,
+> +    };
+
+Perhaps a comment on why you chose to do it like this? I only
+understand because you explained it to me.
+
+> +
+> +    now = qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL);
+> +    for (i = 0; i < ARRAY_SIZE(seq); i++) {
+> +        next = calculate_time(t, seq[i]);
+> +        if (now < next) {
+> +            return next;
+> +        }
+> +    }
+> +
+> +    {
+> +        uint64_t reload_ns;
+> +
+> +        reload_ns = (uint64_t) floor(t->reload * calculate_period(t));
+> +        t->start = now - ((now - t->start) % reload_ns);
+> +    }
+
+Why is this scoped like this?
+
+> +
+> +    return calculate_next(t);
+> +}
+> +
+>  static void aspeed_timer_expire(void *opaque)
+>  {
+>      AspeedTimer *t = opaque;
+> +    bool interrupt = false;
+> +    uint32_t ticks;
+>
+> -    /* Only support interrupts on match values of zero for the moment - this is
+> -     * sufficient to boot an aspeed_defconfig Linux kernel.
+> -     *
+> -     * TODO: matching on arbitrary values (see e.g. hw/timer/a9gtimer.c)
+> -     */
+> -    bool match = !(t->match[0] && t->match[1]);
+> -    bool interrupt = timer_overflow_interrupt(t) || match;
+> -    if (timer_enabled(t) && interrupt) {
+> +    if (!timer_enabled(t)) {
+> +        return;
+> +    }
+> +
+> +    ticks = calculate_ticks(t, qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL));
+> +
+> +    interrupt = !ticks && timer_overflow_interrupt(t);
+
+I think it's clearer to say
+
+if (!ticks && timer_overflow_interrupt)
+   interrupt = true;
 
 
---=-AD6RH4UGZPVQ+jcTSbos
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> +
+> +    if (!interrupt) {
+> +        interrupt = ticks <= MIN(t->match[0], t->match[1]);
+> +    }
 
-Hi Chris,
+if (!interrupt && ticks <=  MIN(t->match[0], t->match[1]))
+    interrupt = true;
 
-On Sat, 2016-05-21 at 22:32 +0000, Chris Austen wrote:
-> So in short I think we want to create a build environment that allows
-> for inaccurate systems.=C2=A0 Over time that environment should grow from
-> palmettoish to wedgeish, Zaius and witherspoonish
+> +
+> +    if (!interrupt) {
+> +        interrupt = ticks <= MAX(t->match[0], t->match[1]);
+> +    }
 
-I tend to agree.=C2=A0
+As above. And the advantage of structuring it like this is these
+else..else if statements can be represented as such.
 
-My thoughts are that in general we should try to work upstream first,
-and to only send upstream something that's an accurate reflection of
-the hardware. However, sometimes there are work-arounds with desirable
-short-term benefits, and we should be able to accommodate these too.
-
-As an alternative to a number of machines with different levels of
-accuracy, we can give the qemu fork on github a defined role: To host
-our integrated short-term work-arounds as we develop the right models
-to send upstream. As a concrete example, whilst the ftgmac100 model
-isn't functional, have the fork provide the Cadence GEM as a NIC. Once
-the ftgmac100 model is functional, send it upstream and replace the
-GEM.
-
-Any work-arounds included in the fork should have an obvious immediate
-benefit and a plan to phase them out, and if that's not the case then
-they should be rejected. If it's more work to maintain the hack than to
-implement an accurate model, then we should do the latter.
-
-Is there any opposition to this approach?
-
-Andrew
---=-AD6RH4UGZPVQ+jcTSbos
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAABCgAGBQJXQpSQAAoJEJ0dnzgO5LT5XBcQALegtxDRSCvB3iTqUS2r6zHX
-wc6fW9KuD3SCES2dcxfoEuhnMXf8cu07pQzyO7BcSBTRdEK9H1N37Su/dlsamkek
-kq8c6xDbE6J/hvOHuslk60j+jexu+Nw2bi6HjzZEENYOV7guZm95gYrhg6WAHeOK
-4ZYSBEO0VRC6LmV2BNjcLmCxeFvXCc9dA/KnbajMe4+hRaeXRNI3WKQOuM9EJxq2
-b1TnxlCkQ5vQcA+AUNNHjPJP448xNeDQ7iho0gwCOfRZk/iaxuC5HIhFIaHzTnem
-fYt8RV/3k+0ZYTt7u0RauUmEvpmGZJ3B/IMHyqICMVWqUycVIdGrYUhfRrUN0qDu
-jvXj3wGSC/N3G5e/jbC9aSxuSxL66sqmGxxBhBwyzDGU8aHZI6S80dA3T8ptyG6G
-n3uR+xhu3738I44/gi8w/wzL1E+/2d8DDqI1j6lJ/9667I3RyqB6gRVgwXSWNtoU
-SSLKtlYokprVZiqEyRTVpVTxyG8RYQxJ/xbcIgHenunNcY+jcpDThxZRSSYCrjNl
-+QuYWTZsqrsHNqjeJa2jjLfT/5wnvMN3vBS7cNlapu3EfoHEtHolmirqWlEXvWvx
-It+Fy1YVwSbjUMltgqPvJaZMyB3dQ6uxphTVZGhcXgskyqeWg6kDiz0w2I4+81z/
-AtARJuBAU/xjohOOsVyL
-=QX1M
------END PGP SIGNATURE-----
-
---=-AD6RH4UGZPVQ+jcTSbos--
+> +
+> +    if (interrupt) {
+>          t->level = !t->level;
+>          qemu_set_irq(t->irq, t->level);
+>      }
+> +
+> +    timer_mod(&t->timer, calculate_next(t));
+>  }
