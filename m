@@ -1,22 +1,46 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from homiemail-a15.g.dreamhost.com (sub3.mail.dreamhost.com
+ [69.163.253.7])
+ (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rDZyl16FHzDqGZ
- for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 22:50:54 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 146409424894884.05239253990487;
- Tue, 24 May 2016 05:50:48 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-networkd v3] Enabling updates to /etc/resolve.conf
- either manually or using DHCP supplied DNS IP
-Date: Tue, 24 May 2016 07:50:43 -0500
-Message-Id: <20160524125043.23637-2-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.8.3
-In-Reply-To: <20160524125043.23637-1-openbmc-patches@stwcx.xyz>
-References: <20160524125043.23637-1-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rDbFQ0td4zDqGZ
+ for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 23:03:38 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=gFVA1JAu; 
+ dkim-atps=neutral
+Received: from homiemail-a15.g.dreamhost.com (localhost [127.0.0.1])
+ by homiemail-a15.g.dreamhost.com (Postfix) with ESMTP id DBFB076C069;
+ Tue, 24 May 2016 06:03:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
+ :subject:from:reply-to:to:cc:date:in-reply-to:references
+ :content-type:mime-version; s=aj.id.au; bh=c++uYB3URIxJ9FN7TRYEH
+ BZ9niI=; b=gFVA1JAuMkxqEYa2VwszdBpw9HpuxbxaU686KZ7R1WTqtGAAJ/E34
+ hENtPQ5c6RdEpgxG8/RUsj/w/E6P8j5HQeceOqnhgLfn9PxeRd8ROJLBxUxuU/mg
+ VHLDV/9wLVYh0opdioWKAnCPC9v1PH9/5RTbiDKF1dixWuFK7S4c4w=
+Received: from keelia (ppp203-122-213-247.static.internode.on.net
+ [203.122.213.247])
+ (using TLSv1 with cipher AES128-SHA (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: andrew@aj.id.au)
+ by homiemail-a15.g.dreamhost.com (Postfix) with ESMTPSA id 7A1F876C058;
+ Tue, 24 May 2016 06:03:34 -0700 (PDT)
+Message-ID: <1464095002.20948.5.camel@aj.id.au>
+Subject: Re: [PATCH btbridge v4 1/6] Initialise variable to avoid using it
+ uninitialised
+From: Andrew Jeffery <andrew@aj.id.au>
+Reply-To: andrew@aj.id.au
+To: Cyril Bur <cyril.bur@au1.ibm.com>
+Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
+Date: Tue, 24 May 2016 22:33:22 +0930
+In-Reply-To: <20160519154450.3a1c5c0a@camb691>
+References: <1462324208-11150-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1462324208-11150-2-git-send-email-openbmc-patches@stwcx.xyz>
+ <1463627449.2703.140.camel@aj.id.au> <20160519154450.3a1c5c0a@camb691>
+Organization: IBM OzLabs
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-Y1kYDXMLMutDv1kwsPkS"
+X-Mailer: Evolution 3.18.5.2-0ubuntu1 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,496 +52,198 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 May 2016 12:50:55 -0000
+X-List-Received-Date: Tue, 24 May 2016 13:03:39 -0000
 
-From: vishwa <vishwanath@in.ibm.com>
 
----
- Makefile           |  29 ++++
- netman.py          |  36 +++++
- netman_watch_dns.c | 391 +++++++++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 456 insertions(+)
- create mode 100644 Makefile
- create mode 100644 netman_watch_dns.c
+--=-Y1kYDXMLMutDv1kwsPkS
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/Makefile b/Makefile
-new file mode 100644
-index 0000000..110d284
---- /dev/null
-+++ b/Makefile
-@@ -0,0 +1,29 @@
-+CC?= $(CROSS_COMPILE)gcc
-+
-+EXE = netman_watch_dns
-+EXE_OBJ = $(EXE).o
-+
-+INSTALLED_EXE += $(EXE)
-+
-+CFLAGS += -Wall -Wno-unused-result
-+
-+INC_FLAG += $(shell pkg-config --cflags --libs libsystemd) -I. -O2
-+LIB_FLAG += $(shell pkg-config  --libs libsystemd)
-+
-+DESTDIR ?= /
-+SBINDIR ?= /usr/sbin
-+
-+all: $(EXE)
-+
-+%.o: %.C
-+	$(CC) -c $< $(CFLAGS) $(INC_FLAG)-o $@
-+
-+$(EXE): $(EXE_OBJ)
-+	$(CC) $^ $(LDFLAGS) $(LIB_FLAG) -o $@
-+
-+clean:
-+	rm -f $(EXE) *.o
-+
-+install:
-+		install -m 0755 -d $(DESTDIR)$(SBINDIR)
-+		install -m 0755 $(EXE) $(DESTDIR)$(SBINDIR)
-diff --git a/netman.py b/netman.py
-index e2b89ca..90cb022 100755
---- a/netman.py
-+++ b/netman.py
-@@ -245,6 +245,42 @@ class NetMan (dbus.service.Object):
-         rc = call(["systemctl", "restart", "systemd-networkd.service"])
-         return rc
- 
-+    #string of nameservers
-+    @dbus.service.method(DBUS_NAME,"s", "s")
-+    def SetNameServers (self, nameservers):
-+        dns_entry = nameservers.split()
-+        fail_msg = ''
-+        dhcp_auto = False
-+        file_opened = False
-+        if len(dns_entry) > 0:
-+            for dns in dns_entry:
-+                if not self._isvalidip (socket.AF_INET, dns):
-+                    if dns == "DHCP_AUTO=":
-+                        #This DNS is supplied by DHCP.
-+                        dhcp_auto = True
-+                    else:
-+                        print "Malformed DNS Address [" + dns + "]"
-+                        fail_msg = fail_msg + '[' + dns + ']'
-+                else:
-+                    #Only over write on a first valid input
-+                    if file_opened == False:
-+                        resolv_conf = open("/etc/resolv.conf",'w')
-+                        file_opened = True
-+                        if dhcp_auto == True:
-+                            resolv_conf.write("### Generated automatically via DHCP ###\n")
-+                        else:
-+                            resolv_conf.write("### Generated manually via dbus settings ###\n")
-+                    dns_ip = 'nameserver ' + dns + '\n'
-+                    resolv_conf.write(dns_ip)
-+            if file_opened == True:
-+                resolv_conf.close()
-+        else:
-+            raise ValueError, "Invalid DNS entry"
-+        if len(fail_msg) > 0:
-+            return 'Failures encountered processing' + fail_msg
-+        else:
-+            return "DNS entries updated Successfully"
-+
- def main():
-     dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
-     bus = dbus.SystemBus()
-diff --git a/netman_watch_dns.c b/netman_watch_dns.c
-new file mode 100644
-index 0000000..33e6f14
---- /dev/null
-+++ b/netman_watch_dns.c
-@@ -0,0 +1,391 @@
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/inotify.h>
-+#include <limits.h>
-+#include <errno.h>
-+#include <unistd.h>
-+#include <systemd/sd-bus.h>
-+
-+/* Dbus settings to get the DNS entries updated in resolv.conf */
-+const char *bus_name = "org.openbmc.NetworkManager";
-+const char *object_path = "/org/openbmc/NetworkManager/Interface";
-+const char *intf_name = "org.openbmc.NetworkManager";
-+
-+/* Used to tell Network Manager that Name Server listing is coming from DHCP */
-+const char *DHCP_MARKER = "DHCP_AUTO= ";
-+
-+#define DHCP_MARKER_LEN strlen(DHCP_MARKER)
-+
-+/*
-+ * ----------------------------------------------
-+ *  Receives the buffer that has the IPs of DNS
-+ *  and then makes a dbus call to have these DNS
-+ *  entries updated in /etc/resolv.conf
-+ *  --------------------------------------------
-+ */
-+int update_resolv_conf(const char *dns_entry)
-+{
-+    /* To read the message sent by dbus handler */
-+    const char *resp_msg = NULL;
-+
-+    /* Generic error handler */
-+    int rc = 0;
-+
-+    if(dns_entry == NULL || !(strlen(dns_entry)))
-+    {
-+        fprintf(stderr,"Invalid DNS entry\n");
-+        return -1;
-+    }
-+
-+    /*
-+     * Since 'state' file gets touched many a times during the network setting,
-+     * it does not make sense to  have the same DNS entry updated in
-+     * resolv.conf. SO we can actually have a cache of what was previously
-+     * updated and not update if the same DNS info is supplied again.
-+     * Eventhough this approach is a gain performance wise, it will
-+     * open up windows. Assume a case where DHCP has given 1.2.3.4 as IP and
-+     * user goes and updates the DNS as 4.5.6.7 and then user restarts the
-+     * network and thus getting the value of 1.2.3.4. If we maintain a cache of
-+     * what was previously updated, since we get 1.2.3.4 again, we will not
-+     * update with 1.2.3.4 eventhough that is needed since 4.5.6.7 would not
-+     * make sense. So doing updates to resolv.conf each time is bit of a
-+     * overkill but its error proof.
-+     */
-+
-+    /* Encapsulated respose by dbus handler */
-+    sd_bus_message *response = NULL;
-+
-+    /* Errors reported by dbus handler */
-+    sd_bus_error bus_error = SD_BUS_ERROR_NULL;
-+
-+    /*
-+     * Gets a hook onto SYSTEM bus. This API may get called multiple
-+     * times so do not want to have so many instances of bus as it
-+     * leads to system resource issues. Re use the one that is present.
-+     */
-+    static sd_bus *bus_type = NULL;
-+    if(bus_type == NULL)
-+    {
-+        rc = sd_bus_open_system(&bus_type);
-+        if(rc < 0)
-+        {
-+            fprintf(stderr,"Error:[%s] getting system bus\n",strerror(-rc));
-+            return rc;
-+        }
-+    }
-+
-+    rc = sd_bus_call_method(
-+                            bus_type,        /* In the System Bus */
-+                            bus_name,        /* Service to contact */
-+                            object_path,     /* Object path */
-+                            intf_name,       /* Interface name */
-+                            "SetNameServers",/* Method to be called */
-+                            &bus_error,      /* object to return error */
-+                            &response,       /* Response buffer if any */
-+                            "s",             /* Input as strings */
-+                            dns_entry,       /* string of DNS IPs */
-+                            NULL);           /* No return message expected */
-+    if(rc < 0)
-+    {
-+        fprintf(stderr,"ERROR updating DNS entries:[%s]\n",bus_error.message);
-+        goto finish;
-+    }
-+
-+    /* Extract the encapsulated response message */
-+    rc = sd_bus_message_read(response, "s", &resp_msg);
-+    if (rc < 0)
-+    {
-+        fprintf(stderr,"Error:[%s] reading dns"
-+                " updation status\n",strerror(-rc));
-+    }
-+    else
-+    {
-+        printf("%s\n",resp_msg);
-+    }
-+
-+finish:
-+    sd_bus_error_free(&bus_error);
-+    response = sd_bus_message_unref(response);
-+
-+    return rc;
-+}
-+
-+/*
-+ * ----------------------------------------------
-+ *  Gets invoked by inotify handler whenever the
-+ *  netif/state file gets modified
-+ *  -or- when this binary first gets launched.
-+ *  --------------------------------------------
-+ */
-+int read_netif_state_file(const char *netif_dir, const char *state_file)
-+{
-+    FILE *fp;
-+
-+    /* Each line read from 'state' file */
-+    char *line = NULL;
-+
-+    /* A list containing all the DNS IPs that are mentioned in 'state' file. */
-+    char *dns_list = NULL;
-+
-+    /* length of each line read from 'state' file */
-+    size_t len = 0;
-+
-+    /* Length of current and updated dns list */
-+    size_t list_len = 0;
-+    size_t new_list_len = 0;
-+
-+    /* Generic error reporter */
-+    int rc = 0;
-+
-+    /* Extract the 'state' file */
-+    char netif_state_file[strlen(netif_dir) + strlen(state_file) + 2];
-+    sprintf(netif_state_file,"%s%s", netif_dir,state_file);
-+
-+    fp = fopen(netif_state_file,"r");
-+    if(fp == NULL)
-+    {
-+        fprintf(stderr,"Error opening[%s]\n",netif_state_file);
-+        return -1;
-+    }
-+
-+    /*
-+     * Read the file line by line and look for the one that starts with DNS
-+     * If there is one, then what appears after DNS= are the IPs of the DNS
-+     * Just checking for DNS here since any non standard IP is rejected by
-+     * the dbus handler. This is to cater to cases where file may have DNS =
-+     */
-+    while ((getline(&line, &len, fp)) != -1)
-+    {
-+        if(!(strncmp(line,"DNS",3)))
-+        {
-+            /* Go all the way until the start of IPs */
-+            char *dns_entry = strrchr(line, '=');
-+
-+            /* Advance to the first character after = */
-+            dns_entry = &((char *)dns_entry)[1];
-+
-+            /* If we have never populated anything into the list */
-+            if(dns_list == NULL)
-+            {
-+                /* The extra 2 characters to leave some gaps between DNS
-+                 * entries that would come from multiple lines since each line
-+                 * would start with DNS= and this overlaps with previous DNS IP.
-+                 * Although I don't see this as any reality to have DNS IPs
-+                 * spreading multiple lines.
-+                 */
-+                list_len = strlen(dns_entry) + DHCP_MARKER_LEN + 2;
-+                dns_list = (char *)malloc(list_len);
-+
-+                /*
-+                 * Populate DHCP_AUTO= along with the first line of DNS entries
-+                 * This will help in putting the appropriate comments in
-+                 * /etc/resolv.conf indicating the mode of DNS setting.
-+                 */
-+                memset(dns_list, ' ', list_len);
-+                memcpy(dns_list, DHCP_MARKER, DHCP_MARKER_LEN);
-+                memcpy(&dns_list[DHCP_MARKER_LEN], dns_entry, strlen(dns_entry));
-+                dns_list[list_len]='\0';
-+            }
-+            else
-+            {
-+                /* This would be the entries that are coming from second+ line */
-+                new_list_len = strlen(dns_entry) + list_len + 2;
-+                dns_list = (char *)realloc(dns_list, new_list_len);
-+
-+                memset(&dns_list[list_len], ' ', strlen(dns_entry) + 2);
-+                memmove(&dns_list[list_len], dns_entry, strlen(dns_entry));
-+
-+                /* Starting offset for next line */
-+                list_len = new_list_len;
-+                dns_list[list_len] = '\0';
-+            }
-+        }
-+
-+        /* Memory is allocated by getline and user needs to free */
-+        if(line)
-+        {
-+            free(line);
-+            line = NULL;
-+        }
-+    }
-+
-+    /* If we have found some or more DNS entries */
-+    if(dns_list)
-+    {
-+        /*
-+         * Being extra cautious if string somehow is not null terminated in the loop
-+         */
-+        dns_list[list_len] = '\0';
-+
-+        rc = update_resolv_conf(dns_list);
-+        if(rc < 0)
-+        {
-+            fprintf(stderr,"Error updating resolv.conf with:[%s]\n",dns_list);
-+        }
-+
-+        free(dns_list);
-+        dns_list = NULL;
-+    }
-+
-+    return 0;
-+}
-+
-+void usage(void)
-+{
-+    printf("Usage: netman_watch_dns <Absolute path of DHCP netif state file>\n"
-+            "Example: netman_watch_dns /run/systemd/netif/state\n");
-+    return;
-+}
-+
-+/*
-+ * ------------------------------------------------------
-+ *  Registers a inotify watch on the state file and calls
-+ *  into handling the state file whenever there is a change.
-+ * ------------------------------------------------------
-+ */
-+int watch_for_dns_change(char *netif_dir, char *state_file)
-+{
-+    int inotify_fd, wd;
-+
-+    /* the aligned statement below is per the recommendation by inotify(7) */
-+    char event_data[4096]
-+        __attribute__ ((aligned(__alignof__(struct inotify_event))));
-+
-+    /* To check the number of bytes read from inotify event */
-+    ssize_t bytes_read = 0;
-+
-+    /* To walk event by event when inotify returns */
-+    char *ptr = NULL;
-+
-+    /* Variable to hold individual event notification */
-+    const struct inotify_event *event = NULL;
-+
-+    /* Generic error handler */
-+    int rc = 0;
-+
-+    /* Create inotify instance */
-+    inotify_fd = inotify_init();
-+    if(inotify_fd == -1)
-+    {
-+        fprintf(stderr,"Error:[%s] initializing Inotify",strerror(errno));
-+        return -1;
-+    }
-+
-+    /* Register to write actions on the netif directory */
-+    wd = inotify_add_watch(inotify_fd, netif_dir, IN_MODIFY);
-+    if(wd == -1)
-+    {
-+        fprintf(stderr,"Error:[%s] adding watch for:[%s]\n",
-+                strerror(errno), netif_dir);
-+        return -1;
-+    }
-+
-+    /*
-+     * When this is first launched, we need to go see
-+     * if there is anything present in the state file.
-+     * Doing it here to close any gaps between the file
-+     * getting created before registering inotifier.
-+     */
-+    rc = read_netif_state_file(netif_dir, state_file);
-+    if(rc < 0)
-+    {
-+        fprintf(stderr,"Error doing initial processing of state file\n");
-+    }
-+
-+    /* Read events forever */
-+    for (;;)
-+    {
-+        memset(event_data, 0x0, sizeof(event_data));
-+        bytes_read = read(inotify_fd, event_data, sizeof(event_data));
-+        if(bytes_read <= 0)
-+        {
-+            fprintf(stderr,"event_data read from inotify fd was Invalid\n");
-+            continue;
-+        }
-+
-+        /* Process all of the events in buffer returned by read() */
-+        for(ptr = event_data; ptr < event_data + bytes_read;
-+            ptr += sizeof(struct inotify_event) + event->len)
-+        {
-+            event = (struct inotify_event *)ptr;
-+
-+            /*
-+             * We are not interested in anything other than updates to
-+             * state file. Now when this code is being written, its in
-+             * /run/systemd/netif/state.
-+             */
-+            if((event->len > 0) && (strstr(event->name, state_file)))
-+            {
-+                rc = read_netif_state_file(netif_dir, state_file);
-+                if(rc < 0)
-+                {
-+                    fprintf(stderr,"Error processing inotify event\n");
-+                }
-+            }
-+        } /* Processing all inotify events. */
-+    } /* Endless loop waiting for events. */
-+
-+    /*
-+     * Technically, we should not reach here since the monitor function
-+     * is not supposed to stop even on error. But for completeness.....
-+     */
-+    inotify_rm_watch(inotify_fd, wd);
-+    close(inotify_fd);
-+
-+    return 0;
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+    /* Generic error handler */
-+    int rc = 0;
-+
-+    /* Sanity checking */
-+    if(argc != 2 || argv[1] == NULL)
-+    {
-+        usage();
-+        return -1;
-+    }
-+
-+    /*
-+     * We now have the job of extracting the directory and
-+     * the state file from the user supplied input.
-+     */
-+    char netif_dir[strlen(argv[1]) + 1];
-+    memset(netif_dir, 0x0, sizeof(netif_dir));
-+
-+    /* File where the actual DNS= entry is found */
-+    char *state_file = NULL;
-+
-+    /* Filter invalid inputs */
-+    state_file = strrchr(argv[1], '/');
-+    if(strlen(state_file) <= 1)
-+    {
-+        fprintf(stderr,"Invalid state file :[%s] specified\n",state_file);
-+        return -1;
-+    }
-+    else
-+    {
-+        /* we have /state now and what we need is just the 'state' */
-+        state_file = &((char *)state_file)[1];
-+
-+        /*
-+         * Also extract the Absolute Path of the directory
-+         * containing this state file
-+         */
-+        strncpy(netif_dir, argv[1], strlen(argv[1]) - strlen(state_file));
-+        strcat(netif_dir,"\0");
-+    }
-+
-+    printf("Watching for changes in DNS settings..\n");
-+
-+    /* Now that we have checked it once. rest is all notification bases. */
-+    rc = watch_for_dns_change(netif_dir, state_file);
-+    if(rc < 0)
-+    {
-+        fprintf(stderr,"Error watching for DNS changes\n");
-+    }
-+
-+    return 0;
-+}
--- 
-2.8.3
+On Thu, 2016-05-19 at 15:44 +1000, Cyril Bur wrote:
+> > Building with this patch and native GCC* gives errors:
+> >=C2=A0
+> >=C2=A0=C2=A0=C2=A0=C2=A0 $ KERNEL_HEADERS=3D../../linux/ast2400/include/=
+uapi/ make
+> >=C2=A0=C2=A0=C2=A0=C2=A0 cc=C2=A0=C2=A0-Wall -O2 -g -I../../linux/ast240=
+0/include/uapi/=C2=A0=C2=A0=C2=A0=C2=A0btbridged.c=C2=A0=C2=A0-lsystemd -o =
+btbridged
+> >=C2=A0=C2=A0=C2=A0=C2=A0 btbridged.c: In function =E2=80=98main=E2=80=99=
+:
+> >=C2=A0=C2=A0=C2=A0=C2=A0 btbridged.c:590:6: warning: =E2=80=98r=E2=80=99=
+ may be used uninitialized in this function [-Wmaybe-uninitialized]
+> >=C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0if (r < 0)
+> >=C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0^
+> >=C2=A0=C2=A0=C2=A0=C2=A0 btbridged.c:342:6: note: =E2=80=98r=E2=80=99 wa=
+s declared here
+> >=C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0 int r, len;
+> >=C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0^
+> >=C2=A0
+> > That's weird, because the note isn't relevant to the function of line
+> > that generated the warning. However, the 'r' defined in=C2=A0bt_host_wr=
+ite()
+> > suffers the same initialisation issue. Initialising it gives me a build
+> > with no warnings so maybe it's worth doing that here also?
+> >=C2=A0
+>=20
+> Yeah, GCC seems to be getting a bit confused. I'm usually not in favour o=
+f
+> putting in stuff to shut the warnings up but these are just so odd that I=
+'m at
+> a loss.
+>=20
+> Your suggestion works, lets just do that and forget about it.
+
+So, just out of interest I ran scan-build over it. Turns out it leads
+to a bug. Here's the reasoning:
+
+339	static int bt_host_write(struct btbridged_context *context, struct bt_q=
+ueue *bt_msg)
+340	{
+341		struct bt_queue *head;
+342		uint8_t data[BT_MAX_MESSAGE] =3D { 0 };
+343		sd_bus_message *msg =3D NULL;
+344		int r, len;
+=09
+1	'r' declared without an initial value	=E2=86=92
+345	=C2=A0
+346		assert(context);
+347	=C2=A0
+348		if (!bt_msg)
+=09
+2=E2=86=90	Assuming 'bt_msg' is non-null	=E2=86=92
+=09
+3=E2=86=90	Taking false branch	=E2=86=92
+349			return -EINVAL;
+350	=C2=A0
+351		head =3D bt_q_get_head(context);
+352		if (bt_msg =3D=3D head) {
+=09
+4=E2=86=90	Assuming 'bt_msg' is not equal to 'head'	=E2=86=92
+=09
+5=E2=86=90	Taking false branch	=E2=86=92
+353			struct itimerspec ts;
+354			/* Need to adjust the timer */
+355			ts.it_interval.tv_sec =3D 0;
+356			ts.it_interval.tv_nsec =3D 0;
+357			if (head->next) {
+358				ts.it_value =3D head->next->start;
+359				ts.it_value.tv_sec +=3D BT_HOST_TIMEOUT_SEC;
+360				MSG_OUT("Adjusting timer for next element\n");
+361			} else {
+362				ts.it_value.tv_nsec =3D 0;
+363				ts.it_value.tv_sec =3D 0;
+364				MSG_OUT("Disabling timer, no elements remain in queue\n");
+365			}
+366			r =3D timerfd_settime(context->fds[TIMER_FD].fd, TFD_TIMER_ABSTIME, &=
+ts, NULL);
+367			if (r =3D=3D -1)
+368				MSG_ERR("Couldn't set timerfd\n");
+369		}
+370		data[1] =3D (bt_msg->rsp.netfn << 2) | (bt_msg->rsp.lun & 0x3);
+371		data[2] =3D bt_msg->rsp.seq;
+372		data[3] =3D bt_msg->rsp.cmd;
+373		data[4] =3D bt_msg->rsp.cc;
+374		if (bt_msg->rsp.data_len > sizeof(data) - 5) {
+=09
+6=E2=86=90	Taking false branch	=E2=86=92
+375			MSG_ERR("Response message size (%zu) too big, truncating\n", bt_msg->=
+rsp.data_len);
+376			bt_msg->rsp.data_len =3D sizeof(data) - 5;
+377		}
+378		/* netfn/len + seq + cmd + cc =3D 4 */
+379		data[0] =3D bt_msg->rsp.data_len + 4;
+380		if (bt_msg->rsp.data_len)
+=09
+7=E2=86=90	Taking false branch	=E2=86=92
+381			memcpy(data + 5, bt_msg->rsp.data, bt_msg->rsp.data_len);
+382		/* Count the data[0] byte */
+383		len =3D write(context->fds[BT_FD].fd, data, data[0] + 1);
+384		if (len =3D=3D -1) {
+=09
+8=E2=86=90	Taking false branch     =E2=86=92
+385			r =3D errno;
+386			MSG_ERR("Error writing to %s: %s\n", BT_HOST_PATH, strerror(errno));
+387			if (bt_msg->call) {
+388				r =3D sd_bus_message_new_method_errno(bt_msg->call, &msg, r, NULL);
+389				if (r < 0)
+390					MSG_ERR("Couldn't create response error\n");
+391			}
+392			goto out;
+393		} else {
+394			if (len !=3D data[0] + 1)
+=09
+9=E2=86=90	Taking false branch	=E2=86=92
+395				MSG_ERR("Possible short write to %s, desired len: %d, written len: %=
+d\n", BT_HOST_PATH, data[0] + 1, len);
+396			else
+397				MSG_OUT("Successfully wrote %d of %d bytes to %s\n", len, data[0] + =
+1, BT_HOST_PATH);
+398	=C2=A0
+399			if (bt_msg->call) {
+=09
+10=E2=86=90	Taking false branch	=E2=86=92
+400				r =3D sd_bus_message_new_method_return(bt_msg->call, &msg);
+401				if (r < 0) {
+402					MSG_ERR("Couldn't create response message\n");
+403					goto out;
+404				}
+405				r =3D 0; /* Just to be explicit about what we're sending back */
+406				r =3D sd_bus_message_append(msg, "x", r);
+407				if (r < 0) {
+408					MSG_ERR("Couldn't append result to response\n");
+409					goto out;
+410				}
+411	=C2=A0
+412			}
+413		}
+414	=C2=A0
+415	out:
+416		if (bt_msg->call) {
+=09
+11=E2=86=90	Taking false branch	=E2=86=92
+417			if (sd_bus_send(context->bus, msg, NULL) < 0)
+418				MSG_ERR("Couldn't send response message\n");
+419			sd_bus_message_unref(msg);
+420		}
+421		bt_q_drop(context, bt_msg);
+422	=C2=A0
+423		/*
+424		=C2=A0* There isn't another message ready to be sent so turn off POLLO=
+UT
+425		=C2=A0*/
+426		if (!bt_q_get_msg(context)) {
+=09
+12=E2=86=90	Taking false branch	=E2=86=92
+427			MSG_OUT("Turning off POLLOUT for the BT in poll()\n");
+428			context->fds[BT_FD].events =3D POLLIN;
+429		}
+430	=C2=A0
+431		return r;
+=09
+13=E2=86=90	Undefined or garbage value returned to caller
+432	}
+433
+--=-Y1kYDXMLMutDv1kwsPkS
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAABCgAGBQJXRFEaAAoJEJ0dnzgO5LT5qAkP/2tbwdeSZSXinP3Ng2DDmNdp
+rnO/+Pn0vDZG/J0drRNje/Jam3XMGBuVIMMSvfVW5hrDO7bsftiXkUDDA3kKaxs5
+NJ7L2LNJeOuDjgwVnbtNkcuEnYBzYLB0LmpVK20fCzRqMI8Nx/gEmuvBBwKO6nG8
+NoOemyAM0cUKLJZll6HmlDJepNtVNEO5bElfBPrHGUHqUtS9S8Ixqtz9OuU39E06
+n9h4jp9ChHYBgQoXxgiHEFIwZd5SFgAEKZ3xY8e4e5kCsgTO7896dWsS5GHmJSGD
+n25dtHJHXyvViZpz/rHerU0mKXnpyQDSP4QF6tG7OlMwgPGvyFyewCrBnU25Jcj2
+pCQ4Fy5J0T24qSo3PBcCzlERhxeB+QiZH2kzIPHdFz3Px30KlRp79L0Wth0p5aIp
+ASFvuhWcH51cairnXUNpb3P0+M6tFuX/RyPzXQAxAvpZOKXm2mBTnl7xiqB2eHKs
+J85UuABCKfMZf8DnyY+2k6AneDpBJ1GYLz7dkzLnZiySUfP4POjQp6gDUui0M7LP
+RfX4z/t6vlFKWZEB37b3QRfyw51vRUEL9gKY5adIlmimcQucOTFnp/74NJxQKRBI
+VqAQDv4oOq+jXQiLSa0XnWNhVMfUwf+yYS59ke8lxthRENkNJuC8MOj7nCc7NbRi
+6n+FF7MMDmasNuewYQGG
+=Uzml
+-----END PGP SIGNATURE-----
+
+--=-Y1kYDXMLMutDv1kwsPkS--
