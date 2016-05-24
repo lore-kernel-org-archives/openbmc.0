@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rDHt56GvtzDqPF
- for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 11:30:53 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rDHt721NWzDqNf
+ for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 11:30:55 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1464053449201894.6574137217349;
- Mon, 23 May 2016 18:30:49 -0700 (PDT)
+ with SMTPS id 1464053450392771.5861943076036;
+ Mon, 23 May 2016 18:30:50 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 4/7] initfs: update: no error if no files to copy to
- ram
-Date: Mon, 23 May 2016 20:30:37 -0500
-Message-Id: <20160524013040.30742-5-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 5/7] initfs: update: add option to perform checks but
+ skip actual update
+Date: Mon, 23 May 2016 20:30:38 -0500
+Message-Id: <20160524013040.30742-6-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.3
 In-Reply-To: <20160524013040.30742-1-openbmc-patches@stwcx.xyz>
 References: <20160524013040.30742-1-openbmc-patches@stwcx.xyz>
@@ -28,32 +28,79 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 May 2016 01:30:54 -0000
+X-List-Received-Date: Tue, 24 May 2016 01:30:55 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-If the saved files directory is empty because there were no files in
-the read-write overlay file system that were in the persistent file
-list, then the save directory will not exist, so skip copying the
-non-existant directory in that case.
+Provide a way to check if update is likely to succeed without
+attempting actual updates.
+
+This will check the image names correspond to mtd partition names,
+and will be enhanced with additional checking for file size and
+individual partition mounts.
+
+This is not called --dry-run because it will still do file save
+and restore if those are enabled.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh   | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../obmc-phosphor-initfs/files/obmc-update.sh      | 30 +++++++++++++---------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
 
 diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index 69c3fc8..147708d 100755
+index 147708d..45dcd56 100755
 --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
 +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -146,7 +146,7 @@ do
- 	flashcp -v $f /dev/$m && rm $f
+@@ -57,6 +57,7 @@ upper=$rwdir/cow
+ save=/run/save/${upper##*/}
+ 
+ mounted=
++doflash=
+ doclean=
+ dosave=y
+ dorestore=y
+@@ -86,6 +87,9 @@ do
+ 	--restore-files)
+ 		dorestore=y
+ 		shift ;;
++	--no-flash)
++		doflash=
++		shift ;;
+ 	--copy-files)
+ 		toram=y
+ 		shift ;;
+@@ -133,18 +137,20 @@ do
+ 	fi
  done
  
--if test "x$toram" = xy
-+if test -d $save -a "x$toram" = xy
+-for f in $image*
+-do
+-	if test ! -s $f
+-	then
+-		echo "Skipping empty update of ${f#$image}."
+-		rm $f
+-		continue
+-	fi
+-	m=$(findmtd ${f#$image})
+-	echo "Updating ${f#$image}..."
+-	flashcp -v $f /dev/$m && rm $f
+-done
++if test -n "$doflash"
++	for f in $image*
++	do
++		if test ! -s $f
++		then
++			echo "Skipping empty update of ${f#$image}."
++			rm $f
++			continue
++		fi
++		m=$(findmtd ${f#$image})
++		echo "Updating ${f#$image}..."
++		flashcp -v $f /dev/$m && rm $f
++	done
++fi
+ 
+ if test -d $save -a "x$toram" = xy
  then
- 	mkdir -p $upper
- 	cp -rp $save/. $upper/
 -- 
 2.8.3
