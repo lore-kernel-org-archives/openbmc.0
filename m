@@ -3,25 +3,30 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rDmZQ5NPxzDqLp
- for <openbmc@lists.ozlabs.org>; Wed, 25 May 2016 06:03:58 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rDmhM54cLzDqLp
+ for <openbmc@lists.ozlabs.org>; Wed, 25 May 2016 06:09:07 +1000 (AEST)
 Received: from localhost (32.97.110.55 [32.97.110.55]) by mx.zohomail.com
- with SMTPS id 1464120231840225.54890332677166;
- Tue, 24 May 2016 13:03:51 -0700 (PDT)
-Date: Tue, 24 May 2016 15:03:50 -0500
+ with SMTPS id 1464120524890238.89447742164623;
+ Tue, 24 May 2016 13:08:44 -0700 (PDT)
+Date: Tue, 24 May 2016 15:08:43 -0500
 From: Patrick Williams <patrick@stwcx.xyz>
-To: Cyril Bur <cyrilbur@gmail.com>
-Cc: openbmc@lists.ozlabs.org
-Subject: Re: Hi contributors!
-Message-ID: <20160524200349.GN19968@asimov.austin.ibm.com>
-References: <20160524153000.0a505092@camb691>
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>
+Subject: Re: [PATCH openbmc v2] Re-enable out of tree device trees
+Message-ID: <20160524200842.GO19968@asimov.austin.ibm.com>
+References: <1463495441-27767-1-git-send-email-openbmc-patches@stwcx.xyz>
+ <1463495441-27767-2-git-send-email-openbmc-patches@stwcx.xyz>
+ <CACPK8Xc7_+mV=W9-ZRZSO=uQ6y_Ys6VN4Dk82f7hjm37PdibaA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="2+jOUFLb7N+7fooZ"
+ protocol="application/pgp-signature"; boundary="eQyCKlb8USywWNtC"
 Content-Disposition: inline
-In-Reply-To: <20160524153000.0a505092@camb691>
+In-Reply-To: <CACPK8Xc7_+mV=W9-ZRZSO=uQ6y_Ys6VN4Dk82f7hjm37PdibaA@mail.gmail.com>
 User-Agent: Mutt/1.5.24 (2015-08-30)
 X-Zoho-Virus-Status: 1
+X-ZohoMail: Z_61896388 SPT_1 Z_56716064 SPT_1 SLF_D
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -33,109 +38,122 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 May 2016 20:03:59 -0000
+X-List-Received-Date: Tue, 24 May 2016 20:09:08 -0000
 
 
---2+jOUFLb7N+7fooZ
+--eQyCKlb8USywWNtC
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, May 24, 2016 at 03:30:00PM +1000, Cyril Bur wrote:
-> ...
-> Sincerely,
+On Thu, May 19, 2016 at 11:26:01AM +0930, Joel Stanley wrote:
+> Hi Brad,
 >=20
-> Cyril
+> On Wed, May 18, 2016 at 12:00 AM, OpenBMC Patches
+> <openbmc-patches@stwcx.xyz> wrote:
+> > From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+> >
+> > This snippet was mistakenly removed with 8ef9fee.
+>=20
+> It was intentionally removed.
+>=20
+> > Note that this isn't a matter of policy, it simply enables
+> > the option to do it.  The in-tree device tree is still the default.
+> >
+> > This enables things like workbook or schematic generated device
+> > trees.  It also addresses the inevitable fact that the upstream kernel
+> > will probably not want device trees for every board in the world.
+>=20
+> As we do development the device tree is strongly coupled to the
+> kernel. I think we want to keep the dts in the kernel tree, so that
+> changes are made together.
+>=20
+> Secondly, when testing kernels the developer may or may not be using
+> the poky environment. This means that the developer writing and
+> supporting your kernel is not testing the same code that is running on
+> the board.
+>=20
+> We can add every device trees to our kernel tree. As the upstream
+> maintainer of the aspeed port, I will also send them all upstream.
+
+I can think of almost a dozen openpower boxes, plus the IBM branded FSP
+boxes.  That is before we even start to support x86 and ARM servers.  Do
+you really think we are going to want to submit every single device tree
+for every single openbmc supported box upstream?  That sounds really
+cumbersome for both us and the Linux community.
+
+Yocto already has a mechanism for creating device trees from snippets.
+As we start to use the MRW data from the system engineers, I would like to
+see us generate many aspects of the device tree from those directly.
+
+>=20
+> Cheers,
+>=20
+> Joel
+>=20
+> >
+> > Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+> > ---
+> >  meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb | 10 +++++=
++++++
+> >  1 file changed, 10 insertions(+)
+> >
+> > diff --git a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.b=
+b b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb
+> > index 24cde9f..945b43d 100644
+> > --- a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb
+> > +++ b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb
+> > @@ -18,3 +18,13 @@ COMPATIBLE_MACHINE_${MACHINE} =3D "openbmc"
+> >
+> >  inherit kernel
+> >  require recipes-kernel/linux/linux-yocto.inc
+> > +
+> > +do_patch_append() {
+> > +        for DTB in "${KERNEL_DEVICETREE}"; do
+> > +               DT=3D`basename ${DTB} .dtb`
+> > +                if [ -r "${WORKDIR}/${DT}.dts" ]; then
+> > +                        cp ${WORKDIR}/${DT}.dts \
+> > +                                ${STAGING_KERNEL_DIR}/arch/${ARCH}/boo=
+t/dts
+> > +               fi
+> > +       done
+> > +}
+> > --
+> > 2.8.2
+> >
+> >
+> > _______________________________________________
+> > openbmc mailing list
+> > openbmc@lists.ozlabs.org
+> > https://lists.ozlabs.org/listinfo/openbmc
 > _______________________________________________
-
-Cyril,
-
-You wrote a lot.
-
-On commit messages:
-    I totally agree.  Poor commit messages are a pet peeve of mine as
-    well.  I also recommend http://chris.beams.io/posts/git-commit/ .
-    Going forward, I will attempt to do a better job of encouraging
-    better formed messages in reviews.
-
-On git documentation:
-    Thanks for the write up.  Rather than put yet another git tutorial
-    in a wiki, I would prefer we point to a good existing tutorial.  For
-    some reason new people seem to always want a "cookbook" of simple
-    git commands.  [Un]Fortunately, nothing in git is that simple.
-
-On Reviews:
-    We do have a problem with some people reviewing in Github
-    (Reviewable.io) and some people reviewing via mailing list.  We also
-    have an issue with maintainers not ensuring all comments have been
-    addressed.
-
-    We discussed at the Wed (5/18 PM for US) call last week how to do
-    reviews going forward.  We agreed to the following:
-        1) For OpenBMC specific packages we are going to set up a Gerrit
-           server for all code reviews.  There is a Github integration
-           module for Gerrit that allows mirroring pull requests into
-           Gerrit and replicating merged code back to Github.  Look for
-           this in the near future.
-        2) For packages we are modifying from upstream, we should use
-           upstream method (ie. mailing lists for kernel, yocto, etc.).
-           Patches accepted into the openbmc meta-layers should have
-           already be submitted upstream and have a reasonable
-           confidence about their long-term acceptance.
-        3) For packages we are _temporarily_ forking from upstream, to
-           do significant and focused development on, we can use either
-           Gerrit or this mailing list.  Eventually, changes should be
-           submitted, via path #2, upstream.
-
-    Once we get the Gerrit server in place, I plan to deprecate the
-    automatic pull-request mailer.
-
-On 'Reply-All' issue with patches:
-    At some level, this is an intrinsic problem with Github.  People can
-    optionally set their Github profile to "Hide my email address
-    whenever possible."  The content for the cover letter comes from the
-    pull request information they have entered into the Github
-    web-field.  When my patch mailer gets the content from the pull
-    request to make the cover letter, it has to ask Github for their
-    email address.  For people who have hidden their email address in
-    their profile this yields something like "Joe Developer
-    <joey_d@users.github.com>" (I forget the exact format off the top of
-    my head).  Unfortunately, this means my auto-mailer and anyone
-    responding to the cover gets lots of bounces, so I disabled the
-    auto-cc on the cover.  (There is an obvious solution to filter out
-    the @...github.com email addresses but I haven't had the spare
-    cycles).
-
-    For the code patches themselves, I use git-format-patch and
-    git-send-email and I don't think I suppress-cc at all.  That means
-    the author, per the commit message, should be cc'd.
-
-    Like I said early, this script is planned to be deprecated at some
-    point in the not-too-distant future anyhow.
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
 
 --=20
 Patrick Williams
 
---2+jOUFLb7N+7fooZ
+--eQyCKlb8USywWNtC
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJXRLOkAAoJEKsDR8wtAMEZtjUP/RBAiY7EFnQNEHTn+idhUzwO
-uC1StFJrZ7x/KZa8TvAJnLRDC0Y3W4bHL50URF7KCHYRK1KUct40BqGYFnHq6Zrg
-nvVSzqUNj0CIMmpg6uqMGBRS9XXJaa4trz7rBf6GAYpK4tMhgUH8s8RsPr7RHE1b
-wQ6OkF/K6PINI/w4dW2XVz5JSnIRT/ABi6fZ26C2KCIAEGo74ACMR5JC712Qwcl6
-0gzkvbreUAxAGygwb3Se9/IO8bUmQgOJW2lbeIqLDqZ7dKdOZzr6aewYjgg61CAB
-NJK2opM50MemeEI/cDE8UsIiKYT57sWQuNuO9ogKTSyhXyRjC3WE+Fu7C2F7VA0z
-LWLK5i8dvTCf3iM9R5scmamgECy66DMA83YI4HK/x7Eom5oPTfSxgZCgqZMn49Kj
-gr35D4zqwJJDI35GA4lG4rGx6wwxtqcKb9yTy4BVOkfVbSzyMuLlH+H8e0FQKjQ1
-gAfVa05le0lKIUVOpTcVPAFjB64UTaWbN/xmCrKvGapDBk/Mq263xymL0gKwPI6/
-8tCOwupOJmBbw0Z1F1+nx6P0RREWDI9iun8/FvN0H7S1R9V68FtuA3JUE7dplFsK
-RcUlj6hYhj+26dWl7E8UiKVdZW4ZX0IJ1SvUMtEYGi7Bi/PzRNeXQV17M9/iAmNH
-nGvpmyWUtvhfSmy/nb+D
-=GUqM
+iQIcBAEBCAAGBQJXRLTKAAoJEKsDR8wtAMEZtuQP/381MQ9QHqmiEdPSZDYKyNk2
+3fObaMM2JdAx+FhBM/w2C3M+ioOd55j+03QA3+/Ytrne8Ou6snF88w8KWAwdhp65
+eVBff1VD6e4wbMzCt028ePX8IOFrh9Mivtsp5cy4OPb+anXgnwEdaYqiD7SGY8M7
+T2TbJqf/ixYULSC9DcXLq6m3hpqID+F0yDV9uACYnzekhi7BMfoE3bCwCjnscrtK
+YVvs8myle+/vwnW/vtCbNcgrIM/RGAKS3dBbYjm869UkcGXX/JhtZzkVzBQDmcXz
+tYD5frY8aZc2SGaTEJtmw29t8H5OwErfZXtOTW7XBV3sDyGGwactVcLViNOfS0RQ
+oTmtp9UFDWEpR0HoSy0saHO6IdHGy4mXuA5TtcPLuzXRrRC7xjSh4xHph6843keX
+EJg8AYX/UaK4tFiPOXxQJc7rqdM8y26yyqFTv/KAOYQLdlYB6gpFLaxpwQUxfiZO
+NlaVq+q+G0enP3niDrmL9JPZ/DOWD8l95nQmHIU3T7ILoT8wRWspLm6CS+HZB/9E
+N6/JaPbsXMxzmbMxnCemMHiCnlYWjdpAKkZorUiseO5A/EFnzTiwclLrkoiWmWve
+Na2Lbpocx6pGkNloQwHEhrcuprdzY4l+JfHjh3NAgITLwG1BxGjbry0EE3LChOF6
+zhvMhjUbUFDKpdSvaytw
+=Rxhx
 -----END PGP SIGNATURE-----
 
---2+jOUFLb7N+7fooZ--
+--eQyCKlb8USywWNtC--
