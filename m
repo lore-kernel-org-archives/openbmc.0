@@ -1,46 +1,97 @@
-Return-Path: <andrew@aj.id.au>
-Received: from homiemail-a15.g.dreamhost.com (sub3.mail.dreamhost.com
- [69.163.253.7])
- (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+Return-Path: <vishwanath@in.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rDbFQ0td4zDqGZ
- for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 23:03:38 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=gFVA1JAu; 
- dkim-atps=neutral
-Received: from homiemail-a15.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a15.g.dreamhost.com (Postfix) with ESMTP id DBFB076C069;
- Tue, 24 May 2016 06:03:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
- :subject:from:reply-to:to:cc:date:in-reply-to:references
- :content-type:mime-version; s=aj.id.au; bh=c++uYB3URIxJ9FN7TRYEH
- BZ9niI=; b=gFVA1JAuMkxqEYa2VwszdBpw9HpuxbxaU686KZ7R1WTqtGAAJ/E34
- hENtPQ5c6RdEpgxG8/RUsj/w/E6P8j5HQeceOqnhgLfn9PxeRd8ROJLBxUxuU/mg
- VHLDV/9wLVYh0opdioWKAnCPC9v1PH9/5RTbiDKF1dixWuFK7S4c4w=
-Received: from keelia (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- (using TLSv1 with cipher AES128-SHA (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: andrew@aj.id.au)
- by homiemail-a15.g.dreamhost.com (Postfix) with ESMTPSA id 7A1F876C058;
- Tue, 24 May 2016 06:03:34 -0700 (PDT)
-Message-ID: <1464095002.20948.5.camel@aj.id.au>
-Subject: Re: [PATCH btbridge v4 1/6] Initialise variable to avoid using it
- uninitialised
-From: Andrew Jeffery <andrew@aj.id.au>
-Reply-To: andrew@aj.id.au
-To: Cyril Bur <cyril.bur@au1.ibm.com>
-Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-Date: Tue, 24 May 2016 22:33:22 +0930
-In-Reply-To: <20160519154450.3a1c5c0a@camb691>
-References: <1462324208-11150-1-git-send-email-openbmc-patches@stwcx.xyz>
- <1462324208-11150-2-git-send-email-openbmc-patches@stwcx.xyz>
- <1463627449.2703.140.camel@aj.id.au> <20160519154450.3a1c5c0a@camb691>
-Organization: IBM OzLabs
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-Y1kYDXMLMutDv1kwsPkS"
-X-Mailer: Evolution 3.18.5.2-0ubuntu1 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rDcXk0GNSzDq5y
+ for <openbmc@lists.ozlabs.org>; Wed, 25 May 2016 00:01:57 +1000 (AEST)
+Received: from pps.filterd (m0048817.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
+ u4OCwl6m019187
+ for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 09:04:00 -0400
+Message-Id: <201605241304.u4OCwl6m019187@mx0a-001b2d01.pphosted.com>
+Received: from e28smtp02.in.ibm.com (e28smtp02.in.ibm.com [125.16.236.2])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 234enaau82-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 09:04:00 -0400
+Received: from localhost
+ by e28smtp02.in.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <vishwanath@in.ibm.com>;
+ Tue, 24 May 2016 18:33:55 +0530
+Received: from d28dlp03.in.ibm.com (9.184.220.128)
+ by e28smtp02.in.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Tue, 24 May 2016 18:33:53 +0530
+X-IBM-Helo: d28dlp03.in.ibm.com
+X-IBM-MailFrom: vishwanath@in.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d28relay04.in.ibm.com (d28relay04.in.ibm.com [9.184.220.61])
+ by d28dlp03.in.ibm.com (Postfix) with ESMTP id 978AC1258060
+ for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 18:36:09 +0530 (IST)
+Received: from d50lp02.ny.us.ibm.com (d50lp02.pok.ibm.com [146.89.104.208])
+ by d28relay04.in.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u4OD3fRM18350354
+ for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 18:33:42 +0530
+Received: from localhost
+ by d50lp02.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <vishwanath@in.ibm.com>;
+ Tue, 24 May 2016 09:02:25 -0400
+Received: from smtp.notes.na.collabserv.com (192.155.248.91)
+ by d50lp02.ny.us.ibm.com (158.87.18.21) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
+ Tue, 24 May 2016 09:02:23 -0400
+X-IBM-Helo: smtp.notes.na.collabserv.com
+X-IBM-MailFrom: vishwanath@in.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from /spool/local
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <vishwanath@in.ibm.com>;
+ Tue, 24 May 2016 13:02:22 -0000
+Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
+ by smtp.notes.na.collabserv.com (10.106.227.143) with
+ smtp.notes.na.collabserv.com ESMTP; Tue, 24 May 2016 13:02:15 -0000
+Received: from us1a3-mail58.a3.dal09.isc4sb.com ([10.142.3.114])
+ by us1a3-smtp05.a3.dal06.isc4sb.com
+ with ESMTP id 2016052413021384-253761 ;
+ Tue, 24 May 2016 13:02:13 +0000 
+MIME-Version: 1.0
+In-Reply-To: <20160524084041.14455-2-openbmc-patches@stwcx.xyz>
+Subject: Re: [PATCH phosphor-host-ipmid] Returning correct value from
+ handle_ipmid_command in ipmid.C
+To: OpenBMC_Members@d28relay04.in.ibm.com
+Cc: openbmc@lists.ozlabs.org, Nan Li <bjlinan@cn.ibm.com>
+From: "Vishwanatha Subbanna" <vishwanath@in.ibm.com>
+Date: Tue, 24 May 2016 18:32:12 +0530
+References: <20160524084041.14455-1-openbmc-patches@stwcx.xyz>
+ <20160524084041.14455-2-openbmc-patches@stwcx.xyz>
+X-KeepSent: 01EF7029:00CA3F1D-65257FBD:00477DD6;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1EXT September 15, 2015
+X-LLNOutbound: False
+X-Disclaimed: 47203
+X-TNEFEvaluated: 1
+Content-type: multipart/related; 
+ Boundary="0__=EABBF52EDFD4FB468f9e8a93df938690918cEABBF52EDFD4FB46"
+x-cbid: 16052413-0004-0000-0000-000002867B68
+X-IBM-ISS-SpamDetectors: Score=0.410717; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.410717; ST=0; TS=0; UL=0; ISC=
+X-IBM-ISS-DetailInfo: BY=3.00005300; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000166; SDB=6.00706677; UDB=6.00327917; UTC=2016-05-24
+ 13:02:20
+x-cbparentid: 16052413-4778-0000-0000-000006717845
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+X-Content-Scanned: Fidelis XPS MAILER
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-05-24_03:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=12
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1604210000
+ definitions=main-1605240156
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -52,198 +103,152 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 May 2016 13:03:39 -0000
+X-List-Received-Date: Tue, 24 May 2016 14:01:58 -0000
+
+--0__=EABBF52EDFD4FB468f9e8a93df938690918cEABBF52EDFD4FB46
+Content-type: multipart/alternative; 
+	Boundary="1__=EABBF52EDFD4FB468f9e8a93df938690918cEABBF52EDFD4FB46"
 
 
---=-Y1kYDXMLMutDv1kwsPkS
-Content-Type: text/plain; charset="UTF-8"
+--1__=EABBF52EDFD4FB468f9e8a93df938690918cEABBF52EDFD4FB46
 Content-Transfer-Encoding: quoted-printable
+Content-type: text/plain; charset=US-ASCII
 
-On Thu, 2016-05-19 at 15:44 +1000, Cyril Bur wrote:
-> > Building with this patch and native GCC* gives errors:
-> >=C2=A0
-> >=C2=A0=C2=A0=C2=A0=C2=A0 $ KERNEL_HEADERS=3D../../linux/ast2400/include/=
-uapi/ make
-> >=C2=A0=C2=A0=C2=A0=C2=A0 cc=C2=A0=C2=A0-Wall -O2 -g -I../../linux/ast240=
-0/include/uapi/=C2=A0=C2=A0=C2=A0=C2=A0btbridged.c=C2=A0=C2=A0-lsystemd -o =
-btbridged
-> >=C2=A0=C2=A0=C2=A0=C2=A0 btbridged.c: In function =E2=80=98main=E2=80=99=
-:
-> >=C2=A0=C2=A0=C2=A0=C2=A0 btbridged.c:590:6: warning: =E2=80=98r=E2=80=99=
- may be used uninitialized in this function [-Wmaybe-uninitialized]
-> >=C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0if (r < 0)
-> >=C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0^
-> >=C2=A0=C2=A0=C2=A0=C2=A0 btbridged.c:342:6: note: =E2=80=98r=E2=80=99 wa=
-s declared here
-> >=C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0 int r, len;
-> >=C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0^
-> >=C2=A0
-> > That's weird, because the note isn't relevant to the function of line
-> > that generated the warning. However, the 'r' defined in=C2=A0bt_host_wr=
-ite()
-> > suffers the same initialisation issue. Initialising it gives me a build
-> > with no warnings so maybe it's worth doing that here also?
-> >=C2=A0
->=20
-> Yeah, GCC seems to be getting a bit confused. I'm usually not in favour o=
-f
-> putting in stuff to shut the warnings up but these are just so odd that I=
-'m at
-> a loss.
->=20
-> Your suggestion works, lets just do that and forget about it.
 
-So, just out of interest I ran scan-build over it. Turns out it leads
-to a bug. Here's the reasoning:
+hello Nan Li,
 
-339	static int bt_host_write(struct btbridged_context *context, struct bt_q=
-ueue *bt_msg)
-340	{
-341		struct bt_queue *head;
-342		uint8_t data[BT_MAX_MESSAGE] =3D { 0 };
-343		sd_bus_message *msg =3D NULL;
-344		int r, len;
-=09
-1	'r' declared without an initial value	=E2=86=92
-345	=C2=A0
-346		assert(context);
-347	=C2=A0
-348		if (!bt_msg)
-=09
-2=E2=86=90	Assuming 'bt_msg' is non-null	=E2=86=92
-=09
-3=E2=86=90	Taking false branch	=E2=86=92
-349			return -EINVAL;
-350	=C2=A0
-351		head =3D bt_q_get_head(context);
-352		if (bt_msg =3D=3D head) {
-=09
-4=E2=86=90	Assuming 'bt_msg' is not equal to 'head'	=E2=86=92
-=09
-5=E2=86=90	Taking false branch	=E2=86=92
-353			struct itimerspec ts;
-354			/* Need to adjust the timer */
-355			ts.it_interval.tv_sec =3D 0;
-356			ts.it_interval.tv_nsec =3D 0;
-357			if (head->next) {
-358				ts.it_value =3D head->next->start;
-359				ts.it_value.tv_sec +=3D BT_HOST_TIMEOUT_SEC;
-360				MSG_OUT("Adjusting timer for next element\n");
-361			} else {
-362				ts.it_value.tv_nsec =3D 0;
-363				ts.it_value.tv_sec =3D 0;
-364				MSG_OUT("Disabling timer, no elements remain in queue\n");
-365			}
-366			r =3D timerfd_settime(context->fds[TIMER_FD].fd, TFD_TIMER_ABSTIME, &=
-ts, NULL);
-367			if (r =3D=3D -1)
-368				MSG_ERR("Couldn't set timerfd\n");
-369		}
-370		data[1] =3D (bt_msg->rsp.netfn << 2) | (bt_msg->rsp.lun & 0x3);
-371		data[2] =3D bt_msg->rsp.seq;
-372		data[3] =3D bt_msg->rsp.cmd;
-373		data[4] =3D bt_msg->rsp.cc;
-374		if (bt_msg->rsp.data_len > sizeof(data) - 5) {
-=09
-6=E2=86=90	Taking false branch	=E2=86=92
-375			MSG_ERR("Response message size (%zu) too big, truncating\n", bt_msg->=
-rsp.data_len);
-376			bt_msg->rsp.data_len =3D sizeof(data) - 5;
-377		}
-378		/* netfn/len + seq + cmd + cc =3D 4 */
-379		data[0] =3D bt_msg->rsp.data_len + 4;
-380		if (bt_msg->rsp.data_len)
-=09
-7=E2=86=90	Taking false branch	=E2=86=92
-381			memcpy(data + 5, bt_msg->rsp.data, bt_msg->rsp.data_len);
-382		/* Count the data[0] byte */
-383		len =3D write(context->fds[BT_FD].fd, data, data[0] + 1);
-384		if (len =3D=3D -1) {
-=09
-8=E2=86=90	Taking false branch     =E2=86=92
-385			r =3D errno;
-386			MSG_ERR("Error writing to %s: %s\n", BT_HOST_PATH, strerror(errno));
-387			if (bt_msg->call) {
-388				r =3D sd_bus_message_new_method_errno(bt_msg->call, &msg, r, NULL);
-389				if (r < 0)
-390					MSG_ERR("Couldn't create response error\n");
-391			}
-392			goto out;
-393		} else {
-394			if (len !=3D data[0] + 1)
-=09
-9=E2=86=90	Taking false branch	=E2=86=92
-395				MSG_ERR("Possible short write to %s, desired len: %d, written len: %=
-d\n", BT_HOST_PATH, data[0] + 1, len);
-396			else
-397				MSG_OUT("Successfully wrote %d of %d bytes to %s\n", len, data[0] + =
-1, BT_HOST_PATH);
-398	=C2=A0
-399			if (bt_msg->call) {
-=09
-10=E2=86=90	Taking false branch	=E2=86=92
-400				r =3D sd_bus_message_new_method_return(bt_msg->call, &msg);
-401				if (r < 0) {
-402					MSG_ERR("Couldn't create response message\n");
-403					goto out;
-404				}
-405				r =3D 0; /* Just to be explicit about what we're sending back */
-406				r =3D sd_bus_message_append(msg, "x", r);
-407				if (r < 0) {
-408					MSG_ERR("Couldn't append result to response\n");
-409					goto out;
-410				}
-411	=C2=A0
-412			}
-413		}
-414	=C2=A0
-415	out:
-416		if (bt_msg->call) {
-=09
-11=E2=86=90	Taking false branch	=E2=86=92
-417			if (sd_bus_send(context->bus, msg, NULL) < 0)
-418				MSG_ERR("Couldn't send response message\n");
-419			sd_bus_message_unref(msg);
-420		}
-421		bt_q_drop(context, bt_msg);
-422	=C2=A0
-423		/*
-424		=C2=A0* There isn't another message ready to be sent so turn off POLLO=
-UT
-425		=C2=A0*/
-426		if (!bt_q_get_msg(context)) {
-=09
-12=E2=86=90	Taking false branch	=E2=86=92
-427			MSG_OUT("Turning off POLLOUT for the BT in poll()\n");
-428			context->fds[BT_FD].events =3D POLLIN;
-429		}
-430	=C2=A0
-431		return r;
-=09
-13=E2=86=90	Undefined or garbage value returned to caller
-432	}
-433
---=-Y1kYDXMLMutDv1kwsPkS
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+I wonder if there is a github pull request for this ?
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+Thanks
 
-iQIcBAABCgAGBQJXRFEaAAoJEJ0dnzgO5LT5qAkP/2tbwdeSZSXinP3Ng2DDmNdp
-rnO/+Pn0vDZG/J0drRNje/Jam3XMGBuVIMMSvfVW5hrDO7bsftiXkUDDA3kKaxs5
-NJ7L2LNJeOuDjgwVnbtNkcuEnYBzYLB0LmpVK20fCzRqMI8Nx/gEmuvBBwKO6nG8
-NoOemyAM0cUKLJZll6HmlDJepNtVNEO5bElfBPrHGUHqUtS9S8Ixqtz9OuU39E06
-n9h4jp9ChHYBgQoXxgiHEFIwZd5SFgAEKZ3xY8e4e5kCsgTO7896dWsS5GHmJSGD
-n25dtHJHXyvViZpz/rHerU0mKXnpyQDSP4QF6tG7OlMwgPGvyFyewCrBnU25Jcj2
-pCQ4Fy5J0T24qSo3PBcCzlERhxeB+QiZH2kzIPHdFz3Px30KlRp79L0Wth0p5aIp
-ASFvuhWcH51cairnXUNpb3P0+M6tFuX/RyPzXQAxAvpZOKXm2mBTnl7xiqB2eHKs
-J85UuABCKfMZf8DnyY+2k6AneDpBJ1GYLz7dkzLnZiySUfP4POjQp6gDUui0M7LP
-RfX4z/t6vlFKWZEB37b3QRfyw51vRUEL9gKY5adIlmimcQucOTFnp/74NJxQKRBI
-VqAQDv4oOq+jXQiLSa0XnWNhVMfUwf+yYS59ke8lxthRENkNJuC8MOj7nCc7NbRi
-6n+FF7MMDmasNuewYQGG
-=Uzml
------END PGP SIGNATURE-----
+---------------------------------------------------------------------------=
+----------
 
---=-Y1kYDXMLMutDv1kwsPkS--
+Thanks and Regards,
+Vishwanath.
+Advisory Software Engineer,
+Power Firmware Development,
+Systems &Technology Lab,
+MG2-6F-255 , Manyata Embassy Business Park,
+Bangalore , KA , 560045
+Ph: +91-80-46678255
+E-mail: vishwanath@in.ibm.com
+---------------------------------------------------------------------------=
+-------
+
+
+
+From:	OpenBMC Patches <openbmc-patches@stwcx.xyz>
+To:	openbmc@lists.ozlabs.org
+Cc:	Nan Li <bjlinan@cn.ibm.com>
+Date:	24/05/2016 02:11 pm
+Subject:	[PATCH phosphor-host-ipmid] Returning correct value from
+            handle=5Fipmid=5Fcommand in ipmid.C
+Sent by:	"openbmc" <openbmc-bounces
+            +vishwanath=3Din.ibm.com@lists.ozlabs.org>
+
+
+
+From: Nan Li <bjlinan@cn.ibm.com>
+
+Instead of -1, we return 0xFF(Unspecified error) to the bus.
+
+Signed-off-by: Nan Li <bjlinan@cn.ibm.com>
+---
+ ipmid.C | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/ipmid.C b/ipmid.C
+index 728ba0b..9009cd6 100644
+--- a/ipmid.C
++++ b/ipmid.C
+@@ -267,6 +267,10 @@ static int handle=5Fipmi=5Fcommand(sd=5Fbus=5Fmessage =
+*m, void
+*user=5Fdata, sd=5Fbus=5Ferror
+     if(r !=3D 0)
+     {
+         fprintf(stderr,"ERROR:[0x%X] handling NetFn:[0x%X],
+Cmd:[0x%X]\n",r, netfn, cmd);
++
++        if(r =3D=3D -1) {
++           response[0] =3D IPMI=5FCC=5FUNSPECIFIED=5FERROR;
++        }
+     }
+
+     fprintf(ipmiio, "IPMI Response:\n");
+--
+2.8.3
+
+
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F
+openbmc mailing list
+openbmc@lists.ozlabs.org
+https://lists.ozlabs.org/listinfo/openbmc
+
+
+
+--1__=EABBF52EDFD4FB468f9e8a93df938690918cEABBF52EDFD4FB46
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/html; charset=US-ASCII
+Content-Disposition: inline
+
+<html><body><p>hello Nan Li,<br><br>I wonder if there is a github pull requ=
+est for this ?<br><br>Thanks<br><br>---------------------------------------=
+----------------------------------------------<br>Thanks and Regards,<br>Vi=
+shwanath.<br>Advisory Software Engineer,<br>Power Firmware Development, <br=
+>Systems &amp;Technology Lab,<br>MG2-6F-255 , Manyata Embassy Business Park=
+, <br>Bangalore , KA , 560045<br>Ph: +91-80-46678255<br>E-mail: vishwanath@=
+in.ibm.com<br>-------------------------------------------------------------=
+---------------------<br><br><img width=3D"16" height=3D"16" src=3D"cid:1=
+=5F=5F=3DEABBF52EDFD4FB468f9e8a93df938690918cEAB@" border=3D"0" alt=3D"Inac=
+tive hide details for OpenBMC Patches ---24/05/2016 02:11:43 pm---From: Nan=
+ Li &lt;bjlinan@cn.ibm.com&gt; Instead of -1, we retur"><font color=3D"#424=
+282">OpenBMC Patches ---24/05/2016 02:11:43 pm---From: Nan Li &lt;bjlinan@c=
+n.ibm.com&gt; Instead of -1, we return 0xFF(Unspecified error) to the bus.<=
+/font><br><br><font size=3D"2" color=3D"#5F5F5F">From:        </font><font =
+size=3D"2">OpenBMC Patches &lt;openbmc-patches@stwcx.xyz&gt;</font><br><fon=
+t size=3D"2" color=3D"#5F5F5F">To:        </font><font size=3D"2">openbmc@l=
+ists.ozlabs.org</font><br><font size=3D"2" color=3D"#5F5F5F">Cc:        </f=
+ont><font size=3D"2">Nan Li &lt;bjlinan@cn.ibm.com&gt;</font><br><font size=
+=3D"2" color=3D"#5F5F5F">Date:        </font><font size=3D"2">24/05/2016 02=
+:11 pm</font><br><font size=3D"2" color=3D"#5F5F5F">Subject:        </font>=
+<font size=3D"2">[PATCH phosphor-host-ipmid] Returning correct value from h=
+andle=5Fipmid=5Fcommand in ipmid.C</font><br><font size=3D"2" color=3D"#5F5=
+F5F">Sent by:        </font><font size=3D"2">&quot;openbmc&quot; &lt;openbm=
+c-bounces+vishwanath=3Din.ibm.com@lists.ozlabs.org&gt;</font><br><hr width=
+=3D"100%" size=3D"2" align=3D"left" noshade style=3D"color:#8091A5; "><br><=
+br><br><tt>From: Nan Li &lt;bjlinan@cn.ibm.com&gt;<br><br>Instead of -1, we=
+ return 0xFF(Unspecified error) to the bus.<br><br>Signed-off-by: Nan Li &l=
+t;bjlinan@cn.ibm.com&gt;<br>---<br> ipmid.C | 4 ++++<br> 1 file changed, 4 =
+insertions(+)<br><br>diff --git a/ipmid.C b/ipmid.C<br>index 728ba0b..9009c=
+d6 100644<br>--- a/ipmid.C<br>+++ b/ipmid.C<br>@@ -267,6 +267,10 @@ static =
+int handle=5Fipmi=5Fcommand(sd=5Fbus=5Fmessage *m, void *user=5Fdata, sd=5F=
+bus=5Ferror<br> &nbsp; &nbsp; if(r !=3D 0)<br> &nbsp; &nbsp; {<br> &nbsp; &=
+nbsp; &nbsp; &nbsp; fprintf(stderr,&quot;ERROR:[0x%X] handling NetFn:[0x%X]=
+, Cmd:[0x%X]\n&quot;,r, netfn, cmd);<br>+<br>+ &nbsp; &nbsp; &nbsp; &nbsp;i=
+f(r =3D=3D -1) {<br>+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; response[0] =3D IP=
+MI=5FCC=5FUNSPECIFIED=5FERROR;<br>+ &nbsp; &nbsp; &nbsp; &nbsp;}<br> &nbsp;=
+ &nbsp; }<br> <br> &nbsp; &nbsp; fprintf(ipmiio, &quot;IPMI Response:\n&quo=
+t;);<br>-- <br>2.8.3<br><br><br>=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F<br>openbmc mailing list<br>openbmc@lists.ozlabs.or=
+g<br></tt><tt><a href=3D"https://lists.ozlabs.org/listinfo/openbmc">https:/=
+/lists.ozlabs.org/listinfo/openbmc</a></tt><tt><br></tt><br><br><BR>
+</body></html>
+
+--1__=EABBF52EDFD4FB468f9e8a93df938690918cEABBF52EDFD4FB46--
+
+
+--0__=EABBF52EDFD4FB468f9e8a93df938690918cEABBF52EDFD4FB46
+Content-type: image/gif; 
+	name="graycol.gif"
+Content-Disposition: inline; filename="graycol.gif"
+Content-ID: <1__=EABBF52EDFD4FB468f9e8a93df938690918cEAB@>
+Content-Transfer-Encoding: base64
+
+R0lGODlhEAAQAKECAMzMzAAAAP///wAAACH5BAEAAAIALAAAAAAQABAAAAIXlI+py+0PopwxUbpu
+ZRfKZ2zgSJbmSRYAIf4fT3B0aW1pemVkIGJ5IFVsZWFkIFNtYXJ0U2F2ZXIhAAA7
+
+
+--0__=EABBF52EDFD4FB468f9e8a93df938690918cEABBF52EDFD4FB46--
