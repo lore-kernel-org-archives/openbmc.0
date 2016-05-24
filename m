@@ -1,97 +1,93 @@
-Return-Path: <vishwanath@in.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <bjlinan@cn.ibm.com>
+Received: from e23smtp08.au.ibm.com (e23smtp08.au.ibm.com [202.81.31.141])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rDcXk0GNSzDq5y
- for <openbmc@lists.ozlabs.org>; Wed, 25 May 2016 00:01:57 +1000 (AEST)
-Received: from pps.filterd (m0048817.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
- u4OCwl6m019187
- for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 09:04:00 -0400
-Message-Id: <201605241304.u4OCwl6m019187@mx0a-001b2d01.pphosted.com>
-Received: from e28smtp02.in.ibm.com (e28smtp02.in.ibm.com [125.16.236.2])
- by mx0a-001b2d01.pphosted.com with ESMTP id 234enaau82-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 09:04:00 -0400
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rDddj3r7RzDqJd
+ for <openbmc@lists.ozlabs.org>; Wed, 25 May 2016 00:51:21 +1000 (AEST)
 Received: from localhost
- by e28smtp02.in.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e23smtp08.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <vishwanath@in.ibm.com>;
- Tue, 24 May 2016 18:33:55 +0530
-Received: from d28dlp03.in.ibm.com (9.184.220.128)
- by e28smtp02.in.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway:
+ for <openbmc@lists.ozlabs.org> from <bjlinan@cn.ibm.com>;
+ Wed, 25 May 2016 00:51:19 +1000
+Received: from d23dlp03.au.ibm.com (202.81.31.214)
+ by e23smtp08.au.ibm.com (202.81.31.205) with IBM ESMTP SMTP Gateway:
  Authorized Use Only! Violators will be prosecuted; 
- Tue, 24 May 2016 18:33:53 +0530
-X-IBM-Helo: d28dlp03.in.ibm.com
-X-IBM-MailFrom: vishwanath@in.ibm.com
+ Wed, 25 May 2016 00:51:17 +1000
+X-IBM-Helo: d23dlp03.au.ibm.com
+X-IBM-MailFrom: bjlinan@cn.ibm.com
 X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from d28relay04.in.ibm.com (d28relay04.in.ibm.com [9.184.220.61])
- by d28dlp03.in.ibm.com (Postfix) with ESMTP id 978AC1258060
- for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 18:36:09 +0530 (IST)
-Received: from d50lp02.ny.us.ibm.com (d50lp02.pok.ibm.com [146.89.104.208])
- by d28relay04.in.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u4OD3fRM18350354
- for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 18:33:42 +0530
+Received: from d23relay08.au.ibm.com (d23relay08.au.ibm.com [9.185.71.33])
+ by d23dlp03.au.ibm.com (Postfix) with ESMTP id EA1073578053
+ for <openbmc@lists.ozlabs.org>; Wed, 25 May 2016 00:51:16 +1000 (EST)
+Received: from d23av05.au.ibm.com (d23av05.au.ibm.com [9.190.234.119])
+ by d23relay08.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u4OEp8ch53149812
+ for <openbmc@lists.ozlabs.org>; Wed, 25 May 2016 00:51:16 +1000
+Received: from d23av05.au.ibm.com (localhost [127.0.0.1])
+ by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u4OEohVs021860
+ for <openbmc@lists.ozlabs.org>; Wed, 25 May 2016 00:50:43 +1000
+Received: from e39.co.us.ibm.com (e39.boulder.ibm.com [9.17.249.49])
+ by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u4OEofPS021741
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Wed, 25 May 2016 00:50:43 +1000
 Received: from localhost
- by d50lp02.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e39.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <vishwanath@in.ibm.com>;
- Tue, 24 May 2016 09:02:25 -0400
+ for <openbmc@lists.ozlabs.org> from <bjlinan@cn.ibm.com>;
+ Tue, 24 May 2016 08:50:33 -0600
 Received: from smtp.notes.na.collabserv.com (192.155.248.91)
- by d50lp02.ny.us.ibm.com (158.87.18.21) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
+ by e39.co.us.ibm.com (192.168.2.139) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
  (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
- Tue, 24 May 2016 09:02:23 -0400
+ Tue, 24 May 2016 08:50:30 -0600
 X-IBM-Helo: smtp.notes.na.collabserv.com
-X-IBM-MailFrom: vishwanath@in.ibm.com
+X-IBM-MailFrom: bjlinan@cn.ibm.com
 X-IBM-RcptTo: openbmc@lists.ozlabs.org
 Received: from /spool/local
  by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <vishwanath@in.ibm.com>;
- Tue, 24 May 2016 13:02:22 -0000
-Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
+ for <openbmc@lists.ozlabs.org> from <bjlinan@cn.ibm.com>;
+ Tue, 24 May 2016 14:50:29 -0000
+Received: from us1a3-smtp04.a3.dal06.isc4sb.com (10.106.154.237)
  by smtp.notes.na.collabserv.com (10.106.227.143) with
- smtp.notes.na.collabserv.com ESMTP; Tue, 24 May 2016 13:02:15 -0000
-Received: from us1a3-mail58.a3.dal09.isc4sb.com ([10.142.3.114])
- by us1a3-smtp05.a3.dal06.isc4sb.com
- with ESMTP id 2016052413021384-253761 ;
- Tue, 24 May 2016 13:02:13 +0000 
-MIME-Version: 1.0
-In-Reply-To: <20160524084041.14455-2-openbmc-patches@stwcx.xyz>
+ smtp.notes.na.collabserv.com ESMTP; Tue, 24 May 2016 14:50:27 -0000
+Received: from us1a3-mail166.a3.dal06.isc4sb.com ([10.146.71.123])
+ by us1a3-smtp04.a3.dal06.isc4sb.com
+ with ESMTP id 2016052414502549-343375 ;
+ Tue, 24 May 2016 14:50:25 +0000 
+In-Reply-To: <OF01EF7029.00CA3F1D-ON65257FBD.00477DD6-65257FBD.00479CD6@LocalDomain>
+To: "Vishwanatha Subbanna" <vishwanath@in.ibm.com>
+Cc: "OpenBMC Members" <OpenBMC_Members@d23av05.au.ibm.com>,
+ openbmc@lists.ozlabs.org
 Subject: Re: [PATCH phosphor-host-ipmid] Returning correct value from
  handle_ipmid_command in ipmid.C
-To: OpenBMC_Members@d28relay04.in.ibm.com
-Cc: openbmc@lists.ozlabs.org, Nan Li <bjlinan@cn.ibm.com>
-From: "Vishwanatha Subbanna" <vishwanath@in.ibm.com>
-Date: Tue, 24 May 2016 18:32:12 +0530
+From: "Nan KX Li" <bjlinan@cn.ibm.com>
+Date: Tue, 24 May 2016 22:50:25 +0800
 References: <20160524084041.14455-1-openbmc-patches@stwcx.xyz>
  <20160524084041.14455-2-openbmc-patches@stwcx.xyz>
-X-KeepSent: 01EF7029:00CA3F1D-65257FBD:00477DD6;
+ <OF01EF7029.00CA3F1D-ON65257FBD.00477DD6-65257FBD.00479CD6@LocalDomain>
+MIME-Version: 1.0
+X-KeepSent: 7E882F5D:5CF80BEB-48257FBD:00514B07;
  type=4; name=$KeepSent
-X-Mailer: IBM Notes Release 9.0.1EXT September 15, 2015
+X-Mailer: IBM Notes Release 9.0.1FP2 SHF37 August 25, 2014
 X-LLNOutbound: False
-X-Disclaimed: 47203
+X-Disclaimed: 30759
 X-TNEFEvaluated: 1
-Content-type: multipart/related; 
- Boundary="0__=EABBF52EDFD4FB468f9e8a93df938690918cEABBF52EDFD4FB46"
-x-cbid: 16052413-0004-0000-0000-000002867B68
-X-IBM-ISS-SpamDetectors: Score=0.410717; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.410717; ST=0; TS=0; UL=0; ISC=
+Content-Type: multipart/alternative;
+ boundary="=_alternative 00516B2748257FBD_="
+x-cbid: 16052414-0029-0000-0000-000045CAD007
+X-IBM-ISS-SpamDetectors: Score=0.433748; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.433748; ST=0; TS=0; UL=0; ISC=
 X-IBM-ISS-DetailInfo: BY=3.00005300; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000166; SDB=6.00706677; UDB=6.00327917; UTC=2016-05-24
- 13:02:20
-x-cbparentid: 16052413-4778-0000-0000-000006717845
+ PH=3.00000004; SC=3.00000167; SDB=6.00706711; UDB=6.00327937; UTC=2016-05-24
+ 14:50:28
+x-cbparentid: 16052414-4778-0000-0000-000006725B75
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+Message-Id: <OF7E882F5D.5CF80BEB-ON48257FBD.00514B07-48257FBD.00518632@notes.na.collabserv.com>
+X-TM-AS-MML: disable
 X-Content-Scanned: Fidelis XPS MAILER
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2016-05-24_03:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=12
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1604210000
- definitions=main-1605240156
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -103,152 +99,139 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 May 2016 14:01:58 -0000
-
---0__=EABBF52EDFD4FB468f9e8a93df938690918cEABBF52EDFD4FB46
-Content-type: multipart/alternative; 
-	Boundary="1__=EABBF52EDFD4FB468f9e8a93df938690918cEABBF52EDFD4FB46"
+X-List-Received-Date: Tue, 24 May 2016 14:51:21 -0000
 
 
---1__=EABBF52EDFD4FB468f9e8a93df938690918cEABBF52EDFD4FB46
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/plain; charset=US-ASCII
-
-
-hello Nan Li,
-
-I wonder if there is a github pull request for this ?
-
-Thanks
-
----------------------------------------------------------------------------=
-----------
-
-Thanks and Regards,
-Vishwanath.
-Advisory Software Engineer,
-Power Firmware Development,
-Systems &Technology Lab,
-MG2-6F-255 , Manyata Embassy Business Park,
-Bangalore , KA , 560045
-Ph: +91-80-46678255
-E-mail: vishwanath@in.ibm.com
----------------------------------------------------------------------------=
--------
-
-
-
-From:	OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To:	openbmc@lists.ozlabs.org
-Cc:	Nan Li <bjlinan@cn.ibm.com>
-Date:	24/05/2016 02:11 pm
-Subject:	[PATCH phosphor-host-ipmid] Returning correct value from
-            handle=5Fipmid=5Fcommand in ipmid.C
-Sent by:	"openbmc" <openbmc-bounces
-            +vishwanath=3Din.ibm.com@lists.ozlabs.org>
-
-
-
-From: Nan Li <bjlinan@cn.ibm.com>
-
-Instead of -1, we return 0xFF(Unspecified error) to the bus.
-
-Signed-off-by: Nan Li <bjlinan@cn.ibm.com>
----
- ipmid.C | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/ipmid.C b/ipmid.C
-index 728ba0b..9009cd6 100644
---- a/ipmid.C
-+++ b/ipmid.C
-@@ -267,6 +267,10 @@ static int handle=5Fipmi=5Fcommand(sd=5Fbus=5Fmessage =
-*m, void
-*user=5Fdata, sd=5Fbus=5Ferror
-     if(r !=3D 0)
-     {
-         fprintf(stderr,"ERROR:[0x%X] handling NetFn:[0x%X],
-Cmd:[0x%X]\n",r, netfn, cmd);
-+
-+        if(r =3D=3D -1) {
-+           response[0] =3D IPMI=5FCC=5FUNSPECIFIED=5FERROR;
-+        }
-     }
-
-     fprintf(ipmiio, "IPMI Response:\n");
---
-2.8.3
-
-
-=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
-=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F
-openbmc mailing list
-openbmc@lists.ozlabs.org
-https://lists.ozlabs.org/listinfo/openbmc
-
-
-
---1__=EABBF52EDFD4FB468f9e8a93df938690918cEABBF52EDFD4FB46
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/html; charset=US-ASCII
-Content-Disposition: inline
-
-<html><body><p>hello Nan Li,<br><br>I wonder if there is a github pull requ=
-est for this ?<br><br>Thanks<br><br>---------------------------------------=
-----------------------------------------------<br>Thanks and Regards,<br>Vi=
-shwanath.<br>Advisory Software Engineer,<br>Power Firmware Development, <br=
->Systems &amp;Technology Lab,<br>MG2-6F-255 , Manyata Embassy Business Park=
-, <br>Bangalore , KA , 560045<br>Ph: +91-80-46678255<br>E-mail: vishwanath@=
-in.ibm.com<br>-------------------------------------------------------------=
----------------------<br><br><img width=3D"16" height=3D"16" src=3D"cid:1=
-=5F=5F=3DEABBF52EDFD4FB468f9e8a93df938690918cEAB@" border=3D"0" alt=3D"Inac=
-tive hide details for OpenBMC Patches ---24/05/2016 02:11:43 pm---From: Nan=
- Li &lt;bjlinan@cn.ibm.com&gt; Instead of -1, we retur"><font color=3D"#424=
-282">OpenBMC Patches ---24/05/2016 02:11:43 pm---From: Nan Li &lt;bjlinan@c=
-n.ibm.com&gt; Instead of -1, we return 0xFF(Unspecified error) to the bus.<=
-/font><br><br><font size=3D"2" color=3D"#5F5F5F">From:        </font><font =
-size=3D"2">OpenBMC Patches &lt;openbmc-patches@stwcx.xyz&gt;</font><br><fon=
-t size=3D"2" color=3D"#5F5F5F">To:        </font><font size=3D"2">openbmc@l=
-ists.ozlabs.org</font><br><font size=3D"2" color=3D"#5F5F5F">Cc:        </f=
-ont><font size=3D"2">Nan Li &lt;bjlinan@cn.ibm.com&gt;</font><br><font size=
-=3D"2" color=3D"#5F5F5F">Date:        </font><font size=3D"2">24/05/2016 02=
-:11 pm</font><br><font size=3D"2" color=3D"#5F5F5F">Subject:        </font>=
-<font size=3D"2">[PATCH phosphor-host-ipmid] Returning correct value from h=
-andle=5Fipmid=5Fcommand in ipmid.C</font><br><font size=3D"2" color=3D"#5F5=
-F5F">Sent by:        </font><font size=3D"2">&quot;openbmc&quot; &lt;openbm=
-c-bounces+vishwanath=3Din.ibm.com@lists.ozlabs.org&gt;</font><br><hr width=
-=3D"100%" size=3D"2" align=3D"left" noshade style=3D"color:#8091A5; "><br><=
-br><br><tt>From: Nan Li &lt;bjlinan@cn.ibm.com&gt;<br><br>Instead of -1, we=
- return 0xFF(Unspecified error) to the bus.<br><br>Signed-off-by: Nan Li &l=
-t;bjlinan@cn.ibm.com&gt;<br>---<br> ipmid.C | 4 ++++<br> 1 file changed, 4 =
-insertions(+)<br><br>diff --git a/ipmid.C b/ipmid.C<br>index 728ba0b..9009c=
-d6 100644<br>--- a/ipmid.C<br>+++ b/ipmid.C<br>@@ -267,6 +267,10 @@ static =
-int handle=5Fipmi=5Fcommand(sd=5Fbus=5Fmessage *m, void *user=5Fdata, sd=5F=
-bus=5Ferror<br> &nbsp; &nbsp; if(r !=3D 0)<br> &nbsp; &nbsp; {<br> &nbsp; &=
-nbsp; &nbsp; &nbsp; fprintf(stderr,&quot;ERROR:[0x%X] handling NetFn:[0x%X]=
-, Cmd:[0x%X]\n&quot;,r, netfn, cmd);<br>+<br>+ &nbsp; &nbsp; &nbsp; &nbsp;i=
-f(r =3D=3D -1) {<br>+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; response[0] =3D IP=
-MI=5FCC=5FUNSPECIFIED=5FERROR;<br>+ &nbsp; &nbsp; &nbsp; &nbsp;}<br> &nbsp;=
- &nbsp; }<br> <br> &nbsp; &nbsp; fprintf(ipmiio, &quot;IPMI Response:\n&quo=
-t;);<br>-- <br>2.8.3<br><br><br>=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
-=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
-=5F=5F=5F=5F=5F=5F=5F=5F<br>openbmc mailing list<br>openbmc@lists.ozlabs.or=
-g<br></tt><tt><a href=3D"https://lists.ozlabs.org/listinfo/openbmc">https:/=
-/lists.ozlabs.org/listinfo/openbmc</a></tt><tt><br></tt><br><br><BR>
-</body></html>
-
---1__=EABBF52EDFD4FB468f9e8a93df938690918cEABBF52EDFD4FB46--
-
-
---0__=EABBF52EDFD4FB468f9e8a93df938690918cEABBF52EDFD4FB46
-Content-type: image/gif; 
-	name="graycol.gif"
-Content-Disposition: inline; filename="graycol.gif"
-Content-ID: <1__=EABBF52EDFD4FB468f9e8a93df938690918cEAB@>
+--=_alternative 00516B2748257FBD_=
 Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="GB2312"
 
-R0lGODlhEAAQAKECAMzMzAAAAP///wAAACH5BAEAAAIALAAAAAAQABAAAAIXlI+py+0PopwxUbpu
-ZRfKZ2zgSJbmSRYAIf4fT3B0aW1pemVkIGJ5IFVsZWFkIFNtYXJ0U2F2ZXIhAAA7
+SGkgVmlzaHdhbmF0aGEsDQoNCkl0cyBQUjoNCmh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL3Bo
+b3NwaG9yLWhvc3QtaXBtaWQvcHVsbC84OA0KDQpSZWdhcmRzLA0KDQpXaWxsaWFtIExpICggTGkg
+TmFuLCDA7umqICkgDQogDQoNCkZpcm13YXJlIEVuZ2luZWVyaW5nIFByb2Zlc3Npb25hbA0KT3Bl
+blBvd2VyIEFFIFRlYW0gfCBJQk0gU3lzdGVtICYgVGVjaG5vbG9neSBMYWINCk1vYmlsZTogKzg2
+LTE4Ni0xMDgxIDY2MDUNCg0KQmVpamluZywgQ2hpbmENCg0KDQoNCkZyb206ICAgVmlzaHdhbmF0
+aGEgU3ViYmFubmEvSW5kaWEvSUJNDQpUbzogICAgIE9wZW5CTUMgTWVtYmVycw0KQ2M6ICAgICBv
+cGVuYm1jQGxpc3RzLm96bGFicy5vcmcsIE5hbiBMaSA8YmpsaW5hbkBjbi5pYm0uY29tPg0KRGF0
+ZTogICAwNS8yNC8yMDE2IDIxOjAyDQpTdWJqZWN0OiAgICAgICAgUmU6IFtQQVRDSCBwaG9zcGhv
+ci1ob3N0LWlwbWlkXSBSZXR1cm5pbmcgY29ycmVjdCB2YWx1ZSANCmZyb20gaGFuZGxlX2lwbWlk
+X2NvbW1hbmQgaW4gaXBtaWQuQw0KDQoNCmhlbGxvIE5hbiBMaSwNCg0KSSB3b25kZXIgaWYgdGhl
+cmUgaXMgYSBnaXRodWIgcHVsbCByZXF1ZXN0IGZvciB0aGlzID8NCg0KVGhhbmtzDQoNCi0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NClRoYW5rcyBhbmQgUmVnYXJkcywNClZpc2h3YW5hdGgu
+DQpBZHZpc29yeSBTb2Z0d2FyZSBFbmdpbmVlciwNClBvd2VyIEZpcm13YXJlIERldmVsb3BtZW50
+LCANClN5c3RlbXMgJlRlY2hub2xvZ3kgTGFiLA0KTUcyLTZGLTI1NSAsIE1hbnlhdGEgRW1iYXNz
+eSBCdXNpbmVzcyBQYXJrLCANCkJhbmdhbG9yZSAsIEtBICwgNTYwMDQ1DQpQaDogKzkxLTgwLTQ2
+Njc4MjU1DQpFLW1haWw6IHZpc2h3YW5hdGhAaW4uaWJtLmNvbQ0KLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLQ0KDQoNCg0KDQpGcm9tOiAgIE9wZW5CTUMgUGF0Y2hlcyA8b3BlbmJtYy1wYXRjaGVz
+QHN0d2N4Lnh5ej4NClRvOiAgICAgb3BlbmJtY0BsaXN0cy5vemxhYnMub3JnDQpDYzogICAgIE5h
+biBMaSA8YmpsaW5hbkBjbi5pYm0uY29tPg0KRGF0ZTogICAyNC8wNS8yMDE2IDAyOjExIHBtDQpT
+dWJqZWN0OiAgICAgICAgW1BBVENIIHBob3NwaG9yLWhvc3QtaXBtaWRdIFJldHVybmluZyBjb3Jy
+ZWN0IHZhbHVlIGZyb20gDQpoYW5kbGVfaXBtaWRfY29tbWFuZCBpbiBpcG1pZC5DDQpTZW50IGJ5
+OiAgICAgICAgIm9wZW5ibWMiIA0KPG9wZW5ibWMtYm91bmNlcyt2aXNod2FuYXRoPWluLmlibS5j
+b21AbGlzdHMub3psYWJzLm9yZz4NCg0KDQoNCkZyb206IE5hbiBMaSA8YmpsaW5hbkBjbi5pYm0u
+Y29tPg0KDQpJbnN0ZWFkIG9mIC0xLCB3ZSByZXR1cm4gMHhGRihVbnNwZWNpZmllZCBlcnJvcikg
+dG8gdGhlIGJ1cy4NCg0KU2lnbmVkLW9mZi1ieTogTmFuIExpIDxiamxpbmFuQGNuLmlibS5jb20+
+DQotLS0NCiBpcG1pZC5DIHwgNCArKysrDQogMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygr
+KQ0KDQpkaWZmIC0tZ2l0IGEvaXBtaWQuQyBiL2lwbWlkLkMNCmluZGV4IDcyOGJhMGIuLjkwMDlj
+ZDYgMTAwNjQ0DQotLS0gYS9pcG1pZC5DDQorKysgYi9pcG1pZC5DDQpAQCAtMjY3LDYgKzI2Nywx
+MCBAQCBzdGF0aWMgaW50IGhhbmRsZV9pcG1pX2NvbW1hbmQoc2RfYnVzX21lc3NhZ2UgKm0sIA0K
+dm9pZCAqdXNlcl9kYXRhLCBzZF9idXNfZXJyb3INCiAgICAgaWYociAhPSAwKQ0KICAgICB7DQog
+ICAgICAgICBmcHJpbnRmKHN0ZGVyciwiRVJST1I6WzB4JVhdIGhhbmRsaW5nIE5ldEZuOlsweCVY
+XSwgDQpDbWQ6WzB4JVhdXG4iLHIsIG5ldGZuLCBjbWQpOw0KKw0KKyAgICAgICAgaWYociA9PSAt
+MSkgew0KKyAgICAgICAgICAgcmVzcG9uc2VbMF0gPSBJUE1JX0NDX1VOU1BFQ0lGSUVEX0VSUk9S
+Ow0KKyAgICAgICAgfQ0KICAgICB9DQogDQogICAgIGZwcmludGYoaXBtaWlvLCAiSVBNSSBSZXNw
+b25zZTpcbiIpOw0KLS0gDQoyLjguMw0KDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fDQpvcGVuYm1jIG1haWxpbmcgbGlzdA0Kb3BlbmJtY0BsaXN0cy5v
+emxhYnMub3JnDQpodHRwczovL2xpc3RzLm96bGFicy5vcmcvbGlzdGluZm8vb3BlbmJtYw0KDQoN
+Cg0KDQo=
 
+--=_alternative 00516B2748257FBD_=
+Content-Transfer-Encoding: base64
+Content-Type: text/html; charset="GB2312"
 
---0__=EABBF52EDFD4FB468f9e8a93df938690918cEABBF52EDFD4FB46--
+PGZvbnQgc2l6ZT0yIGZhY2U9InNhbnMtc2VyaWYiPkhpIFZpc2h3YW5hdGhhLDwvZm9udD48YnI+
+PGJyPjxmb250IHNpemU9MiBmYWNlPSJzYW5zLXNlcmlmIj5JdHMgUFI6PC9mb250Pjxicj48YSBo
+cmVmPSJodHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9waG9zcGhvci1ob3N0LWlwbWlkL3B1bGwv
+ODgiPjxmb250IHNpemU9MiBjb2xvcj1ibHVlIGZhY2U9InNhbnMtc2VyaWYiPmh0dHBzOi8vZ2l0
+aHViLmNvbS9vcGVuYm1jL3Bob3NwaG9yLWhvc3QtaXBtaWQvcHVsbC84ODwvZm9udD48L2E+PGJy
+Pjxicj48Zm9udCBzaXplPTMgY29sb3I9IzQyNDI4MiBmYWNlPSJDYWxpYnJpIj5SZWdhcmRzLDwv
+Zm9udD48YnI+PGJyPjxmb250IHNpemU9MyBjb2xvcj0jNDI0MjgyIGZhY2U9IkNhbGlicmkiPldp
+bGxpYW0gTGkgKCBMaSBOYW4sIMDu6aoNCikgPC9mb250Pjxicj48Zm9udCBzaXplPTMgY29sb3I9
+IzQyNDI4MiBmYWNlPSJDYWxpYnJpIj4mbmJzcDsgJm5ic3A7PC9mb250Pjxicj48YnI+PGZvbnQg
+c2l6ZT0zIGNvbG9yPSM0MjQyODIgZmFjZT0iQ2FsaWJyaSI+RmlybXdhcmUgRW5naW5lZXJpbmcg
+UHJvZmVzc2lvbmFsPC9mb250Pjxicj48Zm9udCBzaXplPTMgY29sb3I9IzQyNDI4MiBmYWNlPSJD
+YWxpYnJpIj5PcGVuUG93ZXIgQUUgVGVhbSB8IElCTSBTeXN0ZW0NCiZhbXA7IFRlY2hub2xvZ3kg
+TGFiPC9mb250Pjxicj48Zm9udCBzaXplPTMgY29sb3I9IzQyNDI4MiBmYWNlPSJDYWxpYnJpIj5N
+b2JpbGU6ICs4Ni0xODYtMTA4MSA2NjA1PC9mb250Pjxicj48YnI+PGZvbnQgc2l6ZT0zIGNvbG9y
+PSM0MjQyODIgZmFjZT0iQ2FsaWJyaSI+QmVpamluZywgQ2hpbmE8L2ZvbnQ+PGJyPjxicj48YnI+
+PGJyPjxmb250IHNpemU9MSBjb2xvcj0jNWY1ZjVmIGZhY2U9InNhbnMtc2VyaWYiPkZyb206ICZu
+YnNwOyAmbmJzcDsgJm5ic3A7DQombmJzcDs8L2ZvbnQ+PGZvbnQgc2l6ZT0xIGZhY2U9InNhbnMt
+c2VyaWYiPlZpc2h3YW5hdGhhIFN1YmJhbm5hL0luZGlhL0lCTTwvZm9udD48YnI+PGZvbnQgc2l6
+ZT0xIGNvbG9yPSM1ZjVmNWYgZmFjZT0ic2Fucy1zZXJpZiI+VG86ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7DQombmJzcDs8L2ZvbnQ+PGZvbnQgc2l6ZT0xIGZhY2U9InNhbnMtc2VyaWYiPk9wZW5CTUMg
+TWVtYmVyczwvZm9udD48YnI+PGZvbnQgc2l6ZT0xIGNvbG9yPSM1ZjVmNWYgZmFjZT0ic2Fucy1z
+ZXJpZiI+Q2M6ICZuYnNwOyAmbmJzcDsgJm5ic3A7DQombmJzcDs8L2ZvbnQ+PGZvbnQgc2l6ZT0x
+IGZhY2U9InNhbnMtc2VyaWYiPm9wZW5ibWNAbGlzdHMub3psYWJzLm9yZywNCk5hbiBMaSAmbHQ7
+YmpsaW5hbkBjbi5pYm0uY29tJmd0OzwvZm9udD48YnI+PGZvbnQgc2l6ZT0xIGNvbG9yPSM1ZjVm
+NWYgZmFjZT0ic2Fucy1zZXJpZiI+RGF0ZTogJm5ic3A7ICZuYnNwOyAmbmJzcDsNCiZuYnNwOzwv
+Zm9udD48Zm9udCBzaXplPTEgZmFjZT0ic2Fucy1zZXJpZiI+MDUvMjQvMjAxNiAyMTowMjwvZm9u
+dD48YnI+PGZvbnQgc2l6ZT0xIGNvbG9yPSM1ZjVmNWYgZmFjZT0ic2Fucy1zZXJpZiI+U3ViamVj
+dDogJm5ic3A7ICZuYnNwOw0KJm5ic3A7ICZuYnNwOzwvZm9udD48Zm9udCBzaXplPTEgZmFjZT0i
+c2Fucy1zZXJpZiI+UmU6IFtQQVRDSCBwaG9zcGhvci1ob3N0LWlwbWlkXQ0KUmV0dXJuaW5nIGNv
+cnJlY3QgdmFsdWUgZnJvbSBoYW5kbGVfaXBtaWRfY29tbWFuZCBpbiBpcG1pZC5DPC9mb250Pjxi
+cj48aHIgbm9zaGFkZT48YnI+PGJyPjxmb250IHNpemU9MiBmYWNlPSJzYW5zLXNlcmlmIj5oZWxs
+byBOYW4gTGksPC9mb250Pjxicj48YnI+PGZvbnQgc2l6ZT0yIGZhY2U9InNhbnMtc2VyaWYiPkkg
+d29uZGVyIGlmIHRoZXJlIGlzIGEgZ2l0aHViIHB1bGwgcmVxdWVzdA0KZm9yIHRoaXMgPzwvZm9u
+dD48YnI+PGZvbnQgc2l6ZT0yIGZhY2U9InNhbnMtc2VyaWYiPjxicj5UaGFua3M8YnI+PGJyPi0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS08YnI+VGhhbmtzIGFuZCBSZWdhcmRzLDxicj5WaXNo
+d2FuYXRoLjxicj5BZHZpc29yeSBTb2Z0d2FyZSBFbmdpbmVlciw8YnI+UG93ZXIgRmlybXdhcmUg
+RGV2ZWxvcG1lbnQsIDxicj5TeXN0ZW1zICZhbXA7VGVjaG5vbG9neSBMYWIsPGJyPk1HMi02Ri0y
+NTUgLCBNYW55YXRhIEVtYmFzc3kgQnVzaW5lc3MgUGFyaywgPGJyPkJhbmdhbG9yZSAsIEtBICwg
+NTYwMDQ1PGJyPlBoOiArOTEtODAtNDY2NzgyNTU8YnI+RS1tYWlsOiB2aXNod2FuYXRoQGluLmli
+bS5jb208YnI+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTwvZm9udD48YnI+PGJyPjxicj48YnI+
+PGJyPjxmb250IHNpemU9MSBjb2xvcj0jNWY1ZjVmIGZhY2U9InNhbnMtc2VyaWYiPkZyb206ICZu
+YnNwOyAmbmJzcDsgJm5ic3A7DQombmJzcDs8L2ZvbnQ+PGZvbnQgc2l6ZT0xIGZhY2U9InNhbnMt
+c2VyaWYiPk9wZW5CTUMgUGF0Y2hlcyAmbHQ7b3BlbmJtYy1wYXRjaGVzQHN0d2N4Lnh5eiZndDs8
+L2ZvbnQ+PGJyPjxmb250IHNpemU9MSBjb2xvcj0jNWY1ZjVmIGZhY2U9InNhbnMtc2VyaWYiPlRv
+OiAmbmJzcDsgJm5ic3A7ICZuYnNwOw0KJm5ic3A7PC9mb250Pjxmb250IHNpemU9MSBmYWNlPSJz
+YW5zLXNlcmlmIj5vcGVuYm1jQGxpc3RzLm96bGFicy5vcmc8L2ZvbnQ+PGJyPjxmb250IHNpemU9
+MSBjb2xvcj0jNWY1ZjVmIGZhY2U9InNhbnMtc2VyaWYiPkNjOiAmbmJzcDsgJm5ic3A7ICZuYnNw
+Ow0KJm5ic3A7PC9mb250Pjxmb250IHNpemU9MSBmYWNlPSJzYW5zLXNlcmlmIj5OYW4gTGkgJmx0
+O2JqbGluYW5AY24uaWJtLmNvbSZndDs8L2ZvbnQ+PGJyPjxmb250IHNpemU9MSBjb2xvcj0jNWY1
+ZjVmIGZhY2U9InNhbnMtc2VyaWYiPkRhdGU6ICZuYnNwOyAmbmJzcDsgJm5ic3A7DQombmJzcDs8
+L2ZvbnQ+PGZvbnQgc2l6ZT0xIGZhY2U9InNhbnMtc2VyaWYiPjI0LzA1LzIwMTYgMDI6MTEgcG08
+L2ZvbnQ+PGJyPjxmb250IHNpemU9MSBjb2xvcj0jNWY1ZjVmIGZhY2U9InNhbnMtc2VyaWYiPlN1
+YmplY3Q6ICZuYnNwOyAmbmJzcDsNCiZuYnNwOyAmbmJzcDs8L2ZvbnQ+PGZvbnQgc2l6ZT0xIGZh
+Y2U9InNhbnMtc2VyaWYiPltQQVRDSCBwaG9zcGhvci1ob3N0LWlwbWlkXQ0KUmV0dXJuaW5nIGNv
+cnJlY3QgdmFsdWUgZnJvbSBoYW5kbGVfaXBtaWRfY29tbWFuZCBpbiBpcG1pZC5DPC9mb250Pjxi
+cj48Zm9udCBzaXplPTEgY29sb3I9IzVmNWY1ZiBmYWNlPSJzYW5zLXNlcmlmIj5TZW50IGJ5OiAm
+bmJzcDsgJm5ic3A7DQombmJzcDsgJm5ic3A7PC9mb250Pjxmb250IHNpemU9MSBmYWNlPSJzYW5z
+LXNlcmlmIj4mcXVvdDtvcGVuYm1jJnF1b3Q7DQombHQ7b3BlbmJtYy1ib3VuY2VzK3Zpc2h3YW5h
+dGg9aW4uaWJtLmNvbUBsaXN0cy5vemxhYnMub3JnJmd0OzwvZm9udD48YnI+PGhyIG5vc2hhZGU+
+PGJyPjxicj48YnI+PHR0Pjxmb250IHNpemU9Mj5Gcm9tOiBOYW4gTGkgJmx0O2JqbGluYW5AY24u
+aWJtLmNvbSZndDs8YnI+PGJyPkluc3RlYWQgb2YgLTEsIHdlIHJldHVybiAweEZGKFVuc3BlY2lm
+aWVkIGVycm9yKSB0byB0aGUgYnVzLjxicj48YnI+U2lnbmVkLW9mZi1ieTogTmFuIExpICZsdDti
+amxpbmFuQGNuLmlibS5jb20mZ3Q7PGJyPi0tLTxicj4gaXBtaWQuQyB8IDQgKysrKzxicj4gMSBm
+aWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKTxicj48YnI+ZGlmZiAtLWdpdCBhL2lwbWlkLkMg
+Yi9pcG1pZC5DPGJyPmluZGV4IDcyOGJhMGIuLjkwMDljZDYgMTAwNjQ0PGJyPi0tLSBhL2lwbWlk
+LkM8YnI+KysrIGIvaXBtaWQuQzxicj5AQCAtMjY3LDYgKzI2NywxMCBAQCBzdGF0aWMgaW50IGhh
+bmRsZV9pcG1pX2NvbW1hbmQoc2RfYnVzX21lc3NhZ2UgKm0sDQp2b2lkICp1c2VyX2RhdGEsIHNk
+X2J1c19lcnJvcjxicj4gJm5ic3A7ICZuYnNwOyBpZihyICE9IDApPGJyPiAmbmJzcDsgJm5ic3A7
+IHs8YnI+ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyBmcHJpbnRmKHN0ZGVyciwmcXVvdDtF
+UlJPUjpbMHglWF0gaGFuZGxpbmcNCk5ldEZuOlsweCVYXSwgQ21kOlsweCVYXVxuJnF1b3Q7LHIs
+IG5ldGZuLCBjbWQpOzxicj4rPGJyPisgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7aWYociA9
+PSAtMSkgezxicj4rICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgcmVzcG9uc2Vb
+MF0gPSBJUE1JX0NDX1VOU1BFQ0lGSUVEX0VSUk9SOzxicj4rICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwO308YnI+ICZuYnNwOyAmbmJzcDsgfTxicj4gPGJyPiAmbmJzcDsgJm5ic3A7IGZwcmlu
+dGYoaXBtaWlvLCAmcXVvdDtJUE1JIFJlc3BvbnNlOlxuJnF1b3Q7KTs8YnI+LS0gPGJyPjIuOC4z
+PGJyPjxicj48YnI+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X188YnI+b3BlbmJtYyBtYWlsaW5nIGxpc3Q8YnI+b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPGJy
+PjwvZm9udD48L3R0PjxhIGhyZWY9aHR0cHM6Ly9saXN0cy5vemxhYnMub3JnL2xpc3RpbmZvL29w
+ZW5ibWM+PHR0Pjxmb250IHNpemU9Mj5odHRwczovL2xpc3RzLm96bGFicy5vcmcvbGlzdGluZm8v
+b3BlbmJtYzwvZm9udD48L3R0PjwvYT48dHQ+PGZvbnQgc2l6ZT0yPjxicj48L2ZvbnQ+PC90dD48
+YnI+PGJyPjxCUj4NCg==
+--=_alternative 00516B2748257FBD_=--
