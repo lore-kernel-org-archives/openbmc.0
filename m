@@ -1,45 +1,60 @@
-Return-Path: <joel@jms.id.au>
-Received: from mail-pa0-x244.google.com (mail-pa0-x244.google.com
- [IPv6:2607:f8b0:400e:c03::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <gwshan@linux.vnet.ibm.com>
+Received: from e23smtp02.au.ibm.com (e23smtp02.au.ibm.com [202.81.31.144])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rDJm86g3JzDqNQ
- for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 12:10:48 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=lSe41ueL; 
- dkim-atps=neutral
-Received: by mail-pa0-x244.google.com with SMTP id fg1so435974pad.3
- for <openbmc@lists.ozlabs.org>; Mon, 23 May 2016 19:10:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=from:to:cc:subject:date:message-id;
- bh=1wQWimGk3PJ3WDGT1ZWvpfst51ozE+nWlx1s6wuBi5g=;
- b=lSe41ueL9iBjLkDwu8JNiNRRthNQr02kwtODV72SDFNdC8ZhP5GmWGr2Kq0iE4cUvE
- iUzodtEln6PLC7SV4S0BAogPRh86pzODlQWFqrzRdZij+YVoef8OkX4pdgmR9lT5ftt+
- YeHKZ0xWsJ+V5kA/i+wY48UXGytF59U8Jq6+o=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=1wQWimGk3PJ3WDGT1ZWvpfst51ozE+nWlx1s6wuBi5g=;
- b=EvOrEm2DTKvKCnoD7jYV4kn301PJyWvSz1tfVz/QOb/OR/ExVnbfwEv9kVJmOGUrYv
- FQ75TuISt7KtfFNqqJEVC+C/CGg0Qw+mm+RfUSj3aSOUeUUXx+LmQjYcvuzhD30TLI2S
- mTQvUXWobP/G6Ac9KU2B5l993NgTj8FxzU9StqnVjgP0YtX2fudAtPJqvd+22lI5cJDX
- kvsJ/g8a06K3qIT0TAUdpFuxWa8hAtl0dtrUsuUctfHi8EQP93r7cfbtS0pywKZFyDGe
- rX5pLApVOANJkbKDLmQ49iLZTxQ9f3jWW6lKi2wvSmmaFIovZJ+xlWmnwF+5ZMgz8cCG
- M86Q==
-X-Gm-Message-State: ALyK8tLmO0UL2KJsAh1h3onLqNwgxg1zzJjlVkFnBuJmVW0XNpS/hgGQuOXVz2Bl3U0/dQ==
-X-Received: by 10.66.65.169 with SMTP id y9mr2937423pas.102.1464055846756;
- Mon, 23 May 2016 19:10:46 -0700 (PDT)
-Received: from icarus.au.ibm.com ([2403:480:11:8000:fc53:a38c:f05e:e521])
- by smtp.gmail.com with ESMTPSA id c2sm49605566pfc.40.2016.05.23.19.10.44
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Mon, 23 May 2016 19:10:46 -0700 (PDT)
-From: Joel Stanley <joel@jms.id.au>
-To: jk@ozlabs.org
-Cc: openbmc@lists.ozlabs.org
-Subject: [PATCH linux] gpio/aspeed: Forward port GPIO driver
-Date: Tue, 24 May 2016 11:40:39 +0930
-Message-Id: <1464055839-16479-1-git-send-email-joel@jms.id.au>
-X-Mailer: git-send-email 2.8.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rDLV61mqFzDqCn
+ for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 13:28:46 +1000 (AEST)
+Received: from localhost
+ by e23smtp02.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <gwshan@linux.vnet.ibm.com>;
+ Tue, 24 May 2016 13:28:44 +1000
+Received: from d23dlp03.au.ibm.com (202.81.31.214)
+ by e23smtp02.au.ibm.com (202.81.31.208) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Tue, 24 May 2016 13:28:42 +1000
+X-IBM-Helo: d23dlp03.au.ibm.com
+X-IBM-MailFrom: gwshan@linux.vnet.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d23relay08.au.ibm.com (d23relay08.au.ibm.com [9.185.71.33])
+ by d23dlp03.au.ibm.com (Postfix) with ESMTP id F28D93578053
+ for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 13:28:41 +1000 (EST)
+Received: from d23av01.au.ibm.com (d23av01.au.ibm.com [9.190.234.96])
+ by d23relay08.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u4O3SZHK8323086
+ for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 13:28:41 +1000
+Received: from d23av01.au.ibm.com (localhost [127.0.0.1])
+ by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u4O3S77Q017751
+ for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 13:28:07 +1000
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u4O3S6K6017228; Tue, 24 May 2016 13:28:06 +1000
+Received: from bran.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
+ by ozlabs.au.ibm.com (Postfix) with ESMTP id E63F7A0146;
+ Tue, 24 May 2016 13:27:40 +1000 (AEST)
+Received: from gwshan (shangw.ozlabs.ibm.com [10.61.2.199])
+ by bran.ozlabs.ibm.com (Postfix) with ESMTP id A1857E3A8B;
+ Tue, 24 May 2016 13:27:40 +1000 (AEST)
+Received: by gwshan (Postfix, from userid 1000)
+ id 9883A9421E2; Tue, 24 May 2016 13:27:40 +1000 (AEST)
+Date: Tue, 24 May 2016 13:27:40 +1000
+From: Gavin Shan <gwshan@linux.vnet.ibm.com>
+To: Joel Stanley <joel@jms.id.au>
+Cc: gwshan@linux.vnet.ibm.com, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH linux] net/ethernet/faraday: Forward port ftgmac100 NC-SI
+Message-ID: <20160524032740.GA17912@gwshan>
+Reply-To: Gavin Shan <gwshan@linux.vnet.ibm.com>
+References: <1464055653-15867-1-git-send-email-joel@jms.id.au>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1464055653-15867-1-git-send-email-joel@jms.id.au>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16052403-0005-0000-0000-000007EDA044
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -51,38 +66,150 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 May 2016 02:10:49 -0000
+X-List-Received-Date: Tue, 24 May 2016 03:28:46 -0000
 
-This updates the driver to build on 4.7:
+On Tue, May 24, 2016 at 11:37:33AM +0930, Joel Stanley wrote:
+>This reflects changes made in order to build with 4.7.
+>
+>Signed-off-by: Joel Stanley <joel@jms.id.au>
+>---
+>
+>Gavin,
+>
+>Can you please double check that this looks ok to you?
+>
+>Do you have a series that contains all of the NC-SI support that is ready to go upstream? If so, I would prefer to take that in the dev tree.
+>
 
-  - 58383c78425e4ee1c077253cf297b641c861c02e renamed dev to parent
+Joel, it looks good to me except below minor bits . Sorry that I don't have a series
+based on upstream yet. I will start work on it later of this week or early of next
+week depending on the work at hand (mainly bug fixing this moment). Will keep you
+updated with the last state.
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
-Hey Jeremy,
+>Cheers,
+>
+>Joel
+>
+>
+> drivers/net/ethernet/faraday/ftgmac100.c | 29 +++++++++++++++++------------
+> 1 file changed, 17 insertions(+), 12 deletions(-)
+>
 
-I've made mistakes in the past so this is a sanity check of a trivial change.
-Please ack if you think this look okay :)
+Since the PHY device is embedded in "struct net_device", the one (@phydev) in "struct ftgmac100"
+can be removed.
 
-Cheers,
+>diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
+>index 644ef77215d5..d2b2c21da809 100644
+>--- a/drivers/net/ethernet/faraday/ftgmac100.c
+>+++ b/drivers/net/ethernet/faraday/ftgmac100.c
+>@@ -1099,6 +1099,7 @@ static int ftgmac100_poll(struct napi_struct *napi, int budget)
+> static int ftgmac100_open(struct net_device *netdev)
+> {
+> 	struct ftgmac100 *priv = netdev_priv(netdev);
+>+	struct phy_device *phydev = netdev->phydev;
+> 	int err;
+>
+> 	err = ftgmac100_alloc_buffers(priv);
+>@@ -1125,8 +1126,8 @@ static int ftgmac100_open(struct net_device *netdev)
+> 	ftgmac100_init_hw(priv);
+> 	ftgmac100_start_hw(priv, priv->use_ncsi ? 100 : 10);
+>
+>-	if (priv->phydev)
+>-		phy_start(priv->phydev);
+>+	if (phydev)
+>+		phy_start(phydev);
+> 	else if (priv->use_ncsi)
+> 		netif_carrier_on(priv->netdev);
+>
+>@@ -1160,6 +1161,7 @@ err_alloc:
+> static int ftgmac100_stop_dev(struct net_device *netdev)
+> {
+> 	struct ftgmac100 *priv = netdev_priv(netdev);
+>+	struct phy_device *phydev = netdev->phydev;
+>
+> 	if (!priv->enabled)
+> 		return 0;
+>@@ -1170,8 +1172,8 @@ static int ftgmac100_stop_dev(struct net_device *netdev)
+>
+> 	netif_stop_queue(netdev);
+> 	napi_disable(&priv->napi);
+>-	if (priv->phydev)
+>-		phy_stop(priv->phydev);
+>+	if (phydev)
+>+		phy_stop(phydev);
+>
+> 	ftgmac100_stop_hw(priv);
+> 	free_irq(priv->irq, netdev);
+>@@ -1216,11 +1218,11 @@ static int ftgmac100_hard_start_xmit(struct sk_buff *skb,
+> /* optional */
+> static int ftgmac100_do_ioctl(struct net_device *netdev, struct ifreq *ifr, int cmd)
+> {
+>-	struct ftgmac100 *priv = netdev_priv(netdev);
+>+	struct phy_device *phydev = netdev->phydev;
+>
+>-	if (!priv->phydev)
+>+	if (!phydev)
+> 		return -EINVAL;
+>-	return phy_mii_ioctl(priv->phydev, ifr, cmd);
+>+	return phy_mii_ioctl(phydev, ifr, cmd);
+> }
+>
+> static int ftgmac100_setup_mdio(struct ftgmac100 *priv)
+>@@ -1265,11 +1267,14 @@ err_alloc_mdiobus:
+> 	return err;
+> }
+>
+>-static void ftgmac100_destroy_mdio(struct ftgmac100 *priv)
+>+static void ftgmac100_destroy_mdio(struct net_device *netdev)
+> {
+>+	struct ftgmac100 *priv = netdev_priv(netdev);
+>+	struct phy_device *phydev = netdev->phydev;
+>+
+> 	if (!priv->use_ncsi)
+> 		return;
 
-Joel
+This condition would be as below. Otherwise, the PHY device that is created
+in non-NCSI circumstances won't be released.
 
- drivers/gpio/gpio-aspeed.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+	if (!phydev || priv->use_ncsi)
+		return;
 
-diff --git a/drivers/gpio/gpio-aspeed.c b/drivers/gpio/gpio-aspeed.c
-index 152b7d4484d1..aa4573f03cb6 100644
---- a/drivers/gpio/gpio-aspeed.c
-+++ b/drivers/gpio/gpio-aspeed.c
-@@ -389,7 +389,7 @@ static int __init aspeed_gpio_probe(struct platform_device *pdev)
- 
- 	gpio->chip.ngpio = ARRAY_SIZE(aspeed_gpio_banks) * 32;
- 
--	gpio->chip.dev = &pdev->dev;
-+	gpio->chip.parent = &pdev->dev;
- 	gpio->chip.direction_input = aspeed_gpio_dir_in;
- 	gpio->chip.direction_output = aspeed_gpio_dir_out;
- 	gpio->chip.get = aspeed_gpio_get;
--- 
-2.8.1
+>-	phy_disconnect(priv->phydev);
+>+	phy_disconnect(phydev);
+> 	mdiobus_unregister(priv->mii_bus);
+> 	mdiobus_free(priv->mii_bus);
+> }
+>@@ -1324,7 +1329,7 @@ static int ftgmac100_probe(struct platform_device *pdev)
+> 	if (pdev->dev.of_node &&
+> 	    of_get_property(pdev->dev.of_node, "use-nc-si", NULL)) {
+> 		dev_info(&pdev->dev, "Using NCSI interface\n");
+>-		priv->phydev = NULL;
+>+		netdev->phydev = NULL;
+> 		priv->use_ncsi = true;
+> 	} else {
+> 		priv->use_ncsi = false;
+>@@ -1398,7 +1403,7 @@ static int ftgmac100_probe(struct platform_device *pdev)
+>
+> err_register_netdev:
+> 	if (!priv->use_ncsi)
+>-		ftgmac100_destroy_mdio(priv);
+>+		ftgmac100_destroy_mdio(netdev);
+> 	else
+> 		ncsi_unregister_dev(priv->ndev);
+> err_ncsi_dev:
+>@@ -1422,7 +1427,7 @@ static int __exit ftgmac100_remove(struct platform_device *pdev)
+>
+> 	unregister_netdev(netdev);
+>
+>-	ftgmac100_destroy_mdio(priv);
+>+	ftgmac100_destroy_mdio(netdev);
+>
+> 	iounmap(priv->base);
+> 	release_resource(priv->res);
+
+Thanks,
+Gavin
+
+>-- 
+>2.8.1
+>
