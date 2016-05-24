@@ -1,22 +1,61 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-qg0-x242.google.com (mail-qg0-x242.google.com
+ [IPv6:2607:f8b0:400d:c04::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rDHt84hKSzDqNy
- for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 11:30:56 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1464053452314331.2529546443251;
- Mon, 23 May 2016 18:30:52 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 7/7] initfs: update: add check for image size vs mtd
- size
-Date: Mon, 23 May 2016 20:30:40 -0500
-Message-Id: <20160524013040.30742-8-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.8.3
-In-Reply-To: <20160524013040.30742-1-openbmc-patches@stwcx.xyz>
-References: <20160524013040.30742-1-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rDJcy5d9MzDqNQ
+ for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 12:04:34 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=ZW+MfHj4; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=B/3ho2Xv; 
+ dkim-atps=neutral
+Received: by mail-qg0-x242.google.com with SMTP id t106so282834qgt.2
+ for <openbmc@lists.ozlabs.org>; Mon, 23 May 2016 19:04:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:from:date:message-id:subject:to:cc;
+ bh=nX1vJiRB1Gi79Tq1fiU3eWGQUxHgriQzuKqhPyZ/9Tg=;
+ b=ZW+MfHj4E83re0ZDLtmWlYRIVUniNbnjBI8Vs9st622Hl6Rw0eRVfFZJoPI1X5Ko0a
+ svswoQOw9RMCfkLyaQhFyZqCwr9sGpvKZmbsudQlxAA0cFqwHNzXdBcY+yPkPhEIcCF+
+ MhEaDf8/dOULPZj2HcysCzTVeUbJj2AS7pId3jB4gYj3Kq4zS18kN4BKbJC0giC+GvUU
+ qWEa3Ox2sNO6eXtLZd64jchUex2JuSLH3ClWbi1N9qviKVvBYaLXP79+PMYJu05xjVY5
+ mv29mDPF+9ZMqgz2LP7xk2K3fnI2FdAMfiIWszl0J98OdILMx4mudFwiMK0y+Oswj+xF
+ pXvw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:sender:from:date:message-id:subject:to:cc;
+ bh=nX1vJiRB1Gi79Tq1fiU3eWGQUxHgriQzuKqhPyZ/9Tg=;
+ b=B/3ho2Xvf49jG33DHn8riYT3DMz1nQ7GL8u0g9KJo+AeiZL0lGuLQ+p3giNLmYHQeX
+ 1S1F2sHQZs2hlH7kddVgz793Cc7QLgNqB2TYz+EwCCZ7ZpZkcSQHm5g2q+NrKHd+BL01
+ QRtj/dpjh5T87jKO8v9a/lMGKfdjpOabdTOzQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
+ :to:cc;
+ bh=nX1vJiRB1Gi79Tq1fiU3eWGQUxHgriQzuKqhPyZ/9Tg=;
+ b=Yj3A5ADCACisfDU0VlO3/rIEPzrSpPK0VkFeh8g2TAH0IFl6QtDDTZQyG3peQOlMEn
+ +3gFpK+WgUgDtkL7sZq70diwl/ohNB6/9HzoI7ivEhKJquLnlIuIY8EJ9P5teoMj3auE
+ KL/B4X9AUFH/XYw2cKMzrKLYSFd91fel4ENB1oScHEc10FbU849oZ+n3LcGTfxJnL9kR
+ I3NHNA4TI+sGWz/ata6zwGqRfcceIyLtTfmZVaWahkH+2XAM5yZPN6JDoh6INv5LCTia
+ 0P6u4eKz2IHl/5x7F0W5ZISuRQ1BScMuINrt5vYZ/RegWUYgHifBdGSqEwduC5n0f5SB
+ Z4bQ==
+X-Gm-Message-State: ALyK8tJfbymRXYI+eZ+9aYC1uzFC7iryYBlyfLsOvNJiIlRnYm2yAETuGrk/CbEV2gAH1j0Q8uatZsXhOKOHFA==
+X-Received: by 10.140.37.21 with SMTP id q21mr1067487qgq.69.1464055472001;
+ Mon, 23 May 2016 19:04:32 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.237.51.135 with HTTP; Mon, 23 May 2016 19:04:12 -0700 (PDT)
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 24 May 2016 11:34:12 +0930
+X-Google-Sender-Auth: 1INvYlwdlossd0dxBHBCKn5nmDM
+Message-ID: <CACPK8XeD2BPqnJSCBdAnjUforTujhq+qYOCdtXnroO0=Q=2UUw@mail.gmail.com>
+Subject: Re:_[PATCH_linux]_Add_debounce_for_power_button,
+ _pull_down_gpioQ7_to_unlock_identify_LED
+To: ken.th.liu@foxconn.com
+Cc: anoo@us.ibm.com, OpenBMC Patches <openbmc-patches@stwcx.xyz>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, sam.wc.su@foxconn.com,
+ arvin.yh.yen@foxconn.com, 
+ ken.sk.lai@foxconn.com, andrew.cl.lin@foxconn.com, john.hc.wang@foxconn.com
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,71 +67,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 May 2016 01:30:57 -0000
+X-List-Received-Date: Tue, 24 May 2016 02:04:37 -0000
 
-From: "Milton D. Miller II" <miltonm@us.ibm.com>
+Hello Ken,
 
-The flashcp command will check the file size vs the partition size,
-so add a check when looking at images.
+On Tue, May 17, 2016 at 7:25 PM, <ken.th.liu@foxconn.com> wrote:
+> So you mean for the debounce setting.
+>
+> I have to make a new pull request on /openbmc/linux with detail commit in github?
 
-Use stat -L -c "%s" to get the file size, and compare it to the mtd
-size from the sysfs size attribute.
+I saw you made a new pull request for the Linux side of your patch.
+This is good progress.
 
-If this check is suppressed the enforcement is left to flashcp.
+You also left some comments on github. Can you please add those
+comments to the patch?
 
-Signed-off-by: Milton Miller <miltonm@us.ibm.com>
----
- .../obmc-phosphor-initfs/files/obmc-update.sh           | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+Cheers,
 
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index f444040..e5ce426 100755
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -48,6 +48,14 @@ childmtds() {
- 	done
- }
- 
-+toobig() {
-+	if $(stat -L -c "%s" "$1") -gt $(cat /sys/class/mtd/"$2"/size)
-+	then
-+		return 0
-+	fi
-+	return 1
-+}
-+
- findmtd() {
- 	m=$(grep -xl "$1" /sys/class/mtd/*/name)
- 	m=${m%/name}
-@@ -85,6 +93,7 @@ doclean=
- dosave=y
- dorestore=y
- toram=
-+checksize=y
- checkmount=y
- 
- whitelist=/run/initramfs/whitelist.d/
-@@ -114,6 +123,9 @@ do
- 	--no-flash)
- 		doflash=
- 		shift ;;
-+	--ignore-size)
-+		checksize=
-+		shift ;;
- 	--ignore-mount)
- 		checkmount=
- 		doflash=
-@@ -163,6 +175,11 @@ do
- 		echo 1>&2  "Unable to find mtd partiton for ${f##*/}."
- 		exit 1
- 	fi
-+	if test -n "$checksize" && toobig "$f" "$m"
-+	then
-+		echo 1>&1 "Image ${f##*/} too big for $m."
-+		exit 1
-+	fi
- 	for s in $m $(childmtds $m)
- 	do
- 		if test -n "$checkmount" && mtdismounted $s
--- 
-2.8.3
+Joel
