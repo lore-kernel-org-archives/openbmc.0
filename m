@@ -3,42 +3,42 @@ Received: from mail-pa0-x244.google.com (mail-pa0-x244.google.com
  [IPv6:2607:f8b0:400e:c03::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rDJk60RtYzDqNQ
- for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 12:09:02 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rDJm86g3JzDqNQ
+ for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 12:10:48 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=d612wuBc; 
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=lSe41ueL; 
  dkim-atps=neutral
-Received: by mail-pa0-x244.google.com with SMTP id yl2so440299pac.1
- for <openbmc@lists.ozlabs.org>; Mon, 23 May 2016 19:09:01 -0700 (PDT)
+Received: by mail-pa0-x244.google.com with SMTP id fg1so435974pad.3
+ for <openbmc@lists.ozlabs.org>; Mon, 23 May 2016 19:10:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=from:to:cc:subject:date:message-id;
- bh=49IfcvzIGIPh11kaCX8lQ4ABSmVPjlKF9m1EVD2HBlQ=;
- b=d612wuBcfqcS6Y/hucRGzDWbEPYVSo0Le53QYzZDE+JJ41zlyisky8toHRxXkM7i9b
- IiH70S46cBLVNszEG9sZ9skt7Nw+8l98qK2D91QsyxedKTtgID0echc4SL2SVv6Asrsa
- XunV3GocU1cTPtPqieDkhi4sW9XEwZB+VYEGc=
+ bh=1wQWimGk3PJ3WDGT1ZWvpfst51ozE+nWlx1s6wuBi5g=;
+ b=lSe41ueL9iBjLkDwu8JNiNRRthNQr02kwtODV72SDFNdC8ZhP5GmWGr2Kq0iE4cUvE
+ iUzodtEln6PLC7SV4S0BAogPRh86pzODlQWFqrzRdZij+YVoef8OkX4pdgmR9lT5ftt+
+ YeHKZ0xWsJ+V5kA/i+wY48UXGytF59U8Jq6+o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=49IfcvzIGIPh11kaCX8lQ4ABSmVPjlKF9m1EVD2HBlQ=;
- b=g9ZPA05EF9BSnteuP3jFdZaFjHZv5XsHC6xDQynLVsR0+KoTt6l7pCFi01IIkV3PKB
- +s7nPNFQDI7tvu9NhxHEiFMvCF8vGkSzt1LJSpBndIkjbFBr6aScr834Ay5aVz25ss/K
- foJrRqhTG7R3dD1X7XFXdmQOXZ/kVgIW+i7dYWLue8syhK/KjMK6CGx5vl9yVoraI4MS
- zOmdQfkhsxwtLtL/JPxVh2NyD0I708zFVYF7coAxIbJUFoIXN+NmUBYmxgqA2mXq2JvD
- aOits9uBo8ta+Uz6UZuGggZb7cTtnKQO0E7JMwjeBVXrg4p0Kv09AhhQjp6ZCmSHoGHl
- 1HjQ==
-X-Gm-Message-State: ALyK8tIv6+wSfgPlaDqLuGyqYgmxuiyCKbVixcm9G64SXLN+fdm5pF7gtRjpVmYDTp2zew==
-X-Received: by 10.66.112.34 with SMTP id in2mr2938498pab.52.1464055739561;
- Mon, 23 May 2016 19:08:59 -0700 (PDT)
+ bh=1wQWimGk3PJ3WDGT1ZWvpfst51ozE+nWlx1s6wuBi5g=;
+ b=EvOrEm2DTKvKCnoD7jYV4kn301PJyWvSz1tfVz/QOb/OR/ExVnbfwEv9kVJmOGUrYv
+ FQ75TuISt7KtfFNqqJEVC+C/CGg0Qw+mm+RfUSj3aSOUeUUXx+LmQjYcvuzhD30TLI2S
+ mTQvUXWobP/G6Ac9KU2B5l993NgTj8FxzU9StqnVjgP0YtX2fudAtPJqvd+22lI5cJDX
+ kvsJ/g8a06K3qIT0TAUdpFuxWa8hAtl0dtrUsuUctfHi8EQP93r7cfbtS0pywKZFyDGe
+ rX5pLApVOANJkbKDLmQ49iLZTxQ9f3jWW6lKi2wvSmmaFIovZJ+xlWmnwF+5ZMgz8cCG
+ M86Q==
+X-Gm-Message-State: ALyK8tLmO0UL2KJsAh1h3onLqNwgxg1zzJjlVkFnBuJmVW0XNpS/hgGQuOXVz2Bl3U0/dQ==
+X-Received: by 10.66.65.169 with SMTP id y9mr2937423pas.102.1464055846756;
+ Mon, 23 May 2016 19:10:46 -0700 (PDT)
 Received: from icarus.au.ibm.com ([2403:480:11:8000:fc53:a38c:f05e:e521])
- by smtp.gmail.com with ESMTPSA id x123sm49580088pfb.54.2016.05.23.19.08.57
+ by smtp.gmail.com with ESMTPSA id c2sm49605566pfc.40.2016.05.23.19.10.44
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Mon, 23 May 2016 19:08:59 -0700 (PDT)
+ Mon, 23 May 2016 19:10:46 -0700 (PDT)
 From: Joel Stanley <joel@jms.id.au>
-To: miltonm@us.ibm.com
+To: jk@ozlabs.org
 Cc: openbmc@lists.ozlabs.org
-Subject: [PATCH linux] mtd/spi-nor/aspeed: Forward port to 4.7
-Date: Tue, 24 May 2016 11:38:49 +0930
-Message-Id: <1464055729-16174-1-git-send-email-joel@jms.id.au>
+Subject: [PATCH linux] gpio/aspeed: Forward port GPIO driver
+Date: Tue, 24 May 2016 11:40:39 +0930
+Message-Id: <1464055839-16479-1-git-send-email-joel@jms.id.au>
 X-Mailer: git-send-email 2.8.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
@@ -51,53 +51,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 May 2016 02:09:02 -0000
+X-List-Received-Date: Tue, 24 May 2016 02:10:49 -0000
+
+This updates the driver to build on 4.7:
+
+  - 58383c78425e4ee1c077253cf297b641c861c02e renamed dev to parent
 
 Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
+Hey Jeremy,
 
-Milton,
-
-Please double check this one for me.
+I've made mistakes in the past so this is a sanity check of a trivial change.
+Please ack if you think this look okay :)
 
 Cheers,
 
 Joel
 
- drivers/mtd/spi-nor/aspeed-smc.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ drivers/gpio/gpio-aspeed.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspeed-smc.c
-index ed55f283b619..985455b479e3 100644
---- a/drivers/mtd/spi-nor/aspeed-smc.c
-+++ b/drivers/mtd/spi-nor/aspeed-smc.c
-@@ -415,7 +415,6 @@ static int aspeed_smc_probe(struct platform_device *dev)
- 	/* XXX handshake to enable access to SMC (bios) controller w/ host? */
+diff --git a/drivers/gpio/gpio-aspeed.c b/drivers/gpio/gpio-aspeed.c
+index 152b7d4484d1..aa4573f03cb6 100644
+--- a/drivers/gpio/gpio-aspeed.c
++++ b/drivers/gpio/gpio-aspeed.c
+@@ -389,7 +389,7 @@ static int __init aspeed_gpio_probe(struct platform_device *pdev)
  
- 	for_each_available_child_of_node(dev->dev.of_node, child) {
--		struct mtd_part_parser_data ppdata;
- 		struct platform_device *cdev;
- 		struct aspeed_smc_chip *chip;
- 		u32 reg;
-@@ -504,7 +503,7 @@ static int aspeed_smc_probe(struct platform_device *dev)
+ 	gpio->chip.ngpio = ARRAY_SIZE(aspeed_gpio_banks) * 32;
  
- 		chip->nor.dev = &cdev->dev;
- 		chip->nor.priv = chip;
--		chip->nor.flash_node = child;
-+		spi_nor_set_flash_node(&chip->nor, child);
- 		chip->nor.mtd.name = of_get_property(child, "label", NULL);
- 		chip->nor.erase = aspeed_smc_erase;
- 		chip->nor.read = aspeed_smc_read_user;
-@@ -528,9 +527,7 @@ static int aspeed_smc_probe(struct platform_device *dev)
- 		/* XXX enable fast read here */
- 		/* XXX check if resource size big enough for chip */
- 
--		memset(&ppdata, 0, sizeof(ppdata));
--		ppdata.of_node = cdev->dev.of_node;
--		err = mtd_device_parse_register(&chip->nor.mtd, NULL, &ppdata, NULL, 0);
-+		err = mtd_device_register(&chip->nor.mtd, NULL, 0);
- 		if (err)
- 			continue;
- 		controller->chips[n] = chip;
+-	gpio->chip.dev = &pdev->dev;
++	gpio->chip.parent = &pdev->dev;
+ 	gpio->chip.direction_input = aspeed_gpio_dir_in;
+ 	gpio->chip.direction_output = aspeed_gpio_dir_out;
+ 	gpio->chip.get = aspeed_gpio_get;
 -- 
 2.8.1
