@@ -1,61 +1,48 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-qg0-x242.google.com (mail-qg0-x242.google.com
- [IPv6:2607:f8b0:400d:c04::242])
+Return-Path: <joel@jms.id.au>
+Received: from mail-pf0-x244.google.com (mail-pf0-x244.google.com
+ [IPv6:2607:f8b0:400e:c00::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rDJcy5d9MzDqNQ
- for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 12:04:34 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=ZW+MfHj4; 
- dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=B/3ho2Xv; 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rDJhf165xzDqNQ
+ for <openbmc@lists.ozlabs.org>; Tue, 24 May 2016 12:07:45 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=gDQJTSXV; 
  dkim-atps=neutral
-Received: by mail-qg0-x242.google.com with SMTP id t106so282834qgt.2
- for <openbmc@lists.ozlabs.org>; Mon, 23 May 2016 19:04:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:from:date:message-id:subject:to:cc;
- bh=nX1vJiRB1Gi79Tq1fiU3eWGQUxHgriQzuKqhPyZ/9Tg=;
- b=ZW+MfHj4E83re0ZDLtmWlYRIVUniNbnjBI8Vs9st622Hl6Rw0eRVfFZJoPI1X5Ko0a
- svswoQOw9RMCfkLyaQhFyZqCwr9sGpvKZmbsudQlxAA0cFqwHNzXdBcY+yPkPhEIcCF+
- MhEaDf8/dOULPZj2HcysCzTVeUbJj2AS7pId3jB4gYj3Kq4zS18kN4BKbJC0giC+GvUU
- qWEa3Ox2sNO6eXtLZd64jchUex2JuSLH3ClWbi1N9qviKVvBYaLXP79+PMYJu05xjVY5
- mv29mDPF+9ZMqgz2LP7xk2K3fnI2FdAMfiIWszl0J98OdILMx4mudFwiMK0y+Oswj+xF
- pXvw==
+Received: by mail-pf0-x244.google.com with SMTP id y7so455263pfb.0
+ for <openbmc@lists.ozlabs.org>; Mon, 23 May 2016 19:07:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:from:date:message-id:subject:to:cc;
- bh=nX1vJiRB1Gi79Tq1fiU3eWGQUxHgriQzuKqhPyZ/9Tg=;
- b=B/3ho2Xvf49jG33DHn8riYT3DMz1nQ7GL8u0g9KJo+AeiZL0lGuLQ+p3giNLmYHQeX
- 1S1F2sHQZs2hlH7kddVgz793Cc7QLgNqB2TYz+EwCCZ7ZpZkcSQHm5g2q+NrKHd+BL01
- QRtj/dpjh5T87jKO8v9a/lMGKfdjpOabdTOzQ=
+ h=from:to:cc:subject:date:message-id;
+ bh=wYASI7m5FreLihJdiwipbXc+iBsyC4YOnzCuVtiKQo0=;
+ b=gDQJTSXV9PPByKpkNouSGOfyL44XDEACLpq+kw52EZZvzH0YR3HeXZh/pZNXSqxPQL
+ ouEgn/1FZNh4sP0j7Fo4wN67CXIgYL0hmHSdRb/D1U+dzNhWTQ6SFZDdirO38ekv1d5o
+ naaszni3u0JqhV8t3rFPxWoh7jbORQm1vvcGw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
- :to:cc;
- bh=nX1vJiRB1Gi79Tq1fiU3eWGQUxHgriQzuKqhPyZ/9Tg=;
- b=Yj3A5ADCACisfDU0VlO3/rIEPzrSpPK0VkFeh8g2TAH0IFl6QtDDTZQyG3peQOlMEn
- +3gFpK+WgUgDtkL7sZq70diwl/ohNB6/9HzoI7ivEhKJquLnlIuIY8EJ9P5teoMj3auE
- KL/B4X9AUFH/XYw2cKMzrKLYSFd91fel4ENB1oScHEc10FbU849oZ+n3LcGTfxJnL9kR
- I3NHNA4TI+sGWz/ata6zwGqRfcceIyLtTfmZVaWahkH+2XAM5yZPN6JDoh6INv5LCTia
- 0P6u4eKz2IHl/5x7F0W5ZISuRQ1BScMuINrt5vYZ/RegWUYgHifBdGSqEwduC5n0f5SB
- Z4bQ==
-X-Gm-Message-State: ALyK8tJfbymRXYI+eZ+9aYC1uzFC7iryYBlyfLsOvNJiIlRnYm2yAETuGrk/CbEV2gAH1j0Q8uatZsXhOKOHFA==
-X-Received: by 10.140.37.21 with SMTP id q21mr1067487qgq.69.1464055472001;
- Mon, 23 May 2016 19:04:32 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.237.51.135 with HTTP; Mon, 23 May 2016 19:04:12 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=wYASI7m5FreLihJdiwipbXc+iBsyC4YOnzCuVtiKQo0=;
+ b=kMFkVWLXWLSur9vQqVBfbaXFeeEEA+BugikQ+bDCYt8r1blEiqsCXtAcSGeeUllVZE
+ 6p//UHaj0aIoAdpRJHSYL8mmvJI17TUofbcgNDUQhcPwqilYJJhpjM6RBLxwz61dZmgw
+ bi8MDMN6ww4XqJNiRKvwEytrwlOKXHY7ZcXkHZxNJVRZrzUVBFBtodJN7RMdo1K6UQaX
+ E9y0rvjO5dZXH0acdcaa/D+Dvww3ejN7TenE7dq11og7Jux/PILkqXI2PDLpWAs0POgf
+ 6A0K4Z1coE5YeiUorTIAvH7f4DHCgyS/YfX4WarBl7c3xhCyy7p50c/uC4J5KRVUOe8n
+ Nv+A==
+X-Gm-Message-State: ALyK8tJNg41KOsmoWiTzWd1r5jsWsSSVthNh7yI/0CaF2sBdMEDs8rZRyfEoGg0Q460hsA==
+X-Received: by 10.98.72.27 with SMTP id v27mr2836568pfa.143.1464055662981;
+ Mon, 23 May 2016 19:07:42 -0700 (PDT)
+Received: from icarus.jms.id.au (45-124-201-5.dynamic.cust.unitiwireless.com.
+ [45.124.201.5])
+ by smtp.gmail.com with ESMTPSA id tn7sm445107pac.29.2016.05.23.19.07.41
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 23 May 2016 19:07:42 -0700 (PDT)
+Received: by icarus.jms.id.au (Postfix, from userid 1000)
+ id A384E100587; Tue, 24 May 2016 11:37:35 +0930 (ACST)
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 24 May 2016 11:34:12 +0930
-X-Google-Sender-Auth: 1INvYlwdlossd0dxBHBCKn5nmDM
-Message-ID: <CACPK8XeD2BPqnJSCBdAnjUforTujhq+qYOCdtXnroO0=Q=2UUw@mail.gmail.com>
-Subject: Re:_[PATCH_linux]_Add_debounce_for_power_button,
- _pull_down_gpioQ7_to_unlock_identify_LED
-To: ken.th.liu@foxconn.com
-Cc: anoo@us.ibm.com, OpenBMC Patches <openbmc-patches@stwcx.xyz>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, sam.wc.su@foxconn.com,
- arvin.yh.yen@foxconn.com, 
- ken.sk.lai@foxconn.com, andrew.cl.lin@foxconn.com, john.hc.wang@foxconn.com
-Content-Type: text/plain; charset=UTF-8
+To: gwshan@linux.vnet.ibm.com
+Cc: openbmc@lists.ozlabs.org
+Subject: [PATCH linux] net/ethernet/faraday: Forward port ftgmac100 NC-SI
+Date: Tue, 24 May 2016 11:37:33 +0930
+Message-Id: <1464055653-15867-1-git-send-email-joel@jms.id.au>
+X-Mailer: git-send-email 2.8.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -67,21 +54,127 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 May 2016 02:04:37 -0000
+X-List-Received-Date: Tue, 24 May 2016 02:07:46 -0000
 
-Hello Ken,
+This reflects changes made in order to build with 4.7.
 
-On Tue, May 17, 2016 at 7:25 PM, <ken.th.liu@foxconn.com> wrote:
-> So you mean for the debounce setting.
->
-> I have to make a new pull request on /openbmc/linux with detail commit in github?
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
 
-I saw you made a new pull request for the Linux side of your patch.
-This is good progress.
+Gavin,
 
-You also left some comments on github. Can you please add those
-comments to the patch?
+Can you please double check that this looks ok to you?
+
+Do you have a series that contains all of the NC-SI support that is ready to go upstream? If so, I would prefer to take that in the dev tree.
 
 Cheers,
 
 Joel
+
+
+ drivers/net/ethernet/faraday/ftgmac100.c | 29 +++++++++++++++++------------
+ 1 file changed, 17 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
+index 644ef77215d5..d2b2c21da809 100644
+--- a/drivers/net/ethernet/faraday/ftgmac100.c
++++ b/drivers/net/ethernet/faraday/ftgmac100.c
+@@ -1099,6 +1099,7 @@ static int ftgmac100_poll(struct napi_struct *napi, int budget)
+ static int ftgmac100_open(struct net_device *netdev)
+ {
+ 	struct ftgmac100 *priv = netdev_priv(netdev);
++	struct phy_device *phydev = netdev->phydev;
+ 	int err;
+ 
+ 	err = ftgmac100_alloc_buffers(priv);
+@@ -1125,8 +1126,8 @@ static int ftgmac100_open(struct net_device *netdev)
+ 	ftgmac100_init_hw(priv);
+ 	ftgmac100_start_hw(priv, priv->use_ncsi ? 100 : 10);
+ 
+-	if (priv->phydev)
+-		phy_start(priv->phydev);
++	if (phydev)
++		phy_start(phydev);
+ 	else if (priv->use_ncsi)
+ 		netif_carrier_on(priv->netdev);
+ 
+@@ -1160,6 +1161,7 @@ err_alloc:
+ static int ftgmac100_stop_dev(struct net_device *netdev)
+ {
+ 	struct ftgmac100 *priv = netdev_priv(netdev);
++	struct phy_device *phydev = netdev->phydev;
+ 
+ 	if (!priv->enabled)
+ 		return 0;
+@@ -1170,8 +1172,8 @@ static int ftgmac100_stop_dev(struct net_device *netdev)
+ 
+ 	netif_stop_queue(netdev);
+ 	napi_disable(&priv->napi);
+-	if (priv->phydev)
+-		phy_stop(priv->phydev);
++	if (phydev)
++		phy_stop(phydev);
+ 
+ 	ftgmac100_stop_hw(priv);
+ 	free_irq(priv->irq, netdev);
+@@ -1216,11 +1218,11 @@ static int ftgmac100_hard_start_xmit(struct sk_buff *skb,
+ /* optional */
+ static int ftgmac100_do_ioctl(struct net_device *netdev, struct ifreq *ifr, int cmd)
+ {
+-	struct ftgmac100 *priv = netdev_priv(netdev);
++	struct phy_device *phydev = netdev->phydev;
+ 
+-	if (!priv->phydev)
++	if (!phydev)
+ 		return -EINVAL;
+-	return phy_mii_ioctl(priv->phydev, ifr, cmd);
++	return phy_mii_ioctl(phydev, ifr, cmd);
+ }
+ 
+ static int ftgmac100_setup_mdio(struct ftgmac100 *priv)
+@@ -1265,11 +1267,14 @@ err_alloc_mdiobus:
+ 	return err;
+ }
+ 
+-static void ftgmac100_destroy_mdio(struct ftgmac100 *priv)
++static void ftgmac100_destroy_mdio(struct net_device *netdev)
+ {
++	struct ftgmac100 *priv = netdev_priv(netdev);
++	struct phy_device *phydev = netdev->phydev;
++
+ 	if (!priv->use_ncsi)
+ 		return;
+-	phy_disconnect(priv->phydev);
++	phy_disconnect(phydev);
+ 	mdiobus_unregister(priv->mii_bus);
+ 	mdiobus_free(priv->mii_bus);
+ }
+@@ -1324,7 +1329,7 @@ static int ftgmac100_probe(struct platform_device *pdev)
+ 	if (pdev->dev.of_node &&
+ 	    of_get_property(pdev->dev.of_node, "use-nc-si", NULL)) {
+ 		dev_info(&pdev->dev, "Using NCSI interface\n");
+-		priv->phydev = NULL;
++		netdev->phydev = NULL;
+ 		priv->use_ncsi = true;
+ 	} else {
+ 		priv->use_ncsi = false;
+@@ -1398,7 +1403,7 @@ static int ftgmac100_probe(struct platform_device *pdev)
+ 
+ err_register_netdev:
+ 	if (!priv->use_ncsi)
+-		ftgmac100_destroy_mdio(priv);
++		ftgmac100_destroy_mdio(netdev);
+ 	else
+ 		ncsi_unregister_dev(priv->ndev);
+ err_ncsi_dev:
+@@ -1422,7 +1427,7 @@ static int __exit ftgmac100_remove(struct platform_device *pdev)
+ 
+ 	unregister_netdev(netdev);
+ 
+-	ftgmac100_destroy_mdio(priv);
++	ftgmac100_destroy_mdio(netdev);
+ 
+ 	iounmap(priv->base);
+ 	release_resource(priv->res);
+-- 
+2.8.1
