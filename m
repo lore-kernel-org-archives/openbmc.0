@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rFVRq0HGHzDqKM
- for <openbmc@lists.ozlabs.org>; Thu, 26 May 2016 10:30:46 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rFVRr3DyHzDqWr
+ for <openbmc@lists.ozlabs.org>; Thu, 26 May 2016 10:30:48 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 146422264190970.89755059297715;
- Wed, 25 May 2016 17:30:41 -0700 (PDT)
+ with SMTPS id 1464222644824466.90950538445634;
+ Wed, 25 May 2016 17:30:44 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v2 3/7] initfs: update: no error if no files to copy
- to ram
-Date: Wed, 25 May 2016 19:30:30 -0500
-Message-Id: <20160526003034.30491-4-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v2 5/7] initfs: update: check individual mtd
+ partitions for mounts
+Date: Wed, 25 May 2016 19:30:32 -0500
+Message-Id: <20160526003034.30491-6-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.3
 In-Reply-To: <20160526003034.30491-1-openbmc-patches@stwcx.xyz>
 References: <20160526003034.30491-1-openbmc-patches@stwcx.xyz>
@@ -28,32 +28,99 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 May 2016 00:30:47 -0000
+X-List-Received-Date: Thu, 26 May 2016 00:30:49 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-If the saved files directory is empty because there were no files in
-the read-write overlay file system that were in the persistent file
-list, then the save directory will not exist, so skip copying the
-non-existant directory in that case.
+Instead of checking for any mtd device, only check mtd devices that are
+to be updated.  Include child mtd devices when looking for mounted
+filesystems.
+
+If this check is suppressed flash updates are suppressed.
+This may be useful to check deferred updates.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh   | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../obmc-phosphor-initfs/files/obmc-update.sh      | 46 +++++++++++++++++++---
+ 1 file changed, 41 insertions(+), 5 deletions(-)
 
 diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index f8e551c..f0ca989 100755
+index fc47062..09348b6 100755
 --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
 +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -144,7 +144,7 @@ do
- 	flashcp -v $f /dev/$m && rm $f
+@@ -19,11 +19,34 @@ then
+ 	mount -t devtmpfs dev dev
+ fi
+ 
+-if grep mtd /proc/mounts
+-then
+-	echo 1>&2 "Error: A mtd device is mounted."
+-	exit 1
+-fi
++# mtd number N with mtd name Name can be mounted via mtdN, or mtd:Name (with
++# an mtd aware fs) or by /dev/mtdblockN (with a mtd or block fs). 
++mtdismounted() {
++	m=${1##mtd}
++	if grep -s "mtdblock$m" /proc/mounts || grep -s "mtd$m" /proc/mounts
++	then
++		return 0
++	fi
++	n=$(cat /sys/class/mtd/mtd$m/name)
++	if test -n "$n" && grep -s "mtd:$n" /proc/mounts
++	then
++		return 0
++	fi
++	return 1
++}
++
++# We need to detect child partitions when the whole flash is to be updated
++# ignore mtdNro and mtdblockN names in the class subsystem directory
++childmtds() {
++	for m in /sys/class/mtd/$1/mtd*
++	do
++		m=${m##*/}
++		if test "${m%ro}" = "${m#mtdblock}"
++		then
++			echo $m
++		fi
++	done
++}
+ 
+ findmtd() {
+ 	m=$(grep -xl "$1" /sys/class/mtd/*/name)
+@@ -62,6 +85,7 @@ doclean=
+ dosave=y
+ dorestore=y
+ toram=
++checkmount=y
+ 
+ whitelist=/run/initramfs/whitelist
+ image=/run/initramfs/image-
+@@ -90,6 +114,10 @@ do
+ 	--no-flash)
+ 		doflash=
+ 		shift ;;
++	--ignore-mount)
++		checkmount=
++		doflash=
++		shift ;;
+ 	--copy-files)
+ 		toram=y
+ 		shift ;;
+@@ -133,6 +161,14 @@ do
+ 		echo 1>&2  "Unable to find mtd partiton for ${f##*/}."
+ 		exit 1
+ 	fi
++	for s in $m $(childmtds $m)
++	do
++		if test -n "$checkmount" && mtdismounted $s
++		then
++			echo 1>&2 "Device $s is mounted, ${f##*/} is busy."
++			exit 1
++		fi
++	done
  done
  
--if test "x$toram" = xy
-+if test -d $save -a "x$toram" = xy
- then
- 	mkdir -p $upper
- 	cp -rp $save/. $upper/
+ if test -n "$doflash"
 -- 
 2.8.3
