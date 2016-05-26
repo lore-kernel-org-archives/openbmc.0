@@ -1,42 +1,50 @@
-Return-Path: <andrew@aj.id.au>
-Received: from homiemail-a11.g.dreamhost.com (sub3.mail.dreamhost.com
- [69.163.253.7])
- (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+Return-Path: <raltherr@google.com>
+Received: from mail-it0-x236.google.com (mail-it0-x236.google.com
+ [IPv6:2607:f8b0:4001:c0b::236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rFWg35VlLzDqFh
- for <openbmc@lists.ozlabs.org>; Thu, 26 May 2016 11:25:35 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=Y60gw+3Y; 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rFWwp0jv5zDqKM
+ for <openbmc@lists.ozlabs.org>; Thu, 26 May 2016 11:37:29 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b=Blzx9Y1v; 
  dkim-atps=neutral
-Received: from homiemail-a11.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a11.g.dreamhost.com (Postfix) with ESMTP id 40B4D6E06C;
- Wed, 25 May 2016 18:25:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
- :subject:from:reply-to:to:cc:date:in-reply-to:references
- :content-type:mime-version; s=aj.id.au; bh=l2vN5fdVm5mKoXvb7lLOj
- Z0F1Dk=; b=Y60gw+3YdwULdFItpucyDMKvqtpKpYloJ8w8IAUtatKVXrUg/0MjW
- KqfHfExo/IGYemwsysdfsi/5s6qNAnrImMX73xS0XLpP1ARiQ/G+1Cy58zroEuJw
- i+j3fLvejwC7Dw00Saly0cWiBXBETPB3jHEgDLMvhPRB6ErZm0k6rI=
-Received: from nat104.cor1.adl1.base64.com.au (unknown [203.0.153.9])
- (using TLSv1 with cipher AES128-SHA (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: andrew@aj.id.au)
- by homiemail-a11.g.dreamhost.com (Postfix) with ESMTPSA id 353856E06A;
- Wed, 25 May 2016 18:25:32 -0700 (PDT)
-Message-ID: <1464225896.8430.21.camel@aj.id.au>
-Subject: Re: [PATCH] Fix i2c-tools SRCURI syntax
-From: Andrew Jeffery <andrew@aj.id.au>
-Reply-To: andrew@aj.id.au
-To: Rick Altherr <raltherr@google.com>, openbmc@lists.ozlabs.org
-Cc: Patrick Williams <patrick@stwcx.xyz>
-Date: Thu, 26 May 2016 10:54:56 +0930
-In-Reply-To: <1464223026-8881-1-git-send-email-raltherr@google.com>
+Received: by mail-it0-x236.google.com with SMTP id z123so38954812itg.0
+ for <openbmc@lists.ozlabs.org>; Wed, 25 May 2016 18:37:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=Q6C9PpfR+BnTtcvkPjBxGza0Y+dg1w8H5fsteh8QK6s=;
+ b=Blzx9Y1vhstK0a5qy6oLUhECynXTPHBRSIH7icDOEbd3J/xO4hoRu1cm+ghLjm4p9m
+ FphycVCtgF4t4GI3n9v4HwD5hBcrsaXA/riz9N1y4PA3SdSP5dRf5M2+K/HaIMEBRRfJ
+ IQu2+ZE2TZBfAUC1QtUxplsrKmhmq1EfQwVmJrfsIS8rVxiDWwINTNnaEL5xelPPw8G0
+ 9lZ338R3Z0geGphG2mn+2QW4RIE9wayoov/MAh4HgR1NgD+L53YEzXsjWb7hGc9+okkm
+ WZXMI2pZSw8br4Z6DQA85lSYCcSCtlxhIF9CNc466AY8CK2aqd6WMaNqK2v2vGF1bsGc
+ +tgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=Q6C9PpfR+BnTtcvkPjBxGza0Y+dg1w8H5fsteh8QK6s=;
+ b=LIIMSIbmzTyq2RGVfgI2npaYxKB5QMU71MO3uxKdaFa7V7fgs/XObUTZcAPBdmBpvR
+ jbaRJxnZsEqYBdrwmV5ZArhF5sQ+QJpq67bYZOYMCov5EtW42QQARWce0XhaTuWNmA3Y
+ W0q0VszKTtBWp5HVrgw2/fPK/FGFxAazhJyqnzcw40IxMrVq3kikRlFDxLnx9AqA8x5v
+ AM3YPc8LLWGVgQ5FjVYrAcJGs2gqIWO14WrWIAMh3ZqsvmndC9Fiyhkf6dDwJs7YhfiI
+ 7gd/a4Ghse8b6rGPumH4XzV5ePbDexl/P1RQase0AFjbItvI5GwcSoDRJf5LZtbFTmgq
+ JlFQ==
+X-Gm-Message-State: ALyK8tIB43N3FvHNsG+yxFG6VsINzP6i0Ntwbj3x0xirL5WQCW9w0tlbGP2/hLKyWbGY+ewhQqx3Sd9A+wC9vS6G
+X-Received: by 10.36.2.71 with SMTP id 68mr865622itu.38.1464226646200; Wed, 25
+ May 2016 18:37:26 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.64.63.164 with HTTP; Wed, 25 May 2016 18:37:25 -0700 (PDT)
+In-Reply-To: <1464225896.8430.21.camel@aj.id.au>
 References: <1464223026-8881-1-git-send-email-raltherr@google.com>
-Organization: IBM OzLabs
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-pyBZr4tP1feDpaEVwm0z"
-X-Mailer: Evolution 3.18.5.2-0ubuntu1 
-Mime-Version: 1.0
+ <1464225896.8430.21.camel@aj.id.au>
+From: Rick Altherr <raltherr@google.com>
+Date: Wed, 25 May 2016 18:37:25 -0700
+Message-ID: <CAPLgG=n45AdUV6M=DfFkwjK5zt4vtMT=L168=V6M9GPEXATr7A@mail.gmail.com>
+Subject: Re: [PATCH] Fix i2c-tools SRCURI syntax
+To: andrew@aj.id.au
+Cc: openbmc@lists.ozlabs.org, Patrick Williams <patrick@stwcx.xyz>
+Content-Type: multipart/alternative; boundary=001a1144b1d01e734a0533b4d511
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -48,100 +56,172 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 May 2016 01:25:36 -0000
+X-List-Received-Date: Thu, 26 May 2016 01:37:30 -0000
 
+--001a1144b1d01e734a0533b4d511
+Content-Type: text/plain; charset=UTF-8
 
---=-pyBZr4tP1feDpaEVwm0z
-Content-Type: text/plain; charset="UTF-8"
+Thanks Andrew.  https://github.com/openbmc/docs/blob/master/contributing.md
+wasn't really clear on what was preferred.  I'll pass along your
+explanation to the rest of the Google team.
+
+On Wed, May 25, 2016 at 6:24 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+
+> Hi Rick,
+>
+> Thanks for the patch. I've reproduced the warning* and tested the fix.
+> As an aside, the commit message introducing the .bbappend was pretty
+> terse, I assume the reason for switching the SRC_URI is that
+> {www,dl}.lm-sensors.org seem to be unreachable.
+>
+> Separately, the means to contribute to OpenBMC is a bit fragmented at
+> the moment, and there are ongoing discussions about how to manage it.
+> As it stands for the openbmc/openbmc repository, pull-requests are the
+> preferred approach. More generally, for projects that are OpenBMC-
+> specific pull-requests are preferred**, but for contributions to our
+> forks of other projects the upstream workflow is preferred. So for u-
+> boot, the kernel and qemu, sending patches to the list is the way to
+> go.
+>
+> * The warning was:
+> WARNING: Failed to fetch URL
+> http://downloads.yoctoproject.org/mirror/sources/i2c-tools-3.1.2.tar.bz2http://dl.lm-sensors.org/i2c-tools/releases/i2c-tools-3.1.2.tar.bz2,
+> attempting MIRRORS if available
+>
+> ** Though the word is the OpenBMC repos will be using Gerrit shortly
+>
+> On Wed, 2016-05-25 at 17:37 -0700, Rick Altherr wrote:
+> > Override syntax (FOO_append, FOO_prepend) doesn't insert spaces to
+> > separate the append from the original value.  This caused the two URIs
+> > to be incorrectly merged into one and caused a download failure.  It
+> > happens that the fallback in that case is to use the Yocto mirror so it
+> > kept working other than emitting a warning.  Using =+ prepend syntax
+> > correctly adds the separating space.
+> >
+> > Change-Id: I36f48cb53aa29ea9a4bde738c975784f6ce24250
+> > Signed-off-by: Rick Altherr <raltherr@google.com>
+>
+> Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+>
+> Cheers,
+>
+> Andrew
+>
+> > ---
+> >  meta-phosphor/common/recipes-devtools/i2c-tools/i2c-tools_%.bbappend |
+> 3 ++-
+> >  1 file changed, 2 insertions(+), 1 deletion(-)
+> >
+> > diff --git
+> a/meta-phosphor/common/recipes-devtools/i2c-tools/i2c-tools_%.bbappend
+> b/meta-phosphor/common/recipes-devtools/i2c-tools/i2c-tools_%.bbappend
+> > index bdbdc67..599394d 100644
+> > ---
+> a/meta-phosphor/common/recipes-devtools/i2c-tools/i2c-tools_%.bbappend
+> > +++
+> b/meta-phosphor/common/recipes-devtools/i2c-tools/i2c-tools_%.bbappend
+> > @@ -1,4 +1,5 @@
+> > +# Prefer the Yocto mirror over the direct lm-sensors download.
+> >  SRC_URI_remove = "
+> http://dl.lm-sensors.org/i2c-tools/releases/${BP}.tar.bz2"
+> > -SRC_URI_prepend = "
+> http://downloads.yoctoproject.org/mirror/sources/${BP}.tar.bz2"
+> > +SRC_URI =+ "
+> http://downloads.yoctoproject.org/mirror/sources/${BP}.tar.bz2"
+> >
+> >  RDEPENDS_${PN}_remove = "${PN}-misc"
+>
+
+--001a1144b1d01e734a0533b4d511
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Rick,
+<div dir=3D"ltr">Thanks Andrew. =C2=A0<a href=3D"https://github.com/openbmc=
+/docs/blob/master/contributing.md">https://github.com/openbmc/docs/blob/mas=
+ter/contributing.md</a> wasn&#39;t really clear on what was preferred.=C2=
+=A0 I&#39;ll pass along your explanation to the rest of the Google team.</d=
+iv><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Wed, May 25=
+, 2016 at 6:24 PM, Andrew Jeffery <span dir=3D"ltr">&lt;<a href=3D"mailto:a=
+ndrew@aj.id.au" target=3D"_blank">andrew@aj.id.au</a>&gt;</span> wrote:<br>=
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">Hi Rick,<br>
+<br>
+Thanks for the patch. I&#39;ve reproduced the warning* and tested the fix.<=
+br>
+As an aside, the commit message introducing the .bbappend was pretty<br>
+terse, I assume the reason for switching the SRC_URI is that<br>
+{www,dl}.<a href=3D"http://lm-sensors.org" rel=3D"noreferrer" target=3D"_bl=
+ank">lm-sensors.org</a> seem to be unreachable.<br>
+<br>
+Separately, the means to contribute to OpenBMC is a bit fragmented at<br>
+the moment, and there are ongoing discussions about how to manage it.<br>
+As it stands for the openbmc/openbmc repository, pull-requests are the<br>
+preferred approach. More generally, for projects that are OpenBMC-<br>
+specific pull-requests are preferred**, but for contributions to our<br>
+forks of other projects the upstream workflow is preferred. So for u-<br>
+boot, the kernel and qemu, sending patches to the list is the way to<br>
+go.<br>
+<br>
+* The warning was:<br>
+WARNING: Failed to fetch URL <a href=3D"http://downloads.yoctoproject.org/m=
+irror/sources/i2c-tools-3.1.2.tar.bz2http://dl.lm-sensors.org/i2c-tools/rel=
+eases/i2c-tools-3.1.2.tar.bz2" rel=3D"noreferrer" target=3D"_blank">http://=
+downloads.yoctoproject.org/mirror/sources/i2c-tools-3.1.2.tar.bz2http://dl.=
+lm-sensors.org/i2c-tools/releases/i2c-tools-3.1.2.tar.bz2</a>, attempting M=
+IRRORS if available<br>
+<br>
+** Though the word is the OpenBMC repos will be using Gerrit shortly<br>
+<span class=3D""><br>
+On Wed, 2016-05-25 at 17:37 -0700, Rick Altherr wrote:<br>
+&gt; Override syntax (FOO_append, FOO_prepend) doesn&#39;t insert spaces to=
+<br>
+&gt; separate the append from the original value.=C2=A0=C2=A0This caused th=
+e two URIs<br>
+&gt; to be incorrectly merged into one and caused a download failure.=C2=A0=
+=C2=A0It<br>
+&gt; happens that the fallback in that case is to use the Yocto mirror so i=
+t<br>
+&gt; kept working other than emitting a warning.=C2=A0=C2=A0Using =3D+ prep=
+end syntax<br>
+&gt; correctly adds the separating space.<br>
+&gt;<br>
+&gt; Change-Id: I36f48cb53aa29ea9a4bde738c975784f6ce24250<br>
+&gt; Signed-off-by: Rick Altherr &lt;<a href=3D"mailto:raltherr@google.com"=
+>raltherr@google.com</a>&gt;<br>
+<br>
+</span>Reviewed-by: Andrew Jeffery &lt;<a href=3D"mailto:andrew@aj.id.au">a=
+ndrew@aj.id.au</a>&gt;<br>
+<br>
+Cheers,<br>
+<br>
+Andrew<br>
+<div class=3D"HOEnZb"><div class=3D"h5"><br>
+&gt; ---<br>
+&gt; =C2=A0meta-phosphor/common/recipes-devtools/i2c-tools/i2c-tools_%.bbap=
+pend | 3 ++-<br>
+&gt; =C2=A01 file changed, 2 insertions(+), 1 deletion(-)<br>
+&gt;<br>
+&gt; diff --git a/meta-phosphor/common/recipes-devtools/i2c-tools/i2c-tools=
+_%.bbappend b/meta-phosphor/common/recipes-devtools/i2c-tools/i2c-tools_%.b=
+bappend<br>
+&gt; index bdbdc67..599394d 100644<br>
+&gt; --- a/meta-phosphor/common/recipes-devtools/i2c-tools/i2c-tools_%.bbap=
+pend<br>
+&gt; +++ b/meta-phosphor/common/recipes-devtools/i2c-tools/i2c-tools_%.bbap=
+pend<br>
+&gt; @@ -1,4 +1,5 @@<br>
+&gt; +# Prefer the Yocto mirror over the direct lm-sensors download.<br>
+&gt; =C2=A0SRC_URI_remove =3D &quot;<a href=3D"http://dl.lm-sensors.org/i2c=
+-tools/releases/${BP}.tar.bz2" rel=3D"noreferrer" target=3D"_blank">http://=
+dl.lm-sensors.org/i2c-tools/releases/${BP}.tar.bz2</a>&quot;<br>
+&gt; -SRC_URI_prepend =3D &quot;<a href=3D"http://downloads.yoctoproject.or=
+g/mirror/sources/${BP}.tar.bz2" rel=3D"noreferrer" target=3D"_blank">http:/=
+/downloads.yoctoproject.org/mirror/sources/${BP}.tar.bz2</a>&quot;<br>
+&gt; +SRC_URI =3D+ &quot;<a href=3D"http://downloads.yoctoproject.org/mirro=
+r/sources/${BP}.tar.bz2" rel=3D"noreferrer" target=3D"_blank">http://downlo=
+ads.yoctoproject.org/mirror/sources/${BP}.tar.bz2</a>&quot;<br>
+&gt; =C2=A0<br>
+&gt; =C2=A0RDEPENDS_${PN}_remove =3D &quot;${PN}-misc&quot;</div></div></bl=
+ockquote></div><br></div>
 
-Thanks for the patch. I've reproduced the warning* and tested the fix.
-As an aside, the commit message introducing the .bbappend was pretty
-terse, I assume the reason for switching the SRC_URI is that
-{www,dl}.lm-sensors.org seem to be unreachable.
-
-Separately, the means to contribute to OpenBMC is a bit fragmented at
-the moment, and there are ongoing discussions about how to manage it.
-As it stands for the openbmc/openbmc repository, pull-requests are the
-preferred approach. More generally, for projects that are OpenBMC-
-specific pull-requests are preferred**, but for contributions to our
-forks of other projects the upstream workflow is preferred. So for u-
-boot, the kernel and qemu, sending patches to the list is the way to
-go.
-
-* The warning was:
-WARNING: Failed to fetch URL http://downloads.yoctoproject.org/mirror/sourc=
-es/i2c-tools-3.1.2.tar.bz2http://dl.lm-sensors.org/i2c-tools/releases/i2c-t=
-ools-3.1.2.tar.bz2, attempting MIRRORS if available
-
-** Though the word is the OpenBMC repos will be using Gerrit shortly
-
-On Wed, 2016-05-25 at 17:37 -0700, Rick Altherr wrote:
-> Override syntax (FOO_append, FOO_prepend) doesn't insert spaces to
-> separate the append from the original value.=C2=A0=C2=A0This caused the t=
-wo URIs
-> to be incorrectly merged into one and caused a download failure.=C2=A0=C2=
-=A0It
-> happens that the fallback in that case is to use the Yocto mirror so it
-> kept working other than emitting a warning.=C2=A0=C2=A0Using =3D+ prepend=
- syntax
-> correctly adds the separating space.
->=20
-> Change-Id: I36f48cb53aa29ea9a4bde738c975784f6ce24250
-> Signed-off-by: Rick Altherr <raltherr@google.com>
-
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
-
-Cheers,
-
-Andrew
-
-> ---
-> =C2=A0meta-phosphor/common/recipes-devtools/i2c-tools/i2c-tools_%.bbappen=
-d | 3 ++-
-> =C2=A01 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/meta-phosphor/common/recipes-devtools/i2c-tools/i2c-tools_%.=
-bbappend b/meta-phosphor/common/recipes-devtools/i2c-tools/i2c-tools_%.bbap=
-pend
-> index bdbdc67..599394d 100644
-> --- a/meta-phosphor/common/recipes-devtools/i2c-tools/i2c-tools_%.bbappen=
-d
-> +++ b/meta-phosphor/common/recipes-devtools/i2c-tools/i2c-tools_%.bbappen=
-d
-> @@ -1,4 +1,5 @@
-> +# Prefer the Yocto mirror over the direct lm-sensors download.
-> =C2=A0SRC_URI_remove =3D "http://dl.lm-sensors.org/i2c-tools/releases/${B=
-P}.tar.bz2"
-> -SRC_URI_prepend =3D "http://downloads.yoctoproject.org/mirror/sources/${=
-BP}.tar.bz2"
-> +SRC_URI =3D+ "http://downloads.yoctoproject.org/mirror/sources/${BP}.tar=
-.bz2"
-> =C2=A0
-> =C2=A0RDEPENDS_${PN}_remove =3D "${PN}-misc"
---=-pyBZr4tP1feDpaEVwm0z
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAABCgAGBQJXRlBoAAoJEJ0dnzgO5LT5dskP/2xEuhTqbAvGKZ1kek6etC+F
-dCFAzUQ4i04sD1k0yvu1qREKbdPmQg6joWxDqdY0RbMNVGFW2+47yAIdcURtWgXi
-2Me9eCd2yUmMJxIsq2HtYTD1rJHnefb+rD0NvzmyEQHadMd8uHkXPtce59SEJ9W5
-xSLCAqXT/28ROqTZQl0t3x2NFip8Fcn4vcGiIt+MCUooN9wLxWLOy8TEN/78e1G/
-/mS0YKDfic2XF+pImctFeb0P8wptIGVqQEb4Zpq73GqCPPI2Twq+jwzZhJtBCqPJ
-PNl0SitO8I64ilCYNCWl3OAaQQIgCCfV8VacjRhQlzcnLzM5oCkvVKOvFMJr1GBG
-pB7gJh3zGs6ZAo5jPot9DVtTsuHI8j6zAS8KM5A909nBnt9wQGNXcrh5w7P3v15S
-c6COhVvf1wVo1yZeudZzwq9lqe2DLXrSxaRwr9Mz6/0YGH6F89WB2vcxjeSi2aZe
-NLttV+BiEj8AN3k1d+5M8sht8RsFSt/uGE/QsWloM81Luims402WITxlOyML1+A9
-og4/BVKDg/2CHaLqYDHW6qSxHYYe37rATgLs+67aH075zC+0DHzqXaEMuatBNfYq
-MgVOPT7/5DEs1IKDflb5/wDvHWheTdFK4IGYeU3iBq+qtyrCryj7osWV9nPpTe8o
-B+27umWiUpPI6Yb3MOJc
-=ZDya
------END PGP SIGNATURE-----
-
---=-pyBZr4tP1feDpaEVwm0z--
+--001a1144b1d01e734a0533b4d511--
