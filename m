@@ -1,50 +1,50 @@
 Return-Path: <raltherr@google.com>
-Received: from mail-it0-x236.google.com (mail-it0-x236.google.com
- [IPv6:2607:f8b0:4001:c0b::236])
+Received: from mail-io0-x231.google.com (mail-io0-x231.google.com
+ [IPv6:2607:f8b0:4001:c06::231])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rFWwp0jv5zDqKM
- for <openbmc@lists.ozlabs.org>; Thu, 26 May 2016 11:37:29 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rFX106BsFzDqKM
+ for <openbmc@lists.ozlabs.org>; Thu, 26 May 2016 11:41:08 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=Blzx9Y1v; 
+ unprotected) header.d=google.com header.i=@google.com header.b=jH83L0/i; 
  dkim-atps=neutral
-Received: by mail-it0-x236.google.com with SMTP id z123so38954812itg.0
- for <openbmc@lists.ozlabs.org>; Wed, 25 May 2016 18:37:28 -0700 (PDT)
+Received: by mail-io0-x231.google.com with SMTP id 190so44521516iow.1
+ for <openbmc@lists.ozlabs.org>; Wed, 25 May 2016 18:41:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=Q6C9PpfR+BnTtcvkPjBxGza0Y+dg1w8H5fsteh8QK6s=;
- b=Blzx9Y1vhstK0a5qy6oLUhECynXTPHBRSIH7icDOEbd3J/xO4hoRu1cm+ghLjm4p9m
- FphycVCtgF4t4GI3n9v4HwD5hBcrsaXA/riz9N1y4PA3SdSP5dRf5M2+K/HaIMEBRRfJ
- IQu2+ZE2TZBfAUC1QtUxplsrKmhmq1EfQwVmJrfsIS8rVxiDWwINTNnaEL5xelPPw8G0
- 9lZ338R3Z0geGphG2mn+2QW4RIE9wayoov/MAh4HgR1NgD+L53YEzXsjWb7hGc9+okkm
- WZXMI2pZSw8br4Z6DQA85lSYCcSCtlxhIF9CNc466AY8CK2aqd6WMaNqK2v2vGF1bsGc
- +tgg==
+ :cc; bh=KNxLLzFHH5Ibf0q3MvK7sRzW1gS/QpPEfiXQg9iAjfg=;
+ b=jH83L0/iioVIFVmjMirNNuO8INFdZJrigsxP+n9ikHHppaS5Ve9iTN/UcVOwaaN7KI
+ B+irhef6qloEnOb8spxGqL8CShvyfBZecQ0mrHteXW1n6sIdHi/9TfRq4g6Yr6xqFqJG
+ ITi1GrgX+ORZkLVAFBzDggJ4gd6xLO9EBfPhzSid13VMU/Ir5mX8TFXcGc93o/KJwJWD
+ pW4WhD2PEmvsYKb8CUesI9wAB+NWipyfBoxS+wbigj1b5dX3OYBflIMQmal6+inJvLwv
+ h+p5K9wyVg+rJoZItvjuPM1pxizFJHKGuOxLWATz83z569EvtuGMFf6F/QbzErVE1dkp
+ VMZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=Q6C9PpfR+BnTtcvkPjBxGza0Y+dg1w8H5fsteh8QK6s=;
- b=LIIMSIbmzTyq2RGVfgI2npaYxKB5QMU71MO3uxKdaFa7V7fgs/XObUTZcAPBdmBpvR
- jbaRJxnZsEqYBdrwmV5ZArhF5sQ+QJpq67bYZOYMCov5EtW42QQARWce0XhaTuWNmA3Y
- W0q0VszKTtBWp5HVrgw2/fPK/FGFxAazhJyqnzcw40IxMrVq3kikRlFDxLnx9AqA8x5v
- AM3YPc8LLWGVgQ5FjVYrAcJGs2gqIWO14WrWIAMh3ZqsvmndC9Fiyhkf6dDwJs7YhfiI
- 7gd/a4Ghse8b6rGPumH4XzV5ePbDexl/P1RQase0AFjbItvI5GwcSoDRJf5LZtbFTmgq
- JlFQ==
-X-Gm-Message-State: ALyK8tIB43N3FvHNsG+yxFG6VsINzP6i0Ntwbj3x0xirL5WQCW9w0tlbGP2/hLKyWbGY+ewhQqx3Sd9A+wC9vS6G
-X-Received: by 10.36.2.71 with SMTP id 68mr865622itu.38.1464226646200; Wed, 25
- May 2016 18:37:26 -0700 (PDT)
+ bh=KNxLLzFHH5Ibf0q3MvK7sRzW1gS/QpPEfiXQg9iAjfg=;
+ b=H09mWUJ/YSyoRc9r4tbdvnjyfeWCFxXyuTgkF/bZaNGr7eeBujjoUw/ZVPr5tx/CG8
+ oe8IVXumGT0J/dDvVlBHLeyFSFxAEpUBtPpCWjp3aNFa/JqGzGOkZyteidARrZ5rUZZV
+ myuEVNbLFaef7Yag115/eGuN55O7bG8LzP7BVkTIX9WNn6nw6Di67biRXJsuslPAebKY
+ TVqyWZMR7Zh9OU+3/YcEGpJyE/Nl8OcTtVe60HWfL0dyfpQYnitm7AQVAltgxUSsQK67
+ 7noiTbKxSR8Y+5lhhd1ERQVDtp/9ob86yogPrJdLVMynHA/HSjmPrp0uJz+qTef7oaSq
+ sRkQ==
+X-Gm-Message-State: ALyK8tLuRbbT4T6dhicS5DLzNGWVNbY1mylbQqWPNgWzLndE1ex2xJlq80T3Us0VIBV/DhWE6hQbmZZOYt2XcXnr
+X-Received: by 10.107.26.85 with SMTP id a82mr6556126ioa.13.1464226866313;
+ Wed, 25 May 2016 18:41:06 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.64.63.164 with HTTP; Wed, 25 May 2016 18:37:25 -0700 (PDT)
+Received: by 10.64.63.164 with HTTP; Wed, 25 May 2016 18:41:05 -0700 (PDT)
 In-Reply-To: <1464225896.8430.21.camel@aj.id.au>
 References: <1464223026-8881-1-git-send-email-raltherr@google.com>
  <1464225896.8430.21.camel@aj.id.au>
 From: Rick Altherr <raltherr@google.com>
-Date: Wed, 25 May 2016 18:37:25 -0700
-Message-ID: <CAPLgG=n45AdUV6M=DfFkwjK5zt4vtMT=L168=V6M9GPEXATr7A@mail.gmail.com>
+Date: Wed, 25 May 2016 18:41:05 -0700
+Message-ID: <CAPLgG=nmaLuLuF-xuMQbpjHaNg2b8eUZwQSoY2B=GpRHhWWX8Q@mail.gmail.com>
 Subject: Re: [PATCH] Fix i2c-tools SRCURI syntax
 To: andrew@aj.id.au
 Cc: openbmc@lists.ozlabs.org, Patrick Williams <patrick@stwcx.xyz>
-Content-Type: multipart/alternative; boundary=001a1144b1d01e734a0533b4d511
+Content-Type: multipart/alternative; boundary=001a113fd5863d2f250533b4e23d
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -56,14 +56,12 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 May 2016 01:37:30 -0000
+X-List-Received-Date: Thu, 26 May 2016 01:41:09 -0000
 
---001a1144b1d01e734a0533b4d511
+--001a113fd5863d2f250533b4e23d
 Content-Type: text/plain; charset=UTF-8
 
-Thanks Andrew.  https://github.com/openbmc/docs/blob/master/contributing.md
-wasn't really clear on what was preferred.  I'll pass along your
-explanation to the rest of the Google team.
+Shall I resend this patch as a pull request?
 
 On Wed, May 25, 2016 at 6:24 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
 
@@ -132,19 +130,16 @@ On Wed, May 25, 2016 at 6:24 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
 > >  RDEPENDS_${PN}_remove = "${PN}-misc"
 >
 
---001a1144b1d01e734a0533b4d511
+--001a113fd5863d2f250533b4e23d
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Thanks Andrew. =C2=A0<a href=3D"https://github.com/openbmc=
-/docs/blob/master/contributing.md">https://github.com/openbmc/docs/blob/mas=
-ter/contributing.md</a> wasn&#39;t really clear on what was preferred.=C2=
-=A0 I&#39;ll pass along your explanation to the rest of the Google team.</d=
-iv><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Wed, May 25=
-, 2016 at 6:24 PM, Andrew Jeffery <span dir=3D"ltr">&lt;<a href=3D"mailto:a=
-ndrew@aj.id.au" target=3D"_blank">andrew@aj.id.au</a>&gt;</span> wrote:<br>=
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex">Hi Rick,<br>
+<div dir=3D"ltr">Shall I resend this patch as a pull request?</div><div cla=
+ss=3D"gmail_extra"><br><div class=3D"gmail_quote">On Wed, May 25, 2016 at 6=
+:24 PM, Andrew Jeffery <span dir=3D"ltr">&lt;<a href=3D"mailto:andrew@aj.id=
+.au" target=3D"_blank">andrew@aj.id.au</a>&gt;</span> wrote:<br><blockquote=
+ class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc soli=
+d;padding-left:1ex">Hi Rick,<br>
 <br>
 Thanks for the patch. I&#39;ve reproduced the warning* and tested the fix.<=
 br>
@@ -224,4 +219,4 @@ ads.yoctoproject.org/mirror/sources/${BP}.tar.bz2</a>&quot;<br>
 &gt; =C2=A0RDEPENDS_${PN}_remove =3D &quot;${PN}-misc&quot;</div></div></bl=
 ockquote></div><br></div>
 
---001a1144b1d01e734a0533b4d511--
+--001a113fd5863d2f250533b4e23d--
