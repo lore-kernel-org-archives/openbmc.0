@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rFVRr3DyHzDqWr
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rFVRr72CJzDqWw
  for <openbmc@lists.ozlabs.org>; Thu, 26 May 2016 10:30:48 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1464222644824466.90950538445634;
- Wed, 25 May 2016 17:30:44 -0700 (PDT)
+ with SMTPS id 1464222642897690.508948961551;
+ Wed, 25 May 2016 17:30:42 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v2 5/7] initfs: update: check individual mtd
- partitions for mounts
-Date: Wed, 25 May 2016 19:30:32 -0500
-Message-Id: <20160526003034.30491-6-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v2 4/7] initfs: update: add option to perform checks
+ but skip actual update
+Date: Wed, 25 May 2016 19:30:31 -0500
+Message-Id: <20160526003034.30491-5-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.3
 In-Reply-To: <20160526003034.30491-1-openbmc-patches@stwcx.xyz>
 References: <20160526003034.30491-1-openbmc-patches@stwcx.xyz>
@@ -32,95 +32,76 @@ X-List-Received-Date: Thu, 26 May 2016 00:30:49 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-Instead of checking for any mtd device, only check mtd devices that are
-to be updated.  Include child mtd devices when looking for mounted
-filesystems.
+Provide a way to check if update is likely to succeed without
+attempting actual updates.
 
-If this check is suppressed flash updates are suppressed.
-This may be useful to check deferred updates.
+This will check the image names correspond to mtd partition names,
+and will be enhanced with additional checking for file size and
+individual partition mounts.
+
+This is not called --dry-run because it will still do file save
+and restore if those are enabled.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../obmc-phosphor-initfs/files/obmc-update.sh      | 46 +++++++++++++++++++---
- 1 file changed, 41 insertions(+), 5 deletions(-)
+ .../obmc-phosphor-initfs/files/obmc-update.sh      | 31 +++++++++++++---------
+ 1 file changed, 19 insertions(+), 12 deletions(-)
 
 diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index fc47062..09348b6 100755
+index f0ca989..fc47062 100755
 --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
 +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -19,11 +19,34 @@ then
- 	mount -t devtmpfs dev dev
- fi
+@@ -57,6 +57,7 @@ upper=$rwdir/cow
+ save=/run/save/${upper##*/}
  
--if grep mtd /proc/mounts
--then
--	echo 1>&2 "Error: A mtd device is mounted."
--	exit 1
--fi
-+# mtd number N with mtd name Name can be mounted via mtdN, or mtd:Name (with
-+# an mtd aware fs) or by /dev/mtdblockN (with a mtd or block fs). 
-+mtdismounted() {
-+	m=${1##mtd}
-+	if grep -s "mtdblock$m" /proc/mounts || grep -s "mtd$m" /proc/mounts
-+	then
-+		return 0
-+	fi
-+	n=$(cat /sys/class/mtd/mtd$m/name)
-+	if test -n "$n" && grep -s "mtd:$n" /proc/mounts
-+	then
-+		return 0
-+	fi
-+	return 1
-+}
-+
-+# We need to detect child partitions when the whole flash is to be updated
-+# ignore mtdNro and mtdblockN names in the class subsystem directory
-+childmtds() {
-+	for m in /sys/class/mtd/$1/mtd*
-+	do
-+		m=${m##*/}
-+		if test "${m%ro}" = "${m#mtdblock}"
-+		then
-+			echo $m
-+		fi
-+	done
-+}
- 
- findmtd() {
- 	m=$(grep -xl "$1" /sys/class/mtd/*/name)
-@@ -62,6 +85,7 @@ doclean=
+ mounted=
++doflash=y
+ doclean=
  dosave=y
  dorestore=y
- toram=
-+checkmount=y
- 
- whitelist=/run/initramfs/whitelist
- image=/run/initramfs/image-
-@@ -90,6 +114,10 @@ do
- 	--no-flash)
- 		doflash=
+@@ -86,6 +87,9 @@ do
+ 	--restore-files)
+ 		dorestore=y
  		shift ;;
-+	--ignore-mount)
-+		checkmount=
++	--no-flash)
 +		doflash=
 +		shift ;;
  	--copy-files)
  		toram=y
  		shift ;;
-@@ -133,6 +161,14 @@ do
- 		echo 1>&2  "Unable to find mtd partiton for ${f##*/}."
- 		exit 1
+@@ -131,18 +135,21 @@ do
  	fi
-+	for s in $m $(childmtds $m)
-+	do
-+		if test -n "$checkmount" && mtdismounted $s
-+		then
-+			echo 1>&2 "Device $s is mounted, ${f##*/} is busy."
-+			exit 1
-+		fi
-+	done
  done
  
- if test -n "$doflash"
+-for f in $image*
+-do
+-	if test ! -s $f
+-	then
+-		echo "Skipping empty update of ${f#$image}."
+-		rm $f
+-		continue
+-	fi
+-	m=$(findmtd ${f#$image})
+-	echo "Updating ${f#$image}..."
+-	flashcp -v $f /dev/$m && rm $f
+-done
++if test -n "$doflash"
++then
++	for f in $image*
++	do
++		if test ! -s $f
++		then
++			echo "Skipping empty update of ${f#$image}."
++			rm $f
++			continue
++		fi
++		m=$(findmtd ${f#$image})
++		echo "Updating ${f#$image}..."
++		flashcp -v $f /dev/$m && rm $f
++	done
++fi
+ 
+ if test -d $save -a "x$toram" = xy
+ then
 -- 
 2.8.3
