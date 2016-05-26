@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rFVRr72CJzDqWw
- for <openbmc@lists.ozlabs.org>; Thu, 26 May 2016 10:30:48 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rFVRv4DxYzDqZ3
+ for <openbmc@lists.ozlabs.org>; Thu, 26 May 2016 10:30:51 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1464222642897690.508948961551;
- Wed, 25 May 2016 17:30:42 -0700 (PDT)
+ with SMTPS id 1464222646939106.14030860355524;
+ Wed, 25 May 2016 17:30:46 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v2 4/7] initfs: update: add option to perform checks
- but skip actual update
-Date: Wed, 25 May 2016 19:30:31 -0500
-Message-Id: <20160526003034.30491-5-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v2 6/7] initfs: update: add check for image size vs
+ mtd size
+Date: Wed, 25 May 2016 19:30:33 -0500
+Message-Id: <20160526003034.30491-7-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.3
 In-Reply-To: <20160526003034.30491-1-openbmc-patches@stwcx.xyz>
 References: <20160526003034.30491-1-openbmc-patches@stwcx.xyz>
@@ -28,80 +28,71 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 May 2016 00:30:49 -0000
+X-List-Received-Date: Thu, 26 May 2016 00:30:52 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-Provide a way to check if update is likely to succeed without
-attempting actual updates.
+The flashcp command will check the file size vs the partition size,
+so add a check when looking at images.
 
-This will check the image names correspond to mtd partition names,
-and will be enhanced with additional checking for file size and
-individual partition mounts.
+Use stat -L -c "%s" to get the file size, and compare it to the mtd
+size from the sysfs size attribute.
 
-This is not called --dry-run because it will still do file save
-and restore if those are enabled.
+If this check is suppressed the enforcement is left to flashcp.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../obmc-phosphor-initfs/files/obmc-update.sh      | 31 +++++++++++++---------
- 1 file changed, 19 insertions(+), 12 deletions(-)
+ .../obmc-phosphor-initfs/files/obmc-update.sh           | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
 diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index f0ca989..fc47062 100755
+index 09348b6..7344438 100755
 --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
 +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -57,6 +57,7 @@ upper=$rwdir/cow
- save=/run/save/${upper##*/}
+@@ -48,6 +48,14 @@ childmtds() {
+ 	done
+ }
  
- mounted=
-+doflash=y
- doclean=
++toobig() {
++	if test $(stat -L -c "%s" "$1") -gt $(cat /sys/class/mtd/"$2"/size)
++	then
++		return 0
++	fi
++	return 1
++}
++
+ findmtd() {
+ 	m=$(grep -xl "$1" /sys/class/mtd/*/name)
+ 	m=${m%/name}
+@@ -85,6 +93,7 @@ doclean=
  dosave=y
  dorestore=y
-@@ -86,6 +87,9 @@ do
- 	--restore-files)
- 		dorestore=y
+ toram=
++checksize=y
+ checkmount=y
+ 
+ whitelist=/run/initramfs/whitelist
+@@ -114,6 +123,9 @@ do
+ 	--no-flash)
+ 		doflash=
  		shift ;;
-+	--no-flash)
-+		doflash=
++	--ignore-size)
++		checksize=
 +		shift ;;
- 	--copy-files)
- 		toram=y
- 		shift ;;
-@@ -131,18 +135,21 @@ do
+ 	--ignore-mount)
+ 		checkmount=
+ 		doflash=
+@@ -161,6 +173,11 @@ do
+ 		echo 1>&2  "Unable to find mtd partiton for ${f##*/}."
+ 		exit 1
  	fi
- done
- 
--for f in $image*
--do
--	if test ! -s $f
--	then
--		echo "Skipping empty update of ${f#$image}."
--		rm $f
--		continue
--	fi
--	m=$(findmtd ${f#$image})
--	echo "Updating ${f#$image}..."
--	flashcp -v $f /dev/$m && rm $f
--done
-+if test -n "$doflash"
-+then
-+	for f in $image*
-+	do
-+		if test ! -s $f
-+		then
-+			echo "Skipping empty update of ${f#$image}."
-+			rm $f
-+			continue
-+		fi
-+		m=$(findmtd ${f#$image})
-+		echo "Updating ${f#$image}..."
-+		flashcp -v $f /dev/$m && rm $f
-+	done
-+fi
- 
- if test -d $save -a "x$toram" = xy
- then
++	if test -n "$checksize" && toobig "$f" "$m"
++	then
++		echo 1>&1 "Image ${f##*/} too big for $m."
++		exit 1
++	fi
+ 	for s in $m $(childmtds $m)
+ 	do
+ 		if test -n "$checkmount" && mtdismounted $s
 -- 
 2.8.3
