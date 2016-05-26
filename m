@@ -1,28 +1,22 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (ozlabs.org [103.22.144.67])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <openbmc-patches@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rFY0H0PvvzDqPP
- for <openbmc@lists.ozlabs.org>; Thu, 26 May 2016 12:25:35 +1000 (AEST)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 3rFY0G5dBpz9sCj;
- Thu, 26 May 2016 12:25:34 +1000 (AEST)
-Subject: Re: [PATCH openpower-host-ipmi-oem v2] Fix endianness issue5
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-References: <20160526020044.1213-1-openbmc-patches@stwcx.xyz>
- <20160526020044.1213-2-openbmc-patches@stwcx.xyz>
-Cc: Nan Li <bjlinan@cn.ibm.com>
-From: Jeremy Kerr <jk@ozlabs.org>
-Message-ID: <57465E9E.2000502@ozlabs.org>
-Date: Thu, 26 May 2016 10:25:34 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
- Thunderbird/38.7.2
-MIME-Version: 1.0
-In-Reply-To: <20160526020044.1213-2-openbmc-patches@stwcx.xyz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rFZDC3GdQzDqR7
+ for <openbmc@lists.ozlabs.org>; Thu, 26 May 2016 13:20:58 +1000 (AEST)
+Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
+ with SMTPS id 1464232853363707.9616261217346;
+ Wed, 25 May 2016 20:20:53 -0700 (PDT)
+From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+To: openbmc@lists.ozlabs.org
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Subject: [PATCH rest-dbus] Enable systemd socket activation
+Date: Wed, 25 May 2016 22:20:51 -0500
+Message-Id: <20160526032051.3930-2-openbmc-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.8.3
+In-Reply-To: <20160526032051.3930-1-openbmc-patches@stwcx.xyz>
+References: <20160526032051.3930-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -34,27 +28,65 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 May 2016 02:25:35 -0000
+X-List-Received-Date: Thu, 26 May 2016 03:21:00 -0000
 
-Hi Nan,
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
-You seem to have a minor typo in the commit title there.
+Optionally use sockets provided by systemd if present.  If not
+start normally.
 
-> -	// TODO: Issue 5: This is not endian-safe.
-> -	short *recid  =  (short*) &reqptr->selrecordls;
-> -	short *offset =  (short*) &reqptr->offsetls;
-> +
-> +	unsigned short recid  =  ((unsigned short) reqptr->selrecordms) << 8 + reqptr->selrecordls;
-> +	unsigned short offset =  ((unsigned short) reqptr->offsetms) << 8 + reqptr->offsetls;
+Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+---
+ rest-dbus | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
 
-That won't do the endian conversion correctly. Can you use one of the
-existing endian conversion functions?
-
-The le16toh() function is probably what you want here, from endian.h.
-
-Also, be careful of the change from 'short' to 'unsigned short'.
-
-Regards,
-
-
-Jeremy
+diff --git a/rest-dbus b/rest-dbus
+index 2fc5316..a830dbf 100644
+--- a/rest-dbus
++++ b/rest-dbus
+@@ -4,6 +4,7 @@ import dbus
+ import BaseHTTPServer
+ import SocketServer
+ import json
++import socket
+ import os
+ import sys
+ from xml.etree import ElementTree
+@@ -345,7 +346,6 @@ class DBusRestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+             response = DBusRestErrorResonse(ex)
+ 
+         response.render(self)
+-        self.wfile.close()
+ 
+     def do_POST(self):
+         length = int(self.headers.getheader('content-length'))
+@@ -356,11 +356,25 @@ class DBusRestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+             response = DBusRestErrorResonse(ex)
+ 
+         response.render(self)
+-        self.wfile.close()
+ 
+ 
+ class HTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServer):
+-    pass
++    def __init__(self, address, handler):
++        bind = True
++        if os.environ.get('LISTEN_PID', None) == str(os.getpid()):
++            bind = False
++        BaseHTTPServer.HTTPServer.__init__(
++            self, address, handler, bind_and_activate=bind)
++        if bind is True:
++            self.server_bind()
++        else:
++            FIRST_SYSTEMD_SOCKET_FD = 3
++            self.socket = socket.fromfd(
++                FIRST_SYSTEMD_SOCKET_FD,
++                socket.AF_INET,
++                socket.SOCK_STREAM)
++
++        self.server_activate()
+ 
+ if __name__ == '__main__':
+     server = HTTPServer(('', 3000), DBusRestHandler)
+-- 
+2.8.3
