@@ -1,39 +1,22 @@
-Return-Path: <clg@kaod.org>
-X-Greylist: delayed 9902 seconds by postgrey-1.35 at bilbo;
- Fri, 27 May 2016 21:50:59 AEST
-Received: from 6.mo179.mail-out.ovh.net (6.mo179.mail-out.ovh.net
- [46.105.56.76])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <openbmc-patches@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rGPVC31ZFzDqbk
- for <openbmc@lists.ozlabs.org>; Fri, 27 May 2016 21:50:58 +1000 (AEST)
-Received: from player715.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo179.mail-out.ovh.net (Postfix) with ESMTP id E7441FF851B
- for <openbmc@lists.ozlabs.org>; Fri, 27 May 2016 13:50:52 +0200 (CEST)
-Received: from [192.168.124.3] (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
- [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player715.ha.ovh.net (Postfix) with ESMTPSA id 6DD291C00A4;
- Fri, 27 May 2016 13:50:45 +0200 (CEST)
-Subject: Re: updating u-boot_2013.07.bb recipe
-To: Joel Stanley <joel@jms.id.au>
-References: <57480C2F.4090902@kaod.org>
- <CACPK8Xe6Cu-7+1bKd3DaNcGbv4+BhW_nziA=TVgU8A6STRGzDg@mail.gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- "Milton D. Miller II" <miltonm@us.ibm.com>,
- Patrick Williams <patrick@stwcx.xyz>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <57483488.1040401@kaod.org>
-Date: Fri, 27 May 2016 13:50:32 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
- Icedove/38.8.0
-MIME-Version: 1.0
-In-Reply-To: <CACPK8Xe6Cu-7+1bKd3DaNcGbv4+BhW_nziA=TVgU8A6STRGzDg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 3790623514071108480
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeekledrgeejgdegudcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rGPjW3lQ3zDqbk
+ for <openbmc@lists.ozlabs.org>; Fri, 27 May 2016 22:00:47 +1000 (AEST)
+Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
+ with SMTPS id 1464350441940354.14543534945165;
+ Fri, 27 May 2016 05:00:41 -0700 (PDT)
+From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+To: openbmc@lists.ozlabs.org
+Cc: Nan Li <bjlinan@cn.ibm.com>
+Subject: [PATCH openpower-host-ipmi-oem v3] Fix issue5 for endian safe
+Date: Fri, 27 May 2016 07:00:39 -0500
+Message-Id: <20160527120039.11133-2-openbmc-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.8.3
+In-Reply-To: <20160527120039.11133-1-openbmc-patches@stwcx.xyz>
+References: <20160527120039.11133-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -45,46 +28,63 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 27 May 2016 11:50:59 -0000
+X-List-Received-Date: Fri, 27 May 2016 12:00:48 -0000
 
-Hello Joel,
+From: Nan Li <bjlinan@cn.ibm.com>
 
-On 05/27/2016 12:13 PM, Joel Stanley wrote:
-> Hey Cedric,
-> 
-> On Fri, May 27, 2016 at 6:28 PM, Cédric Le Goater <clg@kaod.org> wrote:
->> The uboot recipe in openbmc is still at 4b44678c11. Without them, I see
->> memory corruption under qemu, so I suppose this is the same for real HW.
->>
->> commit 6f7818cdb8d8 "net: aspeednic: Do not start hardware in initialize"
->> seems to solve the problem.
->>
->> Is there a reason for staying at that level in uboot ? Could we take all
->> Milton's patches in ?
-> 
-> We updated to 44f1262bdf39ad93032d39f17a298165372be82e just yesterday:
-> 
->  https://github.com/openbmc/openbmc/commit/265b0d55113d364554102d532177916741c8c379
+Make recored id and offset endian-safe.
+Use le16toh() of <endian.h>
 
-Ah. I missed that.
+Signed-off-by: Nan Li <bjlinan@cn.ibm.com>
+---
+ oemhandler.C | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-So, I baked a new flash and all is fine now. The generated flash boots 
-the qemu guest without modification. 
-
-> The hold up related to some discussion around not going back to the
-> default compiler:
-> 
->  https://github.com/openbmc/openbmc/pull/227
-> 
-> I see Patrick closed this yesterday. I'm not sure what the plans are
-> there; I would strongly recommend we go back to the more modern compiler.
-
-u-boot.bin boots a palmetto bmc when compiled with :
-
-	gcc version 5.2.0 (crosstool-NG crosstool-ng-1.22.0)
-
-I didn't try the kernel though.
-
-Cheers,
-
-C.
+diff --git a/oemhandler.C b/oemhandler.C
+index 026e0d1..dc9ae53 100644
+--- a/oemhandler.C
++++ b/oemhandler.C
+@@ -4,6 +4,7 @@
+ #include <stdio.h>
+ #include <string.h>
+ #include <systemd/sd-bus.h>
++#include <endian.h>
+ 
+ void register_netfn_oem_partial_esel() __attribute__((constructor));
+ 
+@@ -29,9 +30,8 @@ ipmi_ret_t ipmi_ibm_oem_partial_esel(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+ 	esel_request_t *reqptr = (esel_request_t*) request;
+ 	FILE *fp;
+ 	int r = 0;
+-	// TODO: Issue 5: This is not endian-safe.
+-	short *recid  =  (short*) &reqptr->selrecordls;
+-	short *offset =  (short*) &reqptr->offsetls;
++	short recid  =  le16toh((((unsigned short) reqptr->selrecordms) << 8) + reqptr->selrecordls);
++	short offset =  le16toh((((unsigned short) reqptr->offsetms) << 8) + reqptr->offsetls);
+ 	uint8_t rlen;
+ 	ipmi_ret_t rc = IPMI_CC_OK;
+ 	const char *pio;
+@@ -59,7 +59,7 @@ ipmi_ret_t ipmi_ibm_oem_partial_esel(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+ 
+     // OpenPOWER Host Interface spec says if RecordID and Offset are
+ 	// 0 then then this is a new request
+-	if (!*recid && !*offset)
++	if (!recid && !offset)
+ 		pio = "wb";
+ 	else
+ 		pio = "rb+";
+@@ -67,10 +67,10 @@ ipmi_ret_t ipmi_ibm_oem_partial_esel(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+ 	rlen = (*data_len) - (uint8_t) (sizeof(esel_request_t));
+ 
+ 	printf("IPMI PARTIAL ESEL for %s  Offset = %d Length = %d\n",
+-		g_esel_path, *offset, rlen);
++		g_esel_path, offset, rlen);
+ 
+ 	if ((fp = fopen(g_esel_path, pio)) != NULL) {
+-		fseek(fp, *offset, SEEK_SET);
++		fseek(fp, offset, SEEK_SET);
+ 		fwrite(reqptr+1,rlen,1,fp);
+ 		fclose(fp);
+ 
+-- 
+2.8.3
