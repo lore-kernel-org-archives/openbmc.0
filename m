@@ -1,47 +1,47 @@
 Return-Path: <clg@kaod.org>
-Received: from e06smtp16.uk.ibm.com (e06smtp16.uk.ibm.com [195.75.94.112])
+Received: from e06smtp05.uk.ibm.com (e06smtp05.uk.ibm.com [195.75.94.101])
  (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rHt2Y4Lv3zDqP9
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rHt2Y4Qy9zDqPF
  for <openbmc@lists.ozlabs.org>; Mon, 30 May 2016 07:20:36 +1000 (AEST)
 Received: from localhost
- by e06smtp16.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e06smtp05.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <clg@kaod.org>;
  Sun, 29 May 2016 22:20:32 +0100
 Received: from d06dlp01.portsmouth.uk.ibm.com (9.149.20.13)
- by e06smtp16.uk.ibm.com (192.168.101.146) with IBM ESMTP SMTP Gateway:
+ by e06smtp05.uk.ibm.com (192.168.101.135) with IBM ESMTP SMTP Gateway:
  Authorized Use Only! Violators will be prosecuted; 
  Sun, 29 May 2016 22:20:30 +0100
 X-IBM-Helo: d06dlp01.portsmouth.uk.ibm.com
 X-IBM-MailFrom: clg@kaod.org
 X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from b06cxnps4075.portsmouth.uk.ibm.com
- (d06relay12.portsmouth.uk.ibm.com [9.149.109.197])
- by d06dlp01.portsmouth.uk.ibm.com (Postfix) with ESMTP id 2566817D805A
+Received: from b06cxnps3074.portsmouth.uk.ibm.com
+ (d06relay09.portsmouth.uk.ibm.com [9.149.109.194])
+ by d06dlp01.portsmouth.uk.ibm.com (Postfix) with ESMTP id 30AB817D805D
  for <openbmc@lists.ozlabs.org>; Sun, 29 May 2016 22:21:36 +0100 (BST)
-Received: from d06av03.portsmouth.uk.ibm.com (d06av03.portsmouth.uk.ibm.com
- [9.149.37.213])
- by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u4TLKUxO2556330
+Received: from d06av10.portsmouth.uk.ibm.com (d06av10.portsmouth.uk.ibm.com
+ [9.149.37.251])
+ by b06cxnps3074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u4TLKUwN8323416
  for <openbmc@lists.ozlabs.org>; Sun, 29 May 2016 21:20:30 GMT
-Received: from d06av03.portsmouth.uk.ibm.com (localhost [127.0.0.1])
- by d06av03.portsmouth.uk.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u4TLKTDd004990
- for <openbmc@lists.ozlabs.org>; Sun, 29 May 2016 15:20:30 -0600
+Received: from d06av10.portsmouth.uk.ibm.com (localhost [127.0.0.1])
+ by d06av10.portsmouth.uk.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u4TKKWVi018637
+ for <openbmc@lists.ozlabs.org>; Sun, 29 May 2016 14:20:32 -0600
 Received: from smtp.lab.toulouse-stg.fr.ibm.com
  (srv01.lab.toulouse-stg.fr.ibm.com [9.101.4.1])
- by d06av03.portsmouth.uk.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u4TLKTVN004985; Sun, 29 May 2016 15:20:29 -0600
+ by d06av10.portsmouth.uk.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u4TKKWth018631; Sun, 29 May 2016 14:20:32 -0600
 Received: from hermes.ibm.com (icon-9-167-232-192.megacenter.de.ibm.com
  [9.167.232.192])
- by smtp.lab.toulouse-stg.fr.ibm.com (Postfix) with ESMTP id 5AC6022051C;
- Sun, 29 May 2016 23:20:28 +0200 (CEST)
+ by smtp.lab.toulouse-stg.fr.ibm.com (Postfix) with ESMTP id 16AAA220164;
+ Sun, 29 May 2016 23:20:29 +0200 (CEST)
 From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH qemu 01/12] ast2400: add SMC controllers (FMC and SPI)
-Date: Sun, 29 May 2016 23:19:54 +0200
-Message-Id: <1464556805-4340-2-git-send-email-clg@kaod.org>
+Subject: [PATCH qemu 02/12] ast2400: add SPI flash slave object
+Date: Sun, 29 May 2016 23:19:55 +0200
+Message-Id: <1464556805-4340-3-git-send-email-clg@kaod.org>
 X-Mailer: git-send-email 2.1.4
 In-Reply-To: <1464556805-4340-1-git-send-email-clg@kaod.org>
 References: <1464556805-4340-1-git-send-email-clg@kaod.org>
@@ -50,7 +50,7 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-TM-AS-MML: disable
 X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16052921-0025-0000-0000-000018AB623B
+x-cbid: 16052921-0021-0000-0000-00001C20FF89
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
@@ -65,454 +65,172 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Sun, 29 May 2016 21:20:38 -0000
 
-This patch provides a simple device model for the SMC controllers
-available on the Aspeed AST2400 soc. Support is limited to the FMC and
-the SPI controllers, and to SPI flash slaves.
+Each SPI flash slave can operate in two modes: Command and User. When
+in User mode, accesses to the memory segment of the slaves are
+translated in SPI transfers. When in Command mode, the HW generates
+the SPI commands automatically and the memory segment is accessed as
+if doing a MMIO. Other SPI controllers call that mode linear
+addressing mode.
 
-Below is the initial framework : the sysbus object, MMIO for registers
-configuration and controls. Each controller has a SPI bus and a
-configurable number of CS lines for SPI flash slaves.
+The patch below provides an initial model for a SPI flash module,
+gathering SPI slave properties and a MemoryRegion to handle the memory
+accesses. Only the User mode is supported for now but the patch
+prepares ground for the Command mode.
+
+Using a sysbus object for this abstraction might be a bit complex for
+the need. We could probably survive with a simple struct under
+AspeedSMCState or we could extend the m25p80 object providing a model
+for the SPI flash modules. To be discussed.
 
 Signed-off-by: Cédric Le Goater <clg@kaod.org>
 ---
- hw/arm/ast2400.c            |  33 ++++++
- hw/ssi/Makefile.objs        |   1 +
- hw/ssi/aspeed_smc.c         | 260 ++++++++++++++++++++++++++++++++++++++++++++
- include/hw/arm/ast2400.h    |   3 +
- include/hw/ssi/aspeed_smc.h |  68 ++++++++++++
- 5 files changed, 365 insertions(+)
- create mode 100644 hw/ssi/aspeed_smc.c
- create mode 100644 include/hw/ssi/aspeed_smc.h
+ hw/ssi/aspeed_smc.c         | 110 ++++++++++++++++++++++++++++++++++++++++++++
+ include/hw/ssi/aspeed_smc.h |  15 ++++++
+ 2 files changed, 125 insertions(+)
 
-diff --git a/hw/arm/ast2400.c b/hw/arm/ast2400.c
-index 23d52bffcaa7..8f678983cee5 100644
---- a/hw/arm/ast2400.c
-+++ b/hw/arm/ast2400.c
-@@ -23,6 +23,9 @@
- #define AST2400_UART_5_BASE      0x00184000
- #define AST2400_IOMEM_SIZE       0x00200000
- #define AST2400_IOMEM_BASE       0x1E600000
-+#define AST2400_SMC_BASE         AST2400_IOMEM_BASE /* Legacy SMC */
-+#define AST2400_FMC_BASE         0X1E620000
-+#define AST2400_SPI_BASE         0X1E630000
- #define AST2400_VIC_BASE         0x1E6C0000
- #define AST2400_SCU_BASE         0x1E6E2000
- #define AST2400_TIMER_BASE       0x1E782000
-@@ -77,6 +80,14 @@ static void ast2400_init(Object *obj)
-     object_initialize(&s->i2c, sizeof(s->i2c), TYPE_ASPEED_I2C);
-     object_property_add_child(obj, "i2c", OBJECT(&s->i2c), NULL);
-     qdev_set_parent_bus(DEVICE(&s->i2c), sysbus_get_default());
-+
-+    object_initialize(&s->smc, sizeof(s->smc), TYPE_ASPEED_SMC);
-+    object_property_add_child(obj, "smc", OBJECT(&s->smc), NULL);
-+    qdev_set_parent_bus(DEVICE(&s->smc), sysbus_get_default());
-+
-+    object_initialize(&s->spi, sizeof(s->spi), TYPE_ASPEED_SMC);
-+    object_property_add_child(obj, "spi", OBJECT(&s->spi), NULL);
-+    qdev_set_parent_bus(DEVICE(&s->spi), sysbus_get_default());
- }
- 
- static void ast2400_realize(DeviceState *dev, Error **errp)
-@@ -171,6 +182,28 @@ static void ast2400_realize(DeviceState *dev, Error **errp)
-     /* The palmetto platform expects a ds3231 RTC but a ds1338 is
-      * enough to provide basic RTC features. Alarms will be missing */
-     i2c_create_slave(aspeed_i2c_get_bus(DEVICE(&s->i2c), 0), "ds1338", 0x68);
-+
-+    /* SMC */
-+    object_property_set_int(OBJECT(&s->smc), 1, "num-cs", &err);
-+    object_property_set_int(OBJECT(&s->spi), AspeedSMCFMC, "smc-type", &err);
-+    object_property_set_bool(OBJECT(&s->smc), true, "realized", &err);
-+    if (err) {
-+        error_propagate(errp, err);
-+        return;
-+    }
-+    sysbus_mmio_map(SYS_BUS_DEVICE(&s->smc), 0, AST2400_FMC_BASE);
-+    sysbus_connect_irq(SYS_BUS_DEVICE(&s->smc), 0,
-+                       qdev_get_gpio_in(DEVICE(&s->vic), 19));
-+
-+    /* SPI */
-+    object_property_set_int(OBJECT(&s->spi), 1, "num-cs", &err);
-+    object_property_set_int(OBJECT(&s->spi), AspeedSMCSPI, "smc-type", &err);
-+    object_property_set_bool(OBJECT(&s->spi), true, "realized", &err);
-+    if (err) {
-+        error_propagate(errp, err);
-+        return;
-+    }
-+    sysbus_mmio_map(SYS_BUS_DEVICE(&s->spi), 0, AST2400_SPI_BASE);
- }
- 
- static void ast2400_class_init(ObjectClass *oc, void *data)
-diff --git a/hw/ssi/Makefile.objs b/hw/ssi/Makefile.objs
-index 9555825acad1..6b32bf22ce3b 100644
---- a/hw/ssi/Makefile.objs
-+++ b/hw/ssi/Makefile.objs
-@@ -2,5 +2,6 @@ common-obj-$(CONFIG_PL022) += pl022.o
- common-obj-$(CONFIG_SSI) += ssi.o
- common-obj-$(CONFIG_XILINX_SPI) += xilinx_spi.o
- common-obj-$(CONFIG_XILINX_SPIPS) += xilinx_spips.o
-+common-obj-$(CONFIG_ASPEED_SOC) += aspeed_smc.o
- 
- obj-$(CONFIG_OMAP) += omap_spi.o
 diff --git a/hw/ssi/aspeed_smc.c b/hw/ssi/aspeed_smc.c
-new file mode 100644
-index 000000000000..780fcbbc9e55
---- /dev/null
+index 780fcbbc9e55..43743628ba0c 100644
+--- a/hw/ssi/aspeed_smc.c
 +++ b/hw/ssi/aspeed_smc.c
-@@ -0,0 +1,260 @@
-+/*
-+ * ASPEED AST2400 SMC Controller (SPI Flash Only)
-+ *
-+ * Copyright (C) 2016 IBM Corp.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a copy
-+ * of this software and associated documentation files (the "Software"), to deal
-+ * in the Software without restriction, including without limitation the rights
-+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-+ * copies of the Software, and to permit persons to whom the Software is
-+ * furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-+ * THE SOFTWARE.
-+ */
+@@ -258,3 +258,113 @@ static void aspeed_smc_register_types(void)
+ }
+ 
+ type_init(aspeed_smc_register_types)
 +
-+#include "qemu/osdep.h"
-+#include "hw/sysbus.h"
-+#include "sysemu/sysemu.h"
-+#include "qemu/log.h"
-+#include "include/qemu/error-report.h"
-+#include "exec/address-spaces.h"
-+
-+#include "hw/ssi/aspeed_smc.h"
-+
-+/* CE Type Setting Register */
-+#define R_CONF            (0x00 / 4)
-+#define   CONF_LEGACY_DISABLE  (1 << 31)
-+#define   CONF_ENABLE_W4       20
-+#define   CONF_ENABLE_W3       19
-+#define   CONF_ENABLE_W2       18
-+#define   CONF_ENABLE_W1       17
-+#define   CONF_ENABLE_W0       16
-+#define   CONF_FLASH_TYPE4     9
-+#define   CONF_FLASH_TYPE3     7
-+#define   CONF_FLASH_TYPE2     5
-+#define   CONF_FLASH_TYPE1     3
-+#define   CONF_FLASH_TYPE0     1
-+
-+/* CE Control Register */
-+#define R_CTRL            (0x04 / 4)
-+#define   CRTL_EXTENDED4       4  /* 32 bit addressing for SPI */
-+#define   CRTL_EXTENDED3       3  /* 32 bit addressing for SPI */
-+#define   CRTL_EXTENDED2       2  /* 32 bit addressing for SPI */
-+#define   CRTL_EXTENDED1       1  /* 32 bit addressing for SPI */
-+#define   CRTL_EXTENDED0       0  /* 32 bit addressing for SPI */
-+
-+/* Interrupt Control and Status Register */
-+#define R_INTR_CTRL       (0x08 / 4)
-+
-+/* CEx Control Register */
-+#define R_CTRL0           (0x10 / 4)
-+#define   CTRL_CE_STOP_ACTIVE      (1 << 2)
-+#define   CTRL_USERMODE            0x3
-+#define R_CTRL1           (0x14 / 4)
-+#define R_CTRL2           (0x18 / 4)
-+#define R_CTRL3           (0x1C / 4)
-+#define R_CTRL4           (0x20 / 4)
-+
-+/* CEx Segment Address Register */
-+#define R_SEG_ADDR0       (0x30 / 4)
-+#define   SEG_SIZE_SHIFT       24   /* 8MB units */
-+#define   SEG_SIZE_MASK        0x7f
-+#define   SEG_START_SHIFT      16   /* address bit [A29-A23] */
-+#define   SEG_START_MASK       0x7f
-+#define R_SEG_ADDR1       (0x34 / 4)
-+#define R_SEG_ADDR2       (0x38 / 4)
-+#define R_SEG_ADDR3       (0x3C / 4)
-+#define R_SEG_ADDR4       (0x40 / 4)
-+
-+/* Misc Control Register #1 */
-+#define R_MISC_CRTL1      (0x50 / 4)
-+
-+/* Misc Control Register #2 */
-+#define R_MISC_CRTL2      (0x54 / 4)
-+
-+
-+/* SPI controller registers and bits (that we care about) */
-+#define R_SPI_CONF        (0x00 / 4)
-+#define   SPI_CONF_ENABLE_W0   0
-+#define R_SPI_CTRL0       (0x4 / 4)
-+#define R_SPI_MISC_CRTL   (0x10 / 4)
-+#define R_SPI_TIMINGS     (0x14 / 4)
-+
-+static const int aspeed_smc_r_ctrl0[]   = { R_CTRL0, R_CTRL0, R_SPI_CTRL0 };
-+static const int aspeed_smc_r_conf[]    = { R_CONF,  R_CONF,  R_SPI_CONF  };
-+static const int aspeed_smc_conf_enable_w0[] = {
-+    CONF_ENABLE_W0, CONF_ENABLE_W0, SPI_CONF_ENABLE_W0 };
-+
-+
-+static bool aspeed_smc_is_ce_stop_active(AspeedSMCState *s, int cs)
++static inline bool aspeed_smc_is_usermode(AspeedSMCState *s, int cs)
 +{
-+    return s->regs[s->r_ctrl0 + cs] & CTRL_CE_STOP_ACTIVE;
++    return (((s->regs[s->r_ctrl0 + cs] & CTRL_USERMODE) == CTRL_USERMODE) &&
++            !aspeed_smc_is_ce_stop_active(s, cs));
 +}
 +
-+static void aspeed_smc_update_cs(AspeedSMCState *s)
++static inline bool aspeed_smc_is_writable(AspeedSMCState *s, int cs)
 +{
++    return s->regs[s->r_conf] & (1 << (s->conf_enable_w0 + cs));
++}
++
++static uint64_t aspeed_smc_flash_read(void *opaque, hwaddr addr, unsigned size)
++{
++    AspeedSMCFlashState *fl = ASPEED_SMC_FLASH(opaque);
++    AspeedSMCState *s = fl->controller;
++    uint64_t ret = 0;
 +    int i;
 +
-+    for (i = 0; i < s->num_cs; ++i) {
-+        if (aspeed_smc_is_ce_stop_active(s, i)) {
-+            /* should reset command byte in control reg */
++    if (aspeed_smc_is_usermode(s, fl->id)) {
++        for (i = 0; i < size; i++) {
++            ret = (ret << 8) | ssi_transfer(s->spi, 0x0);
 +        }
-+
-+        qemu_set_irq(s->cs_lines[i], aspeed_smc_is_ce_stop_active(s, i));
++    } else {
++        error_report("%s: flash not in usermode", __func__);
++        ret = -1;
 +    }
++
++    return ret;
 +}
 +
-+static void aspeed_smc_reset(DeviceState *d)
++static void aspeed_smc_flash_write(void *opaque, hwaddr addr, uint64_t data,
++                           unsigned size)
 +{
-+    AspeedSMCState *s = ASPEED_SMC(d);
++    AspeedSMCFlashState *fl = ASPEED_SMC_FLASH(opaque);
++    AspeedSMCState *s = fl->controller;
 +    int i;
 +
-+    memset(s->regs, 0, sizeof s->regs);
-+
-+    for (i = 0; i < s->num_cs; ++i) {
-+        s->regs[s->r_ctrl0 + i] |= CTRL_CE_STOP_ACTIVE;
++    if (!aspeed_smc_is_writable(s, fl->id)) {
++        error_report("%s: flash not in writable", __func__);
++        return;
 +    }
 +
-+    aspeed_smc_update_cs(s);
-+}
-+
-+static uint64_t aspeed_smc_read(void *opaque, hwaddr addr, unsigned int size)
-+{
-+    AspeedSMCState *s = ASPEED_SMC(opaque);
-+    uint32_t r = 0;
-+
-+    addr >>= 2;
-+    switch (addr) {
-+    default:
-+        if (addr < ARRAY_SIZE(s->regs)) {
-+            r = s->regs[addr];
-+        }
-+        break;
++    if (!aspeed_smc_is_usermode(s, fl->id)) {
++        error_report("%s: flash not in usermode", __func__);
++        return;
 +    }
 +
-+    return r;
-+}
-+
-+static void aspeed_smc_write(void *opaque, hwaddr addr, uint64_t data,
-+                             unsigned int size)
-+{
-+    AspeedSMCState *s = ASPEED_SMC(opaque);
-+    uint32_t value = data;
-+
-+    addr >>= 2;
-+    switch (addr) {
-+    default:
-+        if (addr < ARRAY_SIZE(s->regs)) {
-+            s->regs[addr] = value;
-+        }
-+        break;
-+    }
-+
-+    if (addr >= s->r_ctrl0 && addr < s->r_ctrl0 + s->num_cs) {
-+        aspeed_smc_update_cs(s);
++    for (i = 0; i < size; i++) {
++        ssi_transfer(s->spi, (data >> 8 * (size - 1 - i)) & 0xff);
 +    }
 +}
 +
-+static const MemoryRegionOps aspeed_smc_ops = {
-+    .read = aspeed_smc_read,
-+    .write = aspeed_smc_write,
-+    .endianness = DEVICE_NATIVE_ENDIAN,
-+    .valid.unaligned = true,
++static const MemoryRegionOps aspeed_smc_flash_ops = {
++    .read = aspeed_smc_flash_read,
++    .write = aspeed_smc_flash_write,
++    .endianness = DEVICE_BIG_ENDIAN,
++    .valid = {
++        .min_access_size = 1,
++        .max_access_size = 4,
++    },
 +};
 +
-+static const char * const aspeed_smc_types[] = { "smc", "fmc", "spi" };
-+static const int aspeed_smc_max_slaves[] = { 5, 5, 1 };
-+
-+static int aspeed_smc_init(SysBusDevice *sbd)
++static void aspeed_smc_flash_reset(DeviceState *d)
 +{
-+    DeviceState *dev = DEVICE(sbd);
-+    AspeedSMCState *s = ASPEED_SMC(dev);
-+    int i;
-+    char name[16];
++    ;
++}
 +
-+    s->spi = ssi_create_bus(dev, "spi");
-+
-+    /* Enforce some real HW limits */
-+    if (s->num_cs > aspeed_smc_max_slaves[s->smc_type]) {
-+        s->num_cs = aspeed_smc_max_slaves[s->smc_type];
-+    }
-+
-+    /* Setup cs_lines for slaves */
-+    sysbus_init_irq(sbd, &s->irq);
-+    s->cs_lines = g_new0(qemu_irq, s->num_cs);
-+    ssi_auto_connect_slaves(dev, s->cs_lines, s->spi);
-+
-+    for (i = 0; i < s->num_cs; ++i) {
-+        sysbus_init_irq(sbd, &s->cs_lines[i]);
-+    }
-+
-+    /* There are some differences in the register numbers and bits
-+     * between the FMC and SPI controller. Let's abstract these.
-+     */
-+    s->r_ctrl0 = aspeed_smc_r_ctrl0[s->smc_type];
-+    s->r_conf = aspeed_smc_r_conf[s->smc_type];
-+    s->conf_enable_w0 = aspeed_smc_conf_enable_w0[s->smc_type];
-+
-+    /* Unselect all slaves */
-+    for (i = 0; i < s->num_cs; ++i) {
-+        s->regs[s->r_ctrl0 + i] |= CTRL_CE_STOP_ACTIVE;
-+    }
-+
-+    snprintf(name, sizeof(name), "aspeed.%s", aspeed_smc_types[s->smc_type]);
-+    memory_region_init_io(&s->mmio, OBJECT(s), &aspeed_smc_ops, s,
-+                          name, ASPEED_SMC_R_MAX * 4);
-+    sysbus_init_mmio(sbd, &s->mmio);
-+
++static int aspeed_smc_flash_init(SysBusDevice *sbd)
++{
 +    return 0;
 +}
 +
-+static const VMStateDescription vmstate_aspeed_smc = {
-+    .name = "aspeed.smc",
++static const VMStateDescription vmstate_aspeed_smc_flash = {
++    .name = "aspeed.smc_flash",
 +    .version_id = 1,
 +    .minimum_version_id = 1,
 +    .fields = (VMStateField[]) {
-+        VMSTATE_UINT32_ARRAY(regs, AspeedSMCState, ASPEED_SMC_R_MAX),
 +        VMSTATE_END_OF_LIST()
 +    }
 +};
 +
-+static Property aspeed_smc_properties[] = {
-+    DEFINE_PROP_UINT8("num-cs", AspeedSMCState, num_cs, 1),
-+    DEFINE_PROP_UINT8("smc-type", AspeedSMCState, smc_type, AspeedSMCFMC),
++static Property aspeed_smc_flash_properties[] = {
 +    DEFINE_PROP_END_OF_LIST(),
 +};
 +
-+static void aspeed_smc_class_init(ObjectClass *klass, void *data)
++static void aspeed_smc_flash_class_init(ObjectClass *klass, void *data)
 +{
 +    DeviceClass *dc = DEVICE_CLASS(klass);
 +    SysBusDeviceClass *k = SYS_BUS_DEVICE_CLASS(klass);
 +
-+    k->init = aspeed_smc_init;
-+    dc->reset = aspeed_smc_reset;
-+    dc->props = aspeed_smc_properties;
-+    dc->vmsd = &vmstate_aspeed_smc;
++    k->init = aspeed_smc_flash_init;
++    dc->reset = aspeed_smc_flash_reset;
++    dc->props = aspeed_smc_flash_properties;
++    dc->vmsd = &vmstate_aspeed_smc_flash;
 +}
 +
-+static const TypeInfo aspeed_smc_info = {
-+    .name           = TYPE_ASPEED_SMC,
++static const TypeInfo aspeed_smc_flash_info = {
++    .name           = TYPE_ASPEED_SMC_FLASH,
 +    .parent         = TYPE_SYS_BUS_DEVICE,
 +    .instance_size  = sizeof(AspeedSMCState),
-+    .class_init     = aspeed_smc_class_init,
++    .class_init     = aspeed_smc_flash_class_init,
 +};
 +
-+static void aspeed_smc_register_types(void)
++static void aspeed_smc_flash_register_types(void)
 +{
-+    type_register_static(&aspeed_smc_info);
++    type_register_static(&aspeed_smc_flash_info);
 +}
 +
-+type_init(aspeed_smc_register_types)
-diff --git a/include/hw/arm/ast2400.h b/include/hw/arm/ast2400.h
-index e96e3db3fbea..9ba4245619c1 100644
---- a/include/hw/arm/ast2400.h
-+++ b/include/hw/arm/ast2400.h
-@@ -17,6 +17,7 @@
- #include "hw/misc/aspeed_scu.h"
- #include "hw/timer/aspeed_timer.h"
- #include "hw/i2c/aspeed_i2c.h"
-+#include "hw/ssi/aspeed_smc.h"
- 
- typedef struct AST2400State {
-     /*< private >*/
-@@ -30,6 +31,8 @@ typedef struct AST2400State {
-     AspeedTimerCtrlState timerctrl;
-     AspeedSCUState scu;
-     AspeedI2CState i2c;
-+    AspeedSMCState smc;
-+    AspeedSMCState spi;
- } AST2400State;
- 
- #define TYPE_AST2400 "ast2400"
++type_init(aspeed_smc_flash_register_types)
 diff --git a/include/hw/ssi/aspeed_smc.h b/include/hw/ssi/aspeed_smc.h
-new file mode 100644
-index 000000000000..9b95fcee5da7
---- /dev/null
+index 9b95fcee5da7..6cea1313eabd 100644
+--- a/include/hw/ssi/aspeed_smc.h
 +++ b/include/hw/ssi/aspeed_smc.h
-@@ -0,0 +1,68 @@
-+/*
-+ * ASPEED AST2400 SMC Controller (SPI Flash Only)
-+ *
-+ * Copyright (C) 2016 IBM Corp.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a copy
-+ * of this software and associated documentation files (the "Software"), to deal
-+ * in the Software without restriction, including without limitation the rights
-+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-+ * copies of the Software, and to permit persons to whom the Software is
-+ * furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-+ * THE SOFTWARE.
-+ */
+@@ -27,6 +27,21 @@
+ 
+ #include "hw/ssi/ssi.h"
+ 
++#define TYPE_ASPEED_SMC_FLASH "aspeed.smc_flash"
++#define ASPEED_SMC_FLASH(obj) \
++    OBJECT_CHECK(AspeedSMCFlashState, (obj), TYPE_ASPEED_SMC_FLASH)
 +
-+#ifndef ASPEED_SMC_H
-+#define ASPEED_SMC_H
++struct AspeedSMCState;
 +
-+#include "hw/ssi/ssi.h"
-+
-+enum AspeedSMCType {
-+    AspeedSMCLegacy,
-+    AspeedSMCFMC,
-+    AspeedSMCSPI,
-+};
-+
-+#define TYPE_ASPEED_SMC "aspeed.smc"
-+#define ASPEED_SMC(obj) OBJECT_CHECK(AspeedSMCState, (obj), TYPE_ASPEED_SMC)
-+
-+#define ASPEED_SMC_R_MAX        (0x100 / 4)
-+
-+typedef struct AspeedSMCState {
++typedef struct AspeedSMCFlashState {
 +    SysBusDevice parent_obj;
 +
 +    MemoryRegion mmio;
++    int id;
++    struct AspeedSMCState *controller;
++    DeviceState *flash;
++} AspeedSMCFlashState;
 +
-+    qemu_irq irq;
-+    int irqline;
-+
-+    uint8_t num_cs;
-+    qemu_irq *cs_lines;
-+
-+    SSIBus *spi;
-+
-+    uint32_t regs[ASPEED_SMC_R_MAX];
-+
-+    uint8_t smc_type;
-+
-+    /* depends on the controller type */
-+    uint8_t r_conf;
-+    uint8_t r_ctrl0;
-+    uint8_t conf_enable_w0;
-+} AspeedSMCState;
-+
-+#define TYPE_ASPEED_SPI "aspeed.spi"
-+#define ASPEED_SPI(obj) OBJECT_CHECK(AspeedSPIState, (obj), TYPE_ASPEED_SPI)
-+
-+
-+#endif /* ASPEED_SMC_H */
+ enum AspeedSMCType {
+     AspeedSMCLegacy,
+     AspeedSMCFMC,
 -- 
 2.1.4
