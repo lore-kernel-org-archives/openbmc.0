@@ -1,68 +1,57 @@
-Return-Path: <teddy.reed@gmail.com>
-Received: from mail-wm0-x243.google.com (mail-wm0-x243.google.com
- [IPv6:2a00:1450:400c:c09::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <clg@kaod.org>
+Received: from e06smtp16.uk.ibm.com (e06smtp16.uk.ibm.com [195.75.94.112])
+ (using TLSv1.2 with cipher CAMELLIA256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rHsyp3hYmzDqP9
- for <openbmc@lists.ozlabs.org>; Mon, 30 May 2016 07:17:21 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=oFJY0GCP; 
- dkim-atps=neutral
-Received: by mail-wm0-x243.google.com with SMTP id n129so16888535wmn.1
- for <openbmc@lists.ozlabs.org>; Sun, 29 May 2016 14:17:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:in-reply-to:references:date:message-id:subject:from:to
- :cc:content-transfer-encoding;
- bh=eElnxGy5PoWOKByJ0tpnGL8w6EY0i+YTXtvlB6D5t1g=;
- b=oFJY0GCPaXReXa9D4aueYdYYfs/X5XMG7fLyVWArjwHbu0L0LepQQ/VKW2RWOoD7BW
- FLTSIV80oFVN5D3cqu6OE3pqqN7qLbS9ZRyKDGklxUfkU4NSBPI7SrPuHQOnCJPqaliu
- ViNvqmU+VjhLaEzP715gmMeBwlfK9P5fR1DpUbR5ghedM/Bmy+ZILkjeBSCT0FrVQzxv
- GLiojbe2/QLeoin3HJrqUsBA6Immo49iJqDOrj8xTYEU5OCB6+eEDe3msrYnEE7+KnBe
- NLv6VMVFuIXncUbZHk9kyTLiNEQH7mvOY7pF5M7n9B0zD5DbeGtJz4BcfaxMecx1RN6Y
- ejrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:date
- :message-id:subject:from:to:cc:content-transfer-encoding;
- bh=eElnxGy5PoWOKByJ0tpnGL8w6EY0i+YTXtvlB6D5t1g=;
- b=TvMeuqg3J5EZ5pPv9a+y9LZtCy+QNN2ZmQgk3rPkl8wLO4Jfl4NalPn28iX1rYnTyR
- IMAiaQ/tzI2PhXJ8IucgKHls3/jqYau8iOJVkvziV/b36grznNWKK7t2xQvzRg/09qIq
- aa78WZdivLw8v166XptErz1VbVJRDbzjpoum+JZj/fGy6LriOULP/YLc+Cn5Xk/OUnAI
- 3aTmMHEZI2eR4S/PmjDvYj0I0yypnNzjTdZHHuvR+Hb3deNVlup1Bxhj0TOy//aLIFXD
- P3CBGHgSseGmM7uMMR7yR9B3awaCLGJFMMmQWOB2mnVecmZVzUUnmgQ5oau9j5Os1prd
- 8hkw==
-X-Gm-Message-State: ALyK8tIIhoXrznK7UI1xkZgPB3VpnZiAWs38QNHLC7jSJj931G9tl5TIRwBSwW2RTp55Pw==
-X-Received: by 10.28.230.200 with SMTP id e69mr2691310wmi.53.1464556638027;
- Sun, 29 May 2016 14:17:18 -0700 (PDT)
-Received: from mail-wm0-f41.google.com (mail-wm0-f41.google.com.
- [74.125.82.41])
- by smtp.gmail.com with ESMTPSA id j6sm30933715wjb.29.2016.05.29.14.17.16
- for <openbmc@lists.ozlabs.org>
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 29 May 2016 14:17:16 -0700 (PDT)
-Received: by mail-wm0-f41.google.com with SMTP id n129so60880527wmn.1
- for <openbmc@lists.ozlabs.org>; Sun, 29 May 2016 14:17:16 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rHt2Y4Lv3zDqP9
+ for <openbmc@lists.ozlabs.org>; Mon, 30 May 2016 07:20:36 +1000 (AEST)
+Received: from localhost
+ by e06smtp16.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <clg@kaod.org>;
+ Sun, 29 May 2016 22:20:32 +0100
+Received: from d06dlp01.portsmouth.uk.ibm.com (9.149.20.13)
+ by e06smtp16.uk.ibm.com (192.168.101.146) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Sun, 29 May 2016 22:20:30 +0100
+X-IBM-Helo: d06dlp01.portsmouth.uk.ibm.com
+X-IBM-MailFrom: clg@kaod.org
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from b06cxnps4075.portsmouth.uk.ibm.com
+ (d06relay12.portsmouth.uk.ibm.com [9.149.109.197])
+ by d06dlp01.portsmouth.uk.ibm.com (Postfix) with ESMTP id 2566817D805A
+ for <openbmc@lists.ozlabs.org>; Sun, 29 May 2016 22:21:36 +0100 (BST)
+Received: from d06av03.portsmouth.uk.ibm.com (d06av03.portsmouth.uk.ibm.com
+ [9.149.37.213])
+ by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u4TLKUxO2556330
+ for <openbmc@lists.ozlabs.org>; Sun, 29 May 2016 21:20:30 GMT
+Received: from d06av03.portsmouth.uk.ibm.com (localhost [127.0.0.1])
+ by d06av03.portsmouth.uk.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u4TLKTDd004990
+ for <openbmc@lists.ozlabs.org>; Sun, 29 May 2016 15:20:30 -0600
+Received: from smtp.lab.toulouse-stg.fr.ibm.com
+ (srv01.lab.toulouse-stg.fr.ibm.com [9.101.4.1])
+ by d06av03.portsmouth.uk.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u4TLKTVN004985; Sun, 29 May 2016 15:20:29 -0600
+Received: from hermes.ibm.com (icon-9-167-232-192.megacenter.de.ibm.com
+ [9.167.232.192])
+ by smtp.lab.toulouse-stg.fr.ibm.com (Postfix) with ESMTP id 5AC6022051C;
+ Sun, 29 May 2016 23:20:28 +0200 (CEST)
+From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH qemu 01/12] ast2400: add SMC controllers (FMC and SPI)
+Date: Sun, 29 May 2016 23:19:54 +0200
+Message-Id: <1464556805-4340-2-git-send-email-clg@kaod.org>
+X-Mailer: git-send-email 2.1.4
+In-Reply-To: <1464556805-4340-1-git-send-email-clg@kaod.org>
+References: <1464556805-4340-1-git-send-email-clg@kaod.org>
 MIME-Version: 1.0
-X-Received: by 10.28.168.71 with SMTP id r68mr7464303wme.44.1464556636382;
- Sun, 29 May 2016 14:17:16 -0700 (PDT)
-Received: by 10.194.94.163 with HTTP; Sun, 29 May 2016 14:17:16 -0700 (PDT)
-X-Originating-IP: [24.6.55.56]
-In-Reply-To: <1464135594.20948.16.camel@aj.id.au>
-References: <1463638966.2703.209.camel@aj.id.au>
- <20160521223211.26848C6042@b03ledav006.gho.boulder.ibm.com>
- <1463981199.2703.286.camel@aj.id.au> <57431FE2.3000506@kaod.org>
- <1464135594.20948.16.camel@aj.id.au>
-Date: Sun, 29 May 2016 14:17:16 -0700
-X-Gmail-Original-Message-ID: <CADUykeqC1BzLXmCzySK+oLQ3euPGm=PJ3cpb_74LbuybaMG35w@mail.gmail.com>
-Message-ID: <CADUykeqC1BzLXmCzySK+oLQ3euPGm=PJ3cpb_74LbuybaMG35w@mail.gmail.com>
-Subject: Re: Aims for BMC emulation in qemu
-From: Teddy Reed <teddy.reed@gmail.com>
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
- Chris Austen <austenc@us.ibm.com>, Joel Stanley <joel@jms.id.au>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, patrick@stwcx.xyz
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16052921-0025-0000-0000-000018AB623B
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -74,54 +63,456 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 29 May 2016 21:17:23 -0000
+X-List-Received-Date: Sun, 29 May 2016 21:20:38 -0000
 
-Wow, sorry for lagging behind in the discussion! But I love all the suggest=
-ions!
+This patch provides a simple device model for the SMC controllers
+available on the Aspeed AST2400 soc. Support is limited to the FMC and
+the SPI controllers, and to SPI flash slaves.
 
-This 'hybrid' approach definitely fits my need for boot testing and
-enabling rapid development for the more-dynamic userland and
-non-driver tweaks of U-Boot/Linux.
+Below is the initial framework : the sysbus object, MMIO for registers
+configuration and controls. Each controller has a SPI bus and a
+configurable number of CS lines for SPI flash slaves.
 
-If possible, and I think this is the current MO, can we use the
-openbmc/qemu as staging for changes to be up-streamed?
+Signed-off-by: Cédric Le Goater <clg@kaod.org>
+---
+ hw/arm/ast2400.c            |  33 ++++++
+ hw/ssi/Makefile.objs        |   1 +
+ hw/ssi/aspeed_smc.c         | 260 ++++++++++++++++++++++++++++++++++++++++++++
+ include/hw/arm/ast2400.h    |   3 +
+ include/hw/ssi/aspeed_smc.h |  68 ++++++++++++
+ 5 files changed, 365 insertions(+)
+ create mode 100644 hw/ssi/aspeed_smc.c
+ create mode 100644 include/hw/ssi/aspeed_smc.h
 
-On Tue, May 24, 2016 at 5:19 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> On Mon, 2016-05-23 at 17:21 +0200, C=C3=A9dric Le Goater wrote:
->> > Any work-arounds included in the fork should have an obvious immediate
->> > benefit and a plan to phase them out, and if that's not the case then
->> > they should be rejected. If it's more work to maintain the hack than t=
-o
->> > implement an accurate model, then we should do the latter.
->>
-
-To fit the hybrid-approach, the development board models for the SoCs
-can be the machine targets for the non-accurate models. Then you have
-an ast2400 target that may include some work-arounds or devices that
-allow for more-rapid prototyping, as is common with devboards. This
-fits with several other qemu ARM development boards too-- like the
-vexpress suite.
-
-The board-specific models, like palmetto-bmc, can be held to as
-absolute of model representation as possible. For these boards, no
-work-arounds should be managed/merged, IMO. This makes for healthier
-and more-manageable up-streaming.
-
->> Are we planning to use travis to boot the generated flash image with qem=
-u ?
->> and eventually run some tests in the guest ?
->
-> That's certainly something we should be aiming for, in addition to
-> something we can use to smoke test u-boot/linux as part of the hack-
-> compile-test cycle. With a view of using qemu as part of CI I had a
-> pull-request open against openbmc/openbmc that patched the runqemu
-> scripts to integrate the palmetto-bmc machine, but Patrick had concerns
-> about my approach there so the pull-request has been closed for the
-> moment.
->
-> I plan on taking a quick look at integration again shortly as some
-> relevant patches turned up on the openembedded-core mailing list.
->
-
---=20
-Teddy Reed V
+diff --git a/hw/arm/ast2400.c b/hw/arm/ast2400.c
+index 23d52bffcaa7..8f678983cee5 100644
+--- a/hw/arm/ast2400.c
++++ b/hw/arm/ast2400.c
+@@ -23,6 +23,9 @@
+ #define AST2400_UART_5_BASE      0x00184000
+ #define AST2400_IOMEM_SIZE       0x00200000
+ #define AST2400_IOMEM_BASE       0x1E600000
++#define AST2400_SMC_BASE         AST2400_IOMEM_BASE /* Legacy SMC */
++#define AST2400_FMC_BASE         0X1E620000
++#define AST2400_SPI_BASE         0X1E630000
+ #define AST2400_VIC_BASE         0x1E6C0000
+ #define AST2400_SCU_BASE         0x1E6E2000
+ #define AST2400_TIMER_BASE       0x1E782000
+@@ -77,6 +80,14 @@ static void ast2400_init(Object *obj)
+     object_initialize(&s->i2c, sizeof(s->i2c), TYPE_ASPEED_I2C);
+     object_property_add_child(obj, "i2c", OBJECT(&s->i2c), NULL);
+     qdev_set_parent_bus(DEVICE(&s->i2c), sysbus_get_default());
++
++    object_initialize(&s->smc, sizeof(s->smc), TYPE_ASPEED_SMC);
++    object_property_add_child(obj, "smc", OBJECT(&s->smc), NULL);
++    qdev_set_parent_bus(DEVICE(&s->smc), sysbus_get_default());
++
++    object_initialize(&s->spi, sizeof(s->spi), TYPE_ASPEED_SMC);
++    object_property_add_child(obj, "spi", OBJECT(&s->spi), NULL);
++    qdev_set_parent_bus(DEVICE(&s->spi), sysbus_get_default());
+ }
+ 
+ static void ast2400_realize(DeviceState *dev, Error **errp)
+@@ -171,6 +182,28 @@ static void ast2400_realize(DeviceState *dev, Error **errp)
+     /* The palmetto platform expects a ds3231 RTC but a ds1338 is
+      * enough to provide basic RTC features. Alarms will be missing */
+     i2c_create_slave(aspeed_i2c_get_bus(DEVICE(&s->i2c), 0), "ds1338", 0x68);
++
++    /* SMC */
++    object_property_set_int(OBJECT(&s->smc), 1, "num-cs", &err);
++    object_property_set_int(OBJECT(&s->spi), AspeedSMCFMC, "smc-type", &err);
++    object_property_set_bool(OBJECT(&s->smc), true, "realized", &err);
++    if (err) {
++        error_propagate(errp, err);
++        return;
++    }
++    sysbus_mmio_map(SYS_BUS_DEVICE(&s->smc), 0, AST2400_FMC_BASE);
++    sysbus_connect_irq(SYS_BUS_DEVICE(&s->smc), 0,
++                       qdev_get_gpio_in(DEVICE(&s->vic), 19));
++
++    /* SPI */
++    object_property_set_int(OBJECT(&s->spi), 1, "num-cs", &err);
++    object_property_set_int(OBJECT(&s->spi), AspeedSMCSPI, "smc-type", &err);
++    object_property_set_bool(OBJECT(&s->spi), true, "realized", &err);
++    if (err) {
++        error_propagate(errp, err);
++        return;
++    }
++    sysbus_mmio_map(SYS_BUS_DEVICE(&s->spi), 0, AST2400_SPI_BASE);
+ }
+ 
+ static void ast2400_class_init(ObjectClass *oc, void *data)
+diff --git a/hw/ssi/Makefile.objs b/hw/ssi/Makefile.objs
+index 9555825acad1..6b32bf22ce3b 100644
+--- a/hw/ssi/Makefile.objs
++++ b/hw/ssi/Makefile.objs
+@@ -2,5 +2,6 @@ common-obj-$(CONFIG_PL022) += pl022.o
+ common-obj-$(CONFIG_SSI) += ssi.o
+ common-obj-$(CONFIG_XILINX_SPI) += xilinx_spi.o
+ common-obj-$(CONFIG_XILINX_SPIPS) += xilinx_spips.o
++common-obj-$(CONFIG_ASPEED_SOC) += aspeed_smc.o
+ 
+ obj-$(CONFIG_OMAP) += omap_spi.o
+diff --git a/hw/ssi/aspeed_smc.c b/hw/ssi/aspeed_smc.c
+new file mode 100644
+index 000000000000..780fcbbc9e55
+--- /dev/null
++++ b/hw/ssi/aspeed_smc.c
+@@ -0,0 +1,260 @@
++/*
++ * ASPEED AST2400 SMC Controller (SPI Flash Only)
++ *
++ * Copyright (C) 2016 IBM Corp.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a copy
++ * of this software and associated documentation files (the "Software"), to deal
++ * in the Software without restriction, including without limitation the rights
++ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++ * copies of the Software, and to permit persons to whom the Software is
++ * furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
++ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
++ * THE SOFTWARE.
++ */
++
++#include "qemu/osdep.h"
++#include "hw/sysbus.h"
++#include "sysemu/sysemu.h"
++#include "qemu/log.h"
++#include "include/qemu/error-report.h"
++#include "exec/address-spaces.h"
++
++#include "hw/ssi/aspeed_smc.h"
++
++/* CE Type Setting Register */
++#define R_CONF            (0x00 / 4)
++#define   CONF_LEGACY_DISABLE  (1 << 31)
++#define   CONF_ENABLE_W4       20
++#define   CONF_ENABLE_W3       19
++#define   CONF_ENABLE_W2       18
++#define   CONF_ENABLE_W1       17
++#define   CONF_ENABLE_W0       16
++#define   CONF_FLASH_TYPE4     9
++#define   CONF_FLASH_TYPE3     7
++#define   CONF_FLASH_TYPE2     5
++#define   CONF_FLASH_TYPE1     3
++#define   CONF_FLASH_TYPE0     1
++
++/* CE Control Register */
++#define R_CTRL            (0x04 / 4)
++#define   CRTL_EXTENDED4       4  /* 32 bit addressing for SPI */
++#define   CRTL_EXTENDED3       3  /* 32 bit addressing for SPI */
++#define   CRTL_EXTENDED2       2  /* 32 bit addressing for SPI */
++#define   CRTL_EXTENDED1       1  /* 32 bit addressing for SPI */
++#define   CRTL_EXTENDED0       0  /* 32 bit addressing for SPI */
++
++/* Interrupt Control and Status Register */
++#define R_INTR_CTRL       (0x08 / 4)
++
++/* CEx Control Register */
++#define R_CTRL0           (0x10 / 4)
++#define   CTRL_CE_STOP_ACTIVE      (1 << 2)
++#define   CTRL_USERMODE            0x3
++#define R_CTRL1           (0x14 / 4)
++#define R_CTRL2           (0x18 / 4)
++#define R_CTRL3           (0x1C / 4)
++#define R_CTRL4           (0x20 / 4)
++
++/* CEx Segment Address Register */
++#define R_SEG_ADDR0       (0x30 / 4)
++#define   SEG_SIZE_SHIFT       24   /* 8MB units */
++#define   SEG_SIZE_MASK        0x7f
++#define   SEG_START_SHIFT      16   /* address bit [A29-A23] */
++#define   SEG_START_MASK       0x7f
++#define R_SEG_ADDR1       (0x34 / 4)
++#define R_SEG_ADDR2       (0x38 / 4)
++#define R_SEG_ADDR3       (0x3C / 4)
++#define R_SEG_ADDR4       (0x40 / 4)
++
++/* Misc Control Register #1 */
++#define R_MISC_CRTL1      (0x50 / 4)
++
++/* Misc Control Register #2 */
++#define R_MISC_CRTL2      (0x54 / 4)
++
++
++/* SPI controller registers and bits (that we care about) */
++#define R_SPI_CONF        (0x00 / 4)
++#define   SPI_CONF_ENABLE_W0   0
++#define R_SPI_CTRL0       (0x4 / 4)
++#define R_SPI_MISC_CRTL   (0x10 / 4)
++#define R_SPI_TIMINGS     (0x14 / 4)
++
++static const int aspeed_smc_r_ctrl0[]   = { R_CTRL0, R_CTRL0, R_SPI_CTRL0 };
++static const int aspeed_smc_r_conf[]    = { R_CONF,  R_CONF,  R_SPI_CONF  };
++static const int aspeed_smc_conf_enable_w0[] = {
++    CONF_ENABLE_W0, CONF_ENABLE_W0, SPI_CONF_ENABLE_W0 };
++
++
++static bool aspeed_smc_is_ce_stop_active(AspeedSMCState *s, int cs)
++{
++    return s->regs[s->r_ctrl0 + cs] & CTRL_CE_STOP_ACTIVE;
++}
++
++static void aspeed_smc_update_cs(AspeedSMCState *s)
++{
++    int i;
++
++    for (i = 0; i < s->num_cs; ++i) {
++        if (aspeed_smc_is_ce_stop_active(s, i)) {
++            /* should reset command byte in control reg */
++        }
++
++        qemu_set_irq(s->cs_lines[i], aspeed_smc_is_ce_stop_active(s, i));
++    }
++}
++
++static void aspeed_smc_reset(DeviceState *d)
++{
++    AspeedSMCState *s = ASPEED_SMC(d);
++    int i;
++
++    memset(s->regs, 0, sizeof s->regs);
++
++    for (i = 0; i < s->num_cs; ++i) {
++        s->regs[s->r_ctrl0 + i] |= CTRL_CE_STOP_ACTIVE;
++    }
++
++    aspeed_smc_update_cs(s);
++}
++
++static uint64_t aspeed_smc_read(void *opaque, hwaddr addr, unsigned int size)
++{
++    AspeedSMCState *s = ASPEED_SMC(opaque);
++    uint32_t r = 0;
++
++    addr >>= 2;
++    switch (addr) {
++    default:
++        if (addr < ARRAY_SIZE(s->regs)) {
++            r = s->regs[addr];
++        }
++        break;
++    }
++
++    return r;
++}
++
++static void aspeed_smc_write(void *opaque, hwaddr addr, uint64_t data,
++                             unsigned int size)
++{
++    AspeedSMCState *s = ASPEED_SMC(opaque);
++    uint32_t value = data;
++
++    addr >>= 2;
++    switch (addr) {
++    default:
++        if (addr < ARRAY_SIZE(s->regs)) {
++            s->regs[addr] = value;
++        }
++        break;
++    }
++
++    if (addr >= s->r_ctrl0 && addr < s->r_ctrl0 + s->num_cs) {
++        aspeed_smc_update_cs(s);
++    }
++}
++
++static const MemoryRegionOps aspeed_smc_ops = {
++    .read = aspeed_smc_read,
++    .write = aspeed_smc_write,
++    .endianness = DEVICE_NATIVE_ENDIAN,
++    .valid.unaligned = true,
++};
++
++static const char * const aspeed_smc_types[] = { "smc", "fmc", "spi" };
++static const int aspeed_smc_max_slaves[] = { 5, 5, 1 };
++
++static int aspeed_smc_init(SysBusDevice *sbd)
++{
++    DeviceState *dev = DEVICE(sbd);
++    AspeedSMCState *s = ASPEED_SMC(dev);
++    int i;
++    char name[16];
++
++    s->spi = ssi_create_bus(dev, "spi");
++
++    /* Enforce some real HW limits */
++    if (s->num_cs > aspeed_smc_max_slaves[s->smc_type]) {
++        s->num_cs = aspeed_smc_max_slaves[s->smc_type];
++    }
++
++    /* Setup cs_lines for slaves */
++    sysbus_init_irq(sbd, &s->irq);
++    s->cs_lines = g_new0(qemu_irq, s->num_cs);
++    ssi_auto_connect_slaves(dev, s->cs_lines, s->spi);
++
++    for (i = 0; i < s->num_cs; ++i) {
++        sysbus_init_irq(sbd, &s->cs_lines[i]);
++    }
++
++    /* There are some differences in the register numbers and bits
++     * between the FMC and SPI controller. Let's abstract these.
++     */
++    s->r_ctrl0 = aspeed_smc_r_ctrl0[s->smc_type];
++    s->r_conf = aspeed_smc_r_conf[s->smc_type];
++    s->conf_enable_w0 = aspeed_smc_conf_enable_w0[s->smc_type];
++
++    /* Unselect all slaves */
++    for (i = 0; i < s->num_cs; ++i) {
++        s->regs[s->r_ctrl0 + i] |= CTRL_CE_STOP_ACTIVE;
++    }
++
++    snprintf(name, sizeof(name), "aspeed.%s", aspeed_smc_types[s->smc_type]);
++    memory_region_init_io(&s->mmio, OBJECT(s), &aspeed_smc_ops, s,
++                          name, ASPEED_SMC_R_MAX * 4);
++    sysbus_init_mmio(sbd, &s->mmio);
++
++    return 0;
++}
++
++static const VMStateDescription vmstate_aspeed_smc = {
++    .name = "aspeed.smc",
++    .version_id = 1,
++    .minimum_version_id = 1,
++    .fields = (VMStateField[]) {
++        VMSTATE_UINT32_ARRAY(regs, AspeedSMCState, ASPEED_SMC_R_MAX),
++        VMSTATE_END_OF_LIST()
++    }
++};
++
++static Property aspeed_smc_properties[] = {
++    DEFINE_PROP_UINT8("num-cs", AspeedSMCState, num_cs, 1),
++    DEFINE_PROP_UINT8("smc-type", AspeedSMCState, smc_type, AspeedSMCFMC),
++    DEFINE_PROP_END_OF_LIST(),
++};
++
++static void aspeed_smc_class_init(ObjectClass *klass, void *data)
++{
++    DeviceClass *dc = DEVICE_CLASS(klass);
++    SysBusDeviceClass *k = SYS_BUS_DEVICE_CLASS(klass);
++
++    k->init = aspeed_smc_init;
++    dc->reset = aspeed_smc_reset;
++    dc->props = aspeed_smc_properties;
++    dc->vmsd = &vmstate_aspeed_smc;
++}
++
++static const TypeInfo aspeed_smc_info = {
++    .name           = TYPE_ASPEED_SMC,
++    .parent         = TYPE_SYS_BUS_DEVICE,
++    .instance_size  = sizeof(AspeedSMCState),
++    .class_init     = aspeed_smc_class_init,
++};
++
++static void aspeed_smc_register_types(void)
++{
++    type_register_static(&aspeed_smc_info);
++}
++
++type_init(aspeed_smc_register_types)
+diff --git a/include/hw/arm/ast2400.h b/include/hw/arm/ast2400.h
+index e96e3db3fbea..9ba4245619c1 100644
+--- a/include/hw/arm/ast2400.h
++++ b/include/hw/arm/ast2400.h
+@@ -17,6 +17,7 @@
+ #include "hw/misc/aspeed_scu.h"
+ #include "hw/timer/aspeed_timer.h"
+ #include "hw/i2c/aspeed_i2c.h"
++#include "hw/ssi/aspeed_smc.h"
+ 
+ typedef struct AST2400State {
+     /*< private >*/
+@@ -30,6 +31,8 @@ typedef struct AST2400State {
+     AspeedTimerCtrlState timerctrl;
+     AspeedSCUState scu;
+     AspeedI2CState i2c;
++    AspeedSMCState smc;
++    AspeedSMCState spi;
+ } AST2400State;
+ 
+ #define TYPE_AST2400 "ast2400"
+diff --git a/include/hw/ssi/aspeed_smc.h b/include/hw/ssi/aspeed_smc.h
+new file mode 100644
+index 000000000000..9b95fcee5da7
+--- /dev/null
++++ b/include/hw/ssi/aspeed_smc.h
+@@ -0,0 +1,68 @@
++/*
++ * ASPEED AST2400 SMC Controller (SPI Flash Only)
++ *
++ * Copyright (C) 2016 IBM Corp.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a copy
++ * of this software and associated documentation files (the "Software"), to deal
++ * in the Software without restriction, including without limitation the rights
++ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++ * copies of the Software, and to permit persons to whom the Software is
++ * furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
++ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
++ * THE SOFTWARE.
++ */
++
++#ifndef ASPEED_SMC_H
++#define ASPEED_SMC_H
++
++#include "hw/ssi/ssi.h"
++
++enum AspeedSMCType {
++    AspeedSMCLegacy,
++    AspeedSMCFMC,
++    AspeedSMCSPI,
++};
++
++#define TYPE_ASPEED_SMC "aspeed.smc"
++#define ASPEED_SMC(obj) OBJECT_CHECK(AspeedSMCState, (obj), TYPE_ASPEED_SMC)
++
++#define ASPEED_SMC_R_MAX        (0x100 / 4)
++
++typedef struct AspeedSMCState {
++    SysBusDevice parent_obj;
++
++    MemoryRegion mmio;
++
++    qemu_irq irq;
++    int irqline;
++
++    uint8_t num_cs;
++    qemu_irq *cs_lines;
++
++    SSIBus *spi;
++
++    uint32_t regs[ASPEED_SMC_R_MAX];
++
++    uint8_t smc_type;
++
++    /* depends on the controller type */
++    uint8_t r_conf;
++    uint8_t r_ctrl0;
++    uint8_t conf_enable_w0;
++} AspeedSMCState;
++
++#define TYPE_ASPEED_SPI "aspeed.spi"
++#define ASPEED_SPI(obj) OBJECT_CHECK(AspeedSPIState, (obj), TYPE_ASPEED_SPI)
++
++
++#endif /* ASPEED_SMC_H */
+-- 
+2.1.4
