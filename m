@@ -1,62 +1,45 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-qk0-x22e.google.com (mail-qk0-x22e.google.com
- [IPv6:2607:f8b0:400d:c09::22e])
+Return-Path: <raltherr@google.com>
+Received: from mail-it0-x22c.google.com (mail-it0-x22c.google.com
+ [IPv6:2607:f8b0:4001:c0b::22c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rKXvY66YWzDqZ6
- for <openbmc@lists.ozlabs.org>; Thu,  2 Jun 2016 00:35:20 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rKh0H23wCzDqZW
+ for <openbmc@lists.ozlabs.org>; Thu,  2 Jun 2016 05:54:55 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=gV+E24IU; 
- dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=H1N0K5hd; 
+ unprotected) header.d=google.com header.i=@google.com header.b=EUhzuNhQ; 
  dkim-atps=neutral
-Received: by mail-qk0-x22e.google.com with SMTP id i187so13844325qkd.3
- for <openbmc@lists.ozlabs.org>; Wed, 01 Jun 2016 07:35:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=hFFpiNRKfP42AOppOBKmkkUGxJCilMI8YA9B68lZgzk=;
- b=gV+E24IUs28r7Y9ioQT3whmFKtZTDyQ8DUyxvMqanHm+6befD/MXc0fRvuR85Sa1B9
- mmPkKVI+Uty9AVdZkIsHgitOe9477+fXpYfUAgQbCkKb0+Chwk/FcY6xucAVJmzV7gL/
- m1xOrDQIZYDZWsMzR38IPsXuREs8QiTt7sXReFgXYfTBxdDmlgUi0VPFtePUoV2a2jIp
- FrsfrYCcEL0iapOlimXCExfJJ+H8c0IPwtGr4BsKp+ht+mAkZzqU+QL1F2GkSrq2UUdS
- Z2zjizJ2jrpbXzcKvkJ+bNoElGZ2HO2GxDHaq4ESE7urVcbbC7vFhAsG44N/20H6J23Z
- z8rg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=hFFpiNRKfP42AOppOBKmkkUGxJCilMI8YA9B68lZgzk=;
- b=H1N0K5hdk42iF9yJlVZL8KBMtNxpeV2dMUa8w8IjOQ8sSI+Uhb9j+SYuyPNWR6z7Z+
- ruEcfeyON4GxcK9KDLPFNcuV4r4CBGGg3m/FZyxbi2GEKqib+C292+ci55zspGiAoTco
- F6pRTSWzMRS+AMhYLI8OafGuBfliMHGcXSH2Q=
+Received: by mail-it0-x22c.google.com with SMTP id e62so103651143ita.1
+ for <openbmc@lists.ozlabs.org>; Wed, 01 Jun 2016 12:54:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=PcngDK48U4jzNZ4s5FVLKzTAGXTexoM4VSJs8rzDtUw=;
+ b=EUhzuNhQ7fTEnGB+ljZVN6m5e7q9H6euN59F4RWkWocbEn2Woz4ZifGfXx6H/+YTuN
+ vI5JxSjHPhvGLeiqoen9S93jFgBWpUxZ4/0wqRSxJtLgLx/DN9nFQNCfvclvmmjxMdxH
+ rlUI032VFC71hVsDRfxCwO0Af+eSKz8ZRaWdzlbK/lY1LIqZCI6jetkKf4sAVChk1ygj
+ AY1r2s0KJIdQWdaZCMnigs9ybxEOdQGCuqV+OpZaQlVI2TjKXozDTjMyScAgyYlRfwAa
+ E4sZkI2gueDZ/PXxZ/OM2PeMuvmqaMc6XSUTlhsQRjeel735LeLLNn+1mMv4MPGjaSNI
+ DrzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=hFFpiNRKfP42AOppOBKmkkUGxJCilMI8YA9B68lZgzk=;
- b=h/TANGRD7+e9noVdwKeyoG2bnRYKsmy9MYJGzFHRZJMt30pyB+4d8KO7BZ+m87Jc3b
- 6Eyq8EweKSuTRBm6IriTSRSGGpJRpNuc+XkRYnA3u6LAawBwVoX7ERHMghQBjTWjKdZJ
- 90N1pswab4SVmYawNEpbPoRSaS5FHnNF1lQLuyZU8Yh5gnWPZ5U3k83MySERXnr3WzQ7
- h0DthMSN5l1ADGq5qaJHTvvI1jrX3RZk57EHt8zbS2ErPr/YfYdNT9iLsnsm2Q2R58pw
- SuI8y7am8AvGR4WUeXIXW2BMadophmPZjz2M30qjUryvnQJE/zWN19CDgt9reJ/brZki
- nnFg==
-X-Gm-Message-State: ALyK8tKWYcvtQ9HYoAayrPh+nt26xsOTAl/DR3zs3zPoxM8B1gU7UU7Ucp063GuGPZmYfy9kKgyNHPWqUi00nw==
-X-Received: by 10.55.147.196 with SMTP id v187mr37495588qkd.7.1464791717064;
- Wed, 01 Jun 2016 07:35:17 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=PcngDK48U4jzNZ4s5FVLKzTAGXTexoM4VSJs8rzDtUw=;
+ b=Gzq4LzNlaf3nuCXA2MWfsp+BgrX5EnQWk1NabO5llQTvNzeb33llthoIrd94LytzNB
+ tkGxBceiWHKU4PB85ALfC3ULzgqzUKsL04xGY8ieXwHz+7n13q9Vns7L+TAO9T5K5gpv
+ RU/xMg3vls6fMDWUWQTE+8zK1kaqUNeG+G6iICIKMUCK87y54UIUiRghrXNSpWBkmFky
+ M78aO6oYORyBANslVCevZX5TPR7QoPuDasx+UcKlAWYKLnJiugApLMMzNjbcfS58g8d9
+ Mk7f19JAyrjGwID9aey54UJk+SIDYXVBaxbFvn7Iew+0SKJ1GOizDHreT33cZ8ORXJ6/
+ NpDA==
+X-Gm-Message-State: ALyK8tL0N2nQl1iThTjBIyjlZ3CyTwRMEJ/lNODe/OnVlRzCtKLw1sH+5w4Onl4EeRSLCYHszotO/NlNZwgaIkXx
+X-Received: by 10.36.2.71 with SMTP id 68mr24597729itu.38.1464810891660; Wed,
+ 01 Jun 2016 12:54:51 -0700 (PDT)
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.237.44.196 with HTTP; Wed, 1 Jun 2016 07:34:57 -0700 (PDT)
-In-Reply-To: <AM3PR05MB093469618BEB77BB50C8C2AED5470@AM3PR05MB0934.eurprd05.prod.outlook.com>
-References: <AM3PR05MB093469618BEB77BB50C8C2AED5470@AM3PR05MB0934.eurprd05.prod.outlook.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 1 Jun 2016 09:34:57 -0500
-X-Google-Sender-Auth: eyvi4jduV4QHL70IxsOQ4zfim0g
-Message-ID: <CACPK8Xd44CZJ47wj_2hhQ2DCS+N+ddnx87wVrdVfWFg+gWmvhQ@mail.gmail.com>
-Subject: Re: NC-SI support
-To: Shay Slobodkin <shays@mellanox.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Received: by 10.64.63.164 with HTTP; Wed, 1 Jun 2016 12:54:51 -0700 (PDT)
+From: Rick Altherr <raltherr@google.com>
+Date: Wed, 1 Jun 2016 12:54:51 -0700
+Message-ID: <CAPLgG==KjbSt766V7ztyOJfhp9=tg7ZDOboO+45Jwzu3CL7gjA@mail.gmail.com>
+Subject: Roadmap for AST2500?
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary=001a1144b1d0e04ac305343cdc5b
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -68,21 +51,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Jun 2016 14:35:23 -0000
+X-List-Received-Date: Wed, 01 Jun 2016 19:54:55 -0000
 
-Hello Shay,
+--001a1144b1d0e04ac305343cdc5b
+Content-Type: text/plain; charset=UTF-8
 
-On Wed, Jun 1, 2016 at 7:58 AM, Shay Slobodkin <shays@mellanox.com> wrote:
-> We found NC-SI support for ASPEED SoC in u-boot code.
->
-> We don=E2=80=99t see NC-SI support in kernel.
+For Zaius, Google and Rackspace's Power9 server, we'll be including an
+AST2500 and plan to run OpenBMC.  I have a few people on my team available
+to contribute to AST2500 bringup and Zaius-specific OpenBMC development.
+I'm trying to figure out what all needs to be done, what AST2500 work is
+already being done, and where my team's contributions can best be utilized.
 
-We do have support in our kernel tree:
+I know Xo Wang (xow@google.com) has already been talking with some of you
+about the kernel work needed for AST2500.  What is needed in Yocto and the
+userspace apps?  I can easily put together a AST2500 bsp layer but without
+a corresponding kernel, that's not particularly useful.
 
- https://github.com/openbmc/linux/tree/dev-4.4/net/ncsi
+Is there a published roadmap somewhere?  Where do you see the biggest need
+for help?
 
-We intend to submit this upstream.
+Rick
 
-Cheers,
+--001a1144b1d0e04ac305343cdc5b
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Joel
+<div dir=3D"ltr">For Zaius, Google and Rackspace&#39;s Power9 server, we&#3=
+9;ll be including an AST2500 and plan to run OpenBMC.=C2=A0 I have a few pe=
+ople on my team available to contribute to AST2500 bringup and Zaius-specif=
+ic OpenBMC development.=C2=A0 I&#39;m trying to figure out what all needs t=
+o be done, what AST2500 work is already being done, and where my team&#39;s=
+ contributions can best be utilized.<div><br></div><div>I know Xo Wang (<a =
+href=3D"mailto:xow@google.com">xow@google.com</a>) has already been talking=
+ with some of you about the kernel work needed for AST2500.=C2=A0 What is n=
+eeded in Yocto and the userspace apps?=C2=A0 I can easily put together a AS=
+T2500 bsp layer but without a corresponding kernel, that&#39;s not particul=
+arly useful.</div><div><br></div><div>Is there a published roadmap somewher=
+e?=C2=A0 Where do you see the biggest need for help?</div><div><br></div><d=
+iv>Rick</div></div>
+
+--001a1144b1d0e04ac305343cdc5b--
