@@ -1,45 +1,28 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-it0-x22c.google.com (mail-it0-x22c.google.com
- [IPv6:2607:f8b0:4001:c0b::22c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rKh0H23wCzDqZW
- for <openbmc@lists.ozlabs.org>; Thu,  2 Jun 2016 05:54:55 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=EUhzuNhQ; 
- dkim-atps=neutral
-Received: by mail-it0-x22c.google.com with SMTP id e62so103651143ita.1
- for <openbmc@lists.ozlabs.org>; Wed, 01 Jun 2016 12:54:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:from:date:message-id:subject:to;
- bh=PcngDK48U4jzNZ4s5FVLKzTAGXTexoM4VSJs8rzDtUw=;
- b=EUhzuNhQ7fTEnGB+ljZVN6m5e7q9H6euN59F4RWkWocbEn2Woz4ZifGfXx6H/+YTuN
- vI5JxSjHPhvGLeiqoen9S93jFgBWpUxZ4/0wqRSxJtLgLx/DN9nFQNCfvclvmmjxMdxH
- rlUI032VFC71hVsDRfxCwO0Af+eSKz8ZRaWdzlbK/lY1LIqZCI6jetkKf4sAVChk1ygj
- AY1r2s0KJIdQWdaZCMnigs9ybxEOdQGCuqV+OpZaQlVI2TjKXozDTjMyScAgyYlRfwAa
- E4sZkI2gueDZ/PXxZ/OM2PeMuvmqaMc6XSUTlhsQRjeel735LeLLNn+1mMv4MPGjaSNI
- DrzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=PcngDK48U4jzNZ4s5FVLKzTAGXTexoM4VSJs8rzDtUw=;
- b=Gzq4LzNlaf3nuCXA2MWfsp+BgrX5EnQWk1NabO5llQTvNzeb33llthoIrd94LytzNB
- tkGxBceiWHKU4PB85ALfC3ULzgqzUKsL04xGY8ieXwHz+7n13q9Vns7L+TAO9T5K5gpv
- RU/xMg3vls6fMDWUWQTE+8zK1kaqUNeG+G6iICIKMUCK87y54UIUiRghrXNSpWBkmFky
- M78aO6oYORyBANslVCevZX5TPR7QoPuDasx+UcKlAWYKLnJiugApLMMzNjbcfS58g8d9
- Mk7f19JAyrjGwID9aey54UJk+SIDYXVBaxbFvn7Iew+0SKJ1GOizDHreT33cZ8ORXJ6/
- NpDA==
-X-Gm-Message-State: ALyK8tL0N2nQl1iThTjBIyjlZ3CyTwRMEJ/lNODe/OnVlRzCtKLw1sH+5w4Onl4EeRSLCYHszotO/NlNZwgaIkXx
-X-Received: by 10.36.2.71 with SMTP id 68mr24597729itu.38.1464810891660; Wed,
- 01 Jun 2016 12:54:51 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rKrhX1s9XzDqW9
+ for <openbmc@lists.ozlabs.org>; Thu,  2 Jun 2016 12:26:50 +1000 (AEST)
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mx.zohomail.com
+ with SMTPS id 1464834405762302.029792853426;
+ Wed, 1 Jun 2016 19:26:45 -0700 (PDT)
+Date: Wed, 1 Jun 2016 21:26:44 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Rick Altherr <raltherr@google.com>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: Roadmap for AST2500?
+Message-ID: <20160602022644.GR19968@asimov.austin.ibm.com>
+References: <CAPLgG==KjbSt766V7ztyOJfhp9=tg7ZDOboO+45Jwzu3CL7gjA@mail.gmail.com>
 MIME-Version: 1.0
-Received: by 10.64.63.164 with HTTP; Wed, 1 Jun 2016 12:54:51 -0700 (PDT)
-From: Rick Altherr <raltherr@google.com>
-Date: Wed, 1 Jun 2016 12:54:51 -0700
-Message-ID: <CAPLgG==KjbSt766V7ztyOJfhp9=tg7ZDOboO+45Jwzu3CL7gjA@mail.gmail.com>
-Subject: Roadmap for AST2500?
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary=001a1144b1d0e04ac305343cdc5b
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="WTbgq2twYBxfsYA6"
+Content-Disposition: inline
+In-Reply-To: <CAPLgG==KjbSt766V7ztyOJfhp9=tg7ZDOboO+45Jwzu3CL7gjA@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -51,43 +34,98 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Jun 2016 19:54:55 -0000
+X-List-Received-Date: Thu, 02 Jun 2016 02:26:52 -0000
 
---001a1144b1d0e04ac305343cdc5b
-Content-Type: text/plain; charset=UTF-8
 
-For Zaius, Google and Rackspace's Power9 server, we'll be including an
-AST2500 and plan to run OpenBMC.  I have a few people on my team available
-to contribute to AST2500 bringup and Zaius-specific OpenBMC development.
-I'm trying to figure out what all needs to be done, what AST2500 work is
-already being done, and where my team's contributions can best be utilized.
-
-I know Xo Wang (xow@google.com) has already been talking with some of you
-about the kernel work needed for AST2500.  What is needed in Yocto and the
-userspace apps?  I can easily put together a AST2500 bsp layer but without
-a corresponding kernel, that's not particularly useful.
-
-Is there a published roadmap somewhere?  Where do you see the biggest need
-for help?
-
-Rick
-
---001a1144b1d0e04ac305343cdc5b
-Content-Type: text/html; charset=UTF-8
+--WTbgq2twYBxfsYA6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">For Zaius, Google and Rackspace&#39;s Power9 server, we&#3=
-9;ll be including an AST2500 and plan to run OpenBMC.=C2=A0 I have a few pe=
-ople on my team available to contribute to AST2500 bringup and Zaius-specif=
-ic OpenBMC development.=C2=A0 I&#39;m trying to figure out what all needs t=
-o be done, what AST2500 work is already being done, and where my team&#39;s=
- contributions can best be utilized.<div><br></div><div>I know Xo Wang (<a =
-href=3D"mailto:xow@google.com">xow@google.com</a>) has already been talking=
- with some of you about the kernel work needed for AST2500.=C2=A0 What is n=
-eeded in Yocto and the userspace apps?=C2=A0 I can easily put together a AS=
-T2500 bsp layer but without a corresponding kernel, that&#39;s not particul=
-arly useful.</div><div><br></div><div>Is there a published roadmap somewher=
-e?=C2=A0 Where do you see the biggest need for help?</div><div><br></div><d=
-iv>Rick</div></div>
+Rick,
 
---001a1144b1d0e04ac305343cdc5b--
+Joel has been working on the AST2500 support for the kernel. I believe
+his current working tree is here:
+    https://github.com/shenki/linux/tree/dev-4.7
+
+We are currently using the u-boot from the Aspeed SDK without much
+(any?) change at all. I think this is his tree for that:
+    https://github.com/shenki/u-boot/tree/v2013.01-aspeed-ast2500
+
+We are also in the process of creating the AST2500 BSP recipes to pull
+this work all together. You should see some commits in the next few days
+for this. In the worst case, it will be up by the end of next week.
+
+One area of need we have is taking the u-boot changes from Aspeed and
+getting them cleaned up, applicable to upstream master, and sent
+upstream. Joel and Teddy from Facebook have both done a little work in
+this area, but I think both of them have been busy with other tasks.
+
+Have you looked at support for Zaius' NIC for the BMC? Some of the
+systems use an NCSI shared interface and some have an independent PHY.
+This has tended to be a "problematic" area for both u-boot and kernel.
+If you're not using an already-supported interface there will be code
+you need to write there. U-boot isn't required but is handy for netboot
+in development.
+
+I don't have the roadmap ready for the userspace work we are planning to
+do. There is a significant amount of work we have planned over the next
+N months for a machine we are developing in a parallel time-frame with
+Zaius. I am really striving to get this all out on Github so we can
+coordinate this work with your team, but had some snags that I am
+working out.
+
+I am going to be in town next Wed 6/8. We can discuss some more on the
+userspace plans face-to-face. Hopefully, I can get our plans for the
+next few months published in Github by the end of this month.
+
+On Wed, Jun 01, 2016 at 12:54:51PM -0700, Rick Altherr wrote:
+> For Zaius, Google and Rackspace's Power9 server, we'll be including an
+> AST2500 and plan to run OpenBMC.  I have a few people on my team available
+> to contribute to AST2500 bringup and Zaius-specific OpenBMC development.
+> I'm trying to figure out what all needs to be done, what AST2500 work is
+> already being done, and where my team's contributions can best be utilize=
+d.
+>=20
+> I know Xo Wang (xow@google.com) has already been talking with some of you
+> about the kernel work needed for AST2500.  What is needed in Yocto and the
+> userspace apps?  I can easily put together a AST2500 bsp layer but without
+> a corresponding kernel, that's not particularly useful.
+>=20
+> Is there a published roadmap somewhere?  Where do you see the biggest need
+> for help?
+>=20
+> Rick
+
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+
+
+--=20
+Patrick Williams
+
+--WTbgq2twYBxfsYA6
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJXT5lkAAoJEKsDR8wtAMEZ5cgP/3RHIUNO9I1+RngUZJ9dY7LR
+IgK5U19LjLvqIGoH0lCzyVI4e9mlgFBVoAOEIlqPmQXsQ4mQCu4misg4ztOummSL
+1BQ4quiOolWUIurD5vmTIiVU7El9J8gd3aC3BAU+nVjFLZA3bK2Jk5ieVjFyYLzB
+cTnXmtpxN+jerG9jCJSIrvpOmrsYOSYfwTm0C3CsZEzApLX+q7ooQbpRrpi0o6I7
+gbTMUUWScpizIs1bAVzO3HWRwXyGetIrnrrNuAUlZfY8OCeG/MfPOM4RZ3avdInn
+l5NvIbW3RqVQMi8ZzO/F/EDy1J2M/SzbEINEPjE9/X9s/+Yzpvje1lWg0FgyM4rB
+qgV2lfDyPJVGVHaczYD9i9z5GErkeR8JZZ5w0q7Jo+8zI6X++MUHaExERSNU+YK/
+soVRnbm7wEvoqiqOljFbVVxDehQ+/AJ7qVomhMjdSzKGSI4+jjw7Uj9vd+q+1ElT
+1XXEprbZxub1MMzffxIChOgN+hqfWMvxmxnlKckDKK+XNsTQUWabbza50bwhoNFt
+6RZrtvYFMj5VtWLyoxhz3ptfaDuyiPSTYvYFXGxugzsVwJalcNF2wMbKAkZcx/ZH
+Gjm0KIVxYeWMsPhp+Wh7pHZdrfFs+WUE4Lb0bBKyxAfGiKCaNCybXFsPIFPPuA27
+Ix3bveeolrY6MnI3JJWO
+=M2gQ
+-----END PGP SIGNATURE-----
+
+--WTbgq2twYBxfsYA6--
