@@ -1,60 +1,59 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-qg0-x241.google.com (mail-qg0-x241.google.com
- [IPv6:2607:f8b0:400d:c04::241])
+Received: from mail-qk0-x243.google.com (mail-qk0-x243.google.com
+ [IPv6:2607:f8b0:400d:c09::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rN3Vf5bdhzDq7w
- for <openbmc@lists.ozlabs.org>; Mon,  6 Jun 2016 02:40:58 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rN3fc455qzDq7w
+ for <openbmc@lists.ozlabs.org>; Mon,  6 Jun 2016 02:47:52 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=gUF3kD79; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=VS7iphme; 
  dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=IbJbcoX0; 
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=VEzP0DWE; 
  dkim-atps=neutral
-Received: by mail-qg0-x241.google.com with SMTP id p34so5144752qgp.0
- for <openbmc@lists.ozlabs.org>; Sun, 05 Jun 2016 09:40:57 -0700 (PDT)
+Received: by mail-qk0-x243.google.com with SMTP id u63so1985204qkh.0
+ for <openbmc@lists.ozlabs.org>; Sun, 05 Jun 2016 09:47:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=lW+qebg8Fk7IT7cw+ArNJlSVepF79nyatM4z7VZVu/0=;
- b=gUF3kD79NfDg+PPhsmO9XU8NzHmZlku8NCoxIf4+WIhvNxoOPhFzgX2T4L5D/yzEsV
- vg2gOFCwTKE28XerKEiy7Iuie3HdjsKjZqep4A6oLi1dVkmHC48uDribzKm0EHGolx13
- NrUDl+ceK+UUvR4y/LffQH8KlMl9K3W47ORDbOkjP2kPMasKXzfgIAETNPYDnt1nNriZ
- 7NE+4q992Sh4gR7QHZrOE5cc3BoPtT1U12V0REmTXtvBCrci//fC9un52XWfday33Jeq
- E8qhvN2uMhkNXu0fpBcSwOhL9GIde9EfWKMNMhmcFMWaEWZoIGaPfRyrYg/ZyA4I5iuT
- wgFQ==
+ bh=EkGsab2TfBVhWZ0jQYiEEQvul/KGifIGWLXPPbF2l48=;
+ b=VS7iphmevau1t4gfQaM0hRVGhI7tMkIBeszvk8zKcigLa1HAon9m2RpJPI2Z0thSDa
+ hm9p3aV20I4T/2uilX/Y1Yi2uZBXR+1gyJr7Cgq22sWYED8Dt0/hpKeAsq/W8kZCGkdp
+ LFYKLwjr5QogcHpczGv87rWvg/cwNR2tyjfcnwSnKWafNE9GeIqyx8O6PB19Q4ZwkG3k
+ icp7DQ6EKvEwHhMsO4eMqNkWafOsXJugSBBnmYY1XXJz9NUBd9W3wdYSTNxxsgN4U1Nf
+ Nvb/fwNe4reu2LqMGSBZsAjbC9fzO7FVaq5yW8Rd6Voyi0q2aFjzv0cg+wZi8hQDbF5B
+ k98A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=lW+qebg8Fk7IT7cw+ArNJlSVepF79nyatM4z7VZVu/0=;
- b=IbJbcoX0NfqebcfoXPIT3w67V33KyK180SY0nHeYfBxtIBNBCmbUnVJ0kxQAB3HHKv
- yAoUr4rSGVd7CovrnCJnpR+H6wAu0oYFT54C6WZy6XMMbQLOiV+N4Vwrdg0BomEyImdC
- NCEaIVbP85DGemW3cY01cYBxhP+mAONlQK1EE=
+ bh=EkGsab2TfBVhWZ0jQYiEEQvul/KGifIGWLXPPbF2l48=;
+ b=VEzP0DWEnVnNLaf2KOgEsGV1N+OBrkYfWUaxc1BeTZuwIJ7k6wSfOi4IR4FlqdPyKE
+ 3GI7pZQtFvUBx2ozxNiyHMPUrLRfuX9rMxHIngMtypYuJI1Wkb5cSUjANq8NV8KqDAq8
+ rM+Irte8OazC7OWmA1dsRz0E2UnvjkciYulRU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=lW+qebg8Fk7IT7cw+ArNJlSVepF79nyatM4z7VZVu/0=;
- b=FcW0tJHmFS/ukeQXg8QSpimHkM60sUvt2KHRa9hfY2cUqTg9fpKjZOuXUJ1uImPeup
- m9GS/7dHqMjrNxxRWRClO29KBIcFe18F95KKVyvh0h8Fs5llE5o/n0rtu1OFj0tDapCe
- YIQRQ+MX7R22z3JcIns/RTN88uxcCH4a8drKoGmQVbUSQHheK1wzGl2ks+7PniaZJTvz
- h8fAZiWG+x8Tj7agNqc/pKjqKRr3vPRHKXRM/ssO4j84Z5ERCTiJD7bHVAbG/Z+DgtHg
- Qz1Zw6AKzZzVAXvPcfzfL4o7bZpft7CbdxoY1Da0SGwBFN8UFSIbIblvQGR+ahkay2s2
- 7A1Q==
-X-Gm-Message-State: ALyK8tK5RIJQXqBeFumzygTFV3Mc+YA61ieCWdacaW2iU+ETn5P/JM8i20R8HXgGLfNdexilaAoW0O9H+P77bg==
-X-Received: by 10.140.221.135 with SMTP id r129mr12290635qhb.59.1465144853898; 
- Sun, 05 Jun 2016 09:40:53 -0700 (PDT)
+ bh=EkGsab2TfBVhWZ0jQYiEEQvul/KGifIGWLXPPbF2l48=;
+ b=mMfXu5xwr59mAfjLzSHhsHy/XPDkJnQwGK0LGspCIBrsbTYBQjqdmbMV8FV/PTWDKB
+ 4KCrxQAtow9Py9oUfggdViCjkx4+SY+94YhytJNvLlGX39KfwAhjFm0CAdT5IY57YGT+
+ Qx8cfZXPU12ilkpyKvqmNj+m4yeH9Lz/+2odzYKdQ3+PT4ML2wNkmOLngevh9MzcZyUT
+ BrmRnMGIfvBlWKF6YKEqtAXhfct14g5EjaSbSXdFCKc0ZWo9xsA/lfQBLsEgcKXROoxh
+ VoSBOw1Cr6nvwtTHkEtY8bnmJLE/7PG/WtiKCNUsHZdeRLKgrIqcFD1c1NtzNfQKdLF8
+ rWNw==
+X-Gm-Message-State: ALyK8tLtl+vK7JO4YYV7ueihu7k5kEP9zHy1HQ2MCzKMgAolbFwW3gwfzffhUHozXdBq56dPd2eN9wLvo1nF4g==
+X-Received: by 10.55.147.196 with SMTP id v187mr12225862qkd.7.1465145270192;
+ Sun, 05 Jun 2016 09:47:50 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.237.44.196 with HTTP; Sun, 5 Jun 2016 09:40:34 -0700 (PDT)
-In-Reply-To: <20160604052039.6581-7-openbmc-patches@stwcx.xyz>
+Received: by 10.237.44.196 with HTTP; Sun, 5 Jun 2016 09:47:30 -0700 (PDT)
+In-Reply-To: <20160604052039.6581-8-openbmc-patches@stwcx.xyz>
 References: <20160604052039.6581-1-openbmc-patches@stwcx.xyz>
- <20160604052039.6581-7-openbmc-patches@stwcx.xyz>
+ <20160604052039.6581-8-openbmc-patches@stwcx.xyz>
 From: Joel Stanley <joel@jms.id.au>
-Date: Sun, 5 Jun 2016 11:40:34 -0500
-X-Google-Sender-Auth: KcKd7ohxEzgoX7yfMbJ98Ecm9rY
-Message-ID: <CACPK8XeSGjPNhXBvvRigQJ8eE3YWmJ3WmgGcR782crw6Wek6tg@mail.gmail.com>
-Subject: Re: [PATCH openbmc 06/10] Move static kernel recipe configuration to
- include
+Date: Sun, 5 Jun 2016 11:47:30 -0500
+X-Google-Sender-Auth: 4mMEHWGg55otWvWs4rxah-3kRVQ
+Message-ID: <CACPK8XfZ2NgsF3pFejL8KgoByz2n68Cbtctrn_rXOWYFktPtfA@mail.gmail.com>
+Subject: Re: [PATCH openbmc 07/10] Add a kernel 4.6 recipe
 To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Brad Bishop <bradleyb@fuzziesquirrel.com>
@@ -70,55 +69,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 05 Jun 2016 16:40:59 -0000
+X-List-Received-Date: Sun, 05 Jun 2016 16:47:53 -0000
 
 On Sat, Jun 4, 2016 at 12:20 AM, OpenBMC Patches
 <openbmc-patches@stwcx.xyz> wrote:
 > From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 >
-> This facilitates multiple kernel recipes.
->
+> Adding a 4.6 kernel recipe for the AST2500.  AST2400 remains on
+> 4.4.
+
+We discussed this on IRC with Rick from Google. He would prefer us to
+base the images on a released kernel, so we're what was my dev-4.7
+tree rebased back down to 4.6.
+
+The downside here is we now have three trees - 4.4 for the ast2400,
+4.6 for the 2500 (but support is incomplete for eg. ftgmac100), and
+4.7 for bringup and development.
+
+I intend to clean up the 4.6 patchset and ensure it supports the
+ast2500 and ast2400, and we will move to that. This way 4.6 can be our
+stable tree, and I will continue to hack on 4.7-rc for bringup.
+
+Once 4.7 is released we will move to that as our stable tree. The plan
+is too keep in sync with upstream kernel releases at least until we
+have the majority of our patches upstream. At that point we can pick a
+long term supported kernel release and stick with that for some time.
+
+This is a similar model that we have been using for the OpenPower
+firmware and it is a nice balance between modern supported kernels and
+managing workload.
+
 > Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 > ---
->  .../common/recipes-kernel/linux/linux-obmc.inc         | 18 ++++++++++++++++++
->  .../common/recipes-kernel/linux/linux-obmc_4.4.bb      | 18 +-----------------
->  2 files changed, 19 insertions(+), 17 deletions(-)
->  create mode 100644 meta-phosphor/common/recipes-kernel/linux/linux-obmc.inc
+>  meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.6.bb | 5 +++++
+>  1 file changed, 5 insertions(+)
+>  create mode 100644 meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.6.bb
 >
-> diff --git a/meta-phosphor/common/recipes-kernel/linux/linux-obmc.inc b/meta-phosphor/common/recipes-kernel/linux/linux-obmc.inc
+> diff --git a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.6.bb b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.6.bb
 > new file mode 100644
-> index 0000000..c64ff9d
+> index 0000000..b3891f4
 > --- /dev/null
-> +++ b/meta-phosphor/common/recipes-kernel/linux/linux-obmc.inc
-> @@ -0,0 +1,18 @@
-> +DESCRIPTION = "Linux kernel for OpenBMC"
-> +SECTION = "kernel"
-> +LICENSE = "GPLv2"
-> +
-> +KCONFIG_MODE="--alldefconfig"
-> +
-> +KSRC ?= "git://github.com/openbmc/linux;protocol=git;branch=${KBRANCH}"
+> +++ b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.6.bb
+> @@ -0,0 +1,5 @@
+> +KBRANCH ?= "dev-4.6"
+> +LINUX_VERSION ?= "4.6"
+> +SRCREV="e377df455809d87488eed132b41583ead909f58a"
 
-Can we tell poky to download a tarball instead of waiting for it to
-check out a git repository?
+I'd prefer we point to a tag, so if we chose to rebase the kernel the
+commit will not disappear.
 
-> +SRC_URI = "${KSRC}"
-> +SRC_URI += "file://hwmon.cfg"
-
-As I commented in another patch, I'd prefer we weren't spreading our
-configuration all over the poky tree and instead it was all in one
-place.
+I'll push a tag for you to use.
 
 Cheers,
 
 Joel
-
-> +
-> +LINUX_VERSION_EXTENSION ?= "-${SRCREV}"
-> +
-> +PV = "${LINUX_VERSION}+git${SRCPV}"
-> +
-> +COMPATIBLE_MACHINE_${MACHINE} = "openbmc"
-> +
-> +inherit kernel
-> +require recipes-kernel/linux/linux-yocto.inc
