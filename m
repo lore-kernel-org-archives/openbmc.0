@@ -1,62 +1,45 @@
-Return-Path: <teddy.reed@gmail.com>
-Received: from mail-wm0-x243.google.com (mail-wm0-x243.google.com
- [IPv6:2a00:1450:400c:c09::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from homiemail-a23.g.dreamhost.com (sub3.mail.dreamhost.com
+ [69.163.253.7])
+ (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rNJ8f6j6nzDq64
- for <openbmc@lists.ozlabs.org>; Mon,  6 Jun 2016 12:11:14 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=uBapM20h; 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rNJBw4p6SzDq64
+ for <openbmc@lists.ozlabs.org>; Mon,  6 Jun 2016 12:13:12 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=a8PBrXOj; 
  dkim-atps=neutral
-Received: by mail-wm0-x243.google.com with SMTP id k184so6528831wme.2
- for <openbmc@lists.ozlabs.org>; Sun, 05 Jun 2016 19:11:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=fXci7unUtExi+TQrFX2C96QDDls4APkcznhk7Gq6btE=;
- b=uBapM20hDl24V7GFgc6/WL3GVunG8uMJM2M0E0JVpsdutX8TK2HstYUJGZTs5D2iw1
- xubX3R1M0Pkb0fEslff7rl6PcsN7FICD729i0sEZe1DYbJSlDEPyoWPTcTRM1Kx1EFLg
- RI5bkMB+Rsb8imasRJ9me2rNiFx8bFwg1GGJJYiTKf/xjtkncqb5JImv3gLJZ6RVOKBM
- PyzpfOmFpA0Ih2K+ytFxjOmu9/Vs9lJlA8iVS27MYU9jaCnmQ43cWZyi0GvNDpg/0KrZ
- J1BLUh6NZ30KKhizvNXuzjyWHvM4ootIi1dlDVAPlcCvaRq39lLnvEBprm0e371bJCMP
- 2HCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=fXci7unUtExi+TQrFX2C96QDDls4APkcznhk7Gq6btE=;
- b=FNLrdk4eQXWRcF3k4F7NC2BatbHqFnWCT8WM4Tclmco+ySX4Qt+Wp5vUmjj38rWVmZ
- ddCJ8Xvhn/z60dttWlMfEyF5Hm00m5ZUzRM32p626amqRJAo2ODoLvVC6mWebxPXQ2xR
- MjzbEBc6P+HV+98SZGDnZyRVtepNKc3QDQE41r9vEPBIJP5Hh0BOSriEQCKsMkXPd1OR
- AVXGTjSBdoQokpju2t8hZKB6rMseVH9pxvSlHQCT8BHJtLGimEusXItA5Cqwpn+tnHkp
- vpB8DGwIIwSKtWEV0BWJIETzW2KFNTtaJcrcnIHhGiN7V3iymIgS+u90QzZlF3Rw5E6T
- PTIw==
-X-Gm-Message-State: ALyK8tKafwsCgniBrlNb/3TpDe7hZvE3d82xLc8OJe0uMS/P2Vt9Omj6q15vxVPBKxZ0sg==
-X-Received: by 10.194.175.36 with SMTP id bx4mr12805359wjc.35.1465179071195;
- Sun, 05 Jun 2016 19:11:11 -0700 (PDT)
-Received: from mail-wm0-f54.google.com (mail-wm0-f54.google.com.
- [74.125.82.54])
- by smtp.gmail.com with ESMTPSA id q194sm11672608wme.18.2016.06.05.19.11.10
- for <openbmc@lists.ozlabs.org>
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 05 Jun 2016 19:11:10 -0700 (PDT)
-Received: by mail-wm0-f54.google.com with SMTP id m124so53269002wme.1
- for <openbmc@lists.ozlabs.org>; Sun, 05 Jun 2016 19:11:10 -0700 (PDT)
-X-Received: by 10.194.116.9 with SMTP id js9mr15423216wjb.112.1465179069920;
- Sun, 05 Jun 2016 19:11:09 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.194.122.41 with HTTP; Sun, 5 Jun 2016 19:11:09 -0700 (PDT)
-X-Originating-IP: [24.6.55.56]
-In-Reply-To: <CACPK8Xc+YSYpSZifuTUoK7=zTbHYMmAhaNkwnAbr1S=E-d59-g@mail.gmail.com>
-References: <20160605153723.261560bea9e9e70d3469d475@gmail.com>
- <CACPK8Xc+YSYpSZifuTUoK7=zTbHYMmAhaNkwnAbr1S=E-d59-g@mail.gmail.com>
-From: Teddy Reed <teddy.reed@gmail.com>
-Date: Sun, 5 Jun 2016 19:11:09 -0700
-X-Gmail-Original-Message-ID: <CADUykerRi6FuovZEDOE1kg83kXSHPCZF1Jv7CekGjQVJnWbx5A@mail.gmail.com>
-Message-ID: <CADUykerRi6FuovZEDOE1kg83kXSHPCZF1Jv7CekGjQVJnWbx5A@mail.gmail.com>
-Subject: Re: [PATCH qemu] Add OpenCompute Yosemite BMC ARM board
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+Received: from homiemail-a23.g.dreamhost.com (localhost [127.0.0.1])
+ by homiemail-a23.g.dreamhost.com (Postfix) with ESMTP id 8D47D4B006D;
+ Sun,  5 Jun 2016 19:13:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
+ :subject:from:reply-to:to:cc:date:in-reply-to:references
+ :content-type:mime-version; s=aj.id.au; bh=esp8+Y1SBYDe53SIEcAgL
+ 3zWxBY=; b=a8PBrXOjI7Ljp+XtVS+YihgYyRoKERX/3mclgnw5CgDI6GNxnOwgR
+ ONSKf5I1EgMPEbLvaaVoGyVWAtzhh8fhQcozKLvoaKyWONFhKUH3CqXJo+/wlqYK
+ Hkfhzewyl7Uih1//FPX9QlpB7VHhohpx/sR5uHftS+Y3dDuTN6P1CU=
+Received: from keelia (unknown [203.0.153.9])
+ (using TLSv1 with cipher AES128-SHA (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: andrew@aj.id.au)
+ by homiemail-a23.g.dreamhost.com (Postfix) with ESMTPSA id 652084B0063;
+ Sun,  5 Jun 2016 19:13:08 -0700 (PDT)
+Message-ID: <1465179176.16048.1.camel@aj.id.au>
+Subject: Re: [PATCH openbmc 10/10] AST2500: Add AST2500 evaluation board layer
+From: Andrew Jeffery <andrew@aj.id.au>
+Reply-To: andrew@aj.id.au
+To: Joel Stanley <joel@jms.id.au>, OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Brad Bishop
+ <bradleyb@fuzziesquirrel.com>
+Date: Mon, 06 Jun 2016 11:42:56 +0930
+In-Reply-To: <CACPK8XfXJjhjfDTNYBeR9J+ZfSD0k=ySpJ=MMnBGrpr4W+CpiQ@mail.gmail.com>
+References: <20160604052039.6581-1-openbmc-patches@stwcx.xyz>
+ <20160604052039.6581-11-openbmc-patches@stwcx.xyz>
+ <CACPK8XfXJjhjfDTNYBeR9J+ZfSD0k=ySpJ=MMnBGrpr4W+CpiQ@mail.gmail.com>
+Organization: IBM OzLabs
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-T5tDDUXpV+t+cXaTopX6"
+X-Mailer: Evolution 3.18.5.2-0ubuntu3 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -68,217 +51,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 06 Jun 2016 02:11:16 -0000
+X-List-Received-Date: Mon, 06 Jun 2016 02:13:13 -0000
 
-On Sun, Jun 5, 2016 at 4:26 PM, Joel Stanley <joel@jms.id.au> wrote:
-> Hey Teddy,
->
-> On Sun, Jun 5, 2016 at 5:37 PM, Teddy Reed <teddy.reed@gmail.com> wrote:
->> The Yosemite BMC board is very similar to the Palmetto BMC. They both configure
->> an AST2400 SoC and have rather simple device sets.
->
-> Nice!
->
-> Are you planning on sending this upstream?
 
-Yeah! I'm not sure if the IBM team plans to push the QEMU changes in
-the OpenBMC fork upstream en masse, if not I can also send a similar
-patch once we work through a few revisions here.
+--=-T5tDDUXpV+t+cXaTopX6
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
->
->> The Yosemite uses dual SPI flashes but the AST2400's memory controller, via
->> hardware strapping, makes either a NAND, NOR, or SPI available at boot at
->> 0x0 and 0x2000:0000. For the board emulation included here the SPIs are replaced
->> with CFI flash to allow simple pflash configuration via the caller.
->>
->> Additionally, to support an SPL boot where DRAM has not been calibrated, the
->> board relocates global data and the stack into the small 32kb of SRAM.
->
-> You need to add a developers certificate of origin (the signed off by
-> line) to your commit message.
+On Sun, 2016-06-05 at 12:01 -0500, Joel Stanley wrote:
+> > +# Qemu configuration
+> > +#
+> > +# By default qemu will build with a builtin VNC server where graphical=
+ output can be
+> > +# seen. The two lines below enable the SDL backend too. This assumes t=
+here is a
+> > +# libsdl library available on your build system.
+> > +PACKAGECONFIG_append_pn-qemu-native =3D " sdl"
+> > +PACKAGECONFIG_append_pn-nativesdk-qemu =3D " sdl"
+> > +ASSUME_PROVIDED +=3D "libsdl-native"
+>=20
+> I don't think we need this. I believe we all enable the serial console
+> output to the console or a pty, so building in sdl is unnecessary.
+>=20
+> Unrelated to this patch; are we building from our qemu tree?
 
-Womp, thanks.
+No we're not. Doing so was part of my abandoned pull request with the
+rest of the qemu support. When I've got time I'll have another go at
+integration.
 
->
->> ---
->>  hw/arm/Makefile.objs    |   2 +-
->>  hw/arm/fbyosemite-bmc.c | 115 ++++++++++++++++++++++++++++++++++++++++++++++++
->
-> Are you attached to calling it "fbyosemite"? We didn't stick ibm in
-> front of the palmettos. No biggie though.
+Andrew
+--=-T5tDDUXpV+t+cXaTopX6
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-It's sort of an arraigned attachment.
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
 
-The oh-so creative Silicon Valley has aptly named both an OS and
-embedded board Yosemite (as well as several other codenamed-thingies).
+iQIcBAABCgAGBQJXVNwoAAoJEJ0dnzgO5LT5w78QALdryCxmoEbmicDobbb9ggs1
+ErWKk3GGNFte9Y/pvwiLaLdNC0pFXbr/xOR5EaTW4M9w4vNYLFdXZTU2AsmtGLG6
+F1duYLeN0n5D+eQnZYXsPddhUO5hZLfLaJDQupNG7wjbhRFoG7OGLVxw3OJe0uRT
+d05YkjeKFVLWp6pgrTqqDJgUlefB+ezNDHk6Ea/4MtpzW0UnKITRhvgNRBazH7Ud
+O6eU57Uvg5HPoe8XqAX3Md/FM373nnW2eQOI86uY6VQtfUpLQvKZDdUZu2+9Qp9a
+1Awa5bMChxbz3k3ed7M/NcTHign97IIw9kAQK2Il2mVq8EctEQTIocDnZtNeyqnU
+X3pPVHib8dssa9oqFXoJQpG3+mY01vBgtNVDOj4/u+iRAHFdG4SP0yTFBavLh4DF
+f2wt5InfTAQPwQY5iIkEHdYksd2ysYKJSjq2tucydMZK57lWlkUg5cMmV7JJad2T
+G9BDWMl4pzGj0PgksYp7mPBlXxgcb6Pke9Vxot9goSSp5qeLFJfbbFbnwrPYE7F7
+Hej2W8sRDH73Ww5fkjuMR4Gp8Cg7Qd6SIxiM8/vUm6QM0gzr+FutctcPR7SAAFtO
+ly7HEBVNCVxSGcyceJV1GLo+TveRkmreAxW1NcXM8V6hzcVS8YHOvO/2LODS/QlP
+vvwIT375m0/zXbArRX97
+=vso4
+-----END PGP SIGNATURE-----
 
-There's a current conflict with Yosemite in U-Boot too! So we need to
-use "fb" here. We have 3 other boards right now, Wedge, Wedge100, and
-Lightning. Lightning also has a conflict in U-Boot so I'm porting all
-of our configs, past and future, to include an "fb" prefix. :/
-
->
->>  2 files changed, 116 insertions(+), 1 deletion(-)
->>  create mode 100644 hw/arm/fbyosemite-bmc.c
->>
->> diff --git a/hw/arm/Makefile.objs b/hw/arm/Makefile.objs
->> index 2fcd33a..cbf5c3e 100644
->> --- a/hw/arm/Makefile.objs
->> +++ b/hw/arm/Makefile.objs
->> @@ -16,4 +16,4 @@ obj-$(CONFIG_STM32F205_SOC) += stm32f205_soc.o
->>  obj-$(CONFIG_XLNX_ZYNQMP) += xlnx-zynqmp.o xlnx-ep108.o
->>  obj-$(CONFIG_FSL_IMX25) += fsl-imx25.o imx25_pdk.o
->>  obj-$(CONFIG_FSL_IMX31) += fsl-imx31.o kzm.o
->> -obj-$(CONFIG_ASPEED_SOC) += ast2500.o ast2500-edk.o ast2400.o palmetto-bmc.o
->> +obj-$(CONFIG_ASPEED_SOC) += ast2500.o ast2500-edk.o ast2400.o palmetto-bmc.o fbyosemite-bmc.o
->> diff --git a/hw/arm/fbyosemite-bmc.c b/hw/arm/fbyosemite-bmc.c
->> new file mode 100644
->> index 0000000..e506977
->> --- /dev/null
->> +++ b/hw/arm/fbyosemite-bmc.c
->> @@ -0,0 +1,115 @@
->> +/*
->> + * OpenCompute Facebook Yosemite BMC
->> + *
->> + * Teddy Reed <reed@fb.com>
->> + *
->> + * Copyright 2016-Present, Facebook, Inc.
->> + *
->> + * This code is licensed under the GPL version 2 or later.  See
->> + * the COPYING file in the top-level directory.
->> + */
->> +
->> +#include "qemu/osdep.h"
->> +#include "qapi/error.h"
->> +#include "qemu-common.h"
->> +#include "cpu.h"
->> +#include "exec/address-spaces.h"
->> +#include "hw/arm/arm.h"
->> +#include "hw/arm/ast2400.h"
->> +#include "hw/boards.h"
->> +#include "hw/block/flash.h"
->> +
->> +#define AST2400_FLASH0_BASE 0x20000000
->> +#define AST2400_FLASH0_SIZE 0x02000000 /* Max is 64k, but set 32kB */
->> +#define AST2400_FLASH1_BASE 0x24000000
->> +#define AST2400_FLASH1_SIZE 0x02000000
->
-> These are really board-specific defines, not ast2400 ones I think.
-> Perhaps don't use the AST2400 prefix?
-
-They are defined in the AST2400 specification. Whether they are
-SPI/CFI/NAND is based on the strapping. If SPI, and the board allows
-dual SPI (1250+) then the second flash base is also valid.
-
-Though, because of the strapping requirement and potential variance,
-your recommendation seems best. I'll rename them. :)
-
->
->> +#define FBYOSEMITE_TEXT_BASE 0x0
->> +
->> +static struct arm_boot_info fbyosemite_bmc_binfo = {
->> +    .loader_start = FBYOSEMITE_TEXT_BASE,
->> +    .board_id = 0,
->> +    .nb_cpus = 1,
->> +};
->> +
->> +typedef struct FBYosemiteBMCState {
->> +    AST2400State soc;
->> +    MemoryRegion ram;
->> +    MemoryRegion flash0_alias;
->> +} FBYosemiteBMCState;
->> +
->> +static pflash_t* pflash_register(hwaddr base, hwaddr size, const char* name,
->> +                            DriveInfo *info) {
->
-> You've got a few *'s with the space on the wrong side.
->
->> +    int sector_len = 128 * 1024;
->> +    int be = 0;
->> +    pflash_t *pf;
->> +
->> +    pf = pflash_cfi01_register(base, NULL, name, size,
->> +                               info ? blk_by_legacy_dinfo(info) : NULL,
->> +                               sector_len, size / sector_len,
->> +                               2, 0, 0, 0, 0, be);
->> +    if (pf == NULL) {
->> +        fprintf(stderr, "qemu: Error registering flash memory.\n");
->> +        exit(1);
->> +    }
->
-> I suspect we want to do something other than exit(1) here.
-
-An error_report or fprintf followed by exit 1 seems pretty standard
-within the ARM machine models. I'm happy to change if anyone has a
-preferred recommendation?
-
->
->> +    return pf;
->> +}
->> +
->> +static void fbyosemite_bmc_init(MachineState *machine)
->> +{
->> +    FBYosemiteBMCState *bmc;
->> +    DriveInfo *dinfo;
->> +    pflash_t *pflash0;
->> +    MemoryRegion *pflash0mem;
->> +
->> +    bmc = g_new0(FBYosemiteBMCState, 1);
->> +    object_initialize(&bmc->soc, (sizeof(bmc->soc)), TYPE_AST2400);
->> +    object_property_add_child(OBJECT(machine), "soc", OBJECT(&bmc->soc),
->> +                              &error_abort);
->> +
->> +    memory_region_allocate_system_memory(&bmc->ram, NULL, "ram", ram_size);
->> +    memory_region_add_subregion(get_system_memory(), AST2400_SDRAM_BASE,
->> +                                &bmc->ram);
->> +    object_property_add_const_link(OBJECT(&bmc->soc), "ram", OBJECT(&bmc->ram),
->> +                                   &error_abort);
->> +    object_property_set_bool(OBJECT(&bmc->soc), true, "realized",
->> +                             &error_abort);
->> +
->> +    /* Connect flash0 */
->> +    dinfo = drive_get_next(IF_PFLASH);
->> +    pflash0 = pflash_register(AST2400_FLASH0_BASE, AST2400_FLASH0_SIZE,
->> +                              "fbyosemite.flash0", dinfo);
->> +
->> +    /* Map flash0 to FBYOSEMITE_TEXT_BASE */
->> +    pflash0mem = sysbus_mmio_get_region(SYS_BUS_DEVICE(pflash0), 0);
->> +    memory_region_set_readonly(pflash0mem, true);
->> +    memory_region_init_alias(&bmc->flash0_alias, NULL,
->> +                             "flash0.alias", pflash0mem, FBYOSEMITE_TEXT_BASE,
->> +                             AST2400_FLASH0_SIZE);
->> +    memory_region_add_subregion(get_system_memory(), FBYOSEMITE_TEXT_BASE,
->> +                                &bmc->flash0_alias);
->> +    memory_region_set_readonly(&bmc->flash0_alias, true);
->> +
->> +    /* Connect flash1 */
->> +    dinfo = drive_get_next(IF_PFLASH);
->> +    pflash_register(AST2400_FLASH1_BASE, AST2400_FLASH1_SIZE,
->> +                   "fbyosemite.flash1", dinfo);
->> +
->> +    fbyosemite_bmc_binfo.kernel_filename = machine->kernel_filename;
->> +    fbyosemite_bmc_binfo.initrd_filename = machine->initrd_filename;
->> +    fbyosemite_bmc_binfo.kernel_cmdline = machine->kernel_cmdline;
->> +    fbyosemite_bmc_binfo.ram_size = ram_size;
->> +    arm_load_kernel(ARM_CPU(first_cpu), &fbyosemite_bmc_binfo);
->> +}
->> +
->> +static void fbyosemite_bmc_machine_init(MachineClass *mc)
->> +{
->> +    mc->desc = "OpenCompute Facebook Yosemite BMC";
->> +    mc->init = fbyosemite_bmc_init;
->> +    mc->max_cpus = 1;
->> +    mc->no_sdcard = 1;
->> +    mc->no_floppy = 1;
->> +    mc->no_cdrom = 1;
->> +    mc->no_parallel = 1;
->> +}
->> +
->> +DEFINE_MACHINE("fbyosemite-bmc", fbyosemite_bmc_machine_init);
->> --
->> 2.7.4
-
-Thanks Joel! I'll have a v2 out shortly.
-
--- 
-Teddy Reed V
+--=-T5tDDUXpV+t+cXaTopX6--
