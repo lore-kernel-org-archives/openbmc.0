@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rNLpW5y29zDq6B
- for <openbmc@lists.ozlabs.org>; Mon,  6 Jun 2016 14:10:43 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rNLpf3FCqzDqGn
+ for <openbmc@lists.ozlabs.org>; Mon,  6 Jun 2016 14:10:50 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1465186237284696.7473092283768;
- Sun, 5 Jun 2016 21:10:37 -0700 (PDT)
+ with SMTPS id 1465186247528809.3965126619955;
+ Sun, 5 Jun 2016 21:10:47 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH openpower-inventory-upload] Change upload triggering mechanism
-Date: Sun,  5 Jun 2016 23:10:35 -0500
-Message-Id: <20160606041036.18631-1-openbmc-patches@stwcx.xyz>
+Subject: [PATCH phosphor-objmgr] Performance improvements
+Date: Sun,  5 Jun 2016 23:10:45 -0500
+Message-Id: <20160606041046.18724-1-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.3
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
@@ -26,28 +26,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 06 Jun 2016 04:10:44 -0000
+X-List-Received-Date: Mon, 06 Jun 2016 04:10:51 -0000
 
-This reverts most of dbc81d6.  The previous triggering mechanism
-did not prevent a user from powering the system on while the PNOR
-is updated and vise versa.  The new mechanism just does the upload
-prior to stating the host.
+Prior to this patch, an excessive ( more than zero ) number of dbus
+calls were made to determine if a signal was something we care about.
+This patch adds a well-known to unique connection name translation cache
+eliminating all outgoing dbus calls.
+
+Also removed the abstraction layer that obscured this as it isn't used.
 
 Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
-<!-- Reviewable:start -->
----
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openpower-inventory-upload/4)
-<!-- Reviewable:end -->
-
-
-https://github.com/openbmc/openpower-inventory-upload/pull/4
+https://github.com/openbmc/phosphor-objmgr/pull/12
 
 Brad Bishop (1):
-  Change upload triggering mechanism
+  Performance improvements
 
- inventory_upload.py | 96 ++++++++++++++++++-----------------------------------
- 1 file changed, 33 insertions(+), 63 deletions(-)
+ phosphor-mapper | 102 ++++++++++++++++++++++++++------------------------------
+ 1 file changed, 47 insertions(+), 55 deletions(-)
 
 -- 
 2.8.3
