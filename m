@@ -1,21 +1,54 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender1.zohomail.com [74.201.84.157])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <raltherr@google.com>
+Received: from mail-io0-f175.google.com (mail-io0-f175.google.com
+ [209.85.223.175])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rNjYy3fS8zDq7n
- for <openbmc@lists.ozlabs.org>; Tue,  7 Jun 2016 04:16:06 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1465236046919579.738653526513;
- Mon, 6 Jun 2016 11:00:46 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Cc: ratagupt <ratagupt@in.ibm.com>
-Subject: [PATCH phosphor-host-ipmid] Implement Network Override
-Date: Mon,  6 Jun 2016 13:00:44 -0500
-Message-Id: <20160606180044.15374-2-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.8.3
-In-Reply-To: <20160606180044.15374-1-openbmc-patches@stwcx.xyz>
-References: <20160606180044.15374-1-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rNkmH6Hg6zDqFh
+ for <openbmc@lists.ozlabs.org>; Tue,  7 Jun 2016 05:10:07 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b=XrdzjTTP; 
+ dkim-atps=neutral
+Received: by mail-io0-f175.google.com with SMTP id n127so25429092iof.3
+ for <openbmc@lists.ozlabs.org>; Mon, 06 Jun 2016 12:10:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=tacQJVB0NYX8L0/BWU2oDBOrIaZbM1prgVvMJxXY1x0=;
+ b=XrdzjTTPEtikyte5w/mR8xzUBLOAP74/ek7ezigxhG5mVDOZOwdSOfgBZi+jjBZo9o
+ eSjYa/t6NvOfsuQdqowwBPE+IYpwBPInRZ+KvrWxOjszyN1mGDjZtsQGO7kownh9djVH
+ Rm1yCVJAba6B+AFLQVDP9DAekqZCeWqRdKswhINXchqJtxzL8QRjYm/TlBe7ihdvAIkY
+ 5Rqhfxbqr9NIWxVcnu9DTjBtn9IphIFnyBsm3u2PPZsf3EUNbmDbIPfydHigFaOsv4GE
+ XnhhWjPW/7oAAtBH5ErCvye+KCdCUynNENI5KXHCTWCP2tVp64sls95j4xzKiIJlMKG1
+ TdMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=tacQJVB0NYX8L0/BWU2oDBOrIaZbM1prgVvMJxXY1x0=;
+ b=bc4NtshM2XnXn7jJRmHSGrMArylibiu4lNRcYMs53iQOkFu+eNrXkj058U696lsQMk
+ h1WdArE/rTAppMKFPojfHzUPhyHt9gUyu4W1vk0IJ1I9X5NMVBZGF70TLkPY4mAg9CCE
+ a8bEydws0OEXEeQxK2zvhcGLpKalC2hwkotcQu4UTqH/U2KycyqJFxcUB9srhVXSckxy
+ qLQE7WY00xKMhu2FYof2rMl/hvgna/NPa9EfWSdplBh+RtedgpurgbdOUewWLmXodrGQ
+ z3z93buyVk3K2UMMcKgpOQZ+G+/oNGKQsF01e5FqiIwqfhbGkVZWt9yiUGTOjQKzsfGt
+ kewg==
+X-Gm-Message-State: ALyK8tLmtK5Uxy0lPJY9s8cdO9C2UBUGNK092pzGffVrf0Ay/6pLz65FyS5R1DAzZlWb/wMYkX7RN19O1lAmUkzk
+X-Received: by 10.107.26.85 with SMTP id a82mr24418461ioa.13.1465240084806;
+ Mon, 06 Jun 2016 12:08:04 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.65.14.170 with HTTP; Mon, 6 Jun 2016 12:08:04 -0700 (PDT)
+In-Reply-To: <CACPK8XeSGjPNhXBvvRigQJ8eE3YWmJ3WmgGcR782crw6Wek6tg@mail.gmail.com>
+References: <20160604052039.6581-1-openbmc-patches@stwcx.xyz>
+ <20160604052039.6581-7-openbmc-patches@stwcx.xyz>
+ <CACPK8XeSGjPNhXBvvRigQJ8eE3YWmJ3WmgGcR782crw6Wek6tg@mail.gmail.com>
+From: Rick Altherr <raltherr@google.com>
+Date: Mon, 6 Jun 2016 12:08:04 -0700
+Message-ID: <CAPLgG=mJA8UStZ8SwevUixvnAzseggLFN=d9r1qqeSMpiwCPTQ@mail.gmail.com>
+Subject: Re: [PATCH openbmc 06/10] Move static kernel recipe configuration to
+ include
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Brad Bishop <bradleyb@fuzziesquirrel.com>
+Content-Type: multipart/alternative; boundary=001a113fd586c593810534a0ca15
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -27,291 +60,164 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 06 Jun 2016 18:16:07 -0000
+X-List-Received-Date: Mon, 06 Jun 2016 19:10:09 -0000
 
-From: ratagupt <ratagupt@in.ibm.com>
+--001a113fd586c593810534a0ca15
+Content-Type: text/plain; charset=UTF-8
 
----
- chassishandler.C | 228 +++++++++++++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 220 insertions(+), 8 deletions(-)
+On Sun, Jun 5, 2016 at 9:40 AM, Joel Stanley <joel@jms.id.au> wrote:
 
-diff --git a/chassishandler.C b/chassishandler.C
-index d5b3404..e21d6da 100644
---- a/chassishandler.C
-+++ b/chassishandler.C
-@@ -3,15 +3,19 @@
- #include <stdio.h>
- #include <string.h>
- #include <stdint.h>
--
--
-+#include <arpa/inet.h>
-+#include <netinet/in.h>
-+#include <string>
-+using namespace std;
- //Defines
- #define SET_PARM_VERSION 1
- #define SET_PARM_BOOT_FLAGS_PERMANENT 0x40 //boot flags data1 7th bit on
- #define SET_PARM_BOOT_FLAGS_VALID_ONE_TIME   0x80 //boot flags data1 8th bit on
- #define SET_PARM_BOOT_FLAGS_VALID_PERMANENT  0xC0 //boot flags data1 7 & 8 bit on 
--
--
-+#define SIZE_MAC 18
-+#define SIZE_HOST_NETWORK_DATA 26
-+#define SIZE_BOOT_OPTION SIZE_HOST_NETWORK_DATA
-+//#define INET_ADDRSTRLEN 15
- 
- // OpenBMC Chassis Manager dbus framework
- const char  *chassis_bus_name      =  "org.openbmc.control.Chassis";
-@@ -233,14 +237,197 @@ struct get_sys_boot_options_t {
- struct get_sys_boot_options_response_t {
-     uint8_t version;
-     uint8_t parm;
--    uint8_t data[5];
-+    uint8_t data[SIZE_BOOT_OPTION];
- }  __attribute__ ((packed));
- 
- struct set_sys_boot_options_t {
-     uint8_t parameter;
--    uint8_t data[8];
-+    uint8_t data[SIZE_BOOT_OPTION];
- }  __attribute__ ((packed));
- 
-+struct host_network_config_t {
-+     string ipaddress;
-+     string prefix;
-+     string gateway;
-+     string macaddress;
-+     string isDHCP;
-+
-+     host_network_config_t()
-+     {
-+         ipaddress = "";
-+         prefix = "";
-+         gateway = "";
-+         macaddress = "";
-+         isDHCP = "";
-+     }
-+};
-+
-+uint8_t getHostNetworkData(get_sys_boot_options_response_t* respptr)
-+{
-+
-+
-+    printf ("Inside getHostNetworkData");
-+    char * prop = NULL;
-+
-+    uint8_t data[SIZE_BOOT_OPTION]={0x80,0x21, 0x70 ,0x62 ,0x21,0x00 ,0x01 ,0x06 ,0x04};
-+
-+    //As first 9 bytes are prefilled so in rest of the bytes we are assigning 0
-+
-+    memset( data+9 ,0,(SIZE_BOOT_OPTION-9) );
-+
-+    int rc = dbus_get_property("network_config",&prop);
-+
-+    if (rc < 0) {
-+        fprintf(stderr, "Dbus get property(boot_flags) failed for get_sys_boot_options.\n");
-+        return rc;
-+    }
-+
-+    /* network_config property Value would be in the form of 
-+     * ipaddress=1.1.1.1,prefix=16,gateway=2.2.2.2,mac=11:22:33:44:55:66,dhcp=0
-+     */
-+
-+    /* Parsing the string and fill the hostconfig structure with the 
-+     * values */
-+
-+    host_network_config_t host_config;
-+    string delimiter = ",";
-+
-+    int pos = 0;
-+    string token,name,value;
-+    string conf_str(prop);
-+    
-+    printf ("Configuration String[%s]\n ",conf_str.c_str());
-+
-+    while ((pos = conf_str.find(delimiter)) != std::string::npos) {
-+
-+        token = conf_str.substr(0, pos);
-+        int pos1 = token.find("=");
-+
-+        name = token.substr(0,pos1);
-+        value = token.substr(pos1+1,pos);
-+
-+        if ( name == "ipaddress" )
-+            host_config.ipaddress = value;
-+        else if ( name == "prefix")
-+            host_config.prefix = value; 
-+        else if ( name == "gateway" )
-+            host_config.gateway = value;
-+        else if ( name == "mac" )
-+            host_config.macaddress = value;
-+        else if ( name == "dhcp" )
-+            host_config.isDHCP = value;
-+
-+        conf_str.erase(0, pos + delimiter.length());
-+        printf ("Name=[%s],Value=[%s],position=[%d]\n",name.c_str(),value.c_str(),pos);
-+    }
-+
-+    //Converting the mac address as number//
-+    //If there as an error in converting the mac as number we are not throwing 
-+    //error we would be sending 0's for the mac.
-+    
-+    char *tokptr = NULL;
-+    char* digit = strtok_r((char *)host_config.macaddress.c_str(), ":", &tokptr);
-+    if (digit == NULL)
-+    {
-+        fprintf(stderr, "Unexpected MAC format: %s", host_config.macaddress.c_str());
-+    }
-+    
-+    //As 9 bytes are pre filled so staring from index 9.If there is a failure 
-+    //in the strtok_r then digit will be null then we don't need to do 
-+    //anything as data is prefilled with 0
-+    
-+    uint8_t index=9;
-+
-+    while (digit != NULL)
-+    {
-+        int resp_byte = strtoul(digit, NULL, 16);
-+        memcpy((void*)&data[index], &resp_byte, 1);
-+        index++;
-+        digit = strtok_r(NULL, ":", &tokptr);
-+    }
-+
-+    //Conevrt the dhcp,ipaddress,mask and gateway as hex number
-+    data[index++]=0x00;
-+    sscanf(host_config.isDHCP.c_str(),"%02X",&data[index++]);
-+
-+    inet_pton(AF_INET,host_config.ipaddress.c_str(),(void *)&data[index]);
-+    index+=4;
-+    sscanf(host_config.prefix.c_str(),"%02X",&data[index++]);
-+    inet_pton(AF_INET,host_config.gateway.c_str(),(void *)&data[index]);
-+    index+=4; 
-+
-+    printf ("\n===========Printing the Network Conf=====================\n");
-+
-+    for (int j = 0;j<index;j++)
-+        printf("%02x ", data[j]);
-+
-+    memcpy(respptr->data,data,SIZE_BOOT_OPTION);
-+    return 0;
-+
-+}
-+
-+uint8_t setHostNetworkData(set_sys_boot_options_t * reqptr)
-+{
-+    printf ("\n Inside setHostNetworkData***********");
-+    string host_network_config;
-+    char mac[SIZE_MAC];
-+    char ipAddress[INET_ADDRSTRLEN];
-+    char gateway[INET_ADDRSTRLEN];
-+    char prefix[1];
-+    char dhcp[2];
-+    uint32_t cookie = 0;
-+
-+
-+    memset( mac ,0,SIZE_MAC );
-+    memset(ipAddress,0,INET_ADDRSTRLEN);
-+    memset(gateway,0,INET_ADDRSTRLEN);
-+    memset(prefix,0,1);
-+    memset(dhcp,0,2);
-+
-+    uint8_t index = 9;  
-+    sscanf((char *)&(reqptr->data[1]),"%02X",&cookie);
-+
-+    if ( !cookie) {
-+     
-+         snprintf(mac, SIZE_MAC, "%02x:%02x:%02x:%02x:%02x:%02x",
-+            reqptr->data[index],
-+            reqptr->data[index+1],
-+            reqptr->data[index+2],
-+            reqptr->data[index+3],
-+            reqptr->data[index+4],
-+            reqptr->data[index+5]);
-+
-+
-+        snprintf(dhcp,2, "%d", reqptr->data[index+6]);
-+
-+        snprintf(ipAddress, INET_ADDRSTRLEN, "%d.%d.%d.%d",
-+            reqptr->data[index+8], reqptr->data[index+9], reqptr->data[index+10], reqptr->data[index+11]);
-+
-+        snprintf(prefix, INET_ADDRSTRLEN, "%d", reqptr->data[index+12]);
-+
-+
-+        snprintf(gateway, INET_ADDRSTRLEN, "%d.%d.%d.%d",
-+            reqptr->data[index+13], reqptr->data[index+14], reqptr->data[index+15], reqptr->data[index+16]);
-+    }
-+
-+    host_network_config += "ipaddress="+string(ipAddress)+",prefix="+ \
-+                       string(prefix)+",gateway="+string(gateway)+\
-+                       ",mac="+string(mac)+",dhcp="+string(dhcp);
-+
-+
-+    printf ("Host Config Str= %s\n",host_network_config.c_str());
-+
-+    int r = dbus_set_property("network_config",host_network_config.c_str());
-+
-+    if (r < 0) {
-+        fprintf(stderr, "Dbus set property(network_config) failed for set_sys_boot_options.\n");
-+        r = IPMI_CC_UNSPECIFIED_ERROR;
-+    }
-+
-+    return r;
-+
-+}
-+
- ipmi_ret_t ipmi_chassis_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
-                               ipmi_request_t request, ipmi_response_t response, 
-                               ipmi_data_len_t data_len, ipmi_context_t context)
-@@ -446,7 +633,18 @@ ipmi_ret_t ipmi_chassis_get_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-         }
- 
- 
--    } else {
-+    } else if ( reqptr->parameter == 0x61 ) {
-+       resp->parm      = 0x61;
-+       int ret = getHostNetworkData(resp);
-+       if (ret < 0) {
-+           fprintf(stderr, "getHostNetworkData failed for get_sys_boot_options.\n");
-+           rc = IPMI_CC_UNSPECIFIED_ERROR;
-+
-+       }else
-+          rc = IPMI_CC_OK;
-+    }
-+
-+    else {
-         fprintf(stderr, "Unsupported parameter 0x%x\n", reqptr->parameter);
-     }
- 
-@@ -476,6 +674,9 @@ ipmi_ret_t ipmi_chassis_set_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-      * Parameter #5 means boot flags. Please refer to 28.13 of ipmi doc.
-      * This is the only parameter used by petitboot.
-      */
-+
-+
-+    printf("IPMI SET_SYS_BOOT_OPTIONS reqptr->parameter =[%d]\n",reqptr->parameter);
-     if (reqptr->parameter == 5) {
- 
-         s = get_boot_option_by_ipmi(((reqptr->data[1] & 0x3C) >> 2));
-@@ -507,7 +708,18 @@ ipmi_ret_t ipmi_chassis_set_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
-             rc = IPMI_CC_UNSPECIFIED_ERROR;
-         }
- 
--    } else {
-+    }
-+    else if ( reqptr->parameter == 0x61 ) {
-+       printf("IPMI SET_SYS_BOOT_OPTIONS reqptr->parameter =[%d]\n",reqptr->parameter);
-+       int ret = setHostNetworkData(reqptr);
-+       if (ret < 0) {
-+           fprintf(stderr, "setHostNetworkData failed for set_sys_boot_options.\n");
-+           rc = IPMI_CC_UNSPECIFIED_ERROR;
-+
-+       }
-+    }      
-+    
-+    else {
-         fprintf(stderr, "Unsupported parameter 0x%x\n", reqptr->parameter);
-         rc = IPMI_CC_PARM_NOT_SUPPORTED;
-     }
--- 
-2.8.3
+> On Sat, Jun 4, 2016 at 12:20 AM, OpenBMC Patches
+> <openbmc-patches@stwcx.xyz> wrote:
+> > From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+> >
+> > This facilitates multiple kernel recipes.
+> >
+> > Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+> > ---
+> >  .../common/recipes-kernel/linux/linux-obmc.inc         | 18
+> ++++++++++++++++++
+> >  .../common/recipes-kernel/linux/linux-obmc_4.4.bb      | 18
+> +-----------------
+> >  2 files changed, 19 insertions(+), 17 deletions(-)
+> >  create mode 100644
+> meta-phosphor/common/recipes-kernel/linux/linux-obmc.inc
+> >
+> > diff --git a/meta-phosphor/common/recipes-kernel/linux/linux-obmc.inc
+> b/meta-phosphor/common/recipes-kernel/linux/linux-obmc.inc
+> > new file mode 100644
+> > index 0000000..c64ff9d
+> > --- /dev/null
+> > +++ b/meta-phosphor/common/recipes-kernel/linux/linux-obmc.inc
+> > @@ -0,0 +1,18 @@
+> > +DESCRIPTION = "Linux kernel for OpenBMC"
+> > +SECTION = "kernel"
+> > +LICENSE = "GPLv2"
+> > +
+> > +KCONFIG_MODE="--alldefconfig"
+> > +
+> > +KSRC ?= "git://github.com/openbmc/linux;protocol=git;branch=${KBRANCH}"
+>
+> Can we tell poky to download a tarball instead of waiting for it to
+> check out a git repository?
+>
+>
+You can but Bitbake does a bunch of caching that makes it mostly a
+non-issue.  Basically, the repo gets checked out to a download folder and
+then cloned into the work directory.  When we have 4.6 as well, it will use
+the same cached repo in the download folder for both kernel versions.
+
+
+> > +SRC_URI = "${KSRC}"
+> > +SRC_URI += "file://hwmon.cfg"
+>
+> As I commented in another patch, I'd prefer we weren't spreading our
+> configuration all over the poky tree and instead it was all in one
+> place.
+>
+> Cheers,
+>
+> Joel
+>
+> > +
+> > +LINUX_VERSION_EXTENSION ?= "-${SRCREV}"
+> > +
+> > +PV = "${LINUX_VERSION}+git${SRCPV}"
+> > +
+> > +COMPATIBLE_MACHINE_${MACHINE} = "openbmc"
+> > +
+> > +inherit kernel
+> > +require recipes-kernel/linux/linux-yocto.inc
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+>
+
+--001a113fd586c593810534a0ca15
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><br><div class=3D"gmail_extra"><br><div class=3D"gmail_quo=
+te">On Sun, Jun 5, 2016 at 9:40 AM, Joel Stanley <span dir=3D"ltr">&lt;<a h=
+ref=3D"mailto:joel@jms.id.au" target=3D"_blank">joel@jms.id.au</a>&gt;</spa=
+n> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;b=
+order-left:1px #ccc solid;padding-left:1ex"><span class=3D"">On Sat, Jun 4,=
+ 2016 at 12:20 AM, OpenBMC Patches<br>
+&lt;<a href=3D"mailto:openbmc-patches@stwcx.xyz">openbmc-patches@stwcx.xyz<=
+/a>&gt; wrote:<br>
+&gt; From: Brad Bishop &lt;<a href=3D"mailto:bradleyb@fuzziesquirrel.com">b=
+radleyb@fuzziesquirrel.com</a>&gt;<br>
+&gt;<br>
+&gt; This facilitates multiple kernel recipes.<br>
+&gt;<br>
+&gt; Signed-off-by: Brad Bishop &lt;<a href=3D"mailto:bradleyb@fuzziesquirr=
+el.com">bradleyb@fuzziesquirrel.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 .../common/recipes-kernel/linux/linux-obmc.inc=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0| 18 ++++++++++++++++++<br>
+&gt;=C2=A0 .../common/recipes-kernel/linux/<a href=3D"http://linux-obmc_4.4=
+.bb" rel=3D"noreferrer" target=3D"_blank">linux-obmc_4.4.bb</a>=C2=A0 =C2=
+=A0 =C2=A0 | 18 +-----------------<br>
+&gt;=C2=A0 2 files changed, 19 insertions(+), 17 deletions(-)<br>
+&gt;=C2=A0 create mode 100644 meta-phosphor/common/recipes-kernel/linux/lin=
+ux-obmc.inc<br>
+&gt;<br>
+&gt; diff --git a/meta-phosphor/common/recipes-kernel/linux/linux-obmc.inc =
+b/meta-phosphor/common/recipes-kernel/linux/linux-obmc.inc<br>
+&gt; new file mode 100644<br>
+&gt; index 0000000..c64ff9d<br>
+&gt; --- /dev/null<br>
+&gt; +++ b/meta-phosphor/common/recipes-kernel/linux/linux-obmc.inc<br>
+&gt; @@ -0,0 +1,18 @@<br>
+&gt; +DESCRIPTION =3D &quot;Linux kernel for OpenBMC&quot;<br>
+&gt; +SECTION =3D &quot;kernel&quot;<br>
+&gt; +LICENSE =3D &quot;GPLv2&quot;<br>
+&gt; +<br>
+&gt; +KCONFIG_MODE=3D&quot;--alldefconfig&quot;<br>
+&gt; +<br>
+&gt; +KSRC ?=3D &quot;git://<a href=3D"http://github.com/openbmc/linux;prot=
+ocol=3Dgit;branch=3D${KBRANCH}" rel=3D"noreferrer" target=3D"_blank">github=
+.com/openbmc/linux;protocol=3Dgit;branch=3D${KBRANCH}</a>&quot;<br>
+<br>
+</span>Can we tell poky to download a tarball instead of waiting for it to<=
+br>
+check out a git repository?<br>
+<span class=3D""><br></span></blockquote><div><br></div><div>You can but Bi=
+tbake does a bunch of caching that makes it mostly a non-issue.=C2=A0 Basic=
+ally, the repo gets checked out to a download folder and then cloned into t=
+he work directory.=C2=A0 When we have 4.6 as well, it will use the same cac=
+hed repo in the download folder for both kernel versions.</div><div>=C2=A0<=
+/div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-le=
+ft:1px #ccc solid;padding-left:1ex"><span class=3D"">
+&gt; +SRC_URI =3D &quot;${KSRC}&quot;<br>
+&gt; +SRC_URI +=3D &quot;file://hwmon.cfg&quot;<br>
+<br>
+</span>As I commented in another patch, I&#39;d prefer we weren&#39;t sprea=
+ding our<br>
+configuration all over the poky tree and instead it was all in one<br>
+place.<br>
+<br>
+Cheers,<br>
+<br>
+Joel<br>
+<span class=3D"im HOEnZb"><br>
+&gt; +<br>
+&gt; +LINUX_VERSION_EXTENSION ?=3D &quot;-${SRCREV}&quot;<br>
+&gt; +<br>
+&gt; +PV =3D &quot;${LINUX_VERSION}+git${SRCPV}&quot;<br>
+&gt; +<br>
+&gt; +COMPATIBLE_MACHINE_${MACHINE} =3D &quot;openbmc&quot;<br>
+&gt; +<br>
+&gt; +inherit kernel<br>
+&gt; +require recipes-kernel/linux/linux-yocto.inc<br>
+</span><div class=3D"HOEnZb"><div class=3D"h5">____________________________=
+___________________<br>
+openbmc mailing list<br>
+<a href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a><br=
+>
+<a href=3D"https://lists.ozlabs.org/listinfo/openbmc" rel=3D"noreferrer" ta=
+rget=3D"_blank">https://lists.ozlabs.org/listinfo/openbmc</a><br>
+</div></div></blockquote></div><br></div></div>
+
+--001a113fd586c593810534a0ca15--
