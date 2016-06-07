@@ -3,17 +3,19 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rNtKC0MQbzDqFm
- for <openbmc@lists.ozlabs.org>; Tue,  7 Jun 2016 10:50:38 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rNtKG60S1zDqFm
+ for <openbmc@lists.ozlabs.org>; Tue,  7 Jun 2016 10:50:42 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1465260633625935.4571310789186;
- Mon, 6 Jun 2016 17:50:33 -0700 (PDT)
+ with SMTPS id 1465260636579869.7296971819546;
+ Mon, 6 Jun 2016 17:50:36 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v3 0/9] Update flash update to be useable at runtime.
-Date: Mon,  6 Jun 2016 19:50:23 -0500
-Message-Id: <20160607005032.29458-1-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v3 1/9] initfs: shutdown: comment on update success
+Date: Mon,  6 Jun 2016 19:50:24 -0500
+Message-Id: <20160607005032.29458-2-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.3
+In-Reply-To: <20160607005032.29458-1-openbmc-patches@stwcx.xyz>
+References: <20160607005032.29458-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -25,57 +27,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Jun 2016 00:50:40 -0000
+X-List-Received-Date: Tue, 07 Jun 2016 00:50:43 -0000
 
-The underlying storage for a file system can not be updated when it is in use.  The initial solution was to update the flash as the system was being shutdown, with output to the console.
+From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-Updates were made to the init script that allows the flash to not be used for a given boot but the update script was not enhanced to make this user friendly, and no documentation was provided to prepare the system for this mode.
+Print an error from the shutdown script when the update fails.
 
-This series partially addresses #293 by enhancing the update script to 
-1. provide more fine grained checks on update conflicts
-2. provide additional checks that would cause failures
-3. allow the flash to be updated at runtime if the in-use image is not in flash.
+Update is changing to return codes when its preconditions are not
+met, so be more verbose about its success to provide a means to
+debug flash updates not occurring.
 
-In addition it provides
-* a method to build `init-options-base` into the initramfs providing options to `init` while allowing additional sources of options like the kernel command line.
-* a diagnostic message to shutdown if the update did not remove a file indicating it was successful.
-* a cleanup to the build recipe and naming
+We could add a sulogin or sushell but its not clear what would be
+desired here.  If so the message should include "rmdir /oldroot
+to get a PID 1 shell" like /takever works in init.
 
-I anticipate creating packaging to put this initramfs with a cpio of the squashfs for net booting,
-wrapping the result with a u-boot header.
-I would like to have the init-options-base be built from a yocto variable instead of the inflexable hard coded files.
-
-<!-- Reviewable:start -->
+Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/297)
-<!-- Reviewable:end -->
+ .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh  | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-
-https://github.com/openbmc/openbmc/pull/297
-
-Milton D. Miller II (9):
-  initfs: shutdown: comment on update success
-  initfs: update: Don't exec sh or sulogin on error just exit 1
-  initfs: update: no error if no files to copy to ram
-  initfs: update: add option to perform checks but skip actual update
-  initfs: update: check individual mtd partitions for mounts
-  initfs: update: add check for image size vs mtd size
-  initfs: init: add file for base options
-  obmc-phosphor-initfs : fix recipe, remove class
-  init: Add an option to run from RAM
-
- meta-phosphor/classes/obmc-phosphor-initfs.bbclass |   4 -
- .../files/obmc-init-options-ram                    |   1 +
- .../obmc-phosphor-initfs/files/obmc-init.sh        |  10 +-
- .../obmc-phosphor-initfs/files/obmc-shutdown.sh    |   8 ++
- .../obmc-phosphor-initfs/files/obmc-update.sh      | 109 +++++++++++++++------
- .../obmc-phosphor-initfs/obmc-phosphor-init.bb     |  31 ------
- .../obmc-phosphor-initfs/obmc-phosphor-initfs.bb   |  35 +++++++
- 7 files changed, 132 insertions(+), 66 deletions(-)
- delete mode 100644 meta-phosphor/classes/obmc-phosphor-initfs.bbclass
- create mode 100644 meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init-options-ram
- delete mode 100644 meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb
- create mode 100644 meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-initfs.bb
-
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
+index 8d5d0c9..8d5c672 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
+@@ -44,6 +44,14 @@ then
+ 	if test -x $update
+ 	then
+ 		$update --clean-saved-files
++		remaining=$(ls $image*)
++		if test -n "$remaining"
++		then
++			echo 1>&2 "Flash update failed to flash these images:"
++			echo 1>&2 "$remaining"
++		else
++			echo "Flash update completed."
++		fi
+ 	else
+ 		echo 1>&2 "Flash update requested but $update program missing!"
+ 	fi
 -- 
 2.8.3
