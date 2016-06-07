@@ -3,21 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rNsgx3W2mzDqG1
- for <openbmc@lists.ozlabs.org>; Tue,  7 Jun 2016 10:21:45 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rNsgx3TDrzDqFm
+ for <openbmc@lists.ozlabs.org>; Tue,  7 Jun 2016 10:21:44 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1465258901194791.3987207085369;
- Mon, 6 Jun 2016 17:21:41 -0700 (PDT)
+ with SMTPS id 1465258900174149.89418692917093;
+ Mon, 6 Jun 2016 17:21:40 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Xo Wang <xow@google.com>
-Subject: [PATCH linux] ARM: dts: aspeed: Add FMC and phosphor flash layout to
- AST2500 EVB
-Date: Mon,  6 Jun 2016 19:21:39 -0500
-Message-Id: <20160607002139.28417-2-openbmc-patches@stwcx.xyz>
+Subject: [PATCH linux] Add FMC and phosphor flash layout to AST2500 EVB dts
+Date: Mon,  6 Jun 2016 19:21:38 -0500
+Message-Id: <20160607002139.28417-1-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.3
-In-Reply-To: <20160607002139.28417-1-openbmc-patches@stwcx.xyz>
-References: <20160607002139.28417-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -31,42 +27,23 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Tue, 07 Jun 2016 00:21:50 -0000
 
-From: Xo Wang <xow@google.com>
+with MTD kernel support, the boot now shows
 
-This is required for init to mount OpenBMC root and rw overlay.
+[    2.740000] Creating 6 MTD partitions on "bmc":
+[    2.900000] 0x000000000000-0x000000060000 : "u-boot"
+[    2.900000] 0x000000060000-0x000000080000 : "u-boot-env"
+[    2.900000] 0x000000080000-0x000000300000 : "kernel"
+[    2.900000] 0x000000300000-0x0000004c0000 : "initramfs"
+[    2.900000] 0x0000004c0000-0x000001c00000 : "rofs"
+[    2.900000] 0x000001c00000-0x000002000000 : "rwfs"
 
-Change-Id: I347bfac0632d199af60b303e22ee21f2716e7669
-Google-Bug-Id: 28535971
-Signed-off-by: Xo Wang <xow@google.com>
----
+https://github.com/openbmc/linux/pull/93
+
+Xo Wang (1):
+  ARM: dts: aspeed: Add FMC and phosphor flash layout to AST2500 EVB
+
  arch/arm/boot/dts/aspeed-ast2500-evb.dts | 15 +++++++++++++++
  1 file changed, 15 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed-ast2500-evb.dts b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-index 87cfa4f..28b0045 100644
---- a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-+++ b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-@@ -18,6 +18,21 @@
- 	memory {
- 		reg = <0x80000000 0x20000000>;
- 	};
-+
-+	ahb {
-+		bmc_pnor: fmc@1e620000 {
-+			reg = < 0x1e620000 0x94
-+				0x20000000 0x02000000 >;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "aspeed,fmc";
-+			flash@0 {
-+				reg = < 0 >;
-+				compatible = "jedec,spi-nor" ;
-+#include "aspeed-bmc-opp-flash-layout.dtsi"
-+			};
-+		};
-+	};
- };
- 
- &uart5 {
 -- 
 2.8.3
