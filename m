@@ -1,31 +1,33 @@
 Return-Path: <clg@kaod.org>
-Received: from mo178.mail-out.ovh.net (mo178.mail-out.ovh.net [178.32.228.178])
+X-Greylist: delayed 2266 seconds by postgrey-1.35 at bilbo;
+ Wed, 08 Jun 2016 22:46:49 AEST
+Received: from 3.mo178.mail-out.ovh.net (unknown [46.105.44.197])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rPp3j714LzDqPv
- for <openbmc@lists.ozlabs.org>; Wed,  8 Jun 2016 22:42:09 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rPp950K8kzDqXn
+ for <openbmc@lists.ozlabs.org>; Wed,  8 Jun 2016 22:46:35 +1000 (AEST)
 Received: from player799.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo178.mail-out.ovh.net (Postfix) with ESMTP id 3518E100C958
- for <openbmc@lists.ozlabs.org>; Wed,  8 Jun 2016 14:42:07 +0200 (CEST)
+ by mo178.mail-out.ovh.net (Postfix) with ESMTP id 09754100099A
+ for <openbmc@lists.ozlabs.org>; Wed,  8 Jun 2016 14:46:20 +0200 (CEST)
 Received: from [192.168.124.3] (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
  [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player799.ha.ovh.net (Postfix) with ESMTPSA id 94862520095;
- Wed,  8 Jun 2016 14:42:04 +0200 (CEST)
-Subject: Re: [PATCH qemu 02/12] ast2400: add SPI flash slave object
+ by player799.ha.ovh.net (Postfix) with ESMTPSA id A250552009E;
+ Wed,  8 Jun 2016 14:46:17 +0200 (CEST)
+Subject: Re: [PATCH qemu 03/12] ast2400: create SPI flash slaves
 To: andrew@aj.id.au, openbmc@lists.ozlabs.org
 References: <1464556805-4340-1-git-send-email-clg@kaod.org>
- <1464556805-4340-3-git-send-email-clg@kaod.org>
- <1465277665.16048.59.camel@aj.id.au>
+ <1464556805-4340-4-git-send-email-clg@kaod.org>
+ <1465278963.16048.62.camel@aj.id.au>
 From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <5758129C.9010801@kaod.org>
-Date: Wed, 8 Jun 2016 14:42:04 +0200
+Message-ID: <57581399.4080004@kaod.org>
+Date: Wed, 8 Jun 2016 14:46:17 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
  Icedove/38.8.0
 MIME-Version: 1.0
-In-Reply-To: <1465277665.16048.59.camel@aj.id.au>
+In-Reply-To: <1465278963.16048.62.camel@aj.id.au>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 1341791216892283859
+X-Ovh-Tracer-Id: 1413004386110114771
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
 X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeekledrjeefgdehudcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
@@ -40,210 +42,149 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Jun 2016 12:42:10 -0000
+X-List-Received-Date: Wed, 08 Jun 2016 12:46:50 -0000
 
-On 06/07/2016 07:34 AM, Andrew Jeffery wrote:
+On 06/07/2016 07:56 AM, Andrew Jeffery wrote:
 > On Sun, 2016-05-29 at 23:19 +0200, Cédric Le Goater wrote:
->> Each SPI flash slave can operate in two modes: Command and User. When
->> in User mode, accesses to the memory segment of the slaves are
->> translated in SPI transfers. When in Command mode, the HW generates
->> the SPI commands automatically and the memory segment is accessed as
->> if doing a MMIO. Other SPI controllers call that mode linear
->> addressing mode.
+>> This patch creates a number of SPI flash slaves of the same type under
+>> the SMC/FMC and under the SMC/SPI controllers. We use a "n25q256a"
+>> flash module type for the BMC and a "mx25l25635e" for the host. These
+>> types are common in the OpenPower ecosystem.
 >>
->> The patch below provides an initial model for a SPI flash module,
->> gathering SPI slave properties and a MemoryRegion to handle the memory
->> accesses. Only the User mode is supported for now but the patch
->> prepares ground for the Command mode.
+>> The segment addresses used for the memory mappings are the defaults
+>> provided by the specs. They can be changed with the Segment Address
+>> Register but this is not supported in the current implementation.
 >>
->> Using a sysbus object for this abstraction might be a bit complex for
->> the need. We could probably survive with a simple struct under
->> AspeedSMCState or we could extend the m25p80 object providing a model
->> for the SPI flash modules. To be discussed.
+>> Signed-off-by: Cédric Le Goater <clg@kaod.org>
 > 
-> The patch seems reasonable to me, though if we took the struct-under-
-> AspeedSMCState approach we would register the same MemoryRegions, but
-> via the AspeedSMCState's SysBusDevice? 
+> Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+> 
+>> ---
+>>  hw/arm/palmetto-bmc.c       |  3 +++
+>>  hw/ssi/aspeed_smc.c         | 62 +++++++++++++++++++++++++++++++++++++++++++++
+>>  include/hw/ssi/aspeed_smc.h |  3 +++
+>>  3 files changed, 68 insertions(+)
+>>
+>> diff --git a/hw/arm/palmetto-bmc.c b/hw/arm/palmetto-bmc.c
+>> index 6367f978bc7b..c4099987d354 100644
+>> --- a/hw/arm/palmetto-bmc.c
+>> +++ b/hw/arm/palmetto-bmc.c
+>> @@ -50,6 +50,9 @@ static void palmetto_bmc_init(MachineState *machine)
+>>      object_property_set_bool(OBJECT(&bmc->soc), true, "realized",
+>>                               &error_abort);
+>>  
+>> +    aspeed_smc_init_flashes(&bmc->soc.smc, "n25q256a");
+>> +    aspeed_smc_init_flashes(&bmc->soc.spi, "mx25l25635e");
+>> +
+>>      palmetto_bmc_binfo.kernel_filename = machine->kernel_filename;
+>>      palmetto_bmc_binfo.initrd_filename = machine->initrd_filename;
+>>      palmetto_bmc_binfo.kernel_cmdline = machine->kernel_cmdline;
+>> diff --git a/hw/ssi/aspeed_smc.c b/hw/ssi/aspeed_smc.c
+>> index 43743628ba0c..4175356141e7 100644
+>> --- a/hw/ssi/aspeed_smc.c
+>> +++ b/hw/ssi/aspeed_smc.c
+>> @@ -215,6 +215,8 @@ static int aspeed_smc_init(SysBusDevice *sbd)
+>>                            name, ASPEED_SMC_R_MAX * 4);
+>>      sysbus_init_mmio(sbd, &s->mmio);
+>>  
+>> +    s->flashes = g_new0(AspeedSMCFlashState *, s->num_cs);
+>> +
+>>      return 0;
+>>  }
+>>  
+>> @@ -368,3 +370,63 @@ static void aspeed_smc_flash_register_types(void)
+>>  }
+>>  
+>>  type_init(aspeed_smc_flash_register_types)
+>> +
+>> +/*
+>> + * Default segments mappings and size for each slave
+>> + */
+>> +typedef struct AspeedSegments {
+>> +    hwaddr addr;
+>> +    uint32_t size;
+>> +} AspeedSegments;
+>> +
+>> +/* unused */
+>> +static const AspeedSegments aspeed_segment_legacy[] = {
+>> +    { 0x14000000, 32 * 1024 * 1024 },
+>> +};
+>> +
+>> +static const AspeedSegments aspeed_segment_fmc[] = {
+>> +    { 0x20000000, 64 * 1024 * 1024 },
+>> +    { 0x24000000, 32 * 1024 * 1024 },
+>> +    { 0x26000000, 32 * 1024 * 1024 },
+>> +    { 0x28000000, 32 * 1024 * 1024 },
+>> +    { 0x2A000000, 32 * 1024 * 1024 }
+>> +};
+>> +
+>> +static const AspeedSegments aspeed_segment_spi[] = {
+>> +    { 0x30000000, 64 * 1024 * 1024 },
+>> +};
+>> +
+>> +static const AspeedSegments *aspeed_segments[] = {
+>> +    aspeed_segment_legacy, aspeed_segment_fmc, aspeed_segment_spi
+>> +};
+>> +
+>> +void aspeed_smc_init_flashes(AspeedSMCState *s, const char *flashtype)
+>> +{
+>> +    int i ;
+>> +    char name[32];
+>> +
+>> +    for (i = 0; i < s->num_cs; ++i) {
+>> +        Object *new = object_new(TYPE_ASPEED_SMC_FLASH);
+>> +        AspeedSMCFlashState *fl = ASPEED_SMC_FLASH(new);
+>> +        qemu_irq cs_line;
+>> +
+>> +        s->flashes[i] = fl;
+>> +
+>> +        snprintf(name, sizeof(name), "aspeed.%s.%d",
+>> +                 aspeed_smc_types[s->smc_type], i);
+>> +
+>> +        fl->id = i;
+>> +        fl->controller = s;
+>> +        fl->flash = ssi_create_slave(s->spi, flashtype);
+>> +
+>> +        cs_line = qdev_get_gpio_in_named(fl->flash, SSI_GPIO_CS, 0);
+>> +        sysbus_connect_irq(SYS_BUS_DEVICE(s), i + 1, cs_line);
+>> +
+>> +        memory_region_init_io(&fl->mmio, new, &aspeed_smc_flash_ops, fl, name,
+>> +                              aspeed_segments[s->smc_type][i].size);
+>> +        sysbus_init_mmio(SYS_BUS_DEVICE(new), &fl->mmio);
+>> +
+>> +        sysbus_mmio_map(SYS_BUS_DEVICE(new), 0,
+>> +                        aspeed_segments[s->smc_type][i].addr);
+>> +    }
+>> +}
+>> diff --git a/include/hw/ssi/aspeed_smc.h b/include/hw/ssi/aspeed_smc.h
+>> index 6cea1313eabd..1625dfb76a63 100644
+>> --- a/include/hw/ssi/aspeed_smc.h
+>> +++ b/include/hw/ssi/aspeed_smc.h
+>> @@ -74,10 +74,13 @@ typedef struct AspeedSMCState {
+>>      uint8_t r_conf;
+>>      uint8_t r_ctrl0;
+>>      uint8_t conf_enable_w0;
+>> +
+>> +    AspeedSMCFlashState **flashes;
+>>  } AspeedSMCState;
+>>  
+>>  #define TYPE_ASPEED_SPI "aspeed.spi"
+>>  #define ASPEED_SPI(obj) OBJECT_CHECK(AspeedSPIState, (obj), TYPE_ASPEED_SPI)
+>>  
+>> +extern void aspeed_smc_init_flashes(AspeedSMCState *s, const char *flashtype);
+> 
+> extern seems superfluous here? Doesn't really matter though.
 
-yes. That might be better for the model to use the controller SysBusDevice. 
-I am not sure on that option. 
-
-> Can you expand on extending the m25p80? 
-
-well, we would extend the m25p80 object with a Memory region and do the 
-mmio handling there.  
-
-> Is that just doing the same we do here in aspeed_smc in m25p80? 
-> Or something else?
-
-looking at it closer, the mmio handling depends on the controller. So 
-that won't work.
-
-I think we can advance in steps. This is the first one, which adds some 
-API to expose the flash storage backend to handle reads in the SMC model. 
-The second would be to modify a bit more m25p80 to handle writes, and that 
-might be just externalizing flash_write8().
-
-We will see what mainline wants but I will rephrase the last paragraph of 
-the changelog
+script/checkpatch.pl did not complain but that might not be a reason. I will check
+the coding styles.
 
 Thanks,
 
-C.
-
+C. 
 
 > Cheers,
 > 
 > Andrew
 > 
->>
->> Signed-off-by: Cédric Le Goater <clg@kaod.org>
->> ---
->>  hw/ssi/aspeed_smc.c         | 110 ++++++++++++++++++++++++++++++++++++++++++++
->>  include/hw/ssi/aspeed_smc.h |  15 ++++++
->>  2 files changed, 125 insertions(+)
->>
->> diff --git a/hw/ssi/aspeed_smc.c b/hw/ssi/aspeed_smc.c
->> index 780fcbbc9e55..43743628ba0c 100644
->> --- a/hw/ssi/aspeed_smc.c
->> +++ b/hw/ssi/aspeed_smc.c
->> @@ -258,3 +258,113 @@ static void aspeed_smc_register_types(void)
->>  }
 >>  
->>  type_init(aspeed_smc_register_types)
->> +
->> +static inline bool aspeed_smc_is_usermode(AspeedSMCState *s, int cs)
->> +{
->> +    return (((s->regs[s->r_ctrl0 + cs] & CTRL_USERMODE) == CTRL_USERMODE) &&
->> +            !aspeed_smc_is_ce_stop_active(s, cs));
->> +}
->> +
->> +static inline bool aspeed_smc_is_writable(AspeedSMCState *s, int cs)
->> +{
->> +    return s->regs[s->r_conf] & (1 << (s->conf_enable_w0 + cs));
->> +}
->> +
->> +static uint64_t aspeed_smc_flash_read(void *opaque, hwaddr addr, unsigned size)
->> +{
->> +    AspeedSMCFlashState *fl = ASPEED_SMC_FLASH(opaque);
->> +    AspeedSMCState *s = fl->controller;
->> +    uint64_t ret = 0;
->> +    int i;
->> +
->> +    if (aspeed_smc_is_usermode(s, fl->id)) {
->> +        for (i = 0; i < size; i++) {
->> +            ret = (ret << 8) | ssi_transfer(s->spi, 0x0);
->> +        }
->> +    } else {
->> +        error_report("%s: flash not in usermode", __func__);
->> +        ret = -1;
->> +    }
->> +
->> +    return ret;
->> +}
->> +
->> +static void aspeed_smc_flash_write(void *opaque, hwaddr addr, uint64_t data,
->> +                           unsigned size)
->> +{
->> +    AspeedSMCFlashState *fl = ASPEED_SMC_FLASH(opaque);
->> +    AspeedSMCState *s = fl->controller;
->> +    int i;
->> +
->> +    if (!aspeed_smc_is_writable(s, fl->id)) {
->> +        error_report("%s: flash not in writable", __func__);
->> +        return;
->> +    }
->> +
->> +    if (!aspeed_smc_is_usermode(s, fl->id)) {
->> +        error_report("%s: flash not in usermode", __func__);
->> +        return;
->> +    }
->> +
->> +    for (i = 0; i < size; i++) {
->> +        ssi_transfer(s->spi, (data >> 8 * (size - 1 - i)) & 0xff);
->> +    }
->> +}
->> +
->> +static const MemoryRegionOps aspeed_smc_flash_ops = {
->> +    .read = aspeed_smc_flash_read,
->> +    .write = aspeed_smc_flash_write,
->> +    .endianness = DEVICE_BIG_ENDIAN,
->> +    .valid = {
->> +        .min_access_size = 1,
->> +        .max_access_size = 4,
->> +    },
->> +};
->> +
->> +static void aspeed_smc_flash_reset(DeviceState *d)
->> +{
->> +    ;
->> +}
->> +
->> +static int aspeed_smc_flash_init(SysBusDevice *sbd)
->> +{
->> +    return 0;
->> +}
->> +
->> +static const VMStateDescription vmstate_aspeed_smc_flash = {
->> +    .name = "aspeed.smc_flash",
->> +    .version_id = 1,
->> +    .minimum_version_id = 1,
->> +    .fields = (VMStateField[]) {
->> +        VMSTATE_END_OF_LIST()
->> +    }
->> +};
->> +
->> +static Property aspeed_smc_flash_properties[] = {
->> +    DEFINE_PROP_END_OF_LIST(),
->> +};
->> +
->> +static void aspeed_smc_flash_class_init(ObjectClass *klass, void *data)
->> +{
->> +    DeviceClass *dc = DEVICE_CLASS(klass);
->> +    SysBusDeviceClass *k = SYS_BUS_DEVICE_CLASS(klass);
->> +
->> +    k->init = aspeed_smc_flash_init;
->> +    dc->reset = aspeed_smc_flash_reset;
->> +    dc->props = aspeed_smc_flash_properties;
->> +    dc->vmsd = &vmstate_aspeed_smc_flash;
->> +}
->> +
->> +static const TypeInfo aspeed_smc_flash_info = {
->> +    .name           = TYPE_ASPEED_SMC_FLASH,
->> +    .parent         = TYPE_SYS_BUS_DEVICE,
->> +    .instance_size  = sizeof(AspeedSMCState),
->> +    .class_init     = aspeed_smc_flash_class_init,
->> +};
->> +
->> +static void aspeed_smc_flash_register_types(void)
->> +{
->> +    type_register_static(&aspeed_smc_flash_info);
->> +}
->> +
->> +type_init(aspeed_smc_flash_register_types)
->> diff --git a/include/hw/ssi/aspeed_smc.h b/include/hw/ssi/aspeed_smc.h
->> index 9b95fcee5da7..6cea1313eabd 100644
->> --- a/include/hw/ssi/aspeed_smc.h
->> +++ b/include/hw/ssi/aspeed_smc.h
->> @@ -27,6 +27,21 @@
->>  
->>  #include "hw/ssi/ssi.h"
->>  
->> +#define TYPE_ASPEED_SMC_FLASH "aspeed.smc_flash"
->> +#define ASPEED_SMC_FLASH(obj) \
->> +    OBJECT_CHECK(AspeedSMCFlashState, (obj), TYPE_ASPEED_SMC_FLASH)
->> +
->> +struct AspeedSMCState;
->> +
->> +typedef struct AspeedSMCFlashState {
->> +    SysBusDevice parent_obj;
->> +
->> +    MemoryRegion mmio;
->> +    int id;
->> +    struct AspeedSMCState *controller;
->> +    DeviceState *flash;
->> +} AspeedSMCFlashState;
->> +
->>  enum AspeedSMCType {
->>      AspeedSMCLegacy,
->>      AspeedSMCFMC,
+>>  #endif /* ASPEED_SMC_H */
