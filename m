@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rQ5Yn1QDMzDqHd
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rQ5Yn26vlzDqNn
  for <openbmc@lists.ozlabs.org>; Thu,  9 Jun 2016 10:20:44 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1465431638315791.5821936699346;
- Wed, 8 Jun 2016 17:20:38 -0700 (PDT)
+ with SMTPS id 1465431637250975.044453444233;
+ Wed, 8 Jun 2016 17:20:37 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH openbmc v2 03/11] Remove empty devtrees
-Date: Wed,  8 Jun 2016 19:20:24 -0500
-Message-Id: <20160609002032.984-4-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v2 02/11] Add recipes-bsp to recipes.txt
+Date: Wed,  8 Jun 2016 19:20:23 -0500
+Message-Id: <20160609002032.984-3-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.3
 In-Reply-To: <20160609002032.984-1-openbmc-patches@stwcx.xyz>
 References: <20160609002032.984-1-openbmc-patches@stwcx.xyz>
@@ -30,43 +30,24 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 09 Jun 2016 00:20:46 -0000
 X-List-Received-Date: Thu, 09 Jun 2016 00:20:46 -0000
-X-List-Received-Date: Thu, 09 Jun 2016 00:20:46 -0000
 
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
-At the moment the in-tree devtrees are used.  Remove these to
-minimize confusion.
+This was missed when the u-boot recipe was added.
 
 Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
- .../meta-firestone/recipes-kernel/linux/linux-obmc/firestone.dts         | 1 -
- .../meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.dts  | 1 -
- .../meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.dts  | 1 -
- 3 files changed, 3 deletions(-)
- delete mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-kernel/linux/linux-obmc/firestone.dts
- delete mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.dts
- delete mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.dts
+ meta-phosphor/common/recipes.txt | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-kernel/linux/linux-obmc/firestone.dts b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-kernel/linux/linux-obmc/firestone.dts
-deleted file mode 100644
-index 3b5e0f1..0000000
---- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-kernel/linux/linux-obmc/firestone.dts
-+++ /dev/null
-@@ -1 +0,0 @@
--# use in-tree devtree
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.dts b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.dts
-deleted file mode 100644
-index 3b5e0f1..0000000
---- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.dts
-+++ /dev/null
-@@ -1 +0,0 @@
--# use in-tree devtree
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.dts b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.dts
-deleted file mode 100644
-index 3b5e0f1..0000000
---- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.dts
-+++ /dev/null
-@@ -1 +0,0 @@
--# use in-tree devtree
+diff --git a/meta-phosphor/common/recipes.txt b/meta-phosphor/common/recipes.txt
+index ccd19b2..1a8adc7 100644
+--- a/meta-phosphor/common/recipes.txt
++++ b/meta-phosphor/common/recipes.txt
+@@ -1,3 +1,4 @@
++recipes-bsp          - Anything with links to specific hardware or hardware configuration information
+ recipes-connectivity - Libraries and applications related to communication with other devices 
+ recipes-core         - What's needed to build a basic working Linux image including commonly used dependencies
+ recipes-devtools     - Tools primarily used by the build system (but can also be used on targets)
 -- 
 2.8.3
