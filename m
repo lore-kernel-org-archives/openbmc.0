@@ -3,18 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rQ5Yq1MHWzDr7d
- for <openbmc@lists.ozlabs.org>; Thu,  9 Jun 2016 10:20:46 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rQ5Yr6jrbzDr54
+ for <openbmc@lists.ozlabs.org>; Thu,  9 Jun 2016 10:20:48 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1465431640382102.4922515383771;
- Wed, 8 Jun 2016 17:20:40 -0700 (PDT)
+ with SMTPS id 1465431642200483.243177765597;
+ Wed, 8 Jun 2016 17:20:42 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH openbmc v2 05/11] AST2400: Set kernel preferred provider
- version
-Date: Wed,  8 Jun 2016 19:20:26 -0500
-Message-Id: <20160609002032.984-6-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v2 07/11] Add a u-boot 2016.05 recipe
+Date: Wed,  8 Jun 2016 19:20:28 -0500
+Message-Id: <20160609002032.984-8-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.3
 In-Reply-To: <20160609002032.984-1-openbmc-patches@stwcx.xyz>
 References: <20160609002032.984-1-openbmc-patches@stwcx.xyz>
@@ -29,102 +28,127 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Jun 2016 00:20:48 -0000
+X-List-Received-Date: Thu, 09 Jun 2016 00:20:49 -0000
 
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
-In preparation for supporting AST2500 with a different branch.
+Adding a 2016.05 u-boot for the AST2500.  AST2400 remains on
+2013.07.
 
 Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
- .../meta-ast2400/conf/machine/include/ast2400.inc  |  1 +
- .../common/recipes-kernel/linux/linux-obmc.inc     | 28 ++++++++++++++++++++++
- .../common/recipes-kernel/linux/linux-obmc_4.4.bb  | 28 +---------------------
- 3 files changed, 30 insertions(+), 27 deletions(-)
- create mode 100644 meta-phosphor/common/recipes-kernel/linux/linux-obmc.inc
+ .../recipes-bsp/u-boot/u-boot-fw-utils_2016.05.bb  | 46 ++++++++++++++++++++++
+ .../recipes-bsp/u-boot/u-boot-mkimage_2016.05.bb   | 29 ++++++++++++++
+ .../common/recipes-bsp/u-boot/u-boot_2016.05.bb    | 12 ++++++
+ 3 files changed, 87 insertions(+)
+ create mode 100644 meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2016.05.bb
+ create mode 100644 meta-phosphor/common/recipes-bsp/u-boot/u-boot-mkimage_2016.05.bb
+ create mode 100644 meta-phosphor/common/recipes-bsp/u-boot/u-boot_2016.05.bb
 
-diff --git a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc
-index 58af4bb..97a8834 100644
---- a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc
-+++ b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc
-@@ -3,6 +3,7 @@
- #@DESCRIPTION: Common machine configuration for the Aspeed AST2400 Chip
- 
- PREFERRED_PROVIDER_virtual/kernel ?= "linux-obmc"
-+PREFERRED_VERSION_linux-obmc ?= "4.4+git%"
- 
- UBOOT_MACHINE ?= "versatileab_config"
- UBOOT_ENTRYPOINT ?= "0x40001000"
-diff --git a/meta-phosphor/common/recipes-kernel/linux/linux-obmc.inc b/meta-phosphor/common/recipes-kernel/linux/linux-obmc.inc
+diff --git a/meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2016.05.bb b/meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2016.05.bb
 new file mode 100644
-index 0000000..75f5e3f
+index 0000000..305c2b7
 --- /dev/null
-+++ b/meta-phosphor/common/recipes-kernel/linux/linux-obmc.inc
-@@ -0,0 +1,28 @@
-+DESCRIPTION = "Linux kernel for OpenBMC"
-+SECTION = "kernel"
-+LICENSE = "GPLv2"
++++ b/meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2016.05.bb
+@@ -0,0 +1,46 @@
++SUMMARY = "U-Boot bootloader fw_printenv/setenv utilities"
++LICENSE = "GPLv2+"
++LIC_FILES_CHKSUM = "file://Licenses/README;md5=a2c678cfd4a4d97135585cad908541c6"
++SECTION = "bootloader"
++DEPENDS = "mtd-utils"
 +
-+KCONFIG_MODE="--alldefconfig"
++SRCREV = "d0847e6b3eda43d4d2b4f9928a549c3c2d52865f"
++UBRANCH = "v2016.05-ast2500"
++SRC_URI = "git://git@github.com/openbmc/u-boot.git;branch=${UBRANCH};protocol=https"
 +
-+KSRC ?= "git://github.com/openbmc/linux;protocol=git;branch=${KBRANCH}"
-+SRC_URI = "${KSRC}"
-+SRC_URI += "file://hwmon.cfg"
++PV = "v2016.05+git${SRCPV}"
 +
-+LINUX_VERSION_EXTENSION ?= "-${SRCREV}"
++S = "${WORKDIR}/git"
 +
-+PV = "${LINUX_VERSION}+git${SRCPV}"
++INSANE_SKIP_${PN} = "already-stripped"
++EXTRA_OEMAKE_class-target = 'CROSS_COMPILE=${TARGET_PREFIX} CC="${CC} ${CFLAGS} ${LDFLAGS}" V=1'
++EXTRA_OEMAKE_class-cross = 'ARCH=${TARGET_ARCH} CC="${CC} ${CFLAGS} ${LDFLAGS}" V=1'
 +
-+COMPATIBLE_MACHINE_${MACHINE} = "openbmc"
++inherit uboot-config
 +
-+do_patch_append() {
-+        for DTB in "${KERNEL_DEVICETREE}"; do
-+               DT=`basename ${DTB} .dtb`
-+                if [ -r "${WORKDIR}/${DT}.dts" ]; then
-+                        cp ${WORKDIR}/${DT}.dts \
-+                                ${STAGING_KERNEL_DIR}/arch/${ARCH}/boot/dts
-+               fi
-+       done
++do_compile () {
++	oe_runmake ${UBOOT_MACHINE}
++	oe_runmake env
 +}
 +
-+inherit kernel
-+require recipes-kernel/linux/linux-yocto.inc
-diff --git a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb
-index c0d8e38..539ea43 100644
---- a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb
-+++ b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb
-@@ -1,31 +1,5 @@
--DESCRIPTION = "Linux kernel for OpenBMC"
--SECTION = "kernel"
--LICENSE = "GPLv2"
--
- KBRANCH ?= "dev-4.4"
--KCONFIG_MODE="--alldefconfig"
--
--SRC_URI = "git://github.com/openbmc/linux;protocol=git;branch=${KBRANCH}"
--SRC_URI += "file://hwmon.cfg"
--
- LINUX_VERSION ?= "4.4"
--LINUX_VERSION_EXTENSION ?= "-${SRCREV}"
--
- SRCREV="openbmc-20160521-1"
- 
--PV = "${LINUX_VERSION}+git${SRCPV}"
--
--COMPATIBLE_MACHINE_${MACHINE} = "openbmc"
--
--inherit kernel
--require recipes-kernel/linux/linux-yocto.inc
--
--do_patch_append() {
--        for DTB in "${KERNEL_DEVICETREE}"; do
--               DT=`basename ${DTB} .dtb`
--                if [ -r "${WORKDIR}/${DT}.dts" ]; then
--                        cp ${WORKDIR}/${DT}.dts \
--                                ${STAGING_KERNEL_DIR}/arch/${ARCH}/boot/dts
--               fi
--       done
--}
-+require linux-obmc.inc
++do_install () {
++	install -d ${D}${base_sbindir}
++	install -d ${D}${sysconfdir}
++	install -m 755 ${S}/tools/env/fw_printenv ${D}${base_sbindir}/fw_printenv
++	install -m 755 ${S}/tools/env/fw_printenv ${D}${base_sbindir}/fw_setenv
++	install -m 0644 ${S}/tools/env/fw_env.config ${D}${sysconfdir}/fw_env.config
++}
++
++do_install_class-cross () {
++	install -d ${D}${bindir_cross}
++	install -m 755 ${S}/tools/env/fw_printenv ${D}${bindir_cross}/fw_printenv
++	install -m 755 ${S}/tools/env/fw_printenv ${D}${bindir_cross}/fw_setenv
++}
++
++SYSROOT_PREPROCESS_FUNCS_class-cross = "uboot_fw_utils_cross"
++uboot_fw_utils_cross() {
++	sysroot_stage_dir ${D}${bindir_cross} ${SYSROOT_DESTDIR}${bindir_cross}
++}
++
++PACKAGE_ARCH = "${MACHINE_ARCH}"
++BBCLASSEXTEND = "cross"
+diff --git a/meta-phosphor/common/recipes-bsp/u-boot/u-boot-mkimage_2016.05.bb b/meta-phosphor/common/recipes-bsp/u-boot/u-boot-mkimage_2016.05.bb
+new file mode 100644
+index 0000000..eed5f9c
+--- /dev/null
++++ b/meta-phosphor/common/recipes-bsp/u-boot/u-boot-mkimage_2016.05.bb
+@@ -0,0 +1,29 @@
++SUMMARY = "U-Boot bootloader image creation tool"
++LICENSE = "GPLv2+"
++LIC_FILES_CHKSUM = "file://Licenses/README;md5=a2c678cfd4a4d97135585cad908541c6"
++SECTION = "bootloader"
++
++DEPENDS = "openssl"
++
++SRCREV = "d0847e6b3eda43d4d2b4f9928a549c3c2d52865f"
++UBRANCH = "v2016.05-ast2500"
++SRC_URI = "git://git@github.com/openbmc/u-boot.git;branch=${UBRANCH};protocol=https"
++
++PV = "v2016.05+git${SRCPV}"
++
++S = "${WORKDIR}/git"
++
++EXTRA_OEMAKE = 'CROSS_COMPILE="${TARGET_PREFIX}" CC="${CC} ${CFLAGS} ${LDFLAGS}" STRIP=true V=1'
++
++do_compile () {
++	oe_runmake sandbox_defconfig
++	oe_runmake cross_tools NO_SDL=1
++}
++
++do_install () {
++	install -d ${D}${bindir}
++	install -m 0755 tools/mkimage ${D}${bindir}/uboot-mkimage
++	ln -sf uboot-mkimage ${D}${bindir}/mkimage
++}
++
++BBCLASSEXTEND = "native nativesdk"
+diff --git a/meta-phosphor/common/recipes-bsp/u-boot/u-boot_2016.05.bb b/meta-phosphor/common/recipes-bsp/u-boot/u-boot_2016.05.bb
+new file mode 100644
+index 0000000..0a229d5
+--- /dev/null
++++ b/meta-phosphor/common/recipes-bsp/u-boot/u-boot_2016.05.bb
+@@ -0,0 +1,12 @@
++require recipes-bsp/u-boot/u-boot.inc
++
++LIC_FILES_CHKSUM = "file://Licenses/README;md5=a2c678cfd4a4d97135585cad908541c6"
++DEPENDS += "dtc-native"
++
++SRCREV = "d0847e6b3eda43d4d2b4f9928a549c3c2d52865f"
++UBRANCH = "v2016.05-ast2500"
++SRC_URI = "git://git@github.com/openbmc/u-boot.git;branch=${UBRANCH};protocol=https"
++
++PV = "v2016.05+git${SRCPV}"
++
++EXTRA_OEMAKE_append = " KCFLAGS=-fgnu89-inline"
 -- 
 2.8.3
