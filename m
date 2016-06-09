@@ -1,60 +1,59 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-qg0-f68.google.com (mail-qg0-f68.google.com
- [209.85.192.68])
+Received: from mail-qg0-f67.google.com (mail-qg0-f67.google.com
+ [209.85.192.67])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rQ62K74zLzDqHd
- for <openbmc@lists.ozlabs.org>; Thu,  9 Jun 2016 10:42:01 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rQ64V6LgfzDqHm
+ for <openbmc@lists.ozlabs.org>; Thu,  9 Jun 2016 10:43:54 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=BBIQPsCh; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=velIOVP8; 
  dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=Ci7XQj7I; 
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=KDBD8iAp; 
  dkim-atps=neutral
-Received: by mail-qg0-f68.google.com with SMTP id k43so1837429qgk.3
- for <openbmc@lists.ozlabs.org>; Wed, 08 Jun 2016 17:42:01 -0700 (PDT)
+Received: by mail-qg0-f67.google.com with SMTP id t106so1846280qgt.2
+ for <openbmc@lists.ozlabs.org>; Wed, 08 Jun 2016 17:43:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=yZF6rMPMIaj4aj9qGPvVTbOdq9eUHUqQ2odM8ASCxxc=;
- b=BBIQPsChsE20utFWHP1RTxcBQhgRplYPXZA/uOLt2waylyNQgLGeGkO9bkLj1y+w8B
- 6WYs+jFqSl75xlXzg5bL/sgGRYfMhlkqcJ8A0xcihqEuidIpOfPGX9yd4ciZQhFtPlYT
- MjkmMEkxgMJysKXKW06+9I1EhMfFhP9QiSnO4PqKq4wYh3XEAXBwhGaCaFT1aClmvZZp
- B7fyG9yXG9bepEZZ2TIvoZIBPvOxDonlMAAfhYpo9R5k2GipMpXZZDcASZ/tk4m0bYlT
- YBOZZTtzwe9R0LG35C95nHw4wR+ZJWfnvZDLlB4lSrMkF4rKHeENnQlMQbIvgimwx1Qd
- RNAw==
+ bh=Jrs50WUWnuWOYV2jZJPOMBQHPWzAfITO0SdgHs3KpyI=;
+ b=velIOVP8goRivXx1A1VJInfCY3xPbHM+Vdry24YrMwYAznpBDANDSdCnXYs7BpzWa5
+ fe5CytZfwnnhuwq9pSQuLQLgo924yYxENQCU/czWcIJl9stgPQa1kCoaGrp0HnOvwmGg
+ 6mlFz1MOYzpcVdbQSc2phwZpQwBG3FKm7sUTN/sDaSpxyq5jj7j+wXEg1UP3JGVS+SzL
+ F2ljTT0E0vdDKQvzNXMaieVNep0uysCWvmBfd44zYQKnqIjQ3cC0bLaIQ7ZY6eAYXeM7
+ 4Ow69FZsC5XwboY/gx5STtHtpRkOBeHD/uldhmJRZ+uj9cj6aGjgzcGxkkTLsMNTnfqk
+ bE6A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=yZF6rMPMIaj4aj9qGPvVTbOdq9eUHUqQ2odM8ASCxxc=;
- b=Ci7XQj7IkHZl5YwKo8FF/pfNmb3q+Bu9pWx/42XgLuyXbHDSlHHyY1/5l7NxUGaCE1
- G4EDGHItv5fpDMifZYnkh5VQ54PmStWCBAWSl9VQw1WRGKCSdkQJ4KkzztTp4hkQiLKc
- aOxqk9uYDf7zez1b2gv+Fl23YV0gJJhyeMFaQ=
+ bh=Jrs50WUWnuWOYV2jZJPOMBQHPWzAfITO0SdgHs3KpyI=;
+ b=KDBD8iAp/omL9sl0k6Bgmo+Q8c3g97V1NVtrJQn9hTz61NFDcTcI/kJaZAfT5H2HTp
+ pHpmcpXEB0w4GiWBZxj13FO19S5X263UnoI6EFA22Yd+Idwy7iee1prdkG3UUm1Zzktu
+ 8LErLYmiD/nxH4tK5RioSlZEsKck2EYX8ku7s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=yZF6rMPMIaj4aj9qGPvVTbOdq9eUHUqQ2odM8ASCxxc=;
- b=KVjTRTKt5rrhQCqbQXfH1yhFgi0QoD27PbOEpU4iRsaraHtokyzGsTT6fExnfaEOOg
- XZwdoGEOY5y0o/IxZXatambQ3tevK96XdyaN0aWUv+miPeBygJNP4IWBIS0EdEfqrMp6
- hh71/SlEWZbo1mcxBhTuYOrb/BuZJC27L2VQn7Zcec/cws/WVY0qEGl6P1c0DBz6FtqD
- 0r0RPrL1c1bWot7ARKJ00foHE27jEOdblXxhZjsz3/8xXC1ZmbNRCqzT1Vu7jXQ9tsCO
- eMq1EQQlxhprXKD3Qy3Kwpg+WJa63SeETe+AYea+bZGBdE0Vo6ZyihK0a2KhT/ozrjty
- JhNA==
-X-Gm-Message-State: ALyK8tKGGzg6Qt9CiV9bOJRsAEo1zdoaoDW3Zy6muLs54NEj8AZ5goNzCaGG4Ebg6kdFUvcWsm6aj4qFUSoKJw==
-X-Received: by 10.140.95.68 with SMTP id h62mr7223222qge.33.1465432859576;
- Wed, 08 Jun 2016 17:40:59 -0700 (PDT)
+ bh=Jrs50WUWnuWOYV2jZJPOMBQHPWzAfITO0SdgHs3KpyI=;
+ b=lTaytLkEB2DI8fIs72MN9/8HktoLLQkK8Mk7ifEGNYeQWnTgjkxWaCfNKxj4xPCrgD
+ C6z7wXAUrFMCHeGdU3GpjfzTItUpUtjji2hHm8knTEvGBiM2gqor95veBSD1QqXK5nF9
+ cc3I0GEQJ0oldrkvj0Q7DrTki/rSLbfLAqzvrrbTJPDPSogWP+XibxC4DOvjU1pdRtk5
+ 9Z1XWKtWDvBDTvoNndP7VMsoPcqyZgDBLkxwX6mUJnArC11DdTwc5HdsJo1xRM46syGw
+ FWChJCXiLXZbja0pHd3M/zW0bYO3gurKbtdZpRyptc2d7gLlXl66PA2WS57w8bBBOxpg
+ HQ+Q==
+X-Gm-Message-State: ALyK8tK0q5Gq6AAXtAdQnxeQB/3MA+uEJClkEBRqft/9WEKBJOoM9nI387EOY0tV9LXHxeOWFovlUjFFOn30wA==
+X-Received: by 10.140.228.134 with SMTP id y128mr7527315qhb.81.1465432972629; 
+ Wed, 08 Jun 2016 17:42:52 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.237.37.148 with HTTP; Wed, 8 Jun 2016 17:40:40 -0700 (PDT)
-In-Reply-To: <20160609002032.984-12-openbmc-patches@stwcx.xyz>
+Received: by 10.237.37.148 with HTTP; Wed, 8 Jun 2016 17:42:33 -0700 (PDT)
+In-Reply-To: <20160609002032.984-5-openbmc-patches@stwcx.xyz>
 References: <20160609002032.984-1-openbmc-patches@stwcx.xyz>
- <20160609002032.984-12-openbmc-patches@stwcx.xyz>
+ <20160609002032.984-5-openbmc-patches@stwcx.xyz>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 8 Jun 2016 19:40:40 -0500
-X-Google-Sender-Auth: IX-xidzW36LfTwZWGl55Ja0uYTc
-Message-ID: <CACPK8XdK5VrdeurtWzNSAXDxNiCeAv5HdYNp7OPAgrY2HYR1wQ@mail.gmail.com>
-Subject: Re: [PATCH openbmc v2 11/11] AST2500: Add AST2500 evaluation board
- layer
+Date: Wed, 8 Jun 2016 19:42:33 -0500
+X-Google-Sender-Auth: Ui6H3PHe6Oz0Qv6VRx7rFhvm3HM
+Message-ID: <CACPK8Xcu=mRcFtDppDMtW8Wwnd-uBCKeHSc4FRhXmghA3cTQ9A@mail.gmail.com>
+Subject: Re: [PATCH openbmc v2 04/11] Remove duplicate kernel config fragments
 To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Brad Bishop <bradleyb@fuzziesquirrel.com>
@@ -70,156 +69,117 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Jun 2016 00:42:02 -0000
+X-List-Received-Date: Thu, 09 Jun 2016 00:43:55 -0000
 
 On Wed, Jun 8, 2016 at 7:20 PM, OpenBMC Patches
 <openbmc-patches@stwcx.xyz> wrote:
 > From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 >
-> The AST2500 is an ARM SOC made by Aspeed.
->
-> This layer is a stub; there are a couple missing bits of support
-> from the kernel and u-boot.
+> Enable CONFIG_HWMON and nothing else in the base Phosphor layer.
+> Enable system specific modules in their respective layers.
+
+I thought we agreed that we should put the CONFIG_HWMON in the
+respective layers too?
+
 >
 > Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 > ---
->  meta-openbmc-machines/meta-evb/conf/layer.conf     |  5 ++++
->  .../meta-evb/meta-evb-aspeed/conf/layer.conf       |  5 ++++
->  .../meta-evb-ast2500/conf/bblayers.conf.sample     | 27 ++++++++++++++++++++++
->  .../meta-evb-ast2500/conf/conf-notes.txt           |  2 ++
->  .../meta-evb-ast2500/conf/layer.conf               |  5 ++++
->  .../meta-evb-ast2500/conf/local.conf.sample        | 21 +++++++++++++++++
->  .../meta-evb-ast2500/conf/machine/ast2500-evb.conf |  6 +++++
->  7 files changed, 71 insertions(+)
->  create mode 100644 meta-openbmc-machines/meta-evb/conf/layer.conf
->  create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/conf/layer.conf
->  create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/bblayers.conf.sample
->  create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/conf-notes.txt
->  create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/layer.conf
->  create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/local.conf.sample
->  create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/machine/ast2500-evb.conf
-
-meta-evb/meta-evb-aspeed/meta-evb-ast2500?
-
-Too meta I think. Perhaps drop the middle level?
-
-Also, the filenames are ast2500-evb but the path is evb-ast2500. Is
-this intentional?
-
+>  .../meta-ast2400/recipes-kernel/linux/linux-obmc/hwmon.cfg            | 4 ----
+>  .../meta-ast2400/recipes-kernel/linux/linux-obmc_%.bbappend           | 2 +-
+>  .../meta-firestone/recipes-kernel/linux/linux-obmc/firestone.cfg      | 3 ---
+>  .../meta-garrison/recipes-kernel/linux/linux-obmc/garrison.cfg        | 3 ---
+>  .../meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.cfg        | 1 -
+>  .../meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.cfg      | 3 +++
+>  .../meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend         | 2 ++
+>  meta-phosphor/common/recipes-kernel/linux/linux-obmc/hwmon.cfg        | 1 +
+>  meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb           | 1 +
+>  9 files changed, 8 insertions(+), 12 deletions(-)
+>  delete mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/hwmon.cfg
+>  create mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.cfg
+>  create mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend
+>  create mode 100644 meta-phosphor/common/recipes-kernel/linux/linux-obmc/hwmon.cfg
 >
-> diff --git a/meta-openbmc-machines/meta-evb/conf/layer.conf b/meta-openbmc-machines/meta-evb/conf/layer.conf
+> diff --git a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/hwmon.cfg b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/hwmon.cfg
+> deleted file mode 100644
+> index 053fea3..0000000
+> --- a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/hwmon.cfg
+> +++ /dev/null
+> @@ -1,4 +0,0 @@
+> -CONFIG_HWMON=y
+> -CONFIG_SENSORS_NCT7904=y
+> -CONFIG_SENSORS_LM75=y
+> -CONFIG_EEPROM_AT24=y
+> diff --git a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc_%.bbappend b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc_%.bbappend
+> index bb6f06c..6d7ae27 100644
+> --- a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc_%.bbappend
+> +++ b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc_%.bbappend
+> @@ -1,2 +1,2 @@
+>  FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+> -SRC_URI += "file://defconfig file://hwmon.cfg"
+> +SRC_URI += "file://defconfig"
+> diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-kernel/linux/linux-obmc/firestone.cfg b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-kernel/linux/linux-obmc/firestone.cfg
+> index 2594dec..63891b6 100644
+> --- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-kernel/linux/linux-obmc/firestone.cfg
+> +++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-kernel/linux/linux-obmc/firestone.cfg
+> @@ -1,4 +1 @@
+> -CONFIG_HWMON=y
+> -CONFIG_SENSORS_NCT7904=y
+> -CONFIG_EEPROM_AT24=y
+>  CONFIG_SENSORS_TMP421=y
+> diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.cfg b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.cfg
+> index 2594dec..63891b6 100644
+> --- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.cfg
+> +++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.cfg
+> @@ -1,4 +1 @@
+> -CONFIG_HWMON=y
+> -CONFIG_SENSORS_NCT7904=y
+> -CONFIG_EEPROM_AT24=y
+>  CONFIG_SENSORS_TMP421=y
+> diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.cfg b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.cfg
+> index 2594dec..498497e 100644
+> --- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.cfg
+> +++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.cfg
+> @@ -1,4 +1,3 @@
+> -CONFIG_HWMON=y
+>  CONFIG_SENSORS_NCT7904=y
+>  CONFIG_EEPROM_AT24=y
+>  CONFIG_SENSORS_TMP421=y
+> diff --git a/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.cfg b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.cfg
 > new file mode 100644
-> index 0000000..f8f2d0e
+> index 0000000..f778394
 > --- /dev/null
-> +++ b/meta-openbmc-machines/meta-evb/conf/layer.conf
-> @@ -0,0 +1,5 @@
-> +# We have a conf and classes directory, add to BBPATH
-> +BBPATH .= ":${LAYERDIR}"
-> +
-> +BBFILE_COLLECTIONS += "evb"
-> +BBFILE_PATTERN_evb = ""
-> diff --git a/meta-openbmc-machines/meta-evb/meta-evb-aspeed/conf/layer.conf b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/conf/layer.conf
+> +++ b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.cfg
+> @@ -0,0 +1,3 @@
+> +CONFIG_SENSORS_NCT7904=y
+> +CONFIG_SENSORS_LM75=y
+> +CONFIG_EEPROM_AT24=y
+> diff --git a/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend
 > new file mode 100644
-> index 0000000..6d78f95
+> index 0000000..9e74ab4
 > --- /dev/null
-> +++ b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/conf/layer.conf
-> @@ -0,0 +1,5 @@
-> +# We have a conf and classes directory, add to BBPATH
-> +BBPATH .= ":${LAYERDIR}"
-> +
-> +BBFILE_COLLECTIONS += "evb-aspeed"
-> +BBFILE_PATTERN_evb-aspeed = ""
-> diff --git a/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/bblayers.conf.sample b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/bblayers.conf.sample
-> new file mode 100644
-> index 0000000..dee1fa1
-> --- /dev/null
-> +++ b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/bblayers.conf.sample
-> @@ -0,0 +1,27 @@
-> +# LAYER_CONF_VERSION is increased each time build/conf/bblayers.conf
-> +# changes incompatibly
-> +LCONF_VERSION = "6"
-> +
-> +BBPATH = "${TOPDIR}"
-> +BBFILES ?= ""
-> +
-> +BBLAYERS ?= " \
-> +  ##OEROOT##/meta \
-> +  ##OEROOT##/meta-yocto \
-> +  ##OEROOT##/meta-phosphor \
-> +  ##OEROOT##/meta-openbmc-bsp/meta-aspeed \
-> +  ##OEROOT##/meta-openbmc-bsp/meta-aspeed/meta-ast2500 \
-> +  ##OEROOT##/meta-openbmc-machines/meta-evb \
-> +  ##OEROOT##/meta-openbmc-machines/meta-evb/meta-evb-aspeed \
-> +  ##OEROOT##/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500 \
-> +  "
-> +BBLAYERS_NON_REMOVABLE ?= " \
-> +  ##OEROOT##/meta \
-> +  ##OEROOT##/meta-yocto \
-> +  ##OEROOT##/meta-phosphor \
-> +  ##OEROOT##/meta-openbmc-bsp/meta-aspeed \
-> +  ##OEROOT##/meta-openbmc-bsp/meta-aspeed/meta-ast2500 \
-> +  ##OEROOT##/meta-openbmc-machines/meta-evb \
-> +  ##OEROOT##/meta-openbmc-machines/meta-evb/meta-evb-aspeed \
-> +  ##OEROOT##/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500 \
-> +  "
-> diff --git a/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/conf-notes.txt b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/conf-notes.txt
-> new file mode 100644
-> index 0000000..9b3c01a
-> --- /dev/null
-> +++ b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/conf-notes.txt
+> +++ b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend
 > @@ -0,0 +1,2 @@
-> +Common targets are:
-> +     obmc-phosphor-image
-> diff --git a/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/layer.conf b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/layer.conf
+> +FILESEXTRAPATHS_prepend := "${THISDIR}/linux-obmc:"
+> +SRC_URI += "file://barreleye.cfg"
+> diff --git a/meta-phosphor/common/recipes-kernel/linux/linux-obmc/hwmon.cfg b/meta-phosphor/common/recipes-kernel/linux/linux-obmc/hwmon.cfg
 > new file mode 100644
-> index 0000000..1c70336
+> index 0000000..ff2b329
 > --- /dev/null
-> +++ b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/layer.conf
-> @@ -0,0 +1,5 @@
-> +# We have a conf and classes directory, add to BBPATH
-> +BBPATH .= ":${LAYERDIR}"
-> +
-> +BBFILE_COLLECTIONS += "evb-ast2500"
-> +BBFILE_PATTERN_evb-ast2500 = ""
-> diff --git a/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/local.conf.sample b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/local.conf.sample
-> new file mode 100644
-> index 0000000..58e165f
-> --- /dev/null
-> +++ b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/local.conf.sample
-> @@ -0,0 +1,21 @@
-> +MACHINE ??= "ast2500-evb"
-> +DISTRO ?= "openbmc-phosphor"
-> +PACKAGE_CLASSES ?= "package_rpm"
-> +SANITY_TESTED_DISTROS_append ?= " *"
-> +EXTRA_IMAGE_FEATURES = "debug-tweaks"
-> +USER_CLASSES ?= "buildstats image-mklibs image-prelink"
-> +PATCHRESOLVE = "noop"
-> +BB_DISKMON_DIRS = "\
-> +    STOPTASKS,${TMPDIR},1G,100K \
-> +    STOPTASKS,${DL_DIR},1G,100K \
-> +    STOPTASKS,${SSTATE_DIR},1G,100K \
-> +    STOPTASKS,/tmp,100M,100K \
-> +    ABORT,${TMPDIR},100M,1K \
-> +    ABORT,${DL_DIR},100M,1K \
-> +    ABORT,${SSTATE_DIR},100M,1K \
-> +    ABORT,/tmp,10M,1K"
-> +CONF_VERSION = "1"
-> +INHERIT += "extrausers"
-> +EXTRA_USERS_PARAMS = " \
-> +  usermod -p '\$1\$UGMqyqdG\$FZiylVFmRRfl9Z0Ue8G7e/' root; \
-> +  "
-> diff --git a/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/machine/ast2500-evb.conf b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/machine/ast2500-evb.conf
-> new file mode 100644
-> index 0000000..559e2b6
-> --- /dev/null
-> +++ b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/machine/ast2500-evb.conf
-> @@ -0,0 +1,6 @@
-> +KMACHINE = "aspeed"
-> +KERNEL_DEVICETREE = "${KMACHINE}-ast2500-evb.dtb"
-> +
-> +require conf/machine/include/ast2500.inc
-> +require conf/machine/include/obmc-bsp-common.inc
-> +require conf/machine/include/sample.inc
+> +++ b/meta-phosphor/common/recipes-kernel/linux/linux-obmc/hwmon.cfg
+> @@ -0,0 +1 @@
+> +CONFIG_HWMON=y
+> diff --git a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb
+> index 47e3698..c0d8e38 100644
+> --- a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb
+> +++ b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb
+> @@ -6,6 +6,7 @@ KBRANCH ?= "dev-4.4"
+>  KCONFIG_MODE="--alldefconfig"
+>
+>  SRC_URI = "git://github.com/openbmc/linux;protocol=git;branch=${KBRANCH}"
+> +SRC_URI += "file://hwmon.cfg"
+>
+>  LINUX_VERSION ?= "4.4"
+>  LINUX_VERSION_EXTENSION ?= "-${SRCREV}"
 > --
 > 2.8.3
 >
