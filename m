@@ -1,60 +1,59 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-qg0-f66.google.com (mail-qg0-f66.google.com
- [209.85.192.66])
+Received: from mail-qg0-f65.google.com (mail-qg0-f65.google.com
+ [209.85.192.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rQ6675Z2ZzDqHm
- for <openbmc@lists.ozlabs.org>; Thu,  9 Jun 2016 10:45:19 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rQ66T6HtGzDqST
+ for <openbmc@lists.ozlabs.org>; Thu,  9 Jun 2016 10:45:37 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=AcQiBgnN; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=F27vCGZO; 
  dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=GCMgC0Z2; 
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=fnyOeN/j; 
  dkim-atps=neutral
-Received: by mail-qg0-f66.google.com with SMTP id t106so1848019qgt.2
- for <openbmc@lists.ozlabs.org>; Wed, 08 Jun 2016 17:45:19 -0700 (PDT)
+Received: by mail-qg0-f65.google.com with SMTP id t106so1848535qgt.2
+ for <openbmc@lists.ozlabs.org>; Wed, 08 Jun 2016 17:45:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=1bG6nNXJQcDqSc1xKR1kyj1IFbs82w9TjNnivxnlfXs=;
- b=AcQiBgnNTQYl/a1N0C6hfTtQ2mQPgp/2FQ3iHi/g5mVzdtXf6y51x/Ge9MRyGlXqEb
- Oz+B91N7qqQrTeQxoQLQXPSaNrn3wht1nSw7sPLHi8GoSIe9tAwk2BsB1bcTaS026p5W
- UsUjJKTHp3rp/38hMVnvsWyWFa5Ez4ZZicO79nxWy+jczE3Y6/Qus5gJePrf8U20CyiF
- 3UEjW+zmiOn+DYJDIfRTJTfrNgtio0ysDpc8KdDPv5TK6c9wxtdMgFK4PaV4/ZqNjJvu
- +aW3VDxXrzxUWg6sClyBfYEQLxypARZYweQbaAnPi9tli5tq9BPi5bL+RHXWCIiUJCNr
- PqmQ==
+ bh=yaML49DxKOL0iOkYDh3pAkwxSGAkXSqFkBJmvJ1+erk=;
+ b=F27vCGZOOSvSFtlG1wPndg9B11iEAzOjpSwOAPlAgRhxhLlvCxoNPW14cr/O1RdoSj
+ QLBh/iKwi2fCgJb4rSkXErAkujYoILVJazu1QrlQd+wngjRjqN1LRZpfJePxBREq1EXy
+ RYCoGupSAaoDlttQT7exttbw2eAK2AkCtFAwyJTtlq2bKfKzT+9xSI3BIdz3j4pAjjoc
+ Dff4U9aXy8DGrrZleNyYpUeZxU7qf8sqbsaiGvTcZqq5WAoCU0Wvl3tCFK4BAfSx9pcP
+ mv3z3BbTsaDpTgc7COaOCORbyJpZZ08G+MFH8Xq3iPLt/BXCmdiWuwpGaLDnOduwUea0
+ 6HkA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=1bG6nNXJQcDqSc1xKR1kyj1IFbs82w9TjNnivxnlfXs=;
- b=GCMgC0Z2ASQi+6hIf2f9xxEpD64rTvDz9NG+DgPa4/Ysyfea0KM7lx5DLv4ouWbv9w
- K2/eCRt+z+R3fAKv/693jtjT6LlWyOj77a66frwSBYXFXD48+MkntIpImnTg8/E29CtM
- I27Y+OmZiiewAH8WK4FcTu28SXRSLPgHRRHLM=
+ bh=yaML49DxKOL0iOkYDh3pAkwxSGAkXSqFkBJmvJ1+erk=;
+ b=fnyOeN/jMOKPCCtq6u3T5lhD4SpDFf29bwllOmJX50L7UeGKYtCL4AMr4CfHeHFQZf
+ W0eJRxu8AW2B8y6Nej4T2jgKLDm34J0rDVMEYejRf1gCDEKnPdbkglsIfFaDQV2UTi3I
+ fuq96HO9oESOEwMtIYUz4EshBxQszYtEmU+X8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=1bG6nNXJQcDqSc1xKR1kyj1IFbs82w9TjNnivxnlfXs=;
- b=QVctQvAhURfuT36xWxGeAbmJJerST7GI7NaeeVRgru1ksq7pgyAMp+8jKbWkozd6lI
- WOz8OYo/C2tS+X364tONwhyFtq4FUServYCZ5wv105+A2JF6Qj9AnViMhbamCPsjHAzH
- JtPrw/XoI1KLiFHVPV4/MaVvcIlIJvqZEvz134qB+3WtBiHUWgYnLsdc63Xc9lT/d3sK
- nrJkyG3uAPzTNVGjfcRGXuVfvjlWdhjWMtCFGLKvB6cFhV8fwWxf1J5uE/uuPV28NxqB
- Jy17WQ7i0MYZ5RTE4cn/JLz2mFgy67Zzyfb4c7LEwo6p/FZkzaiN5JiWQNe49RSU+kXa
- orEw==
-X-Gm-Message-State: ALyK8tK4zr7iGcwfo+wDBywaMb3AQ12iPo0y0PCCAqB+RIhF/NXMxuQQzb6GxW+SiBOXNLJGiPcwgVbD02h3Xw==
-X-Received: by 10.140.129.82 with SMTP id 79mr7521366qhb.28.1465433057613;
- Wed, 08 Jun 2016 17:44:17 -0700 (PDT)
+ bh=yaML49DxKOL0iOkYDh3pAkwxSGAkXSqFkBJmvJ1+erk=;
+ b=jn1EI2CggIxWRA1e+g8z+aSgPjQnRAzyPOWqNO+A6SUh7eZxTEiS8pztyGVB171wcv
+ wmFdjHLLBP66W/o55gv6FI0NWnmbf/CGIr8O7u44b1NftybZGw4NjadlY9VJC8Kp34Kk
+ ajR9PPieEisvnOYjozwahb8ZkGXOxZh9vP7tiTwSf13SBjH2/cvosdvStCQ06mG2ihf7
+ 0E83ZTWtl0X2qXntgG9V4rUAYDqxG7TAVLVLvckoundDDnwG91VHelKcKYKqmYH8ls6e
+ gFocSNQNK+gAXtYfHurawKcrURJ3JxQsj8oarDJ6Z5oxp3O/JiQ4sKfxVivj6TQlOLjN
+ pkZg==
+X-Gm-Message-State: ALyK8tJ2DU6cWNTnnfIOYjV+Z38zLFwPyk26K2HAk3xKfFCpXpZ/d8blNdkBZew8+LUVaS/FiCcVOncPKGderQ==
+X-Received: by 10.140.228.134 with SMTP id y128mr7532304qhb.81.1465433075699; 
+ Wed, 08 Jun 2016 17:44:35 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.237.37.148 with HTTP; Wed, 8 Jun 2016 17:43:58 -0700 (PDT)
-In-Reply-To: <20160609002032.984-9-openbmc-patches@stwcx.xyz>
+Received: by 10.237.37.148 with HTTP; Wed, 8 Jun 2016 17:44:16 -0700 (PDT)
+In-Reply-To: <20160609002032.984-3-openbmc-patches@stwcx.xyz>
 References: <20160609002032.984-1-openbmc-patches@stwcx.xyz>
- <20160609002032.984-9-openbmc-patches@stwcx.xyz>
+ <20160609002032.984-3-openbmc-patches@stwcx.xyz>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 8 Jun 2016 19:43:58 -0500
-X-Google-Sender-Auth: xMcKOgA6nwLs_oTn9xEMTKtyVac
-Message-ID: <CACPK8Xe5C6GrHwp02DtEVSt10jkceKV_F2doZ5+iNOskt3TDoQ@mail.gmail.com>
-Subject: Re: [PATCH openbmc v2 08/11] AST2400: Use Palmetto as the default
- uboot target
+Date: Wed, 8 Jun 2016 19:44:16 -0500
+X-Google-Sender-Auth: UaIzeG8c88PrL132vC8Wp0xEiUs
+Message-ID: <CACPK8XdDBR6xnKAuPBmTn19d1Ar9x2864FTNMM05hhNF+MTVig@mail.gmail.com>
+Subject: Re: [PATCH openbmc v2 02/11] Add recipes-bsp to recipes.txt
 To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Brad Bishop <bradleyb@fuzziesquirrel.com>
@@ -70,41 +69,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Jun 2016 00:45:20 -0000
+X-List-Received-Date: Thu, 09 Jun 2016 00:45:38 -0000
 
 On Wed, Jun 8, 2016 at 7:20 PM, OpenBMC Patches
 <openbmc-patches@stwcx.xyz> wrote:
 > From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 >
-> An evaluation board target would be nice here but at least Palmetto is
-> an improvement over the generic ARM target.
-
-Can you open a ticket for someone to create a evb target?
-
-Does anyone have a ast2400 evb to test on?
-
+> This was missed when the u-boot recipe was added.
 >
 > Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
 Reviewed-by: Joel Stanley <joel@jms.id.au>
 
 > ---
->  .../meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc           | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  meta-phosphor/common/recipes.txt | 1 +
+>  1 file changed, 1 insertion(+)
 >
-> diff --git a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc
-> index 97a8834..964de9a 100644
-> --- a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc
-> +++ b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc
-> @@ -5,7 +5,7 @@
->  PREFERRED_PROVIDER_virtual/kernel ?= "linux-obmc"
->  PREFERRED_VERSION_linux-obmc ?= "4.4+git%"
->
-> -UBOOT_MACHINE ?= "versatileab_config"
-> +UBOOT_MACHINE ?= "palmetto_config"
->  UBOOT_ENTRYPOINT ?= "0x40001000"
->  UBOOT_LOADADDRESS ?= "0x40001000"
->
+> diff --git a/meta-phosphor/common/recipes.txt b/meta-phosphor/common/recipes.txt
+> index ccd19b2..1a8adc7 100644
+> --- a/meta-phosphor/common/recipes.txt
+> +++ b/meta-phosphor/common/recipes.txt
+> @@ -1,3 +1,4 @@
+> +recipes-bsp          - Anything with links to specific hardware or hardware configuration information
+>  recipes-connectivity - Libraries and applications related to communication with other devices
+>  recipes-core         - What's needed to build a basic working Linux image including commonly used dependencies
+>  recipes-devtools     - Tools primarily used by the build system (but can also be used on targets)
 > --
 > 2.8.3
 >
