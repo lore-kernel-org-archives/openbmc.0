@@ -1,59 +1,60 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-qk0-f194.google.com (mail-qk0-f194.google.com
- [209.85.220.194])
+Received: from mail-qg0-f66.google.com (mail-qg0-f66.google.com
+ [209.85.192.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rQ65458YYzDqST
- for <openbmc@lists.ozlabs.org>; Thu,  9 Jun 2016 10:44:24 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rQ6675Z2ZzDqHm
+ for <openbmc@lists.ozlabs.org>; Thu,  9 Jun 2016 10:45:19 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=TwObcoHB; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=AcQiBgnN; 
  dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=SLGPS/5g; 
+ unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=GCMgC0Z2; 
  dkim-atps=neutral
-Received: by mail-qk0-f194.google.com with SMTP id v3so1878186qki.3
- for <openbmc@lists.ozlabs.org>; Wed, 08 Jun 2016 17:44:24 -0700 (PDT)
+Received: by mail-qg0-f66.google.com with SMTP id t106so1848019qgt.2
+ for <openbmc@lists.ozlabs.org>; Wed, 08 Jun 2016 17:45:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=jKZBN8cyogM9TcY7M8APSAYZHurl2WzjALMX8YaOEF0=;
- b=TwObcoHBocJ3kIT8KTVsFo//7JEwV5NCVI/UCeL0uLqN39jgjXfgMTuhEoTuSSADfh
- NqatYtkGNt3ycYt24BXfJeyspWGG68/Augx3RvQxFcCk/wmHTGXpuj8jT18zMJuIdiHS
- gns5yVCP7GAqKaY6IFFBP94Ec7yKo0n09zt2sC3kQqhE6+Jp1zzaGFDcE//oVsIPkjGA
- DKz2w8XAsD4b1RzIhBz2NwJ/L+bOcPbcgEeDvcicqDht6pS+EOaPxhwPfxnZ9I+VGKQK
- I1aMrv9oZu8qi7vZqg2tpocLs1G573ifP3cCF6YY0g178v/Mk6qzsbT6XqW+8xzxf7mt
- Xvaw==
+ bh=1bG6nNXJQcDqSc1xKR1kyj1IFbs82w9TjNnivxnlfXs=;
+ b=AcQiBgnNTQYl/a1N0C6hfTtQ2mQPgp/2FQ3iHi/g5mVzdtXf6y51x/Ge9MRyGlXqEb
+ Oz+B91N7qqQrTeQxoQLQXPSaNrn3wht1nSw7sPLHi8GoSIe9tAwk2BsB1bcTaS026p5W
+ UsUjJKTHp3rp/38hMVnvsWyWFa5Ez4ZZicO79nxWy+jczE3Y6/Qus5gJePrf8U20CyiF
+ 3UEjW+zmiOn+DYJDIfRTJTfrNgtio0ysDpc8KdDPv5TK6c9wxtdMgFK4PaV4/ZqNjJvu
+ +aW3VDxXrzxUWg6sClyBfYEQLxypARZYweQbaAnPi9tli5tq9BPi5bL+RHXWCIiUJCNr
+ PqmQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=jKZBN8cyogM9TcY7M8APSAYZHurl2WzjALMX8YaOEF0=;
- b=SLGPS/5g2Ocqeq+fazD2a2lCkrPRw4MAkx+dnOH0TiurJS3BfVSJdjK5pLP4sMobTj
- KkHMIvL0xOYD0EOa13a8WS3um3GJwx9x/M6WtgkWqWGsDoFZ02Oh20q9PY/cojGDF/1y
- iQRKJtiyUF0In2UxtsluF4N06nRmBN4QURfDo=
+ bh=1bG6nNXJQcDqSc1xKR1kyj1IFbs82w9TjNnivxnlfXs=;
+ b=GCMgC0Z2ASQi+6hIf2f9xxEpD64rTvDz9NG+DgPa4/Ysyfea0KM7lx5DLv4ouWbv9w
+ K2/eCRt+z+R3fAKv/693jtjT6LlWyOj77a66frwSBYXFXD48+MkntIpImnTg8/E29CtM
+ I27Y+OmZiiewAH8WK4FcTu28SXRSLPgHRRHLM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=jKZBN8cyogM9TcY7M8APSAYZHurl2WzjALMX8YaOEF0=;
- b=Xr95dFwLbEm9CsWAh5F0dYzXVBrUnaUEkDM52yZPItepDzM6OPo80qYLb+hwfODL2x
- uvGgsl2wkahU6nWQNk6GZArOdF5MLpSgFQDou9jMfKbI+T5MU6EqzJNBJ3OwterSm6A2
- oGaMuRvyS5JZjxugUuPpyp7BUSViObkA7wy6Upp4kd0cU4DLCsYIIOp7umnPVdBp2q4P
- /LEvJOFu41iDbi+4+Mn+jUtSavj5q1Qwumk087U1DP3gNQ9lN9XRVTnqSbbUez2EYr6t
- 1UN+pnapl6rM9TkJPR4Iau2bnLMlGPAT3ZTmVEYx7eUY1Pmh0tZkwF/2LTpbdpr3Pj4l
- ityQ==
-X-Gm-Message-State: ALyK8tJRq8d1lo+n1ZTLxrqoAZBtyp4XwGcmgd1MiXhpl96RYC6HshbGsbFKGIC/ULT1v2ests99sTUDbX5t8w==
-X-Received: by 10.55.53.145 with SMTP id c139mr7479742qka.58.1465433002558;
- Wed, 08 Jun 2016 17:43:22 -0700 (PDT)
+ bh=1bG6nNXJQcDqSc1xKR1kyj1IFbs82w9TjNnivxnlfXs=;
+ b=QVctQvAhURfuT36xWxGeAbmJJerST7GI7NaeeVRgru1ksq7pgyAMp+8jKbWkozd6lI
+ WOz8OYo/C2tS+X364tONwhyFtq4FUServYCZ5wv105+A2JF6Qj9AnViMhbamCPsjHAzH
+ JtPrw/XoI1KLiFHVPV4/MaVvcIlIJvqZEvz134qB+3WtBiHUWgYnLsdc63Xc9lT/d3sK
+ nrJkyG3uAPzTNVGjfcRGXuVfvjlWdhjWMtCFGLKvB6cFhV8fwWxf1J5uE/uuPV28NxqB
+ Jy17WQ7i0MYZ5RTE4cn/JLz2mFgy67Zzyfb4c7LEwo6p/FZkzaiN5JiWQNe49RSU+kXa
+ orEw==
+X-Gm-Message-State: ALyK8tK4zr7iGcwfo+wDBywaMb3AQ12iPo0y0PCCAqB+RIhF/NXMxuQQzb6GxW+SiBOXNLJGiPcwgVbD02h3Xw==
+X-Received: by 10.140.129.82 with SMTP id 79mr7521366qhb.28.1465433057613;
+ Wed, 08 Jun 2016 17:44:17 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.237.37.148 with HTTP; Wed, 8 Jun 2016 17:43:03 -0700 (PDT)
-In-Reply-To: <20160609002032.984-4-openbmc-patches@stwcx.xyz>
+Received: by 10.237.37.148 with HTTP; Wed, 8 Jun 2016 17:43:58 -0700 (PDT)
+In-Reply-To: <20160609002032.984-9-openbmc-patches@stwcx.xyz>
 References: <20160609002032.984-1-openbmc-patches@stwcx.xyz>
- <20160609002032.984-4-openbmc-patches@stwcx.xyz>
+ <20160609002032.984-9-openbmc-patches@stwcx.xyz>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 8 Jun 2016 19:43:03 -0500
-X-Google-Sender-Auth: Dz4CxEnaqrMh35Mqp2DJv2-eq_A
-Message-ID: <CACPK8XeZ6cdouA3_iCxiudSLviERef7rGEsFXVUd4H6eRb8nhw@mail.gmail.com>
-Subject: Re: [PATCH openbmc v2 03/11] Remove empty devtrees
+Date: Wed, 8 Jun 2016 19:43:58 -0500
+X-Google-Sender-Auth: xMcKOgA6nwLs_oTn9xEMTKtyVac
+Message-ID: <CACPK8Xe5C6GrHwp02DtEVSt10jkceKV_F2doZ5+iNOskt3TDoQ@mail.gmail.com>
+Subject: Re: [PATCH openbmc v2 08/11] AST2400: Use Palmetto as the default
+ uboot target
 To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Brad Bishop <bradleyb@fuzziesquirrel.com>
@@ -69,49 +70,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Jun 2016 00:44:25 -0000
+X-List-Received-Date: Thu, 09 Jun 2016 00:45:20 -0000
 
 On Wed, Jun 8, 2016 at 7:20 PM, OpenBMC Patches
 <openbmc-patches@stwcx.xyz> wrote:
 > From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 >
-> At the moment the in-tree devtrees are used.  Remove these to
-> minimize confusion.
+> An evaluation board target would be nice here but at least Palmetto is
+> an improvement over the generic ARM target.
+
+Can you open a ticket for someone to create a evb target?
+
+Does anyone have a ast2400 evb to test on?
+
 >
 > Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
 Reviewed-by: Joel Stanley <joel@jms.id.au>
 
 > ---
->  .../meta-firestone/recipes-kernel/linux/linux-obmc/firestone.dts         | 1 -
->  .../meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.dts  | 1 -
->  .../meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.dts  | 1 -
->  3 files changed, 3 deletions(-)
->  delete mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-kernel/linux/linux-obmc/firestone.dts
->  delete mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.dts
->  delete mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.dts
+>  .../meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc           | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-kernel/linux/linux-obmc/firestone.dts b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-kernel/linux/linux-obmc/firestone.dts
-> deleted file mode 100644
-> index 3b5e0f1..0000000
-> --- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-kernel/linux/linux-obmc/firestone.dts
-> +++ /dev/null
-> @@ -1 +0,0 @@
-> -# use in-tree devtree
-> diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.dts b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.dts
-> deleted file mode 100644
-> index 3b5e0f1..0000000
-> --- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.dts
-> +++ /dev/null
-> @@ -1 +0,0 @@
-> -# use in-tree devtree
-> diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.dts b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.dts
-> deleted file mode 100644
-> index 3b5e0f1..0000000
-> --- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.dts
-> +++ /dev/null
-> @@ -1 +0,0 @@
-> -# use in-tree devtree
+> diff --git a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc
+> index 97a8834..964de9a 100644
+> --- a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc
+> +++ b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc
+> @@ -5,7 +5,7 @@
+>  PREFERRED_PROVIDER_virtual/kernel ?= "linux-obmc"
+>  PREFERRED_VERSION_linux-obmc ?= "4.4+git%"
+>
+> -UBOOT_MACHINE ?= "versatileab_config"
+> +UBOOT_MACHINE ?= "palmetto_config"
+>  UBOOT_ENTRYPOINT ?= "0x40001000"
+>  UBOOT_LOADADDRESS ?= "0x40001000"
+>
 > --
 > 2.8.3
 >
