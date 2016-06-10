@@ -1,39 +1,54 @@
-Return-Path: <andrew@aj.id.au>
-Received: from homiemail-a19.g.dreamhost.com (sub3.mail.dreamhost.com
- [69.163.253.7])
- (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-qg0-x243.google.com (mail-qg0-x243.google.com
+ [IPv6:2607:f8b0:400d:c04::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rQqN50k71zDqJd
- for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 14:44:52 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=Xpd0D+zn; 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rQwbm4z61zDqJ1
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 18:40:20 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=kZHek5SE; 
  dkim-atps=neutral
-Received: from homiemail-a19.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a19.g.dreamhost.com (Postfix) with ESMTP id 471CC604076;
- Thu,  9 Jun 2016 21:44:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=from:to:cc
- :subject:date:message-id:in-reply-to:references; s=aj.id.au; bh=
- jAcq0lEBGFofdR8LmfxI+RxTdug=; b=Xpd0D+znn2muapAshJcjrCERJYc3730e
- jYwNInRZOguLKRmmi9zmXdWKETQ9t+wpCL7kkJ573vWRVVuYxNnpYPZZj/as9Tzr
- Q0jICYuxhKPNvaleoqW1PNQCgMpbanAjMUYgiBf5FwZLL8zIludQ10Dljs0OcpBD
- HXtCpJbVaa8=
-Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- (using TLSv1 with cipher AES128-SHA (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: andrew@aj.id.au)
- by homiemail-a19.g.dreamhost.com (Postfix) with ESMTPSA id 196E0604061;
- Thu,  9 Jun 2016 21:44:49 -0700 (PDT)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: OpenBMC <openbmc@lists.ozlabs.org>
-Cc: Joel Stanley <joel@jms.id.au>, Gavin Shan <gwshan@linux.vnet.ibm.com>,
- Andrew Jeffery <andrew@aj.id.au>
-Subject: [PATCH linux 4/4] aspeed-g5: Configure ftgmac100s for the Aspeed g5
- register interface
-Date: Fri, 10 Jun 2016 14:14:29 +0930
-Message-Id: <1465533869-3218-5-git-send-email-andrew@aj.id.au>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1465533869-3218-1-git-send-email-andrew@aj.id.au>
+Received: by mail-qg0-x243.google.com with SMTP id z67so4759012qgz.1
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 01:40:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=Vstv/rxRB5pTWBzghrM5gLy3qb4uugNCUTSKI7LwybQ=;
+ b=kZHek5SE4xIb4Fq37OXK9+EBOq38lt2Oce6QbYO8+zcfADlgRTT/6P0ckJhtVaV8mu
+ adfMbKu4JCdMigTgPCp/VItzNPganP8UoOoUHm1HWfwhXzNCCFo+SQXeL129/k7cqMaL
+ wAAvb3Qoc1CQ4uc6cynRRDW3xXLVyPgWY67kRtr95jKeCqJs9HBNRak9vaTwSFoFS3g/
+ 5vgdwgy7x4Vze4Dztznpkc3Kk24kntvsfVHuwnvIVIhzlwFLQNv4zeyPvk0eVyVAFj1H
+ TErBOXAKXfMqL1EEAFyD5WirtwCsAb9o4Xup8zdhSCPcpJc1ibphxTn9dj9a+DoV5Mjv
+ ijKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=Vstv/rxRB5pTWBzghrM5gLy3qb4uugNCUTSKI7LwybQ=;
+ b=f//0+l5OlortjH3YfGFVTUck8qczRFGfgSm5MR8XyLSLbhPq1RiUD/Y3nDeYRU+On0
+ VbSkEtGEjPYP3mQA0KBhNaYhCKvmLfsq8bvrd6QVWD6NxdobOf5oHNybUKt8eV0WCazW
+ lIibar2UwAAkgVFbNm+pqEob6Au+VEg+jxh8eFeKaNsQDUMmdJ7Ex5PD9jMvxC4KLneH
+ vOlN+MTLJctDz9lzfVyPiGPl2rX+3pdmEa/jkLpY0mWxEtgYLir+33DYnUUt9L+ncjFP
+ q9DH3IyIZuUKu2tqr0lxbXE/QEX0zg6ZsOamB4djX1Msea3gMv6KNbH+zM2DZH1N8AKp
+ PUyw==
+X-Gm-Message-State: ALyK8tJJr1nLLnybDEXqNd6kcTFfHM3/io+ijcwk0FW/4YHFjxo5D/chJun1V1HOohlFJyRnibfLi2r5Pd5VVw==
+X-Received: by 10.140.228.134 with SMTP id y128mr644879qhb.81.1465548017858;
+ Fri, 10 Jun 2016 01:40:17 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.237.37.148 with HTTP; Fri, 10 Jun 2016 01:39:58 -0700 (PDT)
+In-Reply-To: <1465533869-3218-2-git-send-email-andrew@aj.id.au>
 References: <1465533869-3218-1-git-send-email-andrew@aj.id.au>
+ <1465533869-3218-2-git-send-email-andrew@aj.id.au>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 10 Jun 2016 03:39:58 -0500
+X-Google-Sender-Auth: 0RmKba7qiPYMqyXKRAEoHT-MTfk
+Message-ID: <CACPK8XdbCCH3oOYMDFNNfhApyVwyTQ2NMkOoaZbh95iZjN++5Q@mail.gmail.com>
+Subject: Re: [PATCH linux 1/4] aspeed: Use old MDC/MDIO interface for
+ ftgmac100 driver compat
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC <openbmc@lists.ozlabs.org>, Gavin Shan <gwshan@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -45,32 +60,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Jun 2016 04:44:53 -0000
+X-List-Received-Date: Fri, 10 Jun 2016 08:40:21 -0000
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- arch/arm/boot/dts/aspeed-g5.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+On Thu, Jun 9, 2016 at 11:44 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> This is a work-around, and we should aim to move to the new interface.
+>
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> ---
+>  arch/arm/mach-aspeed/aspeed.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>
+> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+> index 90c541f32ee8..12f3a044a03c 100644
+> --- a/arch/arm/mach-aspeed/aspeed.c
+> +++ b/arch/arm/mach-aspeed/aspeed.c
+> @@ -82,6 +82,7 @@ static void __init aspeed_dt_init(void)
+>
+>  #define AST_BASE_LPC           0x1E789000 /* LPC Controller */
+>  #define AST_BASE_SPI           0x1E630000 /* SPI Memory Controller */
+> +#define AST_BASE_MAC1          0X1E660000 /* MAC 1 */
+>  #define AST_BASE_SCU           0x1E6E2000 /* System Control Unit (SCU) */
+>  #define AST_BASE_GPIO          0x1E780000 /* GPIO Controller */
+>
+> @@ -186,8 +187,15 @@ static void __init do_garrison_setup(void)
+>
+>  static void __init do_ast2500evb_setup(void)
+>  {
+> +       unsigned long reg;
+> +
+>         /* Reset AHB bridges */
+>         writel(0x02, AST_IO(AST_BASE_SCU | 0x04));
+> +
+> +       /* Set old MDIO interface */
+> +       reg = readl(AST_IO(AST_BASE_MAC1 | 0x40));
+> +       reg &= ~0x80000000;
+> +       writel(reg, AST_IO(AST_BASE_MAC1 | 0x40));
 
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index c86e3d5bfab1..afddbb8d28b4 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -41,6 +41,7 @@
- 			compatible = "faraday,ftgmac100";
- 			reg = <0x1e660000 0x180>;
- 			interrupts = <2>;
-+			aspeed-g5-interface;
- 			no-hw-checksum;
- 			status = "disabled";
- 		};
-@@ -49,6 +50,7 @@
- 			compatible = "faraday,ftgmac100";
- 			reg = <0x1e680000 0x180>;
- 			interrupts = <3>;
-+			aspeed-g5-interface;
- 			no-hw-checksum;
- 			status = "disabled";
- 		};
--- 
-2.7.4
+I think this is common to all ast2500 platforms. We should put it in a
+function that matches on aspeed,ast2500.
+
+
+>  }
+>
+>  #define SCU_PASSWORD   0x1688A8A8
+> --
+> 2.7.4
+>
