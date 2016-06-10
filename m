@@ -3,32 +3,32 @@ Received: from mail.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rR4JR1ZrxzDq5k
- for <openbmc@lists.ozlabs.org>; Sat, 11 Jun 2016 00:27:35 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rR4M11McfzDq5k
+ for <openbmc@lists.ozlabs.org>; Sat, 11 Jun 2016 00:29:49 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com
- header.b=y4kpQBjF; dkim-atps=neutral
+ header.b=KVKj8U2Y; dkim-atps=neutral
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.fuzziesquirrel.com 72F1725BDE
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.fuzziesquirrel.com 0B25125D55
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fuzziesquirrel.com;
- s=mail; t=1465568852;
- bh=sdQz+KkZi46NBdNg4zurOBJIovBF20bhXsZkL3xU2/g=;
+ s=mail; t=1465568987;
+ bh=RKqAUBRa3MR4Jdtr296BQ+YkUQ2tXNZDr6UTiLIhY4g=;
  h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=y4kpQBjFfOCygYgqNJk4jygyjis0okveI83HA3RS+ay7YBSE1PH53wR/pngnDTPtD
- QEXAT70ck9R9dIKnRPzIysLhP4L7HmmeTZuT6Zkj7abjiLOUqjJaPy5sm4kRZmwEKi
- LFfiPNP3Pf9F/EApw1ly+lh7p84unfLkbyNfYZfw=
-Message-ID: <1465568849.10360.0.camel@fuzziesquirrel.com>
-Subject: Re: [PATCH openbmc v2 08/11] AST2400: Use Palmetto as the default
- uboot target
+ b=KVKj8U2YLu6pvZkS8IsRO5+JQ/wWdCIE+5GnnrEp2TNKvKf38VDXeC90WMAA0T7uW
+ Rp1HlMTynrHqBD9Pro3uN45suXeKfrZqPE0HxHz6SwVZKuNMa0X0ugtg7AqEhRDh5C
+ q8y35J+V80Xk41gDq/BXNkTlwQbWzUwJTErL2G14=
+Message-ID: <1465568984.10360.3.camel@fuzziesquirrel.com>
+Subject: Re: [PATCH openbmc v2 11/11] AST2500: Add AST2500 evaluation board
+ layer
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 To: Joel Stanley <joel@jms.id.au>
 Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>, OpenBMC Maillist
  <openbmc@lists.ozlabs.org>
-Date: Fri, 10 Jun 2016 10:27:29 -0400
-In-Reply-To: <CACPK8Xe5C6GrHwp02DtEVSt10jkceKV_F2doZ5+iNOskt3TDoQ@mail.gmail.com>
+Date: Fri, 10 Jun 2016 10:29:44 -0400
+In-Reply-To: <CACPK8XdK5VrdeurtWzNSAXDxNiCeAv5HdYNp7OPAgrY2HYR1wQ@mail.gmail.com>
 References: <20160609002032.984-1-openbmc-patches@stwcx.xyz>
- <20160609002032.984-9-openbmc-patches@stwcx.xyz>
- <CACPK8Xe5C6GrHwp02DtEVSt10jkceKV_F2doZ5+iNOskt3TDoQ@mail.gmail.com>
+ <20160609002032.984-12-openbmc-patches@stwcx.xyz>
+ <CACPK8XdK5VrdeurtWzNSAXDxNiCeAv5HdYNp7OPAgrY2HYR1wQ@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -43,45 +43,171 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Jun 2016 14:27:36 -0000
+X-List-Received-Date: Fri, 10 Jun 2016 14:29:49 -0000
 
-On Wed, 2016-06-08 at 19:43 -0500, Joel Stanley wrote:
+On Wed, 2016-06-08 at 19:40 -0500, Joel Stanley wrote:
 > On Wed, Jun 8, 2016 at 7:20 PM, OpenBMC Patches
 > <openbmc-patches@stwcx.xyz> wrote:
 > > From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 > >
-> > An evaluation board target would be nice here but at least Palmetto is
-> > an improvement over the generic ARM target.
-> 
-> Can you open a ticket for someone to create a evb target?
-
-https://github.com/openbmc/openbmc/issues/317
-
-> 
-> Does anyone have a ast2400 evb to test on?
-> 
+> > The AST2500 is an ARM SOC made by Aspeed.
+> >
+> > This layer is a stub; there are a couple missing bits of support
+> > from the kernel and u-boot.
 > >
 > > Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
-> 
-> Reviewed-by: Joel Stanley <joel@jms.id.au>
-> 
 > > ---
-> >  .../meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc           | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >  meta-openbmc-machines/meta-evb/conf/layer.conf     |  5 ++++
+> >  .../meta-evb/meta-evb-aspeed/conf/layer.conf       |  5 ++++
+> >  .../meta-evb-ast2500/conf/bblayers.conf.sample     | 27 ++++++++++++++++++++++
+> >  .../meta-evb-ast2500/conf/conf-notes.txt           |  2 ++
+> >  .../meta-evb-ast2500/conf/layer.conf               |  5 ++++
+> >  .../meta-evb-ast2500/conf/local.conf.sample        | 21 +++++++++++++++++
+> >  .../meta-evb-ast2500/conf/machine/ast2500-evb.conf |  6 +++++
+> >  7 files changed, 71 insertions(+)
+> >  create mode 100644 meta-openbmc-machines/meta-evb/conf/layer.conf
+> >  create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/conf/layer.conf
+> >  create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/bblayers.conf.sample
+> >  create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/conf-notes.txt
+> >  create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/layer.conf
+> >  create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/local.conf.sample
+> >  create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/machine/ast2500-evb.conf
+> 
+> meta-evb/meta-evb-aspeed/meta-evb-ast2500?
+> 
+> Too meta I think. Perhaps drop the middle level?
+
+At the moment I'd vote for consistancy over being too verbose:
+
+meta-openpower/meta-ibm/meta-palmetto ->
+meta-<what>/meta-<company>/meta-<board>
+
+so I was just doing the same thing we already do.  As far as the actual
+use of 'meta' this is best practice for any oe layer.
+
+Can certainly rethink this in the long run.
+
+> 
+> Also, the filenames are ast2500-evb but the path is evb-ast2500. Is
+> this intentional?
+
+Ok, will reverse the machine name.
+
+> 
 > >
-> > diff --git a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc
-> > index 97a8834..964de9a 100644
-> > --- a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc
-> > +++ b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/conf/machine/include/ast2400.inc
-> > @@ -5,7 +5,7 @@
-> >  PREFERRED_PROVIDER_virtual/kernel ?= "linux-obmc"
-> >  PREFERRED_VERSION_linux-obmc ?= "4.4+git%"
-> >
-> > -UBOOT_MACHINE ?= "versatileab_config"
-> > +UBOOT_MACHINE ?= "palmetto_config"
-> >  UBOOT_ENTRYPOINT ?= "0x40001000"
-> >  UBOOT_LOADADDRESS ?= "0x40001000"
-> >
+> > diff --git a/meta-openbmc-machines/meta-evb/conf/layer.conf b/meta-openbmc-machines/meta-evb/conf/layer.conf
+> > new file mode 100644
+> > index 0000000..f8f2d0e
+> > --- /dev/null
+> > +++ b/meta-openbmc-machines/meta-evb/conf/layer.conf
+> > @@ -0,0 +1,5 @@
+> > +# We have a conf and classes directory, add to BBPATH
+> > +BBPATH .= ":${LAYERDIR}"
+> > +
+> > +BBFILE_COLLECTIONS += "evb"
+> > +BBFILE_PATTERN_evb = ""
+> > diff --git a/meta-openbmc-machines/meta-evb/meta-evb-aspeed/conf/layer.conf b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/conf/layer.conf
+> > new file mode 100644
+> > index 0000000..6d78f95
+> > --- /dev/null
+> > +++ b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/conf/layer.conf
+> > @@ -0,0 +1,5 @@
+> > +# We have a conf and classes directory, add to BBPATH
+> > +BBPATH .= ":${LAYERDIR}"
+> > +
+> > +BBFILE_COLLECTIONS += "evb-aspeed"
+> > +BBFILE_PATTERN_evb-aspeed = ""
+> > diff --git a/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/bblayers.conf.sample b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/bblayers.conf.sample
+> > new file mode 100644
+> > index 0000000..dee1fa1
+> > --- /dev/null
+> > +++ b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/bblayers.conf.sample
+> > @@ -0,0 +1,27 @@
+> > +# LAYER_CONF_VERSION is increased each time build/conf/bblayers.conf
+> > +# changes incompatibly
+> > +LCONF_VERSION = "6"
+> > +
+> > +BBPATH = "${TOPDIR}"
+> > +BBFILES ?= ""
+> > +
+> > +BBLAYERS ?= " \
+> > +  ##OEROOT##/meta \
+> > +  ##OEROOT##/meta-yocto \
+> > +  ##OEROOT##/meta-phosphor \
+> > +  ##OEROOT##/meta-openbmc-bsp/meta-aspeed \
+> > +  ##OEROOT##/meta-openbmc-bsp/meta-aspeed/meta-ast2500 \
+> > +  ##OEROOT##/meta-openbmc-machines/meta-evb \
+> > +  ##OEROOT##/meta-openbmc-machines/meta-evb/meta-evb-aspeed \
+> > +  ##OEROOT##/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500 \
+> > +  "
+> > +BBLAYERS_NON_REMOVABLE ?= " \
+> > +  ##OEROOT##/meta \
+> > +  ##OEROOT##/meta-yocto \
+> > +  ##OEROOT##/meta-phosphor \
+> > +  ##OEROOT##/meta-openbmc-bsp/meta-aspeed \
+> > +  ##OEROOT##/meta-openbmc-bsp/meta-aspeed/meta-ast2500 \
+> > +  ##OEROOT##/meta-openbmc-machines/meta-evb \
+> > +  ##OEROOT##/meta-openbmc-machines/meta-evb/meta-evb-aspeed \
+> > +  ##OEROOT##/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500 \
+> > +  "
+> > diff --git a/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/conf-notes.txt b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/conf-notes.txt
+> > new file mode 100644
+> > index 0000000..9b3c01a
+> > --- /dev/null
+> > +++ b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/conf-notes.txt
+> > @@ -0,0 +1,2 @@
+> > +Common targets are:
+> > +     obmc-phosphor-image
+> > diff --git a/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/layer.conf b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/layer.conf
+> > new file mode 100644
+> > index 0000000..1c70336
+> > --- /dev/null
+> > +++ b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/layer.conf
+> > @@ -0,0 +1,5 @@
+> > +# We have a conf and classes directory, add to BBPATH
+> > +BBPATH .= ":${LAYERDIR}"
+> > +
+> > +BBFILE_COLLECTIONS += "evb-ast2500"
+> > +BBFILE_PATTERN_evb-ast2500 = ""
+> > diff --git a/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/local.conf.sample b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/local.conf.sample
+> > new file mode 100644
+> > index 0000000..58e165f
+> > --- /dev/null
+> > +++ b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/local.conf.sample
+> > @@ -0,0 +1,21 @@
+> > +MACHINE ??= "ast2500-evb"
+> > +DISTRO ?= "openbmc-phosphor"
+> > +PACKAGE_CLASSES ?= "package_rpm"
+> > +SANITY_TESTED_DISTROS_append ?= " *"
+> > +EXTRA_IMAGE_FEATURES = "debug-tweaks"
+> > +USER_CLASSES ?= "buildstats image-mklibs image-prelink"
+> > +PATCHRESOLVE = "noop"
+> > +BB_DISKMON_DIRS = "\
+> > +    STOPTASKS,${TMPDIR},1G,100K \
+> > +    STOPTASKS,${DL_DIR},1G,100K \
+> > +    STOPTASKS,${SSTATE_DIR},1G,100K \
+> > +    STOPTASKS,/tmp,100M,100K \
+> > +    ABORT,${TMPDIR},100M,1K \
+> > +    ABORT,${DL_DIR},100M,1K \
+> > +    ABORT,${SSTATE_DIR},100M,1K \
+> > +    ABORT,/tmp,10M,1K"
+> > +CONF_VERSION = "1"
+> > +INHERIT += "extrausers"
+> > +EXTRA_USERS_PARAMS = " \
+> > +  usermod -p '\$1\$UGMqyqdG\$FZiylVFmRRfl9Z0Ue8G7e/' root; \
+> > +  "
+> > diff --git a/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/machine/ast2500-evb.conf b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/machine/ast2500-evb.conf
+> > new file mode 100644
+> > index 0000000..559e2b6
+> > --- /dev/null
+> > +++ b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/machine/ast2500-evb.conf
+> > @@ -0,0 +1,6 @@
+> > +KMACHINE = "aspeed"
+> > +KERNEL_DEVICETREE = "${KMACHINE}-ast2500-evb.dtb"
+> > +
+> > +require conf/machine/include/ast2500.inc
+> > +require conf/machine/include/obmc-bsp-common.inc
+> > +require conf/machine/include/sample.inc
 > > --
 > > 2.8.3
 > >
