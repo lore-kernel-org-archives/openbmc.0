@@ -3,19 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rR0bX3MZvzDq5s
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rR0bX3NykzDqB0
  for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 21:40:23 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1465558818333765.9755799616145;
- Fri, 10 Jun 2016 04:40:18 -0700 (PDT)
+ with SMTPS id 1465558816761720.7864629732169;
+ Fri, 10 Jun 2016 04:40:16 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Subject: [PATCH ipmi-fru-parser] Fixes openbmc/ipmi-fru-parser#3
-Date: Fri, 10 Jun 2016 06:40:15 -0500
-Message-Id: <20160610114015.15199-2-openbmc-patches@stwcx.xyz>
+Date: Fri, 10 Jun 2016 06:40:14 -0500
+Message-Id: <20160610114015.15199-1-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.3
-In-Reply-To: <20160610114015.15199-1-openbmc-patches@stwcx.xyz>
-References: <20160610114015.15199-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -29,97 +27,21 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Fri, 10 Jun 2016 11:40:25 -0000
 
-From: vishwa <vishwanath@in.ibm.com>
+IPMI FRU record has BINARY and ASCII+Latin encoding. The BINARY version was not correctly getting reported to the fru inventory. This patch converts the BINARY into the string and updates the inventory.
 
+<!-- Reviewable:start -->
 ---
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/ipmi-fru-parser/18)
+<!-- Reviewable:end -->
+
+
+https://github.com/openbmc/ipmi-fru-parser/pull/18
+
+vishwa (1):
+  Fixes openbmc/ipmi-fru-parser#3
+
  frup.c | 51 ++++++++++++++++++++++++++++++++++++++++++++++-----
  1 file changed, 46 insertions(+), 5 deletions(-)
 
-diff --git a/frup.c b/frup.c
-index 49718ba..5acd34c 100644
---- a/frup.c
-+++ b/frup.c
-@@ -770,7 +770,6 @@ ipmi_fru_product_info_area (const void *areabuf,
-   return (rv);
- }
- 
--
- int _append_to_dict (uint8_t vpd_key_id, uint8_t* vpd_key_val, sd_bus_message* vpdtbl)
- {
-     int type_length = vpd_key_val[0];
-@@ -778,19 +777,62 @@ int _append_to_dict (uint8_t vpd_key_id, uint8_t* vpd_key_val, sd_bus_message* v
-     int vpd_val_len = type_length & IPMI_FRU_TYPE_LENGTH_NUMBER_OF_DATA_BYTES_MASK;
-     int sdr=0;
- 
-+    /* Needed to convert each uint8_t byte to a ascii */
-+    char bin_byte[3] = {0};
-+
-+    /*
-+     * Max number of characters needed to represent 1 unsigned byte in string
-+     * is number of bytes multipled by 2. Extra 3 for 0x and a ending '\0';
-+     */
-+    char bin_in_ascii_len = vpd_val_len * 2 + 3;
-+
-+    /* Binary converted to ascii in array */
-+    char *bin_in_ascii = (char *)malloc(bin_in_ascii_len);
-+
-+    /* Each byte read from the area */
-+    uint8_t val = 0;
-+
-+    char *bin_copy = &((char *)bin_in_ascii)[2];
-+
-     switch (type_code)
-     {
-         case 0:
--            printf ("_append_to_dict: VPD Key = [%s] : Type Code = [BINARY] : Len = [%d] : Val = [%s]\n", vpd_key_names [vpd_key_id], vpd_val_len, &vpd_key_val[1]);
--            sdr = sd_bus_message_append (vpdtbl, "{sv}", vpd_key_names[vpd_key_id], "ay", vpd_val_len, &vpd_key_val[1]);
--            /*sdr = sd_bus_message_append (vpdtbl, "{sv}", vpd_key_names[vpd_key_id], "s", &vpd_key_val[1]);*/
-+            memset(bin_in_ascii, 0x0, bin_in_ascii_len);
-+
-+            /* Offset 1 is where actual data starts */
-+            for(val = 1; val <= vpd_val_len ; val++)
-+            {
-+                /* 2 bytes for data and 1 for terminating '\0' */
-+                snprintf(bin_byte, 3, "%02x", vpd_key_val[val]);
-+
-+                /* Its a running string so strip off the '\0' */
-+                strncat(bin_copy, bin_byte, 2);
-+            }
-+
-+            /* We need the data represented as 0x...... */
-+            if(vpd_val_len > 0)
-+            {
-+                strncpy(bin_in_ascii, "0x", 2);
-+            }
-+
-+            printf ("_append_to_dict: VPD Key = [%s] : Type Code = [BINARY] : Len = [%d] : Val = [%s]\n",
-+                    vpd_key_names [vpd_key_id], vpd_val_len, bin_in_ascii);
-+            sdr = sd_bus_message_append (vpdtbl, "{sv}", vpd_key_names[vpd_key_id], "s", bin_in_ascii);
-             break;
-+
-         case 3:
-             printf ("_append_to_dict: VPD Key = [%s] : Type Code = [ASCII+Latin] : Len = [%d] : Val = [%s]\n", vpd_key_names [vpd_key_id], vpd_val_len, &vpd_key_val[1]);
-             sdr = sd_bus_message_append (vpdtbl, "{sv}", vpd_key_names[vpd_key_id], "s", &vpd_key_val[1]);
-             break;
-     }
- 
-+    if(bin_in_ascii)
-+    {
-+        free(bin_in_ascii);
-+        bin_in_ascii = NULL;
-+    }
-+
-+
-     if (sdr < 0)
-     {
- #if IPMI_FRU_PARSER_DEBUG
-@@ -944,7 +986,6 @@ parse_fru (const void* msgbuf, sd_bus_message* vpdtbl)
-   }
-  out:
-   rv = 0;
-- cleanup:
-   return (rv);
- }
- 
 -- 
 2.8.3
