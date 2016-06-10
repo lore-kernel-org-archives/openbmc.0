@@ -1,44 +1,97 @@
-Return-Path: <andrew@aj.id.au>
-Received: from homiemail-a18.g.dreamhost.com (sub3.mail.dreamhost.com
- [69.163.253.7])
- (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+Return-Path: <ratagupt@in.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rQkyv6sVJzDq60
- for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 11:26:14 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=QHknww0f; 
- dkim-atps=neutral
-Received: from homiemail-a18.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a18.g.dreamhost.com (Postfix) with ESMTP id DDE7A25006C;
- Thu,  9 Jun 2016 18:26:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
- :subject:from:reply-to:to:cc:date:in-reply-to:references
- :content-type:mime-version; s=aj.id.au; bh=JJyfR3z7aAlxMNbtL4Oo0
- qb/2vE=; b=QHknww0fLCmcT8kF8yOjhuQOuqEQ8msfmNR3kq9V+96vQtf6V+z4W
- UlQQ3I5JXh3woxFd85O7bt0jQXerTNdCb0F5TLzilRcuYCbqseefDAHMv3tVtdzf
- Otp1ImEpBXbfAZQFiDKr+iQdRC+LDTaJl7npA64NQwVfBRbXrQeEhE=
-Received: from keelia (unknown [203.0.153.9])
- (using TLSv1 with cipher AES128-SHA (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: andrew@aj.id.au)
- by homiemail-a18.g.dreamhost.com (Postfix) with ESMTPSA id B60DD25006B;
- Thu,  9 Jun 2016 18:26:11 -0700 (PDT)
-Message-ID: <1465521962.16048.194.camel@aj.id.au>
-Subject: Re: [PATCH qemu 1/2] hw/misc: Add a model for the ASPEED System
- Control Unit
-From: Andrew Jeffery <andrew@aj.id.au>
-Reply-To: andrew@aj.id.au
-To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, OpenBMC
- <openbmc@lists.ozlabs.org>
-Date: Fri, 10 Jun 2016 10:56:02 +0930
-In-Reply-To: <57595312.5@kaod.org>
-References: <1465460046-7692-1-git-send-email-andrew@aj.id.au>
- <1465460046-7692-2-git-send-email-andrew@aj.id.au> <57595312.5@kaod.org>
-Organization: IBM OzLabs
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-2234qU8YhubCMWaKnFPZ"
-X-Mailer: Evolution 3.18.5.2-0ubuntu3 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rQmv81yTVzDq5s
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 12:53:07 +1000 (AEST)
+Received: from pps.filterd (m0075771.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
+ u5A2n5jr028767
+ for <openbmc@lists.ozlabs.org>; Thu, 9 Jun 2016 22:53:03 -0400
+Received: from e28smtp03.in.ibm.com (e28smtp03.in.ibm.com [125.16.236.3])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 23fbn92xpm-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 09 Jun 2016 22:53:03 -0400
+Received: from localhost
+ by e28smtp03.in.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <ratagupt@in.ibm.com>;
+ Fri, 10 Jun 2016 08:22:59 +0530
+Received: from d28dlp03.in.ibm.com (9.184.220.128)
+ by e28smtp03.in.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Fri, 10 Jun 2016 08:22:59 +0530
+X-IBM-Helo: d28dlp03.in.ibm.com
+X-IBM-MailFrom: ratagupt@in.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d28relay01.in.ibm.com (d28relay01.in.ibm.com [9.184.220.58])
+ by d28dlp03.in.ibm.com (Postfix) with ESMTP id 7F423125804F
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 08:25:26 +0530 (IST)
+Received: from e39.co.us.ibm.com (e39.boulder.ibm.com [9.17.249.49])
+ by d28relay01.in.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u5A2quZP61866118
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 08:22:57 +0530
+Received: from localhost
+ by e39.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <ratagupt@in.ibm.com>;
+ Thu, 9 Jun 2016 20:52:56 -0600
+Received: from smtp.notes.na.collabserv.com (192.155.248.74)
+ by e39.co.us.ibm.com (192.168.2.139) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
+ Thu, 9 Jun 2016 20:52:53 -0600
+X-IBM-Helo: smtp.notes.na.collabserv.com
+X-IBM-MailFrom: ratagupt@in.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from /spool/local
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <ratagupt@in.ibm.com>;
+ Fri, 10 Jun 2016 02:52:52 -0000
+Received: from us1a3-smtp02.a3.dal06.isc4sb.com (10.106.154.159)
+ by smtp.notes.na.collabserv.com (10.106.227.92) with
+ smtp.notes.na.collabserv.com ESMTP; Fri, 10 Jun 2016 02:52:50 -0000
+Received: from us1a3-mail111.a3.dal06.isc4sb.com ([10.146.45.113])
+ by us1a3-smtp02.a3.dal06.isc4sb.com
+ with ESMTP id 2016061002524972-9079 ;
+ Fri, 10 Jun 2016 02:52:49 +0000 
+Subject: Re: [PATCH phosphor-host-ipmid v2] Implement Network Override
+In-Reply-To: <20160610082453.4981195a@camb691>
+From: "Ratan K Gupta" <ratagupt@in.ibm.com>
+To: cyrilbur@gmail.com
+Cc: openbmc-patches@stwcx.xyz, openbmc@lists.ozlabs.org
+Date: Fri, 10 Jun 2016 02:52:49 +0000
+Sensitivity: 
+MIME-Version: 1.0
+References: <20160610082453.4981195a@camb691>,
+ <20160608175040.18764-1-openbmc-patches@stwcx.xyz><20160608175040.18764-2-openbmc-patches@stwcx.xyz>
+Importance: Normal
+X-Priority: 3 (Normal)
+X-Mailer: Lotus Domino Web Server Build V851SAAS_05232016_FP5 June 02, 2016
+X-LLNOutbound: False
+X-Disclaimed: 27663
+X-TNEFEvaluated: 1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=UTF-8
+x-cbid: 16061002-0008-0000-0000-000002B8765F
+X-IBM-ISS-SpamDetectors: Score=0.417846; BY=0.256376; FL=0; FP=0; FZ=0; HX=0; 
+ KW=0; PH=0; SC=0.417846; ST=0; TS=0; UL=0; ISC=
+X-IBM-ISS-DetailInfo: BY=3.00005360; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000170; SDB=6.00714224; UDB=6.00332469; UTC=2016-06-10
+ 02:52:50
+x-cbparentid: 16061002-5920-0000-0000-0000081537F0
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+X-Content-Scanned: Fidelis XPS MAILER
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+Message-Id: <OFF4E2B2C4.1A9B100D-ON00257FCE.000FCE0D-00257FCE.000FD2BA@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-06-10_03:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=2
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1604210000
+ definitions=main-1606100031
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -50,286 +103,236 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Jun 2016 01:26:16 -0000
+X-List-Received-Date: Fri, 10 Jun 2016 02:53:08 -0000
 
-
---=-2234qU8YhubCMWaKnFPZ
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, 2016-06-09 at 13:29 +0200, C=C3=A9dric Le Goater wrote:
-> On 06/09/2016 10:14 AM, Andrew Jeffery wrote:
-> >=20
-> > The SCU is a collection of chip-level control registers that manage the
-> > various functions supported by the AST2400. Typically the bits control
-> > interactions with clocks, external hardware or reset behaviour, and we
-> > can largly take a hands-off approach to reads and writes.
-> >=20
-> > Firmware makes heavy use of the state to determine how to boot, but the
-> > reset values vary from SoC to SoC. Object properties are exposed so
-> > that the integrating SoC model can configure the appropriate reset
-> > values.
-> >=20
-> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> > ---
-> > =C2=A0hw/misc/Makefile.objs=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0|=C2=A0=C2=A0=C2=A01 +
-> > =C2=A0hw/misc/aspeed_scu.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0| 295 +++++++++++++++++++++++++++++++++++++++++++
-> > =C2=A0include/hw/misc/aspeed_scu.h | 105 +++++++++++++++
-> > =C2=A0trace-events=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0|=C2=A0=C2=A0=C2=A03 +
-> > =C2=A04 files changed, 404 insertions(+)
-> > =C2=A0create mode 100644 hw/misc/aspeed_scu.c
-> > =C2=A0create mode 100644 include/hw/misc/aspeed_scu.h
-> >=20
-> > diff --git a/hw/misc/Makefile.objs b/hw/misc/Makefile.objs
-> > index bc0dd2cc7567..4895e950b377 100644
-> > --- a/hw/misc/Makefile.objs
-> > +++ b/hw/misc/Makefile.objs
-> > @@ -51,3 +51,4 @@ obj-$(CONFIG_MIPS_ITU) +=3D mips_itu.o
-> > =C2=A0obj-$(CONFIG_PVPANIC) +=3D pvpanic.o
-> > =C2=A0obj-$(CONFIG_EDU) +=3D edu.o
-> > =C2=A0obj-$(CONFIG_HYPERV_TESTDEV) +=3D hyperv_testdev.o
-> > +obj-$(CONFIG_ASPEED_SOC) +=3D aspeed_scu.o
-> > diff --git a/hw/misc/aspeed_scu.c b/hw/misc/aspeed_scu.c
-> > new file mode 100644
-> > index 000000000000..ae5a4c590bb6
-> > --- /dev/null
-> > +++ b/hw/misc/aspeed_scu.c
-> > @@ -0,0 +1,295 @@
-> > +/*
-> > + * ASPEED System Control Unit
-> > + *
-> > + * Andrew Jeffery <andrew@aj.id.au>
-> > + *
-> > + * Copyright 2016 IBM Corp.
-> > + *
-> > + * This code is licensed under the GPL version 2 or later.=C2=A0=C2=A0=
-See
-> > + * the COPYING file in the top-level directory.
-> > + */
-> > +
-> > +#include "qemu/osdep.h"
-> > +#include=20
-> > +#include "hw/misc/aspeed_scu.h"
-> > +#include "hw/qdev-properties.h"
-> > +#include "qapi/error.h"
-> > +#include "qapi/visitor.h"
-> > +#include "qemu/bitops.h"
-> > +#include "trace.h"
-> > +
-> > +#define SCU_KEY 0x1688A8A8
-> > +#define SCU_IO_REGION_SIZE 0x20000
-> > +
-> > +#define TO_REG(o) ((o) >> 2)
-> > +#define TO_REG_ID(o) [TO_REG(o)] =3D stringify(o)
-> > +
-> > +static const char *aspeed_scu_reg_ids[ASPEED_SCU_NR_REGS] =3D {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PROT_KEY),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_SYS_RST_CTRL),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_CLK_SEL),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_CLK_STOP_CTRL),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_FREQ_CNTR_CTRL),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_FREQ_CNTR_EVAL),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_IRQ_CTRL),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_D2PLL_PARAM),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_MPLL_PARAM),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_HPLL_PARAM),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_FREQ_CNTR_RANGE),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_MISC_CTRL1),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PCI_CTRL1),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PCI_CTRL2),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PCI_CTRL3),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_SYS_RST_CTRL),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_SOC_SCRATCH1),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_SOC_SCRATCH2),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_MAC_CLK_DELAY),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_MISC_CTRL2),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_VGA_SCRATCH1),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_VGA_SCRATCH2),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_VGA_SCRATCH3),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_VGA_SCRATCH4),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_VGA_SCRATCH5),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_VGA_SCRATCH6),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_VGA_SCRATCH7),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_VGA_SCRATCH8),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_HW_STRAP1),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_RNG_CTRL),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_RNG_DATA),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_REV_ID),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PINMUX_CTRL1),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PINMUX_CTRL2),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PINMUX_CTRL3),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PINMUX_CTRL4),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PINMUX_CTRL5),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PINMUX_CTRL6),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_WDT_RST_CTRL),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PINMUX_CTRL7),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PINMUX_CTRL8),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PINMUX_CTRL9),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_WAKEUP_EN),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_WAKEUP_CTRL),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_HW_STRAP2),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_FREE_CNTR4),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_FREE_CNTR4_EXT),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_CPU2_CTRL),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_CPU2_BASE_SEG1),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_CPU2_BASE_SEG2),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_CPU2_BASE_SEG3),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_CPU2_BASE_SEG4),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_CPU2_BASE_SEG5),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_CPU2_CACHE_CTRL),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_UART_HPLL_CLK),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PCIE_CTRL),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_BMC_MMIO_CTRL),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_RELOC_DECODE_BASE1),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_RELOC_DECODE_BASE2),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_MAILBOX_DECODE_BASE),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_SRAM_DECODE_BASE1),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_SRAM_DECODE_BASE2),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_BMC_REV_ID),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_BMC_DEV_ID),
-> > +};
-> I would start with a smaller set that we know uboot and the kernel use,
-> this is minor.
-
-Given that I provided all the defines for register offsets, I figured I
-should provide all the property IDs. As it's done now, I don't see any
-benefit to removing it. Other than to change the approach, which is
-discussed below.
-
->=20
-> >=20
-> > +void aspeed_scu_configure_reset(AspeedSCUState *scu,
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0const AspeedSCUResetCf=
-g vals[], int n, Error **errp)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0=C2=A0int i;
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0for (i =3D 0; i < n; i++) {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0const char *name =3D a=
-speed_scu_reg_ids[TO_REG(vals[i].offset)];
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (name) {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0object_property_set_int(OBJECT(scu), vals[i].val, name, errp);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0if (*errp) {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0return;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0}
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0}
-> > +=C2=A0=C2=A0=C2=A0=C2=A0}
-> > +}
-> > +
-> > +static void aspeed_scu_get_reset(Object *obj, Visitor *v, const char *=
-name,
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0void *opaque, Error **=
-errp)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0=C2=A0AspeedSCUState *s =3D ASPEED_SCU(obj);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0uint32_t value;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0int offset, reg;
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0if (sscanf(name, "0x%x", &offset) !=3D 1) {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0error_setg(errp, "Erro=
-r reading %s", name);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0}
-> I thought the name of the property was "ASPEED_SCU_PROT_KEY" according to=
- the=C2=A0
-> object_property_add() below ?=C2=A0
-
-Right. This was the slightly abusive bit. Partly inspired by your
-tmp421 patch, the register of interest is derived from the property
-name. In fact, here, the property name is simply the string
-representation of the hexadecimal offset (via stringify() in the
-TO_REG_ID() macro). This is mostly hidden by the aspeed_scu_reg_ids
-lookup, which avoids dynamic conversion between integers and strings
-(sprintf, asprintf and such).
-
-I'm not at all confident this will be swallowed by upstream, which was
-another reason for sending here first :)
-
-So, is there a better approach? object_property_*()s all seemed to
-require const char *s. We could just not use properties and assign to
-the array member directly, as the AspeedSCUState type isn't opaque in
-ast2400.c, but from a quick survey it seemed object_property_*() was
-the way to go.
-
->=20
-> >=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0reg =3D TO_REG(offset);
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0if (reg > ASPEED_SCU_NR_REGS) {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0error_setg(errp, "Inva=
-lid register ID: %s", name);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0}
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0value =3D s->reset[reg];
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0visit_type_uint32(v, name, &value, errp);
-> > +}
-> > +
-> > +static void aspeed_scu_set_reset(Object *obj, Visitor *v, const char *=
-name,
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0void *opaque, Error **=
-errp)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0=C2=A0AspeedSCUState *s =3D ASPEED_SCU(obj);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0Error *local_err =3D NULL;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0uint32_t value;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0int offset, reg;
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0visit_type_uint32(v, name, &value, &local_err)=
-;
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0if (local_err) {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0error_propagate(errp, =
-local_err);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0}
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0if (sscanf(name, "0x%x", &offset) !=3D 1) {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0error_setg(errp, "Erro=
-r reading %s", name);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0}
-> same comment.
-
-Same as above
-
->=20
-> The rest looks fine.
->=20
-> Reviewed-by: C=C3=A9dric Le Goater <clg@kaod.org>
-
-Cheers,
-
-Andrew
---=-2234qU8YhubCMWaKnFPZ
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAABCgAGBQJXWhcqAAoJEJ0dnzgO5LT5nBEP/3NZl6YJfog+Hc77w+RpsYpH
-ck1ydLIcl8ipxIV/F8xYeX0xCLK14T7X9YUYvPDTrhpTIUonziV83K8wUsDfB5U0
-bWO/d2tWfayEfHYUxPjYR/yVeDA+WfYhxurpz4J5/o5d1G3hMC5LWYfysn302HFT
-C2Ikhpw5Q4+56keUOofXq0NIjwlWIiguBdBMCkDT0w80C9Yw67/yZ/kVaDlsKH5c
-E1ktbJsG9NE12qpuD32op5jYZ662+pwjYdS2Aug7QSVbllLcdMG7DY1zw+R9mBA9
-dD9XvXJAd/7l11NwMlo1QMNmiW9/FG6Ngm0ynSN5HfPzX59zYx/DbKLqdCqtv4Ut
-niaebzMQnab3S7Il+KsJMJv+zgzmYx2HUf5gvc2h3bCj94lFxWb6s5pnMBq94bJM
-S8OycrW/9gkcZphJlOSG2wteFTCxf93mKcR1j7nf5dEugiVHrHpKEC+OdoP9UKby
-YaUdzEakD9kSnP4ECm4QAVLtXdN9JtWT+/ffc0xRGTybUJGvJSVrcJ+p2hu+3Q6d
-LdmrD0aN6/CHwXtCbYQxK3iAWEpEpRcNz/lJnqlDPGHu04Yu6ejpOyrO3VFIN60g
-H/lJqpBeX7EaKkmvWyGHTg2yO5uQs06vWlyAif7pJU4inEWIjjF1ToABDoyTmGbu
-2Y2UEBJb4LTJYDNELhYN
-=7ZPU
------END PGP SIGNATURE-----
-
---=-2234qU8YhubCMWaKnFPZ--
+<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial;fo=
+nt-size:10.5pt" ><div dir=3D"ltr" >Hi Cyril,</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >This patch was checked in before the Patrick response..I =
+am checking in new one.</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Regards</div>
+<div dir=3D"ltr" >Ratan Gupta</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<blockquote data-history-content-modified=3D"1" dir=3D"ltr" style=3D"border=
+-left:solid #aaaaaa 2px; margin-left:5px; padding-left:5px; direction:ltr; =
+margin-right:0px" >----- Original message -----<br>From: Cyril Bur &lt;cyri=
+lbur@gmail.com&gt;<br>To: OpenBMC Patches &lt;openbmc-patches@stwcx.xyz&gt;=
+<br>Cc: openbmc@lists.ozlabs.org, Ratan K Gupta/India/IBM@IBMIN<br>Subject:=
+ Re: [PATCH phosphor-host-ipmid v2] Implement Network Override<br>Date: Fri=
+, Jun 10, 2016 3:55 AM<br>&nbsp;
+<div><font face=3D"Default Monospace,Courier New,Courier,monospace" size=3D=
+"2" >On Wed, &nbsp;8 Jun 2016 12:50:40 -0500<br>OpenBMC Patches &lt;openbmc=
+-patches@stwcx.xyz&gt; wrote:<br><br>&gt; From: ratagupt &lt;ratagupt@in.ib=
+m.com&gt;<br>&gt;<br><br>Still no. Please read the style guide also please =
+see Patricks response about<br>your interesting use of c++ or rather c/c++ =
+mess.<br><br>&gt; ---<br>&gt; &nbsp;chassishandler.C | 223 ++++++++++++++++=
+++++++++++++++++++++++++++++++++++++---<br>&gt; &nbsp;1 file changed, 211 i=
+nsertions(+), 12 deletions(-)<br>&gt;<br>&gt; diff --git a/chassishandler.C=
+ b/chassishandler.C<br>&gt; index d5b3404..af213b0 100644<br>&gt; --- a/cha=
+ssishandler.C<br>&gt; +++ b/chassishandler.C<br>&gt; @@ -3,15 +3,19 @@<br>&=
+gt; &nbsp;#include &lt;stdio.h&gt;<br>&gt; &nbsp;#include &lt;string.h&gt;<=
+br>&gt; &nbsp;#include &lt;stdint.h&gt;<br>&gt; -<br>&gt; -<br>&gt; +#inclu=
+de &lt;arpa/inet.h&gt;<br>&gt; +#include &lt;netinet/in.h&gt;<br>&gt; +#inc=
+lude &lt;string&gt;<br>&gt; +using namespace std;<br>&gt; &nbsp;//Defines<b=
+r>&gt; -#define SET=5FPARM=5FVERSION 1<br>&gt; -#define SET=5FPARM=5FBOOT=
+=5FFLAGS=5FPERMANENT 0x40 //boot flags data1 7th bit on<br>&gt; +#define SE=
+T=5FPARM=5FVERSION &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; 0x01<br>&gt; +#define SET=5FPARM=5FBOOT=5FFLAGS=5FPERMANENT &=
+nbsp; &nbsp; &nbsp; &nbsp;0x40 //boot flags data1 7th bit on<br>&gt; &nbsp;=
+#define SET=5FPARM=5FBOOT=5FFLAGS=5FVALID=5FONE=5FTIME &nbsp; 0x80 //boot f=
+lags data1 8th bit on<br>&gt; &nbsp;#define SET=5FPARM=5FBOOT=5FFLAGS=5FVAL=
+ID=5FPERMANENT &nbsp;0xC0 //boot flags data1 7 &amp; 8 bit on<br>&gt; &nbsp=
+;<br>&gt; -<br>&gt; +#define SIZE=5FMAC &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 18<br>&gt; +=
+#define SIZE=5FHOST=5FNETWORK=5FDATA &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; 26<br>&gt; +#define SIZE=5FBOOT=5FOPTION &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SIZE=5FHOST=5FNETWORK=5FDATA=
+<br>&gt; &nbsp;<br>&gt; &nbsp;// OpenBMC Chassis Manager dbus framework<br>=
+&gt; &nbsp;const char &nbsp;*chassis=5Fbus=5Fname &nbsp; &nbsp; &nbsp;=3D &=
+nbsp;"org.openbmc.control.Chassis";<br>&gt; @@ -233,14 +237,189 @@ struct g=
+et=5Fsys=5Fboot=5Foptions=5Ft {<br>&gt; &nbsp;struct get=5Fsys=5Fboot=5Fopt=
+ions=5Fresponse=5Ft {<br>&gt; &nbsp; &nbsp; &nbsp;uint8=5Ft version;<br>&gt=
+; &nbsp; &nbsp; &nbsp;uint8=5Ft parm;<br>&gt; - &nbsp; &nbsp;uint8=5Ft data=
+[5];<br>&gt; + &nbsp; &nbsp;uint8=5Ft data[SIZE=5FBOOT=5FOPTION];<br>&gt; &=
+nbsp;} &nbsp;=5F=5Fattribute=5F=5F ((packed));<br>&gt; &nbsp;<br>&gt; &nbsp=
+;struct set=5Fsys=5Fboot=5Foptions=5Ft {<br>&gt; &nbsp; &nbsp; &nbsp;uint8=
+=5Ft parameter;<br>&gt; - &nbsp; &nbsp;uint8=5Ft data[8];<br>&gt; + &nbsp; =
+&nbsp;uint8=5Ft data[SIZE=5FBOOT=5FOPTION];<br>&gt; &nbsp;} &nbsp;=5F=5Fatt=
+ribute=5F=5F ((packed));<br>&gt; &nbsp;<br>&gt; +struct host=5Fnetwork=5Fco=
+nfig=5Ft {<br>&gt; + &nbsp; &nbsp; string ipaddress;<br>&gt; + &nbsp; &nbsp=
+; string prefix;<br>&gt; + &nbsp; &nbsp; string gateway;<br>&gt; + &nbsp; &=
+nbsp; string macaddress;<br>&gt; + &nbsp; &nbsp; string isDHCP;<br>&gt; +<b=
+r>&gt; + &nbsp; &nbsp; host=5Fnetwork=5Fconfig=5Ft()<br>&gt; + &nbsp; &nbsp=
+; {<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; ipaddress =3D "";<br>&gt; + &nbsp=
+; &nbsp; &nbsp; &nbsp; prefix =3D "";<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp;=
+ gateway =3D "";<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; macaddress =3D "";<b=
+r>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; isDHCP =3D "";<br>&gt; + &nbsp; &nbsp;=
+ }<br>&gt; +};<br>&gt; +<br>&gt; +uint8=5Ft getHostNetworkData(get=5Fsys=5F=
+boot=5Foptions=5Fresponse=5Ft *respptr)<br>&gt; +{<br>&gt; + &nbsp; &nbsp;c=
+har *prop =3D NULL;<br>&gt; +<br>&gt; + &nbsp; &nbsp;uint8=5Ft data[SIZE=5F=
+BOOT=5FOPTION]=3D{0x80,0x21, 0x70 ,0x62 ,0x21,0x00 ,0x01 ,0x06 ,0x04};<br>&=
+gt; +<br>&gt; + &nbsp; &nbsp;int rc =3D dbus=5Fget=5Fproperty("network=5Fco=
+nfig",&amp;prop);<br>&gt; +<br>&gt; + &nbsp; &nbsp;if (rc &lt; 0) {<br>&gt;=
+ + &nbsp; &nbsp; &nbsp; &nbsp;fprintf(stderr, "Dbus get property(boot=5Ffla=
+gs) failed for get=5Fsys=5Fboot=5Foptions.\n");<br>&gt; + &nbsp; &nbsp; &nb=
+sp; &nbsp;return rc;<br>&gt; + &nbsp; &nbsp;}<br>&gt; +<br>&gt; + &nbsp; &n=
+bsp;/* network=5Fconfig property Value would be in the form of<br>&gt; + &n=
+bsp; &nbsp; * ipaddress=3D1.1.1.1,prefix=3D16,gateway=3D2.2.2.2,mac=3D11:22=
+:33:44:55:66,dhcp=3D0<br>&gt; + &nbsp; &nbsp; */<br>&gt; +<br>&gt; + &nbsp;=
+ &nbsp;/* Parsing the string and fill the hostconfig structure with the<br>=
+&gt; + &nbsp; &nbsp; * values */<br>&gt; +<br>&gt; + &nbsp; &nbsp;host=5Fne=
+twork=5Fconfig=5Ft host=5Fconfig;<br>&gt; + &nbsp; &nbsp;string delimiter =
+=3D ",";<br>&gt; +<br>&gt; + &nbsp; &nbsp;int pos =3D 0;<br>&gt; + &nbsp; &=
+nbsp;string token,name,value;<br>&gt; + &nbsp; &nbsp;string conf=5Fstr(prop=
+);<br>&gt; + &nbsp; &nbsp;<br>&gt; + &nbsp; &nbsp;printf ("Configuration St=
+ring[%s]\n ",conf=5Fstr.c=5Fstr());<br>&gt; +<br>&gt; + &nbsp; &nbsp;while =
+((pos =3D conf=5Fstr.find(delimiter)) !=3D std::string::npos) {<br>&gt; +<b=
+r>&gt; + &nbsp; &nbsp; &nbsp; &nbsp;token =3D conf=5Fstr.substr(0, pos);<br=
+>&gt; + &nbsp; &nbsp; &nbsp; &nbsp;int pos1 =3D token.find("=3D");<br>&gt; =
++<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp;name =3D token.substr(0,pos1);<br>&g=
+t; + &nbsp; &nbsp; &nbsp; &nbsp;value =3D token.substr(pos1+1,pos);<br>&gt;=
+ +<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp;if ( name =3D=3D "ipaddress" )<br>&=
+gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;host=5Fconfig.ipaddress =3D =
+value;<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp;else if ( name =3D=3D "prefix")=
+<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;host=5Fconfig.prefix =
+=3D value;<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp;else if ( name =3D=3D "gate=
+way" )<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;host=5Fconfig.gat=
+eway =3D value;<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp;else if ( name =3D=3D =
+"mac" )<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;host=5Fconfig.ma=
+caddress =3D value;<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp;else if ( name =3D=
+=3D "dhcp" )<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;host=5Fconf=
+ig.isDHCP =3D value;<br>&gt; +<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp;conf=5F=
+str.erase(0, pos + delimiter.length());<br>&gt; + &nbsp; &nbsp;}<br>&gt; +<=
+br>&gt; + &nbsp; &nbsp;//Converting the mac address as number//<br>&gt; + &=
+nbsp; &nbsp;//If there as an error in converting the mac as number we are n=
+ot throwing<br>&gt; + &nbsp; &nbsp;//error we would be sending 0's for the =
+mac.<br>&gt; + &nbsp; &nbsp;<br>&gt; + &nbsp; &nbsp;char *tokptr =3D NULL;<=
+br>&gt; + &nbsp; &nbsp;char* digit =3D strtok=5Fr((char *)host=5Fconfig.mac=
+address.c=5Fstr(), ":", &amp;tokptr);<br>&gt; + &nbsp; &nbsp;if (digit =3D=
+=3D NULL)<br>&gt; + &nbsp; &nbsp;{<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp;fpr=
+intf(stderr, "Unexpected MAC format: %s", host=5Fconfig.macaddress.c=5Fstr(=
+));<br>&gt; + &nbsp; &nbsp;}<br>&gt; + &nbsp; &nbsp;<br>&gt; + &nbsp; &nbsp=
+;//As 9 bytes are pre filled so staring from index 9.If there is a failure<=
+br>&gt; + &nbsp; &nbsp;//in the strtok=5Fr then digit will be null then we =
+don't need to do<br>&gt; + &nbsp; &nbsp;//anything as data is prefilled wit=
+h 0<br>&gt; + &nbsp; &nbsp;<br>&gt; + &nbsp; &nbsp;uint8=5Ft index=3D9;<br>=
+&gt; + &nbsp; &nbsp;int resp=5Fbyte =3D 0;<br>&gt; + &nbsp; &nbsp;while (di=
+git !=3D NULL)<br>&gt; + &nbsp; &nbsp;{<br>&gt; + &nbsp; &nbsp; &nbsp; &nbs=
+p;resp=5Fbyte =3D strtoul(digit, NULL, 16);<br>&gt; + &nbsp; &nbsp; &nbsp; =
+&nbsp;memcpy((void*)&amp;data[index], &amp;resp=5Fbyte, 1);<br>&gt; + &nbsp=
+; &nbsp; &nbsp; &nbsp;index++;<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp;digit =
+=3D strtok=5Fr(NULL, ":", &amp;tokptr);<br>&gt; + &nbsp; &nbsp;}<br>&gt; +<=
+br>&gt; + &nbsp; &nbsp;//Conevrt the dhcp,ipaddress,mask and gateway as hex=
+ number<br>&gt; + &nbsp; &nbsp;data[index++]=3D0x00;<br>&gt; + &nbsp; &nbsp=
+;sscanf(host=5Fconfig.isDHCP.c=5Fstr(),"%02X",&amp;data[index++]);<br>&gt; =
++<br>&gt; + &nbsp; &nbsp;inet=5Fpton(AF=5FINET,host=5Fconfig.ipaddress.c=5F=
+str(),(void *)&amp;data[index]);<br>&gt; + &nbsp; &nbsp;index+=3D4;<br>&gt;=
+ + &nbsp; &nbsp;sscanf(host=5Fconfig.prefix.c=5Fstr(),"%02X",&amp;data[inde=
+x++]);<br>&gt; + &nbsp; &nbsp;inet=5Fpton(AF=5FINET,host=5Fconfig.gateway.c=
+=5Fstr(),(void *)&amp;data[index]);<br>&gt; + &nbsp; &nbsp;index+=3D4;<br>&=
+gt; + &nbsp; &nbsp;<br>&gt; + &nbsp; &nbsp;<br>&gt; + &nbsp; &nbsp;printf (=
+"\n=3D=3D=3DPrinting the IPMI Formatted Data=3D=3D=3D=3D=3D=3D=3D=3D\n");<b=
+r>&gt; +<br>&gt; + &nbsp; &nbsp;for (int j =3D 0;j&lt;index;j++)<br>&gt; + =
+&nbsp; &nbsp; &nbsp; &nbsp;printf("%02x ", data[j]);<br>&gt; +<br>&gt; + &n=
+bsp; &nbsp;memcpy(respptr-&gt;data,data,SIZE=5FBOOT=5FOPTION);<br>&gt; + &n=
+bsp; &nbsp;return 0;<br>&gt; +<br>&gt; +}<br>&gt; +<br>&gt; +uint8=5Ft setH=
+ostNetworkData(set=5Fsys=5Fboot=5Foptions=5Ft * reqptr)<br>&gt; +{<br>&gt; =
++ &nbsp; &nbsp;string host=5Fnetwork=5Fconfig;<br>&gt; + &nbsp; &nbsp;char =
+mac[SIZE=5FMAC];<br>&gt; + &nbsp; &nbsp;char ipAddress[INET=5FADDRSTRLEN];<=
+br>&gt; + &nbsp; &nbsp;char gateway[INET=5FADDRSTRLEN];<br>&gt; + &nbsp; &n=
+bsp;char prefix[1];<br>&gt; + &nbsp; &nbsp;char dhcp[2];<br>&gt; + &nbsp; &=
+nbsp;uint32=5Ft cookie =3D 0;<br>&gt; +<br>&gt; +<br>&gt; + &nbsp; &nbsp;me=
+mset( mac ,0,SIZE=5FMAC );<br>&gt; + &nbsp; &nbsp;memset(ipAddress,0,INET=
+=5FADDRSTRLEN);<br>&gt; + &nbsp; &nbsp;memset(gateway,0,INET=5FADDRSTRLEN);=
+<br>&gt; + &nbsp; &nbsp;memset(prefix,0,1);<br>&gt; + &nbsp; &nbsp;memset(d=
+hcp,0,2);<br>&gt; +<br>&gt; + &nbsp; &nbsp;uint8=5Ft index =3D 9; &nbsp;<br=
+>&gt; + &nbsp; &nbsp;sscanf((char *)&amp;(reqptr-&gt;data[1]),"%02X",&amp;c=
+ookie);<br>&gt; +<br>&gt; + &nbsp; &nbsp;if ( !cookie) {<br>&gt; + &nbsp; &=
+nbsp;<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; snprintf(mac, SIZE=5FMAC, "%02x=
+:%02x:%02x:%02x:%02x:%02x",<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp;reqptr-&gt;data[index],<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp;reqptr-&gt;data[index+1],<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp;reqptr-&gt;data[index+2],<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp;reqptr-&gt;data[index+3],<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp;reqptr-&gt;data[index+4],<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp;reqptr-&gt;data[index+5]);<br>&gt; +<br>&gt; +<br>&gt; + &nbsp;=
+ &nbsp; &nbsp; &nbsp;snprintf(dhcp,2, "%d", reqptr-&gt;data[index+6]);<br>&=
+gt; +<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp;snprintf(ipAddress, INET=5FADDRS=
+TRLEN, "%d.%d.%d.%d",<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;re=
+qptr-&gt;data[index+8], reqptr-&gt;data[index+9], reqptr-&gt;data[index+10]=
+, reqptr-&gt;data[index+11]);<br>&gt; +<br>&gt; + &nbsp; &nbsp; &nbsp; &nbs=
+p;snprintf(prefix, INET=5FADDRSTRLEN, "%d", reqptr-&gt;data[index+12]);<br>=
+&gt; +<br>&gt; +<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp;snprintf(gateway, INE=
+T=5FADDRSTRLEN, "%d.%d.%d.%d",<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp;reqptr-&gt;data[index+13], reqptr-&gt;data[index+14], reqptr-&gt;dat=
+a[index+15], reqptr-&gt;data[index+16]);<br>&gt; + &nbsp; &nbsp;}<br>&gt; +=
+<br>&gt; + &nbsp; &nbsp;host=5Fnetwork=5Fconfig +=3D "ipaddress=3D"+string(=
+ipAddress)+",prefix=3D"+ \<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; string(prefix)+",gateway=3D"+string(=
+gateway)+\<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; ",mac=3D"+string(mac)+",dhcp=3D"+string(dhcp);<br>&g=
+t; +<br>&gt; +<br>&gt; + &nbsp; &nbsp;printf ("Network configuration change=
+d: %s\n",host=5Fnetwork=5Fconfig.c=5Fstr());<br>&gt; +<br>&gt; + &nbsp; &nb=
+sp;int r =3D dbus=5Fset=5Fproperty("network=5Fconfig",host=5Fnetwork=5Fconf=
+ig.c=5Fstr());<br>&gt; +<br>&gt; + &nbsp; &nbsp;if (r &lt; 0) {<br>&gt; + &=
+nbsp; &nbsp; &nbsp; &nbsp;fprintf(stderr, "Dbus set property(network=5Fconf=
+ig) failed for set=5Fsys=5Fboot=5Foptions.\n");<br>&gt; + &nbsp; &nbsp; &nb=
+sp; &nbsp;r =3D IPMI=5FCC=5FUNSPECIFIED=5FERROR;<br>&gt; + &nbsp; &nbsp;}<b=
+r>&gt; +<br>&gt; + &nbsp; &nbsp;return r;<br>&gt; +<br>&gt; +}<br>&gt; +<br=
+>&gt; &nbsp;ipmi=5Fret=5Ft ipmi=5Fchassis=5Fwildcard(ipmi=5Fnetfn=5Ft netfn=
+, ipmi=5Fcmd=5Ft cmd,<br>&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ipmi=5Fre=
+quest=5Ft request, ipmi=5Fresponse=5Ft response,<br>&gt; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp;ipmi=5Fdata=5Flen=5Ft data=5Flen, ipmi=5Fcontext=5Ft cont=
+ext)<br>&gt; @@ -446,7 +625,18 @@ ipmi=5Fret=5Ft ipmi=5Fchassis=5Fget=5Fsys=
+=5Fboot=5Foptions(ipmi=5Fnetfn=5Ft netfn, ipmi=5Fcmd=5Ft cmd,<br>&gt; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp;}<br>&gt; &nbsp;<br>&gt; &nbsp;<br>&gt; - &nbs=
+p; &nbsp;} else {<br>&gt; + &nbsp; &nbsp;} else if ( reqptr-&gt;parameter =
+=3D=3D 0x61 ) {<br>&gt; + &nbsp; &nbsp; &nbsp; resp-&gt;parm &nbsp; &nbsp; =
+&nbsp;=3D 0x61;<br>&gt; + &nbsp; &nbsp; &nbsp; int ret =3D getHostNetworkDa=
+ta(resp);<br>&gt; + &nbsp; &nbsp; &nbsp; if (ret &lt; 0) {<br>&gt; + &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; fprintf(stderr, "getHostNetworkData failed for=
+ get=5Fsys=5Fboot=5Foptions.\n");<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; rc =3D IPMI=5FCC=5FUNSPECIFIED=5FERROR;<br>&gt; +<br>&gt; + &nbsp; &nbs=
+p; &nbsp; }else<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;rc =3D IPMI=5FC=
+C=5FOK;<br>&gt; + &nbsp; &nbsp;}<br>&gt; +<br>&gt; + &nbsp; &nbsp;else {<br=
+>&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;fprintf(stderr, "Unsupported parame=
+ter 0x%x\n", reqptr-&gt;parameter);<br>&gt; &nbsp; &nbsp; &nbsp;}<br>&gt; &=
+nbsp;<br>&gt; @@ -464,11 +654,10 @@ ipmi=5Fret=5Ft ipmi=5Fchassis=5Fset=5Fs=
+ys=5Fboot=5Foptions(ipmi=5Fnetfn=5Ft netfn, ipmi=5Fcmd=5Ft cmd,<br>&gt; &nb=
+sp;{<br>&gt; &nbsp; &nbsp; &nbsp;ipmi=5Fret=5Ft rc =3D IPMI=5FCC=5FOK;<br>&=
+gt; &nbsp; &nbsp; &nbsp;char *s;<br>&gt; -<br>&gt; - &nbsp; &nbsp;printf("I=
+PMI SET=5FSYS=5FBOOT=5FOPTIONS\n");<br>&gt; -<br>&gt; &nbsp; &nbsp; &nbsp;s=
+et=5Fsys=5Fboot=5Foptions=5Ft *reqptr =3D (set=5Fsys=5Fboot=5Foptions=5Ft *=
+) request;<br>&gt; &nbsp;<br>&gt; + &nbsp; &nbsp;printf("IPMI SET=5FSYS=5FB=
+OOT=5FOPTIONS reqptr-&gt;parameter =3D[%d]\n",reqptr-&gt;parameter);<br>&gt=
+; +<br>&gt; &nbsp; &nbsp; &nbsp;// This IPMI command does not have any resp=
+osne data<br>&gt; &nbsp; &nbsp; &nbsp;*data=5Flen =3D 0;<br>&gt; &nbsp;<br>=
+&gt; @@ -476,6 +665,7 @@ ipmi=5Fret=5Ft ipmi=5Fchassis=5Fset=5Fsys=5Fboot=
+=5Foptions(ipmi=5Fnetfn=5Ft netfn, ipmi=5Fcmd=5Ft cmd,<br>&gt; &nbsp; &nbsp=
+; &nbsp; * Parameter #5 means boot flags. Please refer to 28.13 of ipmi doc=
+.<br>&gt; &nbsp; &nbsp; &nbsp; * This is the only parameter used by petitbo=
+ot.<br>&gt; &nbsp; &nbsp; &nbsp; */<br>&gt; +<br>&gt; &nbsp; &nbsp; &nbsp;i=
+f (reqptr-&gt;parameter =3D=3D 5) {<br>&gt; &nbsp;<br>&gt; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp;s =3D get=5Fboot=5Foption=5Fby=5Fipmi(((reqptr-&gt;data[1=
+] &amp; 0x3C) &gt;&gt; 2));<br>&gt; @@ -507,7 +697,16 @@ ipmi=5Fret=5Ft ipm=
+i=5Fchassis=5Fset=5Fsys=5Fboot=5Foptions(ipmi=5Fnetfn=5Ft netfn, ipmi=5Fcmd=
+=5Ft cmd,<br>&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;rc =3D IP=
+MI=5FCC=5FUNSPECIFIED=5FERROR;<br>&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}<=
+br>&gt; &nbsp;<br>&gt; - &nbsp; &nbsp;} else {<br>&gt; + &nbsp; &nbsp;}<br>=
+&gt; + &nbsp; &nbsp;else if ( reqptr-&gt;parameter =3D=3D 0x61 ) {<br>&gt; =
++ &nbsp; &nbsp; &nbsp; printf("IPMI SET=5FSYS=5FBOOT=5FOPTIONS reqptr-&gt;p=
+arameter =3D[%d]\n",reqptr-&gt;parameter);<br>&gt; + &nbsp; &nbsp; &nbsp; i=
+nt ret =3D setHostNetworkData(reqptr);<br>&gt; + &nbsp; &nbsp; &nbsp; if (r=
+et &lt; 0) {<br>&gt; + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fprintf(stderr, "=
+setHostNetworkData failed for set=5Fsys=5Fboot=5Foptions.\n");<br>&gt; + &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; rc =3D IPMI=5FCC=5FUNSPECIFIED=5FERROR;<br=
+>&gt; + &nbsp; &nbsp; &nbsp; }<br>&gt; + &nbsp; &nbsp;} &nbsp; &nbsp; &nbsp=
+;<br>&gt; + &nbsp; &nbsp;else {<br>&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;f=
+printf(stderr, "Unsupported parameter 0x%x\n", reqptr-&gt;parameter);<br>&g=
+t; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;rc =3D IPMI=5FCC=5FPARM=5FNOT=5FSUPPOR=
+TED;<br>&gt; &nbsp; &nbsp; &nbsp;}</font><br>&nbsp;</div></blockquote>
+<div dir=3D"ltr" >&nbsp;</div></div><BR>
