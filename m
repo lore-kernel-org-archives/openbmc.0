@@ -1,36 +1,19 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-Received: from mail.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <openbmc-patches@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rR4Ns0ZtKzDq5k
- for <openbmc@lists.ozlabs.org>; Sat, 11 Jun 2016 00:31:25 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com
- header.b=xKkumWwn; dkim-atps=neutral
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.fuzziesquirrel.com F0C7825E8F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fuzziesquirrel.com;
- s=mail; t=1465569083;
- bh=WsmfB4/6fp7BmhAiKq9Kr0UtItVelj1qMtRdWfsIAoc=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=xKkumWwnTnfyXe1TqnRVirdeHYS4tB51k9oGST8fN7hKWBAe3bsAlyIsCUJXIXjrA
- Ad5D08fIxXdTFY/a/MD0eQMO3ZElDSAZKmY0vAFoORDFZLsOH9ziS3tArCeTh7j7qv
- 16uEUxefhpYzOXD0XaqG5Xj04Y56RR5LjoaJFQgE=
-Message-ID: <1465569079.10360.5.camel@fuzziesquirrel.com>
-Subject: Re: [PATCH openbmc v2 04/11] Remove duplicate kernel config fragments
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>
-Date: Fri, 10 Jun 2016 10:31:19 -0400
-In-Reply-To: <CACPK8Xcu=mRcFtDppDMtW8Wwnd-uBCKeHSc4FRhXmghA3cTQ9A@mail.gmail.com>
-References: <20160609002032.984-1-openbmc-patches@stwcx.xyz>
- <20160609002032.984-5-openbmc-patches@stwcx.xyz>
- <CACPK8Xcu=mRcFtDppDMtW8Wwnd-uBCKeHSc4FRhXmghA3cTQ9A@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rR7Fz4f0DzDq5k
+ for <openbmc@lists.ozlabs.org>; Sat, 11 Jun 2016 02:40:37 +1000 (AEST)
+Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
+ with SMTPS id 1465576832710506.24998208303236;
+ Fri, 10 Jun 2016 09:40:32 -0700 (PDT)
+From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH openbmc] Bump phosphor recipe versions
+Date: Fri, 10 Jun 2016 11:40:30 -0500
+Message-Id: <20160610164031.25371-1-openbmc-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.8.3
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -42,128 +25,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Jun 2016 14:31:25 -0000
+X-List-Received-Date: Fri, 10 Jun 2016 16:40:40 -0000
 
-On Wed, 2016-06-08 at 19:42 -0500, Joel Stanley wrote:
-> On Wed, Jun 8, 2016 at 7:20 PM, OpenBMC Patches
-> <openbmc-patches@stwcx.xyz> wrote:
-> > From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-> >
-> > Enable CONFIG_HWMON and nothing else in the base Phosphor layer.
-> > Enable system specific modules in their respective layers.
-> 
-> I thought we agreed that we should put the CONFIG_HWMON in the
-> respective layers too?
+Enable one-time vs permanent host boot option
+Handle endianness in IPMI eSEL function
+Improve IPMI error handling
+Add IPMI Travis CI
+Fix host hanging due to inventory upload
+Performance improvements
 
-Oops.  Forgot.  Or was I trying to sneak it by?
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/318)
+<!-- Reviewable:end -->
 
-Will fix.
 
-> 
-> >
-> > Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
-> > ---
-> >  .../meta-ast2400/recipes-kernel/linux/linux-obmc/hwmon.cfg            | 4 ----
-> >  .../meta-ast2400/recipes-kernel/linux/linux-obmc_%.bbappend           | 2 +-
-> >  .../meta-firestone/recipes-kernel/linux/linux-obmc/firestone.cfg      | 3 ---
-> >  .../meta-garrison/recipes-kernel/linux/linux-obmc/garrison.cfg        | 3 ---
-> >  .../meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.cfg        | 1 -
-> >  .../meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.cfg      | 3 +++
-> >  .../meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend         | 2 ++
-> >  meta-phosphor/common/recipes-kernel/linux/linux-obmc/hwmon.cfg        | 1 +
-> >  meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb           | 1 +
-> >  9 files changed, 8 insertions(+), 12 deletions(-)
-> >  delete mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/hwmon.cfg
-> >  create mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.cfg
-> >  create mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend
-> >  create mode 100644 meta-phosphor/common/recipes-kernel/linux/linux-obmc/hwmon.cfg
-> >
-> > diff --git a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/hwmon.cfg b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/hwmon.cfg
-> > deleted file mode 100644
-> > index 053fea3..0000000
-> > --- a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/hwmon.cfg
-> > +++ /dev/null
-> > @@ -1,4 +0,0 @@
-> > -CONFIG_HWMON=y
-> > -CONFIG_SENSORS_NCT7904=y
-> > -CONFIG_SENSORS_LM75=y
-> > -CONFIG_EEPROM_AT24=y
-> > diff --git a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc_%.bbappend b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc_%.bbappend
-> > index bb6f06c..6d7ae27 100644
-> > --- a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc_%.bbappend
-> > +++ b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc_%.bbappend
-> > @@ -1,2 +1,2 @@
-> >  FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
-> > -SRC_URI += "file://defconfig file://hwmon.cfg"
-> > +SRC_URI += "file://defconfig"
-> > diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-kernel/linux/linux-obmc/firestone.cfg b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-kernel/linux/linux-obmc/firestone.cfg
-> > index 2594dec..63891b6 100644
-> > --- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-kernel/linux/linux-obmc/firestone.cfg
-> > +++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-kernel/linux/linux-obmc/firestone.cfg
-> > @@ -1,4 +1 @@
-> > -CONFIG_HWMON=y
-> > -CONFIG_SENSORS_NCT7904=y
-> > -CONFIG_EEPROM_AT24=y
-> >  CONFIG_SENSORS_TMP421=y
-> > diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.cfg b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.cfg
-> > index 2594dec..63891b6 100644
-> > --- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.cfg
-> > +++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.cfg
-> > @@ -1,4 +1 @@
-> > -CONFIG_HWMON=y
-> > -CONFIG_SENSORS_NCT7904=y
-> > -CONFIG_EEPROM_AT24=y
-> >  CONFIG_SENSORS_TMP421=y
-> > diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.cfg b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.cfg
-> > index 2594dec..498497e 100644
-> > --- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.cfg
-> > +++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.cfg
-> > @@ -1,4 +1,3 @@
-> > -CONFIG_HWMON=y
-> >  CONFIG_SENSORS_NCT7904=y
-> >  CONFIG_EEPROM_AT24=y
-> >  CONFIG_SENSORS_TMP421=y
-> > diff --git a/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.cfg b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.cfg
-> > new file mode 100644
-> > index 0000000..f778394
-> > --- /dev/null
-> > +++ b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.cfg
-> > @@ -0,0 +1,3 @@
-> > +CONFIG_SENSORS_NCT7904=y
-> > +CONFIG_SENSORS_LM75=y
-> > +CONFIG_EEPROM_AT24=y
-> > diff --git a/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend
-> > new file mode 100644
-> > index 0000000..9e74ab4
-> > --- /dev/null
-> > +++ b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend
-> > @@ -0,0 +1,2 @@
-> > +FILESEXTRAPATHS_prepend := "${THISDIR}/linux-obmc:"
-> > +SRC_URI += "file://barreleye.cfg"
-> > diff --git a/meta-phosphor/common/recipes-kernel/linux/linux-obmc/hwmon.cfg b/meta-phosphor/common/recipes-kernel/linux/linux-obmc/hwmon.cfg
-> > new file mode 100644
-> > index 0000000..ff2b329
-> > --- /dev/null
-> > +++ b/meta-phosphor/common/recipes-kernel/linux/linux-obmc/hwmon.cfg
-> > @@ -0,0 +1 @@
-> > +CONFIG_HWMON=y
-> > diff --git a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb
-> > index 47e3698..c0d8e38 100644
-> > --- a/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb
-> > +++ b/meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.4.bb
-> > @@ -6,6 +6,7 @@ KBRANCH ?= "dev-4.4"
-> >  KCONFIG_MODE="--alldefconfig"
-> >
-> >  SRC_URI = "git://github.com/openbmc/linux;protocol=git;branch=${KBRANCH}"
-> > +SRC_URI += "file://hwmon.cfg"
-> >
-> >  LINUX_VERSION ?= "4.4"
-> >  LINUX_VERSION_EXTENSION ?= "-${SRCREV}"
-> > --
-> > 2.8.3
-> >
-> >
-> > _______________________________________________
-> > openbmc mailing list
-> > openbmc@lists.ozlabs.org
-> > https://lists.ozlabs.org/listinfo/openbmc
+https://github.com/openbmc/openbmc/pull/318
+
+Adriana Kobylak (1):
+  Bump phosphor recipe versions
+
+ .../common/recipes-phosphor/inventory-upload/inventory-upload.bb        | 2 +-
+ meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb               | 2 +-
+ meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid-fru.bb      | 2 +-
+ meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid-oem.bb      | 2 +-
+ meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb          | 2 +-
+ meta-phosphor/common/recipes-phosphor/settings/settings.bb              | 2 +-
+ meta-phosphor/common/recipes-phosphor/skeleton/pyphosphor.bb            | 2 +-
+ meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb              | 2 +-
+ 8 files changed, 8 insertions(+), 8 deletions(-)
+
+-- 
+2.8.3
