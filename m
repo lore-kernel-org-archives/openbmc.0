@@ -1,43 +1,42 @@
 Return-Path: <andrew@aj.id.au>
-Received: from homiemail-a19.g.dreamhost.com (sub3.mail.dreamhost.com
+Received: from homiemail-a18.g.dreamhost.com (sub3.mail.dreamhost.com
  [69.163.253.7])
  (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rQkSG5s2zzDqHH
- for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 11:03:10 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rQkyv6sVJzDq60
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 11:26:14 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=IH4autik; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=QHknww0f; 
  dkim-atps=neutral
-Received: from homiemail-a19.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a19.g.dreamhost.com (Postfix) with ESMTP id 851A1604078;
- Thu,  9 Jun 2016 18:03:07 -0700 (PDT)
+Received: from homiemail-a18.g.dreamhost.com (localhost [127.0.0.1])
+ by homiemail-a18.g.dreamhost.com (Postfix) with ESMTP id DDE7A25006C;
+ Thu,  9 Jun 2016 18:26:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
  :subject:from:reply-to:to:cc:date:in-reply-to:references
- :content-type:mime-version; s=aj.id.au; bh=RqSFykxNoSyfibHE1ajkR
- Zp+WHo=; b=IH4autikycTbqsSRcUbSzknYxGXFNUpYiRbPLBkLKio2LWgN2b+QZ
- yAg9IerU9Rhdc8U69k58531pqvg4ThmpmpyMq0zV4Id0bmn026/BGAbGSAMePp6/
- uPXN0SS5S25PtXDxeu3eQ02yBaqgTbDA0Iyou3B5SDIcbpcnMzplwM=
+ :content-type:mime-version; s=aj.id.au; bh=JJyfR3z7aAlxMNbtL4Oo0
+ qb/2vE=; b=QHknww0fLCmcT8kF8yOjhuQOuqEQ8msfmNR3kq9V+96vQtf6V+z4W
+ UlQQ3I5JXh3woxFd85O7bt0jQXerTNdCb0F5TLzilRcuYCbqseefDAHMv3tVtdzf
+ Otp1ImEpBXbfAZQFiDKr+iQdRC+LDTaJl7npA64NQwVfBRbXrQeEhE=
 Received: from keelia (unknown [203.0.153.9])
  (using TLSv1 with cipher AES128-SHA (128/128 bits))
  (No client certificate requested)
  (Authenticated sender: andrew@aj.id.au)
- by homiemail-a19.g.dreamhost.com (Postfix) with ESMTPSA id 56D33604069;
- Thu,  9 Jun 2016 18:03:06 -0700 (PDT)
-Message-ID: <1465520569.16048.181.camel@aj.id.au>
-Subject: Re: [PATCH qemu 2/2] ast2400: Integrate the SCU model and configure
- reset values
+ by homiemail-a18.g.dreamhost.com (Postfix) with ESMTPSA id B60DD25006B;
+ Thu,  9 Jun 2016 18:26:11 -0700 (PDT)
+Message-ID: <1465521962.16048.194.camel@aj.id.au>
+Subject: Re: [PATCH qemu 1/2] hw/misc: Add a model for the ASPEED System
+ Control Unit
 From: Andrew Jeffery <andrew@aj.id.au>
 Reply-To: andrew@aj.id.au
 To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, OpenBMC
  <openbmc@lists.ozlabs.org>
-Date: Fri, 10 Jun 2016 10:32:49 +0930
-In-Reply-To: <57595540.8060203@kaod.org>
+Date: Fri, 10 Jun 2016 10:56:02 +0930
+In-Reply-To: <57595312.5@kaod.org>
 References: <1465460046-7692-1-git-send-email-andrew@aj.id.au>
- <1465460046-7692-3-git-send-email-andrew@aj.id.au>
- <57595540.8060203@kaod.org>
+ <1465460046-7692-2-git-send-email-andrew@aj.id.au> <57595312.5@kaod.org>
 Organization: IBM OzLabs
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-DvMvTIsr3IzXj56qt/5c"
+ protocol="application/pgp-signature"; boundary="=-2234qU8YhubCMWaKnFPZ"
 X-Mailer: Evolution 3.18.5.2-0ubuntu3 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -51,67 +50,266 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Jun 2016 01:03:11 -0000
+X-List-Received-Date: Fri, 10 Jun 2016 01:26:16 -0000
 
 
---=-DvMvTIsr3IzXj56qt/5c
+--=-2234qU8YhubCMWaKnFPZ
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: quoted-printable
 
-T24gVGh1LCAyMDE2LTA2LTA5IGF0IDEzOjM4ICswMjAwLCBDw6lkcmljIExlIEdvYXRlciB3cm90
-ZToKPiBPbiAwNi8wOS8yMDE2IDEwOjE0IEFNLCBBbmRyZXcgSmVmZmVyeSB3cm90ZToKPiA+IAo+
-ID4gQWxtb3N0IGFsbCBjb25maWd1cmVkIHJlc2V0IHZhbHVlcyBhcmUgc3BlY2lmaWVkIGJ5IHRo
-ZSBkYXRhc2hlZXQuIFRoZQo+ID4gZXhjZXB0aW9uIGlzIEFTUEVFRF9TQ1VfU09DX1NDUkFUQ0gx
-LCB3aGVyZSB3ZSBtYXJrIHRoZSBEUkFNIGFzCj4gPiBzdWNjZXNzZnVsbHkgaW5pdGlhbGlzZWQg
-YnkgdGhlIFNvQyB0byBhdm9pZCB1bm5lY2Vzc2FyeSBkYXJrIGNvcm5lcnMgaW4KPiA+IHRoZSBT
-b0MncyB1LWJvb3Qgc3VwcG9ydC4KPiA+IAo+ID4gU2lnbmVkLW9mZi1ieTogQW5kcmV3IEplZmZl
-cnkgPGFuZHJld0Bhai5pZC5hdT4KPiA+IC0tLQo+ID4gwqBody9hcm0vYXN0MjQwMC5jwqDCoMKg
-wqDCoMKgwqDCoMKgfCA0NyArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKwo+ID4gwqBpbmNsdWRlL2h3L2FybS9hc3QyNDAwLmggfMKgwqAyICsrCj4gPiDCoDIg
-ZmlsZXMgY2hhbmdlZCwgNDkgaW5zZXJ0aW9ucygrKQo+ID4gCj4gPiBkaWZmIC0tZ2l0IGEvaHcv
-YXJtL2FzdDI0MDAuYyBiL2h3L2FybS9hc3QyNDAwLmMKPiA+IGluZGV4IDRhOWRlMGUxMGNiYy4u
-MjQwZGExODBiZWZhIDEwMDY0NAo+ID4gLS0tIGEvaHcvYXJtL2FzdDI0MDAuYwo+ID4gKysrIGIv
-aHcvYXJtL2FzdDI0MDAuYwo+ID4gQEAgLTI0LDEyICsyNCw0NiBAQAo+ID4gwqAjZGVmaW5lIEFT
-VDI0MDBfSU9NRU1fU0laRcKgwqDCoMKgwqDCoMKgMHgwMDIwMDAwMAo+ID4gwqAjZGVmaW5lIEFT
-VDI0MDBfSU9NRU1fQkFTRcKgwqDCoMKgwqDCoMKgMHgxRTYwMDAwMAo+ID4gwqAjZGVmaW5lIEFT
-VDI0MDBfVklDX0JBU0XCoMKgwqDCoMKgwqDCoMKgwqAweDFFNkMwMDAwCj4gPiArI2RlZmluZSBB
-U1QyNDAwX1NDVV9CQVNFwqDCoMKgwqDCoMKgwqDCoMKgMHgxRTZFMjAwMAo+ID4gwqAjZGVmaW5l
-IEFTVDI0MDBfVElNRVJfQkFTRcKgwqDCoMKgwqDCoMKgMHgxRTc4MjAwMAo+ID4gwqAjZGVmaW5l
-IEFTVDI0MDBfSTJDX0JBU0XCoMKgwqDCoMKgwqDCoMKgwqAweDFFNzhBMDAwCj4gPiDCoAo+ID4g
-wqBzdGF0aWMgY29uc3QgaW50IHVhcnRfaXJxc1tdID0geyA5LCAzMiwgMzMsIDM0LCAxMCB9Owo+
-ID4gwqBzdGF0aWMgY29uc3QgaW50IHRpbWVyX2lycXNbXSA9IHsgMTYsIDE3LCAxOCwgMzUsIDM2
-LCAzNywgMzgsIDM5LCB9Owo+ID4gwqAKPiA+ICtzdGF0aWMgY29uc3QgQXNwZWVkU0NVUmVzZXRD
-Zmcgc2N1X3Jlc2V0W10gPSB7Cj4gPiArwqDCoMKgwqAvKiBWYWx1ZXMgYXJlIGRlZmF1bHRzIGZy
-b20gdGhlIGRhdGFzaGVldCBleGNlcHQgd2hlcmUgbm90ZWQgKi8KPiA+ICvCoMKgwqDCoHsgQVNQ
-RUVEX1NDVV9TWVNfUlNUX0NUUkwswqDCoMKgMHhGRkNGRkVEQ1UgfSwKPiA+ICvCoMKgwqDCoHsg
-QVNQRUVEX1NDVV9DTEtfU0VMLMKgwqDCoMKgwqDCoMKgwqAweEYzRjQwMDAwVSB9LAo+ID4gK8Kg
-wqDCoMKgeyBBU1BFRURfU0NVX0NMS19TVE9QX0NUUkwswqDCoDB4MTlGQzNFOEJVIH0sCj4gPiAr
-wqDCoMKgwqB7IEFTUEVFRF9TQ1VfRDJQTExfUEFSQU0swqDCoMKgwqAweDAwMDI2MTA4VSB9LAo+
-ID4gK8KgwqDCoMKgeyBBU1BFRURfU0NVX01QTExfUEFSQU0swqDCoMKgwqDCoDB4MDAwMzAyOTFV
-IH0sCj4gPiArwqDCoMKgwqB7IEFTUEVFRF9TQ1VfSFBMTF9QQVJBTSzCoMKgwqDCoMKgMHgwMDAw
-MDI5MVUgfSwKPiA+ICvCoMKgwqDCoHsgQVNQRUVEX1NDVV9NSVNDX0NUUkwxLMKgwqDCoMKgwqAw
-eDAwMDAwMDEwVSB9LAo+ID4gK8KgwqDCoMKgeyBBU1BFRURfU0NVX1BDSV9DVFJMMSzCoMKgwqDC
-oMKgwqAweDIwMDAxQTAzVSB9LAo+ID4gK8KgwqDCoMKgeyBBU1BFRURfU0NVX1BDSV9DVFJMMizC
-oMKgwqDCoMKgwqAweDIwMDAxQTAzVSB9LAo+ID4gK8KgwqDCoMKgeyBBU1BFRURfU0NVX1BDSV9D
-VFJMMyzCoMKgwqDCoMKgwqAweDA0MDAwMDMwVSB9LAo+ID4gK8KgwqDCoMKgeyBBU1BFRURfU0NV
-X1NZU19SU1RfU1RBVFVTLCAweDAwMDAwMDAxVSB9LAo+ID4gK8KgwqDCoMKgeyBBU1BFRURfU0NV
-X1NPQ19TQ1JBVENIMSzCoMKgwqAweDAwMDAwMEMwVSB9LCAvKiBTb0MgY29tcGxldGVkIERSQU0g
-aW5pdCAqLwo+ID4gK8KgwqDCoMKgeyBBU1BFRURfU0NVX01JU0NfQ1RSTDIswqDCoMKgwqDCoDB4
-MDAwMDAwMjNVIH0sCj4gPiArwqDCoMKgwqB7IEFTUEVFRF9TQ1VfUk5HX0NUUkwswqDCoMKgwqDC
-oMKgwqAweDAwMDAwMDBFVSB9LAo+ID4gK8KgwqDCoMKgeyBBU1BFRURfU0NVX1JFVl9JRCzCoMKg
-wqDCoMKgwqDCoMKgwqAweDAyMDAwMzAzVSB9LAo+ID4gK8KgwqDCoMKgeyBBU1BFRURfU0NVX1BJ
-Tk1VWF9DVFJMMizCoMKgwqAweDAwMDBGMDAwVSB9LAo+ID4gK8KgwqDCoMKgeyBBU1BFRURfU0NV
-X1BJTk1VWF9DVFJMMyzCoMKgwqAweDAxMDAwMDAwVSB9LAo+ID4gK8KgwqDCoMKgeyBBU1BFRURf
-U0NVX1BJTk1VWF9DVFJMNCzCoMKgwqAweDAwMDAwMEZGVSB9LAo+ID4gK8KgwqDCoMKgeyBBU1BF
-RURfU0NVX1BJTk1VWF9DVFJMNSzCoMKgwqAweDAwMDBBMDAwVSB9LAo+ID4gK8KgwqDCoMKgeyBB
-U1BFRURfU0NVX1dEVF9SU1RfQ1RSTCzCoMKgwqAweDAwM0ZGRkYzVSB9LAo+ID4gK8KgwqDCoMKg
-eyBBU1BFRURfU0NVX1BJTk1VWF9DVFJMOCzCoMKgwqAweEZGRkYwMDAwVSB9LAo+IMKgwqDCoMKg
-wqDCoMKgeyBBU1BFRURfU0NVX1BJTk1VWF9DVFJMOSzCoMKgwqAweDAwMEZGRkZGVSB9LAoKQWgg
-eWVzLiBUaGFua3MuCgo+IAo+IFJldmlld2VkLWJ5OiBDw6lkcmljIExlIEdvYXRlciA8Y2xnQGth
-b2Qub3JnPgoKQ2hlZXJzLAoKQW5kcmV3
+On Thu, 2016-06-09 at 13:29 +0200, C=C3=A9dric Le Goater wrote:
+> On 06/09/2016 10:14 AM, Andrew Jeffery wrote:
+> >=20
+> > The SCU is a collection of chip-level control registers that manage the
+> > various functions supported by the AST2400. Typically the bits control
+> > interactions with clocks, external hardware or reset behaviour, and we
+> > can largly take a hands-off approach to reads and writes.
+> >=20
+> > Firmware makes heavy use of the state to determine how to boot, but the
+> > reset values vary from SoC to SoC. Object properties are exposed so
+> > that the integrating SoC model can configure the appropriate reset
+> > values.
+> >=20
+> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> > ---
+> > =C2=A0hw/misc/Makefile.objs=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0|=C2=A0=C2=A0=C2=A01 +
+> > =C2=A0hw/misc/aspeed_scu.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0| 295 +++++++++++++++++++++++++++++++++++++++++++
+> > =C2=A0include/hw/misc/aspeed_scu.h | 105 +++++++++++++++
+> > =C2=A0trace-events=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0|=C2=A0=C2=A0=C2=A03 +
+> > =C2=A04 files changed, 404 insertions(+)
+> > =C2=A0create mode 100644 hw/misc/aspeed_scu.c
+> > =C2=A0create mode 100644 include/hw/misc/aspeed_scu.h
+> >=20
+> > diff --git a/hw/misc/Makefile.objs b/hw/misc/Makefile.objs
+> > index bc0dd2cc7567..4895e950b377 100644
+> > --- a/hw/misc/Makefile.objs
+> > +++ b/hw/misc/Makefile.objs
+> > @@ -51,3 +51,4 @@ obj-$(CONFIG_MIPS_ITU) +=3D mips_itu.o
+> > =C2=A0obj-$(CONFIG_PVPANIC) +=3D pvpanic.o
+> > =C2=A0obj-$(CONFIG_EDU) +=3D edu.o
+> > =C2=A0obj-$(CONFIG_HYPERV_TESTDEV) +=3D hyperv_testdev.o
+> > +obj-$(CONFIG_ASPEED_SOC) +=3D aspeed_scu.o
+> > diff --git a/hw/misc/aspeed_scu.c b/hw/misc/aspeed_scu.c
+> > new file mode 100644
+> > index 000000000000..ae5a4c590bb6
+> > --- /dev/null
+> > +++ b/hw/misc/aspeed_scu.c
+> > @@ -0,0 +1,295 @@
+> > +/*
+> > + * ASPEED System Control Unit
+> > + *
+> > + * Andrew Jeffery <andrew@aj.id.au>
+> > + *
+> > + * Copyright 2016 IBM Corp.
+> > + *
+> > + * This code is licensed under the GPL version 2 or later.=C2=A0=C2=A0=
+See
+> > + * the COPYING file in the top-level directory.
+> > + */
+> > +
+> > +#include "qemu/osdep.h"
+> > +#include=20
+> > +#include "hw/misc/aspeed_scu.h"
+> > +#include "hw/qdev-properties.h"
+> > +#include "qapi/error.h"
+> > +#include "qapi/visitor.h"
+> > +#include "qemu/bitops.h"
+> > +#include "trace.h"
+> > +
+> > +#define SCU_KEY 0x1688A8A8
+> > +#define SCU_IO_REGION_SIZE 0x20000
+> > +
+> > +#define TO_REG(o) ((o) >> 2)
+> > +#define TO_REG_ID(o) [TO_REG(o)] =3D stringify(o)
+> > +
+> > +static const char *aspeed_scu_reg_ids[ASPEED_SCU_NR_REGS] =3D {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PROT_KEY),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_SYS_RST_CTRL),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_CLK_SEL),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_CLK_STOP_CTRL),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_FREQ_CNTR_CTRL),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_FREQ_CNTR_EVAL),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_IRQ_CTRL),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_D2PLL_PARAM),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_MPLL_PARAM),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_HPLL_PARAM),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_FREQ_CNTR_RANGE),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_MISC_CTRL1),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PCI_CTRL1),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PCI_CTRL2),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PCI_CTRL3),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_SYS_RST_CTRL),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_SOC_SCRATCH1),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_SOC_SCRATCH2),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_MAC_CLK_DELAY),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_MISC_CTRL2),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_VGA_SCRATCH1),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_VGA_SCRATCH2),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_VGA_SCRATCH3),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_VGA_SCRATCH4),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_VGA_SCRATCH5),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_VGA_SCRATCH6),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_VGA_SCRATCH7),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_VGA_SCRATCH8),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_HW_STRAP1),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_RNG_CTRL),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_RNG_DATA),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_REV_ID),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PINMUX_CTRL1),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PINMUX_CTRL2),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PINMUX_CTRL3),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PINMUX_CTRL4),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PINMUX_CTRL5),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PINMUX_CTRL6),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_WDT_RST_CTRL),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PINMUX_CTRL7),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PINMUX_CTRL8),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PINMUX_CTRL9),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_WAKEUP_EN),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_WAKEUP_CTRL),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_HW_STRAP2),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_FREE_CNTR4),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_FREE_CNTR4_EXT),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_CPU2_CTRL),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_CPU2_BASE_SEG1),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_CPU2_BASE_SEG2),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_CPU2_BASE_SEG3),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_CPU2_BASE_SEG4),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_CPU2_BASE_SEG5),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_CPU2_CACHE_CTRL),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_UART_HPLL_CLK),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_PCIE_CTRL),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_BMC_MMIO_CTRL),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_RELOC_DECODE_BASE1),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_RELOC_DECODE_BASE2),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_MAILBOX_DECODE_BASE),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_SRAM_DECODE_BASE1),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_SRAM_DECODE_BASE2),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_BMC_REV_ID),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0TO_REG_ID(ASPEED_SCU_BMC_DEV_ID),
+> > +};
+> I would start with a smaller set that we know uboot and the kernel use,
+> this is minor.
 
+Given that I provided all the defines for register offsets, I figured I
+should provide all the property IDs. As it's done now, I don't see any
+benefit to removing it. Other than to change the approach, which is
+discussed below.
 
---=-DvMvTIsr3IzXj56qt/5c
+>=20
+> >=20
+> > +void aspeed_scu_configure_reset(AspeedSCUState *scu,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0const AspeedSCUResetCf=
+g vals[], int n, Error **errp)
+> > +{
+> > +=C2=A0=C2=A0=C2=A0=C2=A0int i;
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0for (i =3D 0; i < n; i++) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0const char *name =3D a=
+speed_scu_reg_ids[TO_REG(vals[i].offset)];
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (name) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0object_property_set_int(OBJECT(scu), vals[i].val, name, errp);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0if (*errp) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0return;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0}
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0}
+> > +=C2=A0=C2=A0=C2=A0=C2=A0}
+> > +}
+> > +
+> > +static void aspeed_scu_get_reset(Object *obj, Visitor *v, const char *=
+name,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0void *opaque, Error **=
+errp)
+> > +{
+> > +=C2=A0=C2=A0=C2=A0=C2=A0AspeedSCUState *s =3D ASPEED_SCU(obj);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0uint32_t value;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0int offset, reg;
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0if (sscanf(name, "0x%x", &offset) !=3D 1) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0error_setg(errp, "Erro=
+r reading %s", name);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0}
+> I thought the name of the property was "ASPEED_SCU_PROT_KEY" according to=
+ the=C2=A0
+> object_property_add() below ?=C2=A0
+
+Right. This was the slightly abusive bit. Partly inspired by your
+tmp421 patch, the register of interest is derived from the property
+name. In fact, here, the property name is simply the string
+representation of the hexadecimal offset (via stringify() in the
+TO_REG_ID() macro). This is mostly hidden by the aspeed_scu_reg_ids
+lookup, which avoids dynamic conversion between integers and strings
+(sprintf, asprintf and such).
+
+I'm not at all confident this will be swallowed by upstream, which was
+another reason for sending here first :)
+
+So, is there a better approach? object_property_*()s all seemed to
+require const char *s. We could just not use properties and assign to
+the array member directly, as the AspeedSCUState type isn't opaque in
+ast2400.c, but from a quick survey it seemed object_property_*() was
+the way to go.
+
+>=20
+> >=20
+> > +=C2=A0=C2=A0=C2=A0=C2=A0reg =3D TO_REG(offset);
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0if (reg > ASPEED_SCU_NR_REGS) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0error_setg(errp, "Inva=
+lid register ID: %s", name);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0}
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0value =3D s->reset[reg];
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0visit_type_uint32(v, name, &value, errp);
+> > +}
+> > +
+> > +static void aspeed_scu_set_reset(Object *obj, Visitor *v, const char *=
+name,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0void *opaque, Error **=
+errp)
+> > +{
+> > +=C2=A0=C2=A0=C2=A0=C2=A0AspeedSCUState *s =3D ASPEED_SCU(obj);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0Error *local_err =3D NULL;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0uint32_t value;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0int offset, reg;
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0visit_type_uint32(v, name, &value, &local_err)=
+;
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0if (local_err) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0error_propagate(errp, =
+local_err);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0}
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0if (sscanf(name, "0x%x", &offset) !=3D 1) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0error_setg(errp, "Erro=
+r reading %s", name);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0}
+> same comment.
+
+Same as above
+
+>=20
+> The rest looks fine.
+>=20
+> Reviewed-by: C=C3=A9dric Le Goater <clg@kaod.org>
+
+Cheers,
+
+Andrew
+--=-2234qU8YhubCMWaKnFPZ
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
@@ -119,19 +317,19 @@ Content-Transfer-Encoding: 7bit
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAABCgAGBQJXWhG5AAoJEJ0dnzgO5LT5g5gQAJQzJ4l7D7WFuXRpv8gvC097
-rO/DJpxbu6umFCjtAcV5JNUL1FGQJRv2erEUJyJWv71jtbe89nfAJQET8JaAem2f
-jvC5wYFaqbl/9HjaFAzkFP1WJ8yc6l9Um1DhUVQrOOCw22qzbcxRni8B1MQPDQC3
-Mww4wynv2nRe3jO8Nfht4+p9WLHvEOjqvc6yZrAHomn1OjII91CTAbBd1PIeFkcU
-zdnylvdLlem6MmhHKR9V6N8YYb3ZkP1mQa9aWElaIqme4dcJZ3I/V0hea79h93Cm
-CA3Xs9/FEal+sLNZqU1qSVy9kszwGx5rCL3TAIjbpMvcayBzXQE282YcMnfD51Jd
-9MJ9L4C30nlzBOiiteOAdyEAJUzF43fHNWEbwUkzllbjiyk5+O/GQoRBcaVzBh9q
-YYh5tBopHikjRLkxy3+/18vo0ju7zGdvYobCMSy9A9WBOcuRUsWJnvZA1IN7GhJa
-LhRsg1jIdhy4+/08unMt1bzKRiy8SUJ3A5yqXrXeJwWL4vPg/aQ/lcjlDJId1OgY
-+NvnKx05+RogIPOUBZrBc5Q/jzb7M4+d33bD3NZ0o/BaPWpTkLn0HJ0Ee+lfpF6r
-G5yFxRnyHg6JEe1CU8q82OZfHlofffw7utg2R+0+1XC+TJKFl2PFc3dt5ft3d++g
-W9tRP4b3Oxt1rHk6krbb
-=f620
+iQIcBAABCgAGBQJXWhcqAAoJEJ0dnzgO5LT5nBEP/3NZl6YJfog+Hc77w+RpsYpH
+ck1ydLIcl8ipxIV/F8xYeX0xCLK14T7X9YUYvPDTrhpTIUonziV83K8wUsDfB5U0
+bWO/d2tWfayEfHYUxPjYR/yVeDA+WfYhxurpz4J5/o5d1G3hMC5LWYfysn302HFT
+C2Ikhpw5Q4+56keUOofXq0NIjwlWIiguBdBMCkDT0w80C9Yw67/yZ/kVaDlsKH5c
+E1ktbJsG9NE12qpuD32op5jYZ662+pwjYdS2Aug7QSVbllLcdMG7DY1zw+R9mBA9
+dD9XvXJAd/7l11NwMlo1QMNmiW9/FG6Ngm0ynSN5HfPzX59zYx/DbKLqdCqtv4Ut
+niaebzMQnab3S7Il+KsJMJv+zgzmYx2HUf5gvc2h3bCj94lFxWb6s5pnMBq94bJM
+S8OycrW/9gkcZphJlOSG2wteFTCxf93mKcR1j7nf5dEugiVHrHpKEC+OdoP9UKby
+YaUdzEakD9kSnP4ECm4QAVLtXdN9JtWT+/ffc0xRGTybUJGvJSVrcJ+p2hu+3Q6d
+LdmrD0aN6/CHwXtCbYQxK3iAWEpEpRcNz/lJnqlDPGHu04Yu6ejpOyrO3VFIN60g
+H/lJqpBeX7EaKkmvWyGHTg2yO5uQs06vWlyAif7pJU4inEWIjjF1ToABDoyTmGbu
+2Y2UEBJb4LTJYDNELhYN
+=7ZPU
 -----END PGP SIGNATURE-----
 
---=-DvMvTIsr3IzXj56qt/5c--
+--=-2234qU8YhubCMWaKnFPZ--
