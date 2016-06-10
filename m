@@ -3,33 +3,37 @@ Received: from homiemail-a19.g.dreamhost.com (sub3.mail.dreamhost.com
  [69.163.253.7])
  (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rQqMy6vKBzDq5s
- for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 14:44:46 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rQqN01QWdzDq5s
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 14:44:48 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=eEClCF/q; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=O5TVGOVE; 
  dkim-atps=neutral
 Received: from homiemail-a19.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a19.g.dreamhost.com (Postfix) with ESMTP id EF4B0604076;
- Thu,  9 Jun 2016 21:44:44 -0700 (PDT)
+ by homiemail-a19.g.dreamhost.com (Postfix) with ESMTP id 87B05604078;
+ Thu,  9 Jun 2016 21:44:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=from:to:cc
- :subject:date:message-id; s=aj.id.au; bh=BxskTHQnj9fpgseN4RpJRPH
- k0iQ=; b=eEClCF/qh9xJf9RiUFyaYjBWbJDeD55v8W0vNnHHESjAfP4Y8yCrSY5
- P5sWGC4YKoCcLbz6N+xfad1mFJuqLCO9AkRmbDXyeADeh3m9dGMA+gtHtActBmRp
- wOuCfaLOODHGWsqYKhAkQMyjNJVRpPAOtFAsqNnlbCyXbi4EPS/E=
+ :subject:date:message-id:in-reply-to:references; s=aj.id.au; bh=
+ NeO98GBliycnXKVxxl8ykRrpwcs=; b=O5TVGOVEglxAj8z1EoRJB5iyuBt+9YEf
+ pcjFqyOicve8Q9bl+PYqQE14XUhn4F0bHPyebZle+NcD4u0nOKOhJap3bjRdVDHL
+ e3ugx1FXYujeaxMbruYXMvYnrEf/OpHaDGQzt2gBZBGUXtRSngOx1doTcCW9ahDl
+ +Of+1ikVYXE=
 Received: from keelia.au.ibm.com (unknown [203.0.153.9])
  (using TLSv1 with cipher AES128-SHA (128/128 bits))
  (No client certificate requested)
  (Authenticated sender: andrew@aj.id.au)
- by homiemail-a19.g.dreamhost.com (Postfix) with ESMTPSA id C21DC604061;
- Thu,  9 Jun 2016 21:44:43 -0700 (PDT)
+ by homiemail-a19.g.dreamhost.com (Postfix) with ESMTPSA id 5A976604061;
+ Thu,  9 Jun 2016 21:44:45 -0700 (PDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: OpenBMC <openbmc@lists.ozlabs.org>
 Cc: Joel Stanley <joel@jms.id.au>, Gavin Shan <gwshan@linux.vnet.ibm.com>,
  Andrew Jeffery <andrew@aj.id.au>
-Subject: [PATCH linux 0/4] Enable ftgmac100 driver on Aspeed g5 SoCs
-Date: Fri, 10 Jun 2016 14:14:25 +0930
-Message-Id: <1465533869-3218-1-git-send-email-andrew@aj.id.au>
+Subject: [PATCH linux 1/4] aspeed: Use old MDC/MDIO interface for ftgmac100
+ driver compat
+Date: Fri, 10 Jun 2016 14:14:26 +0930
+Message-Id: <1465533869-3218-2-git-send-email-andrew@aj.id.au>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1465533869-3218-1-git-send-email-andrew@aj.id.au>
+References: <1465533869-3218-1-git-send-email-andrew@aj.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -41,36 +45,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Jun 2016 04:44:47 -0000
+X-List-Received-Date: Fri, 10 Jun 2016 04:44:48 -0000
 
-Hi all,
+This is a work-around, and we should aim to move to the new interface.
 
-These patches are already applied to the dev-4.7 branch but hadn't been sent
-anywhere for feedback.
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ arch/arm/mach-aspeed/aspeed.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-The first patch is a work-around that gets the ftgmac100 driver probing on the
-AST2500 EVB (or any non-NCSI configuration) in the short term. Longer term we
-should probably implement the new MDC/MDIO register interface. Shouldn't (yet)
-be sent upstream, but required in some cases around these parts.
-
-Patches two and three had some queries from Joel regarding parameters I've
-added to a number of functions. I've done some analysis on whether we can avoid
-it, but it seems we cannot. Thoughts there would be appreciated.
-
-Patch four is a trivial one for aspeed-g5.dtsi if you accept the general
-approach of patch three.
-
-Andrew Jeffery (4):
-  aspeed: Use old MDC/MDIO interface for ftgmac100 driver compat
-  ftgmac100: Separate rx page storage from rxdesc
-  ftgmac100: Add devicetree option for the Aspeed g5 register interface
-  aspeed-g5: Configure ftgmac100s for the Aspeed g5 register interface
-
- arch/arm/boot/dts/aspeed-g5.dtsi         |  2 +
- arch/arm/mach-aspeed/aspeed.c            |  8 ++++
- drivers/net/ethernet/faraday/ftgmac100.c | 76 +++++++++++++++++++++++---------
- drivers/net/ethernet/faraday/ftgmac100.h |  2 -
- 4 files changed, 64 insertions(+), 24 deletions(-)
-
+diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+index 90c541f32ee8..12f3a044a03c 100644
+--- a/arch/arm/mach-aspeed/aspeed.c
++++ b/arch/arm/mach-aspeed/aspeed.c
+@@ -82,6 +82,7 @@ static void __init aspeed_dt_init(void)
+ 
+ #define AST_BASE_LPC		0x1E789000 /* LPC Controller */
+ #define AST_BASE_SPI		0x1E630000 /* SPI Memory Controller */
++#define AST_BASE_MAC1		0X1E660000 /* MAC 1 */
+ #define AST_BASE_SCU		0x1E6E2000 /* System Control Unit (SCU) */
+ #define AST_BASE_GPIO		0x1E780000 /* GPIO Controller */
+ 
+@@ -186,8 +187,15 @@ static void __init do_garrison_setup(void)
+ 
+ static void __init do_ast2500evb_setup(void)
+ {
++	unsigned long reg;
++
+ 	/* Reset AHB bridges */
+ 	writel(0x02, AST_IO(AST_BASE_SCU | 0x04));
++
++	/* Set old MDIO interface */
++	reg = readl(AST_IO(AST_BASE_MAC1 | 0x40));
++	reg &= ~0x80000000;
++	writel(reg, AST_IO(AST_BASE_MAC1 | 0x40));
+ }
+ 
+ #define SCU_PASSWORD	0x1688A8A8
 -- 
 2.7.4
