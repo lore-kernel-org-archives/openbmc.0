@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rRGZq6CBBzDqX6
- for <openbmc@lists.ozlabs.org>; Sat, 11 Jun 2016 08:10:43 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rRGZy4FwnzDqXh
+ for <openbmc@lists.ozlabs.org>; Sat, 11 Jun 2016 08:10:50 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1465596638499211.49343285533257;
- Fri, 10 Jun 2016 15:10:38 -0700 (PDT)
+ with SMTPS id 1465596645079681.5805837437924;
+ Fri, 10 Jun 2016 15:10:45 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH openbmc v3 04/11] Remove duplicate kernel config fragments
-Date: Fri, 10 Jun 2016 17:10:23 -0500
-Message-Id: <20160610221030.3943-5-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v3 11/11] AST2500: Add AST2500 evaluation board layer
+Date: Fri, 10 Jun 2016 17:10:30 -0500
+Message-Id: <20160610221030.3943-12-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.3
 In-Reply-To: <20160610221030.3943-1-openbmc-patches@stwcx.xyz>
 References: <20160610221030.3943-1-openbmc-patches@stwcx.xyz>
@@ -28,79 +28,145 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Jun 2016 22:10:44 -0000
-X-List-Received-Date: Fri, 10 Jun 2016 22:10:44 -0000
+X-List-Received-Date: Fri, 10 Jun 2016 22:10:52 -0000
 
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
-Enable system specific modules in their respective layers.
+The AST2500 is an ARM SOC made by Aspeed.
+
+This layer is a stub; there are a couple missing bits of support
+from the kernel and u-boot.
 
 Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
- .../meta-ast2400/recipes-kernel/linux/linux-obmc/hwmon.cfg            | 4 ----
- .../meta-ast2400/recipes-kernel/linux/linux-obmc_%.bbappend           | 2 +-
- .../meta-firestone/recipes-kernel/linux/linux-obmc/firestone.cfg      | 2 --
- .../meta-garrison/recipes-kernel/linux/linux-obmc/garrison.cfg        | 2 --
- .../meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.cfg      | 4 ++++
- .../meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend         | 2 ++
- 6 files changed, 7 insertions(+), 9 deletions(-)
- delete mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/hwmon.cfg
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.cfg
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend
+ meta-openbmc-machines/meta-evb/conf/layer.conf     |  5 ++++
+ .../meta-evb/meta-evb-aspeed/conf/layer.conf       |  5 ++++
+ .../meta-evb-ast2500/conf/bblayers.conf.sample     | 27 ++++++++++++++++++++++
+ .../meta-evb-ast2500/conf/conf-notes.txt           |  2 ++
+ .../meta-evb-ast2500/conf/layer.conf               |  5 ++++
+ .../meta-evb-ast2500/conf/local.conf.sample        | 21 +++++++++++++++++
+ .../meta-evb-ast2500/conf/machine/evb-ast2500.conf |  6 +++++
+ 7 files changed, 71 insertions(+)
+ create mode 100644 meta-openbmc-machines/meta-evb/conf/layer.conf
+ create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/conf/layer.conf
+ create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/bblayers.conf.sample
+ create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/conf-notes.txt
+ create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/layer.conf
+ create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/local.conf.sample
+ create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/machine/evb-ast2500.conf
 
-diff --git a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/hwmon.cfg b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/hwmon.cfg
-deleted file mode 100644
-index 053fea3..0000000
---- a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/hwmon.cfg
-+++ /dev/null
-@@ -1,4 +0,0 @@
--CONFIG_HWMON=y
--CONFIG_SENSORS_NCT7904=y
--CONFIG_SENSORS_LM75=y
--CONFIG_EEPROM_AT24=y
-diff --git a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc_%.bbappend b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc_%.bbappend
-index bb6f06c..6d7ae27 100644
---- a/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc_%.bbappend
-+++ b/meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc_%.bbappend
-@@ -1,2 +1,2 @@
- FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
--SRC_URI += "file://defconfig file://hwmon.cfg"
-+SRC_URI += "file://defconfig"
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-kernel/linux/linux-obmc/firestone.cfg b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-kernel/linux/linux-obmc/firestone.cfg
-index 2594dec..99efe89 100644
---- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-kernel/linux/linux-obmc/firestone.cfg
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-kernel/linux/linux-obmc/firestone.cfg
-@@ -1,4 +1,2 @@
- CONFIG_HWMON=y
--CONFIG_SENSORS_NCT7904=y
--CONFIG_EEPROM_AT24=y
- CONFIG_SENSORS_TMP421=y
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.cfg b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.cfg
-index 2594dec..99efe89 100644
---- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.cfg
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.cfg
-@@ -1,4 +1,2 @@
- CONFIG_HWMON=y
--CONFIG_SENSORS_NCT7904=y
--CONFIG_EEPROM_AT24=y
- CONFIG_SENSORS_TMP421=y
-diff --git a/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.cfg b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.cfg
+diff --git a/meta-openbmc-machines/meta-evb/conf/layer.conf b/meta-openbmc-machines/meta-evb/conf/layer.conf
 new file mode 100644
-index 0000000..053fea3
+index 0000000..f8f2d0e
 --- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.cfg
-@@ -0,0 +1,4 @@
-+CONFIG_HWMON=y
-+CONFIG_SENSORS_NCT7904=y
-+CONFIG_SENSORS_LM75=y
-+CONFIG_EEPROM_AT24=y
-diff --git a/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend
++++ b/meta-openbmc-machines/meta-evb/conf/layer.conf
+@@ -0,0 +1,5 @@
++# We have a conf and classes directory, add to BBPATH
++BBPATH .= ":${LAYERDIR}"
++
++BBFILE_COLLECTIONS += "evb"
++BBFILE_PATTERN_evb = ""
+diff --git a/meta-openbmc-machines/meta-evb/meta-evb-aspeed/conf/layer.conf b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/conf/layer.conf
 new file mode 100644
-index 0000000..9e74ab4
+index 0000000..6d78f95
 --- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend
++++ b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/conf/layer.conf
+@@ -0,0 +1,5 @@
++# We have a conf and classes directory, add to BBPATH
++BBPATH .= ":${LAYERDIR}"
++
++BBFILE_COLLECTIONS += "evb-aspeed"
++BBFILE_PATTERN_evb-aspeed = ""
+diff --git a/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/bblayers.conf.sample b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/bblayers.conf.sample
+new file mode 100644
+index 0000000..dee1fa1
+--- /dev/null
++++ b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/bblayers.conf.sample
+@@ -0,0 +1,27 @@
++# LAYER_CONF_VERSION is increased each time build/conf/bblayers.conf
++# changes incompatibly
++LCONF_VERSION = "6"
++
++BBPATH = "${TOPDIR}"
++BBFILES ?= ""
++
++BBLAYERS ?= " \
++  ##OEROOT##/meta \
++  ##OEROOT##/meta-yocto \
++  ##OEROOT##/meta-phosphor \
++  ##OEROOT##/meta-openbmc-bsp/meta-aspeed \
++  ##OEROOT##/meta-openbmc-bsp/meta-aspeed/meta-ast2500 \
++  ##OEROOT##/meta-openbmc-machines/meta-evb \
++  ##OEROOT##/meta-openbmc-machines/meta-evb/meta-evb-aspeed \
++  ##OEROOT##/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500 \
++  "
++BBLAYERS_NON_REMOVABLE ?= " \
++  ##OEROOT##/meta \
++  ##OEROOT##/meta-yocto \
++  ##OEROOT##/meta-phosphor \
++  ##OEROOT##/meta-openbmc-bsp/meta-aspeed \
++  ##OEROOT##/meta-openbmc-bsp/meta-aspeed/meta-ast2500 \
++  ##OEROOT##/meta-openbmc-machines/meta-evb \
++  ##OEROOT##/meta-openbmc-machines/meta-evb/meta-evb-aspeed \
++  ##OEROOT##/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500 \
++  "
+diff --git a/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/conf-notes.txt b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/conf-notes.txt
+new file mode 100644
+index 0000000..9b3c01a
+--- /dev/null
++++ b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/conf-notes.txt
 @@ -0,0 +1,2 @@
-+FILESEXTRAPATHS_prepend := "${THISDIR}/linux-obmc:"
-+SRC_URI += "file://barreleye.cfg"
++Common targets are:
++     obmc-phosphor-image
+diff --git a/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/layer.conf b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/layer.conf
+new file mode 100644
+index 0000000..1c70336
+--- /dev/null
++++ b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/layer.conf
+@@ -0,0 +1,5 @@
++# We have a conf and classes directory, add to BBPATH
++BBPATH .= ":${LAYERDIR}"
++
++BBFILE_COLLECTIONS += "evb-ast2500"
++BBFILE_PATTERN_evb-ast2500 = ""
+diff --git a/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/local.conf.sample b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/local.conf.sample
+new file mode 100644
+index 0000000..6a12c60
+--- /dev/null
++++ b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/local.conf.sample
+@@ -0,0 +1,21 @@
++MACHINE ??= "evb-ast2500"
++DISTRO ?= "openbmc-phosphor"
++PACKAGE_CLASSES ?= "package_rpm"
++SANITY_TESTED_DISTROS_append ?= " *"
++EXTRA_IMAGE_FEATURES = "debug-tweaks"
++USER_CLASSES ?= "buildstats image-mklibs image-prelink"
++PATCHRESOLVE = "noop"
++BB_DISKMON_DIRS = "\
++    STOPTASKS,${TMPDIR},1G,100K \
++    STOPTASKS,${DL_DIR},1G,100K \
++    STOPTASKS,${SSTATE_DIR},1G,100K \
++    STOPTASKS,/tmp,100M,100K \
++    ABORT,${TMPDIR},100M,1K \
++    ABORT,${DL_DIR},100M,1K \
++    ABORT,${SSTATE_DIR},100M,1K \
++    ABORT,/tmp,10M,1K"
++CONF_VERSION = "1"
++INHERIT += "extrausers"
++EXTRA_USERS_PARAMS = " \
++  usermod -p '\$1\$UGMqyqdG\$FZiylVFmRRfl9Z0Ue8G7e/' root; \
++  "
+diff --git a/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/machine/evb-ast2500.conf b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/machine/evb-ast2500.conf
+new file mode 100644
+index 0000000..559e2b6
+--- /dev/null
++++ b/meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/machine/evb-ast2500.conf
+@@ -0,0 +1,6 @@
++KMACHINE = "aspeed"
++KERNEL_DEVICETREE = "${KMACHINE}-ast2500-evb.dtb"
++
++require conf/machine/include/ast2500.inc
++require conf/machine/include/obmc-bsp-common.inc
++require conf/machine/include/sample.inc
 -- 
 2.8.3
