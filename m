@@ -3,19 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rR7G16jYXzDq5k
- for <openbmc@lists.ozlabs.org>; Sat, 11 Jun 2016 02:40:41 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rRGZj1R9qzDqQw
+ for <openbmc@lists.ozlabs.org>; Sat, 11 Jun 2016 08:10:35 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1465576833957295.7615463928282;
- Fri, 10 Jun 2016 09:40:33 -0700 (PDT)
+ with SMTPS id 1465596631897150.38074693429223;
+ Fri, 10 Jun 2016 15:10:31 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc] Bump phosphor recipe versions
-Date: Fri, 10 Jun 2016 11:40:31 -0500
-Message-Id: <20160610164031.25371-2-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v3 00/11] initial ast2500 stubs
+Date: Fri, 10 Jun 2016 17:10:19 -0500
+Message-Id: <20160610221030.3943-1-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.3
-In-Reply-To: <20160610164031.25371-1-openbmc-patches@stwcx.xyz>
-References: <20160610164031.25371-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -27,127 +25,97 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Jun 2016 16:40:43 -0000
+X-List-Received-Date: Fri, 10 Jun 2016 22:10:38 -0000
 
-From: Adriana Kobylak <anoo@us.ibm.com>
+This patchset consists of a number of cleanup things in prep for a new ast2500 bsp layer, a new ast2500 bsp layer, and a layer for the ast2500 evaluation board.
 
-Enable one-time vs permanent host boot option
-Handle endianness in IPMI eSEL function
-Improve IPMI error handling
-Add IPMI Travis CI
-Fix host hanging due to inventory upload
-Performance improvements
+<!-- Reviewable:start -->
 ---
- .../common/recipes-phosphor/inventory-upload/inventory-upload.bb        | 2 +-
- meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb               | 2 +-
- meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid-fru.bb      | 2 +-
- meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid-oem.bb      | 2 +-
- meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb          | 2 +-
- meta-phosphor/common/recipes-phosphor/settings/settings.bb              | 2 +-
- meta-phosphor/common/recipes-phosphor/skeleton/pyphosphor.bb            | 2 +-
- meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb              | 2 +-
- 8 files changed, 8 insertions(+), 8 deletions(-)
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/312)
+<!-- Reviewable:end -->
 
-diff --git a/meta-openbmc-machines/meta-openpower/common/recipes-phosphor/inventory-upload/inventory-upload.bb b/meta-openbmc-machines/meta-openpower/common/recipes-phosphor/inventory-upload/inventory-upload.bb
-index c3a2361..2dfcf58 100644
---- a/meta-openbmc-machines/meta-openpower/common/recipes-phosphor/inventory-upload/inventory-upload.bb
-+++ b/meta-openbmc-machines/meta-openpower/common/recipes-phosphor/inventory-upload/inventory-upload.bb
-@@ -18,6 +18,6 @@ RDEPENDS_${PN} += " \
- 
- SRC_URI += "git://github.com/openbmc/openpower-inventory-upload"
- 
--SRCREV = "867e058dd246739ab9c93df64e82b7526f42d67f"
-+SRCREV = "b07de872ac18710dbf0d393a206e2598c6580f46"
- 
- S = "${WORKDIR}/git"
-diff --git a/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb b/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb
-index 615207a..c53e687 100644
---- a/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb
-+++ b/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper.bb
-@@ -18,6 +18,6 @@ RDEPENDS_${PN} += " \
-         "
- SRC_URI += "git://github.com/openbmc/phosphor-objmgr"
- 
--SRCREV = "f7aa902e465bfe1cf19b9079f1555633a88e7190"
-+SRCREV = "0bdc22a259720ee3a7ca78ee3aa07ab83bb39743"
- 
- S = "${WORKDIR}/git"
-diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid-fru.bb b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid-fru.bb
-index ce5fc03..47a8a34 100644
---- a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid-fru.bb
-+++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid-fru.bb
-@@ -18,7 +18,7 @@ TARGET_CFLAGS += " -fpic -std=gnu++14"
- 
- SRC_URI += "git://github.com/openbmc/ipmi-fru-parser"
- 
--SRCREV = "9702c89eba59fbf2c665a693317ba0a4f4843872"
-+SRCREV = "2f5a3cfd2412c7e10d128a856ad2c37c8a1b4a10"
- 
- FILES_${PN} += "${libdir}/host-ipmid/*.so"
- FILES_${PN}-dbg += "${libdir}/host-ipmid/.debug"
-diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid-oem.bb b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid-oem.bb
-index f9d6462..8f8ab4c 100644
---- a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid-oem.bb
-+++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid-oem.bb
-@@ -19,7 +19,7 @@ RDEPENDS_${PN} += "libsystemd"
- 
- SRC_URI += "git://github.com/openbmc/openpower-host-ipmi-oem"
- 
--SRCREV = "ca99efb722ff757707e27f91ba6af293d7e09753"
-+SRCREV = "5e22faeae1f3d3f197b4a6df2ec6f8231582f3d9"
- 
- FILES_${PN} += "${libdir}/host-ipmid/*.so"
- FILES_${PN}-dbg += "${libdir}/host-ipmid/.debug"
-diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb
-index 1825eb9..f341938 100644
---- a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb
-+++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb
-@@ -19,7 +19,7 @@ RDEPENDS_${PN} += "settings"
- RDEPENDS_${PN} += "network"
- SRC_URI += "git://github.com/openbmc/phosphor-host-ipmid"
- 
--SRCREV = "c6a5b9dc33a8faa8bb8b907e186325b928978510"
-+SRCREV = "93a753f01b464e120c88a28c463a909a952585bb"
- 
- S = "${WORKDIR}/git"
- INSTALL_NAME = "ipmid"
-diff --git a/meta-phosphor/common/recipes-phosphor/settings/settings.bb b/meta-phosphor/common/recipes-phosphor/settings/settings.bb
-index d1fa639..f5c6b14 100644
---- a/meta-phosphor/common/recipes-phosphor/settings/settings.bb
-+++ b/meta-phosphor/common/recipes-phosphor/settings/settings.bb
-@@ -10,7 +10,7 @@ RDEPENDS_${PN} += "python-dbus python-pygobject"
- 
- SRC_URI += "git://github.com/openbmc/phosphor-settingsd"
- 
--SRCREV = "3bda531d94f4c93473bbedd7d7e5c44d4d9da93b"
-+SRCREV = "df9b8ad2d53df7893ff0a49708ef05c3289653d4"
- 
- S = "${WORKDIR}/git"
- 
-diff --git a/meta-phosphor/common/recipes-phosphor/skeleton/pyphosphor.bb b/meta-phosphor/common/recipes-phosphor/skeleton/pyphosphor.bb
-index 22f059e..d90c8e5 100644
---- a/meta-phosphor/common/recipes-phosphor/skeleton/pyphosphor.bb
-+++ b/meta-phosphor/common/recipes-phosphor/skeleton/pyphosphor.bb
-@@ -10,6 +10,6 @@ inherit setuptools
- 
- SRC_URI += "git://github.com/openbmc/pyphosphor"
- 
--SRCREV = "7c8263573fb5ed25001db9c78eb4a149c057358a"
-+SRCREV = "362fb80c081e114236cc5d29b166f45fd4539041"
- 
- S = "${WORKDIR}/git"
-diff --git a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
-index 9d81279..1d45d16 100644
---- a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
-+++ b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
-@@ -20,7 +20,7 @@ SRC_URI += "git://github.com/openbmc/skeleton"
- PACKAGECONFIG ??= "${@bb.utils.contains('MACHINE_FEATURES', 'openpower-pflash', 'openpower-pflash', '', d)}"
- PACKAGECONFIG[openpower-pflash] = ",,,pflash"
- 
--SRCREV = "2f9ee83356fba3f6f843bf2584f3e7e95763ec98"
-+SRCREV = "b2f3fd7a29ddf16ea6171b4b4649d9a0ea8be58d"
- 
- S = "${WORKDIR}"
- 
+
+https://github.com/openbmc/openbmc/pull/312
+
+Brad Bishop (10):
+  AST2400: Remove unused patches
+  Add recipes-bsp to recipes.txt
+  Remove empty devtrees
+  Remove duplicate kernel config fragments
+  AST2400: Set kernel preferred provider version
+  Add a kernel 4.6 recipe
+  Add a u-boot 2016.05 recipe
+  AST2400: Use Palmetto as the default uboot target
+  AST2500: Initial AST2500 BSP layer
+  AST2500: Add AST2500 evaluation board layer
+
+Rick Altherr (1):
+  AST2400: Set u-boot preferred provider version
+
+ .../meta-ast2400/conf/machine/include/ast2400.inc  |     5 +-
+ .../patch-2013.07/0000-u-boot-aspeed-064.patch     | 44658 -------------------
+ .../files/patch-2013.07/0001-u-boot-openbmc.patch  |  1937 -
+ .../recipes-bsp/u-boot/u-boot_2013.07%.bbappend    |     6 -
+ .../recipes-kernel/linux/linux-obmc/hwmon.cfg      |     4 -
+ .../recipes-kernel/linux/linux-obmc_%.bbappend     |     2 +-
+ .../meta-aspeed/meta-ast2500/conf/layer.conf       |    10 +
+ .../meta-ast2500/conf/machine/include/ast2500.inc  |    15 +
+ .../recipes-bsp/u-boot/files/fw_env.config         |    24 +
+ .../recipes-bsp/u-boot/u-boot-fw-utils_%.bbappend  |    12 +
+ .../recipes-bsp/u-boot/u-boot_%.bbappend           |     3 +
+ .../recipes-kernel/linux/linux-obmc/defconfig      |   208 +
+ .../recipes-kernel/linux/linux-obmc_%.bbappend     |     2 +
+ .../meta-aspeed/meta-ast2500/recipes.txt           |     2 +
+ meta-openbmc-machines/meta-evb/conf/layer.conf     |     5 +
+ .../meta-evb/meta-evb-aspeed/conf/layer.conf       |     5 +
+ .../meta-evb-ast2500/conf/bblayers.conf.sample     |    27 +
+ .../meta-evb-ast2500/conf/conf-notes.txt           |     2 +
+ .../meta-evb-ast2500/conf/layer.conf               |     5 +
+ .../meta-evb-ast2500/conf/local.conf.sample        |    21 +
+ .../meta-evb-ast2500/conf/machine/evb-ast2500.conf |     6 +
+ .../recipes-kernel/linux/linux-obmc/firestone.cfg  |     2 -
+ .../recipes-kernel/linux/linux-obmc/firestone.dts  |     1 -
+ .../recipes-kernel/linux/linux-obmc/garrison.cfg   |     2 -
+ .../recipes-kernel/linux/linux-obmc/garrison.dts   |     1 -
+ .../recipes-kernel/linux/linux-obmc/palmetto.dts   |     1 -
+ .../recipes-kernel/linux/linux-obmc/barreleye.cfg  |     4 +
+ .../recipes-kernel/linux/linux-obmc_%.bbappend     |     2 +
+ .../recipes-bsp/u-boot/u-boot-fw-utils_2016.05.bb  |    46 +
+ .../recipes-bsp/u-boot/u-boot-mkimage_2016.05.bb   |    29 +
+ .../common/recipes-bsp/u-boot/u-boot_2016.05.bb    |    12 +
+ .../common/recipes-kernel/linux/linux-obmc.inc     |    27 +
+ .../common/recipes-kernel/linux/linux-obmc_4.4.bb  |    27 +-
+ .../common/recipes-kernel/linux/linux-obmc_4.6.bb  |     5 +
+ meta-phosphor/common/recipes.txt                   |     1 +
+ 35 files changed, 479 insertions(+), 46640 deletions(-)
+ delete mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/files/patch-2013.07/0000-u-boot-aspeed-064.patch
+ delete mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/files/patch-2013.07/0001-u-boot-openbmc.patch
+ delete mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-kernel/linux/linux-obmc/hwmon.cfg
+ create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2500/conf/layer.conf
+ create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2500/conf/machine/include/ast2500.inc
+ create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2500/recipes-bsp/u-boot/files/fw_env.config
+ create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2500/recipes-bsp/u-boot/u-boot-fw-utils_%.bbappend
+ create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2500/recipes-bsp/u-boot/u-boot_%.bbappend
+ create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2500/recipes-kernel/linux/linux-obmc/defconfig
+ create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2500/recipes-kernel/linux/linux-obmc_%.bbappend
+ create mode 100644 meta-openbmc-bsp/meta-aspeed/meta-ast2500/recipes.txt
+ create mode 100644 meta-openbmc-machines/meta-evb/conf/layer.conf
+ create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/conf/layer.conf
+ create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/bblayers.conf.sample
+ create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/conf-notes.txt
+ create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/layer.conf
+ create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/local.conf.sample
+ create mode 100644 meta-openbmc-machines/meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/machine/evb-ast2500.conf
+ delete mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-kernel/linux/linux-obmc/firestone.dts
+ delete mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-kernel/linux/linux-obmc/garrison.dts
+ delete mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-kernel/linux/linux-obmc/palmetto.dts
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc/barreleye.cfg
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-kernel/linux/linux-obmc_%.bbappend
+ create mode 100644 meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2016.05.bb
+ create mode 100644 meta-phosphor/common/recipes-bsp/u-boot/u-boot-mkimage_2016.05.bb
+ create mode 100644 meta-phosphor/common/recipes-bsp/u-boot/u-boot_2016.05.bb
+ create mode 100644 meta-phosphor/common/recipes-kernel/linux/linux-obmc.inc
+ create mode 100644 meta-phosphor/common/recipes-kernel/linux/linux-obmc_4.6.bb
+
 -- 
 2.8.3
