@@ -1,54 +1,52 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-qg0-x244.google.com (mail-qg0-x244.google.com
- [IPv6:2607:f8b0:400d:c04::244])
+Received: from mail-qk0-x22b.google.com (mail-qk0-x22b.google.com
+ [IPv6:2607:f8b0:400d:c09::22b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rQwll4Dn9zDqHQ
- for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 18:47:14 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rQwr250CGzDqHY
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 18:50:58 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=MkLkDAM2; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=n5SlNh9C; 
  dkim-atps=neutral
-Received: by mail-qg0-x244.google.com with SMTP id p34so4772438qgp.0
- for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 01:47:14 -0700 (PDT)
+Received: by mail-qk0-x22b.google.com with SMTP id u63so33966502qkh.0
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 01:50:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=DZtLGde5nC219w8MWedWr/w0gu1+dSoaeSKLCQ9mcx8=;
- b=MkLkDAM21JowqtWw7o3LXXWyAsADqOQKGJ4TsezogqyhG8xr2Gms8zRww+W7VsKBLx
- m++9ZnZBMvUqmv7wxgrH7APzEqD/FeLWbTONRxdKWD1IbTNeS5FYQ92bTMryWt4ikkFk
- weWEsF3nxk5AjzbCLmPl6ukODMWp8m/6CfVxWOe96j4BHvjniUly2EYehp8Y3vT5hOs0
- wGl4XNsPLNCxk82zV1seFbsF291JjuB2N9ATwj+oOz05R91mVOixm3T1eKJlzCdkMB08
- 79RyyZu+tvxA/ULbub8VFJfMP646CExaRhUmGVuP3OGLgc89KldFQDgRkQMlSzTqT+22
- Sqjg==
+ bh=Krfvr/T+f/US/ncI3eyuQoXN59i5GEWgYq2k4of9UHY=;
+ b=n5SlNh9C+BBq0HIBXhwUR+8ZC7GPlHAZmR8Tb6iti+c147YsfY58HUh0oEZMQd78jZ
+ 8AkIPtsw9mIuNSfiv2ZUNNFa0vbAl1j78kos3bmF3oufl2vNx8K1VK8aYXAWmMAdv8Hk
+ TzG9nukXGCpxmSC79QJ3UTAiGH4RQFEJvU9mU9f/J80hQqw+cTyb/OMWfkMYFR8kXZlF
+ q0SfGWS/Hgm8/qEWUDMAeFFEtQtW+75YQfl4penhMenVgWEDwX6GOeVj/xByZiwE+vQ8
+ SKNMjxVFgzvnjxPVQOs7aDzVHaGF13H9RBaYXWJVUkOpjsdNKC0zhsSFvogGYfgqdGBy
+ sVeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=DZtLGde5nC219w8MWedWr/w0gu1+dSoaeSKLCQ9mcx8=;
- b=TmkkS+bCoRUfsKlq4b53Xii6osxRLUr+oafLSG1r7xAd7noIMGqW+/rNOyG2jc9OGF
- OAQHbzP53f3bwSzOhl9RGguwW0JjLxwji+5MGKpgxKuasBWOFdzsN951oE13NsM+RxR8
- qv5eZM+gfN2eD+u/an22y1laRqrmp1e0IEYeSWtulc75fTZl0rvluHTfeqdKr/Q57tvE
- XF5Bz8kTXNXqMEdGAW6dsabZ1om6IvGceB36yL5Db6Vsjda1HyHrSR2QgUfpeHwax+SC
- wRperRP+a70+O83ZVkdDo1WxwkAVFEIEEJoDExJcKI24v41llVtBdPfeR6qg2WMitJmk
- Vbtw==
-X-Gm-Message-State: ALyK8tKq219BLK03ryJckmoWbZi10q2q+oJfe9WnymMscPrjTvzeALhaYo83KWGzbPn8FKxbWwCwXa69OplKfg==
-X-Received: by 10.140.228.134 with SMTP id y128mr664243qhb.81.1465548431910;
- Fri, 10 Jun 2016 01:47:11 -0700 (PDT)
+ bh=Krfvr/T+f/US/ncI3eyuQoXN59i5GEWgYq2k4of9UHY=;
+ b=YuGSP0yqlS6kLNeDoov2UyFQjIBoX6BaVztGWxxXpDoa5MSgzjIxodnKpvW9TgWTz3
+ LruZ6IyNYs/yyqhcZwRBLuxbLOrvDXPUkqrSHA4MAi04R4Sq3m5oZSlDtSSWeSuCVYQW
+ jNx7eMKMBS7C7aj3fFKDtedslLgHQO1/x+N8UmCXIyUaNBm2rbHb8xYmpws5jfCOnZpQ
+ 2Ff3BWvmgThLroj56UucC9rjRd3ciuJCajvsPM5+gMzHw3eMtIVzvxBfhF2JUpfcAdwh
+ JousnYsooMpsvy8kExG13JkrQ6w64y8zGkdNhYGpOhCn2q6rpZvmYWhOgPkbNilMY2dQ
+ DgAQ==
+X-Gm-Message-State: ALyK8tLD+wsD4FjeDvaq1heohWV3xrqUBKsY6jRfroL/q9PDH5wktZkoTIVbLQVRnvWQnSQ0Wnk4iM0jQL5vqA==
+X-Received: by 10.55.107.6 with SMTP id g6mr281975qkc.166.1465548656443; Fri,
+ 10 Jun 2016 01:50:56 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.237.37.148 with HTTP; Fri, 10 Jun 2016 01:46:52 -0700 (PDT)
-In-Reply-To: <1465533869-3218-4-git-send-email-andrew@aj.id.au>
-References: <1465533869-3218-1-git-send-email-andrew@aj.id.au>
- <1465533869-3218-4-git-send-email-andrew@aj.id.au>
+Received: by 10.237.37.148 with HTTP; Fri, 10 Jun 2016 01:50:37 -0700 (PDT)
+In-Reply-To: <5759B6EE.3010700@google.com>
+References: <DB4PR05MB0941CA88039CFE2BEEA8ECD9D55D0@DB4PR05MB0941.eurprd05.prod.outlook.com>
+ <5759B6EE.3010700@google.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 10 Jun 2016 03:46:52 -0500
-X-Google-Sender-Auth: CYziTqyzydtsm98LAcqz1JOglB8
-Message-ID: <CACPK8Xfe58gdYGV9QcdHVc2y3hp9AYpCtuFFUd1C-pHmNAy0=w@mail.gmail.com>
-Subject: Re: [PATCH linux 3/4] ftgmac100: Add devicetree option for the Aspeed
- g5 register interface
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: OpenBMC <openbmc@lists.ozlabs.org>, Gavin Shan <gwshan@linux.vnet.ibm.com>,
- Jeremy Kerr <jk@ozlabs.org>
+Date: Fri, 10 Jun 2016 03:50:37 -0500
+X-Google-Sender-Auth: k51iGpl-Ozv_44hky_kKojE3l3c
+Message-ID: <CACPK8Xd7xQ=tofdBw9P0JuzQacLmfsXFpeQ_pBHXd2Z2JhY26Q@mail.gmail.com>
+Subject: Re: AST2500 support questions
+To: Xo Wang <xow@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
@@ -61,29 +59,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Jun 2016 08:47:16 -0000
+X-List-Received-Date: Fri, 10 Jun 2016 08:50:59 -0000
 
-On Thu, Jun 9, 2016 at 11:44 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> @@ -1346,6 +1358,15 @@ static int ftgmac100_probe(struct platform_device *pdev)
->                 priv->use_ncsi = false;
->         }
+On Thu, Jun 9, 2016 at 1:35 PM, Xo Wang <xow@google.com> wrote:
+>> We tried to boot it with uImage and separate DTB image using the
+>> command 'bootm <KERNEL_ADDR> - <DTB_ADDR>'
 >
-> +       if (pdev->dev.of_node &&
-> +           of_get_property(pdev->dev.of_node, "aspeed-g5-interface", NULL)) {
+> If I understand correctly, the configuration you tried is to load the DTB at
+> 0x82000000 and pass that address to a CONFIG_OF_LIBFDT kernel in register
+> r2. This should work and is probably considered the preferred/idiomatic ARM
+> way, but not how the phosphor build is doing it.
 
-We should get our device tree experts to chime in here.
+Yep. We would prefer to do it this way, but I believe the bootm
+command in the u-boot tree we're running lacks support. On the
+ast2500, where we're using u-boot 2016.05, we can stop appending the
+device tree to the kernel and do things this way.
 
-An alternative could be to use
-of_machine_is_compatible("aspeed,ast2500"). Then we don't need extra
-properties.
+I think we will hold off until we move to a common, modern u-boot for
+all platforms.
 
-> +               priv->rxdes0_edorr_mask = (1 << 30);
-> +               priv->txdes0_edotr_mask = (1 << 30);
-> +       } else {
-> +               priv->rxdes0_edorr_mask = (1 << 15);
-> +               priv->txdes0_edotr_mask = (1 << 15);
-> +       }
-> +
->         netdev->ethtool_ops = &ftgmac100_ethtool_ops;
->         netdev->netdev_ops = &ftgmac100_netdev_ops;
->         if (pdev->dev.of_node &&
+Cheers,
+
+Joel
