@@ -1,56 +1,45 @@
-Return-Path: <cyrilbur@gmail.com>
-Received: from mail-pf0-x243.google.com (mail-pf0-x243.google.com
- [IPv6:2607:f8b0:400e:c00::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from homiemail-a19.g.dreamhost.com (sub3.mail.dreamhost.com
+ [69.163.253.7])
+ (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rQfxr71hLzDq5j
- for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 08:25:04 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=zQVuJaHt; 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rQkSG5s2zzDqHH
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 11:03:10 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=IH4autik; 
  dkim-atps=neutral
-Received: by mail-pf0-x243.google.com with SMTP id c74so3629323pfb.0
- for <openbmc@lists.ozlabs.org>; Thu, 09 Jun 2016 15:25:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=ULjDF8Lwy+ZvBgTdo1ltas6NdZGhvdj7X7IOKIQjWwE=;
- b=zQVuJaHtXpXxMvVCo6cDEV1kYx21sg6kvjnqkNPx9r7U0Zsd44RmCeUWaxLJjjxSxK
- dGWy5J0M/ox2v/MOSh3bpYm0E5EZzRBmbra6h9vZeJF8Y3SWylrJSN9xcxzVuaDCAhsm
- aEWG8wIYCyZfFkUk3tlvzdxIwFARoKgqn1Z2v5sfN77NnP+z8fYM6MnzCXZwJHfPPB+n
- acbHOqu0aQjtrWEBzYHLBJIUVQk0vPSpwZgUqyHxHJ8voAiNp1Forqbt9sXWYcwangdx
- hIpcLRnrH00lqg5QqX3+NNF8SlSv1hZE1Kqb2AIdmyzy7xkE8UVrygTgyEfbSg+33eX1
- wOcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=ULjDF8Lwy+ZvBgTdo1ltas6NdZGhvdj7X7IOKIQjWwE=;
- b=gztQffUfBvoTbzY9nnbgn92aFctzfZLHmhAns5y7W7jJvbws4BHlRwq1MGE+kPmhMO
- DaMRJZGFuYViai8bLlX+R/4PsgASkH4aakE1t5PWrMe47bSmggOBb0LNHVeC+5CiQwKT
- ZJLU62K32PoEU6UoxJs1VQwYNPV5PffD2pakzjoF+WEVAy6X/nTP8gABtTEVupU2LsDJ
- Bh6En4DAURHk+PbEhPW19AI1q0zmou3qupI05MOVuF4mDpBVAuqMuthfVXbLXobDDmf7
- 5ws5/oAMtV1ksILffiFK4H0E1ifMpvM32rWTOfo7J4YFXpn6ctnMaXZDowsTuLdZHlO+
- 5uZg==
-X-Gm-Message-State: ALyK8tLbg17dJthyJr+Vdg74YyS1Wl4zGMhbkXQKK8XwA6talkbtLwnfvZTG5Ddh/gXxgQ==
-X-Received: by 10.98.134.196 with SMTP id x187mr6898381pfd.21.1465511102518;
- Thu, 09 Jun 2016 15:25:02 -0700 (PDT)
-Received: from camb691 ([122.99.82.10])
- by smtp.gmail.com with ESMTPSA id qc6sm12453563pac.6.2016.06.09.15.24.59
- (version=TLSv1/SSLv3 cipher=OTHER);
- Thu, 09 Jun 2016 15:25:01 -0700 (PDT)
-Date: Fri, 10 Jun 2016 08:24:53 +1000
-From: Cyril Bur <cyrilbur@gmail.com>
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-Cc: openbmc@lists.ozlabs.org, ratagupt <ratagupt@in.ibm.com>
-Subject: Re: [PATCH phosphor-host-ipmid v2] Implement Network Override
-Message-ID: <20160610082453.4981195a@camb691>
-In-Reply-To: <20160608175040.18764-2-openbmc-patches@stwcx.xyz>
-References: <20160608175040.18764-1-openbmc-patches@stwcx.xyz>
- <20160608175040.18764-2-openbmc-patches@stwcx.xyz>
-X-Mailer: Claws Mail 3.13.2 (GTK+ 2.24.30; x86_64-unknown-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Received: from homiemail-a19.g.dreamhost.com (localhost [127.0.0.1])
+ by homiemail-a19.g.dreamhost.com (Postfix) with ESMTP id 851A1604078;
+ Thu,  9 Jun 2016 18:03:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=message-id
+ :subject:from:reply-to:to:cc:date:in-reply-to:references
+ :content-type:mime-version; s=aj.id.au; bh=RqSFykxNoSyfibHE1ajkR
+ Zp+WHo=; b=IH4autikycTbqsSRcUbSzknYxGXFNUpYiRbPLBkLKio2LWgN2b+QZ
+ yAg9IerU9Rhdc8U69k58531pqvg4ThmpmpyMq0zV4Id0bmn026/BGAbGSAMePp6/
+ uPXN0SS5S25PtXDxeu3eQ02yBaqgTbDA0Iyou3B5SDIcbpcnMzplwM=
+Received: from keelia (unknown [203.0.153.9])
+ (using TLSv1 with cipher AES128-SHA (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: andrew@aj.id.au)
+ by homiemail-a19.g.dreamhost.com (Postfix) with ESMTPSA id 56D33604069;
+ Thu,  9 Jun 2016 18:03:06 -0700 (PDT)
+Message-ID: <1465520569.16048.181.camel@aj.id.au>
+Subject: Re: [PATCH qemu 2/2] ast2400: Integrate the SCU model and configure
+ reset values
+From: Andrew Jeffery <andrew@aj.id.au>
+Reply-To: andrew@aj.id.au
+To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, OpenBMC
+ <openbmc@lists.ozlabs.org>
+Date: Fri, 10 Jun 2016 10:32:49 +0930
+In-Reply-To: <57595540.8060203@kaod.org>
+References: <1465460046-7692-1-git-send-email-andrew@aj.id.au>
+ <1465460046-7692-3-git-send-email-andrew@aj.id.au>
+ <57595540.8060203@kaod.org>
+Organization: IBM OzLabs
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-DvMvTIsr3IzXj56qt/5c"
+X-Mailer: Evolution 3.18.5.2-0ubuntu3 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -62,299 +51,87 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Jun 2016 22:25:05 -0000
+X-List-Received-Date: Fri, 10 Jun 2016 01:03:11 -0000
 
-On Wed,  8 Jun 2016 12:50:40 -0500
-OpenBMC Patches <openbmc-patches@stwcx.xyz> wrote:
 
-> From: ratagupt <ratagupt@in.ibm.com>
-> 
+--=-DvMvTIsr3IzXj56qt/5c
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-Still no. Please read the style guide also please see Patricks response about
-your interesting use of c++ or rather c/c++ mess.
+T24gVGh1LCAyMDE2LTA2LTA5IGF0IDEzOjM4ICswMjAwLCBDw6lkcmljIExlIEdvYXRlciB3cm90
+ZToKPiBPbiAwNi8wOS8yMDE2IDEwOjE0IEFNLCBBbmRyZXcgSmVmZmVyeSB3cm90ZToKPiA+IAo+
+ID4gQWxtb3N0IGFsbCBjb25maWd1cmVkIHJlc2V0IHZhbHVlcyBhcmUgc3BlY2lmaWVkIGJ5IHRo
+ZSBkYXRhc2hlZXQuIFRoZQo+ID4gZXhjZXB0aW9uIGlzIEFTUEVFRF9TQ1VfU09DX1NDUkFUQ0gx
+LCB3aGVyZSB3ZSBtYXJrIHRoZSBEUkFNIGFzCj4gPiBzdWNjZXNzZnVsbHkgaW5pdGlhbGlzZWQg
+YnkgdGhlIFNvQyB0byBhdm9pZCB1bm5lY2Vzc2FyeSBkYXJrIGNvcm5lcnMgaW4KPiA+IHRoZSBT
+b0MncyB1LWJvb3Qgc3VwcG9ydC4KPiA+IAo+ID4gU2lnbmVkLW9mZi1ieTogQW5kcmV3IEplZmZl
+cnkgPGFuZHJld0Bhai5pZC5hdT4KPiA+IC0tLQo+ID4gwqBody9hcm0vYXN0MjQwMC5jwqDCoMKg
+wqDCoMKgwqDCoMKgfCA0NyArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKwo+ID4gwqBpbmNsdWRlL2h3L2FybS9hc3QyNDAwLmggfMKgwqAyICsrCj4gPiDCoDIg
+ZmlsZXMgY2hhbmdlZCwgNDkgaW5zZXJ0aW9ucygrKQo+ID4gCj4gPiBkaWZmIC0tZ2l0IGEvaHcv
+YXJtL2FzdDI0MDAuYyBiL2h3L2FybS9hc3QyNDAwLmMKPiA+IGluZGV4IDRhOWRlMGUxMGNiYy4u
+MjQwZGExODBiZWZhIDEwMDY0NAo+ID4gLS0tIGEvaHcvYXJtL2FzdDI0MDAuYwo+ID4gKysrIGIv
+aHcvYXJtL2FzdDI0MDAuYwo+ID4gQEAgLTI0LDEyICsyNCw0NiBAQAo+ID4gwqAjZGVmaW5lIEFT
+VDI0MDBfSU9NRU1fU0laRcKgwqDCoMKgwqDCoMKgMHgwMDIwMDAwMAo+ID4gwqAjZGVmaW5lIEFT
+VDI0MDBfSU9NRU1fQkFTRcKgwqDCoMKgwqDCoMKgMHgxRTYwMDAwMAo+ID4gwqAjZGVmaW5lIEFT
+VDI0MDBfVklDX0JBU0XCoMKgwqDCoMKgwqDCoMKgwqAweDFFNkMwMDAwCj4gPiArI2RlZmluZSBB
+U1QyNDAwX1NDVV9CQVNFwqDCoMKgwqDCoMKgwqDCoMKgMHgxRTZFMjAwMAo+ID4gwqAjZGVmaW5l
+IEFTVDI0MDBfVElNRVJfQkFTRcKgwqDCoMKgwqDCoMKgMHgxRTc4MjAwMAo+ID4gwqAjZGVmaW5l
+IEFTVDI0MDBfSTJDX0JBU0XCoMKgwqDCoMKgwqDCoMKgwqAweDFFNzhBMDAwCj4gPiDCoAo+ID4g
+wqBzdGF0aWMgY29uc3QgaW50IHVhcnRfaXJxc1tdID0geyA5LCAzMiwgMzMsIDM0LCAxMCB9Owo+
+ID4gwqBzdGF0aWMgY29uc3QgaW50IHRpbWVyX2lycXNbXSA9IHsgMTYsIDE3LCAxOCwgMzUsIDM2
+LCAzNywgMzgsIDM5LCB9Owo+ID4gwqAKPiA+ICtzdGF0aWMgY29uc3QgQXNwZWVkU0NVUmVzZXRD
+Zmcgc2N1X3Jlc2V0W10gPSB7Cj4gPiArwqDCoMKgwqAvKiBWYWx1ZXMgYXJlIGRlZmF1bHRzIGZy
+b20gdGhlIGRhdGFzaGVldCBleGNlcHQgd2hlcmUgbm90ZWQgKi8KPiA+ICvCoMKgwqDCoHsgQVNQ
+RUVEX1NDVV9TWVNfUlNUX0NUUkwswqDCoMKgMHhGRkNGRkVEQ1UgfSwKPiA+ICvCoMKgwqDCoHsg
+QVNQRUVEX1NDVV9DTEtfU0VMLMKgwqDCoMKgwqDCoMKgwqAweEYzRjQwMDAwVSB9LAo+ID4gK8Kg
+wqDCoMKgeyBBU1BFRURfU0NVX0NMS19TVE9QX0NUUkwswqDCoDB4MTlGQzNFOEJVIH0sCj4gPiAr
+wqDCoMKgwqB7IEFTUEVFRF9TQ1VfRDJQTExfUEFSQU0swqDCoMKgwqAweDAwMDI2MTA4VSB9LAo+
+ID4gK8KgwqDCoMKgeyBBU1BFRURfU0NVX01QTExfUEFSQU0swqDCoMKgwqDCoDB4MDAwMzAyOTFV
+IH0sCj4gPiArwqDCoMKgwqB7IEFTUEVFRF9TQ1VfSFBMTF9QQVJBTSzCoMKgwqDCoMKgMHgwMDAw
+MDI5MVUgfSwKPiA+ICvCoMKgwqDCoHsgQVNQRUVEX1NDVV9NSVNDX0NUUkwxLMKgwqDCoMKgwqAw
+eDAwMDAwMDEwVSB9LAo+ID4gK8KgwqDCoMKgeyBBU1BFRURfU0NVX1BDSV9DVFJMMSzCoMKgwqDC
+oMKgwqAweDIwMDAxQTAzVSB9LAo+ID4gK8KgwqDCoMKgeyBBU1BFRURfU0NVX1BDSV9DVFJMMizC
+oMKgwqDCoMKgwqAweDIwMDAxQTAzVSB9LAo+ID4gK8KgwqDCoMKgeyBBU1BFRURfU0NVX1BDSV9D
+VFJMMyzCoMKgwqDCoMKgwqAweDA0MDAwMDMwVSB9LAo+ID4gK8KgwqDCoMKgeyBBU1BFRURfU0NV
+X1NZU19SU1RfU1RBVFVTLCAweDAwMDAwMDAxVSB9LAo+ID4gK8KgwqDCoMKgeyBBU1BFRURfU0NV
+X1NPQ19TQ1JBVENIMSzCoMKgwqAweDAwMDAwMEMwVSB9LCAvKiBTb0MgY29tcGxldGVkIERSQU0g
+aW5pdCAqLwo+ID4gK8KgwqDCoMKgeyBBU1BFRURfU0NVX01JU0NfQ1RSTDIswqDCoMKgwqDCoDB4
+MDAwMDAwMjNVIH0sCj4gPiArwqDCoMKgwqB7IEFTUEVFRF9TQ1VfUk5HX0NUUkwswqDCoMKgwqDC
+oMKgwqAweDAwMDAwMDBFVSB9LAo+ID4gK8KgwqDCoMKgeyBBU1BFRURfU0NVX1JFVl9JRCzCoMKg
+wqDCoMKgwqDCoMKgwqAweDAyMDAwMzAzVSB9LAo+ID4gK8KgwqDCoMKgeyBBU1BFRURfU0NVX1BJ
+Tk1VWF9DVFJMMizCoMKgwqAweDAwMDBGMDAwVSB9LAo+ID4gK8KgwqDCoMKgeyBBU1BFRURfU0NV
+X1BJTk1VWF9DVFJMMyzCoMKgwqAweDAxMDAwMDAwVSB9LAo+ID4gK8KgwqDCoMKgeyBBU1BFRURf
+U0NVX1BJTk1VWF9DVFJMNCzCoMKgwqAweDAwMDAwMEZGVSB9LAo+ID4gK8KgwqDCoMKgeyBBU1BF
+RURfU0NVX1BJTk1VWF9DVFJMNSzCoMKgwqAweDAwMDBBMDAwVSB9LAo+ID4gK8KgwqDCoMKgeyBB
+U1BFRURfU0NVX1dEVF9SU1RfQ1RSTCzCoMKgwqAweDAwM0ZGRkYzVSB9LAo+ID4gK8KgwqDCoMKg
+eyBBU1BFRURfU0NVX1BJTk1VWF9DVFJMOCzCoMKgwqAweEZGRkYwMDAwVSB9LAo+IMKgwqDCoMKg
+wqDCoMKgeyBBU1BFRURfU0NVX1BJTk1VWF9DVFJMOSzCoMKgwqAweDAwMEZGRkZGVSB9LAoKQWgg
+eWVzLiBUaGFua3MuCgo+IAo+IFJldmlld2VkLWJ5OiBDw6lkcmljIExlIEdvYXRlciA8Y2xnQGth
+b2Qub3JnPgoKQ2hlZXJzLAoKQW5kcmV3
 
-> ---
->  chassishandler.C | 223 ++++++++++++++++++++++++++++++++++++++++++++++++++++---
->  1 file changed, 211 insertions(+), 12 deletions(-)
-> 
-> diff --git a/chassishandler.C b/chassishandler.C
-> index d5b3404..af213b0 100644
-> --- a/chassishandler.C
-> +++ b/chassishandler.C
-> @@ -3,15 +3,19 @@
->  #include <stdio.h>
->  #include <string.h>
->  #include <stdint.h>
-> -
-> -
-> +#include <arpa/inet.h>
-> +#include <netinet/in.h>
-> +#include <string>
-> +using namespace std;
->  //Defines
-> -#define SET_PARM_VERSION 1
-> -#define SET_PARM_BOOT_FLAGS_PERMANENT 0x40 //boot flags data1 7th bit on
-> +#define SET_PARM_VERSION                     0x01
-> +#define SET_PARM_BOOT_FLAGS_PERMANENT        0x40 //boot flags data1 7th bit on
->  #define SET_PARM_BOOT_FLAGS_VALID_ONE_TIME   0x80 //boot flags data1 8th bit on
->  #define SET_PARM_BOOT_FLAGS_VALID_PERMANENT  0xC0 //boot flags data1 7 & 8 bit on 
->  
-> -
-> +#define SIZE_MAC                             18
-> +#define SIZE_HOST_NETWORK_DATA               26
-> +#define SIZE_BOOT_OPTION                     SIZE_HOST_NETWORK_DATA
->  
->  // OpenBMC Chassis Manager dbus framework
->  const char  *chassis_bus_name      =  "org.openbmc.control.Chassis";
-> @@ -233,14 +237,189 @@ struct get_sys_boot_options_t {
->  struct get_sys_boot_options_response_t {
->      uint8_t version;
->      uint8_t parm;
-> -    uint8_t data[5];
-> +    uint8_t data[SIZE_BOOT_OPTION];
->  }  __attribute__ ((packed));
->  
->  struct set_sys_boot_options_t {
->      uint8_t parameter;
-> -    uint8_t data[8];
-> +    uint8_t data[SIZE_BOOT_OPTION];
->  }  __attribute__ ((packed));
->  
-> +struct host_network_config_t {
-> +     string ipaddress;
-> +     string prefix;
-> +     string gateway;
-> +     string macaddress;
-> +     string isDHCP;
-> +
-> +     host_network_config_t()
-> +     {
-> +         ipaddress = "";
-> +         prefix = "";
-> +         gateway = "";
-> +         macaddress = "";
-> +         isDHCP = "";
-> +     }
-> +};
-> +
-> +uint8_t getHostNetworkData(get_sys_boot_options_response_t *respptr)
-> +{
-> +    char *prop = NULL;
-> +
-> +    uint8_t data[SIZE_BOOT_OPTION]={0x80,0x21, 0x70 ,0x62 ,0x21,0x00 ,0x01 ,0x06 ,0x04};
-> +
-> +    int rc = dbus_get_property("network_config",&prop);
-> +
-> +    if (rc < 0) {
-> +        fprintf(stderr, "Dbus get property(boot_flags) failed for get_sys_boot_options.\n");
-> +        return rc;
-> +    }
-> +
-> +    /* network_config property Value would be in the form of 
-> +     * ipaddress=1.1.1.1,prefix=16,gateway=2.2.2.2,mac=11:22:33:44:55:66,dhcp=0
-> +     */
-> +
-> +    /* Parsing the string and fill the hostconfig structure with the 
-> +     * values */
-> +
-> +    host_network_config_t host_config;
-> +    string delimiter = ",";
-> +
-> +    int pos = 0;
-> +    string token,name,value;
-> +    string conf_str(prop);
-> +    
-> +    printf ("Configuration String[%s]\n ",conf_str.c_str());
-> +
-> +    while ((pos = conf_str.find(delimiter)) != std::string::npos) {
-> +
-> +        token = conf_str.substr(0, pos);
-> +        int pos1 = token.find("=");
-> +
-> +        name = token.substr(0,pos1);
-> +        value = token.substr(pos1+1,pos);
-> +
-> +        if ( name == "ipaddress" )
-> +            host_config.ipaddress = value;
-> +        else if ( name == "prefix")
-> +            host_config.prefix = value; 
-> +        else if ( name == "gateway" )
-> +            host_config.gateway = value;
-> +        else if ( name == "mac" )
-> +            host_config.macaddress = value;
-> +        else if ( name == "dhcp" )
-> +            host_config.isDHCP = value;
-> +
-> +        conf_str.erase(0, pos + delimiter.length());
-> +    }
-> +
-> +    //Converting the mac address as number//
-> +    //If there as an error in converting the mac as number we are not throwing
-> +    //error we would be sending 0's for the mac.
-> +    
-> +    char *tokptr = NULL;
-> +    char* digit = strtok_r((char *)host_config.macaddress.c_str(), ":", &tokptr);
-> +    if (digit == NULL)
-> +    {
-> +        fprintf(stderr, "Unexpected MAC format: %s", host_config.macaddress.c_str());
-> +    }
-> +    
-> +    //As 9 bytes are pre filled so staring from index 9.If there is a failure
-> +    //in the strtok_r then digit will be null then we don't need to do
-> +    //anything as data is prefilled with 0
-> +    
-> +    uint8_t index=9;
-> +    int resp_byte = 0;
-> +    while (digit != NULL)
-> +    {
-> +        resp_byte = strtoul(digit, NULL, 16);
-> +        memcpy((void*)&data[index], &resp_byte, 1);
-> +        index++;
-> +        digit = strtok_r(NULL, ":", &tokptr);
-> +    }
-> +
-> +    //Conevrt the dhcp,ipaddress,mask and gateway as hex number
-> +    data[index++]=0x00;
-> +    sscanf(host_config.isDHCP.c_str(),"%02X",&data[index++]);
-> +
-> +    inet_pton(AF_INET,host_config.ipaddress.c_str(),(void *)&data[index]);
-> +    index+=4;
-> +    sscanf(host_config.prefix.c_str(),"%02X",&data[index++]);
-> +    inet_pton(AF_INET,host_config.gateway.c_str(),(void *)&data[index]);
-> +    index+=4; 
-> +    
-> +    
-> +    printf ("\n===Printing the IPMI Formatted Data========\n");
-> +
-> +    for (int j = 0;j<index;j++)
-> +        printf("%02x ", data[j]);
-> +
-> +    memcpy(respptr->data,data,SIZE_BOOT_OPTION);
-> +    return 0;
-> +
-> +}
-> +
-> +uint8_t setHostNetworkData(set_sys_boot_options_t * reqptr)
-> +{
-> +    string host_network_config;
-> +    char mac[SIZE_MAC];
-> +    char ipAddress[INET_ADDRSTRLEN];
-> +    char gateway[INET_ADDRSTRLEN];
-> +    char prefix[1];
-> +    char dhcp[2];
-> +    uint32_t cookie = 0;
-> +
-> +
-> +    memset( mac ,0,SIZE_MAC );
-> +    memset(ipAddress,0,INET_ADDRSTRLEN);
-> +    memset(gateway,0,INET_ADDRSTRLEN);
-> +    memset(prefix,0,1);
-> +    memset(dhcp,0,2);
-> +
-> +    uint8_t index = 9;  
-> +    sscanf((char *)&(reqptr->data[1]),"%02X",&cookie);
-> +
-> +    if ( !cookie) {
-> +     
-> +         snprintf(mac, SIZE_MAC, "%02x:%02x:%02x:%02x:%02x:%02x",
-> +            reqptr->data[index],
-> +            reqptr->data[index+1],
-> +            reqptr->data[index+2],
-> +            reqptr->data[index+3],
-> +            reqptr->data[index+4],
-> +            reqptr->data[index+5]);
-> +
-> +
-> +        snprintf(dhcp,2, "%d", reqptr->data[index+6]);
-> +
-> +        snprintf(ipAddress, INET_ADDRSTRLEN, "%d.%d.%d.%d",
-> +            reqptr->data[index+8], reqptr->data[index+9], reqptr->data[index+10], reqptr->data[index+11]);
-> +
-> +        snprintf(prefix, INET_ADDRSTRLEN, "%d", reqptr->data[index+12]);
-> +
-> +
-> +        snprintf(gateway, INET_ADDRSTRLEN, "%d.%d.%d.%d",
-> +            reqptr->data[index+13], reqptr->data[index+14], reqptr->data[index+15], reqptr->data[index+16]);
-> +    }
-> +
-> +    host_network_config += "ipaddress="+string(ipAddress)+",prefix="+ \
-> +                       string(prefix)+",gateway="+string(gateway)+\
-> +                       ",mac="+string(mac)+",dhcp="+string(dhcp);
-> +
-> +
-> +    printf ("Network configuration changed: %s\n",host_network_config.c_str());
-> +
-> +    int r = dbus_set_property("network_config",host_network_config.c_str());
-> +
-> +    if (r < 0) {
-> +        fprintf(stderr, "Dbus set property(network_config) failed for set_sys_boot_options.\n");
-> +        r = IPMI_CC_UNSPECIFIED_ERROR;
-> +    }
-> +
-> +    return r;
-> +
-> +}
-> +
->  ipmi_ret_t ipmi_chassis_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
->                                ipmi_request_t request, ipmi_response_t response, 
->                                ipmi_data_len_t data_len, ipmi_context_t context)
-> @@ -446,7 +625,18 @@ ipmi_ret_t ipmi_chassis_get_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
->          }
->  
->  
-> -    } else {
-> +    } else if ( reqptr->parameter == 0x61 ) {
-> +       resp->parm      = 0x61;
-> +       int ret = getHostNetworkData(resp);
-> +       if (ret < 0) {
-> +           fprintf(stderr, "getHostNetworkData failed for get_sys_boot_options.\n");
-> +           rc = IPMI_CC_UNSPECIFIED_ERROR;
-> +
-> +       }else
-> +          rc = IPMI_CC_OK;
-> +    }
-> +
-> +    else {
->          fprintf(stderr, "Unsupported parameter 0x%x\n", reqptr->parameter);
->      }
->  
-> @@ -464,11 +654,10 @@ ipmi_ret_t ipmi_chassis_set_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
->  {
->      ipmi_ret_t rc = IPMI_CC_OK;
->      char *s;
-> -
-> -    printf("IPMI SET_SYS_BOOT_OPTIONS\n");
-> -
->      set_sys_boot_options_t *reqptr = (set_sys_boot_options_t *) request;
->  
-> +    printf("IPMI SET_SYS_BOOT_OPTIONS reqptr->parameter =[%d]\n",reqptr->parameter);
-> +
->      // This IPMI command does not have any resposne data
->      *data_len = 0;
->  
-> @@ -476,6 +665,7 @@ ipmi_ret_t ipmi_chassis_set_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
->       * Parameter #5 means boot flags. Please refer to 28.13 of ipmi doc.
->       * This is the only parameter used by petitboot.
->       */
-> +
->      if (reqptr->parameter == 5) {
->  
->          s = get_boot_option_by_ipmi(((reqptr->data[1] & 0x3C) >> 2));
-> @@ -507,7 +697,16 @@ ipmi_ret_t ipmi_chassis_set_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
->              rc = IPMI_CC_UNSPECIFIED_ERROR;
->          }
->  
-> -    } else {
-> +    }
-> +    else if ( reqptr->parameter == 0x61 ) {
-> +       printf("IPMI SET_SYS_BOOT_OPTIONS reqptr->parameter =[%d]\n",reqptr->parameter);
-> +       int ret = setHostNetworkData(reqptr);
-> +       if (ret < 0) {
-> +           fprintf(stderr, "setHostNetworkData failed for set_sys_boot_options.\n");
-> +           rc = IPMI_CC_UNSPECIFIED_ERROR;
-> +       }
-> +    }      
-> +    else {
->          fprintf(stderr, "Unsupported parameter 0x%x\n", reqptr->parameter);
->          rc = IPMI_CC_PARM_NOT_SUPPORTED;
->      }
+
+--=-DvMvTIsr3IzXj56qt/5c
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAABCgAGBQJXWhG5AAoJEJ0dnzgO5LT5g5gQAJQzJ4l7D7WFuXRpv8gvC097
+rO/DJpxbu6umFCjtAcV5JNUL1FGQJRv2erEUJyJWv71jtbe89nfAJQET8JaAem2f
+jvC5wYFaqbl/9HjaFAzkFP1WJ8yc6l9Um1DhUVQrOOCw22qzbcxRni8B1MQPDQC3
+Mww4wynv2nRe3jO8Nfht4+p9WLHvEOjqvc6yZrAHomn1OjII91CTAbBd1PIeFkcU
+zdnylvdLlem6MmhHKR9V6N8YYb3ZkP1mQa9aWElaIqme4dcJZ3I/V0hea79h93Cm
+CA3Xs9/FEal+sLNZqU1qSVy9kszwGx5rCL3TAIjbpMvcayBzXQE282YcMnfD51Jd
+9MJ9L4C30nlzBOiiteOAdyEAJUzF43fHNWEbwUkzllbjiyk5+O/GQoRBcaVzBh9q
+YYh5tBopHikjRLkxy3+/18vo0ju7zGdvYobCMSy9A9WBOcuRUsWJnvZA1IN7GhJa
+LhRsg1jIdhy4+/08unMt1bzKRiy8SUJ3A5yqXrXeJwWL4vPg/aQ/lcjlDJId1OgY
++NvnKx05+RogIPOUBZrBc5Q/jzb7M4+d33bD3NZ0o/BaPWpTkLn0HJ0Ee+lfpF6r
+G5yFxRnyHg6JEe1CU8q82OZfHlofffw7utg2R+0+1XC+TJKFl2PFc3dt5ft3d++g
+W9tRP4b3Oxt1rHk6krbb
+=f620
+-----END PGP SIGNATURE-----
+
+--=-DvMvTIsr3IzXj56qt/5c--
