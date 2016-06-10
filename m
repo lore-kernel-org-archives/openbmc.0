@@ -1,52 +1,55 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-qk0-x22b.google.com (mail-qk0-x22b.google.com
- [IPv6:2607:f8b0:400d:c09::22b])
+Received: from mail-qg0-x241.google.com (mail-qg0-x241.google.com
+ [IPv6:2607:f8b0:400d:c04::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rQwr250CGzDqHY
- for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 18:50:58 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rQwtb0NnpzDqHY
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 18:53:10 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=n5SlNh9C; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=ZRSqooTR; 
  dkim-atps=neutral
-Received: by mail-qk0-x22b.google.com with SMTP id u63so33966502qkh.0
- for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 01:50:58 -0700 (PDT)
+Received: by mail-qg0-x241.google.com with SMTP id p34so4780181qgp.0
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2016 01:53:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=Krfvr/T+f/US/ncI3eyuQoXN59i5GEWgYq2k4of9UHY=;
- b=n5SlNh9C+BBq0HIBXhwUR+8ZC7GPlHAZmR8Tb6iti+c147YsfY58HUh0oEZMQd78jZ
- 8AkIPtsw9mIuNSfiv2ZUNNFa0vbAl1j78kos3bmF3oufl2vNx8K1VK8aYXAWmMAdv8Hk
- TzG9nukXGCpxmSC79QJ3UTAiGH4RQFEJvU9mU9f/J80hQqw+cTyb/OMWfkMYFR8kXZlF
- q0SfGWS/Hgm8/qEWUDMAeFFEtQtW+75YQfl4penhMenVgWEDwX6GOeVj/xByZiwE+vQ8
- SKNMjxVFgzvnjxPVQOs7aDzVHaGF13H9RBaYXWJVUkOpjsdNKC0zhsSFvogGYfgqdGBy
- sVeg==
+ bh=fCR6vR02hQ0VpuyDQ4Kyet6EqnSSF6vx/hpePtyyaUQ=;
+ b=ZRSqooTRP6iUZHZtMU4wjlak1tzmq+SreAyYeTycyRWPfXOpX7ZArYv2QJHx+HGpH8
+ 47TrUBvrPt4sv+bg/p0rlhAQPhShcLuJ0Ts51/bopSQu19tE23y5BVjMyNeJNGkAb8qu
+ Xp6cDP2VUylI7blG2Rmm6YJ0ybtnU5PeN4lAdZdC0PXYK0JxJjfyeoHXgibdXshLr2/1
+ ymdzhqFv/2UvQOxc4AMLwxMFv8hUitbcSBaV+EN1V+yWN+9PUG+21pqJU3r+/Yf7hA7t
+ Vn1nn5h8mUoAcQ++NHQC51TZCNwiJTExYCWZh6wqwTCExh4znPfeBbwA5uTYD9N/INCf
+ 9ZOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=Krfvr/T+f/US/ncI3eyuQoXN59i5GEWgYq2k4of9UHY=;
- b=YuGSP0yqlS6kLNeDoov2UyFQjIBoX6BaVztGWxxXpDoa5MSgzjIxodnKpvW9TgWTz3
- LruZ6IyNYs/yyqhcZwRBLuxbLOrvDXPUkqrSHA4MAi04R4Sq3m5oZSlDtSSWeSuCVYQW
- jNx7eMKMBS7C7aj3fFKDtedslLgHQO1/x+N8UmCXIyUaNBm2rbHb8xYmpws5jfCOnZpQ
- 2Ff3BWvmgThLroj56UucC9rjRd3ciuJCajvsPM5+gMzHw3eMtIVzvxBfhF2JUpfcAdwh
- JousnYsooMpsvy8kExG13JkrQ6w64y8zGkdNhYGpOhCn2q6rpZvmYWhOgPkbNilMY2dQ
- DgAQ==
-X-Gm-Message-State: ALyK8tLD+wsD4FjeDvaq1heohWV3xrqUBKsY6jRfroL/q9PDH5wktZkoTIVbLQVRnvWQnSQ0Wnk4iM0jQL5vqA==
-X-Received: by 10.55.107.6 with SMTP id g6mr281975qkc.166.1465548656443; Fri,
- 10 Jun 2016 01:50:56 -0700 (PDT)
+ bh=fCR6vR02hQ0VpuyDQ4Kyet6EqnSSF6vx/hpePtyyaUQ=;
+ b=KjagPWab8XxMKJZapUPqLLPcnVyhAmq1/qjtc22SqJjiPmAmeImiKwqbtcsxfJ+uk+
+ /eb53Sc8280zZwZ+AFflkIOXQqVicfTadmw2ez021ZhoFrt2gyJ8WeDg5XwagmzOPDNq
+ 3bL6PAxSGP8S1gaTi1lnH9Z/cFqQ1aa0BiTDEECPbojGnYVYz8vcdjHJA60a0Bh+Is9Q
+ vtL4Phls4+kx+5VLNnjJOyaj2PwsAizEMgzJPIVq0Zb7/4XqfYtDchUAV+L/sC+SQgSI
+ +zZ+GTPgtrwp2JzNPu025xA5ZZh/7rfM2IxFVuqaWnoIktmCQVVQpX55kENOckRT16UI
+ cJ/Q==
+X-Gm-Message-State: ALyK8tJB9lU+FBkP35ABIdPqTnANKQVO3pd1v/HMOcz5eDEQxXc4FSkuVAxNTIPOnr0X4Rj2kE29UYj/x/ODwg==
+X-Received: by 10.140.129.82 with SMTP id 79mr715545qhb.28.1465548788871; Fri,
+ 10 Jun 2016 01:53:08 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.237.37.148 with HTTP; Fri, 10 Jun 2016 01:50:37 -0700 (PDT)
-In-Reply-To: <5759B6EE.3010700@google.com>
-References: <DB4PR05MB0941CA88039CFE2BEEA8ECD9D55D0@DB4PR05MB0941.eurprd05.prod.outlook.com>
- <5759B6EE.3010700@google.com>
+Received: by 10.237.37.148 with HTTP; Fri, 10 Jun 2016 01:52:49 -0700 (PDT)
+In-Reply-To: <1465460046-7692-3-git-send-email-andrew@aj.id.au>
+References: <1465460046-7692-1-git-send-email-andrew@aj.id.au>
+ <1465460046-7692-3-git-send-email-andrew@aj.id.au>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 10 Jun 2016 03:50:37 -0500
-X-Google-Sender-Auth: k51iGpl-Ozv_44hky_kKojE3l3c
-Message-ID: <CACPK8Xd7xQ=tofdBw9P0JuzQacLmfsXFpeQ_pBHXd2Z2JhY26Q@mail.gmail.com>
-Subject: Re: AST2500 support questions
-To: Xo Wang <xow@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Fri, 10 Jun 2016 03:52:49 -0500
+X-Google-Sender-Auth: tbZ6otwuX5kIqFKG_JqBeTLuehE
+Message-ID: <CACPK8XdAUJASVLi_F0CNbuALYEY1pzHAA7UbxOMZK+Wks41qwQ@mail.gmail.com>
+Subject: Re: [PATCH qemu 2/2] ast2400: Integrate the SCU model and configure
+ reset values
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC <openbmc@lists.ozlabs.org>,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
+ Teddy Reed <teddy.reed@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
@@ -59,24 +62,69 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Jun 2016 08:50:59 -0000
+X-List-Received-Date: Fri, 10 Jun 2016 08:53:11 -0000
 
-On Thu, Jun 9, 2016 at 1:35 PM, Xo Wang <xow@google.com> wrote:
->> We tried to boot it with uImage and separate DTB image using the
->> command 'bootm <KERNEL_ADDR> - <DTB_ADDR>'
+On Thu, Jun 9, 2016 at 3:14 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> Almost all configured reset values are specified by the datasheet. The
+> exception is ASPEED_SCU_SOC_SCRATCH1, where we mark the DRAM as
+> successfully initialised by the SoC to avoid unnecessary dark corners in
+> the SoC's u-boot support.
 >
-> If I understand correctly, the configuration you tried is to load the DTB at
-> 0x82000000 and pass that address to a CONFIG_OF_LIBFDT kernel in register
-> r2. This should work and is probably considered the preferred/idiomatic ARM
-> way, but not how the phosphor build is doing it.
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> ---
+>  hw/arm/ast2400.c         | 47 +++++++++++++++++++++++++++++++++++++++++++++++
+>  include/hw/arm/ast2400.h |  2 ++
+>  2 files changed, 49 insertions(+)
+>
+> diff --git a/hw/arm/ast2400.c b/hw/arm/ast2400.c
+> index 4a9de0e10cbc..240da180befa 100644
+> --- a/hw/arm/ast2400.c
+> +++ b/hw/arm/ast2400.c
+> @@ -24,12 +24,46 @@
+>  #define AST2400_IOMEM_SIZE       0x00200000
+>  #define AST2400_IOMEM_BASE       0x1E600000
+>  #define AST2400_VIC_BASE         0x1E6C0000
+> +#define AST2400_SCU_BASE         0x1E6E2000
+>  #define AST2400_TIMER_BASE       0x1E782000
+>  #define AST2400_I2C_BASE         0x1E78A000
+>
+>  static const int uart_irqs[] = { 9, 32, 33, 34, 10 };
+>  static const int timer_irqs[] = { 16, 17, 18, 35, 36, 37, 38, 39, };
+>
+> +static const AspeedSCUResetCfg scu_reset[] = {
+> +    /* Values are defaults from the datasheet except where noted */
+> +    { ASPEED_SCU_SYS_RST_CTRL,   0xFFCFFEDCU },
+> +    { ASPEED_SCU_CLK_SEL,        0xF3F40000U },
+> +    { ASPEED_SCU_CLK_STOP_CTRL,  0x19FC3E8BU },
+> +    { ASPEED_SCU_D2PLL_PARAM,    0x00026108U },
+> +    { ASPEED_SCU_MPLL_PARAM,     0x00030291U },
+> +    { ASPEED_SCU_HPLL_PARAM,     0x00000291U },
+> +    { ASPEED_SCU_MISC_CTRL1,     0x00000010U },
+> +    { ASPEED_SCU_PCI_CTRL1,      0x20001A03U },
+> +    { ASPEED_SCU_PCI_CTRL2,      0x20001A03U },
+> +    { ASPEED_SCU_PCI_CTRL3,      0x04000030U },
+> +    { ASPEED_SCU_SYS_RST_STATUS, 0x00000001U },
+> +    { ASPEED_SCU_SOC_SCRATCH1,   0x000000C0U }, /* SoC completed DRAM init */
+> +    { ASPEED_SCU_MISC_CTRL2,     0x00000023U },
+> +    { ASPEED_SCU_RNG_CTRL,       0x0000000EU },
+> +    { ASPEED_SCU_REV_ID,         0x02000303U },
+> +    { ASPEED_SCU_PINMUX_CTRL2,   0x0000F000U },
+> +    { ASPEED_SCU_PINMUX_CTRL3,   0x01000000U },
+> +    { ASPEED_SCU_PINMUX_CTRL4,   0x000000FFU },
+> +    { ASPEED_SCU_PINMUX_CTRL5,   0x0000A000U },
+> +    { ASPEED_SCU_WDT_RST_CTRL,   0x003FFFF3U },
+> +    { ASPEED_SCU_PINMUX_CTRL8,   0xFFFF0000U },
+> +    { ASPEED_SCU_FREE_CNTR4,     0x000000FFU },
+> +    { ASPEED_SCU_FREE_CNTR4_EXT, 0x000000FFU },
+> +    { ASPEED_SCU_CPU2_BASE_SEG1, 0x80000000U },
+> +    { ASPEED_SCU_CPU2_BASE_SEG4, 0x1E600000U },
+> +    { ASPEED_SCU_CPU2_BASE_SEG5, 0xC0000000U },
+> +    { ASPEED_SCU_UART_HPLL_CLK,  0x00001903U },
+> +    { ASPEED_SCU_PCIE_CTRL,      0x0000007BU },
+> +    { ASPEED_SCU_BMC_DEV_ID,     0x00002402U }
 
-Yep. We would prefer to do it this way, but I believe the bootm
-command in the u-boot tree we're running lacks support. On the
-ast2500, where we're using u-boot 2016.05, we can stop appending the
-device tree to the kernel and do things this way.
-
-I think we will hold off until we move to a common, modern u-boot for
-all platforms.
+I can't see the strapping register in here. We use that to configure
+the clock driver I'm writing, so it would be handy to have.
 
 Cheers,
 
