@@ -3,17 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rT4D52ddpzDqcg
- for <openbmc@lists.ozlabs.org>; Tue, 14 Jun 2016 06:30:44 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rT4D80JMXzDqcg
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Jun 2016 06:30:47 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1465849836486572.3286213403029;
- Mon, 13 Jun 2016 13:30:36 -0700 (PDT)
+ with SMTPS id 146584983954815.34096978338323;
+ Mon, 13 Jun 2016 13:30:39 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 0/2] Add virtual workbook / config-in-skeleton classes
-Date: Mon, 13 Jun 2016 15:30:32 -0500
-Message-Id: <20160613203034.26033-1-openbmc-patches@stwcx.xyz>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Subject: [PATCH openbmc 1/2] Bump pyphosphor version
+Date: Mon, 13 Jun 2016 15:30:33 -0500
+Message-Id: <20160613203034.26033-2-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.4
+In-Reply-To: <20160613203034.26033-1-openbmc-patches@stwcx.xyz>
+References: <20160613203034.26033-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -25,61 +28,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Jun 2016 20:30:46 -0000
+X-List-Received-Date: Mon, 13 Jun 2016 20:30:49 -0000
 
-This patch introduces a new abstraction 'obmc-phosphor-workbook'
-for representing a system configuration.  At present it is
-pulled in by the skeleton recipe so the requirement on what is
-implemented by a package providing obmc-phosphor-workbook is something
-compatible with the existing System.py python modules in skeleton.
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
-Additionally this patch adds a new recipe for each system using
-a configuration file from skeleton today, and a class for common
-configuration.
+This picks up a fix that addresses non-standard DBUS naming
+conventions.
 
-This enables a couple of things:
- - No need to patch skeleton.service for each system.
- - New systems don't have to put their configuration in the skeleton repository.
-
-<!-- Reviewable:start -->
+Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/324)
-<!-- Reviewable:end -->
+ .../common/recipes-phosphor/dbus/obmc-mapper/obmc-mapper.service      | 2 +-
+ meta-phosphor/common/recipes-phosphor/skeleton/pyphosphor.bb          | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-
-https://github.com/openbmc/openbmc/pull/324
-
-Brad Bishop (2):
-  Bump pyphosphor version
-  Add virtual workbook / config-in-skeleton classes
-
- .../recipes-phosphor/skeleton/skeleton.bbappend    |  1 -
- .../skeleton/skeleton/firestone.patch              | 11 --------
- .../recipes-phosphor/workbook/firestone-config.bb  |  8 ++++++
- .../recipes-phosphor/skeleton/skeleton.bbappend    |  1 -
- .../skeleton/skeleton/garrison.patch               | 11 --------
- .../recipes-phosphor/workbook/garrison-config.bb   |  8 ++++++
- .../recipes-phosphor/workbook/palmetto-config.bb   |  8 ++++++
- .../recipes-phosphor/skeleton/skeleton.bbappend    |  2 --
- .../skeleton/skeleton/skeleton.patch               | 12 ---------
- .../recipes-phosphor/workbook/barreleye-config.bb  |  8 ++++++
- meta-phosphor/classes/config-in-skeleton.bbclass   | 29 ++++++++++++++++++++++
- .../classes/obmc-phosphor-workbook.bbclass         |  5 ++++
- .../dbus/obmc-mapper/obmc-mapper.service           |  2 +-
- .../common/recipes-phosphor/skeleton/pyphosphor.bb |  4 +--
- .../common/recipes-phosphor/skeleton/skeleton.bb   | 23 ++++++-----------
- .../skeleton/skeleton/skeleton.service             |  2 +-
- 16 files changed, 78 insertions(+), 57 deletions(-)
- delete mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton/firestone.patch
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/workbook/firestone-config.bb
- delete mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton/garrison.patch
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/workbook/garrison-config.bb
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-phosphor/workbook/palmetto-config.bb
- delete mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-phosphor/skeleton/skeleton.bbappend
- delete mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-phosphor/skeleton/skeleton/skeleton.patch
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-phosphor/workbook/barreleye-config.bb
- create mode 100644 meta-phosphor/classes/config-in-skeleton.bbclass
- create mode 100644 meta-phosphor/classes/obmc-phosphor-workbook.bbclass
-
+diff --git a/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper/obmc-mapper.service b/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper/obmc-mapper.service
+index 461b8d8..f57da02 100644
+--- a/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper/obmc-mapper.service
++++ b/meta-phosphor/common/recipes-phosphor/dbus/obmc-mapper/obmc-mapper.service
+@@ -5,7 +5,7 @@ Description=Phosphor OpenBMC DBus service management daemon
+ Restart=always
+ Type=dbus
+ ExecStart=/usr/sbin/phosphor-mapper
+-BusName=org.openbmc.objectmapper
++BusName=org.openbmc.ObjectMapper
+ 
+ [Install]
+ WantedBy=multi-user.target
+diff --git a/meta-phosphor/common/recipes-phosphor/skeleton/pyphosphor.bb b/meta-phosphor/common/recipes-phosphor/skeleton/pyphosphor.bb
+index d90c8e5..435c4c5 100644
+--- a/meta-phosphor/common/recipes-phosphor/skeleton/pyphosphor.bb
++++ b/meta-phosphor/common/recipes-phosphor/skeleton/pyphosphor.bb
+@@ -1,6 +1,6 @@
+ SUMMARY = "Phosphor python library"
+ DESCRIPTION = "Phosphor python library."
+-HOMEPAGE = "http://github.com/openbmc/pyobmc"
++HOMEPAGE = "http://github.com/openbmc/pyphosphor"
+ PR = "r1"
+ LICENSE = "Apache-2.0"
+ LIC_FILES_CHKSUM = "file://${S}/LICENSE;md5=e3fc50a88d0a364313df4b21ef20c29e"
+@@ -10,6 +10,6 @@ inherit setuptools
+ 
+ SRC_URI += "git://github.com/openbmc/pyphosphor"
+ 
+-SRCREV = "362fb80c081e114236cc5d29b166f45fd4539041"
++SRCREV = "93aed45f230befa01c947173a908b120cfbe7017"
+ 
+ S = "${WORKDIR}/git"
 -- 
 2.8.4
