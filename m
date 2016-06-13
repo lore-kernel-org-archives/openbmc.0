@@ -1,22 +1,32 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <clg@kaod.org>
+Received: from 1.mo173.mail-out.ovh.net (1.mo173.mail-out.ovh.net
+ [178.33.111.180])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rSz6q4HYNzDqbm
- for <openbmc@lists.ozlabs.org>; Tue, 14 Jun 2016 02:40:51 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 146583604209626.239142924185444;
- Mon, 13 Jun 2016 09:40:42 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rSzwb6QqhzDqZf
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Jun 2016 03:17:03 +1000 (AEST)
+Received: from player711.ha.ovh.net (b9.ovh.net [213.186.33.59])
+ by mo173.mail-out.ovh.net (Postfix) with ESMTP id E536AFF9BEB
+ for <openbmc@lists.ozlabs.org>; Mon, 13 Jun 2016 19:16:59 +0200 (CEST)
+Received: from hermes.ibm.com (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: clg@kaod.org)
+ by player711.ha.ovh.net (Postfix) with ESMTPSA id 9D837380083;
+ Mon, 13 Jun 2016 19:16:55 +0200 (CEST)
+From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
 To: openbmc@lists.ozlabs.org
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH openbmc 2/2] Turn on socket activation for rest-dbus
-Date: Mon, 13 Jun 2016 11:40:33 -0500
-Message-Id: <20160613164033.16638-3-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.8.4
-In-Reply-To: <20160613164033.16638-1-openbmc-patches@stwcx.xyz>
-References: <20160613164033.16638-1-openbmc-patches@stwcx.xyz>
+Subject: [PATCH qemu v2 02/10] ast2400: add SPI flash slave object
+Date: Mon, 13 Jun 2016 19:16:28 +0200
+Message-Id: <1465838196-31131-3-git-send-email-clg@kaod.org>
+X-Mailer: git-send-email 2.1.4
+In-Reply-To: <1465838196-31131-1-git-send-email-clg@kaod.org>
+References: <1465838196-31131-1-git-send-email-clg@kaod.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 16900602026827483906
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeekledrkedugddutdekucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,63 +38,171 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Jun 2016 16:40:52 -0000
+X-List-Received-Date: Mon, 13 Jun 2016 17:17:04 -0000
 
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Each SPI flash slave can operate in two modes: Command and User. When
+in User mode, accesses to the memory segment of the slaves are
+translated in SPI transfers. When in Command mode, the HW generates
+the SPI commands automatically and the memory segment is accessed as
+if doing a MMIO. Other SPI controllers call that mode linear
+addressing mode.
 
-Defer starting of rest-dbus until a client connects.
+This object is a model proposal for a SPI flash module, gathering SPI
+slave properties and a MemoryRegion handling the memory accesses.
+Only the User mode is supported for now but we are preparing ground
+for the Command mode.
 
-Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+The framework below is sufficient to support Linux which only uses
+User Mode.
+
+Is that the right approach or should we just use simple structs under
+AspeedSMCState and attach the memory region to the Aspeed SMC
+controller SysBus object ? Please advise.
+
+Signed-off-by: Cédric Le Goater <clg@kaod.org>
 ---
- .../common/recipes-phosphor/rest-dbus/files/rest-dbus.service     | 3 ---
- .../common/recipes-phosphor/rest-dbus/files/rest-dbus.socket      | 8 ++++++++
- meta-phosphor/common/recipes-phosphor/rest-dbus/rest-dbus.bb      | 5 +++--
- 3 files changed, 11 insertions(+), 5 deletions(-)
- create mode 100644 meta-phosphor/common/recipes-phosphor/rest-dbus/files/rest-dbus.socket
+ hw/ssi/aspeed_smc.c         | 97 +++++++++++++++++++++++++++++++++++++++++++++
+ include/hw/ssi/aspeed_smc.h | 16 ++++++++
+ 2 files changed, 113 insertions(+)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/rest-dbus/files/rest-dbus.service b/meta-phosphor/common/recipes-phosphor/rest-dbus/files/rest-dbus.service
-index 79a848a..5ad582f 100644
---- a/meta-phosphor/common/recipes-phosphor/rest-dbus/files/rest-dbus.service
-+++ b/meta-phosphor/common/recipes-phosphor/rest-dbus/files/rest-dbus.service
-@@ -4,6 +4,3 @@ Description=DBUS introspecting REST server.
- [Service]
- Restart=always
- ExecStart=/usr/sbin/rest-dbus
--
--[Install]
--WantedBy=multi-user.target
-diff --git a/meta-phosphor/common/recipes-phosphor/rest-dbus/files/rest-dbus.socket b/meta-phosphor/common/recipes-phosphor/rest-dbus/files/rest-dbus.socket
-new file mode 100644
-index 0000000..89f99b8
---- /dev/null
-+++ b/meta-phosphor/common/recipes-phosphor/rest-dbus/files/rest-dbus.socket
-@@ -0,0 +1,8 @@
-+[Unit]
-+Description=DBUS introspecting REST server socket.
-+
-+[Socket]
-+ListenStream=3000
-+
-+[Install]
-+WantedBy=sockets.target
-diff --git a/meta-phosphor/common/recipes-phosphor/rest-dbus/rest-dbus.bb b/meta-phosphor/common/recipes-phosphor/rest-dbus/rest-dbus.bb
-index 7f990aa..afee21c 100644
---- a/meta-phosphor/common/recipes-phosphor/rest-dbus/rest-dbus.bb
-+++ b/meta-phosphor/common/recipes-phosphor/rest-dbus/rest-dbus.bb
-@@ -16,11 +16,12 @@ RDEPENDS_${PN} += " \
-         pyphosphor \
-         "
+diff --git a/hw/ssi/aspeed_smc.c b/hw/ssi/aspeed_smc.c
+index 7937a9030903..000a7b45c7cf 100644
+--- a/hw/ssi/aspeed_smc.c
++++ b/hw/ssi/aspeed_smc.c
+@@ -112,6 +112,21 @@ static bool aspeed_smc_is_ce_stop_active(AspeedSMCState *s, int cs)
+     return s->regs[s->r_ctrl0 + cs] & CTRL_CE_STOP_ACTIVE;
+ }
  
-+SYSTEMD_SERVICE_${PN} += "rest-dbus.service rest-dbus.socket"
++static inline int aspeed_smc_flash_mode(AspeedSMCState *s, int cs)
++{
++    return s->regs[s->r_ctrl0 + cs] & CTRL_CMD_MODE_MASK;
++}
 +
- SRC_URI += " \
-         git://github.com/openbmc/rest-dbus.git \
--        file://rest-dbus.service \
-         "
++static inline bool aspeed_smc_is_usermode(AspeedSMCState *s, int cs)
++{
++    return (aspeed_smc_flash_mode(s, cs) == CTRL_USERMODE);
++}
++
++static inline bool aspeed_smc_is_writable(AspeedSMCState *s, int cs)
++{
++    return s->regs[s->r_conf] & (1 << (s->conf_enable_w0 + cs));
++}
++
+ static void aspeed_smc_update_cs(AspeedSMCState *s)
+ {
+     int i;
+@@ -298,3 +313,85 @@ static void aspeed_smc_register_types(void)
+ }
  
--SRCREV = "64077101d9f2b6e51c897db82ffc0a399a34d15b"
-+SRCREV = "5a65d2f605494d5c308171ba4fd1ab08d7b3a91d"
+ type_init(aspeed_smc_register_types)
++
++static uint64_t aspeed_smc_flash_read(void *opaque, hwaddr addr, unsigned size)
++{
++    AspeedSMCFlashState *fl = ASPEED_SMC_FLASH(opaque);
++    AspeedSMCState *s = fl->controller;
++    uint64_t ret = 0;
++    int i;
++
++    if (aspeed_smc_is_usermode(s, fl->id)) {
++        for (i = 0; i < size; i++) {
++            ret = (ret << 8) | ssi_transfer(s->spi, 0x0);
++        }
++    } else {
++        error_report("%s: flash not in usermode", __func__);
++        ret = -1;
++    }
++
++    return ret;
++}
++
++static void aspeed_smc_flash_write(void *opaque, hwaddr addr, uint64_t data,
++                           unsigned size)
++{
++    AspeedSMCFlashState *fl = ASPEED_SMC_FLASH(opaque);
++    AspeedSMCState *s = fl->controller;
++    int i;
++
++    if (!aspeed_smc_is_writable(s, fl->id)) {
++        error_report("%s: flash is not writable", __func__);
++        return;
++    }
++
++    if (!aspeed_smc_is_usermode(s, fl->id)) {
++        error_report("%s: flash not in usermode", __func__);
++        return;
++    }
++
++    for (i = 0; i < size; i++) {
++        ssi_transfer(s->spi, (data >> 8 * (size - 1 - i)) & 0xff);
++    }
++}
++
++static const MemoryRegionOps aspeed_smc_flash_ops = {
++    .read = aspeed_smc_flash_read,
++    .write = aspeed_smc_flash_write,
++    .endianness = DEVICE_BIG_ENDIAN,
++    .valid = {
++        .min_access_size = 1,
++        .max_access_size = 4,
++    },
++};
++
++static const VMStateDescription vmstate_aspeed_smc_flash = {
++    .name = "aspeed.smc_flash",
++    .version_id = 1,
++    .minimum_version_id = 1,
++    .fields = (VMStateField[]) {
++        VMSTATE_UINT8(id, AspeedSMCFlashState),
++        VMSTATE_END_OF_LIST()
++    }
++};
++
++static void aspeed_smc_flash_class_init(ObjectClass *klass, void *data)
++{
++    DeviceClass *dc = DEVICE_CLASS(klass);
++
++    dc->vmsd = &vmstate_aspeed_smc_flash;
++}
++
++static const TypeInfo aspeed_smc_flash_info = {
++    .name           = TYPE_ASPEED_SMC_FLASH,
++    .parent         = TYPE_SYS_BUS_DEVICE,
++    .instance_size  = sizeof(AspeedSMCState),
++    .class_init     = aspeed_smc_flash_class_init,
++};
++
++static void aspeed_smc_flash_register_types(void)
++{
++    type_register_static(&aspeed_smc_flash_info);
++}
++
++type_init(aspeed_smc_flash_register_types)
+diff --git a/include/hw/ssi/aspeed_smc.h b/include/hw/ssi/aspeed_smc.h
+index 2d3e9f6b46d5..abd0005b01c2 100644
+--- a/include/hw/ssi/aspeed_smc.h
++++ b/include/hw/ssi/aspeed_smc.h
+@@ -27,6 +27,22 @@
  
- S = "${WORKDIR}/git"
+ #include "hw/ssi/ssi.h"
+ 
++struct AspeedSMCState;
++
++typedef struct AspeedSMCFlashState {
++    SysBusDevice parent_obj;
++
++    MemoryRegion mmio;
++    uint8_t id;
++    size_t size;
++    struct AspeedSMCState *controller;
++    DeviceState *flash;
++} AspeedSMCFlashState;
++
++#define TYPE_ASPEED_SMC_FLASH "aspeed.smc.flash"
++#define ASPEED_SMC_FLASH(obj) \
++    OBJECT_CHECK(AspeedSMCFlashState, (obj), TYPE_ASPEED_SMC_FLASH)
++
+ typedef struct AspeedSMCController {
+     const char *name;
+     uint8_t r_conf;
 -- 
-2.8.4
+2.1.4
