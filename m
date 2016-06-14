@@ -1,22 +1,28 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
+Return-Path: <patrick@stwcx.xyz>
 Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rTFXn6W7jzDqZn
- for <openbmc@lists.ozlabs.org>; Tue, 14 Jun 2016 13:30:47 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1465875041705654.4992383072378;
- Mon, 13 Jun 2016 20:30:41 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: =?UTF-8?q?=5BPATCH=20phosphor-host-ipmid=5D=20host-ipmid=3A=20remove=20leading=20and=20trailing=20space=20and=20tab=20when=20setting=20bo=E2=80=A6?=
-Date: Mon, 13 Jun 2016 22:30:39 -0500
-Message-Id: <20160614033040.9938-1-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.8.4
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rTRbc1nkjzDqjk
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Jun 2016 21:03:55 +1000 (AEST)
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mx.zohomail.com
+ with SMTPS id 1465902223234497.90050649986426;
+ Tue, 14 Jun 2016 04:03:43 -0700 (PDT)
+Date: Tue, 14 Jun 2016 06:03:41 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Adriana Kobylak <anoo@us.ibm.com>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: Authentication for OpenBMC port 3000
+Message-ID: <20160614110341.GY19968@asimov.austin.ibm.com>
+References: <OF97E67B46.5B644A38-ON86257FD2.000986B3-86257FD2.000A1137@notes.na.collabserv.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="pM5zeTSooDOHDhuH"
+Content-Disposition: inline
+In-Reply-To: <OF97E67B46.5B644A38-ON86257FD2.000986B3-86257FD2.000A1137@notes.na.collabserv.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,39 +34,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Jun 2016 03:30:50 -0000
-
-…ot options
-
-This patch fixes issue: https://github.com/openbmc/skeleton/issues/56
-
-In ipmi get bootparam handler, remove leading and trailing space and tab
-before querying for boot flags.
-
-There are several places we can check the user-set boot options:
-* rest server
-* phosphor-settingsd
-* host-ipmid
-
-Here the boot option is checked in host-ipmid, since currently
-the host-ipmid knows whether a boot option is valid or not.
-
-Signed-off-by: Yi Li <adamliyi@msn.com>
-
-<!-- Reviewable:start -->
----
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/phosphor-host-ipmid/92)
-<!-- Reviewable:end -->
+X-List-Received-Date: Tue, 14 Jun 2016 11:03:57 -0000
 
 
-https://github.com/openbmc/phosphor-host-ipmid/pull/92
+--pM5zeTSooDOHDhuH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Yi Li (1):
-  host-ipmid: remove leading and trailing space and tab when setting
-    boot options
+On Mon, Jun 13, 2016 at 08:49:58PM -0500, Adriana Kobylak wrote:
+> Adi brought up the concern that accessing port 3000 doesn't require=20
+> authentication. Since the OpenBMC UI, which would replace the port 3000,=
+=20
+> is not close to being delivered yet, and the Barreleye GA build=20
+> approaches, any thoughts on how to proceed: add authentication to the por=
+t=20
+> 3000, remove it from the build, other?
+>=20
 
- chassishandler.C | 66 ++++++++++++++++++++++++++++++++++++++++----------------
- 1 file changed, 47 insertions(+), 19 deletions(-)
+In my view, the port 3000 code was only there for debug / development
+purposes.  I would suggest we disable it in production builds.
 
--- 
-2.8.4
+--=20
+Patrick Williams
+
+--pM5zeTSooDOHDhuH
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJXX+SNAAoJEKsDR8wtAMEZbCUQAIaL9QGHyweQgalx6YpBagzX
+zSNjychLeRKkzI6cS2xrNopMo+DnJ53QTWGyPvzq1YnYHl1gNT/rjHsBm5v4rlAk
+dON0v5C2WlfPfyK6viOXNJ1R0aBpvL94b2U3tASd3S/zdzr4LvsdUysYyEscBgkc
+SkwkxrK9B0+YdRPnO13xinN0UqifWtpaj3TvJCo4ifZE3rqZowQe7lRSzctYjBlK
+/TpFuyRuJRYwrINn7ObsCmG50ZQ4PVfaEOBMJDE5Y5ITfdO0Tr41sEovdHWlPwIX
+a82B0JNe18xKJ5IgxKbpa8CqhhfCyTe+HkaNNN5sIzaF6hnN2GGbJMf5Zj640y9B
+kIhEGZGzUUtKATTHWeUteLjbtgWrNBqCxdZTYEBOOX2df23RWA6VlDt+lRoVitPd
+4Rh4vcg2LPNF1PK9KbcVFF4oKG2FFjeBxAxJL2235k6MJ15Nyd9Uec685u5+0oMe
+sN4drt4qxpsuiFy85A70Iv/LnbYwAV9dgRFLfsfWrC/b1gvBTFaZYfec/Q7/4eaS
+1tdeArKdNwXcRO+CUPaVZqVdcm3rmj/3yaqtw9eNetZQumBdkZI/30VQk9DpI7z1
+NTsBX6SE7lz5cWynEh/u3pLH38W7wo14dw2rv519WkVzRLm0QTlVbabrrao0or3y
+XwKK+n19dGKirdNwaylf
+=bXlQ
+-----END PGP SIGNATURE-----
+
+--pM5zeTSooDOHDhuH--
