@@ -1,23 +1,39 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <bradleyb@fuzziesquirrel.com>
+Received: from mail.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rTWmc3hxkzDqdy
- for <openbmc@lists.ozlabs.org>; Wed, 15 Jun 2016 00:12:00 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1465913445548315.18835794114705;
- Tue, 14 Jun 2016 07:10:45 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH openbmc v2 2/2] Add virtual workbook / config-in-skeleton
- classes
-Date: Tue, 14 Jun 2016 09:10:35 -0500
-Message-Id: <20160614141035.5170-3-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.8.4
-In-Reply-To: <20160614141035.5170-1-openbmc-patches@stwcx.xyz>
-References: <20160614141035.5170-1-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rTXNn354NzDqdy
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Jun 2016 00:39:52 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com
+ header.b=JVyAUfVV; dkim-atps=neutral
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.fuzziesquirrel.com CB82E23623
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fuzziesquirrel.com;
+ s=mail; t=1465915189;
+ bh=uZ4ZCSICMP7r+ddLOK4Ec4MCQoSvL8v0PLL9mL3AkD8=;
+ h=Subject:From:In-Reply-To:Date:Cc:References:To:From;
+ b=JVyAUfVVZpdWOOoYJv/OaBuzkSaEK+HHs1NoIfi/jPp4xg+yhMpeHmrvszcZWj9kK
+ etkZ5LYtTVrQ/QII2H4lLQ/Wjl//yUEn6PYmlliNq41atd8jztchoj/1oFM6npQ+xF
+ v7m9GPQprmjuKtVJB+qszQLY/SHmIWikyoYipaOQ=
+Received: from [192.168.253.29] (unknown [192.168.253.29])
+ by mail.fuzziesquirrel.com (Postfix) with ESMTPSA id 09CE9235E0;
+ Tue, 14 Jun 2016 10:39:49 -0400 (EDT)
+Content-Type: text/plain; charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 9.3 \(3124\))
+Subject: Re: Authentication for OpenBMC port 3000
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <20160614110341.GY19968@asimov.austin.ibm.com>
+Date: Tue, 14 Jun 2016 10:39:48 -0400
+Cc: Adriana Kobylak <anoo@us.ibm.com>,
+ openbmc@lists.ozlabs.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <630F062D-1D42-4DA5-B9DA-D422901F7F2D@fuzziesquirrel.com>
+References: <OF97E67B46.5B644A38-ON86257FD2.000986B3-86257FD2.000A1137@notes.na.collabserv.com>
+ <20160614110341.GY19968@asimov.austin.ibm.com>
+To: Patrick Williams <patrick@stwcx.xyz>
+X-Mailer: Apple Mail (2.3124)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -29,293 +45,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Jun 2016 14:12:01 -0000
+X-List-Received-Date: Tue, 14 Jun 2016 14:39:54 -0000
 
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
++1
 
-This patch introduces a new abstraction 'skeleton-workbook'
-for representing a system configuration.  At present it is
-pulled in by the skeleton recipe so the requirement on what is
-implemented by a package providing obmc-phosphor-workbook is something
-compatible with the existing System.py python modules in skeleton.
+> On Jun 14, 2016, at 7:03 AM, Patrick Williams <patrick@stwcx.xyz> =
+wrote:
+>=20
+> On Mon, Jun 13, 2016 at 08:49:58PM -0500, Adriana Kobylak wrote:
+>> Adi brought up the concern that accessing port 3000 doesn't require=20=
 
-Additionally this patch adds a new recipe for each system using
-a configuration file from skeleton today, and a class for common
-configuration.
-
-This enables a couple of things:
- - No need to patch skeleton.service for each system.
- - New systems don't have to put their configuration in the skeleton repository.
-
-Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
----
- .../conf/machine/include/openpower.inc             |  2 ++
- .../recipes-phosphor/skeleton/skeleton.bbappend    |  1 -
- .../skeleton/skeleton/firestone.patch              | 11 ---------
- .../recipes-phosphor/workbook/firestone-config.bb  |  8 +++++++
- .../recipes-phosphor/skeleton/skeleton.bbappend    |  1 -
- .../skeleton/skeleton/garrison.patch               | 11 ---------
- .../recipes-phosphor/workbook/garrison-config.bb   |  8 +++++++
- .../recipes-phosphor/workbook/palmetto-config.bb   |  8 +++++++
- .../recipes-phosphor/skeleton/skeleton.bbappend    |  2 --
- .../skeleton/skeleton/skeleton.patch               | 12 ----------
- .../recipes-phosphor/workbook/barreleye-config.bb  |  8 +++++++
- meta-phosphor/classes/config-in-skeleton.bbclass   | 28 ++++++++++++++++++++++
- .../common/recipes-phosphor/skeleton/skeleton.bb   | 25 ++++++++-----------
- .../skeleton/skeleton/skeleton.service             |  2 +-
- 14 files changed, 73 insertions(+), 54 deletions(-)
- delete mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton/firestone.patch
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/workbook/firestone-config.bb
- delete mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton/garrison.patch
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/workbook/garrison-config.bb
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-phosphor/workbook/palmetto-config.bb
- delete mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-phosphor/skeleton/skeleton.bbappend
- delete mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-phosphor/skeleton/skeleton/skeleton.patch
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-phosphor/workbook/barreleye-config.bb
- create mode 100644 meta-phosphor/classes/config-in-skeleton.bbclass
-
-diff --git a/meta-openbmc-machines/meta-openpower/conf/machine/include/openpower.inc b/meta-openbmc-machines/meta-openpower/conf/machine/include/openpower.inc
-index 6660a56..2ef42ed 100644
---- a/meta-openbmc-machines/meta-openpower/conf/machine/include/openpower.inc
-+++ b/meta-openbmc-machines/meta-openpower/conf/machine/include/openpower.inc
-@@ -23,6 +23,8 @@ VIRTUAL-RUNTIME_obmc-phosphor-ipmi-parsers = " \
-         host-ipmid-oem \
-         host-ipmid-fru \
-        "
-+VIRTUAL-RUNTIME_skeleton_workbook = "${MACHINE}-config"
-+
- PREFERRED_PROVIDER_virtual/obmc-phosphor-host-ipmi-hw = "btbridged"
- PREFERRED_PROVIDER_virtual/obmc-phosphor-chassis-mgmt = "skeleton"
- PREFERRED_PROVIDER_virtual/obmc-phosphor-event-mgmt = "obmc-phosphor-event"
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton.bbappend b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton.bbappend
-index 1edbf31..6c14b22 100644
---- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton.bbappend
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton.bbappend
-@@ -1,4 +1,3 @@
- FILESEXTRAPATHS_append := "${THISDIR}/${PN}:"
--SRC_URI += "file://firestone.patch"
- SRC_URI += "file://poweron.patch"
- SRC_URI += "file://occ-path.patch"
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton/firestone.patch b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton/firestone.patch
-deleted file mode 100644
-index 2cb6ab4..0000000
---- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton/firestone.patch
-+++ /dev/null
-@@ -1,11 +0,0 @@
----- a/skeleton.service	2015-10-28 07:47:55.337712001 -0500
--+++ b/skeleton.service	2015-10-28 07:34:05.277712001 -0500
--@@ -2,7 +2,7 @@
-- Description=Temp placeholder for skeleton function
-- 
-- [Service]
---ExecStart=/usr/sbin/system_manager.py Palmetto
--+ExecStart=/usr/sbin/system_manager.py Firestone
-- 
-- [Install]
-- WantedBy=multi-user.target
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/workbook/firestone-config.bb b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/workbook/firestone-config.bb
-new file mode 100644
-index 0000000..0f4de06
---- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/workbook/firestone-config.bb
-@@ -0,0 +1,8 @@
-+SUMMARY = "Firestone board wiring"
-+DESCRIPTION = "Board wiring information for the Firestone system."
-+HOMEPAGE = "http://github.com/openbmc/skeleton"
-+PR = "r1"
-+
-+SRCREV = "5213a991a5a3bd107636f1b2cc3bbca560843462"
-+inherit config-in-skeleton
-+inherit obmc-phosphor-license
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton.bbappend b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton.bbappend
-index f7f16da..6c14b22 100644
---- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton.bbappend
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton.bbappend
-@@ -1,4 +1,3 @@
- FILESEXTRAPATHS_append := "${THISDIR}/${PN}:"
--SRC_URI += "file://garrison.patch"
- SRC_URI += "file://poweron.patch"
- SRC_URI += "file://occ-path.patch"
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton/garrison.patch b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton/garrison.patch
-deleted file mode 100644
-index 23aabc5..0000000
---- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton/garrison.patch
-+++ /dev/null
-@@ -1,11 +0,0 @@
----- a/skeleton.service	2015-10-28 07:47:55.337712001 -0500
--+++ b/skeleton.service	2015-10-28 07:34:05.277712001 -0500
--@@ -2,7 +2,7 @@
-- Description=Temp placeholder for skeleton function
-- 
-- [Service]
---ExecStart=/usr/sbin/system_manager.py Palmetto
--+ExecStart=/usr/sbin/system_manager.py Garrison
-- 
-- [Install]
-- WantedBy=multi-user.target
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/workbook/garrison-config.bb b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/workbook/garrison-config.bb
-new file mode 100644
-index 0000000..00bc2ec
---- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/workbook/garrison-config.bb
-@@ -0,0 +1,8 @@
-+SUMMARY = "Garrison board wiring"
-+DESCRIPTION = "Board wiring information for the Garrison system."
-+HOMEPAGE = "http://github.com/openbmc/skeleton"
-+PR = "r1"
-+
-+SRCREV = "5213a991a5a3bd107636f1b2cc3bbca560843462"
-+inherit config-in-skeleton
-+inherit obmc-phosphor-license
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-phosphor/workbook/palmetto-config.bb b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-phosphor/workbook/palmetto-config.bb
-new file mode 100644
-index 0000000..730ba1a
---- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-phosphor/workbook/palmetto-config.bb
-@@ -0,0 +1,8 @@
-+SUMMARY = "Palmetto board wiring"
-+DESCRIPTION = "Board wiring information for the Palmetto system."
-+HOMEPAGE = "http://github.com/openbmc/skeleton"
-+PR = "r1"
-+
-+SRCREV = "5213a991a5a3bd107636f1b2cc3bbca560843462"
-+inherit config-in-skeleton
-+inherit obmc-phosphor-license
-diff --git a/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-phosphor/skeleton/skeleton.bbappend b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-phosphor/skeleton/skeleton.bbappend
-deleted file mode 100644
-index c3aad86..0000000
---- a/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-phosphor/skeleton/skeleton.bbappend
-+++ /dev/null
-@@ -1,2 +0,0 @@
--FILESEXTRAPATHS_append := "${THISDIR}/${PN}:"
--SRC_URI += "file://skeleton.patch"
-diff --git a/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-phosphor/skeleton/skeleton/skeleton.patch b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-phosphor/skeleton/skeleton/skeleton.patch
-deleted file mode 100644
-index 288e68a..0000000
---- a/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-phosphor/skeleton/skeleton/skeleton.patch
-+++ /dev/null
-@@ -1,12 +0,0 @@
----- a/skeleton.service	2015-10-28 07:47:55.337712001 -0500
--+++ b/skeleton.service	2015-10-28 07:34:05.277712001 -0500
--@@ -2,8 +2,8 @@
-- Description=Temp placeholder for skeleton function
-- 
-- [Service]
-- Restart=always
---ExecStart=/usr/sbin/system_manager.py Palmetto
--+ExecStart=/usr/sbin/system_manager.py Barreleye
-- 
-- [Install]
-- WantedBy=multi-user.target
-diff --git a/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-phosphor/workbook/barreleye-config.bb b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-phosphor/workbook/barreleye-config.bb
-new file mode 100644
-index 0000000..a8c9bb7
---- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-phosphor/workbook/barreleye-config.bb
-@@ -0,0 +1,8 @@
-+SUMMARY = "Barreleye board wiring"
-+DESCRIPTION = "Board wiring information for the Barreleye system."
-+HOMEPAGE = "http://github.com/openbmc/skeleton"
-+PR = "r1"
-+
-+SRCREV = "5213a991a5a3bd107636f1b2cc3bbca560843462"
-+inherit config-in-skeleton
-+inherit obmc-phosphor-license
-diff --git a/meta-phosphor/classes/config-in-skeleton.bbclass b/meta-phosphor/classes/config-in-skeleton.bbclass
-new file mode 100644
-index 0000000..33266be
---- /dev/null
-+++ b/meta-phosphor/classes/config-in-skeleton.bbclass
-@@ -0,0 +1,28 @@
-+# In general this class should only be used by board layers
-+# that keep their machine-readable-workbook in the skeleton repository.
-+
-+inherit allarch
-+inherit setuptools
-+
-+SRC_URI += "git://github.com/openbmc/skeleton;subpath=configs"
-+S = "${WORKDIR}/configs"
-+
-+python() {
-+	machine = d.getVar('MACHINE', True).capitalize() + '.py'
-+	d.setVar('_config_in_skeleton', machine)
-+}
-+
-+do_make_setup() {
-+        cp ${S}/${_config_in_skeleton} \
-+                ${S}/obmc_system_config.py
-+        cat <<EOF > ${S}/setup.py
-+from distutils.core import setup
-+
-+setup(name='${BPN}',
-+    version='${PR}',
-+    py_modules=['obmc_system_config'],
-+    )
-+EOF
-+}
-+
-+addtask make_setup after do_patch before do_configure
-diff --git a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
-index 1d45d16..967773e 100644
---- a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
-+++ b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
-@@ -11,34 +11,29 @@ inherit obmc-phosphor-flash-mgmt
- inherit obmc-phosphor-policy-mgmt
- inherit obmc-phosphor-sensor-mgmt
- inherit obmc-phosphor-system-mgmt
-+inherit python-dir
-+
-+VIRTUAL-RUNTIME_skeleton_workbook ?= ""
- 
- DEPENDS += "glib-2.0 systemd"
--RDEPENDS_${PN} += "python-subprocess python-compression libsystemd"
-+RDEPENDS_${PN} += "python-subprocess python-compression libsystemd ${VIRTUAL-RUNTIME_skeleton_workbook}"
- SRC_URI += "git://github.com/openbmc/skeleton"
- 
-+FILES_${PN} += "${PYTHON_SITEPACKAGES_DIR}/*"
- # RDEPEND on pflash if the openpower-pflash machine feature is set.
- PACKAGECONFIG ??= "${@bb.utils.contains('MACHINE_FEATURES', 'openpower-pflash', 'openpower-pflash', '', d)}"
- PACKAGECONFIG[openpower-pflash] = ",,,pflash"
- 
--SRCREV = "b2f3fd7a29ddf16ea6171b4b4649d9a0ea8be58d"
-+SRCREV = "5213a991a5a3bd107636f1b2cc3bbca560843462"
- 
- S = "${WORKDIR}"
- 
- do_compile() {
--        oe_runmake -C git
--
--        # Remove deprecated files.
--        rm ${S}/git/bin/pflash
-+	oe_runmake -C git
- }
- 
- do_install() {
--        source=${S}/git
--
--        install -d ${D}/${sbindir} ${D}${libdir}
--        for i in ${source}/bin/*; do
--                install $i ${D}/${sbindir}
--        done
--        for i in ${source}/lib/*; do
--                install $i ${D}/${libdir}
--        done
-+        oe_runmake -C git install \
-+		DESTDIR=${D} \
-+		PREFIX=/usr
- }
-diff --git a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton/skeleton.service b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton/skeleton.service
-index b001abf..35b6e6c 100755
---- a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton/skeleton.service
-+++ b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton/skeleton.service
-@@ -3,7 +3,7 @@ Description=Temp placeholder for skeleton function
- 
- [Service]
- Restart=always
--ExecStart=/usr/sbin/system_manager.py Palmetto
-+ExecStart=/usr/sbin/system_manager.py
- 
- [Install]
- WantedBy=multi-user.target
--- 
-2.8.4
+>> authentication. Since the OpenBMC UI, which would replace the port =
+3000,=20
+>> is not close to being delivered yet, and the Barreleye GA build=20
+>> approaches, any thoughts on how to proceed: add authentication to the =
+port=20
+>> 3000, remove it from the build, other?
+>>=20
+>=20
+> In my view, the port 3000 code was only there for debug / development
+> purposes.  I would suggest we disable it in production builds.
+>=20
+> --=20
+> Patrick Williams
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
