@@ -1,101 +1,22 @@
-Return-Path: <anoo@us.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <openbmc-patches@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rTCJd586rzDqgM
- for <openbmc@lists.ozlabs.org>; Tue, 14 Jun 2016 11:50:09 +1000 (AEST)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
- u5E1nHiX105623
- for <openbmc@lists.ozlabs.org>; Mon, 13 Jun 2016 21:50:07 -0400
-Received: from e19.ny.us.ibm.com (e19.ny.us.ibm.com [129.33.205.209])
- by mx0a-001b2d01.pphosted.com with ESMTP id 23gemub8vx-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 13 Jun 2016 21:50:07 -0400
-Received: from localhost
- by e19.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <anoo@us.ibm.com>;
- Mon, 13 Jun 2016 21:50:06 -0400
-Received: from d01dlp02.pok.ibm.com (9.56.250.167)
- by e19.ny.us.ibm.com (146.89.104.206) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 13 Jun 2016 21:50:04 -0400
-X-IBM-Helo: d01dlp02.pok.ibm.com
-X-IBM-MailFrom: anoo@us.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
- [9.57.198.29])
- by d01dlp02.pok.ibm.com (Postfix) with ESMTP id 09D356E8041
- for <openbmc@lists.ozlabs.org>; Mon, 13 Jun 2016 21:49:46 -0400 (EDT)
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u5E1o4Kb49938596
- for <openbmc@lists.ozlabs.org>; Tue, 14 Jun 2016 01:50:04 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 6A450124037
- for <openbmc@lists.ozlabs.org>; Mon, 13 Jun 2016 21:50:03 -0400 (EDT)
-Received: from d50lp32.co.us.ibm.com (unknown [9.17.249.36])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTPS id 3A48F124052
- for <openbmc@lists.ozlabs.org>; Mon, 13 Jun 2016 21:50:03 -0400 (EDT)
-Received: from localhost
- by d50lp32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <anoo@us.ibm.com>;
- Mon, 13 Jun 2016 19:50:02 -0600
-Received: from smtp.notes.na.collabserv.com (192.155.248.82)
- by d50lp32.co.us.ibm.com (192.168.2.143) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
- Mon, 13 Jun 2016 19:50:00 -0600
-X-IBM-Helo: smtp.notes.na.collabserv.com
-X-IBM-MailFrom: anoo@us.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from /spool/local
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <anoo@us.ibm.com>;
- Tue, 14 Jun 2016 01:49:59 -0000
-Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
- by smtp.notes.na.collabserv.com (10.106.227.105) with
- smtp.notes.na.collabserv.com ESMTP; Tue, 14 Jun 2016 01:49:58 -0000
-Received: from us1a3-mail52.a3.dal06.isc4sb.com ([10.146.77.168])
- by us1a3-smtp05.a3.dal06.isc4sb.com
- with ESMTP id 2016061401495817-603408 ;
- Tue, 14 Jun 2016 01:49:58 +0000 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rTFXn6TTczDq5d
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Jun 2016 13:30:48 +1000 (AEST)
+Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
+ with SMTPS id 1465875042924836.1635565659841;
+ Mon, 13 Jun 2016 20:30:42 -0700 (PDT)
+From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: Authentication for OpenBMC port 3000
-From: "Adriana Kobylak" <anoo@us.ibm.com>
-Date: Mon, 13 Jun 2016 20:49:58 -0500
-MIME-Version: 1.0
-X-KeepSent: 97E67B46:5B644A38-86257FD2:000986B3;
- type=4; name=$KeepSent
-X-Mailer: IBM Notes Release 9.0.1EXT SHF692 April 27, 2016
-X-LLNOutbound: False
-X-Disclaimed: 44163
-X-TNEFEvaluated: 1
-Content-Type: multipart/alternative;
- boundary="=_alternative 000A10B186257FD2_="
-x-cbid: 16061401-0056-0000-0000-00000082BFE2
-X-IBM-ISS-SpamDetectors: Score=0.423878; BY=0.000001; FL=0; FP=0; FZ=0; HX=0; 
- KW=0; PH=0; SC=0.423878; ST=0; TS=0; UL=0; ISC=
-X-IBM-ISS-DetailInfo: BY=3.00005378; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000170; SDB=6.00715938; UDB=6.00333540; UTC=2016-06-14
- 01:49:59
-x-cbparentid: 16061401-9900-0000-0000-0000082BDA19
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-Message-Id: <OF97E67B46.5B644A38-ON86257FD2.000986B3-86257FD2.000A1137@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2016-06-13_13:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1604210000
- definitions=main-1606140020
+Subject: [PATCH phosphor-host-ipmid] host-ipmid: remove leading and trailing
+ space and tab when setting boot options
+Date: Mon, 13 Jun 2016 22:30:40 -0500
+Message-Id: <20160614033040.9938-2-openbmc-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.8.4
+In-Reply-To: <20160614033040.9938-1-openbmc-patches@stwcx.xyz>
+References: <20160614033040.9938-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -107,29 +28,175 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Jun 2016 01:50:10 -0000
+X-List-Received-Date: Tue, 14 Jun 2016 03:30:50 -0000
 
+From: Yi Li <adamliyi@msn.com>
 
---=_alternative 000A10B186257FD2_=
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="US-ASCII"
+This patch fixes issue: https://github.com/openbmc/skeleton/issues/56
 
-Adi brought up the concern that accessing port 3000 doesn't require=20
-authentication. Since the OpenBMC UI, which would replace the port 3000,=20
-is not close to being delivered yet, and the Barreleye GA build=20
-approaches, any thoughts on how to proceed: add authentication to the port =
+In ipmi get bootparam handler, remove leading and trailing space and tab
+before querying for boot flags.
 
-3000, remove it from the build, other?
+There are several places we can check the user-set boot options:
+* rest server
+* phosphor-settingsd
+* host-ipmid
 
+Here the boot option is checked in host-ipmid, since currently
+the host-ipmid knows whether a boot option is valid or not.
 
---=_alternative 000A10B186257FD2_=
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset="US-ASCII"
+Signed-off-by: Yi Li <adamliyi@msn.com>
+---
+ chassishandler.C | 66 ++++++++++++++++++++++++++++++++++++++++----------------
+ 1 file changed, 47 insertions(+), 19 deletions(-)
 
-<font size=3D2 face=3D"sans-serif">Adi brought up the concern that accessing
-port 3000 doesn't require authentication. Since the OpenBMC UI, which would
-replace the port 3000, is not close to being delivered yet, and the Barrele=
-ye
-GA build approaches, any thoughts on how to proceed: add authentication
-to the port 3000, remove it from the build, other?</font><BR>
---=_alternative 000A10B186257FD2_=--
+diff --git a/chassishandler.C b/chassishandler.C
+index d5b3404..8bd03ba 100644
+--- a/chassishandler.C
++++ b/chassishandler.C
+@@ -3,13 +3,13 @@
+ #include <stdio.h>
+ #include <string.h>
+ #include <stdint.h>
+-
++#include <ctype.h>
+ 
+ //Defines
+ #define SET_PARM_VERSION 1
+ #define SET_PARM_BOOT_FLAGS_PERMANENT 0x40 //boot flags data1 7th bit on
+ #define SET_PARM_BOOT_FLAGS_VALID_ONE_TIME   0x80 //boot flags data1 8th bit on
+-#define SET_PARM_BOOT_FLAGS_VALID_PERMANENT  0xC0 //boot flags data1 7 & 8 bit on 
++#define SET_PARM_BOOT_FLAGS_VALID_PERMANENT  0xC0 //boot flags data1 7 & 8 bit on
+ 
+ 
+ 
+@@ -241,8 +241,8 @@ struct set_sys_boot_options_t {
+     uint8_t data[8];
+ }  __attribute__ ((packed));
+ 
+-ipmi_ret_t ipmi_chassis_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
+-                              ipmi_request_t request, ipmi_response_t response, 
++ipmi_ret_t ipmi_chassis_wildcard(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
++                              ipmi_request_t request, ipmi_response_t response,
+                               ipmi_data_len_t data_len, ipmi_context_t context)
+ {
+     printf("Handling CHASSIS WILDCARD Netfn:[0x%X], Cmd:[0x%X]\n",netfn, cmd);
+@@ -272,7 +272,7 @@ int ipmi_chassis_power_control(const char *method)
+ 
+ 	rc = sd_bus_call_method(bus_type,        		 // On the System Bus
+ 							chassis_bus_name,        // Service to contact
+-							chassis_object_name,     // Object path 
++							chassis_object_name,     // Object path
+ 							chassis_intf_name,       // Interface name
+ 							method,      		 // Method to be called
+ 							&bus_error,      		 // object to return error
+@@ -297,8 +297,8 @@ int ipmi_chassis_power_control(const char *method)
+ //----------------------------------------------------------------------
+ // Chassis Control commands
+ //----------------------------------------------------------------------
+-ipmi_ret_t ipmi_chassis_control(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
+-                        ipmi_request_t request, ipmi_response_t response, 
++ipmi_ret_t ipmi_chassis_control(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
++                        ipmi_request_t request, ipmi_response_t response,
+                         ipmi_data_len_t data_len, ipmi_context_t context)
+ {
+ 	// Error from power off.
+@@ -347,19 +347,47 @@ bootOptionTypeMap_t g_bootOptionTypeMap_t[] = {
+     {0xFF, INVALID_STRING}
+ };
+ 
++/* trim leading and trailing space or tab, return a new string */
++char* trim_str(char *s)
++{
++    int l;
++
++    if (!s)
++        return NULL;
++    l = strlen(s);
++
++    while(l > 0 && isspace(s[l - 1]))
++        --l;
++    while(l > 0 && *s && isblank(*s)) {
++        ++s;
++        --l;
++    }
++
++    if (l <= 0)
++        return NULL;
++
++    return strndup(s, l);
++}
++
+ uint8_t get_ipmi_boot_option(char *p) {
+ 
+     bootOptionTypeMap_t *s = g_bootOptionTypeMap_t;
++    /* remove leading and trailing space or tab */
++    char *str = trim_str(p);
++
++    if (!str)
++        return 0xFF;
+ 
+     while (s->ipmibootflag != 0xFF) {
+-        if (!strcmp(s->dbusname,p))
++        if (!strcmp(s->dbusname,str))
+             break;
+         s++;
+     }
+ 
+-    if (!s->ipmibootflag)
+-        printf("Failed to find Sensor Type %s\n", p);
++    if (s->ipmibootflag == 0xFF)
++        fprintf(stderr, "Failed to find Sensor Type %s\n", p);
+ 
++    free(str);
+     return s->ipmibootflag;
+ }
+ 
+@@ -376,14 +404,14 @@ char* get_boot_option_by_ipmi(uint8_t p) {
+     }
+ 
+ 
+-    if (!s->ipmibootflag)
+-        printf("Failed to find Sensor Type 0x%x\n", p);
++    if (s->ipmibootflag == 0xFF)
++        fprintf(stderr, "Failed to find Sensor Type 0x%x\n", p);
+ 
+     return s->dbusname;
+ }
+ 
+-ipmi_ret_t ipmi_chassis_get_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd, 
+-                              ipmi_request_t request, ipmi_response_t response, 
++ipmi_ret_t ipmi_chassis_get_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
++                              ipmi_request_t request, ipmi_response_t response,
+                               ipmi_data_len_t data_len, ipmi_context_t context)
+ {
+     ipmi_ret_t rc = IPMI_CC_PARM_NOT_SUPPORTED;
+@@ -437,8 +465,8 @@ ipmi_ret_t ipmi_chassis_get_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+ 
+         } else {
+ 
+-            printf("BootPolicy is[%s]", p); 
+-            resp->data[0] = (strncmp(p,"ONETIME",strlen("ONETIME"))==0) ? 
++            printf("BootPolicy is[%s]", p);
++            resp->data[0] = (strncmp(p,"ONETIME",strlen("ONETIME"))==0) ?
+                             SET_PARM_BOOT_FLAGS_VALID_ONE_TIME:
+                             SET_PARM_BOOT_FLAGS_VALID_PERMANENT;
+             rc = IPMI_CC_OK;
+@@ -494,12 +522,12 @@ ipmi_ret_t ipmi_chassis_set_sys_boot_options(ipmi_netfn_t netfn, ipmi_cmd_t cmd,
+                 rc = IPMI_CC_UNSPECIFIED_ERROR;
+             }
+         }
+-      
++
+         /* setting the boot policy */
+-        s = (char *)(((reqptr->data[0] & SET_PARM_BOOT_FLAGS_PERMANENT) == 
++        s = (char *)(((reqptr->data[0] & SET_PARM_BOOT_FLAGS_PERMANENT) ==
+                        SET_PARM_BOOT_FLAGS_PERMANENT) ?"PERMANENT":"ONETIME");
+ 
+-        printf ( "\nBoot Policy is %s",s); 
++        printf ( "\nBoot Policy is %s",s);
+         int r = dbus_set_property("boot_policy",s);
+ 
+         if (r < 0) {
+-- 
+2.8.4
