@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rTg4070YFzDqhk
- for <openbmc@lists.ozlabs.org>; Wed, 15 Jun 2016 05:40:48 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rTgkx2ndMzDqgn
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Jun 2016 06:11:04 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1465933240368957.8839051227301;
- Tue, 14 Jun 2016 12:40:40 -0700 (PDT)
+ with SMTPS id 1465935059820627.8233250593001;
+ Tue, 14 Jun 2016 13:10:59 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc] AST2500: defconfig changes required for systemd
-Date: Tue, 14 Jun 2016 14:40:38 -0500
-Message-Id: <20160614194039.17245-1-openbmc-patches@stwcx.xyz>
+Subject: [PATCH u-boot] aspeed/ast-g5: Simplify default bootargs
+Date: Tue, 14 Jun 2016 15:10:57 -0500
+Message-Id: <20160614201058.18555-1-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
@@ -25,24 +25,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Jun 2016 19:40:50 -0000
+X-List-Received-Date: Tue, 14 Jun 2016 20:11:06 -0000
 
-Change-Id: I43d8d469bce5c61d48506aebda7cfccf1d99f8b3
-Signed-off-by: Rick Altherr <raltherr@google.com>
+New arguments set default console for DEBUG_UART (ttyS4) on the EVB and allow the kernel to choose init path, root/overlay, and memory size.
 
 <!-- Reviewable:start -->
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/330)
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/u-boot/7)
 <!-- Reviewable:end -->
 
 
-https://github.com/openbmc/openbmc/pull/330
+https://github.com/openbmc/u-boot/pull/7
 
-Rick Altherr (1):
-  AST2500: defconfig changes required for systemd
+Xo Wang (1):
+  aspeed/ast-g5: Simplify default bootargs
 
- .../meta-aspeed/meta-ast2500/recipes-kernel/linux/linux-obmc/defconfig  | 2 ++
- 1 file changed, 2 insertions(+)
+ include/configs/ast-g5.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 -- 
 2.8.4
