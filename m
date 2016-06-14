@@ -3,20 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rTYJ44DLVzDqfB
- for <openbmc@lists.ozlabs.org>; Wed, 15 Jun 2016 01:20:52 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rTbJF5wb3zDqfS
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Jun 2016 02:51:09 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1465917641820704.5615129183935;
- Tue, 14 Jun 2016 08:20:41 -0700 (PDT)
+ with SMTPS id 1465923054412739.3485438101477;
+ Tue, 14 Jun 2016 09:50:54 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH openbmc 2/2] Bump host-ipmid version
-Date: Tue, 14 Jun 2016 10:20:34 -0500
-Message-Id: <20160614152034.7936-3-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v5] Add support for checkstop gpio
+Date: Tue, 14 Jun 2016 11:50:51 -0500
+Message-Id: <20160614165052.11119-1-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.4
-In-Reply-To: <20160614152034.7936-1-openbmc-patches@stwcx.xyz>
-References: <20160614152034.7936-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,36 +25,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Jun 2016 15:20:53 -0000
+X-List-Received-Date: Tue, 14 Jun 2016 16:51:11 -0000
 
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Add checkstop gpio, and trigger a host reboot when an interrupt
+is detected and the system state is host booted.
 
-This picks up a host-ipmid update that addresses a bitbake
-warning message about missing runtime shared library dependencies.
+Signed-off-by: Adriana Kobylak <anoo@us.ibm.com>
 
-Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+<!-- Reviewable:start -->
 ---
- meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid-fru.bb | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/skeleton/96)
+<!-- Reviewable:end -->
 
-diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid-fru.bb b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid-fru.bb
-index 00a652f..41435b7 100644
---- a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid-fru.bb
-+++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid-fru.bb
-@@ -18,10 +18,11 @@ TARGET_CFLAGS += " -fpic -std=gnu++14"
- 
- SRC_URI += "git://github.com/openbmc/ipmi-fru-parser"
- 
--SRCREV = "2f5a3cfd2412c7e10d128a856ad2c37c8a1b4a10"
-+SRCREV = "bf9385f56f715426ff2ac3a1d77af6b6d1575fe1"
- 
--FILES_${PN} += "${libdir}/host-ipmid/*.so"
--FILES_${PN}-dbg += "${libdir}/host-ipmid/.debug"
-+FILES_SOLIBSDEV += "${libdir}/host-ipmid/lib*${SOLIBSDEV}"
-+FILES_${PN} += "${libdir}/host-ipmid/lib*${SOLIBS}"
-+FILES_${PN}-dbg += "${libdir}/host-ipmid/.debug/lib*${SOLIBS}"
- 
- S = "${WORKDIR}/git"
- 
+
+https://github.com/openbmc/skeleton/pull/96
+
+Adriana Kobylak (1):
+  Add support for checkstop gpio
+
+ Makefile                           |   2 +
+ configs/Barreleye.py               |   7 +
+ configs/Palmetto.py                |   7 +
+ gdbus/interfaces/openbmc_intf.c    | 875 +++++++++++++++++++++++++++++++++++--
+ gdbus/interfaces/openbmc_intf.h    | 124 +++++-
+ gdbus/xml/openbmc_intf.xml         |   2 +
+ hostcheckstop/Makefile             |   3 +
+ hostcheckstop/host_checkstop_obj.c | 204 +++++++++
+ 8 files changed, 1190 insertions(+), 34 deletions(-)
+ create mode 100644 hostcheckstop/Makefile
+ create mode 100644 hostcheckstop/host_checkstop_obj.c
+
 -- 
 2.8.4
