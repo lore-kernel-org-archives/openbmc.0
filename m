@@ -3,17 +3,19 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rTbJF5wb3zDqfS
- for <openbmc@lists.ozlabs.org>; Wed, 15 Jun 2016 02:51:09 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rTbJH2739zDqfV
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Jun 2016 02:51:10 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1465923054412739.3485438101477;
- Tue, 14 Jun 2016 09:50:54 -0700 (PDT)
+ with SMTPS id 1465923057797690.8802427339053;
+ Tue, 14 Jun 2016 09:50:57 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Subject: [PATCH skeleton v5] Add support for checkstop gpio
-Date: Tue, 14 Jun 2016 11:50:51 -0500
-Message-Id: <20160614165052.11119-1-openbmc-patches@stwcx.xyz>
+Date: Tue, 14 Jun 2016 11:50:52 -0500
+Message-Id: <20160614165052.11119-2-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.4
+In-Reply-To: <20160614165052.11119-1-openbmc-patches@stwcx.xyz>
+References: <20160614165052.11119-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -25,24 +27,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Jun 2016 16:51:11 -0000
+X-List-Received-Date: Tue, 14 Jun 2016 16:51:14 -0000
 
-Add checkstop gpio, and trigger a host reboot when an interrupt
-is detected and the system state is host booted.
+From: Adriana Kobylak <anoo@us.ibm.com>
+
+Add checkstop gpio support to trigger a host reboot when an interrupt
+is detected due to OS checkstop.
+Add checkstop gpio pin to Barreleye and Palmetto.
 
 Signed-off-by: Adriana Kobylak <anoo@us.ibm.com>
-
-<!-- Reviewable:start -->
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/skeleton/96)
-<!-- Reviewable:end -->
-
-
-https://github.com/openbmc/skeleton/pull/96
-
-Adriana Kobylak (1):
-  Add support for checkstop gpio
-
  Makefile                           |   2 +
  configs/Barreleye.py               |   7 +
  configs/Palmetto.py                |   7 +
@@ -55,5 +49,1621 @@ Adriana Kobylak (1):
  create mode 100644 hostcheckstop/Makefile
  create mode 100644 hostcheckstop/host_checkstop_obj.c
 
+diff --git a/Makefile b/Makefile
+index 87acb71..67ea50e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -3,6 +3,7 @@ GDBUS_APPS = bmcctl \
+ 	     boardvpd \
+ 	     fanctl \
+ 	     flashbios \
++	     hostcheckstop \
+ 	     hostwatchdog \
+ 	     hwmon \
+ 	     hwmon-barreleye \
+@@ -48,3 +49,4 @@ clean:
+ 	@for d in $(REVERSE_SUBDIRS); do \
+ 		$(MAKE) -C $$d $@ || exit 1; \
+ 	done
++
+diff --git a/configs/Barreleye.py b/configs/Barreleye.py
+index c23f657..7b74179 100644
+--- a/configs/Barreleye.py
++++ b/configs/Barreleye.py
+@@ -154,6 +154,12 @@ APPS = {
+                 'monitor_process' : True,
+                 'process_name'    : 'button_reset.exe',
+         },
++	'host_checkstop' : {
++		'system_state'    : 'BMC_STARTING',
++		'start_process'   : True,
++		'monitor_process' : True,
++		'process_name'    : 'host_checkstop.exe',
++	},
+ 	'led_control' : {
+ 		'system_state'    : 'BMC_STARTING',
+ 		'start_process'   : True,
+@@ -561,6 +567,7 @@ GPIO_CONFIG['CPLD_TCK']    	  =   { 'gpio_pin': 'P0', 'direction': 'out' }
+ GPIO_CONFIG['CPLD_TDO']    	  =   { 'gpio_pin': 'P1', 'direction': 'out' }
+ GPIO_CONFIG['CPLD_TDI']    	  =   { 'gpio_pin': 'P2', 'direction': 'out' }
+ GPIO_CONFIG['CPLD_TMS']    	  =   { 'gpio_pin': 'P3', 'direction': 'out' }
++GPIO_CONFIG['CHECKSTOP']   	  =   { 'gpio_pin': 'P5', 'direction': 'falling' }
+ 
+ GPIO_CONFIG['SLOT0_RISER_PRESENT'] =   { 'gpio_pin': 'N0', 'direction': 'in' }
+ GPIO_CONFIG['SLOT1_RISER_PRESENT'] =   { 'gpio_pin': 'N1', 'direction': 'in' }
+diff --git a/configs/Palmetto.py b/configs/Palmetto.py
+index bb4d6f2..bbe4afc 100644
+--- a/configs/Palmetto.py
++++ b/configs/Palmetto.py
+@@ -111,6 +111,12 @@ APPS = {
+ 		'monitor_process' : False,
+ 		'process_name'    : 'button_power.exe',
+ 	},
++	'host_checkstop' : {
++		'system_state'    : 'BMC_STARTING',
++		'start_process'   : False,
++		'monitor_process' : False,
++		'process_name'    : 'host_checkstop.exe',
++	},
+ 	'led_control' : {
+ 		'system_state'    : 'BMC_STARTING',
+ 		'start_process'   : True,
+@@ -287,6 +293,7 @@ GPIO_CONFIG['SLOT1_PRESENT'] =         { 'gpio_pin': 'N4', 'direction': 'in' }
+ GPIO_CONFIG['SLOT2_PRESENT'] =         { 'gpio_pin': 'N5', 'direction': 'in' }
+ GPIO_CONFIG['MEZZ0_PRESENT'] =         { 'gpio_pin': 'O0', 'direction': 'in' }
+ GPIO_CONFIG['MEZZ1_PRESENT'] =         { 'gpio_pin': 'O1', 'direction': 'in' }
++GPIO_CONFIG['CHECKSTOP']      =   { 'gpio_pin': 'P5', 'direction': 'falling' }
+ 
+ def convertGpio(name):
+ 	name = name.upper()
+diff --git a/gdbus/interfaces/openbmc_intf.c b/gdbus/interfaces/openbmc_intf.c
+index 62b6016..4d0c822 100644
+--- a/gdbus/interfaces/openbmc_intf.c
++++ b/gdbus/interfaces/openbmc_intf.c
+@@ -1,5 +1,5 @@
+ /*
+- * Generated by gdbus-codegen 2.40.2. DO NOT EDIT.
++ * Generated by gdbus-codegen 2.44.1. DO NOT EDIT.
+  *
+  * The license of this code is the same as for the source it was derived from.
+  */
+@@ -2055,6 +2055,7 @@ hwmon_skeleton_notify (GObject      *object,
+       skeleton->priv->changed_properties_idle_source = g_idle_source_new ();
+       g_source_set_priority (skeleton->priv->changed_properties_idle_source, G_PRIORITY_DEFAULT);
+       g_source_set_callback (skeleton->priv->changed_properties_idle_source, _hwmon_emit_changed, g_object_ref (skeleton), (GDestroyNotify) g_object_unref);
++      g_source_set_name (skeleton->priv->changed_properties_idle_source, "[generated] _hwmon_emit_changed");
+       g_source_attach (skeleton->priv->changed_properties_idle_source, skeleton->priv->context);
+       g_source_unref (skeleton->priv->changed_properties_idle_source);
+     }
+@@ -3925,6 +3926,7 @@ fan_skeleton_notify (GObject      *object,
+       skeleton->priv->changed_properties_idle_source = g_idle_source_new ();
+       g_source_set_priority (skeleton->priv->changed_properties_idle_source, G_PRIORITY_DEFAULT);
+       g_source_set_callback (skeleton->priv->changed_properties_idle_source, _fan_emit_changed, g_object_ref (skeleton), (GDestroyNotify) g_object_unref);
++      g_source_set_name (skeleton->priv->changed_properties_idle_source, "[generated] _fan_emit_changed");
+       g_source_attach (skeleton->priv->changed_properties_idle_source, skeleton->priv->context);
+       g_source_unref (skeleton->priv->changed_properties_idle_source);
+     }
+@@ -6060,6 +6062,7 @@ sensor_value_skeleton_notify (GObject      *object,
+       skeleton->priv->changed_properties_idle_source = g_idle_source_new ();
+       g_source_set_priority (skeleton->priv->changed_properties_idle_source, G_PRIORITY_DEFAULT);
+       g_source_set_callback (skeleton->priv->changed_properties_idle_source, _sensor_value_emit_changed, g_object_ref (skeleton), (GDestroyNotify) g_object_unref);
++      g_source_set_name (skeleton->priv->changed_properties_idle_source, "[generated] _sensor_value_emit_changed");
+       g_source_attach (skeleton->priv->changed_properties_idle_source, skeleton->priv->context);
+       g_source_unref (skeleton->priv->changed_properties_idle_source);
+     }
+@@ -7877,6 +7880,7 @@ sensor_threshold_skeleton_notify (GObject      *object,
+       skeleton->priv->changed_properties_idle_source = g_idle_source_new ();
+       g_source_set_priority (skeleton->priv->changed_properties_idle_source, G_PRIORITY_DEFAULT);
+       g_source_set_callback (skeleton->priv->changed_properties_idle_source, _sensor_threshold_emit_changed, g_object_ref (skeleton), (GDestroyNotify) g_object_unref);
++      g_source_set_name (skeleton->priv->changed_properties_idle_source, "[generated] _sensor_threshold_emit_changed");
+       g_source_attach (skeleton->priv->changed_properties_idle_source, skeleton->priv->context);
+       g_source_unref (skeleton->priv->changed_properties_idle_source);
+     }
+@@ -9063,6 +9067,7 @@ sensor_i2c_skeleton_notify (GObject      *object,
+       skeleton->priv->changed_properties_idle_source = g_idle_source_new ();
+       g_source_set_priority (skeleton->priv->changed_properties_idle_source, G_PRIORITY_DEFAULT);
+       g_source_set_callback (skeleton->priv->changed_properties_idle_source, _sensor_i2c_emit_changed, g_object_ref (skeleton), (GDestroyNotify) g_object_unref);
++      g_source_set_name (skeleton->priv->changed_properties_idle_source, "[generated] _sensor_i2c_emit_changed");
+       g_source_attach (skeleton->priv->changed_properties_idle_source, skeleton->priv->context);
+       g_source_unref (skeleton->priv->changed_properties_idle_source);
+     }
+@@ -10279,6 +10284,7 @@ sensor_match_skeleton_notify (GObject      *object,
+       skeleton->priv->changed_properties_idle_source = g_idle_source_new ();
+       g_source_set_priority (skeleton->priv->changed_properties_idle_source, G_PRIORITY_DEFAULT);
+       g_source_set_callback (skeleton->priv->changed_properties_idle_source, _sensor_match_emit_changed, g_object_ref (skeleton), (GDestroyNotify) g_object_unref);
++      g_source_set_name (skeleton->priv->changed_properties_idle_source, "[generated] _sensor_match_emit_changed");
+       g_source_attach (skeleton->priv->changed_properties_idle_source, skeleton->priv->context);
+       g_source_unref (skeleton->priv->changed_properties_idle_source);
+     }
+@@ -12785,6 +12791,7 @@ shared_resource_skeleton_notify (GObject      *object,
+       skeleton->priv->changed_properties_idle_source = g_idle_source_new ();
+       g_source_set_priority (skeleton->priv->changed_properties_idle_source, G_PRIORITY_DEFAULT);
+       g_source_set_callback (skeleton->priv->changed_properties_idle_source, _shared_resource_emit_changed, g_object_ref (skeleton), (GDestroyNotify) g_object_unref);
++      g_source_set_name (skeleton->priv->changed_properties_idle_source, "[generated] _shared_resource_emit_changed");
+       g_source_attach (skeleton->priv->changed_properties_idle_source, skeleton->priv->context);
+       g_source_unref (skeleton->priv->changed_properties_idle_source);
+     }
+@@ -14290,6 +14297,7 @@ control_skeleton_notify (GObject      *object,
+       skeleton->priv->changed_properties_idle_source = g_idle_source_new ();
+       g_source_set_priority (skeleton->priv->changed_properties_idle_source, G_PRIORITY_DEFAULT);
+       g_source_set_callback (skeleton->priv->changed_properties_idle_source, _control_emit_changed, g_object_ref (skeleton), (GDestroyNotify) g_object_unref);
++      g_source_set_name (skeleton->priv->changed_properties_idle_source, "[generated] _control_emit_changed");
+       g_source_attach (skeleton->priv->changed_properties_idle_source, skeleton->priv->context);
+       g_source_unref (skeleton->priv->changed_properties_idle_source);
+     }
+@@ -16799,6 +16807,7 @@ control_host_skeleton_notify (GObject      *object,
+       skeleton->priv->changed_properties_idle_source = g_idle_source_new ();
+       g_source_set_priority (skeleton->priv->changed_properties_idle_source, G_PRIORITY_DEFAULT);
+       g_source_set_callback (skeleton->priv->changed_properties_idle_source, _control_host_emit_changed, g_object_ref (skeleton), (GDestroyNotify) g_object_unref);
++      g_source_set_name (skeleton->priv->changed_properties_idle_source, "[generated] _control_host_emit_changed");
+       g_source_attach (skeleton->priv->changed_properties_idle_source, skeleton->priv->context);
+       g_source_unref (skeleton->priv->changed_properties_idle_source);
+     }
+@@ -18464,6 +18473,7 @@ control_power_skeleton_notify (GObject      *object,
+       skeleton->priv->changed_properties_idle_source = g_idle_source_new ();
+       g_source_set_priority (skeleton->priv->changed_properties_idle_source, G_PRIORITY_DEFAULT);
+       g_source_set_callback (skeleton->priv->changed_properties_idle_source, _control_power_emit_changed, g_object_ref (skeleton), (GDestroyNotify) g_object_unref);
++      g_source_set_name (skeleton->priv->changed_properties_idle_source, "[generated] _control_power_emit_changed");
+       g_source_attach (skeleton->priv->changed_properties_idle_source, skeleton->priv->context);
+       g_source_unref (skeleton->priv->changed_properties_idle_source);
+     }
+@@ -18591,6 +18601,716 @@ control_power_skeleton_new (void)
+ }
+ 
+ /* ------------------------------------------------------------------------
++ * Code for interface org.openbmc.control.Checkstop
++ * ------------------------------------------------------------------------
++ */
++
++/**
++ * SECTION:ControlCheckstop
++ * @title: ControlCheckstop
++ * @short_description: Generated C code for the org.openbmc.control.Checkstop D-Bus interface
++ *
++ * This section contains code for working with the <link linkend="gdbus-interface-org-openbmc-control-Checkstop.top_of_page">org.openbmc.control.Checkstop</link> D-Bus interface in C.
++ */
++
++/* ---- Introspection data for org.openbmc.control.Checkstop ---- */
++
++static const _ExtendedGDBusInterfaceInfo _control_checkstop_interface_info =
++{
++  {
++    -1,
++    (gchar *) "org.openbmc.control.Checkstop",
++    NULL,
++    NULL,
++    NULL,
++    NULL
++  },
++  "control-checkstop",
++};
++
++
++/**
++ * control_checkstop_interface_info:
++ *
++ * Gets a machine-readable description of the <link linkend="gdbus-interface-org-openbmc-control-Checkstop.top_of_page">org.openbmc.control.Checkstop</link> D-Bus interface.
++ *
++ * Returns: (transfer none): A #GDBusInterfaceInfo. Do not free.
++ */
++GDBusInterfaceInfo *
++control_checkstop_interface_info (void)
++{
++  return (GDBusInterfaceInfo *) &_control_checkstop_interface_info.parent_struct;
++}
++
++/**
++ * control_checkstop_override_properties:
++ * @klass: The class structure for a #GObject<!-- -->-derived class.
++ * @property_id_begin: The property id to assign to the first overridden property.
++ *
++ * Overrides all #GObject properties in the #ControlCheckstop interface for a concrete class.
++ * The properties are overridden in the order they are defined.
++ *
++ * Returns: The last property id.
++ */
++guint
++control_checkstop_override_properties (GObjectClass *klass, guint property_id_begin)
++{
++  return property_id_begin - 1;
++}
++
++
++
++/**
++ * ControlCheckstop:
++ *
++ * Abstract interface type for the D-Bus interface <link linkend="gdbus-interface-org-openbmc-control-Checkstop.top_of_page">org.openbmc.control.Checkstop</link>.
++ */
++
++/**
++ * ControlCheckstopIface:
++ * @parent_iface: The parent interface.
++ *
++ * Virtual table for the D-Bus interface <link linkend="gdbus-interface-org-openbmc-control-Checkstop.top_of_page">org.openbmc.control.Checkstop</link>.
++ */
++
++typedef ControlCheckstopIface ControlCheckstopInterface;
++G_DEFINE_INTERFACE (ControlCheckstop, control_checkstop, G_TYPE_OBJECT);
++
++static void
++control_checkstop_default_init (ControlCheckstopIface *iface)
++{
++}
++
++/* ------------------------------------------------------------------------ */
++
++/**
++ * ControlCheckstopProxy:
++ *
++ * The #ControlCheckstopProxy structure contains only private data and should only be accessed using the provided API.
++ */
++
++/**
++ * ControlCheckstopProxyClass:
++ * @parent_class: The parent class.
++ *
++ * Class structure for #ControlCheckstopProxy.
++ */
++
++struct _ControlCheckstopProxyPrivate
++{
++  GData *qdata;
++};
++
++static void control_checkstop_proxy_iface_init (ControlCheckstopIface *iface);
++
++#if GLIB_VERSION_MAX_ALLOWED >= GLIB_VERSION_2_38
++G_DEFINE_TYPE_WITH_CODE (ControlCheckstopProxy, control_checkstop_proxy, G_TYPE_DBUS_PROXY,
++                         G_ADD_PRIVATE (ControlCheckstopProxy)
++                         G_IMPLEMENT_INTERFACE (TYPE_CONTROL_CHECKSTOP, control_checkstop_proxy_iface_init));
++
++#else
++G_DEFINE_TYPE_WITH_CODE (ControlCheckstopProxy, control_checkstop_proxy, G_TYPE_DBUS_PROXY,
++                         G_IMPLEMENT_INTERFACE (TYPE_CONTROL_CHECKSTOP, control_checkstop_proxy_iface_init));
++
++#endif
++static void
++control_checkstop_proxy_finalize (GObject *object)
++{
++  ControlCheckstopProxy *proxy = CONTROL_CHECKSTOP_PROXY (object);
++  g_datalist_clear (&proxy->priv->qdata);
++  G_OBJECT_CLASS (control_checkstop_proxy_parent_class)->finalize (object);
++}
++
++static void
++control_checkstop_proxy_get_property (GObject      *object,
++  guint         prop_id,
++  GValue       *value,
++  GParamSpec   *pspec G_GNUC_UNUSED)
++{
++}
++
++static void
++control_checkstop_proxy_set_property (GObject      *object,
++  guint         prop_id,
++  const GValue *value,
++  GParamSpec   *pspec G_GNUC_UNUSED)
++{
++}
++
++static void
++control_checkstop_proxy_g_signal (GDBusProxy *proxy,
++  const gchar *sender_name G_GNUC_UNUSED,
++  const gchar *signal_name,
++  GVariant *parameters)
++{
++  _ExtendedGDBusSignalInfo *info;
++  GVariantIter iter;
++  GVariant *child;
++  GValue *paramv;
++  guint num_params;
++  guint n;
++  guint signal_id;
++  info = (_ExtendedGDBusSignalInfo *) g_dbus_interface_info_lookup_signal ((GDBusInterfaceInfo *) &_control_checkstop_interface_info.parent_struct, signal_name);
++  if (info == NULL)
++    return;
++  num_params = g_variant_n_children (parameters);
++  paramv = g_new0 (GValue, num_params + 1);
++  g_value_init (&paramv[0], TYPE_CONTROL_CHECKSTOP);
++  g_value_set_object (&paramv[0], proxy);
++  g_variant_iter_init (&iter, parameters);
++  n = 1;
++  while ((child = g_variant_iter_next_value (&iter)) != NULL)
++    {
++      _ExtendedGDBusArgInfo *arg_info = (_ExtendedGDBusArgInfo *) info->parent_struct.args[n - 1];
++      if (arg_info->use_gvariant)
++        {
++          g_value_init (&paramv[n], G_TYPE_VARIANT);
++          g_value_set_variant (&paramv[n], child);
++          n++;
++        }
++      else
++        g_dbus_gvariant_to_gvalue (child, &paramv[n++]);
++      g_variant_unref (child);
++    }
++  signal_id = g_signal_lookup (info->signal_name, TYPE_CONTROL_CHECKSTOP);
++  g_signal_emitv (paramv, signal_id, 0, NULL);
++  for (n = 0; n < num_params + 1; n++)
++    g_value_unset (&paramv[n]);
++  g_free (paramv);
++}
++
++static void
++control_checkstop_proxy_g_properties_changed (GDBusProxy *_proxy,
++  GVariant *changed_properties,
++  const gchar *const *invalidated_properties)
++{
++  ControlCheckstopProxy *proxy = CONTROL_CHECKSTOP_PROXY (_proxy);
++  guint n;
++  const gchar *key;
++  GVariantIter *iter;
++  _ExtendedGDBusPropertyInfo *info;
++  g_variant_get (changed_properties, "a{sv}", &iter);
++  while (g_variant_iter_next (iter, "{&sv}", &key, NULL))
++    {
++      info = (_ExtendedGDBusPropertyInfo *) g_dbus_interface_info_lookup_property ((GDBusInterfaceInfo *) &_control_checkstop_interface_info.parent_struct, key);
++      g_datalist_remove_data (&proxy->priv->qdata, key);
++      if (info != NULL)
++        g_object_notify (G_OBJECT (proxy), info->hyphen_name);
++    }
++  g_variant_iter_free (iter);
++  for (n = 0; invalidated_properties[n] != NULL; n++)
++    {
++      info = (_ExtendedGDBusPropertyInfo *) g_dbus_interface_info_lookup_property ((GDBusInterfaceInfo *) &_control_checkstop_interface_info.parent_struct, invalidated_properties[n]);
++      g_datalist_remove_data (&proxy->priv->qdata, invalidated_properties[n]);
++      if (info != NULL)
++        g_object_notify (G_OBJECT (proxy), info->hyphen_name);
++    }
++}
++
++static void
++control_checkstop_proxy_init (ControlCheckstopProxy *proxy)
++{
++#if GLIB_VERSION_MAX_ALLOWED >= GLIB_VERSION_2_38
++  proxy->priv = control_checkstop_proxy_get_instance_private (proxy);
++#else
++  proxy->priv = G_TYPE_INSTANCE_GET_PRIVATE (proxy, TYPE_CONTROL_CHECKSTOP_PROXY, ControlCheckstopProxyPrivate);
++#endif
++
++  g_dbus_proxy_set_interface_info (G_DBUS_PROXY (proxy), control_checkstop_interface_info ());
++}
++
++static void
++control_checkstop_proxy_class_init (ControlCheckstopProxyClass *klass)
++{
++  GObjectClass *gobject_class;
++  GDBusProxyClass *proxy_class;
++
++  gobject_class = G_OBJECT_CLASS (klass);
++  gobject_class->finalize     = control_checkstop_proxy_finalize;
++  gobject_class->get_property = control_checkstop_proxy_get_property;
++  gobject_class->set_property = control_checkstop_proxy_set_property;
++
++  proxy_class = G_DBUS_PROXY_CLASS (klass);
++  proxy_class->g_signal = control_checkstop_proxy_g_signal;
++  proxy_class->g_properties_changed = control_checkstop_proxy_g_properties_changed;
++
++#if GLIB_VERSION_MAX_ALLOWED < GLIB_VERSION_2_38
++  g_type_class_add_private (klass, sizeof (ControlCheckstopProxyPrivate));
++#endif
++}
++
++static void
++control_checkstop_proxy_iface_init (ControlCheckstopIface *iface)
++{
++}
++
++/**
++ * control_checkstop_proxy_new:
++ * @connection: A #GDBusConnection.
++ * @flags: Flags from the #GDBusProxyFlags enumeration.
++ * @name: (allow-none): A bus name (well-known or unique) or %NULL if @connection is not a message bus connection.
++ * @object_path: An object path.
++ * @cancellable: (allow-none): A #GCancellable or %NULL.
++ * @callback: A #GAsyncReadyCallback to call when the request is satisfied.
++ * @user_data: User data to pass to @callback.
++ *
++ * Asynchronously creates a proxy for the D-Bus interface <link linkend="gdbus-interface-org-openbmc-control-Checkstop.top_of_page">org.openbmc.control.Checkstop</link>. See g_dbus_proxy_new() for more details.
++ *
++ * When the operation is finished, @callback will be invoked in the <link linkend="g-main-context-push-thread-default">thread-default main loop</link> of the thread you are calling this method from.
++ * You can then call control_checkstop_proxy_new_finish() to get the result of the operation.
++ *
++ * See control_checkstop_proxy_new_sync() for the synchronous, blocking version of this constructor.
++ */
++void
++control_checkstop_proxy_new (
++    GDBusConnection     *connection,
++    GDBusProxyFlags      flags,
++    const gchar         *name,
++    const gchar         *object_path,
++    GCancellable        *cancellable,
++    GAsyncReadyCallback  callback,
++    gpointer             user_data)
++{
++  g_async_initable_new_async (TYPE_CONTROL_CHECKSTOP_PROXY, G_PRIORITY_DEFAULT, cancellable, callback, user_data, "g-flags", flags, "g-name", name, "g-connection", connection, "g-object-path", object_path, "g-interface-name", "org.openbmc.control.Checkstop", NULL);
++}
++
++/**
++ * control_checkstop_proxy_new_finish:
++ * @res: The #GAsyncResult obtained from the #GAsyncReadyCallback passed to control_checkstop_proxy_new().
++ * @error: Return location for error or %NULL
++ *
++ * Finishes an operation started with control_checkstop_proxy_new().
++ *
++ * Returns: (transfer full) (type ControlCheckstopProxy): The constructed proxy object or %NULL if @error is set.
++ */
++ControlCheckstop *
++control_checkstop_proxy_new_finish (
++    GAsyncResult        *res,
++    GError             **error)
++{
++  GObject *ret;
++  GObject *source_object;
++  source_object = g_async_result_get_source_object (res);
++  ret = g_async_initable_new_finish (G_ASYNC_INITABLE (source_object), res, error);
++  g_object_unref (source_object);
++  if (ret != NULL)
++    return CONTROL_CHECKSTOP (ret);
++  else
++    return NULL;
++}
++
++/**
++ * control_checkstop_proxy_new_sync:
++ * @connection: A #GDBusConnection.
++ * @flags: Flags from the #GDBusProxyFlags enumeration.
++ * @name: (allow-none): A bus name (well-known or unique) or %NULL if @connection is not a message bus connection.
++ * @object_path: An object path.
++ * @cancellable: (allow-none): A #GCancellable or %NULL.
++ * @error: Return location for error or %NULL
++ *
++ * Synchronously creates a proxy for the D-Bus interface <link linkend="gdbus-interface-org-openbmc-control-Checkstop.top_of_page">org.openbmc.control.Checkstop</link>. See g_dbus_proxy_new_sync() for more details.
++ *
++ * The calling thread is blocked until a reply is received.
++ *
++ * See control_checkstop_proxy_new() for the asynchronous version of this constructor.
++ *
++ * Returns: (transfer full) (type ControlCheckstopProxy): The constructed proxy object or %NULL if @error is set.
++ */
++ControlCheckstop *
++control_checkstop_proxy_new_sync (
++    GDBusConnection     *connection,
++    GDBusProxyFlags      flags,
++    const gchar         *name,
++    const gchar         *object_path,
++    GCancellable        *cancellable,
++    GError             **error)
++{
++  GInitable *ret;
++  ret = g_initable_new (TYPE_CONTROL_CHECKSTOP_PROXY, cancellable, error, "g-flags", flags, "g-name", name, "g-connection", connection, "g-object-path", object_path, "g-interface-name", "org.openbmc.control.Checkstop", NULL);
++  if (ret != NULL)
++    return CONTROL_CHECKSTOP (ret);
++  else
++    return NULL;
++}
++
++
++/**
++ * control_checkstop_proxy_new_for_bus:
++ * @bus_type: A #GBusType.
++ * @flags: Flags from the #GDBusProxyFlags enumeration.
++ * @name: A bus name (well-known or unique).
++ * @object_path: An object path.
++ * @cancellable: (allow-none): A #GCancellable or %NULL.
++ * @callback: A #GAsyncReadyCallback to call when the request is satisfied.
++ * @user_data: User data to pass to @callback.
++ *
++ * Like control_checkstop_proxy_new() but takes a #GBusType instead of a #GDBusConnection.
++ *
++ * When the operation is finished, @callback will be invoked in the <link linkend="g-main-context-push-thread-default">thread-default main loop</link> of the thread you are calling this method from.
++ * You can then call control_checkstop_proxy_new_for_bus_finish() to get the result of the operation.
++ *
++ * See control_checkstop_proxy_new_for_bus_sync() for the synchronous, blocking version of this constructor.
++ */
++void
++control_checkstop_proxy_new_for_bus (
++    GBusType             bus_type,
++    GDBusProxyFlags      flags,
++    const gchar         *name,
++    const gchar         *object_path,
++    GCancellable        *cancellable,
++    GAsyncReadyCallback  callback,
++    gpointer             user_data)
++{
++  g_async_initable_new_async (TYPE_CONTROL_CHECKSTOP_PROXY, G_PRIORITY_DEFAULT, cancellable, callback, user_data, "g-flags", flags, "g-name", name, "g-bus-type", bus_type, "g-object-path", object_path, "g-interface-name", "org.openbmc.control.Checkstop", NULL);
++}
++
++/**
++ * control_checkstop_proxy_new_for_bus_finish:
++ * @res: The #GAsyncResult obtained from the #GAsyncReadyCallback passed to control_checkstop_proxy_new_for_bus().
++ * @error: Return location for error or %NULL
++ *
++ * Finishes an operation started with control_checkstop_proxy_new_for_bus().
++ *
++ * Returns: (transfer full) (type ControlCheckstopProxy): The constructed proxy object or %NULL if @error is set.
++ */
++ControlCheckstop *
++control_checkstop_proxy_new_for_bus_finish (
++    GAsyncResult        *res,
++    GError             **error)
++{
++  GObject *ret;
++  GObject *source_object;
++  source_object = g_async_result_get_source_object (res);
++  ret = g_async_initable_new_finish (G_ASYNC_INITABLE (source_object), res, error);
++  g_object_unref (source_object);
++  if (ret != NULL)
++    return CONTROL_CHECKSTOP (ret);
++  else
++    return NULL;
++}
++
++/**
++ * control_checkstop_proxy_new_for_bus_sync:
++ * @bus_type: A #GBusType.
++ * @flags: Flags from the #GDBusProxyFlags enumeration.
++ * @name: A bus name (well-known or unique).
++ * @object_path: An object path.
++ * @cancellable: (allow-none): A #GCancellable or %NULL.
++ * @error: Return location for error or %NULL
++ *
++ * Like control_checkstop_proxy_new_sync() but takes a #GBusType instead of a #GDBusConnection.
++ *
++ * The calling thread is blocked until a reply is received.
++ *
++ * See control_checkstop_proxy_new_for_bus() for the asynchronous version of this constructor.
++ *
++ * Returns: (transfer full) (type ControlCheckstopProxy): The constructed proxy object or %NULL if @error is set.
++ */
++ControlCheckstop *
++control_checkstop_proxy_new_for_bus_sync (
++    GBusType             bus_type,
++    GDBusProxyFlags      flags,
++    const gchar         *name,
++    const gchar         *object_path,
++    GCancellable        *cancellable,
++    GError             **error)
++{
++  GInitable *ret;
++  ret = g_initable_new (TYPE_CONTROL_CHECKSTOP_PROXY, cancellable, error, "g-flags", flags, "g-name", name, "g-bus-type", bus_type, "g-object-path", object_path, "g-interface-name", "org.openbmc.control.Checkstop", NULL);
++  if (ret != NULL)
++    return CONTROL_CHECKSTOP (ret);
++  else
++    return NULL;
++}
++
++
++/* ------------------------------------------------------------------------ */
++
++/**
++ * ControlCheckstopSkeleton:
++ *
++ * The #ControlCheckstopSkeleton structure contains only private data and should only be accessed using the provided API.
++ */
++
++/**
++ * ControlCheckstopSkeletonClass:
++ * @parent_class: The parent class.
++ *
++ * Class structure for #ControlCheckstopSkeleton.
++ */
++
++struct _ControlCheckstopSkeletonPrivate
++{
++  GValue *properties;
++  GList *changed_properties;
++  GSource *changed_properties_idle_source;
++  GMainContext *context;
++  GMutex lock;
++};
++
++static void
++_control_checkstop_skeleton_handle_method_call (
++  GDBusConnection *connection G_GNUC_UNUSED,
++  const gchar *sender G_GNUC_UNUSED,
++  const gchar *object_path G_GNUC_UNUSED,
++  const gchar *interface_name,
++  const gchar *method_name,
++  GVariant *parameters,
++  GDBusMethodInvocation *invocation,
++  gpointer user_data)
++{
++  ControlCheckstopSkeleton *skeleton = CONTROL_CHECKSTOP_SKELETON (user_data);
++  _ExtendedGDBusMethodInfo *info;
++  GVariantIter iter;
++  GVariant *child;
++  GValue *paramv;
++  guint num_params;
++  guint num_extra;
++  guint n;
++  guint signal_id;
++  GValue return_value = G_VALUE_INIT;
++  info = (_ExtendedGDBusMethodInfo *) g_dbus_method_invocation_get_method_info (invocation);
++  g_assert (info != NULL);
++  num_params = g_variant_n_children (parameters);
++  num_extra = info->pass_fdlist ? 3 : 2;  paramv = g_new0 (GValue, num_params + num_extra);
++  n = 0;
++  g_value_init (&paramv[n], TYPE_CONTROL_CHECKSTOP);
++  g_value_set_object (&paramv[n++], skeleton);
++  g_value_init (&paramv[n], G_TYPE_DBUS_METHOD_INVOCATION);
++  g_value_set_object (&paramv[n++], invocation);
++  if (info->pass_fdlist)
++    {
++#ifdef G_OS_UNIX
++      g_value_init (&paramv[n], G_TYPE_UNIX_FD_LIST);
++      g_value_set_object (&paramv[n++], g_dbus_message_get_unix_fd_list (g_dbus_method_invocation_get_message (invocation)));
++#else
++      g_assert_not_reached ();
++#endif
++    }
++  g_variant_iter_init (&iter, parameters);
++  while ((child = g_variant_iter_next_value (&iter)) != NULL)
++    {
++      _ExtendedGDBusArgInfo *arg_info = (_ExtendedGDBusArgInfo *) info->parent_struct.in_args[n - num_extra];
++      if (arg_info->use_gvariant)
++        {
++          g_value_init (&paramv[n], G_TYPE_VARIANT);
++          g_value_set_variant (&paramv[n], child);
++          n++;
++        }
++      else
++        g_dbus_gvariant_to_gvalue (child, &paramv[n++]);
++      g_variant_unref (child);
++    }
++  signal_id = g_signal_lookup (info->signal_name, TYPE_CONTROL_CHECKSTOP);
++  g_value_init (&return_value, G_TYPE_BOOLEAN);
++  g_signal_emitv (paramv, signal_id, 0, &return_value);
++  if (!g_value_get_boolean (&return_value))
++    g_dbus_method_invocation_return_error (invocation, G_DBUS_ERROR, G_DBUS_ERROR_UNKNOWN_METHOD, "Method %s is not implemented on interface %s", method_name, interface_name);
++  g_value_unset (&return_value);
++  for (n = 0; n < num_params + num_extra; n++)
++    g_value_unset (&paramv[n]);
++  g_free (paramv);
++}
++
++static GVariant *
++_control_checkstop_skeleton_handle_get_property (
++  GDBusConnection *connection G_GNUC_UNUSED,
++  const gchar *sender G_GNUC_UNUSED,
++  const gchar *object_path G_GNUC_UNUSED,
++  const gchar *interface_name G_GNUC_UNUSED,
++  const gchar *property_name,
++  GError **error,
++  gpointer user_data)
++{
++  ControlCheckstopSkeleton *skeleton = CONTROL_CHECKSTOP_SKELETON (user_data);
++  GValue value = G_VALUE_INIT;
++  GParamSpec *pspec;
++  _ExtendedGDBusPropertyInfo *info;
++  GVariant *ret;
++  ret = NULL;
++  info = (_ExtendedGDBusPropertyInfo *) g_dbus_interface_info_lookup_property ((GDBusInterfaceInfo *) &_control_checkstop_interface_info.parent_struct, property_name);
++  g_assert (info != NULL);
++  pspec = g_object_class_find_property (G_OBJECT_GET_CLASS (skeleton), info->hyphen_name);
++  if (pspec == NULL)
++    {
++      g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_INVALID_ARGS, "No property with name %s", property_name);
++    }
++  else
++    {
++      g_value_init (&value, pspec->value_type);
++      g_object_get_property (G_OBJECT (skeleton), info->hyphen_name, &value);
++      ret = g_dbus_gvalue_to_gvariant (&value, G_VARIANT_TYPE (info->parent_struct.signature));
++      g_value_unset (&value);
++    }
++  return ret;
++}
++
++static gboolean
++_control_checkstop_skeleton_handle_set_property (
++  GDBusConnection *connection G_GNUC_UNUSED,
++  const gchar *sender G_GNUC_UNUSED,
++  const gchar *object_path G_GNUC_UNUSED,
++  const gchar *interface_name G_GNUC_UNUSED,
++  const gchar *property_name,
++  GVariant *variant,
++  GError **error,
++  gpointer user_data)
++{
++  ControlCheckstopSkeleton *skeleton = CONTROL_CHECKSTOP_SKELETON (user_data);
++  GValue value = G_VALUE_INIT;
++  GParamSpec *pspec;
++  _ExtendedGDBusPropertyInfo *info;
++  gboolean ret;
++  ret = FALSE;
++  info = (_ExtendedGDBusPropertyInfo *) g_dbus_interface_info_lookup_property ((GDBusInterfaceInfo *) &_control_checkstop_interface_info.parent_struct, property_name);
++  g_assert (info != NULL);
++  pspec = g_object_class_find_property (G_OBJECT_GET_CLASS (skeleton), info->hyphen_name);
++  if (pspec == NULL)
++    {
++      g_set_error (error, G_DBUS_ERROR, G_DBUS_ERROR_INVALID_ARGS, "No property with name %s", property_name);
++    }
++  else
++    {
++      if (info->use_gvariant)
++        g_value_set_variant (&value, variant);
++      else
++        g_dbus_gvariant_to_gvalue (variant, &value);
++      g_object_set_property (G_OBJECT (skeleton), info->hyphen_name, &value);
++      g_value_unset (&value);
++      ret = TRUE;
++    }
++  return ret;
++}
++
++static const GDBusInterfaceVTable _control_checkstop_skeleton_vtable =
++{
++  _control_checkstop_skeleton_handle_method_call,
++  _control_checkstop_skeleton_handle_get_property,
++  _control_checkstop_skeleton_handle_set_property,
++  {NULL}
++};
++
++static GDBusInterfaceInfo *
++control_checkstop_skeleton_dbus_interface_get_info (GDBusInterfaceSkeleton *skeleton G_GNUC_UNUSED)
++{
++  return control_checkstop_interface_info ();
++}
++
++static GDBusInterfaceVTable *
++control_checkstop_skeleton_dbus_interface_get_vtable (GDBusInterfaceSkeleton *skeleton G_GNUC_UNUSED)
++{
++  return (GDBusInterfaceVTable *) &_control_checkstop_skeleton_vtable;
++}
++
++static GVariant *
++control_checkstop_skeleton_dbus_interface_get_properties (GDBusInterfaceSkeleton *_skeleton)
++{
++  ControlCheckstopSkeleton *skeleton = CONTROL_CHECKSTOP_SKELETON (_skeleton);
++
++  GVariantBuilder builder;
++  guint n;
++  g_variant_builder_init (&builder, G_VARIANT_TYPE ("a{sv}"));
++  if (_control_checkstop_interface_info.parent_struct.properties == NULL)
++    goto out;
++  for (n = 0; _control_checkstop_interface_info.parent_struct.properties[n] != NULL; n++)
++    {
++      GDBusPropertyInfo *info = _control_checkstop_interface_info.parent_struct.properties[n];
++      if (info->flags & G_DBUS_PROPERTY_INFO_FLAGS_READABLE)
++        {
++          GVariant *value;
++          value = _control_checkstop_skeleton_handle_get_property (g_dbus_interface_skeleton_get_connection (G_DBUS_INTERFACE_SKELETON (skeleton)), NULL, g_dbus_interface_skeleton_get_object_path (G_DBUS_INTERFACE_SKELETON (skeleton)), "org.openbmc.control.Checkstop", info->name, NULL, skeleton);
++          if (value != NULL)
++            {
++              g_variant_take_ref (value);
++              g_variant_builder_add (&builder, "{sv}", info->name, value);
++              g_variant_unref (value);
++            }
++        }
++    }
++out:
++  return g_variant_builder_end (&builder);
++}
++
++static void
++control_checkstop_skeleton_dbus_interface_flush (GDBusInterfaceSkeleton *_skeleton)
++{
++}
++
++static void control_checkstop_skeleton_iface_init (ControlCheckstopIface *iface);
++#if GLIB_VERSION_MAX_ALLOWED >= GLIB_VERSION_2_38
++G_DEFINE_TYPE_WITH_CODE (ControlCheckstopSkeleton, control_checkstop_skeleton, G_TYPE_DBUS_INTERFACE_SKELETON,
++                         G_ADD_PRIVATE (ControlCheckstopSkeleton)
++                         G_IMPLEMENT_INTERFACE (TYPE_CONTROL_CHECKSTOP, control_checkstop_skeleton_iface_init));
++
++#else
++G_DEFINE_TYPE_WITH_CODE (ControlCheckstopSkeleton, control_checkstop_skeleton, G_TYPE_DBUS_INTERFACE_SKELETON,
++                         G_IMPLEMENT_INTERFACE (TYPE_CONTROL_CHECKSTOP, control_checkstop_skeleton_iface_init));
++
++#endif
++static void
++control_checkstop_skeleton_finalize (GObject *object)
++{
++  ControlCheckstopSkeleton *skeleton = CONTROL_CHECKSTOP_SKELETON (object);
++  g_list_free_full (skeleton->priv->changed_properties, (GDestroyNotify) _changed_property_free);
++  if (skeleton->priv->changed_properties_idle_source != NULL)
++    g_source_destroy (skeleton->priv->changed_properties_idle_source);
++  g_main_context_unref (skeleton->priv->context);
++  g_mutex_clear (&skeleton->priv->lock);
++  G_OBJECT_CLASS (control_checkstop_skeleton_parent_class)->finalize (object);
++}
++
++static void
++control_checkstop_skeleton_init (ControlCheckstopSkeleton *skeleton)
++{
++#if GLIB_VERSION_MAX_ALLOWED >= GLIB_VERSION_2_38
++  skeleton->priv = control_checkstop_skeleton_get_instance_private (skeleton);
++#else
++  skeleton->priv = G_TYPE_INSTANCE_GET_PRIVATE (skeleton, TYPE_CONTROL_CHECKSTOP_SKELETON, ControlCheckstopSkeletonPrivate);
++#endif
++
++  g_mutex_init (&skeleton->priv->lock);
++  skeleton->priv->context = g_main_context_ref_thread_default ();
++}
++
++static void
++control_checkstop_skeleton_class_init (ControlCheckstopSkeletonClass *klass)
++{
++  GObjectClass *gobject_class;
++  GDBusInterfaceSkeletonClass *skeleton_class;
++
++  gobject_class = G_OBJECT_CLASS (klass);
++  gobject_class->finalize = control_checkstop_skeleton_finalize;
++
++  skeleton_class = G_DBUS_INTERFACE_SKELETON_CLASS (klass);
++  skeleton_class->get_info = control_checkstop_skeleton_dbus_interface_get_info;
++  skeleton_class->get_properties = control_checkstop_skeleton_dbus_interface_get_properties;
++  skeleton_class->flush = control_checkstop_skeleton_dbus_interface_flush;
++  skeleton_class->get_vtable = control_checkstop_skeleton_dbus_interface_get_vtable;
++
++#if GLIB_VERSION_MAX_ALLOWED < GLIB_VERSION_2_38
++  g_type_class_add_private (klass, sizeof (ControlCheckstopSkeletonPrivate));
++#endif
++}
++
++static void
++control_checkstop_skeleton_iface_init (ControlCheckstopIface *iface)
++{
++}
++
++/**
++ * control_checkstop_skeleton_new:
++ *
++ * Creates a skeleton object for the D-Bus interface <link linkend="gdbus-interface-org-openbmc-control-Checkstop.top_of_page">org.openbmc.control.Checkstop</link>.
++ *
++ * Returns: (transfer full) (type ControlCheckstopSkeleton): The skeleton object.
++ */
++ControlCheckstop *
++control_checkstop_skeleton_new (void)
++{
++  return CONTROL_CHECKSTOP (g_object_new (TYPE_CONTROL_CHECKSTOP_SKELETON, NULL));
++}
++
++/* ------------------------------------------------------------------------
+  * Code for interface org.openbmc.Watchdog
+  * ------------------------------------------------------------------------
+  */
+@@ -20273,6 +20993,7 @@ watchdog_skeleton_notify (GObject      *object,
+       skeleton->priv->changed_properties_idle_source = g_idle_source_new ();
+       g_source_set_priority (skeleton->priv->changed_properties_idle_source, G_PRIORITY_DEFAULT);
+       g_source_set_callback (skeleton->priv->changed_properties_idle_source, _watchdog_emit_changed, g_object_ref (skeleton), (GDestroyNotify) g_object_unref);
++      g_source_set_name (skeleton->priv->changed_properties_idle_source, "[generated] _watchdog_emit_changed");
+       g_source_attach (skeleton->priv->changed_properties_idle_source, skeleton->priv->context);
+       g_source_unref (skeleton->priv->changed_properties_idle_source);
+     }
+@@ -23721,6 +24442,7 @@ flash_skeleton_notify (GObject      *object,
+       skeleton->priv->changed_properties_idle_source = g_idle_source_new ();
+       g_source_set_priority (skeleton->priv->changed_properties_idle_source, G_PRIORITY_DEFAULT);
+       g_source_set_callback (skeleton->priv->changed_properties_idle_source, _flash_emit_changed, g_object_ref (skeleton), (GDestroyNotify) g_object_unref);
++      g_source_set_name (skeleton->priv->changed_properties_idle_source, "[generated] _flash_emit_changed");
+       g_source_attach (skeleton->priv->changed_properties_idle_source, skeleton->priv->context);
+       g_source_unref (skeleton->priv->changed_properties_idle_source);
+     }
+@@ -25389,6 +26111,7 @@ flash_control_skeleton_notify (GObject      *object,
+       skeleton->priv->changed_properties_idle_source = g_idle_source_new ();
+       g_source_set_priority (skeleton->priv->changed_properties_idle_source, G_PRIORITY_DEFAULT);
+       g_source_set_callback (skeleton->priv->changed_properties_idle_source, _flash_control_emit_changed, g_object_ref (skeleton), (GDestroyNotify) g_object_unref);
++      g_source_set_name (skeleton->priv->changed_properties_idle_source, "[generated] _flash_control_emit_changed");
+       g_source_attach (skeleton->priv->changed_properties_idle_source, skeleton->priv->context);
+       g_source_unref (skeleton->priv->changed_properties_idle_source);
+     }
+@@ -27173,6 +27896,7 @@ button_skeleton_notify (GObject      *object,
+       skeleton->priv->changed_properties_idle_source = g_idle_source_new ();
+       g_source_set_priority (skeleton->priv->changed_properties_idle_source, G_PRIORITY_DEFAULT);
+       g_source_set_callback (skeleton->priv->changed_properties_idle_source, _button_emit_changed, g_object_ref (skeleton), (GDestroyNotify) g_object_unref);
++      g_source_set_name (skeleton->priv->changed_properties_idle_source, "[generated] _button_emit_changed");
+       g_source_attach (skeleton->priv->changed_properties_idle_source, skeleton->priv->context);
+       g_source_unref (skeleton->priv->changed_properties_idle_source);
+     }
+@@ -28986,6 +29710,7 @@ led_skeleton_notify (GObject      *object,
+       skeleton->priv->changed_properties_idle_source = g_idle_source_new ();
+       g_source_set_priority (skeleton->priv->changed_properties_idle_source, G_PRIORITY_DEFAULT);
+       g_source_set_callback (skeleton->priv->changed_properties_idle_source, _led_emit_changed, g_object_ref (skeleton), (GDestroyNotify) g_object_unref);
++      g_source_set_name (skeleton->priv->changed_properties_idle_source, "[generated] _led_emit_changed");
+       g_source_attach (skeleton->priv->changed_properties_idle_source, skeleton->priv->context);
+       g_source_unref (skeleton->priv->changed_properties_idle_source);
+     }
+@@ -30376,6 +31101,15 @@ object_default_init (ObjectIface *iface)
+   g_object_interface_install_property (iface, g_param_spec_object ("control-power", "control-power", "control-power", TYPE_CONTROL_POWER, G_PARAM_READWRITE|G_PARAM_STATIC_STRINGS));
+ 
+   /**
++   * Object:control-checkstop:
++   *
++   * The #ControlCheckstop instance corresponding to the D-Bus interface <link linkend="gdbus-interface-org-openbmc-control-Checkstop.top_of_page">org.openbmc.control.Checkstop</link>, if any.
++   *
++   * Connect to the #GObject::notify signal to get informed of property changes.
++   */
++  g_object_interface_install_property (iface, g_param_spec_object ("control-checkstop", "control-checkstop", "control-checkstop", TYPE_CONTROL_CHECKSTOP, G_PARAM_READWRITE|G_PARAM_STATIC_STRINGS));
++
++  /**
+    * Object:watchdog:
+    *
+    * The #Watchdog instance corresponding to the D-Bus interface <link linkend="gdbus-interface-org-openbmc-Watchdog.top_of_page">org.openbmc.Watchdog</link>, if any.
+@@ -30662,6 +31396,23 @@ ControlPower *object_get_control_power (Object *object)
+ }
+ 
+ /**
++ * object_get_control_checkstop:
++ * @object: A #Object.
++ *
++ * Gets the #ControlCheckstop instance for the D-Bus interface <link linkend="gdbus-interface-org-openbmc-control-Checkstop.top_of_page">org.openbmc.control.Checkstop</link> on @object, if any.
++ *
++ * Returns: (transfer full): A #ControlCheckstop that must be freed with g_object_unref() or %NULL if @object does not implement the interface.
++ */
++ControlCheckstop *object_get_control_checkstop (Object *object)
++{
++  GDBusInterface *ret;
++  ret = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.control.Checkstop");
++  if (ret == NULL)
++    return NULL;
++  return CONTROL_CHECKSTOP (ret);
++}
++
++/**
+  * object_get_watchdog:
+  * @object: A #Object.
+  *
+@@ -31042,6 +31793,26 @@ ControlPower *object_peek_control_power (Object *object)
+ }
+ 
+ /**
++ * object_peek_control_checkstop: (skip)
++ * @object: A #Object.
++ *
++ * Like object_get_control_checkstop() but doesn't increase the reference count on the returned object.
++ *
++ * <warning>It is not safe to use the returned object if you are on another thread than the one where the #GDBusObjectManagerClient or #GDBusObjectManagerServer for @object is running.</warning>
++ *
++ * Returns: (transfer none): A #ControlCheckstop or %NULL if @object does not implement the interface. Do not free the returned object, it is owned by @object.
++ */
++ControlCheckstop *object_peek_control_checkstop (Object *object)
++{
++  GDBusInterface *ret;
++  ret = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.control.Checkstop");
++  if (ret == NULL)
++    return NULL;
++  g_object_unref (ret);
++  return CONTROL_CHECKSTOP (ret);
++}
++
++/**
+  * object_peek_watchdog: (skip)
+  * @object: A #Object.
+  *
+@@ -31314,36 +32085,41 @@ object_proxy_get_property (GObject      *gobject,
+       break;
+ 
+     case 14:
+-      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.Watchdog");
++      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.control.Checkstop");
+       g_value_take_object (value, interface);
+       break;
+ 
+     case 15:
+-      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.EventLog");
++      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.Watchdog");
+       g_value_take_object (value, interface);
+       break;
+ 
+     case 16:
+-      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.Flash");
++      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.EventLog");
+       g_value_take_object (value, interface);
+       break;
+ 
+     case 17:
+-      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.FlashControl");
++      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.Flash");
+       g_value_take_object (value, interface);
+       break;
+ 
+     case 18:
+-      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.Button");
++      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.FlashControl");
+       g_value_take_object (value, interface);
+       break;
+ 
+     case 19:
+-      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.Led");
++      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.Button");
+       g_value_take_object (value, interface);
+       break;
+ 
+     case 20:
++      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.Led");
++      g_value_take_object (value, interface);
++      break;
++
++    case 21:
+       interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.HostIpmi");
+       g_value_take_object (value, interface);
+       break;
+@@ -31375,13 +32151,14 @@ object_proxy_class_init (ObjectProxyClass *klass)
+   g_object_class_override_property (gobject_class, 11, "control-bmc");
+   g_object_class_override_property (gobject_class, 12, "control-host");
+   g_object_class_override_property (gobject_class, 13, "control-power");
+-  g_object_class_override_property (gobject_class, 14, "watchdog");
+-  g_object_class_override_property (gobject_class, 15, "event-log");
+-  g_object_class_override_property (gobject_class, 16, "flash");
+-  g_object_class_override_property (gobject_class, 17, "flash-control");
+-  g_object_class_override_property (gobject_class, 18, "button");
+-  g_object_class_override_property (gobject_class, 19, "led");
+-  g_object_class_override_property (gobject_class, 20, "host-ipmi");
++  g_object_class_override_property (gobject_class, 14, "control-checkstop");
++  g_object_class_override_property (gobject_class, 15, "watchdog");
++  g_object_class_override_property (gobject_class, 16, "event-log");
++  g_object_class_override_property (gobject_class, 17, "flash");
++  g_object_class_override_property (gobject_class, 18, "flash-control");
++  g_object_class_override_property (gobject_class, 19, "button");
++  g_object_class_override_property (gobject_class, 20, "led");
++  g_object_class_override_property (gobject_class, 21, "host-ipmi");
+ }
+ 
+ /**
+@@ -31621,6 +32398,19 @@ object_skeleton_set_property (GObject      *gobject,
+       interface = g_value_get_object (value);
+       if (interface != NULL)
+         {
++          g_warn_if_fail (IS_CONTROL_CHECKSTOP (interface));
++          g_dbus_object_skeleton_add_interface (G_DBUS_OBJECT_SKELETON (object), interface);
++        }
++      else
++        {
++          g_dbus_object_skeleton_remove_interface_by_name (G_DBUS_OBJECT_SKELETON (object), "org.openbmc.control.Checkstop");
++        }
++      break;
++
++    case 15:
++      interface = g_value_get_object (value);
++      if (interface != NULL)
++        {
+           g_warn_if_fail (IS_WATCHDOG (interface));
+           g_dbus_object_skeleton_add_interface (G_DBUS_OBJECT_SKELETON (object), interface);
+         }
+@@ -31630,7 +32420,7 @@ object_skeleton_set_property (GObject      *gobject,
+         }
+       break;
+ 
+-    case 15:
++    case 16:
+       interface = g_value_get_object (value);
+       if (interface != NULL)
+         {
+@@ -31643,7 +32433,7 @@ object_skeleton_set_property (GObject      *gobject,
+         }
+       break;
+ 
+-    case 16:
++    case 17:
+       interface = g_value_get_object (value);
+       if (interface != NULL)
+         {
+@@ -31656,7 +32446,7 @@ object_skeleton_set_property (GObject      *gobject,
+         }
+       break;
+ 
+-    case 17:
++    case 18:
+       interface = g_value_get_object (value);
+       if (interface != NULL)
+         {
+@@ -31669,7 +32459,7 @@ object_skeleton_set_property (GObject      *gobject,
+         }
+       break;
+ 
+-    case 18:
++    case 19:
+       interface = g_value_get_object (value);
+       if (interface != NULL)
+         {
+@@ -31682,7 +32472,7 @@ object_skeleton_set_property (GObject      *gobject,
+         }
+       break;
+ 
+-    case 19:
++    case 20:
+       interface = g_value_get_object (value);
+       if (interface != NULL)
+         {
+@@ -31695,7 +32485,7 @@ object_skeleton_set_property (GObject      *gobject,
+         }
+       break;
+ 
+-    case 20:
++    case 21:
+       interface = g_value_get_object (value);
+       if (interface != NULL)
+         {
+@@ -31791,36 +32581,41 @@ object_skeleton_get_property (GObject      *gobject,
+       break;
+ 
+     case 14:
+-      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.Watchdog");
++      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.control.Checkstop");
+       g_value_take_object (value, interface);
+       break;
+ 
+     case 15:
+-      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.EventLog");
++      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.Watchdog");
+       g_value_take_object (value, interface);
+       break;
+ 
+     case 16:
+-      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.Flash");
++      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.EventLog");
+       g_value_take_object (value, interface);
+       break;
+ 
+     case 17:
+-      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.FlashControl");
++      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.Flash");
+       g_value_take_object (value, interface);
+       break;
+ 
+     case 18:
+-      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.Button");
++      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.FlashControl");
+       g_value_take_object (value, interface);
+       break;
+ 
+     case 19:
+-      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.Led");
++      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.Button");
+       g_value_take_object (value, interface);
+       break;
+ 
+     case 20:
++      interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.Led");
++      g_value_take_object (value, interface);
++      break;
++
++    case 21:
+       interface = g_dbus_object_get_interface (G_DBUS_OBJECT (object), "org.openbmc.HostIpmi");
+       g_value_take_object (value, interface);
+       break;
+@@ -31852,13 +32647,14 @@ object_skeleton_class_init (ObjectSkeletonClass *klass)
+   g_object_class_override_property (gobject_class, 11, "control-bmc");
+   g_object_class_override_property (gobject_class, 12, "control-host");
+   g_object_class_override_property (gobject_class, 13, "control-power");
+-  g_object_class_override_property (gobject_class, 14, "watchdog");
+-  g_object_class_override_property (gobject_class, 15, "event-log");
+-  g_object_class_override_property (gobject_class, 16, "flash");
+-  g_object_class_override_property (gobject_class, 17, "flash-control");
+-  g_object_class_override_property (gobject_class, 18, "button");
+-  g_object_class_override_property (gobject_class, 19, "led");
+-  g_object_class_override_property (gobject_class, 20, "host-ipmi");
++  g_object_class_override_property (gobject_class, 14, "control-checkstop");
++  g_object_class_override_property (gobject_class, 15, "watchdog");
++  g_object_class_override_property (gobject_class, 16, "event-log");
++  g_object_class_override_property (gobject_class, 17, "flash");
++  g_object_class_override_property (gobject_class, 18, "flash-control");
++  g_object_class_override_property (gobject_class, 19, "button");
++  g_object_class_override_property (gobject_class, 20, "led");
++  g_object_class_override_property (gobject_class, 21, "host-ipmi");
+ }
+ 
+ /**
+@@ -32033,6 +32829,18 @@ void object_skeleton_set_control_power (ObjectSkeleton *object, ControlPower *in
+ }
+ 
+ /**
++ * object_skeleton_set_control_checkstop:
++ * @object: A #ObjectSkeleton.
++ * @interface_: (allow-none): A #ControlCheckstop or %NULL to clear the interface.
++ *
++ * Sets the #ControlCheckstop instance for the D-Bus interface <link linkend="gdbus-interface-org-openbmc-control-Checkstop.top_of_page">org.openbmc.control.Checkstop</link> on @object.
++ */
++void object_skeleton_set_control_checkstop (ObjectSkeleton *object, ControlCheckstop *interface_)
++{
++  g_object_set (G_OBJECT (object), "control-checkstop", interface_, NULL);
++}
++
++/**
+  * object_skeleton_set_watchdog:
+  * @object: A #ObjectSkeleton.
+  * @interface_: (allow-none): A #Watchdog or %NULL to clear the interface.
+@@ -32191,6 +32999,7 @@ object_manager_client_get_proxy_type (GDBusObjectManagerClient *manager G_GNUC_U
+       g_hash_table_insert (lookup_hash, (gpointer) "org.openbmc.control.Bmc", GSIZE_TO_POINTER (TYPE_CONTROL_BMC_PROXY));
+       g_hash_table_insert (lookup_hash, (gpointer) "org.openbmc.control.Host", GSIZE_TO_POINTER (TYPE_CONTROL_HOST_PROXY));
+       g_hash_table_insert (lookup_hash, (gpointer) "org.openbmc.control.Power", GSIZE_TO_POINTER (TYPE_CONTROL_POWER_PROXY));
++      g_hash_table_insert (lookup_hash, (gpointer) "org.openbmc.control.Checkstop", GSIZE_TO_POINTER (TYPE_CONTROL_CHECKSTOP_PROXY));
+       g_hash_table_insert (lookup_hash, (gpointer) "org.openbmc.Watchdog", GSIZE_TO_POINTER (TYPE_WATCHDOG_PROXY));
+       g_hash_table_insert (lookup_hash, (gpointer) "org.openbmc.EventLog", GSIZE_TO_POINTER (TYPE_EVENT_LOG_PROXY));
+       g_hash_table_insert (lookup_hash, (gpointer) "org.openbmc.Flash", GSIZE_TO_POINTER (TYPE_FLASH_PROXY));
+diff --git a/gdbus/interfaces/openbmc_intf.h b/gdbus/interfaces/openbmc_intf.h
+index ac7603e..060b0e0 100644
+--- a/gdbus/interfaces/openbmc_intf.h
++++ b/gdbus/interfaces/openbmc_intf.h
+@@ -1,5 +1,5 @@
+ /*
+- * Generated by gdbus-codegen 2.40.2. DO NOT EDIT.
++ * Generated by gdbus-codegen 2.44.1. DO NOT EDIT.
+  *
+  * The license of this code is the same as for the source it was derived from.
+  */
+@@ -2421,6 +2421,125 @@ ControlPower *control_power_skeleton_new (void);
+ 
+ 
+ /* ------------------------------------------------------------------------ */
++/* Declarations for org.openbmc.control.Checkstop */
++
++#define TYPE_CONTROL_CHECKSTOP (control_checkstop_get_type ())
++#define CONTROL_CHECKSTOP(o) (G_TYPE_CHECK_INSTANCE_CAST ((o), TYPE_CONTROL_CHECKSTOP, ControlCheckstop))
++#define IS_CONTROL_CHECKSTOP(o) (G_TYPE_CHECK_INSTANCE_TYPE ((o), TYPE_CONTROL_CHECKSTOP))
++#define CONTROL_CHECKSTOP_GET_IFACE(o) (G_TYPE_INSTANCE_GET_INTERFACE ((o), TYPE_CONTROL_CHECKSTOP, ControlCheckstopIface))
++
++struct _ControlCheckstop;
++typedef struct _ControlCheckstop ControlCheckstop;
++typedef struct _ControlCheckstopIface ControlCheckstopIface;
++
++struct _ControlCheckstopIface
++{
++  GTypeInterface parent_iface;
++};
++
++GType control_checkstop_get_type (void) G_GNUC_CONST;
++
++GDBusInterfaceInfo *control_checkstop_interface_info (void);
++guint control_checkstop_override_properties (GObjectClass *klass, guint property_id_begin);
++
++
++/* ---- */
++
++#define TYPE_CONTROL_CHECKSTOP_PROXY (control_checkstop_proxy_get_type ())
++#define CONTROL_CHECKSTOP_PROXY(o) (G_TYPE_CHECK_INSTANCE_CAST ((o), TYPE_CONTROL_CHECKSTOP_PROXY, ControlCheckstopProxy))
++#define CONTROL_CHECKSTOP_PROXY_CLASS(k) (G_TYPE_CHECK_CLASS_CAST ((k), TYPE_CONTROL_CHECKSTOP_PROXY, ControlCheckstopProxyClass))
++#define CONTROL_CHECKSTOP_PROXY_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), TYPE_CONTROL_CHECKSTOP_PROXY, ControlCheckstopProxyClass))
++#define IS_CONTROL_CHECKSTOP_PROXY(o) (G_TYPE_CHECK_INSTANCE_TYPE ((o), TYPE_CONTROL_CHECKSTOP_PROXY))
++#define IS_CONTROL_CHECKSTOP_PROXY_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), TYPE_CONTROL_CHECKSTOP_PROXY))
++
++typedef struct _ControlCheckstopProxy ControlCheckstopProxy;
++typedef struct _ControlCheckstopProxyClass ControlCheckstopProxyClass;
++typedef struct _ControlCheckstopProxyPrivate ControlCheckstopProxyPrivate;
++
++struct _ControlCheckstopProxy
++{
++  /*< private >*/
++  GDBusProxy parent_instance;
++  ControlCheckstopProxyPrivate *priv;
++};
++
++struct _ControlCheckstopProxyClass
++{
++  GDBusProxyClass parent_class;
++};
++
++GType control_checkstop_proxy_get_type (void) G_GNUC_CONST;
++
++void control_checkstop_proxy_new (
++    GDBusConnection     *connection,
++    GDBusProxyFlags      flags,
++    const gchar         *name,
++    const gchar         *object_path,
++    GCancellable        *cancellable,
++    GAsyncReadyCallback  callback,
++    gpointer             user_data);
++ControlCheckstop *control_checkstop_proxy_new_finish (
++    GAsyncResult        *res,
++    GError             **error);
++ControlCheckstop *control_checkstop_proxy_new_sync (
++    GDBusConnection     *connection,
++    GDBusProxyFlags      flags,
++    const gchar         *name,
++    const gchar         *object_path,
++    GCancellable        *cancellable,
++    GError             **error);
++
++void control_checkstop_proxy_new_for_bus (
++    GBusType             bus_type,
++    GDBusProxyFlags      flags,
++    const gchar         *name,
++    const gchar         *object_path,
++    GCancellable        *cancellable,
++    GAsyncReadyCallback  callback,
++    gpointer             user_data);
++ControlCheckstop *control_checkstop_proxy_new_for_bus_finish (
++    GAsyncResult        *res,
++    GError             **error);
++ControlCheckstop *control_checkstop_proxy_new_for_bus_sync (
++    GBusType             bus_type,
++    GDBusProxyFlags      flags,
++    const gchar         *name,
++    const gchar         *object_path,
++    GCancellable        *cancellable,
++    GError             **error);
++
++
++/* ---- */
++
++#define TYPE_CONTROL_CHECKSTOP_SKELETON (control_checkstop_skeleton_get_type ())
++#define CONTROL_CHECKSTOP_SKELETON(o) (G_TYPE_CHECK_INSTANCE_CAST ((o), TYPE_CONTROL_CHECKSTOP_SKELETON, ControlCheckstopSkeleton))
++#define CONTROL_CHECKSTOP_SKELETON_CLASS(k) (G_TYPE_CHECK_CLASS_CAST ((k), TYPE_CONTROL_CHECKSTOP_SKELETON, ControlCheckstopSkeletonClass))
++#define CONTROL_CHECKSTOP_SKELETON_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), TYPE_CONTROL_CHECKSTOP_SKELETON, ControlCheckstopSkeletonClass))
++#define IS_CONTROL_CHECKSTOP_SKELETON(o) (G_TYPE_CHECK_INSTANCE_TYPE ((o), TYPE_CONTROL_CHECKSTOP_SKELETON))
++#define IS_CONTROL_CHECKSTOP_SKELETON_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), TYPE_CONTROL_CHECKSTOP_SKELETON))
++
++typedef struct _ControlCheckstopSkeleton ControlCheckstopSkeleton;
++typedef struct _ControlCheckstopSkeletonClass ControlCheckstopSkeletonClass;
++typedef struct _ControlCheckstopSkeletonPrivate ControlCheckstopSkeletonPrivate;
++
++struct _ControlCheckstopSkeleton
++{
++  /*< private >*/
++  GDBusInterfaceSkeleton parent_instance;
++  ControlCheckstopSkeletonPrivate *priv;
++};
++
++struct _ControlCheckstopSkeletonClass
++{
++  GDBusInterfaceSkeletonClass parent_class;
++};
++
++GType control_checkstop_skeleton_get_type (void) G_GNUC_CONST;
++
++ControlCheckstop *control_checkstop_skeleton_new (void);
++
++
++/* ------------------------------------------------------------------------ */
+ /* Declarations for org.openbmc.Watchdog */
+ 
+ #define TYPE_WATCHDOG (watchdog_get_type ())
+@@ -4041,6 +4160,7 @@ Control *object_get_control (Object *object);
+ ControlBmc *object_get_control_bmc (Object *object);
+ ControlHost *object_get_control_host (Object *object);
+ ControlPower *object_get_control_power (Object *object);
++ControlCheckstop *object_get_control_checkstop (Object *object);
+ Watchdog *object_get_watchdog (Object *object);
+ EventLog *object_get_event_log (Object *object);
+ Flash *object_get_flash (Object *object);
+@@ -4061,6 +4181,7 @@ Control *object_peek_control (Object *object);
+ ControlBmc *object_peek_control_bmc (Object *object);
+ ControlHost *object_peek_control_host (Object *object);
+ ControlPower *object_peek_control_power (Object *object);
++ControlCheckstop *object_peek_control_checkstop (Object *object);
+ Watchdog *object_peek_watchdog (Object *object);
+ EventLog *object_peek_event_log (Object *object);
+ Flash *object_peek_flash (Object *object);
+@@ -4133,6 +4254,7 @@ void object_skeleton_set_control (ObjectSkeleton *object, Control *interface_);
+ void object_skeleton_set_control_bmc (ObjectSkeleton *object, ControlBmc *interface_);
+ void object_skeleton_set_control_host (ObjectSkeleton *object, ControlHost *interface_);
+ void object_skeleton_set_control_power (ObjectSkeleton *object, ControlPower *interface_);
++void object_skeleton_set_control_checkstop (ObjectSkeleton *object, ControlCheckstop *interface_);
+ void object_skeleton_set_watchdog (ObjectSkeleton *object, Watchdog *interface_);
+ void object_skeleton_set_event_log (ObjectSkeleton *object, EventLog *interface_);
+ void object_skeleton_set_flash (ObjectSkeleton *object, Flash *interface_);
+diff --git a/gdbus/xml/openbmc_intf.xml b/gdbus/xml/openbmc_intf.xml
+index ead899c..d296291 100644
+--- a/gdbus/xml/openbmc_intf.xml
++++ b/gdbus/xml/openbmc_intf.xml
+@@ -132,6 +132,8 @@
+ 		<property name="state" type="i" access="read"/>
+ 		<property name="pgood_timeout" type="i" access="readwrite"/>
+ 	</interface>
++	<interface name="org.openbmc.control.Checkstop">
++	</interface>
+ 	<interface name="org.openbmc.Watchdog">
+ 		<method name="start"/>
+ 		<method name="poke"/>
+diff --git a/hostcheckstop/Makefile b/hostcheckstop/Makefile
+new file mode 100644
+index 0000000..2d3b08d
+--- /dev/null
++++ b/hostcheckstop/Makefile
+@@ -0,0 +1,3 @@
++BINS=host_checkstop
++include ../gdbus.mk
++include ../rules.mk
+diff --git a/hostcheckstop/host_checkstop_obj.c b/hostcheckstop/host_checkstop_obj.c
+new file mode 100644
+index 0000000..9d990b5
+--- /dev/null
++++ b/hostcheckstop/host_checkstop_obj.c
+@@ -0,0 +1,204 @@
++#include "interfaces/openbmc_intf.h"
++#include "openbmc.h"
++#include "gpio.h"
++
++static const gchar* dbus_object_path = "/org/openbmc/control";
++static const gchar* object_name = "/org/openbmc/control/checkstop0";
++static const gchar* dbus_name = "org.openbmc.control.Checkstop";
++
++static GDBusObjectManagerServer *manager = NULL;
++
++GPIO checkstop = (GPIO){ "CHECKSTOP" };
++
++static bool
++is_host_booted(GDBusConnection* connection)
++{
++    GDBusProxy *proxy;
++    GError *error;
++    GVariant *parm = NULL;
++    GVariant *result = NULL;
++
++    error = NULL;
++    proxy = g_dbus_proxy_new_sync(connection,
++            G_DBUS_PROXY_FLAGS_NONE,
++            NULL, /* GDBusInterfaceInfo* */
++            "org.openbmc.managers.System", /* name */
++            "/org/openbmc/managers/System", /* object path */
++            "org.openbmc.managers.System", /* interface name */
++            NULL, /* GCancellable */
++            &error);
++    g_assert_no_error(error);
++
++    error = NULL;
++    result = g_dbus_proxy_call_sync(proxy,
++            "getSystemState",
++            parm,
++            G_DBUS_CALL_FLAGS_NONE,
++            -1,
++            NULL,
++            &error);
++    g_assert_no_error(error);
++
++    gchar *system_state;
++    g_variant_get(result,"(s)",&system_state);
++    g_variant_unref(result);
++
++    if ((strcmp(system_state, "HOST_BOOTED") == 0) ||
++        (strcmp(system_state, "HOST_BOOTING")== 0)) {
++        return true;
++    }
++
++    return false;
++}
++
++static gboolean
++chassis_reboot(gpointer connection)
++{
++    int rc = 0;
++    uint8_t gpio = 0;
++    GDBusProxy *proxy;
++    GError *error;
++    GVariant *parm = NULL;
++    GVariant *result = NULL;
++
++    // The gpio line may flicker during power on/off, so check that the value
++    // is still 0 (checkstopped) and that host is booted in order to reboot
++    rc = gpio_open(&checkstop);
++    if (rc != GPIO_OK) {
++        return FALSE;
++    }
++    rc = gpio_read(&checkstop, &gpio);
++    if (rc != GPIO_OK) {
++        gpio_close(&checkstop);
++        return FALSE;
++    }
++    gpio_close(&checkstop);
++    if ((!gpio) && (is_host_booted(connection)))
++    {
++        printf("Host Checkstop, rebooting host\n");
++        error = NULL;
++        proxy = g_dbus_proxy_new_sync((GDBusConnection*)connection,
++            G_DBUS_PROXY_FLAGS_NONE,
++            NULL, /* GDBusInterfaceInfo* */
++            "org.openbmc.control.Chassis", /* name */
++            "/org/openbmc/control/chassis0", /* object path */
++            "org.openbmc.control.Chassis", /* interface name */
++            NULL, /* GCancellable */
++            &error);
++        g_assert_no_error(error);
++
++        error = NULL;
++        result = g_dbus_proxy_call_sync(proxy,
++            "reboot",
++            parm,
++            G_DBUS_CALL_FLAGS_NONE,
++            -1,
++            NULL,
++            &error);
++        g_assert_no_error(error);
++    }
++
++    return FALSE;
++}
++
++static gboolean
++on_checkstop_interrupt(GIOChannel *channel,
++        GIOCondition condition,
++        gpointer connection)
++{
++    GError *error = 0;
++    gsize bytes_read = 0;
++    gchar buf[2];
++    buf[1] = '\0';
++
++    g_io_channel_seek_position( channel, 0, G_SEEK_SET, 0 );
++    g_io_channel_read_chars(channel,
++            buf, 1,
++            &bytes_read,
++            &error );
++    printf("checkstop gpio: %s\n",buf);
++
++    if(checkstop.irq_inited) {
++        // Need to wait at least 10s for the SBE to gather failure data.
++        // Also the user may be monitoring the system and reset the system
++        // themselves. So wait an arbitrary time of 30s (and check that the
++        // gpio value is still 0) before issuing reboot.
++        g_timeout_add(30000, chassis_reboot, connection);
++    }
++    else {
++        checkstop.irq_inited = true;
++    }
++
++    return TRUE;
++}
++
++static void
++on_bus_acquired(GDBusConnection *connection,
++        const gchar *name,
++        gpointer user_data)
++{
++    int rc = GPIO_OK;
++    ObjectSkeleton *object;
++    manager = g_dbus_object_manager_server_new(dbus_object_path);
++    object = object_skeleton_new(object_name);
++
++    ControlCheckstop* control_checkstop = control_checkstop_skeleton_new();
++    object_skeleton_set_control_checkstop(object, control_checkstop);
++    g_object_unref(control_checkstop);
++
++    g_dbus_object_manager_server_set_connection(manager, connection);
++    g_dbus_object_manager_server_export(manager, G_DBUS_OBJECT_SKELETON(object));
++    g_object_unref(object);
++
++    rc = gpio_init(connection, &checkstop);
++    if (rc == GPIO_OK) {
++        rc = gpio_open_interrupt(&checkstop, on_checkstop_interrupt, connection);
++    }
++    if (rc != GPIO_OK) {
++        printf("ERROR Checkstop: GPIO setup (rc=%d)\n", rc);
++    }
++}
++
++static void
++on_name_acquired(GDBusConnection *connection,
++        const gchar *name,
++        gpointer user_data)
++{
++}
++
++static void
++on_name_lost(GDBusConnection *connection,
++        const gchar *name,
++        gpointer user_data)
++{
++    g_dbus_object_manager_server_unexport(manager, dbus_object_path);
++}
++
++gint
++main(gint argc, gchar *argv[])
++{
++    GMainLoop *loop;
++    cmdline cmd;
++    cmd.argc = argc;
++    cmd.argv = argv;
++
++    guint id;
++    loop = g_main_loop_new(NULL, FALSE);
++
++    id = g_bus_own_name(DBUS_TYPE,
++            dbus_name,
++            G_BUS_NAME_OWNER_FLAGS_ALLOW_REPLACEMENT |
++            G_BUS_NAME_OWNER_FLAGS_REPLACE,
++            on_bus_acquired,
++            on_name_acquired,
++            on_name_lost,
++            &cmd,
++            NULL);
++
++    g_main_loop_run(loop);
++
++    g_bus_unown_name(id);
++    g_main_loop_unref(loop);
++    return 0;
++}
++
 -- 
 2.8.4
