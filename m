@@ -3,16 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rTq3F6QxQzDqjK
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rTq3F6WjWzDqjL
  for <openbmc@lists.ozlabs.org>; Wed, 15 Jun 2016 11:40:41 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 146595483580171.83324523724923;
- Tue, 14 Jun 2016 18:40:35 -0700 (PDT)
+ with SMTPS id 1465954836790177.8397826417911;
+ Tue, 14 Jun 2016 18:40:36 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v4 03/10] initfs: shutdown: comment on update success
-Date: Tue, 14 Jun 2016 20:40:24 -0500
-Message-Id: <20160615014031.32062-4-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v4 04/10] initfs: update: Don't exec sh or sulogin on
+ error just exit 1
+Date: Tue, 14 Jun 2016 20:40:25 -0500
+Message-Id: <20160615014031.32062-5-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.4
 In-Reply-To: <20160615014031.32062-1-openbmc-patches@stwcx.xyz>
 References: <20160615014031.32062-1-openbmc-patches@stwcx.xyz>
@@ -31,39 +32,73 @@ X-List-Received-Date: Wed, 15 Jun 2016 01:40:42 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-Print an error from the shutdown script when the update fails.
+When update was written it was exec'd from the shutdown script
+and hence took over pid 1.  Since exiting in that environment was
+a panic situation, the script instead started a rescue shell with
+its output presumably on the console.
 
-Update is changing to return codes when its preconditions are not
-met, so be more verbose about its success to provide a means to
-debug flash updates not occurring.
-
-We could add a sulogin or sushell but its not clear what would be
-desired here.  If so the message should include "rmdir /oldroot
-to get a PID 1 shell" like /takever works in init.
+The calling convention was updated to be a simple call to the shell
+script in dbacf104885c3bf78c5f3e06f63bba6db0742e4b but the error
+handling was not updated.  That error handling is now becoming
+a hinderance to use from additional environments so change it.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh  | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ .../obmc-phosphor-initfs/files/obmc-update.sh      | 23 ++++++----------------
+ 1 file changed, 6 insertions(+), 17 deletions(-)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
-index 8d5d0c9..8d5c672 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
-@@ -44,6 +44,14 @@ then
- 	if test -x $update
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
+index aa8fd89..f8e551c 100755
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
+@@ -2,9 +2,6 @@
+ 
+ echo update: "$@"
+ 
+-export PS1=update-sh#\ 
+-# exec /bin/sh
+-
+ cd /
+ if ! test -r /proc/mounts || ! test -f /proc/mounts
+ then
+@@ -21,12 +18,12 @@ then
+ 	mkdir -p /dev
+ 	mount -t devtmpfs dev dev
+ fi
+-while grep mtd /proc/mounts
+-do
++
++if grep mtd /proc/mounts
++then
+ 	echo 1>&2 "Error: A mtd device is mounted."
+-	sulogin
+-	# exec /bin/sh
+-done
++	exit 1
++fi
+ 
+ findmtd() {
+ 	m=$(grep -xl "$1" /sys/class/mtd/*/name)
+@@ -130,7 +127,7 @@ do
+ 	if test -z "$m"
  	then
- 		$update --clean-saved-files
-+		remaining=$(ls $image*)
-+		if test -n "$remaining"
-+		then
-+			echo 1>&2 "Flash update failed to flash these images:"
-+			echo 1>&2 "$remaining"
-+		else
-+			echo "Flash update completed."
-+		fi
- 	else
- 		echo 1>&2 "Flash update requested but $update program missing!"
+ 		echo 1>&2  "Unable to find mtd partiton for ${f##*/}."
+-		exec /bin/sh
++		exit 1
  	fi
+ done
+ 
+@@ -173,11 +170,3 @@ then
+ fi
+ 
+ exit
+-
+-# NOT REACHED without edit
+-# NOT REACHED without edit
+-
+-echo "Flash completed.  Inspect, cleanup and reboot -f to continue."
+-
+-export PS1=update-sh#\ 
+-exec /bin/sh
 -- 
 2.8.4
