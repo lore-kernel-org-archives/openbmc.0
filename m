@@ -3,20 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rV8pc0pvmzDqjm
- for <openbmc@lists.ozlabs.org>; Thu, 16 Jun 2016 01:00:55 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rV91y5kgYzDqjl
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Jun 2016 01:10:46 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 146600284565449.355437896072885;
- Wed, 15 Jun 2016 08:00:45 -0700 (PDT)
+ with SMTPS id 1466003437679859.0532548895538;
+ Wed, 15 Jun 2016 08:10:37 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH openbmc] Remove openpower inventory upload systemd startup
-Date: Wed, 15 Jun 2016 10:00:40 -0500
-Message-Id: <20160615150040.29627-2-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v5 0/3] Add virtual workbook / config-in-skeleton
+ classes
+Date: Wed, 15 Jun 2016 10:10:33 -0500
+Message-Id: <20160615151036.30021-1-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.4
-In-Reply-To: <20160615150040.29627-1-openbmc-patches@stwcx.xyz>
-References: <20160615150040.29627-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,48 +26,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 15 Jun 2016 15:00:57 -0000
+X-List-Received-Date: Wed, 15 Jun 2016 15:10:47 -0000
 
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+This patch introduces a new abstraction 'obmc-phosphor-workbook'
+for representing a system configuration.  At present it is
+pulled in by the skeleton recipe so the requirement on what is
+implemented by a package providing obmc-phosphor-workbook is something
+compatible with the existing System.py python modules in skeleton.
 
-The launching of this application is temporarily being moved to the skeleton
-state management framework to avoid race conditions with the host power-on
-process.
+Additionally this patch adds a new recipe for each system using
+a configuration file from skeleton today, and a class for common
+configuration.
 
-Signed-off-by:  Brad Bishop <bradleyb@fuzziesquirrel.com>
+This enables a couple of things:
+ - No need to patch skeleton.service for each system.
+ - New systems don't have to put their configuration in the skeleton repository.
+
+<!-- Reviewable:start -->
 ---
- .../recipes-phosphor/inventory-upload/inventory-upload.bb      |  1 -
- .../inventory-upload/inventory-upload/inventory-upload.service | 10 ----------
- 2 files changed, 11 deletions(-)
- delete mode 100644 meta-openbmc-machines/meta-openpower/common/recipes-phosphor/inventory-upload/inventory-upload/inventory-upload.service
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/324)
+<!-- Reviewable:end -->
 
-diff --git a/meta-openbmc-machines/meta-openpower/common/recipes-phosphor/inventory-upload/inventory-upload.bb b/meta-openbmc-machines/meta-openpower/common/recipes-phosphor/inventory-upload/inventory-upload.bb
-index 2dfcf58..90425f4 100644
---- a/meta-openbmc-machines/meta-openpower/common/recipes-phosphor/inventory-upload/inventory-upload.bb
-+++ b/meta-openbmc-machines/meta-openpower/common/recipes-phosphor/inventory-upload/inventory-upload.bb
-@@ -6,7 +6,6 @@ LICENSE = "Apache-2.0"
- LIC_FILES_CHKSUM = "file://${S}/LICENSE;md5=e3fc50a88d0a364313df4b21ef20c29e"
- 
- inherit allarch
--inherit obmc-phosphor-systemd
- inherit setuptools
- 
- RDEPENDS_${PN} += " \
-diff --git a/meta-openbmc-machines/meta-openpower/common/recipes-phosphor/inventory-upload/inventory-upload/inventory-upload.service b/meta-openbmc-machines/meta-openpower/common/recipes-phosphor/inventory-upload/inventory-upload/inventory-upload.service
-deleted file mode 100644
-index 18d1f4b..0000000
---- a/meta-openbmc-machines/meta-openpower/common/recipes-phosphor/inventory-upload/inventory-upload/inventory-upload.service
-+++ /dev/null
-@@ -1,10 +0,0 @@
--[Unit]
--Description=BMC Inventory Upload
--Requires=skeleton.service
--After=skeleton.service
--
--[Service]
--ExecStart=/usr/sbin/inventory_upload.py
--
--[Install]
--WantedBy=multi-user.target
+
+https://github.com/openbmc/openbmc/pull/324
+
+Brad Bishop (3):
+  Add OBMC_IMAGE_EXTRA_INSTALL variable
+  Bump skeleton version
+  Add virtual workbook / config-in-skeleton classes
+
+ .../images/obmc-phosphor-image.bbappend            |  4 +--
+ .../conf/machine/include/openpower.inc             |  2 ++
+ .../recipes-phosphor/skeleton/skeleton.bbappend    |  1 -
+ .../skeleton/skeleton/firestone.patch              | 11 -------
+ .../recipes-phosphor/workbook/firestone-config.bb  |  8 +++++
+ .../recipes-phosphor/skeleton/skeleton.bbappend    |  1 -
+ .../skeleton/skeleton/garrison.patch               | 11 -------
+ .../recipes-phosphor/workbook/garrison-config.bb   |  8 +++++
+ .../recipes-phosphor/workbook/palmetto-config.bb   |  8 +++++
+ .../recipes-phosphor/skeleton/skeleton.bbappend    |  2 --
+ .../skeleton/skeleton/skeleton.patch               | 12 --------
+ .../recipes-phosphor/workbook/barreleye-config.bb  |  8 +++++
+ meta-phosphor/classes/config-in-skeleton.bbclass   | 28 +++++++++++++++++
+ meta-phosphor/classes/obmc-phosphor-image.bbclass  |  6 ++--
+ .../common/recipes-phosphor/skeleton/skeleton.bb   | 35 ++++++++++++----------
+ .../skeleton/skeleton/skeleton.service             |  2 +-
+ .../conf/machine/include/obmc-bsp-common.inc       |  2 +-
+ 17 files changed, 89 insertions(+), 60 deletions(-)
+ delete mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton/firestone.patch
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/workbook/firestone-config.bb
+ delete mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton/garrison.patch
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/workbook/garrison-config.bb
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-phosphor/workbook/palmetto-config.bb
+ delete mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-phosphor/skeleton/skeleton.bbappend
+ delete mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-phosphor/skeleton/skeleton/skeleton.patch
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-phosphor/workbook/barreleye-config.bb
+ create mode 100644 meta-phosphor/classes/config-in-skeleton.bbclass
+
 -- 
 2.8.4
