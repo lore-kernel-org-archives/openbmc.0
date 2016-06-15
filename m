@@ -3,18 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rTqGf68LPzDqdp
- for <openbmc@lists.ozlabs.org>; Wed, 15 Jun 2016 11:50:34 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rTqGm3t93zDqhR
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Jun 2016 11:50:40 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1465955431543709.1462575638345;
- Tue, 14 Jun 2016 18:50:31 -0700 (PDT)
+ with SMTPS id 1465955434514204.820846891957;
+ Tue, 14 Jun 2016 18:50:34 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v4 0/3] Add virtual workbook / config-in-skeleton
- classes
-Date: Tue, 14 Jun 2016 20:50:27 -0500
-Message-Id: <20160615015030.32526-1-openbmc-patches@stwcx.xyz>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Subject: [PATCH openbmc v4 2/3] Bump skeleton version
+Date: Tue, 14 Jun 2016 20:50:29 -0500
+Message-Id: <20160615015030.32526-3-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.4
+In-Reply-To: <20160615015030.32526-1-openbmc-patches@stwcx.xyz>
+References: <20160615015030.32526-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -26,62 +28,73 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 15 Jun 2016 01:50:35 -0000
+X-List-Received-Date: Wed, 15 Jun 2016 01:50:41 -0000
 
-This patch introduces a new abstraction 'obmc-phosphor-workbook'
-for representing a system configuration.  At present it is
-pulled in by the skeleton recipe so the requirement on what is
-implemented by a package providing obmc-phosphor-workbook is something
-compatible with the existing System.py python modules in skeleton.
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
-Additionally this patch adds a new recipe for each system using
-a configuration file from skeleton today, and a class for common
-configuration.
+This bump picks up a refactored version of skeleton with a new
+directory layout.
 
-This enables a couple of things:
- - No need to patch skeleton.service for each system.
- - New systems don't have to put their configuration in the skeleton repository.
-
-<!-- Reviewable:start -->
+Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/324)
-<!-- Reviewable:end -->
+ .../common/recipes-phosphor/skeleton/skeleton.bb   | 31 ++++++++++++----------
+ 1 file changed, 17 insertions(+), 14 deletions(-)
 
-
-https://github.com/openbmc/openbmc/pull/324
-
-Brad Bishop (3):
-  Add OBMC_IMAGE_EXTRA_INSTALL variable
-  Bump skeleton version
-  Add virtual workbook / config-in-skeleton classes
-
- .../images/obmc-phosphor-image.bbappend            |  4 +--
- .../conf/machine/include/openpower.inc             |  2 ++
- .../recipes-phosphor/skeleton/skeleton.bbappend    |  1 -
- .../skeleton/skeleton/firestone.patch              | 11 -------
- .../recipes-phosphor/workbook/firestone-config.bb  |  8 +++++
- .../recipes-phosphor/skeleton/skeleton.bbappend    |  1 -
- .../skeleton/skeleton/garrison.patch               | 11 -------
- .../recipes-phosphor/workbook/garrison-config.bb   |  8 +++++
- .../recipes-phosphor/workbook/palmetto-config.bb   |  8 +++++
- .../recipes-phosphor/skeleton/skeleton.bbappend    |  2 --
- .../skeleton/skeleton/skeleton.patch               | 12 --------
- .../recipes-phosphor/workbook/barreleye-config.bb  |  8 +++++
- meta-phosphor/classes/config-in-skeleton.bbclass   | 28 +++++++++++++++++
- meta-phosphor/classes/obmc-phosphor-image.bbclass  |  6 ++--
- .../common/recipes-phosphor/skeleton/skeleton.bb   | 35 ++++++++++++----------
- .../skeleton/skeleton/skeleton.service             |  2 +-
- .../conf/machine/include/obmc-bsp-common.inc       |  2 +-
- 17 files changed, 89 insertions(+), 60 deletions(-)
- delete mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton/firestone.patch
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/workbook/firestone-config.bb
- delete mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton/garrison.patch
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/workbook/garrison-config.bb
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-palmetto/recipes-phosphor/workbook/palmetto-config.bb
- delete mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-phosphor/skeleton/skeleton.bbappend
- delete mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-phosphor/skeleton/skeleton/skeleton.patch
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-phosphor/workbook/barreleye-config.bb
- create mode 100644 meta-phosphor/classes/config-in-skeleton.bbclass
-
+diff --git a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
+index 1d45d16..2ace59d 100644
+--- a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
++++ b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
+@@ -11,34 +11,37 @@ inherit obmc-phosphor-flash-mgmt
+ inherit obmc-phosphor-policy-mgmt
+ inherit obmc-phosphor-sensor-mgmt
+ inherit obmc-phosphor-system-mgmt
++inherit pythonnative
++inherit python-dir
+ 
+ DEPENDS += "glib-2.0 systemd"
+ RDEPENDS_${PN} += "python-subprocess python-compression libsystemd"
+ SRC_URI += "git://github.com/openbmc/skeleton"
+ 
++FILES_${PN} += "${PYTHON_SITEPACKAGES_DIR}/*"
++
+ # RDEPEND on pflash if the openpower-pflash machine feature is set.
+ PACKAGECONFIG ??= "${@bb.utils.contains('MACHINE_FEATURES', 'openpower-pflash', 'openpower-pflash', '', d)}"
+ PACKAGECONFIG[openpower-pflash] = ",,,pflash"
+ 
+-SRCREV = "b2f3fd7a29ddf16ea6171b4b4649d9a0ea8be58d"
++SRCREV = "5213a991a5a3bd107636f1b2cc3bbca560843462"
+ 
+ S = "${WORKDIR}"
+ 
+-do_compile() {
+-        oe_runmake -C git
++# needed to invoke setuptools
++export STAGING_INCDIR
++export STAGING_LIBDIR
++export BUILD_SYS
++export HOST_SYS
++export PYTHON_SITEPACKAGES_DIR
+ 
+-        # Remove deprecated files.
+-        rm ${S}/git/bin/pflash
++do_compile() {
++        oe_runmake -C git PYTHON=${PYTHON}
+ }
+ 
+ do_install() {
+-        source=${S}/git
+-
+-        install -d ${D}/${sbindir} ${D}${libdir}
+-        for i in ${source}/bin/*; do
+-                install $i ${D}/${sbindir}
+-        done
+-        for i in ${source}/lib/*; do
+-                install $i ${D}/${libdir}
+-        done
++        oe_runmake -C git install \
++		PYTHON=${PYTHON} \
++		DESTDIR=${D} \
++		PREFIX=/usr
+ }
 -- 
 2.8.4
