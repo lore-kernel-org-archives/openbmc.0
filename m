@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rVPv65PBWzDqmL
- for <openbmc@lists.ozlabs.org>; Thu, 16 Jun 2016 10:50:42 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rVPv81gV7zDqmW
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Jun 2016 10:50:43 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466038237943140.18041472736707;
- Wed, 15 Jun 2016 17:50:37 -0700 (PDT)
+ with SMTPS id 1466038239009146.45066712751475;
+ Wed, 15 Jun 2016 17:50:39 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v5 06/12] initfs: update: Consistently add ERROR: and
- print to stderr
-Date: Wed, 15 Jun 2016 19:50:24 -0500
-Message-Id: <20160616005030.19176-7-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v5 07/12] initfs: update: add option to perform checks
+ but skip actual update
+Date: Wed, 15 Jun 2016 19:50:25 -0500
+Message-Id: <20160616005030.19176-8-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.4
 In-Reply-To: <20160616005030.19176-1-openbmc-patches@stwcx.xyz>
 References: <20160616005030.19176-1-openbmc-patches@stwcx.xyz>
@@ -28,57 +28,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Jun 2016 00:50:44 -0000
+X-List-Received-Date: Thu, 16 Jun 2016 00:50:45 -0000
 
-From: Milton Miller <miltonm@us.ibm.com>
+From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-Make sure all error messages start with the tag ERROR.  Also redirect
-output to stderr (once case had the file descriptors backwards).
+Provide a way to check if update is likely to succeed without
+attempting actual updates.
+
+This will check the image names correspond to mtd partition names,
+and will be enhanced with additional checking for file size and
+individual partition mounts.
+
+This is not called --dry-run because it will still do file save
+and restore if those are enabled.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh    | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ .../obmc-phosphor-initfs/files/obmc-update.sh      | 31 +++++++++++++---------
+ 1 file changed, 19 insertions(+), 12 deletions(-)
 
 diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index f0ca989..4249161 100755
+index 4249161..4442e5b 100755
 --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
 +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -21,7 +21,7 @@ fi
+@@ -57,6 +57,7 @@ upper=$rwdir/cow
+ save=/run/save/${upper##*/}
  
- if grep mtd /proc/mounts
- then
--	echo 1>&2 "Error: A mtd device is mounted."
-+	echo 1>&2 "ERROR: A mtd device is mounted."
- 	exit 1
- fi
- 
-@@ -65,6 +65,8 @@ toram=
- whitelist=/run/initramfs/whitelist
- image=/run/initramfs/image-
- 
-+E="ERROR:"
-+
- while test "$1" != "${1#-}"
- do
- 	case "$1" in
-@@ -90,7 +92,7 @@ do
+ mounted=
++doflash=y
+ doclean=
+ dosave=y
+ dorestore=y
+@@ -88,6 +89,9 @@ do
+ 	--restore-files)
+ 		dorestore=y
+ 		shift ;;
++	--no-flash)
++		doflash=
++		shift ;;
+ 	--copy-files)
  		toram=y
  		shift ;;
- 	*)
--		echo 2>&1 "Unknown option $1"
-+		echo 1>&2 "$E Unknown option $1"
- 		exit 1 ;;
- 	esac
- done
-@@ -126,7 +128,7 @@ do
- 	m=$(findmtd ${f#$image})
- 	if test -z "$m"
- 	then
--		echo 1>&2  "Unable to find mtd partiton for ${f##*/}."
-+		echo 1>&2 "$E Unable to find mtd partiton for ${f##*/}."
- 		exit 1
+@@ -133,18 +137,21 @@ do
  	fi
  done
+ 
+-for f in $image*
+-do
+-	if test ! -s $f
+-	then
+-		echo "Skipping empty update of ${f#$image}."
+-		rm $f
+-		continue
+-	fi
+-	m=$(findmtd ${f#$image})
+-	echo "Updating ${f#$image}..."
+-	flashcp -v $f /dev/$m && rm $f
+-done
++if test -n "$doflash"
++then
++	for f in $image*
++	do
++		if test ! -s $f
++		then
++			echo "Skipping empty update of ${f#$image}."
++			rm $f
++			continue
++		fi
++		m=$(findmtd ${f#$image})
++		echo "Updating ${f#$image}..."
++		flashcp -v $f /dev/$m && rm $f
++	done
++fi
+ 
+ if test -d $save -a "x$toram" = xy
+ then
 -- 
 2.8.4
