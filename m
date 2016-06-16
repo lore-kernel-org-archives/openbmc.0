@@ -1,41 +1,35 @@
-Return-Path: <andrew@aj.id.au>
-Received: from homiemail-a18.g.dreamhost.com (sub3.mail.dreamhost.com
- [69.163.253.7])
- (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+Return-Path: <clg@kaod.org>
+Received: from 18.mo3.mail-out.ovh.net (18.mo3.mail-out.ovh.net
+ [87.98.172.162])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rVX7d5jzzzDqpf
- for <openbmc@lists.ozlabs.org>; Thu, 16 Jun 2016 15:31:57 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=qGCUUzmN; 
- dkim-atps=neutral
-Received: from homiemail-a18.g.dreamhost.com (localhost [127.0.0.1])
- by homiemail-a18.g.dreamhost.com (Postfix) with ESMTP id 2AD2D250074;
- Wed, 15 Jun 2016 22:31:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=from:to:cc
- :subject:date:message-id:in-reply-to:references:mime-version
- :content-type:content-transfer-encoding; s=aj.id.au; bh=ii7qu56Q
- Ya5yjcbHw4dXYzha9jE=; b=qGCUUzmNng1sa1clZnnRU2v7T7RZyBSey/vALI29
- fkmjaDtyAME7MrzLN/4FGCzmrc5RdMriIU2JuAg+KyrFed70RuzZtDImVmZEDm8f
- TYzV5BSZ54XqCYeyNwZfn1CnBt6O2VytF1CLEFAVt6MvBUEgn81nMEVLTYsrqScr
- ZtY=
-Received: from keelia.au.ibm.com (orion.jms.id.au [119.9.53.35])
- (using TLSv1 with cipher AES128-SHA (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: andrew@aj.id.au)
- by homiemail-a18.g.dreamhost.com (Postfix) with ESMTPSA id 88E7225006C;
- Wed, 15 Jun 2016 22:31:54 -0700 (PDT)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: OpenBMC <openbmc@lists.ozlabs.org>
-Subject: [PATCH v2 2/2] ast2400: Integrate the SCU model and configure reset
- values
-Date: Thu, 16 Jun 2016 15:31:40 +1000
-Message-Id: <1466055100-16521-3-git-send-email-andrew@aj.id.au>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1466055100-16521-1-git-send-email-andrew@aj.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rVYT11BcqzDqlK
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Jun 2016 16:32:04 +1000 (AEST)
+Received: from player772.ha.ovh.net (b7.ovh.net [213.186.33.57])
+ by mo3.mail-out.ovh.net (Postfix) with ESMTP id 8D1F4FFBD64
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Jun 2016 08:24:17 +0200 (CEST)
+Received: from [192.168.124.3] (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: clg@kaod.org)
+ by player772.ha.ovh.net (Postfix) with ESMTPSA id 7E4CB4C007A;
+ Thu, 16 Jun 2016 08:24:13 +0200 (CEST)
+Subject: Re: [PATCH v2 1/2] hw/misc: Add a model for the ASPEED System Control
+ Unit
+To: Andrew Jeffery <andrew@aj.id.au>, OpenBMC <openbmc@lists.ozlabs.org>
 References: <1466055100-16521-1-git-send-email-andrew@aj.id.au>
+ <1466055100-16521-2-git-send-email-andrew@aj.id.au>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <5762460C.2070701@kaod.org>
+Date: Thu, 16 Jun 2016 08:24:12 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+ Icedove/38.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <1466055100-16521-2-git-send-email-andrew@aj.id.au>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 5048816658217732991
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeekledrkeejgdduuddvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -47,142 +41,323 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Jun 2016 05:31:58 -0000
+X-List-Received-Date: Thu, 16 Jun 2016 06:32:05 -0000
 
-Almost all configured reset values are specified by the datasheet. The
-exception is ASPEED_SCU_SOC_SCRATCH1, where we mark the DRAM as
-successfully initialised by the SoC to avoid unnecessary dark corners in
-the SoC's u-boot support.
+On 06/16/2016 07:31 AM, Andrew Jeffery wrote:
+> The SCU is a collection of chip-level control registers that manage the
+> various functions supported by the AST2400. Typically the bits control
+> interactions with clocks, external hardware or reset behaviour, and we
+> can largly take a hands-off approach to reads and writes.
+> 
+> Firmware makes heavy use of the state to determine how to boot, but the
+> reset values vary from SoC to SoC. qdev properties are exposed so that
+> the integrating SoC model can configure the appropriate reset values.
+> 
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-Reviewed-by: C=C3=A9dric Le Goater <clg@kaod.org>
----
- hw/arm/ast2400.c         | 57 ++++++++++++++++++++++++++++++++++++++++++=
-++++++
- include/hw/arm/ast2400.h |  2 ++
- 2 files changed, 59 insertions(+)
+nice and simple.
 
-diff --git a/hw/arm/ast2400.c b/hw/arm/ast2400.c
-index 4a9de0e10cbc..fc0da5c38557 100644
---- a/hw/arm/ast2400.c
-+++ b/hw/arm/ast2400.c
-@@ -24,12 +24,48 @@
- #define AST2400_IOMEM_SIZE       0x00200000
- #define AST2400_IOMEM_BASE       0x1E600000
- #define AST2400_VIC_BASE         0x1E6C0000
-+#define AST2400_SCU_BASE         0x1E6E2000
- #define AST2400_TIMER_BASE       0x1E782000
- #define AST2400_I2C_BASE         0x1E78A000
-=20
- static const int uart_irqs[] =3D { 9, 32, 33, 34, 10 };
- static const int timer_irqs[] =3D { 16, 17, 18, 35, 36, 37, 38, 39, };
-=20
-+static const AspeedSCUResetCfg scu_reset[] =3D {
-+    /* Values are defaults from the datasheet except where noted */
-+    { ASPEED_SCU_SYS_RST_CTRL,   0xFFCFFEDCU },
-+    { ASPEED_SCU_CLK_SEL,        0xF3F40000U },
-+    { ASPEED_SCU_CLK_STOP_CTRL,  0x19FC3E8BU },
-+    { ASPEED_SCU_D2PLL_PARAM,    0x00026108U },
-+    { ASPEED_SCU_MPLL_PARAM,     0x00030291U },
-+    { ASPEED_SCU_HPLL_PARAM,     0x00000291U },
-+    { ASPEED_SCU_MISC_CTRL1,     0x00000010U },
-+    { ASPEED_SCU_PCI_CTRL1,      0x20001A03U },
-+    { ASPEED_SCU_PCI_CTRL2,      0x20001A03U },
-+    { ASPEED_SCU_PCI_CTRL3,      0x04000030U },
-+    { ASPEED_SCU_SYS_RST_STATUS, 0x00000001U },
-+    { ASPEED_SCU_SOC_SCRATCH1,   0x000000C0U }, /* SoC completed DRAM in=
-it */
-+    { ASPEED_SCU_MISC_CTRL2,     0x00000023U },
-+    { ASPEED_SCU_HW_STRAP1,      0x120CE416U }, /* Extracted after boot =
-*/
-+    { ASPEED_SCU_RNG_CTRL,       0x0000000EU },
-+    { ASPEED_SCU_REV_ID,         0x02000303U },
-+    { ASPEED_SCU_PINMUX_CTRL2,   0x0000F000U },
-+    { ASPEED_SCU_PINMUX_CTRL3,   0x01000000U },
-+    { ASPEED_SCU_PINMUX_CTRL4,   0x000000FFU },
-+    { ASPEED_SCU_PINMUX_CTRL5,   0x0000A000U },
-+    { ASPEED_SCU_WDT_RST_CTRL,   0x003FFFF3U },
-+    { ASPEED_SCU_PINMUX_CTRL8,   0xFFFF0000U },
-+    { ASPEED_SCU_PINMUX_CTRL9,   0x000FFFFFU },
-+    { ASPEED_SCU_FREE_CNTR4,     0x000000FFU },
-+    { ASPEED_SCU_FREE_CNTR4_EXT, 0x000000FFU },
-+    { ASPEED_SCU_CPU2_BASE_SEG1, 0x80000000U },
-+    { ASPEED_SCU_CPU2_BASE_SEG4, 0x1E600000U },
-+    { ASPEED_SCU_CPU2_BASE_SEG5, 0xC0000000U },
-+    { ASPEED_SCU_UART_HPLL_CLK,  0x00001903U },
-+    { ASPEED_SCU_PCIE_CTRL,      0x0000007BU },
-+    { ASPEED_SCU_BMC_DEV_ID,     0x00002402U }
-+};
-+
- /*
-  * IO handlers: simply catch any reads/writes to IO addresses that aren'=
-t
-  * handled by a device mapping.
-@@ -57,6 +93,7 @@ static const MemoryRegionOps ast2400_io_ops =3D {
-=20
- static void ast2400_init(Object *obj)
- {
-+    int i;
-     AST2400State *s =3D AST2400(obj);
-=20
-     s->cpu =3D cpu_arm_init("arm926");
-@@ -72,6 +109,18 @@ static void ast2400_init(Object *obj)
-     object_initialize(&s->i2c, sizeof(s->i2c), TYPE_ASPEED_I2C);
-     object_property_add_child(obj, "i2c", OBJECT(&s->i2c), NULL);
-     qdev_set_parent_bus(DEVICE(&s->i2c), sysbus_get_default());
-+
-+    object_initialize(&s->scu, sizeof(s->scu), TYPE_ASPEED_SCU);
-+    object_property_add_child(obj, "scu", OBJECT(&s->scu), NULL);
-+    qdev_set_parent_bus(DEVICE(&s->scu), sysbus_get_default());
-+
-+    qdev_prop_set_uint32(DEVICE(&s->scu), "len-reset", ASPEED_SCU_NR_REG=
-S);
-+    for (i =3D 0; i < ARRAY_SIZE(scu_reset); i++) {
-+        int reg =3D ASPEED_SCU_TO_REG(scu_reset[i].offset);
-+        char *propname =3D g_strdup_printf("reset[%d]", reg);
-+        qdev_prop_set_uint32(DEVICE(&s->scu), propname, scu_reset[i].val=
-);
-+        g_free(propname);
-+    }
- }
-=20
- static void ast2400_realize(DeviceState *dev, Error **errp)
-@@ -110,6 +159,14 @@ static void ast2400_realize(DeviceState *dev, Error =
-**errp)
-         sysbus_connect_irq(SYS_BUS_DEVICE(&s->timerctrl), i, irq);
-     }
-=20
-+    /* SCU */
-+    object_property_set_bool(OBJECT(&s->scu), true, "realized", &err);
-+    if (err) {
-+        error_propagate(errp, err);
-+        return;
-+    }
-+    sysbus_mmio_map(SYS_BUS_DEVICE(&s->scu), 0, AST2400_SCU_BASE);
-+
-     /* UART - attach an 8250 to the IO space as our UART5 */
-     if (serial_hds[0]) {
-         qemu_irq uart5 =3D qdev_get_gpio_in(DEVICE(&s->vic), uart_irqs[4=
-]);
-diff --git a/include/hw/arm/ast2400.h b/include/hw/arm/ast2400.h
-index c05ed5376736..f1a64fd3893d 100644
---- a/include/hw/arm/ast2400.h
-+++ b/include/hw/arm/ast2400.h
-@@ -14,6 +14,7 @@
-=20
- #include "hw/arm/arm.h"
- #include "hw/intc/aspeed_vic.h"
-+#include "hw/misc/aspeed_scu.h"
- #include "hw/timer/aspeed_timer.h"
- #include "hw/i2c/aspeed_i2c.h"
-=20
-@@ -27,6 +28,7 @@ typedef struct AST2400State {
-     AspeedVICState vic;
-     AspeedTimerCtrlState timerctrl;
-     AspeedI2CState i2c;
-+    AspeedSCUState scu;
- } AST2400State;
-=20
- #define TYPE_AST2400 "ast2400"
---=20
-2.7.4
+Reviewed-by: Cédric Le Goater <clg@kaod.org>
+
+Thanks,
+
+C. 
+
+
+> ---
+>  hw/misc/Makefile.objs        |   1 +
+>  hw/misc/aspeed_scu.c         | 147 +++++++++++++++++++++++++++++++++++++++++++
+>  include/hw/misc/aspeed_scu.h | 108 +++++++++++++++++++++++++++++++
+>  trace-events                 |   3 +
+>  4 files changed, 259 insertions(+)
+>  create mode 100644 hw/misc/aspeed_scu.c
+>  create mode 100644 include/hw/misc/aspeed_scu.h
+> 
+> diff --git a/hw/misc/Makefile.objs b/hw/misc/Makefile.objs
+> index ffb49c11aca6..54020aa06c00 100644
+> --- a/hw/misc/Makefile.objs
+> +++ b/hw/misc/Makefile.objs
+> @@ -52,3 +52,4 @@ obj-$(CONFIG_PVPANIC) += pvpanic.o
+>  obj-$(CONFIG_EDU) += edu.o
+>  obj-$(CONFIG_HYPERV_TESTDEV) += hyperv_testdev.o
+>  obj-$(CONFIG_AUX) += aux.o
+> +obj-$(CONFIG_ASPEED_SOC) += aspeed_scu.o
+> diff --git a/hw/misc/aspeed_scu.c b/hw/misc/aspeed_scu.c
+> new file mode 100644
+> index 000000000000..492cf82af425
+> --- /dev/null
+> +++ b/hw/misc/aspeed_scu.c
+> @@ -0,0 +1,147 @@
+> +/*
+> + * ASPEED System Control Unit
+> + *
+> + * Andrew Jeffery <andrew@aj.id.au>
+> + *
+> + * Copyright 2016 IBM Corp.
+> + *
+> + * This code is licensed under the GPL version 2 or later.  See
+> + * the COPYING file in the top-level directory.
+> + */
+> +
+> +#include "qemu/osdep.h"
+> +#include <inttypes.h>
+> +#include "hw/misc/aspeed_scu.h"
+> +#include "hw/qdev-properties.h"
+> +#include "qapi/error.h"
+> +#include "qapi/visitor.h"
+> +#include "qemu/bitops.h"
+> +#include "trace.h"
+> +
+> +#define SCU_KEY 0x1688A8A8
+> +#define SCU_IO_REGION_SIZE 0x20000
+> +
+> +static uint64_t aspeed_scu_read(void *opaque, hwaddr offset, unsigned size)
+> +{
+> +    AspeedSCUState *s = ASPEED_SCU(opaque);
+> +
+> +    if (ASPEED_SCU_TO_REG(offset) >= ARRAY_SIZE(s->regs)) {
+> +        qemu_log_mask(LOG_GUEST_ERROR,
+> +                      "%s: Out-of-bounds read at offset 0x%" HWADDR_PRIx "\n",
+> +                      __func__, offset);
+> +        return 0;
+> +    }
+> +
+> +    switch (offset) {
+> +    case ASPEED_SCU_WAKEUP_EN:
+> +        qemu_log_mask(LOG_GUEST_ERROR,
+> +                      "%s: Read of write-only offset 0x%" HWADDR_PRIx "\n",
+> +                      __func__, offset);
+> +        break;
+> +    }
+> +
+> +    return s->regs[ASPEED_SCU_TO_REG(offset)];
+> +}
+> +
+> +static void aspeed_scu_write(void *opaque, hwaddr offset, uint64_t data,
+> +                             unsigned size)
+> +{
+> +    AspeedSCUState *s = ASPEED_SCU(opaque);
+> +
+> +    if (ASPEED_SCU_TO_REG(offset) >= ARRAY_SIZE(s->regs)) {
+> +        qemu_log_mask(LOG_GUEST_ERROR,
+> +                      "%s: Out-of-bounds write at offset 0x%" HWADDR_PRIx "\n",
+> +                      __func__, offset);
+> +        return;
+> +    }
+> +
+> +    if (offset > ASPEED_SCU_PROT_KEY && offset < ASPEED_SCU_CPU2_BASE_SEG1 &&
+> +            s->regs[ASPEED_SCU_TO_REG(ASPEED_SCU_PROT_KEY)] != SCU_KEY) {
+> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: SCU is locked!\n", __func__);
+> +        return;
+> +    }
+> +
+> +    trace_aspeed_scu_write(offset, size, data);
+> +
+> +    switch (offset) {
+> +    case ASPEED_SCU_FREQ_CNTR_EVAL:
+> +    case ASPEED_SCU_VGA_SCRATCH1 ... ASPEED_SCU_VGA_SCRATCH8:
+> +    case ASPEED_SCU_RNG_DATA:
+> +    case ASPEED_SCU_REV_ID:
+> +    case ASPEED_SCU_FREE_CNTR4:
+> +    case ASPEED_SCU_FREE_CNTR4_EXT:
+> +        qemu_log_mask(LOG_GUEST_ERROR,
+> +                      "%s: Write to read-only offset 0x%" HWADDR_PRIx "\n",
+> +                      __func__, offset);
+> +        return;
+> +    }
+> +
+> +    s->regs[ASPEED_SCU_TO_REG(offset)] = (uint32_t) data;
+> +}
+> +
+> +static const MemoryRegionOps aspeed_scu_ops = {
+> +    .read = aspeed_scu_read,
+> +    .write = aspeed_scu_write,
+> +    .endianness = DEVICE_LITTLE_ENDIAN,
+> +    .valid.min_access_size = 4,
+> +    .valid.max_access_size = 4,
+> +    .valid.unaligned = false,
+> +};
+> +
+> +static void aspeed_scu_reset(DeviceState *dev)
+> +{
+> +    AspeedSCUState *s = ASPEED_SCU(dev);
+> +
+> +    memcpy(s->regs, s->reset, sizeof(s->regs));
+> +}
+> +
+> +static void aspeed_scu_realize(DeviceState *dev, Error **errp)
+> +{
+> +    SysBusDevice *sbd = SYS_BUS_DEVICE(dev);
+> +    AspeedSCUState *s = ASPEED_SCU(dev);
+> +
+> +    memory_region_init_io(&s->iomem, OBJECT(s), &aspeed_scu_ops, s,
+> +                          TYPE_ASPEED_SCU, SCU_IO_REGION_SIZE);
+> +
+> +    sysbus_init_mmio(sbd, &s->iomem);
+> +}
+> +
+> +static const VMStateDescription vmstate_aspeed_scu = {
+> +    .name = "aspeed.new-vic",
+> +    .version_id = 1,
+> +    .minimum_version_id = 1,
+> +    .fields = (VMStateField[]) {
+> +        VMSTATE_UINT32_ARRAY(regs, AspeedSCUState, ASPEED_SCU_NR_REGS),
+> +        VMSTATE_END_OF_LIST()
+> +    }
+> +};
+> +
+> +static Property aspeed_scu_properties[] = {
+> +    DEFINE_PROP_ARRAY("reset", AspeedSCUState, num_resets, reset,
+> +                      qdev_prop_uint32, uint32_t),
+> +    DEFINE_PROP_END_OF_LIST(),
+> +};
+> +
+> +static void aspeed_scu_class_init(ObjectClass *klass, void *data)
+> +{
+> +    DeviceClass *dc = DEVICE_CLASS(klass);
+> +    dc->realize = aspeed_scu_realize;
+> +    dc->reset = aspeed_scu_reset;
+> +    dc->desc = "ASPEED System Control Unit";
+> +    dc->vmsd = &vmstate_aspeed_scu;
+> +    dc->props = aspeed_scu_properties;
+> +}
+> +
+> +static const TypeInfo aspeed_scu_info = {
+> +    .name = TYPE_ASPEED_SCU,
+> +    .parent = TYPE_SYS_BUS_DEVICE,
+> +    .instance_size = sizeof(AspeedSCUState),
+> +    .class_init = aspeed_scu_class_init,
+> +};
+> +
+> +static void aspeed_scu_register_types(void)
+> +{
+> +    type_register_static(&aspeed_scu_info);
+> +}
+> +
+> +type_init(aspeed_scu_register_types);
+> diff --git a/include/hw/misc/aspeed_scu.h b/include/hw/misc/aspeed_scu.h
+> new file mode 100644
+> index 000000000000..f95c5c8a7d74
+> --- /dev/null
+> +++ b/include/hw/misc/aspeed_scu.h
+> @@ -0,0 +1,108 @@
+> +/*
+> + * ASPEED System Control Unit
+> + *
+> + * Andrew Jeffery <andrew@aj.id.au>
+> + *
+> + * Copyright 2016 IBM Corp.
+> + *
+> + * This code is licensed under the GPL version 2 or later.  See
+> + * the COPYING file in the top-level directory.
+> + */
+> +#ifndef ASPEED_SCU_H
+> +#define ASPEED_SCU_H
+> +
+> +#include "hw/sysbus.h"
+> +
+> +#define TYPE_ASPEED_SCU "aspeed.scu"
+> +#define ASPEED_SCU(obj) OBJECT_CHECK(AspeedSCUState, (obj), TYPE_ASPEED_SCU)
+> +
+> +#define ASPEED_SCU_NR_REGS (0x1A8 >> 2)
+> +
+> +#define ASPEED_SCU_PROT_KEY             0x00
+> +#define ASPEED_SCU_SYS_RST_CTRL         0x04
+> +#define ASPEED_SCU_CLK_SEL              0x08
+> +#define ASPEED_SCU_CLK_STOP_CTRL        0x0C
+> +#define ASPEED_SCU_FREQ_CNTR_CTRL       0x10
+> +#define ASPEED_SCU_FREQ_CNTR_EVAL       0x14
+> +#define ASPEED_SCU_IRQ_CTRL             0x18
+> +#define ASPEED_SCU_D2PLL_PARAM          0x1C
+> +#define ASPEED_SCU_MPLL_PARAM           0x20
+> +#define ASPEED_SCU_HPLL_PARAM           0x24
+> +#define ASPEED_SCU_FREQ_CNTR_RANGE      0x28
+> +#define ASPEED_SCU_MISC_CTRL1           0x2C
+> +#define ASPEED_SCU_PCI_CTRL1            0x30
+> +#define ASPEED_SCU_PCI_CTRL2            0x34
+> +#define ASPEED_SCU_PCI_CTRL3            0x38
+> +#define ASPEED_SCU_SYS_RST_STATUS       0x3C
+> +#define ASPEED_SCU_SOC_SCRATCH1         0x40
+> +#define ASPEED_SCU_SOC_SCRATCH2         0x44
+> +#define ASPEED_SCU_MAC_CLK_DELAY        0x48
+> +#define ASPEED_SCU_MISC_CTRL2           0x4C
+> +#define ASPEED_SCU_VGA_SCRATCH1         0x50
+> +#define ASPEED_SCU_VGA_SCRATCH2         0x54
+> +#define ASPEED_SCU_VGA_SCRATCH3         0x58
+> +#define ASPEED_SCU_VGA_SCRATCH4         0x5C
+> +#define ASPEED_SCU_VGA_SCRATCH5         0x60
+> +#define ASPEED_SCU_VGA_SCRATCH6         0x64
+> +#define ASPEED_SCU_VGA_SCRATCH7         0x68
+> +#define ASPEED_SCU_VGA_SCRATCH8         0x6C
+> +#define ASPEED_SCU_HW_STRAP1            0x70
+> +#define ASPEED_SCU_RNG_CTRL             0x74
+> +#define ASPEED_SCU_RNG_DATA             0x78
+> +#define ASPEED_SCU_REV_ID               0x7C
+> +#define ASPEED_SCU_PINMUX_CTRL1         0x80
+> +#define ASPEED_SCU_PINMUX_CTRL2         0x84
+> +#define ASPEED_SCU_PINMUX_CTRL3         0x88
+> +#define ASPEED_SCU_PINMUX_CTRL4         0x8C
+> +#define ASPEED_SCU_PINMUX_CTRL5         0x90
+> +#define ASPEED_SCU_PINMUX_CTRL6         0x94
+> +#define ASPEED_SCU_WDT_RST_CTRL         0x9C
+> +#define ASPEED_SCU_PINMUX_CTRL7         0xA0
+> +#define ASPEED_SCU_PINMUX_CTRL8         0xA4
+> +#define ASPEED_SCU_PINMUX_CTRL9         0xA8
+> +#define ASPEED_SCU_WAKEUP_EN            0xC0
+> +#define ASPEED_SCU_WAKEUP_CTRL          0xC4
+> +#define ASPEED_SCU_HW_STRAP2            0xD0
+> +#define ASPEED_SCU_FREE_CNTR4           0xE0
+> +#define ASPEED_SCU_FREE_CNTR4_EXT       0xE4
+> +#define ASPEED_SCU_CPU2_CTRL            0x100
+> +#define ASPEED_SCU_CPU2_BASE_SEG1       0x104
+> +#define ASPEED_SCU_CPU2_BASE_SEG2       0x108
+> +#define ASPEED_SCU_CPU2_BASE_SEG3       0x10C
+> +#define ASPEED_SCU_CPU2_BASE_SEG4       0x110
+> +#define ASPEED_SCU_CPU2_BASE_SEG5       0x114
+> +#define ASPEED_SCU_CPU2_CACHE_CTRL      0x118
+> +#define ASPEED_SCU_UART_HPLL_CLK        0x160
+> +#define ASPEED_SCU_PCIE_CTRL            0x180
+> +#define ASPEED_SCU_BMC_MMIO_CTRL        0x184
+> +#define ASPEED_SCU_RELOC_DECODE_BASE1   0x188
+> +#define ASPEED_SCU_RELOC_DECODE_BASE2   0x18C
+> +#define ASPEED_SCU_MAILBOX_DECODE_BASE  0x190
+> +#define ASPEED_SCU_SRAM_DECODE_BASE1    0x194
+> +#define ASPEED_SCU_SRAM_DECODE_BASE2    0x198
+> +#define ASPEED_SCU_BMC_REV_ID           0x19C
+> +#define ASPEED_SCU_BMC_DEV_ID           0x1A4
+> +
+> +#define ASPEED_SCU_TO_REG(offset) ((offset) >> 2)
+> +
+> +typedef struct AspeedSCUState {
+> +    /*< private >*/
+> +    SysBusDevice parent_obj;
+> +
+> +    /*< public >*/
+> +    MemoryRegion iomem;
+> +
+> +    uint32_t regs[ASPEED_SCU_NR_REGS];
+> +    uint32_t *reset;
+> +    uint32_t num_resets;
+> +} AspeedSCUState;
+> +
+> +typedef struct AspeedSCUResetCfg {
+> +    uint32_t offset;
+> +    uint32_t val;
+> +} AspeedSCUResetCfg;
+> +
+> +void aspeed_scu_configure_reset(AspeedSCUState *scu,
+> +        const struct AspeedSCUResetCfg vals[], int n, Error **errp);
+> +
+> +#endif /* ASPEED_SCU_H */
+> diff --git a/trace-events b/trace-events
+> index 2f14205de047..24749c414ee7 100644
+> --- a/trace-events
+> +++ b/trace-events
+> @@ -2164,3 +2164,6 @@ e1000e_cfg_support_virtio(bool support) "Virtio header supported: %d"
+>  
+>  e1000e_vm_state_running(void) "VM state is running"
+>  e1000e_vm_state_stopped(void) "VM state is stopped"
+> +
+> +# hw/misc/aspeed_scu.c
+> +aspeed_scu_write(uint64_t offset, unsigned size, uint32_t data) "To 0x%" PRIx64 " of size %u: 0x%" PRIx32
+> 
