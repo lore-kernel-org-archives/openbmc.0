@@ -3,17 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rVPv50LwqzDqlj
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rVPv54cn8zDqlv
  for <openbmc@lists.ozlabs.org>; Thu, 16 Jun 2016 10:50:40 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466038236193743.2248258481662;
- Wed, 15 Jun 2016 17:50:36 -0700 (PDT)
+ with SMTPS id 1466038234272239.39370225983555;
+ Wed, 15 Jun 2016 17:50:34 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v5 04/12] initfs: update: Don't exec sh or sulogin on
- error just exit 1
-Date: Wed, 15 Jun 2016 19:50:22 -0500
-Message-Id: <20160616005030.19176-5-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v5 02/12] initfs: Fix recipe, remove unnecessary class
+Date: Wed, 15 Jun 2016 19:50:20 -0500
+Message-Id: <20160616005030.19176-3-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.4
 In-Reply-To: <20160616005030.19176-1-openbmc-patches@stwcx.xyz>
 References: <20160616005030.19176-1-openbmc-patches@stwcx.xyz>
@@ -32,74 +31,103 @@ X-List-Received-Date: Thu, 16 Jun 2016 00:50:42 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-When update was written it was exec'd from the shutdown script
-and hence took over pid 1.  Since exiting in that environment was
-a panic situation, the script instead started a rescue shell with
-its output presumably on the console.
-
-The calling convention was updated to be a simple invocation in
-commit dbacf104885c ("obmc-initfs: run update as a sub-script")
-but the error handling was not updated.  That error handling is
-now becoming a hinderance to use from additional environments so
-change it.
+Because the recipe was named with trailing part init instead
+of initfs, the package didn't match the package name requiring
+PROVIDES, RPROVIDES and other bitbake workarounds.  Fix the recipe
+name to match the package removing the overly verbose packaging.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../obmc-phosphor-initfs/files/obmc-update.sh      | 23 ++++++----------------
- 1 file changed, 6 insertions(+), 17 deletions(-)
+ meta-phosphor/classes/obmc-phosphor-initfs.bbclass |  4 ---
+ .../obmc-phosphor-initfs/obmc-phosphor-init.bb     | 31 ----------------------
+ .../obmc-phosphor-initfs/obmc-phosphor-initfs.bb   | 30 +++++++++++++++++++++
+ 3 files changed, 30 insertions(+), 35 deletions(-)
+ delete mode 100644 meta-phosphor/classes/obmc-phosphor-initfs.bbclass
+ delete mode 100644 meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb
+ create mode 100644 meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-initfs.bb
 
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index aa8fd89..f8e551c 100755
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -2,9 +2,6 @@
- 
- echo update: "$@"
- 
--export PS1=update-sh#\ 
--# exec /bin/sh
+diff --git a/meta-phosphor/classes/obmc-phosphor-initfs.bbclass b/meta-phosphor/classes/obmc-phosphor-initfs.bbclass
+deleted file mode 100644
+index de7923e..0000000
+--- a/meta-phosphor/classes/obmc-phosphor-initfs.bbclass
++++ /dev/null
+@@ -1,4 +0,0 @@
+-# Common code for recipes that implement Phosphor OpenBMC filesystem
 -
- cd /
- if ! test -r /proc/mounts || ! test -f /proc/mounts
- then
-@@ -21,12 +18,12 @@ then
- 	mkdir -p /dev
- 	mount -t devtmpfs dev dev
- fi
--while grep mtd /proc/mounts
--do
+-RPROVIDES_${PN} += "obmc-phosphor-initfs"
+-PROVIDES += "obmc-phosphor-initfs"
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb
+deleted file mode 100644
+index 3fa88c9..0000000
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb
++++ /dev/null
+@@ -1,31 +0,0 @@
+-SUMMARY = "Phosphor OpenBMC pre-init scripts"
+-DESCRIPTION = "Phosphor OpenBMC filesytem mount reference implementation."
+-PR = "r1"
+-
+-inherit obmc-phosphor-license
+-inherit obmc-phosphor-initfs
+-
+-S = "${WORKDIR}"
+-SRC_URI += "file://obmc-init.sh"
+-SRC_URI += "file://obmc-shutdown.sh"
+-SRC_URI += "file://obmc-update.sh"
+-SRC_URI += "file://whitelist"
+-
+-do_install() {
+-	for f in init-download-url init-options
+-	do
+-		if test -e $f
+-		then
+-			install -m 0755 ${WORKDIR}/$f ${D}/$f
+-		fi
+-	done
+-        install -m 0755 ${WORKDIR}/obmc-init.sh ${D}/init
+-        install -m 0755 ${WORKDIR}/obmc-shutdown.sh ${D}/shutdown
+-        install -m 0755 ${WORKDIR}/obmc-update.sh ${D}/update
+-        install -m 0644 ${WORKDIR}/whitelist ${D}/whitelist
+-        install -d ${D}/dev
+-        mknod -m 622 ${D}/dev/console c 5 1
+-}
+-
+-FILES_${PN} += " /init /shutdown /update /whitelist /dev "
+-FILES_${PN} += " /init-options /init-download-url "
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-initfs.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-initfs.bb
+new file mode 100644
+index 0000000..f81e21d
+--- /dev/null
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-initfs.bb
+@@ -0,0 +1,30 @@
++SUMMARY = "Phosphor OpenBMC pre-init scripts"
++DESCRIPTION = "Phosphor OpenBMC filesytem mount reference implementation."
++PR = "r1"
 +
-+if grep mtd /proc/mounts
-+then
- 	echo 1>&2 "Error: A mtd device is mounted."
--	sulogin
--	# exec /bin/sh
--done
-+	exit 1
-+fi
- 
- findmtd() {
- 	m=$(grep -xl "$1" /sys/class/mtd/*/name)
-@@ -130,7 +127,7 @@ do
- 	if test -z "$m"
- 	then
- 		echo 1>&2  "Unable to find mtd partiton for ${f##*/}."
--		exec /bin/sh
-+		exit 1
- 	fi
- done
- 
-@@ -173,11 +170,3 @@ then
- fi
- 
- exit
--
--# NOT REACHED without edit
--# NOT REACHED without edit
--
--echo "Flash completed.  Inspect, cleanup and reboot -f to continue."
--
--export PS1=update-sh#\ 
--exec /bin/sh
++inherit obmc-phosphor-license
++
++S = "${WORKDIR}"
++SRC_URI += "file://obmc-init.sh"
++SRC_URI += "file://obmc-shutdown.sh"
++SRC_URI += "file://obmc-update.sh"
++SRC_URI += "file://whitelist"
++
++do_install() {
++	for f in init-download-url init-options
++	do
++		if test -e $f
++		then
++			install -m 0755 ${WORKDIR}/$f ${D}/$f
++		fi
++	done
++        install -m 0755 ${WORKDIR}/obmc-init.sh ${D}/init
++        install -m 0755 ${WORKDIR}/obmc-shutdown.sh ${D}/shutdown
++        install -m 0755 ${WORKDIR}/obmc-update.sh ${D}/update
++        install -m 0644 ${WORKDIR}/whitelist ${D}/whitelist
++        install -d ${D}/dev
++        mknod -m 622 ${D}/dev/console c 5 1
++}
++
++FILES_${PN} += " /init /shutdown /update /whitelist /dev "
++FILES_${PN} += " /init-options /init-download-url "
 -- 
 2.8.4
