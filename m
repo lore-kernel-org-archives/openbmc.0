@@ -1,22 +1,36 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from homiemail-a18.g.dreamhost.com (sub3.mail.dreamhost.com
+ [69.163.253.7])
+ (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rVSnB0kHCzDqm7
- for <openbmc@lists.ozlabs.org>; Thu, 16 Jun 2016 13:00:45 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466046040453992.9190854236936;
- Wed, 15 Jun 2016 20:00:40 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH openbmc 2/2] Initial Witherspoon layer
-Date: Wed, 15 Jun 2016 22:00:36 -0500
-Message-Id: <20160616030036.24496-3-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.8.4
-In-Reply-To: <20160616030036.24496-1-openbmc-patches@stwcx.xyz>
-References: <20160616030036.24496-1-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rVX7b5NmWzDqmm
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Jun 2016 15:31:55 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=LfPrV02/; 
+ dkim-atps=neutral
+Received: from homiemail-a18.g.dreamhost.com (localhost [127.0.0.1])
+ by homiemail-a18.g.dreamhost.com (Postfix) with ESMTP id 14EE9250071;
+ Wed, 15 Jun 2016 22:31:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=aj.id.au; h=from:to:cc
+ :subject:date:message-id:in-reply-to:references; s=aj.id.au; bh=
+ SGZMI1RFNCgilfByprBXmz03DeU=; b=LfPrV02/p3QWK3VWIt4nN5g9KqBCIY3I
+ NwPWLb6QSEnhOF2DZd6jZw3yfm+zyyaHOV0SiJKKI9ay2POTIreR9jZ391f/EqSu
+ q2g0L6+NGeZPwv6D5FCuE85KbF3XhKpF5LK7SFk2VKWyXeB5osR7ntY1hlsdCDUf
+ fOI0luPhx34=
+Received: from keelia.au.ibm.com (orion.jms.id.au [119.9.53.35])
+ (using TLSv1 with cipher AES128-SHA (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: andrew@aj.id.au)
+ by homiemail-a18.g.dreamhost.com (Postfix) with ESMTPSA id 6A01E25006C;
+ Wed, 15 Jun 2016 22:31:52 -0700 (PDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: OpenBMC <openbmc@lists.ozlabs.org>
+Subject: [PATCH v2 1/2] hw/misc: Add a model for the ASPEED System Control Unit
+Date: Thu, 16 Jun 2016 15:31:39 +1000
+Message-Id: <1466055100-16521-2-git-send-email-andrew@aj.id.au>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1466055100-16521-1-git-send-email-andrew@aj.id.au>
+References: <1466055100-16521-1-git-send-email-andrew@aj.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,220 +42,313 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Jun 2016 03:00:47 -0000
+X-List-Received-Date: Thu, 16 Jun 2016 05:31:56 -0000
 
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+The SCU is a collection of chip-level control registers that manage the
+various functions supported by the AST2400. Typically the bits control
+interactions with clocks, external hardware or reset behaviour, and we
+can largly take a hands-off approach to reads and writes.
 
-Witherspoon is an IBM branded OpenPOWER system aimed at the HPC
-market.
+Firmware makes heavy use of the state to determine how to boot, but the
+reset values vary from SoC to SoC. qdev properties are exposed so that
+the integrating SoC model can configure the appropriate reset values.
 
-It should be noted that this doesn't boot cleanly with the current
-4.6 branch.
-
-Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- .../meta-witherspoon/conf/bblayers.conf.sample     | 27 ++++++++++++++++++++
- .../meta-ibm/meta-witherspoon/conf/conf-notes.txt  |  2 ++
- .../meta-ibm/meta-witherspoon/conf/layer.conf      |  9 +++++++
- .../meta-witherspoon/conf/local.conf.sample        | 21 ++++++++++++++++
- .../meta-witherspoon/conf/machine/witherspoon.conf |  8 ++++++
- .../0001-Witherspoon-OpenBMC-configuration.patch   | 29 ++++++++++++++++++++++
- .../recipes-bsp/u-boot/u-boot_%.bbappend           |  2 ++
- .../linux/linux-obmc/witherspoon.cfg               |  2 ++
- .../recipes-kernel/linux/linux-obmc_%.bbappend     |  2 ++
- .../workbook/witherspoon-config.bb                 |  9 +++++++
- .../meta-ibm/meta-witherspoon/recipes.txt          |  2 ++
- 11 files changed, 113 insertions(+)
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/bblayers.conf.sample
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/conf-notes.txt
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/layer.conf
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/local.conf.sample
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/machine/witherspoon.conf
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-bsp/u-boot/files/0001-Witherspoon-OpenBMC-configuration.patch
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-bsp/u-boot/u-boot_%.bbappend
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-kernel/linux/linux-obmc/witherspoon.cfg
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-kernel/linux/linux-obmc_%.bbappend
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-phosphor/workbook/witherspoon-config.bb
- create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes.txt
+ hw/misc/Makefile.objs        |   1 +
+ hw/misc/aspeed_scu.c         | 147 +++++++++++++++++++++++++++++++++++++++++++
+ include/hw/misc/aspeed_scu.h | 108 +++++++++++++++++++++++++++++++
+ trace-events                 |   3 +
+ 4 files changed, 259 insertions(+)
+ create mode 100644 hw/misc/aspeed_scu.c
+ create mode 100644 include/hw/misc/aspeed_scu.h
 
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/bblayers.conf.sample b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/bblayers.conf.sample
+diff --git a/hw/misc/Makefile.objs b/hw/misc/Makefile.objs
+index ffb49c11aca6..54020aa06c00 100644
+--- a/hw/misc/Makefile.objs
++++ b/hw/misc/Makefile.objs
+@@ -52,3 +52,4 @@ obj-$(CONFIG_PVPANIC) += pvpanic.o
+ obj-$(CONFIG_EDU) += edu.o
+ obj-$(CONFIG_HYPERV_TESTDEV) += hyperv_testdev.o
+ obj-$(CONFIG_AUX) += aux.o
++obj-$(CONFIG_ASPEED_SOC) += aspeed_scu.o
+diff --git a/hw/misc/aspeed_scu.c b/hw/misc/aspeed_scu.c
 new file mode 100644
-index 0000000..333c7ef
+index 000000000000..492cf82af425
 --- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/bblayers.conf.sample
-@@ -0,0 +1,27 @@
-+# LAYER_CONF_VERSION is increased each time build/conf/bblayers.conf
-+# changes incompatibly
-+LCONF_VERSION = "6"
++++ b/hw/misc/aspeed_scu.c
+@@ -0,0 +1,147 @@
++/*
++ * ASPEED System Control Unit
++ *
++ * Andrew Jeffery <andrew@aj.id.au>
++ *
++ * Copyright 2016 IBM Corp.
++ *
++ * This code is licensed under the GPL version 2 or later.  See
++ * the COPYING file in the top-level directory.
++ */
 +
-+BBPATH = "${TOPDIR}"
-+BBFILES ?= ""
++#include "qemu/osdep.h"
++#include <inttypes.h>
++#include "hw/misc/aspeed_scu.h"
++#include "hw/qdev-properties.h"
++#include "qapi/error.h"
++#include "qapi/visitor.h"
++#include "qemu/bitops.h"
++#include "trace.h"
 +
-+BBLAYERS ?= " \
-+  ##OEROOT##/meta \
-+  ##OEROOT##/meta-yocto \
-+  ##OEROOT##/meta-phosphor \
-+  ##OEROOT##/meta-openbmc-bsp/meta-aspeed \
-+  ##OEROOT##/meta-openbmc-bsp/meta-aspeed/meta-ast2500 \
-+  ##OEROOT##/meta-openbmc-machines/meta-openpower \
-+  ##OEROOT##/meta-openbmc-machines/meta-openpower/meta-ibm \
-+  ##OEROOT##/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon \
-+  "
-+BBLAYERS_NON_REMOVABLE ?= " \
-+  ##OEROOT##/meta \
-+  ##OEROOT##/meta-yocto \
-+  ##OEROOT##/meta-phosphor \
-+  ##OEROOT##/meta-aspeed \
-+  ##OEROOT##/meta-aspeed/meta-ast2500 \
-+  ##OEROOT##/meta-openpower \
-+  ##OEROOT##/meta-openpower/meta-ibm \
-+  ##OEROOT##/meta-openpower/meta-ibm/meta-witherspoon\
-+  "
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/conf-notes.txt b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/conf-notes.txt
++#define SCU_KEY 0x1688A8A8
++#define SCU_IO_REGION_SIZE 0x20000
++
++static uint64_t aspeed_scu_read(void *opaque, hwaddr offset, unsigned size)
++{
++    AspeedSCUState *s = ASPEED_SCU(opaque);
++
++    if (ASPEED_SCU_TO_REG(offset) >= ARRAY_SIZE(s->regs)) {
++        qemu_log_mask(LOG_GUEST_ERROR,
++                      "%s: Out-of-bounds read at offset 0x%" HWADDR_PRIx "\n",
++                      __func__, offset);
++        return 0;
++    }
++
++    switch (offset) {
++    case ASPEED_SCU_WAKEUP_EN:
++        qemu_log_mask(LOG_GUEST_ERROR,
++                      "%s: Read of write-only offset 0x%" HWADDR_PRIx "\n",
++                      __func__, offset);
++        break;
++    }
++
++    return s->regs[ASPEED_SCU_TO_REG(offset)];
++}
++
++static void aspeed_scu_write(void *opaque, hwaddr offset, uint64_t data,
++                             unsigned size)
++{
++    AspeedSCUState *s = ASPEED_SCU(opaque);
++
++    if (ASPEED_SCU_TO_REG(offset) >= ARRAY_SIZE(s->regs)) {
++        qemu_log_mask(LOG_GUEST_ERROR,
++                      "%s: Out-of-bounds write at offset 0x%" HWADDR_PRIx "\n",
++                      __func__, offset);
++        return;
++    }
++
++    if (offset > ASPEED_SCU_PROT_KEY && offset < ASPEED_SCU_CPU2_BASE_SEG1 &&
++            s->regs[ASPEED_SCU_TO_REG(ASPEED_SCU_PROT_KEY)] != SCU_KEY) {
++        qemu_log_mask(LOG_GUEST_ERROR, "%s: SCU is locked!\n", __func__);
++        return;
++    }
++
++    trace_aspeed_scu_write(offset, size, data);
++
++    switch (offset) {
++    case ASPEED_SCU_FREQ_CNTR_EVAL:
++    case ASPEED_SCU_VGA_SCRATCH1 ... ASPEED_SCU_VGA_SCRATCH8:
++    case ASPEED_SCU_RNG_DATA:
++    case ASPEED_SCU_REV_ID:
++    case ASPEED_SCU_FREE_CNTR4:
++    case ASPEED_SCU_FREE_CNTR4_EXT:
++        qemu_log_mask(LOG_GUEST_ERROR,
++                      "%s: Write to read-only offset 0x%" HWADDR_PRIx "\n",
++                      __func__, offset);
++        return;
++    }
++
++    s->regs[ASPEED_SCU_TO_REG(offset)] = (uint32_t) data;
++}
++
++static const MemoryRegionOps aspeed_scu_ops = {
++    .read = aspeed_scu_read,
++    .write = aspeed_scu_write,
++    .endianness = DEVICE_LITTLE_ENDIAN,
++    .valid.min_access_size = 4,
++    .valid.max_access_size = 4,
++    .valid.unaligned = false,
++};
++
++static void aspeed_scu_reset(DeviceState *dev)
++{
++    AspeedSCUState *s = ASPEED_SCU(dev);
++
++    memcpy(s->regs, s->reset, sizeof(s->regs));
++}
++
++static void aspeed_scu_realize(DeviceState *dev, Error **errp)
++{
++    SysBusDevice *sbd = SYS_BUS_DEVICE(dev);
++    AspeedSCUState *s = ASPEED_SCU(dev);
++
++    memory_region_init_io(&s->iomem, OBJECT(s), &aspeed_scu_ops, s,
++                          TYPE_ASPEED_SCU, SCU_IO_REGION_SIZE);
++
++    sysbus_init_mmio(sbd, &s->iomem);
++}
++
++static const VMStateDescription vmstate_aspeed_scu = {
++    .name = "aspeed.new-vic",
++    .version_id = 1,
++    .minimum_version_id = 1,
++    .fields = (VMStateField[]) {
++        VMSTATE_UINT32_ARRAY(regs, AspeedSCUState, ASPEED_SCU_NR_REGS),
++        VMSTATE_END_OF_LIST()
++    }
++};
++
++static Property aspeed_scu_properties[] = {
++    DEFINE_PROP_ARRAY("reset", AspeedSCUState, num_resets, reset,
++                      qdev_prop_uint32, uint32_t),
++    DEFINE_PROP_END_OF_LIST(),
++};
++
++static void aspeed_scu_class_init(ObjectClass *klass, void *data)
++{
++    DeviceClass *dc = DEVICE_CLASS(klass);
++    dc->realize = aspeed_scu_realize;
++    dc->reset = aspeed_scu_reset;
++    dc->desc = "ASPEED System Control Unit";
++    dc->vmsd = &vmstate_aspeed_scu;
++    dc->props = aspeed_scu_properties;
++}
++
++static const TypeInfo aspeed_scu_info = {
++    .name = TYPE_ASPEED_SCU,
++    .parent = TYPE_SYS_BUS_DEVICE,
++    .instance_size = sizeof(AspeedSCUState),
++    .class_init = aspeed_scu_class_init,
++};
++
++static void aspeed_scu_register_types(void)
++{
++    type_register_static(&aspeed_scu_info);
++}
++
++type_init(aspeed_scu_register_types);
+diff --git a/include/hw/misc/aspeed_scu.h b/include/hw/misc/aspeed_scu.h
 new file mode 100644
-index 0000000..9b3c01a
+index 000000000000..f95c5c8a7d74
 --- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/conf-notes.txt
-@@ -0,0 +1,2 @@
-+Common targets are:
-+     obmc-phosphor-image
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/layer.conf b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/layer.conf
-new file mode 100644
-index 0000000..01848da
---- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/layer.conf
-@@ -0,0 +1,9 @@
-+# We have a conf and classes directory, add to BBPATH
-+BBPATH .= ":${LAYERDIR}"
++++ b/include/hw/misc/aspeed_scu.h
+@@ -0,0 +1,108 @@
++/*
++ * ASPEED System Control Unit
++ *
++ * Andrew Jeffery <andrew@aj.id.au>
++ *
++ * Copyright 2016 IBM Corp.
++ *
++ * This code is licensed under the GPL version 2 or later.  See
++ * the COPYING file in the top-level directory.
++ */
++#ifndef ASPEED_SCU_H
++#define ASPEED_SCU_H
 +
-+# We have recipes-* directories, add to BBFILES
-+BBFILES += "${LAYERDIR}/recipes-*/*/*.bb \
-+            ${LAYERDIR}/recipes-*/*/*.bbappend"
++#include "hw/sysbus.h"
 +
-+BBFILE_COLLECTIONS += "witherspoon"
-+BBFILE_PATTERN_witherspoon = ""
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/local.conf.sample b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/local.conf.sample
-new file mode 100644
-index 0000000..6e774ff
---- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/local.conf.sample
-@@ -0,0 +1,21 @@
-+MACHINE ??= "witherspoon"
-+DISTRO ?= "openbmc-phosphor"
-+PACKAGE_CLASSES ?= "package_rpm"
-+SANITY_TESTED_DISTROS_append ?= " *"
-+EXTRA_IMAGE_FEATURES = "debug-tweaks"
-+USER_CLASSES ?= "buildstats image-mklibs image-prelink"
-+PATCHRESOLVE = "noop"
-+BB_DISKMON_DIRS = "\
-+    STOPTASKS,${TMPDIR},1G,100K \
-+    STOPTASKS,${DL_DIR},1G,100K \
-+    STOPTASKS,${SSTATE_DIR},1G,100K \
-+    STOPTASKS,/tmp,100M,100K \
-+    ABORT,${TMPDIR},100M,1K \
-+    ABORT,${DL_DIR},100M,1K \
-+    ABORT,${SSTATE_DIR},100M,1K \
-+    ABORT,/tmp,10M,1K"
-+CONF_VERSION = "1"
-+INHERIT += "extrausers"
-+EXTRA_USERS_PARAMS = " \
-+  usermod -p '\$1\$UGMqyqdG\$FZiylVFmRRfl9Z0Ue8G7e/' root; \
-+  "
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/machine/witherspoon.conf b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/machine/witherspoon.conf
-new file mode 100644
-index 0000000..19ada2a
---- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/machine/witherspoon.conf
-@@ -0,0 +1,8 @@
-+KMACHINE = "aspeed"
-+KERNEL_DEVICETREE = "${KMACHINE}-bmc-opp-${MACHINE}.dtb"
++#define TYPE_ASPEED_SCU "aspeed.scu"
++#define ASPEED_SCU(obj) OBJECT_CHECK(AspeedSCUState, (obj), TYPE_ASPEED_SCU)
 +
-+UBOOT_MACHINE = "witherspoon_bmc_config"
++#define ASPEED_SCU_NR_REGS (0x1A8 >> 2)
 +
-+require conf/machine/include/ast2500.inc
-+require conf/machine/include/obmc-bsp-common.inc
-+require conf/machine/include/ibm.inc
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-bsp/u-boot/files/0001-Witherspoon-OpenBMC-configuration.patch b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-bsp/u-boot/files/0001-Witherspoon-OpenBMC-configuration.patch
-new file mode 100644
-index 0000000..ca79c7f
---- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-bsp/u-boot/files/0001-Witherspoon-OpenBMC-configuration.patch
-@@ -0,0 +1,29 @@
-+From 809f469b92b9f2248a49f250bc002de0c6bd48f5 Mon Sep 17 00:00:00 2001
-+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-+Date: Wed, 8 Jun 2016 14:57:23 -0400
-+Subject: [PATCH] Witherspoon OpenBMC configuration
++#define ASPEED_SCU_PROT_KEY             0x00
++#define ASPEED_SCU_SYS_RST_CTRL         0x04
++#define ASPEED_SCU_CLK_SEL              0x08
++#define ASPEED_SCU_CLK_STOP_CTRL        0x0C
++#define ASPEED_SCU_FREQ_CNTR_CTRL       0x10
++#define ASPEED_SCU_FREQ_CNTR_EVAL       0x14
++#define ASPEED_SCU_IRQ_CTRL             0x18
++#define ASPEED_SCU_D2PLL_PARAM          0x1C
++#define ASPEED_SCU_MPLL_PARAM           0x20
++#define ASPEED_SCU_HPLL_PARAM           0x24
++#define ASPEED_SCU_FREQ_CNTR_RANGE      0x28
++#define ASPEED_SCU_MISC_CTRL1           0x2C
++#define ASPEED_SCU_PCI_CTRL1            0x30
++#define ASPEED_SCU_PCI_CTRL2            0x34
++#define ASPEED_SCU_PCI_CTRL3            0x38
++#define ASPEED_SCU_SYS_RST_STATUS       0x3C
++#define ASPEED_SCU_SOC_SCRATCH1         0x40
++#define ASPEED_SCU_SOC_SCRATCH2         0x44
++#define ASPEED_SCU_MAC_CLK_DELAY        0x48
++#define ASPEED_SCU_MISC_CTRL2           0x4C
++#define ASPEED_SCU_VGA_SCRATCH1         0x50
++#define ASPEED_SCU_VGA_SCRATCH2         0x54
++#define ASPEED_SCU_VGA_SCRATCH3         0x58
++#define ASPEED_SCU_VGA_SCRATCH4         0x5C
++#define ASPEED_SCU_VGA_SCRATCH5         0x60
++#define ASPEED_SCU_VGA_SCRATCH6         0x64
++#define ASPEED_SCU_VGA_SCRATCH7         0x68
++#define ASPEED_SCU_VGA_SCRATCH8         0x6C
++#define ASPEED_SCU_HW_STRAP1            0x70
++#define ASPEED_SCU_RNG_CTRL             0x74
++#define ASPEED_SCU_RNG_DATA             0x78
++#define ASPEED_SCU_REV_ID               0x7C
++#define ASPEED_SCU_PINMUX_CTRL1         0x80
++#define ASPEED_SCU_PINMUX_CTRL2         0x84
++#define ASPEED_SCU_PINMUX_CTRL3         0x88
++#define ASPEED_SCU_PINMUX_CTRL4         0x8C
++#define ASPEED_SCU_PINMUX_CTRL5         0x90
++#define ASPEED_SCU_PINMUX_CTRL6         0x94
++#define ASPEED_SCU_WDT_RST_CTRL         0x9C
++#define ASPEED_SCU_PINMUX_CTRL7         0xA0
++#define ASPEED_SCU_PINMUX_CTRL8         0xA4
++#define ASPEED_SCU_PINMUX_CTRL9         0xA8
++#define ASPEED_SCU_WAKEUP_EN            0xC0
++#define ASPEED_SCU_WAKEUP_CTRL          0xC4
++#define ASPEED_SCU_HW_STRAP2            0xD0
++#define ASPEED_SCU_FREE_CNTR4           0xE0
++#define ASPEED_SCU_FREE_CNTR4_EXT       0xE4
++#define ASPEED_SCU_CPU2_CTRL            0x100
++#define ASPEED_SCU_CPU2_BASE_SEG1       0x104
++#define ASPEED_SCU_CPU2_BASE_SEG2       0x108
++#define ASPEED_SCU_CPU2_BASE_SEG3       0x10C
++#define ASPEED_SCU_CPU2_BASE_SEG4       0x110
++#define ASPEED_SCU_CPU2_BASE_SEG5       0x114
++#define ASPEED_SCU_CPU2_CACHE_CTRL      0x118
++#define ASPEED_SCU_UART_HPLL_CLK        0x160
++#define ASPEED_SCU_PCIE_CTRL            0x180
++#define ASPEED_SCU_BMC_MMIO_CTRL        0x184
++#define ASPEED_SCU_RELOC_DECODE_BASE1   0x188
++#define ASPEED_SCU_RELOC_DECODE_BASE2   0x18C
++#define ASPEED_SCU_MAILBOX_DECODE_BASE  0x190
++#define ASPEED_SCU_SRAM_DECODE_BASE1    0x194
++#define ASPEED_SCU_SRAM_DECODE_BASE2    0x198
++#define ASPEED_SCU_BMC_REV_ID           0x19C
++#define ASPEED_SCU_BMC_DEV_ID           0x1A4
 +
-+Set default boot arguments for OpenBMC.
++#define ASPEED_SCU_TO_REG(offset) ((offset) >> 2)
 +
-+Signed-off-by: Brad Bishop <bradleyb@us.ibm.com>
-+---
-+ include/configs/witherspoon-bmc.h | 3 +++
-+ 1 file changed, 3 insertions(+)
++typedef struct AspeedSCUState {
++    /*< private >*/
++    SysBusDevice parent_obj;
 +
-+diff --git a/include/configs/witherspoon-bmc.h b/include/configs/witherspoon-bmc.h
-+index f9da307..f0f0ba9 100644
-+--- a/include/configs/witherspoon-bmc.h
-++++ b/include/configs/witherspoon-bmc.h
-+@@ -91,6 +91,9 @@
-+ 
-+ #define CONFIG_SYS_LOAD_ADDR		0x83000000	/* default load address */
-+ 
-++#define CONFIG_BOOTARGS		"console=ttyS4,115200n8 root=/dev/ram rw"
-++#define CONFIG_BOOTCOMMAND	"bootm 20080000 20300000"
-++
-+ #define CONFIG_AST_SPI_NOR    /* AST SPI NOR Flash */
-+ 
-+ #define CONFIG_FMC_CS			1
-+-- 
-+2.1.4
++    /*< public >*/
++    MemoryRegion iomem;
 +
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-bsp/u-boot/u-boot_%.bbappend b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-bsp/u-boot/u-boot_%.bbappend
-new file mode 100644
-index 0000000..9db981f
---- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-bsp/u-boot/u-boot_%.bbappend
-@@ -0,0 +1,2 @@
-+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-+SRC_URI += "file://0001-Witherspoon-OpenBMC-configuration.patch"
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-kernel/linux/linux-obmc/witherspoon.cfg b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-kernel/linux/linux-obmc/witherspoon.cfg
-new file mode 100644
-index 0000000..99efe89
---- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-kernel/linux/linux-obmc/witherspoon.cfg
-@@ -0,0 +1,2 @@
-+CONFIG_HWMON=y
-+CONFIG_SENSORS_TMP421=y
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-kernel/linux/linux-obmc_%.bbappend b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-kernel/linux/linux-obmc_%.bbappend
-new file mode 100644
-index 0000000..3d0b856
---- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-kernel/linux/linux-obmc_%.bbappend
-@@ -0,0 +1,2 @@
-+FILESEXTRAPATHS_prepend := "${THISDIR}/linux-obmc:"
-+SRC_URI += "file://witherspoon.cfg"
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-phosphor/workbook/witherspoon-config.bb b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-phosphor/workbook/witherspoon-config.bb
-new file mode 100644
-index 0000000..6318c47
---- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-phosphor/workbook/witherspoon-config.bb
-@@ -0,0 +1,9 @@
-+SUMMARY = "Witherspoon board wiring"
-+DESCRIPTION = "Board wiring information for the Witherspoon OpenPOWER system."
-+HOMEPAGE = "http://github.com/openbmc/skeleton"
-+PR = "r1"
++    uint32_t regs[ASPEED_SCU_NR_REGS];
++    uint32_t *reset;
++    uint32_t num_resets;
++} AspeedSCUState;
 +
-+OBMC_SKELETON_MACHINE = "garrison"
-+SRCREV = "40187443840d0e419c13391b2091fda29d63dea4"
-+inherit config-in-skeleton
-+inherit obmc-phosphor-license
-diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes.txt b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes.txt
-new file mode 100644
-index 0000000..3ec3f4a
---- /dev/null
-+++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes.txt
-@@ -0,0 +1,2 @@
-+recipes-kernel       - The kernel and generic applications/libraries with strong kernel dependencies
-+recipes-phosphor     - Phosphor OpenBMC applications and configuration
++typedef struct AspeedSCUResetCfg {
++    uint32_t offset;
++    uint32_t val;
++} AspeedSCUResetCfg;
++
++void aspeed_scu_configure_reset(AspeedSCUState *scu,
++        const struct AspeedSCUResetCfg vals[], int n, Error **errp);
++
++#endif /* ASPEED_SCU_H */
+diff --git a/trace-events b/trace-events
+index 2f14205de047..24749c414ee7 100644
+--- a/trace-events
++++ b/trace-events
+@@ -2164,3 +2164,6 @@ e1000e_cfg_support_virtio(bool support) "Virtio header supported: %d"
+ 
+ e1000e_vm_state_running(void) "VM state is running"
+ e1000e_vm_state_stopped(void) "VM state is stopped"
++
++# hw/misc/aspeed_scu.c
++aspeed_scu_write(uint64_t offset, unsigned size, uint32_t data) "To 0x%" PRIx64 " of size %u: 0x%" PRIx32
 -- 
-2.8.4
+2.7.4
