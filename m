@@ -3,20 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rVyWc6SwjzDqs8
- for <openbmc@lists.ozlabs.org>; Fri, 17 Jun 2016 08:20:44 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rW0WP1z2czDqkX
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Jun 2016 09:50:40 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466115639518244.24988203821988;
- Thu, 16 Jun 2016 15:20:39 -0700 (PDT)
+ with SMTPS id 1466121034677894.5325877575707;
+ Thu, 16 Jun 2016 16:50:34 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-event] event log limit not considering preexisting
- logs
-Date: Thu, 16 Jun 2016 17:20:37 -0500
-Message-Id: <20160616222037.2863-2-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v2 0/2] support for building witherspoon images
+Date: Thu, 16 Jun 2016 18:50:31 -0500
+Message-Id: <20160616235033.5759-1-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.4
-In-Reply-To: <20160616222037.2863-1-openbmc-patches@stwcx.xyz>
-References: <20160616222037.2863-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,59 +25,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Jun 2016 22:20:45 -0000
+X-List-Received-Date: Thu, 16 Jun 2016 23:50:42 -0000
 
-From: Chris Austen <austenc@us.ibm.com>
+This patchset aims to enable support for building a Witherspoon image.  Witherspoon is an IBM branded OpenPOWER system.
 
-Turns out the code that checks for event log size limitations forgot
-to take in to account the total size of logs that already existed.  So
-it would let you create the max size of new logs rather then new+old.
+At the moment the layer points at the 4.6 kernel branch which will not boot cleanly.
 
-I fixed this by initializing the variable when the process starts.  I
-also added a test case that catches the problem.
+<!-- Reviewable:start -->
 ---
- message.C |  2 +-
- test.C    | 14 ++++++++++++++
- 2 files changed, 15 insertions(+), 1 deletion(-)
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/373)
+<!-- Reviewable:end -->
 
-diff --git a/message.C b/message.C
-index 6f77f8c..974b295 100644
---- a/message.C
-+++ b/message.C
-@@ -42,7 +42,7 @@ event_manager::event_manager(string path, size_t reqmaxsize, uint16_t reqmaxlogs
- 	logcount = 0;
- 	maxsize = -1;
- 	maxlogs = -1;
--	currentsize = 0;
-+	currentsize = get_managed_size();
- 
- 	if (reqmaxsize)
- 		maxsize = reqmaxsize;
-diff --git a/test.C b/test.C
-index 4234543..47d4c7c 100644
---- a/test.C
-+++ b/test.C
-@@ -180,6 +180,20 @@ int main(int argc, char *argv[])
- 	assert(j.log_count() == 0);
- 	assert(j.create(&rec) == 7);
- 
-+	/* Create an abundence of logs, then restart with a limited set  */
-+	/* You should not be able to create new logs until the log size  */
-+	/* dips below the request number                                 */
-+	setup();
-+	event_manager k(eventspath, 600, 100);
-+	build_event_record(&rec,"Testing Message1", "Info", "Association", "Test", p, 4);
-+	assert(k.create(&rec) == 1);
-+	assert(k.create(&rec) == 2);
-+	/* Now we have consumed 150 bytes */
-+	event_manager l(eventspath, 151, 100);
-+	assert(l.create(&rec) == 0);
-+	assert(l.remove(2) == 0);
-+	assert(l.create(&rec) == 4);
-+
- 
- 	return 0;
- }
-\ No newline at end of file
+
+https://github.com/openbmc/openbmc/pull/373
+
+Brad Bishop (2):
+  Add config-in-skeleton variables OBMC_SKELETON_REPO
+  Initial Witherspoon layer
+
+ .../meta-witherspoon/conf/bblayers.conf.sample     | 27 +++++++++++++++++++
+ .../meta-ibm/meta-witherspoon/conf/conf-notes.txt  |  2 ++
+ .../meta-ibm/meta-witherspoon/conf/layer.conf      |  9 +++++++
+ .../meta-witherspoon/conf/local.conf.sample        | 21 +++++++++++++++
+ .../meta-witherspoon/conf/machine/witherspoon.conf |  8 ++++++
+ .../0001-Witherspoon-OpenBMC-configuration.patch   | 29 +++++++++++++++++++++
+ .../recipes-bsp/u-boot/u-boot_%.bbappend           |  2 ++
+ .../linux/linux-obmc/witherspoon.cfg               |  2 ++
+ .../recipes-kernel/linux/linux-obmc_%.bbappend     |  2 ++
+ .../recipes-phosphor/skeleton/skeleton.bbappend    |  2 ++
+ ...-Set-witherspoon-power-pin-and-pgood-nets.patch | 30 ++++++++++++++++++++++
+ .../workbook/witherspoon-config.bb                 |  8 ++++++
+ .../meta-ibm/meta-witherspoon/recipes.txt          |  2 ++
+ meta-phosphor/classes/config-in-skeleton.bbclass   |  7 +++--
+ 14 files changed, 149 insertions(+), 2 deletions(-)
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/bblayers.conf.sample
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/conf-notes.txt
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/layer.conf
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/local.conf.sample
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/machine/witherspoon.conf
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-bsp/u-boot/files/0001-Witherspoon-OpenBMC-configuration.patch
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-bsp/u-boot/u-boot_%.bbappend
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-kernel/linux/linux-obmc/witherspoon.cfg
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-kernel/linux/linux-obmc_%.bbappend
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-phosphor/skeleton/skeleton.bbappend
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-phosphor/skeleton/skeleton/0001-Set-witherspoon-power-pin-and-pgood-nets.patch
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-phosphor/workbook/witherspoon-config.bb
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes.txt
+
 -- 
 2.8.4
