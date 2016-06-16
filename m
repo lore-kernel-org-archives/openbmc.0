@@ -3,20 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rVRv26Tj2zDqmJ
- for <openbmc@lists.ozlabs.org>; Thu, 16 Jun 2016 12:20:46 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rVSn66gwKzDqm6
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Jun 2016 13:00:42 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466043640902868.8588510129122;
- Wed, 15 Jun 2016 19:20:40 -0700 (PDT)
+ with SMTPS id 1466046037197813.0120994016677;
+ Wed, 15 Jun 2016 20:00:37 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH openbmc] Add build time dependencies to python for skeleton
-Date: Wed, 15 Jun 2016 21:20:39 -0500
-Message-Id: <20160616022039.22930-2-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 0/2] support for building witherspoon images
+Date: Wed, 15 Jun 2016 22:00:34 -0500
+Message-Id: <20160616030036.24496-1-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.4
-In-Reply-To: <20160616022039.22930-1-openbmc-patches@stwcx.xyz>
-References: <20160616022039.22930-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,50 +25,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Jun 2016 02:20:47 -0000
+X-List-Received-Date: Thu, 16 Jun 2016 03:00:43 -0000
 
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+This patchset aims to enable support for building a Witherspoon image.  Witherspoon is an IBM branded OpenPOWER system.
 
-Skeleton now invokes python setuptools to install its python
-applications in a top level makefile, so a build time dependency
-on native-python is required.
+At the moment the layer points at the 4.6 kernel branch which will not boot cleanly.
 
-It should be noted that skeleton invoking python from make is
-an interim thing until its python applications get their own
-repository.
-
-Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+<!-- Reviewable:start -->
 ---
- meta-phosphor/classes/config-in-skeleton.bbclass           | 2 ++
- meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb | 2 +-
- 2 files changed, 3 insertions(+), 1 deletion(-)
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/373)
+<!-- Reviewable:end -->
 
-diff --git a/meta-phosphor/classes/config-in-skeleton.bbclass b/meta-phosphor/classes/config-in-skeleton.bbclass
-index 33266be..72249ff 100644
---- a/meta-phosphor/classes/config-in-skeleton.bbclass
-+++ b/meta-phosphor/classes/config-in-skeleton.bbclass
-@@ -3,7 +3,9 @@
- 
- inherit allarch
- inherit setuptools
-+inherit pythonnative
- 
-+DEPENDS += "python"
- SRC_URI += "git://github.com/openbmc/skeleton;subpath=configs"
- S = "${WORKDIR}/configs"
- 
-diff --git a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
-index 9762792..4dc9dff 100644
---- a/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
-+++ b/meta-phosphor/common/recipes-phosphor/skeleton/skeleton.bb
-@@ -16,7 +16,7 @@ inherit python-dir
- 
- VIRTUAL-RUNTIME_skeleton_workbook ?= ""
- 
--DEPENDS += "glib-2.0 systemd"
-+DEPENDS += "glib-2.0 systemd python"
- RDEPENDS_${PN} += "python-subprocess python-compression libsystemd ${VIRTUAL-RUNTIME_skeleton_workbook}"
- SRC_URI += "git://github.com/openbmc/skeleton"
- 
+
+https://github.com/openbmc/openbmc/pull/373
+
+Brad Bishop (2):
+  Add config-in-skeleton variables OBMC_SKELETON_REPO
+  Initial Witherspoon layer
+
+ .../meta-witherspoon/conf/bblayers.conf.sample     | 27 ++++++++++++++++++++
+ .../meta-ibm/meta-witherspoon/conf/conf-notes.txt  |  2 ++
+ .../meta-ibm/meta-witherspoon/conf/layer.conf      |  9 +++++++
+ .../meta-witherspoon/conf/local.conf.sample        | 21 ++++++++++++++++
+ .../meta-witherspoon/conf/machine/witherspoon.conf |  8 ++++++
+ .../0001-Witherspoon-OpenBMC-configuration.patch   | 29 ++++++++++++++++++++++
+ .../recipes-bsp/u-boot/u-boot_%.bbappend           |  2 ++
+ .../linux/linux-obmc/witherspoon.cfg               |  2 ++
+ .../recipes-kernel/linux/linux-obmc_%.bbappend     |  2 ++
+ .../workbook/witherspoon-config.bb                 |  9 +++++++
+ .../meta-ibm/meta-witherspoon/recipes.txt          |  2 ++
+ meta-phosphor/classes/config-in-skeleton.bbclass   |  7 ++++--
+ 12 files changed, 118 insertions(+), 2 deletions(-)
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/bblayers.conf.sample
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/conf-notes.txt
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/layer.conf
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/local.conf.sample
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/machine/witherspoon.conf
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-bsp/u-boot/files/0001-Witherspoon-OpenBMC-configuration.patch
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-bsp/u-boot/u-boot_%.bbappend
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-kernel/linux/linux-obmc/witherspoon.cfg
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-kernel/linux/linux-obmc_%.bbappend
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-phosphor/workbook/witherspoon-config.bb
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes.txt
+
 -- 
 2.8.4
