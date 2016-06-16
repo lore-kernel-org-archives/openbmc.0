@@ -3,18 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rVSn91Z5WzDqm6
- for <openbmc@lists.ozlabs.org>; Thu, 16 Jun 2016 13:00:44 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rVSnB0kHCzDqm7
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Jun 2016 13:00:45 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 146604603834860.41429125254513;
- Wed, 15 Jun 2016 20:00:38 -0700 (PDT)
+ with SMTPS id 1466046040453992.9190854236936;
+ Wed, 15 Jun 2016 20:00:40 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH openbmc 1/2] Add config-in-skeleton variables
- OBMC_SKELETON_REPO
-Date: Wed, 15 Jun 2016 22:00:35 -0500
-Message-Id: <20160616030036.24496-2-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 2/2] Initial Witherspoon layer
+Date: Wed, 15 Jun 2016 22:00:36 -0500
+Message-Id: <20160616030036.24496-3-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.4
 In-Reply-To: <20160616030036.24496-1-openbmc-patches@stwcx.xyz>
 References: <20160616030036.24496-1-openbmc-patches@stwcx.xyz>
@@ -29,45 +28,220 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Jun 2016 03:00:46 -0000
+X-List-Received-Date: Thu, 16 Jun 2016 03:00:47 -0000
 
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
-Add OBMC_SKELETON_REPO and OBMC_SKELETON_MACHINE.
+Witherspoon is an IBM branded OpenPOWER system aimed at the HPC
+market.
 
-This makes it easy to point at an alternate repository when hacking
-on new systems, before support for the new system is mainlined.
-
-OBMC_SKELETON_REPO: an alternate skeleton repository or branch.
-    - The default is "github:openbmc/skeleton"
-OBMC_SKELETON_MACHINE: an alternate machine to use within skeleton.
-    - The default is "${MACHINE}"
+It should be noted that this doesn't boot cleanly with the current
+4.6 branch.
 
 Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
- meta-phosphor/classes/config-in-skeleton.bbclass | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ .../meta-witherspoon/conf/bblayers.conf.sample     | 27 ++++++++++++++++++++
+ .../meta-ibm/meta-witherspoon/conf/conf-notes.txt  |  2 ++
+ .../meta-ibm/meta-witherspoon/conf/layer.conf      |  9 +++++++
+ .../meta-witherspoon/conf/local.conf.sample        | 21 ++++++++++++++++
+ .../meta-witherspoon/conf/machine/witherspoon.conf |  8 ++++++
+ .../0001-Witherspoon-OpenBMC-configuration.patch   | 29 ++++++++++++++++++++++
+ .../recipes-bsp/u-boot/u-boot_%.bbappend           |  2 ++
+ .../linux/linux-obmc/witherspoon.cfg               |  2 ++
+ .../recipes-kernel/linux/linux-obmc_%.bbappend     |  2 ++
+ .../workbook/witherspoon-config.bb                 |  9 +++++++
+ .../meta-ibm/meta-witherspoon/recipes.txt          |  2 ++
+ 11 files changed, 113 insertions(+)
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/bblayers.conf.sample
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/conf-notes.txt
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/layer.conf
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/local.conf.sample
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/machine/witherspoon.conf
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-bsp/u-boot/files/0001-Witherspoon-OpenBMC-configuration.patch
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-bsp/u-boot/u-boot_%.bbappend
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-kernel/linux/linux-obmc/witherspoon.cfg
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-kernel/linux/linux-obmc_%.bbappend
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-phosphor/workbook/witherspoon-config.bb
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes.txt
 
-diff --git a/meta-phosphor/classes/config-in-skeleton.bbclass b/meta-phosphor/classes/config-in-skeleton.bbclass
-index 33266be..5a290da 100644
---- a/meta-phosphor/classes/config-in-skeleton.bbclass
-+++ b/meta-phosphor/classes/config-in-skeleton.bbclass
-@@ -4,11 +4,14 @@
- inherit allarch
- inherit setuptools
- 
--SRC_URI += "git://github.com/openbmc/skeleton;subpath=configs"
-+OBMC_SKELETON_REPO ?= "git://github.com/openbmc/skeleton"
-+OBMC_SKELETON_MACHINE ?= "${MACHINE}"
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/bblayers.conf.sample b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/bblayers.conf.sample
+new file mode 100644
+index 0000000..333c7ef
+--- /dev/null
++++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/bblayers.conf.sample
+@@ -0,0 +1,27 @@
++# LAYER_CONF_VERSION is increased each time build/conf/bblayers.conf
++# changes incompatibly
++LCONF_VERSION = "6"
 +
-+SRC_URI += "${OBMC_SKELETON_REPO};subpath=configs"
- S = "${WORKDIR}/configs"
- 
- python() {
--	machine = d.getVar('MACHINE', True).capitalize() + '.py'
-+	machine = d.getVar('OBMC_SKELETON_MACHINE', True).capitalize() + '.py'
- 	d.setVar('_config_in_skeleton', machine)
- }
- 
++BBPATH = "${TOPDIR}"
++BBFILES ?= ""
++
++BBLAYERS ?= " \
++  ##OEROOT##/meta \
++  ##OEROOT##/meta-yocto \
++  ##OEROOT##/meta-phosphor \
++  ##OEROOT##/meta-openbmc-bsp/meta-aspeed \
++  ##OEROOT##/meta-openbmc-bsp/meta-aspeed/meta-ast2500 \
++  ##OEROOT##/meta-openbmc-machines/meta-openpower \
++  ##OEROOT##/meta-openbmc-machines/meta-openpower/meta-ibm \
++  ##OEROOT##/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon \
++  "
++BBLAYERS_NON_REMOVABLE ?= " \
++  ##OEROOT##/meta \
++  ##OEROOT##/meta-yocto \
++  ##OEROOT##/meta-phosphor \
++  ##OEROOT##/meta-aspeed \
++  ##OEROOT##/meta-aspeed/meta-ast2500 \
++  ##OEROOT##/meta-openpower \
++  ##OEROOT##/meta-openpower/meta-ibm \
++  ##OEROOT##/meta-openpower/meta-ibm/meta-witherspoon\
++  "
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/conf-notes.txt b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/conf-notes.txt
+new file mode 100644
+index 0000000..9b3c01a
+--- /dev/null
++++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/conf-notes.txt
+@@ -0,0 +1,2 @@
++Common targets are:
++     obmc-phosphor-image
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/layer.conf b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/layer.conf
+new file mode 100644
+index 0000000..01848da
+--- /dev/null
++++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/layer.conf
+@@ -0,0 +1,9 @@
++# We have a conf and classes directory, add to BBPATH
++BBPATH .= ":${LAYERDIR}"
++
++# We have recipes-* directories, add to BBFILES
++BBFILES += "${LAYERDIR}/recipes-*/*/*.bb \
++            ${LAYERDIR}/recipes-*/*/*.bbappend"
++
++BBFILE_COLLECTIONS += "witherspoon"
++BBFILE_PATTERN_witherspoon = ""
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/local.conf.sample b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/local.conf.sample
+new file mode 100644
+index 0000000..6e774ff
+--- /dev/null
++++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/local.conf.sample
+@@ -0,0 +1,21 @@
++MACHINE ??= "witherspoon"
++DISTRO ?= "openbmc-phosphor"
++PACKAGE_CLASSES ?= "package_rpm"
++SANITY_TESTED_DISTROS_append ?= " *"
++EXTRA_IMAGE_FEATURES = "debug-tweaks"
++USER_CLASSES ?= "buildstats image-mklibs image-prelink"
++PATCHRESOLVE = "noop"
++BB_DISKMON_DIRS = "\
++    STOPTASKS,${TMPDIR},1G,100K \
++    STOPTASKS,${DL_DIR},1G,100K \
++    STOPTASKS,${SSTATE_DIR},1G,100K \
++    STOPTASKS,/tmp,100M,100K \
++    ABORT,${TMPDIR},100M,1K \
++    ABORT,${DL_DIR},100M,1K \
++    ABORT,${SSTATE_DIR},100M,1K \
++    ABORT,/tmp,10M,1K"
++CONF_VERSION = "1"
++INHERIT += "extrausers"
++EXTRA_USERS_PARAMS = " \
++  usermod -p '\$1\$UGMqyqdG\$FZiylVFmRRfl9Z0Ue8G7e/' root; \
++  "
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/machine/witherspoon.conf b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/machine/witherspoon.conf
+new file mode 100644
+index 0000000..19ada2a
+--- /dev/null
++++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/machine/witherspoon.conf
+@@ -0,0 +1,8 @@
++KMACHINE = "aspeed"
++KERNEL_DEVICETREE = "${KMACHINE}-bmc-opp-${MACHINE}.dtb"
++
++UBOOT_MACHINE = "witherspoon_bmc_config"
++
++require conf/machine/include/ast2500.inc
++require conf/machine/include/obmc-bsp-common.inc
++require conf/machine/include/ibm.inc
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-bsp/u-boot/files/0001-Witherspoon-OpenBMC-configuration.patch b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-bsp/u-boot/files/0001-Witherspoon-OpenBMC-configuration.patch
+new file mode 100644
+index 0000000..ca79c7f
+--- /dev/null
++++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-bsp/u-boot/files/0001-Witherspoon-OpenBMC-configuration.patch
+@@ -0,0 +1,29 @@
++From 809f469b92b9f2248a49f250bc002de0c6bd48f5 Mon Sep 17 00:00:00 2001
++From: Brad Bishop <bradleyb@fuzziesquirrel.com>
++Date: Wed, 8 Jun 2016 14:57:23 -0400
++Subject: [PATCH] Witherspoon OpenBMC configuration
++
++Set default boot arguments for OpenBMC.
++
++Signed-off-by: Brad Bishop <bradleyb@us.ibm.com>
++---
++ include/configs/witherspoon-bmc.h | 3 +++
++ 1 file changed, 3 insertions(+)
++
++diff --git a/include/configs/witherspoon-bmc.h b/include/configs/witherspoon-bmc.h
++index f9da307..f0f0ba9 100644
++--- a/include/configs/witherspoon-bmc.h
+++++ b/include/configs/witherspoon-bmc.h
++@@ -91,6 +91,9 @@
++ 
++ #define CONFIG_SYS_LOAD_ADDR		0x83000000	/* default load address */
++ 
+++#define CONFIG_BOOTARGS		"console=ttyS4,115200n8 root=/dev/ram rw"
+++#define CONFIG_BOOTCOMMAND	"bootm 20080000 20300000"
+++
++ #define CONFIG_AST_SPI_NOR    /* AST SPI NOR Flash */
++ 
++ #define CONFIG_FMC_CS			1
++-- 
++2.1.4
++
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-bsp/u-boot/u-boot_%.bbappend b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-bsp/u-boot/u-boot_%.bbappend
+new file mode 100644
+index 0000000..9db981f
+--- /dev/null
++++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-bsp/u-boot/u-boot_%.bbappend
+@@ -0,0 +1,2 @@
++FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
++SRC_URI += "file://0001-Witherspoon-OpenBMC-configuration.patch"
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-kernel/linux/linux-obmc/witherspoon.cfg b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-kernel/linux/linux-obmc/witherspoon.cfg
+new file mode 100644
+index 0000000..99efe89
+--- /dev/null
++++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-kernel/linux/linux-obmc/witherspoon.cfg
+@@ -0,0 +1,2 @@
++CONFIG_HWMON=y
++CONFIG_SENSORS_TMP421=y
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-kernel/linux/linux-obmc_%.bbappend b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-kernel/linux/linux-obmc_%.bbappend
+new file mode 100644
+index 0000000..3d0b856
+--- /dev/null
++++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-kernel/linux/linux-obmc_%.bbappend
+@@ -0,0 +1,2 @@
++FILESEXTRAPATHS_prepend := "${THISDIR}/linux-obmc:"
++SRC_URI += "file://witherspoon.cfg"
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-phosphor/workbook/witherspoon-config.bb b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-phosphor/workbook/witherspoon-config.bb
+new file mode 100644
+index 0000000..6318c47
+--- /dev/null
++++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes-phosphor/workbook/witherspoon-config.bb
+@@ -0,0 +1,9 @@
++SUMMARY = "Witherspoon board wiring"
++DESCRIPTION = "Board wiring information for the Witherspoon OpenPOWER system."
++HOMEPAGE = "http://github.com/openbmc/skeleton"
++PR = "r1"
++
++OBMC_SKELETON_MACHINE = "garrison"
++SRCREV = "40187443840d0e419c13391b2091fda29d63dea4"
++inherit config-in-skeleton
++inherit obmc-phosphor-license
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes.txt b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes.txt
+new file mode 100644
+index 0000000..3ec3f4a
+--- /dev/null
++++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/recipes.txt
+@@ -0,0 +1,2 @@
++recipes-kernel       - The kernel and generic applications/libraries with strong kernel dependencies
++recipes-phosphor     - Phosphor OpenBMC applications and configuration
 -- 
 2.8.4
