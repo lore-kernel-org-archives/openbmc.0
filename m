@@ -1,92 +1,22 @@
-Return-Path: <prvs=5975b581f2=mattconolly@fb.com>
-X-Greylist: delayed 1397 seconds by postgrey-1.35 at bilbo;
- Thu, 16 Jun 2016 12:16:32 AEST
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b=dNdeVNXD; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b=UktSlQw4; dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <openbmc-patches@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rVRp86zGpzDqZr
- for <openbmc@lists.ozlabs.org>; Thu, 16 Jun 2016 12:16:32 +1000 (AEST)
-Received: from pps.filterd (m0089730.ppops.net [127.0.0.1])
- by m0089730.ppops.net (8.16.0.11/8.16.0.11) with SMTP id u5G1oVP3018615
- for <openbmc@lists.ozlabs.org>; Wed, 15 Jun 2016 18:53:11 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fb.com;
- h=from : to : cc : subject :
- date : message-id : content-type : mime-version; s=facebook;
- bh=be1QIPaNIZuFjipo7Ys0PL1OUdtG6shNQs1Mjanjz4Q=;
- b=dNdeVNXD3pWOcQWXywqwA3RwKmC5VynPw/1+nbkaApoZ+pQrcoVK1jaQdE1ZnTV7xP9e
- 6Nc5B6ZDSgP4tmV0AdLyPsZsRyeR+qD/MABB+A9O28sgxsHxzrS2NuNhzCMg/cX4RQyN
- jvljPDhS3FVjw1cuMNcZReB+EvSmXPDDenk= 
-Received: from maileast.thefacebook.com ([199.201.65.23])
- by m0089730.ppops.net with ESMTP id 23jehr8yy1-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 15 Jun 2016 18:53:11 -0700
-Received: from na01-bn1-obe.outbound.protection.outlook.com (192.168.183.28)
- by o365-in.thefacebook.com (192.168.177.21) with Microsoft SMTP Server (TLS)
- id 14.3.294.0; Wed, 15 Jun 2016 21:53:10 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector1-fb-com; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=be1QIPaNIZuFjipo7Ys0PL1OUdtG6shNQs1Mjanjz4Q=;
- b=UktSlQw4hWFK9wvdjRwdNRSaINw9K4irtUeiGD9j9+Xoz4IqmHGkpYfXlaYp1eFg3xci7Z7mOc//UhqVP/aRQyHjgtpkKjdRC71vDC1QulnlIuRGqazMHzToR2MoPoe91Qx2pUsyrHxt34FE9VXipCuy84xKCPm3KcBebsiVymI=
-Received: from BY2PR15MB0421.namprd15.prod.outlook.com (10.163.109.27) by
- CY1PR15MB0597.namprd15.prod.outlook.com (10.164.73.19) with Microsoft SMTP
- Server (TLS) id 15.1.517.8; Thu, 16 Jun 2016 01:52:53 +0000
-Received: from BY2PR15MB0421.namprd15.prod.outlook.com ([10.163.109.27]) by
- BY2PR15MB0421.namprd15.prod.outlook.com ([10.163.109.27]) with mapi id
- 15.01.0506.017; Thu, 16 Jun 2016 01:52:53 +0000
-From: Matthew Conolly <mattconolly@fb.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: 4.1 kernel tree - ast2500
-Thread-Topic: 4.1 kernel tree - ast2500
-Thread-Index: AQHRx3HLnSHLzuJ6gkGmXx1+Me+lmw==
-Date: Thu, 16 Jun 2016 01:52:53 +0000
-Message-ID: <001A853E-89BE-4753-8F30-2CBB3492AD54@fb.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-originating-ip: [2620:10d:c090:200::f:1d5e]
-x-ms-office365-filtering-correlation-id: 7349ed3c-24b5-42de-23eb-08d39588ee5c
-x-microsoft-exchange-diagnostics: 1; CY1PR15MB0597;
- 6:iC9xqRHunJ5RtaQIN0N2bnfdpU4/BXC2l6oRu6vRPNNthafEb4NUYpcsiqSZYB3zsyrNjtCdPZSOl/HViFqqUT+GujmVWPqd/69oGsvG/HfERMWc0+p075K6iA2ersEEFvzPAvFTGl64k8VPBTImfcX3iFdU1OtfbTY0WwJVABu0eIl95snFVDZ204hiu/UhjLxopLKlJSatdjiApi7rdIEDiqoxbXB52Xk2loOGPRAiSliHVQwIvi6+YXTS+w1sHIVRXF9YBnrgUgXAs/C8og==;
- 5:TdhiGtYMCgkedxzWL4gtScjHX99RPN6LjE3iKY5KI/Uox8AmjbV5BNPfPZR3tKP5zwApf9VxphRlj8sR3XZ3VPd0IJntcbgex8Y/upSs6QzAacxvZ4nPDqKpycCY7JyMD4Hce51cBnoa0NPbd9dKUQ==;
- 24:00BA+zox/5sq8V5g7is3OOLWPbY0KhvGrKVqtvtJHXNNJafJ9DUCgDuAXiNLaQGm2E15pF23H1uj+rYL6juOVLSFK18T3SiKniNMj1UTeas=;
- 7:ne0ROmj+j77AFzPQHHEREOxJG2j8c4p99cBEp3A5Tk4kMnZm7L6VW2oXTzggjeNPoJaF387z1NNg/JXD9hPl2LeWZoIpYFgDtLRcy2nT+D70PYFBao4V9CIkrrlzYFI9hcvstkJYgTOGDAVFNNGWdVJRHUpp9VLCbJZKEGYOZ2meNgc+e4MvQhbQF/htOJ5s6mCOJe/jAsCgivcpbX3eWg==;
- 20:56gMOBUKWzImjPfgERCTBU02KQhZcu8gbvyp0eqc1F/5nUY6e0+n4wx5cbcVt43pGfZZtvWXSeHc4y3MxCuOCSNYyBRaxUy+f/mXon7fEXmAx914Yol7EN9zX7oFWAZ7Z11rEXRgxO7fembjjTWmLBGtHknAPmx9aEX7b9zL5I4=
-x-microsoft-antispam: UriScan:;BCL:0;PCL:0;RULEID:;SRVR:CY1PR15MB0597;
-x-microsoft-antispam-prvs: <CY1PR15MB0597AC15C61A65765EC84658C9560@CY1PR15MB0597.namprd15.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:(166708455590820);
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(601004)(2401047)(5005006)(8121501046)(10201501046)(3002001);
- SRVR:CY1PR15MB0597; BCL:0; PCL:0; RULEID:; SRVR:CY1PR15MB0597; 
-x-forefront-prvs: 09752BC779
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(7916002)(199003)(189002)(53754006)(229853001)(33656002)(97736004)(10400500002)(81156014)(81166006)(11100500001)(2351001)(92566002)(1730700003)(450100001)(5002640100001)(5004730100002)(586003)(102836003)(122556002)(99286002)(6116002)(110136002)(19617315012)(8676002)(77096005)(189998001)(15975445007)(2900100001)(106116001)(105586002)(2501003)(106356001)(5008740100001)(87936001)(101416001)(19580395003)(68736007)(2906002)(8936002)(86362001)(16236675004)(558084003)(82746002)(3280700002)(83716003)(7906002)(4326007)(50986999)(36756003)(54356999)(3660700001)(3826002)(104396002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:CY1PR15MB0597;
- H:BY2PR15MB0421.namprd15.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
- A:1; MX:1; CAT:NONE; LANG:en; CAT:NONE; 
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: multipart/alternative;
- boundary="_000_001A853E89BE47538F302CBB3492AD54fbcom_"
-MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jun 2016 01:52:53.4603 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR15MB0597
-X-OriginatorOrg: fb.com
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2016-06-16_01:, , signatures=0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rVRty3WXWzDqdx
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Jun 2016 12:20:42 +1000 (AEST)
+Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
+ with SMTPS id 14660436358141023.3071581564111;
+ Wed, 15 Jun 2016 19:20:35 -0700 (PDT)
+From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+To: openbmc@lists.ozlabs.org
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Subject: [PATCH openbmc] Fix Garrison/Firestone build breaks
+Date: Wed, 15 Jun 2016 21:20:33 -0500
+Message-Id: <20160616022033.22873-2-openbmc-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.8.4
+In-Reply-To: <20160616022033.22873-1-openbmc-patches@stwcx.xyz>
+References: <20160616022033.22873-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -98,54 +28,351 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Jun 2016 02:16:34 -0000
+X-List-Received-Date: Thu, 16 Jun 2016 02:20:43 -0000
 
---_000_001A853E89BE47538F302CBB3492AD54fbcom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
-Hi all,
+A number of skeleton patches no longer applied due to 40a360c
+and 54decc8.
 
-For your reference, this is the 4.1 kernel tree that we have for ast2500.
-It's based on the aspeed sdk 3.18 kernel.
+Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+---
+ .../recipes-phosphor/skeleton/skeleton.bbappend    |   3 +-
+ ...r-control-support-for-the-Garrison-system.patch |   1 +
+ .../skeleton/skeleton/occ-path.patch               |   1 -
+ .../skeleton/skeleton/poweron.patch                |   1 -
+ .../recipes-phosphor/skeleton/skeleton.bbappend    |   3 +-
+ ...r-control-support-for-the-Garrison-system.patch | 128 +++++++++++++++++++++
+ .../skeleton/skeleton/occ-path.patch               |  20 ----
+ .../skeleton/skeleton/poweron.patch                | 113 ------------------
+ 8 files changed, 131 insertions(+), 139 deletions(-)
+ create mode 120000 meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton/0001-Add-power-control-support-for-the-Garrison-system.patch
+ delete mode 120000 meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton/occ-path.patch
+ delete mode 120000 meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton/poweron.patch
+ create mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton/0001-Add-power-control-support-for-the-Garrison-system.patch
+ delete mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton/occ-path.patch
+ delete mode 100644 meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton/poweron.patch
 
-https://github.com/mmjconolly/linux/tree/openbmc/helium/4.1
-
-I hope it is of some use :)
-
-- Matthew
-
---_000_001A853E89BE47538F302CBB3492AD54fbcom_
-Content-Type: text/html; charset="us-ascii"
-Content-ID: <1A0606CB2FCFD44AA6EC60912EBF10DB@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-</head>
-<body style=3D"word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-lin=
-e-break: after-white-space;" class=3D"">
-<div class=3D"">Hi all,</div>
-<div class=3D""><br class=3D"">
-</div>
-<div class=3D"">For your reference, this is the 4.1 kernel tree that we hav=
-e for ast2500.</div>
-<div class=3D"">It's based on the aspeed sdk 3.18 kernel.</div>
-<div class=3D""><br class=3D"">
-</div>
-<div class=3D""></div>
-<div class=3D""><a href=3D"https://github.com/mmjconolly/linux/tree/openbmc=
-/helium/4.1" class=3D"">https://github.com/mmjconolly/linux/tree/openbmc/he=
-lium/4.1</a></div>
-<div class=3D""><br class=3D"">
-</div>
-<div class=3D"">I hope it is of some use :)</div>
-<div class=3D""><br class=3D"">
-</div>
-<div class=3D"">- Matthew</div>
-</body>
-</html>
-
---_000_001A853E89BE47538F302CBB3492AD54fbcom_--
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton.bbappend b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton.bbappend
+index 6c14b22..bfac343 100644
+--- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton.bbappend
++++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton.bbappend
+@@ -1,3 +1,2 @@
+ FILESEXTRAPATHS_append := "${THISDIR}/${PN}:"
+-SRC_URI += "file://poweron.patch"
+-SRC_URI += "file://occ-path.patch"
++SRC_URI += "file://0001-Add-power-control-support-for-the-Garrison-system.patch"
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton/0001-Add-power-control-support-for-the-Garrison-system.patch b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton/0001-Add-power-control-support-for-the-Garrison-system.patch
+new file mode 120000
+index 0000000..afd75d8
+--- /dev/null
++++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton/0001-Add-power-control-support-for-the-Garrison-system.patch
+@@ -0,0 +1 @@
++../../../../meta-garrison/recipes-phosphor/skeleton/skeleton/0001-Add-power-control-support-for-the-Garrison-system.patch
+\ No newline at end of file
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton/occ-path.patch b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton/occ-path.patch
+deleted file mode 120000
+index 2fc0f2c..0000000
+--- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton/occ-path.patch
++++ /dev/null
+@@ -1 +0,0 @@
+-../../../../meta-garrison/recipes-phosphor/skeleton/skeleton/occ-path.patch
+\ No newline at end of file
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton/poweron.patch b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton/poweron.patch
+deleted file mode 120000
+index 27acaeb..0000000
+--- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-firestone/recipes-phosphor/skeleton/skeleton/poweron.patch
++++ /dev/null
+@@ -1 +0,0 @@
+-../../../../meta-garrison/recipes-phosphor/skeleton/skeleton/poweron.patch
+\ No newline at end of file
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton.bbappend b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton.bbappend
+index 6c14b22..bfac343 100644
+--- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton.bbappend
++++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton.bbappend
+@@ -1,3 +1,2 @@
+ FILESEXTRAPATHS_append := "${THISDIR}/${PN}:"
+-SRC_URI += "file://poweron.patch"
+-SRC_URI += "file://occ-path.patch"
++SRC_URI += "file://0001-Add-power-control-support-for-the-Garrison-system.patch"
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton/0001-Add-power-control-support-for-the-Garrison-system.patch b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton/0001-Add-power-control-support-for-the-Garrison-system.patch
+new file mode 100644
+index 0000000..ac54655
+--- /dev/null
++++ b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton/0001-Add-power-control-support-for-the-Garrison-system.patch
+@@ -0,0 +1,128 @@
++From c2f1b1115f6a7f814a05622a33984f5a4797fede Mon Sep 17 00:00:00 2001
++From: Brad Bishop <bradleyb@fuzziesquirrel.com>
++Date: Wed, 15 Jun 2016 21:16:43 -0400
++Subject: [PATCH] Add power control support for the Garrison system
++
++Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
++---
++ op-pwrctl/power_control_obj.c | 70 +++++++++++++++++++++++++++++--------------
++ 1 file changed, 48 insertions(+), 22 deletions(-)
++
++diff --git a/op-pwrctl/power_control_obj.c b/op-pwrctl/power_control_obj.c
++index 85a8cff..f6bc996 100644
++--- a/git/op-pwrctl/power_control_obj.c
+++++ b/git/op-pwrctl/power_control_obj.c
++@@ -17,11 +17,15 @@ static const gchar* instance_name = "power0";
++ static const gchar* dbus_name = "org.openbmc.control.Power";
++ 
++ //This object will use these GPIOs
++-GPIO power_pin    = (GPIO){ "POWER_PIN" };
++-GPIO pgood        = (GPIO){ "PGOOD" };
++-GPIO usb_reset    = (GPIO){ "USB_RESET" };
++-GPIO pcie_reset   = (GPIO){ "PCIE_RESET" };
++-
+++GPIO power_pin = (GPIO){ "BMC_POWER_UP" };
+++GPIO pgood = (GPIO){ "SYS_PWROK_BUFF" };
+++GPIO bmc_wd_clear_pulse_n = (GPIO){ "BMC_WD_CLEAR_PULSE_N" };
+++GPIO cm1_oe_r_n = (GPIO){ "CM1_OE_R_N" };
+++GPIO bmc_cp0_reset_n = (GPIO){ "BMC_CP0_RESET_N" };
+++GPIO bmc_cfam_reset_n_r = (GPIO){ "BMC_CFAM_RESET_N_R" };
+++GPIO pcie_reset = (GPIO){ "PEX8718_DEVICES_RESET_N" };
+++GPIO cp0_devices_reset_n = (GPIO){ "CP0_DEVICES_RESET_N" };
+++GPIO cp1_devices_reset_n = (GPIO){ "CP1_DEVICES_RESET_N" };
++ 
++ static GDBusObjectManagerServer *manager = NULL;
++ 
++@@ -67,27 +71,36 @@ poll_pgood(gpointer user_data)
++ 			{
++ 				control_power_emit_power_lost(control_power);
++ 				control_emit_goto_system_state(control,"HOST_POWERED_OFF");
++-				rc = gpio_open(&pcie_reset);
++-				rc = gpio_write(&pcie_reset,0);
++-				gpio_close(&pcie_reset);
++-
++-				rc = gpio_open(&usb_reset);
++-				rc = gpio_write(&usb_reset,0);
++-				gpio_close(&usb_reset);
++-
++ 			}
++ 			else
++ 			{
++ 				control_power_emit_power_good(control_power);
++ 				control_emit_goto_system_state(control,"HOST_POWERED_ON");
++-				rc = gpio_open(&pcie_reset);
++-				rc = gpio_write(&pcie_reset,1);
++-				gpio_close(&pcie_reset);
++-
++-				rc = gpio_open(&usb_reset);
++-				rc = gpio_write(&usb_reset,1);
++-				gpio_close(&usb_reset);
++ 			}
+++
+++			gpio_open(&cm1_oe_r_n);
+++			gpio_write(&cm1_oe_r_n, !gpio);
+++			gpio_close(&cm1_oe_r_n);
+++
+++			gpio_open(&bmc_cp0_reset_n);
+++			gpio_write(&bmc_cp0_reset_n, gpio);
+++			gpio_close(&bmc_cp0_reset_n);
+++
+++			gpio_open(&bmc_cfam_reset_n_r);
+++			gpio_write(&bmc_cfam_reset_n_r, gpio);
+++			gpio_close(&bmc_cfam_reset_n_r);
+++
+++			gpio_open(&pcie_reset);
+++			gpio_write(&pcie_reset, gpio);
+++			gpio_close(&pcie_reset);
+++
+++			gpio_open(&cp0_devices_reset_n);
+++			gpio_write(&cp0_devices_reset_n, gpio);
+++			gpio_close(&cp0_devices_reset_n);
+++
+++			gpio_open(&cp1_devices_reset_n);
+++			gpio_write(&cp1_devices_reset_n, gpio);
+++			gpio_close(&cp1_devices_reset_n);
++ 		}
++ 	} else {
++ 		printf("ERROR PowerControl: GPIO read error (gpio=%s,rc=%d)\n",pgood.name,rc);
++@@ -138,11 +151,13 @@ on_set_power_state(ControlPower *pwr,
++ 			} else {
++ 				control_emit_goto_system_state(control,"HOST_POWERING_OFF");
++ 			}
+++
++ 			error = gpio_open(&power_pin);
++ 			if(error != GPIO_OK) { break;	}
++-			error = gpio_write(&power_pin,!state);
+++			error = gpio_write(&power_pin, state);
++ 			if(error != GPIO_OK) { break;	}
++ 			gpio_close(&power_pin);
+++
++ 			control_power_set_state(pwr,state);
++ 		} while(0);
++ 		if(error != GPIO_OK)
++@@ -230,10 +245,21 @@ on_bus_acquired(GDBusConnection *connection,
++ 		if(rc != GPIO_OK) { break; }
++ 		rc = gpio_init(connection,&pgood);
++ 		if(rc != GPIO_OK) { break; }
+++		rc = gpio_init(connection,&bmc_wd_clear_pulse_n);
+++		if(rc != GPIO_OK) { break; }
+++		rc = gpio_init(connection,&cm1_oe_r_n);
+++		if(rc != GPIO_OK) { break; }
+++		rc = gpio_init(connection,&bmc_cp0_reset_n);
+++		if(rc != GPIO_OK) { break; }
+++		rc = gpio_init(connection,&bmc_cfam_reset_n_r);
+++		if(rc != GPIO_OK) { break; }
++ 		rc = gpio_init(connection,&pcie_reset);
++ 		if(rc != GPIO_OK) { break; }
++-		rc = gpio_init(connection,&usb_reset);
+++		rc = gpio_init(connection,&cp0_devices_reset_n);
++ 		if(rc != GPIO_OK) { break; }
+++		rc = gpio_init(connection,&cp1_devices_reset_n );
+++		if(rc != GPIO_OK) { break; }
+++
++ 
++ 		uint8_t gpio;
++ 		rc = gpio_open(&pgood);
++-- 
++2.1.4
++
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton/occ-path.patch b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton/occ-path.patch
+deleted file mode 100644
+index 04304e4..0000000
+--- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton/occ-path.patch
++++ /dev/null
+@@ -1,20 +0,0 @@
+---- a/git/bin/sensor_manager2.py
+-+++ b/git/bin/sensor_manager2.py
+-@@ -63,13 +63,13 @@ if __name__ == '__main__':
+- 	root_sensor.add(obj_path,Sensors.BootProgressSensor(bus,obj_path))
+- 
+- 	obj_path = OBJ_PATH+"/host/cpu0/OccStatus"
+--	sensor_obj = Sensors.OccStatusSensor(bus,obj_path)
+--	sensor_obj.sysfs_attr = "/sys/class/i2c-adapter/i2c-3/3-0050/online"
+-+	sensor_obj = Sensors.OccStatusSensor(bus,obj_path,
+-+			"/sys/class/i2c-adapter/i2c-4/4-0050/online")
+- 	root_sensor.add(obj_path,sensor_obj)
+- 
+- 	obj_path = OBJ_PATH+"/host/cpu1/OccStatus"
+--	sensor_obj = Sensors.OccStatusSensor(bus,obj_path)
+--	sensor_obj.sysfs_attr = "/sys/class/i2c-adapter/i2c-3/3-0051/online"
+-+	sensor_obj = Sensors.OccStatusSensor(bus,obj_path,
+-+			"/sys/class/i2c-adapter/i2c-5/5-0050/online")
+- 	root_sensor.add(obj_path,sensor_obj)
+- 
+- 	obj_path = OBJ_PATH+"/host/BootCount"
+diff --git a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton/poweron.patch b/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton/poweron.patch
+deleted file mode 100644
+index c50ce3d..0000000
+--- a/meta-openbmc-machines/meta-openpower/meta-ibm/meta-garrison/recipes-phosphor/skeleton/skeleton/poweron.patch
++++ /dev/null
+@@ -1,113 +0,0 @@
+---- a/git/objects/power_control_obj.c
+-+++ b/git/objects/power_control_obj.c
+-@@ -17,11 +17,15 @@ static const gchar* instance_name = "power0";
+- static const gchar* dbus_name = "org.openbmc.control.Power";
+- 
+- //This object will use these GPIOs
+--GPIO power_pin    = (GPIO){ "POWER_PIN" };
+--GPIO pgood        = (GPIO){ "PGOOD" };
+--GPIO usb_reset    = (GPIO){ "USB_RESET" };
+--GPIO pcie_reset   = (GPIO){ "PCIE_RESET" };
+--
+-+GPIO power_pin = (GPIO){ "BMC_POWER_UP" };
+-+GPIO pgood = (GPIO){ "SYS_PWROK_BUFF" };
+-+GPIO bmc_wd_clear_pulse_n = (GPIO){ "BMC_WD_CLEAR_PULSE_N" };
+-+GPIO cm1_oe_r_n = (GPIO){ "CM1_OE_R_N" };
+-+GPIO bmc_cp0_reset_n = (GPIO){ "BMC_CP0_RESET_N" };
+-+GPIO bmc_cfam_reset_n_r = (GPIO){ "BMC_CFAM_RESET_N_R" };
+-+GPIO pcie_reset = (GPIO){ "PEX8718_DEVICES_RESET_N" };
+-+GPIO cp0_devices_reset_n = (GPIO){ "CP0_DEVICES_RESET_N" };
+-+GPIO cp1_devices_reset_n = (GPIO){ "CP1_DEVICES_RESET_N" };
+- 
+- static GDBusObjectManagerServer *manager = NULL;
+- 
+-@@ -67,27 +71,36 @@ poll_pgood(gpointer user_data)
+- 			{
+- 				control_power_emit_power_lost(control_power);
+- 				control_emit_goto_system_state(control,"HOST_POWERED_OFF");
+--				rc = gpio_open(&pcie_reset);
+--				rc = gpio_write(&pcie_reset,0);
+--				gpio_close(&pcie_reset);
+--
+--				rc = gpio_open(&usb_reset);
+--				rc = gpio_write(&usb_reset,0);
+--				gpio_close(&usb_reset);
+--
+- 			}
+- 			else
+- 			{
+- 				control_power_emit_power_good(control_power);
+- 				control_emit_goto_system_state(control,"HOST_POWERED_ON");
+--				rc = gpio_open(&pcie_reset);
+--				rc = gpio_write(&pcie_reset,1);
+--				gpio_close(&pcie_reset);
+--
+--				rc = gpio_open(&usb_reset);
+--				rc = gpio_write(&usb_reset,1);
+--				gpio_close(&usb_reset);
+- 			}
+-+
+-+			gpio_open(&cm1_oe_r_n);
+-+			gpio_write(&cm1_oe_r_n, !gpio);
+-+			gpio_close(&cm1_oe_r_n);
+-+
+-+			gpio_open(&bmc_cp0_reset_n);
+-+			gpio_write(&bmc_cp0_reset_n, gpio);
+-+			gpio_close(&bmc_cp0_reset_n);
+-+
+-+			gpio_open(&bmc_cfam_reset_n_r);
+-+			gpio_write(&bmc_cfam_reset_n_r, gpio);
+-+			gpio_close(&bmc_cfam_reset_n_r);
+-+
+-+			gpio_open(&pcie_reset);
+-+			gpio_write(&pcie_reset, gpio);
+-+			gpio_close(&pcie_reset);
+-+
+-+			gpio_open(&cp0_devices_reset_n);
+-+			gpio_write(&cp0_devices_reset_n, gpio);
+-+			gpio_close(&cp0_devices_reset_n);
+-+
+-+			gpio_open(&cp1_devices_reset_n);
+-+			gpio_write(&cp1_devices_reset_n, gpio);
+-+			gpio_close(&cp1_devices_reset_n);
+- 		}
+- 	} else {
+- 		printf("ERROR PowerControl: GPIO read error (gpio=%s,rc=%d)\n",pgood.name,rc);
+-@@ -138,11 +151,13 @@ on_set_power_state(ControlPower *pwr,
+- 			} else {
+- 				control_emit_goto_system_state(control,"HOST_POWERING_OFF");
+- 			}
+-+
+- 			error = gpio_open(&power_pin);
+- 			if(error != GPIO_OK) { break;	}
+--			error = gpio_write(&power_pin,!state);
+-+			error = gpio_write(&power_pin, state);
+- 			if(error != GPIO_OK) { break;	}
+- 			gpio_close(&power_pin);
+-+
+- 			control_power_set_state(pwr,state);
+- 		} while(0);
+- 		if(error != GPIO_OK)
+-@@ -230,10 +245,21 @@ on_bus_acquired(GDBusConnection *connection,
+- 		if(rc != GPIO_OK) { break; }
+- 		rc = gpio_init(connection,&pgood);
+- 		if(rc != GPIO_OK) { break; }
+-+		rc = gpio_init(connection,&bmc_wd_clear_pulse_n);
+-+		if(rc != GPIO_OK) { break; }
+-+		rc = gpio_init(connection,&cm1_oe_r_n);
+-+		if(rc != GPIO_OK) { break; }
+-+		rc = gpio_init(connection,&bmc_cp0_reset_n);
+-+		if(rc != GPIO_OK) { break; }
+-+		rc = gpio_init(connection,&bmc_cfam_reset_n_r);
+-+		if(rc != GPIO_OK) { break; }
+- 		rc = gpio_init(connection,&pcie_reset);
+- 		if(rc != GPIO_OK) { break; }
+--		rc = gpio_init(connection,&usb_reset);
+-+		rc = gpio_init(connection,&cp0_devices_reset_n);
+- 		if(rc != GPIO_OK) { break; }
+-+		rc = gpio_init(connection,&cp1_devices_reset_n );
+-+		if(rc != GPIO_OK) { break; }
+-+
+- 
+- 		uint8_t gpio;
+- 		rc = gpio_open(&pgood);
+-- 
+2.8.4
