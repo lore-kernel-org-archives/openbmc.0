@@ -3,16 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rVPv54cn8zDqlv
- for <openbmc@lists.ozlabs.org>; Thu, 16 Jun 2016 10:50:40 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rVPv60q9JzDqm9
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Jun 2016 10:50:41 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466038234272239.39370225983555;
- Wed, 15 Jun 2016 17:50:34 -0700 (PDT)
+ with SMTPS id 1466038237083677.5804462490996;
+ Wed, 15 Jun 2016 17:50:37 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v5 02/12] initfs: Fix recipe, remove unnecessary class
-Date: Wed, 15 Jun 2016 19:50:20 -0500
-Message-Id: <20160616005030.19176-3-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v5 05/12] initfs: update: Do not cause an error if no
+ files were saved
+Date: Wed, 15 Jun 2016 19:50:23 -0500
+Message-Id: <20160616005030.19176-6-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.8.4
 In-Reply-To: <20160616005030.19176-1-openbmc-patches@stwcx.xyz>
 References: <20160616005030.19176-1-openbmc-patches@stwcx.xyz>
@@ -27,107 +28,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Jun 2016 00:50:42 -0000
+X-List-Received-Date: Thu, 16 Jun 2016 00:50:43 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-Because the recipe was named with trailing part init instead
-of initfs, the package didn't match the package name requiring
-PROVIDES, RPROVIDES and other bitbake workarounds.  Fix the recipe
-name to match the package removing the overly verbose packaging.
+If there were no files in the read-write overlay file system that
+were in the persistent file list, then the save directory will
+not be created and therefore not exist.  Skip attempting copying
+the non-existent directory in that case to avoid the error message.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- meta-phosphor/classes/obmc-phosphor-initfs.bbclass |  4 ---
- .../obmc-phosphor-initfs/obmc-phosphor-init.bb     | 31 ----------------------
- .../obmc-phosphor-initfs/obmc-phosphor-initfs.bb   | 30 +++++++++++++++++++++
- 3 files changed, 30 insertions(+), 35 deletions(-)
- delete mode 100644 meta-phosphor/classes/obmc-phosphor-initfs.bbclass
- delete mode 100644 meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb
- create mode 100644 meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-initfs.bb
+ .../common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh   | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-phosphor/classes/obmc-phosphor-initfs.bbclass b/meta-phosphor/classes/obmc-phosphor-initfs.bbclass
-deleted file mode 100644
-index de7923e..0000000
---- a/meta-phosphor/classes/obmc-phosphor-initfs.bbclass
-+++ /dev/null
-@@ -1,4 +0,0 @@
--# Common code for recipes that implement Phosphor OpenBMC filesystem
--
--RPROVIDES_${PN} += "obmc-phosphor-initfs"
--PROVIDES += "obmc-phosphor-initfs"
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb
-deleted file mode 100644
-index 3fa88c9..0000000
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb
-+++ /dev/null
-@@ -1,31 +0,0 @@
--SUMMARY = "Phosphor OpenBMC pre-init scripts"
--DESCRIPTION = "Phosphor OpenBMC filesytem mount reference implementation."
--PR = "r1"
--
--inherit obmc-phosphor-license
--inherit obmc-phosphor-initfs
--
--S = "${WORKDIR}"
--SRC_URI += "file://obmc-init.sh"
--SRC_URI += "file://obmc-shutdown.sh"
--SRC_URI += "file://obmc-update.sh"
--SRC_URI += "file://whitelist"
--
--do_install() {
--	for f in init-download-url init-options
--	do
--		if test -e $f
--		then
--			install -m 0755 ${WORKDIR}/$f ${D}/$f
--		fi
--	done
--        install -m 0755 ${WORKDIR}/obmc-init.sh ${D}/init
--        install -m 0755 ${WORKDIR}/obmc-shutdown.sh ${D}/shutdown
--        install -m 0755 ${WORKDIR}/obmc-update.sh ${D}/update
--        install -m 0644 ${WORKDIR}/whitelist ${D}/whitelist
--        install -d ${D}/dev
--        mknod -m 622 ${D}/dev/console c 5 1
--}
--
--FILES_${PN} += " /init /shutdown /update /whitelist /dev "
--FILES_${PN} += " /init-options /init-download-url "
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-initfs.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-initfs.bb
-new file mode 100644
-index 0000000..f81e21d
---- /dev/null
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-initfs.bb
-@@ -0,0 +1,30 @@
-+SUMMARY = "Phosphor OpenBMC pre-init scripts"
-+DESCRIPTION = "Phosphor OpenBMC filesytem mount reference implementation."
-+PR = "r1"
-+
-+inherit obmc-phosphor-license
-+
-+S = "${WORKDIR}"
-+SRC_URI += "file://obmc-init.sh"
-+SRC_URI += "file://obmc-shutdown.sh"
-+SRC_URI += "file://obmc-update.sh"
-+SRC_URI += "file://whitelist"
-+
-+do_install() {
-+	for f in init-download-url init-options
-+	do
-+		if test -e $f
-+		then
-+			install -m 0755 ${WORKDIR}/$f ${D}/$f
-+		fi
-+	done
-+        install -m 0755 ${WORKDIR}/obmc-init.sh ${D}/init
-+        install -m 0755 ${WORKDIR}/obmc-shutdown.sh ${D}/shutdown
-+        install -m 0755 ${WORKDIR}/obmc-update.sh ${D}/update
-+        install -m 0644 ${WORKDIR}/whitelist ${D}/whitelist
-+        install -d ${D}/dev
-+        mknod -m 622 ${D}/dev/console c 5 1
-+}
-+
-+FILES_${PN} += " /init /shutdown /update /whitelist /dev "
-+FILES_${PN} += " /init-options /init-download-url "
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
+index f8e551c..f0ca989 100755
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
+@@ -144,7 +144,7 @@ do
+ 	flashcp -v $f /dev/$m && rm $f
+ done
+ 
+-if test "x$toram" = xy
++if test -d $save -a "x$toram" = xy
+ then
+ 	mkdir -p $upper
+ 	cp -rp $save/. $upper/
 -- 
 2.8.4
