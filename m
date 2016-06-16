@@ -1,35 +1,56 @@
-Return-Path: <clg@kaod.org>
-Received: from 18.mo3.mail-out.ovh.net (18.mo3.mail-out.ovh.net
- [87.98.172.162])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-qk0-x243.google.com (mail-qk0-x243.google.com
+ [IPv6:2607:f8b0:400d:c09::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rVYT11BcqzDqlK
- for <openbmc@lists.ozlabs.org>; Thu, 16 Jun 2016 16:32:04 +1000 (AEST)
-Received: from player772.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo3.mail-out.ovh.net (Postfix) with ESMTP id 8D1F4FFBD64
- for <openbmc@lists.ozlabs.org>; Thu, 16 Jun 2016 08:24:17 +0200 (CEST)
-Received: from [192.168.124.3] (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
- [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player772.ha.ovh.net (Postfix) with ESMTPSA id 7E4CB4C007A;
- Thu, 16 Jun 2016 08:24:13 +0200 (CEST)
-Subject: Re: [PATCH v2 1/2] hw/misc: Add a model for the ASPEED System Control
- Unit
-To: Andrew Jeffery <andrew@aj.id.au>, OpenBMC <openbmc@lists.ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rVYjt4HYmzDqhT
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Jun 2016 16:43:14 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=LxfaK5OU; 
+ dkim-atps=neutral
+Received: by mail-qk0-x243.google.com with SMTP id b136so6192940qkg.2
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Jun 2016 23:43:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=35Pci6YjOJpTKYF7U29XnWTvvGoetXvbid4Dg7nfE9Q=;
+ b=LxfaK5OUuqCJn1zRrJIuxoABrZLUPC7vP30vZJqX7AE5DAIXzAcoLfasR/QkH4wUd7
+ +JN6O68R2G8YEG2G9ay0pfVKkMJkdvk26aeJNBhtcJ8KZlseF/O0EatXqaVDh2V8ZZzf
+ DnxSwGhF8SLRlhYnTxjOnYwK4QSaV1QAfwaRz/f8zE4ilcqsD9eBpWjY6cl71bGbnXoc
+ TP+GeAW0Kk8JFO6rB0ArvhrvOgAp3POda9nBLeJbFQlzck8hJQ6D4Te+elY/E+QiAh7r
+ mSHwF+QglFh4+XV3mBpOcY5XMOO30DZIPJ/fRL7pdUUrEkUurTcEjXaUz/uppiq4IvLJ
+ NAyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=35Pci6YjOJpTKYF7U29XnWTvvGoetXvbid4Dg7nfE9Q=;
+ b=QcEQ8VHeuHM3XIpW2lDEkUY9V6ucC+meDDGsePqLJpa0AbZXOgAS+ARUuAAjYY4iY3
+ I0R1ZvVA0n/mT1Aw9xE2a6JSyYyFTYSia1BLp3iTVvteWEurQ+2LVqiiqQvJ6LXTJp3H
+ ZW2WHm/IchPg/oM4iXTjLiD2gI8JgOg1tszazgbDgrZhy/CGgUfPEl2SyjEYuGcfb2EW
+ 5bAdQiiM0TQur1FSdHELeDrKCVq266myvDkG1y9ClBvBJrL4st0ctQGfG38SnaveFrcc
+ u/KDfKrD5TSTwTWagAzBdehiAqIBtBk8v+SoXAQ5ckP6oQ/1LKsmrAp/bZ0i9tcrGIrA
+ Ht4A==
+X-Gm-Message-State: ALyK8tL1dYErJ1fIWt/aVwl+nBpngn+krPUmlMaliHDhLruc/z3sjZJxoN35alTiedj5tT2cToCPEWn3HJ6a3A==
+X-Received: by 10.55.149.3 with SMTP id x3mr3022379qkd.140.1466059392225; Wed,
+ 15 Jun 2016 23:43:12 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.237.37.148 with HTTP; Wed, 15 Jun 2016 23:42:52 -0700 (PDT)
+In-Reply-To: <1466055100-16521-2-git-send-email-andrew@aj.id.au>
 References: <1466055100-16521-1-git-send-email-andrew@aj.id.au>
  <1466055100-16521-2-git-send-email-andrew@aj.id.au>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <5762460C.2070701@kaod.org>
-Date: Thu, 16 Jun 2016 08:24:12 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
- Icedove/38.8.0
-MIME-Version: 1.0
-In-Reply-To: <1466055100-16521-2-git-send-email-andrew@aj.id.au>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 5048816658217732991
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeekledrkeejgdduuddvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 16 Jun 2016 16:42:52 +1000
+X-Google-Sender-Auth: WJAoADVFpekeCBA7u0IF-QuUz5o
+Message-ID: <CACPK8XeydCmXdQGFn=ooTuQontiO86DwPaw3UezL7kOxEtijGw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] hw/misc: Add a model for the ASPEED System Control
+ Unit
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC <openbmc@lists.ozlabs.org>,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
+ Teddy Reed <teddy.reed@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -41,27 +62,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Jun 2016 06:32:05 -0000
+X-List-Received-Date: Thu, 16 Jun 2016 06:43:15 -0000
 
-On 06/16/2016 07:31 AM, Andrew Jeffery wrote:
+On Thu, Jun 16, 2016 at 3:31 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
 > The SCU is a collection of chip-level control registers that manage the
 > various functions supported by the AST2400. Typically the bits control
 > interactions with clocks, external hardware or reset behaviour, and we
 > can largly take a hands-off approach to reads and writes.
-> 
+>
 > Firmware makes heavy use of the state to determine how to boot, but the
 > reset values vary from SoC to SoC. qdev properties are exposed so that
 > the integrating SoC model can configure the appropriate reset values.
-> 
+>
 > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 
-nice and simple.
+Nice. Send it upstream!
 
-Reviewed-by: Cédric Le Goater <clg@kaod.org>
-
-Thanks,
-
-C. 
+Reviewed-by: Joel Stanley <joel@jms.id.au>
 
 
 > ---
@@ -72,7 +89,7 @@ C.
 >  4 files changed, 259 insertions(+)
 >  create mode 100644 hw/misc/aspeed_scu.c
 >  create mode 100644 include/hw/misc/aspeed_scu.h
-> 
+>
 > diff --git a/hw/misc/Makefile.objs b/hw/misc/Makefile.objs
 > index ffb49c11aca6..54020aa06c00 100644
 > --- a/hw/misc/Makefile.objs
@@ -354,10 +371,12 @@ C.
 > --- a/trace-events
 > +++ b/trace-events
 > @@ -2164,3 +2164,6 @@ e1000e_cfg_support_virtio(bool support) "Virtio header supported: %d"
->  
+>
 >  e1000e_vm_state_running(void) "VM state is running"
 >  e1000e_vm_state_stopped(void) "VM state is stopped"
 > +
 > +# hw/misc/aspeed_scu.c
 > +aspeed_scu_write(uint64_t offset, unsigned size, uint32_t data) "To 0x%" PRIx64 " of size %u: 0x%" PRIx32
-> 
+> --
+> 2.7.4
+>
