@@ -1,25 +1,19 @@
-Return-Path: <patrick@stwcx.xyz>
+Return-Path: <openbmc-patches@stwcx.xyz>
 Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rYDwv5lP0zDqCX
- for <openbmc@lists.ozlabs.org>; Tue, 21 Jun 2016 01:17:03 +1000 (AEST)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1466435815067616.9139082389485;
- Mon, 20 Jun 2016 08:16:55 -0700 (PDT)
-Date: Mon, 20 Jun 2016 10:16:52 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: OpenBMC v1.0 tagged!
-Message-ID: <20160620151652.GE19968@asimov.austin.ibm.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="684cmtc/Pyvt2LSS"
-Content-Disposition: inline
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rYPqC4vnRzDq5d
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Jun 2016 07:57:42 +1000 (AEST)
+Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
+ with SMTPS id 146645985826753.80089450127468;
+ Mon, 20 Jun 2016 14:57:38 -0700 (PDT)
+From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH openbmc 0/7] Phosphor changes needed for Yocto 2.1
+Date: Mon, 20 Jun 2016 16:57:30 -0500
+Message-Id: <20160620215737.13107-1-openbmc-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.9.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -31,65 +25,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Jun 2016 15:17:04 -0000
+X-List-Received-Date: Mon, 20 Jun 2016 21:57:44 -0000
+X-List-Received-Date: Mon, 20 Jun 2016 21:57:44 -0000
 
 
---684cmtc/Pyvt2LSS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-I have just tagged v1.0 and uploaded it to Github.  This is meant as the
-release to support Barreleye in production capacity.  Thank you to
-everyone that contributed over the last year to get us to this point and
-congrats on this major milestone!
+<!-- Reviewable:start -->
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/397)
+<!-- Reviewable:end -->
 
-I have also create a branch named v1.0-stable.  If there are any bug
-fixes or minor feature enhancements for Barreleye, they should go there.
-You will need to create a pull request against that branch instead of
-master.
 
-Looking forward, the majority of the IBM development team is shifting focus
-towards a set of Power9-based systems.  You may have already seen
-commits related to the Witherspoon system.  With this in mind, 'master'
-will become the development branch toward the systems in that
-time-frame.  There is also a milestone in Github, 'openBMC v2.0 Backlog'
-that enumerates the work-items we plan to do.
+https://github.com/openbmc/openbmc/pull/397
 
-Our intention is to continue to support Barreleye (and the other
-experimental Power8 machines) in the 2.0 development tree, but since it
-is a development tree, expect some instability (and likely API changes)
-there.
+Patrick Williams (7):
+  meta-phosphor: Use obmc-phosphor-event for qemu systems
+  meta-phosphor: use obmc-phosphor-user for qemu systems
+  meta-phosphor: Remove unused systemd patch
+  openssl: run 'make depend'
+  u-boot-fw-utils: Update to latest version.
+  meta-phosphor: Make image-overlay a machine feature.
+  meta-phosphor: Ensure INITRAMFS_CTYPE defined
 
-Even though the IBM development team is focused on Power systems, we
-look forward to working with anyone who is interested in extended our
-code-base to support non-Power platforms.  This may cause us to shift
-release names, time lines, and feature support before we complete our
-"2.0" features.
+ meta-phosphor/classes/obmc-phosphor-image.bbclass  |    4 +
+ .../recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb  |    2 +-
+ .../openssl/openssl/Configure.patch                |   15 +
+ .../openssl/openssl_%.bbappend                     |    8 +
+ .../images/core-image-minimal-initramfs.bbappend   |    1 +
+ .../0100-systemd_networkd_dbus_setaddress.patch    | 1209 --------------------
+ .../common/recipes-core/systemd/systemd_%.bbappend |    1 -
+ .../conf/machine/include/obmc-bsp-common.inc       |    2 +-
+ meta-phosphor/conf/machine/include/sample.inc      |    4 +-
+ 9 files changed, 32 insertions(+), 1214 deletions(-)
+ create mode 100644 meta-phosphor/common/recipes-connectivity/openssl/openssl/Configure.patch
+ delete mode 100644 meta-phosphor/common/recipes-core/systemd/systemd/0100-systemd_networkd_dbus_setaddress.patch
 
---=20
-Patrick Williams
-
---684cmtc/Pyvt2LSS
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJXaAjkAAoJEKsDR8wtAMEZw94P/3C2iMVg9TZKHyVRTrdKhdyR
-OiBtC1v06KScQDxXJdNvQiRe5e5q0ar5URVTiQoFK9uLar6hp8DBqK0FMGGML5TL
-LmvIEOQZuwmlc7wFaf/MHlwX86jkG6usy4zJfQF79mQIw7cMon9psscZ3F+vaYQV
-mAJxuUbYJb2Z6ynF4u6dfaOJAEpDXwbT0axmTJK5Xo2AOQPJ/98CC8P2d8M2/p+M
-kt/ejQdkfacULHnDzda4zAzQt+K7XGT3PB1Cv/QPIaU0HmKIMZXZgUJ8tj49Q6Ox
-ZXYGqaGCep0lrUrJr1tP1cKvE5jqZZiItFKaPwhBEnhpjdbwplSRsD5IAdSHRPyB
-lZXAamzyk3Twn/ZpXFv3j+fSX+kMx9N5WkXlakcA8+7xa1ybmM3FHOcY8eiclomG
-OR9x+kLH0zZdd3Leultk/7gVmQzd7fKGa39ATY1NGCvf+FQmmev+H7y7+oeX+nlK
-fUwQ3S6lDQC5Q1Jgwlj+ZYDFhn8t3cmPxtGsB6BABEfYZPdSGc65UrCxaY5Ws8D7
-9lMnVQ5Jzg2xgeXOTpDt3q3tF18eqezoMMogbLwR+pnmWjscwKs3OGBiCftPNmTk
-/w8n9+qp3siEo/Z1GLI0RCmJhUnQICKGOcqjm8ZEwl4HThFViUWdFKG8x0MrCyoh
-7itndi8Nyy/qQkNgReYV
-=alHL
------END PGP SIGNATURE-----
-
---684cmtc/Pyvt2LSS--
+-- 
+2.9.0
