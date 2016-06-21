@@ -1,22 +1,29 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
+Return-Path: <patrick@stwcx.xyz>
 Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rZ03X1j4VzDqFD
- for <openbmc@lists.ozlabs.org>; Wed, 22 Jun 2016 06:40:23 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466541615733529.653315787727;
- Tue, 21 Jun 2016 13:40:15 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Cc: Adriana Kobylak <anoo@us.ibm.com>
-Subject: [PATCH docs v2] Add Gerrit server info to contributing doc
-Date: Tue, 21 Jun 2016 15:40:12 -0500
-Message-Id: <20160621204012.32707-2-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.9.0
-In-Reply-To: <20160621204012.32707-1-openbmc-patches@stwcx.xyz>
-References: <20160621204012.32707-1-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rZ1VW4TzfzDqFD
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Jun 2016 07:45:21 +1000 (AEST)
+Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
+ with SMTPS id 146654551446941.92486691457566;
+ Tue, 21 Jun 2016 14:45:14 -0700 (PDT)
+Date: Tue, 21 Jun 2016 16:45:12 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Adriana Kobylak <anoo@linux.vnet.ibm.com>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: Fwd: [openbmc/phosphor-host-ipmid] BMC version should be BCD
+ encoded (#89)
+Message-ID: <20160621214512.GB23932@asimov.austin.ibm.com>
+References: <openbmc/phosphor-host-ipmid/issues/89/227330539@github.com>
+ <E73A24ED-C82F-48F4-9F57-C70886A5E26F@linux.vnet.ibm.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="98e8jtXdkpgskNou"
+Content-Disposition: inline
+In-Reply-To: <E73A24ED-C82F-48F4-9F57-C70886A5E26F@linux.vnet.ibm.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,61 +35,66 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Jun 2016 20:40:25 -0000
+X-List-Received-Date: Tue, 21 Jun 2016 21:45:24 -0000
 
-From: Adriana Kobylak <anoo@us.ibm.com>
 
-Add steps to setup and push changes to the openbmc gerrit server.
+--98e8jtXdkpgskNou
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Adriana Kobylak <anoo@us.ibm.com>
----
- contributing.md | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+On Tue, Jun 21, 2016 at 11:18:52AM -0500, Adriana Kobylak wrote:
+> Any thoughts on the concern about BMC version being decimal, so that the =
+IPMI representation of the version in BCD does not match character by chara=
+cter the tag in github?
+> Should we limit the tag numbering to a max digit of 9 which would match t=
+he decimal and BCD representation, should the tag be in hex, or there shoul=
+d not be any change and this is how it works, other?
 
-diff --git a/contributing.md b/contributing.md
-index db485a0..3acd85e 100644
---- a/contributing.md
-+++ b/contributing.md
-@@ -84,6 +84,40 @@ The guidelines in the Linux kernel are very useful:
- 
- Your contribution will generally need to be reviewed before being accepted.
- 
-+
-+Submitting changes via Gerrit server
-+------------------------------------
-+
-+The openbmc gerrit server is https://gerrit.openbmc-project.xyz/#/q/status:open
-+
-+You can login with your github credentials. Most repositories are supported by
-+the Gerrit server, the current list can be found under Projects -> List:
-+https://gerrit.openbmc-project.xyz/#/admin/projects/
-+
-+If you're going to be working with gerrit often, it's useful to create an SSH
-+host block in ~/.ssh/config. Ex:
-+```
-+Host openbmc.gerrit
-+        Hostname gerrit.openbmc-project.xyz
-+        Port 29418
-+        User your_github_id
-+```
-+
-+From your openbmc git repository, add a remote to the gerrit server, where
-+<openbmc_repo> is the current git repository you're working on, such as
-+phosphor-rest-server:
-+`remote add gerrit ssh://your_github_id@openbmc.gerrit/openbmc/openbmc_repo`
-+
-+Obtain the git hook commit-msg to automatically add a Change-Id to the commit
-+message, which is needed by Gerrit:
-+`gitdir=$(git rev-parse --git-dir)`
-+`scp -p -P 29418 your_github_id@gerrit.openbmc-project.xyz:hooks/commit-msg ${gitdir}/hooks`
-+
-+To submit a change set, push to the gerrit server, where <gerrit> is the name
-+of the remote added with the remote add command:
-+`git push gerrit HEAD:refs/for/master`
-+
-+
- Avoid references to non-public resources
- ----------------------------------------
- 
--- 
-2.9.0
+The spec for "Get Device ID" has:
+
+byte 4 : [0:6] Major Firmware Revision, binary encoded.
+byte 5 : Minor Firmware Revision, BCD encoded.
+
+It is very odd to me that the two are different but that is what the
+spec says.  We appear to be doing everything correct for byte 4 (binary
+encoded and mask off the 7th bit) but not doing it correct for byte 5.
+
+https://github.com/openbmc/phosphor-host-ipmid/blob/eee949f14d921d84497f41d=
+f84ab7ae45a0d830d/apphandler.C#L190
+
+I think we should just fix this for byte 5 and make it BCD as requested.
+This would still allow us to support up to v7F.99, which is more than
+enough.
+
+Sample code to fix up:
+
+    rev.minor =3D (rev.minor > 99 ? 99 : rev.minor);
+    dev_id[DEVICE_FW] =3D rev.minor % 10 + (rev.minor / 10) * 16;
+
+--=20
+Patrick Williams
+
+--98e8jtXdkpgskNou
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJXabVoAAoJEKsDR8wtAMEZ6OgP/2wb0SmxTvuSiTIRGSi2B0t2
+EsILNxgCTjK9ka8yyI1UWuzGvcyZP/YSUIwEfduTUxi1vF6xr9zLWqJuwGZZYAS+
+8qMK6ZDV+sBrPKvk1u7xDlA/LaYGFHQ7LPl2XL3u2dNeNYrGLtj8SWKIETKOudUU
+WyKYpvoRmV8Tr+VIUdTA1HMrE0HhYyEvEcnC6VKUf8pnOugtTxOeaPlZhabw7l8c
+IPNK5/W/by83gp61vrqgUjILQ7Cy8H/gTgkzMShEJDWSQmEgRowMuyaDd12vUltp
+JPhcHIV4MYUigCKmXy6TMz0fEtEGlcS5L4i9x3gBPqiOublyr5vaJ1pFfUZSA9OF
+5mwwROVahmRPjneP4yCu3XnuEgV/qTGgD7fyc9nDy5Smoqo/uIf9/9NN9PBXjF/d
+MJoTmf85Hc8JNixmyC/Z7ZcN37kuRQjGJvGTipdXGznF2R2YbKTvDWlsXXaJI73x
+wXa4LL3DMfa2xQd4h9z5tdu7Y+vZDOhYUE6VxbfN49pWrgP6yr0j+tnzDuIF6lyC
+6ie4R2vYFJ8ApohAYX7kDb5a7LedK6vwoz0UMt7YQQflytIwgSuC56PEWtjrKqzD
+bcJzyVQuw4CJJDWf1AKqVpYnwJ46y3UwMswe7eprI+TkLmgnRHt9N0qOWeTRkvji
+CAMfZ4OECcb3dnLli/IT
+=N0U3
+-----END PGP SIGNATURE-----
+
+--98e8jtXdkpgskNou--
