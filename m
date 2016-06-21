@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rYvrn3cBjzDqDN
- for <openbmc@lists.ozlabs.org>; Wed, 22 Jun 2016 03:30:49 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rYwHp1G9tzDqCY
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Jun 2016 03:50:45 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466530237301262.53161346595414;
- Tue, 21 Jun 2016 10:30:37 -0700 (PDT)
+ with SMTPS id 1466531434219684.0705555367556;
+ Tue, 21 Jun 2016 10:50:34 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH openbmc] Add pflash parallel build fix patch
-Date: Tue, 21 Jun 2016 12:30:34 -0500
-Message-Id: <20160621173035.24031-1-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc] Removed unused host-ipmid-bt application
+Date: Tue, 21 Jun 2016 12:50:32 -0500
+Message-Id: <20160621175033.25045-1-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
@@ -26,27 +26,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Jun 2016 17:30:50 -0000
+X-List-Received-Date: Tue, 21 Jun 2016 17:50:47 -0000
 
-This resolves https://github.com/openbmc/openbmc/issues/325
+This was deprecated in favor of btbridged.
 
 Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
 <!-- Reviewable:start -->
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/401)
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/404)
 <!-- Reviewable:end -->
 
 
-https://github.com/openbmc/openbmc/pull/401
+https://github.com/openbmc/openbmc/pull/404
 
 Brad Bishop (1):
-  Add pflash parallel build fix patch
+  Removed unused host-ipmid-bt application
 
- .../common/recipes-bsp/pflash/pflash.bb            |  1 +
- ...-Fix-ARM-build-failure-with-parallel-make.patch | 28 ++++++++++++++++++++++
- 2 files changed, 29 insertions(+)
- create mode 100644 meta-openbmc-machines/meta-openpower/common/recipes-bsp/pflash/pflash/0007-external-Fix-ARM-build-failure-with-parallel-make.patch
+ .../common/recipes-phosphor/host-ipmid/host-ipmi-bt.bb  | 17 -----------------
+ .../host-ipmid/host-ipmi-bt/host-ipmi-bt.service        |  9 ---------
+ 2 files changed, 26 deletions(-)
+ delete mode 100644 meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-bt.bb
+ delete mode 100644 meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-bt/host-ipmi-bt.service
 
 -- 
 2.9.0
