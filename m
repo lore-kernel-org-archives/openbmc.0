@@ -1,50 +1,56 @@
-Return-Path: <joel@jms.id.au>
-Received: from mail-pa0-x242.google.com (mail-pa0-x242.google.com
- [IPv6:2607:f8b0:400e:c03::242])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-qk0-x236.google.com (mail-qk0-x236.google.com
+ [IPv6:2607:f8b0:400d:c09::236])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rYfWq06NjzDqFM
- for <openbmc@lists.ozlabs.org>; Tue, 21 Jun 2016 17:30:15 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=lxfXxM0E; 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rYgjC6R5QzDq5c
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Jun 2016 18:23:27 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=JC0wa5Wp; 
  dkim-atps=neutral
-Received: by mail-pa0-x242.google.com with SMTP id hf6so749897pac.2
- for <openbmc@lists.ozlabs.org>; Tue, 21 Jun 2016 00:30:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=WGGpC15RL+Qwr5EqF+gI9I1LexC8PtLTZygzsobnJX0=;
- b=lxfXxM0E07Lv1NDlFTTZmJ+S3rKN4eX4UIXLab4Uts22mGLLTgvBDjktuE7xnUYM5e
- 9ZVH20QrEfp+31FcxVzWcbOTyEptyk5KgY+UoQCBwM/aFj5m1kP6OQUpB10hQsSlxEEV
- QL/vy4hN9CepAjX3BbgzEzqvpdbjtuvcpQnyw=
+Received: by mail-qk0-x236.google.com with SMTP id p10so10900061qke.3
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Jun 2016 01:23:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=YXGGjB8h2pCLmsqUugh4vFfHXVLW+xDPA7gW+XPcvEg=;
+ b=JC0wa5WpAxmHO2rqO6CRofjsIT6xJ/7IH3Zt2OHrfg8AKDuz1sghE1sJCPhfj9QKnW
+ nv1Thgz1uPuzsJbi5aAdNmq+HKHQvdh23wJRbCCXWNej7CdBWEtiwvByhISnm7tAtDzL
+ zR5ei4oTRZ4iTYWFH8N+/kCKpe9T9Ra82w9rP18AzLPaGBWf8GfKiidJdWQZhWm6L1ja
+ j/N5XtWW2yH1Ui5JrUk61I5vXmQbBtleZi1ub1nASNL0vZRUO0F3SdaHKtInRlfRB8aD
+ SK8GZgjZRdwawEOegJ4uvcWBLjYxQujpZO4jJ7jTWwGiYTtAptiXNfHV1vMFxPHzeTfP
+ pwwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=WGGpC15RL+Qwr5EqF+gI9I1LexC8PtLTZygzsobnJX0=;
- b=b+DCZAwq2keyhxUwoB3IEXdlp5jwSpdpu1N0YWPj1mBIAvDeRA+1NuZDZSpFkQionH
- WPPJWLAaNCgvj547LbHejqQRO//O+JqEEHaealeM94z4AtXJXLCAk7QPaW6KjD572/d/
- sFLxiTQXqeQ40Ns2CLGZ/iBlo0QTVKvx24Kyr0xkb488UZgpOBc0KYULPPdkbYL4AxGc
- vxLUiFpZwWTYOE303NHBkPdW3RhWAYCy1I6js8fPY3Zr3z6i/U1co6tb1rnV6qwhgGn3
- AbBbSRGVmiAFX+LBO5YNitzYBCXpZMUhcDuZU9NoO41eHodDjqIprErWCUvjFGW/5pYp
- tk7g==
-X-Gm-Message-State: ALyK8tLTiYTJ6v7Xa42Wf0VwTEuu1xszJip7aU62XUFP/zjF+wodS2GKdSlyGvWUtyPnPQ==
-X-Received: by 10.66.197.202 with SMTP id iw10mr27039287pac.148.1466494212598; 
- Tue, 21 Jun 2016 00:30:12 -0700 (PDT)
-Received: from aurora.ibm.com ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id zv2sm13096910pac.43.2016.06.21.00.30.09
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 21 Jun 2016 00:30:12 -0700 (PDT)
-From: Joel Stanley <joel@jms.id.au>
-To: clg@kaod.org,
-	teddy.reed@gmail.com,
-	andrew@aj.id.au
-Cc: openbmc@lists.ozlabs.org
-Subject: [u-boot 3/3] arm: aspeed: Remove cpu directory
-Date: Tue, 21 Jun 2016 16:59:45 +0930
-Message-Id: <1466494185-24459-4-git-send-email-joel@jms.id.au>
-X-Mailer: git-send-email 2.8.1
-In-Reply-To: <1466494185-24459-1-git-send-email-joel@jms.id.au>
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=YXGGjB8h2pCLmsqUugh4vFfHXVLW+xDPA7gW+XPcvEg=;
+ b=hQEYy+MT0JCJ2z6QA/2Dq35kPlKnTmoxYXdBAC0gdYYY6v9oy4UE5khaavxPGcDCqc
+ p/JOu/2wo1GOvr5MUBwVV6KS+sSeC6qynKFGIERyIM4WWp328SimdLSrJTrl7tys55Se
+ Oo5W0Nz1RYssKyjXIB2ZSNEOP6DG4GlM42wnmsIoskZ2mPuNgIh9+CY7jVoWJzE224yj
+ 7scfLnX7m0gpTbvAigkvA6RONNWm+nYDVtDmMNA1dbztKUf2dEIguCJNuz6o/Ots7UY+
+ R67Z3AJ28ErfTNlWTa69oekgEd4enKAwYLS9lfouKVViIW3Ny7oWXQnKqkohsKi7E11h
+ Cjyw==
+X-Gm-Message-State: ALyK8tJ729KEgMSrH8cijbJFvRzUN9KVMuLDkxUTNSbkNShmZ9Yx6fSETr+RhYfvvPfmMd14gj85IQX4O5bvzg==
+X-Received: by 10.55.104.213 with SMTP id d204mr27586171qkc.208.1466497405826; 
+ Tue, 21 Jun 2016 01:23:25 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.237.37.148 with HTTP; Tue, 21 Jun 2016 01:23:06 -0700 (PDT)
+In-Reply-To: <bbb0ddc2-2dcf-7d3e-a33b-66d3f04f45e9@kaod.org>
 References: <1466494185-24459-1-git-send-email-joel@jms.id.au>
+ <1466494185-24459-2-git-send-email-joel@jms.id.au>
+ <bbb0ddc2-2dcf-7d3e-a33b-66d3f04f45e9@kaod.org>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 21 Jun 2016 17:53:06 +0930
+X-Google-Sender-Auth: qez2xisK2XtPVZVkytcGNG5Ej3I
+Message-ID: <CACPK8XdDq+ACJA=U=33dW_41F=dxnekCMJ370HCtsTi6BwqBnQ@mail.gmail.com>
+Subject: Re: [u-boot 1/3] ast-g5: Simplify config and board file
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: Teddy Reed V <teddy.reed@gmail.com>, Andrew Jeffery <andrew@aj.id.au>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -56,79 +62,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Jun 2016 07:30:15 -0000
+X-List-Received-Date: Tue, 21 Jun 2016 08:23:28 -0000
 
-ast2400 support had two mostly empty functions in the CPU directory.
-The only function was to enable the i and d caches, so do this in the
-board file instead.
+On Tue, Jun 21, 2016 at 5:28 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
+:
+>> -#define CONFIG_SYS_LOAD_ADDR         0x83000000      /* default load ad=
+dress */
+>> +#define CONFIG_SYS_LOAD_ADDR 0x83000000      /* default load address */
+>>
+>>  #define CONFIG_BOOTARGS              "console=3DttyS0,115200n8 ramdisk_=
+size=3D16384 root=3D/dev/ram rw init=3D/linuxrc mem=3D80M"
+>
+> May be we could change these CONFIG_BOOTARGS to a OpenBMC one, which is m=
+ore
+> standard :
+>
+>         "console=3DttyS4,115200n8 root=3D/dev/ram rw"
+>
+> That can be other patch.
 
-It's not clear if this was necessary as the system boots without it.
+Agreed, I'll make that change.
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- arch/arm/cpu/arm926ejs/aspeed/Makefile |  1 -
- arch/arm/cpu/arm926ejs/aspeed/cpu.c    | 29 -----------------------------
- board/aspeed/ast-g4/ast-g4.c           |  4 ++++
- 3 files changed, 4 insertions(+), 30 deletions(-)
- delete mode 100644 arch/arm/cpu/arm926ejs/aspeed/Makefile
- delete mode 100644 arch/arm/cpu/arm926ejs/aspeed/cpu.c
+Actually, the Google guys have already made that change and I pushed
+it to the tree openbmc/u-boot#2016.05-ast2500.
 
-diff --git a/arch/arm/cpu/arm926ejs/aspeed/Makefile b/arch/arm/cpu/arm926ejs/aspeed/Makefile
-deleted file mode 100644
-index e085b7b442e7..000000000000
---- a/arch/arm/cpu/arm926ejs/aspeed/Makefile
-+++ /dev/null
-@@ -1 +0,0 @@
--obj-y	+= cpu.o
-diff --git a/arch/arm/cpu/arm926ejs/aspeed/cpu.c b/arch/arm/cpu/arm926ejs/aspeed/cpu.c
-deleted file mode 100644
-index cf62293b51ab..000000000000
---- a/arch/arm/cpu/arm926ejs/aspeed/cpu.c
-+++ /dev/null
-@@ -1,29 +0,0 @@
--/*
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-- * GNU General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program; if not, write to the Free Software
-- * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
-- * MA 02111-1307 USA
-- */
--
--#include <common.h>
--#include <asm/io.h>
--
--int arch_cpu_init(void)
--{
--
--	return 0;
--}
--
--void enable_caches(void)
--{
--	icache_enable();
--	//TODO .....
--	dcache_enable();
--
--}
--
-diff --git a/board/aspeed/ast-g4/ast-g4.c b/board/aspeed/ast-g4/ast-g4.c
-index 6f705d8559b3..549be782891f 100644
---- a/board/aspeed/ast-g4/ast-g4.c
-+++ b/board/aspeed/ast-g4/ast-g4.c
-@@ -36,6 +36,10 @@ void show_boot_progress(int progress)
- 
- int board_init (void)
- {
-+	/* The BSP did this in the cpu code */
-+	icache_enable();
-+	dcache_enable();
-+
- 	/* adress of boot parameters */
- 	gd->bd->bi_boot_params = CONFIG_SYS_SDRAM_BASE + 0x100;
- 	gd->flags = 0;
--- 
-2.8.1
+ https://github.com/openbmc/u-boot/commit/3ec6f724873fb197d3226b5c9f4e81621=
+ff978cf
+
+I will ensure that patch is in the branch I create.
+
+>>  /* --------------------------------------------------------------------=
+----- */
+>> @@ -183,48 +156,12 @@
+>>  #define CONFIG_PHY_ADDR                      0
+>>  #define CONFIG_PHY_REALTEK
+>>  #endif
+>> -
+>>  #ifdef CONFIG_CMD_NET
+>> -/* #define CONFIG_MAC_NUM    2 */
+>>  #define CONFIG_FTGMAC100
+>>  #define CONFIG_PHY_MAX_ADDR  32      /* this comes from <linux/phy.h> *=
+/
+>> -/* #define CONFIG_SYS_DISCOVER_PHY */
+>>  #define CONFIG_FTGMAC100_EGIGA
+>
+> So the aspeednic is only in the witherspoon branch ? (which is better if =
+so)
+
+Currently, yes. I will pull the aspeednic driver into our branch and
+create a separate machine for witherspoon. That way we can continue
+using the same branch while Gavin and I develop a u-boot ncsi stack.
+
+Thanks for the review.
+
+Cheers,
+
+Joel
