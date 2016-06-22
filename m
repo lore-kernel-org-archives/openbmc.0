@@ -3,18 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rZbLw2p8dzDqWq
- for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 06:10:48 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rZbLy1nkdzDqhW
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 06:10:49 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466626243341897.507518297492;
- Wed, 22 Jun 2016 13:10:43 -0700 (PDT)
+ with SMTPS id 1466626245774535.6289099549967;
+ Wed, 22 Jun 2016 13:10:45 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Patrick Williams <patrick@stwcx.xyz>
-Subject: [PATCH openbmc v4 2/9] meta-phosphor: use obmc-phosphor-user for qemu
- systems
-Date: Wed, 22 Jun 2016 15:10:32 -0500
-Message-Id: <20160622201039.25078-3-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v4 4/9] u-boot-fw-utils: Update to latest version.
+Date: Wed, 22 Jun 2016 15:10:34 -0500
+Message-Id: <20160622201039.25078-5-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 In-Reply-To: <20160622201039.25078-1-openbmc-patches@stwcx.xyz>
 References: <20160622201039.25078-1-openbmc-patches@stwcx.xyz>
@@ -31,24 +30,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Jun 2016 20:10:49 -0000
+X-List-Received-Date: Wed, 22 Jun 2016 20:10:51 -0000
 
 From: Patrick Williams <patrick@stwcx.xyz>
 
 Signed-off-by: Patrick Williams <patrick@stwcx.xyz>
 ---
- meta-phosphor/conf/machine/include/sample.inc | 2 +-
+ meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-phosphor/conf/machine/include/sample.inc b/meta-phosphor/conf/machine/include/sample.inc
-index b499940..e4d70d1 100644
---- a/meta-phosphor/conf/machine/include/sample.inc
-+++ b/meta-phosphor/conf/machine/include/sample.inc
-@@ -30,4 +30,4 @@ PREFERRED_PROVIDER_virtual/obmc-phosphor-flash-mgmt = "obmc-phosphor-flashd"
- PREFERRED_PROVIDER_virtual/obmc-phosphor-policy-mgmt = "obmc-phosphor-policyd"
- PREFERRED_PROVIDER_virtual/obmc-phosphor-sensor-mgmt = "obmc-phosphor-sensord"
- PREFERRED_PROVIDER_virtual/obmc-phosphor-system-mgmt = "obmc-phosphor-sysd"
--PREFERRED_PROVIDER_virtual/obmc-phosphor-user-mgmt = "obmc-phosphor-userd"
-+PREFERRED_PROVIDER_virtual/obmc-phosphor-user-mgmt = "obmc-phosphor-user"
+diff --git a/meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb b/meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb
+index bfbdcf6..a514cf2 100644
+--- a/meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb
++++ b/meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb
+@@ -12,7 +12,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb \
+ # We use the revision in order to avoid having to fetch it from the
+ # repo during parse
+ # SRCREV = "62c175fbb8a0f9a926c88294ea9f7e88eb898f6c"
+-SRCREV="4b44678c11ac82c7c797bb115e276181752ad54d"
++SRCREV="44f1262bdf39ad93032d39f17a298165372be82e"
+ 
+ PV = "v2013.07+git${SRCPV}"
+ 
 -- 
 2.9.0
