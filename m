@@ -3,18 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rZZhP6btMzDqhf
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rZZhQ27cdzDqlp
  for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 05:40:53 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466624446755370.65572812233097;
- Wed, 22 Jun 2016 12:40:46 -0700 (PDT)
+ with SMTPS id 1466624449592331.06567084345386;
+ Wed, 22 Jun 2016 12:40:49 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Patrick Williams <patrick@stwcx.xyz>
-Subject: [PATCH openbmc v3 5/9] meta-phosphor: Make image-overlay a machine
- feature.
-Date: Wed, 22 Jun 2016 14:40:32 -0500
-Message-Id: <20160622194036.23925-6-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v3 7/9] obmc-phosphor-image: Improper use of DATETIME
+Date: Wed, 22 Jun 2016 14:40:34 -0500
+Message-Id: <20160622194036.23925-8-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 In-Reply-To: <20160622194036.23925-1-openbmc-patches@stwcx.xyz>
 References: <20160622194036.23925-1-openbmc-patches@stwcx.xyz>
@@ -31,55 +30,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Jun 2016 19:40:54 -0000
+X-List-Received-Date: Wed, 22 Jun 2016 19:40:55 -0000
 
 From: Patrick Williams <patrick@stwcx.xyz>
 
-Previously, obmc-bsp-common.inc added "overlay" to the IMAGE_FSTYPES
-but this only has meaning if the 'image-overlay' class is used.  The
-obmc-phosphor-image class explicitly includes 'image-overlay' when
-appropriate but no other images (ie. ones that come with yocto) do.
+The use of the DATETIME variable has issues with the sstate cache
+because of the variable changing values, and therefore the checksum
+used for sstate calculation also changing.
 
-Changed obmc-bsp-common to instead enable a machine feature called
-"image-overlay".  Then in obmc-phosphor-image we add "overlay" to
-the IMAGE_FSTYPES only when enabled as a machine feature.
-
-This will (hopefully) fix both non-phosphor images on hardware platforms
-and all images on simulation platforms.
+Other existing recipes add DATETIME to the 'vardepsexclude' list.
+This case is glossed over very rapidly in section 21.3.2 "Checksums"
+of the Mega Manual.
 
 Signed-off-by: Patrick Williams <patrick@stwcx.xyz>
 ---
- meta-phosphor/classes/obmc-phosphor-image.bbclass      | 4 ++++
- meta-phosphor/conf/machine/include/obmc-bsp-common.inc | 2 +-
- 2 files changed, 5 insertions(+), 1 deletion(-)
+ meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/meta-phosphor/classes/obmc-phosphor-image.bbclass b/meta-phosphor/classes/obmc-phosphor-image.bbclass
-index d3960c7..2d13fff 100644
---- a/meta-phosphor/classes/obmc-phosphor-image.bbclass
-+++ b/meta-phosphor/classes/obmc-phosphor-image.bbclass
-@@ -48,6 +48,10 @@ CORE_IMAGE_EXTRA_INSTALL_append = " bash \
+diff --git a/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass b/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
+index adb86e0..c44139e 100644
+--- a/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
++++ b/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
+@@ -14,6 +14,7 @@ INITRD_IMAGE_LOADADDRESS ?= "${INITRD_IMAGE_ENTRYPOINT}"
+ INITRD_LINK_NAME = "${INITRD_IMAGE}-${MACHINE}${INITRAMFS_FSTYPE}"
  
- OBMC_IMAGE_EXTRA_INSTALL ?= ""
+ FLASH_IMAGE_NAME ?= "flash-${MACHINE}-${DATETIME}"
++FLASH_IMAGE_NAME[vardepsexclude] = "DATETIME"
+ FLASH_IMAGE_LINK ?= "flash-${MACHINE}"
  
-+IMAGE_FSTYPES += \
-+    "${@bb.utils.contains("MACHINE_FEATURES", "image-overlay", \
-+                          "overlay", "", d)}"
-+
- def build_overlay(d):
-         if bb.utils.contains("IMAGE_FSTYPES", "overlay", "overlay", "0", d) != "0":
-                 return "image-overlay"
-diff --git a/meta-phosphor/conf/machine/include/obmc-bsp-common.inc b/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
-index 8d1fd7e..3e2ec34 100644
---- a/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
-+++ b/meta-phosphor/conf/machine/include/obmc-bsp-common.inc
-@@ -13,7 +13,7 @@ UBOOT_SUFFIX ?= "bin"
- 
- MACHINEOVERRIDES =. "openbmc:"
- 
--IMAGE_FSTYPES += "overlay"
-+MACHINE_FEATURES += "image-overlay"
- IMAGE_FSTYPES += "cpio.${INITRAMFS_CTYPE}.u-boot"
- OBMC_IMAGE_EXTRA_INSTALL_append = " u-boot-fw-utils"
- 
+ FLASH_UBOOT_OFFSET ?= "0"
+@@ -95,3 +96,4 @@ do_generate_flash() {
+        tar -h -cvf ${ddir}/${MACHINE}-${DATETIME}.all.tar -C ${ddir} image-bmc
+        tar -h -cvf ${ddir}/${MACHINE}-${DATETIME}.tar -C ${ddir} image-u-boot image-kernel image-initramfs image-rofs image-rwfs
+ }
++do_generate_flash[vardepsexclude] = "DATETIME"
 -- 
 2.9.0
