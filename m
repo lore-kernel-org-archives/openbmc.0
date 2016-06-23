@@ -3,48 +3,47 @@ Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
  [66.111.4.221])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rZr1Y6gRszDqhT
- for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 15:41:37 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rZrCM5kgYzDqjb
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 15:50:07 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=UZAoexM1; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=WEoa2K3k; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=Wx0hCEJP; dkim-atps=neutral
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailnew.nyi.internal (Postfix) with ESMTP id CA3ECC06;
- Thu, 23 Jun 2016 01:41:35 -0400 (EDT)
+ header.b=AMjWDavn; dkim-atps=neutral
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailnew.nyi.internal (Postfix) with ESMTP id AAB3CA0D;
+ Thu, 23 Jun 2016 01:50:05 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute6.internal (MEProxy); Thu, 23 Jun 2016 01:41:35 -0400
+ by compute3.internal (MEProxy); Thu, 23 Jun 2016 01:50:05 -0400
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=uZjY7
- QULiQtsJAt70CQ3d2k40vw=; b=UZAoexM14UHT7dYHyyResjiRpjjyODkyeOiQd
- OeIjW5+e1ROye91W06vNk/4ZCrMbdp+bkly/stpJ/SKl8zUqwpPYCqZdB4opDDtV
- QVHVI6xnEyvKduJWmy46qdVhM9coWZXYJVwYKanVWBhxEo0XO8WbL+Dio+Vmnp7L
- 2NxjpY=
+ :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=XJVzQ
+ esTmfECDVaQFyiERkm5QRg=; b=WEoa2K3ktkNtIlvikxPLh/Ec2Nce1q6IbFIfR
+ yVCthPmovqj9wDKW3kp8leNLEm6KMK/CeJp+lZvtMJfD+KlXfhLY5KFDz1nIXQyd
+ bxm7EgFMQW1rj5mDpYxyiOvW/qlX3c7IyUqf3V5skd9HmqQkrw7G9c4ah2Q+nYiM
+ mbnZEg=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-sasl-enc
- :x-sasl-enc; s=smtpout; bh=uZjY7QULiQtsJAt70CQ3d2k40vw=; b=Wx0hC
- EJPrkLkWirL16MG4SGITAxk/2fkwr8qR26Ckjs+mByTeQIpzI2IPXMVj+TN6gW1C
- qGVTKwGFuoy6ewx46YMsML2grpr7gcWLyqoBn0d4M69gX/Ab/HQV9i7I7pxD7T+g
- Gs7XK0JtIze4LkQy8C8PysCNKAES9m+VTrm84Y=
-X-Sasl-enc: Q9Hnwfc0/2yguZAtEy2m4Vzp7jbsVaP2ysYIN4dUNwjZ 1466660494
+ :x-sasl-enc; s=smtpout; bh=XJVzQesTmfECDVaQFyiERkm5QRg=; b=AMjWD
+ avn9+2HQ3nY74n5cPWLEeebR68duU6zqlmfPFG15v2CXr9MAFycUQ9+gRMBz+QNQ
+ ZFG6AiyTmiWP0nh/5lRz1ULfqxKM4KTITbgzEiXnfCjqfNZvIFP1g+4d5mnCCvcj
+ 9WYuC3DoaIu+uPFXxd2wLkWIucuTI3qneMkAbQ=
+X-Sasl-enc: spTuqqfi4Qjkp1KUqefseuqg1yZgViscm+uetlw6FLxl 1466661004
 Received: from keelia (ppp203-122-213-247.static.internode.on.net
  [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id AB0F7CC01B;
- Thu, 23 Jun 2016 01:41:33 -0400 (EDT)
-Message-ID: <1466660489.23740.60.camel@aj.id.au>
-Subject: Re: [PATCH openbmc v6 12/18] initfs: update: add check for image
- size vs mtd size
+ by mail.messagingengine.com (Postfix) with ESMTPA id 3C54ECCD39;
+ Thu, 23 Jun 2016 01:50:02 -0400 (EDT)
+Message-ID: <1466660998.23740.69.camel@aj.id.au>
+Subject: Re: [PATCH openbmc v6 13/18] initfs: update: add --help message
 From: Andrew Jeffery <andrew@aj.id.au>
 To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-Date: Thu, 23 Jun 2016 15:11:29 +0930
-In-Reply-To: <20160623003038.2361-13-openbmc-patches@stwcx.xyz>
+Date: Thu, 23 Jun 2016 15:19:58 +0930
+In-Reply-To: <20160623003038.2361-14-openbmc-patches@stwcx.xyz>
 References: <20160623003038.2361-1-openbmc-patches@stwcx.xyz>
- <20160623003038.2361-13-openbmc-patches@stwcx.xyz>
+ <20160623003038.2361-14-openbmc-patches@stwcx.xyz>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-4bxTDhq0X35G2rxcxI/I"
+ protocol="application/pgp-signature"; boundary="=-vTGdcoHi2GjWoAiTEi/a"
 X-Mailer: Evolution 3.18.5.2-0ubuntu3 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -58,86 +57,106 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Jun 2016 05:41:38 -0000
+X-List-Received-Date: Thu, 23 Jun 2016 05:50:08 -0000
 
 
---=-4bxTDhq0X35G2rxcxI/I
+--=-vTGdcoHi2GjWoAiTEi/a
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Wed, 2016-06-22 at 19:30 -0500, OpenBMC Patches wrote:
-> From: "Milton D. Miller II" <miltonm@us.ibm.com>
+> From: Milton Miller <miltonm@us.ibm.com>
 >=20
-> The flashcp command will check the file size vs the partition size,
-> so add a check when looking at images.
->=20
-> Use stat -L -c "%s" to get the file size, and compare it to the mtd
-> size from the sysfs size attribute.
->=20
-> If this check is suppressed the enforcement is left to flashcp.
+> Now that update is intended for use at runtime and not just by
+> the init and shutdown scripts, add a short help message listing
+> the options so people don't have to understand how to read shell.
 >=20
 > Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 > ---
 > =C2=A0.../obmc-phosphor-initfs/files/obmc-update.sh=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0| 17 +++++++++++++++++
-> =C2=A01 file changed, 17 insertions(+)
+=A0=C2=A0=C2=A0=C2=A0=C2=A0| 20 +++++++++++++++++++-
+> =C2=A01 file changed, 19 insertions(+), 1 deletion(-)
 >=20
 > diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/f=
 iles/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-i=
 nitfs/files/obmc-update.sh
-> index 22c9dcc..06e0e74 100755
+> index 06e0e74..1dbf65f 100755
 > --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/ob=
 mc-update.sh
 > +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/ob=
 mc-update.sh
-> @@ -48,6 +48,14 @@ childmtds() {
-> =C2=A0	done
-> =C2=A0}
-> =C2=A0
-> +toobig() {
-> +	if test $(stat -L -c "%s" "$1") -gt $(cat /sys/class/mtd/"$2"/size)
-> +	then
-> +		return 0
-> +	fi
-> +	return 1
-> +}
-> +
-> =C2=A0findmtd() {
-> =C2=A0	m=3D$(grep -xl "$1" /sys/class/mtd/*/name)
-> =C2=A0	m=3D${m%/name}
-> @@ -85,6 +93,7 @@ doclean=3D
-> =C2=A0dosave=3Dy
-> =C2=A0dorestore=3Dy
-> =C2=A0toram=3D
-> +checksize=3Dy
-> =C2=A0checkmount=3Dy
-> =C2=A0
-> =C2=A0whitelist=3D/run/initramfs/whitelist
-> @@ -115,6 +124,9 @@ do
-> =C2=A0	--no-flash)
-> =C2=A0		doflash=3D
-> =C2=A0		shift ;;
-> +	--ignore-size)
-> +		checksize=3D
-> +		shift ;;
-> =C2=A0	--ignore-mount)
-> =C2=A0		checkmount=3D
-> =C2=A0		doflash=3D
-> @@ -162,6 +174,11 @@ do
-> =C2=A0		echo 1>&2 "$E Unable to find mtd partiton for ${f##*/}."
-> =C2=A0		exit 1
-> =C2=A0	fi
-> +	if test -n "$checksize" && toobig "$f" "$m"
-> +	then
-> +		echo 1>&2 "$E Image ${f##*/} too big for $m."
-> +		exit 1
-> +	fi
-> =C2=A0	for s in $m $(childmtds $m)
-> =C2=A0	do
-> =C2=A0		if test -n "$checkmount" && mtdismounted $s
+> @@ -103,6 +103,24 @@ E=3D"ERROR:"
+> =C2=A0while test "$1" !=3D "${1#-}"
+> =C2=A0do
+> =C2=A0	case "$1" in
+> +	--help)
+> +		cat <
+> +Usage: $0 [options] -- Write images in /run/initramfs to flash (/dev/mtd=
+*)
+> +=C2=A0=C2=A0=C2=A0=C2=A0--help=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0Show this message
+> +=C2=A0=C2=A0=C2=A0=C2=A0--no-flash	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Don't attempt to write imag=
+es to flash
 
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
---=-4bxTDhq0X35G2rxcxI/I
+Looks like a tab snuck in and is messing up the alignment
+
+> +=C2=A0=C2=A0=C2=A0=C2=A0--ignore-size=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Don't compare image size to mt=
+d device size
+> +=C2=A0=C2=A0=C2=A0=C2=A0--ignore-mount=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Don't check if destination is mounte=
+d
+
+Maybe it is worth adding some words about --ignore-mount also setting
+--no-flash?
+
+> +=C2=A0=C2=A0=C2=A0=C2=A0--save-files=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Copy whitelisted files to s=
+ave directory in RAM
+> +=C2=A0=C2=A0=C2=A0=C2=A0--no-save-files=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Don't copy whitelisted files to save direc=
+tory
+> +=C2=A0=C2=A0=C2=A0=C2=A0--copy-files=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Copy files from save direct=
+ory to rwfs mountpoint
+> +=C2=A0=C2=A0=C2=A0=C2=A0--restore-files=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Restore files from save directory to rwfs =
+layer
+> +=C2=A0=C2=A0=C2=A0=C2=A0--no-restore-files=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0Don't restore saved files from ram to rwfs layer
+> +=C2=A0=C2=A0=C2=A0=C2=A0--clean-saved-files=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0Delete saved whitelisted files from RAM
+> +=C2=A0=C2=A0=C2=A0=C2=A0--no-clean-saved-files=C2=A0=C2=A0=C2=A0=C2=A0Re=
+tain saved whitelisted files in RAM
+
+Hmm, I think we need more words about how copy and restore are
+different - I've forgotten and the documentation isn't making it clear
+to me.
+
+Cheers,
+
+Andrew
+
+> +HERE
+
+> +
+> +	=C2=A0=C2=A0=C2=A0=C2=A0exit 0 ;;
+> +
+> =C2=A0	--no-clean-saved-files)
+> =C2=A0		doclean=3D
+> =C2=A0		shift ;;
+> @@ -135,7 +153,7 @@ do
+> =C2=A0		toram=3Dy
+> =C2=A0		shift ;;
+> =C2=A0	*)
+> -		echo 1>&2 "$E Unknown option $1"
+> +		echo 1>&2 "$E Unknown option $1.=C2=A0=C2=A0Try $0 --help."
+> =C2=A0		exit 1 ;;
+> =C2=A0	esac
+> =C2=A0done
+--=-vTGdcoHi2GjWoAiTEi/a
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
@@ -145,19 +164,19 @@ Content-Transfer-Encoding: 7bit
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAABCgAGBQJXa3aJAAoJEJ0dnzgO5LT5jVQP/0Q3CVLu/DGPR+S7s9Qb6SWV
-7A44f2vOKCOCVxGjkYT+v6cLoD0NSNQvvsIUo+LPFOCgCzKrEkEwOk4JuzwL6Wgl
-EQmq+HS0KRIjA9nhP3ZadzBnKsbbDeq+7jm0JLHhzG2C9rIyVauF/nLA0NVe9H0E
-O/tIAjZ6upsQ/l97N3rT5OLp9wYEEOfCs/QiBcRZbGGDaLbWlO2pTPMDkvBWUgYA
-IBVpFtNsaQwGYYqNM1ZxW18h+M1pZQbS96/DkvPUSpgInbm+TzJVZpp3UW/RbzNi
-jCFwrUD1EO1EsK9nlN4CMXh88x1NLzPbbnEMHoSWyXw94gDnoOJNaRvSu20jy73k
-i4o/elgpnwy7iZe/V/qgl0sv2FxEPseKxdnlJkIl2CeJ75UoweZ7/2icWEy8RQ7w
-cyIpw4ZVSg/wiiYvI/ZxI78KxPn8/5fIN3SeiEbPKKnf3DKHjk1tO3c8lZK5Ecr8
-efWcEOuA47YcKmlr979exj1ZinK9RERUhuWfDXMrbVxNxDQYx4IE4qDusy5okv6i
-NNO+oTQ7WYIacIwPCnnnw9aYjrIEojEJ/qrmOY4HnW7slUjPXvsyZFy3Xig1Kwfz
-VbPdbh6eYOEfy8Av3gbbZivsK6PQm5RmNnCa2vi0rs2ALlheAlAUjm1v0DQXPeT/
-cdHBSrF5mA2cKr3ojFOv
-=Ll4+
+iQIcBAABCgAGBQJXa3iGAAoJEJ0dnzgO5LT53/UP/25BIIrEv7yomy8DIe5QPbp2
+6iR751VdL6YTEmGbzVttLMflbUdHoU21zWYjOjfgZSPdta2s8gkj0L7wd7rvJ3ww
+ukhk1sGj9OI2MNXI3/CdBO7vihZ8kxBeSiXEGdEuGrlP4nc+rxbHkZc/SVs+RWuh
+c5kKlHL1Dk/vtzr74nsKRp0rLFi+AH2hlaW4ocED018MCdgUz10KupNfk6OwfYhg
+CWb8e+HRGXXuLudd1Qz7+0cKA1Ls3MOonzHKPcjpEfcwVE70gIHqRF8SqNpTMviE
+vj5U3B1ckNjmSKSfXpugOelt+nddGaE8seDWlSfs2BGOZuwQXzNxk4yQsJPrzAG+
++yaonUmjEeTK7J4/pUbLNVa+S+wjKymM31IvUVthmRKrHXFvjTVD4GTBR8rkOM/Y
+gGdGjSmpnuWCDyHDFelPMLznfw5fpwSONyRQYhXPAE01qSii2Ljw32XYrwC2T5mW
+0iudzKY+uIyKqWEz8YGVWPeILBOpgmPr+XVpE4tq6+ovTTM8uS7YCjkTg+3wUxoX
+F8duROgP93bHGnHmrXpqb5N+slH7D3F96+dlPXPFeGodTD5WarioJ+M6a6CmTfkE
+i3H0d8upmJO+YdAlEmv3wr/T4HCWK901wma+m3Y0FSPk77XxrRFkpulo2dof6w3C
+BFhpXoLn5/4VrdA12lcw
+=PoE2
 -----END PGP SIGNATURE-----
 
---=-4bxTDhq0X35G2rxcxI/I--
+--=-vTGdcoHi2GjWoAiTEi/a--
