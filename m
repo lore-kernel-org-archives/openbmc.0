@@ -1,51 +1,50 @@
 Return-Path: <andrew@aj.id.au>
-X-Greylist: delayed 340 seconds by postgrey-1.35 at bilbo;
- Thu, 23 Jun 2016 13:43:01 AEST
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=DXj34MAw; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=cqjH5PRB; dkim-atps=neutral
 Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
  [66.111.4.221])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rZnNj3VH4zDqhc
- for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 13:43:01 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.nyi.internal (Postfix) with ESMTP id 3813BB7B;
- Wed, 22 Jun 2016 23:37:17 -0400 (EDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rZp336R5WzDqhc
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 14:12:47 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=iwohGhdz; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b=qFxysDVg; dkim-atps=neutral
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 1A25FBEE;
+ Thu, 23 Jun 2016 00:12:45 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Wed, 22 Jun 2016 23:37:17 -0400
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
- content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=cS/I5
- QqMPoVC0crkuxY9yluE27I=; b=DXj34MAwIscrufJoFXBfNC99OS44+YkBnLCH/
- CZMwvCBWQxy5bjYR1oQMoyRFEoiKciaT7O2X2oukfxsXqQdYgSRKLkecyLwGZKGY
- TSbAIxKfui8beP47AHkwRtYvrJgWzr4rKFho1ZXTI5uZs7G17z1YsGU4XIXwiQGD
- QXvMRA=
+ by compute7.internal (MEProxy); Thu, 23 Jun 2016 00:12:45 -0400
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=K0AAE
+ zs6DyhZFyhE4H3aksO95eM=; b=iwohGhdzHfBoQjrzFVQqL0Uilzn63QZs1lkPo
+ 8NVj18QorV4IqBX2VsEdtIhOtD8D6Dyt/7ykqjOE1RUW2sotKS6lSmxUaNH+I1eu
+ qPfuz3MUJOwysJ7QTPKz7OJJOjW7BKv09HaxI7/3qQJHxO5rRJH6S3o9MCob02EH
+ 0qbQe8=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-sasl-enc
- :x-sasl-enc; s=smtpout; bh=cS/I5QqMPoVC0crkuxY9yluE27I=; b=cqjH5
- PRBzMZLfzeFfm5xE7JWclMGiKiL+CPaP+AiuLlOG+s3BoW6nTeUBGbf+vzt4ZSby
- xYdvcZLRyCwjchpGzYA7XnmJn0F9cOZfF2lPpIdO37ZngW3SAbWWjBgCwlpd6201
- 7l059n6a9uzB6RmqPji50SObJjlxIcEfI+2Lu4=
-X-Sasl-enc: /uRA+t2KTKCKtjqhyPmaqXdEk1zCRb46sc2YfTp3PXbH 1466653035
+ :x-sasl-enc; s=smtpout; bh=K0AAEzs6DyhZFyhE4H3aksO95eM=; b=qFxys
+ DVgUgASBGKzTSvlvVSIaErI4covxO+g383QCV/UIaKAnDG/i0kkEfYKdaT0oKFxF
+ o3pqdUOaT/RZwhV+n57bsTA4Z9fLwluPH0VWHahWQMI0SZaA6PPsNDsZy2SFpZ1m
+ vrYfCMlQOtvQGZvSPNhwf/ozhb/g3XZ1kZWc4U=
+X-Sasl-enc: pSQ6i7yOjzv6Cxv9D6GctS6goYnV9T8WMg0RKszz0Zk+ 1466655163
 Received: from keelia (ppp203-122-213-247.static.internode.on.net
  [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 36974CCDA6;
- Wed, 22 Jun 2016 23:37:14 -0400 (EDT)
-Message-ID: <1466653030.23740.28.camel@aj.id.au>
-Subject: Re: [PATCH openbmc v6 00/18] Update flash update to be useable at
- runtime.
+ by mail.messagingengine.com (Postfix) with ESMTPA id A7DBECC078;
+ Thu, 23 Jun 2016 00:12:41 -0400 (EDT)
+Message-ID: <1466655157.23740.36.camel@aj.id.au>
+Subject: Re: [PATCH openbmc v6 01/18] Add pflash parallel build fix patch
 From: Andrew Jeffery <andrew@aj.id.au>
 To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-Date: Thu, 23 Jun 2016 13:07:10 +0930
-In-Reply-To: <20160623003038.2361-1-openbmc-patches@stwcx.xyz>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, miltonm@us.ibm.com
+Date: Thu, 23 Jun 2016 13:42:37 +0930
+In-Reply-To: <20160623003038.2361-2-openbmc-patches@stwcx.xyz>
 References: <20160623003038.2361-1-openbmc-patches@stwcx.xyz>
+ <20160623003038.2361-2-openbmc-patches@stwcx.xyz>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-/nhToWvhVCAnEH29+7wM"
+ protocol="application/pgp-signature"; boundary="=-3mNxFGgEG7Pt5sVa1fUf"
 X-Mailer: Evolution 3.18.5.2-0ubuntu3 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -59,73 +58,99 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Jun 2016 03:43:03 -0000
+X-List-Received-Date: Thu, 23 Jun 2016 04:12:48 -0000
 
 
---=-/nhToWvhVCAnEH29+7wM
+--=-3mNxFGgEG7Pt5sVa1fUf
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Milton,
-
 On Wed, 2016-06-22 at 19:30 -0500, OpenBMC Patches wrote:
-> The underlying storage for a file system can not be updated when it is in=
- use.=C2=A0=C2=A0The initial solution was to update the flash as the system=
- was being shutdown, with output to the console.
+> From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 >=20
-> Updates were made to the init script that allows the flash to not be used=
- for a given boot but the update script was not enhanced to make this user =
-friendly, and no documentation was provided to prepare the system for this =
-mode.
+> This resolves https://github.com/openbmc/openbmc/issues/325
 >=20
-> This series partially addresses #293 by enhancing the update script to
-> 1. provide more fine grained checks on update conflicts allowing use at r=
-untime
-> 2. provide additional checks that would cause failure to flash
-> 3. provide user help and consistent tagging of error output
-> 4. provide an error return code if the checks fail
->=20
-> In addition the series provides
-> * A fix to properly assemble the flash image, filling with `0xff` charact=
-ers as intended.
-> * A cleanup to the build recipe and naming.
-> * A diagnostic message to shutdown if the update did not remove a file in=
-dicating it was successful.
-> * A method to build `init-options-base` into the initramfs providing opti=
-ons to `init` while allowing additional sources of options like the kernel =
-command line.=C2=A0
-> * A self containted image `initramfs-netboot.cpio.u-boot` for loading ove=
-r the network.
->=20
-> These last two are intended to ease creating images for alternate network=
- based deployment and testing, easing the use of the features and options a=
-lready in the `init` script.
->=20
->=20
-> ---
-> This change is [https://reviewable.io/review_button.svg" height=3D"35" al=
-ign=3D"absmiddle" alt=3D"Reviewable"/>](https://reviewable.io/reviews/openb=
-mc/openbmc/297)
->=20
->=20
->=20
-> https://github.com/openbmc/openbmc/pull/297
->=20
-> Brad Bishop (3):
-> =C2=A0 Add pflash parallel build fix patch
-> =C2=A0 Remove unnecessary skeleton dependencies
-> =C2=A0 Removed unused host-ipmid-bt application
->=20
-> Milton D. Miller II (9):
-...
-> Milton Miller (6):
+> Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
-Nit pick: Probably worth reconfiguring git to use a consistent user.name.
-
-Cheers,
+Brad's sent this to the skiboot list, maybe we should just hold off
+until it's submitted there and drop this patch from the series?
 
 Andrew
---=-/nhToWvhVCAnEH29+7wM
+
+> ---
+> =C2=A0.../common/recipes-bsp/pflash/pflash.bb=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0|=C2=A0=C2=A01 +
+> =C2=A0...-Fix-ARM-build-failure-with-parallel-make.patch | 28
+> ++++++++++++++++++++++
+> =C2=A02 files changed, 29 insertions(+)
+> =C2=A0create mode 100644 meta-openbmc-machines/meta-
+> openpower/common/recipes-bsp/pflash/pflash/0007-external-Fix-ARM-
+> build-failure-with-parallel-make.patch
+>=20
+> diff --git a/meta-openbmc-machines/meta-openpower/common/recipes-
+> bsp/pflash/pflash.bb b/meta-openbmc-machines/meta-
+> openpower/common/recipes-bsp/pflash/pflash.bb
+> index 496e900..ec43b4f 100644
+> --- a/meta-openbmc-machines/meta-openpower/common/recipes-
+> bsp/pflash/pflash.bb
+> +++ b/meta-openbmc-machines/meta-openpower/common/recipes-
+> bsp/pflash/pflash.bb
+> @@ -11,6 +11,7 @@ SRC_URI +=3D "file://0003-external-Fix-pflash-install
+> -target.patch"
+> =C2=A0SRC_URI +=3D "file://0004-external-Remove-m64-from-shared-CFLAGS-on=
+-
+> ARM.patch"
+> =C2=A0SRC_URI +=3D "file://0005-external-Create-shared-rules.mk.patch"
+> =C2=A0SRC_URI +=3D "file://0006-external-Add-dynamically-linked-
+> pflash.patch"
+> +SRC_URI +=3D "file://0007-external-Fix-ARM-build-failure-with-
+> parallel-make.patch"
+> =C2=A0
+> =C2=A0LIC_FILES_CHKSUM =3D
+> "file://${S}/LICENCE;md5=3D3b83ef96387f14655fc854ddc3c6bd57"
+> =C2=A0
+> diff --git a/meta-openbmc-machines/meta-openpower/common/recipes-
+> bsp/pflash/pflash/0007-external-Fix-ARM-build-failure-with-parallel-
+> make.patch b/meta-openbmc-machines/meta-openpower/common/recipes-
+> bsp/pflash/pflash/0007-external-Fix-ARM-build-failure-with-parallel-
+> make.patch
+> new file mode 100644
+> index 0000000..a9d219c
+> --- /dev/null
+> +++ b/meta-openbmc-machines/meta-openpower/common/recipes-
+> bsp/pflash/pflash/0007-external-Fix-ARM-build-failure-with-parallel-
+> make.patch
+> @@ -0,0 +1,28 @@
+> +From 55749b091414e0cf2691bd8f72c4cb48235b51c3 Mon Sep 17 00:00:00
+> 2001
+> +From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+> +Date: Mon, 20 Jun 2016 20:31:07 -0400
+> +Subject: [PATCH] external: Fix ARM build failure with parallel make
+> +
+> +Arch headers need to be linked in before compiling.
+> +
+> +Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+> +---
+> + external/common/rules.mk | 2 +-
+> + 1 file changed, 1 insertion(+), 1 deletion(-)
+> +
+> +diff --git a/external/common/rules.mk b/external/common/rules.mk
+> +index 5558cd3..bb12fd5 100644
+> +--- a/external/common/rules.mk
+> ++++ b/external/common/rules.mk
+> +@@ -67,7 +67,7 @@ arch_clean:
+> +=C2=A0
+> + $(ARCH_SRC): | common
+> +=C2=A0
+> +-$(ARCH_OBJS): common-%.o: common/%.c
+> ++$(ARCH_OBJS): common-%.o: common/%.c $(ARCH_LINKS)
+> +=C2=A0	$(Q_CC)$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+> +=C2=A0
+> + common-arch_flash.o: $(ARCH_OBJS)
+> +--=C2=A0
+> +1.8.3.1
+> +
+--=-3mNxFGgEG7Pt5sVa1fUf
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
@@ -133,19 +158,19 @@ Content-Transfer-Encoding: 7bit
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAABCgAGBQJXa1lmAAoJEJ0dnzgO5LT5HWQQAIA/Kp47aLbp/C1dsswRtzrC
-RPnHUnKtaVdiUn+vAcVhtDjv3yKAJfH4s+kNtlM879GQQsSqehdjR6lsbSxxLZ9R
-HoS0yowM2mKBjHEG+jMAlDaPobBy77LraeIlyd8UcBgYv7RSTglo2RlYlFGx/J6Y
-x7N0kPbD9aNAfVN7mSV3rJxjf64CxRYE+L+fQzyUL9aThHRYMGVKUwZgz7YYC8Qq
-uMf7XcTQ6dsU9aKbFYyJ9xZFFHJl3t6NoVKDQWn0xekb3rFMJUq7ywGDetiJ9dyQ
-NJ7CJYr3tpX4IYCXaUIufJwPN3CTVXqMi+vPRk45tqGBqI6m/cdvfmUkzdZunlji
-w6AbLIbSoZM8b7WQWYNFG+1ui+B+75xhL1x65Fo1pUxT/bjMAmf53s3N8rSKxpdR
-Z05NqUpG9OSRfvEByK17pavQFTX3emkx5CpmcMgnozTFa6yIMNso68PuU2cd3Ydg
-hZq8vlnXv1Rdlqn/88t/7K4zVIZPiBgcVt1eg4Ilvt3VDyWvgzuqLQuWMU8WvPrQ
-3cHx9Wnk6fqyl9r0kUJzCa/LWP0zMbx4tRV1TROr3LFmBycOIVMl+ybj9cHexe9F
-OHRmyjFLTd/GE13c1jQJwf5Xaoe7t/6+GxT/7Gvtl3SUYvAdrjq6WS5+ETOjcbjd
-QokNNs8eJ1zys0kfUg6K
-=YuNi
+iQIcBAABCgAGBQJXa2G1AAoJEJ0dnzgO5LT5qEMQAJH/vZbJnPVIT8Nq/r0t/y0N
+nmGspad2HsaMHvFy/WcTUa6hljjncnqCyjOnLDKAnth7auM0DyR7TyuYnxvPak6l
+gW54x0LSqDscKUjaPDiiJn9wIM4E2ypzphKtWDEmBlrqM/2iuLeeb6Y8rBB7I6S6
+O6a/H97YPGjneUbL+dyl9F6GBq1qxl6xDYWb2+V1uyRAi+xsV1Kf9f6gg+kQvXHf
+fdxsAwD9X2qr9FCZoub7yOR4Cl1DRLtubm0eGPD7flzryeL/H/acWUS9D1vptRcL
+vR/2LLr6SMYzI24IRnOYx10DubuTCz9GRPYtkZTrIU4t+ocPFp/4xoZ3nuFJGphl
+Hw9O+NPe8841g0fDr/uS3DGTyMaUT6sQYqaIFl+kblDp/jtr/LCmQCMft3YRa6Qg
+pVnhi3fvlZNWRbruQTan8NBzdBiu3ZXbGnD9606LlxhzHTnPmD2ohanQqYthsg7C
+DV3/trHxjMeJhA25Cfb136GlhyE7ll5YhFtftLt43dLVEWCvUAUuTXACkqQa4920
+CdzFOOkFgvWeUkN8+JC9GZR4Oos3zIwKdlrmiEGa2o1ySjohtOf/V+o/smazV9AJ
+NqZnADnF6e3HU1jWcdn+YVBQyg4sWM1WPCP1WL5GVszwDH4WgblCtWs6+8/cfOAM
+zkIhD6XEn7B8h5ocZ4zy
+=FTVb
 -----END PGP SIGNATURE-----
 
---=-/nhToWvhVCAnEH29+7wM--
+--=-3mNxFGgEG7Pt5sVa1fUf--
