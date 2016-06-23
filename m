@@ -3,17 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rZjLq4V1DzDqZc
- for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 10:41:07 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rZjLs0N89zDqZc
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 10:41:08 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466642461978579.2489781797022;
- Wed, 22 Jun 2016 17:41:01 -0700 (PDT)
+ with SMTPS id 1466642464069703.8618748005797;
+ Wed, 22 Jun 2016 17:41:04 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH skeleton 0/2] Flash bmc updates
-Date: Wed, 22 Jun 2016 19:40:58 -0500
-Message-Id: <20160623004100.2967-1-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton 1/2] bmc_update: save runtime modified u-boot
+ environment
+Date: Wed, 22 Jun 2016 19:40:59 -0500
+Message-Id: <20160623004100.2967-2-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
+In-Reply-To: <20160623004100.2967-1-openbmc-patches@stwcx.xyz>
+References: <20160623004100.2967-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -25,28 +28,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Jun 2016 00:41:08 -0000
+X-List-Received-Date: Thu, 23 Jun 2016 00:41:10 -0000
 
-These are the initial two patches to the BMC flash update REST code that will increase reliability and make utility of the update process.  These are in preparation to address openbmc/openbmc#293.
+From: Milton Miller <miltonm@us.ibm.com>
 
-1. The u-boot environment was copying the raw flash for update, which would interfere with actually applying a mac address via rest and with setting or clearing the one-time boot overrides.
+Copy the version saved by our initfs and pointed to by our fw_setenv
+tools via /etc/fw_setenv.  Do this copy by default.
 
-2. Prepare for the whitelist to be split, and do not error if the whitelist was previously removed.  The old behavior would cause an error state if the whitelist had been removed by a previous update application in the current boot.
+The /etc/fw_env.cnf config file points to /run/fw_env in our systems.
 
-<!-- Reviewable:start -->
+The bmc_update object was copying /dev/mtd2.  That could be very
+system specific, and it misses any changes made from elsewhere
+in the system.
+
+This variable causes the u-boot environment to be written back
+after writing the whole image.  This will save the ethernet mac
+which for systems which don't store it elsewhere.
+
+Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/skeleton/111)
-<!-- Reviewable:end -->
+ pyflashbmc/bmc_update.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-
-https://github.com/openbmc/skeleton/pull/111
-
-Milton Miller (2):
-  bmc_update: save runtime modified u-boot environment
-  bmc_update: allow whitelist to be files in a directory
-
- pyflashbmc/bmc_update.py | 26 +++++++++++++++++++++++---
- 1 file changed, 23 insertions(+), 3 deletions(-)
-
+diff --git a/pyflashbmc/bmc_update.py b/pyflashbmc/bmc_update.py
+index 9fa54ac..cd2f3c1 100644
+--- a/pyflashbmc/bmc_update.py
++++ b/pyflashbmc/bmc_update.py
+@@ -32,7 +32,7 @@ class BmcFlashControl(DbusProperties,DbusObjectManager):
+ 		
+ 		self.Set(DBUS_NAME,"status","Idle")
+ 		self.Set(DBUS_NAME,"filename","")
+-		self.Set(DBUS_NAME,"preserve_network_settings",False)
++		self.Set(DBUS_NAME,"preserve_network_settings",True)
+ 		self.Set(DBUS_NAME,"restore_application_defaults",False)
+ 		self.Set(DBUS_NAME,"update_kernel_and_apps",False)
+ 		self.Set(DBUS_NAME,"clear_persistent_files",False)
+@@ -114,7 +114,7 @@ class BmcFlashControl(DbusProperties,DbusObjectManager):
+ 				os.unlink(UPDATE_PATH+"/whitelist")
+ 			if (self.Get(DBUS_NAME,"preserve_network_settings") == True):
+ 				print "Preserving network settings"
+-				shutil.copy2("/dev/mtd2",UPDATE_PATH+"/image-u-boot-env")
++				shutil.copy2("/run/fw_env",UPDATE_PATH+"/image-u-boot-env")
+ 				
+ 		except Exception as e:
+ 			print e
 -- 
 2.9.0
