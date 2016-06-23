@@ -1,57 +1,19 @@
-Return-Path: <xow@google.com>
-Received: from mail-pf0-x232.google.com (mail-pf0-x232.google.com
- [IPv6:2607:f8b0:400e:c00::232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <openbmc-patches@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rb8TF1rmBzDq60
- for <openbmc@lists.ozlabs.org>; Fri, 24 Jun 2016 04:03:12 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=OXOa5ZLH; 
- dkim-atps=neutral
-Received: by mail-pf0-x232.google.com with SMTP id i123so30897311pfg.0
- for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 11:03:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=to:references:subject:in-reply-to:from:message-id:date:user-agent
- :mime-version:content-transfer-encoding;
- bh=K2Q8B84a/n/T961WUtgc8wDGXIdvr8oRLB9OJWhAs1g=;
- b=OXOa5ZLH9fhqVuk/ky69TJjBvr92xZwwrHDonQCrrCbhjcnC5L6RB7AqmESWGQygiB
- WGrtBEGV2zi/R63VmbbQDQqD8FwtdAvyEZBcyH0LDVdHmIbuB+yaDbvTLEgPwRjgK8B3
- GnD274w5lWVyVmWSIlb6HAaQCqDdBZUBD3+miXd5OZQJS24LBFytZ0wZsu1qu0QjiEAZ
- x1y6LdRI3P5bb7Pypbra1b4gffzp5A3tPMt8YChdTwvaNMKLTgmzvAeC9FOoy1viut59
- 8/C3VsbqnfH+6Ymea4z61PYkZGQPf0WEQx/iRZwTO+dt5OWVCJavdVioAU4d0ADzVPlt
- kf3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:to:references:subject:in-reply-to:from
- :message-id:date:user-agent:mime-version:content-transfer-encoding;
- bh=K2Q8B84a/n/T961WUtgc8wDGXIdvr8oRLB9OJWhAs1g=;
- b=F0ehH+Dye6Z/n+zpP6QNfJe8BcCOW/y/oOJzqQ17zbHXOb6TivpSWqrlI+7vcUCqcY
- SkOmdAxV4KTM/Vvcn4qS4vK6Lr1E/yXIwMMxKnmgjZzfCG6290X51bok5QekuPlDSbyA
- nDO74sEncQvDxEAAmq6TEN7IDraYjoychMqM7OjquOE0G5QIOuA5wJL+Jo7DtQhox2bO
- N+eOP2yJcDv9TKsGA8iSMGaD0BFJinkJ3KhIHZjoKen8ZcZDHG1bfTRTRiDoXNRdnEr9
- Ik75HFZ7MvuYa6z0m914hMgeRkDVJllyBD/Efp64L9LVNdMtKsxMiBkBJocDNMyLAgqA
- SGxA==
-X-Gm-Message-State: ALyK8tKsI2gKPcMimnxy/SwTL3ilzem+SknURBek+T42I9B8i1Bjbjv31pXggfITUFoJ2xtM
-X-Received: by 10.98.39.68 with SMTP id n65mr5605510pfn.153.1466704990118;
- Thu, 23 Jun 2016 11:03:10 -0700 (PDT)
-Received: from pewter.mtv.corp.google.com
- ([2620:15c:202:0:1545:4687:d697:25fd])
- by smtp.gmail.com with ESMTPSA id 64sm1559897pfj.96.2016.06.23.11.03.09
- for <openbmc@lists.ozlabs.org>
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 23 Jun 2016 11:03:09 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rbCyw200XzDqlj
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Jun 2016 06:40:39 +1000 (AEST)
+Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
+ with SMTPS id 1466714434678359.99961275589123;
+ Thu, 23 Jun 2016 13:40:34 -0700 (PDT)
+From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-References: <CAPLgG=kfYKVxnd1k2sEdz_sW7kLoV4ZnkDYZKkztiM9=ATcrqA@mail.gmail.com>
-Subject: Re: [PATCH] aspeed/ast-g5: Simplify default bootargs
-In-Reply-To: <CAPLgG=kfYKVxnd1k2sEdz_sW7kLoV4ZnkDYZKkztiM9=ATcrqA@mail.gmail.com>
-From: Xo Wang <xow@google.com>
-Message-ID: <576C2457.1090606@google.com>
-Date: Thu, 23 Jun 2016 11:03:03 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
- Thunderbird/38.8.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [PATCH openbmc v5 00/11] Phosphor changes needed for Yocto 2.1
+Date: Thu, 23 Jun 2016 15:40:22 -0500
+Message-Id: <20160623204033.13165-1-openbmc-patches@stwcx.xyz>
+X-Mailer: git-send-email 2.9.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -63,13 +25,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Jun 2016 18:03:14 -0000
+X-List-Received-Date: Thu, 23 Jun 2016 20:40:41 -0000
+X-List-Received-Date: Thu, 23 Jun 2016 20:40:41 -0000
 
- > I believe Xo sent a PR with the same patch.  I
- > prefer to drop my patch and follow up on his.
 
-Joel et al had included a bootargs change in their new unified U-Boot 
-branch so I dropped my PR too.
 
-cheers
-//xo
+<!-- Reviewable:start -->
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/397)
+<!-- Reviewable:end -->
+
+
+https://github.com/openbmc/openbmc/pull/397
+
+Brad Bishop (1):
+  Fix systemd packageconfig
+
+Patrick Williams (10):
+  meta-phosphor: Use obmc-phosphor-event for qemu systems
+  meta-phosphor: use obmc-phosphor-user for qemu systems
+  meta-phosphor: Remove unused systemd patch
+  meta-phosphor: Make image-overlay an optional feature
+  meta-phosphor: Ensure INITRAMFS_CTYPE defined
+  obmc-phosphor-image: Improper use of DATETIME
+  btbridged: Change how kernel-source depend is specified
+  u-boot-fw-utils: Update to latest version.
+  u-boot: Upgrade AST2400 machines to 2016.15 tree.
+  u-boot: Remove unused 2013.07 packages.
+
+ .../meta-ast2400/conf/machine/include/ast2400.inc  |    6 +-
+ ...013.07%.bbappend => u-boot-fw-utils_%.bbappend} |    1 -
+ ...{u-boot_2013.07%.bbappend => u-boot_%.bbappend} |    1 -
+ .../meta-firestone/conf/machine/firestone.conf     |    2 +-
+ .../meta-garrison/conf/machine/garrison.conf       |    2 +-
+ .../meta-palmetto/conf/machine/palmetto.conf       |    2 +-
+ .../meta-barreleye/conf/machine/barreleye.conf     |    2 +-
+ .../recipes-bsp/u-boot/u-boot_2013.07%.bbappend    |    3 -
+ meta-phosphor/classes/obmc-phosphor-image.bbclass  |   15 +-
+ .../obmc-phosphor-image_types_uboot.bbclass        |    2 +
+ .../recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb  |   55 -
+ .../recipes-bsp/u-boot/u-boot-fw-utils_2016.05.bb  |    4 +-
+ .../common/recipes-bsp/u-boot/u-boot_2013.07.bb    |   23 -
+ .../common/recipes-bsp/u-boot/u-boot_2016.05.bb    |    4 +-
+ .../images/core-image-minimal-initramfs.bbappend   |    1 +
+ .../0100-systemd_networkd_dbus_setaddress.patch    | 1209 --------------------
+ .../common/recipes-core/systemd/systemd_%.bbappend |    4 +-
+ .../recipes-phosphor/host-ipmid/btbridged.bb       |    2 +-
+ .../conf/machine/include/obmc-bsp-common.inc       |    2 +-
+ meta-phosphor/conf/machine/include/sample.inc      |    4 +-
+ 20 files changed, 29 insertions(+), 1315 deletions(-)
+ rename meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/{u-boot-fw-utils_2013.07%.bbappend => u-boot-fw-utils_%.bbappend} (90%)
+ rename meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/{u-boot_2013.07%.bbappend => u-boot_%.bbappend} (71%)
+ delete mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-bsp/u-boot/u-boot_2013.07%.bbappend
+ delete mode 100644 meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb
+ delete mode 100644 meta-phosphor/common/recipes-bsp/u-boot/u-boot_2013.07.bb
+ delete mode 100644 meta-phosphor/common/recipes-core/systemd/systemd/0100-systemd_networkd_dbus_setaddress.patch
+
+-- 
+2.9.0
