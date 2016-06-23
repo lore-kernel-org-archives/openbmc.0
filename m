@@ -1,55 +1,35 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-qk0-x242.google.com (mail-qk0-x242.google.com
- [IPv6:2607:f8b0:400d:c09::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <clg@kaod.org>
+X-Greylist: delayed 474 seconds by postgrey-1.35 at bilbo;
+ Fri, 24 Jun 2016 03:08:59 AEST
+Received: from 15.mo1.mail-out.ovh.net (15.mo1.mail-out.ovh.net
+ [188.165.38.232])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rb37m3sMVzDqlW
- for <openbmc@lists.ozlabs.org>; Fri, 24 Jun 2016 00:02:44 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=csrq8MZB; 
- dkim-atps=neutral
-Received: by mail-qk0-x242.google.com with SMTP id j2so16028907qkf.1
- for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 07:02:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=wNLzgDrDtKSIDtKUn1fHszO/uvvB2/E44zjb0HcP2ns=;
- b=csrq8MZBLiznvo0d1bqfbn0vTmWPzphx4VmeV5LcLTky0x5ViAZYytbMjhKk1h2zzH
- kf6dpJQeuCCTRvGqVfvuPIzYjy0CzdpMEzylnoIPNnBeZ/weOMDW8rWUjYgqP9y9Dji+
- oILRE6J497bM8bSUm/ff3EoVDXnnDi5z+NPSqpS7FpF8ZxZgJ8Ka/Uj2VYH9gDCd/JLL
- KW2DEQkFJEL0tUGkgxrJ6mMQQKFmx/FPKjEk3HfVJnFWVHxZZ6GbxRhhbSoODR02DISy
- xIbng1z+hmacokizXBk/jHqzdt4eSqXR7NWfKon6dn3tyVV6mDg6uPgAuL4Q0RNBYZdK
- T6oQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=wNLzgDrDtKSIDtKUn1fHszO/uvvB2/E44zjb0HcP2ns=;
- b=VnmNkKpN8TNzPFzswSgRa06Zw4ByMvoLMRYI4pSOetAsFZRomPgy2p57TIwNxqv6en
- lj3BhlsDm12knfQGVcNggxqtJB/eo5FNT/+sxy3X52A3ASseJxC52YM1z4rWdCMIMwaz
- Iyk/b9F/A1Zhul/cjk1jQBz49gRUpfXqpPRuezr1OnUMYsAql9REfV4bZ2g+ja/6olZw
- agEihysG4b/j6qiA4M6Eviw9EZ7nFqG+IRRux77WAPX7ZaTCvjaFMtlqa4DadxLOgNhP
- kEUPSy2E94Sd5yT2/nz6+pM0eA8Dyvlq1pAGMbP9hK25RNSbUQ/AArKWJlcFRN60W9Pj
- oJiA==
-X-Gm-Message-State: ALyK8tIo6ZJUhY25k5acDXO/cu12kSP1nEh3XiQs5k0ruc4C+kcHwwPwBoO7QQEomSVN4NPBIlwn0BfrWA2Ljw==
-X-Received: by 10.200.39.237 with SMTP id x42mr35555391qtx.75.1466690559276;
- Thu, 23 Jun 2016 07:02:39 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rb7Gg6x9bzDq60
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Jun 2016 03:08:59 +1000 (AEST)
+Received: from player758.ha.ovh.net (b7.ovh.net [213.186.33.57])
+ by mo1.mail-out.ovh.net (Postfix) with ESMTP id AAEDDFF8F54
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 19:01:00 +0200 (CEST)
+Received: from [192.168.124.3] (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: clg@kaod.org)
+ by player758.ha.ovh.net (Postfix) with ESMTPSA id EDEC52C0073;
+ Thu, 23 Jun 2016 19:00:57 +0200 (CEST)
+Subject: Re: [PATCH qemu 00/12] SMC and network support
+To: openbmc@lists.ozlabs.org
+References: <1464556805-4340-1-git-send-email-clg@kaod.org>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <c3003f09-8281-d22a-eeb9-6ef126a39192@kaod.org>
+Date: Thu, 23 Jun 2016 19:00:56 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Icedove/45.1.0
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.237.37.148 with HTTP; Thu, 23 Jun 2016 07:02:18 -0700 (PDT)
-In-Reply-To: <OF25FAD433.8D8FCEB7-ON00257FD9.005434D4-86257FD9.005463AC@notes.na.collabserv.com>
-References: <OF25FAD433.8D8FCEB7-ON00257FD9.005434D4-86257FD9.005463AC@notes.na.collabserv.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 23 Jun 2016 23:32:18 +0930
-X-Google-Sender-Auth: vg2-amwQa_LvcxjnQvptOJOM0Rc
-Message-ID: <CACPK8XdEotyHJspAERNXuU-_j7cwL0Xht9rwY7sTMbftoWxDBw@mail.gmail.com>
-Subject: Re: [PATCH linux] FSI: Initial stubs for device driver
-To: Christopher Bostic <cbostic@us.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Reed B Frandsen <rfrandse@us.ibm.com>, 
- Edward James <eajames@us.ibm.com>, Alistair Popple <alistair@popple.id.au>, 
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, Jeremy Kerr <jk@ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <1464556805-4340-1-git-send-email-clg@kaod.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 1570630371421883347
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -77
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeltddrtdeigdeliecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenfghrlhcuvffnffculddvfedm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -61,211 +41,105 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Jun 2016 14:02:45 -0000
+X-List-Received-Date: Thu, 23 Jun 2016 17:09:00 -0000
 
-Hi Chris,
+Hello,
 
-Thanks for the patch, it's a good first step.
 
-In the future you will need to use a real SMTP server with git
-send-email to submit your patches. Notes doesn't quite do the trick.
-I'll ping you with some suggestions.
+On 05/29/2016 11:19 PM, Cédric Le Goater wrote:
+> 
+> The following patchset adds to the qemu palmetto-bmc platform initial
+> support for the AST2400 SMC controllers and for the FTGMAC100 network
+> adapter. The device models don't implement all the features the HW
+> proposes but they are complete enough to run OpenBMC on a qemu guest.
+> 
+> To boot one, use the following command line :
+> 
+>   $ qemu-system-arm -m 256 -M palmetto-bmc -nographic -nodefaults  \
+> 	-mtdblock ./flash-palmetto-20160512040959  \
+> 	-mtdblock ./palmetto.pnor 
+> 	-net nic -net user,hostfwd=:127.0.0.1:2222-:22,hostname=qemu
+> 	
+> or, if you have a libvirt bridge, you can tie the nic to it :
+> 	
+> 	-net nic,macaddr=C0:FF:EE:00:00:02,model=ftgmac100 \
+> 	-net bridge,id=net0,helper=/usr/lib/qemu/qemu-bridge-helper,br=virbr0 
+> 
+> The first block device uses the file './flash-palmetto-20160512040959'
+> which will act as a SPI flash module for the BMC, handled by the
+> SMC/FMC controller. The second block device uses the file
+> './palmetto.pnor' which is an OpenPower firmware image for a palmetto
+> OpenPower system. This one will be handled by the SMC/SPI controller.
+> 
+> 
+> Code is based on Andrew's qemu and the full tree can be found here
+> 
+>     https://github.com/legoater/qemu/commits/aspeed
+> 
+> Flash images can be grabbed here :
+> 
+>     https://openpower.xyz/job/openbmc-build/distro=ubuntu,target=palmetto/lastSuccessfulBuild/artifact/images/palmetto/flash-palmetto
+>     https://openpower.xyz/job/openpower-op-build/distro=ubuntu,target=palmetto/lastSuccessfulBuild/artifact/images/palmetto.pnor
 
-On Wed, Jun 22, 2016 at 12:51 AM, Christopher Bostic <cbostic@us.ibm.com> wrote:
->
-> From: Christopher Bostic <cbostic@us.ibm.com>
-> Date: Thu, 9 Jun 2016 13:42:59 -0500
->
-> Initial FSI device driver stubs
+Here is a quick update as I just did a rebase of my branch on mainline qemu 
+(commit c7288767523f) :
 
-When writing commit messages it's convention to indicate the area of
-the kernel that they touch. In this case you might do:
+	https://github.com/legoater/qemu/commits/aspeed
 
-drivers/fsi: FSI device driver stubs
+A couple of patches, that have been sent and discussed on qemu-devel@ but 
+not merged yet, are included : 
 
-Then you want some description of what the patches do. Perhaps you
-could describe what FSI is, what it does and why we want it in the
-kernel.
+	a828f92a1807 hw/misc: Add a model for the ASPEED System Control Unit
+	1181e14788a9 ast2400: Integrate the SCU model and set silicon revision
+	e17aa27fa6b8 palmetto-bmc: Configure the SCU's hardware strapping register
+	26582428d17c ssi: change ssi_slave_init to be a realize ops
+	7b50ed94582f m25p80: qdev-ify drive property
+	9d058cd9dd81 ast2400: add SMC controllers (FMC and SPI)
+	1f92166a189d ast2400: add SPI flash slave object
+	a1fff8b8776f ast2400: create SPI flash slaves
+	b93fe85af7b8 tests: add a m25p80 test
 
-Finally, the commit message must carry a developers certificate of
-origin. You can read about that here:
+plus these for booting from the rom. There are some changes due to the rework 
+of the previous and "fixes" for the block layer ... Looks stable now and mostly
+ok.
 
- http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/SubmittingPatches#n409
+	2f0dabacf3b9 m25p80: use synchronous writes to update the block backend
+	0e7345a2d430 m25p80: add a m25p80_set_rom_storage() routine
+	3f02fba0c02f ast2400: handle SPI flash Command mode (read only)
+	8325fc4b1ad9 ast2400: use contents of first SPI flash as a rom
 
-On to the code.
+These are devices enhancements, nothing major :
 
->
-> ---
-> drivers/Makefile      |  1 +
-> drivers/fsi/Makefile  |  5 +++++
-> drivers/fsi/fsiinit.c | 54 +++++++++++++++++++++++++++++++++++++++++++++++++++
-> drivers/fsi/fsiinit.h | 45 ++++++++++++++++++++++++++++++++++++++++++
-> 4 files changed, 105 insertions(+)
-> create mode 100644 drivers/fsi/Makefile
-> create mode 100644 drivers/fsi/fsiinit.c
-> create mode 100644 drivers/fsi/fsiinit.h
->
-> diff --git a/drivers/Makefile b/drivers/Makefile
-> index 795d0ca..8ea7c58 100644
-> --- a/drivers/Makefile
-> +++ b/drivers/Makefile
-> @@ -172,3 +172,4 @@ obj-$(CONFIG_STM)        += hwtracing/stm/
-> obj-$(CONFIG_ANDROID)        += android/
-> obj-$(CONFIG_NVMEM)        += nvmem/
-> obj-$(CONFIG_FPGA)        += fpga/
-> +obj-$(CONFIG_FSI)        += fsi/
-> diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
-> new file mode 100644
-> index 0000000..f547c08
-> --- /dev/null
-> +++ b/drivers/fsi/Makefile
-> @@ -0,0 +1,5 @@
-> +#
-> +# Makefile for the FSI bus specific drivers.
-> +#
-> +
-> +obj-y        += fsiinit.o
-> diff --git a/drivers/fsi/fsiinit.c b/drivers/fsi/fsiinit.c
-> new file mode 100644
-> index 0000000..d7902d8
-> --- /dev/null
-> +++ b/drivers/fsi/fsiinit.c
-> @@ -0,0 +1,54 @@
-> +/*
-> + * Copyright (c) International Business Machines Corp., 2012
-> + *
-> + * FSI Master device driver
-> + *
-> + * Thomas Richter, IBM Boeblingen, Germany, 17-Jun-2010
-> + * Christopher Bostic, IBM Austin, TX  2016
-> + *
-> + */
+	85f49de1c31e m25p80: add RDCR instruction for Macronix chip
+	c519cdde94c6 m25p80: add mx25l25635f chip
+	a520956879b1 ast2400: use a mx25l25635f chip
+	31871f768618 hw/misc: add a TMP42{1,2,3} device model
+	b09b8a5088a2 ast2400: add a temp sensor device on I2C bus 3
+	8750ab3e2400 ast2400: add a rtc device on I2C bus 0
 
-Take a look at some of the modern files contributed by IMBers to the
-kernel for how to strucutre the copyright and licence declerations.
+and to finish, the network device which has not changed but should with 
+the recent findings on the ast2500 :
 
-eg. http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/arch/powerpc/platforms/powernv/opal.c
+	4e57f68ccaf5 net: add FTGMAC100 support
+	ba7a28c66ec3 ast2400: add a FTGMAC100 nic
 
-It's up to the developer to put their name and email address at the
-top of the file. Some developers steer clear as the information can
-become outdated over time, and it's contained in the git commit logs
-anyway. If you do chose to keep it in I'd perhaps put names and email
-addresses, instead of work locations.
 
-> +
-> +#include <linux/init.h>
-> +#include <linux/module.h>
-> +#include "fsiinit.h"
-> +
-> +MODULE_AUTHOR("Christopher Bostic cbostic@us.ibm.com");
-> +MODULE_DESCRIPTION("FSI master device driver");
-> +
-> +#define FSIDD_MAJOR    0        /* FSI device driver major */
-> +#define    FSIDD_TOSTR(x)    #x
-> +#define    FSIDD_VERNO    4000
-> +#define    FSIDD_VER(x)    FSIDD_TOSTR(x)
-> +
-> +struct fsidd fsidd = {        /* FSI device driver structure definition */
-> +    .magic = FSI_DD_MAGIC,
-> +    .strno = FSI_DD_STRNO,
-> +};
-> +
-> +
-> +static int fsi_start(void)
-> +{
-> +    int rc = 0;
-> +
-> +
-> +    printk("FSI DD %s installation ok\n", fsidd.vstr);
-> +    return rc;
-> +}
-> +
-> +static void fsi_exit(void)
-> +{
-> +
-> +}
-> +
-> +static int __init fsi_init(void)
-> +{
-> +    int rc = 0;
-> +
-> +    /* Set up the host controller */
-> +    fsi_start();
-> +    return rc;
-> +}
+To give it a try, use :
 
-These stubs are very minimal. Hard to procide much feedback at this point :)
+	$ qemu-system-arm -m 256 -M palmetto-bmc -nographic -nodefaults  \
+		-drive file=flash-palmetto,format=raw,if=mtd \
+		-drive file=palmetto.pnor,format=raw,if=mtd \ 
+		-net nic -net user,hostfwd=:127.0.0.1:2222-:22,hostname=qemu
+		-serial stdio
 
-> +
-> +module_init(fsi_init);
-> +module_exit(fsi_exit);
-> +
-> diff --git a/drivers/fsi/fsiinit.h b/drivers/fsi/fsiinit.h
-> new file mode 100644
-> index 0000000..2383610
-> --- /dev/null
-> +++ b/drivers/fsi/fsiinit.h
-> @@ -0,0 +1,45 @@
-> +/*
-> + * Copyright (c) International Business Machines Corp., 2010
-> + *
-> + * FSI Master device driver
-> + *
-> + * Thomas Richter, IBM Boeblingen, Germany, Jun-2010
-> + * Christopher Bostic, IBM Austin, TX 2013
+and if you have a libvirt bridge :
 
-Similar to the comments above for the copyright and licence headers.
+	 	-net nic,macaddr=C0:FF:EE:00:00:02,model=ftgmac100 \
+		-net bridge,id=net0,helper=/usr/lib/qemu/qemu-bridge-helper,br=virbr0 
 
-> + *
-> + *
-> + * Structure definitions and defines.
-> + */
-> +
-> +#ifndef DRIVERS_FSIINIT_H
-> +#define DRIVERS_FSIINIT_H
-> +
-> +#include <linux/kernel.h>
-> +#include <linux/types.h>
-> +#include <linux/kobject.h>
-> +#include <linux/workqueue.h>
-> +#include <linux/hrtimer.h>
-> +
-> +#define VSTRLEN        32        /* Version string length */
-> +
-> +enum {
-> +    FSI_DD_MAGIC = 0x64644632,    /* ddF2 */
-> +    FSI_DD_STRNO = 0x1        /* Structure version number */
-> +};
 
-These arent an enumeration of values. Make them #defines.
-
-> +
-> +struct fsidd {                /* FSI Main structure */
-> +    unsigned long magic;        /* Magic number */
-> +    unsigned long strno;        /* Structure version number */
-
-What purpose does this serve?
-
-> +    char vstr[VSTRLEN];        /* Version string */
-
-What's the version string used for? Is it really necessary?
-
-> +    dev_t major;            /* Major number of device */
-> +    struct workqueue_struct *hotp_wq;    /* Hot plug work queue */
-> +    wait_queue_head_t error_wq;    /* Wait queue for port errors */
-> +    wait_queue_head_t lbus_wq;    /* Wait queue for lbus events */
-> +    wait_queue_head_t irq_wq;    /* Wait queue for IRQ loops */
-> +    wait_queue_head_t link_wq;    /* Wait queue for link changes */
-> +    unsigned long state;        /* State driver is in */
-> +    struct kobject kobj;        /* Anchor point in /sys/kernel */
-
-I would expect the structure to contain a struct device, which itself
-contains a struct kobject.
-
-I assume this code will create a struct bus_type for fsi?
-
-http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/driver-model/bus.txt
+I could boot the OpenBMC 1.0 image with it. Comments welcome !
 
 Cheers,
 
-Joel
+C.
