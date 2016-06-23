@@ -3,16 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rZj7C48NRzDql4
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rZj7D1bVbzDqhc
  for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 10:31:03 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466641858820989.1759958554322;
- Wed, 22 Jun 2016 17:30:58 -0700 (PDT)
+ with SMTPS id 1466641857779283.5780472491374;
+ Wed, 22 Jun 2016 17:30:57 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v6 16/18] initfs: update: handle no images to update
-Date: Wed, 22 Jun 2016 19:30:36 -0500
-Message-Id: <20160623003038.2361-17-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v6 15/18] image-types_uboot: Package a self contained
+ netboot image
+Date: Wed, 22 Jun 2016 19:30:35 -0500
+Message-Id: <20160623003038.2361-16-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 In-Reply-To: <20160623003038.2361-1-openbmc-patches@stwcx.xyz>
 References: <20160623003038.2361-1-openbmc-patches@stwcx.xyz>
@@ -27,59 +28,63 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Jun 2016 00:31:04 -0000
+X-List-Received-Date: Thu, 23 Jun 2016 00:31:05 -0000
 
 From: Milton Miller <miltonm@us.ibm.com>
 
-Notify the user if image wildcard expansion fails instead of printing
-message about failing to find partition to flash.
+Create a cpio containing the base read-only image, and create a
+single combined initramfs image consisting of the image-rofs
+and the existing initramfs.
 
-The update script errors with the message that it can't figure out what
-partition to flash for /run/initramfs/image-* if there are no images
-pending.
+There has been a desire to have a self contained netboot image present
+for developer testing and experimentation.   The init script already
+supports having the rofs layer sourced from a file packaged into the
+initramfs, and will use it if found.
+
+While this image will not fit in the current flash layout in
+the initrd space, it will load over the network.  This method
+leaves the squashfs compressed in RAM, decompreses is invoked as
+needed at runtime, trading boot time and memory space for runtime
+decompress on demand.  This will also give similar file access
+overheads and performance to reading the data from flash.
+
+Because the rofs is already compressed with xz compression,
+don't try to compress this cpio (the cpio packaging adds about 40
+bytes of ascii before and after, plus some alignment padding).
+Because the kernel requires uncompressed cpios to appear on a
+4-byte boundary with 0 byte fill between archives, place this
+cpio first in the combined image.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../obmc-phosphor-initfs/files/obmc-update.sh               | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index 1dbf65f..7120a18 100755
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -99,6 +99,7 @@ checkmount=y
- whitelist=/run/initramfs/whitelist
- image=/run/initramfs/image-
- E="ERROR:"
-+imglist=
+diff --git a/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass b/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
+index 164d1ed..1c0d9b0 100644
+--- a/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
++++ b/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
+@@ -51,6 +51,8 @@ do_generate_flash() {
+        uinitrd="${initrd}.u-boot"
+        rootfs="${IMAGE_LINK_NAME}.${IMAGE_BASETYPE}"
+        rwfs="rwfs.${OVERLAY_BASETYPE}"
++       rofsimg=rofs.${IMAGE_BASETYPE}.cpio
++       netimg=initramfs-netboot.cpio
  
- while test "$1" != "${1#-}"
- do
-@@ -184,7 +185,15 @@ then
- 	fi
- fi
+        if [ ! -f $ddir/$kernel ]; then
+               bbfatal "Kernel file ${ddir}/${kernel} does not exist"
+@@ -94,4 +96,12 @@ do_generate_flash() {
  
--for f in $image*
-+imglist=$(echo $image*)
-+if test "$imglist" = "$image*" -a ! -e "$imglist"
-+then
-+	# shell didn't expand the wildcard, so no files exist
-+	echo "No images found to update."
-+	imglist=
-+fi
+        tar -h -cvf ${ddir}/${MACHINE}-${DATETIME}.all.tar -C ${ddir} image-bmc
+        tar -h -cvf ${ddir}/${MACHINE}-${DATETIME}.tar -C ${ddir} image-u-boot image-kernel image-initramfs image-rofs image-rwfs
 +
-+for f in $imglist
- do
- 	m=$(findmtd ${f#$image})
- 	if test -z "$m"
-@@ -209,7 +218,7 @@ done
- 
- if test -n "$doflash"
- then
--	for f in $image*
-+	for f in $imglist
- 	do
- 		if test ! -s $f
- 		then
++       # Package the root image (rofs layer) with the initramfs for net booting.
++       # Uses the symlink above to get the desired name in the cpio
++       ( cd $ddir && echo image-rofs | cpio -oHnewc -L > ${rofsimg} )
++       # Prepend the rofs cpio -- being uncompressed it must be 4-byte aligned
++       cat ${ddir}/${rofsimg} ${ddir}/${initrd} > ${ddir}/${netimg}
++       oe_mkimage  "${netimg}" "${INITRD_CTYPE}"
++
+ }
 -- 
 2.9.0
