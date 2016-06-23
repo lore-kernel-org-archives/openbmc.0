@@ -1,50 +1,51 @@
 Return-Path: <raltherr@google.com>
-Received: from mail-it0-x233.google.com (mail-it0-x233.google.com
- [IPv6:2607:f8b0:4001:c0b::233])
+Received: from mail-it0-x232.google.com (mail-it0-x232.google.com
+ [IPv6:2607:f8b0:4001:c0b::232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rb7j35088zDqhg
- for <openbmc@lists.ozlabs.org>; Fri, 24 Jun 2016 03:28:23 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rb7rT1wNHzDq60
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Jun 2016 03:34:49 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=ZHLM+2cW; 
+ unprotected) header.d=google.com header.i=@google.com header.b=XAnYezD6; 
  dkim-atps=neutral
-Received: by mail-it0-x233.google.com with SMTP id f6so68765631ith.0
- for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 10:28:23 -0700 (PDT)
+Received: by mail-it0-x232.google.com with SMTP id a5so132592676ita.1
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 10:34:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=FV5MRB9w6bMbQjnv01Y80wYI+qgF+ANSsfV659utqsA=;
- b=ZHLM+2cWtwLk1JyCucRtqILEPwDpPxf7kxGtuFniKMHNZ4M9lgkLT+lkYQEByHO1DL
- sRI6jtPl7Rradq8vMITmgYe4bm+FnC8zh/Y438pc9F6HyKZCN48tnab5+zqUUfjmAGaz
- 04P/gGK6A1r9TOQcOp3hBUqO1bCR59YCiZ7tPxthWqzkJJyXi3//qoq44nbnxpz9vrFz
- tSENPTRBCTA2ew+xMlMEUMLbfhFDqVm2GIdLKyFQgL3fWyLU2c0K82Ql/GfTvUpTuXvo
- Rg4wuyqPlHJ4q0AFMkdTmAOgVB0doRRjQtITYfikxT7KZ2Dl3oxwhFfv4ZrdSJ7czSk9
- lGiw==
+ :cc; bh=Ta/vPU4Qdq6EzcBRiBTs0aRJFPjyyrVyMuDujRvc7ZM=;
+ b=XAnYezD6SwqLiUkBAKbIKuoa7lrzaF+EAFs+41jhbX2VLq+2ttKkTwWBL7AQzBaK0S
+ pfnNkopR4o3IQyftRNcFdT4P62z7Kab8SaoIubzOFKhI9ZJeHT0xyBmpq4pf8sAS5lF6
+ fF/ulGBp9nwKOgck4l6I05QNhBwyWaQFUW/F3ZqW0wleT1b1mYCw1Qn1iag/H30+/fg6
+ UrNMqCkKtTc7JUAkbaosS413pGJtdtf3ihl55vuumOZECllwj+juAHRg6z8P9+DFJ1se
+ Zb1N4ScHOniHJK5yu/2PrRwyF7W8N9/r92CWuCuxtEZUSsRCz9kn0lQLkG29qG0WIJDL
+ dSZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=FV5MRB9w6bMbQjnv01Y80wYI+qgF+ANSsfV659utqsA=;
- b=J3VAiOTFQ4i7U5xVKs6d85rsUEqM+Jcu62sokeDPMp5ZXcYiEfKB4E+FGEgc7VEDj9
- abddYLV7OfqKzfBpOMMkO4j2uUeHNnhThSF8UHSaKB4kXy+qTMQn9g2ahDo5wJtp5Hrb
- skFDwVxlAw3qo2YicIMyiGKULo2T2a/7oz+c13c+WT9EL5PxOM6b1p95UOx3DJJF7gHv
- VZH4l3wnjN/C9RHH/H9baQvW1Rjz4zeeP7O5IP6IRf7PhMFQCQW65Ckk+NbC7C4Gq/CJ
- /9NOiFmaw2rKyEv3Vi8JWT+dM0+3sWc61sSst44ytuaarcZrp6Wwz+UHn+2jhz3PFGtb
- xq4g==
-X-Gm-Message-State: ALyK8tKWLTm2GiyivnarK75dKC+0lKZziUmZP1vTRHLWRJB099HcvziO3ODRNzNkbc0L89Y73yhuM9LebwMOXdqR
-X-Received: by 10.36.2.71 with SMTP id 68mr22402115itu.38.1466702899759; Thu,
- 23 Jun 2016 10:28:19 -0700 (PDT)
+ bh=Ta/vPU4Qdq6EzcBRiBTs0aRJFPjyyrVyMuDujRvc7ZM=;
+ b=Xiq8zjiMyxaIhqlIzkD54zmBSJzxHrZ9FT2EfSF4DjjZWIhTuJ4mWsZ8J4t+usOkce
+ 5QviCzKm+thJG5arx4Crcd/Ntb/VL+aIg+uJcCjPLLL4YgsqYlb67+1zKle6U+fp3DbN
+ goycT20XAKXJTZxOhAKqkX3iIMf3/SEP3h2bKHC5dTYIrsSPTf5evCBaDdOOBcRsf19v
+ p736GBHHca2YtlYMOe68Tgsv4+3Anfqe5NAgEiidxkXGISsNHzKc86cnDwOShT4x+C98
+ Xm5C/wdjqweqysUcwM+PEjYwyXeDvHUnnpknkgC9sIpet8PsJU7tCu2iT/3Hqs0eie7W
+ kxOg==
+X-Gm-Message-State: ALyK8tLYoq1dqQmLA/T+pe8XEfx0iO0SNevmYUZLrgHLOVjHawFmPqb1XQXdNwYZE8X+J/9QW9PPXIFYBXUfAWLq
+X-Received: by 10.36.217.68 with SMTP id p65mr2142339itg.38.1466703286776;
+ Thu, 23 Jun 2016 10:34:46 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.64.101.202 with HTTP; Thu, 23 Jun 2016 10:28:19 -0700 (PDT)
-In-Reply-To: <CACPK8Xfe+pVLwniWd9Nm3pemfrnVTZpS1twttN-aUGjQdPG-aA@mail.gmail.com>
-References: <1465932059-5531-1-git-send-email-raltherr@google.com>
- <CACPK8Xfe+pVLwniWd9Nm3pemfrnVTZpS1twttN-aUGjQdPG-aA@mail.gmail.com>
+Received: by 10.64.101.202 with HTTP; Thu, 23 Jun 2016 10:34:46 -0700 (PDT)
+In-Reply-To: <5763902B.9050106@kaod.org>
+References: <CACPK8Xft-LvtjE9gQ7a0WD+5kD_wLfOYiBfCjoytHD3huWg7LA@mail.gmail.com>
+ <5763902B.9050106@kaod.org>
 From: Rick Altherr <raltherr@google.com>
-Date: Thu, 23 Jun 2016 10:28:19 -0700
-Message-ID: <CAPLgG=kfYKVxnd1k2sEdz_sW7kLoV4ZnkDYZKkztiM9=ATcrqA@mail.gmail.com>
-Subject: Re: [PATCH] aspeed/ast-g5: Simplify default bootargs
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Xo Wang <xow@google.com>
-Content-Type: multipart/alternative; boundary=001a1144b1d0551d490535f56116
+Date: Thu, 23 Jun 2016 10:34:46 -0700
+Message-ID: <CAPLgG==YoJAxSkC0yt0-rRC_a4pg3L+xsGdjKCakZq24HfOSYg@mail.gmail.com>
+Subject: Re: Flashing U-Boot using DediProg(R) on Aspeed AST2500 EVB
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: Joel Stanley <joel@jms.id.au>, Shay Slobodkin <shays@mellanox.com>, 
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary=001a114631b6678b400535f57801
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -56,118 +57,135 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Jun 2016 17:28:24 -0000
+X-List-Received-Date: Thu, 23 Jun 2016 17:34:50 -0000
 
---001a1144b1d0551d490535f56116
+--001a114631b6678b400535f57801
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-I had intended to remove the Change-Id tag but the gerrit hooks in a git
-repo seem to run deep.  I believe Xo sent a PR with the same patch.  I
-prefer to drop my patch and follow up on his.
+Xo and I have been using SF100s with AST2500 EVB.  It works OK.  The main
+gotcha seems to be that after writing to the flash with the SF100, it is
+left in a state that the AST2500 can't seem to boot from.  Power cycling
+fixes it.  I haven't spent the time to investigate further.
 
-On Tue, Jun 14, 2016 at 8:49 PM, Joel Stanley <joel@jms.id.au> wrote:
+On Thu, Jun 16, 2016 at 10:52 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrot=
+e:
 
-> On Wed, Jun 15, 2016 at 5:20 AM, Rick Altherr <raltherr@google.com> wrote:
-> > From: Xo Wang <xow@google.com>
+> On 06/17/2016 07:32 AM, Joel Stanley wrote:
+> > Hi Shay,
 > >
-> > New arguments set default console for DEBUG_UART on the EVB and allow
-> > the kernel to choose init path, root/overlay, and memory size.
+> > On Wed, Jun 15, 2016 at 9:39 PM, Shay Slobodkin <shays@mellanox.com>
+> wrote:
+> >> Recently we had some problems with our AST2500 EVB U-Boot.
+> >>
+> >> Had several systems gone bad.
+> >>
+> >> We want to use the DediProg=C2=AE tool in order to recover.
+> >>
+> >> If you have used this tool, could you please explain briefly how to us=
+e
+> it
+> >> with Aspeed AST2500 EVB?
 > >
-> > Change-Id: I919f7e4027968ad000c4283f8bd80cca1b17e2eb
+> > I've not done this myself on the evb.
+> >
+> > Looking at the board, you want header J70 is for the ast2500 boot
+> > flash. It's a 5 pin connector on the south west area of the board. The
+> > pins are labeled in the order: CS0, Clock, MOSI, MISO, Ground.
 >
-> I normally ask submissions to not include links to internal bugzillas
-> when submitting patches. Do you think that's a reasonable rule for
-> gerrit tags as well?
+> Yes. It works pretty well from a raspberry pi. I also have used a
+> Flashcat programmer.
 >
-> > Signed-off-by: Xo Wang <xow@google.com>
-> > Signed-off-by: Rick Altherr <raltherr@google.com>
-> > ---
-> >  include/configs/ast-g5.h | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/include/configs/ast-g5.h b/include/configs/ast-g5.h
-> > index 6c05e6d..149cac8 100644
-> > --- a/include/configs/ast-g5.h
-> > +++ b/include/configs/ast-g5.h
-> > @@ -139,7 +139,7 @@
-> >
-> >  #define CONFIG_SYS_LOAD_ADDR           0x83000000      /* default load
-> address */
-> >
-> > -#define CONFIG_BOOTARGS                "console=ttyS0,115200n8
-> ramdisk_size=16384 root=/dev/ram rw init=/linuxrc mem=80M"
-> > +#define CONFIG_BOOTARGS                "console=ttyS4,115200
-> earlyprintk"
+> You should make sure that the board is not booting from the flash
+> module. For that you need to unselect the flash chip, CS0 on header J44.
 >
-> The change looks good.
+> > If you need further help perhaps send a photo of your programmer and
+> > whatever cables it came with.
 >
-> As you mentioned on IRC, we should create an ast2500-evb configuration
-> in the future.
+> and one of your board perhaps. With details of what is around the
+> flash.
 >
 > Cheers,
 >
-> Joel
+> C.
+>
+> > Cheers,
+> >
+> > Joel
+> >
+>
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
 >
 
---001a1144b1d0551d490535f56116
+--001a114631b6678b400535f57801
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">I had intended to remove the Change-Id tag but the gerrit =
-hooks in a git repo seem to run deep.=C2=A0 I believe Xo sent a PR with the=
- same patch.=C2=A0 I prefer to drop my patch and follow up on his.</div><di=
-v class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Tue, Jun 14, 2016=
- at 8:49 PM, Joel Stanley <span dir=3D"ltr">&lt;<a href=3D"mailto:joel@jms.=
-id.au" target=3D"_blank">joel@jms.id.au</a>&gt;</span> wrote:<br><blockquot=
-e class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc sol=
-id;padding-left:1ex"><span class=3D"">On Wed, Jun 15, 2016 at 5:20 AM, Rick=
- Altherr &lt;<a href=3D"mailto:raltherr@google.com">raltherr@google.com</a>=
-&gt; wrote:<br>
-&gt; From: Xo Wang &lt;<a href=3D"mailto:xow@google.com">xow@google.com</a>=
+<div dir=3D"ltr">Xo and I have been using SF100s with AST2500 EVB.=C2=A0 It=
+ works OK.=C2=A0 The main gotcha seems to be that after writing to the flas=
+h with the SF100, it is left in a state that the AST2500 can&#39;t seem to =
+boot from.=C2=A0 Power cycling fixes it.=C2=A0 I haven&#39;t spent the time=
+ to investigate further.=C2=A0</div><div class=3D"gmail_extra"><br><div cla=
+ss=3D"gmail_quote">On Thu, Jun 16, 2016 at 10:52 PM, C=C3=A9dric Le Goater =
+<span dir=3D"ltr">&lt;<a href=3D"mailto:clg@kaod.org" target=3D"_blank">clg=
+@kaod.org</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=
+=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><span cl=
+ass=3D"">On 06/17/2016 07:32 AM, Joel Stanley wrote:<br>
+&gt; Hi Shay,<br>
 &gt;<br>
+&gt; On Wed, Jun 15, 2016 at 9:39 PM, Shay Slobodkin &lt;<a href=3D"mailto:=
+shays@mellanox.com">shays@mellanox.com</a>&gt; wrote:<br>
+&gt;&gt; Recently we had some problems with our AST2500 EVB U-Boot.<br>
+&gt;&gt;<br>
+&gt;&gt; Had several systems gone bad.<br>
+&gt;&gt;<br>
+&gt;&gt; We want to use the DediProg=C2=AE tool in order to recover.<br>
+&gt;&gt;<br>
+&gt;&gt; If you have used this tool, could you please explain briefly how t=
+o use it<br>
+&gt;&gt; with Aspeed AST2500 EVB?<br>
 &gt;<br>
-&gt; New arguments set default console for DEBUG_UART on the EVB and allow<=
-br>
-&gt; the kernel to choose init path, root/overlay, and memory size.<br>
+&gt; I&#39;ve not done this myself on the evb.<br>
 &gt;<br>
-&gt; Change-Id: I919f7e4027968ad000c4283f8bd80cca1b17e2eb<br>
+&gt; Looking at the board, you want header J70 is for the ast2500 boot<br>
+&gt; flash. It&#39;s a 5 pin connector on the south west area of the board.=
+ The<br>
+&gt; pins are labeled in the order: CS0, Clock, MOSI, MISO, Ground.<br>
 <br>
-</span>I normally ask submissions to not include links to internal bugzilla=
-s<br>
-when submitting patches. Do you think that&#39;s a reasonable rule for<br>
-gerrit tags as well?<br>
+</span>Yes. It works pretty well from a raspberry pi. I also have used a<br=
+>
+Flashcat programmer.<br>
+<br>
+You should make sure that the board is not booting from the flash<br>
+module. For that you need to unselect the flash chip, CS0 on header J44.<br=
+>
 <span class=3D""><br>
-&gt; Signed-off-by: Xo Wang &lt;<a href=3D"mailto:xow@google.com">xow@googl=
-e.com</a>&gt;<br>
-&gt; Signed-off-by: Rick Altherr &lt;<a href=3D"mailto:raltherr@google.com"=
->raltherr@google.com</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 include/configs/ast-g5.h | 2 +-<br>
-&gt;=C2=A0 1 file changed, 1 insertion(+), 1 deletion(-)<br>
-&gt;<br>
-&gt; diff --git a/include/configs/ast-g5.h b/include/configs/ast-g5.h<br>
-&gt; index 6c05e6d..149cac8 100644<br>
-&gt; --- a/include/configs/ast-g5.h<br>
-&gt; +++ b/include/configs/ast-g5.h<br>
-&gt; @@ -139,7 +139,7 @@<br>
-&gt;<br>
-&gt;=C2=A0 #define CONFIG_SYS_LOAD_ADDR=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A00x83000000=C2=A0 =C2=A0 =C2=A0 /* default load address */<br>
-&gt;<br>
-&gt; -#define CONFIG_BOOTARGS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 &quot;console=3DttyS0,115200n8 ramdisk_size=3D16384 root=3D/dev/=
-ram rw init=3D/linuxrc mem=3D80M&quot;<br>
-&gt; +#define CONFIG_BOOTARGS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 &quot;console=3DttyS4,115200 earlyprintk&quot;<br>
+&gt; If you need further help perhaps send a photo of your programmer and<b=
+r>
+&gt; whatever cables it came with.<br>
 <br>
-</span>The change looks good.<br>
-<br>
-As you mentioned on IRC, we should create an ast2500-evb configuration<br>
-in the future.<br>
+</span>and one of your board perhaps. With details of what is around the<br=
+>
+flash.<br>
 <br>
 Cheers,<br>
 <br>
-Joel<br>
-</blockquote></div><br></div>
+C.<br>
+<div class=3D"HOEnZb"><div class=3D"h5"><br>
+&gt; Cheers,<br>
+&gt;<br>
+&gt; Joel<br>
+&gt;<br>
+<br>
+_______________________________________________<br>
+openbmc mailing list<br>
+<a href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a><br=
+>
+<a href=3D"https://lists.ozlabs.org/listinfo/openbmc" rel=3D"noreferrer" ta=
+rget=3D"_blank">https://lists.ozlabs.org/listinfo/openbmc</a><br>
+</div></div></blockquote></div><br></div>
 
---001a1144b1d0551d490535f56116--
+--001a114631b6678b400535f57801--
