@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rZj7726FJzDqlG
- for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 10:30:58 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rZj773KVMzDqlK
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 10:30:59 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466641853822290.8541430322804;
- Wed, 22 Jun 2016 17:30:53 -0700 (PDT)
+ with SMTPS id 1466641854860772.6971147821005;
+ Wed, 22 Jun 2016 17:30:54 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v6 11/18] initfs: update: check individual mtd
- partitions for mounts
-Date: Wed, 22 Jun 2016 19:30:31 -0500
-Message-Id: <20160623003038.2361-12-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v6 12/18] initfs: update: add check for image size vs
+ mtd size
+Date: Wed, 22 Jun 2016 19:30:32 -0500
+Message-Id: <20160623003038.2361-13-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 In-Reply-To: <20160623003038.2361-1-openbmc-patches@stwcx.xyz>
 References: <20160623003038.2361-1-openbmc-patches@stwcx.xyz>
@@ -32,100 +32,67 @@ X-List-Received-Date: Thu, 23 Jun 2016 00:31:00 -0000
 
 From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-Instead of checking for any mtd device, only check mtd devices
-that are to be updated.  Include child mtd devices when looking
-for mounted filesystems.
+The flashcp command will check the file size vs the partition size,
+so add a check when looking at images.
 
-If this check is suppressed flash updates are suppressed.
-Suppressing the check may be useful to verify a update could
-succeed at shutdown.
+Use stat -L -c "%s" to get the file size, and compare it to the mtd
+size from the sysfs size attribute.
+
+If this check is suppressed the enforcement is left to flashcp.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../obmc-phosphor-initfs/files/obmc-update.sh      | 47 +++++++++++++++++++---
- 1 file changed, 41 insertions(+), 6 deletions(-)
+ .../obmc-phosphor-initfs/files/obmc-update.sh           | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
 diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index 4442e5b..22c9dcc 100755
+index 22c9dcc..06e0e74 100755
 --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
 +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -19,11 +19,34 @@ then
- 	mount -t devtmpfs dev dev
- fi
+@@ -48,6 +48,14 @@ childmtds() {
+ 	done
+ }
  
--if grep mtd /proc/mounts
--then
--	echo 1>&2 "ERROR: A mtd device is mounted."
--	exit 1
--fi
-+# mtd number N with mtd name Name can be mounted via mtdN, or mtd:Name
-+# (with a mtd aware fs) or by /dev/mtdblockN (with a mtd or block fs).
-+mtdismounted() {
-+	m=${1##mtd}
-+	if grep -s "mtdblock$m " /proc/mounts || grep -s "mtd$m " /proc/mounts
-+	then
-+		return 0
-+	fi
-+	n=$(cat /sys/class/mtd/mtd$m/name)
-+	if test -n "$n" && grep -s "mtd:$n " /proc/mounts
++toobig() {
++	if test $(stat -L -c "%s" "$1") -gt $(cat /sys/class/mtd/"$2"/size)
 +	then
 +		return 0
 +	fi
 +	return 1
 +}
 +
-+# Detect child partitions when the whole flash is to be updated.
-+# Ignore mtdNro and mtdblockN names in the class subsystem directory.
-+childmtds() {
-+	for m in /sys/class/mtd/$1/mtd*
-+	do
-+		m=${m##*/}
-+		if test "${m%ro}" = "${m#mtdblock}"
-+		then
-+			echo $m
-+		fi
-+	done
-+}
- 
  findmtd() {
  	m=$(grep -xl "$1" /sys/class/mtd/*/name)
-@@ -62,10 +85,10 @@ doclean=
+ 	m=${m%/name}
+@@ -85,6 +93,7 @@ doclean=
  dosave=y
  dorestore=y
  toram=
-+checkmount=y
++checksize=y
+ checkmount=y
  
  whitelist=/run/initramfs/whitelist
- image=/run/initramfs/image-
--
- E="ERROR:"
- 
- while test "$1" != "${1#-}"
-@@ -92,6 +115,10 @@ do
+@@ -115,6 +124,9 @@ do
  	--no-flash)
  		doflash=
  		shift ;;
-+	--ignore-mount)
-+		checkmount=
-+		doflash=
++	--ignore-size)
++		checksize=
 +		shift ;;
- 	--copy-files)
- 		toram=y
- 		shift ;;
-@@ -135,6 +162,14 @@ do
+ 	--ignore-mount)
+ 		checkmount=
+ 		doflash=
+@@ -162,6 +174,11 @@ do
  		echo 1>&2 "$E Unable to find mtd partiton for ${f##*/}."
  		exit 1
  	fi
-+	for s in $m $(childmtds $m)
-+	do
-+		if test -n "$checkmount" && mtdismounted $s
-+		then
-+			echo 1>&2 "$E Device $s is mounted, ${f##*/} is busy."
-+			exit 1
-+		fi
-+	done
- done
- 
- if test -n "$doflash"
++	if test -n "$checksize" && toobig "$f" "$m"
++	then
++		echo 1>&2 "$E Image ${f##*/} too big for $m."
++		exit 1
++	fi
+ 	for s in $m $(childmtds $m)
+ 	do
+ 		if test -n "$checkmount" && mtdismounted $s
 -- 
 2.9.0
