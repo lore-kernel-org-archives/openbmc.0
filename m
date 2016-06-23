@@ -3,48 +3,48 @@ Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
  [66.111.4.221])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rZs0k00nCzDqhj
- for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 16:25:57 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rZsHW5bCQzDqhj
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 16:38:47 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=kookE1Jr; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=FT9nAIYf; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=DVizEa1h; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.nyi.internal (Postfix) with ESMTP id D5EA3C17;
- Thu, 23 Jun 2016 02:25:55 -0400 (EDT)
+ header.b=VSqHtcUu; dkim-atps=neutral
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 77AAF727;
+ Thu, 23 Jun 2016 02:38:45 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Thu, 23 Jun 2016 02:25:55 -0400
+ by compute7.internal (MEProxy); Thu, 23 Jun 2016 02:38:45 -0400
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
  content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=KVofI
- zQ6lOK6nX4q1pmXDtZ52+U=; b=kookE1JrJO1bpEhemyxbWD4eRRYBb2h00tcEh
- ziNjYbhVoMgWOAe+yKQEIK9WYWA4GSAYFUHJ3dmi2m8B9WgfiJ/CWujtX/Rcvqda
- t3V7skhCDpdPU7xFtIL30Cs5BdHMUsagUEBsxMk/IgkZAucGZIrAT54LjZtHTfnt
- 0swb58=
+ :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=sWbjD
+ R4A0w0IrvF3T08LrwqR30c=; b=FT9nAIYfKSZq4x+3E90stElQS7/J13ezS2IRw
+ +ZW6jFo7erlGFQr7/aNZZtJEsKmSjAgNLnGsdaCqSRn+wK2r+Cm6f5Oc98AMhuot
+ 5d1z93etEhm76czkkfEbuI+zGYuJJ8SU6UhwUK7VRbpVdJ5rMVTIo6NeeBu1DtuI
+ Db5D/c=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
  messagingengine.com; h=content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-sasl-enc
- :x-sasl-enc; s=smtpout; bh=KVofIzQ6lOK6nX4q1pmXDtZ52+U=; b=DVizE
- a1hNKFzXJ8/ADVcnCkJZU3wKdiU0EkvIEjk5hk79QmmeEsBfNCfqc/vANc1lsjxF
- AALZv3IcGgFMzIXy8WxW2ITOf/qZmWJnwYIGzPiQ/TDamg2Rjyb6uCjsyLvag0DE
- 8nytBMxfjZsUT7nsaiQiDnHEyk6GAA+6ARVa9E=
-X-Sasl-enc: /DRFi8/xGibhlIk6wUTW4SotFLRQgo98j5RXj7tfhzPG 1466663154
+ :x-sasl-enc; s=smtpout; bh=sWbjDR4A0w0IrvF3T08LrwqR30c=; b=VSqHt
+ cUuOZX+AZO+k+HvHFHSpbK3BKOeFJdj1PiEoCn0CUWEB4P7SH3i/LJ2v2UeAGs1P
+ SXyu/vG7GdLa4YuHNv3tTPFpgJFXqcsdVbyRnNOSzpQfK7uwyKqDRtd69cVoxcB3
+ 774gLwa3xbV+xh9CSaM3auhf8oK+loL54oSzgU=
+X-Sasl-enc: RB3T8r1KzHXhFFK+H/gjSby0N9ueOI8NZLZdLBMEGlN0 1466663924
 Received: from keelia (ppp203-122-213-247.static.internode.on.net
  [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id ED406CCDB2;
- Thu, 23 Jun 2016 02:25:53 -0400 (EDT)
-Message-ID: <1466663149.23740.88.camel@aj.id.au>
-Subject: Re: [PATCH openbmc v6 17/18] initfs: update: Sanitze whitelist
- directory entries
+ by mail.messagingengine.com (Postfix) with ESMTPA id B03E7CCDAC;
+ Thu, 23 Jun 2016 02:38:43 -0400 (EDT)
+Message-ID: <1466663919.23740.89.camel@aj.id.au>
+Subject: Re: [PATCH openbmc v6 18/18] initfs: whitelist: Sanitize obmc
+ events whitelist entry
 From: Andrew Jeffery <andrew@aj.id.au>
 To: OpenBMC Patches <openbmc-patches@stwcx.xyz>, openbmc@lists.ozlabs.org
-Date: Thu, 23 Jun 2016 15:55:49 +0930
-In-Reply-To: <20160623003038.2361-18-openbmc-patches@stwcx.xyz>
+Date: Thu, 23 Jun 2016 16:08:39 +0930
+In-Reply-To: <20160623003038.2361-19-openbmc-patches@stwcx.xyz>
 References: <20160623003038.2361-1-openbmc-patches@stwcx.xyz>
- <20160623003038.2361-18-openbmc-patches@stwcx.xyz>
+ <20160623003038.2361-19-openbmc-patches@stwcx.xyz>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-BuD5CsBlXHwWbURJG+wt"
+ protocol="application/pgp-signature"; boundary="=-QYdY7YiQhz58tc/YvxWd"
 X-Mailer: Evolution 3.18.5.2-0ubuntu3 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -58,89 +58,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Jun 2016 06:25:58 -0000
+X-List-Received-Date: Thu, 23 Jun 2016 06:38:48 -0000
 
 
---=-BuD5CsBlXHwWbURJG+wt
+--=-QYdY7YiQhz58tc/YvxWd
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Wed, 2016-06-22 at 19:30 -0500, OpenBMC Patches wrote:
 > From: Milton Miller <miltonm@us.ibm.com>
 >=20
-> Repeatedly strip trailing / and /. from whitelist entries and
-> fail if an entry includes /../ or ends with /.. or doesn't start
-> with a /.=C2=A0=C2=A0Also use the entries quoted to avoid any glob.
-
-Right. Ending this particular sentence with a '/' is a bit subtle. I
-think you should quote your path bits: "/", "/.", "/../", "/.."; this
-way the sentence would end '... or doesn't start with a "/".'.
+> Remove the trailing / so that the update script doesn't have to loop.
 >=20
-> It was noticed the save code was saving directories that ended in /
-> into a subdirectory of the last component name.=C2=A0=C2=A0This was trace=
-d
-> the the code creating the directory just stripping the last /
-> and then copying to the directory.
->=20
-> Choose to sanitize the entry where possible for ease of use verses
-> a small performance penality.
+> It was determined the trailing slash confused the code that makes
+> the save subdirectory.=C2=A0=C2=A0The update script was fixed but this re=
+moves
+> the extra work needed.
 >=20
 > Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 > ---
-> =C2=A0.../obmc-phosphor-initfs/files/obmc-update.sh=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0| 15 +++++++++++++=
---
-> =C2=A01 file changed, 13 insertions(+), 2 deletions(-)
+> =C2=A0.../common/recipes-phosphor/obmc-phosphor-initfs/files/whitelist=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0| 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
 >=20
 > diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/f=
-iles/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-i=
-nitfs/files/obmc-update.sh
-> index 7120a18..bfacd00 100755
-> --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/ob=
-mc-update.sh
-> +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/ob=
-mc-update.sh
-> @@ -170,13 +170,24 @@ then
-> =C2=A0
-> =C2=A0	while read f
-> =C2=A0	do
-> -		if ! test -e $upper/$f
-> +		# Entries shall start with /, no trailing /.. or embedded /../
-> +		if test "/${f#/}" !=3D "$f" -o "${f%/..}" !=3D "${f#*/../}"
+iles/whitelist b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs=
+/files/whitelist
+> index 603cec7..c35a552 100644
+> --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/wh=
+itelist
+> +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/wh=
+itelist
+> @@ -6,4 +6,4 @@
+> =C2=A0/etc/group
+> =C2=A0/etc/shadow
+> =C2=A0/etc/gshadow
+> -/var/lib/obmc/events/
+> +/var/lib/obmc/events
 
-Can we do this with `readlink -f` or `realpath` instead? Do we have
-them available in this environment? As in, test that the result before
-and after realpath are the same. You can tell realpath to not expand
-symlinks.
-
-> +		then
-> +			echo 1>&2 "WARNING: Skipping bad whitelist entry $f."
-> +			continue
-> +		fi
-> +		if ! test -e "$upper/$f"
-> =C2=A0		then
-> =C2=A0			continue
-> =C2=A0		fi
-> =C2=A0		d=3D"$save/$f"
-> +		while test "${d%/}" !=3D "${d%/.}"
-> +		do
-> +			d=3D"${d%/.}"
-> +			d=3D"${d%/}"
-> +		done
-> =C2=A0		mkdir -p "${d%/*}"
-> -		cp -rp $upper/$f "${d%/*}/"
-> +		cp -rp "$upper/$f" "${d%/*}/"
-
-Again the while loop and other bits can hopefully be replaced by
-`readlink -f` or `realpath`. The whole trailing-slash thing with `cp`
-always throws me.
-
-Andrew
-
-> =C2=A0	done < $whitelist
-> =C2=A0
-> =C2=A0	if test -n "$mounted"
---=-BuD5CsBlXHwWbURJG+wt
+Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+--=-QYdY7YiQhz58tc/YvxWd
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
@@ -148,19 +105,19 @@ Content-Transfer-Encoding: 7bit
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAABCgAGBQJXa4DtAAoJEJ0dnzgO5LT5K+oP/0LbaJ3HlhbTbdxGU+iZV5vX
-dfAq0SrVoFY71ZKYkZSGCR8T/Lj7A6yYWIQkQODRcJTDjAZYQBZB02vel9bne31l
-aUzr1olLYlwhNBPTBsvbPtSsKwhFRI0fWBHOY02rA+emM6b2zoQd4gXxlCpUhtL7
-at1BtM2jR6tt3gkVI3NInKz3+0XAyjdeLa7TffeZ887xQxLJic/LhGiVbJ1Sra19
-MizX6p8SaOShboymLFgGV6m+tDLvP34c0v7zq1JfrklzSIgsbmB8FOlZlRP5wHu8
-gNi8X5BiGIgdzWpY1n6xfYO0Dnuk+Ie3FeItDVmxcwXYbSW+baX8iHf4Q3j4yVZE
-2NB8mchmkmtCXrVGDN4Nax0yX1Z8a84U5x9tzUAzK0Mv28UwL68pkZNrA0DxsFpG
-/5DmfFvoHVZjKYfd4d1um40hiSM7qKVQhUOWkpgDeu9nw32qtH2ypMbI36dQ7iUH
-p41JKp9fEbIkVDs16JH7nxv31fhje1amuiqWmS2tkcjF9BsH+57OgQqRIixcKWDW
-52EOeFi7jNan/exAZbXu/ujagXP1pheSQ2xzjmk7tTwz1vcdHGD91fDRuWToOWFJ
-SadjvTcmUmNbqrLkRlVO3nGTBzOnDYIm8319+glHN/nOEkAXNOE+o3gj1rh5ZQ9n
-7ftsrXnTliXzhcsRplaz
-=6sX+
+iQIcBAABCgAGBQJXa4PvAAoJEJ0dnzgO5LT5Ow8P/RQQO5IOfOKoRVo1SsXSj1AF
+K2OyGB9Q+TwrU1WrQPVHD7MtutkxmROVLD9J11td1W+8v/CYQMQjVMmT0YATScu4
+5chpctvHV8Wg1CTLBQqRbaARq+1O738pd7JV+VccLtBckneTW1eoJAwXwnFBCiPA
+acJpeTYrtgHKhPKjB4tpm2LMHZeG3ND2nLd0Q3JTlT2A1FBuKmGHe0eyqlB5CaYE
+RougMwjzRtUNiE+EGj1bu0f9EFxqq9KRA3ZpLIISxaMxbOSFlFD+sE3NvnCVmNA4
+SxhdDNQyoykLsyxtTSZurkFTfYtiCnginmjQs1VxwWBFbh2lEnW7zfxFZZBOL8/R
+VhNbGT24yKOJn3LGGkT0Df95cd0e7vVQ1EDZF1ZeSkdXSwCE1AUQudTGl/IVX+hB
+rOsHhQ6fOS9PcSHa21Se3yxX2afQQQ/m0/hZBNbROuCqgnB94LtLOQniA1ImLxfd
+6fkAYrDLPMq++6iFirnqnOx04+e7fRXWRUQvTdy4Jbg20zFbbcWihG9h0nccXF3E
+zHcXXU7cE9ESVEDpa7ND2rOGQejpn4LBdvaQdKIaZAWfUAI7zk3rooEnIZ1cMwS/
+gbmt9FkA8XFN5pdO3iSj3MLzrrrJk5SOBl34U+vzKsdplaiDfN9HiXRa3wKSO0PR
+3bYkf3nA91+LHH4j5pMg
+=2yg/
 -----END PGP SIGNATURE-----
 
---=-BuD5CsBlXHwWbURJG+wt--
+--=-QYdY7YiQhz58tc/YvxWd--
