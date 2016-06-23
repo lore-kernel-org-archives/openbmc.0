@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rZj6y1zvNzDqZc
- for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 10:30:49 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rZj6z6NbQzDqZc
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 10:30:51 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466641843568164.75533921035026;
- Wed, 22 Jun 2016 17:30:43 -0700 (PDT)
+ with SMTPS id 14666418459061014.6681996261855;
+ Wed, 22 Jun 2016 17:30:45 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH openbmc v6 03/18] Removed unused host-ipmid-bt application
-Date: Wed, 22 Jun 2016 19:30:23 -0500
-Message-Id: <20160623003038.2361-4-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v6 04/18] image_types_uboot: Don't truncate when
+ assembling flash
+Date: Wed, 22 Jun 2016 19:30:24 -0500
+Message-Id: <20160623003038.2361-5-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 In-Reply-To: <20160623003038.2361-1-openbmc-patches@stwcx.xyz>
 References: <20160623003038.2361-1-openbmc-patches@stwcx.xyz>
@@ -28,57 +28,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Jun 2016 00:30:51 -0000
+X-List-Received-Date: Thu, 23 Jun 2016 00:30:52 -0000
 
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+From: "Milton D. Miller II" <miltonm@us.ibm.com>
 
-This was deprecated in favor of btbridged.
+The generate_flash_image step was creating a file then using dd to
+fill in the pieces, but missed adding the conv=notrunc flag, so each
+step was shortening the file to its output.
 
-Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Add the forgotten conversion flag to each dd command.
+
+Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../common/recipes-phosphor/host-ipmid/host-ipmi-bt.bb  | 17 -----------------
- .../host-ipmid/host-ipmi-bt/host-ipmi-bt.service        |  9 ---------
- 2 files changed, 26 deletions(-)
- delete mode 100644 meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-bt.bb
- delete mode 100644 meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-bt/host-ipmi-bt.service
+ meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-bt.bb b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-bt.bb
-deleted file mode 100644
-index 830f754..0000000
---- a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-bt.bb
-+++ /dev/null
-@@ -1,17 +0,0 @@
--SUMMARY = "Phosphor OpenBMC BT to DBUS"
--DESCRIPTION = "Phosphor OpenBMC BT to DBUS."
--PR = "r1"
--
--RDEPENDS_${PN} += "python-subprocess"
--
--SYSTEMD_SERVICE_${PN} = "host-ipmi-bt.service"
--
--inherit obmc-phosphor-pydbus-service
--inherit obmc-phosphor-host-ipmi-hw
--
--S = "${WORKDIR}/git"
--SRC_URI += "git://github.com/openbmc/skeleton.git;subpath=bin;destsuffix=git"
--SRCREV="${AUTOREV}"
--
--SCRIPT_NAME = "ipmid.py"
--INSTALL_NAME = "host-ipmi-bt"
-diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-bt/host-ipmi-bt.service b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-bt/host-ipmi-bt.service
-deleted file mode 100644
-index 3e40b46..0000000
---- a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmi-bt/host-ipmi-bt.service
-+++ /dev/null
-@@ -1,9 +0,0 @@
--[Unit]
--Description=Phosphor OpenBMC BT to DBUS 
--
--[Service]
--Restart=always
--ExecStart=/usr/sbin/host-ipmi-bt
--
--[Install]
--WantedBy=multi-user.target
+diff --git a/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass b/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
+index adb86e0..164d1ed 100644
+--- a/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
++++ b/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
+@@ -76,11 +76,11 @@ do_generate_flash() {
+        dst="${ddir}/${FLASH_IMAGE_NAME}"
+        rm -rf $dst
+        mk_nor_image ${dst} ${FLASH_SIZE}
+-       dd if=${ddir}/${uboot} of=${dst} bs=1k seek=${FLASH_UBOOT_OFFSET}
+-       dd if=${ddir}/${kernel} of=${dst} bs=1k seek=${FLASH_KERNEL_OFFSET}
+-       dd if=${ddir}/${uinitrd} of=${dst} bs=1k seek=${FLASH_INITRD_OFFSET}
+-       dd if=${ddir}/${rootfs} of=${dst} bs=1k seek=${FLASH_ROFS_OFFSET}
+-       dd if=${ddir}/${rwfs} of=${dst} bs=1k seek=${FLASH_RWFS_OFFSET}
++       dd if=${ddir}/${uboot} of=${dst} conv=notrunc bs=1k seek=${FLASH_UBOOT_OFFSET}
++       dd if=${ddir}/${kernel} of=${dst} bs=1k conv=notrunc seek=${FLASH_KERNEL_OFFSET}
++       dd if=${ddir}/${uinitrd} of=${dst} bs=1k conv=notrunc seek=${FLASH_INITRD_OFFSET}
++       dd if=${ddir}/${rootfs} of=${dst} bs=1k conv=notrunc seek=${FLASH_ROFS_OFFSET}
++       dd if=${ddir}/${rwfs} of=${dst} bs=1k conv=notrunc seek=${FLASH_RWFS_OFFSET}
+        dstlink="${ddir}/${FLASH_IMAGE_LINK}"
+        rm -rf $dstlink
+        ln -sf ${FLASH_IMAGE_NAME} $dstlink
 -- 
 2.9.0
