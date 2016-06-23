@@ -3,16 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rZj791QKLzDqhW
- for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 10:31:00 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rZj7C3pGlzDqhg
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 10:31:03 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466641856896227.46169274642318;
- Wed, 22 Jun 2016 17:30:56 -0700 (PDT)
+ with SMTPS id 1466641859755194.7290942523896;
+ Wed, 22 Jun 2016 17:30:59 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v6 14/18] initfs: init: add file for base options
-Date: Wed, 22 Jun 2016 19:30:34 -0500
-Message-Id: <20160623003038.2361-15-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v6 17/18] initfs: update: Sanitze whitelist directory
+ entries
+Date: Wed, 22 Jun 2016 19:30:37 -0500
+Message-Id: <20160623003038.2361-18-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 In-Reply-To: <20160623003038.2361-1-openbmc-patches@stwcx.xyz>
 References: <20160623003038.2361-1-openbmc-patches@stwcx.xyz>
@@ -27,52 +28,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Jun 2016 00:31:03 -0000
+X-List-Received-Date: Thu, 23 Jun 2016 00:31:04 -0000
 
-From: "Milton D. Miller II" <miltonm@us.ibm.com>
+From: Milton Miller <miltonm@us.ibm.com>
 
-Allow an initrd image to include options for init while still allowing
-additional options to come from the kernel command line and/or u-boot
-environment variables.
+Repeatedly strip trailing / and /. from whitelist entries and
+fail if an entry includes /../ or ends with /.. or doesn't start
+with a /.  Also use the entries quoted to avoid any glob.
 
-This will allow building a netboot image that can specify to run
-from RAM while allowing the command line to initiate debug or skip
-copying files from the read-write overlay file system.
+It was noticed the save code was saving directories that ended in /
+into a subdirectory of the last component name.  This was traced
+the the code creating the directory just stripping the last /
+and then copying to the directory.
+
+Choose to sanitize the entry where possible for ease of use verses
+a small performance penality.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh   | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ .../obmc-phosphor-initfs/files/obmc-update.sh             | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-index c37b3d5..70af93d 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-@@ -184,6 +184,7 @@ fsckbase=/sbin/fsck.
- fsck=$fsckbase$rwfst
- fsckopts=-a
- optfile=/run/initramfs/init-options
-+optbase=/run/initramfs/init-options-base
- urlfile=/run/initramfs/init-download-url
- update=/run/initramfs/update
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
+index 7120a18..bfacd00 100755
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
+@@ -170,13 +170,24 @@ then
  
-@@ -192,9 +193,16 @@ then
- 	cp /${optfile##*/} $optfile
- fi
+ 	while read f
+ 	do
+-		if ! test -e $upper/$f
++		# Entries shall start with /, no trailing /.. or embedded /../
++		if test "/${f#/}" != "$f" -o "${f%/..}" != "${f#*/../}"
++		then
++			echo 1>&2 "WARNING: Skipping bad whitelist entry $f."
++			continue
++		fi
++		if ! test -e "$upper/$f"
+ 		then
+ 			continue
+ 		fi
+ 		d="$save/$f"
++		while test "${d%/}" != "${d%/.}"
++		do
++			d="${d%/.}"
++			d="${d%/}"
++		done
+ 		mkdir -p "${d%/*}"
+-		cp -rp $upper/$f "${d%/*}/"
++		cp -rp "$upper/$f" "${d%/*}/"
+ 	done < $whitelist
  
-+if test -e /${optbase##*/}
-+then
-+	cp /${optbase##*/} $optbase
-+else
-+	touch $optbase
-+fi
-+
- if test ! -f $optfile
- then
--	cat /proc/cmdline > $optfile
-+	cat /proc/cmdline $optbase > $optfile
- 	get_fw_env_var openbmcinit >> $optfile
- 	get_fw_env_var openbmconce >> $optfile
- fi
+ 	if test -n "$mounted"
 -- 
 2.9.0
