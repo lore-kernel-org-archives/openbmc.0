@@ -1,51 +1,51 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-qk0-x241.google.com (mail-qk0-x241.google.com
- [IPv6:2607:f8b0:400d:c09::241])
+Received: from mail-qk0-x242.google.com (mail-qk0-x242.google.com
+ [IPv6:2607:f8b0:400d:c09::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rbND05vyvzDqlD
- for <openbmc@lists.ozlabs.org>; Fri, 24 Jun 2016 12:52:32 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rbNFD5cRSzDq5W
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Jun 2016 12:53:36 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=IzlvR5oN; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=NjGqqGQy; 
  dkim-atps=neutral
-Received: by mail-qk0-x241.google.com with SMTP id a186so18943496qkf.0
- for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 19:52:32 -0700 (PDT)
+Received: by mail-qk0-x242.google.com with SMTP id a186so18947092qkf.0
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 19:53:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=24xSHm2DJF/CmYqnca7izClul0laUxC8RaKAbcOpvqw=;
- b=IzlvR5oNLCDW+lgyl/R2H/9FZ7cerVilrXNn/RfhZkTdOlZegrJEyOogxELytrdGU9
- iBgCfJwZngFNIuyVSMsp6zquQPgqRgFUmHGd+thqQdQrHPCb5nmSEFdqq1yVygpxogU7
- oQ3kUh/EUInVgbK42JAgJW7rZlNn4B40aihpEcWg0aH0g1V9ZEyTEkehbohWzngUC1A8
- qdKTiVilJcSoC0SxIMOMlHnTPJLsVc8y2IUdAn7sAVl1NWAGowlRy3mMRIYA5mT0cuo4
- +Wm6CgjR1gF4SZNKPQvsngz23me/0F+vOXD83synmbTu9XSKRmsLDAYS+6xLRNczLrTg
- 1cDA==
+ bh=tnS9CZRmpUBglmv3dAWb/pP/ThlFJ5+tck5+de4ljCU=;
+ b=NjGqqGQyiOGqLvxJkmNon+DQIgystOLdUegvNlKkmba3bb9o/Q1DuHzbln868rpk5I
+ 2lvXl49uuT23LcHlkibZLmPcGjTdReRKsIz0mSUH5kl3aHAYOBt/Y25kMuQSbqJpv1U/
+ lmDV+h3QleVLnIDerV47Pqy29ZBFhgNYiqUxpK51rRQhS6MahECuzcX4yj1pOV9e0EeD
+ WUnA/3q28HHgFGrIAdk8uPgOdUorJSmD09GracPHNyVLdmOEto+N6JmDEwz8OwDHwE5Z
+ WFj+e73TRgIZoys67szQ8CWZzqPJhk2pEd8A7Tt9TPR//KTf/yyNoVAOvNfqIxj5mfx2
+ DG7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=24xSHm2DJF/CmYqnca7izClul0laUxC8RaKAbcOpvqw=;
- b=EuBRzSV3sSEhtNdx0p9qGvdc00r+Ab7WS1Izx33Hk0/3zqhv/G3IiyqJIphAn/qoT5
- c5rs59bM8bxXqngG0T71vYl4ERi6rti+ysFgFZHKGJrcNirpMeKuzRFm4Wn5JU1EUJmd
- efFUOu7rFrGFFrUgv3VyKHsigTAgHwE8r+6q3OC17HARMajVvAhSLwoaplovWulyP9lt
- 2UDsFM52Q0BETy3lpqrNvFuPJuDiTBcj9a69mw9YWTElr1zgexk04V8Ps0wvfzCG6bvU
- z16kHwEOOtOQvx4hYYYqW33PQJpiYrJqGlcWpohXK/dDAntQrQ0duPpfz0WGZ1wCka5G
- LL9w==
-X-Gm-Message-State: ALyK8tLEt+siAKLfrzOEe+poDavExNEU4hzfWo36cim7e95nQ+yLegKFyG78XdzReUfRZ/GGEV0F3rtKX5Syog==
-X-Received: by 10.55.107.6 with SMTP id g6mr1930475qkc.166.1466736750902; Thu,
- 23 Jun 2016 19:52:30 -0700 (PDT)
+ bh=tnS9CZRmpUBglmv3dAWb/pP/ThlFJ5+tck5+de4ljCU=;
+ b=QLomqzL5UWscn3W2qUc0Co8DYV5uUur1UUVppTbmavfAFAyqKmiHMDDgPpXYlrQMZe
+ 0/9YYQRkV18qFSeJqPM2waQ+98B1fvQqS8va4/PXcmC8eOg1+avCvplgagKiYbRApYxm
+ w3Gm+Failzzl9elCkH0fCunQQNmIfy6HXc9hZkFLltKnKbhqNCms2JxNyXg1sGxrrp88
+ Vsq1+Nt5b59N2PP7c6q73wT0vSOaK2+eix02Ct07vYnmNv5IFQNt63vHxxrkilEvzLCr
+ uhmb2jeAzkm3ChV/n/O5eA/mvG/Jyinu8vycjjsL4MVG21dSfrKhDlJsOpGkvORl7tOI
+ nBgQ==
+X-Gm-Message-State: ALyK8tJvSwbZ9Cw7y9tDQqLJ72OnbtgXdVsVpKDBk9jvG9hXLdTQBb1MYz/q0PMCXmsHW5rXLJblZt0xfTZO+A==
+X-Received: by 10.55.152.198 with SMTP id a189mr1972373qke.208.1466736814917; 
+ Thu, 23 Jun 2016 19:53:34 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.237.37.148 with HTTP; Thu, 23 Jun 2016 19:52:11 -0700 (PDT)
-In-Reply-To: <20160623204033.13165-7-openbmc-patches@stwcx.xyz>
+Received: by 10.237.37.148 with HTTP; Thu, 23 Jun 2016 19:53:15 -0700 (PDT)
+In-Reply-To: <20160623204033.13165-6-openbmc-patches@stwcx.xyz>
 References: <20160623204033.13165-1-openbmc-patches@stwcx.xyz>
- <20160623204033.13165-7-openbmc-patches@stwcx.xyz>
+ <20160623204033.13165-6-openbmc-patches@stwcx.xyz>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 24 Jun 2016 12:22:11 +0930
-X-Google-Sender-Auth: Vwx1buqhWJ7FnCErnWTbOcFJzyI
-Message-ID: <CACPK8XcvmfhM-Tpqag84N=67us01S=Y8m1uD8DvQAsbjQUedWQ@mail.gmail.com>
-Subject: Re: [PATCH openbmc v5 06/11] obmc-phosphor-image: Improper use of
- DATETIME
+Date: Fri, 24 Jun 2016 12:23:15 +0930
+X-Google-Sender-Auth: Msb5EprBuX2VG8InbcZ6LtWZPII
+Message-ID: <CACPK8XdJ3u5mSnG61ZSaUkN=RZefAC4RzZ-mFEibJpi8zrFx6g@mail.gmail.com>
+Subject: Re: [PATCH openbmc v5 05/11] meta-phosphor: Ensure INITRAMFS_CTYPE
+ defined
 To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Patrick Williams <patrick@stwcx.xyz>
@@ -61,45 +61,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 24 Jun 2016 02:52:33 -0000
+X-List-Received-Date: Fri, 24 Jun 2016 02:53:37 -0000
 
 On Fri, Jun 24, 2016 at 6:10 AM, OpenBMC Patches
 <openbmc-patches@stwcx.xyz> wrote:
 > From: Patrick Williams <patrick@stwcx.xyz>
 >
-> The use of the DATETIME variable has issues with the sstate cache
-> because of the variable changing values, and therefore the checksum
-> used for sstate calculation also changing.
+> The hardware platforms use obmc-bsp-common.inc, which defines
+> INITRAMFS_CTYPE, but the simulation (qemu) platforms do not.
+> core-image-minimal-initramfs.bbappend currrently uses INITRAMFS_CTYPE
+> so we need to make sure it is defined.  Default there to 'lzma' if not
+> already defined.
 >
-> Other existing recipes add DATETIME to the 'vardepsexclude' list.
-> This case is glossed over very rapidly in section 21.3.2 "Checksums"
-> of the Mega Manual.
->
+
+Should it default to none if it's not defined? How do we make sure the
+kernel has decompression for this type enabled?
+
 > Signed-off-by: Patrick Williams <patrick@stwcx.xyz>
 
 Acked-by: Joel Stanley <joel@jms.id.au>
 
+
 > ---
->  meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass | 2 ++
->  1 file changed, 2 insertions(+)
+>  .../common/recipes-core/images/core-image-minimal-initramfs.bbappend     | 1 +
+>  1 file changed, 1 insertion(+)
 >
-> diff --git a/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass b/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
-> index adb86e0..c44139e 100644
-> --- a/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
-> +++ b/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
-> @@ -14,6 +14,7 @@ INITRD_IMAGE_LOADADDRESS ?= "${INITRD_IMAGE_ENTRYPOINT}"
->  INITRD_LINK_NAME = "${INITRD_IMAGE}-${MACHINE}${INITRAMFS_FSTYPE}"
->
->  FLASH_IMAGE_NAME ?= "flash-${MACHINE}-${DATETIME}"
-> +FLASH_IMAGE_NAME[vardepsexclude] = "DATETIME"
->  FLASH_IMAGE_LINK ?= "flash-${MACHINE}"
->
->  FLASH_UBOOT_OFFSET ?= "0"
-> @@ -95,3 +96,4 @@ do_generate_flash() {
->         tar -h -cvf ${ddir}/${MACHINE}-${DATETIME}.all.tar -C ${ddir} image-bmc
->         tar -h -cvf ${ddir}/${MACHINE}-${DATETIME}.tar -C ${ddir} image-u-boot image-kernel image-initramfs image-rofs image-rwfs
->  }
-> +do_generate_flash[vardepsexclude] = "DATETIME"
+> diff --git a/meta-phosphor/common/recipes-core/images/core-image-minimal-initramfs.bbappend b/meta-phosphor/common/recipes-core/images/core-image-minimal-initramfs.bbappend
+> index 90a1c3f..5710d22 100644
+> --- a/meta-phosphor/common/recipes-core/images/core-image-minimal-initramfs.bbappend
+> +++ b/meta-phosphor/common/recipes-core/images/core-image-minimal-initramfs.bbappend
+> @@ -1,3 +1,4 @@
+>  PACKAGE_INSTALL_remove = "initramfs-live-boot initramfs-live-install initramfs-live-install-efi"
+>  PACKAGE_INSTALL += "obmc-phosphor-initfs"
+> +INITRAMFS_CTYPE ?= "lzma"
+>  INITRAMFS_FSTYPES = "cpio.${INITRAMFS_CTYPE}"
 > --
 > 2.9.0
 >
