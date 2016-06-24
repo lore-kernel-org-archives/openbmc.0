@@ -3,17 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rbnwy4nhwzDqlN
- for <openbmc@lists.ozlabs.org>; Sat, 25 Jun 2016 05:10:57 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rbnwz2czczDqlP
+ for <openbmc@lists.ozlabs.org>; Sat, 25 Jun 2016 05:10:59 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466795450716426.41882418466605;
- Fri, 24 Jun 2016 12:10:50 -0700 (PDT)
+ with SMTPS id 1466795452277667.2692244036813;
+ Fri, 24 Jun 2016 12:10:52 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH phosphor-objmgr 0/2] More performance improvements
-Date: Fri, 24 Jun 2016 14:10:47 -0500
-Message-Id: <20160624191049.26382-1-openbmc-patches@stwcx.xyz>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Subject: [PATCH phosphor-objmgr 1/2] Pep8 fixes
+Date: Fri, 24 Jun 2016 14:10:48 -0500
+Message-Id: <20160624191049.26382-2-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
+In-Reply-To: <20160624191049.26382-1-openbmc-patches@stwcx.xyz>
+References: <20160624191049.26382-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -25,32 +28,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 24 Jun 2016 19:10:59 -0000
-X-List-Received-Date: Fri, 24 Jun 2016 19:10:59 -0000
+X-List-Received-Date: Fri, 24 Jun 2016 19:11:00 -0000
 
-Sort introspected children nodes to improve the chance of finding
-ObjectManagers sooner rather than later (systemd does a recursive
-listing of child nodes).
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
-Remove unnecessary dbus calls when processing interfaces for
-associations.  The existing code assumes that only object interfaces
-are available to it but the new discovery mechanism uses
-GetManagedObjects which includes the object properties.
+A few of these slipped by.
 
-<!-- Reviewable:start -->
+Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/phosphor-objmgr/13)
-<!-- Reviewable:end -->
+ phosphor-mapper | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-
-https://github.com/openbmc/phosphor-objmgr/pull/13
-
-Brad Bishop (2):
-  Pep8 fixes
-  More performance fixes
-
- phosphor-mapper | 44 +++++++++++++++++++++++++++++---------------
- 1 file changed, 29 insertions(+), 15 deletions(-)
-
+diff --git a/phosphor-mapper b/phosphor-mapper
+index ea30f1b..a2d007c 100644
+--- a/phosphor-mapper
++++ b/phosphor-mapper
+@@ -174,13 +174,11 @@ class ObjectMapper(dbus.service.Object):
+         gobject.idle_add(self.discover)
+         self.bus.add_signal_receiver(
+             self.bus_handler,
+-            dbus_interface=
+-            dbus.BUS_DAEMON_IFACE,
++            dbus_interface=dbus.BUS_DAEMON_IFACE,
+             signal_name='NameOwnerChanged')
+         self.bus.add_signal_receiver(
+             self.interfaces_added_handler,
+-            dbus_interface=
+-            dbus.BUS_DAEMON_IFACE + '.ObjectManager',
++            dbus_interface=dbus.BUS_DAEMON_IFACE + '.ObjectManager',
+             signal_name='InterfacesAdded',
+             sender_keyword='sender',
+             path_keyword='sender_path')
+@@ -319,8 +317,8 @@ class ObjectMapper(dbus.service.Object):
+             return iface == dbus.BUS_DAEMON_IFACE + '.ObjectManager' or \
+                 self.intf_match(iface)
+         if not owners:
+-            owned_names = [x for x in self.bus.list_names()
+-                if self.bus_match(x)]
++            owned_names = [
++                x for x in self.bus.list_names() if self.bus_match(x)]
+             owners = [self.bus.get_name_owner(x) for x in owned_names]
+             owners = zip(owned_names, owners)
+         for owned_name, o in owners:
 -- 
 2.9.0
