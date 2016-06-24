@@ -3,20 +3,23 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rbq306HBRzDqly
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rbq3120BHzDqlc
  for <openbmc@lists.ozlabs.org>; Sat, 25 Jun 2016 06:01:16 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466798471392572.9535214955406;
- Fri, 24 Jun 2016 13:01:11 -0700 (PDT)
+ with SMTPS id 1466798470182179.55164201907348;
+ Fri, 24 Jun 2016 13:01:10 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH openbmc v7 08/11] Fix systemd packageconfig
-Date: Fri, 24 Jun 2016 15:00:48 -0500
-Message-Id: <20160624200051.28156-9-openbmc-patches@stwcx.xyz>
+Cc: Patrick Williams <patrick@stwcx.xyz>
+Subject: [PATCH openbmc v7 07/11] btbridged: Change how kernel-source depend
+ is specified
+Date: Fri, 24 Jun 2016 15:00:47 -0500
+Message-Id: <20160624200051.28156-8-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 In-Reply-To: <20160624200051.28156-1-openbmc-patches@stwcx.xyz>
 References: <20160624200051.28156-1-openbmc-patches@stwcx.xyz>
+X-ZohoMail: Z_56716065 SPT_1 Z_56716064 SPT_1 SLF_D
+X-Zoho-Virus-Status: 2
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -30,29 +33,30 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Fri, 24 Jun 2016 20:01:18 -0000
 
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+From: Patrick Williams <patrick@stwcx.xyz>
 
-PACKAGECONFIG is typically set with '??=' in the base recipe.  In our
-systemd append it was being set with += which overrides the weak
-default (??=) so none of the default configure options were used.  This
-patch corrects that and then removes all the default options we don't
-need.
+As of Yocto commit 46cdaf1 we are suppose to use:
+   do_configure[depends] += "virtual/kernel:do_shared_workdir"
+Instead of:
+    DEPENDS += "virtual/kernel"
 
-Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Without this, the kernel source is not unpacked if you compile with
+the sstate cache and so btbridged fails to find the bt-host header.
+
+Signed-off-by: Patrick Williams <patrick@stwcx.xyz>
 ---
- meta-phosphor/common/recipes-core/systemd/systemd_%.bbappend | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ meta-phosphor/common/recipes-phosphor/host-ipmid/btbridged.bb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-phosphor/common/recipes-core/systemd/systemd_%.bbappend b/meta-phosphor/common/recipes-core/systemd/systemd_%.bbappend
-index 8b3b25d..9ad6a40 100644
---- a/meta-phosphor/common/recipes-core/systemd/systemd_%.bbappend
-+++ b/meta-phosphor/common/recipes-core/systemd/systemd_%.bbappend
-@@ -1,4 +1,5 @@
--PACKAGECONFIG += "networkd"
-+PACKAGECONFIG_append = " networkd"
-+PACKAGECONFIG_remove = "machined hibernate ldconfig binfmt backlight quotacheck localed kdbus ima smack polkit"
- FILESEXTRAPATHS_append := "${THISDIR}/${PN}:"
- SRC_URI += "file://default.network"
+diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/btbridged.bb b/meta-phosphor/common/recipes-phosphor/host-ipmid/btbridged.bb
+index a1a32d9..f3a7003 100644
+--- a/meta-phosphor/common/recipes-phosphor/host-ipmid/btbridged.bb
++++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/btbridged.bb
+@@ -15,4 +15,4 @@ SRCREV="39b3700766d851009258544aa0f75365f024c597"
  
+ # This is how linux-libc-headers says to include custom uapi headers
+ EXTRA_OEMAKE_append = "CFLAGS=-I${STAGING_KERNEL_DIR}/include/uapi"
+-DEPENDS += "virtual/kernel"
++do_configure[depends] += "virtual/kernel:do_shared_workdir"
 -- 
 2.9.0
