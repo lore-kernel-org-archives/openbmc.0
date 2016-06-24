@@ -3,23 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rbppz2gZdzDqlb
- for <openbmc@lists.ozlabs.org>; Sat, 25 Jun 2016 05:50:51 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rbpq11FD7zDqlS
+ for <openbmc@lists.ozlabs.org>; Sat, 25 Jun 2016 05:50:52 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466797846428549.257379041161;
- Fri, 24 Jun 2016 12:50:46 -0700 (PDT)
+ with SMTPS id 1466797847481552.9725196966718;
+ Fri, 24 Jun 2016 12:50:47 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Patrick Williams <patrick@stwcx.xyz>
-Subject: [PATCH openbmc v6 07/11] btbridged: Change how kernel-source depend
- is specified
-Date: Fri, 24 Jun 2016 14:50:30 -0500
-Message-Id: <20160624195034.27662-8-openbmc-patches@stwcx.xyz>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Subject: [PATCH openbmc v6 08/11] Fix systemd packageconfig
+Date: Fri, 24 Jun 2016 14:50:31 -0500
+Message-Id: <20160624195034.27662-9-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 In-Reply-To: <20160624195034.27662-1-openbmc-patches@stwcx.xyz>
 References: <20160624195034.27662-1-openbmc-patches@stwcx.xyz>
-X-ZohoMail: Z_56716065 SPT_1 Z_56716064 SPT_1 SLF_D
-X-Zoho-Virus-Status: 2
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -31,32 +28,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 24 Jun 2016 19:50:52 -0000
+X-List-Received-Date: Fri, 24 Jun 2016 19:50:54 -0000
 
-From: Patrick Williams <patrick@stwcx.xyz>
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
-As of Yocto commit 46cdaf1 we are suppose to use:
-   do_configure[depends] += "virtual/kernel:do_shared_workdir"
-Instead of:
-    DEPENDS += "virtual/kernel"
+PACKAGECONFIG is typically set with '??=' in the base recipe.  In our
+systemd append it was being set with += which overrides the weak
+default (??=) so none of the default configure options were used.  This
+patch corrects that and then removes all the default options we don't
+need.
 
-Without this, the kernel source is not unpacked if you compile with
-the sstate cache and so btbridged fails to find the bt-host header.
-
-Signed-off-by: Patrick Williams <patrick@stwcx.xyz>
+Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
- meta-phosphor/common/recipes-phosphor/host-ipmid/btbridged.bb | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ meta-phosphor/common/recipes-core/systemd/systemd_%.bbappend | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/btbridged.bb b/meta-phosphor/common/recipes-phosphor/host-ipmid/btbridged.bb
-index a1a32d9..f3a7003 100644
---- a/meta-phosphor/common/recipes-phosphor/host-ipmid/btbridged.bb
-+++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/btbridged.bb
-@@ -15,4 +15,4 @@ SRCREV="39b3700766d851009258544aa0f75365f024c597"
+diff --git a/meta-phosphor/common/recipes-core/systemd/systemd_%.bbappend b/meta-phosphor/common/recipes-core/systemd/systemd_%.bbappend
+index 8b3b25d..9ad6a40 100644
+--- a/meta-phosphor/common/recipes-core/systemd/systemd_%.bbappend
++++ b/meta-phosphor/common/recipes-core/systemd/systemd_%.bbappend
+@@ -1,4 +1,5 @@
+-PACKAGECONFIG += "networkd"
++PACKAGECONFIG_append = " networkd"
++PACKAGECONFIG_remove = "machined hibernate ldconfig binfmt backlight quotacheck localed kdbus ima smack polkit"
+ FILESEXTRAPATHS_append := "${THISDIR}/${PN}:"
+ SRC_URI += "file://default.network"
  
- # This is how linux-libc-headers says to include custom uapi headers
- EXTRA_OEMAKE_append = "CFLAGS=-I${STAGING_KERNEL_DIR}/include/uapi"
--DEPENDS += "virtual/kernel"
-+do_configure[depends] += "virtual/kernel:do_shared_workdir"
 -- 
 2.9.0
