@@ -3,17 +3,23 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rbq2l0dsTzDqlN
- for <openbmc@lists.ozlabs.org>; Sat, 25 Jun 2016 06:01:02 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rbq2n5bz8zDqlP
+ for <openbmc@lists.ozlabs.org>; Sat, 25 Jun 2016 06:01:05 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466798457586579.9459415520506;
- Fri, 24 Jun 2016 13:00:57 -0700 (PDT)
+ with SMTPS id 146679846089545.93424609921601;
+ Fri, 24 Jun 2016 13:01:00 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v7 00/11] Phosphor changes needed for Yocto 2.1
-Date: Fri, 24 Jun 2016 15:00:40 -0500
-Message-Id: <20160624200051.28156-1-openbmc-patches@stwcx.xyz>
+Cc: Patrick Williams <patrick@stwcx.xyz>
+Subject: [PATCH openbmc v7 02/11] meta-phosphor: use obmc-phosphor-user for
+ qemu systems
+Date: Fri, 24 Jun 2016 15:00:42 -0500
+Message-Id: <20160624200051.28156-3-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
+In-Reply-To: <20160624200051.28156-1-openbmc-patches@stwcx.xyz>
+References: <20160624200051.28156-1-openbmc-patches@stwcx.xyz>
+X-ZohoMail: Z_56716065 SPT_1 Z_56716064 SPT_1 SLF_D
+X-Zoho-Virus-Status: 2
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -25,59 +31,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 24 Jun 2016 20:01:05 -0000
+X-List-Received-Date: Fri, 24 Jun 2016 20:01:07 -0000
 
+From: Patrick Williams <patrick@stwcx.xyz>
 
+Signed-off-by: Patrick Williams <patrick@stwcx.xyz>
+---
+ meta-phosphor/conf/machine/include/sample.inc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-<!-- Reviewable:start -->
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/397)
-<!-- Reviewable:end -->
-
-
-https://github.com/openbmc/openbmc/pull/397
-
-Brad Bishop (1):
-  Fix systemd packageconfig
-
-Patrick Williams (10):
-  meta-phosphor: Use obmc-phosphor-event for qemu systems
-  meta-phosphor: use obmc-phosphor-user for qemu systems
-  meta-phosphor: Remove unused systemd patch
-  meta-phosphor: Make image-overlay an optional feature
-  meta-phosphor: Ensure INITRAMFS_CTYPE defined
-  obmc-phosphor-image: Improper use of DATETIME
-  btbridged: Change how kernel-source depend is specified
-  u-boot-fw-utils: Update to latest version.
-  u-boot: Upgrade AST2400 machines to 2016.05 tree.
-  u-boot: Remove unused 2013.07 packages.
-
- .../meta-ast2400/conf/machine/include/ast2400.inc  |    6 +-
- ...013.07%.bbappend => u-boot-fw-utils_%.bbappend} |    1 -
- ...{u-boot_2013.07%.bbappend => u-boot_%.bbappend} |    1 -
- .../meta-firestone/conf/machine/firestone.conf     |    2 +-
- .../meta-garrison/conf/machine/garrison.conf       |    2 +-
- .../meta-palmetto/conf/machine/palmetto.conf       |    2 +-
- .../meta-barreleye/conf/machine/barreleye.conf     |    2 +-
- .../recipes-bsp/u-boot/u-boot_2013.07%.bbappend    |    3 -
- meta-phosphor/classes/obmc-phosphor-image.bbclass  |   11 +-
- .../obmc-phosphor-image_types_uboot.bbclass        |    2 +
- .../recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb  |   55 -
- .../recipes-bsp/u-boot/u-boot-fw-utils_2016.05.bb  |    4 +-
- .../common/recipes-bsp/u-boot/u-boot_2013.07.bb    |   23 -
- .../common/recipes-bsp/u-boot/u-boot_2016.05.bb    |    4 +-
- .../images/core-image-minimal-initramfs.bbappend   |    1 +
- .../0100-systemd_networkd_dbus_setaddress.patch    | 1209 --------------------
- .../common/recipes-core/systemd/systemd_%.bbappend |    4 +-
- .../recipes-phosphor/host-ipmid/btbridged.bb       |    2 +-
- .../conf/machine/include/obmc-bsp-common.inc       |    2 +-
- meta-phosphor/conf/machine/include/sample.inc      |    4 +-
- 20 files changed, 26 insertions(+), 1314 deletions(-)
- rename meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/{u-boot-fw-utils_2013.07%.bbappend => u-boot-fw-utils_%.bbappend} (90%)
- rename meta-openbmc-bsp/meta-aspeed/meta-ast2400/recipes-bsp/u-boot/{u-boot_2013.07%.bbappend => u-boot_%.bbappend} (71%)
- delete mode 100644 meta-openbmc-machines/meta-openpower/meta-rackspace/meta-barreleye/recipes-bsp/u-boot/u-boot_2013.07%.bbappend
- delete mode 100644 meta-phosphor/common/recipes-bsp/u-boot/u-boot-fw-utils_2013.07.bb
- delete mode 100644 meta-phosphor/common/recipes-bsp/u-boot/u-boot_2013.07.bb
- delete mode 100644 meta-phosphor/common/recipes-core/systemd/systemd/0100-systemd_networkd_dbus_setaddress.patch
-
+diff --git a/meta-phosphor/conf/machine/include/sample.inc b/meta-phosphor/conf/machine/include/sample.inc
+index b499940..e4d70d1 100644
+--- a/meta-phosphor/conf/machine/include/sample.inc
++++ b/meta-phosphor/conf/machine/include/sample.inc
+@@ -30,4 +30,4 @@ PREFERRED_PROVIDER_virtual/obmc-phosphor-flash-mgmt = "obmc-phosphor-flashd"
+ PREFERRED_PROVIDER_virtual/obmc-phosphor-policy-mgmt = "obmc-phosphor-policyd"
+ PREFERRED_PROVIDER_virtual/obmc-phosphor-sensor-mgmt = "obmc-phosphor-sensord"
+ PREFERRED_PROVIDER_virtual/obmc-phosphor-system-mgmt = "obmc-phosphor-sysd"
+-PREFERRED_PROVIDER_virtual/obmc-phosphor-user-mgmt = "obmc-phosphor-userd"
++PREFERRED_PROVIDER_virtual/obmc-phosphor-user-mgmt = "obmc-phosphor-user"
 -- 
 2.9.0
