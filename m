@@ -1,51 +1,53 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-qk0-x22e.google.com (mail-qk0-x22e.google.com
- [IPv6:2607:f8b0:400d:c09::22e])
+Received: from mail-qk0-x241.google.com (mail-qk0-x241.google.com
+ [IPv6:2607:f8b0:400d:c09::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rbTf40V1fzDq5W
- for <openbmc@lists.ozlabs.org>; Fri, 24 Jun 2016 16:57:00 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rbTsF3VxRzDq5W
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Jun 2016 17:06:41 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=ytggFRJV; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=TF9y6wkq; 
  dkim-atps=neutral
-Received: by mail-qk0-x22e.google.com with SMTP id a186so135503548qkf.0
- for <openbmc@lists.ozlabs.org>; Thu, 23 Jun 2016 23:56:59 -0700 (PDT)
+Received: by mail-qk0-x241.google.com with SMTP id j2so19670932qkf.1
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Jun 2016 00:06:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:from:date:message-id:subject:to:cc
- :content-transfer-encoding;
- bh=pt7HTWV91Z65E9SbUYMQ5pnYV3NZuoUN427dMaUExiY=;
- b=ytggFRJVLhCrokMUHcSwmli5qL0Vxvh0eYmF23tyHpVa1BoQi3eqwwZxzxZDSH6v8l
- AZi0haPDfHV6gWo5RuQ+xhzHu/jXKuTYjn2Tv/0NosLQKw02lk1UQcLTn9wjbRoUL5/g
- uWxKhvZb6vpD4rS27yDKkbG07pobTB0ZCaOVFrQwgAibVTGpPYobntgS2JpO4/pbXTC4
- w7qpVgzNiPy8EyVCUz9oDMJTa1NOMoT+BwbRvqQFUSqxfXSJ0o0IYll/gM91IVhXBrPk
- 2RItkH6gFcOD8uMUWQgeYhEYSvW37KlBmlSLr9nJ0ZD3eCHjNW+PZ3vAEaCkFfhi8OGd
- IjfA==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=ct8B7g+oda+RgaveVkC0GMDgs+bXlgw1xXx5vJa8rc0=;
+ b=TF9y6wkq4LUtwRwWXiFVrl3Rabx8jECZOajb9NfP/pfGBp/S90D7HDlJtkKNj7XON1
+ /67qUEpm7kyp75bqnnMYiXZK0mPxf0e7tRh/tnexqhPokypU3b/BIcuJDmD28TSLI30/
+ 2eLKHFRtq41J1dW42HfxC4YV6LWGPv/knCqtWBW2WlHrO18AMqxcBRfn8g0FEK82SoCT
+ 30Xad6KNwUZn44O25u4fG6YVHgpObv6vCSY0YjsQbI0JHgalJt8aRwIW1MYkNVot4mCQ
+ lhQANEMzSevtU1mt1D466ClHONMoitXPbxt0yVZ9JgapgJSw1uXW3QjriU2h0/kk4jTM
+ UkkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
- :to:cc:content-transfer-encoding;
- bh=pt7HTWV91Z65E9SbUYMQ5pnYV3NZuoUN427dMaUExiY=;
- b=JS+maB+KRv8VfTtr/O7LkooMQqMLH7Obylej5hL3qaphGFvCgGtuSWElacCst0BEIZ
- zcbjZqB5o7GmCUd1z7LKhdton7RkSnnrEXW4XCFiHEnOk6wJ84AJ+njGUu0BpXq6uGKR
- 60Rq93ffFUaIaz505pwjdCNNrXqj0R4jE1IXCKPf8PKLQkChyi9QaG0dE1701SePkTRV
- WpN9rTbYK+qFXTxLJhyu1mPlDeOp1Te/r51pdA7kfaxA/+RBvBmx9m80v2PHGkzZQgjg
- aiBHqXBYN+v/XiKkU8upR21GtQcsLSOfWPEgsWM1OnMckOD4YnClLbSTE9eRJvBUTBEi
- fxyA==
-X-Gm-Message-State: ALyK8tICqZyyR/dQqrfJmQguvMd9p88ND5pzO8wynmPA0PqggK7I52yPk+mskDwhCm+qHlbyydxhGLgaiXXU9w==
-X-Received: by 10.55.149.3 with SMTP id x3mr2844428qkd.140.1466751417634; Thu,
- 23 Jun 2016 23:56:57 -0700 (PDT)
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=ct8B7g+oda+RgaveVkC0GMDgs+bXlgw1xXx5vJa8rc0=;
+ b=g3KYQdB22PKTbiknz/uBCM+qDrpAaqMY8L+Mk5B0gz2CDMlF37eorkn7spaFb0Ugt+
+ /m1EPTwaz3b8KULjCIr3WYH8HvJBOifcUuLD4lj8u5bmEhbCngMkGtghW8FDp2gRU4lp
+ SXY2z4oCZh+x3yqoQlv7qHVMid0ygFWz+/Q2glUOCyfHe/qro4Tx5fkvvpdj4WH7W5Z0
+ RsTugzKGLm2ekGWUR9/UCALnjfA8QNmmQ2zte0yemA0UE/z+9gSLE3b9zp9v3ndG2WdN
+ JtaceRwbVI75SPPpc2xsbZ6IgGYVVRuO+DA1uhR/K5i1qSnbQO9yOUUW7dOPJaYYq19a
+ nJQg==
+X-Gm-Message-State: ALyK8tJfMAv5SsxZGIiEL0vj1RbhZknfKWnSokfPSQLCfZf3qhzyKjRxHrcktllrJ+8JlnWDyCENz1KJ5HQeNw==
+X-Received: by 10.55.107.6 with SMTP id g6mr2734584qkc.166.1466751999504; Fri,
+ 24 Jun 2016 00:06:39 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.237.37.148 with HTTP; Thu, 23 Jun 2016 23:56:38 -0700 (PDT)
+Received: by 10.237.37.148 with HTTP; Fri, 24 Jun 2016 00:06:20 -0700 (PDT)
+In-Reply-To: <c3003f09-8281-d22a-eeb9-6ef126a39192@kaod.org>
+References: <1464556805-4340-1-git-send-email-clg@kaod.org>
+ <c3003f09-8281-d22a-eeb9-6ef126a39192@kaod.org>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 24 Jun 2016 16:26:38 +0930
-X-Google-Sender-Auth: jdkxMQIzT5hP9HshRqeqaRm8Akk
-Message-ID: <CACPK8XfhsgwsrbY+VKWk+SF0Cogr3j1f+X5r4P5uoWsgMJ0TqA@mail.gmail.com>
-Subject: Keeping tagged builds
-To: Chris Smart <chris@distroguy.com>
-Cc: Patrick Williams <patrick@stwcx.xyz>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Date: Fri, 24 Jun 2016 16:36:20 +0930
+X-Google-Sender-Auth: vuDkoTunOS9X7pBVc5uoBSdwbpw
+Message-ID: <CACPK8Xc_5G2c2-twjJYfpUBK7GfqWAHuFetydJQOrY9-9cNyGg@mail.gmail.com>
+Subject: Re: [PATCH qemu 00/12] SMC and network support
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Andrew Jeffery <andrew@aj.id.au>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -59,32 +61,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 24 Jun 2016 06:57:00 -0000
+X-List-Received-Date: Fri, 24 Jun 2016 07:06:42 -0000
 
-Hi Chris,
+Hi Cedric,
 
-On Thu, Jun 23, 2016 at 5:24 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
+On Fri, Jun 24, 2016 at 2:30 AM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
 :
-> On 06/23/2016 09:24 AM, Joel Stanley wrote:
->> On Tue, Jun 21, 2016 at 12:46 AM, Patrick Williams <patrick@stwcx.xyz> w=
-rote:
->>> I have just tagged v1.0 and uploaded it to Github.  This is meant as th=
-e
->>> release to support Barreleye in production capacity.  Thank you to
->>> everyone that contributed over the last year to get us to this point an=
-d
->>> congrats on this major milestone!
->>
->> Thanks Patrick. It's rewarding to know our work has made it into a produ=
-ct.
+> Here is a quick update as I just did a rebase of my branch on mainline qe=
+mu
+> (commit c7288767523f) :
 >
-> It would be great to keep images of this version available. Would that be
-> possible on https://openpower.xyz/ ?
+>         https://github.com/legoater/qemu/commits/aspeed
+>
 
-Do you have any suggestions for how to do this programmaticly? Can we
-get jenkins to realise that it's tagged and retain it?
+Nice work! Good to see the long list of patches on their way upstream.
 
-Or should we set up a separate build job that triggers off tags?
+> To give it a try, use :
+>
+>         $ qemu-system-arm -m 256 -M palmetto-bmc -nographic -nodefaults  =
+\
+>                 -drive file=3Dflash-palmetto,format=3Draw,if=3Dmtd \
+>                 -drive file=3Dpalmetto.pnor,format=3Draw,if=3Dmtd \
+>                 -net nic -net user,hostfwd=3D:127.0.0.1:2222-:22,hostname=
+=3Dqemu
+>                 -serial stdio
+
+I gave this a go and got:
+
+qemu-system-arm: Initialization of device mx25l25635f failed: failed
+to read the initial flash content
+
+HEAD is ba7a28c66ec35d0a021b2182613e2cb26706d8a4.
 
 Cheers,
 
