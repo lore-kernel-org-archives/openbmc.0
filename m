@@ -3,17 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rbppx2WCHzDqll
- for <openbmc@lists.ozlabs.org>; Sat, 25 Jun 2016 05:50:49 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rbppz2gZdzDqlb
+ for <openbmc@lists.ozlabs.org>; Sat, 25 Jun 2016 05:50:51 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466797843306798.9010265968496;
- Fri, 24 Jun 2016 12:50:43 -0700 (PDT)
+ with SMTPS id 1466797846428549.257379041161;
+ Fri, 24 Jun 2016 12:50:46 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Patrick Williams <patrick@stwcx.xyz>
-Subject: [PATCH openbmc v6 06/11] obmc-phosphor-image: Improper use of DATETIME
-Date: Fri, 24 Jun 2016 14:50:29 -0500
-Message-Id: <20160624195034.27662-7-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v6 07/11] btbridged: Change how kernel-source depend
+ is specified
+Date: Fri, 24 Jun 2016 14:50:30 -0500
+Message-Id: <20160624195034.27662-8-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 In-Reply-To: <20160624195034.27662-1-openbmc-patches@stwcx.xyz>
 References: <20160624195034.27662-1-openbmc-patches@stwcx.xyz>
@@ -30,39 +31,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 24 Jun 2016 19:50:50 -0000
+X-List-Received-Date: Fri, 24 Jun 2016 19:50:52 -0000
 
 From: Patrick Williams <patrick@stwcx.xyz>
 
-The use of the DATETIME variable has issues with the sstate cache
-because of the variable changing values, and therefore the checksum
-used for sstate calculation also changing.
+As of Yocto commit 46cdaf1 we are suppose to use:
+   do_configure[depends] += "virtual/kernel:do_shared_workdir"
+Instead of:
+    DEPENDS += "virtual/kernel"
 
-Other existing recipes add DATETIME to the 'vardepsexclude' list.
-This case is glossed over very rapidly in section 21.3.2 "Checksums"
-of the Mega Manual.
+Without this, the kernel source is not unpacked if you compile with
+the sstate cache and so btbridged fails to find the bt-host header.
 
 Signed-off-by: Patrick Williams <patrick@stwcx.xyz>
 ---
- meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass | 2 ++
- 1 file changed, 2 insertions(+)
+ meta-phosphor/common/recipes-phosphor/host-ipmid/btbridged.bb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass b/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
-index adb86e0..c44139e 100644
---- a/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
-+++ b/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
-@@ -14,6 +14,7 @@ INITRD_IMAGE_LOADADDRESS ?= "${INITRD_IMAGE_ENTRYPOINT}"
- INITRD_LINK_NAME = "${INITRD_IMAGE}-${MACHINE}${INITRAMFS_FSTYPE}"
+diff --git a/meta-phosphor/common/recipes-phosphor/host-ipmid/btbridged.bb b/meta-phosphor/common/recipes-phosphor/host-ipmid/btbridged.bb
+index a1a32d9..f3a7003 100644
+--- a/meta-phosphor/common/recipes-phosphor/host-ipmid/btbridged.bb
++++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/btbridged.bb
+@@ -15,4 +15,4 @@ SRCREV="39b3700766d851009258544aa0f75365f024c597"
  
- FLASH_IMAGE_NAME ?= "flash-${MACHINE}-${DATETIME}"
-+FLASH_IMAGE_NAME[vardepsexclude] = "DATETIME"
- FLASH_IMAGE_LINK ?= "flash-${MACHINE}"
- 
- FLASH_UBOOT_OFFSET ?= "0"
-@@ -95,3 +96,4 @@ do_generate_flash() {
-        tar -h -cvf ${ddir}/${MACHINE}-${DATETIME}.all.tar -C ${ddir} image-bmc
-        tar -h -cvf ${ddir}/${MACHINE}-${DATETIME}.tar -C ${ddir} image-u-boot image-kernel image-initramfs image-rofs image-rwfs
- }
-+do_generate_flash[vardepsexclude] = "DATETIME"
+ # This is how linux-libc-headers says to include custom uapi headers
+ EXTRA_OEMAKE_append = "CFLAGS=-I${STAGING_KERNEL_DIR}/include/uapi"
+-DEPENDS += "virtual/kernel"
++do_configure[depends] += "virtual/kernel:do_shared_workdir"
 -- 
 2.9.0
