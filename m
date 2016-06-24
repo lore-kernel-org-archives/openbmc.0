@@ -1,38 +1,35 @@
 Return-Path: <clg@kaod.org>
-X-Greylist: delayed 6899 seconds by postgrey-1.35 at bilbo;
- Fri, 24 Jun 2016 19:14:02 AEST
-Received: from 9.mo1.mail-out.ovh.net (9.mo1.mail-out.ovh.net [178.32.108.172])
+Received: from 11.mo1.mail-out.ovh.net (11.mo1.mail-out.ovh.net
+ [188.165.48.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rbXhB0f4HzDq5W
- for <openbmc@lists.ozlabs.org>; Fri, 24 Jun 2016 19:14:01 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rblKC5FmRzDq5W
+ for <openbmc@lists.ozlabs.org>; Sat, 25 Jun 2016 03:13:19 +1000 (AEST)
 Received: from player758.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo1.mail-out.ovh.net (Postfix) with ESMTP id BE959FF9618
- for <openbmc@lists.ozlabs.org>; Fri, 24 Jun 2016 09:18:57 +0200 (CEST)
+ by mo1.mail-out.ovh.net (Postfix) with ESMTP id 26C1BFF930A
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Jun 2016 19:13:15 +0200 (CEST)
 Received: from [192.168.124.3] (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
  [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player758.ha.ovh.net (Postfix) with ESMTPSA id 9EDD82C0093;
- Fri, 24 Jun 2016 09:18:54 +0200 (CEST)
-Subject: Re: [PATCH qemu 00/12] SMC and network support
-To: Joel Stanley <joel@jms.id.au>
-References: <1464556805-4340-1-git-send-email-clg@kaod.org>
- <c3003f09-8281-d22a-eeb9-6ef126a39192@kaod.org>
- <CACPK8Xc_5G2c2-twjJYfpUBK7GfqWAHuFetydJQOrY9-9cNyGg@mail.gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Andrew Jeffery <andrew@aj.id.au>
+ by player758.ha.ovh.net (Postfix) with ESMTPSA id 795D92C00A0;
+ Fri, 24 Jun 2016 19:13:12 +0200 (CEST)
+Subject: Re: [linux 2/2] drivers/net/ftgmac100: Adapt for Aspeed SoCs
+To: Joel Stanley <joel@jms.id.au>, andrew@aj.id.au
+References: <1466753146-2916-1-git-send-email-joel@jms.id.au>
+ <1466753146-2916-2-git-send-email-joel@jms.id.au>
+Cc: openbmc@lists.ozlabs.org
 From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <5ca52c5c-9370-f38e-2a45-0969d0ed7592@kaod.org>
-Date: Fri, 24 Jun 2016 09:18:53 +0200
+Message-ID: <055e43c0-ce8a-a627-26b9-44ea9d17d2e1@kaod.org>
+Date: Fri, 24 Jun 2016 19:13:10 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
  Icedove/45.1.0
 MIME-Version: 1.0
-In-Reply-To: <CACPK8Xc_5G2c2-twjJYfpUBK7GfqWAHuFetydJQOrY9-9cNyGg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <1466753146-2916-2-git-send-email-joel@jms.id.au>
+Content-Type: text/plain; charset=windows-1252
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 16060117747738381227
+X-Ovh-Tracer-Id: 7649926918622448386
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeltddrtdejgdekkecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeltddrtdekgddutdeiucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -44,37 +41,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 24 Jun 2016 09:14:02 -0000
+X-List-Received-Date: Fri, 24 Jun 2016 17:13:20 -0000
 
-On 06/24/2016 09:06 AM, Joel Stanley wrote:
-> Hi Cedric,
+On 06/24/2016 09:25 AM, Joel Stanley wrote:
+> The RXDES and TXDES registers bits in the ftgmac100 indicates EDO{R,T}R
+> at bit position 15 for the Faraday Tech IP. However, the version of this
+> IP present in the Aspeed SoCs has these bits at position 30 in the
+> registers.
 > 
-> On Fri, Jun 24, 2016 at 2:30 AM, CÃ©dric Le Goater <clg@kaod.org> wrote:
->> Here is a quick update as I just did a rebase of my branch on mainline qemu
->> (commit c7288767523f) :
->>
->>         https://github.com/legoater/qemu/commits/aspeed
->>
+> It appers that ast2400 SoCs support both positions, with the 15th bit
+> marked as reserved but still functional. In the ast2500 this bit is
+> reused for another function, so we need a work around.
 > 
-> Nice work! Good to see the long list of patches on their way upstream.
+> This was confirmed with engineers from Aspeed that using bit 30 is
+> correct for both the ast2400 and ast2500 SoCs.
 > 
->> To give it a try, use :
->>
->>         $ qemu-system-arm -m 256 -M palmetto-bmc -nographic -nodefaults  \
->>                 -drive file=flash-palmetto,format=raw,if=mtd \
->>                 -drive file=palmetto.pnor,format=raw,if=mtd \
->>                 -net nic -net user,hostfwd=:127.0.0.1:2222-:22,hostname=qemu
->>                 -serial stdio
-> 
-> I gave this a go and got:
-> 
-> qemu-system-arm: Initialization of device mx25l25635f failed: failed
-> to read the initial flash content
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
+> ---
 
-This is an issue with the flash image. Is the path correct ? the permissions ? 
+Nice result.  
 
-> HEAD is ba7a28c66ec35d0a021b2182613e2cb26706d8a4.
+Reviewed-by: Cédric Le Goater <clg@kaod.org>
 
-Looks good.
+Thanks,
 
-C. 
+C.
+
+>  drivers/net/ethernet/faraday/ftgmac100.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
+> index 2c2675d6ee3b..e805c4d4c5f8 100644
+> --- a/drivers/net/ethernet/faraday/ftgmac100.c
+> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
+> @@ -1358,8 +1358,14 @@ static int ftgmac100_probe(struct platform_device *pdev)
+>  		priv->use_ncsi = false;
+>  	}
+>  
+> -	priv->rxdes0_edorr_mask = BIT(15);
+> -	priv->txdes0_edotr_mask = BIT(15);
+> +	if (of_machine_is_compatible("aspeed,ast2400") ||
+> +	    of_machine_is_compatible("aspeed,ast2500")) {
+> +		priv->rxdes0_edorr_mask = BIT(30);
+> +		priv->txdes0_edotr_mask = BIT(30);
+> +	} else {
+> +		priv->rxdes0_edorr_mask = BIT(15);
+> +		priv->txdes0_edotr_mask = BIT(15);
+> +	}
+>  
+>  	netdev->ethtool_ops = &ftgmac100_ethtool_ops;
+>  	netdev->netdev_ops = &ftgmac100_netdev_ops;
+> 
