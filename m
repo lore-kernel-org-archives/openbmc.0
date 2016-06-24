@@ -3,18 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rbqG31fTgzDqlN
- for <openbmc@lists.ozlabs.org>; Sat, 25 Jun 2016 06:10:50 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rbqG36dJ2zDqlP
+ for <openbmc@lists.ozlabs.org>; Sat, 25 Jun 2016 06:10:51 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466799046562263.14647553328666;
- Fri, 24 Jun 2016 13:10:46 -0700 (PDT)
+ with SMTPS id 1466799048233714.5349872886101;
+ Fri, 24 Jun 2016 13:10:48 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Patrick Williams <patrick@stwcx.xyz>
-Subject: [PATCH openbmc v8 01/11] meta-phosphor: Use obmc-phosphor-event for
+Subject: [PATCH openbmc v8 02/11] meta-phosphor: use obmc-phosphor-user for
  qemu systems
-Date: Fri, 24 Jun 2016 15:10:34 -0500
-Message-Id: <20160624201044.28595-2-openbmc-patches@stwcx.xyz>
+Date: Fri, 24 Jun 2016 15:10:35 -0500
+Message-Id: <20160624201044.28595-3-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 In-Reply-To: <20160624201044.28595-1-openbmc-patches@stwcx.xyz>
 References: <20160624201044.28595-1-openbmc-patches@stwcx.xyz>
@@ -41,17 +41,14 @@ Signed-off-by: Patrick Williams <patrick@stwcx.xyz>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/meta-phosphor/conf/machine/include/sample.inc b/meta-phosphor/conf/machine/include/sample.inc
-index e66dc77..b499940 100644
+index b499940..e4d70d1 100644
 --- a/meta-phosphor/conf/machine/include/sample.inc
 +++ b/meta-phosphor/conf/machine/include/sample.inc
-@@ -24,7 +24,7 @@ VIRTUAL-RUNTIME_obmc-phosphor-ipmi-parsers = " \
-        "
- PREFERRED_PROVIDER_virtual/obmc-phosphor-host-ipmi-hw = "host-ipmi-hw-example"
- PREFERRED_PROVIDER_virtual/obmc-phosphor-chassis-mgmt = "obmc-phosphor-chassisd"
--PREFERRED_PROVIDER_virtual/obmc-phosphor-event-mgmt = "obmc-phosphor-eventd"
-+PREFERRED_PROVIDER_virtual/obmc-phosphor-event-mgmt = "obmc-phosphor-event"
- PREFERRED_PROVIDER_virtual/obmc-phosphor-fan-mgmt = "obmc-phosphor-fand"
- PREFERRED_PROVIDER_virtual/obmc-phosphor-flash-mgmt = "obmc-phosphor-flashd"
+@@ -30,4 +30,4 @@ PREFERRED_PROVIDER_virtual/obmc-phosphor-flash-mgmt = "obmc-phosphor-flashd"
  PREFERRED_PROVIDER_virtual/obmc-phosphor-policy-mgmt = "obmc-phosphor-policyd"
+ PREFERRED_PROVIDER_virtual/obmc-phosphor-sensor-mgmt = "obmc-phosphor-sensord"
+ PREFERRED_PROVIDER_virtual/obmc-phosphor-system-mgmt = "obmc-phosphor-sysd"
+-PREFERRED_PROVIDER_virtual/obmc-phosphor-user-mgmt = "obmc-phosphor-userd"
++PREFERRED_PROVIDER_virtual/obmc-phosphor-user-mgmt = "obmc-phosphor-user"
 -- 
 2.9.0
