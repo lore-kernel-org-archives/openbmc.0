@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rcYQX5llfzDqlt
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rcYQY0R97zDqm0
  for <openbmc@lists.ozlabs.org>; Sun, 26 Jun 2016 10:50:44 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466902240276560.8789096383196;
- Sat, 25 Jun 2016 17:50:40 -0700 (PDT)
+ with SMTPS id 1466902239328488.238929854906;
+ Sat, 25 Jun 2016 17:50:39 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v7 06/15] initfs: update: Consistently add ERROR: and
- print to stderr
-Date: Sat, 25 Jun 2016 19:50:24 -0500
-Message-Id: <20160626005033.21336-7-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v7 05/15] initfs: update: Do not cause an error if no
+ files were saved
+Date: Sat, 25 Jun 2016 19:50:23 -0500
+Message-Id: <20160626005033.21336-6-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 In-Reply-To: <20160626005033.21336-1-openbmc-patches@stwcx.xyz>
 References: <20160626005033.21336-1-openbmc-patches@stwcx.xyz>
@@ -28,62 +28,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 26 Jun 2016 00:50:45 -0000
+X-List-Received-Date: Sun, 26 Jun 2016 00:50:46 -0000
 
 From: Milton Miller <miltonm@us.ibm.com>
 
-Make sure all error messages start with the tag ERROR and its
-printed to stderr by creating an echoerr function.
-
-Previously one case had the file descriptors backwards in the
-redirection.
+If there were no files in the read-write overlay file system that
+were in the persistent file list, then the save directory will
+not be created and therefore not exist.  Skip attempting copying
+the non-existent directory in that case to avoid the error message.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ .../common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh   | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index f0ca989..e51dbf8 100755
+index f8e551c..f0ca989 100755
 --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
 +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -2,6 +2,10 @@
- 
- echo update: "$@"
- 
-+echoerr() {
-+	echo 1>&2 "ERROR: $@"
-+}
-+
- cd /
- if ! test -r /proc/mounts || ! test -f /proc/mounts
- then
-@@ -21,7 +25,7 @@ fi
- 
- if grep mtd /proc/mounts
- then
--	echo 1>&2 "Error: A mtd device is mounted."
-+	echoerr "A mtd device is mounted."
- 	exit 1
- fi
- 
-@@ -90,7 +94,7 @@ do
- 		toram=y
- 		shift ;;
- 	*)
--		echo 2>&1 "Unknown option $1"
-+		echoerr "Unknown option $1"
- 		exit 1 ;;
- 	esac
+@@ -144,7 +144,7 @@ do
+ 	flashcp -v $f /dev/$m && rm $f
  done
-@@ -126,7 +130,7 @@ do
- 	m=$(findmtd ${f#$image})
- 	if test -z "$m"
- 	then
--		echo 1>&2  "Unable to find mtd partiton for ${f##*/}."
-+		echoerr "Unable to find mtd partiton for ${f##*/}."
- 		exit 1
- 	fi
- done
+ 
+-if test "x$toram" = xy
++if test -d $save -a "x$toram" = xy
+ then
+ 	mkdir -p $upper
+ 	cp -rp $save/. $upper/
 -- 
 2.9.0
