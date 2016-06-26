@@ -3,17 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rcYQd0hP9zDqmc
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rcYQd0mpJzDqmd
  for <openbmc@lists.ozlabs.org>; Sun, 26 Jun 2016 10:50:48 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466902243093102.23605185856218;
- Sat, 25 Jun 2016 17:50:43 -0700 (PDT)
+ with SMTPS id 1466902244472849.4522583699669;
+ Sat, 25 Jun 2016 17:50:44 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v7 09/15] initfs: update: add check for image size vs
- mtd size
-Date: Sat, 25 Jun 2016 19:50:27 -0500
-Message-Id: <20160626005033.21336-10-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v7 10/15] initfs: update: add --help message
+Date: Sat, 25 Jun 2016 19:50:28 -0500
+Message-Id: <20160626005033.21336-11-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 In-Reply-To: <20160626005033.21336-1-openbmc-patches@stwcx.xyz>
 References: <20160626005033.21336-1-openbmc-patches@stwcx.xyz>
@@ -32,67 +31,52 @@ X-List-Received-Date: Sun, 26 Jun 2016 00:50:50 -0000
 
 From: Milton Miller <miltonm@us.ibm.com>
 
-The flashcp command will check the file size vs the partition size,
-so add a check when looking at images.
-
-Use stat -L -c "%s" to get the file size, and compare it to the mtd
-size from the sysfs size attribute.
-
-If this check is suppressed the enforcement is left to flashcp.
+Now that update is intended for use at runtime and not just by
+the init and shutdown scripts, add a short help message listing
+the options so people don't have to understand how to read shell.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../obmc-phosphor-initfs/files/obmc-update.sh           | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ .../obmc-phosphor-initfs/files/obmc-update.sh        | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
 
 diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index 9d3c812..fa46635 100755
+index fa46635..268c6ad 100755
 --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
 +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -52,6 +52,14 @@ childmtds() {
- 	done
- }
- 
-+toobig() {
-+	if test $(stat -L -c "%s" "$1") -gt $(cat /sys/class/mtd/"$2"/size)
-+	then
-+		return 0
-+	fi
-+	return 1
-+}
+@@ -106,6 +106,24 @@ image=/run/initramfs/image-
+ while test "$1" != "${1#-}"
+ do
+ 	case "$1" in
++	--help)
++		cat <<HERE
++Usage: $0 [options] -- Write images in /run/initramfs to flash (/dev/mtd*)
++    --help                    Show this message
++    --no-flash                Don't attempt to write images to flash
++    --ignore-size             Don't compare image size to mtd device size
++    --ignore-mount            Don't check if destination is mounted
++    --save-files              Copy whitelisted files to save directory in RAM
++    --no-save-files           Don't copy whitelisted files to save directory
++    --copy-files              Copy files from save directory to rwfs mountpoint
++    --restore-files           Restore files from save directory to rwfs layer
++    --no-restore-files        Don't restore saved files from ram to rwfs layer
++    --clean-saved-files       Delete saved whitelisted files from RAM
++    --no-clean-saved-files    Retain saved whitelisted files in RAM
++HERE
 +
- findmtd() {
- 	m=$(grep -xl "$1" /sys/class/mtd/*/name)
- 	m=${m%/name}
-@@ -89,6 +97,7 @@ doclean=
- dosave=y
- dorestore=y
- toram=
-+checksize=y
- checkmount=y
- 
- whitelist=/run/initramfs/whitelist
-@@ -118,6 +127,9 @@ do
- 	--no-flash)
- 		doflash=
++	    exit 0 ;;
++
+ 	--no-clean-saved-files)
+ 		doclean=
  		shift ;;
-+	--ignore-size)
-+		checksize=
-+		shift ;;
- 	--ignore-mount)
- 		checkmount=
- 		doflash=
-@@ -165,6 +177,11 @@ do
- 		echoerr "Unable to find mtd partiton for ${f##*/}."
- 		exit 1
- 	fi
-+	if test -n "$checksize" && toobig "$f" "$m"
-+	then
-+		echoerr "Image ${f##*/} too big for $m."
-+		exit 1
-+	fi
- 	for s in $m $(childmtds $m)
- 	do
- 		if test -n "$checkmount" && mtdismounted $s
+@@ -138,7 +156,7 @@ do
+ 		toram=y
+ 		shift ;;
+ 	*)
+-		echoerr "Unknown option $1"
++		echoerr "Unknown option $1.  Try $0 --help."
+ 		exit 1 ;;
+ 	esac
+ done
 -- 
 2.9.0
