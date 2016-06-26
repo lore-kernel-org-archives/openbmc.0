@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rcYQW2pgDzDqlj
- for <openbmc@lists.ozlabs.org>; Sun, 26 Jun 2016 10:50:43 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rcYQX5llfzDqlt
+ for <openbmc@lists.ozlabs.org>; Sun, 26 Jun 2016 10:50:44 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466902238154477.78658117832595;
- Sat, 25 Jun 2016 17:50:38 -0700 (PDT)
+ with SMTPS id 1466902240276560.8789096383196;
+ Sat, 25 Jun 2016 17:50:40 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v7 04/15] initfs: update: Don't exec sh or sulogin on
- error just exit 1
-Date: Sat, 25 Jun 2016 19:50:22 -0500
-Message-Id: <20160626005033.21336-5-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v7 06/15] initfs: update: Consistently add ERROR: and
+ print to stderr
+Date: Sat, 25 Jun 2016 19:50:24 -0500
+Message-Id: <20160626005033.21336-7-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 In-Reply-To: <20160626005033.21336-1-openbmc-patches@stwcx.xyz>
 References: <20160626005033.21336-1-openbmc-patches@stwcx.xyz>
@@ -28,78 +28,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 26 Jun 2016 00:50:44 -0000
+X-List-Received-Date: Sun, 26 Jun 2016 00:50:45 -0000
 
 From: Milton Miller <miltonm@us.ibm.com>
 
-When update was written it was exec'd from the shutdown script
-and hence took over pid 1.  Since exiting in that environment was
-a panic situation, the script instead started a rescue shell with
-its output presumably on the console.
+Make sure all error messages start with the tag ERROR and its
+printed to stderr by creating an echoerr function.
 
-The calling convention was updated to be a simple invocation in
-commit dbacf104885c ("obmc-initfs: run update as a sub-script")
-but the error handling was not updated.  That error handling is
-now becoming a hindrance to use from additional environments so
-change it.
+Previously one case had the file descriptors backwards in the
+redirection.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../obmc-phosphor-initfs/files/obmc-update.sh      | 23 ++++++----------------
- 1 file changed, 6 insertions(+), 17 deletions(-)
+ .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index aa8fd89..f8e551c 100755
+index f0ca989..e51dbf8 100755
 --- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
 +++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -2,9 +2,6 @@
+@@ -2,6 +2,10 @@
  
  echo update: "$@"
  
--export PS1=update-sh#\ 
--# exec /bin/sh
--
++echoerr() {
++	echo 1>&2 "ERROR: $@"
++}
++
  cd /
  if ! test -r /proc/mounts || ! test -f /proc/mounts
  then
-@@ -21,12 +18,12 @@ then
- 	mkdir -p /dev
- 	mount -t devtmpfs dev dev
- fi
--while grep mtd /proc/mounts
--do
-+
-+if grep mtd /proc/mounts
-+then
- 	echo 1>&2 "Error: A mtd device is mounted."
--	sulogin
--	# exec /bin/sh
--done
-+	exit 1
-+fi
+@@ -21,7 +25,7 @@ fi
  
- findmtd() {
- 	m=$(grep -xl "$1" /sys/class/mtd/*/name)
-@@ -130,7 +127,7 @@ do
+ if grep mtd /proc/mounts
+ then
+-	echo 1>&2 "Error: A mtd device is mounted."
++	echoerr "A mtd device is mounted."
+ 	exit 1
+ fi
+ 
+@@ -90,7 +94,7 @@ do
+ 		toram=y
+ 		shift ;;
+ 	*)
+-		echo 2>&1 "Unknown option $1"
++		echoerr "Unknown option $1"
+ 		exit 1 ;;
+ 	esac
+ done
+@@ -126,7 +130,7 @@ do
+ 	m=$(findmtd ${f#$image})
  	if test -z "$m"
  	then
- 		echo 1>&2  "Unable to find mtd partiton for ${f##*/}."
--		exec /bin/sh
-+		exit 1
+-		echo 1>&2  "Unable to find mtd partiton for ${f##*/}."
++		echoerr "Unable to find mtd partiton for ${f##*/}."
+ 		exit 1
  	fi
  done
- 
-@@ -173,11 +170,3 @@ then
- fi
- 
- exit
--
--# NOT REACHED without edit
--# NOT REACHED without edit
--
--echo "Flash completed.  Inspect, cleanup and reboot -f to continue."
--
--export PS1=update-sh#\ 
--exec /bin/sh
 -- 
 2.9.0
