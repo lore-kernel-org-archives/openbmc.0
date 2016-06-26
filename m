@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rcYQd0mpJzDqmd
- for <openbmc@lists.ozlabs.org>; Sun, 26 Jun 2016 10:50:48 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rcYQf6TF8zDqlt
+ for <openbmc@lists.ozlabs.org>; Sun, 26 Jun 2016 10:50:50 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1466902244472849.4522583699669;
- Sat, 25 Jun 2016 17:50:44 -0700 (PDT)
+ with SMTPS id 1466902245394905.7161171370586;
+ Sat, 25 Jun 2016 17:50:45 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v7 10/15] initfs: update: add --help message
-Date: Sat, 25 Jun 2016 19:50:28 -0500
-Message-Id: <20160626005033.21336-11-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v7 11/15] initfs: init: add file for base options
+Date: Sat, 25 Jun 2016 19:50:29 -0500
+Message-Id: <20160626005033.21336-12-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 In-Reply-To: <20160626005033.21336-1-openbmc-patches@stwcx.xyz>
 References: <20160626005033.21336-1-openbmc-patches@stwcx.xyz>
@@ -27,56 +27,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 26 Jun 2016 00:50:50 -0000
+X-List-Received-Date: Sun, 26 Jun 2016 00:50:51 -0000
 
 From: Milton Miller <miltonm@us.ibm.com>
 
-Now that update is intended for use at runtime and not just by
-the init and shutdown scripts, add a short help message listing
-the options so people don't have to understand how to read shell.
+Allow an initrd image to include options for init while still allowing
+additional options to come from the kernel command line and/or u-boot
+environment variables.
+
+This will allow building a netboot image that can specify to run
+from RAM while allowing the command line to initiate debug or skip
+copying files from the read-write overlay file system.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../obmc-phosphor-initfs/files/obmc-update.sh        | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+ .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh   | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index fa46635..268c6ad 100755
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -106,6 +106,24 @@ image=/run/initramfs/image-
- while test "$1" != "${1#-}"
- do
- 	case "$1" in
-+	--help)
-+		cat <<HERE
-+Usage: $0 [options] -- Write images in /run/initramfs to flash (/dev/mtd*)
-+    --help                    Show this message
-+    --no-flash                Don't attempt to write images to flash
-+    --ignore-size             Don't compare image size to mtd device size
-+    --ignore-mount            Don't check if destination is mounted
-+    --save-files              Copy whitelisted files to save directory in RAM
-+    --no-save-files           Don't copy whitelisted files to save directory
-+    --copy-files              Copy files from save directory to rwfs mountpoint
-+    --restore-files           Restore files from save directory to rwfs layer
-+    --no-restore-files        Don't restore saved files from ram to rwfs layer
-+    --clean-saved-files       Delete saved whitelisted files from RAM
-+    --no-clean-saved-files    Retain saved whitelisted files in RAM
-+HERE
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+index c37b3d5..70af93d 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+@@ -184,6 +184,7 @@ fsckbase=/sbin/fsck.
+ fsck=$fsckbase$rwfst
+ fsckopts=-a
+ optfile=/run/initramfs/init-options
++optbase=/run/initramfs/init-options-base
+ urlfile=/run/initramfs/init-download-url
+ update=/run/initramfs/update
+ 
+@@ -192,9 +193,16 @@ then
+ 	cp /${optfile##*/} $optfile
+ fi
+ 
++if test -e /${optbase##*/}
++then
++	cp /${optbase##*/} $optbase
++else
++	touch $optbase
++fi
 +
-+	    exit 0 ;;
-+
- 	--no-clean-saved-files)
- 		doclean=
- 		shift ;;
-@@ -138,7 +156,7 @@ do
- 		toram=y
- 		shift ;;
- 	*)
--		echoerr "Unknown option $1"
-+		echoerr "Unknown option $1.  Try $0 --help."
- 		exit 1 ;;
- 	esac
- done
+ if test ! -f $optfile
+ then
+-	cat /proc/cmdline > $optfile
++	cat /proc/cmdline $optbase > $optfile
+ 	get_fw_env_var openbmcinit >> $optfile
+ 	get_fw_env_var openbmconce >> $optfile
+ fi
 -- 
 2.9.0
