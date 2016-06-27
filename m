@@ -1,52 +1,29 @@
-Return-Path: <andrew@aj.id.au>
-Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
- [66.111.4.221])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rdYmn1139zDqRd
- for <openbmc@lists.ozlabs.org>; Tue, 28 Jun 2016 02:10:01 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=lEQ5vadV; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=okvDasCp; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.nyi.internal (Postfix) with ESMTP id ACC7CC9F;
- Mon, 27 Jun 2016 12:09:58 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Mon, 27 Jun 2016 12:09:58 -0400
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=AQgDm
- tHlgDag7Frjth9rQLZK4mg=; b=lEQ5vadVygBgBWDLwN0qCKpzY0nZKwd/HmeFD
- ANAw1K1GpfgA0xA8kHTNAeTGXzt6AWva5VtjjvUJTkMXnA5sOqHSMrUvomUztadU
- QBWYB1Dxsd2fHTrjfrdUMeDFwnQKpJjNxcCsWuzoS4w2e59yIuaMIFIw9MHld77p
- vtp4tk=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-sasl-enc
- :x-sasl-enc; s=smtpout; bh=AQgDmtHlgDag7Frjth9rQLZK4mg=; b=okvDa
- sCpD9E2uNztcVAYqLrftkv6wwMqWHDrfsGmOIW/c+O5nwjgzBePRcBzR2HhilrJE
- RhDILfs9bZxRIdy9AFOOd9O3HIujicy/nHvZeSyd6q+sLI7lrMaC0c5pt4VY6N9P
- U8MQpaYtAwQtPgSrIbn5WT1IEAGTy5ZaVJL3EA=
-X-Sasl-enc: FvHBLMVIzAPvE16oKuNjEyGDFQ91cfCmBR0nZukP5Bzz 1467043797
-Received: from keelia (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id DB8F5F2A03;
- Mon, 27 Jun 2016 12:09:55 -0400 (EDT)
-Message-ID: <1467043788.23740.187.camel@aj.id.au>
-Subject: Re: [PATCH qemu 00/12] SMC and network support
-From: Andrew Jeffery <andrew@aj.id.au>
-To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, 
- openbmc@lists.ozlabs.org
-Date: Tue, 28 Jun 2016 01:39:48 +0930
-In-Reply-To: <c3003f09-8281-d22a-eeb9-6ef126a39192@kaod.org>
-References: <1464556805-4340-1-git-send-email-clg@kaod.org>
- <c3003f09-8281-d22a-eeb9-6ef126a39192@kaod.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-XDycZNrHG8NJn/IGdedv"
-X-Mailer: Evolution 3.18.5.2-0ubuntu3 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rdZGZ2FQnzDqm9
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Jun 2016 02:32:21 +1000 (AEST)
+Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
+ with SMTPS id 1467045132639373.438832821403;
+ Mon, 27 Jun 2016 09:32:12 -0700 (PDT)
+Date: Mon, 27 Jun 2016 11:32:10 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Cc: openbmc@lists.ozlabs.org, tomjose <tomjoseph@in.ibm.com>
+Subject: Re: [PATCH phosphor-host-ipmid] Fix two issues in Issue #80
+Message-ID: <20160627163209.GL20922@asimov.austin.ibm.com>
+References: <20160627134042.28142-1-openbmc-patches@stwcx.xyz>
+ <20160627134042.28142-2-openbmc-patches@stwcx.xyz>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="8cpS+6Cx+xtICsjy"
+Content-Disposition: inline
+In-Reply-To: <20160627134042.28142-2-openbmc-patches@stwcx.xyz>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
+X-ZohoMail: Z_61896388 SPT_1 Z_56716064 SPT_1 SLF_D
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -58,153 +35,95 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 27 Jun 2016 16:10:02 -0000
+X-List-Received-Date: Mon, 27 Jun 2016 16:32:23 -0000
 
 
---=-XDycZNrHG8NJn/IGdedv
-Content-Type: text/plain; charset="UTF-8"
+--8cpS+6Cx+xtICsjy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2016-06-23 at 19:00 +0200, C=C3=A9dric Le Goater wrote:
-> Hello,
+On Mon, Jun 27, 2016 at 08:40:42AM -0500, OpenBMC Patches wrote:
+> From: tomjose <tomjoseph@in.ibm.com>
 >=20
+> Corrected the comment for the Get Channel Info command to
+> reflect the logic in the code. For issue two, corrected the
+> condition for returning the unspecifed error.
 >=20
-> On 05/29/2016 11:19 PM, C=C3=A9dric Le Goater wrote:
-> >=20
-> >=20
-> > The following patchset adds to the qemu palmetto-bmc platform initial
-> > support for the AST2400 SMC controllers and for the FTGMAC100 network
-> > adapter. The device models don't implement all the features the HW
-> > proposes but they are complete enough to run OpenBMC on a qemu guest.
-> >=20
-> > To boot one, use the following command line :
-> >=20
-> > =C2=A0 $ qemu-system-arm -m 256 -M palmetto-bmc -nographic -nodefaults=
-=C2=A0=C2=A0\
-> > 	-mtdblock ./flash-palmetto-20160512040959=C2=A0=C2=A0\
-> > 	-mtdblock ./palmetto.pnor=C2=A0
-> > 	-net nic -net user,hostfwd=3D:127.0.0.1:2222-:22,hostname=3Dqemu
-> > =09
-> > or, if you have a libvirt bridge, you can tie the nic to it :
-> > =09
-> > 	-net nic,macaddr=3DC0:FF:EE:00:00:02,model=3Dftgmac100 \
-> > 	-net bridge,id=3Dnet0,helper=3D/usr/lib/qemu/qemu-bridge-helper,br=3Dv=
-irbr0=C2=A0
-> >=20
-> > The first block device uses the file './flash-palmetto-20160512040959'
-> > which will act as a SPI flash module for the BMC, handled by the
-> > SMC/FMC controller. The second block device uses the file
-> > './palmetto.pnor' which is an OpenPower firmware image for a palmetto
-> > OpenPower system. This one will be handled by the SMC/SPI controller.
-> >=20
-> >=20
-> > Code is based on Andrew's qemu and the full tree can be found here
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0https://github.com/legoater/qemu/commits/aspeed
-> >=20
-> > Flash images can be grabbed here :
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0https://openpower.xyz/job/openbmc-build/distro=
-=3Dubuntu,target=3Dpalmetto/lastSuccessfulBuild/artifact/images/palmetto/fl=
-ash-palmetto
-> > =C2=A0=C2=A0=C2=A0=C2=A0https://openpower.xyz/job/openpower-op-build/di=
-stro=3Dubuntu,target=3Dpalmetto/lastSuccessfulBuild/artifact/images/palmett=
-o.pnor
-> Here is a quick update as I just did a rebase of my branch on mainline qe=
-mu=C2=A0
-> (commit c7288767523f) :
->=20
-> 	https://github.com/legoater/qemu/commits/aspeed
->=20
-> A couple of patches, that have been sent and discussed on qemu-devel@ but=
-=C2=A0
-> not merged yet, are included :=C2=A0
->=20
-> 	a828f92a1807 hw/misc: Add a model for the ASPEED System Control Unit
-> 	1181e14788a9 ast2400: Integrate the SCU model and set silicon revision
-> 	e17aa27fa6b8 palmetto-bmc: Configure the SCU's hardware strapping regist=
-er
-> 	26582428d17c ssi: change ssi_slave_init to be a realize ops
-> 	7b50ed94582f m25p80: qdev-ify drive property
-> 	9d058cd9dd81 ast2400: add SMC controllers (FMC and SPI)
-> 	1f92166a189d ast2400: add SPI flash slave object
-> 	a1fff8b8776f ast2400: create SPI flash slaves
-> 	b93fe85af7b8 tests: add a m25p80 test
->=20
-> plus these for booting from the rom. There are some changes due to the re=
-work=C2=A0
-> of the previous and "fixes" for the block layer ... Looks stable now and =
-mostly
-> ok.
->=20
-> 	2f0dabacf3b9 m25p80: use synchronous writes to update the block backend
-> 	0e7345a2d430 m25p80: add a m25p80_set_rom_storage() routine
-> 	3f02fba0c02f ast2400: handle SPI flash Command mode (read only)
-> 	8325fc4b1ad9 ast2400: use contents of first SPI flash as a rom
->=20
-> These are devices enhancements, nothing major :
->=20
-> 	85f49de1c31e m25p80: add RDCR instruction for Macronix chip
-> 	c519cdde94c6 m25p80: add mx25l25635f chip
-> 	a520956879b1 ast2400: use a mx25l25635f chip
-> 	31871f768618 hw/misc: add a TMP42{1,2,3} device model
-> 	b09b8a5088a2 ast2400: add a temp sensor device on I2C bus 3
-> 	8750ab3e2400 ast2400: add a rtc device on I2C bus 0
->=20
-> and to finish, the network device which has not changed but should with=
-=C2=A0
-> the recent findings on the ast2500 :
->=20
-> 	4e57f68ccaf5 net: add FTGMAC100 support
-> 	ba7a28c66ec3 ast2400: add a FTGMAC100 nic
->=20
->=20
-> To give it a try, use :
->=20
-> 	$ qemu-system-arm -m 256 -M palmetto-bmc -nographic -nodefaults=C2=A0=C2=
-=A0\
-> 		-drive file=3Dflash-palmetto,format=3Draw,if=3Dmtd \
-> 		-drive file=3Dpalmetto.pnor,format=3Draw,if=3Dmtd \=C2=A0
-> 		-net nic -net user,hostfwd=3D:127.0.0.1:2222-:22,hostname=3Dqemu
-> 		-serial stdio
->=20
-> and if you have a libvirt bridge :
->=20
-> 	=C2=A0	-net nic,macaddr=3DC0:FF:EE:00:00:02,model=3Dftgmac100 \
-> 		-net bridge,id=3Dnet0,helper=3D/usr/lib/qemu/qemu-bridge-helper,br=3Dvi=
-rbr0=C2=A0
->=20
->=20
-> I could boot the OpenBMC 1.0 image with it. Comments welcome !
+> Resolves: #80
+> See also: #77,#78
 
-I've updated openbmc/qemu master with the latest version of these
-patches based on the upstream SCU code. So Joel, you can now use the
-openbmc/qemu tree for CI testing on the flash blobs.
+These should be of the form 'openbmc/host-ipmid#80'.
 
-Cheers,
+https://help.github.com/articles/closing-issues-via-commit-messages/
 
-Andrew
---=-XDycZNrHG8NJn/IGdedv
+Also would prefer not to have "Tag: Info" because sometimes git and/or
+tools ascribe meaning to them.  This is the "Footer" of the message and
+is the same place that 'Reviewed-By' tags and Gerrit 'Change-Id' tags
+go.  Best to not use something in that format to avoid confusing a tool.
+
+> ---
+>  apphandler.C | 4 +++-
+>  ipmid.C      | 2 +-
+>  2 files changed, 4 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/apphandler.C b/apphandler.C
+> index 71dba66..9ce8829 100644
+> --- a/apphandler.C
+> +++ b/apphandler.C
+> @@ -443,7 +443,9 @@ ipmi_ret_t ipmi_app_channel_info(ipmi_netfn_t netfn, =
+ipmi_cmd_t cmd,
+> =20
+>      printf("IPMI APP GET CHANNEL INFO\n");
+> =20
+> -    // I"m only supporting channel 1.  0xE is the 'default channel'
+> +    // The supported channels numbers are 1 and 8.
+> +    // Channel Number E is used as way to identify the current channel
+> +    // that the command is being is received from.
+>      if (*p =3D=3D 0xe || *p =3D=3D 1 || *p =3D=3D 8) {
+> =20
+>          *data_len =3D sizeof(resp);
+> diff --git a/ipmid.C b/ipmid.C
+> index 7354958..374ede2 100644
+> --- a/ipmid.C
+> +++ b/ipmid.C
+> @@ -273,7 +273,7 @@ static int handle_ipmi_command(sd_bus_message *m, voi=
+d *user_data, sd_bus_error
+>      {
+>          fprintf(stderr,"ERROR:[0x%X] handling NetFn:[0x%X], Cmd:[0x%X]\n=
+",r, netfn, cmd);
+> =20
+> -        if(r =3D=3D -1) {
+> +        if(r < 0) {
+>             response[0] =3D IPMI_CC_UNSPECIFIED_ERROR;
+>          }
+>      }
+
+Code changes look good.
+
+--=20
+Patrick Williams
+
+--8cpS+6Cx+xtICsjy
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAABCgAGBQJXcU/MAAoJEJ0dnzgO5LT5NHMP+wdifbN5DJ3gPwarnIxkOm5r
-QPb9MAxlR0bb3ZmzFKXBXaGuQ/n4H4M1Ak6YtRBpw0WLlPnaZjJEdkfMn+EzFKBd
-tWSDo6oDfrbGDOKQxcRdyVokrC+bfj1kzuH3Llq1KUZ7kim1Nupy0RxR+9xrxVD3
-/8XsZZAlDjS8Hek2ugyb86L2Ft6hbNjRdrFtnH8gxVX4BoX25CjWDJtqFDkIIhQa
-lBLPMODoErdkRMwlSOPaG/QpHqR9fgu38JuenKBSfdeeitydskelMNCm6Cqn441l
-j9QQ2OR7qMYdbWUF1adMiw5099TGMJ4iuzcypujzF3Y5+0tbXv7c761JnbcMMnBg
-RCwyNAT0l1JG6Z+RynL+1/mV3SD2XPQ2Zz0pplWYvTB/2xEvhI52AWF3Q3eiMnf1
-ykhouBJA1veaU0s4N2ApuN45bo5TTSEfKTc5xhdnrUcHxkAgkvq8kj2WaX8Rh78u
-43YRCJzBzARql3Wr3lVLkfZwV+0U3a8/OsHw8EBCASA1AgjL2CpdYMoKePQmb5os
-3Ca7Rzy6DnGezbOkhzH3fcROipuKMyDLISDEJyUfBcEV4Roe/S6WndB77ITaFpXH
-yUG+k45d/BZxBYLDS7XAyrJQvsZ70CRf0mFGDAXiw95lvwIQq8QZ9GTACgE6TRtd
-VJZKGhN8/eA3fPf8NwYg
-=X8pu
+iQIcBAEBCAAGBQJXcVUJAAoJEKsDR8wtAMEZdA8QAKEoxk9eOXEcryglPego06m5
+aDDsW+/x4fttQgmMUwU0NSSKHkobj/XoWaAqrdFfvz5qfrj9+STaX8lQ8JLhwnUw
+xzwkMDucMJ5ZhyyVw2AwEI6EJRHhUZgxfnmshDfpPfc6zJjenrprVHMct7rel3wg
+wd9jKHZ4xRMYVnNsFZqBWInK7BZZix+SUW4ZcFcDAKUpCVivF7UTsMVceCchYMeM
+lV1NBT1j2ZgrhVaI5Bhj6V6ZqvuT/CIAYFmkBFH/Rpw1YVoRaiRT5lQT83bTf8sz
+Irdvl+/r8eObflcVkJGJd1Kjwk0Kp8LWHG6e5VnNj6HlxupVUlIylFFba0lHl8ok
+PmQhk2S0rBuJHI7S4UAZIERonKodb2psuvCs3VVqMILHgDHQaR/UxshWpARGW4+O
+rU5Aqe4D+hUGY/JbMdoN6RsHs+9SJzHS7KQgxanl3SdYUFRwGdtfJk+p6Wt+04T+
+mfXbcnTpvYA8MuNGzzl8eJf+RWXDO0IhG4QrwhTv6tjZqMpPNXMLuB8Xhh0suNnH
+E6cmAR9/IXiUIIC1Kh8CUSZUDIsLSgdQ/b52uSPybjOgFEqFGGl3eSK5f3v6h32L
+Jf+Fimj8cksdTbyoeYzkpt5A6IK5lh+22Tyo1p5ENyIpE6pY9+XCQ40oDizRMZy4
+WseTzZ5KOi+eoQ7ruI4s
+=iLju
 -----END PGP SIGNATURE-----
 
---=-XDycZNrHG8NJn/IGdedv--
+--8cpS+6Cx+xtICsjy--
