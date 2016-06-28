@@ -1,45 +1,28 @@
-Return-Path: <joel@jms.id.au>
-Received: from mail-pa0-x241.google.com (mail-pa0-x241.google.com
- [IPv6:2607:f8b0:400e:c03::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rf31T4YZJzDqnv
- for <openbmc@lists.ozlabs.org>; Tue, 28 Jun 2016 21:07:41 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=jms.id.au header.i=@jms.id.au header.b=VVZ5OEsl; 
- dkim-atps=neutral
-Received: by mail-pa0-x241.google.com with SMTP id hf6so1472266pac.2
- for <openbmc@lists.ozlabs.org>; Tue, 28 Jun 2016 04:07:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=from:to:subject:date:message-id;
- bh=mhMcuwLYas5Hc1/NEC/rijClXH8ppQ8hmQrWagjO8WY=;
- b=VVZ5OEslaDBbbHSVYQEmpiql5nnnVQ0YwG6iUgxdOHXUdRTnKq/rvvsYxKbXJ6f3eT
- o3lsU+A7gMBBmFQuZucMkxxXVahPgAXXnmClSuFL1HBlkBkI4KvPVBeFCXyddhw2Jsc+
- dacemoIV6vRz0awdmIcIWwNwTEP7FTweepE0Y=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:subject:date:message-id;
- bh=mhMcuwLYas5Hc1/NEC/rijClXH8ppQ8hmQrWagjO8WY=;
- b=elXEuRarkiZ669sm5IF2AqMEGgO7KV2LAH+hAYtbHoF9gSBrB9AJfgoWGX6Vh0HSwz
- UKkqdgI4LR9uEvZCDLRwZHNk7ZLhjXGcqD6pauebciDUEUUI8xuc3z8slBLqg+OUeFyV
- TOTxi6rGbl7/cQnt6coUbo74k0lt4KA+foYVruZ1sHH0V5pLebtok716HObI8PA6PIVe
- zlE5i597H+KIFtSs5Rk6NlWyA1qUrrRm068Q7L0YzJvTHim/c+UzZIOrp5tPoKr+Co4g
- NRuf6A29Bv5QUMBcy5+3CImMwyxdSJQmv05Y8SRf4GUKkXd0+7w/+TYprKQRsI2ruLeZ
- I+4Q==
-X-Gm-Message-State: ALyK8tIiavyRLlLFZrJbHECAxilaY0M+2Ha0gp9JUNgtkehhcv927OJgX1YrBdx6K+CvOA==
-X-Received: by 10.67.3.227 with SMTP id bz3mr710138pad.67.1467112059433;
- Tue, 28 Jun 2016 04:07:39 -0700 (PDT)
-Received: from aurora.ibm.com ([2403:480:11:8000:8034:e688:3ac3:2075])
- by smtp.gmail.com with ESMTPSA id v62sm6760798pfv.50.2016.06.28.04.07.36
- for <openbmc@lists.ozlabs.org>
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 28 Jun 2016 04:07:38 -0700 (PDT)
-From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org
-Subject: [openbmc PATCH] poky/rpm: explicitly disable tomcrypt
-Date: Tue, 28 Jun 2016 20:37:25 +0930
-Message-Id: <1467112045-27652-1-git-send-email-joel@jms.id.au>
-X-Mailer: git-send-email 2.8.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rfBNy4yvrzDqqZ
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Jun 2016 02:40:00 +1000 (AEST)
+Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
+ with SMTPS id 1467131995934973.2517196705717;
+ Tue, 28 Jun 2016 09:39:55 -0700 (PDT)
+Date: Tue, 28 Jun 2016 11:39:54 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: Gerrit server migration
+Message-ID: <20160628163954.GO20922@asimov.austin.ibm.com>
+References: <20160627221501.GN20922@asimov.austin.ibm.com>
+ <CACPK8Xd45WjdpyCPCibXwZj3tn1ud+HjP1s--aMdrNkD=38wmw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="L5nTHegdhbHhzmSD"
+Content-Disposition: inline
+In-Reply-To: <CACPK8Xd45WjdpyCPCibXwZj3tn1ud+HjP1s--aMdrNkD=38wmw@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -51,48 +34,110 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Jun 2016 11:07:43 -0000
-
-From: Andreas Oberritter <obi@opendreambox.org>
-
-Configure autodetects libtomcrypt, but then it adds libtommath to
-$LIBS and fails to link subsequent tests if it's unavailable.
-
-| checking for pcre.h... yes
-| checking for pcre_compile in -lpcre... no
-| checking whether to build with PCRE library... no
-| ++ executing failure action
-| configure: error: unable to find usable PCRE library
-
-(From OE-Core rev: 54665fb9e27ba1b0e4eddaf170303d4f2db66fae)
-
-Signed-off-by: Andreas Oberritter <obi@opendreambox.org>
-Signed-off-by: Ross Burton <ross.burton@intel.com>
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
-[upstream commit 71979b2ff7a0f78892435558e27bf0779367de55)
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
-
-This is required for building our current tree if your system has libtomcrypt
-installed.
-
-I sent a patch as I wasn't sure where we were with the Gerrit migration.
+X-List-Received-Date: Tue, 28 Jun 2016 16:40:03 -0000
 
 
- yocto-poky/meta/recipes-devtools/rpm/rpm_5.4.16.bb | 1 +
- 1 file changed, 1 insertion(+)
+--L5nTHegdhbHhzmSD
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/yocto-poky/meta/recipes-devtools/rpm/rpm_5.4.16.bb b/yocto-poky/meta/recipes-devtools/rpm/rpm_5.4.16.bb
-index cbdca88eaa8a..f2c12d2de1a6 100644
---- a/yocto-poky/meta/recipes-devtools/rpm/rpm_5.4.16.bb
-+++ b/yocto-poky/meta/recipes-devtools/rpm/rpm_5.4.16.bb
-@@ -328,6 +328,7 @@ EXTRA_OECONF += "--verbose \
- 		--without-ruby \
- 		--without-squirrel \
- 		--without-sasl2 \
-+		--without-tomcrypt \
- 		--with-build-extlibdep \
- 		--with-build-maxextlibdep \
- 		--without-valgrind \
--- 
-2.8.1
+Joel,
+
+Both of these questions make me realize we should add the "answers" to
+the documentation.  I'll get it added after Adriana's initial Gerrit
+documentation is in.
+
+On Tue, Jun 28, 2016 at 01:22:57PM +0930, Joel Stanley wrote:
+> How do we get notifications when a patch is proposed for review?
+
+The overall documentation for it can be found here:
+    https://gerrit-review.googlesource.com/Documentation/user-notify.html#u=
+ser
+
+Also, you can view the documentation directly on our Gerrit server:
+    https://gerrit.openbmc-project.xyz/Documentation/user-notify.html#user
+
+The net is that you probably want to go to "Settings > Watched Projects"
+and add All-Projects to your subscription.  You can otherwise subscribe
+to individual repositories.
+
+Direct link:
+    https://gerrit.openbmc-project.xyz/#/settings/projects
+
+> Do we have owners of each component that must review before a patch
+> can be merged?
+
+Yes.  We should document the code-review process now that we can have
+one.
+
+Here are the current settings and what has worked well for us in the
+past with Gerrit.  Open to suggestions.
+
+    1. All users are able to +1 / -1 code.
+    2. A set of "maintainers" are able to +2 / -2 and submit code.
+    3. All commits should have (at least) two +1 reviews.
+        3a. Ideally the maintainer is not one of the +1.
+    4. Commits should not be merged with a -1 (or -2) unless there has
+       been a discussion by the maintainer to justify the merge.
+    5. The maintainer should ensure that all past -1 review comments
+       have been addressed in a follow-up patch set.  This is usually
+       handled by having the original -1 reviewer now give a +1.
+
+What I did initially was divide the repositories up based on their
+primary language and assign a maintainer group in Github.  Maybe I
+should make these groups public?
+
+    a. Bitbake recipes.
+        * Brad Bishop, Patrick Williams
+    b. Python repositories.
+        * Brad Bishop, Patrick Williams
+    c. C repositories.
+        * Joel Stanley, Jeremy Kerr
+    d. C++ repositories.
+        * Patrick Williams
+
+Over time I expect the repositories to be grouped more along functional
+lines and subsystem-style maintainers to come about based on their
+contributions.  (I know next to nothing about Python, so I'd be
+especially willing to add someone else in my place there to work with
+Brad.)
+
+You can see the current "maintainer group" assigned to a repository by
+going to "Projects > List > (select repo) > Access" and seeing the
+"Rights Inherit From" line.  By direct link, you can see 'obmc-console'
+is maintained by the 'openbmc-c-repos' group:
+https://gerrit.openbmc-project.xyz/#/admin/projects/openbmc/obmc-console,ac=
+cess
+
+That 'openbmc-c-repos' group corresponds to the 'openbmc/c-maintainers' gro=
+up
+on Github as evidenced by this:
+https://gerrit.openbmc-project.xyz/#/admin/projects/openbmc-c-repos,access
+
+--=20
+Patrick Williams
+
+--L5nTHegdhbHhzmSD
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJXcqhaAAoJEKsDR8wtAMEZfkgP/15dZ2jhOcRfQUqYIup9PE9m
+lpI5mPJ+fagEH7RXxOa0Em/+FRwoMae4XWerG1/j4LyEEWjI/Z8YMO5XDxW6hYzV
+f0/XeivRRAv+4Q3a7H73PIEhc+3Y31BHg2SuAM8phRH8AvJl3QznpQMabhR59Wgh
+MbkCKyehO/4gco2Pfaph3CIsCiboQWgd3jr8ZnGiQD3mEqVXHRibajcCJ/SeWXpw
+Eih5KBfSvqYxIKe4t7Pya2Eodd2VViEWRPq4O+Ffss5DibmJI/Ggqpt0FxblNQU7
+rIGtogLnkXPuZbUuUfz8CZECRTF4SSYbjt7iODbki2otkq890JYXpyP5VhOO6WS+
+s8XnEfTs33jlGgH1VKd0jVU815j0D2qjHPazlwwv81U81ZNR0uX4VTvCp4HOSFrB
+d9s43etrELMNW7iY/IALUhyulwOVdT00CF1r4FZdYwj99iVXHvG5quTJCstLUzjz
+rxnN+aFCoTvsXLasUAyFkbAw8DGZFLd8uJ4BtlyuUjUO5Lu8dyNZcxXqQLQuql0G
+PqI9SGQF2UhuhgzycwFRRdk+vIiogCjm2rBCZtU5fEZVVA12ccwt8LulnZCVhgp7
+IsTH7FXuEYaSn1DR7XlwWNLZQU3TXA18Rt9ESxc9/dBD6JJKmkQldgJlP48nAuCi
+O1DZMiFQHKkhdJE8dBjB
+=6XfV
+-----END PGP SIGNATURE-----
+
+--L5nTHegdhbHhzmSD--
