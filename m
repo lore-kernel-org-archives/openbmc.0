@@ -3,23 +3,27 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rfrc64HByzDqvL
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 04:21:57 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rfrfk493vzDqvL
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 04:24:14 +1000 (AEST)
 Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
  [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 14672245123221018.5737586851892;
- Wed, 29 Jun 2016 11:21:52 -0700 (PDT)
-Date: Wed, 29 Jun 2016 13:21:50 -0500
+ with SMTPS id 1467224649509237.84277285674057;
+ Wed, 29 Jun 2016 11:24:09 -0700 (PDT)
+Date: Wed, 29 Jun 2016 13:24:05 -0500
 From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+To: Rick Altherr <raltherr@google.com>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Subject: Re: Gerrit server migration
-Message-ID: <20160629182150.GP20922@asimov.austin.ibm.com>
+Message-ID: <20160629182405.GQ20922@asimov.austin.ibm.com>
 References: <20160627221501.GN20922@asimov.austin.ibm.com>
+ <CACPK8Xd45WjdpyCPCibXwZj3tn1ud+HjP1s--aMdrNkD=38wmw@mail.gmail.com>
+ <20160628163954.GO20922@asimov.austin.ibm.com>
+ <CAPLgG==K75ZrwdByiiND1p2Rvdivkj_Nj7n1OGsmncm3mhGfFA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="pleSNuEbvnUYtMxG"
+ protocol="application/pgp-signature"; boundary="kPJUzav3owWaKxsz"
 Content-Disposition: inline
-In-Reply-To: <20160627221501.GN20922@asimov.austin.ibm.com>
+In-Reply-To: <CAPLgG==K75ZrwdByiiND1p2Rvdivkj_Nj7n1OGsmncm3mhGfFA@mail.gmail.com>
 User-Agent: Mutt/1.5.24 (2015-08-30)
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -33,83 +37,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Jun 2016 18:21:59 -0000
+X-List-Received-Date: Wed, 29 Jun 2016 18:24:15 -0000
 
 
---pleSNuEbvnUYtMxG
+--kPJUzav3owWaKxsz
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-These repos are now also migrated:
-         * openbmc / phosphor-rest-server
-         * openbmc / openbmc-test-automation
+On Tue, Jun 28, 2016 at 10:09:58AM -0700, Rick Altherr wrote:
+> I'm willing to help with reviews in any of those groups.  I've had a care=
+er
+> that's plunged me into all of those languages quite deeply.
 
-On Mon, Jun 27, 2016 at 05:15:01PM -0500, Patrick Williams wrote:
-> All,
->=20
-> The Gerrit server is now ready for use.  All of the repositories except
-> for the ones listed below are migrated to it.  We therefore no longer
-> accept pull requests on Github, but instead need commits to go through
-> Gerrit.
->=20
-> For a reminder, the Gerrit server is at https://gerrit.openbmc-project.xyz
-> and documentation can be found in this outstanding pull request
-> https://github.com/openbmc/docs/pull/30 .
->=20
-> The Gerrit server automatically replicates all merged commits back to
-> Github, so Github is still considered the canonical location for our sour=
-ce.
->=20
-> Not [yet] migrated repositories:
->     * Waiting on a few pull requests to be closed.
->         * openbmc / openbmc
->         * openbmc / skeleton
->         * openbmc / phosphor-host-ipmid
->         * openbmc / ipmi-fru-parser
->         * openbmc / openpower-host-ipmi-oem
->     * To be migrated later this week.
->         * openbmc / docs
->         * openbmc / openbmc-build-scripts
->     * Never to be migrated (use mailing list for commits).
->         * openbmc / linux
->         * openbmc / ipmitool
->         * openbmc / u-boot
->         * openbmc / qemu
-> --
-> Patrick Williams
+Rick,
 
+Please feel free for you and your team to subscribe to any of the
+repositories in Gerrit that you find interesting and provide review
+feedback.  We would certainly rather have more eyes on the commits than
+less.
 
-
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
-
+I don't want to see too much emphasis on the 'maintainer' position.
+Ideally the only purpose of this role is an extra gate to ensure the
+rest of the processes have been followed.
 
 --=20
 Patrick Williams
 
---pleSNuEbvnUYtMxG
+--kPJUzav3owWaKxsz
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJXdBG+AAoJEKsDR8wtAMEZF3cP/jLRxvyytZq9Ok24LqToKmbO
-1fOQqmbkoq0bmvnJ1UAFC4PBWcr4Q7vdlLMG0jVB1lO0f5yqysglugtWZBbZkoVN
-lSZrfjSp+VnGhhz8DvNeBJq7vHj9iZKWFh6wxTpoVKd/fOK9ZrMso//ODS27bdbz
-vMoInTtEVlGKniKImXKxV66BGeBbvgAvinNZE9e2UfVh3IyAhXBI1EHsEqI6F7lg
-jRNsrArlehWDd5ADmRCAlAgcgM2rx2dgYp8Dz8iOQK8nbT4rF+WZdKye6BU9HyRC
-ylZtgZybTM4MMKJ1C28eTHezXl1h4o8Ep2wOA0PHTbzri6xhF7hV/09FNwL3wJtH
-qJ0MT84c0W7Ylt9a37FwoZygKMt6q7zDkfWeeImx4nrUPSWoTVcds40l9gVH9ML5
-ia+ZLVycDnuPpSy5w39tCBOcCNSkuxTF/Q0hym4G3Uob09IWPbLfyCfFa/X5FRAx
-kqDKJrPiPOZZc/3tcYRRKWRj0y7L/0je/9i3bLIwtCA1ZkA8qmdA9uUaVCnoS8k0
-5bNwoqMz1mfpNGvmyM6OISZp89SnU58o8kDFKHROjKxrZZaDyxZ0gLibpnrGTLBQ
-UUUwSyzPZ3hGcAl/fEtW/4lC3GDCZibqHW6JnYiJY4PtfxeUhaXPOX1boJFiDoLf
-5whkic9J8P5lUc+5cSMb
-=0Z5L
+iQIcBAEBCAAGBQJXdBJFAAoJEKsDR8wtAMEZm6QQAJkH7PyHxGWq//p7SFf4nRRZ
+Vbd8Qb/1OuhLtyfVqSI4/vO69BnIJEL7wp/PDDeDxV+ilv2csXWbdiwOKZJHHGe9
+xaqqMNRoXCwYHNIm/MM9c/OGPwaeiJt2PvTFqxlNHGTNwBDVR4DftGUBRvyct2bw
+rLI9b7z5ZVJ9GR6QNoADRLLiMtgZJZO6cqtjilYNChamMXomCBwcouRgY8c4qvpm
+D4bWNE9N7L9UcFSZvSQasBHxPe4U/xSIWWYIDk038vVpkDjIjYlc3BRiEe5GIVE6
+wQ/uNQNJouHq15SaIhjz8qUDc1pFWZjYkzO2yB+jR5gezg/4pthdvB4l7bBGIa6i
+aNyIZfT6lHhRTClLcyfeaSsEZfHoiZDEW0V+jiod12e70ynF956ojMa/kHwQnYts
+R4ZJrmtAM9iqMgYzGGQW0to0fL88Nzq+hz7rW23vqaf7a+GYo/3MfNTpLdl3nGE4
+Mk/bYFz7DwJc3CSc/10aHH5v+OyFsSl18mYfvNOditLCiSNMg86JvD8kcnBMzlpq
+iHQ3at9j4pYJ2H/5AX/3jqiC+qrbCEiq/9qjj9hkItfFmPcuSsVGmXRkka9dqO0b
+Qte+ZY2EHgtivxpoU46AGqFFr0pN9Cirbq1eLsnt/QAWhIvSwpRsfs/1//A2nIeV
+YZRHli6psYp/V5sYbr7r
+=J0FB
 -----END PGP SIGNATURE-----
 
---pleSNuEbvnUYtMxG--
+--kPJUzav3owWaKxsz--
