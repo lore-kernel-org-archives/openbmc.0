@@ -1,22 +1,34 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <clg@kaod.org>
+Received: from 18.mo3.mail-out.ovh.net (18.mo3.mail-out.ovh.net
+ [87.98.172.162])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rfmq22xCLzDqpL
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 01:31:10 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1467214259824472.8094368266318;
- Wed, 29 Jun 2016 08:30:59 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rfnd92QyCzDr1x
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 02:07:41 +1000 (AEST)
+Received: from player730.ha.ovh.net (b7.ovh.net [213.186.33.57])
+ by mo3.mail-out.ovh.net (Postfix) with ESMTP id E1F4FFF9852
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Jun 2016 18:01:29 +0200 (CEST)
+Received: from [192.168.124.3] (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: clg@kaod.org)
+ by player730.ha.ovh.net (Postfix) with ESMTPSA id 4ED31440084;
+ Wed, 29 Jun 2016 18:01:27 +0200 (CEST)
+Subject: Re: [PATCH uboot/v2016.05-aspeed-openbmc 0/3] aspeed/ast-g4: misc
+ fixes
 To: openbmc@lists.ozlabs.org
-Cc: Adriana Kobylak <anoo@us.ibm.com>
-Subject: [PATCH skeleton v2] Add IO Board VPD handling
-Date: Wed, 29 Jun 2016 10:30:57 -0500
-Message-Id: <20160629153057.1177-2-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.9.0
-In-Reply-To: <20160629153057.1177-1-openbmc-patches@stwcx.xyz>
-References: <20160629153057.1177-1-openbmc-patches@stwcx.xyz>
+References: <1467185838-28342-1-git-send-email-clg@kaod.org>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <b53b9fdc-11fc-f7c1-62ab-def302308555@kaod.org>
+Date: Wed, 29 Jun 2016 18:01:24 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Icedove/45.1.0
+MIME-Version: 1.0
+In-Reply-To: <1467185838-28342-1-git-send-email-clg@kaod.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 17354902641050880979
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeltddrudehgdelgecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,40 +40,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Jun 2016 15:31:11 -0000
+X-List-Received-Date: Wed, 29 Jun 2016 16:07:41 -0000
 
-From: Adriana Kobylak <anoo@us.ibm.com>
+On 06/29/2016 09:37 AM, Cédric Le Goater wrote:
+> Here are couple of fixes for the AST2400 (G4) on the new uboot branch.
 
-Add argument to phosphor-read-eeprom to add additional handling
-for reading the IO Board VPD.
-Remove Product and Chassis area for IO vpd, since only board exists.
+Joel,
 
-Signed-off-by: Adriana Kobylak <anoo@us.ibm.com>
----
- configs/Barreleye.py | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+Please forget about this patchset and take the coming one which adds Milton's
+patches on the aspeednic and which includes a larger cleanup of the ast.
 
-diff --git a/configs/Barreleye.py b/configs/Barreleye.py
-index 7b74179..863bc9b 100644
---- a/configs/Barreleye.py
-+++ b/configs/Barreleye.py
-@@ -202,7 +202,7 @@ APPS = {
- 		'start_process'   : True,
- 		'monitor_process' : False,
- 		'process_name'    : 'phosphor-read-eeprom',
--		'args'            : ['--eeprom','/sys/bus/i2c/devices/0-0050/eeprom','--fruid','64'],
-+		'args'            : ['--eeprom','/sys/bus/i2c/devices/0-0050/eeprom','--fruid','64','--iob'],
- 	},
- 	'motherboard_vpd' : {
- 		'system_state'    : 'BMC_STARTING2',
-@@ -405,8 +405,6 @@ ID_LOOKUP = {
- 		'PRODUCT_0'  : '<inventory_root>/system/bios',
- 		'BOARD_3'    : '<inventory_root>/system/misc',
- 		'PRODUCT_51' : '<inventory_root>/system/misc',
--		'PRODUCT_100': '<inventory_root>/system',
--		'CHASSIS_100': '<inventory_root>/system/chassis',
- 		'BOARD_100'  : '<inventory_root>/system/chassis/io_board',
- 		'BOARD_101'  : '<inventory_root>/system/chassis/sas_expander',
- 		'BOARD_102'  : '<inventory_root>/system/chassis/hdd_backplane',
--- 
-2.9.0
+Thanks,
+
+C.
+
+
+> Cédric Le Goater (3):
+>   aspeed/ast-g4: select the correct cpu
+>   aspeed/ast-g4: use literal defines in misc_init_r()
+>   net/aspeednic: start mac after ring buffers are initialized
+> 
+>  arch/arm/Kconfig             |  1 +
+>  board/aspeed/ast-g4/ast-g4.c | 15 +++++++++------
+>  drivers/net/aspeednic.c      |  2 +-
+>  include/configs/ast-g4.h     |  1 +
+>  4 files changed, 12 insertions(+), 7 deletions(-)
+> 
