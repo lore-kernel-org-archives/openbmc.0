@@ -1,31 +1,29 @@
 Return-Path: <clg@kaod.org>
-X-Greylist: delayed 30905 seconds by postgrey-1.35 at bilbo;
- Thu, 30 Jun 2016 02:17:44 AEST
-Received: from 2.mo3.mail-out.ovh.net (2.mo3.mail-out.ovh.net [46.105.75.36])
+X-Greylist: delayed 1565 seconds by postgrey-1.35 at bilbo;
+ Thu, 30 Jun 2016 02:27:42 AEST
+Received: from 10.mo3.mail-out.ovh.net (10.mo3.mail-out.ovh.net
+ [87.98.165.232])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rfnrm6PpMzDqvK
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 02:17:44 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rfp4G4ft6zDqvv
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 02:27:41 +1000 (AEST)
 Received: from player730.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo3.mail-out.ovh.net (Postfix) with ESMTP id 3B24EFF980C
- for <openbmc@lists.ozlabs.org>; Wed, 29 Jun 2016 18:10:38 +0200 (CEST)
+ by mo3.mail-out.ovh.net (Postfix) with ESMTP id B25B0FF908B
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Jun 2016 18:10:18 +0200 (CEST)
 Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
  [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player730.ha.ovh.net (Postfix) with ESMTPSA id DA4C1440097;
- Wed, 29 Jun 2016 18:10:34 +0200 (CEST)
+ by player730.ha.ovh.net (Postfix) with ESMTPSA id 88B474400C6;
+ Wed, 29 Jun 2016 18:10:15 +0200 (CEST)
 From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH uboot v2016.05-aspeed-openbmc 5/9] aspeed/ast-g4: select the
- correct cpu
-Date: Wed, 29 Jun 2016 18:09:47 +0200
-Message-Id: <1467216591-8616-6-git-send-email-clg@kaod.org>
+Subject: [PATCH uboot v2016.05-aspeed-openbmc 0/9] aspeed: fixes and cleanups
+Date: Wed, 29 Jun 2016 18:09:42 +0200
+Message-Id: <1467216591-8616-1-git-send-email-clg@kaod.org>
 X-Mailer: git-send-email 2.1.4
-In-Reply-To: <1467216591-8616-1-git-send-email-clg@kaod.org>
-References: <1467216591-8616-1-git-send-email-clg@kaod.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 17509432404873546498
+X-Ovh-Tracer-Id: 17503802901739047682
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
 X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeltddrudehgdeliecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
@@ -40,26 +38,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Jun 2016 16:17:45 -0000
+X-List-Received-Date: Wed, 29 Jun 2016 16:27:43 -0000
 
-Else the default is a arm v4
+Hello,
 
-Signed-off-by: Cédric Le Goater <clg@kaod.org>
----
- arch/arm/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+The aspeednic driver has a couple of issues which are fixed by
+Milton's patches. On top of that, I have included some kconfig
+improvements and a *massive* cleanup of nearly all the Aspeed files.
 
-diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
-index 67a00fccd626..ee176be22979 100644
---- a/arch/arm/Kconfig
-+++ b/arch/arm/Kconfig
-@@ -755,6 +755,7 @@ config TARGET_WITHERSPOON_BMC
- 
- config TARGET_AST_G4
-        bool "Support ast2400"
-+       select CPU_ARM926EJS
- 
- endchoice
- 
+Tested on palmetto and a ast2500 evb.
+
+Thanks,
+
+C. 
+
+Cédric Le Goater (6):
+  net/aspeednic: start mac after ring buffers are initialized
+  aspeed/ast-g4: select the correct cpu
+  aspeed/ast-g4: use literal defines in misc_init_r()
+  aspeed: add a common Kconfig file for Aspeed boards.
+  aspeed/ast-g4: add a force saveenv config
+  ast-g4/g5: large cleanup
+
+Milton D. Miller II (3):
+  net: aspeednic: Create aspeed_write_hwaddr from set_mac_address
+  net: aspeednic: Do not start hardware in initialize
+  net: aspeednic: Do not fill in a random MAC address
+
+ arch/arm/Kconfig                                   |    6 +-
+ arch/arm/include/asm/arch-aspeed/aspeed.h          |   16 +-
+ arch/arm/include/asm/arch-aspeed/ast-ahbc.h        |   28 +-
+ arch/arm/include/asm/arch-aspeed/ast-sdmc.h        |   49 +-
+ .../arm/include/asm/arch-aspeed/ast2400_platform.h |  110 +-
+ arch/arm/include/asm/arch-aspeed/ast_g5_platform.h |  291 ++-
+ arch/arm/include/asm/arch-aspeed/ast_scu.h         |   70 +-
+ arch/arm/include/asm/arch-aspeed/platform.h        |   26 +-
+ arch/arm/include/asm/arch-aspeed/regs-ahbc.h       |   23 +-
+ arch/arm/include/asm/arch-aspeed/regs-scu.h        | 1392 ++++++-------
+ arch/arm/include/asm/arch-aspeed/regs-sdmc.h       |   20 +-
+ arch/arm/include/asm/arch-aspeed/regs-spi.h        |   55 -
+ arch/arm/mach-aspeed/ast-ahbc.c                    |  110 +-
+ arch/arm/mach-aspeed/ast-scu.c                     | 2127 ++++++++++----------
+ arch/arm/mach-aspeed/ast-sdmc.c                    |  179 +-
+ arch/arm/mach-aspeed/cpuinfo.c                     |   19 +-
+ arch/arm/mach-aspeed/timer.c                       |   50 +-
+ board/aspeed/Kconfig                               |    9 +
+ board/aspeed/ast-g4/ast-g4.c                       |   15 +-
+ common/env_common.c                                |    3 +
+ drivers/net/aspeednic.c                            |   17 +-
+ include/configs/ast-g4.h                           |    1 +
+ 22 files changed, 2140 insertions(+), 2476 deletions(-)
+ delete mode 100644 arch/arm/include/asm/arch-aspeed/regs-spi.h
+ create mode 100644 board/aspeed/Kconfig
+
 -- 
 2.1.4
