@@ -3,29 +3,28 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rfrfk493vzDqvL
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 04:24:14 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rfrxh5MW8zDqy0
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 04:37:12 +1000 (AEST)
 Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
  [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1467224649509237.84277285674057;
- Wed, 29 Jun 2016 11:24:09 -0700 (PDT)
-Date: Wed, 29 Jun 2016 13:24:05 -0500
+ with SMTPS id 1467225428890578.8412858143034;
+ Wed, 29 Jun 2016 11:37:08 -0700 (PDT)
+Date: Wed, 29 Jun 2016 13:37:06 -0500
 From: Patrick Williams <patrick@stwcx.xyz>
-To: Rick Altherr <raltherr@google.com>
-Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: Gerrit server migration
-Message-ID: <20160629182405.GQ20922@asimov.austin.ibm.com>
-References: <20160627221501.GN20922@asimov.austin.ibm.com>
- <CACPK8Xd45WjdpyCPCibXwZj3tn1ud+HjP1s--aMdrNkD=38wmw@mail.gmail.com>
- <20160628163954.GO20922@asimov.austin.ibm.com>
- <CAPLgG==K75ZrwdByiiND1p2Rvdivkj_Nj7n1OGsmncm3mhGfFA@mail.gmail.com>
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Cc: openbmc@lists.ozlabs.org, Adriana Kobylak <anoo@us.ibm.com>
+Subject: Re: [PATCH ipmi-fru-parser v2] Handle IOBoard VPD for Barreleye
+Message-ID: <20160629183706.GR20922@asimov.austin.ibm.com>
+References: <20160629140021.28683-1-openbmc-patches@stwcx.xyz>
+ <20160629140021.28683-2-openbmc-patches@stwcx.xyz>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="kPJUzav3owWaKxsz"
+ protocol="application/pgp-signature"; boundary="D8QxnvyRlKGQJxl7"
 Content-Disposition: inline
-In-Reply-To: <CAPLgG==K75ZrwdByiiND1p2Rvdivkj_Nj7n1OGsmncm3mhGfFA@mail.gmail.com>
+In-Reply-To: <20160629140021.28683-2-openbmc-patches@stwcx.xyz>
 User-Agent: Mutt/1.5.24 (2015-08-30)
 X-Zoho-Virus-Status: 1
+X-ZohoMail: Z_61896388 SPT_1 Z_56716064 SPT_1 SLF_D
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -37,53 +36,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Jun 2016 18:24:15 -0000
+X-List-Received-Date: Wed, 29 Jun 2016 18:37:13 -0000
 
 
---kPJUzav3owWaKxsz
+--D8QxnvyRlKGQJxl7
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jun 28, 2016 at 10:09:58AM -0700, Rick Altherr wrote:
-> I'm willing to help with reviews in any of those groups.  I've had a care=
-er
-> that's plunged me into all of those languages quite deeply.
+On Wed, Jun 29, 2016 at 09:00:21AM -0500, OpenBMC Patches wrote:
+> From: Adriana Kobylak <anoo@us.ibm.com>
+> diff --git a/argument.C b/argument.C
+> index a7e0a94..a191613 100644
+> --- a/argument.C
+> +++ b/argument.C
+> @@ -53,6 +53,7 @@ const option ArgumentParser::options[] =3D
+>      { "eeprom",   required_argument,  NULL, 'e' },
+>      { "fruid",    required_argument,  NULL, 'f' },
+>      { "help",     no_argument,        NULL, 'h' },
+> +    { "iob",      no_argument,        NULL, 'w' }, // ioboard workaround
 
-Rick,
+Rather than a generic 'io board' workaround, do you think we should add
+a parameter like --barreleye-workaround or --workarounds=3Dbarreleye ?
 
-Please feel free for you and your team to subscribe to any of the
-repositories in Gerrit that you find interesting and provide review
-feedback.  We would certainly rather have more eyes on the commits than
-less.
-
-I don't want to see too much emphasis on the 'maintainer' position.
-Ideally the only purpose of this role is an extra gate to ensure the
-rest of the processes have been followed.
+>      { 0, 0, 0, 0},
+>  };
 
 --=20
 Patrick Williams
 
---kPJUzav3owWaKxsz
+--D8QxnvyRlKGQJxl7
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJXdBJFAAoJEKsDR8wtAMEZm6QQAJkH7PyHxGWq//p7SFf4nRRZ
-Vbd8Qb/1OuhLtyfVqSI4/vO69BnIJEL7wp/PDDeDxV+ilv2csXWbdiwOKZJHHGe9
-xaqqMNRoXCwYHNIm/MM9c/OGPwaeiJt2PvTFqxlNHGTNwBDVR4DftGUBRvyct2bw
-rLI9b7z5ZVJ9GR6QNoADRLLiMtgZJZO6cqtjilYNChamMXomCBwcouRgY8c4qvpm
-D4bWNE9N7L9UcFSZvSQasBHxPe4U/xSIWWYIDk038vVpkDjIjYlc3BRiEe5GIVE6
-wQ/uNQNJouHq15SaIhjz8qUDc1pFWZjYkzO2yB+jR5gezg/4pthdvB4l7bBGIa6i
-aNyIZfT6lHhRTClLcyfeaSsEZfHoiZDEW0V+jiod12e70ynF956ojMa/kHwQnYts
-R4ZJrmtAM9iqMgYzGGQW0to0fL88Nzq+hz7rW23vqaf7a+GYo/3MfNTpLdl3nGE4
-Mk/bYFz7DwJc3CSc/10aHH5v+OyFsSl18mYfvNOditLCiSNMg86JvD8kcnBMzlpq
-iHQ3at9j4pYJ2H/5AX/3jqiC+qrbCEiq/9qjj9hkItfFmPcuSsVGmXRkka9dqO0b
-Qte+ZY2EHgtivxpoU46AGqFFr0pN9Cirbq1eLsnt/QAWhIvSwpRsfs/1//A2nIeV
-YZRHli6psYp/V5sYbr7r
-=J0FB
+iQIcBAEBCAAGBQJXdBVSAAoJEKsDR8wtAMEZ5YoP+gJXAeQHNM9gWVRFrG9QCS2M
+5YgT9xoUWg7Hb3KYGW8Nn/csQ7lQvchGsi3Rlqv0XnVWTTngfeut7KQ9LN4D7Qic
+DrheQFNq5OmPNbnOe5qzs9XpnR+dklcNCfLXGKE32NmjMBQUq+5l0yQXvM/BGIjc
+g0BaHGsjqXQ2rCnQhJKFk8O+yP+AA9+jTGlUOjeiodchaqozsHTiWTJd2bFCepoJ
+mXthTK2IBz7giaVrWLtYMPspwrsKagU3ToCDXUVsIsxEqBF6HX0QLIKjVjgiJIt8
+iHUcbOaCjDF1/Tqz/798Iy/9uOGi2cnytp1O+rfeM4L2YdmP1QFevZheRByiVni6
+LPe7yoRq09+oXU2Pi61SZXKqS4lsZ4uJcJD07FZoAnE5zgxvi1lIk4uMnYyYbRGJ
+CyFXa5YWdieLbSLWOh/uO7i/RCaFcioD0qJ1GAR+aD2kznEHC4eJBxjBkzsLNUTp
+16zSmBP9rUIZe0uTE9GyBTYHoXgq+fK/gKkEeYMiCL3IvmDHIYtnRpG4rpX3tNVx
+Iu9eRn9RhLkM7c2Oi9dgtGBDrBW22Prq9WR0oLgOM77DWUVDCB02PrZ06YFBA7/1
+jwqtZkSwlAQiAtm4sL+vppvWu9Ts9QPxhdO83BsRyrxaxH1+D/XIhh0LRePzsXt8
+OMP0HbqmMJ7jZEH/LWAh
+=G4b5
 -----END PGP SIGNATURE-----
 
---kPJUzav3owWaKxsz--
+--D8QxnvyRlKGQJxl7--
