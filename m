@@ -3,17 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rfjTw3tZfzDqwG
- for <openbmc@lists.ozlabs.org>; Wed, 29 Jun 2016 23:01:07 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rfjTx2LCWzDqwG
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Jun 2016 23:01:09 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1467205261601135.46297981552186;
- Wed, 29 Jun 2016 06:01:01 -0700 (PDT)
+ with SMTPS id 1467205264617730.6708975345722;
+ Wed, 29 Jun 2016 06:01:04 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH skeleton 0/2] GCC 5 build fixes
-Date: Wed, 29 Jun 2016 08:00:58 -0500
-Message-Id: <20160629130100.25673-1-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton 1/2] libopenbmc_intf: Fix non-arm devmem
+ implementation
+Date: Wed, 29 Jun 2016 08:00:59 -0500
+Message-Id: <20160629130100.25673-2-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
+In-Reply-To: <20160629130100.25673-1-openbmc-patches@stwcx.xyz>
+References: <20160629130100.25673-1-openbmc-patches@stwcx.xyz>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -30,23 +33,31 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Wed, 29 Jun 2016 13:01:09 -0000
 
-I came across two issues when attempting to build our system with GCC 5.
+From: Joel Stanley <joel@jms.id.au>
 
-<!-- Reviewable:start -->
+Fixes the following error:
+
+ In file included from button_reset_obj.c:4:0:
+ ../libopenbmc_intf/openbmc.h:39:15: error: return type defaults to ‘int’ [-Werror=implicit-int]
+ static inline devmem(uint32_t val, uint32_t reg)
+
+Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/skeleton/118)
-<!-- Reviewable:end -->
+ libopenbmc_intf/openbmc.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-
-https://github.com/openbmc/skeleton/pull/118
-
-Joel Stanley (2):
-  libopenbmc_intf: Fix non-arm devmem implementation
-  hostcheckstop: Fix missing header
-
- hostcheckstop/host_checkstop_obj.c | 2 ++
- libopenbmc_intf/openbmc.h          | 2 +-
- 2 files changed, 3 insertions(+), 1 deletion(-)
-
+diff --git a/libopenbmc_intf/openbmc.h b/libopenbmc_intf/openbmc.h
+index c1c0335..fe4deef 100644
+--- a/libopenbmc_intf/openbmc.h
++++ b/libopenbmc_intf/openbmc.h
+@@ -36,7 +36,7 @@ static inline uint32_t devmem_read(void* addr)
+  //       write_reg(reg,val);
+ //}
+ #else
+-static inline devmem(uint32_t val, uint32_t reg)
++static inline uint32_t devmem(uint32_t val, uint32_t reg)
+ {
+ }
+ static inline uint32_t devmem_read(void* addr)
 -- 
 2.9.0
