@@ -1,25 +1,33 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <clg@kaod.org>
+Received: from 18.mo3.mail-out.ovh.net (18.mo3.mail-out.ovh.net
+ [87.98.172.162])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rfWGl2tcNzDqvv
- for <openbmc@lists.ozlabs.org>; Wed, 29 Jun 2016 15:20:47 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1467177636776792.2840341544197;
- Tue, 28 Jun 2016 22:20:36 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rfZXD4nb0zDqtd
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Jun 2016 17:47:40 +1000 (AEST)
+Received: from player730.ha.ovh.net (b7.ovh.net [213.186.33.57])
+ by mo3.mail-out.ovh.net (Postfix) with ESMTP id A52F1FF828A
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Jun 2016 09:37:39 +0200 (CEST)
+Received: from hermes.ibm.com (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: clg@kaod.org)
+ by player730.ha.ovh.net (Postfix) with ESMTPSA id 711FB4400B5;
+ Wed, 29 Jun 2016 09:37:36 +0200 (CEST)
+From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
 To: openbmc@lists.ozlabs.org
-Cc: Andreas Oberritter <obi@opendreambox.org>,
- Ross Burton <ross.burton@intel.com>,
- Richard Purdie <richard.purdie@linuxfoundation.org>,
- Joel Stanley <joel@jms.id.au>
-Subject: [PATCH openbmc v5 2/2] rpm: explicitly disable tomcrypt
-Date: Wed, 29 Jun 2016 00:20:33 -0500
-Message-Id: <20160629052033.6921-3-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.9.0
-In-Reply-To: <20160629052033.6921-1-openbmc-patches@stwcx.xyz>
-References: <20160629052033.6921-1-openbmc-patches@stwcx.xyz>
+Subject: [PATCH 3/3] net/aspeednic: start mac after ring buffers are
+ initialized
+Date: Wed, 29 Jun 2016 09:37:18 +0200
+Message-Id: <1467185838-28342-4-git-send-email-clg@kaod.org>
+X-Mailer: git-send-email 2.1.4
+In-Reply-To: <1467185838-28342-1-git-send-email-clg@kaod.org>
+References: <1467185838-28342-1-git-send-email-clg@kaod.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 8845914094288538370
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeltddrudeggdduvdehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -31,41 +39,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Jun 2016 05:20:48 -0000
+X-List-Received-Date: Wed, 29 Jun 2016 07:47:41 -0000
 
-From: Andreas Oberritter <obi@opendreambox.org>
+The set_mac_control_register() routine enables MAC reception and DMAs
+before the initialization of the ring buffers.
 
-Configure autodetects libtomcrypt, but then it adds libtommath to
-$LIBS and fails to link subsequent tests if it's unavailable.
-
-| checking for pcre.h... yes
-| checking for pcre_compile in -lpcre... no
-| checking whether to build with PCRE library... no
-| ++ executing failure action
-| configure: error: unable to find usable PCRE library
-
-(From OE-Core rev: 54665fb9e27ba1b0e4eddaf170303d4f2db66fae)
-
-Signed-off-by: Andreas Oberritter <obi@opendreambox.org>
-Signed-off-by: Ross Burton <ross.burton@intel.com>
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
-[upstream commit 71979b2ff7a0f78892435558e27bf0779367de55)
-Signed-off-by: Joel Stanley <joel@jms.id.au>
+Signed-off-by: Cédric Le Goater <clg@kaod.org>
 ---
- yocto-poky/meta/recipes-devtools/rpm/rpm_5.4.16.bb | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/net/aspeednic.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/yocto-poky/meta/recipes-devtools/rpm/rpm_5.4.16.bb b/yocto-poky/meta/recipes-devtools/rpm/rpm_5.4.16.bb
-index cbdca88..f2c12d2 100644
---- a/yocto-poky/meta/recipes-devtools/rpm/rpm_5.4.16.bb
-+++ b/yocto-poky/meta/recipes-devtools/rpm/rpm_5.4.16.bb
-@@ -328,6 +328,7 @@ EXTRA_OECONF += "--verbose \
- 		--without-ruby \
- 		--without-squirrel \
- 		--without-sasl2 \
-+		--without-tomcrypt \
- 		--with-build-extlibdep \
- 		--with-build-maxextlibdep \
- 		--without-valgrind \
+diff --git a/drivers/net/aspeednic.c b/drivers/net/aspeednic.c
+index cea3394728cc..d0b786ba9f39 100644
+--- a/drivers/net/aspeednic.c
++++ b/drivers/net/aspeednic.c
+@@ -1141,7 +1141,6 @@ static int aspeednic_init(struct eth_device* dev, bd_t* bis)
+ 	aspeednic_probe_phy(dev);
+ 
+ 	set_mac_address(dev, bis);
+-	set_mac_control_register(dev);
+ 
+ 	for (i = 0; i < NUM_RX_DESC; i++) {
+ 		rx_ring[i].status = cpu_to_le32(RXPKT_RDY);
+@@ -1166,6 +1165,7 @@ static int aspeednic_init(struct eth_device* dev, bd_t* bis)
+ 	OUTL(dev, ((u32) &rx_ring), RXR_BADR_REG);
+ 	OUTL(dev, RX_BUFF_SZ, RBSR_REG);
+ 
++	set_mac_control_register(dev);
+ 	START_MAC(dev);
+ 
+ 	tx_new = 0;
 -- 
-2.9.0
+2.1.4
