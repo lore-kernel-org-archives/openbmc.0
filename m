@@ -3,17 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rgPCR5bTjzDrM4
- for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2016 01:50:59 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rgPCS23CCzDrMs
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2016 01:51:00 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1467301854289708.6246583092534;
- Thu, 30 Jun 2016 08:50:54 -0700 (PDT)
+ with SMTPS id 146730185713696.93203753196076;
+ Thu, 30 Jun 2016 08:50:57 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH skeleton v2 0/2] Disable watchdog timer if debug_mode is set
-Date: Thu, 30 Jun 2016 10:50:51 -0500
-Message-Id: <20160630155053.1349-1-openbmc-patches@stwcx.xyz>
+Cc: Andrew Geissler <andrewg@us.ibm.com>
+Subject: [PATCH skeleton v2 2/2] Disable watchdog timer if debug_mode is set
+Date: Thu, 30 Jun 2016 10:50:53 -0500
+Message-Id: <20160630155053.1349-3-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
+In-Reply-To: <20160630155053.1349-1-openbmc-patches@stwcx.xyz>
+References: <20160630155053.1349-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -25,7 +28,9 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Jun 2016 15:51:00 -0000
+X-List-Received-Date: Thu, 30 Jun 2016 15:51:01 -0000
+
+From: Andrew Geissler <andrewg@us.ibm.com>
 
 https://github.com/openbmc/openbmc/issues/246
 
@@ -41,22 +46,56 @@ in this code path.  The watchdog is un-tested when it's
 not started but software comes in and tries to reset it.
 The code in control_host_obj.c currently enforces the
 no-host-power-on when debug_mode is set.
-
-<!-- Reviewable:start -->
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/skeleton/120)
-<!-- Reviewable:end -->
-
-
-https://github.com/openbmc/skeleton/pull/120
-
-Andrew Geissler (2):
-  Reformat pychassisctl/chassis_control.py with pep8 standards
-  Disable watchdog timer if debug_mode is set
-
- pychassisctl/chassis_control.py | 408 +++++++++++++++++++++-------------------
- 1 file changed, 216 insertions(+), 192 deletions(-)
+ pychassisctl/chassis_control.py | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
  mode change 100644 => 100755 pychassisctl/chassis_control.py
 
+diff --git a/pychassisctl/chassis_control.py b/pychassisctl/chassis_control.py
+old mode 100644
+new mode 100755
+index 8d34e2e..9ca2fc9
+--- a/pychassisctl/chassis_control.py
++++ b/pychassisctl/chassis_control.py
+@@ -67,6 +67,11 @@ class ChassisControlObject(DbusProperties, DbusObjectManager):
+                 'object_name': '/org/openbmc/settings/host0',
+                 'interface_name': 'org.freedesktop.DBus.Properties'
+             },
++            'control': {
++                'bus_name': 'org.openbmc.control.Host',
++                'object_name': '/org/openbmc/control/host0',
++                'interface_name': 'org.openbmc.control.Host'
++            },
+         }
+ 
+         # uuid
+@@ -129,11 +134,22 @@ class ChassisControlObject(DbusProperties, DbusObjectManager):
+         if (self.getPowerState() == 0):
+             intf = self.getInterface('power_control')
+             intf.setPowerState(POWER_ON)
+-            intfwatchdog = self.getInterface('watchdog')
+-            # Start watchdog with 30s timeout per the OpenPower Host IPMI Spec
+-            #Once the host starts booting, it'll reset and refresh the timer
+-            intfwatchdog.set(30000)
+-            intfwatchdog.start()
++
++            # Determine if debug_mode is set.  If it is then we don't
++            # want to start the watchdog since debug mode
++            intfcontrol = self.getInterface('control')
++            intfproperties = dbus.Interface(intfcontrol,
++                                            "org.freedesktop.DBus.Properties")
++            debug_mode = intfproperties.Get('org.openbmc.control.Host',
++                                            'debug_mode')
++            if(not debug_mode):
++                intfwatchdog = self.getInterface('watchdog')
++                # Start watchdog with 30s timeout per the OpenPower Host IPMI Spec
++                #Once the host starts booting, it'll reset and refresh the timer
++                intfwatchdog.set(30000)
++                intfwatchdog.start()
++            else:
++                print "Debug mode is on, no watchdog"
+         return None
+ 
+     @dbus.service.method(DBUS_NAME,
 -- 
 2.9.0
