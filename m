@@ -3,16 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rgbsC11d5zDqhC
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rgbsB6rqCzDqmt
  for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2016 09:50:54 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1467330649921596.812814983327;
- Thu, 30 Jun 2016 16:50:49 -0700 (PDT)
+ with SMTPS id 1467330651592883.3738411151919;
+ Thu, 30 Jun 2016 16:50:51 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 13/16] initfs: update: handle no images to update
-Date: Thu, 30 Jun 2016 18:50:30 -0500
-Message-Id: <20160630235033.17091-14-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 15/16] initfs: whitelist: Sanitize obmc events
+ whitelist entry
+Date: Thu, 30 Jun 2016 18:50:32 -0500
+Message-Id: <20160630235033.17091-16-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 In-Reply-To: <20160630235033.17091-1-openbmc-patches@stwcx.xyz>
 References: <20160630235033.17091-1-openbmc-patches@stwcx.xyz>
@@ -31,55 +32,26 @@ X-List-Received-Date: Thu, 30 Jun 2016 23:50:55 -0000
 
 From: Milton Miller <miltonm@us.ibm.com>
 
-Notify the user if image wildcard expansion fails instead of printing
-message about failing to find partition to flash.
+Remove the trailing / so that the update script doesn't have to loop.
 
-The update script errors with the message that it can't figure out what
-partition to flash for /run/initramfs/image-* if there are no images
-pending.
+It was determined the trailing slash confused the code that makes
+the save subdirectory.  The update script was fixed but this removes
+the extra work needed.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- .../obmc-phosphor-initfs/files/obmc-update.sh               | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ .../common/recipes-phosphor/obmc-phosphor-initfs/files/whitelist        | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index 268c6ad..97d4402 100755
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -102,6 +102,7 @@ checkmount=y
- 
- whitelist=/run/initramfs/whitelist
- image=/run/initramfs/image-
-+imglist=
- 
- while test "$1" != "${1#-}"
- do
-@@ -187,7 +188,15 @@ then
- 	fi
- fi
- 
--for f in $image*
-+imglist=$(echo $image*)
-+if test "$imglist" = "$image*" -a ! -e "$imglist"
-+then
-+	# shell didn't expand the wildcard, so no files exist
-+	echo "No images found to update."
-+	imglist=
-+fi
-+
-+for f in $imglist
- do
- 	m=$(findmtd ${f#$image})
- 	if test -z "$m"
-@@ -212,7 +221,7 @@ done
- 
- if test -n "$doflash"
- then
--	for f in $image*
-+	for f in $imglist
- 	do
- 		if test ! -s $f
- 		then
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/whitelist b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/whitelist
+index 603cec7..c35a552 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/whitelist
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/whitelist
+@@ -6,4 +6,4 @@
+ /etc/group
+ /etc/shadow
+ /etc/gshadow
+-/var/lib/obmc/events/
++/var/lib/obmc/events
 -- 
 2.9.0
