@@ -1,50 +1,50 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-qk0-x244.google.com (mail-qk0-x244.google.com
- [IPv6:2607:f8b0:400d:c09::244])
+Received: from mail-qt0-x243.google.com (mail-qt0-x243.google.com
+ [IPv6:2607:f8b0:400d:c0d::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rgLtB54d1zDqlj
- for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2016 00:05:54 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rgLtR6j6xzDqn0
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2016 00:06:07 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=fNX8SIAH; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=fwC7Z1TQ; 
  dkim-atps=neutral
-Received: by mail-qk0-x244.google.com with SMTP id n132so16816669qka.0
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 07:05:54 -0700 (PDT)
+Received: by mail-qt0-x243.google.com with SMTP id m2so5062699qtd.1
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 07:06:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=qmvH6AE4EBs1F1C+/8cUUV0IqvPTHcvT4DXaHFdr9wE=;
- b=fNX8SIAHGCYY1nFyiGLTnxnlgbZZHKwXM6GWeZeVUXogmSSKekSKKZVL0Ws2+W0L/D
- kB9cMTDh32zGTi1FCUqQ8P8YUy3ArGsOJPmeQaaHObHXBl+ndxb7KTDEs5Jg07f7ShIh
- xGWwwn+KATHtKAQsZNBMQGp5o2zeO7R8v0TFIppOcfT6UchiIMgz7TZcR52Psdsgbd4l
- 38BOgFZdz8R89OqQCEZaXNvFSj5S9rEyu7bPlZRlXV6MZVTrJhrsBiCBx7CiL5/ZJnsl
- H0WQnlBL7XRed8aITKI1h4WxHLGFHAfbR6UlL7h6wNt3mfy0ZqNUsv90Ic01lv5NB9/e
- d22g==
+ bh=SWcltiFmA7SXH247P1910aV75EOprl9ueKZL2lKZ9u0=;
+ b=fwC7Z1TQ0OSmTDpy7gb66b16kthRdBN1ORUNLbkSBkpj/DZFIb7Mv0/AVsresLejJm
+ p7YfbIk+NQpjzap9Zjo5vhYQZBdXpLjKyg0YPu/V6RJ/fNx6xRnMWz2kGZzQbFFrOw/c
+ ZQBe+yVya/RxZ9RSzEze4penPtwbKG2R0F6rmvhy5gHHHhzdXaowUta4gsDbEe4zG7vH
+ 6jAmmYnVOmvtYPTgoS8FUgvO/Ab95TZqIcbQ0axGVVz65wT5hoaEbGnBde47cjPDjFem
+ PIQLhDkDgC/Gtv208FSnFBJ8Tl+MlvQWgnXlj+oThGpqv/xDa9I6VEAi1LK0RLWizFIH
+ sMYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=qmvH6AE4EBs1F1C+/8cUUV0IqvPTHcvT4DXaHFdr9wE=;
- b=DrseDLwSj+WL/oolZ7Z8HwBSUDwJpCu9ZZ6bjO5O+CvspLm47/d7H6E4I3RiZv47VT
- izTKPfHLasS28qXsjBHMiU3VWGJvebpakXNlPj1QBeDMHfJ+fkrjxxsiYvRwslDp2Wfo
- LYQEgDpqNX2eRbvs/LZuSAksoNzkLzg2Sk+jDG7hkQOzt5rqCNSTiEm5ihRvDm+AmnQw
- IrCriZnB+duVHWwdo29GZD8V/iT/YZoBaF1nv8bLO44Zr+2fOaO+ROtT7ZdzeL0ExFEe
- 6aShhskW0+lf9jRFLv2gYOFErv7zacpjtfB4+Z30rFOStUaEasyckkqM06N23L6Fi1nK
- aNsQ==
-X-Gm-Message-State: ALyK8tJM/C3IYuc0JWmYcPeYtIOucJY7EOMUqBgQlubCAPhMlUt3Vf54CnST+CWMgOx93eIyV8kEX3pvMMTjwA==
-X-Received: by 10.55.42.78 with SMTP id q75mr19821606qkh.158.1467295552376;
- Thu, 30 Jun 2016 07:05:52 -0700 (PDT)
+ bh=SWcltiFmA7SXH247P1910aV75EOprl9ueKZL2lKZ9u0=;
+ b=VqJDwpdKPtRVSEZ50KJWjlKggw1yUkjsXr5OBFmYwe5ZyHJcvxFs0w8+24AKoxvnB3
+ XY0U3yPRJshVxCtFDIj18EIBadtjqk+57kQym/fu4LtVz/N/hKcVDFt1QihEZ+Yib6o9
+ KnM9Dq8Iy5olbacXNe2qFTWtaLN8SF6A7T6kwiYuwj9asispL1HtPtRm/ggJNc0P+3SV
+ cFt8r62mfJemFZZ5xRz7Lhd8jg1CcpeQPu4gC62ptsBgRcmORkrPRTbwPT58C902M16C
+ NCVnNbDVBdtvbYu240dvHLMxTBvEtXbEavqL/T6Ce4GNG0mAqwswMcZqIiIJKCNt6Sov
+ 5Pbg==
+X-Gm-Message-State: ALyK8tKxnLsb7Yh4gUdvPhufVKGRndnkd5LpjN4sL2QQPmWCpy/VENEmb2WX83UHNAP9K+69QlKiNpVOpbCaLA==
+X-Received: by 10.237.37.8 with SMTP id v8mr23843123qtc.28.1467295565728; Thu,
+ 30 Jun 2016 07:06:05 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.237.37.148 with HTTP; Thu, 30 Jun 2016 07:05:32 -0700 (PDT)
-In-Reply-To: <1467282471-16560-6-git-send-email-gwshan@linux.vnet.ibm.com>
+Received: by 10.237.37.148 with HTTP; Thu, 30 Jun 2016 07:05:46 -0700 (PDT)
+In-Reply-To: <1467282471-16560-8-git-send-email-gwshan@linux.vnet.ibm.com>
 References: <1467282471-16560-1-git-send-email-gwshan@linux.vnet.ibm.com>
- <1467282471-16560-6-git-send-email-gwshan@linux.vnet.ibm.com>
+ <1467282471-16560-8-git-send-email-gwshan@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 30 Jun 2016 23:35:32 +0930
-X-Google-Sender-Auth: EiIl8RyJhRQIFQdjN1xOZb1yD8A
-Message-ID: <CACPK8XdBnaumivLtKi+5UQeUfLcfduVPT6aUjqT5wJ=vAibQDg@mail.gmail.com>
-Subject: Re: [PATCH 05/10] net/ncsi: NCSI AEN packet handler
+Date: Thu, 30 Jun 2016 23:35:46 +0930
+X-Google-Sender-Auth: Z12h6042l6hbR5JwVRdJUE5_1uk
+Message-ID: <CACPK8XemtUzUMZXFjZSe9aQixcgiQnZimxMA7aMrts-1Yoya1Q@mail.gmail.com>
+Subject: Re: [PATCH 07/10] net/farady: Read MAC address from chip
 To: Gavin Shan <gwshan@linux.vnet.ibm.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
  Benjamin Herrenschmidt <benh@kernel.crashing.org>
@@ -60,321 +60,113 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Jun 2016 14:05:55 -0000
+X-List-Received-Date: Thu, 30 Jun 2016 14:06:08 -0000
 
 On Thu, Jun 30, 2016 at 7:57 PM, Gavin Shan <gwshan@linux.vnet.ibm.com> wrote:
-> This introduces NCSI AEN packet handlers that result in (A) the
-> currently active channel is reconfigured; (B) Currently active
-> channel is deconfigured and disabled, another channel is chosen
-> as active one and configured.
+> The device is assigned with random MAC address. It isn't reasonable.
+> An valid MAC address might have been in the chip. It's reasonable
+> to use it to maintain consistency.
+>
+> This uses the MAC address in the chip if it's valid. Otherwise, a
+> random MAC address is given as before.
 >
 > Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
 > ---
->  net/ncsi/Makefile   |   2 +-
->  net/ncsi/internal.h |   1 +
->  net/ncsi/ncsi-aen.c | 190 ++++++++++++++++++++++++++++++++++++++++++++++++++++
->  net/ncsi/ncsi-pkt.h |  36 ++++++++++
->  net/ncsi/ncsi-rsp.c |   6 +-
->  5 files changed, 233 insertions(+), 2 deletions(-)
->  create mode 100644 net/ncsi/ncsi-aen.c
+>  drivers/net/ethernet/faraday/ftgmac100.c | 60 ++++++++++++++++++++++++++++----
+>  1 file changed, 53 insertions(+), 7 deletions(-)
 >
-> diff --git a/net/ncsi/Makefile b/net/ncsi/Makefile
-> index 4751819..dd12b56 100644
-> --- a/net/ncsi/Makefile
-> +++ b/net/ncsi/Makefile
-> @@ -1,4 +1,4 @@
->  #
->  # Makefile for NCSI API
->  #
-> -obj-$(CONFIG_NET_NCSI) += ncsi-cmd.o ncsi-rsp.o ncsi-manage.o
-> +obj-$(CONFIG_NET_NCSI) += ncsi-cmd.o ncsi-rsp.o ncsi-aen.o ncsi-manage.o
-> diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-> index eeb092a..d284821 100644
-> --- a/net/ncsi/internal.h
-> +++ b/net/ncsi/internal.h
-> @@ -303,5 +303,6 @@ int ncsi_suspend_dev(struct ncsi_dev *nd);
->  int ncsi_xmit_cmd(struct ncsi_cmd_arg *nca);
->  int ncsi_rcv_rsp(struct sk_buff *skb, struct net_device *dev,
->                  struct packet_type *pt, struct net_device *orig_dev);
-> +int ncsi_aen_handler(struct ncsi_dev_priv *ndp, struct sk_buff *skb);
+> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
+> index 2c22f74..120993e 100644
+> --- a/drivers/net/ethernet/faraday/ftgmac100.c
+> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
+> @@ -141,6 +141,55 @@ static void ftgmac100_set_mac(struct ftgmac100 *priv, const unsigned char *mac)
+>         iowrite32(laddr, priv->base + FTGMAC100_OFFSET_MAC_LADR);
+>  }
 >
->  #endif /* __NCSI_INTERNAL_H__ */
-> diff --git a/net/ncsi/ncsi-aen.c b/net/ncsi/ncsi-aen.c
-> new file mode 100644
-> index 0000000..82ed563
-> --- /dev/null
-> +++ b/net/ncsi/ncsi-aen.c
-> @@ -0,0 +1,190 @@
-> +/*
-> + * Copyright Gavin Shan, IBM Corporation 2016.
-> + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License as published by
-> + * the Free Software Foundation; either version 2 of the License, or
-> + * (at your option) any later version.
-> + */
-> +
-> +#include <linux/module.h>
-> +#include <linux/kernel.h>
-> +#include <linux/init.h>
-> +#include <linux/netdevice.h>
-> +#include <linux/skbuff.h>
-> +
-> +#include <net/ncsi.h>
-> +#include <net/net_namespace.h>
-> +#include <net/sock.h>
-> +
-> +#include "internal.h"
-> +#include "ncsi-pkt.h"
-> +
-> +static int ncsi_validate_aen_pkt(struct ncsi_aen_pkt_hdr *h,
-> +                                const unsigned short payload)
+> +static void ftgmac100_setup_mac(struct ftgmac100 *priv)
 > +{
-> +       unsigned char *stream;
-> +       __be32 *checksum, csum;
-> +       __be32 high, low;
-> +       int i;
+> +       unsigned char mac[6];
+> +       unsigned int m;
+> +       unsigned int l;
 > +
-> +       if (h->common.revision != NCSI_PKT_REVISION)
-> +               return -EINVAL;
-> +       if (ntohs(h->common.length) != payload)
-> +               return -EINVAL;
+> +       m = ioread32(priv->base + FTGMAC100_OFFSET_MAC_MADR);
+> +       l = ioread32(priv->base + FTGMAC100_OFFSET_MAC_LADR);
 > +
-> +       /* Validate checksum, which might be zeroes if the
-> +        * sender doesn't support checksum according to NCSI
-> +        * specification.
-> +        */
-> +       checksum = (__be32 *)((void *)(h + 1) + payload - 4);
-> +       if (ntohl(*checksum) == 0)
-> +               return 0;
+> +       mac[0] = (m >> 8) & 0xff;
+> +       mac[1] = m & 0xff;
+> +       mac[2] = (l >> 24) & 0xff;
+> +       mac[3] = (l >> 16) & 0xff;
+> +       mac[4] = (l >> 8) & 0xff;
+> +       mac[5] = l & 0xff;
 > +
-> +       csum = 0;
-> +       stream = (unsigned char *)h;
-> +       for (i = 0; i < sizeof(*h) + payload - 4; i += 2) {
-> +               high = stream[i];
-> +               low = stream[i + 1];
-> +               csum += ((high << 8) | low);
+> +       if (!is_valid_ether_addr(mac)) {
+> +               mac[5] = (m >> 8) & 0xff;
+> +               mac[4] = m & 0xff;
+> +               mac[3] = (l >> 24) & 0xff;
+> +               mac[2] = (l >> 16) & 0xff;
+> +               mac[1] = (l >>  8) & 0xff;
+> +               mac[0] = l & 0xff;
 > +       }
 > +
-> +       csum = ~csum + 1;
-> +       if (*checksum != htonl(csum))
-> +               return -EINVAL;
-
-This is checksum calculation is shared between -rsp.c and -aen.c
-
-> +
-> +       return 0;
-> +}
-> +
-> +static int ncsi_aen_handler_lsc(struct ncsi_dev_priv *ndp,
-> +                               struct ncsi_aen_pkt_hdr *h)
-> +{
-> +       struct ncsi_dev *nd = &ndp->ndp_ndev;
-> +       struct ncsi_aen_lsc_pkt *lsc;
-> +       struct ncsi_channel *nc;
-> +       struct ncsi_channel_mode *ncm;
-> +       int ret;
-> +
-> +       ret = ncsi_validate_aen_pkt(h, 12);
-> +       if (ret)
-> +               return ret;
-> +
-> +       /* Find the NCSI channel */
-> +       ncsi_find_package_and_channel(ndp, h->common.channel, NULL, &nc);
-> +       if (!nc)
-> +               return -ENODEV;
-> +
-> +       /* Update the link status */
-> +       ncm = &nc->nc_modes[NCSI_MODE_LINK];
-> +       lsc = (struct ncsi_aen_lsc_pkt *)h;
-> +       ncm->ncm_data[2] = ntohl(lsc->status);
-> +       ncm->ncm_data[4] = ntohl(lsc->oem_status);
-> +       if (!ndp->ndp_active_channel ||
-> +           ndp->ndp_active_channel != nc)
-> +               return 0;
-> +
-> +       ndp->ndp_flags |= NCSI_DEV_FLAG_RESHUFFLE;
-> +       ncsi_suspend_dev(nd);
-> +
-> +       return 0;
-> +}
-> +
-> +static int ncsi_aen_handler_cr(struct ncsi_dev_priv *ndp,
-> +                              struct ncsi_aen_pkt_hdr *h)
-> +{
-> +       struct ncsi_dev *nd = &ndp->ndp_ndev;
-> +       struct ncsi_channel *nc;
-> +       int ret;
-> +
-> +       ret = ncsi_validate_aen_pkt(h, 4);
-> +       if (ret)
-> +               return ret;
-> +
-> +       /* Find the NCSI channel */
-> +       ncsi_find_package_and_channel(ndp, h->common.channel, NULL, &nc);
-> +       if (!nc)
-> +               return -ENODEV;
-> +
-> +       /* If the channel is active one, we need reconfigure it */
-> +       if (!ndp->ndp_active_channel ||
-> +           ndp->ndp_active_channel != nc)
-> +               return 0;
-> +
-> +       ncsi_config_dev(nd);
-> +
-> +       return 0;
-> +}
-> +
-> +static int ncsi_aen_handler_hncdsc(struct ncsi_dev_priv *ndp,
-> +                                  struct ncsi_aen_pkt_hdr *h)
-> +{
-> +       struct ncsi_dev *nd = &ndp->ndp_ndev;
-> +       struct ncsi_channel *nc;
-> +       struct ncsi_channel_mode *ncm;
-> +       struct ncsi_aen_hncdsc_pkt *hncdsc;
-> +       int ret;
-> +
-> +       ret = ncsi_validate_aen_pkt(h, 4);
-> +       if (ret)
-> +               return ret;
-> +
-> +       /* Find the NCSI channel */
-> +       ncsi_find_package_and_channel(ndp, h->common.channel, NULL, &nc);
-> +       if (!nc)
-> +               return -ENODEV;
-> +
-> +       /* If the channel is active one, we need reconfigure it */
-> +       ncm = &nc->nc_modes[NCSI_MODE_LINK];
-> +       hncdsc = (struct ncsi_aen_hncdsc_pkt *)h;
-> +       ncm->ncm_data[3] = ntohl(hncdsc->status);
-> +       if (ndp->ndp_active_channel != nc ||
-> +           ncm->ncm_data[3] & 0x1)
-> +               return 0;
-> +
-> +       /* If this channel is the active one and the link doesn't
-> +        * work, we have to choose another channel to be active one.
-> +        * The logic here is exactly similar to what we do when link
-> +        * is down on the active channel.
-> +        */
-> +       ndp->ndp_flags |= NCSI_DEV_FLAG_RESHUFFLE;
-> +       ncsi_suspend_dev(nd);
-> +       return 0;
-> +}
-> +
-> +static struct ncsi_aen_handler {
-> +       unsigned char nah_type;
-> +       int           (*nah_handler)(struct ncsi_dev_priv *ndp,
-> +                                    struct ncsi_aen_pkt_hdr *h);
-> +} ncsi_aen_handlers[] = {
-> +       { NCSI_PKT_AEN_LSC,    ncsi_aen_handler_lsc    },
-> +       { NCSI_PKT_AEN_CR,     ncsi_aen_handler_cr     },
-> +       { NCSI_PKT_AEN_HNCDSC, ncsi_aen_handler_hncdsc },
-> +       { 0,                   NULL                    }
-> +};
-> +
-> +int ncsi_aen_handler(struct ncsi_dev_priv *ndp, struct sk_buff *skb)
-> +{
-> +       struct ncsi_aen_pkt_hdr *h;
-> +       struct ncsi_aen_handler *nah;
-> +       int ret;
-> +
-> +       /* Find the handler */
-> +       h = (struct ncsi_aen_pkt_hdr *)skb_network_header(skb);
-> +       nah = ncsi_aen_handlers;
-> +       while (nah->nah_handler) {
-> +               if (nah->nah_type == h->type)
-> +                       break;
-> +
-> +               nah++;
+> +       if (!is_valid_ether_addr(mac)) {
+> +               eth_hw_addr_random(priv->netdev);
+> +               dev_info(priv->dev, "Generated random MAC address %pM\n",
+> +                        priv->netdev->dev_addr);
+> +       } else {
+> +               memcpy(priv->netdev->dev_addr, mac, 6);
+> +               dev_info(priv->dev, "Read MAC address from chip %pM\n", mac);
 > +       }
-> +
-> +       if (!nah->nah_handler) {
-> +               pr_warn("NCSI: Invalid AEN packet (0x%x) received\n",
-> +                       h->type);
-> +               return -ENOENT;
-> +       }
-> +
-> +       ret = nah->nah_handler(ndp, h);
-> +       consume_skb(skb);
-> +       return ret;
 > +}
-> diff --git a/net/ncsi/ncsi-pkt.h b/net/ncsi/ncsi-pkt.h
-> index 95882f3..6248835 100644
-> --- a/net/ncsi/ncsi-pkt.h
-> +++ b/net/ncsi/ncsi-pkt.h
-> @@ -31,6 +31,12 @@ struct ncsi_rsp_pkt_hdr {
->         __be16              reason; /* Response reason           */
+> +
+> +static int ftgmac100_set_mac_addr(struct net_device *dev, void *p)
+> +{
+> +       int ret;
+> +
+> +       ret = eth_prepare_mac_addr_change(dev, p);
+> +       if (ret < 0)
+> +               return ret;
+> +
+> +       eth_commit_mac_addr_change(dev, p);
+> +       ftgmac100_set_mac(netdev_priv(dev), dev->dev_addr);
+> +
+> +       return 0;
+> +}
+> +
+>  static void ftgmac100_init_hw(struct ftgmac100 *priv)
+>  {
+>         /* setup ring buffer base registers */
+> @@ -1141,7 +1190,7 @@ static const struct net_device_ops ftgmac100_netdev_ops = {
+>         .ndo_open               = ftgmac100_open,
+>         .ndo_stop               = ftgmac100_stop,
+>         .ndo_start_xmit         = ftgmac100_hard_start_xmit,
+> -       .ndo_set_mac_address    = eth_mac_addr,
+> +       .ndo_set_mac_address    = ftgmac100_set_mac_addr,
+>         .ndo_validate_addr      = eth_validate_addr,
+>         .ndo_do_ioctl           = ftgmac100_do_ioctl,
 >  };
+> @@ -1263,6 +1312,9 @@ static int ftgmac100_probe(struct platform_device *pdev)
 >
-> +struct ncsi_aen_pkt_hdr {
-> +       struct ncsi_pkt_hdr common;       /* Common NCSI packet header */
-> +       unsigned char       reserved2[3]; /* Reserved                  */
-> +       unsigned char       type;         /* AEN packet type           */
-> +};
-> +
->  /* NCSI common command packet */
->  struct ncsi_cmd_pkt {
->         struct ncsi_cmd_pkt_hdr cmd;      /* Command header */
-> @@ -282,6 +288,30 @@ struct ncsi_rsp_gnpts_pkt {
->         __be32                  checksum;       /* Checksum            */
->  };
+>         priv->irq = irq;
 >
-> +/* AEN: Link State Change */
-> +struct ncsi_aen_lsc_pkt {
-> +       struct ncsi_aen_pkt_hdr aen;        /* AEN header      */
-> +       __be32                  status;     /* Link status     */
-> +       __be32                  oem_status; /* OEM link status */
-> +       __be32                  checksum;   /* Checksum        */
-> +       unsigned char           pad[14];
-> +};
+> +       /* MAC address from chip or random one */
+> +       ftgmac100_setup_mac(priv);
 > +
-> +/* AEN: Configuration Required */
-> +struct ncsi_aen_cr_pkt {
-> +       struct ncsi_aen_pkt_hdr aen;      /* AEN header */
-> +       __be32                  checksum; /* Checksum   */
-> +       unsigned char           pad[22];
-> +};
-> +
-> +/* AEN: Host Network Controller Driver Status Change */
-> +struct ncsi_aen_hncdsc_pkt {
-> +       struct ncsi_aen_pkt_hdr aen;      /* AEN header */
-> +       __be32                  status;   /* Status     */
-> +       __be32                  checksum; /* Checksum   */
-> +       unsigned char           pad[18];
-> +};
-> +
->  /* NCSI packet revision */
->  #define NCSI_PKT_REVISION      0x01
+>         err = ftgmac100_setup_mdio(netdev);
+>         if (err)
+>                 goto err_setup_mdio;
+> @@ -1276,12 +1328,6 @@ static int ftgmac100_probe(struct platform_device *pdev)
 >
-> @@ -356,4 +386,10 @@ struct ncsi_rsp_gnpts_pkt {
->  #define NCSI_PKT_RSP_R_LENGTH          0x0005  /* Invalid payload length   */
->  #define NCSI_PKT_RSP_R_UNKNOWN         0x7fff  /* Command type unsupported */
+>         netdev_info(netdev, "irq %d, mapped at %p\n", priv->irq, priv->base);
 >
-> +/* NCSI packet type: AEN */
-> +#define NCSI_PKT_AEN           0xFF /* AEN Packet               */
-> +#define NCSI_PKT_AEN_LSC       0x00 /* Link status change       */
-> +#define NCSI_PKT_AEN_CR                0x01 /* Configuration required   */
-> +#define NCSI_PKT_AEN_HNCDSC    0x02 /* HNC driver status change */
-> +
->  #endif /* __NCSI_PKT_H__ */
-> diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
-> index 92dcbf4..30578d3 100644
-> --- a/net/ncsi/ncsi-rsp.c
-> +++ b/net/ncsi/ncsi-rsp.c
-> @@ -1125,8 +1125,12 @@ int ncsi_rcv_rsp(struct sk_buff *skb, struct net_device *dev,
->         if (!ndp)
->                 return -ENODEV;
+> -       if (!is_valid_ether_addr(netdev->dev_addr)) {
+> -               eth_hw_addr_random(netdev);
+> -               netdev_info(netdev, "generated random MAC address %pM\n",
+> -                           netdev->dev_addr);
+> -       }
+> -
+>         return 0;
 >
-> -       /* Find the handler */
-> +       /* Check if it is AEN packet */
->         hdr = (struct ncsi_pkt_hdr *)skb_network_header(skb);
-> +       if (hdr->type == NCSI_PKT_AEN)
-> +               return ncsi_aen_handler(ndp, skb);
-> +
-> +       /* Find the handler */
->         nrh = ncsi_rsp_handlers;
->         while (nrh->nrh_handler) {
->                 if (nrh->nrh_type == hdr->type)
+>  err_register_netdev:
 > --
 > 2.1.0
 >
