@@ -1,50 +1,50 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-qt0-x243.google.com (mail-qt0-x243.google.com
- [IPv6:2607:f8b0:400d:c0d::243])
+Received: from mail-qk0-x243.google.com (mail-qk0-x243.google.com
+ [IPv6:2607:f8b0:400d:c09::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rgLtR6j6xzDqn0
- for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2016 00:06:07 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rgLtc4rn8zDqm9
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2016 00:06:16 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=fwC7Z1TQ; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=p84SmYNX; 
  dkim-atps=neutral
-Received: by mail-qt0-x243.google.com with SMTP id m2so5062699qtd.1
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 07:06:07 -0700 (PDT)
+Received: by mail-qk0-x243.google.com with SMTP id b136so16799970qkg.2
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 07:06:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=SWcltiFmA7SXH247P1910aV75EOprl9ueKZL2lKZ9u0=;
- b=fwC7Z1TQ0OSmTDpy7gb66b16kthRdBN1ORUNLbkSBkpj/DZFIb7Mv0/AVsresLejJm
- p7YfbIk+NQpjzap9Zjo5vhYQZBdXpLjKyg0YPu/V6RJ/fNx6xRnMWz2kGZzQbFFrOw/c
- ZQBe+yVya/RxZ9RSzEze4penPtwbKG2R0F6rmvhy5gHHHhzdXaowUta4gsDbEe4zG7vH
- 6jAmmYnVOmvtYPTgoS8FUgvO/Ab95TZqIcbQ0axGVVz65wT5hoaEbGnBde47cjPDjFem
- PIQLhDkDgC/Gtv208FSnFBJ8Tl+MlvQWgnXlj+oThGpqv/xDa9I6VEAi1LK0RLWizFIH
- sMYw==
+ bh=kVZhL3Qqhq8LLZomm5IrLyqGzxiGjbuiXrsr1eA5wv0=;
+ b=p84SmYNX8S/zvG/3oB1a3hYDCY2WQG8AvdAEwOfTiNe2Zj4wlNTt26/PQkG65tBuB6
+ Wi7+MSGXPazOyd6llq//YAAq8Dt1HWZ8H1KNU0QNoE9URNYHg5pP/SvkEaKTZgZSqxrC
+ ETx7B7t5FwDgeLGxdM6kPAZuk5VO+E0v2VbOQPTE3PbA8ZYKs1Z4LrwonHo5vPRH+LM0
+ jFJQaKMr38HiA7NhPngZqePQE6ysa0mBqVgLklAizMp4mDSZYqYk1EJXK0pm+saLFf3Z
+ JX/5KiFf1J09fougS5i/ctewCGJ2aM+DHs0NqH2AkEJuSrl3eVyBQSShdwb/hjL/XF9R
+ e/Dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=SWcltiFmA7SXH247P1910aV75EOprl9ueKZL2lKZ9u0=;
- b=VqJDwpdKPtRVSEZ50KJWjlKggw1yUkjsXr5OBFmYwe5ZyHJcvxFs0w8+24AKoxvnB3
- XY0U3yPRJshVxCtFDIj18EIBadtjqk+57kQym/fu4LtVz/N/hKcVDFt1QihEZ+Yib6o9
- KnM9Dq8Iy5olbacXNe2qFTWtaLN8SF6A7T6kwiYuwj9asispL1HtPtRm/ggJNc0P+3SV
- cFt8r62mfJemFZZ5xRz7Lhd8jg1CcpeQPu4gC62ptsBgRcmORkrPRTbwPT58C902M16C
- NCVnNbDVBdtvbYu240dvHLMxTBvEtXbEavqL/T6Ce4GNG0mAqwswMcZqIiIJKCNt6Sov
- 5Pbg==
-X-Gm-Message-State: ALyK8tKxnLsb7Yh4gUdvPhufVKGRndnkd5LpjN4sL2QQPmWCpy/VENEmb2WX83UHNAP9K+69QlKiNpVOpbCaLA==
-X-Received: by 10.237.37.8 with SMTP id v8mr23843123qtc.28.1467295565728; Thu,
- 30 Jun 2016 07:06:05 -0700 (PDT)
+ bh=kVZhL3Qqhq8LLZomm5IrLyqGzxiGjbuiXrsr1eA5wv0=;
+ b=LmnO8kGbPLDqZja9UBVblJYnNl2W66IooYa+l3smJAWDaBwiX1yeETqqMdV6wc5mXD
+ CaNYMFpYxUxUxmWajHHjBRfcdzsad+gFxb+lc/6nhvVQ25VGEPFJx9OW9iRun8eaMguW
+ 64cgOwEbREaaDxCaOXFn/XrkRPpPp/UVa9M0XakXqLyU4JGxoYmOccECZHOEqJfMeANo
+ uh4ZTZq3jIAPjht9QdIv8qMlCeqC9ndX0fe2wxvD0S4bdth7jCABCo8ncjrlu+oRqiOz
+ z3d3sHIRzyglbQ1A8Hu9eIwS1BAYi9BH/b0IUVwXa0YZjbJaN8UZ8d2KuJsxNFETVP1a
+ VFeg==
+X-Gm-Message-State: ALyK8tJJ6HP8Na+Kp5dMTgR8X+N8VLcXS4uktjH8/KW8Y2bNnneC/3nQTaFxUM6XzDmmkKxLHL0of8e1zpebIg==
+X-Received: by 10.55.217.89 with SMTP id u86mr19851944qki.114.1467295574700;
+ Thu, 30 Jun 2016 07:06:14 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.237.37.148 with HTTP; Thu, 30 Jun 2016 07:05:46 -0700 (PDT)
-In-Reply-To: <1467282471-16560-8-git-send-email-gwshan@linux.vnet.ibm.com>
+Received: by 10.237.37.148 with HTTP; Thu, 30 Jun 2016 07:05:55 -0700 (PDT)
+In-Reply-To: <1467282471-16560-9-git-send-email-gwshan@linux.vnet.ibm.com>
 References: <1467282471-16560-1-git-send-email-gwshan@linux.vnet.ibm.com>
- <1467282471-16560-8-git-send-email-gwshan@linux.vnet.ibm.com>
+ <1467282471-16560-9-git-send-email-gwshan@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 30 Jun 2016 23:35:46 +0930
-X-Google-Sender-Auth: Z12h6042l6hbR5JwVRdJUE5_1uk
-Message-ID: <CACPK8XemtUzUMZXFjZSe9aQixcgiQnZimxMA7aMrts-1Yoya1Q@mail.gmail.com>
-Subject: Re: [PATCH 07/10] net/farady: Read MAC address from chip
+Date: Thu, 30 Jun 2016 23:35:55 +0930
+X-Google-Sender-Auth: 2O_vf2Yqa30zUU94UvKnwKYDRCM
+Message-ID: <CACPK8Xeh12tWRvoQ=b32qj+78PPOMEO9+rEvL-X03ZrK_WVh-Q@mail.gmail.com>
+Subject: Re: [PATCH 08/10] net/farady: Support NCSI mode
 To: Gavin Shan <gwshan@linux.vnet.ibm.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
  Benjamin Herrenschmidt <benh@kernel.crashing.org>
@@ -60,113 +60,228 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Jun 2016 14:06:08 -0000
+X-List-Received-Date: Thu, 30 Jun 2016 14:06:17 -0000
 
 On Thu, Jun 30, 2016 at 7:57 PM, Gavin Shan <gwshan@linux.vnet.ibm.com> wrote:
-> The device is assigned with random MAC address. It isn't reasonable.
-> An valid MAC address might have been in the chip. It's reasonable
-> to use it to maintain consistency.
+> This makes ftgmac100 driver support NCSI mode. The NCSI is enabled
+> on the interface if property "use-nc-si" or "use-ncsi" is found from
+> the device node in device tree.
 >
-> This uses the MAC address in the chip if it's valid. Otherwise, a
-> random MAC address is given as before.
+>    * No PHY device is used when NCSI mode is enabled.
+>    * The NCSI device (struct ncsi_dev) is created when probing the
+>      device while it's enabled/started when the interface is brought
+>      up.
+>    * Hardware IP checksum dosn't work when NCSI mode is enabled. It
+>      is disabled on enabled NCSI.
 >
 > Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
 > ---
->  drivers/net/ethernet/faraday/ftgmac100.c | 60 ++++++++++++++++++++++++++++----
->  1 file changed, 53 insertions(+), 7 deletions(-)
+>  drivers/net/ethernet/faraday/ftgmac100.c | 78 ++++++++++++++++++++++++++++----
+>  1 file changed, 69 insertions(+), 9 deletions(-)
 >
 > diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
-> index 2c22f74..120993e 100644
+> index 120993e..f2205ae 100644
 > --- a/drivers/net/ethernet/faraday/ftgmac100.c
 > +++ b/drivers/net/ethernet/faraday/ftgmac100.c
-> @@ -141,6 +141,55 @@ static void ftgmac100_set_mac(struct ftgmac100 *priv, const unsigned char *mac)
->         iowrite32(laddr, priv->base + FTGMAC100_OFFSET_MAC_LADR);
->  }
+> @@ -31,6 +31,7 @@
+>  #include <linux/phy.h>
+>  #include <linux/platform_device.h>
+>  #include <net/ip.h>
+> +#include <net/ncsi.h>
 >
-> +static void ftgmac100_setup_mac(struct ftgmac100 *priv)
-> +{
-> +       unsigned char mac[6];
-> +       unsigned int m;
-> +       unsigned int l;
-> +
-> +       m = ioread32(priv->base + FTGMAC100_OFFSET_MAC_MADR);
-> +       l = ioread32(priv->base + FTGMAC100_OFFSET_MAC_LADR);
-> +
-> +       mac[0] = (m >> 8) & 0xff;
-> +       mac[1] = m & 0xff;
-> +       mac[2] = (l >> 24) & 0xff;
-> +       mac[3] = (l >> 16) & 0xff;
-> +       mac[4] = (l >> 8) & 0xff;
-> +       mac[5] = l & 0xff;
-> +
-> +       if (!is_valid_ether_addr(mac)) {
-> +               mac[5] = (m >> 8) & 0xff;
-> +               mac[4] = m & 0xff;
-> +               mac[3] = (l >> 24) & 0xff;
-> +               mac[2] = (l >> 16) & 0xff;
-> +               mac[1] = (l >>  8) & 0xff;
-> +               mac[0] = l & 0xff;
-> +       }
-> +
-> +       if (!is_valid_ether_addr(mac)) {
-> +               eth_hw_addr_random(priv->netdev);
-> +               dev_info(priv->dev, "Generated random MAC address %pM\n",
-> +                        priv->netdev->dev_addr);
-> +       } else {
-> +               memcpy(priv->netdev->dev_addr, mac, 6);
-> +               dev_info(priv->dev, "Read MAC address from chip %pM\n", mac);
-> +       }
-> +}
-> +
-> +static int ftgmac100_set_mac_addr(struct net_device *dev, void *p)
-> +{
-> +       int ret;
-> +
-> +       ret = eth_prepare_mac_addr_change(dev, p);
-> +       if (ret < 0)
-> +               return ret;
-> +
-> +       eth_commit_mac_addr_change(dev, p);
-> +       ftgmac100_set_mac(netdev_priv(dev), dev->dev_addr);
-> +
-> +       return 0;
-> +}
-> +
->  static void ftgmac100_init_hw(struct ftgmac100 *priv)
->  {
->         /* setup ring buffer base registers */
-> @@ -1141,7 +1190,7 @@ static const struct net_device_ops ftgmac100_netdev_ops = {
->         .ndo_open               = ftgmac100_open,
->         .ndo_stop               = ftgmac100_stop,
->         .ndo_start_xmit         = ftgmac100_hard_start_xmit,
-> -       .ndo_set_mac_address    = eth_mac_addr,
-> +       .ndo_set_mac_address    = ftgmac100_set_mac_addr,
->         .ndo_validate_addr      = eth_validate_addr,
->         .ndo_do_ioctl           = ftgmac100_do_ioctl,
+>  #include "ftgmac100.h"
+>
+> @@ -68,10 +69,13 @@ struct ftgmac100 {
+>
+>         struct net_device *netdev;
+>         struct device *dev;
+> +       struct ncsi_dev *ndev;
+>         struct napi_struct napi;
+>
+>         struct mii_bus *mii_bus;
+>         int old_speed;
+> +       bool use_ncsi;
+> +       bool enabled;
 >  };
-> @@ -1263,6 +1312,9 @@ static int ftgmac100_probe(struct platform_device *pdev)
 >
->         priv->irq = irq;
+>  static int ftgmac100_alloc_rx_page(struct ftgmac100 *priv,
+> @@ -1001,7 +1005,10 @@ static irqreturn_t ftgmac100_interrupt(int irq, void *dev_id)
+>         struct net_device *netdev = dev_id;
+>         struct ftgmac100 *priv = netdev_priv(netdev);
 >
-> +       /* MAC address from chip or random one */
-> +       ftgmac100_setup_mac(priv);
-> +
->         err = ftgmac100_setup_mdio(netdev);
->         if (err)
->                 goto err_setup_mdio;
-> @@ -1276,12 +1328,6 @@ static int ftgmac100_probe(struct platform_device *pdev)
+> -       if (likely(netif_running(netdev))) {
+> +       /* When running in NCSI mode, the interface should be ready for
+> +        * receiving or transmitting NCSI packets before it's opened.
+> +        */
+> +       if (likely(priv->use_ncsi || netif_running(netdev))) {
+>                 /* Disable interrupts for polling */
+>                 iowrite32(0, priv->base + FTGMAC100_OFFSET_IER);
+>                 napi_schedule(&priv->napi);
+> @@ -1114,17 +1121,33 @@ static int ftgmac100_open(struct net_device *netdev)
+>                 goto err_hw;
 >
->         netdev_info(netdev, "irq %d, mapped at %p\n", priv->irq, priv->base);
->
-> -       if (!is_valid_ether_addr(netdev->dev_addr)) {
-> -               eth_hw_addr_random(netdev);
-> -               netdev_info(netdev, "generated random MAC address %pM\n",
-> -                           netdev->dev_addr);
-> -       }
+>         ftgmac100_init_hw(priv);
+> -       ftgmac100_start_hw(priv, 10);
 > -
+> -       phy_start(netdev->phydev);
+> +       ftgmac100_start_hw(priv, priv->use_ncsi ? 100 : 10);
+> +       if (netdev->phydev)
+> +               phy_start(netdev->phydev);
+> +       else if (priv->use_ncsi)
+> +               netif_carrier_on(netdev);
+>
+>         napi_enable(&priv->napi);
+>         netif_start_queue(netdev);
+>
+>         /* enable all interrupts */
+>         iowrite32(INT_MASK_ALL_ENABLED, priv->base + FTGMAC100_OFFSET_IER);
+> +
+> +       /* Start the NCSI device */
+> +       if (priv->use_ncsi) {
+> +               err = ncsi_start_dev(priv->ndev);
+> +               if (err)
+> +                       goto err_ncsi;
+> +       }
+> +
+> +       priv->enabled = true;
+> +
 >         return 0;
 >
+> +err_ncsi:
+> +       napi_disable(&priv->napi);
+> +       netif_stop_queue(netdev);
+> +       iowrite32(0, priv->base + FTGMAC100_OFFSET_IER);
+>  err_hw:
+>         free_irq(priv->irq, netdev);
+>  err_irq:
+> @@ -1137,12 +1160,17 @@ static int ftgmac100_stop(struct net_device *netdev)
+>  {
+>         struct ftgmac100 *priv = netdev_priv(netdev);
+>
+> +       if (!priv->enabled)
+> +               return 0;
+> +
+>         /* disable all interrupts */
+> +       priv->enabled = false;
+>         iowrite32(0, priv->base + FTGMAC100_OFFSET_IER);
+>
+>         netif_stop_queue(netdev);
+>         napi_disable(&priv->napi);
+> -       phy_stop(netdev->phydev);
+> +       if (netdev->phydev)
+> +               phy_stop(netdev->phydev);
+>
+>         ftgmac100_stop_hw(priv);
+>         free_irq(priv->irq, netdev);
+> @@ -1183,6 +1211,9 @@ static int ftgmac100_hard_start_xmit(struct sk_buff *skb,
+>  /* optional */
+>  static int ftgmac100_do_ioctl(struct net_device *netdev, struct ifreq *ifr, int cmd)
+>  {
+> +       if (!netdev->phydev)
+> +               return -ENXIO;
+> +
+>         return phy_mii_ioctl(netdev->phydev, ifr, cmd);
+>  }
+>
+> @@ -1247,6 +1278,15 @@ static void ftgmac100_destroy_mdio(struct net_device *netdev)
+>         mdiobus_free(priv->mii_bus);
+>  }
+>
+> +static void ftgmac100_ncsi_handler(struct ncsi_dev *nd)
+> +{
+> +       if (unlikely(nd->nd_state != ncsi_dev_state_functional))
+> +               return;
+> +
+> +       netdev_info(nd->nd_dev, "NCSI interface %s\n",
+> +                   nd->nd_link_up ? "up" : "down");
+
+We get this message whenever the device is brought up or down. This
+includes when the host reboots, filling up the bmc's kernel logs.
+
+However, when we had the timer race it was the only way to know what
+was going on. Can we detect when it's the host bringing the device
+down opposed to an "ifconfig up" failing to bring it up?
+
+
+> +}
+> +
+>  /******************************************************************************
+>   * struct platform_driver functions
+>   *****************************************************************************/
+> @@ -1256,7 +1296,7 @@ static int ftgmac100_probe(struct platform_device *pdev)
+>         int irq;
+>         struct net_device *netdev;
+>         struct ftgmac100 *priv;
+> -       int err;
+> +       int err = 0;
+>
+>         if (!pdev)
+>                 return -ENODEV;
+> @@ -1280,7 +1320,15 @@ static int ftgmac100_probe(struct platform_device *pdev)
+>
+>         netdev->ethtool_ops = &ftgmac100_ethtool_ops;
+>         netdev->netdev_ops = &ftgmac100_netdev_ops;
+> +
+> +       /* We have to disable on-chip IP checksum functionality
+> +        * when NCSI is enabled on the interface. It doesn't work
+> +        * in that case.
+> +        */
+>         netdev->features = NETIF_F_IP_CSUM | NETIF_F_GRO;
+> +       if (pdev->dev.of_node &&
+> +           of_get_property(pdev->dev.of_node, "no-hw-checksum", NULL))
+> +               netdev->features &= ~NETIF_F_IP_CSUM;
+
+We set this in all of the aspeed BMC platforms, including the
+firestone which uses the device with a dedicated PHY. Should we
+instead match off the aspeed platform?
+
+>
+>         platform_set_drvdata(pdev, netdev);
+>
+> @@ -1315,9 +1363,20 @@ static int ftgmac100_probe(struct platform_device *pdev)
+>         /* MAC address from chip or random one */
+>         ftgmac100_setup_mac(priv);
+>
+> -       err = ftgmac100_setup_mdio(netdev);
+> -       if (err)
+> -               goto err_setup_mdio;
+> +       if (pdev->dev.of_node &&
+> +           (of_get_property(pdev->dev.of_node, "use-nc-si", NULL) ||
+> +           of_get_property(pdev->dev.of_node, "use-ncsi", NULL))) {
+
+I think we want to settle on one spelling when going upstream.
+
+> +               dev_info(&pdev->dev, "Using NCSI interface\n");
+> +               priv->use_ncsi = true;
+> +               priv->ndev = ncsi_register_dev(netdev, ftgmac100_ncsi_handler);
+> +               if (!priv->ndev)
+> +                       goto err_ncsi_dev;
+
+When the user (read: Joel) mistakenly puts "use-ncsi" in the device
+tree, but forgets to enable CONFIG_NET_NCSI in their kernel, the
+driver silently. I added this hack in my tree:
+
+ https://github.com/shenki/linux/commit/e52b8ec4f16a6467860ee705599c7cf282272d97
+
+Could we do something similar to protect dumb users from themselves?
+
+> +       } else {
+> +               priv->use_ncsi = false;
+> +               err = ftgmac100_setup_mdio(netdev);
+> +               if (err)
+> +                       goto err_setup_mdio;
+> +       }
+>
+>         /* register network device */
+>         err = register_netdev(netdev);
+> @@ -1330,6 +1389,7 @@ static int ftgmac100_probe(struct platform_device *pdev)
+>
+>         return 0;
+>
+> +err_ncsi_dev:
 >  err_register_netdev:
+>         ftgmac100_destroy_mdio(netdev);
+>  err_setup_mdio:
 > --
 > 2.1.0
 >
