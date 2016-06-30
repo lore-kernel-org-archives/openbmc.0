@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rgbrv53vfzDqmD
- for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2016 09:50:39 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rgbrw4F0vzDqmS
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2016 09:50:40 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1467330636260763.5376514813372;
- Thu, 30 Jun 2016 16:50:36 -0700 (PDT)
+ with SMTPS id 1467330637115842.7675806031119;
+ Thu, 30 Jun 2016 16:50:37 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 02/16] initfs: Fix recipe, remove unnecessary class
-Date: Thu, 30 Jun 2016 18:50:19 -0500
-Message-Id: <20160630235033.17091-3-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 03/16] initfs: shutdown: comment on update success
+Date: Thu, 30 Jun 2016 18:50:20 -0500
+Message-Id: <20160630235033.17091-4-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 In-Reply-To: <20160630235033.17091-1-openbmc-patches@stwcx.xyz>
 References: <20160630235033.17091-1-openbmc-patches@stwcx.xyz>
@@ -27,47 +27,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Jun 2016 23:50:40 -0000
+X-List-Received-Date: Thu, 30 Jun 2016 23:50:41 -0000
 
 From: Milton Miller <miltonm@us.ibm.com>
 
-Because the recipe was named with trailing part init instead
-of initfs, the package didn't match the package name requiring
-PROVIDES, RPROVIDES and other bitbake workarounds.  Fix the recipe
-name to match the package removing the overly verbose packaging.
+Print an error from the shutdown script when the update fails.
+
+Update is changing to return codes when its preconditions are not
+met, so be more verbose about its success to provide a means to
+debug flash updates not occurring.
+
+We could add a sulogin or sushell but its not clear what would be
+desired here.  If so the message should include "rmdir /oldroot
+to get a PID 1 shell" like /takever works in init.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- meta-phosphor/classes/obmc-phosphor-initfs.bbclass                    | 4 ----
- .../{obmc-phosphor-init.bb => obmc-phosphor-initfs.bb}                | 1 -
- 2 files changed, 5 deletions(-)
- delete mode 100644 meta-phosphor/classes/obmc-phosphor-initfs.bbclass
- rename meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/{obmc-phosphor-init.bb => obmc-phosphor-initfs.bb} (96%)
+ .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh  | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/meta-phosphor/classes/obmc-phosphor-initfs.bbclass b/meta-phosphor/classes/obmc-phosphor-initfs.bbclass
-deleted file mode 100644
-index de7923e..0000000
---- a/meta-phosphor/classes/obmc-phosphor-initfs.bbclass
-+++ /dev/null
-@@ -1,4 +0,0 @@
--# Common code for recipes that implement Phosphor OpenBMC filesystem
--
--RPROVIDES_${PN} += "obmc-phosphor-initfs"
--PROVIDES += "obmc-phosphor-initfs"
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-initfs.bb
-similarity index 96%
-rename from meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb
-rename to meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-initfs.bb
-index 3fa88c9..f81e21d 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-init.bb
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-initfs.bb
-@@ -3,7 +3,6 @@ DESCRIPTION = "Phosphor OpenBMC filesytem mount reference implementation."
- PR = "r1"
- 
- inherit obmc-phosphor-license
--inherit obmc-phosphor-initfs
- 
- S = "${WORKDIR}"
- SRC_URI += "file://obmc-init.sh"
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
+index 8d5d0c9..8d5c672 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-shutdown.sh
+@@ -44,6 +44,14 @@ then
+ 	if test -x $update
+ 	then
+ 		$update --clean-saved-files
++		remaining=$(ls $image*)
++		if test -n "$remaining"
++		then
++			echo 1>&2 "Flash update failed to flash these images:"
++			echo 1>&2 "$remaining"
++		else
++			echo "Flash update completed."
++		fi
+ 	else
+ 		echo 1>&2 "Flash update requested but $update program missing!"
+ 	fi
 -- 
 2.9.0
