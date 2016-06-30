@@ -1,53 +1,51 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-qk0-x242.google.com (mail-qk0-x242.google.com
- [IPv6:2607:f8b0:400d:c09::242])
+Received: from mail-qt0-x242.google.com (mail-qt0-x242.google.com
+ [IPv6:2607:f8b0:400d:c0d::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rgLts1wLrzDqmH
- for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2016 00:06:29 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rgNJw3zxfzDr0K
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2016 01:10:40 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=OTvsCOip; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=kCMNhkpP; 
  dkim-atps=neutral
-Received: by mail-qk0-x242.google.com with SMTP id j2so16780503qkf.1
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 07:06:29 -0700 (PDT)
+Received: by mail-qt0-x242.google.com with SMTP id m2so5192640qtd.1
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 08:10:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=kU4w0KKIjq4jNpcLJk7Wx/dZF2fN8bEvNFzBDiwazcU=;
- b=OTvsCOipU0s82wII+UebeyeMyjhLnBsJqO9U9ZFd6n7G64FDkDyzLswXRRwMDLbcJn
- fMnrHyVTZfph8JgCyu7EShCZX1rImBburjmn1douHwrMDMADpvSyetJTu/nSupHgY7zC
- QBn1bIKYJEgfVsQQ975x/4Mnzp4sdFOK/Nx40D5HzItAEtnXfQurv3vDcfXtaZ1VBwkL
- EQ1voENi51BJXsVp5yT7sZcTkqUCLn7MCeHESRWRQR2GcM/EiOqq9ewLR/tVy9RvgLxX
- 6kTVfY95ovN3wySuIT/HCnRYctLg7+vY5EBuYqejAmVWbXX03pxsn1eWXFKX7FfxcWvs
- TYRg==
+ bh=rOGOFkkdS4DEHvYFdYpwsF+En1WBP2ngmaEQ1u2V5lE=;
+ b=kCMNhkpPvQMz9myiKWYtkMWsIO+o3cMxv5WH4D8xqwQdrVceVWzPlpsYRqiO9nJ9bM
+ FP2Z0QvjjeMLLvNI/h6kfu4fCnlF3FJr5JTgsOHdUIYutS2Onta/EBEatwsUQVyhlfit
+ /ZWbkbFN3n+AdSC+GS8pZpVyt++KOUUG65iC8JFsWqE2XL9Sag3PosnUvkkWmnKSHfIX
+ dEbjDhiK9b79E0YFi9szcmCmjzsXlwcFCnq9diFRdFGcSnPr2/z7gUKwG548sra3mJHY
+ IMZec6noJ1eLtnbR/YYR/iokOqoHJlLuVDLkVw1J8DBc2dAIMnG2v3/K30vWANdTumP4
+ DmVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=kU4w0KKIjq4jNpcLJk7Wx/dZF2fN8bEvNFzBDiwazcU=;
- b=OtNC4479pxSggDmom6GUbdKb2jVhJ24hPN2UyelBczmzZtVaqSeVL7uCykNngESdsx
- FSUOd0TH8cdGx1h5H+ftp177p12Qblk+7Zv8A57vjbEJ69fLa313hdhAOE3UgmZ/4YTZ
- gsE1u0472Wwaw15H2JbczvqOrf85i4eQ0QtNalWegBRQsDrVd0WOqhxa1fnFQMVduRNQ
- 5ZHftlQhY5hrb85G8Nu7L1+W7nWu61KqLDSodW5YmECSYA9il/piLFW/f2EKIjlawju+
- DksLQgkvHUrxrSZYN4AFsl69S8Tt63tTy0YFcATdB1Hru9b5CjyVsV/79OQWCq1AeJgB
- AukA==
-X-Gm-Message-State: ALyK8tLy7YMSv2b/zQf7st6vsT8bpZhmHX1jbyw+QumEuiwvFy8+VC5gwmmmtOH2sEdLR/YT/i6drx9r8rE16g==
-X-Received: by 10.55.107.6 with SMTP id g6mr18482341qkc.166.1467295587301;
- Thu, 30 Jun 2016 07:06:27 -0700 (PDT)
+ bh=rOGOFkkdS4DEHvYFdYpwsF+En1WBP2ngmaEQ1u2V5lE=;
+ b=TSRUNRTNu52O/ZLRLamiwdmZ7yzqyuj+x3R7qZ/7N2LQefYZETpGqAcYEG3NEJj1JH
+ Mi+ekxOW/kZZAVjmVKwE18CngeB7GXO1+zkiEC3FivOBtMh0VppmEDAcM7tYqt3yFtDf
+ e6FwHwuFdNTPwEQ99GbXky2mBEwXe/xXeMFtDsk92XBGRb8s13YjUW2EjO/9lvQS5qxX
+ YCpRbYg5KqxYV4m2MKAxJ7I4r+BNjN5WUt0Kf0LAae8GbM7D/gMZhqCZpCrxhvWKgf9d
+ QCt3oAKvzTyUHg+lRDCjWG2nez55kDoBwbGMguHX2yz5RjimhCuO+0KR1nxiJW67Bo9c
+ zOwA==
+X-Gm-Message-State: ALyK8tLFuFyE4ZcEHwA552MOpZzMAPo2ivOMglVY6tMd4kJ3kDQWc7a1A2vN+PZON3iF++fbS0skH1yq/R36Mw==
+X-Received: by 10.200.39.237 with SMTP id x42mr24161090qtx.75.1467299437741;
+ Thu, 30 Jun 2016 08:10:37 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.237.37.148 with HTTP; Thu, 30 Jun 2016 07:06:07 -0700 (PDT)
-In-Reply-To: <1467282471-16560-11-git-send-email-gwshan@linux.vnet.ibm.com>
-References: <1467282471-16560-1-git-send-email-gwshan@linux.vnet.ibm.com>
- <1467282471-16560-11-git-send-email-gwshan@linux.vnet.ibm.com>
+Received: by 10.237.37.148 with HTTP; Thu, 30 Jun 2016 08:10:18 -0700 (PDT)
+In-Reply-To: <CAA0LjjVo9krV7-7iuh4EBuuX-fN4+exjCocD4ZUqVJRmO6t7iA@mail.gmail.com>
+References: <CAA0LjjVo9krV7-7iuh4EBuuX-fN4+exjCocD4ZUqVJRmO6t7iA@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 30 Jun 2016 23:36:07 +0930
-X-Google-Sender-Auth: Gc7KLJH2P3077FbH3_7DpRNaNII
-Message-ID: <CACPK8XfGFZ-1NjOvvEgoFx3Aox+W6EiHWoLf50j++vD4q99EHQ@mail.gmail.com>
-Subject: Re: [PATCH 10/10] net/farady: Mask PHY interrupt with NCSI mode
-To: Gavin Shan <gwshan@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Date: Fri, 1 Jul 2016 00:40:18 +0930
+X-Google-Sender-Auth: 936Qpwvs8OG410Nmid5Xkfhol74
+Message-ID: <CACPK8Xfgt2a2EazKg0SdCfJKQJoqFaPm8_ehNKkHMnRYUSh+hA@mail.gmail.com>
+Subject: Re: [PATCH linux] drivers/fsi: Initial stubs for FSI device driver
+To: Christopher Bostic <christopher.lee.bostic@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
@@ -60,98 +58,147 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Jun 2016 14:06:29 -0000
+X-List-Received-Date: Thu, 30 Jun 2016 15:10:41 -0000
 
-On Thu, Jun 30, 2016 at 7:57 PM, Gavin Shan <gwshan@linux.vnet.ibm.com> wrote:
-> Bogus PHY interrupts are observed. This masks the PHY interrupt
-> when the interface works in NCSI mode as there is no attached
-> PHY under the circumstance.
+Hey Chris,
+
+Looking better.
+
+It looks like you did not use git send-email to send the patch. When I
+try to apply it this happens:
+
+$ git am ~/tmp/\[PATCH_linux\]_drivers_fsi\:_Initial_stubs_for_FSI_device_driver.mbox
+Applying: drivers/fsi: Initial stubs for FSI device driver
+error: patch failed: drivers/Makefile:172
+error: drivers/Makefile: patch does not apply
+.git/rebase-apply/patch:93: new blank line at EOF.
++
+Patch failed at 0001 drivers/fsi: Initial stubs for FSI device driver
+
+We use git format-patch to create the patch, and git send-email to
+send it, as other workflows mess up the patch on the way.
+
+Have a read of Documentation/SubmittingPatches and
+Documentation/email-clients.txt for more background.
+
+On Fri, Jul 1, 2016 at 12:15 AM, Christopher Bostic
+<christopher.lee.bostic@gmail.com> wrote:
+>  Initial stubs for FSI device driver.
 >
-> Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
+> Signed-off-by: Christopher Bostic <cbostic@us.ibm.com>
 > ---
->  drivers/net/ethernet/faraday/ftgmac100.c | 27 +++++++++++++++------------
->  1 file changed, 15 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
-> index 23e27f1..6642071 100644
-> --- a/drivers/net/ethernet/faraday/ftgmac100.c
-> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
-> @@ -74,6 +74,7 @@ struct ftgmac100 {
->
->         struct mii_bus *mii_bus;
->         int old_speed;
-> +       int int_mask_all;
->         bool use_ncsi;
->         bool enabled;
->  };
-> @@ -84,14 +85,6 @@ static int ftgmac100_alloc_rx_page(struct ftgmac100 *priv,
->  /******************************************************************************
->   * internal functions (hardware register access)
->   *****************************************************************************/
-> -#define INT_MASK_ALL_ENABLED   (FTGMAC100_INT_RPKT_LOST        | \
-> -                                FTGMAC100_INT_XPKT_ETH         | \
-> -                                FTGMAC100_INT_XPKT_LOST        | \
-> -                                FTGMAC100_INT_AHB_ERR          | \
-> -                                FTGMAC100_INT_PHYSTS_CHG       | \
-> -                                FTGMAC100_INT_RPKT_BUF         | \
-> -                                FTGMAC100_INT_NO_RXBUF)
-> -
->  static void ftgmac100_set_rx_ring_base(struct ftgmac100 *priv, dma_addr_t addr)
->  {
->         iowrite32(addr, priv->base + FTGMAC100_OFFSET_RXR_BADR);
-> @@ -1061,8 +1054,9 @@ static int ftgmac100_poll(struct napi_struct *napi, int budget)
->                 ftgmac100_tx_complete(priv);
->         }
->
-> -       if (status & (FTGMAC100_INT_NO_RXBUF | FTGMAC100_INT_RPKT_LOST |
-> -                     FTGMAC100_INT_AHB_ERR | FTGMAC100_INT_PHYSTS_CHG)) {
-> +       if (status & priv->int_mask_all & (FTGMAC100_INT_NO_RXBUF |
-> +                       FTGMAC100_INT_RPKT_LOST | FTGMAC100_INT_AHB_ERR |
-> +                       FTGMAC100_INT_PHYSTS_CHG)) {
->                 if (net_ratelimit())
->                         netdev_info(netdev, "[ISR] = 0x%x: %s%s%s%s\n", status,
->                                     status & FTGMAC100_INT_NO_RXBUF ? "NO_RXBUF " : "",
-> @@ -1085,7 +1079,7 @@ static int ftgmac100_poll(struct napi_struct *napi, int budget)
->                 napi_complete(napi);
->
->                 /* enable all interrupts */
-> -               iowrite32(INT_MASK_ALL_ENABLED, priv->base + FTGMAC100_OFFSET_IER);
-> +               iowrite32(priv->int_mask_all, priv->base + FTGMAC100_OFFSET_IER);
->         }
->
->         return rx;
-> @@ -1131,7 +1125,7 @@ static int ftgmac100_open(struct net_device *netdev)
->         netif_start_queue(netdev);
->
->         /* enable all interrupts */
-> -       iowrite32(INT_MASK_ALL_ENABLED, priv->base + FTGMAC100_OFFSET_IER);
-> +       iowrite32(priv->int_mask_all, priv->base + FTGMAC100_OFFSET_IER);
->
->         /* Start the NCSI device */
->         if (priv->use_ncsi) {
-> @@ -1363,10 +1357,19 @@ static int ftgmac100_probe(struct platform_device *pdev)
->         /* MAC address from chip or random one */
->         ftgmac100_setup_mac(priv);
->
-> +       priv->int_mask_all = (FTGMAC100_INT_RPKT_LOST |
-> +                             FTGMAC100_INT_XPKT_ETH |
-> +                             FTGMAC100_INT_XPKT_LOST |
-> +                             FTGMAC100_INT_AHB_ERR |
-> +                             FTGMAC100_INT_PHYSTS_CHG |
-> +                             FTGMAC100_INT_RPKT_BUF |
-> +                             FTGMAC100_INT_NO_RXBUF);
->         if (pdev->dev.of_node &&
->             (of_get_property(pdev->dev.of_node, "use-nc-si", NULL) ||
->             of_get_property(pdev->dev.of_node, "use-ncsi", NULL))) {
 
-As before, lets pick single a property and stick with it.
+It's common to put a changelog in here below the --, so reviewers know
+what you've modified with respect to earlier versions. This part of
+the patch is not part of the code, nor is it part of the commit
+message that will end up in the git history, so it is free form and
+informal. Check out
+https://lists.ozlabs.org/pipermail/linuxppc-dev/2016-June/143899.html
+for an example.
 
->                 dev_info(&pdev->dev, "Using NCSI interface\n");
+Something like:
+
+Changes in V2:
+  - Did foo
+  - Fixed bar in header
+  - Reworked baz following feedback from Daz
+
+>  drivers/Makefile      |  1 +
+>  drivers/fsi/Makefile  |  5 +++++
+>  drivers/fsi/fsiinit.c | 57 +++++++++++++++++++++++++++++++++++++++++++++++++++
+>  drivers/fsi/fsiinit.h | 41 ++++++++++++++++++++++++++++++++++++
+>  4 files changed, 104 insertions(+)
+>  create mode 100644 drivers/fsi/Makefile
+>  create mode 100644 drivers/fsi/fsiinit.c
+>  create mode 100644 drivers/fsi/fsiinit.h
+>
+> diff --git a/drivers/Makefile b/drivers/Makefile
+> index 795d0ca..8ea7c58 100644
+> --- a/drivers/Makefile
+> +++ b/drivers/Makefile
+> @@ -172,3 +172,4 @@ obj-$(CONFIG_STM)           += hwtracing/stm/
+>  obj-$(CONFIG_ANDROID)          += android/
+>  obj-$(CONFIG_NVMEM)            += nvmem/
+>  obj-$(CONFIG_FPGA)             += fpga/
+> +obj-$(CONFIG_FSI)                          += fsi/
+> diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
+> new file mode 100644
+> index 0000000..f547c08
+> --- /dev/null
+> +++ b/drivers/fsi/Makefile
+> @@ -0,0 +1,5 @@
+> +#
+> +# Makefile for the FSI bus specific drivers.
+> +#
 > +
-> +               priv->int_mask_all &= ~FTGMAC100_INT_PHYSTS_CHG;
->                 priv->use_ncsi = true;
->                 priv->ndev = ncsi_register_dev(netdev, ftgmac100_ncsi_handler);
->                 if (!priv->ndev)
-> --
-> 2.1.0
->
+> +obj-y          += fsiinit.o
+
+You could take the opportunity to add the Kconfig bits for the bus as well.
+
+> diff --git a/drivers/fsi/fsiinit.c b/drivers/fsi/fsiinit.c
+> new file mode 100644
+> index 0000000..d692ea3
+> --- /dev/null
+> +++ b/drivers/fsi/fsiinit.c
+> @@ -0,0 +1,57 @@
+> +/*
+> + * FSI Master device driver
+> + *
+> + * Copyright 2016 IBM Corp.
+> + *
+> + * Christopher Bostic <cbostic@us.ibm.com>
+
+Looks good.
+
+> + *
+> + * This program is free software; you can redistribute it and/or
+> + * modify it under the terms of the GNU General Public License
+> + * as published by the Free Software Foundation; either version
+> + * 2 of the License, or (at your option) any later version.
+> + */
+> +
+> +#include <linux/init.h>
+> +#include <linux/module.h>
+> +#include "fsiinit.h"
+> +
+> +MODULE_AUTHOR("Christopher Bostic cbostic@us.ibm.com");
+> +MODULE_DESCRIPTION("FSI master device driver");
+> +
+> +#define FSIDD_MAJOR    0               /* FSI device driver major */
+> +#define        FSIDD_TOSTR(x)  #x
+> +#define        FSIDD_VERNO     4000
+> +#define        FSIDD_VER(x)    FSIDD_TOSTR(x)
+> +
+> +struct fsidd fsidd = {         /* FSI device driver structure definition */
+> +       .magic = FSI_DD_MAGIC,
+> +       .strno = FSI_DD_STRNO,
+> +};
+> +
+> +
+
+Nit: you've got extra white space here. One line will do.
+
+> +static int fsi_start(void)
+> +{
+> +       int rc = 0;
+> +
+> +
+
+Nit: you've got extra white space here. One line will do.
+
+> +       printk("FSI DD v:%d installation ok\n", FSIDD_VERNO);
+> +       return rc;
+> +}
+> +
+> +static void fsi_exit(void)
+> +{
+> +
+> +}
+> +
+
+Now that you've had a few goes at the process, perhaps add a bit more
+functionality in the next set of patches you send.
+
+Cheers,
+
+Joel
