@@ -1,54 +1,54 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-pa0-x244.google.com (mail-pa0-x244.google.com
- [IPv6:2607:f8b0:400e:c03::244])
+Received: from mail-pa0-x241.google.com (mail-pa0-x241.google.com
+ [IPv6:2607:f8b0:400e:c03::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rg9kh2DMWzDq5d
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 17:13:48 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rg9lW26NpzDq5d
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 17:14:31 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=wGU39cVR; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=wiB4RmMu; 
  dkim-atps=neutral
-Received: by mail-pa0-x244.google.com with SMTP id av7so6443787pac.3
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 00:13:48 -0700 (PDT)
+Received: by mail-pa0-x241.google.com with SMTP id ts6so6455337pac.0
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 00:14:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=sender:message-id:subject:from:to:date:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=MmjAKTshi5WQZXgDtYMMJTw6eDxzcCjGu9jOWDuUPGs=;
- b=wGU39cVRHaED5JeDO56lGcevcMJD5zIAz/pUotVLyq9luKltmx8lSqPQLJFkWH5+Eo
- JnxIVpifc+S2fsGyfhF7UPUPIL3bKqvS1F9fgjMeLhXW+K0Q3r+NglRaqRlruS0Ms68r
- tvi8u8pMijnZedHAKwkf02f928AWSUGm/uM59+CV10fz8L2u5zmkp9wCwDyH4FGKmSTM
- 5MM+2rrl8foUKQH7IT9Qd/zVzPi82+nngenA9FfqAJuzxmyHEOX9Yemsu9y0Jai94jo7
- wBZ2CdLTo+H5PUFRWGZlLUNy7y97N8jpSMlnedT+pQRTL/ND/voRxBj7rmic3lZ70fJm
- gsBg==
+ bh=t6EEw1yDAXdONbFqL4+pB6Mma4wS6Ghn9H+IEM9bN7M=;
+ b=wiB4RmMuLHWRU1oyIty7QRAH9bbsh1gey+AnDVMeZVJa71x7ZTTueHxne0zrLYMc0l
+ SHaiyRVB0pKQsAeZLN4UtuH5PJ4B19aIlOOD6qrai6cgscOM8+F8t2qH0jdU+mYus6Cq
+ nLeER5Y/oqT+PCwW5ZcRYJ7Dc9e5Uj7j7dq5apOf0mU+8m94UAQj9DHDyAi2cZ7UMv5D
+ ncCgOExuImOcPWFpaMZV09Ykt/lxF+P5M9xgawd1mvW+lVSPYM/Shuu271pzOc7kBxWz
+ +vmLGLL7ROcc2Bb54D7Q96YMHpPco/zDSjwIfCS7tAE84XdpzzajDD2ZqJ6ePZyAyteH
+ vEUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:sender:message-id:subject:from:to:date
  :in-reply-to:references:mime-version:content-transfer-encoding;
- bh=MmjAKTshi5WQZXgDtYMMJTw6eDxzcCjGu9jOWDuUPGs=;
- b=Nqmc3OFnb77H+Zi2pYTqI9SjRbaNqjKR+o7ytKSmaOb10daXwVlKTDto3IkjH4Xm26
- flr0p8H7mhUJdzgauXohRZ9ReQ1glMFJSvZlWQnH/WFtDZKyGZ8rJP2coeECPzbYuvmy
- wJEcLF67AYfdCd6K8fWY4Eef5t0iY95IGGCkcp8hWDMObw1Wtn+YCcywER799A+veQcs
- yHEUzuxxc5+Y2015spxdR1NRuzw2HHoijv0AWenC7Jq9UVh1J4fDR1Wf86Tw1Ai323S4
- excclscl1XpZu4QPT5l0yBulVFp38kHC4FaY6rI8MYxNf0gnztbBG1tlztEnjrUUx41G
- xjZQ==
-X-Gm-Message-State: ALyK8tJAlqvCTmio/k4Uu9tDvwfuG+9JcttLLJctR43KOAhTOux6OzqZ7neagAc+R+P83w==
-X-Received: by 10.66.26.36 with SMTP id i4mr18535771pag.3.1467270826328;
- Thu, 30 Jun 2016 00:13:46 -0700 (PDT)
+ bh=t6EEw1yDAXdONbFqL4+pB6Mma4wS6Ghn9H+IEM9bN7M=;
+ b=cmQueO81LkoGObBgYAtNUPw7JyccfeELKu4CipHiSt5c+sKrIARejV0wW46tu+woK9
+ gJCfL8/VpPxHHXqJ4Uz1yEnAV6JVnJ2+ftb2ETVZZaJPZ29r2OjYNTw5dJcFtNCA2Tdu
+ veFQuXhRVfKkQYeTkkAuvyU2GsJaEzHQtlMP8fWjA4cgn08TLvx/uLddPCaZs0gomOPb
+ ZTCxxVlLCTtrKGEIDjpW8+1icPbQltGhOtqRDCsaJy6JhX6zSWEX8UNO5uhgwtB+H6f+
+ Qe6DnUunuFMZzw1o/bPTJbnGkh64ZwzjCaw2VKBolbazlVTBl2nLDSiSFlXLQvJi0b3R
+ 9zuA==
+X-Gm-Message-State: ALyK8tISKKXc0l6ko5qJHuzqAxiaGjt49jxSSJkfPti3/b9FP8t3TvQzYqGlHNabHcq4BA==
+X-Received: by 10.66.159.66 with SMTP id xa2mr18896681pab.20.1467270869733;
+ Thu, 30 Jun 2016 00:14:29 -0700 (PDT)
 Received: from aurora ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id s65sm2718835pfd.23.2016.06.30.00.13.43
+ by smtp.gmail.com with ESMTPSA id um1sm2720611pac.41.2016.06.30.00.14.27
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 30 Jun 2016 00:13:45 -0700 (PDT)
+ Thu, 30 Jun 2016 00:14:28 -0700 (PDT)
 Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Message-ID: <1467270821.6386.31.camel@jms.id.au>
-Subject: Re: [PATCH uboot v2016.05-aspeed-openbmc 4/9] net/aspeednic: start
- mac after ring buffers are initialized
+Message-ID: <1467270865.6386.32.camel@jms.id.au>
+Subject: Re: [PATCH uboot v2016.05-aspeed-openbmc 5/9] aspeed/ast-g4: select
+ the correct cpu
 From: Joel Stanley <joel@jms.id.au>
 To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, 
  openbmc@lists.ozlabs.org
-Date: Thu, 30 Jun 2016 16:43:41 +0930
-In-Reply-To: <1467216591-8616-5-git-send-email-clg@kaod.org>
+Date: Thu, 30 Jun 2016 16:44:25 +0930
+In-Reply-To: <1467216591-8616-6-git-send-email-clg@kaod.org>
 References: <1467216591-8616-1-git-send-email-clg@kaod.org>
- <1467216591-8616-5-git-send-email-clg@kaod.org>
+ <1467216591-8616-6-git-send-email-clg@kaod.org>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailer: Evolution 3.18.5.2-0ubuntu3 
 Mime-Version: 1.0
@@ -64,39 +64,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Jun 2016 07:13:48 -0000
+X-List-Received-Date: Thu, 30 Jun 2016 07:14:31 -0000
 
 On Wed, 2016-06-29 at 18:09 +0200, Cédric Le Goater wrote:
-> The set_mac_control_register() routine enables MAC reception and DMAs
-> before the initialization of the ring buffers.
+> Else the default is a arm v4
 > 
+
+This is also set in the include/config headers, but I agree it belongs
+here. We can remove it from the config headers now.
+
 > Signed-off-by: Cédric Le Goater <clg@kaod.org>
 
 Reviewed-by: Joel Stanley <joel@jms.id.au>
 
+
 > ---
->  drivers/net/aspeednic.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  arch/arm/Kconfig | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> diff --git a/drivers/net/aspeednic.c b/drivers/net/aspeednic.c
-> index 3f79b949194a..8b85893a4f74 100644
-> --- a/drivers/net/aspeednic.c
-> +++ b/drivers/net/aspeednic.c
-> @@ -1140,7 +1140,6 @@ static int aspeednic_init(struct eth_device*
-> dev, bd_t* bis)
->  	aspeednic_probe_phy(dev);
+> diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+> index 67a00fccd626..ee176be22979 100644
+> --- a/arch/arm/Kconfig
+> +++ b/arch/arm/Kconfig
+> @@ -755,6 +755,7 @@ config TARGET_WITHERSPOON_BMC
 >  
->  	aspeednic_write_hwaddr(dev);
-> -	set_mac_control_register(dev);
+>  config TARGET_AST_G4
+>         bool "Support ast2400"
+> +       select CPU_ARM926EJS
 >  
->  	for (i = 0; i < NUM_RX_DESC; i++) {
->  		rx_ring[i].status = cpu_to_le32(RXPKT_RDY);
-> @@ -1165,6 +1164,7 @@ static int aspeednic_init(struct eth_device*
-> dev, bd_t* bis)
->  	OUTL(dev, ((u32) &rx_ring), RXR_BADR_REG);
->  	OUTL(dev, RX_BUFF_SZ, RBSR_REG);
+>  endchoice
 >  
-> +	set_mac_control_register(dev);
->  	START_MAC(dev);
->  
->  	tx_new = 0;
