@@ -3,58 +3,59 @@ Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rgG3G5SVWzDqn0
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 20:28:26 +1000 (AEST)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
- u5UANkbu104582
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 06:28:24 -0400
-Received: from e23smtp05.au.ibm.com (e23smtp05.au.ibm.com [202.81.31.147])
- by mx0a-001b2d01.pphosted.com with ESMTP id 23utca6nrx-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rgG3H3St5zDqhC
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 20:28:27 +1000 (AEST)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
+ u5UANawn140346
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 06:28:25 -0400
+Received: from e28smtp06.in.ibm.com (e28smtp06.in.ibm.com [125.16.236.6])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 23utca6xut-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 06:28:23 -0400
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 06:28:24 -0400
 Received: from localhost
- by e23smtp05.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e28smtp06.in.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <gwshan@linux.vnet.ibm.com>;
- Thu, 30 Jun 2016 20:28:21 +1000
-Received: from d23dlp03.au.ibm.com (202.81.31.214)
- by e23smtp05.au.ibm.com (202.81.31.211) with IBM ESMTP SMTP Gateway:
+ Thu, 30 Jun 2016 15:58:20 +0530
+Received: from d28dlp01.in.ibm.com (9.184.220.126)
+ by e28smtp06.in.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway:
  Authorized Use Only! Violators will be prosecuted; 
- Thu, 30 Jun 2016 20:28:18 +1000
-X-IBM-Helo: d23dlp03.au.ibm.com
+ Thu, 30 Jun 2016 15:58:17 +0530
+X-IBM-Helo: d28dlp01.in.ibm.com
 X-IBM-MailFrom: gwshan@linux.vnet.ibm.com
 X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from d23relay09.au.ibm.com (d23relay09.au.ibm.com [9.185.63.181])
- by d23dlp03.au.ibm.com (Postfix) with ESMTP id 2F7553578056
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 20:28:18 +1000 (EST)
-Received: from d23av06.au.ibm.com (d23av06.au.ibm.com [9.190.235.151])
- by d23relay09.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u5UASIAV22937660
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 20:28:18 +1000
-Received: from d23av06.au.ibm.com (localhost [127.0.0.1])
- by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u5UASHb5016786
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 20:28:18 +1000
+Received: from d28relay07.in.ibm.com (d28relay07.in.ibm.com [9.184.220.158])
+ by d28dlp01.in.ibm.com (Postfix) with ESMTP id 9DF66E005F
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 16:02:07 +0530 (IST)
+Received: from d28av03.in.ibm.com (d28av03.in.ibm.com [9.184.220.65])
+ by d28relay07.in.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u5UASGVX39059504
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 15:58:16 +0530
+Received: from d28av03.in.ibm.com (localhost [127.0.0.1])
+ by d28av03.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u5UASDN7030801
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 15:58:15 +0530
 Received: from gwshan ([9.192.205.20])
- by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with SMTP id
- u5UASGSl016777; Thu, 30 Jun 2016 20:28:16 +1000
+ by d28av03.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with SMTP id
+ u5UASAdA030583; Thu, 30 Jun 2016 15:58:10 +0530
 Received: by gwshan (Postfix, from userid 1000)
- id A0C18943494; Thu, 30 Jun 2016 20:28:05 +1000 (AEST)
+ id 07AC7943482; Thu, 30 Jun 2016 20:28:03 +1000 (AEST)
 From: Gavin Shan <gwshan@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: benh@kernel.crashing.org, joel@jms.id.au, gwshan@linux.vnet.ibm.com
-Subject: [PATCH 08/10] net/farady: Support NCSI mode
-Date: Thu, 30 Jun 2016 20:27:49 +1000
+Subject: [PATCH 06/10] net/farady: Helper functions to create or destroy MDIO
+ interface
+Date: Thu, 30 Jun 2016 20:27:47 +1000
 X-Mailer: git-send-email 2.1.0
 In-Reply-To: <1467282471-16560-1-git-send-email-gwshan@linux.vnet.ibm.com>
 References: <1467282471-16560-1-git-send-email-gwshan@linux.vnet.ibm.com>
 X-TM-AS-MML: disable
 X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16063010-0016-0000-0000-000001ACEAC4
+x-cbid: 16063010-0048-0000-0000-000002ACB8B2
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 16063010-0017-0000-0000-000004ED6740
-Message-Id: <1467282471-16560-9-git-send-email-gwshan@linux.vnet.ibm.com>
+x-cbparentid: 16063010-0049-0000-0000-00000D74A4D0
+Message-Id: <1467282471-16560-7-git-send-email-gwshan@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2016-06-30_04:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -75,198 +76,138 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 30 Jun 2016 10:28:27 -0000
 
-This makes ftgmac100 driver support NCSI mode. The NCSI is enabled
-on the interface if property "use-nc-si" or "use-ncsi" is found from
-the device node in device tree.
-
-   * No PHY device is used when NCSI mode is enabled.
-   * The NCSI device (struct ncsi_dev) is created when probing the
-     device while it's enabled/started when the interface is brought
-     up.
-   * Hardware IP checksum dosn't work when NCSI mode is enabled. It
-     is disabled on enabled NCSI.
+This introduces two helper functions to create or destroy MDIO
+interface. No logical changes introduced.
 
 Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
 ---
- drivers/net/ethernet/faraday/ftgmac100.c | 78 ++++++++++++++++++++++++++++----
- 1 file changed, 69 insertions(+), 9 deletions(-)
+ drivers/net/ethernet/faraday/ftgmac100.c | 93 ++++++++++++++++++++------------
+ 1 file changed, 58 insertions(+), 35 deletions(-)
 
 diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
-index 120993e..f2205ae 100644
+index e7cf313..2c22f74 100644
 --- a/drivers/net/ethernet/faraday/ftgmac100.c
 +++ b/drivers/net/ethernet/faraday/ftgmac100.c
-@@ -31,6 +31,7 @@
- #include <linux/phy.h>
- #include <linux/platform_device.h>
- #include <net/ip.h>
-+#include <net/ncsi.h>
- 
- #include "ftgmac100.h"
- 
-@@ -68,10 +69,13 @@ struct ftgmac100 {
- 
- 	struct net_device *netdev;
- 	struct device *dev;
-+	struct ncsi_dev *ndev;
- 	struct napi_struct napi;
- 
- 	struct mii_bus *mii_bus;
- 	int old_speed;
-+	bool use_ncsi;
-+	bool enabled;
+@@ -1146,6 +1146,58 @@ static const struct net_device_ops ftgmac100_netdev_ops = {
+ 	.ndo_do_ioctl		= ftgmac100_do_ioctl,
  };
  
- static int ftgmac100_alloc_rx_page(struct ftgmac100 *priv,
-@@ -1001,7 +1005,10 @@ static irqreturn_t ftgmac100_interrupt(int irq, void *dev_id)
- 	struct net_device *netdev = dev_id;
- 	struct ftgmac100 *priv = netdev_priv(netdev);
- 
--	if (likely(netif_running(netdev))) {
-+	/* When running in NCSI mode, the interface should be ready for
-+	 * receiving or transmitting NCSI packets before it's opened.
-+	 */
-+	if (likely(priv->use_ncsi || netif_running(netdev))) {
- 		/* Disable interrupts for polling */
- 		iowrite32(0, priv->base + FTGMAC100_OFFSET_IER);
- 		napi_schedule(&priv->napi);
-@@ -1114,17 +1121,33 @@ static int ftgmac100_open(struct net_device *netdev)
- 		goto err_hw;
- 
- 	ftgmac100_init_hw(priv);
--	ftgmac100_start_hw(priv, 10);
--
--	phy_start(netdev->phydev);
-+	ftgmac100_start_hw(priv, priv->use_ncsi ? 100 : 10);
-+	if (netdev->phydev)
-+		phy_start(netdev->phydev);
-+	else if (priv->use_ncsi)
-+		netif_carrier_on(netdev);
- 
- 	napi_enable(&priv->napi);
- 	netif_start_queue(netdev);
- 
- 	/* enable all interrupts */
- 	iowrite32(INT_MASK_ALL_ENABLED, priv->base + FTGMAC100_OFFSET_IER);
++static int ftgmac100_setup_mdio(struct net_device *netdev)
++{
++	struct ftgmac100 *priv = netdev_priv(netdev);
++	int i, err = 0;
 +
-+	/* Start the NCSI device */
-+	if (priv->use_ncsi) {
-+		err = ncsi_start_dev(priv->ndev);
-+		if (err)
-+			goto err_ncsi;
++	/* initialize mdio bus */
++	priv->mii_bus = mdiobus_alloc();
++	if (!priv->mii_bus)
++		return -EIO;
++
++	priv->mii_bus->name = "ftgmac100_mdio";
++	snprintf(priv->mii_bus->id, MII_BUS_ID_SIZE, "ftgmac100_mii");
++	priv->mii_bus->priv = priv->netdev;
++	priv->mii_bus->read = ftgmac100_mdiobus_read;
++	priv->mii_bus->write = ftgmac100_mdiobus_write;
++
++	for (i = 0; i < PHY_MAX_ADDR; i++)
++		priv->mii_bus->irq[i] = PHY_POLL;
++
++	err = mdiobus_register(priv->mii_bus);
++	if (err) {
++		dev_err(priv->dev, "Cannot register MDIO bus!\n");
++		goto err_register_mdiobus;
 +	}
 +
-+	priv->enabled = true;
++	err = ftgmac100_mii_probe(priv);
++	if (err) {
++		dev_err(priv->dev, "MII Probe failed!\n");
++		goto err_mii_probe;
++	}
 +
- 	return 0;
- 
-+err_ncsi:
-+	napi_disable(&priv->napi);
-+	netif_stop_queue(netdev);
-+	iowrite32(0, priv->base + FTGMAC100_OFFSET_IER);
- err_hw:
- 	free_irq(priv->irq, netdev);
- err_irq:
-@@ -1137,12 +1160,17 @@ static int ftgmac100_stop(struct net_device *netdev)
- {
- 	struct ftgmac100 *priv = netdev_priv(netdev);
- 
-+	if (!priv->enabled)
-+		return 0;
++	return 0;
 +
- 	/* disable all interrupts */
-+	priv->enabled = false;
- 	iowrite32(0, priv->base + FTGMAC100_OFFSET_IER);
- 
- 	netif_stop_queue(netdev);
- 	napi_disable(&priv->napi);
--	phy_stop(netdev->phydev);
-+	if (netdev->phydev)
-+		phy_stop(netdev->phydev);
- 
- 	ftgmac100_stop_hw(priv);
- 	free_irq(priv->irq, netdev);
-@@ -1183,6 +1211,9 @@ static int ftgmac100_hard_start_xmit(struct sk_buff *skb,
- /* optional */
- static int ftgmac100_do_ioctl(struct net_device *netdev, struct ifreq *ifr, int cmd)
- {
-+	if (!netdev->phydev)
-+		return -ENXIO;
++err_mii_probe:
++	mdiobus_unregister(priv->mii_bus);
++err_register_mdiobus:
++	mdiobus_free(priv->mii_bus);
++	return err;
++}
 +
- 	return phy_mii_ioctl(netdev->phydev, ifr, cmd);
- }
- 
-@@ -1247,6 +1278,15 @@ static void ftgmac100_destroy_mdio(struct net_device *netdev)
- 	mdiobus_free(priv->mii_bus);
- }
- 
-+static void ftgmac100_ncsi_handler(struct ncsi_dev *nd)
++static void ftgmac100_destroy_mdio(struct net_device *netdev)
 +{
-+	if (unlikely(nd->nd_state != ncsi_dev_state_functional))
++	struct ftgmac100 *priv = netdev_priv(netdev);
++
++	if (!netdev->phydev)
 +		return;
 +
-+	netdev_info(nd->nd_dev, "NCSI interface %s\n",
-+		    nd->nd_link_up ? "up" : "down");
++	phy_disconnect(netdev->phydev);
++	mdiobus_unregister(priv->mii_bus);
++	mdiobus_free(priv->mii_bus);
 +}
 +
  /******************************************************************************
   * struct platform_driver functions
   *****************************************************************************/
-@@ -1256,7 +1296,7 @@ static int ftgmac100_probe(struct platform_device *pdev)
- 	int irq;
- 	struct net_device *netdev;
- 	struct ftgmac100 *priv;
--	int err;
-+	int err = 0;
+@@ -1211,31 +1263,9 @@ static int ftgmac100_probe(struct platform_device *pdev)
  
- 	if (!pdev)
- 		return -ENODEV;
-@@ -1280,7 +1320,15 @@ static int ftgmac100_probe(struct platform_device *pdev)
+ 	priv->irq = irq;
  
- 	netdev->ethtool_ops = &ftgmac100_ethtool_ops;
- 	netdev->netdev_ops = &ftgmac100_netdev_ops;
-+
-+	/* We have to disable on-chip IP checksum functionality
-+	 * when NCSI is enabled on the interface. It doesn't work
-+	 * in that case.
-+	 */
- 	netdev->features = NETIF_F_IP_CSUM | NETIF_F_GRO;
-+	if (pdev->dev.of_node &&
-+	    of_get_property(pdev->dev.of_node, "no-hw-checksum", NULL))
-+		netdev->features &= ~NETIF_F_IP_CSUM;
- 
- 	platform_set_drvdata(pdev, netdev);
- 
-@@ -1315,9 +1363,20 @@ static int ftgmac100_probe(struct platform_device *pdev)
- 	/* MAC address from chip or random one */
- 	ftgmac100_setup_mac(priv);
- 
--	err = ftgmac100_setup_mdio(netdev);
--	if (err)
--		goto err_setup_mdio;
-+	if (pdev->dev.of_node &&
-+	    (of_get_property(pdev->dev.of_node, "use-nc-si", NULL) ||
-+	    of_get_property(pdev->dev.of_node, "use-ncsi", NULL))) {
-+		dev_info(&pdev->dev, "Using NCSI interface\n");
-+		priv->use_ncsi = true;
-+		priv->ndev = ncsi_register_dev(netdev, ftgmac100_ncsi_handler);
-+		if (!priv->ndev)
-+			goto err_ncsi_dev;
-+	} else {
-+		priv->use_ncsi = false;
-+		err = ftgmac100_setup_mdio(netdev);
-+		if (err)
-+			goto err_setup_mdio;
-+	}
+-	/* initialize mdio bus */
+-	priv->mii_bus = mdiobus_alloc();
+-	if (!priv->mii_bus) {
+-		err = -EIO;
+-		goto err_alloc_mdiobus;
+-	}
+-
+-	priv->mii_bus->name = "ftgmac100_mdio";
+-	snprintf(priv->mii_bus->id, MII_BUS_ID_SIZE, "ftgmac100_mii");
+-
+-	priv->mii_bus->priv = netdev;
+-	priv->mii_bus->read = ftgmac100_mdiobus_read;
+-	priv->mii_bus->write = ftgmac100_mdiobus_write;
+-
+-	err = mdiobus_register(priv->mii_bus);
+-	if (err) {
+-		dev_err(&pdev->dev, "Cannot register MDIO bus!\n");
+-		goto err_register_mdiobus;
+-	}
+-
+-	err = ftgmac100_mii_probe(priv);
+-	if (err) {
+-		dev_err(&pdev->dev, "MII Probe failed!\n");
+-		goto err_mii_probe;
+-	}
++	err = ftgmac100_setup_mdio(netdev);
++	if (err)
++		goto err_setup_mdio;
  
  	/* register network device */
  	err = register_netdev(netdev);
-@@ -1330,6 +1389,7 @@ static int ftgmac100_probe(struct platform_device *pdev)
- 
+@@ -1255,12 +1285,8 @@ static int ftgmac100_probe(struct platform_device *pdev)
  	return 0;
  
-+err_ncsi_dev:
  err_register_netdev:
- 	ftgmac100_destroy_mdio(netdev);
- err_setup_mdio:
+-	phy_disconnect(netdev->phydev);
+-err_mii_probe:
+-	mdiobus_unregister(priv->mii_bus);
+-err_register_mdiobus:
+-	mdiobus_free(priv->mii_bus);
+-err_alloc_mdiobus:
++	ftgmac100_destroy_mdio(netdev);
++err_setup_mdio:
+ 	iounmap(priv->base);
+ err_ioremap:
+ 	release_resource(priv->res);
+@@ -1280,10 +1306,7 @@ static int __exit ftgmac100_remove(struct platform_device *pdev)
+ 	priv = netdev_priv(netdev);
+ 
+ 	unregister_netdev(netdev);
+-
+-	phy_disconnect(netdev->phydev);
+-	mdiobus_unregister(priv->mii_bus);
+-	mdiobus_free(priv->mii_bus);
++	ftgmac100_destroy_mdio(netdev);
+ 
+ 	iounmap(priv->base);
+ 	release_resource(priv->res);
 -- 
 2.1.0
