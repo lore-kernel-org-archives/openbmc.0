@@ -1,60 +1,60 @@
 Return-Path: <gwshan@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rgG3G3gVNzDqmp
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rgG3G5SVWzDqn0
  for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 20:28:26 +1000 (AEST)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
- u5UANatb141878
+ u5UANkbu104582
  for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 06:28:24 -0400
-Received: from e28smtp07.in.ibm.com (e28smtp07.in.ibm.com [125.16.236.7])
- by mx0a-001b2d01.pphosted.com with ESMTP id 23uwt8nrnb-1
+Received: from e23smtp05.au.ibm.com (e23smtp05.au.ibm.com [202.81.31.147])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 23utca6nrx-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 06:28:24 -0400
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 06:28:23 -0400
 Received: from localhost
- by e28smtp07.in.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e23smtp05.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <gwshan@linux.vnet.ibm.com>;
- Thu, 30 Jun 2016 15:58:16 +0530
-Received: from d28dlp02.in.ibm.com (9.184.220.127)
- by e28smtp07.in.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway:
+ Thu, 30 Jun 2016 20:28:21 +1000
+Received: from d23dlp03.au.ibm.com (202.81.31.214)
+ by e23smtp05.au.ibm.com (202.81.31.211) with IBM ESMTP SMTP Gateway:
  Authorized Use Only! Violators will be prosecuted; 
- Thu, 30 Jun 2016 15:58:14 +0530
-X-IBM-Helo: d28dlp02.in.ibm.com
+ Thu, 30 Jun 2016 20:28:18 +1000
+X-IBM-Helo: d23dlp03.au.ibm.com
 X-IBM-MailFrom: gwshan@linux.vnet.ibm.com
 X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from d28relay02.in.ibm.com (d28relay02.in.ibm.com [9.184.220.59])
- by d28dlp02.in.ibm.com (Postfix) with ESMTP id B1E093940066
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 15:58:13 +0530 (IST)
-Received: from d28av03.in.ibm.com (d28av03.in.ibm.com [9.184.220.65])
- by d28relay02.in.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u5UAS5NC59572476
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 15:58:05 +0530
-Received: from d28av03.in.ibm.com (localhost [127.0.0.1])
- by d28av03.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u5UASA3a030601
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 15:58:11 +0530
+Received: from d23relay09.au.ibm.com (d23relay09.au.ibm.com [9.185.63.181])
+ by d23dlp03.au.ibm.com (Postfix) with ESMTP id 2F7553578056
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 20:28:18 +1000 (EST)
+Received: from d23av06.au.ibm.com (d23av06.au.ibm.com [9.190.235.151])
+ by d23relay09.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u5UASIAV22937660
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 20:28:18 +1000
+Received: from d23av06.au.ibm.com (localhost [127.0.0.1])
+ by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u5UASHb5016786
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 20:28:18 +1000
 Received: from gwshan ([9.192.205.20])
- by d28av03.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u5UAS7Ue030485; Thu, 30 Jun 2016 15:58:08 +0530
+ by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with SMTP id
+ u5UASGSl016777; Thu, 30 Jun 2016 20:28:16 +1000
 Received: by gwshan (Postfix, from userid 1000)
- id 533AB943484; Thu, 30 Jun 2016 20:27:56 +1000 (AEST)
+ id A0C18943494; Thu, 30 Jun 2016 20:28:05 +1000 (AEST)
 From: Gavin Shan <gwshan@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: benh@kernel.crashing.org, joel@jms.id.au, gwshan@linux.vnet.ibm.com
-Subject: [PATCH 02/10] net/ncsi: NCSI command packet handler
-Date: Thu, 30 Jun 2016 20:27:43 +1000
+Subject: [PATCH 08/10] net/farady: Support NCSI mode
+Date: Thu, 30 Jun 2016 20:27:49 +1000
 X-Mailer: git-send-email 2.1.0
 In-Reply-To: <1467282471-16560-1-git-send-email-gwshan@linux.vnet.ibm.com>
 References: <1467282471-16560-1-git-send-email-gwshan@linux.vnet.ibm.com>
 X-TM-AS-MML: disable
 X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16063010-0052-0000-0000-0000028C586A
+x-cbid: 16063010-0016-0000-0000-000001ACEAC4
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 16063010-0053-0000-0000-00000D2902F5
-Message-Id: <1467282471-16560-3-git-send-email-gwshan@linux.vnet.ibm.com>
+x-cbparentid: 16063010-0017-0000-0000-000004ED6740
+Message-Id: <1467282471-16560-9-git-send-email-gwshan@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2016-06-30_04:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -73,636 +73,200 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Jun 2016 10:28:26 -0000
+X-List-Received-Date: Thu, 30 Jun 2016 10:28:27 -0000
 
-The NCSI command packets are sent from MC (Management Controller)
-to remote end. They are used for multiple purposes: probe existing
-NCSI package/channel, retrieve NCSI channel's capability, configure
-NCSI channel etc.
+This makes ftgmac100 driver support NCSI mode. The NCSI is enabled
+on the interface if property "use-nc-si" or "use-ncsi" is found from
+the device node in device tree.
 
-This defines struct to represent NCSI command packets and introduces
-function ncsi_xmit_cmd(), which will be used to transmit NCSI command
-packet according to the request. The request is represented by struct
-ncsi_cmd_arg.
+   * No PHY device is used when NCSI mode is enabled.
+   * The NCSI device (struct ncsi_dev) is created when probing the
+     device while it's enabled/started when the interface is brought
+     up.
+   * Hardware IP checksum dosn't work when NCSI mode is enabled. It
+     is disabled on enabled NCSI.
 
 Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
 ---
- include/uapi/linux/if_ether.h |   1 +
- net/ncsi/Makefile             |   2 +-
- net/ncsi/internal.h           |  18 ++
- net/ncsi/ncsi-cmd.c           | 372 ++++++++++++++++++++++++++++++++++++++++++
- net/ncsi/ncsi-pkt.h           | 168 +++++++++++++++++++
- 5 files changed, 560 insertions(+), 1 deletion(-)
- create mode 100644 net/ncsi/ncsi-cmd.c
- create mode 100644 net/ncsi/ncsi-pkt.h
+ drivers/net/ethernet/faraday/ftgmac100.c | 78 ++++++++++++++++++++++++++++----
+ 1 file changed, 69 insertions(+), 9 deletions(-)
 
-diff --git a/include/uapi/linux/if_ether.h b/include/uapi/linux/if_ether.h
-index cec849a..7300b2d 100644
---- a/include/uapi/linux/if_ether.h
-+++ b/include/uapi/linux/if_ether.h
-@@ -87,6 +87,7 @@
- #define ETH_P_8021AH	0x88E7          /* 802.1ah Backbone Service Tag */
- #define ETH_P_MVRP	0x88F5          /* 802.1Q MVRP                  */
- #define ETH_P_1588	0x88F7		/* IEEE 1588 Timesync */
-+#define ETH_P_NCSI	0x88F8		/* NCSI protocol                */
- #define ETH_P_PRP	0x88FB		/* IEC 62439-3 PRP/HSRv0	*/
- #define ETH_P_FCOE	0x8906		/* Fibre Channel over Ethernet  */
- #define ETH_P_TDLS	0x890D          /* TDLS */
-diff --git a/net/ncsi/Makefile b/net/ncsi/Makefile
-index 07b5625..abc4046 100644
---- a/net/ncsi/Makefile
-+++ b/net/ncsi/Makefile
-@@ -1,4 +1,4 @@
- #
- # Makefile for NCSI API
- #
--obj-$(CONFIG_NET_NCSI) += ncsi-manage.o
-+obj-$(CONFIG_NET_NCSI) += ncsi-cmd.o ncsi-manage.o
-diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-index 4a8bd76..0c51c89 100644
---- a/net/ncsi/internal.h
-+++ b/net/ncsi/internal.h
-@@ -217,6 +217,21 @@ struct ncsi_dev_priv {
- 	struct list_head    ndp_node;
+diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
+index 120993e..f2205ae 100644
+--- a/drivers/net/ethernet/faraday/ftgmac100.c
++++ b/drivers/net/ethernet/faraday/ftgmac100.c
+@@ -31,6 +31,7 @@
+ #include <linux/phy.h>
+ #include <linux/platform_device.h>
+ #include <net/ip.h>
++#include <net/ncsi.h>
+ 
+ #include "ftgmac100.h"
+ 
+@@ -68,10 +69,13 @@ struct ftgmac100 {
+ 
+ 	struct net_device *netdev;
+ 	struct device *dev;
++	struct ncsi_dev *ndev;
+ 	struct napi_struct napi;
+ 
+ 	struct mii_bus *mii_bus;
+ 	int old_speed;
++	bool use_ncsi;
++	bool enabled;
  };
  
-+struct ncsi_cmd_arg {
-+	struct ncsi_dev_priv   *nca_ndp;
-+	unsigned char          nca_type;
-+	unsigned char          nca_id;
-+	unsigned char          nca_package;
-+	unsigned char          nca_channel;
-+	unsigned short         nca_payload;
-+	unsigned int           nca_portid;
-+	union {
-+		unsigned char  nca_bytes[16];
-+		unsigned short nca_words[8];
-+		unsigned int   nca_dwords[4];
-+	};
-+};
-+
- extern struct list_head ncsi_dev_list;
- extern spinlock_t ncsi_dev_lock;
+ static int ftgmac100_alloc_rx_page(struct ftgmac100 *priv,
+@@ -1001,7 +1005,10 @@ static irqreturn_t ftgmac100_interrupt(int irq, void *dev_id)
+ 	struct net_device *netdev = dev_id;
+ 	struct ftgmac100 *priv = netdev_priv(netdev);
  
-@@ -250,4 +265,7 @@ struct ncsi_req *ncsi_alloc_req(struct ncsi_dev_priv *ndp);
- void ncsi_free_req(struct ncsi_req *nr, bool check, bool timeout);
- struct ncsi_dev *ncsi_find_dev(struct net_device *dev);
+-	if (likely(netif_running(netdev))) {
++	/* When running in NCSI mode, the interface should be ready for
++	 * receiving or transmitting NCSI packets before it's opened.
++	 */
++	if (likely(priv->use_ncsi || netif_running(netdev))) {
+ 		/* Disable interrupts for polling */
+ 		iowrite32(0, priv->base + FTGMAC100_OFFSET_IER);
+ 		napi_schedule(&priv->napi);
+@@ -1114,17 +1121,33 @@ static int ftgmac100_open(struct net_device *netdev)
+ 		goto err_hw;
  
-+/* Packet handlers */
-+int ncsi_xmit_cmd(struct ncsi_cmd_arg *nca);
+ 	ftgmac100_init_hw(priv);
+-	ftgmac100_start_hw(priv, 10);
+-
+-	phy_start(netdev->phydev);
++	ftgmac100_start_hw(priv, priv->use_ncsi ? 100 : 10);
++	if (netdev->phydev)
++		phy_start(netdev->phydev);
++	else if (priv->use_ncsi)
++		netif_carrier_on(netdev);
+ 
+ 	napi_enable(&priv->napi);
+ 	netif_start_queue(netdev);
+ 
+ 	/* enable all interrupts */
+ 	iowrite32(INT_MASK_ALL_ENABLED, priv->base + FTGMAC100_OFFSET_IER);
 +
- #endif /* __NCSI_INTERNAL_H__ */
-diff --git a/net/ncsi/ncsi-cmd.c b/net/ncsi/ncsi-cmd.c
-new file mode 100644
-index 0000000..c64c437
---- /dev/null
-+++ b/net/ncsi/ncsi-cmd.c
-@@ -0,0 +1,372 @@
-+/*
-+ * Copyright Gavin Shan, IBM Corporation 2016.
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation; either version 2 of the License, or
-+ * (at your option) any later version.
-+ */
-+
-+#include <linux/module.h>
-+#include <linux/kernel.h>
-+#include <linux/init.h>
-+#include <linux/netdevice.h>
-+#include <linux/skbuff.h>
-+
-+#include <net/ncsi.h>
-+#include <net/net_namespace.h>
-+#include <net/sock.h>
-+
-+#include "internal.h"
-+#include "ncsi-pkt.h"
-+
-+/* This function should be called after the data area has been
-+ * populated completely.
-+ */
-+static int ncsi_cmd_build_header(struct ncsi_pkt_hdr *h,
-+				 struct ncsi_cmd_arg *nca)
-+{
-+	__be32 csum, *checksum;
-+	__be32 low, high;
-+	unsigned char *stream;
-+	int i;
-+
-+	h->mc_id        = 0;
-+	h->revision     = NCSI_PKT_REVISION;
-+	h->reserved     = 0;
-+	h->id           = nca->nca_id;
-+	h->type         = nca->nca_type;
-+	h->channel      = NCSI_TO_CHANNEL(nca->nca_package,
-+					  nca->nca_channel);
-+	h->length       = htons(nca->nca_payload);
-+	h->reserved1[0] = 0;
-+	h->reserved1[1] = 0;
-+
-+	/* Calculate the checksum */
-+	csum = 0;
-+	stream = (unsigned char *)h;
-+	for (i = 0; i < sizeof(*h) + nca->nca_payload; i += 2) {
-+		high = stream[i];
-+		low = stream[i + 1];
-+		csum += ((high << 8) | low);
++	/* Start the NCSI device */
++	if (priv->use_ncsi) {
++		err = ncsi_start_dev(priv->ndev);
++		if (err)
++			goto err_ncsi;
 +	}
 +
-+	/* Fill with the calculated checksum */
-+	checksum = (__be32 *)((void *)(h + 1) + nca->nca_payload);
-+	csum = (~csum + 1);
-+	*checksum = htonl(csum);
++	priv->enabled = true;
 +
-+	return 0;
-+}
-+
-+static int ncsi_cmd_handler_default(struct sk_buff *skb,
-+				    struct ncsi_cmd_arg *nca)
-+{
-+	struct ncsi_cmd_pkt *cmd;
-+
-+	if (!nca)
+ 	return 0;
+ 
++err_ncsi:
++	napi_disable(&priv->napi);
++	netif_stop_queue(netdev);
++	iowrite32(0, priv->base + FTGMAC100_OFFSET_IER);
+ err_hw:
+ 	free_irq(priv->irq, netdev);
+ err_irq:
+@@ -1137,12 +1160,17 @@ static int ftgmac100_stop(struct net_device *netdev)
+ {
+ 	struct ftgmac100 *priv = netdev_priv(netdev);
+ 
++	if (!priv->enabled)
 +		return 0;
 +
-+	cmd = (struct ncsi_cmd_pkt *)skb_put(skb, sizeof(*cmd));
-+	memset(cmd, 0, sizeof(*cmd));
-+	return ncsi_cmd_build_header(&cmd->cmd.common, nca);
+ 	/* disable all interrupts */
++	priv->enabled = false;
+ 	iowrite32(0, priv->base + FTGMAC100_OFFSET_IER);
+ 
+ 	netif_stop_queue(netdev);
+ 	napi_disable(&priv->napi);
+-	phy_stop(netdev->phydev);
++	if (netdev->phydev)
++		phy_stop(netdev->phydev);
+ 
+ 	ftgmac100_stop_hw(priv);
+ 	free_irq(priv->irq, netdev);
+@@ -1183,6 +1211,9 @@ static int ftgmac100_hard_start_xmit(struct sk_buff *skb,
+ /* optional */
+ static int ftgmac100_do_ioctl(struct net_device *netdev, struct ifreq *ifr, int cmd)
+ {
++	if (!netdev->phydev)
++		return -ENXIO;
++
+ 	return phy_mii_ioctl(netdev->phydev, ifr, cmd);
+ }
+ 
+@@ -1247,6 +1278,15 @@ static void ftgmac100_destroy_mdio(struct net_device *netdev)
+ 	mdiobus_free(priv->mii_bus);
+ }
+ 
++static void ftgmac100_ncsi_handler(struct ncsi_dev *nd)
++{
++	if (unlikely(nd->nd_state != ncsi_dev_state_functional))
++		return;
++
++	netdev_info(nd->nd_dev, "NCSI interface %s\n",
++		    nd->nd_link_up ? "up" : "down");
 +}
 +
-+static int ncsi_cmd_handler_sp(struct sk_buff *skb,
-+			       struct ncsi_cmd_arg *nca)
-+{
-+	struct ncsi_cmd_sp_pkt *cmd;
+ /******************************************************************************
+  * struct platform_driver functions
+  *****************************************************************************/
+@@ -1256,7 +1296,7 @@ static int ftgmac100_probe(struct platform_device *pdev)
+ 	int irq;
+ 	struct net_device *netdev;
+ 	struct ftgmac100 *priv;
+-	int err;
++	int err = 0;
+ 
+ 	if (!pdev)
+ 		return -ENODEV;
+@@ -1280,7 +1320,15 @@ static int ftgmac100_probe(struct platform_device *pdev)
+ 
+ 	netdev->ethtool_ops = &ftgmac100_ethtool_ops;
+ 	netdev->netdev_ops = &ftgmac100_netdev_ops;
 +
-+	if (!nca)
-+		return 4;
-+
-+	cmd = (struct ncsi_cmd_sp_pkt *)skb_put(skb, sizeof(*cmd));
-+	memset(cmd, 0, sizeof(*cmd));
-+	cmd->hw_arbitration = nca->nca_bytes[0];
-+	return ncsi_cmd_build_header(&cmd->cmd.common, nca);
-+}
-+
-+static int ncsi_cmd_handler_dc(struct sk_buff *skb,
-+			       struct ncsi_cmd_arg *nca)
-+{
-+	struct ncsi_cmd_dc_pkt *cmd;
-+
-+	if (!nca)
-+		return 4;
-+
-+	cmd = (struct ncsi_cmd_dc_pkt *)skb_put(skb, sizeof(*cmd));
-+	memset(cmd, 0, sizeof(*cmd));
-+	cmd->ald = nca->nca_bytes[0];
-+	return ncsi_cmd_build_header(&cmd->cmd.common, nca);
-+}
-+
-+static int ncsi_cmd_handler_rc(struct sk_buff *skb,
-+			       struct ncsi_cmd_arg *nca)
-+{
-+	struct ncsi_cmd_rc_pkt *cmd;
-+
-+	if (!nca)
-+		return 4;
-+
-+	cmd = (struct ncsi_cmd_rc_pkt *)skb_put(skb, sizeof(*cmd));
-+	memset(cmd, 0, sizeof(*cmd));
-+	return ncsi_cmd_build_header(&cmd->cmd.common, nca);
-+}
-+
-+static int ncsi_cmd_handler_ae(struct sk_buff *skb,
-+			       struct ncsi_cmd_arg *nca)
-+{
-+	struct ncsi_cmd_ae_pkt *cmd;
-+
-+	if (!nca)
-+		return 8;
-+
-+	cmd = (struct ncsi_cmd_ae_pkt *)skb_put(skb, sizeof(*cmd));
-+	memset(cmd, 0, sizeof(*cmd));
-+	cmd->mc_id = nca->nca_bytes[0];
-+	cmd->mode = htonl(nca->nca_dwords[1]);
-+	return ncsi_cmd_build_header(&cmd->cmd.common, nca);
-+}
-+
-+static int ncsi_cmd_handler_sl(struct sk_buff *skb,
-+			       struct ncsi_cmd_arg *nca)
-+{
-+	struct ncsi_cmd_sl_pkt *cmd;
-+
-+	if (!nca)
-+		return 8;
-+
-+	cmd = (struct ncsi_cmd_sl_pkt *)skb_put(skb, sizeof(*cmd));
-+	memset(cmd, 0, sizeof(*cmd));
-+	cmd->mode = htonl(nca->nca_dwords[0]);
-+	cmd->oem_mode = htonl(nca->nca_dwords[1]);
-+	return ncsi_cmd_build_header(&cmd->cmd.common, nca);
-+}
-+
-+static int ncsi_cmd_handler_svf(struct sk_buff *skb,
-+				struct ncsi_cmd_arg *nca)
-+{
-+	struct ncsi_cmd_svf_pkt *cmd;
-+
-+	if (!nca)
-+		return 4;
-+
-+	cmd = (struct ncsi_cmd_svf_pkt *)skb_put(skb, sizeof(*cmd));
-+	memset(cmd, 0, sizeof(*cmd));
-+	cmd->vlan = htons(nca->nca_words[0]);
-+	cmd->index = nca->nca_bytes[2];
-+	cmd->enable = nca->nca_bytes[3];
-+	return ncsi_cmd_build_header(&cmd->cmd.common, nca);
-+}
-+
-+static int ncsi_cmd_handler_ev(struct sk_buff *skb,
-+			       struct ncsi_cmd_arg *nca)
-+{
-+	struct ncsi_cmd_ev_pkt *cmd;
-+
-+	if (!nca)
-+		return 4;
-+
-+	cmd = (struct ncsi_cmd_ev_pkt *)skb_put(skb, sizeof(*cmd));
-+	memset(cmd, 0, sizeof(*cmd));
-+	cmd->mode = nca->nca_bytes[0];
-+	return ncsi_cmd_build_header(&cmd->cmd.common, nca);
-+}
-+
-+static int ncsi_cmd_handler_sma(struct sk_buff *skb,
-+				struct ncsi_cmd_arg *nca)
-+{
-+	struct ncsi_cmd_sma_pkt *cmd;
-+	int i;
-+
-+	if (!nca)
-+		return 8;
-+
-+	cmd = (struct ncsi_cmd_sma_pkt *)skb_put(skb, sizeof(*cmd));
-+	memset(cmd, 0, sizeof(*cmd));
-+	for (i = 0; i < 6; i++)
-+		cmd->mac[i] = nca->nca_bytes[i];
-+	cmd->index = nca->nca_bytes[6];
-+	cmd->at_e = nca->nca_bytes[7];
-+	return ncsi_cmd_build_header(&cmd->cmd.common, nca);
-+}
-+
-+static int ncsi_cmd_handler_ebf(struct sk_buff *skb,
-+				struct ncsi_cmd_arg *nca)
-+{
-+	struct ncsi_cmd_ebf_pkt *cmd;
-+
-+	if (!nca)
-+		return 4;
-+
-+	cmd = (struct ncsi_cmd_ebf_pkt *)skb_put(skb, sizeof(*cmd));
-+	memset(cmd, 0, sizeof(*cmd));
-+	cmd->mode = htonl(nca->nca_dwords[0]);
-+	return ncsi_cmd_build_header(&cmd->cmd.common, nca);
-+}
-+
-+static int ncsi_cmd_handler_egmf(struct sk_buff *skb,
-+				 struct ncsi_cmd_arg *nca)
-+{
-+	struct ncsi_cmd_egmf_pkt *cmd;
-+
-+	if (!nca)
-+		return 4;
-+
-+	cmd = (struct ncsi_cmd_egmf_pkt *)skb_put(skb, sizeof(*cmd));
-+	memset(cmd, 0, sizeof(*cmd));
-+	cmd->mode = htonl(nca->nca_dwords[0]);
-+	return ncsi_cmd_build_header(&cmd->cmd.common, nca);
-+}
-+
-+static int ncsi_cmd_handler_snfc(struct sk_buff *skb,
-+				 struct ncsi_cmd_arg *nca)
-+{
-+	struct ncsi_cmd_snfc_pkt *cmd;
-+
-+	if (!nca)
-+		return 4;
-+
-+	cmd = (struct ncsi_cmd_snfc_pkt *)skb_put(skb, sizeof(*cmd));
-+	memset(cmd, 0, sizeof(*cmd));
-+	cmd->mode = nca->nca_bytes[0];
-+	return ncsi_cmd_build_header(&cmd->cmd.common, nca);
-+}
-+
-+static struct ncsi_cmd_handler {
-+	unsigned char	nch_type;
-+	int		(*nch_handler)(struct sk_buff *skb,
-+				       struct ncsi_cmd_arg *nca);
-+} ncsi_cmd_handlers[] = {
-+	{ NCSI_PKT_CMD_CIS,   ncsi_cmd_handler_default },
-+	{ NCSI_PKT_CMD_SP,    ncsi_cmd_handler_sp	 },
-+	{ NCSI_PKT_CMD_DP,    ncsi_cmd_handler_default },
-+	{ NCSI_PKT_CMD_EC,    ncsi_cmd_handler_default },
-+	{ NCSI_PKT_CMD_DC,    ncsi_cmd_handler_dc      },
-+	{ NCSI_PKT_CMD_RC,    ncsi_cmd_handler_rc      },
-+	{ NCSI_PKT_CMD_ECNT,  ncsi_cmd_handler_default },
-+	{ NCSI_PKT_CMD_DCNT,  ncsi_cmd_handler_default },
-+	{ NCSI_PKT_CMD_AE,    ncsi_cmd_handler_ae      },
-+	{ NCSI_PKT_CMD_SL,    ncsi_cmd_handler_sl      },
-+	{ NCSI_PKT_CMD_GLS,   ncsi_cmd_handler_default },
-+	{ NCSI_PKT_CMD_SVF,   ncsi_cmd_handler_svf     },
-+	{ NCSI_PKT_CMD_EV,    ncsi_cmd_handler_ev      },
-+	{ NCSI_PKT_CMD_DV,    ncsi_cmd_handler_default },
-+	{ NCSI_PKT_CMD_SMA,   ncsi_cmd_handler_sma     },
-+	{ NCSI_PKT_CMD_EBF,   ncsi_cmd_handler_ebf     },
-+	{ NCSI_PKT_CMD_DBF,   ncsi_cmd_handler_default },
-+	{ NCSI_PKT_CMD_EGMF,  ncsi_cmd_handler_egmf    },
-+	{ NCSI_PKT_CMD_DGMF,  ncsi_cmd_handler_default },
-+	{ NCSI_PKT_CMD_SNFC,  ncsi_cmd_handler_snfc    },
-+	{ NCSI_PKT_CMD_GVI,   ncsi_cmd_handler_default },
-+	{ NCSI_PKT_CMD_GC,    ncsi_cmd_handler_default },
-+	{ NCSI_PKT_CMD_GP,    ncsi_cmd_handler_default },
-+	{ NCSI_PKT_CMD_GCPS,  ncsi_cmd_handler_default },
-+	{ NCSI_PKT_CMD_GNS,   ncsi_cmd_handler_default },
-+	{ NCSI_PKT_CMD_GNPTS, ncsi_cmd_handler_default },
-+	{ 0,                  NULL                     }
-+};
-+
-+static struct ncsi_req *ncsi_alloc_cmd_req(struct ncsi_cmd_arg *nca)
-+{
-+	struct ncsi_dev_priv *ndp = nca->nca_ndp;
-+	struct ncsi_dev *nd = &ndp->ndp_ndev;
-+	struct net_device *dev = nd->nd_dev;
-+	int hlen = LL_RESERVED_SPACE(dev);
-+	int tlen = dev->needed_tailroom;
-+	int len = hlen + tlen;
-+	struct sk_buff *skb;
-+	struct ncsi_req *nr;
-+
-+	nr = ncsi_alloc_req(ndp);
-+	if (!nr)
-+		return NULL;
-+
-+	/* NCSI command packet has 16-bytes header, payload,
-+	 * 4-bytes checksum and optional padding.
++	/* We have to disable on-chip IP checksum functionality
++	 * when NCSI is enabled on the interface. It doesn't work
++	 * in that case.
 +	 */
-+	len += sizeof(struct ncsi_cmd_pkt_hdr);
-+	len += 4;
-+	if (nca->nca_payload < 26)
-+		len += 26;
-+	else
-+		len += nca->nca_payload;
-+
-+	/* Allocate skb */
-+	skb = alloc_skb(len, GFP_ATOMIC);
-+	if (!skb) {
-+		ncsi_free_req(nr, false, false);
-+		return NULL;
+ 	netdev->features = NETIF_F_IP_CSUM | NETIF_F_GRO;
++	if (pdev->dev.of_node &&
++	    of_get_property(pdev->dev.of_node, "no-hw-checksum", NULL))
++		netdev->features &= ~NETIF_F_IP_CSUM;
+ 
+ 	platform_set_drvdata(pdev, netdev);
+ 
+@@ -1315,9 +1363,20 @@ static int ftgmac100_probe(struct platform_device *pdev)
+ 	/* MAC address from chip or random one */
+ 	ftgmac100_setup_mac(priv);
+ 
+-	err = ftgmac100_setup_mdio(netdev);
+-	if (err)
+-		goto err_setup_mdio;
++	if (pdev->dev.of_node &&
++	    (of_get_property(pdev->dev.of_node, "use-nc-si", NULL) ||
++	    of_get_property(pdev->dev.of_node, "use-ncsi", NULL))) {
++		dev_info(&pdev->dev, "Using NCSI interface\n");
++		priv->use_ncsi = true;
++		priv->ndev = ncsi_register_dev(netdev, ftgmac100_ncsi_handler);
++		if (!priv->ndev)
++			goto err_ncsi_dev;
++	} else {
++		priv->use_ncsi = false;
++		err = ftgmac100_setup_mdio(netdev);
++		if (err)
++			goto err_setup_mdio;
 +	}
-+
-+	nr->nr_cmd = skb;
-+	skb_reserve(skb, hlen);
-+	skb_reset_network_header(skb);
-+
-+	skb->dev = dev;
-+	skb->protocol = htons(ETH_P_NCSI);
-+
-+	return nr;
-+}
-+
-+int ncsi_xmit_cmd(struct ncsi_cmd_arg *nca)
-+{
-+	struct ncsi_req *nr;
-+	struct ethhdr *eh;
-+	struct ncsi_cmd_handler *nch;
-+	int i, ret;
-+
-+	/* Search for the handler */
-+	nch = ncsi_cmd_handlers;
-+	while (nch->nch_handler) {
-+		if (nch->nch_type == nca->nca_type)
-+			break;
-+		nch++;
-+	}
-+
-+	if (!nch->nch_handler) {
-+		pr_info("%s: Cannot send packet with type 0x%x\n",
-+			__func__, nca->nca_type);
-+		return -ENOENT;
-+	}
-+
-+	/* Get packet payload length and allocate the request */
-+	nca->nca_payload = nch->nch_handler(NULL, NULL);
-+	nr = ncsi_alloc_cmd_req(nca);
-+	if (!nr)
-+		return -ENOMEM;
-+
-+	/* Prepare the packet */
-+	nca->nca_id = nr->nr_id;
-+	ret = nch->nch_handler(nr->nr_cmd, nca);
-+	if (ret) {
-+		ncsi_free_req(nr, true, false);
-+		return ret;
-+	}
-+
-+	/* Fill the ethernet header */
-+	eh = (struct ethhdr *)skb_push(nr->nr_cmd, sizeof(*eh));
-+	eh->h_proto = htons(ETH_P_NCSI);
-+	for (i = 0; i < ETH_ALEN; i++) {
-+		eh->h_dest[i] = 0xff;
-+		eh->h_source[i] = 0xff;
-+	}
-+
-+	/* Start the timer for the request that might not have
-+	 * corresponding response. I'm not sure 1 second delay
-+	 * here is enough. Anyway, NCSI is internal network, so
-+	 * the responsiveness should be as fast as enough.
-+	 */
-+	nr->nr_timer_enabled = true;
-+	mod_timer(&nr->nr_timer, jiffies + 1 * HZ);
-+
-+	/* Send NCSI packet */
-+	skb_get(nr->nr_cmd);
-+	ret = dev_queue_xmit(nr->nr_cmd);
-+	if (ret < 0) {
-+		ncsi_free_req(nr, true, false);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-diff --git a/net/ncsi/ncsi-pkt.h b/net/ncsi/ncsi-pkt.h
-new file mode 100644
-index 0000000..7f030b5
---- /dev/null
-+++ b/net/ncsi/ncsi-pkt.h
-@@ -0,0 +1,168 @@
-+/*
-+ * Copyright Gavin Shan, IBM Corporation 2016.
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation; either version 2 of the License, or
-+ * (at your option) any later version.
-+ */
-+
-+#ifndef __NCSI_PKT_H__
-+#define __NCSI_PKT_H__
-+
-+struct ncsi_pkt_hdr {
-+	unsigned char mc_id;        /* Management controller ID */
-+	unsigned char revision;     /* NCSI version - 0x01      */
-+	unsigned char reserved;     /* Reserved                 */
-+	unsigned char id;           /* Packet sequence number   */
-+	unsigned char type;         /* Packet type              */
-+	unsigned char channel;      /* Network controller ID    */
-+	__be16        length;       /* Payload length           */
-+	__be32        reserved1[2]; /* Reserved                 */
-+};
-+
-+struct ncsi_cmd_pkt_hdr {
-+	struct ncsi_pkt_hdr common; /* Common NCSI packet header */
-+};
-+
-+/* NCSI common command packet */
-+struct ncsi_cmd_pkt {
-+	struct ncsi_cmd_pkt_hdr cmd;      /* Command header */
-+	__be32                  checksum; /* Checksum       */
-+	unsigned char           pad[26];
-+};
-+
-+/* Select Package */
-+struct ncsi_cmd_sp_pkt {
-+	struct ncsi_cmd_pkt_hdr cmd;            /* Command header */
-+	unsigned char           reserved[3];    /* Reserved       */
-+	unsigned char           hw_arbitration; /* HW arbitration */
-+	__be32                  checksum;       /* Checksum       */
-+	unsigned char           pad[22];
-+};
-+
-+/* Disable Channel */
-+struct ncsi_cmd_dc_pkt {
-+	struct ncsi_cmd_pkt_hdr cmd;         /* Command header  */
-+	unsigned char           reserved[3]; /* Reserved        */
-+	unsigned char           ald;         /* Allow link down */
-+	__be32                  checksum;    /* Checksum        */
-+	unsigned char           pad[22];
-+};
-+
-+/* Reset Channel */
-+struct ncsi_cmd_rc_pkt {
-+	struct ncsi_cmd_pkt_hdr cmd;      /* Command header */
-+	__be32                  reserved; /* Reserved       */
-+	__be32                  checksum; /* Checksum       */
-+	unsigned char           pad[22];
-+};
-+
-+/* AEN Enable */
-+struct ncsi_cmd_ae_pkt {
-+	struct ncsi_cmd_pkt_hdr cmd;         /* Command header   */
-+	unsigned char           reserved[3]; /* Reserved         */
-+	unsigned char           mc_id;       /* MC ID            */
-+	__be32                  mode;        /* AEN working mode */
-+	__be32                  checksum;    /* Checksum         */
-+	unsigned char           pad[18];
-+};
-+
-+/* Set Link */
-+struct ncsi_cmd_sl_pkt {
-+	struct ncsi_cmd_pkt_hdr cmd;      /* Command header    */
-+	__be32                  mode;     /* Link working mode */
-+	__be32                  oem_mode; /* OEM link mode     */
-+	__be32                  checksum; /* Checksum          */
-+	unsigned char           pad[18];
-+};
-+
-+/* Set VLAN Filter */
-+struct ncsi_cmd_svf_pkt {
-+	struct ncsi_cmd_pkt_hdr cmd;       /* Command header    */
-+	__be16                  reserved;  /* Reserved          */
-+	__be16                  vlan;      /* VLAN ID           */
-+	__be16                  reserved1; /* Reserved          */
-+	unsigned char           index;     /* VLAN table index  */
-+	unsigned char           enable;    /* Enable or disable */
-+	__be32                  checksum;  /* Checksum          */
-+	unsigned char           pad[14];
-+};
-+
-+/* Enable VLAN */
-+struct ncsi_cmd_ev_pkt {
-+	struct ncsi_cmd_pkt_hdr cmd;         /* Command header   */
-+	unsigned char           reserved[3]; /* Reserved         */
-+	unsigned char           mode;        /* VLAN filter mode */
-+	__be32                  checksum;    /* Checksum         */
-+	unsigned char           pad[22];
-+};
-+
-+/* Set MAC Address */
-+struct ncsi_cmd_sma_pkt {
-+	struct ncsi_cmd_pkt_hdr cmd;      /* Command header          */
-+	unsigned char           mac[6];   /* MAC address             */
-+	unsigned char           index;    /* MAC table index         */
-+	unsigned char           at_e;     /* Addr type and operation */
-+	__be32                  checksum; /* Checksum                */
-+	unsigned char           pad[18];
-+};
-+
-+/* Enable Broadcast Filter */
-+struct ncsi_cmd_ebf_pkt {
-+	struct ncsi_cmd_pkt_hdr cmd;      /* Command header */
-+	__be32                  mode;     /* Filter mode    */
-+	__be32                  checksum; /* Checksum       */
-+	unsigned char           pad[22];
-+};
-+
-+/* Enable Global Multicast Filter */
-+struct ncsi_cmd_egmf_pkt {
-+	struct ncsi_cmd_pkt_hdr cmd;      /* Command header */
-+	__be32                  mode;     /* Global MC mode */
-+	__be32                  checksum; /* Checksum       */
-+	unsigned char           pad[22];
-+};
-+
-+/* Set NCSI Flow Control */
-+struct ncsi_cmd_snfc_pkt {
-+	struct ncsi_cmd_pkt_hdr cmd;         /* Command header    */
-+	unsigned char           reserved[3]; /* Reserved          */
-+	unsigned char           mode;        /* Flow control mode */
-+	__be32                  checksum;    /* Checksum          */
-+	unsigned char           pad[22];
-+};
-+
-+/* NCSI packet revision */
-+#define NCSI_PKT_REVISION	0x01
-+
-+/* NCSI packet commands */
-+#define NCSI_PKT_CMD_CIS	0x00	/* Clear Initial State              */
-+#define NCSI_PKT_CMD_SP		0x01	/* Select Package                   */
-+#define NCSI_PKT_CMD_DP		0x02	/* Deselect Package                 */
-+#define NCSI_PKT_CMD_EC		0x03	/* Enable Channel                   */
-+#define NCSI_PKT_CMD_DC		0x04	/* Disable Channel                  */
-+#define NCSI_PKT_CMD_RC		0x05	/* Reset Channel                    */
-+#define NCSI_PKT_CMD_ECNT	0x06	/* Enable Channel Network Tx        */
-+#define NCSI_PKT_CMD_DCNT	0x07	/* Disable Channel Network Tx       */
-+#define NCSI_PKT_CMD_AE		0x08	/* AEN Enable                       */
-+#define NCSI_PKT_CMD_SL		0x09	/* Set Link                         */
-+#define NCSI_PKT_CMD_GLS	0x0a	/* Get Link                         */
-+#define NCSI_PKT_CMD_SVF	0x0b	/* Set VLAN Filter                  */
-+#define NCSI_PKT_CMD_EV		0x0c	/* Enable VLAN                      */
-+#define NCSI_PKT_CMD_DV		0x0d	/* Disable VLAN                     */
-+#define NCSI_PKT_CMD_SMA	0x0e	/* Set MAC address                  */
-+#define NCSI_PKT_CMD_EBF	0x10	/* Enable Broadcast Filter          */
-+#define NCSI_PKT_CMD_DBF	0x11	/* Disable Broadcast Filter         */
-+#define NCSI_PKT_CMD_EGMF	0x12	/* Enable Global Multicast Filter   */
-+#define NCSI_PKT_CMD_DGMF	0x13	/* Disable Global Multicast Filter  */
-+#define NCSI_PKT_CMD_SNFC	0x14	/* Set NCSI Flow Control            */
-+#define NCSI_PKT_CMD_GVI	0x15	/* Get Version ID                   */
-+#define NCSI_PKT_CMD_GC		0x16	/* Get Capabilities                 */
-+#define NCSI_PKT_CMD_GP		0x17	/* Get Parameters                   */
-+#define NCSI_PKT_CMD_GCPS	0x18	/* Get Controller Packet Statistics */
-+#define NCSI_PKT_CMD_GNS	0x19	/* Get NCSI Statistics              */
-+#define NCSI_PKT_CMD_GNPTS	0x1a	/* Get NCSI Pass-throu Statistics   */
-+#define NCSI_PKT_CMD_OEM	0x50	/* OEM                              */
-+
-+#endif /* __NCSI_PKT_H__ */
+ 
+ 	/* register network device */
+ 	err = register_netdev(netdev);
+@@ -1330,6 +1389,7 @@ static int ftgmac100_probe(struct platform_device *pdev)
+ 
+ 	return 0;
+ 
++err_ncsi_dev:
+ err_register_netdev:
+ 	ftgmac100_destroy_mdio(netdev);
+ err_setup_mdio:
 -- 
 2.1.0
