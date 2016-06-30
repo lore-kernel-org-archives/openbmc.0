@@ -3,17 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rgbs73r28zDqmw
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rgbs809J8zDq5d
  for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2016 09:50:51 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1467330648092283.70489759036616;
- Thu, 30 Jun 2016 16:50:48 -0700 (PDT)
+ with SMTPS id 1467330647216256.34731748813977;
+ Thu, 30 Jun 2016 16:50:47 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 12/16] image-types_uboot: Package a self contained
- netboot image
-Date: Thu, 30 Jun 2016 18:50:29 -0500
-Message-Id: <20160630235033.17091-13-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 11/16] initfs: init: add file for base options
+Date: Thu, 30 Jun 2016 18:50:28 -0500
+Message-Id: <20160630235033.17091-12-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 In-Reply-To: <20160630235033.17091-1-openbmc-patches@stwcx.xyz>
 References: <20160630235033.17091-1-openbmc-patches@stwcx.xyz>
@@ -32,59 +31,48 @@ X-List-Received-Date: Thu, 30 Jun 2016 23:50:52 -0000
 
 From: Milton Miller <miltonm@us.ibm.com>
 
-Create a cpio containing the base read-only image, and create a
-single combined initramfs image consisting of the image-rofs
-and the existing initramfs.
+Allow an initrd image to include options for init while still allowing
+additional options to come from the kernel command line and/or u-boot
+environment variables.
 
-There has been a desire to have a self contained netboot image present
-for developer testing and experimentation.   The init script already
-supports having the rofs layer sourced from a file packaged into the
-initramfs, and will use it if found.
-
-While this image will not fit in the current flash layout in
-the initrd space, it will load over the network.  This method
-leaves the squashfs compressed in RAM, decompreses is invoked as
-needed at runtime, trading boot time and memory space for runtime
-decompress on demand.  This will also give similar file access
-overheads and performance to reading the data from flash.
-
-Because the rofs is already compressed with xz compression,
-don't try to compress this cpio (the cpio packaging adds about 40
-bytes of ascii before and after, plus some alignment padding).
-Because the kernel requires uncompressed cpios to appear on a
-4-byte boundary with 0 byte fill between archives, place this
-cpio first in the combined image.
+This will allow building a netboot image that can specify to run
+from RAM while allowing the command line to initiate debug or skip
+copying files from the read-write overlay file system.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh   | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass b/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
-index 67a389f..dd990bc 100644
---- a/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
-+++ b/meta-phosphor/classes/obmc-phosphor-image_types_uboot.bbclass
-@@ -51,6 +51,8 @@ do_generate_flash() {
-        uinitrd="${initrd}.u-boot"
-        rootfs="${IMAGE_LINK_NAME}.${IMAGE_BASETYPE}"
-        rwfs="rwfs.${OVERLAY_BASETYPE}"
-+       rofsimg=rofs.${IMAGE_BASETYPE}.cpio
-+       netimg=initramfs-netboot.cpio
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+index c37b3d5..70af93d 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
+@@ -184,6 +184,7 @@ fsckbase=/sbin/fsck.
+ fsck=$fsckbase$rwfst
+ fsckopts=-a
+ optfile=/run/initramfs/init-options
++optbase=/run/initramfs/init-options-base
+ urlfile=/run/initramfs/init-download-url
+ update=/run/initramfs/update
  
-        if [ ! -f $ddir/$kernel ]; then
-               bbfatal "Kernel file ${ddir}/${kernel} does not exist"
-@@ -94,4 +96,12 @@ do_generate_flash() {
+@@ -192,9 +193,16 @@ then
+ 	cp /${optfile##*/} $optfile
+ fi
  
-        tar -h -cvf ${ddir}/${MACHINE}-${DATETIME}.all.tar -C ${ddir} image-bmc
-        tar -h -cvf ${ddir}/${MACHINE}-${DATETIME}.tar -C ${ddir} image-u-boot image-kernel image-initramfs image-rofs image-rwfs
++if test -e /${optbase##*/}
++then
++	cp /${optbase##*/} $optbase
++else
++	touch $optbase
++fi
 +
-+       # Package the root image (rofs layer) with the initramfs for net booting.
-+       # Uses the symlink above to get the desired name in the cpio
-+       ( cd $ddir && echo image-rofs | cpio -oHnewc -L > ${rofsimg} )
-+       # Prepend the rofs cpio -- being uncompressed it must be 4-byte aligned
-+       cat ${ddir}/${rofsimg} ${ddir}/${initrd} > ${ddir}/${netimg}
-+       oe_mkimage  "${netimg}" "${INITRD_CTYPE}"
-+
- }
+ if test ! -f $optfile
+ then
+-	cat /proc/cmdline > $optfile
++	cat /proc/cmdline $optbase > $optfile
+ 	get_fw_env_var openbmcinit >> $optfile
+ 	get_fw_env_var openbmconce >> $optfile
+ fi
 -- 
 2.9.0
