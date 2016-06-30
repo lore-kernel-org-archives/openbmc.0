@@ -1,29 +1,46 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <christopher.lee.bostic@gmail.com>
+Received: from mail-oi0-x243.google.com (mail-oi0-x243.google.com
+ [IPv6:2607:f8b0:4003:c06::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rgXgR4V22zDqmL
- for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2016 07:27:15 +1000 (AEST)
-Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
- with SMTPS id 146732203092787.0406418566049;
- Thu, 30 Jun 2016 14:27:10 -0700 (PDT)
-Date: Thu, 30 Jun 2016 16:27:09 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-Cc: openbmc@lists.ozlabs.org
-Subject: Re: [PATCH openbmc 3/3] meta-openpower: Update pflash version
-Message-ID: <20160630212709.GV20922@asimov.austin.ibm.com>
-References: <20160630162033.2330-1-openbmc-patches@stwcx.xyz>
- <20160630162033.2330-4-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rgMlg5CzPzDr2t
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2016 00:45:19 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=GAIKJwbu; 
+ dkim-atps=neutral
+Received: by mail-oi0-x243.google.com with SMTP id d132so7800545oig.2
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 07:45:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=k3NI33p9mFmzcONLO/0kf/UgHCrA16czgiHv7ycG/tY=;
+ b=GAIKJwbuLEpDsyAPh4u/WmQzSDLd8kFeBSaIkb4dClklUq9Zf8DIdtgYEU3CgvJ6sB
+ glcA1u/YCXTRciVbobOrQ+O0bqbM8kYa7SoqmvJGEjaHu6uW0TBWgQkSgrsRzjtgppMy
+ /1dA9uo8KVpz3Gi5L2IwQkcAz4zNWn1F2Mnxa191eulPR4JZi1Vi+tQWCRAPxTImKE6Y
+ TPfNfhC7Zo0uVWsJ23cs8k5EY4ORazlled/tuoNcrNHga5ORdpVEVmsIzAGEVcgOW+3c
+ pLFwd44ZR/Mi8Zwl93XWnDyiX6zH7zcje9KUrVZJu/n/PjV6xxvsgRY2yLZ6fDgXCPBn
+ 78NA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=k3NI33p9mFmzcONLO/0kf/UgHCrA16czgiHv7ycG/tY=;
+ b=NORs1PRp8udhj3w3fTShRRWsqSsE2Bqcp2egvUIe02qvKduCIqSU1aB+XvwpDbO51k
+ B7F4NkpGaTz1tHbcvZZ6VyFRqP7XBWmtW6pwvRFixsobU0FFU5EuLrKAjGF3wrppgwtm
+ Easv8twhdo8OJ9JcU2MHP6Gh37OJr0lvxsyd2sYs42pOG1Wh7cUmMEVgtLqZN+CJ+B9l
+ MPGiYQu2RUrCS+p/9rRy98guzM/q+d9O+zDWVppVY4e0O/+5MNRfF2reydyYqULAReqE
+ M8dW5NcPWstBJgaicOkGa86tvexVh31M14VZ14bjNTVp5ARFedSyM+2c1WRJyd8vKymp
+ yntg==
+X-Gm-Message-State: ALyK8tJEZFh45MTybVApBG0kdYoQMSYkIsTzkdboSPIiuRo2ySUYsoBFo2ydcV6KHu5nq5ElfmjKVhuAZXu8Vw==
+X-Received: by 10.157.41.169 with SMTP id n38mr10625450otb.158.1467297917165; 
+ Thu, 30 Jun 2016 07:45:17 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="/CHBEyLWSSL2QXIQ"
-Content-Disposition: inline
-In-Reply-To: <20160630162033.2330-4-openbmc-patches@stwcx.xyz>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
-X-ZohoMail: Z_61896388 SPT_1 Z_56716064 SPT_1 SLF_D
+Received: by 10.202.214.140 with HTTP; Thu, 30 Jun 2016 07:45:16 -0700 (PDT)
+From: Christopher Bostic <christopher.lee.bostic@gmail.com>
+Date: Thu, 30 Jun 2016 09:45:16 -0500
+Message-ID: <CAA0LjjVo9krV7-7iuh4EBuuX-fN4+exjCocD4ZUqVJRmO6t7iA@mail.gmail.com>
+Subject: [PATCH linux] drivers/fsi: Initial stubs for FSI device driver
+To: openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset=UTF-8
+X-Mailman-Approved-At: Fri, 01 Jul 2016 07:30:52 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -35,47 +52,150 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Jun 2016 21:27:16 -0000
+X-List-Received-Date: Thu, 30 Jun 2016 14:45:20 -0000
 
+ Initial stubs for FSI device driver.
 
---/CHBEyLWSSL2QXIQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Christopher Bostic <cbostic@us.ibm.com>
+---
+ drivers/Makefile      |  1 +
+ drivers/fsi/Makefile  |  5 +++++
+ drivers/fsi/fsiinit.c | 57 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ drivers/fsi/fsiinit.h | 41 ++++++++++++++++++++++++++++++++++++
+ 4 files changed, 104 insertions(+)
+ create mode 100644 drivers/fsi/Makefile
+ create mode 100644 drivers/fsi/fsiinit.c
+ create mode 100644 drivers/fsi/fsiinit.h
 
-On Thu, Jun 30, 2016 at 11:20:33AM -0500, OpenBMC Patches wrote:
-> From: Joel Stanley <joel@jms.id.au>
->=20
-> Move to HEAD so we can drop the patches we carry.
->=20
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-
-Stewart released 5.2.3 with these fixes.  Can you put us onto that
-instead?  Prefer to stay on a released version rather than a commit.
-
-> ----
-Patrick Williams
-
---/CHBEyLWSSL2QXIQ
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJXdY6sAAoJEKsDR8wtAMEZ6CgP/joifKBpM9AQs0ullOzn+bUs
-ovr/hK/MKHsKUVeazAbKLEwrWn9Zjxp8pJKQTkfDSy4rv3cTWOZb+naryn27ZwEQ
-n8sGEDGe2dwVWAG85zNSARgh2AI6glAEveGJGziT7OhAtT+UBXs0sKncW/0tV5n2
-iz6Ol1PAr6avNPyenC4OERhOVwYClSCf13d0xFgOKdoxsnX1kMNfIGSi1zwMfJex
-+03vDy4jCnN3iFcGd/1LR8RPk12i/uGKn8QdyzRj+orOEsjX3MfRDo7dwRPl+hKx
-58NilBVrpczlWSWpB9jT+kIp7KBfv8uu/VWAn1oRFYDmGqvyJCpRV0IKZUJneP/U
-IM4H6VVEe44rqK0gL44pLEkATuvGnU7fcEPsJVS/8r1WA+tIu6h+9C9nbfoOIMqR
-eImUi9023gCzjaKkUGHEHRHNjq7SQkXGa2pFtNfaZSvrV5owuNoHiWqgjPE6XNhO
-8WqwZ+EbCMly+FQdvCCajPe42LEtutY6vJbV1wVIwJ1JQ9tjnVZLNled6l+vqSm4
-rQh+Grcf1Gzg1qBdA+rpr+U++DVODbMGLwfJRav46CSNbcPXPrZnIPS0wZOpj8do
-OKHZ6tisltaJ79Sr2+CZaFASLRYemewe7e1YEBkNof6fleIeoyjdS48FR97lFZMI
-IwOIh1pmKU0Pkk0S8zzm
-=bFh3
------END PGP SIGNATURE-----
-
---/CHBEyLWSSL2QXIQ--
+diff --git a/drivers/Makefile b/drivers/Makefile
+index 795d0ca..8ea7c58 100644
+--- a/drivers/Makefile
++++ b/drivers/Makefile
+@@ -172,3 +172,4 @@ obj-$(CONFIG_STM)           += hwtracing/stm/
+ obj-$(CONFIG_ANDROID)          += android/
+ obj-$(CONFIG_NVMEM)            += nvmem/
+ obj-$(CONFIG_FPGA)             += fpga/
++obj-$(CONFIG_FSI)                          += fsi/
+diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
+new file mode 100644
+index 0000000..f547c08
+--- /dev/null
++++ b/drivers/fsi/Makefile
+@@ -0,0 +1,5 @@
++#
++# Makefile for the FSI bus specific drivers.
++#
++
++obj-y          += fsiinit.o
+diff --git a/drivers/fsi/fsiinit.c b/drivers/fsi/fsiinit.c
+new file mode 100644
+index 0000000..d692ea3
+--- /dev/null
++++ b/drivers/fsi/fsiinit.c
+@@ -0,0 +1,57 @@
++/*
++ * FSI Master device driver
++ *
++ * Copyright 2016 IBM Corp.
++ *
++ * Christopher Bostic <cbostic@us.ibm.com>
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version
++ * 2 of the License, or (at your option) any later version.
++ */
++
++#include <linux/init.h>
++#include <linux/module.h>
++#include "fsiinit.h"
++
++MODULE_AUTHOR("Christopher Bostic cbostic@us.ibm.com");
++MODULE_DESCRIPTION("FSI master device driver");
++
++#define FSIDD_MAJOR    0               /* FSI device driver major */
++#define        FSIDD_TOSTR(x)  #x
++#define        FSIDD_VERNO     4000
++#define        FSIDD_VER(x)    FSIDD_TOSTR(x)
++
++struct fsidd fsidd = {         /* FSI device driver structure definition */
++       .magic = FSI_DD_MAGIC,
++       .strno = FSI_DD_STRNO,
++};
++
++
++static int fsi_start(void)
++{
++       int rc = 0;
++
++
++       printk("FSI DD v:%d installation ok\n", FSIDD_VERNO);
++       return rc;
++}
++
++static void fsi_exit(void)
++{
++
++}
++
++static int __init fsi_init(void)
++{
++       int rc = 0;
++
++       /* Set up the host controller */
++       fsi_start();
++       return rc;
++}
++
++module_init(fsi_init);
++module_exit(fsi_exit);
++
+diff --git a/drivers/fsi/fsiinit.h b/drivers/fsi/fsiinit.h
+new file mode 100644
+index 0000000..70c3e13
+--- /dev/null
++++ b/drivers/fsi/fsiinit.h
+@@ -0,0 +1,41 @@
++/*
++ * FSI Master device driver structure definitions and defines
++ *
++ * Copyright 2016 IBM Corp.
++ *
++ * Christopher Bostic <cbostic@us.ibm.com>
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version
++ * 2 of the License, or (at your option) any later version.
++ */
++
++#ifndef DRIVERS_FSIINIT_H
++#define DRIVERS_FSIINIT_H
++
++#include <linux/kernel.h>
++#include <linux/types.h>
++#include <linux/device.h>
++#include <linux/workqueue.h>
++#include <linux/hrtimer.h>
++
++#define FSI_DD_MAGIC   0x64644632      /* ddF2 */
++#define FSI_DD_STRNO   0x1             /* Structure version number */
++
++struct fsidd {                         /* FSI Main structure */
++       unsigned long magic;            /* Magic number */
++       unsigned long strno;            /* Structure version number */
++       dev_t major;                    /* Major number of device */
++       struct workqueue_struct *hotp_wq;       /* Hot plug work queue */
++       wait_queue_head_t error_wq;     /* Wait queue for port errors */
++       wait_queue_head_t lbus_wq;      /* Wait queue for lbus events */
++       wait_queue_head_t irq_wq;       /* Wait queue for IRQ loops */
++       wait_queue_head_t link_wq;      /* Wait queue for link changes */
++       unsigned long state;            /* State driver is in */
++       struct device dev;              /* Anchor point in /sys/kernel */
++};
++
++#define        to_fsidd(a)             container_of(a, struct fsidd, kobj)
++
++#endif /* DRIVERS_FSIINIT_H */
+-- 
+1.8.2.2
