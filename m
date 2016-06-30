@@ -1,22 +1,55 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-qk0-x243.google.com (mail-qk0-x243.google.com
+ [IPv6:2607:f8b0:400d:c09::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rgLKT1CMQzDq5d
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 23:41:01 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1467294056336301.2614154600125;
- Thu, 30 Jun 2016 06:40:56 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Cc: Andrew Geissler <andrewg@us.ibm.com>
-Subject: [PATCH skeleton] Reformat code with pep8 standards
-Date: Thu, 30 Jun 2016 08:40:54 -0500
-Message-Id: <20160630134054.29445-2-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.9.0
-In-Reply-To: <20160630134054.29445-1-openbmc-patches@stwcx.xyz>
-References: <20160630134054.29445-1-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rgLWw1kf8zDq5d
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 23:50:04 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=upb/P97c; 
+ dkim-atps=neutral
+Received: by mail-qk0-x243.google.com with SMTP id j2so16674058qkf.1
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 06:50:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=Z19mS0j4zeuG312LzseYNujPyq73VxGPtN5cwBYR6eU=;
+ b=upb/P97cJYXCiEj9XKbxfXNEDPxKdVFtGcXY0H2pvxHJX9jjI45fHWahbawXIsOuH4
+ fE1XziAppkPIqTW/0JxzdLjE7u3+dLUNYtrPVk6WN6hVyzEXG5zWcVikAsAc3KDGje74
+ 7ewminzB6oxMhEgzcXlFwr0gYo0q6EjT4TFeQmm69dDn3bugT6/V5Hszvj5EWuZpQe1c
+ 5OMAz7JkVcCDiWzWVk9YQcAXvsISXLzEHp59fCIIT3CiMaXuZx6br4YrkG5+k+7Mz9UO
+ GaB694jYCI06x7LPc/zY6Vr2CeJSneByx3kxFBBLatHffaPbNCj8osskfI6FeYnMilv3
+ Kkwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=Z19mS0j4zeuG312LzseYNujPyq73VxGPtN5cwBYR6eU=;
+ b=ceDYXPE/chAZ49GxKzCV3tkujY9vDbqzoBeQhBJSAW6CCF8a5bzPe6tycrYAHzZmyz
+ EJZLNW6dPTnD5anerE0EgspLoQpOpSMtfjLX1BoiGAU7QNWK93s3Qa3LC5/jxm9VE/eE
+ Baem89YVQkkLDgMc+qY/v4a44lzumQJMvs9jVHi3zRLxwPY8OIl97Yl7DocjS+sH0TJh
+ aSg3ydDYB3iLyu8pzrnP1UoHtGIXL/ot89VM/2AvxGa6FzCqhb6SjY9F4K4fDQTRqBWa
+ bIWX+NsGaEP94O6sCJxB2YtcpJ9UVjWuDe8gVt12Oqv3HTLZFNHs7y31QwEC9YpzXhDg
+ S9gw==
+X-Gm-Message-State: ALyK8tJOInYvq0KoGM79HqK6DIC9aEUupAWis0v//J2G1YsH32QuiboN6sZBkEmR1XOVjq5eLWALS/XM6O/quA==
+X-Received: by 10.55.152.198 with SMTP id a189mr18691075qke.208.1467294601777; 
+ Thu, 30 Jun 2016 06:50:01 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.237.37.148 with HTTP; Thu, 30 Jun 2016 06:49:42 -0700 (PDT)
+In-Reply-To: <1467282471-16560-7-git-send-email-gwshan@linux.vnet.ibm.com>
+References: <1467282471-16560-1-git-send-email-gwshan@linux.vnet.ibm.com>
+ <1467282471-16560-7-git-send-email-gwshan@linux.vnet.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 30 Jun 2016 23:19:42 +0930
+X-Google-Sender-Auth: Mdm9f6R-SwD79ZNC1Qb5Trds2to
+Message-ID: <CACPK8Xdk6VLzk-sh+K9_iTVT-_znn=Nw2SarhqNy0rozk-T+Zg@mail.gmail.com>
+Subject: Re: [PATCH 06/10] net/farady: Helper functions to create or destroy
+ MDIO interface
+To: Gavin Shan <gwshan@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,424 +61,153 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Jun 2016 13:41:01 -0000
+X-List-Received-Date: Thu, 30 Jun 2016 13:50:05 -0000
 
-From: Andrew Geissler <andrewg@us.ibm.com>
+On Thu, Jun 30, 2016 at 7:57 PM, Gavin Shan <gwshan@linux.vnet.ibm.com> wrote:
+> This introduces two helper functions to create or destroy MDIO
+> interface. No logical changes introduced.
+>
+> Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
+> ---
+>  drivers/net/ethernet/faraday/ftgmac100.c | 93 ++++++++++++++++++++------------
+>  1 file changed, 58 insertions(+), 35 deletions(-)
+>
+> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
+> index e7cf313..2c22f74 100644
+> --- a/drivers/net/ethernet/faraday/ftgmac100.c
+> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
+> @@ -1146,6 +1146,58 @@ static const struct net_device_ops ftgmac100_netdev_ops = {
+>         .ndo_do_ioctl           = ftgmac100_do_ioctl,
+>  };
+>
+> +static int ftgmac100_setup_mdio(struct net_device *netdev)
+> +{
+> +       struct ftgmac100 *priv = netdev_priv(netdev);
+> +       int i, err = 0;
+> +
+> +       /* initialize mdio bus */
+> +       priv->mii_bus = mdiobus_alloc();
+> +       if (!priv->mii_bus)
+> +               return -EIO;
+> +
+> +       priv->mii_bus->name = "ftgmac100_mdio";
+> +       snprintf(priv->mii_bus->id, MII_BUS_ID_SIZE, "ftgmac100_mii");
 
-Just formatting,  no functional changes
----
- pychassisctl/chassis_control.py | 392 ++++++++++++++++++++--------------------
- 1 file changed, 200 insertions(+), 192 deletions(-)
+If we have two ftgmac100 drivers loaded (such as on the ast2500-evb),
+when the second goes to create the mdiobus kobject it will have the
+same name. We need to make this name unique (or fix up the mdiobus
+code).
 
-diff --git a/pychassisctl/chassis_control.py b/pychassisctl/chassis_control.py
-index 376e0e9..8d34e2e 100644
---- a/pychassisctl/chassis_control.py
-+++ b/pychassisctl/chassis_control.py
-@@ -19,197 +19,205 @@ POWER_ON = 1
- 
- BOOTED = 100
- 
--class ChassisControlObject(DbusProperties,DbusObjectManager):
--	def getUuid(self):
--		uuid = "";
--		try:
--			with open(MACHINE_ID) as f:
--				data = f.readline().rstrip('\n')
--				if (len(data) == 32):
--					uuid = data
--				else:
--					print "ERROR:  UUID is not formatted correctly: "+data
--		except:
--			print "ERROR: Unable to open uuid file: "+MACHINE_ID
--				
--		return uuid
-- 
--	def __init__(self,bus,name):
--		self.dbus_objects = { }
--		DbusProperties.__init__(self)
--		DbusObjectManager.__init__(self)
--		dbus.service.Object.__init__(self,bus,name)
--		## load utilized objects
--		self.dbus_objects = {
--			'power_control' : { 
--				'bus_name' : 'org.openbmc.control.Power',
--				'object_name' : '/org/openbmc/control/power0',
--				'interface_name' : 'org.openbmc.control.Power'
--			},
--			'identify_led' : {
--				'bus_name' : 'org.openbmc.control.led',
--				'object_name' : '/org/openbmc/control/led/identify',
--				'interface_name' : 'org.openbmc.Led'
--			},
--			'watchdog' : {				
--				'bus_name' : 'org.openbmc.watchdog.Host',
--				'object_name' : '/org/openbmc/watchdog/host0',
--				'interface_name' : 'org.openbmc.Watchdog'
--			},
--			'host_services' : {
--				'bus_name' : 'org.openbmc.HostServices',
--				'object_name' : '/org/openbmc/HostServices',
--				'interface_name' : 'org.openbmc.HostServices'
--			},
--			'settings' : {
--				'bus_name' : 'org.openbmc.settings.Host',
--				'object_name' : '/org/openbmc/settings/host0',
--				'interface_name' : 'org.freedesktop.DBus.Properties'
--			},
--		}
--
--		#uuid
--		self.Set(DBUS_NAME,"uuid",self.getUuid())
--		self.Set(DBUS_NAME,"reboot",0)
--
--		bus.add_signal_receiver(self.power_button_signal_handler, 
--					dbus_interface = "org.openbmc.Button", signal_name = "Released", 
--					path="/org/openbmc/buttons/power0" )
--		bus.add_signal_receiver(self.reset_button_signal_handler, 
--					dbus_interface = "org.openbmc.Button", signal_name = "PressedLong", 
--					path="/org/openbmc/buttons/power0" )
--		bus.add_signal_receiver(self.softreset_button_signal_handler, 
--					dbus_interface = "org.openbmc.Button", signal_name = "Released", 
--					path="/org/openbmc/buttons/reset0" )
--
--    		bus.add_signal_receiver(self.host_watchdog_signal_handler, 
--					dbus_interface = "org.openbmc.Watchdog", signal_name = "WatchdogError")
--
--   		bus.add_signal_receiver(self.emergency_shutdown_signal_handler, 
--					dbus_interface = "org.openbmc.SensorThresholds", signal_name = "Emergency")
--
--		bus.add_signal_receiver(self.SystemStateHandler,signal_name = "GotoSystemState")
--		self.InterfacesAdded(name,self.properties)
--
--
--	def getInterface(self,name):
--		o = self.dbus_objects[name]
--		obj = bus.get_object(o['bus_name'],o['object_name'],introspect=False)
--		return dbus.Interface(obj,o['interface_name'])
--
--
--	@dbus.service.method(DBUS_NAME,
--		in_signature='', out_signature='')
--	def setIdentify(self):
--		print "Turn on identify"
--		intf = self.getInterface('identify_led')
--		intf.setOn()	
--		return None
--
--	@dbus.service.method(DBUS_NAME,
--		in_signature='', out_signature='')
--	def clearIdentify(self):
--		print "Turn on identify"
--		intf = self.getInterface('identify_led')
--		intf.setOff()
--		return None
--
--	@dbus.service.method(DBUS_NAME,
--		in_signature='', out_signature='')
--	def powerOn(self):
--		print "Turn on power and boot"
--		self.Set(DBUS_NAME,"reboot",0)
--		if (self.getPowerState()==0):
--			intf = self.getInterface('power_control')
--			intf.setPowerState(POWER_ON)
--			intfwatchdog = self.getInterface('watchdog')
--			#Start watchdog with 30s timeout per the OpenPower Host IPMI Spec
--			#Once the host starts booting, it'll reset and refresh the timer
--			intfwatchdog.set(30000)
--			intfwatchdog.start()
--		return None
--
--	@dbus.service.method(DBUS_NAME,
--		in_signature='', out_signature='')
--	def powerOff(self):
--		print "Turn off power"
--		intfwatchdog = self.getInterface('watchdog')
--		intfwatchdog.stop()
--		intf = self.getInterface('power_control')
--		intf.setPowerState(POWER_OFF)
--		return None
--
--	@dbus.service.method(DBUS_NAME,
--		in_signature='', out_signature='')
--	def softPowerOff(self):
--		print "Soft off power"
--		intf = self.getInterface('host_services')
--		## host services will call power off when ready
--		intf.SoftPowerOff()
--		return None
--
--	@dbus.service.method(DBUS_NAME,
--		in_signature='', out_signature='')
--	def reboot(self):
--		print "Rebooting"
--		if self.getPowerState() == POWER_OFF:
--			self.powerOn();
--		else:
--			self.Set(DBUS_NAME,"reboot",1)
--			self.powerOff()
--		return None
--
--	@dbus.service.method(DBUS_NAME,
--		in_signature='', out_signature='')
--	def softReboot(self):
--		print "Soft Rebooting"
--		if self.getPowerState() == POWER_OFF:
--			self.powerOn();
--		else:
--			self.Set(DBUS_NAME,"reboot",1)
--			self.softPowerOff()
--		return None
--
--	@dbus.service.method(DBUS_NAME,
--		in_signature='', out_signature='i')
--	def getPowerState(self):
--		intf = self.getInterface('power_control')
--		return intf.getPowerState()
--
--	## Signal handler
--
--	def SystemStateHandler(self,state_name):
--		if (state_name == "HOST_POWERED_OFF" or state_name == "HOST_POWERED_ON"):
--			intf = self.getInterface('settings')
--			intf.Set("org.openbmc.settings.Host","system_state",state_name)
--
--		if (state_name == "HOST_POWERED_OFF" and self.Get(DBUS_NAME,"reboot")==1):
--			self.powerOn()
--
--	def power_button_signal_handler(self):
--		# toggle power
--		state = self.getPowerState()
--		if state == POWER_OFF:
--			self.powerOn()
--		elif state == POWER_ON:
--			self.powerOff();
--
--	def reset_button_signal_handler(self):
--		self.reboot();
--
--	def softreset_button_signal_handler(self):
--		self.softReboot();
--		
--	def host_watchdog_signal_handler(self):
--		print "Watchdog Error, Hard Rebooting"
--		self.Set(DBUS_NAME,"reboot",1)
--		self.powerOff()
--
--	def emergency_shutdown_signal_handler(self):
--		print "Emergency Shutdown!"
--		self.powerOff()
--		
--		
-+
-+class ChassisControlObject(DbusProperties, DbusObjectManager):
-+    def getUuid(self):
-+        uuid = "";
-+        try:
-+            with open(MACHINE_ID) as f:
-+                data = f.readline().rstrip('\n')
-+                if (len(data) == 32):
-+                    uuid = data
-+                else:
-+                    print "ERROR:  UUID is not formatted correctly: " + data
-+        except:
-+            print "ERROR: Unable to open uuid file: " + MACHINE_ID
-+
-+        return uuid
-+
-+    def __init__(self, bus, name):
-+        self.dbus_objects = {}
-+        DbusProperties.__init__(self)
-+        DbusObjectManager.__init__(self)
-+        dbus.service.Object.__init__(self, bus, name)
-+        ## load utilized objects
-+        self.dbus_objects = {
-+            'power_control': {
-+                'bus_name': 'org.openbmc.control.Power',
-+                'object_name': '/org/openbmc/control/power0',
-+                'interface_name': 'org.openbmc.control.Power'
-+            },
-+            'identify_led': {
-+                'bus_name': 'org.openbmc.control.led',
-+                'object_name': '/org/openbmc/control/led/identify',
-+                'interface_name': 'org.openbmc.Led'
-+            },
-+            'watchdog': {
-+                'bus_name': 'org.openbmc.watchdog.Host',
-+                'object_name': '/org/openbmc/watchdog/host0',
-+                'interface_name': 'org.openbmc.Watchdog'
-+            },
-+            'host_services': {
-+                'bus_name': 'org.openbmc.HostServices',
-+                'object_name': '/org/openbmc/HostServices',
-+                'interface_name': 'org.openbmc.HostServices'
-+            },
-+            'settings': {
-+                'bus_name': 'org.openbmc.settings.Host',
-+                'object_name': '/org/openbmc/settings/host0',
-+                'interface_name': 'org.freedesktop.DBus.Properties'
-+            },
-+        }
-+
-+        # uuid
-+        self.Set(DBUS_NAME, "uuid", self.getUuid())
-+        self.Set(DBUS_NAME, "reboot", 0)
-+
-+        bus.add_signal_receiver(self.power_button_signal_handler,
-+                                dbus_interface="org.openbmc.Button",
-+                                signal_name="Released",
-+                                path="/org/openbmc/buttons/power0")
-+        bus.add_signal_receiver(self.reset_button_signal_handler,
-+                                dbus_interface="org.openbmc.Button",
-+                                signal_name="PressedLong",
-+                                path="/org/openbmc/buttons/power0")
-+        bus.add_signal_receiver(self.softreset_button_signal_handler,
-+                                dbus_interface="org.openbmc.Button",
-+                                signal_name="Released",
-+                                path="/org/openbmc/buttons/reset0")
-+
-+        bus.add_signal_receiver(self.host_watchdog_signal_handler,
-+                                dbus_interface="org.openbmc.Watchdog",
-+                                signal_name="WatchdogError")
-+
-+        bus.add_signal_receiver(self.emergency_shutdown_signal_handler,
-+                                dbus_interface="org.openbmc.SensorThresholds",
-+                                signal_name="Emergency")
-+
-+        bus.add_signal_receiver(self.SystemStateHandler,
-+                                signal_name="GotoSystemState")
-+        self.InterfacesAdded(name, self.properties)
-+
-+
-+    def getInterface(self, name):
-+        o = self.dbus_objects[name]
-+        obj = bus.get_object(o['bus_name'], o['object_name'], introspect=False)
-+        return dbus.Interface(obj, o['interface_name'])
-+
-+
-+    @dbus.service.method(DBUS_NAME,
-+                         in_signature='', out_signature='')
-+    def setIdentify(self):
-+        print "Turn on identify"
-+        intf = self.getInterface('identify_led')
-+        intf.setOn()
-+        return None
-+
-+    @dbus.service.method(DBUS_NAME,
-+                         in_signature='', out_signature='')
-+    def clearIdentify(self):
-+        print "Turn on identify"
-+        intf = self.getInterface('identify_led')
-+        intf.setOff()
-+        return None
-+
-+    @dbus.service.method(DBUS_NAME,
-+                         in_signature='', out_signature='')
-+    def powerOn(self):
-+        print "Turn on power and boot"
-+        self.Set(DBUS_NAME, "reboot", 0)
-+        if (self.getPowerState() == 0):
-+            intf = self.getInterface('power_control')
-+            intf.setPowerState(POWER_ON)
-+            intfwatchdog = self.getInterface('watchdog')
-+            # Start watchdog with 30s timeout per the OpenPower Host IPMI Spec
-+            #Once the host starts booting, it'll reset and refresh the timer
-+            intfwatchdog.set(30000)
-+            intfwatchdog.start()
-+        return None
-+
-+    @dbus.service.method(DBUS_NAME,
-+                         in_signature='', out_signature='')
-+    def powerOff(self):
-+        print "Turn off power"
-+        intfwatchdog = self.getInterface('watchdog')
-+        intfwatchdog.stop()
-+        intf = self.getInterface('power_control')
-+        intf.setPowerState(POWER_OFF)
-+        return None
-+
-+    @dbus.service.method(DBUS_NAME,
-+                         in_signature='', out_signature='')
-+    def softPowerOff(self):
-+        print "Soft off power"
-+        intf = self.getInterface('host_services')
-+        ## host services will call power off when ready
-+        intf.SoftPowerOff()
-+        return None
-+
-+    @dbus.service.method(DBUS_NAME,
-+                         in_signature='', out_signature='')
-+    def reboot(self):
-+        print "Rebooting"
-+        if self.getPowerState() == POWER_OFF:
-+            self.powerOn();
-+        else:
-+            self.Set(DBUS_NAME, "reboot", 1)
-+            self.powerOff()
-+        return None
-+
-+    @dbus.service.method(DBUS_NAME,
-+                         in_signature='', out_signature='')
-+    def softReboot(self):
-+        print "Soft Rebooting"
-+        if self.getPowerState() == POWER_OFF:
-+            self.powerOn();
-+        else:
-+            self.Set(DBUS_NAME, "reboot", 1)
-+            self.softPowerOff()
-+        return None
-+
-+    @dbus.service.method(DBUS_NAME,
-+                         in_signature='', out_signature='i')
-+    def getPowerState(self):
-+        intf = self.getInterface('power_control')
-+        return intf.getPowerState()
-+
-+    ## Signal handler
-+
-+    def SystemStateHandler(self, state_name):
-+        if (
-+                state_name == "HOST_POWERED_OFF" or state_name == "HOST_POWERED_ON"):
-+            intf = self.getInterface('settings')
-+            intf.Set("org.openbmc.settings.Host", "system_state", state_name)
-+
-+        if (state_name == "HOST_POWERED_OFF" and self.Get(DBUS_NAME,
-+                                                          "reboot") == 1):
-+            self.powerOn()
-+
-+    def power_button_signal_handler(self):
-+        # toggle power
-+        state = self.getPowerState()
-+        if state == POWER_OFF:
-+            self.powerOn()
-+        elif state == POWER_ON:
-+            self.powerOff();
-+
-+    def reset_button_signal_handler(self):
-+        self.reboot();
-+
-+    def softreset_button_signal_handler(self):
-+        self.softReboot();
-+
-+    def host_watchdog_signal_handler(self):
-+        print "Watchdog Error, Hard Rebooting"
-+        self.Set(DBUS_NAME, "reboot", 1)
-+        self.powerOff()
-+
-+    def emergency_shutdown_signal_handler(self):
-+        print "Emergency Shutdown!"
-+        self.powerOff()
-+
- 
- if __name__ == '__main__':
-     dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
-@@ -218,7 +226,7 @@ if __name__ == '__main__':
-     name = dbus.service.BusName(DBUS_NAME, bus)
-     obj = ChassisControlObject(bus, OBJ_NAME)
-     mainloop = gobject.MainLoop()
--    
-+
-     print "Running ChassisControlService"
-     mainloop.run()
- 
--- 
-2.9.0
+You can see a backtrace here:
+
+  https://github.com/openbmc/linux/issues/87
+
+
+> +       priv->mii_bus->priv = priv->netdev;
+> +       priv->mii_bus->read = ftgmac100_mdiobus_read;
+> +       priv->mii_bus->write = ftgmac100_mdiobus_write;
+> +
+> +       for (i = 0; i < PHY_MAX_ADDR; i++)
+> +               priv->mii_bus->irq[i] = PHY_POLL;
+> +
+> +       err = mdiobus_register(priv->mii_bus);
+> +       if (err) {
+> +               dev_err(priv->dev, "Cannot register MDIO bus!\n");
+> +               goto err_register_mdiobus;
+> +       }
+> +
+> +       err = ftgmac100_mii_probe(priv);
+> +       if (err) {
+> +               dev_err(priv->dev, "MII Probe failed!\n");
+> +               goto err_mii_probe;
+> +       }
+> +
+> +       return 0;
+> +
+> +err_mii_probe:
+> +       mdiobus_unregister(priv->mii_bus);
+> +err_register_mdiobus:
+> +       mdiobus_free(priv->mii_bus);
+> +       return err;
+> +}
+> +
+> +static void ftgmac100_destroy_mdio(struct net_device *netdev)
+> +{
+> +       struct ftgmac100 *priv = netdev_priv(netdev);
+> +
+> +       if (!netdev->phydev)
+> +               return;
+> +
+> +       phy_disconnect(netdev->phydev);
+> +       mdiobus_unregister(priv->mii_bus);
+> +       mdiobus_free(priv->mii_bus);
+> +}
+> +
+>  /******************************************************************************
+>   * struct platform_driver functions
+>   *****************************************************************************/
+> @@ -1211,31 +1263,9 @@ static int ftgmac100_probe(struct platform_device *pdev)
+>
+>         priv->irq = irq;
+>
+> -       /* initialize mdio bus */
+> -       priv->mii_bus = mdiobus_alloc();
+> -       if (!priv->mii_bus) {
+> -               err = -EIO;
+> -               goto err_alloc_mdiobus;
+> -       }
+> -
+> -       priv->mii_bus->name = "ftgmac100_mdio";
+> -       snprintf(priv->mii_bus->id, MII_BUS_ID_SIZE, "ftgmac100_mii");
+> -
+> -       priv->mii_bus->priv = netdev;
+> -       priv->mii_bus->read = ftgmac100_mdiobus_read;
+> -       priv->mii_bus->write = ftgmac100_mdiobus_write;
+> -
+> -       err = mdiobus_register(priv->mii_bus);
+> -       if (err) {
+> -               dev_err(&pdev->dev, "Cannot register MDIO bus!\n");
+> -               goto err_register_mdiobus;
+> -       }
+> -
+> -       err = ftgmac100_mii_probe(priv);
+> -       if (err) {
+> -               dev_err(&pdev->dev, "MII Probe failed!\n");
+> -               goto err_mii_probe;
+> -       }
+> +       err = ftgmac100_setup_mdio(netdev);
+> +       if (err)
+> +               goto err_setup_mdio;
+>
+>         /* register network device */
+>         err = register_netdev(netdev);
+> @@ -1255,12 +1285,8 @@ static int ftgmac100_probe(struct platform_device *pdev)
+>         return 0;
+>
+>  err_register_netdev:
+> -       phy_disconnect(netdev->phydev);
+> -err_mii_probe:
+> -       mdiobus_unregister(priv->mii_bus);
+> -err_register_mdiobus:
+> -       mdiobus_free(priv->mii_bus);
+> -err_alloc_mdiobus:
+> +       ftgmac100_destroy_mdio(netdev);
+> +err_setup_mdio:
+>         iounmap(priv->base);
+>  err_ioremap:
+>         release_resource(priv->res);
+> @@ -1280,10 +1306,7 @@ static int __exit ftgmac100_remove(struct platform_device *pdev)
+>         priv = netdev_priv(netdev);
+>
+>         unregister_netdev(netdev);
+> -
+> -       phy_disconnect(netdev->phydev);
+> -       mdiobus_unregister(priv->mii_bus);
+> -       mdiobus_free(priv->mii_bus);
+> +       ftgmac100_destroy_mdio(netdev);
+>
+>         iounmap(priv->base);
+>         release_resource(priv->res);
+> --
+> 2.1.0
+>
