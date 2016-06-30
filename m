@@ -3,25 +3,24 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rgXS03RkMzDqmT
- for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2016 07:17:18 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rgXgR4V22zDqmL
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2016 07:27:15 +1000 (AEST)
 Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
- with SMTPS id 1467321432492985.682765731907;
- Thu, 30 Jun 2016 14:17:12 -0700 (PDT)
-Date: Thu, 30 Jun 2016 16:17:10 -0500
+ with SMTPS id 146732203092787.0406418566049;
+ Thu, 30 Jun 2016 14:27:10 -0700 (PDT)
+Date: Thu, 30 Jun 2016 16:27:09 -0500
 From: Patrick Williams <patrick@stwcx.xyz>
 To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-Cc: openbmc@lists.ozlabs.org, Andrew Geissler <andrewg@us.ibm.com>
-Subject: Re: [PATCH skeleton v3 2/2] Disable watchdog timer if debug_mode is
- set
-Message-ID: <20160630211710.GU20922@asimov.austin.ibm.com>
-References: <20160630175112.5387-1-openbmc-patches@stwcx.xyz>
- <20160630175112.5387-3-openbmc-patches@stwcx.xyz>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: [PATCH openbmc 3/3] meta-openpower: Update pflash version
+Message-ID: <20160630212709.GV20922@asimov.austin.ibm.com>
+References: <20160630162033.2330-1-openbmc-patches@stwcx.xyz>
+ <20160630162033.2330-4-openbmc-patches@stwcx.xyz>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="TegBI+r9roYdcP94"
+ protocol="application/pgp-signature"; boundary="/CHBEyLWSSL2QXIQ"
 Content-Disposition: inline
-In-Reply-To: <20160630175112.5387-3-openbmc-patches@stwcx.xyz>
+In-Reply-To: <20160630162033.2330-4-openbmc-patches@stwcx.xyz>
 User-Agent: Mutt/1.5.24 (2015-08-30)
 X-Zoho-Virus-Status: 1
 X-ZohoMail: Z_61896388 SPT_1 Z_56716064 SPT_1 SLF_D
@@ -36,45 +35,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Jun 2016 21:17:21 -0000
+X-List-Received-Date: Thu, 30 Jun 2016 21:27:16 -0000
 
 
---TegBI+r9roYdcP94
+--/CHBEyLWSSL2QXIQ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jun 30, 2016 at 12:51:12PM -0500, OpenBMC Patches wrote:
-> From: Andrew Geissler <andrewg@us.ibm.com>
+On Thu, Jun 30, 2016 at 11:20:33AM -0500, OpenBMC Patches wrote:
+> From: Joel Stanley <joel@jms.id.au>
 >=20
-> https://github.com/openbmc/openbmc/issues/246
+> Move to HEAD so we can drop the patches we carry.
+>=20
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
 
-Should be something like 'Resolves openbmc/openbmc#246'.
-See https://help.github.com/articles/closing-issues-via-commit-messages/
+Stewart released 5.2.3 with these fixes.  Can you put us onto that
+instead?  Prefer to stay on a released version rather than a commit.
 
---=20
+> ----
 Patrick Williams
 
---TegBI+r9roYdcP94
+--/CHBEyLWSSL2QXIQ
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJXdYxWAAoJEKsDR8wtAMEZUToP/RZnYNrJ0diLWg2W96zT2Jad
-hAvYuPjGqVWI/3TaWAW+3BcnRui/vkIBGu6sc9ZEne/TETX6LOQSEgIKZmUEiNuQ
-g7ex6rpRD48RL4tv08RbYxX8YEgguC5TMT0mCX7jJSAoTRT+c1MiCOkmF7IQ/NUk
-efU/2jH1LKXnUuZ1UPde+Ie0hK1lKA0n8/6iQQa93Oo+O+l6pdCM6V+X0F+5LaiG
-lIqd7rvmPbMY0f1ZdSo2uc5HHxdwfhOsT4Xnk3JAHady/A1KUFoPfhOqb2Ac3+5p
-kAdb3602Tv4xybqhruH+KNKjHnFpctGebrmAHoLmKB+0/oMmKHvA63J53eiXiL8K
-DLMxEvyu3ZU7A3mdVLQQAdN8cU3dZ+gJQBcn/rIny8D+t5mPJVWK0jK5Q2XWOUlO
-YQuH/1EyQ9zGLZrbxOH54zhz7gtH38tN4VZP2cwXVl8B7S9bvapZkMvJg8zyzsnb
-vcjqybM7MHYy32DK1l8699d3Z5u3Sqhdgst/6NUy47pPall+wMb0Ibvz2qoPYpuP
-vZ/Eb7G4jEwxdtoVhhkpujuMdRtJ3zgUfRg/7TCUbF2O1VyeaIEC55RC53MqM3T7
-IJO6vDRavdHBHM6UCQYXMqUh7OeK2phlnK7c7GCE3VJKz2Q5O1CGA7FCj0U6uQrw
-NgjBimQnbZSPyEPq69OR
-=KZwR
+iQIcBAEBCAAGBQJXdY6sAAoJEKsDR8wtAMEZ6CgP/joifKBpM9AQs0ullOzn+bUs
+ovr/hK/MKHsKUVeazAbKLEwrWn9Zjxp8pJKQTkfDSy4rv3cTWOZb+naryn27ZwEQ
+n8sGEDGe2dwVWAG85zNSARgh2AI6glAEveGJGziT7OhAtT+UBXs0sKncW/0tV5n2
+iz6Ol1PAr6avNPyenC4OERhOVwYClSCf13d0xFgOKdoxsnX1kMNfIGSi1zwMfJex
++03vDy4jCnN3iFcGd/1LR8RPk12i/uGKn8QdyzRj+orOEsjX3MfRDo7dwRPl+hKx
+58NilBVrpczlWSWpB9jT+kIp7KBfv8uu/VWAn1oRFYDmGqvyJCpRV0IKZUJneP/U
+IM4H6VVEe44rqK0gL44pLEkATuvGnU7fcEPsJVS/8r1WA+tIu6h+9C9nbfoOIMqR
+eImUi9023gCzjaKkUGHEHRHNjq7SQkXGa2pFtNfaZSvrV5owuNoHiWqgjPE6XNhO
+8WqwZ+EbCMly+FQdvCCajPe42LEtutY6vJbV1wVIwJ1JQ9tjnVZLNled6l+vqSm4
+rQh+Grcf1Gzg1qBdA+rpr+U++DVODbMGLwfJRav46CSNbcPXPrZnIPS0wZOpj8do
+OKHZ6tisltaJ79Sr2+CZaFASLRYemewe7e1YEBkNof6fleIeoyjdS48FR97lFZMI
+IwOIh1pmKU0Pkk0S8zzm
+=bFh3
 -----END PGP SIGNATURE-----
 
---TegBI+r9roYdcP94--
+--/CHBEyLWSSL2QXIQ--
