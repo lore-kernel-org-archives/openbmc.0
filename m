@@ -1,64 +1,64 @@
 Return-Path: <gwshan@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rgG2v10m5zDq5d
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 20:28:05 +1000 (AEST)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
- u5UANbxl014691
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 06:28:03 -0400
-Received: from e23smtp02.au.ibm.com (e23smtp02.au.ibm.com [202.81.31.144])
- by mx0a-001b2d01.pphosted.com with ESMTP id 23v6yectv5-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rgG304SzrzDqmL
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 20:28:12 +1000 (AEST)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
+ u5UANbA6055393
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 06:28:09 -0400
+Received: from e23smtp01.au.ibm.com (e23smtp01.au.ibm.com [202.81.31.143])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 23uvafgu50-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 06:28:03 -0400
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 06:28:08 -0400
 Received: from localhost
- by e23smtp02.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e23smtp01.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <gwshan@linux.vnet.ibm.com>;
- Thu, 30 Jun 2016 20:28:00 +1000
+ Thu, 30 Jun 2016 20:28:05 +1000
 Received: from d23dlp01.au.ibm.com (202.81.31.203)
- by e23smtp02.au.ibm.com (202.81.31.208) with IBM ESMTP SMTP Gateway:
+ by e23smtp01.au.ibm.com (202.81.31.207) with IBM ESMTP SMTP Gateway:
  Authorized Use Only! Violators will be prosecuted; 
- Thu, 30 Jun 2016 20:27:57 +1000
+ Thu, 30 Jun 2016 20:28:03 +1000
 X-IBM-Helo: d23dlp01.au.ibm.com
 X-IBM-MailFrom: gwshan@linux.vnet.ibm.com
 X-IBM-RcptTo: openbmc@lists.ozlabs.org
 Received: from d23relay06.au.ibm.com (d23relay06.au.ibm.com [9.185.63.219])
- by d23dlp01.au.ibm.com (Postfix) with ESMTP id 3A55E2CE8057
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 20:27:57 +1000 (EST)
-Received: from d23av04.au.ibm.com (d23av04.au.ibm.com [9.190.235.139])
+ by d23dlp01.au.ibm.com (Postfix) with ESMTP id 4D1182CE8054
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 20:28:03 +1000 (EST)
+Received: from d23av03.au.ibm.com (d23av03.au.ibm.com [9.190.234.97])
  by d23relay06.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u5UARvdH10420660
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 20:27:57 +1000
-Received: from d23av04.au.ibm.com (localhost [127.0.0.1])
- by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u5UARub2013064
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 20:27:57 +1000
+ u5UAS3LV8061392
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 20:28:03 +1000
+Received: from d23av03.au.ibm.com (localhost [127.0.0.1])
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u5UAS2Yv010003
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 20:28:03 +1000
 Received: from gwshan ([9.192.205.20])
- by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with SMTP id
- u5UARuqA013056; Thu, 30 Jun 2016 20:27:56 +1000
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with SMTP id
+ u5UARxKV009913; Thu, 30 Jun 2016 20:28:00 +1000
 Received: by gwshan (Postfix, from userid 1000)
- id 87CD5943482; Thu, 30 Jun 2016 20:27:55 +1000 (AEST)
+ id 519D0943482; Thu, 30 Jun 2016 20:27:57 +1000 (AEST)
 From: Gavin Shan <gwshan@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: benh@kernel.crashing.org, joel@jms.id.au, gwshan@linux.vnet.ibm.com
-Subject: [PATCH 01/10] net/ncsi: Resource management
-Date: Thu, 30 Jun 2016 20:27:42 +1000
+Subject: [PATCH 03/10] net/ncsi: NCSI response packet handler
+Date: Thu, 30 Jun 2016 20:27:44 +1000
 X-Mailer: git-send-email 2.1.0
 In-Reply-To: <1467282471-16560-1-git-send-email-gwshan@linux.vnet.ibm.com>
 References: <1467282471-16560-1-git-send-email-gwshan@linux.vnet.ibm.com>
 X-TM-AS-MML: disable
 X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16063010-0004-0000-0000-00000174F5B6
+x-cbid: 16063010-1617-0000-0000-00000134452B
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 16063010-0005-0000-0000-0000082E5242
-Message-Id: <1467282471-16560-2-git-send-email-gwshan@linux.vnet.ibm.com>
+x-cbparentid: 16063010-1618-0000-0000-0000462EC19A
+Message-Id: <1467282471-16560-4-git-send-email-gwshan@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2016-06-30_04:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=3
+ spamscore=0 suspectscore=4
  malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
  adjust=0 reason=mlx scancount=1 engine=8.0.1-1604210000
  definitions=main-1606300099
@@ -73,357 +73,276 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Jun 2016 10:28:07 -0000
+X-List-Received-Date: Thu, 30 Jun 2016 10:28:13 -0000
+X-List-Received-Date: Thu, 30 Jun 2016 10:28:13 -0000
 
-NCSI spec (DSP0222) defines several objects: package, channel, mode,
-filter, version and statistics etc. This introduces the data structs
-to represent those objects and implement functions to manage them.
+The NCSI response packets are sent to MC (Management Controller)
+from the remote end. They are responses of NCSI command packets
+for multiple purposes: completion status of NCSI command packets,
+return NCSI channel's capability or configuration etc.
 
-   * The user (e.g. netdev driver) dereference NCSI device by
-     "struct ncsi_dev", which is embedded to "struct ncsi_dev_priv".
-     The later one is used by NCSI stack internally.
-   * Every NCSI device can have multiple packages simultaneously, up
-     to 8 packages. It's represented by "struct ncsi_package" and
-     identified by 3-bits ID.
-   * Every NCSI package can have multiple channels, up to 32. It's
-     represented by "struct ncsi_channel" and identified by 5-bits ID.
-   * Every NCSI channel has version, statistics, various modes and
-     filters. They are represented by "struct ncsi_channel_version",
-     "struct ncsi_channel_stats", "struct ncsi_channel_mode" and
-     "struct ncsi_channel_filter" separately.
-   * Apart from AEN (Asynchronous Event Notification), the NCSI stack
-     works in terms of command and response. This introduces struct
-     ncsi_req" to represent a complete NCSI transaction made of NCSI
-     request and response.
-
-This also introduces CONFIG_NET_NCSI to enable NCSI stack.
+This defines struct to represent NCSI response packets and introduces
+function ncsi_rcv_rsp() which will be used to receive NCSI response
+packets and parse them.
 
 Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
 ---
- net/Kconfig            |   1 +
- net/Makefile           |   1 +
- net/ncsi/Kconfig       |  10 ++
- net/ncsi/Makefile      |   4 +
- net/ncsi/internal.h    | 253 ++++++++++++++++++++++++++++
- net/ncsi/ncsi-manage.c | 435 +++++++++++++++++++++++++++++++++++++++++++++++++
- 6 files changed, 704 insertions(+)
- create mode 100644 net/ncsi/Kconfig
- create mode 100644 net/ncsi/Makefile
- create mode 100644 net/ncsi/internal.h
- create mode 100644 net/ncsi/ncsi-manage.c
+ net/ncsi/Makefile   |    2 +-
+ net/ncsi/internal.h |    2 +
+ net/ncsi/ncsi-pkt.h |  191 +++++++++
+ net/ncsi/ncsi-rsp.c | 1159 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 1353 insertions(+), 1 deletion(-)
+ create mode 100644 net/ncsi/ncsi-rsp.c
 
-diff --git a/net/Kconfig b/net/Kconfig
-index ff40562..c2cdbce 100644
---- a/net/Kconfig
-+++ b/net/Kconfig
-@@ -237,6 +237,7 @@ source "net/hsr/Kconfig"
- source "net/switchdev/Kconfig"
- source "net/l3mdev/Kconfig"
- source "net/qrtr/Kconfig"
-+source "net/ncsi/Kconfig"
- 
- config RPS
- 	bool
-diff --git a/net/Makefile b/net/Makefile
-index bdd1455..9bd20bb 100644
---- a/net/Makefile
-+++ b/net/Makefile
-@@ -79,3 +79,4 @@ ifneq ($(CONFIG_NET_L3_MASTER_DEV),)
- obj-y				+= l3mdev/
- endif
- obj-$(CONFIG_QRTR)		+= qrtr/
-+obj-$(CONFIG_NET_NCSI)		+= ncsi/
-diff --git a/net/ncsi/Kconfig b/net/ncsi/Kconfig
-new file mode 100644
-index 0000000..723f0eb
---- /dev/null
-+++ b/net/ncsi/Kconfig
-@@ -0,0 +1,10 @@
-+#
-+# Configuration for NCSI support
-+#
-+
-+config NET_NCSI
-+	bool "NCSI interface support (EXPERIMENTAL)"
-+	depends on INET
-+	---help---
-+	  This module provides NCSI (Network Controller Sideband Interface)
-+	  support.
 diff --git a/net/ncsi/Makefile b/net/ncsi/Makefile
-new file mode 100644
-index 0000000..07b5625
---- /dev/null
+index abc4046..4751819 100644
+--- a/net/ncsi/Makefile
 +++ b/net/ncsi/Makefile
-@@ -0,0 +1,4 @@
-+#
-+# Makefile for NCSI API
-+#
-+obj-$(CONFIG_NET_NCSI) += ncsi-manage.o
+@@ -1,4 +1,4 @@
+ #
+ # Makefile for NCSI API
+ #
+-obj-$(CONFIG_NET_NCSI) += ncsi-cmd.o ncsi-manage.o
++obj-$(CONFIG_NET_NCSI) += ncsi-cmd.o ncsi-rsp.o ncsi-manage.o
 diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-new file mode 100644
-index 0000000..4a8bd76
---- /dev/null
+index 0c51c89..d435f91 100644
+--- a/net/ncsi/internal.h
 +++ b/net/ncsi/internal.h
-@@ -0,0 +1,253 @@
-+/*
-+ * Copyright Gavin Shan, IBM Corporation 2016.
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation; either version 2 of the License, or
-+ * (at your option) any later version.
-+ */
-+
-+#ifndef __NCSI_INTERNAL_H__
-+#define __NCSI_INTERNAL_H__
-+
-+enum {
-+	NCSI_CAP_BASE		= 0,
-+	NCSI_CAP_GENERIC	= 0,
-+	NCSI_CAP_BC,
-+	NCSI_CAP_MC,
-+	NCSI_CAP_BUFFER,
-+	NCSI_CAP_AEN,
-+	NCSI_CAP_VLAN,
-+	NCSI_CAP_MAX
+@@ -267,5 +267,7 @@ struct ncsi_dev *ncsi_find_dev(struct net_device *dev);
+ 
+ /* Packet handlers */
+ int ncsi_xmit_cmd(struct ncsi_cmd_arg *nca);
++int ncsi_rcv_rsp(struct sk_buff *skb, struct net_device *dev,
++		 struct packet_type *pt, struct net_device *orig_dev);
+ 
+ #endif /* __NCSI_INTERNAL_H__ */
+diff --git a/net/ncsi/ncsi-pkt.h b/net/ncsi/ncsi-pkt.h
+index 7f030b5..95882f3 100644
+--- a/net/ncsi/ncsi-pkt.h
++++ b/net/ncsi/ncsi-pkt.h
+@@ -25,6 +25,12 @@ struct ncsi_cmd_pkt_hdr {
+ 	struct ncsi_pkt_hdr common; /* Common NCSI packet header */
+ };
+ 
++struct ncsi_rsp_pkt_hdr {
++	struct ncsi_pkt_hdr common; /* Common NCSI packet header */
++	__be16              code;   /* Response code             */
++	__be16              reason; /* Response reason           */
 +};
 +
-+enum {
-+	NCSI_CAP_GENERIC_HWA	= 0x01,	/* HW arbitration             */
-+	NCSI_CAP_GENERIC_HDS	= 0x02,	/* HNC driver status change   */
-+	NCSI_CAP_GENERIC_FC	= 0x04,	/* HNC to MC flow control     */
-+	NCSI_CAP_GENERIC_FC1	= 0x08,	/* MC to HNC flow control     */
-+	NCSI_CAP_GENERIC_MC	= 0x10,	/* Global multicast filtering */
-+	NCSI_CAP_GENERIC_MASK	= 0x1f,
-+	NCSI_CAP_BC_ARP		= 0x01,	/* ARP packet filtering       */
-+	NCSI_CAP_BC_DHCPC	= 0x02,	/* DHCP client filtering      */
-+	NCSI_CAP_BC_DHCPS	= 0x04,	/* DHCP server filtering      */
-+	NCSI_CAP_BC_NETBIOS	= 0x08,	/* NetBIOS packet filtering   */
-+	NCSI_CAP_BC_MASK	= 0x0f,
-+	NCSI_CAP_MC_NEIGHBOR	= 0x01,	/* IPv6 neighbor filtering    */
-+	NCSI_CAP_MC_ROUTER	= 0x02,	/* IPv6 router filering       */
-+	NCSI_CAP_MC_DHCPV6	= 0x04,	/* DHCPv6 filtering           */
-+	NCSI_CAP_MC_MASK	= 0x07,
-+	NCSI_CAP_AEN_LSC	= 0x01,	/* Link status change AEN     */
-+	NCSI_CAP_AEN_CR		= 0x02,	/* Configuration required AEN */
-+	NCSI_CAP_AEN_HDS	= 0x04,	/* HNC driver status AEN      */
-+	NCSI_CAP_AEN_MASK	= 0x07,
-+	NCSI_CAP_VLAN_ONLY	= 0x01,	/* VLAN is supported          */
-+	NCSI_CAP_VLAN_NO	= 0x02,	/* Filter VLAN and non-VLAN   */
-+	NCSI_CAP_VLAN_ANY	= 0x04,	/* Filter Any-and-non-VLAN    */
-+	NCSI_CAP_VLAN_MASK	= 0x07
+ /* NCSI common command packet */
+ struct ncsi_cmd_pkt {
+ 	struct ncsi_cmd_pkt_hdr cmd;      /* Command header */
+@@ -32,6 +38,12 @@ struct ncsi_cmd_pkt {
+ 	unsigned char           pad[26];
+ };
+ 
++struct ncsi_rsp_pkt {
++	struct ncsi_rsp_pkt_hdr rsp;      /* Response header */
++	__be32                  checksum; /* Checksum        */
++	unsigned char           pad[22];
 +};
 +
-+enum {
-+	NCSI_MODE_BASE		= 0,
-+	NCSI_MODE_ENABLE	= 0,
-+	NCSI_MODE_TX_ENABLE,
-+	NCSI_MODE_LINK,
-+	NCSI_MODE_VLAN,
-+	NCSI_MODE_BC,
-+	NCSI_MODE_MC,
-+	NCSI_MODE_AEN,
-+	NCSI_MODE_FC,
-+	NCSI_MODE_MAX
+ /* Select Package */
+ struct ncsi_cmd_sp_pkt {
+ 	struct ncsi_cmd_pkt_hdr cmd;            /* Command header */
+@@ -133,6 +145,143 @@ struct ncsi_cmd_snfc_pkt {
+ 	unsigned char           pad[22];
+ };
+ 
++/* Get Link Status */
++struct ncsi_rsp_gls_pkt {
++	struct ncsi_rsp_pkt_hdr rsp;        /* Response header   */
++	__be32                  status;     /* Link status       */
++	__be32                  other;      /* Other indications */
++	__be32                  oem_status; /* OEM link status   */
++	__be32                  checksum;
++	unsigned char           pad[10];
 +};
 +
-+enum {
-+	NCSI_FILTER_BASE	= 0,
-+	NCSI_FILTER_VLAN	= 0,
-+	NCSI_FILTER_UC,
-+	NCSI_FILTER_MC,
-+	NCSI_FILTER_MIXED,
-+	NCSI_FILTER_MAX
++/* Get Version ID */
++struct ncsi_rsp_gvi_pkt {
++	struct ncsi_rsp_pkt_hdr rsp;          /* Response header */
++	__be32                  ncsi_version; /* NCSI version    */
++	unsigned char           reserved[3];  /* Reserved        */
++	unsigned char           alpha2;       /* NCSI version    */
++	unsigned char           fw_name[12];  /* f/w name string */
++	__be32                  fw_version;   /* f/w version     */
++	__be16                  pci_ids[4];   /* PCI IDs         */
++	__be32                  mf_id;        /* Manufacture ID  */
++	__be32                  checksum;
 +};
 +
-+struct ncsi_channel_version {
-+	unsigned int   ncv_version;     /* Supported BCD encoded NCSI version */
-+	unsigned int   ncv_alpha2;      /* Supported BCD encoded NCSI version */
-+	unsigned char  ncv_fw_name[12];	/* Firware name string                */
-+	unsigned int   ncv_fw_version;  /* Firmware version                   */
-+	unsigned short ncv_pci_ids[4];  /* PCI identification                 */
-+	unsigned int   ncv_mf_id;       /* Manufacture ID                     */
++/* Get Capabilities */
++struct ncsi_rsp_gc_pkt {
++	struct ncsi_rsp_pkt_hdr rsp;         /* Response header   */
++	__be32                  cap;         /* Capabilities      */
++	__be32                  bc_cap;      /* Broadcast cap     */
++	__be32                  mc_cap;      /* Multicast cap     */
++	__be32                  buf_cap;     /* Buffering cap     */
++	__be32                  aen_cap;     /* AEN cap           */
++	unsigned char           vlan_cnt;    /* VLAN filter count */
++	unsigned char           mixed_cnt;   /* Mix filter count  */
++	unsigned char           mc_cnt;      /* MC filter count   */
++	unsigned char           uc_cnt;      /* UC filter count   */
++	unsigned char           reserved[2]; /* Reserved          */
++	unsigned char           vlan_mode;   /* VLAN mode         */
++	unsigned char           channel_cnt; /* Channel count     */
++	__be32                  checksum;    /* Checksum          */
 +};
 +
-+struct ncsi_channel_cap {
-+	unsigned int ncc_index;	/* Index of channel capabilities */
-+	unsigned int ncc_cap;	/* NCSI channel capability       */
++/* Get Parameters */
++struct ncsi_rsp_gp_pkt {
++	struct ncsi_rsp_pkt_hdr rsp;          /* Response header       */
++	unsigned char           mac_cnt;      /* Number of MAC addr    */
++	unsigned char           reserved[2];  /* Reserved              */
++	unsigned char           mac_enable;   /* MAC addr enable flags */
++	unsigned char           vlan_cnt;     /* VLAN tag count        */
++	unsigned char           reserved1;    /* Reserved              */
++	__be16                  vlan_enable;  /* VLAN tag enable flags */
++	__be32                  link_mode;    /* Link setting          */
++	__be32                  bc_mode;      /* BC filter mode        */
++	__be32                  valid_modes;  /* Valid mode parameters */
++	unsigned char           vlan_mode;    /* VLAN mode             */
++	unsigned char           fc_mode;      /* Flow control mode     */
++	unsigned char           reserved2[2]; /* Reserved              */
++	__be32                  aen_mode;     /* AEN mode              */
++	unsigned char           mac[6];       /* Supported MAC addr    */
++	__be16                  vlan;         /* Supported VLAN tags   */
++	__be32                  checksum;     /* Checksum              */
 +};
 +
-+struct ncsi_channel_mode {
-+	unsigned int ncm_index;   /* Index of channel modes      */
-+	unsigned int ncm_enable;  /* Enabled or disabled         */
-+	unsigned int ncm_size;    /* Valid entries in ncm_data[] */
-+	unsigned int ncm_data[8]; /* Data entries                */
++/* Get Controller Packet Statistics */
++struct ncsi_rsp_gcps_pkt {
++	struct ncsi_rsp_pkt_hdr rsp;            /* Response header            */
++	__be32                  cnt_hi;         /* Counter cleared            */
++	__be32                  cnt_lo;         /* Counter cleared            */
++	__be32                  rx_bytes;       /* Rx bytes                   */
++	__be32                  tx_bytes;       /* Tx bytes                   */
++	__be32                  rx_uc_pkts;     /* Rx UC packets              */
++	__be32                  rx_mc_pkts;     /* Rx MC packets              */
++	__be32                  rx_bc_pkts;     /* Rx BC packets              */
++	__be32                  tx_uc_pkts;     /* Tx UC packets              */
++	__be32                  tx_mc_pkts;     /* Tx MC packets              */
++	__be32                  tx_bc_pkts;     /* Tx BC packets              */
++	__be32                  fcs_err;        /* FCS errors                 */
++	__be32                  align_err;      /* Alignment errors           */
++	__be32                  false_carrier;  /* False carrier detection    */
++	__be32                  runt_pkts;      /* Rx runt packets            */
++	__be32                  jabber_pkts;    /* Rx jabber packets          */
++	__be32                  rx_pause_xon;   /* Rx pause XON frames        */
++	__be32                  rx_pause_xoff;  /* Rx XOFF frames             */
++	__be32                  tx_pause_xon;   /* Tx XON frames              */
++	__be32                  tx_pause_xoff;  /* Tx XOFF frames             */
++	__be32                  tx_s_collision; /* Single collision frames    */
++	__be32                  tx_m_collision; /* Multiple collision frames  */
++	__be32                  l_collision;    /* Late collision frames      */
++	__be32                  e_collision;    /* Excessive collision frames */
++	__be32                  rx_ctl_frames;  /* Rx control frames          */
++	__be32                  rx_64_frames;   /* Rx 64-bytes frames         */
++	__be32                  rx_127_frames;  /* Rx 65-127 bytes frames     */
++	__be32                  rx_255_frames;  /* Rx 128-255 bytes frames    */
++	__be32                  rx_511_frames;  /* Rx 256-511 bytes frames    */
++	__be32                  rx_1023_frames; /* Rx 512-1023 bytes frames   */
++	__be32                  rx_1522_frames; /* Rx 1024-1522 bytes frames  */
++	__be32                  rx_9022_frames; /* Rx 1523-9022 bytes frames  */
++	__be32                  tx_64_frames;   /* Tx 64-bytes frames         */
++	__be32                  tx_127_frames;  /* Tx 65-127 bytes frames     */
++	__be32                  tx_255_frames;  /* Tx 128-255 bytes frames    */
++	__be32                  tx_511_frames;  /* Tx 256-511 bytes frames    */
++	__be32                  tx_1023_frames; /* Tx 512-1023 bytes frames   */
++	__be32                  tx_1522_frames; /* Tx 1024-1522 bytes frames  */
++	__be32                  tx_9022_frames; /* Tx 1523-9022 bytes frames  */
++	__be32                  rx_valid_bytes; /* Rx valid bytes             */
++	__be32                  rx_runt_pkts;   /* Rx error runt packets      */
++	__be32                  rx_jabber_pkts; /* Rx error jabber packets    */
++	__be32                  checksum;       /* Checksum                   */
 +};
 +
-+struct ncsi_channel_filter {
-+	unsigned int  ncf_index;  /* Index of channel filters          */
-+	unsigned int  ncf_total;  /* Total entries in the filter table */
-+	unsigned long ncf_bitmap; /* Bitmap of valid entries           */
-+	unsigned char ncf_data[]; /* Data for the valid entries        */
++/* Get NCSI Statistics */
++struct ncsi_rsp_gns_pkt {
++	struct ncsi_rsp_pkt_hdr rsp;           /* Response header         */
++	__be32                  rx_cmds;       /* Rx NCSI commands        */
++	__be32                  dropped_cmds;  /* Dropped commands        */
++	__be32                  cmd_type_errs; /* Command type errors     */
++	__be32                  cmd_csum_errs; /* Command checksum errors */
++	__be32                  rx_pkts;       /* Rx NCSI packets         */
++	__be32                  tx_pkts;       /* Tx NCSI packets         */
++	__be32                  tx_aen_pkts;   /* Tx AEN packets          */
++	__be32                  checksum;      /* Checksum                */
 +};
 +
-+struct ncsi_channel_stats {
-+	unsigned int ncs_hnc_cnt_hi;         /* Counter cleared            */
-+	unsigned int ncs_hnc_cnt_lo;         /* Counter cleared            */
-+	unsigned int ncs_hnc_rx_bytes;       /* Rx bytes                   */
-+	unsigned int ncs_hnc_tx_bytes;       /* Tx bytes                   */
-+	unsigned int ncs_hnc_rx_uc_pkts;     /* Rx UC packets              */
-+	unsigned int ncs_hnc_rx_mc_pkts;     /* Rx MC packets              */
-+	unsigned int ncs_hnc_rx_bc_pkts;     /* Rx BC packets              */
-+	unsigned int ncs_hnc_tx_uc_pkts;     /* Tx UC packets              */
-+	unsigned int ncs_hnc_tx_mc_pkts;     /* Tx MC packets              */
-+	unsigned int ncs_hnc_tx_bc_pkts;     /* Tx BC packets              */
-+	unsigned int ncs_hnc_fcs_err;        /* FCS errors                 */
-+	unsigned int ncs_hnc_align_err;      /* Alignment errors           */
-+	unsigned int ncs_hnc_false_carrier;  /* False carrier detection    */
-+	unsigned int ncs_hnc_runt_pkts;      /* Rx runt packets            */
-+	unsigned int ncs_hnc_jabber_pkts;    /* Rx jabber packets          */
-+	unsigned int ncs_hnc_rx_pause_xon;   /* Rx pause XON frames        */
-+	unsigned int ncs_hnc_rx_pause_xoff;  /* Rx XOFF frames             */
-+	unsigned int ncs_hnc_tx_pause_xon;   /* Tx XON frames              */
-+	unsigned int ncs_hnc_tx_pause_xoff;  /* Tx XOFF frames             */
-+	unsigned int ncs_hnc_tx_s_collision; /* Single collision frames    */
-+	unsigned int ncs_hnc_tx_m_collision; /* Multiple collision frames  */
-+	unsigned int ncs_hnc_l_collision;    /* Late collision frames      */
-+	unsigned int ncs_hnc_e_collision;    /* Excessive collision frames */
-+	unsigned int ncs_hnc_rx_ctl_frames;  /* Rx control frames          */
-+	unsigned int ncs_hnc_rx_64_frames;   /* Rx 64-bytes frames         */
-+	unsigned int ncs_hnc_rx_127_frames;  /* Rx 65-127 bytes frames     */
-+	unsigned int ncs_hnc_rx_255_frames;  /* Rx 128-255 bytes frames    */
-+	unsigned int ncs_hnc_rx_511_frames;  /* Rx 256-511 bytes frames    */
-+	unsigned int ncs_hnc_rx_1023_frames; /* Rx 512-1023 bytes frames   */
-+	unsigned int ncs_hnc_rx_1522_frames; /* Rx 1024-1522 bytes frames  */
-+	unsigned int ncs_hnc_rx_9022_frames; /* Rx 1523-9022 bytes frames  */
-+	unsigned int ncs_hnc_tx_64_frames;   /* Tx 64-bytes frames         */
-+	unsigned int ncs_hnc_tx_127_frames;  /* Tx 65-127 bytes frames     */
-+	unsigned int ncs_hnc_tx_255_frames;  /* Tx 128-255 bytes frames    */
-+	unsigned int ncs_hnc_tx_511_frames;  /* Tx 256-511 bytes frames    */
-+	unsigned int ncs_hnc_tx_1023_frames; /* Tx 512-1023 bytes frames   */
-+	unsigned int ncs_hnc_tx_1522_frames; /* Tx 1024-1522 bytes frames  */
-+	unsigned int ncs_hnc_tx_9022_frames; /* Tx 1523-9022 bytes frames  */
-+	unsigned int ncs_hnc_rx_valid_bytes; /* Rx valid bytes             */
-+	unsigned int ncs_hnc_rx_runt_pkts;   /* Rx error runt packets      */
-+	unsigned int ncs_hnc_rx_jabber_pkts; /* Rx error jabber packets    */
-+	unsigned int ncs_ncsi_rx_cmds;       /* Rx NCSI commands           */
-+	unsigned int ncs_ncsi_dropped_cmds;  /* Dropped commands           */
-+	unsigned int ncs_ncsi_cmd_type_errs; /* Command type errors        */
-+	unsigned int ncs_ncsi_cmd_csum_errs; /* Command checksum errors    */
-+	unsigned int ncs_ncsi_rx_pkts;       /* Rx NCSI packets            */
-+	unsigned int ncs_ncsi_tx_pkts;       /* Tx NCSI packets            */
-+	unsigned int ncs_ncsi_tx_aen_pkts;   /* Tx AEN packets             */
-+	unsigned int ncs_pt_tx_pkts;         /* Tx packets                 */
-+	unsigned int ncs_pt_tx_dropped;      /* Tx dropped packets         */
-+	unsigned int ncs_pt_tx_channel_err;  /* Tx channel errors          */
-+	unsigned int ncs_pt_tx_us_err;       /* Tx undersize errors        */
-+	unsigned int ncs_pt_rx_pkts;         /* Rx packets                 */
-+	unsigned int ncs_pt_rx_dropped;      /* Rx dropped packets         */
-+	unsigned int ncs_pt_rx_channel_err;  /* Rx channel errors          */
-+	unsigned int ncs_pt_rx_us_err;       /* Rx undersize errors        */
-+	unsigned int ncs_pt_rx_os_err;       /* Rx oversize errors         */
++/* Get NCSI Pass-through Statistics */
++struct ncsi_rsp_gnpts_pkt {
++	struct ncsi_rsp_pkt_hdr rsp;            /* Response header     */
++	__be32                  tx_pkts;        /* Tx packets          */
++	__be32                  tx_dropped;     /* Tx dropped packets  */
++	__be32                  tx_channel_err; /* Tx channel errors   */
++	__be32                  tx_us_err;      /* Tx undersize errors */
++	__be32                  rx_pkts;        /* Rx packets          */
++	__be32                  rx_dropped;     /* Rx dropped packets  */
++	__be32                  rx_channel_err; /* Rx channel errors   */
++	__be32                  rx_us_err;      /* Rx undersize errors */
++	__be32                  rx_os_err;      /* Rx oversize errors  */
++	__be32                  checksum;       /* Checksum            */
 +};
 +
-+struct ncsi_dev_priv;
-+struct ncsi_package;
+ /* NCSI packet revision */
+ #define NCSI_PKT_REVISION	0x01
+ 
+@@ -165,4 +314,46 @@ struct ncsi_cmd_snfc_pkt {
+ #define NCSI_PKT_CMD_GNPTS	0x1a	/* Get NCSI Pass-throu Statistics   */
+ #define NCSI_PKT_CMD_OEM	0x50	/* OEM                              */
+ 
++/* NCSI packet responses */
++#define NCSI_PKT_RSP_CIS	(NCSI_PKT_CMD_CIS   + 0x80)
++#define NCSI_PKT_RSP_SP		(NCSI_PKT_CMD_SP    + 0x80)
++#define NCSI_PKT_RSP_DP		(NCSI_PKT_CMD_DP    + 0x80)
++#define NCSI_PKT_RSP_EC		(NCSI_PKT_CMD_EC    + 0x80)
++#define NCSI_PKT_RSP_DC		(NCSI_PKT_CMD_DC    + 0x80)
++#define NCSI_PKT_RSP_RC		(NCSI_PKT_CMD_RC    + 0x80)
++#define NCSI_PKT_RSP_ECNT	(NCSI_PKT_CMD_ECNT  + 0x80)
++#define NCSI_PKT_RSP_DCNT	(NCSI_PKT_CMD_DCNT  + 0x80)
++#define NCSI_PKT_RSP_AE		(NCSI_PKT_CMD_AE    + 0x80)
++#define NCSI_PKT_RSP_SL		(NCSI_PKT_CMD_SL    + 0x80)
++#define NCSI_PKT_RSP_GLS	(NCSI_PKT_CMD_GLS   + 0x80)
++#define NCSI_PKT_RSP_SVF	(NCSI_PKT_CMD_SVF   + 0x80)
++#define NCSI_PKT_RSP_EV		(NCSI_PKT_CMD_EV    + 0x80)
++#define NCSI_PKT_RSP_DV		(NCSI_PKT_CMD_DV    + 0x80)
++#define NCSI_PKT_RSP_SMA	(NCSI_PKT_CMD_SMA   + 0x80)
++#define NCSI_PKT_RSP_EBF	(NCSI_PKT_CMD_EBF   + 0x80)
++#define NCSI_PKT_RSP_DBF	(NCSI_PKT_CMD_DBF   + 0x80)
++#define NCSI_PKT_RSP_EGMF	(NCSI_PKT_CMD_EGMF  + 0x80)
++#define NCSI_PKT_RSP_DGMF	(NCSI_PKT_CMD_DGMF  + 0x80)
++#define NCSI_PKT_RSP_SNFC	(NCSI_PKT_CMD_SNFC  + 0x80)
++#define NCSI_PKT_RSP_GVI	(NCSI_PKT_CMD_GVI   + 0x80)
++#define NCSI_PKT_RSP_GC		(NCSI_PKT_CMD_GC    + 0x80)
++#define NCSI_PKT_RSP_GP		(NCSI_PKT_CMD_GP    + 0x80)
++#define NCSI_PKT_RSP_GCPS	(NCSI_PKT_CMD_GCPS  + 0x80)
++#define NCSI_PKT_RSP_GNS	(NCSI_PKT_CMD_GNS   + 0x80)
++#define NCSI_PKT_RSP_GNPTS	(NCSI_PKT_CMD_GNPTS + 0x80)
++#define NCSI_PKT_RSP_OEM	(NCSI_PKT_CMD_OEM   + 0x80)
 +
-+#define NCSI_PACKAGE_INDEX(c)	(((c) >> 5) & 0x7)
-+#define NCSI_CHANNEL_INDEX(c)	((c) & 0x1ffff)
-+#define NCSI_TO_CHANNEL(p, c)	((((p) & 0x7) << 5) | ((c) & 0x1ffff))
++/* NCSI response code/reason */
++#define NCSI_PKT_RSP_C_COMPLETED	0x0000  /* Command Completed        */
++#define NCSI_PKT_RSP_C_FAILED		0x0001  /* Command Failed           */
++#define NCSI_PKT_RSP_C_UNAVAILABLE	0x0002  /* Command Unavailable      */
++#define NCSI_PKT_RSP_C_UNSUPPORTED	0x0003  /* Command Unsupported      */
++#define NCSI_PKT_RSP_R_NO_ERROR		0x0000  /* No Error                 */
++#define NCSI_PKT_RSP_R_INTERFACE	0x0001  /* Interface not ready      */
++#define NCSI_PKT_RSP_R_PARAM		0x0002  /* Invalid Parameter        */
++#define NCSI_PKT_RSP_R_CHANNEL		0x0003  /* Channel not Ready        */
++#define NCSI_PKT_RSP_R_PACKAGE		0x0004  /* Package not Ready        */
++#define NCSI_PKT_RSP_R_LENGTH		0x0005  /* Invalid payload length   */
++#define NCSI_PKT_RSP_R_UNKNOWN		0x7fff  /* Command type unsupported */
 +
-+/* Channel state */
-+enum {
-+	ncsi_channel_state_deselected_initial,
-+	ncsi_channel_state_selected_initial,
-+	ncsi_channel_state_deselected_ready,
-+	ncsi_channel_state_selected_ready,
-+};
-+
-+struct ncsi_channel {
-+	unsigned char               nc_id;
-+	int                         nc_state;
-+	struct ncsi_package         *nc_package;
-+	struct ncsi_channel_version nc_version;
-+	struct ncsi_channel_cap	    nc_caps[NCSI_CAP_MAX];
-+	struct ncsi_channel_mode    nc_modes[NCSI_MODE_MAX];
-+	struct ncsi_channel_filter  *nc_filters[NCSI_FILTER_MAX];
-+	struct ncsi_channel_stats   nc_stats;
-+	struct list_head            nc_node;
-+};
-+
-+struct ncsi_package {
-+	unsigned char        np_id;           /* NCSI package ID          */
-+	struct ncsi_dev_priv *np_ndp;         /* NCSI device              */
-+	atomic_t             np_channel_num;  /* Number of channels       */
-+	spinlock_t           np_channel_lock; /* Protect list of channels */
-+	struct list_head     np_channels;     /* List of chanels          */
-+	struct list_head     np_node;
-+};
-+
-+struct ncsi_req {
-+	unsigned char        nr_id;            /* Request ID          */
-+	bool                 nr_used;          /* Request used or not */
-+	struct ncsi_dev_priv *nr_ndp;          /* NCSI device         */
-+	struct sk_buff       *nr_cmd;          /* Command packet      */
-+	struct sk_buff       *nr_rsp;          /* Response packet     */
-+	struct timer_list    nr_timer;         /* Associated timer    */
-+	bool                 nr_timer_enabled; /* Timer was started   */
-+};
-+
-+struct ncsi_dev_priv {
-+	struct ncsi_dev     ndp_ndev;            /* NCSI device              */
-+	int                 ndp_flags;           /* NCSI device flags        */
-+	struct ncsi_package *ndp_active_package; /* Active NCSI package      */
-+	struct ncsi_channel *ndp_active_channel; /* Active NCSI channel      */
-+	atomic_t            ndp_package_num;     /* Number of packages       */
-+	spinlock_t          ndp_package_lock;    /* Protect list of packages */
-+	struct list_head    ndp_packages;        /* List of packages         */
-+	atomic_t            ndp_last_req_idx;    /* Last used request ID     */
-+	spinlock_t          ndp_req_lock;        /* Protect request table    */
-+	struct ncsi_req     ndp_reqs[256];       /* Request table            */
-+	struct list_head    ndp_node;
-+};
-+
-+extern struct list_head ncsi_dev_list;
-+extern spinlock_t ncsi_dev_lock;
-+
-+#define TO_NCSI_DEV_PRIV(nd) \
-+	container_of(nd, struct ncsi_dev_priv, ndp_ndev)
-+#define NCSI_FOR_EACH_DEV(ndp) \
-+	list_for_each_entry_rcu(ndp, &ncsi_dev_list, ndp_node)
-+#define NCSI_FOR_EACH_PACKAGE(ndp, np) \
-+	list_for_each_entry_rcu(np, &ndp->ndp_packages, np_node)
-+#define NCSI_FOR_EACH_CHANNEL(np, nc) \
-+	list_for_each_entry_rcu(nc, &np->np_channels, nc_node)
-+
-+/* Resources */
-+int ncsi_find_channel_filter(struct ncsi_channel *nc, int table, void *data);
-+int ncsi_add_channel_filter(struct ncsi_channel *nc, int table, void *data);
-+int ncsi_del_channel_filter(struct ncsi_channel *nc, int table, int index);
-+struct ncsi_channel *ncsi_add_channel(struct ncsi_package *np,
-+				      unsigned char id);
-+struct ncsi_channel *ncsi_find_channel(struct ncsi_package *np,
-+				       unsigned char id);
-+struct ncsi_package *ncsi_add_package(struct ncsi_dev_priv *ndp,
-+				      unsigned char id);
-+struct ncsi_package *ncsi_find_package(struct ncsi_dev_priv *ndp,
-+				       unsigned char id);
-+void ncsi_release_package(struct ncsi_package *np);
-+void ncsi_find_package_and_channel(struct ncsi_dev_priv *ndp,
-+				   unsigned char id,
-+				   struct ncsi_package **np,
-+				   struct ncsi_channel **nc);
-+struct ncsi_req *ncsi_alloc_req(struct ncsi_dev_priv *ndp);
-+void ncsi_free_req(struct ncsi_req *nr, bool check, bool timeout);
-+struct ncsi_dev *ncsi_find_dev(struct net_device *dev);
-+
-+#endif /* __NCSI_INTERNAL_H__ */
-diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+ #endif /* __NCSI_PKT_H__ */
+diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
 new file mode 100644
-index 0000000..dab54bc
+index 0000000..257079fc
 --- /dev/null
-+++ b/net/ncsi/ncsi-manage.c
-@@ -0,0 +1,435 @@
++++ b/net/ncsi/ncsi-rsp.c
+@@ -0,0 +1,1159 @@
 +/*
 + * Copyright Gavin Shan, IBM Corporation 2016.
 + *
@@ -438,426 +357,1150 @@ index 0000000..dab54bc
 +#include <linux/init.h>
 +#include <linux/netdevice.h>
 +#include <linux/skbuff.h>
-+#include <linux/netlink.h>
 +
 +#include <net/ncsi.h>
 +#include <net/net_namespace.h>
 +#include <net/sock.h>
 +
 +#include "internal.h"
++#include "ncsi-pkt.h"
 +
-+LIST_HEAD(ncsi_dev_list);
-+DEFINE_SPINLOCK(ncsi_dev_lock);
-+
-+int ncsi_find_channel_filter(struct ncsi_channel *nc, int table, void *data)
++static int ncsi_validate_rsp_pkt(struct ncsi_req *nr,
++				 unsigned short payload)
 +{
-+	struct ncsi_channel_filter *ncf;
-+	int idx, entry_size;
-+	void *bitmap;
++	struct ncsi_rsp_pkt_hdr *h;
++	unsigned char *stream;
++	__be32 *checksum, csum;
++	__be32 high, low;
++	int i;
 +
-+	switch (table) {
-+	case NCSI_FILTER_VLAN:
-+		entry_size = 2;
-+		break;
-+	case NCSI_FILTER_UC:
-+	case NCSI_FILTER_MC:
-+	case NCSI_FILTER_MIXED:
-+		entry_size = 6;
-+		break;
-+	default:
++	/* Check NCSI packet header. We don't need validate
++	 * the packet type, which should have been checked
++	 * before calling this function.
++	 */
++	h = (struct ncsi_rsp_pkt_hdr *)skb_network_header(nr->nr_rsp);
++	if (h->common.revision != NCSI_PKT_REVISION)
 +		return -EINVAL;
-+	}
-+
-+	/* Check if the filter table has been initialized */
-+	ncf = nc->nc_filters[table];
-+	if (!ncf)
-+		return -ENODEV;
-+
-+	/* Check the valid entries one by one */
-+	bitmap = (void *)&ncf->ncf_bitmap;
-+	idx = -1;
-+	while ((idx = find_next_bit(bitmap, ncf->ncf_total, idx + 1))
-+		< ncf->ncf_total) {
-+		if (!memcmp(ncf->ncf_data + entry_size * idx, data, entry_size))
-+			return idx;
-+	}
-+
-+	return -ENOENT;
-+}
-+
-+int ncsi_add_channel_filter(struct ncsi_channel *nc, int table, void *data)
-+{
-+	struct ncsi_channel_filter *ncf;
-+	int idx, entry_size;
-+	void *bitmap;
-+
-+	/* Needn't add it if it's already existing */
-+	idx = ncsi_find_channel_filter(nc, table, data);
-+	if (idx >= 0)
-+		return idx;
-+
-+	switch (table) {
-+	case NCSI_FILTER_VLAN:
-+		entry_size = 2;
-+		break;
-+	case NCSI_FILTER_UC:
-+	case NCSI_FILTER_MC:
-+	case NCSI_FILTER_MIXED:
-+		entry_size = 6;
-+		break;
-+	default:
++	if (ntohs(h->common.length) != payload)
 +		return -EINVAL;
-+	}
 +
-+	/* Check if the filter table has been initialized */
-+	ncf = nc->nc_filters[table];
-+	if (!ncf)
-+		return -ENODEV;
-+
-+	/* Propagate the filter */
-+	bitmap = (void *)&ncf->ncf_bitmap;
-+	do {
-+		idx = find_next_zero_bit(bitmap, ncf->ncf_total, 0);
-+		if (idx >= ncf->ncf_total)
-+			return -ENOSPC;
-+	} while (test_and_set_bit(idx, bitmap));
-+
-+	memcpy(ncf->ncf_data + entry_size * idx, data, entry_size);
-+	return idx;
-+}
-+
-+int ncsi_del_channel_filter(struct ncsi_channel *nc, int table, int index)
-+{
-+	struct ncsi_channel_filter *ncf;
-+	int entry_size;
-+	void *bitmap;
-+
-+	switch (table) {
-+	case NCSI_FILTER_VLAN:
-+		entry_size = 2;
-+		break;
-+	case NCSI_FILTER_UC:
-+	case NCSI_FILTER_MC:
-+	case NCSI_FILTER_MIXED:
-+		entry_size = 6;
-+		break;
-+	default:
++	/* Check on code and reason */
++	if (ntohs(h->code) != NCSI_PKT_RSP_C_COMPLETED ||
++	    ntohs(h->reason) != NCSI_PKT_RSP_R_NO_ERROR)
 +		return -EINVAL;
++
++	/* Validate checksum, which might be zeroes if the
++	 * sender doesn't support checksum according to NCSI
++	 * specification.
++	 */
++	checksum = (__be32 *)((void *)(h + 1) + payload - 4);
++	if (ntohl(*checksum) == 0)
++		return 0;
++
++	csum = 0;
++	stream = (unsigned char *)h;
++	for (i = 0; i < sizeof(*h) + payload - 4; i += 2) {
++		high = stream[i];
++		low = stream[i + 1];
++		csum += ((high << 8) | low);
 +	}
 +
-+	/* Check if the filter table has been initialized */
-+	ncf = nc->nc_filters[table];
-+	if (!ncf || index >= ncf->ncf_total)
-+		return -ENODEV;
-+
-+	/* Check if the entry is valid */
-+	bitmap = (void *)&ncf->ncf_bitmap;
-+	if (test_and_clear_bit(index, bitmap))
-+		memset(ncf->ncf_data + entry_size * index, 0, entry_size);
++	csum = ~csum + 1;
++	if (*checksum != htonl(csum))
++		return -EINVAL;
 +
 +	return 0;
 +}
 +
-+struct ncsi_channel *ncsi_add_channel(struct ncsi_package *np, unsigned char id)
++static int ncsi_rsp_handler_default(struct ncsi_req *nr)
 +{
-+	struct ncsi_channel *nc, *tmp;
-+	int index;
-+
-+	nc = kzalloc(sizeof(*nc), GFP_ATOMIC);
-+	if (!nc)
-+		return NULL;
-+
-+	nc->nc_package = np;
-+	nc->nc_id = id;
-+	for (index = 0; index < NCSI_CAP_MAX; index++)
-+		nc->nc_caps[index].ncc_index = index;
-+	for (index = 0; index < NCSI_MODE_MAX; index++)
-+		nc->nc_modes[index].ncm_index = index;
-+
-+	spin_lock(&np->np_channel_lock);
-+	tmp = ncsi_find_channel(np, id);
-+	if (tmp) {
-+		spin_unlock(&np->np_channel_lock);
-+		kfree(nc);
-+		return tmp;
-+	}
-+	list_add_tail_rcu(&nc->nc_node, &np->np_channels);
-+	spin_unlock(&np->np_channel_lock);
-+
-+	atomic_inc(&np->np_channel_num);
-+	return nc;
++	return ncsi_validate_rsp_pkt(nr, 0);
 +}
 +
-+struct ncsi_channel *ncsi_find_channel(struct ncsi_package *np,
-+				       unsigned char id)
++static int ncsi_rsp_handler_cis(struct ncsi_req *nr)
 +{
++	struct ncsi_rsp_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_package *np;
 +	struct ncsi_channel *nc;
++	unsigned char id;
++	int ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 4);
++	if (ret)
++		return ret;
++
++	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel, &np, &nc);
++	if (!nc) {
++		id = NCSI_CHANNEL_INDEX(rsp->rsp.common.channel);
++		nc = ncsi_add_channel(np, id);
++	} else if (nc->nc_state == ncsi_channel_state_deselected_initial) {
++		nc->nc_state = ncsi_channel_state_deselected_ready;
++	} else if (nc->nc_state == ncsi_channel_state_selected_initial) {
++		nc->nc_state = ncsi_channel_state_selected_ready;
++	}
++
++	return nc ? 0 : -ENODEV;
++}
++
++static int ncsi_rsp_handler_sp(struct ncsi_req *nr)
++{
++	struct ncsi_rsp_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_package *np;
++	struct ncsi_channel *nc;
++	unsigned char id;
++	int ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 4);
++	if (ret)
++		return ret;
++
++	/* Add the package if it's not existing. Otherwise,
++	 * to change the state of its child channels.
++	 */
++	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      &np, NULL);
++	if (!np) {
++		id = NCSI_PACKAGE_INDEX(rsp->rsp.common.channel);
++		np = ncsi_add_package(ndp, id);
++		if (!np)
++			return -ENODEV;
++	}
 +
 +	NCSI_FOR_EACH_CHANNEL(np, nc) {
-+		if (nc->nc_id == id)
-+			return nc;
++		if (nc->nc_state == ncsi_channel_state_deselected_initial)
++			nc->nc_state = ncsi_channel_state_selected_initial;
++		else if (nc->nc_state == ncsi_channel_state_deselected_ready)
++			nc->nc_state = ncsi_channel_state_selected_ready;
 +	}
 +
-+	return NULL;
++	return 0;
 +}
 +
-+static void ncsi_release_channel(struct ncsi_channel *nc)
++static int ncsi_rsp_handler_dp(struct ncsi_req *nr)
 +{
-+	struct ncsi_dev_priv *ndp = nc->nc_package->np_ndp;
-+	struct ncsi_channel_filter *ncf;
-+	int i;
-+
-+	/* Release filters */
-+	for (i = 0; i < NCSI_FILTER_MAX; i++) {
-+		ncf = nc->nc_filters[i];
-+		if (!ncf)
-+			continue;
-+
-+		nc->nc_filters[i] = NULL;
-+		kfree(ncf);
-+	}
-+
-+	/* Update active channel if necessary */
-+	if (ndp->ndp_active_channel == nc) {
-+		ndp->ndp_active_package = NULL;
-+		ndp->ndp_active_channel = NULL;
-+	}
-+
-+	/* Remove and free channel */
-+	list_del_rcu(&nc->nc_node);
-+	kfree(nc);
-+}
-+
-+struct ncsi_package *ncsi_add_package(struct ncsi_dev_priv *ndp,
-+				      unsigned char id)
-+{
-+	struct ncsi_package *np, *tmp;
-+
-+	np = kzalloc(sizeof(*np), GFP_ATOMIC);
-+	if (!np)
-+		return NULL;
-+
-+	np->np_id = id;
-+	np->np_ndp = ndp;
-+	spin_lock_init(&np->np_channel_lock);
-+	INIT_LIST_HEAD(&np->np_channels);
-+
-+	spin_lock(&ndp->ndp_package_lock);
-+	tmp = ncsi_find_package(ndp, id);
-+	if (tmp) {
-+		spin_unlock(&ndp->ndp_package_lock);
-+		kfree(np);
-+		return tmp;
-+	}
-+	list_add_tail_rcu(&np->np_node, &ndp->ndp_packages);
-+	spin_unlock(&ndp->ndp_package_lock);
-+
-+	atomic_inc(&ndp->ndp_package_num);
-+	return np;
-+}
-+
-+struct ncsi_package *ncsi_find_package(struct ncsi_dev_priv *ndp,
-+				       unsigned char id)
-+{
++	struct ncsi_rsp_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
 +	struct ncsi_package *np;
++	struct ncsi_channel *nc;
++	int ret;
 +
-+	NCSI_FOR_EACH_PACKAGE(ndp, np) {
-+		if (np->np_id == id)
-+			return np;
++	ret = ncsi_validate_rsp_pkt(nr, 4);
++	if (ret)
++		return ret;
++
++	/* Find the package */
++	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      &np, NULL);
++	if (!np)
++		return -ENODEV;
++
++	/* Change state of all channels attached to the package */
++	NCSI_FOR_EACH_CHANNEL(np, nc) {
++		if (nc->nc_state == ncsi_channel_state_selected_initial)
++			nc->nc_state = ncsi_channel_state_deselected_initial;
++		else if (nc->nc_state == ncsi_channel_state_selected_ready)
++			nc->nc_state = ncsi_channel_state_deselected_ready;
 +	}
 +
-+	return NULL;
++	return 0;
 +}
 +
-+void ncsi_release_package(struct ncsi_package *np)
++static int ncsi_rsp_handler_ec(struct ncsi_req *nr)
 +{
-+	struct ncsi_dev_priv *ndp = np->np_ndp;
-+	struct ncsi_channel *nc, *tmp;
-+
-+	/* Release all child channels */
-+	spin_lock(&np->np_channel_lock);
-+	list_for_each_entry_safe(nc, tmp, &np->np_channels, nc_node)
-+		ncsi_release_channel(nc);
-+	spin_unlock(&np->np_channel_lock);
-+
-+	/* Clear active package if necessary */
-+	if (ndp->ndp_active_package == np) {
-+		ndp->ndp_active_package = NULL;
-+		ndp->ndp_active_channel = NULL;
-+	}
-+
-+	/* Remove and free package */
-+	list_del_rcu(&np->np_node);
-+	kfree(np);
-+}
-+
-+void ncsi_find_package_and_channel(struct ncsi_dev_priv *ndp,
-+				   unsigned char id,
-+				   struct ncsi_package **np,
-+				   struct ncsi_channel **nc)
-+{
-+	struct ncsi_package *p;
-+	struct ncsi_channel *c;
-+
-+	p = ncsi_find_package(ndp, NCSI_PACKAGE_INDEX(id));
-+	c = p ? ncsi_find_channel(p, NCSI_CHANNEL_INDEX(id)) : NULL;
-+
-+	if (np)
-+		*np = p;
-+	if (nc)
-+		*nc = c;
-+}
-+
-+/* For two consective NCSI commands, the packet IDs shouldn't be
-+ * same. Otherwise, the bogus response might be replied. So the
-+ * available IDs are allocated in round-robin fasion.
-+ */
-+struct ncsi_req *ncsi_alloc_req(struct ncsi_dev_priv *ndp)
-+{
-+	struct ncsi_req *nr = NULL;
-+	int idx, limit = 256;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&ndp->ndp_req_lock, flags);
-+
-+	/* Check if there is one available request until the ceiling */
-+	for (idx = atomic_read(&ndp->ndp_last_req_idx);
-+	     !nr && idx < limit; idx++) {
-+		if (ndp->ndp_reqs[idx].nr_used)
-+			continue;
-+
-+		ndp->ndp_reqs[idx].nr_used = true;
-+		nr = &ndp->ndp_reqs[idx];
-+		atomic_inc(&ndp->ndp_last_req_idx);
-+		if (atomic_read(&ndp->ndp_last_req_idx) >= limit)
-+			atomic_set(&ndp->ndp_last_req_idx, 0);
-+	}
-+
-+	/* Fail back to check from the starting cursor */
-+	for (idx = 0; !nr && idx < atomic_read(&ndp->ndp_last_req_idx); idx++) {
-+		if (ndp->ndp_reqs[idx].nr_used)
-+			continue;
-+
-+		ndp->ndp_reqs[idx].nr_used = true;
-+		nr = &ndp->ndp_reqs[idx];
-+		atomic_inc(&ndp->ndp_last_req_idx);
-+		if (atomic_read(&ndp->ndp_last_req_idx) >= limit)
-+			atomic_set(&ndp->ndp_last_req_idx, 0);
-+	}
-+
-+	spin_unlock_irqrestore(&ndp->ndp_req_lock, flags);
-+	return nr;
-+}
-+
-+void ncsi_free_req(struct ncsi_req *nr, bool check, bool timeout)
-+{
++	struct ncsi_rsp_pkt *rsp;
 +	struct ncsi_dev_priv *ndp = nr->nr_ndp;
-+	struct sk_buff *cmd, *rsp;
-+	unsigned long flags;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_mode *ncm;
++	int ret;
 +
-+	if (nr->nr_timer_enabled) {
-+		nr->nr_timer_enabled = false;
-+		del_timer_sync(&nr->nr_timer);
-+	}
++	ret = ncsi_validate_rsp_pkt(nr, 4);
++	if (ret)
++		return ret;
 +
-+	spin_lock_irqsave(&ndp->ndp_req_lock, flags);
-+	cmd = nr->nr_cmd;
-+	rsp = nr->nr_rsp;
-+	nr->nr_cmd = NULL;
-+	nr->nr_rsp = NULL;
-+	nr->nr_used = false;
-+	spin_unlock_irqrestore(&ndp->ndp_req_lock, flags);
++	/* Find the package and channel */
++	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
 +
-+	/* Release command and response */
-+	consume_skb(cmd);
-+	consume_skb(rsp);
++	ncm = &nc->nc_modes[NCSI_MODE_ENABLE];
++	if (ncm->ncm_enable)
++		return -EBUSY;
++
++	ncm->ncm_enable = 1;
++	return 0;
 +}
 +
-+struct ncsi_dev *ncsi_find_dev(struct net_device *dev)
++static int ncsi_rsp_handler_dc(struct ncsi_req *nr)
 +{
-+	struct ncsi_dev_priv *ndp;
-+
-+	NCSI_FOR_EACH_DEV(ndp) {
-+		if (ndp->ndp_ndev.nd_dev == dev)
-+			return &ndp->ndp_ndev;
-+	}
-+
-+	return NULL;
-+}
-+
-+static void ncsi_req_timeout(unsigned long data)
-+{
-+	struct ncsi_req *nr = (struct ncsi_req *)data;
++	struct ncsi_rsp_pkt *rsp;
 +	struct ncsi_dev_priv *ndp = nr->nr_ndp;
-+	unsigned long flags;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_mode *ncm;
++	int ret;
 +
-+	/* If the request already had associated response,
-+	 * let the response handler to release it.
++	ret = ncsi_validate_rsp_pkt(nr, 4);
++	if (ret)
++		return ret;
++
++	/* Find the package and channel */
++	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	ncm = &nc->nc_modes[NCSI_MODE_ENABLE];
++	if (!ncm->ncm_enable)
++		return -EBUSY;
++
++	ncm->ncm_enable = 0;
++	return 0;
++}
++
++static int ncsi_rsp_handler_rc(struct ncsi_req *nr)
++{
++	struct ncsi_rsp_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_channel *nc;
++	int ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 4);
++	if (ret)
++		return ret;
++
++	/* Find the package and channel */
++	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	/* Update state for the specified channel */
++	if (nc->nc_state == ncsi_channel_state_deselected_ready)
++		nc->nc_state = ncsi_channel_state_deselected_initial;
++	else if (nc->nc_state == ncsi_channel_state_selected_ready)
++		nc->nc_state = ncsi_channel_state_selected_initial;
++
++	return 0;
++}
++
++static int ncsi_rsp_handler_ecnt(struct ncsi_req *nr)
++{
++	struct ncsi_rsp_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_mode *ncm;
++	int ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 4);
++	if (ret)
++		return ret;
++
++	/* Find the package and channel */
++	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	ncm = &nc->nc_modes[NCSI_MODE_TX_ENABLE];
++	if (ncm->ncm_enable)
++		return -EBUSY;
++
++	ncm->ncm_enable = 1;
++	return 0;
++}
++
++static int ncsi_rsp_handler_dcnt(struct ncsi_req *nr)
++{
++	struct ncsi_rsp_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_mode *ncm;
++	int ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 4);
++	if (ret)
++		return ret;
++
++	/* Find the package and channel */
++	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	ncm = &nc->nc_modes[NCSI_MODE_TX_ENABLE];
++	if (!ncm->ncm_enable)
++		return -EBUSY;
++
++	ncm->ncm_enable = 1;
++	return 0;
++}
++
++static int ncsi_rsp_handler_ae(struct ncsi_req *nr)
++{
++	struct ncsi_cmd_ae_pkt *cmd;
++	struct ncsi_rsp_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_mode *ncm;
++	int ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 4);
++	if (ret)
++		return ret;
++
++	/* Find the package and channel */
++	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	/* Check if the AEN has been enabled */
++	ncm = &nc->nc_modes[NCSI_MODE_AEN];
++	if (ncm->ncm_enable)
++		return -EBUSY;
++
++	/* Update to AEN configuration */
++	cmd = (struct ncsi_cmd_ae_pkt *)skb_network_header(nr->nr_cmd);
++	ncm->ncm_enable = 1;
++	ncm->ncm_data[0] = cmd->mc_id;
++	ncm->ncm_data[1] = ntohl(cmd->mode);
++
++	return 0;
++}
++
++static int ncsi_rsp_handler_sl(struct ncsi_req *nr)
++{
++	struct ncsi_cmd_sl_pkt *cmd;
++	struct ncsi_rsp_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_mode *ncm;
++	int ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 4);
++	if (ret)
++		return ret;
++
++	/* Find the package and channel */
++	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	cmd = (struct ncsi_cmd_sl_pkt *)skb_network_header(nr->nr_cmd);
++	ncm = &nc->nc_modes[NCSI_MODE_LINK];
++	ncm->ncm_data[0] = ntohl(cmd->mode);
++	ncm->ncm_data[1] = ntohl(cmd->oem_mode);
++
++	return 0;
++}
++
++static int ncsi_rsp_handler_gls(struct ncsi_req *nr)
++{
++	struct ncsi_rsp_gls_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_mode *ncm;
++	int ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 16);
++	if (ret)
++		return ret;
++
++	/* Find the package and channel */
++	rsp = (struct ncsi_rsp_gls_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	ncm = &nc->nc_modes[NCSI_MODE_LINK];
++	ncm->ncm_data[2] = ntohl(rsp->status);
++	ncm->ncm_data[3] = ntohl(rsp->other);
++	ncm->ncm_data[4] = ntohl(rsp->oem_status);
++
++	return 0;
++}
++
++static int ncsi_rsp_handler_svf(struct ncsi_req *nr)
++{
++	struct ncsi_cmd_svf_pkt *cmd;
++	struct ncsi_rsp_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_filter *ncf;
++	unsigned short vlan;
++	int ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 4);
++	if (ret)
++		return ret;
++
++	/* Find the package and channel */
++	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	cmd = (struct ncsi_cmd_svf_pkt *)skb_network_header(nr->nr_cmd);
++	ncf = nc->nc_filters[NCSI_FILTER_VLAN];
++	if (!ncf)
++		return -ENOENT;
++	if (cmd->index >= ncf->ncf_total)
++		return -ERANGE;
++
++	/* Add or remove the VLAN filter */
++	if (!(cmd->enable & 0x1)) {
++		ret = ncsi_del_channel_filter(nc, NCSI_FILTER_VLAN, cmd->index);
++	} else {
++		vlan = ntohs(cmd->vlan);
++		ret = ncsi_add_channel_filter(nc, NCSI_FILTER_VLAN, &vlan);
++	}
++
++	return ret;
++}
++
++static int ncsi_rsp_handler_ev(struct ncsi_req *nr)
++{
++	struct ncsi_cmd_ev_pkt *cmd;
++	struct ncsi_rsp_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_mode *ncm;
++	int ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 4);
++	if (ret)
++		return ret;
++
++	/* Find the package and channel */
++	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	/* Check if VLAN mode has been enabled */
++	ncm = &nc->nc_modes[NCSI_MODE_VLAN];
++	if (ncm->ncm_enable)
++		return -EBUSY;
++
++	/* Update to VLAN mode */
++	cmd = (struct ncsi_cmd_ev_pkt *)skb_network_header(nr->nr_cmd);
++	ncm->ncm_enable = 1;
++	ncm->ncm_data[0] = ntohl(cmd->mode);
++
++	return 0;
++}
++
++static int ncsi_rsp_handler_dv(struct ncsi_req *nr)
++{
++	struct ncsi_rsp_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_mode *ncm;
++	int ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 4);
++	if (ret)
++		return ret;
++
++	/* Find the package and channel */
++	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	/* Check if VLAN mode has been enabled */
++	ncm = &nc->nc_modes[NCSI_MODE_VLAN];
++	if (!ncm->ncm_enable)
++		return -EBUSY;
++
++	/* Update to VLAN mode */
++	ncm->ncm_enable = 0;
++	return 0;
++}
++
++static int ncsi_rsp_handler_sma(struct ncsi_req *nr)
++{
++	struct ncsi_cmd_sma_pkt *cmd;
++	struct ncsi_rsp_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_filter *ncf;
++	void *bitmap;
++	int ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 4);
++	if (ret)
++		return ret;
++
++	/* Find the package and channel */
++	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	/* According to NCSI spec 1.01, the mixed filter table
++	 * isn't supported yet.
 +	 */
-+	spin_lock_irqsave(&ndp->ndp_req_lock, flags);
-+	nr->nr_timer_enabled = false;
-+	if (nr->nr_rsp || !nr->nr_cmd) {
-+		spin_unlock_irqrestore(&ndp->ndp_req_lock, flags);
-+		return;
++	cmd = (struct ncsi_cmd_sma_pkt *)skb_network_header(nr->nr_cmd);
++	switch (cmd->at_e >> 5) {
++	case 0x0:	/* UC address */
++		ncf = nc->nc_filters[NCSI_FILTER_UC];
++		break;
++	case 0x1:	/* MC address */
++		ncf = nc->nc_filters[NCSI_FILTER_MC];
++		break;
++	default:
++		return -EINVAL;
 +	}
-+	spin_unlock_irqrestore(&ndp->ndp_req_lock, flags);
 +
-+	/* Release the request */
-+	ncsi_free_req(nr, true, true);
++	/* Sanity check on the filter */
++	if (!ncf)
++		return -ENOENT;
++	else if (cmd->index >= ncf->ncf_total)
++		return -ERANGE;
++
++	bitmap = &ncf->ncf_bitmap;
++	if (cmd->at_e & 0x1) {
++		if (test_and_set_bit(cmd->index, bitmap))
++			return -EBUSY;
++		memcpy(ncf->ncf_data + 6 * cmd->index, cmd->mac, 6);
++	} else {
++		if (!test_and_clear_bit(cmd->index, bitmap))
++			return -EBUSY;
++
++		memset(ncf->ncf_data + 6 * cmd->index, 0, 6);
++	}
++
++	return 0;
 +}
 +
-+struct ncsi_dev *ncsi_register_dev(struct net_device *dev,
-+				   void (*handler)(struct ncsi_dev *ndev))
++static int ncsi_rsp_handler_ebf(struct ncsi_req *nr)
 +{
-+	struct ncsi_dev_priv *ndp;
++	struct ncsi_cmd_ebf_pkt *cmd;
++	struct ncsi_rsp_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_mode *ncm;
++	int ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 4);
++	if (ret)
++		return ret;
++
++	/* Find the package and channel */
++	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel, NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	/* Check if broadcast filter has been enabled */
++	ncm = &nc->nc_modes[NCSI_MODE_BC];
++	if (ncm->ncm_enable)
++		return -EBUSY;
++
++	/* Update to broadcast filter mode */
++	cmd = (struct ncsi_cmd_ebf_pkt *)skb_network_header(nr->nr_cmd);
++	ncm->ncm_enable = 1;
++	ncm->ncm_data[0] = ntohl(cmd->mode);
++
++	return 0;
++}
++
++static int ncsi_rsp_handler_dbf(struct ncsi_req *nr)
++{
++	struct ncsi_rsp_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_mode *ncm;
++	int ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 4);
++	if (ret)
++		return ret;
++
++	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	/* Check if broadcast filter isn't enabled */
++	ncm = &nc->nc_modes[NCSI_MODE_BC];
++	if (!ncm->ncm_enable)
++		return -EBUSY;
++
++	/* Update to broadcast filter mode */
++	ncm->ncm_enable = 0;
++	ncm->ncm_data[0] = 0;
++
++	return 0;
++}
++
++static int ncsi_rsp_handler_egmf(struct ncsi_req *nr)
++{
++	struct ncsi_cmd_egmf_pkt *cmd;
++	struct ncsi_rsp_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_mode *ncm;
++	int ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 4);
++	if (ret)
++		return ret;
++
++	/* Find the channel */
++	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	/* Check if multicast filter has been enabled */
++	ncm = &nc->nc_modes[NCSI_MODE_MC];
++	if (ncm->ncm_enable)
++		return -EBUSY;
++
++	/* Update to multicast filter mode */
++	cmd = (struct ncsi_cmd_egmf_pkt *)skb_network_header(nr->nr_cmd);
++	ncm->ncm_enable = 1;
++	ncm->ncm_data[0] = ntohl(cmd->mode);
++
++	return 0;
++}
++
++static int ncsi_rsp_handler_dgmf(struct ncsi_req *nr)
++{
++	struct ncsi_rsp_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_mode *ncm;
++	int ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 4);
++	if (ret)
++		return ret;
++
++	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	/* Check if multicast filter has been enabled */
++	ncm = &nc->nc_modes[NCSI_MODE_MC];
++	if (!ncm->ncm_enable)
++		return -EBUSY;
++
++	/* Update to multicast filter mode */
++	ncm->ncm_enable = 0;
++	ncm->ncm_data[0] = 0;
++
++	return 0;
++}
++
++static int ncsi_rsp_handler_snfc(struct ncsi_req *nr)
++{
++	struct ncsi_cmd_snfc_pkt *cmd;
++	struct ncsi_rsp_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_mode *ncm;
++	int ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 4);
++	if (ret)
++		return ret;
++
++	/* Find the channel */
++	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	/* Check if flow control has been enabled */
++	ncm = &nc->nc_modes[NCSI_MODE_FC];
++	if (ncm->ncm_enable)
++		return -EBUSY;
++
++	/* Update to flow control mode */
++	cmd = (struct ncsi_cmd_snfc_pkt *)skb_network_header(nr->nr_cmd);
++	ncm->ncm_enable = 1;
++	ncm->ncm_data[0] = cmd->mode;
++
++	return 0;
++}
++
++static int ncsi_rsp_handler_gvi(struct ncsi_req *nr)
++{
++	struct ncsi_rsp_gvi_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_version *ncv;
++	int i, ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 36);
++	if (ret)
++		return ret;
++
++	/* Find the channel */
++	rsp = (struct ncsi_rsp_gvi_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	/* Update to channel's version info */
++	ncv = &nc->nc_version;
++	ncv->ncv_version = ntohl(rsp->ncsi_version);
++	ncv->ncv_alpha2 = rsp->alpha2;
++	memcpy(ncv->ncv_fw_name, rsp->fw_name, 12);
++	ncv->ncv_fw_version = ntohl(rsp->fw_version);
++	for (i = 0; i < 4; i++)
++		ncv->ncv_pci_ids[i] = ntohs(rsp->pci_ids[i]);
++	ncv->ncv_mf_id = ntohl(rsp->mf_id);
++
++	return 0;
++}
++
++static int ncsi_rsp_handler_gc(struct ncsi_req *nr)
++{
++	struct ncsi_rsp_gc_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_filter *ncf;
++	size_t size, entry_size;
++	int cnt, i, ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 32);
++	if (ret)
++		return ret;
++
++	/* Find the channel */
++	rsp = (struct ncsi_rsp_gc_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	/* Update channel's capabilities */
++	nc->nc_caps[NCSI_CAP_GENERIC].ncc_cap = ntohl(rsp->cap) &
++						NCSI_CAP_GENERIC_MASK;
++	nc->nc_caps[NCSI_CAP_BC].ncc_cap = ntohl(rsp->bc_cap) &
++					   NCSI_CAP_BC_MASK;
++	nc->nc_caps[NCSI_CAP_MC].ncc_cap = ntohl(rsp->mc_cap) &
++					   NCSI_CAP_MC_MASK;
++	nc->nc_caps[NCSI_CAP_BUFFER].ncc_cap = ntohl(rsp->buf_cap);
++	nc->nc_caps[NCSI_CAP_AEN].ncc_cap = ntohl(rsp->aen_cap) &
++					    NCSI_CAP_AEN_MASK;
++	nc->nc_caps[NCSI_CAP_VLAN].ncc_cap = rsp->vlan_mode &
++					     NCSI_CAP_VLAN_MASK;
++
++	/* Build filters */
++	for (i = 0; i < NCSI_FILTER_MAX; i++) {
++		switch (i) {
++		case NCSI_FILTER_VLAN:
++			cnt = rsp->vlan_cnt;
++			entry_size = 2;
++			break;
++		case NCSI_FILTER_MIXED:
++			cnt = rsp->mixed_cnt;
++			entry_size = 6;
++			break;
++		case NCSI_FILTER_MC:
++			cnt = rsp->mc_cnt;
++			entry_size = 6;
++			break;
++		case NCSI_FILTER_UC:
++			cnt = rsp->uc_cnt;
++			entry_size = 6;
++			break;
++		default:
++			continue;
++		}
++
++		if (!cnt || nc->nc_filters[i])
++			continue;
++
++		size = sizeof(*ncf) + cnt * entry_size;
++		ncf = kzalloc(size, GFP_ATOMIC);
++		if (!ncf) {
++			pr_warn("%s: Cannot alloc filter table (%d)\n",
++				__func__, i);
++			return -ENOMEM;
++		}
++
++		ncf->ncf_index = i;
++		ncf->ncf_total = cnt;
++		ncf->ncf_bitmap = 0x0ul;
++		nc->nc_filters[i] = ncf;
++	}
++
++	return 0;
++}
++
++static int ncsi_rsp_handler_gp(struct ncsi_req *nr)
++{
++	struct ncsi_pkt_hdr *h;
++	struct ncsi_rsp_gp_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_channel *nc;
++	unsigned short length, enable, vlan;
++	unsigned char *pdata;
++	int table, i, ret;
++
++	/* The get parameter response packet has variable length.
++	 * The payload should be figured out from the packet
++	 * header, instead of the fixed one we have for other types
++	 * of packets.
++	 */
++	h = (struct ncsi_pkt_hdr *)skb_network_header(nr->nr_rsp);
++	length = ntohs(h->length);
++	if (length < 32)
++		return -EINVAL;
++
++	ret = ncsi_validate_rsp_pkt(nr, length);
++	if (ret)
++		return ret;
++
++	/* Find the channel */
++	rsp = (struct ncsi_rsp_gp_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	/* Modes with explicit enabled indications */
++	if (ntohl(rsp->valid_modes) & 0x1) {	/* BC filter mode */
++		nc->nc_modes[NCSI_MODE_BC].ncm_enable = 1;
++		nc->nc_modes[NCSI_MODE_BC].ncm_data[0] = ntohl(rsp->bc_mode);
++	}
++	if (ntohl(rsp->valid_modes) & 0x2)	/* Channel enabled */
++		nc->nc_modes[NCSI_MODE_ENABLE].ncm_enable = 1;
++	if (ntohl(rsp->valid_modes) & 0x4)	/* Channel Tx enabled */
++		nc->nc_modes[NCSI_MODE_TX_ENABLE].ncm_enable = 1;
++	if (ntohl(rsp->valid_modes) & 0x8)	/* MC filter mode */
++		nc->nc_modes[NCSI_MODE_MC].ncm_enable = 1;
++
++	/* Modes without explicit enabled indications */
++	nc->nc_modes[NCSI_MODE_LINK].ncm_enable = 1;
++	nc->nc_modes[NCSI_MODE_LINK].ncm_data[0] = ntohl(rsp->link_mode);
++	nc->nc_modes[NCSI_MODE_VLAN].ncm_enable = 1;
++	nc->nc_modes[NCSI_MODE_VLAN].ncm_data[0] = rsp->vlan_mode;
++	nc->nc_modes[NCSI_MODE_FC].ncm_enable = 1;
++	nc->nc_modes[NCSI_MODE_FC].ncm_data[0] = rsp->fc_mode;
++	nc->nc_modes[NCSI_MODE_AEN].ncm_enable = 1;
++	nc->nc_modes[NCSI_MODE_AEN].ncm_data[0] = ntohl(rsp->aen_mode);
++
++	/* MAC addresses filter table */
++	pdata = (unsigned char *)rsp + 48;
++	enable = rsp->mac_enable;
++	for (i = 0; i < rsp->mac_cnt; i++, pdata += 6) {
++		if (i >= (nc->nc_filters[NCSI_FILTER_UC]->ncf_total +
++			  nc->nc_filters[NCSI_FILTER_MC]->ncf_total))
++			table = NCSI_FILTER_MIXED;
++		else if (i >= nc->nc_filters[NCSI_FILTER_UC]->ncf_total)
++			table = NCSI_FILTER_MC;
++		else
++			table = NCSI_FILTER_UC;
++
++		if (!(enable & (0x1 << i)))
++			continue;
++
++		if (ncsi_find_channel_filter(nc, table, pdata) >= 0)
++			continue;
++
++		ncsi_add_channel_filter(nc, table, pdata);
++	}
++
++	/* VLAN filter table */
++	enable = ntohs(rsp->vlan_enable);
++	for (i = 0; i < rsp->vlan_cnt; i++, pdata += 2) {
++		if (!(enable & (0x1 << i)))
++			continue;
++
++		vlan = ntohs(*(__be16 *)pdata);
++		if (ncsi_find_channel_filter(nc, NCSI_FILTER_VLAN, &vlan) >= 0)
++			continue;
++
++		ncsi_add_channel_filter(nc, NCSI_FILTER_VLAN, &vlan);
++	}
++
++	return 0;
++}
++
++static int ncsi_rsp_handler_gcps(struct ncsi_req *nr)
++{
++	struct ncsi_rsp_gcps_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_stats *ncs;
++	int ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 172);
++	if (ret)
++		return ret;
++
++	/* Find the channel */
++	rsp = (struct ncsi_rsp_gcps_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	/* Update HNC's statistics */
++	ncs = &nc->nc_stats;
++	ncs->ncs_hnc_cnt_hi         = ntohl(rsp->cnt_hi);
++	ncs->ncs_hnc_cnt_lo         = ntohl(rsp->cnt_lo);
++	ncs->ncs_hnc_rx_bytes       = ntohl(rsp->rx_bytes);
++	ncs->ncs_hnc_tx_bytes       = ntohl(rsp->tx_bytes);
++	ncs->ncs_hnc_rx_uc_pkts     = ntohl(rsp->rx_uc_pkts);
++	ncs->ncs_hnc_rx_mc_pkts     = ntohl(rsp->rx_mc_pkts);
++	ncs->ncs_hnc_rx_bc_pkts     = ntohl(rsp->rx_bc_pkts);
++	ncs->ncs_hnc_tx_uc_pkts     = ntohl(rsp->tx_uc_pkts);
++	ncs->ncs_hnc_tx_mc_pkts     = ntohl(rsp->tx_mc_pkts);
++	ncs->ncs_hnc_tx_bc_pkts     = ntohl(rsp->tx_bc_pkts);
++	ncs->ncs_hnc_fcs_err        = ntohl(rsp->fcs_err);
++	ncs->ncs_hnc_align_err      = ntohl(rsp->align_err);
++	ncs->ncs_hnc_false_carrier  = ntohl(rsp->false_carrier);
++	ncs->ncs_hnc_runt_pkts      = ntohl(rsp->runt_pkts);
++	ncs->ncs_hnc_jabber_pkts    = ntohl(rsp->jabber_pkts);
++	ncs->ncs_hnc_rx_pause_xon   = ntohl(rsp->rx_pause_xon);
++	ncs->ncs_hnc_rx_pause_xoff  = ntohl(rsp->rx_pause_xoff);
++	ncs->ncs_hnc_tx_pause_xon   = ntohl(rsp->tx_pause_xon);
++	ncs->ncs_hnc_tx_pause_xoff  = ntohl(rsp->tx_pause_xoff);
++	ncs->ncs_hnc_tx_s_collision = ntohl(rsp->tx_s_collision);
++	ncs->ncs_hnc_tx_m_collision = ntohl(rsp->tx_m_collision);
++	ncs->ncs_hnc_l_collision    = ntohl(rsp->l_collision);
++	ncs->ncs_hnc_e_collision    = ntohl(rsp->e_collision);
++	ncs->ncs_hnc_rx_ctl_frames  = ntohl(rsp->rx_ctl_frames);
++	ncs->ncs_hnc_rx_64_frames   = ntohl(rsp->rx_64_frames);
++	ncs->ncs_hnc_rx_127_frames  = ntohl(rsp->rx_127_frames);
++	ncs->ncs_hnc_rx_255_frames  = ntohl(rsp->rx_255_frames);
++	ncs->ncs_hnc_rx_511_frames  = ntohl(rsp->rx_511_frames);
++	ncs->ncs_hnc_rx_1023_frames = ntohl(rsp->rx_1023_frames);
++	ncs->ncs_hnc_rx_1522_frames = ntohl(rsp->rx_1522_frames);
++	ncs->ncs_hnc_rx_9022_frames = ntohl(rsp->rx_9022_frames);
++	ncs->ncs_hnc_tx_64_frames   = ntohl(rsp->tx_64_frames);
++	ncs->ncs_hnc_tx_127_frames  = ntohl(rsp->tx_127_frames);
++	ncs->ncs_hnc_tx_255_frames  = ntohl(rsp->tx_255_frames);
++	ncs->ncs_hnc_tx_511_frames  = ntohl(rsp->tx_511_frames);
++	ncs->ncs_hnc_tx_1023_frames = ntohl(rsp->tx_1023_frames);
++	ncs->ncs_hnc_tx_1522_frames = ntohl(rsp->tx_1522_frames);
++	ncs->ncs_hnc_tx_9022_frames = ntohl(rsp->tx_9022_frames);
++	ncs->ncs_hnc_rx_valid_bytes = ntohl(rsp->rx_valid_bytes);
++	ncs->ncs_hnc_rx_runt_pkts   = ntohl(rsp->rx_runt_pkts);
++	ncs->ncs_hnc_rx_jabber_pkts = ntohl(rsp->rx_jabber_pkts);
++
++	return 0;
++}
++
++static int ncsi_rsp_handler_gns(struct ncsi_req *nr)
++{
++	struct ncsi_rsp_gns_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_stats *ncs;
++	int ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 172);
++	if (ret)
++		return ret;
++
++	/* Find the channel */
++	rsp = (struct ncsi_rsp_gns_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	/* Update HNC's statistics */
++	ncs = &nc->nc_stats;
++	ncs->ncs_ncsi_rx_cmds       = ntohl(rsp->rx_cmds);
++	ncs->ncs_ncsi_dropped_cmds  = ntohl(rsp->dropped_cmds);
++	ncs->ncs_ncsi_cmd_type_errs = ntohl(rsp->cmd_type_errs);
++	ncs->ncs_ncsi_cmd_csum_errs = ntohl(rsp->cmd_csum_errs);
++	ncs->ncs_ncsi_rx_pkts       = ntohl(rsp->rx_pkts);
++	ncs->ncs_ncsi_tx_pkts       = ntohl(rsp->tx_pkts);
++	ncs->ncs_ncsi_tx_aen_pkts   = ntohl(rsp->tx_aen_pkts);
++
++	return 0;
++}
++
++static int ncsi_rsp_handler_gnpts(struct ncsi_req *nr)
++{
++	struct ncsi_rsp_gnpts_pkt *rsp;
++	struct ncsi_dev_priv *ndp = nr->nr_ndp;
++	struct ncsi_channel *nc;
++	struct ncsi_channel_stats *ncs;
++	int ret;
++
++	ret = ncsi_validate_rsp_pkt(nr, 172);
++	if (ret)
++		return ret;
++
++	/* Find the channel */
++	rsp = (struct ncsi_rsp_gnpts_pkt *)skb_network_header(nr->nr_rsp);
++	ncsi_find_package_and_channel(ndp, rsp->rsp.common.channel,
++				      NULL, &nc);
++	if (!nc)
++		return -ENODEV;
++
++	/* Update HNC's statistics */
++	ncs = &nc->nc_stats;
++	ncs->ncs_pt_tx_pkts        = ntohl(rsp->tx_pkts);
++	ncs->ncs_pt_tx_dropped     = ntohl(rsp->tx_dropped);
++	ncs->ncs_pt_tx_channel_err = ntohl(rsp->tx_channel_err);
++	ncs->ncs_pt_tx_us_err      = ntohl(rsp->tx_us_err);
++	ncs->ncs_pt_rx_pkts        = ntohl(rsp->rx_pkts);
++	ncs->ncs_pt_rx_dropped     = ntohl(rsp->rx_dropped);
++	ncs->ncs_pt_rx_channel_err = ntohl(rsp->rx_channel_err);
++	ncs->ncs_pt_rx_us_err      = ntohl(rsp->rx_us_err);
++	ncs->ncs_pt_rx_os_err      = ntohl(rsp->rx_os_err);
++
++	return 0;
++}
++
++static struct ncsi_rsp_handler {
++	unsigned char	nrh_type;
++	int		(*nrh_handler)(struct ncsi_req *nr);
++} ncsi_rsp_handlers[] = {
++	{ NCSI_PKT_RSP_CIS,   ncsi_rsp_handler_cis     },
++	{ NCSI_PKT_RSP_SP,    ncsi_rsp_handler_sp      },
++	{ NCSI_PKT_RSP_DP,    ncsi_rsp_handler_dp      },
++	{ NCSI_PKT_RSP_EC,    ncsi_rsp_handler_ec      },
++	{ NCSI_PKT_RSP_DC,    ncsi_rsp_handler_dc      },
++	{ NCSI_PKT_RSP_RC,    ncsi_rsp_handler_rc      },
++	{ NCSI_PKT_RSP_ECNT,  ncsi_rsp_handler_ecnt    },
++	{ NCSI_PKT_RSP_DCNT,  ncsi_rsp_handler_dcnt    },
++	{ NCSI_PKT_RSP_AE,    ncsi_rsp_handler_ae      },
++	{ NCSI_PKT_RSP_SL,    ncsi_rsp_handler_sl      },
++	{ NCSI_PKT_RSP_GLS,   ncsi_rsp_handler_gls     },
++	{ NCSI_PKT_RSP_SVF,   ncsi_rsp_handler_svf     },
++	{ NCSI_PKT_RSP_EV,    ncsi_rsp_handler_ev      },
++	{ NCSI_PKT_RSP_DV,    ncsi_rsp_handler_dv      },
++	{ NCSI_PKT_RSP_SMA,   ncsi_rsp_handler_sma     },
++	{ NCSI_PKT_RSP_EBF,   ncsi_rsp_handler_ebf     },
++	{ NCSI_PKT_RSP_DBF,   ncsi_rsp_handler_dbf     },
++	{ NCSI_PKT_RSP_EGMF,  ncsi_rsp_handler_egmf    },
++	{ NCSI_PKT_RSP_DGMF,  ncsi_rsp_handler_dgmf    },
++	{ NCSI_PKT_RSP_SNFC,  ncsi_rsp_handler_snfc    },
++	{ NCSI_PKT_RSP_GVI,   ncsi_rsp_handler_gvi     },
++	{ NCSI_PKT_RSP_GC,    ncsi_rsp_handler_gc      },
++	{ NCSI_PKT_RSP_GP,    ncsi_rsp_handler_gp      },
++	{ NCSI_PKT_RSP_GCPS,  ncsi_rsp_handler_gcps    },
++	{ NCSI_PKT_RSP_GNS,   ncsi_rsp_handler_gns     },
++	{ NCSI_PKT_RSP_GNPTS, ncsi_rsp_handler_gnpts   },
++	{ NCSI_PKT_RSP_OEM,   ncsi_rsp_handler_default },
++	{ 0,                  NULL                     }
++};
++
++#if 0
++static void ncsi_pkt_dump(struct sk_buff *skb)
++{
++	struct skb_shared_info *info = skb_shinfo(skb);
++	skb_frag_t *frag;
++	char *data;
++	int limit, i;
++
++	pr_info("head: 0x%p data: 0x%p tail: 0x%p end: 0x%p\n",
++		skb->head, skb->data,
++		skb_tail_pointer(skb), skb_end_pointer(skb));
++	pr_info("mac_header: 0x%p network_header: 0x%p\n",
++		skb_mac_header(skb), skb_network_header(skb));
++	pr_info("len: 0x%x data_len: 0x%x truesize: 0x%x\n",
++		skb->len, skb->data_len, skb->truesize);
++
++	for (i = 0; i < info->nr_frags; i++) {
++		frag = &info->frags[i];
++		pr_info("FRAG[%d]: 0x%p offset: 0x%x size: 0x%x\n",
++			i, frag->page.p, frag->page_offset, frag->size);
++	}
++
++	data = skb_mac_header(skb);
++	limit = skb->len + sizeof(struct ethhdr);
++	for (i = 0; i < limit; data++, i++) {
++		if (i % 16 == 0)
++			printk("\n%02x ", *data);
++		else
++			printk("%02x ", *data);
++	}
++}
++#endif
++
++int ncsi_rcv_rsp(struct sk_buff *skb, struct net_device *dev,
++		 struct packet_type *pt, struct net_device *orig_dev)
++{
++	struct ncsi_rsp_handler *nrh = NULL;
 +	struct ncsi_dev *nd;
-+	int idx;
++	struct ncsi_dev_priv *ndp;
++	struct ncsi_req *nr;
++	struct ncsi_pkt_hdr *hdr;
++	unsigned long flags;
++	int ret;
 +
-+	/* Check if the device has been registered or not */
++	/* Find the NCSI device */
 +	nd = ncsi_find_dev(dev);
-+	if (nd)
-+		return nd;
-+
-+	/* Create NCSI device */
-+	ndp = kzalloc(sizeof(*ndp), GFP_ATOMIC);
++	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
 +	if (!ndp)
-+		return NULL;
++		return -ENODEV;
 +
-+	nd = &ndp->ndp_ndev;
-+	nd->nd_state = ncsi_dev_state_registered;
-+	nd->nd_dev = dev;
-+	nd->nd_handler = handler;
++	/* Find the handler */
++	hdr = (struct ncsi_pkt_hdr *)skb_network_header(skb);
++	nrh = ncsi_rsp_handlers;
++	while (nrh->nrh_handler) {
++		if (nrh->nrh_type == hdr->type)
++			break;
 +
-+	/* Initialize private NCSI device */
-+	spin_lock_init(&ndp->ndp_package_lock);
-+	INIT_LIST_HEAD(&ndp->ndp_packages);
-+	spin_lock_init(&ndp->ndp_req_lock);
-+	atomic_set(&ndp->ndp_last_req_idx, 0);
-+	for (idx = 0; idx < 256; idx++) {
-+		ndp->ndp_reqs[idx].nr_id = idx;
-+		ndp->ndp_reqs[idx].nr_ndp = ndp;
-+		setup_timer(&ndp->ndp_reqs[idx].nr_timer, ncsi_req_timeout,
-+			    (unsigned long)&ndp->ndp_reqs[idx]);
++		nrh++;
 +	}
 +
-+	spin_lock(&ncsi_dev_lock);
-+	list_add_tail_rcu(&ndp->ndp_node, &ncsi_dev_list);
-+	spin_unlock(&ncsi_dev_lock);
++	if (!nrh->nrh_handler) {
++		pr_warn("NCSI: Received unrecognized packet (0x%x)\n",
++			hdr->type);
++		return -ENOENT;
++	}
 +
-+	return nd;
++	/* Associate with the request */
++	nr = &ndp->ndp_reqs[hdr->id];
++	spin_lock_irqsave(&ndp->ndp_req_lock, flags);
++	if (!nr->nr_used) {
++		spin_unlock_irqrestore(&ndp->ndp_req_lock, flags);
++		return -ENODEV;
++	}
++
++	nr->nr_rsp = skb;
++	if (!nr->nr_timer_enabled) {
++		ret = -ENOENT;
++		goto out;
++	}
++
++	/* Process the response */
++	ret = nrh->nrh_handler(nr);
++
++out:
++	spin_unlock_irqrestore(&ndp->ndp_req_lock, flags);
++	ncsi_free_req(nr, true, false);
++	return ret;
 +}
-+EXPORT_SYMBOL_GPL(ncsi_register_dev);
-+
-+void ncsi_unregister_dev(struct ncsi_dev *nd)
-+{
-+	struct ncsi_dev_priv *ndp = TO_NCSI_DEV_PRIV(nd);
-+	struct ncsi_package *np, *tmp;
-+
-+	spin_lock(&ndp->ndp_package_lock);
-+	list_for_each_entry_safe(np, tmp, &ndp->ndp_packages, np_node)
-+		ncsi_release_package(np);
-+	spin_unlock(&ndp->ndp_package_lock);
-+}
-+EXPORT_SYMBOL_GPL(ncsi_unregister_dev);
 -- 
 2.1.0
