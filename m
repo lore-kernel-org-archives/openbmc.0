@@ -1,21 +1,56 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-vk0-x232.google.com (mail-vk0-x232.google.com
+ [IPv6:2607:f8b0:400c:c05::232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rgbsC3znWzDql7
- for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2016 09:50:55 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1467330652428228.34655050815365;
- Thu, 30 Jun 2016 16:50:52 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc 16/16] initfs: Store whiltelist in a directory of files
-Date: Thu, 30 Jun 2016 18:50:33 -0500
-Message-Id: <20160630235033.17091-17-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.9.0
-In-Reply-To: <20160630235033.17091-1-openbmc-patches@stwcx.xyz>
-References: <20160630235033.17091-1-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rgdFk302czDqhC
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2016 10:53:46 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=FBjR7X50; 
+ dkim-atps=neutral
+Received: by mail-vk0-x232.google.com with SMTP id k68so47192392vkb.0
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2016 17:53:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=ldnTMevMYM4EHAUByXrtv1Hy6+8NcZsgjm7DAocKZLw=;
+ b=FBjR7X50lMwKeHTV2plTH1MVzU9Y25jwWOUcfA5zJwqHZ0SAheaakK8RnJc6aOqRMJ
+ A31VcR2BncTPPAQVzXVg+J29zp4yb/gs60aXMTAdgeXG5QbjsqinEvqIH8WL9iQ/zzTp
+ DI3rJ8qkAMNlAs0n8oO2nJQzgqboD7YNGIBl6LW47n9itnu0pLrZNRya37OFhebfcxKo
+ BwFY9Fj1adBUoRFG4gym4Bx1r6fTh47/MJfcsbKGYsLGMU7lXJFCvPl2hIJc5bAcG4nL
+ a2+lPf6gLFgUs36lQR8cHqp5QHC10HoP+7wbgocAAaF70ShsRv+dlD0RA9zIifJwaFRs
+ LCtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=ldnTMevMYM4EHAUByXrtv1Hy6+8NcZsgjm7DAocKZLw=;
+ b=jfImypv+PFKA9R7FMeyDRuSchBqvrMfVBaiM0XKsTn8VA5QvyCa2GrYRGIlTPe1XWa
+ b3/CqRy6nMfk9plMfxMOLuJM6PL4lWQjh9uBiZGUELEOT2XMbTSzVEqQ1r/iGGar8+iC
+ e+ib7gVCgDDtF706BghrGG7kR2LNOcCS6grukyqMZ596yS3CBFsnEt5ODgHyDcFcmxxx
+ Zlxu/Es4qAxFb69IeQethCk7I4LF+ckv2dNXIxGg9D20MORAH3oTJL9sw6yUc89gPWMX
+ 8NmbYRGMwm4jug9V+cKLlA3QuYDgLuFzz7bGHABf6NqF+Am+Zq9F/FGdpJJmPr70Kjq3
+ ZuqA==
+X-Gm-Message-State: ALyK8tIQ5cwl75TdtTxp6EMA2Uov5X4RHcFnJyUNDdjtHkhgIQh5WpiLdVU0s3At9nmqarx1BVXjPk/iWCIXnA==
+X-Received: by 10.159.36.119 with SMTP id 110mr2058996uaq.106.1467334423775;
+ Thu, 30 Jun 2016 17:53:43 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.103.98.68 with HTTP; Thu, 30 Jun 2016 17:53:24 -0700 (PDT)
+In-Reply-To: <20160630212709.GV20922@asimov.austin.ibm.com>
+References: <20160630162033.2330-1-openbmc-patches@stwcx.xyz>
+ <20160630162033.2330-4-openbmc-patches@stwcx.xyz>
+ <20160630212709.GV20922@asimov.austin.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 1 Jul 2016 10:23:24 +0930
+X-Google-Sender-Auth: QCObX4zaCQGxxEUaN_mlEviSzrA
+Message-ID: <CACPK8XdYZrNXFrxp2beXwWKrORCApWtSh+1LRG+qOrd_DHvz-g@mail.gmail.com>
+Subject: Re: [PATCH openbmc 3/3] meta-openpower: Update pflash version
+To: Patrick Williams <patrick@stwcx.xyz>,
+ Stewart Smith <stewart@linux.vnet.ibm.com>
+Cc: OpenBMC Patches <openbmc-patches@stwcx.xyz>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -27,81 +62,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Jun 2016 23:50:56 -0000
+X-List-Received-Date: Fri, 01 Jul 2016 00:53:47 -0000
 
-From: Milton Miller <miltonm@us.ibm.com>
+On Fri, Jul 1, 2016 at 6:57 AM, Patrick Williams <patrick@stwcx.xyz> wrote:
+> On Thu, Jun 30, 2016 at 11:20:33AM -0500, OpenBMC Patches wrote:
+>> From: Joel Stanley <joel@jms.id.au>
+>>
+>> Move to HEAD so we can drop the patches we carry.
+>>
+>> Signed-off-by: Joel Stanley <joel@jms.id.au>
+>
+> Stewart released 5.2.3 with these fixes.  Can you put us onto that
+> instead?  Prefer to stay on a released version rather than a commit.
 
-Change the whiltelist definition to be files in a directory instead
-of a single file.  This will allow us to store which files should
-be saved in individual recipes and also supports comments in the
-whitelist.
+It was my intention to bump us to 5.2.3. However, I went and looked at
+the recipe and we were carrying 7 patches against skiboot. Only the
+7th is on the stable branch.
 
-The actual split into separate files is deferred for prototyping
-what assistance classes should look like to make the whitelist
-(eg systemd service files); also the packages will need to be
-added to the package list for the initramfs image.
+Stewart,
 
-Signed-off-by: Milton Miller <miltonm@us.ibm.com>
----
- .../common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh | 2 +-
- .../recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh      | 6 ++++--
- .../recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-initfs.bb   | 5 +++--
- 3 files changed, 8 insertions(+), 5 deletions(-)
+I assume you don't want to tag master at all?
 
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-index 70af93d..1f54d39 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-init.sh
-@@ -18,7 +18,7 @@ fi
- 
- mkdir -p $rodir $rwdir
- 
--cp -rp init shutdown update whitelist bin sbin usr lib etc var run/initramfs
-+cp -rp init shutdown update whitelist.d bin sbin usr lib etc var run/initramfs
- 
- # To start a interactive shell with job control at this point, run
- # getty 38400 ttyS4
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-index f0c41a7..b061e26 100755
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/files/obmc-update.sh
-@@ -100,7 +100,7 @@ toram=
- checksize=y
- checkmount=y
- 
--whitelist=/run/initramfs/whitelist
-+whitelist=/run/initramfs/whitelist.d/
- image=/run/initramfs/image-
- imglist=
- 
-@@ -191,7 +191,9 @@ then
- 		done
- 		mkdir -p "${d%/*}"
- 		cp -rp "$upper/$f" "${d%/*}/"
--	done < $whitelist
-+	done << HERE
-+$(grep -v ^# $whitelist*)
-+HERE
- 
- 	if test -n "$mounted"
- 	then
-diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-initfs.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-initfs.bb
-index f81e21d..70b6686 100644
---- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-initfs.bb
-+++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-initfs/obmc-phosphor-initfs.bb
-@@ -21,10 +21,11 @@ do_install() {
-         install -m 0755 ${WORKDIR}/obmc-init.sh ${D}/init
-         install -m 0755 ${WORKDIR}/obmc-shutdown.sh ${D}/shutdown
-         install -m 0755 ${WORKDIR}/obmc-update.sh ${D}/update
--        install -m 0644 ${WORKDIR}/whitelist ${D}/whitelist
-+        install -d ${D}/whitelist.d
-+        install -m 0644 ${WORKDIR}/whitelist ${D}/whitelist.d/whitelist
-         install -d ${D}/dev
-         mknod -m 622 ${D}/dev/console c 5 1
- }
- 
--FILES_${PN} += " /init /shutdown /update /whitelist /dev "
-+FILES_${PN} += " /init /shutdown /update /whitelist.d/whitelist /dev "
- FILES_${PN} += " /init-options /init-download-url "
--- 
-2.9.0
+If not, can you please pull this list of commits into the stable branch:
+
+ e42206bf0729782330778e77283af2aca23499dc
+ 7c7911eb7bea505474c3062bf5b0c60d99b502a5
+ e5fc583e610d4360f8fe50f225c868cb3019c1a7
+ e415b3b9bf0441745f442e12bfce25ed49c589bf
+ 45e548176e16ad8ba9540fcd75131ba4993e42b7
+ 24ae270984a37525f8393eeccbd0ac55da4503e1
+
+They are all related to building pflash.
+
+Cheers,
+
+Joel
