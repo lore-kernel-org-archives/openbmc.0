@@ -3,26 +3,29 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rh5Tr3tKJzDql5
- for <openbmc@lists.ozlabs.org>; Sat,  2 Jul 2016 05:05:52 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rh5gG5XPfzDql5
+ for <openbmc@lists.ozlabs.org>; Sat,  2 Jul 2016 05:14:02 +1000 (AEST)
 Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
  [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1467399948075660.3687731666762;
- Fri, 1 Jul 2016 12:05:48 -0700 (PDT)
-Date: Fri, 1 Jul 2016 14:05:46 -0500
+ with SMTPS id 1467400438162180.19407210190582;
+ Fri, 1 Jul 2016 12:13:58 -0700 (PDT)
+Date: Fri, 1 Jul 2016 14:13:56 -0500
 From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: Gerrit server migration
-Message-ID: <20160701190546.GX20922@asimov.austin.ibm.com>
-References: <20160627221501.GN20922@asimov.austin.ibm.com>
- <20160629182150.GP20922@asimov.austin.ibm.com>
+To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Cc: openbmc@lists.ozlabs.org, tomjose <tomjoseph@in.ibm.com>
+Subject: Re: [PATCH openbmc v2] Generate code from conf files from IPMI
+ packages
+Message-ID: <20160701191356.GY20922@asimov.austin.ibm.com>
+References: <20160701143037.13669-1-openbmc-patches@stwcx.xyz>
+ <20160701143037.13669-2-openbmc-patches@stwcx.xyz>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="K5z5w9fsx/Hrkgg3"
+ protocol="application/pgp-signature"; boundary="W1uEbMXJ1Mj4g6TI"
 Content-Disposition: inline
-In-Reply-To: <20160629182150.GP20922@asimov.austin.ibm.com>
+In-Reply-To: <20160701143037.13669-2-openbmc-patches@stwcx.xyz>
 User-Agent: Mutt/1.5.24 (2015-08-30)
 X-Zoho-Virus-Status: 1
+X-ZohoMail: Z_61896388 SPT_1 Z_56716064 SPT_1 SLF_D
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -34,105 +37,122 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Jul 2016 19:05:53 -0000
+X-List-Received-Date: Fri, 01 Jul 2016 19:14:03 -0000
 
 
---K5z5w9fsx/Hrkgg3
+--W1uEbMXJ1Mj4g6TI
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-These repos are now also migrated:
-          * openbmc / skeleton
-          * openbmc / phosphor-host-ipmid
-          * openbmc / ipmi-fru-parser
-          * openbmc / openpower-host-ipmi-oem
-          * openbmc / openbmc-build-scripts
-
-openbmc/openbmc - We are waiting for a Jenkins connection to be made to
-the Gerrit server before we migrate this one, since it is doing our CI
-testing.
-
-openbmc/docs - I have a few changes I want done in Github so that they
-get broadcast on the mailing list.  Moving out to next week.
-
-On Wed, Jun 29, 2016 at 01:21:50PM -0500, Patrick Williams wrote:
-> These repos are now also migrated:
->          * openbmc / phosphor-rest-server
->          * openbmc / openbmc-test-automation
+On Fri, Jul 01, 2016 at 09:30:37AM -0500, OpenBMC Patches wrote:
+> From: tomjose <tomjoseph@in.ibm.com>
 >=20
-> On Mon, Jun 27, 2016 at 05:15:01PM -0500, Patrick Williams wrote:
-> > All,
-> >=20
-> > The Gerrit server is now ready for use.  All of the repositories except
-> > for the ones listed below are migrated to it.  We therefore no longer
-> > accept pull requests on Github, but instead need commits to go through
-> > Gerrit.
-> >=20
-> > For a reminder, the Gerrit server is at https://gerrit.openbmc-project.=
-xyz
-> > and documentation can be found in this outstanding pull request
-> > https://github.com/openbmc/docs/pull/30 .
-> >=20
-> > The Gerrit server automatically replicates all merged commits back to
-> > Github, so Github is still considered the canonical location for our so=
-urce.
-> >=20
-> > Not [yet] migrated repositories:
-> >     * Waiting on a few pull requests to be closed.
-> >         * openbmc / openbmc
-> >     * To be migrated later this week.
-> >         * openbmc / docs
-> >     * Never to be migrated (use mailing list for commits).
-> >         * openbmc / linux
-> >         * openbmc / ipmitool
-> >         * openbmc / u-boot
-> >         * openbmc / qemu
-> > --
-> > Patrick Williams
->=20
->=20
->=20
-> > _______________________________________________
-> > openbmc mailing list
-> > openbmc@lists.ozlabs.org
-> > https://lists.ozlabs.org/listinfo/openbmc
->=20
->=20
-> --=20
-> Patrick Williams
+> IPMI whitelisted commands for each package is mentioned in the
+> respective conf file. The conf files are merged and code is
+> generated to be consumed by ipmi daemon.
 
+> --- a/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb
+> +++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid.bb
+> @@ -17,7 +17,10 @@ TARGET_CFLAGS   +=3D "-fpic"
+>  RDEPENDS_${PN} +=3D "clear-once"
+>  RDEPENDS_${PN} +=3D "settings"
+>  RDEPENDS_${PN} +=3D "network"
+> -SRC_URI +=3D "git://github.com/openbmc/phosphor-host-ipmid"
+> +SRC_URI +=3D "git://github.com/openbmc/phosphor-host-ipmid \
+> +			file://host-ipmid-whitelist.conf \
+> +			file://host-ipmid-oem-whitelist.conf \
+> +			file://host-ipmid-fru-whitelist.conf"
 
+Shouldn't the oem and fru whitelist entries be provided by their
+respective packages?
 
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+> +do_configure () {
+> +        merge_config.sh -m .config ${@" ".join(find_cfgs(d))}
 
+I don't think merge_config is needed here.  The 'generate_whitelist'
+appears to take a list of files already.
+
+> +        generate_whitelist .config  > ipmiwhitelist.C
+> +}
+> +
+> +generate_whitelist() {
+
+I think we should move this script into the IPMI package itself.  The
+file output format is tied to the IPMI code (vector<pair<uchar,
+uchar>>).
+
+> +        # Ensure some files have been passed.
+> +        if [ "x$*" =3D=3D "x" ]; then
+> +            echo "Usage: $0 [whitelist_files+]" >&2
+> +            exit -1
+> +        fi
+> +		|
+
+Check for excess whitespace throughout this function.  A lot of stray
+tabs.
+
+> +        # Output header of C++ file.
+> +        echo -e '#include <vector>\n'
+> +	=09
+> +        echo -e 'using netfncmd_pair =3D std::pair<unsigned char, unsign=
+ed char>;\n'
+
+I think there is a header that defines this type already, no?  Should we
+include it instead?
+
+> +	=09
+> +        echo -e 'const std::vector<netfncmd_pair> whitelist =3D {\n'
+> +	=09
+> +        # Output each row of whitelist vector.
+> +        # Concatenate all the passed files.
+> +        # Remove comments and empty lines.
+> +        # Sort the list [numerically].
+> +        # Remove any duplicates.
+> +        # Turn "a:b" -> "{ a, b },"
+> +        cat $* | sed "s/#.*//" | sed '/^$/d' | sort -n | uniq | sed "s/^=
+/    { /" | \
+> +        sed "s/:/, /" | sed "s/$/ }, /"
+> +    =09
+> +        echo '};'
+> +}
+
+> +++ b/meta-phosphor/common/recipes-phosphor/host-ipmid/host-ipmid/files/h=
+ost-ipmid-fru-whitelist.conf
+> @@ -0,0 +1,2 @@
+> +#<NetFn>:<Command>
+> +0x32:0xF0
+
+I'd prefer to also see each netfn/command documented.
+
+    0x32:0xF0   # UserManagement : SetRootPassword
+
+(I totally made up these netfn / command definitions.  Suppose to be an
+example).
 
 --=20
 Patrick Williams
 
---K5z5w9fsx/Hrkgg3
+--W1uEbMXJ1Mj4g6TI
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJXdr8KAAoJEKsDR8wtAMEZx9EQAILiuhaAlhc33YZ8aqv+3isb
-ugxxb6ybTqiDaogJeArZSu4LPjSeRMDXfZjf8RCwjAlM7dm5w1rpSyv/0SAQnuND
-/4Wht+HyYXHYveGCKNxwGrYii1R2vGKvjqksZOdYkOs23+Sl6k5Wd8nrtHXeWui9
-Mh+2JanNAAMnpZVSrVghKPdzE0iOVpyUEHqrYmwQAHUc4KrSdjnctFJZPEtHt6NM
-2HCFRlaCMlh2s9DN6jW8CZh2MOKSj39xGI6UfSAX9jroRY6i2xP0ojbskYxqeX3z
-sFgW59JZ4+Ydh8DUWzq37HL8IzQYZXZjIDs5CgkV1wIwxNdnTgI72ETnAAFP4Dri
-PQsP1mUZStZ27wPsRVIqEjFaqJ7PbC1k/3b9CrYM/OJJA6ig52shWCi6ykPnivro
-ytS89DmaZ8QWhK3gvJfCWytamU8B1HguFBsfIkL3aas7scK2eG5HMRofGP1BYnSC
-1xJ5yu3xxhq8YCh5vA5+Xys3Q1geCz5pSqeA2B+hTl4gFZNnapNNnHvdqeK6MMpD
-U4BWGlj+TG4vgUdizlQ7SYRVFtPCiusUlRs1yB1CD8Bn+OAv0xrFMP6DFbchFo6z
-swa6UV2FEEjBytRSjrwNNUT0m74wkGNLT7MnW1MrzHcP4QeDM2xyR+cQgSDVxRaX
-WP3R0dGLVRVaqSPyzOPS
-=2VEt
+iQIcBAEBCAAGBQJXdsD0AAoJEKsDR8wtAMEZY44P/RaDbPzTSXoHXb5Lfq8oQuB4
+q21XtgL16x558rz3ikmjjQ3D9il5f49/ypfBoFbYn2Ees5O3Uu/FhJ+kHSAROd8v
+gQGXJdiPS6nWZUH/N0lm971OOvuXo5+SX2fyJfsJXnsPuBnZvoySO9AuuPVgeIOm
+QNuDN5dk4aTgHphgZKV6kZ5J0o8bgtCsSAwMD7ugUZubaxqiInV96fflxXI70rjb
+Gxkli0h+J+TCjkxsMF1vT4pzozrQCTL3iyQpE3EdWSw26wRFteBaPSC/F0dut3Qa
+sRthCuxcX1kVWA7gLyQ4wW4VDCmOQSPhG0D/326va6TMfzNAwpDRMjmjrUKbwQOy
+SlLMGHiA4Lqv7RkISCpsh2XtrtRRmV2KvrKbJ/lKGnEeh5sF+PhpA6f3PQNkRGQS
+za1qlbCDKIM7X4YX4ypNcAkUoeIvAqoLWQZ8Nsu27kBYmZ8zzb7WQJAFUXT2a6uS
+99g+kABwNgXqMd7W5b7RyHhgjQ7uDGn2HjNX43BtojIAoEWrMUWyG0/B4LkGpCKG
+IRgVhcboCnsf2uHY2jqBm5cozajxPrqH2g83mhqJb1XcY8XH7dF9lc7wJIn/99b4
+e4PchBHnlTgTzUWXYe6OROii694RnuvwX1GLYz5UJzJXlqiqIC71f0IefxTnvPc4
+f0GZjAql2XChtEzNPJYC
+=pPGi
 -----END PGP SIGNATURE-----
 
---K5z5w9fsx/Hrkgg3--
+--W1uEbMXJ1Mj4g6TI--
