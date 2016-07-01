@@ -1,22 +1,28 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
+Return-Path: <patrick@stwcx.xyz>
 Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rh4VR44YrzDqn6
- for <openbmc@lists.ozlabs.org>; Sat,  2 Jul 2016 04:21:19 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1467397258362383.5027076598543;
- Fri, 1 Jul 2016 11:20:58 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Cc: Andrew Geissler <andrewg@us.ibm.com>
-Subject: [PATCH skeleton v5 2/2] Disable watchdog timer if debug_mode is set
-Date: Fri,  1 Jul 2016 13:20:54 -0500
-Message-Id: <20160701182054.24315-3-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.9.0
-In-Reply-To: <20160701182054.24315-1-openbmc-patches@stwcx.xyz>
-References: <20160701182054.24315-1-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rh5Tr3tKJzDql5
+ for <openbmc@lists.ozlabs.org>; Sat,  2 Jul 2016 05:05:52 +1000 (AEST)
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mx.zohomail.com
+ with SMTPS id 1467399948075660.3687731666762;
+ Fri, 1 Jul 2016 12:05:48 -0700 (PDT)
+Date: Fri, 1 Jul 2016 14:05:46 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: Gerrit server migration
+Message-ID: <20160701190546.GX20922@asimov.austin.ibm.com>
+References: <20160627221501.GN20922@asimov.austin.ibm.com>
+ <20160629182150.GP20922@asimov.austin.ibm.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="K5z5w9fsx/Hrkgg3"
+Content-Disposition: inline
+In-Reply-To: <20160629182150.GP20922@asimov.austin.ibm.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,74 +34,105 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Jul 2016 18:21:20 -0000
+X-List-Received-Date: Fri, 01 Jul 2016 19:05:53 -0000
 
-From: Andrew Geissler <andrewg@us.ibm.com>
 
-resolves openbmc/openbmc#246
+--K5z5w9fsx/Hrkgg3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-debug_mode is used when the host is not going to be started.
-In this case, we do not want the watchdog timer to be started
-because there is no one to keep it from resetting.
+These repos are now also migrated:
+          * openbmc / skeleton
+          * openbmc / phosphor-host-ipmid
+          * openbmc / ipmi-fru-parser
+          * openbmc / openpower-host-ipmi-oem
+          * openbmc / openbmc-build-scripts
 
-This code change prevents the watchdog from being started
-during poweron.
+openbmc/openbmc - We are waiting for a Jenkins connection to be made to
+the Gerrit server before we migrate this one, since it is doing our CI
+testing.
 
-Potential side affects could be if we do start the host
-in this code path.  The watchdog is un-tested when it's
-not started but software comes in and tries to reset it.
-The code in control_host_obj.c currently enforces the
-no-host-power-on when debug_mode is set.
----
- pychassisctl/chassis_control.py | 26 +++++++++++++++++++++-----
- 1 file changed, 21 insertions(+), 5 deletions(-)
- mode change 100644 => 100755 pychassisctl/chassis_control.py
+openbmc/docs - I have a few changes I want done in Github so that they
+get broadcast on the mailing list.  Moving out to next week.
 
-diff --git a/pychassisctl/chassis_control.py b/pychassisctl/chassis_control.py
-old mode 100644
-new mode 100755
-index 8d34e2e..56a2116
---- a/pychassisctl/chassis_control.py
-+++ b/pychassisctl/chassis_control.py
-@@ -67,6 +67,11 @@ class ChassisControlObject(DbusProperties, DbusObjectManager):
-                 'object_name': '/org/openbmc/settings/host0',
-                 'interface_name': 'org.freedesktop.DBus.Properties'
-             },
-+            'host_control': {
-+                'bus_name': 'org.openbmc.control.Host',
-+                'object_name': '/org/openbmc/control/host0',
-+                'interface_name': 'org.openbmc.control.Host'
-+            },
-         }
- 
-         # uuid
-@@ -129,11 +134,22 @@ class ChassisControlObject(DbusProperties, DbusObjectManager):
-         if (self.getPowerState() == 0):
-             intf = self.getInterface('power_control')
-             intf.setPowerState(POWER_ON)
--            intfwatchdog = self.getInterface('watchdog')
--            # Start watchdog with 30s timeout per the OpenPower Host IPMI Spec
--            #Once the host starts booting, it'll reset and refresh the timer
--            intfwatchdog.set(30000)
--            intfwatchdog.start()
-+
-+            # Determine if debug_mode is set.  If it is then we don't
-+            # want to start the watchdog since debug mode
-+            intfcontrol = self.getInterface('host_control')
-+            intfproperties = dbus.Interface(intfcontrol,
-+                                            "org.freedesktop.DBus.Properties")
-+            debug_mode = intfproperties.Get('org.openbmc.control.Host',
-+                                            'debug_mode')
-+            if(not debug_mode):
-+                intfwatchdog = self.getInterface('watchdog')
-+                # Start watchdog with 30s timeout per the OpenPower Host IPMI Spec
-+                #Once the host starts booting, it'll reset and refresh the timer
-+                intfwatchdog.set(30000)
-+                intfwatchdog.start()
-+            else:
-+                print "Debug mode is on, no watchdog"
-         return None
- 
-     @dbus.service.method(DBUS_NAME,
--- 
-2.9.0
+On Wed, Jun 29, 2016 at 01:21:50PM -0500, Patrick Williams wrote:
+> These repos are now also migrated:
+>          * openbmc / phosphor-rest-server
+>          * openbmc / openbmc-test-automation
+>=20
+> On Mon, Jun 27, 2016 at 05:15:01PM -0500, Patrick Williams wrote:
+> > All,
+> >=20
+> > The Gerrit server is now ready for use.  All of the repositories except
+> > for the ones listed below are migrated to it.  We therefore no longer
+> > accept pull requests on Github, but instead need commits to go through
+> > Gerrit.
+> >=20
+> > For a reminder, the Gerrit server is at https://gerrit.openbmc-project.=
+xyz
+> > and documentation can be found in this outstanding pull request
+> > https://github.com/openbmc/docs/pull/30 .
+> >=20
+> > The Gerrit server automatically replicates all merged commits back to
+> > Github, so Github is still considered the canonical location for our so=
+urce.
+> >=20
+> > Not [yet] migrated repositories:
+> >     * Waiting on a few pull requests to be closed.
+> >         * openbmc / openbmc
+> >     * To be migrated later this week.
+> >         * openbmc / docs
+> >     * Never to be migrated (use mailing list for commits).
+> >         * openbmc / linux
+> >         * openbmc / ipmitool
+> >         * openbmc / u-boot
+> >         * openbmc / qemu
+> > --
+> > Patrick Williams
+>=20
+>=20
+>=20
+> > _______________________________________________
+> > openbmc mailing list
+> > openbmc@lists.ozlabs.org
+> > https://lists.ozlabs.org/listinfo/openbmc
+>=20
+>=20
+> --=20
+> Patrick Williams
+
+
+
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+
+
+--=20
+Patrick Williams
+
+--K5z5w9fsx/Hrkgg3
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJXdr8KAAoJEKsDR8wtAMEZx9EQAILiuhaAlhc33YZ8aqv+3isb
+ugxxb6ybTqiDaogJeArZSu4LPjSeRMDXfZjf8RCwjAlM7dm5w1rpSyv/0SAQnuND
+/4Wht+HyYXHYveGCKNxwGrYii1R2vGKvjqksZOdYkOs23+Sl6k5Wd8nrtHXeWui9
+Mh+2JanNAAMnpZVSrVghKPdzE0iOVpyUEHqrYmwQAHUc4KrSdjnctFJZPEtHt6NM
+2HCFRlaCMlh2s9DN6jW8CZh2MOKSj39xGI6UfSAX9jroRY6i2xP0ojbskYxqeX3z
+sFgW59JZ4+Ydh8DUWzq37HL8IzQYZXZjIDs5CgkV1wIwxNdnTgI72ETnAAFP4Dri
+PQsP1mUZStZ27wPsRVIqEjFaqJ7PbC1k/3b9CrYM/OJJA6ig52shWCi6ykPnivro
+ytS89DmaZ8QWhK3gvJfCWytamU8B1HguFBsfIkL3aas7scK2eG5HMRofGP1BYnSC
+1xJ5yu3xxhq8YCh5vA5+Xys3Q1geCz5pSqeA2B+hTl4gFZNnapNNnHvdqeK6MMpD
+U4BWGlj+TG4vgUdizlQ7SYRVFtPCiusUlRs1yB1CD8Bn+OAv0xrFMP6DFbchFo6z
+swa6UV2FEEjBytRSjrwNNUT0m74wkGNLT7MnW1MrzHcP4QeDM2xyR+cQgSDVxRaX
+WP3R0dGLVRVaqSPyzOPS
+=2VEt
+-----END PGP SIGNATURE-----
+
+--K5z5w9fsx/Hrkgg3--
