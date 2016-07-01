@@ -3,17 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rh0Gs1BsczDql5
- for <openbmc@lists.ozlabs.org>; Sat,  2 Jul 2016 01:11:01 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rh4V26NS2zDql5
+ for <openbmc@lists.ozlabs.org>; Sat,  2 Jul 2016 04:20:58 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 146738585287474.91401916520238;
- Fri, 1 Jul 2016 08:10:52 -0700 (PDT)
+ with SMTPS id 1467397255349376.8647253613161;
+ Fri, 1 Jul 2016 11:20:55 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH skeleton] hwmon: attribute is not polled after failure
-Date: Fri,  1 Jul 2016 10:10:51 -0500
-Message-Id: <20160701151052.15601-1-openbmc-patches@stwcx.xyz>
+Subject: [PATCH skeleton v5 0/2] Disable watchdog timer if debug_mode is set
+Date: Fri,  1 Jul 2016 13:20:52 -0500
+Message-Id: <20160701182054.24315-1-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
@@ -26,26 +25,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Jul 2016 15:11:01 -0000
+X-List-Received-Date: Fri, 01 Jul 2016 18:20:59 -0000
 
-This line of code was removed with revert bd01c24d (original efc68970)
-but should not have been.  The line was originally added with 6956bbd4.
+https://github.com/openbmc/openbmc/issues/246
 
-Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+debug_mode is used when the host is not going to be started.
+In this case, we do not want the watchdog timer to be started
+because there is no one to keep it from resetting.
+
+This code change prevents the watchdog from being started
+during poweron.
+
+Potential side affects could be if we do start the host
+in this code path.  The watchdog is un-tested when it's
+not started but software comes in and tries to reset it.
+The code in control_host_obj.c currently enforces the
+no-host-power-on when debug_mode is set.
 
 <!-- Reviewable:start -->
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/skeleton/125)
+This change is [<img src="https://reviewable.io/review_button.svg" height="35" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/skeleton/120)
 <!-- Reviewable:end -->
 
 
-https://github.com/openbmc/skeleton/pull/125
+https://github.com/openbmc/skeleton/pull/120
 
-Brad Bishop (1):
-  hwmon: attribute is not polled after failure
+Andrew Geissler (2):
+  Reformat pychassisctl/chassis_control.py with pep8 standards
+  Disable watchdog timer if debug_mode is set
 
- pyhwmon/hwmon.py | 1 +
- 1 file changed, 1 insertion(+)
+ pychassisctl/chassis_control.py | 408 +++++++++++++++++++++-------------------
+ 1 file changed, 216 insertions(+), 192 deletions(-)
+ mode change 100644 => 100755 pychassisctl/chassis_control.py
 
 -- 
 2.9.0
