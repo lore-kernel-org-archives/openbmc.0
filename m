@@ -3,17 +3,19 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rlv4F4V3hzDr4w
- for <openbmc@lists.ozlabs.org>; Fri,  8 Jul 2016 09:30:20 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rlv4F6BxnzDr52
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Jul 2016 09:30:21 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1467934216325422.3476148311112;
- Thu, 7 Jul 2016 16:30:16 -0700 (PDT)
+ with SMTPS id 1467934217420709.7434458155043;
+ Thu, 7 Jul 2016 16:30:17 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH docs 0/2] Document updated bmc flash interface and procedure
-Date: Thu,  7 Jul 2016 18:30:13 -0500
-Message-Id: <20160707233015.9687-1-openbmc-patches@stwcx.xyz>
+Subject: [PATCH docs 1/2] Update dbus-interfaces.md
+Date: Thu,  7 Jul 2016 18:30:14 -0500
+Message-Id: <20160707233015.9687-2-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
+In-Reply-To: <20160707233015.9687-1-openbmc-patches@stwcx.xyz>
+References: <20160707233015.9687-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -27,39 +29,26 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 07 Jul 2016 23:30:22 -0000
 
- Document BMC flash update enhancements
+From: Chris Austen <austenc@us.ibm.com>
 
-The BMC flash update process was enhanced to allow the images to be
-written to flash while the system is operational allowing progress
-to be mointored.
-
-Update the documentation describing how to use the new interfaces.
-Also add or update the description of the prior interface.
-
-Fixes: openbmc/openbmc#293
-Signed-off-by: Milton Miller <miltonm@us.ibm.com>
-
+dbus-interfaces: Add org.openbmc.control.BmcFlash.update method
+Signed-off-by: Chris Austen <austenc@us.ibm.com>
 ---
-I did not have a chance to test the added commands.  
-I based on @causten #26 and can rebase if necessary.
+ dbus-interfaces.md | 2 ++
+ 1 file changed, 2 insertions(+)
 
-<!-- Reviewable:start -->
----
-This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/docs/31)
-<!-- Reviewable:end -->
-
-
-https://github.com/openbmc/docs/pull/31
-
-Chris Austen (1):
-  Update dbus-interfaces.md
-
-Milton Miller (1):
-  Document BMC flash update enhancements
-
- code-update.md     | 110 ++++++++++++++++++++++++++++++++++++++++++++++-------
- dbus-interfaces.md |  26 ++++++++-----
- 2 files changed, 114 insertions(+), 22 deletions(-)
-
+diff --git a/dbus-interfaces.md b/dbus-interfaces.md
+index 524bc3f..f4e043d 100644
+--- a/dbus-interfaces.md
++++ b/dbus-interfaces.md
+@@ -311,6 +311,8 @@ The control.BmcFlash interface allows applications update the BMC firmware.
+ | `updateViaTftp` | `ss`         | `void`        | **Perform a BMC firmware update using a TFTP server.**|
+ |                 | `s`          |               | The ipv4 address of the TFTP server hosting the firmware image file.|
+ |                 | `s`          |               | The name of the file containing the BMC firmware image.|
++| `update`        | `s`          | `void`        | **Perform a BMC firmware update with a file already on the BMC.**|
++|                 | `s`          |               | The name of the file containing the BMC firmware image.|
+ 
+ ### signals
+ | name           | signature | description                              |
 -- 
 2.9.0
