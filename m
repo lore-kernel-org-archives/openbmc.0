@@ -1,49 +1,29 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-io0-x229.google.com (mail-io0-x229.google.com
- [IPv6:2607:f8b0:4001:c06::229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rlkFM6JcQzDqyS
- for <openbmc@lists.ozlabs.org>; Fri,  8 Jul 2016 02:52:39 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=ef1DCqoI; 
- dkim-atps=neutral
-Received: by mail-io0-x229.google.com with SMTP id l202so24862304ioe.3
- for <openbmc@lists.ozlabs.org>; Thu, 07 Jul 2016 09:52:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=PynKGkKcN1JTqWgEZUcNuaKMrOOUD+wcWFGe1jgPEf0=;
- b=ef1DCqoIX2aOzU0M1cuum5d7VeU5AyBs7qFdsvZbBmqy7Ebsgz73OO5fAzGZXV6oLL
- pED+D0vgtxU4qHrnYvZbfsLJeKiRMxtgcRlp3HNuWC65Eu3Zv59ecy6mlSn6THbRUo71
- 7fvaCCvxkEe11+19wz9d8Zmn+viQxVbJFLZM4ewffPlBh25s7ngShqIJ12lCX2bwGsXi
- GzQgXBiUzUMJoGAxG+1OmtUSdpUK1nO+OHeZWFC9gdZ6dipQEL6gR4rDqs5a/q5UFT9K
- YMizBgPHvLD7H4RCVoXt8tFOhZ1EldIanzvNyjSgQKzC93mjQXEOJylYcrSJGpSFp+7K
- 1E7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=PynKGkKcN1JTqWgEZUcNuaKMrOOUD+wcWFGe1jgPEf0=;
- b=j8DHuCMEatp0bu3QEkwkE8XvqnSo6v/SIVD525o8Y121DCHbR+RPUkXREBEcVHN4b5
- jSS0CfHtaQnB4UUIzm3OgrGasrxEQKd3GLdkwWMS3l/bmNDZxeQ7z0mt5tTB5NXxXdJL
- oowfjaafNJuqVaQuPbP6JGt/VPd/gQGtjRZe4aCCiZH53cmuL0qqUL6JSgCXdR6bHKS8
- XSvw73mmOucWAJw0h7K1F0HSUUglwFHP7bfoSHhDxQwHGAJdmpEZm2wve92m1MivsIzT
- refPuITqZ7yW2FBasylyjjfjT+SL0wcv3MD0py/JGtnUXmdITdr4B38doiwDoD5COses
- TPUA==
-X-Gm-Message-State: ALyK8tJguSb4dcGeyw9ERckvUjZxbrWmgv6SfTpDOoR4cj0zkFkEcaVH/GNEH0N2ib3iNYCVFa3UeHstKWCEx3ma
-X-Received: by 10.107.58.65 with SMTP id h62mr4376149ioa.172.1467910357544;
- Thu, 07 Jul 2016 09:52:37 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.64.101.202 with HTTP; Thu, 7 Jul 2016 09:52:36 -0700 (PDT)
-In-Reply-To: <OFAF379D90.EBDC1ECC-ON65258094.0026E76B-65257FE9.004807C1@notes.na.collabserv.com>
-References: <OFAF379D90.EBDC1ECC-ON65258094.0026E76B-65257FE9.004807C1@notes.na.collabserv.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Thu, 7 Jul 2016 09:52:36 -0700
-Message-ID: <CAPLgG=kcOH1h6NZ6-gV9dTaKzpjjZfqpQBjTzXd-r3t8e5VL5g@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rlmGW32fMzDr1l
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Jul 2016 04:23:47 +1000 (AEST)
+Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
+ with SMTPS id 1467915821657984.3565443321222;
+ Thu, 7 Jul 2016 11:23:41 -0700 (PDT)
+Date: Thu, 7 Jul 2016 13:23:39 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Rick Altherr <raltherr@google.com>
+Cc: Vishwanatha Subbanna <vishwanath@in.ibm.com>,
+ OpenBMC <openbmc@lists.ozlabs.org>
 Subject: Re: Issues with setting the timeofday
-To: Vishwanatha Subbanna <vishwanath@in.ibm.com>
-Cc: OpenBMC <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=001a114ac6166ceb7405370e83ac
+Message-ID: <20160707182339.GE20922@asimov.austin.ibm.com>
+References: <OFAF379D90.EBDC1ECC-ON65258094.0026E76B-65257FE9.004807C1@notes.na.collabserv.com>
+ <CAPLgG=kcOH1h6NZ6-gV9dTaKzpjjZfqpQBjTzXd-r3t8e5VL5g@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="nlttjmhgc7EeTk3T"
+Content-Disposition: inline
+In-Reply-To: <CAPLgG=kcOH1h6NZ6-gV9dTaKzpjjZfqpQBjTzXd-r3t8e5VL5g@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -55,110 +35,109 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Jul 2016 16:52:40 -0000
+X-List-Received-Date: Thu, 07 Jul 2016 18:23:48 -0000
 
---001a114ac6166ceb7405370e83ac
-Content-Type: text/plain; charset=UTF-8
 
-If ntpd or systemd-timesyncd is running, this makes perfect sense.  Linux
-maintains current time in the kernel.  The hardware RTC is only used to
-load an initial time at boot and is written during shutdown.  When an NTP
-daemon is running and an NTP server is reachable, it will adjust the
-kernel's current time to match NTP time.  I believe with timesyncd, it
-simply steps time instead of slewing like ntpd does.
+--nlttjmhgc7EeTk3T
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-What are you trying to accomplish?  There is likely a way to do it if you
-can describe what you want to have happen.
+On Thu, Jul 07, 2016 at 09:52:36AM -0700, Rick Altherr wrote:
+> If ntpd or systemd-timesyncd is running, this makes perfect sense.  Linux
+> maintains current time in the kernel.  The hardware RTC is only used to
+> load an initial time at boot and is written during shutdown.  When an NTP
+> daemon is running and an NTP server is reachable, it will adjust the
+> kernel's current time to match NTP time.  I believe with timesyncd, it
+> simply steps time instead of slewing like ntpd does.
+>=20
+> What are you trying to accomplish?  There is likely a way to do it if you
+> can describe what you want to have happen.
 
-On Thu, Jul 7, 2016 at 6:06 AM, Vishwanatha Subbanna <vishwanath@in.ibm.com>
-wrote:
+It looks like maybe this is related to Github issue openbmc/openbmc#310.
 
-> hey Joel,
->
-> Here is what I am seeing on one the Barreleye box that is running
-> "4.4.12-openbmc-20160606-1 : kernel". I can see that time gets set but
-> reverts immediately. Syncing what's in hwclock does not have any effect
-> too. Any thoughts ?
->
-> root@barreleye:~# date -s '2016-12-25 12:34:56' ; hwclock -w
-> Sun Dec 25 12:34:56 UTC 2016
->
-> root@barreleye:~# date
-> Thu Jul 7 13:07:37 UTC 2016
->
-> root@barreleye:~# hwclock -r
-> Sun Dec 25 12:35:01 2016 0.000000 seconds
->
-> root@barreleye:~# hwclock -s
->
-> root@barreleye:~# date
-> Thu Jul 7 13:07:52 UTC 2016
-> root@barreleye:~#
->
-> Thanks
->
->
-> -------------------------------------------------------------------------------------
-> Thanks and Regards,
-> Vishwanath.
-> Advisory Software Engineer,
-> Power Firmware Development,
-> Systems &Technology Lab,
-> MG2-6F-255 , Manyata Embassy Business Park,
-> Bangalore , KA , 560045
-> Ph: +91-80-46678255
-> E-mail: vishwanath@in.ibm.com
->
-> ----------------------------------------------------------------------------------
->
+    https://github.com/openbmc/openbmc/issues/310
+
+> On Thu, Jul 7, 2016 at 6:06 AM, Vishwanatha Subbanna <vishwanath@in.ibm.c=
+om>
+> wrote:
+>=20
+> > hey Joel,
+> >
+> > Here is what I am seeing on one the Barreleye box that is running
+> > "4.4.12-openbmc-20160606-1 : kernel". I can see that time gets set but
+> > reverts immediately. Syncing what's in hwclock does not have any effect
+> > too. Any thoughts ?
+> >
+> > root@barreleye:~# date -s '2016-12-25 12:34:56' ; hwclock -w
+> > Sun Dec 25 12:34:56 UTC 2016
+> >
+> > root@barreleye:~# date
+> > Thu Jul 7 13:07:37 UTC 2016
+> >
+> > root@barreleye:~# hwclock -r
+> > Sun Dec 25 12:35:01 2016 0.000000 seconds
+> >
+> > root@barreleye:~# hwclock -s
+> >
+> > root@barreleye:~# date
+> > Thu Jul 7 13:07:52 UTC 2016
+> > root@barreleye:~#
+> >
+> > Thanks
+> >
+> >
+> > -----------------------------------------------------------------------=
+--------------
+> > Thanks and Regards,
+> > Vishwanath.
+> > Advisory Software Engineer,
+> > Power Firmware Development,
+> > Systems &Technology Lab,
+> > MG2-6F-255 , Manyata Embassy Business Park,
+> > Bangalore , KA , 560045
+> > Ph: +91-80-46678255
+> > E-mail: vishwanath@in.ibm.com
+> >
+> > -----------------------------------------------------------------------=
+-----------
+> >
+> > _______________________________________________
+> > openbmc mailing list
+> > openbmc@lists.ozlabs.org
+> > https://lists.ozlabs.org/listinfo/openbmc
+> >
+> >
+
 > _______________________________________________
 > openbmc mailing list
 > openbmc@lists.ozlabs.org
 > https://lists.ozlabs.org/listinfo/openbmc
->
->
 
---001a114ac6166ceb7405370e83ac
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">If ntpd or systemd-timesyncd is running, this makes perfec=
-t sense.=C2=A0 Linux maintains current time in the kernel.=C2=A0 The hardwa=
-re RTC is only used to load an initial time at boot and is written during s=
-hutdown.=C2=A0 When an NTP daemon is running and an NTP server is reachable=
-, it will adjust the kernel&#39;s current time to match NTP time.=C2=A0 I b=
-elieve with timesyncd, it simply steps time instead of slewing like ntpd do=
-es.<div><br></div><div>What are you trying to accomplish?=C2=A0 There is li=
-kely a way to do it if you can describe what you want to have happen.</div>=
-</div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Thu, Jul=
- 7, 2016 at 6:06 AM, Vishwanatha Subbanna <span dir=3D"ltr">&lt;<a href=3D"=
-mailto:vishwanath@in.ibm.com" target=3D"_blank">vishwanath@in.ibm.com</a>&g=
-t;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0=
- .8ex;border-left:1px #ccc solid;padding-left:1ex"><div><p>hey Joel,<br><br=
->Here is what I am seeing on one the Barreleye box that is running &quot;4.=
-4.12-openbmc-20160606-1 : kernel&quot;. I can see that time gets set but re=
-verts immediately. Syncing what&#39;s in hwclock does not have any effect t=
-oo. Any thoughts ?<br><br>root@barreleye:~# date -s &#39;2016-12-25 12:34:5=
-6&#39; ; hwclock -w<br>Sun Dec 25 12:34:56 UTC 2016<br><br>root@barreleye:~=
-# date<br>Thu Jul  7 13:07:37 UTC 2016<br><br>root@barreleye:~# hwclock -r<=
-br>Sun Dec 25 12:35:01 2016  0.000000 seconds<br><br>root@barreleye:~# hwcl=
-ock -s<br><br>root@barreleye:~# date<br>Thu Jul  7 13:07:52 UTC 2016<br>roo=
-t@barreleye:~# <br><br>Thanks<br><br>--------------------------------------=
------------------------------------------------<br>Thanks and Regards,<br>V=
-ishwanath.<br>Advisory Software Engineer,<br>Power Firmware Development, <b=
-r>Systems &amp;Technology Lab,<br>MG2-6F-255 , Manyata Embassy Business Par=
-k, <br>Bangalore , KA , 560045<br>Ph: <a href=3D"tel:%2B91-80-46678255" val=
-ue=3D"+918046678255" target=3D"_blank">+91-80-46678255</a><br>E-mail: <a hr=
-ef=3D"mailto:vishwanath@in.ibm.com" target=3D"_blank">vishwanath@in.ibm.com=
-</a><br>-------------------------------------------------------------------=
----------------<br>
-</p></div>
-<br>_______________________________________________<br>
-openbmc mailing list<br>
-<a href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a><br=
->
-<a href=3D"https://lists.ozlabs.org/listinfo/openbmc" rel=3D"noreferrer" ta=
-rget=3D"_blank">https://lists.ozlabs.org/listinfo/openbmc</a><br>
-<br></blockquote></div><br></div>
+--=20
+Patrick Williams
 
---001a114ac6166ceb7405370e83ac--
+--nlttjmhgc7EeTk3T
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJXfp4rAAoJEKsDR8wtAMEZFMwP/2rIcvF2KV9svnqBd3vQ8slc
+s202WM9Ynz2an5dEYwmPcHIvun3mlmScgB0/MiNPbtfEOIm4H3eCJ2uIqEtqiWrI
+Byld09Prqj4ulxuanLePrg2fJeUO/NF5+wDnTHvYevPsBlKX6KPv/k/MADzzkrKt
+Bui8c4fr3xuBQJh6FzjQs10tavgPqmUL0HwWds7GgeZyZtCzCyt4cM3Bhw60JQnK
+aGi6qVH1B/JoPO6Es+Qn/H5Vg7B+93A+8Q9BMAAb24mzTr5o74CY1C/r4bfS4rO4
+C5E0yydyTxieliQZUs7/qOWdUDnfLA/G98RUeBfmBa5qPGTHKJ4ZDFqT1vzuaoeC
+yE52AQzcEBJvBdQWU6oznlg99i2thxiwe/pwsE7M+xAgdLgpqurne+zbmu17bH7A
+jWmkIaOt8vcT5iOIMT6iB0gVsJRxUjJhOA/i7BfFI5hX2IZ7RtDpDTTzkJM63t8k
+8zGKH8ErgwwSLA4TPpwMy5Zz48XPksA2tIOm8m07H7+yD+D0Ez5g3eF+tIQekjaP
+fqvN286am/7XERdvNCAeKrq8nguo4Wi1J+3pmZRbSqj/SnFKyJSRzDqMbibQNfHG
+ykBtx87ykzrNSw8o7B2jL4vCoSZ4+vNzug59U5cj5vGJAd8qkIumwiUibBVatFzs
+W8J6Mkt+shNZdPQ3bqdc
+=S5Ux
+-----END PGP SIGNATURE-----
+
+--nlttjmhgc7EeTk3T--
