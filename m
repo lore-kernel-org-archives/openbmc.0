@@ -1,21 +1,53 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-qt0-x244.google.com (mail-qt0-x244.google.com
+ [IPv6:2607:f8b0:400d:c0d::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rlv4G3QBpzDr4w
- for <openbmc@lists.ozlabs.org>; Fri,  8 Jul 2016 09:30:22 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1467934218844739.3866468103546;
- Thu, 7 Jul 2016 16:30:18 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH docs 2/2] Document BMC flash update enhancements
-Date: Thu,  7 Jul 2016 18:30:15 -0500
-Message-Id: <20160707233015.9687-3-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.9.0
-In-Reply-To: <20160707233015.9687-1-openbmc-patches@stwcx.xyz>
-References: <20160707233015.9687-1-openbmc-patches@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rm1F501n1zDr4l
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Jul 2016 14:08:24 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=Nsq3aVCT; 
+ dkim-atps=neutral
+Received: by mail-qt0-x244.google.com with SMTP id w59so2203797qtd.3
+ for <openbmc@lists.ozlabs.org>; Thu, 07 Jul 2016 21:08:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=JXvMDb+fZEQhDkJIrvZco54oPHZhQuDN+Z+LqpcXRVI=;
+ b=Nsq3aVCT0LedtDI2t+feI5O6SSd2LMdM6pfWCrrvsTRD5vsxxf1UY8jfTV3zfqRulJ
+ SMPJ8dxWj4yf7WEiv6f0u5gi81TdHyVj4jtSkX4xKwxoFpO3MEoIHp5rNQ+3YDAdl91m
+ 1u6VGB5qTF41PUEz7ElOUmUHNl0sBxPMmST56zIIWv/Axg3+CEnkjfcvus2v2PArotw0
+ ZUIQW1wd4zCqdVzNapQUr7fVN5fEwZThiz0e/dYf9+m2UC965CuRgGsjUNjQKl9SQuGH
+ CPsazHCSx8FzFup5EWzpneWnBn5eXXx7HWHY/3lN+UEYi4vk2QQCPr4or+8P+fFu7I25
+ eNpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=JXvMDb+fZEQhDkJIrvZco54oPHZhQuDN+Z+LqpcXRVI=;
+ b=gHMyYPJPH7f0wKyQPQd2caY4qGsuz9Itd0+aJaTmrZDwNbm3kBryFXS8n+y0dUpL8A
+ 2v05RNvnoDGFaXmhsXDzdtUuL4a46vUKrjWcdZ8ScS5h1yBwHm9HJkC/lN+ZnFlFIlJv
+ RS3AjnU5kC+lw2D51dYzB7+ysMKgNkrsoP9Olmx8RIvSW8KyuuQe436qXE5vgYcc+3v4
+ aRxOMqaZ2w3SPrs2xc9XFlXUeTs3wrMPqdwKVrOyNaptHMyaPPJ2UOLaMR0Je+T+GQRO
+ 7x1G209emTc2U6ffm1QjxdhAD1CKDV2z+ZrYShAhxDV15QOeQslJ0Hufl04XHZztSbq2
+ Lpqg==
+X-Gm-Message-State: ALyK8tI6rdPmbrWl4d+g51/kfwdvGVKH2d22qZbKdeoiBnc+xcCyWCeV0Zm5getyvxvUBz26iTVmOJkNINqFXg==
+X-Received: by 10.237.59.227 with SMTP id s32mr5486013qte.91.1467950902750;
+ Thu, 07 Jul 2016 21:08:22 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.237.37.148 with HTTP; Thu, 7 Jul 2016 21:08:03 -0700 (PDT)
+In-Reply-To: <1467925813-79135-1-git-send-email-christopher.lee.bostic@gmail.com>
+References: <1467925813-79135-1-git-send-email-christopher.lee.bostic@gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 8 Jul 2016 13:38:03 +0930
+X-Google-Sender-Auth: ZgjG2FMoPfQyvVLnkV39nCHxmU8
+Message-ID: <CACPK8Xe9mFhsbK78vQ8gJDvY5r+hoF+9uqM1o6gxj3EczSNRmg@mail.gmail.com>
+Subject: Re: [PATCH linux] drivers/fsi: Initial stubs for FSI device driver.
+To: Christopher Bostic <christopher.lee.bostic@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Christopher Bostic <cbostic@us.ibm.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -27,225 +59,203 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Jul 2016 23:30:23 -0000
+X-List-Received-Date: Fri, 08 Jul 2016 04:08:25 -0000
 
-From: Milton Miller <miltonm@us.ibm.com>
+On Fri, Jul 8, 2016 at 6:40 AM,  <christopher.lee.bostic@gmail.com> wrote:
+> From: Christopher Bostic <cbostic@us.ibm.com>
+>
+> Signed-off-by: Christopher Bostic <cbostic@us.ibm.com>
+> ---
+>
+> Changes to this patch based on reviewer feedback
+>
+> V2:
+> - Removed enums in fsiinit.h and replaced with #defines
+> - Added proper file copyright and license headers
+> - Added certificate of origin
+> - Removed version string
+> - Replace kobject with struct device in struct fsidd
+> - Suggestions to implement standard bus_type will be implemented in
+>   later patches
+>
+> V3:
+> - Removed white space
+> - Suggestions to add Kconfig will be added in follow on patches
+>
+> V4:
+> - Removed blank line at end of fsiinit.c
 
-The BMC flash update process was enhanced to allow the images to be
-written to flash while the system is operational allowing progress
-to be mointored.
+Nice, the patch now applies:
 
-Update the documentation describing how to use the new interfaces.
-Also add or update the description of the prior interface.
+$ git am ~/Downloads/chris.patch
+Applying: drivers/fsi: Initial stubs for FSI device driver.
+$ echo $?
+0
 
-Fixes: openbmc/openbmc#293
-Signed-off-by: Milton Miller <miltonm@us.ibm.com>
----
- code-update.md     | 110 ++++++++++++++++++++++++++++++++++++++++++++++-------
- dbus-interfaces.md |  28 ++++++++------
- 2 files changed, 114 insertions(+), 24 deletions(-)
+You indicate that this is patch version four, but you haven't put that
+in the subject. git format-patch can do this for you with the -v
+option:
 
-diff --git a/code-update.md b/code-update.md
-index da85f5e..28f351f 100644
---- a/code-update.md
-+++ b/code-update.md
-@@ -29,17 +29,57 @@ that can be updated on the BMC:
- 
-     The OpenBMC bootloader
- 
-+Preparing for BMC code Update
-+-----------------------------
-+
-+The BMC normally runs with the read-write and read-only file systems
-+mounted, which means these images may be read (and written, for the
-+read-write filesystem) at any time.  Because the updates are distributed
-+as complete file system images, these filesystems have to be unmounted
-+to replace them with new images.  To unmount these file systems all
-+applications must be stopped.
-+
-+By default an orderly `reboot` will stop all applications and unmount
-+the root filesystem, and the images copied into the `/run/initramfs`
-+directory will be applied at that point before restarting.  This also
-+applied to the `shutdown` and `halt` commands -- they will write the
-+flash before stopping.
-+
-+As an alternative, the an option can be parsed by the `init` script in
-+the initramfs to copy the required contents of these filesystems into
-+RAM so the images can be applied while the rest of the application stack
-+is running and progress can be monitored over the network.  The
-+`update` script can then be called to write the images while the
-+system is operational and its progress ouput monitored.
-+
- Update from the OpenBMC shell
- -----------------------------
- 
--To update from the OpenBMC shell, copy one or more of these `image-*` files to
--the directory:
-+To update from the OpenBMC shell, follow the steps in this section.
-+
-+It is recommended that the BMC be prepared for update:
-+
-+    fw_setenv openbmconce copy-files-to-ram copy-base-filesystem-to-ram
-+    reboot
-+
-+Copy one or more of these `image-*` files to the directory:
- 
-     /run/initramfs/
- 
--(preserving the filename), then reboot. Before the system reboots, the new image
--will be copied to the appropriate flash partition.
-+(preserving the filename), then run the `update` script to apply the images:
-+
-+    /run/initramfs/update
-+
-+then reboot to finish applying:
- 
-+    reboot
-+
-+During the reboot process the `update` script will be invoked after
-+the file systems are unmounted to complete the update process.
-+
-+Some optional features are available, see the help for more details:
-+
-+    /run/initramfs/update --help
- 
- Update via REST
- ---------------
-@@ -47,18 +87,33 @@ Update via REST
- An OpenBMC system can download an update image from a TFTP server, and apply
- updates, controlled via REST. The general procedure is:
- 
-- 1. Configure update settings
-- 2. Initiate update
-- 3. Check flash status
-+ 1. Prepare system for update
-+ 2. Configure update settings
-+ 3. Initiate update
-+ 4. Check flash status
-+ 5. Reboot the BMC
-+
-+### Prepare system for update
-+
-+Perform a POST to invoke the `PrepareForUpdate` method of the `/flash/bmc` object:
-+
-+    curl -b cjar -k -H "Content-Type: application/json" -X POST \
-+        -d '{"data": ["<TFTP server IP address>", "<filename>"]}' \
-+        https://bmc/org/openbmc/control/flash/bmc/action/prepareForUpdate
-+
-+This will setup the u-boot environment and reboot the BMC.   If no other
-+images were pending the BMC should return in about 2 minutes.
-+
- 
- ### Configure update settings
- 
- There are a few settings available to control the update process:
- 
-- * `preserve_network_settings`: Preserve network settings, only needed if updating uboot
-- * `restore_application_defaults`: update read-only file system
-+ * `preserve_network_settings`: Preserve network settings, only needed if updating the whole flash
-+ * `restore_application_defaults`: update (clear) the read-write file system
-  * `update_kernel_and_apps_only`: update kernel and initramfs
-- * `clear_persistent_files`: Erase persistent files
-+ * `clear_persistent_files`: ignore the persistent file list when reseting applications defaults
-+ * `auto_apply`: Attempt to write the images by invoking the `Apply` method after the images are unpacked.
- 
- To configure the update settings, perform a REST PUT to
- `/control/flash/bmc/attr/<setting>`. For example:
-@@ -77,15 +132,44 @@ Perform a POST to invoke the `updateViaTftp` method of the `/flash/bmc` object:
- 
- ### Check flash status
- 
--You can query the progress of the flash with a simple GET request:
-+You can query the progress of the download and image verificaton with
-+a simple GET request:
- 
-     curl -b cjar -k https://bmc/org/openbmc/control/flash/bmc
- 
-+Or perform a POST to invoke the `GetUpdateProgress` method of the `/flash/bmc` object:
-+
-+    curl -b cjar -k -H "Content-Type: application/json" -X POST \
-+        -d '{"data": []}' \
-+        https://bmc/org/openbmc/control/flash/bmc/action/GetUpdateProgress
-+
-+
-+Note: the status will not advance from `Writing images to flash` without
-+calling the `GetUpdateProgress` method.
-+
-+If the status is `Image ready to apply.` then you can either initiate
-+a reboot or call the Apply method to start the process of writing the
-+flash.
-+
-+### Reboot the BMC
-+
-+To start using the new images, reboot the BMC using the warmReset method
-+of the BMC control object:
-+
-+
-+    curl -b cjar -k -H "Content-Type: application/json" -X POST \
-+        -d '{"data": []}' \
-+        https://bmc/org/openbmc/control/bmc0/action/warmReset
-+
-+
- Host code update
- ================
- 
--Using a similar method, we can update the host firmware (or "BIOS"), by
--performing a POST request to call the `updateViaTftp` method of
-+The host firmware (or "BIOS") can be updated in a similar method.  Because
-+the BMC does not use the host firmware it is updated when the download is
-+completed.  This assumes the host is not accessing its firmware.
-+
-+Perform a POST request to call the `updateViaTftp` method of
- `/control/flash/bios` (instead of `/control/flash/bmc` used above). To initiate
- the update:
- 
-diff --git a/dbus-interfaces.md b/dbus-interfaces.md
-index f4e043d..5ea5d02 100644
---- a/dbus-interfaces.md
-+++ b/dbus-interfaces.md
-@@ -306,13 +306,18 @@ notifications.
- The control.BmcFlash interface allows applications update the BMC firmware.
- 
- ### methods
--| name            | in signature | out signature | description                 |
--| --------------- | ------------ | ------------- | --------------------------- |
--| `updateViaTftp` | `ss`         | `void`        | **Perform a BMC firmware update using a TFTP server.**|
--|                 | `s`          |               | The ipv4 address of the TFTP server hosting the firmware image file.|
--|                 | `s`          |               | The name of the file containing the BMC firmware image.|
--| `update`        | `s`          | `void`        | **Perform a BMC firmware update with a file already on the BMC.**|
--|                 | `s`          |               | The name of the file containing the BMC firmware image.|
-+| name                | in signature | out signature | description                 |
-+| ------------------- | ------------ | ------------- | --------------------------- |
-+| `updateViaTftp`     | `ss`         | `void`        | **Perform a BMC firmware update using a TFTP server.**|
-+|                     | `s`          |               | The ipv4 address of the TFTP server hosting the firmware image file.|
-+|                     | `s`          |               | The name of the file containing the BMC firmware image.|
-+| `update`            | `s`          | `void`        | **Perform a BMC firmware update with a file already on the BMC.**|
-+|                     | `s`          |               | The name of the file containing the BMC firmware image.|
-+| `PrepareForUpdate`  | `void`       | `void`        | **Reboot BMC with Flash content cached in RAM **|
-+| `Abort`             | `void`       | `void`        | **Abort any pending, broken, or in-progress flash update**|
-+| `Apply`             | `void`       | `void`        | **Initiate writing image into flash**|
-+| `GetUpdateProgress` | `void`       | `s`           | **Display progress log `Apply` phase**|
-+|                     |              | `s`           | The `state` and log output from `Apply` |
- 
- ### signals
- | name           | signature | description                              |
-@@ -324,12 +329,13 @@ The control.BmcFlash interface allows applications update the BMC firmware.
- ### properties
- | name                           | signature | description                     |
- | ------------------------------ | --------- | ------------------------------- |
--| `status`                       | `s`       | **?**                           |
-+| `status`                       | `s`       | **Description of the phase of the update**        |
- | `filename`                     | `s`       | **The name of the file containing the BMC firmware image.**|
- | `preserve_network_settings`    | `b`       | **Perform a factory reset.**    |
--| `restore_application_defaults` | `b`       | **Perform a factory reset.**    |
--| `update_kernel_and_apps`       | `b`       | **Perform a factory reset.**    |
--| `clear_persistent_files`       | `b`       | **Perform a factory reset.**    |
-+| `restore_application_defaults` | `b`       | **Clear modified files in read-write filesystem.**    |
-+| `update_kernel_and_apps`       | `b`       | **Do not update bootloader (requires image pieces).**    |
-+| `clear_persistent_files`       | `b`       | **Also remove persistent files when updating read-write filesystem.**    |
-+| `auto_apply`                   | `b`       | **Attempt to apply image after unpacking (cleared if image verification fails)**    |
- 
- ### namespace
- | path                             | required | description |
--- 
-2.9.0
+       -v <n>, --reroll-count=<n>
+           Mark the series as the <n>-th iteration of the topic. The output
+           filenames have v<n> prepended to them, and the subject prefix
+           ("PATCH" by default, but configurable via the --subject-prefix
+           option) has ` v<n>` appended to it. E.g.  --reroll-count=4 may
+           produce v4-0001-add-makefile.patch file that has "Subject: [PATCH
+           v4 1/20] Add makefile" in it
+
+I think you also need to set your username in your git configuration
+so we see the emails as coming from you.
+
+$ git config --global user.name "Chris Bostic"
+
+I don't think you need to send another revision for that though.
+
+The next step should be to include this patch as the first in a series
+that adds the implementation of the bus.
+
+Cheers,
+
+Joel
+
+
+> ---
+>  drivers/Makefile      |  1 +
+>  drivers/fsi/Makefile  |  5 +++++
+>  drivers/fsi/fsiinit.c | 54 +++++++++++++++++++++++++++++++++++++++++++++++++++
+>  drivers/fsi/fsiinit.h | 41 ++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 101 insertions(+)
+>  create mode 100644 drivers/fsi/Makefile
+>  create mode 100644 drivers/fsi/fsiinit.c
+>  create mode 100644 drivers/fsi/fsiinit.h
+>
+> diff --git a/drivers/Makefile b/drivers/Makefile
+> index 795d0ca..63019ff 100644
+> --- a/drivers/Makefile
+> +++ b/drivers/Makefile
+> @@ -172,3 +172,4 @@ obj-$(CONFIG_STM)           += hwtracing/stm/
+>  obj-$(CONFIG_ANDROID)          += android/
+>  obj-$(CONFIG_NVMEM)            += nvmem/
+>  obj-$(CONFIG_FPGA)             += fpga/
+> +obj-$(CONFIG_FSI)              += fsi/
+> diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
+> new file mode 100644
+> index 0000000..f547c08
+> --- /dev/null
+> +++ b/drivers/fsi/Makefile
+> @@ -0,0 +1,5 @@
+> +#
+> +# Makefile for the FSI bus specific drivers.
+> +#
+> +
+> +obj-y          += fsiinit.o
+> diff --git a/drivers/fsi/fsiinit.c b/drivers/fsi/fsiinit.c
+> new file mode 100644
+> index 0000000..042e680
+> --- /dev/null
+> +++ b/drivers/fsi/fsiinit.c
+> @@ -0,0 +1,54 @@
+> +/*
+> + * FSI Master device driver
+> + *
+> + * Copyright 2016 IBM Corp.
+> + *
+> + * Christopher Bostic <cbostic@us.ibm.com>
+> + *
+> + * This program is free software; you can redistribute it and/or
+> + * modify it under the terms of the GNU General Public License
+> + * as published by the Free Software Foundation; either version
+> + * 2 of the License, or (at your option) any later version.
+> + */
+> +
+> +#include <linux/init.h>
+> +#include <linux/module.h>
+> +#include "fsiinit.h"
+> +
+> +MODULE_AUTHOR("Christopher Bostic cbostic@us.ibm.com");
+> +MODULE_DESCRIPTION("FSI master device driver");
+> +
+> +#define FSIDD_MAJOR    0               /* FSI device driver major */
+> +#define        FSIDD_TOSTR(x)  #x
+> +#define        FSIDD_VERNO     4000
+> +#define        FSIDD_VER(x)    FSIDD_TOSTR(x)
+> +
+> +struct fsidd fsidd = {         /* FSI device driver structure definition */
+> +       .magic = FSI_DD_MAGIC,
+> +       .strno = FSI_DD_STRNO,
+> +};
+> +
+> +static int fsi_start(void)
+> +{
+> +       int rc = 0;
+> +
+> +       printk("FSI DD v:%d installation ok\n", FSIDD_VERNO);
+> +       return rc;
+> +}
+> +
+> +static void fsi_exit(void)
+> +{
+> +
+> +}
+> +
+> +static int __init fsi_init(void)
+> +{
+> +       int rc = 0;
+> +
+> +       /* Set up the host controller */
+> +       fsi_start();
+> +       return rc;
+> +}
+> +
+> +module_init(fsi_init);
+> +module_exit(fsi_exit);
+> diff --git a/drivers/fsi/fsiinit.h b/drivers/fsi/fsiinit.h
+> new file mode 100644
+> index 0000000..70c3e13
+> --- /dev/null
+> +++ b/drivers/fsi/fsiinit.h
+> @@ -0,0 +1,41 @@
+> +/*
+> + * FSI Master device driver structure definitions and defines
+> + *
+> + * Copyright 2016 IBM Corp.
+> + *
+> + * Christopher Bostic <cbostic@us.ibm.com>
+> + *
+> + * This program is free software; you can redistribute it and/or
+> + * modify it under the terms of the GNU General Public License
+> + * as published by the Free Software Foundation; either version
+> + * 2 of the License, or (at your option) any later version.
+> + */
+> +
+> +#ifndef DRIVERS_FSIINIT_H
+> +#define DRIVERS_FSIINIT_H
+> +
+> +#include <linux/kernel.h>
+> +#include <linux/types.h>
+> +#include <linux/device.h>
+> +#include <linux/workqueue.h>
+> +#include <linux/hrtimer.h>
+> +
+> +#define FSI_DD_MAGIC   0x64644632      /* ddF2 */
+> +#define FSI_DD_STRNO   0x1             /* Structure version number */
+> +
+> +struct fsidd {                         /* FSI Main structure */
+> +       unsigned long magic;            /* Magic number */
+> +       unsigned long strno;            /* Structure version number */
+> +       dev_t major;                    /* Major number of device */
+> +       struct workqueue_struct *hotp_wq;       /* Hot plug work queue */
+> +       wait_queue_head_t error_wq;     /* Wait queue for port errors */
+> +       wait_queue_head_t lbus_wq;      /* Wait queue for lbus events */
+> +       wait_queue_head_t irq_wq;       /* Wait queue for IRQ loops */
+> +       wait_queue_head_t link_wq;      /* Wait queue for link changes */
+> +       unsigned long state;            /* State driver is in */
+> +       struct device dev;              /* Anchor point in /sys/kernel */
+> +};
+> +
+> +#define        to_fsidd(a)             container_of(a, struct fsidd, kobj)
+> +
+> +#endif /* DRIVERS_FSIINIT_H */
+> --
+> 1.8.2.2
+>
