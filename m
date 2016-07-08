@@ -1,53 +1,31 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-qt0-x244.google.com (mail-qt0-x244.google.com
- [IPv6:2607:f8b0:400d:c0d::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <clg@kaod.org>
+Received: from 1.mo179.mail-out.ovh.net (1.mo179.mail-out.ovh.net
+ [178.33.111.220])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rm1F501n1zDr4l
- for <openbmc@lists.ozlabs.org>; Fri,  8 Jul 2016 14:08:24 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=Nsq3aVCT; 
- dkim-atps=neutral
-Received: by mail-qt0-x244.google.com with SMTP id w59so2203797qtd.3
- for <openbmc@lists.ozlabs.org>; Thu, 07 Jul 2016 21:08:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=JXvMDb+fZEQhDkJIrvZco54oPHZhQuDN+Z+LqpcXRVI=;
- b=Nsq3aVCT0LedtDI2t+feI5O6SSd2LMdM6pfWCrrvsTRD5vsxxf1UY8jfTV3zfqRulJ
- SMPJ8dxWj4yf7WEiv6f0u5gi81TdHyVj4jtSkX4xKwxoFpO3MEoIHp5rNQ+3YDAdl91m
- 1u6VGB5qTF41PUEz7ElOUmUHNl0sBxPMmST56zIIWv/Axg3+CEnkjfcvus2v2PArotw0
- ZUIQW1wd4zCqdVzNapQUr7fVN5fEwZThiz0e/dYf9+m2UC965CuRgGsjUNjQKl9SQuGH
- CPsazHCSx8FzFup5EWzpneWnBn5eXXx7HWHY/3lN+UEYi4vk2QQCPr4or+8P+fFu7I25
- eNpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=JXvMDb+fZEQhDkJIrvZco54oPHZhQuDN+Z+LqpcXRVI=;
- b=gHMyYPJPH7f0wKyQPQd2caY4qGsuz9Itd0+aJaTmrZDwNbm3kBryFXS8n+y0dUpL8A
- 2v05RNvnoDGFaXmhsXDzdtUuL4a46vUKrjWcdZ8ScS5h1yBwHm9HJkC/lN+ZnFlFIlJv
- RS3AjnU5kC+lw2D51dYzB7+ysMKgNkrsoP9Olmx8RIvSW8KyuuQe436qXE5vgYcc+3v4
- aRxOMqaZ2w3SPrs2xc9XFlXUeTs3wrMPqdwKVrOyNaptHMyaPPJ2UOLaMR0Je+T+GQRO
- 7x1G209emTc2U6ffm1QjxdhAD1CKDV2z+ZrYShAhxDV15QOeQslJ0Hufl04XHZztSbq2
- Lpqg==
-X-Gm-Message-State: ALyK8tI6rdPmbrWl4d+g51/kfwdvGVKH2d22qZbKdeoiBnc+xcCyWCeV0Zm5getyvxvUBz26iTVmOJkNINqFXg==
-X-Received: by 10.237.59.227 with SMTP id s32mr5486013qte.91.1467950902750;
- Thu, 07 Jul 2016 21:08:22 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rm4Lj1pLKzDrSP
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Jul 2016 16:28:29 +1000 (AEST)
+Received: from player715.ha.ovh.net (b9.ovh.net [213.186.33.59])
+ by mo179.mail-out.ovh.net (Postfix) with ESMTP id EDEACFFC1EA
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Jul 2016 08:18:40 +0200 (CEST)
+Received: from hermes.ibm.com (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: clg@kaod.org)
+ by player715.ha.ovh.net (Postfix) with ESMTPSA id 2A3511C007C;
+ Fri,  8 Jul 2016 08:18:36 +0200 (CEST)
+From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH v2 uboot v2016.05-aspeed-openbmc] aspeed/ast-g4: fix typos in
+ hardware strapping register1 
+Date: Fri,  8 Jul 2016 08:18:28 +0200
+Message-Id: <1467958708-30770-1-git-send-email-clg@kaod.org>
+X-Mailer: git-send-email 2.1.4
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.237.37.148 with HTTP; Thu, 7 Jul 2016 21:08:03 -0700 (PDT)
-In-Reply-To: <1467925813-79135-1-git-send-email-christopher.lee.bostic@gmail.com>
-References: <1467925813-79135-1-git-send-email-christopher.lee.bostic@gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 8 Jul 2016 13:38:03 +0930
-X-Google-Sender-Auth: ZgjG2FMoPfQyvVLnkV39nCHxmU8
-Message-ID: <CACPK8Xe9mFhsbK78vQ8gJDvY5r+hoF+9uqM1o6gxj3EczSNRmg@mail.gmail.com>
-Subject: Re: [PATCH linux] drivers/fsi: Initial stubs for FSI device driver.
-To: Christopher Bostic <christopher.lee.bostic@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Christopher Bostic <cbostic@us.ibm.com>
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 5026017188419504898
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeltddrvdelgddutdegucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -59,203 +37,154 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Jul 2016 04:08:25 -0000
+X-List-Received-Date: Fri, 08 Jul 2016 06:28:29 -0000
 
-On Fri, Jul 8, 2016 at 6:40 AM,  <christopher.lee.bostic@gmail.com> wrote:
-> From: Christopher Bostic <cbostic@us.ibm.com>
->
-> Signed-off-by: Christopher Bostic <cbostic@us.ibm.com>
-> ---
->
-> Changes to this patch based on reviewer feedback
->
-> V2:
-> - Removed enums in fsiinit.h and replaced with #defines
-> - Added proper file copyright and license headers
-> - Added certificate of origin
-> - Removed version string
-> - Replace kobject with struct device in struct fsidd
-> - Suggestions to implement standard bus_type will be implemented in
->   later patches
->
-> V3:
-> - Removed white space
-> - Suggestions to add Kconfig will be added in follow on patches
->
-> V4:
-> - Removed blank line at end of fsiinit.c
+This adds also some bit definitions. The list should be clean enough
+to be used in other projects, such as in the qemu SCU device model.
 
-Nice, the patch now applies:
+Signed-off-by: Cédric Le Goater <clg@kaod.org>
+---
 
-$ git am ~/Downloads/chris.patch
-Applying: drivers/fsi: Initial stubs for FSI device driver.
-$ echo $?
-0
+ ast-g5 will need some checks also.
 
-You indicate that this is patch version four, but you haven't put that
-in the subject. git format-patch can do this for you with the -v
-option:
+ Changes since v1:
 
-       -v <n>, --reroll-count=<n>
-           Mark the series as the <n>-th iteration of the topic. The output
-           filenames have v<n> prepended to them, and the subject prefix
-           ("PATCH" by default, but configurable via the --subject-prefix
-           option) has ` v<n>` appended to it. E.g.  --reroll-count=4 may
-           produce v4-0001-add-makefile.patch file that has "Subject: [PATCH
-           v4 1/20] Add makefile" in it
+ - included fixes from Milton on SCU_HW_STRAP_SW_DEFINE_MASK and
+   SCU_HW_STRAP_SET_CLK_SOURCE(x
 
-I think you also need to set your username in your git configuration
-so we see the emails as coming from you.
+ arch/arm/include/asm/arch-aspeed/regs-scu.h |   87 +++++++++++++++-------------
+ 1 file changed, 47 insertions(+), 40 deletions(-)
 
-$ git config --global user.name "Chris Bostic"
-
-I don't think you need to send another revision for that though.
-
-The next step should be to include this patch as the first in a series
-that adds the implementation of the bus.
-
-Cheers,
-
-Joel
-
-
-> ---
->  drivers/Makefile      |  1 +
->  drivers/fsi/Makefile  |  5 +++++
->  drivers/fsi/fsiinit.c | 54 +++++++++++++++++++++++++++++++++++++++++++++++++++
->  drivers/fsi/fsiinit.h | 41 ++++++++++++++++++++++++++++++++++++++
->  4 files changed, 101 insertions(+)
->  create mode 100644 drivers/fsi/Makefile
->  create mode 100644 drivers/fsi/fsiinit.c
->  create mode 100644 drivers/fsi/fsiinit.h
->
-> diff --git a/drivers/Makefile b/drivers/Makefile
-> index 795d0ca..63019ff 100644
-> --- a/drivers/Makefile
-> +++ b/drivers/Makefile
-> @@ -172,3 +172,4 @@ obj-$(CONFIG_STM)           += hwtracing/stm/
->  obj-$(CONFIG_ANDROID)          += android/
->  obj-$(CONFIG_NVMEM)            += nvmem/
->  obj-$(CONFIG_FPGA)             += fpga/
-> +obj-$(CONFIG_FSI)              += fsi/
-> diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
-> new file mode 100644
-> index 0000000..f547c08
-> --- /dev/null
-> +++ b/drivers/fsi/Makefile
-> @@ -0,0 +1,5 @@
-> +#
-> +# Makefile for the FSI bus specific drivers.
-> +#
-> +
-> +obj-y          += fsiinit.o
-> diff --git a/drivers/fsi/fsiinit.c b/drivers/fsi/fsiinit.c
-> new file mode 100644
-> index 0000000..042e680
-> --- /dev/null
-> +++ b/drivers/fsi/fsiinit.c
-> @@ -0,0 +1,54 @@
-> +/*
-> + * FSI Master device driver
-> + *
-> + * Copyright 2016 IBM Corp.
-> + *
-> + * Christopher Bostic <cbostic@us.ibm.com>
-> + *
-> + * This program is free software; you can redistribute it and/or
-> + * modify it under the terms of the GNU General Public License
-> + * as published by the Free Software Foundation; either version
-> + * 2 of the License, or (at your option) any later version.
-> + */
-> +
-> +#include <linux/init.h>
-> +#include <linux/module.h>
-> +#include "fsiinit.h"
-> +
-> +MODULE_AUTHOR("Christopher Bostic cbostic@us.ibm.com");
-> +MODULE_DESCRIPTION("FSI master device driver");
-> +
-> +#define FSIDD_MAJOR    0               /* FSI device driver major */
-> +#define        FSIDD_TOSTR(x)  #x
-> +#define        FSIDD_VERNO     4000
-> +#define        FSIDD_VER(x)    FSIDD_TOSTR(x)
-> +
-> +struct fsidd fsidd = {         /* FSI device driver structure definition */
-> +       .magic = FSI_DD_MAGIC,
-> +       .strno = FSI_DD_STRNO,
-> +};
-> +
-> +static int fsi_start(void)
-> +{
-> +       int rc = 0;
-> +
-> +       printk("FSI DD v:%d installation ok\n", FSIDD_VERNO);
-> +       return rc;
-> +}
-> +
-> +static void fsi_exit(void)
-> +{
-> +
-> +}
-> +
-> +static int __init fsi_init(void)
-> +{
-> +       int rc = 0;
-> +
-> +       /* Set up the host controller */
-> +       fsi_start();
-> +       return rc;
-> +}
-> +
-> +module_init(fsi_init);
-> +module_exit(fsi_exit);
-> diff --git a/drivers/fsi/fsiinit.h b/drivers/fsi/fsiinit.h
-> new file mode 100644
-> index 0000000..70c3e13
-> --- /dev/null
-> +++ b/drivers/fsi/fsiinit.h
-> @@ -0,0 +1,41 @@
-> +/*
-> + * FSI Master device driver structure definitions and defines
-> + *
-> + * Copyright 2016 IBM Corp.
-> + *
-> + * Christopher Bostic <cbostic@us.ibm.com>
-> + *
-> + * This program is free software; you can redistribute it and/or
-> + * modify it under the terms of the GNU General Public License
-> + * as published by the Free Software Foundation; either version
-> + * 2 of the License, or (at your option) any later version.
-> + */
-> +
-> +#ifndef DRIVERS_FSIINIT_H
-> +#define DRIVERS_FSIINIT_H
-> +
-> +#include <linux/kernel.h>
-> +#include <linux/types.h>
-> +#include <linux/device.h>
-> +#include <linux/workqueue.h>
-> +#include <linux/hrtimer.h>
-> +
-> +#define FSI_DD_MAGIC   0x64644632      /* ddF2 */
-> +#define FSI_DD_STRNO   0x1             /* Structure version number */
-> +
-> +struct fsidd {                         /* FSI Main structure */
-> +       unsigned long magic;            /* Magic number */
-> +       unsigned long strno;            /* Structure version number */
-> +       dev_t major;                    /* Major number of device */
-> +       struct workqueue_struct *hotp_wq;       /* Hot plug work queue */
-> +       wait_queue_head_t error_wq;     /* Wait queue for port errors */
-> +       wait_queue_head_t lbus_wq;      /* Wait queue for lbus events */
-> +       wait_queue_head_t irq_wq;       /* Wait queue for IRQ loops */
-> +       wait_queue_head_t link_wq;      /* Wait queue for link changes */
-> +       unsigned long state;            /* State driver is in */
-> +       struct device dev;              /* Anchor point in /sys/kernel */
-> +};
-> +
-> +#define        to_fsidd(a)             container_of(a, struct fsidd, kobj)
-> +
-> +#endif /* DRIVERS_FSIINIT_H */
-> --
-> 1.8.2.2
->
+Index: u-boot-v2016.05-aspeed-openbmc.git/arch/arm/include/asm/arch-aspeed/regs-scu.h
+===================================================================
+--- u-boot-v2016.05-aspeed-openbmc.git.orig/arch/arm/include/asm/arch-aspeed/regs-scu.h
++++ u-boot-v2016.05-aspeed-openbmc.git/arch/arm/include/asm/arch-aspeed/regs-scu.h
+@@ -571,20 +571,24 @@
+ #define SCU_HW_STRAP_VGA_SIZE_GET(x)	((x >> 2)& 0x3)
+ #define SCU_HW_STRAP_VGA_MASK		(0x3 << 3)
+ #define SCU_HW_STRAP_VGA_SIZE_SET(x)	(x << 2)
+-
+-#define VGA_8M_DRAM			0
+-#define VGA_16M_DRAM			1
+-#define VGA_32M_DRAM			2
+-#define VGA_64M_DRAM			3
++#define     VGA_8M_DRAM			    0
++#define     VGA_16M_DRAM		    1
++#define     VGA_32M_DRAM		    2
++#define     VGA_64M_DRAM		    3
+ 
+ #define SCU_HW_STRAP_DIS_BOOT 		(1)
+ #else /* !AST_SOC_G5 */
+ #define SCU_HW_STRAP_SW_DEFINE(x)	(x << 29)
+-#define SCU_HW_STRAP_SW_DEFINE_MASK	(0x3 << 29)
+-#define SCU_HW_STRAP_DRAM_SIZE		(x << 29)
+-#define SCU_HW_STRAP_DRAM_SIZE_MASK	(0x3 << 29)
++#define SCU_HW_STRAP_SW_DEFINE_MASK	(0x7 << 29)
++
++#define SCU_HW_STRAP_DRAM_SIZE(x)	(x << 27)
++#define SCU_HW_STRAP_DRAM_SIZE_MASK	(0x3 << 27)
++#define     DRAM_SIZE_64MB                  0
++#define     DRAM_SIZE_128MB                 1
++#define     DRAM_SIZE_256MB                 2
++#define     DRAM_SIZE_512MB                 3
+ 
+-#define SCU_HW_STRAP_DRAM_CONFIG	(x << 24)
++#define SCU_HW_STRAP_DRAM_CONFIG(x)	(x << 24)
+ #define SCU_HW_STRAP_DRAM_CONFIG_MASK	(0x7 << 24)
+ 
+ #define SCU_HW_STRAP_GPIOE_PT_EN	(0x1 << 22)
+@@ -593,60 +597,63 @@
+ #define SCU_HW_STRAP_ACPI_DIS		(0x1 << 19)
+ 
+ /* bit 23, 18 [1,0] */
+-#define SCU_HW_STRAP_SET_CLK_SOURCE(x)	((((x&0x3) >> 1)<<23)||((x&0x1) << 18))
+-#define SCU_HW_STRAP_GET_CLK_SOURCE(x)	(((x>>23)&0x1<<1) | ((x>>18)&0x1))
++#define SCU_HW_STRAP_SET_CLK_SOURCE(x)  ((((x & 0x3) >> 1) << 23) | \
++                                         ((x & 0x1) << 18))
++#define SCU_HW_STRAP_GET_CLK_SOURCE(x)  ((((x >> 23) & 0x1) << 1) | \
++					 ((x >> 18) & 0x1))
+ #define SCU_HW_STRAP_CLK_SOURCE_MASK	((0x1 << 23) | (0x1 << 18))
+-
+-#define CLK_25M_IN			(0x1 << 23)
+-#define CLK_24M_IN			0
+-#define CLK_48M_IN			1
+-#define CLK_25M_IN_24M_USB_CKI		3
+-#define CLK_25M_IN_48M_USB_CKI		3
++#define     CLK_25M_IN			(0x1 << 23)
++#define     CLK_24M_IN			    0
++#define     CLK_48M_IN			    1
++#define     CLK_25M_IN_24M_USB_CKI	    2
++#define     CLK_25M_IN_48M_USB_CKI	    3
+ 
+ #define SCU_HW_STRAP_2ND_BOOT_WDT	(0x1 << 17)
+ #define SCU_HW_STRAP_SUPER_IO_CONFIG	(0x1 << 16)
+ #define SCU_HW_STRAP_VGA_CLASS_CODE	(0x1 << 15)
+ #define SCU_HW_STRAP_LPC_RESET_PIN	(0x1 << 14)
++
+ #define SCU_HW_STRAP_SPI_MODE(x)	(x << 12)
+ #define SCU_HW_STRAP_SPI_MODE_MASK	(0x3 << 12)
+-#define SCU_HW_STRAP_SPI_MASTER		(0x1 << 12)
+-#define SCU_HW_STRAP_SPI_M_S_EN		(0x2 << 12)
+-#define SCU_HW_STRAP_SPI_PASS_THROUGH	(0x3 << 12)
++#define     SCU_HW_STRAP_SPI_DIS            0
++#define     SCU_HW_STRAP_SPI_MASTER	    1
++#define     SCU_HW_STRAP_SPI_M_S_EN	    2
++#define     SCU_HW_STRAP_SPI_PASS_THROUGH   3
+ 
+ #define SCU_HW_STRAP_SET_CPU_AHB_RATIO(x)	(x << 10)
+ #define SCU_HW_STRAP_GET_CPU_AHB_RATIO(x)	((x >> 10) & 3)
+ #define SCU_HW_STRAP_CPU_AHB_RATIO_MASK		(0x3 << 10)
++#define     CPU_AHB_RATIO_1_1		    0
++#define     CPU_AHB_RATIO_2_1		    1
++#define     CPU_AHB_RATIO_4_1		    2
++#define     CPU_AHB_RATIO_3_1		    3
+ 
+-#define CPU_AHB_RATIO_1_1		0
+-#define CPU_AHB_RATIO_2_1		1
+-#define CPU_AHB_RATIO_4_1		2
+-#define CPU_AHB_RATIO_3_1		3
+-
+-#define SCU_HW_STRAP_GET_H_PLL_CLK(x)	((x >> 8 )& 0x3)
++#define SCU_HW_STRAP_GET_H_PLL_CLK(x)	((x >> 8) & 0x3)
+ #define SCU_HW_STRAP_H_PLL_CLK_MASK	(0x3 << 8)
+-#define CPU_384MHZ			0
+-#define CPU_360MHZ			1
+-#define CPU_336MHZ			2
+-#define CPU_408MHZ			3
++#define     CPU_384MHZ			    0
++#define     CPU_360MHZ			    1
++#define     CPU_336MHZ			    2
++#define     CPU_408MHZ			    3
+ 
+ #define SCU_HW_STRAP_MAC1_RGMII		(0x1 << 7)
+ #define SCU_HW_STRAP_MAC0_RGMII		(0x1 << 6)
+ #define SCU_HW_STRAP_VGA_BIOS_ROM	(0x1 << 5)
+ #define SCU_HW_STRAP_SPI_WIDTH		(0x1 << 4)
+-#define SCU_HW_STRAP_VGA_SIZE_GET(x)	((x >> 2)& 0x3)
++
++#define SCU_HW_STRAP_VGA_SIZE_GET(x)	((x >> 2) & 0x3)
+ #define SCU_HW_STRAP_VGA_MASK		(0x3 << 2)
+ #define SCU_HW_STRAP_VGA_SIZE_SET(x)	(x << 2)
+-
+-#define VGA_8M_DRAM			0
+-#define VGA_16M_DRAM			1
+-#define VGA_32M_DRAM			2
+-#define VGA_64M_DRAM			3
++#define     VGA_8M_DRAM			    0
++#define     VGA_16M_DRAM		    1
++#define     VGA_32M_DRAM		    2
++#define     VGA_64M_DRAM		    3
+ 
+ #define SCU_HW_STRAP_BOOT_MODE(x)	(x)
+-#define NOR_BOOT			0
+-#define NAND_BOOT			1
+-#define SPI_BOOT			2
+-#define DIS_BOOT			3
++#define     NOR_BOOT			    0
++#define     NAND_BOOT			    1
++#define     SPI_BOOT			    2
++#define     DIS_BOOT			    3
++
+ #endif /* AST_SOC_G5 */
+ 
+ /* AST_SCU_RAMDOM_GEN			0x74 - random number generator register */
