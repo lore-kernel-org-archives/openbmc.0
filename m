@@ -1,104 +1,33 @@
-Return-Path: <miltonm@us.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rpJSP4My7zDqpR
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jul 2016 07:41:08 +1000 (AEST)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
- u6BLaHUH084132
- for <openbmc@lists.ozlabs.org>; Mon, 11 Jul 2016 17:41:05 -0400
-Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
- by mx0b-001b2d01.pphosted.com with ESMTP id 243ens26tu-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 11 Jul 2016 17:41:05 -0400
-Received: from localhost
- by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
- Mon, 11 Jul 2016 15:41:04 -0600
-Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
- by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 11 Jul 2016 15:41:02 -0600
-X-IBM-Helo: d03dlp03.boulder.ibm.com
-X-IBM-MailFrom: miltonm@us.ibm.com
-Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
- [9.57.198.29])
- by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id 006F519D8047
- for <openbmc@lists.ozlabs.org>; Mon, 11 Jul 2016 15:40:38 -0600 (MDT)
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u6BLf4vB12517782
- for <openbmc@lists.ozlabs.org>; Mon, 11 Jul 2016 21:41:04 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id EABDD124047
- for <openbmc@lists.ozlabs.org>; Mon, 11 Jul 2016 17:41:01 -0400 (EDT)
-Received: from d50lp01.ny.us.ibm.com (unknown [146.89.104.207])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTPS id D5AC012403F
- for <openbmc@lists.ozlabs.org>; Mon, 11 Jul 2016 17:41:01 -0400 (EDT)
-Received: from localhost
- by d50lp01.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
- Mon, 11 Jul 2016 17:41:01 -0400
-Received: from smtp.notes.na.collabserv.com (192.155.248.66)
- by d50lp01.ny.us.ibm.com (158.87.18.20) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256/256)
- Mon, 11 Jul 2016 17:40:59 -0400
-X-IBM-Helo: smtp.notes.na.collabserv.com
-X-IBM-MailFrom: miltonm@us.ibm.com
-Received: from /spool/local
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
- Mon, 11 Jul 2016 21:40:58 -0000
-Received: from us1a3-smtp02.a3.dal06.isc4sb.com (10.106.154.159)
- by smtp.notes.na.collabserv.com (10.106.227.127) with
- smtp.notes.na.collabserv.com ESMTP; Mon, 11 Jul 2016 21:40:56 -0000
-Received: from us1a3-mail79.a3.dal09.isc4sb.com ([10.142.3.136])
- by us1a3-smtp02.a3.dal06.isc4sb.com
- with ESMTP id 2016071121405627-551915 ;
- Mon, 11 Jul 2016 21:40:56 +0000 
-In-Reply-To: <20160711213013.11995-2-openbmc-patches@stwcx.xyz>
-Subject: Re: [PATCH docs 1/2] Clean up formatting
-From: "Milton Miller II" <miltonm@us.ibm.com>
-To: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-Cc: openbmc@lists.ozlabs.org
-Date: Mon, 11 Jul 2016 21:40:56 +0000
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rpJqT3ByVzDr11
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jul 2016 07:57:41 +1000 (AEST)
+Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
+ with SMTPS id 146827425377295.24207348681898;
+ Mon, 11 Jul 2016 14:57:33 -0700 (PDT)
+Date: Mon, 11 Jul 2016 16:57:31 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Joel Stanley <joel@jms.id.au>
+Cc: Stewart Smith <stewart@linux.vnet.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ OpenBMC Patches <openbmc-patches@stwcx.xyz>
+Subject: Re: [PATCH openbmc 3/3] meta-openpower: Update pflash version
+Message-ID: <20160711215731.GB12483@asimov.austin.ibm.com>
+References: <20160630162033.2330-1-openbmc-patches@stwcx.xyz>
+ <20160630162033.2330-4-openbmc-patches@stwcx.xyz>
+ <20160630212709.GV20922@asimov.austin.ibm.com>
+ <CACPK8XdYZrNXFrxp2beXwWKrORCApWtSh+1LRG+qOrd_DHvz-g@mail.gmail.com>
 MIME-Version: 1.0
-Sensitivity: 
-Importance: Normal
-X-Priority: 3 (Normal)
-References: <20160711213013.11995-2-openbmc-patches@stwcx.xyz>,
- <20160711213013.11995-1-openbmc-patches@stwcx.xyz>
-X-Mailer: IBM Domino Build V851SAAS_06272016_FP2.2 July 08, 2016
-X-LLNOutbound: False
-X-Disclaimed: 30043
-X-TNEFEvaluated: 1
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-x-cbid: 16071121-0008-0000-0000-00000507BFA8
-X-IBM-ISS-SpamDetectors: Score=0.40962; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.40962; ST=0; TS=0; UL=0; ISC=
-X-IBM-ISS-DetailInfo: BY=3.00005484; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000173; SDB=6.00728998; UDB=6.00341397; UTC=2016-07-11
- 21:40:57
-x-cbparentid: 16071121-9588-0000-0000-000004A2E6D3
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-Message-Id: <OF71A595F3.C22D3420-ON00257FED.00771AA5-00257FED.00771AA8@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2016-07-11_14:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1604210000
- definitions=main-1607110213
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="bCsyhTFzCvuiizWE"
+Content-Disposition: inline
+In-Reply-To: <CACPK8XdYZrNXFrxp2beXwWKrORCApWtSh+1LRG+qOrd_DHvz-g@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
+X-ZohoMail: Z_61896388 SPT_1 Z_56716064 SPT_1 SLF_D
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -110,50 +39,81 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Jul 2016 21:41:10 -0000
+X-List-Received-Date: Mon, 11 Jul 2016 21:57:42 -0000
 
-Replying to my own patch with some minor changelog deficiencies
 
->
->When reviewing the formatted output I discovered my receint additions
+--bCsyhTFzCvuiizWE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-recent=20
+Stewart,
 
->to the dbus interfaces did not have trailing periods.  In addition
->one of the entries did not parse the bold formatting.  I tracked
->the later down to a space between the text and the intended end bold.
->
->I also added a few columns to headers where the text was longer than
->the initial columns.  This makes the file a bit easier to read when
->viewing the markdown as plain text.
->
->Signed-off-by: Milton Miller <miltonm@us.ibm.com>
->---
-> dbus-interfaces.md | 22 +++++++++++-----------
-> 1 file changed, 11 insertions(+), 11 deletions(-)
+Bump.  Didn't see a reply from you on this.
 
->-| `Apply`             | `void`       | `void`        | **Initiate
->writing image into flash**|
+On Fri, Jul 01, 2016 at 10:23:24AM +0930, Joel Stanley wrote:
+> On Fri, Jul 1, 2016 at 6:57 AM, Patrick Williams <patrick@stwcx.xyz> wrot=
+e:
+> > On Thu, Jun 30, 2016 at 11:20:33AM -0500, OpenBMC Patches wrote:
+> >> From: Joel Stanley <joel@jms.id.au>
+> >>
+> >> Move to HEAD so we can drop the patches we carry.
+> >>
+> >> Signed-off-by: Joel Stanley <joel@jms.id.au>
+> >
+> > Stewart released 5.2.3 with these fixes.  Can you put us onto that
+> > instead?  Prefer to stay on a released version rather than a commit.
+>=20
+> It was my intention to bump us to 5.2.3. However, I went and looked at
+> the recipe and we were carrying 7 patches against skiboot. Only the
+> 7th is on the stable branch.
+>=20
+> Stewart,
+>=20
+> I assume you don't want to tag master at all?
+>=20
+> If not, can you please pull this list of commits into the stable branch:
+>=20
+>  e42206bf0729782330778e77283af2aca23499dc
+>  7c7911eb7bea505474c3062bf5b0c60d99b502a5
+>  e5fc583e610d4360f8fe50f225c868cb3019c1a7
+>  e415b3b9bf0441745f442e12bfce25ed49c589bf
+>  45e548176e16ad8ba9540fcd75131ba4993e42b7
+>  24ae270984a37525f8393eeccbd0ac55da4503e1
+>=20
+> They are all related to building pflash.
+>=20
+> Cheers,
+>=20
+> Joel
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
 
-I also changed the preposition, now 'write to' vs 'write into' ....
+--=20
+Patrick Williams
 
->-| `GetUpdateProgress` | `void`       | `s`           | **Display
->progress log `Apply` phase**|
->-|                     |              | `s`           | The `state`
->and log output from `Apply` |
->+| `PrepareForUpdate`  | `void`       | `void`        | **Reboot BMC
->with Flash content cached in RAM.**|
->+| `Abort`             | `void`       | `void`        | **Abort any
->pending, broken, or in-progress flash update.**|
->+| `Apply`             | `void`       | `void`        | **Initiate
->writing image to flash.**|
->+| `GetUpdateProgress` | `void`       | `s`           | **Display
->progress log `Apply` phase.**|
->+|                     |              | `s`           | The `status`
->and log output from `Apply`|
+--bCsyhTFzCvuiizWE
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
 
-... and corrected the property name from 'state' to 'status'.
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
 
-Let me know if I need to resend.
+iQIcBAEBCAAGBQJXhBZLAAoJEKsDR8wtAMEZiHgP/1o6YlvoCPnhFRj/5YrJJhuD
+WM5a5pAqdn5YUnBFRVrvkonQL2KUVBJGwTS6+vUAcpYhtx+cwpNp3En/kLjx+sJM
+ttUQK2fUGJFTx7NQGK24g3BgLeEUbLVd10nMPShNhk3KBTqm0TFrEGVBjpIKs/yb
+93qSP6Ap4JkDALHmivUHevQeP9CEC+ZL6FBO4cnC/okaJGrqBB0SwMJR+gCWIFCp
+ZrI4pmHmK4UVaLjXruYgKXyJ+iSKf3VUmOK2u5c5UFN8lfFhMuCFMPDcVQkXUPrG
+JliegnFBvBC3cd1SWKDf2Cu/ExMFKRRPsA3dlX89TTJNnn6/+O+dnBH/mHeIFTjz
+l2YvYN30/GUvYs2wfHxHtig94eEBYj7waYzEMB6uwCYSn7saV27T763Mc6P82iKM
+tWh5fRNzgZwyHuGyy6cQ7SuyXCZGS296sqH6sk9Pe/DEv0I0RoP2V5euNzwTRaTp
+l6l3x/I35zdr9p3GRfsuGUSxA/0MpP2lOrPyEQISTBk2Bv0RCE461vxxtxU+eMDi
+uXy9wUqpFuVkiRbmN4EaLGiS4bSgvBG63LppFKKkT8f1S9Q/L69m5xjKtKQchYAV
+XFDKBiXCRAGA63L0p4eeppe4mM2QCeKp8lpZovi80/McculFgZh3wZVxSjKlx1ka
+HnHID1DcDBXZ13BRCPxV
+=WqMG
+-----END PGP SIGNATURE-----
 
-milton
+--bCsyhTFzCvuiizWE--
