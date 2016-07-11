@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rp9Lb5BsFzDqpR
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jul 2016 02:20:39 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rp9Lf1nGyzDqxM
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jul 2016 02:20:42 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1468254035392911.6351282124436;
- Mon, 11 Jul 2016 09:20:35 -0700 (PDT)
+ with SMTPS id 146825403705828.42259874527508;
+ Mon, 11 Jul 2016 09:20:37 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH openbmc v2 1/2] classes-systemd: Fix FILES_${PN} path bug
-Date: Mon, 11 Jul 2016 11:20:31 -0500
-Message-Id: <20160711162032.25452-2-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v2 2/2] classes-systemd: Use PN rather than BPN
+Date: Mon, 11 Jul 2016 11:20:32 -0500
+Message-Id: <20160711162032.25452-3-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 In-Reply-To: <20160711162032.25452-1-openbmc-patches@stwcx.xyz>
 References: <20160711162032.25452-1-openbmc-patches@stwcx.xyz>
@@ -28,32 +28,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Jul 2016 16:20:40 -0000
+X-List-Received-Date: Mon, 11 Jul 2016 16:20:42 -0000
 
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
-Missing space and path sep in the generated path.
+This is what all the classes that come with Yocto do.
 
 Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
- meta-phosphor/classes/obmc-phosphor-systemd.bbclass | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ meta-phosphor/classes/obmc-phosphor-systemd.bbclass | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/meta-phosphor/classes/obmc-phosphor-systemd.bbclass b/meta-phosphor/classes/obmc-phosphor-systemd.bbclass
-index b07174f..c94a74b 100644
+index c94a74b..f882bfc 100644
 --- a/meta-phosphor/classes/obmc-phosphor-systemd.bbclass
 +++ b/meta-phosphor/classes/obmc-phosphor-systemd.bbclass
-@@ -27,9 +27,8 @@ python() {
+@@ -7,31 +7,31 @@
+ # and these files will be added to the main package if they exist.
+ #
+ # Alternatively this class can just be inherited and
+-# ${BPN}.service will be added to the main package.
++# ${PN}.service will be added to the main package.
+ inherit systemd
+ 
+ 
+ python() {
+-    bpn = d.getVar('BPN', True)
++    pn = d.getVar('PN', True)
+     searchpaths = d.getVar('FILESPATH', True)
+ 
+-    services = d.getVar('SYSTEMD_SERVICE_' + bpn, True)
++    services = d.getVar('SYSTEMD_SERVICE_' + pn, True)
+ 
+     if services:
+         services = services.split()
+     else:
+-        services = [bpn + '.service']
++        services = [pn + '.service']
+ 
+     for s in services:
+         file = s
          path = bb.utils.which(searchpaths, file)
          if os.path.isfile(path):
              d.appendVar('SRC_URI', ' file://' + file)
--            d.appendVar(
--                'FILES_' + bpn, ' ' +
--                d.getVar('systemd_system_unitdir', True) + file)
-+            d.appendVar("FILES_%s" %(bpn), " %s/%s" \
-+                % (d.getVar('systemd_system_unitdir', True), file))
+-            d.appendVar("FILES_%s" %(bpn), " %s/%s" \
++            d.appendVar("FILES_%s" %(pn), " %s/%s" \
+                 % (d.getVar('systemd_system_unitdir', True), file))
              d.appendVar('OBMC_SYSTEMD_SERVICES', ' ' + file)
-             if file not in (d.getVar('SYSTEMD_SERVICE_' + bpn, True) or "").split():
-                 d.appendVar('SYSTEMD_SERVICE_' + bpn, ' ' + file)
+-            if file not in (d.getVar('SYSTEMD_SERVICE_' + bpn, True) or "").split():
+-                d.appendVar('SYSTEMD_SERVICE_' + bpn, ' ' + file)
++            if file not in (d.getVar('SYSTEMD_SERVICE_' + pn, True) or "").split():
++                d.appendVar('SYSTEMD_SERVICE_' + pn, ' ' + file)
+         else:
+             bb.error("Could not find service file: %s" % file)
+ }
 -- 
 2.9.0
