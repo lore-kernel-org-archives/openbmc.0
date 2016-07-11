@@ -3,16 +3,16 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rpJCw3n59zDqpR
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jul 2016 07:30:20 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rpJCy1tyvzDqpR
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jul 2016 07:30:22 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1468272616741749.2841811009655;
- Mon, 11 Jul 2016 14:30:16 -0700 (PDT)
+ with SMTPS id 1468272615601513.3791439214331;
+ Mon, 11 Jul 2016 14:30:15 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH docs 2/2] Minor spelling fixes
-Date: Mon, 11 Jul 2016 16:30:13 -0500
-Message-Id: <20160711213013.11995-3-openbmc-patches@stwcx.xyz>
+Subject: [PATCH docs 1/2] Clean up formatting
+Date: Mon, 11 Jul 2016 16:30:12 -0500
+Message-Id: <20160711213013.11995-2-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 In-Reply-To: <20160711213013.11995-1-openbmc-patches@stwcx.xyz>
 References: <20160711213013.11995-1-openbmc-patches@stwcx.xyz>
@@ -27,88 +27,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Jul 2016 21:30:21 -0000
+X-List-Received-Date: Mon, 11 Jul 2016 21:30:22 -0000
 
 From: Milton Miller <miltonm@us.ibm.com>
 
-Reviewing my recent update in gedit showed a few spelling typos
-in code-update.md.  I also noticed the possible auto-correct
-that put a backquote before an e in rest-api.md.  After that I
-ran the remaining files through gedit looking for mis-spelled
-words and found a few with missing letters.
+When reviewing the formatted output I discovered my receint additions
+to the dbus interfaces did not have trailing periods.  In addition
+one of the entries did not parse the bold formatting.  I tracked
+the later down to a space between the text and the intended end bold.
+
+I also added a few columns to headers where the text was longer than
+the initial columns.  This makes the file a bit easier to read when
+viewing the markdown as plain text.
 
 Signed-off-by: Milton Miller <miltonm@us.ibm.com>
 ---
- code-update.md  | 4 ++--
- contributing.md | 6 +++---
- rest-api.md     | 2 +-
- 3 files changed, 6 insertions(+), 6 deletions(-)
+ dbus-interfaces.md | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/code-update.md b/code-update.md
-index 28f351f..b599474 100644
---- a/code-update.md
-+++ b/code-update.md
-@@ -50,7 +50,7 @@ the initramfs to copy the required contents of these filesystems into
- RAM so the images can be applied while the rest of the application stack
- is running and progress can be monitored over the network.  The
- `update` script can then be called to write the images while the
--system is operational and its progress ouput monitored.
-+system is operational and its progress output monitored.
+diff --git a/dbus-interfaces.md b/dbus-interfaces.md
+index 5ea5d02..84e75c3 100644
+--- a/dbus-interfaces.md
++++ b/dbus-interfaces.md
+@@ -313,11 +313,11 @@ The control.BmcFlash interface allows applications update the BMC firmware.
+ |                     | `s`          |               | The name of the file containing the BMC firmware image.|
+ | `update`            | `s`          | `void`        | **Perform a BMC firmware update with a file already on the BMC.**|
+ |                     | `s`          |               | The name of the file containing the BMC firmware image.|
+-| `PrepareForUpdate`  | `void`       | `void`        | **Reboot BMC with Flash content cached in RAM **|
+-| `Abort`             | `void`       | `void`        | **Abort any pending, broken, or in-progress flash update**|
+-| `Apply`             | `void`       | `void`        | **Initiate writing image into flash**|
+-| `GetUpdateProgress` | `void`       | `s`           | **Display progress log `Apply` phase**|
+-|                     |              | `s`           | The `state` and log output from `Apply` |
++| `PrepareForUpdate`  | `void`       | `void`        | **Reboot BMC with Flash content cached in RAM.**|
++| `Abort`             | `void`       | `void`        | **Abort any pending, broken, or in-progress flash update.**|
++| `Apply`             | `void`       | `void`        | **Initiate writing image to flash.**|
++| `GetUpdateProgress` | `void`       | `s`           | **Display progress log `Apply` phase.**|
++|                     |              | `s`           | The `status` and log output from `Apply`|
  
- Update from the OpenBMC shell
- -----------------------------
-@@ -112,7 +112,7 @@ There are a few settings available to control the update process:
-  * `preserve_network_settings`: Preserve network settings, only needed if updating the whole flash
-  * `restore_application_defaults`: update (clear) the read-write file system
-  * `update_kernel_and_apps_only`: update kernel and initramfs
-- * `clear_persistent_files`: ignore the persistent file list when reseting applications defaults
-+ * `clear_persistent_files`: ignore the persistent file list when resetting applications defaults
-  * `auto_apply`: Attempt to write the images by invoking the `Apply` method after the images are unpacked.
+ ### signals
+ | name           | signature | description                              |
+@@ -329,13 +329,13 @@ The control.BmcFlash interface allows applications update the BMC firmware.
+ ### properties
+ | name                           | signature | description                     |
+ | ------------------------------ | --------- | ------------------------------- |
+-| `status`                       | `s`       | **Description of the phase of the update**        |
++| `status`                       | `s`       | **Description of the phase of the update.**        |
+ | `filename`                     | `s`       | **The name of the file containing the BMC firmware image.**|
+ | `preserve_network_settings`    | `b`       | **Perform a factory reset.**    |
+ | `restore_application_defaults` | `b`       | **Clear modified files in read-write filesystem.**    |
+ | `update_kernel_and_apps`       | `b`       | **Do not update bootloader (requires image pieces).**    |
+ | `clear_persistent_files`       | `b`       | **Also remove persistent files when updating read-write filesystem.**    |
+-| `auto_apply`                   | `b`       | **Attempt to apply image after unpacking (cleared if image verification fails)**    |
++| `auto_apply`                   | `b`       | **Attempt to apply image after unpacking (cleared if image verification fails).**    |
  
- To configure the update settings, perform a REST PUT to
-diff --git a/contributing.md b/contributing.md
-index 195bde6..f2e2c83 100644
---- a/contributing.md
-+++ b/contributing.md
-@@ -88,7 +88,7 @@ Your contribution will generally need to be reviewed before being accepted.
- Submitting changes via Gerrit server
- ------------------------------------
+ ### namespace
+ | path                             | required | description |
+@@ -474,8 +474,8 @@ Insert a description of the control.Power interface here.
+ | `PowerLost` | `void`    | **The power is off.** |
  
--The openbmc gerrit server supports Gihub credentials, its link is:
-+The openbmc gerrit server supports Github credentials, its link is:
+ ### properties
+-| name          | signature | description     |
+-| ------------- | --------- | --------------- |
++| name            | signature | description     |
++| --------------- | --------- | --------------- |
+ | `pgood`         | `i`     | **?**           |
+ | `state`         | `i`     | **?**           |
+ | `pgood_timeout` | `i`     | **?**           |
+@@ -694,6 +694,6 @@ bookeeping to another application.
+ | `WatchdogError` | `void`    | *The watchdog was not pinged before the timer expired.**|
  
-   https://gerrit.openbmc-project.xyz/#/q/status:open
- 
-@@ -156,7 +156,7 @@ See also: http://dbus.freedesktop.org/doc/dbus-api-design.html
- Best practices for C
- --------------------
- 
--There are numerous resources avaialble elsewhere, but a few items that are
-+There are numerous resources available elsewhere, but a few items that are
- relevant to OpenBMC work:
- 
-  * You almost never need to use `system(<some shell pipeline>)`. Reading and
-@@ -174,7 +174,7 @@ relevant to OpenBMC work:
-    C types
- 
-  * Declare internal-only functions as `static`, declare read-only data
--   as `const` where possble.
-+   as `const` where possible.
- 
-  * Ensure that your code compiles without warnings, especially for changes
-    to the kernel.
-diff --git a/rest-api.md b/rest-api.md
-index 10b01e9..4fe2e02 100644
---- a/rest-api.md
-+++ b/rest-api.md
-@@ -178,7 +178,7 @@ To invoke a method without parameters:
- DELETE operations are for removing instances. Only DBUS objects (instances) can
- be removed. If the underlying DBUS object implements the
- `org.openbmc.Object.Delete` interface the REST server will call it. If
--`org.openbmc.Object.Delet`e is not implemented, the REST server will return a
-+`org.openbmc.Object.Delete` is not implemented, the REST server will return a
- HTTP 403 (Forbidden) error.
- 
- For example, to delete the event record with ID 0:
+ ### namespace
+-| path                             | required | description                  |
+-| -------------------------------- | -------- | ---------------------------------------- |
++| path                               | required | description                  |
++| ---------------------------------- | -------- | ---------------------------------------- |
+ | `/org/openbmc/watchdog/<watchdog>` | No       | Any watchdog instances must be instantiated in the watchdog namespace. |
 -- 
 2.9.0
