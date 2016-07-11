@@ -3,17 +3,17 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rnt2N4Wy3zDqxn
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rnt2N4VR5zDqxj
  for <openbmc@lists.ozlabs.org>; Mon, 11 Jul 2016 14:50:36 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1468212631891157.50279435790935;
- Sun, 10 Jul 2016 21:50:31 -0700 (PDT)
+ with SMTPS id 1468212632719740.2713312872447;
+ Sun, 10 Jul 2016 21:50:32 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH openbmc 1/2] classes-systemd: Fix FILES_${PN} path bug
-Date: Sun, 10 Jul 2016 23:50:29 -0500
-Message-Id: <20160711045030.6230-2-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc 2/2] classes-systemd: Use PN rather than BPN
+Date: Sun, 10 Jul 2016 23:50:30 -0500
+Message-Id: <20160711045030.6230-3-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
 In-Reply-To: <20160711045030.6230-1-openbmc-patches@stwcx.xyz>
 References: <20160711045030.6230-1-openbmc-patches@stwcx.xyz>
@@ -32,28 +32,49 @@ X-List-Received-Date: Mon, 11 Jul 2016 04:50:37 -0000
 
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
-Missing space and path sep in the generated path.
+This is what all the classes that come with Yocto do.
 
 Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
- meta-phosphor/classes/obmc-phosphor-systemd.bbclass | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ meta-phosphor/classes/obmc-phosphor-systemd.bbclass | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/meta-phosphor/classes/obmc-phosphor-systemd.bbclass b/meta-phosphor/classes/obmc-phosphor-systemd.bbclass
-index b07174f..c94a74b 100644
+index c94a74b..5d1204b 100644
 --- a/meta-phosphor/classes/obmc-phosphor-systemd.bbclass
 +++ b/meta-phosphor/classes/obmc-phosphor-systemd.bbclass
-@@ -27,9 +27,8 @@ python() {
+@@ -12,26 +12,26 @@ inherit systemd
+ 
+ 
+ python() {
+-    bpn = d.getVar('BPN', True)
++    pn = d.getVar('PN', True)
+     searchpaths = d.getVar('FILESPATH', True)
+ 
+-    services = d.getVar('SYSTEMD_SERVICE_' + bpn, True)
++    services = d.getVar('SYSTEMD_SERVICE_' + pn, True)
+ 
+     if services:
+         services = services.split()
+     else:
+-        services = [bpn + '.service']
++        services = [pn + '.service']
+ 
+     for s in services:
+         file = s
          path = bb.utils.which(searchpaths, file)
          if os.path.isfile(path):
              d.appendVar('SRC_URI', ' file://' + file)
--            d.appendVar(
--                'FILES_' + bpn, ' ' +
--                d.getVar('systemd_system_unitdir', True) + file)
-+            d.appendVar("FILES_%s" %(bpn), " %s/%s" \
-+                % (d.getVar('systemd_system_unitdir', True), file))
+-            d.appendVar("FILES_%s" %(bpn), " %s/%s" \
++            d.appendVar("FILES_%s" %(pn), " %s/%s" \
+                 % (d.getVar('systemd_system_unitdir', True), file))
              d.appendVar('OBMC_SYSTEMD_SERVICES', ' ' + file)
-             if file not in (d.getVar('SYSTEMD_SERVICE_' + bpn, True) or "").split():
-                 d.appendVar('SYSTEMD_SERVICE_' + bpn, ' ' + file)
+-            if file not in (d.getVar('SYSTEMD_SERVICE_' + bpn, True) or "").split():
+-                d.appendVar('SYSTEMD_SERVICE_' + bpn, ' ' + file)
++            if file not in (d.getVar('SYSTEMD_SERVICE_' + pn, True) or "").split():
++                d.appendVar('SYSTEMD_SERVICE_' + pn, ' ' + file)
+         else:
+             bb.error("Could not find service file: %s" % file)
+ }
 -- 
 2.9.0
