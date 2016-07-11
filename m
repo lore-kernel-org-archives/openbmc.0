@@ -3,18 +3,20 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rnwFl3MK4zDqxX
- for <openbmc@lists.ozlabs.org>; Mon, 11 Jul 2016 16:30:35 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rnwFq6DyTzDr2p
+ for <openbmc@lists.ozlabs.org>; Mon, 11 Jul 2016 16:30:39 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1468218631909161.91112076311936;
- Sun, 10 Jul 2016 23:30:31 -0700 (PDT)
+ with SMTPS id 1468218633293771.6373944882708;
+ Sun, 10 Jul 2016 23:30:33 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH openbmc v2 0/2] Remove extra busses from python and sdbus
- examples
-Date: Mon, 11 Jul 2016 01:30:29 -0500
-Message-Id: <20160711063031.12113-1-openbmc-patches@stwcx.xyz>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Subject: [PATCH openbmc v2 1/2] Remove second bus from pydbus example
+Date: Mon, 11 Jul 2016 01:30:30 -0500
+Message-Id: <20160711063031.12113-2-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
+In-Reply-To: <20160711063031.12113-1-openbmc-patches@stwcx.xyz>
+References: <20160711063031.12113-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -26,36 +28,99 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Jul 2016 06:30:36 -0000
+X-List-Received-Date: Mon, 11 Jul 2016 06:30:40 -0000
 
-I can't think of any use cases for this.  Removing to make things less confusing.
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
-<!-- Reviewable:start -->
+There probably aren't any use cases for this and it is
+harder to support.
+Remove to make things slightly less confusing.
+
+Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/461)
-<!-- Reviewable:end -->
-
-
-https://github.com/openbmc/openbmc/pull/461
-
-Brad Bishop (2):
-  Remove second bus from pydbus example
-  Remove second bus from sdbus example
-
  .../files/obmc-phosphor-example-pydbus.py                         | 3 +--
- .../files/org.openbmc.examples.PythonService.conf}                | 4 ++--
- .../files/org.openbmc.examples.PythonService0.conf                | 8 --------
+ ...ythonService0.conf => org.openbmc.examples.PythonService.conf} | 4 ++--
  .../files/org.openbmc.examples.PythonService1.conf                | 8 --------
  .../obmc-phosphor-example-pydbus/files/pyclient-sample.py         | 4 ++--
  .../obmc-phosphor-example-pydbus/obmc-phosphor-example-pydbus.bb  | 3 +--
- .../files/obmc-phosphor-example-sdbus.c                           | 8 +-------
- ....SDBusService1.conf => org.openbmc.examples.SDBusService.conf} | 4 ++--
- .../obmc-phosphor-example-sdbus/obmc-phosphor-example-sdbus.bb    | 3 +--
- 9 files changed, 10 insertions(+), 35 deletions(-)
- rename meta-phosphor/common/recipes-phosphor/{obmc-phosphor-example-sdbus/files/org.openbmc.examples.SDBusService0.conf => obmc-phosphor-example-pydbus/files/org.openbmc.examples.PythonService.conf} (63%)
- delete mode 100644 meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/files/org.openbmc.examples.PythonService0.conf
+ 5 files changed, 6 insertions(+), 16 deletions(-)
+ rename meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/files/{org.openbmc.examples.PythonService0.conf => org.openbmc.examples.PythonService.conf} (62%)
  delete mode 100644 meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/files/org.openbmc.examples.PythonService1.conf
- rename meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-sdbus/files/{org.openbmc.examples.SDBusService1.conf => org.openbmc.examples.SDBusService.conf} (62%)
 
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/files/obmc-phosphor-example-pydbus.py b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/files/obmc-phosphor-example-pydbus.py
+index 2b59b58..1f4ce90 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/files/obmc-phosphor-example-pydbus.py
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/files/obmc-phosphor-example-pydbus.py
+@@ -86,8 +86,7 @@ if __name__ == '__main__':
+ 	bus = dbus.SystemBus()
+ 
+ 	services = []
+-	services.append(dbus.service.BusName(SERVICE_PREFIX + '.PythonService0', bus))
+-	services.append(dbus.service.BusName(SERVICE_PREFIX + '.PythonService1', bus))
++	services.append(dbus.service.BusName(SERVICE_PREFIX + '.PythonService', bus))
+ 
+ 	objs = []
+ 	objs.append(SampleObjectOne(bus, BASE_OBJ_PATH + 'path0/PythonObj'))
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/files/org.openbmc.examples.PythonService0.conf b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/files/org.openbmc.examples.PythonService.conf
+similarity index 62%
+rename from meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/files/org.openbmc.examples.PythonService0.conf
+rename to meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/files/org.openbmc.examples.PythonService.conf
+index fad0b81..6c4a713 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/files/org.openbmc.examples.PythonService0.conf
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/files/org.openbmc.examples.PythonService.conf
+@@ -2,7 +2,7 @@
+  "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+ <busconfig>
+   <policy user="root">
+-    <allow own="org.openbmc.examples.PythonService0"/>
+-    <allow send_destination="org.openbmc.examples.PythonService0"/>
++    <allow own="org.openbmc.examples.PythonService"/>
++    <allow send_destination="org.openbmc.examples.PythonService"/>
+   </policy>
+ </busconfig>
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/files/org.openbmc.examples.PythonService1.conf b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/files/org.openbmc.examples.PythonService1.conf
+deleted file mode 100644
+index 0f7114e..0000000
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/files/org.openbmc.examples.PythonService1.conf
++++ /dev/null
+@@ -1,8 +0,0 @@
+-<!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
+- "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+-<busconfig>
+-  <policy user="root">
+-    <allow own="org.openbmc.examples.PythonService1"/>
+-    <allow send_destination="org.openbmc.examples.PythonService1"/>
+-  </policy>
+-</busconfig>
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/files/pyclient-sample.py b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/files/pyclient-sample.py
+index e1010a5..138865d 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/files/pyclient-sample.py
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/files/pyclient-sample.py
+@@ -36,9 +36,9 @@ if __name__ == '__main__':
+ 
+ 	bus = dbus.SystemBus()
+ 
+-	obj0 = bus.get_object(SERVICE_PREFIX + '.PythonService0',
++	obj0 = bus.get_object(SERVICE_PREFIX + '.PythonService',
+ 		                      BASE_OBJ_PATH + 'path0/PythonObj')
+-	obj1 = bus.get_object(SERVICE_PREFIX + '.PythonService1',
++	obj1 = bus.get_object(SERVICE_PREFIX + '.PythonService',
+ 		                      BASE_OBJ_PATH + 'path1/PythonObj')
+ 	echo0= dbus.Interface(obj0,
+ 		    dbus_interface=IFACE_PREFIX + '.Echo')
+diff --git a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/obmc-phosphor-example-pydbus.bb b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/obmc-phosphor-example-pydbus.bb
+index 1446a73..57e27cf 100644
+--- a/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/obmc-phosphor-example-pydbus.bb
++++ b/meta-phosphor/common/recipes-phosphor/obmc-phosphor-example-pydbus/obmc-phosphor-example-pydbus.bb
+@@ -3,8 +3,7 @@ DESCRIPTION = "Phosphor OpenBMC QEMU BSP example implementation."
+ PR = "r1"
+ 
+ DBUS_SERVICES = " \
+-        org.openbmc.examples.PythonService0 \
+-        org.openbmc.examples.PythonService1 \
++        org.openbmc.examples.PythonService \
+         "
+ 
+ inherit obmc-phosphor-pydbus-service
 -- 
 2.9.0
