@@ -3,20 +3,18 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rp9Lf1nGyzDqxM
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jul 2016 02:20:42 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rp9Lk4p19zDqx8
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jul 2016 02:20:46 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 146825403705828.42259874527508;
- Mon, 11 Jul 2016 09:20:37 -0700 (PDT)
+ with SMTPS id 1468254042007527.4574667487326;
+ Mon, 11 Jul 2016 09:20:42 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH openbmc v2 2/2] classes-systemd: Use PN rather than BPN
-Date: Mon, 11 Jul 2016 11:20:32 -0500
-Message-Id: <20160711162032.25452-3-openbmc-patches@stwcx.xyz>
+Subject: [PATCH openbmc v2] classes-utils: Whitespace fixes
+Date: Mon, 11 Jul 2016 11:20:39 -0500
+Message-Id: <20160711162040.25516-1-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
-In-Reply-To: <20160711162032.25452-1-openbmc-patches@stwcx.xyz>
-References: <20160711162032.25452-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -28,59 +26,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Jul 2016 16:20:42 -0000
+X-List-Received-Date: Mon, 11 Jul 2016 16:20:47 -0000
 
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-
-This is what all the classes that come with Yocto do.
+Four spaces for python code.
 
 Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
----
- meta-phosphor/classes/obmc-phosphor-systemd.bbclass | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/meta-phosphor/classes/obmc-phosphor-systemd.bbclass b/meta-phosphor/classes/obmc-phosphor-systemd.bbclass
-index c94a74b..f882bfc 100644
---- a/meta-phosphor/classes/obmc-phosphor-systemd.bbclass
-+++ b/meta-phosphor/classes/obmc-phosphor-systemd.bbclass
-@@ -7,31 +7,31 @@
- # and these files will be added to the main package if they exist.
- #
- # Alternatively this class can just be inherited and
--# ${BPN}.service will be added to the main package.
-+# ${PN}.service will be added to the main package.
- inherit systemd
- 
- 
- python() {
--    bpn = d.getVar('BPN', True)
-+    pn = d.getVar('PN', True)
-     searchpaths = d.getVar('FILESPATH', True)
- 
--    services = d.getVar('SYSTEMD_SERVICE_' + bpn, True)
-+    services = d.getVar('SYSTEMD_SERVICE_' + pn, True)
- 
-     if services:
-         services = services.split()
-     else:
--        services = [bpn + '.service']
-+        services = [pn + '.service']
- 
-     for s in services:
-         file = s
-         path = bb.utils.which(searchpaths, file)
-         if os.path.isfile(path):
-             d.appendVar('SRC_URI', ' file://' + file)
--            d.appendVar("FILES_%s" %(bpn), " %s/%s" \
-+            d.appendVar("FILES_%s" %(pn), " %s/%s" \
-                 % (d.getVar('systemd_system_unitdir', True), file))
-             d.appendVar('OBMC_SYSTEMD_SERVICES', ' ' + file)
--            if file not in (d.getVar('SYSTEMD_SERVICE_' + bpn, True) or "").split():
--                d.appendVar('SYSTEMD_SERVICE_' + bpn, ' ' + file)
-+            if file not in (d.getVar('SYSTEMD_SERVICE_' + pn, True) or "").split():
-+                d.appendVar('SYSTEMD_SERVICE_' + pn, ' ' + file)
-         else:
-             bb.error("Could not find service file: %s" % file)
- }
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/openbmc/460)
+<!-- Reviewable:end -->
+
+
+https://github.com/openbmc/openbmc/pull/460
+
+Brad Bishop (1):
+  classes-utils: Whitespace fixes
+
+ meta-phosphor/classes/obmc-phosphor-utils.bbclass | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
+
 -- 
 2.9.0
