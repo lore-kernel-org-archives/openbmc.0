@@ -1,33 +1,31 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <clg@kaod.org>
+Received: from mo179.mail-out.ovh.net (mo179.mail-out.ovh.net [178.32.228.179])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rpJqT3ByVzDr11
- for <openbmc@lists.ozlabs.org>; Tue, 12 Jul 2016 07:57:41 +1000 (AEST)
-Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
- with SMTPS id 146827425377295.24207348681898;
- Mon, 11 Jul 2016 14:57:33 -0700 (PDT)
-Date: Mon, 11 Jul 2016 16:57:31 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Joel Stanley <joel@jms.id.au>
-Cc: Stewart Smith <stewart@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- OpenBMC Patches <openbmc-patches@stwcx.xyz>
-Subject: Re: [PATCH openbmc 3/3] meta-openpower: Update pflash version
-Message-ID: <20160711215731.GB12483@asimov.austin.ibm.com>
-References: <20160630162033.2330-1-openbmc-patches@stwcx.xyz>
- <20160630162033.2330-4-openbmc-patches@stwcx.xyz>
- <20160630212709.GV20922@asimov.austin.ibm.com>
- <CACPK8XdYZrNXFrxp2beXwWKrORCApWtSh+1LRG+qOrd_DHvz-g@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rpchq1xL3zDqDT
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jul 2016 19:52:58 +1000 (AEST)
+Received: from player698.ha.ovh.net (b7.ovh.net [213.186.33.57])
+ by mo179.mail-out.ovh.net (Postfix) with ESMTP id 784B8100865C
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jul 2016 11:52:54 +0200 (CEST)
+Received: from hermes.ibm.com (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: clg@kaod.org)
+ by player698.ha.ovh.net (Postfix) with ESMTPSA id 2C74752008E;
+ Tue, 12 Jul 2016 11:52:50 +0200 (CEST)
+From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
+To: openbmc@lists.ozlabs.org
+Cc: Gavin Shan <gwshan@linux.vnet.ibm.com>, Joel Stanley <joel@jms.id.au>,
+ =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
+Subject: [PATCH linux 4.4] net/ncsi: start the timer before sending the request
+Date: Tue, 12 Jul 2016 11:52:36 +0200
+Message-Id: <1468317156-31407-1-git-send-email-clg@kaod.org>
+X-Mailer: git-send-email 2.1.4
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="bCsyhTFzCvuiizWE"
-Content-Disposition: inline
-In-Reply-To: <CACPK8XdYZrNXFrxp2beXwWKrORCApWtSh+1LRG+qOrd_DHvz-g@mail.gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
-X-ZohoMail: Z_61896388 SPT_1 Z_56716064 SPT_1 SLF_D
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 13687846643182570242
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeltddrfeejgddulecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -39,81 +37,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Jul 2016 21:57:42 -0000
+X-List-Received-Date: Tue, 12 Jul 2016 09:52:59 -0000
 
+Currently, the timer is armed after the request is sent. This is racy
+with ncsi_rcv_rsp() which discards a response to a NCSI request
+received before the timer was enabled.
 
---bCsyhTFzCvuiizWE
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Cédric Le Goater <clg@kaod.org>
+---
 
-Stewart,
+ The issue is systematic with the fake NCSI backend on qemu
 
-Bump.  Didn't see a reply from you on this.
+ net/ncsi/ncsi-cmd.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-On Fri, Jul 01, 2016 at 10:23:24AM +0930, Joel Stanley wrote:
-> On Fri, Jul 1, 2016 at 6:57 AM, Patrick Williams <patrick@stwcx.xyz> wrot=
-e:
-> > On Thu, Jun 30, 2016 at 11:20:33AM -0500, OpenBMC Patches wrote:
-> >> From: Joel Stanley <joel@jms.id.au>
-> >>
-> >> Move to HEAD so we can drop the patches we carry.
-> >>
-> >> Signed-off-by: Joel Stanley <joel@jms.id.au>
-> >
-> > Stewart released 5.2.3 with these fixes.  Can you put us onto that
-> > instead?  Prefer to stay on a released version rather than a commit.
->=20
-> It was my intention to bump us to 5.2.3. However, I went and looked at
-> the recipe and we were carrying 7 patches against skiboot. Only the
-> 7th is on the stable branch.
->=20
-> Stewart,
->=20
-> I assume you don't want to tag master at all?
->=20
-> If not, can you please pull this list of commits into the stable branch:
->=20
->  e42206bf0729782330778e77283af2aca23499dc
->  7c7911eb7bea505474c3062bf5b0c60d99b502a5
->  e5fc583e610d4360f8fe50f225c868cb3019c1a7
->  e415b3b9bf0441745f442e12bfce25ed49c589bf
->  45e548176e16ad8ba9540fcd75131ba4993e42b7
->  24ae270984a37525f8393eeccbd0ac55da4503e1
->=20
-> They are all related to building pflash.
->=20
-> Cheers,
->=20
-> Joel
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
-
---=20
-Patrick Williams
-
---bCsyhTFzCvuiizWE
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJXhBZLAAoJEKsDR8wtAMEZiHgP/1o6YlvoCPnhFRj/5YrJJhuD
-WM5a5pAqdn5YUnBFRVrvkonQL2KUVBJGwTS6+vUAcpYhtx+cwpNp3En/kLjx+sJM
-ttUQK2fUGJFTx7NQGK24g3BgLeEUbLVd10nMPShNhk3KBTqm0TFrEGVBjpIKs/yb
-93qSP6Ap4JkDALHmivUHevQeP9CEC+ZL6FBO4cnC/okaJGrqBB0SwMJR+gCWIFCp
-ZrI4pmHmK4UVaLjXruYgKXyJ+iSKf3VUmOK2u5c5UFN8lfFhMuCFMPDcVQkXUPrG
-JliegnFBvBC3cd1SWKDf2Cu/ExMFKRRPsA3dlX89TTJNnn6/+O+dnBH/mHeIFTjz
-l2YvYN30/GUvYs2wfHxHtig94eEBYj7waYzEMB6uwCYSn7saV27T763Mc6P82iKM
-tWh5fRNzgZwyHuGyy6cQ7SuyXCZGS296sqH6sk9Pe/DEv0I0RoP2V5euNzwTRaTp
-l6l3x/I35zdr9p3GRfsuGUSxA/0MpP2lOrPyEQISTBk2Bv0RCE461vxxtxU+eMDi
-uXy9wUqpFuVkiRbmN4EaLGiS4bSgvBG63LppFKKkT8f1S9Q/L69m5xjKtKQchYAV
-XFDKBiXCRAGA63L0p4eeppe4mM2QCeKp8lpZovi80/McculFgZh3wZVxSjKlx1ka
-HnHID1DcDBXZ13BRCPxV
-=WqMG
------END PGP SIGNATURE-----
-
---bCsyhTFzCvuiizWE--
+diff --git a/net/ncsi/ncsi-cmd.c b/net/ncsi/ncsi-cmd.c
+index 28f297ac5738..b681220adf09 100644
+--- a/net/ncsi/ncsi-cmd.c
++++ b/net/ncsi/ncsi-cmd.c
+@@ -351,12 +351,6 @@ int ncsi_xmit_cmd(struct ncsi_cmd_arg *nca)
+ 		eh->h_source[i] = 0xff;
+ 	}
+ 
+-	/* Send NCSI packet */
+-	skb_get(nr->nr_cmd);
+-	ret = dev_queue_xmit(nr->nr_cmd);
+-	if (ret)
+-		goto out;
+-
+ 	/* Start the timer for the request that might not have
+ 	 * corresponding response. I'm not sure 1 second delay
+ 	 * here is enough. Anyway, NCSI is internal network, so
+@@ -365,6 +359,12 @@ int ncsi_xmit_cmd(struct ncsi_cmd_arg *nca)
+ 	nr->nr_timer_enabled = true;
+ 	mod_timer(&nr->nr_timer, jiffies + 1 * HZ);
+ 
++	/* Send NCSI packet */
++	skb_get(nr->nr_cmd);
++	ret = dev_queue_xmit(nr->nr_cmd);
++	if (ret)
++		goto out;
++
+ 	return 0;
+ out:
+ 	ncsi_free_req(nr, false, false);
+-- 
+2.1.4
