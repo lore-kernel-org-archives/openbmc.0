@@ -1,27 +1,52 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <prvs=6002e67ace=tfang@fb.com>
+X-Greylist: delayed 874 seconds by postgrey-1.35 at bilbo;
+ Thu, 14 Jul 2016 02:59:07 AEST
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b=WKnXYlWb; 
+ dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rqPPr0C8DzDqFq
- for <openbmc@lists.ozlabs.org>; Thu, 14 Jul 2016 02:27:43 +1000 (AEST)
-Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
- with SMTPS id 1468427254605323.3913867121431;
- Wed, 13 Jul 2016 09:27:34 -0700 (PDT)
-Date: Wed, 13 Jul 2016 11:27:32 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: David =?iso-8859-1?Q?M=FCller_=28ELSOFT_AG=29?= <d.mueller@elsoft.ch>
-Cc: openbmc@lists.ozlabs.org, Teddy Reed <teddy@prosauce.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rqQ633YYvzDqFq
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Jul 2016 02:59:06 +1000 (AEST)
+Received: from pps.filterd (m0044008.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
+ u6DGfUO3016037; Wed, 13 Jul 2016 09:44:26 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fb.com;
+ h=subject : to : references
+ : cc : from : message-id : date : mime-version : in-reply-to :
+ content-type; s=facebook; bh=+30oyvoIW26FS3qFIiCjIuq3Z2/v7S3nmJuHakm5n+c=;
+ b=WKnXYlWbsVrgPYvob34DSC/StIPzL3XpM+lvNBfRpodJfpHaB+Gu3xfwb+SeuIKbLNWe
+ ZKJz11K21byxNKBtHj5uEMV8Uy4A1h3GXDzQH3dZT7oW35lLv55RNdQ98dAkslbzi8XQ
+ piUcEwgBs9IXAlMjqNZnWgwE8nW6vSf7iNQ= 
+Received: from mail.thefacebook.com ([199.201.64.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 245kkpjmk8-6
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Wed, 13 Jul 2016 09:44:26 -0700
+Received: from [IPv6:2620:10d:c082:1055:f9a3:c3f:9519:3d8f] (192.168.52.123)
+ by mail.thefacebook.com (192.168.16.16) with Microsoft SMTP Server (TLS) id
+ 14.3.294.0; Wed, 13 Jul 2016 09:44:16 -0700
 Subject: Re: OpenBMC port to AST2400 on Piestewa Peak CRB?
-Message-ID: <20160713162732.GB12735@asimov.austin.ibm.com>
+To: Patrick Williams <patrick@stwcx.xyz>,
+ =?UTF-8?Q?David_M=c3=bcller_=28ELSOFT_AG=29?= <d.mueller@elsoft.ch>
 References: <57863637.3090405@elsoft.ch>
+ <20160713162732.GB12735@asimov.austin.ibm.com>
+CC: <openbmc@lists.ozlabs.org>, Teddy Reed <teddy@prosauce.org>
+From: Tian Fang <tfang@fb.com>
+Message-ID: <57866FE0.3030300@fb.com>
+Date: Wed, 13 Jul 2016 09:44:16 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+ Thunderbird/38.8.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="98e8jtXdkpgskNou"
-Content-Disposition: inline
-In-Reply-To: <57863637.3090405@elsoft.ch>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
+In-Reply-To: <20160713162732.GB12735@asimov.austin.ibm.com>
+Content-Type: multipart/alternative;
+ boundary="------------070903000707080908090101"
+X-Originating-IP: [192.168.52.123]
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-07-13_08:, , signatures=0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -33,26 +58,106 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Jul 2016 16:27:44 -0000
+X-List-Received-Date: Wed, 13 Jul 2016 16:59:08 -0000
 
-
---98e8jtXdkpgskNou
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--------------070903000707080908090101
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
 
 Hi Dave,
 
-On Wed, Jul 13, 2016 at 02:38:15PM +0200, David M=FCller (ELSOFT AG) wrote:
-> Hello
->=20
-> Does anybody have plans to port or have already ported OpenBMC to the
-> AST2400 BMC used on the Intel Piestewa Peak Customer Reference Board?
->=20
-> Dave
->=20
+Facebook has been developing OpenBMC for several Intel host CPU boards 
+using AST2400. But not for Piestewa Peak Customer Reference board. As 
+Patrick mentioned, "The AST2400 itself is
+host-processor agnostic, so it probably wouldn't be much trouble to get 
+it running on that board."
 
-Currently, the code tree at http://github.com/openbmc/openbmc only
+Facebook OpenBMC repo is at http://github.com/facebook/openbmc. We are 
+working with IBM team to have common Linux kernel and u-boot.
+
+Thx,
+Tian
+
+On 07/13/2016 09:27 AM, Patrick Williams wrote:
+> Hi Dave,
+>
+> On Wed, Jul 13, 2016 at 02:38:15PM +0200, David Müller (ELSOFT AG) wrote:
+>> Hello
+>>
+>> Does anybody have plans to port or have already ported OpenBMC to the
+>> AST2400 BMC used on the Intel Piestewa Peak Customer Reference Board?
+>>
+>> Dave
+>>
+> Currently, the code tree at http://github.com/openbmc/openbmc only
+> supports full functionality on Power8 systems.  The AST2400 itself is
+> host-processor agnostic, so it probably wouldn't be much trouble to get
+> it running on that board.  It would be the userspace apps that interact
+> with the Host that would need work.
+>
+> Facebook has a different code stack that does support Intel processors.
+> I do not know how close any of their systems would be to this reference
+> board.
+>
+> We are wanting to work with anyone who might be interested in extending
+> our code-base to support non-Power architectures, but it just isn't my
+> team's focus.  We have been discussing with Facebook on how to get parts
+> of the code stack common between our two efforts.  Our main areas of
+> focus now have been on Linux kernel and u-boot support.
+>
+> Cc'd Teddy @ Facebook so he can forward this around over there.
+>
+>
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+
+
+--------------070903000707080908090101
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    Hi Dave,<br>
+    <br>
+    Facebook has been developing OpenBMC for several Intel host CPU
+    boards using AST2400. But not for Piestewa Peak Customer Reference
+    board. As Patrick mentioned, "The AST2400 itself is<br>
+    host-processor agnostic, so it probably wouldn't be much trouble to
+    get it running on that board."<br>
+    <br>
+    Facebook OpenBMC repo is at <a class="moz-txt-link-freetext" href="http://github.com/facebook/openbmc">http://github.com/facebook/openbmc</a>. We
+    are working with IBM team to have common Linux kernel and u-boot.<br>
+    <br>
+    Thx,<br>
+    Tian<br>
+    <br>
+    <div class="moz-cite-prefix">On 07/13/2016 09:27 AM, Patrick
+      Williams wrote:<br>
+    </div>
+    <blockquote cite="mid:20160713162732.GB12735@asimov.austin.ibm.com"
+      type="cite">
+      <pre wrap="">Hi Dave,
+
+On Wed, Jul 13, 2016 at 02:38:15PM +0200, David Müller (ELSOFT AG) wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">Hello
+
+Does anybody have plans to port or have already ported OpenBMC to the
+AST2400 BMC used on the Intel Piestewa Peak Customer Reference Board?
+
+Dave
+
+</pre>
+      </blockquote>
+      <pre wrap="">
+Currently, the code tree at <a class="moz-txt-link-freetext" href="http://github.com/openbmc/openbmc">http://github.com/openbmc/openbmc</a> only
 supports full functionality on Power8 systems.  The AST2400 itself is
 host-processor agnostic, so it probably wouldn't be much trouble to get
 it running on that board.  It would be the userspace apps that interact
@@ -69,29 +174,18 @@ of the code stack common between our two efforts.  Our main areas of
 focus now have been on Linux kernel and u-boot support.
 
 Cc'd Teddy @ Facebook so he can forward this around over there.
---=20
-Patrick Williams
+</pre>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+openbmc mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.ozlabs.org/listinfo/openbmc">https://lists.ozlabs.org/listinfo/openbmc</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
 
---98e8jtXdkpgskNou
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJXhmv0AAoJEKsDR8wtAMEZXBkP/3ycFa/puaWDwyuDAkR0OeQ2
-Rw1copn/cc5RLZc3bU1k4EBgb399y0sRwqD0HF4ha7rdEs63uVk7CYOGn1OKKLvc
-TI4gzYL0gvX4pZKe3svQ7lqKEH4Kdcg6/AOjz5QwlBU3aoUTyJGdFkP9pZdeddnY
-fNQAuhIrfhDP8ojH6bLhA9ErJaTV5bivOo0TmD+9MfOAczn2rjqMPk3sHue2Ymlq
-5OISyDuiNNdGrt/FiBf3FV7KVWuQHKbA0iHxGdbrIrj7AjN1A2wRKpjFA4rgCuqt
-HFyqp3uMJt2CykZs7r2ZX51AKZzZyWailimXiinQKLKHKTBVGLEZa/dxWFz6T8wt
-LjjURhUu5pjZ29SpW2i30WxdgBsRyKdzJE0GHz64IOCj8FV5Ix2o1uLio/7g4Evy
-ed8TsakuW3J/cKZd33WKxzheC0JzCR4oAr1nxYOR1VBz7kb2styOD0dZ6YF8I2ud
-e82yyoa6RT5wuDl7809GQ3tQVvk8Bk2pIJh8hOw/XN55FIywFKiwwg6cH2eE0ohR
-Fl9kgU055f204zjFNrLE9MWe/6S4GZVz/zJqC320FeLAeFJ3sRW3m/1YL0OynFDL
-tnEseFsVAppnuXZy9AqbzAW15vBqbWMS8Sv9RSanRnbMerXw4ls1EutN57lFtlgH
-k016XcpbsiM3gfvXyW32
-=TcKP
------END PGP SIGNATURE-----
-
---98e8jtXdkpgskNou--
+--------------070903000707080908090101--
