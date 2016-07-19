@@ -1,58 +1,25 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-qk0-x244.google.com (mail-qk0-x244.google.com
- [IPv6:2607:f8b0:400d:c09::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rthdS0CQ9zDqN8
- for <openbmc@lists.ozlabs.org>; Tue, 19 Jul 2016 11:04:12 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=JQ3JY+Zz; 
- dkim-atps=neutral
-Received: by mail-qk0-x244.google.com with SMTP id q8so303341qke.3
- for <openbmc@lists.ozlabs.org>; Mon, 18 Jul 2016 18:04:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=LXOjre8upjYJjRwnoZjPcjx8k1S5sDMHiSdVR9SQV1M=;
- b=JQ3JY+ZzTjxP90J1R8Z4g+MyIDugQpGIhRtX6yKjIVhjzAeOk2iRIMMuvdO1GnmQfg
- ge7NlhF78soxKyNchSCV1bczs1AbvI8JWW/xCkepGP8oz7tPtv9EyPRkasF1fhjeps0e
- qmL/bUW+I1nnxSOwlSSxY5IFt7HPYlXj+ChlGEMKCGXX5iqkzQUAb4biSHlnAKXlEg7E
- o7Xf9hAPSzL15/3eVxsTc/DiE9jFTyWNVQR5U0VU/FLpzfxZerIG+Edh7NvH8d0VLPte
- IV6UEKLJ1agiArFVi8PB1jt8rQQYUaekxpUo6GQ6z34FLauXGKs7G9nQPn+nawZK1fPC
- KIlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=LXOjre8upjYJjRwnoZjPcjx8k1S5sDMHiSdVR9SQV1M=;
- b=M+m0h47wH7UPYsmL00pIc79CpsETQMPhz8XPXTVGddnUmtbhe9TsC3kBsofh4qLzeT
- dR1DC4SQPTQYHTKxqIAAfNQydWtcrzr1YJ3pO77eEPn1o2Y1HM4uJIPSOLZSDZU6IMUa
- xLylabIQknZ634STYg+DwdSLktY+c2aLunioydx/WucRud0q4qzpYrZ6tRwxcPVERxIy
- Veozgrj0V5F+byuDJpdnvEteGxK9E68JqmtCXvkg0OJoZAoIKdYkAjAc2RoF4H6lOOJ+
- sUU/xLUD3LGGiLwQ+kDQqgAISwRpn+mLjjR+W8B5rSIslyLKlIuL6LFDTh++xP78Ac/O
- 5AAQ==
-X-Gm-Message-State: ALyK8tLjKq8rf1R7Hj1j8kmCvFUmqJ+gtr5wb5x+1JhJ356gyHS+dL8QRJyVq0kXZkh/ruxRVMaJbxPq7U7s9w==
-X-Received: by 10.55.107.6 with SMTP id g6mr47551761qkc.166.1468890249674;
- Mon, 18 Jul 2016 18:04:09 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rtkBz2tb9zDqMf
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Jul 2016 12:14:51 +1000 (AEST)
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mx.zohomail.com
+ with SMTPS id 1468894483063456.22771782026325;
+ Mon, 18 Jul 2016 19:14:43 -0700 (PDT)
+Date: Mon, 18 Jul 2016 21:14:41 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: OpenBMC v1.0.3 released.
+Message-ID: <20160719021441.GJ12735@asimov.austin.ibm.com>
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.237.37.141 with HTTP; Mon, 18 Jul 2016 18:03:50 -0700 (PDT)
-In-Reply-To: <4df82344-5f6a-b578-d2c1-988f3475890b@kaod.org>
-References: <20160713202012.10446-1-openbmc-patches@stwcx.xyz>
- <20160713202012.10446-2-openbmc-patches@stwcx.xyz>
- <1468797898.954.35.camel@aj.id.au>
- <4df82344-5f6a-b578-d2c1-988f3475890b@kaod.org>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 19 Jul 2016 10:33:50 +0930
-X-Google-Sender-Auth: cfXti6rGeUtEblkUvz8nSQ1BZM0
-Message-ID: <CACPK8XeqwatCk+xaKCeqdve-qU+aoax2UMeMXXzVonYp1O7nWg@mail.gmail.com>
-Subject: Re: [PATCH docs] Enhancing instructions on QEMU
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- OpenBMC Patches <openbmc-patches@stwcx.xyz>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, Chris Austen <austenc@us.ibm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="OX7PPUk8qMPP4++R"
+Content-Disposition: inline
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -64,20 +31,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Jul 2016 01:04:12 -0000
+X-List-Received-Date: Tue, 19 Jul 2016 02:14:51 -0000
 
-On Tue, Jul 19, 2016 at 5:19 AM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
-:
-> I will have more time next week to do a resync of openbmc/qemu if you
-> don't. 2.7-rc should be out then, so it will be the moment to rebase.
->
-> I would also like to merge the ast2400 and ast2500 soc model. They share
-> enough code to have a common base, configured by a cpu model property
-> and a silicon revision property. It shouldn't be too complex to push
-> at the same time.
 
-This sounds nice!
+--OX7PPUk8qMPP4++R
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Cheers,
+We released a minor fix release for the v1.0.x stable tree.  There is
+one fix above v1.0.2 but it is essential for IPMI to function correctly.
 
-Joel
+https://github.com/openbmc/openbmc/releases/tag/v1.0.3
+
+Release notes:
+* Fix issue in Host IPMI inventory due to versioned shared libraries
+    (openbmc/openbmc#423).
+
+--=20
+Patrick Williams
+
+--OX7PPUk8qMPP4++R
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJXjY0RAAoJEKsDR8wtAMEZinQP/j5/yvuzb+m2JX/lULEzbaed
+N1nVWA1nyX8uXfp95Rk96FvQ7eDq2hlWuzepKETCI+tLqhxEGBsDtsSjOqsPj/l9
+QNimhYQTjcMWiLg4moBle63FcUfcrJh6T++EMLwC8r8C4fuw3KJC2CHFgTHhexLK
+jJzS0TPT4FvVrBX6txzhZkZWCFpAs7fIxmkqplVWYlib+WxVZFCXFGpMIcjXOiLW
+AHd1qcaskU1J8afDPTBpFvE6kABqUlL8AKgk/0VC7OLWFlIsGBRWw4N7Z+Z5AjJt
+amDk+1D1KzhIhVCpxVq0nv0qj9ofr753B1wtthKFlSmChwX/ph66wc/vT8eM2baE
+DhQcM2t58InxnoqWqTtmdH5LRkwnmDcYBonb6CDJDIG+6CX3K333bBWoa/s2wrIc
+m5oVJAcG3jCZ8nShQ4+WjacJn/OXepNU9jSIwqchud7fVNHJFhDKiZY8JgAyy7pF
+Brntlh/2Oi0+L8dglF2CmGCovNLy6yItDc0UBynOo689xkXmVd4BgWd7iED/Q+ah
+WsVmPeJaHP3L8l1ov7kzqQILv92O8xajdycN/sTBLsf3IWMjogFoZBlbWkT+ZeMP
+ZlViY/uqt/ft1lJLGsDH8LvzKvBGITlaFKNtPBDn1M88UZkxhaTugPr1Aksnp6/+
+xVcSOGEKGjMhOCM2hxhf
+=yc6u
+-----END PGP SIGNATURE-----
+
+--OX7PPUk8qMPP4++R--
