@@ -1,80 +1,52 @@
-Return-Path: <adamliyi@msn.com>
-X-Greylist: delayed 311 seconds by postgrey-1.35 at bilbo;
- Tue, 19 Jul 2016 20:43:00 AEST
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=msn.com header.i=@msn.com header.b=oeo3s1JV; 
- dkim-atps=neutral
-Received: from COL004-OMC4S10.hotmail.com (col004-omc4s10.hotmail.com
- [65.55.34.212])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-qt0-x242.google.com (mail-qt0-x242.google.com
+ [IPv6:2607:f8b0:400d:c0d::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rtxTK02c1zDqMf
- for <openbmc@lists.ozlabs.org>; Tue, 19 Jul 2016 20:43:00 +1000 (AEST)
-Received: from APC01-SG2-obe.outbound.protection.outlook.com ([65.55.34.200])
- by COL004-OMC4S10.hotmail.com over TLS secured channel with Microsoft
- SMTPSVC(7.5.7601.23008); Tue, 19 Jul 2016 03:37:45 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=msn.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=KC6TyPSO70G1nhxPTlyOg/DSjQvs0fVOeNBOlQLuufs=;
- b=oeo3s1JVJwm/jpqctpGN+aip//ol6mnCXdbH8V7sGb4DL1w9gmsQ8W9p5j89tO/1QpgaTEbANcFh7A0r/CveqFX7cHBQaWU7h2oueoIM8RZl2KwtCGwM288HZCDoS4m88G4QgbxOvVznwIPL1dV2GKo1l7uPYcJwjANePkVI2B4KPMDVp5KiXmWaObOdGs4/tfeX53plMxbDoNKNij+Hc+9Rlk6Yx6HlaeOuR/x9N/8Lq1Ea4zh4UHSRexSL+/Hxw2maLED274IqeUwgz/N62B5YXkinR0ljmlEPXjgJRQorlZXcZOFLAZf7GUU/13V002lCY1TCOTfNy8qjLH5PVg==
-Received: from PU1APC01FT005.eop-APC01.prod.protection.outlook.com
- (10.152.252.60) by PU1APC01HT064.eop-APC01.prod.protection.outlook.com
- (10.152.253.16) with Microsoft SMTP Server (TLS) id 15.1.523.9; Tue, 19 Jul
- 2016 10:37:44 +0000
-Received: from PS1PR02MB1546.apcprd02.prod.outlook.com (10.152.252.51) by
- PU1APC01FT005.mail.protection.outlook.com (10.152.252.116) with Microsoft
- SMTP Server (TLS) id 15.1.523.9 via Frontend Transport; Tue, 19 Jul 2016
- 10:37:42 +0000
-Received: from PS1PR02MB1546.apcprd02.prod.outlook.com ([10.167.48.12]) by
- PS1PR02MB1546.apcprd02.prod.outlook.com ([10.167.48.12]) with mapi id
- 15.01.0549.003; Tue, 19 Jul 2016 10:37:42 +0000
-From: Yi Li <adamliyi@msn.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: [PATCH]: Add raspberrypi as OpenBMC platform
-Thread-Topic: [PATCH]: Add raspberrypi as OpenBMC platform
-Thread-Index: AQHR4amUF47g9A4u2UypBwBZbW0A1Q==
-Date: Tue, 19 Jul 2016 10:37:42 +0000
-Message-ID: <PS1PR02MB1546EF99F61B31954506F3A0D9370@PS1PR02MB1546.apcprd02.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=softfail (sender IP is 25.152.252.51)
- smtp.mailfrom=msn.com; lists.ozlabs.org; dkim=none (message not signed)
- header.d=none;lists.ozlabs.org; dmarc=fail action=none header.from=msn.com;
-received-spf: SoftFail (protection.outlook.com: domain of transitioning
- msn.com discourages use of 25.152.252.51 as permitted sender)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-eopattributedmessage: 0
-x-forefront-antispam-report: CIP:25.152.252.51; IPV:NLI; CTRY:GB; EFV:NLI;
- SFV:NSPM; SFS:(10019020)(98900003); DIR:OUT; SFP:1102; SCL:1;
- SRVR:PU1APC01HT064; H:PS1PR02MB1546.apcprd02.prod.outlook.com; FPR:; SPF:None;
- CAT:NONE; LANG:en; CAT:NONE; 
-x-microsoft-exchange-diagnostics: 1; PU1APC01HT064;
- 6:lBVYJ/mctc7PUz8gHCAgufqLpOAyouuAsbBVqtZbBK1s3wdCtlslWqN8hH9rku0XicL8cLDfhovw9Kyr24TBvVZIAJOMinoshsVLNyTtoqLs5a4sxKvAqrfBWg/wmpDDLFqM7cvJZL75jb11f78qVMizsQqecoDzwidDC50zeiGL9DBM+ruIFa6SeSAFlW4G1L/BLy1dwbGoiXInQ/wt8VhOgu3NcprdaboGSI5zrjdHtryRijUwjTLtTkIY/pYqdMHQKZ73+qsXWePxHP2WTZ53yAhFjfxaasreZhvZEQ9hhWEWcfWT8LDU3Pse+/dKpWRkucWR5kModFSX8MKTlA==;
- 5:i8IG4S2AICuv9gukJp30iK3MnQdl4yTlUBocFK5VyETECkybt2Gge1Zaio4syCOXXXKiYNnmDWNwfjibf8AZb0WXynmvKmhxwhkAUsWV2pfD8A1zpFxhtZerBAiF571K64qHJUESvDf+/ETTPNLD7g==;
- 24:Xgq3Hckp6K5w15PYnjaKw0jvVOIYKGEjHjjPTxH3nG3eS+lrNJf7mzDa6H4uI/22hGhbnfeiV1CTFQS1d2M6lvdy2H7F/WgbbN32eMcmjrA=;
- 7:RC7U60GZOD38mc/0BvVxuhkNs3MAqLyiqSzr6prxXhHcT0gEfmy8SMN7btz3cUPym+9MJuuc6QpK81G9hNLpdmU0GlAK06OsCKEvsyqYfT+l2VDC3hQZDEhUCISE2SCYvlBt8mfqaqGD2ECWzUdjsu3QErMH76GvY0pVVop1hv2zyv9pou2xbtYHsCY/E6G1vb3BudoJirAxrKVzHVI7ednyNFwi5qSSIZRZX9DJeNTx5v2QmWKyNi9aSGjwhyj4
-x-ms-office365-filtering-correlation-id: f4716977-cbb2-41fd-bd18-08d3afc0b5a6
-x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
- RULEID:(1601124038)(5061506196)(5061507196)(1603103041)(1603101184)(1601125047);
- SRVR:PU1APC01HT064; 
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0; RULEID:(432015012)(82015046);
- SRVR:PU1APC01HT064; BCL:0; PCL:0; RULEID:; SRVR:PU1APC01HT064; 
-x-forefront-prvs: 000800954F
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <C8A71505D8AC2A41B3565379F0A3C297@apcprd02.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rv36Q1Dw3zDqMf
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Jul 2016 00:57:02 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=gF+Kww7o; 
+ dkim-atps=neutral
+Received: by mail-qt0-x242.google.com with SMTP id j37so925901qta.0
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Jul 2016 07:57:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=W/Nf9rr2wu5s7BIiDOKFTJBdMKE387SBR4DoGbfQQbU=;
+ b=gF+Kww7o35FpAAWQvpQ9eC7cfv8PsZ1UyMc72O4imkYWrdz2ZiFZgOCxSqQA8f61dN
+ BfcPV7FT6Tuv0y7JCRbYMl6uoeZ8VCRlv3cSpY4qkfHasXiWibHpggikwaVPu8n09VMY
+ 3MTSd4W4mfoFjRx4D73aleZfki6JiFcn+kSMUsTeOt9ittxFn6pqsBm9urL5Q+Ev5THK
+ QPY5WCig027FNA0URq+SkLQr37vmCfCjXV2XrqRKv7H0WRQo5qf7r2Js0rUIYn2Ad5iH
+ 1JP5AWwKbB/3oBuuc6sYOf/W6oQqz1FGXSz9CFXj+y3ZxZfUNlbmhQZ035YmRgyU9EbV
+ 0V3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=W/Nf9rr2wu5s7BIiDOKFTJBdMKE387SBR4DoGbfQQbU=;
+ b=dDKFDimypJjkGfoglw8ZSmL09ZSXzBrLD0ri/Cldc2P/GcY8dmSZrkQoo91rtOAzg9
+ iTESxb7LqXNk6sROlINeV9aks33CRNItNcj3l4YyDW7ild5fgk2p7IfYj2EE6GshaTGj
+ S7/sqFEoDAk4HvrfZeqq0e0n5ulcCO1039uueFIsql7nuTjU6Svxw/5eD5nYlqaEJ4eU
+ D4i0jglCUALlzZF8om5OhFhPOKW1idTkHUomK33+xDuSKQkpRGcGZWyYDaxn3xB4ZHU7
+ c64DrxeIR1BiLwVsCQEUGuNaV8SvM3WMbff8It07Pg6eRZ3Kq/Dgqh0Pr/z0wvTmB32i
+ lQBA==
+X-Gm-Message-State: ALyK8tJuiIjn1W6jvsv1Oma2ln+ewm/1hR7Xkm9aefZmj+MvZhH4YFJdQ7kH/L5TBBcW8EnYfDdwzS13Wbk0Rw==
+X-Received: by 10.200.43.105 with SMTP id 38mr33740292qtv.73.1468940219939;
+ Tue, 19 Jul 2016 07:56:59 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jul 2016 10:37:42.6614 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Internet
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PU1APC01HT064
-X-OriginalArrivalTime: 19 Jul 2016 10:37:45.0488 (UTC)
- FILETIME=[96205900:01D1E1A9]
+Sender: joel.stan@gmail.com
+Received: by 10.237.37.141 with HTTP; Tue, 19 Jul 2016 07:56:40 -0700 (PDT)
+In-Reply-To: <PS1PR02MB1546EF99F61B31954506F3A0D9370@PS1PR02MB1546.apcprd02.prod.outlook.com>
+References: <PS1PR02MB1546EF99F61B31954506F3A0D9370@PS1PR02MB1546.apcprd02.prod.outlook.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 20 Jul 2016 00:26:40 +0930
+X-Google-Sender-Auth: tnNdEEz_l09tKgEC3k1rjm0ISyE
+Message-ID: <CACPK8XdNidvJOxXoZgf+suejY8w+mALCDjZUURf5fOqc7WhLpA@mail.gmail.com>
+Subject: Re: [PATCH]: Add raspberrypi as OpenBMC platform
+To: Yi Li <adamliyi@msn.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -86,109 +58,122 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Jul 2016 10:43:02 -0000
+X-List-Received-Date: Tue, 19 Jul 2016 14:57:02 -0000
 
-Hi,
+Hello Yi,
 
-I created an initial patch to Add raspberrypi as OpenBMC platform for revie=
-w.
-I can build obmc images, but I don't have a raspberrypi HW to boot and test=
-.
-So this patch does not include the full meta-raspberrypi layer.
-There is a README included for testing.
+On Tue, Jul 19, 2016 at 8:07 PM, Yi Li <adamliyi@msn.com> wrote:
+> Hi,
+>
+> I created an initial patch to Add raspberrypi as OpenBMC platform for review.
+> I can build obmc images, but I don't have a raspberrypi HW to boot and test.
+> So this patch does not include the full meta-raspberrypi layer.
+> There is a README included for testing.
 
-Please have a look and if this patch can be tested on HW I will submit a fo=
-rmal patch.
+Great! Thank you for doing this.
 
-Thanks,
--Yi
+I've kicked off a build and will test it on hardware.
 
-Signed-off-by: Yi Li <adamliyi@msn.com>
+Cheers,
 
-diff --git a/README_raspberrypi_obmc.txt b/README_raspberrypi_obmc.txt
-new file mode 100644
-index 0000000..45b0cbc
---- /dev/null
-+++ b/README_raspberrypi_obmc.txt
-@@ -0,0 +1,16 @@
-+1. Under openbmc directory, checkout meta-raspberrrypi layer:
-+# git://git.yoctoproject.org/meta-raspberrypi
-+
-+2. Apply meta-raspberrypi_obmc.patch
-+# cd meta-raspberrypi/conf
-+# patch < meta-raspberrypi_obmc.patch
-+
-+3. Build obmc:
-+# rm -fr build/conf
-+# export TEMPLATECONF=3Dmeta-raspberrypi/conf
-+#  . oe-init-build-env
-+# bitbake obmc-phosphor-image
-+
-+4. Remaining issues:
-+a. No raspberrypi HW, so image not tested
-+b. u-boot-fw-utils build failed. Removed the package.=20
-diff --git a/conf/bblayers.conf.sample b/conf/bblayers.conf.sample
-new file mode 100644
-index 0000000..f3c8f37
---- /dev/null
-+++ b/conf/bblayers.conf.sample
-@@ -0,0 +1,18 @@
-+# LAYER_CONF_VERSION is increased each time build/conf/bblayers.conf
-+# changes incompatibly
-+LCONF_VERSION =3D "6"
-+
-+BBPATH =3D "${TOPDIR}"
-+BBFILES ?=3D ""
-+
-+BBLAYERS ?=3D " \
-+  ##OEROOT##/meta \
-+  ##OEROOT##/meta-yocto \
-+  ##OEROOT##/meta-phosphor \
-+  ##OEROOT##/meta-raspberrypi \
-+  "
-+BBLAYERS_NON_REMOVABLE ?=3D " \
-+  ##OEROOT##/meta \
-+  ##OEROOT##/meta-yocto \
-+  ##OEROOT##/meta-raspberrypi \
-+  "
-diff --git a/conf/conf-notes.txt b/conf/conf-notes.txt
-new file mode 100644
-index 0000000..9b3c01a
---- /dev/null
-+++ b/conf/conf-notes.txt
-@@ -0,0 +1,2 @@
-+Common targets are:
-+     obmc-phosphor-image
-diff --git a/conf/local.conf.sample b/conf/local.conf.sample
-new file mode 100644
-index 0000000..8c767ab
---- /dev/null
-+++ b/conf/local.conf.sample
-@@ -0,0 +1,27 @@
-+MACHINE ??=3D "raspberrypi"
-+DISTRO ?=3D "openbmc-phosphor"
-+PACKAGE_CLASSES ?=3D "package_rpm"
-+SANITY_TESTED_DISTROS_append ?=3D " *"
-+EXTRA_IMAGE_FEATURES =3D "debug-tweaks"
-+USER_CLASSES ?=3D "buildstats image-mklibs image-prelink"
-+PATCHRESOLVE =3D "noop"
-+BB_DISKMON_DIRS =3D "\
-+    STOPTASKS,${TMPDIR},1G,100K \
-+    STOPTASKS,${DL_DIR},1G,100K \
-+    STOPTASKS,${SSTATE_DIR},1G,100K \
-+    STOPTASKS,/tmp,100M,100K \
-+    ABORT,${TMPDIR},100M,1K \
-+    ABORT,${DL_DIR},100M,1K \
-+    ABORT,${SSTATE_DIR},100M,1K \
-+    ABORT,/tmp,10M,1K"
-+CONF_VERSION =3D "1"
-+INHERIT +=3D "extrausers"
-+EXTRA_USERS_PARAMS =3D " \
-+  usermod -p '\$1\$UGMqyqdG\$FZiylVFmRRfl9Z0Ue8G7e/' root; \
-+  "
-+PREFERRED_PROVIDER_u-boot ?=3D "u-boot-rpi_git"
-+UBOOT_SUFFIX_raspberrypi =3D "img"
-+OBMC_IMAGE_EXTRA_INSTALL_remove_raspberrypi =3D "u-boot-fw-utils"
-+
-+require conf/machine/include/obmc-bsp-common.inc
-+require conf/machine/include/sample.inc
+Joel
+
+>
+> Please have a look and if this patch can be tested on HW I will submit a formal patch.
+>
+> Thanks,
+> -Yi
+>
+> Signed-off-by: Yi Li <adamliyi@msn.com>
+>
+> diff --git a/README_raspberrypi_obmc.txt b/README_raspberrypi_obmc.txt
+> new file mode 100644
+> index 0000000..45b0cbc
+> --- /dev/null
+> +++ b/README_raspberrypi_obmc.txt
+> @@ -0,0 +1,16 @@
+> +1. Under openbmc directory, checkout meta-raspberrrypi layer:
+> +# git://git.yoctoproject.org/meta-raspberrypi
+> +
+> +2. Apply meta-raspberrypi_obmc.patch
+> +# cd meta-raspberrypi/conf
+> +# patch < meta-raspberrypi_obmc.patch
+> +
+> +3. Build obmc:
+> +# rm -fr build/conf
+> +# export TEMPLATECONF=meta-raspberrypi/conf
+> +#  . oe-init-build-env
+> +# bitbake obmc-phosphor-image
+> +
+> +4. Remaining issues:
+> +a. No raspberrypi HW, so image not tested
+> +b. u-boot-fw-utils build failed. Removed the package.
+> diff --git a/conf/bblayers.conf.sample b/conf/bblayers.conf.sample
+> new file mode 100644
+> index 0000000..f3c8f37
+> --- /dev/null
+> +++ b/conf/bblayers.conf.sample
+> @@ -0,0 +1,18 @@
+> +# LAYER_CONF_VERSION is increased each time build/conf/bblayers.conf
+> +# changes incompatibly
+> +LCONF_VERSION = "6"
+> +
+> +BBPATH = "${TOPDIR}"
+> +BBFILES ?= ""
+> +
+> +BBLAYERS ?= " \
+> +  ##OEROOT##/meta \
+> +  ##OEROOT##/meta-yocto \
+> +  ##OEROOT##/meta-phosphor \
+> +  ##OEROOT##/meta-raspberrypi \
+> +  "
+> +BBLAYERS_NON_REMOVABLE ?= " \
+> +  ##OEROOT##/meta \
+> +  ##OEROOT##/meta-yocto \
+> +  ##OEROOT##/meta-raspberrypi \
+> +  "
+> diff --git a/conf/conf-notes.txt b/conf/conf-notes.txt
+> new file mode 100644
+> index 0000000..9b3c01a
+> --- /dev/null
+> +++ b/conf/conf-notes.txt
+> @@ -0,0 +1,2 @@
+> +Common targets are:
+> +     obmc-phosphor-image
+> diff --git a/conf/local.conf.sample b/conf/local.conf.sample
+> new file mode 100644
+> index 0000000..8c767ab
+> --- /dev/null
+> +++ b/conf/local.conf.sample
+> @@ -0,0 +1,27 @@
+> +MACHINE ??= "raspberrypi"
+> +DISTRO ?= "openbmc-phosphor"
+> +PACKAGE_CLASSES ?= "package_rpm"
+> +SANITY_TESTED_DISTROS_append ?= " *"
+> +EXTRA_IMAGE_FEATURES = "debug-tweaks"
+> +USER_CLASSES ?= "buildstats image-mklibs image-prelink"
+> +PATCHRESOLVE = "noop"
+> +BB_DISKMON_DIRS = "\
+> +    STOPTASKS,${TMPDIR},1G,100K \
+> +    STOPTASKS,${DL_DIR},1G,100K \
+> +    STOPTASKS,${SSTATE_DIR},1G,100K \
+> +    STOPTASKS,/tmp,100M,100K \
+> +    ABORT,${TMPDIR},100M,1K \
+> +    ABORT,${DL_DIR},100M,1K \
+> +    ABORT,${SSTATE_DIR},100M,1K \
+> +    ABORT,/tmp,10M,1K"
+> +CONF_VERSION = "1"
+> +INHERIT += "extrausers"
+> +EXTRA_USERS_PARAMS = " \
+> +  usermod -p '\$1\$UGMqyqdG\$FZiylVFmRRfl9Z0Ue8G7e/' root; \
+> +  "
+> +PREFERRED_PROVIDER_u-boot ?= "u-boot-rpi_git"
+> +UBOOT_SUFFIX_raspberrypi = "img"
+> +OBMC_IMAGE_EXTRA_INSTALL_remove_raspberrypi = "u-boot-fw-utils"
+> +
+> +require conf/machine/include/obmc-bsp-common.inc
+> +require conf/machine/include/sample.inc
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
