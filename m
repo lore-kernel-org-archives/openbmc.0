@@ -1,37 +1,56 @@
-Return-Path: <clg@kaod.org>
-X-Greylist: delayed 2152 seconds by postgrey-1.35 at bilbo;
- Wed, 27 Jul 2016 21:03:02 AEST
-Received: from 5.mo7.mail-out.ovh.net (5.mo7.mail-out.ovh.net [178.32.120.239])
+Return-Path: <andrew@aj.id.au>
+Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
+ [66.111.4.221])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3rzsXk2tZfzDqVF
- for <openbmc@lists.ozlabs.org>; Wed, 27 Jul 2016 21:03:01 +1000 (AEST)
-Received: from player796.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo7.mail-out.ovh.net (Postfix) with ESMTP id 7382C1010094
- for <openbmc@lists.ozlabs.org>; Wed, 27 Jul 2016 12:26:59 +0200 (CEST)
-Received: from [192.168.124.3] (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
- [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player796.ha.ovh.net (Postfix) with ESMTPSA id B8D105C007B;
- Wed, 27 Jul 2016 12:26:53 +0200 (CEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rzvTr6qY0zDrFc
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Jul 2016 22:30:40 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+ dkim=fail reason="signature verification failed" (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=gUbx6nUW; 
+ dkim=fail reason="signature verification failed" (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b=VlAO1BRl; dkim-atps=neutral
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 49F281681;
+ Wed, 27 Jul 2016 08:30:37 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute7.internal (MEProxy); Wed, 27 Jul 2016 08:30:37 -0400
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=1e16r
+ E5yN+yYHtoiyCReOGKFip8=; b=gUbx6nUWgcaxVjv0HLfsr/QF/Ypsh/cU3fSpq
+ EaRU2ISlJR0tDWEn23fJDZ0zgbR7v2m8WOgm69F8Xw/XqcuGNxCoWB+CWXPyZQQD
+ A2oAcPt6MUEh7amPqRQ+HnejcNxOpyVGh5dI7NDteEGKvaKhVf7QX5iUrEPWPtvP
+ Mh6Jho=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-sasl-enc
+ :x-sasl-enc; s=smtpout; bh=1e16rE5yN+yYHtoiyCReOGKFip8=; b=VlAO1
+ BRlG8U/V8F8KZuX8NivCnX56d/PYXr5xm4lksbrfndYj7xnyuqpWUyefHm8rZ+Pl
+ pUGbfEwA5NdxraHLWP9OsY27BfSxEIMVYqHHRoIE8Qts8IJe7wrJK40vznM0DvuH
+ syfw7rl5p8H7AONE7h0zn54QFNjHkOJIMjzbNg=
+X-Sasl-enc: UfJcEAsGJ6UNhR75DZ6OkqsnQzAhQV5ntZN2kBsgxnUB 1469622636
+Received: from keelia (ppp203-122-213-247.static.internode.on.net
+ [203.122.213.247])
+ by mail.messagingengine.com (Postfix) with ESMTPA id DC7FECCD26;
+ Wed, 27 Jul 2016 08:30:34 -0400 (EDT)
+Message-ID: <1469622628.5468.64.camel@aj.id.au>
 Subject: Re: openbmc qemu vs Cedric qemu is different
-To: Chris Austen <austenc@us.ibm.com>, Andrew Jeffery <andrew@aj.id.au>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, Chris Austen
+ <austenc@us.ibm.com>
+Cc: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
+Date: Wed, 27 Jul 2016 22:00:28 +0930
+In-Reply-To: <ce634cab-6594-3876-7517-d35bae40bb1d@kaod.org>
 References: <OF64094945.A9571442-ON86257FF0.00643E3F-86257FF0.00656843@notes.na.collabserv.com>
  <1468546975.5679.32.camel@jms.id.au> <1468577985.954.22.camel@aj.id.au>
  <OF920CED31.64D6B88A-ON86257FF1.00579A2D-86257FF1.0057B9EA@notes.na.collabserv.com>
-Cc: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <ce634cab-6594-3876-7517-d35bae40bb1d@kaod.org>
-Date: Wed, 27 Jul 2016 12:26:42 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Icedove/45.1.0
-MIME-Version: 1.0
-In-Reply-To: <OF920CED31.64D6B88A-ON86257FF1.00579A2D-86257FF1.0057B9EA@notes.na.collabserv.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: base64
-X-Ovh-Tracer-Id: 10120432790278540034
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -77
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeltddrieehgddvhecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenfghrlhcuvffnffculddvfedm
+ <ce634cab-6594-3876-7517-d35bae40bb1d@kaod.org>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-ovGBp9KooloVawfaILS5"
+X-Mailer: Evolution 3.18.5.2-0ubuntu3 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -43,94 +62,63 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Jul 2016 11:03:03 -0000
+X-List-Received-Date: Wed, 27 Jul 2016 12:30:42 -0000
 
-T24gMDcvMTUvMjAxNiAwNTo1OCBQTSwgQ2hyaXMgQXVzdGVuIHdyb3RlOg0KPiBTb3VuZHMg
-bGlrZSB5b3UgaGF2ZSBhIHdvcmthYmxlIHBsYW4uIFRoYW5rIHlvdS4gVGhlIHRlc3QgdGVh
-bSB3aWxsIHJ1biANCj4gb2ZmIG9mIGh0dHBzOi8vZ2l0aHViLmNvbS9sZWdvYXRlci9xZW11
-ICAoYnJhbmNoOmFzcGVlZCkgdW50aWwgdGhlIA0KPiBvcGVuYm1jL3FlbXUgZ2V0cyB0aGUg
-bmVlZGVkIHVwZGF0ZXMuDQoNCg0KRllJLCBJIGp1c3QgdXBkYXRlZCB0aGlzIGJyYW5jaC4g
-Q2hhbmdlcyBhcmUgOg0KDQogIC0gcmViYXNlIG9uIHYyLjcuMC1yYzANCiAgLSBlbmQgb2Yg
-bi93IHN1cHBvcnQgZm9yIGxpbnV4IDQuNC4gdGhlIGZndG1hYzEwMCBub3cgdXNlcyANCiAg
-ICB0aGUgYXNwZWVkIGVuZCBvZiByaW5nIGJ1ZmZlciBiaXRzIHRvIGJlIGluIHN5bmMgd2l0
-aCANCiAgICBsaW51eCA0LjYgDQogIC0gcmV3b3JrIG9mIGFzdDI1MDAgc3VwcG9ydCB0byBy
-ZW1vdmUgZHVwbGljYXRlZCBjb2RlLiBJIHNob3VsZA0KICAgIHNlbmQgdG8gbWFpbmxpbmUg
-c2hvcnRseSBmb3IgcmV2aWV3Lg0KDQpJIGdhdmUgdGhlbSBhIHF1aWNrIHRlc3Qgd2l0aCB0
-aGVzZSBpbWFnZXM6DQoNCiAgICBodHRwczovL29wZW5wb3dlci54eXovam9iL29wZW5ibWMt
-YnVpbGQvZGlzdHJvPXVidW50dSx0YXJnZXQ9cGFsbWV0dG8vbGFzdFN1Y2Nlc3NmdWxCdWls
-ZC9hcnRpZmFjdC9pbWFnZXMvcGFsbWV0dG8vZmxhc2gtcGFsbWV0dG8NCiAgICBodHRwczov
-L29wZW5wb3dlci54eXovam9iL29wZW5ibWMtYnVpbGQvZGlzdHJvPXVidW50dSx0YXJnZXQ9
-ZXZiLWFzdDI1MDAvbGFzdFN1Y2Nlc3NmdWxCdWlsZC9hcnRpZmFjdC9pbWFnZXMvZXZiLWFz
-dDI1MDAvZmxhc2gtZXZiLWFzdDI1MDANCg0KdGhlIGFzdDI1MDAgc3RpbGwgbmVlZHMgYSBs
-aXR0bGUgaGFjayBpbiB1Ym9vdCB3aGljaCBKb2VsIGluY2x1ZGVkIGluIA0KdjIwMTYuMDct
-YXNwZWVkLW9wZW5ibWMgOg0KCQ0KCWh0dHBzOi8vZ2l0aHViLmNvbS9zaGVua2kvdS1ib290
-L2NvbW1pdC9hMGNhNGVjYmVhZTRhZTk2MzJlYmM2N2JmNTMxOGRkMmVhMDljOTRmDQoNCkkg
-bmVlZCB0byBkaWcgdGhhdCBvbmUgdG8gYWRkIFZCQVIgc3VwcG9ydCB0aGUgYXN0MjUwMCBx
-ZW11IGd1ZXN0LiANCg0KQ2hlZXJzLA0KDQpDLg0KDQoNCj4gQ2hyaXMgQXVzdGVuDQo+IFBP
-V0VSIFN5c3RlbXMgRW5hYmxlbWVudCBNYW5hZ2VyDQo+ICg1MTIpIDI4Ni01MTg0IChUL0w6
-IDM2My01MTg0KQ0KPiANCj4gSW5hY3RpdmUgaGlkZSBkZXRhaWxzIGZvciBBbmRyZXcgSmVm
-ZmVyeSAtLS0wNy8xNS8yMDE2IDA1OjIwOjE3IEFNLS0tT24gRnJpLCAyMDE2LTA3LTE1IGF0
-IDExOjEyICswOTMwLCBKb2VsIFN0YW5sZXkgd3JvdGU6ID4gSEFuZHJldyBKZWZmZXJ5IC0t
-LTA3LzE1LzIwMTYgMDU6MjA6MTcgQU0tLS1PbiBGcmksIDIwMTYtMDctMTUgYXQgMTE6MTIg
-KzA5MzAsIEpvZWwgU3RhbmxleSB3cm90ZTogPiBIZWxsbyBDaHJpcywNCj4gDQo+IEZyb206
-IEFuZHJldyBKZWZmZXJ5IDxhbmRyZXdAYWouaWQuYXU+DQo+IFRvOiBKb2VsIFN0YW5sZXkg
-PGpvZWxAam1zLmlkLmF1PiwgQ2hyaXMgQXVzdGVuL0F1c3Rpbi9JQk1ASUJNVVMsIG9wZW5i
-bWNAbGlzdHMub3psYWJzLm9yZw0KPiBDYzogQ2VkcmljIExlIEdvYXRlciA8Y2xlZ29hdGVy
-QGZyLmlibS5jb20+DQo+IERhdGU6IDA3LzE1LzIwMTYgMDU6MjAgQU0NCj4gU3ViamVjdDog
-UmU6IG9wZW5ibWMgcWVtdSB2cyBDZWRyaWMgcWVtdSBpcyBkaWZmZXJlbnQNCj4gDQo+IC0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLQ0KPiANCj4gDQo+IA0KPiBPbiBGcmksIDIwMTYtMDctMTUgYXQg
-MTE6MTIgKzA5MzAsIEpvZWwgU3RhbmxleSB3cm90ZToNCj4+IEhlbGxvIENocmlzLA0KPj4N
-Cj4+IE9uIFRodSwgMjAxNi0wNy0xNCBhdCAxMzoyNyAtMDUwMCwgQ2hyaXMgQXVzdGVuIHdy
-b3RlOg0KPj4gPg0KPj4gPiBIaSBKb2VsLCANCj4+ID4gbGFzdCBuaWdodCB5b3UgaW5kaWNh
-dGVkIHRoYXQgb3VyIG9wZW5ibWMvcWVtdSBoYWQgZW5vdWdoIGZvcg0KPj4gPiBuZXR3b3Jr
-aW5nIHRoZSBwYWxtZXR0by1ibWMuIEkgZG9uJ3QgdGhpbmsgdGhhdCBpcyAxMDAlIHRydWUu
-IEkNCj4+ID4gYmVsaWV2ZSBDZWRyaWMncyByZXBvIGhhcyBzb21lIGFkZGl0aW9uYWwgY2hh
-bmdlcyB0aGF0IHNob3VsZCBiZQ0KPj4gPiBpbnRlZ3JhdGVkIGJhY2sgaW4gdG8gb3BlbmJt
-Yy9xZW11LiBIb3BlZnVsbHkgeW91IHR3byBjYW4gZmlndXJlIG91dA0KPj4gPiB3aGF0IGNv
-bW1pdHMgYXJlIG5lZWRlZCB0byBnZXQgdXMgYmFjayB0byBvbmUgd29ya2luZyByZXBvLiAN
-Cj4+IEkgZG9uJ3QgcmVjYWxsIGNsYW1pbmcgdGhhdC4gSSB0aGluayB5b3UncmUgY29uZnVz
-aW5nIG1lIHdpdGggQW5kcmV3Lg0KPiANCj4gU291bmRzIGFib3V0IHJpZ2h0Lg0KPiANCj4+
-DQo+PiBJJ2xsIGxldCBBbmRyZXcgY2xhcmlmeSB0aGUgc2l0dWF0aW9uLg0KPj4NCj4+IENo
-ZWVycywNCj4+DQo+PiBKb2VsDQo+Pg0KPj4gPg0KPj4gPg0KPj4gPg0KPj4gPiBjYXVzdGVu
-QGNhdXN0ZW4tVmlydHVhbEJveDp+L2dpdHN0dWZmL29ibWNxZW11L2J1aWxkL2FybS1zb2Z0
-bW11DQo+PiA+ICQgLi9xZW11LXN5c3RlbS1hcm0gLW0gMjU2IC1NIHBhbG1ldHRvLWJtYyAt
-bm9ncmFwaGljIFwNCj4+ID4gPg0KPj4gPiA+IC1kcml2ZSBmaWxlPX4vcGFsbWV0dG8tcWVt
-dS9mbGFzaC1wYWxtZXR0byxmb3JtYXQ9cmF3LGlmPW10ZCBcDQo+PiA+ID4gLW5ldCBuaWMs
-bWFjYWRkcj1DMDpGRjpFRTowMDowMDowMixtb2RlbD1mdGdtYWMxMDAgXA0KPj4gPiA+IC1u
-ZXQgYnJpZGdlLGlkPW5ldDAsaGVscGVyPS91c3IvbGliL3FlbXUtYnJpZGdlLWhlbHBlcixi
-cj12aXJicjANCj4+ID4gcWVtdS1zeXN0ZW0tYXJtOiBVbnN1cHBvcnRlZCBOSUMgbW9kZWw6
-IGZ0Z21hYzEwMCANCj4gDQo+IENlZHJpYydzIG91dGxpbmVkIHRoZSBkaWZmZXJlbmNlcyBi
-ZXR3ZWVuIGhpcyBnaXRodWIgcmVwbyBhbmQNCj4gb3BlbmJtYy9xZW11LCBidXQgSSB3b3Vs
-ZG4ndCBoYXZlIHRob3VnaHQgdGhlIGRpZmZlcmVuY2VzIHdvdWxkIGFjY291bnQNCj4gZm9y
-IHRoaXMuIEhhdmUgeW91IGNvbmZpcm1lZCB5b3UncmUgcnVubmluZyB0aGUgcmlnaHQgcWVt
-dS1zeXN0ZW0tYXJtDQo+IGJpbmFyeT8NCj4gDQo+IEkgYmVsaWV2ZSBJIHRlc3RlZCB0aGUg
-bmV0d29ya2luZyBiZWZvcmUgcHVzaGluZyBDZWRyaWMncyBjaGFuZ2VzIHRvDQo+IG9wZW5i
-bWMvcWVtdSBhcm91bmQgMyB3ZWVrcyBhZ28sIGJ1dCBJIGNvdWxkIGJlIG1pc3Rha2VuLiBI
-YXZpbmcgc2FpZA0KPiB0aGF0LCBhcyBDZWRyaWMgb3V0bGluZWQsIHRoZXJlIG1heSBiZSBz
-b21lIGJyb2tlbiBiZWhhdmlvdXIgZHVlIHRvDQo+IGZpeGVzIGZvciBBU1BFRUQncyBtb3Zl
-bWVudCBvZiB0aGUgRURPW1JUXVIgYml0cyBpbiB0aGUgTUFDLCBzbyB3ZQ0KPiBzaG91bGQg
-cmVzb2x2ZSBhbnkgaXNzdWVzIGFzIHNvb24gYXMgcG9zc2libGUuDQo+IA0KPiBVbmZvcnR1
-bmF0ZWx5IEkgaGF2ZW4ndCBrZXB0IHBhY2Ugd2l0aCBDZWRyaWMncyB3b3JrIGFzIEkndmUg
-YmVlbg0KPiBkaXN0cmFjdGVkIHdpdGggb3RoZXIgcHJvYmxlbXMsIGJ1dCBJIGludGVuZCBv
-biBtYWtpbmcgdXAgd2hhdCBncm91bmQgSQ0KPiBjYW4gYWZ0ZXIgSSBzZW5kIG15IGtlcm5l
-bCBwYXRjaGVzIHVwc3RyZWFtLg0KPiANCj4gQ2hlZXJzLA0KPiANCj4gQW5kcmV3W2F0dGFj
-aG1lbnQgInNpZ25hdHVyZS5hc2MiIGRlbGV0ZWQgYnkgQ2hyaXMgQXVzdGVuL0F1c3Rpbi9J
-Qk1dDQo+IA0KDQo=
+
+--=-ovGBp9KooloVawfaILS5
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, 2016-07-27 at 12:26 +0200, C=C3=A9dric Le Goater wrote:
+> On 07/15/2016 05:58 PM, Chris Austen wrote:
+> >=20
+> > Sounds like you have a workable plan. Thank you. The test team will run=
+=C2=A0
+> > off of https://github.com/legoater/qemu=C2=A0=C2=A0(branch:aspeed) unti=
+l the=C2=A0
+> > openbmc/qemu gets the needed updates.
+>=20
+> FYI, I just updated this branch. Changes are :
+>=20
+> =C2=A0 - rebase on v2.7.0-rc0
+> =C2=A0 - end of n/w support for linux 4.4. the fgtmac100 now uses=C2=A0
+> =C2=A0=C2=A0=C2=A0=C2=A0the aspeed end of ring buffer bits to be in sync =
+with=C2=A0
+> =C2=A0=C2=A0=C2=A0=C2=A0linux 4.6=C2=A0
+> =C2=A0 - rework of ast2500 support to remove duplicated code. I should
+> =C2=A0=C2=A0=C2=A0=C2=A0send to mainline shortly for review.
+
+I've just merged Cedric's work above into openbmc/qemu master. Tested
+with a Palmetto flash image and kernel/rootfs from Witherspoon,
+everything looks good.
+
+Chris: Any documentation you have can now point there. Let me know if
+there are any issues.
+
+Cheers,
+
+Andrew
+--=-ovGBp9KooloVawfaILS5
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAABCgAGBQJXmKlkAAoJEJ0dnzgO5LT5HmcP/3dlIVlleOo7U7GUB25oJrFm
+/KNwMasK3T8FMzfTO3rum1+mlykNs33kaus7Ho9Mv6jSWOIwgiDZm15g1g9V0pkO
+x3aIelaIdTjdtza/G6m9xpoCeVToWLg4YqQsi0u0DlFZKTG5UUCmI7TpdYAuqr+k
+N/QnwC5+ZzHZdAc0f1EW1PgmNaXPluPYBUzbuh9JR2jKSob9DV376M8sP0j90w60
+NBi5czPXs+WQDnxip9jXJcDPcKcAXp5xB6KfV3CwcZX/UjKWZDsPeAmiZLzBR9o+
+wgwSRs23EQLrmgg7jY+4ek2vVtgUamOiuaYLqGDxiRvuHzgLJOIOuv+cFyqI67gK
+8M4OIo3qFKxWaHzYfo0zPzUauzooViviaO/CTFsz5KIQPW8VDOrCyK/Ghtwrsi2t
+xYmdFfuzgn1a5Rdr+YaNslAmr5awdWMheHs/+62QwGfk9NEejWzVAFdKzTRaBC0i
+nr1J2i1yJdmd+IM7YUfCVG/IHSA+d8M4augTI9QbOssxpQrgqrejDNpfdHUJ3Lx3
+Ic2WYg1qrT9JAI1uRtgpNje5Vxha7V8vC1wZrbgQ6ODpfALetDDuLyEGCLYbIPdI
+7s/689g3/mqEV+jr6TYiqAUmYnewS/xHcNbVMipfRa9S86XG6DW7HaPgAQXziU/w
+i+YGXAe2MzT3EhjZ/4sm
+=B6Hg
+-----END PGP SIGNATURE-----
+
+--=-ovGBp9KooloVawfaILS5--
