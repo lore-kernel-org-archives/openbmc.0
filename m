@@ -1,21 +1,41 @@
-Return-Path: <openbmc-patches@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s07F70km8zDrKr
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 07:20:25 +1000 (AEST)
-Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1469654421167903.9536564296006;
- Wed, 27 Jul 2016 14:20:21 -0700 (PDT)
-From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH docs v2] Enhancing instructions on QEMU
-Date: Wed, 27 Jul 2016 16:20:11 -0500
-Message-Id: <20160727212011.3521-2-openbmc-patches@stwcx.xyz>
-X-Mailer: git-send-email 2.9.0
-In-Reply-To: <20160727212011.3521-1-openbmc-patches@stwcx.xyz>
-References: <20160727212011.3521-1-openbmc-patches@stwcx.xyz>
+Return-Path: <prafulla.deuskar@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by lists.ozlabs.org (Postfix) with ESMTP id 3s08hx4CtmzDqJ4
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 08:26:08 +1000 (AEST)
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga102.fm.intel.com with ESMTP; 27 Jul 2016 15:26:06 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.28,431,1464678000"; 
+ d="scan'208,217";a="854830212"
+Received: from orsmsx107.amr.corp.intel.com ([10.22.240.5])
+ by orsmga003.jf.intel.com with ESMTP; 27 Jul 2016 15:26:07 -0700
+Received: from orsmsx161.amr.corp.intel.com (10.22.240.84) by
+ ORSMSX107.amr.corp.intel.com (10.22.240.5) with Microsoft SMTP Server (TLS)
+ id 14.3.248.2; Wed, 27 Jul 2016 15:26:05 -0700
+Received: from orsmsx115.amr.corp.intel.com ([169.254.4.122]) by
+ ORSMSX161.amr.corp.intel.com ([169.254.4.17]) with mapi id 14.03.0248.002;
+ Wed, 27 Jul 2016 15:26:05 -0700
+From: "Deuskar, Prafulla" <prafulla.deuskar@intel.com>
+To: Rick Altherr <raltherr@google.com>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: RE: REST API support on AST 2500 EVB
+Thread-Topic: REST API support on AST 2500 EVB
+Thread-Index: AdHoQwFgTD26saWFSHC5hJDMT1j5jAAO9pUAAApuaJA=
+Date: Wed, 27 Jul 2016 22:26:05 +0000
+Message-ID: <86BC2638B1D5DA48B2AEFCA5BCA462667134F7FD@ORSMSX115.amr.corp.intel.com>
+References: <86BC2638B1D5DA48B2AEFCA5BCA462667134F6D9@ORSMSX115.amr.corp.intel.com>
+ <CAPLgG==6C_JOvE=ZkeVNYOYS1K=Qo-GaRwAnkqrBSoCJEY5k2A@mail.gmail.com>
+In-Reply-To: <CAPLgG==6C_JOvE=ZkeVNYOYS1K=Qo-GaRwAnkqrBSoCJEY5k2A@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiMTZhMTU4YjUtOTAwNS00OTljLTk1OWItNWY1OWNjOTk4MmQ2IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX1BVQkxJQyJ9XX1dfSwiU3ViamVjdExhYmVscyI6W10sIlRNQ1ZlcnNpb24iOiIxNS45LjYuNiIsIlRydXN0ZWRMYWJlbEhhc2giOiJJc1JUcWU0NmFzTmhJVUdMU2NuMEdIRWh5bkZESFhTMTRvbnZvREdUa3M0PSJ9
+x-ctpclassification: CTP_PUBLIC
+x-originating-ip: [10.22.254.140]
+Content-Type: multipart/alternative;
+ boundary="_000_86BC2638B1D5DA48B2AEFCA5BCA462667134F7FDORSMSX115amrcor_"
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -27,93 +47,145 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Jul 2016 21:20:28 -0000
+X-List-Received-Date: Wed, 27 Jul 2016 22:26:10 -0000
 
-From: Chris Austen <austenc@us.ibm.com>
+--_000_86BC2638B1D5DA48B2AEFCA5BCA462667134F7FDORSMSX115amrcor_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Added step by step details on using QEMU in both a virtual
-bridge and tap environment.  Latest features of QEMU palmetto
-integration now allow for uboot flash support and ftgmac100
-device support.  That means you can start the qemu session
-from uboot and run the real ftgmac ethernet device.
+V2UgZ2V0IOKAnEhUVFAvMS4wIDQwNCBOb3QgRm91bmTigJ0gd2hlbiB0cnlpbmcgdG8gbG9naW4g
+dG8gcG9ydCAzMDAwLCDigJxIVFRQLzEuMCA0MDAgQmFkIFJlcXVlc3TigJ0gd2hlbiB3ZSB0cnkg
+cG9ydCA0NDMuDQpJcyB0aGlzIHN1cHBvc2VkIHRvIHdvcmsgd2l0aCBPcGVuQk1DIG9uIGFub3Ro
+ZXIgcGxhdGZvcm0/DQoNClRoYW5rcywNClByYWZ1bGxhDQoNCkZyb206IFJpY2sgQWx0aGVyciBb
+bWFpbHRvOnJhbHRoZXJyQGdvb2dsZS5jb21dDQpTZW50OiBXZWRuZXNkYXksIEp1bHkgMjcsIDIw
+MTYgMToyMCBQTQ0KVG86IERldXNrYXIsIFByYWZ1bGxhIDxwcmFmdWxsYS5kZXVza2FyQGludGVs
+LmNvbT4NCkNjOiBvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcNClN1YmplY3Q6IFJlOiBSRVNUIEFQ
+SSBzdXBwb3J0IG9uIEFTVCAyNTAwIEVWQg0KDQpUaGUgZGFlbW9uIGlzIHByb2JhYmx5IHJ1bm5p
+bmcgYnV0IHNrZWxldG9uIGhhc24ndCBiZWVuIHVwZGF0ZWQgZm9yIHRoZSBFVkIuICBJJ2QgZXhw
+ZWN0IGl0IHRvIHJlc3BvbmQgd2l0aCBtb3N0bHkgZW1wdHkgcmVzcG9uc2VzLg0KDQpPbiBXZWQs
+IEp1bCAyNywgMjAxNiBhdCAxOjE3IFBNLCBEZXVza2FyLCBQcmFmdWxsYSA8cHJhZnVsbGEuZGV1
+c2thckBpbnRlbC5jb208bWFpbHRvOnByYWZ1bGxhLmRldXNrYXJAaW50ZWwuY29tPj4gd3JvdGU6
+DQpIZWxsbyDigJMNCg0KRG9lcyB0aGUgT3BlbkJNQyBjb2RlIHN1cHBvcnQgUkVTVCBBUEkgYXMg
+ZG9jdW1lbnRlZCBoZXJlPw0KaHR0cHM6Ly9naXRodWIuY29tL29wZW5ibWMvZG9jcy9ibG9iL21h
+c3Rlci9yZXN0LWFwaS5tZA0KDQpMb29rcyBsaWtlIG9ibWMtcmVzdCBpcyBydW5uaW5nIChhY2Nv
+cmRpbmcgdG8g4oCccHPigJ0pIGFuZCB0aGVyZSBhcmUgc2VydmljZXMgbGlzdGVuaW5nIG9uIHBv
+cnRzIDIyLCAzMDAwLCAyMjAwIGFuZCA0NDMgKOKAnG5ldHN0YXQg4oCTbG50deKAnSkuDQoNCkFu
+eSBwb2ludGVycyBhcHByZWNpYXRlZC4NCg0KVGhhbmtzLA0KUHJhZnVsbGENCg0KDQoNCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQpvcGVuYm1jIG1haWxp
+bmcgbGlzdA0Kb3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPG1haWx0bzpvcGVuYm1jQGxpc3RzLm96
+bGFicy5vcmc+DQpodHRwczovL2xpc3RzLm96bGFicy5vcmcvbGlzdGluZm8vb3BlbmJtYw0KDQo=
 
-Signed-off-by: Chris Austen <austenc@us.ibm.com>
----
- cheatsheet.md | 55 +++++++++++++++++++++++++++++++++++++++++++++----------
- 1 file changed, 45 insertions(+), 10 deletions(-)
+--_000_86BC2638B1D5DA48B2AEFCA5BCA462667134F7FDORSMSX115amrcor_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-diff --git a/cheatsheet.md b/cheatsheet.md
-index 873fbf9..8909da8 100644
---- a/cheatsheet.md
-+++ b/cheatsheet.md
-@@ -88,23 +88,58 @@ devices to boot a Linux kernel. OpenBMC also [maintains a
- tree](https://github.com/openbmc/qemu) with patches on their way upstream or
- temporary work-arounds that add to QEMU's capabilities where appropriate.
- 
--QEMU's wiki has instructions for [building from
--source](http://wiki.qemu.org/Documentation/GettingStartedDevelopers).
-+```
-+qemu-system-arm -m 256 -M palmetto-bmc -nographic \
-+-drive file=<path>/flash-palmetto,format=raw,if=mtd \
-+-net nic \
-+-net user,hostfwd=:127.0.0.1:2222-:22,hostfwd=:127.0.0.1:2443-:443,hostname=qemu \
-+```
-+If you get an error you likely need to build QEMU (see the section in this document).   If no error and QEMU starts up just change the port when interacting with the BMC...
- 
--Assuming the current working directory is the `build` directory (from sourcing
--`oe-init-build-env`), a palmetto-bmc machine can be invoked with:
-+```
-+curl -c cjar -b cjar -k -H "Content-Type: application/json" \
-+-X POST https://localhost:2443/login -d "{\"data\": [ \"root\", \"0penBmc\" ] }"
-+```
-+or
- 
- ```
--qemu-system-arm \
--    -M palmetto-bmc \
--    -m 256 \
--    -nographic \
--    -kernel tmp/deploy/images/palmetto/cuImage-palmetto.bin \
--    -initrd tmp/deploy/images/palmetto/obmc-phosphor-image-palmetto.cpio.gz
-+ssh -p 2222 root@localhost
- ```
- 
- To quit, type `Ctrl-a c` to switch to the QEMU monitor, and then `quit` to exit.
- 
-+## Building QEMU
-+
-+```
-+git clone https://github.com/openbmc/qemu.git
-+cd qemu
-+git submodule update --init dtc
-+mkdir build
-+cd build
-+../configure --target-list=arm-softmmu
-+make
-+```
-+Built file will be located at: ```arm-softmmu/qemu-system-arm```
-+
-+### Use a bridge device
-+Using a bridge device requires a bit of root access to set it up.  The benefit
-+is your qemu session runs in the bridges subnet so no port forwarding is needed.
-+There are packages needed to yourself a virbr0 such as...
-+
-+```
-+apt-get install libvirt libvirt-bin bridge-utils uml-utilities qemu-system-common
-+
-+qemu-system-arm -m 256 -M palmetto-bmc -nographic \
-+-drive file=<path>/flash-palmetto,format=raw,if=mtd \
-+-net nic,macaddr=C0:FF:EE:00:00:02,model=ftgmac100  \
-+-net bridge,id=net0,helper=/usr/lib/qemu-bridge-helper,br=virbr0
-+```
-+
-+There are some other useful parms like that can redirect the console to another
-+window.  This results in having an easily accessible qemu command session.
-+```-monitor stdio -serial pty -nodefaults```
-+
-+
- ## Booting the host
- 
- Login:
--- 
-2.9.0
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
+YWNlDQoJe2ZvbnQtZmFtaWx5OkNhbGlicmk7DQoJcGFub3NlLTE6MiAxNSA1IDIgMiAyIDQgMyAy
+IDQ7fQ0KLyogU3R5bGUgRGVmaW5pdGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWws
+IGRpdi5Nc29Ob3JtYWwNCgl7bWFyZ2luOjBpbjsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJ
+Zm9udC1zaXplOjEyLjBwdDsNCglmb250LWZhbWlseToiVGltZXMgTmV3IFJvbWFuIixzZXJpZjt9
+DQphOmxpbmssIHNwYW4uTXNvSHlwZXJsaW5rDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCglj
+b2xvcjpibHVlOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KYTp2aXNpdGVkLCBzcGFu
+Lk1zb0h5cGVybGlua0ZvbGxvd2VkDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xvcjpw
+dXJwbGU7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQpzcGFuLkVtYWlsU3R5bGUxNw0K
+CXttc28tc3R5bGUtdHlwZTpwZXJzb25hbC1yZXBseTsNCglmb250LWZhbWlseToiQ2FsaWJyaSIs
+c2Fucy1zZXJpZjsNCgljb2xvcjojMUY0OTdEO30NCi5Nc29DaHBEZWZhdWx0DQoJe21zby1zdHls
+ZS10eXBlOmV4cG9ydC1vbmx5Ow0KCWZvbnQtc2l6ZToxMC4wcHQ7DQoJZm9udC1mYW1pbHk6IkNh
+bGlicmkiLHNhbnMtc2VyaWY7fQ0KQHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6OC41aW4gMTEu
+MGluOw0KCW1hcmdpbjoxLjBpbiAxLjBpbiAxLjBpbiAxLjBpbjt9DQpkaXYuV29yZFNlY3Rpb24x
+DQoJe3BhZ2U6V29yZFNlY3Rpb24xO30NCi0tPjwvc3R5bGU+PCEtLVtpZiBndGUgbXNvIDldPjx4
+bWw+DQo8bzpzaGFwZWRlZmF1bHRzIHY6ZXh0PSJlZGl0IiBzcGlkbWF4PSIxMDI2IiAvPg0KPC94
+bWw+PCFbZW5kaWZdLS0+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWxheW91dCB2
+OmV4dD0iZWRpdCI+DQo8bzppZG1hcCB2OmV4dD0iZWRpdCIgZGF0YT0iMSIgLz4NCjwvbzpzaGFw
+ZWxheW91dD48L3htbD48IVtlbmRpZl0tLT4NCjwvaGVhZD4NCjxib2R5IGxhbmc9IkVOLVVTIiBs
+aW5rPSJibHVlIiB2bGluaz0icHVycGxlIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+DQo8
+cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZh
+bWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+V2UgZ2V0
+IOKAnEhUVFAvMS4wIDQwNCBOb3QgRm91bmTigJ0gd2hlbiB0cnlpbmcgdG8gbG9naW4gdG8gcG9y
+dCAzMDAwLCDigJxIVFRQLzEuMCA0MDAgQmFkIFJlcXVlc3TigJ0gd2hlbiB3ZSB0cnkgcG9ydCA0
+NDMuPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5
+bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5z
+LXNlcmlmO2NvbG9yOiMxRjQ5N0QiPklzIHRoaXMgc3VwcG9zZWQgdG8gd29yayB3aXRoIE9wZW5C
+TUMgb24gYW5vdGhlciBwbGF0Zm9ybT88bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVv
+dDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+PG86cD4mbmJzcDs8L286
+cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6
+ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9y
+OiMxRjQ5N0QiPlRoYW5rcyw8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9y
+bWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxp
+YnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+UHJhZnVsbGE8bzpwPjwvbzpwPjwv
+c3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEx
+LjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFG
+NDk3RCI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPGRpdiBzdHlsZT0iYm9yZGVyOm5v
+bmU7Ym9yZGVyLWxlZnQ6c29saWQgYmx1ZSAxLjVwdDtwYWRkaW5nOjBpbiAwaW4gMGluIDQuMHB0
+Ij4NCjxkaXY+DQo8ZGl2IHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItdG9wOnNvbGlkICNFMUUx
+RTEgMS4wcHQ7cGFkZGluZzozLjBwdCAwaW4gMGluIDBpbiI+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+Ij48YSBuYW1lPSJfX19fX3JlcGx5c2VwYXJhdG9yIj48L2E+PGI+PHNwYW4gc3R5bGU9ImZvbnQt
+c2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmIj5G
+cm9tOjwvc3Bhbj48L2I+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6
+JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmIj4gUmljayBBbHRoZXJyIFttYWlsdG86cmFs
+dGhlcnJAZ29vZ2xlLmNvbV0NCjxicj4NCjxiPlNlbnQ6PC9iPiBXZWRuZXNkYXksIEp1bHkgMjcs
+IDIwMTYgMToyMCBQTTxicj4NCjxiPlRvOjwvYj4gRGV1c2thciwgUHJhZnVsbGEgJmx0O3ByYWZ1
+bGxhLmRldXNrYXJAaW50ZWwuY29tJmd0Ozxicj4NCjxiPkNjOjwvYj4gb3BlbmJtY0BsaXN0cy5v
+emxhYnMub3JnPGJyPg0KPGI+U3ViamVjdDo8L2I+IFJlOiBSRVNUIEFQSSBzdXBwb3J0IG9uIEFT
+VCAyNTAwIEVWQjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8cCBjbGFz
+cz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxkaXY+DQo8cCBjbGFzcz0iTXNv
+Tm9ybWFsIj5UaGUgZGFlbW9uIGlzIHByb2JhYmx5IHJ1bm5pbmcgYnV0IHNrZWxldG9uIGhhc24n
+dCBiZWVuIHVwZGF0ZWQgZm9yIHRoZSBFVkIuJm5ic3A7IEknZCBleHBlY3QgaXQgdG8gcmVzcG9u
+ZCB3aXRoIG1vc3RseSBlbXB0eSByZXNwb25zZXMuPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxk
+aXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxkaXY+DQo8
+cCBjbGFzcz0iTXNvTm9ybWFsIj5PbiBXZWQsIEp1bCAyNywgMjAxNiBhdCAxOjE3IFBNLCBEZXVz
+a2FyLCBQcmFmdWxsYSAmbHQ7PGEgaHJlZj0ibWFpbHRvOnByYWZ1bGxhLmRldXNrYXJAaW50ZWwu
+Y29tIiB0YXJnZXQ9Il9ibGFuayI+cHJhZnVsbGEuZGV1c2thckBpbnRlbC5jb208L2E+Jmd0OyB3
+cm90ZTo8bzpwPjwvbzpwPjwvcD4NCjxibG9ja3F1b3RlIHN0eWxlPSJib3JkZXI6bm9uZTtib3Jk
+ZXItbGVmdDpzb2xpZCAjQ0NDQ0NDIDEuMHB0O3BhZGRpbmc6MGluIDBpbiAwaW4gNi4wcHQ7bWFy
+Z2luLWxlZnQ6NC44cHQ7bWFyZ2luLXRvcDo1LjBwdDttYXJnaW4tcmlnaHQ6MGluO21hcmdpbi1i
+b3R0b206NS4wcHQiPg0KPGRpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0i
+bXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPkhlbGxv
+IOKAkw0KPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1h
+cmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPiZuYnNwOzxvOnA+
+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFs
+dDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj5Eb2VzIHRoZSBPcGVuQk1DIGNvZGUg
+c3VwcG9ydCBSRVNUIEFQSSBhcyBkb2N1bWVudGVkIGhlcmU/PG86cD48L286cD48L3A+DQo8cCBj
+bGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdp
+bi1ib3R0b20tYWx0OmF1dG8iPjxhIGhyZWY9Imh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL2Rv
+Y3MvYmxvYi9tYXN0ZXIvcmVzdC1hcGkubWQiIHRhcmdldD0iX2JsYW5rIj5odHRwczovL2dpdGh1
+Yi5jb20vb3BlbmJtYy9kb2NzL2Jsb2IvbWFzdGVyL3Jlc3QtYXBpLm1kPC9hPjxvOnA+PC9vOnA+
+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRv
+O21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj4mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjxwIGNs
+YXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2lu
+LWJvdHRvbS1hbHQ6YXV0byI+TG9va3MgbGlrZSBvYm1jLXJlc3QgaXMgcnVubmluZyAoYWNjb3Jk
+aW5nIHRvIOKAnHBz4oCdKSBhbmQgdGhlcmUgYXJlIHNlcnZpY2VzIGxpc3RlbmluZyBvbiBwb3J0
+cyAyMiwgMzAwMCwgMjIwMCBhbmQgNDQzICjigJxuZXRzdGF0IOKAk2xudHXigJ0pLjxvOnA+PC9v
+OnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDph
+dXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj4mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjxw
+IGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFy
+Z2luLWJvdHRvbS1hbHQ6YXV0byI+QW55IHBvaW50ZXJzIGFwcHJlY2lhdGVkLjxvOnA+PC9vOnA+
+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRv
+O21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj4mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjxwIGNs
+YXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2lu
+LWJvdHRvbS1hbHQ6YXV0byI+VGhhbmtzLDxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05v
+cm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFs
+dDphdXRvIj5QcmFmdWxsYTxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5
+bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj4m
+bmJzcDs8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFy
+Z2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+Jm5ic3A7PG86cD48
+L286cD48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1h
+cmdpbi1ib3R0b206MTIuMHB0Ij48YnI+DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXzxicj4NCm9wZW5ibWMgbWFpbGluZyBsaXN0PGJyPg0KPGEgaHJlZj0i
+bWFpbHRvOm9wZW5ibWNAbGlzdHMub3psYWJzLm9yZyI+b3BlbmJtY0BsaXN0cy5vemxhYnMub3Jn
+PC9hPjxicj4NCjxhIGhyZWY9Imh0dHBzOi8vbGlzdHMub3psYWJzLm9yZy9saXN0aW5mby9vcGVu
+Ym1jIiB0YXJnZXQ9Il9ibGFuayI+aHR0cHM6Ly9saXN0cy5vemxhYnMub3JnL2xpc3RpbmZvL29w
+ZW5ibWM8L2E+PG86cD48L286cD48L3A+DQo8L2Jsb2NrcXVvdGU+DQo8L2Rpdj4NCjxwIGNsYXNz
+PSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2
+Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
+
+--_000_86BC2638B1D5DA48B2AEFCA5BCA462667134F7FDORSMSX115amrcor_--
