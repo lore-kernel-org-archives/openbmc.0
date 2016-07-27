@@ -3,17 +3,19 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s07F70mDrzDrMM
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s07F70km8zDrKr
  for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 07:20:25 +1000 (AEST)
 Received: from localhost (172.110.7.206 [172.110.7.206]) by mx.zohomail.com
- with SMTPS id 1469654419052915.4864344123357;
- Wed, 27 Jul 2016 14:20:19 -0700 (PDT)
+ with SMTPS id 1469654421167903.9536564296006;
+ Wed, 27 Jul 2016 14:20:21 -0700 (PDT)
 From: OpenBMC Patches <openbmc-patches@stwcx.xyz>
 To: openbmc@lists.ozlabs.org
 Subject: [PATCH docs v2] Enhancing instructions on QEMU
-Date: Wed, 27 Jul 2016 16:20:10 -0500
-Message-Id: <20160727212011.3521-1-openbmc-patches@stwcx.xyz>
+Date: Wed, 27 Jul 2016 16:20:11 -0500
+Message-Id: <20160727212011.3521-2-openbmc-patches@stwcx.xyz>
 X-Mailer: git-send-email 2.9.0
+In-Reply-To: <20160727212011.3521-1-openbmc-patches@stwcx.xyz>
+References: <20160727212011.3521-1-openbmc-patches@stwcx.xyz>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -27,6 +29,8 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Wed, 27 Jul 2016 21:20:28 -0000
 
+From: Chris Austen <austenc@us.ibm.com>
+
 Added step by step details on using QEMU in both a virtual
 bridge and tap environment.  Latest features of QEMU palmetto
 integration now allow for uboot flash support and ftgmac100
@@ -34,20 +38,82 @@ device support.  That means you can start the qemu session
 from uboot and run the real ftgmac ethernet device.
 
 Signed-off-by: Chris Austen <austenc@us.ibm.com>
-
-<!-- Reviewable:start -->
 ---
-This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/openbmc/docs/33)
-<!-- Reviewable:end -->
-
-
-https://github.com/openbmc/docs/pull/33
-
-Chris Austen (1):
-  Enhancing instructions on QEMU
-
  cheatsheet.md | 55 +++++++++++++++++++++++++++++++++++++++++++++----------
  1 file changed, 45 insertions(+), 10 deletions(-)
 
+diff --git a/cheatsheet.md b/cheatsheet.md
+index 873fbf9..8909da8 100644
+--- a/cheatsheet.md
++++ b/cheatsheet.md
+@@ -88,23 +88,58 @@ devices to boot a Linux kernel. OpenBMC also [maintains a
+ tree](https://github.com/openbmc/qemu) with patches on their way upstream or
+ temporary work-arounds that add to QEMU's capabilities where appropriate.
+ 
+-QEMU's wiki has instructions for [building from
+-source](http://wiki.qemu.org/Documentation/GettingStartedDevelopers).
++```
++qemu-system-arm -m 256 -M palmetto-bmc -nographic \
++-drive file=<path>/flash-palmetto,format=raw,if=mtd \
++-net nic \
++-net user,hostfwd=:127.0.0.1:2222-:22,hostfwd=:127.0.0.1:2443-:443,hostname=qemu \
++```
++If you get an error you likely need to build QEMU (see the section in this document).   If no error and QEMU starts up just change the port when interacting with the BMC...
+ 
+-Assuming the current working directory is the `build` directory (from sourcing
+-`oe-init-build-env`), a palmetto-bmc machine can be invoked with:
++```
++curl -c cjar -b cjar -k -H "Content-Type: application/json" \
++-X POST https://localhost:2443/login -d "{\"data\": [ \"root\", \"0penBmc\" ] }"
++```
++or
+ 
+ ```
+-qemu-system-arm \
+-    -M palmetto-bmc \
+-    -m 256 \
+-    -nographic \
+-    -kernel tmp/deploy/images/palmetto/cuImage-palmetto.bin \
+-    -initrd tmp/deploy/images/palmetto/obmc-phosphor-image-palmetto.cpio.gz
++ssh -p 2222 root@localhost
+ ```
+ 
+ To quit, type `Ctrl-a c` to switch to the QEMU monitor, and then `quit` to exit.
+ 
++## Building QEMU
++
++```
++git clone https://github.com/openbmc/qemu.git
++cd qemu
++git submodule update --init dtc
++mkdir build
++cd build
++../configure --target-list=arm-softmmu
++make
++```
++Built file will be located at: ```arm-softmmu/qemu-system-arm```
++
++### Use a bridge device
++Using a bridge device requires a bit of root access to set it up.  The benefit
++is your qemu session runs in the bridges subnet so no port forwarding is needed.
++There are packages needed to yourself a virbr0 such as...
++
++```
++apt-get install libvirt libvirt-bin bridge-utils uml-utilities qemu-system-common
++
++qemu-system-arm -m 256 -M palmetto-bmc -nographic \
++-drive file=<path>/flash-palmetto,format=raw,if=mtd \
++-net nic,macaddr=C0:FF:EE:00:00:02,model=ftgmac100  \
++-net bridge,id=net0,helper=/usr/lib/qemu-bridge-helper,br=virbr0
++```
++
++There are some other useful parms like that can redirect the console to another
++window.  This results in having an easily accessible qemu command session.
++```-monitor stdio -serial pty -nodefaults```
++
++
+ ## Booting the host
+ 
+ Login:
 -- 
 2.9.0
