@@ -1,53 +1,74 @@
-Return-Path: <andrew@aj.id.au>
-Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
- [66.111.4.221])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <shays@mellanox.com>
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur01on0041.outbound.protection.outlook.com [104.47.2.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ryNFc16ZnzDqZq
- for <openbmc@lists.ozlabs.org>; Mon, 25 Jul 2016 10:59:48 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org;
- dkim=fail reason="signature verification failed" (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=GIJ1pTm3; 
- dkim=fail reason="signature verification failed" (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=U3z7kBRk; dkim-atps=neutral
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailnew.nyi.internal (Postfix) with ESMTP id 2A52BA30;
- Sun, 24 Jul 2016 20:59:45 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute7.internal (MEProxy); Sun, 24 Jul 2016 20:59:45 -0400
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=qgAXP
- Ao/F6wxQf0xIKWXOK5pVTM=; b=GIJ1pTm3vopw7wu2uDvHljdT3w/sTvFOewqxE
- +ouyiK3PbsoB1kk+ROI171OKYBWRpoff2YEc7BvH25q1u730BPFlHQu3yjpbKgMI
- 6WBE1yLbJRwMlBp2aHIf5WGjp98Ws9vyXPipUZ0VaZpgPYp/1fC+EKLJb7DozSZO
- ANzjd4=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-sasl-enc
- :x-sasl-enc; s=smtpout; bh=qgAXPAo/F6wxQf0xIKWXOK5pVTM=; b=U3z7k
- BRk9OTeVn5v0ydz/jJFHWVPPy4I8B42zIvBvSo2P50ZkQmM4UMewtl8m+ew03kfG
- b2Isr24QCSScSroSmF3ElAu83naI2sdcfl6l5xyvXw97TSnGBu2g/CHy3cj0Md34
- Y+OWXcMb6+V6nrcuO+MLhu8ckxad5AUMKrIjro=
-X-Sasl-enc: ydhsMx8hTcrU5Oq5t7atTFfjlFwi00OZz/BgZHOXkO8M 1469408383
-Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 1D717F29F5;
- Sun, 24 Jul 2016 20:59:42 -0400 (EDT)
-Message-ID: <1469408379.5468.33.camel@aj.id.au>
-Subject: Re: Aspeed 2500 EVB i2c transaction time out
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Shay Slobodkin <shays@mellanox.com>, Joel Stanley <joel@jms.id.au>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Date: Mon, 25 Jul 2016 10:29:39 +0930
-In-Reply-To: <DB4PR05MB0941D946BC03E134592BCA21D50C0@DB4PR05MB0941.eurprd05.prod.outlook.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3rzmjJ0VhkzDqdx
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Jul 2016 17:25:07 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b=JmbWwTkH; 
+ dkim-atps=neutral
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
+ s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=BiNYD8vvsVgzFCulY76jpurRTjtJTiFJx8dpa71hSlY=;
+ b=JmbWwTkHXyzBCmlFN2RLcTWjc3dTrMbSoBxaM+tdHKXW9BY3x9IckC3nzgcQh5TvmI45cdemr3PQLXvT8QlT66MpXviZMZF0bcRehW9df6NGGGSNetQUktrochZB2nzbXDOJDapCtTLC3PkdoVKMpVLrBfpjPuW6fYuA08Q0V38=
+Received: from DB4PR05MB0941.eurprd05.prod.outlook.com (10.161.249.145) by
+ DB4PR05MB0943.eurprd05.prod.outlook.com (10.161.249.147) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
+ 15.1.544.10; Wed, 27 Jul 2016 06:52:12 +0000
+Received: from DB4PR05MB0941.eurprd05.prod.outlook.com ([10.161.249.145]) by
+ DB4PR05MB0941.eurprd05.prod.outlook.com ([10.161.249.145]) with mapi id
+ 15.01.0544.019; Wed, 27 Jul 2016 06:52:12 +0000
+From: Shay Slobodkin <shays@mellanox.com>
+To: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: RE: Aspeed 2500 EVB i2c transaction time out
+Thread-Topic: Aspeed 2500 EVB i2c transaction time out
+Thread-Index: AdHjPh18jT8yNP68Tle3f/Ll01NEgAAL8yuAAIyfMnAAG9q6gABwxbfg
+Date: Wed, 27 Jul 2016 06:52:12 +0000
+Message-ID: <DB4PR05MB0941D264C3F26B9F9378E78ED50F0@DB4PR05MB0941.eurprd05.prod.outlook.com>
 References: <DB4PR05MB0941FC06CBEC427C99A40C80D5090@DB4PR05MB0941.eurprd05.prod.outlook.com>
  <CACPK8Xf-jSXs=EcF3tQrC7xeFkKXOhXxPxz=6pBQ9408-uhcHA@mail.gmail.com>
  <DB4PR05MB0941D946BC03E134592BCA21D50C0@DB4PR05MB0941.eurprd05.prod.outlook.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-aVvJxoSS5d3iDnXV9n5E"
-X-Mailer: Evolution 3.18.5.2-0ubuntu3 
-Mime-Version: 1.0
+ <1469408379.5468.33.camel@aj.id.au>
+In-Reply-To: <1469408379.5468.33.camel@aj.id.au>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=shays@mellanox.com; 
+x-originating-ip: [193.47.165.251]
+x-ms-office365-filtering-correlation-id: 963e7a43-924f-4cbe-d6a5-08d3b5ea898e
+x-microsoft-exchange-diagnostics: 1; DB4PR05MB0943;
+ 6:lkj3J5BWjL2VEBtAUXooIKBCDK1DPNFizZwtZF0CjJcef2W62QdAzTUTjjzl3159RavudjRmAQ3BAXq1VMsQzfYjcNpu4ComhcrJ8zPWuUwnh3wvFC6UrLJMMyIF/WB24rNL1yfM9Jx7Brel719lxUE/vLyz2T/WBdMpdo7WFTA2l+Xj7Y7a/lYggUJcBbPNcjr+2kmEoSsEraNGMPWLIQvIaiLhLHh2UhBwONvVseKgh5XhKhTngZ/squDnYg3UeDokWoAddcGdj4dLPoJYijB8ZKDGk5GbwG3r9Em7cygz8zFMVioPqLuxSzSqSL/EQ4CPosFZoIrHKCmggTchkg==;
+ 5:YDJngJRJJ5zYFkKCb0Zgi5B04AezatvoCxzdMAn7NWBnnmHERkZU2i7D6h/pgh1N8WRTn2edZQw4duO8O6ifl9+Ayk94Cqnt7OW72QhVyHXd9/PQ4K7zGU+CpMQUZi2OLBNyhODKT2EKJr4mcExvdw==;
+ 24:RwWpkxo4E/PDHwsMnIvlxKYO7gdMCTN02t7jMTeLsVRQECAdvYHt5RftQofGtShVL+UAaXIg13v8isWKszjVHfklmL6o4K9zhKZanL2ZJPU=;
+ 7:y8gD8hz2nQ3SC2mvVgnW5zEKb8i6Usrg91FpzTbb81wlmtCNXipZe2I4bGA3UkRMIVwUIbSq5D3LjrwvG3doWyYnOdFaUIve1OynFNHpEfydXmllVlo1N2qktgUvztNnu1eQKW794JiaNNWej4VL5zxKcV3NwCykRKBPIInDYF6w3YNzbu2rtomPewiF/Mup8AMM2bFZgo38bhcnONDmVI9AMgxwbkrcMriguzc8qJs3NRVQrVciI9/cT+8Q2OqQ
+x-microsoft-antispam: UriScan:;BCL:0;PCL:0;RULEID:;SRVR:DB4PR05MB0943;
+x-microsoft-antispam-prvs: <DB4PR05MB09431584D4FBB3D8699C0B8BD50F0@DB4PR05MB0943.eurprd05.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(166708455590820)(65623756079841);
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(601004)(2401047)(5005006)(8121501046)(10201501046)(3002001)(6055026);
+ SRVR:DB4PR05MB0943; BCL:0; PCL:0; RULEID:; SRVR:DB4PR05MB0943; 
+x-forefront-prvs: 0016DEFF96
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(6009001)(7916002)(377454003)(189002)(377424004)(24454002)(199003)(13464003)(66066001)(76576001)(3846002)(68736007)(6116002)(102836003)(586003)(3660700001)(8676002)(9686002)(3280700002)(86362001)(87936001)(76176999)(33656002)(54356999)(50986999)(122556002)(551934003)(5001770100001)(105586002)(189998001)(97736004)(92566002)(15975445007)(93886004)(2900100001)(2950100001)(101416001)(2906002)(11100500001)(19580405001)(19580395003)(77096005)(8936002)(81156014)(81166006)(74316002)(7696003)(5003600100003)(7736002)(10400500002)(4326007)(7846002)(5002640100001)(106356001)(305945005);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DB4PR05MB0943;
+ H:DB4PR05MB0941.eurprd05.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
+ MX:1; A:1; LANG:en; 
+received-spf: None (protection.outlook.com: mellanox.com does not designate
+ permitted sender hosts)
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: Mellanox.com
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Jul 2016 06:52:12.2735 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR05MB0943
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -59,110 +80,71 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Jul 2016 00:59:49 -0000
+X-List-Received-Date: Wed, 27 Jul 2016 07:25:10 -0000
 
-
---=-aVvJxoSS5d3iDnXV9n5E
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Shay,
-
-On Sun, 2016-07-24 at 11:45 +0000, Shay Slobodkin wrote:
-> >=20
-> > -----Original Message-----
-> > From: joel.stan@gmail.com [mailto:joel.stan@gmail.com] On Behalf Of Joe=
-l
-> > Stanley
-> > Sent: Thursday, July 21, 2016 7:36 PM
-> > To: Shay Slobodkin <shays@mellanox.com>
-> > Cc: openbmc@lists.ozlabs.org
-> > Subject: Re: Aspeed 2500 EVB i2c transaction time out
-> Hello Joel,
->=20
-> Thanks for your answer.
-> Until we merge from remote the new kernel trees you will push, I was wond=
-ering why in aspeed.c for EVB we have the below mapping (there is no i2c bu=
-s here):=C2=A0
-
-"no i2c bus here"? if you mean at 1e6e2000 you are right - it's the
-base address of the SCU. In this case it's telling the pinctrl
-subsystem which pin-controller should be used to affect the mux
-configuration request. Otherwise, there are 14 I2C buses, so 3, 4 and 9
-are valid.
-
-> static struct pinctrl_map ast2500_mapping[] __initdata =3D {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0PIN_MAP_MUX_GROUP_DEFAULT=
-("i2c-8", "1e6e2000.pinmux", NULL, "I2C9"),
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0PIN_MAP_MUX_GROUP_DEFAULT=
-("i2c-3", "1e6e2000.pinmux", NULL, "I2C4"),
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0PIN_MAP_MUX_GROUP_DEFAULT=
-("i2c-2", "1e6e2000.pinmux", NULL, "I2C3"), };
->=20
-> While for Palmetto, we have the below set (with no shift like in EVB: i2c=
--x - I2C(x+1))
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0PIN_MAP_MUX_GROUP_DEFAULT=
-("i2c-3", "1e6e2000.pinmux", NULL, "I2C3"),
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0PIN_MAP_MUX_GROUP_DEFAULT=
-("i2c-4", "1e6e2000.pinmux", NULL, "I2C4"),
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0PIN_MAP_MUX_GROUP_DEFAULT=
-("i2c-5", "1e6e2000.pinmux", NULL, "I2C5"),
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0PIN_MAP_MUX_GROUP_DEFAULT=
-("i2c-6", "1e6e2000.pinmux", NULL, "I2C6"),
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0PIN_MAP_MUX_GROUP_DEFAULT=
-("i2c-7", "1e6e2000.pinmux", NULL, "I2C7"),
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0PIN_MAP_MUX_GROUP_DEFAULT=
-("i2c-8", "1e6e2000.pinmux", NULL, "I2C8"),
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0PIN_MAP_MUX_GROUP_DEFAULT=
-("i2c-8", "1e6e2000.pinmux", NULL, "I2C9"),
->=20
-> Maybe understanding this could be of some more assistance for us.
-
-Looks like there is a bug with the palmetto configuration; the I2Cx
-strings are the values from the datasheet and are 1 indexed, while the
-Linux devices are 0 indexed, and so they should be offset.
-
-It's unfortunate that this made it into the openbmc/linux trees. The
-patches were very much half-baked and we were using them for an
-internal bring-up on an ast2500; we weren't paying enough attention to
-the ast2400 configuration and this has slipped through.
-
-I've mentioned to Joel the idea of backing out the bad pinctrl patches.
-Some were reverted recently, though they removed the GPIO driver hooks
-and not the mux group macros above.
-
-Cheers,
-
-Andrew
-
-PS: if you are interested in testing the most recent pinctrl patches
-they are available at [1]. However, they're based on upstream and so
-will need a bit of massaging to integrate them with the openbmc/linux
-kernel, for instance adding the I2C mux requests to the I2C devicetree
-nodes.
-
-[1]=C2=A0https://github.com/amboar/linux/commits/aspeed-pinctrl-4.7-rc7
---=-aVvJxoSS5d3iDnXV9n5E
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAABCgAGBQJXlWR7AAoJEJ0dnzgO5LT5RhcP/33qRYWalQ26h6/9wadp620o
-3TaGsbmLYLw4uAvde/BWhm2SS6Zwt6UM5TP945zXwtz4cu4GoBhuVdMUZv5x/2Bc
-55c1HLRNLmNygMr4dkC5zYwDzqS+tQHjOsy4l4mcyPOfZLiRB619NixyodP9v6Lv
-kSo01cSzrboo3cLLF1tHsRFb/JGWeN9WOosAXxqzIGIj6ab3SGs0HGQIx1LDubDi
-3i9GDFvuLrfmfx8BfpPGEojP50As02Q5ajpJAZab0KVG34YhmTM8x6yhgy8D3Asq
-6T/3BfISJn2LbGV/3RsaXWFlY16QV6axYQ5AXMPTSpbzXzDVWcL/vrXnWKHVmFKE
-Ip2z93NOAqQmjSxiruyi3oENajhpvfMsM5sjfpS0tCjRfwiJFTdlKxqVpdTFUkkr
-ijv20FhNhZd2OHo4OWxh5WJtOjVshgJQvBIy2787X/V4O3v3PXwfWtopkjbMaKkj
-GYIwWk1FP8DDzbmi3y4Bh7kh0EjtU3bUyjGAiaC653Qk8jJgi1yrPcu7rsxc4XVs
-/VODe8fUF7YOAdaB7QiXEZixal9hzlnkQMV/EMC7WTI4bSJXGjba/8mInpu+CZUu
-EeY9KQlgm+JKQ2odBzj73zha2EBQ0EgoEzje0lVAVzHoDO/rhmWu/qG7juzBdkHF
-2UNG0CBBpOqW14J50GL/
-=udgf
------END PGP SIGNATURE-----
-
---=-aVvJxoSS5d3iDnXV9n5E--
+SGkgQW5kcmV3LA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IEFuZHJl
+dyBKZWZmZXJ5IFttYWlsdG86YW5kcmV3QGFqLmlkLmF1XQ0KPiBTZW50OiBNb25kYXksIEp1bHkg
+MjUsIDIwMTYgNDowMCBBTQ0KPiBUbzogU2hheSBTbG9ib2RraW4gPHNoYXlzQG1lbGxhbm94LmNv
+bT47IEpvZWwgU3RhbmxleSA8am9lbEBqbXMuaWQuYXU+DQo+IENjOiBvcGVuYm1jQGxpc3RzLm96
+bGFicy5vcmcNCj4gU3ViamVjdDogUmU6IEFzcGVlZCAyNTAwIEVWQiBpMmMgdHJhbnNhY3Rpb24g
+dGltZSBvdXQNCj4gDQo+IEhpIFNoYXksDQo+IA0KPiBPbiBTdW4sIDIwMTYtMDctMjQgYXQgMTE6
+NDUgKzAwMDAsIFNoYXkgU2xvYm9ka2luIHdyb3RlOg0KPiA+ID4NCj4gPiA+IC0tLS0tT3JpZ2lu
+YWwgTWVzc2FnZS0tLS0tDQo+ID4gPiBGcm9tOiBqb2VsLnN0YW5AZ21haWwuY29tIFttYWlsdG86
+am9lbC5zdGFuQGdtYWlsLmNvbV0gT24gQmVoYWxmIE9mDQo+ID4gPiBKb2VsIFN0YW5sZXkNCj4g
+PiA+IFNlbnQ6IFRodXJzZGF5LCBKdWx5IDIxLCAyMDE2IDc6MzYgUE0NCj4gPiA+IFRvOiBTaGF5
+IFNsb2JvZGtpbiA8c2hheXNAbWVsbGFub3guY29tPg0KPiA+ID4gQ2M6IG9wZW5ibWNAbGlzdHMu
+b3psYWJzLm9yZw0KPiA+ID4gU3ViamVjdDogUmU6IEFzcGVlZCAyNTAwIEVWQiBpMmMgdHJhbnNh
+Y3Rpb24gdGltZSBvdXQNCj4gPiBIZWxsbyBKb2VsLA0KPiA+DQo+ID4gVGhhbmtzIGZvciB5b3Vy
+IGFuc3dlci4NCj4gPiBVbnRpbCB3ZSBtZXJnZSBmcm9tIHJlbW90ZSB0aGUgbmV3IGtlcm5lbCB0
+cmVlcyB5b3Ugd2lsbCBwdXNoLCBJIHdhcw0KPiA+IHdvbmRlcmluZyB3aHkgaW4gYXNwZWVkLmMg
+Zm9yIEVWQiB3ZSBoYXZlIHRoZSBiZWxvdyBtYXBwaW5nICh0aGVyZSBpcw0KPiBubyBpMmMgYnVz
+IGhlcmUpOg0KPiANCj4gIm5vIGkyYyBidXMgaGVyZSI/IGlmIHlvdSBtZWFuIGF0IDFlNmUyMDAw
+IHlvdSBhcmUgcmlnaHQgLSBpdCdzIHRoZSBiYXNlDQo+IGFkZHJlc3Mgb2YgdGhlIFNDVS4gSW4g
+dGhpcyBjYXNlIGl0J3MgdGVsbGluZyB0aGUgcGluY3RybCBzdWJzeXN0ZW0gd2hpY2ggcGluLQ0K
+PiBjb250cm9sbGVyIHNob3VsZCBiZSB1c2VkIHRvIGFmZmVjdCB0aGUgbXV4IGNvbmZpZ3VyYXRp
+b24gcmVxdWVzdC4NCj4gT3RoZXJ3aXNlLCB0aGVyZSBhcmUgMTQgSTJDIGJ1c2VzLCBzbyAzLCA0
+IGFuZCA5IGFyZSB2YWxpZC4NCj4gDQo+ID4gc3RhdGljIHN0cnVjdCBwaW5jdHJsX21hcCBhc3Qy
+NTAwX21hcHBpbmdbXSBfX2luaXRkYXRhID0gew0KPiA+IMKgwqDCoMKgwqDCoMKgwqBQSU5fTUFQ
+X01VWF9HUk9VUF9ERUZBVUxUKCJpMmMtOCIsICIxZTZlMjAwMC5waW5tdXgiLCBOVUxMLA0KPiA+
+ICJJMkM5IiksDQo+ID4gwqDCoMKgwqDCoMKgwqDCoFBJTl9NQVBfTVVYX0dST1VQX0RFRkFVTFQo
+ImkyYy0zIiwgIjFlNmUyMDAwLnBpbm11eCIsIE5VTEwsDQo+ID4gIkkyQzQiKSwNCj4gPiDCoMKg
+wqDCoMKgwqDCoMKgUElOX01BUF9NVVhfR1JPVVBfREVGQVVMVCgiaTJjLTIiLCAiMWU2ZTIwMDAu
+cGlubXV4IiwgTlVMTCwNCj4gPiAiSTJDMyIpLCB9Ow0KPiA+DQo+ID4gV2hpbGUgZm9yIFBhbG1l
+dHRvLCB3ZSBoYXZlIHRoZSBiZWxvdyBzZXQgKHdpdGggbm8gc2hpZnQgbGlrZSBpbiBFVkI6DQo+
+ID4gaTJjLXggLSBJMkMoeCsxKSkNCj4gPiDCoMKgwqDCoMKgwqDCoMKgUElOX01BUF9NVVhfR1JP
+VVBfREVGQVVMVCgiaTJjLTMiLCAiMWU2ZTIwMDAucGlubXV4IiwgTlVMTCwNCj4gPiAiSTJDMyIp
+LA0KPiA+IMKgwqDCoMKgwqDCoMKgwqBQSU5fTUFQX01VWF9HUk9VUF9ERUZBVUxUKCJpMmMtNCIs
+ICIxZTZlMjAwMC5waW5tdXgiLCBOVUxMLA0KPiA+ICJJMkM0IiksDQo+ID4gwqDCoMKgwqDCoMKg
+wqDCoFBJTl9NQVBfTVVYX0dST1VQX0RFRkFVTFQoImkyYy01IiwgIjFlNmUyMDAwLnBpbm11eCIs
+IE5VTEwsDQo+ID4gIkkyQzUiKSwNCj4gPiDCoMKgwqDCoMKgwqDCoMKgUElOX01BUF9NVVhfR1JP
+VVBfREVGQVVMVCgiaTJjLTYiLCAiMWU2ZTIwMDAucGlubXV4IiwgTlVMTCwNCj4gPiAiSTJDNiIp
+LA0KPiA+IMKgwqDCoMKgwqDCoMKgwqBQSU5fTUFQX01VWF9HUk9VUF9ERUZBVUxUKCJpMmMtNyIs
+ICIxZTZlMjAwMC5waW5tdXgiLCBOVUxMLA0KPiA+ICJJMkM3IiksDQo+ID4gwqDCoMKgwqDCoMKg
+wqDCoFBJTl9NQVBfTVVYX0dST1VQX0RFRkFVTFQoImkyYy04IiwgIjFlNmUyMDAwLnBpbm11eCIs
+IE5VTEwsDQo+ID4gIkkyQzgiKSwNCj4gPiDCoMKgwqDCoMKgwqDCoMKgUElOX01BUF9NVVhfR1JP
+VVBfREVGQVVMVCgiaTJjLTgiLCAiMWU2ZTIwMDAucGlubXV4IiwgTlVMTCwNCj4gPiAiSTJDOSIp
+LA0KPiA+DQo+ID4gTWF5YmUgdW5kZXJzdGFuZGluZyB0aGlzIGNvdWxkIGJlIG9mIHNvbWUgbW9y
+ZSBhc3Npc3RhbmNlIGZvciB1cy4NCj4gDQo+IExvb2tzIGxpa2UgdGhlcmUgaXMgYSBidWcgd2l0
+aCB0aGUgcGFsbWV0dG8gY29uZmlndXJhdGlvbjsgdGhlIEkyQ3ggc3RyaW5ncyBhcmUNCj4gdGhl
+IHZhbHVlcyBmcm9tIHRoZSBkYXRhc2hlZXQgYW5kIGFyZSAxIGluZGV4ZWQsIHdoaWxlIHRoZSBM
+aW51eCBkZXZpY2VzIGFyZQ0KPiAwIGluZGV4ZWQsIGFuZCBzbyB0aGV5IHNob3VsZCBiZSBvZmZz
+ZXQuDQo+IA0KPiBJdCdzIHVuZm9ydHVuYXRlIHRoYXQgdGhpcyBtYWRlIGl0IGludG8gdGhlIG9w
+ZW5ibWMvbGludXggdHJlZXMuIFRoZSBwYXRjaGVzDQo+IHdlcmUgdmVyeSBtdWNoIGhhbGYtYmFr
+ZWQgYW5kIHdlIHdlcmUgdXNpbmcgdGhlbSBmb3IgYW4gaW50ZXJuYWwgYnJpbmctdXANCj4gb24g
+YW4gYXN0MjUwMDsgd2Ugd2VyZW4ndCBwYXlpbmcgZW5vdWdoIGF0dGVudGlvbiB0byB0aGUgYXN0
+MjQwMA0KPiBjb25maWd1cmF0aW9uIGFuZCB0aGlzIGhhcyBzbGlwcGVkIHRocm91Z2guDQo+IA0K
+PiBJJ3ZlIG1lbnRpb25lZCB0byBKb2VsIHRoZSBpZGVhIG9mIGJhY2tpbmcgb3V0IHRoZSBiYWQg
+cGluY3RybCBwYXRjaGVzLg0KPiBTb21lIHdlcmUgcmV2ZXJ0ZWQgcmVjZW50bHksIHRob3VnaCB0
+aGV5IHJlbW92ZWQgdGhlIEdQSU8gZHJpdmVyIGhvb2tzDQo+IGFuZCBub3QgdGhlIG11eCBncm91
+cCBtYWNyb3MgYWJvdmUuDQo+IA0KPiBDaGVlcnMsDQo+IA0KPiBBbmRyZXcNCj4gDQo+IFBTOiBp
+ZiB5b3UgYXJlIGludGVyZXN0ZWQgaW4gdGVzdGluZyB0aGUgbW9zdCByZWNlbnQgcGluY3RybCBw
+YXRjaGVzIHRoZXkgYXJlDQo+IGF2YWlsYWJsZSBhdCBbMV0uIEhvd2V2ZXIsIHRoZXkncmUgYmFz
+ZWQgb24gdXBzdHJlYW0gYW5kIHNvIHdpbGwgbmVlZCBhIGJpdCBvZg0KPiBtYXNzYWdpbmcgdG8g
+aW50ZWdyYXRlIHRoZW0gd2l0aCB0aGUgb3BlbmJtYy9saW51eCBrZXJuZWwsIGZvciBpbnN0YW5j
+ZQ0KPiBhZGRpbmcgdGhlIEkyQyBtdXggcmVxdWVzdHMgdG8gdGhlIEkyQyBkZXZpY2V0cmVlIG5v
+ZGVzLg0KPiANCj4gWzFdwqBodHRwczovL2dpdGh1Yi5jb20vYW1ib2FyL2xpbnV4L2NvbW1pdHMv
+YXNwZWVkLXBpbmN0cmwtNC43LXJjNw0KDQpUaGFuayB5b3UuIFdlIHRyaWVkIHRvIHVzZSB0aGlz
+IHBpbmN0cmwsIHdpdGggbm8gbHVjay4NCkN1cnJlbnRseSB3ZSBhcmUgc3RpbGwgdXNpbmcga2Vy
+bmVsIDQuNiBhbmQgd2UgcmVjZWl2ZSB0cmFuc2FjdGlvbiB0aW1lIG91dCBmb3IgTE03NS4NCldl
+IGFyZSBwZW5kaW5nIEpvZWwncyA0LjcuMyB3aGVuIGl0IGlzIGRvbmUuDQoNClRoYW5rcywNClNo
+YXkNCg==
