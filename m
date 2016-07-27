@@ -1,41 +1,116 @@
-Return-Path: <prafulla.deuskar@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by lists.ozlabs.org (Postfix) with ESMTP id 3s08hx4CtmzDqJ4
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 08:26:08 +1000 (AEST)
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga102.fm.intel.com with ESMTP; 27 Jul 2016 15:26:06 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.28,431,1464678000"; 
- d="scan'208,217";a="854830212"
-Received: from orsmsx107.amr.corp.intel.com ([10.22.240.5])
- by orsmga003.jf.intel.com with ESMTP; 27 Jul 2016 15:26:07 -0700
-Received: from orsmsx161.amr.corp.intel.com (10.22.240.84) by
- ORSMSX107.amr.corp.intel.com (10.22.240.5) with Microsoft SMTP Server (TLS)
- id 14.3.248.2; Wed, 27 Jul 2016 15:26:05 -0700
-Received: from orsmsx115.amr.corp.intel.com ([169.254.4.122]) by
- ORSMSX161.amr.corp.intel.com ([169.254.4.17]) with mapi id 14.03.0248.002;
- Wed, 27 Jul 2016 15:26:05 -0700
-From: "Deuskar, Prafulla" <prafulla.deuskar@intel.com>
-To: Rick Altherr <raltherr@google.com>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: RE: REST API support on AST 2500 EVB
-Thread-Topic: REST API support on AST 2500 EVB
-Thread-Index: AdHoQwFgTD26saWFSHC5hJDMT1j5jAAO9pUAAApuaJA=
-Date: Wed, 27 Jul 2016 22:26:05 +0000
-Message-ID: <86BC2638B1D5DA48B2AEFCA5BCA462667134F7FD@ORSMSX115.amr.corp.intel.com>
-References: <86BC2638B1D5DA48B2AEFCA5BCA462667134F6D9@ORSMSX115.amr.corp.intel.com>
- <CAPLgG==6C_JOvE=ZkeVNYOYS1K=Qo-GaRwAnkqrBSoCJEY5k2A@mail.gmail.com>
-In-Reply-To: <CAPLgG==6C_JOvE=ZkeVNYOYS1K=Qo-GaRwAnkqrBSoCJEY5k2A@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiMTZhMTU4YjUtOTAwNS00OTljLTk1OWItNWY1OWNjOTk4MmQ2IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX1BVQkxJQyJ9XX1dfSwiU3ViamVjdExhYmVscyI6W10sIlRNQ1ZlcnNpb24iOiIxNS45LjYuNiIsIlRydXN0ZWRMYWJlbEhhc2giOiJJc1JUcWU0NmFzTmhJVUdMU2NuMEdIRWh5bkZESFhTMTRvbnZvREdUa3M0PSJ9
-x-ctpclassification: CTP_PUBLIC
-x-originating-ip: [10.22.254.140]
-Content-Type: multipart/alternative;
- boundary="_000_86BC2638B1D5DA48B2AEFCA5BCA462667134F7FDORSMSX115amrcor_"
+Return-Path: <austenc@us.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s09Sr28RSzDqZj
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 09:00:43 +1000 (AEST)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
+ u6RMseCK127582
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Jul 2016 19:00:40 -0400
+Received: from e19.ny.us.ibm.com (e19.ny.us.ibm.com [129.33.205.209])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 24edmatcc8-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Jul 2016 19:00:40 -0400
+Received: from localhost
+ by e19.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Wed, 27 Jul 2016 19:00:40 -0400
+Received: from d01dlp02.pok.ibm.com (9.56.250.167)
+ by e19.ny.us.ibm.com (146.89.104.206) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 27 Jul 2016 19:00:38 -0400
+X-IBM-Helo: d01dlp02.pok.ibm.com
+X-IBM-MailFrom: austenc@us.ibm.com
+Received: from b01cxnp22034.gho.pok.ibm.com (b01cxnp22034.gho.pok.ibm.com
+ [9.57.198.24])
+ by d01dlp02.pok.ibm.com (Postfix) with ESMTP id 3BFDD6E803F
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Jul 2016 19:00:18 -0400 (EDT)
+Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
+ [9.57.199.110])
+ by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u6RN0bhk64946238
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Jul 2016 23:00:37 GMT
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id CDB90AE04E
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Jul 2016 19:00:37 -0400 (EDT)
+Received: from d50lp31.co.us.ibm.com (unknown [9.17.249.32])
+ by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTPS id 912D8AE034
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Jul 2016 19:00:37 -0400 (EDT)
+Received: from localhost
+ by d50lp31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Wed, 27 Jul 2016 17:00:36 -0600
+Received: from smtp.notes.na.collabserv.com (192.155.248.81)
+ by d50lp31.co.us.ibm.com (192.168.2.141) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES128-SHA bits=128/128)
+ Wed, 27 Jul 2016 17:00:34 -0600
+X-IBM-Helo: smtp.notes.na.collabserv.com
+X-IBM-MailFrom: austenc@us.ibm.com
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Wed, 27 Jul 2016 23:00:33 -0000
+Received: from us1a3-smtp04.a3.dal06.isc4sb.com (10.106.154.237)
+ by smtp.notes.na.collabserv.com (10.106.227.88) with
+ smtp.notes.na.collabserv.com ESMTP; Wed, 27 Jul 2016 23:00:31 -0000
+X-IBM-Helo: us1a3-smtp04.a3.dal06.isc4sb.com
+X-IBM-MailFrom: austenc@us.ibm.com
+Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
+ by us1a3-smtp04.a3.dal06.isc4sb.com
+ with ESMTP id 2016072723003125-596824 ;
+ Wed, 27 Jul 2016 23:00:31 +0000 
 MIME-Version: 1.0
+In-Reply-To: <63797755-a7e5-b146-dd66-893165a9eb32@kaod.org>
+Subject: Re: openbmc qemu vs Cedric qemu is different
+To: =?ISO-8859-1?Q?C=E9dric_Le_Goater?= <clg@kaod.org>
+Cc: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
+ openbmc@lists.ozlabs.org
+From: "Chris Austen" <austenc@us.ibm.com>
+Date: Wed, 27 Jul 2016 18:00:33 -0500
+References: <OF64094945.A9571442-ON86257FF0.00643E3F-86257FF0.00656843@notes.na.collabserv.com>
+ <1468546975.5679.32.camel@jms.id.au> <1468577985.954.22.camel@aj.id.au>
+ <OF920CED31.64D6B88A-ON86257FF1.00579A2D-86257FF1.0057B9EA@notes.na.collabserv.com>
+ <ce634cab-6594-3876-7517-d35bae40bb1d@kaod.org>
+ <1469622628.5468.64.camel@aj.id.au>
+ <63797755-a7e5-b146-dd66-893165a9eb32@kaod.org>
+X-KeepSent: 515F6415:3CCE970F-86257FFD:007E414E;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1FP2 SHF37 August 25, 2014
+X-LLNOutbound: False
+X-Disclaimed: 52315
+X-TNEFEvaluated: 1
+Content-type: multipart/related; 
+ Boundary="0__=09BBF56EDFEDC7DE8f9e8a93df938690918c09BBF56EDFEDC7DE"
+x-cbid: 16072723-0056-0000-0000-000000E6B3F3
+X-IBM-ISS-SpamDetectors: Score=0.394815; BY=0.107846; FL=0; FP=0; FZ=0; HX=0; 
+ KW=0; PH=0; SC=0.394815; ST=0; TS=0; UL=0; ISC=
+X-IBM-ISS-DetailInfo: BY=3.00005534; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000177; SDB=6.00736358; UDB=6.00345801; UTC=2016-07-27
+ 23:00:33
+x-cbparentid: 16072723-7094-0000-0000-000000AF7B3E
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00005534; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000177; SDB=6.00736358; UDB=6.00345802; IPR=6.00508953; 
+ BA=6.00004625; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00012091; XFM=3.00000011;
+ UTC=2016-07-27 23:00:39
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+Message-Id: <OF515F6415.3CCE970F-ON86257FFD.007E414E-86257FFD.007E64AF@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-07-27_12:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1604210000
+ definitions=main-1607270228
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -47,145 +122,129 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Jul 2016 22:26:10 -0000
+X-List-Received-Date: Wed, 27 Jul 2016 23:00:44 -0000
 
---_000_86BC2638B1D5DA48B2AEFCA5BCA462667134F7FDORSMSX115amrcor_
-Content-Type: text/plain; charset="utf-8"
+--0__=09BBF56EDFEDC7DE8f9e8a93df938690918c09BBF56EDFEDC7DE
+Content-type: multipart/alternative; 
+	Boundary="1__=09BBF56EDFEDC7DE8f9e8a93df938690918c09BBF56EDFEDC7DE"
+
+
+--1__=09BBF56EDFEDC7DE8f9e8a93df938690918c09BBF56EDFEDC7DE
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/plain; charset=ISO-8859-1
+
+
+Tested on my servers, great job merging back in to openbmc/qemu.  I've
+updated my cheatsheet commit to reflect QEMU operations.
+
+
+Chris Austen
+POWER Systems Enablement Manager
+(512) 286-5184 (T/L: 363-5184)
+
+
+
+From:	C=E9dric Le Goater <clg@kaod.org>
+To:	Andrew Jeffery <andrew@aj.id.au>, Chris Austen/Austin/IBM@IBMUS
+Cc:	Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
+Date:	07/27/2016 07:37 AM
+Subject:	Re: openbmc qemu vs Cedric qemu is different
+
+
+
+On 07/27/2016 02:30 PM, Andrew Jeffery wrote:
+> On Wed, 2016-07-27 at 12:26 +0200, C=E9dric Le Goater wrote:
+>> On 07/15/2016 05:58 PM, Chris Austen wrote:
+>>>
+>>> Sounds like you have a workable plan. Thank you. The test team will run
+
+>>> off of https://github.com/legoater/qemu  (branch:aspeed) until the
+>>> openbmc/qemu gets the needed updates.
+>>
+>> FYI, I just updated this branch. Changes are :
+>>
+>>   - rebase on v2.7.0-rc0
+>>   - end of n/w support for linux 4.4. the fgtmac100 now uses
+>>     the aspeed end of ring buffer bits to be in sync with
+>>     linux 4.6
+>>   - rework of ast2500 support to remove duplicated code. I should
+>>     send to mainline shortly for review.
+>
+> I've just merged Cedric's work above into openbmc/qemu master. Tested
+> with a Palmetto flash image and kernel/rootfs from Witherspoon,
+> everything looks good.
+
+Thanks Andrew.
+
+C.
+
+> Chris: Any documentation you have can now point there. Let me know if
+> there are any issues.
+>
+> Cheers,
+>
+> Andrew
+>
+
+
+
+--1__=09BBF56EDFEDC7DE8f9e8a93df938690918c09BBF56EDFEDC7DE
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/html; charset=ISO-8859-1
+Content-Disposition: inline
+
+<html><body><p>Tested on my servers, great job merging back in to openbmc/q=
+emu.  I've updated my cheatsheet commit to reflect QEMU operations.<br><br>=
+<br>Chris Austen<br>POWER Systems Enablement Manager <br>(512) 286-5184 (T/=
+L: 363-5184)<br><br><img width=3D"16" height=3D"16" src=3D"cid:1=5F=5F=3D09=
+BBF56EDFEDC7DE8f9e8a93df938690918c09B@" border=3D"0" alt=3D"Inactive hide d=
+etails for C=E9dric Le Goater ---07/27/2016 07:37:02 AM---On 07/27/2016 02:=
+30 PM, Andrew Jeffery wrote: &gt; On Wed, "><font color=3D"#424282">C=E9dri=
+c Le Goater ---07/27/2016 07:37:02 AM---On 07/27/2016 02:30 PM, Andrew Jeff=
+ery wrote: &gt; On Wed, 2016-07-27 at 12:26 +0200, C=E9dric Le Goater</font=
+><br><br><font size=3D"2" color=3D"#5F5F5F">From:        </font><font size=
+=3D"2">C=E9dric Le Goater &lt;clg@kaod.org&gt;</font><br><font size=3D"2" c=
+olor=3D"#5F5F5F">To:        </font><font size=3D"2">Andrew Jeffery &lt;andr=
+ew@aj.id.au&gt;, Chris Austen/Austin/IBM@IBMUS</font><br><font size=3D"2" c=
+olor=3D"#5F5F5F">Cc:        </font><font size=3D"2">Joel Stanley &lt;joel@j=
+ms.id.au&gt;, openbmc@lists.ozlabs.org</font><br><font size=3D"2" color=3D"=
+#5F5F5F">Date:        </font><font size=3D"2">07/27/2016 07:37 AM</font><br=
+><font size=3D"2" color=3D"#5F5F5F">Subject:        </font><font size=3D"2"=
+>Re: openbmc qemu vs Cedric qemu is different</font><br><hr width=3D"100%" =
+size=3D"2" align=3D"left" noshade style=3D"color:#8091A5; "><br><br><br><tt=
+>On 07/27/2016 02:30 PM, Andrew Jeffery wrote:<br>&gt; On Wed, 2016-07-27 a=
+t 12:26 +0200, C=E9dric Le Goater wrote:<br>&gt;&gt; On 07/15/2016 05:58 PM=
+, Chris Austen wrote:<br>&gt;&gt;&gt;<br>&gt;&gt;&gt; Sounds like you have =
+a workable plan. Thank you. The test team will run <br>&gt;&gt;&gt; off of =
+</tt><tt><a href=3D"https://github.com/legoater/qemu">https://github.com/le=
+goater/qemu</a></tt><tt>&nbsp; (branch:aspeed) until the <br>&gt;&gt;&gt; o=
+penbmc/qemu gets the needed updates.<br>&gt;&gt;<br>&gt;&gt; FYI, I just up=
+dated this branch. Changes are :<br>&gt;&gt;<br>&gt;&gt; &nbsp; - rebase on=
+ v2.7.0-rc0<br>&gt;&gt; &nbsp; - end of n/w support for linux 4.4. the fgtm=
+ac100 now uses <br>&gt;&gt; &nbsp; &nbsp; the aspeed end of ring buffer bit=
+s to be in sync with <br>&gt;&gt; &nbsp; &nbsp; linux 4.6 <br>&gt;&gt; &nbs=
+p; - rework of ast2500 support to remove duplicated code. I should<br>&gt;&=
+gt; &nbsp; &nbsp; send to mainline shortly for review.<br>&gt; <br>&gt; I'v=
+e just merged Cedric's work above into openbmc/qemu master. Tested<br>&gt; =
+with a Palmetto flash image and kernel/rootfs from Witherspoon,<br>&gt; eve=
+rything looks good.<br><br>Thanks Andrew.<br><br>C.<br><br>&gt; Chris: Any =
+documentation you have can now point there. Let me know if<br>&gt; there ar=
+e any issues.<br>&gt; <br>&gt; Cheers,<br>&gt; <br>&gt; Andrew<br>&gt; <br>=
+<br></tt><br><BR>
+</body></html>
+
+--1__=09BBF56EDFEDC7DE8f9e8a93df938690918c09BBF56EDFEDC7DE--
+
+
+--0__=09BBF56EDFEDC7DE8f9e8a93df938690918c09BBF56EDFEDC7DE
+Content-type: image/gif; 
+	name="graycol.gif"
+Content-Disposition: inline; filename="graycol.gif"
+Content-ID: <1__=09BBF56EDFEDC7DE8f9e8a93df938690918c09B@>
 Content-Transfer-Encoding: base64
 
-V2UgZ2V0IOKAnEhUVFAvMS4wIDQwNCBOb3QgRm91bmTigJ0gd2hlbiB0cnlpbmcgdG8gbG9naW4g
-dG8gcG9ydCAzMDAwLCDigJxIVFRQLzEuMCA0MDAgQmFkIFJlcXVlc3TigJ0gd2hlbiB3ZSB0cnkg
-cG9ydCA0NDMuDQpJcyB0aGlzIHN1cHBvc2VkIHRvIHdvcmsgd2l0aCBPcGVuQk1DIG9uIGFub3Ro
-ZXIgcGxhdGZvcm0/DQoNClRoYW5rcywNClByYWZ1bGxhDQoNCkZyb206IFJpY2sgQWx0aGVyciBb
-bWFpbHRvOnJhbHRoZXJyQGdvb2dsZS5jb21dDQpTZW50OiBXZWRuZXNkYXksIEp1bHkgMjcsIDIw
-MTYgMToyMCBQTQ0KVG86IERldXNrYXIsIFByYWZ1bGxhIDxwcmFmdWxsYS5kZXVza2FyQGludGVs
-LmNvbT4NCkNjOiBvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcNClN1YmplY3Q6IFJlOiBSRVNUIEFQ
-SSBzdXBwb3J0IG9uIEFTVCAyNTAwIEVWQg0KDQpUaGUgZGFlbW9uIGlzIHByb2JhYmx5IHJ1bm5p
-bmcgYnV0IHNrZWxldG9uIGhhc24ndCBiZWVuIHVwZGF0ZWQgZm9yIHRoZSBFVkIuICBJJ2QgZXhw
-ZWN0IGl0IHRvIHJlc3BvbmQgd2l0aCBtb3N0bHkgZW1wdHkgcmVzcG9uc2VzLg0KDQpPbiBXZWQs
-IEp1bCAyNywgMjAxNiBhdCAxOjE3IFBNLCBEZXVza2FyLCBQcmFmdWxsYSA8cHJhZnVsbGEuZGV1
-c2thckBpbnRlbC5jb208bWFpbHRvOnByYWZ1bGxhLmRldXNrYXJAaW50ZWwuY29tPj4gd3JvdGU6
-DQpIZWxsbyDigJMNCg0KRG9lcyB0aGUgT3BlbkJNQyBjb2RlIHN1cHBvcnQgUkVTVCBBUEkgYXMg
-ZG9jdW1lbnRlZCBoZXJlPw0KaHR0cHM6Ly9naXRodWIuY29tL29wZW5ibWMvZG9jcy9ibG9iL21h
-c3Rlci9yZXN0LWFwaS5tZA0KDQpMb29rcyBsaWtlIG9ibWMtcmVzdCBpcyBydW5uaW5nIChhY2Nv
-cmRpbmcgdG8g4oCccHPigJ0pIGFuZCB0aGVyZSBhcmUgc2VydmljZXMgbGlzdGVuaW5nIG9uIHBv
-cnRzIDIyLCAzMDAwLCAyMjAwIGFuZCA0NDMgKOKAnG5ldHN0YXQg4oCTbG50deKAnSkuDQoNCkFu
-eSBwb2ludGVycyBhcHByZWNpYXRlZC4NCg0KVGhhbmtzLA0KUHJhZnVsbGENCg0KDQoNCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQpvcGVuYm1jIG1haWxp
-bmcgbGlzdA0Kb3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPG1haWx0bzpvcGVuYm1jQGxpc3RzLm96
-bGFicy5vcmc+DQpodHRwczovL2xpc3RzLm96bGFicy5vcmcvbGlzdGluZm8vb3BlbmJtYw0KDQo=
+R0lGODlhEAAQAKECAMzMzAAAAP///wAAACH5BAEAAAIALAAAAAAQABAAAAIXlI+py+0PopwxUbpu
+ZRfKZ2zgSJbmSRYAIf4fT3B0aW1pemVkIGJ5IFVsZWFkIFNtYXJ0U2F2ZXIhAAA7
 
---_000_86BC2638B1D5DA48B2AEFCA5BCA462667134F7FDORSMSX115amrcor_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
 
-PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
-bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
-YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
-cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
-Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
-ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
-PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
-IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
-YWNlDQoJe2ZvbnQtZmFtaWx5OkNhbGlicmk7DQoJcGFub3NlLTE6MiAxNSA1IDIgMiAyIDQgMyAy
-IDQ7fQ0KLyogU3R5bGUgRGVmaW5pdGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWws
-IGRpdi5Nc29Ob3JtYWwNCgl7bWFyZ2luOjBpbjsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJ
-Zm9udC1zaXplOjEyLjBwdDsNCglmb250LWZhbWlseToiVGltZXMgTmV3IFJvbWFuIixzZXJpZjt9
-DQphOmxpbmssIHNwYW4uTXNvSHlwZXJsaW5rDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCglj
-b2xvcjpibHVlOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KYTp2aXNpdGVkLCBzcGFu
-Lk1zb0h5cGVybGlua0ZvbGxvd2VkDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xvcjpw
-dXJwbGU7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQpzcGFuLkVtYWlsU3R5bGUxNw0K
-CXttc28tc3R5bGUtdHlwZTpwZXJzb25hbC1yZXBseTsNCglmb250LWZhbWlseToiQ2FsaWJyaSIs
-c2Fucy1zZXJpZjsNCgljb2xvcjojMUY0OTdEO30NCi5Nc29DaHBEZWZhdWx0DQoJe21zby1zdHls
-ZS10eXBlOmV4cG9ydC1vbmx5Ow0KCWZvbnQtc2l6ZToxMC4wcHQ7DQoJZm9udC1mYW1pbHk6IkNh
-bGlicmkiLHNhbnMtc2VyaWY7fQ0KQHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6OC41aW4gMTEu
-MGluOw0KCW1hcmdpbjoxLjBpbiAxLjBpbiAxLjBpbiAxLjBpbjt9DQpkaXYuV29yZFNlY3Rpb24x
-DQoJe3BhZ2U6V29yZFNlY3Rpb24xO30NCi0tPjwvc3R5bGU+PCEtLVtpZiBndGUgbXNvIDldPjx4
-bWw+DQo8bzpzaGFwZWRlZmF1bHRzIHY6ZXh0PSJlZGl0IiBzcGlkbWF4PSIxMDI2IiAvPg0KPC94
-bWw+PCFbZW5kaWZdLS0+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWxheW91dCB2
-OmV4dD0iZWRpdCI+DQo8bzppZG1hcCB2OmV4dD0iZWRpdCIgZGF0YT0iMSIgLz4NCjwvbzpzaGFw
-ZWxheW91dD48L3htbD48IVtlbmRpZl0tLT4NCjwvaGVhZD4NCjxib2R5IGxhbmc9IkVOLVVTIiBs
-aW5rPSJibHVlIiB2bGluaz0icHVycGxlIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+DQo8
-cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZh
-bWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+V2UgZ2V0
-IOKAnEhUVFAvMS4wIDQwNCBOb3QgRm91bmTigJ0gd2hlbiB0cnlpbmcgdG8gbG9naW4gdG8gcG9y
-dCAzMDAwLCDigJxIVFRQLzEuMCA0MDAgQmFkIFJlcXVlc3TigJ0gd2hlbiB3ZSB0cnkgcG9ydCA0
-NDMuPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5
-bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5z
-LXNlcmlmO2NvbG9yOiMxRjQ5N0QiPklzIHRoaXMgc3VwcG9zZWQgdG8gd29yayB3aXRoIE9wZW5C
-TUMgb24gYW5vdGhlciBwbGF0Zm9ybT88bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0i
-TXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVv
-dDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+PG86cD4mbmJzcDs8L286
-cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6
-ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9y
-OiMxRjQ5N0QiPlRoYW5rcyw8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9y
-bWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxp
-YnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+UHJhZnVsbGE8bzpwPjwvbzpwPjwv
-c3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEx
-LjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFG
-NDk3RCI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPGRpdiBzdHlsZT0iYm9yZGVyOm5v
-bmU7Ym9yZGVyLWxlZnQ6c29saWQgYmx1ZSAxLjVwdDtwYWRkaW5nOjBpbiAwaW4gMGluIDQuMHB0
-Ij4NCjxkaXY+DQo8ZGl2IHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItdG9wOnNvbGlkICNFMUUx
-RTEgMS4wcHQ7cGFkZGluZzozLjBwdCAwaW4gMGluIDBpbiI+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
-Ij48YSBuYW1lPSJfX19fX3JlcGx5c2VwYXJhdG9yIj48L2E+PGI+PHNwYW4gc3R5bGU9ImZvbnQt
-c2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmIj5G
-cm9tOjwvc3Bhbj48L2I+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6
-JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmIj4gUmljayBBbHRoZXJyIFttYWlsdG86cmFs
-dGhlcnJAZ29vZ2xlLmNvbV0NCjxicj4NCjxiPlNlbnQ6PC9iPiBXZWRuZXNkYXksIEp1bHkgMjcs
-IDIwMTYgMToyMCBQTTxicj4NCjxiPlRvOjwvYj4gRGV1c2thciwgUHJhZnVsbGEgJmx0O3ByYWZ1
-bGxhLmRldXNrYXJAaW50ZWwuY29tJmd0Ozxicj4NCjxiPkNjOjwvYj4gb3BlbmJtY0BsaXN0cy5v
-emxhYnMub3JnPGJyPg0KPGI+U3ViamVjdDo8L2I+IFJlOiBSRVNUIEFQSSBzdXBwb3J0IG9uIEFT
-VCAyNTAwIEVWQjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8cCBjbGFz
-cz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxkaXY+DQo8cCBjbGFzcz0iTXNv
-Tm9ybWFsIj5UaGUgZGFlbW9uIGlzIHByb2JhYmx5IHJ1bm5pbmcgYnV0IHNrZWxldG9uIGhhc24n
-dCBiZWVuIHVwZGF0ZWQgZm9yIHRoZSBFVkIuJm5ic3A7IEknZCBleHBlY3QgaXQgdG8gcmVzcG9u
-ZCB3aXRoIG1vc3RseSBlbXB0eSByZXNwb25zZXMuPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxk
-aXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxkaXY+DQo8
-cCBjbGFzcz0iTXNvTm9ybWFsIj5PbiBXZWQsIEp1bCAyNywgMjAxNiBhdCAxOjE3IFBNLCBEZXVz
-a2FyLCBQcmFmdWxsYSAmbHQ7PGEgaHJlZj0ibWFpbHRvOnByYWZ1bGxhLmRldXNrYXJAaW50ZWwu
-Y29tIiB0YXJnZXQ9Il9ibGFuayI+cHJhZnVsbGEuZGV1c2thckBpbnRlbC5jb208L2E+Jmd0OyB3
-cm90ZTo8bzpwPjwvbzpwPjwvcD4NCjxibG9ja3F1b3RlIHN0eWxlPSJib3JkZXI6bm9uZTtib3Jk
-ZXItbGVmdDpzb2xpZCAjQ0NDQ0NDIDEuMHB0O3BhZGRpbmc6MGluIDBpbiAwaW4gNi4wcHQ7bWFy
-Z2luLWxlZnQ6NC44cHQ7bWFyZ2luLXRvcDo1LjBwdDttYXJnaW4tcmlnaHQ6MGluO21hcmdpbi1i
-b3R0b206NS4wcHQiPg0KPGRpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0i
-bXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPkhlbGxv
-IOKAkw0KPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1h
-cmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPiZuYnNwOzxvOnA+
-PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFs
-dDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj5Eb2VzIHRoZSBPcGVuQk1DIGNvZGUg
-c3VwcG9ydCBSRVNUIEFQSSBhcyBkb2N1bWVudGVkIGhlcmU/PG86cD48L286cD48L3A+DQo8cCBj
-bGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdp
-bi1ib3R0b20tYWx0OmF1dG8iPjxhIGhyZWY9Imh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL2Rv
-Y3MvYmxvYi9tYXN0ZXIvcmVzdC1hcGkubWQiIHRhcmdldD0iX2JsYW5rIj5odHRwczovL2dpdGh1
-Yi5jb20vb3BlbmJtYy9kb2NzL2Jsb2IvbWFzdGVyL3Jlc3QtYXBpLm1kPC9hPjxvOnA+PC9vOnA+
-PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRv
-O21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj4mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjxwIGNs
-YXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2lu
-LWJvdHRvbS1hbHQ6YXV0byI+TG9va3MgbGlrZSBvYm1jLXJlc3QgaXMgcnVubmluZyAoYWNjb3Jk
-aW5nIHRvIOKAnHBz4oCdKSBhbmQgdGhlcmUgYXJlIHNlcnZpY2VzIGxpc3RlbmluZyBvbiBwb3J0
-cyAyMiwgMzAwMCwgMjIwMCBhbmQgNDQzICjigJxuZXRzdGF0IOKAk2xudHXigJ0pLjxvOnA+PC9v
-OnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDph
-dXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj4mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjxw
-IGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFy
-Z2luLWJvdHRvbS1hbHQ6YXV0byI+QW55IHBvaW50ZXJzIGFwcHJlY2lhdGVkLjxvOnA+PC9vOnA+
-PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRv
-O21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj4mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjxwIGNs
-YXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2lu
-LWJvdHRvbS1hbHQ6YXV0byI+VGhhbmtzLDxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05v
-cm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFs
-dDphdXRvIj5QcmFmdWxsYTxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5
-bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj4m
-bmJzcDs8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFy
-Z2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+Jm5ic3A7PG86cD48
-L286cD48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1h
-cmdpbi1ib3R0b206MTIuMHB0Ij48YnI+DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXzxicj4NCm9wZW5ibWMgbWFpbGluZyBsaXN0PGJyPg0KPGEgaHJlZj0i
-bWFpbHRvOm9wZW5ibWNAbGlzdHMub3psYWJzLm9yZyI+b3BlbmJtY0BsaXN0cy5vemxhYnMub3Jn
-PC9hPjxicj4NCjxhIGhyZWY9Imh0dHBzOi8vbGlzdHMub3psYWJzLm9yZy9saXN0aW5mby9vcGVu
-Ym1jIiB0YXJnZXQ9Il9ibGFuayI+aHR0cHM6Ly9saXN0cy5vemxhYnMub3JnL2xpc3RpbmZvL29w
-ZW5ibWM8L2E+PG86cD48L286cD48L3A+DQo8L2Jsb2NrcXVvdGU+DQo8L2Rpdj4NCjxwIGNsYXNz
-PSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2
-Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
-
---_000_86BC2638B1D5DA48B2AEFCA5BCA462667134F7FDORSMSX115amrcor_--
+--0__=09BBF56EDFEDC7DE8f9e8a93df938690918c09BBF56EDFEDC7DE--
