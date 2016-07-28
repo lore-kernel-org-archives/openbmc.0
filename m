@@ -1,48 +1,48 @@
 Return-Path: <christopher.lee.bostic@gmail.com>
-Received: from mail-oi0-x243.google.com (mail-oi0-x243.google.com
- [IPv6:2607:f8b0:4003:c06::243])
+Received: from mail-oi0-x244.google.com (mail-oi0-x244.google.com
+ [IPv6:2607:f8b0:4003:c06::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s0g4n3QszzDqR4
- for <openbmc@lists.ozlabs.org>; Fri, 29 Jul 2016 04:15:05 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s0g4q1VQdzDqR4
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Jul 2016 04:15:07 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=SS0qveSO; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=HKw7PHes; 
  dkim-atps=neutral
-Received: by mail-oi0-x243.google.com with SMTP id c199so5260648oig.1
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 11:15:05 -0700 (PDT)
+Received: by mail-oi0-x244.google.com with SMTP id l9so5242406oih.0
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 11:15:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=smbHYzTvDMVfzsR217PCHv7w7wLMS0GSMTmk8/yyAoQ=;
- b=SS0qveSO57cKEJ6PU53YfFSydgCwXADSGvOKAQo4zwHk371zBudSeXEGLJSNTLAdzm
- rpr7ZAFEfjywXQl1Ij4uiuEg7HWa8k4xYTowwSaECu8SoUUBWRKSgKakKjcnrtIyxq10
- gpOMYuBH40cIUow3rUpiM71aTNC7saTGRbc0tikEJYShT6gwFYnUtIjSHmjxn3pkLkWt
- nKs15x1CjSiKpZnSbwnvY8UDjz8q7C+ErfVwGqj6kGtBg9iCkVUJhDAXBpDN3KjN5fEV
- N7c4bSre8GcdvAeNMhIJbarFMEnXESPdiX+uPcozMZf930SocdOPAuu8e/fRC5skj0b8
- UDMw==
+ bh=ATNYMgdezL4QevZ+xk+O8YsQf1kcE5ZzjbgNlvSKwo8=;
+ b=HKw7PHesp6OHz+e0NTdC9ETRsCqreuIcAlF7rS5N23rHXFSy3u0zAacQ+eV7Kz+8K4
+ o8Lk+U9kci7jtygAXr97bBFf5tcDwFoXV26lBywVMvsSh90LE8S99p2xuok8qEfmbdXi
+ SRFHITzdv9dtADsEip9GRUfiEEBHGr4TM9gAMYn5Hj9TEEgCjw5cwRfxskeJzK99Wq2j
+ fGvQPxA0IxZWT7fMucHPlhyTLIeZZYBrOa/pvOBI49tZnkkXV/ZhLXVgVJ0ESRPJz2ev
+ S2wba/MRDD3BNK3YEbC/MXxUGExUh4Dn3QNfD6CHv9qgfEBxyl1KPNG0fUXcG426MUlq
+ lYtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=smbHYzTvDMVfzsR217PCHv7w7wLMS0GSMTmk8/yyAoQ=;
- b=f36E4WCXmygEwL5dBp2u7gF3AFM+Fqwyjwk7/fSv6AhUg6w2u5+8TWVYR/rd4hbrE1
- e3d3QIcK0po2lS2Bxg0lqsjW2c0ob+8LMk4uyA+PQE/iO/HYJNXbEmrrzke0uUZGUpzq
- p37usg5tTBIleAALwmCESTFv3N8SzdRy3IAD+gG0mMFf+uHvpTYdG5P0GRV1IBq2uyBS
- 1bt+ubHRDtsG5J260g2sinFHGl6kEGVdDutGXawfdjQRo6cTXLJvvr+uffeZdvAYqpV0
- 8lGoZmBeS/1mA801DKdbV8b9HVHBDhNyO/A+xYWobcoz7IFkYggc52dk+68a4JCc1XV0
- qZIQ==
-X-Gm-Message-State: AEkoousrkJmcaHk/FdNtJFrGn+u0QLncFEXB26f6yqLxTBe0lOY4CmEMs6UKPBcL1/Qe5Q==
-X-Received: by 10.157.19.39 with SMTP id f36mr20594969ote.53.1469729702743;
- Thu, 28 Jul 2016 11:15:02 -0700 (PDT)
+ bh=ATNYMgdezL4QevZ+xk+O8YsQf1kcE5ZzjbgNlvSKwo8=;
+ b=ZQuQNrIng6O/igWqm3ijF/W1Ar406BmuCS9yi4y0nQBxBwKSs2iD7KfcRnJ+/18UCZ
+ uq2CJStXB0YM0kCh/0AlVYlST6kN6k8g87DCNvUT3egyfKoyF/o/U9xbDX6+s5g+uC2X
+ LFIxOaszAujXaH2uS3x6NrdYQaxRNoA4JXO8gBW+8p6bzvY9yxnLOTHA9ialyredTP0j
+ 10XOXDFHtJwoVSJX1lfGrLNH75jKFFK2xXZTJuEStARKpBzt2/9RxDtVttYzdNk7eHIg
+ V9j4kqWshglBg4yQLHGg03jtZwVIqYjEAutZoHXaMOsczE91S7Dq8rEeeJygojpfSi7W
+ 34mg==
+X-Gm-Message-State: AEkoousfD2rDIfhzZZZoKsdXESblmznm4W56NjgT1A1NJDcrKvSXZSidzDeRKQ7lxQPOAg==
+X-Received: by 10.202.227.137 with SMTP id a131mr20235989oih.132.1469729704737; 
+ Thu, 28 Jul 2016 11:15:04 -0700 (PDT)
 Received: from Christophers-MacBook-Pro.local.com
  (45-20-192-79.lightspeed.austtx.sbcglobal.net. [45.20.192.79])
- by smtp.gmail.com with ESMTPSA id u8sm5088273otb.5.2016.07.28.11.15.01
+ by smtp.gmail.com with ESMTPSA id u8sm5088273otb.5.2016.07.28.11.15.03
  (version=TLS1 cipher=AES128-SHA bits=128/128);
- Thu, 28 Jul 2016 11:15:02 -0700 (PDT)
+ Thu, 28 Jul 2016 11:15:04 -0700 (PDT)
 From: christopher.lee.bostic@gmail.com
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux 2/4] drivers/fsi: FSI master initialization
-Date: Thu, 28 Jul 2016 13:14:56 -0500
-Message-Id: <1469729698-37246-2-git-send-email-christopher.lee.bostic@gmail.com>
+Subject: [PATCH linux 4/4] drivers/fsi: Add FSI link buildup function
+Date: Thu, 28 Jul 2016 13:14:58 -0500
+Message-Id: <1469729698-37246-4-git-send-email-christopher.lee.bostic@gmail.com>
 X-Mailer: git-send-email 2.7.4 (Apple Git-66)
 In-Reply-To: <1469729698-37246-1-git-send-email-christopher.lee.bostic@gmail.com>
 References: <1469729698-37246-1-git-send-email-christopher.lee.bostic@gmail.com>
@@ -57,48 +57,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Jul 2016 18:15:06 -0000
+X-List-Received-Date: Thu, 28 Jul 2016 18:15:08 -0000
 
 From: Chris Bostic <cbostic@us.ibm.com>
 
-Kick off the primary FSI master and initialize all fields.  Prep for
-initial CFAM scans.
+Start the link buildup.  This begins the process of creating data structures
+that represent the physical connections on FSI links - part of scan process.
 
 Signed-off-by: Chris Bostic <cbostic@us.ibm.com>
 ---
  drivers/fsi/Makefile     |   2 +-
- drivers/fsi/fsi.h        |  24 ++
- drivers/fsi/fsicfam.h    |  45 ++++
- drivers/fsi/fsidefines.h | 130 ++++++++++
- drivers/fsi/fsiinit.c    |  23 ++
- drivers/fsi/fsiinit.h    |   4 +-
- drivers/fsi/fsimaster.c  | 272 ++++++++++++++++++++
- drivers/fsi/fsimaster.h  | 657 +++++++++++++++++++++++++++++++++++++++++++++++
- 8 files changed, 1155 insertions(+), 2 deletions(-)
- create mode 100644 drivers/fsi/fsi.h
- create mode 100644 drivers/fsi/fsicfam.h
- create mode 100644 drivers/fsi/fsidefines.h
- create mode 100644 drivers/fsi/fsimaster.c
- create mode 100644 drivers/fsi/fsimaster.h
+ drivers/fsi/build.c      | 124 +++++++++++++++
+ drivers/fsi/fsi.h        |  28 ++++
+ drivers/fsi/fsidefines.h |  43 +++--
+ drivers/fsi/fsiinit.c    |  34 ++++
+ drivers/fsi/fsiinit.h    |  12 ++
+ drivers/fsi/fsilink.h    | 102 ++++++++++++
+ drivers/fsi/fsimaster.c  | 223 +++++++++++++++++++++++++-
+ drivers/fsi/fsimaster.h  |   8 +-
+ drivers/fsi/fsislave.h   | 403 +++++++++++++++++++++++++++++++++++++++++++++++
+ drivers/fsi/ldm.c        |  28 ++++
+ drivers/fsi/readwrite.c  |  48 ++++++
+ 12 files changed, 1037 insertions(+), 18 deletions(-)
+ create mode 100644 drivers/fsi/build.c
+ create mode 100644 drivers/fsi/fsilink.h
+ create mode 100644 drivers/fsi/fsislave.h
+ create mode 100644 drivers/fsi/ldm.c
+ create mode 100644 drivers/fsi/readwrite.c
 
 diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
-index f547c08..9800c15 100644
+index 9800c15..2445cee 100644
 --- a/drivers/fsi/Makefile
 +++ b/drivers/fsi/Makefile
 @@ -2,4 +2,4 @@
  # Makefile for the FSI bus specific drivers.
  #
  
--obj-y		+= fsiinit.o
-+obj-y		+= fsiinit.o fsimaster.o
-diff --git a/drivers/fsi/fsi.h b/drivers/fsi/fsi.h
+-obj-y		+= fsiinit.o fsimaster.o
++obj-y		+= fsiinit.o fsimaster.o build.o readwrite.o ldm.o
+diff --git a/drivers/fsi/build.c b/drivers/fsi/build.c
 new file mode 100644
-index 0000000..e17a419
+index 0000000..0045222
 --- /dev/null
-+++ b/drivers/fsi/fsi.h
-@@ -0,0 +1,24 @@
++++ b/drivers/fsi/build.c
+@@ -0,0 +1,124 @@
 +/*
-+ * FSI device driver structure definitions and defines
++ * FSI Link Build up
 + *
 + * Copyright 2016 IBM Corp.
 + *
@@ -109,566 +113,755 @@ index 0000000..e17a419
 + * as published by the Free Software Foundation; either version
 + * 2 of the License, or (at your option) any later version.
 + */
-+#ifndef DRIVERS_FSI_H
-+#define DRIVERS_FSI_H
-+
-+#include <linux/device.h>
-+
-+struct fsidevice {
-+	unsigned long irq_start;	/* IRQ Number */
-+	struct fsidevice *parent;	/* Parent of this device */
-+	struct device dev;		/* LDM entry for bus */
-+};
-+
-+#endif /* DRIVERS_FSI_H */
-diff --git a/drivers/fsi/fsicfam.h b/drivers/fsi/fsicfam.h
-new file mode 100644
-index 0000000..de0e43b
---- /dev/null
-+++ b/drivers/fsi/fsicfam.h
-@@ -0,0 +1,45 @@
-+/*
-+ * FSI CFAM structure definitions and defines
-+ *
-+ * Copyright 2016 IBM Corp.
-+ *
-+ * Christopher Bostic <cbostic@us.ibm.com>
-+ *
-+ * This program is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU General Public License
-+ * as published by the Free Software Foundation; either version
-+ * 2 of the License, or (at your option) any later version.
-+ */
-+#ifndef DRIVERS_FSICFAM_H
-+#define DRIVERS_FSICFAM_H
-+
++#include <linux/err.h>
++#include <linux/delay.h>
++#include <asm/io.h>
 +#include "fsi.h"
 +#include "fsidefines.h"
++#include "fsimaster.h"
++#include "fsicfam.h"
++#include "fsilink.h"
 +
-+struct fsicfam {			/* CFAM internal structure */
-+	unsigned long magic;		/* Magic number */
-+	unsigned long strno;		/* Structure version number */
-+	unsigned long cfgtab[FSI_MAX_ENGINES];	/* Configuration word */
-+	unsigned short chipid;		/* CFAM chip type (IOU, CFAM-S, etc) */
-+	unsigned char id;		/* CFAM Id */
-+	unsigned char has_submaster;	/* CFAM with cascaded or hub masters */
-+	unsigned char has_mux;		/* CFAM with multiplexer */
-+	unsigned char ec_maj;		/* Major EC Level */
-+	unsigned char ec_min;		/* Minor EC Level or version number */
-+	unsigned short pages;		/* # Mapped pages */
-+	unsigned char no_eng;		/* Number of engines[] */
-+	struct fsidevice fsidev;	/* LDM entry */
-+	struct fsidevice hpdone;	/* Dummy engine to signal completion */
-+	unsigned long eng_build;	/* True during engine activate */
-+	struct fsimaster *master;	/* pointer to parent master */
++static void link_release(struct device *devp)
++{
++}
++
++/*
++ * Allocate an FSI link structure and initialize it
++ */
++static struct fsilink *link_alloc(void)
++{
++	struct fsilink *link = fsi_calloc(sizeof * link, GFP_KERNEL);
++
++	return link;
++}
++
++/*
++ * Create a FSI link struct and assign it to the FSI tree
++ */
++static struct fsilink *link_add(struct fsimaster *p, int no)
++{
++	int rc = -ENOMEM;
++	struct fsilink *lp;
++	int id = 0;
++
++	id = fsi_mtype_2break_id(p->type);
++
++	if (!(lp = link_alloc()))
++		goto bad;
++
++	dev_set_name(&lp->fsidev.dev, "link-%d", no);
++	lp->id3_addr = fsim_cfam2pa(p, no, id);
++	lp->master = p;
++	lp->linkno = no;
++	lp->fsidev.map.paddr = fsim_cfam2pa(p, no, 0);
++	lp->fsidev.map.addr = lp->id3_addr;
++	lp->fsidev.map.cmtype = p->type;
++	lp->fsidev.id.engine_type = FSI_ENGID_LINK;
++	lp->fsidev.map.kb = fsim_linksz(p) / FSI_ENGINE_SIZE;
++	lp->fsidev.irq_start = FSI_IRQ_OFFSET + no
++				* (FSI_MAX_CASCADE * FSI_MAX_ENGINES);
++	lp->fsidev.irq_range = FSI_MAX_CASCADE * FSI_MAX_ENGINES;
++	if (!p->fsidev)
++		lp->fsidev.dev.parent = 0;
++	else
++		lp->fsidev.dev.parent = &p->fsidev->dev;
++	lp->fsidev.dev.release = link_release;
++
++	/* stub */
++bad:
++	return lp ? : ERR_PTR(rc);
++}
++
++static void linkbuild2(struct fsimaster *p, struct fsilink *lp)
++{
++}
++
++/*
++ * Return number of CFAMs discovered. If something fails during the build up
++ * process return error reason
++ */
++static int linkbuild1(struct fsimaster *p, int no)
++{
++	int i, rc = 0;
++	struct fsilink *lp = link_add(p, no);
++
++	if (IS_ERR(lp))
++		return PTR_ERR(lp);
++
++	/* stub */
++
++	linkbuild2(p, lp);
++	if ((i = lp->cascade) == 0) {
++
++		/* stub */
++
++		rc = -EIO;
++	} else {
++
++		/* stub */
++	}
++
++	return rc;
++}
++
++/*
++ * Build up a link.  Returns number of CFAMs discovered.
++ */
++int fsi_linkbuild(struct fsimaster *p, int no)
++{
++	int rc;
++	u32 menp[2];
++
++	if ((rc = fsim_r_menp(p, menp)))
++		goto bad;
++	if ((menp[no / BITS_PER_LONG] & mask32(no % BITS_PER_LONG))) {
++		return -EEXIST;  /* Already running */
++	}
++	if ((rc = fsim_enable_link(p, no)))
++		goto bad;
++	if ((rc = linkbuild1(p, no)) < 0)
++		fsim_disable_link(p, no);
++bad:
++	return rc;
++}
+diff --git a/drivers/fsi/fsi.h b/drivers/fsi/fsi.h
+index e17a419..26420da 100644
+--- a/drivers/fsi/fsi.h
++++ b/drivers/fsi/fsi.h
+@@ -15,10 +15,38 @@
+ 
+ #include <linux/device.h>
+ 
++/*
++ * Engine ID's
++ */
++#define FSI_ENGID_LINK		0xff	/* Link Identifier */
++
++/* Engine ID as it appears in the CFAM configuration table */
++struct fsi_engine_id {
++	unsigned char match_flags;
++	unsigned char engine_type;
++	unsigned char engine_version;
++	unsigned char engine_vendor;
 +};
 +
-+#define to_fsicfam(x)	container_of((x), struct fsicfam, fsidev)
++struct fsi_iaddr {
++	u32 addr;			/* Virtual address */
++	u32 paddr;			/* Physical address */
++	unsigned char cmtype;		/* Master type */
++	unsigned char eng;		/* Engine # on CFAM */
++	unsigned short kb;		/* # kb device uses */
++	unsigned short kb_off;		/* offset from beginning of CFAM */
++};
 +
-+/*
-+ * CFAM specific function prototypes.
-+ */
-+int fsi_cfamirq_request(int, struct fsicfam *);
-+void fsi_cfamirq_free(struct fsicfam *);
+ struct fsidevice {
++	struct fsi_iaddr map;		/* Address info */
++	struct fsi_engine_id id;	/* Engine type/version */
+ 	unsigned long irq_start;	/* IRQ Number */
++	unsigned short irq_range;	/* Number of IRQs */
+ 	struct fsidevice *parent;	/* Parent of this device */
+ 	struct device dev;		/* LDM entry for bus */
+ };
+ 
++int fsidev_register(struct fsidevice *, struct device_attribute **);
++int fsidev_register_nolock(struct fsidevice *, struct device_attribute **);
 +
-+#endif /* DRIVERS_FSICFAM_H */
+ #endif /* DRIVERS_FSI_H */
 diff --git a/drivers/fsi/fsidefines.h b/drivers/fsi/fsidefines.h
-new file mode 100644
-index 0000000..bf72ec438
---- /dev/null
+index bf72ec438..da6c268 100644
+--- a/drivers/fsi/fsidefines.h
 +++ b/drivers/fsi/fsidefines.h
-@@ -0,0 +1,130 @@
+@@ -50,14 +50,22 @@
+ #define	FSI_PA16_SHIFT		16		/* For 16 bit pa conversions */
+ 
+ /* FSI Events */
+-#define FSI_EVT_PLUG		5		/* Link hot plug add detected */
+-#define FSIDD_BUILD		9		/* In build up phase */
+-#define FSIDD_PROBE		10		/* In probe phase */
++#define FSI_EVT_LBUSLOST	1		/* Local bus loss detected */
++#define FSI_EVT_LBUSRECV	2		/* Local bus gain detected */
++#define FSI_EVT_IRQLOOP		3		/* IRQ loop detected */
++#define FSI_EVT_LINKCHG		4		/* Link state change */
++#define FSI_EVT_UNPLUG		5		/* Hot plug IRQ unplug */
++#define FSI_EVT_PLUG		6		/* Hot plug IRQ plug */
++#define FSI_EVT_CFAMADD		7		/* CFAM buildup via sysfs */
++#define FSI_EVT_CFAMDELETE	8		/* CFAM removal via sysfs */
++#define FSI_EVT_CFAMDEAD	9		/* CFAM init failed */
++#define FSIDD_BUILD		10		/* In build up phase */
++#define FSIDD_PROBE		11		/* In probe phase */
+ 
+ /*
+  * Return FSI physical address without type information (last 2 bits)
+  */
+-static inline phys_addr_t fsi_panot(phys_addr_t pa)
++static inline u32 fsi_panot(u32 pa)
+ {
+ 	return pa & ~FSI_MBIT_MASK;
+ }
+@@ -65,7 +73,7 @@ static inline phys_addr_t fsi_panot(phys_addr_t pa)
+ /*
+  * Return type of FSI master this physical address belongs to
+  */
+-static inline int fsi_pa2mtype(phys_addr_t pa)
++static inline int fsi_pa2mtype(u32 pa)
+ {
+ 	return pa & FSI_MBIT_MASK;
+ }
+@@ -73,7 +81,7 @@ static inline int fsi_pa2mtype(phys_addr_t pa)
+ /*
+  * Add type of FSI master to physical address
+  */
+-static inline phys_addr_t fsi_mtype2pa(phys_addr_t pa, unsigned char type)
++static inline u32 fsi_mtype2pa(u32 pa, unsigned char type)
+ {
+ 	return fsi_panot(pa) | (type & FSI_MBIT_MASK);
+ }
+@@ -81,15 +89,15 @@ static inline phys_addr_t fsi_mtype2pa(phys_addr_t pa, unsigned char type)
+ /*
+  * Extract link number from physical address
+  */
+-static inline int fsi_pa2link(phys_addr_t addr)
++static inline int fsi_pa2link(u32 pa)
+ {
+-	return (addr >> FSI_LINK_SHIFT) & (FSI_LINK_MASK >> FSI_LINK_SHIFT);
++	return (pa >> FSI_LINK_SHIFT) & (FSI_LINK_MASK >> FSI_LINK_SHIFT);
+ }
+ 
+ /*
+  * Extract cfam number from physical address
+  */
+-static inline int fsi_pa2cfam(phys_addr_t addr)
++static inline int fsi_pa2cfam(u32 pa)
+ {
+ 	 /* Stub */
+ 	return 0;
+@@ -127,4 +135,21 @@ void fsi_exit_fileio(dev_t);
+ int fsibus_init(void);
+ void fsibus_exit(void);
+ 
 +/*
-+ * FSI device driver structure definitions and defines
-+ *
-+ * Copyright 2016 IBM Corp.
-+ *
-+ * Christopher Bostic <cbostic@us.ibm.com>
-+ *
-+ * This program is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU General Public License
-+ * as published by the Free Software Foundation; either version
-+ * 2 of the License, or (at your option) any later version.
++ * I/O access and wrappers
 + */
-+#ifndef DRIVERS_FSIDEFINES_H
-+#define DRIVERS_FSIDEFINES_H
-+
-+#define FSIDD_NAME		"fsi"		/* FSI device driver name */
-+
-+/* Generic FSI defines */
-+#define	FSI_MAX_LINKS		64		/* FSI Master # of links */
-+#define	FSI_MAX_CASCADE		4		/* # of CFAMS in cascade */
-+#define	FSI_MAX_ENGINES		32		/* # of engines per CFAM */
-+#define	FSI_MAX_MASTERS		1		/* # of masters in system */
-+#define	FSI_MAX_OPB		1		/* # of FSI OPB masters */
-+#define	FSI_IO_START		0x80000000	/* FSI IO Space start addr */
-+#define	FSI_LINK_ENG_MASK	0xE0007FFF	/* Used for minor num calcs */
-+#define	FSI_MINOR_OFFSET	1024		/* Where FSI minor nums start */
-+#define	FSI_MAX_DEPTH		3		/* Max number of links in path */
-+#define	FSI_IO_SIZE		0x20000000	/* 512 MB */
-+#define	FSI_IO_END		(FSI_IO_START + FSI_IO_SIZE)
-+#define	FSI_LINK_SHIFT		23			/* Bits to shift */
-+#define	FSI_LINK_SIZE		(1 << FSI_LINK_SHIFT)	/* 8 MB */
-+#define	FSI_CFAM_SHIFT		21			/* Bits to shift */
-+#define	FSI_CFAM_SIZE		(1 << FSI_CFAM_SHIFT)	/* 2 MB */
-+#define	FSI_ENGINE_SHIFT	10			/* Bits to shift */
-+#define	FSI_ENGINE_SIZE		(1 << FSI_ENGINE_SHIFT)	/* 1 KB */
-+#define	FSI_LINK_MASK		0x1f800000		/* Bits for link */
-+#define	FSI_CFAM_MASK		0x00600000		/* Bits for cfam */
-+#define	FSI_ENGINE_MASK		0x000ffc00		/* Bits for engine */
-+#define	FSI_PEEK_OFFSET		FSI_ENGINE_SIZE
-+#define	FSI_SLAVE0_OFFSET	(2 * FSI_ENGINE_SIZE)
-+#define	FSI_IRQ_OFFSET		1024		/* Offset for FSI engine IRQ numbers */
-+#define	FSI_SLV_NO_ERROR	100		/* Slave has no error data */
-+#define	FSI_BREAK		0xc0de0000	/* BREAK command */
-+#define	FSI_TERM		0xecc00000	/* TERM command */
-+#define	FSI_BREAK_TIME		180		/* Time in seconds to allow BREAKs */
-+#define	FSI_BREAK_CNT		3		/* Count limit to allow BREAKs */
-+#define	FSI_PRIM		0		/* Generic Primary FSI master */
-+#define	FSI_MBIT_MASK		0x3		/* FSI master  bits in pa */
-+#define	FSI_ENG_MASK		0x00007FFF	/* The engine portion of the MATRB */
-+#define	FSI_PA16_SHIFT		16		/* For 16 bit pa conversions */
-+
-+/* FSI Events */
-+#define FSI_EVT_PLUG		5		/* Link hot plug add detected */
-+#define FSIDD_BUILD		9		/* In build up phase */
-+#define FSIDD_PROBE		10		/* In probe phase */
-+
-+/*
-+ * Return FSI physical address without type information (last 2 bits)
-+ */
-+static inline phys_addr_t fsi_panot(phys_addr_t pa)
-+{
-+	return pa & ~FSI_MBIT_MASK;
-+}
-+
-+/*
-+ * Return type of FSI master this physical address belongs to
-+ */
-+static inline int fsi_pa2mtype(phys_addr_t pa)
-+{
-+	return pa & FSI_MBIT_MASK;
-+}
-+
-+/*
-+ * Add type of FSI master to physical address
-+ */
-+static inline phys_addr_t fsi_mtype2pa(phys_addr_t pa, unsigned char type)
-+{
-+	return fsi_panot(pa) | (type & FSI_MBIT_MASK);
-+}
++int fsi_readw_int2(u32, u32 *);
++int fsi_writew_int2(u32, u32);
++int fsi_writew_int(u32, u32);
++int fsi_readw_int(u32, u32 *);
++int fsi_writew_int(u32, u32);
 +
 +/*
-+ * Extract link number from physical address
++ * Memory allocation
 + */
-+static inline int fsi_pa2link(phys_addr_t addr)
-+{
-+	return (addr >> FSI_LINK_SHIFT) & (FSI_LINK_MASK >> FSI_LINK_SHIFT);
-+}
++void fsi_cfree(void *, size_t);
++void *fsi_calloc(size_t, int);
++void fsi_showmemstat(void);
++void fsi_ioused(void);
 +
-+/*
-+ * Extract cfam number from physical address
-+ */
-+static inline int fsi_pa2cfam(phys_addr_t addr)
-+{
-+	 /* Stub */
-+	return 0;
-+}
-+
-+/*
-+ * Determine the link address to send the break command to
-+ * This is master dependent
-+ */
-+static inline int fsi_mtype_2break_id(unsigned char mtype)
-+{
-+	return FSI_MAX_CASCADE - 1;
-+}
-+
-+/*
-+ * Build a mask where bit index 'x' is set (numbering from left to right.
-+ * Bit 0 is MSB and bit 31 is LSM.
-+ */
-+static inline unsigned long mask32(int x)
-+{
-+	return 1 << (BITS_PER_LONG - x - 1);
-+}
-+
-+struct fsidd;
-+
-+/*
-+ * Various function prototypes
-+ */
-+int slv_install(void);
-+void slv_uninstall(void);
-+
-+int fsi_init_fileio(struct fsidd *);
-+void fsi_exit_fileio(dev_t);
-+
-+int fsibus_init(void);
-+void fsibus_exit(void);
-+
-+#endif /* DRIVERS_FSIDEFINES_H */
+ #endif /* DRIVERS_FSIDEFINES_H */
 diff --git a/drivers/fsi/fsiinit.c b/drivers/fsi/fsiinit.c
-index a9e3381..3330d8b 100644
+index 3330d8b..4b17837 100644
 --- a/drivers/fsi/fsiinit.c
 +++ b/drivers/fsi/fsiinit.c
-@@ -13,7 +13,9 @@
- 
+@@ -14,8 +14,11 @@
  #include <linux/init.h>
  #include <linux/module.h>
-+#include <linux/kdev_t.h>
+ #include <linux/kdev_t.h>
++#include <linux/io.h>
++#include <linux/slab.h>
  #include "fsiinit.h"
-+#include "fsimaster.h"
+ #include "fsimaster.h"
++#include "fsidefines.h"
  
  MODULE_AUTHOR("Christopher Bostic cbostic@us.ibm.com");
  MODULE_DESCRIPTION("FSI master device driver");
-@@ -23,9 +25,13 @@ MODULE_DESCRIPTION("FSI master device driver");
- #define	FSIDD_VERNO	4000
+@@ -26,6 +29,8 @@ MODULE_DESCRIPTION("FSI master device driver");
  #define	FSIDD_VER(x)	FSIDD_TOSTR(x)
  
-+struct primaster prim;
-+EXPORT_SYMBOL(prim);
+ struct primaster prim;
++static unsigned long malloc_cnt, free_cnt;
 +
+ EXPORT_SYMBOL(prim);
+ 
  struct fsidd fsidd = {		/* FSI device driver structure definition */
- 	.magic = FSI_DD_MAGIC,
- 	.strno = FSI_DD_STRNO,
-+	.major = MKDEV(FSIDD_MAJOR, 0),
+@@ -34,6 +39,35 @@ struct fsidd fsidd = {		/* FSI device driver structure definition */
+ 	.major = MKDEV(FSIDD_MAJOR, 0),
  };
  
++void *fsi_calloc(size_t size, int flags)
++{
++	void *p;
++
++	malloc_cnt += size;
++	p = kzalloc(size, flags);
++
++	return p;
++}
++EXPORT_SYMBOL(fsi_calloc);
++
++void fsi_cfree(void *p, size_t size)
++{
++	free_cnt += size;
++	kfree(p);
++}
++
++void fsi_showmemstat(void)
++{
++}
++
++void fsi_ioused(void)
++{
++}
++
++void fsi_lock_mutex(enum fsi_mutex_fkt fkt)
++{
++}
++
  static int fsi_start(void)
-@@ -33,6 +39,23 @@ static int fsi_start(void)
+ {
  	int rc = 0;
+diff --git a/drivers/fsi/fsiinit.h b/drivers/fsi/fsiinit.h
+index 059187f..a63d443 100644
+--- a/drivers/fsi/fsiinit.h
++++ b/drivers/fsi/fsiinit.h
+@@ -40,4 +40,16 @@ struct fsidd {				/* FSI Main structure */
  
- 	printk("FSI DD v:%d installation ok\n", FSIDD_VERNO);
+ #define to_fsidd_prim(a)	container_of(a, struct fsidd, pri_master)
+ 
++enum fsi_mutex_fkt {
++	LOCK_BUILD = 1,
++	LOCK_ACTIVATE = 2,
++	LOCK_DEACTIVATE = 3,
++	LOCK_MUXCHANGE = 4,
++	LOCK_FSIUNREG = 5,
++	LOCK_FSIREG = 6
++};
 +
-+	init_waitqueue_head(&fsidd.error_wq);
-+	init_waitqueue_head(&fsidd.lbus_wq);
-+	init_waitqueue_head(&fsidd.irq_wq);
-+	init_waitqueue_head(&fsidd.link_wq);
++void fsi_lock_mutex(enum fsi_mutex_fkt);
++void fsi_unlock_mutex(enum fsi_mutex_fkt);
 +
-+	if (!fsimaster_build_init(&fsidd.pri_master, FSI_PRIM, 0)) {
-+		rc = PTR_ERR(0);
-+		goto out1;
-+	}
-+	fsimaster_start(&fsidd.pri_master);
-+	printk("FSI DD v%d installation ok\n", FSIDD_VERNO);
-+	goto good;
+ #endif /* DRIVERS_FSIINIT_H */
+diff --git a/drivers/fsi/fsilink.h b/drivers/fsi/fsilink.h
+new file mode 100644
+index 0000000..9c575c7
+--- /dev/null
++++ b/drivers/fsi/fsilink.h
+@@ -0,0 +1,102 @@
++/*
++ * FSI link structure definitions and defines
++ *
++ * Copyright 2016 IBM Corp.
++ *
++ * Christopher Bostic <cbostic@us.ibm.com>
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version
++ * 2 of the License, or (at your option) any later version.
++ */
++#ifndef DRIVERS_FSILINK_H
++#define DRIVERS_FSILINK_H
 +
-+out1:
-+	printk("FSI DD v:%d installation failed\n", FSIDD_VERNO);
-+good:
++#include <linux/types.h>
++#include <linux/kobject.h>
++#include <linux/device.h>
++
++#include "fsi.h"
++#include "fsidefines.h"
++
++/*
++ * Extended FSI error counting and thresholding. Count the FSI errors with
++ * time they occured.
++ */
++#define	FSI_MAX_PE	6		/* Max # of FSI port errors */
++#define	FSI_MAX_ME	11		/* Max # of FSI master errors */
++#define	FSI_MAX_SE	10		/* Max # of FSI slave V3 errors */
++#define	FSI_MAX_SEV2	6		/* Max # of FSI slave V2 errors */
++
++struct fsi_ecnt {			/* Structure for counting errors */
++	unsigned short cnt;		/* Counter */
++	struct timeval seen_1st;	/* First occurance */
++	struct timeval seen_last;	/* Last occurance */
++};
++
++struct fsi_eport {			/* Port error statistics */
++	unsigned short pec[FSI_MAX_PE];	/* Port errors counter per type */
++	unsigned short pcrc_cnt;	/* Recovered CRC counter port */
++};
++
++struct fsi_eslv {			/* Slave error statistics */
++	unsigned short sec[FSI_MAX_SE];	/* Slave errors counter per type  */
++	unsigned short scrc_cnt;	/* Recovered CRC counter slave */
++};
++
++struct fsi_emaster {			/* Master error statistics */
++	unsigned short mec[FSI_MAX_ME];	/* Master errors counter per type */
++	unsigned short mcrc_cnt;	/* Recovered CRC counter master */
++};
++
++struct fsi_elink {			/* Link error statistics */
++	struct fsi_emaster master;	/* Master errors */
++	struct fsi_eport port;		/* Port errors */
++	struct fsi_eslv slv[FSI_MAX_CASCADE];	/* Slave errors */
++	struct fsi_ecnt breaked;	/* BREAK command sent */
++};
++
++enum fsilink_state {			/* Bit mask for error states */
++	fsilink_lost = 1,		/* Link already schedule for removal */
++	fsilink_up = 2,			/* Link up & running */
++	fsilink_going = 3		/* Link removal in progress */
++};
++
++struct fsilink {			/* Information per link */
++	unsigned long magic;		/* Magic number */
++	unsigned long strno;		/* Structure version number */
++	unsigned char speedset;		/* Link speed set (0 or 1) */
++	unsigned char cascade;		/* Length of cascade */
++	unsigned char top_cfam;		/* # CFAM found on initial scan */
++	unsigned char linkno;		/* Number of this link */
++	unsigned long state;		/* Bit mask for error states */
++	struct fsicfam *cfams[FSI_MAX_CASCADE];	/* CFAMs per link */
++	struct fsidevice fsidev;
++	u32 id3_addr;			/* CFAM id3 page */
++	struct fsimaster *master;	/* Ptr to controlling fsi master */
++	struct fsi_elink error;		/* Errors on this link */
++};
++
++#define FSILINK_ATTR(_name, _mode, _show, _store)	\
++struct device_attribute fsilink_attr_##_name = {	\
++	.attr = {					\
++		.name = __stringify(_name),		\
++		.mode = _mode,				\
++	},						\
++	.show	= _show,				\
++	.store	= _store				\
++}
++
++/*
++ * Pointer conversion from fsidevice member to fsilink.
++ */
++#define	to_fsilink(x)	container_of((x), struct fsilink, fsidev)
++
++unsigned char fsilink_get_top_cfam(struct fsilink *);
++unsigned char fsilink_get_linkno(struct fsilink *);
++unsigned long fsilink_get_state(struct fsilink *);
++struct fsicfam * fsilink_get_cfam(struct fsilink *, int);
++struct device * fsilink_get_device(struct fsilink *);
++
++#endif /* DRIVERS_FSILINK_H */
+diff --git a/drivers/fsi/fsimaster.c b/drivers/fsi/fsimaster.c
+index 0827f0b..59af679 100644
+--- a/drivers/fsi/fsimaster.c
++++ b/drivers/fsi/fsimaster.c
+@@ -19,6 +19,7 @@
+ #include "fsiinit.h"
+ #include "fsimaster.h"
+ #include "fsicfam.h"
++#include "fsislave.h"
+ 
+ extern struct primaster prim;
+ 
+@@ -37,11 +38,6 @@ static int fsi_nextbit(u32 *new, int words)
+ 	return -1;
+ }
+ 
+-u32 fsim_cfam2pa(struct fsimaster *p, int link, int cfam)
+-{
+-	return 0;
+-}
+-
+ static int hpinfo_alloc(struct fsimaster *p)
+ {
+ 	return 0;
+@@ -186,6 +182,9 @@ static int fsimaster_init(struct fsimaster *p)
  	return rc;
  }
  
-diff --git a/drivers/fsi/fsiinit.h b/drivers/fsi/fsiinit.h
-index 70c3e13..059187f 100644
---- a/drivers/fsi/fsiinit.h
-+++ b/drivers/fsi/fsiinit.h
-@@ -19,6 +19,7 @@
- #include <linux/device.h>
- #include <linux/workqueue.h>
- #include <linux/hrtimer.h>
-+#include "fsimaster.h"
- 
- #define FSI_DD_MAGIC	0x64644632	/* ddF2 */
- #define FSI_DD_STRNO	0x1		/* Structure version number */
-@@ -34,8 +35,9 @@ struct fsidd {				/* FSI Main structure */
- 	wait_queue_head_t link_wq;	/* Wait queue for link changes */
- 	unsigned long state;		/* State driver is in */
- 	struct device dev;		/* Anchor point in /sys/kernel */
-+	struct fsimaster pri_master;	/* Primary FSI master */
- };
- 
--#define	to_fsidd(a)		container_of(a, struct fsidd, kobj)
-+#define to_fsidd_prim(a)	container_of(a, struct fsidd, pri_master)
- 
- #endif /* DRIVERS_FSIINIT_H */
-diff --git a/drivers/fsi/fsimaster.c b/drivers/fsi/fsimaster.c
-new file mode 100644
-index 0000000..96f6f60
---- /dev/null
-+++ b/drivers/fsi/fsimaster.c
-@@ -0,0 +1,272 @@
 +/*
-+ * FSI Master Control
-+ *
-+ * Copyright 2016 IBM Corp.
-+ *
-+ * Christopher Bostic <cbostic@us.ibm.com>
-+ *
-+ * This program is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU General Public License
-+ * as published by the Free Software Foundation; either version
-+ * 2 of the License, or (at your option) any later version.
++ * Retrieve the first master in the chain
 + */
-+
-+#include <linux/err.h>
-+#include <linux/delay.h>
-+#include <linux/ktime.h>
-+#include <asm/io.h>
-+#include "fsi.h"
-+#include "fsiinit.h"
-+#include "fsimaster.h"
-+#include "fsicfam.h"
-+
-+extern struct primaster prim;
-+
-+static int hpinfo_alloc(struct fsimaster *p)
+ struct fsimaster * fsim_get_top_master(struct fsimaster *p)
+ {
+ 	struct fsimaster *parent = NULL;
+@@ -199,10 +198,194 @@ struct fsimaster * fsim_get_top_master(struct fsimaster *p)
+ }
+ 
+ /*
++ * Get the address window of a link/CFAM
++ */
++unsigned long fsim_cfamsz(struct fsimaster *p)
 +{
-+	/* Stub */
-+	return 0;
++	return p->cfam_size;
 +}
 +
-+static inline unsigned int fsimid(struct fsimaster *p)
++unsigned long fsim_linksz(struct fsimaster *p)
 +{
-+	return p->myid;
-+}
-+
-+static void primaster_exit(struct fsimaster *p)
-+{
-+	if (p->dcr_alloc) {
-+		p->mp = 0;
-+		p->dcr_alloc = 0;
-+	}
++	return FSI_MAX_CASCADE * fsim_cfamsz(p);
 +}
 +
 +/*
-+ * Read/write functions to access primary FSI master registers
++ * Convert link number to a physical address
 + */
-+static int local_readreg(volatile u32 *base, int regnm, u32 *value)
++u32 fsim_link2pa(struct fsimaster *p, int link)
 +{
-+	*value = *(base + regnm);
-+	rmb();
++	unsigned long offset;
 +
++	offset = link * fsim_linksz(p);
++	return p->membase + offset;
++}
++
++/*
++ * Convert a link and CFAM number to a physical address
++ */
++u32 fsim_cfam2pa(struct fsimaster *p, int link, int cfam)
++{
++	unsigned long offset;
++
++	offset = link * fsim_linksz(p) + cfam * fsim_cfamsz(p);
++	return p->membase + offset;
++}
++
++int fsim_pa2irq(struct fsimaster *p, u32 pa)
++{
 +	return 0;
 +}
 +
-+static int local_writereg(volatile u32 *base, int regnm, u32 value)
++int fsi_pa2irq(u32 pa)
 +{
-+	u32 new_value = value, r_value;
++	return 0;
++}
 +
-+	if (regnm == FSI_N_MRESB0)
-+		new_value = 0;
-+	else if (FSI_N_IS_CU_REG(regnm)) {
-+		local_readreg(base, regnm, &r_value);
-+		new_value = r_value &= ~value;
-+	} else if (FSI_N_IS_SU_REG(regnm)) {
-+		local_readreg(base, regnm, &r_value);
-+		new_value = r_value |= value;
++/*
++ * FSI master register access utilities
++ */
++int fsim_r_mmode_nl(struct fsimaster *p, u32 *value)
++{
++	return (*p->read_f)(p->mp, FSI_N_MMODE, value);
++}
++
++int fsim_r_mmode(struct fsimaster *p, u32 *value)
++{
++	return 0;
++}
++
++int fsim_w_mmode(struct fsimaster *p, u32 value)
++{
++	return 0;
++}
++
++int fsim_r_menp_nl(struct fsimaster *p, u32 *menp)
++{
++	return 0;
++}
++
++int fsim_r_menp(struct fsimaster *p, u32 *menp)
++{
++	return 0;
++}
++
++int fsim_w_menp(struct fsimaster *p, u32 *menp, int on_off)
++{
++	return 0;
++}
++
++int fsim_disable_link(struct fsimaster *p, int link)
++{
++	return 0;
++}
++
++int fsim_enable_link(struct fsimaster *p, int link)
++{
++	return 0;
++}
++
++/*
++ * Send out a BREAK command and see if anything responds.  Part of the
++ * FSI device scan process.
++ */
++static int ping_cfam(struct fsimaster *p, struct hp_info *hp, const int count)
++{
++	int i = 0, rc = -EIO;
++	u32 value, pa;
++	int id = fsi_mtype_2break_id(p->type);
++
++	pa = fsim_cfam2pa(p, hp->linkno, id);
++
++	if (fsim_enable_link(p, hp->linkno)) {
++		goto out;
 +	}
-+	*(base + regnm) = new_value;
-+	wmb();
-+
-+	return 0;
-+}
-+
-+static int local_readreg2(volatile u32 *base, int regnm, u32 *value)
-+{
-+	*value++ = *(base + regnm);
-+	*value = *(base + regnm + 1);
-+	rmb();
-+
-+	return 0;
-+}
-+
-+static int local_writereg2(volatile u32 *base, int regnm, u32 *value)
-+{
-+	u32 new_value[] = {*value, *(value + 1) };
-+	u32 r_value[2];
-+
-+	if (FSI_N_IS_CU_REG(regnm)) {
-+		local_readreg2(base, regnm, r_value);
-+		new_value[0] = r_value[0] &= ~(*value);
-+		new_value[1] = r_value[1] &= ~(*(value + 1));
-+	} else if (FSI_N_IS_SU_REG(regnm)) {
-+		local_readreg2(base, regnm, r_value);
-+		new_value[0] = r_value[0] |= *value;
-+		new_value[1] = r_value[1] |= *(value + 1);
++	if (fsi_sendbreak(p, pa, hp->linkno)) {
++		goto out;
 +	}
-+	*(base + regnm) = new_value[0];
-+	*(base + regnm + 1) = new_value[1];
-+	wmb();
-+	return 0;
-+}
-+
-+static int local_readreg4(volatile u32 *base, int regnm, u32 *value)
-+{
-+	int i;
-+
-+	for (i = 0, base += regnm; i < 4; ++i)
-+		*value++ = *base++;
-+	rmb();
-+	return 0;
-+}
-+
-+static int local_writereg8(volatile u32 *base, int regnm, u32 *value)
-+{
-+	int i;
-+	u32 r_value, new_value[8];
-+
-+	for (i = 0, base += regnm; i < 8; ++i) {
-+		new_value[i] = *(value + i);
-+
-+		if (FSI_N_IS_CU_REG(regnm)) {
-+			local_readreg(base, regnm, &r_value);
-+			new_value[i] = r_value &= ~(*(value + i));
-+		} else if (FSI_N_IS_SU_REG(regnm)) {
-+			local_readreg(base, regnm, &r_value);
-+			new_value[i] = r_value |= *(value + i);
++	while (i++ < count) {
++		if ((rc = fsi_readw_int(pa + FSI_SLAVE0_OFFSET + FSI_SMODE,
++					&value)) == 0) {
++			break;
 +		}
-+		*base++ = new_value[i];
++		udelay(FSI_CFAM_PING_DELAY);
 +	}
-+	wmb();
++out:
++	if (fsim_disable_link(p, hp->linkno) && rc == 0) {
++		rc = -EIO;
++	}
++
++	return rc;
++}
++
++/*
++ * Probe for CFAMs
++ */
++static int probe_link(struct fsimaster *p, struct hp_info *hp)
++{
++	int rc = 0;
++	struct fsidd *dd = to_fsidd_prim(fsim_get_top_master(p));
++
++	hp->tries++;
++	rc = ping_cfam(p, hp, FSI_MAX_CASCADE - 1);
++	if (rc == 0) {
++		atomic_set(&hp->state, FSI_LINK_INBUILD);
++		set_bit(FSIDD_BUILD, &dd->state);
++		set_bit(hp->linkno, p->hotp.building);
++		clear_bit(hp->linkno, p->hotp.probing);
++		rc = 1;
++	} else if (hp->tries > FSI_MAX_PING_ATTEMPTS) {
++		atomic_set(&hp->state, FSI_LINK_DEAD);
++		clear_bit(hp->linkno, p->hotp.probing);
++	}
++
++	return rc;
++}
++
++/*
+  * Work queue function to probe for links
+  */
+ static void probe_wq(struct work_struct *nix)
+ {
++	struct fsimaster *p = to_fsimaster_probe(nix);
++	struct fsidd *dd = to_fsidd_prim(fsim_get_top_master(p));
++	int i, cnt = 0;
++
++	for (i = 0; i < p->maxlinks; ++i) {
++		if (test_bit(i, p->hotp.probing)) {
++			cnt += probe_link(p, p->hotp.plug[i]);
++		}
++	}
++	if (cnt)
++		queue_work(dd->hotp_wq, &p->hotp.buildwrk);
++}
++
++/*
++ * Called from worker in process/task context.
++ */
++static int build(struct fsimaster *p, struct hp_info *hp)
++{
++	int rc;
++
++	rc = fsi_linkbuild(p, hp->linkno);
++	atomic_set(&hp->state, rc ? FSI_LINK_RUNNING : FSI_LINK_DEAD);
++	if( test_and_clear_bit(FSI_LINK_WAITFOR, &hp->state_w))
++		complete_all(&hp->done);
++
++	return rc;
++}
++
++static int remove(struct fsimaster *p, struct hp_info *hp)
++{
 +	return 0;
 +}
 +
-+static int primaster_init(struct fsimaster *p)
-+{
-+	p->read_f = local_readreg;
-+	p->read_f2 = local_readreg2;
-+	p->read_f4 = local_readreg4;
-+	p->write_f = local_writereg;
-+	p->write_f2 = local_writereg2;
-+	p->write_f8 = local_writereg8;
-+	p->maxlinks = PRI_MAX_LINKS;
-+	p->have_peek = 1;
-+	p->irqbase = FSI_IRQ_OFFSET;
-+	p->membase = FSI_IO_START;
-+	p->mp = (u32 *)&prim.regs;
-+	p->dcr_alloc = 1;
-+	if (hpinfo_alloc(p))
-+		primaster_exit(p);
-+
-+	return p->mp ? 0 : 1;
-+}
-+
-+static int fsimaster_init(struct fsimaster *p)
-+{
-+	int rc = 0;
-+
-+	memset(&p->quirks, 0, sizeof(struct master_quirks));
-+	p->quirks.break_cfam_id = fsi_mtype_2break_id(p->type);
-+	p->cfam_size = 0;
-+	p->m_get = 0;
-+	p->m_pa2irq = 0;
-+	p->m_exit = 0;
-+
-+	rc = primaster_init(p);
-+
-+	return rc;
-+}
-+
-+struct fsimaster * fsim_get_top_master(struct fsimaster *p)
-+{
-+	struct fsimaster *parent = NULL;
-+
-+	while (p) {
-+		parent = p;
-+		p = p->parent;
-+	}
-+
-+	return parent;
-+}
-+
-+static int fsimaster_reset(struct fsimaster *p)
-+{
-+	u32 mresp, maeb, mver, mectrl, mmode, menp[2];
-+	int rc = 0;
-+	struct fsidd *dd;
-+
-+	dd = to_fsidd_prim(fsim_get_top_master(p));
-+
-+	rc = (p->read_f)(p->mp, FSI_N_MVER, &mver);
-+	if (rc)
-+		goto out;
-+	if (fsi_mver_extlink(mver) != p->maxlinks) {
-+		rc = -EINVAL;
-+		goto out;
-+	}
-+	/* Reset all bridges and ports */
-+	mresp = FSI_MRESP_RST_ALL_MSTR | FSI_MRESP_RST_ALL_LINK
-+		| FSI_MRESP_RST_MCR | FSI_MRESP_RST_PYE;
-+	rc = (p->write_f)(p->mp, FSI_N_MRESP0, mresp);
-+	if (rc)
-+		goto out;
-+
-+	/* Set up control */
-+	mectrl = (p->type == FSI_PRIM) ? FSI_MECTRL_FPME : FSI_MECTRL_EOAE;
-+	rc = (p->write_f)(p->mp, FSI_N_MECTRL, mectrl);
-+	if (rc)
-+		goto out;
-+
-+	/* Set up mode */
-+	mmode = fsi_mmode_crs0(1) | fsi_mmode_crs1(1);
-+	rc = (p->write_f)(p->mp, FSI_N_MMODE, mmode);
-+	if (rc)
-+		goto out;
-+
-+	/* Set up delay characteristics */
-+	rc = (p->write_f)(p->mp, FSI_N_MDLYR, FSI_MDLYR_DFLT);
-+	if (rc)
-+		goto out;
-+
-+	/* Enable all links for a short time */
-+	menp[0] = menp[1] = ~0;
-+	rc = (p->write_f2)(p->mp, FSI_N_MSENP0, menp);
-+	if (rc)
-+		goto out;
-+
-+	mdelay(1);
-+	rc = (p->write_f2)(p->mp, FSI_N_MCENP0, menp);
-+	if (rc)
-+		goto out;
-+
-+	maeb = FSI_MRESP_RST_ALL_MSTR | FSI_MRESP_RST_ALL_LINK;
-+	rc = (p->write_f)(p->mp, FSI_N_MRESP0, maeb);
-+out:
-+	return rc;
-+}
-+
-+struct fsimaster *fsimaster_build_init(struct fsimaster *p, int type,
-+				       struct fsidevice *parent)
-+{
-+	int rc = 0;
-+	struct fsidd *dd;
-+
-+	if (!p)
-+		goto out;
-+	if (!parent)
-+		dd = to_fsidd_prim(p);
-+	else {
-+		struct fsicfam *cp = to_fsicfam(parent->parent);
-+		dd = to_fsidd_prim(fsim_get_top_master(cp->master));
-+	}
-+	p->type = type;
-+	p->fsidev = parent;
-+	if( fsimaster_init(p)) {
-+		p = 0;
-+		goto out;
-+	}
-+	if (fsimaster_reset(p)) {
-+		rc = -EIO;
-+		p = 0;
-+		goto out;
-+	}
-+out:
-+	return p ? : ERR_PTR(rc);
-+}
-+
 +/*
-+ * Kick off the master so it can start probing for attached CFAMs
++ * Actual link build function.  Called in process context.
 + */
-+void fsimaster_start(struct fsimaster *p)
++static void build_link(struct fsimaster *p, struct hp_info *hp)
 +{
-+}
++	hp->ec = (hp->cmd == FSI_EVT_CFAMADD) ? build(p, hp) : remove(p, hp);
+ }
+ 
+ /*
+@@ -210,6 +393,36 @@ static void probe_wq(struct work_struct *nix)
+  */
+ static void build_wq(struct work_struct *nix)
+ {
++	struct fsimaster *p = to_fsimaster_build(nix);
++	struct fsidd *dd = to_fsidd_prim(fsim_get_top_master(p));
++	int i;
++
++	set_bit(FSIDD_BUILD, &dd->state);
++again:
++	fsi_lock_mutex(LOCK_BUILD);
++	for (i = 0; i < p->maxlinks; ++i) {
++		if (test_and_clear_bit(i % BITS_PER_LONG,
++					&p->hotp.building[i / BITS_PER_LONG]))
++			build_link(p, p->hotp.plug[i]);
++	}
++
++	/* stub */
++
++	/*
++	 * Make sure all bits are cleared before leaving.
++	 * This worker runs in process context.  While running, an FSI error
++	 * interrupt can occur and schedule a link for removal.
++	 * If we are past this new bit in our loop above, the link is not
++	 * removed.  iterate on non zero.
++	 */
++	if (p->hotp.building[0] || p->hotp.building[1])
++		goto again;
++
++	/*
++	 * If the same described above happens here, we are toast again.
++	 * So another periodic check is done on plugmgr()
++	 */
++	clear_bit(FSIDD_BUILD, &dd->state);
+ }
+ 
+ static int fsimaster_reset(struct fsimaster *p)
 diff --git a/drivers/fsi/fsimaster.h b/drivers/fsi/fsimaster.h
-new file mode 100644
-index 0000000..b07934e
---- /dev/null
+index 40f4f4c..5474a72 100644
+--- a/drivers/fsi/fsimaster.h
 +++ b/drivers/fsi/fsimaster.h
-@@ -0,0 +1,657 @@
+@@ -20,6 +20,7 @@
+ #define FSI_MAX_PING_ATTEMPTS	12
+ #define	FSI_DFLT_PLUG_CHECK	100
+ #define FSI_DFLT_IPOLL_CHECK	800
++#define FSI_CFAM_PING_DELAY	20	/* in uS */
+ 
+ /* Link states */
+ #define FSI_LINK_FREE		1	/* Nothing plugged */
+@@ -536,6 +537,7 @@ struct hp_info {			/* Hot plug information */
+ 	struct completion done;		/* Link build done */
+ 	unsigned short tries;		/* # of tries before probing */
+ 	unsigned char linkno;		/* Link # */
++	unsigned char cmd;		/* State add/delete */
+ 	atomic_t state;			/* State of this entry */
+ 	int ec;				/* Error code */
+ 	unsigned long state_w;		/* Wait state */
+@@ -616,7 +618,7 @@ void fsi_linklost(struct fsimaster *, int);
+ /*
+  * Master commands
+  */
+-int fsi_sendbreak(struct fsimaster *, void *, int, int);
++int fsi_sendbreak(struct fsimaster *, u32, int);
+ struct fsimaster * fsim_get_top_master(struct fsimaster *);
+ #define FSI_TRACE_ERRORS 1
+ 
+@@ -662,8 +664,8 @@ unsigned long fsim_cfamsz(struct fsimaster *);
+ /*
+  * Helper utilities for IRQ number calculations.
+  */
+-int fsim_pa2irq(struct fsimaster *, phys_addr_t);
+-int fsi_pa2irq(phys_addr_t);
++int fsim_pa2irq(struct fsimaster *, u32);
++int fsi_pa2irq(u32);
+ 
+ /*
+  * Functions for link reference
+diff --git a/drivers/fsi/fsislave.h b/drivers/fsi/fsislave.h
+new file mode 100644
+index 0000000..d39384b
+--- /dev/null
++++ b/drivers/fsi/fsislave.h
+@@ -0,0 +1,403 @@
 +/*
-+ * FSI Master device driver structure definitions and defines
++ * FSI slave structure definitions and defines
 + *
 + * Copyright 2016 IBM Corp.
 + *
@@ -679,650 +872,484 @@ index 0000000..b07934e
 + * as published by the Free Software Foundation; either version
 + * 2 of the License, or (at your option) any later version.
 + */
-+#ifndef DRIVERS_FSIMASTER_H
-+#define DRIVERS_FSIMASTER_H
++#ifndef	DRIVERS_FSISLAVE_H
++#define	DRIVERS_FSISLAVE_H
 +
-+#include "fsidefines.h"
++/*
++ * Define read address for peek engine refering to side/series/node-id/frame-id
++ */
++#define FSI_PEEK_IDADDR	0xc
++
++#define FSI_SLV_CFAM_OFFSET 0x800
++
++/*
++ * Defines for address locations of certain register in FSI Slave. All register
++ * names start with FSI_S for slave register. Some registers have the
++ * same address but different meanings for read and write access.
++ */
++#define	FSI_SMODE	0x0	/* R/W: Slave mode register */
++#define	FSI_SDMA	0x4	/* R/W: DMA control register */
++#define	FSI_SISC	0x8	/* Read: read Interrupt condition register */
++#define	FSI_SCISC	0x8	/* Write: Clear Interrupt condition register */
++#define	FSI_SISM	0xC	/* R/W: Interrupt mask register */
++#define	FSI_SISS	0x10	/* Read: Interrupt status register */
++#define	FSI_SSISM	0x10	/* Write: Set interrupt mask */
++#define	FSI_SSTAT	0x14	/* Read: Read slave status register */
++#define	FSI_SCISM	0x14	/* Write: Clear interrupt mask */
++#define	FSI_SI1M	0x18	/* R/W: Interrupt 1 mask register */
++#define	FSI_SI1S	0x1C	/* Read: Read Interrupt 1 status register */
++#define	FSI_SSI1M	0x1C	/* Write: Set Interrupt 1 mask register */
++#define	FSI_SIC		0x20	/* Read: Read engine interrupt condition reg */
++#define	FSI_SCI1M	0x20	/* Write: Clear Interrupt 1 mask register */
++#define	FSI_SI2M	0x24	/* R/W: Interrupt 2 mask register */
++#define	FSI_SI2S	0x28	/* Read: Read Interrupt 2 status register */
++#define	FSI_SSI2M	0x28	/* Write: Set Interrupt 2 mask register */
++#define	FSI_SCMDT	0x2C	/* Read: Command trace register */
++#define	FSI_SCI2M	0x2C	/* Write: Clear Interrupt 2 mask register */
++#define	FSI_SDATAT	0x30	/* Read: Data trace register */
++#define	FSI_SLBUS	0x30	/* Write: local bus address commands */
++#define	FSI_SLASTD	0x34	/* Read: Last data send register */
++#define	FSI_SRES	0x34	/* Write: Reset command register */
++#define	FSI_SMBL	0x38	/* R/W: Mailbox register left port */
++#define	FSI_SOML	0x3C	/* Read: Mailbox old data register left port */
++#define	FSI_SSMBL	0x3C	/* Write: Set Mailbox bits register left port */
++#define	FSI_SNML	0x40	/* Read: Mailbox new data register left port */
++#define	FSI_SCMBL	0x40	/* Write: Clear mailbox bits left port */
++#define FSI_SMBR	0x44	/* R/W: Mailbox register right port */
++#define FSI_SOMR	0x48	/* Read: Mailbox old data register right port */
++#define FSI_SSMBR	0x48	/* Write: Set Mailbox bits register right port*/
++#define FSI_SNMR	0x4c	/* Read: Mailbox new data register right port */
++#define FSI_SCMBR	0x4c	/* Write: Clear mailbox bits right port */
++
++/* Same as above except Word offsets into the FSI slave engine */
++#define FSI_N_SISC	0x2	/* Read: read Interrupt condition register */
++#define FSI_N_SSTAT	0x5	/* Read: Slave Status register */
++#define FSI_N_SCMDT	0xB	/* Read: Command trace register */
++#define FSI_N_SDATAT	0xC	/* Read: Data trace register */
++#define FSI_N_SLASTD	0xD	/* Read: Last data send register */
++
++/* Next registers are only valid for FSI slave version 3 */
++#define FSI_SRSIC	0x50	/* Read slave remote slave IRQ condition */
++#define FSI_SCRSIC	0x50	/* Write: Clear Slave remote slave IRQ cond */
++#define FSI_SRSIM	0x54	/* R/W: Slave remote slave IRQ mask */
++#define FSI_SRSIS	0x58	/* Read: Slave remote slave IRQ status */
++
++/* Next registers are only valid for FSI slave version 4 */
++/* cmFSI */
++#define FSI_ScRSIC0	0x50	/* Read / Write: to clear cmFSI remote */
++/* slave IRQ condition ports 0-3 */
++#define FSI_ScRSIC4	0x54	/* Read / Write: to clear cmFSI remote */
++/* slave IRQ condition ports 4-7 */
++#define FSI_ScRSIM0	0x58	/* R/W: cmFSI remote slave IRQ mask */
++/* ports 0-3 */
++#define FSI_ScRSIM4	0x5C	/* R/W: cmFSI remote slave IRQ mask */
++/* ports 4-7 */
++#define FSI_ScRSIS0	0x60	/* Read: cmFSI remote slave IRQ status */
++/* ports 0-3 */
++#define FSI_ScRSIS4	0x64	/* Read: cMFSI remote slave IRQ status */
++/* ports 4-7 */
++/* hFSI */
++#define FSI_SRSIC0	0x68	/* Read / Write: to clear hFSI remote */
++/* slave IRQ condition ports 0-3 */
++#define FSI_SRSIC4	0x6C	/* Read / Write: to clear hFSI remote */
++/* slave IRQ condition ports 4-7 */
++#define FSI_SRSIM0	0x70	/* R/W: hFSI remote slave IRQ mask */
++/* ports 0-3 */
++#define FSI_SRSIM4	0x74	/* R/W: hFSI remote slave IRQ mask */
++/* ports 4-7 */
++#define FSI_SRSIS0	0x78	/* Read: hFSI remote slave IRQ status */
++/* ports 0-3 */
++#define FSI_SRSIS4	0x7C	/* Read: hFSI remote slave IRQ status */
++/* ports 4-7 */
++
++#define FSI_SRSIM_SID3_SHIFT	6
++
++/* Slave ID 3 on interrupt level 1 for all sub/hub links */
++#define SRSIM_ID3_IRPT1_MASK	0x02020202
++#define SRSIM_MAGIC  		SRSIM_ID3_IRPT1_MASK
++
++struct fsi_sreg {		/* FSI slave register definition */
++	u32 smode;		/* 0x0: Mode register */
++	u32 sdma;		/* 0x4: DMA control register */
++	u32 sisc;		/* 0x8: Slave interrupt condition register */
++	u32 sism;		/* 0xc: Slave interrupt mask register */
++	u32 siss;		/* 0x10: Slave interrupt status register */
++	u32 sstat;		/* 0x14: Slave status register */
++	u32 si1m;		/* 0x18: interrupt 1 mask register */
++	u32 si1s;		/* 0x1c: interrupt 1 status register */
++	u32 sic;		/* 0x20: engine interrupt condition register */
++	u32 si2m;		/* 0x24: interrupt 2 mask register */
++	u32 si2s;		/* 0x28: interrupt 2 status register */
++	u32 scmdt;		/* 0x2c: read command trace register */
++	u32 sdatat;		/* 0x30: read data trace register */
++	u32 slastd;		/* 0x34: read last FSI data register */
++	u32 smbl;		/* 0x38: mail box to left port register */
++	u32 soml;		/* 0x3c: old mail left port register */
++	u32 snml;		/* 0x40: new mail left port register */
++	u32 smbr;		/* 0x44: mail box to right port register */
++	u32 somr;		/* 0x48: old mail right port register */
++	u32 snmr;		/* 0x4c: new mail right port register */
++	u32 srsic0;		/* 0x50: slave remote slave IRQ cond. 0-3 */
++	u32 srsic4;		/* 0x54: slave remote slave IRQ cond. 4-7 */
++	u32 srsim0;		/* 0x58: slave remote slave IRQ mask 0-3 */
++	u32 srsim4;		/* 0x5C: slave remote slave IRQ mask 4-7 */
++	u32 srsis0;		/* 0x60: slave remote slave IRQ stat 0-3 */
++	u32 srsis4;		/* 0x64: slave remote slave IRQ stat 4-7 */
++};
++
++/*
++ * FSI slave mode register
++ */
++#define	FSI_SMODE_WSC		0x80000000	/* Warm start completed */
++#define	FSI_SMODE_EAP		0x40000000	/* Enable auxiliary port */
++#define	FSI_SMODE_ECRC		0x20000000	/* Enable CRC checking by hw */
++#define	FSI_SMODE_SID_SHIFT	24		/* Slave identifier shift */
++#define	FSI_SMODE_SID_MASK	3		/* Slave identifier mask */
++#define	FSI_SMODE_ED_SHIFT	20		/* Echo delay cycles shift */
++#define	FSI_SMODE_ED_MASK	0xf		/* Echo delay cycles mask */
++#define	FSI_SMODE_SD_SHIFT	16		/* Send delay cycles shift */
++#define	FSI_SMODE_SD_MASK	0xf		/* Send delay cycles mask */
++#define	FSI_SMODE_LBCRR_SHIFT	8		/* Local bus clk rate shift */
++#define	FSI_SMODE_LBCRR_MASK	0xf		/* Local bus clk rate mask */
++#define	FSI_SMODE_BDL_SHIFT	4		/* Briefing data left shift */
++#define	FSI_SMODE_BDL_MASK	0xf		/* Briefing data mask */
++#define	FSI_SMODE_BDR_SHIFT	0		/* Briefing data right shift */
++#define	FSI_SMODE_BDR_MASK	0xf		/* Briefing data mask */
++#define	FSI_SMODE_RSV_MASK	0xe3ff0fff	/* Mask for used bit clr rsvd */
++
++/* FSI slave local bus echo delay */
++static inline u32 fsi_smode_echodly(int x)
++{
++	return (x & FSI_SMODE_ED_MASK) << FSI_SMODE_ED_SHIFT;
++}
++
++/* FSI slave local bus send delay */
++static inline u32 fsi_smode_senddly(int x)
++{
++	return (x & FSI_SMODE_SD_MASK) << FSI_SMODE_SD_SHIFT;
++}
++
++/* FSI slave local bus clock rate ratio */
++static inline int fsi_smode_extlbcrr(u32 x)
++{
++	return (x >> FSI_SMODE_LBCRR_SHIFT) & FSI_SMODE_LBCRR_MASK;
++}
++
++/* FSI slave local bus clock rate ratio */
++static inline u32 fsi_smode_lbcrr(int x)
++{
++	return (x & FSI_SMODE_LBCRR_MASK) << FSI_SMODE_LBCRR_SHIFT;
++}
++
++/* FSI slave identifier setting */
++static inline u32 fsi_smode_sid(int x)
++{
++	return (x & FSI_SMODE_SID_MASK) << FSI_SMODE_SID_SHIFT;
++}
++
++/* FSI slave briefing data right port */
++static inline u32 fsi_smode_bdr(int x)
++{
++	return (x & FSI_SMODE_BDR_MASK) << FSI_SMODE_BDR_SHIFT;
++}
++
++static inline int fsi_smode_extbdr(u32 x)
++{
++	return (x >> FSI_SMODE_BDR_SHIFT) & FSI_SMODE_BDR_MASK;
++}
++
++/* FSI slave briefing data left port */
++static inline u32 fsi_smode_bdl(int x)
++{
++	return (x & FSI_SMODE_BDL_MASK) << FSI_SMODE_BDL_SHIFT;
++}
++
++static inline int fsi_smode_extbdl(u32 x)
++{
++	return (x >> FSI_SMODE_BDL_SHIFT) & FSI_SMODE_BDL_MASK;
++}
++
++/* FSI slave echo delay */
++static inline u32 fsi_smode_ed(int x)
++{
++	return (x & FSI_SMODE_ED_MASK) << FSI_SMODE_ED_SHIFT;
++}
++
++static inline int fsi_smode_exted(u32 x)
++{
++	return (x >> FSI_SMODE_ED_SHIFT) & FSI_SMODE_ED_MASK;
++}
++
++/* FSI slave send delay */
++static inline u32 fsi_smode_sd(int x)
++{
++	return (x & FSI_SMODE_SD_MASK) << FSI_SMODE_SD_SHIFT;
++}
++
++static inline int fsi_smode_extsd(u32 x)
++{
++	return (x >> FSI_SMODE_SD_SHIFT) & FSI_SMODE_SD_MASK;
++}
++
++/*
++ * FSI slave interrupt register: interrupt conditions, status and mask
++ */
++#define	FSI_SSI_CRCE		0x80000000	/* FSI CRC error */
++#define	FSI_SSI_PROTE		0x40000000	/* FSI protocol error */
++#define	FSI_SSI_LBPE		0x20000000	/* FSI local bus parity error */
++#define	FSI_SSI_LBPROTE		0x10000000	/* FSI local bus protocol err */
++#define	FSI_SSI_LBAE		0x08000000	/* FSI local bus access error */
++#define	FSI_SSI_LBOE		0x04000000	/* FSI local bus owner error */
++#define	FSI_SSI_LBOC		0x02000000	/* FSI local bus owner change */
++#define	FSI_SSI_HPE		0x01000000	/* Hot plug event */
++#define	FSI_SSI_MRL		0x00800000	/* Mail received left port */
++#define	FSI_SSI_MDL		0x00400000	/* Mail send left port */
++#define	FSI_SSI_WSL		0x00200000	/* Warm start flag left port */
++#define	FSI_SSI_LBRL		0x00100000	/* Local bus requ left port */
++#define	FSI_SSI_MRR		0x00080000	/* Mail received right port */
++#define	FSI_SSI_MDR		0x00040000	/* Mail delivered right port */
++#define	FSI_SSI_WSR		0x00020000	/* Warm start flag right port */
++#define	FSI_SSI_LBRR		0x00010000	/* Local bus req right port */
++#define	FSI_SSI_CMEL		0x00008000	/* Clocks monitor event left */
++#define	FSI_SSI_CMER		0x00004000	/* Clocks monitor event right */
++#define	FSI_SSI_OPB_FNC		0x00001000	/* OPB Fenced (cMFSI & hMFSI) */
++#define	FSI_SSI_OBP_PA		0x00000800	/* OPB Parity (cMFSI) */
++#define	FSI_SSI_OBP_PR		0x00000400	/* OPB Protocol (cMFSI) */
++#define	FSI_SSI_OBP_TO		0x00000200	/* OPB Timeout (cMFSI) */
++#define	FSI_SSI_OBP_EA		0x00000100	/* OPB ErrorAck (cMFSI) */
++#define	FSI_SSI_OBP_IA		0x00002000	/* OPB Invalid Address (cMFSI)*/
++#define	FSI_SSI_CMFSI_AME	0x00000080	/* CMFSI any-master-error */
++#define	FSI_SSI_CMFSI_APE	0x00000040	/* CMFSI any-port-error */
++#define	FSI_SSI_CMFSI_HPE	0x00000020	/* CMFSI Hot plug event */
++#define	FSI_SSI_CMFSI_CRPA	0x00000010	/* CMFSI Contr reg parity err */
++#define	FSI_SSI_ANY_IRQ		0xffffc000	/* Valid bits */
++#define	FSI_SSI_ANY_IRQ3	(FSI_SSI_CMFSI_AME | FSI_SSI_CMFSI_APE \
++				| FSI_SSI_CMFSI_HPE | FSI_SSI_CMFSI_CRPA)
++						/* Valid bits (cMFSI) */
++#define	FSI_SSI_ANY_ERROR	0xfc000000	/* Valid error bits */
++#define	FSI_SSI_ANY_ERROR3	(FSI_SSI_OBP_PA \
++				| FSI_SSI_OBP_PR | FSI_SSI_OBP_TO \
++				| FSI_SSI_OBP_EA | FSI_SSI_OBP_IA)
++						/* Valid error bits (cMFSI) */
++#define	FSI_SSI_ERR_MASK	0x3f		/* Any error bits mask */
++#define	FSI_SSI_ERR_SHFT	26		/* Any error bits shift */
++#define	FSI_SISC_CRCE		0		/* Slave CRC error bit */
++#define	FSI_SISC_PE		1		/* Slave protocol error bit */
++#define	FSI_SISC_LBPE		2		/* Slave lcl bus parity err */
++#define	FSI_SISC_LBPROTOE	3		/* Slave lcl bus prot err */
++#define	FSI_SISC_LBAE		4		/* Slave access error bit */
++#define	FSI_SISC_LBOE		5		/* Slave lcl bus owner err */
++#define	FSI_SISC_OPBPA		20		/* Slave OPB parity error */
++#define	FSI_SISC_OPBPR		21		/* Slave OPB protocol error */
++#define	FSI_SISC_OPBTO		22		/* Slave OPB timeout error */
++#define	FSI_SISC_OPBEA		23		/* Slave OPB ack error */
++#define	FSI_SISC_CM_ERRS	0x000000f0	/* CMP8 sourced errors */
++#define	FSI_SISC_HM_ERRS	0x0000000f	/* HMP8 sourced errors */
++
++/* FSI slave error interrupt */
++static inline int fsi_sisc_iserror(u32 x)
++{
++	return x & (FSI_SSI_ANY_ERROR3 | FSI_SSI_ANY_ERROR);
++}
++
++/*
++ * FSI slave interrupt mask register: interrupt conditions, status and mask
++ */
++#define	FSI_SSI_ENG0		0x80000000	/* FSI slave */
++#define	FSI_SSI_ENG_MBX		0x400		/* FSI IOU Mailbox */
++#define	FSI_SSI_ENG_ANY		0x7fffffff	/* FSI engine 1..31 */
++#define	FSI_SSI_ENG_NOLBUS	(FSI_SSI_ENG0 | FSI_SSI_ENG_MBX)
++						/* Engines without local bus */
++/*
++ * FSI slave status register SSTAT
++ */
++#define	FSI_SSTAT_AE		0x80000000	/* Any error bit */
++#define	FSI_SSTAT_IDD		0x40000000	/* CFAM ID dirty at PON lvl) */
++#define	FSI_SSTAT_LSW		0x40000000	/* Left side warm start flag */
++#define	FSI_SSTAT_RSW		0x10000000	/* Rt side warm start flag */
++#define	FSI_SSTAT_MDL		0x08000000	/* Mail delivered left side */
++#define	FSI_SSTAT_MDR		0x04000000	/* Mail delivered right side */
++#define	FSI_SSTAT_MRL		0x02000000	/* Mail received left side */
++#define	FSI_SSTAT_MRR		0x01000000	/* Mail received right side */
++#define	FSI_SSTAT_BDL_SHIFT	20		/* Brief data left side shft */
++#define	FSI_SSTAT_BDL_MASK	0xf		/* Brief data left side mask */
++#define	FSI_SSTAT_BDR_SHIFT	16		/* Brief data rt side shift */
++#define	FSI_SSTAT_BDR_MASK	0xf		/* Brief data rt side mask */
++#define	FSI_SSTAT_LSLBR		0x8000		/* Left side local bus req */
++#define	FSI_SSTAT_RSLBR		0x4000		/* Right side local bus req */
++#define	FSI_SSTAT_TSLBR		0x2000		/* This side local bus req */
++#define	FSI_SSTAT_BLBA		0x1000		/* Block C-side lcl bus acc */
++#define	FSI_SSTAT_LBO_SHIFT	10		/* Local bus owner shift */
++#define	FSI_SSTAT_LBO_MASK	3		/* Local bus owner mask */
++#define	FSI_SSTAT_TSF_SHIFT	8		/* This side A=01 B=10 C=11 */
++#define	FSI_SSTAT_TSF_MASK	3		/* This side flag mask */
++#define	FSI_SSTAT_CAL		0x00000080	/* Clocks active left port */
++#define	FSI_SSTAT_CAR		0x00000040	/* Clocks active right port */
++#define	FSI_SSTAT_APIL		0x00000020	/* Aux port input level */
++#define	FSI_SSTAT_APRL		0x00000010	/* Aux port reference level */
++#define	FSI_SSTAT_CRC_SHIFT	0		/* CRC error counter */
++#define	FSI_SSTAT_CRC_MASK	0xf		/* CRC mask */
++#define	FSI_SSTAT_SIDE_NONE	0		/* Unknown Side */
++#define	FSI_SSTAT_SIDE_A	1		/* A-Side */
++#define	FSI_SSTAT_SIDE_B	2		/* B-Side */
++#define	FSI_SSTAT_SIDE_C	3		/* C-Side */
++
++/* FSI status local bus request */
++static inline int fsi_sstat_tsf(u32 x)
++{
++	return (x >> FSI_SSTAT_TSF_SHIFT) & FSI_SSTAT_TSF_MASK;
++}
++
++/* FSI status get local bus owner */
++static inline int fsi_sstat_lbo(u32 x)
++{
++	return (x >> FSI_SSTAT_LBO_SHIFT) & FSI_SSTAT_LBO_MASK;
++}
++
++/* FSI status get right side briefing data */
++static inline int fsi_sstat_bdr(u32 x)
++{
++	return (x >> FSI_SSTAT_BDR_SHIFT) & FSI_SSTAT_BDR_MASK;
++}
++
++/* FSI status get left side briefing data */
++static inline int fsi_sstat_bdl(u32 x)
++{
++	return (x >> FSI_SSTAT_BDL_SHIFT) & FSI_SSTAT_BDL_MASK;
++}
++
++/* FSI status get CRC counter */
++static inline int fsi_sstat_crc(u32 x)
++{
++	return (x >> FSI_SSTAT_CRC_SHIFT) & FSI_SSTAT_CRC_MASK;
++}
++
++/*
++ * FSI slave local bus access register SLBUS
++ */
++#define	FSI_SLBUS_FLBO		0x80000000	/* Force local bus ownership */
++#define	FSI_SLBUS_RLBA		0x40000000	/* Request local bus access */
++#define	FSI_SLBUS_RLBO_SHIFT	28		/* Release local bus shift */
++#define	FSI_SLBUS_RLBO_MASK	3		/* Release local bus mask */
++#define	FSI_SLBUS_RLBR		0x08000000	/* Reset local bus req */
++#define	FSI_SLBUS_BLBA_SHIFT	16		/* Block local bus acc shift */
++#define	FSI_SLBUS_BLBA_MASK	0xff		/* Block local bus acc mask */
++#define	FSI_SLBUS_BLBA		0xff		/* Block local bus acc */
++#define	FSI_SLBUS_UBLBA		0xec		/* Unblock local bus access */
++#define	FSI_SLBUS_RESERVE_MASK	0xf8ff0000	/* Mask off reserved bits */
++
++/* Release local bus */
++static inline u32 fsi_slbus_rlbo(int side)
++{
++	return (side & FSI_SLBUS_RLBO_MASK) << FSI_SLBUS_RLBO_SHIFT;
++}
++
++/* Block local bus access */
++static inline u32 fsi_slbus_blba(int side)
++{
++	return (side & FSI_SLBUS_BLBA_MASK) << FSI_SLBUS_BLBA_SHIFT;
++}
++
++/* FSI Slave Error Reset Register SRES */
++#define	FSI_SRES_RFS		0x80000000	/* Reset FSI slave */
++#define	FSI_SRES_REFS		0x40000000	/* Reset Errors FSI slave */
++#define	FSI_SRES_RLBE		0x20000000	/* Reset Local bus engs slave */
++#define	FSI_SRES_RESERVE_MASK	0x1fffffff	/* Mask off reserved bits */
++
++int slave_readreg(struct fsimaster *, void *, u32 *, u32);
++int slave_writereg(struct fsimaster *, void *, u32, u32);
++int slave_irqclear(struct fsimaster *, void *, u32, u32);
++int p8_cfam_fixup(struct fsicfam *, int);
++unsigned long xmp8_srsim_mask(int);
++
++#endif /* DRIVERS_FSISLAVE_H */
+diff --git a/drivers/fsi/ldm.c b/drivers/fsi/ldm.c
+new file mode 100644
+index 0000000..254a95ea
+--- /dev/null
++++ b/drivers/fsi/ldm.c
+@@ -0,0 +1,28 @@
++/*
++ * FSI interface to the LDM
++ *
++ * Copyright 2016 IBM Corp.
++ *
++ * Christopher Bostic <cbostic@us.ibm.com>
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version
++ * 2 of the License, or (at your option) any later version.
++ */
 +#include "fsi.h"
-+#include "fsicfam.h"
-+
-+#define FSI_MAX_PING_ATTEMPTS	12
-+#define	FSI_DFLT_PLUG_CHECK	100
-+#define FSI_DFLT_IPOLL_CHECK	800
-+
-+/* FSI master register numbers */
-+#define	FSI_N_MMODE	0	/* 0x0   R/W: mode register */
-+#define	FSI_N_MDLYR	1	/* 0x4   R/W: delay register */
-+#define	FSI_N_MCRSP0	2	/* 0x8   R/W: clock rate selector register 0 */
-+#define	FSI_N_MCRSP32	3	/* 0xC	 R/W: clock rate selector register 1 */
-+#define	FSI_N_MENP0	4	/* 0x10  R/W: enable clock register 0 */
-+#define	FSI_N_MENP32	5	/* 0x14  R/W: enable clock register 1 */
-+#define	FSI_N_MLEVP0	6	/* 0x18  R: static level register 0 */
-+#define	FSI_N_MLEVP32	7	/* 0x1C  R: static level register 1 */
-+#define	FSI_N_MSENP0	6	/* 0x18  S: set enable clock register 0 */
-+#define	FSI_N_MREFP0	8	/* 0x20  R: link reference register 0 */
-+#define	FSI_N_MCENP0	8	/* 0x20  W: clear enable port register 0 */
-+#define	FSI_N_MHPMP0	10	/* 0x28  R: hot plug reference register 0 */
-+#define	FSI_N_MCHPMP0	10	/* 0x28  W: clear hot plug reference reg 0 */
-+#define	FSI_N_MSIEP0	12	/* 0x30  R/W: Ipoll register 0 */
-+#define	FSI_N_MSIEP32	16	/* 0x40  R/W: Ipoll register 4 */
-+#define	FSI_N_MAESP0	20	/* 0x50  R: any error port register 0 */
-+#define	FSI_N_MAESP32	24	/* 0x60  R: any error port register 4 */
-+#define	FSI_N_MSSIEP0	20	/* 0x50  W: set Ipoll register 0 */
-+#define	FSI_N_MAEB	28	/* 0x70  R: any error bridge */
-+#define	FSI_N_MVER	29	/* 0x74  R: version register */
-+#define	FSI_N_MBSYP0	30	/* 0x78  R: port busy register 0 */
-+#define	FSI_N_MCSIEP0	28	/* 0x70  W: clear Ipoll register 0 */
-+#define	FSI_N_MDRSB1	36	/* 0x90  R/W: DMA select register master 1 */
-+#define	FSI_N_MSTAP0	52	/* 0xd0  R: port status reg 0-63 (0xd0-0x1cc) */
-+#define	FSI_N_MRESP0	52	/* 0xd0  W: port reset regr 0-63 (0xd0-0x1cc) */
-+#define	FSI_N_MESRB0	116	/* 0x1d0 R: error syndrome register 0-16 */
-+#define	FSI_N_MRESB0	116	/* 0x1d0 W: reset reg master 0-16 (x1d0-x210) */
-+#define	FSI_N_MSCSB0	117	/* 0x1d4 R: master sub cmd stack register 0 */
-+#define	FSI_N_MATRB0	118	/* 0x1d8 R: master address trace register 0 */
-+#define	FSI_N_MDTRB0	119 	/* 0x1dc R: master data trace register 0 */
-+#define	FSI_N_MECTRL	184	/* 0x2e0 R/W: error control register master 0 */
-+#define	FSI_N_MAESP_SZ	8	/* # of error port register 0-7 */
-+
-+#define FSI_MSIEP_REG_COUNT	8
-+#define PRI_MAX_LINKS		FSI_MAX_LINKS
++#include "fsidefines.h"
 +
 +/*
-+ * Model clear under mask (CU) and set under mask (SU) Read only (RO)
-+ * and Write only (WO) behavior for virtual Primary FSI Master
++ * Register a FSI device with the Linux device model
 + */
-+#define FSI_N_IS_CU_REG(x)  ((x) == FSI_N_MCENP0 || ((x) == FSI_N_MCENP0 + 1) \
-+			 ||  (x) == FSI_N_MCHPMP0 || ((x) == FSI_N_MCHPMP0 + 1)\
-+			 ||  (x) == FSI_N_MCSIEP0      \
-+			 || ((x) == FSI_N_MCSIEP0 + 1) \
-+			 || ((x) == FSI_N_MCSIEP0 + 2) \
-+			 || ((x) == FSI_N_MCSIEP0 + 3) \
-+			 || ((x) == FSI_N_MCSIEP0 + 4) \
-+			 || ((x) == FSI_N_MCSIEP0 + 5) \
-+			 || ((x) == FSI_N_MCSIEP0 + 6) \
-+			 || ((x) == FSI_N_MCSIEP0 + 7))
-+#define FSI_N_IS_SU_REG(x)  ((x) == FSI_N_MSENP0 || ((x) == FSI_N_MSENP0 + 1)\
-+			 ||  (x) == FSI_N_MSSIEP0      \
-+			 || ((x) == FSI_N_MSSIEP0 + 1) \
-+			 || ((x) == FSI_N_MSSIEP0 + 2) \
-+			 || ((x) == FSI_N_MSSIEP0 + 3) \
-+			 || ((x) == FSI_N_MSSIEP0 + 4) \
-+			 || ((x) == FSI_N_MSSIEP0 + 5) \
-+			 || ((x) == FSI_N_MSSIEP0 + 6) \
-+			 || ((x) == FSI_N_MSSIEP0 + 7))
-+
-+/*
-+ * Return FSI master error information register number for master x
-+ */
-+static inline int fsi_mesrb_nr(int master)
++int fsidev_register_nolock(struct fsidevice *p, struct device_attribute **ap)
 +{
-+	return (FSI_N_MESRB0 + master * 4);
++	return 0;
 +}
 +
-+/*
-+ * Return FSI master reset register number for master x
-+ */
-+static inline int fsi_mresb_nr(int master)
++int fsidev_register(struct fsidevice *p, struct device_attribute **ap)
 +{
-+	return FSI_N_MRESB0 + master;
++	return 0;
 +}
-+
++EXPORT_SYMBOL(fsidev_register);
+diff --git a/drivers/fsi/readwrite.c b/drivers/fsi/readwrite.c
+new file mode 100644
+index 0000000..3c7f0c5
+--- /dev/null
++++ b/drivers/fsi/readwrite.c
+@@ -0,0 +1,48 @@
 +/*
-+ * Return FSI master port status register number for link x
-+ */
-+static inline int fsi_mstap_nr(int link)
-+{
-+	return FSI_N_MSTAP0 + link;
-+}
-+
-+/*
-+ * Return FSI master port error reset register number for link x
-+ */
-+static inline int fsi_mresp_nr(int link)
-+{
-+	return FSI_N_MRESP0 + link;
-+}
-+
-+/*
-+ * Return FSI master ipoll register number for index x
-+ */
-+static inline int fsi_msiep_nr(int idx)
-+{
-+	return FSI_N_MSIEP0 + idx;
-+}
-+
-+/*
-+ * Return FSI master error information register number for master x
-+ */
-+static inline int fsi_maesp_nr(int portreg)
-+{
-+	return FSI_N_MAESP0 + portreg;
-+}
-+
-+struct fsi_mei {		/* FSI master error information */
-+	u32 mesrb;		/* Master error status register */
-+	u32 mscsb;		/* Subcommand stack register */
-+	u32 matrb;		/* Address trace register */
-+	u32 mdtrb;		/* Data trace register */
-+};
-+
-+/* FSI Master register set */
-+struct fsi_mreg {
-+	u32 mmode;			/* 0x0 */
-+	u32 mdlyr;			/* 0x4 */
-+	u32 mcrsp0[2];			/* 0x8 - 0xc */
-+	u32 menp0[2];			/* 0x10 - 0x14 */
-+	u32 mlevp0[2];			/* 0x18 - 0x1c */
-+	u32 mrefp0[2];			/* 0x20 - 0x24 */
-+	u32 mhpmp0[2];			/* 0x28 - 0x2c */
-+	u32 msiep0[8];			/* 0x30 - 0x4c */
-+	u32 maesp0[8];			/* 0x50 - 0x6c */
-+	u32 maeb0[8];			/* 0x70 - 0x8c */
-+	u32 mdrsb0[16];			/* 0x90 - 0xcc */
-+	u32 mstap0[FSI_MAX_LINKS];	/* 0xd0 - 0x1cc */
-+	struct fsi_mei mresb0[FSI_MAX_MASTERS];	/* 0x1d0 - 0x2dc */
-+	u32 mectrl;			/* 0x2e0 */
-+	u32 mver;			/* Master version ID, read only */
-+};
-+
-+/* Virtual primary FSI master */
-+struct primaster {
-+	struct fsi_mreg	regs;		/* Registers */
-+	unsigned long flags;
-+};
-+
-+#define PORT_BUSY_CHECKS_MAX	10
-+
-+/* FSI Port controller reset types */
-+#define	FSI_PORT_GENERAL_RESET		0x80000000
-+#define	FSI_PORT_ERROR_RESET		0x40000000
-+#define	FSI_PORT_GENERAL_RESET_BRIDGE	0x20000000
-+#define	FSI_PORT_GENERAL_RESET_PORT	0x10000000
-+#define	FSI_PORT_RESET_CNTRL_REGS	0x08000000
-+#define	FSI_PORT_RESET_PA_ERROR		0x04000000
-+
-+/* FSI Port controller error masks */
-+#define	FSI_PORT_EMASK_ID0	0xf0000000
-+#define	FSI_PORT_EMASK_ID1	0x0f000000
-+#define	FSI_PORT_EMASK_ID2	0x00f00000
-+#define	FSI_PORT_EMASK_ID3	0x000f0000
-+#define	FSI_PORT_CRCMASK	0x0000f000
-+#define	FSI_PORT_HOTPLUG	0x00000800
-+
-+/*
-+ * FSI Slave interrupt enable/disable bit setting. Return the bit setting
-+ * given a link and cfam number. The result of this function can be input
-+ * to the mssiepX and mcsiepX registers or or'ed in to msiepX.
-+ * The formula is 1 << 31 - (link % 8 * 4 + cfam).
++ * FSI I/O accesses
 + *
-+ * Not in FSI Spec (0..30):
-+ * MSIEPx register bit 0 is port 0 and cfam 0.
-+ * MSIEPx register bit 1 is port 0 and cfam 1.
-+ * MSIEPx register bit 31 is port 7 and cfam 3.
-+ */
-+static inline u32 fsi_mk_msiep(int link, int cfam)
-+{
-+	return mask32((link % (BITS_PER_LONG / FSI_MAX_CASCADE))
-+		      * FSI_MAX_CASCADE + cfam);
-+}
-+
-+/*
-+ * Return mask for all CFAMs id x to 3 (end of cascade) on a specific link.
-+ */
-+static inline u32 fsi_mk_msiep_plus(int link, int cfam)
-+{
-+	u32 bits = (0xf >> cfam) << 28;
-+	return bits >> (link % (BITS_PER_LONG / FSI_MAX_CASCADE)
-+			* FSI_MAX_CASCADE);
-+}
-+
-+/*
-+ * Return mask for all CFAMs on a specific link.
-+ */
-+static inline u32 fsi_mk_msiep_all(int link)
-+{
-+	return 0xf0000000 >> (link % (BITS_PER_LONG / FSI_MAX_CASCADE)
-+			      * FSI_MAX_CASCADE);
-+}
-+
-+/*
-+ * Return index for msiepX register
-+ */
-+static inline int fsi_mk_msiep_idx(int link)
-+{
-+	return link / (BITS_PER_LONG / FSI_MAX_CASCADE);
-+}
-+
-+/*
-+ * FSI Master Mode register setting
-+ */
-+#define	FSI_MMODE_EIP		0x80000000	/* Enable interrupt polling */
-+#define	FSI_MMODE_ECRC		0x40000000	/* Enable hardware error recovery */
-+#define	FSI_MMODE_ERAC		0x20000000	/* Enable relative address commands */
-+#define	FSI_MMODE_EPC		0x10000000	/* Enable parity checking */
-+#define	FSI_MMODE_CRS0SHFT	18		/* Clock rate selection 0 mask shift */
-+#define	FSI_MMODE_CRS0MASK	0x3ff		/* Clock rate selection 0 mask */
-+#define	FSI_MMODE_CRS1SHFT	8		/* Clock rate selection 1 mask shift */
-+#define	FSI_MMODE_CRS1MASK	0x3ff		/* Clock rate selection 1 mask */
-+#define	FSI_MMODE_P63		0x80		/* Route link 63 to IOU slave C */
-+#define	FSI_MMODE_DIV4		0x00000040	/* Divide by 4 (legacy mode) */
-+
-+/*
-+ * Rolf Fritz Nov 20, 2013:
-+ * 	MSB=1, LSB=0 is 0.8 ms
-+ *	MSB=0, LSB=1 is 0.9 ms
-+ */
-+#define	FSI_MMODE_P8_TO_MSB	0x00000020	/* Timeout value most sig bit */
-+#define	FSI_MMODE_P8_TO_LSB	0x00000010	/* Timeout value least sig bit */
-+
-+static inline u32 fsi_mmode_crs0(u32 x)
-+{
-+	return (x & FSI_MMODE_CRS0MASK) << FSI_MMODE_CRS0SHFT;
-+}
-+
-+static inline u32 fsi_mmode_crs1(u32 x)
-+{
-+	return (x & FSI_MMODE_CRS1MASK) << FSI_MMODE_CRS1SHFT;
-+}
-+
-+static inline u32 fsi_mmode_extcrs0(u32 x)
-+{
-+	return (x >> FSI_MMODE_CRS0SHFT) & FSI_MMODE_CRS0MASK;
-+}
-+
-+static inline u32 fsi_mmode_extcrs1(u32 x)
-+{
-+	return (x >> FSI_MMODE_CRS1SHFT) & FSI_MMODE_CRS1MASK;
-+}
-+
-+/*
-+ * FSI master delay register
-+ */
-+#define	FSI_MDLYR_ECHO0_SHFT	28	/* Selection 0 echo delay cycles */
-+#define	FSI_MDLYR_ECHO0_MASK	0xf	/* Selection 0 echo delay cycles */
-+#define	FSI_MDLYR_SEND0_SHFT	24	/* Selection 0 send delay cycles */
-+#define	FSI_MDLYR_SEND0_MASK	0xf	/* Selection 0 send delay cycles */
-+#define	FSI_MDLYR_ECHO1_SHFT	20	/* Selection 1 echo delay cycles */
-+#define	FSI_MDLYR_ECHO1_MASK	0xf	/* Selection 1 echo delay cycles */
-+#define	FSI_MDLYR_SEND1_SHFT	16	/* Selection 1 send delay cycles */
-+#define	FSI_MDLYR_SEND1_MASK	0xf	/* Selection 1 send delay cycles */
-+#define	FSI_MDLYR_DFLT		0xffff0000 /* Default setting */
-+
-+static inline int fsi_mdlyr_echo0(int x)
-+{
-+	return (x & FSI_MDLYR_ECHO0_MASK) << FSI_MDLYR_ECHO0_SHFT;
-+}
-+
-+static inline int fsi_mdlyr_echo1(int x)
-+{
-+	return (x & FSI_MDLYR_ECHO1_MASK) << FSI_MDLYR_ECHO1_SHFT;
-+}
-+
-+static inline int fsi_mdlyr_send0(int x)
-+{
-+	return (x & FSI_MDLYR_SEND0_MASK) << FSI_MDLYR_SEND0_SHFT;
-+}
-+
-+static inline int fsi_mdlyr_send1(int x)
-+{
-+	return (x & FSI_MDLYR_SEND1_MASK) << FSI_MDLYR_SEND1_SHFT;
-+}
-+
-+static inline int fsi_mdlyr_extecho0(u32 x)
-+{
-+	return (x >> FSI_MDLYR_ECHO0_SHFT) & FSI_MDLYR_ECHO0_MASK;
-+}
-+
-+static inline int fsi_mdlyr_extecho1(u32 x)
-+{
-+	return (x >> FSI_MDLYR_ECHO1_SHFT) & FSI_MDLYR_ECHO1_MASK;
-+}
-+
-+static inline int fsi_mdlyr_extsend0(u32 x)
-+{
-+	return (x >> FSI_MDLYR_SEND0_SHFT) & FSI_MDLYR_SEND0_MASK;
-+}
-+
-+static inline int fsi_mdlyr_extsend1(u32 x)
-+{
-+	return (x >> FSI_MDLYR_SEND1_SHFT) & FSI_MDLYR_SEND1_MASK;
-+}
-+
-+/*
-+ * MAEB Register
-+ */
-+#define	FSI_MASTER0		0x80000000	/* Primary Master */
-+
-+/*
-+ * MVER Register
-+ */
-+#define	FSI_MVER_VER_MASK	0xff	/* FSI master version mask */
-+#define	FSI_MVER_VER_SHFT	24	/* FSI master version shift */
-+#define	FSI_MVER_BRG_MASK	0xff	/* FSI master FSI bridges mask */
-+#define	FSI_MVER_BRG_SHFT	16	/* FSI master FSI bridges shift */
-+#define	FSI_MVER_LINK_MASK	0xff	/* FSI master links mask */
-+#define	FSI_MVER_LINK_SHFT	8	/* FSI master links shift */
-+
-+static inline int fsi_mver_extversion(u32 x)
-+{
-+	return (x >> FSI_MVER_VER_SHFT) & FSI_MVER_VER_MASK;
-+}
-+
-+static inline int fsi_mver_extport(u32 x)
-+{
-+	return (x >> FSI_MVER_BRG_SHFT) & FSI_MVER_BRG_MASK;
-+}
-+
-+static inline int fsi_mver_extlink(u32 x)
-+{
-+	return (x >> FSI_MVER_LINK_SHFT) & FSI_MVER_LINK_MASK;
-+}
-+
-+/*
-+ * Master reset types
-+ */
-+#define	FSI_MRESB_RST_GEN	0x80000000	/* General reset */
-+#define	FSI_MRESB_RST_ERR	0x40000000	/* Error Reset, don't use */
-+#define	FSI_MRESB_DELAY		0x01000000	/* do delay settings */
-+
-+/*
-+ * Port reset types
-+ */
-+#define	FSI_MRESP_RST_GEN	0x80000000	/* General reset */
-+#define	FSI_MRESP_RST_ERR	0x40000000	/* Error Reset, don't use */
-+#define	FSI_MRESP_RST_ALL_MSTR	0x20000000	/* Reset all FSI masters */
-+#define	FSI_MRESP_RST_ALL_LINK	0x10000000	/* Reset all FSI port contr. */
-+#define	FSI_MRESP_RST_MCR	0x08000000	/* Reset FSI master reg. */
-+#define	FSI_MRESP_RST_PYE	0x04000000	/* Reset FSI parity error */
-+#define	FSI_MRESP_RST_ALL	0xfc000000	/* Reset any error */
-+
-+/*
-+ * MESRB Register
-+ */
-+#define	FSI_MESRB_EC_MASK	0xf		/* Error code mask */
-+#define	FSI_MESRB_EC_SHFT	28		/* Error code shift */
-+#define	FSI_MESRB_PARITY_MASK	0xff		/* Parity bits shift */
-+#define	FSI_MESRB_PARITY_SHFT	16		/* Parity bits Mask */
-+#define	FSI_MESRB_CRC_MASK	0xf		/* CRC mask */
-+#define	FSI_MESRB_CRC_SHFT	24		/* CRC shift */
-+#define	FSI_MESRB_RESERVED_MASK	0xffff		/* Reserved mask */
-+#define	FSI_MESRB_OPB_PYE	0x0001000	/* OPB Parity Error */
-+#define	FSI_MESRB_NE		0		/* No error */
-+#define	FSI_MESRB_OPBE		1		/* OPB Error */
-+#define	FSI_MESRB_IOPBS		2		/* Illegal OPB state */
-+#define	FSI_MESRB_PAE		3		/* Port access error */
-+#define	FSI_MESRB_IDM		4		/* ID mismatch */
-+#define	FSI_MESRB_DMASE		5		/* DMA select error */
-+#define	FSI_MESRB_PTOE		6		/* Port time out error */
-+#define	FSI_MESRB_MTOE		7		/* Master time out error */
-+#define	FSI_MESRB_MCRCE		8		/* Master CRC error */
-+#define	FSI_MESRB_ERRA		9		/* Any error response */
-+#define	FSI_MESRB_ERRC		10		/* CRC error response */
-+#define	FSI_MESRB_PE		11		/* Protocol error */
-+#define	FSI_MESRB_PYE		12		/* Parity err/Reg access err */
-+#define	FSI_MESRB_LAST		(FSI_MESRB_PYE + 1)	/* Last entry */
-+
-+/* Extract error conditon */
-+static inline u32 fsi_mesrb_extec(u32 x)
-+{
-+	return (x >> FSI_MESRB_EC_SHFT) & FSI_MESRB_EC_MASK;
-+}
-+
-+/* Extract CRC error counter */
-+static inline u32 fsi_mesrb_extcrc(u32 x)
-+{
-+	return (x >> FSI_MESRB_CRC_SHFT) & FSI_MESRB_CRC_MASK;
-+}
-+
-+/* Extract parity error bits */
-+static inline u32 fsi_mesrb_extparity(u32 x)
-+{
-+	return (x >> FSI_MESRB_PARITY_SHFT) & FSI_MESRB_PARITY_MASK;
-+}
-+
-+/*
-+ * MATRB Register
-+ */
-+#define	FSI_MATRB_LPA_MASK		0x3f	/* Last port/link address mask */
-+#define	FSI_MATRB_LPA_SHFT		26	/* Last port/link address shift */
-+#define	FSI_MATRB_LSID_MASK		3	/* Last slave id mask */
-+#define	FSI_MATRB_LSID_SHFT		24	/* Last slave id shift */
-+#define	FSI_MATRB_P8_ADDR_HI_MASK	3	/* Upper two bits of address */
-+#define	FSI_MATRB_P8_ADDR_HI_SHFT 	24	/* Upper two bits of address shift */
-+#define	FSI_MATRB_SLPA_MASK		3	/* Last sublink address mask */
-+#define	FSI_MATRB_SLPA_SHFT		19	/* Last sublink address shift */
-+#define	FSI_MATRB_SLSID_SHFT		17	/* Last subslave id shift */
-+#define	FSI_MATRB_READ_MASK		0x00400000	/* Last command was Read */
-+#define	FSI_MATRB_ADDR_MASK		0x1fffff	/* Last address mask */
-+#define	FSI_MATRB_ADDR_SHFT		1	/* Last address shift */
-+#define	FSI_MATRB_P8_ADDR_SHFT		3	/* Account for the upper 2 bits */
-+#define	FSI_MATRB_DATAS_MASK		1	/* Last address data size mask */
-+#define	FSI_MATRB_CM_MASK		0x00200000	/* Cascaded FSI mask */
-+
-+/* Extract link number */
-+static inline int fsi_matrb_lpa(u32 x)
-+{
-+	return (x >> FSI_MATRB_LPA_SHFT) & FSI_MATRB_LPA_MASK;
-+}
-+
-+/* Extract data size of last command */
-+static inline int fsi_matrb_datasize(u32 x)
-+{
-+	return x & FSI_MATRB_DATAS_MASK;
-+}
-+
-+/* Extract read/write command */
-+static inline int fsi_matrb_isread(u32 x)
-+{
-+	return x & FSI_MATRB_READ_MASK;
-+}
-+
-+/*
-+ * MSTAP Register
-+ */
-+#define	FSI_MSTAP_MASK		0xf		/* Error mask ID 0..3 */
-+#define	FSI_MSTAP_ID0_SHFT	28		/* CFAM 0 error shift */
-+#define	FSI_MSTAP_ID1_SHFT	24		/* CFAM 1 error shift */
-+#define	FSI_MSTAP_ID2_SHFT	20		/* CFAM 2 error shift */
-+#define	FSI_MSTAP_ID3_SHFT	16		/* CFAM 3 error shift */
-+#define	FSI_MSTAP_CRC_MASK	0xf		/* CRC mask */
-+#define	FSI_MSTAP_CRC_SHFT	12		/* CRC error counter */
-+#define	FSI_MSTAP_HOTPLUG	0x800		/* Hotplug indicator */
-+#define	FSI_MSTAP_NE		0		/* No error */
-+#define	FSI_MSTAP_ERRA		1		/* Any error response */
-+#define	FSI_MSTAP_ERRC		2		/* CRC error response */
-+#define	FSI_MSTAP_UCRCE		3		/* Port detected CRC error */
-+#define	FSI_MSTAP_IDM		4		/* ID mismatch */
-+#define	FSI_MSTAP_PTOE		5		/* Port time out error */
-+#define	FSI_MSTAP_IIPSE		6		/* Invalid I-Poll state error */
-+#define	FSI_MSTAP_LAST		(FSI_MSTAP_IIPSE + 1)	/* Last entry */
-+
-+/* Extract error reason for slave id 0..3 */
-+static inline u32 fsi_mstap_extec(u32 x, int id)
-+{
-+	return (x >> (FSI_MSTAP_ID0_SHFT - id * FSI_MAX_CASCADE))
-+	       & FSI_MSTAP_MASK;
-+}
-+
-+/* Extract crc counter */
-+static inline u32 fsi_mstap_extcrc(u32 x)
-+{
-+	return (x >> FSI_MSTAP_CRC_SHFT) & FSI_MSTAP_CRC_MASK;
-+}
-+
-+/*
-+ * MECTRL Register
-+ */
-+#define	FSI_MECTRL_TP_SHFT		24	/* Shift for parity error generation */
-+#define	FSI_MECTRL_TP_MASK		0xff	/* Mask for parity error generation */
-+#define	FSI_MECTRL_IPE_SHFT		16	/* Shift for inhibit parity error */
-+#define	FSI_MECTRL_IPE_MASK		0xff	/* Mask for inhibit parity error */
-+#define	FSI_MECTRL_EOAE			0x8000	/* Enable machine check when master */
-+#define	FSI_MECTRL_P8_AUTO_TERM		0x4000	/* Auto terminate */
-+#define	FSI_MECTRL_FPME			0x2000	/* Freeze port on master error */
-+#define	FSI_MECTRL_P8_SID_TO_3		0x0800	/* Force slave ID to 3 */
-+
-+/* Force parity error events */
-+static inline u32 fsi_mectrl_fpe(int id)
-+{
-+	return (id & FSI_MECTRL_TP_MASK) << FSI_MECTRL_TP_SHFT;
-+}
-+
-+/* Inhibit parity errors */
-+static inline u32 fsi_mectrl_ipe(int id)
-+{
-+	return (id & FSI_MECTRL_IPE_MASK) << FSI_MECTRL_IPE_SHFT;
-+}
-+
-+/*
-+ * Returns the virtual address of the FSI slave configuration word 0 given
-+ * the FSI slave engine 0 virtual address.
++ * Copyright 2016 IBM Corp.
 + *
-+ * NOTE: Assumes address space is mapped without holes. This is ok as both
-+ * engines 2 2KB apart and Linux uses 4KB pages.
++ * Christopher Bostic <cbostic@us.ibm.com>
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version
++ * 2 of the License, or (at your option) any later version.
 + */
-+static inline void *get_termva(void *slv_va)
++#include "fsi.h"
++#include "fsidefines.h"
++#include "fsimaster.h"
++
++/*
++ * Send out a BREAK command on a given link - Resets the logic of any slaves
++ * present
++ */
++int fsi_sendbreak(struct fsimaster *p, u32 pa, int linkno)
 +{
-+	return (void *)((unsigned long)slv_va & ~0xfff);
++	return 0;
 +}
 +
-+static inline unsigned long get_termpa(unsigned long slv_pa)
++/*
++ * Read/write functions to be used only by the FSI driver itself.  FSI clients
++ * will use separate interfaces
++ */
++int fsi_readw_int2(u32 pa, u32 *value)
 +{
-+	return slv_pa & ~0xfff;
++	return 0;
 +}
 +
-+struct master_quirks {
-+	int break_cfam_id;
-+	void (*port_reset)(struct fsidevice *, struct fsidevice *, int);
-+	int (*send_break)(struct fsimaster *, void *, int, struct fsicfam *);
-+	int (*break_set_cfam_id)(void *, int);
-+};
++int fsi_writew_int2(u32 pa, u32 value)
++{
++	return 0;
++}
 +
-+struct fsimaster {			/* FSI master definition */
-+	struct fsimaster *parent;	/* Parent of this master */
-+	char name[8];			/* Name for /sysfs */
-+	unsigned long peek40c;		/* Peek engine identifications */
-+	phys_addr_t membase;		/* Base MMIO address */
-+	int irqbase;			/* Base IRQ number */
-+	struct fsidevice *fsidev;	/* Pointer to fsi cascaded engine */
-+	struct fsidevice *fsislv;	/* Pointer to fsi slave engine */
-+	volatile u32 *mp;		/* Ptr to register space */
-+	spinlock_t lock;		/* Lock */
-+	unsigned int dcr_alloc: 1;	/* True if ioremap for dcr reg space */
-+	unsigned int have_peek: 1;	/* True if peek engine read needed */
-+	unsigned char myid;		/* FSI master identifier for traces */
-+	unsigned char type;		/* Type FSI master */
-+	unsigned char hw_version;	/* FSI master hardware version */
-+	unsigned char maxlinks;		/* FSI master links */
-+	struct fsilink *link[FSI_MAX_LINKS];
-+	int (*write_f)(volatile u32 *, int, u32);	/* Write function */
-+	int (*read_f)(volatile u32 *, int, u32 *);	/* Read function */
-+	int (*write_f2)(volatile u32 *, int, u32 *);	/* Write function */
-+	int (*read_f2)(volatile u32 *, int, u32 *);	/* Read function */
-+	int (*read_f4)(volatile u32 *, int, u32 *);	/* Read function */
-+	int (*write_f8)(volatile u32 *, int, u32 *);	/* Write function */
-+	struct fsidevice * (*m_get)(struct fsimaster *, int, int);
-+	int (*m_pa2irq)(struct fsimaster *, phys_addr_t);
-+	void (*m_exit)(struct fsimaster *);
-+	struct master_quirks quirks;	/* hardware quirks functions/data */
-+	unsigned char srsic;		/* master specific register offset */
-+	unsigned char srsim;		/* master specific register offset */
-+	unsigned long cfam_size;	/* master specific cfam size */
-+};
-+#define to_fsimaster(a) container_of(a, struct fsimaster, kobj)
-+#define to_fsimaster_probe(a)	container_of(a, struct fsimaster, hotp.probewrk)
-+#define to_fsimaster_build(a)	container_of(a, struct fsimaster, hotp.buildwrk)
++int fsi_readw_int(u32 pa, u32 *value)
++{
++	return 0;
++}
 +
-+/*
-+ * Functions to create/delete an FSI Master
-+ */
-+struct fsimaster *fsimaster_build_init(struct fsimaster *, int,
-+				       struct fsidevice *);
-+struct fsimaster *fsimaster_build(int, struct fsidevice *);
-+void fsimaster_free(struct fsimaster *);
-+void fsimaster_put(struct fsimaster *);
-+struct fsimaster *fsimaster_get(struct fsimaster *);
-+struct fsimaster *fsimaster_find(phys_addr_t);
-+int fsimaster_plugcheck(phys_addr_t);
-+void fsimaster_start(struct fsimaster *);
-+int fsimaster_stop(struct fsimaster *);
-+void fsimaster_stopsync(struct fsimaster *);
-+int fsi_linkbuild(struct fsimaster *, int);
-+int fsi_linkdown(struct fsimaster *, int);
-+void fsi_linklost(struct fsimaster *, int);
-+
-+/*
-+ * Master commands
-+ */
-+int fsi_sendbreak(struct fsimaster *, void *, int, int);
-+struct fsimaster * fsim_get_top_master(struct fsimaster *);
-+#define FSI_TRACE_ERRORS 1
-+
-+/*
-+ * FSI master register access functions (without locking)
-+ */
-+int fsim_reseterror_nl(struct fsimaster *, int);
-+int fsim_resetgeneral_nl(struct fsimaster *, int);
-+
-+/*
-+ * Helper utilities for register access
-+ */
-+int fsim_setspeed(struct fsimaster *, int, int);
-+int fsim_ipoll_off_link_mask(struct fsimaster *, int, u32 *);
-+int fsim_ipoll_off_link(struct fsimaster *, int);
-+int fsim_ipoll_on_link(struct fsimaster *, int, u32);
-+int fsim_disable_link(struct fsimaster *, int);
-+int fsim_enable_link(struct fsimaster *, int);
-+int fsim_r_menp(struct fsimaster *, u32 *);
-+int fsim_r_menp_nl(struct fsimaster *, u32 *);
-+int fsim_r_mmode(struct fsimaster *, u32 *);
-+int fsim_r_mmode_nl(struct fsimaster *, u32 *);
-+int fsim_r_mcrsp(struct fsimaster *, u32 *);
-+int fsim_r_msiep(struct fsimaster *, u32 *);
-+int fsim_r_msiep_nl(struct fsimaster *, u32 *);
-+int fsim_w_msiep(struct fsimaster *, u32 *);
-+int fsim_w_msiep_nl(struct fsimaster *, u32 *);
-+int setup_me(struct fsimaster *, int);
-+
-+/*
-+ * Utilities to decode master error registers
-+ */
-+int fsi_matrb_lsid(u32);
-+unsigned long fsi_matrb_addr(unsigned long);
-+
-+/*
-+ * Helper utilities for link/cfam calculations.
-+ */
-+phys_addr_t fsim_cfam2pa(struct fsimaster *, int, int);
-+unsigned long fsim_linksz(struct fsimaster *);
-+unsigned long fsim_cfamsz(struct fsimaster *);
-+
-+/*
-+ * Helper utilities for IRQ number calculations.
-+ */
-+int fsim_pa2irq(struct fsimaster *, phys_addr_t);
-+int fsi_pa2irq(phys_addr_t);
-+
-+/*
-+ * Functions for link reference
-+ */
-+void fsim_linkref_add(struct fsimaster *, struct fsilink *);
-+struct fsilink *fsim_linkref_del(struct fsimaster *, int);
-+struct fsilink *fsim_linkref_markdel(struct fsimaster *, int);
-+struct fsilink *fsim_linkget(struct fsimaster *, int);
-+struct fsilink *fsim_linkget_inirq(struct fsimaster *, int);
-+struct fsicfam *fsim_cfamget(struct fsimaster *, int, int);
-+struct fsidevice *fsim_slvget(struct fsimaster *, int, int);
-+struct fsidevice *fsim_slvget_inirq(struct fsimaster *, int, int);
-+struct fsidevice *fsim_engget(struct fsimaster *, int, int, int);
-+struct fsidevice *fsim_engget_inirq(struct fsimaster *, int, int, int);
-+void fsim_linkput(struct fsilink *);
-+void fsim_cfamput(struct fsicfam *);
-+void fsim_slvput(struct fsidevice *);
-+void fsim_engput(struct fsidevice *);
-+void fsi_rst_error2(struct fsimaster *, struct fsidevice *, int, int, int, int);
-+int port_reset(struct fsimaster *, int);
-+
-+#endif /* DRIVERS_FSIMASTER_H */
++int fsi_writew_int(u32 pa, u32 value)
++{
++	return 0;
++}
 -- 
 1.8.2.2
