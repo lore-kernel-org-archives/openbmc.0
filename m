@@ -1,45 +1,71 @@
-Return-Path: <andrew@aj.id.au>
-Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
- [66.111.4.221])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <gwshan@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s0DjS3P7YzDrML
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 11:26:52 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=ABxCKAT0; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=RwNuGoFl; dkim-atps=neutral
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailnew.nyi.internal (Postfix) with ESMTP id 624551C38;
- Wed, 27 Jul 2016 21:26:50 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute7.internal (MEProxy); Wed, 27 Jul 2016 21:26:50 -0400
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:in-reply-to:message-id:references:subject:to
- :x-sasl-enc:x-sasl-enc; s=mesmtp; bh=/uxtcmR5eaiuUo7f33S8RCJBIyM
- =; b=ABxCKAT0x6KEOlWwKRTqyr1Hv6bdAJ1O+3S0piyzXmZajo7bkvNQVmwa2Si
- /ZRTIDkFuWgZxjBXL3OX41VaO0iy3cQurZ1EiF1Z2qxEGQzq+n9wnvKFXB4DsGDG
- NFAdUady35CwuYa06dVBAjQ0aISu1L//MYWyAXjlBkO9YeZM=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:in-reply-to:message-id
- :references:subject:to:x-sasl-enc:x-sasl-enc; s=smtpout; bh=/uxt
- cmR5eaiuUo7f33S8RCJBIyM=; b=RwNuGoFla2O7C+EuokBpM7rv5VMNTiQduTaY
- Isj9+Qkvx9YLWIGiTTeK2TYrUasX+4BVEJqzLf3zufEdhZ+DuhnB9zNHZK5ijE/h
- OJ1bolo8KoXTy9FM/Eh0MIFXK+4wVtH+WPFkrQn7M2sh8ickLUtTE5u8O4XKok5h
- t/tU3ow=
-X-Sasl-enc: +lt2qZ8bGnQc14bi/k7S80xC4WUQNobqNrE2s1Ws4fJl 1469669209
-Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 6B14CF29E1;
- Wed, 27 Jul 2016 21:26:48 -0400 (EDT)
-From: Andrew Jeffery <andrew@aj.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s0GGm674ZzDrHM
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 12:37:20 +1000 (AEST)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
+ u6S2XPGR085006
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Jul 2016 22:37:18 -0400
+Received: from e23smtp02.au.ibm.com (e23smtp02.au.ibm.com [202.81.31.144])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 24e5we6cta-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Jul 2016 22:37:17 -0400
+Received: from localhost
+ by e23smtp02.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <gwshan@linux.vnet.ibm.com>;
+ Thu, 28 Jul 2016 12:37:15 +1000
+Received: from d23dlp01.au.ibm.com (202.81.31.203)
+ by e23smtp02.au.ibm.com (202.81.31.208) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Thu, 28 Jul 2016 12:37:13 +1000
+X-IBM-Helo: d23dlp01.au.ibm.com
+X-IBM-MailFrom: gwshan@linux.vnet.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d23relay07.au.ibm.com (d23relay07.au.ibm.com [9.190.26.37])
+ by d23dlp01.au.ibm.com (Postfix) with ESMTP id 91F132CE805E
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 12:37:12 +1000 (EST)
+Received: from d23av06.au.ibm.com (d23av06.au.ibm.com [9.190.235.151])
+ by d23relay07.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u6S2bCIU24772858
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 12:37:12 +1000
+Received: from d23av06.au.ibm.com (localhost [127.0.0.1])
+ by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u6S2bC4e007666
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 12:37:12 +1000
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u6S2bBYa007652; Thu, 28 Jul 2016 12:37:12 +1000
+Received: from bran.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
+ by ozlabs.au.ibm.com (Postfix) with ESMTP id E9B79A01C3;
+ Thu, 28 Jul 2016 12:37:10 +1000 (AEST)
+Received: from gwshan (shangw.ozlabs.ibm.com [10.61.2.199])
+ by bran.ozlabs.ibm.com (Postfix) with ESMTP id BC4AFE3BAA;
+ Thu, 28 Jul 2016 12:37:10 +1000 (AEST)
+Received: by gwshan (Postfix, from userid 1000)
+ id A6F68942255; Thu, 28 Jul 2016 12:37:10 +1000 (AEST)
+From: Gavin Shan <gwshan@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH 2/2] ast2500-edk: Configure HW strap register
-Date: Thu, 28 Jul 2016 10:55:34 +0930
-Message-Id: <20160728012534.29447-3-andrew@aj.id.au>
-X-Mailer: git-send-email 2.9.2.597.g66765a4
-In-Reply-To: <20160728012534.29447-1-andrew@aj.id.au>
-References: <20160728012534.29447-1-andrew@aj.id.au>
+Cc: joel@jms.id.au, Gavin Shan <gwshan@linux.vnet.ibm.com>
+Subject: [PATCH dev-4.7] net/faraday: Switch to use-ncsi device node property
+Date: Thu, 28 Jul 2016 12:37:09 +1000
+X-Mailer: git-send-email 2.1.0
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16072802-0004-0000-0000-0000017F6D8D
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 16072802-0005-0000-0000-000008590678
+Message-Id: <1469673429-29042-1-git-send-email-gwshan@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-07-28_01:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1604210000
+ definitions=main-1607280026
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -51,27 +77,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Jul 2016 01:26:52 -0000
+X-List-Received-Date: Thu, 28 Jul 2016 02:37:21 -0000
 
-Strap register value was read off the hardware after boot.
+This uses "use-ncsi" device node property to enable NCSI interface
+as we do in upstream kernel. No functional change introduced.
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
 ---
- hw/arm/palmetto-bmc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts   | 2 +-
+ arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts    | 2 +-
+ arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts    | 2 +-
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 2 +-
+ drivers/net/ethernet/faraday/ftgmac100.c         | 2 +-
+ 5 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/hw/arm/palmetto-bmc.c b/hw/arm/palmetto-bmc.c
-index ec4aed306e7b..9e9c7e403133 100644
---- a/hw/arm/palmetto-bmc.c
-+++ b/hw/arm/palmetto-bmc.c
-@@ -47,7 +47,7 @@ enum {
- static const AspeedBoardConfig aspeed_boards[] = {
-     [PALMETTO_BMC] = { AST2400_HW_STRAP1, AST2400_A0_SILICON_REV,
-                          AST2400_SDRAM_BASE },
--    [AST2500_EDK]  = { 0x00000200, AST2500_A1_SILICON_REV,
-+    [AST2500_EDK]  = { 0x7100c2e6, AST2500_A1_SILICON_REV,
-                          AST2500_SDRAM_BASE },
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+index 41ee12a..310a4ef 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+@@ -71,7 +71,7 @@
+ &mac0 {
+ 	status = "okay";
+ 
+-	use-nc-si;
++	use-ncsi;
  };
  
+ &i2c0 {
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
+index 63b039c..d97f216 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
+@@ -56,7 +56,7 @@
+ &mac0 {
+ 	status = "okay";
+ 
+-	use-nc-si;
++	use-ncsi;
+ };
+ 
+ &i2c4 {
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+index 1ae3983..bd76100 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+@@ -70,7 +70,7 @@
+ &mac0 {
+ 	status = "okay";
+ 
+-	use-nc-si;
++	use-ncsi;
+ 	no-hw-checksum;
+ };
+ 
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index bb5ec59..d5b9af9 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -28,7 +28,7 @@
+ &mac0 {
+ 	status = "okay";
+ 
+-	use-nc-si;
++	use-ncsi;
+ 	no-hw-checksum;
+ };
+ 
+diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
+index fc2852f..c67b670 100644
+--- a/drivers/net/ethernet/faraday/ftgmac100.c
++++ b/drivers/net/ethernet/faraday/ftgmac100.c
+@@ -1352,7 +1352,7 @@ static int ftgmac100_probe(struct platform_device *pdev)
+ 	priv = netdev_priv(netdev);
+ 	SET_NETDEV_DEV(netdev, &pdev->dev);
+ 	if (pdev->dev.of_node &&
+-	    of_get_property(pdev->dev.of_node, "use-nc-si", NULL)) {
++	    of_get_property(pdev->dev.of_node, "use-ncsi", NULL)) {
+ 		dev_info(&pdev->dev, "Using NCSI interface\n");
+ 		netdev->phydev = NULL;
+ 		priv->use_ncsi = true;
 -- 
-2.9.2.597.g66765a4
+2.1.0
