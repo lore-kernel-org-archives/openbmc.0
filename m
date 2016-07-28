@@ -1,31 +1,33 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <clg@kaod.org>
+Received: from 5.mo7.mail-out.ovh.net (5.mo7.mail-out.ovh.net [178.32.120.239])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s0J2h3Fx5zDswt
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 13:56:59 +1000 (AEST)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1469678214367288.6997125797634;
- Wed, 27 Jul 2016 20:56:54 -0700 (PDT)
-Date: Wed, 27 Jul 2016 22:56:52 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: "Deuskar, Prafulla" <prafulla.deuskar@intel.com>
-Cc: Rick Altherr <raltherr@google.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Re: REST API support on AST 2500 EVB
-Message-ID: <20160728035652.wo7b54ncrmf2mw6x@asimov>
-References: <86BC2638B1D5DA48B2AEFCA5BCA462667134F6D9@ORSMSX115.amr.corp.intel.com>
- <CAPLgG==6C_JOvE=ZkeVNYOYS1K=Qo-GaRwAnkqrBSoCJEY5k2A@mail.gmail.com>
- <86BC2638B1D5DA48B2AEFCA5BCA462667134F7FD@ORSMSX115.amr.corp.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s0Q3q0P8ZzDrPj
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 18:28:23 +1000 (AEST)
+Received: from player796.ha.ovh.net (b7.ovh.net [213.186.33.57])
+ by mo7.mail-out.ovh.net (Postfix) with ESMTP id D7FD7100C5B3
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 10:21:19 +0200 (CEST)
+Received: from [192.168.124.3] (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: clg@kaod.org)
+ by player796.ha.ovh.net (Postfix) with ESMTPSA id F32125C009D;
+ Thu, 28 Jul 2016 10:21:15 +0200 (CEST)
+Subject: Re: [PATCH 2/2] ast2500-edk: Configure HW strap register
+To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
+References: <20160728012534.29447-1-andrew@aj.id.au>
+ <20160728012534.29447-3-andrew@aj.id.au>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <0f2beb05-e04e-91c9-9772-e84cf0903684@kaod.org>
+Date: Thu, 28 Jul 2016 10:21:03 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Icedove/45.1.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="uh5te2etmbfqqh3b"
-Content-Disposition: inline
-In-Reply-To: <86BC2638B1D5DA48B2AEFCA5BCA462667134F7FD@ORSMSX115.amr.corp.intel.com>
-User-Agent: Mutt/1.6.2 (2016-06-11)
-X-Zoho-Virus-Status: 1
+In-Reply-To: <20160728012534.29447-3-andrew@aj.id.au>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 7bit
+X-Ovh-Tracer-Id: 13870805381605460947
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeltddrieejgddtvdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -37,124 +39,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Jul 2016 03:57:00 -0000
+X-List-Received-Date: Thu, 28 Jul 2016 08:28:23 -0000
+
+On 07/28/2016 03:25 AM, Andrew Jeffery wrote:
+> Strap register value was read off the hardware after boot.
+> 
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> ---
+>  hw/arm/palmetto-bmc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/hw/arm/palmetto-bmc.c b/hw/arm/palmetto-bmc.c
+> index ec4aed306e7b..9e9c7e403133 100644
+> --- a/hw/arm/palmetto-bmc.c
+> +++ b/hw/arm/palmetto-bmc.c
+> @@ -47,7 +47,7 @@ enum {
+>  static const AspeedBoardConfig aspeed_boards[] = {
+>      [PALMETTO_BMC] = { AST2400_HW_STRAP1, AST2400_A0_SILICON_REV,
+>                           AST2400_SDRAM_BASE },
+> -    [AST2500_EDK]  = { 0x00000200, AST2500_A1_SILICON_REV,
+> +    [AST2500_EDK]  = { 0x7100c2e6, AST2500_A1_SILICON_REV,
+>                           AST2500_SDRAM_BASE },
+
+so maybe we could define the ast2500 hw-strap1 value in :
+
+	include/hw/misc/aspeed_scu.h,
+
+comments are sufficient enough. So you can replace the version I did
+for the ast2400. We can always come back to the macros when the u-boot 
+code is merged.
 
 
---uh5te2etmbfqqh3b
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thanks,
 
-Prafulla,
-
-Thank you for your interest and inquiry.
-
-The 1.x release stream is, in some ways, a proof-of-concept of our
-vision of a BMC and specifically targeted the Power8-based "Barreleye"
-system for Rackspace, which used the AST2400.  Due to aggressive
-schedules on that system there were some implementation choices that we
-are currently investing time to refactor into a better state.  The
-master branch, which will become 2.x, is therefore in a pretty unstable
-state and might be the cause of some of what you are seeing.
-
-Most of the developers currently working on the 2.x release stream are
-assigned to work on a set of Power9-based systems that will use the
-AST2500.  (These are not just IBM developers but a few other companies
-are also involved in this effort.)  Obviously, our expertise is in Power
-and our current focus is there, but we are trying to be mindful to
-not design ourselves into a Power-only BMC.  We would be very excited to
-support other processor architectures for the managed server and will
-assist where we can.
-
-Since we are working on a few AST2500 machines, we have a subset of the
-team that was doing BSP work for that.  This is where the EVB machine
-target came from.  This includes u-boot, kernel, and base Yocto.
-
-We also have the other subset of the team working on the [userspace]
-management applications to maintain the server.  This part of the team
-is still using the AST2400 machines or qemu for most development.
-
-As a result of this split and where we are at with the 2.x development
-stream, you are seeing limited functionality depending on which board
-you are compiling for.  The EVB target should be very solid on the
-u-boot and kernel support but the userspace applications are not
-configured correctly or functional.  The QEMU target is using the Yocto
-kernel and is more likely to have functional userspace applications.
-The machine targets are varied states, but "Barreleye" and "Palmetto"
-are both fairly stable.
-
-Your best bet for trying to evaluate the userspace applications is to
-use qemuarm or qemux86-64 targets.  As I said, these still are not fully
-functional due to where we are at in the development cycle, but might
-give you a better view than the raw EVB right now.  We should have a
-much different story in about 3 months.
-
-Now, with that background, on to your questions...
-
-> Looks like obmc-rest is running (according to =E2=80=9Cps=E2=80=9D) and t=
-here are
-> services listening on ports 22, 3000, 2200 and 443 (=E2=80=9Cnetstat =E2=
-=80=93lntu=E2=80=9D).
-
-* Port 22 is the BMC's ssh (user: root, password: 0penBmc).
-* Port 2200 is a ssh-based SOL that relays the server's LPC-based VUART.
-* Port 3000 is an http-based debug application that is not meant for
-  production.  You should be able to point a web-browser at it.
-* Port 443 is the https-based REST server.
-
-The way our application stack is organized is as a set of dbus services
-and objects.  The REST server uses dbus introspection to automatically
-create corresponding REST APIs from the dbus interfaces.  Port 3000 was
-a quick mapping of the dbus into a web-client for developers to use.
-Consider it a browser version of 'dbus-send' or 'busctl', but we will be
-deprecating it in the near future.  Port 443 is the _real_ REST server
-that uses introspection.  This is what is documented at the link you
-mentioned.
-
-I would suggest first logging in and then looking at system object out
-of the inventory:
-* https://github.com/openbmc/docs/blob/master/rest-api.md#logging-in
-* https://github.com/openbmc/docs/blob/master/rest-api.md#http-get-operatio=
-ns--url-structure
-
-> We get =E2=80=9CHTTP/1.0 404 Not Found=E2=80=9D when trying to login to p=
-ort 3000
-
-This interface does not use login, so you should be able to just point a
-browser at it.  It doesn't work with 'curl', etc. very well.
-
-> =E2=80=9CHTTP/1.0 400 Bad Request=E2=80=9D when we try port 443.
-
-Make sure you are using https, but this should work.  Since this uses
-dbus introspection and the EVB does not have the userspace applications
-working completely, it is possible that there isn't much there.  I would
-expect login to work though.  Please let us know what curl (or other
-tool) invocation you are using.  As I mentioned earlier, using QEMU
-might give you better results for looking at the REST API at this stage.
-
---=20
-Patrick Williams
-
---uh5te2etmbfqqh3b
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJXmYKEAAoJEKsDR8wtAMEZ+OAP/RSEVkyPCpir3KMf+8VnsI12
-XGxCP5M6WvhIxEzMPvtxfC3aS+2bOYRz255J0UbG3z+Y904z6UxGwg6UOITHzcIi
-erpyfznNliH2Z52yRFIZ9lrSATEf/xCB7ixxsK/hoYvhPxbtoCMSlqPghV6U1MsB
-uBKQWlX1wlcSF6JnphH5LWWx9N8cae0OGo77oXNXUwpP3FqQ0+z/olnmxzMoJN91
-7gJfKvmT5e9bfnLXiD/XdtkmiDVYVbnp3S8WhsIz/VWDVjfTu7yegu6fveEoA+6c
-kxUjdvtQ3WXqHUbv2hFwMZLgDTrgH2zlPMA8KMuCecge2641Gnhv7H/dst4t+c9E
-d2Hr/J39XAs8uDFF5GmNEYqnCv9GuVdcfokQKVacQU+E8GEueVibP2GU415OSYi8
-N8Sp4gaXZj85+B638w7c5MPzyKRaLwdQhhVNIm3/4OA9kKwzw8AIBLFzsKLl6Z0z
-iF2Re2YxLZ3MoBAj1UMCarI/u7e4fJ2dWNFnGsW/AMajvbwU3vXztcERtj8quqHo
-oc49SKobpU2zBZ+7JKyWJERvhAYpV95O6rjE6EVr0MIOTbiVWFWpzXUziH7TLPYO
-/eiGCzZHSDed5R752ROxT617j6ReQsB0pSmZXMXDToUVQKcXIgiwvEhs2YxO3Sns
-3oFLra+veFLol9eLj4el
-=aCZ+
------END PGP SIGNATURE-----
-
---uh5te2etmbfqqh3b--
+C.  
