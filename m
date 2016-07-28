@@ -1,37 +1,48 @@
-Return-Path: <clg@kaod.org>
-X-Greylist: delayed 18172 seconds by postgrey-1.35 at bilbo;
- Thu, 28 Jul 2016 23:41:07 AEST
-Received: from 14.mo7.mail-out.ovh.net (14.mo7.mail-out.ovh.net
- [178.33.251.19])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <christopher.lee.bostic@gmail.com>
+Received: from mail-oi0-x244.google.com (mail-oi0-x244.google.com
+ [IPv6:2607:f8b0:4003:c06::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s0Y0g0JmDzDrP3
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 23:41:06 +1000 (AEST)
-Received: from player796.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo7.mail-out.ovh.net (Postfix) with ESMTP id 248731000FE0
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 15:40:55 +0200 (CEST)
-Received: from [192.168.124.3] (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
- [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player796.ha.ovh.net (Postfix) with ESMTPSA id 589F35C009F;
- Thu, 28 Jul 2016 15:40:52 +0200 (CEST)
-Subject: Re: [PATCH 2/2] ast2500-edk: Configure HW strap register
-To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
-References: <20160728012534.29447-1-andrew@aj.id.au>
- <20160728012534.29447-3-andrew@aj.id.au>
- <0f2beb05-e04e-91c9-9772-e84cf0903684@kaod.org>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <76109eeb-31f4-00ac-6a31-5ae7f8b96217@kaod.org>
-Date: Thu, 28 Jul 2016 15:40:40 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Icedove/45.1.0
-MIME-Version: 1.0
-In-Reply-To: <0f2beb05-e04e-91c9-9772-e84cf0903684@kaod.org>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 821343984747449299
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeltddrieejgdeijecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s0g4m3x49zDqR4
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Jul 2016 04:15:04 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=NQuPaSuf; 
+ dkim-atps=neutral
+Received: by mail-oi0-x244.google.com with SMTP id c199so5260602oig.1
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 11:15:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=from:to:cc:subject:date:message-id;
+ bh=rScVfV3nugEt1JGh6yf9WvP9x/cWWiCLPrULB9ryNPw=;
+ b=NQuPaSuf4UgPz3aLj5HEqbcoY7o7BO2oHvRMw7SEBT+Iblr4G2f+ubqz2xevj7EGYW
+ L6kj44hIPN7+1sjpQbCmPMjOLW6vPIjzxOIHfSYYIhf8SDmarY5/QkHx0P7sQeW7Dx9A
+ kCBKSorb8gZ5XDZhRRMnJJ6BIExq42K1rpb6o752yfAFA15rqtspWB7CqnLudiJTqdqJ
+ doJLDiLFH0t3n0pF+BVSTKaBeYJ3O4INnZh77qctKYGvGZOQnYIjOz+3TQR2x8vVjiu6
+ qVFB7dQk5b5DWgxPDOOUxlvfNgUTViStCWXpqr7Yf+CiE8wH/JOtU+S3A5CcE0HN0yaA
+ fNNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=rScVfV3nugEt1JGh6yf9WvP9x/cWWiCLPrULB9ryNPw=;
+ b=U7yRDCw2xJokchzyMDmFwlPA0oPE652xnzxrFX2y2I462lbQ4LH9gu3Rd62g0iOipA
+ rYrLhraHTlkIllOBL/Q0Rde1KDZYh+OOuE3udB4fWWnNcago8cIQ6bH32753f/Iyu5VE
+ qSw+yuqeBA0Yn2ngI9UbW0TPulDgolrzK1OLkdAyPbkinKyGjsg8nBVQMHRCsABG1R5V
+ 76i558G4Ex2L4mkKnXYsu46W4wQlkCPqPjN2Q80KSFcJUQLAgTlM3cJykkVJ3RVRw9Jv
+ 5Nvd4i5OTDqHLcrRoqL6Tacp2bNUNQFedtqaIN60wCwsatNAwJcQAYFOo0JcCzEYWzpB
+ 2a9g==
+X-Gm-Message-State: AEkoouvGqMkU73Pfs/4Uixb3XrNTtNqfLsSovekStU8BWhIKTxVQi0MjQdQTRWZsdhEIfA==
+X-Received: by 10.157.44.139 with SMTP id p11mr21285932otb.176.1469729701715; 
+ Thu, 28 Jul 2016 11:15:01 -0700 (PDT)
+Received: from Christophers-MacBook-Pro.local.com
+ (45-20-192-79.lightspeed.austtx.sbcglobal.net. [45.20.192.79])
+ by smtp.gmail.com with ESMTPSA id u8sm5088273otb.5.2016.07.28.11.15.01
+ (version=TLS1 cipher=AES128-SHA bits=128/128);
+ Thu, 28 Jul 2016 11:15:01 -0700 (PDT)
+From: christopher.lee.bostic@gmail.com
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux v4 1/4] drivers/fsi: Initial stubs for FSI device driver.
+Date: Thu, 28 Jul 2016 13:14:55 -0500
+Message-Id: <1469729698-37246-1-git-send-email-christopher.lee.bostic@gmail.com>
+X-Mailer: git-send-email 2.7.4 (Apple Git-66)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -43,100 +54,165 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Jul 2016 13:41:07 -0000
+X-List-Received-Date: Thu, 28 Jul 2016 18:15:05 -0000
 
-On 07/28/2016 10:21 AM, Cédric Le Goater wrote:
-> On 07/28/2016 03:25 AM, Andrew Jeffery wrote:
->> Strap register value was read off the hardware after boot.
->>
->> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
->> ---
->>  hw/arm/palmetto-bmc.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/hw/arm/palmetto-bmc.c b/hw/arm/palmetto-bmc.c
->> index ec4aed306e7b..9e9c7e403133 100644
->> --- a/hw/arm/palmetto-bmc.c
->> +++ b/hw/arm/palmetto-bmc.c
->> @@ -47,7 +47,7 @@ enum {
->>  static const AspeedBoardConfig aspeed_boards[] = {
->>      [PALMETTO_BMC] = { AST2400_HW_STRAP1, AST2400_A0_SILICON_REV,
->>                           AST2400_SDRAM_BASE },
->> -    [AST2500_EDK]  = { 0x00000200, AST2500_A1_SILICON_REV,
->> +    [AST2500_EDK]  = { 0x7100c2e6, AST2500_A1_SILICON_REV,
->>                           AST2500_SDRAM_BASE },
-> 
-> so maybe we could define the ast2500 hw-strap1 value in :
-> 
-> 	include/hw/misc/aspeed_scu.h,
-> 
-> comments are sufficient enough. So you can replace the version I did
-> for the ast2400. We can always come back to the macros when the u-boot 
-> code is merged.
+From: Christopher Bostic <cbostic@us.ibm.com>
 
-So after a second look, I think macros are better. 
+Signed-off-by: Christopher Bostic <cbostic@us.ibm.com>
+---
 
-The ast2500 eval board has a HW_STRAP1 value of 0xf100c2e6, so I came up 
-with a definition of AST2500_HW_STRAP1 which is below. 
+Changes to this patch based on reviewer feedback
 
-Cheers,
+V2:
+- Removed enums in fsiinit.h and replaced with #defines
+- Added proper file copyright and license headers
+- Added certificate of origin
+- Removed version string
+- Replace kobject with struct device in struct fsidd
+- Suggestions to implement standard bus_type will be implemented in
+  later patches
 
-C.
+V3:
+- Removed white space
+- Suggestions to add Kconfig will be added in follow on patches
 
+V4:
+- Removed blank line at end of fsiinit.c
+---
+ drivers/Makefile      |  1 +
+ drivers/fsi/Makefile  |  5 +++++
+ drivers/fsi/fsiinit.c | 53 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ drivers/fsi/fsiinit.h | 41 +++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 100 insertions(+)
+ create mode 100644 drivers/fsi/Makefile
+ create mode 100644 drivers/fsi/fsiinit.c
+ create mode 100644 drivers/fsi/fsiinit.h
 
+diff --git a/drivers/Makefile b/drivers/Makefile
+index 795d0ca..63019ff 100644
+--- a/drivers/Makefile
++++ b/drivers/Makefile
+@@ -172,3 +172,4 @@ obj-$(CONFIG_STM)		+= hwtracing/stm/
+ obj-$(CONFIG_ANDROID)		+= android/
+ obj-$(CONFIG_NVMEM)		+= nvmem/
+ obj-$(CONFIG_FPGA)		+= fpga/
++obj-$(CONFIG_FSI)		+= fsi/
+diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
+new file mode 100644
+index 0000000..f547c08
+--- /dev/null
++++ b/drivers/fsi/Makefile
+@@ -0,0 +1,5 @@
++#
++# Makefile for the FSI bus specific drivers.
++#
++
++obj-y		+= fsiinit.o
+diff --git a/drivers/fsi/fsiinit.c b/drivers/fsi/fsiinit.c
+new file mode 100644
+index 0000000..a9e3381
+--- /dev/null
++++ b/drivers/fsi/fsiinit.c
+@@ -0,0 +1,53 @@
 +/*
-+ * Hardware strapping register definition (for Aspeed AST2500 SOC and
-+ * higher)
++ * FSI Master device driver
++ *
++ * Copyright 2016 IBM Corp.
++ *
++ * Christopher Bostic <cbostic@us.ibm.com>
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version
++ * 2 of the License, or (at your option) any later version.
 + */
-+#define SCU_AST2500_HW_STRAP_SPI_AUTOFETCH_ENABLE  (0x1 << 31)
-+#define SCU_AST2500_HW_STRAP_GPIO_STRAP_ENABLE     (0x1 << 30)
-+#define SCU_AST2500_HW_STRAP_UART_DEBUG            (0x1 << 29)
-+#define     UART_DEBUG_UART1                           0
-+#define     UART_DEBUG_UART5                           1
-+#define SCU_AST2500_HW_STRAP_RESERVED28            (0x1 << 28)
 +
-+#define SCU_AST2500_HW_STRAP_FAST_RESET_DBG        (0x1 << 27)
-+#define SCU_AST2500_HW_STRAP_ESPI_FLASH_ENABLE     (0x1 << 26)
-+#define SCU_AST2500_HW_STRAP_ESPI_ENABLE           (0x1 << 25)
-+#define SCU_AST2500_HW_STRAP_DDR4_ENABLE           (0x1 << 24)
++#include <linux/init.h>
++#include <linux/module.h>
++#include "fsiinit.h"
 +
-+#define SCU_AST2500_HW_STRAP_ACPI_ENABLE           (0x1 << 19)
-+#define SCU_AST2500_HW_STRAP_USBCKI_FREQ           (0x1 << 18)
-+#define     USBCKI_FREQ_24MHZ                          0
-+#define     USBCKI_FREQ_28MHZ                          1
++MODULE_AUTHOR("Christopher Bostic cbostic@us.ibm.com");
++MODULE_DESCRIPTION("FSI master device driver");
 +
-+#define SCU_AST2500_HW_STRAP_SET_AXI_AHB_RATIO(x)  (x << 9)
-+#define SCU_AST2500_HW_STRAP_GET_AXI_AHB_RATIO(x)  ((x >> 9) & 7)
-+#define SCU_AST2500_HW_STRAP_CPU_AXI_RATIO_MASK    (0x7 << 9)
-+#define     AXI_AHB_RATIO_UNDEFINED                    0
-+#define     AXI_AHB_RATIO_2_1                          1
-+#define     AXI_AHB_RATIO_3_1                          2
-+#define     AXI_AHB_RATIO_4_1                          3
-+#define     AXI_AHB_RATIO_5_1                          4
-+#define     AXI_AHB_RATIO_6_1                          5
-+#define     AXI_AHB_RATIO_7_1                          6
-+#define     AXI_AHB_RATIO_8_1                          7
++#define FSIDD_MAJOR	0		/* FSI device driver major */
++#define	FSIDD_TOSTR(x)	#x
++#define	FSIDD_VERNO	4000
++#define	FSIDD_VER(x)	FSIDD_TOSTR(x)
 +
-+#define SCU_AST2500_HW_STRAP_RESERVED1             (0x1 << 1)
-+#define SCU_AST2500_HW_STRAP_DIS_BOOT              (0x1 << 0)
++struct fsidd fsidd = {		/* FSI device driver structure definition */
++	.magic = FSI_DD_MAGIC,
++	.strno = FSI_DD_STRNO,
++};
 +
-+#define AST2500_HW_STRAP1_DEFAULTS (                                    \
-+        SCU_AST2500_HW_STRAP_RESERVED28 |                               \
-+        SCU_HW_STRAP_2ND_BOOT_WDT |                                     \
-+        SCU_HW_STRAP_VGA_CLASS_CODE |                                   \
-+        SCU_HW_STRAP_LPC_RESET_PIN |                                    \
-+        SCU_AST2500_HW_STRAP_SET_AXI_AHB_RATIO(AXI_AHB_RATIO_2_1) |     \
-+        SCU_HW_STRAP_VGA_SIZE_SET(VGA_16M_DRAM) |                       \
-+        SCU_AST2500_HW_STRAP_RESERVED1)
++static int fsi_start(void)
++{
++	int rc = 0;
 +
-+#define AST2500_HW_STRAP1 ((                                            \
-+        AST2500_HW_STRAP1_DEFAULTS |                                    \
-+        SCU_AST2500_HW_STRAP_SPI_AUTOFETCH_ENABLE |                     \
-+        SCU_AST2500_HW_STRAP_GPIO_STRAP_ENABLE |                        \
-+        SCU_AST2500_HW_STRAP_UART_DEBUG |                               \
-+        SCU_AST2500_HW_STRAP_DDR4_ENABLE |                              \
-+        SCU_HW_STRAP_MAC1_RGMII |                                       \
-+        SCU_HW_STRAP_MAC0_RGMII) &                                      \
-+        ~SCU_HW_STRAP_2ND_BOOT_WDT)
++	printk("FSI DD v:%d installation ok\n", FSIDD_VERNO);
++	return rc;
++}
 +
- #endif /* ASPEED_SCU_H */
++static void fsi_exit(void)
++{
++}
++
++static int __init fsi_init(void)
++{
++	int rc = 0;
++
++	/* Set up the host controller */
++	fsi_start();
++	return rc;
++}
++
++module_init(fsi_init);
++module_exit(fsi_exit);
+diff --git a/drivers/fsi/fsiinit.h b/drivers/fsi/fsiinit.h
+new file mode 100644
+index 0000000..70c3e13
+--- /dev/null
++++ b/drivers/fsi/fsiinit.h
+@@ -0,0 +1,41 @@
++/*
++ * FSI Master device driver structure definitions and defines
++ *
++ * Copyright 2016 IBM Corp.
++ *
++ * Christopher Bostic <cbostic@us.ibm.com>
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version
++ * 2 of the License, or (at your option) any later version.
++ */
++
++#ifndef DRIVERS_FSIINIT_H
++#define DRIVERS_FSIINIT_H
++
++#include <linux/kernel.h>
++#include <linux/types.h>
++#include <linux/device.h>
++#include <linux/workqueue.h>
++#include <linux/hrtimer.h>
++
++#define FSI_DD_MAGIC	0x64644632	/* ddF2 */
++#define FSI_DD_STRNO	0x1		/* Structure version number */
++
++struct fsidd {				/* FSI Main structure */
++	unsigned long magic;		/* Magic number */
++	unsigned long strno;		/* Structure version number */
++	dev_t major;			/* Major number of device */
++	struct workqueue_struct *hotp_wq;	/* Hot plug work queue */
++	wait_queue_head_t error_wq;	/* Wait queue for port errors */
++	wait_queue_head_t lbus_wq;	/* Wait queue for lbus events */
++	wait_queue_head_t irq_wq;	/* Wait queue for IRQ loops */
++	wait_queue_head_t link_wq;	/* Wait queue for link changes */
++	unsigned long state;		/* State driver is in */
++	struct device dev;		/* Anchor point in /sys/kernel */
++};
++
++#define	to_fsidd(a)		container_of(a, struct fsidd, kobj)
++
++#endif /* DRIVERS_FSIINIT_H */
+-- 
+1.8.2.2
