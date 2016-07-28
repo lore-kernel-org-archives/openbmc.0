@@ -1,71 +1,31 @@
-Return-Path: <gwshan@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s0GGm674ZzDrHM
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 12:37:20 +1000 (AEST)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
- u6S2XPGR085006
- for <openbmc@lists.ozlabs.org>; Wed, 27 Jul 2016 22:37:18 -0400
-Received: from e23smtp02.au.ibm.com (e23smtp02.au.ibm.com [202.81.31.144])
- by mx0b-001b2d01.pphosted.com with ESMTP id 24e5we6cta-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 27 Jul 2016 22:37:17 -0400
-Received: from localhost
- by e23smtp02.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <gwshan@linux.vnet.ibm.com>;
- Thu, 28 Jul 2016 12:37:15 +1000
-Received: from d23dlp01.au.ibm.com (202.81.31.203)
- by e23smtp02.au.ibm.com (202.81.31.208) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Thu, 28 Jul 2016 12:37:13 +1000
-X-IBM-Helo: d23dlp01.au.ibm.com
-X-IBM-MailFrom: gwshan@linux.vnet.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from d23relay07.au.ibm.com (d23relay07.au.ibm.com [9.190.26.37])
- by d23dlp01.au.ibm.com (Postfix) with ESMTP id 91F132CE805E
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 12:37:12 +1000 (EST)
-Received: from d23av06.au.ibm.com (d23av06.au.ibm.com [9.190.235.151])
- by d23relay07.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u6S2bCIU24772858
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 12:37:12 +1000
-Received: from d23av06.au.ibm.com (localhost [127.0.0.1])
- by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u6S2bC4e007666
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 12:37:12 +1000
-Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
- by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u6S2bBYa007652; Thu, 28 Jul 2016 12:37:12 +1000
-Received: from bran.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
- by ozlabs.au.ibm.com (Postfix) with ESMTP id E9B79A01C3;
- Thu, 28 Jul 2016 12:37:10 +1000 (AEST)
-Received: from gwshan (shangw.ozlabs.ibm.com [10.61.2.199])
- by bran.ozlabs.ibm.com (Postfix) with ESMTP id BC4AFE3BAA;
- Thu, 28 Jul 2016 12:37:10 +1000 (AEST)
-Received: by gwshan (Postfix, from userid 1000)
- id A6F68942255; Thu, 28 Jul 2016 12:37:10 +1000 (AEST)
-From: Gavin Shan <gwshan@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, Gavin Shan <gwshan@linux.vnet.ibm.com>
-Subject: [PATCH dev-4.7] net/faraday: Switch to use-ncsi device node property
-Date: Thu, 28 Jul 2016 12:37:09 +1000
-X-Mailer: git-send-email 2.1.0
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16072802-0004-0000-0000-0000017F6D8D
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 16072802-0005-0000-0000-000008590678
-Message-Id: <1469673429-29042-1-git-send-email-gwshan@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2016-07-28_01:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1604210000
- definitions=main-1607280026
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s0J2h3Fx5zDswt
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jul 2016 13:56:59 +1000 (AEST)
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mx.zohomail.com
+ with SMTPS id 1469678214367288.6997125797634;
+ Wed, 27 Jul 2016 20:56:54 -0700 (PDT)
+Date: Wed, 27 Jul 2016 22:56:52 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: "Deuskar, Prafulla" <prafulla.deuskar@intel.com>
+Cc: Rick Altherr <raltherr@google.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Re: REST API support on AST 2500 EVB
+Message-ID: <20160728035652.wo7b54ncrmf2mw6x@asimov>
+References: <86BC2638B1D5DA48B2AEFCA5BCA462667134F6D9@ORSMSX115.amr.corp.intel.com>
+ <CAPLgG==6C_JOvE=ZkeVNYOYS1K=Qo-GaRwAnkqrBSoCJEY5k2A@mail.gmail.com>
+ <86BC2638B1D5DA48B2AEFCA5BCA462667134F7FD@ORSMSX115.amr.corp.intel.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="uh5te2etmbfqqh3b"
+Content-Disposition: inline
+In-Reply-To: <86BC2638B1D5DA48B2AEFCA5BCA462667134F7FD@ORSMSX115.amr.corp.intel.com>
+User-Agent: Mutt/1.6.2 (2016-06-11)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -77,84 +37,124 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Jul 2016 02:37:21 -0000
+X-List-Received-Date: Thu, 28 Jul 2016 03:57:00 -0000
 
-This uses "use-ncsi" device node property to enable NCSI interface
-as we do in upstream kernel. No functional change introduced.
 
-Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts   | 2 +-
- arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts    | 2 +-
- arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts    | 2 +-
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 2 +-
- drivers/net/ethernet/faraday/ftgmac100.c         | 2 +-
- 5 files changed, 5 insertions(+), 5 deletions(-)
+--uh5te2etmbfqqh3b
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-index 41ee12a..310a4ef 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-@@ -71,7 +71,7 @@
- &mac0 {
- 	status = "okay";
- 
--	use-nc-si;
-+	use-ncsi;
- };
- 
- &i2c0 {
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-index 63b039c..d97f216 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-@@ -56,7 +56,7 @@
- &mac0 {
- 	status = "okay";
- 
--	use-nc-si;
-+	use-ncsi;
- };
- 
- &i2c4 {
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-index 1ae3983..bd76100 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-@@ -70,7 +70,7 @@
- &mac0 {
- 	status = "okay";
- 
--	use-nc-si;
-+	use-ncsi;
- 	no-hw-checksum;
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index bb5ec59..d5b9af9 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -28,7 +28,7 @@
- &mac0 {
- 	status = "okay";
- 
--	use-nc-si;
-+	use-ncsi;
- 	no-hw-checksum;
- };
- 
-diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
-index fc2852f..c67b670 100644
---- a/drivers/net/ethernet/faraday/ftgmac100.c
-+++ b/drivers/net/ethernet/faraday/ftgmac100.c
-@@ -1352,7 +1352,7 @@ static int ftgmac100_probe(struct platform_device *pdev)
- 	priv = netdev_priv(netdev);
- 	SET_NETDEV_DEV(netdev, &pdev->dev);
- 	if (pdev->dev.of_node &&
--	    of_get_property(pdev->dev.of_node, "use-nc-si", NULL)) {
-+	    of_get_property(pdev->dev.of_node, "use-ncsi", NULL)) {
- 		dev_info(&pdev->dev, "Using NCSI interface\n");
- 		netdev->phydev = NULL;
- 		priv->use_ncsi = true;
--- 
-2.1.0
+Prafulla,
+
+Thank you for your interest and inquiry.
+
+The 1.x release stream is, in some ways, a proof-of-concept of our
+vision of a BMC and specifically targeted the Power8-based "Barreleye"
+system for Rackspace, which used the AST2400.  Due to aggressive
+schedules on that system there were some implementation choices that we
+are currently investing time to refactor into a better state.  The
+master branch, which will become 2.x, is therefore in a pretty unstable
+state and might be the cause of some of what you are seeing.
+
+Most of the developers currently working on the 2.x release stream are
+assigned to work on a set of Power9-based systems that will use the
+AST2500.  (These are not just IBM developers but a few other companies
+are also involved in this effort.)  Obviously, our expertise is in Power
+and our current focus is there, but we are trying to be mindful to
+not design ourselves into a Power-only BMC.  We would be very excited to
+support other processor architectures for the managed server and will
+assist where we can.
+
+Since we are working on a few AST2500 machines, we have a subset of the
+team that was doing BSP work for that.  This is where the EVB machine
+target came from.  This includes u-boot, kernel, and base Yocto.
+
+We also have the other subset of the team working on the [userspace]
+management applications to maintain the server.  This part of the team
+is still using the AST2400 machines or qemu for most development.
+
+As a result of this split and where we are at with the 2.x development
+stream, you are seeing limited functionality depending on which board
+you are compiling for.  The EVB target should be very solid on the
+u-boot and kernel support but the userspace applications are not
+configured correctly or functional.  The QEMU target is using the Yocto
+kernel and is more likely to have functional userspace applications.
+The machine targets are varied states, but "Barreleye" and "Palmetto"
+are both fairly stable.
+
+Your best bet for trying to evaluate the userspace applications is to
+use qemuarm or qemux86-64 targets.  As I said, these still are not fully
+functional due to where we are at in the development cycle, but might
+give you a better view than the raw EVB right now.  We should have a
+much different story in about 3 months.
+
+Now, with that background, on to your questions...
+
+> Looks like obmc-rest is running (according to =E2=80=9Cps=E2=80=9D) and t=
+here are
+> services listening on ports 22, 3000, 2200 and 443 (=E2=80=9Cnetstat =E2=
+=80=93lntu=E2=80=9D).
+
+* Port 22 is the BMC's ssh (user: root, password: 0penBmc).
+* Port 2200 is a ssh-based SOL that relays the server's LPC-based VUART.
+* Port 3000 is an http-based debug application that is not meant for
+  production.  You should be able to point a web-browser at it.
+* Port 443 is the https-based REST server.
+
+The way our application stack is organized is as a set of dbus services
+and objects.  The REST server uses dbus introspection to automatically
+create corresponding REST APIs from the dbus interfaces.  Port 3000 was
+a quick mapping of the dbus into a web-client for developers to use.
+Consider it a browser version of 'dbus-send' or 'busctl', but we will be
+deprecating it in the near future.  Port 443 is the _real_ REST server
+that uses introspection.  This is what is documented at the link you
+mentioned.
+
+I would suggest first logging in and then looking at system object out
+of the inventory:
+* https://github.com/openbmc/docs/blob/master/rest-api.md#logging-in
+* https://github.com/openbmc/docs/blob/master/rest-api.md#http-get-operatio=
+ns--url-structure
+
+> We get =E2=80=9CHTTP/1.0 404 Not Found=E2=80=9D when trying to login to p=
+ort 3000
+
+This interface does not use login, so you should be able to just point a
+browser at it.  It doesn't work with 'curl', etc. very well.
+
+> =E2=80=9CHTTP/1.0 400 Bad Request=E2=80=9D when we try port 443.
+
+Make sure you are using https, but this should work.  Since this uses
+dbus introspection and the EVB does not have the userspace applications
+working completely, it is possible that there isn't much there.  I would
+expect login to work though.  Please let us know what curl (or other
+tool) invocation you are using.  As I mentioned earlier, using QEMU
+might give you better results for looking at the REST API at this stage.
+
+--=20
+Patrick Williams
+
+--uh5te2etmbfqqh3b
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJXmYKEAAoJEKsDR8wtAMEZ+OAP/RSEVkyPCpir3KMf+8VnsI12
+XGxCP5M6WvhIxEzMPvtxfC3aS+2bOYRz255J0UbG3z+Y904z6UxGwg6UOITHzcIi
+erpyfznNliH2Z52yRFIZ9lrSATEf/xCB7ixxsK/hoYvhPxbtoCMSlqPghV6U1MsB
+uBKQWlX1wlcSF6JnphH5LWWx9N8cae0OGo77oXNXUwpP3FqQ0+z/olnmxzMoJN91
+7gJfKvmT5e9bfnLXiD/XdtkmiDVYVbnp3S8WhsIz/VWDVjfTu7yegu6fveEoA+6c
+kxUjdvtQ3WXqHUbv2hFwMZLgDTrgH2zlPMA8KMuCecge2641Gnhv7H/dst4t+c9E
+d2Hr/J39XAs8uDFF5GmNEYqnCv9GuVdcfokQKVacQU+E8GEueVibP2GU415OSYi8
+N8Sp4gaXZj85+B638w7c5MPzyKRaLwdQhhVNIm3/4OA9kKwzw8AIBLFzsKLl6Z0z
+iF2Re2YxLZ3MoBAj1UMCarI/u7e4fJ2dWNFnGsW/AMajvbwU3vXztcERtj8quqHo
+oc49SKobpU2zBZ+7JKyWJERvhAYpV95O6rjE6EVr0MIOTbiVWFWpzXUziH7TLPYO
+/eiGCzZHSDed5R752ROxT617j6ReQsB0pSmZXMXDToUVQKcXIgiwvEhs2YxO3Sns
+3oFLra+veFLol9eLj4el
+=aCZ+
+-----END PGP SIGNATURE-----
+
+--uh5te2etmbfqqh3b--
