@@ -1,56 +1,59 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-pf0-x242.google.com (mail-pf0-x242.google.com
- [IPv6:2607:f8b0:400e:c00::242])
+Received: from mail-ua0-x235.google.com (mail-ua0-x235.google.com
+ [IPv6:2607:f8b0:400c:c08::235])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s2ss715GxzDqQ9
- for <openbmc@lists.ozlabs.org>; Mon,  1 Aug 2016 18:27:39 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s2yzD64XKzDqRc
+ for <openbmc@lists.ozlabs.org>; Mon,  1 Aug 2016 22:18:16 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=Ycj7NXzE; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=QQ+zs2cX; 
  dkim-atps=neutral
-Received: by mail-pf0-x242.google.com with SMTP id g202so9973896pfb.1
- for <openbmc@lists.ozlabs.org>; Mon, 01 Aug 2016 01:27:39 -0700 (PDT)
+Received: by mail-ua0-x235.google.com with SMTP id k90so104723876uak.0
+ for <openbmc@lists.ozlabs.org>; Mon, 01 Aug 2016 05:18:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=sender:message-id:subject:from:to:date:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=VDJag0FqcRzo0eTl7Seib/WCuy3iexYiYu5LccrUrrk=;
- b=Ycj7NXzEsB5alz7N1cfwK38eEWtW1d0TxjKMOe7N0/4tJZCV9XZ7iwyM6/T4TQ/jxA
- 94xlXvw8KbW2nvv/xWRiWB5UDPwChphm8xQ0EgibNOWRdS9wjhW+D6B57ZVvhfc7AZDG
- 1wXFFLvo51T0qFtKTxuxFe6PJRE02H4tShDpQryct8RSBkOnuoEHO1mvoRaj+ShfdBPi
- eM/WEXlqRf5E9KHRDEPQOO43AOFUKYlkPV4kMDqOOOKsu42gUQHBRx9+z7/mGO0+UGKs
- tfIV+CScD49EKB2EvCAV+3l/5EOfTx2jF89jPgHWAkJ2m8p8H9HzXzx7l8kcJtx7CNDu
- O1lA==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=vy+ymhWp6ndF0Ohmg1QUXrTA0zrXuAiK+F0mtNjnXgs=;
+ b=QQ+zs2cXc/2wA+7623QIJIoNC9BRyQKqT/PpWOkr73uzoKuCBaPfNQYJE/4yT+WGzf
+ SL0qZRnYvC4rL5yu14Fr1KzzjJ+k38M8Ei4NI3izo6ROaKaezQaa82Ptnz524KJGfjsD
+ fwItOTCnxfkwsPXTzd0yqCjHMU+ucBqyskQlxJHexJvRbF5nFrOceTsH93lCRYB/TVG+
+ 312VBzA5VaBLiExJXgbo/+XMuUWJ+k4736oew/k9xqloADMqlpveZxT9isx2TT13/4uH
+ z7JYi9DZqYAmFj/9nS/TBfIpzcD5o6s068dzEV+ZbLFaa3TAVD+I6b68a6hmL1VgHCv2
+ r4Dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:sender:message-id:subject:from:to:date
- :in-reply-to:references:mime-version:content-transfer-encoding;
- bh=VDJag0FqcRzo0eTl7Seib/WCuy3iexYiYu5LccrUrrk=;
- b=PhZe7290gpMr/xcyVXX3I5AGhtSWhhJ6JryaVbwFlUBkUjtast4xLMLU6KH1l2K45V
- Da2kkxWI4ccxltJ+C8FZ2HBiw0oaTy0u8vjg3Q5Kp3qisi8O8G7FwtMKryCafs933g7y
- q70PXhbwx1b9rbMyIIsKYBizYF1S0PyiHeSr744R72/yZ9KXumInClz5ZZlANJluxO0N
- KDM6O8zDNl3+FUwDIeTvMFSg6iV52P4yEZ6EV3dth/MhEkvMyDbyNbo9kBan2ooTqq9T
- otuDEZzRWXPlugKhXHGpO6ZbKf8DPMhlE2INuOwJv1F0r4dYkLQ2xu7jVihzOlpVoqN5
- 2koQ==
-X-Gm-Message-State: AEkoouv/oiBzTJMUuVeF7o3r/PiIJdQ9hBzZjoPQa272XV+vtUY4B+4KzvRMz8gha1QcfQ==
-X-Received: by 10.98.32.138 with SMTP id m10mr93826288pfj.146.1470040057530;
- Mon, 01 Aug 2016 01:27:37 -0700 (PDT)
-Received: from aurora ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id dz13sm43289458pac.44.2016.08.01.01.27.34
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 01 Aug 2016 01:27:36 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Message-ID: <1470040052.16990.9.camel@jms.id.au>
-Subject: Re: [PATCH dev-4.7] net/faraday: Switch to use-ncsi device node
- property
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=vy+ymhWp6ndF0Ohmg1QUXrTA0zrXuAiK+F0mtNjnXgs=;
+ b=EdG+4v5LVLuLjuYGy0I0xnrF6M4DCiRlvHJdohC5c8jwHemv4fFF46cUsiTXn9X802
+ 8kdKL+bn99FcSC2KIbDRbt9/+zC3mALpgAY30y1IM/PVmQ07VJ0SNlriE9OqODyt6utU
+ zEWgv/etKHuJuYreyakowPgNcxgulUtmFyX1mN09ePEm2yRPsTwIx7TY3Tu70vQH0Yb/
+ A1JEkpnWY7Wr3xS2Qw98ej6y9loXzvkPH9jW20t22R+V/AwKq0Akg3xbtPCfKrIo1NeY
+ bDjILRWa4PLp+vCJfqAvb1Joulokbq/YdJcNDtGEDae0Hjt5G+fCr+C7avyXlNzggut7
+ frig==
+X-Gm-Message-State: AEkoout60JHdw24o8KSCxqrZE6M8vkzyTLWxQyYqsF411axD1pwLFr2DnYyTcvljYGYigNVGhQrUSDWeQl2bsQ==
+X-Received: by 10.159.35.75 with SMTP id 69mr25828125uae.43.1470053893519;
+ Mon, 01 Aug 2016 05:18:13 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.176.5.230 with HTTP; Mon, 1 Aug 2016 05:17:54 -0700 (PDT)
+In-Reply-To: <DB4PR05MB0941DF5F4C384D1DE5429892D5040@DB4PR05MB0941.eurprd05.prod.outlook.com>
+References: <DB4PR05MB0941FC06CBEC427C99A40C80D5090@DB4PR05MB0941.eurprd05.prod.outlook.com>
+ <CACPK8Xf-jSXs=EcF3tQrC7xeFkKXOhXxPxz=6pBQ9408-uhcHA@mail.gmail.com>
+ <DB4PR05MB0941D946BC03E134592BCA21D50C0@DB4PR05MB0941.eurprd05.prod.outlook.com>
+ <1469408379.5468.33.camel@aj.id.au>
+ <DB4PR05MB0941D264C3F26B9F9378E78ED50F0@DB4PR05MB0941.eurprd05.prod.outlook.com>
+ <1470010405.4428.3.camel@aj.id.au>
+ <DB4PR05MB0941DF5F4C384D1DE5429892D5040@DB4PR05MB0941.eurprd05.prod.outlook.com>
 From: Joel Stanley <joel@jms.id.au>
-To: Gavin Shan <gwshan@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Date: Mon, 01 Aug 2016 17:57:32 +0930
-In-Reply-To: <1469673429-29042-1-git-send-email-gwshan@linux.vnet.ibm.com>
-References: <1469673429-29042-1-git-send-email-gwshan@linux.vnet.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.18.5.2-0ubuntu3 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Mon, 1 Aug 2016 21:47:54 +0930
+X-Google-Sender-Auth: a2bZpzuhXD0eqCFVD9y9zccMCBU
+Message-ID: <CACPK8Xc=KJ-KmBvu2c_WxggvLpw7G-j-it1Ld2WR=WnjH4muLg@mail.gmail.com>
+Subject: Re: Aspeed 2500 EVB i2c transaction time out
+To: Shay Slobodkin <shays@mellanox.com>
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -62,97 +65,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 01 Aug 2016 08:27:39 -0000
+X-List-Received-Date: Mon, 01 Aug 2016 12:18:17 -0000
 
-On Thu, 2016-07-28 at 12:37 +1000, Gavin Shan wrote:
-> This uses "use-ncsi" device node property to enable NCSI interface
-> as we do in upstream kernel. No functional change introduced.
+On Mon, Aug 1, 2016 at 9:09 PM, Shay Slobodkin <shays@mellanox.com> wrote:
+>> Sorry for the distraction here, it was a bit of a long shot. Building that branch
+>> without further patching probably would not have muxed what you needed,
+>> but it also should not have had the bugs you pointed out. I think Joel was
+>> intending to push out a branch to support the extra i2c
+>> bus(es) you need. Joel?
+>
+> Thank you Andrew.
+> By the way, we do see I2C time out issues, when trying transactions to LM75.
+>
+> Joel, is there any update regarding the code? When is it supposed to be published?
+> We can assist with testing, if you have some half backed code to share.
 
-Thanks. I've applied a version of this to my rebased dev-4.7 tree that
-I will push out soon.
+I've been working on it, but other responsibilities have been slowing
+down progress. I expect to get it out this week. I will email the list
+when I do.
+
+It would be great to see your progress. Publish early, publish often :)
 
 Cheers,
 
 Joel
-
-> 
-> Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts   | 2 +-
->  arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts    | 2 +-
->  arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts    | 2 +-
->  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 2 +-
->  drivers/net/ethernet/faraday/ftgmac100.c         | 2 +-
->  5 files changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-> b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-> index 41ee12a..310a4ef 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-> @@ -71,7 +71,7 @@
->  &mac0 {
->  	status = "okay";
->  
-> -	use-nc-si;
-> +	use-ncsi;
->  };
->  
->  &i2c0 {
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-> b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-> index 63b039c..d97f216 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-> @@ -56,7 +56,7 @@
->  &mac0 {
->  	status = "okay";
->  
-> -	use-nc-si;
-> +	use-ncsi;
->  };
->  
->  &i2c4 {
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> index 1ae3983..bd76100 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> @@ -70,7 +70,7 @@
->  &mac0 {
->  	status = "okay";
->  
-> -	use-nc-si;
-> +	use-ncsi;
->  	no-hw-checksum;
->  };
->  
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> index bb5ec59..d5b9af9 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> @@ -28,7 +28,7 @@
->  &mac0 {
->  	status = "okay";
->  
-> -	use-nc-si;
-> +	use-ncsi;
->  	no-hw-checksum;
->  };
->  
-> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c
-> b/drivers/net/ethernet/faraday/ftgmac100.c
-> index fc2852f..c67b670 100644
-> --- a/drivers/net/ethernet/faraday/ftgmac100.c
-> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
-> @@ -1352,7 +1352,7 @@ static int ftgmac100_probe(struct
-> platform_device *pdev)
->  	priv = netdev_priv(netdev);
->  	SET_NETDEV_DEV(netdev, &pdev->dev);
->  	if (pdev->dev.of_node &&
-> -	    of_get_property(pdev->dev.of_node, "use-nc-si", NULL)) {
-> +	    of_get_property(pdev->dev.of_node, "use-ncsi", NULL)) {
->  		dev_info(&pdev->dev, "Using NCSI interface\n");
->  		netdev->phydev = NULL;
->  		priv->use_ncsi = true;
