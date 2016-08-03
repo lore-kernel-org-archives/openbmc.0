@@ -1,52 +1,53 @@
-Return-Path: <brendanhiggins@google.com>
-Received: from mail-pf0-x234.google.com (mail-pf0-x234.google.com
- [IPv6:2607:f8b0:400e:c00::234])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s4R6m0JzJzDqRt
- for <openbmc@lists.ozlabs.org>; Thu,  4 Aug 2016 07:29:52 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=DR2NYXMe; 
+Return-Path: <prvs=7023bd758a=mattconolly@fb.com>
+X-Greylist: delayed 2016 seconds by postgrey-1.35 at bilbo;
+ Thu, 04 Aug 2016 09:41:21 AEST
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b=cJOHMjtn; 
  dkim-atps=neutral
-Received: by mail-pf0-x234.google.com with SMTP id h186so80836105pfg.3
- for <openbmc@lists.ozlabs.org>; Wed, 03 Aug 2016 14:29:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=mi016QrXjNmbOXrk8RDl+rAjTeyveij4L7dvXs5klrQ=;
- b=DR2NYXMe3/xM1uVJWc1LQA2j28BPrglvACGoapSelY2iYMWXzm+bd7zg+ttDIMaYha
- ueI/YjTpYd8trBfg6ZNBCp0cTR+8AGHXkahKVJmwGSkpfcjMMwwwJN/YvJJgbtteIpGK
- JfwyXGbKvNjBTsNEjZHK71AqK2DuN6pKzEX67IDYWNKvmyXryaZXbehVe62+OCelrYod
- 4oc+esxgDN2J+8h+8hEjXSLSFWcw9QQNFmPaAzSB3oaejw6UJ/QHo8h1gl39tp3+Ofr9
- +O9O4wQXaasGF8xyDJwyB4DEKBy9Uuf5bTla762PCGk/4izrtJQtt5xu7p+Dp+2Y835S
- +bKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=mi016QrXjNmbOXrk8RDl+rAjTeyveij4L7dvXs5klrQ=;
- b=Wn+PuLcqRbjuRppu+X8rlRWeLRYV/8jPBrGkWzhltRCUPfF0WTs7qj0XW6q73FsTVt
- MbWedKO4HigXvj3sWLQC6tYAPztTxbhVkNE4QBqikZV8fNDKTOpM8NS5S2JikrAxrBbh
- 6/Xq2vldJIJv5KBwxJugSWXhyheky4aesccTiQ91v2Av9EYaRMUggaxAAcVDly4tj3jY
- HaEN/pcanB/CwvqxgNrfRxk8c8DDM3KWnBk3ZjMbpHqFbQi+I5rNFu2YA21wQu2js7TD
- Ut1fq590Kf23wzD+Y6hYkOa8UJ5pWcQZi/jjLrwgKSsyP/z9f4FOQbOXqzDuRa+QBWqg
- DUiQ==
-X-Gm-Message-State: AEkoouvLYn3xYU06fDycXy2Tx1o1fsf5KSq0SpHEF/XpaoRspfGklYWN3rsOXdbdu/k5P2HG
-X-Received: by 10.98.12.18 with SMTP id u18mr119569062pfi.89.1470259789753;
- Wed, 03 Aug 2016 14:29:49 -0700 (PDT)
-Received: from mactruck.mtv.corp.google.com ([172.18.64.18])
- by smtp.gmail.com with ESMTPSA id e72sm14823356pfb.49.2016.08.03.14.29.48
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Wed, 03 Aug 2016 14:29:49 -0700 (PDT)
-From: Brendan Higgins <brendanhiggins@google.com>
-To: openbmc@lists.ozlabs.org
-Cc: Brendan Higgins <brendanhiggins@google.com>
-Subject: [PATCH] i2c: aspeed: added support for slave mode
-Date: Wed,  3 Aug 2016 14:28:28 -0700
-Message-Id: <1470259708-12453-2-git-send-email-brendanhiggins@google.com>
-X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
-In-Reply-To: <1470259708-12453-1-git-send-email-brendanhiggins@google.com>
-References: <CACPK8XehcSGvyBkdVB_kxZyFWzPr8qwseRzfp-mZG7hnZFnSUw@mail.gmail.com>
- <1470259708-12453-1-git-send-email-brendanhiggins@google.com>
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s4V2T0qnVzDqQ4
+ for <openbmc@lists.ozlabs.org>; Thu,  4 Aug 2016 09:41:19 +1000 (AEST)
+Received: from pps.filterd (m0044008.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
+ u73N5jo0012263
+ for <openbmc@lists.ozlabs.org>; Wed, 3 Aug 2016 16:07:41 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fb.com;
+ h=from : to : cc : subject :
+ date : message-id : mime-version : content-type; s=facebook;
+ bh=xH1UpZWk47dWff6RyK0fAI7loqnXrYz3MUfo9VEVUXY=;
+ b=cJOHMjtnB3WaZ6GUBH7+t7NwLXwll7r3IwkbYo4ZX3us0V5qS6uS0Rx9GRLsfYAp0J/O
+ OaPsrdKkTnz3AXePRHAjDlouyzSV70KEiupSf8arBaP9jrFa8ctylS0XG4RcsRBoJUsh
+ JldsZm1cMP0txWJLco3nm0KY3LJWvojgfqg= 
+Received: from mail.thefacebook.com ([199.201.64.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 24kpyes29m-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 03 Aug 2016 16:07:41 -0700
+Received: from mx-out.facebook.com (192.168.52.123) by
+ PRN-CHUB08.TheFacebook.com (192.168.16.18) with Microsoft SMTP Server (TLS)
+ id 14.3.294.0; Wed, 3 Aug 2016 16:07:41 -0700
+Received: from facebook.com (2401:db00:11:d0a6:face:0:13:0)	by
+ mx-out.facebook.com (10.212.236.89) with ESMTP	id
+ 13b14c8859cf11e683cf0002c95209d8-ceffdaf0 for <openbmc@lists.ozlabs.org>;
+ Wed, 03 Aug 2016 16:07:40 -0700
+Received: by devbig293.prn1.facebook.com (Postfix, from userid 9402)	id
+ 0B5036A80C95; Wed,  3 Aug 2016 16:07:40 -0700 (PDT)
+From: Matthew Conolly <mattconolly@fb.com>
+To: <openbmc@lists.ozlabs.org>
+Subject: [PATCH] arm/dts/aspeed: Add minimal Facebook CMM BMC board based on
+ AST2500
+Date: Wed, 3 Aug 2016 16:07:31 -0700
+Message-ID: <1470265651-3679131-1-git-send-email-mattconolly@fb.com>
+X-Mailer: git-send-email 2.8.0.rc2
+X-FB-Internal: Safe
+MIME-Version: 1.0
+Content-Type: text/plain
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-08-03_16:, , signatures=0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -58,282 +59,195 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 03 Aug 2016 21:29:52 -0000
+X-List-Received-Date: Wed, 03 Aug 2016 23:41:21 -0000
 
-Added slave mode irq handler as well as reg_slave and unreg_slave
-functions to the i2c-aspeed's i2c_algorithm.
+A minimal device tree to let the CMM bmc board boot to a console over UART with some drivers functional
 
-Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+Signed-off-by: Matthew Conolly <mattconolly@fb.com>
 ---
- drivers/i2c/busses/i2c-aspeed.c | 202 +++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 198 insertions(+), 4 deletions(-)
+ arch/arm/boot/dts/Makefile                         |   1 +
+ .../dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi  |  24 +++++
+ arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts      | 112 +++++++++++++++++++++
+ arch/arm/mach-aspeed/aspeed.c                      |   5 +-
+ 4 files changed, 140 insertions(+), 2 deletions(-)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
 
-diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
-index b8e8199..89ffa12 100644
---- a/drivers/i2c/busses/i2c-aspeed.c
-+++ b/drivers/i2c/busses/i2c-aspeed.c
-@@ -197,6 +197,7 @@
- #define AST_I2CD_M_START_CMD				(0x1 )		
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 3c27d57..21fe59b 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -843,6 +843,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
+ 	aspeed-bmc-opp-barreleye.dtb \
+ 	aspeed-bmc-opp-firestone.dtb \
+ 	aspeed-bmc-opp-garrison.dtb \
++	aspeed-bmc-facebook-cmm.dtb \
+ 	aspeed-ast2500-evb.dtb
+ endif
  
- /* 0x18 : I2CD Slave Device Address Register   */
-+#define AST_I2CD_DEV_ADDR_MASK                          ((0x1 << 7) - 1)
- 
- /* 0x1C : I2CD Pool Buffer Control Register   */
- #define AST_I2CD_RX_BUF_ADDR_GET(x)				((x>> 24)& 0xff)
-@@ -225,6 +226,17 @@
- 
- static const int ast_i2c_n_busses = 14;
- 
-+#if IS_ENABLED(CONFIG_I2C_SLAVE)
-+enum ast_i2c_slave_state {
-+	AST_I2C_SLAVE_START,
-+	AST_I2C_SLAVE_READ_REQUESTED,
-+	AST_I2C_SLAVE_READ_PROCESSED,
-+	AST_I2C_SLAVE_WRITE_REQUESTED,
-+	AST_I2C_SLAVE_WRITE_RECEIVED,
-+	AST_I2C_SLAVE_STOP,
+diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi
+new file mode 100644
+index 0000000..1b3133f
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi
+@@ -0,0 +1,24 @@
++/* This file is the label for the bmc primary flash and its partitions */
++				label = "bmc";
++				#address-cells = < 1 >;
++				#size-cells = < 1 >;
++				u-boot {
++					reg = < 0 0x80000 >;
++					label = "u-boot";
++				};
++				u-boot-env {
++					reg = < 0x60000 0x20000 >;
++					label = "u-boot-env";
++				};
++				kernel  {
++					reg = < 0x80000 0x280000 >;
++					label = "kernel";
++				};
++				initramfs {
++					reg = < 0x300000 0x300000 >;
++					label = "initramfs";
++				};
++				pd_rootfs  {
++					reg = < 0x4c0000 0x1740000 >;
++					label = "pd_rootfs";
++				};
+diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
+new file mode 100644
+index 0000000..4ea8e7e
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
+@@ -0,0 +1,112 @@
++/dts-v1/;
++
++#include "aspeed-g5.dtsi"
++
++/ {
++	model = "FACEBOOK CMM BMC";
++	compatible = "facebook,cmm-bmc", "aspeed,ast2500";
++
++	aliases {
++		serial1 = &uart1;
++	};
++
++	chosen {
++		stdout-path = &uart1;
++		bootargs = "console=ttyS1,115200 earlyprintk";
++	};
++
++	memory {
++		reg = <0x80000000 0x3f000000>;
++	};
++
++	ahb {
++		bmc_pnor: fmc@1e620000 {
++			reg = < 0x1e620000 0x94
++				0x20000000 0x02000000 >;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			compatible = "aspeed,fmc";
++			flash@0 {
++				reg = < 0 >;
++				compatible = "jedec,spi-nor" ;
++#include "aspeed-bmc-facebook-cmm-flash-layout.dtsi"
++			};
++		};
++  };
++
++
++
 +};
-+#endif
 +
- struct ast_i2c_bus {
- 	/* TODO: find a better way to do this */
- 	struct ast_i2c_dev *i2c_dev;
-@@ -233,6 +245,10 @@ struct ast_i2c_bus {
- 	void __iomem	*base;			/* virtual */	
- 	u32 state;				//I2C xfer mode state matchine 
- 	struct i2c_adapter adap;
-+#if IS_ENABLED(CONFIG_I2C_SLAVE)
-+	struct i2c_client *slave;
-+	enum ast_i2c_slave_state slave_state;
-+#endif
- 	u32		bus_clk;
- 	struct clk	*pclk;
- 	int		irq;
-@@ -318,7 +334,6 @@ static void ast_i2c_dev_init(struct ast_i2c_bus *bus)
- 	ast_i2c_write(bus, ast_i2c_read(bus, I2C_FUN_CTRL_REG)
- 			| AST_I2CD_MASTER_EN, I2C_FUN_CTRL_REG);
++&uart1 {
++	status = "okay";
++};
++
++&mac0 {
++	status = "disabled";
++};
++
++&mac1 {
++	status = "okay";
++};
++
++&i2c0 {
++	status = "okay";
++};
++
++&i2c1 {
++	status = "okay";
++};
++
++&i2c2 {
++	status = "okay";
++};
++
++&i2c3 {
++	status = "okay";
++};
++
++&i2c4 {
++	status = "okay";
++};
++
++&i2c5 {
++	status = "okay";
++
++//	eeprom@50 {
++//		compatible = "atmel,24c08";
++//		reg = <0xa0>;
++//	};
++};
++
++&i2c6 {
++	status = "okay";
++};
++
++&i2c7 {
++	status = "okay";
++};
++
++&i2c8 {
++	status = "okay";
++};
++
++&i2c9 {
++	status = "okay";
++};
++
++&i2c10 {
++	status = "okay";
++};
++
++&i2c11 {
++	status = "okay";
++};
++
++&i2c12 {
++	status = "okay";
++};
++
++&i2c13 {
++	status = "okay";
++};
+diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+index db540ac..da03fed 100644
+--- a/arch/arm/mach-aspeed/aspeed.c
++++ b/arch/arm/mach-aspeed/aspeed.c
+@@ -202,8 +202,9 @@ static void __init do_ast2500evb_setup(void)
  
--
- 	/* Set interrupt generation of I2C controller */
- 	ast_i2c_write(bus, AST_I2CD_INTR_SDA_DL_TIMEOUT |
- 			AST_I2CD_INTR_BUS_RECOVER_DONE |
-@@ -529,10 +544,105 @@ static void ast_i2c_master_xfer_done(struct ast_i2c_bus *bus)
- 		complete(&bus->cmd_complete);
- }
- 
--static irqreturn_t ast_i2c_bus_irq(int irq, void *dev_id)
-+#if IS_ENABLED(CONFIG_I2C_SLAVE)
-+static bool ast_i2c_slave_irq(struct ast_i2c_bus *bus)
+ static void __init aspeed_init_early(void)
  {
--	struct ast_i2c_bus *bus = dev_id;
-+	bool irq_handled = true;
-+	u32 command;
-+	u32 irq_status;
-+	u32 status_ack = 0;
-+	u8 value;
-+	enum i2c_slave_event event;
-+	struct i2c_client *slave = bus->slave;
+-	// XXX UART stuff to fix to pinmux & co
+-	writel(0x02010023, AST_IO(AST_BASE_LPC | 0x9c));
++	if (!of_machine_is_compatible("facebook,cmm-bmc"))
++		/* XXX UART stuff to fix to pinmux & co */
++		writel(0x02010023, AST_IO(AST_BASE_LPC | 0x9c));
  
-+	spin_lock(&bus->cmd_lock);
-+	if (!slave) {
-+		irq_handled = false;
-+		goto out;
-+	}
-+	command = ast_i2c_read(bus, I2C_CMD_REG);
-+	irq_status = ast_i2c_read(bus, I2C_INTR_STS_REG);
-+
-+	/* Slave was requested, restart state machine. */
-+	if (irq_status & AST_I2CD_INTR_SLAVE_MATCH) {
-+		status_ack |= AST_I2CD_INTR_SLAVE_MATCH;
-+		bus->slave_state = AST_I2C_SLAVE_START;
-+	}
-+	/* Slave is not currently active, irq was for someone else. */
-+	if (bus->slave_state == AST_I2C_SLAVE_STOP) {
-+		irq_handled = false;
-+		goto out;
-+	}
-+
-+	dev_dbg(bus->dev, "slave irq status 0x%08x, cmd 0x%08x\n",
-+		irq_status, command);
-+
-+	/* Slave was sent something. */
-+	if (irq_status & AST_I2CD_INTR_RX_DONE) {
-+		value = ast_i2c_read(bus, I2C_BYTE_BUF_REG) >> 8;
-+		/* Handle address frame. */
-+		if (bus->slave_state == AST_I2C_SLAVE_START) {
-+			if (value & 0x1)
-+				bus->slave_state = AST_I2C_SLAVE_READ_REQUESTED;
-+			else
-+				bus->slave_state =
-+						AST_I2C_SLAVE_WRITE_REQUESTED;
-+		}
-+		status_ack |= AST_I2CD_INTR_RX_DONE;
-+	}
-+
-+	/* Slave was asked to stop. */
-+	if (irq_status & AST_I2CD_INTR_NORMAL_STOP ||
-+	    irq_status & AST_I2CD_INTR_TX_NAK) {
-+		if (irq_status & AST_I2CD_INTR_NORMAL_STOP)
-+			status_ack |= AST_I2CD_INTR_NORMAL_STOP;
-+		else
-+			status_ack |= AST_I2CD_INTR_TX_NAK;
-+		bus->slave_state = AST_I2C_SLAVE_STOP;
-+	}
-+
-+	if (bus->slave_state == AST_I2C_SLAVE_READ_REQUESTED ||
-+	    bus->slave_state == AST_I2C_SLAVE_READ_PROCESSED) {
-+		if (bus->slave_state == AST_I2C_SLAVE_READ_REQUESTED) {
-+			event = I2C_SLAVE_READ_REQUESTED;
-+			if (irq_status & AST_I2CD_INTR_TX_ACK)
-+				dev_err(bus->dev,
-+					"Unexpected ACK on read request.\n");
-+		} else {
-+			status_ack |= AST_I2CD_INTR_TX_ACK;
-+			event = I2C_SLAVE_READ_PROCESSED;
-+			if (!(irq_status & AST_I2CD_INTR_TX_ACK))
-+				dev_err(bus->dev,
-+					"Expected ACK after processed read.\n");
-+		}
-+		bus->slave_state = AST_I2C_SLAVE_READ_PROCESSED;
-+
-+		i2c_slave_event(slave, event, &value);
-+		ast_i2c_write(bus, value, I2C_BYTE_BUF_REG);
-+		ast_i2c_write(bus, AST_I2CD_S_TX_CMD, I2C_CMD_REG);
-+	} else if (bus->slave_state == AST_I2C_SLAVE_WRITE_REQUESTED) {
-+		bus->slave_state = AST_I2C_SLAVE_WRITE_RECEIVED;
-+		i2c_slave_event(slave, I2C_SLAVE_WRITE_REQUESTED, &value);
-+	} else if (bus->slave_state == AST_I2C_SLAVE_WRITE_RECEIVED) {
-+		i2c_slave_event(slave, I2C_SLAVE_WRITE_RECEIVED, &value);
-+	} else if (bus->slave_state == AST_I2C_SLAVE_STOP) {
-+		i2c_slave_event(slave, I2C_SLAVE_STOP, &value);
-+	}
-+
-+	if (status_ack != irq_status)
-+		dev_err(bus->dev,
-+			"irq handled != irq. expected %x, but was %x\n",
-+			irq_status, status_ack);
-+	ast_i2c_write(bus, status_ack, I2C_INTR_STS_REG);
-+
-+out:
-+	spin_unlock(&bus->cmd_lock);
-+	return irq_handled;
-+}
-+#endif
-+
-+static bool ast_i2c_master_irq(struct ast_i2c_bus *bus)
-+{
- 	const u32 errs = AST_I2CD_INTR_ARBIT_LOSS |
- 		AST_I2CD_INTR_ABNORMAL |
- 		AST_I2CD_INTR_SCL_TIMEOUT |
-@@ -550,7 +660,11 @@ static irqreturn_t ast_i2c_bus_irq(int irq, void *dev_id)
- 	sts &= 0x7fff;
- 	bus->state = cmd >> 19 & 0xf;
- 
--	/* ack everything */
-+	/*
-+	 * ack everything - this is safe because this driver makes master mode
-+	 * and slave mode mutually exclusive on a single bus; thus, it is not
-+	 * possible for a master to steal a slave IRQ in this way.
-+	 */
- 	ast_i2c_write(bus, sts, I2C_INTR_STS_REG);
- 
- 	bus->cmd_err |= sts & errs;
-@@ -575,6 +689,24 @@ static irqreturn_t ast_i2c_bus_irq(int irq, void *dev_id)
- 
- 	spin_unlock(&bus->cmd_lock);
- 
-+	return true;
-+}
-+
-+static irqreturn_t ast_i2c_bus_irq(int irq, void *dev_id)
-+{
-+	struct ast_i2c_bus *bus = dev_id;
-+
-+#if IS_ENABLED(CONFIG_I2C_SLAVE)
-+	if (ast_i2c_slave_irq(bus)) {
-+		dev_dbg(bus->dev, "irq handled by slave.\n");
-+		return IRQ_HANDLED;
-+	}
-+#endif
-+	if (ast_i2c_master_irq(bus)) {
-+		dev_dbg(bus->dev, "irq handled by master.\n");
-+		return IRQ_HANDLED;
-+	}
-+	dev_err(bus->dev, "irq not handled properly!\n");
- 	return IRQ_HANDLED;
- }
- 
-@@ -674,9 +806,71 @@ static u32 ast_i2c_functionality(struct i2c_adapter *adap)
- 	return I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL | I2C_FUNC_SMBUS_BLOCK_DATA;
- }
- 
-+#if IS_ENABLED(CONFIG_I2C_SLAVE)
-+static int ast_i2c_reg_slave(struct i2c_client *client)
-+{
-+	struct ast_i2c_bus *bus;
-+	unsigned long flags;
-+	u32 addr_reg_val;
-+	u32 func_ctrl_reg_val;
-+
-+	bus = client->adapter->algo_data;
-+	spin_lock_irqsave(&bus->cmd_lock, flags);
-+	if (bus->slave) {
-+		spin_unlock_irqrestore(&bus->cmd_lock, flags);
-+		return -EINVAL;
-+	}
-+
-+	/* Set slave addr. */
-+	addr_reg_val = ast_i2c_read(bus, I2C_DEV_ADDR_REG);
-+	addr_reg_val &= ~AST_I2CD_DEV_ADDR_MASK;
-+	addr_reg_val |= client->addr & AST_I2CD_DEV_ADDR_MASK;
-+	ast_i2c_write(bus, addr_reg_val, I2C_DEV_ADDR_REG);
-+
-+	/* Switch from master mode to slave mode. */
-+	func_ctrl_reg_val = ast_i2c_read(bus, I2C_FUN_CTRL_REG);
-+	func_ctrl_reg_val &= ~AST_I2CD_MASTER_EN;
-+	func_ctrl_reg_val |= AST_I2CD_SLAVE_EN;
-+	ast_i2c_write(bus, func_ctrl_reg_val, I2C_FUN_CTRL_REG);
-+
-+	bus->slave = client;
-+	bus->slave_state = AST_I2C_SLAVE_STOP;
-+	spin_unlock_irqrestore(&bus->cmd_lock, flags);
-+	return 0;
-+}
-+
-+static int ast_i2c_unreg_slave(struct i2c_client *client)
-+{
-+	struct ast_i2c_bus *bus = client->adapter->algo_data;
-+	unsigned long flags;
-+	u32 addr_reg_val;
-+	u32 func_ctrl_reg_val;
-+
-+	spin_lock_irqsave(&bus->cmd_lock, flags);
-+	if (!bus->slave) {
-+		spin_unlock_irqrestore(&bus->cmd_lock, flags);
-+		return -EINVAL;
-+	}
-+
-+	/* Switch from slave mode to master mode. */
-+	func_ctrl_reg_val = ast_i2c_read(bus, I2C_FUN_CTRL_REG);
-+	func_ctrl_reg_val &= ~AST_I2CD_SLAVE_EN;
-+	func_ctrl_reg_val |= AST_I2CD_MASTER_EN;
-+	ast_i2c_write(bus, func_ctrl_reg_val, I2C_FUN_CTRL_REG);
-+
-+	bus->slave = NULL;
-+	spin_unlock_irqrestore(&bus->cmd_lock, flags);
-+	return 0;
-+}
-+#endif
-+
- static const struct i2c_algorithm i2c_ast_algorithm = {
- 	.master_xfer	= ast_i2c_xfer,
- 	.functionality	= ast_i2c_functionality,
-+#if IS_ENABLED(CONFIG_I2C_SLAVE)
-+	.reg_slave	= ast_i2c_reg_slave,
-+	.unreg_slave	= ast_i2c_unreg_slave,
-+#endif
- };
- 
- static int ast_i2c_probe_bus(struct platform_device *pdev)
+ 	/* Unlock SCU */
+ 	writel(SCU_PASSWORD, AST_IO(AST_BASE_SCU));
 -- 
-2.8.0.rc3.226.g39d4020
+2.8.0.rc2
