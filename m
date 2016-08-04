@@ -1,79 +1,55 @@
-Return-Path: <shays@mellanox.com>
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur01on0045.outbound.protection.outlook.com [104.47.2.45])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <xow@google.com>
+Received: from mail-pf0-x22e.google.com (mail-pf0-x22e.google.com
+ [IPv6:2607:f8b0:400e:c00::22e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s4rlB41xczDqQs
- for <openbmc@lists.ozlabs.org>; Thu,  4 Aug 2016 23:44:22 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b=mGjFec6I; 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s52Cr1YP8zDqTn
+ for <openbmc@lists.ozlabs.org>; Fri,  5 Aug 2016 06:51:20 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b=OPEQNMvB; 
  dkim-atps=neutral
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
- s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=h3kgV/Kocpn993Mt6xJwgKfgt/I3h4r+a1uGH9M/zhc=;
- b=mGjFec6I4SUi/xgb6nFM+TpWsYxeEndv9jfaZFgE0RkWUkx57UsuQCKlU5t1rhbkmhnDyDiD6UCitJ7dH49bHQPIyVrh1Eegas6/wp2qq4d5Iz0DkE1vB0VLE9VJ927qWrxOM+Dlp/2aKZRCAm3LcO+b16KT10IQIdbcHcYo1y0=
-Received: from DB4PR05MB0941.eurprd05.prod.outlook.com (10.161.249.145) by
- DB4PR05MB0942.eurprd05.prod.outlook.com (10.161.249.146) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
- 15.1.544.10; Thu, 4 Aug 2016 12:11:52 +0000
-Received: from DB4PR05MB0941.eurprd05.prod.outlook.com ([10.161.249.145]) by
- DB4PR05MB0941.eurprd05.prod.outlook.com ([10.161.249.145]) with mapi id
- 15.01.0544.023; Thu, 4 Aug 2016 12:11:51 +0000
-From: Shay Slobodkin <shays@mellanox.com>
-To: Joel Stanley <joel@jms.id.au>
-CC: Andrew Jeffery <andrew@aj.id.au>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>
-Subject: RE: Aspeed 2500 EVB i2c transaction time out
-Thread-Topic: Aspeed 2500 EVB i2c transaction time out
-Thread-Index: AdHjPh18jT8yNP68Tle3f/Ll01NEgAAL8yuAAIyfMnAAG9q6gABwxbfgAO2nJoAAF+j1oAABZG4AAJaewWA=
-Date: Thu, 4 Aug 2016 12:11:51 +0000
-Message-ID: <DB4PR05MB0941678D6CD51C9DCC5B27E4D5070@DB4PR05MB0941.eurprd05.prod.outlook.com>
-References: <DB4PR05MB0941FC06CBEC427C99A40C80D5090@DB4PR05MB0941.eurprd05.prod.outlook.com>
- <CACPK8Xf-jSXs=EcF3tQrC7xeFkKXOhXxPxz=6pBQ9408-uhcHA@mail.gmail.com>
- <DB4PR05MB0941D946BC03E134592BCA21D50C0@DB4PR05MB0941.eurprd05.prod.outlook.com>
- <1469408379.5468.33.camel@aj.id.au>
- <DB4PR05MB0941D264C3F26B9F9378E78ED50F0@DB4PR05MB0941.eurprd05.prod.outlook.com>
- <1470010405.4428.3.camel@aj.id.au>
- <DB4PR05MB0941DF5F4C384D1DE5429892D5040@DB4PR05MB0941.eurprd05.prod.outlook.com>
- <CACPK8Xc=KJ-KmBvu2c_WxggvLpw7G-j-it1Ld2WR=WnjH4muLg@mail.gmail.com>
-In-Reply-To: <CACPK8Xc=KJ-KmBvu2c_WxggvLpw7G-j-it1Ld2WR=WnjH4muLg@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=shays@mellanox.com; 
-x-originating-ip: [193.47.165.251]
-x-ms-office365-filtering-correlation-id: 9152a10a-0e09-4e9d-3451-08d3bc6084b2
-x-microsoft-exchange-diagnostics: 1; DB4PR05MB0942;
- 6:1aOkAqUyi+G8M+ZMvj7J4Jl1JJq3alDVknZ69FrpbxIWYVVzOpfP7s431Ow17hvFDJ7c4eIpBp/XpqQWa0ssmOfs0IGTT0pJLQGWKKPEjX/RSxH6bwpWMjF/UA41gvcON1PTIybn+FnV1KdsmyDIbQR2Ic/iR98W0h6sZDdzIzEChpMOHE9fQRbL3mJwtGlEvttO3VL1j0leg+UO1uK9MobZp1ES248xVDxVuzKvx3jw8USvNCr3q3xs3qMM+e4X/l8B9Pf1pDm7kM7Sk4uMq5MsndWYj++2+jrmXnjdUogQcX9SauPMTJX5X4Ir4EWhzBYXIDNwsn77ZszEVj3EMg==;
- 5:aCYp6ngvLaWnn44MFsfIzbKb3Cod8/2HzUHd6JPVHF9tmpp//lXyEAXA/rQFbBLa37vKL399wdwm+OSzouXmBDP+SR0M0N29sfLpE08+fQMNflXwBPMfeS46lSv0b6S41v6axV21d4umbMa8eQDHKQ==;
- 24:gQ8sOPYxUF7iz68nYrNLV8X/Iqj6AN/T+fm1jNtxpsXkM2byJSEpFjQxMDNNn/I5pN/sKLaB0apNpVVLqf6YFE+SWOByfDaMJXTq69ikorU=;
- 7:3YIH0DeccVNirNAWacQahCpUxJVZisoC8gzi5qAKSQgSWbe/P0X0qJNhd25KktGhLJvh9O9f9z7r2NWnbZnUPrYb+GED9EDFE4Yv8jXS3GiipEHHa1Pj2YxGivT/yF77sgwneNPbnooe5p8A9a1PnrmB5/uL10c0jrJx+kMg7/CV7iEgLcUPWO8F1+wzxegvMNZu+78dTYhbOTfhimAzI75OeLVIBBuyUbzPC1n2HN5uUyvIrzYnQay+xJzKfuiD
-x-microsoft-antispam: UriScan:;BCL:0;PCL:0;RULEID:;SRVR:DB4PR05MB0942;
-x-microsoft-antispam-prvs: <DB4PR05MB0942655A3DB5E517D63D9BD1D5070@DB4PR05MB0942.eurprd05.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:(65623756079841);
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(601004)(2401047)(8121501046)(5005006)(3002001)(10201501046)(6055026);
- SRVR:DB4PR05MB0942; BCL:0; PCL:0; RULEID:; SRVR:DB4PR05MB0942; 
-x-forefront-prvs: 00246AB517
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(6009001)(7916002)(377454003)(13464003)(24454002)(199003)(189002)(10400500002)(68736007)(8936002)(50986999)(5002640100001)(101416001)(76176999)(76576001)(93886004)(305945005)(19580395003)(86362001)(87936001)(8676002)(77096005)(54356999)(33656002)(551934003)(92566002)(3660700001)(189998001)(9686002)(110136002)(4326007)(81156014)(3846002)(19580405001)(3280700002)(74316002)(66066001)(6116002)(102836003)(122556002)(105586002)(586003)(7696003)(7846002)(2900100001)(2950100001)(106356001)(81166006)(2906002)(97736004)(7736002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DB4PR05MB0942;
- H:DB4PR05MB0941.eurprd05.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
- A:1; MX:1; LANG:en; 
-received-spf: None (protection.outlook.com: mellanox.com does not designate
- permitted sender hosts)
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: by mail-pf0-x22e.google.com with SMTP id x72so89924075pfd.2
+ for <openbmc@lists.ozlabs.org>; Thu, 04 Aug 2016 13:51:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=cq2Tp4nuLjkzQMru7qNxDo9xB4HWbnHbXJKQ1J+RKBM=;
+ b=OPEQNMvBovenrRz1fo5U61U/e5JkiBNv2OoE7yDM98LtBmuXKzWMgsS8DHGQvtDeuM
+ /3Pg2N1pK3GO3IjSoFu0XBSBSNPx1pvaX8vyut81qQtW3i2DAvz8IVlUBPOvYdZ1Fcyf
+ 9TfMwj7Nx/JpqrCDI/ClCBWPh0PRZxpGRNZKDOHH5A556znlkig0cbcoDc8N6Fm7gSH9
+ Idi+29Uqww+zkGx2jZgqd0NnIPji6ut+U8mgL7Lr9opQe9wZGqYN1pW0rU8AS0cGvC8U
+ rjBgexYl/qTmcfWLUJSkW4oD7DaSUTTltDsGRIjKhV8wawSV/uz/EB+t9QutePRpU+4Y
+ 6bTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=cq2Tp4nuLjkzQMru7qNxDo9xB4HWbnHbXJKQ1J+RKBM=;
+ b=mH/ExHenvje3XYWdUhUIbmdIA5GNLZobxTOI43J1jhittS2uTUgMJEmRmLXGPvftJJ
+ hy/xO5HyM6jpvDd+yWJrCG/0bOfuoAf1dya3ZVLai/YvYPe+HfxAtuC7cRc/H7IjY/Ga
+ mS2mhcioyKGd8opH+xPZ5x+gCpcZ/9nKVt4sfWoiXczmLd84TE/rOlcJe99LyGCrnrWE
+ 6CzBx6UI/o/ZTATVb5pDj9f6LHQqKI9g2OuJ4BQnYRS6Y082xpdzKi+BSQ4QCnX9YcKv
+ b6Ku1ZM/jOgrh8vc2Os0gQyXQmHmwVTka+13hBjr0WfpsmmJ3QjN72SaHXjww3uc+1t4
+ HLqw==
+X-Gm-Message-State: AEkoouuXB+GV4ILLqWZAmEY0bJ2//05UfBHNA/dq+hPMNGfa0d1zzbgwTMm/agfUe/pOqgjA
+X-Received: by 10.98.35.145 with SMTP id q17mr129003108pfj.42.1470343877860;
+ Thu, 04 Aug 2016 13:51:17 -0700 (PDT)
+Received: from pewter.mtv.corp.google.com ([172.18.64.22])
+ by smtp.gmail.com with ESMTPSA id c125sm22453495pfc.40.2016.08.04.13.51.17
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Thu, 04 Aug 2016 13:51:17 -0700 (PDT)
+From: Xo Wang <xow@google.com>
+To: openbmc@lists.ozlabs.org
+Cc: Jeremy Kerr <jk@ozlabs.org>,
+	Xo Wang <xow@google.com>
+Subject: [PATCH linux 2/2] arm/aspeed: Enable VUART driver
+Date: Thu,  4 Aug 2016 13:51:03 -0700
+Message-Id: <1470343863-81892-3-git-send-email-xow@google.com>
+X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
+In-Reply-To: <1470343863-81892-1-git-send-email-xow@google.com>
+References: <1470343863-81892-1-git-send-email-xow@google.com>
 MIME-Version: 1.0
-X-OriginatorOrg: Mellanox.com
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Aug 2016 12:11:51.5556 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR05MB0942
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -85,31 +61,88 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 04 Aug 2016 13:44:24 -0000
+X-List-Received-Date: Thu, 04 Aug 2016 20:51:21 -0000
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogam9lbC5zdGFuQGdtYWls
-LmNvbSBbbWFpbHRvOmpvZWwuc3RhbkBnbWFpbC5jb21dIE9uIEJlaGFsZiBPZiBKb2VsDQo+IFN0
-YW5sZXkNCj4gU2VudDogTW9uZGF5LCBBdWd1c3QgMDEsIDIwMTYgMzoxOCBQTQ0KPiBUbzogU2hh
-eSBTbG9ib2RraW4gPHNoYXlzQG1lbGxhbm94LmNvbT4NCj4gQ2M6IEFuZHJldyBKZWZmZXJ5IDxh
-bmRyZXdAYWouaWQuYXU+OyBvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcNCj4gU3ViamVjdDogUmU6
-IEFzcGVlZCAyNTAwIEVWQiBpMmMgdHJhbnNhY3Rpb24gdGltZSBvdXQNCj4gDQo+IE9uIE1vbiwg
-QXVnIDEsIDIwMTYgYXQgOTowOSBQTSwgU2hheSBTbG9ib2RraW4gPHNoYXlzQG1lbGxhbm94LmNv
-bT4NCj4gd3JvdGU6DQo+ID4+IFNvcnJ5IGZvciB0aGUgZGlzdHJhY3Rpb24gaGVyZSwgaXQgd2Fz
-IGEgYml0IG9mIGEgbG9uZyBzaG90LiBCdWlsZGluZw0KPiA+PiB0aGF0IGJyYW5jaCB3aXRob3V0
-IGZ1cnRoZXIgcGF0Y2hpbmcgcHJvYmFibHkgd291bGQgbm90IGhhdmUgbXV4ZWQNCj4gPj4gd2hh
-dCB5b3UgbmVlZGVkLCBidXQgaXQgYWxzbyBzaG91bGQgbm90IGhhdmUgaGFkIHRoZSBidWdzIHlv
-dSBwb2ludGVkDQo+ID4+IG91dC4gSSB0aGluayBKb2VsIHdhcyBpbnRlbmRpbmcgdG8gcHVzaCBv
-dXQgYSBicmFuY2ggdG8gc3VwcG9ydCB0aGUNCj4gPj4gZXh0cmEgaTJjDQo+ID4+IGJ1cyhlcykg
-eW91IG5lZWQuIEpvZWw/DQo+ID4NCj4gPiBUaGFuayB5b3UgQW5kcmV3Lg0KPiA+IEJ5IHRoZSB3
-YXksIHdlIGRvIHNlZSBJMkMgdGltZSBvdXQgaXNzdWVzLCB3aGVuIHRyeWluZyB0cmFuc2FjdGlv
-bnMgdG8NCj4gTE03NS4NCj4gPg0KPiA+IEpvZWwsIGlzIHRoZXJlIGFueSB1cGRhdGUgcmVnYXJk
-aW5nIHRoZSBjb2RlPyBXaGVuIGlzIGl0IHN1cHBvc2VkIHRvIGJlDQo+IHB1Ymxpc2hlZD8NCj4g
-PiBXZSBjYW4gYXNzaXN0IHdpdGggdGVzdGluZywgaWYgeW91IGhhdmUgc29tZSBoYWxmIGJhY2tl
-ZCBjb2RlIHRvIHNoYXJlLg0KPiANCj4gSSd2ZSBiZWVuIHdvcmtpbmcgb24gaXQsIGJ1dCBvdGhl
-ciByZXNwb25zaWJpbGl0aWVzIGhhdmUgYmVlbiBzbG93aW5nIGRvd24NCj4gcHJvZ3Jlc3MuIEkg
-ZXhwZWN0IHRvIGdldCBpdCBvdXQgdGhpcyB3ZWVrLiBJIHdpbGwgZW1haWwgdGhlIGxpc3Qgd2hl
-biBJIGRvLg0KPiANCj4gSXQgd291bGQgYmUgZ3JlYXQgdG8gc2VlIHlvdXIgcHJvZ3Jlc3MuIFB1
-Ymxpc2ggZWFybHksIHB1Ymxpc2ggb2Z0ZW4gOikNCg0KVG90YWxseSBhZ3JlZSB3aXRoIHlvdS4g
-V2UgcHJvZ3Jlc3Mgc2xvd2VyIHRoYW4gd2hhdCB3ZSB0aG91Z2h0Lg0KSG9wZWZ1bGx5IHdlIHBs
-YW4gdG8gcHVibGlzaCBzb21ldGhpbmcgaW4gdGhlIHdlZWsgYWZ0ZXIgbmV4dCB3ZWVrLg0KDQo+
-IA0KPiBDaGVlcnMsDQo+IA0KPiBKb2VsDQo=
+From: Jeremy Kerr <jk@ozlabs.org>
+
+This change makes use of the new VUART device driver. We need a separate
+compatible property for the VUART node, and a fix for the interrupt
+definitions. We also change the SCU setup to notify host firmware that the
+VUART is available.
+
+Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
+Signed-off-by: Xo Wang <xow@google.com>
+---
+ arch/arm/boot/dts/aspeed-g4.dtsi  | 6 +++---
+ arch/arm/boot/dts/aspeed-g5.dtsi  | 6 +++---
+ arch/arm/configs/aspeed_defconfig | 3 +++
+ arch/arm/mach-aspeed/aspeed.c     | 2 +-
+ 4 files changed, 10 insertions(+), 7 deletions(-)
+
+diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
+index ff1eb0b..41c59ab 100644
+--- a/arch/arm/boot/dts/aspeed-g4.dtsi
++++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+@@ -174,11 +174,11 @@
+ 				status = "disabled";
+ 			};
+ 
+-			uart6: serial@1e787000 {
+-				compatible = "ns16550a";
++			uart6: vuart@1e787000 {
++				compatible = "aspeed,vuart";
+ 				reg = <0x1e787000 0x1000>;
+ 				reg-shift = <2>;
+-				interrupts = <10>;
++				interrupts = <8>;
+ 				clocks = <&clk_uart>;
+ 				no-loopback-test;
+ 				status = "disabled";
+diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+index afddbb8..6aaddfb 100644
+--- a/arch/arm/boot/dts/aspeed-g5.dtsi
++++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+@@ -191,11 +191,11 @@
+ 				status = "disabled";
+ 			};
+ 
+-			uart6: serial@1e787000 {
+-				compatible = "ns16550a";
++			uart6: vuart@1e787000 {
++				compatible = "aspeed,vuart";
+ 				reg = <0x1e787000 0x1000>;
+ 				reg-shift = <2>;
+-				interrupts = <10>;
++				interrupts = <8>;
+ 				clocks = <&clk_uart>;
+ 				no-loopback-test;
+ 				status = "disabled";
+diff --git a/arch/arm/configs/aspeed_defconfig b/arch/arm/configs/aspeed_defconfig
+index 4d850fc..003d39d 100644
+--- a/arch/arm/configs/aspeed_defconfig
++++ b/arch/arm/configs/aspeed_defconfig
+@@ -94,6 +94,9 @@ CONFIG_SERIAL_8250=y
+ CONFIG_SERIAL_8250_CONSOLE=y
+ CONFIG_SERIAL_8250_NR_UARTS=6
+ CONFIG_SERIAL_8250_RUNTIME_UARTS=6
++CONFIG_SERIAL_8250_EXTENDED=y
++CONFIG_SERIAL_8250_SHARE_IRQ=y
++CONFIG_SERIAL_ASPEED_VUART=y
+ CONFIG_SERIAL_OF_PLATFORM=y
+ CONFIG_SERIAL_ASPEED_VUART=y
+ CONFIG_HW_RANDOM=y
+diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+index dd9b3b8..9c9f6bc 100644
+--- a/arch/arm/mach-aspeed/aspeed.c
++++ b/arch/arm/mach-aspeed/aspeed.c
+@@ -119,7 +119,7 @@ static void __init do_common_setup(void)
+ 
+ 	/* Setup scratch registers */
+ 	writel(0x00000042, AST_IO(AST_BASE_LPC | 0x170));
+-	writel(0x00004000, AST_IO(AST_BASE_LPC | 0x174));
++	writel(0x00008000, AST_IO(AST_BASE_LPC | 0x174));
+ }
+ 
+ static void __init do_barreleye_setup(void)
+-- 
+2.8.0.rc3.226.g39d4020
