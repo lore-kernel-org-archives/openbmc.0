@@ -1,53 +1,71 @@
-Return-Path: <prvs=7023bd758a=mattconolly@fb.com>
-X-Greylist: delayed 2016 seconds by postgrey-1.35 at bilbo;
- Thu, 04 Aug 2016 09:41:21 AEST
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b=cJOHMjtn; 
- dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
+Return-Path: <gwshan@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s4V2T0qnVzDqQ4
- for <openbmc@lists.ozlabs.org>; Thu,  4 Aug 2016 09:41:19 +1000 (AEST)
-Received: from pps.filterd (m0044008.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
- u73N5jo0012263
- for <openbmc@lists.ozlabs.org>; Wed, 3 Aug 2016 16:07:41 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fb.com;
- h=from : to : cc : subject :
- date : message-id : mime-version : content-type; s=facebook;
- bh=xH1UpZWk47dWff6RyK0fAI7loqnXrYz3MUfo9VEVUXY=;
- b=cJOHMjtnB3WaZ6GUBH7+t7NwLXwll7r3IwkbYo4ZX3us0V5qS6uS0Rx9GRLsfYAp0J/O
- OaPsrdKkTnz3AXePRHAjDlouyzSV70KEiupSf8arBaP9jrFa8ctylS0XG4RcsRBoJUsh
- JldsZm1cMP0txWJLco3nm0KY3LJWvojgfqg= 
-Received: from mail.thefacebook.com ([199.201.64.23])
- by mx0a-00082601.pphosted.com with ESMTP id 24kpyes29m-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 03 Aug 2016 16:07:41 -0700
-Received: from mx-out.facebook.com (192.168.52.123) by
- PRN-CHUB08.TheFacebook.com (192.168.16.18) with Microsoft SMTP Server (TLS)
- id 14.3.294.0; Wed, 3 Aug 2016 16:07:41 -0700
-Received: from facebook.com (2401:db00:11:d0a6:face:0:13:0)	by
- mx-out.facebook.com (10.212.236.89) with ESMTP	id
- 13b14c8859cf11e683cf0002c95209d8-ceffdaf0 for <openbmc@lists.ozlabs.org>;
- Wed, 03 Aug 2016 16:07:40 -0700
-Received: by devbig293.prn1.facebook.com (Postfix, from userid 9402)	id
- 0B5036A80C95; Wed,  3 Aug 2016 16:07:40 -0700 (PDT)
-From: Matthew Conolly <mattconolly@fb.com>
-To: <openbmc@lists.ozlabs.org>
-Subject: [PATCH] arm/dts/aspeed: Add minimal Facebook CMM BMC board based on
- AST2500
-Date: Wed, 3 Aug 2016 16:07:31 -0700
-Message-ID: <1470265651-3679131-1-git-send-email-mattconolly@fb.com>
-X-Mailer: git-send-email 2.8.0.rc2
-X-FB-Internal: Safe
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s4WWS1h35zDqCZ
+ for <openbmc@lists.ozlabs.org>; Thu,  4 Aug 2016 10:48:02 +1000 (AEST)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
+ u740iFqV145317
+ for <openbmc@lists.ozlabs.org>; Wed, 3 Aug 2016 20:47:59 -0400
+Received: from e23smtp03.au.ibm.com (e23smtp03.au.ibm.com [202.81.31.145])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 24kkaja3p8-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 03 Aug 2016 20:47:59 -0400
+Received: from localhost
+ by e23smtp03.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <gwshan@linux.vnet.ibm.com>;
+ Thu, 4 Aug 2016 10:47:56 +1000
+Received: from d23dlp02.au.ibm.com (202.81.31.213)
+ by e23smtp03.au.ibm.com (202.81.31.209) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Thu, 4 Aug 2016 10:47:52 +1000
+X-IBM-Helo: d23dlp02.au.ibm.com
+X-IBM-MailFrom: gwshan@linux.vnet.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d23relay06.au.ibm.com (d23relay06.au.ibm.com [9.185.63.219])
+ by d23dlp02.au.ibm.com (Postfix) with ESMTP id 24B822BB0054
+ for <openbmc@lists.ozlabs.org>; Thu,  4 Aug 2016 10:47:52 +1000 (EST)
+Received: from d23av03.au.ibm.com (d23av03.au.ibm.com [9.190.234.97])
+ by d23relay06.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u740lq7S29622312
+ for <openbmc@lists.ozlabs.org>; Thu, 4 Aug 2016 10:47:52 +1000
+Received: from d23av03.au.ibm.com (localhost [127.0.0.1])
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u740lpQA014314
+ for <openbmc@lists.ozlabs.org>; Thu, 4 Aug 2016 10:47:51 +1000
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u740lpNE014310; Thu, 4 Aug 2016 10:47:51 +1000
+Received: from bran.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
+ by ozlabs.au.ibm.com (Postfix) with ESMTP id CC598A01EE;
+ Thu,  4 Aug 2016 10:47:50 +1000 (AEST)
+Received: from gwshan (shangw.ozlabs.ibm.com [10.61.2.199])
+ by bran.ozlabs.ibm.com (Postfix) with ESMTP id 8B35FE3BB7;
+ Thu,  4 Aug 2016 10:47:50 +1000 (AEST)
+Received: by gwshan (Postfix, from userid 1000)
+ id 67103941D65; Thu,  4 Aug 2016 10:47:50 +1000 (AEST)
+From: Gavin Shan <gwshan@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, Gavin Shan <gwshan@linux.vnet.ibm.com>
+Subject: [PATCH dev-4.4] net/ncsi: Enable request timer before sending command
+Date: Thu,  4 Aug 2016 10:47:49 +1000
+X-Mailer: git-send-email 2.1.0
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16080400-0008-0000-0000-000000ACC2A1
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 16080400-0009-0000-0000-000007C85542
+Message-Id: <1470271669-20662-1-git-send-email-gwshan@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2016-08-03_16:, , signatures=0
+ definitions=2016-08-03_17:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=3
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1604210000
+ definitions=main-1608040007
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -59,195 +77,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 03 Aug 2016 23:41:21 -0000
+X-List-Received-Date: Thu, 04 Aug 2016 00:48:04 -0000
 
-A minimal device tree to let the CMM bmc board boot to a console over UART with some drivers functional
+The response is received upon the sent command before the request's
+timer is enabled under extreme situation. The response packet won't
+be processed as the corresponding request (request packet and timer)
+isn't complete. It leads to NCSI failure - no package detected.
 
-Signed-off-by: Matthew Conolly <mattconolly@fb.com>
+This fixes the issue by enabling the timer before sending the command.
+The comments about the timer has been replaced by that in upstream
+kernel.
+
+Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
 ---
- arch/arm/boot/dts/Makefile                         |   1 +
- .../dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi  |  24 +++++
- arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts      | 112 +++++++++++++++++++++
- arch/arm/mach-aspeed/aspeed.c                      |   5 +-
- 4 files changed, 140 insertions(+), 2 deletions(-)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
+The issue exists in all branches. 4.7 has the issue at least. I
+suggest applying it to all other branches or 4.7 only.
+---
+ net/ncsi/ncsi-cmd.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index 3c27d57..21fe59b 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -843,6 +843,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
- 	aspeed-bmc-opp-barreleye.dtb \
- 	aspeed-bmc-opp-firestone.dtb \
- 	aspeed-bmc-opp-garrison.dtb \
-+	aspeed-bmc-facebook-cmm.dtb \
- 	aspeed-ast2500-evb.dtb
- endif
+diff --git a/net/ncsi/ncsi-cmd.c b/net/ncsi/ncsi-cmd.c
+index b8503e1..d634a0e 100644
+--- a/net/ncsi/ncsi-cmd.c
++++ b/net/ncsi/ncsi-cmd.c
+@@ -359,20 +359,19 @@ int ncsi_xmit_cmd(struct ncsi_cmd_arg *nca)
+ 		eh->h_source[i] = 0xff;
+ 	}
  
-diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi
-new file mode 100644
-index 0000000..1b3133f
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi
-@@ -0,0 +1,24 @@
-+/* This file is the label for the bmc primary flash and its partitions */
-+				label = "bmc";
-+				#address-cells = < 1 >;
-+				#size-cells = < 1 >;
-+				u-boot {
-+					reg = < 0 0x80000 >;
-+					label = "u-boot";
-+				};
-+				u-boot-env {
-+					reg = < 0x60000 0x20000 >;
-+					label = "u-boot-env";
-+				};
-+				kernel  {
-+					reg = < 0x80000 0x280000 >;
-+					label = "kernel";
-+				};
-+				initramfs {
-+					reg = < 0x300000 0x300000 >;
-+					label = "initramfs";
-+				};
-+				pd_rootfs  {
-+					reg = < 0x4c0000 0x1740000 >;
-+					label = "pd_rootfs";
-+				};
-diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
-new file mode 100644
-index 0000000..4ea8e7e
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
-@@ -0,0 +1,112 @@
-+/dts-v1/;
++        /* Start the timer for the request that might not have
++         * corresponding response. Given NCSI is an internal
++         * connection a 1 second delay should be sufficient.
++         */
++	mod_timer(&nr->nr_timer, jiffies + 1 * HZ);
++	nr->nr_timer_enabled = true;
 +
-+#include "aspeed-g5.dtsi"
-+
-+/ {
-+	model = "FACEBOOK CMM BMC";
-+	compatible = "facebook,cmm-bmc", "aspeed,ast2500";
-+
-+	aliases {
-+		serial1 = &uart1;
-+	};
-+
-+	chosen {
-+		stdout-path = &uart1;
-+		bootargs = "console=ttyS1,115200 earlyprintk";
-+	};
-+
-+	memory {
-+		reg = <0x80000000 0x3f000000>;
-+	};
-+
-+	ahb {
-+		bmc_pnor: fmc@1e620000 {
-+			reg = < 0x1e620000 0x94
-+				0x20000000 0x02000000 >;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "aspeed,fmc";
-+			flash@0 {
-+				reg = < 0 >;
-+				compatible = "jedec,spi-nor" ;
-+#include "aspeed-bmc-facebook-cmm-flash-layout.dtsi"
-+			};
-+		};
-+  };
-+
-+
-+
-+};
-+
-+&uart1 {
-+	status = "okay";
-+};
-+
-+&mac0 {
-+	status = "disabled";
-+};
-+
-+&mac1 {
-+	status = "okay";
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+};
-+
-+&i2c1 {
-+	status = "okay";
-+};
-+
-+&i2c2 {
-+	status = "okay";
-+};
-+
-+&i2c3 {
-+	status = "okay";
-+};
-+
-+&i2c4 {
-+	status = "okay";
-+};
-+
-+&i2c5 {
-+	status = "okay";
-+
-+//	eeprom@50 {
-+//		compatible = "atmel,24c08";
-+//		reg = <0xa0>;
-+//	};
-+};
-+
-+&i2c6 {
-+	status = "okay";
-+};
-+
-+&i2c7 {
-+	status = "okay";
-+};
-+
-+&i2c8 {
-+	status = "okay";
-+};
-+
-+&i2c9 {
-+	status = "okay";
-+};
-+
-+&i2c10 {
-+	status = "okay";
-+};
-+
-+&i2c11 {
-+	status = "okay";
-+};
-+
-+&i2c12 {
-+	status = "okay";
-+};
-+
-+&i2c13 {
-+	status = "okay";
-+};
-diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
-index db540ac..da03fed 100644
---- a/arch/arm/mach-aspeed/aspeed.c
-+++ b/arch/arm/mach-aspeed/aspeed.c
-@@ -202,8 +202,9 @@ static void __init do_ast2500evb_setup(void)
+ 	/* Send NCSI packet */
+ 	skb_get(nr->nr_cmd);
+ 	ret = dev_queue_xmit(nr->nr_cmd);
+ 	if (ret)
+ 		goto out;
  
- static void __init aspeed_init_early(void)
- {
--	// XXX UART stuff to fix to pinmux & co
--	writel(0x02010023, AST_IO(AST_BASE_LPC | 0x9c));
-+	if (!of_machine_is_compatible("facebook,cmm-bmc"))
-+		/* XXX UART stuff to fix to pinmux & co */
-+		writel(0x02010023, AST_IO(AST_BASE_LPC | 0x9c));
- 
- 	/* Unlock SCU */
- 	writel(SCU_PASSWORD, AST_IO(AST_BASE_SCU));
+-	/* Start the timer for the request that might not have
+-	 * corresponding response. I'm not sure 1 second delay
+-	 * here is enough. Anyway, NCSI is internal network, so
+-	 * the responsiveness should be as fast as enough.
+-	 */
+-	nr->nr_timer_enabled = true;
+-	mod_timer(&nr->nr_timer, jiffies + 1 * HZ);
+-
+ 	return 0;
+ out:
+ 	ncsi_free_req(nr, false, false);
 -- 
-2.8.0.rc2
+2.1.0
