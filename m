@@ -1,51 +1,53 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-pf0-x243.google.com (mail-pf0-x243.google.com
- [IPv6:2607:f8b0:400e:c00::243])
+Received: from mail-ua0-x243.google.com (mail-ua0-x243.google.com
+ [IPv6:2607:f8b0:400c:c08::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s78zY1HSSzDqS5
- for <openbmc@lists.ozlabs.org>; Mon,  8 Aug 2016 18:03:05 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s79Wc00dTzDqS5
+ for <openbmc@lists.ozlabs.org>; Mon,  8 Aug 2016 18:27:23 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=OlYLvkkB; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=rYwhLbme; 
  dkim-atps=neutral
-Received: by mail-pf0-x243.google.com with SMTP id g202so24629436pfb.1
- for <openbmc@lists.ozlabs.org>; Mon, 08 Aug 2016 01:03:05 -0700 (PDT)
+Received: by mail-ua0-x243.google.com with SMTP id 109so4186564uat.2
+ for <openbmc@lists.ozlabs.org>; Mon, 08 Aug 2016 01:27:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=sender:from:to:cc:subject:date:message-id;
- bh=4m82F5Tbzr2TUC+dz4hyJXLqRHOwb12D8wnoLLQmpCg=;
- b=OlYLvkkBxwqcUao5ICHEGE3BIoz4CzOvQlOCTOvimvERLePQbiOAJobdoH/o+/2P3Y
- 7d5ilIHUVCh7n4X3fcnw9avmqJqVzKXotRqsSz27ls8vLAC/KCrD+JBvD8JgVm/da9ar
- fUqbmX4m89o23ETI/b1Mroi1g11LR+H0zeJsDE5ssFCoBaTOfJtBjwnuOaZYrgUaFD3w
- 1rhpr/GPH2L2cw8QnVQa+lHVAi/M2AvwS9Jmd3wgPzRZodts0k50IfduZZRGFZ+Y+9Xz
- jkx+54tMwIO6iJ0x51Cso9WiO0J04a35MY1G/EevM1pl2OTz4OimgXVq86waOKxR2ulC
- wbRg==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=MnyzqO4W3qmx8BtUuh125fgp7RizwCpJ7BfND7eEfpQ=;
+ b=rYwhLbme0bdDIXBwyIFSdFkppOwLw1NsQlOibHh/F0bq1N4IcbQl5yl5BmIfp9QLNR
+ ZgKmjw+Wy6Al6AC1ijJUV1prOnr/mu3aQbFYSaXh9VzSnEhsBX2rwqpjJ80J3f/UXihE
+ THzlkzoHyjNyJ9AYPLHm3B72ki9Ibx3WQ7Wx9kwqcYxCoERLyUY+wUnQWWhb7Crkv47W
+ CDn/vcppFo4p9Ln6XNnCeMt5TAu3yARr5nkvRGEshf86RIl3NPBFwRLVlvA6t3M+PG7b
+ rJNdU4KaMFga3PQocxwanjNPOlS6aNfodC2jIL5LuOdkbXFM7L0RnByE9NmWRK6o4HUw
+ 34Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
- bh=4m82F5Tbzr2TUC+dz4hyJXLqRHOwb12D8wnoLLQmpCg=;
- b=gcScuwaWYskqevwC5YXvHlGLkED9Se/5j+V7MibBUYPzNfVp2iV9V4yD0x1xuVXLCo
- PZ3BNiBracj/jhlvuwX6S48lrAJzxyXb5vec5jiklC/uQflYNspHddcp2Q9LLPUvh02u
- 0zgLxYxBJtUeXerFBWYKH4UD4vcXleOiMpYK/rbkm254wd/l3fOe/xDrBd3A1SzOijd8
- S+GSb3bUlpWHJZAd3L1XjznmuCiy2Uu8qakJVRelHz9lM74srl+CaRUnreJ4o2uRsBnF
- uF1KNSgZppX8RqHEf71iqBuhqat7lMhM3zarMUvnFlbYPhJf6BKZXw1ItK3k9rSv/Jc1
- UORw==
-X-Gm-Message-State: AEkooutxI5vUaLo5VowZK5bNFlf51SsYeqMX5hQCXTM9UWE6odJFeRn4a9BcyGfPqISuMA==
-X-Received: by 10.98.89.23 with SMTP id n23mr160155481pfb.34.1470643383197;
- Mon, 08 Aug 2016 01:03:03 -0700 (PDT)
-Received: from aurora.jms.id.au ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id bw10sm45671707pac.27.2016.08.08.01.03.00
- (version=TLS1 cipher=AES128-SHA bits=128/128);
- Mon, 08 Aug 2016 01:03:02 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Mon, 08 Aug 2016 17:32:56 +0930
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=MnyzqO4W3qmx8BtUuh125fgp7RizwCpJ7BfND7eEfpQ=;
+ b=f3SLNAyRfGx4WHKuhS9iQwODgl4hxWtbB5sE5CO72AS5fDMYGidUoJFfilpn1MssWA
+ 0pAMFONrF9SnZkMGIJdpytbIAvBPiUn9hq4ubANKdtdcSXt8Wk3NQ0gHvp4MUyIKcTD4
+ I8zp7buPonFbqiPLu5srDdMKmldPnPKffJomrxfNaJYQ6vpXo5laGIQysG9FhR61mOJs
+ vHrij8VTLrcWuge+apIj8scNSD+DRWbrPM0BJ7aJB85FV73LCyYtlOHI8S5Bho/SEmqB
+ 3BASOf/6L+lhYCQqFjAv8uzIsyDRZl5kQ5FjOG6idlO0w4u3fuunsTNafb+ab/Ij1Et3
+ o73Q==
+X-Gm-Message-State: AEkooustfEv5kYyK0vXdBh7FRc4YikX1lAZPHX4q7fs6C2LFQrZMRCR+U7NB5o1NHMQjKOjcZ7gAAK4B9cQ7mA==
+X-Received: by 10.31.201.71 with SMTP id z68mr18986536vkf.14.1470644841917;
+ Mon, 08 Aug 2016 01:27:21 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.159.38.76 with HTTP; Mon, 8 Aug 2016 01:27:01 -0700 (PDT)
+In-Reply-To: <20160802044513.GA22837@gwshan>
+References: <1469667862-12601-1-git-send-email-gwshan@linux.vnet.ibm.com>
+ <1470040022.16990.8.camel@jms.id.au> <20160802044513.GA22837@gwshan>
 From: Joel Stanley <joel@jms.id.au>
-To: andrew@aj.id.au
-Cc: openbmc@lists.ozlabs.org
-Subject: [linux dev-4.7] pinctrl/aspeed: Add RGMII2/RMII2 for ast2500
-Date: Mon,  8 Aug 2016 17:32:52 +0930
-Message-Id: <1470643372-28221-1-git-send-email-joel@jms.id.au>
-X-Mailer: git-send-email 2.8.1
+Date: Mon, 8 Aug 2016 17:57:01 +0930
+X-Google-Sender-Auth: 2_hoLLj3D1OVdITB7dm1bXQ7U-0
+Message-ID: <CACPK8Xdi-Q4JK65LKLzqiOLJ9ZxsAHkNozNnBed_3Q5cN1Auwg@mail.gmail.com>
+Subject: Re: [PATCH dev-4.7 1/2] net/faraday: Avoid PHYSTS_CHG interrupt
+To: Gavin Shan <gwshan@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -57,188 +59,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 Aug 2016 08:03:05 -0000
+X-List-Received-Date: Mon, 08 Aug 2016 08:27:24 -0000
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- arch/arm/boot/dts/aspeed-g5.dtsi           |  10 +++
- drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c | 109 +++++++++++++++++++++++++++++
- 2 files changed, 119 insertions(+)
+On Tue, Aug 2, 2016 at 2:15 PM, Gavin Shan <gwshan@linux.vnet.ibm.com> wrote:
+> On Mon, Aug 01, 2016 at 05:57:02PM +0930, Joel Stanley wrote:
+>>On Thu, 2016-07-28 at 11:04 +1000, Gavin Shan wrote:
+>>> Bit#11 in MACCR (0x50) designates the signal level for PHY link
+>>> status change. It's cleared, meaning high level enabled, by default.
+>>> However, we can see continuous interrupt (bit#6) in ISR (0x0) for it
+>>> and it's obviously a false alarm. The side effect is CPU cycles
+>>> wasted
+>>> to process the false alarm.
+>>>
+>>> This sets bit#11 in MACCR (0x50) to avoid the bogus interrupt.
+>>
+>>Thanks.
+>>
+>>I assume you're seeing this with the hardware in NCSI mode?
+>>
+>>Is the patch okay for other use cases?
+>>
+>
+> Yeah, the only available testing environment is NCSI. I didn't
+> test it on PHY based AST2500. Joel, please give it a shoot on
+> your AST2500 board before merging it. By the way, the interrupt
+> (PHYSTS_CHG) shouldn't be used even we have a PHY connected as
+> polling mechanism is specified to retrieve the link status in
+> ftgmac100.c
 
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index 2daf0045173a..136c921a532b 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -191,6 +191,16 @@
- 						function = "RMII1";
- 						groups = "RMII1";
- 					};
-+
-+					pinctrl_rgmii2_default: rgmii2_default {
-+						function = "RGMII2";
-+						groups = "RGMII2";
-+					};
-+
-+					pinctrl_rmii2_default: rmii2_default {
-+						function = "RMII2";
-+						groups = "RMII2";
-+					};
- 				};
- 			};
- 
-diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
-index b1464ad7f06f..b9dd7be75766 100644
---- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
-+++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
-@@ -395,6 +395,98 @@ MS_PIN_DECL_(C4, SIG_EXPR_LIST_PTR(GPIOV1), SIG_EXPR_LIST_PTR(RMII1RXER),
- FUNC_GROUP_DECL(RGMII1, B4, A4, A3, D6, C5, C4, B5, E9, F9, A5, E7, D7);
- FUNC_GROUP_DECL(RMII1, B4, A3, D6, C5, C4, B5, E9, F9, A5);
- 
-+/* RGMII2/RMII2 */
-+
-+#define RMII2_DESC      SIG_DESC_BIT(HW_STRAP1, 7, 0)
-+
-+#define B2 158
-+SIG_EXPR_LIST_DECL_SINGLE(GPIOT6, GPIOT6, SIG_DESC_SET(SCUA0, 6));
-+SIG_EXPR_LIST_DECL_SINGLE(RMII2RCLKO, RMII2, RMII2_DESC,
-+		SIG_DESC_SET(SCU48, 30));
-+SIG_EXPR_LIST_DECL_SINGLE(RGMII2TXCK, RGMII2);
-+MS_PIN_DECL_(B2, SIG_EXPR_LIST_PTR(GPIOT6), SIG_EXPR_LIST_PTR(RMII2RCLKO),
-+		SIG_EXPR_LIST_PTR(RGMII2TXCK));
-+
-+#define B1 159
-+SIG_EXPR_LIST_DECL_SINGLE(GPIOT7, GPIOT7, SIG_DESC_SET(SCUA0, 7));
-+SIG_EXPR_LIST_DECL_SINGLE(RMII2TXEN, RMII2, RMII2_DESC);
-+SIG_EXPR_LIST_DECL_SINGLE(RGMII2TXCTL, RGMII2);
-+MS_PIN_DECL_(B1, SIG_EXPR_LIST_PTR(GPIOT7), SIG_EXPR_LIST_PTR(RMII2TXEN),
-+		SIG_EXPR_LIST_PTR(RGMII2TXCTL));
-+
-+#define A2 160
-+SIG_EXPR_LIST_DECL_SINGLE(GPIOU0, GPIOU0, SIG_DESC_SET(SCUA0, 8));
-+SIG_EXPR_LIST_DECL_SINGLE(RMII2TXD0, RMII2, RMII2_DESC);
-+SIG_EXPR_LIST_DECL_SINGLE(RGMII2TXD0, RGMII2);
-+MS_PIN_DECL_(A2, SIG_EXPR_LIST_PTR(GPIOU0), SIG_EXPR_LIST_PTR(RMII2TXD0),
-+		SIG_EXPR_LIST_PTR(RGMII2TXD0));
-+
-+#define B3 161
-+SIG_EXPR_LIST_DECL_SINGLE(GPIOU1, GPIOU1, SIG_DESC_SET(SCUA0, 9));
-+SIG_EXPR_LIST_DECL_SINGLE(RMII2TXD1, RMII2, RMII2_DESC);
-+SIG_EXPR_LIST_DECL_SINGLE(RGMII2TXD1, RGMII2);
-+MS_PIN_DECL_(B3, SIG_EXPR_LIST_PTR(GPIOU1), SIG_EXPR_LIST_PTR(RMII2TXD1),
-+		SIG_EXPR_LIST_PTR(RGMII2TXD1));
-+
-+#define D5 162
-+SIG_EXPR_LIST_DECL_SINGLE(GPIOU2, GPIOU2, SIG_DESC_SET(SCUA0, 10));
-+SIG_EXPR_LIST_DECL_SINGLE(RMII2DASH0, RMII2, RMII2_DESC);
-+SIG_EXPR_LIST_DECL_SINGLE(RGMII2TXD2, RGMII2);
-+MS_PIN_DECL_(D5, SIG_EXPR_LIST_PTR(GPIOU2), SIG_EXPR_LIST_PTR(RMII2DASH0),
-+		SIG_EXPR_LIST_PTR(RGMII2TXD2));
-+
-+#define D4 163
-+SIG_EXPR_LIST_DECL_SINGLE(GPIOU3, GPIOU3, SIG_DESC_SET(SCUA0, 11));
-+SIG_EXPR_LIST_DECL_SINGLE(RMII2DASH1, RMII2, RMII2_DESC);
-+SIG_EXPR_LIST_DECL_SINGLE(RGMII2TXD3, RGMII2);
-+MS_PIN_DECL_(D4, SIG_EXPR_LIST_PTR(GPIOU3), SIG_EXPR_LIST_PTR(RMII2DASH1),
-+		SIG_EXPR_LIST_PTR(RGMII2TXD3));
-+
-+#define C2 170
-+SIG_EXPR_LIST_DECL_SINGLE(GPIOV2, GPIOV2, SIG_DESC_SET(SCUA0, 18));
-+SIG_EXPR_LIST_DECL_SINGLE(RMII2RCLKI, RMII2, RMII2_DESC);
-+SIG_EXPR_LIST_DECL_SINGLE(RGMII2RXCK, RGMII2);
-+MS_PIN_DECL_(C2, SIG_EXPR_LIST_PTR(GPIOV2), SIG_EXPR_LIST_PTR(RMII2RCLKI),
-+		SIG_EXPR_LIST_PTR(RGMII2RXCK));
-+
-+#define C1 171
-+SIG_EXPR_LIST_DECL_SINGLE(GPIOV3, GPIOV3, SIG_DESC_SET(SCUA0, 19));
-+SIG_EXPR_LIST_DECL_SINGLE(RMII2DASH2, RMII2, RMII2_DESC);
-+SIG_EXPR_LIST_DECL_SINGLE(RGMII2RXCTL, RGMII2);
-+MS_PIN_DECL_(C1, SIG_EXPR_LIST_PTR(GPIOV3), SIG_EXPR_LIST_PTR(RMII2DASH2),
-+		SIG_EXPR_LIST_PTR(RGMII2RXCTL));
-+
-+#define C3 172
-+SIG_EXPR_LIST_DECL_SINGLE(GPIOV4, GPIOV4, SIG_DESC_SET(SCUA0, 20));
-+SIG_EXPR_LIST_DECL_SINGLE(RMII2RXD0, RMII2, RMII2_DESC);
-+SIG_EXPR_LIST_DECL_SINGLE(RGMII2RXD0, RGMII2);
-+MS_PIN_DECL_(C3, SIG_EXPR_LIST_PTR(GPIOV4), SIG_EXPR_LIST_PTR(RMII2RXD0),
-+		SIG_EXPR_LIST_PTR(RGMII2RXD0));
-+
-+#define D1 173
-+SIG_EXPR_LIST_DECL_SINGLE(GPIOV5, GPIOV5, SIG_DESC_SET(SCUA0, 21));
-+SIG_EXPR_LIST_DECL_SINGLE(RMII2RXD1, RMII2, RMII2_DESC);
-+SIG_EXPR_LIST_DECL_SINGLE(RGMII2RXD1, RGMII2);
-+MS_PIN_DECL_(D1, SIG_EXPR_LIST_PTR(GPIOV5), SIG_EXPR_LIST_PTR(RMII2RXD1),
-+		SIG_EXPR_LIST_PTR(RGMII2RXD1));
-+
-+#define D2 174
-+SIG_EXPR_LIST_DECL_SINGLE(GPIOV6, GPIOV6, SIG_DESC_SET(SCUA0, 22));
-+SIG_EXPR_LIST_DECL_SINGLE(RMII2CRSDV, RMII2, RMII2_DESC);
-+SIG_EXPR_LIST_DECL_SINGLE(RGMII2RXD2, RGMII2);
-+MS_PIN_DECL_(D2, SIG_EXPR_LIST_PTR(GPIOV6), SIG_EXPR_LIST_PTR(RMII2CRSDV),
-+		SIG_EXPR_LIST_PTR(RGMII2RXD2));
-+
-+#define E6 175
-+SIG_EXPR_LIST_DECL_SINGLE(GPIOV7, GPIOV7, SIG_DESC_SET(SCUA0, 23));
-+SIG_EXPR_LIST_DECL_SINGLE(RMII2RXER, RMII2, RMII2_DESC);
-+SIG_EXPR_LIST_DECL_SINGLE(RGMII2RXD3, RGMII2);
-+MS_PIN_DECL_(E6, SIG_EXPR_LIST_PTR(GPIOV7), SIG_EXPR_LIST_PTR(RMII2RXER),
-+		SIG_EXPR_LIST_PTR(RGMII2RXD3));
-+
-+FUNC_GROUP_DECL(RGMII2, B2, B1, A2, B3, D5, D4, C2, C1, C3, D1, D2, E6);
-+FUNC_GROUP_DECL(RMII2, B2, B1, A2, B3, C2, C3, D1, D2, E6);
-+
- static struct pinctrl_pin_desc aspeed_g5_pins[ASPEED_G5_NR_PINS] = {
- 	ASPEED_PINCTRL_PIN(C14),
- 	ASPEED_PINCTRL_PIN(A13),
-@@ -434,12 +526,23 @@ static struct pinctrl_pin_desc aspeed_g5_pins[ASPEED_G5_NR_PINS] = {
- 	ASPEED_PINCTRL_PIN(N22),
- 	ASPEED_PINCTRL_PIN(D10),
- 	ASPEED_PINCTRL_PIN(E12),
-+	ASPEED_PINCTRL_PIN(A2),
-+	ASPEED_PINCTRL_PIN(B3),
-+	ASPEED_PINCTRL_PIN(D5),
-+	ASPEED_PINCTRL_PIN(D4),
-+	ASPEED_PINCTRL_PIN(A2),
- 	ASPEED_PINCTRL_PIN(B4),
- 	ASPEED_PINCTRL_PIN(A4),
- 	ASPEED_PINCTRL_PIN(A3),
- 	ASPEED_PINCTRL_PIN(D6),
- 	ASPEED_PINCTRL_PIN(C5),
- 	ASPEED_PINCTRL_PIN(C4),
-+	ASPEED_PINCTRL_PIN(C2),
-+	ASPEED_PINCTRL_PIN(C1),
-+	ASPEED_PINCTRL_PIN(C3),
-+	ASPEED_PINCTRL_PIN(D1),
-+	ASPEED_PINCTRL_PIN(D2),
-+	ASPEED_PINCTRL_PIN(E6),
- 	ASPEED_PINCTRL_PIN(D8),
- 	ASPEED_PINCTRL_PIN(E10),
- 	ASPEED_PINCTRL_PIN(B5),
-@@ -448,6 +551,8 @@ static struct pinctrl_pin_desc aspeed_g5_pins[ASPEED_G5_NR_PINS] = {
- 	ASPEED_PINCTRL_PIN(A5),
- 	ASPEED_PINCTRL_PIN(E7),
- 	ASPEED_PINCTRL_PIN(D7),
-+	ASPEED_PINCTRL_PIN(B2),
-+	ASPEED_PINCTRL_PIN(B1),
- };
- 
- static const struct aspeed_pin_group aspeed_g5_groups[] = {
-@@ -477,6 +582,8 @@ static const struct aspeed_pin_group aspeed_g5_groups[] = {
- 	ASPEED_PINCTRL_GROUP(MDIO1),
- 	ASPEED_PINCTRL_GROUP(RMII1),
- 	ASPEED_PINCTRL_GROUP(RGMII1),
-+	ASPEED_PINCTRL_GROUP(RMII2),
-+	ASPEED_PINCTRL_GROUP(RGMII2),
- };
- 
- static const struct aspeed_pin_function aspeed_g5_functions[] = {
-@@ -506,6 +613,8 @@ static const struct aspeed_pin_function aspeed_g5_functions[] = {
- 	ASPEED_PINCTRL_FUNC(MDIO1),
- 	ASPEED_PINCTRL_FUNC(RMII1),
- 	ASPEED_PINCTRL_FUNC(RGMII1),
-+	ASPEED_PINCTRL_FUNC(RMII2),
-+	ASPEED_PINCTRL_FUNC(RGMII2),
- };
- 
- static struct aspeed_pinctrl_data aspeed_g5_pinctrl_data = {
--- 
-2.8.1
+I gave this a spin on the ast2500 evb. I did get these two messages
+when bringing the interface up:
+
+ftgmac100 1e660000.ethernet eth0: [ISR] = 0x200: PHYSTS_CHG
+ftgmac100 1e660000.ethernet eth0: [ISR] = 0x200: PHYSTS_CHG
+
+But from then on the device worked as expected, with no flooding of
+the kernel buffer.
+
+I have applied the patches to my tree. Thanks!
+
+Cheers,
+
+Joel
