@@ -1,53 +1,48 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x243.google.com (mail-ua0-x243.google.com
- [IPv6:2607:f8b0:400c:c08::243])
+Return-Path: <hsienchiang@gmail.com>
+Received: from mail-pa0-x243.google.com (mail-pa0-x243.google.com
+ [IPv6:2607:f8b0:400e:c03::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s79Wc00dTzDqS5
- for <openbmc@lists.ozlabs.org>; Mon,  8 Aug 2016 18:27:23 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s7D1V0zJ0zDqPn
+ for <openbmc@lists.ozlabs.org>; Mon,  8 Aug 2016 20:19:58 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=rYwhLbme; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=Ggc0GaB1; 
  dkim-atps=neutral
-Received: by mail-ua0-x243.google.com with SMTP id 109so4186564uat.2
- for <openbmc@lists.ozlabs.org>; Mon, 08 Aug 2016 01:27:23 -0700 (PDT)
+Received: by mail-pa0-x243.google.com with SMTP id hh10so23826870pac.1
+ for <openbmc@lists.ozlabs.org>; Mon, 08 Aug 2016 03:19:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=MnyzqO4W3qmx8BtUuh125fgp7RizwCpJ7BfND7eEfpQ=;
- b=rYwhLbme0bdDIXBwyIFSdFkppOwLw1NsQlOibHh/F0bq1N4IcbQl5yl5BmIfp9QLNR
- ZgKmjw+Wy6Al6AC1ijJUV1prOnr/mu3aQbFYSaXh9VzSnEhsBX2rwqpjJ80J3f/UXihE
- THzlkzoHyjNyJ9AYPLHm3B72ki9Ibx3WQ7Wx9kwqcYxCoERLyUY+wUnQWWhb7Crkv47W
- CDn/vcppFo4p9Ln6XNnCeMt5TAu3yARr5nkvRGEshf86RIl3NPBFwRLVlvA6t3M+PG7b
- rJNdU4KaMFga3PQocxwanjNPOlS6aNfodC2jIL5LuOdkbXFM7L0RnByE9NmWRK6o4HUw
- 34Mg==
+ h=from:to:cc:subject:date:message-id;
+ bh=6glcMgJghqdLSVn4UPAPodZSOXzV5EXD7oh9UMDXX1k=;
+ b=Ggc0GaB1yjJyfnVBdrna5ZIlzANPMJqa5NewDdi721vJVWEyCJYfje3oqva+qMIkaY
+ jToaWD5pMwgIZPPErQGhaSicjxNEIomdWYszmvkIUnNjz3FK2q2KXbb4Ovg4f+4fnn9d
+ 1pFf9soTsPcpVqUnE5ODUDTR71AFXIv2bo3Fv5NKbSQEaH+v/no/6lCMnq2YFe1eNXga
+ bTzGKWJCQxAfh96xczm/hgs8RV5D9FLPGxUJ8RVdyPmkKfMRd3JyphI/2NyjQRMH9+MZ
+ THpkothFwgIG9X/lmBs0HF0ibqMtv3Os+ILZAFE3NUlGxy/gcikV+dPbOEeQw72O+DTg
+ HlHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=MnyzqO4W3qmx8BtUuh125fgp7RizwCpJ7BfND7eEfpQ=;
- b=f3SLNAyRfGx4WHKuhS9iQwODgl4hxWtbB5sE5CO72AS5fDMYGidUoJFfilpn1MssWA
- 0pAMFONrF9SnZkMGIJdpytbIAvBPiUn9hq4ubANKdtdcSXt8Wk3NQ0gHvp4MUyIKcTD4
- I8zp7buPonFbqiPLu5srDdMKmldPnPKffJomrxfNaJYQ6vpXo5laGIQysG9FhR61mOJs
- vHrij8VTLrcWuge+apIj8scNSD+DRWbrPM0BJ7aJB85FV73LCyYtlOHI8S5Bho/SEmqB
- 3BASOf/6L+lhYCQqFjAv8uzIsyDRZl5kQ5FjOG6idlO0w4u3fuunsTNafb+ab/Ij1Et3
- o73Q==
-X-Gm-Message-State: AEkooustfEv5kYyK0vXdBh7FRc4YikX1lAZPHX4q7fs6C2LFQrZMRCR+U7NB5o1NHMQjKOjcZ7gAAK4B9cQ7mA==
-X-Received: by 10.31.201.71 with SMTP id z68mr18986536vkf.14.1470644841917;
- Mon, 08 Aug 2016 01:27:21 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.159.38.76 with HTTP; Mon, 8 Aug 2016 01:27:01 -0700 (PDT)
-In-Reply-To: <20160802044513.GA22837@gwshan>
-References: <1469667862-12601-1-git-send-email-gwshan@linux.vnet.ibm.com>
- <1470040022.16990.8.camel@jms.id.au> <20160802044513.GA22837@gwshan>
-From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 8 Aug 2016 17:57:01 +0930
-X-Google-Sender-Auth: 2_hoLLj3D1OVdITB7dm1bXQ7U-0
-Message-ID: <CACPK8Xdi-Q4JK65LKLzqiOLJ9ZxsAHkNozNnBed_3Q5cN1Auwg@mail.gmail.com>
-Subject: Re: [PATCH dev-4.7 1/2] net/faraday: Avoid PHYSTS_CHG interrupt
-To: Gavin Shan <gwshan@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=6glcMgJghqdLSVn4UPAPodZSOXzV5EXD7oh9UMDXX1k=;
+ b=ZHbLcoYzR0T3gpUUrLjx8341O0fz5e7ZdfPh3XkaBOZqq63FonZCugUqJgg78JFexe
+ SwckSVXSyB6+tCnOUquyZjXtfi/umnT5mEMAVaKnRcsm45HCwqMTheS/gcWrfw/YDM8d
+ Y+c7O3RVdKXFFYcSv2EVSL3bnXKEk5QxdT/pAP8KHeIrslyesDrAkabkRLo4FM2MxDWL
+ ohINxc6/D1Srd+5LBSRFK4pxPy/5FkAkZm+XGyw9CW9/8btL6NUeYxBXDYizQtgvsZWq
+ DxAFWU9HV5eccVKeb0T+z/RlF9dfjZUoq1Mp9ZugScg8nmeB9YiWWW6Fa075m9FgGP1e
+ KAaw==
+X-Gm-Message-State: AEkooutnJCao3KrMaGwxafJNdfVHxduwuqe1Z7GyvVyGeCevBp2IXwVO3vzmWkcclcrpZA==
+X-Received: by 10.66.170.44 with SMTP id aj12mr161370340pac.131.1470651595937; 
+ Mon, 08 Aug 2016 03:19:55 -0700 (PDT)
+Received: from localhost.localdomain
+ (101-139-149-6.mobile.dynamic.aptg.com.tw. [101.139.149.6])
+ by smtp.gmail.com with ESMTPSA id f6sm46840066pfa.17.2016.08.08.03.19.54
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Mon, 08 Aug 2016 03:19:55 -0700 (PDT)
+From: johnhcwang <hsienchiang@gmail.com>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH] boot/dts: Keep the LED initial state during kernel loading
+Date: Mon,  8 Aug 2016 18:19:00 +0800
+Message-Id: <20160808101900.22154-1-hsienchiang@gmail.com>
+X-Mailer: git-send-email 2.9.2.574.gc6b0597
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -59,45 +54,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 Aug 2016 08:27:24 -0000
+X-List-Received-Date: Mon, 08 Aug 2016 10:19:59 -0000
 
-On Tue, Aug 2, 2016 at 2:15 PM, Gavin Shan <gwshan@linux.vnet.ibm.com> wrote:
-> On Mon, Aug 01, 2016 at 05:57:02PM +0930, Joel Stanley wrote:
->>On Thu, 2016-07-28 at 11:04 +1000, Gavin Shan wrote:
->>> Bit#11 in MACCR (0x50) designates the signal level for PHY link
->>> status change. It's cleared, meaning high level enabled, by default.
->>> However, we can see continuous interrupt (bit#6) in ISR (0x0) for it
->>> and it's obviously a false alarm. The side effect is CPU cycles
->>> wasted
->>> to process the false alarm.
->>>
->>> This sets bit#11 in MACCR (0x50) to avoid the bogus interrupt.
->>
->>Thanks.
->>
->>I assume you're seeing this with the hardware in NCSI mode?
->>
->>Is the patch okay for other use cases?
->>
->
-> Yeah, the only available testing environment is NCSI. I didn't
-> test it on PHY based AST2500. Joel, please give it a shoot on
-> your AST2500 board before merging it. By the way, the interrupt
-> (PHYSTS_CHG) shouldn't be used even we have a PHY connected as
-> polling mechanism is specified to retrieve the link status in
-> ftgmac100.c
+Base on the Barreleye HW spec, the beep LED shouldn't be
+turned to OFF until BMC ready.
 
-I gave this a spin on the ast2500 evb. I did get these two messages
-when bringing the interface up:
+Now the LED will be turned to OFF when the kernel loading,
+so enable the LED sub-node property "default-state" to keep the LED
+initial state.
 
-ftgmac100 1e660000.ethernet eth0: [ISR] = 0x200: PHYSTS_CHG
-ftgmac100 1e660000.ethernet eth0: [ISR] = 0x200: PHYSTS_CHG
+Signed-off-by: johnhcwang <hsienchiang@gmail.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts | 3 +++
+ 1 file changed, 3 insertions(+)
 
-But from then on the device worked as expected, with no flooding of
-the kernel buffer.
-
-I have applied the patches to my tree. Thanks!
-
-Cheers,
-
-Joel
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+index 0e567e8..3146ea9 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+@@ -132,12 +132,15 @@
+ 
+ 		heartbeat {
+ 			gpios = <&gpio 140 GPIO_ACTIVE_HIGH>;
++			default-state = "keep";
+ 		};
+ 		identify {
+ 			gpios = <&gpio 58 GPIO_ACTIVE_LOW>;
++			default-state = "keep";
+ 		};
+ 		beep {
+ 			gpios = <&gpio 111 GPIO_ACTIVE_HIGH>;
++			default-state = "keep";
+ 		};
+ 	};
+ };
+-- 
+2.9.2.574.gc6b0597
