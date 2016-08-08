@@ -1,48 +1,25 @@
-Return-Path: <hsienchiang@gmail.com>
-Received: from mail-pa0-x243.google.com (mail-pa0-x243.google.com
- [IPv6:2607:f8b0:400e:c03::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s7D1V0zJ0zDqPn
- for <openbmc@lists.ozlabs.org>; Mon,  8 Aug 2016 20:19:58 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=Ggc0GaB1; 
- dkim-atps=neutral
-Received: by mail-pa0-x243.google.com with SMTP id hh10so23826870pac.1
- for <openbmc@lists.ozlabs.org>; Mon, 08 Aug 2016 03:19:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=from:to:cc:subject:date:message-id;
- bh=6glcMgJghqdLSVn4UPAPodZSOXzV5EXD7oh9UMDXX1k=;
- b=Ggc0GaB1yjJyfnVBdrna5ZIlzANPMJqa5NewDdi721vJVWEyCJYfje3oqva+qMIkaY
- jToaWD5pMwgIZPPErQGhaSicjxNEIomdWYszmvkIUnNjz3FK2q2KXbb4Ovg4f+4fnn9d
- 1pFf9soTsPcpVqUnE5ODUDTR71AFXIv2bo3Fv5NKbSQEaH+v/no/6lCMnq2YFe1eNXga
- bTzGKWJCQxAfh96xczm/hgs8RV5D9FLPGxUJ8RVdyPmkKfMRd3JyphI/2NyjQRMH9+MZ
- THpkothFwgIG9X/lmBs0HF0ibqMtv3Os+ILZAFE3NUlGxy/gcikV+dPbOEeQw72O+DTg
- HlHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=6glcMgJghqdLSVn4UPAPodZSOXzV5EXD7oh9UMDXX1k=;
- b=ZHbLcoYzR0T3gpUUrLjx8341O0fz5e7ZdfPh3XkaBOZqq63FonZCugUqJgg78JFexe
- SwckSVXSyB6+tCnOUquyZjXtfi/umnT5mEMAVaKnRcsm45HCwqMTheS/gcWrfw/YDM8d
- Y+c7O3RVdKXFFYcSv2EVSL3bnXKEk5QxdT/pAP8KHeIrslyesDrAkabkRLo4FM2MxDWL
- ohINxc6/D1Srd+5LBSRFK4pxPy/5FkAkZm+XGyw9CW9/8btL6NUeYxBXDYizQtgvsZWq
- DxAFWU9HV5eccVKeb0T+z/RlF9dfjZUoq1Mp9ZugScg8nmeB9YiWWW6Fa075m9FgGP1e
- KAaw==
-X-Gm-Message-State: AEkooutnJCao3KrMaGwxafJNdfVHxduwuqe1Z7GyvVyGeCevBp2IXwVO3vzmWkcclcrpZA==
-X-Received: by 10.66.170.44 with SMTP id aj12mr161370340pac.131.1470651595937; 
- Mon, 08 Aug 2016 03:19:55 -0700 (PDT)
-Received: from localhost.localdomain
- (101-139-149-6.mobile.dynamic.aptg.com.tw. [101.139.149.6])
- by smtp.gmail.com with ESMTPSA id f6sm46840066pfa.17.2016.08.08.03.19.54
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Mon, 08 Aug 2016 03:19:55 -0700 (PDT)
-From: johnhcwang <hsienchiang@gmail.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH] boot/dts: Keep the LED initial state during kernel loading
-Date: Mon,  8 Aug 2016 18:19:00 +0800
-Message-Id: <20160808101900.22154-1-hsienchiang@gmail.com>
-X-Mailer: git-send-email 2.9.2.574.gc6b0597
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s7V8S0T6wzDqd9
+ for <openbmc@lists.ozlabs.org>; Tue,  9 Aug 2016 06:56:53 +1000 (AEST)
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mx.zohomail.com
+ with SMTPS id 1470689809676294.0624377922436;
+ Mon, 8 Aug 2016 13:56:49 -0700 (PDT)
+Date: Mon, 8 Aug 2016 15:56:48 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: OpenBMC v1.0.4 released.
+Message-ID: <20160808205648.guz3jqkg5czjz6o6@asimov>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="rhqf4jojsmixk5uk"
+Content-Disposition: inline
+User-Agent: Mutt/1.6.2 (2016-06-11)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -54,39 +31,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 Aug 2016 10:19:59 -0000
+X-List-Received-Date: Mon, 08 Aug 2016 20:56:56 -0000
 
-Base on the Barreleye HW spec, the beep LED shouldn't be
-turned to OFF until BMC ready.
 
-Now the LED will be turned to OFF when the kernel loading,
-so enable the LED sub-node property "default-state" to keep the LED
-initial state.
+--rhqf4jojsmixk5uk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: johnhcwang <hsienchiang@gmail.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts | 3 +++
- 1 file changed, 3 insertions(+)
+Another fix release for the v1.0.x stable tree was tagged today.
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-index 0e567e8..3146ea9 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-@@ -132,12 +132,15 @@
- 
- 		heartbeat {
- 			gpios = <&gpio 140 GPIO_ACTIVE_HIGH>;
-+			default-state = "keep";
- 		};
- 		identify {
- 			gpios = <&gpio 58 GPIO_ACTIVE_LOW>;
-+			default-state = "keep";
- 		};
- 		beep {
- 			gpios = <&gpio 111 GPIO_ACTIVE_HIGH>;
-+			default-state = "keep";
- 		};
- 	};
- };
--- 
-2.9.2.574.gc6b0597
+https://github.com/openbmc/openbmc/releases/tag/v1.0.4
+
+Changes since v1.0.3:
+
+* Kernel version update:
+    * Stable release 4.4.16
+    * Power button debounce fix for Barreleye
+    * Fix for an NCSI race condition that caused the device to not come up
+      (openbmc/phosphor-networkd#18)
+* Load inventory from cache (openbmc/openbmc#487)
+* Start host watchdog timer after magic sequence (openbmc/skeleton#127)
+* Restart REST server when network configuration changes
+  (openbmc/phosphor-rest-server#24)
+
+--=20
+Patrick Williams
+
+--rhqf4jojsmixk5uk
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJXqPIQAAoJEKsDR8wtAMEZZ7IP/iPf9CxCmX6BXSDhiKpHfFoy
+bCu5k1Vsmfld2a+XTpHHclQS9TZLu+PQcNxETxaOnk4MMN5t6EAxvaoBSV4xokAn
+kah7ugSukRMzgGOQRL4nn4XH9TsBI/XDf6zvfeAnZY86qAfZUlg7m84OMWDyLYe1
+GuRLHrjvhC8naA264MCXiHf4dws0U0ahebPwlMl0JYtQTbfAQVNiyYcVaAab/LLw
+ygpm5ZrAnNdaMdiOCk8ng+dvF/w5mC9xr+enqHS1Q+tw3ds2psD6vhkiHCC2Se6r
+Kw3w66RHhHdak/hYyIjzhQnOVKkKSIXbMi5GifDT0gxDEMUbvREZ/jsJNMQRas6c
+0lhxqTnfluQAVPvw7TVyFTWhvpFn+V1h0UvjHFgnB6R0R/31mQmBaNM5yKuOvQtr
+9tLr37UX9QLwE1Y7UpUG6PZkJMlaMZj0AOOkQSfF72ctEejQutGIBZ+tGtTGwcUT
+hmgTRapLkfWN1tdNy4GHbkTsosD17ifp7+lKfVV6nce4EaHW69ZgHNYh81E/QRGF
+/uvMzrtSdZmIkw3x5YGgLcIm/L9MbFdsk/VD7nBhJgCwqqFB2LEGrvcsskr/rjWs
+CpgY9zoaaw7aROXfn0XkcpvLTBHinOoGjPmjJHL1Doi+B1731nQYokkdHW+lTOnC
+75oVy5F0Y90tiawmQCcl
+=RdRk
+-----END PGP SIGNATURE-----
+
+--rhqf4jojsmixk5uk--
