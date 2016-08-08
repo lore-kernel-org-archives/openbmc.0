@@ -3,49 +3,49 @@ Received: from mail-ua0-x243.google.com (mail-ua0-x243.google.com
  [IPv6:2607:f8b0:400c:c08::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s76HD6TXHzDqS5
- for <openbmc@lists.ozlabs.org>; Mon,  8 Aug 2016 16:01:28 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s76W84ZnkzDqS5
+ for <openbmc@lists.ozlabs.org>; Mon,  8 Aug 2016 16:11:48 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=WZaGv35M; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=qPOwbAZs; 
  dkim-atps=neutral
-Received: by mail-ua0-x243.google.com with SMTP id 109so3965096uat.2
- for <openbmc@lists.ozlabs.org>; Sun, 07 Aug 2016 23:01:28 -0700 (PDT)
+Received: by mail-ua0-x243.google.com with SMTP id d97so1915996uad.1
+ for <openbmc@lists.ozlabs.org>; Sun, 07 Aug 2016 23:11:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=8bF0oaLH3pyqer7Pj9ZG58q2Ds/spKN2MRQIxwPvdqc=;
- b=WZaGv35MQs/pP8Fau+KfRPDP83lqPOevt2Dz//PxxUT+PwArNR+ydnofXtHdp7Cqp7
- DVi5tnLu2Td9Q79lfZfLhIeohxzARGlx06eq5JO45MQGGJaVWUvgXAYe+9iMIFxQeXrm
- 6EyyXVRAiu+fuyh6j1UIfHXyDj2a3sray3p/mmgEMmW1HbOIam/sA+IO7HzlOKvaY4B9
- ijlnSquqqUl1zv6NuZCczITi7hU3Lv49EkQ3Mhzo+SPtLWmlQ2aPynPyUSLHC1rr/Q5H
- 17vBwQxaOyh/hXDYbKQMtGNxBaZ46s5Vuujlm0RiXdljc1VdtVjKPytvbUnMXP+wd5qL
- VeJw==
+ bh=0xnU7j+WKaizfvPcUgIsD00zM3PT2bmVOvKdt2sc85o=;
+ b=qPOwbAZsA5PjZnRUUPkD+9iWFEgtq7uOOvG2guxob7+TK0m6iJfud0zoxQoU6e1CeD
+ uvlIZhNS3cU2mzoXe+B+WKY5prnMHKUeE9Je1GtNcvuOTv6MQB4zpFWa13ij1zO1A7Ux
+ IwYfZstTCJvx0efMPeJFcm1kmJusK9zuHpd0tcYTx2uODJI7+OiKxdgIPRK9s8WQ3sG+
+ zk290g+XLBxCe8yOOgDup4Qc1UJ2NUVpN8JeNtzGuXNSAiy++IJa9mkKwwbG9MIPo3WQ
+ zD7uCPAiFUW95OwKAcwow2gP2/V4CMCHaw6wGXLkXDt7AovzENefAyvepK2o4Hb944+s
+ dS/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=8bF0oaLH3pyqer7Pj9ZG58q2Ds/spKN2MRQIxwPvdqc=;
- b=Gt6RRSnm+rstt3tmBtkP4YOPqXsTuW9/qRAMPkRbpLoGIYnXSsLUAUoBKX42h8J+O0
- J6K9r9OHAeY5ZX9L0X3BbQoZl1153p4nXSuDompJWzzxuZk+IzcN6B+bM/rOtVFflZTr
- QJ/MWAuoV6Ji8w7Ob+4BOSye36uSjQFfQb/rfeg5206sm8mCz+PU9KxpD5s31Cw62Dak
- lYTj9ypf0Ps/UDuM4rLfG5Vobr6j3N3fQLz7+AvFSRwO4Njy5lbqcXAaveQeQNfj06zJ
- 9hx7iDZzcYep+hHTCkme0fp8ZkxNbtjCoN+Bi/IzYya+Zp+lq5rXwq0EwUzA+b9Zj+MV
- LfHg==
-X-Gm-Message-State: AEkoous2QWKissxuDm82aQgeZ6kEQGJTuygPQBzMagjqdIGl+IvRb35iMvZaudApEnl4C38U5zvoeWeg+WagQw==
-X-Received: by 10.31.141.21 with SMTP id p21mr47944460vkd.152.1470636086459;
- Sun, 07 Aug 2016 23:01:26 -0700 (PDT)
+ bh=0xnU7j+WKaizfvPcUgIsD00zM3PT2bmVOvKdt2sc85o=;
+ b=dAnz4vCSJy8Db2e/aAEAnDolsHYxIAYEuOjD20UQlsPMsoQiCUVN2KP022AA2t/CoR
+ sNz2VEcRVA/X1bFzdkExQ93QPXRwSR4kSgNmzmxoOFhNLKdBfRgdaRlmO9LRI3Kdev/p
+ 6gAccggh4dRMb1dFYGyaVe3+72XjOfo67hgh0hjqd4qpOo1hYdEFXlm38rcRswSaA5CW
+ 8J0fJv1yuwVLBZKozWJz5Yb6OeJe899gyrnywo9c2wkZE0eDZUhDGX751JSmDHXJ3XaM
+ 8p2/02fvi6EyQgWSUzpaD54wpGKiUVNDfOPpIo0GXG6mYHBbKvVZyz2yRUth+6cEYP1W
+ zmPA==
+X-Gm-Message-State: AEkoousPcYhU06n7OrEbQCADwI09Yj0w90dmjZQvEeabeKwOiALoFe0nuXsER0JplsUwRKk3sYOsGq1ooHn3EQ==
+X-Received: by 10.31.141.21 with SMTP id p21mr47958693vkd.152.1470636706616;
+ Sun, 07 Aug 2016 23:11:46 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.159.38.76 with HTTP; Sun, 7 Aug 2016 23:01:05 -0700 (PDT)
-In-Reply-To: <1470271669-20662-1-git-send-email-gwshan@linux.vnet.ibm.com>
-References: <1470271669-20662-1-git-send-email-gwshan@linux.vnet.ibm.com>
+Received: by 10.159.38.76 with HTTP; Sun, 7 Aug 2016 23:11:25 -0700 (PDT)
+In-Reply-To: <1470265651-3679131-1-git-send-email-mattconolly@fb.com>
+References: <1470265651-3679131-1-git-send-email-mattconolly@fb.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 8 Aug 2016 15:31:05 +0930
-X-Google-Sender-Auth: 0kPHYHC-AdSdosSPLiJwlE6Cq-4
-Message-ID: <CACPK8XdyR5S-dgC+2xe2Eo6suz19EphXU6CS_gEQ3G2q-1r3fw@mail.gmail.com>
-Subject: Re: [PATCH dev-4.4] net/ncsi: Enable request timer before sending
- command
-To: Gavin Shan <gwshan@linux.vnet.ibm.com>
+Date: Mon, 8 Aug 2016 15:41:25 +0930
+X-Google-Sender-Auth: FdmXNgzsaeNln5EE6ZjxzGexRME
+Message-ID: <CACPK8XeYz1GUo_iuBbDo=WWWVAcLeH2z5TXsNTpQf9KsE-sUzg@mail.gmail.com>
+Subject: Re: [PATCH] arm/dts/aspeed: Add minimal Facebook CMM BMC board based
+ on AST2500
+To: Matthew Conolly <mattconolly@fb.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -59,69 +59,207 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 Aug 2016 06:01:29 -0000
+X-List-Received-Date: Mon, 08 Aug 2016 06:11:49 -0000
 
-On Thu, Aug 4, 2016 at 10:17 AM, Gavin Shan <gwshan@linux.vnet.ibm.com> wrote:
-> The response is received upon the sent command before the request's
-> timer is enabled under extreme situation. The response packet won't
-> be processed as the corresponding request (request packet and timer)
-> isn't complete. It leads to NCSI failure - no package detected.
+Hey Matthew,
+
+On Thu, Aug 4, 2016 at 8:37 AM, Matthew Conolly <mattconolly@fb.com> wrote:
+> A minimal device tree to let the CMM bmc board boot to a console over UART with some drivers functional
+
+Thanks for the patch. It's good to see other boards being added to the tree.
+
+Which git tree is this patch against?
+
 >
-> This fixes the issue by enabling the timer before sending the command.
-> The comments about the timer has been replaced by that in upstream
-> kernel.
+> Signed-off-by: Matthew Conolly <mattconolly@fb.com>
+> ---
+>  arch/arm/boot/dts/Makefile                         |   1 +
+>  .../dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi  |  24 +++++
+>  arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts      | 112 +++++++++++++++++++++
+>  arch/arm/mach-aspeed/aspeed.c                      |   5 +-
+>  4 files changed, 140 insertions(+), 2 deletions(-)
+>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi
+>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
 >
-> Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
+> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+> index 3c27d57..21fe59b 100644
+> --- a/arch/arm/boot/dts/Makefile
+> +++ b/arch/arm/boot/dts/Makefile
+> @@ -843,6 +843,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
+>         aspeed-bmc-opp-barreleye.dtb \
+>         aspeed-bmc-opp-firestone.dtb \
+>         aspeed-bmc-opp-garrison.dtb \
+> +       aspeed-bmc-facebook-cmm.dtb \
+>         aspeed-ast2500-evb.dtb
+>  endif
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi
+> new file mode 100644
+> index 0000000..1b3133f
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi
+> @@ -0,0 +1,24 @@
+> +/* This file is the label for the bmc primary flash and its partitions */
+> +                               label = "bmc";
+> +                               #address-cells = < 1 >;
+> +                               #size-cells = < 1 >;
+> +                               u-boot {
+> +                                       reg = < 0 0x80000 >;
+> +                                       label = "u-boot";
+> +                               };
+> +                               u-boot-env {
+> +                                       reg = < 0x60000 0x20000 >;
+> +                                       label = "u-boot-env";
+> +                               };
+> +                               kernel  {
+> +                                       reg = < 0x80000 0x280000 >;
+> +                                       label = "kernel";
+> +                               };
+> +                               initramfs {
+> +                                       reg = < 0x300000 0x300000 >;
+> +                                       label = "initramfs";
+> +                               };
+> +                               pd_rootfs  {
+> +                                       reg = < 0x4c0000 0x1740000 >;
+> +                                       label = "pd_rootfs";
+> +                               };
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
+> new file mode 100644
+> index 0000000..4ea8e7e
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
+> @@ -0,0 +1,112 @@
+> +/dts-v1/;
+> +
+> +#include "aspeed-g5.dtsi"
+> +
+> +/ {
+> +       model = "FACEBOOK CMM BMC";
+> +       compatible = "facebook,cmm-bmc", "aspeed,ast2500";
+> +
+> +       aliases {
+> +               serial1 = &uart1;
+> +       };
+> +
+> +       chosen {
+> +               stdout-path = &uart1;
+> +               bootargs = "console=ttyS1,115200 earlyprintk";
+> +       };
+> +
+> +       memory {
+> +               reg = <0x80000000 0x3f000000>;
+> +       };
+> +
+> +       ahb {
+> +               bmc_pnor: fmc@1e620000 {
+> +                       reg = < 0x1e620000 0x94
+> +                               0x20000000 0x02000000 >;
+> +                       #address-cells = <1>;
+> +                       #size-cells = <0>;
+> +                       compatible = "aspeed,fmc";
+> +                       flash@0 {
+> +                               reg = < 0 >;
+> +                               compatible = "jedec,spi-nor" ;
+> +#include "aspeed-bmc-facebook-cmm-flash-layout.dtsi"
+> +                       };
+> +               };
+> +  };
+> +
+> +
+> +
+> +};
+> +
+> +&uart1 {
+> +       status = "okay";
+> +};
+> +
+> +&mac0 {
+> +       status = "disabled";
+> +};
+> +
+> +&mac1 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c0 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c1 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c2 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c3 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c4 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c5 {
+> +       status = "okay";
+> +
+> +//     eeprom@50 {
+> +//             compatible = "atmel,24c08";
+> +//             reg = <0xa0>;
+> +//     };
 
-Thanks Gavin. This has been applied to dev-4.4 and pushed out as
-openbmc-4.4-20160804-1.
+This should be deleted instead of commented out.
 
-I have pulled in your upstream ncsi patches to dev-4.7, so I don't
-need to apply this there.
+> +};
+> +
+> +&i2c6 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c7 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c8 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c9 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c10 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c11 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c12 {
+> +       status = "okay";
+> +};
+> +
+> +&i2c13 {
+> +       status = "okay";
+> +};
+> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+> index db540ac..da03fed 100644
+> --- a/arch/arm/mach-aspeed/aspeed.c
+> +++ b/arch/arm/mach-aspeed/aspeed.c
+> @@ -202,8 +202,9 @@ static void __init do_ast2500evb_setup(void)
+>
+>  static void __init aspeed_init_early(void)
+>  {
+> -       // XXX UART stuff to fix to pinmux & co
+> -       writel(0x02010023, AST_IO(AST_BASE_LPC | 0x9c));
+> +       if (!of_machine_is_compatible("facebook,cmm-bmc"))
+> +               /* XXX UART stuff to fix to pinmux & co */
+> +               writel(0x02010023, AST_IO(AST_BASE_LPC | 0x9c));
+
+Fair enough. This highlights the need for a driver to configure the LPC.
 
 Cheers,
 
 Joel
-
-> ---
-> The issue exists in all branches. 4.7 has the issue at least. I
-> suggest applying it to all other branches or 4.7 only.
-> ---
->  net/ncsi/ncsi-cmd.c | 15 +++++++--------
->  1 file changed, 7 insertions(+), 8 deletions(-)
->
-> diff --git a/net/ncsi/ncsi-cmd.c b/net/ncsi/ncsi-cmd.c
-> index b8503e1..d634a0e 100644
-> --- a/net/ncsi/ncsi-cmd.c
-> +++ b/net/ncsi/ncsi-cmd.c
-> @@ -359,20 +359,19 @@ int ncsi_xmit_cmd(struct ncsi_cmd_arg *nca)
->                 eh->h_source[i] = 0xff;
->         }
->
-> +        /* Start the timer for the request that might not have
-> +         * corresponding response. Given NCSI is an internal
-> +         * connection a 1 second delay should be sufficient.
-> +         */
-> +       mod_timer(&nr->nr_timer, jiffies + 1 * HZ);
-> +       nr->nr_timer_enabled = true;
-> +
->         /* Send NCSI packet */
->         skb_get(nr->nr_cmd);
->         ret = dev_queue_xmit(nr->nr_cmd);
->         if (ret)
->                 goto out;
->
-> -       /* Start the timer for the request that might not have
-> -        * corresponding response. I'm not sure 1 second delay
-> -        * here is enough. Anyway, NCSI is internal network, so
-> -        * the responsiveness should be as fast as enough.
-> -        */
-> -       nr->nr_timer_enabled = true;
-> -       mod_timer(&nr->nr_timer, jiffies + 1 * HZ);
-> -
->         return 0;
->  out:
->         ncsi_free_req(nr, false, false);
-> --
-> 2.1.0
->
