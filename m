@@ -1,50 +1,47 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-ua0-x241.google.com (mail-ua0-x241.google.com
+ [IPv6:2607:f8b0:400c:c08::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s7ZfG2qLNzDqQp
- for <openbmc@lists.ozlabs.org>; Tue,  9 Aug 2016 10:19:34 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=NJWRqNu7; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=WUofyooR; dkim-atps=neutral
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 1D42E20419;
- Mon,  8 Aug 2016 20:19:32 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute7.internal (MEProxy); Mon, 08 Aug 2016 20:19:32 -0400
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=5yv9x
- LrwNr5NMsQA3h/251F7cdY=; b=NJWRqNu7wo3d1zhRauJq0mC+daGwD90XjxhpO
- E4EOK72YqBSufO8MxZTg7lC8IZ54q6bjHbA6yK/Dr9Q+Zsr2nWYqOaGqbD8SgNcS
- CM3QVh07Tx+QPaKDX8xUn/7+nAiQITuxtrejX5odLayrW1IJdQK778fkxuFoBwcw
- RmmTvI=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-sasl-enc
- :x-sasl-enc; s=smtpout; bh=5yv9xLrwNr5NMsQA3h/251F7cdY=; b=WUofy
- ooRrOPqGmtHBxL9JrvLa6P0VVs8RhwM2Jb2vRaVaZePgcYazSczBwsPeRZmkqoIe
- 4rfG/W8uN19ejbYjThb+hW1MUnhKKAQtDD1HrwGJ27FHKrLLnsw+eGancvveFPtR
- cF22JNzrlEOsUPW0rhC1Q+SA8AT4S7aNs5q5ok=
-X-Sasl-enc: dCnTloKhzqIqisNhVXuP7kU+LQXHVvZvDoHkHbaSnD4/ 1470701971
-Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 9EF9FCCE6E;
- Mon,  8 Aug 2016 20:19:30 -0400 (EDT)
-Message-ID: <1470701966.27272.16.camel@aj.id.au>
-Subject: Re: [linux dev-4.7] pinctrl/aspeed: Add RGMII2/RMII2 for ast2500
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>
-Cc: openbmc@lists.ozlabs.org
-Date: Tue, 09 Aug 2016 09:49:26 +0930
-In-Reply-To: <1470643372-28221-1-git-send-email-joel@jms.id.au>
-References: <1470643372-28221-1-git-send-email-joel@jms.id.au>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-MdEkxSeMmKZeKo9SAR3o"
-X-Mailer: Evolution 3.18.5.2-0ubuntu3 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s7yTt3wxczDqQp
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Aug 2016 01:13:38 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=MOr2pxlH; 
+ dkim-atps=neutral
+Received: by mail-ua0-x241.google.com with SMTP id 74so1220369uau.3
+ for <openbmc@lists.ozlabs.org>; Tue, 09 Aug 2016 08:13:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:from:date:message-id:subject:to;
+ bh=DDW/47nJiSACOd7x/IIUwaly64m1Gh40XioTXFCsrh8=;
+ b=MOr2pxlHjvXePeQYL3oJsyEIlYMhefGZk7+V7WuTsXjU4tsH6i9IrCEbmtbupmGPtJ
+ WV1fq4XaEFu6LVpLQ18oIAPttJDSXNJ2Ely+c5eZOV91sDKYKdFuOx11bLqJAB/52uEs
+ HLCxcf93AEsoP5fPmuugSWPNAJCjh4p0D7CyLUjjeNUge2Dk6jd6IOdWMQhlp9i/Vfx3
+ TTCtrdJ+MuvIBo5wEvcF7q/guqWgz6wJjrjKUxxF1UvUfLcNoiodcB1hjjO0OH4JXLK6
+ G6bN4UkTM4ufsMj9RLTItH+PNrfcnsDcO5NVVQbmJWlxNnoytnTMCnPZNsRXrjrH7p07
+ sb2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
+ :to; bh=DDW/47nJiSACOd7x/IIUwaly64m1Gh40XioTXFCsrh8=;
+ b=cFlTRJY4+JkWBlej1fkjSLBmaLu72GveWy7HMPMOQ+7Pzips5r8oT13OcizKwOUWvk
+ fXnpGpLjv4qKvInbTK+7Yl1wizWQvfbFwTZfkSUhQct99xiBEBvvlG7RDYFvcm4pFGrs
+ q1oWQT+xQHPpKrwaCxlIBdAB2gKqCRmyKMUokHtQ8SPrgCTmZb0IyCMDcFk+I6eOEhTU
+ KmwT76Bjmblmfa3fbh/W6WsJ5KPMwspt/mMNEgzDD3vHv1PpVx9GxfKeqJklYEktG3kp
+ 6NaoP1In0vQcQLCXiC8GZ4gqZk6NZw8oVW7QLBv2AVHM4lSzNpxTzGQJX/TOXjvy+i3F
+ 7gdg==
+X-Gm-Message-State: AEkoousuiJVik0d8iKIxNiPTOrLeRtA2dikimlTPxw0BpOnnfUXZSBeJai5rPiKkB//nSlUoHekZ/tZDgFD7Sg==
+X-Received: by 10.31.78.6 with SMTP id c6mr49894225vkb.41.1470755615045; Tue,
+ 09 Aug 2016 08:13:35 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.159.38.76 with HTTP; Tue, 9 Aug 2016 08:13:14 -0700 (PDT)
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 10 Aug 2016 00:43:14 +0930
+X-Google-Sender-Auth: HKC3B7y-ukyT0LYs7m2FrAdeV24
+Message-ID: <CACPK8Xd1M2x5rrPUNwvhg4Yes85hPHxPbnysiC-jNii8W3KBHA@mail.gmail.com>
+Subject: Linux dev-4.7 tree: Request for testing
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -56,251 +53,226 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 09 Aug 2016 00:19:34 -0000
+X-List-Received-Date: Tue, 09 Aug 2016 15:13:39 -0000
 
+Hello OpenBMCers,
 
---=-MdEkxSeMmKZeKo9SAR3o
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I've pushed a new Linux tree to https://github.com/openbmc/linux as
+dev-4.7. I intend this to become the new tree used for openbmc's
+master branch.
 
-On Mon, 2016-08-08 at 17:32 +0930, Joel Stanley wrote:
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
+Linux 4.7 contained basic Aspeed SoC support. This tree contains 50
+patches atop v4.7 that fall in to four categories:
 
-Two small issues, but otherwise:
+ * backports of code that has gone into 4.8-rc1
+   * nsci
+   * ftgmac100 changes for ncsi
+   * watchdog
+   * irqchip
 
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+ * drivers that are out for review
+   * pinmux
+   * gpio
+   * clk
+   * clocksource
 
-> ---
-> =C2=A0arch/arm/boot/dts/aspeed-g5.dtsi=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0|=C2=A0=C2=A010 +++
-> =C2=A0drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c | 109 ++++++++++++++++++=
-+++++++++++
-> =C2=A02 files changed, 119 insertions(+)
->=20
-> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-=
-g5.dtsi
-> index 2daf0045173a..136c921a532b 100644
-> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-> @@ -191,6 +191,16 @@
-> =C2=A0						function =3D "RMII1";
-> =C2=A0						groups =3D "RMII1";
-> =C2=A0					};
-> +
-> +					pinctrl_rgmii2_default: rgmii2_default {
-> +						function =3D "RGMII2";
-> +						groups =3D "RGMII2";
-> +					};
-> +
-> +					pinctrl_rmii2_default: rmii2_default {
-> +						function =3D "RMII2";
-> +						groups =3D "RMII2";
+ * backports of dependencies for the above
 
-Can you please add RGMII2 and RMII2 to the bindings documentation?
+ * drivers that require further cleanup and submission upstream
+   * i2c
+   * vuart
+   * ftgmac100 fixes for ast2500
+   * bt
+   * spi-nor
+   * p8 occ hwmon
 
-> +					};
-> =C2=A0				};
-> =C2=A0			};
-> =C2=A0
-> diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c b/drivers/pinctrl=
-/aspeed/pinctrl-aspeed-g5.c
-> index b1464ad7f06f..b9dd7be75766 100644
-> --- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
-> +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
-> @@ -395,6 +395,98 @@ MS_PIN_DECL_(C4, SIG_EXPR_LIST_PTR(GPIOV1), SIG_EXPR=
-_LIST_PTR(RMII1RXER),
-> =C2=A0FUNC_GROUP_DECL(RGMII1, B4, A4, A3, D6, C5, C4, B5, E9, F9, A5, E7,=
- D7);
-> =C2=A0FUNC_GROUP_DECL(RMII1, B4, A3, D6, C5, C4, B5, E9, F9, A5);
-> =C2=A0
-> +/* RGMII2/RMII2 */
-> +
-> +#define RMII2_DESC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0SIG_DESC_BIT(HW_ST=
-RAP1, 7, 0)
-> +
-> +#define B2 158
-> +SIG_EXPR_LIST_DECL_SINGLE(GPIOT6, GPIOT6, SIG_DESC_SET(SCUA0, 6));
-> +SIG_EXPR_LIST_DECL_SINGLE(RMII2RCLKO, RMII2, RMII2_DESC,
-> +		SIG_DESC_SET(SCU48, 30));
-> +SIG_EXPR_LIST_DECL_SINGLE(RGMII2TXCK, RGMII2);
-> +MS_PIN_DECL_(B2, SIG_EXPR_LIST_PTR(GPIOT6), SIG_EXPR_LIST_PTR(RMII2RCLKO=
-),
-> +		SIG_EXPR_LIST_PTR(RGMII2TXCK));
-> +
-> +#define B1 159
-> +SIG_EXPR_LIST_DECL_SINGLE(GPIOT7, GPIOT7, SIG_DESC_SET(SCUA0, 7));
-> +SIG_EXPR_LIST_DECL_SINGLE(RMII2TXEN, RMII2, RMII2_DESC);
-> +SIG_EXPR_LIST_DECL_SINGLE(RGMII2TXCTL, RGMII2);
-> +MS_PIN_DECL_(B1, SIG_EXPR_LIST_PTR(GPIOT7), SIG_EXPR_LIST_PTR(RMII2TXEN)=
-,
-> +		SIG_EXPR_LIST_PTR(RGMII2TXCTL));
-> +
-> +#define A2 160
-> +SIG_EXPR_LIST_DECL_SINGLE(GPIOU0, GPIOU0, SIG_DESC_SET(SCUA0, 8));
-> +SIG_EXPR_LIST_DECL_SINGLE(RMII2TXD0, RMII2, RMII2_DESC);
-> +SIG_EXPR_LIST_DECL_SINGLE(RGMII2TXD0, RGMII2);
-> +MS_PIN_DECL_(A2, SIG_EXPR_LIST_PTR(GPIOU0), SIG_EXPR_LIST_PTR(RMII2TXD0)=
-,
-> +		SIG_EXPR_LIST_PTR(RGMII2TXD0));
-> +
-> +#define B3 161
-> +SIG_EXPR_LIST_DECL_SINGLE(GPIOU1, GPIOU1, SIG_DESC_SET(SCUA0, 9));
-> +SIG_EXPR_LIST_DECL_SINGLE(RMII2TXD1, RMII2, RMII2_DESC);
-> +SIG_EXPR_LIST_DECL_SINGLE(RGMII2TXD1, RGMII2);
-> +MS_PIN_DECL_(B3, SIG_EXPR_LIST_PTR(GPIOU1), SIG_EXPR_LIST_PTR(RMII2TXD1)=
-,
-> +		SIG_EXPR_LIST_PTR(RGMII2TXD1));
-> +
-> +#define D5 162
-> +SIG_EXPR_LIST_DECL_SINGLE(GPIOU2, GPIOU2, SIG_DESC_SET(SCUA0, 10));
-> +SIG_EXPR_LIST_DECL_SINGLE(RMII2DASH0, RMII2, RMII2_DESC);
-> +SIG_EXPR_LIST_DECL_SINGLE(RGMII2TXD2, RGMII2);
-> +MS_PIN_DECL_(D5, SIG_EXPR_LIST_PTR(GPIOU2), SIG_EXPR_LIST_PTR(RMII2DASH0=
-),
-> +		SIG_EXPR_LIST_PTR(RGMII2TXD2));
-> +
-> +#define D4 163
-> +SIG_EXPR_LIST_DECL_SINGLE(GPIOU3, GPIOU3, SIG_DESC_SET(SCUA0, 11));
-> +SIG_EXPR_LIST_DECL_SINGLE(RMII2DASH1, RMII2, RMII2_DESC);
-> +SIG_EXPR_LIST_DECL_SINGLE(RGMII2TXD3, RGMII2);
-> +MS_PIN_DECL_(D4, SIG_EXPR_LIST_PTR(GPIOU3), SIG_EXPR_LIST_PTR(RMII2DASH1=
-),
-> +		SIG_EXPR_LIST_PTR(RGMII2TXD3));
-> +
-> +#define C2 170
-> +SIG_EXPR_LIST_DECL_SINGLE(GPIOV2, GPIOV2, SIG_DESC_SET(SCUA0, 18));
-> +SIG_EXPR_LIST_DECL_SINGLE(RMII2RCLKI, RMII2, RMII2_DESC);
-> +SIG_EXPR_LIST_DECL_SINGLE(RGMII2RXCK, RGMII2);
-> +MS_PIN_DECL_(C2, SIG_EXPR_LIST_PTR(GPIOV2), SIG_EXPR_LIST_PTR(RMII2RCLKI=
-),
-> +		SIG_EXPR_LIST_PTR(RGMII2RXCK));
-> +
-> +#define C1 171
-> +SIG_EXPR_LIST_DECL_SINGLE(GPIOV3, GPIOV3, SIG_DESC_SET(SCUA0, 19));
-> +SIG_EXPR_LIST_DECL_SINGLE(RMII2DASH2, RMII2, RMII2_DESC);
-> +SIG_EXPR_LIST_DECL_SINGLE(RGMII2RXCTL, RGMII2);
-> +MS_PIN_DECL_(C1, SIG_EXPR_LIST_PTR(GPIOV3), SIG_EXPR_LIST_PTR(RMII2DASH2=
-),
-> +		SIG_EXPR_LIST_PTR(RGMII2RXCTL));
-> +
-> +#define C3 172
-> +SIG_EXPR_LIST_DECL_SINGLE(GPIOV4, GPIOV4, SIG_DESC_SET(SCUA0, 20));
-> +SIG_EXPR_LIST_DECL_SINGLE(RMII2RXD0, RMII2, RMII2_DESC);
-> +SIG_EXPR_LIST_DECL_SINGLE(RGMII2RXD0, RGMII2);
-> +MS_PIN_DECL_(C3, SIG_EXPR_LIST_PTR(GPIOV4), SIG_EXPR_LIST_PTR(RMII2RXD0)=
-,
-> +		SIG_EXPR_LIST_PTR(RGMII2RXD0));
-> +
-> +#define D1 173
-> +SIG_EXPR_LIST_DECL_SINGLE(GPIOV5, GPIOV5, SIG_DESC_SET(SCUA0, 21));
-> +SIG_EXPR_LIST_DECL_SINGLE(RMII2RXD1, RMII2, RMII2_DESC);
-> +SIG_EXPR_LIST_DECL_SINGLE(RGMII2RXD1, RGMII2);
-> +MS_PIN_DECL_(D1, SIG_EXPR_LIST_PTR(GPIOV5), SIG_EXPR_LIST_PTR(RMII2RXD1)=
-,
-> +		SIG_EXPR_LIST_PTR(RGMII2RXD1));
-> +
-> +#define D2 174
-> +SIG_EXPR_LIST_DECL_SINGLE(GPIOV6, GPIOV6, SIG_DESC_SET(SCUA0, 22));
-> +SIG_EXPR_LIST_DECL_SINGLE(RMII2CRSDV, RMII2, RMII2_DESC);
-> +SIG_EXPR_LIST_DECL_SINGLE(RGMII2RXD2, RGMII2);
-> +MS_PIN_DECL_(D2, SIG_EXPR_LIST_PTR(GPIOV6), SIG_EXPR_LIST_PTR(RMII2CRSDV=
-),
-> +		SIG_EXPR_LIST_PTR(RGMII2RXD2));
-> +
-> +#define E6 175
-> +SIG_EXPR_LIST_DECL_SINGLE(GPIOV7, GPIOV7, SIG_DESC_SET(SCUA0, 23));
-> +SIG_EXPR_LIST_DECL_SINGLE(RMII2RXER, RMII2, RMII2_DESC);
-> +SIG_EXPR_LIST_DECL_SINGLE(RGMII2RXD3, RGMII2);
-> +MS_PIN_DECL_(E6, SIG_EXPR_LIST_PTR(GPIOV7), SIG_EXPR_LIST_PTR(RMII2RXER)=
-,
-> +		SIG_EXPR_LIST_PTR(RGMII2RXD3));
-> +
-> +FUNC_GROUP_DECL(RGMII2, B2, B1, A2, B3, D5, D4, C2, C1, C3, D1, D2, E6);
-> +FUNC_GROUP_DECL(RMII2, B2, B1, A2, B3, C2, C3, D1, D2, E6);
-> +
-> =C2=A0static struct pinctrl_pin_desc aspeed_g5_pins[ASPEED_G5_NR_PINS] =
-=3D {
-> =C2=A0	ASPEED_PINCTRL_PIN(C14),
-> =C2=A0	ASPEED_PINCTRL_PIN(A13),
-> @@ -434,12 +526,23 @@ static struct pinctrl_pin_desc aspeed_g5_pins[ASPEE=
-D_G5_NR_PINS] =3D {
-> =C2=A0	ASPEED_PINCTRL_PIN(N22),
-> =C2=A0	ASPEED_PINCTRL_PIN(D10),
-> =C2=A0	ASPEED_PINCTRL_PIN(E12),
-> +	ASPEED_PINCTRL_PIN(A2),
-> +	ASPEED_PINCTRL_PIN(B3),
-> +	ASPEED_PINCTRL_PIN(D5),
-> +	ASPEED_PINCTRL_PIN(D4),
-> +	ASPEED_PINCTRL_PIN(A2),
-> =C2=A0	ASPEED_PINCTRL_PIN(B4),
-> =C2=A0	ASPEED_PINCTRL_PIN(A4),
-> =C2=A0	ASPEED_PINCTRL_PIN(A3),
-> =C2=A0	ASPEED_PINCTRL_PIN(D6),
-> =C2=A0	ASPEED_PINCTRL_PIN(C5),
-> =C2=A0	ASPEED_PINCTRL_PIN(C4),
-> +	ASPEED_PINCTRL_PIN(C2),
-> +	ASPEED_PINCTRL_PIN(C1),
-> +	ASPEED_PINCTRL_PIN(C3),
-> +	ASPEED_PINCTRL_PIN(D1),
-> +	ASPEED_PINCTRL_PIN(D2),
-> +	ASPEED_PINCTRL_PIN(E6),
-> =C2=A0	ASPEED_PINCTRL_PIN(D8),
-> =C2=A0	ASPEED_PINCTRL_PIN(E10),
-> =C2=A0	ASPEED_PINCTRL_PIN(B5),
-> @@ -448,6 +551,8 @@ static struct pinctrl_pin_desc aspeed_g5_pins[ASPEED_=
-G5_NR_PINS] =3D {
-> =C2=A0	ASPEED_PINCTRL_PIN(A5),
-> =C2=A0	ASPEED_PINCTRL_PIN(E7),
-> =C2=A0	ASPEED_PINCTRL_PIN(D7),
-> +	ASPEED_PINCTRL_PIN(B2),
-> +	ASPEED_PINCTRL_PIN(B1),
+This represents a lot of work done by Andrew, Gavin, Milton and
+myself, with help from Yi, Jeremy, Cedric, Alistair and Ben. Recently
+we've had contributions from Xo and Brendan too which has been great
+to see.
 
-B2 and B1 should go above A2.
+I will not be rebasing this branch. We will use it for development
+until 4.8 is released, at which time we will move to that as a base.
+As we move our drivers upstream, each subsequent dev- branch will
+contain fewer patches, with the goal being to use upstream as-is.
 
-> =C2=A0};
-> =C2=A0
-> =C2=A0static const struct aspeed_pin_group aspeed_g5_groups[] =3D {
-> @@ -477,6 +582,8 @@ static const struct aspeed_pin_group aspeed_g5_groups=
-[] =3D {
-> =C2=A0	ASPEED_PINCTRL_GROUP(MDIO1),
-> =C2=A0	ASPEED_PINCTRL_GROUP(RMII1),
-> =C2=A0	ASPEED_PINCTRL_GROUP(RGMII1),
-> +	ASPEED_PINCTRL_GROUP(RMII2),
-> +	ASPEED_PINCTRL_GROUP(RGMII2),
-> =C2=A0};
-> =C2=A0
-> =C2=A0static const struct aspeed_pin_function aspeed_g5_functions[] =3D {
-> @@ -506,6 +613,8 @@ static const struct aspeed_pin_function aspeed_g5_fun=
-ctions[] =3D {
-> =C2=A0	ASPEED_PINCTRL_FUNC(MDIO1),
-> =C2=A0	ASPEED_PINCTRL_FUNC(RMII1),
-> =C2=A0	ASPEED_PINCTRL_FUNC(RGMII1),
-> +	ASPEED_PINCTRL_FUNC(RMII2),
-> +	ASPEED_PINCTRL_FUNC(RGMII2),
-> =C2=A0};
-> =C2=A0
-> =C2=A0static struct aspeed_pinctrl_data aspeed_g5_pinctrl_data =3D {
---=-MdEkxSeMmKZeKo9SAR3o
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Before switching the builds over to this tree I would like to have
+some testing done. Please give the kernel a spin on your development
+system(s) and report back to the list on how it goes.
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+I recommend testing with the 2016.07-aspeed-openbmc u-boot tree.
+Testing on other u-boot versions is welcome, as the kernel should not
+be making assumptions about the system state (outside of those that
+are required, such as system UART being available).
 
-iQIcBAABCgAGBQJXqSGPAAoJEJ0dnzgO5LT5ePAQAJQGjD57rCZJN99uG7oKZr6l
-+yTmnvq0IF7s//XelySsdlGCrGOSsmFSN45gPYtmihDzV2T0/hYFR8aj24JAN5+M
-6xJXBqvE0nNGH0rdSSPXno3h+0UNMsd/hNz5sASz67v4z85JYNSEwT+FNGx2ivuU
-HegFZsbjxqAghsFl6IaIyxkhtJQxmAGhUDyy/3i9/UfFkNVVBQOxKBSv1jZmEJUM
-553zyFbLSb59+uE8pI6uzFjrFpP0tveM9hrYLqxKyO7ojldcwO4IXrBqFS/5a1Gb
-TKIaj2M8HJMTEnGs+CQR5wRxcBY3g9ZK/jgU2DlX6yDM7f72A2smSUfj0IlNthK1
-44CkNkS5EKK4paLFX3fXlJwb7P0iKCjf5tstxAQF5bGhoEDolDNR7QuCsOeJuQ5p
-5hSs9RBYV6KW0Q4SR2/b+ruLpqBfNRbEcHn1MJTaFNWyOyPx2fj+H/W8PWmS9C9W
-MLvHVd7ppoRi5fYEweJG9LRmFPNHvMQ/Nzo7w9t/+wjx3OFX5ZmalTfXJR0qx+hG
-nLnS3zOBAOlMEfY+77MM/Tmp37gfkX5fAM1TAo75Offq2hWH3ulmTje7CUncQvfY
-d6c2wF7SpH8hOaXhh6paq3nRxvA+ybSmtHIvar1xcHIGO3iczWKRIF6QiJJ3lpoh
-+UPXp6JJNoT53+Pr3OIh
-=+Izc
------END PGP SIGNATURE-----
+Please jump on #openbmc at irc.freenode.net and ping me ('shenki') if
+you have any questions.
 
---=-MdEkxSeMmKZeKo9SAR3o--
+Cheers,
+
+Joel
+
+--
+Alistair Popple (1):
+  misc: Add Aspeed BT IPMI host driver
+
+Andrew Jeffery (13):
+  pinctrl: dt-bindings: Add documentation for Aspeed pin controllers
+  pinctrl: Add core pinctrl support for Aspeed SoCs
+  pinctrl: Add pinctrl-aspeed-g4 driver
+  pinctrl: Add pinctrl-aspeed-g5 driver
+  gpio: dt-bindings: Add documentation for Aspeed GPIO controllers
+  syscon: dt-bindings: Add documentation for Aspeed system control units
+  aspeed-g4: Add syscon and pin controller nodes
+  palmetto: Request relevant mux functions in devicetree
+  aspeed-g4: Add gpio controller to devicetree
+  aspeed-g5: Add syscon and pin controller nodes
+  aspeed-g5: Add gpio controller to devicetree
+  net/ftgmac100: Separate rx page storage from rxdesc
+  net/ftgmac100: Make EDO{R,T}R bits configurable
+
+Arnd Bergmann (1):
+  net/ncsi: avoid maybe-uninitialized warning
+
+Benjamin Herrenschmidt (1):
+  irqchip/aspeed-vic: Add irq controller for Aspeed
+
+Brendan Higgins (1):
+  i2c: aspeed: added support for slave mode
+
+Daniel Lezcano (4):
+  of: Add a new macro to declare_of for one parameter function returning
+    a value
+  clocksource/drivers/clksrc-probe: Introduce init functions with return
+    code
+  clocksource/drivers/moxart: Add the COMPILE_TEST option
+  clocksource/drivers/moxart: Convert init function to return error
+
+Gavin Shan (13):
+  net/ncsi: Resource management
+  net/ncsi: NCSI command packet handler
+  net/ncsi: NCSI response packet handler
+  net/ncsi: Package and channel management
+  net/ncsi: NCSI AEN packet handler
+  net/faraday: Helper functions to create or destroy MDIO interface
+  net/faraday: Read MAC address from chip
+  net/faraday: Support NCSI mode
+  net/faraday: Match driver according to compatible property
+  net/faraday: Mask PHY interrupt with NCSI mode
+  net/faraday: Disallow using reversed MAC address from hardware
+  net/faraday: Avoid PHYSTS_CHG interrupt
+  net/faraday: Clear stale interrupts
+
+Jeremy Kerr (2):
+  drivers/serial: Add driver for Aspeed virtual UART
+  arm/aspeed: Enable VUART driver
+
+Joel Stanley (12):
+  gpio: Add Aspeed driver
+  net/ftgmac100: Adapt for Aspeed SoCs
+  watchdog: Add Aspeed watchdog driver
+  drivers/clocksource/moxart: Refactor enable/disable
+  drivers/clocksource/moxart: Use struct to hold state
+  drivers/clocksource/moxart: Add Aspeed support
+  clk: Add driver for Aspeed SoCs
+  i2c: Add driver for Aspeed i2c master
+  rtc: Add Aspeed AST2400 rtc driver
+  arm/aspeed: Add board file
+  arm/dts/aspeed: Add dts for all OpenBMC platforms
+  arm/configs/aspeed: Update defconfigs
+
+Milton D. Miller II (1):
+  mtd/spi-nor: Add SPI memory controllers for Aspeed SoCs
+
+Yi Li (1):
+  hwmon: Add Power8 OCC hwmon driver
+
+ .../devicetree/bindings/gpio/gpio-aspeed.txt       |   42 +
+ .../devicetree/bindings/i2c/i2c-ibm-occ.txt        |   13 +
+ .../devicetree/bindings/mfd/aspeed-scu.txt         |   18 +
+ .../devicetree/bindings/mtd/aspeed-smc.txt         |   75 ++
+ .../devicetree/bindings/pinctrl/pinctrl-aspeed.txt |   63 +
+ Documentation/devicetree/bindings/serial/8250.txt  |    1 +
+ .../bindings/timer/moxa,moxart-timer.txt           |    4 +-
+ MAINTAINERS                                        |    2 +
+ arch/arm/Makefile                                  |    1 +
+ arch/arm/boot/dts/Makefile                         |    4 +
+ arch/arm/boot/dts/aspeed-ast2500-evb.dts           |   50 +-
+ arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts     |  179 +++
+ arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts     |  147 +++
+ arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi |   28 +
+ arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts      |   99 ++
+ arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts      |  151 ++-
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts   |  168 +++
+ arch/arm/boot/dts/aspeed-g4.dtsi                   |  524 +++++++-
+ arch/arm/boot/dts/aspeed-g5.dtsi                   |  358 +++++-
+ arch/arm/configs/aspeed_g4_defconfig               |   78 +-
+ arch/arm/configs/aspeed_g5_defconfig               |   75 +-
+ arch/arm/mach-aspeed/Kconfig                       |    7 +
+ arch/arm/mach-aspeed/Makefile                      |    3 +
+ arch/arm/mach-aspeed/aspeed.c                      |  225 ++++
+ arch/arm/mach-moxart/Kconfig                       |    2 +-
+ drivers/clk/Makefile                               |    1 +
+ drivers/clk/aspeed/Makefile                        |    3 +
+ drivers/clk/aspeed/clk-g4.c                        |  109 ++
+ drivers/clk/aspeed/clk-g5.c                        |  189 +++
+ drivers/clk/aspeed/clk-uart.c                      |   52 +
+ drivers/clocksource/Kconfig                        |    7 +
+ drivers/clocksource/Makefile                       |    5 +-
+ drivers/clocksource/clksrc-probe.c                 |   22 +
+ drivers/clocksource/moxart_timer.c                 |  228 ++--
+ drivers/gpio/Kconfig                               |    8 +-
+ drivers/gpio/Makefile                              |    1 +
+ drivers/gpio/gpio-aspeed.c                         |  468 ++++++++
+ drivers/hwmon/Kconfig                              |   13 +
+ drivers/hwmon/Makefile                             |    1 +
+ drivers/hwmon/power8_occ_i2c.c                     | 1254 ++++++++++++++++++++
+ drivers/i2c/busses/Kconfig                         |   10 +
+ drivers/i2c/busses/Makefile                        |    1 +
+ drivers/i2c/busses/i2c-aspeed.c                    | 1104 +++++++++++++++++
+ drivers/irqchip/Makefile                           |    1 +
+ drivers/irqchip/irq-aspeed-vic.c                   |  230 ++++
+ drivers/misc/Kconfig                               |    5 +
+ drivers/misc/Makefile                              |    1 +
+ drivers/misc/bt-host.c                             |  427 +++++++
+ drivers/mtd/spi-nor/Kconfig                        |   11 +
+ drivers/mtd/spi-nor/Makefile                       |    1 +
+ drivers/mtd/spi-nor/aspeed-smc.c                   |  567 +++++++++
+ drivers/net/ethernet/faraday/ftgmac100.c           |  345 ++++--
+ drivers/net/ethernet/faraday/ftgmac100.h           |    3 +-
+ drivers/pinctrl/Kconfig                            |    1 +
+ drivers/pinctrl/Makefile                           |    1 +
+ drivers/pinctrl/aspeed/Kconfig                     |   24 +
+ drivers/pinctrl/aspeed/Makefile                    |    5 +
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c         | 1092 +++++++++++++++++
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c         |  682 +++++++++++
+ drivers/pinctrl/aspeed/pinctrl-aspeed.c            |  373 ++++++
+ drivers/pinctrl/aspeed/pinctrl-aspeed.h            |  562 +++++++++
+ drivers/rtc/Kconfig                                |   11 +
+ drivers/rtc/Makefile                               |    1 +
+ drivers/rtc/rtc-aspeed.c                           |  150 +++
+ drivers/tty/serial/Kconfig                         |   10 +
+ drivers/tty/serial/Makefile                        |    1 +
+ drivers/tty/serial/aspeed-vuart.c                  |  333 ++++++
+ drivers/watchdog/Kconfig                           |   13 +
+ drivers/watchdog/Makefile                          |    1 +
+ drivers/watchdog/aspeed_wdt.c                      |  212 ++++
+ include/asm-generic/vmlinux.lds.h                  |    2 +
+ include/dt-bindings/gpio/aspeed-gpio.h             |   47 +
+ include/linux/clocksource.h                        |    3 +
+ include/linux/of.h                                 |    3 +
+ include/net/ncsi.h                                 |   52 +
+ include/uapi/linux/Kbuild                          |    1 +
+ include/uapi/linux/bt-host.h                       |   18 +
+ include/uapi/linux/if_ether.h                      |    1 +
+ net/Kconfig                                        |    1 +
+ net/Makefile                                       |    1 +
+ net/ncsi/Kconfig                                   |   12 +
+ net/ncsi/Makefile                                  |    4 +
+ net/ncsi/internal.h                                |  328 +++++
+ net/ncsi/ncsi-aen.c                                |  193 +++
+ net/ncsi/ncsi-cmd.c                                |  367 ++++++
+ net/ncsi/ncsi-manage.c                             | 1205 +++++++++++++++++++
+ net/ncsi/ncsi-pkt.h                                |  415 +++++++
+ net/ncsi/ncsi-rsp.c                                | 1035 ++++++++++++++++
+ 88 files changed, 14353 insertions(+), 191 deletions(-)
