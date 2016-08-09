@@ -1,68 +1,111 @@
-Return-Path: <shays@mellanox.com>
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur01on0056.outbound.protection.outlook.com [104.47.2.56])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <austenc@us.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s80xg5vtCzDqdv
- for <openbmc@lists.ozlabs.org>; Wed, 10 Aug 2016 03:04:22 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b=dTFiLknX; 
- dkim-atps=neutral
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
- s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=iTVpVRvvUEToKJbsolxQ2UD3kso4oqYfs1Qrj1Gvz/Y=;
- b=dTFiLknXapSPkTbp88E7ATkjxhV3XOWM9M30ke6MSZVW1ncDIm5Gy8TIS0CI4a8pA2Ag7TjC80JXoIiGrqUC4YSXY8nLZNYabZKCzNVEYF6GdsOa1AM41t074SNIhdbfhFrRiFNEUSp9gJjISjgfluo3WduQOI3YnfD0439Wu+g=
-Received: from DB4PR05MB0941.eurprd05.prod.outlook.com (10.161.249.145) by
- DB4PR05MB0944.eurprd05.prod.outlook.com (10.161.249.148) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
- 15.1.549.15; Tue, 9 Aug 2016 11:29:41 +0000
-Received: from DB4PR05MB0941.eurprd05.prod.outlook.com ([10.161.249.145]) by
- DB4PR05MB0941.eurprd05.prod.outlook.com ([10.161.249.145]) with mapi id
- 15.01.0544.024; Tue, 9 Aug 2016 11:29:41 +0000
-From: Shay Slobodkin <shays@mellanox.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Latest Linux dev-4.7 branch
-Thread-Topic: Latest Linux dev-4.7 branch
-Thread-Index: AdHyMTIIX0r8Xv1RT2aqGJ8Vt9Zr5Q==
-Date: Tue, 9 Aug 2016 11:29:40 +0000
-Message-ID: <DB4PR05MB094160F672C38AEB237AC40BD51C0@DB4PR05MB0941.eurprd05.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=shays@mellanox.com; 
-x-originating-ip: [193.47.165.251]
-x-ms-office365-filtering-correlation-id: 305959a0-a94a-401c-dd79-08d3c048745b
-x-microsoft-exchange-diagnostics: 1; DB4PR05MB0944;
- 6:L8ovv6cKunUhGmzZ5MmWB7rZMHL1Tz5Ww5N9SRWghrKrl8O3hkievGlF9u1S1vMDqBG8jWWOy891LUrt1xDMPn4dxKkzMwTuYwTcPgTuThjrTJqBCUlZRbNHa8CldFSvMkhAfxo1S9UK6IPkTz6t3zvs+lrVkUyw7HVR1b5Fx6Z8y/jyt/c3jRSr65bcrFe5SObQx51FFRbbNcQNEufSd/0ZbgG+VgA0VpFzao2qGTTb684Xbkmip7SdiHp1zcXB3l/n8438KgL3JRY2PzmmSa0IRHRTDs+3NVVlP6B2qUHy+uWzrzbgWYtbs7Sb7cGvTxyn46ps3ZZP12CBYR9G9g==;
- 5:XXHGrB04lcbnltCvSyUH1NTfwiR5j6v+erznpXyQUgZQI1KzH5loM+QmYf5Rqh4o8skN9tZcanPDOizJ9Qtph9BpIXE/jrXG/4KdmyvbxQNRBXS+UvkgzQMGGmc6cPyO/c/kxP8FyM7tDLFesTpyjQ==;
- 24:8KsVr2BA8Fmm7aouvs7XIAA55ledRDmFYiZIWkUaB8hbD9krNRlOYPEq5tcaOwSZm23VXm3QGmlJxRHq3ZxDTK78nKif8BGumrUpiDoVdas=;
- 7:6UjOHqH4RT4fE8HQnhinQjkrZmBMLbpPbyvwCEJZogXlecY6YXXwWQbw+r/XKcq2MOeLaaICZNo/TBWChImPTp5p+WM1FobleEvWd88I1LsHmTeebS9MWWMtymj4ZD52/GBYAbolzY+RH3Ded11R0U99MiBWYaxQIcMxosDiSn72ikQ0ndexHb/HrgfNTbPOK0Gtzeu3ErxViQ0EyLm662RcQi/Y8+yhhXsNGOYF9hXiF2sxVSukFHsL2Lyu0oiU
-x-microsoft-antispam: UriScan:;BCL:0;PCL:0;RULEID:;SRVR:DB4PR05MB0944;
-x-microsoft-antispam-prvs: <DB4PR05MB094446FFDA19A6B2BF79DE47D51C0@DB4PR05MB0944.eurprd05.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:(166708455590820)(21748063052155);
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
- RULEID:(601004)(2401047)(5005006)(8121501046)(3002001)(10201501046)(6055026);
- SRVR:DB4PR05MB0944; BCL:0; PCL:0; RULEID:; SRVR:DB4PR05MB0944; 
-x-forefront-prvs: 0029F17A3F
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(7916002)(199003)(189002)(50986999)(54356999)(8676002)(1730700003)(81166006)(81156014)(97736004)(92566002)(586003)(2900100001)(2906002)(9326002)(86362001)(8936002)(5002640100001)(105586002)(87936001)(7696003)(7846002)(7736002)(3846002)(102836003)(790700001)(7906003)(3660700001)(6116002)(10400500002)(110136002)(15975445007)(74316002)(229853001)(2501003)(19617315012)(77096005)(450100001)(9686002)(19300405004)(122556002)(3280700002)(189998001)(101416001)(19580395003)(2351001)(76576001)(66066001)(19625215002)(106356001)(107886002)(16236675004)(11100500001)(68736007)(33656002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DB4PR05MB0944;
- H:DB4PR05MB0941.eurprd05.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
- A:1; MX:1; LANG:en; 
-received-spf: None (protection.outlook.com: mellanox.com does not designate
- permitted sender hosts)
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: multipart/alternative;
- boundary="_000_DB4PR05MB094160F672C38AEB237AC40BD51C0DB4PR05MB0941eurp_"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s89Tz13wJzDqQp
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Aug 2016 09:29:26 +1000 (AEST)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
+ u79NSM1m144735
+ for <openbmc@lists.ozlabs.org>; Tue, 9 Aug 2016 19:29:24 -0400
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 24qm9t9wkc-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 09 Aug 2016 19:29:23 -0400
+Received: from localhost
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Tue, 9 Aug 2016 17:29:23 -0600
+Received: from d03dlp01.boulder.ibm.com (9.17.202.177)
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 9 Aug 2016 17:29:22 -0600
+X-IBM-Helo: d03dlp01.boulder.ibm.com
+X-IBM-MailFrom: austenc@us.ibm.com
+Received: from b01cxnp22034.gho.pok.ibm.com (b01cxnp22034.gho.pok.ibm.com
+ [9.57.198.24])
+ by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id D5DC51FF002E
+ for <openbmc@lists.ozlabs.org>; Tue,  9 Aug 2016 17:29:03 -0600 (MDT)
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u79NTKki63832160
+ for <openbmc@lists.ozlabs.org>; Tue, 9 Aug 2016 23:29:21 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 095B728041
+ for <openbmc@lists.ozlabs.org>; Tue,  9 Aug 2016 19:29:21 -0400 (EDT)
+Received: from d50lp01.ny.us.ibm.com (unknown [146.89.104.207])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTPS id E831A2803D
+ for <openbmc@lists.ozlabs.org>; Tue,  9 Aug 2016 19:29:20 -0400 (EDT)
+Received: from localhost
+ by d50lp01.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Tue, 9 Aug 2016 19:29:20 -0400
+Received: from smtp.notes.na.collabserv.com (192.155.248.90)
+ by d50lp01.ny.us.ibm.com (158.87.18.20) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES128-SHA bits=128/128)
+ Tue, 9 Aug 2016 19:29:17 -0400
+X-IBM-Helo: smtp.notes.na.collabserv.com
+X-IBM-MailFrom: austenc@us.ibm.com
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
+ Tue, 9 Aug 2016 23:29:15 -0000
+Received: from us1a3-smtp02.a3.dal06.isc4sb.com (10.106.154.159)
+ by smtp.notes.na.collabserv.com (10.106.227.141) with
+ smtp.notes.na.collabserv.com ESMTP; Tue, 9 Aug 2016 23:29:14 -0000
+X-IBM-Helo: us1a3-smtp02.a3.dal06.isc4sb.com
+X-IBM-MailFrom: austenc@us.ibm.com
+Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
+ by us1a3-smtp02.a3.dal06.isc4sb.com
+ with ESMTP id 2016080923291366-1100564 ;
+ Tue, 9 Aug 2016 23:29:13 +0000 
+In-Reply-To: 
+Subject: discovery of openbmc
+From: "Chris Austen" <austenc@us.ibm.com>
+To: openbmc@lists.ozlabs.org
+Date: Tue, 9 Aug 2016 23:29:14 +0000
 MIME-Version: 1.0
-X-OriginatorOrg: Mellanox.com
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Aug 2016 11:29:40.9852 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR05MB0944
+Sensitivity: 
+Importance: Normal
+X-Priority: 3 (Normal)
+References: 
+X-Mailer: IBM iNotes ($HaikuForm 825.3) | IBM Domino Build
+ V851SAAS_07182016_FP3 July 18, 2016
+X-LLNOutbound: False
+X-Disclaimed: 13087
+X-TNEFEvaluated: 1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+x-cbid: 16080923-0004-0000-0000-0000101A1329
+X-IBM-ISS-SpamDetectors: Score=0.415652; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.415652; ST=0; TS=0; UL=0; ISC=
+X-IBM-ISS-DetailInfo: BY=3.00005571; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000178; SDB=6.00742426; UDB=6.00349468; UTC=2016-08-09
+ 23:29:15
+x-cbparentid: 16080923-9718-0000-0000-00000068566C
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00005571; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000178; SDB=6.00742426; UDB=6.00349468; IPR=6.00514983; 
+ BA=6.00004652; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00012282; XFM=3.00000011;
+ UTC=2016-08-09 23:29:23
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+Message-Id: <OFB7A77BFE.3A84627D-ON0025800A.0080354A-0025800A.00810503@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-08-09_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=21
+ spamscore=21 suspectscore=13
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1604210000
+ definitions=main-1608090245
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -74,105 +117,14 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 09 Aug 2016 17:04:25 -0000
+X-List-Received-Date: Tue, 09 Aug 2016 23:29:27 -0000
 
---_000_DB4PR05MB094160F672C38AEB237AC40BD51C0DB4PR05MB0941eurp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ I should know the answer to this but is inarp the only way to programmatic=
+ally discover an ip is an OpenBMC system? =20
 
-Hi,
+Any desire for Avahi or something else? =20
 
-We saw some recently added code into Linux branch dev-4.7 which we can use.
-Also have some of our code we want to push into it, and want to rebase on t=
-op of latest code.
 
-Where can we find the latest Linux dev-4.7 branch?
-
-We were looking under:
-https://github.com/openbmc/linux/
-
-though latest code there is branch 4.6.
-
-Thanks,
-Shay
-
---_000_DB4PR05MB094160F672C38AEB237AC40BD51C0DB4PR05MB0941eurp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:x=3D"urn:schemas-microsoft-com:office:excel" xmlns:m=3D"http://schema=
-s.microsoft.com/office/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html=
-40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hi,<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">We saw some recently added code into Linux branch de=
-v-4.7 which we can use.<o:p></o:p></p>
-<p class=3D"MsoNormal">Also have some of our code we want to push into it, =
-and want to rebase on top of latest code.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Where can we find the latest Linux dev-4.7 branch?<o=
-:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">We were looking under:<o:p></o:p></p>
-<p class=3D"MsoNormal"><a href=3D"https://github.com/openbmc/linux/">https:=
-//github.com/openbmc/linux/</a><o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">though latest code there is branch 4.6.<o:p></o:p></=
-p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
-<p class=3D"MsoNormal">Shay<o:p></o:p></p>
-</div>
-</body>
-</html>
-
---_000_DB4PR05MB094160F672C38AEB237AC40BD51C0DB4PR05MB0941eurp_--
+Chris Austen
+POWER Systems Enablement Manager=20
+(512) 286-5184 (T/L: 363-5184)
