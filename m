@@ -1,47 +1,70 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x241.google.com (mail-ua0-x241.google.com
- [IPv6:2607:f8b0:400c:c08::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <shays@mellanox.com>
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur01on0046.outbound.protection.outlook.com [104.47.2.46])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s7yTt3wxczDqQp
- for <openbmc@lists.ozlabs.org>; Wed, 10 Aug 2016 01:13:38 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=MOr2pxlH; 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s80kD3KfwzDqJ5
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Aug 2016 02:54:28 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=Mellanox.com header.i=@Mellanox.com header.b=RZtwTLLe; 
  dkim-atps=neutral
-Received: by mail-ua0-x241.google.com with SMTP id 74so1220369uau.3
- for <openbmc@lists.ozlabs.org>; Tue, 09 Aug 2016 08:13:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:from:date:message-id:subject:to;
- bh=DDW/47nJiSACOd7x/IIUwaly64m1Gh40XioTXFCsrh8=;
- b=MOr2pxlHjvXePeQYL3oJsyEIlYMhefGZk7+V7WuTsXjU4tsH6i9IrCEbmtbupmGPtJ
- WV1fq4XaEFu6LVpLQ18oIAPttJDSXNJ2Ely+c5eZOV91sDKYKdFuOx11bLqJAB/52uEs
- HLCxcf93AEsoP5fPmuugSWPNAJCjh4p0D7CyLUjjeNUge2Dk6jd6IOdWMQhlp9i/Vfx3
- TTCtrdJ+MuvIBo5wEvcF7q/guqWgz6wJjrjKUxxF1UvUfLcNoiodcB1hjjO0OH4JXLK6
- G6bN4UkTM4ufsMj9RLTItH+PNrfcnsDcO5NVVQbmJWlxNnoytnTMCnPZNsRXrjrH7p07
- sb2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
- :to; bh=DDW/47nJiSACOd7x/IIUwaly64m1Gh40XioTXFCsrh8=;
- b=cFlTRJY4+JkWBlej1fkjSLBmaLu72GveWy7HMPMOQ+7Pzips5r8oT13OcizKwOUWvk
- fXnpGpLjv4qKvInbTK+7Yl1wizWQvfbFwTZfkSUhQct99xiBEBvvlG7RDYFvcm4pFGrs
- q1oWQT+xQHPpKrwaCxlIBdAB2gKqCRmyKMUokHtQ8SPrgCTmZb0IyCMDcFk+I6eOEhTU
- KmwT76Bjmblmfa3fbh/W6WsJ5KPMwspt/mMNEgzDD3vHv1PpVx9GxfKeqJklYEktG3kp
- 6NaoP1In0vQcQLCXiC8GZ4gqZk6NZw8oVW7QLBv2AVHM4lSzNpxTzGQJX/TOXjvy+i3F
- 7gdg==
-X-Gm-Message-State: AEkoousuiJVik0d8iKIxNiPTOrLeRtA2dikimlTPxw0BpOnnfUXZSBeJai5rPiKkB//nSlUoHekZ/tZDgFD7Sg==
-X-Received: by 10.31.78.6 with SMTP id c6mr49894225vkb.41.1470755615045; Tue,
- 09 Aug 2016 08:13:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
+ s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=pnyRqN9Y/Zn/d8rhvzmxUZYLNSq/zvzRdvjWrcEG9FY=;
+ b=RZtwTLLex8fmDgmOzoL+SdM5+fBjKCOqSjcukNvLzw4lj1xKMbIzL28ygEehuuesGZnu8vtfvjvIK487VmAgcJS/C6VZ3Joy1rpz+wmevc7rCvwZp73iPeOcrBMh+7KJnSgVdUBGy57XK6laEzTHj6mbjRFtnkrNTPSMemBCs2o=
+Received: from DB4PR05MB0941.eurprd05.prod.outlook.com (10.161.249.145) by
+ DB4PR05MB0942.eurprd05.prod.outlook.com (10.161.249.146) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
+ 15.1.544.10; Tue, 9 Aug 2016 15:20:38 +0000
+Received: from DB4PR05MB0941.eurprd05.prod.outlook.com ([10.161.249.145]) by
+ DB4PR05MB0941.eurprd05.prod.outlook.com ([10.161.249.145]) with mapi id
+ 15.01.0544.024; Tue, 9 Aug 2016 15:20:38 +0000
+From: Shay Slobodkin <shays@mellanox.com>
+To: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: RE: Linux dev-4.7 tree: Request for testing
+Thread-Topic: Linux dev-4.7 tree: Request for testing
+Thread-Index: AQHR8lCkgllZzQodQEGxslI7GUCSRaBAvcyg
+Date: Tue, 9 Aug 2016 15:20:38 +0000
+Message-ID: <DB4PR05MB0941704A812F92A32C44CC86D51C0@DB4PR05MB0941.eurprd05.prod.outlook.com>
+References: <CACPK8Xd1M2x5rrPUNwvhg4Yes85hPHxPbnysiC-jNii8W3KBHA@mail.gmail.com>
+In-Reply-To: <CACPK8Xd1M2x5rrPUNwvhg4Yes85hPHxPbnysiC-jNii8W3KBHA@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=shays@mellanox.com; 
+x-originating-ip: [193.47.165.251]
+x-ms-office365-filtering-correlation-id: c1751251-1949-45a8-65d6-08d3c068b7ef
+x-microsoft-exchange-diagnostics: 1; DB4PR05MB0942;
+ 6:txOF1KzB9+yVYAldkSkwDaoQHU6BbMkRCMMbY1fTQL0bn6qWkCr5sSphiddj+O73wcPX+DDUOvHezDftWyFN92hmU5MAGoDL8lUpEGoj9gS9x60xIusMnoPDsGM0qUAsIFWsacbfPnoVl6H+L/zqvqmuJ+MTHVAlhAAYWnAewclyDCeO14baJP0fJhLh9lIbtE+U0nOxKsAz06HTQ1E8lpb+9/7DqFNqNR6psCGLV6ENzg/FSIyXQshg1/ArSRsCnGxP80gMCDGdelaio0FQB9I4vyC5UEQntJCccmEIzalfrQ7Gvj+RbIDAsdiRsGpsvuUs1DnD0MtVNfVtas9s/g==;
+ 5:F+XdmSi+69GNyl6aGVYfty4NEJGo2y+fWRDbk3bb6Jdb+0eMG6WedFiubH+4LDk6l3NTGjnukbkt9ZxdMrh+y5li5ZkTcdab8ht4F8rqyDvNz+bvCd7SApjR/c0l6L6HtOM7FliUzKM5+Lo1qdSP8w==;
+ 24:YEKQ7QyjroW5Y89boaTivqkVcSq6Qfu5j/q80lSEhpBpHE9Ds4tjYKlD4Ln21mt+I7ta5Yl0RUNGzWPRMWfP3wiAJU7EKutK+IB1Tlm2DGo=;
+ 7:DsjNibhuJ90OLqVzrCA8McOBXuGLDcf9mommrAARSOYwpLzTPJNqYZgEhL5uFfICucgYZMpGHVrmR6LMVQTYkof/aKERuWJiwAZd3FTQIYkAmvgVUJrTMYd0GJjzGT9vCaYF8hIbFhj87qUodVZty1/vK7a8xBxQwUkW+zZrDLRNf4ZWEynjj2/x8Mo00m/bbpVJDX8UZbBeUKDF3jqzGIkfKwbeRMOpLCcq8XV0ExvGpJa97tmDHqxY6Cqnt1ek
+x-microsoft-antispam: UriScan:;BCL:0;PCL:0;RULEID:;SRVR:DB4PR05MB0942;
+x-microsoft-antispam-prvs: <DB4PR05MB0942EB42409EAC66FF908854D51C0@DB4PR05MB0942.eurprd05.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(166708455590820)(65623756079841);
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+ RULEID:(601004)(2401047)(8121501046)(5005006)(3002001)(10201501046)(6055026);
+ SRVR:DB4PR05MB0942; BCL:0; PCL:0; RULEID:; SRVR:DB4PR05MB0942; 
+x-forefront-prvs: 0029F17A3F
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(6009001)(7916002)(199003)(13464003)(377454003)(189002)(5001770100001)(107886002)(586003)(189998001)(6116002)(102836003)(3846002)(87936001)(76576001)(5002640100001)(101416001)(122556002)(50986999)(76176999)(54356999)(106356001)(86362001)(106116001)(97736004)(2906002)(19580405001)(77096005)(11100500001)(2900100001)(2950100001)(68736007)(66066001)(8676002)(15975445007)(105586002)(8936002)(92566002)(74316002)(7696003)(7736002)(81166006)(9686002)(3660700001)(81156014)(7846002)(10400500002)(3280700002)(33656002)(305945005)(19580395003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DB4PR05MB0942;
+ H:DB4PR05MB0941.eurprd05.prod.outlook.com; FPR:; SPF:None; PTR:InfoNoRecords;
+ A:1; MX:1; LANG:en; 
+received-spf: None (protection.outlook.com: mellanox.com does not designate
+ permitted sender hosts)
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.159.38.76 with HTTP; Tue, 9 Aug 2016 08:13:14 -0700 (PDT)
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 10 Aug 2016 00:43:14 +0930
-X-Google-Sender-Auth: HKC3B7y-ukyT0LYs7m2FrAdeV24
-Message-ID: <CACPK8Xd1M2x5rrPUNwvhg4Yes85hPHxPbnysiC-jNii8W3KBHA@mail.gmail.com>
-Subject: Linux dev-4.7 tree: Request for testing
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+X-OriginatorOrg: Mellanox.com
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Aug 2016 15:20:38.1610 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a652971c-7d2e-4d9b-a6a4-d149256f461b
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR05MB0942
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -53,226 +76,203 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 09 Aug 2016 15:13:39 -0000
+X-List-Received-Date: Tue, 09 Aug 2016 16:54:30 -0000
 
-Hello OpenBMCers,
-
-I've pushed a new Linux tree to https://github.com/openbmc/linux as
-dev-4.7. I intend this to become the new tree used for openbmc's
-master branch.
-
-Linux 4.7 contained basic Aspeed SoC support. This tree contains 50
-patches atop v4.7 that fall in to four categories:
-
- * backports of code that has gone into 4.8-rc1
-   * nsci
-   * ftgmac100 changes for ncsi
-   * watchdog
-   * irqchip
-
- * drivers that are out for review
-   * pinmux
-   * gpio
-   * clk
-   * clocksource
-
- * backports of dependencies for the above
-
- * drivers that require further cleanup and submission upstream
-   * i2c
-   * vuart
-   * ftgmac100 fixes for ast2500
-   * bt
-   * spi-nor
-   * p8 occ hwmon
-
-This represents a lot of work done by Andrew, Gavin, Milton and
-myself, with help from Yi, Jeremy, Cedric, Alistair and Ben. Recently
-we've had contributions from Xo and Brendan too which has been great
-to see.
-
-I will not be rebasing this branch. We will use it for development
-until 4.8 is released, at which time we will move to that as a base.
-As we move our drivers upstream, each subsequent dev- branch will
-contain fewer patches, with the goal being to use upstream as-is.
-
-Before switching the builds over to this tree I would like to have
-some testing done. Please give the kernel a spin on your development
-system(s) and report back to the list on how it goes.
-
-I recommend testing with the 2016.07-aspeed-openbmc u-boot tree.
-Testing on other u-boot versions is welcome, as the kernel should not
-be making assumptions about the system state (outside of those that
-are required, such as system UART being available).
-
-Please jump on #openbmc at irc.freenode.net and ping me ('shenki') if
-you have any questions.
-
-Cheers,
-
-Joel
-
---
-Alistair Popple (1):
-  misc: Add Aspeed BT IPMI host driver
-
-Andrew Jeffery (13):
-  pinctrl: dt-bindings: Add documentation for Aspeed pin controllers
-  pinctrl: Add core pinctrl support for Aspeed SoCs
-  pinctrl: Add pinctrl-aspeed-g4 driver
-  pinctrl: Add pinctrl-aspeed-g5 driver
-  gpio: dt-bindings: Add documentation for Aspeed GPIO controllers
-  syscon: dt-bindings: Add documentation for Aspeed system control units
-  aspeed-g4: Add syscon and pin controller nodes
-  palmetto: Request relevant mux functions in devicetree
-  aspeed-g4: Add gpio controller to devicetree
-  aspeed-g5: Add syscon and pin controller nodes
-  aspeed-g5: Add gpio controller to devicetree
-  net/ftgmac100: Separate rx page storage from rxdesc
-  net/ftgmac100: Make EDO{R,T}R bits configurable
-
-Arnd Bergmann (1):
-  net/ncsi: avoid maybe-uninitialized warning
-
-Benjamin Herrenschmidt (1):
-  irqchip/aspeed-vic: Add irq controller for Aspeed
-
-Brendan Higgins (1):
-  i2c: aspeed: added support for slave mode
-
-Daniel Lezcano (4):
-  of: Add a new macro to declare_of for one parameter function returning
-    a value
-  clocksource/drivers/clksrc-probe: Introduce init functions with return
-    code
-  clocksource/drivers/moxart: Add the COMPILE_TEST option
-  clocksource/drivers/moxart: Convert init function to return error
-
-Gavin Shan (13):
-  net/ncsi: Resource management
-  net/ncsi: NCSI command packet handler
-  net/ncsi: NCSI response packet handler
-  net/ncsi: Package and channel management
-  net/ncsi: NCSI AEN packet handler
-  net/faraday: Helper functions to create or destroy MDIO interface
-  net/faraday: Read MAC address from chip
-  net/faraday: Support NCSI mode
-  net/faraday: Match driver according to compatible property
-  net/faraday: Mask PHY interrupt with NCSI mode
-  net/faraday: Disallow using reversed MAC address from hardware
-  net/faraday: Avoid PHYSTS_CHG interrupt
-  net/faraday: Clear stale interrupts
-
-Jeremy Kerr (2):
-  drivers/serial: Add driver for Aspeed virtual UART
-  arm/aspeed: Enable VUART driver
-
-Joel Stanley (12):
-  gpio: Add Aspeed driver
-  net/ftgmac100: Adapt for Aspeed SoCs
-  watchdog: Add Aspeed watchdog driver
-  drivers/clocksource/moxart: Refactor enable/disable
-  drivers/clocksource/moxart: Use struct to hold state
-  drivers/clocksource/moxart: Add Aspeed support
-  clk: Add driver for Aspeed SoCs
-  i2c: Add driver for Aspeed i2c master
-  rtc: Add Aspeed AST2400 rtc driver
-  arm/aspeed: Add board file
-  arm/dts/aspeed: Add dts for all OpenBMC platforms
-  arm/configs/aspeed: Update defconfigs
-
-Milton D. Miller II (1):
-  mtd/spi-nor: Add SPI memory controllers for Aspeed SoCs
-
-Yi Li (1):
-  hwmon: Add Power8 OCC hwmon driver
-
- .../devicetree/bindings/gpio/gpio-aspeed.txt       |   42 +
- .../devicetree/bindings/i2c/i2c-ibm-occ.txt        |   13 +
- .../devicetree/bindings/mfd/aspeed-scu.txt         |   18 +
- .../devicetree/bindings/mtd/aspeed-smc.txt         |   75 ++
- .../devicetree/bindings/pinctrl/pinctrl-aspeed.txt |   63 +
- Documentation/devicetree/bindings/serial/8250.txt  |    1 +
- .../bindings/timer/moxa,moxart-timer.txt           |    4 +-
- MAINTAINERS                                        |    2 +
- arch/arm/Makefile                                  |    1 +
- arch/arm/boot/dts/Makefile                         |    4 +
- arch/arm/boot/dts/aspeed-ast2500-evb.dts           |   50 +-
- arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts     |  179 +++
- arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts     |  147 +++
- arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi |   28 +
- arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts      |   99 ++
- arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts      |  151 ++-
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts   |  168 +++
- arch/arm/boot/dts/aspeed-g4.dtsi                   |  524 +++++++-
- arch/arm/boot/dts/aspeed-g5.dtsi                   |  358 +++++-
- arch/arm/configs/aspeed_g4_defconfig               |   78 +-
- arch/arm/configs/aspeed_g5_defconfig               |   75 +-
- arch/arm/mach-aspeed/Kconfig                       |    7 +
- arch/arm/mach-aspeed/Makefile                      |    3 +
- arch/arm/mach-aspeed/aspeed.c                      |  225 ++++
- arch/arm/mach-moxart/Kconfig                       |    2 +-
- drivers/clk/Makefile                               |    1 +
- drivers/clk/aspeed/Makefile                        |    3 +
- drivers/clk/aspeed/clk-g4.c                        |  109 ++
- drivers/clk/aspeed/clk-g5.c                        |  189 +++
- drivers/clk/aspeed/clk-uart.c                      |   52 +
- drivers/clocksource/Kconfig                        |    7 +
- drivers/clocksource/Makefile                       |    5 +-
- drivers/clocksource/clksrc-probe.c                 |   22 +
- drivers/clocksource/moxart_timer.c                 |  228 ++--
- drivers/gpio/Kconfig                               |    8 +-
- drivers/gpio/Makefile                              |    1 +
- drivers/gpio/gpio-aspeed.c                         |  468 ++++++++
- drivers/hwmon/Kconfig                              |   13 +
- drivers/hwmon/Makefile                             |    1 +
- drivers/hwmon/power8_occ_i2c.c                     | 1254 ++++++++++++++++++++
- drivers/i2c/busses/Kconfig                         |   10 +
- drivers/i2c/busses/Makefile                        |    1 +
- drivers/i2c/busses/i2c-aspeed.c                    | 1104 +++++++++++++++++
- drivers/irqchip/Makefile                           |    1 +
- drivers/irqchip/irq-aspeed-vic.c                   |  230 ++++
- drivers/misc/Kconfig                               |    5 +
- drivers/misc/Makefile                              |    1 +
- drivers/misc/bt-host.c                             |  427 +++++++
- drivers/mtd/spi-nor/Kconfig                        |   11 +
- drivers/mtd/spi-nor/Makefile                       |    1 +
- drivers/mtd/spi-nor/aspeed-smc.c                   |  567 +++++++++
- drivers/net/ethernet/faraday/ftgmac100.c           |  345 ++++--
- drivers/net/ethernet/faraday/ftgmac100.h           |    3 +-
- drivers/pinctrl/Kconfig                            |    1 +
- drivers/pinctrl/Makefile                           |    1 +
- drivers/pinctrl/aspeed/Kconfig                     |   24 +
- drivers/pinctrl/aspeed/Makefile                    |    5 +
- drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c         | 1092 +++++++++++++++++
- drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c         |  682 +++++++++++
- drivers/pinctrl/aspeed/pinctrl-aspeed.c            |  373 ++++++
- drivers/pinctrl/aspeed/pinctrl-aspeed.h            |  562 +++++++++
- drivers/rtc/Kconfig                                |   11 +
- drivers/rtc/Makefile                               |    1 +
- drivers/rtc/rtc-aspeed.c                           |  150 +++
- drivers/tty/serial/Kconfig                         |   10 +
- drivers/tty/serial/Makefile                        |    1 +
- drivers/tty/serial/aspeed-vuart.c                  |  333 ++++++
- drivers/watchdog/Kconfig                           |   13 +
- drivers/watchdog/Makefile                          |    1 +
- drivers/watchdog/aspeed_wdt.c                      |  212 ++++
- include/asm-generic/vmlinux.lds.h                  |    2 +
- include/dt-bindings/gpio/aspeed-gpio.h             |   47 +
- include/linux/clocksource.h                        |    3 +
- include/linux/of.h                                 |    3 +
- include/net/ncsi.h                                 |   52 +
- include/uapi/linux/Kbuild                          |    1 +
- include/uapi/linux/bt-host.h                       |   18 +
- include/uapi/linux/if_ether.h                      |    1 +
- net/Kconfig                                        |    1 +
- net/Makefile                                       |    1 +
- net/ncsi/Kconfig                                   |   12 +
- net/ncsi/Makefile                                  |    4 +
- net/ncsi/internal.h                                |  328 +++++
- net/ncsi/ncsi-aen.c                                |  193 +++
- net/ncsi/ncsi-cmd.c                                |  367 ++++++
- net/ncsi/ncsi-manage.c                             | 1205 +++++++++++++++++++
- net/ncsi/ncsi-pkt.h                                |  415 +++++++
- net/ncsi/ncsi-rsp.c                                | 1035 ++++++++++++++++
- 88 files changed, 14353 insertions(+), 191 deletions(-)
+VGhhbmsgeW91IGFsbCBmb3IgdGhlIGhhcmQgd29yay4NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3Nh
+Z2UtLS0tLQ0KPiBGcm9tOiBvcGVuYm1jIFttYWlsdG86b3BlbmJtYy0NCj4gYm91bmNlcytzaGF5
+cz1tZWxsYW5veC5jb21AbGlzdHMub3psYWJzLm9yZ10gT24gQmVoYWxmIE9mIEpvZWwgU3Rhbmxl
+eQ0KPiBTZW50OiBUdWVzZGF5LCBBdWd1c3QgMDksIDIwMTYgNjoxMyBQTQ0KPiBUbzogT3BlbkJN
+QyBNYWlsbGlzdCA8b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPg0KPiBTdWJqZWN0OiBMaW51eCBk
+ZXYtNC43IHRyZWU6IFJlcXVlc3QgZm9yIHRlc3RpbmcNCj4gDQo+IEhlbGxvIE9wZW5CTUNlcnMs
+DQo+IA0KPiBJJ3ZlIHB1c2hlZCBhIG5ldyBMaW51eCB0cmVlIHRvIGh0dHBzOi8vZ2l0aHViLmNv
+bS9vcGVuYm1jL2xpbnV4IGFzIGRldi0NCj4gNC43LiBJIGludGVuZCB0aGlzIHRvIGJlY29tZSB0
+aGUgbmV3IHRyZWUgdXNlZCBmb3Igb3BlbmJtYydzIG1hc3RlciBicmFuY2guDQoNCk5pY2UhDQpQ
+bGVhc2UgaWdub3JlIG15IG90aGVyIGVtYWlsIGp1c3QgYXNraW5nIGFib3V0IGl0Lg0KDQo+IA0K
+PiBMaW51eCA0LjcgY29udGFpbmVkIGJhc2ljIEFzcGVlZCBTb0Mgc3VwcG9ydC4gVGhpcyB0cmVl
+IGNvbnRhaW5zIDUwIHBhdGNoZXMNCj4gYXRvcCB2NC43IHRoYXQgZmFsbCBpbiB0byBmb3VyIGNh
+dGVnb3JpZXM6DQo+IA0KPiAgKiBiYWNrcG9ydHMgb2YgY29kZSB0aGF0IGhhcyBnb25lIGludG8g
+NC44LXJjMQ0KPiAgICAqIG5zY2kNCj4gICAgKiBmdGdtYWMxMDAgY2hhbmdlcyBmb3IgbmNzaQ0K
+PiAgICAqIHdhdGNoZG9nDQo+ICAgICogaXJxY2hpcA0KPiANCj4gICogZHJpdmVycyB0aGF0IGFy
+ZSBvdXQgZm9yIHJldmlldw0KPiAgICAqIHBpbm11eA0KPiAgICAqIGdwaW8NCj4gICAgKiBjbGsN
+Cj4gICAgKiBjbG9ja3NvdXJjZQ0KPiANCj4gICogYmFja3BvcnRzIG9mIGRlcGVuZGVuY2llcyBm
+b3IgdGhlIGFib3ZlDQo+IA0KPiAgKiBkcml2ZXJzIHRoYXQgcmVxdWlyZSBmdXJ0aGVyIGNsZWFu
+dXAgYW5kIHN1Ym1pc3Npb24gdXBzdHJlYW0NCj4gICAgKiBpMmMNCj4gICAgKiB2dWFydA0KPiAg
+ICAqIGZ0Z21hYzEwMCBmaXhlcyBmb3IgYXN0MjUwMA0KPiAgICAqIGJ0DQo+ICAgICogc3BpLW5v
+cg0KPiAgICAqIHA4IG9jYyBod21vbg0KPiANCj4gVGhpcyByZXByZXNlbnRzIGEgbG90IG9mIHdv
+cmsgZG9uZSBieSBBbmRyZXcsIEdhdmluLCBNaWx0b24gYW5kIG15c2VsZiwNCj4gd2l0aCBoZWxw
+IGZyb20gWWksIEplcmVteSwgQ2VkcmljLCBBbGlzdGFpciBhbmQgQmVuLiBSZWNlbnRseSB3ZSd2
+ZSBoYWQNCj4gY29udHJpYnV0aW9ucyBmcm9tIFhvIGFuZCBCcmVuZGFuIHRvbyB3aGljaCBoYXMg
+YmVlbiBncmVhdCB0byBzZWUuDQo+IA0KPiBJIHdpbGwgbm90IGJlIHJlYmFzaW5nIHRoaXMgYnJh
+bmNoLiBXZSB3aWxsIHVzZSBpdCBmb3IgZGV2ZWxvcG1lbnQgdW50aWwgNC44IGlzDQo+IHJlbGVh
+c2VkLCBhdCB3aGljaCB0aW1lIHdlIHdpbGwgbW92ZSB0byB0aGF0IGFzIGEgYmFzZS4NCj4gQXMg
+d2UgbW92ZSBvdXIgZHJpdmVycyB1cHN0cmVhbSwgZWFjaCBzdWJzZXF1ZW50IGRldi0gYnJhbmNo
+IHdpbGwgY29udGFpbg0KPiBmZXdlciBwYXRjaGVzLCB3aXRoIHRoZSBnb2FsIGJlaW5nIHRvIHVz
+ZSB1cHN0cmVhbSBhcy1pcy4NCj4gDQo+IEJlZm9yZSBzd2l0Y2hpbmcgdGhlIGJ1aWxkcyBvdmVy
+IHRvIHRoaXMgdHJlZSBJIHdvdWxkIGxpa2UgdG8gaGF2ZSBzb21lIHRlc3RpbmcNCj4gZG9uZS4g
+UGxlYXNlIGdpdmUgdGhlIGtlcm5lbCBhIHNwaW4gb24geW91ciBkZXZlbG9wbWVudA0KPiBzeXN0
+ZW0ocykgYW5kIHJlcG9ydCBiYWNrIHRvIHRoZSBsaXN0IG9uIGhvdyBpdCBnb2VzLg0KDQpXZSB3
+aWxsIHRlc3QgYXMgc29vbiBhcyB3ZSBmZXRjaCBhbGwgYW5kIGJ1aWxkLg0KDQo+IA0KPiBJIHJl
+Y29tbWVuZCB0ZXN0aW5nIHdpdGggdGhlIDIwMTYuMDctYXNwZWVkLW9wZW5ibWMgdS1ib290IHRy
+ZWUuDQo+IFRlc3Rpbmcgb24gb3RoZXIgdS1ib290IHZlcnNpb25zIGlzIHdlbGNvbWUsIGFzIHRo
+ZSBrZXJuZWwgc2hvdWxkIG5vdCBiZQ0KPiBtYWtpbmcgYXNzdW1wdGlvbnMgYWJvdXQgdGhlIHN5
+c3RlbSBzdGF0ZSAob3V0c2lkZSBvZiB0aG9zZSB0aGF0IGFyZQ0KPiByZXF1aXJlZCwgc3VjaCBh
+cyBzeXN0ZW0gVUFSVCBiZWluZyBhdmFpbGFibGUpLg0KPiANCj4gUGxlYXNlIGp1bXAgb24gI29w
+ZW5ibWMgYXQgaXJjLmZyZWVub2RlLm5ldCBhbmQgcGluZyBtZSAoJ3NoZW5raScpIGlmIHlvdQ0K
+PiBoYXZlIGFueSBxdWVzdGlvbnMuDQo+IA0KPiBDaGVlcnMsDQo+IA0KPiBKb2VsDQo+IA0KPiAt
+LQ0KPiBBbGlzdGFpciBQb3BwbGUgKDEpOg0KPiAgIG1pc2M6IEFkZCBBc3BlZWQgQlQgSVBNSSBo
+b3N0IGRyaXZlcg0KPiANCj4gQW5kcmV3IEplZmZlcnkgKDEzKToNCj4gICBwaW5jdHJsOiBkdC1i
+aW5kaW5nczogQWRkIGRvY3VtZW50YXRpb24gZm9yIEFzcGVlZCBwaW4gY29udHJvbGxlcnMNCj4g
+ICBwaW5jdHJsOiBBZGQgY29yZSBwaW5jdHJsIHN1cHBvcnQgZm9yIEFzcGVlZCBTb0NzDQo+ICAg
+cGluY3RybDogQWRkIHBpbmN0cmwtYXNwZWVkLWc0IGRyaXZlcg0KPiAgIHBpbmN0cmw6IEFkZCBw
+aW5jdHJsLWFzcGVlZC1nNSBkcml2ZXINCj4gICBncGlvOiBkdC1iaW5kaW5nczogQWRkIGRvY3Vt
+ZW50YXRpb24gZm9yIEFzcGVlZCBHUElPIGNvbnRyb2xsZXJzDQo+ICAgc3lzY29uOiBkdC1iaW5k
+aW5nczogQWRkIGRvY3VtZW50YXRpb24gZm9yIEFzcGVlZCBzeXN0ZW0gY29udHJvbCB1bml0cw0K
+PiAgIGFzcGVlZC1nNDogQWRkIHN5c2NvbiBhbmQgcGluIGNvbnRyb2xsZXIgbm9kZXMNCj4gICBw
+YWxtZXR0bzogUmVxdWVzdCByZWxldmFudCBtdXggZnVuY3Rpb25zIGluIGRldmljZXRyZWUNCj4g
+ICBhc3BlZWQtZzQ6IEFkZCBncGlvIGNvbnRyb2xsZXIgdG8gZGV2aWNldHJlZQ0KPiAgIGFzcGVl
+ZC1nNTogQWRkIHN5c2NvbiBhbmQgcGluIGNvbnRyb2xsZXIgbm9kZXMNCj4gICBhc3BlZWQtZzU6
+IEFkZCBncGlvIGNvbnRyb2xsZXIgdG8gZGV2aWNldHJlZQ0KPiAgIG5ldC9mdGdtYWMxMDA6IFNl
+cGFyYXRlIHJ4IHBhZ2Ugc3RvcmFnZSBmcm9tIHJ4ZGVzYw0KPiAgIG5ldC9mdGdtYWMxMDA6IE1h
+a2UgRURPe1IsVH1SIGJpdHMgY29uZmlndXJhYmxlDQo+IA0KPiBBcm5kIEJlcmdtYW5uICgxKToN
+Cj4gICBuZXQvbmNzaTogYXZvaWQgbWF5YmUtdW5pbml0aWFsaXplZCB3YXJuaW5nDQo+IA0KPiBC
+ZW5qYW1pbiBIZXJyZW5zY2htaWR0ICgxKToNCj4gICBpcnFjaGlwL2FzcGVlZC12aWM6IEFkZCBp
+cnEgY29udHJvbGxlciBmb3IgQXNwZWVkDQo+IA0KPiBCcmVuZGFuIEhpZ2dpbnMgKDEpOg0KPiAg
+IGkyYzogYXNwZWVkOiBhZGRlZCBzdXBwb3J0IGZvciBzbGF2ZSBtb2RlDQo+IA0KPiBEYW5pZWwg
+TGV6Y2FubyAoNCk6DQo+ICAgb2Y6IEFkZCBhIG5ldyBtYWNybyB0byBkZWNsYXJlX29mIGZvciBv
+bmUgcGFyYW1ldGVyIGZ1bmN0aW9uIHJldHVybmluZw0KPiAgICAgYSB2YWx1ZQ0KPiAgIGNsb2Nr
+c291cmNlL2RyaXZlcnMvY2xrc3JjLXByb2JlOiBJbnRyb2R1Y2UgaW5pdCBmdW5jdGlvbnMgd2l0
+aCByZXR1cm4NCj4gICAgIGNvZGUNCj4gICBjbG9ja3NvdXJjZS9kcml2ZXJzL21veGFydDogQWRk
+IHRoZSBDT01QSUxFX1RFU1Qgb3B0aW9uDQo+ICAgY2xvY2tzb3VyY2UvZHJpdmVycy9tb3hhcnQ6
+IENvbnZlcnQgaW5pdCBmdW5jdGlvbiB0byByZXR1cm4gZXJyb3INCj4gDQo+IEdhdmluIFNoYW4g
+KDEzKToNCj4gICBuZXQvbmNzaTogUmVzb3VyY2UgbWFuYWdlbWVudA0KPiAgIG5ldC9uY3NpOiBO
+Q1NJIGNvbW1hbmQgcGFja2V0IGhhbmRsZXINCj4gICBuZXQvbmNzaTogTkNTSSByZXNwb25zZSBw
+YWNrZXQgaGFuZGxlcg0KPiAgIG5ldC9uY3NpOiBQYWNrYWdlIGFuZCBjaGFubmVsIG1hbmFnZW1l
+bnQNCj4gICBuZXQvbmNzaTogTkNTSSBBRU4gcGFja2V0IGhhbmRsZXINCj4gICBuZXQvZmFyYWRh
+eTogSGVscGVyIGZ1bmN0aW9ucyB0byBjcmVhdGUgb3IgZGVzdHJveSBNRElPIGludGVyZmFjZQ0K
+PiAgIG5ldC9mYXJhZGF5OiBSZWFkIE1BQyBhZGRyZXNzIGZyb20gY2hpcA0KPiAgIG5ldC9mYXJh
+ZGF5OiBTdXBwb3J0IE5DU0kgbW9kZQ0KPiAgIG5ldC9mYXJhZGF5OiBNYXRjaCBkcml2ZXIgYWNj
+b3JkaW5nIHRvIGNvbXBhdGlibGUgcHJvcGVydHkNCj4gICBuZXQvZmFyYWRheTogTWFzayBQSFkg
+aW50ZXJydXB0IHdpdGggTkNTSSBtb2RlDQo+ICAgbmV0L2ZhcmFkYXk6IERpc2FsbG93IHVzaW5n
+IHJldmVyc2VkIE1BQyBhZGRyZXNzIGZyb20gaGFyZHdhcmUNCj4gICBuZXQvZmFyYWRheTogQXZv
+aWQgUEhZU1RTX0NIRyBpbnRlcnJ1cHQNCj4gICBuZXQvZmFyYWRheTogQ2xlYXIgc3RhbGUgaW50
+ZXJydXB0cw0KPiANCj4gSmVyZW15IEtlcnIgKDIpOg0KPiAgIGRyaXZlcnMvc2VyaWFsOiBBZGQg
+ZHJpdmVyIGZvciBBc3BlZWQgdmlydHVhbCBVQVJUDQo+ICAgYXJtL2FzcGVlZDogRW5hYmxlIFZV
+QVJUIGRyaXZlcg0KPiANCj4gSm9lbCBTdGFubGV5ICgxMik6DQo+ICAgZ3BpbzogQWRkIEFzcGVl
+ZCBkcml2ZXINCj4gICBuZXQvZnRnbWFjMTAwOiBBZGFwdCBmb3IgQXNwZWVkIFNvQ3MNCj4gICB3
+YXRjaGRvZzogQWRkIEFzcGVlZCB3YXRjaGRvZyBkcml2ZXINCj4gICBkcml2ZXJzL2Nsb2Nrc291
+cmNlL21veGFydDogUmVmYWN0b3IgZW5hYmxlL2Rpc2FibGUNCj4gICBkcml2ZXJzL2Nsb2Nrc291
+cmNlL21veGFydDogVXNlIHN0cnVjdCB0byBob2xkIHN0YXRlDQo+ICAgZHJpdmVycy9jbG9ja3Nv
+dXJjZS9tb3hhcnQ6IEFkZCBBc3BlZWQgc3VwcG9ydA0KPiAgIGNsazogQWRkIGRyaXZlciBmb3Ig
+QXNwZWVkIFNvQ3MNCj4gICBpMmM6IEFkZCBkcml2ZXIgZm9yIEFzcGVlZCBpMmMgbWFzdGVyDQo+
+ICAgcnRjOiBBZGQgQXNwZWVkIEFTVDI0MDAgcnRjIGRyaXZlcg0KPiAgIGFybS9hc3BlZWQ6IEFk
+ZCBib2FyZCBmaWxlDQo+ICAgYXJtL2R0cy9hc3BlZWQ6IEFkZCBkdHMgZm9yIGFsbCBPcGVuQk1D
+IHBsYXRmb3Jtcw0KPiAgIGFybS9jb25maWdzL2FzcGVlZDogVXBkYXRlIGRlZmNvbmZpZ3MNCj4g
+DQo+IE1pbHRvbiBELiBNaWxsZXIgSUkgKDEpOg0KPiAgIG10ZC9zcGktbm9yOiBBZGQgU1BJIG1l
+bW9yeSBjb250cm9sbGVycyBmb3IgQXNwZWVkIFNvQ3MNCj4gDQo+IFlpIExpICgxKToNCj4gICBo
+d21vbjogQWRkIFBvd2VyOCBPQ0MgaHdtb24gZHJpdmVyDQo+IA0KPiAgLi4uL2RldmljZXRyZWUv
+YmluZGluZ3MvZ3Bpby9ncGlvLWFzcGVlZC50eHQgICAgICAgfCAgIDQyICsNCj4gIC4uLi9kZXZp
+Y2V0cmVlL2JpbmRpbmdzL2kyYy9pMmMtaWJtLW9jYy50eHQgICAgICAgIHwgICAxMyArDQo+ICAu
+Li4vZGV2aWNldHJlZS9iaW5kaW5ncy9tZmQvYXNwZWVkLXNjdS50eHQgICAgICAgICB8ICAgMTgg
+Kw0KPiAgLi4uL2RldmljZXRyZWUvYmluZGluZ3MvbXRkL2FzcGVlZC1zbWMudHh0ICAgICAgICAg
+fCAgIDc1ICsrDQo+ICAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy9waW5jdHJsL3BpbmN0cmwtYXNw
+ZWVkLnR4dCB8ICAgNjMgKw0KPiAgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3Nl
+cmlhbC84MjUwLnR4dCAgfCAgICAxICsNCj4gIC4uLi9iaW5kaW5ncy90aW1lci9tb3hhLG1veGFy
+dC10aW1lci50eHQgICAgICAgICAgIHwgICAgNCArLQ0KPiAgTUFJTlRBSU5FUlMgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgICAyICsNCj4gIGFyY2gvYXJtL01ha2Vm
+aWxlICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAgMSArDQo+ICBhcmNoL2Fy
+bS9ib290L2R0cy9NYWtlZmlsZSAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgIDQgKw0KPiAg
+YXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWFzdDI1MDAtZXZiLmR0cyAgICAgICAgICAgfCAgIDUw
+ICstDQo+ICBhcmNoL2FybS9ib290L2R0cy9hc3BlZWQtYm1jLW9wcC1iYXJyZWxleWUuZHRzICAg
+ICB8ICAxNzkgKysrDQo+ICBhcmNoL2FybS9ib290L2R0cy9hc3BlZWQtYm1jLW9wcC1maXJlc3Rv
+bmUuZHRzICAgICB8ICAxNDcgKysrDQo+ICBhcmNoL2FybS9ib290L2R0cy9hc3BlZWQtYm1jLW9w
+cC1mbGFzaC1sYXlvdXQuZHRzaSB8ICAgMjggKw0KPiAgYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVk
+LWJtYy1vcHAtZ2Fycmlzb24uZHRzICAgICAgfCAgIDk5ICsrDQo+ICBhcmNoL2FybS9ib290L2R0
+cy9hc3BlZWQtYm1jLW9wcC1wYWxtZXR0by5kdHMgICAgICB8ICAxNTEgKystDQo+ICBhcmNoL2Fy
+bS9ib290L2R0cy9hc3BlZWQtYm1jLW9wcC13aXRoZXJzcG9vbi5kdHMgICB8ICAxNjggKysrDQo+
+ICBhcmNoL2FybS9ib290L2R0cy9hc3BlZWQtZzQuZHRzaSAgICAgICAgICAgICAgICAgICB8ICA1
+MjQgKysrKysrKy0NCj4gIGFyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1nNS5kdHNpICAgICAgICAg
+ICAgICAgICAgIHwgIDM1OCArKysrKy0NCj4gIGFyY2gvYXJtL2NvbmZpZ3MvYXNwZWVkX2c0X2Rl
+ZmNvbmZpZyAgICAgICAgICAgICAgIHwgICA3OCArLQ0KPiAgYXJjaC9hcm0vY29uZmlncy9hc3Bl
+ZWRfZzVfZGVmY29uZmlnICAgICAgICAgICAgICAgfCAgIDc1ICstDQo+ICBhcmNoL2FybS9tYWNo
+LWFzcGVlZC9LY29uZmlnICAgICAgICAgICAgICAgICAgICAgICB8ICAgIDcgKw0KPiAgYXJjaC9h
+cm0vbWFjaC1hc3BlZWQvTWFrZWZpbGUgICAgICAgICAgICAgICAgICAgICAgfCAgICAzICsNCj4g
+IGFyY2gvYXJtL21hY2gtYXNwZWVkL2FzcGVlZC5jICAgICAgICAgICAgICAgICAgICAgIHwgIDIy
+NSArKysrDQo+ICBhcmNoL2FybS9tYWNoLW1veGFydC9LY29uZmlnICAgICAgICAgICAgICAgICAg
+ICAgICB8ICAgIDIgKy0NCj4gIGRyaXZlcnMvY2xrL01ha2VmaWxlICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHwgICAgMSArDQo+ICBkcml2ZXJzL2Nsay9hc3BlZWQvTWFrZWZpbGUgICAg
+ICAgICAgICAgICAgICAgICAgICB8ICAgIDMgKw0KPiAgZHJpdmVycy9jbGsvYXNwZWVkL2Nsay1n
+NC5jICAgICAgICAgICAgICAgICAgICAgICAgfCAgMTA5ICsrDQo+ICBkcml2ZXJzL2Nsay9hc3Bl
+ZWQvY2xrLWc1LmMgICAgICAgICAgICAgICAgICAgICAgICB8ICAxODkgKysrDQo+ICBkcml2ZXJz
+L2Nsay9hc3BlZWQvY2xrLXVhcnQuYyAgICAgICAgICAgICAgICAgICAgICB8ICAgNTIgKw0KPiAg
+ZHJpdmVycy9jbG9ja3NvdXJjZS9LY29uZmlnICAgICAgICAgICAgICAgICAgICAgICAgfCAgICA3
+ICsNCj4gIGRyaXZlcnMvY2xvY2tzb3VyY2UvTWFrZWZpbGUgICAgICAgICAgICAgICAgICAgICAg
+IHwgICAgNSArLQ0KPiAgZHJpdmVycy9jbG9ja3NvdXJjZS9jbGtzcmMtcHJvYmUuYyAgICAgICAg
+ICAgICAgICAgfCAgIDIyICsNCj4gIGRyaXZlcnMvY2xvY2tzb3VyY2UvbW94YXJ0X3RpbWVyLmMg
+ICAgICAgICAgICAgICAgIHwgIDIyOCArKy0tDQo+ICBkcml2ZXJzL2dwaW8vS2NvbmZpZyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgIDggKy0NCj4gIGRyaXZlcnMvZ3Bpby9NYWtl
+ZmlsZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAgMSArDQo+ICBkcml2ZXJzL2dw
+aW8vZ3Bpby1hc3BlZWQuYyAgICAgICAgICAgICAgICAgICAgICAgICB8ICA0NjggKysrKysrKysN
+Cj4gIGRyaXZlcnMvaHdtb24vS2NvbmZpZyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwg
+ICAxMyArDQo+ICBkcml2ZXJzL2h3bW9uL01ha2VmaWxlICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICB8ICAgIDEgKw0KPiAgZHJpdmVycy9od21vbi9wb3dlcjhfb2NjX2kyYy5jICAgICAgICAg
+ICAgICAgICAgICAgfCAxMjU0DQo+ICsrKysrKysrKysrKysrKysrKysrDQo+ICBkcml2ZXJzL2ky
+Yy9idXNzZXMvS2NvbmZpZyAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgMTAgKw0KPiAgZHJp
+dmVycy9pMmMvYnVzc2VzL01ha2VmaWxlICAgICAgICAgICAgICAgICAgICAgICAgfCAgICAxICsN
+Cj4gIGRyaXZlcnMvaTJjL2J1c3Nlcy9pMmMtYXNwZWVkLmMgICAgICAgICAgICAgICAgICAgIHwg
+MTEwNCArKysrKysrKysrKysrKysrKw0KPiAgZHJpdmVycy9pcnFjaGlwL01ha2VmaWxlICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgfCAgICAxICsNCj4gIGRyaXZlcnMvaXJxY2hpcC9pcnEtYXNw
+ZWVkLXZpYy5jICAgICAgICAgICAgICAgICAgIHwgIDIzMCArKysrDQo+ICBkcml2ZXJzL21pc2Mv
+S2NvbmZpZyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgIDUgKw0KPiAgZHJpdmVy
+cy9taXNjL01ha2VmaWxlICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgICAxICsNCj4g
+IGRyaXZlcnMvbWlzYy9idC1ob3N0LmMgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgIDQy
+NyArKysrKysrDQo+ICBkcml2ZXJzL210ZC9zcGktbm9yL0tjb25maWcgICAgICAgICAgICAgICAg
+ICAgICAgICB8ICAgMTEgKw0KPiAgZHJpdmVycy9tdGQvc3BpLW5vci9NYWtlZmlsZSAgICAgICAg
+ICAgICAgICAgICAgICAgfCAgICAxICsNCj4gIGRyaXZlcnMvbXRkL3NwaS1ub3IvYXNwZWVkLXNt
+Yy5jICAgICAgICAgICAgICAgICAgIHwgIDU2NyArKysrKysrKysNCj4gIGRyaXZlcnMvbmV0L2V0
+aGVybmV0L2ZhcmFkYXkvZnRnbWFjMTAwLmMgICAgICAgICAgIHwgIDM0NSArKysrLS0NCj4gIGRy
+aXZlcnMvbmV0L2V0aGVybmV0L2ZhcmFkYXkvZnRnbWFjMTAwLmggICAgICAgICAgIHwgICAgMyAr
+LQ0KPiAgZHJpdmVycy9waW5jdHJsL0tjb25maWcgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+fCAgICAxICsNCj4gIGRyaXZlcnMvcGluY3RybC9NYWtlZmlsZSAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHwgICAgMSArDQo+ICBkcml2ZXJzL3BpbmN0cmwvYXNwZWVkL0tjb25maWcgICAgICAg
+ICAgICAgICAgICAgICB8ICAgMjQgKw0KPiAgZHJpdmVycy9waW5jdHJsL2FzcGVlZC9NYWtlZmls
+ZSAgICAgICAgICAgICAgICAgICAgfCAgICA1ICsNCj4gIGRyaXZlcnMvcGluY3RybC9hc3BlZWQv
+cGluY3RybC1hc3BlZWQtZzQuYyAgICAgICAgIHwgMTA5MiArKysrKysrKysrKysrKysrKw0KPiAg
+ZHJpdmVycy9waW5jdHJsL2FzcGVlZC9waW5jdHJsLWFzcGVlZC1nNS5jICAgICAgICAgfCAgNjgy
+ICsrKysrKysrKysrDQo+ICBkcml2ZXJzL3BpbmN0cmwvYXNwZWVkL3BpbmN0cmwtYXNwZWVkLmMg
+ICAgICAgICAgICB8ICAzNzMgKysrKysrDQo+ICBkcml2ZXJzL3BpbmN0cmwvYXNwZWVkL3BpbmN0
+cmwtYXNwZWVkLmggICAgICAgICAgICB8ICA1NjIgKysrKysrKysrDQo+ICBkcml2ZXJzL3J0Yy9L
+Y29uZmlnICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgMTEgKw0KPiAgZHJpdmVy
+cy9ydGMvTWFrZWZpbGUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgICAxICsNCj4g
+IGRyaXZlcnMvcnRjL3J0Yy1hc3BlZWQuYyAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgIDE1
+MCArKysNCj4gIGRyaXZlcnMvdHR5L3NlcmlhbC9LY29uZmlnICAgICAgICAgICAgICAgICAgICAg
+ICAgIHwgICAxMCArDQo+ICBkcml2ZXJzL3R0eS9zZXJpYWwvTWFrZWZpbGUgICAgICAgICAgICAg
+ICAgICAgICAgICB8ICAgIDEgKw0KPiAgZHJpdmVycy90dHkvc2VyaWFsL2FzcGVlZC12dWFydC5j
+ICAgICAgICAgICAgICAgICAgfCAgMzMzICsrKysrKw0KPiAgZHJpdmVycy93YXRjaGRvZy9LY29u
+ZmlnICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgIDEzICsNCj4gIGRyaXZlcnMvd2F0Y2hk
+b2cvTWFrZWZpbGUgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAgMSArDQo+ICBkcml2ZXJz
+L3dhdGNoZG9nL2FzcGVlZF93ZHQuYyAgICAgICAgICAgICAgICAgICAgICB8ICAyMTIgKysrKw0K
+PiAgaW5jbHVkZS9hc20tZ2VuZXJpYy92bWxpbnV4Lmxkcy5oICAgICAgICAgICAgICAgICAgfCAg
+ICAyICsNCj4gIGluY2x1ZGUvZHQtYmluZGluZ3MvZ3Bpby9hc3BlZWQtZ3Bpby5oICAgICAgICAg
+ICAgIHwgICA0NyArDQo+ICBpbmNsdWRlL2xpbnV4L2Nsb2Nrc291cmNlLmggICAgICAgICAgICAg
+ICAgICAgICAgICB8ICAgIDMgKw0KPiAgaW5jbHVkZS9saW51eC9vZi5oICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgfCAgICAzICsNCj4gIGluY2x1ZGUvbmV0L25jc2kuaCAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHwgICA1MiArDQo+ICBpbmNsdWRlL3VhcGkvbGludXgv
+S2J1aWxkICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgIDEgKw0KPiAgaW5jbHVkZS91YXBp
+L2xpbnV4L2J0LWhvc3QuaCAgICAgICAgICAgICAgICAgICAgICAgfCAgIDE4ICsNCj4gIGluY2x1
+ZGUvdWFwaS9saW51eC9pZl9ldGhlci5oICAgICAgICAgICAgICAgICAgICAgIHwgICAgMSArDQo+
+ICBuZXQvS2NvbmZpZyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAg
+IDEgKw0KPiAgbmV0L01ha2VmaWxlICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgfCAgICAxICsNCj4gIG5ldC9uY3NpL0tjb25maWcgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHwgICAxMiArDQo+ICBuZXQvbmNzaS9NYWtlZmlsZSAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICB8ICAgIDQgKw0KPiAgbmV0L25jc2kvaW50ZXJuYWwuaCAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgfCAgMzI4ICsrKysrDQo+ICBuZXQvbmNzaS9uY3NpLWFl
+bi5jICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAxOTMgKysrDQo+ICBuZXQvbmNz
+aS9uY3NpLWNtZC5jICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAzNjcgKysrKysr
+DQo+ICBuZXQvbmNzaS9uY3NpLW1hbmFnZS5jICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8
+IDEyMDUgKysrKysrKysrKysrKysrKysrKw0KPiAgbmV0L25jc2kvbmNzaS1wa3QuaCAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgfCAgNDE1ICsrKysrKysNCj4gIG5ldC9uY3NpL25jc2kt
+cnNwLmMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgMTAzNSArKysrKysrKysrKysr
+KysrDQo+ICA4OCBmaWxlcyBjaGFuZ2VkLCAxNDM1MyBpbnNlcnRpb25zKCspLCAxOTEgZGVsZXRp
+b25zKC0pDQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+DQo+IG9wZW5ibWMgbWFpbGluZyBsaXN0DQo+IG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZw0KPiBo
+dHRwczovL2xpc3RzLm96bGFicy5vcmcvbGlzdGluZm8vb3BlbmJtYw0K
