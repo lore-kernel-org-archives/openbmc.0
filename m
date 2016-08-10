@@ -1,53 +1,52 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x244.google.com (mail-ua0-x244.google.com
- [IPv6:2607:f8b0:400c:c08::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s8HTQ0VgDzDqhH
- for <openbmc@lists.ozlabs.org>; Wed, 10 Aug 2016 13:59:22 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=soWv9zWS; 
- dkim-atps=neutral
-Received: by mail-ua0-x244.google.com with SMTP id u13so2634065uau.0
- for <openbmc@lists.ozlabs.org>; Tue, 09 Aug 2016 20:59:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=R/nERKz6i/GEUh09343G01LZN3jtVBjx/g9LCJVSLSc=;
- b=soWv9zWSsyiE33AY9FdAznQ9QPHOgJ3wdQs+WBIIf8xTbyg7cxrblIzLNdLHLpVS0I
- DKGmS8zVB6xK/xa72R2IDQCJol2HXQHMdeO91zjzC62RsVxunqTFJ6h7ym254J/HUWr8
- gJ2E39U5TrasDTPqaeNIInAr6RRQyMMaI1WUJBkWuVLtj70gt1FkQ6ZjWYAu2/CqBkEP
- dDrSskQplFAqZM+H9HZtEirifWxYyAo0+/2Aa7bxQA2lUA8fLh86swxHlEKTqhetK5kv
- L8HRFK4ZbL+jMmYHWBDmQpQh0NbEreFJL+sRRMGpBPksnl5WiQupvp1Y1yG2CcgnNRnw
- JP3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=R/nERKz6i/GEUh09343G01LZN3jtVBjx/g9LCJVSLSc=;
- b=Aw5g/w+d707rnLB8fN7WCyG0KbSQIJ50VBbP3MW2l+RBD+8HGMKZ/DTWkaO22B4yge
- Kg+AnRSMNAVmzatqVAzv8ub4930vSfuJLPGtuh8TW/7gzWOKGYkbsPhAqu/NEvoHKwbM
- LjLMnmIm+fIbOitPc+OZDrMSv8CSp48df9rnQy0X2NvlMfkRdKme2GufY+p6o8G6zWI7
- YB0Mg7icJuZrWEJ8fepb6yci1vftRh59ts+ASxksisOOR2uIE1KRmmJhxONl0xTqR7lH
- oI23ojpX/4j9SVXtqJV+DO2ZJoJUzC4MT9rCRgP/JXfZ/BvSaXzuMNhhPtm1VxsPKUdH
- 6nHg==
-X-Gm-Message-State: AEkooutsATCsyKNK67SONfvNco4kdToVHA9MyGovyQgyqMdDfsK+HrA+LKGc8uHq6FXCp0pecN7hKibtbn7d5w==
-X-Received: by 10.31.78.6 with SMTP id c6mr861363vkb.41.1470801559569; Tue, 09
- Aug 2016 20:59:19 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.159.38.76 with HTTP; Tue, 9 Aug 2016 20:58:59 -0700 (PDT)
-In-Reply-To: <1470798121-725657-1-git-send-email-mattconolly@fb.com>
-References: <1470798121-725657-1-git-send-email-mattconolly@fb.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 10 Aug 2016 13:28:59 +0930
-X-Google-Sender-Auth: Qg_U0C6L55Pm4jLNN0tkxrGsLzU
-Message-ID: <CACPK8Xc_031yUC35Vzpf5-iVdyvEdGaS76j7GRCJrqm1Ybrb5A@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s8JL35mgBzDr0q
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Aug 2016 14:38:03 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=VkQXi3yN; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b=havHU4XR; dkim-atps=neutral
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id 8881A206B3;
+ Wed, 10 Aug 2016 00:37:59 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute7.internal (MEProxy); Wed, 10 Aug 2016 00:37:59 -0400
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=rhh+b
+ Q03evKU98qzW9RVyPT70og=; b=VkQXi3yNfTbVn13QsSDSyB1vKfknBi685K2ne
+ JPUYTMLk8yoggWcx/BeioJ7ip4AXG5Y2qQ0qZKjINIb4+HTUtxhW5BXByoLuMUwv
+ dkH2G5E4LehQF+ELJmYgrNm2dp8visNgSWVIgsZfGiIsBpg7+evZ+4XBaF5/M34M
+ 9jFPC0=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-sasl-enc
+ :x-sasl-enc; s=smtpout; bh=rhh+bQ03evKU98qzW9RVyPT70og=; b=havHU
+ 4XR/YyR4vNk5vilso2YFZQyiUbyUYnNfHOZRZwXfyE9NrnFqHK+3k0e/yRyTz9U0
+ zAagxxXVmNdYbuEylsPrlQMiCbbPMn5Q6ABJO9PgBDnmhZ8JHn3OP8fsXqhI/8b0
+ aTXfh0U9rd4vdc4nQ9dl/8JLj3MLHsEFSj+QIQ=
+X-Sasl-enc: I3zyggwF0lge1T/32OpsDx6mNbbBE6suuzh7LGja44Lm 1470803878
+Received: from keelia (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 9B210CCDB8;
+ Wed, 10 Aug 2016 00:37:57 -0400 (EDT)
+Message-ID: <1470803869.27272.32.camel@aj.id.au>
 Subject: Re: [PATCH v2] arm/dts/aspeed: Add minimal Facebook CMM BMC board
  based on AST2500
-To: Matthew Conolly <mattconolly@fb.com>, Andrew Jeffery <andrew@aj.id.au>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Joel Stanley <joel@jms.id.au>, Matthew Conolly <mattconolly@fb.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+Date: Wed, 10 Aug 2016 14:07:49 +0930
+In-Reply-To: <CACPK8Xc_031yUC35Vzpf5-iVdyvEdGaS76j7GRCJrqm1Ybrb5A@mail.gmail.com>
+References: <1470798121-725657-1-git-send-email-mattconolly@fb.com>
+ <CACPK8Xc_031yUC35Vzpf5-iVdyvEdGaS76j7GRCJrqm1Ybrb5A@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-z0JslJKr+R9aGqb4bB2j"
+X-Mailer: Evolution 3.18.5.2-0ubuntu3 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -59,196 +58,176 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Aug 2016 03:59:23 -0000
+X-List-Received-Date: Wed, 10 Aug 2016 04:38:04 -0000
 
-On Wed, Aug 10, 2016 at 12:32 PM, Matthew Conolly <mattconolly@fb.com> wrote:
-> Minimal device tree for CMM bmc board to boot into a console over UART with some drivers functional.
 
-Nice. There are a few updates you will need for 4.7.
+--=-z0JslJKr+R9aGqb4bB2j
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
->
-> Signed-off-by: Matthew Conolly <mattconolly@fb.com>
-> ---
->
-> Rebased patch on the openbmc github dev-4.7 branch
->
-> v2:
-> Removed commented out eeprom
-> Removed of_machine_is_compatible for LPC/UART config
-> checkpatch whitespace fixup
->
->  arch/arm/boot/dts/Makefile                         |   1 +
->  .../dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi  |  24 +++++
->  arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts      | 104 +++++++++++++++++++++
->  3 files changed, 129 insertions(+)
->  create mode 100644 arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi
->  create mode 100644 arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
->
-> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-> index 048fbb5..495ca3d 100644
-> --- a/arch/arm/boot/dts/Makefile
-> +++ b/arch/arm/boot/dts/Makefile
-> @@ -895,6 +895,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
->         aspeed-bmc-opp-firestone.dtb \
->         aspeed-bmc-opp-garrison.dtb \
->         aspeed-bmc-opp-witherspoon.dtb \
-> +       aspeed-bmc-facebook-cmm.dtb \
->         aspeed-ast2500-evb.dtb
->  endif
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi
-> new file mode 100644
-> index 0000000..1b3133f
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi
-> @@ -0,0 +1,24 @@
-> +/* This file is the label for the bmc primary flash and its partitions */
-> +                               label = "bmc";
-> +                               #address-cells = < 1 >;
-> +                               #size-cells = < 1 >;
-> +                               u-boot {
-> +                                       reg = < 0 0x80000 >;
-> +                                       label = "u-boot";
-> +                               };
-> +                               u-boot-env {
-> +                                       reg = < 0x60000 0x20000 >;
-> +                                       label = "u-boot-env";
-> +                               };
-> +                               kernel  {
-> +                                       reg = < 0x80000 0x280000 >;
-> +                                       label = "kernel";
-> +                               };
-> +                               initramfs {
-> +                                       reg = < 0x300000 0x300000 >;
-> +                                       label = "initramfs";
-> +                               };
-> +                               pd_rootfs  {
-> +                                       reg = < 0x4c0000 0x1740000 >;
-> +                                       label = "pd_rootfs";
-> +                               };
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
-> new file mode 100644
-> index 0000000..dcfa303
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
-> @@ -0,0 +1,104 @@
-> +/dts-v1/;
-> +
-> +#include "aspeed-g5.dtsi"
-> +
-> +/ {
-> +       model = "FACEBOOK CMM BMC";
-> +       compatible = "facebook,cmm-bmc", "aspeed,ast2500";
-> +
-> +       aliases {
-> +               serial1 = &uart1;
-> +       };
-> +
-> +       chosen {
-> +               stdout-path = &uart1;
-> +               bootargs = "console=ttyS1,115200 earlyprintk";
-> +       };
-> +
-> +       memory {
-> +               reg = <0x80000000 0x3f000000>;
-> +       };
-> +
-> +       ahb {
-> +               bmc_pnor: fmc@1e620000 {
-> +                       reg = < 0x1e620000 0x94
-> +                               0x20000000 0x02000000 >;
-> +                       #address-cells = <1>;
-> +                       #size-cells = <0>;
-> +                       compatible = "aspeed,fmc";
+T24gV2VkLCAyMDE2LTA4LTEwIGF0IDEzOjI4ICswOTMwLCBKb2VsIFN0YW5sZXkgd3JvdGU6Cj4g
+T24gV2VkLCBBdWcgMTAsIDIwMTYgYXQgMTI6MzIgUE0sIE1hdHRoZXcgQ29ub2xseSA8bWF0dGNv
+bm9sbHlAZmIuY29tPiB3cm90ZToKPiA+IAo+ID4gTWluaW1hbCBkZXZpY2UgdHJlZSBmb3IgQ01N
+IGJtYyBib2FyZCB0byBib290IGludG8gYSBjb25zb2xlIG92ZXIgVUFSVCB3aXRoIHNvbWUgZHJp
+dmVycyBmdW5jdGlvbmFsLgo+IE5pY2UuIFRoZXJlIGFyZSBhIGZldyB1cGRhdGVzIHlvdSB3aWxs
+IG5lZWQgZm9yIDQuNy4KPiAKPiA+IAo+ID4gCj4gPiBTaWduZWQtb2ZmLWJ5OiBNYXR0aGV3IENv
+bm9sbHkgPG1hdHRjb25vbGx5QGZiLmNvbT4KPiA+IC0tLQo+ID4gCj4gPiBSZWJhc2VkIHBhdGNo
+IG9uIHRoZSBvcGVuYm1jIGdpdGh1YiBkZXYtNC43IGJyYW5jaAo+ID4gCj4gPiB2MjoKPiA+IFJl
+bW92ZWQgY29tbWVudGVkIG91dCBlZXByb20KPiA+IFJlbW92ZWQgb2ZfbWFjaGluZV9pc19jb21w
+YXRpYmxlIGZvciBMUEMvVUFSVCBjb25maWcKPiA+IGNoZWNrcGF0Y2ggd2hpdGVzcGFjZSBmaXh1
+cAo+ID4gCj4gPiDCoGFyY2gvYXJtL2Jvb3QvZHRzL01ha2VmaWxlwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqB8wqDCoMKgMSArCj4gPiDCoC4uLi9kdHMv
+YXNwZWVkLWJtYy1mYWNlYm9vay1jbW0tZmxhc2gtbGF5b3V0LmR0c2nCoMKgfMKgwqAyNCArKysr
+Kwo+ID4gwqBhcmNoL2FybS9ib290L2R0cy9hc3BlZWQtYm1jLWZhY2Vib29rLWNtbS5kdHPCoMKg
+wqDCoMKgwqB8IDEwNCArKysrKysrKysrKysrKysrKysrKysKPiA+IMKgMyBmaWxlcyBjaGFuZ2Vk
+LCAxMjkgaW5zZXJ0aW9ucygrKQo+ID4gwqBjcmVhdGUgbW9kZSAxMDA2NDQgYXJjaC9hcm0vYm9v
+dC9kdHMvYXNwZWVkLWJtYy1mYWNlYm9vay1jbW0tZmxhc2gtbGF5b3V0LmR0c2kKPiA+IMKgY3Jl
+YXRlIG1vZGUgMTAwNjQ0IGFyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1ibWMtZmFjZWJvb2stY21t
+LmR0cwo+ID4gCj4gPiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvTWFrZWZpbGUgYi9h
+cmNoL2FybS9ib290L2R0cy9NYWtlZmlsZQo+ID4gaW5kZXggMDQ4ZmJiNS4uNDk1Y2EzZCAxMDA2
+NDQKPiA+IC0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRzL01ha2VmaWxlCj4gPiArKysgYi9hcmNoL2Fy
+bS9ib290L2R0cy9NYWtlZmlsZQo+ID4gQEAgLTg5NSw2ICs4OTUsNyBAQCBkdGItJChDT05GSUdf
+QVJDSF9BU1BFRUQpICs9IGFzcGVlZC1ibWMtb3BwLXBhbG1ldHRvLmR0YiBcCj4gPiDCoMKgwqDC
+oMKgwqDCoMKgYXNwZWVkLWJtYy1vcHAtZmlyZXN0b25lLmR0YiBcCj4gPiDCoMKgwqDCoMKgwqDC
+oMKgYXNwZWVkLWJtYy1vcHAtZ2Fycmlzb24uZHRiIFwKPiA+IMKgwqDCoMKgwqDCoMKgwqBhc3Bl
+ZWQtYm1jLW9wcC13aXRoZXJzcG9vbi5kdGIgXAo+ID4gK8KgwqDCoMKgwqDCoMKgYXNwZWVkLWJt
+Yy1mYWNlYm9vay1jbW0uZHRiIFwKPiA+IMKgwqDCoMKgwqDCoMKgwqBhc3BlZWQtYXN0MjUwMC1l
+dmIuZHRiCj4gPiDCoGVuZGlmCj4gPiAKPiA+IGRpZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0
+cy9hc3BlZWQtYm1jLWZhY2Vib29rLWNtbS1mbGFzaC1sYXlvdXQuZHRzaSBiL2FyY2gvYXJtL2Jv
+b3QvZHRzL2FzcGVlZC1ibWMtZmFjZWJvb2stY21tLWZsYXNoLWxheW91dC5kdHNpCj4gPiBuZXcg
+ZmlsZSBtb2RlIDEwMDY0NAo+ID4gaW5kZXggMDAwMDAwMC4uMWIzMTMzZgo+ID4gLS0tIC9kZXYv
+bnVsbAo+ID4gKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1mYWNlYm9vay1jbW0t
+Zmxhc2gtbGF5b3V0LmR0c2kKPiA+IEBAIC0wLDAgKzEsMjQgQEAKPiA+ICsvKiBUaGlzIGZpbGUg
+aXMgdGhlIGxhYmVsIGZvciB0aGUgYm1jIHByaW1hcnkgZmxhc2ggYW5kIGl0cyBwYXJ0aXRpb25z
+ICovCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqBsYWJlbCA9ICJibWMiOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgI2FkZHJlc3MtY2VsbHMgPSA8
+IDEgPjsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCNzaXplLWNlbGxzID0gPCAxID47Cj4gPiArwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqB1LWJvb3Qgewo+
+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJlZyA9IDwgMCAweDgwMDAwID47Cj4gPiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgbGFiZWwgPSAidS1ib290IjsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoH07Cj4gPiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqB1
+LWJvb3QtZW52IHsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByZWcgPSA8IDB4NjAwMDAgMHgy
+MDAwMCA+Owo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGxhYmVsID0gInUtYm9vdC1lbnYiOwo+
+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgfTsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoGtlcm5lbMKgwqB7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgcmVnID0gPCAweDgwMDAwIDB4MjgwMDAwID47Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+bGFiZWwgPSAia2VybmVsIjsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoH07Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBpbml0cmFtZnMgewo+ID4g
+K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJlZyA9IDwgMHgzMDAwMDAgMHgzMDAwMDAgPjsKPiA+ICvC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqBsYWJlbCA9ICJpbml0cmFtZnMiOwo+ID4gK8KgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgfTsKPiA+
+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoHBkX3Jvb3Rmc8KgwqB7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgcmVnID0gPCAw
+eDRjMDAwMCAweDE3NDAwMDAgPjsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBsYWJlbCA9ICJw
+ZF9yb290ZnMiOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgfTsKPiA+IGRpZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0
+cy9hc3BlZWQtYm1jLWZhY2Vib29rLWNtbS5kdHMgYi9hcmNoL2FybS9ib290L2R0cy9hc3BlZWQt
+Ym1jLWZhY2Vib29rLWNtbS5kdHMKPiA+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4gPiBpbmRleCAw
+MDAwMDAwLi5kY2ZhMzAzCj4gPiAtLS0gL2Rldi9udWxsCj4gPiArKysgYi9hcmNoL2FybS9ib290
+L2R0cy9hc3BlZWQtYm1jLWZhY2Vib29rLWNtbS5kdHMKPiA+IEBAIC0wLDAgKzEsMTA0IEBACj4g
+PiArL2R0cy12MS87Cj4gPiArCj4gPiArI2luY2x1ZGUgImFzcGVlZC1nNS5kdHNpIgo+ID4gKwo+
+ID4gKy8gewo+ID4gK8KgwqDCoMKgwqDCoMKgbW9kZWwgPSAiRkFDRUJPT0sgQ01NIEJNQyI7Cj4g
+PiArwqDCoMKgwqDCoMKgwqBjb21wYXRpYmxlID0gImZhY2Vib29rLGNtbS1ibWMiLCAiYXNwZWVk
+LGFzdDI1MDAiOwo+ID4gKwo+ID4gK8KgwqDCoMKgwqDCoMKgYWxpYXNlcyB7Cj4gPiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgc2VyaWFsMSA9ICZ1YXJ0MTsKPiA+ICvCoMKgwqDCoMKg
+wqDCoH07Cj4gPiArCj4gPiArwqDCoMKgwqDCoMKgwqBjaG9zZW4gewo+ID4gK8KgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoHN0ZG91dC1wYXRoID0gJnVhcnQxOwo+ID4gK8KgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoGJvb3RhcmdzID0gImNvbnNvbGU9dHR5UzEsMTE1MjAwIGVhcmx5
+cHJpbnRrIjsKPiA+ICvCoMKgwqDCoMKgwqDCoH07Cj4gPiArCj4gPiArwqDCoMKgwqDCoMKgwqBt
+ZW1vcnkgewo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJlZyA9IDwweDgwMDAw
+MDAwIDB4M2YwMDAwMDA+Owo+ID4gK8KgwqDCoMKgwqDCoMKgfTsKPiA+ICsKPiA+ICvCoMKgwqDC
+oMKgwqDCoGFoYiB7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgYm1jX3Bub3I6
+IGZtY0AxZTYyMDAwMCB7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoHJlZyA9IDwgMHgxZTYyMDAwMCAweDk0Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAweDIwMDAwMDAwIDB4
+MDIwMDAwMDAgPjsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgI2FkZHJlc3MtY2VsbHMgPSA8MT47Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCNzaXplLWNlbGxzID0gPDA+Owo+ID4gK8KgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBjb21wYXRpYmxlID0gImFzcGVlZCxm
+bWMiOwo+IFRoZSBjb21wYXRpYmxlIHN0cmluZyBpcyBub3cgYXNwZWVkLGFzdDI0MDAtZm1jLgo+
+IAo+ID4gCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oGZsYXNoQDAgewo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgcmVnID0gPCAwID47Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBjb21wYXRpYmxlID0g
+ImplZGVjLHNwaS1ub3IiIDsKPiA+ICsjaW5jbHVkZSAiYXNwZWVkLWJtYy1mYWNlYm9vay1jbW0t
+Zmxhc2gtbGF5b3V0LmR0c2kiCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoH07Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgfTsKPiA+
+ICvCoMKgwqDCoMKgwqDCoH07Cj4gPiArfTsKPiA+ICsKPiA+ICsmdWFydDEgewo+ID4gK8KgwqDC
+oMKgwqDCoMKgc3RhdHVzID0gIm9rYXkiOwo+ID4gK307Cj4gV2UgbWlnaHQgbmVlZCBzb21lIGtp
+bmQgb2YgcGlubXV4IGNvbmZpZ3VyYXRpb24gZm9yIHVhcnQxLiBBbmRyZXc/CgpZZXMsIGxvb2tz
+IGxpa2Ugd2Ugd2lsbCBuZWVkIGEgcGF0Y2ggYWRkaW5nIHRoZSBwaW4vZ3JvdXAvZnVuY3Rpb24K
+ZGVmaW5pdGlvbnMgdG8gcGluY3RybC1hc3BlZWQtZzUuYyAoR1BJT0wgYmFuaywgZm9yIHJlZmVy
+ZW5jZSksIGFuZAp0aGVuIGFkZCB0aGUgZGV2aWNldHJlZSBkaXJlY3RpdmVzIGhlcmUgdG8gcmVx
+dWVzdCB0aGUgbXV4CmNvbmZpZ3VyYXRpb24uIFVBUlQxIGlzIG9uZSBvZiB0aGUgImZ1biIgY2Fz
+ZXMgd2hlcmUgZWFjaCBzaWduYWwgaXMKZW5hYmxlZCBieSBpdHMgb3duIHVuaXF1ZSBiaXQgcGF0
+dGVybi4gVGhpcyBjYXNlIGlzIGhhbmRsZWQgYnkgZGVmaW5pbmcKYSBncm91cCBhbmQgZnVuY3Rp
+b24gZm9yIGVhY2ggc2lnbmFsIGFuZCB0aGVuIHJlcXVlc3RpbmcgdGhlbQppbmRpdmlkdWFsbHkg
+YXMgcmVxdWlyZWQgaW4gdGhlIGRldmljZXRyZWUuCgpNYXR0aGV3OiBwaW5nIG1lIHZpYSBJUkMg
+KGFtYm9hciBpbiAjb3BlbmJtYykgb3IgZW1haWwgaWYgeW91IGhhdmUKcXVlc3Rpb25zIG9uIHRo
+ZSBwaW5jdHJsIGRyaXZlci4gVGhlIGltcGxlbWVudGF0aW9uIGlzLi4uIGEgbGl0dGxlCmhhaXJ5
+LCBidXQgSSBsaWtlIHRvIHRoaW5rIG1vc3Qgb2YgdGhlIGhhaXJpbmVzcyBpcyBkcml2ZW4gYnkg
+dGhlCmhhcmR3YXJlIGRlc2lnbi4KCkNoZWVycywKCkFuZHJldwoKPiAKPiA+IAo+ID4gKwo+ID4g
+KyZtYWMwIHsKPiA+ICvCoMKgwqDCoMKgwqDCoHN0YXR1cyA9ICJkaXNhYmxlZCI7Cj4gPiArfTsK
+PiBFdmVyeXRoaW5nIGRlZmF1bHRzIHRvIGRpc2FibGVkLCBzbyB5b3Ugc2hvdWxkIGJlIGFibGUg
+dG8gb21pdCB0aGlzLgo+IAo+ID4gCj4gPiArCj4gPiArJm1hYzEgewo+ID4gK8KgwqDCoMKgwqDC
+oMKgc3RhdHVzID0gIm9rYXkiOwo+ID4gK307Cj4gPiArCj4gPiArJmkyYzAgewo+ID4gK8KgwqDC
+oMKgwqDCoMKgc3RhdHVzID0gIm9rYXkiOwo+ID4gK307Cj4gPiArCj4gPiArJmkyYzEgewo+ID4g
+K8KgwqDCoMKgwqDCoMKgc3RhdHVzID0gIm9rYXkiOwo+ID4gK307Cj4gPiArCj4gPiArJmkyYzIg
+ewo+ID4gK8KgwqDCoMKgwqDCoMKgc3RhdHVzID0gIm9rYXkiOwo+ID4gK307Cj4gPiArCj4gPiAr
+JmkyYzMgewo+ID4gK8KgwqDCoMKgwqDCoMKgc3RhdHVzID0gIm9rYXkiOwo+ID4gK307Cj4gPiAr
+Cj4gPiArJmkyYzQgewo+ID4gK8KgwqDCoMKgwqDCoMKgc3RhdHVzID0gIm9rYXkiOwo+ID4gK307
+Cj4gPiArCj4gPiArJmkyYzUgewo+ID4gK8KgwqDCoMKgwqDCoMKgc3RhdHVzID0gIm9rYXkiOwo+
+ID4gK307Cj4gPiArCj4gPiArJmkyYzYgewo+ID4gK8KgwqDCoMKgwqDCoMKgc3RhdHVzID0gIm9r
+YXkiOwo+ID4gK307Cj4gPiArCj4gPiArJmkyYzcgewo+ID4gK8KgwqDCoMKgwqDCoMKgc3RhdHVz
+ID0gIm9rYXkiOwo+ID4gK307Cj4gPiArCj4gPiArJmkyYzggewo+ID4gK8KgwqDCoMKgwqDCoMKg
+c3RhdHVzID0gIm9rYXkiOwo+ID4gK307Cj4gPiArCj4gPiArJmkyYzkgewo+ID4gK8KgwqDCoMKg
+wqDCoMKgc3RhdHVzID0gIm9rYXkiOwo+ID4gK307Cj4gPiArCj4gPiArJmkyYzEwIHsKPiA+ICvC
+oMKgwqDCoMKgwqDCoHN0YXR1cyA9ICJva2F5IjsKPiA+ICt9Owo+ID4gKwo+ID4gKyZpMmMxMSB7
+Cj4gPiArwqDCoMKgwqDCoMKgwqBzdGF0dXMgPSAib2theSI7Cj4gPiArfTsKPiA+ICsKPiA+ICsm
+aTJjMTIgewo+ID4gK8KgwqDCoMKgwqDCoMKgc3RhdHVzID0gIm9rYXkiOwo+ID4gK307Cj4gPiAr
+Cj4gPiArJmkyYzEzIHsKPiA+ICvCoMKgwqDCoMKgwqDCoHN0YXR1cyA9ICJva2F5IjsKPiA+ICt9
+Owo+ID4gLS0KPiA+IDIuOC4wLnJjMgo+ID4gCj4gPiBfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwo+ID4gb3BlbmJtYyBtYWlsaW5nIGxpc3QKPiA+IG9wZW5i
+bWNAbGlzdHMub3psYWJzLm9yZwo+ID4gaHR0cHM6Ly9saXN0cy5vemxhYnMub3JnL2xpc3RpbmZv
+L29wZW5ibWM=
 
-The compatible string is now aspeed,ast2400-fmc.
 
-> +                       flash@0 {
-> +                               reg = < 0 >;
-> +                               compatible = "jedec,spi-nor" ;
-> +#include "aspeed-bmc-facebook-cmm-flash-layout.dtsi"
-> +                       };
-> +               };
-> +       };
-> +};
-> +
-> +&uart1 {
-> +       status = "okay";
-> +};
+--=-z0JslJKr+R9aGqb4bB2j
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-We might need some kind of pinmux configuration for uart1. Andrew?
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
 
-> +
-> +&mac0 {
-> +       status = "disabled";
-> +};
+iQIcBAABCgAGBQJXqq+dAAoJEJ0dnzgO5LT5tbQP/iF4NBxqTiSloEmL8efMqbLM
+xC38gURWhoiRM0HzHia6TO6YFGUf9PA+IM2wmAYquKNuPuiysYhovhDTqlSz2TNO
+w8DMLwgafqcEymFKnwYrWRjSSjX5nkcEdgkpXeh3xT/mzRAMNYMmegqBl2Y+f0iE
+KVWX6q7260Ra7W69TmgmvqXgdY3edPk0et5d6eUhsXb4f4M9eS2Xx07tlMwvliqJ
+T4ugdUKdyuKYXxvcnY0HhK1/naWe+i0OtmrOtmzioav/2hC7UZdEiiGE8iLYKyBe
+lL+4cp1uNocegZnIvtzJCiBGzrUnyF8E8LFOWirm8yAue7EJxyt9OsOp6nwuQ2p8
+bfu86tEWXI6QeEApNDVirGQ/iBsUD7Uw5Wcob9ddN8DdYl1CtZxh+nXNd046rk8U
+jNfTO5IurjPk/fqTTd6HujSy7s0CYWDt1iZFY6v6Gki33EA/oHP1GKdlkRhx8e1Z
+iufWM7eRvEIFIM9QuzgaZ0cLx3hpOqsxhwmT5ZJasDpjSJITaOrxAB57G6yNCnqC
+uXgShP8TV76BsyIO0m7feGGwii+7Rm81Tc7oMC1APfDEj8lhPOOfC4gpupcVr7tO
+tQojvoAA2SOM+inrwC4iOUqH7Rluv6PDSxMGbCMtHumOiIM3qDdYwV+Zw0MjWQx/
+61MjaJ9hqRIzE4TTIL02
+=L4Fp
+-----END PGP SIGNATURE-----
 
-Everything defaults to disabled, so you should be able to omit this.
-
-> +
-> +&mac1 {
-> +       status = "okay";
-> +};
-> +
-> +&i2c0 {
-> +       status = "okay";
-> +};
-> +
-> +&i2c1 {
-> +       status = "okay";
-> +};
-> +
-> +&i2c2 {
-> +       status = "okay";
-> +};
-> +
-> +&i2c3 {
-> +       status = "okay";
-> +};
-> +
-> +&i2c4 {
-> +       status = "okay";
-> +};
-> +
-> +&i2c5 {
-> +       status = "okay";
-> +};
-> +
-> +&i2c6 {
-> +       status = "okay";
-> +};
-> +
-> +&i2c7 {
-> +       status = "okay";
-> +};
-> +
-> +&i2c8 {
-> +       status = "okay";
-> +};
-> +
-> +&i2c9 {
-> +       status = "okay";
-> +};
-> +
-> +&i2c10 {
-> +       status = "okay";
-> +};
-> +
-> +&i2c11 {
-> +       status = "okay";
-> +};
-> +
-> +&i2c12 {
-> +       status = "okay";
-> +};
-> +
-> +&i2c13 {
-> +       status = "okay";
-> +};
-> --
-> 2.8.0.rc2
->
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+--=-z0JslJKr+R9aGqb4bB2j--
