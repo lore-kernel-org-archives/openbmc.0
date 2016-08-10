@@ -1,111 +1,28 @@
-Return-Path: <austenc@us.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s89Tz13wJzDqQp
- for <openbmc@lists.ozlabs.org>; Wed, 10 Aug 2016 09:29:26 +1000 (AEST)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
- u79NSM1m144735
- for <openbmc@lists.ozlabs.org>; Tue, 9 Aug 2016 19:29:24 -0400
-Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
- by mx0b-001b2d01.pphosted.com with ESMTP id 24qm9t9wkc-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 09 Aug 2016 19:29:23 -0400
-Received: from localhost
- by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
- Tue, 9 Aug 2016 17:29:23 -0600
-Received: from d03dlp01.boulder.ibm.com (9.17.202.177)
- by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 9 Aug 2016 17:29:22 -0600
-X-IBM-Helo: d03dlp01.boulder.ibm.com
-X-IBM-MailFrom: austenc@us.ibm.com
-Received: from b01cxnp22034.gho.pok.ibm.com (b01cxnp22034.gho.pok.ibm.com
- [9.57.198.24])
- by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id D5DC51FF002E
- for <openbmc@lists.ozlabs.org>; Tue,  9 Aug 2016 17:29:03 -0600 (MDT)
-Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
- [9.57.199.106])
- by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u79NTKki63832160
- for <openbmc@lists.ozlabs.org>; Tue, 9 Aug 2016 23:29:21 GMT
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 095B728041
- for <openbmc@lists.ozlabs.org>; Tue,  9 Aug 2016 19:29:21 -0400 (EDT)
-Received: from d50lp01.ny.us.ibm.com (unknown [146.89.104.207])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTPS id E831A2803D
- for <openbmc@lists.ozlabs.org>; Tue,  9 Aug 2016 19:29:20 -0400 (EDT)
-Received: from localhost
- by d50lp01.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
- Tue, 9 Aug 2016 19:29:20 -0400
-Received: from smtp.notes.na.collabserv.com (192.155.248.90)
- by d50lp01.ny.us.ibm.com (158.87.18.20) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES128-SHA bits=128/128)
- Tue, 9 Aug 2016 19:29:17 -0400
-X-IBM-Helo: smtp.notes.na.collabserv.com
-X-IBM-MailFrom: austenc@us.ibm.com
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <austenc@us.ibm.com>;
- Tue, 9 Aug 2016 23:29:15 -0000
-Received: from us1a3-smtp02.a3.dal06.isc4sb.com (10.106.154.159)
- by smtp.notes.na.collabserv.com (10.106.227.141) with
- smtp.notes.na.collabserv.com ESMTP; Tue, 9 Aug 2016 23:29:14 -0000
-X-IBM-Helo: us1a3-smtp02.a3.dal06.isc4sb.com
-X-IBM-MailFrom: austenc@us.ibm.com
-Received: from us1a3-mail75.a3.dal09.isc4sb.com ([10.142.3.82])
- by us1a3-smtp02.a3.dal06.isc4sb.com
- with ESMTP id 2016080923291366-1100564 ;
- Tue, 9 Aug 2016 23:29:13 +0000 
-In-Reply-To: 
-Subject: discovery of openbmc
-From: "Chris Austen" <austenc@us.ibm.com>
-To: openbmc@lists.ozlabs.org
-Date: Tue, 9 Aug 2016 23:29:14 +0000
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s8Csj4Jy8zDqQq
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Aug 2016 11:16:40 +1000 (AEST)
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mx.zohomail.com
+ with SMTPS id 1470791794559961.6179916788902;
+ Tue, 9 Aug 2016 18:16:34 -0700 (PDT)
+Date: Tue, 9 Aug 2016 20:16:32 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: Linux dev-4.7 tree: Request for testing
+Message-ID: <20160810011632.qtpu2b5hy5kfou5t@asimov>
+References: <CACPK8Xd1M2x5rrPUNwvhg4Yes85hPHxPbnysiC-jNii8W3KBHA@mail.gmail.com>
 MIME-Version: 1.0
-Sensitivity: 
-Importance: Normal
-X-Priority: 3 (Normal)
-References: 
-X-Mailer: IBM iNotes ($HaikuForm 825.3) | IBM Domino Build
- V851SAAS_07182016_FP3 July 18, 2016
-X-LLNOutbound: False
-X-Disclaimed: 13087
-X-TNEFEvaluated: 1
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-x-cbid: 16080923-0004-0000-0000-0000101A1329
-X-IBM-ISS-SpamDetectors: Score=0.415652; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.415652; ST=0; TS=0; UL=0; ISC=
-X-IBM-ISS-DetailInfo: BY=3.00005571; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000178; SDB=6.00742426; UDB=6.00349468; UTC=2016-08-09
- 23:29:15
-x-cbparentid: 16080923-9718-0000-0000-00000068566C
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00005571; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000178; SDB=6.00742426; UDB=6.00349468; IPR=6.00514983; 
- BA=6.00004652; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00012282; XFM=3.00000011;
- UTC=2016-08-09 23:29:23
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-Message-Id: <OFB7A77BFE.3A84627D-ON0025800A.0080354A-0025800A.00810503@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2016-08-09_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=21
- spamscore=21 suspectscore=13
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1604210000
- definitions=main-1608090245
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="alg5r3b5jt7spns4"
+Content-Disposition: inline
+In-Reply-To: <CACPK8Xd1M2x5rrPUNwvhg4Yes85hPHxPbnysiC-jNii8W3KBHA@mail.gmail.com>
+User-Agent: Mutt/1.6.2 (2016-06-11)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -117,14 +34,106 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 09 Aug 2016 23:29:27 -0000
-
- I should know the answer to this but is inarp the only way to programmatic=
-ally discover an ip is an OpenBMC system? =20
-
-Any desire for Avahi or something else? =20
+X-List-Received-Date: Wed, 10 Aug 2016 01:16:42 -0000
 
 
-Chris Austen
-POWER Systems Enablement Manager=20
-(512) 286-5184 (T/L: 363-5184)
+--alg5r3b5jt7spns4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Aug 10, 2016 at 12:43:14AM +0930, Joel Stanley wrote:
+> Hello OpenBMCers,
+>=20
+> I've pushed a new Linux tree to https://github.com/openbmc/linux as
+> dev-4.7. I intend this to become the new tree used for openbmc's
+> master branch.
+
+Joel,
+
+I tried to pull this into the greater OpenBMC build at:
+    https://gerrit.openbmc-project.xyz/#/c/159/
+
+Good news: it compiles fine and gets to userspace with network!  Bad
+news: lots of other things are broken.
+
+My first observations:
+
+* The host tty has changed from S5 to S4?
+    Aug 09 21:52:37 barreleye systemd[1]: Found device /dev/ttyS4.
+    Aug 09 21:52:41 barreleye obmc-console-server[588]: obmc-console-server:
+        Can't access attribute sirq on device ttyS5: Permission denied
+    Aug 09 21:52:41 barreleye obmc-console-server[588]: obmc-console-server:
+        Can't access attribute lpc_address on device ttyS5: Permission deni=
+ed
+    Aug 09 21:52:41 barreleye obmc-console-server[588]: obmc-console-server:
+        Can't read tty termios: Input/output error
+
+* There might be some 'startup_hacks' to remove in skeleton:
+    Aug 09 21:53:27 barreleye system_manager.py[606]:
+        /usr/sbin/startup_hacks.sh: line 7:
+        /sys/devices/platform/ahb/ahb:apb/1e787000.vuart/sirq: Permission d=
+enied
+    Aug 09 21:53:27 barreleye system_manager.py[606]:
+        /usr/sbin/startup_hacks.sh: line 8:
+        /sys/devices/platform/ahb/ahb:apb/1e787000.vuart/lpc_address: Permi=
+ssion
+        denied
+    Aug 09 21:53:27 barreleye system_manager.py[606]:
+        /usr/sbin/startup_hacks.sh: line 9:
+        /sys/devices/platform/ahb/ahb:apb/1e787000.vuart/enabled: Permission
+        denied
+
+* i2c and LEDs seems to be broken in general.
+    Aug 09 21:53:33 barreleye system_manager.py[606]: sh:
+        /sys/class/i2c-adapter/i2c-3/3-0050/online: No such file or directo=
+ry
+    Aug 09 21:53:33 barreleye system_manager.py[606]: sh:
+        /sys/class/i2c-adapter/i2c-3/3-0050/online: No such file or directo=
+ry
+    Aug 09 21:53:37 barreleye system_manager.py[606]: No LEDs present in the
+        system
+
+    Also, no /sys/class/i2c-adapter at all and no dmesg about i2c.
+    Maybe missing in kernel config somehow?  /sys/class/leds and
+    /sys/class/hwmon are both empty.
+
+* pinctrl problems when we try to set up GPIOs
+    aspeed-g4-pinctrl 1e6e2000.syscon:pinctrl@1e6e2000: request() failed for
+    pin 138
+    aspeed-g4-pinctrl 1e6e2000.syscon:pinctrl@1e6e2000: pin-138
+    (1e780000.gpio:458) status -22
+    aspeed-g4-pinctrl 1e6e2000.syscon:pinctrl@1e6e2000: request() failed for
+    pin 34
+    aspeed-g4-pinctrl 1e6e2000.syscon:pinctrl@1e6e2000: pin-34
+    (1e780000.gpio:354) status -22
+
+
+
+
+--=20
+Patrick Williams
+
+--alg5r3b5jt7spns4
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJXqoBwAAoJEKsDR8wtAMEZzIkP/jdf2ugkM/WHkg38hiFl16FC
+zEZmLuwsN18VYcTzI60BXl3Qu1yILi23xM3N2uJaY20Edypfd3Tb8XE0nWJu8DSr
+BK/B4uG/8iaSxItFNBHYhF0dua4LiP8n12X/CNas6rb4pwR8/rhcahVrtzm67k5h
+dFjQtWo+IFxQKvOqWK9fZ1y/Tsy7D4U5Hma4wtqPsRu6oL+MQaBJcbokb/8D++b1
+KHw+2wkVPtE70GdZO6RkpHywKipYOwquE8XJCMlFjNMJOXvjX2LY9ezqH4dSPrZ+
+gwRoj/DkVdvW0k38rTfJMKwQdxlRcoGk2sXSwYY9j81EU+CXySh0CCA+wQvvhaDE
+zqxVptcnQxmqvazcMZV7w7oLFsMYy1Dz+7tQPYjj1OIgZHPCKBuDdepdNOja+QWw
+iz8BPjRIe42aJRKmizCXL1rgJQORccPuvYjwc2s6jYGnnXNlCLXD+BhNZaJgryfy
+5IoVAkXP0m7nn1rGTWmoHVaPSXPZ39+1QJW0p4HBTIeFbS25rAk6AeLusEY48VyA
+C5hsrhKIG8LWEyhRg7DlZLtkrqtZXBb7mV936/DlZaEk7JKnivQnTjVFUQlXHGwi
+y85T9ulS8jGJBbKRYuXUomgGwZAWDII8O6JHrm+4qej3caajQ9ur8Iv43LefVWg5
+B782LqbhCTUbpjlQWnRo
+=Oqxk
+-----END PGP SIGNATURE-----
+
+--alg5r3b5jt7spns4--
