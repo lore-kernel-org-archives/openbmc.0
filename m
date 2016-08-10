@@ -1,22 +1,21 @@
 Return-Path: <vadimp@mellanox.com>
 Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
- by lists.ozlabs.org (Postfix) with ESMTP id 3s8LQr3GbzzDqRR
- for <openbmc@lists.ozlabs.org>; Wed, 10 Aug 2016 16:12:19 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTP id 3s8LRR4GGGzDqRR
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Aug 2016 16:12:50 +1000 (AEST)
 Received: from Internal Mail-Server by MTLPINE1 (envelope-from
  vadimp@mellanox.com)
- with ESMTPS (AES256-SHA encrypted); 10 Aug 2016 08:59:12 +0300
+ with ESMTPS (AES256-SHA encrypted); 10 Aug 2016 08:58:45 +0300
 Received: from r-mgtswh-236.mtr.labs.mlnx (r-mgtswh-236.mtr.labs.mlnx
  [10.209.1.207])
- by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id u7A5xCnM018137;
- Wed, 10 Aug 2016 08:59:12 +0300
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id u7A5wiGW017993;
+ Wed, 10 Aug 2016 08:58:44 +0300
 From: vadimp@mellanox.com
 To: openbmc@lists.ozlabs.org
 Cc: jiri@mellanox.com, michaelsh@mellanox.com, shays@mellanox.com,
  yanivab@mellanox.com, Vadim Pasternak <vadimp@mellanox.com>
-Subject: [dev-4.7 patch 04/11] pinctrl (aspeed) introduce Aspeed SoC jtag
- driver
-Date: Wed, 10 Aug 2016 07:03:22 +0000
-Message-Id: <1470812602-50968-1-git-send-email-vadimp@mellanox.com>
+Subject: [dev-4.7 patch 2/5] hwmon (aspeed) introduce Aspeed SoC pwm-fan driver
+Date: Wed, 10 Aug 2016 07:02:54 +0000
+Message-Id: <1470812574-50878-1-git-send-email-vadimp@mellanox.com>
 X-Mailer: git-send-email 2.1.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
@@ -29,61 +28,88 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Aug 2016 06:12:21 -0000
+X-List-Received-Date: Wed, 10 Aug 2016 06:12:53 -0000
 
 From: Vadim Pasternak <vadimp@mellanox.com>
 
-The Kconfig controlling compilation of this code is:
-drivers/pinctrl/aspeed/Kconfig:config PINCTRL_ASPEED_JTAG
+The Kconfig controlling compilation of this code are:
+hwmon/aspeed/Kconfig:config SENSORS_ASPEED_PWM_FAN
 
-Porting peci driver from 3.18 to 4.7.
+Porting pwm-fan driver from 3.18 to 4.7.
 
 Signed-off-by: Vadim Pasternak <vadimp@mellanox.com>
 ---
- drivers/pinctrl/aspeed/Kconfig       |   6 +
- drivers/pinctrl/aspeed/Makefile      |   4 +
- drivers/pinctrl/aspeed/aspeed-jtag.c | 919 +++++++++++++++++++++++++++++++++++
- 3 files changed, 929 insertions(+)
- create mode 100644 drivers/pinctrl/aspeed/aspeed-jtag.c
+ drivers/hwmon/Kconfig                 |    2 +
+ drivers/hwmon/Makefile                |    1 +
+ drivers/hwmon/aspeed/Kconfig          |   11 +
+ drivers/hwmon/aspeed/Makefile         |    5 +
+ drivers/hwmon/aspeed/aspeed-pwm-fan.c | 2735 +++++++++++++++++++++++++++++++++
+ 5 files changed, 2754 insertions(+)
+ create mode 100644 drivers/hwmon/aspeed/Kconfig
+ create mode 100644 drivers/hwmon/aspeed/Makefile
+ create mode 100644 drivers/hwmon/aspeed/aspeed-pwm-fan.c
 
-diff --git a/drivers/pinctrl/aspeed/Kconfig b/drivers/pinctrl/aspeed/Kconfig
-index ee45a96..0d289ab 100644
---- a/drivers/pinctrl/aspeed/Kconfig
-+++ b/drivers/pinctrl/aspeed/Kconfig
-@@ -22,3 +22,9 @@ config PINCTRL_ASPEED_G5
- 	help
- 	  Say Y here to enable pin controller support for Aspeed's 5th
- 	  generation AST SoCs. GPIO is provided by a separate GPIO driver.
-+
-+config PINCTRL_ASPEED_JTAG
-+	tristate "ASPEED JTAG control"
-+	default n
-+	help
-+	 Driver for ASPEED JTAG controller driver
-diff --git a/drivers/pinctrl/aspeed/Makefile b/drivers/pinctrl/aspeed/Makefile
-index 0f4b876..e229fd1 100644
---- a/drivers/pinctrl/aspeed/Makefile
-+++ b/drivers/pinctrl/aspeed/Makefile
-@@ -1,5 +1,9 @@
- # Aspeed pinctrl support
+diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
+index 3b34ba9..b08ea92 100644
+--- a/drivers/hwmon/Kconfig
++++ b/drivers/hwmon/Kconfig
+@@ -1828,4 +1828,6 @@ config SENSORS_ATK0110
  
-+ccflags-$(CONFIG_ARCH_MULTIPLATFORM) := \
-+	-I$(srctree)/arch/arm/mach-aspeed/include
+ endif # ACPI
+ 
++source drivers/hwmon/aspeed/Kconfig
 +
- obj-$(CONFIG_PINCTRL_ASPEED)	+= pinctrl-aspeed.o
- obj-$(CONFIG_PINCTRL_ASPEED_G4)	+= pinctrl-aspeed-g4.o
- obj-$(CONFIG_PINCTRL_ASPEED_G5)	+= pinctrl-aspeed-g5.o
-+obj-$(CONFIG_PINCTRL_ASPEED_JTAG)	+= aspeed-jtag.o
-diff --git a/drivers/pinctrl/aspeed/aspeed-jtag.c b/drivers/pinctrl/aspeed/aspeed-jtag.c
+ endif # HWMON
+diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
+index c0f3201..7220d0c 100644
+--- a/drivers/hwmon/Makefile
++++ b/drivers/hwmon/Makefile
+@@ -165,6 +165,7 @@ obj-$(CONFIG_SENSORS_WM831X)	+= wm831x-hwmon.o
+ obj-$(CONFIG_SENSORS_WM8350)	+= wm8350-hwmon.o
+ 
+ obj-$(CONFIG_PMBUS)		+= pmbus/
++obj-$(CONFIG_MACH_ASPEED_G5)	+= aspeed/
+ 
+ ccflags-$(CONFIG_HWMON_DEBUG_CHIP) := -DDEBUG
+ 
+diff --git a/drivers/hwmon/aspeed/Kconfig b/drivers/hwmon/aspeed/Kconfig
 new file mode 100644
-index 0000000..11ac953
+index 0000000..6739973
 --- /dev/null
-+++ b/drivers/pinctrl/aspeed/aspeed-jtag.c
-@@ -0,0 +1,919 @@
++++ b/drivers/hwmon/aspeed/Kconfig
+@@ -0,0 +1,11 @@
++menu "ASPEED hwmon support"
++
++config SENSORS_ASPEED_PWM_FAN
++        tristate "ASPEED PWM & FAN Tacho Controller Driver"
++        depends on ARCH_ASPEED
++        default n
++        help
++          This driver provides support for the ASPEED PWM & FAN Tachometer
++          Controller, which provides an Sensor, fan control.
++
++endmenu
+diff --git a/drivers/hwmon/aspeed/Makefile b/drivers/hwmon/aspeed/Makefile
+new file mode 100644
+index 0000000..e372511
+--- /dev/null
++++ b/drivers/hwmon/aspeed/Makefile
+@@ -0,0 +1,5 @@
++
++ccflags-$(CONFIG_ARCH_MULTIPLATFORM) := \
++        -I$(srctree)/arch/arm/mach-aspeed/include
++
++obj-$(CONFIG_SENSORS_ASPEED_PWM_FAN)	+= aspeed-pwm-fan.o
+diff --git a/drivers/hwmon/aspeed/aspeed-pwm-fan.c b/drivers/hwmon/aspeed/aspeed-pwm-fan.c
+new file mode 100644
+index 0000000..414ae6d
+--- /dev/null
++++ b/drivers/hwmon/aspeed/aspeed-pwm-fan.c
+@@ -0,0 +1,2735 @@
 +/*
-+ *  driver/pincntrl/aspeed_jtag.c
++ *  drivers/hwmon/aspeed/aspeed-pwm-fan.c
 + *
-+ *  ASPEED JTAG controller driver
++ *  ASPEED PWM & Fan Tacho controller driver
 + *
 + *  Copyright (C) 2012-2020  ASPEED Technology Inc.
 + *
@@ -92,912 +118,2728 @@ index 0000000..11ac953
 + *  published by the Free Software Foundation.
 + *
 + *  History:
-+ *   2012.08.06: Initial version [Ryan Chen]
-+ *   2016.0806: Porting to kernel 4.7
++ *    2012.08.06: Initial version [Ryan Chen]
++ *    2016.08.06: Porting to kernel 4.7 [Vadim Pasternak vadimp@mellanox.com]
 + */
 +
 +#include <linux/init.h>
-+#include <linux/module.h>
-+#include <linux/miscdevice.h>
-+#include <linux/slab.h>
-+#include <linux/sched.h>
 +#include <linux/interrupt.h>
-+#include <linux/platform_device.h>
-+#include <linux/io.h>
-+#include <linux/uaccess.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/timer.h>
++#include <linux/hwmon-sysfs.h>
++#include <linux/hwmon.h>
++#include <linux/workqueue.h>
 +#include <linux/sysfs.h>
-+#include <linux/fs.h>
-+#include <linux/delay.h>
++#include <linux/err.h>
++#include <linux/slab.h>
++#include <linux/io.h>
++#include <linux/platform_device.h>
 +#include <linux/of_address.h>
 +#include <linux/of_platform.h>
++#include <asm/irq.h>
 +#include <asm/mach-types.h>
 +#include <asm/mach/arch.h>
 +#include <mach/reset.h>
 +
-+#define AST_JTAG_DATA			0x00
-+#define AST_JTAG_INST			0x04
-+#define AST_JTAG_CTRL			0x08
-+#define AST_JTAG_ISR			0x0C
-+#define AST_JTAG_SW			0x10
-+#define AST_JTAG_TCK			0x14
-+#define AST_JTAG_IDLE			0x18
++/* CLK sysfs
++ * 0 : enable
++ * 1 : clk_source
++ *
++ * PWM sysfs A~H (0~7)
++ * 0 - show/store enable
++ * 1 - show/store type
++ * 2 - show/store falling
++ * 3 - show/store rising
++ *
++ * PWM M/N/O Type sysfs
++ * 0 - show/store unit
++ * 1 - show/store division_l
++ * 2 - show/store division_h
++ *
++ * FAN sysfs (0~15)
++ *  show/store enable
++ *  show/store source
++ *  show/store rpm
++ *  show/store alarm
++ *  show/store alarm_en
++ *
++ * Fan M/N/O Type sysfs
++ *  0 - show/store enable
++ *  1 - show/store mode
++ *  2 - show/store unit
++ *  3 - show/store division
++ *  4 - show/store limit
++ */
 +
-+/* AST_JTAG_CTRL - 0x08 : Engine Control */
-+#define JTAG_ENG_EN			(0x1 << 31)
-+#define JTAG_ENG_OUT_EN			(0x1 << 30)
-+#define JTAG_FORCE_TMS			(0x1 << 29)
-+#define JTAG_IR_UPDATE			(0x1 << 26)
-+#define JTAG_INST_LEN_MASK		(0x3f << 20)
-+#define JTAG_SET_INST_LEN(x)		(x << 20)
-+#define JTAG_SET_INST_MSB		(0x1 << 19)
-+#define JTAG_TERMINATE_INST		(0x1 << 18)
-+#define JTAG_LAST_INST			(0x1 << 17)
-+#define JTAG_INST_EN			(0x1 << 16)
-+#define JTAG_DATA_LEN_MASK		(0x3f << 4)
-+#define JTAG_DR_UPDATE			(0x1 << 10)
-+#define JTAG_DATA_LEN(x)		(x << 4)
-+#define JTAG_SET_DATA_MSB		(0x1 << 3)
-+#define JTAG_TERMINATE_DATA		(0x1 << 2)
-+#define JTAG_LAST_DATA			(0x1 << 1)
-+#define JTAG_DATA_EN			(0x1)
++#define AST_SCU_FUN_PIN_CTRL1	0x80	/* Multi-function Pin Control#1 */
++#define AST_SCU_FUN_PIN_CTRL2	0x84	/* Multi-function Pin Control#2 */
++#define AST_SCU_FUN_PIN_CTRL3	0x88	/* Multi-function Pin Control#3 */
++#define AST_SCU_FUN_PIN_CTRL4	0x8C	/* Multi-function Pin Control#4 */
++#define AST_SCU_FUN_PIN_CTRL5	0x90	/* Multi-function Pin Control#5 */
++#define AST_PWM_GROUP_NUM	(1 + PWM_CH_NUM + 2 * PWM_TYPE_NUM + TACHO_NUM)
 +
-+/* AST_JTAG_ISR	- 0x0C : INterrupt status and enable */
-+#define JTAG_INST_PAUSE			(0x1 << 19)
-+#define JTAG_INST_COMPLETE		(0x1 << 18)
-+#define JTAG_DATA_PAUSE			(0x1 << 17)
-+#define JTAG_DATA_COMPLETE		(0x1 << 16)
++/* Aspeed PWM & FAN Register Definition */
++#define AST_PTCR_CTRL		0x00
++#define AST_PTCR_CLK_CTRL	0x04
++#define AST_PTCR_DUTY0_CTRL	0x08
++#define AST_PTCR_DUTY1_CTRL	0x0c
++#define AST_PTCR_TYPEM_CTRL0	0x10
++#define AST_PTCR_TYPEM_CTRL1	0x14
++#define AST_PTCR_TYPEN_CTRL0	0x18
++#define AST_PTCR_TYPEN_CTRL1	0x1c
++#define AST_PTCR_TACH_SOURCE	0x20
++#define AST_PTCR_TRIGGER	0x28
++#define AST_PTCR_RESULT		0x2c
++#define AST_PTCR_INTR_CTRL	0x30
++#define AST_PTCR_INTR_STS	0x34
++#define AST_PTCR_TYPEM_LIMIT	0x38
++#define AST_PTCR_TYPEN_LIMIT	0x3C
++#define AST_PTCR_CTRL_EXT	0x40
++#define AST_PTCR_CLK_EXT_CTRL	0x44
++#define AST_PTCR_DUTY2_CTRL	0x48
++#define AST_PTCR_DUTY3_CTRL	0x4c
++#define AST_PTCR_TYPEO_CTRL0	0x50
++#define AST_PTCR_TYPEO_CTRL1	0x54
++#define AST_PTCR_TACH_SOURCE_EXT 0x60
++#define AST_PTCR_TYPEO_LIMIT	0x78
 +
-+#define JTAG_INST_PAUSE_EN		(0x1 << 3)
-+#define JTAG_INST_COMPLETE_EN		(0x1 << 2)
-+#define JTAG_DATA_PAUSE_EN		(0x1 << 1)
-+#define JTAG_DATA_COMPLETE_EN		(0x1)
++/* Common definitions */
++#define FALL_EDGE	(0)
++#define RISE_EDGE	(0x1)
++#define BOTH_EDGE	(0x2)
++#define PWM_TYPE_NUM	3
++#define PWM_TYPE_M	0x0
++#define PWM_TYPE_N	0x1
++#define PWM_TYPE_O	0x2
++#define PWM_TYPE_MASK	0x3
 +
-+/* AST_JTAG_SW	- 0x10 : Software Mode and Status */
-+#define JTAG_SW_MODE_EN			(0x1 << 19)
-+#define JTAG_SW_MODE_TCK		(0x1 << 18)
-+#define JTAG_SW_MODE_TMS		(0x1 << 17)
-+#define JTAG_SW_MODE_TDIO		(0x1 << 16)
-+#define JTAG_STS_INST_PAUSE		(0x1 << 2)
-+#define JTAG_STS_DATA_PAUSE		(0x1 << 1)
-+#define JTAG_STS_ENG_IDLE		(0x1)
++#define TACHO_NUM	16
++#define PWM_CH_NUM	8
++#define PWMA		0x0
++#define PWMB		0x1
++#define PWMC		0x2
++#define PWMD		0x3
++#define PWME		0x4
++#define PWMF		0x5
++#define PWMG		0x6
++#define PWMH		0x7
 +
-+/* AST_JTAG_TCK	- 0x14 : TCK Control */
-+#define JTAG_TCK_INVERSE		(0x1 << 31)
-+#define JTAG_TCK_DIVISOR_MASK		(0x7ff)
-+#define JTAG_GET_TCK_DIVISOR(x)		(x & 0x7ff)
 +
-+/*  AST_JTAG_IDLE - 0x18 : Ctroller set for go to IDLE */
-+#define JTAG_GO_IDLE			(0x1)
++/* AST_PTCR_CTRL:0x00 - PWM-FAN General Control Register */
++#define AST_PTCR_CTRL_SET_PWMD_TYPE(x) \
++	((x & 0x1) << 15 | (x & 0x2) << 6)
++#define AST_PTCR_CTRL_GET_PWMD_TYPE(x) \
++	(((x & (0x1 << 7)) >> 6) | ((x & (0x1 << 15)) >> 15))
++#define AST_PTCR_CTRL_SET_PWMD_TYPE_MASK \
++	((0x1 << 7) | (0x1 << 15))
 +
-+enum aspeed_jtag_xfer_mode {
-+	JTAG_XFER_HW_MODE = 0,
-+	JTAG_XFER_SW_MODE = 1,
++#define AST_PTCR_CTRL_SET_PWMC_TYPE(x) \
++	((x & 0x1) << 14 | (x & 0x2) << 5)
++#define AST_PTCR_CTRL_GET_PWMC_TYPE(x) \
++	(((x & (0x1 << 6)) >> 5) | ((x & (0x1 << 14)) >> 14))
++#define AST_PTCR_CTRL_SET_PWMC_TYPE_MASK \
++	((0x1 << 6) | (0x1 << 14))
++
++#define AST_PTCR_CTRL_SET_PWMB_TYPE(x) \
++	((x & 0x1)<<13 | (x & 0x2) << 4)
++#define AST_PTCR_CTRL_GET_PWMB_TYPE(x) \
++	(((x & (0x1 << 5)) >> 4) | ((x & (0x1 << 13)) >> 13))
++#define AST_PTCR_CTRL_SET_PWMB_TYPE_MASK \
++	((0x1 << 5) | (0x1 << 13))
++
++#define AST_PTCR_CTRL_SET_PWMA_TYPE(x) \
++	((x & 0x1) << 12 | (x & 0x2) << 3)
++#define AST_PTCR_CTRL_GET_PWMA_TYPE(x) \
++	(((x & (0x1 << 4)) >> 3) | ((x & (0x1 << 12)) >> 12))
++#define AST_PTCR_CTRL_SET_PWMA_TYPE_MASK \
++	((0x1 << 4) | (0x1 << 12))
++
++#define	AST_PTCR_CTRL_FAN_NUM_EN(x)		(0x1 << (16 + x))
++
++#define	AST_PTCR_CTRL_PMWD		(11)
++#define	AST_PTCR_CTRL_PMWD_EN		(0x1 << 11)
++#define	AST_PTCR_CTRL_PMWC		(10)
++#define	AST_PTCR_CTRL_PMWC_EN		(0x1 << 10)
++#define	AST_PTCR_CTRL_PMWB		(9)
++#define	AST_PTCR_CTRL_PMWB_EN		(0x1 << 9)
++#define	AST_PTCR_CTRL_PMWA		(8)
++#define	AST_PTCR_CTRL_PMWA_EN		(0x1 << 8)
++#define	AST_PTCR_CTRL_CLK_MCLK		0x2 /* 0:24Mhz, 1:MCLK */
++#define	AST_PTCR_CTRL_CLK_EN		0x1
++
++/* AST_PTCR_CLK_CTRL:0x04 - PWM-FAN Clock Control Register */
++/* TYPE N */
++#define AST_PTCR_CLK_CTRL_TYPEN_UNIT		(24)
++#define AST_PTCR_CLK_CTRL_TYPEN_UNIT_MASK	(0xff << 24)
++#define AST_PTCR_CLK_CTRL_TYPEN_H		(20)
++#define AST_PTCR_CLK_CTRL_TYPEN_H_MASK		(0xf << 20)
++#define AST_PTCR_CLK_CTRL_TYPEN_L		(16)
++#define AST_PTCR_CLK_CTRL_TYPEN_L_MASK		(0xf << 16)
++/* TYPE M */
++#define AST_PTCR_CLK_CTRL_TYPEM_UNIT		(8)
++#define AST_PTCR_CLK_CTRL_TYPEM_UNIT_MASK	(0xff << 8)
++#define AST_PTCR_CLK_CTRL_TYPEM_H		(4)
++#define AST_PTCR_CLK_CTRL_TYPEM_H_MASK		(0xf << 4)
++#define AST_PTCR_CLK_CTRL_TYPEM_L		(0)
++#define AST_PTCR_CLK_CTRL_TYPEM_L_MASK		(0xf)
++
++
++/* AST_PTCR_DUTY_CTRL0:0x08 - PWM-FAN duty control 0 register */
++#define DUTY_CTRL0_PWMB_FALL_POINT		(24)
++#define DUTY_CTRL0_PWMB_FALL_POINT_MASK		(0xff << 24)
++#define DUTY_CTRL0_PWMB_RISE_POINT		(16)
++#define DUTY_CTRL0_PWMB_RISE_POINT_MASK		(0xff << 16)
++#define DUTY_CTRL0_PWMA_FALL_POINT		(8)
++#define DUTY_CTRL0_PWMA_FALL_POINT_MASK		(0xff << 8)
++#define DUTY_CTRL0_PWMA_RISE_POINT		(0)
++#define DUTY_CTRL0_PWMA_RISE_POINT_MASK		(0xff)
++
++
++/* AST_PTCR_DUTY_CTRL1 : 0x0c - PWM-FAN duty control 1 register */
++#define DUTY_CTRL1_PWMD_FALL_POINT		(24)
++#define DUTY_CTRL1_PWMD_FALL_POINT_MASK		(0xff << 24)
++#define DUTY_CTRL1_PWMD_RISE_POINT		(16)
++#define DUTY_CTRL1_PWMD_RISE_POINT_MASK		(0xff << 16)
++#define DUTY_CTRL1_PWMC_FALL_POINT		(8)
++#define DUTY_CTRL1_PWMC_FALL_POINT_MASK		(0xff << 8)
++#define DUTY_CTRL1_PWMC_RISE_POINT		(0)
++#define DUTY_CTRL1_PWMC_RISE_POINT_MASK		(0xff)
++
++
++/* AST_PTCR_TYPEM_CTRL0 : 0x10/0x18/0x50 - Type M/N/O Ctrl 0 Register */
++#define TYPE_CTRL0_FAN_PERIOD			(16)
++#define TYPE_CTRL0_FAN_PERIOD_MASK		(0xffff << 16)
++#define TYPE_CTRL0_FLAT_EN			(0x1 << 7)
++
++
++/* 0 : FALL_EDGE,	0x1 : RISE_EDGE , 0x2 :BOTH_EDGE */
++#define TYPE_CTRL0_FAN_MODE			(4)
++#define TYPE_CTRL0_FAN_MODE_MASK		(0x3<<4)
++#define TYPE_CTRL0_CLK_DIVISION			(1)
++#define TYPE_CTRL0_CLK_DIVISION_MASK		(0x7<<1)
++#define TYPE_CTRL0_FAN_TYPE_EN			(1)
++
++
++/* AST_PTCR_TYPEM_CTRL1 : 0x14/0x1c/0x54 - Type M/N/O Ctrl 1 Register */
++#define TYPE_CTRL1_FALL_POINT			(16)
++#define TYPE_CTRL1_FALL_POINT_MASK		(0xff << 16)
++#define TYPE_CTRL1_RISE_POINT			(0)
++#define TYPE_CTRL1_RISE_POINT_MASK		(0xff)
++
++
++/* AST_PTCR_TACH_SOURCE : 0x20/0x60 - Tach Source Register
++ * bit [0,1] at 0x20, bit [2] at 0x60
++ */
++#define TACH_PWM_SOURCE_BIT01(x)		(x * 2)
++#define TACH_PWM_SOURCE_BIT2(x)			(x * 2)
++#define TACH_PWM_SOURCE_MASK_BIT01(x)		(0x3 << (x * 2))
++#define TACH_PWM_SOURCE_MASK_BIT2(x)		(0x1 << (x * 2))
++
++/* AST_PTCR_TRIGGER : 0x28 - Trigger Register */
++#define TRIGGER_READ_FAN_NUM(x)			(0x1 << x)
++
++/* AST_PTCR_RESULT : 0x2c - Result Register */
++#define RESULT_STATUS				(31)
++#define RESULT_VALUE_MASK			(0xfffff)
++
++/* AST_PTCR_INTR_CTRL : 0x30 - Interrupt Ctrl Register */
++#define INTR_CTRL_EN_NUM(x)			(0x1 << x)
++
++/* AST_PTCR_INTR_STS : 0x34 - Interrupt Status Register	*/
++#define INTR_CTRL_NUM(x)			(0x1 << x)
++
++/* AST_PTCR_TYPEM_LIMIT, AST_PTCR_TYPEN_LIMIT,AST_PTCR_TYPEO_LIMIT:
++ * 0x38/0x3C/0x78 - Type M / N / O Limit Register
++ */
++#define FAN_LIMIT_MASK				(0xfffff)
++
++/* AST_PTCR_CTRL_EXT : 0x40 - General Ctrl Extension #1 */
++#define AST_PTCR_CTRL_SET_PWMH_TYPE(x) \
++	((x & 0x1) << 15 | (x & 0x2) << 6)
++#define AST_PTCR_CTRL_GET_PWMH_TYPE(x) \
++	(((x & (0x1 << 7))>>6) | ((x & (0x1 << 15)) >> 15))
++#define AST_PTCR_CTRL_SET_PWMH_TYPE_MASK	((0x1 << 7) | (0x1 << 15))
++
++#define AST_PTCR_CTRL_SET_PWMG_TYPE(x) \
++	((x & 0x1)<<14 | (x & 0x2) << 5)
++#define AST_PTCR_CTRL_GET_PWMG_TYPE(x) \
++	(((x & (0x1 << 6))>>5) | ((x & (0x1 << 14)) >> 14))
++#define AST_PTCR_CTRL_SET_PWMG_TYPE_MASK	((0x1 << 6) | (0x1 << 14))
++
++#define AST_PTCR_CTRL_SET_PWMF_TYPE(x) \
++		((x & 0x1) << 13 | (x & 0x2) << 4)
++#define AST_PTCR_CTRL_GET_PWMF_TYPE(x) \
++	(((x & (0x1 << 5)) >> 4) | ((x & (0x1 << 13)) >> 13))
++#define AST_PTCR_CTRL_SET_PWMF_TYPE_MASK	((0x1 << 5) | (0x1 << 13))
++
++#define AST_PTCR_CTRL_SET_PWME_TYPE(x) \
++	((x & 0x1) << 12 | (x & 0x2) << 3)
++#define AST_PTCR_CTRL_GET_PWME_TYPE(x) \
++	(((x & (0x1 << 4)) >> 3) | ((x & (0x1 << 12)) >> 12))
++#define AST_PTCR_CTRL_SET_PWME_TYPE_MASK	((0x1 << 4) | (0x1 << 12))
++
++#define	AST_PTCR_CTRL_PMWH			(11)
++#define	AST_PTCR_CTRL_PMWH_EN			(0x1 << 11)
++#define	AST_PTCR_CTRL_PMWG			(10)
++#define	AST_PTCR_CTRL_PMWG_EN			(0x1 << 10)
++#define	AST_PTCR_CTRL_PMWF			(9)
++#define	AST_PTCR_CTRL_PMWF_EN			(0x1 << 9)
++#define	AST_PTCR_CTRL_PMWE			(8)
++#define	AST_PTCR_CTRL_PMWE_EN			(0x1 << 8)
++
++/* AST_PTCR_CLK_EXT_CTRL : 0x44 - Clock Control Extension #1 */
++/* TYPE O */
++#define AST_PTCR_CLK_CTRL_TYPEO_UNIT		(8)
++#define AST_PTCR_CLK_CTRL_TYPEO_UNIT_MASK	(0xff << 8)
++#define AST_PTCR_CLK_CTRL_TYPEO_H		(4)
++#define AST_PTCR_CLK_CTRL_TYPEO_H_MASK		(0xf << 4)
++#define AST_PTCR_CLK_CTRL_TYPEO_L		(0)
++#define AST_PTCR_CLK_CTRL_TYPEO_L_MASK		(0xf)
++
++/* AST_PTCR_DUTY2_CTRL : 0x48 - Duty Control 2 Register */
++#define DUTY_CTRL2_PWMF_FALL_POINT		(24)
++#define DUTY_CTRL2_PWMF_FALL_POINT_MASK		(0xff << 24)
++#define DUTY_CTRL2_PWMF_RISE_POINT		(16)
++#define DUTY_CTRL2_PWMF_RISE_POINT_MASK		(0xff << 16)
++#define DUTY_CTRL2_PWME_FALL_POINT		(8)
++#define DUTY_CTRL2_PWME_FALL_POINT_MASK		(0xff << 8)
++#define DUTY_CTRL2_PWME_RISE_POINT		(0)
++#define DUTY_CTRL2_PWME_RISE_POINT_MASK		(0xff)
++
++/* AST_PTCR_DUTY3_CTRL : 0x4c - Duty Control 3 Register */
++#define DUTY_CTRL3_PWMH_FALL_POINT		(24)
++#define DUTY_CTRL3_PWMH_FALL_POINT_MASK		(0xff << 24)
++#define DUTY_CTRL3_PWMH_RISE_POINT		(16)
++#define DUTY_CTRL3_PWMH_RISE_POINT_MASK		(0xff << 16)
++#define DUTY_CTRL3_PWMG_FALL_POINT		(8)
++#define DUTY_CTRL3_PWMG_FALL_POINT_MASK		(0xff << 8)
++#define DUTY_CTRL3_PWMG_RISE_POINT		(0)
++#define DUTY_CTRL3_PWMG_RISE_POINT_MASK		(0xff)
++
++struct aspeed_pwm_driver_data {
++	u32 (*get_pwm_clock)(void);
 +};
 +
-+struct runtest_idle {
-+	enum aspeed_jtag_xfer_mode	mode;	/* 0 :HW mode, 1: SW mode */
-+	unsigned char			reset;	/* Test Logic Reset */
-+	unsigned char			end;	/* o: idle, 1: ir pause, 2: drpause */
-+	unsigned char			tck;	/* keep tck */
++struct aspeed_pwm_tacho_data {
++	struct device			*hwmon_dev;
++	void __iomem			*reg_base;
++	int				irq;
++	struct aspeed_pwm_driver_data	*aspeed_pwm_data;
++	const struct attribute_group	*groups[AST_PWM_GROUP_NUM + 1];
 +};
 +
-+struct sir_xfer {
-+	enum aspeed_jtag_xfer_mode	mode;	/* 0 :HW mode, 1: SW mode */
-+	unsigned short			length;	/* bits */
-+	unsigned int			tdi;
-+	unsigned int			tdo;
-+	unsigned char			endir;	/* 0: idle, 1:pause */
-+};
++struct aspeed_pwm_tacho_data *aspeed_pwm_tacho;
 +
-+struct sdr_xfer {
-+	enum aspeed_jtag_xfer_mode	mode;	/* 0 :HW mode, 1: SW mode */
-+	unsigned char			direct; /* 0 ; read , 1 : write */
-+	unsigned short			length;	/* bits */
-+	unsigned int			*tdio;
-+	unsigned char			enddr;	/* 0: idle, 1:pause */
-+};
-+
-+#define JTAGIOC_BASE       'T'
-+
-+#define AST_JTAG_IOCRUNTEST	_IOW(JTAGIOC_BASE, 0, struct runtest_idle)
-+#define AST_JTAG_IOCSIR		_IOWR(JTAGIOC_BASE, 1, struct sir_xfer)
-+#define AST_JTAG_IOCSDR		_IOWR(JTAGIOC_BASE, 2, struct sdr_xfer)
-+#define AST_JTAG_SIOCFREQ	_IOW(JTAGIOC_BASE, 3, unsigned int)
-+#define AST_JTAG_GIOCFREQ	_IOR(JTAGIOC_BASE, 4, unsigned int)
-+
-+struct aspeed_jtag_info {
-+	void __iomem		*reg_base;
-+	struct device		*dev;
-+	u8			sts; /* 0: idle, 1:irpause 2:drpause */
-+	int			irq; /* JTAG IRQ number */
-+	u32			flag;
-+	wait_queue_head_t	jtag_wq;
-+	bool 			is_open;
-+};
-+
-+struct aspeed_jtag_info *aspeed_jtag;
-+static DEFINE_SPINLOCK(jtag_state_lock);
-+
-+static inline u32
-+aspeed_jtag_read(struct aspeed_jtag_info *aspeed_jtag, u32 reg)
-+{
-+	return readl(aspeed_jtag->reg_base + reg);
-+}
++static u8
++aspeed_get_pwm_type(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho, u8 pwm_ch);
++static u8
++aspeed_get_pwm_en(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho, u8 pwm_ch);
++static u8
++aspeed_get_tacho_type_division(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			       u8 pwm_type);
++static u16
++aspeed_get_tacho_type_unit(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			   u8 pwm_type);
++static u8
++aspeed_get_pwm_clock_div_h(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			   u8 pwm_type);
++static u8
++aspeed_get_pwm_clock_div_l(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			   u8 pwm_type);
++static u8
++aspeed_get_pwm_clock_unit(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			  u8 pwm_type);
 +
 +static inline void
-+aspeed_jtag_write(struct aspeed_jtag_info *aspeed_jtag, u32 val, u32 reg)
++aspeed_pwm_tacho_write(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho, u32 val,
++		       u32 reg)
 +{
-+	dev_dbg(aspeed_jtag->dev, "reg = 0x%08x, val = 0x%08x\n", reg, val);
-+	writel(val, aspeed_jtag->reg_base + reg);
++	writel(val, aspeed_pwm_tacho->reg_base + reg);
 +}
 +
-+u32 ast_get_pclk(void)
++static inline u32
++aspeed_pwm_tacho_read(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho, u32 reg)
 +{
-+	return 0;
++	return readl(aspeed_pwm_tacho->reg_base + reg);
 +}
 +
-+void
-+aspeed_jtag_set_freq(struct aspeed_jtag_info *aspeed_jtag, unsigned int freq)
-+{
-+	u16 i;
-+
-+	for (i = 0; i < 0x7ff; i++) {
-+		if ((ast_get_pclk() / (i + 1)) <= freq)
-+			break;
-+	}
-+	aspeed_jtag_write(aspeed_jtag,
-+			  ((aspeed_jtag_read(aspeed_jtag, AST_JTAG_TCK) &
-+					      ~JTAG_TCK_DIVISOR_MASK) | i),
-+					      AST_JTAG_TCK);
-+}
-+
-+unsigned int aspeed_jtag_get_freq(struct aspeed_jtag_info *aspeed_jtag)
-+{
-+	return ast_get_pclk() /
-+	       (JTAG_GET_TCK_DIVISOR(aspeed_jtag_read(aspeed_jtag,
-+						      AST_JTAG_TCK)) + 1);
-+}
-+
-+void dummy(struct aspeed_jtag_info *aspeed_jtag, unsigned int cnt)
-+{
-+	int i = 0;
-+
-+	for (i = 0; i < cnt; i++)
-+		aspeed_jtag_read(aspeed_jtag, AST_JTAG_SW);
-+}
-+
-+static u8 TCK_Cycle(struct aspeed_jtag_info *aspeed_jtag, u8 TMS, u8 TDI)
-+{
-+	u8 tdo;
-+
-+	/* TCK = 0 */
-+	aspeed_jtag_write(aspeed_jtag, JTAG_SW_MODE_EN |
-+			  (TMS * JTAG_SW_MODE_TMS) | (TDI * JTAG_SW_MODE_TDIO),
-+			  AST_JTAG_SW);
-+
-+	dummy(aspeed_jtag, 10);
-+
-+	/* TCK = 1 */
-+	aspeed_jtag_write(aspeed_jtag, JTAG_SW_MODE_EN | JTAG_SW_MODE_TCK |
-+			  (TMS * JTAG_SW_MODE_TMS) | (TDI * JTAG_SW_MODE_TDIO),
-+			  AST_JTAG_SW);
-+
-+	if (aspeed_jtag_read(aspeed_jtag, AST_JTAG_SW) & JTAG_SW_MODE_TDIO)
-+		tdo = 1;
-+	else
-+		tdo = 0;
-+
-+	dummy(aspeed_jtag, 10);
-+
-+	/* TCK = 0 */
-+	aspeed_jtag_write(aspeed_jtag, JTAG_SW_MODE_EN | (TMS *
-+			  JTAG_SW_MODE_TMS) | (TDI * JTAG_SW_MODE_TDIO),
-+			  AST_JTAG_SW);
-+
-+	return tdo;
-+}
-+
-+void aspeed_jtag_wait_instruction_complete(struct aspeed_jtag_info *aspeed_jtag)
-+{
-+	wait_event_interruptible(aspeed_jtag->jtag_wq, (aspeed_jtag->flag ==
-+				 JTAG_INST_COMPLETE));
-+	dev_err(aspeed_jtag->dev, "\n");
-+	aspeed_jtag->flag = 0;
-+}
-+
-+void aspeed_jtag_wait_data_pause_complete(struct aspeed_jtag_info *aspeed_jtag)
-+{
-+	wait_event_interruptible(aspeed_jtag->jtag_wq, (aspeed_jtag->flag ==
-+				 JTAG_DATA_PAUSE));
-+	dev_err(aspeed_jtag->dev, "\n");
-+	aspeed_jtag->flag = 0;
-+}
-+
-+void aspeed_jtag_wait_data_complete(struct aspeed_jtag_info *aspeed_jtag)
-+{
-+	wait_event_interruptible(aspeed_jtag->jtag_wq, (aspeed_jtag->flag ==
-+				 JTAG_DATA_COMPLETE));
-+	dev_err(aspeed_jtag->dev, "\n");
-+	aspeed_jtag->flag = 0;
-+}
-+
-+/* JTAG_reset() is to generate at least 9 TMS high and 1 TMS low to force
-+ * devices into Run-Test/Idle State.
++/*
++ * (1) The PWM base clock = 24Mhz / (Clock_Division_H D[7:4] in PTCR04 *
++ *	Clock_Division_L D[3:0] in PTCR04)
++ * (2) The frequency of PWM = The PWM base clock / (PWM period D[15:8] in
++ *	PTCR04 + 1)
++ * (3) If a plan to output 25Khz PWM frequency and 10% step of duty cycle,
++ *	suggested to set 0x943 in PTCR04 register.
++ * The PWM frequency = 24Mhz / (16 * 6 * (9 + 1)) = 25Khz
++ * duty cycle settings in the PTCR08 register:
++ * 0x1e786008 D[15:0] = 0x0900, duty = 90%
++ * 0x1e786008 D[15:0] = 0x0902, duty = 70%
++ * ...
++ * 0x1e786008 D[15:0] = 0x0908, duty = 10%
++ * 0x1e786008 D[15:0] = 0x0909, duty = 100%
++ * 0x1e786008 D[15:0] = 0x0000, duty = 100%
++ * (falling) - (rising+1) /unit
 + */
-+void aspeed_jtag_run_test_idle(struct aspeed_jtag_info *aspeed_jtag,
-+			       struct runtest_idle *runtest)
++static void aspeed_pwm_taco_init(void)
 +{
-+	int i = 0;
++	/* Enable PWM TACH CLK
++	 * Set M/N/O out is 25Khz
++	 * The PWM frequency = 24Mhz / (16 * 6 * (9 + 1)) = 25Khz
++	 */
++	aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x09430943,
++			       AST_PTCR_CLK_CTRL);
++#ifdef PWM_TYPE_O
++	aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x0943,
++			       AST_PTCR_CLK_EXT_CTRL);
++#endif
++	/* FULL SPEED at initialize 100% pwm A~H */
++	aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x0, AST_PTCR_DUTY0_CTRL);
++	aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x0, AST_PTCR_DUTY1_CTRL);
++	aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x0, AST_PTCR_DUTY2_CTRL);
++	aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x0, AST_PTCR_DUTY3_CTRL);
 +
-+	dev_dbg(aspeed_jtag->dev, ":%s mode\n", runtest->mode ? "SW":"HW");
++	/* Set TACO M/N/O initial unit 0x1000, falling , divide 4 , Enable */
++	aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x10000001,
++			       AST_PTCR_TYPEM_CTRL0);
++	aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x10000001,
++			       AST_PTCR_TYPEN_CTRL0);
++#ifdef PWM_TYPE_O
++	aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x10000001,
++			       AST_PTCR_TYPEO_CTRL0);
++#endif
 +
-+	if (runtest->mode) {
-+		/* SW mode from idle , from pause,  -- > to pause, to idle */
-+		if (runtest->reset) {
-+			for (i = 0; i < 10; i++)
-+				TCK_Cycle(aspeed_jtag, 1, 0);
-+		}
++	/* TACO measure period = 24000000 / 2 / 2 / 256 / 4096 / 1 (only enable
++	 * 1 TACHO) = 5.72Hz, it means that software needs to wait at least 0.2
++	 * sec to get refreshed TACO value. If you will enable more TACO or
++	 * require faster response, you have to control the clock divisor and
++	 * the period to be smaller.
++	 *
++	 * Full Range to do measure unit 0x1000
++	 * PTCRM/N/O[3:1] = 0, Type M/N/O fan tach clock is div 4. -->
++	 * calculate RPM.
++	 */
++	aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x10000000,
++			       AST_PTCR_TYPEM_CTRL1);
++	aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x10000000,
++			       AST_PTCR_TYPEN_CTRL1);
++#ifdef PWM_TYPE_O
++	aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x10000000,
++			       AST_PTCR_TYPEO_CTRL1);
++#endif
 +
-+		switch (aspeed_jtag->sts) {
-+		case 0:
-+			if (runtest->end == 1) {
-+				TCK_Cycle(aspeed_jtag, 1, 0); /* DRSCan */
-+				TCK_Cycle(aspeed_jtag, 1, 0); /* IRSCan */
-+				TCK_Cycle(aspeed_jtag, 0, 0); /* IRCap */
-+				TCK_Cycle(aspeed_jtag, 1, 0); /* IRExit1 */
-+				TCK_Cycle(aspeed_jtag, 0, 0); /* IRPause */
-+				aspeed_jtag->sts = 1;
-+			} else if (runtest->end == 2) {
-+				TCK_Cycle(aspeed_jtag, 1, 0); /* DRSCan */
-+				TCK_Cycle(aspeed_jtag, 0, 0); /* DRCap */
-+				TCK_Cycle(aspeed_jtag, 1, 0); /* DRExit1 */
-+				TCK_Cycle(aspeed_jtag, 0, 0); /* DRPause */
-+				aspeed_jtag->sts = 1;
-+			} else {
-+				TCK_Cycle(aspeed_jtag, 0, 0);/* IDLE */
-+				aspeed_jtag->sts = 0;
-+			}
-+			break;
++	/* TACO Source Selection, PWMA for fan0~15 */
++	aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x0, AST_PTCR_TACH_SOURCE);
++	aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x0,
++			       AST_PTCR_TACH_SOURCE_EXT);
 +
-+		case 1:
-+			/* from IR/DR Pause */
-+			if (runtest->end == 1) {
-+				TCK_Cycle(aspeed_jtag, 1, 0); /* Exit2 IR/DR */
-+				TCK_Cycle(aspeed_jtag, 1, 0); /* Updt IR/DR */
-+				TCK_Cycle(aspeed_jtag, 1, 0); /* DRSCan */
-+				TCK_Cycle(aspeed_jtag, 1, 0); /* IRSCan */
-+				TCK_Cycle(aspeed_jtag, 0, 0); /* IRCap */
-+				TCK_Cycle(aspeed_jtag, 1, 0); /* IRExit1 */
-+				TCK_Cycle(aspeed_jtag, 0, 0); /* IRPause */
-+				aspeed_jtag->sts = 1;
-+			} else if (runtest->end == 2) {
-+				TCK_Cycle(aspeed_jtag, 1, 0); /* Exit2 IR/DR */
-+				TCK_Cycle(aspeed_jtag, 1, 0); /* Update IR/DR */
-+				TCK_Cycle(aspeed_jtag, 1, 0); /* DRSCan */
-+				TCK_Cycle(aspeed_jtag, 0, 0); /* DRCap */
-+				TCK_Cycle(aspeed_jtag, 1, 0); /* DRExit1 */
-+				TCK_Cycle(aspeed_jtag, 0, 0); /* DRPause */
-+				aspeed_jtag->sts = 1;
-+			} else {
-+				TCK_Cycle(aspeed_jtag, 1, 0); /* Exit2 IR/DR */
-+				TCK_Cycle(aspeed_jtag, 1, 0); /* Updt IR/DR */
-+				TCK_Cycle(aspeed_jtag, 0, 0); /* IDLE */
-+				aspeed_jtag->sts = 0;
-+			}
-+			break;
-+
-+		default:
-+			dev_err(aspeed_jtag->dev,
-+				"aspeed_jtag_run_test_idle error\n");
-+			break;
-+		}
-+
-+		/* stay on IDLE for at least  TCK cycle */
-+		for (i = 0; i < runtest->tck; i++)
-+			TCK_Cycle(aspeed_jtag, 0, 0);
-+	} else {
-+		/* dis sw mode */
-+		aspeed_jtag_write(aspeed_jtag, 0, AST_JTAG_SW);
-+		mdelay(1);
-+		/* x TMS high + 1 TMS low */
-+		if (runtest->reset)
-+			aspeed_jtag_write(aspeed_jtag, JTAG_ENG_EN |
-+					  JTAG_ENG_OUT_EN | JTAG_FORCE_TMS,
-+					  AST_JTAG_CTRL);
-+		else
-+			aspeed_jtag_write(aspeed_jtag, JTAG_GO_IDLE,
-+					  AST_JTAG_IDLE);
-+		mdelay(1);
-+		aspeed_jtag_write(aspeed_jtag, JTAG_SW_MODE_EN |
-+				  JTAG_SW_MODE_TDIO, AST_JTAG_SW);
-+		aspeed_jtag->sts = 0;
-+	}
++	/* PWM A~D -> Disable , type M, Tacho 0~15 Disable, CLK source 24Mhz */
++#ifdef MCLK
++	aspeed_pwm_tacho_write(aspeed_pwm_tacho, AST_PTCR_CTRL_CLK_MCLK |
++			       AST_PTCR_CTRL_CLK_EN, AST_PTCR_CTRL);
++#else
++	aspeed_pwm_tacho_write(aspeed_pwm_tacho, AST_PTCR_CTRL_CLK_EN,
++			       AST_PTCR_CTRL);
++#endif
 +}
 +
-+int aspeed_jtag_sir_xfer(struct aspeed_jtag_info *aspeed_jtag,
-+			 struct sir_xfer *sir)
-+{
-+	int i = 0;
-+
-+	dev_err(aspeed_jtag->dev, "%s mode, ENDIR : %d, len : %d\n",
-+		sir->mode ? "SW":"HW", sir->endir, sir->length);
-+
-+	if (sir->mode) {
-+		if (aspeed_jtag->sts) {
-+			/* from IR/DR Pause */
-+			TCK_Cycle(aspeed_jtag, 1, 0); /* Exit2 IR / DR */
-+			TCK_Cycle(aspeed_jtag, 1, 0); /* Update IR /DR */
-+		}
-+
-+		TCK_Cycle(aspeed_jtag, 1, 0); /* DRSCan */
-+		TCK_Cycle(aspeed_jtag, 1, 0); /* IRSCan */
-+		TCK_Cycle(aspeed_jtag, 0, 0); /* CapIR */
-+		TCK_Cycle(aspeed_jtag, 0, 0); /* ShiftIR */
-+
-+		sir->tdo = 0;
-+		for (i = 0; i < sir->length; i++) {
-+			if (i == (sir->length - 1)) {
-+				/* IRExit1 */
-+				sir->tdo |= TCK_Cycle(aspeed_jtag, 1,
-+						      sir->tdi & 0x1);
-+			} else {
-+				/* ShiftIR */
-+				sir->tdo |= TCK_Cycle(aspeed_jtag, 0,
-+						      sir->tdi & 0x1);
-+				sir->tdi >>= 1;
-+				sir->tdo <<= 1;
-+			}
-+		}
-+
-+		TCK_Cycle(aspeed_jtag, 0, 0); /* IRPause */
-+
-+		/* stop pause */
-+		if (sir->endir == 0) {
-+			/* go to idle */
-+			TCK_Cycle(aspeed_jtag, 1, 0); /* IRExit2 */
-+			TCK_Cycle(aspeed_jtag, 1, 0); /* IRUpdate */
-+			TCK_Cycle(aspeed_jtag, 0, 0); /* IDLE */
-+		}
-+	} else {
-+		/* hw mode - disable sw mode */
-+		aspeed_jtag_write(aspeed_jtag, 0, AST_JTAG_SW);
-+		aspeed_jtag_write(aspeed_jtag, sir->tdi, AST_JTAG_INST);
-+
-+		if (sir->endir) {
-+			aspeed_jtag_write(aspeed_jtag, JTAG_ENG_EN |
-+					  JTAG_ENG_OUT_EN |
-+					  JTAG_SET_INST_LEN(sir->length),
-+					  AST_JTAG_CTRL);
-+			aspeed_jtag_write(aspeed_jtag, JTAG_ENG_EN |
-+					  JTAG_ENG_OUT_EN |
-+					  JTAG_SET_INST_LEN(sir->length) |
-+					  JTAG_INST_EN, AST_JTAG_CTRL);
-+		} else {
-+			aspeed_jtag_write(aspeed_jtag, JTAG_ENG_EN |
-+					  JTAG_ENG_OUT_EN | JTAG_LAST_INST |
-+					  JTAG_SET_INST_LEN(sir->length),
-+					  AST_JTAG_CTRL);
-+			aspeed_jtag_write(aspeed_jtag, JTAG_ENG_EN |
-+					  JTAG_ENG_OUT_EN | JTAG_LAST_INST |
-+					  JTAG_SET_INST_LEN(sir->length) |
-+					  JTAG_INST_EN, AST_JTAG_CTRL);
-+		}
-+
-+		aspeed_jtag_wait_instruction_complete(aspeed_jtag);
-+		sir->tdo = aspeed_jtag_read(aspeed_jtag, AST_JTAG_INST);
-+		aspeed_jtag_write(aspeed_jtag, JTAG_SW_MODE_EN |
-+				  JTAG_SW_MODE_TDIO, AST_JTAG_SW);
-+	}
-+
-+	aspeed_jtag->sts = sir->endir;
-+
-+	return 0;
-+}
-+
-+int aspeed_jtag_sdr_xfer(struct aspeed_jtag_info *aspeed_jtag,
-+			 struct sdr_xfer *sdr)
-+{
-+	unsigned int index = 0;
-+	u32 shift_bits = 0;
-+	u32 tdo = 0;
-+	u32 remain_xfer = sdr->length;
-+
-+	dev_err(aspeed_jtag->dev, "%s mode, ENDDR : %d, len : %d\n",
-+		sdr->mode ? "SW":"HW", sdr->enddr, sdr->length);
-+
-+	if (sdr->mode) {
-+		/* SW mode */
-+		if (aspeed_jtag->sts) {
-+			/* from IR/DR Pause */
-+			TCK_Cycle(aspeed_jtag, 1, 0); /* Exit2 IR / DR */
-+			TCK_Cycle(aspeed_jtag, 1, 0); /* Update IR /DR */
-+		}
-+
-+		TCK_Cycle(aspeed_jtag, 1, 0); /* DRScan */
-+		TCK_Cycle(aspeed_jtag, 0, 0); /* DRCap */
-+		TCK_Cycle(aspeed_jtag, 0, 0); /* DRShift */
-+
-+		while (remain_xfer) {
-+			if (sdr->direct) {
-+				/* write */
-+				if ((shift_bits % 32) == 0)
-+					dev_err(aspeed_jtag->dev, "W dr->dr_data[%d]: %x\n",
-+						index, sdr->tdio[index]);
-+
-+				tdo = (sdr->tdio[index] >> (shift_bits % 32)) &
-+				      0x1;
-+				dev_err(aspeed_jtag->dev, "%d\n", tdo);
-+				if (remain_xfer == 1)
-+					/* DRExit1 */
-+					TCK_Cycle(aspeed_jtag, 1, tdo);
-+				else
-+					/* DRShit */
-+					TCK_Cycle(aspeed_jtag, 0, tdo);
-+			} else {
-+				/* read */
-+				if (remain_xfer == 1)
-+					/* DRExit1 */
-+					tdo = TCK_Cycle(aspeed_jtag, 1, tdo);
-+				else
-+					/* DRShit */
-+					tdo = TCK_Cycle(aspeed_jtag, 0, tdo);
-+
-+				dev_err(aspeed_jtag->dev, "%d\n", tdo);
-+				sdr->tdio[index] |= (tdo << (shift_bits % 32));
-+
-+				if ((shift_bits % 32) == 0)
-+					dev_err(aspeed_jtag->dev, "R dr->dr_data[%d]: %x\n",
-+						  index, sdr->tdio[index]);
-+			}
-+			shift_bits++;
-+			remain_xfer--;
-+			if ((shift_bits % 32) == 0)
-+				index++;
-+		}
-+
-+		TCK_Cycle(aspeed_jtag, 0, 0); /* DRPause */
-+
-+		if (sdr->enddr == 0) {
-+			TCK_Cycle(aspeed_jtag, 1, 0); /* DRExit2 */
-+			TCK_Cycle(aspeed_jtag, 1, 0); /* DRUpdate */
-+			TCK_Cycle(aspeed_jtag, 0, 0); /* IDLE */
-+		}
-+	} else {
-+		/* hw mode */
-+		aspeed_jtag_write(aspeed_jtag, 0, AST_JTAG_SW);
-+		while (remain_xfer) {
-+			if (sdr->direct) {
-+				dev_err(aspeed_jtag->dev,
-+					"W dr->dr_data[%d]: %x\n", index,
-+					  sdr->tdio[index]);
-+				aspeed_jtag_write(aspeed_jtag,
-+						  sdr->tdio[index],
-+						   AST_JTAG_DATA);
-+			} else {
-+				aspeed_jtag_write(aspeed_jtag, 0,
-+						  AST_JTAG_DATA);
-+			}
-+
-+			if (remain_xfer > 32) {
-+				shift_bits = 32;
-+				/* read bytes were not equals to column length
-+				 * => Pause-DR
-+				 */
-+				dev_err(aspeed_jtag->dev, "shit bits %d\n",
-+					shift_bits);
-+				aspeed_jtag_write(aspeed_jtag,
-+					JTAG_ENG_EN | JTAG_ENG_OUT_EN |
-+					JTAG_DATA_LEN(shift_bits),
-+					AST_JTAG_CTRL);
-+				aspeed_jtag_write(aspeed_jtag,
-+					JTAG_ENG_EN | JTAG_ENG_OUT_EN |
-+					JTAG_DATA_LEN(shift_bits) |
-+						      JTAG_DATA_EN,
-+						      AST_JTAG_CTRL);
-+				aspeed_jtag_wait_data_pause_complete(
-+								aspeed_jtag);
-+			} else {
-+				/* read bytes equals to column length =>
-+				 * Update-DR
-+				 */
-+				shift_bits = remain_xfer;
-+				dev_err(aspeed_jtag->dev,
-+					"shit bits %d with last\n",
-+					shift_bits);
-+				if (sdr->enddr) {
-+					dev_err(aspeed_jtag->dev, "DR Keep Pause\n");
-+						aspeed_jtag_write(aspeed_jtag,
-+						JTAG_ENG_EN | JTAG_ENG_OUT_EN |
-+						JTAG_DR_UPDATE |
-+						JTAG_DATA_LEN(shift_bits),
-+						AST_JTAG_CTRL);
-+						aspeed_jtag_write(aspeed_jtag,
-+						JTAG_ENG_EN | JTAG_ENG_OUT_EN |
-+						JTAG_DR_UPDATE |
-+						JTAG_DATA_LEN(shift_bits) |
-+						JTAG_DATA_EN, AST_JTAG_CTRL);
-+				} else {
-+					dev_err(aspeed_jtag->dev, "DR go IDLE\n");
-+						aspeed_jtag_write(aspeed_jtag,
-+						JTAG_ENG_EN | JTAG_ENG_OUT_EN |
-+						JTAG_LAST_DATA |
-+						JTAG_DATA_LEN(shift_bits),
-+						AST_JTAG_CTRL);
-+						aspeed_jtag_write(aspeed_jtag,
-+						JTAG_ENG_EN | JTAG_ENG_OUT_EN |
-+						JTAG_LAST_DATA |
-+						JTAG_DATA_LEN(shift_bits) |
-+						JTAG_DATA_EN, AST_JTAG_CTRL);
-+				}
-+				aspeed_jtag_wait_data_complete(aspeed_jtag);
-+			}
-+
-+			if (!sdr->direct) {
-+				if (shift_bits < 32)
-+					sdr->tdio[index] =
-+						aspeed_jtag_read(aspeed_jtag,
-+							AST_JTAG_DATA) >>
-+							(32 - shift_bits);
-+				else
-+					sdr->tdio[index] =
-+						aspeed_jtag_read(aspeed_jtag,
-+							AST_JTAG_DATA);
-+				dev_err(aspeed_jtag->dev,
-+						"R dr->dr_data[%d]: %x\n",
-+						index, sdr->tdio[index]);
-+			}
-+
-+			remain_xfer = remain_xfer - shift_bits;
-+			index++;
-+			dev_err(aspeed_jtag->dev, "remain_xfer %d\n",
-+				remain_xfer);
-+		}
-+		aspeed_jtag_write(aspeed_jtag, JTAG_SW_MODE_EN |
-+				  JTAG_SW_MODE_TDIO, AST_JTAG_SW);
-+	}
-+
-+	aspeed_jtag->sts = sdr->enddr;
-+
-+	return 0;
-+}
-+
-+static irqreturn_t aspeed_jtag_interrupt(int this_irq, void *dev_id)
-+{
-+	u32 status;
-+	struct aspeed_jtag_info *aspeed_jtag = dev_id;
-+
-+	status = aspeed_jtag_read(aspeed_jtag, AST_JTAG_ISR);
-+	dev_err(aspeed_jtag->dev, "sts %x\n", status);
-+
-+	if (status & JTAG_INST_COMPLETE) {
-+		aspeed_jtag_write(aspeed_jtag, JTAG_INST_COMPLETE |
-+				  (status & 0xf), AST_JTAG_ISR);
-+		aspeed_jtag->flag = JTAG_INST_COMPLETE;
-+	}
-+
-+	if (status & JTAG_DATA_PAUSE) {
-+		aspeed_jtag_write(aspeed_jtag, JTAG_DATA_PAUSE |
-+				  (status & 0xf), AST_JTAG_ISR);
-+		aspeed_jtag->flag = JTAG_DATA_PAUSE;
-+	}
-+
-+	if (status & JTAG_DATA_COMPLETE) {
-+		aspeed_jtag_write(aspeed_jtag, JTAG_DATA_COMPLETE |
-+				  (status & 0xf), AST_JTAG_ISR);
-+		aspeed_jtag->flag = JTAG_DATA_COMPLETE;
-+	}
-+
-+	if (aspeed_jtag->flag) {
-+		wake_up_interruptible(&aspeed_jtag->jtag_wq);
-+		return IRQ_HANDLED;
-+	} else {
-+		dev_err(aspeed_jtag->dev, "aspeed_jtag irq status (%x)\n",
-+			status);
-+		return IRQ_NONE;
-+	}
-+}
-+
-+static long jtag_ioctl(struct file *file, unsigned int cmd,
-+		       unsigned long arg)
-+{
-+	struct aspeed_jtag_info *aspeed_jtag = file->private_data;
-+	void __user *argp = (void __user *)arg;
-+	struct sir_xfer sir;
-+	struct sdr_xfer sdr;
-+	struct runtest_idle run_idle;
-+	int ret = 0;
-+
-+	switch (cmd) {
-+	case AST_JTAG_GIOCFREQ:
-+		ret = __put_user(aspeed_jtag_get_freq(aspeed_jtag),
-+				 (unsigned int __user *)arg);
-+		break;
-+
-+	case AST_JTAG_SIOCFREQ:
-+		if ((unsigned int )arg > ast_get_pclk())
-+			ret = -EFAULT;
-+		else
-+			aspeed_jtag_set_freq(aspeed_jtag, (unsigned int)arg);
-+		break;
-+
-+	case AST_JTAG_IOCRUNTEST:
-+		if (copy_from_user(&run_idle, argp,
-+				   sizeof(struct runtest_idle)))
-+			ret = -EFAULT;
-+		else
-+			aspeed_jtag_run_test_idle(aspeed_jtag, &run_idle);
-+
-+		break;
-+
-+	case AST_JTAG_IOCSIR:
-+		if (copy_from_user(&sir, argp, sizeof(struct sir_xfer)))
-+			ret = -EFAULT;
-+		else
-+			aspeed_jtag_sir_xfer(aspeed_jtag, &sir);
-+
-+		if (copy_to_user(argp, &sir, sizeof(struct sdr_xfer)))
-+			ret = -EFAULT;
-+
-+		break;
-+
-+	case AST_JTAG_IOCSDR:
-+		if (copy_from_user(&sdr, argp, sizeof(struct sdr_xfer)))
-+			ret = -EFAULT;
-+		else
-+			aspeed_jtag_sdr_xfer(aspeed_jtag, &sdr);
-+
-+		if (copy_to_user(argp, &sdr, sizeof(struct sdr_xfer)))
-+			ret = -EFAULT;
-+
-+		break;
-+	default:
-+
-+		return -ENOTTY;
-+	}
-+
-+	return ret;
-+}
-+
-+static int jtag_open(struct inode *inode, struct file *file)
-+{
-+	spin_lock(&jtag_state_lock);
-+	if (aspeed_jtag->is_open) {
-+		spin_unlock(&jtag_state_lock);
-+		return -EBUSY;
-+	}
-+
-+	aspeed_jtag->is_open = true;
-+	file->private_data = aspeed_jtag;
-+	spin_unlock(&jtag_state_lock);
-+
-+	return 0;
-+}
-+
-+static int jtag_release(struct inode *inode, struct file *file)
-+{
-+	struct aspeed_jtag_info *drvdata = file->private_data;
-+
-+	spin_lock(&jtag_state_lock);
-+	drvdata->is_open = false;
-+	spin_unlock(&jtag_state_lock);
-+
-+	return 0;
-+}
-+
-+static ssize_t show_sts(struct device *dev,
-+	struct device_attribute *attr, char *buf)
-+{
-+	struct aspeed_jtag_info *aspeed_jtag = dev_get_drvdata(dev);
-+
-+	return sprintf(buf, "%s\n", aspeed_jtag->sts ? "Pause" : "Idle");
-+}
-+
-+static DEVICE_ATTR(sts, S_IRUGO, show_sts, NULL);
-+
-+static ssize_t show_frequency(struct device *dev,
-+	struct device_attribute *attr, char *buf)
-+{
-+	struct aspeed_jtag_info *aspeed_jtag = dev_get_drvdata(dev);
-+
-+	return sprintf(buf, "Frequency (%d)\n", ast_get_pclk() /
-+		       (JTAG_GET_TCK_DIVISOR(aspeed_jtag_read(aspeed_jtag,
-+		       AST_JTAG_TCK)) + 1));
-+}
-+
-+static ssize_t store_frequency(struct device *dev,
-+	struct device_attribute *attr, const char *buf, size_t count)
++/* index 0 : clk_en , 1: clk_source */
++static ssize_t aspeed_store_clk(struct device *dev,
++				struct device_attribute *attr,
++				const char *buf, size_t count)
 +{
 +	unsigned long input_val;
-+	struct aspeed_jtag_info *aspeed_jtag = dev_get_drvdata(dev);
++	struct sensor_device_attribute_2 *sensor_attr =
++						to_sensor_dev_attr_2(attr);
 +	int ret;
 +
 +	ret = kstrtoul(buf, 10, &input_val);
 +	if (ret)
 +		return ret;
 +
-+	aspeed_jtag_set_freq(aspeed_jtag, input_val);
++	if ((input_val > 1) || (input_val < 0))
++		return -EINVAL;
++
++	switch (sensor_attr->nr) {
++	case 0:	/* clk_en */
++		if (input_val)
++			aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++				aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					AST_PTCR_CTRL) | AST_PTCR_CTRL_CLK_EN,
++					AST_PTCR_CTRL);
++		else
++			aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++					aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					AST_PTCR_CTRL) & ~AST_PTCR_CTRL_CLK_EN,
++					AST_PTCR_CTRL);
++		break;
++
++	case 1: /* clk_source */
++		if (input_val)
++			aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++				aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					AST_PTCR_CTRL) |
++					AST_PTCR_CTRL_CLK_MCLK,
++					AST_PTCR_CTRL);
++		else
++			aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++					aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					AST_PTCR_CTRL) &
++					~AST_PTCR_CTRL_CLK_MCLK,
++					AST_PTCR_CTRL);
++		break;
++
++	default:
++		return -EINVAL;
++	}
++
++	return count;
++
++}
++
++
++static ssize_t aspeed_show_clk(struct device *dev,
++			       struct device_attribute *attr, char *buf)
++{
++	struct sensor_device_attribute_2 *sensor_attr =
++						to_sensor_dev_attr_2(attr);
++
++	switch (sensor_attr->nr)	 {
++	case 0:	/* clk_en */
++		if (AST_PTCR_CTRL_CLK_EN &
++		    aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL))
++			return sprintf(buf, "1: Enable\n");
++		else
++			return sprintf(buf, "0: Disable\n");
++		break;
++
++	case 1: /* clk_source */
++		if (AST_PTCR_CTRL_CLK_MCLK &
++		    aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL))
++			return sprintf(buf, "1: MCLK\n");
++		else
++			return sprintf(buf, "0: 24Mhz\n");
++
++		break;
++
++	default:
++		return sprintf(buf, "error CLK Index\n");
++	}
++}
++
++static u32
++aspeed_get_tacho_measure_period(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++				u8 pwm_type)
++{
++	u32 clk, clk_unit, div_h, div_l, tacho_unit, tacho_div;
++
++	if (AST_PTCR_CTRL_CLK_MCLK & aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++							   AST_PTCR_CTRL))
++		clk = aspeed_pwm_tacho->aspeed_pwm_data->get_pwm_clock();
++	else
++		clk = 24 * 1000 * 1000;
++
++	clk_unit = aspeed_get_pwm_clock_unit(aspeed_pwm_tacho, pwm_type);
++	div_h = aspeed_get_pwm_clock_div_h(aspeed_pwm_tacho, pwm_type);
++	div_h = 0x1 << div_h;
++	div_l = aspeed_get_pwm_clock_div_l(aspeed_pwm_tacho, pwm_type);
++	if (div_l == 0)
++		div_l = 1;
++	else
++		div_l = div_l * 2;
++
++	tacho_unit = aspeed_get_tacho_type_unit(aspeed_pwm_tacho, pwm_type);
++	tacho_div = aspeed_get_tacho_type_division(aspeed_pwm_tacho, pwm_type);
++
++	tacho_div = 0x4 << (tacho_div * 2);
++
++	return clk/(clk_unit * div_h * div_l * tacho_div * tacho_unit);
++}
++
++static u8
++aspeed_get_tacho_type_division(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			       u8 pwm_type)
++{
++	u32 tmp = 0;
++
++	switch (pwm_type) {
++	case PWM_TYPE_M:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_TYPEM_CTRL0);
++		break;
++
++	case PWM_TYPE_N:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_TYPEN_CTRL0);
++		break;
++
++#ifdef PWM_TYPE_O
++	case PWM_TYPE_O:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_TYPEO_CTRL0);
++		break;
++
++#endif
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
++		break;
++
++	}
++
++	return ((tmp & TYPE_CTRL0_CLK_DIVISION_MASK) >>
++		TYPE_CTRL0_CLK_DIVISION);
++}
++
++static void
++aspeed_set_tacho_type_division(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			       u8 pwm_type, u32 division)
++{
++	u32 tmp = 0;
++
++	if (division > 0x7)
++		return;
++
++	switch (pwm_type) {
++	case PWM_TYPE_M:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_TYPEM_CTRL0);
++		break;
++
++	case PWM_TYPE_N:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_TYPEN_CTRL0);
++		break;
++
++#ifdef PWM_TYPE_O
++	case PWM_TYPE_O:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_TYPEO_CTRL0);
++		break;
++#endif
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
++		break;
++	}
++
++	tmp &= ~TYPE_CTRL0_CLK_DIVISION_MASK;
++	tmp |= (division << TYPE_CTRL0_CLK_DIVISION);
++
++	switch (pwm_type) {
++	case PWM_TYPE_M:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_TYPEM_CTRL0);
++		break;
++	case PWM_TYPE_N:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_TYPEN_CTRL0);
++		break;
++#ifdef PWM_TYPE_O
++	case PWM_TYPE_O:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_TYPEO_CTRL0);
++		break;
++#endif
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
++		break;
++	}
++}
++
++static u16
++aspeed_get_tacho_type_unit(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			   u8 pwm_type)
++{
++	u32 tmp = 0;
++
++	switch (pwm_type) {
++	case PWM_TYPE_M:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_TYPEM_CTRL0);
++		break;
++	case PWM_TYPE_N:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_TYPEN_CTRL0);
++		break;
++#ifdef PWM_TYPE_O
++	case PWM_TYPE_O:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_TYPEO_CTRL0);
++		break;
++#endif
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
++		break;
++	}
++
++	return ((tmp & TYPE_CTRL0_FAN_PERIOD_MASK) >> TYPE_CTRL0_FAN_PERIOD);
++}
++
++static void
++aspeed_set_tacho_type_unit(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			   u8 pwm_type, u32 unit)
++{
++	u32 tmp = 0;
++
++	if (unit > 0xffff)
++		return;
++
++	switch (pwm_type) {
++	case PWM_TYPE_M:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_TYPEM_CTRL0);
++		break;
++	case PWM_TYPE_N:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_TYPEN_CTRL0);
++		break;
++#ifdef PWM_TYPE_O
++	case PWM_TYPE_O:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_TYPEO_CTRL0);
++		break;
++#endif
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
++		break;
++	}
++
++	tmp &= ~TYPE_CTRL0_FAN_PERIOD_MASK;
++	tmp |= (unit << TYPE_CTRL0_FAN_PERIOD);
++
++	switch (pwm_type) {
++	case PWM_TYPE_M:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_TYPEM_CTRL0);
++		break;
++
++	case PWM_TYPE_N:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_TYPEN_CTRL0);
++		break;
++
++#ifdef PWM_TYPE_O
++	case PWM_TYPE_O:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_TYPEO_CTRL0);
++		break;
++#endif
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
++		break;
++	}
++}
++
++static u32
++aspeed_get_tacho_type_mode(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			   u8 pwm_type)
++{
++	u32 tmp = 0;
++
++	switch (pwm_type) {
++	case PWM_TYPE_M:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_TYPEM_CTRL0);
++		break;
++	case PWM_TYPE_N:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_TYPEN_CTRL0);
++		break;
++#ifdef PWM_TYPE_O
++	case PWM_TYPE_O:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_TYPEO_CTRL0);
++		break;
++#endif
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
++		break;
++	}
++
++	return ((tmp & TYPE_CTRL0_FAN_MODE_MASK) >> TYPE_CTRL0_FAN_MODE);
++}
++
++static void
++aspeed_set_tacho_type_mode(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			   u8 pwm_type, u32 mode)
++{
++	u32 tmp = 0;
++
++	if (mode > 0x2)
++		return;
++
++	switch (pwm_type) {
++	case PWM_TYPE_M:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_TYPEM_CTRL0);
++		break;
++
++	case PWM_TYPE_N:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_TYPEN_CTRL0);
++		break;
++
++#ifdef PWM_TYPE_O
++	case PWM_TYPE_O:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_TYPEO_CTRL0);
++		break;
++
++#endif
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
++		break;
++	}
++
++	tmp &= ~TYPE_CTRL0_FAN_MODE_MASK;
++	tmp |= (mode << TYPE_CTRL0_FAN_MODE);
++
++	switch (pwm_type) {
++	case PWM_TYPE_M:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_TYPEM_CTRL0);
++		break;
++
++	case PWM_TYPE_N:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_TYPEN_CTRL0);
++		break;
++
++#ifdef PWM_TYPE_O
++	case PWM_TYPE_O:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_TYPEO_CTRL0);
++		break;
++#endif
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
++		break;
++	}
++
++}
++
++static u8
++aspeed_get_tacho_type_en(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			 u8 pwm_type)
++{
++	u8 tmp = 0;
++
++	switch (pwm_type) {
++	case PWM_TYPE_M:
++		tmp = (TYPE_CTRL0_FAN_TYPE_EN &
++		       aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					     AST_PTCR_TYPEM_CTRL0));
++		break;
++
++	case PWM_TYPE_N:
++		tmp = (TYPE_CTRL0_FAN_TYPE_EN &
++		      aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_TYPEN_CTRL0));
++		break;
++
++#ifdef PWM_TYPE_O
++	case PWM_TYPE_O:
++		tmp = (TYPE_CTRL0_FAN_TYPE_EN &
++		      aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++		      AST_PTCR_TYPEO_CTRL0));
++		break;
++#endif
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
++		break;
++	}
++
++	return tmp;
++}
++
++static void
++aspeed_set_tacho_type_en(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			 u8 pwm_type, u32 enable)
++{
++	switch (pwm_type) {
++	case PWM_TYPE_M:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++				       aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					      AST_PTCR_TYPEM_CTRL0) | enable,
++			AST_PTCR_TYPEM_CTRL0);
++
++		break;
++	case PWM_TYPE_N:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++		aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_TYPEN_CTRL0)
++		| enable, AST_PTCR_TYPEN_CTRL0);
++
++		break;
++#ifdef PWM_TYPE_O
++	case PWM_TYPE_O:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++		aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_TYPEO_CTRL0) |
++				      enable, AST_PTCR_TYPEO_CTRL0);
++
++		break;
++#endif
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
++		break;
++	}
++}
++
++static u32
++aspeed_get_tacho_type_limit(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			    u8 pwm_type)
++{
++	switch (pwm_type) {
++	case PWM_TYPE_M:
++		return (FAN_LIMIT_MASK &
++			aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					      AST_PTCR_TYPEM_LIMIT));
++
++	case PWM_TYPE_N:
++		return (FAN_LIMIT_MASK &
++			aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					      AST_PTCR_TYPEN_LIMIT));
++
++#ifdef PWM_TYPE_O
++	case PWM_TYPE_O:
++		return (FAN_LIMIT_MASK &
++			aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					      AST_PTCR_TYPEO_LIMIT));
++
++#endif
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
++		break;
++	}
++	return 0;
++}
++
++static void
++aspeed_set_tacho_type_limit(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			    u8 pwm_type, u32 limit)
++{
++	if (limit > FAN_LIMIT_MASK)
++		return;
++
++	switch (pwm_type) {
++	case PWM_TYPE_M:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, limit,
++				       AST_PTCR_TYPEM_LIMIT);
++		break;
++	case PWM_TYPE_N:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, limit,
++				       AST_PTCR_TYPEN_LIMIT);
++		break;
++#ifdef PWM_TYPE_O
++	case PWM_TYPE_O:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, limit,
++				       AST_PTCR_TYPEO_LIMIT);
++		break;
++#endif
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
++		break;
++	}
++}
++
++static u8
++aspeed_get_tacho_alarm_en(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			  u8 tacho_ch)
++{
++	/* tacho source */
++	if (aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_INTR_CTRL) &
++				  INTR_CTRL_EN_NUM(tacho_ch))
++		return 1;
++
++	return 0;
++}
++
++static void
++aspeed_set_tacho_alarm_en(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			  u8 tacho_ch, u8 enable)
++{
++	/* tacho source  */
++	if (enable == 1)
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++			aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					      AST_PTCR_INTR_CTRL) |
++			INTR_CTRL_EN_NUM(tacho_ch), AST_PTCR_INTR_CTRL);
++	else
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++			aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					      AST_PTCR_INTR_CTRL) &
++			~(INTR_CTRL_EN_NUM(tacho_ch)), AST_PTCR_INTR_CTRL);
++}
++
++static u8
++aspeed_get_tacho_alarm(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++		       u8 tacho_ch)
++{
++	/* tacho source */
++	if (aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_INTR_STS) &
++				  INTR_CTRL_NUM(tacho_ch))
++		return 1;
++
++	return 0;
++}
++
++static u8
++aspeed_get_tacho_en(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho, u8 tacho_ch)
++{
++	if (aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL) &
++				  AST_PTCR_CTRL_FAN_NUM_EN(tacho_ch))
++		return 1;
++
++	return 0;
++}
++
++static void
++aspeed_set_tacho_en(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++		    u8 tacho_ch, u8 enable)
++{
++	/* tacho number enable */
++	if (enable)
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++			aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL) |
++			AST_PTCR_CTRL_FAN_NUM_EN(tacho_ch), AST_PTCR_CTRL);
++	else
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++			aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL) &
++			~(AST_PTCR_CTRL_FAN_NUM_EN(tacho_ch)), AST_PTCR_CTRL);
++}
++
++static u8
++aspeed_get_tacho_source(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			u8 tacho_ch)
++{
++	u32 tmp1, tmp2;
++
++	/* tacho source */
++	tmp1 = aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_TACH_SOURCE);
++	tmp1 &= TACH_PWM_SOURCE_MASK_BIT01(tacho_ch);
++	tmp1 = tmp1 >> (TACH_PWM_SOURCE_BIT01(tacho_ch));
++	tmp2 = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++				     AST_PTCR_TACH_SOURCE_EXT);
++	tmp2 &= TACH_PWM_SOURCE_MASK_BIT2(tacho_ch);
++	tmp2 = tmp2 >> (TACH_PWM_SOURCE_BIT2(tacho_ch));
++	tmp2 = tmp2 << 2;
++
++	return (tmp2 | tmp1);
++}
++
++static void
++aspeed_set_tacho_source(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			u8 tacho_ch, u8 tacho_source)
++{
++	u32 tmp1, tmp2;
++
++	if (tacho_source > 7)
++		return;
++
++	/* tacho source */
++	tmp1 = aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_TACH_SOURCE);
++	tmp1 &= ~(TACH_PWM_SOURCE_MASK_BIT01(tacho_ch));
++	tmp1 |= ((tacho_source & 0x3) << (TACH_PWM_SOURCE_BIT01(tacho_ch)));
++
++	tmp2 = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++				     AST_PTCR_TACH_SOURCE_EXT);
++	tmp2 &= ~(TACH_PWM_SOURCE_MASK_BIT2(tacho_ch));
++	tmp2 |= (((tacho_source & 0x4) >> 2) <<
++		(TACH_PWM_SOURCE_BIT2(tacho_ch)));
++
++	aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp1, AST_PTCR_TACH_SOURCE);
++	aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp2,
++			       AST_PTCR_TACH_SOURCE_EXT);
++
++}
++
++static u32
++aspeed_get_tacho_rpm(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++		     u8 tacho_ch)
++{
++	u32 raw_data, rpm, tacho_clk_div, clk_source, timeout = 0;
++	u8 tacho_source, pwm_type, tacho_type_en;
++
++	if (!(aspeed_get_tacho_en(aspeed_pwm_tacho, tacho_ch)))
++		return 0;
++
++	aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0, AST_PTCR_TRIGGER);
++	aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x1 << tacho_ch,
++			       AST_PTCR_TRIGGER);
++
++	tacho_source = aspeed_get_tacho_source(aspeed_pwm_tacho, tacho_ch);
++	pwm_type = aspeed_get_pwm_type(aspeed_pwm_tacho, tacho_source);
++	tacho_type_en = aspeed_get_tacho_type_en(aspeed_pwm_tacho, pwm_type);
++
++	/* check pwm_type and get clock division */
++	if (!tacho_type_en)
++		return 0;
++
++	/* Wait ready */
++	while (!(aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_RESULT) &
++		(0x1 << RESULT_STATUS))) {
++		timeout++;
++		if (timeout > 25)
++			return 0;
++	};
++
++	raw_data = aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_RESULT) &
++		   RESULT_VALUE_MASK;
++	tacho_clk_div = aspeed_get_tacho_type_division(aspeed_pwm_tacho,
++						       pwm_type);
++
++	tacho_clk_div = 0x4 << (tacho_clk_div*2);
++
++	if (AST_PTCR_CTRL_CLK_MCLK & aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++							   AST_PTCR_CTRL))
++		clk_source = 166 * 1000 * 1000;
++	else
++		clk_source = 24 * 1000 * 1000;
++
++	rpm = (clk_source * 60) / (2 * raw_data * tacho_clk_div);
++
++	return rpm;
++}
++
++static u8
++aspeed_get_pwm_clock_div_h(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			   u8 pwm_type)
++{
++	u8 tmp = 0;
++
++	switch (pwm_type) {
++	case PWM_TYPE_M:
++		tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					     AST_PTCR_CLK_CTRL) &
++		      AST_PTCR_CLK_CTRL_TYPEM_H_MASK) >>
++		      AST_PTCR_CLK_CTRL_TYPEM_H;
++		break;
++
++	case PWM_TYPE_N:
++		tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					     AST_PTCR_CLK_CTRL) &
++		       AST_PTCR_CLK_CTRL_TYPEN_H_MASK) >>
++		       AST_PTCR_CLK_CTRL_TYPEN_H;
++		break;
++
++#ifdef PWM_TYPE_O
++	case PWM_TYPE_O:
++		tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					     AST_PTCR_CLK_EXT_CTRL) &
++		       AST_PTCR_CLK_CTRL_TYPEO_H_MASK) >>
++		       AST_PTCR_CLK_CTRL_TYPEO_H;
++		break;
++#endif
++
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error channel aspeed_get_pwm_clock_div_h %d\n",
++			pwm_type);
++		break;
++	}
++	return tmp;
++}
++
++static void
++aspeed_set_pwm_clock_division_h(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++				u8 pwm_type, u8 div_high)
++{
++	if (div_high > 0xf)
++		return;
++
++	switch (pwm_type) {
++	case PWM_TYPE_M:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++		(aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CLK_CTRL) &
++		~AST_PTCR_CLK_CTRL_TYPEM_H_MASK) |
++		(div_high << AST_PTCR_CLK_CTRL_TYPEM_H), AST_PTCR_CLK_CTRL);
++		break;
++
++	case PWM_TYPE_N:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++		(aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CLK_CTRL) &
++		~AST_PTCR_CLK_CTRL_TYPEN_H_MASK) |
++		(div_high << AST_PTCR_CLK_CTRL_TYPEN_H), AST_PTCR_CLK_CTRL);
++		break;
++
++#ifdef PWM_TYPE_O
++	case PWM_TYPE_O:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++		(aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++				       AST_PTCR_CLK_EXT_CTRL) &
++		~AST_PTCR_CLK_CTRL_TYPEO_H_MASK) |
++		(div_high << AST_PTCR_CLK_CTRL_TYPEO_H),
++		AST_PTCR_CLK_EXT_CTRL);
++		break;
++#endif
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error channel aspeed_get_pwm_type %d\n",
++			pwm_type);
++		break;
++	}
++
++}
++
++static u8
++aspeed_get_pwm_clock_div_l(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			   u8 pwm_type)
++{
++	u8 tmp = 0;
++
++	switch (pwm_type) {
++	case PWM_TYPE_M:
++		tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					     AST_PTCR_CLK_CTRL) &
++		      AST_PTCR_CLK_CTRL_TYPEM_L_MASK) >>
++		      AST_PTCR_CLK_CTRL_TYPEM_L;
++		break;
++
++	case PWM_TYPE_N:
++		tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					     AST_PTCR_CLK_CTRL) &
++		      AST_PTCR_CLK_CTRL_TYPEN_L_MASK) >>
++		      AST_PTCR_CLK_CTRL_TYPEN_L;
++		break;
++
++#ifdef PWM_TYPE_O
++	case PWM_TYPE_O:
++		tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					     AST_PTCR_CLK_EXT_CTRL) &
++		       AST_PTCR_CLK_CTRL_TYPEO_L_MASK) >>
++		       AST_PTCR_CLK_CTRL_TYPEO_L;
++		break;
++
++#endif
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error channel aspeed_get_pwm_clock_div_l %d\n",
++			pwm_type);
++		break;
++	}
++	return tmp;
++}
++
++static void
++aspeed_set_pwm_clock_division_l(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++				u8 pwm_type, u8 div_low)
++{
++	if (div_low > 0xf)
++		return;
++
++	switch (pwm_type) {
++	case PWM_TYPE_M:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++		(aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CLK_CTRL) &
++		~AST_PTCR_CLK_CTRL_TYPEM_L_MASK) |
++		(div_low << AST_PTCR_CLK_CTRL_TYPEM_L), AST_PTCR_CLK_CTRL);
++		break;
++
++	case PWM_TYPE_N:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++		(aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CLK_CTRL) &
++		~AST_PTCR_CLK_CTRL_TYPEN_L_MASK) |
++		(div_low << AST_PTCR_CLK_CTRL_TYPEN_L), AST_PTCR_CLK_CTRL);
++		break;
++
++#ifdef PWM_TYPE_O
++	case PWM_TYPE_O:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++		(aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++				       AST_PTCR_CLK_EXT_CTRL) &
++		~AST_PTCR_CLK_CTRL_TYPEO_L_MASK) |
++		(div_low << AST_PTCR_CLK_CTRL_TYPEO_L), AST_PTCR_CLK_EXT_CTRL);
++		break;
++#endif
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error channel aspeed_get_pwm_type %d\n",
++			pwm_type);
++		break;
++	}
++}
++
++static u8
++aspeed_get_pwm_clock_unit(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			  u8 pwm_type)
++{
++	u8 tmp = 0;
++
++	switch (pwm_type) {
++	case PWM_TYPE_M:
++		tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					     AST_PTCR_CLK_CTRL) &
++		      AST_PTCR_CLK_CTRL_TYPEM_UNIT_MASK) >>
++		      AST_PTCR_CLK_CTRL_TYPEM_UNIT;
++		break;
++
++	case PWM_TYPE_N:
++		tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					     AST_PTCR_CLK_CTRL) &
++		      AST_PTCR_CLK_CTRL_TYPEN_UNIT_MASK) >>
++		      AST_PTCR_CLK_CTRL_TYPEN_UNIT;
++		break;
++
++#ifdef PWM_TYPE_O
++	case PWM_TYPE_O:
++		tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					     AST_PTCR_CLK_EXT_CTRL) &
++		       AST_PTCR_CLK_CTRL_TYPEO_UNIT_MASK) >>
++		       AST_PTCR_CLK_CTRL_TYPEO_UNIT;
++		break;
++
++#endif
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error channel aspeed_get_pwm_clock_unit %d\n",
++			pwm_type);
++		break;
++	}
++
++	return tmp;
++}
++
++static void
++aspeed_set_pwm_clock_unit(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			  u8 pwm_type, u8 unit)
++{
++	if (unit > 0xff)
++		return;
++
++	switch (pwm_type) {
++	case PWM_TYPE_M:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++		(aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CLK_CTRL) &
++		~AST_PTCR_CLK_CTRL_TYPEM_UNIT_MASK) |
++		(unit << AST_PTCR_CLK_CTRL_TYPEM_UNIT),
++		AST_PTCR_CLK_CTRL);
++		break;
++
++	case PWM_TYPE_N:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++		(aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CLK_CTRL) &
++		~AST_PTCR_CLK_CTRL_TYPEN_UNIT_MASK) |
++		(unit << AST_PTCR_CLK_CTRL_TYPEN_UNIT),
++		AST_PTCR_CLK_CTRL);
++		break;
++
++#ifdef PWM_TYPE_O
++	case PWM_TYPE_O:
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++		(aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++		AST_PTCR_CLK_EXT_CTRL) &
++		~AST_PTCR_CLK_CTRL_TYPEO_UNIT_MASK) |
++		(unit << AST_PTCR_CLK_CTRL_TYPEO_UNIT),
++		AST_PTCR_CLK_EXT_CTRL);
++		break;
++
++#endif
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error channel aspeed_get_pwm_type %d\n",
++			pwm_type);
++		break;
++	}
++}
++
++static u32
++aspeed_get_pwm_clock(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++		     u8 pwm_type)
++{
++	u32 unit, div_low, div_high, clk_source;
++
++	unit = aspeed_get_pwm_clock_unit(aspeed_pwm_tacho, pwm_type);
++
++	div_high = aspeed_get_pwm_clock_div_h(aspeed_pwm_tacho, pwm_type);
++	div_high = (0x1 << div_high);
++
++	div_low = aspeed_get_pwm_clock_div_l(aspeed_pwm_tacho, pwm_type);
++	if (div_low == 0)
++		div_low = 1;
++	else
++		div_low = div_low*2;
++
++	if (AST_PTCR_CTRL_CLK_MCLK & aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++	    AST_PTCR_CTRL))
++		clk_source = aspeed_pwm_tacho->aspeed_pwm_data->get_pwm_clock();
++	else
++		clk_source = 24 * 1000 * 1000;
++
++	return (clk_source / (div_high * div_low * (unit + 1)));
++}
++
++static u8
++aspeed_get_pwm_en(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho, u8 pwm_ch)
++{
++	u8 tmp = 0;
++
++	switch (pwm_ch) {
++	case PWMA:
++		tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL) &
++		      AST_PTCR_CTRL_PMWA_EN) >> AST_PTCR_CTRL_PMWA;
++		break;
++
++	case PWMB:
++		tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL) &
++		      AST_PTCR_CTRL_PMWB_EN) >> AST_PTCR_CTRL_PMWB;
++		break;
++
++	case PWMC:
++		tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL) &
++		      AST_PTCR_CTRL_PMWC_EN) >> AST_PTCR_CTRL_PMWC;
++		break;
++
++	case PWMD:
++		tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL) &
++		      AST_PTCR_CTRL_PMWD_EN) >> AST_PTCR_CTRL_PMWD;
++		break;
++
++	case PWME:
++		tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					     AST_PTCR_CTRL_EXT) &
++		      AST_PTCR_CTRL_PMWE_EN) >> AST_PTCR_CTRL_PMWE;
++		break;
++
++	case PWMF:
++		tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					     AST_PTCR_CTRL_EXT) &
++		      AST_PTCR_CTRL_PMWF_EN) >> AST_PTCR_CTRL_PMWF;
++		break;
++
++	case PWMG:
++		tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					     AST_PTCR_CTRL_EXT) &
++		      AST_PTCR_CTRL_PMWG_EN) >> AST_PTCR_CTRL_PMWG;
++		break;
++
++	case PWMH:
++		tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					     AST_PTCR_CTRL_EXT) &
++		      AST_PTCR_CTRL_PMWH_EN) >> AST_PTCR_CTRL_PMWH;
++		break;
++
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error channel aspeed_get_pwm_type %d\n",
++			pwm_ch);
++		break;
++	}
++
++	return tmp;
++
++}
++
++static void
++aspeed_set_pwm_en(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho, u8 pwm_ch,
++		  u8 enable)
++{
++	switch (pwm_ch) {
++	case PWMA:
++		if (enable)
++			aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++				aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++						     AST_PTCR_CTRL) |
++				AST_PTCR_CTRL_PMWA_EN, AST_PTCR_CTRL);
++		else
++			aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++				aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++						      AST_PTCR_CTRL) &
++				~AST_PTCR_CTRL_PMWA_EN, AST_PTCR_CTRL);
++
++		break;
++
++	case PWMB:
++		if (enable)
++			aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++				(aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++						       AST_PTCR_CTRL) |
++				AST_PTCR_CTRL_PMWB_EN), AST_PTCR_CTRL);
++		else
++			aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++				(aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++						       AST_PTCR_CTRL) &
++				~AST_PTCR_CTRL_PMWB_EN), AST_PTCR_CTRL);
++		break;
++
++	case PWMC:
++		if (enable)
++			aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++				(aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++						       AST_PTCR_CTRL) |
++				AST_PTCR_CTRL_PMWC_EN), AST_PTCR_CTRL);
++		else
++			aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++				(aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++						       AST_PTCR_CTRL) &
++				~AST_PTCR_CTRL_PMWC_EN), AST_PTCR_CTRL);
++
++		break;
++
++	case PWMD:
++		if (enable)
++			aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++				(aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++						       AST_PTCR_CTRL) |
++				AST_PTCR_CTRL_PMWD_EN), AST_PTCR_CTRL);
++		else
++			aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++				(aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++						       AST_PTCR_CTRL) &
++				~AST_PTCR_CTRL_PMWD_EN), AST_PTCR_CTRL);
++
++		break;
++
++	case PWME:
++		if (enable)
++			aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++				(aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++						       AST_PTCR_CTRL_EXT) |
++				AST_PTCR_CTRL_PMWE_EN), AST_PTCR_CTRL_EXT);
++		else
++			aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++				(aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++						       AST_PTCR_CTRL_EXT) &
++				~AST_PTCR_CTRL_PMWE_EN), AST_PTCR_CTRL_EXT);
++
++		break;
++
++	case PWMF:
++		if (enable)
++			aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++				(aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++						       AST_PTCR_CTRL_EXT) |
++				AST_PTCR_CTRL_PMWF_EN), AST_PTCR_CTRL_EXT);
++		else
++			aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++				(aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++						       AST_PTCR_CTRL_EXT) &
++				~AST_PTCR_CTRL_PMWF_EN), AST_PTCR_CTRL_EXT);
++
++		break;
++
++	case PWMG:
++		if (enable)
++			aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++				(aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++						       AST_PTCR_CTRL_EXT) |
++				AST_PTCR_CTRL_PMWG_EN), AST_PTCR_CTRL_EXT);
++		else
++			aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++				(aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++						       AST_PTCR_CTRL_EXT) &
++				~AST_PTCR_CTRL_PMWG_EN), AST_PTCR_CTRL_EXT);
++
++		break;
++
++	case PWMH:
++		if (enable)
++			aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++				(aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++						       AST_PTCR_CTRL_EXT) |
++				AST_PTCR_CTRL_PMWH_EN), AST_PTCR_CTRL_EXT);
++		else
++			aspeed_pwm_tacho_write(aspeed_pwm_tacho,
++				(aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++						       AST_PTCR_CTRL_EXT) &
++				~AST_PTCR_CTRL_PMWH_EN), AST_PTCR_CTRL_EXT);
++
++		break;
++
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error channel aspeed_get_pwm_type %d\n",
++			pwm_ch);
++		break;
++	}
++}
++
++static u8
++aspeed_get_pwm_type(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho, u8 pwm_ch)
++{
++	u8 tmp = 0;
++
++	switch (pwm_ch) {
++	case PWMA:
++		tmp = AST_PTCR_CTRL_GET_PWMA_TYPE(
++			aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++			AST_PTCR_CTRL));
++		break;
++
++	case PWMB:
++		tmp = AST_PTCR_CTRL_GET_PWMB_TYPE(
++			aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++			AST_PTCR_CTRL));
++		break;
++
++	case PWMC:
++		tmp = AST_PTCR_CTRL_GET_PWMC_TYPE(
++			aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++			AST_PTCR_CTRL));
++		break;
++
++	case PWMD:
++		tmp = AST_PTCR_CTRL_GET_PWMD_TYPE(
++			aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++			AST_PTCR_CTRL));
++		break;
++
++	case PWME:
++		tmp = AST_PTCR_CTRL_GET_PWME_TYPE(
++			aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++			AST_PTCR_CTRL_EXT));
++		break;
++
++	case PWMF:
++		tmp = AST_PTCR_CTRL_GET_PWMF_TYPE(
++			aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++			AST_PTCR_CTRL_EXT));
++		break;
++
++	case PWMG:
++		tmp = AST_PTCR_CTRL_GET_PWMG_TYPE(
++			aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++			AST_PTCR_CTRL_EXT));
++		break;
++
++	case PWMH:
++		tmp = AST_PTCR_CTRL_GET_PWMH_TYPE(
++			aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++			AST_PTCR_CTRL_EXT));
++		break;
++
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error channel aspeed_get_pwm_type %d\n",
++			pwm_ch);
++		break;
++	}
++
++	return tmp;
++}
++
++static void
++aspeed_set_pwm_type(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++		    u8 pwm_ch, u8 type)
++{
++	u32 tmp1, tmp2;
++
++	if (type > 0x2)
++		return;
++
++	tmp1 = aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL);
++	tmp2 = aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL_EXT);
++
++	switch (pwm_ch) {
++	case PWMA:
++		tmp1 &= ~AST_PTCR_CTRL_SET_PWMA_TYPE_MASK;
++		tmp1 |= AST_PTCR_CTRL_SET_PWMA_TYPE(type);
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp1, AST_PTCR_CTRL);
++		break;
++
++	case PWMB:
++		tmp1 &= ~AST_PTCR_CTRL_SET_PWMB_TYPE_MASK;
++		tmp1 |= AST_PTCR_CTRL_SET_PWMB_TYPE(type);
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp1, AST_PTCR_CTRL);
++		break;
++
++	case PWMC:
++		tmp1 &= ~AST_PTCR_CTRL_SET_PWMC_TYPE_MASK;
++		tmp1 |= AST_PTCR_CTRL_SET_PWMC_TYPE(type);
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp1, AST_PTCR_CTRL);
++		break;
++	case PWMD:
++		tmp1 &= ~AST_PTCR_CTRL_SET_PWMD_TYPE_MASK;
++		tmp1 |= AST_PTCR_CTRL_SET_PWMD_TYPE(type);
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp1, AST_PTCR_CTRL);
++		break;
++
++	case PWME:
++		tmp2 &= ~AST_PTCR_CTRL_SET_PWME_TYPE_MASK;
++		tmp2 |= AST_PTCR_CTRL_SET_PWME_TYPE(type);
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp2,
++				       AST_PTCR_CTRL_EXT);
++		break;
++
++	case PWMF:
++		tmp2 &= ~AST_PTCR_CTRL_SET_PWMF_TYPE_MASK;
++		tmp2 |= AST_PTCR_CTRL_SET_PWMF_TYPE(type);
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp2,
++				       AST_PTCR_CTRL_EXT);
++		break;
++
++	case PWMG:
++		tmp2 &= ~AST_PTCR_CTRL_SET_PWMG_TYPE_MASK;
++		tmp2 |= AST_PTCR_CTRL_SET_PWMG_TYPE(type);
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp2,
++				       AST_PTCR_CTRL_EXT);
++		break;
++
++	case PWMH:
++		tmp2 &= ~AST_PTCR_CTRL_SET_PWMH_TYPE_MASK;
++		tmp2 |= AST_PTCR_CTRL_SET_PWMH_TYPE(type);
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp2,
++				       AST_PTCR_CTRL_EXT);
++		break;
++
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error channel %d\n",
++			pwm_ch);
++		break;
++	}
++}
++
++static u8
++aspeed_get_pwm_duty_rising(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			   u8 pwm_ch)
++{
++	u32 tmp = 0;
++
++	switch (pwm_ch) {
++	case PWMA:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY0_CTRL);
++		tmp &= DUTY_CTRL0_PWMA_RISE_POINT_MASK;
++		break;
++
++	case PWMB:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY0_CTRL);
++		tmp &= DUTY_CTRL0_PWMB_RISE_POINT_MASK;
++		tmp = (tmp >> DUTY_CTRL0_PWMB_RISE_POINT);
++		break;
++
++	case PWMC:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY1_CTRL);
++		tmp &= DUTY_CTRL1_PWMC_RISE_POINT_MASK;
++		break;
++	case PWMD:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY1_CTRL);
++		tmp &= DUTY_CTRL1_PWMD_RISE_POINT_MASK;
++		tmp = (tmp >> DUTY_CTRL1_PWMD_RISE_POINT);
++		break;
++
++	case PWME:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY2_CTRL);
++		tmp &= DUTY_CTRL2_PWME_RISE_POINT_MASK;
++		break;
++
++	case PWMF:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY2_CTRL);
++		tmp &= DUTY_CTRL2_PWMF_RISE_POINT_MASK;
++		tmp = (tmp >> DUTY_CTRL2_PWMF_RISE_POINT);
++		break;
++
++	case PWMG:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY3_CTRL);
++		tmp &= DUTY_CTRL3_PWMG_RISE_POINT_MASK;
++		break;
++
++	case PWMH:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY3_CTRL);
++		tmp &= DUTY_CTRL3_PWMH_RISE_POINT_MASK;
++		tmp = (tmp >> DUTY_CTRL3_PWMH_RISE_POINT);
++		break;
++
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error pwm channel %d with duty R\n",
++			pwm_ch);
++		break;
++	}
++
++	return tmp;
++}
++
++static void
++aspeed_set_pwm_duty_rising(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			   u8 pwm_ch, u8 rising)
++{
++	u32 tmp = 0;
++	u32 pwm_type = aspeed_get_pwm_type(aspeed_pwm_tacho, pwm_ch);
++
++	if ((rising > 0xff) || (rising >
++	    aspeed_get_pwm_clock_unit(aspeed_pwm_tacho, pwm_type)))
++		return;
++
++	switch (pwm_ch) {
++	case PWMA:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY0_CTRL);
++		tmp &= ~DUTY_CTRL0_PWMA_RISE_POINT_MASK;
++		tmp |= rising;
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_DUTY0_CTRL);
++		break;
++
++	case PWMB:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY0_CTRL);
++		tmp &= ~DUTY_CTRL0_PWMB_RISE_POINT_MASK;
++		tmp |= (rising << DUTY_CTRL0_PWMB_RISE_POINT);
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_DUTY0_CTRL);
++		break;
++
++	case PWMC:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY1_CTRL);
++		tmp &= ~DUTY_CTRL1_PWMC_RISE_POINT_MASK;
++		tmp |= rising;
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_DUTY1_CTRL);
++		break;
++
++	case PWMD:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY1_CTRL);
++		tmp &= ~DUTY_CTRL1_PWMD_RISE_POINT_MASK;
++		tmp |= (rising << DUTY_CTRL1_PWMD_RISE_POINT);
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_DUTY1_CTRL);
++		break;
++
++	case PWME:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY2_CTRL);
++		tmp &= ~DUTY_CTRL2_PWME_RISE_POINT_MASK;
++		tmp |= rising;
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_DUTY2_CTRL);
++		break;
++
++	case PWMF:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY2_CTRL);
++		tmp &= ~DUTY_CTRL2_PWMF_RISE_POINT_MASK;
++		tmp |= (rising << DUTY_CTRL2_PWMF_RISE_POINT);
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_DUTY2_CTRL);
++		break;
++
++	case PWMG:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY3_CTRL);
++		tmp &= ~DUTY_CTRL3_PWMG_RISE_POINT_MASK;
++		tmp |= rising;
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_DUTY3_CTRL);
++		break;
++
++	case PWMH:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY3_CTRL);
++		tmp &= ~DUTY_CTRL3_PWMH_RISE_POINT_MASK;
++		tmp |= (rising << DUTY_CTRL3_PWMH_RISE_POINT);
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_DUTY3_CTRL);
++		break;
++
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error pwm channel %d with duty\n",
++			pwm_ch);
++		break;
++	}
++}
++
++static u8
++aspeed_get_pwm_duty_falling(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			    u8 pwm_ch)
++{
++	u32 tmp = 0;
++
++	switch (pwm_ch) {
++	case PWMA:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY0_CTRL);
++		tmp &= DUTY_CTRL0_PWMA_FALL_POINT_MASK;
++		tmp = (tmp >> DUTY_CTRL0_PWMA_FALL_POINT);
++		break;
++
++	case PWMB:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY0_CTRL);
++		tmp &= DUTY_CTRL0_PWMB_FALL_POINT_MASK;
++		tmp = (tmp >> DUTY_CTRL0_PWMB_FALL_POINT);
++		break;
++
++	case PWMC:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY1_CTRL);
++		tmp &= DUTY_CTRL1_PWMC_FALL_POINT_MASK;
++		tmp = (tmp >> DUTY_CTRL1_PWMC_FALL_POINT);
++		break;
++
++	case PWMD:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY1_CTRL);
++		tmp &= DUTY_CTRL1_PWMD_FALL_POINT_MASK;
++		tmp = (tmp >> DUTY_CTRL1_PWMD_FALL_POINT);
++		break;
++	case PWME:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY2_CTRL);
++		tmp &= DUTY_CTRL2_PWME_FALL_POINT_MASK;
++		tmp = (tmp >> DUTY_CTRL2_PWME_FALL_POINT);
++		break;
++
++	case PWMF:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY2_CTRL);
++		tmp &= DUTY_CTRL2_PWMF_FALL_POINT_MASK;
++		tmp = (tmp >> DUTY_CTRL2_PWMF_FALL_POINT);
++		break;
++
++	case PWMG:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY3_CTRL);
++		tmp &= DUTY_CTRL3_PWMG_FALL_POINT_MASK;
++		tmp = (tmp >> DUTY_CTRL3_PWMG_FALL_POINT);
++		break;
++
++	case PWMH:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY3_CTRL);
++		tmp &= DUTY_CTRL3_PWMH_FALL_POINT_MASK;
++		tmp = (tmp >> DUTY_CTRL3_PWMH_FALL_POINT);
++		break;
++
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error pwm channel %d with duty F\n",
++			pwm_ch);
++		break;
++	}
++
++	return tmp;
++}
++
++static void
++aspeed_set_pwm_duty_falling(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
++			    u8 pwm_ch, u8 falling)
++{
++	u32 tmp = 0;
++	u32 pwm_type = aspeed_get_pwm_type(aspeed_pwm_tacho, pwm_ch);
++
++	if ((falling > 0xff) || (falling >
++	    aspeed_get_pwm_clock_unit(aspeed_pwm_tacho, pwm_type)))
++		return;
++
++	switch (pwm_ch) {
++	case PWMA:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY0_CTRL);
++		tmp &= ~DUTY_CTRL0_PWMA_FALL_POINT_MASK;
++		tmp |= (falling << DUTY_CTRL0_PWMA_FALL_POINT);
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_DUTY0_CTRL);
++		break;
++
++	case PWMB:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY0_CTRL);
++		tmp &= ~DUTY_CTRL0_PWMB_FALL_POINT_MASK;
++		tmp |= (falling << DUTY_CTRL0_PWMB_FALL_POINT);
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_DUTY0_CTRL);
++		break;
++
++	case PWMC:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY1_CTRL);
++		tmp &= ~DUTY_CTRL1_PWMC_FALL_POINT_MASK;
++		tmp |= (falling << DUTY_CTRL1_PWMC_FALL_POINT);
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_DUTY1_CTRL);
++		break;
++
++	case PWMD:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY1_CTRL);
++		tmp &= ~DUTY_CTRL1_PWMD_FALL_POINT_MASK;
++		tmp |= (falling << DUTY_CTRL1_PWMD_FALL_POINT);
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_DUTY1_CTRL);
++		break;
++
++	case PWME:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY2_CTRL);
++		tmp &= ~DUTY_CTRL2_PWME_FALL_POINT_MASK;
++		tmp |= (falling << DUTY_CTRL2_PWME_FALL_POINT);
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_DUTY2_CTRL);
++		break;
++
++	case PWMF:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY2_CTRL);
++		tmp &= ~DUTY_CTRL2_PWMF_FALL_POINT_MASK;
++		tmp |= (falling << DUTY_CTRL2_PWMF_FALL_POINT);
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_DUTY2_CTRL);
++		break;
++
++	case PWMG:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY3_CTRL);
++		tmp &= ~DUTY_CTRL3_PWMG_FALL_POINT_MASK;
++		tmp |= (falling << DUTY_CTRL3_PWMG_FALL_POINT);
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_DUTY3_CTRL);
++		break;
++
++	case PWMH:
++		tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
++					    AST_PTCR_DUTY3_CTRL);
++		tmp &= ~DUTY_CTRL3_PWMH_FALL_POINT_MASK;
++		tmp |= (falling << DUTY_CTRL3_PWMH_FALL_POINT);
++		aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
++				       AST_PTCR_DUTY3_CTRL);
++		break;
++
++	default:
++		dev_err(aspeed_pwm_tacho->hwmon_dev, "error pwm channel %d with duty\n",
++			pwm_ch);
++		break;
++	}
++
++}
++
++/* PWM M/N/O Type sysfs
++ *
++ * Macro defining SENSOR_DEVICE_ATTR for a pwm sysfs entries.
++ * 0 - show/store unit
++ * 1 - show/store division_l
++ * 2 - show/store division_h
++ */
++static ssize_t
++aspeed_show_pwm_type_clock(struct device *dev, struct device_attribute *attr,
++			   char *buf)
++{
++	struct sensor_device_attribute_2 *sensor_attr =
++						to_sensor_dev_attr_2(attr);
++
++	switch (sensor_attr->nr) {
++	case 0: /* unit : 0~256 */
++		return sprintf(buf, "%d (0~255)\n",
++			       aspeed_get_pwm_clock_unit(aspeed_pwm_tacho,
++						sensor_attr->index));
++
++	case 1: /* division_l */
++		return sprintf(buf, "%d (0~15)\n",
++			       aspeed_get_pwm_clock_div_l(aspeed_pwm_tacho,
++							  sensor_attr->index));
++
++	case 2: /* division_h */
++		return sprintf(buf, "%d (0~15)\n",
++			       aspeed_get_pwm_clock_div_h(aspeed_pwm_tacho,
++							  sensor_attr->index));
++
++	case 3: /* expect clock */
++		return sprintf(buf, "%d \n",
++			       aspeed_get_pwm_clock(aspeed_pwm_tacho,
++						    sensor_attr->index));
++
++	default:
++		return -EINVAL;
++	}
++
++	return sprintf(buf, "%d : %d\n", sensor_attr->nr, sensor_attr->index);
++}
++
++static ssize_t
++aspeed_store_pwm_type_clock(struct device *dev, struct device_attribute *attr,
++			    const char *buf, size_t count)
++{
++	unsigned long input_val;
++	struct sensor_device_attribute_2 *sensor_attr =
++						to_sensor_dev_attr_2(attr);
++	int ret;
++
++	ret = kstrtoul(buf, 10, &input_val);
++	if (ret)
++		return ret;
++
++	switch (sensor_attr->nr) {
++	case 0: /* unit : 0~256 */
++		aspeed_set_pwm_clock_unit(aspeed_pwm_tacho, sensor_attr->index,
++					  input_val);
++		break;
++
++	case 1: /* division_l */
++		aspeed_set_pwm_clock_division_l(aspeed_pwm_tacho,
++						sensor_attr->index, input_val);
++		break;
++
++	case 2: /* division_h */
++		aspeed_set_pwm_clock_division_h(aspeed_pwm_tacho,
++						sensor_attr->index, input_val);
++		break;
++
++	default:
++		return -EINVAL;
++	}
 +
 +	return count;
 +}
 +
-+static DEVICE_ATTR(freq, S_IRUGO | S_IWUSR, show_frequency, store_frequency);
++/* attr
++ * 0 - show/store enable
++ * 1 - show/store type
++ * 2 - show/store falling
++ * 3 - show/store rising
++ */
++static ssize_t
++aspeed_show_pwm_speed(struct device *dev, struct device_attribute *attr,
++		      char *buf)
++{
++	struct sensor_device_attribute_2 *sensor_attr =
++						to_sensor_dev_attr_2(attr);
 +
-+static struct attribute *jtag_sysfs_entries[] = {
-+	&dev_attr_freq.attr,
-+	&dev_attr_sts.attr,
++	switch (sensor_attr->nr) {
++	case 0: /* enable, disable */
++		return sprintf(buf, "%d : %s\n",
++			       aspeed_get_pwm_en(aspeed_pwm_tacho,
++						 sensor_attr->index),
++			       aspeed_get_pwm_en(aspeed_pwm_tacho,
++						 sensor_attr->index) ?
++			       "Enable":"Disable");
++
++	case 1: /* pwm type M/N/O */
++		return sprintf(buf, "%d (0:M/1:N/2:O)\n",
++			       aspeed_get_pwm_type(aspeed_pwm_tacho,
++						   sensor_attr->index));
++
++	case 2: /* rising */
++		return sprintf(buf, "%x : unit limit (0~%d)\n",
++			       aspeed_get_pwm_duty_rising(aspeed_pwm_tacho,
++							  sensor_attr->index),
++			       aspeed_get_pwm_clock_unit(aspeed_pwm_tacho,
++					aspeed_get_pwm_type(aspeed_pwm_tacho,
++						sensor_attr->index)));
++
++	case 3: /* falling */
++		return sprintf(buf, "%x : unit limit (0~%d)\n",
++			       aspeed_get_pwm_duty_falling(aspeed_pwm_tacho,
++							   sensor_attr->index),
++			       aspeed_get_pwm_clock_unit(aspeed_pwm_tacho,
++					aspeed_get_pwm_type(aspeed_pwm_tacho,
++						sensor_attr->index)));
++
++	default:
++		return -EINVAL;
++	}
++}
++
++static ssize_t
++aspeed_store_pwm_speed(struct device *dev, struct device_attribute *attr,
++		       const char *buf, size_t count)
++{
++	unsigned long input_val;
++	struct sensor_device_attribute_2 *sensor_attr =
++						to_sensor_dev_attr_2(attr);
++	int ret;
++
++	ret = kstrtoul(buf, 10, &input_val);
++	if (ret)
++		return ret;
++
++	switch (sensor_attr->nr) {
++	case 0: /* enable, disable */
++		aspeed_set_pwm_en(aspeed_pwm_tacho, sensor_attr->index,
++				  input_val);
++		break;
++	case 1: /* pwm type M/N/O */
++		aspeed_set_pwm_type(aspeed_pwm_tacho, sensor_attr->index,
++				    input_val);
++		break;
++	case 2: /* rising */
++		aspeed_set_pwm_duty_rising(aspeed_pwm_tacho,
++					   sensor_attr->index, input_val);
++		break;
++	case 3: /* falling */
++		aspeed_set_pwm_duty_falling(aspeed_pwm_tacho,
++					    sensor_attr->index, input_val);
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return count;
++}
++
++/* Fan Type  */
++/* Fan M/N/O Type sysfs
++ * Macro defining SENSOR_DEVICE_ATTR for a pwm sysfs entries.
++ * 0 - show/store enable
++ * 1 - show/store mode
++ * 2 - show/store unit
++ * 3 - show/store division
++ * 4 - show/store limit
++ */
++static ssize_t
++aspeed_show_tacho_type(struct device *dev, struct device_attribute *attr,
++		       char *buf)
++{
++	struct sensor_device_attribute_2 *sensor_attr =
++						to_sensor_dev_attr_2(attr);
++
++	switch (sensor_attr->nr) {
++	case 0: /* enable, disable */
++		return sprintf(buf, "%d : %s\n",
++			aspeed_get_tacho_type_en(aspeed_pwm_tacho,
++						 sensor_attr->index),
++			aspeed_get_tacho_type_en(aspeed_pwm_tacho,
++						 sensor_attr->index) ?
++			"Enable":"Disable");
++
++	case 1: /* fan tacho mode */
++		switch (aspeed_get_tacho_type_mode(
++			aspeed_pwm_tacho, sensor_attr->index)) {
++		case FALL_EDGE:
++			return sprintf(buf, "0: falling\n");
++		case RISE_EDGE:
++			return sprintf(buf, "1: rising\n");
++		case BOTH_EDGE:
++			return sprintf(buf, "2: both\n");
++		default:
++			return sprintf(buf, "3: unknown\n");
++		}
++		break;
++
++	case 2: /* unit */
++		return sprintf(buf, "%d (0~65535)\n",
++			aspeed_get_tacho_type_unit(aspeed_pwm_tacho,
++						   sensor_attr->index));
++
++	case 3: /* division */
++		return sprintf(buf, "%d (0~7)\n",
++			aspeed_get_tacho_type_division(aspeed_pwm_tacho,
++						       sensor_attr->index));
++
++	case 4: /* limit */
++		return sprintf(buf, "%d (0~1048575)\n",
++			aspeed_get_tacho_type_limit(aspeed_pwm_tacho,
++						    sensor_attr->index));
++
++	case 5: /* measure period */
++		return sprintf(buf, "%d\n",
++			aspeed_get_tacho_measure_period(aspeed_pwm_tacho,
++							sensor_attr->index));
++
++	default:
++		return -EINVAL;
++	}
++}
++
++static ssize_t
++aspeed_store_tacho_type(struct device *dev, struct device_attribute *attr,
++			const char *buf, size_t count)
++{
++	unsigned long input_val;
++	struct sensor_device_attribute_2 *sensor_attr =
++						to_sensor_dev_attr_2(attr);
++	int ret;
++
++	ret = kstrtoul(buf, 10, &input_val);
++	if (ret)
++		return ret;
++
++	switch (sensor_attr->nr) {
++	case 0: /* enable, disable */
++		aspeed_set_tacho_type_en(aspeed_pwm_tacho, sensor_attr->index,
++					 input_val);
++		break;
++	case 1: /* fan tacho mode */
++		aspeed_set_tacho_type_mode(aspeed_pwm_tacho,
++					   sensor_attr->index, input_val);
++		break;
++
++	case 2: /* unit */
++		aspeed_set_tacho_type_unit(aspeed_pwm_tacho,
++					   sensor_attr->index, input_val);
++		break;
++
++	case 3: /* division */
++		aspeed_set_tacho_type_division(aspeed_pwm_tacho,
++					       sensor_attr->index, input_val);
++		break;
++
++	case 4: /* limit */
++		aspeed_set_tacho_type_limit(aspeed_pwm_tacho,
++					    sensor_attr->index, input_val);
++		break;
++
++	default:
++		return -EINVAL;
++	}
++
++	return count;
++
++}
++
++/* fan detect */
++/* FAN sysfs
++ * Macro defining SENSOR_DEVICE_ATTR for a tacho sysfs entries.
++ *  - show/store enable
++ *  - show/store source
++ *  - show/store rpm
++ *  - show/store alarm
++ *  - show/store alarm_en
++*/
++static ssize_t
++aspeed_show_tacho_speed(struct device *dev, struct device_attribute *attr,
++			char *buf)
++{
++	struct sensor_device_attribute_2 *sensor_attr =
++						to_sensor_dev_attr_2(attr);
++
++	switch (sensor_attr->nr)  {
++	case 0: /* enable, disable */
++		return sprintf(buf, "%d : %s\n",
++			       aspeed_get_tacho_en(aspeed_pwm_tacho,
++						   sensor_attr->index),
++			       aspeed_get_tacho_en(aspeed_pwm_tacho,
++						   sensor_attr->index) ?
++			       "Enable":"Disable");
++
++	case 1: /* tacho source PWMA~H - 0~7 */
++		return sprintf(buf, "PWM%d (0~7)\n",
++			       aspeed_get_tacho_source(aspeed_pwm_tacho,
++						       sensor_attr->index));
++
++	case 2: /* rpm */
++		return sprintf(buf, "%d \n",
++			       aspeed_get_tacho_rpm(aspeed_pwm_tacho,
++						    sensor_attr->index));
++
++	case 3: /* alarm */
++		return sprintf(buf, "%d \n",
++			       aspeed_get_tacho_alarm(aspeed_pwm_tacho,
++						      sensor_attr->index));
++
++	case 4: /* alarm_en */
++		return sprintf(buf, "%d : %s\n",
++			       aspeed_get_tacho_alarm_en(aspeed_pwm_tacho,
++							 sensor_attr->index),
++			       aspeed_get_tacho_alarm_en(aspeed_pwm_tacho,
++							 sensor_attr->index) ?
++			       "Enable":"Disable");
++
++	default:
++		return -EINVAL;
++	}
++
++}
++
++static ssize_t
++aspeed_store_tacho_speed(struct device *dev, struct device_attribute *attr,
++			 const char *buf, size_t count)
++{
++	unsigned long input_val;
++	struct sensor_device_attribute_2 *sensor_attr =
++						to_sensor_dev_attr_2(attr);
++	int ret;
++
++	ret = kstrtoul(buf, 10, &input_val);
++	if (ret)
++		return ret;
++
++	switch (sensor_attr->nr)  {
++	case 0: /* enable, disable */
++		aspeed_set_tacho_en(aspeed_pwm_tacho, sensor_attr->index,
++				    input_val);
++		break;
++
++	case 1: /* tacho source PWMA~H - 0~7 */
++		aspeed_set_tacho_source(aspeed_pwm_tacho, sensor_attr->index,
++					input_val);
++		break;
++
++	case 4: /* alarm_en */
++		aspeed_set_tacho_alarm_en(aspeed_pwm_tacho, sensor_attr->index,
++					  input_val);
++		break;
++
++	case 2: /* rpm */
++	case 3: /* alarm */
++	default:
++		return -EINVAL;
++	}
++
++	return count;
++}
++
++/* sysfs attributes */
++
++/* CLK sysfs */
++static SENSOR_DEVICE_ATTR_2
++(clk_en, S_IRUGO | S_IWUSR, aspeed_show_clk, aspeed_store_clk, 0, 0);
++static SENSOR_DEVICE_ATTR_2
++(clk_source, S_IRUGO | S_IWUSR, aspeed_show_clk, aspeed_store_clk, 1, 0);
++
++static struct attribute *clk_attributes[] = {
++	&sensor_dev_attr_clk_source.dev_attr.attr,
++	&sensor_dev_attr_clk_en.dev_attr.attr,
 +	NULL
 +};
 +
-+static struct attribute_group jtag_attribute_group = {
-+	.attrs = jtag_sysfs_entries,
++static const struct attribute_group clk_attribute_groups = {
++	.attrs = clk_attributes,
 +};
 +
-+static const struct file_operations aspeed_jtag_fops = {
-+	.owner		= THIS_MODULE,
-+	.unlocked_ioctl	= jtag_ioctl,
-+	.open		= jtag_open,
-+	.release	= jtag_release,
-+};
-+
-+struct miscdevice aspeed_jtag_misc = {
-+	.minor	= MISC_DYNAMIC_MINOR,
-+	.name	= "aspeed-jtag",
-+	.fops	= &aspeed_jtag_fops,
-+};
-+
-+static void aspeed_jtag_remove_sysfs_group(void *_dev)
-+{
-+	struct device *dev = _dev;
-+
-+	sysfs_remove_group(&dev->kobj, &jtag_attribute_group);
++/* PWM M/N/O Type sysfs
++ * Macro defining SENSOR_DEVICE_ATTR for a pwm sysfs entries.
++ * 0 - show/store unit
++ * 1 - show/store division_l
++ * 2 - show/store division_h
++ */
++#define sysfs_pwm_type(type,  index) \
++static SENSOR_DEVICE_ATTR_2(pwm_type_##type##_unit, S_IRUGO | S_IWUSR, \
++	aspeed_show_pwm_type_clock, aspeed_store_pwm_type_clock, 0, index); \
++static SENSOR_DEVICE_ATTR_2(pwm_type_##type##_division_l, S_IRUGO | S_IWUSR, \
++	aspeed_show_pwm_type_clock, aspeed_store_pwm_type_clock, 1, index); \
++static SENSOR_DEVICE_ATTR_2(pwm_type_##type##_division_h, S_IRUGO | S_IWUSR, \
++	aspeed_show_pwm_type_clock, aspeed_store_pwm_type_clock, 2, index); \
++static SENSOR_DEVICE_ATTR_2(pwm_type_##type##_clk, S_IRUGO, \
++	aspeed_show_pwm_type_clock, NULL, 3, index); \
++static struct attribute *pwm_type_##type##_attributes[] = { \
++	&sensor_dev_attr_pwm_type_##type##_unit.dev_attr.attr, \
++	&sensor_dev_attr_pwm_type_##type##_division_l.dev_attr.attr, \
++	&sensor_dev_attr_pwm_type_##type##_division_h.dev_attr.attr, \
++	&sensor_dev_attr_pwm_type_##type##_clk.dev_attr.attr, \
++	NULL \
 +}
 +
++/*
++ * Create the needed functions for each pwm using the macro defined above
++ * (4 pwms are supported)
++ */
++sysfs_pwm_type(m, 0);
++sysfs_pwm_type(n, 1);
++#ifdef PWM_TYPE_O
++sysfs_pwm_type(o, 2);
++#endif
 +
-+static int aspeed_jtag_probe(struct platform_device *pdev)
++static const struct attribute_group pwm_type_attribute_groups[] = {
++	{ .attrs = pwm_type_m_attributes },
++	{ .attrs = pwm_type_n_attributes },
++#ifdef PWM_TYPE_O
++	{ .attrs = pwm_type_o_attributes },
++#endif
++};
++
++/* PWM sysfs
++ * Macro defining SENSOR_DEVICE_ATTR for a pwm sysfs entries.
++ * 0 - show/store enable
++ * 1 - show/store type
++ * 2 - show/store rising
++ * 3 - show/store falling
++ */
++#define sysfs_pwm_speeds_num(index) \
++static SENSOR_DEVICE_ATTR_2(pwm##index##_en, S_IRUGO | S_IWUSR, \
++	aspeed_show_pwm_speed, aspeed_store_pwm_speed, 0, index); \
++static SENSOR_DEVICE_ATTR_2(pwm##index##_type, S_IRUGO | S_IWUSR, \
++	aspeed_show_pwm_speed, aspeed_store_pwm_speed, 1, index); \
++static SENSOR_DEVICE_ATTR_2(pwm##index##_rising, S_IRUGO | S_IWUSR, \
++	aspeed_show_pwm_speed, aspeed_store_pwm_speed, 2, index); \
++static SENSOR_DEVICE_ATTR_2(pwm##index##_falling, S_IRUGO | S_IWUSR, \
++	aspeed_show_pwm_speed, aspeed_store_pwm_speed, 3, index); \
++static struct attribute *pwm##index##_attributes[] = { \
++	&sensor_dev_attr_pwm##index##_en.dev_attr.attr, \
++	&sensor_dev_attr_pwm##index##_type.dev_attr.attr, \
++	&sensor_dev_attr_pwm##index##_rising.dev_attr.attr, \
++	&sensor_dev_attr_pwm##index##_falling.dev_attr.attr, \
++	NULL \
++}
++
++/*
++ * Create the needed functions for each pwm using the macro defined above
++ * (4 pwms are supported)
++ */
++sysfs_pwm_speeds_num(0);
++sysfs_pwm_speeds_num(1);
++sysfs_pwm_speeds_num(2);
++sysfs_pwm_speeds_num(3);
++sysfs_pwm_speeds_num(4);
++sysfs_pwm_speeds_num(5);
++sysfs_pwm_speeds_num(6);
++sysfs_pwm_speeds_num(7);
++
++static const struct attribute_group pwm_attribute_groups[] = {
++	{ .attrs = pwm0_attributes },
++	{ .attrs = pwm1_attributes },
++	{ .attrs = pwm2_attributes },
++	{ .attrs = pwm3_attributes },
++	{ .attrs = pwm4_attributes },
++	{ .attrs = pwm5_attributes },
++	{ .attrs = pwm6_attributes },
++	{ .attrs = pwm7_attributes },
++};
++
++/* Fan M/N/O Type sysfs
++ * Macro defining SENSOR_DEVICE_ATTR for a pwm sysfs entries.
++ *  0 - show/store enable
++ *  1 - show/store mode
++ *  2 - show/store unit
++ *  3 - show/store division
++ *  4 - show/store limit
++ */
++#define sysfs_tacho_type(type, index) \
++static SENSOR_DEVICE_ATTR_2(tacho_type_##type##_en, S_IRUGO | S_IWUSR, \
++	aspeed_show_tacho_type, aspeed_store_tacho_type, 0, index); \
++static SENSOR_DEVICE_ATTR_2(tacho_type_##type##_mode, S_IRUGO | S_IWUSR, \
++	aspeed_show_tacho_type, aspeed_store_tacho_type, 1, index); \
++static SENSOR_DEVICE_ATTR_2(tacho_type_##type##_unit, S_IRUGO | S_IWUSR, \
++	aspeed_show_tacho_type, aspeed_store_tacho_type, 2, index); \
++static SENSOR_DEVICE_ATTR_2(tacho_type_##type##_division, S_IRUGO | S_IWUSR, \
++	aspeed_show_tacho_type, aspeed_store_tacho_type, 3, index); \
++static SENSOR_DEVICE_ATTR_2(tacho_type_##type##_limit, S_IRUGO | S_IWUSR, \
++	aspeed_show_tacho_type, aspeed_store_tacho_type, 4, index); \
++static SENSOR_DEVICE_ATTR_2(tacho_type_##type##_measure_period, \
++	S_IRUGO | S_IWUSR, \
++	aspeed_show_tacho_type, aspeed_store_tacho_type, 5, index); \
++static struct attribute *tacho_type_##type##_attributes[] = { \
++	&sensor_dev_attr_tacho_type_##type##_en.dev_attr.attr, \
++	&sensor_dev_attr_tacho_type_##type##_mode.dev_attr.attr, \
++	&sensor_dev_attr_tacho_type_##type##_unit.dev_attr.attr, \
++	&sensor_dev_attr_tacho_type_##type##_division.dev_attr.attr, \
++	&sensor_dev_attr_tacho_type_##type##_limit.dev_attr.attr, \
++	&sensor_dev_attr_tacho_type_##type##_measure_period.dev_attr.attr, \
++	NULL \
++}
++
++/*
++ * Create the needed functions for each pwm using the macro defined above
++ * (4 pwms are supported)
++ */
++sysfs_tacho_type(m, 0);
++sysfs_tacho_type(n, 1);
++#ifdef PWM_TYPE_O
++sysfs_tacho_type(o, 2);
++#endif
++
++static const struct attribute_group tacho_type_attribute_groups[] = {
++	{ .attrs = tacho_type_m_attributes },
++	{ .attrs = tacho_type_n_attributes },
++#ifdef PWM_TYPE_O
++	{ .attrs = tacho_type_o_attributes },
++#endif
++};
++
++/* FAN sysfs
++ * Macro defining SENSOR_DEVICE_ATTR for a tacho sysfs entries.
++ *  - show/store enable
++ *  - show/store source
++ *  - show/store rpm
++ *  - show/store alarm
++ *  - show/store alarm_en
++ */
++#define sysfs_tacho_speeds_num(index) \
++static SENSOR_DEVICE_ATTR_2(tacho##index##_en, S_IRUGO | S_IWUSR, \
++	aspeed_show_tacho_speed, aspeed_store_tacho_speed, 0, index); \
++static SENSOR_DEVICE_ATTR_2(tacho##index##_source, S_IRUGO | S_IWUSR, \
++	aspeed_show_tacho_speed, aspeed_store_tacho_speed, 1, index); \
++static SENSOR_DEVICE_ATTR_2(tacho##index##_rpm, S_IRUGO, \
++	aspeed_show_tacho_speed, NULL, 2, index); \
++static SENSOR_DEVICE_ATTR_2(tacho##index##_alarm, S_IRUGO, \
++	aspeed_show_tacho_speed, aspeed_store_tacho_speed, 3, index); \
++static SENSOR_DEVICE_ATTR_2(tacho##index##_alarm_en, S_IRUGO | S_IWUSR, \
++	aspeed_show_tacho_speed, aspeed_store_tacho_speed, 4, index); \
++static struct attribute *tacho##index##_attributes[] = { \
++	&sensor_dev_attr_tacho##index##_en.dev_attr.attr, \
++	&sensor_dev_attr_tacho##index##_source.dev_attr.attr, \
++	&sensor_dev_attr_tacho##index##_rpm.dev_attr.attr, \
++	&sensor_dev_attr_tacho##index##_alarm.dev_attr.attr, \
++	&sensor_dev_attr_tacho##index##_alarm_en.dev_attr.attr, \
++	NULL \
++}
++
++/*
++ * Create the needed functions for each tacho using the macro defined above
++ * (4 tachos are supported)
++ */
++sysfs_tacho_speeds_num(0);
++sysfs_tacho_speeds_num(1);
++sysfs_tacho_speeds_num(2);
++sysfs_tacho_speeds_num(3);
++sysfs_tacho_speeds_num(4);
++sysfs_tacho_speeds_num(5);
++sysfs_tacho_speeds_num(6);
++sysfs_tacho_speeds_num(7);
++sysfs_tacho_speeds_num(8);
++sysfs_tacho_speeds_num(9);
++sysfs_tacho_speeds_num(10);
++sysfs_tacho_speeds_num(11);
++sysfs_tacho_speeds_num(12);
++sysfs_tacho_speeds_num(13);
++sysfs_tacho_speeds_num(14);
++sysfs_tacho_speeds_num(15);
++
++static const struct attribute_group tacho_attribute_groups[] = {
++	{ .attrs = tacho0_attributes },
++	{ .attrs = tacho1_attributes },
++	{ .attrs = tacho2_attributes },
++	{ .attrs = tacho3_attributes },
++	{ .attrs = tacho4_attributes },
++	{ .attrs = tacho5_attributes },
++	{ .attrs = tacho6_attributes },
++	{ .attrs = tacho7_attributes },
++	{ .attrs = tacho8_attributes },
++	{ .attrs = tacho9_attributes },
++	{ .attrs = tacho10_attributes },
++	{ .attrs = tacho11_attributes },
++	{ .attrs = tacho12_attributes },
++	{ .attrs = tacho13_attributes },
++	{ .attrs = tacho14_attributes },
++	{ .attrs = tacho15_attributes },
++};
++
++static int
++aspeed_pwm_tacho_probe(struct platform_device *pdev)
 +{
 +	struct resource *res;
-+	int ret = 0;
++	int i, j = 0;
++	int err = 0;
 +
 +	if (!of_device_is_compatible(pdev->dev.of_node,
-+				     "aspeed,aspeed2500-jtag"))
++				     "aspeed,aspeed2500-pwm-fan"))
 +		return -ENODEV;
++
++	aspeed_pwm_tacho = devm_kzalloc(&pdev->dev, sizeof(*aspeed_pwm_tacho),
++					GFP_KERNEL);
++	if (!aspeed_pwm_tacho) {
++		err = -ENOMEM;
++		goto out;
++	}
++
++	aspeed_pwm_tacho->aspeed_pwm_data = dev_get_platdata(&pdev->dev);
++	platform_set_drvdata(pdev, aspeed_pwm_tacho);
 +
 +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
 +	if (!res) {
 +		dev_err(&pdev->dev, "cannot get IORESOURCE_MEM\n");
-+		ret = -ENOENT;
++		err = -ENOENT;
 +		goto out;
 +	}
 +
-+	aspeed_jtag = devm_kzalloc(&pdev->dev, sizeof(*aspeed_jtag),
-+				   GFP_KERNEL);
-+	if (!aspeed_jtag)
-+		return -ENOMEM;
++	if (!request_mem_region(res->start, resource_size(res), res->name)) {
++		dev_err(&pdev->dev, "cannot reserved region\n");
++		err = -ENXIO;
++		goto out;
++	}
 +
-+	aspeed_jtag->reg_base = devm_ioremap_resource(&pdev->dev, res);
-+	if (!aspeed_jtag->reg_base) {
-+		ret = -EIO;
++	aspeed_pwm_tacho->reg_base = ioremap(res->start, resource_size(res));
++	if (!aspeed_pwm_tacho->reg_base) {
++		err = -EIO;
 +		goto out_region;
 +	}
 +
-+	aspeed_jtag->irq = platform_get_irq(pdev, 0);
-+	if (aspeed_jtag->irq < 0) {
++	aspeed_pwm_tacho->irq = platform_get_irq(pdev, 0);
++	if (aspeed_pwm_tacho->irq < 0) {
 +		dev_err(&pdev->dev, "no irq specified\n");
-+		ret = -ENOENT;
++		err = -ENOENT;
 +		goto out_region;
 +	}
 +
-+	/* Init JTAG */
-+	aspeed_toggle_scu_reset(SCU_RESET_JTAG, 3);
++	aspeed_pwm_tacho->groups[j++] = &clk_attribute_groups;
 +
-+	/* Eanble Clock */
-+	aspeed_jtag_write(aspeed_jtag, JTAG_ENG_EN | JTAG_ENG_OUT_EN,
-+			  AST_JTAG_CTRL);
-+	aspeed_jtag_write(aspeed_jtag, JTAG_SW_MODE_EN | JTAG_SW_MODE_TDIO,
-+			  AST_JTAG_SW);
++	for (i = 0; i < PWM_CH_NUM; i++)
++		aspeed_pwm_tacho->groups[j++] = &pwm_attribute_groups[i];
 +
-+	ret = devm_request_irq(&pdev->dev, aspeed_jtag->irq,
-+			       aspeed_jtag_interrupt, 0,
-+			       "aspeed-jtag", aspeed_jtag);
-+	if (ret) {
-+		dev_info(&pdev->dev, "aspeed_jtag Unable to get IRQ");
++	for (i = 0; i < PWM_TYPE_NUM; i++)
++		aspeed_pwm_tacho->groups[j++] = &pwm_type_attribute_groups[i];
++
++	for (i = 0; i < TACHO_NUM; i++)
++		aspeed_pwm_tacho->groups[j++] =  &tacho_attribute_groups[i];
++
++	for (i = 0; i < PWM_TYPE_NUM; i++)
++		aspeed_pwm_tacho->groups[j++] =
++					&tacho_type_attribute_groups[i];
++
++	aspeed_pwm_tacho->groups[j] = NULL;
++
++	aspeed_pwm_tacho->hwmon_dev = devm_hwmon_device_register_with_groups(
++						&pdev->dev, "aspeed_pwm_tacho",
++						aspeed_pwm_tacho,
++						aspeed_pwm_tacho->groups);
++
++	if (PTR_ERR_OR_ZERO(aspeed_pwm_tacho->hwmon_dev)) {
++		dev_err(&pdev->dev, "cannot register hwmon\n");
++		err = PTR_ERR(aspeed_pwm_tacho->hwmon_dev);
 +		goto out_region;
 +	}
 +
-+	aspeed_jtag_write(aspeed_jtag, JTAG_INST_PAUSE | JTAG_INST_COMPLETE |
-+			  JTAG_DATA_PAUSE | JTAG_DATA_COMPLETE |
-+			  JTAG_INST_PAUSE_EN | JTAG_INST_COMPLETE_EN |
-+			  JTAG_DATA_PAUSE_EN | JTAG_DATA_COMPLETE_EN,
-+			  AST_JTAG_ISR);
++	/* SCU Pin-MUX PWM & TACHO */
++	aspeed_scu_multi_func_reset(AST_SCU_FUN_PIN_CTRL3, 0xcfffff, 0xc000ff);
 +
-+	aspeed_jtag->flag = 0;
-+	init_waitqueue_head(&aspeed_jtag->jtag_wq);
++	/* SCU PWM CTRL Reset */
++	aspeed_toggle_scu_reset(SCU_RESET_PWM, 3);
 +
-+	ret = misc_register(&aspeed_jtag_misc);
-+	if (ret) {
-+		dev_err(&pdev->dev, "aspeed_jtag : failed to register misc\n");
-+		goto out_region;
-+	}
++	aspeed_pwm_taco_init();
 +
-+	aspeed_jtag->dev = &pdev->dev;
-+	platform_set_drvdata(pdev, aspeed_jtag);
-+	dev_set_drvdata(aspeed_jtag_misc.this_device, aspeed_jtag);
-+
-+	ret = sysfs_create_group(&pdev->dev.kobj, &jtag_attribute_group);
-+	if (ret) {
-+		dev_err(&pdev->dev,
-+			"aspeed_jtag : failed to create sysfs attributes.\n");
-+		return -1;
-+	}
-+	ret = devm_add_action(&pdev->dev, aspeed_jtag_remove_sysfs_group,
-+			      &pdev->dev);
-+	if (ret) {
-+		aspeed_jtag_remove_sysfs_group(&pdev->dev);
-+		dev_err(&pdev->dev,
-+			"Failed to add sysfs cleanup action (%d)\n",
-+			ret);
-+		return ret;
-+	}
-+
-+	dev_info(&pdev->dev, "aspeed_jtag : driver successfully loaded.\n");
++	dev_info(&pdev->dev, "aspeed pwm tacho: driver successfully loaded.\n");
 +
 +	return 0;
 +
 +out_region:
 +	release_mem_region(res->start, res->end - res->start + 1);
 +out:
-+	dev_warn(&pdev->dev, "aspeed_jtag : driver init failed ret (%d)\n", ret);
-+	return ret;
++	dev_err(&pdev->dev, "aspeed pwm tacho: driver init failed (err=%d)!\n",
++		err);
++	return err;
 +}
 +
-+static int aspeed_jtag_remove(struct platform_device *pdev)
++static int aspeed_pwm_tacho_remove(struct platform_device *pdev)
 +{
-+	misc_deregister(&aspeed_jtag_misc);
++	struct aspeed_pwm_tacho_data *aspeed_pwm_tacho =
++						platform_get_drvdata(pdev);
++	struct resource *res;
++
 +	platform_set_drvdata(pdev, NULL);
++	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	iounmap(aspeed_pwm_tacho->reg_base);
++	release_mem_region(res->start, res->end - res->start + 1);
++	dev_info(&pdev->dev, "aspeed_pwm_tacho: driver unloaded.\n");
 +
 +	return 0;
 +}
 +
 +#ifdef CONFIG_PM
 +static int
-+aspeed_jtag_suspend(struct platform_device *pdev, pm_message_t state)
++aspeed_pwm_tacho_suspend(struct platform_device *pdev, pm_message_t state)
 +{
++	dev_info(&pdev->dev, "aspeed_pwm_tacho_suspend\n");
++
 +	return 0;
 +}
 +
 +static int
-+aspeed_jtag_resume(struct platform_device *pdev)
++aspeed_pwm_tacho_resume(struct platform_device *pdev)
 +{
++	aspeed_pwm_taco_init();
 +	return 0;
 +}
 +
 +#else
-+#define aspeed_jtag_suspend        NULL
-+#define aspeed_jtag_resume         NULL
++#define aspeed_pwm_tacho_suspend        NULL
++#define aspeed_pwm_tacho_resume         NULL
 +#endif
 +
-+static const struct of_device_id aspeed_jtag_of_table[] = {
-+	{ .compatible = "aspeed,aspeed2500-jtag", },
++static const struct of_device_id aspeed_pwm_fan_of_table[] = {
++	{ .compatible = "aspeed,aspeed2500-pwm-fan", },
 +	{ },
 +};
-+MODULE_DEVICE_TABLE(of, aspeed_jtag_of_table);
++MODULE_DEVICE_TABLE(of, aspeed_pwm_fan_of_table);
 +
-+static struct platform_driver aspeed_jtag_driver = {
-+	.probe		= aspeed_jtag_probe,
-+	.remove		= aspeed_jtag_remove,
-+	.suspend	= aspeed_jtag_suspend,
-+	.resume		= aspeed_jtag_resume,
-+	.driver         = {
-+		.name	= KBUILD_MODNAME,
-+		.owner	= THIS_MODULE,
-+		.of_match_table = aspeed_jtag_of_table,
++static struct platform_driver aspeed_pwm_tacho_driver = {
++	.remove		= aspeed_pwm_tacho_remove,
++	.suspend	= aspeed_pwm_tacho_suspend,
++	.resume		= aspeed_pwm_tacho_resume,
++	.driver		= {
++		.name   = KBUILD_MODNAME,
++		.owner  = THIS_MODULE,
++		.of_match_table = aspeed_pwm_fan_of_table,
 +	},
 +};
-+
-+module_platform_driver(aspeed_jtag_driver);
++module_platform_driver_probe(aspeed_pwm_tacho_driver, aspeed_pwm_tacho_probe);
 +
 +MODULE_AUTHOR("Ryan Chen <ryan_chen@aspeedtech.com>");
-+MODULE_DESCRIPTION("AST JTAG LIB Driver");
++MODULE_DESCRIPTION("ASPEED PWM TACHO driver");
 +MODULE_LICENSE("GPL");
++MODULE_ALIAS("platform:aspeed-pwm-fan");
 -- 
 2.1.4
