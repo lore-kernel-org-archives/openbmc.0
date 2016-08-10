@@ -1,21 +1,22 @@
 Return-Path: <vadimp@mellanox.com>
 Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
- by lists.ozlabs.org (Postfix) with ESMTP id 3s8LQd0b4nzDqRR
- for <openbmc@lists.ozlabs.org>; Wed, 10 Aug 2016 16:12:08 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTP id 3s8LQr3GbzzDqRR
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Aug 2016 16:12:19 +1000 (AEST)
 Received: from Internal Mail-Server by MTLPINE1 (envelope-from
  vadimp@mellanox.com)
- with ESMTPS (AES256-SHA encrypted); 10 Aug 2016 08:59:01 +0300
+ with ESMTPS (AES256-SHA encrypted); 10 Aug 2016 08:59:12 +0300
 Received: from r-mgtswh-236.mtr.labs.mlnx (r-mgtswh-236.mtr.labs.mlnx
  [10.209.1.207])
- by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id u7A5x1Yx018014;
- Wed, 10 Aug 2016 08:59:01 +0300
+ by labmailer.mlnx (8.13.8/8.13.8) with ESMTP id u7A5xCnM018137;
+ Wed, 10 Aug 2016 08:59:12 +0300
 From: vadimp@mellanox.com
 To: openbmc@lists.ozlabs.org
 Cc: jiri@mellanox.com, michaelsh@mellanox.com, shays@mellanox.com,
  yanivab@mellanox.com, Vadim Pasternak <vadimp@mellanox.com>
-Subject: [dev-4.7 patch 3/5] misc (aspeed) introduce Aspeed SoC peci driver
-Date: Wed, 10 Aug 2016 07:03:11 +0000
-Message-Id: <1470812591-50924-1-git-send-email-vadimp@mellanox.com>
+Subject: [dev-4.7 patch 04/11] pinctrl (aspeed) introduce Aspeed SoC jtag
+ driver
+Date: Wed, 10 Aug 2016 07:03:22 +0000
+Message-Id: <1470812602-50968-1-git-send-email-vadimp@mellanox.com>
 X-Mailer: git-send-email 2.1.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
@@ -28,75 +29,61 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Aug 2016 06:12:10 -0000
+X-List-Received-Date: Wed, 10 Aug 2016 06:12:21 -0000
 
 From: Vadim Pasternak <vadimp@mellanox.com>
 
 The Kconfig controlling compilation of this code is:
-drivers/misc/aspeed/Kconfig:config ASPEED_PECI
+drivers/pinctrl/aspeed/Kconfig:config PINCTRL_ASPEED_JTAG
 
 Porting peci driver from 3.18 to 4.7.
 
 Signed-off-by: Vadim Pasternak <vadimp@mellanox.com>
 ---
- drivers/misc/Kconfig              |   1 +
- drivers/misc/aspeed/Kconfig       |  12 +
- drivers/misc/aspeed/Makefile      |   5 +
- drivers/misc/aspeed/aspeed-peci.c | 569 ++++++++++++++++++++++++++++++++++++++
- 4 files changed, 587 insertions(+)
- create mode 100644 drivers/misc/aspeed/Kconfig
- create mode 100644 drivers/misc/aspeed/Makefile
- create mode 100644 drivers/misc/aspeed/aspeed-peci.c
+ drivers/pinctrl/aspeed/Kconfig       |   6 +
+ drivers/pinctrl/aspeed/Makefile      |   4 +
+ drivers/pinctrl/aspeed/aspeed-jtag.c | 919 +++++++++++++++++++++++++++++++++++
+ 3 files changed, 929 insertions(+)
+ create mode 100644 drivers/pinctrl/aspeed/aspeed-jtag.c
 
-diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-index 4617ddc..bdf63da 100644
---- a/drivers/misc/Kconfig
-+++ b/drivers/misc/Kconfig
-@@ -821,4 +821,5 @@ source "drivers/misc/mic/Kconfig"
- source "drivers/misc/genwqe/Kconfig"
- source "drivers/misc/echo/Kconfig"
- source "drivers/misc/cxl/Kconfig"
-+source "drivers/misc/aspeed/Kconfig"
- endmenu
-diff --git a/drivers/misc/aspeed/Kconfig b/drivers/misc/aspeed/Kconfig
-new file mode 100644
-index 0000000..dedce9c
---- /dev/null
-+++ b/drivers/misc/aspeed/Kconfig
-@@ -0,0 +1,12 @@
-+menu "ASPEED devices support"
+diff --git a/drivers/pinctrl/aspeed/Kconfig b/drivers/pinctrl/aspeed/Kconfig
+index ee45a96..0d289ab 100644
+--- a/drivers/pinctrl/aspeed/Kconfig
++++ b/drivers/pinctrl/aspeed/Kconfig
+@@ -22,3 +22,9 @@ config PINCTRL_ASPEED_G5
+ 	help
+ 	  Say Y here to enable pin controller support for Aspeed's 5th
+ 	  generation AST SoCs. GPIO is provided by a separate GPIO driver.
 +
-+config ASPEED_PECI
-+	tristate "Aspeed PECI driver"
-+	depends on I2C
++config PINCTRL_ASPEED_JTAG
++	tristate "ASPEED JTAG control"
 +	default n
 +	help
-+	  This option enables Aspeed PECI driver support.
-+
-+	  If unsure, say N.
-+
-+endmenu
-diff --git a/drivers/misc/aspeed/Makefile b/drivers/misc/aspeed/Makefile
-new file mode 100644
-index 0000000..e502851
---- /dev/null
-+++ b/drivers/misc/aspeed/Makefile
-@@ -0,0 +1,5 @@
-+
++	 Driver for ASPEED JTAG controller driver
+diff --git a/drivers/pinctrl/aspeed/Makefile b/drivers/pinctrl/aspeed/Makefile
+index 0f4b876..e229fd1 100644
+--- a/drivers/pinctrl/aspeed/Makefile
++++ b/drivers/pinctrl/aspeed/Makefile
+@@ -1,5 +1,9 @@
+ # Aspeed pinctrl support
+ 
 +ccflags-$(CONFIG_ARCH_MULTIPLATFORM) := \
-+        -I$(srctree)/arch/arm/mach-aspeed/include
++	-I$(srctree)/arch/arm/mach-aspeed/include
 +
-+obj-$(CONFIG_ASPEED_PECI) += aspeed-peci.o
-diff --git a/drivers/misc/aspeed/aspeed-peci.c b/drivers/misc/aspeed/aspeed-peci.c
+ obj-$(CONFIG_PINCTRL_ASPEED)	+= pinctrl-aspeed.o
+ obj-$(CONFIG_PINCTRL_ASPEED_G4)	+= pinctrl-aspeed-g4.o
+ obj-$(CONFIG_PINCTRL_ASPEED_G5)	+= pinctrl-aspeed-g5.o
++obj-$(CONFIG_PINCTRL_ASPEED_JTAG)	+= aspeed-jtag.o
+diff --git a/drivers/pinctrl/aspeed/aspeed-jtag.c b/drivers/pinctrl/aspeed/aspeed-jtag.c
 new file mode 100644
-index 0000000..4350bc4
+index 0000000..11ac953
 --- /dev/null
-+++ b/drivers/misc/aspeed/aspeed-peci.c
-@@ -0,0 +1,569 @@
++++ b/drivers/pinctrl/aspeed/aspeed-jtag.c
+@@ -0,0 +1,919 @@
 +/*
-+ *  driver/misc/aspeed/aspeed_peci.c
++ *  driver/pincntrl/aspeed_jtag.c
 + *
-+ *  ASPEED PECI controller driver
++ *  ASPEED JTAG controller driver
 + *
 + *  Copyright (C) 2012-2020  ASPEED Technology Inc.
 + *
@@ -105,455 +92,774 @@ index 0000000..4350bc4
 + *  published by the Free Software Foundation.
 + *
 + *  History:
-+ *   2013.01.30: Initial version [Ryan Chen]
-+ *   2016.08.06: Porting to kernel 4.7 [Vadim Pasternak vadimp@mellanox.com]
++ *   2012.08.06: Initial version [Ryan Chen]
++ *   2016.0806: Porting to kernel 4.7
 + */
 +
-+
-+#include <linux/module.h>
-+#include <linux/fs.h>
 +#include <linux/init.h>
-+#include <linux/platform_device.h>
-+#include <linux/types.h>
-+#include <linux/interrupt.h>
-+#include <linux/uaccess.h>
-+#include <linux/io.h>
-+#include <linux/delay.h>
++#include <linux/module.h>
 +#include <linux/miscdevice.h>
-+#include <linux/configfs.h>
++#include <linux/slab.h>
++#include <linux/sched.h>
++#include <linux/interrupt.h>
++#include <linux/platform_device.h>
++#include <linux/io.h>
++#include <linux/uaccess.h>
++#include <linux/sysfs.h>
++#include <linux/fs.h>
++#include <linux/delay.h>
 +#include <linux/of_address.h>
 +#include <linux/of_platform.h>
 +#include <asm/mach-types.h>
++#include <asm/mach/arch.h>
 +#include <mach/reset.h>
 +
-+/*AST PECI Register Definition */
-+#define AST_PECI_CTRL		0x00
-+#define AST_PECI_TIMING		0x04
-+#define AST_PECI_CMD		0x08
-+#define AST_PECI_CMD_CTRL	0x0C
-+#define AST_PECI_EXP_FCS	0x10
-+#define AST_PECI_CAP_FCS	0x14
-+#define AST_PECI_INT_CTRL	0x18
-+#define AST_PECI_INT_STS	0x1C
-+#define AST_PECI_W_DATA0	0x20
-+#define AST_PECI_W_DATA1	0x24
-+#define AST_PECI_W_DATA2	0x28
-+#define AST_PECI_W_DATA3	0x2c
-+#define AST_PECI_R_DATA0	0x30
-+#define AST_PECI_R_DATA1	0x34
-+#define AST_PECI_R_DATA2	0x38
-+#define AST_PECI_R_DATA3	0x3c
-+#define AST_PECI_W_DATA4	0x40
-+#define AST_PECI_W_DATA5	0x44
-+#define AST_PECI_W_DATA6	0x48
-+#define AST_PECI_W_DATA7	0x4c
-+#define AST_PECI_R_DATA4	0x50
-+#define AST_PECI_R_DATA5	0x54
-+#define AST_PECI_R_DATA6	0x58
-+#define AST_PECI_R_DATA7	0x5c
++#define AST_JTAG_DATA			0x00
++#define AST_JTAG_INST			0x04
++#define AST_JTAG_CTRL			0x08
++#define AST_JTAG_ISR			0x0C
++#define AST_JTAG_SW			0x10
++#define AST_JTAG_TCK			0x14
++#define AST_JTAG_IDLE			0x18
 +
++/* AST_JTAG_CTRL - 0x08 : Engine Control */
++#define JTAG_ENG_EN			(0x1 << 31)
++#define JTAG_ENG_OUT_EN			(0x1 << 30)
++#define JTAG_FORCE_TMS			(0x1 << 29)
++#define JTAG_IR_UPDATE			(0x1 << 26)
++#define JTAG_INST_LEN_MASK		(0x3f << 20)
++#define JTAG_SET_INST_LEN(x)		(x << 20)
++#define JTAG_SET_INST_MSB		(0x1 << 19)
++#define JTAG_TERMINATE_INST		(0x1 << 18)
++#define JTAG_LAST_INST			(0x1 << 17)
++#define JTAG_INST_EN			(0x1 << 16)
++#define JTAG_DATA_LEN_MASK		(0x3f << 4)
++#define JTAG_DR_UPDATE			(0x1 << 10)
++#define JTAG_DATA_LEN(x)		(x << 4)
++#define JTAG_SET_DATA_MSB		(0x1 << 3)
++#define JTAG_TERMINATE_DATA		(0x1 << 2)
++#define JTAG_LAST_DATA			(0x1 << 1)
++#define JTAG_DATA_EN			(0x1)
 +
-+/* AST_PECI_CTRL - 0x00 : Control Register */
-+#define PECI_CTRL_SAMPLING_MASK		(0xf << 16)
-+#define PECI_CTRL_SAMPLING(x)		(x << 16)
-+#define PECI_CTRL_READ_MODE_MASK	(0xf << 12)
-+#define PECI_CTRL_CONT_MODE		(1 << 16)
-+#define PECI_CTRL_DBG_MODE		(2 << 16)
-+#define PECI_CTRL_CLK_SOURCE		(0x1 << 11) /*0: 24Mhz, 1: MCLK */
-+#define PECI_CTRL_CLK_DIV_MASK		(0x3 << 8)
-+#define PECI_CTRL_CLK_DIV(x)		(x << 8)
-+#define PECI_CTRL_INVERT_OUT		(0x1 << 7)
-+#define PECI_CTRL_INVERT_IN		(0x1 << 6)
-+#define PECI_CTRL_BUS_CONTENT_EN	(0x1 << 5)
-+#define PECI_CTRL_PECI_EN		(0x1 << 4)
-+#define PECI_CTRL_PECI_CLK_EN		(0x1)
++/* AST_JTAG_ISR	- 0x0C : INterrupt status and enable */
++#define JTAG_INST_PAUSE			(0x1 << 19)
++#define JTAG_INST_COMPLETE		(0x1 << 18)
++#define JTAG_DATA_PAUSE			(0x1 << 17)
++#define JTAG_DATA_COMPLETE		(0x1 << 16)
 +
-+/* AST_PECI_TIMING - 0x04 : Timing Negotiation */
-+#define PECI_TIMING_MESSAGE_GET(x)	((x & 0xff00) >> 8)
-+#define PECI_TIMING_MESSAGE(x)		(x << 8)
-+#define PECI_TIMING_ADDRESS_GET(x)	(x & 0xff)
-+#define PECI_TIMING_ADDRESS(x)		(x)
++#define JTAG_INST_PAUSE_EN		(0x1 << 3)
++#define JTAG_INST_COMPLETE_EN		(0x1 << 2)
++#define JTAG_DATA_PAUSE_EN		(0x1 << 1)
++#define JTAG_DATA_COMPLETE_EN		(0x1)
 +
-+/* AST_PECI_CMD	- 0x08 : Command Register */
-+#define PECI_CMD_PIN_MON		(0x1 << 31)
-+#define PECI_CMD_STS			(0xf << 24)
-+#define PECI_CMD_FIRE			(0x1)
++/* AST_JTAG_SW	- 0x10 : Software Mode and Status */
++#define JTAG_SW_MODE_EN			(0x1 << 19)
++#define JTAG_SW_MODE_TCK		(0x1 << 18)
++#define JTAG_SW_MODE_TMS		(0x1 << 17)
++#define JTAG_SW_MODE_TDIO		(0x1 << 16)
++#define JTAG_STS_INST_PAUSE		(0x1 << 2)
++#define JTAG_STS_DATA_PAUSE		(0x1 << 1)
++#define JTAG_STS_ENG_IDLE		(0x1)
 +
-+/* AST_PECI_LEN	- 0x0C : Read/Write Length Register */
-+#define PECI_AW_FCS_EN			(0x1 << 31)
-+#define PECI_READ_LEN_MASK		(0xff << 16)
-+#define PECI_READ_LEN(x)		(x << 16)
-+#define PECI_WRITE_LEN_MASK		(0xff << 8)
-+#define PECI_WRITE_LEN(x)		(x << 8)
-+#define PECI_TAGET_ADDR_MASK		(0xff)
-+#define PECI_TAGET_ADDR(x)		(x)
++/* AST_JTAG_TCK	- 0x14 : TCK Control */
++#define JTAG_TCK_INVERSE		(0x1 << 31)
++#define JTAG_TCK_DIVISOR_MASK		(0x7ff)
++#define JTAG_GET_TCK_DIVISOR(x)		(x & 0x7ff)
 +
++/*  AST_JTAG_IDLE - 0x18 : Ctroller set for go to IDLE */
++#define JTAG_GO_IDLE			(0x1)
 +
-+/* AST_PECI_EXP_FCS	- 0x10 : Expected FCS Data Register  */
-+#define PECI_PROGRAM_AW_FCS		(0xf << 24)
-+#define PECI_EXPECT_READ_FCS		(0xf << 16)
-+#define PECI_EXPECT_AW_FCS_AUTO		(0xf << 8)
-+#define PECI_EXPECT_WRITE_FCS		(0xf)
-+
-+/* AST_PECI_CAP_FCS	- 0x14 : Captured FCS Data Register */
-+#define PECI_CAPTURE_READ_FCS(x)	((x & 0xff) >> 16)
-+#define PECI_CAPTURE_WRITE_FCS		(0xff)
-+
-+/* AST_PECI_INT_CTRL/ STS  - 0x18/0x1c  : Interrupt Register */
-+#define PECI_INT_TIMING_RESULT_MASK	(0x3 << 30)
-+#define PECI_INT_TIMEOUT		(0x1 << 4)
-+#define PECI_INT_CONNECT		(0x1 << 3)
-+#define PECI_INT_W_FCS_BAD		(0x1 << 2)
-+#define PECI_INT_W_FCS_ABORT		(0x1 << 1)
-+#define PECI_INT_CMD_DONE			(0x1)
-+
-+#define AUTO_GEN_AWFCS		1
-+#define DISABLE_ENGINE		0
-+#define ENABLE_RX_ENGINE	(1 << 0)
-+#define ENABLE_TX_ENGINE	(1 << 1)
-+#define LEFT_CHANNEL_HIGH	(1 << 16)
-+#define DELAY_CLOCK_CYCLE	(1 << 17)
-+
-+struct timing_negotiation {
-+	u8		msg_timing;
-+	u8		addr_timing;
++enum aspeed_jtag_xfer_mode {
++	JTAG_XFER_HW_MODE = 0,
++	JTAG_XFER_SW_MODE = 1,
 +};
 +
-+struct xfer_msg {
-+	u8		client_addr;
-+	u8		tx_len;
-+	u8		rx_len;
-+	u8		tx_fcs;
-+	u8		rx_fcs;
-+	u8		fcs_en;
-+	u8		sw_fcs;
-+	u8		*tx_buf;
-+	u8		*rx_buf;
-+	u32		sts;
++struct runtest_idle {
++	enum aspeed_jtag_xfer_mode	mode;	/* 0 :HW mode, 1: SW mode */
++	unsigned char			reset;	/* Test Logic Reset */
++	unsigned char			end;	/* o: idle, 1: ir pause, 2: drpause */
++	unsigned char			tck;	/* keep tck */
 +};
 +
-+#define PECI_DEVICE "/dev/aspeed-peci"
-+#define PECIIOC_BASE 'P'
-+#define AST_PECI_IOCRTIMING _IOR(PECIIOC_BASE, 0, struct timing_negotiation*)
-+#define AST_PECI_IOCWTIMING _IOW(PECIIOC_BASE, 1, struct timing_negotiation*)
-+#define AST_PECI_IOCXFER _IOWR(PECIIOC_BASE, 2, struct xfer_msg*)
++struct sir_xfer {
++	enum aspeed_jtag_xfer_mode	mode;	/* 0 :HW mode, 1: SW mode */
++	unsigned short			length;	/* bits */
++	unsigned int			tdi;
++	unsigned int			tdo;
++	unsigned char			endir;	/* 0: idle, 1:pause */
++};
 +
-+static struct aspeed_peci_data {
-+	struct device		*misc_dev;
++struct sdr_xfer {
++	enum aspeed_jtag_xfer_mode	mode;	/* 0 :HW mode, 1: SW mode */
++	unsigned char			direct; /* 0 ; read , 1 : write */
++	unsigned short			length;	/* bits */
++	unsigned int			*tdio;
++	unsigned char			enddr;	/* 0: idle, 1:pause */
++};
++
++#define JTAGIOC_BASE       'T'
++
++#define AST_JTAG_IOCRUNTEST	_IOW(JTAGIOC_BASE, 0, struct runtest_idle)
++#define AST_JTAG_IOCSIR		_IOWR(JTAGIOC_BASE, 1, struct sir_xfer)
++#define AST_JTAG_IOCSDR		_IOWR(JTAGIOC_BASE, 2, struct sdr_xfer)
++#define AST_JTAG_SIOCFREQ	_IOW(JTAGIOC_BASE, 3, unsigned int)
++#define AST_JTAG_GIOCFREQ	_IOR(JTAGIOC_BASE, 4, unsigned int)
++
++struct aspeed_jtag_info {
 +	void __iomem		*reg_base;
-+	int			irq;
-+	int			open_count;
-+	struct completion	xfer_complete;
-+	u32			sts;
-+	struct mutex		lock;
-+} aspeed_peci;
++	struct device		*dev;
++	u8			sts; /* 0: idle, 1:irpause 2:drpause */
++	int			irq; /* JTAG IRQ number */
++	u32			flag;
++	wait_queue_head_t	jtag_wq;
++	bool 			is_open;
++};
 +
-+static inline void aspeed_peci_write(u32 val, u32 reg)
++struct aspeed_jtag_info *aspeed_jtag;
++static DEFINE_SPINLOCK(jtag_state_lock);
++
++static inline u32
++aspeed_jtag_read(struct aspeed_jtag_info *aspeed_jtag, u32 reg)
 +{
-+	dev_dbg(aspeed_peci.misc_dev, "write offset: %x, val: %x\n", reg, val);
-+	writel(val, aspeed_peci.reg_base + reg);
++	return readl(aspeed_jtag->reg_base + reg);
 +}
 +
-+static inline u32 aspeed_peci_read(u32 reg)
++static inline void
++aspeed_jtag_write(struct aspeed_jtag_info *aspeed_jtag, u32 val, u32 reg)
 +{
-+	u32 val = readl(aspeed_peci.reg_base + reg);
-+
-+	dev_dbg(aspeed_peci.misc_dev, "read offset: %x, val: %x\n", reg, val);
-+
-+	return val;
++	dev_dbg(aspeed_jtag->dev, "reg = 0x%08x, val = 0x%08x\n", reg, val);
++	writel(val, aspeed_jtag->reg_base + reg);
 +}
 +
-+static long
-+aspeed_peci_ioctl(struct file *fp, unsigned int cmd, unsigned long arg)
++u32 ast_get_pclk(void)
 +{
-+	void __user *argp = (void __user *)arg;
-+	struct xfer_msg msg;
-+	struct timing_negotiation tim_ng;
-+	u32 peci_head;
++	return 0;
++}
++
++void
++aspeed_jtag_set_freq(struct aspeed_jtag_info *aspeed_jtag, unsigned int freq)
++{
++	u16 i;
++
++	for (i = 0; i < 0x7ff; i++) {
++		if ((ast_get_pclk() / (i + 1)) <= freq)
++			break;
++	}
++	aspeed_jtag_write(aspeed_jtag,
++			  ((aspeed_jtag_read(aspeed_jtag, AST_JTAG_TCK) &
++					      ~JTAG_TCK_DIVISOR_MASK) | i),
++					      AST_JTAG_TCK);
++}
++
++unsigned int aspeed_jtag_get_freq(struct aspeed_jtag_info *aspeed_jtag)
++{
++	return ast_get_pclk() /
++	       (JTAG_GET_TCK_DIVISOR(aspeed_jtag_read(aspeed_jtag,
++						      AST_JTAG_TCK)) + 1);
++}
++
++void dummy(struct aspeed_jtag_info *aspeed_jtag, unsigned int cnt)
++{
 +	int i = 0;
-+	long ret = 0;
 +
-+	u32 *tx_buf0 = (u32 *) (aspeed_peci.reg_base + AST_PECI_W_DATA0);
-+	u32 *tx_buf1 = (u32 *) (aspeed_peci.reg_base + AST_PECI_W_DATA4);
-+	u32 *rx_buf0 = (u32 *) (aspeed_peci.reg_base + AST_PECI_R_DATA0);
-+	u32 *rx_buf1 = (u32 *) (aspeed_peci.reg_base + AST_PECI_R_DATA4);
-+	u32 rx_data = 0;
++	for (i = 0; i < cnt; i++)
++		aspeed_jtag_read(aspeed_jtag, AST_JTAG_SW);
++}
 +
-+	dev_dbg(aspeed_peci.misc_dev, "aspeed_peci_ioctl cmd %x\n", cmd);
++static u8 TCK_Cycle(struct aspeed_jtag_info *aspeed_jtag, u8 TMS, u8 TDI)
++{
++	u8 tdo;
 +
-+	switch (cmd) {
-+	case AST_PECI_IOCRTIMING:
-+		tim_ng.msg_timing = PECI_TIMING_MESSAGE_GET(
-+					aspeed_peci_read(AST_PECI_TIMING));
-+		tim_ng.addr_timing = PECI_TIMING_ADDRESS_GET(
-+					aspeed_peci_read(AST_PECI_TIMING));
-+		if (copy_to_user(argp, &tim_ng,
-+				 sizeof(struct timing_negotiation)))
-+			ret = -EFAULT;
-+		break;
++	/* TCK = 0 */
++	aspeed_jtag_write(aspeed_jtag, JTAG_SW_MODE_EN |
++			  (TMS * JTAG_SW_MODE_TMS) | (TDI * JTAG_SW_MODE_TDIO),
++			  AST_JTAG_SW);
 +
-+	case AST_PECI_IOCWTIMING:
-+		if (copy_from_user(&tim_ng, argp,
-+				   sizeof(struct timing_negotiation)))
-+			ret = -EFAULT;
-+		else
-+			aspeed_peci_write(
-+				PECI_TIMING_MESSAGE(tim_ng.msg_timing) |
-+				PECI_TIMING_ADDRESS(tim_ng.addr_timing),
-+				AST_PECI_TIMING);
++	dummy(aspeed_jtag, 10);
 +
-+		break;
++	/* TCK = 1 */
++	aspeed_jtag_write(aspeed_jtag, JTAG_SW_MODE_EN | JTAG_SW_MODE_TCK |
++			  (TMS * JTAG_SW_MODE_TMS) | (TDI * JTAG_SW_MODE_TDIO),
++			  AST_JTAG_SW);
 +
-+	case AST_PECI_IOCXFER:
-+		/* Check cmd operation sts */
-+		while (aspeed_peci_read(AST_PECI_CMD) & PECI_CMD_FIRE)
-+			dev_dbg(aspeed_peci.misc_dev, "wait for free\n");
++	if (aspeed_jtag_read(aspeed_jtag, AST_JTAG_SW) & JTAG_SW_MODE_TDIO)
++		tdo = 1;
++	else
++		tdo = 0;
 +
-+		if (copy_from_user(&msg, argp, sizeof(struct xfer_msg))) {
-+			ret = -EFAULT;
++	dummy(aspeed_jtag, 10);
++
++	/* TCK = 0 */
++	aspeed_jtag_write(aspeed_jtag, JTAG_SW_MODE_EN | (TMS *
++			  JTAG_SW_MODE_TMS) | (TDI * JTAG_SW_MODE_TDIO),
++			  AST_JTAG_SW);
++
++	return tdo;
++}
++
++void aspeed_jtag_wait_instruction_complete(struct aspeed_jtag_info *aspeed_jtag)
++{
++	wait_event_interruptible(aspeed_jtag->jtag_wq, (aspeed_jtag->flag ==
++				 JTAG_INST_COMPLETE));
++	dev_err(aspeed_jtag->dev, "\n");
++	aspeed_jtag->flag = 0;
++}
++
++void aspeed_jtag_wait_data_pause_complete(struct aspeed_jtag_info *aspeed_jtag)
++{
++	wait_event_interruptible(aspeed_jtag->jtag_wq, (aspeed_jtag->flag ==
++				 JTAG_DATA_PAUSE));
++	dev_err(aspeed_jtag->dev, "\n");
++	aspeed_jtag->flag = 0;
++}
++
++void aspeed_jtag_wait_data_complete(struct aspeed_jtag_info *aspeed_jtag)
++{
++	wait_event_interruptible(aspeed_jtag->jtag_wq, (aspeed_jtag->flag ==
++				 JTAG_DATA_COMPLETE));
++	dev_err(aspeed_jtag->dev, "\n");
++	aspeed_jtag->flag = 0;
++}
++
++/* JTAG_reset() is to generate at least 9 TMS high and 1 TMS low to force
++ * devices into Run-Test/Idle State.
++ */
++void aspeed_jtag_run_test_idle(struct aspeed_jtag_info *aspeed_jtag,
++			       struct runtest_idle *runtest)
++{
++	int i = 0;
++
++	dev_dbg(aspeed_jtag->dev, ":%s mode\n", runtest->mode ? "SW":"HW");
++
++	if (runtest->mode) {
++		/* SW mode from idle , from pause,  -- > to pause, to idle */
++		if (runtest->reset) {
++			for (i = 0; i < 10; i++)
++				TCK_Cycle(aspeed_jtag, 1, 0);
++		}
++
++		switch (aspeed_jtag->sts) {
++		case 0:
++			if (runtest->end == 1) {
++				TCK_Cycle(aspeed_jtag, 1, 0); /* DRSCan */
++				TCK_Cycle(aspeed_jtag, 1, 0); /* IRSCan */
++				TCK_Cycle(aspeed_jtag, 0, 0); /* IRCap */
++				TCK_Cycle(aspeed_jtag, 1, 0); /* IRExit1 */
++				TCK_Cycle(aspeed_jtag, 0, 0); /* IRPause */
++				aspeed_jtag->sts = 1;
++			} else if (runtest->end == 2) {
++				TCK_Cycle(aspeed_jtag, 1, 0); /* DRSCan */
++				TCK_Cycle(aspeed_jtag, 0, 0); /* DRCap */
++				TCK_Cycle(aspeed_jtag, 1, 0); /* DRExit1 */
++				TCK_Cycle(aspeed_jtag, 0, 0); /* DRPause */
++				aspeed_jtag->sts = 1;
++			} else {
++				TCK_Cycle(aspeed_jtag, 0, 0);/* IDLE */
++				aspeed_jtag->sts = 0;
++			}
++			break;
++
++		case 1:
++			/* from IR/DR Pause */
++			if (runtest->end == 1) {
++				TCK_Cycle(aspeed_jtag, 1, 0); /* Exit2 IR/DR */
++				TCK_Cycle(aspeed_jtag, 1, 0); /* Updt IR/DR */
++				TCK_Cycle(aspeed_jtag, 1, 0); /* DRSCan */
++				TCK_Cycle(aspeed_jtag, 1, 0); /* IRSCan */
++				TCK_Cycle(aspeed_jtag, 0, 0); /* IRCap */
++				TCK_Cycle(aspeed_jtag, 1, 0); /* IRExit1 */
++				TCK_Cycle(aspeed_jtag, 0, 0); /* IRPause */
++				aspeed_jtag->sts = 1;
++			} else if (runtest->end == 2) {
++				TCK_Cycle(aspeed_jtag, 1, 0); /* Exit2 IR/DR */
++				TCK_Cycle(aspeed_jtag, 1, 0); /* Update IR/DR */
++				TCK_Cycle(aspeed_jtag, 1, 0); /* DRSCan */
++				TCK_Cycle(aspeed_jtag, 0, 0); /* DRCap */
++				TCK_Cycle(aspeed_jtag, 1, 0); /* DRExit1 */
++				TCK_Cycle(aspeed_jtag, 0, 0); /* DRPause */
++				aspeed_jtag->sts = 1;
++			} else {
++				TCK_Cycle(aspeed_jtag, 1, 0); /* Exit2 IR/DR */
++				TCK_Cycle(aspeed_jtag, 1, 0); /* Updt IR/DR */
++				TCK_Cycle(aspeed_jtag, 0, 0); /* IDLE */
++				aspeed_jtag->sts = 0;
++			}
++			break;
++
++		default:
++			dev_err(aspeed_jtag->dev,
++				"aspeed_jtag_run_test_idle error\n");
 +			break;
 +		}
 +
-+		if (msg.fcs_en)
-+			peci_head = PECI_TAGET_ADDR(msg.client_addr) |
-+						PECI_WRITE_LEN(msg.tx_len) |
-+						PECI_READ_LEN(msg.rx_len) |
-+						PECI_AW_FCS_EN;
++		/* stay on IDLE for at least  TCK cycle */
++		for (i = 0; i < runtest->tck; i++)
++			TCK_Cycle(aspeed_jtag, 0, 0);
++	} else {
++		/* dis sw mode */
++		aspeed_jtag_write(aspeed_jtag, 0, AST_JTAG_SW);
++		mdelay(1);
++		/* x TMS high + 1 TMS low */
++		if (runtest->reset)
++			aspeed_jtag_write(aspeed_jtag, JTAG_ENG_EN |
++					  JTAG_ENG_OUT_EN | JTAG_FORCE_TMS,
++					  AST_JTAG_CTRL);
 +		else
-+			peci_head = PECI_TAGET_ADDR(msg.client_addr) |
-+						PECI_WRITE_LEN(msg.tx_len) |
-+						PECI_READ_LEN(msg.rx_len);
++			aspeed_jtag_write(aspeed_jtag, JTAG_GO_IDLE,
++					  AST_JTAG_IDLE);
++		mdelay(1);
++		aspeed_jtag_write(aspeed_jtag, JTAG_SW_MODE_EN |
++				  JTAG_SW_MODE_TDIO, AST_JTAG_SW);
++		aspeed_jtag->sts = 0;
++	}
++}
 +
-+		aspeed_peci_write(peci_head, AST_PECI_CMD_CTRL);
++int aspeed_jtag_sir_xfer(struct aspeed_jtag_info *aspeed_jtag,
++			 struct sir_xfer *sir)
++{
++	int i = 0;
 +
-+		for (i = 0; i < msg.tx_len; i++) {
-+			if (i < 16) {
-+				if (i % 4 == 0)
-+					tx_buf0[i / 4] = 0;
-+				tx_buf0[i/4] |= (msg.tx_buf[i] << ((i%4) * 8));
++	dev_err(aspeed_jtag->dev, "%s mode, ENDIR : %d, len : %d\n",
++		sir->mode ? "SW":"HW", sir->endir, sir->length);
++
++	if (sir->mode) {
++		if (aspeed_jtag->sts) {
++			/* from IR/DR Pause */
++			TCK_Cycle(aspeed_jtag, 1, 0); /* Exit2 IR / DR */
++			TCK_Cycle(aspeed_jtag, 1, 0); /* Update IR /DR */
++		}
++
++		TCK_Cycle(aspeed_jtag, 1, 0); /* DRSCan */
++		TCK_Cycle(aspeed_jtag, 1, 0); /* IRSCan */
++		TCK_Cycle(aspeed_jtag, 0, 0); /* CapIR */
++		TCK_Cycle(aspeed_jtag, 0, 0); /* ShiftIR */
++
++		sir->tdo = 0;
++		for (i = 0; i < sir->length; i++) {
++			if (i == (sir->length - 1)) {
++				/* IRExit1 */
++				sir->tdo |= TCK_Cycle(aspeed_jtag, 1,
++						      sir->tdi & 0x1);
 +			} else {
-+				if (i % 4 == 0)
-+					tx_buf1[i / 4] = 0;
-+				tx_buf1[i/4] |= (msg.tx_buf[i] << ((i%4) * 8));
++				/* ShiftIR */
++				sir->tdo |= TCK_Cycle(aspeed_jtag, 0,
++						      sir->tdi & 0x1);
++				sir->tdi >>= 1;
++				sir->tdo <<= 1;
 +			}
 +		}
 +
-+#ifdef CONFIG_AST_PECI_DEBUG
-+		aspeed_peci_read(AST_PECI_W_DATA0);
-+		aspeed_peci_read(AST_PECI_W_DATA1);
-+		aspeed_peci_read(AST_PECI_W_DATA2);
-+		aspeed_peci_read(AST_PECI_W_DATA3);
-+		aspeed_peci_read(AST_PECI_W_DATA4);
-+		aspeed_peci_read(AST_PECI_W_DATA5);
-+		aspeed_peci_read(AST_PECI_W_DATA6);
-+		aspeed_peci_read(AST_PECI_W_DATA7);
-+#endif
-+		init_completion(&aspeed_peci.xfer_complete);
-+		/* Fire Command */
-+		aspeed_peci_write(PECI_CMD_FIRE, AST_PECI_CMD);
++		TCK_Cycle(aspeed_jtag, 0, 0); /* IRPause */
 +
-+		ret = wait_for_completion_interruptible_timeout(
-+					&aspeed_peci.xfer_complete, 30 * HZ);
++		/* stop pause */
++		if (sir->endir == 0) {
++			/* go to idle */
++			TCK_Cycle(aspeed_jtag, 1, 0); /* IRExit2 */
++			TCK_Cycle(aspeed_jtag, 1, 0); /* IRUpdate */
++			TCK_Cycle(aspeed_jtag, 0, 0); /* IDLE */
++		}
++	} else {
++		/* hw mode - disable sw mode */
++		aspeed_jtag_write(aspeed_jtag, 0, AST_JTAG_SW);
++		aspeed_jtag_write(aspeed_jtag, sir->tdi, AST_JTAG_INST);
 +
-+		if (ret == 0)
-+			dev_err(aspeed_peci.misc_dev, "peci controller timed out\n");
-+
-+		for (i = 0; i < msg.rx_len; i++) {
-+			if (i < 16) {
-+				switch (i % 4) {
-+				case 0:
-+					rx_data = rx_buf0[i/4];
-+					msg.rx_buf[i] = rx_data & 0xff;
-+					break;
-+
-+				case 1:
-+					msg.rx_buf[i] = (rx_data & 0xff00)
-+							>> 8;
-+					break;
-+
-+				case 2:
-+					msg.rx_buf[i] = (rx_data & 0xff0000)
-+							>> 16;
-+					break;
-+
-+				case 3:
-+					msg.rx_buf[i] = (rx_data & 0xff000000)
-+							>> 24;
-+					break;
-+				}
-+			} else {
-+				switch (i % 4) {
-+				case 0:
-+					rx_data = rx_buf1[i/4];
-+					msg.rx_buf[i] = rx_data & 0xff;
-+					break;
-+
-+				case 1:
-+					msg.rx_buf[i] = (rx_data & 0xff00)
-+							>> 8;
-+					break;
-+				case 2:
-+					msg.rx_buf[i] = (rx_data & 0xff0000)
-+							>> 16;
-+					break;
-+
-+				case 3:
-+					msg.rx_buf[i] = (rx_data & 0xff000000)
-+							>> 24;
-+					break;
-+				}
-+			}
++		if (sir->endir) {
++			aspeed_jtag_write(aspeed_jtag, JTAG_ENG_EN |
++					  JTAG_ENG_OUT_EN |
++					  JTAG_SET_INST_LEN(sir->length),
++					  AST_JTAG_CTRL);
++			aspeed_jtag_write(aspeed_jtag, JTAG_ENG_EN |
++					  JTAG_ENG_OUT_EN |
++					  JTAG_SET_INST_LEN(sir->length) |
++					  JTAG_INST_EN, AST_JTAG_CTRL);
++		} else {
++			aspeed_jtag_write(aspeed_jtag, JTAG_ENG_EN |
++					  JTAG_ENG_OUT_EN | JTAG_LAST_INST |
++					  JTAG_SET_INST_LEN(sir->length),
++					  AST_JTAG_CTRL);
++			aspeed_jtag_write(aspeed_jtag, JTAG_ENG_EN |
++					  JTAG_ENG_OUT_EN | JTAG_LAST_INST |
++					  JTAG_SET_INST_LEN(sir->length) |
++					  JTAG_INST_EN, AST_JTAG_CTRL);
 +		}
 +
-+#ifdef CONFIG_AST_PECI_DEBUG
-+		aspeed_peci_read(AST_PECI_R_DATA0);
-+		aspeed_peci_read(AST_PECI_R_DATA1);
-+		aspeed_peci_read(AST_PECI_R_DATA2);
-+		aspeed_peci_read(AST_PECI_R_DATA3);
-+		aspeed_peci_read(AST_PECI_R_DATA4);
-+		aspeed_peci_read(AST_PECI_R_DATA5);
-+		aspeed_peci_read(AST_PECI_R_DATA6);
-+		aspeed_peci_read(AST_PECI_R_DATA7);
-+#endif
-+		dev_dbg(aspeed_peci.misc_dev, "rx_buf:");
-+		for (i = 0; i < msg.rx_len; i++)
-+			dev_dbg(aspeed_peci.misc_dev, "%x ", msg.rx_buf[i]);
-+		dev_dbg(aspeed_peci.misc_dev, "\n");
++		aspeed_jtag_wait_instruction_complete(aspeed_jtag);
++		sir->tdo = aspeed_jtag_read(aspeed_jtag, AST_JTAG_INST);
++		aspeed_jtag_write(aspeed_jtag, JTAG_SW_MODE_EN |
++				  JTAG_SW_MODE_TDIO, AST_JTAG_SW);
++	}
 +
-+		msg.sts = aspeed_peci.sts;
-+		msg.rx_fcs = PECI_CAPTURE_READ_FCS(
-+					aspeed_peci_read(AST_PECI_CAP_FCS));
-+		if (copy_to_user(argp, &msg, sizeof(struct xfer_msg)))
++	aspeed_jtag->sts = sir->endir;
++
++	return 0;
++}
++
++int aspeed_jtag_sdr_xfer(struct aspeed_jtag_info *aspeed_jtag,
++			 struct sdr_xfer *sdr)
++{
++	unsigned int index = 0;
++	u32 shift_bits = 0;
++	u32 tdo = 0;
++	u32 remain_xfer = sdr->length;
++
++	dev_err(aspeed_jtag->dev, "%s mode, ENDDR : %d, len : %d\n",
++		sdr->mode ? "SW":"HW", sdr->enddr, sdr->length);
++
++	if (sdr->mode) {
++		/* SW mode */
++		if (aspeed_jtag->sts) {
++			/* from IR/DR Pause */
++			TCK_Cycle(aspeed_jtag, 1, 0); /* Exit2 IR / DR */
++			TCK_Cycle(aspeed_jtag, 1, 0); /* Update IR /DR */
++		}
++
++		TCK_Cycle(aspeed_jtag, 1, 0); /* DRScan */
++		TCK_Cycle(aspeed_jtag, 0, 0); /* DRCap */
++		TCK_Cycle(aspeed_jtag, 0, 0); /* DRShift */
++
++		while (remain_xfer) {
++			if (sdr->direct) {
++				/* write */
++				if ((shift_bits % 32) == 0)
++					dev_err(aspeed_jtag->dev, "W dr->dr_data[%d]: %x\n",
++						index, sdr->tdio[index]);
++
++				tdo = (sdr->tdio[index] >> (shift_bits % 32)) &
++				      0x1;
++				dev_err(aspeed_jtag->dev, "%d\n", tdo);
++				if (remain_xfer == 1)
++					/* DRExit1 */
++					TCK_Cycle(aspeed_jtag, 1, tdo);
++				else
++					/* DRShit */
++					TCK_Cycle(aspeed_jtag, 0, tdo);
++			} else {
++				/* read */
++				if (remain_xfer == 1)
++					/* DRExit1 */
++					tdo = TCK_Cycle(aspeed_jtag, 1, tdo);
++				else
++					/* DRShit */
++					tdo = TCK_Cycle(aspeed_jtag, 0, tdo);
++
++				dev_err(aspeed_jtag->dev, "%d\n", tdo);
++				sdr->tdio[index] |= (tdo << (shift_bits % 32));
++
++				if ((shift_bits % 32) == 0)
++					dev_err(aspeed_jtag->dev, "R dr->dr_data[%d]: %x\n",
++						  index, sdr->tdio[index]);
++			}
++			shift_bits++;
++			remain_xfer--;
++			if ((shift_bits % 32) == 0)
++				index++;
++		}
++
++		TCK_Cycle(aspeed_jtag, 0, 0); /* DRPause */
++
++		if (sdr->enddr == 0) {
++			TCK_Cycle(aspeed_jtag, 1, 0); /* DRExit2 */
++			TCK_Cycle(aspeed_jtag, 1, 0); /* DRUpdate */
++			TCK_Cycle(aspeed_jtag, 0, 0); /* IDLE */
++		}
++	} else {
++		/* hw mode */
++		aspeed_jtag_write(aspeed_jtag, 0, AST_JTAG_SW);
++		while (remain_xfer) {
++			if (sdr->direct) {
++				dev_err(aspeed_jtag->dev,
++					"W dr->dr_data[%d]: %x\n", index,
++					  sdr->tdio[index]);
++				aspeed_jtag_write(aspeed_jtag,
++						  sdr->tdio[index],
++						   AST_JTAG_DATA);
++			} else {
++				aspeed_jtag_write(aspeed_jtag, 0,
++						  AST_JTAG_DATA);
++			}
++
++			if (remain_xfer > 32) {
++				shift_bits = 32;
++				/* read bytes were not equals to column length
++				 * => Pause-DR
++				 */
++				dev_err(aspeed_jtag->dev, "shit bits %d\n",
++					shift_bits);
++				aspeed_jtag_write(aspeed_jtag,
++					JTAG_ENG_EN | JTAG_ENG_OUT_EN |
++					JTAG_DATA_LEN(shift_bits),
++					AST_JTAG_CTRL);
++				aspeed_jtag_write(aspeed_jtag,
++					JTAG_ENG_EN | JTAG_ENG_OUT_EN |
++					JTAG_DATA_LEN(shift_bits) |
++						      JTAG_DATA_EN,
++						      AST_JTAG_CTRL);
++				aspeed_jtag_wait_data_pause_complete(
++								aspeed_jtag);
++			} else {
++				/* read bytes equals to column length =>
++				 * Update-DR
++				 */
++				shift_bits = remain_xfer;
++				dev_err(aspeed_jtag->dev,
++					"shit bits %d with last\n",
++					shift_bits);
++				if (sdr->enddr) {
++					dev_err(aspeed_jtag->dev, "DR Keep Pause\n");
++						aspeed_jtag_write(aspeed_jtag,
++						JTAG_ENG_EN | JTAG_ENG_OUT_EN |
++						JTAG_DR_UPDATE |
++						JTAG_DATA_LEN(shift_bits),
++						AST_JTAG_CTRL);
++						aspeed_jtag_write(aspeed_jtag,
++						JTAG_ENG_EN | JTAG_ENG_OUT_EN |
++						JTAG_DR_UPDATE |
++						JTAG_DATA_LEN(shift_bits) |
++						JTAG_DATA_EN, AST_JTAG_CTRL);
++				} else {
++					dev_err(aspeed_jtag->dev, "DR go IDLE\n");
++						aspeed_jtag_write(aspeed_jtag,
++						JTAG_ENG_EN | JTAG_ENG_OUT_EN |
++						JTAG_LAST_DATA |
++						JTAG_DATA_LEN(shift_bits),
++						AST_JTAG_CTRL);
++						aspeed_jtag_write(aspeed_jtag,
++						JTAG_ENG_EN | JTAG_ENG_OUT_EN |
++						JTAG_LAST_DATA |
++						JTAG_DATA_LEN(shift_bits) |
++						JTAG_DATA_EN, AST_JTAG_CTRL);
++				}
++				aspeed_jtag_wait_data_complete(aspeed_jtag);
++			}
++
++			if (!sdr->direct) {
++				if (shift_bits < 32)
++					sdr->tdio[index] =
++						aspeed_jtag_read(aspeed_jtag,
++							AST_JTAG_DATA) >>
++							(32 - shift_bits);
++				else
++					sdr->tdio[index] =
++						aspeed_jtag_read(aspeed_jtag,
++							AST_JTAG_DATA);
++				dev_err(aspeed_jtag->dev,
++						"R dr->dr_data[%d]: %x\n",
++						index, sdr->tdio[index]);
++			}
++
++			remain_xfer = remain_xfer - shift_bits;
++			index++;
++			dev_err(aspeed_jtag->dev, "remain_xfer %d\n",
++				remain_xfer);
++		}
++		aspeed_jtag_write(aspeed_jtag, JTAG_SW_MODE_EN |
++				  JTAG_SW_MODE_TDIO, AST_JTAG_SW);
++	}
++
++	aspeed_jtag->sts = sdr->enddr;
++
++	return 0;
++}
++
++static irqreturn_t aspeed_jtag_interrupt(int this_irq, void *dev_id)
++{
++	u32 status;
++	struct aspeed_jtag_info *aspeed_jtag = dev_id;
++
++	status = aspeed_jtag_read(aspeed_jtag, AST_JTAG_ISR);
++	dev_err(aspeed_jtag->dev, "sts %x\n", status);
++
++	if (status & JTAG_INST_COMPLETE) {
++		aspeed_jtag_write(aspeed_jtag, JTAG_INST_COMPLETE |
++				  (status & 0xf), AST_JTAG_ISR);
++		aspeed_jtag->flag = JTAG_INST_COMPLETE;
++	}
++
++	if (status & JTAG_DATA_PAUSE) {
++		aspeed_jtag_write(aspeed_jtag, JTAG_DATA_PAUSE |
++				  (status & 0xf), AST_JTAG_ISR);
++		aspeed_jtag->flag = JTAG_DATA_PAUSE;
++	}
++
++	if (status & JTAG_DATA_COMPLETE) {
++		aspeed_jtag_write(aspeed_jtag, JTAG_DATA_COMPLETE |
++				  (status & 0xf), AST_JTAG_ISR);
++		aspeed_jtag->flag = JTAG_DATA_COMPLETE;
++	}
++
++	if (aspeed_jtag->flag) {
++		wake_up_interruptible(&aspeed_jtag->jtag_wq);
++		return IRQ_HANDLED;
++	} else {
++		dev_err(aspeed_jtag->dev, "aspeed_jtag irq status (%x)\n",
++			status);
++		return IRQ_NONE;
++	}
++}
++
++static long jtag_ioctl(struct file *file, unsigned int cmd,
++		       unsigned long arg)
++{
++	struct aspeed_jtag_info *aspeed_jtag = file->private_data;
++	void __user *argp = (void __user *)arg;
++	struct sir_xfer sir;
++	struct sdr_xfer sdr;
++	struct runtest_idle run_idle;
++	int ret = 0;
++
++	switch (cmd) {
++	case AST_JTAG_GIOCFREQ:
++		ret = __put_user(aspeed_jtag_get_freq(aspeed_jtag),
++				 (unsigned int __user *)arg);
++		break;
++
++	case AST_JTAG_SIOCFREQ:
++		if ((unsigned int )arg > ast_get_pclk())
 +			ret = -EFAULT;
++		else
++			aspeed_jtag_set_freq(aspeed_jtag, (unsigned int)arg);
 +		break;
 +
-+	default:
-+		dev_err(aspeed_peci.misc_dev,
-+			"aspeed_peci_ioctl command fail\n");
-+		ret = -ENOTTY;
++	case AST_JTAG_IOCRUNTEST:
++		if (copy_from_user(&run_idle, argp,
++				   sizeof(struct runtest_idle)))
++			ret = -EFAULT;
++		else
++			aspeed_jtag_run_test_idle(aspeed_jtag, &run_idle);
++
 +		break;
++
++	case AST_JTAG_IOCSIR:
++		if (copy_from_user(&sir, argp, sizeof(struct sir_xfer)))
++			ret = -EFAULT;
++		else
++			aspeed_jtag_sir_xfer(aspeed_jtag, &sir);
++
++		if (copy_to_user(argp, &sir, sizeof(struct sdr_xfer)))
++			ret = -EFAULT;
++
++		break;
++
++	case AST_JTAG_IOCSDR:
++		if (copy_from_user(&sdr, argp, sizeof(struct sdr_xfer)))
++			ret = -EFAULT;
++		else
++			aspeed_jtag_sdr_xfer(aspeed_jtag, &sdr);
++
++		if (copy_to_user(argp, &sdr, sizeof(struct sdr_xfer)))
++			ret = -EFAULT;
++
++		break;
++	default:
++
++		return -ENOTTY;
 +	}
 +
 +	return ret;
 +}
 +
-+static int aspeed_peci_open(struct inode *inode, struct file *file)
++static int jtag_open(struct inode *inode, struct file *file)
 +{
-+	/* Flush input queue on first open */
-+	if (aspeed_peci.open_count)
-+		return -1;
-+
-+	aspeed_peci.open_count++;
-+
-+
-+	return 0;
-+}
-+
-+static int aspeed_peci_release(struct inode *inode, struct file *file)
-+{
-+	aspeed_peci.open_count--;
-+
-+	return 0;
-+}
-+
-+static irqreturn_t aspeed_peci_handler(int this_irq, void *dev_id)
-+{
-+	struct aspeed_peci_data *peci_data = dev_id;
-+
-+	aspeed_peci.sts = (0x1f & aspeed_peci_read(AST_PECI_INT_STS));
-+
-+	switch (aspeed_peci.sts) {
-+	case PECI_INT_TIMEOUT:
-+		dev_info(peci_data->misc_dev, "PECI_INT_TIMEOUT\n");
-+		aspeed_peci_write(PECI_INT_TIMEOUT, AST_PECI_INT_STS);
-+		break;
-+
-+	case PECI_INT_CONNECT:
-+		dev_info(peci_data->misc_dev, "PECI_INT_CONNECT\n");
-+		aspeed_peci_write(PECI_INT_CONNECT, AST_PECI_INT_STS);
-+		break;
-+
-+	case PECI_INT_W_FCS_BAD:
-+		dev_info(peci_data->misc_dev, "PECI_INT_W_FCS_BAD\n");
-+		aspeed_peci_write(PECI_INT_W_FCS_BAD, AST_PECI_INT_STS);
-+		break;
-+
-+	case PECI_INT_W_FCS_ABORT:
-+		dev_info(peci_data->misc_dev, "PECI_INT_W_FCS_ABORT\n");
-+		aspeed_peci_write(PECI_INT_W_FCS_ABORT, AST_PECI_INT_STS);
-+		break;
-+
-+	case PECI_INT_CMD_DONE:
-+		dev_info(peci_data->misc_dev, "PECI_INT_CMD_DONE\n");
-+		aspeed_peci_write(PECI_INT_CMD_DONE, AST_PECI_INT_STS);
-+		aspeed_peci_write(0, AST_PECI_CMD);
-+		break;
-+
-+	default:
-+		dev_info(peci_data->misc_dev, "no one handle\n");
-+		break;
-+
++	spin_lock(&jtag_state_lock);
++	if (aspeed_jtag->is_open) {
++		spin_unlock(&jtag_state_lock);
++		return -EBUSY;
 +	}
 +
-+	complete(&aspeed_peci.xfer_complete);
++	aspeed_jtag->is_open = true;
++	file->private_data = aspeed_jtag;
++	spin_unlock(&jtag_state_lock);
 +
-+	return IRQ_HANDLED;
-+
++	return 0;
 +}
 +
-+static void aspeed_peci_ctrl_init(void)
++static int jtag_release(struct inode *inode, struct file *file)
 +{
-+	aspeed_peci_write(PECI_CTRL_SAMPLING(8) |
-+			  PECI_CTRL_PECI_CLK_EN, AST_PECI_CTRL);
++	struct aspeed_jtag_info *drvdata = file->private_data;
 +
-+	/* iming Setting : should 4 times of peci clk period 64 = 16 * 4 */
-+	aspeed_peci_write(PECI_TIMING_MESSAGE(64) | PECI_TIMING_ADDRESS(64),
-+			  AST_PECI_TIMING);
++	spin_lock(&jtag_state_lock);
++	drvdata->is_open = false;
++	spin_unlock(&jtag_state_lock);
 +
-+	/* peci Spec wide speed rangs [2kbps~2Mbps]
-+	 * ampling 8/16, READ mode : Point Sampling , CLK source : 24Mhz , DIV
-+	 * by 8 : 3 --> CLK is 3Mhz
-+	 * peci CTRL Enable
-+	 */
-+	aspeed_peci_write(PECI_CTRL_SAMPLING(8) | PECI_CTRL_CLK_DIV(3) |
-+			  PECI_CTRL_PECI_EN | PECI_CTRL_PECI_CLK_EN,
-+			  AST_PECI_CTRL);
-+
-+	/* Clear Interrupt */
-+	aspeed_peci_write(PECI_INT_TIMEOUT | PECI_INT_CONNECT |
-+			  PECI_INT_W_FCS_BAD | PECI_INT_W_FCS_ABORT |
-+			  PECI_INT_CMD_DONE, AST_PECI_INT_STS);
-+
-+
-+	/* peci Negotiation Selection , interrupt enable.
-+	 * Set nego mode :  1st bit of addr negotiation
-+	 */
-+	aspeed_peci_write(PECI_INT_TIMEOUT | PECI_INT_CONNECT |
-+			  PECI_INT_W_FCS_BAD | PECI_INT_W_FCS_ABORT |
-+			  PECI_INT_CMD_DONE, AST_PECI_INT_CTRL);
++	return 0;
 +}
 +
-+static const struct file_operations aspeed_peci_fops = {
++static ssize_t show_sts(struct device *dev,
++	struct device_attribute *attr, char *buf)
++{
++	struct aspeed_jtag_info *aspeed_jtag = dev_get_drvdata(dev);
++
++	return sprintf(buf, "%s\n", aspeed_jtag->sts ? "Pause" : "Idle");
++}
++
++static DEVICE_ATTR(sts, S_IRUGO, show_sts, NULL);
++
++static ssize_t show_frequency(struct device *dev,
++	struct device_attribute *attr, char *buf)
++{
++	struct aspeed_jtag_info *aspeed_jtag = dev_get_drvdata(dev);
++
++	return sprintf(buf, "Frequency (%d)\n", ast_get_pclk() /
++		       (JTAG_GET_TCK_DIVISOR(aspeed_jtag_read(aspeed_jtag,
++		       AST_JTAG_TCK)) + 1));
++}
++
++static ssize_t store_frequency(struct device *dev,
++	struct device_attribute *attr, const char *buf, size_t count)
++{
++	unsigned long input_val;
++	struct aspeed_jtag_info *aspeed_jtag = dev_get_drvdata(dev);
++	int ret;
++
++	ret = kstrtoul(buf, 10, &input_val);
++	if (ret)
++		return ret;
++
++	aspeed_jtag_set_freq(aspeed_jtag, input_val);
++
++	return count;
++}
++
++static DEVICE_ATTR(freq, S_IRUGO | S_IWUSR, show_frequency, store_frequency);
++
++static struct attribute *jtag_sysfs_entries[] = {
++	&dev_attr_freq.attr,
++	&dev_attr_sts.attr,
++	NULL
++};
++
++static struct attribute_group jtag_attribute_group = {
++	.attrs = jtag_sysfs_entries,
++};
++
++static const struct file_operations aspeed_jtag_fops = {
 +	.owner		= THIS_MODULE,
-+	.llseek		= no_llseek,
-+	.unlocked_ioctl = aspeed_peci_ioctl,
-+	.open		= aspeed_peci_open,
-+	.release	= aspeed_peci_release,
++	.unlocked_ioctl	= jtag_ioctl,
++	.open		= jtag_open,
++	.release	= jtag_release,
 +};
 +
-+struct miscdevice aspeed_peci_misc = {
-+	.minor = MISC_DYNAMIC_MINOR,
-+	.name = "aspeed-peci",
-+	.fops = &aspeed_peci_fops,
++struct miscdevice aspeed_jtag_misc = {
++	.minor	= MISC_DYNAMIC_MINOR,
++	.name	= "aspeed-jtag",
++	.fops	= &aspeed_jtag_fops,
 +};
 +
-+static int aspeed_peci_probe(struct platform_device *pdev)
++static void aspeed_jtag_remove_sysfs_group(void *_dev)
++{
++	struct device *dev = _dev;
++
++	sysfs_remove_group(&dev->kobj, &jtag_attribute_group);
++}
++
++
++static int aspeed_jtag_probe(struct platform_device *pdev)
 +{
 +	struct resource *res;
 +	int ret = 0;
 +
 +	if (!of_device_is_compatible(pdev->dev.of_node,
-+				     "aspeed,aspeed2500-peci"))
++				     "aspeed,aspeed2500-jtag"))
 +		return -ENODEV;
 +
 +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
@@ -563,104 +869,135 @@ index 0000000..4350bc4
 +		goto out;
 +	}
 +
-+	aspeed_peci.reg_base = devm_ioremap_resource(&pdev->dev, res);
-+	if (!aspeed_peci.reg_base) {
++	aspeed_jtag = devm_kzalloc(&pdev->dev, sizeof(*aspeed_jtag),
++				   GFP_KERNEL);
++	if (!aspeed_jtag)
++		return -ENOMEM;
++
++	aspeed_jtag->reg_base = devm_ioremap_resource(&pdev->dev, res);
++	if (!aspeed_jtag->reg_base) {
 +		ret = -EIO;
 +		goto out_region;
 +	}
 +
-+	aspeed_peci.irq = platform_get_irq(pdev, 0);
-+	if (aspeed_peci.irq < 0) {
++	aspeed_jtag->irq = platform_get_irq(pdev, 0);
++	if (aspeed_jtag->irq < 0) {
 +		dev_err(&pdev->dev, "no irq specified\n");
 +		ret = -ENOENT;
 +		goto out_region;
 +	}
 +
-+	ret = devm_request_irq(&pdev->dev, aspeed_peci.irq,
-+			       aspeed_peci_handler, 0, "aspeed-peci",
-+			       &aspeed_peci);
++	/* Init JTAG */
++	aspeed_toggle_scu_reset(SCU_RESET_JTAG, 3);
 +
++	/* Eanble Clock */
++	aspeed_jtag_write(aspeed_jtag, JTAG_ENG_EN | JTAG_ENG_OUT_EN,
++			  AST_JTAG_CTRL);
++	aspeed_jtag_write(aspeed_jtag, JTAG_SW_MODE_EN | JTAG_SW_MODE_TDIO,
++			  AST_JTAG_SW);
++
++	ret = devm_request_irq(&pdev->dev, aspeed_jtag->irq,
++			       aspeed_jtag_interrupt, 0,
++			       "aspeed-jtag", aspeed_jtag);
 +	if (ret) {
-+		dev_info(&pdev->dev, "PECI: Failed request irq %d\n",
-+			 aspeed_peci.irq);
++		dev_info(&pdev->dev, "aspeed_jtag Unable to get IRQ");
 +		goto out_region;
 +	}
 +
-+	ret = misc_register(&aspeed_peci_misc);
++	aspeed_jtag_write(aspeed_jtag, JTAG_INST_PAUSE | JTAG_INST_COMPLETE |
++			  JTAG_DATA_PAUSE | JTAG_DATA_COMPLETE |
++			  JTAG_INST_PAUSE_EN | JTAG_INST_COMPLETE_EN |
++			  JTAG_DATA_PAUSE_EN | JTAG_DATA_COMPLETE_EN,
++			  AST_JTAG_ISR);
++
++	aspeed_jtag->flag = 0;
++	init_waitqueue_head(&aspeed_jtag->jtag_wq);
++
++	ret = misc_register(&aspeed_jtag_misc);
++	if (ret) {
++		dev_err(&pdev->dev, "aspeed_jtag : failed to register misc\n");
++		goto out_region;
++	}
++
++	aspeed_jtag->dev = &pdev->dev;
++	platform_set_drvdata(pdev, aspeed_jtag);
++	dev_set_drvdata(aspeed_jtag_misc.this_device, aspeed_jtag);
++
++	ret = sysfs_create_group(&pdev->dev.kobj, &jtag_attribute_group);
 +	if (ret) {
 +		dev_err(&pdev->dev,
-+			"aspeed_peci : failed to request interrupt\n");
-+		goto out_region;
++			"aspeed_jtag : failed to create sysfs attributes.\n");
++		return -1;
++	}
++	ret = devm_add_action(&pdev->dev, aspeed_jtag_remove_sysfs_group,
++			      &pdev->dev);
++	if (ret) {
++		aspeed_jtag_remove_sysfs_group(&pdev->dev);
++		dev_err(&pdev->dev,
++			"Failed to add sysfs cleanup action (%d)\n",
++			ret);
++		return ret;
 +	}
 +
-+	aspeed_peci.misc_dev = &pdev->dev;
-+	platform_set_drvdata(pdev, &aspeed_peci);
-+
-+	/* Reset PECI controller */
-+	aspeed_toggle_scu_reset(SCU_RESET_PECI, 3);
-+
-+	aspeed_peci_ctrl_init();
-+	dev_info(&pdev->dev, "aspeed_peci: driver successfully loaded.\n");
++	dev_info(&pdev->dev, "aspeed_jtag : driver successfully loaded.\n");
 +
 +	return 0;
 +
 +out_region:
 +	release_mem_region(res->start, res->end - res->start + 1);
 +out:
-+	dev_warn(&pdev->dev, "aspeed_peci: driver init failed (ret=%d)!\n",
-+		  ret);
++	dev_warn(&pdev->dev, "aspeed_jtag : driver init failed ret (%d)\n", ret);
 +	return ret;
 +}
 +
-+static int aspeed_peci_remove(struct platform_device *pdev)
++static int aspeed_jtag_remove(struct platform_device *pdev)
 +{
-+	misc_deregister(&aspeed_peci_misc);
++	misc_deregister(&aspeed_jtag_misc);
++	platform_set_drvdata(pdev, NULL);
 +
 +	return 0;
 +}
 +
 +#ifdef CONFIG_PM
 +static int
-+aspeed_peci_suspend(struct platform_device *pdev, pm_message_t state)
++aspeed_jtag_suspend(struct platform_device *pdev, pm_message_t state)
 +{
-+	dev_info(&pdev->dev, "aspeed_peci_suspend : TODO\n");
 +	return 0;
 +}
 +
-+static int aspeed_peci_resume(struct platform_device *pdev)
++static int
++aspeed_jtag_resume(struct platform_device *pdev)
 +{
-+	aspeed_peci_ctrl_init();
-+
 +	return 0;
 +}
 +
 +#else
-+#define aspeed_peci_suspend        NULL
-+#define aspeed_peci_resume         NULL
++#define aspeed_jtag_suspend        NULL
++#define aspeed_jtag_resume         NULL
 +#endif
 +
-+static const struct of_device_id aspeed_peci_of_table[] = {
-+	{ .compatible = "aspeed,aspeed2500-peci", },
++static const struct of_device_id aspeed_jtag_of_table[] = {
++	{ .compatible = "aspeed,aspeed2500-jtag", },
 +	{ },
 +};
-+MODULE_DEVICE_TABLE(of, aspeed_peci_of_table);
++MODULE_DEVICE_TABLE(of, aspeed_jtag_of_table);
 +
-+static struct platform_driver aspeed_peci_driver = {
-+	.probe		= aspeed_peci_probe,
-+	.remove		= aspeed_peci_remove,
-+	.suspend        = aspeed_peci_suspend,
-+	.resume         = aspeed_peci_resume,
++static struct platform_driver aspeed_jtag_driver = {
++	.probe		= aspeed_jtag_probe,
++	.remove		= aspeed_jtag_remove,
++	.suspend	= aspeed_jtag_suspend,
++	.resume		= aspeed_jtag_resume,
 +	.driver         = {
-+		.name   = KBUILD_MODNAME,
-+		.owner  = THIS_MODULE,
-+		.of_match_table = aspeed_peci_of_table,
++		.name	= KBUILD_MODNAME,
++		.owner	= THIS_MODULE,
++		.of_match_table = aspeed_jtag_of_table,
 +	},
 +};
 +
-+module_platform_driver(aspeed_peci_driver);
++module_platform_driver(aspeed_jtag_driver);
 +
 +MODULE_AUTHOR("Ryan Chen <ryan_chen@aspeedtech.com>");
-+MODULE_DESCRIPTION("AST PECI driver");
++MODULE_DESCRIPTION("AST JTAG LIB Driver");
 +MODULE_LICENSE("GPL");
 -- 
 2.1.4
