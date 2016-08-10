@@ -1,48 +1,27 @@
-Return-Path: <mouse@yandex-team.ru>
-X-Greylist: delayed 596 seconds by postgrey-1.35 at bilbo;
- Wed, 10 Aug 2016 23:35:01 AEST
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yandex-team.ru header.i=@yandex-team.ru
- header.b=TYLxYYwg; dkim-atps=neutral
-Received: from forwardcorp1o.cmail.yandex.net (forwardcorp1o.cmail.yandex.net
- [IPv6:2a02:6b8:0:1a72::290])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s8XFd1G6pzDqCb
- for <openbmc@lists.ozlabs.org>; Wed, 10 Aug 2016 23:35:01 +1000 (AEST)
-Received: from mxbackcorp1h.mail.yandex.net (mxbackcorp1h.mail.yandex.net
- [IPv6:2a02:6b8:0:f05::301])
- by forwardcorp1o.cmail.yandex.net (Yandex) with ESMTP id 319EF206E7;
- Wed, 10 Aug 2016 16:24:58 +0300 (MSK)
-Received: from webcorp02g.yandex-team.ru (webcorp02g.yandex-team.ru
- [87.250.230.45])
- by mxbackcorp1h.mail.yandex.net (nwsmtp/Yandex) with ESMTP id
- oC2yFCNbdF-OvTulRbc; Wed, 10 Aug 2016 16:24:58 +0300
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
- s=default; 
- t=1470835498; bh=MBqvn3HdfAd7RO6T/RoVD59tvsdr0RSPu2+vnSJlWUk=;
- h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date;
- b=TYLxYYwginqP4db/h95L8QaZ1X2g8+vRZ3yYNB2wBV7FLyLFxQD83iomWfPiz2YHd
- JqmVQbAjig5q49UDzuv9v5bkbF6FxVLTzlGwlB5bVZK/02dtuIQFnyJyPz2dkR45gi
- GfrNsgWSwiLXaALQyyiB67nl9NcJUCoENzK8+mNU=
-Authentication-Results: mxbackcorp1h.mail.yandex.net;
- dkim=pass header.i=@yandex-team.ru
-X-Yandex-Sender-Uid: 1120000000001030
-Received: by webcorp02g.yandex-team.ru with HTTP;
- Wed, 10 Aug 2016 16:24:57 +0300
-From: Anton D. Kachalov <mouse@yandex-team.ru>
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-In-Reply-To: <CACPK8XdAFqTXGRtoYLgM-PWu-Y7kB1=5cs6MKkAmQMz7u3sJeA@mail.gmail.com>
-References: <97341470823017@webcorp01g.yandex-team.ru>
- <CACPK8XdAFqTXGRtoYLgM-PWu-Y7kB1=5cs6MKkAmQMz7u3sJeA@mail.gmail.com>
-Subject: Re: OpenBMC on the OpenWRT
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s8gRJ0fhXzDqJ5
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Aug 2016 04:58:51 +1000 (AEST)
+Received: from localhost (32.97.110.50 [32.97.110.50]) by mx.zohomail.com
+ with SMTPS id 1470855526224874.1215224018005;
+ Wed, 10 Aug 2016 11:58:46 -0700 (PDT)
+Date: Wed, 10 Aug 2016 13:58:42 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Chris Austen <austenc@us.ibm.com>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: discovery of openbmc
+Message-ID: <20160810185842.gkrmf4pazdqqxv2e@asimov>
+References: <OFB7A77BFE.3A84627D-ON0025800A.0080354A-0025800A.00810503@notes.na.collabserv.com>
 MIME-Version: 1.0
-Message-Id: <148281470835497@webcorp02g.yandex-team.ru>
-X-Mailer: Yamail [ http://yandex.ru ] 5.0
-Date: Wed, 10 Aug 2016 16:24:57 +0300
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="rx3ixlfhfxg32px6"
+Content-Disposition: inline
+In-Reply-To: <OFB7A77BFE.3A84627D-ON0025800A.0080354A-0025800A.00810503@notes.na.collabserv.com>
+User-Agent: Mutt/1.6.2 (2016-06-11)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -54,97 +33,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Aug 2016 13:35:02 -0000
+X-List-Received-Date: Wed, 10 Aug 2016 18:58:52 -0000
 
-Hi, Joel.
 
-10.08.2016, 14:06, "Joel Stanley" <joel@jms.id.au>:
-> Hey Anton,
->
-> On Wed, Aug 10, 2016 at 7:26 PM, Anton D. Kachalov <mouse@yandex-team.ru> wrote:
->>  Hello everybody.
->>
->>  I'm working on a separate project for rack solution which utilize many portions of OpenBMC:
->>
->>     https://github.com/ya-mouse/openbmc-target
->
-> Nice! I came across your repository the other day.
->
->>  As a system base we choose OpenWRT (flexible kernel-style configurations, package manager,
->>  wide and experienced support for embedded systems with limited resources).
->
-> I'm not too familiar with OpenWRT aside from using it on my WiFi
-> router at home. I do have experience with buildroot, which uses
-> Kconfig and does a good job at creating small, configurable images.
->
-> Have you been happy with OpenWRT as a build system?
+--rx3ixlfhfxg32px6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Yep, we happy with it. We rebase other project from micro ubuntu system
-(handcrafted files' lists to keep system as small as 4M + additional app packs) to the
-OpenWRT on x86 in our HW load testing and servers' pre-deployment environment.
-Of course, there are several tricks that needed to be learned :)
+On Tue, Aug 09, 2016 at 11:29:14PM +0000, Chris Austen wrote:
+>  I should know the answer to this but is inarp the only way to programmat=
+ically discover an ip is an OpenBMC system? =20
 
->>  We still use old u-boot that came from OpenSource release of AMI SDK.
->>  Have plans to move to the OpenBMC's version to start using of DTS.
->
-> Great! Let me know how you go. I'm happy to apply patches in order to
-> support your configuration. Our goal is to upstream our patches to
-> remove the need to fork it all together.
+inarp allows you to determine the ip address from a MAC address. To the
+best of my knowledge, it doesn't tell you anything about what is running
+on the machine.  There isn't any way to know that it is an openbmc machine
+just by looking at the result of the inarp packet.
 
-I'll try to rebase our current code to the latest OpenBMC (pwmfan, pinctrl, i2c slave).
+> Any desire for Avahi or something else? =20
 
->>  And a few modifications over OpenBMC kernel tree:
->>
->>  1. I2C slave support for the aspeed adapter (it is ugly a bit).
->
-> Did you see the slave patch that Brendan submitted? Would it work for
-> your requirements?
->
->   https://github.com/openbmc/linux/commit/090cb02e01906e7a7cf9c210237c4899972a9770
+I had a request today from IBM manufacturing tools to support SLP
+because the FSP currently does.  They want to have a well-supported way
+to determine if a machine is FSP-based or [open]BMC-based so that they
+can use a different toolset.
 
-It's good! I'll try it. Next thing that we should think is a buffer mode additional to the byte mode transfer.
-It's good for big transactions to offload byte ACKing to HW but requires some changes in, for instance,
-i2c slave support design. I've started such discussion in kernel's i2c maillist:
+Avahi is a zeroconf daemon that uses DNS-SD.  There are a few SLP
+daemon options also.
 
-    http://www.spinics.net/lists/linux-i2c/msg25656.html
+=46rom a greater openBMC perspective, I think it makes sense for us to add
+a Yocto FEATURE support for both SLP and DNS-SD/Avahi.  We would use this
+FEATURE to add configure flags to some of the userspace applications,
+like the REST and console servers, so that they register properly with
+Avahi and SLP as appropriate.
 
-> Thanks for sharing your results. How does nginx go with memory usage?
+--=20
+Patrick Williams
 
-It is twice more than uhttpd, but still has a little memory footprint (3-4MB).
+--rx3ixlfhfxg32px6
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
 
-I would like to start a little discussion around board setup process in arch/arm/mach-aspeed/aspeed.c.
-For most cases this process is "flat": just modifying regs one-by-one. Sometimes with applying mask.
-I have an idea to add an array of "instructions" to the Device Tree in the following manner
-(I hope dtc's preprocess via cpp resolve ORed macro in the correct way):
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
 
-==========
-#include <dt-bindings/soc/aspeed.h>
+iQIcBAEBCAAGBQJXq3liAAoJEKsDR8wtAMEZm34P/0kwPpZpewvAuuHcumh3PRUc
+/fCCLrCc8fYKwMCtvfZ4cjFVmDehdbTE7Js8onczWVqmkuGSlTyF/oKNHChhD4UQ
+LjMRlQvGGQpkFq3fnl4R+DXcJlCxCOp6q1KZ8fTa9uXm10dpxILTkZ3xdSTdm9b0
+0H0YHfTPFfXpVxgrIMZATfTBK/mYZutPI7v5mu5LfjtQ8fsTGw3AIYzFbTAJMmJp
+NpxCgubk2xqAANCsSCbM0sgT/WAcxeUv3aKY1NC077YabzwMKKPrCXtjQM8VcXA0
+6GNxNF4lLN5eJr1ICUvAJ8JEGvftAp4bDjJRq7JPgUQ+qF3+ewIJXY1jVB1gHqKk
+wItu+GAXapA8A+1f2zU3hii/moHwdKhsF93fdrCJ/fjksvVwJHPwhIt6x/Hvu4sb
+3lKCmzuccykTv/m9txrLmbyd74mEhvGecA6fa1CrpY2Gplvg2Ya94428tLP1sxnr
+aHHqy3QBO8j8y1Q2S4lSxj1LWmg2vjyRgxUpwPwNRGBx5e4GPkUJ/1BJFToqtFA1
+NxlZz5LIKsgdv4lJvF4l8NJn8rECK4GcxiygOuVztYI9e1ZFv5FX5z4BqZnt5Z3w
+o3402uv5TNTK04bwJZSyvl6We2ZwMMZailppkZqNYxGQEusCq9yoMTAB9oojgUVV
+9lIJNWGXZUV/0MdekUBs
+=J83Z
+-----END PGP SIGNATURE-----
 
-/ {
-    model = "Our HW";
-    compatible = "aspeed,ast2400";
-    board-setup = <WR, AST_BASE_LPC | 0x9c, 0x02010023, 0>,
-                           <WR, AST_BASE_SCU, SCU_PASSWORD, 0>,
-                           <WR, AST_BASE_SCU | 0x80, 0xcb000000, 0>,
-                           ...
-                            /* write(read() | 0x1000) */
-                           <OR, AST_BASE_SCU | 0x2c, 0x00001000, 0>,
-
-                           /* write((read() &~ 0x2000) | 0x1000) */
-                           <OR, AST_BASE_SCU | 0x2c, 0x00001000, 0x2000>;
-==========
-
-or in less talkative way:
-
-==========
-                            /* write((read() &~ 0) | 0xcb000000) */
-                           <AST_BASE_SCU | 0x80, 0xcb000000, 0>,
-                           ...
-                            /* write((read() &~ 0x1000) | 0x1000) */
-                           <AST_BASE_SCU | 0x2c, 0x00001000, 0x1000>,
-==========
-
-to completely eliminate board-specific init functions.
-
--- 
-Anton D. Kachalov
+--rx3ixlfhfxg32px6--
