@@ -1,27 +1,31 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s8gpH6hptzDqdr
- for <openbmc@lists.ozlabs.org>; Thu, 11 Aug 2016 05:15:19 +1000 (AEST)
-Received: from localhost (32.97.110.50 [32.97.110.50]) by mx.zohomail.com
- with SMTPS id 1470856515713471.7999441540021;
- Wed, 10 Aug 2016 12:15:15 -0700 (PDT)
-Date: Wed, 10 Aug 2016 14:15:13 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: "Anton D. Kachalov" <mouse@yandex-team.ru>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s8rLx3ds5zDqgN
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Aug 2016 11:40:41 +1000 (AEST)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id CF22C20581;
+ Wed, 10 Aug 2016 21:40:38 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute7.internal (MEProxy); Wed, 10 Aug 2016 21:40:38 -0400
+X-Sasl-enc: 6GeCYyrXxKbpPYMeaJdtyusYxOqB4TTLQE8wqZQ696Ml 1470879637
+Received: from keelia (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id CDF6CCCD84;
+ Wed, 10 Aug 2016 21:40:36 -0400 (EDT)
+Message-ID: <1470879628.27272.41.camel@aj.id.au>
+Subject: Re: [PATCH 1/2] pinctrl/aspeed: Add GPIOR to g4 pinmux
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Joel Stanley <joel@jms.id.au>
 Cc: openbmc@lists.ozlabs.org
-Subject: Re: OpenBMC on the OpenWRT
-Message-ID: <20160810191513.fdpyo36eihkqg6fx@asimov>
-References: <97341470823017@webcorp01g.yandex-team.ru>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="fczp3leyhm72yq2r"
-Content-Disposition: inline
-In-Reply-To: <97341470823017@webcorp01g.yandex-team.ru>
-User-Agent: Mutt/1.6.2 (2016-06-11)
-X-Zoho-Virus-Status: 1
+Date: Thu, 11 Aug 2016 11:10:28 +0930
+In-Reply-To: <1470820879-18661-1-git-send-email-joel@jms.id.au>
+References: <1470820879-18661-1-git-send-email-joel@jms.id.au>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-j4bksuBkJoTEFOlm4lge"
+X-Mailer: Evolution 3.18.5.2-0ubuntu3 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -33,106 +37,225 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Aug 2016 19:15:20 -0000
+X-List-Received-Date: Thu, 11 Aug 2016 01:40:42 -0000
 
 
---fczp3leyhm72yq2r
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--=-j4bksuBkJoTEFOlm4lge
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 10, 2016 at 12:56:57PM +0300, Anton D. Kachalov wrote:
-> Hello everybody.
-
-Hi Anton.  Thank you for connecting with us.
-
-> I'm working on a separate project for rack solution which utilize many po=
-rtions of OpenBMC:
+On Wed, 2016-08-10 at 18:51 +0930, Joel Stanley wrote:
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
+> ---
+> =C2=A0drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c | 81 +++++++++++++++++++=
++++++++++--
+> =C2=A01 file changed, 78 insertions(+), 3 deletions(-)
 >=20
->    https://github.com/ya-mouse/openbmc-target
+> diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c b/drivers/pinctrl=
+/aspeed/pinctrl-aspeed-g4.c
+> index d36e14892d4e..96952bf33b9f 100644
+> --- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
+> +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
+> @@ -585,6 +585,71 @@ SIG_EXPR_LIST_DECL(ROMCS1, SIG_EXPR_PTR(ROMCS1, ROM8=
+),
+> =C2=A0		SIG_EXPR_PTR(ROMCS1, ROM16S));
+> =C2=A0MS_PIN_DECL_(V20, SIG_EXPR_LIST_PTR(ROMCS1), SIG_EXPR_LIST_PTR(GPIO=
+R0));
+> =C2=A0
+> +#define W21 137
+> +#define W21_DESC	SIG_DESC_SET(SCU88, 25)
+> +SIG_EXPR_LIST_DECL_SINGLE(GPIOR1, GPIOR1);
+> +SIG_EXPR_DECL(ROMCS2, ROM8, W21_DESC);
+> +SIG_EXPR_DECL(ROMCS2, ROM16, W21_DESC);
+> +SIG_EXPR_DECL(ROMCS2, ROM16S, W21_DESC);
+> +SIG_EXPR_LIST_DECL(ROMCS2, SIG_EXPR_PTR(ROMCS2, ROM8),
+> +		SIG_EXPR_PTR(ROMCS2, ROM16),
+> +		SIG_EXPR_PTR(ROMCS2, ROM16S));
+> +MS_PIN_DECL_(W21, SIG_EXPR_LIST_PTR(ROMCS2), SIG_EXPR_LIST_PTR(GPIOR1));
 
-I would certainly be interested to understand the use-cases you are
-solving.  Our intention is that this OpenBMC code base can be used not
-only for typical servers but also storage / network controllers or
-blade chassis.  Right now we are focused on a standard server but we are
-trying not to design ourselves into a dead-end.
+I'm thinking we should separate out muxing of the chip selects from
+enabling the optional ROM signals. We need to hash that out before I
+resend the patches upstream.
 
-> As a system base we choose OpenWRT (flexible kernel-style configurations,=
- package manager,
-> wide and experienced support for embedded systems with limited resources).
+> +
+> +#define Y22 138
+> +#define Y22_DESC	SIG_DESC_SET(SCU88, 26)
+> +SIG_EXPR_LIST_DECL_SINGLE(GPIOR2, GPIOR2);
+> +SIG_EXPR_DECL(ROMCS3, ROM8, Y22_DESC);
+> +SIG_EXPR_DECL(ROMCS3, ROM16, Y22_DESC);
+> +SIG_EXPR_DECL(ROMCS3, ROM16S, Y22_DESC);
+> +SIG_EXPR_LIST_DECL(ROMCS3, SIG_EXPR_PTR(ROMCS3, ROM8),
+> +		SIG_EXPR_PTR(ROMCS3, ROM16),
+> +		SIG_EXPR_PTR(ROMCS3, ROM16S));
+> +MS_PIN_DECL_(Y22, SIG_EXPR_LIST_PTR(ROMCS3), SIG_EXPR_LIST_PTR(GPIOR2));
+> +
+> +#define U19 139
+> +#define U19_DESC	SIG_DESC_SET(SCU88, 27)
+> +SIG_EXPR_LIST_DECL_SINGLE(GPIOR3, GPIOR3);
+> +SIG_EXPR_DECL(ROMCS4, ROM8, U19_DESC);
+> +SIG_EXPR_DECL(ROMCS4, ROM16, U19_DESC);
+> +SIG_EXPR_DECL(ROMCS4, ROM16S, U19_DESC);
+> +SIG_EXPR_LIST_DECL(ROMCS4, SIG_EXPR_PTR(ROMCS4, ROM8),
+> +		SIG_EXPR_PTR(ROMCS4, ROM16),
+> +		SIG_EXPR_PTR(ROMCS4, ROM16S));
+> +MS_PIN_DECL_(U19, SIG_EXPR_LIST_PTR(ROMCS4), SIG_EXPR_LIST_PTR(GPIOR3));
+> +
+> +#define V21 140
+> +#define V21_DESC	SIG_DESC_SET(SCU88, 28)
+> +SIG_EXPR_DECL(ROMA24, ROM8, V21_DESC);
+> +SIG_EXPR_DECL(ROMA24, ROM16, V21_DESC);
+> +SIG_EXPR_DECL(ROMA24, ROM16S, V21_DESC);
 
-Is there a technical advantage that you see by using OpenWRT for your
-project or just a familiarity?  A few of us have worked on another
-project that used Buildroot which is very similar to OpenWRT, but
-settled on Yocto for this project.  Yocto certainly has a steeper
-learning curve, but it has much better support for "overlays" than
-Buildroot/OpenWRT; that solves a major problem we had collaborating with
-others on the Buildroot-based project.
+Ah, bug here, the DECLs above should be:
 
-> 4. LuaJIT + Nginx as a HTTP API backend instead of python/micropython.
->     We're on internal dissccusion of the API as a mainstream replacement =
-for IPMB/IPMI.
->     We use local memcached for fast serving data.
+SIG_EXPR_DECL(ROMA24, ROM8, V21_DESC, VPO_OFF_12);
+SIG_EXPR_DECL(ROMA24, ROM16, V21_DESC, VPO_OFF_12);
+SIG_EXPR_DECL(ROMA24, ROM16S, V21_DESC, VPO_OFF_12);
 
-Our current API is REST-based but it is a simple introspection of the
-dbus objects presented by our userspace applications.  All interprocess
-communication is done through well-defined dbus interfaces and we simply
-expose those out to the user via REST.
+> +SIG_EXPR_LIST_DECL(ROMA24, SIG_EXPR_PTR(ROMA24, ROM8),
+> +		SIG_EXPR_PTR(ROMA24, ROM16),
+> +		SIG_EXPR_PTR(ROMA24, ROM16S));
+> +SIG_EXPR_LIST_DECL_SINGLE(VPOR6, VPO24, V21_DESC, VPO_24_OFF);
+> +MS_PIN_DECL(V21, GPIOR4, ROMA24, VPOR6);
+> +
+> +#define W22 141
+> +#define W22_DESC	SIG_DESC_SET(SCU88, 29)
+> +SIG_EXPR_DECL(ROMA25, ROM8, W22_DESC);
+> +SIG_EXPR_DECL(ROMA25, ROM16, W22_DESC);
+> +SIG_EXPR_DECL(ROMA25, ROM16S, W22_DESC);
 
-We also intended for this to be a replacement for IPMI, but there seems
-to be a lot of resistance to that due to Redfish being very similar in
-goals.
+Similarly, these DECLs should be:
 
-We are not necessarily stuck on the python implementation, but would
-need to understand the CPU vs flash space trade-off.  Most server BMCs
-have very limited flash space (32MB of NOR flash) so that is our largest
-constraint.
+SIG_EXPR_DECL(ROMA25, ROM8, W22_DESC, VPO_OFF_12);
+SIG_EXPR_DECL(ROMA25, ROM16, W22_DESC, VPO_OFF_12);
+SIG_EXPR_DECL(ROMA25, ROM16S, W22_DESC, VPO_OFF_12);
 
-Your use of memcached does spark an interesting optimization in my mind
-for our dbus-based REST server though.  We could do something similar to
-cache the state of internal dbus objects and flush the cache based on
-the object-changed dbus signals.
+Cheers,
 
-> Just for reference.
-> We've compared performance of the several dynamic HTTP configurations suc=
-h as
-> python/micropython/lua (LuCI) and embeeded lua within nginx and discover =
-that last one has almost
-> maximum RPS comparing to the static pages serving.
-> Static is about 350 RPS while dynamic nginx+luajit with auth checking is =
-at 220RPS.
-> Simple python's http serves at 40 RPS. LuCI variant is 4-6 RPS.
-> First request to authentication service occurs via https and the result s=
-tored in the
-> local nginx shared memory storage for the further use (configured for one=
- minute).
+Andrew
 
-That sounds significantly more performant.  Do you happen to know the
-disk space requirements of this config?
-
---=20
-Patrick Williams
-
---fczp3leyhm72yq2r
+> +SIG_EXPR_LIST_DECL(ROMA25, SIG_EXPR_PTR(ROMA25, ROM8),
+> +		SIG_EXPR_PTR(ROMA25, ROM16),
+> +		SIG_EXPR_PTR(ROMA25, ROM16S));
+> +SIG_EXPR_LIST_DECL_SINGLE(VPOR7, VPO24, W22_DESC, VPO_24_OFF);
+> +MS_PIN_DECL(W22, GPIOR5, ROMA25, VPOR7);
+> +
+> +#define C6 142
+> +SIG_EXPR_LIST_DECL_SINGLE(MDC1, MDIO1, SIG_DESC_SET(SCU88, 30));
+> +SS_PIN_DECL(C6, GPIOR6, MDC1);
+> +
+> +#define A5 143
+> +SIG_EXPR_LIST_DECL_SINGLE(MDIO1, MDIO1, SIG_DESC_SET(SCU88, 31));
+> +SS_PIN_DECL(A5, GPIOR7, MDIO1);
+> +
+> +FUNC_GROUP_DECL(MDIO1, C6, A5);
+> +
+> =C2=A0#define U21 144
+> =C2=A0#define U21_DESC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0SIG=
+_DESC_SET(SCU8C, 0)
+> =C2=A0SIG_EXPR_DECL(ROMD4, ROM8, U21_DESC, VPOOFF0_DESC);
+> @@ -681,11 +746,12 @@ SIG_EXPR_LIST_DECL(ROMA23, SIG_EXPR_PTR(ROMA23, ROM=
+8),
+> =C2=A0SIG_EXPR_LIST_DECL_SINGLE(VPOR5, VPO24, K18_DESC, VPO_24_OFF);
+> =C2=A0MS_PIN_DECL(K18, GPIOS7, ROMA23, VPOR5);
+> =C2=A0
+> -FUNC_GROUP_DECL(ROM8, V20, U21, T19, V22, U20, R18, N21, L22, K18);
+> +FUNC_GROUP_DECL(ROM8, V20, U21, T19, V22, U20, R18, N21, L22, K18, W21, =
+Y22,
+> +		U19);
+> =C2=A0FUNC_GROUP_DECL(ROM16, V20, U21, T19, V22, U20, R18, N21, L22, K18,
+> -		A8, C7, B7, A7, D7, B6, A6, E7);
+> +		A8, C7, B7, A7, D7, B6, A6, E7, W21, Y22, U19);
+> =C2=A0FUNC_GROUP_DECL(VPO12, U21, T19, V22, U20);
+> -FUNC_GROUP_DECL(VPO24, U21, T19, V22, U20, L22, K18);
+> +FUNC_GROUP_DECL(VPO24, U21, T19, V22, U20, L22, K18, V21, W22);
+> =C2=A0
+> =C2=A0#define RMII1_DESC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0SIG_DESC_BIT(=
+HW_STRAP1, 6, 0)
+> =C2=A0
+> @@ -792,6 +858,7 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEED_=
+G4_NR_PINS] =3D {
+> =C2=A0	ASPEED_PINCTRL_PIN(A2),
+> =C2=A0	ASPEED_PINCTRL_PIN(A3),
+> =C2=A0	ASPEED_PINCTRL_PIN(A4),
+> +	ASPEED_PINCTRL_PIN(A5),
+> =C2=A0	ASPEED_PINCTRL_PIN(A6),
+> =C2=A0	ASPEED_PINCTRL_PIN(A7),
+> =C2=A0	ASPEED_PINCTRL_PIN(A8),
+> @@ -820,6 +887,7 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEED_=
+G4_NR_PINS] =3D {
+> =C2=A0	ASPEED_PINCTRL_PIN(C3),
+> =C2=A0	ASPEED_PINCTRL_PIN(C4),
+> =C2=A0	ASPEED_PINCTRL_PIN(C5),
+> +	ASPEED_PINCTRL_PIN(C6),
+> =C2=A0	ASPEED_PINCTRL_PIN(C7),
+> =C2=A0	ASPEED_PINCTRL_PIN(D1),
+> =C2=A0	ASPEED_PINCTRL_PIN(D11),
+> @@ -861,6 +929,7 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEED_=
+G4_NR_PINS] =3D {
+> =C2=A0	ASPEED_PINCTRL_PIN(T5),
+> =C2=A0	ASPEED_PINCTRL_PIN(U1),
+> =C2=A0	ASPEED_PINCTRL_PIN(U18),
+> +	ASPEED_PINCTRL_PIN(U19),
+> =C2=A0	ASPEED_PINCTRL_PIN(U2),
+> =C2=A0	ASPEED_PINCTRL_PIN(U20),
+> =C2=A0	ASPEED_PINCTRL_PIN(U21),
+> @@ -870,11 +939,15 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEE=
+D_G4_NR_PINS] =3D {
+> =C2=A0	ASPEED_PINCTRL_PIN(V1),
+> =C2=A0	ASPEED_PINCTRL_PIN(V2),
+> =C2=A0	ASPEED_PINCTRL_PIN(V20),
+> +	ASPEED_PINCTRL_PIN(V21),
+> =C2=A0	ASPEED_PINCTRL_PIN(V22),
+> =C2=A0	ASPEED_PINCTRL_PIN(V6),
+> =C2=A0	ASPEED_PINCTRL_PIN(W1),
+> +	ASPEED_PINCTRL_PIN(W21),
+> +	ASPEED_PINCTRL_PIN(W22),
+> =C2=A0	ASPEED_PINCTRL_PIN(W4),
+> =C2=A0	ASPEED_PINCTRL_PIN(W5),
+> +	ASPEED_PINCTRL_PIN(Y22),
+> =C2=A0	ASPEED_PINCTRL_PIN(Y3),
+> =C2=A0	ASPEED_PINCTRL_PIN(Y4),
+> =C2=A0	ASPEED_PINCTRL_PIN(Y5),
+> @@ -952,6 +1025,7 @@ static const struct aspeed_pin_group aspeed_g4_group=
+s[] =3D {
+> =C2=A0	ASPEED_PINCTRL_GROUP(VPO24),
+> =C2=A0	ASPEED_PINCTRL_GROUP(RGMII1),
+> =C2=A0	ASPEED_PINCTRL_GROUP(RMII1),
+> +	ASPEED_PINCTRL_GROUP(MDIO1),
+> =C2=A0};
+> =C2=A0
+> =C2=A0static const struct aspeed_pin_function aspeed_g4_functions[] =3D {
+> @@ -1022,6 +1096,7 @@ static const struct aspeed_pin_function aspeed_g4_f=
+unctions[] =3D {
+> =C2=A0	ASPEED_PINCTRL_FUNC(VPO24),
+> =C2=A0	ASPEED_PINCTRL_FUNC(RGMII1),
+> =C2=A0	ASPEED_PINCTRL_FUNC(RMII1),
+> +	ASPEED_PINCTRL_FUNC(MDIO1),
+> =C2=A0};
+> =C2=A0
+> =C2=A0static struct aspeed_pinctrl_data aspeed_g4_pinctrl_data =3D {
+--=-j4bksuBkJoTEFOlm4lge
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJXq31BAAoJEKsDR8wtAMEZC6wP+QGZmSUgKgq0LlKwhZXcZr5f
-tleLgl0jjXQiDL6WrLRK4XU+hIFxWXaJT6HTDTgqJXI5TN528916/+4mAg5G+fHI
-PC6a/18e0f3VYW3qyoWatVUlNQ7AF8cb7tVypvOfUf6Pi73jps3AhSobAI8suez4
-+cmHbKOoLl5so9vSCIJgKmmSOD9/ZEMRot6hRHbVfxVXyx0RhDQClYAyIl+Cdi7m
-DppsiI4mzVRECGeDpgvQU3Eof5T2IG4+d8lyq/djH/jnfoWakK5OORHyqPUr8u8K
-74oiD5wJfZDvcqkKKZ4NHH/w8wd3dunIMQv9J2/NKVRYKauG5jTRL8BKSHpa7vz5
-/c9ymyg4VweAuIF2VSJNEbcSZ1H5BkomlMzo0IXNzhbVqfE+ZLJXZQw57Mfmtlq2
-ojI2nlQjf5Pz7DImBBweOUmmj7S4jWB7XyQ6kYLHQG/X1p8f5Y+hsfXaHlQ/KlQE
-+4q2AjSNNynumpW+hwPYb6+CdtFXUhfNrfJfS0hMhD7YR46RPygF3de01GmBJ5SE
-u79G8codnE75stFf3GMPf09REcL+pK42JfWG3Ff/TN1IkvIlnlvb0UnMgALgcImC
-LPzogRJkhG3hyZolaYBrh1puMwBRG5VxnAcxGFuEx2bH2RvSLrImm/uUy7qLD7xa
-4tel3saijxcqa7STAUlf
-=aJfN
+iQIcBAABCgAGBQJXq9eMAAoJEJ0dnzgO5LT5sdoP/1rrNU0kuTZbvkmmkxNEytSw
+Spt2CNLUicBCLskVLS/pOFvsj62t+lcNx+SUggI0h38J3+uxGRgW/WDGyd/SirSg
+IItdIw2sEowUqkS4xUt+JcTUOuXVIPAGHQuX337uvTmjJcQkmz9/C8e9tzR/Ai4c
+KkGo7u/XzyYcswwFdKWAqPXB3YqvT/kNT0nTRNTrKuul2qplReFjSUg4ukZAiIw6
+nS0D0/2a87iV08/ZI2YOuq+XOV4BqJanMHq7MhrKxpGD/B0EJAszLDrhYk8OMXkv
+ArbYCDmsusm9i8161Od10wFmVyeeJQ6Uda6NLqEOsygtWni6dz8f8epXjVwhd0Yr
+ER8vuXmXx/uDDorLDW3gFDuRAjUWWzDV8YZe1YDfb579CcZWiK42i7Y8wC3dqFEf
+QEQacvjrVQBTIKEWr4tN1on/MV5f3OTM+RyfDAcxv4jCbWMGtJ6SblAQ7ygPuy5p
+AaQs8e6Gr12OhQsU4uJGPEz+p6aHElj8SOzKk918MmkTKuX0+Q3drCXJesTJALeh
+tTImVhzE53BK3pW+Xt6I4z9srXMQLXESWhRSEZ1O4U22p/8Jw5gZED3UEH/x81BR
+IZqtgFudth5j5eN8JF2VWVevxUbcoz8tRXiBy9h7mX7npS4DCptif4rqUiqzMFGX
+zrcn/Nv2l9rIys9uzvRh
+=g00J
 -----END PGP SIGNATURE-----
 
---fczp3leyhm72yq2r--
+--=-j4bksuBkJoTEFOlm4lge--
