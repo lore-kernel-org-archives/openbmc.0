@@ -1,57 +1,51 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-pf0-x243.google.com (mail-pf0-x243.google.com
- [IPv6:2607:f8b0:400e:c00::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3s8tws0zCwzDr0q
- for <openbmc@lists.ozlabs.org>; Thu, 11 Aug 2016 13:36:45 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=OICOc7F5; 
- dkim-atps=neutral
-Received: by mail-pf0-x243.google.com with SMTP id h186so3939186pfg.2
- for <openbmc@lists.ozlabs.org>; Wed, 10 Aug 2016 20:36:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
- :in-reply-to:references;
- bh=R4vT2L2gzY5E/cEHw3CnUg7oj+5Ce09ImVRTb5wcHJk=;
- b=OICOc7F5rTC8BHMlxs3wUHf+vCTL1OkvUm3IBS45Nk+DM9kfCNCEmOnnTk1e30ZQpS
- voGPLUCuJvbwp/bDwNPrYFc/2SneH7Moq1xxPiy+aCTqhg7j0FIk4ev6dSeq7wD46fyT
- dpUHkDyGP+kHg085/jASz2hUQOoPXfAmnmHlIbEHDOtf5IeSle1ENx7uYBYs4xmNz8q5
- LMNuQSYVF2gOj6y3BwIhj3cozXDj8BH65fl8gNWKctYVbdeg8NE7ejGbEKvjjSPz61W2
- V65ZMX+OZy+THq1ND4q/LcPqwludR1SJhCy1OASyz92oUGM9B9+O68jTddx6TItwtAaf
- hKQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
- :in-reply-to:references:in-reply-to:references;
- bh=R4vT2L2gzY5E/cEHw3CnUg7oj+5Ce09ImVRTb5wcHJk=;
- b=lxYP3JmyzG8Ee6Ppvk6u+UGAEZOBHx+FuPq+wdXfrw6SHwDQGUpS+yVyH6oPSRLX1Y
- ubeHjbDS9rVepeidvc3W0Slwg9w7xzICy/jBbsl0GhI0Fcn3umYhTAuVdMvw8bBkCSdA
- 4SxhG1HnTCesUQg8518RWNXu+4w77LXdr8TQT+iFwCj64Wsr+JS1ObmJuYywS1xjt7/1
- iGs+4Lmwo/h9qsEdsm11TwrZ7HrtAyLRf2WtGQrjemfdgOozUx6Azj8S6RAr2XOMsql3
- ZXKpSn9ffeBGueeknNgPOBmKDJ5CrWkQH3+p47mojqjTLXexHZAdtBJ4gsWE3orgESTH
- kYWA==
-X-Gm-Message-State: AEkoouv2fsxPsPMMIGn9s+GND8FvdAFY9XT5SDmqMoOpY4zLsL5lQicrriunIyJdxfGJVg==
-X-Received: by 10.98.85.134 with SMTP id j128mr13305351pfb.6.1470886603522;
- Wed, 10 Aug 2016 20:36:43 -0700 (PDT)
-Received: from aurora.jms.id.au ([2403:480:11:8000:d03d:d7d9:d1ae:9fbc])
- by smtp.gmail.com with ESMTPSA id r21sm610649pfi.52.2016.08.10.20.36.39
- (version=TLS1 cipher=AES128-SHA bits=128/128);
- Wed, 10 Aug 2016 20:36:42 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Thu, 11 Aug 2016 13:06:36 +0930
-From: Joel Stanley <joel@jms.id.au>
-To: andrew@aj.id.au
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3s8vGT1YkdzDqfj
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Aug 2016 13:52:00 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=L8d9SFip; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b=imQo3JUh; dkim-atps=neutral
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id 5B83420635;
+ Wed, 10 Aug 2016 23:51:58 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute7.internal (MEProxy); Wed, 10 Aug 2016 23:51:58 -0400
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=nZpLk
+ Ygd3JVBZf0HN47KPnWkFPY=; b=L8d9SFipXCNEa4RrseEfpYKdu30CyGp5ZJvpx
+ SSL0D7Wjr9Rco3p3mRrB/9aftxA8jtypY+YjzuMjFLus54CwN4q1dIAluHSc5VRc
+ O/Z6ccOMoKOaEDmIvs5/CCsw5Typ4IuTtPZwG6MRe8a/qvPA3IeUHt9IRFu84BKt
+ GVMAkQ=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-sasl-enc
+ :x-sasl-enc; s=smtpout; bh=nZpLkYgd3JVBZf0HN47KPnWkFPY=; b=imQo3
+ JUh+HC+pEyHg/fqiIYqkjrzekEY6w6wGpiN6TPdA2cK7plo92DTrRbhN8wUtY/ZZ
+ HtJ6I5IsOGwpujczO2END7z0zL98V6tLsxtu4AZRhDhlaYaYrKlpedQyTR8KsWMv
+ i/hDuCA3imiRBKGGw/IdsMIgZmwTKipAqhyysU=
+X-Sasl-enc: aMTQLVZw5COkeqreOmKR7miV/kst45Yegky2WPvLjcJ7 1470887517
+Received: from keelia (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id D13AFCCDC0;
+ Wed, 10 Aug 2016 23:51:56 -0400 (EDT)
+Message-ID: <1470887510.27272.43.camel@aj.id.au>
+Subject: Re: [PATCH v2 1/2] pinctrl/aspeed: Add GPIOR to g4 pinmux
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Joel Stanley <joel@jms.id.au>
 Cc: openbmc@lists.ozlabs.org
-Subject: [PATCH v2 2/2] pinctrl/aspeed: Add GPIOE to g4 pinmux
-Date: Thu, 11 Aug 2016 13:06:23 +0930
-Message-Id: <1470886583-1682-2-git-send-email-joel@jms.id.au>
-X-Mailer: git-send-email 2.8.1
+Date: Thu, 11 Aug 2016 13:21:50 +0930
 In-Reply-To: <1470886583-1682-1-git-send-email-joel@jms.id.au>
-References: <1470886583-1682-1-git-send-email-joel@jms.id.au>
-In-Reply-To: <1470879628.27272.41.camel@aj.id.au>
 References: <1470879628.27272.41.camel@aj.id.au>
+ <1470886583-1682-1-git-send-email-joel@jms.id.au>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-fEF/pSCRQ6Pysxis6q+p"
+X-Mailer: Evolution 3.18.5.2-0ubuntu3 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -63,164 +57,208 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Aug 2016 03:36:45 -0000
+X-List-Received-Date: Thu, 11 Aug 2016 03:52:02 -0000
+
+
+--=-fEF/pSCRQ6Pysxis6q+p
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, 2016-08-11 at 13:06 +0930, Joel Stanley wrote:
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
 
 Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c | 84 ++++++++++++++++++++++++++++++
- 1 file changed, 84 insertions(+)
 
-diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
-index 502d0d95bbb3..b3e4bbfab50c 100644
---- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
-+++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
-@@ -172,6 +172,9 @@ FUNC_GROUP_DECL(GPID0, A18, D16);
- 
- #define GPIE_DESC       SIG_DESC_SET(HW_STRAP1, 22)
- #define GPIE0_DESC      SIG_DESC_SET(SCU8C, 12)
-+#define GPIE2_DESC      SIG_DESC_SET(SCU8C, 13)
-+#define GPIE4_DESC      SIG_DESC_SET(SCU8C, 14)
-+#define GPIE6_DESC      SIG_DESC_SET(SCU8C, 15)
- 
- #define D15 32
- SIG_EXPR_LIST_DECL_SINGLE(NCTS3, NCTS3, SIG_DESC_SET(SCU80, 16));
-@@ -192,6 +195,63 @@ MS_PIN_DECL(C15, GPIOE1, NDCD3, GPIE0OUT);
- FUNC_GROUP_DECL(NDCD3, C15);
- FUNC_GROUP_DECL(GPIE0, D15, C15);
- 
-+#define B15 34
-+SIG_EXPR_LIST_DECL_SINGLE(NDSR3, NDSR3, SIG_DESC_SET(SCU80, 18));
-+SIG_EXPR_DECL(GPIE2IN, GPIE2, GPIE2_DESC);
-+SIG_EXPR_DECL(GPIE2IN, GPIE, GPIE_DESC);
-+SIG_EXPR_LIST_DECL_DUAL(GPIE2IN, GPIE2, GPIE);
-+MS_PIN_DECL(B15, GPIOE2, NDSR3, GPIE2IN);
-+
-+FUNC_GROUP_DECL(NDSR3, B15);
-+
-+#define A15 35
-+SIG_EXPR_LIST_DECL_SINGLE(NRI3, NRI3, SIG_DESC_SET(SCU80, 19));
-+SIG_EXPR_DECL(GPIE2OUT, GPIE2, GPIE2_DESC);
-+SIG_EXPR_DECL(GPIE2OUT, GPIE, GPIE_DESC);
-+SIG_EXPR_LIST_DECL_DUAL(GPIE2OUT, GPIE2, GPIE);
-+MS_PIN_DECL(A15, GPIOE3, NRI3, GPIE2OUT);
-+
-+FUNC_GROUP_DECL(NRI3, A15);
-+FUNC_GROUP_DECL(GPIE2, B15, A15);
-+
-+#define E14 36
-+SIG_EXPR_LIST_DECL_SINGLE(NDTR3, NDTR3, SIG_DESC_SET(SCU80, 20));
-+SIG_EXPR_DECL(GPIE4IN, GPIE4, GPIE4_DESC);
-+SIG_EXPR_DECL(GPIE4IN, GPIE, GPIE_DESC);
-+SIG_EXPR_LIST_DECL_DUAL(GPIE4IN, GPIE4, GPIE);
-+MS_PIN_DECL(E14, GPIOE4, NDTR3, GPIE4IN);
-+
-+FUNC_GROUP_DECL(NDTR3, E14);
-+
-+#define D14 37
-+SIG_EXPR_LIST_DECL_SINGLE(NRTS3, NRTS3, SIG_DESC_SET(SCU80, 21));
-+SIG_EXPR_DECL(GPIE4OUT, GPIE4, GPIE4_DESC);
-+SIG_EXPR_DECL(GPIE4OUT, GPIE, GPIE_DESC);
-+SIG_EXPR_LIST_DECL_DUAL(GPIE4OUT, GPIE4, GPIE);
-+MS_PIN_DECL(D14, GPIOE5, NRTS3, GPIE4OUT);
-+
-+FUNC_GROUP_DECL(NRTS3, D14);
-+FUNC_GROUP_DECL(GPIE4, E14, D14);
-+
-+#define C14 38
-+SIG_EXPR_LIST_DECL_SINGLE(TXD3, TXD3, SIG_DESC_SET(SCU80, 22));
-+SIG_EXPR_DECL(GPIE6IN, GPIE6, GPIE6_DESC);
-+SIG_EXPR_DECL(GPIE6IN, GPIE, GPIE_DESC);
-+SIG_EXPR_LIST_DECL_DUAL(GPIE6IN, GPIE6, GPIE);
-+MS_PIN_DECL(C14, GPIOE6, TXD3, GPIE6IN);
-+
-+FUNC_GROUP_DECL(TXD3, C14);
-+
-+#define B14 39
-+SIG_EXPR_LIST_DECL_SINGLE(RXD3, RXD3, SIG_DESC_SET(SCU80, 23));
-+SIG_EXPR_DECL(GPIE6OUT, GPIE6, GPIE6_DESC);
-+SIG_EXPR_DECL(GPIE6OUT, GPIE, GPIE_DESC);
-+SIG_EXPR_LIST_DECL_DUAL(GPIE6OUT, GPIE6, GPIE);
-+MS_PIN_DECL(B14, GPIOE7, RXD3, GPIE6OUT);
-+
-+FUNC_GROUP_DECL(RXD3, B14);
-+FUNC_GROUP_DECL(GPIE6, C14, B14);
-+
- #define D18 40
- SSSF_PIN_DECL(D18, GPIOF0, NCTS4, SIG_DESC_SET(SCU80, 24));
- 
-@@ -854,6 +914,7 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEED_G4_NR_PINS] = {
- 	ASPEED_PINCTRL_PIN(A11),
- 	ASPEED_PINCTRL_PIN(A12),
- 	ASPEED_PINCTRL_PIN(A13),
-+	ASPEED_PINCTRL_PIN(A15),
- 	ASPEED_PINCTRL_PIN(A18),
- 	ASPEED_PINCTRL_PIN(A2),
- 	ASPEED_PINCTRL_PIN(A3),
-@@ -872,6 +933,8 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEED_G4_NR_PINS] = {
- 	ASPEED_PINCTRL_PIN(B1),
- 	ASPEED_PINCTRL_PIN(B11),
- 	ASPEED_PINCTRL_PIN(B12),
-+	ASPEED_PINCTRL_PIN(B14),
-+	ASPEED_PINCTRL_PIN(B15),
- 	ASPEED_PINCTRL_PIN(B19),
- 	ASPEED_PINCTRL_PIN(B2),
- 	ASPEED_PINCTRL_PIN(B3),
-@@ -881,6 +944,7 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEED_G4_NR_PINS] = {
- 	ASPEED_PINCTRL_PIN(C1),
- 	ASPEED_PINCTRL_PIN(C11),
- 	ASPEED_PINCTRL_PIN(C12),
-+	ASPEED_PINCTRL_PIN(C14),
- 	ASPEED_PINCTRL_PIN(C15),
- 	ASPEED_PINCTRL_PIN(C17),
- 	ASPEED_PINCTRL_PIN(C2),
-@@ -892,6 +956,7 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEED_G4_NR_PINS] = {
- 	ASPEED_PINCTRL_PIN(D1),
- 	ASPEED_PINCTRL_PIN(D11),
- 	ASPEED_PINCTRL_PIN(D12),
-+	ASPEED_PINCTRL_PIN(D14),
- 	ASPEED_PINCTRL_PIN(D15),
- 	ASPEED_PINCTRL_PIN(D16),
- 	ASPEED_PINCTRL_PIN(D17),
-@@ -904,6 +969,7 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEED_G4_NR_PINS] = {
- 	ASPEED_PINCTRL_PIN(E10),
- 	ASPEED_PINCTRL_PIN(E11),
- 	ASPEED_PINCTRL_PIN(E12),
-+	ASPEED_PINCTRL_PIN(E14),
- 	ASPEED_PINCTRL_PIN(E16),
- 	ASPEED_PINCTRL_PIN(E2),
- 	ASPEED_PINCTRL_PIN(E3),
-@@ -974,6 +1040,15 @@ static const struct aspeed_pin_group aspeed_g4_groups[] = {
- 	ASPEED_PINCTRL_GROUP(NCTS3),
- 	ASPEED_PINCTRL_GROUP(NDCD3),
- 	ASPEED_PINCTRL_GROUP(GPIE0),
-+	ASPEED_PINCTRL_GROUP(NDSR3),
-+	ASPEED_PINCTRL_GROUP(NRI3),
-+	ASPEED_PINCTRL_GROUP(GPIE2),
-+	ASPEED_PINCTRL_GROUP(NDTR3),
-+	ASPEED_PINCTRL_GROUP(NRTS3),
-+	ASPEED_PINCTRL_GROUP(GPIE4),
-+	ASPEED_PINCTRL_GROUP(TXD3),
-+	ASPEED_PINCTRL_GROUP(RXD3),
-+	ASPEED_PINCTRL_GROUP(GPIE6),
- 	ASPEED_PINCTRL_GROUP(NCTS4),
- 	ASPEED_PINCTRL_GROUP(ACPI),
- 	ASPEED_PINCTRL_GROUP(NDCD4),
-@@ -1047,6 +1122,15 @@ static const struct aspeed_pin_function aspeed_g4_functions[] = {
- 	ASPEED_PINCTRL_FUNC(NCTS3),
- 	ASPEED_PINCTRL_FUNC(NDCD3),
- 	ASPEED_PINCTRL_FUNC(GPIE0),
-+	ASPEED_PINCTRL_FUNC(NDSR3),
-+	ASPEED_PINCTRL_FUNC(NRI3),
-+	ASPEED_PINCTRL_FUNC(GPIE2),
-+	ASPEED_PINCTRL_FUNC(NDTR3),
-+	ASPEED_PINCTRL_FUNC(NRTS3),
-+	ASPEED_PINCTRL_FUNC(GPIE4),
-+	ASPEED_PINCTRL_FUNC(TXD3),
-+	ASPEED_PINCTRL_FUNC(RXD3),
-+	ASPEED_PINCTRL_FUNC(GPIE6),
- 	ASPEED_PINCTRL_FUNC(NCTS4),
- 	ASPEED_PINCTRL_FUNC(ACPI),
- 	ASPEED_PINCTRL_FUNC(NDCD4),
--- 
-2.8.1
+> ---
+> v2:
+> =C2=A0- add VPO_OFF_12 to W21 and W22
+>=20
+> =C2=A0drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c | 81 +++++++++++++++++++=
++++++++++--
+> =C2=A01 file changed, 78 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c b/drivers/pinctrl=
+/aspeed/pinctrl-aspeed-g4.c
+> index d36e14892d4e..502d0d95bbb3 100644
+> --- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
+> +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
+> @@ -585,6 +585,71 @@ SIG_EXPR_LIST_DECL(ROMCS1, SIG_EXPR_PTR(ROMCS1, ROM8=
+),
+> =C2=A0		SIG_EXPR_PTR(ROMCS1, ROM16S));
+> =C2=A0MS_PIN_DECL_(V20, SIG_EXPR_LIST_PTR(ROMCS1), SIG_EXPR_LIST_PTR(GPIO=
+R0));
+> =C2=A0
+> +#define W21 137
+> +#define W21_DESC	SIG_DESC_SET(SCU88, 25)
+> +SIG_EXPR_LIST_DECL_SINGLE(GPIOR1, GPIOR1);
+> +SIG_EXPR_DECL(ROMCS2, ROM8, W21_DESC);
+> +SIG_EXPR_DECL(ROMCS2, ROM16, W21_DESC);
+> +SIG_EXPR_DECL(ROMCS2, ROM16S, W21_DESC);
+> +SIG_EXPR_LIST_DECL(ROMCS2, SIG_EXPR_PTR(ROMCS2, ROM8),
+> +		SIG_EXPR_PTR(ROMCS2, ROM16),
+> +		SIG_EXPR_PTR(ROMCS2, ROM16S));
+> +MS_PIN_DECL_(W21, SIG_EXPR_LIST_PTR(ROMCS2), SIG_EXPR_LIST_PTR(GPIOR1));
+> +
+> +#define Y22 138
+> +#define Y22_DESC	SIG_DESC_SET(SCU88, 26)
+> +SIG_EXPR_LIST_DECL_SINGLE(GPIOR2, GPIOR2);
+> +SIG_EXPR_DECL(ROMCS3, ROM8, Y22_DESC);
+> +SIG_EXPR_DECL(ROMCS3, ROM16, Y22_DESC);
+> +SIG_EXPR_DECL(ROMCS3, ROM16S, Y22_DESC);
+> +SIG_EXPR_LIST_DECL(ROMCS3, SIG_EXPR_PTR(ROMCS3, ROM8),
+> +		SIG_EXPR_PTR(ROMCS3, ROM16),
+> +		SIG_EXPR_PTR(ROMCS3, ROM16S));
+> +MS_PIN_DECL_(Y22, SIG_EXPR_LIST_PTR(ROMCS3), SIG_EXPR_LIST_PTR(GPIOR2));
+> +
+> +#define U19 139
+> +#define U19_DESC	SIG_DESC_SET(SCU88, 27)
+> +SIG_EXPR_LIST_DECL_SINGLE(GPIOR3, GPIOR3);
+> +SIG_EXPR_DECL(ROMCS4, ROM8, U19_DESC);
+> +SIG_EXPR_DECL(ROMCS4, ROM16, U19_DESC);
+> +SIG_EXPR_DECL(ROMCS4, ROM16S, U19_DESC);
+> +SIG_EXPR_LIST_DECL(ROMCS4, SIG_EXPR_PTR(ROMCS4, ROM8),
+> +		SIG_EXPR_PTR(ROMCS4, ROM16),
+> +		SIG_EXPR_PTR(ROMCS4, ROM16S));
+> +MS_PIN_DECL_(U19, SIG_EXPR_LIST_PTR(ROMCS4), SIG_EXPR_LIST_PTR(GPIOR3));
+> +
+> +#define V21 140
+> +#define V21_DESC	SIG_DESC_SET(SCU88, 28)
+> +SIG_EXPR_DECL(ROMA24, ROM8, V21_DESC, VPO_OFF_12);
+> +SIG_EXPR_DECL(ROMA24, ROM16, V21_DESC, VPO_OFF_12);
+> +SIG_EXPR_DECL(ROMA24, ROM16S, V21_DESC, VPO_OFF_12);
+> +SIG_EXPR_LIST_DECL(ROMA24, SIG_EXPR_PTR(ROMA24, ROM8),
+> +		SIG_EXPR_PTR(ROMA24, ROM16),
+> +		SIG_EXPR_PTR(ROMA24, ROM16S));
+> +SIG_EXPR_LIST_DECL_SINGLE(VPOR6, VPO24, V21_DESC, VPO_24_OFF);
+> +MS_PIN_DECL(V21, GPIOR4, ROMA24, VPOR6);
+> +
+> +#define W22 141
+> +#define W22_DESC	SIG_DESC_SET(SCU88, 29)
+> +SIG_EXPR_DECL(ROMA25, ROM8, W22_DESC, VPO_OFF_12);
+> +SIG_EXPR_DECL(ROMA25, ROM16, W22_DESC, VPO_OFF_12);
+> +SIG_EXPR_DECL(ROMA25, ROM16S, W22_DESC, VPO_OFF_12);
+> +SIG_EXPR_LIST_DECL(ROMA25, SIG_EXPR_PTR(ROMA25, ROM8),
+> +		SIG_EXPR_PTR(ROMA25, ROM16),
+> +		SIG_EXPR_PTR(ROMA25, ROM16S));
+> +SIG_EXPR_LIST_DECL_SINGLE(VPOR7, VPO24, W22_DESC, VPO_24_OFF);
+> +MS_PIN_DECL(W22, GPIOR5, ROMA25, VPOR7);
+> +
+> +#define C6 142
+> +SIG_EXPR_LIST_DECL_SINGLE(MDC1, MDIO1, SIG_DESC_SET(SCU88, 30));
+> +SS_PIN_DECL(C6, GPIOR6, MDC1);
+> +
+> +#define A5 143
+> +SIG_EXPR_LIST_DECL_SINGLE(MDIO1, MDIO1, SIG_DESC_SET(SCU88, 31));
+> +SS_PIN_DECL(A5, GPIOR7, MDIO1);
+> +
+> +FUNC_GROUP_DECL(MDIO1, C6, A5);
+> +
+> =C2=A0#define U21 144
+> =C2=A0#define U21_DESC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0SIG=
+_DESC_SET(SCU8C, 0)
+> =C2=A0SIG_EXPR_DECL(ROMD4, ROM8, U21_DESC, VPOOFF0_DESC);
+> @@ -681,11 +746,12 @@ SIG_EXPR_LIST_DECL(ROMA23, SIG_EXPR_PTR(ROMA23, ROM=
+8),
+> =C2=A0SIG_EXPR_LIST_DECL_SINGLE(VPOR5, VPO24, K18_DESC, VPO_24_OFF);
+> =C2=A0MS_PIN_DECL(K18, GPIOS7, ROMA23, VPOR5);
+> =C2=A0
+> -FUNC_GROUP_DECL(ROM8, V20, U21, T19, V22, U20, R18, N21, L22, K18);
+> +FUNC_GROUP_DECL(ROM8, V20, U21, T19, V22, U20, R18, N21, L22, K18, W21, =
+Y22,
+> +		U19);
+> =C2=A0FUNC_GROUP_DECL(ROM16, V20, U21, T19, V22, U20, R18, N21, L22, K18,
+> -		A8, C7, B7, A7, D7, B6, A6, E7);
+> +		A8, C7, B7, A7, D7, B6, A6, E7, W21, Y22, U19);
+> =C2=A0FUNC_GROUP_DECL(VPO12, U21, T19, V22, U20);
+> -FUNC_GROUP_DECL(VPO24, U21, T19, V22, U20, L22, K18);
+> +FUNC_GROUP_DECL(VPO24, U21, T19, V22, U20, L22, K18, V21, W22);
+> =C2=A0
+> =C2=A0#define RMII1_DESC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0SIG_DESC_BIT(=
+HW_STRAP1, 6, 0)
+> =C2=A0
+> @@ -792,6 +858,7 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEED_=
+G4_NR_PINS] =3D {
+> =C2=A0	ASPEED_PINCTRL_PIN(A2),
+> =C2=A0	ASPEED_PINCTRL_PIN(A3),
+> =C2=A0	ASPEED_PINCTRL_PIN(A4),
+> +	ASPEED_PINCTRL_PIN(A5),
+> =C2=A0	ASPEED_PINCTRL_PIN(A6),
+> =C2=A0	ASPEED_PINCTRL_PIN(A7),
+> =C2=A0	ASPEED_PINCTRL_PIN(A8),
+> @@ -820,6 +887,7 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEED_=
+G4_NR_PINS] =3D {
+> =C2=A0	ASPEED_PINCTRL_PIN(C3),
+> =C2=A0	ASPEED_PINCTRL_PIN(C4),
+> =C2=A0	ASPEED_PINCTRL_PIN(C5),
+> +	ASPEED_PINCTRL_PIN(C6),
+> =C2=A0	ASPEED_PINCTRL_PIN(C7),
+> =C2=A0	ASPEED_PINCTRL_PIN(D1),
+> =C2=A0	ASPEED_PINCTRL_PIN(D11),
+> @@ -861,6 +929,7 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEED_=
+G4_NR_PINS] =3D {
+> =C2=A0	ASPEED_PINCTRL_PIN(T5),
+> =C2=A0	ASPEED_PINCTRL_PIN(U1),
+> =C2=A0	ASPEED_PINCTRL_PIN(U18),
+> +	ASPEED_PINCTRL_PIN(U19),
+> =C2=A0	ASPEED_PINCTRL_PIN(U2),
+> =C2=A0	ASPEED_PINCTRL_PIN(U20),
+> =C2=A0	ASPEED_PINCTRL_PIN(U21),
+> @@ -870,11 +939,15 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEE=
+D_G4_NR_PINS] =3D {
+> =C2=A0	ASPEED_PINCTRL_PIN(V1),
+> =C2=A0	ASPEED_PINCTRL_PIN(V2),
+> =C2=A0	ASPEED_PINCTRL_PIN(V20),
+> +	ASPEED_PINCTRL_PIN(V21),
+> =C2=A0	ASPEED_PINCTRL_PIN(V22),
+> =C2=A0	ASPEED_PINCTRL_PIN(V6),
+> =C2=A0	ASPEED_PINCTRL_PIN(W1),
+> +	ASPEED_PINCTRL_PIN(W21),
+> +	ASPEED_PINCTRL_PIN(W22),
+> =C2=A0	ASPEED_PINCTRL_PIN(W4),
+> =C2=A0	ASPEED_PINCTRL_PIN(W5),
+> +	ASPEED_PINCTRL_PIN(Y22),
+> =C2=A0	ASPEED_PINCTRL_PIN(Y3),
+> =C2=A0	ASPEED_PINCTRL_PIN(Y4),
+> =C2=A0	ASPEED_PINCTRL_PIN(Y5),
+> @@ -952,6 +1025,7 @@ static const struct aspeed_pin_group aspeed_g4_group=
+s[] =3D {
+> =C2=A0	ASPEED_PINCTRL_GROUP(VPO24),
+> =C2=A0	ASPEED_PINCTRL_GROUP(RGMII1),
+> =C2=A0	ASPEED_PINCTRL_GROUP(RMII1),
+> +	ASPEED_PINCTRL_GROUP(MDIO1),
+> =C2=A0};
+> =C2=A0
+> =C2=A0static const struct aspeed_pin_function aspeed_g4_functions[] =3D {
+> @@ -1022,6 +1096,7 @@ static const struct aspeed_pin_function aspeed_g4_f=
+unctions[] =3D {
+> =C2=A0	ASPEED_PINCTRL_FUNC(VPO24),
+> =C2=A0	ASPEED_PINCTRL_FUNC(RGMII1),
+> =C2=A0	ASPEED_PINCTRL_FUNC(RMII1),
+> +	ASPEED_PINCTRL_FUNC(MDIO1),
+> =C2=A0};
+> =C2=A0
+> =C2=A0static struct aspeed_pinctrl_data aspeed_g4_pinctrl_data =3D {
+--=-fEF/pSCRQ6Pysxis6q+p
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAABCgAGBQJXq/ZWAAoJEJ0dnzgO5LT5ofQQAJqjPK/yDZf0z0Z+kI8pY5dC
+BSjkd6QOTSjCITLs+rQ6limBButzlNATST+pSquj/pLDI76zzdxe9tMMqqb+5IDF
+rZ2BWvHZcsqVv/W+AFxp/ZPGy5P5wKG5MHcgnEaAHFz51DolnBS6B8jJNrVyMrao
+VjyprgV5YVvJ/3gKSTQYdnnDnnz6bxp3CwYceukcc07fQB4YNcvcPkld+ULHWhkr
+0B2r5LTmqMP9PWoAzsY4P47wtNFx9ciQgZkwTzOzI4LG9C0xqFxwLp2LvIxfjPN1
+lPplqVjtAU8LWVCJ9z1pSTccq7v9x2G/KsNGrlXu/n5cE7CqZpF7G/6DdSoBziCX
+4Wy55KulgmtJ9h9Mbe1HiiJxFEEyLeInRSyx4Y7ZJ0/jQo6rJul/hLpozYmWyk9k
+V2/i+A6xfJJUAjizTH2IkuMRT5vbkKUP3V1YFKZe+F4fV7f1yMi7cF8adIxfXqJA
+rwF6PYeCKcgOiQSR6zl16v/bCAi83Xy9H8udoRiu28zbzQz8vNLyRx4hzZzajJNu
+LRGoKzeWxA0kq9Q1gR04y6Ww0c3AH38P/ocGN9f366RU17D0WAuJPqZ+2Q3jFlpT
+ngx0U+RP1z1h36XSYswbbVftu66jzq+DjK7yssUEohzwoMisqI4wkVlH88VB+52W
+EwJHND1tWC7Z3b/nlRy0
+=7U7A
+-----END PGP SIGNATURE-----
+
+--=-fEF/pSCRQ6Pysxis6q+p--
