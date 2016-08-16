@@ -1,50 +1,57 @@
-Return-Path: <geissonator@gmail.com>
-Received: from mail-it0-x231.google.com (mail-it0-x231.google.com
- [IPv6:2607:f8b0:4001:c0b::231])
+Return-Path: <xow@google.com>
+Received: from mail-pa0-x236.google.com (mail-pa0-x236.google.com
+ [IPv6:2607:f8b0:400e:c03::236])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sDPH52p29zDr4d
- for <openbmc@lists.ozlabs.org>; Wed, 17 Aug 2016 06:34:41 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sDTl9122jzDr4d
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Aug 2016 09:55:48 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=ztrkqMAD; 
+ unprotected) header.d=google.com header.i=@google.com header.b=QBJKwMi6; 
  dkim-atps=neutral
-Received: by mail-it0-x231.google.com with SMTP id x131so25890611ite.0
- for <openbmc@lists.ozlabs.org>; Tue, 16 Aug 2016 13:34:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=UyJyfELotI9G7B/zqoUJ+RTEs5TR20qV1ree4ke6Qv8=;
- b=ztrkqMADcbPbjh8i36fh0KBieMJFNp4th/Rw2l/UY0kveOQ1pCAK+W1P5dp4SxHgoi
- UYlJVCZh+Zm3g2DZRPh4dlbIR3su20eKHkvF+1vdOljIo1W1fVC9DPE5YmbTEXvWQKhs
- 1sQtjZLBNk+6qFiMU5z0DoLKcuI5luqYxJXiqX+F9d6qXE7eSXFVnfH4Cv1J8CBgWQjr
- SmwsZn3LpNSTYzNmgTa4V9hFdSnHmjJVPuOTcc1Ui3S1O6bS6DDChCzl86Kwi2PdHbLn
- D8SQRH4L2ZY687esPOuI8C+lQevR0GpPvK/ddKJq8XGROqy1wW5fIUtnfklClQnWUp3F
- 5iJw==
+Received: by mail-pa0-x236.google.com with SMTP id ti13so30788001pac.0
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Aug 2016 16:55:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
+ h=to:references:subject:in-reply-to:from:message-id:date:user-agent
+ :mime-version:content-transfer-encoding;
+ bh=O38GrbBzNoJxyZ+TRniGUeGzuLQUfaO5qjjBSqyv+YI=;
+ b=QBJKwMi6vUrgh78Ok6mig8Rs5gKgW8I2YrpJAxdc5z8hB3HPbsWxRH/vVBmvclkWY6
+ edldjlM7Wb/dek4QUjftUdQ0i1P7jJDWBBaAzmAIaIH3Smip7qLt2b8/qvMFnCPPoEMM
+ UcwFh3gleVkAx9DKNsbzL+EjFzkbZA9H4+BDRpl9UxUvjGI1gTx+gj3hJ/+kyS+L5G2A
+ ncpURVsxYTcHZ5C80HwH3/NIh1use7r1Tk8WumWW/XEerJgmWhcOUqyQ1aHS48dBFKLH
+ zop4GLZB8vi6BvF09RS31bY94cjgA+Sy0DTNxQ8oEKu2NceYyhuSW0d7GxaQuPShoiCa
+ yGKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=UyJyfELotI9G7B/zqoUJ+RTEs5TR20qV1ree4ke6Qv8=;
- b=M6w3Y6/D9Gv4EyKfJQZQwSREvYvXcHEJX1VBhQItC2TarRsylGrTZUjwUhVv/4GKcf
- pxtIWAd0zs/CqnkTjt4/WqimtEU0EU9gStH+SC3ViwJlmiUN2gG8Rmm6yiTgf70YYjLp
- 7XFcGST5nnkbI/bjwF5TeXatbuieLLKzauojzXLx63Wd0MaCe3cmThbL4Yl8V8wYWp08
- Dtm97jsYmtJWEbk0QVZ3aVrodLkgo/yLyJaM0lI66eRVVtzHrpfz62/rRlL2W9K7LakI
- lhWroVh8ODbRpjobFURebYw5PcfhRxDzZZN3nL8nd6Lh9RpEKoSoljn3oS4PkgoRM2h/
- 6QpA==
-X-Gm-Message-State: AEkooutUnQyyEMBhy77ltzMz8e++KW/BbeXV3re1ugUG38BOJgLjgpnsKc97pQPWdeP/yNbpQFBXbvK3BWAHkg==
-X-Received: by 10.36.104.73 with SMTP id v70mr24405722itb.12.1471379678120;
- Tue, 16 Aug 2016 13:34:38 -0700 (PDT)
+ h=x-gm-message-state:to:references:subject:in-reply-to:from
+ :message-id:date:user-agent:mime-version:content-transfer-encoding;
+ bh=O38GrbBzNoJxyZ+TRniGUeGzuLQUfaO5qjjBSqyv+YI=;
+ b=kzzv3Rs511qAobrNJeyD7XGIIAdk4X9TSD0bPNVz4fCqJhM1eD8CvsOaASkSafB3hX
+ zxMjpSevI6hu3tW06aJTh5IBLT4IBPbzN9toyVcfPQtJiXNJ6oUQ0l+L9kMyeUXxoStv
+ SVI46LJ8rFB6XTTVSWSiubo46dOs4aqfNNgsLo31llo5WxM5zqDXqZRT0v5+593+YfhR
+ MEMUR8KuWdRhWj20WX7gXQXmCWokDxVwehM9t8W3d2j99+ZE+oNl7v1IDZPdOExl5Row
+ sfzYj1A5PBp4cEzXo3bELqLsLugZfv3jZ6EsyiZyo7eIGCsCpSAWW97rh8/+Ca/r9ksa
+ sW4w==
+X-Gm-Message-State: AEkoouuoeb24czCBW3BvoZscyGBe8CUMdkHglfpOkgwt+1qgOfpwxjHtOPZ6wqy+EGRMJu+E
+X-Received: by 10.66.182.232 with SMTP id eh8mr69263499pac.146.1471391745666; 
+ Tue, 16 Aug 2016 16:55:45 -0700 (PDT)
+Received: from pewter.mtv.corp.google.com
+ ([2620:15c:202:0:ed8d:31ba:97b4:e69a])
+ by smtp.gmail.com with ESMTPSA id q4sm41949565pfb.18.2016.08.16.16.55.44
+ for <openbmc@lists.ozlabs.org>
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 16 Aug 2016 16:55:45 -0700 (PDT)
+To: openbmc@lists.ozlabs.org
+References: <CACPK8XckyWBdN+B+ieudY8FmgOXR7N4RMGaSt2yuOyZ8tCmodg@mail.gmail.com>
+Subject: Re: Linux dev-4.7 tree: Request for testing
+In-Reply-To: <CACPK8XckyWBdN+B+ieudY8FmgOXR7N4RMGaSt2yuOyZ8tCmodg@mail.gmail.com>
+From: Xo Wang <xow@google.com>
+Message-ID: <79e11c2d-2450-735f-094e-d43e329b4c3f@google.com>
+Date: Tue, 16 Aug 2016 16:55:44 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.2.0
 MIME-Version: 1.0
-Received: by 10.107.166.140 with HTTP; Tue, 16 Aug 2016 13:34:37 -0700 (PDT)
-In-Reply-To: <CACPK8XfY=nOr3-TAZP2U3vQrrVA2bh8vcSeuj2oMcnunZdE+iw@mail.gmail.com>
-References: <CALLMt=qweXqtGwNAA33EEzNVj=117wbuF_CDcr8JBeORFusU0Q@mail.gmail.com>
- <CACPK8XfY=nOr3-TAZP2U3vQrrVA2bh8vcSeuj2oMcnunZdE+iw@mail.gmail.com>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Tue, 16 Aug 2016 15:34:37 -0500
-Message-ID: <CALLMt=ryfJyMtWstCGyZgPM=8VZMw8kDiS__L0GoTRaY2ZADng@mail.gmail.com>
-Subject: Re: Robot Tests in CI
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -56,64 +63,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Aug 2016 20:34:42 -0000
+X-List-Received-Date: Tue, 16 Aug 2016 23:55:49 -0000
 
-On Mon, Aug 15, 2016 at 9:14 PM, Joel Stanley <joel@jms.id.au> wrote:
-> Hey Andrew,
 
-Hey Joel!
+ > We need to use a mechanism to tell userspace which device is the
+ > vuart. udev? systemd?
 
->
-> On Tue, Aug 16, 2016 at 1:00 AM, Andrew Geissler <geissonator@gmail.com> wrote:
->> I've enabled running our robot CI tests against all of the
->> openbmc/openbmc gerrit commits.  This is against the basic ARM based
->> QEMU model.
->
-> Thanks.
->
-> Do you intend to run it against the palmetto qemu? This would be
-> useful to ensure our kernel and userspace interactions are not
-> regressing.
+I think that's covered by this userspace configuration file: 
+https://github.com/openbmc/openbmc/blob/master/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console.conf 
 
-Definitely!  Just not in this commit :)  We wanted to start with the basics.
-Running against Palmetto QEMU and running an enhanced CI bucket
-against it are on the list.
 
->
->>
->> Reviews/Comments (or +1's) appreciated on the scripts to do this:
->>
->> https://gerrit.openbmc-project.xyz/#/c/166/  (main script)
->> https://gerrit.openbmc-project.xyz/#/c/176/  (minor change to support
->> QEMU in docker)
->
-> Andrew J has beat me to it. Look good in general.
->
->>
->> The jenkins job can be found here:
->> https://openpower.xyz/job/openbmc-test-qemu-ci/
->>
->> The test team is working on optimizing the test suite to ensure as
->> much coverage in as minimum amount of time.
->>
->> Also, I've tweaked the build-setup.sh script to support ppc64le,
->> comments (or +1's) appreciated here as well:
->> https://gerrit.openbmc-project.xyz/#/c/196/
->
-> Looks good, pending addressing Andrew J's feedback.
->
->>
->> Next on the list is a real-hardware based CI job.
->
-> Great!
->
-> Cheers,
->
-> Joel
+It specifies the VUART console device as ttyS5, which doesn't exist 
+using our current DTS for the EVB.
 
-Unfortunately we've got a bit of a blocker with
-https://github.com/openbmc/openbmc-test-automation/issues/78
-We're still running the CI tests but we wont fail the job if the CI
-test fails until we get this resolved.
+ > $ ls /sys/devices/platform/ahb/ahb:apb/1e787000.vuart/tty
+ > ttyS0
+ >
+ > We could also set an alias in the device tree?
 
-Andrew
+That's how I did my testing for AST2500 EVB connected to an LPC host. 
+This enabled and aliased the vuart for me (please note s/uart6/vuart/g 
+for dev-4.7):
+
+diff --git a/arch/arm/boot/dts/aspeed-ast2500-evb.dts 
+b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
+index 28b0045..51b032d 100644
+--- a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
++++ b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
+@@ -8,6 +8,7 @@
+
+         aliases {
+                 serial4 = &uart5;
++               serial5 = &uart6;
+         };
+
+         chosen {
+@@ -39,6 +40,10 @@
+         status = "okay";
+  };
+
++&uart6 {
++       status = "okay";
++};
++
+  &mac0 {
+         status = "okay";
+  };
+
+
+
+
+cheers
+xo
