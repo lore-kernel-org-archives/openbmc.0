@@ -1,28 +1,52 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-ua0-x234.google.com (mail-ua0-x234.google.com
+ [IPv6:2607:f8b0:400c:c08::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sCgkM1S5tzDr3S
- for <openbmc@lists.ozlabs.org>; Tue, 16 Aug 2016 02:22:18 +1000 (AEST)
-Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
- with SMTPS id 1471278132000731.7250583434596;
- Mon, 15 Aug 2016 09:22:12 -0700 (PDT)
-Date: Mon, 15 Aug 2016 11:22:10 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Chris Austen <austenc@us.ibm.com>
-Cc: Adriana Kobylak <anoo@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Subject: Re: Power button behavior
-Message-ID: <20160815162210.smw5gq3yapgszkxz@asimov>
-References: <3743F858-80C3-457F-9B3B-86ED896FA16F@linux.vnet.ibm.com>
- <OF4836B2E9.9E723D7F-ON00258010.0057EC23-00258010.0057EC27@notes.na.collabserv.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sCwsY3yQZzDr3R
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Aug 2016 12:14:25 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=d472RQaT; 
+ dkim-atps=neutral
+Received: by mail-ua0-x234.google.com with SMTP id 97so100431218uav.3
+ for <openbmc@lists.ozlabs.org>; Mon, 15 Aug 2016 19:14:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=EIyIzwJO3UBH35yGbn8IPH8SHwj7/eTNpf5AlKZSvsY=;
+ b=d472RQaTz4Lxt3MPy7aUDTnmewtmN/ibXHi/GvQkvewE2A4I78Zvf4sAReerzUHIbB
+ Py/7tEVbqiQVnUcsVYATxENKRU8bR3+VkzSt4wfHsktvmOSWI4MjdG4u70khn/Be4+gl
+ 8tDvCK9hmESsPUqhDdfGLoVjVvzHfL5wSaAo4ya4PvCGlQJ8pp4SI8EGAzeasg40W2Qe
+ Gr5HGRV13gJa8Dbs6959Ybo40LxsIBESzTvsK9KAVSjgjgqkUR8g22dC+/rCJmt0gkTJ
+ qtDiir/FWPiDr41WsO1jVpvnphtII7d2McIv9qPXJxDEXtpJZWMCW3BkzIS1Io69zDx1
+ fsfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=EIyIzwJO3UBH35yGbn8IPH8SHwj7/eTNpf5AlKZSvsY=;
+ b=igozMpUz7Qn+go7E3A5e5sbBs/QdD6ErYx56az3ZZRX75H8k6s2Le7DSMxqrpKTAXY
+ k8SCOVT74uQhAZtrkcTzntoGI70VH9kGd1qMu0MePIm6Pmfd9u0EOa2RExs7ht3EQNdw
+ LFce0oWfgCDY06NJfT+xyw4bZpnF8pLRvUQmLWZousqFGPNPZF4+HHL66y1rbtYEI9EI
+ hxKR4rKg6E80QRSUsFv1LZkbabsD629N5m1cPYE0bkxWJCMnjgO/fA8ztGL9PiEtn4pG
+ 6LDRcjvsK6DktGOyIpUAU0TdMWSdwhdsaW6DW1A/eEQ565vX8DXQ7S6i52rSdFHhX8Fv
+ vkAA==
+X-Gm-Message-State: AEkoous4ZcekGQkvyG1CebNwEBP6ESJVx0UKwwl9CTnLwsb2Zo065cvGbSk5EUwwUJI/ty2xlj9+ruEDb7Mv1w==
+X-Received: by 10.31.102.135 with SMTP id a129mr7546540vkc.112.1471313663331; 
+ Mon, 15 Aug 2016 19:14:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="ed5esxi3pm3upozw"
-Content-Disposition: inline
-In-Reply-To: <OF4836B2E9.9E723D7F-ON00258010.0057EC23-00258010.0057EC27@notes.na.collabserv.com>
-User-Agent: Mutt/1.6.2 (2016-06-11)
-X-Zoho-Virus-Status: 1
+Sender: joel.stan@gmail.com
+Received: by 10.159.38.76 with HTTP; Mon, 15 Aug 2016 19:14:02 -0700 (PDT)
+In-Reply-To: <CALLMt=qweXqtGwNAA33EEzNVj=117wbuF_CDcr8JBeORFusU0Q@mail.gmail.com>
+References: <CALLMt=qweXqtGwNAA33EEzNVj=117wbuF_CDcr8JBeORFusU0Q@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 16 Aug 2016 12:14:02 +1000
+X-Google-Sender-Auth: sfRR3HdOsQckuxX938h-fzNVmvU
+Message-ID: <CACPK8XfY=nOr3-TAZP2U3vQrrVA2bh8vcSeuj2oMcnunZdE+iw@mail.gmail.com>
+Subject: Re: Robot Tests in CI
+To: Andrew Geissler <geissonator@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -34,46 +58,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 15 Aug 2016 16:22:19 -0000
+X-List-Received-Date: Tue, 16 Aug 2016 02:14:26 -0000
 
+Hey Andrew,
 
---ed5esxi3pm3upozw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Tue, Aug 16, 2016 at 1:00 AM, Andrew Geissler <geissonator@gmail.com> wrote:
+> I've enabled running our robot CI tests against all of the
+> openbmc/openbmc gerrit commits.  This is against the basic ARM based
+> QEMU model.
 
-On Mon, Aug 15, 2016 at 04:00:20PM +0000, Chris Austen wrote:
-> Following the industry norm of "Short press triggers a soft power off, lo=
-ng press triggers a hard power off" makes sense to me. =20
-> I vote for Master
-> Will need to get an opinion from the users of Stable in their product cha=
-nge there=20
+Thanks.
 
-Entirely agree.  master -> standard behavior; stable -> ask clients.
+Do you intend to run it against the palmetto qemu? This would be
+useful to ensure our kernel and userspace interactions are not
+regressing.
 
---=20
-Patrick Williams
+>
+> Reviews/Comments (or +1's) appreciated on the scripts to do this:
+>
+> https://gerrit.openbmc-project.xyz/#/c/166/  (main script)
+> https://gerrit.openbmc-project.xyz/#/c/176/  (minor change to support
+> QEMU in docker)
 
---ed5esxi3pm3upozw
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+Andrew J has beat me to it. Look good in general.
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+>
+> The jenkins job can be found here:
+> https://openpower.xyz/job/openbmc-test-qemu-ci/
+>
+> The test team is working on optimizing the test suite to ensure as
+> much coverage in as minimum amount of time.
+>
+> Also, I've tweaked the build-setup.sh script to support ppc64le,
+> comments (or +1's) appreciated here as well:
+> https://gerrit.openbmc-project.xyz/#/c/196/
 
-iQIcBAEBCAAGBQJXsewyAAoJEKsDR8wtAMEZ1dwP/0X0kkSu4p54czhFFzk3FOqm
-mxYAlUZYWdZxVvs2NixB1bdUrH85dtulDwrxeYIGLypJ0qVjxN/UO/wv85Za0g9B
-ovWTd5rOnPBptVfTDNpSbUQnAhJ2/DL7w3ZTCc/+xytLzeEbFwURZCfgFhjnLMuj
-CuZ9TVsETOVhrN/VdwsURu/u7ubFmGsx1ARRGwTshDPTmxRfj8EWbxK+0enKptdL
-AHQJIa9EOKrVhq2uEQn4HrVDdTxkPiNFmIjS56qe/Mc7+HA7NGHELuIBe/TpzG3o
-rIwianMg2sgwNqfmdrHwfhAQHMC31eKB5puelnsVMBgv+qmHhQ5eGhvtUEQijTcn
-/yEJC1dgZ60f9Ay4pyNeHcLqjFiW4H3XCCCoTZ1N3E9580nkROZgVGuC2NM2TRdN
-o5LQ4/ZzkWC61qPif6eQ467VrpE3za3B22VaZU837aU1Aau8p6GHbmqfaLOEmVAk
-y5UTeC7hy+GyQL6CTkYKkYczVmVwwqWKdVyi4INXbWHeSoOICdvxawLQvcMmcfUb
-EwVovw+xKoL1Ccqmor5DN1C+23/xMznyBtEgoX/hJfR3SNhig5QnjqTHjvlqH/2q
-oucOvTd0hsOGT2RJqaTk9WrPZAHsdI4SjjjRKxHLLtNfCNh2wZdxSnjPe/AWupUt
-sbza6vPR51cSBWzA2Pg6
-=9HEO
------END PGP SIGNATURE-----
+Looks good, pending addressing Andrew J's feedback.
 
---ed5esxi3pm3upozw--
+>
+> Next on the list is a real-hardware based CI job.
+
+Great!
+
+Cheers,
+
+Joel
