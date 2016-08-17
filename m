@@ -1,49 +1,50 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x242.google.com (mail-ua0-x242.google.com
- [IPv6:2607:f8b0:400c:c08::242])
+Received: from mail-ua0-x244.google.com (mail-ua0-x244.google.com
+ [IPv6:2607:f8b0:400c:c08::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sDccD414BzDq5f
- for <openbmc@lists.ozlabs.org>; Wed, 17 Aug 2016 15:05:16 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sDcpJ6djNzDqJ4
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Aug 2016 15:14:00 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=gmfjY595; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=ITTIru9x; 
  dkim-atps=neutral
-Received: by mail-ua0-x242.google.com with SMTP id 109so8086243uat.2
- for <openbmc@lists.ozlabs.org>; Tue, 16 Aug 2016 22:05:16 -0700 (PDT)
+Received: by mail-ua0-x244.google.com with SMTP id 109so8097806uat.2
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Aug 2016 22:14:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=DbjZy49RrmKAWA7JrUZ88lgU+SbE7Iz5M5HBXubDJec=;
- b=gmfjY595juuyCLgQiJYxXNY1z959ARdn32nLCVhAzLkTm0+njWzSxWDMYAU6qA7gTl
- sYAGPQOZ0I0IQkqX3k6UdLWXMVFO9rDgEA6hECHbX3XtUZ2ZSg0vjz7fJEVIK64IaoVW
- U8b7lV+63/u8IfAyRaMnqt9Dk8RkHYGWRbZlDeaQp/5LPsQR2zoc/uNp72Rx3Gaua6fS
- 4nogxGOsVsttkNxzWdguMRr6W495E1IPJbJ04at5tfcNKgqSdKKH1eHDRfLzV9dYz9hE
- K8ig+/YlA6yyQxYkrK7GwhwBYlWE0zbvNSmNoU7K56utUrSr8SMIwLxQefHIqI9ff2iK
- 6qDw==
+ bh=CqB8Kpq3uPSRgZlYBx07Uwms20MxwDMvl/Yp7E9k4k0=;
+ b=ITTIru9xV3fYFyWiUsC/XuUfNxhQvMTYC3K52uwLsV32b8SVVJoxzQx3i2iqFP4SYM
+ 8l1NIerIKzmnBfUafQNCRppyqzU4FWLPlo+kUAdzzHI238cjKf90BRVfOTj+pF3fEqqu
+ 3qH3kNZ6P3dpCiz3wttw6KVJ2WzEeo4EhkE2alRjodKIzzZOYQjC3cITT0oJwGEQuacK
+ i6ixIt24wLHxnWOkBSv5tE8xV204cGDoMQvoXHqAiEuJ0hd6hhZQbrAfYyprrCwL8Npr
+ oH6Q/6ocEU2bnS1stsnoRcdtkmzfg6Fs0inYmfdBhuDAQNEqDlb66iocqomIwrPE9Gqn
+ iXLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=DbjZy49RrmKAWA7JrUZ88lgU+SbE7Iz5M5HBXubDJec=;
- b=Su489ithqBT5X0v1LO9IQJIdXCAs2olAoZCcplp/5oZom7cnaOXKvzVLgHjKZRfzlk
- kza7Lwt1IYHwjjCdtr8xNWLIzYo2hduci6m6rd9JMz/Rbr93y739ulrXA1asblVSyCZJ
- GGUvB5XMrgS1hX6qJdZ3f1ENhKwesOTxJj9w48eOceFzeiEUn5CkK7n1htcxKIXC2DBl
- aVnwqN31VTWbnDt+NkBNF+eVTo5LBenjGTDwM754GDDg5/unESiE3IVRJL0M2lXeHRRa
- Bz0KCXLTzGvUHuV+Vpr84MY36CwTZpT864rQv7byj5H0i204pYkNTlOhIabaAo6knf31
- qnWg==
-X-Gm-Message-State: AEkoouvZ2/eXRx5GWL2VoIsVQ3qfxmaZRS6XEOoP34jdAsHmlWKFt8wGdnJNNQy0n/C55EiIUxrK//JYNA8Y1A==
-X-Received: by 10.31.93.65 with SMTP id r62mr18318258vkb.149.1471410314325;
- Tue, 16 Aug 2016 22:05:14 -0700 (PDT)
+ bh=CqB8Kpq3uPSRgZlYBx07Uwms20MxwDMvl/Yp7E9k4k0=;
+ b=SFwlaC5diwR2vEqfiFa3c4LlEhxQxJLwCUGwXFZ5eYOkbY/ZkPmVi9b7BKSeGoOp0Z
+ 4knFoj+7H9DkwKu9/Um1cGK2GamzjRT/xuVTCRVG0JcL24FmRFCZwBrCGHOTqLw2bei5
+ duHr7xp9+qcwbz6SlpuXagaJm8tpVvgNY+eunZJSd3pXl87hzxCwBubuGIUCfHhQDE7Y
+ sO15N8mmdBbe6Z29oXMccf0vmmgGibP19TMuEc1JhiIvQbPp7Vot0xppLb4AVD1VEmE6
+ H98gBPkJhkUS2Be5qXafSt0Y/ibgvMaf0NReKmOV8ji93mpheigeNqmp1nM0RFI7CrqP
+ 2CnA==
+X-Gm-Message-State: AEkoouscD6vytV7NxEFl1cYIAFedMwNfikiEmmyC0mq1/miGifF34x7qEwSJSDSxw6w00PNa9hhK/Q/7GoAo4w==
+X-Received: by 10.31.146.10 with SMTP id u10mr17550193vkd.14.1471410838695;
+ Tue, 16 Aug 2016 22:13:58 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.159.38.76 with HTTP; Tue, 16 Aug 2016 22:04:53 -0700 (PDT)
-In-Reply-To: <1470812591-50924-1-git-send-email-vadimp@mellanox.com>
-References: <1470812591-50924-1-git-send-email-vadimp@mellanox.com>
+Received: by 10.159.38.76 with HTTP; Tue, 16 Aug 2016 22:13:38 -0700 (PDT)
+In-Reply-To: <1470812613-51011-1-git-send-email-vadimp@mellanox.com>
+References: <1470812613-51011-1-git-send-email-vadimp@mellanox.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 17 Aug 2016 14:34:53 +0930
-X-Google-Sender-Auth: xt4QecuSvY5rxUSR_N6ejDHHdSQ
-Message-ID: <CACPK8Xdf-mmMkxA0+quQ5pejw7uQrpES1VXayRORWOG+sTkpQA@mail.gmail.com>
-Subject: Re: [dev-4.7 patch 3/5] misc (aspeed) introduce Aspeed SoC peci driver
+Date: Wed, 17 Aug 2016 14:43:38 +0930
+X-Google-Sender-Auth: VGCLyCcEtztK1x6PxdqfO9ssuP0
+Message-ID: <CACPK8XeYAMWCZpQ+TrZuwxuxfCzzCCkoq5wCdk8HuPyhFVzBBw@mail.gmail.com>
+Subject: Re: [dev-4.7 patch 5/5] arch/arm: introduce support for Mallanox evb
+ aspeed 2500 config and dts flavors
 To: Vadim Pasternak <vadimp@mellanox.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, jiri@mellanox.com,
  michaelsh@mellanox.com
@@ -59,649 +60,170 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Aug 2016 05:05:17 -0000
+X-List-Received-Date: Wed, 17 Aug 2016 05:14:01 -0000
 
 On Wed, Aug 10, 2016 at 4:33 PM,  <vadimp@mellanox.com> wrote:
 > From: Vadim Pasternak <vadimp@mellanox.com>
 >
-> The Kconfig controlling compilation of this code is:
-> drivers/misc/aspeed/Kconfig:config ASPEED_PECI
->
-> Porting peci driver from 3.18 to 4.7.
-
-As with other drivers, please remove ifdefs, clean up the excess
-#defines, run through checkpatch.pl.
-
+> Add kernel configuration and dts files.
 >
 > Signed-off-by: Vadim Pasternak <vadimp@mellanox.com>
 > ---
->  drivers/misc/Kconfig              |   1 +
->  drivers/misc/aspeed/Kconfig       |  12 +
->  drivers/misc/aspeed/Makefile      |   5 +
->  drivers/misc/aspeed/aspeed-peci.c | 569 ++++++++++++++++++++++++++++++++++++++
->  4 files changed, 587 insertions(+)
->  create mode 100644 drivers/misc/aspeed/Kconfig
->  create mode 100644 drivers/misc/aspeed/Makefile
->  create mode 100644 drivers/misc/aspeed/aspeed-peci.c
+>  arch/arm/boot/dts/Makefile                         |    3 +-
+>  arch/arm/boot/dts/aspeed-bmc-mlx-flash-layout.dtsi |   32 +
+>  arch/arm/boot/dts/aspeed-g5-mlx.dtsi               |  429 +++
+>  arch/arm/boot/dts/mlx-ast2500-bmc.dts              |  109 +
+>  arch/arm/configs/mlx_bmc_defconfig                 | 2786 ++++++++++++++++++++
+>  5 files changed, 3358 insertions(+), 1 deletion(-)
+>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-mlx-flash-layout.dtsi
+>  create mode 100644 arch/arm/boot/dts/aspeed-g5-mlx.dtsi
+>  create mode 100644 arch/arm/boot/dts/mlx-ast2500-bmc.dts
+>  create mode 100644 arch/arm/configs/mlx_bmc_defconfig
 >
-> diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-> index 4617ddc..bdf63da 100644
-> --- a/drivers/misc/Kconfig
-> +++ b/drivers/misc/Kconfig
-> @@ -821,4 +821,5 @@ source "drivers/misc/mic/Kconfig"
->  source "drivers/misc/genwqe/Kconfig"
->  source "drivers/misc/echo/Kconfig"
->  source "drivers/misc/cxl/Kconfig"
-> +source "drivers/misc/aspeed/Kconfig"
->  endmenu
-> diff --git a/drivers/misc/aspeed/Kconfig b/drivers/misc/aspeed/Kconfig
-> new file mode 100644
-> index 0000000..dedce9c
-> --- /dev/null
-> +++ b/drivers/misc/aspeed/Kconfig
-> @@ -0,0 +1,12 @@
-> +menu "ASPEED devices support"
-> +
-> +config ASPEED_PECI
-> +       tristate "Aspeed PECI driver"
-> +       depends on I2C
-> +       default n
-> +       help
-> +         This option enables Aspeed PECI driver support.
-> +
-> +         If unsure, say N.
-> +
-> +endmenu
-> diff --git a/drivers/misc/aspeed/Makefile b/drivers/misc/aspeed/Makefile
-> new file mode 100644
-> index 0000000..e502851
-> --- /dev/null
-> +++ b/drivers/misc/aspeed/Makefile
-> @@ -0,0 +1,5 @@
-> +
-> +ccflags-$(CONFIG_ARCH_MULTIPLATFORM) := \
-> +        -I$(srctree)/arch/arm/mach-aspeed/include
-> +
-> +obj-$(CONFIG_ASPEED_PECI) += aspeed-peci.o
-> diff --git a/drivers/misc/aspeed/aspeed-peci.c b/drivers/misc/aspeed/aspeed-peci.c
-> new file mode 100644
-> index 0000000..4350bc4
-> --- /dev/null
-> +++ b/drivers/misc/aspeed/aspeed-peci.c
-> @@ -0,0 +1,569 @@
-> +/*
-> + *  driver/misc/aspeed/aspeed_peci.c
-> + *
-> + *  ASPEED PECI controller driver
-> + *
-> + *  Copyright (C) 2012-2020  ASPEED Technology Inc.
-> + *
-> + *  This program is free software; you can redistribute it and/or modify
-> + *  it under the terms of the GNU General Public License version 2 as
-> + *  published by the Free Software Foundation.
-> + *
-> + *  History:
-> + *   2013.01.30: Initial version [Ryan Chen]
-> + *   2016.08.06: Porting to kernel 4.7 [Vadim Pasternak vadimp@mellanox.com]
-> + */
-> +
-> +
-> +#include <linux/module.h>
-> +#include <linux/fs.h>
-> +#include <linux/init.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/types.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/uaccess.h>
-> +#include <linux/io.h>
-> +#include <linux/delay.h>
-> +#include <linux/miscdevice.h>
-> +#include <linux/configfs.h>
-> +#include <linux/of_address.h>
-> +#include <linux/of_platform.h>
-> +#include <asm/mach-types.h>
-> +#include <mach/reset.h>
-> +
-> +/*AST PECI Register Definition */
-> +#define AST_PECI_CTRL          0x00
-> +#define AST_PECI_TIMING                0x04
-> +#define AST_PECI_CMD           0x08
-> +#define AST_PECI_CMD_CTRL      0x0C
-> +#define AST_PECI_EXP_FCS       0x10
-> +#define AST_PECI_CAP_FCS       0x14
-> +#define AST_PECI_INT_CTRL      0x18
-> +#define AST_PECI_INT_STS       0x1C
-> +#define AST_PECI_W_DATA0       0x20
-> +#define AST_PECI_W_DATA1       0x24
-> +#define AST_PECI_W_DATA2       0x28
-> +#define AST_PECI_W_DATA3       0x2c
-> +#define AST_PECI_R_DATA0       0x30
-> +#define AST_PECI_R_DATA1       0x34
-> +#define AST_PECI_R_DATA2       0x38
-> +#define AST_PECI_R_DATA3       0x3c
-> +#define AST_PECI_W_DATA4       0x40
-> +#define AST_PECI_W_DATA5       0x44
-> +#define AST_PECI_W_DATA6       0x48
-> +#define AST_PECI_W_DATA7       0x4c
-> +#define AST_PECI_R_DATA4       0x50
-> +#define AST_PECI_R_DATA5       0x54
-> +#define AST_PECI_R_DATA6       0x58
-> +#define AST_PECI_R_DATA7       0x5c
-> +
-> +
-> +/* AST_PECI_CTRL - 0x00 : Control Register */
-> +#define PECI_CTRL_SAMPLING_MASK                (0xf << 16)
-> +#define PECI_CTRL_SAMPLING(x)          (x << 16)
-> +#define PECI_CTRL_READ_MODE_MASK       (0xf << 12)
-> +#define PECI_CTRL_CONT_MODE            (1 << 16)
-> +#define PECI_CTRL_DBG_MODE             (2 << 16)
-> +#define PECI_CTRL_CLK_SOURCE           (0x1 << 11) /*0: 24Mhz, 1: MCLK */
-> +#define PECI_CTRL_CLK_DIV_MASK         (0x3 << 8)
-> +#define PECI_CTRL_CLK_DIV(x)           (x << 8)
-> +#define PECI_CTRL_INVERT_OUT           (0x1 << 7)
-> +#define PECI_CTRL_INVERT_IN            (0x1 << 6)
-> +#define PECI_CTRL_BUS_CONTENT_EN       (0x1 << 5)
-> +#define PECI_CTRL_PECI_EN              (0x1 << 4)
-> +#define PECI_CTRL_PECI_CLK_EN          (0x1)
-> +
-> +/* AST_PECI_TIMING - 0x04 : Timing Negotiation */
-> +#define PECI_TIMING_MESSAGE_GET(x)     ((x & 0xff00) >> 8)
-> +#define PECI_TIMING_MESSAGE(x)         (x << 8)
-> +#define PECI_TIMING_ADDRESS_GET(x)     (x & 0xff)
-> +#define PECI_TIMING_ADDRESS(x)         (x)
-> +
-> +/* AST_PECI_CMD        - 0x08 : Command Register */
-> +#define PECI_CMD_PIN_MON               (0x1 << 31)
-> +#define PECI_CMD_STS                   (0xf << 24)
-> +#define PECI_CMD_FIRE                  (0x1)
-> +
-> +/* AST_PECI_LEN        - 0x0C : Read/Write Length Register */
-> +#define PECI_AW_FCS_EN                 (0x1 << 31)
-> +#define PECI_READ_LEN_MASK             (0xff << 16)
-> +#define PECI_READ_LEN(x)               (x << 16)
-> +#define PECI_WRITE_LEN_MASK            (0xff << 8)
-> +#define PECI_WRITE_LEN(x)              (x << 8)
-> +#define PECI_TAGET_ADDR_MASK           (0xff)
-> +#define PECI_TAGET_ADDR(x)             (x)
-> +
-> +
-> +/* AST_PECI_EXP_FCS    - 0x10 : Expected FCS Data Register  */
-> +#define PECI_PROGRAM_AW_FCS            (0xf << 24)
-> +#define PECI_EXPECT_READ_FCS           (0xf << 16)
-> +#define PECI_EXPECT_AW_FCS_AUTO                (0xf << 8)
-> +#define PECI_EXPECT_WRITE_FCS          (0xf)
-> +
-> +/* AST_PECI_CAP_FCS    - 0x14 : Captured FCS Data Register */
-> +#define PECI_CAPTURE_READ_FCS(x)       ((x & 0xff) >> 16)
-> +#define PECI_CAPTURE_WRITE_FCS         (0xff)
-> +
-> +/* AST_PECI_INT_CTRL/ STS  - 0x18/0x1c  : Interrupt Register */
-> +#define PECI_INT_TIMING_RESULT_MASK    (0x3 << 30)
-> +#define PECI_INT_TIMEOUT               (0x1 << 4)
-> +#define PECI_INT_CONNECT               (0x1 << 3)
-> +#define PECI_INT_W_FCS_BAD             (0x1 << 2)
-> +#define PECI_INT_W_FCS_ABORT           (0x1 << 1)
-> +#define PECI_INT_CMD_DONE                      (0x1)
-> +
-> +#define AUTO_GEN_AWFCS         1
-> +#define DISABLE_ENGINE         0
-> +#define ENABLE_RX_ENGINE       (1 << 0)
-> +#define ENABLE_TX_ENGINE       (1 << 1)
-> +#define LEFT_CHANNEL_HIGH      (1 << 16)
-> +#define DELAY_CLOCK_CYCLE      (1 << 17)
-> +
-> +struct timing_negotiation {
-> +       u8              msg_timing;
-> +       u8              addr_timing;
-> +};
-> +
-> +struct xfer_msg {
-> +       u8              client_addr;
-> +       u8              tx_len;
-> +       u8              rx_len;
-> +       u8              tx_fcs;
-> +       u8              rx_fcs;
-> +       u8              fcs_en;
-> +       u8              sw_fcs;
-> +       u8              *tx_buf;
-> +       u8              *rx_buf;
-> +       u32             sts;
-> +};
-> +
-> +#define PECI_DEVICE "/dev/aspeed-peci"
-> +#define PECIIOC_BASE 'P'
-> +#define AST_PECI_IOCRTIMING _IOR(PECIIOC_BASE, 0, struct timing_negotiation*)
-> +#define AST_PECI_IOCWTIMING _IOW(PECIIOC_BASE, 1, struct timing_negotiation*)
-> +#define AST_PECI_IOCXFER _IOWR(PECIIOC_BASE, 2, struct xfer_msg*)
-> +
-> +static struct aspeed_peci_data {
-> +       struct device           *misc_dev;
-> +       void __iomem            *reg_base;
-> +       int                     irq;
-> +       int                     open_count;
-> +       struct completion       xfer_complete;
-> +       u32                     sts;
-> +       struct mutex            lock;
-> +} aspeed_peci;
-> +
-> +static inline void aspeed_peci_write(u32 val, u32 reg)
-> +{
-> +       dev_dbg(aspeed_peci.misc_dev, "write offset: %x, val: %x\n", reg, val);
-> +       writel(val, aspeed_peci.reg_base + reg);
-> +}
-> +
-> +static inline u32 aspeed_peci_read(u32 reg)
-> +{
-> +       u32 val = readl(aspeed_peci.reg_base + reg);
-> +
-> +       dev_dbg(aspeed_peci.misc_dev, "read offset: %x, val: %x\n", reg, val);
-> +
-> +       return val;
-> +}
-> +
-> +static long
-> +aspeed_peci_ioctl(struct file *fp, unsigned int cmd, unsigned long arg)
-> +{
-> +       void __user *argp = (void __user *)arg;
-> +       struct xfer_msg msg;
-> +       struct timing_negotiation tim_ng;
-> +       u32 peci_head;
-> +       int i = 0;
-> +       long ret = 0;
-> +
-> +       u32 *tx_buf0 = (u32 *) (aspeed_peci.reg_base + AST_PECI_W_DATA0);
-> +       u32 *tx_buf1 = (u32 *) (aspeed_peci.reg_base + AST_PECI_W_DATA4);
-> +       u32 *rx_buf0 = (u32 *) (aspeed_peci.reg_base + AST_PECI_R_DATA0);
-> +       u32 *rx_buf1 = (u32 *) (aspeed_peci.reg_base + AST_PECI_R_DATA4);
-> +       u32 rx_data = 0;
-> +
-> +       dev_dbg(aspeed_peci.misc_dev, "aspeed_peci_ioctl cmd %x\n", cmd);
-> +
-> +       switch (cmd) {
-> +       case AST_PECI_IOCRTIMING:
-> +               tim_ng.msg_timing = PECI_TIMING_MESSAGE_GET(
-> +                                       aspeed_peci_read(AST_PECI_TIMING));
-> +               tim_ng.addr_timing = PECI_TIMING_ADDRESS_GET(
-> +                                       aspeed_peci_read(AST_PECI_TIMING));
-> +               if (copy_to_user(argp, &tim_ng,
-> +                                sizeof(struct timing_negotiation)))
-> +                       ret = -EFAULT;
-> +               break;
-> +
-> +       case AST_PECI_IOCWTIMING:
-> +               if (copy_from_user(&tim_ng, argp,
-> +                                  sizeof(struct timing_negotiation)))
-> +                       ret = -EFAULT;
-> +               else
-> +                       aspeed_peci_write(
-> +                               PECI_TIMING_MESSAGE(tim_ng.msg_timing) |
-> +                               PECI_TIMING_ADDRESS(tim_ng.addr_timing),
-> +                               AST_PECI_TIMING);
-> +
-> +               break;
-> +
-> +       case AST_PECI_IOCXFER:
-> +               /* Check cmd operation sts */
-> +               while (aspeed_peci_read(AST_PECI_CMD) & PECI_CMD_FIRE)
-> +                       dev_dbg(aspeed_peci.misc_dev, "wait for free\n");
-> +
-> +               if (copy_from_user(&msg, argp, sizeof(struct xfer_msg))) {
-> +                       ret = -EFAULT;
-> +                       break;
-> +               }
-> +
-> +               if (msg.fcs_en)
-> +                       peci_head = PECI_TAGET_ADDR(msg.client_addr) |
-> +                                               PECI_WRITE_LEN(msg.tx_len) |
-> +                                               PECI_READ_LEN(msg.rx_len) |
-> +                                               PECI_AW_FCS_EN;
-> +               else
-> +                       peci_head = PECI_TAGET_ADDR(msg.client_addr) |
-> +                                               PECI_WRITE_LEN(msg.tx_len) |
-> +                                               PECI_READ_LEN(msg.rx_len);
-> +
-> +               aspeed_peci_write(peci_head, AST_PECI_CMD_CTRL);
-> +
-> +               for (i = 0; i < msg.tx_len; i++) {
-> +                       if (i < 16) {
-> +                               if (i % 4 == 0)
-> +                                       tx_buf0[i / 4] = 0;
-> +                               tx_buf0[i/4] |= (msg.tx_buf[i] << ((i%4) * 8));
-> +                       } else {
-> +                               if (i % 4 == 0)
-> +                                       tx_buf1[i / 4] = 0;
-> +                               tx_buf1[i/4] |= (msg.tx_buf[i] << ((i%4) * 8));
-> +                       }
-> +               }
-> +
-> +#ifdef CONFIG_AST_PECI_DEBUG
-> +               aspeed_peci_read(AST_PECI_W_DATA0);
-> +               aspeed_peci_read(AST_PECI_W_DATA1);
-> +               aspeed_peci_read(AST_PECI_W_DATA2);
-> +               aspeed_peci_read(AST_PECI_W_DATA3);
-> +               aspeed_peci_read(AST_PECI_W_DATA4);
-> +               aspeed_peci_read(AST_PECI_W_DATA5);
-> +               aspeed_peci_read(AST_PECI_W_DATA6);
-> +               aspeed_peci_read(AST_PECI_W_DATA7);
-> +#endif
-> +               init_completion(&aspeed_peci.xfer_complete);
-> +               /* Fire Command */
-> +               aspeed_peci_write(PECI_CMD_FIRE, AST_PECI_CMD);
-> +
-> +               ret = wait_for_completion_interruptible_timeout(
-> +                                       &aspeed_peci.xfer_complete, 30 * HZ);
-> +
-> +               if (ret == 0)
-> +                       dev_err(aspeed_peci.misc_dev, "peci controller timed out\n");
-> +
-> +               for (i = 0; i < msg.rx_len; i++) {
-> +                       if (i < 16) {
-> +                               switch (i % 4) {
-> +                               case 0:
-> +                                       rx_data = rx_buf0[i/4];
-> +                                       msg.rx_buf[i] = rx_data & 0xff;
-> +                                       break;
-> +
-> +                               case 1:
-> +                                       msg.rx_buf[i] = (rx_data & 0xff00)
-> +                                                       >> 8;
-> +                                       break;
-> +
-> +                               case 2:
-> +                                       msg.rx_buf[i] = (rx_data & 0xff0000)
-> +                                                       >> 16;
-> +                                       break;
-> +
-> +                               case 3:
-> +                                       msg.rx_buf[i] = (rx_data & 0xff000000)
-> +                                                       >> 24;
-> +                                       break;
-> +                               }
-> +                       } else {
-> +                               switch (i % 4) {
-> +                               case 0:
-> +                                       rx_data = rx_buf1[i/4];
-> +                                       msg.rx_buf[i] = rx_data & 0xff;
-> +                                       break;
-> +
-> +                               case 1:
-> +                                       msg.rx_buf[i] = (rx_data & 0xff00)
-> +                                                       >> 8;
-> +                                       break;
-> +                               case 2:
-> +                                       msg.rx_buf[i] = (rx_data & 0xff0000)
-> +                                                       >> 16;
-> +                                       break;
-> +
-> +                               case 3:
-> +                                       msg.rx_buf[i] = (rx_data & 0xff000000)
-> +                                                       >> 24;
-> +                                       break;
-> +                               }
-> +                       }
-> +               }
-> +
-> +#ifdef CONFIG_AST_PECI_DEBUG
-> +               aspeed_peci_read(AST_PECI_R_DATA0);
-> +               aspeed_peci_read(AST_PECI_R_DATA1);
-> +               aspeed_peci_read(AST_PECI_R_DATA2);
-> +               aspeed_peci_read(AST_PECI_R_DATA3);
-> +               aspeed_peci_read(AST_PECI_R_DATA4);
-> +               aspeed_peci_read(AST_PECI_R_DATA5);
-> +               aspeed_peci_read(AST_PECI_R_DATA6);
-> +               aspeed_peci_read(AST_PECI_R_DATA7);
-> +#endif
-> +               dev_dbg(aspeed_peci.misc_dev, "rx_buf:");
-> +               for (i = 0; i < msg.rx_len; i++)
-> +                       dev_dbg(aspeed_peci.misc_dev, "%x ", msg.rx_buf[i]);
-> +               dev_dbg(aspeed_peci.misc_dev, "\n");
-> +
-> +               msg.sts = aspeed_peci.sts;
-> +               msg.rx_fcs = PECI_CAPTURE_READ_FCS(
-> +                                       aspeed_peci_read(AST_PECI_CAP_FCS));
-> +               if (copy_to_user(argp, &msg, sizeof(struct xfer_msg)))
-> +                       ret = -EFAULT;
-> +               break;
-> +
-> +       default:
-> +               dev_err(aspeed_peci.misc_dev,
-> +                       "aspeed_peci_ioctl command fail\n");
-> +               ret = -ENOTTY;
-> +               break;
-> +       }
-> +
-> +       return ret;
-> +}
-> +
-> +static int aspeed_peci_open(struct inode *inode, struct file *file)
-> +{
-> +       /* Flush input queue on first open */
-> +       if (aspeed_peci.open_count)
-> +               return -1;
-> +
-> +       aspeed_peci.open_count++;
-> +
-> +
-> +       return 0;
-> +}
-> +
-> +static int aspeed_peci_release(struct inode *inode, struct file *file)
-> +{
-> +       aspeed_peci.open_count--;
-> +
-> +       return 0;
-> +}
-> +
-> +static irqreturn_t aspeed_peci_handler(int this_irq, void *dev_id)
-> +{
-> +       struct aspeed_peci_data *peci_data = dev_id;
-> +
-> +       aspeed_peci.sts = (0x1f & aspeed_peci_read(AST_PECI_INT_STS));
-> +
-> +       switch (aspeed_peci.sts) {
-> +       case PECI_INT_TIMEOUT:
-> +               dev_info(peci_data->misc_dev, "PECI_INT_TIMEOUT\n");
-> +               aspeed_peci_write(PECI_INT_TIMEOUT, AST_PECI_INT_STS);
-> +               break;
-> +
-> +       case PECI_INT_CONNECT:
-> +               dev_info(peci_data->misc_dev, "PECI_INT_CONNECT\n");
-> +               aspeed_peci_write(PECI_INT_CONNECT, AST_PECI_INT_STS);
-> +               break;
-> +
-> +       case PECI_INT_W_FCS_BAD:
-> +               dev_info(peci_data->misc_dev, "PECI_INT_W_FCS_BAD\n");
-> +               aspeed_peci_write(PECI_INT_W_FCS_BAD, AST_PECI_INT_STS);
-> +               break;
-> +
-> +       case PECI_INT_W_FCS_ABORT:
-> +               dev_info(peci_data->misc_dev, "PECI_INT_W_FCS_ABORT\n");
-> +               aspeed_peci_write(PECI_INT_W_FCS_ABORT, AST_PECI_INT_STS);
-> +               break;
-> +
-> +       case PECI_INT_CMD_DONE:
-> +               dev_info(peci_data->misc_dev, "PECI_INT_CMD_DONE\n");
-> +               aspeed_peci_write(PECI_INT_CMD_DONE, AST_PECI_INT_STS);
-> +               aspeed_peci_write(0, AST_PECI_CMD);
-> +               break;
-> +
-> +       default:
-> +               dev_info(peci_data->misc_dev, "no one handle\n");
-> +               break;
-> +
-> +       }
-> +
-> +       complete(&aspeed_peci.xfer_complete);
-> +
-> +       return IRQ_HANDLED;
-> +
-> +}
-> +
-> +static void aspeed_peci_ctrl_init(void)
-> +{
-> +       aspeed_peci_write(PECI_CTRL_SAMPLING(8) |
-> +                         PECI_CTRL_PECI_CLK_EN, AST_PECI_CTRL);
-> +
-> +       /* iming Setting : should 4 times of peci clk period 64 = 16 * 4 */
-> +       aspeed_peci_write(PECI_TIMING_MESSAGE(64) | PECI_TIMING_ADDRESS(64),
-> +                         AST_PECI_TIMING);
-> +
-> +       /* peci Spec wide speed rangs [2kbps~2Mbps]
-> +        * ampling 8/16, READ mode : Point Sampling , CLK source : 24Mhz , DIV
-> +        * by 8 : 3 --> CLK is 3Mhz
-> +        * peci CTRL Enable
-> +        */
-> +       aspeed_peci_write(PECI_CTRL_SAMPLING(8) | PECI_CTRL_CLK_DIV(3) |
-> +                         PECI_CTRL_PECI_EN | PECI_CTRL_PECI_CLK_EN,
-> +                         AST_PECI_CTRL);
-> +
-> +       /* Clear Interrupt */
-> +       aspeed_peci_write(PECI_INT_TIMEOUT | PECI_INT_CONNECT |
-> +                         PECI_INT_W_FCS_BAD | PECI_INT_W_FCS_ABORT |
-> +                         PECI_INT_CMD_DONE, AST_PECI_INT_STS);
-> +
-> +
-> +       /* peci Negotiation Selection , interrupt enable.
-> +        * Set nego mode :  1st bit of addr negotiation
-> +        */
-> +       aspeed_peci_write(PECI_INT_TIMEOUT | PECI_INT_CONNECT |
-> +                         PECI_INT_W_FCS_BAD | PECI_INT_W_FCS_ABORT |
-> +                         PECI_INT_CMD_DONE, AST_PECI_INT_CTRL);
-> +}
-> +
-> +static const struct file_operations aspeed_peci_fops = {
-> +       .owner          = THIS_MODULE,
-> +       .llseek         = no_llseek,
-> +       .unlocked_ioctl = aspeed_peci_ioctl,
-> +       .open           = aspeed_peci_open,
-> +       .release        = aspeed_peci_release,
-> +};
-> +
-> +struct miscdevice aspeed_peci_misc = {
-> +       .minor = MISC_DYNAMIC_MINOR,
-> +       .name = "aspeed-peci",
-> +       .fops = &aspeed_peci_fops,
-> +};
-> +
-> +static int aspeed_peci_probe(struct platform_device *pdev)
-> +{
-> +       struct resource *res;
-> +       int ret = 0;
-> +
-> +       if (!of_device_is_compatible(pdev->dev.of_node,
-> +                                    "aspeed,aspeed2500-peci"))
-> +               return -ENODEV;
-> +
-> +       res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +       if (!res) {
-> +               dev_err(&pdev->dev, "cannot get IORESOURCE_MEM\n");
-> +               ret = -ENOENT;
-> +               goto out;
-> +       }
-> +
-> +       aspeed_peci.reg_base = devm_ioremap_resource(&pdev->dev, res);
-> +       if (!aspeed_peci.reg_base) {
-> +               ret = -EIO;
-> +               goto out_region;
-> +       }
-> +
-> +       aspeed_peci.irq = platform_get_irq(pdev, 0);
-> +       if (aspeed_peci.irq < 0) {
-> +               dev_err(&pdev->dev, "no irq specified\n");
-> +               ret = -ENOENT;
-> +               goto out_region;
-> +       }
-> +
-> +       ret = devm_request_irq(&pdev->dev, aspeed_peci.irq,
-> +                              aspeed_peci_handler, 0, "aspeed-peci",
-> +                              &aspeed_peci);
-> +
-> +       if (ret) {
-> +               dev_info(&pdev->dev, "PECI: Failed request irq %d\n",
-> +                        aspeed_peci.irq);
-> +               goto out_region;
-> +       }
-> +
-> +       ret = misc_register(&aspeed_peci_misc);
-> +       if (ret) {
-> +               dev_err(&pdev->dev,
-> +                       "aspeed_peci : failed to request interrupt\n");
-> +               goto out_region;
-> +       }
-> +
-> +       aspeed_peci.misc_dev = &pdev->dev;
-> +       platform_set_drvdata(pdev, &aspeed_peci);
-> +
-> +       /* Reset PECI controller */
-> +       aspeed_toggle_scu_reset(SCU_RESET_PECI, 3);
-> +
-> +       aspeed_peci_ctrl_init();
-> +       dev_info(&pdev->dev, "aspeed_peci: driver successfully loaded.\n");
-> +
-> +       return 0;
-> +
-> +out_region:
-> +       release_mem_region(res->start, res->end - res->start + 1);
-> +out:
-> +       dev_warn(&pdev->dev, "aspeed_peci: driver init failed (ret=%d)!\n",
-> +                 ret);
-> +       return ret;
-> +}
-> +
-> +static int aspeed_peci_remove(struct platform_device *pdev)
-> +{
-> +       misc_deregister(&aspeed_peci_misc);
-> +
-> +       return 0;
-> +}
-> +
-> +#ifdef CONFIG_PM
-> +static int
-> +aspeed_peci_suspend(struct platform_device *pdev, pm_message_t state)
-> +{
-> +       dev_info(&pdev->dev, "aspeed_peci_suspend : TODO\n");
-> +       return 0;
-> +}
-> +
-> +static int aspeed_peci_resume(struct platform_device *pdev)
-> +{
-> +       aspeed_peci_ctrl_init();
-> +
-> +       return 0;
-> +}
-> +
-> +#else
-> +#define aspeed_peci_suspend        NULL
-> +#define aspeed_peci_resume         NULL
-> +#endif
-> +
-> +static const struct of_device_id aspeed_peci_of_table[] = {
-> +       { .compatible = "aspeed,aspeed2500-peci", },
-> +       { },
-> +};
-> +MODULE_DEVICE_TABLE(of, aspeed_peci_of_table);
-> +
-> +static struct platform_driver aspeed_peci_driver = {
-> +       .probe          = aspeed_peci_probe,
-> +       .remove         = aspeed_peci_remove,
-> +       .suspend        = aspeed_peci_suspend,
-> +       .resume         = aspeed_peci_resume,
-> +       .driver         = {
-> +               .name   = KBUILD_MODNAME,
-> +               .owner  = THIS_MODULE,
-> +               .of_match_table = aspeed_peci_of_table,
-> +       },
-> +};
-> +
-> +module_platform_driver(aspeed_peci_driver);
-> +
-> +MODULE_AUTHOR("Ryan Chen <ryan_chen@aspeedtech.com>");
-> +MODULE_DESCRIPTION("AST PECI driver");
-> +MODULE_LICENSE("GPL");
-> --
-> 2.1.4
+> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+> index 048fbb5..2e364e6 100644
+> --- a/arch/arm/boot/dts/Makefile
+> +++ b/arch/arm/boot/dts/Makefile
+> @@ -895,7 +895,8 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
+>         aspeed-bmc-opp-firestone.dtb \
+>         aspeed-bmc-opp-garrison.dtb \
+>         aspeed-bmc-opp-witherspoon.dtb \
+> -       aspeed-ast2500-evb.dtb
+> +       aspeed-ast2500-evb.dtb \
+> +       mlx-ast2500-bmc.dtb
+>  endif
 >
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+>  dtstree                := $(srctree)/$(src)
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-mlx-flash-layout.dtsi b/arch/arm/boot/dts/aspeed-bmc-mlx-flash-layout.dtsi
+> new file mode 100644
+> index 0000000..1c5ae2b
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed-bmc-mlx-flash-layout.dtsi
+> @@ -0,0 +1,32 @@
+> +/* This file is the label for the bmc primary flash and its partitions */
+> +                               label = "bmc";
+> +                               #address-cells = < 1 >;
+> +                               #size-cells = < 1 >;
+> +                               u-boot {
+> +                                       reg = < 0 0x60000 >;
+> +                                       label = "u-boot";
+> +                               };
+> +                               u-boot-env {
+> +                                       reg = < 0x60000 0x30000 >;
+> +                                       label = "u-boot-env";
+> +                               };
+> +                               kernel  {
+> +                                       reg = < 0x90000 0x27e000 >;
+> +                                       label = "kernel";
+> +                               };
+> +                                dtb  {
+> +                                        reg = < 0x30e000 0x2000 >;
+> +                                        label = "dtb";
+> +                                };
+> +                               initramfs {
+> +                                       reg = < 0x310000 0x1c0000 >;
+> +                                       label = "initramfs";
+> +                               };
+> +                               rofs  {
+> +                                       reg = < 0x4d0000 0x1740000 >;
+> +                                       label = "rofs";
+> +                               };
+> +                               rwfs  {
+> +                                       reg = < 0x1c10000 0x3f0000 >;
+> +                                       label = "rwfs";
+> +                               };
+
+This looks like a copy of the existing layout. You don't need to
+create your own.
+
+> diff --git a/arch/arm/boot/dts/aspeed-g5-mlx.dtsi b/arch/arm/boot/dts/aspeed-g5-mlx.dtsi
+> new file mode 100644
+> index 0000000..0f4cce9
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed-g5-mlx.dtsi
+> @@ -0,0 +1,429 @@
+> +#include "skeleton.dtsi"
+> +
+> +/ {
+> +       model = "Aspeed BMC";
+> +       compatible = "aspeed,ast2500";
+> +       #address-cells = <1>;
+> +       #size-cells = <1>;
+> +       interrupt-parent = <&vic>;
+> +
+
+This looks to be a copy of the existing aspeed-g5.dtsi. You should
+include that in your .dts file instead of duplicating it.
+
+> diff --git a/arch/arm/boot/dts/mlx-ast2500-bmc.dts b/arch/arm/boot/dts/mlx-ast2500-bmc.dts
+> new file mode 100644
+> index 0000000..0817a67
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/mlx-ast2500-bmc.dts
+> @@ -0,0 +1,109 @@
+> +/dts-v1/;
+> +
+> +#include <dt-bindings/thermal/thermal.h>
+> +#include <dt-bindings/pwm/pwm.h>
+> +#include "aspeed-g5-mlx.dtsi"
+> +
+> +/ {
+> +       model = "AST2500 EVB";
+
+If this is the ast2500 evb, you do not need to copy the dts - you can
+use the existing one.
+
+However this looks to be different. In that case, make the model name
+be that of the system.
+
+> +       compatible = "mellanox,mlx-bmc", "aspeed,ast2500-evb", "aspeed,ast2500";
+
+Drop the ast2500-evb compat string.
+
+> +
+> +       aliases {
+> +               serial4 = &uart5;
+> +       };
+> +
+> +        aliases {
+> +                serial0 = &uart5;
+> +        };
+
+You can combine these two:
+
+
+aliases {
+                serial0 = &uart5;
+               serial4 = &uart5;
+};
+
+However this highlights that you're creating two aliases for the same
+uart. I doubt this was your intention.
+
+> +
+> +       chosen {
+> +               stdout-path = &uart5;
+> +               bootargs = "console=ttyS4,115200n8";
+> +       };
+> +
+> +       memory {
+> +               reg = <0x80000000 0x20000000>;
+> +       };
+>
+
+> diff --git a/arch/arm/configs/mlx_bmc_defconfig b/arch/arm/configs/mlx_bmc_defconfig
+> new file mode 100644
+> index 0000000..b381dc5
+> --- /dev/null
+> +++ b/arch/arm/configs/mlx_bmc_defconfig
+
+Upstream do not like adding many defconfigs. We have one for the
+ast2500 and one for the ast2400 series. I suggest adding options to
+the aspeed_g5_defconfig.
+
+> @@ -0,0 +1,2786 @@
+> +#
+> +# Automatically generated file; DO NOT EDIT.
+> +# Linux/arm 4.6.4 Kernel Configuration
+
+This needs to be against the dev-4.7 branch.
