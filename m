@@ -3,48 +3,47 @@ Received: from mail-ua0-x242.google.com (mail-ua0-x242.google.com
  [IPv6:2607:f8b0:400c:c08::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sDcZy0j2bzDq5f
- for <openbmc@lists.ozlabs.org>; Wed, 17 Aug 2016 15:04:10 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sDccD414BzDq5f
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Aug 2016 15:05:16 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=ScTWlUHF; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=gmfjY595; 
  dkim-atps=neutral
-Received: by mail-ua0-x242.google.com with SMTP id 109so8084852uat.2
- for <openbmc@lists.ozlabs.org>; Tue, 16 Aug 2016 22:04:09 -0700 (PDT)
+Received: by mail-ua0-x242.google.com with SMTP id 109so8086243uat.2
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Aug 2016 22:05:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=FiKGHHM+mqRmQyx/q6vE2Ngk5HxDZ4/zAkwmvP2bsjI=;
- b=ScTWlUHFLq15e4GGXCHwZl6KXCEt3W0xvNWWh8tAzi13T9A5xzh387MwqYloR6aC7I
- gqu1c5S9oyIu7I5K+0nFjdoyndhZe9P3OLqwRuq8MRMQ8q8v+b6DDtxNzFHwVF6qQNbC
- wskQ+AMwauCY2DD44521xqIAd3FQs+Vj4VEVfw/zjYn9gORe0YrHv2GgcNYhjGP1VNbz
- yQowN25IKxoCeekG0GLo5ufyEA81zhjt5i+NZEb93SqJoA/nZuy47SGicKAgczGobxmd
- u3muHThqlBswAZaJUtgUtwJ076rWY0q1z1eHKbW+QTP+NuafZI1l2UXYsp/iswl7XdpT
- bHqw==
+ bh=DbjZy49RrmKAWA7JrUZ88lgU+SbE7Iz5M5HBXubDJec=;
+ b=gmfjY595juuyCLgQiJYxXNY1z959ARdn32nLCVhAzLkTm0+njWzSxWDMYAU6qA7gTl
+ sYAGPQOZ0I0IQkqX3k6UdLWXMVFO9rDgEA6hECHbX3XtUZ2ZSg0vjz7fJEVIK64IaoVW
+ U8b7lV+63/u8IfAyRaMnqt9Dk8RkHYGWRbZlDeaQp/5LPsQR2zoc/uNp72Rx3Gaua6fS
+ 4nogxGOsVsttkNxzWdguMRr6W495E1IPJbJ04at5tfcNKgqSdKKH1eHDRfLzV9dYz9hE
+ K8ig+/YlA6yyQxYkrK7GwhwBYlWE0zbvNSmNoU7K56utUrSr8SMIwLxQefHIqI9ff2iK
+ 6qDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=FiKGHHM+mqRmQyx/q6vE2Ngk5HxDZ4/zAkwmvP2bsjI=;
- b=lrdV8FzYbHX2B65U1Vh1TPbO5TxKp+QHo2xmw4+qfPD3KQTCi+KvdzhKwCmr++QBKG
- y3OhLNcAQ8dZahBGk+mSDsxVprh85sAfwiEyeBoO+6zpUNOr0GGa/YlIeVPylXuW6/EJ
- O6WN9i05dalm4hxzUmWqNSLH4aENiPdXqXV3cNwYHdVi7WS1qS326mnfNgGafXxudIn6
- 52v5OIlQFGlOagzaYkCreT0zDEuf4RMMkAcG5W1cxVFQsL1bHYMUHTyadSHnTtbMieG/
- cufan39LJOp9fK9u7Taf2GP9BXm4+Dr9BpEu0HRXx5ynRYggch71Ptu9FlemP2gh4nLs
- tb7Q==
-X-Gm-Message-State: AEkoousr9AArHO04Knlbqru+b5sDY5N5ClKEOtu9T+TVwiarn3rPMY0LCqqIsOTLizSI+uF+3JWYp0ma/LUjug==
-X-Received: by 10.31.102.135 with SMTP id a129mr10263699vkc.112.1471410247189; 
- Tue, 16 Aug 2016 22:04:07 -0700 (PDT)
+ bh=DbjZy49RrmKAWA7JrUZ88lgU+SbE7Iz5M5HBXubDJec=;
+ b=Su489ithqBT5X0v1LO9IQJIdXCAs2olAoZCcplp/5oZom7cnaOXKvzVLgHjKZRfzlk
+ kza7Lwt1IYHwjjCdtr8xNWLIzYo2hduci6m6rd9JMz/Rbr93y739ulrXA1asblVSyCZJ
+ GGUvB5XMrgS1hX6qJdZ3f1ENhKwesOTxJj9w48eOceFzeiEUn5CkK7n1htcxKIXC2DBl
+ aVnwqN31VTWbnDt+NkBNF+eVTo5LBenjGTDwM754GDDg5/unESiE3IVRJL0M2lXeHRRa
+ Bz0KCXLTzGvUHuV+Vpr84MY36CwTZpT864rQv7byj5H0i204pYkNTlOhIabaAo6knf31
+ qnWg==
+X-Gm-Message-State: AEkoouvZ2/eXRx5GWL2VoIsVQ3qfxmaZRS6XEOoP34jdAsHmlWKFt8wGdnJNNQy0n/C55EiIUxrK//JYNA8Y1A==
+X-Received: by 10.31.93.65 with SMTP id r62mr18318258vkb.149.1471410314325;
+ Tue, 16 Aug 2016 22:05:14 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.159.38.76 with HTTP; Tue, 16 Aug 2016 22:03:46 -0700 (PDT)
-In-Reply-To: <1470812574-50878-1-git-send-email-vadimp@mellanox.com>
-References: <1470812574-50878-1-git-send-email-vadimp@mellanox.com>
+Received: by 10.159.38.76 with HTTP; Tue, 16 Aug 2016 22:04:53 -0700 (PDT)
+In-Reply-To: <1470812591-50924-1-git-send-email-vadimp@mellanox.com>
+References: <1470812591-50924-1-git-send-email-vadimp@mellanox.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 17 Aug 2016 14:33:46 +0930
-X-Google-Sender-Auth: KpwlrEpJ9lzfuyGmQM4RinDmkus
-Message-ID: <CACPK8XfFZ258KaazxgZeH4LKHy2KVocU3EKiBNvwxqroMeZh0A@mail.gmail.com>
-Subject: Re: [dev-4.7 patch 2/5] hwmon (aspeed) introduce Aspeed SoC pwm-fan
- driver
+Date: Wed, 17 Aug 2016 14:34:53 +0930
+X-Google-Sender-Auth: xt4QecuSvY5rxUSR_N6ejDHHdSQ
+Message-ID: <CACPK8Xdf-mmMkxA0+quQ5pejw7uQrpES1VXayRORWOG+sTkpQA@mail.gmail.com>
+Subject: Re: [dev-4.7 patch 3/5] misc (aspeed) introduce Aspeed SoC peci driver
 To: Vadim Pasternak <vadimp@mellanox.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, jiri@mellanox.com,
  michaelsh@mellanox.com
@@ -60,96 +59,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Aug 2016 05:04:11 -0000
+X-List-Received-Date: Wed, 17 Aug 2016 05:05:17 -0000
 
-Hi Vadim,
-
-Please ensure future submissions have been run through scripts/checkpatch.pl.
-
-I have made some comments below. This driver needs more work before
-you can submit it upstream.
-
-On Wed, Aug 10, 2016 at 4:32 PM,  <vadimp@mellanox.com> wrote:
+On Wed, Aug 10, 2016 at 4:33 PM,  <vadimp@mellanox.com> wrote:
 > From: Vadim Pasternak <vadimp@mellanox.com>
 >
-> The Kconfig controlling compilation of this code are:
-> hwmon/aspeed/Kconfig:config SENSORS_ASPEED_PWM_FAN
+> The Kconfig controlling compilation of this code is:
+> drivers/misc/aspeed/Kconfig:config ASPEED_PECI
 >
-> Porting pwm-fan driver from 3.18 to 4.7.
+> Porting peci driver from 3.18 to 4.7.
+
+As with other drivers, please remove ifdefs, clean up the excess
+#defines, run through checkpatch.pl.
+
 >
 > Signed-off-by: Vadim Pasternak <vadimp@mellanox.com>
 > ---
->  drivers/hwmon/Kconfig                 |    2 +
->  drivers/hwmon/Makefile                |    1 +
->  drivers/hwmon/aspeed/Kconfig          |   11 +
->  drivers/hwmon/aspeed/Makefile         |    5 +
->  drivers/hwmon/aspeed/aspeed-pwm-fan.c | 2735 +++++++++++++++++++++++++++++++++
->  5 files changed, 2754 insertions(+)
->  create mode 100644 drivers/hwmon/aspeed/Kconfig
->  create mode 100644 drivers/hwmon/aspeed/Makefile
->  create mode 100644 drivers/hwmon/aspeed/aspeed-pwm-fan.c
+>  drivers/misc/Kconfig              |   1 +
+>  drivers/misc/aspeed/Kconfig       |  12 +
+>  drivers/misc/aspeed/Makefile      |   5 +
+>  drivers/misc/aspeed/aspeed-peci.c | 569 ++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 587 insertions(+)
+>  create mode 100644 drivers/misc/aspeed/Kconfig
+>  create mode 100644 drivers/misc/aspeed/Makefile
+>  create mode 100644 drivers/misc/aspeed/aspeed-peci.c
 >
-> diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-> index 3b34ba9..b08ea92 100644
-> --- a/drivers/hwmon/Kconfig
-> +++ b/drivers/hwmon/Kconfig
-> @@ -1828,4 +1828,6 @@ config SENSORS_ATK0110
->
->  endif # ACPI
->
-> +source drivers/hwmon/aspeed/Kconfig
-> +
->  endif # HWMON
-> diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
-> index c0f3201..7220d0c 100644
-> --- a/drivers/hwmon/Makefile
-> +++ b/drivers/hwmon/Makefile
-> @@ -165,6 +165,7 @@ obj-$(CONFIG_SENSORS_WM831X)        += wm831x-hwmon.o
->  obj-$(CONFIG_SENSORS_WM8350)   += wm8350-hwmon.o
->
->  obj-$(CONFIG_PMBUS)            += pmbus/
-> +obj-$(CONFIG_MACH_ASPEED_G5)   += aspeed/
->
->  ccflags-$(CONFIG_HWMON_DEBUG_CHIP) := -DDEBUG
->
-> diff --git a/drivers/hwmon/aspeed/Kconfig b/drivers/hwmon/aspeed/Kconfig
+> diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
+> index 4617ddc..bdf63da 100644
+> --- a/drivers/misc/Kconfig
+> +++ b/drivers/misc/Kconfig
+> @@ -821,4 +821,5 @@ source "drivers/misc/mic/Kconfig"
+>  source "drivers/misc/genwqe/Kconfig"
+>  source "drivers/misc/echo/Kconfig"
+>  source "drivers/misc/cxl/Kconfig"
+> +source "drivers/misc/aspeed/Kconfig"
+>  endmenu
+> diff --git a/drivers/misc/aspeed/Kconfig b/drivers/misc/aspeed/Kconfig
 > new file mode 100644
-> index 0000000..6739973
+> index 0000000..dedce9c
 > --- /dev/null
-> +++ b/drivers/hwmon/aspeed/Kconfig
-> @@ -0,0 +1,11 @@
-> +menu "ASPEED hwmon support"
+> +++ b/drivers/misc/aspeed/Kconfig
+> @@ -0,0 +1,12 @@
+> +menu "ASPEED devices support"
 > +
-> +config SENSORS_ASPEED_PWM_FAN
-> +        tristate "ASPEED PWM & FAN Tacho Controller Driver"
-> +        depends on ARCH_ASPEED
-> +        default n
-> +        help
-> +          This driver provides support for the ASPEED PWM & FAN Tachometer
-> +          Controller, which provides an Sensor, fan control.
+> +config ASPEED_PECI
+> +       tristate "Aspeed PECI driver"
+> +       depends on I2C
+> +       default n
+> +       help
+> +         This option enables Aspeed PECI driver support.
+> +
+> +         If unsure, say N.
 > +
 > +endmenu
-> diff --git a/drivers/hwmon/aspeed/Makefile b/drivers/hwmon/aspeed/Makefile
+> diff --git a/drivers/misc/aspeed/Makefile b/drivers/misc/aspeed/Makefile
 > new file mode 100644
-> index 0000000..e372511
+> index 0000000..e502851
 > --- /dev/null
-> +++ b/drivers/hwmon/aspeed/Makefile
+> +++ b/drivers/misc/aspeed/Makefile
 > @@ -0,0 +1,5 @@
 > +
 > +ccflags-$(CONFIG_ARCH_MULTIPLATFORM) := \
 > +        -I$(srctree)/arch/arm/mach-aspeed/include
 > +
-> +obj-$(CONFIG_SENSORS_ASPEED_PWM_FAN)   += aspeed-pwm-fan.o
-> diff --git a/drivers/hwmon/aspeed/aspeed-pwm-fan.c b/drivers/hwmon/aspeed/aspeed-pwm-fan.c
+> +obj-$(CONFIG_ASPEED_PECI) += aspeed-peci.o
+> diff --git a/drivers/misc/aspeed/aspeed-peci.c b/drivers/misc/aspeed/aspeed-peci.c
 > new file mode 100644
-> index 0000000..414ae6d
+> index 0000000..4350bc4
 > --- /dev/null
-> +++ b/drivers/hwmon/aspeed/aspeed-pwm-fan.c
-> @@ -0,0 +1,2735 @@
+> +++ b/drivers/misc/aspeed/aspeed-peci.c
+> @@ -0,0 +1,569 @@
 > +/*
-> + *  drivers/hwmon/aspeed/aspeed-pwm-fan.c
+> + *  driver/misc/aspeed/aspeed_peci.c
 > + *
-> + *  ASPEED PWM & Fan Tacho controller driver
+> + *  ASPEED PECI controller driver
 > + *
 > + *  Copyright (C) 2012-2020  ASPEED Technology Inc.
 > + *
@@ -158,2751 +141,563 @@ On Wed, Aug 10, 2016 at 4:32 PM,  <vadimp@mellanox.com> wrote:
 > + *  published by the Free Software Foundation.
 > + *
 > + *  History:
-> + *    2012.08.06: Initial version [Ryan Chen]
-> + *    2016.08.06: Porting to kernel 4.7 [Vadim Pasternak vadimp@mellanox.com]
+> + *   2013.01.30: Initial version [Ryan Chen]
+> + *   2016.08.06: Porting to kernel 4.7 [Vadim Pasternak vadimp@mellanox.com]
 > + */
 > +
-> +#include <linux/init.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/kernel.h>
+> +
 > +#include <linux/module.h>
-> +#include <linux/timer.h>
-> +#include <linux/hwmon-sysfs.h>
-> +#include <linux/hwmon.h>
-> +#include <linux/workqueue.h>
-> +#include <linux/sysfs.h>
-> +#include <linux/err.h>
-> +#include <linux/slab.h>
-> +#include <linux/io.h>
+> +#include <linux/fs.h>
+> +#include <linux/init.h>
 > +#include <linux/platform_device.h>
+> +#include <linux/types.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/uaccess.h>
+> +#include <linux/io.h>
+> +#include <linux/delay.h>
+> +#include <linux/miscdevice.h>
+> +#include <linux/configfs.h>
 > +#include <linux/of_address.h>
 > +#include <linux/of_platform.h>
-> +#include <asm/irq.h>
 > +#include <asm/mach-types.h>
-> +#include <asm/mach/arch.h>
 > +#include <mach/reset.h>
 > +
-> +/* CLK sysfs
-> + * 0 : enable
-> + * 1 : clk_source
-> + *
-> + * PWM sysfs A~H (0~7)
-> + * 0 - show/store enable
-> + * 1 - show/store type
-> + * 2 - show/store falling
-> + * 3 - show/store rising
-> + *
-> + * PWM M/N/O Type sysfs
-> + * 0 - show/store unit
-> + * 1 - show/store division_l
-> + * 2 - show/store division_h
-> + *
-> + * FAN sysfs (0~15)
-> + *  show/store enable
-> + *  show/store source
-> + *  show/store rpm
-> + *  show/store alarm
-> + *  show/store alarm_en
-> + *
-> + * Fan M/N/O Type sysfs
-> + *  0 - show/store enable
-> + *  1 - show/store mode
-> + *  2 - show/store unit
-> + *  3 - show/store division
-> + *  4 - show/store limit
-> + */
-> +
-> +#define AST_SCU_FUN_PIN_CTRL1  0x80    /* Multi-function Pin Control#1 */
-> +#define AST_SCU_FUN_PIN_CTRL2  0x84    /* Multi-function Pin Control#2 */
-> +#define AST_SCU_FUN_PIN_CTRL3  0x88    /* Multi-function Pin Control#3 */
-> +#define AST_SCU_FUN_PIN_CTRL4  0x8C    /* Multi-function Pin Control#4 */
-> +#define AST_SCU_FUN_PIN_CTRL5  0x90    /* Multi-function Pin Control#5 */
-
-These SCU registers belong to the pinmux driver. We need to use the
-device tree to request the pins to be muxed.
-
-> +#define AST_PWM_GROUP_NUM      (1 + PWM_CH_NUM + 2 * PWM_TYPE_NUM + TACHO_NUM)
-> +
-> +/* Aspeed PWM & FAN Register Definition */
-> +#define AST_PTCR_CTRL          0x00
-> +#define AST_PTCR_CLK_CTRL      0x04
-> +#define AST_PTCR_DUTY0_CTRL    0x08
-> +#define AST_PTCR_DUTY1_CTRL    0x0c
-> +#define AST_PTCR_TYPEM_CTRL0   0x10
-> +#define AST_PTCR_TYPEM_CTRL1   0x14
-> +#define AST_PTCR_TYPEN_CTRL0   0x18
-> +#define AST_PTCR_TYPEN_CTRL1   0x1c
-> +#define AST_PTCR_TACH_SOURCE   0x20
-> +#define AST_PTCR_TRIGGER       0x28
-> +#define AST_PTCR_RESULT                0x2c
-> +#define AST_PTCR_INTR_CTRL     0x30
-> +#define AST_PTCR_INTR_STS      0x34
-> +#define AST_PTCR_TYPEM_LIMIT   0x38
-> +#define AST_PTCR_TYPEN_LIMIT   0x3C
-> +#define AST_PTCR_CTRL_EXT      0x40
-> +#define AST_PTCR_CLK_EXT_CTRL  0x44
-> +#define AST_PTCR_DUTY2_CTRL    0x48
-> +#define AST_PTCR_DUTY3_CTRL    0x4c
-> +#define AST_PTCR_TYPEO_CTRL0   0x50
-> +#define AST_PTCR_TYPEO_CTRL1   0x54
-> +#define AST_PTCR_TACH_SOURCE_EXT 0x60
-> +#define AST_PTCR_TYPEO_LIMIT   0x78
-> +
-> +/* Common definitions */
-> +#define FALL_EDGE      (0)
-> +#define RISE_EDGE      (0x1)
-> +#define BOTH_EDGE      (0x2)
-> +#define PWM_TYPE_NUM   3
-> +#define PWM_TYPE_M     0x0
-> +#define PWM_TYPE_N     0x1
-> +#define PWM_TYPE_O     0x2
-> +#define PWM_TYPE_MASK  0x3
-> +
-> +#define TACHO_NUM      16
-> +#define PWM_CH_NUM     8
-> +#define PWMA           0x0
-> +#define PWMB           0x1
-> +#define PWMC           0x2
-> +#define PWMD           0x3
-> +#define PWME           0x4
-> +#define PWMF           0x5
-> +#define PWMG           0x6
-> +#define PWMH           0x7
+> +/*AST PECI Register Definition */
+> +#define AST_PECI_CTRL          0x00
+> +#define AST_PECI_TIMING                0x04
+> +#define AST_PECI_CMD           0x08
+> +#define AST_PECI_CMD_CTRL      0x0C
+> +#define AST_PECI_EXP_FCS       0x10
+> +#define AST_PECI_CAP_FCS       0x14
+> +#define AST_PECI_INT_CTRL      0x18
+> +#define AST_PECI_INT_STS       0x1C
+> +#define AST_PECI_W_DATA0       0x20
+> +#define AST_PECI_W_DATA1       0x24
+> +#define AST_PECI_W_DATA2       0x28
+> +#define AST_PECI_W_DATA3       0x2c
+> +#define AST_PECI_R_DATA0       0x30
+> +#define AST_PECI_R_DATA1       0x34
+> +#define AST_PECI_R_DATA2       0x38
+> +#define AST_PECI_R_DATA3       0x3c
+> +#define AST_PECI_W_DATA4       0x40
+> +#define AST_PECI_W_DATA5       0x44
+> +#define AST_PECI_W_DATA6       0x48
+> +#define AST_PECI_W_DATA7       0x4c
+> +#define AST_PECI_R_DATA4       0x50
+> +#define AST_PECI_R_DATA5       0x54
+> +#define AST_PECI_R_DATA6       0x58
+> +#define AST_PECI_R_DATA7       0x5c
 > +
 > +
-> +/* AST_PTCR_CTRL:0x00 - PWM-FAN General Control Register */
-> +#define AST_PTCR_CTRL_SET_PWMD_TYPE(x) \
-> +       ((x & 0x1) << 15 | (x & 0x2) << 6)
-> +#define AST_PTCR_CTRL_GET_PWMD_TYPE(x) \
-> +       (((x & (0x1 << 7)) >> 6) | ((x & (0x1 << 15)) >> 15))
-> +#define AST_PTCR_CTRL_SET_PWMD_TYPE_MASK \
-> +       ((0x1 << 7) | (0x1 << 15))
+> +/* AST_PECI_CTRL - 0x00 : Control Register */
+> +#define PECI_CTRL_SAMPLING_MASK                (0xf << 16)
+> +#define PECI_CTRL_SAMPLING(x)          (x << 16)
+> +#define PECI_CTRL_READ_MODE_MASK       (0xf << 12)
+> +#define PECI_CTRL_CONT_MODE            (1 << 16)
+> +#define PECI_CTRL_DBG_MODE             (2 << 16)
+> +#define PECI_CTRL_CLK_SOURCE           (0x1 << 11) /*0: 24Mhz, 1: MCLK */
+> +#define PECI_CTRL_CLK_DIV_MASK         (0x3 << 8)
+> +#define PECI_CTRL_CLK_DIV(x)           (x << 8)
+> +#define PECI_CTRL_INVERT_OUT           (0x1 << 7)
+> +#define PECI_CTRL_INVERT_IN            (0x1 << 6)
+> +#define PECI_CTRL_BUS_CONTENT_EN       (0x1 << 5)
+> +#define PECI_CTRL_PECI_EN              (0x1 << 4)
+> +#define PECI_CTRL_PECI_CLK_EN          (0x1)
 > +
-> +#define AST_PTCR_CTRL_SET_PWMC_TYPE(x) \
-> +       ((x & 0x1) << 14 | (x & 0x2) << 5)
-> +#define AST_PTCR_CTRL_GET_PWMC_TYPE(x) \
-> +       (((x & (0x1 << 6)) >> 5) | ((x & (0x1 << 14)) >> 14))
-> +#define AST_PTCR_CTRL_SET_PWMC_TYPE_MASK \
-> +       ((0x1 << 6) | (0x1 << 14))
+> +/* AST_PECI_TIMING - 0x04 : Timing Negotiation */
+> +#define PECI_TIMING_MESSAGE_GET(x)     ((x & 0xff00) >> 8)
+> +#define PECI_TIMING_MESSAGE(x)         (x << 8)
+> +#define PECI_TIMING_ADDRESS_GET(x)     (x & 0xff)
+> +#define PECI_TIMING_ADDRESS(x)         (x)
 > +
-> +#define AST_PTCR_CTRL_SET_PWMB_TYPE(x) \
-> +       ((x & 0x1)<<13 | (x & 0x2) << 4)
-> +#define AST_PTCR_CTRL_GET_PWMB_TYPE(x) \
-> +       (((x & (0x1 << 5)) >> 4) | ((x & (0x1 << 13)) >> 13))
-> +#define AST_PTCR_CTRL_SET_PWMB_TYPE_MASK \
-> +       ((0x1 << 5) | (0x1 << 13))
+> +/* AST_PECI_CMD        - 0x08 : Command Register */
+> +#define PECI_CMD_PIN_MON               (0x1 << 31)
+> +#define PECI_CMD_STS                   (0xf << 24)
+> +#define PECI_CMD_FIRE                  (0x1)
 > +
-> +#define AST_PTCR_CTRL_SET_PWMA_TYPE(x) \
-> +       ((x & 0x1) << 12 | (x & 0x2) << 3)
-> +#define AST_PTCR_CTRL_GET_PWMA_TYPE(x) \
-> +       (((x & (0x1 << 4)) >> 3) | ((x & (0x1 << 12)) >> 12))
-> +#define AST_PTCR_CTRL_SET_PWMA_TYPE_MASK \
-> +       ((0x1 << 4) | (0x1 << 12))
-> +
-> +#define        AST_PTCR_CTRL_FAN_NUM_EN(x)             (0x1 << (16 + x))
-> +
-> +#define        AST_PTCR_CTRL_PMWD              (11)
-> +#define        AST_PTCR_CTRL_PMWD_EN           (0x1 << 11)
-> +#define        AST_PTCR_CTRL_PMWC              (10)
-> +#define        AST_PTCR_CTRL_PMWC_EN           (0x1 << 10)
-> +#define        AST_PTCR_CTRL_PMWB              (9)
-> +#define        AST_PTCR_CTRL_PMWB_EN           (0x1 << 9)
-> +#define        AST_PTCR_CTRL_PMWA              (8)
-> +#define        AST_PTCR_CTRL_PMWA_EN           (0x1 << 8)
-> +#define        AST_PTCR_CTRL_CLK_MCLK          0x2 /* 0:24Mhz, 1:MCLK */
-> +#define        AST_PTCR_CTRL_CLK_EN            0x1
-> +
-> +/* AST_PTCR_CLK_CTRL:0x04 - PWM-FAN Clock Control Register */
-> +/* TYPE N */
-> +#define AST_PTCR_CLK_CTRL_TYPEN_UNIT           (24)
-> +#define AST_PTCR_CLK_CTRL_TYPEN_UNIT_MASK      (0xff << 24)
-> +#define AST_PTCR_CLK_CTRL_TYPEN_H              (20)
-> +#define AST_PTCR_CLK_CTRL_TYPEN_H_MASK         (0xf << 20)
-> +#define AST_PTCR_CLK_CTRL_TYPEN_L              (16)
-> +#define AST_PTCR_CLK_CTRL_TYPEN_L_MASK         (0xf << 16)
-> +/* TYPE M */
-> +#define AST_PTCR_CLK_CTRL_TYPEM_UNIT           (8)
-> +#define AST_PTCR_CLK_CTRL_TYPEM_UNIT_MASK      (0xff << 8)
-> +#define AST_PTCR_CLK_CTRL_TYPEM_H              (4)
-> +#define AST_PTCR_CLK_CTRL_TYPEM_H_MASK         (0xf << 4)
-> +#define AST_PTCR_CLK_CTRL_TYPEM_L              (0)
-> +#define AST_PTCR_CLK_CTRL_TYPEM_L_MASK         (0xf)
+> +/* AST_PECI_LEN        - 0x0C : Read/Write Length Register */
+> +#define PECI_AW_FCS_EN                 (0x1 << 31)
+> +#define PECI_READ_LEN_MASK             (0xff << 16)
+> +#define PECI_READ_LEN(x)               (x << 16)
+> +#define PECI_WRITE_LEN_MASK            (0xff << 8)
+> +#define PECI_WRITE_LEN(x)              (x << 8)
+> +#define PECI_TAGET_ADDR_MASK           (0xff)
+> +#define PECI_TAGET_ADDR(x)             (x)
 > +
 > +
-> +/* AST_PTCR_DUTY_CTRL0:0x08 - PWM-FAN duty control 0 register */
-> +#define DUTY_CTRL0_PWMB_FALL_POINT             (24)
-> +#define DUTY_CTRL0_PWMB_FALL_POINT_MASK                (0xff << 24)
-> +#define DUTY_CTRL0_PWMB_RISE_POINT             (16)
-> +#define DUTY_CTRL0_PWMB_RISE_POINT_MASK                (0xff << 16)
-> +#define DUTY_CTRL0_PWMA_FALL_POINT             (8)
-> +#define DUTY_CTRL0_PWMA_FALL_POINT_MASK                (0xff << 8)
-> +#define DUTY_CTRL0_PWMA_RISE_POINT             (0)
-> +#define DUTY_CTRL0_PWMA_RISE_POINT_MASK                (0xff)
+> +/* AST_PECI_EXP_FCS    - 0x10 : Expected FCS Data Register  */
+> +#define PECI_PROGRAM_AW_FCS            (0xf << 24)
+> +#define PECI_EXPECT_READ_FCS           (0xf << 16)
+> +#define PECI_EXPECT_AW_FCS_AUTO                (0xf << 8)
+> +#define PECI_EXPECT_WRITE_FCS          (0xf)
 > +
+> +/* AST_PECI_CAP_FCS    - 0x14 : Captured FCS Data Register */
+> +#define PECI_CAPTURE_READ_FCS(x)       ((x & 0xff) >> 16)
+> +#define PECI_CAPTURE_WRITE_FCS         (0xff)
 > +
-> +/* AST_PTCR_DUTY_CTRL1 : 0x0c - PWM-FAN duty control 1 register */
-> +#define DUTY_CTRL1_PWMD_FALL_POINT             (24)
-> +#define DUTY_CTRL1_PWMD_FALL_POINT_MASK                (0xff << 24)
-> +#define DUTY_CTRL1_PWMD_RISE_POINT             (16)
-> +#define DUTY_CTRL1_PWMD_RISE_POINT_MASK                (0xff << 16)
-> +#define DUTY_CTRL1_PWMC_FALL_POINT             (8)
-> +#define DUTY_CTRL1_PWMC_FALL_POINT_MASK                (0xff << 8)
-> +#define DUTY_CTRL1_PWMC_RISE_POINT             (0)
-> +#define DUTY_CTRL1_PWMC_RISE_POINT_MASK                (0xff)
-
-There are a lot of defintions here. As many of them are defining the
-same bit, common ones can be discarded. Also consider if they are
-necessary at all.
-
-
+> +/* AST_PECI_INT_CTRL/ STS  - 0x18/0x1c  : Interrupt Register */
+> +#define PECI_INT_TIMING_RESULT_MASK    (0x3 << 30)
+> +#define PECI_INT_TIMEOUT               (0x1 << 4)
+> +#define PECI_INT_CONNECT               (0x1 << 3)
+> +#define PECI_INT_W_FCS_BAD             (0x1 << 2)
+> +#define PECI_INT_W_FCS_ABORT           (0x1 << 1)
+> +#define PECI_INT_CMD_DONE                      (0x1)
 > +
+> +#define AUTO_GEN_AWFCS         1
+> +#define DISABLE_ENGINE         0
+> +#define ENABLE_RX_ENGINE       (1 << 0)
+> +#define ENABLE_TX_ENGINE       (1 << 1)
+> +#define LEFT_CHANNEL_HIGH      (1 << 16)
+> +#define DELAY_CLOCK_CYCLE      (1 << 17)
 > +
-> +/* AST_PTCR_TYPEM_CTRL0 : 0x10/0x18/0x50 - Type M/N/O Ctrl 0 Register */
-> +#define TYPE_CTRL0_FAN_PERIOD                  (16)
-> +#define TYPE_CTRL0_FAN_PERIOD_MASK             (0xffff << 16)
-> +#define TYPE_CTRL0_FLAT_EN                     (0x1 << 7)
-> +
-> +
-> +/* 0 : FALL_EDGE,      0x1 : RISE_EDGE , 0x2 :BOTH_EDGE */
-> +#define TYPE_CTRL0_FAN_MODE                    (4)
-> +#define TYPE_CTRL0_FAN_MODE_MASK               (0x3<<4)
-> +#define TYPE_CTRL0_CLK_DIVISION                        (1)
-> +#define TYPE_CTRL0_CLK_DIVISION_MASK           (0x7<<1)
-> +#define TYPE_CTRL0_FAN_TYPE_EN                 (1)
-> +
-> +
-> +/* AST_PTCR_TYPEM_CTRL1 : 0x14/0x1c/0x54 - Type M/N/O Ctrl 1 Register */
-> +#define TYPE_CTRL1_FALL_POINT                  (16)
-> +#define TYPE_CTRL1_FALL_POINT_MASK             (0xff << 16)
-> +#define TYPE_CTRL1_RISE_POINT                  (0)
-> +#define TYPE_CTRL1_RISE_POINT_MASK             (0xff)
-> +
-> +
-> +/* AST_PTCR_TACH_SOURCE : 0x20/0x60 - Tach Source Register
-> + * bit [0,1] at 0x20, bit [2] at 0x60
-> + */
-> +#define TACH_PWM_SOURCE_BIT01(x)               (x * 2)
-> +#define TACH_PWM_SOURCE_BIT2(x)                        (x * 2)
-> +#define TACH_PWM_SOURCE_MASK_BIT01(x)          (0x3 << (x * 2))
-> +#define TACH_PWM_SOURCE_MASK_BIT2(x)           (0x1 << (x * 2))
-> +
-> +/* AST_PTCR_TRIGGER : 0x28 - Trigger Register */
-> +#define TRIGGER_READ_FAN_NUM(x)                        (0x1 << x)
-> +
-> +/* AST_PTCR_RESULT : 0x2c - Result Register */
-> +#define RESULT_STATUS                          (31)
-> +#define RESULT_VALUE_MASK                      (0xfffff)
-> +
-> +/* AST_PTCR_INTR_CTRL : 0x30 - Interrupt Ctrl Register */
-> +#define INTR_CTRL_EN_NUM(x)                    (0x1 << x)
-> +
-> +/* AST_PTCR_INTR_STS : 0x34 - Interrupt Status Register        */
-> +#define INTR_CTRL_NUM(x)                       (0x1 << x)
-> +
-> +/* AST_PTCR_TYPEM_LIMIT, AST_PTCR_TYPEN_LIMIT,AST_PTCR_TYPEO_LIMIT:
-> + * 0x38/0x3C/0x78 - Type M / N / O Limit Register
-> + */
-> +#define FAN_LIMIT_MASK                         (0xfffff)
-> +
-> +/* AST_PTCR_CTRL_EXT : 0x40 - General Ctrl Extension #1 */
-> +#define AST_PTCR_CTRL_SET_PWMH_TYPE(x) \
-> +       ((x & 0x1) << 15 | (x & 0x2) << 6)
-> +#define AST_PTCR_CTRL_GET_PWMH_TYPE(x) \
-> +       (((x & (0x1 << 7))>>6) | ((x & (0x1 << 15)) >> 15))
-> +#define AST_PTCR_CTRL_SET_PWMH_TYPE_MASK       ((0x1 << 7) | (0x1 << 15))
-> +
-> +#define AST_PTCR_CTRL_SET_PWMG_TYPE(x) \
-> +       ((x & 0x1)<<14 | (x & 0x2) << 5)
-> +#define AST_PTCR_CTRL_GET_PWMG_TYPE(x) \
-> +       (((x & (0x1 << 6))>>5) | ((x & (0x1 << 14)) >> 14))
-> +#define AST_PTCR_CTRL_SET_PWMG_TYPE_MASK       ((0x1 << 6) | (0x1 << 14))
-> +
-> +#define AST_PTCR_CTRL_SET_PWMF_TYPE(x) \
-> +               ((x & 0x1) << 13 | (x & 0x2) << 4)
-> +#define AST_PTCR_CTRL_GET_PWMF_TYPE(x) \
-> +       (((x & (0x1 << 5)) >> 4) | ((x & (0x1 << 13)) >> 13))
-> +#define AST_PTCR_CTRL_SET_PWMF_TYPE_MASK       ((0x1 << 5) | (0x1 << 13))
-> +
-> +#define AST_PTCR_CTRL_SET_PWME_TYPE(x) \
-> +       ((x & 0x1) << 12 | (x & 0x2) << 3)
-> +#define AST_PTCR_CTRL_GET_PWME_TYPE(x) \
-> +       (((x & (0x1 << 4)) >> 3) | ((x & (0x1 << 12)) >> 12))
-> +#define AST_PTCR_CTRL_SET_PWME_TYPE_MASK       ((0x1 << 4) | (0x1 << 12))
-> +
-> +#define        AST_PTCR_CTRL_PMWH                      (11)
-> +#define        AST_PTCR_CTRL_PMWH_EN                   (0x1 << 11)
-> +#define        AST_PTCR_CTRL_PMWG                      (10)
-> +#define        AST_PTCR_CTRL_PMWG_EN                   (0x1 << 10)
-> +#define        AST_PTCR_CTRL_PMWF                      (9)
-> +#define        AST_PTCR_CTRL_PMWF_EN                   (0x1 << 9)
-> +#define        AST_PTCR_CTRL_PMWE                      (8)
-> +#define        AST_PTCR_CTRL_PMWE_EN                   (0x1 << 8)
-> +
-> +/* AST_PTCR_CLK_EXT_CTRL : 0x44 - Clock Control Extension #1 */
-> +/* TYPE O */
-> +#define AST_PTCR_CLK_CTRL_TYPEO_UNIT           (8)
-> +#define AST_PTCR_CLK_CTRL_TYPEO_UNIT_MASK      (0xff << 8)
-> +#define AST_PTCR_CLK_CTRL_TYPEO_H              (4)
-> +#define AST_PTCR_CLK_CTRL_TYPEO_H_MASK         (0xf << 4)
-> +#define AST_PTCR_CLK_CTRL_TYPEO_L              (0)
-> +#define AST_PTCR_CLK_CTRL_TYPEO_L_MASK         (0xf)
-> +
-> +/* AST_PTCR_DUTY2_CTRL : 0x48 - Duty Control 2 Register */
-> +#define DUTY_CTRL2_PWMF_FALL_POINT             (24)
-> +#define DUTY_CTRL2_PWMF_FALL_POINT_MASK                (0xff << 24)
-> +#define DUTY_CTRL2_PWMF_RISE_POINT             (16)
-> +#define DUTY_CTRL2_PWMF_RISE_POINT_MASK                (0xff << 16)
-> +#define DUTY_CTRL2_PWME_FALL_POINT             (8)
-> +#define DUTY_CTRL2_PWME_FALL_POINT_MASK                (0xff << 8)
-> +#define DUTY_CTRL2_PWME_RISE_POINT             (0)
-> +#define DUTY_CTRL2_PWME_RISE_POINT_MASK                (0xff)
-> +
-> +/* AST_PTCR_DUTY3_CTRL : 0x4c - Duty Control 3 Register */
-> +#define DUTY_CTRL3_PWMH_FALL_POINT             (24)
-> +#define DUTY_CTRL3_PWMH_FALL_POINT_MASK                (0xff << 24)
-> +#define DUTY_CTRL3_PWMH_RISE_POINT             (16)
-> +#define DUTY_CTRL3_PWMH_RISE_POINT_MASK                (0xff << 16)
-> +#define DUTY_CTRL3_PWMG_FALL_POINT             (8)
-> +#define DUTY_CTRL3_PWMG_FALL_POINT_MASK                (0xff << 8)
-> +#define DUTY_CTRL3_PWMG_RISE_POINT             (0)
-> +#define DUTY_CTRL3_PWMG_RISE_POINT_MASK                (0xff)
-> +
-> +struct aspeed_pwm_driver_data {
-> +       u32 (*get_pwm_clock)(void);
+> +struct timing_negotiation {
+> +       u8              msg_timing;
+> +       u8              addr_timing;
 > +};
 > +
-> +struct aspeed_pwm_tacho_data {
-> +       struct device                   *hwmon_dev;
-> +       void __iomem                    *reg_base;
-> +       int                             irq;
-> +       struct aspeed_pwm_driver_data   *aspeed_pwm_data;
-> +       const struct attribute_group    *groups[AST_PWM_GROUP_NUM + 1];
+> +struct xfer_msg {
+> +       u8              client_addr;
+> +       u8              tx_len;
+> +       u8              rx_len;
+> +       u8              tx_fcs;
+> +       u8              rx_fcs;
+> +       u8              fcs_en;
+> +       u8              sw_fcs;
+> +       u8              *tx_buf;
+> +       u8              *rx_buf;
+> +       u32             sts;
 > +};
 > +
-> +struct aspeed_pwm_tacho_data *aspeed_pwm_tacho;
+> +#define PECI_DEVICE "/dev/aspeed-peci"
+> +#define PECIIOC_BASE 'P'
+> +#define AST_PECI_IOCRTIMING _IOR(PECIIOC_BASE, 0, struct timing_negotiation*)
+> +#define AST_PECI_IOCWTIMING _IOW(PECIIOC_BASE, 1, struct timing_negotiation*)
+> +#define AST_PECI_IOCXFER _IOWR(PECIIOC_BASE, 2, struct xfer_msg*)
 > +
-> +static u8
-> +aspeed_get_pwm_type(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho, u8 pwm_ch);
-> +static u8
-> +aspeed_get_pwm_en(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho, u8 pwm_ch);
-> +static u8
-> +aspeed_get_tacho_type_division(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                              u8 pwm_type);
-> +static u16
-> +aspeed_get_tacho_type_unit(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                          u8 pwm_type);
-> +static u8
-> +aspeed_get_pwm_clock_div_h(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                          u8 pwm_type);
-> +static u8
-> +aspeed_get_pwm_clock_div_l(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                          u8 pwm_type);
-> +static u8
-> +aspeed_get_pwm_clock_unit(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                         u8 pwm_type);
-
-We don't need to forward declare static prototypes.
-
+> +static struct aspeed_peci_data {
+> +       struct device           *misc_dev;
+> +       void __iomem            *reg_base;
+> +       int                     irq;
+> +       int                     open_count;
+> +       struct completion       xfer_complete;
+> +       u32                     sts;
+> +       struct mutex            lock;
+> +} aspeed_peci;
 > +
-> +static inline void
-> +aspeed_pwm_tacho_write(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho, u32 val,
-> +                      u32 reg)
+> +static inline void aspeed_peci_write(u32 val, u32 reg)
 > +{
-> +       writel(val, aspeed_pwm_tacho->reg_base + reg);
+> +       dev_dbg(aspeed_peci.misc_dev, "write offset: %x, val: %x\n", reg, val);
+> +       writel(val, aspeed_peci.reg_base + reg);
 > +}
 > +
-> +static inline u32
-> +aspeed_pwm_tacho_read(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho, u32 reg)
+> +static inline u32 aspeed_peci_read(u32 reg)
 > +{
-> +       return readl(aspeed_pwm_tacho->reg_base + reg);
+> +       u32 val = readl(aspeed_peci.reg_base + reg);
+> +
+> +       dev_dbg(aspeed_peci.misc_dev, "read offset: %x, val: %x\n", reg, val);
+> +
+> +       return val;
 > +}
 > +
-> +/*
-> + * (1) The PWM base clock = 24Mhz / (Clock_Division_H D[7:4] in PTCR04 *
-> + *     Clock_Division_L D[3:0] in PTCR04)
-> + * (2) The frequency of PWM = The PWM base clock / (PWM period D[15:8] in
-> + *     PTCR04 + 1)
-> + * (3) If a plan to output 25Khz PWM frequency and 10% step of duty cycle,
-> + *     suggested to set 0x943 in PTCR04 register.
-> + * The PWM frequency = 24Mhz / (16 * 6 * (9 + 1)) = 25Khz
-> + * duty cycle settings in the PTCR08 register:
-> + * 0x1e786008 D[15:0] = 0x0900, duty = 90%
-> + * 0x1e786008 D[15:0] = 0x0902, duty = 70%
-> + * ...
-> + * 0x1e786008 D[15:0] = 0x0908, duty = 10%
-> + * 0x1e786008 D[15:0] = 0x0909, duty = 100%
-> + * 0x1e786008 D[15:0] = 0x0000, duty = 100%
-> + * (falling) - (rising+1) /unit
-> + */
-> +static void aspeed_pwm_taco_init(void)
+> +static long
+> +aspeed_peci_ioctl(struct file *fp, unsigned int cmd, unsigned long arg)
 > +{
-> +       /* Enable PWM TACH CLK
-> +        * Set M/N/O out is 25Khz
-> +        * The PWM frequency = 24Mhz / (16 * 6 * (9 + 1)) = 25Khz
-> +        */
-> +       aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x09430943,
-> +                              AST_PTCR_CLK_CTRL);
-
-This calculation needs to depend on the clock that is driving this
-periperhal. See the upstream Aspeed watchdog driver for how to do
-this.
-
-> +#ifdef PWM_TYPE_O
-
-Please no ifdefs. If it is a conditional feature, it must depend on a
-device tree property.
-
-> +       aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x0943,
-> +                              AST_PTCR_CLK_EXT_CTRL);
-> +#endif
-> +       /* FULL SPEED at initialize 100% pwm A~H */
-> +       aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x0, AST_PTCR_DUTY0_CTRL);
-> +       aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x0, AST_PTCR_DUTY1_CTRL);
-> +       aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x0, AST_PTCR_DUTY2_CTRL);
-> +       aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x0, AST_PTCR_DUTY3_CTRL);
+> +       void __user *argp = (void __user *)arg;
+> +       struct xfer_msg msg;
+> +       struct timing_negotiation tim_ng;
+> +       u32 peci_head;
+> +       int i = 0;
+> +       long ret = 0;
 > +
-> +       /* Set TACO M/N/O initial unit 0x1000, falling , divide 4 , Enable */
-> +       aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x10000001,
-> +                              AST_PTCR_TYPEM_CTRL0);
-> +       aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x10000001,
-> +                              AST_PTCR_TYPEN_CTRL0);
-> +#ifdef PWM_TYPE_O
-> +       aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x10000001,
-> +                              AST_PTCR_TYPEO_CTRL0);
-> +#endif
+> +       u32 *tx_buf0 = (u32 *) (aspeed_peci.reg_base + AST_PECI_W_DATA0);
+> +       u32 *tx_buf1 = (u32 *) (aspeed_peci.reg_base + AST_PECI_W_DATA4);
+> +       u32 *rx_buf0 = (u32 *) (aspeed_peci.reg_base + AST_PECI_R_DATA0);
+> +       u32 *rx_buf1 = (u32 *) (aspeed_peci.reg_base + AST_PECI_R_DATA4);
+> +       u32 rx_data = 0;
 > +
-> +       /* TACO measure period = 24000000 / 2 / 2 / 256 / 4096 / 1 (only enable
-> +        * 1 TACHO) = 5.72Hz, it means that software needs to wait at least 0.2
-> +        * sec to get refreshed TACO value. If you will enable more TACO or
-> +        * require faster response, you have to control the clock divisor and
-> +        * the period to be smaller.
-> +        *
-> +        * Full Range to do measure unit 0x1000
-> +        * PTCRM/N/O[3:1] = 0, Type M/N/O fan tach clock is div 4. -->
-> +        * calculate RPM.
-> +        */
-> +       aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x10000000,
-> +                              AST_PTCR_TYPEM_CTRL1);
-> +       aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x10000000,
-> +                              AST_PTCR_TYPEN_CTRL1);
-> +#ifdef PWM_TYPE_O
-> +       aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x10000000,
-> +                              AST_PTCR_TYPEO_CTRL1);
-> +#endif
+> +       dev_dbg(aspeed_peci.misc_dev, "aspeed_peci_ioctl cmd %x\n", cmd);
 > +
-> +       /* TACO Source Selection, PWMA for fan0~15 */
-> +       aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x0, AST_PTCR_TACH_SOURCE);
-> +       aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x0,
-> +                              AST_PTCR_TACH_SOURCE_EXT);
+> +       switch (cmd) {
+> +       case AST_PECI_IOCRTIMING:
+> +               tim_ng.msg_timing = PECI_TIMING_MESSAGE_GET(
+> +                                       aspeed_peci_read(AST_PECI_TIMING));
+> +               tim_ng.addr_timing = PECI_TIMING_ADDRESS_GET(
+> +                                       aspeed_peci_read(AST_PECI_TIMING));
+> +               if (copy_to_user(argp, &tim_ng,
+> +                                sizeof(struct timing_negotiation)))
+> +                       ret = -EFAULT;
+> +               break;
 > +
-> +       /* PWM A~D -> Disable , type M, Tacho 0~15 Disable, CLK source 24Mhz */
-> +#ifdef MCLK
-> +       aspeed_pwm_tacho_write(aspeed_pwm_tacho, AST_PTCR_CTRL_CLK_MCLK |
-> +                              AST_PTCR_CTRL_CLK_EN, AST_PTCR_CTRL);
-> +#else
-> +       aspeed_pwm_tacho_write(aspeed_pwm_tacho, AST_PTCR_CTRL_CLK_EN,
-> +                              AST_PTCR_CTRL);
-> +#endif
-> +}
-> +
-> +/* index 0 : clk_en , 1: clk_source */
-> +static ssize_t aspeed_store_clk(struct device *dev,
-> +                               struct device_attribute *attr,
-> +                               const char *buf, size_t count)
-> +{
-> +       unsigned long input_val;
-> +       struct sensor_device_attribute_2 *sensor_attr =
-> +                                               to_sensor_dev_attr_2(attr);
-> +       int ret;
-> +
-> +       ret = kstrtoul(buf, 10, &input_val);
-> +       if (ret)
-> +               return ret;
-> +
-> +       if ((input_val > 1) || (input_val < 0))
-> +               return -EINVAL;
-> +
-> +       switch (sensor_attr->nr) {
-> +       case 0: /* clk_en */
-> +               if (input_val)
-> +                       aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                               aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                       AST_PTCR_CTRL) | AST_PTCR_CTRL_CLK_EN,
-> +                                       AST_PTCR_CTRL);
+> +       case AST_PECI_IOCWTIMING:
+> +               if (copy_from_user(&tim_ng, argp,
+> +                                  sizeof(struct timing_negotiation)))
+> +                       ret = -EFAULT;
 > +               else
-> +                       aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                                       aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                       AST_PTCR_CTRL) & ~AST_PTCR_CTRL_CLK_EN,
-> +                                       AST_PTCR_CTRL);
-> +               break;
-> +
-> +       case 1: /* clk_source */
-> +               if (input_val)
-> +                       aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                               aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                       AST_PTCR_CTRL) |
-> +                                       AST_PTCR_CTRL_CLK_MCLK,
-> +                                       AST_PTCR_CTRL);
-> +               else
-> +                       aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                                       aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                       AST_PTCR_CTRL) &
-> +                                       ~AST_PTCR_CTRL_CLK_MCLK,
-> +                                       AST_PTCR_CTRL);
-> +               break;
-> +
-> +       default:
-> +               return -EINVAL;
-> +       }
-> +
-> +       return count;
-> +
-> +}
-> +
-> +
-> +static ssize_t aspeed_show_clk(struct device *dev,
-> +                              struct device_attribute *attr, char *buf)
-> +{
-> +       struct sensor_device_attribute_2 *sensor_attr =
-> +                                               to_sensor_dev_attr_2(attr);
-> +
-> +       switch (sensor_attr->nr)         {
-> +       case 0: /* clk_en */
-> +               if (AST_PTCR_CTRL_CLK_EN &
-> +                   aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL))
-> +                       return sprintf(buf, "1: Enable\n");
-> +               else
-> +                       return sprintf(buf, "0: Disable\n");
-> +               break;
-> +
-> +       case 1: /* clk_source */
-> +               if (AST_PTCR_CTRL_CLK_MCLK &
-> +                   aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL))
-> +                       return sprintf(buf, "1: MCLK\n");
-> +               else
-> +                       return sprintf(buf, "0: 24Mhz\n");
-> +
-> +               break;
-> +
-> +       default:
-> +               return sprintf(buf, "error CLK Index\n");
-> +       }
-> +}
-> +
-> +static u32
-> +aspeed_get_tacho_measure_period(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                               u8 pwm_type)
-> +{
-> +       u32 clk, clk_unit, div_h, div_l, tacho_unit, tacho_div;
-> +
-> +       if (AST_PTCR_CTRL_CLK_MCLK & aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                                          AST_PTCR_CTRL))
-> +               clk = aspeed_pwm_tacho->aspeed_pwm_data->get_pwm_clock();
-> +       else
-> +               clk = 24 * 1000 * 1000;
-> +
-> +       clk_unit = aspeed_get_pwm_clock_unit(aspeed_pwm_tacho, pwm_type);
-> +       div_h = aspeed_get_pwm_clock_div_h(aspeed_pwm_tacho, pwm_type);
-> +       div_h = 0x1 << div_h;
-> +       div_l = aspeed_get_pwm_clock_div_l(aspeed_pwm_tacho, pwm_type);
-> +       if (div_l == 0)
-> +               div_l = 1;
-> +       else
-> +               div_l = div_l * 2;
-> +
-> +       tacho_unit = aspeed_get_tacho_type_unit(aspeed_pwm_tacho, pwm_type);
-> +       tacho_div = aspeed_get_tacho_type_division(aspeed_pwm_tacho, pwm_type);
-> +
-> +       tacho_div = 0x4 << (tacho_div * 2);
-> +
-> +       return clk/(clk_unit * div_h * div_l * tacho_div * tacho_unit);
-> +}
-> +
-> +static u8
-> +aspeed_get_tacho_type_division(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                              u8 pwm_type)
-> +{
-> +       u32 tmp = 0;
-> +
-> +       switch (pwm_type) {
-> +       case PWM_TYPE_M:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_TYPEM_CTRL0);
-> +               break;
-> +
-> +       case PWM_TYPE_N:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_TYPEN_CTRL0);
-> +               break;
-> +
-> +#ifdef PWM_TYPE_O
-> +       case PWM_TYPE_O:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_TYPEO_CTRL0);
-> +               break;
-> +
-> +#endif
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
-> +               break;
-> +
-> +       }
-> +
-> +       return ((tmp & TYPE_CTRL0_CLK_DIVISION_MASK) >>
-> +               TYPE_CTRL0_CLK_DIVISION);
-> +}
-> +
-> +static void
-> +aspeed_set_tacho_type_division(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                              u8 pwm_type, u32 division)
-> +{
-> +       u32 tmp = 0;
-> +
-> +       if (division > 0x7)
-> +               return;
-> +
-> +       switch (pwm_type) {
-> +       case PWM_TYPE_M:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_TYPEM_CTRL0);
-> +               break;
-> +
-> +       case PWM_TYPE_N:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_TYPEN_CTRL0);
-> +               break;
-> +
-> +#ifdef PWM_TYPE_O
-> +       case PWM_TYPE_O:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_TYPEO_CTRL0);
-> +               break;
-> +#endif
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
-> +               break;
-> +       }
-> +
-> +       tmp &= ~TYPE_CTRL0_CLK_DIVISION_MASK;
-> +       tmp |= (division << TYPE_CTRL0_CLK_DIVISION);
-> +
-> +       switch (pwm_type) {
-> +       case PWM_TYPE_M:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_TYPEM_CTRL0);
-> +               break;
-> +       case PWM_TYPE_N:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_TYPEN_CTRL0);
-> +               break;
-> +#ifdef PWM_TYPE_O
-> +       case PWM_TYPE_O:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_TYPEO_CTRL0);
-> +               break;
-> +#endif
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
-> +               break;
-> +       }
-> +}
-> +
-> +static u16
-> +aspeed_get_tacho_type_unit(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                          u8 pwm_type)
-> +{
-> +       u32 tmp = 0;
-> +
-> +       switch (pwm_type) {
-> +       case PWM_TYPE_M:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_TYPEM_CTRL0);
-> +               break;
-> +       case PWM_TYPE_N:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_TYPEN_CTRL0);
-> +               break;
-> +#ifdef PWM_TYPE_O
-> +       case PWM_TYPE_O:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_TYPEO_CTRL0);
-> +               break;
-> +#endif
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
-> +               break;
-> +       }
-> +
-> +       return ((tmp & TYPE_CTRL0_FAN_PERIOD_MASK) >> TYPE_CTRL0_FAN_PERIOD);
-> +}
-> +
-> +static void
-> +aspeed_set_tacho_type_unit(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                          u8 pwm_type, u32 unit)
-> +{
-> +       u32 tmp = 0;
-> +
-> +       if (unit > 0xffff)
-> +               return;
-> +
-> +       switch (pwm_type) {
-> +       case PWM_TYPE_M:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_TYPEM_CTRL0);
-> +               break;
-> +       case PWM_TYPE_N:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_TYPEN_CTRL0);
-> +               break;
-> +#ifdef PWM_TYPE_O
-> +       case PWM_TYPE_O:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_TYPEO_CTRL0);
-> +               break;
-> +#endif
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
-> +               break;
-> +       }
-> +
-> +       tmp &= ~TYPE_CTRL0_FAN_PERIOD_MASK;
-> +       tmp |= (unit << TYPE_CTRL0_FAN_PERIOD);
-> +
-> +       switch (pwm_type) {
-> +       case PWM_TYPE_M:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_TYPEM_CTRL0);
-> +               break;
-> +
-> +       case PWM_TYPE_N:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_TYPEN_CTRL0);
-> +               break;
-> +
-> +#ifdef PWM_TYPE_O
-> +       case PWM_TYPE_O:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_TYPEO_CTRL0);
-> +               break;
-> +#endif
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
-> +               break;
-> +       }
-> +}
-> +
-> +static u32
-> +aspeed_get_tacho_type_mode(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                          u8 pwm_type)
-> +{
-> +       u32 tmp = 0;
-> +
-> +       switch (pwm_type) {
-> +       case PWM_TYPE_M:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_TYPEM_CTRL0);
-> +               break;
-> +       case PWM_TYPE_N:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_TYPEN_CTRL0);
-> +               break;
-> +#ifdef PWM_TYPE_O
-> +       case PWM_TYPE_O:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_TYPEO_CTRL0);
-> +               break;
-> +#endif
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
-> +               break;
-> +       }
-> +
-> +       return ((tmp & TYPE_CTRL0_FAN_MODE_MASK) >> TYPE_CTRL0_FAN_MODE);
-> +}
-> +
-> +static void
-> +aspeed_set_tacho_type_mode(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                          u8 pwm_type, u32 mode)
-> +{
-> +       u32 tmp = 0;
-> +
-> +       if (mode > 0x2)
-> +               return;
-> +
-> +       switch (pwm_type) {
-> +       case PWM_TYPE_M:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_TYPEM_CTRL0);
-> +               break;
-> +
-> +       case PWM_TYPE_N:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_TYPEN_CTRL0);
-> +               break;
-> +
-> +#ifdef PWM_TYPE_O
-> +       case PWM_TYPE_O:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_TYPEO_CTRL0);
-> +               break;
-> +
-> +#endif
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
-> +               break;
-> +       }
-> +
-> +       tmp &= ~TYPE_CTRL0_FAN_MODE_MASK;
-> +       tmp |= (mode << TYPE_CTRL0_FAN_MODE);
-> +
-> +       switch (pwm_type) {
-> +       case PWM_TYPE_M:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_TYPEM_CTRL0);
-> +               break;
-> +
-> +       case PWM_TYPE_N:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_TYPEN_CTRL0);
-> +               break;
-> +
-> +#ifdef PWM_TYPE_O
-> +       case PWM_TYPE_O:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_TYPEO_CTRL0);
-> +               break;
-> +#endif
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
-> +               break;
-> +       }
-> +
-> +}
-> +
-> +static u8
-> +aspeed_get_tacho_type_en(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                        u8 pwm_type)
-> +{
-> +       u8 tmp = 0;
-> +
-> +       switch (pwm_type) {
-> +       case PWM_TYPE_M:
-> +               tmp = (TYPE_CTRL0_FAN_TYPE_EN &
-> +                      aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                            AST_PTCR_TYPEM_CTRL0));
-> +               break;
-> +
-> +       case PWM_TYPE_N:
-> +               tmp = (TYPE_CTRL0_FAN_TYPE_EN &
-> +                     aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_TYPEN_CTRL0));
-> +               break;
-> +
-> +#ifdef PWM_TYPE_O
-> +       case PWM_TYPE_O:
-> +               tmp = (TYPE_CTRL0_FAN_TYPE_EN &
-> +                     aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                     AST_PTCR_TYPEO_CTRL0));
-> +               break;
-> +#endif
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
-> +               break;
-> +       }
-> +
-> +       return tmp;
-> +}
-> +
-> +static void
-> +aspeed_set_tacho_type_en(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                        u8 pwm_type, u32 enable)
-> +{
-> +       switch (pwm_type) {
-> +       case PWM_TYPE_M:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                                      aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                             AST_PTCR_TYPEM_CTRL0) | enable,
-> +                       AST_PTCR_TYPEM_CTRL0);
-> +
-> +               break;
-> +       case PWM_TYPE_N:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +               aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_TYPEN_CTRL0)
-> +               | enable, AST_PTCR_TYPEN_CTRL0);
-> +
-> +               break;
-> +#ifdef PWM_TYPE_O
-> +       case PWM_TYPE_O:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +               aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_TYPEO_CTRL0) |
-> +                                     enable, AST_PTCR_TYPEO_CTRL0);
-> +
-> +               break;
-> +#endif
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
-> +               break;
-> +       }
-> +}
-> +
-> +static u32
-> +aspeed_get_tacho_type_limit(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                           u8 pwm_type)
-> +{
-> +       switch (pwm_type) {
-> +       case PWM_TYPE_M:
-> +               return (FAN_LIMIT_MASK &
-> +                       aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                             AST_PTCR_TYPEM_LIMIT));
-> +
-> +       case PWM_TYPE_N:
-> +               return (FAN_LIMIT_MASK &
-> +                       aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                             AST_PTCR_TYPEN_LIMIT));
-> +
-> +#ifdef PWM_TYPE_O
-> +       case PWM_TYPE_O:
-> +               return (FAN_LIMIT_MASK &
-> +                       aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                             AST_PTCR_TYPEO_LIMIT));
-> +
-> +#endif
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
-> +               break;
-> +       }
-> +       return 0;
-> +}
-> +
-> +static void
-> +aspeed_set_tacho_type_limit(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                           u8 pwm_type, u32 limit)
-> +{
-> +       if (limit > FAN_LIMIT_MASK)
-> +               return;
-> +
-> +       switch (pwm_type) {
-> +       case PWM_TYPE_M:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, limit,
-> +                                      AST_PTCR_TYPEM_LIMIT);
-> +               break;
-> +       case PWM_TYPE_N:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, limit,
-> +                                      AST_PTCR_TYPEN_LIMIT);
-> +               break;
-> +#ifdef PWM_TYPE_O
-> +       case PWM_TYPE_O:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, limit,
-> +                                      AST_PTCR_TYPEO_LIMIT);
-> +               break;
-> +#endif
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error type\n");
-> +               break;
-> +       }
-> +}
-> +
-> +static u8
-> +aspeed_get_tacho_alarm_en(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                         u8 tacho_ch)
-> +{
-> +       /* tacho source */
-> +       if (aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_INTR_CTRL) &
-> +                                 INTR_CTRL_EN_NUM(tacho_ch))
-> +               return 1;
-> +
-> +       return 0;
-> +}
-> +
-> +static void
-> +aspeed_set_tacho_alarm_en(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                         u8 tacho_ch, u8 enable)
-> +{
-> +       /* tacho source  */
-> +       if (enable == 1)
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                       aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                             AST_PTCR_INTR_CTRL) |
-> +                       INTR_CTRL_EN_NUM(tacho_ch), AST_PTCR_INTR_CTRL);
-> +       else
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                       aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                             AST_PTCR_INTR_CTRL) &
-> +                       ~(INTR_CTRL_EN_NUM(tacho_ch)), AST_PTCR_INTR_CTRL);
-> +}
-> +
-> +static u8
-> +aspeed_get_tacho_alarm(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                      u8 tacho_ch)
-> +{
-> +       /* tacho source */
-> +       if (aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_INTR_STS) &
-> +                                 INTR_CTRL_NUM(tacho_ch))
-> +               return 1;
-> +
-> +       return 0;
-> +}
-> +
-> +static u8
-> +aspeed_get_tacho_en(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho, u8 tacho_ch)
-> +{
-> +       if (aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL) &
-> +                                 AST_PTCR_CTRL_FAN_NUM_EN(tacho_ch))
-> +               return 1;
-> +
-> +       return 0;
-> +}
-> +
-> +static void
-> +aspeed_set_tacho_en(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                   u8 tacho_ch, u8 enable)
-> +{
-> +       /* tacho number enable */
-> +       if (enable)
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                       aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL) |
-> +                       AST_PTCR_CTRL_FAN_NUM_EN(tacho_ch), AST_PTCR_CTRL);
-> +       else
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                       aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL) &
-> +                       ~(AST_PTCR_CTRL_FAN_NUM_EN(tacho_ch)), AST_PTCR_CTRL);
-> +}
-> +
-> +static u8
-> +aspeed_get_tacho_source(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                       u8 tacho_ch)
-> +{
-> +       u32 tmp1, tmp2;
-> +
-> +       /* tacho source */
-> +       tmp1 = aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_TACH_SOURCE);
-> +       tmp1 &= TACH_PWM_SOURCE_MASK_BIT01(tacho_ch);
-> +       tmp1 = tmp1 >> (TACH_PWM_SOURCE_BIT01(tacho_ch));
-> +       tmp2 = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                    AST_PTCR_TACH_SOURCE_EXT);
-> +       tmp2 &= TACH_PWM_SOURCE_MASK_BIT2(tacho_ch);
-> +       tmp2 = tmp2 >> (TACH_PWM_SOURCE_BIT2(tacho_ch));
-> +       tmp2 = tmp2 << 2;
-> +
-> +       return (tmp2 | tmp1);
-> +}
-> +
-> +static void
-> +aspeed_set_tacho_source(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                       u8 tacho_ch, u8 tacho_source)
-> +{
-> +       u32 tmp1, tmp2;
-> +
-> +       if (tacho_source > 7)
-> +               return;
-> +
-> +       /* tacho source */
-> +       tmp1 = aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_TACH_SOURCE);
-> +       tmp1 &= ~(TACH_PWM_SOURCE_MASK_BIT01(tacho_ch));
-> +       tmp1 |= ((tacho_source & 0x3) << (TACH_PWM_SOURCE_BIT01(tacho_ch)));
-> +
-> +       tmp2 = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                    AST_PTCR_TACH_SOURCE_EXT);
-> +       tmp2 &= ~(TACH_PWM_SOURCE_MASK_BIT2(tacho_ch));
-> +       tmp2 |= (((tacho_source & 0x4) >> 2) <<
-> +               (TACH_PWM_SOURCE_BIT2(tacho_ch)));
-> +
-> +       aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp1, AST_PTCR_TACH_SOURCE);
-> +       aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp2,
-> +                              AST_PTCR_TACH_SOURCE_EXT);
-> +
-> +}
-> +
-> +static u32
-> +aspeed_get_tacho_rpm(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                    u8 tacho_ch)
-> +{
-> +       u32 raw_data, rpm, tacho_clk_div, clk_source, timeout = 0;
-> +       u8 tacho_source, pwm_type, tacho_type_en;
-> +
-> +       if (!(aspeed_get_tacho_en(aspeed_pwm_tacho, tacho_ch)))
-> +               return 0;
-> +
-> +       aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0, AST_PTCR_TRIGGER);
-> +       aspeed_pwm_tacho_write(aspeed_pwm_tacho, 0x1 << tacho_ch,
-> +                              AST_PTCR_TRIGGER);
-> +
-> +       tacho_source = aspeed_get_tacho_source(aspeed_pwm_tacho, tacho_ch);
-> +       pwm_type = aspeed_get_pwm_type(aspeed_pwm_tacho, tacho_source);
-> +       tacho_type_en = aspeed_get_tacho_type_en(aspeed_pwm_tacho, pwm_type);
-> +
-> +       /* check pwm_type and get clock division */
-> +       if (!tacho_type_en)
-> +               return 0;
-> +
-> +       /* Wait ready */
-> +       while (!(aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_RESULT) &
-> +               (0x1 << RESULT_STATUS))) {
-> +               timeout++;
-> +               if (timeout > 25)
-> +                       return 0;
-> +       };
-> +
-> +       raw_data = aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_RESULT) &
-> +                  RESULT_VALUE_MASK;
-> +       tacho_clk_div = aspeed_get_tacho_type_division(aspeed_pwm_tacho,
-> +                                                      pwm_type);
-> +
-> +       tacho_clk_div = 0x4 << (tacho_clk_div*2);
-> +
-> +       if (AST_PTCR_CTRL_CLK_MCLK & aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                                          AST_PTCR_CTRL))
-> +               clk_source = 166 * 1000 * 1000;
-> +       else
-> +               clk_source = 24 * 1000 * 1000;
-> +
-> +       rpm = (clk_source * 60) / (2 * raw_data * tacho_clk_div);
-> +
-> +       return rpm;
-> +}
-> +
-> +static u8
-> +aspeed_get_pwm_clock_div_h(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                          u8 pwm_type)
-> +{
-> +       u8 tmp = 0;
-> +
-> +       switch (pwm_type) {
-> +       case PWM_TYPE_M:
-> +               tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                            AST_PTCR_CLK_CTRL) &
-> +                     AST_PTCR_CLK_CTRL_TYPEM_H_MASK) >>
-> +                     AST_PTCR_CLK_CTRL_TYPEM_H;
-> +               break;
-> +
-> +       case PWM_TYPE_N:
-> +               tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                            AST_PTCR_CLK_CTRL) &
-> +                      AST_PTCR_CLK_CTRL_TYPEN_H_MASK) >>
-> +                      AST_PTCR_CLK_CTRL_TYPEN_H;
-> +               break;
-> +
-> +#ifdef PWM_TYPE_O
-> +       case PWM_TYPE_O:
-> +               tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                            AST_PTCR_CLK_EXT_CTRL) &
-> +                      AST_PTCR_CLK_CTRL_TYPEO_H_MASK) >>
-> +                      AST_PTCR_CLK_CTRL_TYPEO_H;
-> +               break;
-> +#endif
-> +
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error channel aspeed_get_pwm_clock_div_h %d\n",
-> +                       pwm_type);
-> +               break;
-> +       }
-> +       return tmp;
-> +}
-> +
-> +static void
-> +aspeed_set_pwm_clock_division_h(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                               u8 pwm_type, u8 div_high)
-> +{
-> +       if (div_high > 0xf)
-> +               return;
-> +
-> +       switch (pwm_type) {
-> +       case PWM_TYPE_M:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +               (aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CLK_CTRL) &
-> +               ~AST_PTCR_CLK_CTRL_TYPEM_H_MASK) |
-> +               (div_high << AST_PTCR_CLK_CTRL_TYPEM_H), AST_PTCR_CLK_CTRL);
-> +               break;
-> +
-> +       case PWM_TYPE_N:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +               (aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CLK_CTRL) &
-> +               ~AST_PTCR_CLK_CTRL_TYPEN_H_MASK) |
-> +               (div_high << AST_PTCR_CLK_CTRL_TYPEN_H), AST_PTCR_CLK_CTRL);
-> +               break;
-> +
-> +#ifdef PWM_TYPE_O
-> +       case PWM_TYPE_O:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +               (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                      AST_PTCR_CLK_EXT_CTRL) &
-> +               ~AST_PTCR_CLK_CTRL_TYPEO_H_MASK) |
-> +               (div_high << AST_PTCR_CLK_CTRL_TYPEO_H),
-> +               AST_PTCR_CLK_EXT_CTRL);
-> +               break;
-> +#endif
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error channel aspeed_get_pwm_type %d\n",
-> +                       pwm_type);
-> +               break;
-> +       }
-> +
-> +}
-> +
-> +static u8
-> +aspeed_get_pwm_clock_div_l(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                          u8 pwm_type)
-> +{
-> +       u8 tmp = 0;
-> +
-> +       switch (pwm_type) {
-> +       case PWM_TYPE_M:
-> +               tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                            AST_PTCR_CLK_CTRL) &
-> +                     AST_PTCR_CLK_CTRL_TYPEM_L_MASK) >>
-> +                     AST_PTCR_CLK_CTRL_TYPEM_L;
-> +               break;
-> +
-> +       case PWM_TYPE_N:
-> +               tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                            AST_PTCR_CLK_CTRL) &
-> +                     AST_PTCR_CLK_CTRL_TYPEN_L_MASK) >>
-> +                     AST_PTCR_CLK_CTRL_TYPEN_L;
-> +               break;
-> +
-> +#ifdef PWM_TYPE_O
-> +       case PWM_TYPE_O:
-> +               tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                            AST_PTCR_CLK_EXT_CTRL) &
-> +                      AST_PTCR_CLK_CTRL_TYPEO_L_MASK) >>
-> +                      AST_PTCR_CLK_CTRL_TYPEO_L;
-> +               break;
-> +
-> +#endif
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error channel aspeed_get_pwm_clock_div_l %d\n",
-> +                       pwm_type);
-> +               break;
-> +       }
-> +       return tmp;
-> +}
-> +
-> +static void
-> +aspeed_set_pwm_clock_division_l(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                               u8 pwm_type, u8 div_low)
-> +{
-> +       if (div_low > 0xf)
-> +               return;
-> +
-> +       switch (pwm_type) {
-> +       case PWM_TYPE_M:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +               (aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CLK_CTRL) &
-> +               ~AST_PTCR_CLK_CTRL_TYPEM_L_MASK) |
-> +               (div_low << AST_PTCR_CLK_CTRL_TYPEM_L), AST_PTCR_CLK_CTRL);
-> +               break;
-> +
-> +       case PWM_TYPE_N:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +               (aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CLK_CTRL) &
-> +               ~AST_PTCR_CLK_CTRL_TYPEN_L_MASK) |
-> +               (div_low << AST_PTCR_CLK_CTRL_TYPEN_L), AST_PTCR_CLK_CTRL);
-> +               break;
-> +
-> +#ifdef PWM_TYPE_O
-> +       case PWM_TYPE_O:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +               (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                      AST_PTCR_CLK_EXT_CTRL) &
-> +               ~AST_PTCR_CLK_CTRL_TYPEO_L_MASK) |
-> +               (div_low << AST_PTCR_CLK_CTRL_TYPEO_L), AST_PTCR_CLK_EXT_CTRL);
-> +               break;
-> +#endif
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error channel aspeed_get_pwm_type %d\n",
-> +                       pwm_type);
-> +               break;
-> +       }
-> +}
-> +
-> +static u8
-> +aspeed_get_pwm_clock_unit(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                         u8 pwm_type)
-> +{
-> +       u8 tmp = 0;
-> +
-> +       switch (pwm_type) {
-> +       case PWM_TYPE_M:
-> +               tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                            AST_PTCR_CLK_CTRL) &
-> +                     AST_PTCR_CLK_CTRL_TYPEM_UNIT_MASK) >>
-> +                     AST_PTCR_CLK_CTRL_TYPEM_UNIT;
-> +               break;
-> +
-> +       case PWM_TYPE_N:
-> +               tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                            AST_PTCR_CLK_CTRL) &
-> +                     AST_PTCR_CLK_CTRL_TYPEN_UNIT_MASK) >>
-> +                     AST_PTCR_CLK_CTRL_TYPEN_UNIT;
-> +               break;
-> +
-> +#ifdef PWM_TYPE_O
-> +       case PWM_TYPE_O:
-> +               tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                            AST_PTCR_CLK_EXT_CTRL) &
-> +                      AST_PTCR_CLK_CTRL_TYPEO_UNIT_MASK) >>
-> +                      AST_PTCR_CLK_CTRL_TYPEO_UNIT;
-> +               break;
-> +
-> +#endif
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error channel aspeed_get_pwm_clock_unit %d\n",
-> +                       pwm_type);
-> +               break;
-> +       }
-> +
-> +       return tmp;
-> +}
-> +
-> +static void
-> +aspeed_set_pwm_clock_unit(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                         u8 pwm_type, u8 unit)
-> +{
-> +       if (unit > 0xff)
-> +               return;
-> +
-> +       switch (pwm_type) {
-> +       case PWM_TYPE_M:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +               (aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CLK_CTRL) &
-> +               ~AST_PTCR_CLK_CTRL_TYPEM_UNIT_MASK) |
-> +               (unit << AST_PTCR_CLK_CTRL_TYPEM_UNIT),
-> +               AST_PTCR_CLK_CTRL);
-> +               break;
-> +
-> +       case PWM_TYPE_N:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +               (aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CLK_CTRL) &
-> +               ~AST_PTCR_CLK_CTRL_TYPEN_UNIT_MASK) |
-> +               (unit << AST_PTCR_CLK_CTRL_TYPEN_UNIT),
-> +               AST_PTCR_CLK_CTRL);
-> +               break;
-> +
-> +#ifdef PWM_TYPE_O
-> +       case PWM_TYPE_O:
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +               (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +               AST_PTCR_CLK_EXT_CTRL) &
-> +               ~AST_PTCR_CLK_CTRL_TYPEO_UNIT_MASK) |
-> +               (unit << AST_PTCR_CLK_CTRL_TYPEO_UNIT),
-> +               AST_PTCR_CLK_EXT_CTRL);
-> +               break;
+> +                       aspeed_peci_write(
+> +                               PECI_TIMING_MESSAGE(tim_ng.msg_timing) |
+> +                               PECI_TIMING_ADDRESS(tim_ng.addr_timing),
+> +                               AST_PECI_TIMING);
 > +
-> +#endif
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error channel aspeed_get_pwm_type %d\n",
-> +                       pwm_type);
 > +               break;
-> +       }
-> +}
-> +
-> +static u32
-> +aspeed_get_pwm_clock(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                    u8 pwm_type)
-> +{
-> +       u32 unit, div_low, div_high, clk_source;
-> +
-> +       unit = aspeed_get_pwm_clock_unit(aspeed_pwm_tacho, pwm_type);
-> +
-> +       div_high = aspeed_get_pwm_clock_div_h(aspeed_pwm_tacho, pwm_type);
-> +       div_high = (0x1 << div_high);
-> +
-> +       div_low = aspeed_get_pwm_clock_div_l(aspeed_pwm_tacho, pwm_type);
-> +       if (div_low == 0)
-> +               div_low = 1;
-> +       else
-> +               div_low = div_low*2;
-> +
-> +       if (AST_PTCR_CTRL_CLK_MCLK & aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +           AST_PTCR_CTRL))
-> +               clk_source = aspeed_pwm_tacho->aspeed_pwm_data->get_pwm_clock();
-> +       else
-> +               clk_source = 24 * 1000 * 1000;
-> +
-> +       return (clk_source / (div_high * div_low * (unit + 1)));
-> +}
-> +
-> +static u8
-> +aspeed_get_pwm_en(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho, u8 pwm_ch)
-> +{
-> +       u8 tmp = 0;
-> +
-> +       switch (pwm_ch) {
-> +       case PWMA:
-> +               tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL) &
-> +                     AST_PTCR_CTRL_PMWA_EN) >> AST_PTCR_CTRL_PMWA;
-> +               break;
-> +
-> +       case PWMB:
-> +               tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL) &
-> +                     AST_PTCR_CTRL_PMWB_EN) >> AST_PTCR_CTRL_PMWB;
-> +               break;
-> +
-> +       case PWMC:
-> +               tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL) &
-> +                     AST_PTCR_CTRL_PMWC_EN) >> AST_PTCR_CTRL_PMWC;
-> +               break;
-> +
-> +       case PWMD:
-> +               tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL) &
-> +                     AST_PTCR_CTRL_PMWD_EN) >> AST_PTCR_CTRL_PMWD;
-> +               break;
-> +
-> +       case PWME:
-> +               tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                            AST_PTCR_CTRL_EXT) &
-> +                     AST_PTCR_CTRL_PMWE_EN) >> AST_PTCR_CTRL_PMWE;
-> +               break;
-> +
-> +       case PWMF:
-> +               tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                            AST_PTCR_CTRL_EXT) &
-> +                     AST_PTCR_CTRL_PMWF_EN) >> AST_PTCR_CTRL_PMWF;
-> +               break;
-> +
-> +       case PWMG:
-> +               tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                            AST_PTCR_CTRL_EXT) &
-> +                     AST_PTCR_CTRL_PMWG_EN) >> AST_PTCR_CTRL_PMWG;
-> +               break;
-> +
-> +       case PWMH:
-> +               tmp = (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                            AST_PTCR_CTRL_EXT) &
-> +                     AST_PTCR_CTRL_PMWH_EN) >> AST_PTCR_CTRL_PMWH;
-> +               break;
-> +
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error channel aspeed_get_pwm_type %d\n",
-> +                       pwm_ch);
-> +               break;
-> +       }
-> +
-> +       return tmp;
-> +
-> +}
-> +
-> +static void
-> +aspeed_set_pwm_en(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho, u8 pwm_ch,
-> +                 u8 enable)
-> +{
-> +       switch (pwm_ch) {
-> +       case PWMA:
-> +               if (enable)
-> +                       aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                               aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                                    AST_PTCR_CTRL) |
-> +                               AST_PTCR_CTRL_PMWA_EN, AST_PTCR_CTRL);
-> +               else
-> +                       aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                               aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                                     AST_PTCR_CTRL) &
-> +                               ~AST_PTCR_CTRL_PMWA_EN, AST_PTCR_CTRL);
-> +
-> +               break;
-> +
-> +       case PWMB:
-> +               if (enable)
-> +                       aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                               (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                                      AST_PTCR_CTRL) |
-> +                               AST_PTCR_CTRL_PMWB_EN), AST_PTCR_CTRL);
-> +               else
-> +                       aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                               (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                                      AST_PTCR_CTRL) &
-> +                               ~AST_PTCR_CTRL_PMWB_EN), AST_PTCR_CTRL);
-> +               break;
-> +
-> +       case PWMC:
-> +               if (enable)
-> +                       aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                               (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                                      AST_PTCR_CTRL) |
-> +                               AST_PTCR_CTRL_PMWC_EN), AST_PTCR_CTRL);
-> +               else
-> +                       aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                               (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                                      AST_PTCR_CTRL) &
-> +                               ~AST_PTCR_CTRL_PMWC_EN), AST_PTCR_CTRL);
-> +
-> +               break;
-> +
-> +       case PWMD:
-> +               if (enable)
-> +                       aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                               (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                                      AST_PTCR_CTRL) |
-> +                               AST_PTCR_CTRL_PMWD_EN), AST_PTCR_CTRL);
-> +               else
-> +                       aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                               (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                                      AST_PTCR_CTRL) &
-> +                               ~AST_PTCR_CTRL_PMWD_EN), AST_PTCR_CTRL);
-> +
-> +               break;
-> +
-> +       case PWME:
-> +               if (enable)
-> +                       aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                               (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                                      AST_PTCR_CTRL_EXT) |
-> +                               AST_PTCR_CTRL_PMWE_EN), AST_PTCR_CTRL_EXT);
-> +               else
-> +                       aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                               (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                                      AST_PTCR_CTRL_EXT) &
-> +                               ~AST_PTCR_CTRL_PMWE_EN), AST_PTCR_CTRL_EXT);
-> +
-> +               break;
-> +
-> +       case PWMF:
-> +               if (enable)
-> +                       aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                               (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                                      AST_PTCR_CTRL_EXT) |
-> +                               AST_PTCR_CTRL_PMWF_EN), AST_PTCR_CTRL_EXT);
-> +               else
-> +                       aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                               (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                                      AST_PTCR_CTRL_EXT) &
-> +                               ~AST_PTCR_CTRL_PMWF_EN), AST_PTCR_CTRL_EXT);
-> +
-> +               break;
-> +
-> +       case PWMG:
-> +               if (enable)
-> +                       aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                               (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                                      AST_PTCR_CTRL_EXT) |
-> +                               AST_PTCR_CTRL_PMWG_EN), AST_PTCR_CTRL_EXT);
-> +               else
-> +                       aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                               (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                                      AST_PTCR_CTRL_EXT) &
-> +                               ~AST_PTCR_CTRL_PMWG_EN), AST_PTCR_CTRL_EXT);
-> +
-> +               break;
-> +
-> +       case PWMH:
-> +               if (enable)
-> +                       aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                               (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                                      AST_PTCR_CTRL_EXT) |
-> +                               AST_PTCR_CTRL_PMWH_EN), AST_PTCR_CTRL_EXT);
-> +               else
-> +                       aspeed_pwm_tacho_write(aspeed_pwm_tacho,
-> +                               (aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                                      AST_PTCR_CTRL_EXT) &
-> +                               ~AST_PTCR_CTRL_PMWH_EN), AST_PTCR_CTRL_EXT);
-> +
-> +               break;
-> +
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error channel aspeed_get_pwm_type %d\n",
-> +                       pwm_ch);
-> +               break;
-> +       }
-> +}
-> +
-> +static u8
-> +aspeed_get_pwm_type(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho, u8 pwm_ch)
-> +{
-> +       u8 tmp = 0;
-> +
-> +       switch (pwm_ch) {
-> +       case PWMA:
-> +               tmp = AST_PTCR_CTRL_GET_PWMA_TYPE(
-> +                       aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                       AST_PTCR_CTRL));
-> +               break;
-> +
-> +       case PWMB:
-> +               tmp = AST_PTCR_CTRL_GET_PWMB_TYPE(
-> +                       aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                       AST_PTCR_CTRL));
-> +               break;
-> +
-> +       case PWMC:
-> +               tmp = AST_PTCR_CTRL_GET_PWMC_TYPE(
-> +                       aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                       AST_PTCR_CTRL));
-> +               break;
-> +
-> +       case PWMD:
-> +               tmp = AST_PTCR_CTRL_GET_PWMD_TYPE(
-> +                       aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                       AST_PTCR_CTRL));
-> +               break;
-> +
-> +       case PWME:
-> +               tmp = AST_PTCR_CTRL_GET_PWME_TYPE(
-> +                       aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                       AST_PTCR_CTRL_EXT));
-> +               break;
-> +
-> +       case PWMF:
-> +               tmp = AST_PTCR_CTRL_GET_PWMF_TYPE(
-> +                       aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                       AST_PTCR_CTRL_EXT));
-> +               break;
-> +
-> +       case PWMG:
-> +               tmp = AST_PTCR_CTRL_GET_PWMG_TYPE(
-> +                       aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                       AST_PTCR_CTRL_EXT));
-> +               break;
-> +
-> +       case PWMH:
-> +               tmp = AST_PTCR_CTRL_GET_PWMH_TYPE(
-> +                       aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                       AST_PTCR_CTRL_EXT));
-> +               break;
-> +
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error channel aspeed_get_pwm_type %d\n",
-> +                       pwm_ch);
-> +               break;
-> +       }
-> +
-> +       return tmp;
-> +}
-> +
-> +static void
-> +aspeed_set_pwm_type(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                   u8 pwm_ch, u8 type)
-> +{
-> +       u32 tmp1, tmp2;
-> +
-> +       if (type > 0x2)
-> +               return;
-> +
-> +       tmp1 = aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL);
-> +       tmp2 = aspeed_pwm_tacho_read(aspeed_pwm_tacho, AST_PTCR_CTRL_EXT);
-> +
-> +       switch (pwm_ch) {
-> +       case PWMA:
-> +               tmp1 &= ~AST_PTCR_CTRL_SET_PWMA_TYPE_MASK;
-> +               tmp1 |= AST_PTCR_CTRL_SET_PWMA_TYPE(type);
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp1, AST_PTCR_CTRL);
-> +               break;
-> +
-> +       case PWMB:
-> +               tmp1 &= ~AST_PTCR_CTRL_SET_PWMB_TYPE_MASK;
-> +               tmp1 |= AST_PTCR_CTRL_SET_PWMB_TYPE(type);
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp1, AST_PTCR_CTRL);
-> +               break;
-> +
-> +       case PWMC:
-> +               tmp1 &= ~AST_PTCR_CTRL_SET_PWMC_TYPE_MASK;
-> +               tmp1 |= AST_PTCR_CTRL_SET_PWMC_TYPE(type);
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp1, AST_PTCR_CTRL);
-> +               break;
-> +       case PWMD:
-> +               tmp1 &= ~AST_PTCR_CTRL_SET_PWMD_TYPE_MASK;
-> +               tmp1 |= AST_PTCR_CTRL_SET_PWMD_TYPE(type);
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp1, AST_PTCR_CTRL);
-> +               break;
-> +
-> +       case PWME:
-> +               tmp2 &= ~AST_PTCR_CTRL_SET_PWME_TYPE_MASK;
-> +               tmp2 |= AST_PTCR_CTRL_SET_PWME_TYPE(type);
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp2,
-> +                                      AST_PTCR_CTRL_EXT);
-> +               break;
-> +
-> +       case PWMF:
-> +               tmp2 &= ~AST_PTCR_CTRL_SET_PWMF_TYPE_MASK;
-> +               tmp2 |= AST_PTCR_CTRL_SET_PWMF_TYPE(type);
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp2,
-> +                                      AST_PTCR_CTRL_EXT);
-> +               break;
-> +
-> +       case PWMG:
-> +               tmp2 &= ~AST_PTCR_CTRL_SET_PWMG_TYPE_MASK;
-> +               tmp2 |= AST_PTCR_CTRL_SET_PWMG_TYPE(type);
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp2,
-> +                                      AST_PTCR_CTRL_EXT);
-> +               break;
-> +
-> +       case PWMH:
-> +               tmp2 &= ~AST_PTCR_CTRL_SET_PWMH_TYPE_MASK;
-> +               tmp2 |= AST_PTCR_CTRL_SET_PWMH_TYPE(type);
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp2,
-> +                                      AST_PTCR_CTRL_EXT);
-> +               break;
-> +
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error channel %d\n",
-> +                       pwm_ch);
-> +               break;
-> +       }
-> +}
-> +
-> +static u8
-> +aspeed_get_pwm_duty_rising(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                          u8 pwm_ch)
-> +{
-> +       u32 tmp = 0;
-> +
-> +       switch (pwm_ch) {
-> +       case PWMA:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY0_CTRL);
-> +               tmp &= DUTY_CTRL0_PWMA_RISE_POINT_MASK;
-> +               break;
-> +
-> +       case PWMB:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY0_CTRL);
-> +               tmp &= DUTY_CTRL0_PWMB_RISE_POINT_MASK;
-> +               tmp = (tmp >> DUTY_CTRL0_PWMB_RISE_POINT);
-> +               break;
-> +
-> +       case PWMC:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY1_CTRL);
-> +               tmp &= DUTY_CTRL1_PWMC_RISE_POINT_MASK;
-> +               break;
-> +       case PWMD:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY1_CTRL);
-> +               tmp &= DUTY_CTRL1_PWMD_RISE_POINT_MASK;
-> +               tmp = (tmp >> DUTY_CTRL1_PWMD_RISE_POINT);
-> +               break;
-> +
-> +       case PWME:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY2_CTRL);
-> +               tmp &= DUTY_CTRL2_PWME_RISE_POINT_MASK;
-> +               break;
-> +
-> +       case PWMF:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY2_CTRL);
-> +               tmp &= DUTY_CTRL2_PWMF_RISE_POINT_MASK;
-> +               tmp = (tmp >> DUTY_CTRL2_PWMF_RISE_POINT);
-> +               break;
-> +
-> +       case PWMG:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY3_CTRL);
-> +               tmp &= DUTY_CTRL3_PWMG_RISE_POINT_MASK;
-> +               break;
-> +
-> +       case PWMH:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY3_CTRL);
-> +               tmp &= DUTY_CTRL3_PWMH_RISE_POINT_MASK;
-> +               tmp = (tmp >> DUTY_CTRL3_PWMH_RISE_POINT);
-> +               break;
-> +
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error pwm channel %d with duty R\n",
-> +                       pwm_ch);
-> +               break;
-> +       }
-> +
-> +       return tmp;
-> +}
-> +
-> +static void
-> +aspeed_set_pwm_duty_rising(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                          u8 pwm_ch, u8 rising)
-> +{
-> +       u32 tmp = 0;
-> +       u32 pwm_type = aspeed_get_pwm_type(aspeed_pwm_tacho, pwm_ch);
-> +
-> +       if ((rising > 0xff) || (rising >
-> +           aspeed_get_pwm_clock_unit(aspeed_pwm_tacho, pwm_type)))
-> +               return;
-> +
-> +       switch (pwm_ch) {
-> +       case PWMA:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY0_CTRL);
-> +               tmp &= ~DUTY_CTRL0_PWMA_RISE_POINT_MASK;
-> +               tmp |= rising;
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_DUTY0_CTRL);
-> +               break;
-> +
-> +       case PWMB:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY0_CTRL);
-> +               tmp &= ~DUTY_CTRL0_PWMB_RISE_POINT_MASK;
-> +               tmp |= (rising << DUTY_CTRL0_PWMB_RISE_POINT);
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_DUTY0_CTRL);
-> +               break;
-> +
-> +       case PWMC:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY1_CTRL);
-> +               tmp &= ~DUTY_CTRL1_PWMC_RISE_POINT_MASK;
-> +               tmp |= rising;
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_DUTY1_CTRL);
-> +               break;
-> +
-> +       case PWMD:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY1_CTRL);
-> +               tmp &= ~DUTY_CTRL1_PWMD_RISE_POINT_MASK;
-> +               tmp |= (rising << DUTY_CTRL1_PWMD_RISE_POINT);
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_DUTY1_CTRL);
-> +               break;
-> +
-> +       case PWME:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY2_CTRL);
-> +               tmp &= ~DUTY_CTRL2_PWME_RISE_POINT_MASK;
-> +               tmp |= rising;
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_DUTY2_CTRL);
-> +               break;
-> +
-> +       case PWMF:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY2_CTRL);
-> +               tmp &= ~DUTY_CTRL2_PWMF_RISE_POINT_MASK;
-> +               tmp |= (rising << DUTY_CTRL2_PWMF_RISE_POINT);
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_DUTY2_CTRL);
-> +               break;
-> +
-> +       case PWMG:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY3_CTRL);
-> +               tmp &= ~DUTY_CTRL3_PWMG_RISE_POINT_MASK;
-> +               tmp |= rising;
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_DUTY3_CTRL);
-> +               break;
-> +
-> +       case PWMH:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY3_CTRL);
-> +               tmp &= ~DUTY_CTRL3_PWMH_RISE_POINT_MASK;
-> +               tmp |= (rising << DUTY_CTRL3_PWMH_RISE_POINT);
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_DUTY3_CTRL);
-> +               break;
-> +
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error pwm channel %d with duty\n",
-> +                       pwm_ch);
-> +               break;
-> +       }
-> +}
-> +
-> +static u8
-> +aspeed_get_pwm_duty_falling(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                           u8 pwm_ch)
-> +{
-> +       u32 tmp = 0;
-> +
-> +       switch (pwm_ch) {
-> +       case PWMA:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY0_CTRL);
-> +               tmp &= DUTY_CTRL0_PWMA_FALL_POINT_MASK;
-> +               tmp = (tmp >> DUTY_CTRL0_PWMA_FALL_POINT);
-> +               break;
-> +
-> +       case PWMB:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY0_CTRL);
-> +               tmp &= DUTY_CTRL0_PWMB_FALL_POINT_MASK;
-> +               tmp = (tmp >> DUTY_CTRL0_PWMB_FALL_POINT);
-> +               break;
-> +
-> +       case PWMC:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY1_CTRL);
-> +               tmp &= DUTY_CTRL1_PWMC_FALL_POINT_MASK;
-> +               tmp = (tmp >> DUTY_CTRL1_PWMC_FALL_POINT);
-> +               break;
-> +
-> +       case PWMD:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY1_CTRL);
-> +               tmp &= DUTY_CTRL1_PWMD_FALL_POINT_MASK;
-> +               tmp = (tmp >> DUTY_CTRL1_PWMD_FALL_POINT);
-> +               break;
-> +       case PWME:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY2_CTRL);
-> +               tmp &= DUTY_CTRL2_PWME_FALL_POINT_MASK;
-> +               tmp = (tmp >> DUTY_CTRL2_PWME_FALL_POINT);
-> +               break;
-> +
-> +       case PWMF:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY2_CTRL);
-> +               tmp &= DUTY_CTRL2_PWMF_FALL_POINT_MASK;
-> +               tmp = (tmp >> DUTY_CTRL2_PWMF_FALL_POINT);
-> +               break;
-> +
-> +       case PWMG:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY3_CTRL);
-> +               tmp &= DUTY_CTRL3_PWMG_FALL_POINT_MASK;
-> +               tmp = (tmp >> DUTY_CTRL3_PWMG_FALL_POINT);
-> +               break;
-> +
-> +       case PWMH:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY3_CTRL);
-> +               tmp &= DUTY_CTRL3_PWMH_FALL_POINT_MASK;
-> +               tmp = (tmp >> DUTY_CTRL3_PWMH_FALL_POINT);
-> +               break;
-> +
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error pwm channel %d with duty F\n",
-> +                       pwm_ch);
-> +               break;
-> +       }
-> +
-> +       return tmp;
-> +}
-> +
-> +static void
-> +aspeed_set_pwm_duty_falling(struct aspeed_pwm_tacho_data *aspeed_pwm_tacho,
-> +                           u8 pwm_ch, u8 falling)
-> +{
-> +       u32 tmp = 0;
-> +       u32 pwm_type = aspeed_get_pwm_type(aspeed_pwm_tacho, pwm_ch);
-> +
-> +       if ((falling > 0xff) || (falling >
-> +           aspeed_get_pwm_clock_unit(aspeed_pwm_tacho, pwm_type)))
-> +               return;
-> +
-> +       switch (pwm_ch) {
-> +       case PWMA:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY0_CTRL);
-> +               tmp &= ~DUTY_CTRL0_PWMA_FALL_POINT_MASK;
-> +               tmp |= (falling << DUTY_CTRL0_PWMA_FALL_POINT);
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_DUTY0_CTRL);
-> +               break;
-> +
-> +       case PWMB:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY0_CTRL);
-> +               tmp &= ~DUTY_CTRL0_PWMB_FALL_POINT_MASK;
-> +               tmp |= (falling << DUTY_CTRL0_PWMB_FALL_POINT);
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_DUTY0_CTRL);
-> +               break;
-> +
-> +       case PWMC:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY1_CTRL);
-> +               tmp &= ~DUTY_CTRL1_PWMC_FALL_POINT_MASK;
-> +               tmp |= (falling << DUTY_CTRL1_PWMC_FALL_POINT);
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_DUTY1_CTRL);
-> +               break;
-> +
-> +       case PWMD:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY1_CTRL);
-> +               tmp &= ~DUTY_CTRL1_PWMD_FALL_POINT_MASK;
-> +               tmp |= (falling << DUTY_CTRL1_PWMD_FALL_POINT);
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_DUTY1_CTRL);
-> +               break;
-> +
-> +       case PWME:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY2_CTRL);
-> +               tmp &= ~DUTY_CTRL2_PWME_FALL_POINT_MASK;
-> +               tmp |= (falling << DUTY_CTRL2_PWME_FALL_POINT);
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_DUTY2_CTRL);
-> +               break;
-> +
-> +       case PWMF:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY2_CTRL);
-> +               tmp &= ~DUTY_CTRL2_PWMF_FALL_POINT_MASK;
-> +               tmp |= (falling << DUTY_CTRL2_PWMF_FALL_POINT);
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_DUTY2_CTRL);
-> +               break;
-> +
-> +       case PWMG:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY3_CTRL);
-> +               tmp &= ~DUTY_CTRL3_PWMG_FALL_POINT_MASK;
-> +               tmp |= (falling << DUTY_CTRL3_PWMG_FALL_POINT);
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_DUTY3_CTRL);
-> +               break;
-> +
-> +       case PWMH:
-> +               tmp = aspeed_pwm_tacho_read(aspeed_pwm_tacho,
-> +                                           AST_PTCR_DUTY3_CTRL);
-> +               tmp &= ~DUTY_CTRL3_PWMH_FALL_POINT_MASK;
-> +               tmp |= (falling << DUTY_CTRL3_PWMH_FALL_POINT);
-> +               aspeed_pwm_tacho_write(aspeed_pwm_tacho, tmp,
-> +                                      AST_PTCR_DUTY3_CTRL);
-> +               break;
-> +
-> +       default:
-> +               dev_err(aspeed_pwm_tacho->hwmon_dev, "error pwm channel %d with duty\n",
-> +                       pwm_ch);
-> +               break;
-> +       }
-> +
-> +}
-> +
-> +/* PWM M/N/O Type sysfs
-> + *
-> + * Macro defining SENSOR_DEVICE_ATTR for a pwm sysfs entries.
-> + * 0 - show/store unit
-> + * 1 - show/store division_l
-> + * 2 - show/store division_h
-> + */
-> +static ssize_t
-> +aspeed_show_pwm_type_clock(struct device *dev, struct device_attribute *attr,
-> +                          char *buf)
-> +{
-> +       struct sensor_device_attribute_2 *sensor_attr =
-> +                                               to_sensor_dev_attr_2(attr);
-> +
-> +       switch (sensor_attr->nr) {
-> +       case 0: /* unit : 0~256 */
-> +               return sprintf(buf, "%d (0~255)\n",
-> +                              aspeed_get_pwm_clock_unit(aspeed_pwm_tacho,
-> +                                               sensor_attr->index));
-> +
-> +       case 1: /* division_l */
-> +               return sprintf(buf, "%d (0~15)\n",
-> +                              aspeed_get_pwm_clock_div_l(aspeed_pwm_tacho,
-> +                                                         sensor_attr->index));
-> +
-> +       case 2: /* division_h */
-> +               return sprintf(buf, "%d (0~15)\n",
-> +                              aspeed_get_pwm_clock_div_h(aspeed_pwm_tacho,
-> +                                                         sensor_attr->index));
-> +
-> +       case 3: /* expect clock */
-> +               return sprintf(buf, "%d \n",
-> +                              aspeed_get_pwm_clock(aspeed_pwm_tacho,
-> +                                                   sensor_attr->index));
-> +
-> +       default:
-> +               return -EINVAL;
-> +       }
-> +
-> +       return sprintf(buf, "%d : %d\n", sensor_attr->nr, sensor_attr->index);
-> +}
-> +
-> +static ssize_t
-> +aspeed_store_pwm_type_clock(struct device *dev, struct device_attribute *attr,
-> +                           const char *buf, size_t count)
-> +{
-> +       unsigned long input_val;
-> +       struct sensor_device_attribute_2 *sensor_attr =
-> +                                               to_sensor_dev_attr_2(attr);
-> +       int ret;
-> +
-> +       ret = kstrtoul(buf, 10, &input_val);
-> +       if (ret)
-> +               return ret;
-> +
-> +       switch (sensor_attr->nr) {
-> +       case 0: /* unit : 0~256 */
-> +               aspeed_set_pwm_clock_unit(aspeed_pwm_tacho, sensor_attr->index,
-> +                                         input_val);
-> +               break;
-> +
-> +       case 1: /* division_l */
-> +               aspeed_set_pwm_clock_division_l(aspeed_pwm_tacho,
-> +                                               sensor_attr->index, input_val);
-> +               break;
-> +
-> +       case 2: /* division_h */
-> +               aspeed_set_pwm_clock_division_h(aspeed_pwm_tacho,
-> +                                               sensor_attr->index, input_val);
-> +               break;
-> +
-> +       default:
-> +               return -EINVAL;
-> +       }
-> +
-> +       return count;
-> +}
-> +
-> +/* attr
-> + * 0 - show/store enable
-> + * 1 - show/store type
-> + * 2 - show/store falling
-> + * 3 - show/store rising
-> + */
-> +static ssize_t
-> +aspeed_show_pwm_speed(struct device *dev, struct device_attribute *attr,
-> +                     char *buf)
-> +{
-> +       struct sensor_device_attribute_2 *sensor_attr =
-> +                                               to_sensor_dev_attr_2(attr);
-> +
-> +       switch (sensor_attr->nr) {
-> +       case 0: /* enable, disable */
-> +               return sprintf(buf, "%d : %s\n",
-> +                              aspeed_get_pwm_en(aspeed_pwm_tacho,
-> +                                                sensor_attr->index),
-> +                              aspeed_get_pwm_en(aspeed_pwm_tacho,
-> +                                                sensor_attr->index) ?
-> +                              "Enable":"Disable");
-> +
-> +       case 1: /* pwm type M/N/O */
-> +               return sprintf(buf, "%d (0:M/1:N/2:O)\n",
-> +                              aspeed_get_pwm_type(aspeed_pwm_tacho,
-> +                                                  sensor_attr->index));
-> +
-> +       case 2: /* rising */
-> +               return sprintf(buf, "%x : unit limit (0~%d)\n",
-> +                              aspeed_get_pwm_duty_rising(aspeed_pwm_tacho,
-> +                                                         sensor_attr->index),
-> +                              aspeed_get_pwm_clock_unit(aspeed_pwm_tacho,
-> +                                       aspeed_get_pwm_type(aspeed_pwm_tacho,
-> +                                               sensor_attr->index)));
-> +
-> +       case 3: /* falling */
-> +               return sprintf(buf, "%x : unit limit (0~%d)\n",
-> +                              aspeed_get_pwm_duty_falling(aspeed_pwm_tacho,
-> +                                                          sensor_attr->index),
-> +                              aspeed_get_pwm_clock_unit(aspeed_pwm_tacho,
-> +                                       aspeed_get_pwm_type(aspeed_pwm_tacho,
-> +                                               sensor_attr->index)));
-> +
-> +       default:
-> +               return -EINVAL;
-> +       }
-> +}
-> +
-> +static ssize_t
-> +aspeed_store_pwm_speed(struct device *dev, struct device_attribute *attr,
-> +                      const char *buf, size_t count)
-> +{
-> +       unsigned long input_val;
-> +       struct sensor_device_attribute_2 *sensor_attr =
-> +                                               to_sensor_dev_attr_2(attr);
-> +       int ret;
-> +
-> +       ret = kstrtoul(buf, 10, &input_val);
-> +       if (ret)
-> +               return ret;
-> +
-> +       switch (sensor_attr->nr) {
-> +       case 0: /* enable, disable */
-> +               aspeed_set_pwm_en(aspeed_pwm_tacho, sensor_attr->index,
-> +                                 input_val);
-> +               break;
-> +       case 1: /* pwm type M/N/O */
-> +               aspeed_set_pwm_type(aspeed_pwm_tacho, sensor_attr->index,
-> +                                   input_val);
-> +               break;
-> +       case 2: /* rising */
-> +               aspeed_set_pwm_duty_rising(aspeed_pwm_tacho,
-> +                                          sensor_attr->index, input_val);
-> +               break;
-> +       case 3: /* falling */
-> +               aspeed_set_pwm_duty_falling(aspeed_pwm_tacho,
-> +                                           sensor_attr->index, input_val);
-> +               break;
-> +       default:
-> +               return -EINVAL;
-> +       }
-> +
-> +       return count;
-> +}
-> +
-> +/* Fan Type  */
-> +/* Fan M/N/O Type sysfs
-> + * Macro defining SENSOR_DEVICE_ATTR for a pwm sysfs entries.
-> + * 0 - show/store enable
-> + * 1 - show/store mode
-> + * 2 - show/store unit
-> + * 3 - show/store division
-> + * 4 - show/store limit
-> + */
-> +static ssize_t
-> +aspeed_show_tacho_type(struct device *dev, struct device_attribute *attr,
-> +                      char *buf)
-> +{
-> +       struct sensor_device_attribute_2 *sensor_attr =
-> +                                               to_sensor_dev_attr_2(attr);
 > +
-> +       switch (sensor_attr->nr) {
-> +       case 0: /* enable, disable */
-> +               return sprintf(buf, "%d : %s\n",
-> +                       aspeed_get_tacho_type_en(aspeed_pwm_tacho,
-> +                                                sensor_attr->index),
-> +                       aspeed_get_tacho_type_en(aspeed_pwm_tacho,
-> +                                                sensor_attr->index) ?
-> +                       "Enable":"Disable");
+> +       case AST_PECI_IOCXFER:
+> +               /* Check cmd operation sts */
+> +               while (aspeed_peci_read(AST_PECI_CMD) & PECI_CMD_FIRE)
+> +                       dev_dbg(aspeed_peci.misc_dev, "wait for free\n");
 > +
-> +       case 1: /* fan tacho mode */
-> +               switch (aspeed_get_tacho_type_mode(
-> +                       aspeed_pwm_tacho, sensor_attr->index)) {
-> +               case FALL_EDGE:
-> +                       return sprintf(buf, "0: falling\n");
-> +               case RISE_EDGE:
-> +                       return sprintf(buf, "1: rising\n");
-> +               case BOTH_EDGE:
-> +                       return sprintf(buf, "2: both\n");
-> +               default:
-> +                       return sprintf(buf, "3: unknown\n");
+> +               if (copy_from_user(&msg, argp, sizeof(struct xfer_msg))) {
+> +                       ret = -EFAULT;
+> +                       break;
 > +               }
+> +
+> +               if (msg.fcs_en)
+> +                       peci_head = PECI_TAGET_ADDR(msg.client_addr) |
+> +                                               PECI_WRITE_LEN(msg.tx_len) |
+> +                                               PECI_READ_LEN(msg.rx_len) |
+> +                                               PECI_AW_FCS_EN;
+> +               else
+> +                       peci_head = PECI_TAGET_ADDR(msg.client_addr) |
+> +                                               PECI_WRITE_LEN(msg.tx_len) |
+> +                                               PECI_READ_LEN(msg.rx_len);
+> +
+> +               aspeed_peci_write(peci_head, AST_PECI_CMD_CTRL);
+> +
+> +               for (i = 0; i < msg.tx_len; i++) {
+> +                       if (i < 16) {
+> +                               if (i % 4 == 0)
+> +                                       tx_buf0[i / 4] = 0;
+> +                               tx_buf0[i/4] |= (msg.tx_buf[i] << ((i%4) * 8));
+> +                       } else {
+> +                               if (i % 4 == 0)
+> +                                       tx_buf1[i / 4] = 0;
+> +                               tx_buf1[i/4] |= (msg.tx_buf[i] << ((i%4) * 8));
+> +                       }
+> +               }
+> +
+> +#ifdef CONFIG_AST_PECI_DEBUG
+> +               aspeed_peci_read(AST_PECI_W_DATA0);
+> +               aspeed_peci_read(AST_PECI_W_DATA1);
+> +               aspeed_peci_read(AST_PECI_W_DATA2);
+> +               aspeed_peci_read(AST_PECI_W_DATA3);
+> +               aspeed_peci_read(AST_PECI_W_DATA4);
+> +               aspeed_peci_read(AST_PECI_W_DATA5);
+> +               aspeed_peci_read(AST_PECI_W_DATA6);
+> +               aspeed_peci_read(AST_PECI_W_DATA7);
+> +#endif
+> +               init_completion(&aspeed_peci.xfer_complete);
+> +               /* Fire Command */
+> +               aspeed_peci_write(PECI_CMD_FIRE, AST_PECI_CMD);
+> +
+> +               ret = wait_for_completion_interruptible_timeout(
+> +                                       &aspeed_peci.xfer_complete, 30 * HZ);
+> +
+> +               if (ret == 0)
+> +                       dev_err(aspeed_peci.misc_dev, "peci controller timed out\n");
+> +
+> +               for (i = 0; i < msg.rx_len; i++) {
+> +                       if (i < 16) {
+> +                               switch (i % 4) {
+> +                               case 0:
+> +                                       rx_data = rx_buf0[i/4];
+> +                                       msg.rx_buf[i] = rx_data & 0xff;
+> +                                       break;
+> +
+> +                               case 1:
+> +                                       msg.rx_buf[i] = (rx_data & 0xff00)
+> +                                                       >> 8;
+> +                                       break;
+> +
+> +                               case 2:
+> +                                       msg.rx_buf[i] = (rx_data & 0xff0000)
+> +                                                       >> 16;
+> +                                       break;
+> +
+> +                               case 3:
+> +                                       msg.rx_buf[i] = (rx_data & 0xff000000)
+> +                                                       >> 24;
+> +                                       break;
+> +                               }
+> +                       } else {
+> +                               switch (i % 4) {
+> +                               case 0:
+> +                                       rx_data = rx_buf1[i/4];
+> +                                       msg.rx_buf[i] = rx_data & 0xff;
+> +                                       break;
+> +
+> +                               case 1:
+> +                                       msg.rx_buf[i] = (rx_data & 0xff00)
+> +                                                       >> 8;
+> +                                       break;
+> +                               case 2:
+> +                                       msg.rx_buf[i] = (rx_data & 0xff0000)
+> +                                                       >> 16;
+> +                                       break;
+> +
+> +                               case 3:
+> +                                       msg.rx_buf[i] = (rx_data & 0xff000000)
+> +                                                       >> 24;
+> +                                       break;
+> +                               }
+> +                       }
+> +               }
+> +
+> +#ifdef CONFIG_AST_PECI_DEBUG
+> +               aspeed_peci_read(AST_PECI_R_DATA0);
+> +               aspeed_peci_read(AST_PECI_R_DATA1);
+> +               aspeed_peci_read(AST_PECI_R_DATA2);
+> +               aspeed_peci_read(AST_PECI_R_DATA3);
+> +               aspeed_peci_read(AST_PECI_R_DATA4);
+> +               aspeed_peci_read(AST_PECI_R_DATA5);
+> +               aspeed_peci_read(AST_PECI_R_DATA6);
+> +               aspeed_peci_read(AST_PECI_R_DATA7);
+> +#endif
+> +               dev_dbg(aspeed_peci.misc_dev, "rx_buf:");
+> +               for (i = 0; i < msg.rx_len; i++)
+> +                       dev_dbg(aspeed_peci.misc_dev, "%x ", msg.rx_buf[i]);
+> +               dev_dbg(aspeed_peci.misc_dev, "\n");
+> +
+> +               msg.sts = aspeed_peci.sts;
+> +               msg.rx_fcs = PECI_CAPTURE_READ_FCS(
+> +                                       aspeed_peci_read(AST_PECI_CAP_FCS));
+> +               if (copy_to_user(argp, &msg, sizeof(struct xfer_msg)))
+> +                       ret = -EFAULT;
 > +               break;
 > +
-> +       case 2: /* unit */
-> +               return sprintf(buf, "%d (0~65535)\n",
-> +                       aspeed_get_tacho_type_unit(aspeed_pwm_tacho,
-> +                                                  sensor_attr->index));
-> +
-> +       case 3: /* division */
-> +               return sprintf(buf, "%d (0~7)\n",
-> +                       aspeed_get_tacho_type_division(aspeed_pwm_tacho,
-> +                                                      sensor_attr->index));
-> +
-> +       case 4: /* limit */
-> +               return sprintf(buf, "%d (0~1048575)\n",
-> +                       aspeed_get_tacho_type_limit(aspeed_pwm_tacho,
-> +                                                   sensor_attr->index));
-> +
-> +       case 5: /* measure period */
-> +               return sprintf(buf, "%d\n",
-> +                       aspeed_get_tacho_measure_period(aspeed_pwm_tacho,
-> +                                                       sensor_attr->index));
-> +
 > +       default:
-> +               return -EINVAL;
+> +               dev_err(aspeed_peci.misc_dev,
+> +                       "aspeed_peci_ioctl command fail\n");
+> +               ret = -ENOTTY;
+> +               break;
 > +       }
+> +
+> +       return ret;
 > +}
 > +
-> +static ssize_t
-> +aspeed_store_tacho_type(struct device *dev, struct device_attribute *attr,
-> +                       const char *buf, size_t count)
+> +static int aspeed_peci_open(struct inode *inode, struct file *file)
 > +{
-> +       unsigned long input_val;
-> +       struct sensor_device_attribute_2 *sensor_attr =
-> +                                               to_sensor_dev_attr_2(attr);
-> +       int ret;
+> +       /* Flush input queue on first open */
+> +       if (aspeed_peci.open_count)
+> +               return -1;
 > +
-> +       ret = kstrtoul(buf, 10, &input_val);
-> +       if (ret)
-> +               return ret;
+> +       aspeed_peci.open_count++;
 > +
-> +       switch (sensor_attr->nr) {
-> +       case 0: /* enable, disable */
-> +               aspeed_set_tacho_type_en(aspeed_pwm_tacho, sensor_attr->index,
-> +                                        input_val);
-> +               break;
-> +       case 1: /* fan tacho mode */
-> +               aspeed_set_tacho_type_mode(aspeed_pwm_tacho,
-> +                                          sensor_attr->index, input_val);
-> +               break;
 > +
-> +       case 2: /* unit */
-> +               aspeed_set_tacho_type_unit(aspeed_pwm_tacho,
-> +                                          sensor_attr->index, input_val);
-> +               break;
-> +
-> +       case 3: /* division */
-> +               aspeed_set_tacho_type_division(aspeed_pwm_tacho,
-> +                                              sensor_attr->index, input_val);
-> +               break;
-> +
-> +       case 4: /* limit */
-> +               aspeed_set_tacho_type_limit(aspeed_pwm_tacho,
-> +                                           sensor_attr->index, input_val);
-> +               break;
-> +
-> +       default:
-> +               return -EINVAL;
-> +       }
-> +
-> +       return count;
-> +
+> +       return 0;
 > +}
 > +
-> +/* fan detect */
-> +/* FAN sysfs
-> + * Macro defining SENSOR_DEVICE_ATTR for a tacho sysfs entries.
-> + *  - show/store enable
-> + *  - show/store source
-> + *  - show/store rpm
-> + *  - show/store alarm
-> + *  - show/store alarm_en
-> +*/
-> +static ssize_t
-> +aspeed_show_tacho_speed(struct device *dev, struct device_attribute *attr,
-> +                       char *buf)
+> +static int aspeed_peci_release(struct inode *inode, struct file *file)
 > +{
-> +       struct sensor_device_attribute_2 *sensor_attr =
-> +                                               to_sensor_dev_attr_2(attr);
+> +       aspeed_peci.open_count--;
 > +
-> +       switch (sensor_attr->nr)  {
-> +       case 0: /* enable, disable */
-> +               return sprintf(buf, "%d : %s\n",
-> +                              aspeed_get_tacho_en(aspeed_pwm_tacho,
-> +                                                  sensor_attr->index),
-> +                              aspeed_get_tacho_en(aspeed_pwm_tacho,
-> +                                                  sensor_attr->index) ?
-> +                              "Enable":"Disable");
-> +
-> +       case 1: /* tacho source PWMA~H - 0~7 */
-> +               return sprintf(buf, "PWM%d (0~7)\n",
-> +                              aspeed_get_tacho_source(aspeed_pwm_tacho,
-> +                                                      sensor_attr->index));
-> +
-> +       case 2: /* rpm */
-> +               return sprintf(buf, "%d \n",
-> +                              aspeed_get_tacho_rpm(aspeed_pwm_tacho,
-> +                                                   sensor_attr->index));
-> +
-> +       case 3: /* alarm */
-> +               return sprintf(buf, "%d \n",
-> +                              aspeed_get_tacho_alarm(aspeed_pwm_tacho,
-> +                                                     sensor_attr->index));
-> +
-> +       case 4: /* alarm_en */
-> +               return sprintf(buf, "%d : %s\n",
-> +                              aspeed_get_tacho_alarm_en(aspeed_pwm_tacho,
-> +                                                        sensor_attr->index),
-> +                              aspeed_get_tacho_alarm_en(aspeed_pwm_tacho,
-> +                                                        sensor_attr->index) ?
-> +                              "Enable":"Disable");
-> +
-> +       default:
-> +               return -EINVAL;
-> +       }
-> +
+> +       return 0;
 > +}
 > +
-> +static ssize_t
-> +aspeed_store_tacho_speed(struct device *dev, struct device_attribute *attr,
-> +                        const char *buf, size_t count)
+> +static irqreturn_t aspeed_peci_handler(int this_irq, void *dev_id)
 > +{
-> +       unsigned long input_val;
-> +       struct sensor_device_attribute_2 *sensor_attr =
-> +                                               to_sensor_dev_attr_2(attr);
-> +       int ret;
+> +       struct aspeed_peci_data *peci_data = dev_id;
 > +
-> +       ret = kstrtoul(buf, 10, &input_val);
-> +       if (ret)
-> +               return ret;
+> +       aspeed_peci.sts = (0x1f & aspeed_peci_read(AST_PECI_INT_STS));
 > +
-> +       switch (sensor_attr->nr)  {
-> +       case 0: /* enable, disable */
-> +               aspeed_set_tacho_en(aspeed_pwm_tacho, sensor_attr->index,
-> +                                   input_val);
+> +       switch (aspeed_peci.sts) {
+> +       case PECI_INT_TIMEOUT:
+> +               dev_info(peci_data->misc_dev, "PECI_INT_TIMEOUT\n");
+> +               aspeed_peci_write(PECI_INT_TIMEOUT, AST_PECI_INT_STS);
 > +               break;
 > +
-> +       case 1: /* tacho source PWMA~H - 0~7 */
-> +               aspeed_set_tacho_source(aspeed_pwm_tacho, sensor_attr->index,
-> +                                       input_val);
+> +       case PECI_INT_CONNECT:
+> +               dev_info(peci_data->misc_dev, "PECI_INT_CONNECT\n");
+> +               aspeed_peci_write(PECI_INT_CONNECT, AST_PECI_INT_STS);
 > +               break;
 > +
-> +       case 4: /* alarm_en */
-> +               aspeed_set_tacho_alarm_en(aspeed_pwm_tacho, sensor_attr->index,
-> +                                         input_val);
+> +       case PECI_INT_W_FCS_BAD:
+> +               dev_info(peci_data->misc_dev, "PECI_INT_W_FCS_BAD\n");
+> +               aspeed_peci_write(PECI_INT_W_FCS_BAD, AST_PECI_INT_STS);
 > +               break;
 > +
-> +       case 2: /* rpm */
-> +       case 3: /* alarm */
+> +       case PECI_INT_W_FCS_ABORT:
+> +               dev_info(peci_data->misc_dev, "PECI_INT_W_FCS_ABORT\n");
+> +               aspeed_peci_write(PECI_INT_W_FCS_ABORT, AST_PECI_INT_STS);
+> +               break;
+> +
+> +       case PECI_INT_CMD_DONE:
+> +               dev_info(peci_data->misc_dev, "PECI_INT_CMD_DONE\n");
+> +               aspeed_peci_write(PECI_INT_CMD_DONE, AST_PECI_INT_STS);
+> +               aspeed_peci_write(0, AST_PECI_CMD);
+> +               break;
+> +
 > +       default:
-> +               return -EINVAL;
+> +               dev_info(peci_data->misc_dev, "no one handle\n");
+> +               break;
+> +
 > +       }
 > +
-> +       return count;
+> +       complete(&aspeed_peci.xfer_complete);
+> +
+> +       return IRQ_HANDLED;
+> +
 > +}
 > +
-> +/* sysfs attributes */
+> +static void aspeed_peci_ctrl_init(void)
+> +{
+> +       aspeed_peci_write(PECI_CTRL_SAMPLING(8) |
+> +                         PECI_CTRL_PECI_CLK_EN, AST_PECI_CTRL);
 > +
-> +/* CLK sysfs */
-> +static SENSOR_DEVICE_ATTR_2
-> +(clk_en, S_IRUGO | S_IWUSR, aspeed_show_clk, aspeed_store_clk, 0, 0);
-> +static SENSOR_DEVICE_ATTR_2
-> +(clk_source, S_IRUGO | S_IWUSR, aspeed_show_clk, aspeed_store_clk, 1, 0);
+> +       /* iming Setting : should 4 times of peci clk period 64 = 16 * 4 */
+> +       aspeed_peci_write(PECI_TIMING_MESSAGE(64) | PECI_TIMING_ADDRESS(64),
+> +                         AST_PECI_TIMING);
 > +
-> +static struct attribute *clk_attributes[] = {
-> +       &sensor_dev_attr_clk_source.dev_attr.attr,
-> +       &sensor_dev_attr_clk_en.dev_attr.attr,
-> +       NULL
-> +};
+> +       /* peci Spec wide speed rangs [2kbps~2Mbps]
+> +        * ampling 8/16, READ mode : Point Sampling , CLK source : 24Mhz , DIV
+> +        * by 8 : 3 --> CLK is 3Mhz
+> +        * peci CTRL Enable
+> +        */
+> +       aspeed_peci_write(PECI_CTRL_SAMPLING(8) | PECI_CTRL_CLK_DIV(3) |
+> +                         PECI_CTRL_PECI_EN | PECI_CTRL_PECI_CLK_EN,
+> +                         AST_PECI_CTRL);
 > +
-> +static const struct attribute_group clk_attribute_groups = {
-> +       .attrs = clk_attributes,
-> +};
+> +       /* Clear Interrupt */
+> +       aspeed_peci_write(PECI_INT_TIMEOUT | PECI_INT_CONNECT |
+> +                         PECI_INT_W_FCS_BAD | PECI_INT_W_FCS_ABORT |
+> +                         PECI_INT_CMD_DONE, AST_PECI_INT_STS);
 > +
-> +/* PWM M/N/O Type sysfs
-> + * Macro defining SENSOR_DEVICE_ATTR for a pwm sysfs entries.
-> + * 0 - show/store unit
-> + * 1 - show/store division_l
-> + * 2 - show/store division_h
-> + */
-> +#define sysfs_pwm_type(type,  index) \
-> +static SENSOR_DEVICE_ATTR_2(pwm_type_##type##_unit, S_IRUGO | S_IWUSR, \
-> +       aspeed_show_pwm_type_clock, aspeed_store_pwm_type_clock, 0, index); \
-> +static SENSOR_DEVICE_ATTR_2(pwm_type_##type##_division_l, S_IRUGO | S_IWUSR, \
-> +       aspeed_show_pwm_type_clock, aspeed_store_pwm_type_clock, 1, index); \
-> +static SENSOR_DEVICE_ATTR_2(pwm_type_##type##_division_h, S_IRUGO | S_IWUSR, \
-> +       aspeed_show_pwm_type_clock, aspeed_store_pwm_type_clock, 2, index); \
-> +static SENSOR_DEVICE_ATTR_2(pwm_type_##type##_clk, S_IRUGO, \
-> +       aspeed_show_pwm_type_clock, NULL, 3, index); \
-> +static struct attribute *pwm_type_##type##_attributes[] = { \
-> +       &sensor_dev_attr_pwm_type_##type##_unit.dev_attr.attr, \
-> +       &sensor_dev_attr_pwm_type_##type##_division_l.dev_attr.attr, \
-> +       &sensor_dev_attr_pwm_type_##type##_division_h.dev_attr.attr, \
-> +       &sensor_dev_attr_pwm_type_##type##_clk.dev_attr.attr, \
-> +       NULL \
+> +
+> +       /* peci Negotiation Selection , interrupt enable.
+> +        * Set nego mode :  1st bit of addr negotiation
+> +        */
+> +       aspeed_peci_write(PECI_INT_TIMEOUT | PECI_INT_CONNECT |
+> +                         PECI_INT_W_FCS_BAD | PECI_INT_W_FCS_ABORT |
+> +                         PECI_INT_CMD_DONE, AST_PECI_INT_CTRL);
 > +}
 > +
-> +/*
-> + * Create the needed functions for each pwm using the macro defined above
-> + * (4 pwms are supported)
-> + */
-> +sysfs_pwm_type(m, 0);
-> +sysfs_pwm_type(n, 1);
-> +#ifdef PWM_TYPE_O
-> +sysfs_pwm_type(o, 2);
-> +#endif
-> +
-> +static const struct attribute_group pwm_type_attribute_groups[] = {
-> +       { .attrs = pwm_type_m_attributes },
-> +       { .attrs = pwm_type_n_attributes },
-> +#ifdef PWM_TYPE_O
-> +       { .attrs = pwm_type_o_attributes },
-> +#endif
+> +static const struct file_operations aspeed_peci_fops = {
+> +       .owner          = THIS_MODULE,
+> +       .llseek         = no_llseek,
+> +       .unlocked_ioctl = aspeed_peci_ioctl,
+> +       .open           = aspeed_peci_open,
+> +       .release        = aspeed_peci_release,
 > +};
 > +
-> +/* PWM sysfs
-> + * Macro defining SENSOR_DEVICE_ATTR for a pwm sysfs entries.
-> + * 0 - show/store enable
-> + * 1 - show/store type
-> + * 2 - show/store rising
-> + * 3 - show/store falling
-> + */
-> +#define sysfs_pwm_speeds_num(index) \
-> +static SENSOR_DEVICE_ATTR_2(pwm##index##_en, S_IRUGO | S_IWUSR, \
-> +       aspeed_show_pwm_speed, aspeed_store_pwm_speed, 0, index); \
-> +static SENSOR_DEVICE_ATTR_2(pwm##index##_type, S_IRUGO | S_IWUSR, \
-> +       aspeed_show_pwm_speed, aspeed_store_pwm_speed, 1, index); \
-> +static SENSOR_DEVICE_ATTR_2(pwm##index##_rising, S_IRUGO | S_IWUSR, \
-> +       aspeed_show_pwm_speed, aspeed_store_pwm_speed, 2, index); \
-> +static SENSOR_DEVICE_ATTR_2(pwm##index##_falling, S_IRUGO | S_IWUSR, \
-> +       aspeed_show_pwm_speed, aspeed_store_pwm_speed, 3, index); \
-> +static struct attribute *pwm##index##_attributes[] = { \
-> +       &sensor_dev_attr_pwm##index##_en.dev_attr.attr, \
-> +       &sensor_dev_attr_pwm##index##_type.dev_attr.attr, \
-> +       &sensor_dev_attr_pwm##index##_rising.dev_attr.attr, \
-> +       &sensor_dev_attr_pwm##index##_falling.dev_attr.attr, \
-> +       NULL \
-> +}
-> +
-> +/*
-> + * Create the needed functions for each pwm using the macro defined above
-> + * (4 pwms are supported)
-> + */
-> +sysfs_pwm_speeds_num(0);
-> +sysfs_pwm_speeds_num(1);
-> +sysfs_pwm_speeds_num(2);
-> +sysfs_pwm_speeds_num(3);
-> +sysfs_pwm_speeds_num(4);
-> +sysfs_pwm_speeds_num(5);
-> +sysfs_pwm_speeds_num(6);
-> +sysfs_pwm_speeds_num(7);
-> +
-> +static const struct attribute_group pwm_attribute_groups[] = {
-> +       { .attrs = pwm0_attributes },
-> +       { .attrs = pwm1_attributes },
-> +       { .attrs = pwm2_attributes },
-> +       { .attrs = pwm3_attributes },
-> +       { .attrs = pwm4_attributes },
-> +       { .attrs = pwm5_attributes },
-> +       { .attrs = pwm6_attributes },
-> +       { .attrs = pwm7_attributes },
+> +struct miscdevice aspeed_peci_misc = {
+> +       .minor = MISC_DYNAMIC_MINOR,
+> +       .name = "aspeed-peci",
+> +       .fops = &aspeed_peci_fops,
 > +};
 > +
-> +/* Fan M/N/O Type sysfs
-> + * Macro defining SENSOR_DEVICE_ATTR for a pwm sysfs entries.
-> + *  0 - show/store enable
-> + *  1 - show/store mode
-> + *  2 - show/store unit
-> + *  3 - show/store division
-> + *  4 - show/store limit
-> + */
-> +#define sysfs_tacho_type(type, index) \
-> +static SENSOR_DEVICE_ATTR_2(tacho_type_##type##_en, S_IRUGO | S_IWUSR, \
-> +       aspeed_show_tacho_type, aspeed_store_tacho_type, 0, index); \
-> +static SENSOR_DEVICE_ATTR_2(tacho_type_##type##_mode, S_IRUGO | S_IWUSR, \
-> +       aspeed_show_tacho_type, aspeed_store_tacho_type, 1, index); \
-> +static SENSOR_DEVICE_ATTR_2(tacho_type_##type##_unit, S_IRUGO | S_IWUSR, \
-> +       aspeed_show_tacho_type, aspeed_store_tacho_type, 2, index); \
-> +static SENSOR_DEVICE_ATTR_2(tacho_type_##type##_division, S_IRUGO | S_IWUSR, \
-> +       aspeed_show_tacho_type, aspeed_store_tacho_type, 3, index); \
-> +static SENSOR_DEVICE_ATTR_2(tacho_type_##type##_limit, S_IRUGO | S_IWUSR, \
-> +       aspeed_show_tacho_type, aspeed_store_tacho_type, 4, index); \
-> +static SENSOR_DEVICE_ATTR_2(tacho_type_##type##_measure_period, \
-> +       S_IRUGO | S_IWUSR, \
-> +       aspeed_show_tacho_type, aspeed_store_tacho_type, 5, index); \
-> +static struct attribute *tacho_type_##type##_attributes[] = { \
-> +       &sensor_dev_attr_tacho_type_##type##_en.dev_attr.attr, \
-> +       &sensor_dev_attr_tacho_type_##type##_mode.dev_attr.attr, \
-> +       &sensor_dev_attr_tacho_type_##type##_unit.dev_attr.attr, \
-> +       &sensor_dev_attr_tacho_type_##type##_division.dev_attr.attr, \
-> +       &sensor_dev_attr_tacho_type_##type##_limit.dev_attr.attr, \
-> +       &sensor_dev_attr_tacho_type_##type##_measure_period.dev_attr.attr, \
-> +       NULL \
-> +}
-> +
-> +/*
-> + * Create the needed functions for each pwm using the macro defined above
-> + * (4 pwms are supported)
-> + */
-> +sysfs_tacho_type(m, 0);
-> +sysfs_tacho_type(n, 1);
-> +#ifdef PWM_TYPE_O
-> +sysfs_tacho_type(o, 2);
-> +#endif
-> +
-> +static const struct attribute_group tacho_type_attribute_groups[] = {
-> +       { .attrs = tacho_type_m_attributes },
-> +       { .attrs = tacho_type_n_attributes },
-> +#ifdef PWM_TYPE_O
-> +       { .attrs = tacho_type_o_attributes },
-> +#endif
-> +};
-> +
-> +/* FAN sysfs
-> + * Macro defining SENSOR_DEVICE_ATTR for a tacho sysfs entries.
-> + *  - show/store enable
-> + *  - show/store source
-> + *  - show/store rpm
-> + *  - show/store alarm
-> + *  - show/store alarm_en
-> + */
-> +#define sysfs_tacho_speeds_num(index) \
-> +static SENSOR_DEVICE_ATTR_2(tacho##index##_en, S_IRUGO | S_IWUSR, \
-> +       aspeed_show_tacho_speed, aspeed_store_tacho_speed, 0, index); \
-> +static SENSOR_DEVICE_ATTR_2(tacho##index##_source, S_IRUGO | S_IWUSR, \
-> +       aspeed_show_tacho_speed, aspeed_store_tacho_speed, 1, index); \
-> +static SENSOR_DEVICE_ATTR_2(tacho##index##_rpm, S_IRUGO, \
-> +       aspeed_show_tacho_speed, NULL, 2, index); \
-> +static SENSOR_DEVICE_ATTR_2(tacho##index##_alarm, S_IRUGO, \
-> +       aspeed_show_tacho_speed, aspeed_store_tacho_speed, 3, index); \
-> +static SENSOR_DEVICE_ATTR_2(tacho##index##_alarm_en, S_IRUGO | S_IWUSR, \
-> +       aspeed_show_tacho_speed, aspeed_store_tacho_speed, 4, index); \
-> +static struct attribute *tacho##index##_attributes[] = { \
-> +       &sensor_dev_attr_tacho##index##_en.dev_attr.attr, \
-> +       &sensor_dev_attr_tacho##index##_source.dev_attr.attr, \
-> +       &sensor_dev_attr_tacho##index##_rpm.dev_attr.attr, \
-> +       &sensor_dev_attr_tacho##index##_alarm.dev_attr.attr, \
-> +       &sensor_dev_attr_tacho##index##_alarm_en.dev_attr.attr, \
-> +       NULL \
-> +}
-> +
-> +/*
-> + * Create the needed functions for each tacho using the macro defined above
-> + * (4 tachos are supported)
-> + */
-> +sysfs_tacho_speeds_num(0);
-> +sysfs_tacho_speeds_num(1);
-> +sysfs_tacho_speeds_num(2);
-> +sysfs_tacho_speeds_num(3);
-> +sysfs_tacho_speeds_num(4);
-> +sysfs_tacho_speeds_num(5);
-> +sysfs_tacho_speeds_num(6);
-> +sysfs_tacho_speeds_num(7);
-> +sysfs_tacho_speeds_num(8);
-> +sysfs_tacho_speeds_num(9);
-> +sysfs_tacho_speeds_num(10);
-> +sysfs_tacho_speeds_num(11);
-> +sysfs_tacho_speeds_num(12);
-> +sysfs_tacho_speeds_num(13);
-> +sysfs_tacho_speeds_num(14);
-> +sysfs_tacho_speeds_num(15);
-> +
-> +static const struct attribute_group tacho_attribute_groups[] = {
-> +       { .attrs = tacho0_attributes },
-> +       { .attrs = tacho1_attributes },
-> +       { .attrs = tacho2_attributes },
-> +       { .attrs = tacho3_attributes },
-> +       { .attrs = tacho4_attributes },
-> +       { .attrs = tacho5_attributes },
-> +       { .attrs = tacho6_attributes },
-> +       { .attrs = tacho7_attributes },
-> +       { .attrs = tacho8_attributes },
-> +       { .attrs = tacho9_attributes },
-> +       { .attrs = tacho10_attributes },
-> +       { .attrs = tacho11_attributes },
-> +       { .attrs = tacho12_attributes },
-> +       { .attrs = tacho13_attributes },
-> +       { .attrs = tacho14_attributes },
-> +       { .attrs = tacho15_attributes },
-> +};
-> +
-> +static int
-> +aspeed_pwm_tacho_probe(struct platform_device *pdev)
+> +static int aspeed_peci_probe(struct platform_device *pdev)
 > +{
 > +       struct resource *res;
-> +       int i, j = 0;
-> +       int err = 0;
+> +       int ret = 0;
 > +
 > +       if (!of_device_is_compatible(pdev->dev.of_node,
-> +                                    "aspeed,aspeed2500-pwm-fan"))
+> +                                    "aspeed,aspeed2500-peci"))
 > +               return -ENODEV;
-> +
-> +       aspeed_pwm_tacho = devm_kzalloc(&pdev->dev, sizeof(*aspeed_pwm_tacho),
-> +                                       GFP_KERNEL);
-> +       if (!aspeed_pwm_tacho) {
-> +               err = -ENOMEM;
-> +               goto out;
-> +       }
-> +
-> +       aspeed_pwm_tacho->aspeed_pwm_data = dev_get_platdata(&pdev->dev);
-> +       platform_set_drvdata(pdev, aspeed_pwm_tacho);
 > +
 > +       res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
 > +       if (!res) {
 > +               dev_err(&pdev->dev, "cannot get IORESOURCE_MEM\n");
-> +               err = -ENOENT;
+> +               ret = -ENOENT;
 > +               goto out;
 > +       }
 > +
-> +       if (!request_mem_region(res->start, resource_size(res), res->name)) {
-> +               dev_err(&pdev->dev, "cannot reserved region\n");
-> +               err = -ENXIO;
-> +               goto out;
-> +       }
-> +
-> +       aspeed_pwm_tacho->reg_base = ioremap(res->start, resource_size(res));
-> +       if (!aspeed_pwm_tacho->reg_base) {
-> +               err = -EIO;
+> +       aspeed_peci.reg_base = devm_ioremap_resource(&pdev->dev, res);
+> +       if (!aspeed_peci.reg_base) {
+> +               ret = -EIO;
 > +               goto out_region;
 > +       }
 > +
-> +       aspeed_pwm_tacho->irq = platform_get_irq(pdev, 0);
-> +       if (aspeed_pwm_tacho->irq < 0) {
+> +       aspeed_peci.irq = platform_get_irq(pdev, 0);
+> +       if (aspeed_peci.irq < 0) {
 > +               dev_err(&pdev->dev, "no irq specified\n");
-> +               err = -ENOENT;
+> +               ret = -ENOENT;
 > +               goto out_region;
 > +       }
 > +
-> +       aspeed_pwm_tacho->groups[j++] = &clk_attribute_groups;
+> +       ret = devm_request_irq(&pdev->dev, aspeed_peci.irq,
+> +                              aspeed_peci_handler, 0, "aspeed-peci",
+> +                              &aspeed_peci);
 > +
-> +       for (i = 0; i < PWM_CH_NUM; i++)
-> +               aspeed_pwm_tacho->groups[j++] = &pwm_attribute_groups[i];
-> +
-> +       for (i = 0; i < PWM_TYPE_NUM; i++)
-> +               aspeed_pwm_tacho->groups[j++] = &pwm_type_attribute_groups[i];
-> +
-> +       for (i = 0; i < TACHO_NUM; i++)
-> +               aspeed_pwm_tacho->groups[j++] =  &tacho_attribute_groups[i];
-> +
-> +       for (i = 0; i < PWM_TYPE_NUM; i++)
-> +               aspeed_pwm_tacho->groups[j++] =
-> +                                       &tacho_type_attribute_groups[i];
-> +
-> +       aspeed_pwm_tacho->groups[j] = NULL;
-> +
-> +       aspeed_pwm_tacho->hwmon_dev = devm_hwmon_device_register_with_groups(
-> +                                               &pdev->dev, "aspeed_pwm_tacho",
-> +                                               aspeed_pwm_tacho,
-> +                                               aspeed_pwm_tacho->groups);
-> +
-> +       if (PTR_ERR_OR_ZERO(aspeed_pwm_tacho->hwmon_dev)) {
-> +               dev_err(&pdev->dev, "cannot register hwmon\n");
-> +               err = PTR_ERR(aspeed_pwm_tacho->hwmon_dev);
+> +       if (ret) {
+> +               dev_info(&pdev->dev, "PECI: Failed request irq %d\n",
+> +                        aspeed_peci.irq);
 > +               goto out_region;
 > +       }
 > +
-> +       /* SCU Pin-MUX PWM & TACHO */
-> +       aspeed_scu_multi_func_reset(AST_SCU_FUN_PIN_CTRL3, 0xcfffff, 0xc000ff);
+> +       ret = misc_register(&aspeed_peci_misc);
+> +       if (ret) {
+> +               dev_err(&pdev->dev,
+> +                       "aspeed_peci : failed to request interrupt\n");
+> +               goto out_region;
+> +       }
 > +
-> +       /* SCU PWM CTRL Reset */
-> +       aspeed_toggle_scu_reset(SCU_RESET_PWM, 3);
+> +       aspeed_peci.misc_dev = &pdev->dev;
+> +       platform_set_drvdata(pdev, &aspeed_peci);
 > +
-> +       aspeed_pwm_taco_init();
+> +       /* Reset PECI controller */
+> +       aspeed_toggle_scu_reset(SCU_RESET_PECI, 3);
 > +
-> +       dev_info(&pdev->dev, "aspeed pwm tacho: driver successfully loaded.\n");
+> +       aspeed_peci_ctrl_init();
+> +       dev_info(&pdev->dev, "aspeed_peci: driver successfully loaded.\n");
 > +
 > +       return 0;
 > +
 > +out_region:
 > +       release_mem_region(res->start, res->end - res->start + 1);
 > +out:
-> +       dev_err(&pdev->dev, "aspeed pwm tacho: driver init failed (err=%d)!\n",
-> +               err);
-> +       return err;
+> +       dev_warn(&pdev->dev, "aspeed_peci: driver init failed (ret=%d)!\n",
+> +                 ret);
+> +       return ret;
 > +}
 > +
-> +static int aspeed_pwm_tacho_remove(struct platform_device *pdev)
+> +static int aspeed_peci_remove(struct platform_device *pdev)
 > +{
-> +       struct aspeed_pwm_tacho_data *aspeed_pwm_tacho =
-> +                                               platform_get_drvdata(pdev);
-> +       struct resource *res;
-> +
-> +       platform_set_drvdata(pdev, NULL);
-> +       res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +       iounmap(aspeed_pwm_tacho->reg_base);
-> +       release_mem_region(res->start, res->end - res->start + 1);
-> +       dev_info(&pdev->dev, "aspeed_pwm_tacho: driver unloaded.\n");
+> +       misc_deregister(&aspeed_peci_misc);
 > +
 > +       return 0;
 > +}
 > +
 > +#ifdef CONFIG_PM
 > +static int
-> +aspeed_pwm_tacho_suspend(struct platform_device *pdev, pm_message_t state)
+> +aspeed_peci_suspend(struct platform_device *pdev, pm_message_t state)
 > +{
-> +       dev_info(&pdev->dev, "aspeed_pwm_tacho_suspend\n");
-> +
+> +       dev_info(&pdev->dev, "aspeed_peci_suspend : TODO\n");
 > +       return 0;
 > +}
 > +
-> +static int
-> +aspeed_pwm_tacho_resume(struct platform_device *pdev)
+> +static int aspeed_peci_resume(struct platform_device *pdev)
 > +{
-> +       aspeed_pwm_taco_init();
+> +       aspeed_peci_ctrl_init();
+> +
 > +       return 0;
 > +}
 > +
 > +#else
-> +#define aspeed_pwm_tacho_suspend        NULL
-> +#define aspeed_pwm_tacho_resume         NULL
+> +#define aspeed_peci_suspend        NULL
+> +#define aspeed_peci_resume         NULL
 > +#endif
 > +
-> +static const struct of_device_id aspeed_pwm_fan_of_table[] = {
-> +       { .compatible = "aspeed,aspeed2500-pwm-fan", },
+> +static const struct of_device_id aspeed_peci_of_table[] = {
+> +       { .compatible = "aspeed,aspeed2500-peci", },
 > +       { },
 > +};
-> +MODULE_DEVICE_TABLE(of, aspeed_pwm_fan_of_table);
+> +MODULE_DEVICE_TABLE(of, aspeed_peci_of_table);
 > +
-> +static struct platform_driver aspeed_pwm_tacho_driver = {
-> +       .remove         = aspeed_pwm_tacho_remove,
-> +       .suspend        = aspeed_pwm_tacho_suspend,
-> +       .resume         = aspeed_pwm_tacho_resume,
+> +static struct platform_driver aspeed_peci_driver = {
+> +       .probe          = aspeed_peci_probe,
+> +       .remove         = aspeed_peci_remove,
+> +       .suspend        = aspeed_peci_suspend,
+> +       .resume         = aspeed_peci_resume,
 > +       .driver         = {
 > +               .name   = KBUILD_MODNAME,
 > +               .owner  = THIS_MODULE,
-> +               .of_match_table = aspeed_pwm_fan_of_table,
+> +               .of_match_table = aspeed_peci_of_table,
 > +       },
 > +};
-> +module_platform_driver_probe(aspeed_pwm_tacho_driver, aspeed_pwm_tacho_probe);
+> +
+> +module_platform_driver(aspeed_peci_driver);
 > +
 > +MODULE_AUTHOR("Ryan Chen <ryan_chen@aspeedtech.com>");
-> +MODULE_DESCRIPTION("ASPEED PWM TACHO driver");
+> +MODULE_DESCRIPTION("AST PECI driver");
 > +MODULE_LICENSE("GPL");
-> +MODULE_ALIAS("platform:aspeed-pwm-fan");
 > --
 > 2.1.4
 >
