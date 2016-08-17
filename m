@@ -1,52 +1,51 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x242.google.com (mail-ua0-x242.google.com
- [IPv6:2607:f8b0:400c:c08::242])
+Received: from mail-ua0-x22d.google.com (mail-ua0-x22d.google.com
+ [IPv6:2607:f8b0:400c:c08::22d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sDVBF1d5jzDr4d
- for <openbmc@lists.ozlabs.org>; Wed, 17 Aug 2016 10:15:49 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sDW945zCzzDr4d
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Aug 2016 10:59:52 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=bwvlPZnp; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=PwlFjn6E; 
  dkim-atps=neutral
-Received: by mail-ua0-x242.google.com with SMTP id u13so7756051uau.0
- for <openbmc@lists.ozlabs.org>; Tue, 16 Aug 2016 17:15:49 -0700 (PDT)
+Received: by mail-ua0-x22d.google.com with SMTP id n59so149700989uan.2
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Aug 2016 17:59:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=l8Yj2cJS3o0qhfUVPZbhWPZKUgL+1dHpsgP9hSF9TK8=;
- b=bwvlPZnppIYEVE7hX4Oy5XMJWlkw9LFLlK+eE9jBnZjZH6BSZ4RLSR+cI9ZNanGfKk
- b96m+AxP4pnRXiskxok4E5QKwbSS/I+ReX/h2BSpOBqhNHCBsy+LECB9DN4whftxon0x
- +YeIcF+vHnmYE52mLV/J0/rofJeMzw5iawcOMpQVjVsv1k4ono4+h54ppOjb5edaTwQJ
- JdjJfR2qGc5/hoq+n95duEG850qdoW2iZowFR+JRVuZ0WrX9ncXkvoTrLjkjGR6vWS+R
- 0BP8fH2O1h/YccyuXGjzSRxwgn9YWxnDfFUHKYDbr3SiKvVGVBOOH0CpsFWfG3hZE43M
- C9sA==
+ bh=jCurbMoisPPTVVrF+jHptNpuaarNbWe59BHumpk2oAk=;
+ b=PwlFjn6EGP/td4pzHjNe5ltQQMYVB4Zv5sX++rr+YCgK2qr8Nib9uR+Y55m16HvrjP
+ 05S7LUU/a8xeMO9Q/O072KJzPnmqJiME/r0jea6GJrNkOiGx0fK5vudOJClkPI/LcEBC
+ aI+Qe6sYajeuUVihhh7jyslfDiHUYCfBUCYIQdJpD3RodFCtMOyAT6JWc/WuN9G3YBzk
+ QjVmsZ61Ky2knuwz90UYVUTi8XZN4kVvZoJRhqXMn4vkG4Gpa1f/a8Hr5xIVcgRTAy/m
+ zHOXrS6KNCzzB9KEcPGSqBRdMXZrrtjosbioMUfz0M2L+bTBsVKV1aM0yMoDaIt/G6aZ
+ QPhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=l8Yj2cJS3o0qhfUVPZbhWPZKUgL+1dHpsgP9hSF9TK8=;
- b=GbeU2soERKFfTAuFDA193VR0NUpiligkmePT6yncKKZg8q+D2j5XS02G7n/EKTESwp
- Yx4sU2tILyoNSNWD2Xkp1hwZ1fTyc+0vQpCIbtWa0sOPGvLMgYCGZbmgAjwQTfH1F5Pe
- fkMScpDRZz8m9dHhynUwzmSsxfsTQX4TCWZxyejh/rcocO9TsiV2TMUdnQHOstcErh74
- TaNO+qH8O0GWUV+npVI9tzg9wCau9KfpYljPz+x9xK6O+ouwkMRcvS2vuE2yGdr2uvTG
- UHBhCBE1WEb5f8s+St9jCjR+segi+SmvsmE04LLwJjIS2YSmHqLApPGtaee+q3uQkxdt
- +Cgg==
-X-Gm-Message-State: AEkoouvOVOqW61qJvQT441t7+oGx5RWJwzM4RSJ0FzOEWt4II6ThWJ4QEPuypDhOl+dK+yTDCEAQWHhZeV/M6w==
-X-Received: by 10.176.0.115 with SMTP id 106mr18352028uai.43.1471392946713;
- Tue, 16 Aug 2016 17:15:46 -0700 (PDT)
+ bh=jCurbMoisPPTVVrF+jHptNpuaarNbWe59BHumpk2oAk=;
+ b=SpxFhW9tGs/O62+d1bQu445iEnK+O13Zg6HiwjuVwpLnFje6IFfuEa51AEqAypvuIh
+ CPmDLp2ag0W7ON88p4yBIYmtCv4X/HCuZgV0A0dng+vEHJJ6PoNJqfIOpEkFVSSSQ6kU
+ PGKfJ3k2BJnGtKqqsdaODYpVUIkEKwOEjt+G62Viz/o43bDIpeszY3/TScDJsE2mL/O0
+ 3M2tngv00pyGKi/ddi6sWUQWb0vRriUgzch5JIfXkBiq/xfaWe25/o+NiUdD0sH02kvu
+ nAYchqA2L4Egim+dcpMynkANkts98OEEn7HtyeJs+aY49cKmPISeSx0hwEsNnSSX1hn8
+ yDwA==
+X-Gm-Message-State: AEkoouvNSua+shrP6Qiz7a8JBjai5gFsT87HGGZ8UhAqPFCuorwhdnTeDDcFPQCAlMKhUYWyQ0fG+BFLskZWQw==
+X-Received: by 10.159.35.47 with SMTP id 44mr5836544uae.38.1471395590461; Tue,
+ 16 Aug 2016 17:59:50 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.159.38.76 with HTTP; Tue, 16 Aug 2016 17:15:26 -0700 (PDT)
-In-Reply-To: <79e11c2d-2450-735f-094e-d43e329b4c3f@google.com>
-References: <CACPK8XckyWBdN+B+ieudY8FmgOXR7N4RMGaSt2yuOyZ8tCmodg@mail.gmail.com>
- <79e11c2d-2450-735f-094e-d43e329b4c3f@google.com>
+Received: by 10.159.38.76 with HTTP; Tue, 16 Aug 2016 17:59:30 -0700 (PDT)
+In-Reply-To: <279731470914875@webcorp01g.yandex-team.ru>
+References: <279731470914875@webcorp01g.yandex-team.ru>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 17 Aug 2016 10:15:26 +1000
-X-Google-Sender-Auth: SgMImVcjhJrr4md4U0yu4FaZPUA
-Message-ID: <CACPK8XenpYnKWwuEwvbf=ePrNZwkzMZJW=es-Gpu=VgTvD7yGg@mail.gmail.com>
-Subject: Re: Linux dev-4.7 tree: Request for testing
-To: Xo Wang <xow@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Jeremy Kerr <jk@ozlabs.org>
+Date: Wed, 17 Aug 2016 10:59:30 +1000
+X-Google-Sender-Auth: xr_K2TN8ulIA46I9_biWXZGneAM
+Message-ID: <CACPK8Xci7hVRkDJntJZJE2_eu1Jth+73pZE6NaONgK44BcUOCw@mail.gmail.com>
+Subject: Re: Platform setup via DTS
+To: "Anton D. Kachalov" <mouse@yandex-team.ru>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
@@ -59,73 +58,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Aug 2016 00:15:49 -0000
+X-List-Received-Date: Wed, 17 Aug 2016 00:59:53 -0000
 
-Hey Xo,
+Hey Anton,
 
-On Wed, Aug 17, 2016 at 9:55 AM, Xo Wang <xow@google.com> wrote:
->
->> We need to use a mechanism to tell userspace which device is the
->> vuart. udev? systemd?
->
-> I think that's covered by this userspace configuration file:
-> https://github.com/openbmc/openbmc/blob/master/meta-phosphor/common/recipes-phosphor/obmc-console/obmc-console/obmc-console.conf
+On Thu, Aug 11, 2016 at 9:27 PM, Anton D. Kachalov <mouse@yandex-team.ru> wrote:
+> I would like to start a little discussion around board setup process in arch/arm/mach-aspeed/aspeed.c.
+> For most cases this process is "flat": just modifying regs one-by-one. Sometimes with applying mask.
+> I have an idea to add an array of "instructions" to the Device Tree in the following manner
+> (I hope dtc's preprocess via cpp resolve ORed macro in the correct way):
 
-Yeah. Ideally we would have systemd/udev populate this configuration
-file. There has been some work in this area; I think there are a few
-prerequisites from our systemd setup to land before we can turn that
-on.
+I agree that we need to remove the board file.
 
-> It specifies the VUART console device as ttyS5, which doesn't exist using
-> our current DTS for the EVB.
->
->> $ ls /sys/devices/platform/ahb/ahb:apb/1e787000.vuart/tty
->> ttyS0
->>
->> We could also set an alias in the device tree?
->
-> That's how I did my testing for AST2500 EVB connected to an LPC host. This
-> enabled and aliased the vuart for me (please note s/uart6/vuart/g for
-> dev-4.7):
+However, we will not be able to get changes upstream that use the
+device tree as a scripting language :)
 
-I had a similar idea. If we can't think of a better solution then I
-will commit a patch to this effect today.
+I think the solution is to write a driver for the different parts of
+the system we require. Andrew J has done that for the multi-function
+pin control registers in the SCU. I've got a work in progress driver
+for the clock related registers. Next up would be a driver for the LPC
+register space to properly configure that.
 
 Cheers,
 
 Joel
 
-> diff --git a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-> b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-> index 28b0045..51b032d 100644
-> --- a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-> +++ b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-> @@ -8,6 +8,7 @@
 >
->         aliases {
->                 serial4 = &uart5;
-> +               serial5 = &uart6;
->         };
+> ==========
+> #include <dt-bindings/soc/aspeed.h>
 >
->         chosen {
-> @@ -39,6 +40,10 @@
->         status = "okay";
->  };
+> / {
+>     model = "Our HW";
+>     compatible = "aspeed,ast2400";
+>     board-setup = <WR, AST_BASE_LPC | 0x9c, 0x02010023, 0>,
+>                            <WR, AST_BASE_SCU, SCU_PASSWORD, 0>,
+>                            <WR, AST_BASE_SCU | 0x80, 0xcb000000, 0>,
+>                            ...
+>                             /* write(read() | 0x1000) */
+>                            <OR, AST_BASE_SCU | 0x2c, 0x00001000, 0>,
 >
-> +&uart6 {
-> +       status = "okay";
-> +};
-> +
->  &mac0 {
->         status = "okay";
->  };
+>                            /* write((read() &~ 0x2000) | 0x1000) */
+>                            <OR, AST_BASE_SCU | 0x2c, 0x00001000, 0x2000>;
+> ==========
+>
+> or in less talkative way:
+>
+> ==========
+>                             /* write((read() &~ 0) | 0xcb000000) */
+>                            <AST_BASE_SCU | 0x80, 0xcb000000, 0>,
+>                            ...
+>                             /* write((read() &~ 0x1000) | 0x1000) */
+>                            <AST_BASE_SCU | 0x2c, 0x00001000, 0x1000>,
+> ==========
+>
+> to completely eliminate board-specific init functions.
 >
 >
->
->
-> cheers
-> xo
->
+> --
+> Anton D. Kachalov
 > _______________________________________________
 > openbmc mailing list
 > openbmc@lists.ozlabs.org
