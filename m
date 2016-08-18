@@ -1,51 +1,29 @@
-Return-Path: <geissonator@gmail.com>
-Received: from mail-it0-x22c.google.com (mail-it0-x22c.google.com
- [IPv6:2607:f8b0:4001:c0b::22c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sFVHh02rRzDr5T
- for <openbmc@lists.ozlabs.org>; Fri, 19 Aug 2016 01:24:00 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=jfpLO2o2; 
- dkim-atps=neutral
-Received: by mail-it0-x22c.google.com with SMTP id x131so930820ite.0
- for <openbmc@lists.ozlabs.org>; Thu, 18 Aug 2016 08:23:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=66PjPfRbx9dYVJrwkybMqKUoEqHH9tHUdWM3nUO62uc=;
- b=jfpLO2o2JgXv8jusRBRhycC1XxmFU36wJ5wE8hVLqbyahAHSxRC2h2AIwSL+X9ogE4
- KgrWGHk04JZskfQZju/5xB8LcvBHN1n+bH6uAVa6MvW1W+CiId3NHUeSUQyvTlpszUFA
- Uhwd+YsTqhxBJpB03YiUYjvlD7TVp0IwFwHjGaGMOkMNJ8NrCfamlFz7/nEqG6iMED9Y
- hSgfE44JTTAwYAD9NcOH+a0aH9nPN4U65WjHgVGxKcTV+A467INOE3a+0S7tjY8jM0Jq
- I8czPfnZ76tItUeVxmJWK2n1Pbljcx/5xozhex8MnBhhyhWhlfz6WuNyEf2LBCnVMPPX
- BdwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=66PjPfRbx9dYVJrwkybMqKUoEqHH9tHUdWM3nUO62uc=;
- b=U3RvJgJdQJqN8+0HFlCLRKjHHXciORdzlbpjAXIrObz6G3PqiWC0yhxZbGalBrVuLx
- LErcniFltGGXrk/tUfI6xdyOrL2/aG5U8z4b3b059MVfn+z1nsElkd0ST+zWxoH6mIGE
- oSRGE5TPamqXOP1lr8n544OqaM/dZK4pGEhI3aZKTP6IID+f7NDcde5wxDzEzRRx0Obl
- z5CtzOJOckHtV3PrjgLxf4QDBgqKwJ5wsCOfaONhmsZT1saOSKtcrzpl7+LqR+hRHrqh
- KYanWxTJi3wxphdXvlzDDWDx3egM5zx5YJ9szdgrrqqXDBX0uKTd5ZU4YCJnqPoqUMdD
- yhow==
-X-Gm-Message-State: AEkoousbVFesnv58+saQDaQKeaIKk/YIfmCmuNVefF785+fT5Ah23cJwzW+kJoXN5mnSh4GGD6TcbREs6HtEmw==
-X-Received: by 10.36.104.73 with SMTP id v70mr211120itb.12.1471533837283; Thu,
- 18 Aug 2016 08:23:57 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sFYQN28s2zDr5Y
+ for <openbmc@lists.ozlabs.org>; Fri, 19 Aug 2016 03:44:58 +1000 (AEST)
+Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
+ with SMTPS id 1471542291874345.16895305315245;
+ Thu, 18 Aug 2016 10:44:51 -0700 (PDT)
+Date: Thu, 18 Aug 2016 12:44:50 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: tomjose <tomjose@linux.vnet.ibm.com>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: Discussion on openbmc issue #430
+Message-ID: <20160818174450.etqga6oqo5f5z5qr@asimov>
+References: <57ADD588.7080000@linux.vnet.ibm.com>
+ <20160812141702.mx6fhszbltr2ogfa@asimov>
+ <57B2FA9E.6080405@linux.vnet.ibm.com>
 MIME-Version: 1.0
-Received: by 10.107.166.140 with HTTP; Thu, 18 Aug 2016 08:23:56 -0700 (PDT)
-In-Reply-To: <CALLMt=ryfJyMtWstCGyZgPM=8VZMw8kDiS__L0GoTRaY2ZADng@mail.gmail.com>
-References: <CALLMt=qweXqtGwNAA33EEzNVj=117wbuF_CDcr8JBeORFusU0Q@mail.gmail.com>
- <CACPK8XfY=nOr3-TAZP2U3vQrrVA2bh8vcSeuj2oMcnunZdE+iw@mail.gmail.com>
- <CALLMt=ryfJyMtWstCGyZgPM=8VZMw8kDiS__L0GoTRaY2ZADng@mail.gmail.com>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Thu, 18 Aug 2016 10:23:56 -0500
-Message-ID: <CALLMt=pBiT60w-tvo+A20JZ_KHyC0WO_yne=sJ-wogWAmjL8Nw@mail.gmail.com>
-Subject: Re: Robot Tests in CI
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="cmkodddgfzwfdeq2"
+Content-Disposition: inline
+In-Reply-To: <57B2FA9E.6080405@linux.vnet.ibm.com>
+User-Agent: Mutt/1.6.2 (2016-06-11)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -57,85 +35,109 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 Aug 2016 15:24:00 -0000
+X-List-Received-Date: Thu, 18 Aug 2016 17:45:03 -0000
 
-ok, all code review comments addressed and code is getting cherry
-picked into our CI runs without issue.
 
-Final +1's and merge appreciated from the team.
+--cmkodddgfzwfdeq2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-# New scripts to launch qemu and run robot tests
-https://gerrit.openbmc-project.xyz/#/c/166/
+On Tue, Aug 16, 2016 at 05:05:58PM +0530, tomjose wrote:
+>=20
+> Thanks Patrick for your feedack. I have mentioned my responses inline.
+>=20
+> On Friday 12 August 2016 07:47 PM, Patrick Williams wrote:
+> > Tom,
+> >
+> > Thanks for sending this out to the broader community.
+> >
+> > Few comments below...
+> >
+> > On Fri, Aug 12, 2016 at 07:26:24PM +0530, tomjose wrote:
+> >> *Registering Callback Routines:-*
+> >> -----------------------------------------------
+> >> 1) Open the IPMI library path(/usr/lib/phosphor-host-ipmid)
+> > I would prefer we have a new directory '/usr/lib/phosphor-net-ipmid' for
+> > the RMCP libraries.  We can create symlinks between the two repos as
+> > appropriate.
+> >
+> > The reason for this is two-fold:
+> >     1) I suspect there will be some of the OEM commands that we will wa=
+nt
+> >        to expose in-band only.
+> >     2) There are commands that may want similarly excluded from the
+> >        in-band path due to security concerns (even though we have the
+> >        white-list support).
+> >
+> > We might want to have a '/usr/lib/ipmid-providers' as the default
+> > install location for all providers and then symlink into both
+> > phosphor-net and phosphor-host as appropriate.
+> In the proposal, i had mentioned there is a provision to add channel=20
+> restrictions to each command.
+> There are 3 variants available: execute on any channel, execute in-band=
+=20
+> only and execute on lan only.
+> The channel restriction would be evaluated before each command is execute=
+d.
+> I hope this would meet the same requirements.
 
-# Disable uninative feature
-https://gerrit.openbmc-project.xyz/#/c/176/
+I would rather not codify that in the provider itself.  By using
+symlinks we allow the system engineers to specify different behavior for
+their system without having to modify code.  ie. through .bbappend
+changes to the recipe.
 
-# Update build script to support ppc64le
-https://gerrit.openbmc-project.xyz/#/c/196/
+> >> *SessionLess Commands :-
+> >> *-------------------------------------*
+> >> *
+> >> This would mention whether the command can be executed without a
+> >> session. For example
+> >> Get Channel Capabilities can be executed without a session.
+> > How do we identify session-less commands?  Should this be an enhancement
+> > to the registration API?
+> The session less commands are mentioned in the IPMI specification.
+> Examples are Get Channel Authentication Capabilites, Activate Session=20
+> command etc.
 
-# Update build script to auto extract master if no code given
-https://gerrit.openbmc-project.xyz/#/c/211/
+I meant how are they identified by the provider?  You could want to
+implement an OEM command that is session-less.  We need that identified
+by the provider when they do registration?
 
-Thanks,
-Andrew
+> The privilege levels attributed to each command is mentioned in the=20
+> specification.
+> It is mentioned in the specification Table G-1,(Command Number=20
+> Assignments and
+> Privilege Levels). The providers should provide these as registration=20
+> parameters
+> when the callbacks are registered.
 
-On Tue, Aug 16, 2016 at 3:34 PM, Andrew Geissler <geissonator@gmail.com> wrote:
-> On Mon, Aug 15, 2016 at 9:14 PM, Joel Stanley <joel@jms.id.au> wrote:
->> Hey Andrew,
->
-> Hey Joel!
->
->>
->> On Tue, Aug 16, 2016 at 1:00 AM, Andrew Geissler <geissonator@gmail.com> wrote:
->>> I've enabled running our robot CI tests against all of the
->>> openbmc/openbmc gerrit commits.  This is against the basic ARM based
->>> QEMU model.
->>
->> Thanks.
->>
->> Do you intend to run it against the palmetto qemu? This would be
->> useful to ensure our kernel and userspace interactions are not
->> regressing.
->
-> Definitely!  Just not in this commit :)  We wanted to start with the basics.
-> Running against Palmetto QEMU and running an enhanced CI bucket
-> against it are on the list.
->
->>
->>>
->>> Reviews/Comments (or +1's) appreciated on the scripts to do this:
->>>
->>> https://gerrit.openbmc-project.xyz/#/c/166/  (main script)
->>> https://gerrit.openbmc-project.xyz/#/c/176/  (minor change to support
->>> QEMU in docker)
->>
->> Andrew J has beat me to it. Look good in general.
->>
->>>
->>> The jenkins job can be found here:
->>> https://openpower.xyz/job/openbmc-test-qemu-ci/
->>>
->>> The test team is working on optimizing the test suite to ensure as
->>> much coverage in as minimum amount of time.
->>>
->>> Also, I've tweaked the build-setup.sh script to support ppc64le,
->>> comments (or +1's) appreciated here as well:
->>> https://gerrit.openbmc-project.xyz/#/c/196/
->>
->> Looks good, pending addressing Andrew J's feedback.
->>
->>>
->>> Next on the list is a real-hardware based CI job.
->>
->> Great!
->>
->> Cheers,
->>
->> Joel
->
-> Unfortunately we've got a bit of a blocker with
-> https://github.com/openbmc/openbmc-test-automation/issues/78
-> We're still running the CI tests but we wont fail the job if the CI
-> test fails until we get this resolved.
->
-> Andrew
+Ok.  Those can be default groups.  Isn't there also a mechanism to
+create custom groups with IPMI?  Since we plan to map IPMI users back to
+PAM users, do we also need to map roles back to PAM groups?
+
+--=20
+Patrick Williams
+
+--cmkodddgfzwfdeq2
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJXtfQSAAoJEKsDR8wtAMEZEIUQAI+40PnV3I7SaDAJ2ujew4tV
+raw/gB5zzOZ4t/0feUmhVIE5lek9heErCc4lEym/NIXgLdJzYeyiXRor3uF/OlOC
+6SsG30oLHhRbzHWnFsdX6UNMG91RwAY6FSDP5Ve2H8dB4ttch4avAk0EvItgc56L
+wtxqgciJ9UvFhoOVtGzSxf/iLtCi4yJuwtd6v4ntowPNmkgwv2IbKPn+ctrJd4sA
+3KACccKu63vbXh94OuwwzQxFezjXcoW5YDSiTZc/ycpwsdOfna4t4krdRVNi08JS
+a3ecYC/F8BmYgPVtDtX8ItZmxeYmlhIjpe0x/U67aI0/9PYy8e0OGZwuOqCGD3vx
+OQYHolOG3Ba/RYEb7jD6G06P/vUN48wWnQ00JZTxhNWAHj4tc120a6t44FQIOEC7
+m7Y772NzTbwvrq11X5oejlflXILvFZuEtnc6WmZdVt/J8lDNRH9ef2IqsSq1AYod
+rG8BiRo/D+D3W0zRVwJiv9jppUSRDpR85jD926Z2DySuwH3n+W/tha1YzTH3I2vx
+725RBdKP3LmzSU8NB/y0e47p9uqRSSVjn5SWwqqS2c5R52ohf1wLBxj+VoorLbBz
+cXSIvrUAe3pvmqq7UNoPxGCHESu0D0fH+6+iPoNpeEzIA38uipAM5RdCpqSqc/2z
+k5AI6/louKdnxwsMHoR4
+=DnM/
+-----END PGP SIGNATURE-----
+
+--cmkodddgfzwfdeq2--
