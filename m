@@ -1,49 +1,35 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-yb0-x234.google.com (mail-yb0-x234.google.com
- [IPv6:2607:f8b0:4002:c09::234])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <clg@kaod.org>
+X-Greylist: delayed 11996 seconds by postgrey-1.35 at bilbo;
+ Tue, 23 Aug 2016 05:09:12 AEST
+Received: from 17.mo1.mail-out.ovh.net (17.mo1.mail-out.ovh.net
+ [87.98.179.142])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sJ25953djzDrcG
- for <openbmc@lists.ozlabs.org>; Tue, 23 Aug 2016 04:23:41 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=WtVcoD1P; 
- dkim-atps=neutral
-Received: by mail-yb0-x234.google.com with SMTP id e31so42470198ybi.3
- for <openbmc@lists.ozlabs.org>; Mon, 22 Aug 2016 11:23:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=GVGwB3Hdxq02Zhvfbb6IEuoZ0kOHGKiIoNGMs7NsSLI=;
- b=WtVcoD1PwWZCkKsfeRWoBdAxB4sLL81qnD/oXbr4EJpgZ75gTRge3cm+5ywEOqexaD
- zQTDY4bY1VHn1rXtpMbLqBhSwF6SwxESSLGqjS+AoDfeAH9Nw41lL7OJUVVVIEfHSHzZ
- s4K206DO4E570b0XaTvEMfMif+5wLWmMJjibGo2PqjRPTjanmyR/H8smDmZtAo2q97Mh
- YNemFBV/66/vw1TpNOX1AfaZNprx9zcfLrB6WzNuF04RP/pEF6kNF8YRDv+E3du1/ezK
- 2ATWDh7wuc2PfeYJBOknXnLBEmflJILmDxmkeNwQhD9HV0gtktMFYy6uST2Sfkarryjj
- JlJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=GVGwB3Hdxq02Zhvfbb6IEuoZ0kOHGKiIoNGMs7NsSLI=;
- b=bC6VPt0pDSCDa9cQiOxWb+BzD/Cy1xmQ42JUulDfyaPa1p7n4KwH4nzRBj1675DNJM
- q+qsAB1dJ5wDKQUAID39FGflKYPqnWSP4nnstLLPRlly7+RkBqK99YjzItvXm5MpYW6C
- Zk7nllVDwDLKmdriWo2UjNi1Ad49pXvt5tlowitZWCrOQwSw7GqaR0HICIL1Iq58PwlP
- 4kLDnd+ehB7uJH5zojXx2BmvwHujHcFBhT12cUO3DUh8yikMjtGSMz8pnIGZwGccShS4
- +xeiibPNxfCnweYgW6ED4EWtAW7wJ8iqkz/H8vXNjqBV9FbIstN4LwSw2l1Ock/iIaYN
- iMSA==
-X-Gm-Message-State: AEkoous6qe03zX5FegCdV3tTftIKIRXnb3UJNHuhYsNw7EkpH8qd1xA08Qk/LmTHk3NbLhlgOwLF8RP1tEI+A7xK
-X-Received: by 10.37.66.72 with SMTP id p69mr7997550yba.124.1471890218446;
- Mon, 22 Aug 2016 11:23:38 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sJ35h6W26zDq5f
+ for <openbmc@lists.ozlabs.org>; Tue, 23 Aug 2016 05:09:12 +1000 (AEST)
+Received: from player726.ha.ovh.net (b7.ovh.net [213.186.33.57])
+ by mo1.mail-out.ovh.net (Postfix) with ESMTP id D4802FF9525
+ for <openbmc@lists.ozlabs.org>; Mon, 22 Aug 2016 17:29:47 +0200 (CEST)
+Received: from hermes.kaod.org (deibp9eh1--blueice2n7.emea.ibm.com
+ [195.212.29.169]) (Authenticated sender: clg@kaod.org)
+ by player726.ha.ovh.net (Postfix) with ESMTPSA id 897A02A00BD;
+ Mon, 22 Aug 2016 17:29:45 +0200 (CEST)
+Subject: Re: Linux dev-4.7 tree: Request for testing
+To: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <CACPK8Xd1M2x5rrPUNwvhg4Yes85hPHxPbnysiC-jNii8W3KBHA@mail.gmail.com>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <6c6aefd4-1be7-a441-2baa-d6df685feddf@kaod.org>
+Date: Mon, 22 Aug 2016 17:29:44 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.2.0
 MIME-Version: 1.0
-Received: by 10.37.160.4 with HTTP; Mon, 22 Aug 2016 11:23:37 -0700 (PDT)
-In-Reply-To: <DB4PR05MB094160F672C38AEB237AC40BD51C0@DB4PR05MB0941.eurprd05.prod.outlook.com>
-References: <DB4PR05MB094160F672C38AEB237AC40BD51C0@DB4PR05MB0941.eurprd05.prod.outlook.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Mon, 22 Aug 2016 11:23:37 -0700
-Message-ID: <CAPLgG=ku_uMtNmGhJRTummn3DOK=WDO4oGLy2TONoZfZAqwXpw@mail.gmail.com>
-Subject: Re: Latest Linux dev-4.7 branch
-To: Shay Slobodkin <shays@mellanox.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=001a11c0106c9eea61053aad25d4
+In-Reply-To: <CACPK8Xd1M2x5rrPUNwvhg4Yes85hPHxPbnysiC-jNii8W3KBHA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 1903615271756794626
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeluddrfedvgddtgeculddtuddrfeeltddrtddtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -55,107 +41,187 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Aug 2016 18:23:42 -0000
+X-List-Received-Date: Mon, 22 Aug 2016 19:09:13 -0000
 
---001a11c0106c9eea61053aad25d4
+On 08/09/2016 05:13 PM, Joel Stanley wrote:
+> Hello OpenBMCers,
+> 
+> I've pushed a new Linux tree to https://github.com/openbmc/linux as
+> dev-4.7. I intend this to become the new tree used for openbmc's
+> master branch.
+> 
+> Linux 4.7 contained basic Aspeed SoC support. This tree contains 50
+> patches atop v4.7 that fall in to four categories:
+> 
+>  * backports of code that has gone into 4.8-rc1
+>    * nsci
+>    * ftgmac100 changes for ncsi
+>    * watchdog
+>    * irqchip
+> 
+>  * drivers that are out for review
+>    * pinmux
+>    * gpio
+>    * clk
+>    * clocksource
+> 
+>  * backports of dependencies for the above
+> 
+>  * drivers that require further cleanup and submission upstream
+>    * i2c
+>    * vuart
+>    * ftgmac100 fixes for ast2500
+>    * bt
+>    * spi-nor
+>    * p8 occ hwmon
+> 
+> This represents a lot of work done by Andrew, Gavin, Milton and
+> myself, with help from Yi, Jeremy, Cedric, Alistair and Ben. Recently
+> we've had contributions from Xo and Brendan too which has been great
+> to see.
+> 
+> I will not be rebasing this branch. We will use it for development
+> until 4.8 is released, at which time we will move to that as a base.
+> As we move our drivers upstream, each subsequent dev- branch will
+> contain fewer patches, with the goal being to use upstream as-is.
+> 
+> Before switching the builds over to this tree I would like to have
+> some testing done. Please give the kernel a spin on your development
+> system(s) and report back to the list on how it goes.
+> 
+> I recommend testing with the 2016.07-aspeed-openbmc u-boot tree.
+> Testing on other u-boot versions is welcome, as the kernel should not
+> be making assumptions about the system state (outside of those that
+> are required, such as system UART being available).
+> 
+> Please jump on #openbmc at irc.freenode.net and ping me ('shenki') if
+> you have any questions.
+> 
+> Cheers,
+> 
+> Joel
+> 
+> --
+> Alistair Popple (1):
+>   misc: Add Aspeed BT IPMI host driver
+> 
+> Andrew Jeffery (13):
+>   pinctrl: dt-bindings: Add documentation for Aspeed pin controllers
+>   pinctrl: Add core pinctrl support for Aspeed SoCs
+>   pinctrl: Add pinctrl-aspeed-g4 driver
+>   pinctrl: Add pinctrl-aspeed-g5 driver
+>   gpio: dt-bindings: Add documentation for Aspeed GPIO controllers
+>   syscon: dt-bindings: Add documentation for Aspeed system control units
+>   aspeed-g4: Add syscon and pin controller nodes
+>   palmetto: Request relevant mux functions in devicetree
+>   aspeed-g4: Add gpio controller to devicetree
+>   aspeed-g5: Add syscon and pin controller nodes
+>   aspeed-g5: Add gpio controller to devicetree
+>   net/ftgmac100: Separate rx page storage from rxdesc
+>   net/ftgmac100: Make EDO{R,T}R bits configurable
+> 
+> Arnd Bergmann (1):
+>   net/ncsi: avoid maybe-uninitialized warning
+> 
+> Benjamin Herrenschmidt (1):
+>   irqchip/aspeed-vic: Add irq controller for Aspeed
+> 
+> Brendan Higgins (1):
+>   i2c: aspeed: added support for slave mode
+> 
+> Daniel Lezcano (4):
+>   of: Add a new macro to declare_of for one parameter function returning
+>     a value
+>   clocksource/drivers/clksrc-probe: Introduce init functions with return
+>     code
+>   clocksource/drivers/moxart: Add the COMPILE_TEST option
+>   clocksource/drivers/moxart: Convert init function to return error
+> 
+> Gavin Shan (13):
+>   net/ncsi: Resource management
+>   net/ncsi: NCSI command packet handler
+>   net/ncsi: NCSI response packet handler
+>   net/ncsi: Package and channel management
+>   net/ncsi: NCSI AEN packet handler
+>   net/faraday: Helper functions to create or destroy MDIO interface
+>   net/faraday: Read MAC address from chip
+>   net/faraday: Support NCSI mode
+>   net/faraday: Match driver according to compatible property
+>   net/faraday: Mask PHY interrupt with NCSI mode
+>   net/faraday: Disallow using reversed MAC address from hardware
+>   net/faraday: Avoid PHYSTS_CHG interrupt
+
+I gave it a try on a palmetto and a ast2500 evb. Both boot fine but
+the evb dmesg is full of :  
+
+net_ratelimit: 299522 callbacks suppressed
+ftgmac100 1e660000.ethernet eth0: [ISR] = 0x203: PHYSTS_CHG
+ftgmac100 1e660000.ethernet eth0: [ISR] = 0x250: PHYSTS_CHG
+ftgmac100 1e660000.ethernet eth0: [ISR] = 0x200: PHYSTS_CHG
+ftgmac100 1e660000.ethernet eth0: [ISR] = 0x200: PHYSTS_CHG
+ftgmac100 1e660000.ethernet eth0: [ISR] = 0x200: PHYSTS_CHG
+ftgmac100 1e660000.ethernet eth0: [ISR] = 0x200: PHYSTS_CHG
+ftgmac100 1e660000.ethernet eth0: [ISR] = 0x203: PHYSTS_CHG
+ftgmac100 1e660000.ethernet eth0: [ISR] = 0x200: PHYSTS_CHG
+ftgmac100 1e660000.ethernet eth0: [ISR] = 0x200: PHYSTS_CHG
+ftgmac100 1e660000.ethernet eth0: [ISR] = 0x203: PHYSTS_CHG
+
+Below is a possible fix,
+
+Cheers,
+
+C.
+
+
+From: Cédric Le Goater <clg@kaod.org>
+Subject: [PATCH] net/ftgmac100: raise PHY link sensor level
+Date: Mon, 22 Aug 2016 16:29:02 +0200
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-I'm guessing this got resolved via IRC so this is just in case someone else
-looks on the mailing list.  dev-4.7 is a branch on
-https://github.com/openbmc/linux.  You may need to select the dev-4.7
-branch by clicking the "Branch" button on the left just above the list of
-files.  Joel (shenki@) keeps his work in progress dev-4.7 branch at
-https://github.com/shenki/linux.
+Commit 5f5d3d87370f ("net/faraday: Avoid PHYSTS_CHG interrupt")
+lowered the sensivity of the PHY link by setting Bit#11 in the MAC
+Control Register. But this seems to generate bogus PHY interrupts on
+non NC-SI adapters :
 
-On Tue, Aug 9, 2016 at 4:29 AM, Shay Slobodkin <shays@mellanox.com> wrote:
+    net_ratelimit: 299522 callbacks suppressed
+    ftgmac100 1e660000.ethernet eth0: [ISR] = 0x203: PHYSTS_CHG
+    ftgmac100 1e660000.ethernet eth0: [ISR] = 0x250: PHYSTS_CHG
+    ftgmac100 1e660000.ethernet eth0: [ISR] = 0x200: PHYSTS_CHG
+    ftgmac100 1e660000.ethernet eth0: [ISR] = 0x200: PHYSTS_CHG
+    ftgmac100 1e660000.ethernet eth0: [ISR] = 0x200: PHYSTS_CHG
+    ftgmac100 1e660000.ethernet eth0: [ISR] = 0x200: PHYSTS_CHG
+    ftgmac100 1e660000.ethernet eth0: [ISR] = 0x203: PHYSTS_CHG
+    ftgmac100 1e660000.ethernet eth0: [ISR] = 0x200: PHYSTS_CHG
+    ...
 
-> Hi,
->
->
->
-> We saw some recently added code into Linux branch dev-4.7 which we can use.
->
-> Also have some of our code we want to push into it, and want to rebase on
-> top of latest code.
->
->
->
-> Where can we find the latest Linux dev-4.7 branch?
->
->
->
-> We were looking under:
->
-> https://github.com/openbmc/linux/
->
->
->
-> though latest code there is branch 4.6.
->
->
->
-> Thanks,
->
-> Shay
->
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
->
->
+Let's lower the sensivity only for NC-SI adapters.
 
---001a11c0106c9eea61053aad25d4
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Cédric Le Goater <clg@kaod.org>
+---
+ drivers/net/ethernet/faraday/ftgmac100.c |    4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-<div dir=3D"ltr">I&#39;m guessing this got resolved via IRC so this is just=
- in case someone else looks on the mailing list. =C2=A0dev-4.7 is a branch =
-on=C2=A0<a href=3D"https://github.com/openbmc/linux">https://github.com/ope=
-nbmc/linux</a>.=C2=A0 You may need to select the dev-4.7 branch by clicking=
- the &quot;Branch&quot; button on the left just above the list of files.=C2=
-=A0 Joel (shenki@) keeps his work in progress dev-4.7 branch at=C2=A0<a hre=
-f=3D"https://github.com/shenki/linux">https://github.com/shenki/linux</a>.<=
-/div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Tue, Aug =
-9, 2016 at 4:29 AM, Shay Slobodkin <span dir=3D"ltr">&lt;<a href=3D"mailto:=
-shays@mellanox.com" target=3D"_blank">shays@mellanox.com</a>&gt;</span> wro=
-te:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-=
-left:1px #ccc solid;padding-left:1ex">
-
-
-
-
-
-<div lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"m_-5279781069665316238WordSection1">
-<p class=3D"MsoNormal">Hi,<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">We saw some recently added code into Linux branch de=
-v-4.7 which we can use.<u></u><u></u></p>
-<p class=3D"MsoNormal">Also have some of our code we want to push into it, =
-and want to rebase on top of latest code.<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">Where can we find the latest Linux dev-4.7 branch?<u=
-></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">We were looking under:<u></u><u></u></p>
-<p class=3D"MsoNormal"><a href=3D"https://github.com/openbmc/linux/" target=
-=3D"_blank">https://github.com/openbmc/<wbr>linux/</a><u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">though latest code there is branch 4.6.<u></u><u></u=
-></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">Thanks,<u></u><u></u></p>
-<p class=3D"MsoNormal">Shay<u></u><u></u></p>
-</div>
-</div>
-
-<br>______________________________<wbr>_________________<br>
-openbmc mailing list<br>
-<a href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a><br=
->
-<a href=3D"https://lists.ozlabs.org/listinfo/openbmc" rel=3D"noreferrer" ta=
-rget=3D"_blank">https://lists.ozlabs.org/<wbr>listinfo/openbmc</a><br>
-<br></blockquote></div><br></div>
-
---001a11c0106c9eea61053aad25d4--
+Index: linux-openbmc-4.7.git/drivers/net/ethernet/faraday/ftgmac100.c
+===================================================================
+--- linux-openbmc-4.7.git.orig/drivers/net/ethernet/faraday/ftgmac100.c
++++ linux-openbmc-4.7.git/drivers/net/ethernet/faraday/ftgmac100.c
+@@ -215,7 +215,6 @@ static void ftgmac100_init_hw(struct ftg
+ 				 FTGMAC100_MACCR_RXMAC_EN	| \
+ 				 FTGMAC100_MACCR_FULLDUP	| \
+ 				 FTGMAC100_MACCR_CRC_APD	| \
+-				 FTGMAC100_MACCR_PHY_LINK_LEVEL | \
+ 				 FTGMAC100_MACCR_RX_RUNT	| \
+ 				 FTGMAC100_MACCR_RX_BROADPKT)
+ 
+@@ -223,6 +222,9 @@ static void ftgmac100_start_hw(struct ft
+ {
+ 	int maccr = MACCR_ENABLE_ALL;
+ 
++	if (priv->use_ncsi)
++		maccr |= FTGMAC100_MACCR_PHY_LINK_LEVEL;
++
+ 	switch (speed) {
+ 	default:
+ 	case 10:
