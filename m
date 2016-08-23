@@ -1,49 +1,51 @@
 Return-Path: <raltherr@google.com>
-Received: from mail-yw0-x230.google.com (mail-yw0-x230.google.com
- [IPv6:2607:f8b0:4002:c05::230])
+Received: from mail-yw0-x235.google.com (mail-yw0-x235.google.com
+ [IPv6:2607:f8b0:4002:c05::235])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sJ9Bw3y7pzDrK5
- for <openbmc@lists.ozlabs.org>; Tue, 23 Aug 2016 09:44:08 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sJBlM0JWGzDrJy
+ for <openbmc@lists.ozlabs.org>; Tue, 23 Aug 2016 10:53:50 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=fR0IDJ6p; 
+ unprotected) header.d=google.com header.i=@google.com header.b=ouuX1wo7; 
  dkim-atps=neutral
-Received: by mail-yw0-x230.google.com with SMTP id j12so62563211ywb.2
- for <openbmc@lists.ozlabs.org>; Mon, 22 Aug 2016 16:44:08 -0700 (PDT)
+Received: by mail-yw0-x235.google.com with SMTP id j12so63334409ywb.2
+ for <openbmc@lists.ozlabs.org>; Mon, 22 Aug 2016 17:53:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=A6d6YcHg+0Htxdxq7NCYnxg/d0EDHn+F2niwKBq7I0A=;
- b=fR0IDJ6pd0YJYh+Hex0LXEPG2ticH9zgXJEzYanu0Elw1M/Pj5KVrN1Kz7mQsuS0Nx
- dLPScTWm7WRnsRSUryk87lfzG4XIV9tVg+ykao3dwB5g6EMCHTut20tsvM3+5FGaZ0Rb
- 6NDDZZuxbr2xArqL8rHQQY/4V1iefKzsB2DuNFwyUFVB2fuAgKT1J487uiwqRsFXPV6D
- 3K3vaypwajPdAlp0K7VEf8Ojh04gnF31+coion2qTclJpxovhYW9DwDebD8Qv42JVKBe
- BML1Pp3I5DI3P+gqYZcTWeeDPO187+53qKF2rrVD2y1S5QoVY18y+NdxC+txp3j9V1XN
- WABg==
+ :cc; bh=Hx9e15zqUZ9R+7czrp4wgABOJ601zf+oDBOmM3fNyuM=;
+ b=ouuX1wo7MoY1IxR2qyYGbmhlFcudfdyttUwocuQSHsfpfWPRh9RqowzzbsNDzUPf8+
+ FoJzRxbCILelTMgvtyw6hs2hjDkcyFuRtxA8m75xS0rEiMNXvaF0tFjQ/OvbaFEqKdZC
+ hOk5CxcmJu+YFYadQXRvgyUgpVbi5zan1G6QUx3Fi90Las/hiiZ6xeRmBv+AMrufadEt
+ j42lx21YJ9ziOJnrEbYrUBjwY3oK55iWASH/xScceyZDoHPkX3LgfXWnItER41ia5SXM
+ SkcgY4YNIL+HmQtBozVft30E8h4AiGlqHkrg3T7K0tJQrImgBVD+gox4j6y1zV9XFEGv
+ v7Lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=A6d6YcHg+0Htxdxq7NCYnxg/d0EDHn+F2niwKBq7I0A=;
- b=UMIpC+Y/4xx2cYsQ6EbL9ArJshK1t1adKkCrmZ3/kSvvtuv3FEEs0HvoyA326SWwXH
- EitTLMhraK8B6I2xO4uu5MqAr72ZIBCcFLYute+97EIsYGgcb50ZhTltOBvU7Xr7c2EM
- GaqYFIgXTbPAE1YRrJIam1FODAcnVALkLrpGeU+K1LJkhliSAcsrZMKRABK6E97zFiR/
- 1viYtdDBOX6J08zknbZH0b3vaYfh3xj4Sx3e8XjtNVKs2WwwpvhW7sohddtyHTlrOrTQ
- ojwoBf1a1aD6FZIlWxzPEIhrYzTr49ISLlrP5UpTXk6SPy5SETdyiFNhcaQsaS8/FQ5u
- A2Cw==
-X-Gm-Message-State: AEkoouuNS37G/oGOBUsDbyFxPkThlwGUeZuuOa3DjGaMUUliuhu3dSPKWKMxGsS4aN9wTh60mQfjQn38mRbocw+w
-X-Received: by 10.13.230.2 with SMTP id p2mr18865008ywe.125.1471909445708;
- Mon, 22 Aug 2016 16:44:05 -0700 (PDT)
+ bh=Hx9e15zqUZ9R+7czrp4wgABOJ601zf+oDBOmM3fNyuM=;
+ b=T5beU8Fa+wCodzDWs/vPRAnpXJ+IjQtgEpRgUCY9+x1r2OoGWlZHAj2CakMDjvNDpu
+ djy5uD8jeWLeAzMsCf04vE/jKLj51zErzf6jDohHb/wooWspnRZULb+44wbIKINH/+4Z
+ DUQQT5PpiBw8CO1/8VKvXtWZHVeK4pvyi+V4wp9bVCKtJaeU5H//jmu3uyjApXRzqdBT
+ Kmc6vWZW0Jfiu95e2K2dWnIIetWaANrMN+b8T089XoyNXi4m2Qq+NWrCMtm+RPLlwO8F
+ et9gvYO5suUZ4U6LKpumLyyWQmvyiqAjnuTz/VasvFdvxDXAg4Ro3+TDRu0W5zJv4unr
+ nqxw==
+X-Gm-Message-State: AEkoouuMh/3XJcDDtOXRmsZaE7of4WrOh3lsClcOZkM+875pU4h3fnnIOutgj/t/rIcZYWxKU3sneliS0NaxgQwM
+X-Received: by 10.129.120.82 with SMTP id t79mr20239144ywc.51.1471913628578;
+ Mon, 22 Aug 2016 17:53:48 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.37.160.4 with HTTP; Mon, 22 Aug 2016 16:44:05 -0700 (PDT)
-In-Reply-To: <c91f438b-8baa-808c-35d6-fffb928d22f1@linux.vnet.ibm.com>
-References: <c91f438b-8baa-808c-35d6-fffb928d22f1@linux.vnet.ibm.com>
+Received: by 10.37.160.4 with HTTP; Mon, 22 Aug 2016 17:53:48 -0700 (PDT)
+In-Reply-To: <CACPK8XenpYnKWwuEwvbf=ePrNZwkzMZJW=es-Gpu=VgTvD7yGg@mail.gmail.com>
+References: <CACPK8XckyWBdN+B+ieudY8FmgOXR7N4RMGaSt2yuOyZ8tCmodg@mail.gmail.com>
+ <79e11c2d-2450-735f-094e-d43e329b4c3f@google.com>
+ <CACPK8XenpYnKWwuEwvbf=ePrNZwkzMZJW=es-Gpu=VgTvD7yGg@mail.gmail.com>
 From: Rick Altherr <raltherr@google.com>
-Date: Mon, 22 Aug 2016 16:44:05 -0700
-Message-ID: <CAPLgG=koY4pB-kc=2eVCg5+CWVAVHdEN=SWwyBjK+4Bx7cPhyg@mail.gmail.com>
-Subject: Re: Document on : Time Manager in OpenBMC --> Need your review.
-To: vishwa <vishwa@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=94eb2c0878d6a7ab94053ab19fe2
+Date: Mon, 22 Aug 2016 17:53:48 -0700
+Message-ID: <CAPLgG=n3TvvQnuKCasoYNbF-7H+LCC5USyMS2Yj0vBjKQxvzcw@mail.gmail.com>
+Subject: Re: Linux dev-4.7 tree: Request for testing
+To: Joel Stanley <joel@jms.id.au>
+Cc: Xo Wang <xow@google.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary=94eb2c0afaa2f915d3053ab298a4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -55,107 +57,200 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Aug 2016 23:44:09 -0000
+X-List-Received-Date: Tue, 23 Aug 2016 00:53:51 -0000
 
---94eb2c0878d6a7ab94053ab19fe2
+--94eb2c0afaa2f915d3053ab298a4
 Content-Type: text/plain; charset=UTF-8
 
-In the future, please just send the text inline instead of as an attachment.
+I remember a discussion in IRC about how to modify obmc-console for
+multiple vuarts, etc.  I asked then if it made sense to entirely define the
+vuart in the dts (specify sirq and lpc_addr) instead of having obmc-console
+do it.  If we need to setup vuart aliases in the dts anyway, that seems to
+make even more sense.
 
-I don't understand the setting hierarchy.  To me,
-/org/openbmc/settings/Host/host0 implies I am modifying something related
-to the host CPU, not the BMC.  TimeMode only applies to the BMC so having
-it under host0 feels weird.
+On Tue, Aug 16, 2016 at 5:15 PM, Joel Stanley <joel@jms.id.au> wrote:
 
-1. I like the clear separation of NTP vs manual.
-
-2.1. "Both" seems like what we have today which doesn't really work at
-all.  I suggest omitting it.  "Split" feels like it should work for all
-cases.  If TimeMode is NTP, an offset is recorded.  If TimeMode is Manual,
-the BMC time is set.
-
-APIs:
-1. What time zone does SetTime assume?  If UTC, make sure to add tests for
-a valid leap second and leap year.
-2. I really dislike APIs that change behavior.  Provide separate GetBmcTime
-and GetHostTime APIs if you must.
-3. SetNTP is a very limiting name.  if this really changes TimeMode, call
-it SetTimeMode.  That way we can support things like 1588, GPS, etc later.
-
-Changes to NetworkManager:
-- I don't see the point of UseNTP for SetDHCP.  Configuring an NTP address
-is different from using NTP as a time source.  It's up to the DHCP server
-to provide NTP options.  Whether the BMC uses them is controlled by
-TimeMode.
-- Add a SetNtpServer API instead of adding to SetAddress4.  NTP is entirely
-separate from IPv4 address configuration.
-
-On Thu, Aug 18, 2016 at 4:08 AM, vishwa <vishwa@linux.vnet.ibm.com> wrote:
-
-> Team,
+> Hey Xo,
 >
-> Please help look into this document that describes what I think the
-> TimeManager on openBMC systems should look like.
+> On Wed, Aug 17, 2016 at 9:55 AM, Xo Wang <xow@google.com> wrote:
+> >
+> >> We need to use a mechanism to tell userspace which device is the
+> >> vuart. udev? systemd?
+> >
+> > I think that's covered by this userspace configuration file:
+> > https://github.com/openbmc/openbmc/blob/master/meta-
+> phosphor/common/recipes-phosphor/obmc-console/obmc-
+> console/obmc-console.conf
 >
-> Please weigh in your thoughts.
+> Yeah. Ideally we would have systemd/udev populate this configuration
+> file. There has been some work in this area; I think there are a few
+> prerequisites from our systemd setup to land before we can turn that
+> on.
 >
-> Thanks.
+> > It specifies the VUART console device as ttyS5, which doesn't exist using
+> > our current DTS for the EVB.
+> >
+> >> $ ls /sys/devices/platform/ahb/ahb:apb/1e787000.vuart/tty
+> >> ttyS0
+> >>
+> >> We could also set an alias in the device tree?
+> >
+> > That's how I did my testing for AST2500 EVB connected to an LPC host.
+> This
+> > enabled and aliased the vuart for me (please note s/uart6/vuart/g for
+> > dev-4.7):
 >
-> Vishwanath.
+> I had a similar idea. If we can't think of a better solution then I
+> will commit a patch to this effect today.
 >
+> Cheers,
+>
+> Joel
+>
+> > diff --git a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
+> > b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
+> > index 28b0045..51b032d 100644
+> > --- a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
+> > +++ b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
+> > @@ -8,6 +8,7 @@
+> >
+> >         aliases {
+> >                 serial4 = &uart5;
+> > +               serial5 = &uart6;
+> >         };
+> >
+> >         chosen {
+> > @@ -39,6 +40,10 @@
+> >         status = "okay";
+> >  };
+> >
+> > +&uart6 {
+> > +       status = "okay";
+> > +};
+> > +
+> >  &mac0 {
+> >         status = "okay";
+> >  };
+> >
+> >
+> >
+> >
+> > cheers
+> > xo
+> >
+> > _______________________________________________
+> > openbmc mailing list
+> > openbmc@lists.ozlabs.org
+> > https://lists.ozlabs.org/listinfo/openbmc
 > _______________________________________________
 > openbmc mailing list
 > openbmc@lists.ozlabs.org
 > https://lists.ozlabs.org/listinfo/openbmc
 >
->
 
---94eb2c0878d6a7ab94053ab19fe2
+--94eb2c0afaa2f915d3053ab298a4
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">In the future, please just send the text inline instead of=
- as an attachment.<div><br></div><div>I don&#39;t understand the setting hi=
-erarchy.=C2=A0 To me, /org/openbmc/settings/Host/host0 implies I am modifyi=
-ng something related to the host CPU, not the BMC.=C2=A0 TimeMode only appl=
-ies to the BMC so having it under host0 feels weird.</div><div><br></div><d=
-iv>1. I like the clear separation of NTP vs manual.</div><div><br></div><di=
-v>2.1. &quot;Both&quot; seems like what we have today which doesn&#39;t rea=
-lly work at all.=C2=A0 I suggest omitting it. =C2=A0&quot;Split&quot; feels=
- like it should work for all cases.=C2=A0 If TimeMode is NTP, an offset is =
-recorded.=C2=A0 If TimeMode is Manual, the BMC time is set.</div><div><br><=
-/div><div>APIs:</div><div>1. What time zone does SetTime assume?=C2=A0 If U=
-TC, make sure to add tests for a valid leap second and leap year.</div><div=
->2. I really dislike APIs that change behavior.=C2=A0 Provide separate GetB=
-mcTime and GetHostTime APIs if you must.</div><div>3. SetNTP is a very limi=
-ting name. =C2=A0if this really changes TimeMode, call it SetTimeMode.=C2=
-=A0 That way we can support things like 1588, GPS, etc later.</div><div><br=
-></div><div>Changes to NetworkManager:</div><div>- I don&#39;t see the poin=
-t of UseNTP for SetDHCP.=C2=A0 Configuring an NTP address is different from=
- using NTP as a time source.=C2=A0 It&#39;s up to the DHCP server to provid=
-e NTP options.=C2=A0 Whether the BMC uses them is controlled by TimeMode.</=
-div><div>- Add a SetNtpServer API instead of adding to SetAddress4.=C2=A0 N=
-TP is entirely separate from IPv4 address configuration.</div></div><div cl=
-ass=3D"gmail_extra"><br><div class=3D"gmail_quote">On Thu, Aug 18, 2016 at =
-4:08 AM, vishwa <span dir=3D"ltr">&lt;<a href=3D"mailto:vishwa@linux.vnet.i=
-bm.com" target=3D"_blank">vishwa@linux.vnet.ibm.com</a>&gt;</span> wrote:<b=
-r><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:=
-1px #ccc solid;padding-left:1ex">Team,<br>
+<div dir=3D"ltr">I remember a discussion in IRC about how to modify obmc-co=
+nsole for multiple vuarts, etc.=C2=A0 I asked then if it made sense to enti=
+rely define the vuart in the dts (specify sirq and lpc_addr) instead of hav=
+ing obmc-console do it.=C2=A0 If we need to setup vuart aliases in the dts =
+anyway, that seems to make even more sense.</div><div class=3D"gmail_extra"=
+><br><div class=3D"gmail_quote">On Tue, Aug 16, 2016 at 5:15 PM, Joel Stanl=
+ey <span dir=3D"ltr">&lt;<a href=3D"mailto:joel@jms.id.au" target=3D"_blank=
+">joel@jms.id.au</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote"=
+ style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">He=
+y Xo,<br>
+<span class=3D""><br>
+On Wed, Aug 17, 2016 at 9:55 AM, Xo Wang &lt;<a href=3D"mailto:xow@google.c=
+om">xow@google.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt;&gt; We need to use a mechanism to tell userspace which device is the<b=
+r>
+&gt;&gt; vuart. udev? systemd?<br>
+&gt;<br>
+&gt; I think that&#39;s covered by this userspace configuration file:<br>
+&gt; <a href=3D"https://github.com/openbmc/openbmc/blob/master/meta-phospho=
+r/common/recipes-phosphor/obmc-console/obmc-console/obmc-console.conf" rel=
+=3D"noreferrer" target=3D"_blank">https://github.com/openbmc/<wbr>openbmc/b=
+lob/master/meta-<wbr>phosphor/common/recipes-<wbr>phosphor/obmc-console/obm=
+c-<wbr>console/obmc-console.conf</a><br>
 <br>
-Please help look into this document that describes what I think the TimeMan=
-ager on openBMC systems should look like.<br>
+</span>Yeah. Ideally we would have systemd/udev populate this configuration=
 <br>
-Please weigh in your thoughts.<br>
+file. There has been some work in this area; I think there are a few<br>
+prerequisites from our systemd setup to land before we can turn that<br>
+on.<br>
+<span class=3D""><br>
+&gt; It specifies the VUART console device as ttyS5, which doesn&#39;t exis=
+t using<br>
+&gt; our current DTS for the EVB.<br>
+&gt;<br>
+&gt;&gt; $ ls /sys/devices/platform/ahb/ahb:<wbr>apb/1e787000.vuart/tty<br>
+&gt;&gt; ttyS0<br>
+&gt;&gt;<br>
+&gt;&gt; We could also set an alias in the device tree?<br>
+&gt;<br>
+&gt; That&#39;s how I did my testing for AST2500 EVB connected to an LPC ho=
+st. This<br>
+&gt; enabled and aliased the vuart for me (please note s/uart6/vuart/g for<=
+br>
+&gt; dev-4.7):<br>
 <br>
-Thanks.<br>
+</span>I had a similar idea. If we can&#39;t think of a better solution the=
+n I<br>
+will commit a patch to this effect today.<br>
 <br>
-Vishwanath.<br>
-<br>______________________________<wbr>_________________<br>
+Cheers,<br>
+<br>
+Joel<br>
+<div class=3D"HOEnZb"><div class=3D"h5"><br>
+&gt; diff --git a/arch/arm/boot/dts/aspeed-<wbr>ast2500-evb.dts<br>
+&gt; b/arch/arm/boot/dts/aspeed-<wbr>ast2500-evb.dts<br>
+&gt; index 28b0045..51b032d 100644<br>
+&gt; --- a/arch/arm/boot/dts/aspeed-<wbr>ast2500-evb.dts<br>
+&gt; +++ b/arch/arm/boot/dts/aspeed-<wbr>ast2500-evb.dts<br>
+&gt; @@ -8,6 +8,7 @@<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0aliases {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0serial4 =
+=3D &amp;uart5;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0serial5 =3D &a=
+mp;uart6;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0chosen {<br>
+&gt; @@ -39,6 +40,10 @@<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0status =3D &quot;okay&quot;;<br>
+&gt;=C2=A0 };<br>
+&gt;<br>
+&gt; +&amp;uart6 {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0status =3D &quot;okay&quot;;<br>
+&gt; +};<br>
+&gt; +<br>
+&gt;=C2=A0 &amp;mac0 {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0status =3D &quot;okay&quot;;<br>
+&gt;=C2=A0 };<br>
+&gt;<br>
+&gt;<br>
+&gt;<br>
+&gt;<br>
+&gt; cheers<br>
+&gt; xo<br>
+&gt;<br>
+&gt; ______________________________<wbr>_________________<br>
+&gt; openbmc mailing list<br>
+&gt; <a href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</=
+a><br>
+&gt; <a href=3D"https://lists.ozlabs.org/listinfo/openbmc" rel=3D"noreferre=
+r" target=3D"_blank">https://lists.ozlabs.org/<wbr>listinfo/openbmc</a><br>
+______________________________<wbr>_________________<br>
 openbmc mailing list<br>
 <a href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a><br=
 >
 <a href=3D"https://lists.ozlabs.org/listinfo/openbmc" rel=3D"noreferrer" ta=
 rget=3D"_blank">https://lists.ozlabs.org/<wbr>listinfo/openbmc</a><br>
-<br></blockquote></div><br></div>
+</div></div></blockquote></div><br></div>
 
---94eb2c0878d6a7ab94053ab19fe2--
+--94eb2c0afaa2f915d3053ab298a4--
