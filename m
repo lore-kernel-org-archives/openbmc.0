@@ -1,26 +1,52 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <prvs=7043a21156=mattconolly@fb.com>
+X-Greylist: delayed 2387 seconds by postgrey-1.35 at bilbo;
+ Wed, 24 Aug 2016 09:23:40 AEST
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b=p+Wg8H7C; 
+ dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sJjbT1BXdzDrcD
- for <openbmc@lists.ozlabs.org>; Wed, 24 Aug 2016 07:03:48 +1000 (AEST)
-Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
- with SMTPS id 1471986225632413.5970754131888;
- Tue, 23 Aug 2016 14:03:45 -0700 (PDT)
-Date: Tue, 23 Aug 2016 16:03:44 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: OpenBMC v1.0.5 released.
-Message-ID: <20160823210344.zhui7fneal5ffch6@asimov>
-References: <20160822175734.ljnnyghwioar6njr@asimov>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sJmhr0XNfzDrcJ
+ for <openbmc@lists.ozlabs.org>; Wed, 24 Aug 2016 09:23:38 +1000 (AEST)
+Received: from pps.filterd (m0001303.ppops.net [127.0.0.1])
+ by m0001303.ppops.net (8.16.0.17/8.16.0.17) with SMTP id u7NMfn7G027202
+ for <openbmc@lists.ozlabs.org>; Tue, 23 Aug 2016 15:43:49 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fb.com;
+ h=from : to : cc : subject :
+ date : message-id : mime-version : content-type; s=facebook;
+ bh=LskLuEY8R+qR4ymU11DxJW5D3HAKrutRoHDtBlczDhk=;
+ b=p+Wg8H7C0SAf0fubIjhDh48Udql5wCI2fBRNE2enO8+VoNYdmUVtXC2j2C8iPw/71RaF
+ JG7t5hRu4Y948/0vPDDD5tB9+zDOxxIhg+qVTJhIC/Vdtx8SSRhcpCjD5fC3u/ZzmUyc
+ OvYS0FluLwYyrVWuDq2ETV/6rTqNOocHBvo= 
+Received: from mail.thefacebook.com ([199.201.64.23])
+ by m0001303.ppops.net with ESMTP id 250t9au6y5-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 23 Aug 2016 15:43:49 -0700
+Received: from mx-out.facebook.com (192.168.52.123) by
+ PRN-CHUB11.TheFacebook.com (192.168.16.21) with Microsoft SMTP Server (TLS)
+ id 14.3.294.0; Tue, 23 Aug 2016 15:43:47 -0700
+Received: from facebook.com (2401:db00:11:d0a6:face:0:13:0)	by
+ mx-out.facebook.com (10.223.100.99) with ESMTP	id
+ 0d195866698311e6bb7424be05956610-4ddfbaa0 for <openbmc@lists.ozlabs.org>;
+ Tue, 23 Aug 2016 15:43:46 -0700
+Received: by devbig293.prn1.facebook.com (Postfix, from userid 9402)	id
+ C7C2767008B8; Tue, 23 Aug 2016 15:43:42 -0700 (PDT)
+From: Matthew Conolly <mattconolly@fb.com>
+To: <openbmc@lists.ozlabs.org>
+Subject: [PATCH v3] arm/dts/aspeed: Add minimal Facebook CMM BMC board based
+ on AST2500
+Date: Tue, 23 Aug 2016 15:43:40 -0700
+Message-ID: <1471992220-3192885-1-git-send-email-mattconolly@fb.com>
+X-Mailer: git-send-email 2.8.0.rc2
+X-FB-Internal: Safe
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="iqe6i5iyjpp3yxm4"
-Content-Disposition: inline
-In-Reply-To: <20160822175734.ljnnyghwioar6njr@asimov>
-User-Agent: Mutt/1.6.2 (2016-06-11)
-X-Zoho-Virus-Status: 1
+Content-Type: text/plain
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-08-23_13:, , signatures=0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -32,60 +58,181 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Aug 2016 21:03:49 -0000
+X-List-Received-Date: Tue, 23 Aug 2016 23:23:41 -0000
+
+Minimal device tree for CMM bmc board to boot into a console over UART with some drivers functional.
+
+Signed-off-by: Matthew Conolly <mattconolly@fb.com>
+---
+
+I'm going to start looking at the UART1 pinctl that Andrew mentioned 
+
+v3:
+Changed fmc compatible string to use "aspeed,ast2400-fmc" as per review
+
+v2:
+Rebased patch on the openbmc github dev-4.7 branch
+Removed commented out eeprom
+Removed of_machine_is_compatible for LPC/UART config
+checkpatch whitespace fixup
 
 
---iqe6i5iyjpp3yxm4
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-Due to a major regression, I re-tagged v1.0.5 with the kernel updates
-removed.  The change log is therefore just:
-     * Cache all inventory properties and preserve inventory during BMC
-       firmware update (openbmc/openbmc#487)
-     * Update the power button behavior on Barreleye to:
-         * Short press: Only power on. Remove the power off action.
-         * Long press (>3 seconds): Hard power off.
 
-On Mon, Aug 22, 2016 at 12:57:34PM -0500, Patrick Williams wrote:
-> Another fix release for the v1.0.x stable tree was tagged today.
->=20
-> https://github.com/openbmc/openbmc/releases/tag/v1.0.5
->=20
-> Changes since v1.0.4:
->     * Cache all inventory properties and preserve inventory during BMC
->       firmware update (openbmc/openbmc#487)
->     * Update the power button behavior on Barreleye to:
->         * Short press: Only power on. Remove the power off action.
->         * Long press (>3 seconds): Hard power off.
->     * Kernel version update:
->         * Stable release 4.4.18
->         * Ensure the LEDs stay at the same state on boot (openbmc/linux#9=
-8)
---=20
-Patrick Williams
+ arch/arm/boot/dts/Makefile                         |   1 +
+ .../dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi  |  24 +++++
+ arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts      | 100 +++++++++++++++++++++
+ 3 files changed, 125 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
 
---iqe6i5iyjpp3yxm4
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJXvLowAAoJEKsDR8wtAMEZjKgQAINaAqw4ervNCHVCkHvJHXbg
-YkFSlOqLWxdAFLwOpCD6/fwZXRmQImT9En619Rgm8VL45rmp+FHE2EjoXaWM0pXe
-0flEbkARpetJ+WoooO28GVbxpurYYzya1rHL+86e3lHi/XNtVlf3JEb2beGl3Fg/
-E/UpGNgpAsuHzDhvw6ZoceTwe2yBX2NKDylK/rNGDCRDOAHyktCwmoW653OCmQ4q
-yzjkuInhiNROb2lhldq8aVtM+eqM//nHfiXBkcEHzSg0Ur2LLA2F5aScoPWO0EJh
-6CYYrMdBPuA5kmREneXOo1a85Vi3HjVyuzzihaNlSqgeZOrasyIlPSji+Hf+JrNC
-BYhN1/+ag7kapxcaK/ThXuI1/cky13SqfQRSQg6boiMVjfSZHer4Y+t8LbzT94eY
-DurhxDdCKUlT8TNKnsEb0aBkq5jdpIo+iBGIn1ld0SGSkBXBUbY61dOIt5jDhPWi
-ugdplkPUmxVZFFMGS0oDFHovwF1kOW9FXAa/pcoa/uF7qiM/1cAsU3HqvoMJVtQq
-iAO6e8eRTvcOIZ9WTUMsKJArRyRQFnpy6KgFq6WLFF3w3hAVT23eKZfXPtaXkH6P
-APSJMRyMMrHsrasjECmNM6lY0ETBJ93/gzgJDSdbWyKAFwoIVgnTAyxYx3U2gLVR
-Oa6tMeXl8PNKklxHTV4/
-=Demt
------END PGP SIGNATURE-----
-
---iqe6i5iyjpp3yxm4--
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 048fbb5..495ca3d 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -895,6 +895,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
+ 	aspeed-bmc-opp-firestone.dtb \
+ 	aspeed-bmc-opp-garrison.dtb \
+ 	aspeed-bmc-opp-witherspoon.dtb \
++	aspeed-bmc-facebook-cmm.dtb \
+ 	aspeed-ast2500-evb.dtb
+ endif
+ 
+diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi
+new file mode 100644
+index 0000000..1b3133f
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi
+@@ -0,0 +1,24 @@
++/* This file is the label for the bmc primary flash and its partitions */
++				label = "bmc";
++				#address-cells = < 1 >;
++				#size-cells = < 1 >;
++				u-boot {
++					reg = < 0 0x80000 >;
++					label = "u-boot";
++				};
++				u-boot-env {
++					reg = < 0x60000 0x20000 >;
++					label = "u-boot-env";
++				};
++				kernel  {
++					reg = < 0x80000 0x280000 >;
++					label = "kernel";
++				};
++				initramfs {
++					reg = < 0x300000 0x300000 >;
++					label = "initramfs";
++				};
++				pd_rootfs  {
++					reg = < 0x4c0000 0x1740000 >;
++					label = "pd_rootfs";
++				};
+diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
+new file mode 100644
+index 0000000..1b3bb22
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
+@@ -0,0 +1,100 @@
++/dts-v1/;
++
++#include "aspeed-g5.dtsi"
++
++/ {
++	model = "FACEBOOK CMM BMC";
++	compatible = "facebook,cmm-bmc", "aspeed,ast2500";
++
++	aliases {
++		serial1 = &uart1;
++	};
++
++	chosen {
++		stdout-path = &uart1;
++		bootargs = "console=ttyS1,115200 earlyprintk";
++	};
++
++	memory {
++		reg = <0x80000000 0x3f000000>;
++	};
++
++	ahb {
++		bmc_pnor: fmc@1e620000 {
++			reg = < 0x1e620000 0x94
++				0x20000000 0x02000000 >;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			compatible = "aspeed,ast2400-fmc";
++			flash@0 {
++				reg = < 0 >;
++				compatible = "jedec,spi-nor" ;
++#include "aspeed-bmc-facebook-cmm-flash-layout.dtsi"
++			};
++		};
++	};
++};
++
++&uart1 {
++	status = "okay";
++};
++
++&mac1 {
++	status = "okay";
++};
++
++&i2c0 {
++	status = "okay";
++};
++
++&i2c1 {
++	status = "okay";
++};
++
++&i2c2 {
++	status = "okay";
++};
++
++&i2c3 {
++	status = "okay";
++};
++
++&i2c4 {
++	status = "okay";
++};
++
++&i2c5 {
++	status = "okay";
++};
++
++&i2c6 {
++	status = "okay";
++};
++
++&i2c7 {
++	status = "okay";
++};
++
++&i2c8 {
++	status = "okay";
++};
++
++&i2c9 {
++	status = "okay";
++};
++
++&i2c10 {
++	status = "okay";
++};
++
++&i2c11 {
++	status = "okay";
++};
++
++&i2c12 {
++	status = "okay";
++};
++
++&i2c13 {
++	status = "okay";
++};
+-- 
+2.8.0.rc2
