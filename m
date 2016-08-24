@@ -1,47 +1,47 @@
 Return-Path: <christopher.lee.bostic@gmail.com>
-Received: from mail-qk0-x242.google.com (mail-qk0-x242.google.com
- [IPv6:2607:f8b0:400d:c09::242])
+Received: from mail-qk0-x244.google.com (mail-qk0-x244.google.com
+ [IPv6:2607:f8b0:400d:c09::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sKJ114h7jzDrd3
- for <openbmc@lists.ozlabs.org>; Thu, 25 Aug 2016 05:54:29 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sKJ132LvkzDrdH
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Aug 2016 05:54:31 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=mlP3bGbw; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=paktLiL+; 
  dkim-atps=neutral
-Received: by mail-qk0-x242.google.com with SMTP id o1so2012611qkd.2
- for <openbmc@lists.ozlabs.org>; Wed, 24 Aug 2016 12:54:29 -0700 (PDT)
+Received: by mail-qk0-x244.google.com with SMTP id r128so2017777qkc.1
+ for <openbmc@lists.ozlabs.org>; Wed, 24 Aug 2016 12:54:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=a6lQiRgdjzbksujOFryl48vBZEluniYagidB8m8bGbQ=;
- b=mlP3bGbwGTGiNPX3RNYfMxefLHVLTvj3Ultg9cTb8mvVj+h1wn02o/kjmKP+iBnFU5
- p4PcwKxTg1CncEW8exHLW1oa3JpvcPJOhmW5UurpsmP+vS5yJ6dcoeP8hbIOeW9PpkNc
- PMhRT1HSz4cutwRZ7qtLG0PdhEHjq8YQ1XMhMZuuzk0bjrYEvRVC5EcCGFAaPzNak0AT
- lCBuJGtLhE+iV4ZYi7VhP7Fh16j2MTcfbrkI0DoCRVqnNmr2LWrFG4JfPXAU+s0D7ajN
- e0E8WsPgcdAQXnthiqpmuVlhUwkJx+QdDzB7piWjGDHjbdjyR/GQiu1huz2XofM6YTks
- hutg==
+ bh=+TO88r+u0JkOKgbkx/kI1bjYxAtxOZT/gb+H4bLpdZ4=;
+ b=paktLiL+/iiQN5jL7SeLMsT1w9AvWt1P0HkqKY5lyX3Vj6Gn/yOpt04duyXdc9FinP
+ 1CpdMMvtnTv/lj2Bz70HRJTtlhMFLJxd0LozX2x99YqQa1eo7D/qJ328xQHbuiqK311c
+ vnd48/yyAXWnSh8zEOFtylSXyDKCp7HbCYCeM9Fs6hroBsdIauSkfxldG6VjkY9R5dou
+ nmNh02aoDW3bNqYAV1U2HzLhPUachnN+DSsMYAlX8RjKc0b2FYw1Roj2ygmfzDCBaMxp
+ PTIE3Zi/+C0+VZHSGHN7MBCDiWcWSaLmHWXwntNF/U5v+pV8g35B12BNffmjTPHztcJH
+ +sdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=a6lQiRgdjzbksujOFryl48vBZEluniYagidB8m8bGbQ=;
- b=lMyr5rGrHgyDv2A1CvobrE+JnLhNvcVcDPZLXkjuQ+HOom03ehY44HMPmqdo9tcbJy
- 1z31aFpYYmemH74Ujn/ncDW9y3GradSc353serX7RPjcTpRBg3mUmGXJVx68sfrsTn+p
- SKrPNWu5CyjKZIA9zx/x24BYn+4fUkbia486oUkwfIU9hgOXwhSRQIn/HmIHmila/wAO
- J3TAyBi/sb5Vwp8UoDumozA21hJoPSEa6jYet76iZrx5/zW7MFZNP3BhwcR5BpVV5CeY
- /35boMMSdEIklIDRv/3rsNo7+X3Ry//rCZdWwSgckp6NdRl6jDJCuYM0yvZ+JVmpJkrI
- 3UUg==
-X-Gm-Message-State: AE9vXwOLZxo49QnWDjZzF9eU0aY9ulIFPpWSQ7wKOfyBVIfx+/grQDO/gQQTRJGKk3UIQg==
-X-Received: by 10.55.97.11 with SMTP id v11mr6046465qkb.27.1472068467484;
- Wed, 24 Aug 2016 12:54:27 -0700 (PDT)
+ bh=+TO88r+u0JkOKgbkx/kI1bjYxAtxOZT/gb+H4bLpdZ4=;
+ b=ha4vcy4mbwChZvKtiEux2huUlVPVhVvV+3KqPf3fJTaCKMMPiHv9lsxD/MIyjD10vv
+ 0UgMpStLYs0gP7O5rPKXlmYemvYwGEFihKBmNzbZCTvCtvluVoq9bknEayyzS2qKV6Lj
+ ENsIY5e1K/0/ULOdQNTj+wHk3l3p2MSD1bLQxLAr0rBrRfDIdEwTyah99FzxAgHKCqyr
+ eJFIX8tGk4mQO9xq9mlW7xs5qTUg0xx/dXLRzlGLoeQcSPrCcMwqryVwGKJvjN5JAOSJ
+ XBJV4HVGLzga+b3Q3S5Ty9r0gOW8qkvWnCvEVLvIQfExC42ztdX/WIh0cGh1JFyitVPb
+ lFAQ==
+X-Gm-Message-State: AE9vXwMpmRtQAceV6eNOSkW7i/caKBTdHHoFHIK4k14KRb3eAWYLCedPygy7WbXQxuUmOQ==
+X-Received: by 10.55.220.132 with SMTP id v126mr5825726qki.127.1472068469361; 
+ Wed, 24 Aug 2016 12:54:29 -0700 (PDT)
 Received: from christophersmbp.austin.ibm.com ([32.97.110.51])
- by smtp.gmail.com with ESMTPSA id n6sm3544238qkf.36.2016.08.24.12.54.26
+ by smtp.gmail.com with ESMTPSA id n6sm3544238qkf.36.2016.08.24.12.54.28
  (version=TLS1 cipher=AES128-SHA bits=128/128);
- Wed, 24 Aug 2016 12:54:27 -0700 (PDT)
+ Wed, 24 Aug 2016 12:54:28 -0700 (PDT)
 From: christopher.lee.bostic@gmail.com
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux v5 5/7] drivers/fsi: Add FSI bus type and hook into LDM
-Date: Wed, 24 Aug 2016 14:54:10 -0500
-Message-Id: <1472068452-32048-6-git-send-email-christopher.lee.bostic@gmail.com>
+Subject: [PATCH linux v5 6/7] drivers/fsi: Add FSI Bus Support for Clients
+Date: Wed, 24 Aug 2016 14:54:11 -0500
+Message-Id: <1472068452-32048-7-git-send-email-christopher.lee.bostic@gmail.com>
 X-Mailer: git-send-email 2.7.4 (Apple Git-66)
 In-Reply-To: <1472068452-32048-1-git-send-email-christopher.lee.bostic@gmail.com>
 References: <1472068452-32048-1-git-send-email-christopher.lee.bostic@gmail.com>
@@ -56,254 +56,290 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 24 Aug 2016 19:54:30 -0000
+X-List-Received-Date: Wed, 24 Aug 2016 19:54:32 -0000
 
 From: Chris Bostic <cbostic@us.ibm.com>
 
-Add FSI bus type.  Add fsi device registration hooks into the LDM
-Provide bus match/probe/remove/etc... callbacks for the LDM to invoke.
+Provide means for a client to register with an FSI bus and get
+notifications of hot plug events.  A client is a device driver that
+needs access to a physical FSI bus in order to communicate with
+hardware it controls.  Utilities added to allow client to retrieve
+resource information on its hardware.
 
 Signed-off-by: Chris Bostic <cbostic@us.ibm.com>
 ---
- drivers/fsi/fsi.h     |  42 ++++++++++++++++
- drivers/fsi/fsiinit.c |   6 +++
- drivers/fsi/ldm.c     | 136 ++++++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 184 insertions(+)
+ drivers/fsi/fsi.h       |  15 +++++
+ drivers/fsi/fsicfam.h   |   2 +
+ drivers/fsi/fsiinit.c   |   8 +++
+ drivers/fsi/ldm.c       | 161 +++++++++++++++++++++++++++++++++++++++++++++++-
+ drivers/fsi/readwrite.c |   4 ++
+ 5 files changed, 188 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/fsi/fsi.h b/drivers/fsi/fsi.h
-index b723208..67d4666 100644
+index 67d4666..f0ed5b7 100644
 --- a/drivers/fsi/fsi.h
 +++ b/drivers/fsi/fsi.h
-@@ -28,6 +28,20 @@ struct fsi_engine_id {
- 	u8 engine_vendor;
- };
+@@ -65,6 +65,10 @@ struct fsimap {
+ #define FSI_DEV_PROBE_OK	9	/* Probe succeeded */
+ #define FSI_DEV_PROBE_ERR	10	/* Probe failed */
  
-+/*
-+ * Bit fields to search for device/driver match. A driver may handle several
-+ * engines. If a driver handles all versions, just specify the type and
-+ * set match_flags to FSI_ENGINE_ID_MATCH_TYPE.
-+ * If a driver handles only certain versions, specify type and engine and
-+ * set match_flags to FSI_ENGINE_ID_MATCH_TYPE | FSI_ENGINE_ID_MATCH_VERSION.
-+ * Set the engine_vendor identifier and FSI_ENGINE_ID_MATCH_VENDOR if a
-+ * certain vendor has to be supported.
-+ */
-+#define FSI_ENGINE_ID_MATCH_NONE	0	/* Last entry in chain */
-+#define FSI_ENGINE_ID_MATCH_TYPE	1	/* Match the type */
-+#define FSI_ENGINE_ID_MATCH_VERSION	2	/* Match the version */
-+#define FSI_ENGINE_ID_MATCH_VENDOR	4	/* Match the vendor */
-+
- /* Location information for a FSI device */
- struct fsimap {
- 	u8 link;			/* Master link # */
-@@ -40,6 +54,18 @@ struct fsimap {
- 	u16 kb_off;			/* CFAM config table offset data */
- };
++struct fsi_resource {
++	u32 start;			/* Start of range */
++	u32 end;			/* End of range */
++};
  
-+#define FSI_DEV_MEMRES		1	/* Physical address of device */
-+#define FSI_DEV_IRQRES		2	/* IRQ resource */
-+#define FSI_DEV_VARES		3	/* Virtual address of device */
-+#define FSI_DEV_NONE		4	/* Empty indicator */
-+#define FSI_DEV_PSEUDO		5	/* Pseudo engine */
-+#define FSI_DEV_IRQ		6	/* Has an IRQ */
-+#define FSI_DEV_ACTIVE		7	/* Is activated */
-+#define FSI_DEV_RLS_SLV		8	/* Release slave */
-+#define FSI_DEV_PROBE_OK	9	/* Probe succeeded */
-+#define FSI_DEV_PROBE_ERR	10	/* Probe failed */
-+
-+
  struct fsidevice {
  	struct fsi_engine_id id;	/* Engine type/version */
- 	u32 irq_start;			/* IRQ Number */
-@@ -47,6 +73,22 @@ struct fsidevice {
- 	struct fsidevice *parent;	/* Parent of this device */
- 	struct device dev;		/* LDM entry for bus */
- 	struct fsimap map;		/* Address & location info */
-+	unsigned long state;		/* flags for state */
- };
+@@ -91,4 +95,15 @@ struct fsidriver {
  
-+#define to_fsidevice(x)	container_of((x), struct fsidevice, dev)
-+
-+/*
-+ * FSI driver type
-+ */
-+struct fsidriver {
-+	struct module *owner;		/* Module owner */
-+	struct fsi_engine_id *idlist;	/* List of IDs, terminated by */
-+					/*   FSI_ENGINE_ID_MATCH_NONE */
-+	struct device_driver driver;	/* LDM hook */
-+	int (*reset)(void *);		/* Client defined reset method */
-+};
-+
-+#define to_fsidriver(x)	container_of((x), struct fsidriver, driver)
+ #define to_fsidriver(x)	container_of((x), struct fsidriver, driver)
+ 
++int fsidev_register(struct fsidevice *, struct device_attribute **);
++void fsidev_unregister(struct fsidevice *);
++int fsi_get_resource(struct fsidevice *, int, struct fsi_resource *);
++char *fsidevice_name(struct fsidevice *, const char *, const char *,
++		     char *, size_t);
++int fsidevice_get_minor(struct fsidevice *);
++int fsidrv_register(struct fsidriver *);
++void fsidrv_unregister(struct fsidriver *);
++void fsi_lock_mutex(void);
++void fsi_unlock_mutex(void);
 +
  #endif /* DRIVERS_FSI_H */
+diff --git a/drivers/fsi/fsicfam.h b/drivers/fsi/fsicfam.h
+index dde7036..8ccff5c 100644
+--- a/drivers/fsi/fsicfam.h
++++ b/drivers/fsi/fsicfam.h
+@@ -43,4 +43,6 @@ struct fsicfam {			/* CFAM internal structure */
+ int fsi_cfamirq_request(int, struct fsicfam *);
+ void fsi_cfamirq_free(struct fsicfam *);
+ 
++#define FSI_CFAM_SLAVEIDX	2		/* Slave engine */
++
+ #endif /* DRIVERS_FSICFAM_H */
 diff --git a/drivers/fsi/fsiinit.c b/drivers/fsi/fsiinit.c
-index eaa3582..d83992e 100644
+index d83992e..4941062 100644
 --- a/drivers/fsi/fsiinit.c
 +++ b/drivers/fsi/fsiinit.c
-@@ -53,6 +53,12 @@ static int fsi_start(void)
- 		goto err;
- 	}
- 	fsimaster_start(&fsidd.pri_master);
-+
-+	if (fsibus_init()) {		/* Create the FSI bus */
-+		rc = -ENFILE;
-+		goto err;
-+	}
-+
- 	dev_dbg(&fsidd.dev, "FSI DD v%d installation ok\n", FSIDD_VERNO);
- 	return rc;
+@@ -34,6 +34,14 @@ struct fsidd fsidd = {		/* FSI device driver structure definition */
+ 	.major = MKDEV(FSIDD_MAJOR, 0),
+ };
  
++void fsi_lock_mutex(void)
++{
++}
++
++void fsi_unlock_mutex(void)
++{
++}
++
+ static int fsi_start(void)
+ {
+ 	int rc = 0;
 diff --git a/drivers/fsi/ldm.c b/drivers/fsi/ldm.c
-index 4a2f90b..9fe10b3 100644
+index 9fe10b3..cb6679f 100644
 --- a/drivers/fsi/ldm.c
 +++ b/drivers/fsi/ldm.c
-@@ -10,6 +10,7 @@
-  * as published by the Free Software Foundation; either version
-  * 2 of the License, or (at your option) any later version.
-  */
-+#include <linux/blkdev.h>
+@@ -13,6 +13,48 @@
+ #include <linux/blkdev.h>
  #include "fsi.h"
  #include "fsi_private.h"
++#include "fsicfam.h"
++
++/*
++ * /sys/devices/ < name > format:
++ *
++ * fsi-LL.C.EE
++ *
++ * Where:
++ * L = link, C = CFAM, E = engine
++ *
++ * TODO: expand for cascaded and hub masters
++ */
++static void myname(struct fsidevice *fsidev)
++{
++	if (dev_name(&fsidev->dev))
++		return;
++
++	dev_set_name(&fsidev->dev, "fsi-%02d.%d.%02d",
++		     fsidev->map.link, fsidev->map.cfam, fsidev->map.eng);
++}
++
++/*
++ * Unregister a FSI device with the Linux device model
++ */
++void fsidev_unregister_nolock(struct fsidevice *fsidev)
++{
++
++	dev_dbg(&fsidev->dev, "fsidev_unregister fsidev:%p\n", fsidev);
++	if (!test_and_clear_bit(FSI_DEV_ACTIVE, &fsidev->state)) {
++		dev_dbg(&fsidev->dev, "fsidev_unregister build incomplete\n");
++		return;
++	}
++	device_unregister(&fsidev->dev);
++}
++
++void fsidev_unregister(struct fsidevice *fsidev)
++{
++	fsi_lock_mutex();
++	fsidev_unregister_nolock(fsidev);
++	fsi_unlock_mutex();
++}
++EXPORT_SYMBOL(fsidev_unregister);
  
-@@ -27,3 +28,138 @@ int fsidev_register(struct fsidevice *fsidev, struct device_attribute **ap)
- 	return 0;
+ /*
+  * Register a FSI device with the Linux device model
+@@ -20,15 +62,101 @@
+ int fsidev_register_nolock(struct fsidevice *fsidev,
+ 			   struct device_attribute **ap)
+ {
+-	return 0;
++	int rc, slave_idx;
++
++	dev_dbg(&fsidev->dev, "register >> %d.%d.%d\n",
++		fsidev->map.link, fsidev->map.cfam, fsidev->map.eng);
++	myname(fsidev);
++
++	rc = device_register(&fsidev->dev);
++	if (rc) {
++		dev_dbg(&fsidev->dev, "register dev_register error:%d\n", rc);
++		if (fsidev->dev.release)
++			fsidev->dev.release(&fsidev->dev);
++		return rc;
++	}
++	set_bit(FSI_DEV_ACTIVE, &fsidev->state);
++	if (test_bit(FSI_DEV_PROBE_ERR, &fsidev->state)) {
++		dev_dbg(&fsidev->dev, "register dev probe error\n");
++		slave_idx = (fsidev->map.eng == FSI_CFAM_SLAVEIDX);
++		rc = slave_idx ? -ENODEV : 0;
++		fsidev_unregister_nolock(fsidev);
++		return rc;
++	}
++	dev_dbg(&fsidev->dev, "register << %d.%d.%d success\n",
++		fsidev->map.link, fsidev->map.cfam, fsidev->map.eng);
++
++	return rc;
+ }
+ 
+ int fsidev_register(struct fsidevice *fsidev, struct device_attribute **ap)
+ {
+-	return 0;
++	int rc;
++
++	fsi_lock_mutex();
++	rc = fsidev_register_nolock(fsidev, ap);
++	fsi_unlock_mutex();
++
++	return rc;
  }
  EXPORT_SYMBOL(fsidev_register);
-+
-+/*
-+ * FSI bus functions.
-+ */
-+
-+/*
-+ * Call a client's probe function if available
-+ */
-+static int fsi_bus_probe(struct device *dev)
+ 
++int fsi_get_resource(struct fsidevice *fsidev, int idx,
++		     struct fsi_resource *res)
 +{
-+	struct fsidevice *fsidev = to_fsidevice(dev);
-+	struct device_driver *drv = dev->driver;
-+	struct fsidriver *fsidrv = to_fsidriver(dev->driver);
-+	int rc = -ENOENT;
-+
-+	dev_dbg(dev, "probe >> fsidrv:%p probe:%p resume:%p\n",
-+		fsidrv, drv->probe, drv->resume);
-+
-+	if (!drv->probe)
-+		goto err;
-+	rc = drv->probe(dev);
-+	dev_dbg(dev, "drv->probe rc:%d\n", rc);
-+	if (rc) {
-+		/* Device unsupported or error in probe call back */
-+		if (rc != -ENODEV && rc != -ENXIO && rc != -ENOLINK) {
-+			set_bit(FSI_DEV_PROBE_ERR, &fsidev->state);
-+			goto err;
-+		}
++	switch (idx) {
++	case FSI_DEV_IRQRES:
++		if (fsidev->irq_start == 0)
++			res->end = 0;
++		else
++			res->end = fsidev->irq_start + fsidev->irq_range - 1;
++		break;
++	case FSI_DEV_MEMRES:
++		res->start = fsidev->map.va;
++		res->end = res->start + fsidev->map.kb * FSI_ENGINE_SIZE - 1;
++		break;
++	default:
++		return -EINVAL;
 +	}
-+	set_bit(FSI_DEV_PROBE_OK, &fsidev->state);
-+	rc = 1;
++	return 0;
++}
++EXPORT_SYMBOL(fsi_get_resource);
 +
-+	if (rc > 0 && drv->resume) {
-+		rc = drv->resume(dev);
-+		dev_dbg(dev, "probe resume rc:%d\n", rc);
-+	}
-+	rc = 0;
-+err:
-+	dev_dbg(dev, "probe << rc:%d\n", rc);
++/*
++ * Return the fsidevice full engine name.
++ * Name consists of:
++ * - prefix
++ * - link number
++ * - a dot '.'
++ * - cfam number
++ * - a dot '.'
++ * - engine number
++ * - postfix (client's choosing)
++ *
++ * Returns NULL if buffer space is insufficient.
++ */
++char *fsidevice_name(struct fsidevice *fsidev, const char *prefix,
++		     const char *postfix, char *buf, size_t len)
++{
++	int size;
++	struct fsimap *map = &fsidev->map;
++
++	size = snprintf(buf, len, "%sL%02dC%dE%02dP%s",
++			prefix, map->link, map->cfam, map->eng, postfix);
++
++	return (size >= len) ? NULL : buf;
++}
++EXPORT_SYMBOL(fsidevice_name);
++
++/*
++ * Retrieve minor number for the FSI device
++ */
++int fsidevice_get_minor(struct fsidevice *fsidev)
++{
++	return MINOR(fsidev->dev.devt);
++}
++EXPORT_SYMBOL(fsidevice_get_minor);
++
+ /*
+  * FSI bus functions.
+  */
+@@ -163,3 +291,32 @@ int fsibus_init(void)
+ {
+ 	return bus_register(&fsi_bus_type);
+ }
++
++/*
++ * Unregister a client FSI driver from the system
++ */
++void fsidrv_unregister(struct fsidriver *fsidrv)
++{
++	fsidrv->reset = NULL;
++	driver_unregister(&fsidrv->driver);
++}
++EXPORT_SYMBOL(fsidrv_unregister);
++
++/*
++ * Register a client FSI driver with the system
++ */
++int fsidrv_register(struct fsidriver *fsidrv)
++{
++	int rc = 0;
++
++	if (fsidrv->idlist == NULL)
++		return -EINVAL;
++	if (!fsidrv->driver.owner)
++		fsidrv->driver.owner = fsidrv->owner;
++
++	fsidrv->driver.bus = &fsi_bus_type;
++	rc = driver_register(&fsidrv->driver);
++
 +	return rc;
-+
 +}
-+
-+static int fsi_bus_remove(struct device *dev)
-+{
-+	dev_dbg(dev, "remove:%p %s\n", dev, dev_name(dev));
-+	return 0;
-+}
-+
-+static void fsi_bus_shutdown(struct device *dev)
-+{
-+	dev_dbg(dev, "shutdown:%p %s\n", dev, dev_name(dev));
-+}
-+
++EXPORT_SYMBOL(fsidrv_register);
+diff --git a/drivers/fsi/readwrite.c b/drivers/fsi/readwrite.c
+index 33d972c..3427e52 100644
+--- a/drivers/fsi/readwrite.c
++++ b/drivers/fsi/readwrite.c
+@@ -14,6 +14,10 @@
+ #include "fsi_private.h"
+ #include "fsimaster.h"
+ 
 +/*
-+ * Check if a particular engine matches the driver's list of supported devices.
++ * Read/write functions to be used only by the FSI driver itself.  FSI clients
++ * will use separate interfaces
 + */
-+static int fsi_bus_match(struct device *dev, struct device_driver *drv)
-+{
-+	struct fsidevice *fsidev = to_fsidevice(dev);
-+	struct fsidriver *fsidrv = to_fsidriver(drv);
-+	int match_ok = 0;
-+	struct fsi_engine_id *idlist = fsidrv->idlist;
-+
-+	for (; idlist->match_flags != FSI_ENGINE_ID_MATCH_NONE; ++idlist) {
-+		match_ok = 0;
-+
-+		if ((idlist->match_flags & FSI_ENGINE_ID_MATCH_TYPE) != 0
-+		&& fsidev->id.engine_type == idlist->engine_type)
-+			match_ok = 1;
-+
-+		if (match_ok
-+		&& (idlist->match_flags & FSI_ENGINE_ID_MATCH_VERSION) != 0)
-+			match_ok =
-+			fsidev->id.engine_version == idlist->engine_version;
-+
-+		if (match_ok
-+		&& (idlist->match_flags & FSI_ENGINE_ID_MATCH_VENDOR) != 0)
-+			match_ok =
-+			fsidev->id.engine_vendor == idlist->engine_vendor;
-+
-+		if (match_ok)
-+			break;
-+	}
-+	dev_dbg(dev,
-+		"match type:%02x version:%d vendor:%d match_ok:%d\n",
-+		fsidev->id.engine_type, fsidev->id.engine_version,
-+		fsidev->id.engine_vendor, match_ok);
-+
-+	return match_ok;
-+}
-+
-+
-+static int fsi_bus_uevent(struct device *dev, struct kobj_uevent_env *env)
-+{
-+
-+	dev_dbg(dev, "%s device:%p\n", dev_name(dev), dev);
-+	if (MAJOR(dev->devt)) {
-+		if (add_uevent_var(env, "MAJOR=%u", MAJOR(dev->devt)))
-+			return -ENOMEM;
-+		if (add_uevent_var(env, "MINOR=%u", MINOR(dev->devt)))
-+			return -ENOMEM;
-+	}
-+
-+	/* Add bus name of physical device */
-+	if (dev->bus) {
-+		if (add_uevent_var(env, "PHYSDEVBUS=%s", dev->bus->name))
-+			return -ENOMEM;
-+	}
-+
-+	/* Add driver name of physical device */
-+	if (dev->driver) {
-+		if (add_uevent_var(env, "PHYSDEVDRIVER=%s", dev->driver->name))
-+			return -ENOMEM;
-+	}
-+	return 0;
-+};
-+
-+struct bus_type fsi_bus_type = {
-+	.name = "fsi",
-+	.match = fsi_bus_match,
-+	.uevent = fsi_bus_uevent,
-+	.probe = fsi_bus_probe,
-+	.remove = fsi_bus_remove,
-+	.shutdown = fsi_bus_shutdown,
-+};
-+EXPORT_SYMBOL(fsi_bus_type);
-+
-+/*
-+ * Create and install the FSI bus
-+ */
-+int fsibus_init(void)
-+{
-+	return bus_register(&fsi_bus_type);
-+}
+ int fsi_readw_int(struct fsimaster *master, u32 pa, u32 *value)
+ {
+ 	return 0;
 -- 
 1.8.2.2
