@@ -1,52 +1,47 @@
-Return-Path: <prvs=7043a21156=mattconolly@fb.com>
-X-Greylist: delayed 2387 seconds by postgrey-1.35 at bilbo;
- Wed, 24 Aug 2016 09:23:40 AEST
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b=p+Wg8H7C; 
- dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <christopher.lee.bostic@gmail.com>
+Received: from mail-qk0-x244.google.com (mail-qk0-x244.google.com
+ [IPv6:2607:f8b0:400d:c09::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sJmhr0XNfzDrcJ
- for <openbmc@lists.ozlabs.org>; Wed, 24 Aug 2016 09:23:38 +1000 (AEST)
-Received: from pps.filterd (m0001303.ppops.net [127.0.0.1])
- by m0001303.ppops.net (8.16.0.17/8.16.0.17) with SMTP id u7NMfn7G027202
- for <openbmc@lists.ozlabs.org>; Tue, 23 Aug 2016 15:43:49 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fb.com;
- h=from : to : cc : subject :
- date : message-id : mime-version : content-type; s=facebook;
- bh=LskLuEY8R+qR4ymU11DxJW5D3HAKrutRoHDtBlczDhk=;
- b=p+Wg8H7C0SAf0fubIjhDh48Udql5wCI2fBRNE2enO8+VoNYdmUVtXC2j2C8iPw/71RaF
- JG7t5hRu4Y948/0vPDDD5tB9+zDOxxIhg+qVTJhIC/Vdtx8SSRhcpCjD5fC3u/ZzmUyc
- OvYS0FluLwYyrVWuDq2ETV/6rTqNOocHBvo= 
-Received: from mail.thefacebook.com ([199.201.64.23])
- by m0001303.ppops.net with ESMTP id 250t9au6y5-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 23 Aug 2016 15:43:49 -0700
-Received: from mx-out.facebook.com (192.168.52.123) by
- PRN-CHUB11.TheFacebook.com (192.168.16.21) with Microsoft SMTP Server (TLS)
- id 14.3.294.0; Tue, 23 Aug 2016 15:43:47 -0700
-Received: from facebook.com (2401:db00:11:d0a6:face:0:13:0)	by
- mx-out.facebook.com (10.223.100.99) with ESMTP	id
- 0d195866698311e6bb7424be05956610-4ddfbaa0 for <openbmc@lists.ozlabs.org>;
- Tue, 23 Aug 2016 15:43:46 -0700
-Received: by devbig293.prn1.facebook.com (Postfix, from userid 9402)	id
- C7C2767008B8; Tue, 23 Aug 2016 15:43:42 -0700 (PDT)
-From: Matthew Conolly <mattconolly@fb.com>
-To: <openbmc@lists.ozlabs.org>
-Subject: [PATCH v3] arm/dts/aspeed: Add minimal Facebook CMM BMC board based
- on AST2500
-Date: Tue, 23 Aug 2016 15:43:40 -0700
-Message-ID: <1471992220-3192885-1-git-send-email-mattconolly@fb.com>
-X-Mailer: git-send-email 2.8.0.rc2
-X-FB-Internal: Safe
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2016-08-23_13:, , signatures=0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sKJ0r0CpDzDrcX
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Aug 2016 05:54:19 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=GPgfx2tS; 
+ dkim-atps=neutral
+Received: by mail-qk0-x244.google.com with SMTP id r128so2017139qkc.1
+ for <openbmc@lists.ozlabs.org>; Wed, 24 Aug 2016 12:54:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=from:to:cc:subject:date:message-id;
+ bh=H3j5kmXbr9HW7RG8T5KW0g8Ekoe8joquFY3NPVNbqxI=;
+ b=GPgfx2tSCYa4VOwaKmgqYeYHtc6oIKZ/9eGO1Z49L+25WN2FkrFqyQ2z+EumHRv8Gk
+ LvGnISvIh1EWJvV64zF91KNb7kt+1/6F9t6TpYvrFg1a8EZedioHnk72c01fIR9QwVLk
+ oynwTubqvrpyVhpWtTDCLT79uRf8hoWtFgWHCovy8zIIhBMdvIfL3yq4bKIw/14XN6Ag
+ j/e+zFbmg+3yqZn+G2H+2oXrgq3uimswBI92derhvz1lL+kyupz6sC9gKxL26o5wJBiI
+ WT7/u2k/Rw+9++MQ1md90aja5rb7y8nFBbs0Cock0b8GudfCy4V8M59w1KidtgVT21X/
+ WEjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=H3j5kmXbr9HW7RG8T5KW0g8Ekoe8joquFY3NPVNbqxI=;
+ b=ApBJIJexl80Xi4KFXpVpIfn04fYsUdQnC2WGRuDQtLRQCTJwri3iDt90KhkX3jkDu9
+ m2pzm+pX9Mm7c7vahRulcNy9mXfhAnLaogcmnzOLJD1cEb5irAFlsZ7lpAoH6JTcUKaj
+ 3CxNMJ+emqtFmLqzpZgzrGUuTUNwA+pJYEjzOM7yiPu7mezvINhkTBVPZVitZeWrnLAS
+ ze9tzXPrU9OfYpIr5o175g1vKkIy9Ws+2SGAS6SdzC88B/DiYHX4HSDFn503YkRdwskO
+ BBplXgrw5ZavMi7FiI0CgaEgghYX+CS3vX6oB3FGuzmST4NTDxXKsnKqrYMmoiDDB98+
+ d9NQ==
+X-Gm-Message-State: AE9vXwO+eAyVVfUSOuM+4yrzdNOEkuhWVG940a235ucWD+lGlR0mD/QVoEZJkiq+daQt7g==
+X-Received: by 10.55.188.195 with SMTP id m186mr5623526qkf.180.1472068456709; 
+ Wed, 24 Aug 2016 12:54:16 -0700 (PDT)
+Received: from christophersmbp.austin.ibm.com ([32.97.110.51])
+ by smtp.gmail.com with ESMTPSA id n6sm3544238qkf.36.2016.08.24.12.54.15
+ (version=TLS1 cipher=AES128-SHA bits=128/128);
+ Wed, 24 Aug 2016 12:54:16 -0700 (PDT)
+From: christopher.lee.bostic@gmail.com
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux v5 0/7] Introducing the FSI device driver
+Date: Wed, 24 Aug 2016 14:54:05 -0500
+Message-Id: <1472068452-32048-1-git-send-email-christopher.lee.bostic@gmail.com>
+X-Mailer: git-send-email 2.7.4 (Apple Git-66)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -58,181 +53,131 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Aug 2016 23:23:41 -0000
+X-List-Received-Date: Wed, 24 Aug 2016 19:54:20 -0000
+X-List-Received-Date: Wed, 24 Aug 2016 19:54:20 -0000
 
-Minimal device tree for CMM bmc board to boot into a console over UART with some drivers functional.
+From: Chris Bostic <cbostic@us.ibm.com>
 
-Signed-off-by: Matthew Conolly <mattconolly@fb.com>
+Introduction of the IBM 'Flexible Support Interface' (FSI) bus device
+driver. FSI is a high fan out serial bus consisting of a clock and a serial
+data line capable of running at speeds up to 166 MHz.
+
+This set provides the core functionality of the FSI device driver.  Core
+function is defined as:
+    *  FSI client registration and notification of bus state changes
+    *  Device scanning and hotplug reporting to clients
+    *  Interrupt detection and routing
+    *  Bus error detection and cleanup
+
+This patch set does not include extended FSI function such as:
+    *  Hub master support
+    *  Cascaded master support
+    *  Application layer hot plug notification
+    *  Application layer FSI bus status interface
+    *  Host configuration allowing for various hardware / firmware
+       emulation implementations of the FSI master.
+    *  Soft FSI support.  Soft FSI is a device driver method of emulating
+       FSI master hardware by 'bit banging' standard I/O lines.
+
+Common FSI terminology:
+
+* Master
+    Controller of the FSI bus.  Only the master is allowed to control the
+    clock line and is the initiator of all transactions on a bus.
+
+* Slave
+    The receiver or target of a master initiated transaction.  The slave
+    cannot initiate communications on a bus and must respond to any
+    master requests for data.
+
+* CFAM
+    Stands for Common Field replaceable unit Access Macro.  A CFAM is an
+    ASIC residing in any device requiring FSI communications. CFAMs
+    consist of an array of hardware 'engines' used for various purposes.
+    I2C masters, UARTs, General Purpose IO hardware are common types of
+    these engines.
+
+* Configuration Space / Table
+    A table contained at the beginning of each CFAM address space.
+    This table lists information such as the CFAM's ID, which engine types
+    and versions it has available, as well as its addressing range.
+
+* Link
+    The combination of a serial clock and data line constituting one
+    FSI communications element. For each link there is a master on one
+    end and a CFAM/slave on the other end.
+
+* Engine
+    A self contained hardware function found within a CFAM.  Examples
+    include I2C masters, UARTs, GPIOs, etc...
+
+* Client
+    A device driver requiring access to its hardware via an FSI bus.
+    For example an I2C client would be a device driver requiring
+    access to an I2C master engine on a remote CFAM accessible via
+    an FSI link.  Clients register with the FSI bus and will receive
+    notifications of bus state changes as well as hot plug events related
+    to engines of interest to them.
+
+* Build Up
+    The process scanning a bus and creating a data structure representation
+    of all devices discovered in a tree.  A tree in this context is a
+    series of links and devices connected to those links.
+
+* Hub / Hub master
+    Provides extension to the existing primary FSI master.  Allows for
+    several chained FSI links in series to a target device thus increasing
+    potential fan out.
+
+* Cascaded master
+    A subset of functionality of the  hub master.  Cascaded masters can
+    access only a limited address range compared to hub masters.  This was
+    the first generation implementation, essentially, of hub type function.
+
 ---
 
-I'm going to start looking at the UART1 pinctl that Andrew mentioned 
+Chris Bostic (6):
+  drivers/fsi: Add FSI Master Functionality and Initialization
+  drivers/fsi: Add FSI master target device scanning function
+  drivers/fsi: Add initial FSI link buildup
+  drivers/fsi: Add FSI bus type and hook into LDM
+  drivers/fsi: Add FSI Bus Support for Clients
+  drivers/fsi: Add CFAM scanning function
 
-v3:
-Changed fmc compatible string to use "aspeed,ast2400-fmc" as per review
+Christopher Bostic (1):
+  drivers/fsi: Initial stubs for FSI device driver.
 
-v2:
-Rebased patch on the openbmc github dev-4.7 branch
-Removed commented out eeprom
-Removed of_machine_is_compatible for LPC/UART config
-checkpatch whitespace fixup
+ drivers/Kconfig           |   2 +
+ drivers/Makefile          |   1 +
+ drivers/fsi/Kconfig       |   7 +
+ drivers/fsi/Makefile      |   5 +
+ drivers/fsi/build.c       | 876 ++++++++++++++++++++++++++++++++++++++++++++++
+ drivers/fsi/fsi.h         | 134 +++++++
+ drivers/fsi/fsi_private.h | 123 +++++++
+ drivers/fsi/fsicfam.h     | 161 +++++++++
+ drivers/fsi/fsiinit.c     |  92 +++++
+ drivers/fsi/fsiinit.h     |  43 +++
+ drivers/fsi/fsilink.h     |  99 ++++++
+ drivers/fsi/fsimaster.c   | 619 ++++++++++++++++++++++++++++++++
+ drivers/fsi/fsimaster.h   | 682 ++++++++++++++++++++++++++++++++++++
+ drivers/fsi/fsislave.h    | 415 ++++++++++++++++++++++
+ drivers/fsi/ldm.c         | 347 ++++++++++++++++++
+ drivers/fsi/readwrite.c   | 123 +++++++
+ 16 files changed, 3729 insertions(+)
+ create mode 100644 drivers/fsi/Kconfig
+ create mode 100644 drivers/fsi/Makefile
+ create mode 100644 drivers/fsi/build.c
+ create mode 100644 drivers/fsi/fsi.h
+ create mode 100644 drivers/fsi/fsi_private.h
+ create mode 100644 drivers/fsi/fsicfam.h
+ create mode 100644 drivers/fsi/fsiinit.c
+ create mode 100644 drivers/fsi/fsiinit.h
+ create mode 100644 drivers/fsi/fsilink.h
+ create mode 100644 drivers/fsi/fsimaster.c
+ create mode 100644 drivers/fsi/fsimaster.h
+ create mode 100644 drivers/fsi/fsislave.h
+ create mode 100644 drivers/fsi/ldm.c
+ create mode 100644 drivers/fsi/readwrite.c
 
-
-
-
- arch/arm/boot/dts/Makefile                         |   1 +
- .../dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi  |  24 +++++
- arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts      | 100 +++++++++++++++++++++
- 3 files changed, 125 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
-
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index 048fbb5..495ca3d 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -895,6 +895,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
- 	aspeed-bmc-opp-firestone.dtb \
- 	aspeed-bmc-opp-garrison.dtb \
- 	aspeed-bmc-opp-witherspoon.dtb \
-+	aspeed-bmc-facebook-cmm.dtb \
- 	aspeed-ast2500-evb.dtb
- endif
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi
-new file mode 100644
-index 0000000..1b3133f
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm-flash-layout.dtsi
-@@ -0,0 +1,24 @@
-+/* This file is the label for the bmc primary flash and its partitions */
-+				label = "bmc";
-+				#address-cells = < 1 >;
-+				#size-cells = < 1 >;
-+				u-boot {
-+					reg = < 0 0x80000 >;
-+					label = "u-boot";
-+				};
-+				u-boot-env {
-+					reg = < 0x60000 0x20000 >;
-+					label = "u-boot-env";
-+				};
-+				kernel  {
-+					reg = < 0x80000 0x280000 >;
-+					label = "kernel";
-+				};
-+				initramfs {
-+					reg = < 0x300000 0x300000 >;
-+					label = "initramfs";
-+				};
-+				pd_rootfs  {
-+					reg = < 0x4c0000 0x1740000 >;
-+					label = "pd_rootfs";
-+				};
-diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
-new file mode 100644
-index 0000000..1b3bb22
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-facebook-cmm.dts
-@@ -0,0 +1,100 @@
-+/dts-v1/;
-+
-+#include "aspeed-g5.dtsi"
-+
-+/ {
-+	model = "FACEBOOK CMM BMC";
-+	compatible = "facebook,cmm-bmc", "aspeed,ast2500";
-+
-+	aliases {
-+		serial1 = &uart1;
-+	};
-+
-+	chosen {
-+		stdout-path = &uart1;
-+		bootargs = "console=ttyS1,115200 earlyprintk";
-+	};
-+
-+	memory {
-+		reg = <0x80000000 0x3f000000>;
-+	};
-+
-+	ahb {
-+		bmc_pnor: fmc@1e620000 {
-+			reg = < 0x1e620000 0x94
-+				0x20000000 0x02000000 >;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "aspeed,ast2400-fmc";
-+			flash@0 {
-+				reg = < 0 >;
-+				compatible = "jedec,spi-nor" ;
-+#include "aspeed-bmc-facebook-cmm-flash-layout.dtsi"
-+			};
-+		};
-+	};
-+};
-+
-+&uart1 {
-+	status = "okay";
-+};
-+
-+&mac1 {
-+	status = "okay";
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+};
-+
-+&i2c1 {
-+	status = "okay";
-+};
-+
-+&i2c2 {
-+	status = "okay";
-+};
-+
-+&i2c3 {
-+	status = "okay";
-+};
-+
-+&i2c4 {
-+	status = "okay";
-+};
-+
-+&i2c5 {
-+	status = "okay";
-+};
-+
-+&i2c6 {
-+	status = "okay";
-+};
-+
-+&i2c7 {
-+	status = "okay";
-+};
-+
-+&i2c8 {
-+	status = "okay";
-+};
-+
-+&i2c9 {
-+	status = "okay";
-+};
-+
-+&i2c10 {
-+	status = "okay";
-+};
-+
-+&i2c11 {
-+	status = "okay";
-+};
-+
-+&i2c12 {
-+	status = "okay";
-+};
-+
-+&i2c13 {
-+	status = "okay";
-+};
 -- 
-2.8.0.rc2
+1.8.2.2
