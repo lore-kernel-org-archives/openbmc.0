@@ -1,36 +1,40 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-X-Greylist: delayed 597 seconds by postgrey-1.35 at bilbo;
- Sat, 27 Aug 2016 05:03:53 AEST
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com
- header.b=X7IjjAEQ; dkim-atps=neutral
-Received: from mail.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <kenneth.wilke@RACKSPACE.COM>
+X-Greylist: delayed 959 seconds by postgrey-1.35 at bilbo;
+ Sat, 27 Aug 2016 05:34:27 AEST
+Received: from esg01.rackspace.com (esg03.rackspace.com [104.130.178.8])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sLVnj3F1szDrdq
- for <openbmc@lists.ozlabs.org>; Sat, 27 Aug 2016 05:03:53 +1000 (AEST)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.fuzziesquirrel.com 276EF28DB8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fuzziesquirrel.com;
- s=mail; t=1472237630;
- bh=1U9mlBf35dplfXqgIlQ1xAKakOwaJpCKPPk7OqonSjo=;
- h=From:Subject:Date:To:From;
- b=X7IjjAEQNqIsr8QgAk/i0eJqI/31gDE+/dNXWJm77w1/tCjWX9auPdLB0jmv6WR4A
- 7fegsmktbwFNPBvlH6U3JO+sqffievfQPHEOp3F7Lsu61I3j4AsZtncXvX0E3axprE
- 9oAvh1YHAzI1/8c81z9qP8Rt6kX0lhU1O1egfDTI=
-Received: from [192.168.253.29] (unknown [192.168.253.29])
- by mail.fuzziesquirrel.com (Postfix) with ESMTPSA id 0F02428D94
- for <openbmc@lists.ozlabs.org>; Fri, 26 Aug 2016 14:53:49 -0400 (EDT)
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Content-Type: text/plain; charset=utf-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sLWSz70C2zDrdq
+ for <openbmc@lists.ozlabs.org>; Sat, 27 Aug 2016 05:34:27 +1000 (AEST)
+Received: from smtpout.rackspace.com (unknown [10.4.203.101])
+ by Websense Email with ESMTPS id F2A356650A4B8;
+ Fri, 26 Aug 2016 19:18:24 +0000 (UTC)
+Received: from 616646-IEXCH03.ror-uc.rackspace.com (10.4.203.112) by
+ 543888-IEXCH02.ror-uc.rackspace.com (10.4.203.101) with Microsoft SMTP Server
+ (TLS) id 15.0.1178.1; Fri, 26 Aug 2016 15:18:24 -0400
+Received: from 616646-IEXCH03.ror-uc.rackspace.com
+ ([fe80::dc48:1dac:e8f7:7c46]) by 616646-IEXCH03.ror-uc.rackspace.com
+ ([fe80::dc48:1dac:e8f7:7c46%24]) with mapi id 15.00.1178.000; Fri, 26 Aug
+ 2016 15:18:24 -0400
+From: Kenneth Wilke <kenneth.wilke@RACKSPACE.COM>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>, OpenBMC Patches
+ <openbmc@lists.ozlabs.org>
+Subject: Re: naming conventions
+Thread-Topic: naming conventions
+Thread-Index: AQHR/8yj3G7hSQiI7USm2lb+q7t/SqBbnVhc
+Date: Fri, 26 Aug 2016 19:18:23 +0000
+Message-ID: <1472239103290.78011@RACKSPACE.COM>
+References: <2EB33EE8-EFD0-4EA1-A54F-8C6A03FDEBDC@fuzziesquirrel.com>
+In-Reply-To: <2EB33EE8-EFD0-4EA1-A54F-8C6A03FDEBDC@fuzziesquirrel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.66.66.31]
+Content-Type: text/plain; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
-Subject: naming conventions
-Message-Id: <2EB33EE8-EFD0-4EA1-A54F-8C6A03FDEBDC@fuzziesquirrel.com>
-Date: Fri, 26 Aug 2016 14:53:48 -0400
-To: OpenBMC Patches <openbmc@lists.ozlabs.org>
-Mime-Version: 1.0 (Mac OS X Mail 9.3 \(3124\))
-X-Mailer: Apple Mail (2.3124)
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -42,29 +46,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 26 Aug 2016 19:03:54 -0000
+X-List-Received-Date: Fri, 26 Aug 2016 19:34:28 -0000
 
-I wanted to take a stab at standardizing our naming conventions a little =
-better.
-
-In general, applications would be (loosely) named after the layer they =
-are associated with.  For example:
-
-phosphor-foo: application that can run on any card running OpenBMC
-op-foo: application that can only run on OpenPOWER systems
-ibm-foo: application that can only run on IBM systems
-palmetto-foo: application specific to the Palmetto system
-
-I chose phosphor-foo rather than obmc-foo to draw attention to the fact =
-that =E2=80=98Phosphor=E2=80=99 refers to a reference =
-implementation/distribution (ideally) of OpenBMC (similar to =
-Poky/OpenEmbedded).
-
-When naming things or filling out description fields in recipes, etc, =
-please avoid the overly redundant name or description: obmc-phosphor or =
-=E2=80=9CPhosphor OpenBMC=E2=80=9D.  Given that Phosphor is the =
-reference for OpenBMC you can just say =E2=80=9CPhosphor."
-
-thoughts/feedback?
-
--brad=
+Makes sense to me, seems like a good way to quickly identify the scope of p=
+urpose for each application.=0A=
+________________________________________=0A=
+From: openbmc <openbmc-bounces+kenneth.wilke=3Drackspace.com@lists.ozlabs.o=
+rg> on behalf of Brad Bishop <bradleyb@fuzziesquirrel.com>=0A=
+Sent: Friday, August 26, 2016 1:53 PM=0A=
+To: OpenBMC Patches=0A=
+Subject: naming conventions=0A=
+=0A=
+I wanted to take a stab at standardizing our naming conventions a little be=
+tter.=0A=
+=0A=
+In general, applications would be (loosely) named after the layer they are =
+associated with.  For example:=0A=
+=0A=
+phosphor-foo: application that can run on any card running OpenBMC=0A=
+op-foo: application that can only run on OpenPOWER systems=0A=
+ibm-foo: application that can only run on IBM systems=0A=
+palmetto-foo: application specific to the Palmetto system=0A=
+=0A=
+I chose phosphor-foo rather than obmc-foo to draw attention to the fact tha=
+t =91Phosphor=92 refers to a reference implementation/distribution (ideally=
+) of OpenBMC (similar to Poky/OpenEmbedded).=0A=
+=0A=
+When naming things or filling out description fields in recipes, etc, pleas=
+e avoid the overly redundant name or description: obmc-phosphor or =93Phosp=
+hor OpenBMC=94.  Given that Phosphor is the reference for OpenBMC you can j=
+ust say =93Phosphor."=0A=
+=0A=
+thoughts/feedback?=0A=
+=0A=
+-brad=0A=
+_______________________________________________=0A=
+openbmc mailing list=0A=
+openbmc@lists.ozlabs.org=0A=
+https://lists.ozlabs.org/listinfo/openbmc=0A=
