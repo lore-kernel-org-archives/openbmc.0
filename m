@@ -1,40 +1,52 @@
-Return-Path: <kenneth.wilke@RACKSPACE.COM>
-X-Greylist: delayed 959 seconds by postgrey-1.35 at bilbo;
- Sat, 27 Aug 2016 05:34:27 AEST
-Received: from esg01.rackspace.com (esg03.rackspace.com [104.130.178.8])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-ua0-x241.google.com (mail-ua0-x241.google.com
+ [IPv6:2607:f8b0:400c:c08::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sLWSz70C2zDrdq
- for <openbmc@lists.ozlabs.org>; Sat, 27 Aug 2016 05:34:27 +1000 (AEST)
-Received: from smtpout.rackspace.com (unknown [10.4.203.101])
- by Websense Email with ESMTPS id F2A356650A4B8;
- Fri, 26 Aug 2016 19:18:24 +0000 (UTC)
-Received: from 616646-IEXCH03.ror-uc.rackspace.com (10.4.203.112) by
- 543888-IEXCH02.ror-uc.rackspace.com (10.4.203.101) with Microsoft SMTP Server
- (TLS) id 15.0.1178.1; Fri, 26 Aug 2016 15:18:24 -0400
-Received: from 616646-IEXCH03.ror-uc.rackspace.com
- ([fe80::dc48:1dac:e8f7:7c46]) by 616646-IEXCH03.ror-uc.rackspace.com
- ([fe80::dc48:1dac:e8f7:7c46%24]) with mapi id 15.00.1178.000; Fri, 26 Aug
- 2016 15:18:24 -0400
-From: Kenneth Wilke <kenneth.wilke@RACKSPACE.COM>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>, OpenBMC Patches
- <openbmc@lists.ozlabs.org>
-Subject: Re: naming conventions
-Thread-Topic: naming conventions
-Thread-Index: AQHR/8yj3G7hSQiI7USm2lb+q7t/SqBbnVhc
-Date: Fri, 26 Aug 2016 19:18:23 +0000
-Message-ID: <1472239103290.78011@RACKSPACE.COM>
-References: <2EB33EE8-EFD0-4EA1-A54F-8C6A03FDEBDC@fuzziesquirrel.com>
-In-Reply-To: <2EB33EE8-EFD0-4EA1-A54F-8C6A03FDEBDC@fuzziesquirrel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.66.66.31]
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sMzbC4RchzDrnn
+ for <openbmc@lists.ozlabs.org>; Mon, 29 Aug 2016 14:44:55 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=GeJIt0I6; 
+ dkim-atps=neutral
+Received: by mail-ua0-x241.google.com with SMTP id 49so1100788uat.0
+ for <openbmc@lists.ozlabs.org>; Sun, 28 Aug 2016 21:44:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=x1LHXVC+SUR+Qy2YGqY8nQEgg9RE3QnIx+U7O5MB0qQ=;
+ b=GeJIt0I6JAqGigThGPdln3mlL7PkTV+gmD3lO/TqN4McONB18O2uSexKofnOUpIkdk
+ lZ4DAck2ErZAwbUB+VKmI7bSKcLvKeO9UEs/ns1IVjHAWtxcu5igsa2C5qfixKVSEQNr
+ cCfTj6I4nA4Ldf+tLzoAURw6AFHF1G+O9as0qwwykoU6ecOqk0yFFWP/Be9BOVJveTaA
+ oWKEPTMHDS+X2LaniuD7LwAsHlR2YdxNvmjIueNZq2aewLMROTPgCAxSPPGOrW+nH2TD
+ jRgGrYC/Rp7lcqgf6xWy6yWhAoxfgJJF9MZxIiQSn+KXKk71+P1ZGxPy1wW7F+w+s89u
+ 10fQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=x1LHXVC+SUR+Qy2YGqY8nQEgg9RE3QnIx+U7O5MB0qQ=;
+ b=RiXd8WZv0JERKuzhEJ6MITepDyHRQuuKA1svBayMypM8iPReNptSomU6nbgUkbpK4K
+ JFPLiYY9+mPlJTkhpAEYRYIkzXNF/pgX9dLk/439Ptl4+A5TL07uzWFHVC91A479YCux
+ yjTkGTKq6xXpu1s+Vk4xNiCepvSOIR7Sg2xT/WbeERAmzxkyt2wb5xfFExmqtPSQpBgF
+ J2xIbPENyiZzl+bi1j3LYmTHaRj84dABkVWn9rwQ4gjkGFEXJlM5l7EtPGjMQYP9URmX
+ SnLojK6AbNXVWrOhIis43yyJ7LoTFuei/UoOvgA6aCRr0z5UmFCOoWrJ31cOzjtXP763
+ 3gKg==
+X-Gm-Message-State: AE9vXwMTUibo/h+VvzSZ8pBEuhd1aJsbJbWqH5mRFvsNyzTnxE0XdQ7u36ExUWCj1/k29vYvREOX4BZd4fqL1Q==
+X-Received: by 10.176.0.20 with SMTP id 20mr3761940uai.43.1472445893394; Sun,
+ 28 Aug 2016 21:44:53 -0700 (PDT)
 MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.159.38.76 with HTTP; Sun, 28 Aug 2016 21:44:32 -0700 (PDT)
+In-Reply-To: <a9f038e2-6208-2d40-32f0-27f5434bfbe3@linux.vnet.ibm.com>
+References: <a9f038e2-6208-2d40-32f0-27f5434bfbe3@linux.vnet.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 29 Aug 2016 14:14:32 +0930
+X-Google-Sender-Auth: ME3tOzrd5Mbweu-ybU624wIbvjs
+Message-ID: <CACPK8XdQ1ef6gLqjgL-YvkzBoxpedjoiY_-TzvZF+4sJ9R-p2Q@mail.gmail.com>
+Subject: Re: Charts from OpenBMC MRW Talk
+To: Matt Spinler <mspinler@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -46,41 +58,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 26 Aug 2016 19:34:28 -0000
+X-List-Received-Date: Mon, 29 Aug 2016 04:44:57 -0000
 
-Makes sense to me, seems like a good way to quickly identify the scope of p=
-urpose for each application.=0A=
-________________________________________=0A=
-From: openbmc <openbmc-bounces+kenneth.wilke=3Drackspace.com@lists.ozlabs.o=
-rg> on behalf of Brad Bishop <bradleyb@fuzziesquirrel.com>=0A=
-Sent: Friday, August 26, 2016 1:53 PM=0A=
-To: OpenBMC Patches=0A=
-Subject: naming conventions=0A=
-=0A=
-I wanted to take a stab at standardizing our naming conventions a little be=
-tter.=0A=
-=0A=
-In general, applications would be (loosely) named after the layer they are =
-associated with.  For example:=0A=
-=0A=
-phosphor-foo: application that can run on any card running OpenBMC=0A=
-op-foo: application that can only run on OpenPOWER systems=0A=
-ibm-foo: application that can only run on IBM systems=0A=
-palmetto-foo: application specific to the Palmetto system=0A=
-=0A=
-I chose phosphor-foo rather than obmc-foo to draw attention to the fact tha=
-t =91Phosphor=92 refers to a reference implementation/distribution (ideally=
-) of OpenBMC (similar to Poky/OpenEmbedded).=0A=
-=0A=
-When naming things or filling out description fields in recipes, etc, pleas=
-e avoid the overly redundant name or description: obmc-phosphor or =93Phosp=
-hor OpenBMC=94.  Given that Phosphor is the reference for OpenBMC you can j=
-ust say =93Phosphor."=0A=
-=0A=
-thoughts/feedback?=0A=
-=0A=
--brad=0A=
-_______________________________________________=0A=
-openbmc mailing list=0A=
-openbmc@lists.ozlabs.org=0A=
-https://lists.ozlabs.org/listinfo/openbmc=0A=
+Hello Matt,
+
+On Fri, Aug 26, 2016 at 1:21 AM, Matt Spinler
+<mspinler@linux.vnet.ibm.com> wrote:
+> Here are the charts from the Machine Readable Workbook talk I gave on 8/25.
+
+Thanks for sending these along. I was unable to attend you call as it
+was at 1:00am, and I was skiing in the Australian alps. Are there any
+notes from the presentation that you have to share?
+
+I gave the slides a read. Some questions I had:
+
+Serverwiz. I cloned the repository and tried to build with ant. It
+failed due to some hardcoded Windows paths. I opened a ticket here:
+https://github.com/open-power/serverwiz/issues/20
+
+XML Patching. Under what circumstances would you patch the XML when
+you have the entire thing available to edit?
+
+Current status. You have some upcoming goals there. I would be
+interested in seeing "generation of device tree" pushed much higher up
+the list. I think device tree is an alternative representation of the
+MRW. Because of that it would be an easy target for your prototyping,
+and would allow us to see how it works in practice for a well
+understood use case.
+
+Another use case is generating the Python that describes the
+platform's GPIOs (skeleton/configs/*.py). This has been a source of
+recent bugs, so making sure the MRW matches the Python would help
+shake out some more issues.
+
+Cheers,
+
+Joel
