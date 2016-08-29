@@ -1,35 +1,29 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-Received: from mail.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sNFCC5TNkzDrJq
- for <openbmc@lists.ozlabs.org>; Tue, 30 Aug 2016 00:58:28 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com
- header.b=RkQNQmms; dkim-atps=neutral
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.fuzziesquirrel.com B5557288B8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fuzziesquirrel.com;
- s=mail; t=1472482705;
- bh=NQmNDYZ85duK13acOhO7VElaH5hAhfZk2Kd+3aVZ09o=;
- h=Subject:From:In-Reply-To:Date:Cc:References:To:From;
- b=RkQNQmmsjz4TYV6TOoFjSKi8oeT3NJWGr/HsHA6kjYRwih7OK+IqHrDt8shlzKMza
- dsGyPSBj5I68lJPvdY/NdPUtU3Nu/dIipfKcFIKua6XSozrfFrwUkxv3iHW/XLGb6X
- 8zI+LtCQ4JRKUR6bGCpglZ3TjVGn7cscJg6VjpRI=
-Content-Type: text/plain; charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 9.3 \(3124\))
-Subject: Re: Repository integrity (Re: OpenBMC v1.0.5 released.)
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <CACPK8XeWuKOy-FwpU1dLwGz6woRQ3SGhpOr-S4pQmd1h8B0t1Q@mail.gmail.com>
-Date: Mon, 29 Aug 2016 10:58:24 -0400
-Cc: Patrick Williams <patrick@stwcx.xyz>,
- Stewart Smith <stewart@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <6B9F3B6E-E1FA-4714-9620-193E18946B97@fuzziesquirrel.com>
-References: <CACPK8XeWuKOy-FwpU1dLwGz6woRQ3SGhpOr-S4pQmd1h8B0t1Q@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sNHT832c0zDrJq
+ for <openbmc@lists.ozlabs.org>; Tue, 30 Aug 2016 02:40:44 +1000 (AEST)
+Received: from localhost (32.97.110.55 [32.97.110.55]) by mx.zohomail.com
+ with SMTPS id 1472488395132872.066283643746;
+ Mon, 29 Aug 2016 09:33:15 -0700 (PDT)
+Date: Mon, 29 Aug 2016 11:33:12 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
 To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Stewart Smith <stewart@linux.vnet.ibm.com>,
+ Jeremy Kerr <jk@ozlabs.org>, Andrew Jeffery <andrew@aj.id.au>
+Subject: Re: Repository integrity (Re: OpenBMC v1.0.5 released.)
+Message-ID: <20160829163312.jynack6ej75f4ohf@asimov>
+References: <CACPK8XeWuKOy-FwpU1dLwGz6woRQ3SGhpOr-S4pQmd1h8B0t1Q@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="xj2xgnkbzc2fczw7"
+Content-Disposition: inline
+In-Reply-To: <CACPK8XeWuKOy-FwpU1dLwGz6woRQ3SGhpOr-S4pQmd1h8B0t1Q@mail.gmail.com>
+User-Agent: Mutt/1.6.2 (2016-06-11)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -41,72 +35,89 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Aug 2016 14:58:32 -0000
+X-List-Received-Date: Mon, 29 Aug 2016 16:40:45 -0000
 
-Just to be clear, my github account wasn=E2=80=99t compromised.  My imap =
-account was (or I got an OS X virus) =E2=80=A6the thread reply addresses =
-were just harvested and spammed.
 
--brad
+--xj2xgnkbzc2fczw7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> On Aug 29, 2016, at 1:47 AM, Joel Stanley <joel@jms.id.au> wrote:
->=20
+On Mon, Aug 29, 2016 at 03:17:35PM +0930, Joel Stanley wrote:
 > Hey Patrick,
 >=20
-> On Wed, Aug 24, 2016 at 6:33 AM, Patrick Williams <patrick@stwcx.xyz> =
-wrote:
->> Due to a major regression, I re-tagged v1.0.5 with the kernel updates
->> removed.  The change log is therefore just:
+> On Wed, Aug 24, 2016 at 6:33 AM, Patrick Williams <patrick@stwcx.xyz> wro=
+te:
+> > Due to a major regression, I re-tagged v1.0.5 with the kernel updates
+> > removed.  The change log is therefore just:
 >=20
 > I don't think we should ever overwrite a tag that has hit the public
 > repository. There's no harm in doing a quick second tag.
->=20
+
+I've heard enough complaining that I won't do it again.  I didn't think
+there was honestly any harm it in considering the intended users and the
+time-frame of which it was up (around 12 hrs).
+
 > This is particularity important in the context of Brad's account
 > becoming compromised recently.
->=20
+
+All of my tags are signed with my PGP key and I use 2-factor
+authentication on Github.  I sign nearly every email from this address
+with that same PGP key for further verification.  I don't think we have
+any way to get much more secure without creating the tags on a
+network-less machine.
+
 > Can tags be pushed to Gerrit and reviewed through it's interface?
->=20
+
+Tags are pushed through Gerrit.  They cannot be 'reviewed' because there
+isn't any content to review.  Or at least, Gerrit does not have that as
+a concept now.
+
+I'm not sure what you would review anyhow?  A signed tag effectively has:
+   1. A message.
+   2. A referenced commit number.
+   3. A signature.
+
+The only thing really to review here would be if you didn't agree with
+my choice in commit number.  The message is as simple as "OpenBMC
+vx.y.z".  The signatures can also be verified on Github itself since I
+have added my public key there.
+
 > Would Github's protected branches feature have stopped you from being
 > able to make this change?
 >=20
-> https://help.github.com/articles/about-protected-branches/
->=20
-> Cheers,
->=20
-> Joel
->=20
->>     * Cache all inventory properties and preserve inventory during =
-BMC
->>       firmware update (openbmc/openbmc#487)
->>     * Update the power button behavior on Barreleye to:
->>         * Short press: Only power on. Remove the power off action.
->>         * Long press (>3 seconds): Hard power off.
->>=20
->> On Mon, Aug 22, 2016 at 12:57:34PM -0500, Patrick Williams wrote:
->>> Another fix release for the v1.0.x stable tree was tagged today.
->>>=20
->>> https://github.com/openbmc/openbmc/releases/tag/v1.0.5
->>>=20
->>> Changes since v1.0.4:
->>>    * Cache all inventory properties and preserve inventory during =
-BMC
->>>      firmware update (openbmc/openbmc#487)
->>>    * Update the power button behavior on Barreleye to:
->>>        * Short press: Only power on. Remove the power off action.
->>>        * Long press (>3 seconds): Hard power off.
->>>    * Kernel version update:
->>>        * Stable release 4.4.18
->>>        * Ensure the LEDs stay at the same state on boot =
-(openbmc/linux#98)
->> --
->> Patrick Williams
->>=20
->> _______________________________________________
->> openbmc mailing list
->> openbmc@lists.ozlabs.org
->> https://lists.ozlabs.org/listinfo/openbmc
->>=20
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+>  https://help.github.com/articles/about-protected-branches/
+
+Since I am an admin for 'openbmc', the short answer is no.  After I
+force pushed the tag to Gerrit, Github actually wasn't allowing the
+replication, so I had to manually do things over on the Github side to
+get the two in sync.
+
+Like I said, I won't do it again.
+
+--=20
+Patrick Williams
+
+--xj2xgnkbzc2fczw7
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJXxGPIAAoJEKsDR8wtAMEZy3kP/jOLeUBpBYDYUtuV+VE78kCj
+t0TsvIv8TJkxOcatbO3t82xv2nVXtxd6X3EHwce1p0ARSnqlp9eujJ7dEK//BC2S
+b6QOxrB2STq18zPJCotuydKhcSRATZ9y0Z9I+D9BgpBkRbLNuRpz3UbtaUnxjm7e
+sIpJB83/TPud6aH8TTlDS5HyrZMO4XaUOl1adqpxte5d1imO/E/P+kvCSpoSU/0Q
+1zt2U22P7cUcKWsiGxFEQiegj0VNuyDWLVVwLqlYyql+pp7yrm9ZzT4Wdn/5zdBH
+MFU7tu2pW1li60d6TAFPZAZc8xTUV8Z+1Cqf5mwb2WVz5snr6dMpsaDGlULB4IRZ
+rVHLt0SlKsYQIZRmUth2S1Ae1L6j7Z8dshyEVX/AZBIAgpzCPY5/XsWm7zBz2XNK
+hbvcJpTtccXez8Z4kYIMkSmi7H4B+5nAcsX8jvObCkocr79r9bgoNxE9+B7aVXL3
+oY01wuc+ItcIRRRr+d69nL645yjnwsRNGVr7F1kPNtu05Nixsg90EqKbw19reG6b
+3gtlSH8wPI+a7epPBmwtMmkb6xtmPsUrFJ3aw3l45GxdPmmruMSF22/HpwsCV+Ga
+gtI3JINRLadKKRdtzuQKoxqbFl4wkkav+daKv16oP5FyHpT0TjYKLeCTKAft2OgB
+Q3z4EHdK5mWrM+6vycm+
+=MHMu
+-----END PGP SIGNATURE-----
+
+--xj2xgnkbzc2fczw7--
