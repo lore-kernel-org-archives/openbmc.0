@@ -1,50 +1,51 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x241.google.com (mail-ua0-x241.google.com
- [IPv6:2607:f8b0:400c:c08::241])
+Received: from mail-ua0-x242.google.com (mail-ua0-x242.google.com
+ [IPv6:2607:f8b0:400c:c08::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sMzbC4RchzDrnn
- for <openbmc@lists.ozlabs.org>; Mon, 29 Aug 2016 14:44:55 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sN03k6zGSzDrgb
+ for <openbmc@lists.ozlabs.org>; Mon, 29 Aug 2016 15:06:10 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=GeJIt0I6; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=eyojRnH5; 
  dkim-atps=neutral
-Received: by mail-ua0-x241.google.com with SMTP id 49so1100788uat.0
- for <openbmc@lists.ozlabs.org>; Sun, 28 Aug 2016 21:44:55 -0700 (PDT)
+Received: by mail-ua0-x242.google.com with SMTP id 35so3141856uaj.3
+ for <openbmc@lists.ozlabs.org>; Sun, 28 Aug 2016 22:06:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=x1LHXVC+SUR+Qy2YGqY8nQEgg9RE3QnIx+U7O5MB0qQ=;
- b=GeJIt0I6JAqGigThGPdln3mlL7PkTV+gmD3lO/TqN4McONB18O2uSexKofnOUpIkdk
- lZ4DAck2ErZAwbUB+VKmI7bSKcLvKeO9UEs/ns1IVjHAWtxcu5igsa2C5qfixKVSEQNr
- cCfTj6I4nA4Ldf+tLzoAURw6AFHF1G+O9as0qwwykoU6ecOqk0yFFWP/Be9BOVJveTaA
- oWKEPTMHDS+X2LaniuD7LwAsHlR2YdxNvmjIueNZq2aewLMROTPgCAxSPPGOrW+nH2TD
- jRgGrYC/Rp7lcqgf6xWy6yWhAoxfgJJF9MZxIiQSn+KXKk71+P1ZGxPy1wW7F+w+s89u
- 10fQ==
+ bh=lQDttV91ajK49TdoHCbVeBa7dGjRSNZfrw7gcAIwz+c=;
+ b=eyojRnH5MVM5+aJyE74cz5k0hTAvkmBd681VO3eNt7QicLSejtvYKik+RF0+n7uI0+
+ ZBKt/burueX9/QmgmsvDdFFXR0yu0Yu7PT9r9/lU/NI/Yp2BZsfCC9rfV1X4pfr5Y+3o
+ KXIqVZ/EC8KhzqIL+t+7d+9T0vGI+zxOuFerrc43p32Wb6Y+Iv85nMAsq0qdvk59p90T
+ L/7PNFkwbRuHcwLNYPWUgIoClBolR3Mfdxf7tfCt+JTiMLH+CtIr7xIJIZbn3YQ695oD
+ ngByl02tWhjSwK3LDpd0yKf3xXAhnTREL3Zi2Cpm8/efbAfSHO4O0KEolKgWEjkUNNLV
+ BFNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=x1LHXVC+SUR+Qy2YGqY8nQEgg9RE3QnIx+U7O5MB0qQ=;
- b=RiXd8WZv0JERKuzhEJ6MITepDyHRQuuKA1svBayMypM8iPReNptSomU6nbgUkbpK4K
- JFPLiYY9+mPlJTkhpAEYRYIkzXNF/pgX9dLk/439Ptl4+A5TL07uzWFHVC91A479YCux
- yjTkGTKq6xXpu1s+Vk4xNiCepvSOIR7Sg2xT/WbeERAmzxkyt2wb5xfFExmqtPSQpBgF
- J2xIbPENyiZzl+bi1j3LYmTHaRj84dABkVWn9rwQ4gjkGFEXJlM5l7EtPGjMQYP9URmX
- SnLojK6AbNXVWrOhIis43yyJ7LoTFuei/UoOvgA6aCRr0z5UmFCOoWrJ31cOzjtXP763
- 3gKg==
-X-Gm-Message-State: AE9vXwMTUibo/h+VvzSZ8pBEuhd1aJsbJbWqH5mRFvsNyzTnxE0XdQ7u36ExUWCj1/k29vYvREOX4BZd4fqL1Q==
-X-Received: by 10.176.0.20 with SMTP id 20mr3761940uai.43.1472445893394; Sun,
- 28 Aug 2016 21:44:53 -0700 (PDT)
+ bh=lQDttV91ajK49TdoHCbVeBa7dGjRSNZfrw7gcAIwz+c=;
+ b=cf8ujT6efAP2Zg690vuURp3KdLIt3HhIiVxHvt0Fs9yv0v5NOVzu7jT/YssISbs/Mv
+ mTIN+N1t66yZNvINuo2xVFd75c8uXATkippdT+Gbwt5AiJng5QGPm67YHC+wU0coWB0h
+ 77/ziQAWTghZu0L89JURzo3QKdC3pJHB+AYqX0hwj6XalEUDbEoFau1EZOgJnW3XFioC
+ Z0AnGCV8UhcnnQbr24hm6Cgps0kxwqX1dzyWw5lFNi8i8cz8sDiIZX1PIlFBMcj/eBCB
+ Cbz+5+QwGwrK3ClI63zmmYRkkqTj347p1LyckwvDzJBdEkt9XdvaiAbsc1n5euqahxGH
+ vOwA==
+X-Gm-Message-State: AE9vXwPhmRZYPIyWpO/DRu7gFpmZYupA091CqfLmP7LLFm4Pn8cmW0d+bZt6aiRJXs6E4r9JxgViYtIIZezf6Q==
+X-Received: by 10.31.78.3 with SMTP id c3mr8506769vkb.41.1472447167601; Sun,
+ 28 Aug 2016 22:06:07 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.159.38.76 with HTTP; Sun, 28 Aug 2016 21:44:32 -0700 (PDT)
-In-Reply-To: <a9f038e2-6208-2d40-32f0-27f5434bfbe3@linux.vnet.ibm.com>
-References: <a9f038e2-6208-2d40-32f0-27f5434bfbe3@linux.vnet.ibm.com>
+Received: by 10.159.38.76 with HTTP; Sun, 28 Aug 2016 22:05:47 -0700 (PDT)
+In-Reply-To: <1471743258-7179-2-git-send-email-brendanhiggins@google.com>
+References: <1471743258-7179-1-git-send-email-brendanhiggins@google.com>
+ <1471743258-7179-2-git-send-email-brendanhiggins@google.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 29 Aug 2016 14:14:32 +0930
-X-Google-Sender-Auth: ME3tOzrd5Mbweu-ybU624wIbvjs
-Message-ID: <CACPK8XdQ1ef6gLqjgL-YvkzBoxpedjoiY_-TzvZF+4sJ9R-p2Q@mail.gmail.com>
-Subject: Re: Charts from OpenBMC MRW Talk
-To: Matt Spinler <mspinler@linux.vnet.ibm.com>
+Date: Mon, 29 Aug 2016 14:35:47 +0930
+X-Google-Sender-Auth: wZGTaC1H3sFhuHPwLRCuhUZwSSg
+Message-ID: <CACPK8XeV4S9mhRUzLks4p3NSeCcOM=vfW+QxXxHuLe5gA=wpmA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] eeprom: at24: added quirk for 24c08 devices
+To: Brendan Higgins <brendanhiggins@google.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -58,39 +59,83 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Aug 2016 04:44:57 -0000
+X-List-Received-Date: Mon, 29 Aug 2016 05:06:11 -0000
 
-Hello Matt,
+Hi Brendan,
 
-On Fri, Aug 26, 2016 at 1:21 AM, Matt Spinler
-<mspinler@linux.vnet.ibm.com> wrote:
-> Here are the charts from the Machine Readable Workbook talk I gave on 8/25.
+On Sun, Aug 21, 2016 at 11:04 AM, Brendan Higgins
+<brendanhiggins@google.com> wrote:
+> Some 24c08 devices exhibits a quirk where they will not NACK durring an
+> acknowledge poll. Added a STOP after the dummy write to address problem.
 
-Thanks for sending these along. I was unable to attend you call as it
-was at 1:00am, and I was skiing in the Australian alps. Are there any
-notes from the presentation that you have to share?
+I'm not an i2c nor a eeprom expert. Are we confident that this is this
+generic enough that it should be applied to all at24c08 devices?
 
-I gave the slides a read. Some questions I had:
+This needs a signed-off-by. You might want to briefly describe the
+hardware you've tested this on.
 
-Serverwiz. I cloned the repository and tried to build with ant. It
-failed due to some hardcoded Windows paths. I opened a ticket here:
-https://github.com/open-power/serverwiz/issues/20
+Once you've added that, please rebase on Linus' tree and send it
+directly upstream to the maintainer. You can find the maintainer's
+email address and mailing list using scripts/get_maintainer.pl on your
+patch.
 
-XML Patching. Under what circumstances would you patch the XML when
-you have the entire thing available to edit?
-
-Current status. You have some upcoming goals there. I would be
-interested in seeing "generation of device tree" pushed much higher up
-the list. I think device tree is an alternative representation of the
-MRW. Because of that it would be an easy target for your prototyping,
-and would allow us to see how it works in practice for a well
-understood use case.
-
-Another use case is generating the Python that describes the
-platform's GPIOs (skeleton/configs/*.py). This has been a source of
-recent bugs, so making sure the MRW matches the Python would help
-shake out some more issues.
+You can cc me if you would like.
 
 Cheers,
 
 Joel
+
+> ---
+>  drivers/misc/eeprom/at24.c         | 12 +++++++++++-
+>  include/linux/platform_data/at24.h |  1 +
+>  2 files changed, 12 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/misc/eeprom/at24.c b/drivers/misc/eeprom/at24.c
+> index 9ceb63b..c647efb 100644
+> --- a/drivers/misc/eeprom/at24.c
+> +++ b/drivers/misc/eeprom/at24.c
+> @@ -120,7 +120,11 @@ static const struct i2c_device_id at24_ids[] = {
+>                 AT24_FLAG_READONLY | AT24_FLAG_IRUGO) },
+>         { "24c04", AT24_DEVICE_MAGIC(4096 / 8, 0) },
+>         /* 24rf08 quirk is handled at i2c-core */
+> -       { "24c08", AT24_DEVICE_MAGIC(8192 / 8, 0) },
+> +       /* 24c08 exhibits a quirk where it will not NACK durring an
+> +        * acknowledge poll so we have to send a stop after the dummy write in
+> +        * a read.
+> +        */
+> +       { "24c08", AT24_DEVICE_MAGIC(8192 / 8, AT24_FLAG_STOPPOLL) },
+>         { "24c16", AT24_DEVICE_MAGIC(16384 / 8, 0) },
+>         { "24c32", AT24_DEVICE_MAGIC(32768 / 8, AT24_FLAG_ADDR16) },
+>         { "24c64", AT24_DEVICE_MAGIC(65536 / 8, AT24_FLAG_ADDR16) },
+> @@ -212,6 +216,12 @@ static ssize_t at24_eeprom_read(struct at24_data *at24, char *buf,
+>                 msgbuf[i++] = offset;
+>
+>                 msg[0].addr = client->addr;
+> +               /*
+> +                * Some EEPROMs do not perform the acknowledge poll correctly
+> +                * and have to send a STOP after the dummy write.
+> +                */
+> +               if (at24->chip.flags & AT24_FLAG_STOPPOLL)
+> +                       msg[0].flags = I2C_M_STOP;
+>                 msg[0].buf = msgbuf;
+>                 msg[0].len = i;
+>
+> diff --git a/include/linux/platform_data/at24.h b/include/linux/platform_data/at24.h
+> index be830b1..1773822 100644
+> --- a/include/linux/platform_data/at24.h
+> +++ b/include/linux/platform_data/at24.h
+> @@ -47,6 +47,7 @@ struct at24_platform_data {
+>  #define AT24_FLAG_READONLY     0x40    /* sysfs-entry will be read-only */
+>  #define AT24_FLAG_IRUGO                0x20    /* sysfs-entry will be world-readable */
+>  #define AT24_FLAG_TAKE8ADDR    0x10    /* take always 8 addresses (24c00) */
+> +#define AT24_FLAG_STOPPOLL     0x08    /* Send stop before ACK poll */
+>
+>         void            (*setup)(struct nvmem_device *nvmem, void *context);
+>         void            *context;
+> --
+> 2.8.0.rc3.226.g39d4020
+>
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
