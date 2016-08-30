@@ -1,53 +1,52 @@
-Return-Path: <xow@google.com>
-Received: from mail-pf0-x22f.google.com (mail-pf0-x22f.google.com
- [IPv6:2607:f8b0:400e:c00::22f])
+Return-Path: <brendanhiggins@google.com>
+Received: from mail-ua0-x230.google.com (mail-ua0-x230.google.com
+ [IPv6:2607:f8b0:400c:c08::230])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sP01V5nTYzDrht
- for <openbmc@lists.ozlabs.org>; Wed, 31 Aug 2016 06:07:42 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sP28w6fggzDrhs
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Aug 2016 07:44:16 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=OSKq4x2L; 
+ unprotected) header.d=google.com header.i=@google.com header.b=Q+Nlo6zq; 
  dkim-atps=neutral
-Received: by mail-pf0-x22f.google.com with SMTP id x72so11082398pfd.2
- for <openbmc@lists.ozlabs.org>; Tue, 30 Aug 2016 13:07:42 -0700 (PDT)
+Received: by mail-ua0-x230.google.com with SMTP id k90so56805249uak.1
+ for <openbmc@lists.ozlabs.org>; Tue, 30 Aug 2016 14:44:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=GPuJaJkZBnxmVg/iFhr77/IkEgNX5X9bUj5pMukYOM8=;
- b=OSKq4x2L9yqLfCypWuYVv8HjzlP2wasqxYOhBGGmpAeghFDICIf379SC61pZ//m4EE
- xoEi5d0ef4TPU6Ebxmy+I2B8W5OwMvG2qWfzv2moN1h9x9NVG3oVqwxwbO6/U/1AdDYG
- GbGBimRzMpURPPf7VPp1CFOXvZCrJ+EbNOBJPSSAPtARKH7d3hgnlK7mkgPJHFWE1Vct
- 0GhPUyUC9QC3qoSUYbHevuqpyOL75oCfe5e0vfSHpWYgShGulEQJK/cZ/zrg7FCjVnmk
- F9Jtdumme3Apf8id8B2UdCNsB/mxT6P/IpA7bEh2Xu2ubzFucBmS81Ij8UDhAHCBWHnh
- r86A==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=yeQfjITJ+U39P1PddT61wVS+Cvk1EA4KpQ/dfqlhJKI=;
+ b=Q+Nlo6zq7MI9tkwBW3tNBT3ZPVQn+IJviQilw+rtXbEFhM/orBdGTIPLngEZpIE8X7
+ t0NVtjfNUXqTiSZALDNgqu1CoUP+Ck2XvdbzWuyTIJKwcnHJSpTECYkx7lthdMq+0ZeP
+ m0hlcfhC2TiRQhbMAj9LaqsFW7ZAQxjN6mMF0d8Awt8b/VQebmgGThWBp5iWWa+CvLqZ
+ 7Xi33Xy2otguGN17TO9pbRVn2nJpmhfjEpjsR0Mh8c5MqGD40cnhJ45vbHf7ophLLefx
+ SMBTURPJ463LHYU5K+5nUG7uN1eaQ00TuiYsyuTIwTSwk3jNtnaW4CkyInido1LeTSEC
+ 9Pig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=GPuJaJkZBnxmVg/iFhr77/IkEgNX5X9bUj5pMukYOM8=;
- b=FNwmtif0fcTkD4g1E7Xk6Kyf8wyJl4KWUEMACvPCp7XkWy6kCclP/lrFF4Rg1Giu6R
- rv3GB0vwmlOEzMo08jkUE3j4rG1q+93/4dMwGgJsuFp1eoF3tAkuruFSADWcdSh86sLG
- 99apcb+QM8XEWQzvGOEt/tPZmbknEVgsD0rOQ9TPbbEUDvjQeZxtEeSfWfkY/av5fjk0
- kBi1vK2RnXWEJ0Jj4KM4Dykl0viGd1rJntF3NTT3T097ICKfAZDA9uRQ6AdWiu7qaZM5
- y6155KpfH3CCIiriUwHHBkzaUexEaO65Dl+MfM06gebkSa4cR8bDAJZnfD6npTVXPta1
- iArw==
-X-Gm-Message-State: AE9vXwM7FoVF50iCNAOGIfHGX1mKKdfltRA0WFvQOTSheyJb1Ormrt2FHCr85NPsp78gFzJK
-X-Received: by 10.98.89.210 with SMTP id k79mr9588392pfj.43.1472587660707;
- Tue, 30 Aug 2016 13:07:40 -0700 (PDT)
-Received: from pewter.svl.corp.google.com ([100.123.242.121])
- by smtp.gmail.com with ESMTPSA id y3sm59169033pfd.65.2016.08.30.13.07.39
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 30 Aug 2016 13:07:40 -0700 (PDT)
-From: Xo Wang <xow@google.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH 2/2] ARM: dts: aspeed: Add Ingrasys Zaius BMC DTS
-Date: Tue, 30 Aug 2016 13:07:24 -0700
-Message-Id: <1472587644-73391-2-git-send-email-xow@google.com>
-X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
-In-Reply-To: <1472587644-73391-1-git-send-email-xow@google.com>
-References: <1472587644-73391-1-git-send-email-xow@google.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=yeQfjITJ+U39P1PddT61wVS+Cvk1EA4KpQ/dfqlhJKI=;
+ b=kpR4A4QMifS0twTwUoyu5MLvFdbiU1Qa3R53lbxOx1mGCHwhmUhDJjF0QUaRBPNVoY
+ nJqvfarkbyMwWlU62vbuVXzHexKIuKZiQy2rJViYXGbLzziPgTL/SyiCv4Nsxdax/OPu
+ C/Mfl8QxlJBaFI6MZvmbROi1QvxlWKrT1cHzOtCc9+H/az2m27HoIgnrsQnS/14u2oNt
+ 7WSR93sU1t7HO/BvqOOe0xMuTajja9m/c7q1FFsEFL1r8wslkML+k5K3uy2jKX9rydCC
+ YVjFEG4l18SH5fv3XpVdGk+pQsZTC55OkQTrxligYP7vkf/gIrt5IePG8kvEyL8ySgVx
+ oYug==
+X-Gm-Message-State: AE9vXwNFIn6tIwlPzPQ8wQXj+fldjNqy/FLGdnNAT2GY5p7ap4PyQbwRv7UJBz7iD3JC2x0S0VOtmL7Uy+wvMPCH
+X-Received: by 10.159.36.206 with SMTP id 72mr3199269uar.126.1472593454620;
+ Tue, 30 Aug 2016 14:44:14 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <1471743258-7179-1-git-send-email-brendanhiggins@google.com>
+ <1471743258-7179-3-git-send-email-brendanhiggins@google.com>
+ <CACPK8XfAfiuas_D3UGMf6Hf922oFH9dcHg_9QUP7xvmuTkmabg@mail.gmail.com>
+ <CAFd5g45iZBEAPQtkHRUuT6aB5zTYxjW50sFMTYEw=h0u7mUJrA@mail.gmail.com>
+In-Reply-To: <CAFd5g45iZBEAPQtkHRUuT6aB5zTYxjW50sFMTYEw=h0u7mUJrA@mail.gmail.com>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Tue, 30 Aug 2016 21:44:04 +0000
+Message-ID: <CAFd5g45-aOGnpAb4gWjz7Zz-_+3gLux61+kzZT4Wni9VZCmpLg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] i2c: aspeed: cleanup driver
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Andrew Jeffery <andrew@aj.id.au>, Jeremy Kerr <jk@ozlabs.org>
+Content-Type: multipart/alternative; boundary=001a113ee93ac32e4f053b50e182
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -59,244 +58,123 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 30 Aug 2016 20:07:44 -0000
+X-List-Received-Date: Tue, 30 Aug 2016 21:44:17 -0000
 
-GPIO and LEDs coming later.
+--001a113ee93ac32e4f053b50e182
+Content-Type: text/plain; charset=UTF-8
 
-Signed-off-by: Xo Wang <xow@google.com>
----
- arch/arm/boot/dts/Makefile                 |   1 +
- arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 210 +++++++++++++++++++++++++++++
- 2 files changed, 211 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+Oh, and one more note: I moved out the eeprom quirk patch from this patch
+set because I think it makes sense as a different submission upstream.
 
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index 495ca3d..b9541c6 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -895,6 +895,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
- 	aspeed-bmc-opp-firestone.dtb \
- 	aspeed-bmc-opp-garrison.dtb \
- 	aspeed-bmc-opp-witherspoon.dtb \
-+	aspeed-bmc-opp-zaius.dtb \
- 	aspeed-bmc-facebook-cmm.dtb \
- 	aspeed-ast2500-evb.dtb
- endif
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-new file mode 100644
-index 0000000..4c4754b
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-@@ -0,0 +1,210 @@
-+/dts-v1/;
-+
-+#include "aspeed-g5.dtsi"
-+
-+/ {
-+	model = "Zaius BMC";
-+	compatible = "ingrasys,zaius-bmc", "aspeed,ast2500";
-+
-+	aliases {
-+		serial4 = &uart5;
-+	};
-+
-+	chosen {
-+		stdout-path = &uart5;
-+		bootargs = "console=ttyS4,115200 earlyprintk";
-+	};
-+
-+	memory {
-+		reg = <0x80000000 0x40000000>;
-+	};
-+
-+	ahb {
-+		bmc_pnor: fmc@1e620000 {
-+			reg = < 0x1e620000 0xc4
-+				0x20000000 0x04000000 >;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "aspeed,ast2500-fmc";
-+			flash@0 {
-+				reg = < 0 >;
-+				compatible = "jedec,spi-nor" ;
-+#include "aspeed-bmc-opp-flash-layout.dtsi"
-+			};
-+		};
-+
-+		host_pnor: spi@1e630000 {
-+			reg = < 0x1e630000 0xc4
-+				0x30000000 0x04000000 >;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "aspeed,ast2500-smc";
-+			flash@0 {
-+				reg = < 0 >;
-+				compatible = "jedec,spi-nor" ;
-+				label = "pnor";
-+			};
-+		};
-+
-+		data_pnor: spi@1e631000 {
-+			reg = < 0x1e631000 0xc4
-+				0x38000000 0x00800000 >;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "aspeed,ast2500-smc";
-+			flash@0 {
-+				reg = < 0 >;
-+				compatible = "jedec,spi-nor" ;
-+			};
-+		};
-+	};
-+};
-+
-+&uart5 {
-+	status = "okay";
-+};
-+
-+&mac0 {
-+	status = "okay";
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rgmii1_default>;
-+	use-ncsi;
-+};
-+
-+&mac1 {
-+	status = "okay";
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rgmii2_default>;
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+
-+	eeprom@50 {
-+		compatible = "atmel,24c64";
-+		reg = <0x50>;
-+		pagesize = <32>;
-+	};
-+
-+	rtc@68 {
-+		compatible = "nxp,pcf8523";
-+		reg = <0x68>;
-+	};
-+
-+	/* Power sequencer UCD90160 PMBUS @64h
-+	 * FRU AT24C64D @50h
-+	 * RTC PCF8523 @68h
-+	 * Clock buffer 9DBL04 @6dh
-+	 */
-+};
-+
-+&i2c1 {
-+	status = "disabled";
-+
-+	/* MUX1 PCA9546A @71h
-+	 *   PCIe 0
-+	 *   PCIe 1
-+	 *   PCIe 2
-+	 *   TPM header
-+	 */
-+};
-+
-+&i2c2 {
-+	status = "disabled";
-+
-+	/* OCP Mezz Connector A (OOB SMBUS) */
-+};
-+
-+&i2c3 {
-+	status = "disabled";
-+
-+	/* OCP Mezz Connector A (PCIe slot SMBUS) */
-+};
-+
-+&i2c4 {
-+	status = "disabled";
-+
-+	/* MUX1 PCA9546A @71h
-+	 *   PCIe 3
-+	 *   PCIe 4
-+	 */
-+};
-+
-+
-+&i2c5 {
-+	status = "disabled";
-+
-+	/* CPU0 PRM 0.7V */
-+	/* CPU0 PRM 1.2V CH03 */
-+	/* CPU0 PRM 0.8V */
-+	/* CPU0 PRM 1.2V CH47 */
-+};
-+
-+&i2c6 {
-+	status = "disabled";
-+
-+	/* CPU1 PRM 0.7V */
-+	/* CPU1 PRM 1.2V CH03 */
-+	/* CPU1 PRM 0.8V */
-+	/* CPU1 PRM 1.2V CH47 */
-+};
-+
-+&i2c7 {
-+	status = "disabled";
-+
-+	/* MUX PCA9541A (other master: CPU0 PCIe 1)
-+	 *   ADM1272 PMBUS @10h
-+	 */
-+	/* 12V SMPS Q54SH12050NNDH @61h */
-+	/* CPU0 VR ISL68137 0.7V, 0.96V PMBUS @64h */
-+	/* CPU0 VR ISL68137 1.2V CH03 PMBUS @40h */
-+	/* CPU0 VR ISL68137 0.8V PMBUS @60h */
-+	/* CPU0 VR 1.0V IR38064 I2C @11h, PMBUS @41h */
-+	/* CPU0 VR ISL68137 1.2V CH47 PMBUS @41h */
-+};
-+
-+&i2c8 {
-+	status = "disabled";
-+
-+	/* CPU1 VR ISL68137 0.7V, 0.96V PMBUS @65h */
-+	/* CPU1 VR ISL68137 1.2V CH03 PMBUS @44h */
-+	/* CPU1 VR ISL68137 0.8V PMBUS @61h */
-+	/* CPU1 VR 1.0V IR38064 I2C @12h, PMBUS @42h */
-+	/* CPU0 VR ISL68137 1.2V CH47 PMBUS @45h */
-+};
-+
-+
-+&i2c9 {
-+	status = "disabled";
-+
-+	/* Fan board */
-+};
-+
-+&i2c10 {
-+	status = "disabled";
-+};
-+
-+&i2c11 {
-+	status = "disabled";
-+
-+	/* GPU sideband */
-+};
-+
-+&i2c12 {
-+	status = "disabled";
-+};
-+
-+&i2c13 {
-+	status = "disabled";
-+
-+	/* MUX PI3USB102
-+	 *   CPU0 debug
-+	 *   CPU1 debug
-+	 */
-+};
-+
-+&vuart {
-+	status = "okay";
-+};
--- 
-2.8.0.rc3.226.g39d4020
+On Tue, Aug 30, 2016 at 11:59 AM Brendan Higgins <brendanhiggins@google.com>
+wrote:
+
+> checkpatch seems to be upset about my device tree identifiers being
+> undocumented; do we have a coordinated effort for this? I did not even see
+> a directory for aspeed under arm.
+>
+> checkpatch is also asked about updating MAINTAINERS, but looks like it
+> should be covered under existing line:
+> F: drivers/*/*aspeed*
+> Does it just ask this every time you add a file?
+>
+> changelog:
+>  - Squashed driver commits as suggested by Joel
+>  - Renamed a couple functions for consistency
+>  - Fixed a couple style errors
+>
+> On Sun, Aug 28, 2016 at 10:35 PM Joel Stanley <joel@jms.id.au> wrote:
+>
+>> Hi Brendan,
+>>
+>> On Sun, Aug 21, 2016 at 11:04 AM, Brendan Higgins
+>> <brendanhiggins@google.com> wrote:
+>> > Rewrote most of master IRQ handler, xfer functions, and error recovery.
+>> > Minor refactor of probing functions. Added remove functions.
+>>
+>> Thanks for the patch. The diff is quite noisy given you're deleting
+>> lots of cruft from the vendor driver. It would be easier for us to
+>> review if you send the patch that adds the driver from scratch.
+>>
+>> One suggestion I did have is to rename the driver to use the aspeed_
+>> prefix for all functions so that it matches the drivers that have
+>> already gone upstream.
+>>
+>> Given our goal is immediate upstream submission, how about you send a
+>> complete patch that adds the driver to upstream (say 4.8-rc4?)? Send
+>> it to the i2c lists and cc myself, jk@ozlabs.org, and andrew@aj.id.au.
+>>
+>> I hope we can get this sent out for upstream review this week. Let me
+>> know if there's anything I can do to help achieve that.
+>>
+>> Cheers,
+>>
+>> Joel
+>>
+>> > ---
+>> >  drivers/i2c/busses/i2c-aspeed.c | 932
+>> ++++++++++++++--------------------------
+>> >  1 file changed, 318 insertions(+), 614 deletions(-)
+>>
+>
+
+--001a113ee93ac32e4f053b50e182
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Oh, and one more note: I moved out the eeprom quirk patch =
+from this patch set because I think it makes sense as a different submissio=
+n upstream.</div><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Tue, Au=
+g 30, 2016 at 11:59 AM Brendan Higgins &lt;<a href=3D"mailto:brendanhiggins=
+@google.com">brendanhiggins@google.com</a>&gt; wrote:<br></div><blockquote =
+class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid=
+;padding-left:1ex"><div dir=3D"ltr">checkpatch seems to be upset about my d=
+evice tree identifiers being undocumented; do we have a coordinated effort =
+for this? I did not even see a directory for aspeed under arm.<div><br></di=
+v><div>checkpatch is also asked about updating MAINTAINERS, but looks like =
+it should be covered under existing line:</div><div>F:<span class=3D"m_6253=
+558928841242401Apple-tab-span" style=3D"white-space:pre-wrap">	</span>drive=
+rs/*/*aspeed*</div><div>Does it just ask this every time you add a file?</d=
+iv><div><br></div><div>changelog:</div><div>=C2=A0- Squashed driver commits=
+ as suggested by Joel</div><div>=C2=A0- Renamed a couple functions for cons=
+istency</div><div>=C2=A0- Fixed a couple style errors</div></div><br><div c=
+lass=3D"gmail_quote"><div dir=3D"ltr">On Sun, Aug 28, 2016 at 10:35 PM Joel=
+ Stanley &lt;<a href=3D"mailto:joel@jms.id.au" target=3D"_blank">joel@jms.i=
+d.au</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"mar=
+gin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Hi Brendan,<br>
+<br>
+On Sun, Aug 21, 2016 at 11:04 AM, Brendan Higgins<br>
+&lt;<a href=3D"mailto:brendanhiggins@google.com" target=3D"_blank">brendanh=
+iggins@google.com</a>&gt; wrote:<br>
+&gt; Rewrote most of master IRQ handler, xfer functions, and error recovery=
+.<br>
+&gt; Minor refactor of probing functions. Added remove functions.<br>
+<br>
+Thanks for the patch. The diff is quite noisy given you&#39;re deleting<br>
+lots of cruft from the vendor driver. It would be easier for us to<br>
+review if you send the patch that adds the driver from scratch.<br>
+<br>
+One suggestion I did have is to rename the driver to use the aspeed_<br>
+prefix for all functions so that it matches the drivers that have<br>
+already gone upstream.<br>
+<br>
+Given our goal is immediate upstream submission, how about you send a<br>
+complete patch that adds the driver to upstream (say 4.8-rc4?)? Send<br>
+it to the i2c lists and cc myself, <a href=3D"mailto:jk@ozlabs.org" target=
+=3D"_blank">jk@ozlabs.org</a>, and <a href=3D"mailto:andrew@aj.id.au" targe=
+t=3D"_blank">andrew@aj.id.au</a>.<br>
+<br>
+I hope we can get this sent out for upstream review this week. Let me<br>
+know if there&#39;s anything I can do to help achieve that.<br>
+<br>
+Cheers,<br>
+<br>
+Joel<br>
+<br>
+&gt; ---<br>
+&gt;=C2=A0 drivers/i2c/busses/i2c-aspeed.c | 932 ++++++++++++++------------=
+--------------<br>
+&gt;=C2=A0 1 file changed, 318 insertions(+), 614 deletions(-)<br>
+</blockquote></div></blockquote></div>
+
+--001a113ee93ac32e4f053b50e182--
