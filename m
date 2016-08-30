@@ -1,51 +1,51 @@
 Return-Path: <brendanhiggins@google.com>
-Received: from mail-pf0-x232.google.com (mail-pf0-x232.google.com
- [IPv6:2607:f8b0:400e:c00::232])
+Received: from mail-ua0-x235.google.com (mail-ua0-x235.google.com
+ [IPv6:2607:f8b0:400c:c08::235])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sNyM1189gzDr5y
- for <openbmc@lists.ozlabs.org>; Wed, 31 Aug 2016 04:52:44 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sNyWX2dPPzDrhr
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Aug 2016 05:00:08 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=ffCA9tcD; 
+ unprotected) header.d=google.com header.i=@google.com header.b=OcEMSqtd; 
  dkim-atps=neutral
-Received: by mail-pf0-x232.google.com with SMTP id p64so10593202pfb.1
- for <openbmc@lists.ozlabs.org>; Tue, 30 Aug 2016 11:52:44 -0700 (PDT)
+Received: by mail-ua0-x235.google.com with SMTP id k90so49549444uak.1
+ for <openbmc@lists.ozlabs.org>; Tue, 30 Aug 2016 12:00:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=V0mkVOAAjH4i21/qTUTU69czIBeXzuluw8kwylH0o3s=;
- b=ffCA9tcDckPh8keFNALUBrtbz7hgUurp64kEv1e982Cql6Yc/NHPraael0hbiagCkB
- zcr9flSEOj94ziaRm07ylGJKl4j57lmiwmA+Eg3mi5r/aMGaUYNWOIc4MHfh3WoBtFmy
- f4nAwx/8ozEHBfGPmIEZ5JW31nLgxIfCBbfd7FILBe4X1O9APRqi996Um1Pmps7DIUou
- M5sHUX0rX3k+b624ENMmLw3A8PdSSp+Q2djs84AHOFILv8YQGWZI1Ng+pMiPK1nbaQlj
- gQtrBVm3mMyEKM2pbatVi3IEuqupIshRDT5Q/fPnUQegRk5fOZthOGa6pHkjVtRAiZOh
- f+dw==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=5ZuJ0FrAoH4aR0q6d4WBDC5t6o33vl3Y+J9pcd9FPho=;
+ b=OcEMSqtdh+eHJgeQ59ife4GXa4qgklfJs9K+KTpFWVDdWVBnLlx4bWO0a73Tj0UYIG
+ uRritSB1B4+GcnGt2c8ZNQfJbCS+Au2fH4oP3cOJBNMjEjzj/8JIvxUsXpqZoh9UA2T2
+ BrWYt9thtgBZxiyfNj/0iShQq9MHyox+W9eCaw84Ktr5DklYr8Cui7f70KqbV+OGbL/s
+ feK17px4jjW0XW1fpG23W7NM/aooYUQqpeEbQehKmSWycia4KT9wEvEbXPkzrM2BIPXv
+ e9P2d6I1XXg+H6W7qz/m+YG9LJp+9tq9Nn6SZsVmYZ+RoqjC+gC+aCmefcB2FkZS525i
+ 5Zmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=V0mkVOAAjH4i21/qTUTU69czIBeXzuluw8kwylH0o3s=;
- b=Hq6vuSLQ6/dWscPkc3MCfJVBsPCth9ju5VD5hEcb0oQHXpoJDzDofWqWSbxqbRxlfu
- F6hdQKltKpennld3AvL6AhzujL0M6lmeThr6J9lTpVn+t4hJBij+4w9ePKGj4KkOTBKv
- E6xXy/JY1MNIZfuWXW81QkLL6/eBGfU3TlwWm8bf1xpDiSXXzcbhTUe3xRugz22FuCYp
- s+6I0mkUC9EOD8sGadJr98o5yKuPB/W7n6RlfVW9eSVA4bF8FIYHuPoM+snIOyfDcZY4
- N/3XcAKRhJU3U/aJ7x82+6DTg/KZa+J5fzG3VMbWmINuVWK/s7/xo5QKXPKp3tL9FhdV
- f8Yw==
-X-Gm-Message-State: AE9vXwNtHYqTBywkmhlmJaiG4vSvVky0uxWKWXhE2P1hyxYoOGOy6wyY61ZY6piX6SJNZ+S5
-X-Received: by 10.98.196.77 with SMTP id y74mr8848052pff.97.1472583162065;
- Tue, 30 Aug 2016 11:52:42 -0700 (PDT)
-Received: from mactruck.mtv.corp.google.com ([100.123.242.94])
- by smtp.gmail.com with ESMTPSA id e68sm58985886pfk.1.2016.08.30.11.52.41
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 30 Aug 2016 11:52:41 -0700 (PDT)
-From: Brendan Higgins <brendanhiggins@google.com>
-To: openbmc@lists.ozlabs.org
-Cc: Brendan Higgins <brendanhiggins@google.com>
-Subject: [PATCH v2] i2c: aspeed: added driver for Aspeed I2C
-Date: Tue, 30 Aug 2016 11:52:26 -0700
-Message-Id: <1472583146-6393-1-git-send-email-brendanhiggins@google.com>
-X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=5ZuJ0FrAoH4aR0q6d4WBDC5t6o33vl3Y+J9pcd9FPho=;
+ b=Hl1MK7+88SrQrqaFe4tWEbTFvf7CgYV4MhkKnzMy9XB9pFeotHcP+fAgy9IC9Wojxu
+ 7MxkPMxBT23VEO4VQzX5pK2buerSnvnfguzisnKxDPT09oLrYZBnSNfsymFeo74HY7pH
+ BZHgZI+Ne0VreLN5oYuPyimY3XY+m6+JEwtrI0Vb2Mk0XIcF4tHOhQQuHxFdVB+Gm/lo
+ lltVhDtrcWgiEXhaMtPsznv6Fhq23PC6I7ttF1iajvAhlRQgyWlhTbkzRwkDPAPRAdEy
+ NJntgF040evIwFM/+fOMu6XIFNjdUHTqHJFrZ/XsvlKbEVtw3n8NOzZ2CvmSts/rgwEv
+ V+xw==
+X-Gm-Message-State: AE9vXwOa3gTtw+1hUvXVs8+AnopA7P6dlIGI5xtXJ+1EIvGzZ/G3MTIl25YCFBus6UO0LA4vYvpK3EOM7KhcZn/b
+X-Received: by 10.31.95.137 with SMTP id t131mr2775434vkb.67.1472583605946;
+ Tue, 30 Aug 2016 12:00:05 -0700 (PDT)
+MIME-Version: 1.0
+References: <1471743258-7179-1-git-send-email-brendanhiggins@google.com>
+ <1471743258-7179-3-git-send-email-brendanhiggins@google.com>
+ <CACPK8XfAfiuas_D3UGMf6Hf922oFH9dcHg_9QUP7xvmuTkmabg@mail.gmail.com>
 In-Reply-To: <CACPK8XfAfiuas_D3UGMf6Hf922oFH9dcHg_9QUP7xvmuTkmabg@mail.gmail.com>
-References: <CACPK8XfAfiuas_D3UGMf6Hf922oFH9dcHg_9QUP7xvmuTkmabg@mail.gmail.com>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Tue, 30 Aug 2016 18:59:55 +0000
+Message-ID: <CAFd5g45iZBEAPQtkHRUuT6aB5zTYxjW50sFMTYEw=h0u7mUJrA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] i2c: aspeed: cleanup driver
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Andrew Jeffery <andrew@aj.id.au>, Jeremy Kerr <jk@ozlabs.org>
+Content-Type: multipart/alternative; boundary=001a114e3caebc4f6b053b4e96af
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -57,870 +57,110 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 30 Aug 2016 18:52:45 -0000
+X-List-Received-Date: Tue, 30 Aug 2016 19:00:09 -0000
 
-Added initial master and slave support for Aspeed I2C controller.
-Supports fourteen busses present in ast24xx and ast25xx BMC SoCs by
-Aspeed.
+--001a114e3caebc4f6b053b4e96af
+Content-Type: text/plain; charset=UTF-8
 
-Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
----
- drivers/i2c/busses/Kconfig      |  10 +
- drivers/i2c/busses/Makefile     |   1 +
- drivers/i2c/busses/i2c-aspeed.c | 812 ++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 823 insertions(+)
- create mode 100644 drivers/i2c/busses/i2c-aspeed.c
+checkpatch seems to be upset about my device tree identifiers being
+undocumented; do we have a coordinated effort for this? I did not even see
+a directory for aspeed under arm.
 
-diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
-index 5c3993b..0178c6c 100644
---- a/drivers/i2c/busses/Kconfig
-+++ b/drivers/i2c/busses/Kconfig
-@@ -998,6 +998,16 @@ config I2C_RCAR
- 	  This driver can also be built as a module.  If so, the module
- 	  will be called i2c-rcar.
- 
-+config I2C_ASPEED
-+	tristate "Aspeed AST2xxx SoC I2C Controller"
-+	depends on (ARCH_ASPEED || COMPILE_TEST) && OF
-+	help
-+	  If you say yes to this option, support will be included for the
-+	  Aspeed AST2xxx SoC I2C controller.
-+
-+	  This driver can also be built as a module.  If so, the module
-+	  will be called i2c-aspeed.
-+
- comment "External I2C/SMBus adapter drivers"
- 
- config I2C_DIOLAN_U2C
-diff --git a/drivers/i2c/busses/Makefile b/drivers/i2c/busses/Makefile
-index 37f2819..49631cd 100644
---- a/drivers/i2c/busses/Makefile
-+++ b/drivers/i2c/busses/Makefile
-@@ -96,6 +96,7 @@ obj-$(CONFIG_I2C_XILINX)	+= i2c-xiic.o
- obj-$(CONFIG_I2C_XLR)		+= i2c-xlr.o
- obj-$(CONFIG_I2C_XLP9XX)	+= i2c-xlp9xx.o
- obj-$(CONFIG_I2C_RCAR)		+= i2c-rcar.o
-+obj-$(CONFIG_I2C_ASPEED)	+= i2c-aspeed.o
- 
- # External I2C/SMBus adapter drivers
- obj-$(CONFIG_I2C_DIOLAN_U2C)	+= i2c-diolan-u2c.o
-diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
-new file mode 100644
-index 0000000..81c96e2
---- /dev/null
-+++ b/drivers/i2c/busses/i2c-aspeed.c
-@@ -0,0 +1,812 @@
-+/*
-+ *  I2C adapter for the ASPEED I2C bus.
-+ *
-+ *  Copyright (C) 2012-2020  ASPEED Technology Inc.
-+ *  Copyright 2015 IBM Corporation
-+ *
-+ *  This program is free software; you can redistribute it and/or modify
-+ *  it under the terms of the GNU General Public License version 2 as
-+ *  published by the Free Software Foundation.
-+ */
-+
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/i2c.h>
-+#include <linux/irq.h>
-+#include <linux/irqdomain.h>
-+#include <linux/init.h>
-+#include <linux/io.h>
-+#include <linux/errno.h>
-+#include <linux/interrupt.h>
-+#include <linux/completion.h>
-+#include <linux/slab.h>
-+#include <linux/of_address.h>
-+#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
-+#include <linux/err.h>
-+#include <linux/clk.h>
-+
-+/* I2C Register */
-+#define AST_I2C_FUN_CTRL_REG				0x00
-+#define AST_I2C_AC_TIMING_REG1				0x04
-+#define AST_I2C_AC_TIMING_REG2				0x08
-+#define AST_I2C_INTR_CTRL_REG				0x0c
-+#define AST_I2C_INTR_STS_REG				0x10
-+#define AST_I2C_CMD_REG				0x14
-+#define AST_I2C_DEV_ADDR_REG				0x18
-+#define AST_I2C_BYTE_BUF_REG				0x20
-+
-+#define AST_I2C_NUM_BUS 14
-+
-+/* Gloable Register Definition */
-+/* 0x00 : I2C Interrupt Status Register  */
-+/* 0x08 : I2C Interrupt Target Assignment  */
-+
-+/* Device Register Definition */
-+/* 0x00 : I2CD Function Control Register  */
-+#define AST_I2CD_MULTI_MASTER_DIS			(0x1 << 15)
-+#define AST_I2CD_SDA_DRIVE_1T_EN			(0x1 << 8)
-+#define AST_I2CD_M_SDA_DRIVE_1T_EN			(0x1 << 7)
-+#define AST_I2CD_M_HIGH_SPEED_EN			(0x1 << 6)
-+#define AST_I2CD_SLAVE_EN				(0x1 << 1)
-+#define AST_I2CD_MASTER_EN				(0x1)
-+
-+/* 0x08 : I2CD Clock and AC Timing Control Register #2 */
-+#define AST_NO_TIMEOUT_CTRL				0x0
-+
-+
-+/* 0x0c : I2CD Interrupt Control Register &
-+ * 0x10 : I2CD Interrupt Status Register
-+ *
-+ * These share bit definitions, so use the same values for the enable &
-+ * status bits.
-+ */
-+#define AST_I2CD_INTR_SDA_DL_TIMEOUT			(0x1 << 14)
-+#define AST_I2CD_INTR_BUS_RECOVER_DONE			(0x1 << 13)
-+#define AST_I2CD_INTR_SLAVE_MATCH			(0x1 << 7)
-+#define AST_I2CD_INTR_SCL_TIMEOUT			(0x1 << 6)
-+#define AST_I2CD_INTR_ABNORMAL				(0x1 << 5)
-+#define AST_I2CD_INTR_NORMAL_STOP			(0x1 << 4)
-+#define AST_I2CD_INTR_ARBIT_LOSS			(0x1 << 3)
-+#define AST_I2CD_INTR_RX_DONE				(0x1 << 2)
-+#define AST_I2CD_INTR_TX_NAK				(0x1 << 1)
-+#define AST_I2CD_INTR_TX_ACK				(0x1 << 0)
-+
-+/* 0x14 : I2CD Command/Status Register   */
-+#define AST_I2CD_SCL_LINE_STS				(0x1 << 18)
-+#define AST_I2CD_SDA_LINE_STS				(0x1 << 17)
-+#define AST_I2CD_BUS_BUSY_STS				(0x1 << 16)
-+#define AST_I2CD_BUS_RECOVER_CMD			(0x1 << 11)
-+
-+/* Command Bit */
-+#define AST_I2CD_M_STOP_CMD				(0x1 << 5)
-+#define AST_I2CD_M_S_RX_CMD_LAST			(0x1 << 4)
-+#define AST_I2CD_M_RX_CMD				(0x1 << 3)
-+#define AST_I2CD_S_TX_CMD				(0x1 << 2)
-+#define AST_I2CD_M_TX_CMD				(0x1 << 1)
-+#define AST_I2CD_M_START_CMD				(0x1)
-+
-+/* 0x18 : I2CD Slave Device Address Register   */
-+#define AST_I2CD_DEV_ADDR_MASK                          ((0x1 << 7) - 1)
-+
-+#if IS_ENABLED(CONFIG_I2C_SLAVE)
-+enum ast_i2c_slave_state {
-+	AST_I2C_SLAVE_START,
-+	AST_I2C_SLAVE_READ_REQUESTED,
-+	AST_I2C_SLAVE_READ_PROCESSED,
-+	AST_I2C_SLAVE_WRITE_REQUESTED,
-+	AST_I2C_SLAVE_WRITE_RECEIVED,
-+	AST_I2C_SLAVE_STOP,
-+};
-+#endif
-+
-+struct ast_i2c_bus {
-+	struct i2c_adapter		adap;
-+	struct device			*dev;
-+	void __iomem			*base;
-+	spinlock_t			lock;
-+	struct completion		cmd_complete;
-+	int				irq;
-+	/* Transaction state. */
-+	struct i2c_msg			*msg;
-+	int				msg_pos;
-+	u32				cmd_err;
-+#if IS_ENABLED(CONFIG_I2C_SLAVE)
-+	struct i2c_client		*slave;
-+	enum ast_i2c_slave_state	slave_state;
-+#endif
-+};
-+
-+struct ast_i2c_controller {
-+	struct device		*dev;
-+	void __iomem		*base;
-+	int			irq;
-+	struct irq_domain	*irq_domain;
-+};
-+
-+static inline void ast_i2c_write(struct ast_i2c_bus *bus, u32 val, u32 reg)
-+{
-+	writel(val, bus->base + reg);
-+}
-+
-+static inline u32 ast_i2c_read(struct ast_i2c_bus *bus, u32 reg)
-+{
-+	return readl(bus->base + reg);
-+}
-+
-+static u8 ast_i2c_recover_bus(struct ast_i2c_bus *bus)
-+{
-+	u32 sts;
-+	unsigned long time_left;
-+	unsigned long flags;
-+	int ret = 0;
-+
-+	spin_lock_irqsave(&bus->lock, flags);
-+	sts = ast_i2c_read(bus, AST_I2C_CMD_REG);
-+	/* Bus is idle: no recovery needed. */
-+	if ((sts & AST_I2CD_SDA_LINE_STS) && (sts & AST_I2CD_SCL_LINE_STS)) {
-+		spin_unlock_irqrestore(&bus->lock, flags);
-+		return 0;
-+	}
-+	dev_dbg(bus->dev, "bus hung (status %x), attempting recovery\n", sts);
-+
-+	/* Bus held: put bus in stop state. */
-+	if ((sts & AST_I2CD_SDA_LINE_STS) && !(sts & AST_I2CD_SCL_LINE_STS)) {
-+		ast_i2c_write(bus, AST_I2CD_M_STOP_CMD, AST_I2C_CMD_REG);
-+		reinit_completion(&bus->cmd_complete);
-+		spin_unlock_irqrestore(&bus->lock, flags);
-+
-+		time_left = wait_for_completion_interruptible_timeout(
-+				&bus->cmd_complete, bus->adap.timeout * HZ);
-+
-+		spin_lock_irqsave(&bus->lock, flags);
-+		if (time_left == 0)
-+			ret = -ETIMEDOUT;
-+		else if (bus->cmd_err)
-+			ret = -EIO;
-+	/* Bus error. */
-+	} else if (!(sts & AST_I2CD_SDA_LINE_STS)) {
-+		ast_i2c_write(bus, AST_I2CD_BUS_RECOVER_CMD, AST_I2C_CMD_REG);
-+		reinit_completion(&bus->cmd_complete);
-+		spin_unlock_irqrestore(&bus->lock, flags);
-+
-+		time_left = wait_for_completion_interruptible_timeout(
-+				&bus->cmd_complete, bus->adap.timeout * HZ);
-+
-+		spin_lock_irqsave(&bus->lock, flags);
-+		if (time_left == 0)
-+			ret = -ETIMEDOUT;
-+		else if (bus->cmd_err)
-+			ret = -EIO;
-+		/* Recovery failed. */
-+		else if (!(ast_i2c_read(bus, AST_I2C_CMD_REG) &
-+			   AST_I2CD_SDA_LINE_STS))
-+			ret = -EIO;
-+	}
-+	spin_unlock_irqrestore(&bus->lock, flags);
-+	return ret;
-+}
-+
-+#if IS_ENABLED(CONFIG_I2C_SLAVE)
-+static bool ast_i2c_slave_irq(struct ast_i2c_bus *bus)
-+{
-+	bool irq_handled = true;
-+	u32 command;
-+	u32 irq_status;
-+	u32 status_ack = 0;
-+	u8 value;
-+	enum i2c_slave_event event;
-+	struct i2c_client *slave = bus->slave;
-+
-+	spin_lock(&bus->lock);
-+	if (!slave) {
-+		irq_handled = false;
-+		goto out;
-+	}
-+	command = ast_i2c_read(bus, AST_I2C_CMD_REG);
-+	irq_status = ast_i2c_read(bus, AST_I2C_INTR_STS_REG);
-+
-+	/* Slave was requested, restart state machine. */
-+	if (irq_status & AST_I2CD_INTR_SLAVE_MATCH) {
-+		status_ack |= AST_I2CD_INTR_SLAVE_MATCH;
-+		bus->slave_state = AST_I2C_SLAVE_START;
-+	}
-+	/* Slave is not currently active, irq was for someone else. */
-+	if (bus->slave_state == AST_I2C_SLAVE_STOP) {
-+		irq_handled = false;
-+		goto out;
-+	}
-+
-+	dev_dbg(bus->dev, "slave irq status 0x%08x, cmd 0x%08x\n",
-+		irq_status, command);
-+
-+	/* Slave was sent something. */
-+	if (irq_status & AST_I2CD_INTR_RX_DONE) {
-+		value = ast_i2c_read(bus, AST_I2C_BYTE_BUF_REG) >> 8;
-+		/* Handle address frame. */
-+		if (bus->slave_state == AST_I2C_SLAVE_START) {
-+			if (value & 0x1)
-+				bus->slave_state = AST_I2C_SLAVE_READ_REQUESTED;
-+			else
-+				bus->slave_state =
-+						AST_I2C_SLAVE_WRITE_REQUESTED;
-+		}
-+		status_ack |= AST_I2CD_INTR_RX_DONE;
-+	}
-+
-+	/* Slave was asked to stop. */
-+	if (irq_status & AST_I2CD_INTR_NORMAL_STOP ||
-+	    irq_status & AST_I2CD_INTR_TX_NAK) {
-+		if (irq_status & AST_I2CD_INTR_NORMAL_STOP)
-+			status_ack |= AST_I2CD_INTR_NORMAL_STOP;
-+		else
-+			status_ack |= AST_I2CD_INTR_TX_NAK;
-+		bus->slave_state = AST_I2C_SLAVE_STOP;
-+	}
-+
-+	if (bus->slave_state == AST_I2C_SLAVE_READ_REQUESTED ||
-+	    bus->slave_state == AST_I2C_SLAVE_READ_PROCESSED) {
-+		if (bus->slave_state == AST_I2C_SLAVE_READ_REQUESTED) {
-+			event = I2C_SLAVE_READ_REQUESTED;
-+			if (irq_status & AST_I2CD_INTR_TX_ACK)
-+				dev_err(bus->dev,
-+					"Unexpected ACK on read request.\n");
-+		} else {
-+			status_ack |= AST_I2CD_INTR_TX_ACK;
-+			event = I2C_SLAVE_READ_PROCESSED;
-+			if (!(irq_status & AST_I2CD_INTR_TX_ACK))
-+				dev_err(bus->dev,
-+					"Expected ACK after processed read.\n");
-+		}
-+		bus->slave_state = AST_I2C_SLAVE_READ_PROCESSED;
-+
-+		i2c_slave_event(slave, event, &value);
-+		ast_i2c_write(bus, value, AST_I2C_BYTE_BUF_REG);
-+		ast_i2c_write(bus, AST_I2CD_S_TX_CMD, AST_I2C_CMD_REG);
-+	} else if (bus->slave_state == AST_I2C_SLAVE_WRITE_REQUESTED) {
-+		bus->slave_state = AST_I2C_SLAVE_WRITE_RECEIVED;
-+		i2c_slave_event(slave, I2C_SLAVE_WRITE_REQUESTED, &value);
-+	} else if (bus->slave_state == AST_I2C_SLAVE_WRITE_RECEIVED) {
-+		i2c_slave_event(slave, I2C_SLAVE_WRITE_RECEIVED, &value);
-+	} else if (bus->slave_state == AST_I2C_SLAVE_STOP) {
-+		i2c_slave_event(slave, I2C_SLAVE_STOP, &value);
-+	}
-+
-+	if (status_ack != irq_status)
-+		dev_err(bus->dev,
-+			"irq handled != irq. expected %x, but was %x\n",
-+			irq_status, status_ack);
-+	ast_i2c_write(bus, status_ack, AST_I2C_INTR_STS_REG);
-+
-+out:
-+	spin_unlock(&bus->lock);
-+	return irq_handled;
-+}
-+#endif
-+
-+static bool ast_i2c_master_irq(struct ast_i2c_bus *bus)
-+{
-+	const u32 errs = AST_I2CD_INTR_ARBIT_LOSS |
-+		AST_I2CD_INTR_ABNORMAL |
-+		AST_I2CD_INTR_SCL_TIMEOUT |
-+		AST_I2CD_INTR_SDA_DL_TIMEOUT |
-+		AST_I2CD_INTR_TX_NAK;
-+	u32 irq_status;
-+
-+	spin_lock(&bus->lock);
-+	irq_status = ast_i2c_read(bus, AST_I2C_INTR_STS_REG);
-+	bus->cmd_err |= irq_status & errs;
-+
-+	dev_dbg(bus->dev, "master irq status 0x%08x\n", irq_status);
-+
-+	/* No message to transfer. */
-+	if (bus->cmd_err ||
-+	    (irq_status & AST_I2CD_INTR_NORMAL_STOP) ||
-+	    (irq_status & AST_I2CD_INTR_BUS_RECOVER_DONE)) {
-+		complete(&bus->cmd_complete);
-+		goto out;
-+	} else if (!bus->msg || bus->msg_pos >= bus->msg->len)
-+		goto out;
-+
-+	if ((bus->msg->flags & I2C_M_RD) &&
-+	    (irq_status & AST_I2CD_INTR_RX_DONE)) {
-+		bus->msg->buf[bus->msg_pos++] =
-+				ast_i2c_read(bus, AST_I2C_BYTE_BUF_REG) >> 8;
-+		if (bus->msg_pos + 1 < bus->msg->len)
-+			ast_i2c_write(bus, AST_I2CD_M_RX_CMD, AST_I2C_CMD_REG);
-+		else if (bus->msg_pos < bus->msg->len)
-+			ast_i2c_write(bus, AST_I2CD_M_RX_CMD |
-+				      AST_I2CD_M_S_RX_CMD_LAST,
-+				      AST_I2C_CMD_REG);
-+	} else if (!(bus->msg->flags & I2C_M_RD) &&
-+		   (irq_status & AST_I2CD_INTR_TX_ACK)) {
-+		ast_i2c_write(bus, bus->msg->buf[bus->msg_pos++],
-+			      AST_I2C_BYTE_BUF_REG);
-+		ast_i2c_write(bus, AST_I2CD_M_TX_CMD, AST_I2C_CMD_REG);
-+	}
-+
-+	/* Transmission complete: notify caller. */
-+	if (bus->msg_pos >= bus->msg->len)
-+		complete(&bus->cmd_complete);
-+out:
-+	ast_i2c_write(bus, irq_status, AST_I2C_INTR_STS_REG);
-+	spin_unlock(&bus->lock);
-+	return true;
-+}
-+
-+static irqreturn_t ast_i2c_bus_irq(int irq, void *dev_id)
-+{
-+	struct ast_i2c_bus *bus = dev_id;
-+
-+#if IS_ENABLED(CONFIG_I2C_SLAVE)
-+	if (ast_i2c_slave_irq(bus)) {
-+		dev_dbg(bus->dev, "irq handled by slave.\n");
-+		return IRQ_HANDLED;
-+	}
-+#endif
-+	if (ast_i2c_master_irq(bus)) {
-+		dev_dbg(bus->dev, "irq handled by master.\n");
-+		return IRQ_HANDLED;
-+	}
-+	dev_err(bus->dev, "irq not handled properly!\n");
-+	return IRQ_HANDLED;
-+}
-+
-+static int ast_i2c_master_single_xfer(struct i2c_adapter *adap,
-+				      struct i2c_msg *msg)
-+{
-+	struct ast_i2c_bus *bus = adap->algo_data;
-+	unsigned long flags;
-+	u8 slave_addr;
-+	u32 command = AST_I2CD_M_START_CMD | AST_I2CD_M_TX_CMD;
-+	int ret = msg->len;
-+	unsigned long time_left;
-+
-+	spin_lock_irqsave(&bus->lock, flags);
-+	bus->msg = msg;
-+	bus->msg_pos = 0;
-+	slave_addr = msg->addr << 1;
-+	if (msg->flags & I2C_M_RD) {
-+		slave_addr |= 1;
-+		command |= AST_I2CD_M_RX_CMD;
-+	}
-+	ast_i2c_write(bus, slave_addr, AST_I2C_BYTE_BUF_REG);
-+	ast_i2c_write(bus, command, AST_I2C_CMD_REG);
-+	reinit_completion(&bus->cmd_complete);
-+	spin_unlock_irqrestore(&bus->lock, flags);
-+
-+	time_left = wait_for_completion_interruptible_timeout(
-+			&bus->cmd_complete, bus->adap.timeout * HZ * msg->len);
-+	if (time_left == 0)
-+		return -ETIMEDOUT;
-+
-+	spin_lock_irqsave(&bus->lock, flags);
-+	if (bus->cmd_err)
-+		ret = -EIO;
-+	bus->msg = NULL;
-+	spin_unlock_irqrestore(&bus->lock, flags);
-+
-+	return ret;
-+}
-+
-+static int ast_i2c_master_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
-+			       int num)
-+{
-+	struct ast_i2c_bus *bus = adap->algo_data;
-+	int ret;
-+	int i;
-+	unsigned long flags;
-+	unsigned long time_left;
-+
-+	/* If bus is busy, attempt recovery. We assume a single master
-+	 * environment.
-+	 */
-+	if (ast_i2c_read(bus, AST_I2C_CMD_REG) & AST_I2CD_BUS_BUSY_STS) {
-+		ret = ast_i2c_recover_bus(bus);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	for (i = 0; i < num; i++) {
-+		ret = ast_i2c_master_single_xfer(adap, &msgs[i]);
-+		if (ret < 0)
-+			break;
-+		/* TODO: Support other forms of I2C protocol mangling. */
-+		if (msgs[i].flags & I2C_M_STOP) {
-+			spin_lock_irqsave(&bus->lock, flags);
-+			ast_i2c_write(bus, AST_I2CD_M_STOP_CMD,
-+				      AST_I2C_CMD_REG);
-+			reinit_completion(&bus->cmd_complete);
-+			spin_unlock_irqrestore(&bus->lock, flags);
-+
-+			time_left = wait_for_completion_interruptible_timeout(
-+					&bus->cmd_complete,
-+					bus->adap.timeout * HZ);
-+			if (time_left == 0)
-+				return -ETIMEDOUT;
-+		}
-+	}
-+
-+	spin_lock_irqsave(&bus->lock, flags);
-+	ast_i2c_write(bus, AST_I2CD_M_STOP_CMD, AST_I2C_CMD_REG);
-+	reinit_completion(&bus->cmd_complete);
-+	spin_unlock_irqrestore(&bus->lock, flags);
-+
-+	time_left = wait_for_completion_interruptible_timeout(
-+			&bus->cmd_complete, bus->adap.timeout * HZ);
-+	if (time_left == 0)
-+		return -ETIMEDOUT;
-+
-+	/* If nothing went wrong, return number of messages transferred. */
-+	if (ret < 0)
-+		return ret;
-+	else
-+		return i;
-+}
-+
-+static u32 ast_i2c_functionality(struct i2c_adapter *adap)
-+{
-+	return I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL | I2C_FUNC_SMBUS_BLOCK_DATA;
-+}
-+
-+#if IS_ENABLED(CONFIG_I2C_SLAVE)
-+static int ast_i2c_reg_slave(struct i2c_client *client)
-+{
-+	struct ast_i2c_bus *bus;
-+	unsigned long flags;
-+	u32 addr_reg_val;
-+	u32 func_ctrl_reg_val;
-+
-+	bus = client->adapter->algo_data;
-+	spin_lock_irqsave(&bus->lock, flags);
-+	if (bus->slave) {
-+		spin_unlock_irqrestore(&bus->lock, flags);
-+		return -EINVAL;
-+	}
-+
-+	/* Set slave addr. */
-+	addr_reg_val = ast_i2c_read(bus, AST_I2C_DEV_ADDR_REG);
-+	addr_reg_val &= ~AST_I2CD_DEV_ADDR_MASK;
-+	addr_reg_val |= client->addr & AST_I2CD_DEV_ADDR_MASK;
-+	ast_i2c_write(bus, addr_reg_val, AST_I2C_DEV_ADDR_REG);
-+
-+	/* Switch from master mode to slave mode. */
-+	func_ctrl_reg_val = ast_i2c_read(bus, AST_I2C_FUN_CTRL_REG);
-+	func_ctrl_reg_val &= ~AST_I2CD_MASTER_EN;
-+	func_ctrl_reg_val |= AST_I2CD_SLAVE_EN;
-+	ast_i2c_write(bus, func_ctrl_reg_val, AST_I2C_FUN_CTRL_REG);
-+
-+	bus->slave = client;
-+	bus->slave_state = AST_I2C_SLAVE_STOP;
-+	spin_unlock_irqrestore(&bus->lock, flags);
-+	return 0;
-+}
-+
-+static int ast_i2c_unreg_slave(struct i2c_client *client)
-+{
-+	struct ast_i2c_bus *bus = client->adapter->algo_data;
-+	unsigned long flags;
-+	u32 func_ctrl_reg_val;
-+
-+	spin_lock_irqsave(&bus->lock, flags);
-+	if (!bus->slave) {
-+		spin_unlock_irqrestore(&bus->lock, flags);
-+		return -EINVAL;
-+	}
-+
-+	/* Switch from slave mode to master mode. */
-+	func_ctrl_reg_val = ast_i2c_read(bus, AST_I2C_FUN_CTRL_REG);
-+	func_ctrl_reg_val &= ~AST_I2CD_SLAVE_EN;
-+	func_ctrl_reg_val |= AST_I2CD_MASTER_EN;
-+	ast_i2c_write(bus, func_ctrl_reg_val, AST_I2C_FUN_CTRL_REG);
-+
-+	bus->slave = NULL;
-+	spin_unlock_irqrestore(&bus->lock, flags);
-+	return 0;
-+}
-+#endif
-+
-+static const struct i2c_algorithm ast_i2c_algo = {
-+	.master_xfer	= ast_i2c_master_xfer,
-+	.functionality	= ast_i2c_functionality,
-+#if IS_ENABLED(CONFIG_I2C_SLAVE)
-+	.reg_slave	= ast_i2c_reg_slave,
-+	.unreg_slave	= ast_i2c_unreg_slave,
-+#endif
-+};
-+
-+static u32 ast_i2c_get_clk_reg_val(u32 divider_ratio)
-+{
-+	unsigned int inc = 0, div;
-+	u32 scl_low, scl_high, data;
-+
-+	for (div = 0; divider_ratio >= 16; div++) {
-+		inc |= (divider_ratio & 1);
-+		divider_ratio >>= 1;
-+	}
-+	divider_ratio += inc;
-+	scl_low = (divider_ratio >> 1) - 1;
-+	scl_high = divider_ratio - scl_low - 2;
-+	data = 0x77700300 | (scl_high << 16) | (scl_low << 12) | div;
-+	return data;
-+}
-+
-+static int ast_i2c_init_clk(struct ast_i2c_bus *bus,
-+			    struct platform_device *pdev)
-+{
-+	struct clk *pclk;
-+	u32 clk_freq;
-+	u32 divider_ratio;
-+	int ret;
-+
-+	pclk = devm_clk_get(&pdev->dev, NULL);
-+	if (IS_ERR(pclk)) {
-+		dev_err(&pdev->dev, "clk_get failed\n");
-+		return PTR_ERR(pclk);
-+	}
-+	ret = of_property_read_u32(pdev->dev.of_node,
-+			"clock-frequency", &clk_freq);
-+	if (ret < 0) {
-+		dev_err(&pdev->dev,
-+				"Could not read clock-frequency property\n");
-+		clk_freq = 100000;
-+	}
-+	divider_ratio = clk_get_rate(pclk) / clk_freq;
-+	/* We just need the clock rate, we don't actually use the clk object. */
-+	devm_clk_put(&pdev->dev, pclk);
-+
-+	/* Set AC Timing */
-+	if (clk_freq / 1000 > 400) {
-+		ast_i2c_write(bus, ast_i2c_read(bus, AST_I2C_FUN_CTRL_REG) |
-+				AST_I2CD_M_HIGH_SPEED_EN |
-+				AST_I2CD_M_SDA_DRIVE_1T_EN |
-+				AST_I2CD_SDA_DRIVE_1T_EN,
-+				AST_I2C_FUN_CTRL_REG);
-+
-+		ast_i2c_write(bus, 0x3, AST_I2C_AC_TIMING_REG2);
-+		ast_i2c_write(bus, ast_i2c_get_clk_reg_val(divider_ratio),
-+			      AST_I2C_AC_TIMING_REG1);
-+	} else {
-+		ast_i2c_write(bus, ast_i2c_get_clk_reg_val(divider_ratio),
-+			      AST_I2C_AC_TIMING_REG1);
-+		ast_i2c_write(bus, AST_NO_TIMEOUT_CTRL, AST_I2C_AC_TIMING_REG2);
-+	}
-+
-+	return 0;
-+}
-+
-+static int ast_i2c_probe_bus(struct platform_device *pdev)
-+{
-+	struct ast_i2c_bus *bus;
-+	struct resource *res;
-+	int ret, bus_num;
-+
-+	bus = devm_kzalloc(&pdev->dev, sizeof(*bus), GFP_KERNEL);
-+	if (!bus)
-+		return -ENOMEM;
-+
-+	ret = of_property_read_u32(pdev->dev.of_node, "bus", &bus_num);
-+	if (ret)
-+		return -ENXIO;
-+
-+	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	bus->base = devm_ioremap_resource(&pdev->dev, res);
-+	if (IS_ERR(bus->base))
-+		return PTR_ERR(bus->base);
-+
-+	bus->irq = platform_get_irq(pdev, 0);
-+	if (bus->irq < 0) {
-+		dev_err(&pdev->dev, "platform_get_irq failed\n");
-+		return -ENXIO;
-+	}
-+
-+	ret = devm_request_irq(&pdev->dev, bus->irq, ast_i2c_bus_irq,
-+			0, dev_name(&pdev->dev), bus);
-+	if (ret) {
-+		dev_err(&pdev->dev, "devm_request_irq failed\n");
-+		return -ENXIO;
-+	}
-+
-+	/* Initialize the I2C adapter */
-+	spin_lock_init(&bus->lock);
-+	init_completion(&bus->cmd_complete);
-+	bus->adap.nr = bus_num;
-+	bus->adap.owner = THIS_MODULE;
-+	bus->adap.retries = 0;
-+	bus->adap.timeout = 5;
-+	bus->adap.algo = &ast_i2c_algo;
-+	bus->adap.algo_data = bus;
-+	bus->adap.dev.parent = &pdev->dev;
-+	bus->adap.dev.of_node = pdev->dev.of_node;
-+	snprintf(bus->adap.name, sizeof(bus->adap.name), "Aspeed i2c-%d",
-+			bus_num);
-+
-+	bus->dev = &pdev->dev;
-+
-+	/* reset device: disable master & slave functions */
-+	ast_i2c_write(bus, 0, AST_I2C_FUN_CTRL_REG);
-+
-+	ret = ast_i2c_init_clk(bus, pdev);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Enable Master Mode */
-+	ast_i2c_write(bus, ast_i2c_read(bus, AST_I2C_FUN_CTRL_REG) |
-+		      AST_I2CD_MASTER_EN |
-+		      AST_I2CD_MULTI_MASTER_DIS, AST_I2C_FUN_CTRL_REG);
-+
-+	/* Set interrupt generation of I2C controller */
-+	ast_i2c_write(bus, AST_I2CD_INTR_SDA_DL_TIMEOUT |
-+			AST_I2CD_INTR_BUS_RECOVER_DONE |
-+			AST_I2CD_INTR_SCL_TIMEOUT |
-+			AST_I2CD_INTR_ABNORMAL |
-+			AST_I2CD_INTR_NORMAL_STOP |
-+			AST_I2CD_INTR_ARBIT_LOSS |
-+			AST_I2CD_INTR_RX_DONE |
-+			AST_I2CD_INTR_TX_NAK |
-+			AST_I2CD_INTR_TX_ACK,
-+			AST_I2C_INTR_CTRL_REG);
-+
-+	ret = i2c_add_numbered_adapter(&bus->adap);
-+	if (ret < 0)
-+		return -ENXIO;
-+
-+	platform_set_drvdata(pdev, bus);
-+
-+	dev_info(bus->dev, "i2c bus %d registered, irq %d\n",
-+			bus->adap.nr, bus->irq);
-+
-+	return 0;
-+}
-+
-+static int ast_i2c_remove_bus(struct platform_device *pdev)
-+{
-+	struct ast_i2c_bus *bus = platform_get_drvdata(pdev);
-+
-+	i2c_del_adapter(&bus->adap);
-+	return 0;
-+}
-+
-+static const struct of_device_id ast_i2c_bus_of_table[] = {
-+	{ .compatible = "aspeed,ast2400-i2c-bus", },
-+	{ .compatible = "aspeed,ast2500-i2c-bus", },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(of, ast_i2c_of_table);
-+
-+static struct platform_driver ast_i2c_bus_driver = {
-+	.probe		= ast_i2c_probe_bus,
-+	.remove		= ast_i2c_remove_bus,
-+	.driver         = {
-+		.name   = "ast-i2c-bus",
-+		.of_match_table = ast_i2c_bus_of_table,
-+	},
-+};
-+module_platform_driver(ast_i2c_bus_driver);
-+
-+static void noop(struct irq_data *data) { }
-+
-+static struct irq_chip ast_i2c_irqchip = {
-+	.name		= "ast-i2c",
-+	.irq_unmask	= noop,
-+	.irq_mask	= noop,
-+};
-+
-+static void ast_i2c_controller_irq(struct irq_desc *desc)
-+{
-+	struct ast_i2c_controller *c = irq_desc_get_handler_data(desc);
-+	unsigned long p, status;
-+	unsigned int bus_irq;
-+
-+	status = readl(c->base);
-+	for_each_set_bit(p, &status, AST_I2C_NUM_BUS) {
-+		bus_irq = irq_find_mapping(c->irq_domain, p);
-+		generic_handle_irq(bus_irq);
-+	}
-+}
-+
-+static int ast_i2c_probe_controller(struct platform_device *pdev)
-+{
-+	struct ast_i2c_controller *controller;
-+	struct device_node *np;
-+	struct resource *res;
-+	int i, irq;
-+
-+	controller = kzalloc(sizeof(*controller), GFP_KERNEL);
-+	if (!controller)
-+		return -ENOMEM;
-+
-+	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	controller->base = devm_ioremap_resource(&pdev->dev, res);
-+	if (IS_ERR(controller->base))
-+		return PTR_ERR(controller->base);
-+
-+	controller->irq = platform_get_irq(pdev, 0);
-+	if (controller->irq < 0) {
-+		dev_err(&pdev->dev, "no platform IRQ\n");
-+		return -ENXIO;
-+	}
-+
-+	controller->irq_domain = irq_domain_add_linear(pdev->dev.of_node,
-+			AST_I2C_NUM_BUS, &irq_domain_simple_ops, NULL);
-+	if (!controller->irq_domain) {
-+		dev_err(&pdev->dev, "no IRQ domain\n");
-+		return -ENXIO;
-+	}
-+	controller->irq_domain->name = "ast-i2c-domain";
-+
-+	for (i = 0; i < AST_I2C_NUM_BUS; i++) {
-+		irq = irq_create_mapping(controller->irq_domain, i);
-+		irq_set_chip_data(irq, controller);
-+		irq_set_chip_and_handler(irq, &ast_i2c_irqchip,
-+				handle_simple_irq);
-+	}
-+
-+	irq_set_chained_handler_and_data(controller->irq,
-+			ast_i2c_controller_irq, controller);
-+
-+	controller->dev = &pdev->dev;
-+
-+	platform_set_drvdata(pdev, controller);
-+
-+	dev_info(controller->dev, "i2c controller registered, irq %d\n",
-+			controller->irq);
-+
-+	for_each_child_of_node(pdev->dev.of_node, np) {
-+		int ret;
-+		u32 bus_num;
-+		char bus_id[sizeof("i2c-12345")];
-+
-+		/*
-+		 * Set a useful name derived from the bus number; the device
-+		 * tree should provide us with one that corresponds to the
-+		 * hardware numbering.  If the property is missing the
-+		 * probe would fail so just skip it here.
-+		 */
-+
-+		ret = of_property_read_u32(np, "bus", &bus_num);
-+		if (ret)
-+			continue;
-+
-+		ret = snprintf(bus_id, sizeof(bus_id), "i2c-%u", bus_num);
-+		if (ret >= sizeof(bus_id))
-+			continue;
-+
-+		of_platform_device_create(np, bus_id, &pdev->dev);
-+		of_node_put(np);
-+	}
-+
-+	return 0;
-+}
-+
-+static int ast_i2c_remove_controller(struct platform_device *pdev)
-+{
-+	struct ast_i2c_controller *controller = platform_get_drvdata(pdev);
-+
-+	irq_domain_remove(controller->irq_domain);
-+	return 0;
-+}
-+
-+static const struct of_device_id ast_i2c_controller_of_table[] = {
-+	{ .compatible = "aspeed,ast2400-i2c-controller", },
-+	{ .compatible = "aspeed,ast2500-i2c-controller", },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(of, ast_i2c_of_table);
-+
-+static struct platform_driver ast_i2c_controller_driver = {
-+	.probe		= ast_i2c_probe_controller,
-+	.remove		= ast_i2c_remove_controller,
-+	.driver         = {
-+		.name   = "ast-i2c-controller",
-+		.of_match_table = ast_i2c_controller_of_table,
-+	},
-+};
-+
-+module_platform_driver(ast_i2c_controller_driver);
-+
-+MODULE_AUTHOR("Ryan Chen <ryan_chen@aspeedtech.com>");
-+MODULE_AUTHOR("Brendan Higgins <brendanhiggins@google.com>");
-+MODULE_DESCRIPTION("ASPEED AST I2C Bus Driver");
-+MODULE_LICENSE("GPL");
-+MODULE_ALIAS("platform:ast_i2c");
--- 
-2.8.0.rc3.226.g39d4020
+checkpatch is also asked about updating MAINTAINERS, but looks like it
+should be covered under existing line:
+F: drivers/*/*aspeed*
+Does it just ask this every time you add a file?
+
+changelog:
+ - Squashed driver commits as suggested by Joel
+ - Renamed a couple functions for consistency
+ - Fixed a couple style errors
+
+On Sun, Aug 28, 2016 at 10:35 PM Joel Stanley <joel@jms.id.au> wrote:
+
+> Hi Brendan,
+>
+> On Sun, Aug 21, 2016 at 11:04 AM, Brendan Higgins
+> <brendanhiggins@google.com> wrote:
+> > Rewrote most of master IRQ handler, xfer functions, and error recovery.
+> > Minor refactor of probing functions. Added remove functions.
+>
+> Thanks for the patch. The diff is quite noisy given you're deleting
+> lots of cruft from the vendor driver. It would be easier for us to
+> review if you send the patch that adds the driver from scratch.
+>
+> One suggestion I did have is to rename the driver to use the aspeed_
+> prefix for all functions so that it matches the drivers that have
+> already gone upstream.
+>
+> Given our goal is immediate upstream submission, how about you send a
+> complete patch that adds the driver to upstream (say 4.8-rc4?)? Send
+> it to the i2c lists and cc myself, jk@ozlabs.org, and andrew@aj.id.au.
+>
+> I hope we can get this sent out for upstream review this week. Let me
+> know if there's anything I can do to help achieve that.
+>
+> Cheers,
+>
+> Joel
+>
+> > ---
+> >  drivers/i2c/busses/i2c-aspeed.c | 932
+> ++++++++++++++--------------------------
+> >  1 file changed, 318 insertions(+), 614 deletions(-)
+>
+
+--001a114e3caebc4f6b053b4e96af
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">checkpatch seems to be upset about my device tree identifi=
+ers being undocumented; do we have a coordinated effort for this? I did not=
+ even see a directory for aspeed under arm.<div><br></div><div>checkpatch i=
+s also asked about updating MAINTAINERS, but looks like it should be covere=
+d under existing line:</div><div>F:<span class=3D"Apple-tab-span" style=3D"=
+white-space:pre">	</span>drivers/*/*aspeed*</div><div>Does it just ask this=
+ every time you add a file?</div><div><br></div><div>changelog:</div><div>=
+=C2=A0- Squashed driver commits as suggested by Joel</div><div>=C2=A0- Rena=
+med a couple functions for consistency</div><div>=C2=A0- Fixed a couple sty=
+le errors</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Sun=
+, Aug 28, 2016 at 10:35 PM Joel Stanley &lt;<a href=3D"mailto:joel@jms.id.a=
+u">joel@jms.id.au</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote"=
+ style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Hi=
+ Brendan,<br>
+<br>
+On Sun, Aug 21, 2016 at 11:04 AM, Brendan Higgins<br>
+&lt;<a href=3D"mailto:brendanhiggins@google.com" target=3D"_blank">brendanh=
+iggins@google.com</a>&gt; wrote:<br>
+&gt; Rewrote most of master IRQ handler, xfer functions, and error recovery=
+.<br>
+&gt; Minor refactor of probing functions. Added remove functions.<br>
+<br>
+Thanks for the patch. The diff is quite noisy given you&#39;re deleting<br>
+lots of cruft from the vendor driver. It would be easier for us to<br>
+review if you send the patch that adds the driver from scratch.<br>
+<br>
+One suggestion I did have is to rename the driver to use the aspeed_<br>
+prefix for all functions so that it matches the drivers that have<br>
+already gone upstream.<br>
+<br>
+Given our goal is immediate upstream submission, how about you send a<br>
+complete patch that adds the driver to upstream (say 4.8-rc4?)? Send<br>
+it to the i2c lists and cc myself, <a href=3D"mailto:jk@ozlabs.org" target=
+=3D"_blank">jk@ozlabs.org</a>, and <a href=3D"mailto:andrew@aj.id.au" targe=
+t=3D"_blank">andrew@aj.id.au</a>.<br>
+<br>
+I hope we can get this sent out for upstream review this week. Let me<br>
+know if there&#39;s anything I can do to help achieve that.<br>
+<br>
+Cheers,<br>
+<br>
+Joel<br>
+<br>
+&gt; ---<br>
+&gt;=C2=A0 drivers/i2c/busses/i2c-aspeed.c | 932 ++++++++++++++------------=
+--------------<br>
+&gt;=C2=A0 1 file changed, 318 insertions(+), 614 deletions(-)<br>
+</blockquote></div>
+
+--001a114e3caebc4f6b053b4e96af--
