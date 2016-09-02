@@ -3,42 +3,43 @@ Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sQW5k1pwZzDrnt
- for <openbmc@lists.ozlabs.org>; Fri,  2 Sep 2016 17:31:38 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sQW5m3Nn2zDrns
+ for <openbmc@lists.ozlabs.org>; Fri,  2 Sep 2016 17:31:40 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=kfRoLNDH; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=WK0Lq5hA; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=N9TaBdd3; dkim-atps=neutral
+ header.b=QjVpcJz2; dkim-atps=neutral
 Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 2A613205DB;
- Fri,  2 Sep 2016 03:31:36 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 5CC25205CA;
+ Fri,  2 Sep 2016 03:31:38 -0400 (EDT)
 Received: from frontend1 ([10.202.2.160])
- by compute7.internal (MEProxy); Fri, 02 Sep 2016 03:31:36 -0400
+ by compute7.internal (MEProxy); Fri, 02 Sep 2016 03:31:38 -0400
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
  :date:from:in-reply-to:message-id:references:subject:to
- :x-sasl-enc:x-sasl-enc; s=mesmtp; bh=1vb8aC7rz2eQ3hJhD46+gEOOBN0
- =; b=kfRoLNDHobqTZo0tSXG3pCUZCQBkQMvM3yDPQ5vj2/UBNt1EzpP5r1pWdLE
- 0WmtATeCL1LuB5MkdWFlnBKrHI7J8klSZ1wLX/3cBritQuB3fQGGGoj++xPAU5X2
- mlU+3fJtiHT9O1TCeVE4Q1pBefHDC1UETljtFydIA1jaRN8Y=
+ :x-sasl-enc:x-sasl-enc; s=mesmtp; bh=80rp+yTOI7yXGmhIhm88BxkLnDs
+ =; b=WK0Lq5hAnrSugPUg5fWYDyJl6VlztiybRs4EW801tNfe8iD2EO313s78P75
+ R9nkIji5qN73nDc+vTqfnOwcF7KGtmuv73uWIn6E9S8LwYzkgl2QDC+wda98zRSs
+ m69fUo5WQlUlMl9U5OhlX95VqOUAB9zNmvw8B3fagkRhLOeo=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:date:from:in-reply-to:message-id
- :references:subject:to:x-sasl-enc:x-sasl-enc; s=smtpout; bh=1vb8
- aC7rz2eQ3hJhD46+gEOOBN0=; b=N9TaBdd3ggl6RdOFyCXLSHD08SxVErIrd77j
- rOShRdMigMT0EYwQ2D1EdxGwPYWf/hqxNIjMJQ8kITv0wDMvXAu5gMLeqmb4CGt/
- /ZDccGwbF8Nyw5gEtS3cj4Zvi7eyseAigEwZYKCtTe4i0XYe4G4eQ6xd8iKidONS
- QqfyVtE=
-X-Sasl-enc: N0tHT2ZKh3bzA7d7NgGD4QBxVZPmeEV9I64s400yA4Xh 1472801495
+ :references:subject:to:x-sasl-enc:x-sasl-enc; s=smtpout; bh=80rp
+ +yTOI7yXGmhIhm88BxkLnDs=; b=QjVpcJz2rLnsy6Oz3EKcLElHzec9HCYGWdmj
+ //jzTo2bml1x3Ax4G6DI/NTAQQDtlicFlgIAfnna+CQCxGtzMBNqOY3SeDwzkUkN
+ SqVwkcs6II/i00mUOi9higo3FhQHeMG7LVmC+skV0bijgsaNCnhx2Pac9lovJvu+
+ DLpbwns=
+X-Sasl-enc: 0qocAiMSKoiF6qB28RdFXmI/MEGQevSvoOXV+g17/gTj 1472801497
 Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id A25A7F29D2;
- Fri,  2 Sep 2016 03:31:34 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 81043F29D2;
+ Fri,  2 Sep 2016 03:31:36 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Joel Stanley <joel@jms.id.au>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Andrew Jeffery <andrew@aj.id.au>
-Subject: [PATCH linux 1/3] aspeed-g5: Add I2C mux configuration properties
-Date: Fri,  2 Sep 2016 17:00:49 +0930
-Message-Id: <20160902073051.31492-2-andrew@aj.id.au>
+Subject: [PATCH linux 2/3] pinctrl-aspeed-g4: Add definitions for pins in GPIO
+ banks A-H inclusive
+Date: Fri,  2 Sep 2016 17:00:50 +0930
+Message-Id: <20160902073051.31492-3-andrew@aj.id.au>
 X-Mailer: git-send-email 2.9.3.1.g0db844e
 In-Reply-To: <20160902073051.31492-1-andrew@aj.id.au>
 References: <20160902073051.31492-1-andrew@aj.id.au>
@@ -53,124 +54,393 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 Sep 2016 07:31:39 -0000
+X-List-Received-Date: Fri, 02 Sep 2016 07:31:41 -0000
 
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- arch/arm/boot/dts/aspeed-g5.dtsi | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c | 229 ++++++++++++++++++++++++++++-
+ drivers/pinctrl/aspeed/pinctrl-aspeed.h    |   1 +
+ 2 files changed, 229 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index 3d7b69b50785..f73a2b18e152 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -384,6 +384,8 @@
- 					clock-frequency = <100000>;
- 					status = "disabled";
- 					interrupts = <2>;
-+					pinctrl-names = "default";
-+					pinctrl-0 = <&pinctrl_i2c3_default>;
- 				};
+diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
+index b3e4bbfab50c..e356619106f3 100644
+--- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
++++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
+@@ -43,9 +43,18 @@
+  * Not all pins have their signals defined (yet).
+  */
  
- 				i2c3: i2c-bus@100 {
-@@ -395,6 +397,8 @@
- 					clock-frequency = <100000>;
- 					status = "disabled";
- 					interrupts = <3>;
-+					pinctrl-names = "default";
-+					pinctrl-0 = <&pinctrl_i2c4_default>;
- 				};
++#define D6 0
++SSSF_PIN_DECL(D6, GPIOA0, MAC1LINK, SIG_DESC_SET(SCU80, 0));
++
++#define B5 1
++SSSF_PIN_DECL(B5, GPIOA1, MAC2LINK, SIG_DESC_SET(SCU80, 1));
++
+ #define A4 2
+ SSSF_PIN_DECL(A4, GPIOA2, TIMER3, SIG_DESC_SET(SCU80, 2));
  
- 				i2c4: i2c-bus@140 {
-@@ -406,6 +410,8 @@
- 					clock-frequency = <100000>;
- 					status = "disabled";
- 					interrupts = <4>;
-+					pinctrl-names = "default";
-+					pinctrl-0 = <&pinctrl_i2c5_default>;
- 				};
++#define E6 3
++SSSF_PIN_DECL(E6, GPIOA3, TIMER4, SIG_DESC_SET(SCU80, 3));
++
+ #define I2C9_DESC	SIG_DESC_SET(SCU90, 22)
  
- 				i2c5: i2c-bus@180 {
-@@ -417,6 +423,8 @@
- 					clock-frequency = <100000>;
- 					status = "disabled";
- 					interrupts = <5>;
-+					pinctrl-names = "default";
-+					pinctrl-0 = <&pinctrl_i2c6_default>;
- 				};
+ #define C5 4
+@@ -80,6 +89,26 @@ MS_PIN_DECL(D5, GPIOA7, MDIO2, TIMER8);
+ FUNC_GROUP_DECL(TIMER8, D5);
+ FUNC_GROUP_DECL(MDIO2, A3, D5);
  
- 				i2c6: i2c-bus@1c0 {
-@@ -428,6 +436,8 @@
- 					clock-frequency = <100000>;
- 					status = "disabled";
- 					interrupts = <6>;
-+					pinctrl-names = "default";
-+					pinctrl-0 = <&pinctrl_i2c7_default>;
- 				};
++#define J21 8
++SSSF_PIN_DECL(J21, GPIOB0, SALT1, SIG_DESC_SET(SCU80, 8));
++
++#define J20 9
++SSSF_PIN_DECL(J20, GPIOB1, SALT2, SIG_DESC_SET(SCU80, 9));
++
++#define H18 10
++SSSF_PIN_DECL(H18, GPIOB2, SALT3, SIG_DESC_SET(SCU80, 10));
++
++#define F18 11
++SSSF_PIN_DECL(F18, GPIOB3, SALT4, SIG_DESC_SET(SCU80, 11));
++
++#define E19 12
++SIG_EXPR_DECL(LPCRST, LPCRST, SIG_DESC_SET(SCU80, 12));
++SIG_EXPR_DECL(LPCRST, LPCRSTS, SIG_DESC_SET(HW_STRAP1, 14));
++SIG_EXPR_LIST_DECL_DUAL(LPCRST, LPCRST, LPCRSTS);
++SS_PIN_DECL(E19, GPIOB4, LPCRST);
++
++FUNC_GROUP_DECL(LPCRST, E19);
++
+ #define H19 13
+ #define H19_DESC        SIG_DESC_SET(SCU80, 13)
+ SIG_EXPR_LIST_DECL_SINGLE(LPCPD, LPCPD, H19_DESC);
+@@ -92,6 +121,19 @@ FUNC_GROUP_DECL(LPCSMI, H19);
+ #define H20 14
+ SSSF_PIN_DECL(H20, GPIOB6, LPCPME, SIG_DESC_SET(SCU80, 14));
  
- 				i2c7: i2c-bus@300 {
-@@ -439,6 +449,8 @@
- 					clock-frequency = <100000>;
- 					status = "disabled";
- 					interrupts = <7>;
-+					pinctrl-names = "default";
-+					pinctrl-0 = <&pinctrl_i2c8_default>;
- 				};
++#define E18 15
++SIG_EXPR_LIST_DECL_SINGLE(EXTRST, EXTRST,
++		SIG_DESC_SET(SCU80, 15),
++		SIG_DESC_BIT(SCU90, 31, 0),
++		SIG_DESC_SET(SCU3C, 3));
++SIG_EXPR_LIST_DECL_SINGLE(SPICS1, SPICS1,
++		SIG_DESC_SET(SCU80, 15),
++		SIG_DESC_SET(SCU90, 31));
++MS_PIN_DECL(E18, GPIOB7, EXTRST, SPICS1);
++
++FUNC_GROUP_DECL(EXTRST, E18);
++FUNC_GROUP_DECL(SPICS1, E18);
++
+ #define SD1_DESC	SIG_DESC_SET(SCU90, 0)
+ #define I2C10_DESC	SIG_DESC_SET(SCU90, 23)
  
- 				i2c8: i2c-bus@340 {
-@@ -450,6 +462,8 @@
- 					clock-frequency = <100000>;
- 					status = "disabled";
- 					interrupts = <8>;
-+					pinctrl-names = "default";
-+					pinctrl-0 = <&pinctrl_i2c9_default>;
- 				};
+@@ -170,6 +212,62 @@ MS_PIN_DECL(D16, GPIOD1, SD2CMD, GPID0OUT);
  
- 				i2c9: i2c-bus@380 {
-@@ -461,6 +475,8 @@
- 					clock-frequency = <100000>;
- 					status = "disabled";
- 					interrupts = <9>;
-+					pinctrl-names = "default";
-+					pinctrl-0 = <&pinctrl_i2c10_default>;
- 				};
+ FUNC_GROUP_DECL(GPID0, A18, D16);
  
- 				i2c10: i2c-bus@3c0 {
-@@ -472,6 +488,8 @@
- 					clock-frequency = <100000>;
- 					status = "disabled";
- 					interrupts = <10>;
-+					pinctrl-names = "default";
-+					pinctrl-0 = <&pinctrl_i2c11_default>;
- 				};
++#define GPID2_DESC	SIG_DESC_SET(SCU8C, 9)
++
++#define B17 26
++SIG_EXPR_LIST_DECL_SINGLE(SD2DAT0, SD2, SD2_DESC);
++SIG_EXPR_DECL(GPID2IN, GPID2, GPID2_DESC);
++SIG_EXPR_DECL(GPID2IN, GPID, GPID_DESC);
++SIG_EXPR_LIST_DECL_DUAL(GPID2IN, GPID2, GPID);
++MS_PIN_DECL(B17, GPIOD2, SD2DAT0, GPID2IN);
++
++#define A17 27
++SIG_EXPR_LIST_DECL_SINGLE(SD2DAT1, SD2, SD2_DESC);
++SIG_EXPR_DECL(GPID2OUT, GPID2, GPID2_DESC);
++SIG_EXPR_DECL(GPID2OUT, GPID, GPID_DESC);
++SIG_EXPR_LIST_DECL_DUAL(GPID2OUT, GPID2, GPID);
++MS_PIN_DECL(A17, GPIOD3, SD2DAT1, GPID2OUT);
++
++FUNC_GROUP_DECL(GPID2, B17, A17);
++
++#define GPID4_DESC	SIG_DESC_SET(SCU8C, 10)
++
++#define C16 28
++SIG_EXPR_LIST_DECL_SINGLE(SD2DAT2, SD2, SD2_DESC);
++SIG_EXPR_DECL(GPID4IN, GPID4, GPID4_DESC);
++SIG_EXPR_DECL(GPID4IN, GPID, GPID_DESC);
++SIG_EXPR_LIST_DECL_DUAL(GPID4IN, GPID4, GPID);
++MS_PIN_DECL(C16, GPIOD4, SD2DAT2, GPID4IN);
++
++#define B16 29
++SIG_EXPR_LIST_DECL_SINGLE(SD2DAT3, SD2, SD2_DESC);
++SIG_EXPR_DECL(GPID4OUT, GPID4, GPID4_DESC);
++SIG_EXPR_DECL(GPID4OUT, GPID, GPID_DESC);
++SIG_EXPR_LIST_DECL_DUAL(GPID4OUT, GPID4, GPID);
++MS_PIN_DECL(B16, GPIOD5, SD2DAT3, GPID4OUT);
++
++FUNC_GROUP_DECL(GPID4, C16, B16);
++
++#define GPID6_DESC	SIG_DESC_SET(SCU8C, 11)
++
++#define A16 30
++SIG_EXPR_LIST_DECL_SINGLE(SD2CD, SD2, SD2_DESC);
++SIG_EXPR_DECL(GPID6IN, GPID6, GPID6_DESC);
++SIG_EXPR_DECL(GPID6IN, GPID, GPID_DESC);
++SIG_EXPR_LIST_DECL_DUAL(GPID6IN, GPID6, GPID);
++MS_PIN_DECL(A16, GPIOD6, SD2CD, GPID6IN);
++
++#define E15 31
++SIG_EXPR_LIST_DECL_SINGLE(SD2WP, SD2, SD2_DESC);
++SIG_EXPR_DECL(GPID6OUT, GPID6, GPID6_DESC);
++SIG_EXPR_DECL(GPID6OUT, GPID, GPID_DESC);
++SIG_EXPR_LIST_DECL_DUAL(GPID6OUT, GPID6, GPID);
++MS_PIN_DECL(E15, GPIOD7, SD2WP, GPID6OUT);
++
++FUNC_GROUP_DECL(GPID6, A16, E15);
++FUNC_GROUP_DECL(SD2, A18, D16, B17, A17, C16, B16, A16, E15);
++FUNC_GROUP_DECL(GPID, A18, D16, B17, A17, C16, B16, A16, E15);
++
+ #define GPIE_DESC       SIG_DESC_SET(HW_STRAP1, 22)
+ #define GPIE0_DESC      SIG_DESC_SET(SCU8C, 12)
+ #define GPIE2_DESC      SIG_DESC_SET(SCU8C, 13)
+@@ -266,6 +364,15 @@ MS_PIN_DECL(B19, GPIOF1, NDCD4, SIOPBI);
+ FUNC_GROUP_DECL(NDCD4, B19);
+ FUNC_GROUP_DECL(SIOPBI, B19);
  
- 				i2c11: i2c-bus@400 {
-@@ -483,6 +501,8 @@
- 					clock-frequency = <100000>;
- 					status = "disabled";
- 					interrupts = <11>;
-+					pinctrl-names = "default";
-+					pinctrl-0 = <&pinctrl_i2c12_default>;
- 				};
++#define A20 42
++SIG_EXPR_LIST_DECL_SINGLE(NDSR4, NDSR4, SIG_DESC_SET(SCU80, 26));
++SIG_EXPR_DECL(SIOPWRGD, SIOPWRGD, SIG_DESC_SET(SCUA4, 12));
++SIG_EXPR_DECL(SIOPWRGD, ACPI, ACPI_DESC);
++SIG_EXPR_LIST_DECL_DUAL(SIOPWRGD, SIOPWRGD, ACPI);
++MS_PIN_DECL(A20, GPIOF2, NDSR4, SIOPWRGD);
++FUNC_GROUP_DECL(NDSR4, A20);
++FUNC_GROUP_DECL(SIOPWRGD, A20);
++
+ #define D17 43
+ SIG_EXPR_LIST_DECL_SINGLE(NRI4, NRI4, SIG_DESC_SET(SCU80, 27));
+ SIG_EXPR_DECL(SIOPBO, SIOPBO, SIG_DESC_SET(SCUA4, 14));
+@@ -275,7 +382,19 @@ MS_PIN_DECL(D17, GPIOF3, NRI4, SIOPBO);
+ FUNC_GROUP_DECL(NRI4, D17);
+ FUNC_GROUP_DECL(SIOPBO, D17);
  
- 				i2c12: i2c-bus@440 {
-@@ -494,6 +514,8 @@
- 					clock-frequency = <100000>;
- 					status = "disabled";
- 					interrupts = <12>;
-+					pinctrl-names = "default";
-+					pinctrl-0 = <&pinctrl_i2c13_default>;
- 				};
+-FUNC_GROUP_DECL(ACPI, B19, D17);
++#define B18 44
++SSSF_PIN_DECL(B18, GPIOF4, NDTR4, SIG_DESC_SET(SCU80, 28));
++
++#define A19 45
++SIG_EXPR_LIST_DECL_SINGLE(NDTS4, NDTS4, SIG_DESC_SET(SCU80, 29));
++SIG_EXPR_DECL(SIOSCI, SIOSCI, SIG_DESC_SET(SCUA4, 15));
++SIG_EXPR_DECL(SIOSCI, ACPI, ACPI_DESC);
++SIG_EXPR_LIST_DECL_DUAL(SIOSCI, SIOSCI, ACPI);
++MS_PIN_DECL(A19, GPIOF5, NDTS4, SIOSCI);
++FUNC_GROUP_DECL(NDTS4, A19);
++FUNC_GROUP_DECL(SIOSCI, A19);
++
++FUNC_GROUP_DECL(ACPI, B19, A20, D17, A19);
  
- 				i2c13: i2c-bus@480 {
-@@ -505,6 +527,8 @@
- 					clock-frequency = <100000>;
- 					status = "disabled";
- 					interrupts = <13>;
-+					pinctrl-names = "default";
-+					pinctrl-0 = <&pinctrl_i2c14_default>;
- 				};
+ #define E16 46
+ SSSF_PIN_DECL(E16, GPIOF6, TXD4, SIG_DESC_SET(SCU80, 30));
+@@ -283,6 +402,34 @@ SSSF_PIN_DECL(E16, GPIOF6, TXD4, SIG_DESC_SET(SCU80, 30));
+ #define C17 47
+ SSSF_PIN_DECL(C17, GPIOF7, RXD4, SIG_DESC_SET(SCU80, 31));
  
- 			};
++#define A14 48
++SSSF_PIN_DECL(A14, GPIOG0, SGPSCK, SIG_DESC_SET(SCU84, 0));
++
++#define E13 49
++SSSF_PIN_DECL(E13, GPIOG1, SGPSLD, SIG_DESC_SET(SCU84, 1));
++
++#define D13 50
++SSSF_PIN_DECL(D13, GPIOG2, SGPSI0, SIG_DESC_SET(SCU84, 2));
++
++#define C13 51
++SSSF_PIN_DECL(C13, GPIOG3, SGPSI1, SIG_DESC_SET(SCU84, 3));
++
++#define B13 52
++SIG_EXPR_LIST_DECL_SINGLE(OSCCLK, OSCCLK, SIG_DESC_SET(SCU2C, 1));
++SIG_EXPR_LIST_DECL_SINGLE(WDTRST1, WDTRST1, SIG_DESC_SET(SCU84, 4));
++MS_PIN_DECL(B13, GPIOG4, OSCCLK, WDTRST1);
++
++FUNC_GROUP_DECL(OSCCLK, B13);
++FUNC_GROUP_DECL(WDTRST1, B13);
++
++#define Y21 53
++SIG_EXPR_LIST_DECL_SINGLE(USBCKI, USBCKI, SIG_DESC_SET(HW_STRAP1, 23));
++SIG_EXPR_LIST_DECL_SINGLE(WDTRST2, WDTRST2, SIG_DESC_SET(SCU84, 5));
++MS_PIN_DECL(Y21, GPIOG5, USBCKI, WDTRST2);
++
++FUNC_GROUP_DECL(USBCKI, Y21);
++FUNC_GROUP_DECL(WDTRST2, Y21);
++
+ #define AA22 54
+ SSSF_PIN_DECL(AA22, GPIOG6, FLBUSY, SIG_DESC_SET(SCU84, 6));
+ 
+@@ -914,9 +1061,14 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEED_G4_NR_PINS] = {
+ 	ASPEED_PINCTRL_PIN(A11),
+ 	ASPEED_PINCTRL_PIN(A12),
+ 	ASPEED_PINCTRL_PIN(A13),
++	ASPEED_PINCTRL_PIN(A14),
+ 	ASPEED_PINCTRL_PIN(A15),
++	ASPEED_PINCTRL_PIN(A16),
++	ASPEED_PINCTRL_PIN(A17),
+ 	ASPEED_PINCTRL_PIN(A18),
++	ASPEED_PINCTRL_PIN(A19),
+ 	ASPEED_PINCTRL_PIN(A2),
++	ASPEED_PINCTRL_PIN(A20),
+ 	ASPEED_PINCTRL_PIN(A3),
+ 	ASPEED_PINCTRL_PIN(A4),
+ 	ASPEED_PINCTRL_PIN(A5),
+@@ -933,19 +1085,26 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEED_G4_NR_PINS] = {
+ 	ASPEED_PINCTRL_PIN(B1),
+ 	ASPEED_PINCTRL_PIN(B11),
+ 	ASPEED_PINCTRL_PIN(B12),
++	ASPEED_PINCTRL_PIN(B13),
+ 	ASPEED_PINCTRL_PIN(B14),
+ 	ASPEED_PINCTRL_PIN(B15),
++	ASPEED_PINCTRL_PIN(B16),
++	ASPEED_PINCTRL_PIN(B17),
++	ASPEED_PINCTRL_PIN(B18),
+ 	ASPEED_PINCTRL_PIN(B19),
+ 	ASPEED_PINCTRL_PIN(B2),
+ 	ASPEED_PINCTRL_PIN(B3),
+ 	ASPEED_PINCTRL_PIN(B4),
++	ASPEED_PINCTRL_PIN(B5),
+ 	ASPEED_PINCTRL_PIN(B6),
+ 	ASPEED_PINCTRL_PIN(B7),
+ 	ASPEED_PINCTRL_PIN(C1),
+ 	ASPEED_PINCTRL_PIN(C11),
+ 	ASPEED_PINCTRL_PIN(C12),
++	ASPEED_PINCTRL_PIN(C13),
+ 	ASPEED_PINCTRL_PIN(C14),
+ 	ASPEED_PINCTRL_PIN(C15),
++	ASPEED_PINCTRL_PIN(C16),
+ 	ASPEED_PINCTRL_PIN(C17),
+ 	ASPEED_PINCTRL_PIN(C2),
+ 	ASPEED_PINCTRL_PIN(C3),
+@@ -956,6 +1115,7 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEED_G4_NR_PINS] = {
+ 	ASPEED_PINCTRL_PIN(D1),
+ 	ASPEED_PINCTRL_PIN(D11),
+ 	ASPEED_PINCTRL_PIN(D12),
++	ASPEED_PINCTRL_PIN(D13),
+ 	ASPEED_PINCTRL_PIN(D14),
+ 	ASPEED_PINCTRL_PIN(D15),
+ 	ASPEED_PINCTRL_PIN(D16),
+@@ -965,24 +1125,34 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEED_G4_NR_PINS] = {
+ 	ASPEED_PINCTRL_PIN(D3),
+ 	ASPEED_PINCTRL_PIN(D4),
+ 	ASPEED_PINCTRL_PIN(D5),
++	ASPEED_PINCTRL_PIN(D6),
+ 	ASPEED_PINCTRL_PIN(D7),
+ 	ASPEED_PINCTRL_PIN(E10),
+ 	ASPEED_PINCTRL_PIN(E11),
+ 	ASPEED_PINCTRL_PIN(E12),
++	ASPEED_PINCTRL_PIN(E13),
+ 	ASPEED_PINCTRL_PIN(E14),
++	ASPEED_PINCTRL_PIN(E15),
+ 	ASPEED_PINCTRL_PIN(E16),
++	ASPEED_PINCTRL_PIN(E18),
++	ASPEED_PINCTRL_PIN(E19),
+ 	ASPEED_PINCTRL_PIN(E2),
+ 	ASPEED_PINCTRL_PIN(E3),
+ 	ASPEED_PINCTRL_PIN(E5),
++	ASPEED_PINCTRL_PIN(E6),
+ 	ASPEED_PINCTRL_PIN(E7),
++	ASPEED_PINCTRL_PIN(F18),
+ 	ASPEED_PINCTRL_PIN(F3),
+ 	ASPEED_PINCTRL_PIN(F4),
+ 	ASPEED_PINCTRL_PIN(F5),
+ 	ASPEED_PINCTRL_PIN(G5),
+ 	ASPEED_PINCTRL_PIN(H1),
++	ASPEED_PINCTRL_PIN(H18),
+ 	ASPEED_PINCTRL_PIN(H19),
+ 	ASPEED_PINCTRL_PIN(H2),
+ 	ASPEED_PINCTRL_PIN(H20),
++	ASPEED_PINCTRL_PIN(J20),
++	ASPEED_PINCTRL_PIN(J21),
+ 	ASPEED_PINCTRL_PIN(J3),
+ 	ASPEED_PINCTRL_PIN(K18),
+ 	ASPEED_PINCTRL_PIN(L22),
+@@ -1013,6 +1183,7 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEED_G4_NR_PINS] = {
+ 	ASPEED_PINCTRL_PIN(W22),
+ 	ASPEED_PINCTRL_PIN(W4),
+ 	ASPEED_PINCTRL_PIN(W5),
++	ASPEED_PINCTRL_PIN(Y21),
+ 	ASPEED_PINCTRL_PIN(Y22),
+ 	ASPEED_PINCTRL_PIN(Y3),
+ 	ASPEED_PINCTRL_PIN(Y4),
+@@ -1101,6 +1272,34 @@ static const struct aspeed_pin_group aspeed_g4_groups[] = {
+ 	ASPEED_PINCTRL_GROUP(RGMII1),
+ 	ASPEED_PINCTRL_GROUP(RMII1),
+ 	ASPEED_PINCTRL_GROUP(MDIO1),
++	ASPEED_PINCTRL_GROUP(MAC1LINK),
++	ASPEED_PINCTRL_GROUP(MAC2LINK),
++	ASPEED_PINCTRL_GROUP(TIMER4),
++	ASPEED_PINCTRL_GROUP(SALT1),
++	ASPEED_PINCTRL_GROUP(SALT2),
++	ASPEED_PINCTRL_GROUP(SALT3),
++	ASPEED_PINCTRL_GROUP(SALT4),
++	ASPEED_PINCTRL_GROUP(LPCRST),
++	ASPEED_PINCTRL_GROUP(EXTRST),
++	ASPEED_PINCTRL_GROUP(SPICS1),
++	ASPEED_PINCTRL_GROUP(GPID2),
++	ASPEED_PINCTRL_GROUP(GPID4),
++	ASPEED_PINCTRL_GROUP(GPID6),
++	ASPEED_PINCTRL_GROUP(GPID),
++	ASPEED_PINCTRL_GROUP(SD2),
++	ASPEED_PINCTRL_GROUP(NDSR4),
++	ASPEED_PINCTRL_GROUP(SIOPWRGD),
++	ASPEED_PINCTRL_GROUP(NDTR4),
++	ASPEED_PINCTRL_GROUP(NDTS4),
++	ASPEED_PINCTRL_GROUP(SIOSCI),
++	ASPEED_PINCTRL_GROUP(SGPSCK),
++	ASPEED_PINCTRL_GROUP(SGPSLD),
++	ASPEED_PINCTRL_GROUP(SGPSI0),
++	ASPEED_PINCTRL_GROUP(SGPSI1),
++	ASPEED_PINCTRL_GROUP(OSCCLK),
++	ASPEED_PINCTRL_GROUP(WDTRST1),
++	ASPEED_PINCTRL_GROUP(USBCKI),
++	ASPEED_PINCTRL_GROUP(WDTRST2),
+ };
+ 
+ static const struct aspeed_pin_function aspeed_g4_functions[] = {
+@@ -1181,6 +1380,34 @@ static const struct aspeed_pin_function aspeed_g4_functions[] = {
+ 	ASPEED_PINCTRL_FUNC(RGMII1),
+ 	ASPEED_PINCTRL_FUNC(RMII1),
+ 	ASPEED_PINCTRL_FUNC(MDIO1),
++	ASPEED_PINCTRL_FUNC(MAC1LINK),
++	ASPEED_PINCTRL_FUNC(MAC2LINK),
++	ASPEED_PINCTRL_FUNC(TIMER4),
++	ASPEED_PINCTRL_FUNC(SALT1),
++	ASPEED_PINCTRL_FUNC(SALT2),
++	ASPEED_PINCTRL_FUNC(SALT3),
++	ASPEED_PINCTRL_FUNC(SALT4),
++	ASPEED_PINCTRL_FUNC(LPCRST),
++	ASPEED_PINCTRL_FUNC(EXTRST),
++	ASPEED_PINCTRL_FUNC(SPICS1),
++	ASPEED_PINCTRL_FUNC(GPID2),
++	ASPEED_PINCTRL_FUNC(GPID4),
++	ASPEED_PINCTRL_FUNC(GPID6),
++	ASPEED_PINCTRL_FUNC(GPID),
++	ASPEED_PINCTRL_FUNC(SD2),
++	ASPEED_PINCTRL_FUNC(NDSR4),
++	ASPEED_PINCTRL_FUNC(SIOPWRGD),
++	ASPEED_PINCTRL_FUNC(NDTR4),
++	ASPEED_PINCTRL_FUNC(NDTS4),
++	ASPEED_PINCTRL_FUNC(SIOSCI),
++	ASPEED_PINCTRL_FUNC(SGPSCK),
++	ASPEED_PINCTRL_FUNC(SGPSLD),
++	ASPEED_PINCTRL_FUNC(SGPSI0),
++	ASPEED_PINCTRL_FUNC(SGPSI1),
++	ASPEED_PINCTRL_FUNC(OSCCLK),
++	ASPEED_PINCTRL_FUNC(WDTRST1),
++	ASPEED_PINCTRL_FUNC(USBCKI),
++	ASPEED_PINCTRL_FUNC(WDTRST2),
+ };
+ 
+ static struct aspeed_pinctrl_data aspeed_g4_pinctrl_data = {
+diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed.h b/drivers/pinctrl/aspeed/pinctrl-aspeed.h
+index 1adb068a58ce..213074326110 100644
+--- a/drivers/pinctrl/aspeed/pinctrl-aspeed.h
++++ b/drivers/pinctrl/aspeed/pinctrl-aspeed.h
+@@ -242,6 +242,7 @@
+  * further and references registers in the graphics IP block, but that isn't
+  * handled yet.
+  */
++#define SCU2C           0x2C /* Misc. Control Register */
+ #define SCU3C           0x3C /* System Reset Control/Status Register */
+ #define SCU48           0x48 /* MAC Interface Clock Delay Setting */
+ #define HW_STRAP1       0x70 /* AST2400 strapping is 33 bits, is split */
 -- 
 2.9.3.1.g0db844e
