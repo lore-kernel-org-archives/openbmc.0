@@ -1,25 +1,52 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-ua0-x243.google.com (mail-ua0-x243.google.com
+ [IPv6:2607:f8b0:400c:c08::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sQPJd1ghqzDrht
- for <openbmc@lists.ozlabs.org>; Fri,  2 Sep 2016 13:10:41 +1000 (AEST)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1472785833417694.5463866514776;
- Thu, 1 Sep 2016 20:10:33 -0700 (PDT)
-Date: Thu, 1 Sep 2016 22:10:26 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: OpenBMC v1.99.0 tag.
-Message-ID: <20160902031026.GA14240@heinlein.lan>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sQRnt29MWzDrns
+ for <openbmc@lists.ozlabs.org>; Fri,  2 Sep 2016 15:02:42 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=GsY2Wkpi; 
+ dkim-atps=neutral
+Received: by mail-ua0-x243.google.com with SMTP id 35so6973200uaj.3
+ for <openbmc@lists.ozlabs.org>; Thu, 01 Sep 2016 22:02:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=7QPYhoQQQwUQkf6oQF93QQlwTyQmCEnyc6mnCXLqiOQ=;
+ b=GsY2WkpiyvbPtp4oLLYCCGsCrtIFy17EC/Ca0dwPAWUVIy/pmCadreSKf+rb4qChCT
+ uItteYW7kRjX6aeWvCpjOs2mat0ScAOcm2rGcOHdlssTfze3MjNOF99RWsZzGmMwlbP8
+ VI1hfVvjcbl72Pr9WARUwVPp/f7jMc5aZ6taaj0vHjFtQnKRxTZ4UuBqAlzu6OFj1G+9
+ 25vZVjOsFIZGeFMsg6GQyueBM9kJ8g6qtbKYsjpx8/sTz4fx+Jv+0zuPPoGWoIzLv8Y0
+ q1vYfEuMP2pxJh3qbB2JOjIjYG9qCH7F90j0gYpr6h+tDrlaP/rrnGfhMv9s5RcUHZzM
+ BfDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=7QPYhoQQQwUQkf6oQF93QQlwTyQmCEnyc6mnCXLqiOQ=;
+ b=lTr/En9emkZq5DpBB5wkxt7R4NyRwlE8ShQO4YrXlPDhqQ1PNTwjdgeMskHwrquSLO
+ WLrBNuAANE3z2ZZkVQuDSiX2luyoruzKMCUGe6wIMD73MNLxzv2uj5OxldBdQdjrFjVl
+ lEFBr5b3Au30e/+WmR0yT+ejYmWv5MsH4icUHQ2jerZGaJtAqnVV7bXoWoyrJgfdWAcy
+ LcL9+fCfDVtwQtnG4tWwJ0ek9kgnpupaXKC8JlzOuaDaMW1+rI2WAZyXfF7qWAjt5jH1
+ L4ArCS1c15/qXd4nf1UibOUtyXDJPx4cIUr7pb0urlIDU6N1V6a3zxD2pLu6MPjJMepj
+ r7pw==
+X-Gm-Message-State: AE9vXwOHwU7sRMET+1IqVJSYJbRIkkSXskI7ZGymX8WvKdnEpJGOOtuyNmHw3S0E5rgXdbHN7L3c4NOMZvFuYw==
+X-Received: by 10.159.37.238 with SMTP id 101mr11832521uaf.57.1472792559638;
+ Thu, 01 Sep 2016 22:02:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="Nq2Wo0NMKNjxTN9z"
-Content-Disposition: inline
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
+Sender: joel.stan@gmail.com
+Received: by 10.176.82.239 with HTTP; Thu, 1 Sep 2016 22:02:19 -0700 (PDT)
+In-Reply-To: <CAFR_W8rNH056xbhh44Dh2wjnFoj7UeNPzaDS_=DC90Nw7jNsCw@mail.gmail.com>
+References: <CAFR_W8rNH056xbhh44Dh2wjnFoj7UeNPzaDS_=DC90Nw7jNsCw@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 2 Sep 2016 14:32:19 +0930
+X-Google-Sender-Auth: qDuQcxwNmfavCO8YZzCdfP_NWiw
+Message-ID: <CACPK8XdgXoX2f_+Bc5Qcj89Hirrrfn+_U+m6YCP6k3TLvJz3HA@mail.gmail.com>
+Subject: Re: [PATCH u-boot] Some cleanup of ast-g5 platform.S
+To: Maxim Sloyko <maxims@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -31,62 +58,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 Sep 2016 03:10:41 -0000
+X-List-Received-Date: Fri, 02 Sep 2016 05:02:43 -0000
 
+Hello Maxim,
 
---Nq2Wo0NMKNjxTN9z
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Fri, Sep 2, 2016 at 6:34 AM, Maxim Sloyko <maxims@google.com> wrote:
+> Added ast_uart.{c,h} files, moved most of the diagnostic message printing to
+> ast-g5.c
+>
+> Set up a stack in SRAM at the beginning of lowlevel_init, which makes it
+> possible to call non-trivial c functions, as well as put diagnostic strings
+> themselves onto the stack.
+>
+> Several one-char writes to debug uart still remain in platform.S, I figured
+> it's not worth it to make a separate call to c function for each of those.
 
-I created the first tag towards a 2.0 release, called 1.99.0.  This tag
-is intended to be a (very early) development pre-release to show some of
-the progress being made towards 2.0.  I will continue to make these tags
-on a periodic basis when I think there is significant function as well
-as some stability. =20
+Thanks for the patches!
 
-This specific tag has been tested on the Barreleye and Palmetto systems
-and should still function.  Rebooting the BMC while the Host is powered
-on is known to not work on some machines due to openbmc/openbmc#513.
+Can you please send them to the list as inline patches. The easiest
+way to do this is to use 'git send-email'.
 
-The main significant functionality in this release is:
-    - Kernel upgrade to 4.7.x stream.
-    - Yocto upgrade to 2.1.
+This will allow us to review them.
 
-There are two main reasons for the 1.99.0 tag:
-    - Current /etc/os-release files have a git revision of the form=20
-      1.0-N, which is confusing relative to the 1.0.x stable release
-      stream.
-    - There is a significant patch-set in Gerrit that I will be merging
-      soon, which migrates all BMC state management to a systemd basis
-      instead of custom Python script states.
+Thanks,
 
-Again, do not use any 1.99.x tag for production purposes.  Please, do feel
-free to test with it and report problems.
+Joel
 
---=20
-Patrick Williams
-
---Nq2Wo0NMKNjxTN9z
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJXyO2iAAoJEKsDR8wtAMEZ0yEP+wcabS9eY2U3MXALTSJXreGA
-EnNtbMy5vYt4QJ+NW0D963dtlANPKxhOc7LhCP2uaW7qC0XK+95xg9HZKXDyN5H1
-/1emNa6OHzXQYBtmx5SxANSJkfTdUYy8GF6J4oF2o7q/NB8PPkryhGukv3PK7K/s
-Y0TYHSQdnf4SqZYCB5GBHwg5LNAPdViZpEuLmWstdlWvdST9nOePjRB56QcJ510h
-G97Ah8inuEirs6T6pNjcgS7Wxs6U/7wtm9lD5uKIRWh+B12KsN9qTwtAHBAy+WAi
-mIIG0gfDqinItOjJK4UcjAohxa69BU//mz5TkU+R8jGGveK/Lr4xMSJDtUFsF4/T
-OOCQWaJkEknnX9REtL18skwQBgchnnH8pnyOvo7iGtkmOGgbWbkyEyuNT/jcJUWD
-mDb8VknsVn2wo2AiwQ6blD0KavDlIYO0ZKMOllEgIzQi/7EdNrzLjFbTzwEczbbL
-UQq25e37CZp5R0SjvmrART1Cf4CrYityop+OaOi0+FwP3CutpTq49KNQryUff8EO
-kYD3AjOuo4B5sd2oCjLEXyC7eIDkJwS8h1i+XiWaD7+25KFyOwQnWiUw6Ny+kYqU
-R6yisK/JNYJE10EMbLz7W25EJc83kk/jiSL06QBdBxdRb3UYX+li9d1WZyODVBv2
-UF/yymc74kRYQfV6d6Gd
-=Wz/E
------END PGP SIGNATURE-----
-
---Nq2Wo0NMKNjxTN9z--
+>
+> --
+> Maxim Sloyko
+>
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+>
