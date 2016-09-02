@@ -3,42 +3,45 @@ Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sQW5j6JXLzDrns
- for <openbmc@lists.ozlabs.org>; Fri,  2 Sep 2016 17:31:37 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sQW5k1pwZzDrnt
+ for <openbmc@lists.ozlabs.org>; Fri,  2 Sep 2016 17:31:38 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=KjdESAxw; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=kfRoLNDH; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=G+BPd58N; dkim-atps=neutral
+ header.b=N9TaBdd3; dkim-atps=neutral
 Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 4F856207B6;
- Fri,  2 Sep 2016 03:31:34 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 2A613205DB;
+ Fri,  2 Sep 2016 03:31:36 -0400 (EDT)
 Received: from frontend1 ([10.202.2.160])
- by compute7.internal (MEProxy); Fri, 02 Sep 2016 03:31:34 -0400
+ by compute7.internal (MEProxy); Fri, 02 Sep 2016 03:31:36 -0400
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:message-id:subject:to:x-sasl-enc:x-sasl-enc; s=
- mesmtp; bh=AGie+t96/dMBhOFQwPkIJX67Il0=; b=KjdESAxwPdkPaGTWvgIZu
- IQEFPY61mChYSmUsuBjYtWUR5n5StUAbUUbFd8G7tLrhY1FO8S305YFGmxBIw4m0
- nbX8NsgxC6raLlO+C3x/Xs9CVgAcjOY887ctOawjSzkZ01doH6IN2ZboODgHjWlP
- BjDlceEJcD0+JHlh+kUFoY=
+ :date:from:in-reply-to:message-id:references:subject:to
+ :x-sasl-enc:x-sasl-enc; s=mesmtp; bh=1vb8aC7rz2eQ3hJhD46+gEOOBN0
+ =; b=kfRoLNDHobqTZo0tSXG3pCUZCQBkQMvM3yDPQ5vj2/UBNt1EzpP5r1pWdLE
+ 0WmtATeCL1LuB5MkdWFlnBKrHI7J8klSZ1wLX/3cBritQuB3fQGGGoj++xPAU5X2
+ mlU+3fJtiHT9O1TCeVE4Q1pBefHDC1UETljtFydIA1jaRN8Y=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:message-id:subject:to
- :x-sasl-enc:x-sasl-enc; s=smtpout; bh=AGie+t96/dMBhOFQwPkIJX67Il
- 0=; b=G+BPd58NX34WWfwt42D8oO33wU9zFaIOfpPar3z55UqioCSXtZpE4kidmo
- 5h+x3H+9GRrIoyvbeeaU4ZZ6wG6EuJmEuiK3bLLLcll1iHTexQkUHfvmba6N0baD
- 9mteM/X8NPfhrgnzXCNEYGvQTLtZmN09nvpGo2jsjnNkgEON8=
-X-Sasl-enc: uTK6q7w3ZyWqntEkCqxCKfOyytL++QRBzTVZW5t1wCzR 1472801493
+ messagingengine.com; h=cc:date:from:in-reply-to:message-id
+ :references:subject:to:x-sasl-enc:x-sasl-enc; s=smtpout; bh=1vb8
+ aC7rz2eQ3hJhD46+gEOOBN0=; b=N9TaBdd3ggl6RdOFyCXLSHD08SxVErIrd77j
+ rOShRdMigMT0EYwQ2D1EdxGwPYWf/hqxNIjMJQ8kITv0wDMvXAu5gMLeqmb4CGt/
+ /ZDccGwbF8Nyw5gEtS3cj4Zvi7eyseAigEwZYKCtTe4i0XYe4G4eQ6xd8iKidONS
+ QqfyVtE=
+X-Sasl-enc: N0tHT2ZKh3bzA7d7NgGD4QBxVZPmeEV9I64s400yA4Xh 1472801495
 Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id C1B91F29D2;
- Fri,  2 Sep 2016 03:31:32 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id A25A7F29D2;
+ Fri,  2 Sep 2016 03:31:34 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Joel Stanley <joel@jms.id.au>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Andrew Jeffery <andrew@aj.id.au>
-Subject: [PATCH linux 0/3] aspeed: pinctrl fixes for I2C, GPIO
-Date: Fri,  2 Sep 2016 17:00:48 +0930
-Message-Id: <20160902073051.31492-1-andrew@aj.id.au>
+Subject: [PATCH linux 1/3] aspeed-g5: Add I2C mux configuration properties
+Date: Fri,  2 Sep 2016 17:00:49 +0930
+Message-Id: <20160902073051.31492-2-andrew@aj.id.au>
 X-Mailer: git-send-email 2.9.3.1.g0db844e
+In-Reply-To: <20160902073051.31492-1-andrew@aj.id.au>
+References: <20160902073051.31492-1-andrew@aj.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -52,28 +55,122 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Fri, 02 Sep 2016 07:31:39 -0000
 
-Hi all,
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ arch/arm/boot/dts/aspeed-g5.dtsi | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-This is a short series for dev-4.7 that muxes the I2C buses on g5 SoCs for
-"okay" devicetree nodes and improves pinmux coverage and functionality on g4
-SoCs.  The two g4 patches were motivated by openbmc/openbmc issue #513, and the
-g5 I2C devicetree patch helped development and testing of the recently posted
-I2C driver cleanup.
-
-Cheers,
-
-Andrew
-
-Andrew Jeffery (3):
-  aspeed-g5: Add I2C mux configuration properties
-  pinctrl-aspeed-g4: Add definitions for pins in GPIO banks A-H inclusive
-  pinctrl-aspeed: "Not enabled" is a significant mux state
-
- arch/arm/boot/dts/aspeed-g5.dtsi           |  24 +++
- drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c | 229 ++++++++++++++++++++++++++++-
- drivers/pinctrl/aspeed/pinctrl-aspeed.c    |  17 ++-
- drivers/pinctrl/aspeed/pinctrl-aspeed.h    |   1 +
- 4 files changed, 265 insertions(+), 6 deletions(-)
-
+diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+index 3d7b69b50785..f73a2b18e152 100644
+--- a/arch/arm/boot/dts/aspeed-g5.dtsi
++++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+@@ -384,6 +384,8 @@
+ 					clock-frequency = <100000>;
+ 					status = "disabled";
+ 					interrupts = <2>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c3_default>;
+ 				};
+ 
+ 				i2c3: i2c-bus@100 {
+@@ -395,6 +397,8 @@
+ 					clock-frequency = <100000>;
+ 					status = "disabled";
+ 					interrupts = <3>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c4_default>;
+ 				};
+ 
+ 				i2c4: i2c-bus@140 {
+@@ -406,6 +410,8 @@
+ 					clock-frequency = <100000>;
+ 					status = "disabled";
+ 					interrupts = <4>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c5_default>;
+ 				};
+ 
+ 				i2c5: i2c-bus@180 {
+@@ -417,6 +423,8 @@
+ 					clock-frequency = <100000>;
+ 					status = "disabled";
+ 					interrupts = <5>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c6_default>;
+ 				};
+ 
+ 				i2c6: i2c-bus@1c0 {
+@@ -428,6 +436,8 @@
+ 					clock-frequency = <100000>;
+ 					status = "disabled";
+ 					interrupts = <6>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c7_default>;
+ 				};
+ 
+ 				i2c7: i2c-bus@300 {
+@@ -439,6 +449,8 @@
+ 					clock-frequency = <100000>;
+ 					status = "disabled";
+ 					interrupts = <7>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c8_default>;
+ 				};
+ 
+ 				i2c8: i2c-bus@340 {
+@@ -450,6 +462,8 @@
+ 					clock-frequency = <100000>;
+ 					status = "disabled";
+ 					interrupts = <8>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c9_default>;
+ 				};
+ 
+ 				i2c9: i2c-bus@380 {
+@@ -461,6 +475,8 @@
+ 					clock-frequency = <100000>;
+ 					status = "disabled";
+ 					interrupts = <9>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c10_default>;
+ 				};
+ 
+ 				i2c10: i2c-bus@3c0 {
+@@ -472,6 +488,8 @@
+ 					clock-frequency = <100000>;
+ 					status = "disabled";
+ 					interrupts = <10>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c11_default>;
+ 				};
+ 
+ 				i2c11: i2c-bus@400 {
+@@ -483,6 +501,8 @@
+ 					clock-frequency = <100000>;
+ 					status = "disabled";
+ 					interrupts = <11>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c12_default>;
+ 				};
+ 
+ 				i2c12: i2c-bus@440 {
+@@ -494,6 +514,8 @@
+ 					clock-frequency = <100000>;
+ 					status = "disabled";
+ 					interrupts = <12>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c13_default>;
+ 				};
+ 
+ 				i2c13: i2c-bus@480 {
+@@ -505,6 +527,8 @@
+ 					clock-frequency = <100000>;
+ 					status = "disabled";
+ 					interrupts = <13>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c14_default>;
+ 				};
+ 
+ 			};
 -- 
 2.9.3.1.g0db844e
