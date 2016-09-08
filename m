@@ -1,52 +1,54 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-vk0-x244.google.com (mail-vk0-x244.google.com
- [IPv6:2607:f8b0:400c:c05::244])
+Received: from mail-ua0-x242.google.com (mail-ua0-x242.google.com
+ [IPv6:2607:f8b0:400c:c08::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sV0gq0jdQzDsFS
- for <openbmc@lists.ozlabs.org>; Thu,  8 Sep 2016 09:54:46 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sV1100gBMzDsFt
+ for <openbmc@lists.ozlabs.org>; Thu,  8 Sep 2016 10:09:40 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=p/RuH/Ja; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=llddGaV8; 
  dkim-atps=neutral
-Received: by mail-vk0-x244.google.com with SMTP id m62so1194240vkd.1
- for <openbmc@lists.ozlabs.org>; Wed, 07 Sep 2016 16:54:46 -0700 (PDT)
+Received: by mail-ua0-x242.google.com with SMTP id 35so1183009uaq.1
+ for <openbmc@lists.ozlabs.org>; Wed, 07 Sep 2016 17:09:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=Q/AVCaQE7XqY4nA6i0ag5Uv58ffWSx834vPxMr+KAjs=;
- b=p/RuH/Ja9zCpSWU4gjR/Xz91YDmDmTNPdlg8cNVSdyk57uNtOW5EoZ2i69f3KhO+PD
- 37LsLmSS+jRO0jfQLlA+1o1+k/f9cUbecC2GKn8Zp3aQPLzG/1hCfybmz+QMBxgGIos4
- 2vabOz+Lrn8Xtcw4mxyCCjalQGBmNzdLPuTLvYDoEkwZcCVZ4H+ZUpHkNQgr2Nbe9qZH
- NYL/VnUHIrcj35DZASHIwtI274WJtiTDAycGseblVqso0KloQeOE2KF/8nbs2O+UH2bL
- gswWEKcMBKGNqANJIA3h6ZI2UCw0YzOHPvyIPGaHSWfUcIdt3arSFkF7WJZBi9vLEtJa
- wSjg==
+ bh=M5DfT/5FJsxrrwhMAYJ3uBfLYV+Ba9rNYtMZmgj7JOs=;
+ b=llddGaV8eRxr68gtsvt3bTchzkYK0tJ07qViF0LA6m2hzaCS9ulReV1rG2ZyexTGA0
+ 9xF4kKv7lwdK+pnJthE/S48w9PHC7sRharIGuab+TRJ4yZ3vwVWpZwsoBnISymrzyHKi
+ 9l8rO3mudam3aEW6r2JsypxV5br6cOowbuY7vvzT9uI5GqHVMwYgit3Em1hcUPxFmzB+
+ ISBmLKpRpLpb5lsH5SkMgHQUhWAVXFr9AlxM/pT/h+T+CK1mWHfAkgu/uDUwTpoLWlJT
+ 8DNA5wnh5bZ2NSCrkaEIHBPVxjEn5ggh9K/TxhkaGOS7Xnac6TD0Gkgy+sGovexb+RLF
+ HDrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=Q/AVCaQE7XqY4nA6i0ag5Uv58ffWSx834vPxMr+KAjs=;
- b=NRyJMYlHQSGke8A/Cx4BjaXA95sUxco4HBam6hgGwJc6btYTknpHIPy1TezheaeuSL
- SM8+td0nVwYhzdq7EVC36M713nSkfaKrE60kk4PL0veoZk8yQCW0+UVt0u4ZR+FWZn5A
- dYhqkVf547spPbW3m5MaWlQ8mtB9i1fre9P0gm3YIriIfZiImSZKelYLoAxkVymo5/yl
- 5BYT2xaoizqim65EYZocixIqd/V+hs79b05TcjdLCi3EVhP4X5syY/PKG8zvelZ4IeOF
- 0ezq0OoC4dcXtNSOSPUGVDTYfmLf7VGrdLRyrzx1XdpbDVjIuTbClXkyIGzop877is2M
- UMBg==
-X-Gm-Message-State: AE9vXwM261SjGaii+0TEvstJv1IRhwmLQa84oZRa8MlSMF4jozXvh9ljtXN/3JHWbhPkkWL754eO65dFoABWVQ==
-X-Received: by 10.31.102.135 with SMTP id a129mr27393619vkc.112.1473292483573; 
- Wed, 07 Sep 2016 16:54:43 -0700 (PDT)
+ bh=M5DfT/5FJsxrrwhMAYJ3uBfLYV+Ba9rNYtMZmgj7JOs=;
+ b=iHgw6iOTCgltzSfo5cvFXKKwpYAY+/h8wZk74awp8RwuEvD3e46DTH4M08drgwg9Gd
+ eNhDsoMkWHphwpSayRaM1HeptD9NhJgcJ/Ani+fHSs4hCANRWQPhqAWp2Xlc1Sn9qtFj
+ TU9bo5x2Vqza0bvszCRRYR6swqCT/fxf/VxjFWaG6viR5/xmaEAANw5v2i99IVALBFG0
+ M5IPzB786qyVPwTmF0fAnf7T+OcAN2521IZkCKCS1TkCyQsYsASblYJJg99eSFMFzsX9
+ NtH+G4q/1HC/qtRGubPXEB4euP5en1ZybZ1wmORi34q9VZcsfc1BK/P5A0dIRbloQ+el
+ tg8Q==
+X-Gm-Message-State: AE9vXwPQGxZqo/JjGbZSM2E1TPubsKwAhhKX4b6uhgojq4f/6QTSSlmi3jzOd+N4n5ggMcJKw2Kg4hvVkCoo/A==
+X-Received: by 10.159.34.118 with SMTP id 109mr9765035uad.109.1473293375645;
+ Wed, 07 Sep 2016 17:09:35 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.176.82.239 with HTTP; Wed, 7 Sep 2016 16:54:23 -0700 (PDT)
-In-Reply-To: <1472583146-6393-1-git-send-email-brendanhiggins@google.com>
-References: <CACPK8XfAfiuas_D3UGMf6Hf922oFH9dcHg_9QUP7xvmuTkmabg@mail.gmail.com>
- <1472583146-6393-1-git-send-email-brendanhiggins@google.com>
+Received: by 10.176.82.239 with HTTP; Wed, 7 Sep 2016 17:09:14 -0700 (PDT)
+In-Reply-To: <1472068452-32048-3-git-send-email-christopher.lee.bostic@gmail.com>
+References: <1472068452-32048-1-git-send-email-christopher.lee.bostic@gmail.com>
+ <1472068452-32048-3-git-send-email-christopher.lee.bostic@gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 8 Sep 2016 09:24:23 +0930
-X-Google-Sender-Auth: qIv_9nURzLWCutuw3m5UtUOjHNk
-Message-ID: <CACPK8XdutpE97bUr2goj3Vqw9R0_HOtZ0rLWLnT-FcmYnLQHZg@mail.gmail.com>
-Subject: Re: [PATCH v2] i2c: aspeed: added driver for Aspeed I2C
-To: Brendan Higgins <brendanhiggins@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Thu, 8 Sep 2016 09:39:14 +0930
+X-Google-Sender-Auth: vnAoxu5tY0W80df8kEuHXEaqFs8
+Message-ID: <CACPK8XcdH6qUq9A+fBCKLYAfcE-iEiA-tJV3N6nxJM=KEtqcoA@mail.gmail.com>
+Subject: Re: [PATCH linux v5 2/7] drivers/fsi: Add FSI Master Functionality
+ and Initialization
+To: Christopher Bostic <christopher.lee.bostic@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Chris Bostic <cbostic@us.ibm.com>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
@@ -59,938 +61,1232 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 07 Sep 2016 23:54:48 -0000
+X-List-Received-Date: Thu, 08 Sep 2016 00:09:41 -0000
 
-On Wed, Aug 31, 2016 at 4:22 AM, Brendan Higgins
-<brendanhiggins@google.com> wrote:
-> Added initial master and slave support for Aspeed I2C controller.
-> Supports fourteen busses present in ast24xx and ast25xx BMC SoCs by
-> Aspeed.
+On Thu, Aug 25, 2016 at 5:24 AM,  <christopher.lee.bostic@gmail.com> wrote:
+> From: Chris Bostic <cbostic@us.ibm.com>
 >
-> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+> Define the FSI master control register set and its accessors.
+> Initialize the primary FSI master.
+>
+> Signed-off-by: Chris Bostic <cbostic@us.ibm.com>
 > ---
->  drivers/i2c/busses/Kconfig      |  10 +
->  drivers/i2c/busses/Makefile     |   1 +
->  drivers/i2c/busses/i2c-aspeed.c | 812 ++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 823 insertions(+)
->  create mode 100644 drivers/i2c/busses/i2c-aspeed.c
+
+I recall reading this patch in the past. No changelog?
+
+>  drivers/fsi/Makefile      |   2 +-
+>  drivers/fsi/fsi.h         |  32 +++
+>  drivers/fsi/fsi_private.h |  97 +++++++
+>  drivers/fsi/fsicfam.h     |  46 ++++
+>  drivers/fsi/fsiinit.c     |  22 ++
+>  drivers/fsi/fsiinit.h     |   2 +
+>  drivers/fsi/fsimaster.c   | 242 +++++++++++++++++
+>  drivers/fsi/fsimaster.h   | 655 ++++++++++++++++++++++++++++++++++++++++++++++
+>  8 files changed, 1097 insertions(+), 1 deletion(-)
+>  create mode 100644 drivers/fsi/fsi.h
+>  create mode 100644 drivers/fsi/fsi_private.h
+>  create mode 100644 drivers/fsi/fsicfam.h
+>  create mode 100644 drivers/fsi/fsimaster.c
+>  create mode 100644 drivers/fsi/fsimaster.h
 >
-> diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
-> index 5c3993b..0178c6c 100644
-> --- a/drivers/i2c/busses/Kconfig
-> +++ b/drivers/i2c/busses/Kconfig
-> @@ -998,6 +998,16 @@ config I2C_RCAR
->           This driver can also be built as a module.  If so, the module
->           will be called i2c-rcar.
+> diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
+> index f547c08..9800c15 100644
+> --- a/drivers/fsi/Makefile
+> +++ b/drivers/fsi/Makefile
+> @@ -2,4 +2,4 @@
+>  # Makefile for the FSI bus specific drivers.
+>  #
 >
-> +config I2C_ASPEED
-> +       tristate "Aspeed AST2xxx SoC I2C Controller"
-> +       depends on (ARCH_ASPEED || COMPILE_TEST) && OF
-> +       help
-> +         If you say yes to this option, support will be included for the
-> +         Aspeed AST2xxx SoC I2C controller.
-> +
-> +         This driver can also be built as a module.  If so, the module
-> +         will be called i2c-aspeed.
-> +
->  comment "External I2C/SMBus adapter drivers"
->
->  config I2C_DIOLAN_U2C
-> diff --git a/drivers/i2c/busses/Makefile b/drivers/i2c/busses/Makefile
-> index 37f2819..49631cd 100644
-> --- a/drivers/i2c/busses/Makefile
-> +++ b/drivers/i2c/busses/Makefile
-> @@ -96,6 +96,7 @@ obj-$(CONFIG_I2C_XILINX)      += i2c-xiic.o
->  obj-$(CONFIG_I2C_XLR)          += i2c-xlr.o
->  obj-$(CONFIG_I2C_XLP9XX)       += i2c-xlp9xx.o
->  obj-$(CONFIG_I2C_RCAR)         += i2c-rcar.o
-> +obj-$(CONFIG_I2C_ASPEED)       += i2c-aspeed.o
->
->  # External I2C/SMBus adapter drivers
->  obj-$(CONFIG_I2C_DIOLAN_U2C)   += i2c-diolan-u2c.o
-> diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
+> -obj-y          += fsiinit.o
+> +obj-y          += fsiinit.o fsimaster.o
+> diff --git a/drivers/fsi/fsi.h b/drivers/fsi/fsi.h
 > new file mode 100644
-> index 0000000..81c96e2
+> index 0000000..f146396
 > --- /dev/null
-> +++ b/drivers/i2c/busses/i2c-aspeed.c
-> @@ -0,0 +1,812 @@
+> +++ b/drivers/fsi/fsi.h
+> @@ -0,0 +1,32 @@
 > +/*
-> + *  I2C adapter for the ASPEED I2C bus.
+> + * FSI device driver structure definitions and defines
 > + *
-> + *  Copyright (C) 2012-2020  ASPEED Technology Inc.
-> + *  Copyright 2015 IBM Corporation
-
-Can you update this to 2016? And add your own?
-
+> + * Copyright 2016 IBM Corp.
 > + *
-> + *  This program is free software; you can redistribute it and/or modify
-> + *  it under the terms of the GNU General Public License version 2 as
-> + *  published by the Free Software Foundation.
+> + * Christopher Bostic <cbostic@us.ibm.com>
+> + *
+> + * This program is free software; you can redistribute it and/or
+> + * modify it under the terms of the GNU General Public License
+> + * as published by the Free Software Foundation; either version
+> + * 2 of the License, or (at your option) any later version.
 > + */
+> +#ifndef DRIVERS_FSI_H
+> +#define DRIVERS_FSI_H
 > +
-> +#include <linux/kernel.h>
-> +#include <linux/module.h>
-> +#include <linux/i2c.h>
-> +#include <linux/irq.h>
-> +#include <linux/irqdomain.h>
-> +#include <linux/init.h>
-> +#include <linux/io.h>
-> +#include <linux/errno.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/completion.h>
-> +#include <linux/slab.h>
-> +#include <linux/of_address.h>
-> +#include <linux/of_platform.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/err.h>
-> +#include <linux/clk.h>
+> +#include <linux/device.h>
 > +
-> +/* I2C Register */
-> +#define AST_I2C_FUN_CTRL_REG                           0x00
-> +#define AST_I2C_AC_TIMING_REG1                         0x04
-> +#define AST_I2C_AC_TIMING_REG2                         0x08
-> +#define AST_I2C_INTR_CTRL_REG                          0x0c
-> +#define AST_I2C_INTR_STS_REG                           0x10
-> +#define AST_I2C_CMD_REG                                0x14
-> +#define AST_I2C_DEV_ADDR_REG                           0x18
-> +#define AST_I2C_BYTE_BUF_REG                           0x20
-
-I would prefer using the ASPEED_ prefix for all #defines and functions
-for consistency with other kernel code.
-
+> +struct fsimap {
+> +       u8 link;                        /* Master link # */
+> +       u8 cfam;                        /* CFAM # on link */
+> +       u32 offset;                     /* Address offset into CFAM */
+> +       u32 va;                         /* Virtual address */
+> +};
 > +
-> +#define AST_I2C_NUM_BUS 14
-
+> +struct fsidevice {
+> +       u32 irq_start;                  /* IRQ Number */
+> +       struct fsidevice *parent;       /* Parent of this device */
+> +       struct device dev;              /* LDM entry for bus */
+> +       struct fsimap map;              /* Address & location info */
+> +};
 > +
-> +/* Gloable Register Definition */
-
-Typo: Global
-
-> +/* 0x00 : I2C Interrupt Status Register  */
-> +/* 0x08 : I2C Interrupt Target Assignment  */
-> +
-> +/* Device Register Definition */
-> +/* 0x00 : I2CD Function Control Register  */
-> +#define AST_I2CD_MULTI_MASTER_DIS                      (0x1 << 15)
-> +#define AST_I2CD_SDA_DRIVE_1T_EN                       (0x1 << 8)
-> +#define AST_I2CD_M_SDA_DRIVE_1T_EN                     (0x1 << 7)
-> +#define AST_I2CD_M_HIGH_SPEED_EN                       (0x1 << 6)
-> +#define AST_I2CD_SLAVE_EN                              (0x1 << 1)
-
-If you want to convert these to use the BIT(1), etc notation.
-
-> +#define AST_I2CD_MASTER_EN                             (0x1)
-> +
-> +/* 0x08 : I2CD Clock and AC Timing Control Register #2 */
-> +#define AST_NO_TIMEOUT_CTRL                            0x0
-> +
-> +
-> +/* 0x0c : I2CD Interrupt Control Register &
-> + * 0x10 : I2CD Interrupt Status Register
+> +#endif /* DRIVERS_FSI_H */
+> diff --git a/drivers/fsi/fsi_private.h b/drivers/fsi/fsi_private.h
+> new file mode 100644
+> index 0000000..be327ef
+> --- /dev/null
+> +++ b/drivers/fsi/fsi_private.h
+> @@ -0,0 +1,97 @@
+> +/*
+> + * FSI device driver structure definitions and defines
 > + *
-> + * These share bit definitions, so use the same values for the enable &
-> + * status bits.
+> + * Copyright 2016 IBM Corp.
+> + *
+> + * Christopher Bostic <cbostic@us.ibm.com>
+> + *
+> + * This program is free software; you can redistribute it and/or
+> + * modify it under the terms of the GNU General Public License
+> + * as published by the Free Software Foundation; either version
+> + * 2 of the License, or (at your option) any later version.
 > + */
-> +#define AST_I2CD_INTR_SDA_DL_TIMEOUT                   (0x1 << 14)
-> +#define AST_I2CD_INTR_BUS_RECOVER_DONE                 (0x1 << 13)
-> +#define AST_I2CD_INTR_SLAVE_MATCH                      (0x1 << 7)
-> +#define AST_I2CD_INTR_SCL_TIMEOUT                      (0x1 << 6)
-> +#define AST_I2CD_INTR_ABNORMAL                         (0x1 << 5)
-> +#define AST_I2CD_INTR_NORMAL_STOP                      (0x1 << 4)
-> +#define AST_I2CD_INTR_ARBIT_LOSS                       (0x1 << 3)
-> +#define AST_I2CD_INTR_RX_DONE                          (0x1 << 2)
-> +#define AST_I2CD_INTR_TX_NAK                           (0x1 << 1)
-> +#define AST_I2CD_INTR_TX_ACK                           (0x1 << 0)
+> +#ifndef DRIVERS_FSI_PRIVATE_H
+> +#define DRIVERS_FSI_PRIVATE_H
 > +
-> +/* 0x14 : I2CD Command/Status Register   */
-> +#define AST_I2CD_SCL_LINE_STS                          (0x1 << 18)
-> +#define AST_I2CD_SDA_LINE_STS                          (0x1 << 17)
-> +#define AST_I2CD_BUS_BUSY_STS                          (0x1 << 16)
-> +#define AST_I2CD_BUS_RECOVER_CMD                       (0x1 << 11)
+> +#include "fsi.h"
 > +
-> +/* Command Bit */
-> +#define AST_I2CD_M_STOP_CMD                            (0x1 << 5)
-> +#define AST_I2CD_M_S_RX_CMD_LAST                       (0x1 << 4)
-> +#define AST_I2CD_M_RX_CMD                              (0x1 << 3)
-> +#define AST_I2CD_S_TX_CMD                              (0x1 << 2)
-> +#define AST_I2CD_M_TX_CMD                              (0x1 << 1)
-> +#define AST_I2CD_M_START_CMD                           (0x1)
+> +#define FSIDD_NAME             "fsi"           /* FSI device driver name */
 > +
-> +/* 0x18 : I2CD Slave Device Address Register   */
-> +#define AST_I2CD_DEV_ADDR_MASK                          ((0x1 << 7) - 1)
+> +/*
+> + * Universal FSI constants - Applicable for any FSI device
+> + */
+> +#define        FSI_MAX_LINKS           64              /* FSI Master # of links */
+> +#define        FSI_MAX_CASCADE         4               /* # of CFAMS in cascade */
+> +#define        FSI_MAX_MASTERS         1               /* # of masters in system */
+> +#define        FSI_LINK_ENG_MASK       0xE0007FFF      /* Used for minor num calcs */
+> +#define        FSI_MAX_DEPTH           3               /* Max # of links in path */
+> +#define        FSI_LINK_SHIFT          23                      /* Bits to shift */
+> +#define        FSI_LINK_SIZE           (1 << FSI_LINK_SHIFT)   /* 8 MB */
+> +#define        FSI_CFAM_SHIFT          21                      /* Bits to shift */
+> +#define        FSI_CFAM_SIZE           (1 << FSI_CFAM_SHIFT)   /* 2 MB */
+> +#define        FSI_ENGINE_SHIFT        10                      /* Bits to shift */
+> +#define        FSI_ENGINE_SIZE         (1 << FSI_ENGINE_SHIFT) /* 1 KB */
+> +#define        FSI_LINK_MASK           0x1f800000              /* Bits for link */
+> +#define        FSI_CFAM_MASK           0x00600000              /* Bits for cfam */
+> +#define        FSI_ENGINE_MASK         0x000ffc00              /* Bits for engine */
+> +#define        FSI_PEEK_OFFSET         FSI_ENGINE_SIZE
+> +#define        FSI_SLAVE0_OFFSET       (2 * FSI_ENGINE_SIZE)
+> +#define        FSI_SLV_NO_ERROR        100             /* Slave has no error data */
+> +#define        FSI_BREAK               0xc0de0000      /* BREAK command */
+> +#define        FSI_TERM                0xecc00000      /* TERM command */
+> +#define        FSI_BREAK_TIME          180             /* # Seconds to allow BREAKs */
+> +#define        FSI_BREAK_CNT           3               /* limit for BREAK attempts */
+> +#define        FSI_PRIM                0               /* Generic Primary FSI master */
+> +#define        FSI_MBIT_MASK           0x3             /* FSI master  bits in pa */
+> +#define        FSI_ENG_MASK            0x00007FFF      /* The engine mask in MATRB */
+> +/* FSI Events */
+> +#define FSI_EVT_PLUG           6               /* Device plugged */
+> +#define FSI_LINK_BUILD         10              /* In build up phase */
+> +#define FSI_LINK_PROBE         11              /* In probing phase */
 > +
-> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
+> +/*
+> + * Return the link number where this device is attached
+> + */
+> +static inline int fsi_my_link(struct fsidevice *fdev)
+> +{
+> +       return fdev->map.link;
+> +}
+> +
+> +/*
+> + * Return CFAM number on link where this device is attached
+> + */
+> +static inline int fsi_my_cfam(struct fsidevice *fdev)
+> +{
+> +       return fdev->map.cfam;
+> +}
+> +
+> +/*
+> + * Determine the link address to send the break command to
+> + * This is master dependent
+> + */
+> +static inline int fsi_mtype_2break_id(u8 mtype)
+> +{
+> +       return FSI_MAX_CASCADE - 1;
+> +}
+> +
+> +/*
+> + * Build a mask where bit index 'x' is set (numbering from left to right.
+> + * Bit 0 is MSB and bit 31 is LSM.
+> + */
+> +static inline unsigned long mask32(int x)
+> +{
+> +       return 1 << (BITS_PER_LONG - x - 1);
 
-Can we get away without the guard here?
+Is this masking in IBM bit ordering?
 
-> +enum ast_i2c_slave_state {
-> +       AST_I2C_SLAVE_START,
-> +       AST_I2C_SLAVE_READ_REQUESTED,
-> +       AST_I2C_SLAVE_READ_PROCESSED,
-> +       AST_I2C_SLAVE_WRITE_REQUESTED,
-> +       AST_I2C_SLAVE_WRITE_RECEIVED,
-> +       AST_I2C_SLAVE_STOP,
+We should pull the macros (or at least copy them) from arch/powerpc so
+we can use them here.
+
+> +}
+> +
+> +/*
+> + * Various function prototypes
+> + */
+> +int slv_install(void);
+> +void slv_uninstall(void);
+> +
+> +void fsi_exit_fileio(dev_t);
+> +
+> +int fsibus_init(void);
+> +void fsibus_exit(void);
+> +
+> +#endif /* DRIVERS_FSI_PRIVATE_H */
+> diff --git a/drivers/fsi/fsicfam.h b/drivers/fsi/fsicfam.h
+> new file mode 100644
+> index 0000000..dde7036
+> --- /dev/null
+> +++ b/drivers/fsi/fsicfam.h
+> @@ -0,0 +1,46 @@
+> +/*
+> + * FSI CFAM structure definitions and defines
+> + *
+> + * Copyright 2016 IBM Corp.
+> + *
+> + * Christopher Bostic <cbostic@us.ibm.com>
+> + *
+> + * This program is free software; you can redistribute it and/or
+> + * modify it under the terms of the GNU General Public License
+> + * as published by the Free Software Foundation; either version
+> + * 2 of the License, or (at your option) any later version.
+> + */
+> +#ifndef DRIVERS_FSICFAM_H
+> +#define DRIVERS_FSICFAM_H
+> +
+> +#include "fsi.h"
+> +#include "fsi_private.h"
+> +
+> +#define FSI_MAX_ENGINES                32      /* Max # of engines per CFAM */
+> +
+> +struct fsicfam {                       /* CFAM internal structure */
+> +       struct fsidevice *engines[FSI_MAX_ENGINES];     /* CFAM engine data */
+> +       u32 cfgtab[FSI_MAX_ENGINES];    /* Configuration word */
+> +       u16 chipid;                     /* CFAM chip type (IOU, CFAM-S, etc) */
+> +       u8 id;                          /* CFAM Id */
+> +       bool has_submaster;             /* CFAM with cascaded or hub masters */
+> +       bool has_mux;                   /* CFAM with multiplexer */
+> +       u8 ec_maj;                      /* Major EC Level */
+> +       u8 ec_min;                      /* Minor EC Level or version number */
+> +       u16 pages;                      /* # Mapped pages */
+> +       u8 no_eng;                      /* Number of engines[] */
+> +       struct fsidevice fsidev;        /* LDM entry */
+> +       struct fsidevice hpdone;        /* Dummy engine to signal completion */
+> +       unsigned long eng_build;        /* True during engine activate */
+> +       struct fsimaster *master;       /* pointer to parent master */
 > +};
-> +#endif
 > +
-> +struct ast_i2c_bus {
-> +       struct i2c_adapter              adap;
-> +       struct device                   *dev;
-> +       void __iomem                    *base;
-> +       spinlock_t                      lock;
-> +       struct completion               cmd_complete;
-> +       int                             irq;
-> +       /* Transaction state. */
-> +       struct i2c_msg                  *msg;
-> +       int                             msg_pos;
-> +       u32                             cmd_err;
-> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
-> +       struct i2c_client               *slave;
-> +       enum ast_i2c_slave_state        slave_state;
-> +#endif
-> +};
-> +
-> +struct ast_i2c_controller {
-> +       struct device           *dev;
-> +       void __iomem            *base;
-> +       int                     irq;
-> +       struct irq_domain       *irq_domain;
-> +};
-> +
-> +static inline void ast_i2c_write(struct ast_i2c_bus *bus, u32 val, u32 reg)
-> +{
-> +       writel(val, bus->base + reg);
-> +}
-> +
-> +static inline u32 ast_i2c_read(struct ast_i2c_bus *bus, u32 reg)
-> +{
-> +       return readl(bus->base + reg);
-> +}
-> +
-> +static u8 ast_i2c_recover_bus(struct ast_i2c_bus *bus)
-> +{
-> +       u32 sts;
-> +       unsigned long time_left;
-> +       unsigned long flags;
-> +       int ret = 0;
-> +
-> +       spin_lock_irqsave(&bus->lock, flags);
-> +       sts = ast_i2c_read(bus, AST_I2C_CMD_REG);
+> +#define to_fsicfam(x)  container_of((x), struct fsicfam, fsidev)
 
-s/sts/status/
+Make this a function.
 
-> +       /* Bus is idle: no recovery needed. */
-> +       if ((sts & AST_I2CD_SDA_LINE_STS) && (sts & AST_I2CD_SCL_LINE_STS)) {
-> +               spin_unlock_irqrestore(&bus->lock, flags);
-> +               return 0;
-
-Would goto out, with out being just above the _ireqrestore at the
-bottom of this function, make it clearer that we are doing the correct
-lock/unlocking?
-
-> +       }
-> +       dev_dbg(bus->dev, "bus hung (status %x), attempting recovery\n", sts);
 > +
-> +       /* Bus held: put bus in stop state. */
-> +       if ((sts & AST_I2CD_SDA_LINE_STS) && !(sts & AST_I2CD_SCL_LINE_STS)) {
-> +               ast_i2c_write(bus, AST_I2CD_M_STOP_CMD, AST_I2C_CMD_REG);
-> +               reinit_completion(&bus->cmd_complete);
-> +               spin_unlock_irqrestore(&bus->lock, flags);
+> +/*
+> + * CFAM specific function prototypes.
+> + */
+> +int fsi_cfamirq_request(int, struct fsicfam *);
+> +void fsi_cfamirq_free(struct fsicfam *);
 > +
-> +               time_left = wait_for_completion_interruptible_timeout(
-> +                               &bus->cmd_complete, bus->adap.timeout * HZ);
+> +#endif /* DRIVERS_FSICFAM_H */
+> diff --git a/drivers/fsi/fsiinit.c b/drivers/fsi/fsiinit.c
+> index 767c0c3..c589294 100644
+> --- a/drivers/fsi/fsiinit.c
+> +++ b/drivers/fsi/fsiinit.c
+> @@ -13,7 +13,9 @@
+>
+>  #include <linux/init.h>
+>  #include <linux/module.h>
+> +#include <linux/kdev_t.h>
+>  #include "fsiinit.h"
+> +#include "fsimaster.h"
+>
+>  MODULE_AUTHOR("Christopher Bostic cbostic@us.ibm.com");
+>  MODULE_DESCRIPTION("FSI master device driver");
+> @@ -26,6 +28,7 @@ MODULE_DESCRIPTION("FSI master device driver");
+>  struct fsidd fsidd = {         /* FSI device driver structure definition */
+>         .magic = FSI_DD_MAGIC,
+>         .strno = FSI_DD_STRNO,
+> +       .major = MKDEV(FSIDD_MAJOR, 0),
+>  };
+>
+>  static int fsi_start(void)
+> @@ -33,6 +36,25 @@ static int fsi_start(void)
+>         int rc = 0;
+>
+>         dev_dbg(&fsidd.dev, "FSI DD v:%d installation ok\n", FSIDD_VERNO);
 > +
-> +               spin_lock_irqsave(&bus->lock, flags);
-
-I assume we are releasing the lock to wait for the completion?
-
-> +               if (time_left == 0)
-> +                       ret = -ETIMEDOUT;
-> +               else if (bus->cmd_err)
-> +                       ret = -EIO;
-> +       /* Bus error. */
-> +       } else if (!(sts & AST_I2CD_SDA_LINE_STS)) {
-> +               ast_i2c_write(bus, AST_I2CD_BUS_RECOVER_CMD, AST_I2C_CMD_REG);
-> +               reinit_completion(&bus->cmd_complete);
-> +               spin_unlock_irqrestore(&bus->lock, flags);
+> +       init_waitqueue_head(&fsidd.error_wq);
+> +       init_waitqueue_head(&fsidd.lbus_wq);
+> +       init_waitqueue_head(&fsidd.irq_wq);
+> +       init_waitqueue_head(&fsidd.link_wq);
 > +
-> +               time_left = wait_for_completion_interruptible_timeout(
-> +                               &bus->cmd_complete, bus->adap.timeout * HZ);
-> +
-> +               spin_lock_irqsave(&bus->lock, flags);
-> +               if (time_left == 0)
-> +                       ret = -ETIMEDOUT;
-> +               else if (bus->cmd_err)
-> +                       ret = -EIO;
-> +               /* Recovery failed. */
-> +               else if (!(ast_i2c_read(bus, AST_I2C_CMD_REG) &
-> +                          AST_I2CD_SDA_LINE_STS))
-> +                       ret = -EIO;
-> +       }
-> +       spin_unlock_irqrestore(&bus->lock, flags);
-> +       return ret;
-> +}
-> +
-> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
-> +static bool ast_i2c_slave_irq(struct ast_i2c_bus *bus)
-> +{
-> +       bool irq_handled = true;
-> +       u32 command;
-> +       u32 irq_status;
-
-Above we call it "sts", down here we call it "irq_status". I suggest a
-consistent name.
-
-> +       u32 status_ack = 0;
-> +       u8 value;
-> +       enum i2c_slave_event event;
-> +       struct i2c_client *slave = bus->slave;
-> +
-> +       spin_lock(&bus->lock);
-> +       if (!slave) {
-> +               irq_handled = false;
-> +               goto out;
-> +       }
-> +       command = ast_i2c_read(bus, AST_I2C_CMD_REG);
-> +       irq_status = ast_i2c_read(bus, AST_I2C_INTR_STS_REG);
-> +
-> +       /* Slave was requested, restart state machine. */
-> +       if (irq_status & AST_I2CD_INTR_SLAVE_MATCH) {
-> +               status_ack |= AST_I2CD_INTR_SLAVE_MATCH;
-> +               bus->slave_state = AST_I2C_SLAVE_START;
-> +       }
-> +       /* Slave is not currently active, irq was for someone else. */
-> +       if (bus->slave_state == AST_I2C_SLAVE_STOP) {
-> +               irq_handled = false;
-> +               goto out;
-> +       }
-> +
-> +       dev_dbg(bus->dev, "slave irq status 0x%08x, cmd 0x%08x\n",
-> +               irq_status, command);
-> +
-> +       /* Slave was sent something. */
-> +       if (irq_status & AST_I2CD_INTR_RX_DONE) {
-> +               value = ast_i2c_read(bus, AST_I2C_BYTE_BUF_REG) >> 8;
-
-What is "value"? Perhaps "request"?
-
-> +               /* Handle address frame. */
-> +               if (bus->slave_state == AST_I2C_SLAVE_START) {
-> +                       if (value & 0x1)
-> +                               bus->slave_state = AST_I2C_SLAVE_READ_REQUESTED;
-> +                       else
-> +                               bus->slave_state =
-> +                                               AST_I2C_SLAVE_WRITE_REQUESTED;
-> +               }
-> +               status_ack |= AST_I2CD_INTR_RX_DONE;
-> +       }
-> +
-> +       /* Slave was asked to stop. */
-> +       if (irq_status & AST_I2CD_INTR_NORMAL_STOP ||
-> +           irq_status & AST_I2CD_INTR_TX_NAK) {
-> +               if (irq_status & AST_I2CD_INTR_NORMAL_STOP)
-> +                       status_ack |= AST_I2CD_INTR_NORMAL_STOP;
-
-You're testing for the same thing in both if loops. Could you
-rearrange the logic?
-
-> +               else
-> +                       status_ack |= AST_I2CD_INTR_TX_NAK;
-> +               bus->slave_state = AST_I2C_SLAVE_STOP;
-> +       }
-> +
-> +       if (bus->slave_state == AST_I2C_SLAVE_READ_REQUESTED ||
-> +           bus->slave_state == AST_I2C_SLAVE_READ_PROCESSED) {
-> +               if (bus->slave_state == AST_I2C_SLAVE_READ_REQUESTED) {
-
-As above.
-
-> +                       event = I2C_SLAVE_READ_REQUESTED;
-> +                       if (irq_status & AST_I2CD_INTR_TX_ACK)
-> +                               dev_err(bus->dev,
-> +                                       "Unexpected ACK on read request.\n");
-> +               } else {
-> +                       status_ack |= AST_I2CD_INTR_TX_ACK;
-> +                       event = I2C_SLAVE_READ_PROCESSED;
-> +                       if (!(irq_status & AST_I2CD_INTR_TX_ACK))
-> +                               dev_err(bus->dev,
-> +                                       "Expected ACK after processed read.\n");
-> +               }
-> +               bus->slave_state = AST_I2C_SLAVE_READ_PROCESSED;
-> +
-> +               i2c_slave_event(slave, event, &value);
-> +               ast_i2c_write(bus, value, AST_I2C_BYTE_BUF_REG);
-> +               ast_i2c_write(bus, AST_I2CD_S_TX_CMD, AST_I2C_CMD_REG);
-> +       } else if (bus->slave_state == AST_I2C_SLAVE_WRITE_REQUESTED) {
-> +               bus->slave_state = AST_I2C_SLAVE_WRITE_RECEIVED;
-> +               i2c_slave_event(slave, I2C_SLAVE_WRITE_REQUESTED, &value);
-> +       } else if (bus->slave_state == AST_I2C_SLAVE_WRITE_RECEIVED) {
-> +               i2c_slave_event(slave, I2C_SLAVE_WRITE_RECEIVED, &value);
-> +       } else if (bus->slave_state == AST_I2C_SLAVE_STOP) {
-> +               i2c_slave_event(slave, I2C_SLAVE_STOP, &value);
-> +       }
-> +
-> +       if (status_ack != irq_status)
-> +               dev_err(bus->dev,
-> +                       "irq handled != irq. expected %x, but was %x\n",
-> +                       irq_status, status_ack);
-> +       ast_i2c_write(bus, status_ack, AST_I2C_INTR_STS_REG);
-> +
-> +out:
-> +       spin_unlock(&bus->lock);
-> +       return irq_handled;
-> +}
-> +#endif
-> +
-> +static bool ast_i2c_master_irq(struct ast_i2c_bus *bus)
-> +{
-> +       const u32 errs = AST_I2CD_INTR_ARBIT_LOSS |
-> +               AST_I2CD_INTR_ABNORMAL |
-> +               AST_I2CD_INTR_SCL_TIMEOUT |
-> +               AST_I2CD_INTR_SDA_DL_TIMEOUT |
-> +               AST_I2CD_INTR_TX_NAK;
-> +       u32 irq_status;
-> +
-> +       spin_lock(&bus->lock);
-> +       irq_status = ast_i2c_read(bus, AST_I2C_INTR_STS_REG);
-> +       bus->cmd_err |= irq_status & errs;
-> +
-> +       dev_dbg(bus->dev, "master irq status 0x%08x\n", irq_status);
-> +
-> +       /* No message to transfer. */
-> +       if (bus->cmd_err ||
-> +           (irq_status & AST_I2CD_INTR_NORMAL_STOP) ||
-> +           (irq_status & AST_I2CD_INTR_BUS_RECOVER_DONE)) {
-> +               complete(&bus->cmd_complete);
-> +               goto out;
-> +       } else if (!bus->msg || bus->msg_pos >= bus->msg->len)
-> +               goto out;
-> +
-> +       if ((bus->msg->flags & I2C_M_RD) &&
-> +           (irq_status & AST_I2CD_INTR_RX_DONE)) {
-> +               bus->msg->buf[bus->msg_pos++] =
-> +                               ast_i2c_read(bus, AST_I2C_BYTE_BUF_REG) >> 8;
-> +               if (bus->msg_pos + 1 < bus->msg->len)
-> +                       ast_i2c_write(bus, AST_I2CD_M_RX_CMD, AST_I2C_CMD_REG);
-> +               else if (bus->msg_pos < bus->msg->len)
-> +                       ast_i2c_write(bus, AST_I2CD_M_RX_CMD |
-> +                                     AST_I2CD_M_S_RX_CMD_LAST,
-> +                                     AST_I2C_CMD_REG);
-> +       } else if (!(bus->msg->flags & I2C_M_RD) &&
-> +                  (irq_status & AST_I2CD_INTR_TX_ACK)) {
-> +               ast_i2c_write(bus, bus->msg->buf[bus->msg_pos++],
-> +                             AST_I2C_BYTE_BUF_REG);
-> +               ast_i2c_write(bus, AST_I2CD_M_TX_CMD, AST_I2C_CMD_REG);
-> +       }
-> +
-> +       /* Transmission complete: notify caller. */
-> +       if (bus->msg_pos >= bus->msg->len)
-> +               complete(&bus->cmd_complete);
-> +out:
-> +       ast_i2c_write(bus, irq_status, AST_I2C_INTR_STS_REG);
-> +       spin_unlock(&bus->lock);
-> +       return true;
-> +}
-> +
-> +static irqreturn_t ast_i2c_bus_irq(int irq, void *dev_id)
-> +{
-> +       struct ast_i2c_bus *bus = dev_id;
-> +
-> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
-> +       if (ast_i2c_slave_irq(bus)) {
-> +               dev_dbg(bus->dev, "irq handled by slave.\n");
-> +               return IRQ_HANDLED;
-> +       }
-> +#endif
-> +       if (ast_i2c_master_irq(bus)) {
-> +               dev_dbg(bus->dev, "irq handled by master.\n");
-> +               return IRQ_HANDLED;
-> +       }
-> +       dev_err(bus->dev, "irq not handled properly!\n");
-> +       return IRQ_HANDLED;
-> +}
-> +
-> +static int ast_i2c_master_single_xfer(struct i2c_adapter *adap,
-> +                                     struct i2c_msg *msg)
-> +{
-> +       struct ast_i2c_bus *bus = adap->algo_data;
-> +       unsigned long flags;
-> +       u8 slave_addr;
-> +       u32 command = AST_I2CD_M_START_CMD | AST_I2CD_M_TX_CMD;
-> +       int ret = msg->len;
-> +       unsigned long time_left;
-> +
-> +       spin_lock_irqsave(&bus->lock, flags);
-> +       bus->msg = msg;
-> +       bus->msg_pos = 0;
-> +       slave_addr = msg->addr << 1;
-> +       if (msg->flags & I2C_M_RD) {
-> +               slave_addr |= 1;
-> +               command |= AST_I2CD_M_RX_CMD;
-> +       }
-> +       ast_i2c_write(bus, slave_addr, AST_I2C_BYTE_BUF_REG);
-> +       ast_i2c_write(bus, command, AST_I2C_CMD_REG);
-> +       reinit_completion(&bus->cmd_complete);
-> +       spin_unlock_irqrestore(&bus->lock, flags);
-> +
-> +       time_left = wait_for_completion_interruptible_timeout(
-> +                       &bus->cmd_complete, bus->adap.timeout * HZ * msg->len);
-> +       if (time_left == 0)
-> +               return -ETIMEDOUT;
-> +
-> +       spin_lock_irqsave(&bus->lock, flags);
-> +       if (bus->cmd_err)
-> +               ret = -EIO;
-> +       bus->msg = NULL;
-> +       spin_unlock_irqrestore(&bus->lock, flags);
-> +
-> +       return ret;
-> +}
-> +
-> +static int ast_i2c_master_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
-> +                              int num)
-> +{
-> +       struct ast_i2c_bus *bus = adap->algo_data;
-> +       int ret;
-> +       int i;
-> +       unsigned long flags;
-> +       unsigned long time_left;
-> +
-> +       /* If bus is busy, attempt recovery. We assume a single master
-> +        * environment.
+> +       /*
+> +        * Initialize the the master
 > +        */
-> +       if (ast_i2c_read(bus, AST_I2C_CMD_REG) & AST_I2CD_BUS_BUSY_STS) {
-> +               ret = ast_i2c_recover_bus(bus);
-> +               if (ret)
-> +                       return ret;
-> +       }
-> +
-> +       for (i = 0; i < num; i++) {
-> +               ret = ast_i2c_master_single_xfer(adap, &msgs[i]);
-> +               if (ret < 0)
-> +                       break;
-> +               /* TODO: Support other forms of I2C protocol mangling. */
-> +               if (msgs[i].flags & I2C_M_STOP) {
-> +                       spin_lock_irqsave(&bus->lock, flags);
-> +                       ast_i2c_write(bus, AST_I2CD_M_STOP_CMD,
-> +                                     AST_I2C_CMD_REG);
-> +                       reinit_completion(&bus->cmd_complete);
-> +                       spin_unlock_irqrestore(&bus->lock, flags);
-> +
-> +                       time_left = wait_for_completion_interruptible_timeout(
-> +                                       &bus->cmd_complete,
-> +                                       bus->adap.timeout * HZ);
-> +                       if (time_left == 0)
-> +                               return -ETIMEDOUT;
-> +               }
-> +       }
-> +
-> +       spin_lock_irqsave(&bus->lock, flags);
-> +       ast_i2c_write(bus, AST_I2CD_M_STOP_CMD, AST_I2C_CMD_REG);
-> +       reinit_completion(&bus->cmd_complete);
-> +       spin_unlock_irqrestore(&bus->lock, flags);
-> +
-> +       time_left = wait_for_completion_interruptible_timeout(
-> +                       &bus->cmd_complete, bus->adap.timeout * HZ);
-> +       if (time_left == 0)
-> +               return -ETIMEDOUT;
-> +
-> +       /* If nothing went wrong, return number of messages transferred. */
-> +       if (ret < 0)
-> +               return ret;
-> +       else
-> +               return i;
-> +}
-> +
-> +static u32 ast_i2c_functionality(struct i2c_adapter *adap)
-> +{
-> +       return I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL | I2C_FUNC_SMBUS_BLOCK_DATA;
-> +}
-> +
-> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
-> +static int ast_i2c_reg_slave(struct i2c_client *client)
-> +{
-> +       struct ast_i2c_bus *bus;
-> +       unsigned long flags;
-> +       u32 addr_reg_val;
-> +       u32 func_ctrl_reg_val;
-> +
-> +       bus = client->adapter->algo_data;
-> +       spin_lock_irqsave(&bus->lock, flags);
-> +       if (bus->slave) {
-> +               spin_unlock_irqrestore(&bus->lock, flags);
-> +               return -EINVAL;
-> +       }
-> +
-> +       /* Set slave addr. */
-> +       addr_reg_val = ast_i2c_read(bus, AST_I2C_DEV_ADDR_REG);
-> +       addr_reg_val &= ~AST_I2CD_DEV_ADDR_MASK;
-> +       addr_reg_val |= client->addr & AST_I2CD_DEV_ADDR_MASK;
-> +       ast_i2c_write(bus, addr_reg_val, AST_I2C_DEV_ADDR_REG);
-> +
-> +       /* Switch from master mode to slave mode. */
-> +       func_ctrl_reg_val = ast_i2c_read(bus, AST_I2C_FUN_CTRL_REG);
-> +       func_ctrl_reg_val &= ~AST_I2CD_MASTER_EN;
-> +       func_ctrl_reg_val |= AST_I2CD_SLAVE_EN;
-> +       ast_i2c_write(bus, func_ctrl_reg_val, AST_I2C_FUN_CTRL_REG);
-> +
-> +       bus->slave = client;
-> +       bus->slave_state = AST_I2C_SLAVE_STOP;
-> +       spin_unlock_irqrestore(&bus->lock, flags);
-> +       return 0;
-> +}
-> +
-> +static int ast_i2c_unreg_slave(struct i2c_client *client)
-> +{
-> +       struct ast_i2c_bus *bus = client->adapter->algo_data;
-> +       unsigned long flags;
-> +       u32 func_ctrl_reg_val;
-> +
-> +       spin_lock_irqsave(&bus->lock, flags);
-> +       if (!bus->slave) {
-> +               spin_unlock_irqrestore(&bus->lock, flags);
-> +               return -EINVAL;
-> +       }
-> +
-> +       /* Switch from slave mode to master mode. */
-> +       func_ctrl_reg_val = ast_i2c_read(bus, AST_I2C_FUN_CTRL_REG);
-> +       func_ctrl_reg_val &= ~AST_I2CD_SLAVE_EN;
-> +       func_ctrl_reg_val |= AST_I2CD_MASTER_EN;
-> +       ast_i2c_write(bus, func_ctrl_reg_val, AST_I2C_FUN_CTRL_REG);
-> +
-> +       bus->slave = NULL;
-> +       spin_unlock_irqrestore(&bus->lock, flags);
-> +       return 0;
-> +}
-> +#endif
-> +
-> +static const struct i2c_algorithm ast_i2c_algo = {
-> +       .master_xfer    = ast_i2c_master_xfer,
-> +       .functionality  = ast_i2c_functionality,
-> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
-> +       .reg_slave      = ast_i2c_reg_slave,
-> +       .unreg_slave    = ast_i2c_unreg_slave,
-> +#endif
-> +};
-> +
-> +static u32 ast_i2c_get_clk_reg_val(u32 divider_ratio)
-> +{
-> +       unsigned int inc = 0, div;
-> +       u32 scl_low, scl_high, data;
-> +
-> +       for (div = 0; divider_ratio >= 16; div++) {
-> +               inc |= (divider_ratio & 1);
-> +               divider_ratio >>= 1;
-> +       }
-> +       divider_ratio += inc;
-> +       scl_low = (divider_ratio >> 1) - 1;
-> +       scl_high = divider_ratio - scl_low - 2;
-> +       data = 0x77700300 | (scl_high << 16) | (scl_low << 12) | div;
-> +       return data;
-> +}
-> +
-> +static int ast_i2c_init_clk(struct ast_i2c_bus *bus,
-> +                           struct platform_device *pdev)
-> +{
-> +       struct clk *pclk;
-> +       u32 clk_freq;
-> +       u32 divider_ratio;
-> +       int ret;
-> +
-> +       pclk = devm_clk_get(&pdev->dev, NULL);
-> +       if (IS_ERR(pclk)) {
-> +               dev_err(&pdev->dev, "clk_get failed\n");
-> +               return PTR_ERR(pclk);
-> +       }
-> +       ret = of_property_read_u32(pdev->dev.of_node,
-> +                       "clock-frequency", &clk_freq);
-> +       if (ret < 0) {
-> +               dev_err(&pdev->dev,
-> +                               "Could not read clock-frequency property\n");
-> +               clk_freq = 100000;
-> +       }
-> +       divider_ratio = clk_get_rate(pclk) / clk_freq;
-> +       /* We just need the clock rate, we don't actually use the clk object. */
-> +       devm_clk_put(&pdev->dev, pclk);
-> +
-> +       /* Set AC Timing */
-> +       if (clk_freq / 1000 > 400) {
-> +               ast_i2c_write(bus, ast_i2c_read(bus, AST_I2C_FUN_CTRL_REG) |
-> +                               AST_I2CD_M_HIGH_SPEED_EN |
-> +                               AST_I2CD_M_SDA_DRIVE_1T_EN |
-> +                               AST_I2CD_SDA_DRIVE_1T_EN,
-> +                               AST_I2C_FUN_CTRL_REG);
-> +
-> +               ast_i2c_write(bus, 0x3, AST_I2C_AC_TIMING_REG2);
-> +               ast_i2c_write(bus, ast_i2c_get_clk_reg_val(divider_ratio),
-> +                             AST_I2C_AC_TIMING_REG1);
-> +       } else {
-> +               ast_i2c_write(bus, ast_i2c_get_clk_reg_val(divider_ratio),
-> +                             AST_I2C_AC_TIMING_REG1);
-> +               ast_i2c_write(bus, AST_NO_TIMEOUT_CTRL, AST_I2C_AC_TIMING_REG2);
-> +       }
-> +
-> +       return 0;
-> +}
-> +
-> +static int ast_i2c_probe_bus(struct platform_device *pdev)
-> +{
-> +       struct ast_i2c_bus *bus;
-> +       struct resource *res;
-> +       int ret, bus_num;
-> +
-> +       bus = devm_kzalloc(&pdev->dev, sizeof(*bus), GFP_KERNEL);
-> +       if (!bus)
-> +               return -ENOMEM;
-> +
-> +       ret = of_property_read_u32(pdev->dev.of_node, "bus", &bus_num);
-> +       if (ret)
-> +               return -ENXIO;
-> +
-> +       res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +       bus->base = devm_ioremap_resource(&pdev->dev, res);
-> +       if (IS_ERR(bus->base))
-> +               return PTR_ERR(bus->base);
-> +
-> +       bus->irq = platform_get_irq(pdev, 0);
-> +       if (bus->irq < 0) {
-> +               dev_err(&pdev->dev, "platform_get_irq failed\n");
-> +               return -ENXIO;
-> +       }
-> +
-> +       ret = devm_request_irq(&pdev->dev, bus->irq, ast_i2c_bus_irq,
-> +                       0, dev_name(&pdev->dev), bus);
-> +       if (ret) {
-> +               dev_err(&pdev->dev, "devm_request_irq failed\n");
-> +               return -ENXIO;
-> +       }
-> +
-> +       /* Initialize the I2C adapter */
-> +       spin_lock_init(&bus->lock);
-> +       init_completion(&bus->cmd_complete);
-> +       bus->adap.nr = bus_num;
-> +       bus->adap.owner = THIS_MODULE;
-> +       bus->adap.retries = 0;
-> +       bus->adap.timeout = 5;
-> +       bus->adap.algo = &ast_i2c_algo;
-> +       bus->adap.algo_data = bus;
-> +       bus->adap.dev.parent = &pdev->dev;
-> +       bus->adap.dev.of_node = pdev->dev.of_node;
-> +       snprintf(bus->adap.name, sizeof(bus->adap.name), "Aspeed i2c-%d",
-> +                       bus_num);
-> +
-> +       bus->dev = &pdev->dev;
-> +
-> +       /* reset device: disable master & slave functions */
-> +       ast_i2c_write(bus, 0, AST_I2C_FUN_CTRL_REG);
-> +
-> +       ret = ast_i2c_init_clk(bus, pdev);
-> +       if (ret < 0)
-> +               return ret;
-> +
-> +       /* Enable Master Mode */
-> +       ast_i2c_write(bus, ast_i2c_read(bus, AST_I2C_FUN_CTRL_REG) |
-> +                     AST_I2CD_MASTER_EN |
-> +                     AST_I2CD_MULTI_MASTER_DIS, AST_I2C_FUN_CTRL_REG);
-> +
-> +       /* Set interrupt generation of I2C controller */
-> +       ast_i2c_write(bus, AST_I2CD_INTR_SDA_DL_TIMEOUT |
-> +                       AST_I2CD_INTR_BUS_RECOVER_DONE |
-> +                       AST_I2CD_INTR_SCL_TIMEOUT |
-> +                       AST_I2CD_INTR_ABNORMAL |
-> +                       AST_I2CD_INTR_NORMAL_STOP |
-> +                       AST_I2CD_INTR_ARBIT_LOSS |
-> +                       AST_I2CD_INTR_RX_DONE |
-> +                       AST_I2CD_INTR_TX_NAK |
-> +                       AST_I2CD_INTR_TX_ACK,
-> +                       AST_I2C_INTR_CTRL_REG);
-> +
-> +       ret = i2c_add_numbered_adapter(&bus->adap);
-> +       if (ret < 0)
-> +               return -ENXIO;
-> +
-> +       platform_set_drvdata(pdev, bus);
-> +
-> +       dev_info(bus->dev, "i2c bus %d registered, irq %d\n",
-> +                       bus->adap.nr, bus->irq);
-> +
-> +       return 0;
-> +}
-> +
-> +static int ast_i2c_remove_bus(struct platform_device *pdev)
-> +{
-> +       struct ast_i2c_bus *bus = platform_get_drvdata(pdev);
-> +
-> +       i2c_del_adapter(&bus->adap);
-> +       return 0;
-> +}
-> +
-> +static const struct of_device_id ast_i2c_bus_of_table[] = {
-> +       { .compatible = "aspeed,ast2400-i2c-bus", },
-> +       { .compatible = "aspeed,ast2500-i2c-bus", },
-> +       { },
-> +};
-> +MODULE_DEVICE_TABLE(of, ast_i2c_of_table);
-> +
-> +static struct platform_driver ast_i2c_bus_driver = {
-> +       .probe          = ast_i2c_probe_bus,
-> +       .remove         = ast_i2c_remove_bus,
-> +       .driver         = {
-> +               .name   = "ast-i2c-bus",
-> +               .of_match_table = ast_i2c_bus_of_table,
-> +       },
-> +};
-> +module_platform_driver(ast_i2c_bus_driver);
-> +
-> +static void noop(struct irq_data *data) { }
-> +
-> +static struct irq_chip ast_i2c_irqchip = {
-> +       .name           = "ast-i2c",
-> +       .irq_unmask     = noop,
-> +       .irq_mask       = noop,
+> +       if (!fsimaster_build_init(&fsidd.pri_master, FSI_PRIM, 0)) {
+> +               rc = PTR_ERR(0);
 
-Not sure about this. Are we able to leave them as null?
+???
 
-> +};
+> +               goto err;
+> +       }
+> +       fsimaster_start(&fsidd.pri_master);
+> +       dev_dbg(&fsidd.dev, "FSI DD v%d installation ok\n", FSIDD_VERNO);
+> +       return rc;
 > +
-> +static void ast_i2c_controller_irq(struct irq_desc *desc)
+> +err:
+> +       dev_dbg(&fsidd.dev, "FSI DD v:%d installation failed\n", FSIDD_VERNO);
+>         return rc;
+
+Your formatting is broken.
+
+>  }
+>
+> diff --git a/drivers/fsi/fsiinit.h b/drivers/fsi/fsiinit.h
+> index 93662533..10ddfc0 100644
+> --- a/drivers/fsi/fsiinit.h
+> +++ b/drivers/fsi/fsiinit.h
+> @@ -19,6 +19,7 @@
+>  #include <linux/device.h>
+>  #include <linux/workqueue.h>
+>  #include <linux/hrtimer.h>
+> +#include "fsimaster.h"
+>
+>  #define FSI_DD_MAGIC   0x64644632      /* ddF2 */
+>  #define FSI_DD_STRNO   0x1             /* Structure version number */
+> @@ -34,6 +35,7 @@ struct fsidd {                                /* FSI Main structure */
+>         wait_queue_head_t link_wq;      /* Wait queue for link changes */
+>         unsigned long state;            /* State driver is in */
+>         struct device dev;              /* Anchor point in /sys/kernel */
+> +       struct fsimaster pri_master;    /* Primary FSI master */
+>  };
+>
+>  #define        to_fsidd_prim(a)        container_of(a, struct fsidd, pri_master)
+> diff --git a/drivers/fsi/fsimaster.c b/drivers/fsi/fsimaster.c
+> new file mode 100644
+> index 0000000..b5d16db
+> --- /dev/null
+> +++ b/drivers/fsi/fsimaster.c
+> @@ -0,0 +1,242 @@
+> +/*
+> + * FSI Master Control
+> + *
+> + * Copyright 2016 IBM Corp.
+> + *
+> + * Christopher Bostic <cbostic@us.ibm.com>
+> + *
+> + * This program is free software; you can redistribute it and/or
+> + * modify it under the terms of the GNU General Public License
+> + * as published by the Free Software Foundation; either version
+> + * 2 of the License, or (at your option) any later version.
+> + */
+> +
+> +#include <linux/err.h>
+> +#include <linux/delay.h>
+> +#include <linux/ktime.h>
+> +#include <linux/io.h>
+> +#include "fsi.h"
+> +#include "fsiinit.h"
+> +#include "fsimaster.h"
+> +#include "fsicfam.h"
+> +
+> +static int hpinfo_alloc(struct fsimaster *master)
 > +{
-> +       struct ast_i2c_controller *c = irq_desc_get_handler_data(desc);
-> +       unsigned long p, status;
-> +       unsigned int bus_irq;
+> +       return 0;
+> +}
 > +
-> +       status = readl(c->base);
-> +       for_each_set_bit(p, &status, AST_I2C_NUM_BUS) {
-> +               bus_irq = irq_find_mapping(c->irq_domain, p);
-> +               generic_handle_irq(bus_irq);
+> +static inline unsigned int fsimid(struct fsimaster *master)
+> +{
+> +       return master->myid;
+> +}
+> +
+> +static void primaster_exit(struct fsimaster *master)
+> +{
+> +       if (master->dcr_alloc) {
+> +               master->base = NULL;
+> +               master->dcr_alloc = false;
 > +       }
 > +}
 > +
-> +static int ast_i2c_probe_controller(struct platform_device *pdev)
+> +/*
+> + * Read/write functions to access primary FSI master registers
+> + * Note that this master is virtual as we don't yet have any
+> + * real FSI masters implemented in hardware
+
+"virtual"? What's the purpose of this code?
+
+> + */
+> +static u32 virt_master_readreg(struct fsi_mreg *mbase, int regnm)
 > +{
-> +       struct ast_i2c_controller *controller;
-> +       struct device_node *np;
-> +       struct resource *res;
-> +       int i, irq;
+> +       u32 *base = (u32 *)mbase;
 > +
-> +       controller = kzalloc(sizeof(*controller), GFP_KERNEL);
-> +       if (!controller)
-> +               return -ENOMEM;
+> +       return *(base + regnm);
+> +}
 > +
-> +       res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +       controller->base = devm_ioremap_resource(&pdev->dev, res);
-> +       if (IS_ERR(controller->base))
-> +               return PTR_ERR(controller->base);
+> +static void virt_master_readreg2(struct fsi_mreg *mbase, int regnm, u64 *dest)
+> +{
+> +       u32 *base = (u32 *)mbase;
 > +
-> +       controller->irq = platform_get_irq(pdev, 0);
-> +       if (controller->irq < 0) {
-> +               dev_err(&pdev->dev, "no platform IRQ\n");
-> +               return -ENXIO;
+> +       memcpy(dest, base + regnm, sizeof(u64));
+> +}
+> +
+> +static void virt_master_readreg4(struct fsi_mreg *mbase, int regnm, u32 *dest)
+> +{
+> +       u32 *base = (u32 *)mbase;
+> +
+> +       memcpy(dest, base + regnm, 4 * sizeof(u32));
+> +}
+> +
+> +static void writereg_array(struct fsi_mreg *mbase, int regnm,
+> +                          u32 *val, size_t size)
+> +{
+> +       int i;
+> +       u32 r_value, new_value[size];
+> +       u32 *base = (u32 *)mbase;
+> +
+> +       if (regnm == FSI_N_MRESB0) {
+> +               /* A write to the reset register clears out MESRB */
+> +               *(base + regnm) = 0;
+> +               return;
 > +       }
 > +
-> +       controller->irq_domain = irq_domain_add_linear(pdev->dev.of_node,
-> +                       AST_I2C_NUM_BUS, &irq_domain_simple_ops, NULL);
-> +       if (!controller->irq_domain) {
-> +               dev_err(&pdev->dev, "no IRQ domain\n");
-> +               return -ENXIO;
-> +       }
-> +       controller->irq_domain->name = "ast-i2c-domain";
-> +
-> +       for (i = 0; i < AST_I2C_NUM_BUS; i++) {
-
-Could we just create the buses that are defined as enabled in the device tree?
-
-> +               irq = irq_create_mapping(controller->irq_domain, i);
-> +               irq_set_chip_data(irq, controller);
-> +               irq_set_chip_and_handler(irq, &ast_i2c_irqchip,
-> +                               handle_simple_irq);
-> +       }
-> +
-> +       irq_set_chained_handler_and_data(controller->irq,
-> +                       ast_i2c_controller_irq, controller);
-> +
-> +       controller->dev = &pdev->dev;
-> +
-> +       platform_set_drvdata(pdev, controller);
-> +
-> +       dev_info(controller->dev, "i2c controller registered, irq %d\n",
-> +                       controller->irq);
-> +
-> +       for_each_child_of_node(pdev->dev.of_node, np) {
-> +               int ret;
-> +               u32 bus_num;
-> +               char bus_id[sizeof("i2c-12345")];
+> +       for (i = 0, base += regnm; i < size; ++i) {
+> +               new_value[i] = *(val + i);
 > +
 > +               /*
-> +                * Set a useful name derived from the bus number; the device
-> +                * tree should provide us with one that corresponds to the
-> +                * hardware numbering.  If the property is missing the
-> +                * probe would fail so just skip it here.
+> +                * The master control registers have various modes when
+> +                * written; direct copy or set/clear under mask
 > +                */
+> +               if (FSI_CLEAR_UNDER_MASK(regnm)) {
+> +                       r_value = virt_master_readreg(mbase, regnm);
+> +                       new_value[i] = r_value &= ~(*(val + i));
+> +               } else if (FSI_SET_UNDER_MASK(regnm)) {
+> +                       r_value = virt_master_readreg(mbase, regnm);
+> +                       new_value[i] = r_value |= *(val + i);
+> +               }
+> +               /*
+> +                * If not set or clear under mask type register then simply
+> +                * copy value
+> +                */
+> +               *base++ = new_value[i];
+> +       }
+> +}
 > +
-> +               ret = of_property_read_u32(np, "bus", &bus_num);
-> +               if (ret)
-> +                       continue;
+> +static void virt_master_writereg(struct fsi_mreg *base, int regnm, u32 val)
+> +{
+> +       writereg_array(base, regnm, &val, 1);
+> +}
 > +
-> +               ret = snprintf(bus_id, sizeof(bus_id), "i2c-%u", bus_num);
-> +               if (ret >= sizeof(bus_id))
-> +                       continue;
+> +static void virt_master_writereg2(struct fsi_mreg *base, int regnm, u64 *val)
+> +{
+> +       writereg_array(base, regnm, (u32 *)val, 2);
+> +}
 > +
-> +               of_platform_device_create(np, bus_id, &pdev->dev);
-> +               of_node_put(np);
+> +static void virt_master_writereg8(struct fsi_mreg *base, int regnm, u32 *val)
+> +{
+> +       writereg_array(base, regnm, val, 8);
+> +}
+> +
+> +static int primaster_init(struct fsimaster *master)
+> +{
+> +       master->read_reg = virt_master_readreg;
+> +       master->read_reg2 = virt_master_readreg2;
+> +       master->read_reg4 = virt_master_readreg4;
+> +       master->write_reg = virt_master_writereg;
+> +       master->write_reg2 = virt_master_writereg2;
+> +       master->write_reg8 = virt_master_writereg8;
+> +       master->maxlinks = PRI_MAX_LINKS;
+> +       master->have_peek = true;
+> +       master->irqbase = 0;
+> +       memset(&master->base, 0, sizeof(struct fsi_mreg));
+> +       master->dcr_alloc = true;
+> +       if (hpinfo_alloc(master))
+> +               primaster_exit(master);
+> +
+> +       return master->base ? 0 : 1;
+> +}
+> +
+> +static int fsimaster_init(struct fsimaster *master)
+> +{
+> +       int rc = 0;
+> +
+> +       memset(&master->quirks, 0, sizeof(struct master_quirks));
+> +       master->quirks.break_cfam_id = fsi_mtype_2break_id(master->type);
+> +       master->cfam_size = 0;
+> +       master->m_get = NULL;
+> +       master->m_pa2irq = NULL;
+> +       master->m_exit = NULL;
+> +
+> +       rc = primaster_init(master);
+> +
+> +       return rc;
+> +}
+> +
+> +struct fsimaster *fsimaster_get_top_master(struct fsimaster *master)
+> +{
+> +       struct fsimaster *parent = NULL;
+> +
+> +       while (master) {
+> +               parent = master;
+> +               master = master->parent;
 > +       }
 > +
-> +       return 0;
+> +       return parent;
 > +}
 > +
-> +static int ast_i2c_remove_controller(struct platform_device *pdev)
+> +static int fsimaster_reset(struct fsimaster *master)
 > +{
-> +       struct ast_i2c_controller *controller = platform_get_drvdata(pdev);
+> +       u32 reg = 0;
+> +       u64 reg2 = 0;
+> +       int rc = 0;
+> +       struct fsidd *dd = NULL;
 > +
-> +       irq_domain_remove(controller->irq_domain);
-> +       return 0;
+> +       dd = to_fsidd_prim(fsimaster_get_top_master(master));
+> +
+> +       reg = master->read_reg(master->base, FSI_N_MVER);
+> +       if (fsi_mver_extlink(reg) != master->maxlinks) {
+> +               rc = -EINVAL;
+> +               goto out;
+> +       }
+> +       /* Reset all bridges and ports */
+> +       reg = FSI_MRESP_RST_ALL_MSTR | FSI_MRESP_RST_ALL_LINK
+> +               | FSI_MRESP_RST_MCR | FSI_MRESP_RST_PYE;
+> +       master->write_reg(master->base, FSI_N_MRESP0, reg);
+> +
+> +       /* Set up control */
+> +       reg = (master->type == FSI_PRIM) ? FSI_MECTRL_FPME : FSI_MECTRL_EOAE;
+> +       master->write_reg(master->base, FSI_N_MECTRL, reg);
+> +
+> +       /* Set up mode */
+> +       reg = fsi_mmode_crs0(1) | fsi_mmode_crs1(1);
+> +       master->write_reg(master->base, FSI_N_MMODE, reg);
+> +
+> +       /* Set up delay characteristics */
+> +       master->write_reg(master->base, FSI_N_MDLYR, FSI_MDLYR_DFLT);
+> +
+> +       /* Enable all links for a short time */
+> +       reg2 = ~0;
+> +       master->write_reg2(master->base, FSI_N_MSENP0, &reg2);
+> +
+> +       mdelay(1);
+> +       master->write_reg2(master->base, FSI_N_MCENP0, &reg2);
+> +
+> +       reg2 = FSI_MRESP_RST_ALL_MSTR | FSI_MRESP_RST_ALL_LINK;
+> +       master->write_reg(master->base, FSI_N_MRESP0, reg2);
+> +out:
+> +       return rc;
 > +}
 > +
-> +static const struct of_device_id ast_i2c_controller_of_table[] = {
-> +       { .compatible = "aspeed,ast2400-i2c-controller", },
-> +       { .compatible = "aspeed,ast2500-i2c-controller", },
-> +       { },
+> +struct fsimaster *fsimaster_build_init(struct fsimaster *master, int type,
+> +                                      struct fsidevice *parent)
+> +{
+> +       int rc = 0;
+> +       struct fsidd *dd = NULL;
+> +
+> +       if (!master)
+> +               goto out;
+> +       if (!parent)
+> +               dd = to_fsidd_prim(master);
+> +       else {
+> +               struct fsicfam *cfam = to_fsicfam(parent->parent);
+> +
+> +               dd = to_fsidd_prim(fsimaster_get_top_master(cfam->master));
+> +       }
+> +       master->type = type;
+> +       master->fsidev = parent;
+> +       if (fsimaster_init(master)) {
+> +               master = NULL;
+> +               goto out;
+> +       }
+> +       if (fsimaster_reset(master)) {
+> +               rc = -EIO;
+> +               master = NULL;
+> +               goto out;
+> +       }
+> +out:
+> +       return master ? : ERR_PTR(rc);
+> +}
+> +
+> +/*
+> + * Kick off the master so it can start probing for attached CFAMs
+> + */
+> +void fsimaster_start(struct fsimaster *master)
+> +{
+> +}
+> diff --git a/drivers/fsi/fsimaster.h b/drivers/fsi/fsimaster.h
+> new file mode 100644
+> index 0000000..4df2caf
+> --- /dev/null
+> +++ b/drivers/fsi/fsimaster.h
+> @@ -0,0 +1,655 @@
+> +/*
+> + * FSI Master device driver structure definitions and defines
+> + *
+> + * Copyright 2016 IBM Corp.
+> + *
+> + * Christopher Bostic <cbostic@us.ibm.com>
+> + *
+> + * This program is free software; you can redistribute it and/or
+> + * modify it under the terms of the GNU General Public License
+> + * as published by the Free Software Foundation; either version
+> + * 2 of the License, or (at your option) any later version.
+> + */
+> +#ifndef DRIVERS_FSIMASTER_H
+> +#define DRIVERS_FSIMASTER_H
+> +
+> +#include "fsi_private.h"
+> +#include "fsi.h"
+> +#include "fsicfam.h"
+> +
+> +#define FSI_MAX_PING_ATTEMPTS  12
+> +#define        FSI_PLUG_CHECK_TIME     100
+> +#define FSI_DFLT_IPOLL_CHECK   800
+> +
+> +/* FSI master register numbers */
+> +#define        FSI_N_MMODE     0       /* 0x0   R/W: mode register */
+> +#define        FSI_N_MDLYR     1       /* 0x4   R/W: delay register */
+> +#define        FSI_N_MCRSP0    2       /* 0x8   R/W: clock rate selector register 0 */
+> +#define        FSI_N_MCRSP32   3       /* 0xC   R/W: clock rate selector register 1 */
+> +#define        FSI_N_MENP      4       /* 0x10  R/W: enable clock register 0 */
+> +#define        FSI_N_MENP32    5       /* 0x14  R/W: enable clock register 1 */
+> +#define        FSI_N_MLEVP     6       /* 0x18  R: static level register 0 */
+> +#define        FSI_N_MLEVP32   7       /* 0x1C  R: static level register 1 */
+> +#define        FSI_N_MSENP0    6       /* 0x18  S: set enable clock register 0 */
+> +#define        FSI_N_MREFP0    8       /* 0x20  R: link reference register 0 */
+> +#define        FSI_N_MCENP0    8       /* 0x20  W: clear enable port register 0 */
+> +#define        FSI_N_MHPMP0    10      /* 0x28  R: hot plug reference register 0 */
+> +#define        FSI_N_MCHPMP0   10      /* 0x28  W: clear hot plug reference reg 0 */
+> +#define        FSI_N_MSIEP0    12      /* 0x30  R/W: Ipoll register 0 */
+> +#define        FSI_N_MSIEP32   16      /* 0x40  R/W: Ipoll register 4 */
+> +#define        FSI_N_MAESP0    20      /* 0x50  R: any error port register 0 */
+> +#define        FSI_N_MAESP32   24      /* 0x60  R: any error port register 4 */
+> +#define        FSI_N_MSSIEP0   20      /* 0x50  W: set Ipoll register 0 */
+> +#define        FSI_N_MAEB      28      /* 0x70  R: any error bridge */
+> +#define        FSI_N_MVER      29      /* 0x74  R: version register */
+> +#define        FSI_N_MBSYP0    30      /* 0x78  R: port busy register 0 */
+> +#define        FSI_N_MCSIEP0   28      /* 0x70  W: clear Ipoll register 0 */
+> +#define        FSI_N_MDRSB1    36      /* 0x90  R/W: DMA select register master 1 */
+> +#define        FSI_N_MSTAP0    52      /* 0xd0  R: port status reg 0-63 (0xd0-0x1cc) */
+> +#define        FSI_N_MRESP0    52      /* 0xd0  W: port reset regr 0-63 (0xd0-0x1cc) */
+> +#define        FSI_N_MESRB0    116     /* 0x1d0 R: error syndrome register 0-16 */
+> +#define        FSI_N_MRESB0    116     /* 0x1d0 W: reset reg master 0-16 (x1d0-x210) */
+> +#define        FSI_N_MSCSB0    117     /* 0x1d4 R: master sub cmd stack register 0 */
+> +#define        FSI_N_MATRB0    118     /* 0x1d8 R: master address trace register 0 */
+> +#define        FSI_N_MDTRB0    119     /* 0x1dc R: master data trace register 0 */
+> +#define        FSI_N_MECTRL    184     /* 0x2e0 R/W: error control register master 0 */
+> +#define        FSI_N_MAESP_SZ  8       /* # of error port register 0-7 */
+> +
+> +#define FSI_MSIEP_REG_COUNT    8
+> +#define PRI_MAX_LINKS          FSI_MAX_LINKS
+> +
+> +/*
+> + * Model clear under mask (CU) and set under mask (SU) Read only (RO)
+> + * and Write only (WO) behavior for virtual Primary FSI Master
+> + */
+> +#define FSI_CLEAR_UNDER_MASK(x)  ((x) == FSI_N_MCENP0 \
+> +                       || ((x) == FSI_N_MCENP0 + 1)  \
+> +                       ||  (x) == FSI_N_MCHPMP0      \
+> +                       || ((x) == FSI_N_MCHPMP0 + 1) \
+> +                       ||  (x) == FSI_N_MCSIEP0      \
+> +                       || ((x) == FSI_N_MCSIEP0 + 1) \
+> +                       || ((x) == FSI_N_MCSIEP0 + 2) \
+> +                       || ((x) == FSI_N_MCSIEP0 + 3) \
+> +                       || ((x) == FSI_N_MCSIEP0 + 4) \
+> +                       || ((x) == FSI_N_MCSIEP0 + 5) \
+> +                       || ((x) == FSI_N_MCSIEP0 + 6) \
+> +                       || ((x) == FSI_N_MCSIEP0 + 7))
+> +#define FSI_SET_UNDER_MASK(x)  ((x) == FSI_N_MSENP0   \
+> +                       || ((x) == FSI_N_MSENP0 + 1)  \
+> +                       ||  (x) == FSI_N_MSSIEP0      \
+> +                       || ((x) == FSI_N_MSSIEP0 + 1) \
+> +                       || ((x) == FSI_N_MSSIEP0 + 2) \
+> +                       || ((x) == FSI_N_MSSIEP0 + 3) \
+> +                       || ((x) == FSI_N_MSSIEP0 + 4) \
+> +                       || ((x) == FSI_N_MSSIEP0 + 5) \
+> +                       || ((x) == FSI_N_MSSIEP0 + 6) \
+> +                       || ((x) == FSI_N_MSSIEP0 + 7))
+> +
+> +/*
+> + * Return FSI master error information register number for master x
+> + */
+> +static inline int fsi_mesrb_nr(int master)
+> +{
+> +       return (FSI_N_MESRB0 + master * 4);
+> +}
+> +
+> +/*
+> + * Return FSI master reset register number for master x
+> + */
+> +static inline int fsi_mresb_nr(int master)
+> +{
+> +       return FSI_N_MRESB0 + master;
+> +}
+> +
+> +/*
+> + * Return FSI master port status register number for link x
+> + */
+> +static inline int fsi_mstap_nr(int link)
+> +{
+> +       return FSI_N_MSTAP0 + link;
+> +}
+> +
+> +/*
+> + * Return FSI master port error reset register number for link x
+> + */
+> +static inline int fsi_mresp_nr(int link)
+> +{
+> +       return FSI_N_MRESP0 + link;
+> +}
+> +
+> +/*
+> + * Return FSI master ipoll register number for index x
+> + */
+> +static inline int fsi_msiep_nr(int idx)
+> +{
+> +       return FSI_N_MSIEP0 + idx;
+> +}
+> +
+> +/*
+> + * Return FSI master error information register number for master x
+> + */
+> +static inline int fsi_maesp_nr(int portreg)
+> +{
+> +       return FSI_N_MAESP0 + portreg;
+> +}
+> +
+> +struct fsi_mei {               /* FSI master error information */
+> +       u32 mesrb;              /* Master error status register */
+> +       u32 mscsb;              /* Subcommand stack register */
+> +       u32 matrb;              /* Address trace register */
+> +       u32 mdtrb;              /* Data trace register */
 > +};
-> +MODULE_DEVICE_TABLE(of, ast_i2c_of_table);
 > +
-> +static struct platform_driver ast_i2c_controller_driver = {
-> +       .probe          = ast_i2c_probe_controller,
-> +       .remove         = ast_i2c_remove_controller,
-> +       .driver         = {
-> +               .name   = "ast-i2c-controller",
-> +               .of_match_table = ast_i2c_controller_of_table,
-> +       },
+> +/* FSI Master register set */
+> +struct fsi_mreg {
+> +       u32 mmode;                      /* 0x0 */
+> +       u32 mdlyr;                      /* 0x4 */
+> +       u64 mcrsp;                      /* 0x8 - 0xc */
+> +       u64 menp;                       /* 0x10 - 0x14 */
+> +       u64 mlevp;                      /* 0x18 - 0x1c */
+> +       u64 mrefp;                      /* 0x20 - 0x24 */
+> +       u64 mhpmp;                      /* 0x28 - 0x2c */
+> +       u32 msiep0[8];                  /* 0x30 - 0x4c */
+> +       u32 maesp0[8];                  /* 0x50 - 0x6c */
+> +       u32 maeb0[8];                   /* 0x70 - 0x8c */
+> +       u32 mdrsb0[16];                 /* 0x90 - 0xcc */
+> +       u32 mstap0[FSI_MAX_LINKS];      /* 0xd0 - 0x1cc */
+> +       struct fsi_mei mresb0[FSI_MAX_MASTERS]; /* 0x1d0 - 0x2dc */
+> +       u32 mectrl;                     /* 0x2e0 */
+> +       u32 mver;                       /* Master version ID, read only */
 > +};
 > +
-> +module_platform_driver(ast_i2c_controller_driver);
+> +#define PORT_BUSY_CHECKS_MAX   10
 > +
-> +MODULE_AUTHOR("Ryan Chen <ryan_chen@aspeedtech.com>");
-
-Drop this. We've rewritten it since we took Ryan's code from the BSP.
-
-> +MODULE_AUTHOR("Brendan Higgins <brendanhiggins@google.com>");
-
-Not sure about this? Keep it if you feel comfortable answering
-questions about the design of the entire driver.
-
-> +MODULE_DESCRIPTION("ASPEED AST I2C Bus Driver");
-
-Aspeed I2C Bus driver?
-
-> +MODULE_LICENSE("GPL");
-> +MODULE_ALIAS("platform:ast_i2c");
-
-Not sure that we need this.
-
+> +/* FSI Port controller reset types */
+> +#define        FSI_PORT_GENERAL_RESET          0x80000000
+> +#define        FSI_PORT_ERROR_RESET            0x40000000
+> +#define        FSI_PORT_GENERAL_RESET_BRIDGE   0x20000000
+> +#define        FSI_PORT_GENERAL_RESET_PORT     0x10000000
+> +#define        FSI_PORT_RESET_CNTRL_REGS       0x08000000
+> +#define        FSI_PORT_RESET_PA_ERROR         0x04000000
+> +
+> +/* FSI Port controller error masks */
+> +#define        FSI_PORT_EMASK_ID0      0xf0000000
+> +#define        FSI_PORT_EMASK_ID1      0x0f000000
+> +#define        FSI_PORT_EMASK_ID2      0x00f00000
+> +#define        FSI_PORT_EMASK_ID3      0x000f0000
+> +#define        FSI_PORT_CRCMASK        0x0000f000
+> +#define        FSI_PORT_HOTPLUG        0x00000800
+> +
+> +/*
+> + * FSI Slave interrupt enable/disable bit setting. Return the bit setting
+> + * given a link and cfam number. The result of this function can be input
+> + * to the mssiepX and mcsiepX registers or or'ed in to msiepX.
+> + * The formula is 1 << 31 - (link % 8 * 4 + cfam).
+> + *
+> + * Not in FSI Spec (0..30):
+> + * MSIEPx register bit 0 is port 0 and cfam 0.
+> + * MSIEPx register bit 1 is port 0 and cfam 1.
+> + * MSIEPx register bit 31 is port 7 and cfam 3.
+> + */
+> +static inline u32 fsi_mk_msiep(int link, int cfam)
+> +{
+> +       return mask32((link % (BITS_PER_LONG / FSI_MAX_CASCADE))
+> +                     * FSI_MAX_CASCADE + cfam);
+> +}
+> +
+> +/*
+> + * Return mask for all CFAMs id x to 3 (end of cascade) on a specific link.
+> + */
+> +static inline u32 fsi_mk_msiep_plus(int link, int cfam)
+> +{
+> +       u32 bits = (0xf >> cfam) << 28;
+> +
+> +       return bits >> (link % (BITS_PER_LONG / FSI_MAX_CASCADE)
+> +                       * FSI_MAX_CASCADE);
+> +}
+> +
+> +/*
+> + * Return mask for all CFAMs on a specific link.
+> + */
+> +static inline u32 fsi_mk_msiep_all(int link)
+> +{
+> +       return 0xf0000000 >> (link % (BITS_PER_LONG / FSI_MAX_CASCADE)
+> +                             * FSI_MAX_CASCADE);
+> +}
+> +
+> +/*
+> + * Return index for msiepX register
+> + */
+> +static inline int fsi_mk_msiep_idx(int link)
+> +{
+> +       return link / (BITS_PER_LONG / FSI_MAX_CASCADE);
+> +}
+> +
+> +/*
+> + * FSI Master Mode register setting
+> + */
+> +#define        FSI_MMODE_EIP           0x80000000      /* Enable interrupt polling */
+> +#define        FSI_MMODE_ECRC          0x40000000      /* Enable hw error recovery */
+> +#define        FSI_MMODE_ERAC          0x20000000      /* Enable relative addr cmds */
+> +#define        FSI_MMODE_EPC           0x10000000      /* Enable parity checking */
+> +#define        FSI_MMODE_CRS0SHFT      18              /* Clock select 0 mask shift */
+> +#define        FSI_MMODE_CRS0MASK      0x3ff           /* Clock select 0 mask */
+> +#define        FSI_MMODE_CRS1SHFT      8               /* Clock select 1 mask shift */
+> +#define        FSI_MMODE_CRS1MASK      0x3ff           /* Clock select 1 mask */
+> +#define        FSI_MMODE_P63           0x80            /* Route link 63 IOU slave C */
+> +#define        FSI_MMODE_DIV4          0x00000040      /* Divide by 4 (legacy mode) */
+> +
+> +/*
+> + * Rolf Fritz Nov 20, 2013:
+> + *     MSB=1, LSB=0 is 0.8 ms
+> + *     MSB=0, LSB=1 is 0.9 ms
+> + */
+> +#define        FSI_MMODE_P8_TO_MSB     0x00000020      /* Timeout val most sig bit */
+> +#define        FSI_MMODE_P8_TO_LSB     0x00000010      /* Timeout val least sig bit */
+> +
+> +static inline u32 fsi_mmode_crs0(u32 x)
+> +{
+> +       return (x & FSI_MMODE_CRS0MASK) << FSI_MMODE_CRS0SHFT;
+> +}
+> +
+> +static inline u32 fsi_mmode_crs1(u32 x)
+> +{
+> +       return (x & FSI_MMODE_CRS1MASK) << FSI_MMODE_CRS1SHFT;
+> +}
+> +
+> +static inline u32 fsi_mmode_extcrs0(u32 x)
+> +{
+> +       return (x >> FSI_MMODE_CRS0SHFT) & FSI_MMODE_CRS0MASK;
+> +}
+> +
+> +static inline u32 fsi_mmode_extcrs1(u32 x)
+> +{
+> +       return (x >> FSI_MMODE_CRS1SHFT) & FSI_MMODE_CRS1MASK;
+> +}
+> +
+> +/*
+> + * FSI master delay register
+> + */
+> +#define        FSI_MDLYR_ECHO0_SHFT    28      /* Selection 0 echo delay cycles */
+> +#define        FSI_MDLYR_ECHO0_MASK    0xf     /* Selection 0 echo delay cycles */
+> +#define        FSI_MDLYR_SEND0_SHFT    24      /* Selection 0 send delay cycles */
+> +#define        FSI_MDLYR_SEND0_MASK    0xf     /* Selection 0 send delay cycles */
+> +#define        FSI_MDLYR_ECHO1_SHFT    20      /* Selection 1 echo delay cycles */
+> +#define        FSI_MDLYR_ECHO1_MASK    0xf     /* Selection 1 echo delay cycles */
+> +#define        FSI_MDLYR_SEND1_SHFT    16      /* Selection 1 send delay cycles */
+> +#define        FSI_MDLYR_SEND1_MASK    0xf     /* Selection 1 send delay cycles */
+> +#define        FSI_MDLYR_DFLT          0xffff0000 /* Default setting */
+> +
+> +static inline int fsi_mdlyr_echo0(int x)
+> +{
+> +       return (x & FSI_MDLYR_ECHO0_MASK) << FSI_MDLYR_ECHO0_SHFT;
+> +}
+> +
+> +static inline int fsi_mdlyr_echo1(int x)
+> +{
+> +       return (x & FSI_MDLYR_ECHO1_MASK) << FSI_MDLYR_ECHO1_SHFT;
+> +}
+> +
+> +static inline int fsi_mdlyr_send0(int x)
+> +{
+> +       return (x & FSI_MDLYR_SEND0_MASK) << FSI_MDLYR_SEND0_SHFT;
+> +}
+> +
+> +static inline int fsi_mdlyr_send1(int x)
+> +{
+> +       return (x & FSI_MDLYR_SEND1_MASK) << FSI_MDLYR_SEND1_SHFT;
+> +}
+> +
+> +static inline int fsi_mdlyr_extecho0(u32 x)
+> +{
+> +       return (x >> FSI_MDLYR_ECHO0_SHFT) & FSI_MDLYR_ECHO0_MASK;
+> +}
+> +
+> +static inline int fsi_mdlyr_extecho1(u32 x)
+> +{
+> +       return (x >> FSI_MDLYR_ECHO1_SHFT) & FSI_MDLYR_ECHO1_MASK;
+> +}
+> +
+> +static inline int fsi_mdlyr_extsend0(u32 x)
+> +{
+> +       return (x >> FSI_MDLYR_SEND0_SHFT) & FSI_MDLYR_SEND0_MASK;
+> +}
+> +
+> +static inline int fsi_mdlyr_extsend1(u32 x)
+> +{
+> +       return (x >> FSI_MDLYR_SEND1_SHFT) & FSI_MDLYR_SEND1_MASK;
+> +}
+> +
+> +/*
+> + * MAEB Register
+> + */
+> +#define        FSI_MASTER0             0x80000000      /* Primary Master */
+> +
+> +/*
+> + * MVER Register
+> + */
+> +#define        FSI_MVER_VER_MASK       0xff    /* FSI master version mask */
+> +#define        FSI_MVER_VER_SHFT       24      /* FSI master version shift */
+> +#define        FSI_MVER_BRG_MASK       0xff    /* FSI master FSI bridges mask */
+> +#define        FSI_MVER_BRG_SHFT       16      /* FSI master FSI bridges shift */
+> +#define        FSI_MVER_LINK_MASK      0xff    /* FSI master links mask */
+> +#define        FSI_MVER_LINK_SHFT      8       /* FSI master links shift */
+> +
+> +static inline int fsi_mver_extversion(u32 x)
+> +{
+> +       return (x >> FSI_MVER_VER_SHFT) & FSI_MVER_VER_MASK;
+> +}
+> +
+> +static inline int fsi_mver_extport(u32 x)
+> +{
+> +       return (x >> FSI_MVER_BRG_SHFT) & FSI_MVER_BRG_MASK;
+> +}
+> +
+> +static inline int fsi_mver_extlink(u32 x)
+> +{
+> +       return (x >> FSI_MVER_LINK_SHFT) & FSI_MVER_LINK_MASK;
+> +}
+> +
+> +/*
+> + * Master reset types
+> + */
+> +#define        FSI_MRESB_RST_GEN       0x80000000      /* General reset */
+> +#define        FSI_MRESB_RST_ERR       0x40000000      /* Error Reset, don't use */
+> +#define        FSI_MRESB_DELAY         0x01000000      /* do delay settings */
+> +
+> +/*
+> + * Port reset types
+> + */
+> +#define        FSI_MRESP_RST_GEN       0x80000000      /* General reset */
+> +#define        FSI_MRESP_RST_ERR       0x40000000      /* Error Reset, don't use */
+> +#define        FSI_MRESP_RST_ALL_MSTR  0x20000000      /* Reset all FSI masters */
+> +#define        FSI_MRESP_RST_ALL_LINK  0x10000000      /* Reset all FSI port contr. */
+> +#define        FSI_MRESP_RST_MCR       0x08000000      /* Reset FSI master reg. */
+> +#define        FSI_MRESP_RST_PYE       0x04000000      /* Reset FSI parity error */
+> +#define        FSI_MRESP_RST_ALL       0xfc000000      /* Reset any error */
+> +
+> +/*
+> + * MESRB Register
+> + */
+> +#define        FSI_MESRB_EC_MASK       0xf             /* Error code mask */
+> +#define        FSI_MESRB_EC_SHFT       28              /* Error code shift */
+> +#define        FSI_MESRB_PARITY_MASK   0xff            /* Parity bits shift */
+> +#define        FSI_MESRB_PARITY_SHFT   16              /* Parity bits Mask */
+> +#define        FSI_MESRB_CRC_MASK      0xf             /* CRC mask */
+> +#define        FSI_MESRB_CRC_SHFT      24              /* CRC shift */
+> +#define        FSI_MESRB_RESERVED_MASK 0xffff          /* Reserved mask */
+> +#define        FSI_MESRB_OPB_PYE       0x0001000       /* OPB Parity Error */
+> +#define        FSI_MESRB_NE            0               /* No error */
+> +#define        FSI_MESRB_OPBE          1               /* OPB Error */
+> +#define        FSI_MESRB_IOPBS         2               /* Illegal OPB state */
+> +#define        FSI_MESRB_PAE           3               /* Port access error */
+> +#define        FSI_MESRB_IDM           4               /* ID mismatch */
+> +#define        FSI_MESRB_DMASE         5               /* DMA select error */
+> +#define        FSI_MESRB_PTOE          6               /* Port time out error */
+> +#define        FSI_MESRB_MTOE          7               /* Master time out error */
+> +#define        FSI_MESRB_MCRCE         8               /* Master CRC error */
+> +#define        FSI_MESRB_ERRA          9               /* Any error response */
+> +#define        FSI_MESRB_ERRC          10              /* CRC error response */
+> +#define        FSI_MESRB_PE            11              /* Protocol error */
+> +#define        FSI_MESRB_PYE           12              /* Parity err/Reg access err */
+> +#define        FSI_MESRB_LAST          (FSI_MESRB_PYE + 1)     /* Last entry */
+> +
+> +/* Extract error conditon */
+> +static inline u32 fsi_mesrb_extec(u32 x)
+> +{
+> +       return (x >> FSI_MESRB_EC_SHFT) & FSI_MESRB_EC_MASK;
+> +}
+> +
+> +/* Extract CRC error counter */
+> +static inline u32 fsi_mesrb_extcrc(u32 x)
+> +{
+> +       return (x >> FSI_MESRB_CRC_SHFT) & FSI_MESRB_CRC_MASK;
+> +}
+> +
+> +/* Extract parity error bits */
+> +static inline u32 fsi_mesrb_extparity(u32 x)
+> +{
+> +       return (x >> FSI_MESRB_PARITY_SHFT) & FSI_MESRB_PARITY_MASK;
+> +}
+> +
+> +/*
+> + * MATRB Register
+> + */
+> +#define        FSI_MATRB_LPA_MASK              0x3f    /* Last port/link addr mask */
+> +#define        FSI_MATRB_LPA_SHFT              26      /* Last port/link addr shift */
+> +#define        FSI_MATRB_LSID_MASK             3       /* Last slave id mask */
+> +#define        FSI_MATRB_LSID_SHFT             24      /* Last slave id shift */
+> +#define        FSI_MATRB_P8_ADDR_HI_MASK       3       /* Upper 2 bits of addr */
+> +#define        FSI_MATRB_P8_ADDR_HI_SHFT       24      /* Upper 2 bits of addr shift */
+> +#define        FSI_MATRB_SLPA_MASK             3       /* Last sublink address mask */
+> +#define        FSI_MATRB_SLPA_SHFT             19      /* Last sublink address shift */
+> +#define        FSI_MATRB_SLSID_SHFT            17      /* Last subslave id shift */
+> +#define        FSI_MATRB_READ_MASK             0x00400000      /* Last cmd was Read */
+> +#define        FSI_MATRB_ADDR_MASK             0x1fffff        /* Last address mask */
+> +#define        FSI_MATRB_ADDR_SHFT             1       /* Last address shift */
+> +#define        FSI_MATRB_P8_ADDR_SHFT          3       /* Non contiguous upper bits */
+> +#define        FSI_MATRB_DATAS_MASK            1       /* Last addr data size mask */
+> +#define        FSI_MATRB_CM_MASK               0x00200000      /* Cascaded FSI mask */
+> +
+> +/* Extract link number */
+> +static inline int fsi_matrb_lpa(u32 x)
+> +{
+> +       return (x >> FSI_MATRB_LPA_SHFT) & FSI_MATRB_LPA_MASK;
+> +}
+> +
+> +/* Extract data size of last command */
+> +static inline int fsi_matrb_datasize(u32 x)
+> +{
+> +       return x & FSI_MATRB_DATAS_MASK;
+> +}
+> +
+> +/* Extract read/write command */
+> +static inline int fsi_matrb_isread(u32 x)
+> +{
+> +       return x & FSI_MATRB_READ_MASK;
+> +}
+> +
+> +/*
+> + * MSTAP Register
+> + */
+> +#define        FSI_MSTAP_MASK          0xf             /* Error mask ID 0..3 */
+> +#define        FSI_MSTAP_ID0_SHFT      28              /* CFAM 0 error shift */
+> +#define        FSI_MSTAP_ID1_SHFT      24              /* CFAM 1 error shift */
+> +#define        FSI_MSTAP_ID2_SHFT      20              /* CFAM 2 error shift */
+> +#define        FSI_MSTAP_ID3_SHFT      16              /* CFAM 3 error shift */
+> +#define        FSI_MSTAP_CRC_MASK      0xf             /* CRC mask */
+> +#define        FSI_MSTAP_CRC_SHFT      12              /* CRC error counter */
+> +#define        FSI_MSTAP_HOTPLUG       0x800           /* Hotplug indicator */
+> +#define        FSI_MSTAP_NE            0               /* No error */
+> +#define        FSI_MSTAP_ERRA          1               /* Any error response */
+> +#define        FSI_MSTAP_ERRC          2               /* CRC error response */
+> +#define        FSI_MSTAP_UCRCE         3               /* Port detected CRC error */
+> +#define        FSI_MSTAP_IDM           4               /* ID mismatch */
+> +#define        FSI_MSTAP_PTOE          5               /* Port time out error */
+> +#define        FSI_MSTAP_IIPSE         6               /* Invalid I-Poll state error */
+> +#define        FSI_MSTAP_LAST          (FSI_MSTAP_IIPSE + 1)   /* Last entry */
+> +
+> +/* Extract error reason for slave id 0..3 */
+> +static inline u32 fsi_mstap_extec(u32 x, int id)
+> +{
+> +       return (x >> (FSI_MSTAP_ID0_SHFT - id * FSI_MAX_CASCADE))
+> +              & FSI_MSTAP_MASK;
+> +}
+> +
+> +/* Extract crc counter */
+> +static inline u32 fsi_mstap_extcrc(u32 x)
+> +{
+> +       return (x >> FSI_MSTAP_CRC_SHFT) & FSI_MSTAP_CRC_MASK;
+> +}
+> +
+> +/*
+> + * MECTRL Register
+> + */
+> +#define        FSI_MECTRL_TP_SHFT              24      /* parity error generation */
+> +#define        FSI_MECTRL_TP_MASK              0xff    /* Mask for parity errors */
+> +#define        FSI_MECTRL_IPE_SHFT             16      /* Shift inhibit parity error */
+> +#define        FSI_MECTRL_IPE_MASK             0xff    /* Mask inhibit parity err */
+> +#define        FSI_MECTRL_EOAE                 0x8000  /* Enable machine check */
+> +#define        FSI_MECTRL_P8_AUTO_TERM         0x4000  /* Auto terminate */
+> +#define        FSI_MECTRL_FPME                 0x2000  /* Freeze port on master err */
+> +#define        FSI_MECTRL_P8_SID_TO_3          0x0800  /* Force slave ID to 3 */
+> +
+> +/* Force parity error events */
+> +static inline u32 fsi_mectrl_fpe(int id)
+> +{
+> +       return (id & FSI_MECTRL_TP_MASK) << FSI_MECTRL_TP_SHFT;
+> +}
+> +
+> +/* Inhibit parity errors */
+> +static inline u32 fsi_mectrl_ipe(int id)
+> +{
+> +       return (id & FSI_MECTRL_IPE_MASK) << FSI_MECTRL_IPE_SHFT;
+> +}
+> +
+> +/*
+> + * Returns the virtual address of the FSI slave configuration word 0 given
+> + * the FSI slave engine 0 virtual address.
+> + *
+> + * NOTE: Assumes address space is mapped without holes. This is ok as both
+> + * engines 2 2KB apart and Linux uses 4KB pages.
+> + */
+> +static inline void *get_termva(void *slv_va)
+> +{
+> +       return (void *)((unsigned long)slv_va & ~0xfff);
+> +}
+> +
+> +static inline unsigned long get_termpa(unsigned long slv_pa)
+> +{
+> +       return slv_pa & ~0xfff;
+> +}
+> +
+> +struct master_quirks {
+> +       int break_cfam_id;
+> +       void (*port_reset)(struct fsidevice *, struct fsidevice *, int);
+> +       int (*send_break)(struct fsimaster *, void *, int, struct fsicfam *);
+> +       int (*break_set_cfam_id)(void *, int);
+> +};
+> +
+> +struct fsimaster {                     /* FSI master definition */
+> +       struct fsimaster *parent;       /* Parent of this master */
+> +       char name[8];                   /* Name for /sysfs */
+> +       unsigned long peek40c;          /* Peek engine identifications */
+> +       u32 membase;                    /* Base MMIO address */
+> +       int irqbase;                    /* Base IRQ number */
+> +       struct fsidevice *fsidev;       /* Pointer to fsi cascaded engine */
+> +       struct fsidevice *fsislv;       /* Pointer to fsi slave engine */
+> +       struct fsi_mreg *base;          /* Ptr to register space */
+> +       spinlock_t lock;                /* Lock */
+> +       bool dcr_alloc;                 /* True if ioremap for dcr reg space */
+> +       bool have_peek;                 /* True if peek engine read needed */
+> +       unsigned char myid;             /* FSI master identifier for traces */
+> +       unsigned char type;             /* Type FSI master */
+> +       unsigned char hw_version;       /* FSI master hardware version */
+> +       unsigned char maxlinks;         /* FSI master links */
+> +       struct fsilink *link[FSI_MAX_LINKS];
+> +       void (*write_reg)(struct fsi_mreg *, int, u32); /* Write 32 bit word */
+> +       u32 (*read_reg)(struct fsi_mreg *, int);        /* Read 32 bit word */
+> +       void (*write_reg2)(struct fsi_mreg *, int, u64 *);      /* 64 bit */
+> +       void (*read_reg2)(struct fsi_mreg *, int, u64 *);       /* 64 bit */
+> +       void (*read_reg4)(struct fsi_mreg *, int, u32 *);       /* 4 words */
+> +       void (*write_reg8)(struct fsi_mreg *, int, u32 *);      /* 8 words */
+> +       struct fsidevice * (*m_get)(struct fsimaster *, int, int);
+> +       int (*m_pa2irq)(struct fsimaster *, u32);
+> +       void (*m_exit)(struct fsimaster *);
+> +       struct master_quirks quirks;    /* hardware quirks functions/data */
+> +       unsigned char srsic;            /* master specific register offset */
+> +       unsigned char srsim;            /* master specific register offset */
+> +       unsigned long cfam_size;        /* master specific cfam size */
+> +};
+> +#define to_fsimaster_probe(a)  \
+> +                       container_of(a, struct fsimaster, hotp.probework)
+> +#define to_fsimaster_build(a)  \
+> +                       container_of(a, struct fsimaster, hotp.buildwork)
+> +
+> +/*
+> + * Functions to create/delete an FSI Master
+> + */
+> +struct fsimaster *fsimaster_build_init(struct fsimaster *, int,
+> +                                      struct fsidevice *);
+> +struct fsimaster *fsimaster_build(int, struct fsidevice *);
+> +void fsimaster_free(struct fsimaster *);
+> +void fsimaster_put(struct fsimaster *);
+> +struct fsimaster *fsimaster_get(struct fsimaster *);
+> +struct fsimaster *fsimaster_find(u32);
+> +int fsimaster_plugcheck(u32);
+> +void fsimaster_start(struct fsimaster *);
+> +int fsimaster_stop(struct fsimaster *);
+> +void fsimaster_stopsync(struct fsimaster *);
+> +int fsi_linkbuild(struct fsimaster *, int);
+> +int fsi_linkdown(struct fsimaster *, int);
+> +void fsi_linklost(struct fsimaster *, int);
+> +
+> +/*
+> + * Master commands
+> + */
+> +int fsi_sendbreak(struct fsimaster *, u32, int);
+> +struct fsimaster *fsimaster_get_top_master(struct fsimaster *);
+> +
+> +/*
+> + * FSI master register access functions (without locking)
+> + */
+> +int fsimaster_reseterror_nl(struct fsimaster *, int);
+> +int fsimaster_resetgeneral_nl(struct fsimaster *, int);
+> +
+> +/*
+> + * Helper utilities for register access
+> + */
+> +void fsimaster_setspeed(struct fsimaster *, int, int);
+> +int fsimaster_ipoll_off_link_mask(struct fsimaster *, int, u32 *);
+> +int fsimaster_ipoll_off_link(struct fsimaster *, int);
+> +int fsimaster_ipoll_on_link(struct fsimaster *, int, u32);
+> +void fsimaster_disable_link(struct fsimaster *, int);
+> +void fsimaster_enable_link(struct fsimaster *, int);
+> +u64 fsimaster_read_menp(struct fsimaster *);
+> +u64 fsimaster_read_menp_nl(struct fsimaster *);
+> +u32 fsimaster_read_mmode(struct fsimaster *);
+> +u32 fsimaster_read_mmode_nl(struct fsimaster *);
+> +void fsimaster_read_mcrsp(struct fsimaster *, u64 *);
+> +int fsimaster_read_msiep(struct fsimaster *);
+> +int fsimaster_read_msiep_nl(struct fsimaster *);
+> +int fsimaster_write_msiep(struct fsimaster *, u32 *);
+> +int fsimaster_write_msiep_nl(struct fsimaster *, u32 *);
+> +int setup_me(struct fsimaster *, int);
+> +
+> +/*
+> + * Utilities to decode master error registers
+> + */
+> +int fsi_matrb_lsid(u32);
+> +unsigned long fsi_matrb_addr(unsigned long);
+> +
+> +/*
+> + * Helper utilities for link/cfam calculations.
+> + */
+> +u32 fsimaster_cfam2pa(struct fsimaster *, int, int);
+> +u32 fsimaster_linksz(struct fsimaster *);
+> +u32 fsimaster_cfamsz(struct fsimaster *);
+> +
+> +/*
+> + * Helper utilities for IRQ number calculations.
+> + */
+> +int fsimaster_pa2irq(struct fsimaster *, u32);
+> +int fsi_pa2irq(u32);
+> +
+> +/*
+> + * Functions for link reference
+> + */
+> +void fsimaster_linkref_add(struct fsimaster *, struct fsilink *);
+> +struct fsilink *fsimaster_linkref_del(struct fsimaster *, int);
+> +struct fsilink *fsimaster_linkref_markdel(struct fsimaster *, int);
+> +struct fsilink *fsimaster_linkget(struct fsimaster *, int);
+> +struct fsilink *fsimaster_linkget_inirq(struct fsimaster *, int);
+> +struct fsicfam *fsimaster_cfamget(struct fsimaster *, int, int);
+> +struct fsidevice *fsimaster_slvget(struct fsimaster *, int, int);
+> +struct fsidevice *fsimaster_slvget_inirq(struct fsimaster *, int, int);
+> +struct fsidevice *fsimaster_engget(struct fsimaster *, int, int, int);
+> +struct fsidevice *fsimaster_engget_inirq(struct fsimaster *, int, int, int);
+> +void fsimaster_linkput(struct fsilink *);
+> +void fsimaster_cfamput(struct fsicfam *);
+> +void fsimaster_slvput(struct fsidevice *);
+> +void fsimaster_engput(struct fsidevice *);
+> +void fsi_rst_error2(struct fsimaster *, struct fsidevice *, int, int, int, int);
+> +int port_reset(struct fsimaster *, int);
+> +
+> +#endif /* DRIVERS_FSIMASTER_H */
 > --
-> 2.8.0.rc3.226.g39d4020
+> 1.8.2.2
 >
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
