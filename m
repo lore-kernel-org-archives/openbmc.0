@@ -1,52 +1,51 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-vk0-x243.google.com (mail-vk0-x243.google.com
- [IPv6:2607:f8b0:400c:c05::243])
+Received: from mail-ua0-x244.google.com (mail-ua0-x244.google.com
+ [IPv6:2607:f8b0:400c:c08::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sVhh646PYzDrpW
- for <openbmc@lists.ozlabs.org>; Fri,  9 Sep 2016 12:57:26 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sVkh96G0xzDrpW
+ for <openbmc@lists.ozlabs.org>; Fri,  9 Sep 2016 14:27:37 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=ONWih833; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=GgazoIJ7; 
  dkim-atps=neutral
-Received: by mail-vk0-x243.google.com with SMTP id 16so1623713vko.2
- for <openbmc@lists.ozlabs.org>; Thu, 08 Sep 2016 19:57:26 -0700 (PDT)
+Received: by mail-ua0-x244.google.com with SMTP id 35so2493728uaj.3
+ for <openbmc@lists.ozlabs.org>; Thu, 08 Sep 2016 21:27:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=Fg14n7jJF3yolq+BkBKgnxUsF1KmHEqRoFm/YQjsPw8=;
- b=ONWih833TQgitJjwPGj3MN3aEgANt9VYUiEoceI2iDR5HNjMiVk3NT0VCpYmpzapnu
- Vx5ch6DuOEqxY3RfAus2+xYHjiGnmdaLz4qyaEcbZ8M8Fie7CRgT9Gv1xBFS13mWSZH7
- 6HToP0V+c55sJ8epAjsIBEmjdyxrtlwK8scZZu6d+zDfv8dSmkjT8snckI6ojU7z2lAO
- 6qnDhC/mkrBBWQmhdYLWQh73aiazTbIKTmFgV11JrvMnOJJt1D0zJ4GqK2BYdDLNsXDH
- k3lXlVkF0cMQq1F/pSZJJ7hoBbH+DXk48glMQpbG1mkURPtv2oMz0yP5s+4j0zkTwevA
- t/yg==
+ bh=F7yIC9cO+8F2bqeYvRbjpT3BhS1YcXa8HdvjXE50QaY=;
+ b=GgazoIJ7rwkOLEPdUZk2lswNt4l2BwgDWniRJzl+QZweRs7HxM1zl64KONP2eOLNM5
+ bLF6ZODFt+c7xr/IIP1u5f6s5YGQv/kfYn7Bl1Wa/dIYTF++5bh553nsjFo0Jjsa1LpG
+ u7BWRebT8oUBeR9e7uYDJYftGdkuXb9492tD7QKmOReUZdas/Cvz0IEIVDGsOggyXqyN
+ Wx7LVa4xx8Hl4bRDm6Sj5tdZRzO/EgCxteSMd/Q/VNq5RWPal23L6yf/2AGNnfs8n10B
+ ynmG5oiseeLk5L8FF4nFeBizhs2Kk9x3+rMojlZiM7xQLLPl7i+wdyBYLYG9u18vwsyp
+ hMcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=Fg14n7jJF3yolq+BkBKgnxUsF1KmHEqRoFm/YQjsPw8=;
- b=ZR8r1/B6PCzqaqIsvNKJKQnYyVEWIyNRbBOVqu2nkcBFQVb7lTZz6Tgfa9vRrHOJ7B
- SkyC41EjhflfFUQDlxZCA5TuknTiDMh9jXaG2fIVPoRJ72WFR4b6a1qYzyem/aaf6PDB
- DsP+YxnjkFTKT3hJxilDpB+CUC0GmnNWTWnVa7KfblYfK3pktxek6AUQhtCZe3EmCxiO
- skhXlAFH7EUsHo2gJJ+L+ieZ0iJbEDiluigtNKrz1qBBoiHEKAMo/y7hf8UTvS+L0Jbl
- xHyyu6kDWdQQmXZ004TdpgfY43TgYKk0w7ddfKpdxerpqz0UEKXFqpBDfu05aO9k1VIf
- l1dw==
-X-Gm-Message-State: AE9vXwO+T4jdrQ7neppskewHdUNkalIFU1kpoMWEsi3Pg1VIRzTDMKbUCz/ppX2edTQoeXWA+dAdJyhGG1Ofyw==
-X-Received: by 10.31.141.21 with SMTP id p21mr820276vkd.152.1473389841791;
- Thu, 08 Sep 2016 19:57:21 -0700 (PDT)
+ bh=F7yIC9cO+8F2bqeYvRbjpT3BhS1YcXa8HdvjXE50QaY=;
+ b=loHzSjhjuryRy9cGrW0OBTvdCYcp+TIyv1GWhSu85mPds2YTeKl8VXkcLk5ZbxYE33
+ T6UNeAjb4ZO8sLmBv8sBicaPWwH/ktMAnsWGwuuOFDNgiNUYhW5h5RSh9B2dWEApVuv2
+ y5NqJYfQYE4p5FBmOupYq7mZPfj20rxYTOGvWNLSMvtUTZBGAAxITo0xxmNN/JOCsuyp
+ Va0+KQ2uBGKTFCcVXx9UD3uY+ZKzHwgB2zdGA/86PjJb2pA07GGQTrTeNiEMQ3LmmjxG
+ ooTjBVejOoYbXeGZf3qg8uhXXgGCivwMVbgnHs4TJAk154YLQehbj8glWwrYCeLveQRT
+ Z7pg==
+X-Gm-Message-State: AE9vXwNUzTBEJ45LbZjS3KPUx9j47gUDmRu2Z7gmS086oARRDaU8gR3bcb3/O21OrVO/Izl5szibvqFNw2s4rw==
+X-Received: by 10.176.6.6 with SMTP id f6mr1000439uaf.46.1473395255194; Thu,
+ 08 Sep 2016 21:27:35 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.176.80.221 with HTTP; Thu, 8 Sep 2016 19:57:01 -0700 (PDT)
-In-Reply-To: <1473384271-7185-2-git-send-email-brendanhiggins@google.com>
-References: <CACPK8XdutpE97bUr2goj3Vqw9R0_HOtZ0rLWLnT-FcmYnLQHZg@mail.gmail.com>
- <1473384271-7185-1-git-send-email-brendanhiggins@google.com>
- <1473384271-7185-2-git-send-email-brendanhiggins@google.com>
+Received: by 10.176.80.221 with HTTP; Thu, 8 Sep 2016 21:27:14 -0700 (PDT)
+In-Reply-To: <1472587644-73391-2-git-send-email-xow@google.com>
+References: <1472587644-73391-1-git-send-email-xow@google.com>
+ <1472587644-73391-2-git-send-email-xow@google.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 9 Sep 2016 12:27:01 +0930
-X-Google-Sender-Auth: wW5rfTHUd-m0U2jU0u5292HO6rM
-Message-ID: <CACPK8XfFuNFjRqNs7ihLdaAwNYG-vO4pbvXLZ6S8mATXgFMuXQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] i2c: aspeed: added driver for Aspeed I2C
-To: Brendan Higgins <brendanhiggins@google.com>
+Date: Fri, 9 Sep 2016 13:57:14 +0930
+X-Google-Sender-Auth: CNLMUvBjJ4za9G47p12v20lNgT0
+Message-ID: <CACPK8Xcmvu6WmSjLWwCRhJw7_WyaBjwEdOa7wsw4PHya_QkBsg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ARM: dts: aspeed: Add Ingrasys Zaius BMC DTS
+To: Xo Wang <xow@google.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -60,30 +59,258 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 09 Sep 2016 02:57:27 -0000
+X-List-Received-Date: Fri, 09 Sep 2016 04:27:38 -0000
 
-On Fri, Sep 9, 2016 at 10:54 AM, Brendan Higgins
-<brendanhiggins@google.com> wrote:
-> Added initial master and slave support for Aspeed I2C controller.
-> Supports fourteen busses present in ast24xx and ast25xx BMC SoCs by
-> Aspeed.
+On Wed, Aug 31, 2016 at 5:37 AM, Xo Wang <xow@google.com> wrote:
+> GPIO and LEDs coming later.
 
-Looking good! Would you like to submit this to the i2c list now?
+Sorry for the delay, it looks good.
 
-Please cc me and jk@ozlabs.org as well as the people suggested by
-scripts/get_maintainer.pl.
+Can you give me a better commit message?
 
 Cheers,
 
 Joel
-
-
 >
-> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+> Signed-off-by: Xo Wang <xow@google.com>
 > ---
->  drivers/i2c/busses/Kconfig      |  10 +
->  drivers/i2c/busses/Makefile     |   1 +
->  drivers/i2c/busses/i2c-aspeed.c | 816 ++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 827 insertions(+)
->  create mode 100644 drivers/i2c/busses/i2c-aspeed.c
+>  arch/arm/boot/dts/Makefile                 |   1 +
+>  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 210 +++++++++++++++++++++++++++++
+>  2 files changed, 211 insertions(+)
+>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
 >
+> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+> index 495ca3d..b9541c6 100644
+> --- a/arch/arm/boot/dts/Makefile
+> +++ b/arch/arm/boot/dts/Makefile
+> @@ -895,6 +895,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += aspeed-bmc-opp-palmetto.dtb \
+>         aspeed-bmc-opp-firestone.dtb \
+>         aspeed-bmc-opp-garrison.dtb \
+>         aspeed-bmc-opp-witherspoon.dtb \
+> +       aspeed-bmc-opp-zaius.dtb \
+>         aspeed-bmc-facebook-cmm.dtb \
+>         aspeed-ast2500-evb.dtb
+>  endif
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> new file mode 100644
+> index 0000000..4c4754b
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> @@ -0,0 +1,210 @@
+> +/dts-v1/;
+> +
+> +#include "aspeed-g5.dtsi"
+> +
+> +/ {
+> +       model = "Zaius BMC";
+> +       compatible = "ingrasys,zaius-bmc", "aspeed,ast2500";
+> +
+> +       aliases {
+> +               serial4 = &uart5;
+> +       };
+> +
+> +       chosen {
+> +               stdout-path = &uart5;
+> +               bootargs = "console=ttyS4,115200 earlyprintk";
+> +       };
+> +
+> +       memory {
+> +               reg = <0x80000000 0x40000000>;
+> +       };
+> +
+> +       ahb {
+> +               bmc_pnor: fmc@1e620000 {
+> +                       reg = < 0x1e620000 0xc4
+> +                               0x20000000 0x04000000 >;
+> +                       #address-cells = <1>;
+> +                       #size-cells = <0>;
+> +                       compatible = "aspeed,ast2500-fmc";
+> +                       flash@0 {
+> +                               reg = < 0 >;
+> +                               compatible = "jedec,spi-nor" ;
+> +#include "aspeed-bmc-opp-flash-layout.dtsi"
+> +                       };
+> +               };
+> +
+> +               host_pnor: spi@1e630000 {
+> +                       reg = < 0x1e630000 0xc4
+> +                               0x30000000 0x04000000 >;
+> +                       #address-cells = <1>;
+> +                       #size-cells = <0>;
+> +                       compatible = "aspeed,ast2500-smc";
+> +                       flash@0 {
+> +                               reg = < 0 >;
+> +                               compatible = "jedec,spi-nor" ;
+> +                               label = "pnor";
+> +                       };
+> +               };
+> +
+> +               data_pnor: spi@1e631000 {
+> +                       reg = < 0x1e631000 0xc4
+> +                               0x38000000 0x00800000 >;
+> +                       #address-cells = <1>;
+> +                       #size-cells = <0>;
+> +                       compatible = "aspeed,ast2500-smc";
+> +                       flash@0 {
+> +                               reg = < 0 >;
+> +                               compatible = "jedec,spi-nor" ;
+> +                       };
+> +               };
+> +       };
+> +};
+> +
+> +&uart5 {
+> +       status = "okay";
+> +};
+> +
+> +&mac0 {
+> +       status = "okay";
+> +
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_rgmii1_default>;
+> +       use-ncsi;
+> +};
+> +
+> +&mac1 {
+> +       status = "okay";
+> +
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_rgmii2_default>;
+> +};
+> +
+> +&i2c0 {
+> +       status = "okay";
+> +
+> +       eeprom@50 {
+> +               compatible = "atmel,24c64";
+> +               reg = <0x50>;
+> +               pagesize = <32>;
+> +       };
+> +
+> +       rtc@68 {
+> +               compatible = "nxp,pcf8523";
+> +               reg = <0x68>;
+> +       };
+> +
+> +       /* Power sequencer UCD90160 PMBUS @64h
+> +        * FRU AT24C64D @50h
+> +        * RTC PCF8523 @68h
+> +        * Clock buffer 9DBL04 @6dh
+> +        */
+> +};
+> +
+> +&i2c1 {
+> +       status = "disabled";
+> +
+> +       /* MUX1 PCA9546A @71h
+> +        *   PCIe 0
+> +        *   PCIe 1
+> +        *   PCIe 2
+> +        *   TPM header
+> +        */
+> +};
+> +
+> +&i2c2 {
+> +       status = "disabled";
+> +
+> +       /* OCP Mezz Connector A (OOB SMBUS) */
+> +};
+> +
+> +&i2c3 {
+> +       status = "disabled";
+> +
+> +       /* OCP Mezz Connector A (PCIe slot SMBUS) */
+> +};
+> +
+> +&i2c4 {
+> +       status = "disabled";
+> +
+> +       /* MUX1 PCA9546A @71h
+> +        *   PCIe 3
+> +        *   PCIe 4
+> +        */
+> +};
+> +
+> +
+> +&i2c5 {
+> +       status = "disabled";
+> +
+> +       /* CPU0 PRM 0.7V */
+> +       /* CPU0 PRM 1.2V CH03 */
+> +       /* CPU0 PRM 0.8V */
+> +       /* CPU0 PRM 1.2V CH47 */
+> +};
+> +
+> +&i2c6 {
+> +       status = "disabled";
+> +
+> +       /* CPU1 PRM 0.7V */
+> +       /* CPU1 PRM 1.2V CH03 */
+> +       /* CPU1 PRM 0.8V */
+> +       /* CPU1 PRM 1.2V CH47 */
+> +};
+> +
+> +&i2c7 {
+> +       status = "disabled";
+> +
+> +       /* MUX PCA9541A (other master: CPU0 PCIe 1)
+> +        *   ADM1272 PMBUS @10h
+> +        */
+> +       /* 12V SMPS Q54SH12050NNDH @61h */
+> +       /* CPU0 VR ISL68137 0.7V, 0.96V PMBUS @64h */
+> +       /* CPU0 VR ISL68137 1.2V CH03 PMBUS @40h */
+> +       /* CPU0 VR ISL68137 0.8V PMBUS @60h */
+> +       /* CPU0 VR 1.0V IR38064 I2C @11h, PMBUS @41h */
+> +       /* CPU0 VR ISL68137 1.2V CH47 PMBUS @41h */
+> +};
+> +
+> +&i2c8 {
+> +       status = "disabled";
+> +
+> +       /* CPU1 VR ISL68137 0.7V, 0.96V PMBUS @65h */
+> +       /* CPU1 VR ISL68137 1.2V CH03 PMBUS @44h */
+> +       /* CPU1 VR ISL68137 0.8V PMBUS @61h */
+> +       /* CPU1 VR 1.0V IR38064 I2C @12h, PMBUS @42h */
+> +       /* CPU0 VR ISL68137 1.2V CH47 PMBUS @45h */
+> +};
+> +
+> +
+> +&i2c9 {
+> +       status = "disabled";
+> +
+> +       /* Fan board */
+> +};
+> +
+> +&i2c10 {
+> +       status = "disabled";
+> +};
+> +
+> +&i2c11 {
+> +       status = "disabled";
+> +
+> +       /* GPU sideband */
+> +};
+> +
+> +&i2c12 {
+> +       status = "disabled";
+> +};
+> +
+> +&i2c13 {
+> +       status = "disabled";
+> +
+> +       /* MUX PI3USB102
+> +        *   CPU0 debug
+> +        *   CPU1 debug
+> +        */
+> +};
+> +
+> +&vuart {
+> +       status = "okay";
+> +};
+> --
+> 2.8.0.rc3.226.g39d4020
+>
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
