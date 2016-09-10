@@ -1,51 +1,45 @@
 Return-Path: <brendanhiggins@google.com>
-Received: from mail-ua0-x22f.google.com (mail-ua0-x22f.google.com
- [IPv6:2607:f8b0:400c:c08::22f])
+Received: from mail-ua0-x233.google.com (mail-ua0-x233.google.com
+ [IPv6:2607:f8b0:400c:c08::233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sWB2873ZJzDrq8
- for <openbmc@lists.ozlabs.org>; Sat, 10 Sep 2016 07:59:44 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sWG4m3L8qzDqXr
+ for <openbmc@lists.ozlabs.org>; Sat, 10 Sep 2016 11:02:15 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=MyOwRFGK; 
+ unprotected) header.d=google.com header.i=@google.com header.b=N1+yWiq/; 
  dkim-atps=neutral
-Received: by mail-ua0-x22f.google.com with SMTP id 31so79412499uao.0
- for <openbmc@lists.ozlabs.org>; Fri, 09 Sep 2016 14:59:43 -0700 (PDT)
+Received: by mail-ua0-x233.google.com with SMTP id b7so81468423uab.3
+ for <openbmc@lists.ozlabs.org>; Fri, 09 Sep 2016 18:02:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ZZowkH9ig0wK4cH3GwHTgKmdiRdfYqhNjzcXZC1mRxA=;
- b=MyOwRFGKumzdn/mKegNu/pYkp67aVH4iN4igNkUuAQPVjJeTMMfKAD7Lamw+f47tCb
- 2ZpvvV8QaHO+nfQ7Q+qlmo8cDXqCbHMcd0ZwncSZlhDJburpb84hqagbi/yMm4qj1VRy
- 01m1wJOKjT/1cgjhmktlS8svBarSo40ua8vVkGjAN03t04uqADB3QaGQcOqzW4AH2CJ+
- Sjos2bsNUwcxMqROedwgp23fC0yZqku2XI8+ws8ZctRGbBnyJlNlXvuaukvsQfYNljA6
- mY0ZA5Ni+srOF/4PW5mW0oaFQa/c1W26xH/4rPoSQasrR45avnkwUCQq01493heMqTdR
- aXyQ==
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=sajIU+r2U30JU/2b+C5sw5kr9YDfbUPLezlcYlyAiTk=;
+ b=N1+yWiq/T6OGjF5W1jbVW0ygtSkELK0xF35XrWZxLx/+kE/LPQo31LQSr6USVitkQW
+ pWU3GjXw4XDVtjUlfn2c2q65RyXwo5/eweJM2Tssa/6/edpf42iws0nwAyWSJyUTh6vN
+ RrV+owiKWcPRocUUMKjNvf/2fFMmXPPhmuj/81WiwPhA62HzHi2bki3720nh8hkYgL/7
+ yj4zAH7ffP2ZjYkXO2jloJVv74FIM6CkgBrFJrAz3zNi+CRsGpHBqaK1FYCN8WpMQ2T/
+ M8HSqPAoGcBIH4fngJvi0KK1JU5xEEtP7CzfastmybsEg2bJ9y+U/tl8FvIkJUn87oCS
+ oxdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ZZowkH9ig0wK4cH3GwHTgKmdiRdfYqhNjzcXZC1mRxA=;
- b=kzfcGD3+d8E/6ZwEKOgCpwWFqVLdR77nv/siDBnKjJ39ZgJQksLHI39SoM+ydTfGaZ
- 7Mh0k2JdX6/PUJqnqnpcE1+6AjwIfxGNQQEJi+4ysgFiWol2arHDq9rhl2CXw8gw/k2K
- oDyKT/LBzuVtoRYUHVZAm9QFF0RPatO7gXAcrXn6esjvLwZPxit4qtrgqyU0Pw+WZuhY
- Rtu+egQktf7v1or5BBQpWEMP11GvOTc0KTkzzhL2JDos08x/FJkKoA0uTmS9Gf8mvuVj
- 4D8WDSmzVYHWspGOSnEqwXeQaX8e7Nnf/t6P/UY794Ebb2sP+E0tz2azOUBy6kK80kzC
- QUJA==
-X-Gm-Message-State: AE9vXwNunKVo959ORVH3+Zv5CKZY5GFhFdu8AyjphTuxQh5t0FhwW7OqrNup3eQTOD8CTbtZKypPEb6oDTL7fXRq
-X-Received: by 10.159.36.136 with SMTP id 8mr1019959uar.18.1473458379963; Fri,
- 09 Sep 2016 14:59:39 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=sajIU+r2U30JU/2b+C5sw5kr9YDfbUPLezlcYlyAiTk=;
+ b=eghSBQlIl4tuuaV1kUk0i1ZySnVMj/afR7NlFLVKxjhlmxCJhLXbQe5iwv5YqwNSOZ
+ te2sHgBuYke2MowSWp5idR1NLz11H5gawRv0lRBXIrfwt7269cAawLy19Ix2ldBokt1C
+ BJR1e3xH4vwx0AytvYLyE85UKmlJt1jgq/klXOZ34RLaT4abWuj9urt7wo/6ZSpqNGSE
+ trSd7/gpk29OUFqgZzys1XymVSIMAo7d8UQNNKG7cX2JqI2P9V9NW1Qz907l6vrVVTj2
+ bHwFddG2Y0lFPhTY3iUdl5DxCsvpmsE46jln+//8ebacqalHbLbLdTkhSZmQ7cxcRpbU
+ KWKQ==
+X-Gm-Message-State: AE9vXwPA3fRfUqWSuen0ZFbCw7oOSS39v7j8NS3htJsPiid1FVDIvAN66fyHd2oMsqvv8yLIMcHXz6bc0effZXkT
+X-Received: by 10.176.6.6 with SMTP id f6mr4617544uaf.46.1473469333080; Fri,
+ 09 Sep 2016 18:02:13 -0700 (PDT)
 MIME-Version: 1.0
-References: <1473370130-26681-1-git-send-email-brendanhiggins@google.com>
- <CACPK8XfeS5obZguFmRPhw5OtvaSjmSnYvsxH45N743FZDE+y2w@mail.gmail.com>
- <e45ff4e7-9e3f-f9fc-cc45-bcd12a53172a@kaod.org>
-In-Reply-To: <e45ff4e7-9e3f-f9fc-cc45-bcd12a53172a@kaod.org>
 From: Brendan Higgins <brendanhiggins@google.com>
-Date: Fri, 09 Sep 2016 21:59:29 +0000
-Message-ID: <CAFd5g45px_dS7QNwqcs0xz-s=aaDtwWMTpBG3OXSNVy+xZE6dA@mail.gmail.com>
-Subject: Re: [RFC 0/2] misc: bt: added Block Transfer over I2C
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
- Joel Stanley <joel@jms.id.au>
+Date: Sat, 10 Sep 2016 01:02:02 +0000
+Message-ID: <CAFd5g46OwV7OEcLQmkyajxcDpy+fztAK3reo3iDcjkBOcBncBQ@mail.gmail.com>
+Subject: Supporting one IPMI request does not yield one response
+To: patrick@stwcx.xyz
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=001a113eff2654a814053c1a43cd
+Content-Type: multipart/alternative; boundary=94eb2c0481f82fcc87053c1cd0a8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -57,231 +51,75 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 09 Sep 2016 21:59:45 -0000
+X-List-Received-Date: Sat, 10 Sep 2016 01:02:18 -0000
 
---001a113eff2654a814053c1a43cd
+--94eb2c0481f82fcc87053c1cd0a8
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-@Joel, thanks! I appreciate that :-)
+Hello,
+The reason I am interested in having support for not requiring one response
+to be tied to one request is because I am interested in multiple responses
+being associated with a single request. In particular, I am interested
+adding an OEM Group extension that allows arbitrarily large payloads to be
+broken up across multiple Block Transfer messages.
 
-> yes. The main question is about the use of the ioctl to propagate
-> the SMS ATN event to the host. I think this is probably the best
+I have a prototype for this OEM Group extension that I have tested on the
+Aspeed 2500 EVB; there are some changes that need to be made to the handler
+code in phosphor-host-ipmid to make it work, but nothing that seemed to
+have any potential for controversy other than allowing a single request to
+solicit none-to-many responses. There are other ways to make this work, but
+this seemed to be the most palatable to me for the reason that it generates
+less traffic than having to send a dummy request to get each of the
+responses after the first one or using something like SMS Attention. I also
+thought that the OpenBMC community might find supporting one request
+soliciting multiple responses to be interesting because it would add the
+capability to support IPMI Message Bridging as it requires sending two
+responses for a single request (see '6.13.4 Bridged Request Example' in the
+IPMI spec).
 
-You are changing the behavior of the interface in some respect, so I think
-ioctl makes sense.
+The OEM Group extension I mentioned could be thought of as a transport
+layer over IPMI; it is something that I would like to get some more
+feedback on later at which time I will send a more specific email detailing
+how it works. Right now, I am just interested in whether there is any
+interested in allowing a single IPMI request to solicit none-to-many
+responses.
 
-> method but as this is a user API, we should be careful with what we
-> merge. I don't know any other implementation of a IPMI BT driver
-> for the BMC side.
+Feedback is greatly appreciated!
 
-Fair point, that is something I am not sure about either. I think
-upstreaming my patch would be contingent on whether we wanted to upstream
-yours. On the other hand, if people want your IPMI BT driver from the BMC
-side, it would be worth seeing if upstream wanted mine: bt-i2c addresses an
-Aspeed specific issue (cannot NACK arbitrary messages makes SSIF support
-possibly impossible), but we will see. I am more interested in seeing how
-you guys feel about using Block Transfer for more things in a possibly
-somewhat modified manner.
+Thanks!
 
-It seems like OpenBMC assumes all IPMI messages are assumed to be framed as
-BT messages; maybe we want to consider formalizing around them? Just a
-thought.
-
-> Also, the drivers should probably be under char/ipmi. I will change
-> that.
-
-Makes sense, I will fix this in my next update.
-
-> Finaly, the device name should contain "ipmi" IMO. Let's find a
-> name ! or a pattern at least.
-
-Also makes sense; I definitely want to follow the same pattern as you since
-this is intended to provide the same API to the user. To throw my 2 cents
-in, I do not like the "host" part of "bt-host", just because it feels
-confusing. I get it from the standpoint of the userland (it is a port to
-the host), but from a driver standpoint it seems confusing. I like maybe
-use the term "bmc" or "slave" instead. Maybe the prefix could be
-"ipmi-bt-xxx-cpu" and "ipmi-bt-xxx-bmc"?
-
-Cheers
-
-On Fri, Sep 9, 2016 at 9:30 AM C=C3=A9dric Le Goater <clg@kaod.org> wrote:
-
-> On 09/09/2016 07:22 AM, Joel Stanley wrote:
-> > Hey Brendan,
-> >
-> > On Fri, Sep 9, 2016 at 6:58 AM, Brendan Higgins
-> > <brendanhiggins@google.com> wrote:
-> >> Looking for feedback on my new bt-i2c (Block Transfer over I2C)
-> interface.
-> >
-> > Thanks for sending this out. You're setting a great example for the res=
-t
-> of us!
-> >
-> > I don't have an specific feedback for you, other than to say I think
-> > what you are doing is reasonable.
-> >
-> >> I based the slave side (BMC) driver on the bt-host driver; the file
-> system
-> >> interface is fully compatible and has been tested with btbridged and
-> ipmid
-> >> running on an ast2500 evb.
-> >
-> > This is timely. Cedric has recently sent out the bt-host patches[1].
-> > One of the questions raised was the suitability of the userspace API
-> > for other users. It would be useful for you to put forward your
-> > thoughts on that discussion.
-> >
-> > [1] http://www.spinics.net/lists/arm-kernel/msg527834.html
->
-> yes. The main question is about the use of the ioctl to propagate
-> the SMS ATN event to the host. I think this is probably the best
-> method but as this is a user API, we should be careful with what we
-> merge. I don't know any other implementation of a IPMI BT driver
-> for the BMC side.
->
-> Also, the drivers should probably be under char/ipmi. I will change
-> that.
->
-> Finaly, the device name should contain "ipmi" IMO. Let's find a
-> name ! or a pattern at least.
->
-> Thanks,
->
-> C.
->
->
-
---001a113eff2654a814053c1a43cd
+--94eb2c0481f82fcc87053c1cd0a8
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">@Joel, thanks! I appreciate that :-)<div><br></div><div>&g=
-t;=C2=A0<span style=3D"color:rgb(33,33,33);font-family:&quot;helvetica neue=
-&quot;,helvetica,arial,sans-serif;line-height:1.5">yes. The main question i=
-s about the use of the ioctl to propagate</span></div><span style=3D"color:=
-rgb(33,33,33);font-family:&quot;helvetica neue&quot;,helvetica,arial,sans-s=
-erif">&gt; the SMS ATN event to the host. I think this is probably the best=
-</span><div><br></div><div>You are changing the behavior of the interface i=
-n some respect, so I think ioctl makes sense.</div><div><br class=3D"gmail_=
-msg" style=3D"color:rgb(33,33,33);font-family:&quot;helvetica neue&quot;,he=
-lvetica,arial,sans-serif"><span style=3D"color:rgb(33,33,33);font-family:&q=
-uot;helvetica neue&quot;,helvetica,arial,sans-serif">&gt; method but as thi=
-s is a user API, we should be careful with what we</span><br class=3D"gmail=
-_msg" style=3D"color:rgb(33,33,33);font-family:&quot;helvetica neue&quot;,h=
-elvetica,arial,sans-serif"><span style=3D"color:rgb(33,33,33);font-family:&=
-quot;helvetica neue&quot;,helvetica,arial,sans-serif">&gt; merge. I don&#39=
-;t know any other implementation of a IPMI BT driver</span><br class=3D"gma=
-il_msg" style=3D"color:rgb(33,33,33);font-family:&quot;helvetica neue&quot;=
-,helvetica,arial,sans-serif"><span style=3D"color:rgb(33,33,33);font-family=
-:&quot;helvetica neue&quot;,helvetica,arial,sans-serif">&gt; for the BMC si=
-de.</span><div><span style=3D"color:rgb(33,33,33);font-family:&quot;helveti=
-ca neue&quot;,helvetica,arial,sans-serif"><br></span></div><div><span style=
-=3D"color:rgb(33,33,33);font-family:&quot;helvetica neue&quot;,helvetica,ar=
-ial,sans-serif">Fair point, that is something I am not sure about either. I=
- think upstreaming my patch would be contingent on whether we wanted to ups=
-tream yours. On the other hand, if people want your IPMI BT driver from the=
- BMC side, it would be worth seeing if upstream wanted mine: bt-i2c address=
-es an Aspeed specific issue (cannot NACK arbitrary messages makes SSIF supp=
-ort possibly impossible), but we will see. I am more interested in seeing h=
-ow you guys feel about using Block Transfer for more things in a possibly s=
-omewhat modified manner.</span></div><div><span style=3D"color:rgb(33,33,33=
-);font-family:&quot;helvetica neue&quot;,helvetica,arial,sans-serif"><br></=
-span></div><div><span style=3D"color:rgb(33,33,33);font-family:&quot;helvet=
-ica neue&quot;,helvetica,arial,sans-serif">It seems like OpenBMC assumes al=
-l IPMI messages are assumed to be framed as BT messages; maybe we want to c=
-onsider formalizing around them? Just a thought.</span></div></div><div><sp=
-an style=3D"color:rgb(33,33,33);font-family:&quot;helvetica neue&quot;,helv=
-etica,arial,sans-serif"><br></span></div><div><span style=3D"color:rgb(33,3=
-3,33);font-family:&quot;helvetica neue&quot;,helvetica,arial,sans-serif">&g=
-t;=C2=A0</span><span style=3D"color:rgb(33,33,33);font-family:&quot;helveti=
-ca neue&quot;,helvetica,arial,sans-serif;line-height:1.5">Also, the drivers=
- should probably be under char/ipmi. I will change</span></div><span style=
-=3D"color:rgb(33,33,33);font-family:&quot;helvetica neue&quot;,helvetica,ar=
-ial,sans-serif">&gt; that.</span><div><br></div><div>Makes sense, I will fi=
-x this in my next update.</div><div><br></div><div>&gt;=C2=A0<span style=3D=
-"color:rgb(33,33,33);font-family:&quot;helvetica neue&quot;,helvetica,arial=
-,sans-serif;line-height:1.5">Finaly, the device name should contain &quot;i=
-pmi&quot; IMO. Let&#39;s find a</span></div><span style=3D"color:rgb(33,33,=
-33);font-family:&quot;helvetica neue&quot;,helvetica,arial,sans-serif">&gt;=
- name ! or a pattern at least.</span><div><span style=3D"color:rgb(33,33,33=
-);font-family:&quot;helvetica neue&quot;,helvetica,arial,sans-serif"><br></=
-span></div><div><span style=3D"color:rgb(33,33,33);font-family:&quot;helvet=
-ica neue&quot;,helvetica,arial,sans-serif">Also makes sense; I definitely w=
-ant to follow the same pattern as you since this is intended to provide the=
- same API to the user. To throw my 2 cents in, I do not like the &quot;host=
-&quot; part of &quot;bt-host&quot;, just because it feels confusing. I get =
-it from the standpoint of the userland (it is a port to the host), but from=
- a driver standpoint it seems confusing. I like maybe use the term &quot;bm=
-c&quot; or &quot;slave&quot; instead. Maybe the prefix could be &quot;ipmi-=
-bt-xxx-cpu&quot; and &quot;ipmi-bt-xxx-bmc&quot;?</span></div><div><span st=
-yle=3D"color:rgb(33,33,33);font-family:&quot;helvetica neue&quot;,helvetica=
-,arial,sans-serif"><br></span></div><div><span style=3D"color:rgb(33,33,33)=
-;font-family:&quot;helvetica neue&quot;,helvetica,arial,sans-serif">Cheers<=
-/span></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Fri, S=
-ep 9, 2016 at 9:30 AM C=C3=A9dric Le Goater &lt;<a href=3D"mailto:clg@kaod.=
-org">clg@kaod.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote"=
- style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On=
- 09/09/2016 07:22 AM, Joel Stanley wrote:<br class=3D"gmail_msg">
-&gt; Hey Brendan,<br class=3D"gmail_msg">
-&gt;<br class=3D"gmail_msg">
-&gt; On Fri, Sep 9, 2016 at 6:58 AM, Brendan Higgins<br class=3D"gmail_msg"=
->
-&gt; &lt;<a href=3D"mailto:brendanhiggins@google.com" class=3D"gmail_msg" t=
-arget=3D"_blank">brendanhiggins@google.com</a>&gt; wrote:<br class=3D"gmail=
-_msg">
-&gt;&gt; Looking for feedback on my new bt-i2c (Block Transfer over I2C) in=
-terface.<br class=3D"gmail_msg">
-&gt;<br class=3D"gmail_msg">
-&gt; Thanks for sending this out. You&#39;re setting a great example for th=
-e rest of us!<br class=3D"gmail_msg">
-&gt;<br class=3D"gmail_msg">
-&gt; I don&#39;t have an specific feedback for you, other than to say I thi=
-nk<br class=3D"gmail_msg">
-&gt; what you are doing is reasonable.<br class=3D"gmail_msg">
-&gt;<br class=3D"gmail_msg">
-&gt;&gt; I based the slave side (BMC) driver on the bt-host driver; the fil=
-e system<br class=3D"gmail_msg">
-&gt;&gt; interface is fully compatible and has been tested with btbridged a=
-nd ipmid<br class=3D"gmail_msg">
-&gt;&gt; running on an ast2500 evb.<br class=3D"gmail_msg">
-&gt;<br class=3D"gmail_msg">
-&gt; This is timely. Cedric has recently sent out the bt-host patches[1].<b=
-r class=3D"gmail_msg">
-&gt; One of the questions raised was the suitability of the userspace API<b=
-r class=3D"gmail_msg">
-&gt; for other users. It would be useful for you to put forward your<br cla=
-ss=3D"gmail_msg">
-&gt; thoughts on that discussion.<br class=3D"gmail_msg">
-&gt;<br class=3D"gmail_msg">
-&gt; [1] <a href=3D"http://www.spinics.net/lists/arm-kernel/msg527834.html"=
- rel=3D"noreferrer" class=3D"gmail_msg" target=3D"_blank">http://www.spinic=
-s.net/lists/arm-kernel/msg527834.html</a><br class=3D"gmail_msg">
-<br class=3D"gmail_msg">
-yes. The main question is about the use of the ioctl to propagate<br class=
-=3D"gmail_msg">
-the SMS ATN event to the host. I think this is probably the best<br class=
-=3D"gmail_msg">
-method but as this is a user API, we should be careful with what we<br clas=
-s=3D"gmail_msg">
-merge. I don&#39;t know any other implementation of a IPMI BT driver<br cla=
-ss=3D"gmail_msg">
-for the BMC side.<br class=3D"gmail_msg">
-<br class=3D"gmail_msg">
-Also, the drivers should probably be under char/ipmi. I will change<br clas=
-s=3D"gmail_msg">
-that.<br class=3D"gmail_msg">
-<br class=3D"gmail_msg">
-Finaly, the device name should contain &quot;ipmi&quot; IMO. Let&#39;s find=
- a<br class=3D"gmail_msg">
-name ! or a pattern at least.<br class=3D"gmail_msg">
-<br class=3D"gmail_msg">
-Thanks,<br class=3D"gmail_msg">
-<br class=3D"gmail_msg">
-C.<br class=3D"gmail_msg">
-<br class=3D"gmail_msg">
-</blockquote></div>
+<div dir=3D"ltr"><div dir=3D"ltr" class=3D"gmail_msg">Hello,<div class=3D"g=
+mail_msg"><span style=3D"line-height:1.5">The reason I am interested in hav=
+ing support for not requiring one response to be tied to one request is bec=
+ause I am interested in multiple responses being associated with a single r=
+equest. In particular, I am interested adding an OEM Group extension that a=
+llows arbitrarily large payloads to be broken up across multiple Block Tran=
+sfer messages.</span><br></div><div class=3D"gmail_msg"><br></div><div clas=
+s=3D"gmail_msg">I have a prototype for this OEM Group extension that I have=
+ tested on the Aspeed 2500 EVB; there are some changes that need to be made=
+ to the handler code in=C2=A0phosphor-host-ipmid to make it work, but nothi=
+ng that seemed to have any potential for controversy other than allowing a =
+single request to solicit none-to-many responses. There are other ways to m=
+ake this work, but this seemed to be the most palatable to me for the reaso=
+n that it generates less traffic than having to send a dummy request to get=
+ each of the responses after the first one or using something like SMS Atte=
+ntion. I also thought that the OpenBMC community might find supporting one =
+request soliciting multiple responses to be interesting because it would ad=
+d the capability to support IPMI Message Bridging as it requires sending tw=
+o responses for a single request (see=C2=A0<span style=3D"line-height:1.5">=
+&#39;6.13.4 Bridged Request Example&#39; in the IPMI spec).</span></div><di=
+v class=3D"gmail_msg"><span style=3D"line-height:1.5"><br></span></div><div=
+ class=3D"gmail_msg">The OEM Group extension I mentioned could be thought o=
+f as a transport layer over IPMI; it is something that I would like to get =
+some more feedback on later at which time I will send a more specific email=
+ detailing how it works. Right now, I am just interested in whether there i=
+s any interested in allowing a single IPMI request to solicit none-to-many =
+responses.</div><div class=3D"gmail_msg"><br></div><div class=3D"gmail_msg"=
+>Feedback is greatly appreciated!</div><div class=3D"gmail_msg"><br></div><=
+div class=3D"gmail_msg">Thanks!</div></div></div>
 
---001a113eff2654a814053c1a43cd--
+--94eb2c0481f82fcc87053c1cd0a8--
