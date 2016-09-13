@@ -1,67 +1,27 @@
-Return-Path: <vishwa@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sYJ6z0pynzDrfR
- for <openbmc@lists.ozlabs.org>; Tue, 13 Sep 2016 18:41:14 +1000 (AEST)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
- u8D8cHYp075393
- for <openbmc@lists.ozlabs.org>; Tue, 13 Sep 2016 04:41:12 -0400
-Received: from e23smtp01.au.ibm.com (e23smtp01.au.ibm.com [202.81.31.143])
- by mx0b-001b2d01.pphosted.com with ESMTP id 25dwy0f0ct-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 13 Sep 2016 04:41:12 -0400
-Received: from localhost
- by e23smtp01.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <vishwa@linux.vnet.ibm.com>;
- Tue, 13 Sep 2016 18:41:09 +1000
-Received: from d23dlp02.au.ibm.com (202.81.31.213)
- by e23smtp01.au.ibm.com (202.81.31.207) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Tue, 13 Sep 2016 18:41:06 +1000
-X-IBM-Helo: d23dlp02.au.ibm.com
-X-IBM-MailFrom: vishwa@linux.vnet.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from d23relay10.au.ibm.com (d23relay10.au.ibm.com [9.190.26.77])
- by d23dlp02.au.ibm.com (Postfix) with ESMTP id DB1962BB0055
- for <openbmc@lists.ozlabs.org>; Tue, 13 Sep 2016 18:41:05 +1000 (EST)
-Received: from d23av06.au.ibm.com (d23av06.au.ibm.com [9.190.235.151])
- by d23relay10.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u8D8f5iw1900858
- for <openbmc@lists.ozlabs.org>; Tue, 13 Sep 2016 18:41:05 +1000
-Received: from d23av06.au.ibm.com (localhost [127.0.0.1])
- by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u8D8f5l0020676
- for <openbmc@lists.ozlabs.org>; Tue, 13 Sep 2016 18:41:05 +1000
-Received: from [9.79.228.187] ([9.79.228.187])
- by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u8D8f41v020609
- for <openbmc@lists.ozlabs.org>; Tue, 13 Sep 2016 18:41:05 +1000
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: vishwa <vishwa@linux.vnet.ibm.com>
-Subject: Interceptor for org.freedesktop.DBus.Properties.Set
-Date: Tue, 13 Sep 2016 14:11:04 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.2.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sYZ2q5P4HzDsTQ
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Sep 2016 05:08:35 +1000 (AEST)
+Received: from localhost (32.97.110.51 [32.97.110.51]) by mx.zohomail.com
+ with SMTPS id 1473793707591388.78309883642623;
+ Tue, 13 Sep 2016 12:08:27 -0700 (PDT)
+Date: Tue, 13 Sep 2016 14:08:25 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: vishwa <vishwa@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: Interceptor for org.freedesktop.DBus.Properties.Set
+Message-ID: <20160913190825.4kyf6mcvi5wrxzz5@asimov>
+References: <28a48a18-987a-31d8-2d3a-192be90884a4@linux.vnet.ibm.com>
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="------------7FDBBB7341FBBAC3FC06742B"
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16091308-1617-0000-0000-000001569CD5
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 16091308-1618-0000-0000-000046B19748
-Message-Id: <28a48a18-987a-31d8-2d3a-192be90884a4@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2016-09-13_05:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=15
- spamscore=15 suspectscore=2
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1609020000
- definitions=main-1609130127
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="zzc6dcd4z7tbk3pu"
+Content-Disposition: inline
+In-Reply-To: <28a48a18-987a-31d8-2d3a-192be90884a4@linux.vnet.ibm.com>
+User-Agent: Mutt/1.6.2 (2016-06-11)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -73,92 +33,106 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Sep 2016 08:41:15 -0000
+X-List-Received-Date: Tue, 13 Sep 2016 19:08:36 -0000
 
-This is a multi-part message in MIME format.
---------------7FDBBB7341FBBAC3FC06742B
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-/org/openbmc/settings/host0 provides the dbus properties that are 
-settable via org.freedesktop.DBus.properties.Set.
-The properties are treated as user settings and are consumed by 
-respective daemons by having a signal handler registered for 
-PropertyChanged method.
+--zzc6dcd4z7tbk3pu
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The challenge at the hand is "How to make sure the users that set the 
-property are choosing a valid value".
+On Tue, Sep 13, 2016 at 02:11:04PM +0530, vishwa wrote:
+> /org/openbmc/settings/host0 provides the dbus properties that are=20
+> settable via org.freedesktop.DBus.properties.Set.
+> The properties are treated as user settings and are consumed by=20
+> respective daemons by having a signal handler registered for=20
+> PropertyChanged method.
+>=20
+> The challenge at the hand is "How to make sure the users that set the=20
+> property are choosing a valid value".
+>=20
+> Since its set by org.freedesktop.DBus.Properties.Set, the ideal way=20
+> would be to register a callback that would validate the user input based=
+=20
+> on custom algo and then only would let the .Set continue.
+>=20
+> Without an interceptor, the user settings may be as junk as "abcdef" and=
+=20
+> the *settings damon* can only react to that change and can put the=20
+> previous value back into it post verification.
+>=20
+> I did a lot of search on ways to register an interceptor and did not see=
+=20
+> one. I then asked in #dbus and they told me that there is no way to=20
+> intercept that.
 
-Since its set by org.freedesktop.DBus.Properties.Set, the ideal way 
-would be to register a callback that would validate the user input based 
-on custom algo and then only would let the .Set continue.
+The way to do it entirely depends on the DBus binding in use.  I'm not
+sure why people in #dbus would tell you it cannot be done.
 
-Without an interceptor, the user settings may be as junk as "abcdef" and 
-the *settings damon* can only react to that change and can put the 
-previous value back into it post verification.
+The systemd/sd-bus vtable entry for a "writable property" allows a
+property to be managed directly by systemd (pass property by pointer) or
+via indirect get/set methods:
+https://github.com/systemd/systemd/blob/master/src/systemd/sd-bus-vtable.h#=
+L123
 
-I did a lot of search on ways to register an interceptor and did not see 
-one. I then asked in #dbus and they told me that there is no way to 
-intercept that.
+If you look through the systemd repository you will find some
+SD_BUS_WRITABLE_PROPERTY calls where the get/set methods are used and
+those can clearly cause a Dbus.Error instead of returning success.
 
-So the solution what I have at the moment is to
+phosphor-settingsd is currently using a pyphosphor wrapper around the
+python dbus bindings.  Here we implement the
+org.freedesktop.Dbus.Properties.Set[All]:
 
-1) Disable the property set via freedesktop
-2) Introduce a custom Setter "org.openbmc.Settings.Host.Set" which can 
-do the job of validating the inputs also.
+https://github.com/openbmc/pyphosphor/blob/master/obmc/dbuslib/bindings.py#=
+L76
+https://github.com/openbmc/pyphosphor/blob/master/obmc/dbuslib/bindings.py#=
+L95
 
-Please let me know if there are better approaches.
+I think you could enhance this to call a set/get function, if present, for
+specific properties.  Those can throw an exception which will turn into
+a Dbus.Error.
 
-Thanks.
+> So the solution what I have at the moment is to
+>=20
+> 1) Disable the property set via freedesktop
+> 2) Introduce a custom Setter "org.openbmc.Settings.Host.Set" which can=20
+> do the job of validating the inputs also.
+>=20
+> Please let me know if there are better approaches.
+>=20
+> Thanks.
+>=20
+> Vishwanatha Subbanna.
 
-Vishwanatha Subbanna.
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
 
---------------7FDBBB7341FBBAC3FC06742B
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 7bit
 
-<html>
-  <head>
+--=20
+Patrick Williams
 
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  </head>
-  <body bgcolor="#FFFFFF" text="#000000">
-    <font size="+1">/org/openbmc/settings/host0 provides the dbus
-      properties that are settable via
-      org.freedesktop.DBus.properties.Set.<br>
-      The properties are treated as user settings and are consumed by
-      respective daemons by having a signal handler registered for
-      PropertyChanged method.<br>
-      <br>
-      The challenge at the hand is "How to make sure the users that set
-      the property are choosing a valid value".<br>
-      <br>
-      Since its set by org.freedesktop.DBus.Properties.Set, the ideal
-      way would be to register a callback that would validate the user
-      input based on custom algo and then only would let the .Set
-      continue.<br>
-      <br>
-      Without an interceptor, the user settings may be as junk as
-      "abcdef" and the *settings damon* can only react to that change
-      and can put the previous value back into it post verification.<br>
-      <br>
-      I did a lot of search on ways to register an interceptor and did
-      not see one. I then asked in #dbus and they told me that there is
-      no way to intercept that.<br>
-      <br>
-      So the solution what I have at the moment is to<br>
-      <br>
-      1) Disable the property set via freedesktop<br>
-      2) Introduce a custom Setter "org.openbmc.Settings.Host.Set" which
-      can do the job of validating the inputs also.<br>
-      <br>
-      Please let me know if there are better approaches.<br>
-      <br>
-      Thanks.<br>
-      <br>
-      Vishwanatha Subbanna.<br>
-    </font>
-  </body>
-</html>
+--zzc6dcd4z7tbk3pu
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
 
---------------7FDBBB7341FBBAC3FC06742B--
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJX2E6pAAoJEKsDR8wtAMEZxlEQAIrs4k66eEtNkCjEl1yiVgDD
+rKUzYtx/scO+fTWPIsS/S9AeY30iiaubHnrR4XGOxIhwKQZg5ezRX//Wrt3RUFjr
+0Yi4JTWRqedrypO610tKOnbqhLIFqTEfNxmogzQRMPNfTIUgyohbijev41yVRZ7X
+VMiB1pKFrr1zE+JcOUYpHniHIqMeIcYF3C3eYfMQzPUECyyZ+IM8Lfx1+0O9SjkY
+efWxZxDR9X3362RBsV9fqrsryQjPIVWwUDbWRUrRaF5SA6ieIl0HIIYo91HcvoWi
+tl/zlLcDiiKOSh+uudNIEVPUfp8xtMatmWxdozGQ5TDeLxeG7SxJI5EoH5ImQFd4
+6qLJHTG8w6SUoEKk9nAgMxQvr6EUFw7cWcmhzbOGHzrp7qJJLa9gmBZd9dxa/uB7
+fXke/G7SZirUarghz0LkljtevVtOPR6Z2eltKTSNkirHl8ZQxLlklpKSinQxwSk0
+kWdzKFhH+2x/NYtwkj76nNth4DnkCfYo45uHb8rFK3UOZCKYZG2CgdQncUQCeYtH
+d0kG1Yxa4VGBdfC4iE6srSc0moMqFYLeFA9hjsgMRDpvuvzJ+xCKECTvKwy/kLeJ
+0FES0Sio8+9goHL+NpCjgplaI6Doy0749jaojU9WG9KegBR2L91Zt47w2+3DuR9G
+pDBdwBnGPcNYnWqP9OjZ
+=Y/v2
+-----END PGP SIGNATURE-----
+
+--zzc6dcd4z7tbk3pu--
