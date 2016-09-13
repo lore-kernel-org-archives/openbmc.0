@@ -1,50 +1,67 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-vk0-x22b.google.com (mail-vk0-x22b.google.com
- [IPv6:2607:f8b0:400c:c05::22b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <vishwa@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sXhwl45ylzDsMD
- for <openbmc@lists.ozlabs.org>; Mon, 12 Sep 2016 19:15:18 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=rtWM/2JT; 
- dkim-atps=neutral
-Received: by mail-vk0-x22b.google.com with SMTP id f76so125090996vke.0
- for <openbmc@lists.ozlabs.org>; Mon, 12 Sep 2016 02:15:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=WZUbhVe5UK7vS9opaxisBTeEEWTLfce+icFven1SbMA=;
- b=rtWM/2JTD3/THSEyXfuouFrJ6mIek5NiQS15WHv1e3y0Qe6ECrQuaJ4hgqwAwSw0u1
- EMl6wgQsDTu1AZ2PjwlHGMMn6VlKsau1aWyI9xoQKKEfU5q9JggEtg9yyBSKnk04y+vA
- 7UxMr+MCXowt/SdD0LHxTK2l5ncoX9f8FoGDyFHy4MPSElIMQ9PqBIxfTUnCWTFJCGxN
- 1decsLGGde7R0qSAWq+uWJGk6Jl0Z8fRml8RId/X+uKRa+mYyZ+7INIHkpfsYD2EhVrP
- ato4kCbda8a7w5Kk4Qapbi2RlyvQEDckCthSDyZaa5n+J8QKmphCdxKu3qnmLCfeTJG9
- Uj/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
- :to:content-transfer-encoding;
- bh=WZUbhVe5UK7vS9opaxisBTeEEWTLfce+icFven1SbMA=;
- b=ZFsfKxiWpPGRq+dfWs4LULQM6HVAUglEEFEtudlkgmNxXfpz0MeKlZjvE/MN9lg2JV
- IpsPeX8G1rM1ZksaIF37lapZfq5tTkT7VZsK7FZhuw478VsKHXVmtHdf2EPKpokhXGZb
- GUig+XO5h+CM8ufL2PgUfkERSyTyHhE7MOueWIdTDoW2vO1/nX5y2oTp9AEna7X/DdFs
- MnafnTDdKV4b73NMxEeV+iODMubNOCvHstlL6s6dyV8umM+f3Dkion17ZwfTrOZdNURG
- qEYd3dlS1wU8JiHEGr6Yzc+eu1HssFtOBVJlaizwvJxBZjl/Nxf8BX13ZljMPH5JWhYz
- pSdw==
-X-Gm-Message-State: AE9vXwMghvbb83Rftse4gvZzkXC30Z847db5Cbz0haRJzyzeAUsQdwATDUn/NbQahDUZaKlhOWqAYVCnRT78GQ==
-X-Received: by 10.31.141.21 with SMTP id p21mr11249210vkd.152.1473671716204;
- Mon, 12 Sep 2016 02:15:16 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.176.80.221 with HTTP; Mon, 12 Sep 2016 02:14:55 -0700 (PDT)
-From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 12 Sep 2016 18:44:55 +0930
-X-Google-Sender-Auth: s4fJ3Y7zAMzbj3qQCSGpuM3d_Fo
-Message-ID: <CACPK8Xdtugha_jc7q3YsgMOGw2jz+Qw5A2P7mjXC2--80eH5=Q@mail.gmail.com>
-Subject: [linux] clocksource driver queued for 4.9
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sYJ6z0pynzDrfR
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Sep 2016 18:41:14 +1000 (AEST)
+Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
+ u8D8cHYp075393
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Sep 2016 04:41:12 -0400
+Received: from e23smtp01.au.ibm.com (e23smtp01.au.ibm.com [202.81.31.143])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 25dwy0f0ct-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Sep 2016 04:41:12 -0400
+Received: from localhost
+ by e23smtp01.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <vishwa@linux.vnet.ibm.com>;
+ Tue, 13 Sep 2016 18:41:09 +1000
+Received: from d23dlp02.au.ibm.com (202.81.31.213)
+ by e23smtp01.au.ibm.com (202.81.31.207) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Tue, 13 Sep 2016 18:41:06 +1000
+X-IBM-Helo: d23dlp02.au.ibm.com
+X-IBM-MailFrom: vishwa@linux.vnet.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from d23relay10.au.ibm.com (d23relay10.au.ibm.com [9.190.26.77])
+ by d23dlp02.au.ibm.com (Postfix) with ESMTP id DB1962BB0055
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Sep 2016 18:41:05 +1000 (EST)
+Received: from d23av06.au.ibm.com (d23av06.au.ibm.com [9.190.235.151])
+ by d23relay10.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u8D8f5iw1900858
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Sep 2016 18:41:05 +1000
+Received: from d23av06.au.ibm.com (localhost [127.0.0.1])
+ by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u8D8f5l0020676
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Sep 2016 18:41:05 +1000
+Received: from [9.79.228.187] ([9.79.228.187])
+ by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u8D8f41v020609
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Sep 2016 18:41:05 +1000
 To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+From: vishwa <vishwa@linux.vnet.ibm.com>
+Subject: Interceptor for org.freedesktop.DBus.Properties.Set
+Date: Tue, 13 Sep 2016 14:11:04 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.2.0
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="------------7FDBBB7341FBBAC3FC06742B"
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16091308-1617-0000-0000-000001569CD5
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 16091308-1618-0000-0000-000046B19748
+Message-Id: <28a48a18-987a-31d8-2d3a-192be90884a4@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-09-13_05:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=15
+ spamscore=15 suspectscore=2
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1609020000
+ definitions=main-1609130127
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -56,91 +73,92 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 12 Sep 2016 09:15:20 -0000
+X-List-Received-Date: Tue, 13 Sep 2016 08:41:15 -0000
 
-Another piece of support that will land upstream in Linux 4.9.
+This is a multi-part message in MIME format.
+--------------7FDBBB7341FBBAC3FC06742B
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+/org/openbmc/settings/host0 provides the dbus properties that are 
+settable via org.freedesktop.DBus.properties.Set.
+The properties are treated as user settings and are consumed by 
+respective daemons by having a signal handler registered for 
+PropertyChanged method.
 
----------- Forwarded message ----------
-From: Daniel Lezcano <daniel.lezcano@linaro.org>
-Date: Mon, Sep 12, 2016 at 6:40 PM
-Subject: [PULL] clockevents for 4.9
-To: Thomas Gleixner <tglx@linutronix.de>
-Cc: Ingo Molnar <mingo@kernel.org>, Alexandre Belloni
-<alexandre.belloni@free-electrons.com>, Joel Stanley <joel@jms.id.au>,
-Neil Armstrong <narmstrong@baylibre.com>, Linux Kernel Mailing List
-<linux-kernel@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
-<linux-arm-kernel@lists.infradead.org>
+The challenge at the hand is "How to make sure the users that set the 
+property are choosing a valid value".
 
+Since its set by org.freedesktop.DBus.Properties.Set, the ideal way 
+would be to register a callback that would validate the user input based 
+on custom algo and then only would let the .Set continue.
 
+Without an interceptor, the user settings may be as junk as "abcdef" and 
+the *settings damon* can only react to that change and can put the 
+previous value back into it post verification.
 
-Hi Thomas, Ingo,
+I did a lot of search on ways to register an interceptor and did not see 
+one. I then asked in #dbus and they told me that there is no way to 
+intercept that.
 
-This pull request for 4.9 contains a few changes:
+So the solution what I have at the moment is to
 
- - Cleanup the atmel-pit timer (Alexander Belloni)
+1) Disable the property set via freedesktop
+2) Introduce a custom Setter "org.openbmc.Settings.Host.Set" which can 
+do the job of validating the inputs also.
 
- - Add the Aspeed support (Joel Stanley)
+Please let me know if there are better approaches.
 
- - Replaced setup_irq/request_irq and panic/pr_err on moxart (Daniel
-Lezcano)
+Thanks.
 
- - Add the Ox820 compatible string for oxnas (Neil Armstrong)
+Vishwanatha Subbanna.
 
-Thanks !
+--------------7FDBBB7341FBBAC3FC06742B
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-  -- Daniel
+<html>
+  <head>
 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <font size="+1">/org/openbmc/settings/host0 provides the dbus
+      properties that are settable via
+      org.freedesktop.DBus.properties.Set.<br>
+      The properties are treated as user settings and are consumed by
+      respective daemons by having a signal handler registered for
+      PropertyChanged method.<br>
+      <br>
+      The challenge at the hand is "How to make sure the users that set
+      the property are choosing a valid value".<br>
+      <br>
+      Since its set by org.freedesktop.DBus.Properties.Set, the ideal
+      way would be to register a callback that would validate the user
+      input based on custom algo and then only would let the .Set
+      continue.<br>
+      <br>
+      Without an interceptor, the user settings may be as junk as
+      "abcdef" and the *settings damon* can only react to that change
+      and can put the previous value back into it post verification.<br>
+      <br>
+      I did a lot of search on ways to register an interceptor and did
+      not see one. I then asked in #dbus and they told me that there is
+      no way to intercept that.<br>
+      <br>
+      So the solution what I have at the moment is to<br>
+      <br>
+      1) Disable the property set via freedesktop<br>
+      2) Introduce a custom Setter "org.openbmc.Settings.Host.Set" which
+      can do the job of validating the inputs also.<br>
+      <br>
+      Please let me know if there are better approaches.<br>
+      <br>
+      Thanks.<br>
+      <br>
+      Vishwanatha Subbanna.<br>
+    </font>
+  </body>
+</html>
 
-The following changes since commit 950d8381d915ee293a5b57f91e59dd8115684af1=
-:
-
-  Merge branch 'linus' into timers/core, to refresh the branch
-(2016-09-08 14:05:16 +0200)
-
-are available in the git repository at:
-
-  http://git.linaro.org/people/daniel.lezcano/linux.git clockevents/4.9
-
-for you to fetch changes up to 2ea3401e2a84eed3f5f55b2075706f88df160d85:
-
-  clocksource/drivers/oxnas: Add OX820 compatible (2016-09-12 07:28:46
-+0200)
-
-----------------------------------------------------------------
-Alexandre Belloni (3):
-      clocksource/drivers/timer-atmel-pit: Drop at91sam926x_pit_common_init
-      clocksource/drivers/timer-atmel-pit: Remove uselesss WARN_ON_ONCE
-      clocksource/drivers/timer-atmel-pit: Simplify IRQ handler
-
-Daniel Lezcano (2):
-      clocksource/drivers/moxart: Replace setup_irq by request_irq
-      clocksource/drivers/moxart: Replace panic by pr_err
-
-Joel Stanley (3):
-      clocksource/drivers/moxart: Refactor enable/disable
-      clocksource/drivers/moxart: Use struct to hold state
-      clocksource/drivers/moxart: Add Aspeed support
-
-Neil Armstrong (1):
-      clocksource/drivers/oxnas: Add OX820 compatible
-
- Documentation/devicetree/bindings/timer/moxa,moxart-timer.txt |   4 +++-
- Documentation/devicetree/bindings/timer/oxsemi,rps-timer.txt  |   2 +-
- drivers/clocksource/moxart_timer.c                            | 193
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=
-++++++++++++++++++++++++++++++++++++++++++++++++++++++---------------------=
--------------------------------------------
- drivers/clocksource/timer-atmel-pit.c                         |  96
-+++++++++++++++++++++++++++++++++++++--------------------------------------=
----------------------
- drivers/clocksource/timer-oxnas-rps.c                         |   2 ++
- 5 files changed, 172 insertions(+), 125 deletions(-)
-
---
- <http://www.linaro.org/> Linaro.org =E2=94=82 Open source software for ARM=
- SoCs
-
-Follow Linaro:  <http://www.facebook.com/pages/Linaro> Facebook |
-<http://twitter.com/#!/linaroorg> Twitter |
-<http://www.linaro.org/linaro-blog/> Blog
+--------------7FDBBB7341FBBAC3FC06742B--
