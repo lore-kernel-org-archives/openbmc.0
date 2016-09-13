@@ -3,23 +3,23 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sYZ2q5P4HzDsTQ
- for <openbmc@lists.ozlabs.org>; Wed, 14 Sep 2016 05:08:35 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sYZ9T35FwzDsTQ
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Sep 2016 05:14:21 +1000 (AEST)
 Received: from localhost (32.97.110.51 [32.97.110.51]) by mx.zohomail.com
- with SMTPS id 1473793707591388.78309883642623;
- Tue, 13 Sep 2016 12:08:27 -0700 (PDT)
-Date: Tue, 13 Sep 2016 14:08:25 -0500
+ with SMTPS id 1473794053889529.9310847534915;
+ Tue, 13 Sep 2016 12:14:13 -0700 (PDT)
+Date: Tue, 13 Sep 2016 14:14:12 -0500
 From: Patrick Williams <patrick@stwcx.xyz>
-To: vishwa <vishwa@linux.vnet.ibm.com>
+To: Brendan Higgins <brendanhiggins@google.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: Interceptor for org.freedesktop.DBus.Properties.Set
-Message-ID: <20160913190825.4kyf6mcvi5wrxzz5@asimov>
-References: <28a48a18-987a-31d8-2d3a-192be90884a4@linux.vnet.ibm.com>
+Subject: Re: Supporting one IPMI request does not yield one response
+Message-ID: <20160913191412.5orurrahenhubsn2@asimov>
+References: <CAFd5g46OwV7OEcLQmkyajxcDpy+fztAK3reo3iDcjkBOcBncBQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="zzc6dcd4z7tbk3pu"
+ protocol="application/pgp-signature"; boundary="y4sowpynerfhmojk"
 Content-Disposition: inline
-In-Reply-To: <28a48a18-987a-31d8-2d3a-192be90884a4@linux.vnet.ibm.com>
+In-Reply-To: <CAFd5g46OwV7OEcLQmkyajxcDpy+fztAK3reo3iDcjkBOcBncBQ@mail.gmail.com>
 User-Agent: Mutt/1.6.2 (2016-06-11)
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -33,106 +33,100 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Sep 2016 19:08:36 -0000
+X-List-Received-Date: Tue, 13 Sep 2016 19:14:22 -0000
 
 
---zzc6dcd4z7tbk3pu
+--y4sowpynerfhmojk
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 13, 2016 at 02:11:04PM +0530, vishwa wrote:
-> /org/openbmc/settings/host0 provides the dbus properties that are=20
-> settable via org.freedesktop.DBus.properties.Set.
-> The properties are treated as user settings and are consumed by=20
-> respective daemons by having a signal handler registered for=20
-> PropertyChanged method.
+On Sat, Sep 10, 2016 at 01:02:02AM +0000, Brendan Higgins wrote:
+> Hello,
+> The reason I am interested in having support for not requiring one respon=
+se
+> to be tied to one request is because I am interested in multiple responses
+> being associated with a single request. In particular, I am interested
+> adding an OEM Group extension that allows arbitrarily large payloads to be
+> broken up across multiple Block Transfer messages.
 >=20
-> The challenge at the hand is "How to make sure the users that set the=20
-> property are choosing a valid value".
+> I have a prototype for this OEM Group extension that I have tested on the
+> Aspeed 2500 EVB; there are some changes that need to be made to the handl=
+er
+> code in phosphor-host-ipmid to make it work, but nothing that seemed to
+> have any potential for controversy other than allowing a single request to
+> solicit none-to-many responses. There are other ways to make this work, b=
+ut
+> this seemed to be the most palatable to me for the reason that it generat=
+es
+> less traffic than having to send a dummy request to get each of the
+> responses after the first one or using something like SMS Attention. I al=
+so
+> thought that the OpenBMC community might find supporting one request
+> soliciting multiple responses to be interesting because it would add the
+> capability to support IPMI Message Bridging as it requires sending two
+> responses for a single request (see '6.13.4 Bridged Request Example' in t=
+he
+> IPMI spec).
 >=20
-> Since its set by org.freedesktop.DBus.Properties.Set, the ideal way=20
-> would be to register a callback that would validate the user input based=
-=20
-> on custom algo and then only would let the .Set continue.
+> The OEM Group extension I mentioned could be thought of as a transport
+> layer over IPMI; it is something that I would like to get some more
+> feedback on later at which time I will send a more specific email detaili=
+ng
+> how it works. Right now, I am just interested in whether there is any
+> interested in allowing a single IPMI request to solicit none-to-many
+> responses.
 >=20
-> Without an interceptor, the user settings may be as junk as "abcdef" and=
-=20
-> the *settings damon* can only react to that change and can put the=20
-> previous value back into it post verification.
+> Feedback is greatly appreciated!
 >=20
-> I did a lot of search on ways to register an interceptor and did not see=
-=20
-> one. I then asked in #dbus and they told me that there is no way to=20
-> intercept that.
+> Thanks!
 
-The way to do it entirely depends on the DBus binding in use.  I'm not
-sure why people in #dbus would tell you it cannot be done.
+Brendan,
 
-The systemd/sd-bus vtable entry for a "writable property" allows a
-property to be managed directly by systemd (pass property by pointer) or
-via indirect get/set methods:
-https://github.com/systemd/systemd/blob/master/src/systemd/sd-bus-vtable.h#=
-L123
+I don't see anything wrong with doing an enhancement so we can support
+0-N response messages.  I could see that being beneficial for both
+directions on some of the larger messages we have, such as inventory and
+oem-esel.
 
-If you look through the systemd repository you will find some
-SD_BUS_WRITABLE_PROPERTY calls where the get/set methods are used and
-those can clearly cause a Dbus.Error instead of returning success.
+In addition to host-ipmid, you would need to enhance bt-bridged to
+recognize that there is a continuation to the message.  I think we would
+want host-ipmid to always indicate to bt-bridged even in the 0-response
+case, so that bt-bridge can properly clean up its timeout states.  (We
+don't want the knowledge in bt-bridged to interpret the IPMI message to
+know it is a continued one, unless it is simple and standard).
 
-phosphor-settingsd is currently using a pyphosphor wrapper around the
-python dbus bindings.  Here we implement the
-org.freedesktop.Dbus.Properties.Set[All]:
+Is this something you'd be adding support for on the host-firmware side
+as well?  I do know the current openpower firmware would not be able to
+handle it.
 
-https://github.com/openbmc/pyphosphor/blob/master/obmc/dbuslib/bindings.py#=
-L76
-https://github.com/openbmc/pyphosphor/blob/master/obmc/dbuslib/bindings.py#=
-L95
-
-I think you could enhance this to call a set/get function, if present, for
-specific properties.  Those can throw an exception which will turn into
-a Dbus.Error.
-
-> So the solution what I have at the moment is to
->=20
-> 1) Disable the property set via freedesktop
-> 2) Introduce a custom Setter "org.openbmc.Settings.Host.Set" which can=20
-> do the job of validating the inputs also.
->=20
-> Please let me know if there are better approaches.
->=20
-> Thanks.
->=20
-> Vishwanatha Subbanna.
-
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
-
+We usually advertise to the host support for something like this via the
+capabilities exchange.  Would we need to support a fall-back mode or
+would lack of host support just mean that whole classes of IPMI messages
+are disabled?
 
 --=20
 Patrick Williams
 
---zzc6dcd4z7tbk3pu
+--y4sowpynerfhmojk
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJX2E6pAAoJEKsDR8wtAMEZxlEQAIrs4k66eEtNkCjEl1yiVgDD
-rKUzYtx/scO+fTWPIsS/S9AeY30iiaubHnrR4XGOxIhwKQZg5ezRX//Wrt3RUFjr
-0Yi4JTWRqedrypO610tKOnbqhLIFqTEfNxmogzQRMPNfTIUgyohbijev41yVRZ7X
-VMiB1pKFrr1zE+JcOUYpHniHIqMeIcYF3C3eYfMQzPUECyyZ+IM8Lfx1+0O9SjkY
-efWxZxDR9X3362RBsV9fqrsryQjPIVWwUDbWRUrRaF5SA6ieIl0HIIYo91HcvoWi
-tl/zlLcDiiKOSh+uudNIEVPUfp8xtMatmWxdozGQ5TDeLxeG7SxJI5EoH5ImQFd4
-6qLJHTG8w6SUoEKk9nAgMxQvr6EUFw7cWcmhzbOGHzrp7qJJLa9gmBZd9dxa/uB7
-fXke/G7SZirUarghz0LkljtevVtOPR6Z2eltKTSNkirHl8ZQxLlklpKSinQxwSk0
-kWdzKFhH+2x/NYtwkj76nNth4DnkCfYo45uHb8rFK3UOZCKYZG2CgdQncUQCeYtH
-d0kG1Yxa4VGBdfC4iE6srSc0moMqFYLeFA9hjsgMRDpvuvzJ+xCKECTvKwy/kLeJ
-0FES0Sio8+9goHL+NpCjgplaI6Doy0749jaojU9WG9KegBR2L91Zt47w2+3DuR9G
-pDBdwBnGPcNYnWqP9OjZ
-=Y/v2
+iQIcBAEBCAAGBQJX2FAEAAoJEKsDR8wtAMEZsPoP/RfSmubAP4USxBSgMcvrm76B
+0jR0lIhw8JSQ4HU4i/BqrcpMAFaTsl8JjnhzR1yHs7JOtLNBMl75USQyMzAhaw6U
+iZFmqNjeA94Nozc/KTt/9XeIKkmsYX3zmNI4NCP+naH0VPqO+63+quVHPugVVoXZ
+Ew1+wK757FUpHf038Po87/gPgbhpH53NJaoxrKaGpOiOspQi7i4aTisCem6zfhuA
+LKZAOmBcf3QWbpkBjiLT/IrNRrc89TeaYISUUWHCzu8e2sOQphAxYbYUTebcTL7k
+tLWSOEsJXBcx3C6Gv5jlpyjpD4bL1wbRJsjy6q2SG7Qw/UcsnkAHa7hD0yrJI4WA
+/CCqymQWCXAcmzyhB6wXZ8uU3xWgZ9Q5PeQNGRg+jV793778ydN7jExU1FJcOd8j
+8drsLw2ZJuDGIOjzhjug0uZmX30Z374k5IC3n6bl5z0Br23umnbHxJ0vnQWMtJYB
+EaK3g8nuhmgJrb+POXGWSD+lZoeqiTI/ti5tT8y9SpvhJiKJzMFTKRrd9CmrNLbo
+T5Ke0+b+EIiaotpyh/0aTSNfkUL3u3KGLxgQ9XYIs9EGCU/92bhYnJI9iqkV0Apa
+YK7pjSXo+akTb2r9lsDkZWYNIEIqk43nwDeUV81boCu6EfC3rr8Gx7me+XVRH4nk
+7alqN6Vd13rBFSQrEKZn
+=GHgy
 -----END PGP SIGNATURE-----
 
---zzc6dcd4z7tbk3pu--
+--y4sowpynerfhmojk--
