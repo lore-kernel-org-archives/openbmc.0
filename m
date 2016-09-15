@@ -1,55 +1,41 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-pa0-x244.google.com (mail-pa0-x244.google.com
- [IPv6:2607:f8b0:400e:c03::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <clg@kaod.org>
+X-Greylist: delayed 17392 seconds by postgrey-1.36 at bilbo;
+ Thu, 15 Sep 2016 21:23:00 AEST
+Received: from 6.mo177.mail-out.ovh.net (6.mo177.mail-out.ovh.net
+ [46.105.51.249])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sZbQ62gRnzDsX6
- for <openbmc@lists.ozlabs.org>; Thu, 15 Sep 2016 21:13:50 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=YzorERgh; 
- dkim-atps=neutral
-Received: by mail-pa0-x244.google.com with SMTP id p2so2013007pap.3
- for <openbmc@lists.ozlabs.org>; Thu, 15 Sep 2016 04:13:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=sender:from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=C+KkIy3j7I7SkXLncsrd8wnHTgeuSbLWRvhemv2dYJI=;
- b=YzorERghW+JkxQqpS8pYc5JNpsYxa13XtaXHak7lIzbNyXys0ggU1sINoHghP6+C3i
- cnolOPB5Khf3yxbiuPFspMKjEQRpJ9zh907f0ZRTSbWAw8tww2JsdaN11LVj523K/E1E
- cMglpxzXLZlvHg/0RrNRm4kpwJGian/UlIhOtMpv8gtFUnpWgFy5JnnllCc/3CwlA/MN
- 6K4ewr+EIj367a3yNecG6YnCQybBDRTKiuSY/qHzasr0NyEpCtad8FcZ8Ds3uPPasyCi
- d4IdRCcohGDwhO1bH4ggPgSD9X63cRxUFo43egp7v85hPY5VbKX7QWP40xJaHfv/OxJO
- Znyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
- :in-reply-to:references;
- bh=C+KkIy3j7I7SkXLncsrd8wnHTgeuSbLWRvhemv2dYJI=;
- b=gGDrbVby+6TV9yfhW5sxwn/P5ccMthB2Dg3PI1Q/92guJnp6/AZ2Hn6rE7jQzYK7+O
- V/4GKWJ+SvWyufrFZYlNtsTDjptd6MjkPBbqbbxPmyLMTa8sMb7zjAslgSsllwIugz7U
- IvmzQ+FgsTkCuK+to7O7i5M2xqjw72FbJsRoDHH3KN5sIbIE0mhKC5DfeL5i+F2iMm9O
- bfL48JnLvU5JoEzsX4lrON8hlB2VJOPI8cuBweEcmPN7XHYEMZHxnwmqqzcJm7cdFr75
- SYe+JLOSLft4D9prC3Sbhey/s6m2aosKcw1zlxtCOljHgAxEcYxyuT4oUEh9d2e2RUu3
- UKTA==
-X-Gm-Message-State: AE9vXwNUfzMNv84iFL9Cme4IxYatAbDe9pCLW8kaZqfX1s0xZnSVkQASFYaFcyfF3GlRBw==
-X-Received: by 10.66.81.201 with SMTP id c9mr13555068pay.14.1473938028759;
- Thu, 15 Sep 2016 04:13:48 -0700 (PDT)
-Received: from aurora.jms.id.au ([2403:480:11:8000:7414:b01f:d849:6117])
- by smtp.gmail.com with ESMTPSA id xp7sm4460343pac.27.2016.09.15.04.13.45
- (version=TLS1 cipher=AES128-SHA bits=128/128);
- Thu, 15 Sep 2016 04:13:48 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Thu, 15 Sep 2016 20:43:40 +0930
-From: Joel Stanley <joel@jms.id.au>
-To: andrew@aj.id.au
-Cc: openbmc@lists.ozlabs.org
-Subject: [linux dev-4.7 3/3] arm: dts: aspeed: Add SPI1 master pinmux hog to
- g5 machines
-Date: Thu, 15 Sep 2016 20:43:08 +0930
-Message-Id: <20160915111308.31481-3-joel@jms.id.au>
-X-Mailer: git-send-email 2.9.3
-In-Reply-To: <20160915111308.31481-1-joel@jms.id.au>
-References: <20160915111308.31481-1-joel@jms.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sZbch2WDpzDsTX
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Sep 2016 21:23:00 +1000 (AEST)
+Received: from player699.ha.ovh.net (b9.ovh.net [213.186.33.59])
+ by mo177.mail-out.ovh.net (Postfix) with ESMTP id 3627CFFD034
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Sep 2016 13:22:53 +0200 (CEST)
+Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: clg@kaod.org)
+ by player699.ha.ovh.net (Postfix) with ESMTPSA id CADED240082;
+ Thu, 15 Sep 2016 13:22:50 +0200 (CEST)
+Subject: Re: [RFC PATCH linux dev-4.7 4/6] misc: Add Aspeed BT IPMI BMC driver
+To: Patrick Williams <patrick@stwcx.xyz>
+References: <1473921146-19509-1-git-send-email-clg@kaod.org>
+ <1473921146-19509-5-git-send-email-clg@kaod.org>
+ <CACPK8XeB+y5SVzJvoWSAr5hsufZw0hVm6RKUGVNtocawBWPQ7A@mail.gmail.com>
+ <38b843b7-24ec-7089-154c-262106afd50c@kaod.org>
+ <22bc13ba-5bf7-3e94-6df1-62d33b50c7cc@kaod.org>
+ <20160915105129.GC25351@heinlein.lan>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <a376797d-bb53-678a-be60-3c7188f0d3cc@kaod.org>
+Date: Thu, 15 Sep 2016 13:22:50 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.3.0
+MIME-Version: 1.0
+In-Reply-To: <20160915105129.GC25351@heinlein.lan>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 9551290386262166274
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeeluddrjeehgdefieculddtuddrfeeltddrtddtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -61,47 +47,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Sep 2016 11:13:50 -0000
+X-List-Received-Date: Thu, 15 Sep 2016 11:23:00 -0000
 
-This is for reuqired for using the PNOR on ast2500 based systems.
+On 09/15/2016 12:51 PM, Patrick Williams wrote:
+> On Thu, Sep 15, 2016 at 10:36:46AM +0200, Cédric Le Goater wrote:
+>>>> I'm not sure there. When I open /dev/ttyUSB0 I'm talking to the USB0
+>>>> serial device. When I open /dev/mtd0, I'm talking to the mtd0 device.
+>>>> So when I open /dev/ipmi-bt-bmc, I would expect to talk to the BMC
+>>>> device?
+>>>
+>>> Yes. I went a little too far in the global rename. /dev/ipmi-bt-bmc makes 
+>>
+>> I meant /dev/ipmi-bt-host ! :)
+> 
+> Does it make sense to have these numbered?  I thought Brenden proposed
+> an emulated bt-over-i2c.  We could also conceive of an SOC that had
+> multiple LPC (+bt) engines to facilitate multiple nodes, or an off-board
+> FPGA to do it.
+> 
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- arch/arm/boot/dts/aspeed-ast2500-evb.dts         | 5 +++++
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 5 +++++
- 2 files changed, 10 insertions(+)
+If we expect to have multiple btbridged process running, we will 
+need multiple device nodes. How we should name them depends partly 
+on the driver I think. 
 
-diff --git a/arch/arm/boot/dts/aspeed-ast2500-evb.dts b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-index d34e6f15a0cb..a517b4a595b8 100644
---- a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-+++ b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-@@ -35,6 +35,11 @@
- 	};
- };
- 
-+&pinctrl {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_spi1_master_default>;
-+};
-+
- &uart5 {
- 	status = "okay";
- };
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index fcc880a80ee0..d7db9700172f 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -36,6 +36,11 @@
- 	};
- };
- 
-+&pinctrl {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_spi1_master_default>;
-+};
-+
- &uart5 {
- 	status = "okay";
- };
--- 
-2.9.3
+We could keep the prefix 'ipmi-bt' because it identifies the BT 
+interface described in the IPMI specs and use node /dev/ipmi-bt-host 
+for the original bt_bmc, (used be bt_host) driver. This one will be 
+unique. 
+
+The others could use : 
+	
+		/dev/ipmi-bt-lpc
+		/dev/ipmi-bt-i2c-<bus>
+
+
+?
+
+
+C.
