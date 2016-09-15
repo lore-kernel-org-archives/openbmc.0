@@ -2,49 +2,49 @@ Return-Path: <tpearson@raptorengineering.com>
 Received: from mail.rptsys.com (mail.rptsys.com [192.119.205.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sZr3c5ymBzDsYT
- for <openbmc@lists.ozlabs.org>; Fri, 16 Sep 2016 06:43:40 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sZr3f547jzDsYf
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Sep 2016 06:43:42 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=raptorengineering.com header.i=@raptorengineering.com
- header.b=oVSBxKf5; dkim-atps=neutral
+ header.b=uJCvzrfS; dkim-atps=neutral
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id A1036641139
- for <openbmc@lists.ozlabs.org>; Thu, 15 Sep 2016 15:34:36 -0500 (CDT)
+ by mail.rptsys.com (Postfix) with ESMTP id 5FE14641135
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Sep 2016 15:33:50 -0500 (CDT)
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id KbNnLMUHOBxe for <openbmc@lists.ozlabs.org>;
- Thu, 15 Sep 2016 15:34:36 -0500 (CDT)
+ with ESMTP id aW6kQOYwtbad for <openbmc@lists.ozlabs.org>;
+ Thu, 15 Sep 2016 15:33:50 -0500 (CDT)
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 279C264113B
- for <openbmc@lists.ozlabs.org>; Thu, 15 Sep 2016 15:34:36 -0500 (CDT)
-DKIM-Filter: OpenDKIM Filter v2.9.2 mail.rptsys.com 279C264113B
+ by mail.rptsys.com (Postfix) with ESMTP id E3C1E641136
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Sep 2016 15:33:49 -0500 (CDT)
+DKIM-Filter: OpenDKIM Filter v2.9.2 mail.rptsys.com E3C1E641136
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
- t=1473971676; bh=3SYr07yOd4TQmJX3GlJfrx/xYfoglqD0WjFa8+T+y2Q=;
+ t=1473971629; bh=0N1YIf/ROoKNaTc9ETWP1C3Sqel30s0DxrZPRilmX6w=;
  h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type:
  Content-Transfer-Encoding;
- b=oVSBxKf5vP0zTQSDUpXI2QcygmT1qBKIv4r/ie7s4uOZMl7dr85AKoUYBSPlstUxH
- Cv/ULNHC+5FUNEGOx8zxrzMYCEhJiISA1jzzNGI+6343n8ty5dFWFRLDwZ+nqA9pnO
- GTYY+FMB1RCIIKtNFe3K8OVeD1QCvJV+R+MZVBNw=
+ b=uJCvzrfSidD9L5uxRCMkrF38G+ga0AMZDRNqC+QOsky65zePImuA5n5Kplq26XhKn
+ l92lcwRMDC8x0TZW6aRRAJjWVs6kSLteAJyUHWfZyu95otVEb+qstK0uGzAFFLT2xc
+ r4GJB0sgUBGol8IXAObT6AH8RAGbPtCKblMwlvn0=
 X-Virus-Scanned: amavisd-new at rptsys.com
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id Pz_zgiCYUw4P for <openbmc@lists.ozlabs.org>;
- Thu, 15 Sep 2016 15:34:36 -0500 (CDT)
+ with ESMTP id qL2pmMWCux9d for <openbmc@lists.ozlabs.org>;
+ Thu, 15 Sep 2016 15:33:49 -0500 (CDT)
 Received: from vali.starlink.edu (vali.starlink.edu [192.168.3.21])
- by mail.rptsys.com (Postfix) with ESMTP id EC551641139
- for <openbmc@lists.ozlabs.org>; Thu, 15 Sep 2016 15:34:35 -0500 (CDT)
-Date: Thu, 15 Sep 2016 15:34:35 -0500 (CDT)
+ by mail.rptsys.com (Postfix) with ESMTP id B7BBA641135
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Sep 2016 15:33:49 -0500 (CDT)
+Date: Thu, 15 Sep 2016 15:33:49 -0500 (CDT)
 From: Timothy Pearson <tpearson@raptorengineering.com>
 To: openbmc@lists.ozlabs.org
-Message-ID: <712861897.194624.1473971675913.JavaMail.zimbra@raptorengineeringinc.com>
-Subject: [PATCH 05/16] arm/dts: Remove mac hardware checksum from Firestone
+Message-ID: <1076636982.194621.1473971629669.JavaMail.zimbra@raptorengineeringinc.com>
+Subject: [PATCH 03/16] Ensure that the old style MDIO interface is active
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 X-Mailer: Zimbra 8.5.0_GA_3042 (ZimbraWebClient - FF3.6 (Linux)/8.5.0_GA_3042)
-Thread-Topic: arm/dts: Remove mac hardware checksum from Firestone
-Thread-Index: DsnX9aZ3Exqxd1QkJxJYFv4OYy64AA==
+Thread-Topic: Ensure that the old style MDIO interface is active
+Thread-Index: XWLR4y6PiMPjn5pyIiEdEDVNVhBT5A==
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -56,33 +56,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Sep 2016 20:43:41 -0000
+X-List-Received-Date: Thu, 15 Sep 2016 20:43:43 -0000
 
- BMC Board
+ before registering the MDIO bus on Faraday style
+ MACs.  Without this patch the hardware may continue
+ to expect new style commands, yielding MDIO timeouts
+ and general lack of communication with the MII.
 
-Hardware checksumming doesn't work.
-
-Without this patch pings work but more complex network interactions like SSH
-fail.
-
-Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
-Signed-off-by: Joel Stanley <joel@jms.id.au>
+Signed-off-by: Timothy Pearson <tpearson@raptorengineering.com>
 ---
- arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts |    2 ++
- 1 file changed, 2 insertions(+)
+ drivers/net/ethernet/faraday/ftgmac100.c |    6 ++++++
+ drivers/net/ethernet/faraday/ftgmac100.h |    2 ++
+ 2 files changed, 8 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-index 2ec9e44..ae1a633 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-@@ -51,6 +51,8 @@
+diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
+index c20f767..778c625 100644
+--- a/drivers/net/ethernet/faraday/ftgmac100.c
++++ b/drivers/net/ethernet/faraday/ftgmac100.c
+@@ -1250,6 +1250,7 @@ static int ftgmac100_setup_mdio(struct net_device *netdev)
+ {
+ 	struct ftgmac100 *priv = netdev_priv(netdev);
+ 	struct platform_device *pdev = to_platform_device(priv->dev);
++	uint32_t revcr;
+ 	int i, err = 0;
  
- &mac0 {
- 	status = "okay";
+ 	/* initialize mdio bus */
+@@ -1257,6 +1258,11 @@ static int ftgmac100_setup_mdio(struct net_device *netdev)
+ 	if (!priv->mii_bus)
+ 		return -EIO;
+ 
++	/* This driver only supports the old MDIO interface -- enable it */
++	revcr = ioread32(priv->base + FTGMAC100_OFFSET_REVR);
++	revcr &= ~FTGMAC100_OFFSET_REVR_NEW_INTERFACE;
++	iowrite32(revcr, priv->base + FTGMAC100_OFFSET_REVR);
 +
-+	no-hw-checksum;
- };
+ 	priv->mii_bus->name = "ftgmac100_mdio";
+ 	snprintf(priv->mii_bus->id, MII_BUS_ID_SIZE, "%s-%d",
+ 		 pdev->name, pdev->id);
+diff --git a/drivers/net/ethernet/faraday/ftgmac100.h b/drivers/net/ethernet/faraday/ftgmac100.h
+index d07b6ea..ee5f758 100644
+--- a/drivers/net/ethernet/faraday/ftgmac100.h
++++ b/drivers/net/ethernet/faraday/ftgmac100.h
+@@ -133,6 +133,8 @@
+ #define FTGMAC100_DMAFIFOS_RXDMA_REQ		(1 << 30)
+ #define FTGMAC100_DMAFIFOS_TXDMA_REQ		(1 << 31)
  
- &i2c0 {
++#define FTGMAC100_OFFSET_REVR_NEW_INTERFACE	(1 << 31)
++
+ /*
+  * Receive buffer size register
+  */
 -- 
 1.7.9.5
