@@ -2,49 +2,49 @@ Return-Path: <tpearson@raptorengineering.com>
 Received: from mail.rptsys.com (mail.rptsys.com [192.119.205.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sZr3f5ZPyzDsYl
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sZr3f5hfRzDsYr
  for <openbmc@lists.ozlabs.org>; Fri, 16 Sep 2016 06:43:42 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=raptorengineering.com header.i=@raptorengineering.com
- header.b=mdAFKoxE; dkim-atps=neutral
+ header.b=iq52CiVS; dkim-atps=neutral
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 0DFC964113E
- for <openbmc@lists.ozlabs.org>; Thu, 15 Sep 2016 15:35:03 -0500 (CDT)
+ by mail.rptsys.com (Postfix) with ESMTP id 01BCF64114B
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Sep 2016 15:37:00 -0500 (CDT)
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id u32P4AZ-OV0S for <openbmc@lists.ozlabs.org>;
- Thu, 15 Sep 2016 15:35:02 -0500 (CDT)
+ with ESMTP id u9pjYNv4g6SB for <openbmc@lists.ozlabs.org>;
+ Thu, 15 Sep 2016 15:36:59 -0500 (CDT)
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 9EACD641140
- for <openbmc@lists.ozlabs.org>; Thu, 15 Sep 2016 15:35:02 -0500 (CDT)
-DKIM-Filter: OpenDKIM Filter v2.9.2 mail.rptsys.com 9EACD641140
+ by mail.rptsys.com (Postfix) with ESMTP id 9860E64114C
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Sep 2016 15:36:59 -0500 (CDT)
+DKIM-Filter: OpenDKIM Filter v2.9.2 mail.rptsys.com 9860E64114C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
- t=1473971702; bh=Asnfc5mTzz6LZ5Da76hXmk5PUPvif9YsDFMy13Fx2Jc=;
+ t=1473971819; bh=kTDl9GWn8vGM7piiJ+Nn0vRUjbG2rpNNNVyRiwg64GQ=;
  h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type:
  Content-Transfer-Encoding;
- b=mdAFKoxE2MG/fjEn91ze09bvu63jLoo4OL048RCfiVQGVSWpUzstP7CYnkpoiEgdT
- GnGbvN51HvtRf6hPSWXzoTKeW+ZVSLBeOZ5/aLfX+94Xl6YlFqTpwD07rYJZCdJqoO
- dex/EsU/tyapVq/uzl2ioRbUY8iexoqOXaPL+RXY=
+ b=iq52CiVSNsYxrNlOLJjS2NZpObBXkOdyXXGXrszQ3euOU8VJgKK3OAJ7pt2Zfdjlk
+ pvu+wGtrBIPXoyzcqUcXaM8RPZm3/vl12Tv2GRtVqZS3zhfXyQvNiwG5DatDt2YoWi
+ HfT2rNA6sFdw2ynfztuJNxrsq1DVTJERO619NCPw=
 X-Virus-Scanned: amavisd-new at rptsys.com
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id OAhqFbtEKUYG for <openbmc@lists.ozlabs.org>;
- Thu, 15 Sep 2016 15:35:02 -0500 (CDT)
+ with ESMTP id DZeDonb63Zhi for <openbmc@lists.ozlabs.org>;
+ Thu, 15 Sep 2016 15:36:59 -0500 (CDT)
 Received: from vali.starlink.edu (vali.starlink.edu [192.168.3.21])
- by mail.rptsys.com (Postfix) with ESMTP id 7925164113E
- for <openbmc@lists.ozlabs.org>; Thu, 15 Sep 2016 15:35:02 -0500 (CDT)
-Date: Thu, 15 Sep 2016 15:35:02 -0500 (CDT)
+ by mail.rptsys.com (Postfix) with ESMTP id 6CF1664114B
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Sep 2016 15:36:59 -0500 (CDT)
+Date: Thu, 15 Sep 2016 15:36:59 -0500 (CDT)
 From: Timothy Pearson <tpearson@raptorengineering.com>
 To: openbmc@lists.ozlabs.org
-Message-ID: <183575887.194626.1473971702437.JavaMail.zimbra@raptorengineeringinc.com>
-Subject: [PATCH 06/16] mach-aspeed: Add missing Firestone setup method and
+Message-ID: <570298874.194633.1473971819209.JavaMail.zimbra@raptorengineeringinc.com>
+Subject: [PATCH 11/16] Fix Turismo I2C OCC mapping on Firestone
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 X-Mailer: Zimbra 8.5.0_GA_3042 (ZimbraWebClient - FF3.6 (Linux)/8.5.0_GA_3042)
-Thread-Topic: mach-aspeed: Add missing Firestone setup method and
-Thread-Index: dLwxftB7XWjIyyy+G9TgEMZw031i5A==
+Thread-Topic: Fix Turismo I2C OCC mapping on Firestone
+Thread-Index: bdOWapIDjCAPXjUqBQgDcR9jRwF9og==
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -58,43 +58,53 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 15 Sep 2016 20:43:43 -0000
 
- call
 
 ---
- arch/arm/mach-aspeed/aspeed.c |   14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts |   19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
-index 1b0ee11..ecb613d 100644
---- a/arch/arm/mach-aspeed/aspeed.c
-+++ b/arch/arm/mach-aspeed/aspeed.c
-@@ -119,6 +119,18 @@ static void __init do_palmetto_setup(void)
- 	writel(0x01C0007F, AST_IO(AST_BASE_SCU | 0x88));
- }
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+index c6e81f4..9a56510 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+@@ -106,12 +106,29 @@
+ };
  
-+static void __init do_firestone_setup(void)
-+{
-+	do_common_setup();
+ &i2c4 {
++	status = "okay";
 +
-+	/* Setup PNOR address mapping for 64M flash */
-+	writel(0x30000C00, AST_IO(AST_BASE_LPC | 0x88));
-+	writel(0xFC0003FF, AST_IO(AST_BASE_LPC | 0x8C));
+ 	// turismo
++	occ@50 {
++		compatible = "ibm,occ-i2c";
++		reg = <0x50>;
++	};
 +
-+	/* SCU setup */
-+	writel(0xD7000000, AST_IO(AST_BASE_SCU | 0x88));
-+}
++	tmp423@98 {
++		compatible = "ti,tmp423";
++		reg = <0x80000098>;
++	};
+ };
+ 
+ &i2c5 {
+ 	status = "okay";
+ 
++	// turismo
++	occ@50 {
++		compatible = "ibm,occ-i2c";
++		reg = <0x50>;
++	};
 +
- static void __init do_garrison_setup(void)
- {
- 	do_common_setup();
-@@ -196,6 +208,8 @@ static void __init aspeed_init_early(void)
- 		do_barreleye_setup();
- 	if (of_machine_is_compatible("tyan,palmetto-bmc"))
- 		do_palmetto_setup();
-+	if (of_machine_is_compatible("ibm,firestone-bmc"))
-+		do_firestone_setup();
- 	if (of_machine_is_compatible("ibm,garrison-bmc"))
- 		do_garrison_setup();
- 	if (of_machine_is_compatible("aspeed,ast2500-evb"))
+ 	tmp423@98 {
+ 		compatible = "ti,tmp423";
+ 		reg = <0x80000098>;
+@@ -129,7 +146,7 @@
+ };
+ 
+ &i2c8 {
+-	// FSI
++	// FSI (bit-banged interface via GPIO)
+ 	status = "disabled";
+ };
+ 
 -- 
 1.7.9.5
