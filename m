@@ -2,40 +2,40 @@ Return-Path: <tpearson@raptorengineering.com>
 Received: from mail.rptsys.com (mail.rptsys.com [192.119.205.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sbRr06S06zDsds
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sbRr06RvxzDsdr
  for <openbmc@lists.ozlabs.org>; Sat, 17 Sep 2016 06:35:44 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=raptorengineering.com header.i=@raptorengineering.com
- header.b=PgWjs5L7; dkim-atps=neutral
+ header.b=aQmKPCGC; dkim-atps=neutral
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 768B964114D
+ by mail.rptsys.com (Postfix) with ESMTP id 3FCCB641141
  for <openbmc@lists.ozlabs.org>; Fri, 16 Sep 2016 15:35:37 -0500 (CDT)
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id DFuRAWQlMyDv; Fri, 16 Sep 2016 15:35:36 -0500 (CDT)
+ with ESMTP id nw_YP-8KZ9sB; Fri, 16 Sep 2016 15:35:36 -0500 (CDT)
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 211F5641148;
+ by mail.rptsys.com (Postfix) with ESMTP id 19B9A64114B;
  Fri, 16 Sep 2016 15:35:36 -0500 (CDT)
-DKIM-Filter: OpenDKIM Filter v2.9.2 mail.rptsys.com 211F5641148
+DKIM-Filter: OpenDKIM Filter v2.9.2 mail.rptsys.com 19B9A64114B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
- t=1474058136; bh=DO1T8baYSwHSgSx5i+IY4aVoFaaN2xv5lmitEzS5Tsk=;
+ t=1474058136; bh=5hO26ViACHzNm6WRN9EODX49Lu1f6Mql+wVh3d0wnjM=;
  h=From:To:Subject:Date:Message-Id;
- b=PgWjs5L7N+EP+X23fw1oNj7GX7tJS+3LgWLLAKJzihLRuz6vJ/K6ReD4CVg4Ao3Vq
- 6NAA6cjHzeSU6g/aKEI9lGUUbQLaRtkB1ST8QqXqvZwiq5JNXcTNMjOXQae2UD8u3t
- boNWVs8xU5WMSTvZjPe/JNDaqcVXC0u55q+NCaFY=
+ b=aQmKPCGC6mPOy8S79yEw83Ewl8QPqZfbgvMmo/U0ZB5OAPUV2TxnUD2iECNI1yEVb
+ kuL9k/iiHhZlMYpZHwQV1nhIWVyClgRRc4NEWqkpYCPH5YNc/hrNcK4L14NOhh6DRh
+ 6mOR2ZjoWRGHGFaZB69S0D6rJdAceVw1g52aGKms=
 X-Virus-Scanned: amavisd-new at rptsys.com
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id 3mGavHhPhJ9T; Fri, 16 Sep 2016 15:35:35 -0500 (CDT)
+ with ESMTP id ARJgXapxEBSq; Fri, 16 Sep 2016 15:35:35 -0500 (CDT)
 Received: from apollo.starlink.edu (apollo.starlink.edu [192.168.3.54])
- by mail.rptsys.com (Postfix) with ESMTP id 5C4CC64103E;
+ by mail.rptsys.com (Postfix) with ESMTP id 44B9E641142;
  Fri, 16 Sep 2016 15:35:35 -0500 (CDT)
 From: Timothy Pearson <tpearson@raptorengineering.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH 09/17] Add missing LEDs to Firestone DT
-Date: Fri, 16 Sep 2016 15:35:25 -0500
-Message-Id: <1474058133-27363-10-git-send-email-tpearson@raptorengineering.com>
+Subject: [PATCH 08/17] pinctrl-aspeed-g4: Add missing MDIO1 pingroup
+Date: Fri, 16 Sep 2016 15:35:24 -0500
+Message-Id: <1474058133-27363-9-git-send-email-tpearson@raptorengineering.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <1474058133-27363-1-git-send-email-tpearson@raptorengineering.com>
 References: <1474058133-27363-1-git-send-email-tpearson@raptorengineering.com>
@@ -52,48 +52,26 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Fri, 16 Sep 2016 20:35:45 -0000
 
-Enable the front panel LEDs controlled directly by BMC GPIOs.
-
 Signed-off-by: Timothy Pearson <tpearson@raptorengineering.com>
 ---
- arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts |   18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ arch/arm/boot/dts/aspeed-g4.dtsi |    5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-index ae1a633..4f04e76 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-@@ -2,6 +2,8 @@
+diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
+index 072a921..b2c6b53 100644
+--- a/arch/arm/boot/dts/aspeed-g4.dtsi
++++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+@@ -122,6 +122,11 @@
+ 						groups = "TIMER6";
+ 					};
  
- #include "aspeed-g4.dtsi"
- 
-+#include <dt-bindings/gpio/aspeed-gpio.h>
++					pinctrl_mdio1_default: mdio1_default {
++						function = "MDIO1";
++						groups = "MDIO1";
++					};
 +
- / {
- 	model = "Firestone BMC";
- 	compatible = "ibm,firestone-bmc", "aspeed,ast2400";
-@@ -19,6 +21,22 @@
- 		reg = < 0x40000000 0x10000000 >;
- 	};
- 
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		heartbeat {
-+			gpios = <&gpio ASPEED_GPIO(R, 4) GPIO_ACTIVE_LOW>;
-+		};
-+
-+		power {
-+			gpios = <&gpio ASPEED_GPIO(R, 5) GPIO_ACTIVE_LOW>;
-+		};
-+
-+		identify {
-+			gpios = <&gpio ASPEED_GPIO(A, 2) GPIO_ACTIVE_LOW>;
-+		};
-+	};
-+
- 	ahb {
- 		fmc@1e620000 {
- 			reg = < 0x1e620000 0x94
+ 					pinctrl_mdio2_default: mdio2_default {
+ 						function = "MDIO2";
+ 						groups = "MDIO2";
 -- 
 1.7.9.5
