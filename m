@@ -1,52 +1,51 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-vk0-x244.google.com (mail-vk0-x244.google.com
- [IPv6:2607:f8b0:400c:c05::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sZygN2XNnzDsZP
- for <openbmc@lists.ozlabs.org>; Fri, 16 Sep 2016 11:41:36 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=pp6MaIel; 
- dkim-atps=neutral
-Received: by mail-vk0-x244.google.com with SMTP id b133so243759vka.2
- for <openbmc@lists.ozlabs.org>; Thu, 15 Sep 2016 18:41:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=LSmq3qa6WPXDQf+krX5P3mqPhpv2MiOPLgk55ZkrvFU=;
- b=pp6MaIelImA3O/uuUkjKocuXitJJDLT7RWOJ2a9H5gyDfsQNc2NrGNBjcTG0e+HXZi
- hTQWhY97gX8hQFChm4CldzEly903ZIZ8beaooAdCyxAW1nbiD4HVL+x5dQcdxADri9Vm
- 0MyLp3g8SIi5yH5CTU2DWSt74iKqetWg1SNEYeZ7ZZbcJaCCYEK9/8uFVbx+mMfOU/2n
- vO4bSmtqG5baBj79xMz07HrSSOD2KwIWib3H48pNPLKRzPL43Qs6jE4MylBADHmUTOKY
- TKh8kWP2Ji9e4PzrJNF7WHMPl+ITUftgByzSyHXlBMBuzdrOWcsYKwc3Qq4L8joTyPq/
- Z6fQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=LSmq3qa6WPXDQf+krX5P3mqPhpv2MiOPLgk55ZkrvFU=;
- b=hx3oVjGH/GbfyVrSGgrvcxVwO/s7gv8sK1qKqQT+1j2YEG5IIyZPx2m+jIp03OQibk
- Au0B/ca66RnAfuwZEq1cLK9FJU0vEeSuvjyYr2F9J9TABHbhIg98TZ1a10l+KDJLtF+h
- VvhmFd2fIDdDnW1gBjxnLOvZ6TF1plI1RB799J2B/RSYDN5H7NaLl4TMdG+wss4uHXXr
- pO3Crm9hHKi0MOeMcog+Y4l7ZjrEOjtXM1kpBsBlbW5s5REZrU/qu9s7tavNp4Nprr4u
- K0i3sDfyKuAEvI5t+vCmmJxY8hA/pTk26GJ5rrjYuO4zW+6JKgjZ2wn6VgNRnmArjnas
- NeAQ==
-X-Gm-Message-State: AE9vXwPQcgPwDw4etyVyOO/IudMNrJM5ukQQCYIzLfVQgTYr3ocxnC7XcxJJe2DhH3ASHfElaDsXh0i5ZREr2A==
-X-Received: by 10.31.108.220 with SMTP id j89mr1081319vki.124.1473990094476;
- Thu, 15 Sep 2016 18:41:34 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.176.80.221 with HTTP; Thu, 15 Sep 2016 18:41:13 -0700 (PDT)
-In-Reply-To: <847945394.194630.1473971761780.JavaMail.zimbra@raptorengineeringinc.com>
-References: <847945394.194630.1473971761780.JavaMail.zimbra@raptorengineeringinc.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 16 Sep 2016 11:11:13 +0930
-X-Google-Sender-Auth: ONWUjap8COr8g8tQURGqjBBm7ac
-Message-ID: <CACPK8XeKjq-o3VTAAp9hfKWOFx30JM+0GkLqHXnPUneRvZ2fWw@mail.gmail.com>
-Subject: Re: [PATCH 08/16] Add missing LEDs to Firestone DT
-To: Timothy Pearson <tpearson@raptorengineering.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sZzQR0NZgzDsYs
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Sep 2016 12:15:25 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+ dkim=fail reason="signature verification failed" (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=UNRKOpk9; 
+ dkim=fail reason="signature verification failed" (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b=R8lcUzl8; dkim-atps=neutral
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id D9D76204D8;
+ Thu, 15 Sep 2016 22:15:22 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute7.internal (MEProxy); Thu, 15 Sep 2016 22:15:22 -0400
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
+ content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=E9rLu
+ nQ1xWu+FV88KdQUsRUUBzQ=; b=UNRKOpk9sWI/XmA6L+X0YqsZSRaTy0Sg4Ipec
+ xadiug5/CV7K5ohQbwzZzzJy62oOb5zHbLDKqlistjgq9ZuVdwWWuujeBuP2llsp
+ 4eJu6f6HIbbiwxWPFP52CUa1xOW/lfKIdyTFHVsSPltilSLwYX33xhWfH2EGYdNa
+ /gsvp4=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-sasl-enc
+ :x-sasl-enc; s=smtpout; bh=E9rLunQ1xWu+FV88KdQUsRUUBzQ=; b=R8lcU
+ zl8R42tzVQc41c8wdo4HSY5vBEpacMBA1t8skvo1RjflXZr1KmVxjLb624Vc+cU2
+ VjAPtNfJHGosBGa0sxSOT4ZVRm/2g834ZlZvaVVg0MIY4yZ3tSLD2sxsDWGz9X3X
+ 0uMVVclruROsgKPQqKiyYU84tKx4iQyp5dhKHQ=
+X-Sasl-enc: yCKlNwJMS3Dxsi5kild3593NO8qo9nV5SZ7pdg+QitPu 1473992122
+Received: from keelia (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 483BFCCE9A;
+ Thu, 15 Sep 2016 22:15:20 -0400 (EDT)
+Message-ID: <1473992113.13249.36.camel@aj.id.au>
+Subject: Re: [PATCH 07/16] pinctrl-aspeed-g4: Add definition for GPIO pins
+ J2 and
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Timothy Pearson <tpearson@raptorengineering.com>, openbmc@lists.ozlabs.org
+Date: Fri, 16 Sep 2016 11:45:13 +0930
+In-Reply-To: <1740217293.194628.1473971738317.JavaMail.zimbra@raptorengineeringinc.com>
+References: <1740217293.194628.1473971738317.JavaMail.zimbra@raptorengineeringinc.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-BVfrwE0rmGe5sgryaUQt"
+X-Mailer: Evolution 3.18.5.2-0ubuntu3 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.22
 Precedence: list
@@ -58,60 +57,133 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Sep 2016 01:41:36 -0000
+X-List-Received-Date: Fri, 16 Sep 2016 02:15:28 -0000
 
-On Fri, Sep 16, 2016 at 6:06 AM, Timothy Pearson
-<tpearson@raptorengineering.com> wrote:
->
-Missing commit message, s-o-b.
+
+--=-BVfrwE0rmGe5sgryaUQt
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, 2016-09-15 at 15:35 -0500, Timothy Pearson wrote:
+> =C2=A0O2
+>=20
+> This is required for Firestone to boot.
+
+Just for future reference, on Firestone:
+
+GPIOJ1 is=C2=A0BMC_CFAM_RESET_N
+GPIOO2 is=C2=A0BMC_CP0_RESET_N
+
+This looks good to me.
+
+However, I was intending to implement all outstanding pins for the 2400
+and 2500 today now that the Aspeed pinctrl core has been accepted
+upstream. If you don't mind I'll just merge what you have done here
+into those patches.
+
+Cheers,
+
+Andrew
 
 > ---
->  arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts |   18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> index ae1a633..4f04e76 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> @@ -2,6 +2,8 @@
->
->  #include "aspeed-g4.dtsi"
->
-> +#include <dt-bindings/gpio/aspeed-gpio.h>
+> =C2=A0drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c |=C2=A0=C2=A0=C2=A015 ++=
++++++++++++--
+> =C2=A01 file changed, 13 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c b/drivers/pinctrl=
+/aspeed/pinctrl-aspeed-g4.c
+> index e356619..610ab48 100644
+> --- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
+> +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
+> @@ -499,6 +499,9 @@ MS_PIN_DECL(E7, GPIOH7, ROMD15, RXD6);
+> =C2=A0
+> =C2=A0FUNC_GROUP_DECL(UART6, A8, C7, B7, A7, D7, B6, A6, E7);
+> =C2=A0
+> +#define K5 74
+> +SSSF_PIN_DECL(K5, GPIOJ2, SGPMO, SIG_DESC_SET(SCU84, 10));
 > +
->  / {
->         model = "Firestone BMC";
->         compatible = "ibm,firestone-bmc", "aspeed,ast2400";
-> @@ -19,6 +21,22 @@
->                 reg = < 0x40000000 0x10000000 >;
->         };
->
-> +       leds {
-> +               compatible = "gpio-leds";
+> =C2=A0#define J3 75
+> =C2=A0SSSF_PIN_DECL(J3, GPIOJ3, SGPMI, SIG_DESC_SET(SCU84, 11));
+> =C2=A0
+> @@ -727,10 +730,14 @@ SS_PIN_DECL(V6, GPIOO0, VPIG8);
+> =C2=A0SIG_EXPR_LIST_DECL_SINGLE(VPIG9, VPI24, VPI24_DESC, SIG_DESC_SET(SC=
+U88, 9));
+> =C2=A0SS_PIN_DECL(Y5, GPIOO1, VPIG9);
+> =C2=A0
+> +#define AA4 114
+> +SIG_EXPR_LIST_DECL_SINGLE(VPIR0, VPI30, VPI30_DESC, SIG_DESC_SET(SCU88, =
+10));
+> +SS_PIN_DECL(AA4, GPIOO2, VPIR0);
 > +
-> +               heartbeat {
-> +                       gpios = <&gpio ASPEED_GPIO(R, 4) GPIO_ACTIVE_LOW>;
-> +               };
-> +
-> +               power {
-> +                       gpios = <&gpio ASPEED_GPIO(R, 5) GPIO_ACTIVE_LOW>;
-> +               };
+> =C2=A0FUNC_GROUP_DECL(VPI18, T5, U3, V1, U4, V2, AA22, W5, Y4, AA3, AB2);
+> =C2=A0FUNC_GROUP_DECL(VPI24, T5, U3, V1, U4, V2, AA22, W5, Y4, AA3, AB2, =
+V6, Y5);
+> -FUNC_GROUP_DECL(VPI30, T5, U3, V1, U4, V2, W1, U5, W4, Y3, AA22, W5, Y4,=
+ AA3,
+> -		AB2);
+> +FUNC_GROUP_DECL(VPI30, T5, U3, V1, U4, V2, W1, U5, W4, Y3, AA4, AA22, W5=
+, Y4,
+> +		AA3, AB2);
+> =C2=A0
+> =C2=A0#define Y7 125
+> =C2=A0SIG_EXPR_LIST_DECL_SINGLE(GPIOP5, GPIOP5);
+> @@ -1154,6 +1161,7 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEE=
+D_G4_NR_PINS] =3D {
+> =C2=A0	ASPEED_PINCTRL_PIN(J20),
+> =C2=A0	ASPEED_PINCTRL_PIN(J21),
+> =C2=A0	ASPEED_PINCTRL_PIN(J3),
+> +	ASPEED_PINCTRL_PIN(K5),
+> =C2=A0	ASPEED_PINCTRL_PIN(K18),
+> =C2=A0	ASPEED_PINCTRL_PIN(L22),
+> =C2=A0	ASPEED_PINCTRL_PIN(N21),
+> @@ -1189,6 +1197,7 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEE=
+D_G4_NR_PINS] =3D {
+> =C2=A0	ASPEED_PINCTRL_PIN(Y4),
+> =C2=A0	ASPEED_PINCTRL_PIN(Y5),
+> =C2=A0	ASPEED_PINCTRL_PIN(Y7),
+> +	ASPEED_PINCTRL_PIN(AA4),
+> =C2=A0};
+> =C2=A0
+> =C2=A0static const struct aspeed_pin_group aspeed_g4_groups[] =3D {
+> @@ -1231,6 +1240,7 @@ static const struct aspeed_pin_group aspeed_g4_grou=
+ps[] =3D {
+> =C2=A0	ASPEED_PINCTRL_GROUP(FLBUSY),
+> =C2=A0	ASPEED_PINCTRL_GROUP(FLWP),
+> =C2=A0	ASPEED_PINCTRL_GROUP(UART6),
+> +	ASPEED_PINCTRL_GROUP(SGPMO),
+> =C2=A0	ASPEED_PINCTRL_GROUP(SGPMI),
+> =C2=A0	ASPEED_PINCTRL_GROUP(VGAHS),
+> =C2=A0	ASPEED_PINCTRL_GROUP(VGAVS),
+> @@ -1341,6 +1351,7 @@ static const struct aspeed_pin_function aspeed_g4_f=
+unctions[] =3D {
+> =C2=A0	ASPEED_PINCTRL_FUNC(FLBUSY),
+> =C2=A0	ASPEED_PINCTRL_FUNC(FLWP),
+> =C2=A0	ASPEED_PINCTRL_FUNC(UART6),
+> +	ASPEED_PINCTRL_FUNC(SGPMO),
+> =C2=A0	ASPEED_PINCTRL_FUNC(SGPMI),
+> =C2=A0	ASPEED_PINCTRL_FUNC(VGAHS),
+> =C2=A0	ASPEED_PINCTRL_FUNC(VGAVS),
+--=-BVfrwE0rmGe5sgryaUQt
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-On barreleye in the dev-4.4 tree we have another property to ensure
-these are kept in the same state on reboot. Do you want the same?
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
 
-> +
-> +               identify {
-> +                       gpios = <&gpio ASPEED_GPIO(A, 2) GPIO_ACTIVE_LOW>;
-> +               };
-> +       };
-> +
->         ahb {
->                 fmc@1e620000 {
->                         reg = < 0x1e620000 0x94
-> --
-> 1.7.9.5
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+iQIcBAABCgAGBQJX21WxAAoJEJ0dnzgO5LT5MesP/1L15WWiocQAQxsKSnqp9z1W
+FfW1558r2Wy3EzWCDvw8jkn6Mq7IWl1ucww7jQ6MR99gXAJ7wpCtbKeENHyNBbkE
+ADH26MpbpEvsfM1l6YEj2Foy91SZeNOTlyRlpWZS8I+XWSAAPKtr5E5hZOLz/GJ/
+yBKewhWdtIkjwRetVmDbseZAp4Hti5vmsPnX77eHkzi6Gx9ks/tbuq7PyLKeOILP
+RXa++umVCm8bWSTe3Qz3YycnRVkYBWPHjCnecuGZwl66pOhDQH1kJU9uTznycjRG
+VmoW0gMf92KgewXXx2dqRc9gCr/Hr+CNBhTZmCmf49mnmHc2+BAgPdzR8NfUU4TC
+JeetpfalX9nVA+SHbiyYCHOXgtHkG0MWA+HK7k/KraBbbBThOq/GhNknz91zBcFv
+4AU24/Eq0LZ8ErFNtwrrfT9nZemSWRTNH4795xEhsR9u5hfe0T7ubAHf7jBdiOVU
+dWA/sUCUIvVw/0SfqkUvtSp/k2SRxXHiVFOgGILBs3Vj5JNRyTgvnm3xi7bxqVdY
+1t6Tl5tc/R3gMrXtijCyOz4U6NiRdufICKp2Vm6h4i9MnuRA+FqLAZbGoOq/i1xH
+xMtmNKLACux6BYlbtZHSXbsCcrGikUaPzx0XMimFpA1cLanF7Z9g5/9UyLAs/I3n
+9Cj1oQOpX5QsF/OQWYtu
+=cS2E
+-----END PGP SIGNATURE-----
+
+--=-BVfrwE0rmGe5sgryaUQt--
