@@ -1,49 +1,49 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-vk0-f66.google.com (mail-vk0-f66.google.com
- [209.85.213.66])
+Received: from mail-vk0-f65.google.com (mail-vk0-f65.google.com
+ [209.85.213.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sZyfG049pzDsZP
- for <openbmc@lists.ozlabs.org>; Fri, 16 Sep 2016 11:40:38 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sZyfq4lJ8zDsZP
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Sep 2016 11:41:07 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=pewfHJ7E; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=w+U5447W; 
  dkim-atps=neutral
-Received: by mail-vk0-f66.google.com with SMTP id g9so239987vkg.1
- for <openbmc@lists.ozlabs.org>; Thu, 15 Sep 2016 18:40:37 -0700 (PDT)
+Received: by mail-vk0-f65.google.com with SMTP id b133so242456vka.2
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Sep 2016 18:41:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=SypsuysS55/ymjNS4+P9bjbii+QzG++cZ7T412UJo94=;
- b=pewfHJ7EYNmgF33e6lapq6MCRn8NSD5TYJHFFUhstA3CbXqqPNM6Il3DJFi7uohWo6
- cz0zkFn9U9G9MmsyYqj0pqQmjJcLlU47rHW0qsqdEm1s45j79alxuVnT8lI5ec4volw2
- Ipp9PewDkxZj/70Uf6CNYa6X8TTJVnsVTcvHCZ33SxjFh6514lO2QfgR50pWeVX77oZ+
- eCRIeW1ps13TokDHRwKS85CiC1sRuPq0h+elvWiDdnLk2gpEtAR4LW2btyiRuOrFkt/j
- I3rnatjYmcaQAoqGge/PhVQMQhIY7dVXsJME4J4IvibJ+Lrv5ISLZ5+eusSEie4PHqPn
- zIbg==
+ bh=12STaHBZdick7LQR1NN1q0I0epUvDDyttNfhcFMk3MU=;
+ b=w+U5447WIz3tSyPR8muAtPpzJAljUVJ/iTAf4EgBtawIFScUUP8EkmxFv5XXzND9dP
+ XiJzwEuyGf0UOBa5zjIxE1/sfFevfkFUjl9rtwZZ1I3+u0RD528q75NHxGmlndsjVA2y
+ 3vgvQNZkf7/W4/c36Zyie/QhIqMuEdIXz01uEfD6b6BOjnZSZiWtoLUCxFg2oiZPZCnY
+ dXI2b0iMFLOKZTQSxUnTMHs64Zl/93IjP4kLaoIsHN4eI0EePL/bKN1yluDhDnjmvBDG
+ +fxi/mhMZchgbU3yrKlw5wGeL3e5zxQ50XVsCeEpbSLNpMFBMTer41PuW7+uCAEVQ6em
+ tOGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=SypsuysS55/ymjNS4+P9bjbii+QzG++cZ7T412UJo94=;
- b=l6ojxXCjwHpTsrzpI/XcFK72ZzRht6i4OFI9tkLhT2HD96reZQpmfA3rM8wmC0Ewlg
- hw4tsaZi07vGbkFgKOjD3pQ2CgltSJhx/Ds5JBwazyIRqD4vzWnfURwzD02GaZtyMY+T
- Q8W65dhLh6cKrcKr9ZtbTdESp8CQ5BcT/g+SdC5QNDLua9IiK9Axg85iNut6PsS71PTR
- GuwDWCqnNs+jOEoHPTu1MEV0oD/wO9Q+fzsHMxT0iqlzqOcJH5IruciJCgCBcT+wC/go
- gGBOdRSbFVu2rwgIWVuvywz5GbCPHLTO3uNW/frj9emXw/fOY3CmLlHUJwcJG+hokm+L
- 7kFQ==
-X-Gm-Message-State: AE9vXwMw0WixbjVDUtcizfrwdcSBcCyHXILGEOzdWUSQsQ+AgDtUn3eAYTDJUintBZihPqbBtVBHYPduZ3HdGQ==
-X-Received: by 10.31.6.146 with SMTP id 140mr854696vkg.145.1473989976093; Thu,
- 15 Sep 2016 18:39:36 -0700 (PDT)
+ bh=12STaHBZdick7LQR1NN1q0I0epUvDDyttNfhcFMk3MU=;
+ b=RFpp42l7Sg2pysa8waGXBvKuySqUQPPwsNuDPrVFcZB5BtuQN4gaWenzf8KI3j/yZD
+ yyEu4/wWH4QK4BqC/4wYlS3ZY69OzywJJQA27k1ce0pIlBNzRnbv4UumGnwuF7XNBfaM
+ cSRUCFxdHYF2p7sQGIVxPqj50QZlBiINmazS4PugOJTfjEt6hJSeH6Cy4lUf6Ow3z+tJ
+ RDZ/Rz6ZkgV52QQllFSmXf62OUk698E7A3zLeaeXXhLcK1g7NwJtCF8NIeGQHzxnE1qb
+ tKfZY2GeZfmyHKLnuHfq2d7MTNoG1Lcc1lKgRgh7vLf3Livy9PPP6gNXu9KdOI0jEFKT
+ Pj3g==
+X-Gm-Message-State: AE9vXwPe5uN81bViubxq+TY8w8SjCMwT/lj+fDaDKy/1S+ZTkqVjI87Cga4y29SyFJQQDm0B9yMrJySWOg1tVA==
+X-Received: by 10.31.54.11 with SMTP id d11mr862604vka.149.1473990005807; Thu,
+ 15 Sep 2016 18:40:05 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.176.80.221 with HTTP; Thu, 15 Sep 2016 18:39:15 -0700 (PDT)
-In-Reply-To: <822637739.194632.1473971801609.JavaMail.zimbra@raptorengineeringinc.com>
-References: <822637739.194632.1473971801609.JavaMail.zimbra@raptorengineeringinc.com>
+Received: by 10.176.80.221 with HTTP; Thu, 15 Sep 2016 18:39:45 -0700 (PDT)
+In-Reply-To: <644340813.194637.1473971868909.JavaMail.zimbra@raptorengineeringinc.com>
+References: <644340813.194637.1473971868909.JavaMail.zimbra@raptorengineeringinc.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 16 Sep 2016 11:09:15 +0930
-X-Google-Sender-Auth: c5-G5bu57WNOu_aKzFsMdBrgqT4
-Message-ID: <CACPK8XfaObpxkWA3Y7-f99vUvJ=oksqkt6FT+gqutAc8Ud8p6Q@mail.gmail.com>
-Subject: Re: [PATCH 10/16] Add missing UARTs to Firestone DT
+Date: Fri, 16 Sep 2016 11:09:45 +0930
+X-Google-Sender-Auth: tg7mVXG33qDW93YCmFZw0-2yzJc
+Message-ID: <CACPK8XfRuCt6HS=RAYfsWs6tF4GsrpGg6v+7kgTNrBOpvU9bsQ@mail.gmail.com>
+Subject: Re: [PATCH 13/16] Enable RGMII pin functions in Firestone DT
 To: Timothy Pearson <tpearson@raptorengineering.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
@@ -58,49 +58,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Sep 2016 01:40:38 -0000
+X-List-Received-Date: Fri, 16 Sep 2016 01:41:08 -0000
 
-On Fri, Sep 16, 2016 at 6:06 AM, Timothy Pearson
+On Fri, Sep 16, 2016 at 6:07 AM, Timothy Pearson
 <tpearson@raptorengineering.com> wrote:
-
-Missing your s-o-b.
-
-Please add a comment as to why you're enabling them - I assume that
-these are the physical ports on the back of the chassis?
-
 >
+
+Missing your s-o-b and commit message.
+
 > ---
->  arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts |   10 ++++++++++
->  1 file changed, 10 insertions(+)
+>  arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts |    3 +++
+>  1 file changed, 3 insertions(+)
 >
 > diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> index 82df794..c6e81f4 100644
+> index 053fafe..a2a2ef2 100644
 > --- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
 > +++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> @@ -9,6 +9,8 @@
->         compatible = "ibm,firestone-bmc", "aspeed,ast2400";
+> @@ -72,6 +72,9 @@
+>  &mac0 {
+>         status = "okay";
 >
->         aliases {
-> +               serial1 = &uart1;
-> +               serial2 = &uart2;
->                 serial4 = &uart5;
->         };
->
-> @@ -73,6 +75,14 @@
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_rgmii1_default>;
+> +
 >         no-hw-checksum;
 >  };
 >
-> +&uart1 {
-> +       status = "okay";
-> +};
-> +
-> +&uart2 {
-> +       status = "okay";
-> +};
-> +
->  &uart5 {
->         status = "okay";
->  };
 > --
 > 1.7.9.5
 >
