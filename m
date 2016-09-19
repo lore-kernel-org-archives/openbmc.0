@@ -3,38 +3,38 @@ Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sdMxs2KkNzDsMT
- for <openbmc@lists.ozlabs.org>; Tue, 20 Sep 2016 09:47:29 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sdMzX1PQJzDsMT
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Sep 2016 09:48:56 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
  dkim=fail reason="signature verification failed" (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=jnvgUnaA; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=kK8cC6GT; 
  dkim=fail reason="signature verification failed" (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=Frdvqqzr; dkim-atps=neutral
+ header.b=T1czCp/k; dkim-atps=neutral
 Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 252202079A;
- Mon, 19 Sep 2016 19:47:27 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 2D7BC20689;
+ Mon, 19 Sep 2016 19:48:54 -0400 (EDT)
 Received: from frontend1 ([10.202.2.160])
- by compute7.internal (MEProxy); Mon, 19 Sep 2016 19:47:27 -0400
+ by compute7.internal (MEProxy); Mon, 19 Sep 2016 19:48:54 -0400
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=CJyTx
- 6JwIvCpOcwTBthqHZY6qRU=; b=jnvgUnaAeRpNq5xCKls6WDyLG149wDLmC80aa
- CGodVCnD9ALTqMg1blwzR0azYZ/i3sV4cQOgyz8WweZcQOzqhp6HJ1UzZqrDDqaQ
- VGiCjS3bAcs5U8SLMPUqiDtJLfgS9sLVLW3ywJmhScBJFN02vtpR5OmjmvNX+hkS
- 4aCZvE=
+ :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=6LAA2
+ SKAkUiMTpNdsTa16T5Vx8A=; b=kK8cC6GTSKsHycpyMmhZRHvYNSNS+RQ4/YH4t
+ Qrqn6ftM0xEpZIRQqhfNAgBZOuz/1vdR7b9WFYxv0vxsFUJWM1edAKMCy5yt1K1w
+ P/lGkHOTF5WT6l6nH7kxFIfMKI+LP2P5FryzQhnwbDk8+Ngcq2sYLzcag0jNeD0F
+ TQnVYc=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-sasl-enc
- :x-sasl-enc; s=smtpout; bh=CJyTx6JwIvCpOcwTBthqHZY6qRU=; b=Frdvq
- qzrdIA6pnMAHkY5evZgu7xL1luVWta/tdO9gXKGCg6yZ9mAp2Ye9ATkaMC7jkfpC
- ZBQAwgi24kpZcfzS2bdK/pzZdZ7vhFcISnUCjhGji6lmXFW3p1opAGoYNYzH+99o
- wwltMIG95susadpmsUGGwsqRJrrffoZZmMtGoA=
-X-Sasl-enc: AGpjGSzIRCby5dgjkOD9KqyQHd331DqJQNf9vUxmjbGI 1474328846
+ :x-sasl-enc; s=smtpout; bh=6LAA2SKAkUiMTpNdsTa16T5Vx8A=; b=T1czC
+ p/k342SqV/sE0pZE1LncUSfAps2ablNhldHipzUouygQDLJS905pAIoOursOmx0u
+ fer2GH0NMvxZgr7lJUOFUtNy63qbRbT/ebjm67hM4uufaG009fd7Zv8wV56wwz3H
+ OjMyn7hyIxMH42c6vLVrChR0rVNOpCjpXiYFy4=
+X-Sasl-enc: nb9advU2yx2Kua+r/GXkXH6hCRMPaU2DfjaMIFUjzOHu 1474328933
 Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id EA8A4F29D1;
- Mon, 19 Sep 2016 19:47:24 -0400 (EDT)
-Message-ID: <1474328837.13249.61.camel@aj.id.au>
+ by mail.messagingengine.com (Postfix) with ESMTPA id D46B5F29D9;
+ Mon, 19 Sep 2016 19:48:52 -0400 (EDT)
+Message-ID: <1474328928.13249.62.camel@aj.id.au>
 Subject: Re: [PATCH 03/17] Ensure that the old style MDIO interface is
  active before registering the MDIO bus on Faraday style MACs. Without this
  patch the hardware may continue to expect new style commands, yielding MDIO
@@ -42,14 +42,14 @@ Subject: Re: [PATCH 03/17] Ensure that the old style MDIO interface is
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Timothy Pearson <tpearson@raptorengineering.com>
 Cc: openbmc@lists.ozlabs.org
-Date: Tue, 20 Sep 2016 09:17:17 +0930
-In-Reply-To: <57E01A37.7060103@raptorengineeringinc.com>
+Date: Tue, 20 Sep 2016 09:18:48 +0930
+In-Reply-To: <57E06B68.6080205@raptorengineeringinc.com>
 References: <1474058133-27363-1-git-send-email-tpearson@raptorengineering.com>
  <1474058133-27363-4-git-send-email-tpearson@raptorengineering.com>
  <1474246308.13249.46.camel@aj.id.au>
- <57E01A37.7060103@raptorengineeringinc.com>
+ <57E06B68.6080205@raptorengineeringinc.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-9zdKmGoLSWShStSDlvJ2"
+ protocol="application/pgp-signature"; boundary="=-Y1kSfFXGaMAMZVBv7QLZ"
 X-Mailer: Evolution 3.18.5.2-0ubuntu3 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -63,31 +63,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Sep 2016 23:47:30 -0000
+X-List-Received-Date: Mon, 19 Sep 2016 23:48:56 -0000
 
 
---=-9zdKmGoLSWShStSDlvJ2
+--=-Y1kSfFXGaMAMZVBv7QLZ
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2016-09-19 at 12:02 -0500, Timothy Pearson wrote:
-> On 09/18/2016 07:51 PM, Andrew Jeffery wrote:
-> >=20
-> > It looks like your entire commit message went into the subject...
-> That's what I get for using git format-patch and git send-email.=C2=A0=C2=
-=A0I
-> can't wait to find out how those tools managed to mess this one up...
->=20
+On Mon, 2016-09-19 at 17:49 -0500, Timothy Pearson wrote:
+> I'm going to manually re-send this.=C2=A0 git send-email was the problem.
 
-Are you generating the patches with `git format-patch`? If so it
-/should/ spit out a well-formed patch ready for mailing, and it seems
-surprising that patches would be mangled this way.
-
-I'm curious about what the cause was; if it is one of the git tools
-please tell!
-
-Andrew
---=-9zdKmGoLSWShStSDlvJ2
+Ah; should have read this before replying to the previous email. What
+was the problem? It might be helpful to others to explain what went
+wrong.
+--=-Y1kSfFXGaMAMZVBv7QLZ
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
@@ -95,19 +84,19 @@ Content-Transfer-Encoding: 7bit
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAABCgAGBQJX4HkFAAoJEJ0dnzgO5LT5XXoP/i/rcSAF6NYJN1mGtf5LVcKr
-wAM0PVOzjgebG5NsrkIkLvUlYCH3/QYETlfls4UCUnVjVcLogByh7Y1vme8Rlx5b
-WTChEiDzZJ+WfgWhJu2BcUucJ7G7+4y1rqOw1krOycUPFAX781D/LB64OOyc7iCx
-nr7VdFLegMg4dWkbZ3PPNQXokrNHEQsxwnZHi1QMUEeKjk8HKFg1AhsjIO+50UAx
-Cu2QftMRnaH/OY2jveCKuzMOfyeHUsSfZK0PkVo9I7nPGWPhWVjT2wUhbiMYPtO5
-CNm9eXl4KKG60ynGwjUpHnjFhwfNwnXlSKVKBaY1cGR6PqDE/V/1yAibaoAnsnRd
-7P5JQ1kZgB3tWGqh7oyXYbOQuUdxFz9jS8mTpV2DuMw0BynjNy7PFlUx+B5k0QCA
-h7RRN4dqAL2yur7191dSV/mFrABla9qYDr1EKE7AEXQaSveJf2qPbJN/102pYAHd
-Y4cczcIHGMf6AG16g82KfaLtMMViVoMuPbB1ha2/aV4Ys9kW9P16cP5Ch5dqvGB/
-9yStN+1n0lH6o2Rg9bN7+XFxrtaXYuGdiHUSgni2UDWxyzaqEEKIOdD3XlfXVXTs
-QOdJUXT7ztPb0rNQK8GV7z7ZVoMwxABCzwqvSfbv19JIQQCVZcP+Tdf0yvMEGXX+
-Zq3rDVun9bX+yRUOr4n7
-=SV5W
+iQIcBAABCgAGBQJX4HlgAAoJEJ0dnzgO5LT5HekP/3Ry06nKHtc1PHX5dYxPBkoI
+uTGBCHUZRU89mk99GZQ4z4D6WC3NkuZR0OgtZQ7mRJKoRfhdsniu/rGD/FDNuGkE
+0TKHcY+db1ys/sMuUyZrcMkUVG/NXgPri5zQpL4pAq9xrBcrCnZRlbIelG+uznz6
+tZYlOss8hbWihqOTNWlUWWjSxO2AN0xr5Jh7Ax2isyyPlRAJphGidVh1QRRt3XcV
+VXCORaEAJsw/znrllHLYwR1mdV6W7oDEstsdOpUujRQOi1lSnzG63scBr9LJNIKB
+dX8F3Dhv+9gC5304sXbXUAF1fqB0kAa/UagbPIJAeFwaCi65IpAYKGv/E5v/PcJT
+LCPS+GgA4HrTzuwJLLBIsIZoKjWzWIpJM6eCVwdGZFt30WMxdoitOm2TjhAa+K/T
+vboVWbrfzR3yBrMVdDdaTgb9ZO0otY60qp4CzQu7wEFRwv50kYfYrOC62OC3vRQH
+7JPqxmwTrbNPQgnM4WCpTNwXwhUOSodPUmRT35Aazg8gKGeKpECsowJOwb4qBkJB
+wzmM/fj/5SYhup5mpz1+cDPHFyX5KNiHPIbsWIvBMZy/ZDq+bUIkmbWcya0Rl+Cs
+8qgJ+PLaygu0jO45eHZAXxSffkhLjIFlP2oQmxmm1uuVtbg5mV2kRoDe8DLAPrVU
+WPyQ0BxEhKMoDW914vsg
+=/JXU
 -----END PGP SIGNATURE-----
 
---=-9zdKmGoLSWShStSDlvJ2--
+--=-Y1kSfFXGaMAMZVBv7QLZ--
