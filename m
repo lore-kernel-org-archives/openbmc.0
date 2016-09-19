@@ -3,50 +3,47 @@ Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3scnQn5f9XzDsTW
- for <openbmc@lists.ozlabs.org>; Mon, 19 Sep 2016 10:52:01 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3scncG5vKXzDsTW
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Sep 2016 11:00:14 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
  dkim=fail reason="signature verification failed" (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=dHtTvxR6; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=HbyRx8Pa; 
  dkim=fail reason="signature verification failed" (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=NrNLCo7j; dkim-atps=neutral
+ header.b=EyfnCwCN; dkim-atps=neutral
 Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 52AE1203D5;
- Sun, 18 Sep 2016 20:51:57 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 090FC203D0;
+ Sun, 18 Sep 2016 21:00:12 -0400 (EDT)
 Received: from frontend2 ([10.202.2.161])
- by compute7.internal (MEProxy); Sun, 18 Sep 2016 20:51:57 -0400
+ by compute7.internal (MEProxy); Sun, 18 Sep 2016 21:00:12 -0400
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
  content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=Ekei3
- O6M7ikTxC6TbA+VeOkOWDo=; b=dHtTvxR6zOcp5pkTy5Kozvu4rG9PLpZ6lxI60
- ExN8O7MxLuC1LiL7C3xzY2/zQpQTWoF/zWpSLK7o9wLlF0R7mcVIvBen7kU8PxrS
- r8+qMy8vNFALR8rUjJ/HAUSZogGakwWatSqHvyaUcRS0jzE35WVzEwF/COriZMQV
- sF2OEs=
+ :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=MJWpi
+ eJzPjF/HRek0vG0sywXgPI=; b=HbyRx8Pazi5DmqsXQj6dmxmgJZvOZRGPXdbp8
+ gT+okkgZUvxWoeQpTvt3c9Eql6mI0zbf6p7YHn+EceHWeTUsaPRx8JqvauPei9P+
+ ppeS+Vh8+l4lVxc/uVE3un2m/qAUx9GJz/K6l2/DPHiN7Z71Ohgc7mXYdOR4FivZ
+ jrS58Y=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
  messagingengine.com; h=content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-sasl-enc
- :x-sasl-enc; s=smtpout; bh=Ekei3O6M7ikTxC6TbA+VeOkOWDo=; b=NrNLC
- o7jyvScc3Rkxr5VbJGCqFRtKoPxd1lY7vbaq0pJ9lxZjB8ac0v8BuQpU6TLmzxZh
- Br0kHa6wUDWU5t/WhtddhkemP/X/ee2oAHVr/soTBsnv0p84lLq6kDjn7crv680G
- B+qp6yz/gt8Ec8uXWgl9ytKbgpMoXxtiz52H40=
-X-Sasl-enc: MY/1cZ4bZxjnfVRCJY2LkjrhTZR88wuYiD9eXI71y/9q 1474246316
+ :x-sasl-enc; s=smtpout; bh=MJWpieJzPjF/HRek0vG0sywXgPI=; b=EyfnC
+ wCNB7iQ5H/iklxIfMHdmeb8H4qhGQradU2o2hILNOrf7oknj62OugYQOL6D1Nn21
+ bWRr8KSIlfLV8e7iPG9M7NchtNeQw5Ov773m4M2PPLTsuE1KaufrmBmvSIcv/u5a
+ 4RcA29TogXxnDhsRCVLOI8RKw5dek00gyWNfWk=
+X-Sasl-enc: K11mCZ08Pty48K1aY8w0oAjHUnij4JDZhuVErjNH+kqU 1474246811
 Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id CFF85CCE7E;
- Sun, 18 Sep 2016 20:51:55 -0400 (EDT)
-Message-ID: <1474246308.13249.46.camel@aj.id.au>
-Subject: Re: [PATCH 03/17] Ensure that the old style MDIO interface is
- active before registering the MDIO bus on Faraday style MACs. Without this
- patch the hardware may continue to expect new style commands, yielding MDIO
- timeouts and general lack of communication with the MII.
+ by mail.messagingengine.com (Postfix) with ESMTPA id 5F163CCE9E;
+ Sun, 18 Sep 2016 21:00:10 -0400 (EDT)
+Message-ID: <1474246806.13249.48.camel@aj.id.au>
+Subject: Re: [PATCH 14/17] Enable RGMII pin functions in Firestone DT
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Timothy Pearson <tpearson@raptorengineering.com>, openbmc@lists.ozlabs.org
-Date: Mon, 19 Sep 2016 10:21:48 +0930
-In-Reply-To: <1474058133-27363-4-git-send-email-tpearson@raptorengineering.com>
+Date: Mon, 19 Sep 2016 10:30:06 +0930
+In-Reply-To: <1474058133-27363-15-git-send-email-tpearson@raptorengineering.com>
 References: <1474058133-27363-1-git-send-email-tpearson@raptorengineering.com>
- <1474058133-27363-4-git-send-email-tpearson@raptorengineering.com>
+ <1474058133-27363-15-git-send-email-tpearson@raptorengineering.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-XNS4A+fx7xg62VefZ5pl"
+ protocol="application/pgp-signature"; boundary="=-kYnFFC3VlxpDLoR0+7BG"
 X-Mailer: Evolution 3.18.5.2-0ubuntu3 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -60,73 +57,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Sep 2016 00:52:03 -0000
+X-List-Received-Date: Mon, 19 Sep 2016 01:00:15 -0000
 
 
---=-XNS4A+fx7xg62VefZ5pl
+--=-kYnFFC3VlxpDLoR0+7BG
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-It looks like your entire commit message went into the subject...
-
 On Fri, 2016-09-16 at 15:35 -0500, Timothy Pearson wrote:
-> Signed-off-by: Timothy Pearson <tpearson@raptorengineering.com>
-> ---
-> =C2=A0drivers/net/ethernet/faraday/ftgmac100.c |=C2=A0=C2=A0=C2=A0=C2=A06=
- ++++++
-> =C2=A0drivers/net/ethernet/faraday/ftgmac100.h |=C2=A0=C2=A0=C2=A0=C2=A02=
- ++
-> =C2=A02 files changed, 8 insertions(+)
+> This is required for BMC networking to function.
 >=20
-> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ether=
-net/faraday/ftgmac100.c
-> index c20f767..778c625 100644
-> --- a/drivers/net/ethernet/faraday/ftgmac100.c
-> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
-> @@ -1250,6 +1250,7 @@ static int ftgmac100_setup_mdio(struct net_device *=
-netdev)
-> =C2=A0{
-> =C2=A0	struct ftgmac100 *priv =3D netdev_priv(netdev);
-> =C2=A0	struct platform_device *pdev =3D to_platform_device(priv->dev);
-> +	uint32_t revcr;
-> =C2=A0	int i, err =3D 0;
+> Signed-off-by: Timothy Pearson <tpearson@raptorengineering.com>
+
+Acked-by: Andrew Jeffery <andrew@aj.id.au>
+
+> ---
+> =C2=A0arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts |=C2=A0=C2=A0=C2=A0=
+=C2=A03 +++
+> =C2=A01 file changed, 3 insertions(+)
+>=20
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/bo=
+ot/dts/aspeed-bmc-opp-firestone.dts
+> index 053fafe..36c95a0 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+> @@ -72,6 +72,9 @@
+> =C2=A0&mac0 {
+> =C2=A0	status =3D "okay";
 > =C2=A0
-> =C2=A0	/* initialize mdio bus */
-> @@ -1257,6 +1258,11 @@ static int ftgmac100_setup_mdio(struct net_device =
-*netdev)
-> =C2=A0	if (!priv->mii_bus)
-> =C2=A0		return -EIO;
-> =C2=A0
-> +	/* This driver only supports the old MDIO interface -- enable it */
-> +	revcr =3D ioread32(priv->base + FTGMAC100_OFFSET_REVR);
-> +	revcr &=3D ~FTGMAC100_OFFSET_REVR_NEW_INTERFACE;
-> +	iowrite32(revcr, priv->base + FTGMAC100_OFFSET_REVR);
-
-Did you have any thoughts on my comments from v1 for this change?
-
-Cheers,
-
-Andrew
-
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&pinctrl_rgmii1_default &pinctrl_mdio1_default>;
 > +
-> =C2=A0	priv->mii_bus->name =3D "ftgmac100_mdio";
-> =C2=A0	snprintf(priv->mii_bus->id, MII_BUS_ID_SIZE, "%s-%d",
-> =C2=A0		=C2=A0pdev->name, pdev->id);
-> diff --git a/drivers/net/ethernet/faraday/ftgmac100.h b/drivers/net/ether=
-net/faraday/ftgmac100.h
-> index d07b6ea..ee5f758 100644
-> --- a/drivers/net/ethernet/faraday/ftgmac100.h
-> +++ b/drivers/net/ethernet/faraday/ftgmac100.h
-> @@ -133,6 +133,8 @@
-> =C2=A0#define FTGMAC100_DMAFIFOS_RXDMA_REQ		(1 << 30)
-> =C2=A0#define FTGMAC100_DMAFIFOS_TXDMA_REQ		(1 << 31)
+> =C2=A0	no-hw-checksum;
+> =C2=A0};
 > =C2=A0
-> +#define FTGMAC100_OFFSET_REVR_NEW_INTERFACE	(1 << 31)
-> +
-> =C2=A0/*
-> =C2=A0 * Receive buffer size register
-> =C2=A0 */
---=-XNS4A+fx7xg62VefZ5pl
+--=-kYnFFC3VlxpDLoR0+7BG
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
@@ -134,19 +99,19 @@ Content-Transfer-Encoding: 7bit
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAABCgAGBQJX3zakAAoJEJ0dnzgO5LT5cYQP/iYTh8+sultLHBhnqYxNDzdJ
-wdLtR12h4BjDoORWyErmjBM8OT7jZzkqkYxbbSFANJZfNPJlKhhcDmxIk+j0obT4
-i4F4M6yenhBxqTY7xu4XTHVf5EcJG63q8zAmAXYEBdHfDOYiHmuZHYz4DV5frwpb
-iYUMWz0QZtKgzfs4M0YhKZ1ipvbdxI6+xvUdC9XrI53vJzvOAKG0oK0I8Y4fea9I
-fBlNQfOB/PQS9i4tY+OeOlqEeGQNwpstl0/08Q5VtFfDDB0RrFca7mMC5kR2OP/E
-Mkxu6LjnEoOZnO5k9ho0eTeqMAyke82v00xQRbPZ7qTKP3gl7qZHKPTiPKkftWN+
-lYGjrN9OSUdmzow7C5vieG4yKc3jr2yrHDoSye6gv4fl7Dt6hHyG4LDp2xMhGCGy
-ynJcSAgLgbUFKpXuOdOba5pZeAfbuMT+2jjfZWiQoaCuia6XaT5yWxtgFxinZ9f0
-kHaeUZpLDydZsbS7thspmq17l1UpdRjKaUmaqfBtWKLAPJ+GkcDNBmDvWGHgZa32
-dz9pqIJxQ1OIu7dYKsA5BruG4y0cwQnTcvnDZeU882VqnbOlB8ZkKatX4QwYDpAZ
-4EqQsi+OVylccwUTM38GpsXoWPpQn+xIkUug9SpfGrV3yfg37IMwHA2HKQHt1+yW
-s7evivtZEXA8es7j85h7
-=xf18
+iQIcBAABCgAGBQJX3ziWAAoJEJ0dnzgO5LT5lhEP/0Yy8mjbsQReIROKWO7ZD4AR
+aZse+3K4/4TlA+Mv5k82AJhWN1CcjCwVpkiBUst9+3z7/T9i3gjtbwmhMLoiY2TH
+d4/5P88lq7QD+7QPdJgp0tiEhNB5EPQYf6HYh3ucAV6nWq/R4/Ez5gYZ4OXcbV6z
+5QqR+0RCSGArRe7bbjrZZtdjce3oGkxyaKDMSMZfY187ghkzYUKEOJlwxRyIDzb2
+r1iyGfDz/fpSu9U6BAKznRNhZNQwDocld/6kJpOTLRcUKUHtQFYeJnSgvgfXE/dr
+xm2GvXxSWeHPkqiz3pFc42gVWOePCAH/oQavFz5ylnEmiS2MQ5duEUtvevc2+afx
+ZlsIePh0gcrhrag9b319BNXWq2Hsutq6qqjhP7gzI30mkI9GBCsWMl3U4YQjVX8N
+AEx9CFv763YozzHPXjAoreVYGjPssbWwaFyL46KESkIS8HOfBf0nHm30iIKpzw5/
+yUED99T22EUyXGu+QbejyJ/+Nkb+O9crp0m0myloX1wmfLLNfF8BsUJOkHvY3X2G
+/XzWu9IU+dNp4cY8mPnVXFiMxRMTqF6fNqJZ/oQlB1qduTKRUSZckwW+MJqOkGoP
+CvrrRyl/LQc17qdSBPljdT5eXfyqUJKRTk24kC5UqClsf213M3Ky8zpk2nMR9N3d
+0TidKlLu9IIxgoN3v4n9
+=KUpr
 -----END PGP SIGNATURE-----
 
---=-XNS4A+fx7xg62VefZ5pl--
+--=-kYnFFC3VlxpDLoR0+7BG--
