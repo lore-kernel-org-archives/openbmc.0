@@ -1,25 +1,54 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sbsRh3B40zDq5f
- for <openbmc@lists.ozlabs.org>; Sat, 17 Sep 2016 22:49:35 +1000 (AEST)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1474116566998180.73735477804917;
- Sat, 17 Sep 2016 05:49:26 -0700 (PDT)
-Date: Sat, 17 Sep 2016 07:49:19 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Logging utilities.
-Message-ID: <20160917124919.GA11301@heinlein.lan>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="YiEDa0DAkWCtVeE4"
-Content-Disposition: inline
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3scnQn5f9XzDsTW
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Sep 2016 10:52:01 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+ dkim=fail reason="signature verification failed" (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=dHtTvxR6; 
+ dkim=fail reason="signature verification failed" (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b=NrNLCo7j; dkim-atps=neutral
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id 52AE1203D5;
+ Sun, 18 Sep 2016 20:51:57 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute7.internal (MEProxy); Sun, 18 Sep 2016 20:51:57 -0400
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
+ content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=Ekei3
+ O6M7ikTxC6TbA+VeOkOWDo=; b=dHtTvxR6zOcp5pkTy5Kozvu4rG9PLpZ6lxI60
+ ExN8O7MxLuC1LiL7C3xzY2/zQpQTWoF/zWpSLK7o9wLlF0R7mcVIvBen7kU8PxrS
+ r8+qMy8vNFALR8rUjJ/HAUSZogGakwWatSqHvyaUcRS0jzE35WVzEwF/COriZMQV
+ sF2OEs=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-sasl-enc
+ :x-sasl-enc; s=smtpout; bh=Ekei3O6M7ikTxC6TbA+VeOkOWDo=; b=NrNLC
+ o7jyvScc3Rkxr5VbJGCqFRtKoPxd1lY7vbaq0pJ9lxZjB8ac0v8BuQpU6TLmzxZh
+ Br0kHa6wUDWU5t/WhtddhkemP/X/ee2oAHVr/soTBsnv0p84lLq6kDjn7crv680G
+ B+qp6yz/gt8Ec8uXWgl9ytKbgpMoXxtiz52H40=
+X-Sasl-enc: MY/1cZ4bZxjnfVRCJY2LkjrhTZR88wuYiD9eXI71y/9q 1474246316
+Received: from keelia (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id CFF85CCE7E;
+ Sun, 18 Sep 2016 20:51:55 -0400 (EDT)
+Message-ID: <1474246308.13249.46.camel@aj.id.au>
+Subject: Re: [PATCH 03/17] Ensure that the old style MDIO interface is
+ active before registering the MDIO bus on Faraday style MACs. Without this
+ patch the hardware may continue to expect new style commands, yielding MDIO
+ timeouts and general lack of communication with the MII.
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Timothy Pearson <tpearson@raptorengineering.com>, openbmc@lists.ozlabs.org
+Date: Mon, 19 Sep 2016 10:21:48 +0930
+In-Reply-To: <1474058133-27363-4-git-send-email-tpearson@raptorengineering.com>
+References: <1474058133-27363-1-git-send-email-tpearson@raptorengineering.com>
+ <1474058133-27363-4-git-send-email-tpearson@raptorengineering.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-XNS4A+fx7xg62VefZ5pl"
+X-Mailer: Evolution 3.18.5.2-0ubuntu3 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -31,150 +60,93 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 17 Sep 2016 12:49:37 -0000
+X-List-Received-Date: Mon, 19 Sep 2016 00:52:03 -0000
 
 
---YiEDa0DAkWCtVeE4
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--=-XNS4A+fx7xg62VefZ5pl
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-There is a commit on Gerrit where some discussion was requested on the
-libraries we plan to use for logging:
-    https://gerrit.openbmc-project.xyz/#/c/53/
-The suggestion was made that we consider google/glog as a logging
-library.
+It looks like your entire commit message went into the subject...
 
-Our intention with the program logging is to heavily leverage systemd's
-journal methods both for original program logging but also for later
-programmatic extraction on errors.  Adriana is working on the second
-part and will have some proof of concepts to share soon.
+On Fri, 2016-09-16 at 15:35 -0500, Timothy Pearson wrote:
+> Signed-off-by: Timothy Pearson <tpearson@raptorengineering.com>
+> ---
+> =C2=A0drivers/net/ethernet/faraday/ftgmac100.c |=C2=A0=C2=A0=C2=A0=C2=A06=
+ ++++++
+> =C2=A0drivers/net/ethernet/faraday/ftgmac100.h |=C2=A0=C2=A0=C2=A0=C2=A02=
+ ++
+> =C2=A02 files changed, 8 insertions(+)
+>=20
+> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ether=
+net/faraday/ftgmac100.c
+> index c20f767..778c625 100644
+> --- a/drivers/net/ethernet/faraday/ftgmac100.c
+> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
+> @@ -1250,6 +1250,7 @@ static int ftgmac100_setup_mdio(struct net_device *=
+netdev)
+> =C2=A0{
+> =C2=A0	struct ftgmac100 *priv =3D netdev_priv(netdev);
+> =C2=A0	struct platform_device *pdev =3D to_platform_device(priv->dev);
+> +	uint32_t revcr;
+> =C2=A0	int i, err =3D 0;
+> =C2=A0
+> =C2=A0	/* initialize mdio bus */
+> @@ -1257,6 +1258,11 @@ static int ftgmac100_setup_mdio(struct net_device =
+*netdev)
+> =C2=A0	if (!priv->mii_bus)
+> =C2=A0		return -EIO;
+> =C2=A0
+> +	/* This driver only supports the old MDIO interface -- enable it */
+> +	revcr =3D ioread32(priv->base + FTGMAC100_OFFSET_REVR);
+> +	revcr &=3D ~FTGMAC100_OFFSET_REVR_NEW_INTERFACE;
+> +	iowrite32(revcr, priv->base + FTGMAC100_OFFSET_REVR);
 
-Left to their own devices, two different programmers might create two
-logging events such as:
-    ERROR "Failed to open device %s, %s", device, strerror(errno)
-    ERROR "fopen on %s failed: %d", device, errno
+Did you have any thoughts on my comments from v1 for this change?
 
-Notice in this case, not only is the English different but the content
-itself is different and impossible to parse out if we want to do
-something like automatically transpose "device" into a potentially
-failing FRU.  The journald approach is that you do not put content in
-English but you use meta-data tags to represent it.
+Cheers,
 
-    LEVEL=3DERROR, MESSAGE=3D"Failed to open", FILE=3D"%s", device,
-    ERRNO=3D"%d", errno
+Andrew
 
-Now we have a message that humans can read ("Failed to open
-FILE=3Ddevice") and one that computers can still interpret.  To take this
-a step further, consider adding another meta-data tag:
-    ERROR_EVENT=3D"xyz.openbmc-project.Error.Device-Not-Found"
-
-We can now codify behavior, in a data format customizable per-system if
-needed, such as:
-    on xyz.openbmc-project.Error.Device-Not-Found:
-        [Device, AccessType] =3D parse-device-string(metadata.DEVICE)
-        Parts =3D devices-on-bus(BMC, Device, AccessType)
-        add-callout(Parts, High)
-        add-callout("Error.Device-Configuration", Low)
-
-Effectively, we separate the error identification from the error policy.
-There are a few major advantages of this:
-    1. Historically we have found that well over 50% of the code in this
-       environment ends up being dealing with errors, which makes the
-       code very difficult to understand and maintain.  By separating
-       the policy, we end up with something that is much more readable.
-    2. Different systems end up with policy quirks that tend to litter
-       the code.  "On this system i2c bus 3 goes through this extra
-       riser card and the connector ends up oxidizing faster than we
-       expected, so put that riser as the highest priority for
-       replacement."  We can now put this policy into a system-specific
-       enhancement file rather than --enable-firestone and #if
-       CONFIG_FIRESTONE littering all the packages.
-
-Now, back to the logging API, what Adriana delivered aligns very well
-with these metadata and error concepts because it was designed with
-these thoughts in mind (which, I know, we could have done a better job of
-communicating).  We enforce, at compile-time, that "messages" are static
-English statements and dynamic data is all tagged through the "entry"
-mechanism.  Down the line we will be able to further enforce, again at
-compile time, that log(error(xyz.openbmc-project.Device-Not-Found)...)
-must contain {entry(DEVICE), entry(ERRNO)} so that the program fails to
-compile if the required data, per the error definition, were not given.
-
-I don't see an easy way to leverage google/glog to include these
-concepts, other than simply having the logging utilities Adriana
-delivered use google/glog instead of systemd_journal.  At that point we
-are losing the mind-share(?) associated with using glog in the first
-place.
-
-Glog seems to be primarily oriented towards a logging infrastructure=20
-for a stand-alone application.  The default behavior of it is to create
-a log file in /tmp per process.  Due to the nature of our project, being
-a collection of interacting products, debug is often going to require
-aggregation of logging across the system and this is where journald
-would be needed as the back-end.  As Rick mentioned in the above review,=20
-glog doesn't currently support systemd as a back-end but that is likely
-trivial to add (or maybe available as an unreleased patch already).  It
-does seem like a significant code path to introduce simply as a way to
-get from a log statement to journald, when what Adriana delivered
-compiles directly to a single journald call.
-
-Glog also uses C++ iostream-style << operators.  I made a simple
-hello-world application using it and there ends up being a local object
-constructed to contain the buffer, a << operator call to insert a string
-into the buffer, and a destructor call to emit the log entry.  There is
-4 function calls involved at a minimum for each log entry, plus an
-additional function call per-element.  So, in addition to the
-performance implications of whatever glog is doing internally, I have
-concerns about the code size impacts to using Glog due to the way the
-API is structured and implemented.
-
-In summary, I do not see an advantage to using glog over direct
-journald calls, and would prefer we incorporate something derived from
-what Adriana has proposed, for the following reasons:
-    1. The proposed API has syntactic handling for concepts we want in
-       our error-event design that glog does not.
-        a. glog could be inserted under phosphor::logging at any point
-           in the future without any code change to applications that
-           use phosphor::logging.
-    2. Glog has performance and size implications, over direct journald
-       calls, without much in the way of added value.
-
-There are a number of macros that Glog provides to simplify log
-interaction:
-        LOG_IF(condition) << entry
-    rather than
-        if (condition) { LOG << entry; }
-    (and many more)
-
-It does seem like a concept we could enhance the phosphor::logging
-interfaces with if we find that this makes the code more concise.  I
-would be interested to hear some of the more widely used macros and see
-those enhancements proposed in Gerrit.
-
---=20
-Patrick Williams
-
---YiEDa0DAkWCtVeE4
+> +
+> =C2=A0	priv->mii_bus->name =3D "ftgmac100_mdio";
+> =C2=A0	snprintf(priv->mii_bus->id, MII_BUS_ID_SIZE, "%s-%d",
+> =C2=A0		=C2=A0pdev->name, pdev->id);
+> diff --git a/drivers/net/ethernet/faraday/ftgmac100.h b/drivers/net/ether=
+net/faraday/ftgmac100.h
+> index d07b6ea..ee5f758 100644
+> --- a/drivers/net/ethernet/faraday/ftgmac100.h
+> +++ b/drivers/net/ethernet/faraday/ftgmac100.h
+> @@ -133,6 +133,8 @@
+> =C2=A0#define FTGMAC100_DMAFIFOS_RXDMA_REQ		(1 << 30)
+> =C2=A0#define FTGMAC100_DMAFIFOS_TXDMA_REQ		(1 << 31)
+> =C2=A0
+> +#define FTGMAC100_OFFSET_REVR_NEW_INTERFACE	(1 << 31)
+> +
+> =C2=A0/*
+> =C2=A0 * Receive buffer size register
+> =C2=A0 */
+--=-XNS4A+fx7xg62VefZ5pl
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJX3TvPAAoJEKsDR8wtAMEZqw8P/2WZ3YK4T67ZJcym+uBxdDRo
-aU372qf7ZeoXNh2bp/q+eRhtSPwILRyRe7FMwbJClf1fMNBfY5uNgkjn6pvLsj3c
-zYS7PegXzduaCHlApWFWsSrow+IW3LIkDW0fNxX1beBBxkAt5nDr4kxyI2HUyhZ/
-iHb3kxG374+6y0QMWl4lg3to3P/Bg7q0TTyMDzjkbqRY1dkU+H9/oPxyI3kQXwQP
-tVKMHHWFUB5PD5qO6YurHcmCQozu7+rTlXJ9jWF0pXUnIHeBWK11rFcPiBq7bI+b
-hdPhCgVLfLYONd5epHCNQbjEX+lx1OLl8BVJ0A4XU7G0+XSps6cflhu5JAsDLZnV
-rxjXky53zmaMXzlNQ1Qql0fkhVnC4pQ0hgHWpD4KjSdU6UShScOeqdiAD7bfZPSn
-nCdHLy0vigbca0B7Xa27rZrzvBBtAuMDErBwJn3n9Nr+pMRtneI2TbdK1vVY0LR3
-B4mBO465kpMNulFEZc/2DEWDtpJxzUVA2Cfe3/BU1PhE9YL/4p3mqP7eRWzdfyvI
-Ja+ijQiGxtEfe0+nshgk0yzeHbNSqzrTSj0BycaWkjcZ8xJzPTB5/l/aabOUDIn4
-Es642Q0F7DW9wwyi+lBPd3IYj6bxUF/huUvIpMR7PgRf+NzwFy0uegiZ3tOasLK3
-Dn+Yr6XJo9kN1O9JEfLM
-=wF1R
+iQIcBAABCgAGBQJX3zakAAoJEJ0dnzgO5LT5cYQP/iYTh8+sultLHBhnqYxNDzdJ
+wdLtR12h4BjDoORWyErmjBM8OT7jZzkqkYxbbSFANJZfNPJlKhhcDmxIk+j0obT4
+i4F4M6yenhBxqTY7xu4XTHVf5EcJG63q8zAmAXYEBdHfDOYiHmuZHYz4DV5frwpb
+iYUMWz0QZtKgzfs4M0YhKZ1ipvbdxI6+xvUdC9XrI53vJzvOAKG0oK0I8Y4fea9I
+fBlNQfOB/PQS9i4tY+OeOlqEeGQNwpstl0/08Q5VtFfDDB0RrFca7mMC5kR2OP/E
+Mkxu6LjnEoOZnO5k9ho0eTeqMAyke82v00xQRbPZ7qTKP3gl7qZHKPTiPKkftWN+
+lYGjrN9OSUdmzow7C5vieG4yKc3jr2yrHDoSye6gv4fl7Dt6hHyG4LDp2xMhGCGy
+ynJcSAgLgbUFKpXuOdOba5pZeAfbuMT+2jjfZWiQoaCuia6XaT5yWxtgFxinZ9f0
+kHaeUZpLDydZsbS7thspmq17l1UpdRjKaUmaqfBtWKLAPJ+GkcDNBmDvWGHgZa32
+dz9pqIJxQ1OIu7dYKsA5BruG4y0cwQnTcvnDZeU882VqnbOlB8ZkKatX4QwYDpAZ
+4EqQsi+OVylccwUTM38GpsXoWPpQn+xIkUug9SpfGrV3yfg37IMwHA2HKQHt1+yW
+s7evivtZEXA8es7j85h7
+=xf18
 -----END PGP SIGNATURE-----
 
---YiEDa0DAkWCtVeE4--
+--=-XNS4A+fx7xg62VefZ5pl--
