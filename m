@@ -1,50 +1,79 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-yw0-x22f.google.com (mail-yw0-x22f.google.com
- [IPv6:2607:f8b0:4002:c05::22f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3scrgc5ygQzDqB4
- for <openbmc@lists.ozlabs.org>; Mon, 19 Sep 2016 13:18:19 +1000 (AEST)
+Return-Path: <william.bjlinan@hotmail.com>
+X-Greylist: delayed 313 seconds by postgrey-1.36 at bilbo;
+ Mon, 19 Sep 2016 18:54:44 AEST
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=H1DHUL19; 
+ unprotected) header.d=hotmail.com header.i=@hotmail.com header.b=nU6A44yM; 
  dkim-atps=neutral
-Received: by mail-yw0-x22f.google.com with SMTP id g192so129746904ywh.1
- for <openbmc@lists.ozlabs.org>; Sun, 18 Sep 2016 20:18:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=4ap6XnIQnMn4V5Idkm9kJ+q+RoY/uxnKm8mwPTCJCDY=;
- b=H1DHUL19jCQjLgoSgmlHNrVjSqd5B6/xF3eaUNZ7LuyqCFvhiMGdyDtpwEOntz4VuD
- SUgJTK5dQ9Q4yngwGadQ2pTzBaRBgHj86myINFaJ46sEPUOW7iYSw4j+Ob1WobODWPwF
- TD1QU8BkZ1V3bjUC8DFOmvdSdZvrx4TPcjyYkTRXQEJ7oD/2RmGkXU/mZ/Nw+bFrbv8d
- N2fwD7K1ZT4b1MX6E5uKlB/O1NPsGTllFckyOklZxsY3gOiYtbFXg4QNyRNV/uwm2SsD
- ZEo/nMkA2s76lkW71rMByexDUqSgIBije0IcFwSKoaeJY3FuQW2NDWKZdREdUdqf5FpG
- rRFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=4ap6XnIQnMn4V5Idkm9kJ+q+RoY/uxnKm8mwPTCJCDY=;
- b=gdksPGSbqhbUc0knPwdY3BoRatz85R0XoJRuswDSL1d4uYlh6LUWpbX+WAYQQMmQhZ
- 9JkAGGYMGAlgLyGcxI/WIvyOprhT+ysmfe++JrHl3r7GBcXHDBMLgDWVFmaoD0gxLA6A
- YebxvDR0TOY0bjhyI0uNy2fLCmbzB/CNaXxNGi5RD4l+WlQ0X0aShEMZE8eBNsFlk73y
- qnU/AaqCex5ia2djFnjb2cQ4fFxKTAgIY+6qSeRHju1H20NFTuqeqX+qD+nuJp+9b1ZQ
- GVG/tyE2HEsT8no/c9fG2IVqRtR0/Z8EJzqA72e0tQ2zeui497HI7iEmDjvtmql7xwok
- HSow==
-X-Gm-Message-State: AE9vXwOEHBDVzje8/MHMYJ8NwTuzAw4gdnEmXvvOfHaq/Zz0LWcupHZtx2WNBOEinAjDdfsekJ0ZSWJDCL9FFctp
-X-Received: by 10.13.254.135 with SMTP id o129mr23858530ywf.117.1474255097845; 
- Sun, 18 Sep 2016 20:18:17 -0700 (PDT)
+Received: from COL004-OMC1S12.hotmail.com (col004-omc1s12.hotmail.com
+ [65.55.34.22])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sd07m120xzDsdP
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Sep 2016 18:54:43 +1000 (AEST)
+Received: from JPN01-OS2-obe.outbound.protection.outlook.com ([65.55.34.8]) by
+ COL004-OMC1S12.hotmail.com over TLS secured channel with Microsoft
+ SMTPSVC(7.5.7601.23008); Mon, 19 Sep 2016 01:49:28 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=JTC2pEIZzg/wWjTntV4ImJUjPqT4Gob8lyIURqguyw8=;
+ b=nU6A44yMj4MfB/HLycVatUSXXOqDZTjyAGoNyuT3d9ck2IRoLtqxb1k1WzZinvkw0QaTc9B5H5Wawh4Xs+kkJH2/mMXCsaZAzeNDWXqdiYz4Jw51PrRAeqAJp7RBlqrevSBgJPuYI7ZribwMOR0lCaOJ+lDjDNonlwXjZHu/8PJNyoNgm5kSclZN6WJNynKCfTo2oE5HX7xTjzS1ybiQide0TRQ7wjxYPaiw1JaNy3lCxS9H1Uok1RtPzY18FhPfPPG+W2Pfsaaor+lM4Zw2yL+JkNq5pHhIctL7uOJXtQtN4dVx1IsfsbUtwq0gOrAtOML73iDk9YdInSDNi+pMVw==
+Received: from TY1JPN01FT006.eop-JPN01.prod.protection.outlook.com
+ (10.152.186.55) by TY1JPN01HT005.eop-JPN01.prod.protection.outlook.com
+ (10.152.187.46) with Microsoft SMTP Server (version=TLS1_0,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA_P384) id 15.1.629.5; Mon, 19 Sep
+ 2016 08:49:23 +0000
+Received: from TY1PR06MB0863.apcprd06.prod.outlook.com (10.152.186.54) by
+ TY1JPN01FT006.mail.protection.outlook.com (10.152.187.37) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
+ 15.1.619.6 via Frontend Transport; Mon, 19 Sep 2016 08:49:22 +0000
+Received: from TY1PR06MB0863.apcprd06.prod.outlook.com ([10.164.99.139]) by
+ TY1PR06MB0863.apcprd06.prod.outlook.com ([10.164.99.139]) with mapi id
+ 15.01.0629.006; Mon, 19 Sep 2016 08:49:22 +0000
+From: Li Nan <william.bjlinan@hotmail.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Need some advice on IPMI "Get Chassi Capabilities" command
+Thread-Topic: Need some advice on IPMI "Get Chassi Capabilities" command
+Thread-Index: AQHSElFj8rc12Q89GEi+zroBpwdNEQ==
+Date: Mon, 19 Sep 2016 08:49:22 +0000
+Message-ID: <TY1PR06MB0863DE14D131468C806F67D6F6F40@TY1PR06MB0863.apcprd06.prod.outlook.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=softfail (sender IP is 10.152.186.54)
+ smtp.mailfrom=hotmail.com; lists.ozlabs.org; dkim=none (message not signed)
+ header.d=none;lists.ozlabs.org; dmarc=fail action=none
+ header.from=hotmail.com;
+received-spf: SoftFail (protection.outlook.com: domain of transitioning
+ hotmail.com discourages use of 10.152.186.54 as permitted sender)
+x-tmn: [4c/ysCnegEFgxhPElULfzOZyLmlcw9mc]
+x-eopattributedmessage: 0
+x-microsoft-exchange-diagnostics: 1; TY1JPN01HT005;
+ 6:X/Oe2yEs7cR2GmvzDeEXlaW2lsadzxIhIMdrLZ2gZBSUQJTScw54JLuMq8X0cuxpn71cmU0mHr8yjCzbOa6xml6xYkGP15DbQCCiXiYjaxnO2HKzk2kVa8aUPHvKMzr/1hU0hUREYUVKGMzQHag7Ttsmaap0NcJ0vuqnH88qvC9VjesRAsvbcAQQd2U1YQ//l0Ga9s6IVIK9042s9Qm15ssuO6MlWl3O1cCeXgue80i2E0CC3cUlQBwIeMGjqm4M+mIMhlXrqWK9VABff30xOn+97dG7llTyNj/HnmU/Cdo=;
+ 5:PH17Z7dyIewKboL3ol06vy7Zk2wljrfGDAvqiiwuAZZKOttaTYXETRsdYw5id7XG/X/iCToHHq3b35/I3UR4wm4+BN+2TsagKdyzgdn8+0Tbw3zaUWnEOoXUQp6GJbizFLukxNrj2DVRokwfjZQFYA==;
+ 24:ZetdYtff3AkoiuHd6g65UjHj+UZwjsZHgCregWDV8YDA491fD7Tlc9Qq+H85xgQmnFfioFyzs0Hqrzw9/C/agi6nBZTMqfeYyaBLeUOjTaQ=;
+ 7:UX4hsjDbZNpR0V20Zk9KljLZLp/4J3GU67yTBCZDDm9KxcL9N7BWn5oql1VglMqkoNZk4fQjQwvC/8SywdJ5uYZ9HSBSoXQ/asbO7fthHj/QgwGSVSbDyH0YUQbH2Uxeqxy/VX9RDxy0SyFk1wrDGggVwwyoAxhZrY3bvKEZaUG6NPaJRqvjMEXH3GYLbWvMrHZ22Ach6mOgMCAO3vIycr66EUtrn4ugT2eIqRkf8C2p77APIvCPKbjETvSQoOCYkcJlzX4i5uhDFKmxUtq+6Bf+u037eU6Hb7P8crlAVK2cL1UIb6rIeWNSsZ8RGv6P
+x-forefront-antispam-report: EFV:NLI; SFV:NSPM; SFS:(10019020)(98900003);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:TY1JPN01HT005;
+ H:TY1PR06MB0863.apcprd06.prod.outlook.com; FPR:; SPF:None; LANG:en; 
+x-ms-office365-filtering-correlation-id: fced447e-2eee-4a2a-6d8c-08d3e069da1c
+x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
+ RULEID:(1601124038)(1603103081)(1601125047); SRVR:TY1JPN01HT005; 
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0; RULEID:(432015012)(82015046);
+ SRVR:TY1JPN01HT005; BCL:0; PCL:0; RULEID:; SRVR:TY1JPN01HT005; 
+x-forefront-prvs: 0070A8666B
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: multipart/alternative;
+ boundary="_000_TY1PR06MB0863DE14D131468C806F67D6F6F40TY1PR06MB0863apcp_"
 MIME-Version: 1.0
-Received: by 10.37.160.4 with HTTP; Sun, 18 Sep 2016 20:18:17 -0700 (PDT)
-In-Reply-To: <20160917124919.GA11301@heinlein.lan>
-References: <20160917124919.GA11301@heinlein.lan>
-From: Rick Altherr <raltherr@google.com>
-Date: Sun, 18 Sep 2016 20:18:17 -0700
-Message-ID: <CAPLgG=nnxBf882unObKXWJrPrPK=bJOhNK7_4X=Gw1vJsjAr-w@mail.gmail.com>
-Subject: Re: Logging utilities.
-To: Patrick Williams <patrick@stwcx.xyz>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Adriana Kobylak <anoo@linux.vnet.ibm.com>
-Content-Type: multipart/alternative; boundary=94eb2c07e31e6acca9053cd3c3a8
+X-OriginatorOrg: hotmail.com
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Sep 2016 08:49:22.3354 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Internet
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY1JPN01HT005
+X-OriginalArrivalTime: 19 Sep 2016 08:49:28.0699 (UTC)
+ FILETIME=[BB5984B0:01D21252]
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,324 +85,430 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Sep 2016 03:18:21 -0000
+X-List-Received-Date: Mon, 19 Sep 2016 08:54:46 -0000
 
---94eb2c07e31e6acca9053cd3c3a8
-Content-Type: text/plain; charset=UTF-8
+--_000_TY1PR06MB0863DE14D131468C806F67D6F6F40TY1PR06MB0863apcp_
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 
-Thank you for the background.  That explains a lot about the path Adriana
-has gone down.  I completely understand wanting to separate policy from
-reporting of device and process errors.  Where we differ is that I don't
-see that as the purpose of logging.  You've described an event-based
-telemetry system meant to be primarily consumed by other software to drive
-alerts and automated responses.  I view logging as being primarily for the
-benefit of a programmer or operator trying to understand what section of
-_code_ went wrong.  That distinction is part of why glog isn't designed to
-be super high-performance.  Google uses entirely separate systems for
-telemetry.  In my and Google's experience, scraping logs to extract
-information (even when the messages are well structured) winds up being
-painful to maintain and unreliable over time even when using journald.
+SGkgdGVhbSwNCg0KSSdtIHdvcmtpbmcgb24gdGhlIElQTUkgIkdldCBDaGFzc2lzIENhcGFiaWxp
+dGllcyIgY29tbWFuZC4NCmh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL29wZW5ibWMvaXNzdWVz
+LzQzOA0KDQpJIHN1bW1hcml6ZSBzb21lIGZpZWxkcyBvZiBzZXR0aW5ncywgYW5kIHdhbnQgdG8g
+Y29uZmlybSB0aGVtOg0KQnl0ZQ0KDQpDb250ZW50DQoNCk5vdGUNCg0KMg0KDQpDYXBhYmlsaXRp
+ZXMgRmxhZ3M6DQpbNzo0XSCoQyByZXNlcnZlZA0KWzNdIKhDIDFiID0gcHJvdmlkZXMgcG93ZXIg
+aW50ZXJsb2NrICAoSVBNIDEuNSkNClsyXSCoQyAxYiA9IHByb3ZpZGVzIERpYWdub3N0aWMgSW50
+ZXJydXB0IChGUCBOTUkpDQpbMV0gqEMgMWIgPSBwcm92aWRlcyChsEZyb250IFBhbmVsIExvY2tv
+dXShsSAoaW5kaWNhdGVzIHRoYXQgdGhlIGNoYXNzaXMgaGFzIGNhcGFiaWxpdGllcyB0byBsb2Nr
+IG91dCBleHRlcm5hbCBwb3dlciBjb250cm9sIGFuZCByZXNldCBidXR0b24gb3IgZnJvbnQgcGFu
+ZWwgaW50ZXJmYWNlcyBhbmQvb3IgZGV0ZWN0IHRhbXBlcmluZyB3aXRoIHRob3NlIGludGVyZmFj
+ZXMpLg0KWzBdIC0xYiA9IENoYXNzaXMgcHJvdmlkZXMgaW50cnVzaW9uIChwaHlzaWNhbCBzZWN1
+cml0eSkgc2Vuc29yLg0KDQpOb3Qgc3VwcG9ydC4gKFNlYXJjaCBjb2RlcywgYW5kIGZpbmQgbm8g
+aW5mbyBhYm91dCB0aGlzKS4NCg0KUGVyIFRvbQ0KZnNwIHN1cHBvcnQgZGlhZ25vc3RpYyBpbnRl
+cnJ1cHQsIHNvIHNldCB0byAweDQuDQoNCjMNCg0KQ2hhc3NpcyBGUlUgaW5mbyBEZXZpY2UgQWRk
+cmVzcw0KTm90ZTogYWxsIElQTUIgYWRkcmVzcyB1c2VkIGluIHRoaXMgY29tbWFuZCBhcmUgaGF2
+ZSB0aGUgNy1iaXQgaTJjIHNsYXZlIGFkZHJlc3MgYXMgdGhlIG1vc3Qtc2lnbmlmaWNhbnQgNy1i
+aXRzIGFuZCB0aGUgbGVhc3Qgc2lnbmlmaWNhbnQgYml0IHNldCB0byAwYi4NCiAwMGggPSB1bnNw
+ZWNpZmllZC4NCg0KTm90IHN1cHBvcnQuIChTZWFyY2ggY29kZXMsIGFuZCBmaW5kIG5vIGluZm8g
+YWJvdXQgdGhpcykNCg0KU28gc2V0IHRvIDB4MjAuDQoNCjQNCg0KQ2hhc3NpcyBTRFIgRGV2aWNl
+IEFkZHJlc3MNCg0KTm90IHN1cHBvcnQuIChTZWFyY2ggY29kZXMsIGFuZCBmaW5kIG5vIGluZm8g
+YWJvdXQgdGhpcykNCg0KU28gc2V0IHRvIDB4MjAuDQoNCjUNCg0KQ2hhc3NpcyBTRUwgRGV2aWNl
+IEFkZHJlc3MNCg0KTm90IHN1cHBvcnQuIChTZWFyY2ggY29kZXMsIGFuZCBmaW5kIG5vIGluZm8g
+YWJvdXQgdGhpcykNCg0KU28gc2V0IHRvIDB4MjAuDQoNCjYNCg0KQ2hhc3NpcyBTeXN0ZW0gTWFu
+YWdlbWVudCBEZXZpY2UgQWRkcmVzcw0KDQpOb3Qgc3VwcG9ydC4gKFNlYXJjaCBjb2RlcywgYW5k
+IGZpbmQgbm8gaW5mbyBhYm91dCB0aGlzKQ0KDQpTbyBzZXQgdG8gMHgyMC4NCg0KKDcpDQoNCkNo
+YXNzaXMgQnJpZGdlIERldmljZSBBZGRyZXNzLiBSZXBvcnQgbG9jYXRpb24gb3QgdGhlIElDTUIg
+YnJpZGdlIGZ1bmN0aW9uLiBJZiB0aGlzIGZpZWxkIGlzIG5vdCBwcm92aWRlZCwgdGhlIGFkZHJl
+c3MgaXMgYXNzdW1lZCB0byBiZSB0aGUgQk1DIGFkZHJlc3MgKDIwaCkuIEltcGxlbWVudGluZyB0
+aGlzIGZpZWxkIGlzIHJlcXVpcmVkIHdoZW4gdGhlIEdldCBDaGFzc2lzIENhcGFiaWxpdGllcyBj
+b21tYW5kIGlzIGltcGxlbWVudGVkIGJ5IGEgQk1DLCBhbmQgd2hhdGV2ZXIgdGhlIENoYXNzaXMg
+QnJpZGdlIGZ1bmN0aW9uIGlzIGltcGxlbWVudCBhdCBhbiBhZGRyZXNzIG90aGVyIHRoYW4gMjBo
+Lg0KDQpOb3Qgc3VwcG9ydC4gKFNlYXJjaCBjb2RlcywgYW5kIGZpbmQgbm8gaW5mbyBhYm91dCB0
+aGlzKQ0KU28gc2V0IHRvIDB4MjAuDQoNCg0KDQoNCg0KDQoNCg0KSSB0aGluayB0aG9zZSBzZXR0
+aW5ncyBzaG91bGQgYmUgcmVhZCBmcm9tIE1SVy4gRG8gd2UgaGF2ZSBhbiBpbnRlcmZhY2UgdG8g
+ZG8gaXQ/DQoNCg0KVGhhbmtzIQ0KDQoNCk5hbiBMaQ0K
 
-On Sat, Sep 17, 2016 at 5:49 AM, Patrick Williams <patrick@stwcx.xyz> wrote:
-
-> There is a commit on Gerrit where some discussion was requested on the
-> libraries we plan to use for logging:
->     https://gerrit.openbmc-project.xyz/#/c/53/
-> The suggestion was made that we consider google/glog as a logging
-> library.
->
-> Our intention with the program logging is to heavily leverage systemd's
-> journal methods both for original program logging but also for later
-> programmatic extraction on errors.  Adriana is working on the second
-> part and will have some proof of concepts to share soon.
->
-> Left to their own devices, two different programmers might create two
-> logging events such as:
->     ERROR "Failed to open device %s, %s", device, strerror(errno)
->     ERROR "fopen on %s failed: %d", device, errno
->
-> Notice in this case, not only is the English different but the content
-> itself is different and impossible to parse out if we want to do
-> something like automatically transpose "device" into a potentially
-> failing FRU.  The journald approach is that you do not put content in
-> English but you use meta-data tags to represent it.
->
->     LEVEL=ERROR, MESSAGE="Failed to open", FILE="%s", device,
->     ERRNO="%d", errno
->
-> Now we have a message that humans can read ("Failed to open
-> FILE=device") and one that computers can still interpret.  To take this
-> a step further, consider adding another meta-data tag:
->     ERROR_EVENT="xyz.openbmc-project.Error.Device-Not-Found"
->
-> We can now codify behavior, in a data format customizable per-system if
-> needed, such as:
->     on xyz.openbmc-project.Error.Device-Not-Found:
->         [Device, AccessType] = parse-device-string(metadata.DEVICE)
->         Parts = devices-on-bus(BMC, Device, AccessType)
->         add-callout(Parts, High)
->         add-callout("Error.Device-Configuration", Low)
->
-> Effectively, we separate the error identification from the error policy.
-> There are a few major advantages of this:
->     1. Historically we have found that well over 50% of the code in this
->        environment ends up being dealing with errors, which makes the
->        code very difficult to understand and maintain.  By separating
->        the policy, we end up with something that is much more readable.
->     2. Different systems end up with policy quirks that tend to litter
->        the code.  "On this system i2c bus 3 goes through this extra
->        riser card and the connector ends up oxidizing faster than we
->        expected, so put that riser as the highest priority for
->        replacement."  We can now put this policy into a system-specific
->        enhancement file rather than --enable-firestone and #if
->        CONFIG_FIRESTONE littering all the packages.
->
-> Now, back to the logging API, what Adriana delivered aligns very well
-> with these metadata and error concepts because it was designed with
-> these thoughts in mind (which, I know, we could have done a better job of
-> communicating).  We enforce, at compile-time, that "messages" are static
-> English statements and dynamic data is all tagged through the "entry"
-> mechanism.  Down the line we will be able to further enforce, again at
-> compile time, that log(error(xyz.openbmc-project.Device-Not-Found)...)
-> must contain {entry(DEVICE), entry(ERRNO)} so that the program fails to
-> compile if the required data, per the error definition, were not given.
->
-> I don't see an easy way to leverage google/glog to include these
-> concepts, other than simply having the logging utilities Adriana
-> delivered use google/glog instead of systemd_journal.  At that point we
-> are losing the mind-share(?) associated with using glog in the first
-> place.
->
-> Glog seems to be primarily oriented towards a logging infrastructure
-> for a stand-alone application.  The default behavior of it is to create
-> a log file in /tmp per process.  Due to the nature of our project, being
-> a collection of interacting products, debug is often going to require
-> aggregation of logging across the system and this is where journald
-> would be needed as the back-end.  As Rick mentioned in the above review,
-> glog doesn't currently support systemd as a back-end but that is likely
-> trivial to add (or maybe available as an unreleased patch already).  It
-> does seem like a significant code path to introduce simply as a way to
-> get from a log statement to journald, when what Adriana delivered
-> compiles directly to a single journald call.
->
-> Glog also uses C++ iostream-style << operators.  I made a simple
-> hello-world application using it and there ends up being a local object
-> constructed to contain the buffer, a << operator call to insert a string
-> into the buffer, and a destructor call to emit the log entry.  There is
-> 4 function calls involved at a minimum for each log entry, plus an
-> additional function call per-element.  So, in addition to the
-> performance implications of whatever glog is doing internally, I have
-> concerns about the code size impacts to using Glog due to the way the
-> API is structured and implemented.
->
-> In summary, I do not see an advantage to using glog over direct
-> journald calls, and would prefer we incorporate something derived from
-> what Adriana has proposed, for the following reasons:
->     1. The proposed API has syntactic handling for concepts we want in
->        our error-event design that glog does not.
->         a. glog could be inserted under phosphor::logging at any point
->            in the future without any code change to applications that
->            use phosphor::logging.
->     2. Glog has performance and size implications, over direct journald
->        calls, without much in the way of added value.
->
-> There are a number of macros that Glog provides to simplify log
-> interaction:
->         LOG_IF(condition) << entry
->     rather than
->         if (condition) { LOG << entry; }
->     (and many more)
->
-> It does seem like a concept we could enhance the phosphor::logging
-> interfaces with if we find that this makes the code more concise.  I
-> would be interested to hear some of the more widely used macros and see
-> those enhancements proposed in Gerrit.
->
-> --
-> Patrick Williams
->
-
---94eb2c07e31e6acca9053cd3c3a8
-Content-Type: text/html; charset=UTF-8
+--_000_TY1PR06MB0863DE14D131468C806F67D6F6F40TY1PR06MB0863apcp_
+Content-Type: text/html; charset="gb2312"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Thank you for the background.=C2=A0 That explains a lot ab=
-out the path Adriana has gone down.=C2=A0 I completely understand wanting t=
-o separate policy from reporting of device and process errors.=C2=A0 Where =
-we differ is that I don&#39;t see that as the purpose of logging.=C2=A0 You=
-&#39;ve described an event-based telemetry system meant to be primarily con=
-sumed by other software to drive alerts and automated responses.=C2=A0 I vi=
-ew logging as being primarily for the benefit of a programmer or operator t=
-rying to understand what section of _code_ went wrong.=C2=A0 That distincti=
-on is part of why glog isn&#39;t designed to be super high-performance.=C2=
-=A0 Google uses entirely separate systems for telemetry.=C2=A0 In my and Go=
-ogle&#39;s experience, scraping logs to extract information (even when the =
-messages are well structured) winds up being painful to maintain and unreli=
-able over time even when using journald.</div><div class=3D"gmail_extra"><b=
-r><div class=3D"gmail_quote">On Sat, Sep 17, 2016 at 5:49 AM, Patrick Willi=
-ams <span dir=3D"ltr">&lt;<a href=3D"mailto:patrick@stwcx.xyz" target=3D"_b=
-lank">patrick@stwcx.xyz</a>&gt;</span> wrote:<br><blockquote class=3D"gmail=
-_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:=
-1ex">There is a commit on Gerrit where some discussion was requested on the=
-<br>
-libraries we plan to use for logging:<br>
-=C2=A0 =C2=A0 <a href=3D"https://gerrit.openbmc-project.xyz/#/c/53/" rel=3D=
-"noreferrer" target=3D"_blank">https://gerrit.openbmc-<wbr>project.xyz/#/c/=
-53/</a><br>
-The suggestion was made that we consider google/glog as a logging<br>
-library.<br>
-<br>
-Our intention with the program logging is to heavily leverage systemd&#39;s=
-<br>
-journal methods both for original program logging but also for later<br>
-programmatic extraction on errors.=C2=A0 Adriana is working on the second<b=
-r>
-part and will have some proof of concepts to share soon.<br>
-<br>
-Left to their own devices, two different programmers might create two<br>
-logging events such as:<br>
-=C2=A0 =C2=A0 ERROR &quot;Failed to open device %s, %s&quot;, device, strer=
-ror(errno)<br>
-=C2=A0 =C2=A0 ERROR &quot;fopen on %s failed: %d&quot;, device, errno<br>
-<br>
-Notice in this case, not only is the English different but the content<br>
-itself is different and impossible to parse out if we want to do<br>
-something like automatically transpose &quot;device&quot; into a potentiall=
-y<br>
-failing FRU.=C2=A0 The journald approach is that you do not put content in<=
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
+ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
+<p>Hi team,</p>
+<p></p>
+<div>I'm working on the IPMI &quot;Get Chassis Capabilities&quot; command.<=
 br>
-English but you use meta-data tags to represent it.<br>
+https://github.com/openbmc/openbmc/issues/438<br>
 <br>
-=C2=A0 =C2=A0 LEVEL=3DERROR, MESSAGE=3D&quot;Failed to open&quot;, FILE=3D&=
-quot;%s&quot;, device,<br>
-=C2=A0 =C2=A0 ERRNO=3D&quot;%d&quot;, errno<br>
-<br>
-Now we have a message that humans can read (&quot;Failed to open<br>
-FILE=3Ddevice&quot;) and one that computers can still interpret.=C2=A0 To t=
-ake this<br>
-a step further, consider adding another meta-data tag:<br>
-=C2=A0 =C2=A0 ERROR_EVENT=3D&quot;xyz.openbmc-<wbr>project.Error.Device-Not=
--<wbr>Found&quot;<br>
-<br>
-We can now codify behavior, in a data format customizable per-system if<br>
-needed, such as:<br>
-=C2=A0 =C2=A0 on xyz.openbmc-project.Error.<wbr>Device-Not-Found:<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 [Device, AccessType] =3D parse-device-string(me=
-tadata.<wbr>DEVICE)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 Parts =3D devices-on-bus(BMC, Device, AccessTyp=
-e)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 add-callout(Parts, High)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 add-callout(&quot;Error.Device-<wbr>Configurati=
-on&quot;, Low)<br>
-<br>
-Effectively, we separate the error identification from the error policy.<br=
+I summarize some fields of settings, and want to confirm them:</div>
+<p></p>
+<p></p>
+<div>
+<table class=3D"MsoTableGrid " style=3D"border-collapse: collapse; border: =
+medium none; table-layout: fixed;" cellpadding=3D"0" cellspacing=3D"0" bord=
+er=3D"1">
+<tbody>
+<tr class=3D"" style=3D"mso-yfti-irow:0;mso-yfti-firstrow:yes;height:14.25p=
+t">
+<td class=3D"" style=3D"width: 72px; border: 1pt solid windowtext; padding:=
+ 0in 5.4pt; height: 14.25pt;" valign=3D"top">
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+Byte</p>
+</td>
+<td class=3D"" style=3D"width: 303px; border-width: 1pt 1pt 1pt medium; bor=
+der-style: solid solid solid none; border-color: windowtext windowtext wind=
+owtext -moz-use-text-color; -moz-border-top-colors: none; -moz-border-right=
+-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: no=
+ne; border-image: none; padding: 0in 5.4pt; height: 14.25pt;" valign=3D"top=
+">
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+Content</p>
+</td>
+<td class=3D"" style=3D"width: 88px; border-width: 1pt 1pt 1pt medium; bord=
+er-style: solid solid solid none; border-color: windowtext windowtext windo=
+wtext -moz-use-text-color; -moz-border-top-colors: none; -moz-border-right-=
+colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: non=
+e; border-image: none; padding: 0in 5.4pt; height: 14.25pt;" valign=3D"top"=
 >
-There are a few major advantages of this:<br>
-=C2=A0 =C2=A0 1. Historically we have found that well over 50% of the code =
-in this<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0environment ends up being dealing with errors, w=
-hich makes the<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0code very difficult to understand and maintain.=
-=C2=A0 By separating<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0the policy, we end up with something that is muc=
-h more readable.<br>
-=C2=A0 =C2=A0 2. Different systems end up with policy quirks that tend to l=
-itter<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0the code.=C2=A0 &quot;On this system i2c bus 3 g=
-oes through this extra<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0riser card and the connector ends up oxidizing f=
-aster than we<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0expected, so put that riser as the highest prior=
-ity for<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0replacement.&quot;=C2=A0 We can now put this pol=
-icy into a system-specific<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0enhancement file rather than --enable-firestone =
-and #if<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0CONFIG_FIRESTONE littering all the packages.<br>
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+Note</p>
+</td>
+</tr>
+<tr class=3D"" style=3D"mso-yfti-irow:1;height:14.25pt">
+<td class=3D"" style=3D"border-width: medium 1pt 1pt; border-style: none so=
+lid solid; border-color: -moz-use-text-color windowtext windowtext; -moz-bo=
+rder-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-c=
+olors: none; -moz-border-left-colors: none; border-image: none; padding: 0i=
+n 5.4pt; height: 14.25pt;" valign=3D"top">
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+2</p>
+</td>
+<td class=3D"" style=3D"border-width: medium 1pt 1pt medium; border-style: =
+none solid solid none; border-color: -moz-use-text-color windowtext windowt=
+ext -moz-use-text-color; padding: 0in 5.4pt; height: 14.25pt;" valign=3D"to=
+p">
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+Capabilities Flags:</p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+[7:4] =A8C reserved</p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+[3] =A8C 1b =3D provides power interlock<span style=3D"mso-spacerun:yes">&n=
+bsp; </span>(IPM 1.5)</p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+[2] =A8C 1b =3D provides Diagnostic Interrupt (FP NMI)</p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+[1] =A8C 1b =3D provides =A1=B0Front Panel Lockout=A1=B1 (indicates that th=
+e chassis has capabilities to lock out external power control and reset but=
+ton or front panel interfaces and/or detect tampering with those interfaces=
+).</p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+[0] -1b =3D Chassis provides intrusion (physical security) sensor.</p>
+</td>
+<td class=3D"" style=3D"border-width: medium 1pt 1pt medium; border-style: =
+none solid solid none; border-color: -moz-use-text-color windowtext windowt=
+ext -moz-use-text-color; padding: 0in 5.4pt; height: 14.25pt;" valign=3D"to=
+p">
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+Not support. (Search codes, and find no info about this).</p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+&nbsp;</p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+Per Tom</p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+fsp support diagnostic interrupt, so set to 0x4.</p>
+</td>
+</tr>
+<tr class=3D"" style=3D"mso-yfti-irow:2;height:14.9pt">
+<td class=3D"" style=3D"border-width: medium 1pt 1pt; border-style: none so=
+lid solid; border-color: -moz-use-text-color windowtext windowtext; -moz-bo=
+rder-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-c=
+olors: none; -moz-border-left-colors: none; border-image: none; padding: 0i=
+n 5.4pt; height: 14.9pt;" valign=3D"top">
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+3</p>
+</td>
+<td class=3D"" style=3D"border-width: medium 1pt 1pt medium; border-style: =
+none solid solid none; border-color: -moz-use-text-color windowtext windowt=
+ext -moz-use-text-color; padding: 0in 5.4pt; height: 14.9pt;" valign=3D"top=
+">
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+Chassis FRU info Device Address</p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+Note: all IPMB address used in this command are have the 7-bit i2c slave ad=
+dress as the most-significant 7-bits and the least significant bit set to 0=
+b.</p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+<span style=3D"mso-spacerun:yes">&nbsp;</span>00h =3D unspecified.</p>
+</td>
+<td class=3D"" style=3D"border-width: medium 1pt 1pt medium; border-style: =
+none solid solid none; border-color: -moz-use-text-color windowtext windowt=
+ext -moz-use-text-color; padding: 0in 5.4pt; height: 14.9pt;" valign=3D"top=
+">
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+Not support. (Search codes, and find no info about this)</p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
 <br>
-Now, back to the logging API, what Adriana delivered aligns very well<br>
-with these metadata and error concepts because it was designed with<br>
-these thoughts in mind (which, I know, we could have done a better job of<b=
-r>
-communicating).=C2=A0 We enforce, at compile-time, that &quot;messages&quot=
-; are static<br>
-English statements and dynamic data is all tagged through the &quot;entry&q=
-uot;<br>
-mechanism.=C2=A0 Down the line we will be able to further enforce, again at=
+</p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+So set to 0x20.<br>
+</p>
+</td>
+</tr>
+<tr class=3D"" style=3D"mso-yfti-irow:3;height:14.25pt">
+<td class=3D"" style=3D"border-width: medium 1pt 1pt; border-style: none so=
+lid solid; border-color: -moz-use-text-color windowtext windowtext; -moz-bo=
+rder-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-c=
+olors: none; -moz-border-left-colors: none; border-image: none; padding: 0i=
+n 5.4pt; height: 14.25pt;" valign=3D"top">
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+4</p>
+</td>
+<td class=3D"" style=3D"border-width: medium 1pt 1pt medium; border-style: =
+none solid solid none; border-color: -moz-use-text-color windowtext windowt=
+ext -moz-use-text-color; padding: 0in 5.4pt; height: 14.25pt;" valign=3D"to=
+p">
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+Chassis SDR Device Address</p>
+</td>
+<td class=3D"" style=3D"border-width: medium 1pt 1pt medium; border-style: =
+none solid solid none; border-color: -moz-use-text-color windowtext windowt=
+ext -moz-use-text-color; padding: 0in 5.4pt; height: 14.25pt;" valign=3D"to=
+p">
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+Not support. (Search codes, and find no info about this)</p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+</p>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
 <br>
-compile time, that log(error(xyz.openbmc-project.<wbr>Device-Not-Found)...)=
+</p>
+So set to 0x20.</div>
+<p></p>
+</td>
+</tr>
+<tr class=3D"" style=3D"mso-yfti-irow:4;height:14.25pt">
+<td class=3D"" style=3D"border-width: medium 1pt 1pt; border-style: none so=
+lid solid; border-color: -moz-use-text-color windowtext windowtext; -moz-bo=
+rder-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-c=
+olors: none; -moz-border-left-colors: none; border-image: none; padding: 0i=
+n 5.4pt; height: 14.25pt;" valign=3D"top">
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+5</p>
+</td>
+<td class=3D"" style=3D"border-width: medium 1pt 1pt medium; border-style: =
+none solid solid none; border-color: -moz-use-text-color windowtext windowt=
+ext -moz-use-text-color; padding: 0in 5.4pt; height: 14.25pt;" valign=3D"to=
+p">
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+Chassis SEL Device Address</p>
+</td>
+<td class=3D"" style=3D"border-width: medium 1pt 1pt medium; border-style: =
+none solid solid none; border-color: -moz-use-text-color windowtext windowt=
+ext -moz-use-text-color; padding: 0in 5.4pt; height: 14.25pt;" valign=3D"to=
+p">
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+Not support. (Search codes, and find no info about this)</p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+</p>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
 <br>
-must contain {entry(DEVICE), entry(ERRNO)} so that the program fails to<br>
-compile if the required data, per the error definition, were not given.<br>
+</p>
+So set to 0x20.</div>
+<p></p>
+</td>
+</tr>
+<tr class=3D"" style=3D"mso-yfti-irow:5;height:14.25pt">
+<td class=3D"" style=3D"border-width: medium 1pt 1pt; border-style: none so=
+lid solid; border-color: -moz-use-text-color windowtext windowtext; -moz-bo=
+rder-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-c=
+olors: none; -moz-border-left-colors: none; border-image: none; padding: 0i=
+n 5.4pt; height: 14.25pt;" valign=3D"top">
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+6</p>
+</td>
+<td class=3D"" style=3D"border-width: medium 1pt 1pt medium; border-style: =
+none solid solid none; border-color: -moz-use-text-color windowtext windowt=
+ext -moz-use-text-color; padding: 0in 5.4pt; height: 14.25pt;" valign=3D"to=
+p">
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+Chassis System Management Device Address</p>
+</td>
+<td class=3D"" style=3D"border-width: medium 1pt 1pt medium; border-style: =
+none solid solid none; border-color: -moz-use-text-color windowtext windowt=
+ext -moz-use-text-color; padding: 0in 5.4pt; height: 14.25pt;" valign=3D"to=
+p">
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+Not support. (Search codes, and find no info about this)</p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+</p>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
 <br>
-I don&#39;t see an easy way to leverage google/glog to include these<br>
-concepts, other than simply having the logging utilities Adriana<br>
-delivered use google/glog instead of systemd_journal.=C2=A0 At that point w=
-e<br>
-are losing the mind-share(?) associated with using glog in the first<br>
-place.<br>
+</p>
+So set to 0x20.</div>
+<p></p>
+</td>
+</tr>
+<tr class=3D"" style=3D"mso-yfti-irow:6;mso-yfti-lastrow:yes;height:14.9pt"=
+>
+<td class=3D"" style=3D"border-width: medium 1pt 1pt; border-style: none so=
+lid solid; border-color: -moz-use-text-color windowtext windowtext; -moz-bo=
+rder-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-c=
+olors: none; -moz-border-left-colors: none; border-image: none; padding: 0i=
+n 5.4pt; height: 14.9pt;" valign=3D"top">
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+(7)</p>
+</td>
+<td class=3D"" style=3D"border-width: medium 1pt 1pt medium; border-style: =
+none solid solid none; border-color: -moz-use-text-color windowtext windowt=
+ext -moz-use-text-color; padding: 0in 5.4pt; height: 14.9pt;" valign=3D"top=
+">
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+Chassis Bridge Device Address. Report location ot the ICMB bridge function.=
+ If this field is not provided, the address is assumed to be the BMC addres=
+s (20h). Implementing this field is required when the Get Chassis Capabilit=
+ies command is implemented by a
+ BMC, and whatever the Chassis Bridge function is implement at an address o=
+ther than 20h.</p>
+</td>
+<td class=3D"" style=3D"border-width: medium 1pt 1pt medium; border-style: =
+none solid solid none; border-color: -moz-use-text-color windowtext windowt=
+ext -moz-use-text-color; padding: 0in 5.4pt; height: 14.9pt;" valign=3D"top=
+">
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+Not support. (Search codes, and find no info about this)</p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:0in;margin-bottom:.0001pt;lin=
+e-height:=0A=
+  normal">
+<span>So set to 0x20.</span></p>
+</td>
+</tr>
+<tr class=3D"" style=3D"mso-yfti-irow:6;mso-yfti-lastrow:yes;height:14.9pt"=
+>
+<td class=3D"" rowspan=3D"1" style=3D"border-width: medium 1pt 1pt; border-=
+style: none solid solid; border-color: -moz-use-text-color windowtext windo=
+wtext; -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-b=
+order-bottom-colors: none; -moz-border-left-colors: none; border-image: non=
+e; padding: 0in 5.4pt; height: 14.9pt;" valign=3D"top">
 <br>
-Glog seems to be primarily oriented towards a logging infrastructure<br>
-for a stand-alone application.=C2=A0 The default behavior of it is to creat=
-e<br>
-a log file in /tmp per process.=C2=A0 Due to the nature of our project, bei=
-ng<br>
-a collection of interacting products, debug is often going to require<br>
-aggregation of logging across the system and this is where journald<br>
-would be needed as the back-end.=C2=A0 As Rick mentioned in the above revie=
-w,<br>
-glog doesn&#39;t currently support systemd as a back-end but that is likely=
+</td>
+<td class=3D"" rowspan=3D"1" style=3D"border-width: medium 1pt 1pt medium; =
+border-style: none solid solid none; border-color: -moz-use-text-color wind=
+owtext windowtext -moz-use-text-color; padding: 0in 5.4pt; height: 14.9pt;"=
+ valign=3D"top">
 <br>
-trivial to add (or maybe available as an unreleased patch already).=C2=A0 I=
-t<br>
-does seem like a significant code path to introduce simply as a way to<br>
-get from a log statement to journald, when what Adriana delivered<br>
-compiles directly to a single journald call.<br>
+</td>
+<td class=3D"" rowspan=3D"1" style=3D"border-width: medium 1pt 1pt medium; =
+border-style: none solid solid none; border-color: -moz-use-text-color wind=
+owtext windowtext -moz-use-text-color; padding: 0in 5.4pt; height: 14.9pt;"=
+ valign=3D"top">
 <br>
-Glog also uses C++ iostream-style &lt;&lt; operators.=C2=A0 I made a simple=
-<br>
-hello-world application using it and there ends up being a local object<br>
-constructed to contain the buffer, a &lt;&lt; operator call to insert a str=
-ing<br>
-into the buffer, and a destructor call to emit the log entry.=C2=A0 There i=
-s<br>
-4 function calls involved at a minimum for each log entry, plus an<br>
-additional function call per-element.=C2=A0 So, in addition to the<br>
-performance implications of whatever glog is doing internally, I have<br>
-concerns about the code size impacts to using Glog due to the way the<br>
-API is structured and implemented.<br>
-<br>
-In summary, I do not see an advantage to using glog over direct<br>
-journald calls, and would prefer we incorporate something derived from<br>
-what Adriana has proposed, for the following reasons:<br>
-=C2=A0 =C2=A0 1. The proposed API has syntactic handling for concepts we wa=
-nt in<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0our error-event design that glog does not.<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 a. glog could be inserted under phosphor::loggi=
-ng at any point<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0in the future without any code cha=
-nge to applications that<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0use phosphor::logging.<br>
-=C2=A0 =C2=A0 2. Glog has performance and size implications, over direct jo=
-urnald<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0calls, without much in the way of added value.<b=
-r>
-<br>
-There are a number of macros that Glog provides to simplify log<br>
-interaction:<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 LOG_IF(condition) &lt;&lt; entry<br>
-=C2=A0 =C2=A0 rather than<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (condition) { LOG &lt;&lt; entry; }<br>
-=C2=A0 =C2=A0 (and many more)<br>
-<br>
-It does seem like a concept we could enhance the phosphor::logging<br>
-interfaces with if we find that this makes the code more concise.=C2=A0 I<b=
-r>
-would be interested to hear some of the more widely used macros and see<br>
-those enhancements proposed in Gerrit.<br>
-<span class=3D"HOEnZb"><font color=3D"#888888"><br>
---<br>
-Patrick Williams<br>
-</font></span></blockquote></div><br></div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p></p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p>I think those settings should be read from MRW. Do we have an interface =
+to do it?</p>
+<p><br>
+</p>
+<p>Thanks!</p>
+<p><br>
+</p>
+<p>Nan Li<br>
+</p>
+</div>
+</body>
+</html>
 
---94eb2c07e31e6acca9053cd3c3a8--
+--_000_TY1PR06MB0863DE14D131468C806F67D6F6F40TY1PR06MB0863apcp_--
