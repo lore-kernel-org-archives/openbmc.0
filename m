@@ -1,50 +1,57 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-yw0-x231.google.com (mail-yw0-x231.google.com
- [IPv6:2607:f8b0:4002:c05::231])
+Return-Path: <brendanhiggins@google.com>
+Received: from mail-vk0-f45.google.com (mail-vk0-f45.google.com
+ [209.85.213.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sdpsx0fwqzDsfk
- for <openbmc@lists.ozlabs.org>; Wed, 21 Sep 2016 03:00:36 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sdrLZ2jVxzDsgZ
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Sep 2016 04:07:02 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=jf+x8w8n; 
+ unprotected) header.d=google.com header.i=@google.com header.b=aGU7D5Py; 
  dkim-atps=neutral
-Received: by mail-yw0-x231.google.com with SMTP id i129so16313405ywb.0
- for <openbmc@lists.ozlabs.org>; Tue, 20 Sep 2016 10:00:36 -0700 (PDT)
+Received: by mail-vk0-f45.google.com with SMTP id u196so38895898vkd.0
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Sep 2016 11:07:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=b6fJv87kqgnA9uWOBx4T2uc8GzLCJGxLaUhVsAi5vpc=;
- b=jf+x8w8nLqemKYKAR0tS22P1i6CvG+Ql61glkZog+HEEhES6gRkYzdBep2VEzurHuq
- nCG4VRG3H/a9j9jxq2C08h4JDoAc+lR9zAeKuFLxRfcwPCQTHQfeCxBDvCbQIQv2VK5/
- ERyYpAtcoulPgt8vEFTHn/wCn/Th1wPbxwvEYcbztKEbVmzu3H5e+7J59KJ8qnwX0lVc
- Qe/EYQO8PvduoeNG/Hktskt1HVk8GkF3OzsDwl7519vI9CVEeJNVRCBq9kJawCr58yuW
- EwzQHAdyYC1vHy6cxA3nSCfUkS5ZnLe+8Fl3sLj9ytZLY8LoiXoHusvmqVpCmcstKqDe
- ttnQ==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Fkuuf5KmT5j0fBU+EUTTxVeP4/QL6heJTTDKi09SVCM=;
+ b=aGU7D5PyMVRaVfcjn9eYPhMvR36EA3NLqD1z/+CAmzsNZcuA8UsenWkq0aQGSDfBnX
+ 17IUxy+wYwpY4Wz9GQiTkU/wKb+S93Ii7mOVGZ+zD56HRC+ZMhfW/98syATzQvRRFTnW
+ 09w+TnUQwLoIhb5Yo5Cyc7y8H1bnLBmhWEYCx8SLaIr4G5m7t6lcVkR0N4k8fETQy7Cz
+ W1YwM7aNk36rSUHwP/HmqjFvdWv/dvPZhfaRAELwbiajTirOsiKhKi909LjEEc1sPkmG
+ pBOsbe8+Yb9lLnSvMiAa4PW0t86cOYXOnYGMjqyUdCuFshs1llq+gMa+YwEGeCtuAvvX
+ wnFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=b6fJv87kqgnA9uWOBx4T2uc8GzLCJGxLaUhVsAi5vpc=;
- b=JwsF6IYkBYK9WeEPjQL5vF15hGsClMa4JId7DmA/0AECMezTiVgMQzh6D1f2y9dLJ2
- 6RC/m14YsXZozFOv3rehZsg5pGS7M21EGSrANgzjiR2Kd4K2nEblB7StGhrfAAfoUK2U
- 6JWFUsmFVfsPlVHyuL4c0HoiXQI558LMpq5JdZXYd6sTnL/XYAzcEwxSKEd/SFxlZshy
- LAa0iQZsqa6s0+QinsZTcGZQ/cDQ73L8qMa3PgTNlfyWDxEmfpDKVGPCDkyvTBlKPmTx
- 0M15NMncFWl+A7+YKilElxhutXH49NSVGPDFHqSlG6EDQ0E5oUlt65kuWzEYYwkt4uVD
- V+mg==
-X-Gm-Message-State: AE9vXwPABIDMFFiIfvOjz6m5E8LgQf+t19ztQABobRnKg5MD2589iYF/B0V4s0KzPgcOgASbOPOPTM33DHHPAFG+
-X-Received: by 10.13.254.135 with SMTP id o129mr31071297ywf.117.1474390833664; 
- Tue, 20 Sep 2016 10:00:33 -0700 (PDT)
+ bh=Fkuuf5KmT5j0fBU+EUTTxVeP4/QL6heJTTDKi09SVCM=;
+ b=g74KLwLQ4EotD3AogVAurcl+M0kh6/BpaEwi9wihV/T23YSo6VXuTqfvf4wh+djhDq
+ LKP5sDAv9EgMp4QeR9QqXnASkvlfA630fk7uRJcBJHvwnTMGZ2LDe5O/dPw0ewugyBOA
+ AbuBXyAyIX8yI4Lavz6eCHQUGVHKIyubDryCpx9HRIj6q46e48FGoUO/I8M5ZiDfV6Nt
+ vyQC8chII7PmBTtLfehhgYENdycMvp2bacWUEJYaGdNBw7t3obt5GYqv09OJ0ubQ+oIx
+ PBeo3oKbxoyhhvyckhc8NRRJixIwQZTFKwvYY/LYNzg0rXy8solA7kH0Uqx2EEOGH17T
+ wt3A==
+X-Gm-Message-State: AE9vXwNri3NaXlP0qcFFK+fVnVRvV9PzmZQnajeZH/5CKnPGs27MO+/YYPK/tUDzt9BOGaH8VK3M6mcUH82F5J6d
+X-Received: by 10.31.32.6 with SMTP id g6mr4430383vkg.81.1474394756494; Tue,
+ 20 Sep 2016 11:05:56 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.37.160.4 with HTTP; Tue, 20 Sep 2016 10:00:33 -0700 (PDT)
-In-Reply-To: <a369c981-6567-95b5-4529-33303c74eca2@splitted-desktop.com>
-References: <C160D2872FE0DE4683E1910F9BF829413D2A3893@avsrvexchmbx2.microsemi.net>
- <a369c981-6567-95b5-4529-33303c74eca2@splitted-desktop.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Tue, 20 Sep 2016 10:00:33 -0700
-Message-ID: <CAPLgG==OS=pyi590GSRDrs8-q6W+B5m3y_cjGe90gGW3+mrAAA@mail.gmail.com>
-Subject: Re: Aspeed board for development
-To: jean-marie.verdun@splitted-desktop.com
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=94eb2c07e31ee73d3b053cf35d59
+References: <201609100847.j1qUadzy%fengguang.wu@intel.com>
+ <1473472551-11149-1-git-send-email-brendanhiggins@google.com>
+ <1473472551-11149-2-git-send-email-brendanhiggins@google.com>
+ <20160919213536.GA19274@rob-hp-laptop>
+ <CAFd5g46WR34A1FLNvuRck84EX1F3gbPDnDuBo2j-SVUEJPvXfg@mail.gmail.com>
+In-Reply-To: <CAFd5g46WR34A1FLNvuRck84EX1F3gbPDnDuBo2j-SVUEJPvXfg@mail.gmail.com>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Tue, 20 Sep 2016 18:05:46 +0000
+Message-ID: <CAFd5g46j02sb2w_DwaXAgnfcO=ONmJGZwqdRneNd0QHq-t53rA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] i2c: aspeed: added documentation for Aspeed I2C
+ driver
+To: Rob Herring <robh@kernel.org>
+Cc: Wolfram Sang <wsa@the-dreams.de>, mark.rutland@arm.com,
+ linux-i2c@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>,
+ Jeremy Kerr <jk@ozlabs.org>
+Content-Type: multipart/alternative; boundary=001a113dacb8b88a89053cf4470a
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,178 +63,202 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Sep 2016 17:00:38 -0000
+X-List-Received-Date: Tue, 20 Sep 2016 18:07:03 -0000
 
---94eb2c07e31ee73d3b053cf35d59
+--001a113dacb8b88a89053cf4470a
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-My understanding is that Aspeed eval boards can only be obtained directly
-from Aspeed.  Until RaspberryPi support is ready, things like Redfish can
-be roughly tested with the qemu support for the Palmetto platform.  See
-https://github.com/openbmc/docs/blob/master/cheatsheet.md#using-qemu for
-instructions on how to use it.
+First off, someone pointed out to me that the mapping that I used between
+addresses and bus numbers is not actually valid for busses 8-14.
 
-On Tue, Sep 20, 2016 at 12:09 AM, Jean-Marie Verdun <
-jean-marie.verdun@splitted-desktop.com> wrote:
+This could be fixed by checking the offset, but I am wondering if that is
+the right way to do it. It seems like this is not completely trivial so
+maybe this should be specified in the device tree? If that is the case,
+should I do this as another reg entry or go back to the way I was doing it
+before?
 
-> Hi,
+On Mon, Sep 19, 2016 at 4:26 PM Brendan Higgins <brendanhiggins@google.com>
+wrote:
+
+> Addressed in v3.
 >
-> I am also really interested by this. We are currently stuck with Raspberr=
-y
-> Pi because of hardware availibility and lack of debug function on our OCP
-> server (if something goes wrong it is really hard to restart the system).
+> Thanks!
 >
-> vejmarie
->
->
-> Le 20/09/2016 =C3=A0 08:38, Arjun Padmanabhan a =C3=A9crit :
->
-> Hi,
->
->
->
-> I am working on requirement  to deploy our redfish server on openbmc
-> environment.
->
->
->
-> Initial plan was to work on rapsberryPi3 board.  Since rapsberryPi does
-> not have full support as of now(Git issue #587), I am planning to build
-> openbmc image for aspeed board and deploy the image on it.
->
->
->
-> I could not find purchase link to buy aspeed boards. Please let me know
-> the procedure to purchase.
->
->
->
-> Also if anyone can share some information on which board version/model I
-> need to buy for development, it will be helpful.
->
->
->
-> Regards
->
-> Arjun Padmanabhan
->
->
-> _______________________________________________
-> openbmc mailing listopenbmc@lists.ozlabs.orghttps://lists.ozlabs.org/list=
-info/openbmc
->
->
->
->
->
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
->
+> On Mon, Sep 19, 2016 at 2:35 PM, Rob Herring <robh@kernel.org> wrote:
+> > On Fri, Sep 09, 2016 at 06:55:51PM -0700, Brendan Higgins wrote:
+> >> Added device tree binding documentation for Aspeed I2C controller and
+> >> busses.
+> >>
+> >> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+> >> ---
+> >> Changes for v2:
+> >>   - None
+> >> ---
+> >>  .../devicetree/bindings/i2c/i2c-aspeed.txt         | 63
+> ++++++++++++++++++++++
+> >>  1 file changed, 63 insertions(+)
+> >>  create mode 100644 Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+> >>
+> >> diff --git a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+> b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+> >> new file mode 100644
+> >> index 0000000..df68f2a
+> >> --- /dev/null
+> >> +++ b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+> >> @@ -0,0 +1,63 @@
+> >> +Device tree configuration for the I2C controller and busses on the
+> AST24XX
+> >> +and AST25XX SoCs.
+> >> +
+> >> +Controller:
+> >> +
+> >> +     Required Properties:
+> >> +     - #address-cells        : should be 1
+> >> +     - #size-cells           : should be 1
+> >> +     - #interrupt-cells      : should be 1
+> >> +     - compatible            : should be
+> "aspeed,ast2400-i2c-controller"
+> >> +                               or "aspeed,ast2500-i2c-controller"
+> >> +     - reg                   : address start and range of controller
+> >> +     - ranges                : defines address offset and range for
+> busses
+> >> +     - interrupts            : interrupt number
+> >> +     - clocks                : root clock of bus, should reference the
+> APB
+> >> +                               clock
+> >> +     - clock-ranges          : specifies that child busses can inherit
+> clocks
+> >> +     - interrupt-controller  : denotes that the controller receives
+> and fires
+> >> +                               new interrupts for child busses
+> >> +
+> >> +Bus:
+> >> +
+> >> +     Required Properties:
+> >> +     - #address-cells        : should be 1
+> >> +     - #size-cells           : should be 0
+> >> +     - reg                   : address offset and range of bus
+> >> +     - compatible            : should be "aspeed,ast2400-i2c-bus"
+> >> +                               or "aspeed,ast2500-i2c-bus"
+> >> +     - bus                   : the bus's number
+> >
+> > Don't use indexes. The reg property is enough to id which bus is which.
 >
 
---94eb2c07e31ee73d3b053cf35d59
+--001a113dacb8b88a89053cf4470a
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">My understanding is that Aspeed eval boards can only be ob=
-tained directly from Aspeed.=C2=A0 Until RaspberryPi support is ready, thin=
-gs like Redfish can be roughly tested with the qemu support for the Palmett=
-o platform.=C2=A0 See=C2=A0<a href=3D"https://github.com/openbmc/docs/blob/=
-master/cheatsheet.md#using-qemu">https://github.com/openbmc/docs/blob/maste=
-r/cheatsheet.md#using-qemu</a> for instructions on how to use it.</div><div=
- class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Tue, Sep 20, 2016 =
-at 12:09 AM, Jean-Marie Verdun <span dir=3D"ltr">&lt;<a href=3D"mailto:jean=
--marie.verdun@splitted-desktop.com" target=3D"_blank">jean-marie.verdun@spl=
-itted-desktop.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote=
-" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
- =20
-   =20
- =20
-  <div bgcolor=3D"#FFFFFF" text=3D"#000000">
-    <div class=3D"m_-7972865524594789648moz-cite-prefix">Hi,<br>
-      <br>
-      I am also really interested by this. We are currently stuck with
-      Raspberry Pi because of hardware availibility and lack of debug
-      function on our OCP server (if something goes wrong it is really
-      hard to restart the system).<br>
-      <br>
-      vejmarie<div><div class=3D"h5"><br>
-      <br>
-      Le 20/09/2016 =C3=A0 08:38, Arjun Padmanabhan a =C3=A9crit=C2=A0:<br>
-    </div></div></div>
-    <blockquote type=3D"cite"><div><div class=3D"h5">
-     =20
-     =20
-     =20
-      <div class=3D"m_-7972865524594789648WordSection1">
-        <p class=3D"MsoNormal">Hi,<u></u><u></u></p>
-        <p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-        <p class=3D"m_-7972865524594789648MsoPlainText">I am working on req=
-uirement =C2=A0to deploy
-          our redfish server on openbmc environment.<u></u><u></u></p>
-        <p class=3D"m_-7972865524594789648MsoPlainText"><u></u>=C2=A0<u></u=
-></p>
-        <p class=3D"m_-7972865524594789648MsoPlainText">Initial plan was to=
- work on rapsberryPi3
-          board.=C2=A0 Since rapsberryPi does not have full support as of
-          now(Git issue #587), I am planning to build openbmc image for
-          aspeed board and deploy the image on it.<u></u><u></u></p>
-        <p class=3D"m_-7972865524594789648MsoPlainText"><u></u>=C2=A0<u></u=
-></p>
-        <p class=3D"m_-7972865524594789648MsoPlainText">I could not find pu=
-rchase link to buy
-          aspeed boards. Please let me know the procedure to purchase.<u></=
-u><u></u></p>
-        <p class=3D"m_-7972865524594789648MsoPlainText"><u></u>=C2=A0<u></u=
-></p>
-        <p class=3D"m_-7972865524594789648MsoPlainText">Also if anyone can =
-share some
-          information on which board version/model I need to buy for
-          development, it will be helpful.<u></u><u></u></p>
-        <p class=3D"m_-7972865524594789648MsoPlainText"><u></u>=C2=A0<u></u=
-></p>
-        <p class=3D"m_-7972865524594789648MsoPlainText">Regards<u></u><u></=
-u></p>
-        <p class=3D"m_-7972865524594789648MsoPlainText">Arjun Padmanabhan<u=
-></u><u></u></p>
-      </div>
-      <br>
-      <fieldset class=3D"m_-7972865524594789648mimeAttachmentHeader"></fiel=
-dset>
-      <br>
-      </div></div><pre>______________________________<wbr>_________________
-openbmc mailing list
-<a class=3D"m_-7972865524594789648moz-txt-link-abbreviated" href=3D"mailto:=
-openbmc@lists.ozlabs.org" target=3D"_blank">openbmc@lists.ozlabs.org</a>
-<a class=3D"m_-7972865524594789648moz-txt-link-freetext" href=3D"https://li=
-sts.ozlabs.org/listinfo/openbmc" target=3D"_blank">https://lists.ozlabs.org=
-/<wbr>listinfo/openbmc</a>
-</pre>
-    </blockquote>
-    <br>
-    <div class=3D"m_-7972865524594789648moz-signature">
-      <table border=3D"0">
-        <tbody>
-          <tr>
-            <td><br>
-            </td>
-            <td><br>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-<br>______________________________<wbr>_________________<br>
-openbmc mailing list<br>
-<a href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a><br=
+<div dir=3D"ltr">First off, someone pointed out to me that the mapping that=
+ I used between addresses and bus numbers is not actually valid for busses =
+8-14.<div><br></div><div>This could be fixed by checking the offset, but I =
+am wondering if that is the right way to do it. It seems like this is not c=
+ompletely trivial so maybe this should be specified in the device tree? If =
+that is the case, should I do this as another reg entry or go back to the w=
+ay I was doing it before?</div></div><br><div class=3D"gmail_quote"><div di=
+r=3D"ltr">On Mon, Sep 19, 2016 at 4:26 PM Brendan Higgins &lt;<a href=3D"ma=
+ilto:brendanhiggins@google.com">brendanhiggins@google.com</a>&gt; wrote:<br=
+></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-=
+left:1px #ccc solid;padding-left:1ex">Addressed in v3.<br class=3D"gmail_ms=
+g">
+<br class=3D"gmail_msg">
+Thanks!<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+On Mon, Sep 19, 2016 at 2:35 PM, Rob Herring &lt;<a href=3D"mailto:robh@ker=
+nel.org" class=3D"gmail_msg" target=3D"_blank">robh@kernel.org</a>&gt; wrot=
+e:<br class=3D"gmail_msg">
+&gt; On Fri, Sep 09, 2016 at 06:55:51PM -0700, Brendan Higgins wrote:<br cl=
+ass=3D"gmail_msg">
+&gt;&gt; Added device tree binding documentation for Aspeed I2C controller =
+and<br class=3D"gmail_msg">
+&gt;&gt; busses.<br class=3D"gmail_msg">
+&gt;&gt;<br class=3D"gmail_msg">
+&gt;&gt; Signed-off-by: Brendan Higgins &lt;<a href=3D"mailto:brendanhiggin=
+s@google.com" class=3D"gmail_msg" target=3D"_blank">brendanhiggins@google.c=
+om</a>&gt;<br class=3D"gmail_msg">
+&gt;&gt; ---<br class=3D"gmail_msg">
+&gt;&gt; Changes for v2:<br class=3D"gmail_msg">
+&gt;&gt;=C2=A0 =C2=A0- None<br class=3D"gmail_msg">
+&gt;&gt; ---<br class=3D"gmail_msg">
+&gt;&gt;=C2=A0 .../devicetree/bindings/i2c/i2c-aspeed.txt=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0| 63 ++++++++++++++++++++++<br class=3D"gmail_msg">
+&gt;&gt;=C2=A0 1 file changed, 63 insertions(+)<br class=3D"gmail_msg">
+&gt;&gt;=C2=A0 create mode 100644 Documentation/devicetree/bindings/i2c/i2c=
+-aspeed.txt<br class=3D"gmail_msg">
+&gt;&gt;<br class=3D"gmail_msg">
+&gt;&gt; diff --git a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt =
+b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt<br class=3D"gmail_ms=
+g">
+&gt;&gt; new file mode 100644<br class=3D"gmail_msg">
+&gt;&gt; index 0000000..df68f2a<br class=3D"gmail_msg">
+&gt;&gt; --- /dev/null<br class=3D"gmail_msg">
+&gt;&gt; +++ b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt<br clas=
+s=3D"gmail_msg">
+&gt;&gt; @@ -0,0 +1,63 @@<br class=3D"gmail_msg">
+&gt;&gt; +Device tree configuration for the I2C controller and busses on th=
+e AST24XX<br class=3D"gmail_msg">
+&gt;&gt; +and AST25XX SoCs.<br class=3D"gmail_msg">
+&gt;&gt; +<br class=3D"gmail_msg">
+&gt;&gt; +Controller:<br class=3D"gmail_msg">
+&gt;&gt; +<br class=3D"gmail_msg">
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0Required Properties:<br class=3D"gmail_msg">
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0- #address-cells=C2=A0 =C2=A0 =C2=A0 =C2=A0 :=
+ should be 1<br class=3D"gmail_msg">
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0- #size-cells=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0: should be 1<br class=3D"gmail_msg">
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0- #interrupt-cells=C2=A0 =C2=A0 =C2=A0 : shou=
+ld be 1<br class=3D"gmail_msg">
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0- compatible=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 : should be &quot;aspeed,ast2400-i2c-controller&quot;<br class=
+=3D"gmail_msg">
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0or &quot;aspeed,ast2500-i2c=
+-controller&quot;<br class=3D"gmail_msg">
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0- reg=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0: address start and range of controller<br c=
+lass=3D"gmail_msg">
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0- ranges=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 : defines address offset and range for busses<br class=
+=3D"gmail_msg">
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0- interrupts=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 : interrupt number<br class=3D"gmail_msg">
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0- clocks=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 : root clock of bus, should reference the APB<br class=
+=3D"gmail_msg">
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0clock<br class=3D"gmail_msg=
+">
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0- clock-ranges=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 : specifies that child busses can inherit clocks<br class=3D"gmail_msg"=
 >
-<a href=3D"https://lists.ozlabs.org/listinfo/openbmc" rel=3D"noreferrer" ta=
-rget=3D"_blank">https://lists.ozlabs.org/<wbr>listinfo/openbmc</a><br>
-<br></blockquote></div><br></div>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0- interrupt-controller=C2=A0 : denotes that t=
+he controller receives and fires<br class=3D"gmail_msg">
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0new interrupts for child bu=
+sses<br class=3D"gmail_msg">
+&gt;&gt; +<br class=3D"gmail_msg">
+&gt;&gt; +Bus:<br class=3D"gmail_msg">
+&gt;&gt; +<br class=3D"gmail_msg">
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0Required Properties:<br class=3D"gmail_msg">
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0- #address-cells=C2=A0 =C2=A0 =C2=A0 =C2=A0 :=
+ should be 1<br class=3D"gmail_msg">
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0- #size-cells=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0: should be 0<br class=3D"gmail_msg">
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0- reg=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0: address offset and range of bus<br class=
+=3D"gmail_msg">
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0- compatible=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 : should be &quot;aspeed,ast2400-i2c-bus&quot;<br class=3D"gmail=
+_msg">
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0or &quot;aspeed,ast2500-i2c=
+-bus&quot;<br class=3D"gmail_msg">
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0- bus=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0: the bus&#39;s number<br class=3D"gmail_msg=
+">
+&gt;<br class=3D"gmail_msg">
+&gt; Don&#39;t use indexes. The reg property is enough to id which bus is w=
+hich.<br class=3D"gmail_msg">
+</blockquote></div>
 
---94eb2c07e31ee73d3b053cf35d59--
+--001a113dacb8b88a89053cf4470a--
