@@ -2,51 +2,41 @@ Return-Path: <tpearson@raptorengineering.com>
 Received: from mail.rptsys.com (mail.rptsys.com [192.119.205.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sdQcS5bsCzDsfd
- for <openbmc@lists.ozlabs.org>; Tue, 20 Sep 2016 11:47:35 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sdQk86DyrzDsfd
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Sep 2016 11:52:32 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=raptorengineering.com header.i=@raptorengineering.com
- header.b=dVYWBlOm; dkim-atps=neutral
+ header.b=jrFyuS7i; dkim-atps=neutral
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 5CC076410C6;
- Mon, 19 Sep 2016 20:47:32 -0500 (CDT)
+ by mail.rptsys.com (Postfix) with ESMTP id 254E6640FF8
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Sep 2016 20:52:30 -0500 (CDT)
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id nqhWzj6kuwYC; Mon, 19 Sep 2016 20:47:31 -0500 (CDT)
+ with ESMTP id zlGo5wGVdrgK; Mon, 19 Sep 2016 20:52:29 -0500 (CDT)
 Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 8B9A064113E;
- Mon, 19 Sep 2016 20:47:31 -0500 (CDT)
-DKIM-Filter: OpenDKIM Filter v2.9.2 mail.rptsys.com 8B9A064113E
+ by mail.rptsys.com (Postfix) with ESMTP id B5EA56410B9;
+ Mon, 19 Sep 2016 20:52:29 -0500 (CDT)
+DKIM-Filter: OpenDKIM Filter v2.9.2 mail.rptsys.com B5EA56410B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
- t=1474336051; bh=/40wjgUX7ccsrQlRQtHt5ZIhBN+7eIjz4iSlro/0JjQ=;
- h=Message-ID:Date:From:MIME-Version:To:Subject:Content-Type:
- Content-Transfer-Encoding;
- b=dVYWBlOm9rmUbO6NdHxcL5ZD80Gkl7nIDogSBCQKLbFa6rEZbbsgRcIPT+atvnPJp
- rK5XvLKxuI1RJhIw+WDQ1aIiFQUpx/XuQia5mKtdH9k/Thoe9GcKX+x6/GdFMXMqHh
- fwWXEbST+f0yJWd6dreAuvUh9/IhhZqysD4oH0S8=
+ t=1474336349; bh=/PzMD607LMbtzd01jX0bzeP94fS8OR4Bqhi7yZux8Cc=;
+ h=From:To:Subject:Date:Message-Id;
+ b=jrFyuS7iFct/ARb2p9m1ZM04f00oJ5b/2d13kpwNyEip5Gez0ewgZSbBxZ7/qNK/U
+ FqY9Tus2Lpxs96BobMgp6WGf5d9ft0DK2O8mfKxeruv6zJ5/KRlFJgvKbyMy7cs2lP
+ 3hhpg4GF4i8PVKz9H532EKnfSEA6Qe3mDG1To9PM=
 X-Virus-Scanned: amavisd-new at rptsys.com
 Received: from mail.rptsys.com ([127.0.0.1])
  by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id icYSkk5P2DJP; Mon, 19 Sep 2016 20:47:31 -0500 (CDT)
-Received: from [192.168.3.54] (apollo.starlink.edu [192.168.3.54])
- by mail.rptsys.com (Postfix) with ESMTP id 23B74640F6D;
- Mon, 19 Sep 2016 20:47:31 -0500 (CDT)
-Message-ID: <57E09533.9020702@raptorengineeringinc.com>
-Date: Mon, 19 Sep 2016 20:47:31 -0500
+ with ESMTP id 4lVWzWoa66Mu; Mon, 19 Sep 2016 20:52:29 -0500 (CDT)
+Received: from apollo.starlink.edu (apollo.starlink.edu [192.168.3.54])
+ by mail.rptsys.com (Postfix) with ESMTP id 35E6B640FF8;
+ Mon, 19 Sep 2016 20:52:29 -0500 (CDT)
 From: Timothy Pearson <tpearson@raptorengineering.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
- rv:1.9.2.9) Gecko/20100922 Thunderbird/3.1.4
-MIME-Version: 1.0
-To: Andrew Jeffery <andrew@aj.id.au>
-CC: openbmc@lists.ozlabs.org
-Subject: Re: [PATCH 03/19] Ensure that the old style MDIO interface is active
-References: <1035223108.1714.1474325416863.JavaMail.zimbra@raptorengineeringinc.com>
- <1474331367.13249.72.camel@aj.id.au>
-In-Reply-To: <1474331367.13249.72.camel@aj.id.au>
-X-Enigmail-Version: 1.1.2
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH] Add hwmon driver for MAX31875
+Date: Mon, 19 Sep 2016 20:52:23 -0500
+Message-Id: <1474336344-1821-1-git-send-email-tpearson@raptorengineering.com>
+X-Mailer: git-send-email 1.7.9.5
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,52 +48,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Sep 2016 01:47:37 -0000
+X-List-Received-Date: Tue, 20 Sep 2016 01:52:33 -0000
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA1
+This series adds a new hwmon driver for the MAX31875, which is
+used for fan control on Firestone.
 
-On 09/19/2016 07:29 PM, Andrew Jeffery wrote:
-> I've had a look at this patch from your git repo on github. Whilst git-
-> send-email is changing the patch in ways you're not expecting, it's
-> because your commit message isn't formatted in the manner expected by
-> git's tools. Your object looks like:
-> 
->     ftgmac100: Enable old-style MDIO interface
-> 
+This patch is a holdover until a PMBus driver is written at some
+point.  Upstream has stated they will not accept unless a PMBus
+driver is used for this particular device.
 
-Good catch.  Today was fairly hectic on this end and I had a grand total
-of a couple of minutes to look into the problem. :-)
+Timothy Pearson (1):
+  Initial driver for the MAX31785 intelligent fan controller
 
-> Separately, I had some questions on the v1 of the patch. Can you
-> pleaserespond to those?
+ Documentation/hwmon/max31785 |   36 +++
+ MAINTAINERS                  |    7 +
+ drivers/hwmon/Kconfig        |   10 +
+ drivers/hwmon/Makefile       |    1 +
+ drivers/hwmon/max31785.c     |  714 ++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 768 insertions(+)
+ create mode 100644 Documentation/hwmon/max31785
+ create mode 100644 drivers/hwmon/max31785.c
 
-Sure!  From a high level, this driver does not support anything other
-than the old-style MDIO interface.  The hardware sets the new-style bit
-when support is available, so the driver itself should be able to
-determine which style of interface to use at runtime (in theory).
-
-> Hope that helps,
-> 
-> Andrew
-
-
-
-- -- 
-Timothy Pearson
-Raptor Engineering
-+1 (415) 727-8645 (direct line)
-+1 (512) 690-0200 (switchboard)
-https://www.raptorengineering.com
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.11 (GNU/Linux)
-Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org/
-
-iQEcBAEBAgAGBQJX4JUzAAoJEK+E3vEXDOFbmKoH/Ay2cGaQ4U9VlayODUiqUrcY
-RAyG6iC1iHFxooPKKWqZiNMPcbey+Of1Eq+t2jKn0P5RDRo/8nwXiakJrkr+NmJc
-j+nM96i9eTbg4bA3cdk7aGaVd7jjmAeoqK3Fz64ansYYD55rlynfrCZli1zYZgkC
-3rf22JP6A6H/ibshLHjjawZF5mU9p+ngv0iYMyryK5sBzXWGXrZAfc7xmBR9fXpA
-yZbhFzwL4CnbLSclWvx/wMoTMejrDe3V4n/7XGrNZFspt6jt1WkjrmMIDQcJUPnq
-PYqZmBowsi9EsAMufUKhZ4WQcHfJKMMFG90m3PXdkJyD85qX3c5PvJ77aZYa4sQ=
-=vN3E
------END PGP SIGNATURE-----
+-- 
+1.7.9.5
