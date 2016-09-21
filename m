@@ -1,29 +1,51 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <christopher.lee.bostic@gmail.com>
+Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
+ [IPv6:2607:f8b0:4003:c06::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sf3R42rD2zDsTQ
- for <openbmc@lists.ozlabs.org>; Wed, 21 Sep 2016 12:26:37 +1000 (AEST)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1474424792902388.49015376664977;
- Tue, 20 Sep 2016 19:26:32 -0700 (PDT)
-Date: Tue, 20 Sep 2016 21:26:31 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Arjun Padmanabhan <arjun.padmanabhan@microsemi.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- Balaji Marimuthu <balaji.marimuthu@microsemi.com>
-Subject: Re: Aspeed board for development
-Message-ID: <20160921022630.GB11301@heinlein.lan>
-References: <C160D2872FE0DE4683E1910F9BF829413D2A3893@avsrvexchmbx2.microsemi.net>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sfRm90nqzzDsTW
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Sep 2016 03:42:49 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=jNuV7dt3; 
+ dkim-atps=neutral
+Received: by mail-oi0-x241.google.com with SMTP id a62so4369485oib.1
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Sep 2016 10:42:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=sRUGRPMdaoELr/KwitqVhSwjnk7w6Z8bvYsGagwWjVM=;
+ b=jNuV7dt3Trj9k21o8VNByQii0FVhhm9P3f4Mfny1uAF1EnWdLMrUFvkPzBLyGd8/tQ
+ goqsF2z0R1QcPpIpCbTJJPzF2vrcaFR5368osqD9/x2o8ViZ0D+ptehIHDLX1SDWFhmN
+ To7/fROIavM1u4g7YoPFKa8N5Cfxw6ToXQnWewJVPkeqyZYy9PhrVhZeP57oA6pCXVsz
+ QYlEgu5OpJbfR5UubBpuw+/FHb4+EvtczHZ5py36i/w8+vRACwpliLkJ2PgQpUA9MGT9
+ Zlra0Fq7/sFT7fVg9eb0rWiJz/2SRuvOey4Yi/1FYsJ8Sm08DiTB+VQ3Z+V2R8v/GZXL
+ uYzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=sRUGRPMdaoELr/KwitqVhSwjnk7w6Z8bvYsGagwWjVM=;
+ b=SR98IxJxiacBYgttR+e+r3gca6JBy5/LEDdZU8Roem7NDh0EZrkQHZHjwecwk7wuba
+ JAMwl8vU3tYHvXzt4nnaY243Udx1JP2qG0zCkXYUy5+Gz/UwaLFCxL6FXWgd31sk5RsL
+ WXJ5zz+v/EZK+EPldYpiIbCd+ojqIlraV1yMggODpMDQIFwRIGaJXxTUxsrfvRhKL0vm
+ l28TDhA/cIAhQYwjwDw3bQxfKbjaZDGUMLjYmgQxPnp+1b1iRo2pmK3+7uwqM7ihgSpJ
+ Rx+roPIQd9AXOun6h9Be/UM7k3n82t8kpaDrsS9tde834ZzWaWOKl6foJkv9SCl5Htpz
+ WOZA==
+X-Gm-Message-State: AE9vXwMgJoTgIRhh1Fk8Te2UGG71GDF4VQYHj7eyAz7KaxaU4amI7yRIfurx2mx9jY/ZkrwrLfNsxJx1LvWXXw==
+X-Received: by 10.202.79.215 with SMTP id d206mr43547276oib.141.1474479766359; 
+ Wed, 21 Sep 2016 10:42:46 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="tjCHc7DPkfUGtrlw"
-Content-Disposition: inline
-In-Reply-To: <C160D2872FE0DE4683E1910F9BF829413D2A3893@avsrvexchmbx2.microsemi.net>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
+Received: by 10.202.218.85 with HTTP; Wed, 21 Sep 2016 10:42:45 -0700 (PDT)
+In-Reply-To: <CACPK8XfTS+jyVGFRXZxPb4MQD3rzbFXmjQbqFn5c=aq+HopqkQ@mail.gmail.com>
+References: <1472068452-32048-1-git-send-email-christopher.lee.bostic@gmail.com>
+ <CACPK8XfTS+jyVGFRXZxPb4MQD3rzbFXmjQbqFn5c=aq+HopqkQ@mail.gmail.com>
+From: Christopher Bostic <christopher.lee.bostic@gmail.com>
+Date: Wed, 21 Sep 2016 12:42:45 -0500
+Message-ID: <CAA0LjjX1F+kjWBfJ8PfYLVfburbDGGn9xBmJQb1qf3vttEYKsQ@mail.gmail.com>
+Subject: Re: [PATCH linux v5 0/7] Introducing the FSI device driver
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Chris Bostic <cbostic@us.ibm.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -35,81 +57,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Sep 2016 02:26:41 -0000
+X-List-Received-Date: Wed, 21 Sep 2016 17:42:50 -0000
 
+On Fri, Sep 2, 2016 at 12:05 AM, Joel Stanley <joel@jms.id.au> wrote:
+> Hi Chris,
+>
+> On Thu, Aug 25, 2016 at 5:24 AM,  <christopher.lee.bostic@gmail.com> wrote:
+>> From: Chris Bostic <cbostic@us.ibm.com>
+>>
+>> Introduction of the IBM 'Flexible Support Interface' (FSI) bus device
+>> driver. FSI is a high fan out serial bus consisting of a clock and a serial
+>> data line capable of running at speeds up to 166 MHz.
+>
+> Nice work on the cover letter. It's a good introduction.
+>
+> I haven't had a chance to take a close look a the patches yet. They
+> are on top of the stack for Monday.
+>
+> I was wondering if you have had a look at Jeremy's implementation yet?
+> If so, are there any ideas you have incorporated into your series?
+>
+Joel, apologies for the slow response.  Yes I've had a look at
+Jeremy's suggestions and I'm in process of adapting my patch set to
+incorporate those changes.  Will reply to his note directly on
+specifics.   I've been focusing on getting all the core code ready for
+submission and will have something for you by end of week.
 
---tjCHc7DPkfUGtrlw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Arjun,
-
-On Tue, Sep 20, 2016 at 06:38:35AM +0000, Arjun Padmanabhan wrote:
-> Hi,
->=20
->=20
-> I am working on requirement  to deploy our redfish server on openbmc envi=
-ronment.
-
-Welcome!
-
-> Initial plan was to work on rapsberryPi3 board.  Since rapsberryPi does n=
-ot have full support as of now(Git issue #587), I am planning to build open=
-bmc image for aspeed board and deploy the image on it.
-
-As you see, we have an on-going, but somewhat "spare-time" activity, of
-getting Raspberry Pi up to the same level as our AST2400 / AST2500 dev
-boards.  I'm not sure if we even have any RP hardware to test this out
-on, so any assistance you can provide there will probably make this
-effort go faster.
-
-It was mentioned elsewhere, but the alternative for you is to use the
-qemuarm and/or qemux86-64 images for development purposes.  Since
-Redfish has a large "software" component to it, you should be able to do
-the majority of your development with qemux86-64 (using KVM to run
-at-speed).  This is where I do a large portion of my development work mysel=
-f.
-
-> I could not find purchase link to buy aspeed boards. Please let me know t=
-he procedure to purchase.
-
-You would need to contact Aspeed directly for this.  If you are planning
-on building a product around one of their chips, they have a development
-board you can order from them.
-
-> Also if anyone can share some information on which board version/model I =
-need to buy for development, it will be helpful.
-
-We have been using the AST2500 development board lately.  I think we have t=
-wo
-of them.  This has been useful for kernel development but we have not
-utilized it for userspace application development.  That we have done
-either on QEMU or on some existing AST2400-based systems.
-
---=20
-Patrick Williams
-
---tjCHc7DPkfUGtrlw
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJX4e/WAAoJEKsDR8wtAMEZ6tQP/3pr/dnvq2MNi0IqNl/YO2zm
-n28wL3uJalmzy61CEBAdslG6EIoi6/som8+PgdQ5UXUcex8mKthNIFPpJ7v/uFXP
-HCJq99lbpyllzDUOoptF0JUpV5YwkSzjufX0wlBihWgOt/uv50se7k+EbBrSU8l8
-XJDF8XMvO4CncNObHVsCSvRNIp2ig6qwnYyC3ZqaE25o143iZPyy8gGDTUe9Z2R/
-rGCIgAud8EJZdjaR96pS8QXtey7/lB4b4dza1jayWwZK6crZZUl0vwR0xzOmTOFM
-g0N5FNUdTm6gBU62OHK12hOs8ASPyekGsje82xNKjnhIC1RrBQRPQaQBOVpRAZL2
-rZ/Vi2SA6r9PTox7rPY726feeLqCTHhQBZPkbFUgBdkDUZZXG4cRI6h1fJp0Rwas
-Ahi2eikvAuylqilQSdZ/aNnldFC0l0h03++/WEvoRzZt84MLsSOvyYQ8UrKAgsD8
-l4MBIwPlkHGBZMTWN6XS0srwZ9+wwQdq7G34qWgiWmC7BpuyqxrtKNYHF5hUXLdG
-VLbXd8H5uoM0V3V0l26/2Bsv4ncV4W1J4dSo5UivES/ybw0r/wROg59urxyzEipC
-yRFwF2D3UTKm52BmOpebGNx0a7cdGCwhVEtjSaPpIV7SFAxaUZyw0AgiyfSoMGW5
-Db+F+ZEIQTnCiSA+pzcu
-=ZmlX
------END PGP SIGNATURE-----
-
---tjCHc7DPkfUGtrlw--
+> Cheers,
+>
+> Joel
+>
+>>
