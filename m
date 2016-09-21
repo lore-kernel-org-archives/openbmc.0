@@ -1,49 +1,29 @@
-Return-Path: <brendanhiggins@google.com>
-Received: from mail-yw0-x22e.google.com (mail-yw0-x22e.google.com
- [IPv6:2607:f8b0:4002:c05::22e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sf12Y6VNzzDsfl
- for <openbmc@lists.ozlabs.org>; Wed, 21 Sep 2016 10:38:45 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=XSA3Bwnt; 
- dkim-atps=neutral
-Received: by mail-yw0-x22e.google.com with SMTP id t67so28251580ywg.3
- for <openbmc@lists.ozlabs.org>; Tue, 20 Sep 2016 17:38:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=0TFtxVoJj5+p8OLerHdHlnIiMOb40Suo/V78dDdg56c=;
- b=XSA3BwntGrQneFhRxDapeR2nUJQkTa62pYQAXgS6pRb7kCkS81saSpxOVe2k4zkXqp
- FMmKmc8d4foi4GZNaZeNXyxC5+F/HzjK6vCSMmEGddKbuii5u5v/O1Sd790i2i4rTz8k
- xZOXfFtxlrWuqZ0jZJfQc+P/76bQQIwVUgjAJG9U6reXscw1Egx0UpXA9V/7L+hPSz3M
- SyNOCpGiBVgZTAM3SHHyg1VgXT7P16uS9J64Ndi7GnefoaQYB7dYCq5jobaQ/+I4fZkj
- 0ea87cG1qGjk2NHkOdS/S1hR+N9+j11Mm4BCg3qhnpLmy7B+FGMbUihzj/LH+qbq5/gl
- K0FA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=0TFtxVoJj5+p8OLerHdHlnIiMOb40Suo/V78dDdg56c=;
- b=FsBm79BnjLAVUYtWLZi9yGgNtnOdiHoe1zv5oYkWgTvUDKP0isHiESf3z+JyHfmaHL
- Qciwjfo6F12P/k/5ZAGvU1LFyzcqkmhK9eRxsdyDfJDR51rHKrDsnpRKNWFeFoVFTA6X
- Xg8/WJWHf+x4kovNjwVTBduGQYuepewWX2OC7TSZSgcBlF6GWgXrpKkcPIGLz6ESpHRC
- IJi/UfZVyCb78g2jX+RWwnsSQIcqmTZbo0QJToatW9bl5PoVeP5wxe6hItw94NqaRUCI
- x9DziaaYQo9PcenmLqJxsCW0q4LR3HbLVREC3qlpLyQV6n53ZV+fLkXUgxOLnUtfd0Td
- qjbg==
-X-Gm-Message-State: AE9vXwPnII9TKJnc+AEKnMSq4lWBc0Tl0R1gQeZokJPqwb0d8qGQEM37zCA0JtaywuQG0xb+Gu50mXugbVw5HBKl
-X-Received: by 10.129.145.151 with SMTP id i145mr15886656ywg.35.1474418322761; 
- Tue, 20 Sep 2016 17:38:42 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sf3R42rD2zDsTQ
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Sep 2016 12:26:37 +1000 (AEST)
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mx.zohomail.com
+ with SMTPS id 1474424792902388.49015376664977;
+ Tue, 20 Sep 2016 19:26:32 -0700 (PDT)
+Date: Tue, 20 Sep 2016 21:26:31 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Arjun Padmanabhan <arjun.padmanabhan@microsemi.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ Balaji Marimuthu <balaji.marimuthu@microsemi.com>
+Subject: Re: Aspeed board for development
+Message-ID: <20160921022630.GB11301@heinlein.lan>
+References: <C160D2872FE0DE4683E1910F9BF829413D2A3893@avsrvexchmbx2.microsemi.net>
 MIME-Version: 1.0
-References: <CAFd5g46OwV7OEcLQmkyajxcDpy+fztAK3reo3iDcjkBOcBncBQ@mail.gmail.com>
- <20160913191412.5orurrahenhubsn2@asimov>
-In-Reply-To: <20160913191412.5orurrahenhubsn2@asimov>
-From: Brendan Higgins <brendanhiggins@google.com>
-Date: Wed, 21 Sep 2016 00:38:32 +0000
-Message-ID: <CAFd5g45pTpZME-GNfmHjWn--ZEX4O3in99EaviQVU2KmAZbjiA@mail.gmail.com>
-Subject: Re: Supporting one IPMI request does not yield one response
-To: Patrick Williams <patrick@stwcx.xyz>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=94eb2c093e006154bd053cf9c4fe
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="tjCHc7DPkfUGtrlw"
+Content-Disposition: inline
+In-Reply-To: <C160D2872FE0DE4683E1910F9BF829413D2A3893@avsrvexchmbx2.microsemi.net>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,43 +35,81 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Sep 2016 00:38:46 -0000
+X-List-Received-Date: Wed, 21 Sep 2016 02:26:41 -0000
 
---94eb2c093e006154bd053cf9c4fe
-Content-Type: text/plain; charset=UTF-8
 
-I did have a plan for a particular message type that would use the 0-N
-response; I was planning on implementing the message as an OEM Group
-extension, so I figured it would be acceptable to just follow the normal
-procedure if an unknown OEM Group message is encountered. The other use
-cases are bridging messages and the messages you mentioned, inventory and
-oem-esel, could be handled in the same way.
-
-As far as updating btbridged and any necessary firmware on the host side, I
-figured that would have been assumed, sorry if that was not clear; again, I
-just wanted to make sure that people were generally okay with this new
-functionality on the OpenBMC side.
-
-I will try to get an initial implementation out for review this week on the
-ipmid side this week or next.
-
---94eb2c093e006154bd053cf9c4fe
-Content-Type: text/html; charset=UTF-8
+--tjCHc7DPkfUGtrlw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr" class=3D"gmail_msg">I did have a plan for=
- a particular message type that would use the 0-N response; I was planning =
-on implementing the message as an OEM Group extension, so I figured it woul=
-d be acceptable to just follow the normal procedure if an unknown OEM Group=
- message is encountered. The other use cases are bridging messages and the =
-messages you mentioned, inventory and oem-esel, could be handled in the sam=
-e way.<div class=3D"gmail_msg"><br class=3D"gmail_msg"></div><div class=3D"=
-gmail_msg">As far as updating btbridged and any necessary firmware on the h=
-ost side, I figured that would have been assumed, sorry if that was not cle=
-ar; again, I just wanted to make sure that people were generally okay with =
-this new functionality on the OpenBMC side.</div><div class=3D"gmail_msg"><=
-br class=3D"gmail_msg"></div><div class=3D"gmail_msg">I will try to get an =
-initial implementation out for review this week on the ipmid side this week=
- or next.</div></div></div>
+Arjun,
 
---94eb2c093e006154bd053cf9c4fe--
+On Tue, Sep 20, 2016 at 06:38:35AM +0000, Arjun Padmanabhan wrote:
+> Hi,
+>=20
+>=20
+> I am working on requirement  to deploy our redfish server on openbmc envi=
+ronment.
+
+Welcome!
+
+> Initial plan was to work on rapsberryPi3 board.  Since rapsberryPi does n=
+ot have full support as of now(Git issue #587), I am planning to build open=
+bmc image for aspeed board and deploy the image on it.
+
+As you see, we have an on-going, but somewhat "spare-time" activity, of
+getting Raspberry Pi up to the same level as our AST2400 / AST2500 dev
+boards.  I'm not sure if we even have any RP hardware to test this out
+on, so any assistance you can provide there will probably make this
+effort go faster.
+
+It was mentioned elsewhere, but the alternative for you is to use the
+qemuarm and/or qemux86-64 images for development purposes.  Since
+Redfish has a large "software" component to it, you should be able to do
+the majority of your development with qemux86-64 (using KVM to run
+at-speed).  This is where I do a large portion of my development work mysel=
+f.
+
+> I could not find purchase link to buy aspeed boards. Please let me know t=
+he procedure to purchase.
+
+You would need to contact Aspeed directly for this.  If you are planning
+on building a product around one of their chips, they have a development
+board you can order from them.
+
+> Also if anyone can share some information on which board version/model I =
+need to buy for development, it will be helpful.
+
+We have been using the AST2500 development board lately.  I think we have t=
+wo
+of them.  This has been useful for kernel development but we have not
+utilized it for userspace application development.  That we have done
+either on QEMU or on some existing AST2400-based systems.
+
+--=20
+Patrick Williams
+
+--tjCHc7DPkfUGtrlw
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJX4e/WAAoJEKsDR8wtAMEZ6tQP/3pr/dnvq2MNi0IqNl/YO2zm
+n28wL3uJalmzy61CEBAdslG6EIoi6/som8+PgdQ5UXUcex8mKthNIFPpJ7v/uFXP
+HCJq99lbpyllzDUOoptF0JUpV5YwkSzjufX0wlBihWgOt/uv50se7k+EbBrSU8l8
+XJDF8XMvO4CncNObHVsCSvRNIp2ig6qwnYyC3ZqaE25o143iZPyy8gGDTUe9Z2R/
+rGCIgAud8EJZdjaR96pS8QXtey7/lB4b4dza1jayWwZK6crZZUl0vwR0xzOmTOFM
+g0N5FNUdTm6gBU62OHK12hOs8ASPyekGsje82xNKjnhIC1RrBQRPQaQBOVpRAZL2
+rZ/Vi2SA6r9PTox7rPY726feeLqCTHhQBZPkbFUgBdkDUZZXG4cRI6h1fJp0Rwas
+Ahi2eikvAuylqilQSdZ/aNnldFC0l0h03++/WEvoRzZt84MLsSOvyYQ8UrKAgsD8
+l4MBIwPlkHGBZMTWN6XS0srwZ9+wwQdq7G34qWgiWmC7BpuyqxrtKNYHF5hUXLdG
+VLbXd8H5uoM0V3V0l26/2Bsv4ncV4W1J4dSo5UivES/ybw0r/wROg59urxyzEipC
+yRFwF2D3UTKm52BmOpebGNx0a7cdGCwhVEtjSaPpIV7SFAxaUZyw0AgiyfSoMGW5
+Db+F+ZEIQTnCiSA+pzcu
+=ZmlX
+-----END PGP SIGNATURE-----
+
+--tjCHc7DPkfUGtrlw--
