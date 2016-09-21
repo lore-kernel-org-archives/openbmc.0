@@ -1,47 +1,47 @@
 Return-Path: <christopher.lee.bostic@gmail.com>
-Received: from mail-oi0-x244.google.com (mail-oi0-x244.google.com
- [IPv6:2607:f8b0:4003:c06::244])
+Received: from mail-oi0-x243.google.com (mail-oi0-x243.google.com
+ [IPv6:2607:f8b0:4003:c06::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sfTFP6kNlzDsgj
- for <openbmc@lists.ozlabs.org>; Thu, 22 Sep 2016 04:49:45 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sfTJq3gqYzDshZ
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Sep 2016 04:52:43 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=odqxbLd7; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=Bzuwyyzp; 
  dkim-atps=neutral
-Received: by mail-oi0-x244.google.com with SMTP id a62so4506617oib.1
- for <openbmc@lists.ozlabs.org>; Wed, 21 Sep 2016 11:49:45 -0700 (PDT)
+Received: by mail-oi0-x243.google.com with SMTP id w11so4508257oia.0
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Sep 2016 11:52:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=sK2JRnqBbx1irOe4U0I3+gU1RTg4JS173h3T7lWI4JI=;
- b=odqxbLd71w5CieiD4Bbr3MbViMa73XHuukQnNisWN55bipYFYByGbu6WOcEBGo0Gnx
- SUO4OJ4qLeh4TejMGRWf43hpYKaIbNNj6WzioODtNUp5EJLhiAqrTRq/11Ip1jn8cDs0
- QJSQHeaB/1fM22QzPnO0JR9V+3bIZ2vKdn8sI7Bgzsh0AFP7JzoDSgFuTAGZWKECb2cr
- YJhGKyswBPTPikqxQBSs6yksRmkiByWgNYXKouwqP7pnOStM7vXRH0MY2qu+kLldRzNY
- a+HA3N3em+nkTVU0+UMGQQlV2uDFwN8GzglB998Dv9yJ0hS3d3Lx3aEAZGYrf8xUtrlq
- Y/7Q==
+ :cc; bh=xnnTiCv9MkQ0cCqmdcdU7HD2V+dRJHkC+iedZpvb0WU=;
+ b=Bzuwyyzp/VkAQly1ChXOJZNosyIfaixSV71AUnH+nmEP/mdFnZEAp9QrYb34TzrjTi
+ yO2q0So4CeaWquNUTHypK+M3B/utdWq9+S3QouqO3rsltoXCLBpJUVGOAIGxcHA6SqKf
+ lCL6ZqR89RRQUgpQEa9nlA3JPI07kFdy24pVvChaIMzGtDMIZVoTukoVISZlAT1qRk1T
+ TAmtSun6IlebhomyVCPhGrfUVLdMB4t/bVLrr4pTlT12s3iKxSRaTO/GNaze6EtLtFz/
+ /U4pq4Z2m0WxwwD5XwZyg1C8DhL+mE+y1lHIbYbFAvOKOTSu5MzGCXZUoc0MvL5nRjzy
+ 0Kxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=sK2JRnqBbx1irOe4U0I3+gU1RTg4JS173h3T7lWI4JI=;
- b=L1rqsWT6hUkFK91gUh75Wjo/q+1XvIW66rPtdJuwN4vA62oESECDPS+hO6wCfkj2c3
- QBiz2kAVQnvEs9vuvQPFMDUCXhhmT3A8PSwIGUtf8ZThbDSPVjCQRHddC22dxIoaq6Qi
- RuaiGlqZCSMZuc/A7MY9YkkY5U7id5MLTuSFfRUTWxA3sK6I7S4h2XVLErcntfyxdg8g
- Ye0ZVigy4yeKH3T74fwWjwEPlIFH8hU4cL8ijLiISVkHTug+qdFoyTLrG6K+n1pJPp9p
- BwRmnzuGrnGDnU7SAXZYS5mdB0wr6Zaqqc/f8fa9M0uqnQcHfhXkjt/kB1BWtCnSaojo
- zDXg==
-X-Gm-Message-State: AE9vXwPjN6S6tGH1ItJPVh4Tq4mstqogl/u5rv5yqVIxqwvcWtUqEM8oPj4GvjGQWyNWFRrWHSXrZsgfZaof3A==
-X-Received: by 10.202.95.130 with SMTP id t124mr4687073oib.159.1474483784208; 
- Wed, 21 Sep 2016 11:49:44 -0700 (PDT)
+ bh=xnnTiCv9MkQ0cCqmdcdU7HD2V+dRJHkC+iedZpvb0WU=;
+ b=Gvy4DJGFePxftTFFLbjZTFmPSSH0cDIGbQynZ4OvoozO65MQVUf9Qb5Qi8dFergoFp
+ PT4R6rgc3x+xqq+SAxiXC1LgKJDBImLzHMgfK8m6K7sWlvJFmsRMUeoDx4Nyt06mVgBW
+ 3fW26Hur/9hy6rPCpfhYQCj3j9mjbm/t/9o23Jt0lFOlKsdX4pwf9RM4ptmOlTgj4ad5
+ IMNVHwXpiQy0Jz1GXFpdPWbh1Vrhq8yuGsvHaOH/oDGhvn/UGAVv1O5s+sldUECWuvAW
+ f00xCc+Nq+fiV2+zQChT9bFnokHe2S656aYsh+3O7OsJe7o2SqsKgjZXQyeQ1IWSl8I/
+ CduQ==
+X-Gm-Message-State: AE9vXwODBbM6Qj88tZ6BDB1o67U8lXKP52WTi0CCcCyHZGbQ0DcdRbr+D+eVEnVmi2vh8lLOvPcQrzvGGa6piA==
+X-Received: by 10.202.79.215 with SMTP id d206mr43937699oib.141.1474483961521; 
+ Wed, 21 Sep 2016 11:52:41 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.202.218.85 with HTTP; Wed, 21 Sep 2016 11:49:43 -0700 (PDT)
+Received: by 10.202.218.85 with HTTP; Wed, 21 Sep 2016 11:52:41 -0700 (PDT)
 In-Reply-To: <CACPK8Xe7LOX-kK5KbRNNdRC7RkbTZinsor-7pP9aubnUhanjjQ@mail.gmail.com>
 References: <1472068452-32048-1-git-send-email-christopher.lee.bostic@gmail.com>
  <CACPK8XfTS+jyVGFRXZxPb4MQD3rzbFXmjQbqFn5c=aq+HopqkQ@mail.gmail.com>
  <CACPK8Xe7LOX-kK5KbRNNdRC7RkbTZinsor-7pP9aubnUhanjjQ@mail.gmail.com>
 From: Christopher Bostic <christopher.lee.bostic@gmail.com>
-Date: Wed, 21 Sep 2016 13:49:43 -0500
-Message-ID: <CAA0LjjX=MrRGRWRrmR6_Fyisx4tjGs+Nn6dWdgyCE5TVLA982w@mail.gmail.com>
+Date: Wed, 21 Sep 2016 13:52:41 -0500
+Message-ID: <CAA0LjjUG0+FaT448upMscVezRr_k0VjL296kr3WZhhCOCx8FGA@mail.gmail.com>
 Subject: Re: [PATCH linux v5 0/7] Introducing the FSI device driver
 To: Joel Stanley <joel@jms.id.au>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
@@ -58,7 +58,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Sep 2016 18:49:46 -0000
+X-List-Received-Date: Wed, 21 Sep 2016 18:52:44 -0000
 
 On Wed, Sep 7, 2016 at 7:10 PM, Joel Stanley <joel@jms.id.au> wrote:
 > Hi Chris,
@@ -77,16 +77,9 @@ On Wed, Sep 7, 2016 at 7:10 PM, Joel Stanley <joel@jms.id.au> wrote:
 > I've taken a look at the patches. There doesn't seem to be much
 > improvement over the last version.
 
-Not sure I follow what you mean by improvement.  There is more
-function added with this last set.  In terms of incorporating Jeremy's
-changes I will attempt to follow his suggestions but I'm a little
-unclear if you are expecting those to be done verbatim as per his
-example.   The patches are rather small and so to incorporate ~ 5
-KLOCs would require an enormous patch set or series of sets.
-
-I've been working on the next set and will get that to you soon.  I
-don't, however, want to send another set without much improvement so
-let me know how I can do this.
+In terms of patch ordering, starting with the generic bus registration
+etc as per Jeremy's example I understand and will be reordering in
+this way in the next set I submit.
 
 >
 >> I was wondering if you have had a look at Jeremy's implementation yet?
