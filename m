@@ -1,51 +1,50 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x241.google.com (mail-ua0-x241.google.com
- [IPv6:2607:f8b0:400c:c08::241])
+Received: from mail-ua0-x242.google.com (mail-ua0-x242.google.com
+ [IPv6:2607:f8b0:400c:c08::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sgGlm5x8TzDsmZ
- for <openbmc@lists.ozlabs.org>; Fri, 23 Sep 2016 12:00:20 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sgLRv6xrGzDsm7
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Sep 2016 14:46:51 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=zxCmNvBt; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=uNRQrgfB; 
  dkim-atps=neutral
-Received: by mail-ua0-x241.google.com with SMTP id 107so786003uah.2
- for <openbmc@lists.ozlabs.org>; Thu, 22 Sep 2016 19:00:20 -0700 (PDT)
+Received: by mail-ua0-x242.google.com with SMTP id 107so925553uah.2
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Sep 2016 21:46:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=jRVuw6F64LFUJrpY2gFWX4u5I5GN3hv2qyLAoHwg0IM=;
- b=zxCmNvBtCyLK6jue2Uc6Fy3C1SBohJQFezVXAN76QPyJgKcwHTjk+tgkhCMW+a9NGr
- pQADY88gWuQ0befTd+Ust2XVI2nvRgmwzdA2w1J5DLrhOrvDskyFSYjdqahv3Q528L0X
- qwB7yEhv6TD5Nn6WF9lR1GC1SRREMv++7pQL/qeTl3x72B+PQe1EqnrhTRrz0Oj8biYf
- v0xpDtFo5qkeqmmsSMnF7B3BKeoia3eqjX6qy5uB8kOVJ5Jxy7a7PvUUdeBTKFEjmNCL
- GhEIbyMe1Ij8KM3E33vSjIuz2tu07RDSwqR5wHR9GrwVSqAWAxFbswZPUWoEXlB/g15T
- X7gA==
+ bh=L33DHwvi/57o+MN3WWoW3vLXzKUtF3NbOr+SwW+AvF8=;
+ b=uNRQrgfBQEGjHbmFKq6djiryNwOQOHJM/MLeO8cpad9h3MYueue5buQql7TVJVVIXe
+ aIOZmrAyUxl6krUP2sGBWuh4mheUNa2/HMbSLjoSBgdbOFMLNuSbjgVVg/Blrhcn7lTF
+ RFV8AFXqQ3cHqCyEl4GHsoUS7wCHMzhEfzBNgY5CTHbm2fat7kcI8a6p7SHGGlItzEAI
+ sdBvOr8omN8/9rrgkmjNgrhEXJhYAFB4D+xCJNFvkMlynka8ck28LyqImTw8SJ2Jq63k
+ dco1veeFHQUrjseWBYs3K03A6o/O0TQmbAtQymsh8G3dnlmdZ2Tpj70a/gdAoc/LZNf1
+ TfuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=jRVuw6F64LFUJrpY2gFWX4u5I5GN3hv2qyLAoHwg0IM=;
- b=jNd1l9SMSL881zi7O9COn+SN4eWssXcdA2YTb20jWDD90rextY/X8QXBjmnCKbrx6Q
- +qHqZQroglp6RHlIEu32AxDdqXxk2Eb2JkLwSg95wJGptE8HpTMYfffg/v2tuVUrEBco
- T9nzaI5E58BlAvtWRePgTN+TXTVSMbRQmP5O6Pph4kcUtHdnlIaLjFr31ACK2nSNDQgt
- vWlKih7VpyIKl+HMLn0i09sGEw/+5uo0lWrH5Ulsub9RIc0D+NYFwWL/2bJJ1DaCLdy5
- WZUd4lUncTr7ryc/2Ed0AavXdKc/x0hT+/45uZJxYf6+jfB/DFbb0Kcpq8caSEKeaxrd
- ijVA==
-X-Gm-Message-State: AE9vXwM6/fEGMMlH8UUZeHZ2PgDQkhlXhWdMIw+1FZWrg7OoEehOFDwwwRdgKgf8n9/hP8tSyuRNUcbhT+CBeA==
-X-Received: by 10.176.4.99 with SMTP id 90mr2037530uav.121.1474596017630; Thu,
- 22 Sep 2016 19:00:17 -0700 (PDT)
+ bh=L33DHwvi/57o+MN3WWoW3vLXzKUtF3NbOr+SwW+AvF8=;
+ b=fer9A0u6bxkzvxeZusZ8itWSmhwSQJwcEjfFpjQlpk16bKwPBWIEsR5Ym7JB9YlHqI
+ oLR9rU88FvkrcLsLZ0IftWxtKy08Adm/qIx5R+tvxnV8skvYalX7c3gUHVyPICfOReht
+ LuiupR0N/f1Kg+i+hJdpm/6FJwDaPNhr0yvrGAvRAx3QZlBX0e0kZEftUD6Xnr0COwRX
+ VHjlnWcFVl0v4l+EgqJfE8ylgYCTOWp2a2HaJgmUk5l15j+XUqYczicQsNo0VnjOCkJT
+ RiS77fa8fiC1Nv+y9FkkIuS2mRAbcKRI5bPAHzvEgkymlCVdGe3WtHWXaex/6VHagPYv
+ QIig==
+X-Gm-Message-State: AE9vXwO8J3SmAdK4MLTuROIYqrLA3BR3I072xcxF69sah3eXIUGjebVOtzTA5T48sqBDDbXAwkhrSplhTapANQ==
+X-Received: by 10.159.36.177 with SMTP id 46mr2984914uar.78.1474606008724;
+ Thu, 22 Sep 2016 21:46:48 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.176.7.71 with HTTP; Thu, 22 Sep 2016 18:59:57 -0700 (PDT)
-In-Reply-To: <1474306018-101166-1-git-send-email-maxims@google.com>
-References: <1474306018-101166-1-git-send-email-maxims@google.com>
+Received: by 10.176.7.71 with HTTP; Thu, 22 Sep 2016 21:46:28 -0700 (PDT)
+In-Reply-To: <1474590854-104677-1-git-send-email-xow@google.com>
+References: <1474590854-104677-1-git-send-email-xow@google.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 23 Sep 2016 11:29:57 +0930
-X-Google-Sender-Auth: FW5ygRVEC6FPY2ey5pMi-aF_T3U
-Message-ID: <CACPK8XeDxCquHHG3s=Mfvn4fuy06bmWx+gQqmgsB1rWP5c6mOg@mail.gmail.com>
-Subject: Re: [PATCH] aspeed/g5: Device Tree for ast2500 and eval board,
- I2C driver
-To: Maxim Sloyko <maxims@google.com>
+Date: Fri, 23 Sep 2016 14:16:28 +0930
+X-Google-Sender-Auth: 0fX_X3EbKAI5WGYQB5alD5J3jPM
+Message-ID: <CACPK8Xcw=7tTnzt9OSx3=uxWnyn_fY57FgYC2hDyzXUoZQ2i=g@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: Add Ingrasys Technology, Inc.
+To: Xo Wang <xow@google.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -59,65 +58,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Sep 2016 02:00:21 -0000
+X-List-Received-Date: Fri, 23 Sep 2016 04:46:53 -0000
 
-Hello Maxim,
+On Fri, Sep 23, 2016 at 10:04 AM, Xo Wang <xow@google.com> wrote:
+> Ingrasys designs and manufactures cloud hardware and is part of Foxconn
+> business group F: http://www.ingrasys.com/
 
-On Tue, Sep 20, 2016 at 2:56 AM,  <maxims@google.com> wrote:
-> From: Maxim Sloyko <maxims@google.com>
+Thanks, applied to dev-4.7 as 5df6ef640e58ec87fde655e466f1cbfc4cb68f56.
+
 >
-> The driver is limited: only single master mode is supported and only
-> byte-by-byte reads and writes are supported, no DMA or Pool Buffers.
-
-Has this code been ported from the kernel driver? If so, mention it in
-your commit message and/or a comment in the code. A comment about what
-needed to be modified in order to make it integrate in the u-boot tree
-would be helpful. Also mention where you copied the code from; which
-tree or commit.
-
-Be sure to incorporate any changes made to the upstream Linux driver
-as it goes through review.
-
-> Also, pin function configuration is performed by the I2C driver, because
-> there is no pinctrl driver at the moment.
-
-It looks like you've got several patches combined into one. To make it
-easier to review, try to have a separate patch for each feature you're
-adding.
-
+> Signed-off-by: Xo Wang <xow@google.com>
 > ---
->  arch/arm/dts/Makefile                       |   2 +
->  arch/arm/dts/aspeed-g5-evb.dts              |  28 ++
->  arch/arm/dts/aspeed-g5.dtsi                 | 392 ++++++++++++++++++++++++++++
-
-This would be one patch.
-
-I assume they came from the kernel tree? If so, mention this,
-including which tree/commit you got them from.
-
->  arch/arm/include/asm/arch-aspeed/ast_scu.h  |   6 +
->  arch/arm/include/asm/arch-aspeed/regs-scu.h |  74 +++---
-
-This would be another.
-
->  arch/arm/mach-aspeed/ast-scu.c              |  31 ++-
->  board/aspeed/ast-g5/ast-g5.c                |   2 +-
-
-I believe these integrate the i2c driver with the arch and the board.
-They should be separate commits.
-
->  configs/ast_g5_defconfig                    |   4 +-
-
-Updating the defconfig should be it's own patch.
-
->  drivers/i2c/Kconfig                         |   6 +
->  drivers/i2c/Makefile                        |   1 +
->  drivers/i2c/ast_i2c.c                       | 306 ++++++++++++++++++++++
->  drivers/i2c/ast_i2c.h                       | 155 +++++++++++
-
-Adding the i2c driver has nothing to do with the other functions, so
-that could be it's own patch.
-
-Cheers,
-
-Joel
+>  Documentation/devicetree/bindings/vendor-prefixes.txt | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.txt b/Documentation/devicetree/bindings/vendor-prefixes.txt
+> index 2c2500d..54e9182 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.txt
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.txt
+> @@ -130,6 +130,7 @@ iom Iomega Corporation
+>  img    Imagination Technologies Ltd.
+>  inforce        Inforce Computing
+>  ingenic        Ingenic Semiconductor
+> +ingrasys       Ingrasys Technology Inc.
+>  innolux        Innolux Corporation
+>  intel  Intel Corporation
+>  intercontrol   Inter Control Group
+> --
+> 2.8.0.rc3.226.g39d4020
+>
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
