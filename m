@@ -3,50 +3,51 @@ Received: from mail-ua0-x244.google.com (mail-ua0-x244.google.com
  [IPv6:2607:f8b0:400c:c08::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sgQLl137bzDsmd
- for <openbmc@lists.ozlabs.org>; Fri, 23 Sep 2016 17:42:39 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sgQRt0wLJzDsml
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Sep 2016 17:47:06 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=tScECARa; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=PxBza+uP; 
  dkim-atps=neutral
-Received: by mail-ua0-x244.google.com with SMTP id 15so1107571uai.3
- for <openbmc@lists.ozlabs.org>; Fri, 23 Sep 2016 00:42:39 -0700 (PDT)
+Received: by mail-ua0-x244.google.com with SMTP id 107so1115920uah.2
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Sep 2016 00:47:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=NYK9D/lRilcDPgWVOUvbnqOfh82ArWKQtVcR25H0Elg=;
- b=tScECARakoYPflG5ERmeIkT7EpftRvkLe042fkxMLTsVSwgIwqyCWBDiq9x7D9Qae4
- MxLiuSdWD733V2isk5Rjwk0j/+Gr1tcpikf1qyPaWIkXC21n3LD2YD2e/u1mrlsgM21w
- Yfl06+Obe4IiUOQ0d1fZlfjDheEEM9cXMYDUp3lftqwLM1vjCkIZRDpoAZ6uFnXwpMQt
- 9qwRyRcowqxeI6fUxK58Ngz9PY60bxGC/LD485ei1OAHLg8Xkvq1vqD0lqSk6sKWubIl
- EOQaweuqu86in1/sM0OzRWalFGDlYjVISDdvf6YJc4rl+XGRyAu/fHxHhZwSk7s9s9ck
- gnOg==
+ bh=hQhhYd1MnntTnEwDXfbO4fPipTFlDgQ3HlPYK2ntUe4=;
+ b=PxBza+uPAoNwi58oxSO3wJBEkzHb+w6STeNUdoUv+MOmIDRkoiTfUFI3gk7s5pDh8j
+ 3LayRVZ3PcK5qXUVpRX5HogjZGjnMLeHMKW9aIQQ52pssJZKHD4eDEW/7LuFTnY5C2fC
+ +rIDv7OCKXQjYIdSC2UFXg1LcXFByi0KBIO7FA4itqJNdnTNOFXTHeeHaG2KQBZC8Dx5
+ gO3f+rHxaJnxzoI49GbV1X6TV0/G5/QszfyZpOGGNR05uFmC4G/yry/sH4irbtc9gYFV
+ snXPtcjQQvUVcSnGNhxokUJvPa9Wf+ja4KuBiH8ipA9/b7YM6CZKbrPwFs7523IlC0Qw
+ YedQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=NYK9D/lRilcDPgWVOUvbnqOfh82ArWKQtVcR25H0Elg=;
- b=SIE/yJhKGHljtgtYN4iZp3PwXujOdyTF9dgcP7c36TbxMWqW0v7tRlc6lfBBAMaV5y
- 6SkePTLV04aa2KcX7S4iBZSE1PgPkN64poUQ18G3WKDnbx0MdBDIxHyzU0qLvlRBzww9
- Fd0+Te3VsAhL4NfcHCZ4B8g//1qD+6p/3euvkg09AGLHh/DYgL+swxxTbI+fi2RS66xq
- nFfLas6MMUDCAQqtfymK/4iS+2ovbyOYcl6CeVW5LqbVQcBRo78GkEMdRquugjDNKQIQ
- SGyqTMmc4NIqbWCZ1G/d/812GYALFf87mHQKTCUzCl6Zyp79ZqcvDnukhGffPHA5hbSL
- VEvQ==
-X-Gm-Message-State: AA6/9Rm9Uq9H779EfdtTrsbBlXku+qHx1qYztA5aiNn4gbAS4xu3bIXRoRn2vUeNXiV0wtukpwAQJ1ffMLDhLw==
-X-Received: by 10.176.3.206 with SMTP id 72mr2847669uau.145.1474616557187;
- Fri, 23 Sep 2016 00:42:37 -0700 (PDT)
+ bh=hQhhYd1MnntTnEwDXfbO4fPipTFlDgQ3HlPYK2ntUe4=;
+ b=TLlTdBusmd/Y4/2v9iWUwkiNHxHzK3iwNLr62C3mYqJQg5iGLf4fGay8IiT10BO8vU
+ A0WNI8V9n1LUlyASrG0F0NduJp1noUbd1RLVknBEqjD7lLOizNIKLimdtW4HX3Ltcn8d
+ GT7vz9jCfhmaVNSsyitnAil/5v9oL+5EPRfWJ1qGcdnbb9HaRjdDsrVmetcFduVLvo+D
+ 6oPzWMzeUSCSNb1O7W5vrzueshi+U6LLhP/Nh9HZgp4+OTCH6ZKLuyCjDf6RhTRivagV
+ OrY3Wjho12cWjCKEzvm2WzOKw1YU+1yNjIuqqeK4fuJ9rs488YddtQAcsshNzfXdupEp
+ /X5Q==
+X-Gm-Message-State: AA6/9RnqzJoPO4lnz1Y+Gvz1ymy+V1jXHue0D+iU8wML10kWFNUUSSxhGS5MJGFWkE0VwPHViamfhHNDdG58wg==
+X-Received: by 10.176.3.206 with SMTP id 72mr2856700uau.145.1474616824156;
+ Fri, 23 Sep 2016 00:47:04 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.176.7.71 with HTTP; Fri, 23 Sep 2016 00:42:16 -0700 (PDT)
-In-Reply-To: <1474058133-27363-17-git-send-email-tpearson@raptorengineering.com>
+Received: by 10.176.7.71 with HTTP; Fri, 23 Sep 2016 00:46:43 -0700 (PDT)
+In-Reply-To: <1474058133-27363-3-git-send-email-tpearson@raptorengineering.com>
 References: <1474058133-27363-1-git-send-email-tpearson@raptorengineering.com>
- <1474058133-27363-17-git-send-email-tpearson@raptorengineering.com>
+ <1474058133-27363-3-git-send-email-tpearson@raptorengineering.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 23 Sep 2016 17:12:16 +0930
-X-Google-Sender-Auth: KvYCVavW2E-lEZL3Hpcg7G0KwVA
-Message-ID: <CACPK8XdvqD3f10L5V01_F16xE0UVmN0gWstTThkd2PpNH+=1Mg@mail.gmail.com>
-Subject: Re: [PATCH 16/17] Add LED expander mapping to Firestone DT
-To: Timothy Pearson <tpearson@raptorengineering.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Fri, 23 Sep 2016 17:16:43 +0930
+X-Google-Sender-Auth: QS8Edz7R1Wd8tivppfvbhmffdPQ
+Message-ID: <CACPK8Xd9S9xkUzUp63YfJPTurypwtgcQ1BUAivpMGj+doOpU2g@mail.gmail.com>
+Subject: Re: [PATCH 02/17] net/phy: Expose 100base-T capability only
+To: Gavin Shan <gwshan@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Timothy Pearson <tpearson@raptorengineering.com>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -59,95 +60,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Sep 2016 07:42:39 -0000
+X-List-Received-Date: Fri, 23 Sep 2016 07:47:06 -0000
 
 On Sat, Sep 17, 2016 at 6:05 AM, Timothy Pearson
 <tpearson@raptorengineering.com> wrote:
-> There is a driver in the Linux kernel for the PCA9552 but it
-> is not yet devicetree-enabled.
+> From: Gavin Shan <gwshan@linux.vnet.ibm.com>
+>
+> I don't know the specific PHY model deployed on Firestone BMC, but
+> currently used one (PHY_ID_BCM54210E) isn't correct. BCM54210E
+> supports 1000base-T but the PHY on Firestone BMC shouldn't support
+> that mode as uboot uses 100base-T mode.
+>
+> When exposing 1000base-T capability, the MAC is forced to have the
+> same mode though the PHY is working in 100base-T mode in fact. It
+> causes the mode mismatch between PHY/MAC and the ethernet network
+> doesn't work.
+>
+> It's a temporary fix. After the PHY model is confirmed, we need
+> to enable the correct PHY driver instead current one for BCM54210E.
 
-I will hold off until we have the driver working and can define some
-bindings for it.
+Gavin, have we learnt any more about why this patch might be needed?
 
 Cheers,
 
 Joel
+
 >
-> Signed-off-by: Timothy Pearson <tpearson@raptorengineering.com>
+> Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
+>
+> [Cyril]
+> The plot thickens, it does appear that this IS the correct PHY on
+> firestones. This patch is definitely required for networking to be
+> functional though.
+>
+> Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
 > ---
->  arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts |   54 ++++++++++++++++++++++--
->  1 file changed, 50 insertions(+), 4 deletions(-)
+>  drivers/net/phy/broadcom.c |    2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> index 38f1b4b..8b25ba7 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> @@ -176,11 +176,57 @@
->         status = "okay";
->
->         leds@c0 {
-> -               compatible = "pca,pca9552led";
-> +               compatible = "nxp,pca9552";
->                 reg = <0x800000c0>;
-> -               // led9 - led_fault_n
-> -               // led10 - pwr_led_n
-> -               // led11 - rear_id_led_n
-> +
-> +               centaur_present_0 {
-> +                       //
-> +               };
-> +               centaur_present_1 {
-> +                       //
-> +               };
-> +               centaur_present_2 {
-> +                       //
-> +               };
-> +               centaur_present_3 {
-> +                       //
-> +               };
-> +               centaur_present_4 {
-> +                       //
-> +               };
-> +               centaur_present_5 {
-> +                       //
-> +               };
-> +               centaur_present_6 {
-> +                       //
-> +               };
-> +               centaur_present_7 {
-> +                       //
-> +               };
-> +               no-connect-0 {
-> +                       //
-> +               };
-> +               fault {
-> +                       //
-> +               };
-> +               power {
-> +                       //
-> +               };
-> +               identify-rear {
-> +                       //
-> +               };
-> +               no-connect-1 {
-> +                       //
-> +               };
-> +               power-supply-smbus-reset {
-> +                       //
-> +               };
-> +               spi-vid-standby-reset {
-> +                       //
-> +               };
-> +               apss-reset {
-> +                       //
-> +               };
->         };
->
->         rtc@d0 {
+> diff --git a/drivers/net/phy/broadcom.c b/drivers/net/phy/broadcom.c
+> index 2d5ba6a..4fd7c53 100644
+> --- a/drivers/net/phy/broadcom.c
+> +++ b/drivers/net/phy/broadcom.c
+> @@ -596,7 +596,7 @@ static struct phy_driver broadcom_drivers[] = {
+>         .phy_id         = PHY_ID_BCM54210E,
+>         .phy_id_mask    = 0xfffffff0,
+>         .name           = "Broadcom BCM54210E",
+> -       .features       = PHY_GBIT_FEATURES |
+> +       .features       = PHY_BASIC_FEATURES |
+>                                 SUPPORTED_Pause | SUPPORTED_Asym_Pause,
+>         .flags          = PHY_HAS_MAGICANEG | PHY_HAS_INTERRUPT,
+>         .config_init    = bcm54xx_config_init,
 > --
 > 1.7.9.5
 >
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
