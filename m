@@ -1,51 +1,50 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x242.google.com (mail-ua0-x242.google.com
- [IPv6:2607:f8b0:400c:c08::242])
+Received: from mail-ua0-x241.google.com (mail-ua0-x241.google.com
+ [IPv6:2607:f8b0:400c:c08::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sgPLc55dlzDsj3
- for <openbmc@lists.ozlabs.org>; Fri, 23 Sep 2016 16:57:28 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sgPlH57ppzDsmC
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Sep 2016 17:15:23 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=B3oY/NVf; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=T2NN3LOg; 
  dkim-atps=neutral
-Received: by mail-ua0-x242.google.com with SMTP id 51so1059604uac.1
- for <openbmc@lists.ozlabs.org>; Thu, 22 Sep 2016 23:57:28 -0700 (PDT)
+Received: by mail-ua0-x241.google.com with SMTP id 107so1076970uah.2
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Sep 2016 00:15:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=ZwUnLvblFoAszLfFCM+MJmGgVR5++d77ShBK2hr6tek=;
- b=B3oY/NVfsFXt4sEyPCVblBUgfrC51wGD6q1X0oimXbLGh/RzFprsIC1Bao7P7mIDCq
- /NGS+ke/DcvsP7StH4tReoySDq95Fj4PUPcDYHOvsRD3G0iUeznCY/MhSBdCkOop8R1r
- NHai9E1UrfWUopBK5NTI5px1R406HWwJuHranct3kpLby5QsIjv6sXO9MgnXAwFsuKNq
- gpn8EahH+vR/mAZgEDXLPbY5R4NNY1KRHmUBpYugazU7vOzme5IMiC9J3KJisEnA8WV0
- NjwvkxJYirTWZb+HXY0DeCiPNAD5/ObXncEAv6iin+AOMRzoApP5qnm8PS8bgykhauba
- OZqQ==
+ bh=95EBd8U52rYm+I9Opv7s7H6GzLCsZPo8W5n3zDLOurA=;
+ b=T2NN3LOg+IoNBkI+Fn7gDqc1jvjXMiRLZpQz1PRp4hX0lyxdaG6icyQxbZMb7r7pez
+ H7+o1jb5Nr7V/hviR++p9txHSWr4q9BeNWHV37kZD6qdAb4cEuPkGDAh5a2OS/6VJVp2
+ oeWNCuM2bqzldamKurJl0Y5k9FrOGZeCp/upeapMG0YrzSkA2tHhbr4BH7fhGX7+6SkY
+ lG9ZF95FCnOxra9Q+lJdyXBfUk5HI7Dt8oF24+34q+v4vg1OAVwnd8012HuSKruU1H7c
+ GniR41xGPC3Kl6OKHEaq/nI8o7VrXyc+5umk0LqppHymMR04QN2Lp9YZAqiUVgFc+GX3
+ wctw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=ZwUnLvblFoAszLfFCM+MJmGgVR5++d77ShBK2hr6tek=;
- b=LDUOmtUj1uQa6UU2HQXGX+RFmPnF3qGzOWnJeAIdsFrbmIRPX8aEPUPzjJ9LDfL8Sh
- S9YllT4GouwaJNaV37ZHQNicRIhF8voOF3jb3G+s/GqbwdIf+wLXwaeMggUb6rz95YFa
- REvIiA3ofBQc7tkpusp7b/6LxC4gnvmJNDbOj4PA9Zb2m2FkJKHv/47pM9CSAM8YE7Ia
- 0YAjSVHCS9/1tzBEyvfhE/eWQwDia+FHY7iI/M38Uh801C+ccJt2kjdTj7p/cqJaUHGm
- s5TI13buLycONEUbjd652pZqCGX3QyeZ0HC4kaZ47H8hfGnlscj/tpEkP4cjG0bZnU0S
- xPCA==
-X-Gm-Message-State: AA6/9Rk/i5nvtB/oP7tlr9XFWvALVqQPEFUa67OK+X6AyR66MwTYQoHEDjLA0gk5ZccF3P1kUV1iibBsjVlh3A==
-X-Received: by 10.176.3.206 with SMTP id 72mr2745831uau.145.1474613846211;
- Thu, 22 Sep 2016 23:57:26 -0700 (PDT)
+ bh=95EBd8U52rYm+I9Opv7s7H6GzLCsZPo8W5n3zDLOurA=;
+ b=RGri/mtKzEt9M1TQ7o7VJsux/uad0Wnhweci72xh0K8rb79gbStqJ95euN835B7wM6
+ 1gSQNTNPy8QUSF4gXLnZKzqtDjR1Wp/SQE5sjxKbei7uKlbKYEyp58KO9cyvzxSlC3/W
+ ScIgfdAGgk/96+nc2fmhRSg+Y6rADS3koxIhSvfPNwKjY51yD+U8UYhNPO3YWLjWm2yS
+ KzDt7mrd/KD2shmpzoWeOGeePUnEPnJTyinwO8N8bVQ/7XbQPdnhWssNQN+1tlP1iHDl
+ x+dz0YVT/qSYhrXFTERq9gGyuDpJWCiOgZCP/UlJY4UFD5BgQP7O70t07+wvbRK0hXWz
+ XCPw==
+X-Gm-Message-State: AA6/9RmAvsXnkyNEeruCsDt73L+3eC2KRvzXe6FqeQVz1nVEO/RMPXyb8E145Qg0ggMrSEd2sK/+u68yyR05eQ==
+X-Received: by 10.159.38.79 with SMTP id 73mr2687809uag.7.1474614921603; Fri,
+ 23 Sep 2016 00:15:21 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.176.7.71 with HTTP; Thu, 22 Sep 2016 23:57:05 -0700 (PDT)
-In-Reply-To: <1474058133-27363-5-git-send-email-tpearson@raptorengineering.com>
+Received: by 10.176.7.71 with HTTP; Fri, 23 Sep 2016 00:15:01 -0700 (PDT)
+In-Reply-To: <1474058133-27363-11-git-send-email-tpearson@raptorengineering.com>
 References: <1474058133-27363-1-git-send-email-tpearson@raptorengineering.com>
- <1474058133-27363-5-git-send-email-tpearson@raptorengineering.com>
+ <1474058133-27363-11-git-send-email-tpearson@raptorengineering.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 23 Sep 2016 16:27:05 +0930
-X-Google-Sender-Auth: BxoMBl53ZiQ5YQPe-jGEY6Uacp8
-Message-ID: <CACPK8XcGXcrZT1JYo5Y7LNwp07zm-i8TOH53TAWcdYN+B0u2GA@mail.gmail.com>
-Subject: Re: [PATCH 04/17] Allow no-hw-checksum override in devicetree outside
- of NCSI mode.
+Date: Fri, 23 Sep 2016 16:45:01 +0930
+X-Google-Sender-Auth: 28fxRkOsJR2Eg5LbahJmqykaE5Y
+Message-ID: <CACPK8XeDEDeEmtOxL+BZ_zgsqtxLSwpcSp1aoF_kEtLMsG=vnA@mail.gmail.com>
+Subject: Re: [PATCH 10/17] Add missing console UART to Firestone DT
 To: Timothy Pearson <tpearson@raptorengineering.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
@@ -60,40 +59,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Sep 2016 06:57:29 -0000
+X-List-Received-Date: Fri, 23 Sep 2016 07:15:24 -0000
 
 On Sat, Sep 17, 2016 at 6:05 AM, Timothy Pearson
 <tpearson@raptorengineering.com> wrote:
-> This is required for Firestone networking to function correctly.
+> This is required for the BMC serial console to function.
 >
-
-This should not be required. Can you please test without this patch
-and see if networking works?
-
-
 > Signed-off-by: Timothy Pearson <tpearson@raptorengineering.com>
-> ---
->  drivers/net/ethernet/faraday/ftgmac100.c |    3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->
-> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
-> index 778c625..3a6367d 100644
-> --- a/drivers/net/ethernet/faraday/ftgmac100.c
-> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
-> @@ -1423,8 +1423,7 @@ static int ftgmac100_probe(struct platform_device *pdev)
->          * in that case.
->          */
->         netdev->features = NETIF_F_IP_CSUM | NETIF_F_GRO;
-> -       if (priv->use_ncsi &&
-> -           of_get_property(pdev->dev.of_node, "no-hw-checksum", NULL))
-> +       if (of_get_property(pdev->dev.of_node, "no-hw-checksum", NULL))
->                 netdev->features &= ~NETIF_F_IP_CSUM;
->
->
-> --
-> 1.7.9.5
->
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+
+Applied to dev-4.7 as 7b57dfe39d113a776a359226cf7a173d55cd6966.
+
+Cheers,
+
+Joel
