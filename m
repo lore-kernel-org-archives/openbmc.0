@@ -3,37 +3,37 @@ Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sk3h71RLKzDrVV
- for <openbmc@lists.ozlabs.org>; Wed, 28 Sep 2016 00:51:51 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sk3hC5TZGzDrVT
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Sep 2016 00:51:55 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=SpwxN1vU; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=aEuOeIHk; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=X3FpVssk; dkim-atps=neutral
+ header.b=uv2qg3Dq; dkim-atps=neutral
 Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 33A58205B9;
- Tue, 27 Sep 2016 10:51:49 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id BE4EC206F1;
+ Tue, 27 Sep 2016 10:51:53 -0400 (EDT)
 Received: from frontend1 ([10.202.2.160])
- by compute7.internal (MEProxy); Tue, 27 Sep 2016 10:51:49 -0400
+ by compute7.internal (MEProxy); Tue, 27 Sep 2016 10:51:53 -0400
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
  :date:from:in-reply-to:in-reply-to:message-id:references
- :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=lyAAK
- CP4n+nRwdUaXc71Hs9jWe0=; b=SpwxN1vUlxnHwjqzXRodjDU1WjXpKRRR5rLDJ
- QpSI06Rz6VsgVkcOGrRBzaQbFB8V1FOVAGQsPjLkeWStZRbJ9XdN+s2SwJOkR9lF
- c9t8Eb62HQZSAJYDX5l4H6AwrUs1ChjBC95CsO2MlEFPV5ogtHKTlwBEvT1IWgKh
- iu25v8=
+ :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=P6FXi
+ zSdx6S2b2NiwZRnxO6pcAY=; b=aEuOeIHk+wE7SOkm7fYueHkHnz2ZReV3Kk82Q
+ EbcBy92bmpzbkghzQ75QrN6RPQrqMw5n1ccHHugsfsH4m/Qqk29VjfPw54H/jkkS
+ 9joxfGexj4Yj2HKuqLmNXV05GvcYbAX5t0EjkTw0fE+RUB9ZVw3zr8T5mq96VCgg
+ FGxoEE=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:date:from:in-reply-to:in-reply-to
  :message-id:references:references:subject:to:x-sasl-enc
- :x-sasl-enc; s=smtpout; bh=lyAAKCP4n+nRwdUaXc71Hs9jWe0=; b=X3FpV
- sskdUOY2j9wxd6CECQ41ZynW6ZEY2Y+r/LxuuaLdq3M91HJnnhL7v21qX1d0Mu3A
- /+G2baqzAiT+cUvr5LlLZpG3qLmX0J76GZIE9imjCJR6SmISwIcwgjV4GnqAe03Q
- 2gz3b43pc0TWzaOyMNMS9HexKGdOkjLaXQ1G2A=
-X-Sasl-enc: /ajSQMgYL+T8G72xHMVtRbHKfxge1TB/DUWO8YNdBaNY 1474987908
+ :x-sasl-enc; s=smtpout; bh=P6FXizSdx6S2b2NiwZRnxO6pcAY=; b=uv2qg
+ 3DqFCT/38fYRwrIpcp7BS3hq4Vk5n+ZznElJyTpm3amRPFrPAPsQvdPVxfDJR0aW
+ L8Hkf6ZxY1z3Vl1xFDKVeOGw//mQubmIM0UQyOM4O1M4RxPSw3z5eJc5Lseoey4n
+ YXXRRHXHAIf0FNR4fh8H/bpdPfotZyc+zEf3tU=
+X-Sasl-enc: jAzxUhnzn8of1yA+k/7EWvCTGw0JyTgImEbWqkwu6hgf 1474987912
 Received: from keelia.au.ibm.com (ppp203-122-213-247.static.internode.on.net
  [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 2CD0EF29CC;
- Tue, 27 Sep 2016 10:51:44 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id A882CF29CE;
+ Tue, 27 Sep 2016 10:51:49 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Linus Walleij <linus.walleij@linaro.org>
 Cc: Joel Stanley <joel@jms.id.au>, Mark Rutland <mark.rutland@arm.com>,
@@ -41,9 +41,9 @@ Cc: Joel Stanley <joel@jms.id.au>, Mark Rutland <mark.rutland@arm.com>,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
  Andrew Jeffery <andrew@aj.id.au>
-Subject: [PATCH 2/8] pinctrl: aspeed-g5: Fix names of GPID2 pins
-Date: Wed, 28 Sep 2016 00:20:14 +0930
-Message-Id: <69eda17c16684f4212a9f3e64d9587abfcc7ae74.1474986045.git-series.andrew@aj.id.au>
+Subject: [PATCH 3/8] pinctrl: aspeed-g5: Fix GPIOE1 typo
+Date: Wed, 28 Sep 2016 00:20:15 +0930
+Message-Id: <9364de84d3be30a5349298e219ca827d176d7ba8.1474986045.git-series.andrew@aj.id.au>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <cover.115463f791b69859c5ce9dafd61a5755ea039f4b.1474986045.git-series.andrew@aj.id.au>
 References: <cover.115463f791b69859c5ce9dafd61a5755ea039f4b.1474986045.git-series.andrew@aj.id.au>
@@ -61,64 +61,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Sep 2016 14:51:51 -0000
+X-List-Received-Date: Tue, 27 Sep 2016 14:51:56 -0000
 
-Fixes simple typos in the initial commit. There is no behavioural
-change.
+This prevented C20 from successfully being muxed as GPIO.
 
 Fixes: 56e57cb6c07f (pinctrl: Add pinctrl-aspeed-g5 driver)
-Reported-by: Xo Wang <xow@google.com>
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
-index e1ab864e1a7f..14639834a5eb 100644
+index 14639834a5eb..235d929e74fd 100644
 --- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
 +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
-@@ -151,21 +151,21 @@ FUNC_GROUP_DECL(GPID0, F19, E21);
+@@ -182,7 +182,7 @@ SIG_EXPR_LIST_DECL_SINGLE(NDCD3, NDCD3, SIG_DESC_SET(SCU80, 17));
+ SIG_EXPR_DECL(GPIE0OUT, GPIE0, GPIE0_DESC);
+ SIG_EXPR_DECL(GPIE0OUT, GPIE, GPIE_DESC);
+ SIG_EXPR_LIST_DECL_DUAL(GPIE0OUT, GPIE0, GPIE);
+-MS_PIN_DECL(C20, GPIE0, NDCD3, GPIE0OUT);
++MS_PIN_DECL(C20, GPIOE1, NDCD3, GPIE0OUT);
  
- #define GPID2_DESC      SIG_DESC_SET(SCU8C, 9)
+ FUNC_GROUP_DECL(GPIE0, B20, C20);
  
--#define D20 26
-+#define F20 26
- SIG_EXPR_LIST_DECL_SINGLE(SD2DAT0, SD2, SD2_DESC);
- SIG_EXPR_DECL(GPID2IN, GPID2, GPID2_DESC);
- SIG_EXPR_DECL(GPID2IN, GPID, GPID_DESC);
- SIG_EXPR_LIST_DECL_DUAL(GPID2IN, GPID2, GPID);
--MS_PIN_DECL(D20, GPIOD2, SD2DAT0, GPID2IN);
-+MS_PIN_DECL(F20, GPIOD2, SD2DAT0, GPID2IN);
- 
--#define D21 27
-+#define D20 27
- SIG_EXPR_LIST_DECL_SINGLE(SD2DAT1, SD2, SD2_DESC);
- SIG_EXPR_DECL(GPID2OUT, GPID2, GPID2_DESC);
- SIG_EXPR_DECL(GPID2OUT, GPID, GPID_DESC);
- SIG_EXPR_LIST_DECL_DUAL(GPID2OUT, GPID2, GPID);
--MS_PIN_DECL(D21, GPIOD3, SD2DAT1, GPID2OUT);
-+MS_PIN_DECL(D20, GPIOD3, SD2DAT1, GPID2OUT);
- 
--FUNC_GROUP_DECL(GPID2, D20, D21);
-+FUNC_GROUP_DECL(GPID2, F20, D20);
- 
- #define GPIE_DESC	SIG_DESC_SET(HW_STRAP1, 21)
- #define GPIE0_DESC	SIG_DESC_SET(SCU8C, 12)
-@@ -614,7 +614,6 @@ static struct pinctrl_pin_desc aspeed_g5_pins[ASPEED_G5_NR_PINS] = {
- 	ASPEED_PINCTRL_PIN(D10),
- 	ASPEED_PINCTRL_PIN(D2),
- 	ASPEED_PINCTRL_PIN(D20),
--	ASPEED_PINCTRL_PIN(D21),
- 	ASPEED_PINCTRL_PIN(D4),
- 	ASPEED_PINCTRL_PIN(D5),
- 	ASPEED_PINCTRL_PIN(D6),
-@@ -630,6 +629,7 @@ static struct pinctrl_pin_desc aspeed_g5_pins[ASPEED_G5_NR_PINS] = {
- 	ASPEED_PINCTRL_PIN(E7),
- 	ASPEED_PINCTRL_PIN(E9),
- 	ASPEED_PINCTRL_PIN(F19),
-+	ASPEED_PINCTRL_PIN(F20),
- 	ASPEED_PINCTRL_PIN(F9),
- 	ASPEED_PINCTRL_PIN(H20),
- 	ASPEED_PINCTRL_PIN(L1),
 -- 
 git-series 0.8.10
