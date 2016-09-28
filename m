@@ -1,52 +1,52 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-pf0-x244.google.com (mail-pf0-x244.google.com
- [IPv6:2607:f8b0:400e:c00::244])
+Received: from mail-pa0-x241.google.com (mail-pa0-x241.google.com
+ [IPv6:2607:f8b0:400e:c03::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3skRHF0TXPzDrVM
- for <openbmc@lists.ozlabs.org>; Wed, 28 Sep 2016 15:35:05 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3skRPX1rxtzDrKc
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Sep 2016 15:40:32 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=uA/L1lQ2; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=O+VpDd5t; 
  dkim-atps=neutral
-Received: by mail-pf0-x244.google.com with SMTP id 21so1659790pfy.1
- for <openbmc@lists.ozlabs.org>; Tue, 27 Sep 2016 22:35:04 -0700 (PDT)
+Received: by mail-pa0-x241.google.com with SMTP id my20so1594973pab.3
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Sep 2016 22:40:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=sender:message-id:subject:from:to:date:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=LvgluvS1ZfDTpI61LqXTi0KlmjuYFTdpguMiy9O5Qp0=;
- b=uA/L1lQ2N+I4tBKh6oIc18Ban7Th9EWYhT9iEe95l7bBJdDKdaJ0wpgKdD07oidFQ5
- IVli2oOIjCG8pQBEWNtfUptpWqA+4f8uG6NViFH5GRhuLy19vVKqx4MThDdIxXug5xZ6
- H92TVH7Duq33Ut/2rC/QYgascNfSmKF1DmQlAQPCfun/LpNGbMuxr4mzfEVfuz4oTub/
- CY9xc9gX2egHkz9rf5A14sPB47sjmo6OcfV3NqvDBl9JMn12gB+OLaYUl5/8VMBsnssT
- CcQuGeVVwzTokvphsPhetYAijzdxWtHMGp5RI32zwUJ7ugQamOKprAc4df93INeDXcDG
- Ju3Q==
+ bh=5S4pLAc3lKD25oQ2orc+tF/mzU6tz256GX/tao3J/Do=;
+ b=O+VpDd5tPgxq3tCQUCV5tUcGzmFVpvPCg9evloLW6eunmmpkpfE82MXvB/h7DyzfIU
+ l6+1xq62C08iYdJ40pCcHTIu+Cee23RHXGnR6jOK9QkmWrIJIYURn+qJx8lKZdaEvwD/
+ pqIYYorozVUymQazSCpPJP5HPJRDirfeWwTza3l2cuzAc1QX72opxuQVdub8rUHn7Pu5
+ mIoY2DGwNsAiCkHfMBA1076COL/s8isJKVqiif6EKrL47rfK3NiukkoHy5rQCbRhZC/+
+ +T8QvTFr95abTT7eNsbGrjC84kacw6wyIz+deWWD9pfgVnsn4PQdXJvORdRUcoSaZoiL
+ wNpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:sender:message-id:subject:from:to:date
  :in-reply-to:references:mime-version:content-transfer-encoding;
- bh=LvgluvS1ZfDTpI61LqXTi0KlmjuYFTdpguMiy9O5Qp0=;
- b=mhErk99ccHQMG04rpmI9zH7IUyVPl5G5R+lelpRex5FP4XXKUE2IvGl8CyDzDlZij/
- EiT1+m0iij1BrNHJVDCFVAZ1NIvT4bZBPMMAkzwhpL1N+C6PP4QdgHFZBofleAnupze3
- GF0kbsx36DzpdO//Kn2m1w97q9FR/kSDhbubBpPuReqkOlv4X6vAnPhARmyWXW00n++l
- icZcWr2Up5jt9UsdbZxmgoLRkIozO/w/Olv8yUO/wif4obVCWOmiOiBtAyu4+1S+NZQB
- l1wxLb7UWgmggf2Hu/X/lue2j4QBb7ks2WAww8xHVM68OL9l9cqEUepOnv26SvvkvocZ
- D88w==
-X-Gm-Message-State: AE9vXwMDcgOONnFfFtHCjNMCKcbz1iMkw+91NXZZ4TWYdOEQS1B8Y5wOlAiEyy9hz6RnkQ==
-X-Received: by 10.98.214.92 with SMTP id r89mr54732006pfg.43.1475040903497;
- Tue, 27 Sep 2016 22:35:03 -0700 (PDT)
+ bh=5S4pLAc3lKD25oQ2orc+tF/mzU6tz256GX/tao3J/Do=;
+ b=SSY/MmyQwh7PJ15FPsQPgCOypaBTjKVlJMSD4y6rRhHaT446jHMpfFd6FZCorX9Ff3
+ PjM7zRCP6sAY7586xZcXmSrmk9wgc5GUBKiDwJsLlJN6Vuy4SYkhtIqLQByzGiPBU0MG
+ wxKVX7WqY/xRI7ain8ydWrnUfoPAqcZE7TzD2AoaPoZ/IjoI9FmXekuNSjo6iEHh3FrD
+ QPY6UziAEhCx0rFHKsZgcB3e68XhBI7hW3HylM4o7TCx/2vA1nx2eM82S6OivVmFPisJ
+ pteUrHZaYvpckhiEI8IfJK2EWY4ALhgVMUZNmcNMWUR+pW902Mn1BxoGOcf3zk4kXk0g
+ fCeA==
+X-Gm-Message-State: AE9vXwPDwg3rdJYvjvHCt6p3IOUseacVZDaQy/wQe4/TmF5+DKgflrfvV7uFpZkJLKGRbw==
+X-Received: by 10.66.134.51 with SMTP id ph19mr54820734pab.30.1475041230491;
+ Tue, 27 Sep 2016 22:40:30 -0700 (PDT)
 Received: from aurora152 ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id s82sm8766619pfg.42.2016.09.27.22.35.01
+ by smtp.gmail.com with ESMTPSA id tw2sm8795955pac.41.2016.09.27.22.40.28
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 27 Sep 2016 22:35:02 -0700 (PDT)
+ Tue, 27 Sep 2016 22:40:29 -0700 (PDT)
 Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Message-ID: <1475040899.9493.5.camel@jms.id.au>
-Subject: Re: [PATCH v4.7 4/7] net/ncsi: Rework request index allocation
+Message-ID: <1475041217.9493.8.camel@jms.id.au>
+Subject: Re: [PATCH v4.7 5/7] net/ncsi: Allow to extend NCSI request properties
 From: Joel Stanley <joel@jms.id.au>
 To: Gavin Shan <gwshan@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Date: Wed, 28 Sep 2016 15:04:59 +0930
-In-Reply-To: <1475030915-9525-4-git-send-email-gwshan@linux.vnet.ibm.com>
+Date: Wed, 28 Sep 2016 15:10:17 +0930
+In-Reply-To: <1475030915-9525-5-git-send-email-gwshan@linux.vnet.ibm.com>
 References: <1475030915-9525-1-git-send-email-gwshan@linux.vnet.ibm.com>
- <1475030915-9525-4-git-send-email-gwshan@linux.vnet.ibm.com>
+ <1475030915-9525-5-git-send-email-gwshan@linux.vnet.ibm.com>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailer: Evolution 3.21.91-1ubuntu1 
 Mime-Version: 1.0
@@ -62,97 +62,199 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Sep 2016 05:35:05 -0000
+X-List-Received-Date: Wed, 28 Sep 2016 05:40:32 -0000
 
 On Wed, 2016-09-28 at 12:48 +1000, Gavin Shan wrote:
-> This reworks request index allocation for: (A) @ndp->request_id
-> should
-> represent last allocated request index instead of accumulated request
-> indexes; (B) The request index (1) is reserved according to section
-> 6.3.1.1 in v1.1.0 NCSI spec.
+> There is only one NCSI request property for now: the response for
+> the sent command need drive the workqueue or not. So we had one
+> field (@driven) for the purpose. We lost the flexibility to extend
+> NCSI request properties.
+> 
+> This replaces @driven with @flags and @req_flags in NCSI request
+> and NCSI command argument struct. Each bit of the newly introduced
+> field can be used for one property. No functional changes introduced.
 > 
 > Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
 
-The commit message could be clearer. Code makes sense though.
-
-Signed-off-by: Joel Stanley <joel@jms.id.au>
+Reviewed-by: Joel Stanley <joel@jms.id.au>
 
 > ---
->  net/ncsi/internal.h    |  1 +
->  net/ncsi/ncsi-manage.c | 17 +++++++++--------
->  2 files changed, 10 insertions(+), 8 deletions(-)
+>  net/ncsi/internal.h    |  8 +++++---
+>  net/ncsi/ncsi-cmd.c    |  2 +-
+>  net/ncsi/ncsi-manage.c | 19 ++++++++++---------
+>  net/ncsi/ncsi-rsp.c    |  2 +-
+>  4 files changed, 17 insertions(+), 14 deletions(-)
 > 
 > diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-> index 0a5c580..821f1d3 100644
+> index 821f1d3..a2e3af9 100644
 > --- a/net/ncsi/internal.h
 > +++ b/net/ncsi/internal.h
-> @@ -259,6 +259,7 @@ struct ncsi_dev_priv {
->  	struct list_head    packages;        /* List of
-> packages           */
->  	struct ncsi_request requests[256];   /* Request
-> table              */
->  	unsigned int        request_id;      /* Last used request
-> ID       */
-> +#define NCSI_REQ_START_IDX	1
->  	unsigned int        pending_req_num; /* Number of pending
-> requests */
->  	struct ncsi_package *active_package; /* Currently handled
-> package  */
->  	struct ncsi_channel *active_channel; /* Currently handled
-> channel  */
+> @@ -207,7 +207,8 @@ struct ncsi_package {
+>  struct ncsi_request {
+>  	unsigned char        id;      /* Request ID - 0 to
+> 255           */
+>  	bool                 used;    /* Request that has been
+> assigned  */
+> -	bool                 driven;  /* Drive state
+> machine             */
+> +	unsigned int         flags;   /* NCSI request
+> property           */
+> +#define NCSI_REQ_FLAG_EVENT_DRIVEN	1
+>  	struct ncsi_dev_priv *ndp;    /* Associated NCSI
+> device          */
+>  	struct sk_buff       *cmd;    /* Associated NCSI command
+> packet  */
+>  	struct sk_buff       *rsp;    /* Associated NCSI response
+> packet */
+> @@ -276,7 +277,7 @@ struct ncsi_cmd_arg {
+>  	unsigned char        package;     /* Destination package
+> ID        */
+>  	unsigned char        channel;     /* Detination channel ID
+> or 0x1f */
+>  	unsigned short       payload;     /* Command packet payload
+> length */
+> -	bool                 driven;      /* Drive the state
+> machine?      */
+> +	unsigned int         req_flags;   /* NCSI request
+> properties       */
+>  	union {
+>  		unsigned char  bytes[16]; /* Command packet specific
+> data  */
+>  		unsigned short words[8];
+> @@ -315,7 +316,8 @@ void ncsi_find_package_and_channel(struct
+> ncsi_dev_priv *ndp,
+>  				   unsigned char id,
+>  				   struct ncsi_package **np,
+>  				   struct ncsi_channel **nc);
+> -struct ncsi_request *ncsi_alloc_request(struct ncsi_dev_priv *ndp,
+> bool driven);
+> +struct ncsi_request *ncsi_alloc_request(struct ncsi_dev_priv *ndp,
+> +					unsigned int req_flags);
+>  void ncsi_free_request(struct ncsi_request *nr);
+>  struct ncsi_dev *ncsi_find_dev(struct net_device *dev);
+>  int ncsi_process_next_channel(struct ncsi_dev_priv *ndp);
+> diff --git a/net/ncsi/ncsi-cmd.c b/net/ncsi/ncsi-cmd.c
+> index 21057a8..db7083b 100644
+> --- a/net/ncsi/ncsi-cmd.c
+> +++ b/net/ncsi/ncsi-cmd.c
+> @@ -272,7 +272,7 @@ static struct ncsi_request
+> *ncsi_alloc_command(struct ncsi_cmd_arg *nca)
+>  	struct sk_buff *skb;
+>  	struct ncsi_request *nr;
+>  
+> -	nr = ncsi_alloc_request(ndp, nca->driven);
+> +	nr = ncsi_alloc_request(ndp, nca->req_flags);
+>  	if (!nr)
+>  		return NULL;
+>  
 > diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-> index 8011d51..282be06 100644
+> index 282be06..3019432 100644
 > --- a/net/ncsi/ncsi-manage.c
 > +++ b/net/ncsi/ncsi-manage.c
-> @@ -415,30 +415,31 @@ struct ncsi_request *ncsi_alloc_request(struct
+> @@ -186,7 +186,7 @@ static void ncsi_channel_monitor(unsigned long
+> data)
+>  		nca.package = np->id;
+>  		nca.channel = nc->id;
+>  		nca.type = NCSI_PKT_CMD_GLS;
+> -		nca.driven = false;
+> +		nca.req_flags = 0;
+>  		ret = ncsi_xmit_cmd(&nca);
+>  		if (ret) {
+>  			netdev_err(ndp->ndev.dev, "Error %d sending
+> GLS\n",
+> @@ -407,7 +407,8 @@ void ncsi_find_package_and_channel(struct
+> ncsi_dev_priv *ndp,
+>   * be same. Otherwise, the bogus response might be replied. So
+>   * the available IDs are allocated in round-robin fashion.
+>   */
+> -struct ncsi_request *ncsi_alloc_request(struct ncsi_dev_priv *ndp,
+> bool driven)
+> +struct ncsi_request *ncsi_alloc_request(struct ncsi_dev_priv *ndp,
+> +					unsigned int req_flags)
+>  {
+>  	struct ncsi_request *nr = NULL;
+>  	int i, limit = ARRAY_SIZE(ndp->requests);
+> @@ -421,7 +422,7 @@ struct ncsi_request *ncsi_alloc_request(struct
 > ncsi_dev_priv *ndp, bool driven)
 >  
->  	/* Check if there is one available request until the ceiling
-> */
->  	spin_lock_irqsave(&ndp->lock, flags);
-> -	for (i = ndp->request_id; !nr && i < limit; i++) {
-> +	for (i = ndp->request_id; i < limit; i++) {
->  		if (ndp->requests[i].used)
->  			continue;
+>  		nr = &ndp->requests[i];
+>  		nr->used = true;
+> -		nr->driven = driven;
+> +		nr->flags = req_flags;
+>  		ndp->request_id = i + 1;
+>  		goto found;
+>  	}
+> @@ -433,7 +434,7 @@ struct ncsi_request *ncsi_alloc_request(struct
+> ncsi_dev_priv *ndp, bool driven)
 >  
 >  		nr = &ndp->requests[i];
 >  		nr->used = true;
->  		nr->driven = driven;
-> -		if (++ndp->request_id >= limit)
-> -			ndp->request_id = 0;
-> +		ndp->request_id = i + 1;
-> +		goto found;
+> -		nr->driven = driven;
+> +		nr->flags = req_flags;
+>  		ndp->request_id = i + 1;
+>  		goto found;
 >  	}
+> @@ -461,7 +462,7 @@ void ncsi_free_request(struct ncsi_request *nr)
+>  	nr->cmd = NULL;
+>  	nr->rsp = NULL;
+>  	nr->used = false;
+> -	driven = nr->driven;
+> +	driven = !!(nr->flags & NCSI_REQ_FLAG_EVENT_DRIVEN);
+>  	spin_unlock_irqrestore(&ndp->lock, flags);
 >  
->  	/* Fail back to check from the starting cursor */
-> -	for (i = 0; !nr && i < ndp->request_id; i++) {
-> +	for (i = NCSI_REQ_START_IDX; i < ndp->request_id; i++) {
->  		if (ndp->requests[i].used)
->  			continue;
+>  	if (driven && cmd && --ndp->pending_req_num == 0)
+> @@ -514,7 +515,7 @@ static void ncsi_suspend_channel(struct
+> ncsi_dev_priv *ndp)
+>  	int ret;
 >  
->  		nr = &ndp->requests[i];
->  		nr->used = true;
->  		nr->driven = driven;
-> -		if (++ndp->request_id >= limit)
-> -			ndp->request_id = 0;
-> +		ndp->request_id = i + 1;
-> +		goto found;
->  	}
-> -	spin_unlock_irqrestore(&ndp->lock, flags);
+>  	nca.ndp = ndp;
+> -	nca.driven = true;
+> +	nca.req_flags = NCSI_REQ_FLAG_EVENT_DRIVEN;
+>  	switch (nd->state) {
+>  	case ncsi_dev_state_suspend:
+>  		nd->state = ncsi_dev_state_suspend_select;
+> @@ -580,7 +581,7 @@ static void ncsi_configure_channel(struct
+> ncsi_dev_priv *ndp)
+>  	int ret;
 >  
-> +found:
-> +	spin_unlock_irqrestore(&ndp->lock, flags);
->  	return nr;
->  }
+>  	nca.ndp = ndp;
+> -	nca.driven = true;
+> +	nca.req_flags = NCSI_REQ_FLAG_EVENT_DRIVEN;
+>  	switch (nd->state) {
+>  	case ncsi_dev_state_config:
+>  	case ncsi_dev_state_config_sp:
+> @@ -801,7 +802,7 @@ static void ncsi_probe_channel(struct
+> ncsi_dev_priv *ndp)
+>  	int ret;
 >  
-> @@ -1121,7 +1122,7 @@ struct ncsi_dev *ncsi_register_dev(struct
-> net_device *dev,
->  	/* Initialize private NCSI device */
->  	spin_lock_init(&ndp->lock);
->  	INIT_LIST_HEAD(&ndp->packages);
-> -	ndp->request_id = 0;
-> +	ndp->request_id = NCSI_REQ_START_IDX;
->  	for (i = 0; i < ARRAY_SIZE(ndp->requests); i++) {
->  		ndp->requests[i].id = i;
->  		ndp->requests[i].ndp = ndp;
+>  	nca.ndp = ndp;
+> -	nca.driven = true;
+> +	nca.req_flags = NCSI_REQ_FLAG_EVENT_DRIVEN;
+>  	switch (nd->state) {
+>  	case ncsi_dev_state_probe:
+>  		nd->state = ncsi_dev_state_probe_deselect;
+> @@ -1074,7 +1075,7 @@ static int ncsi_inet6addr_event(struct
+> notifier_block *this,
+>  		return NOTIFY_OK;
+>  
+>  	nca.ndp = ndp;
+> -	nca.driven = false;
+> +	nca.req_flags = 0;
+>  	nca.package = np->id;
+>  	nca.channel = nc->id;
+>  	nca.dwords[0] = nc->caps[NCSI_CAP_MC].cap;
+> diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
+> index 54f7eed..1429e8b 100644
+> --- a/net/ncsi/ncsi-rsp.c
+> +++ b/net/ncsi/ncsi-rsp.c
+> @@ -317,7 +317,7 @@ static int ncsi_rsp_handler_gls(struct
+> ncsi_request *nr)
+>  	ncm->data[3] = ntohl(rsp->other);
+>  	ncm->data[4] = ntohl(rsp->oem_status);
+>  
+> -	if (nr->driven)
+> +	if (nr->flags & NCSI_REQ_FLAG_EVENT_DRIVEN)
+>  		return 0;
+>  
+>  	/* Reset the channel monitor if it has been enabled */
 > 
