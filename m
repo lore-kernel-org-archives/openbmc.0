@@ -1,52 +1,52 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-pf0-x244.google.com (mail-pf0-x244.google.com
- [IPv6:2607:f8b0:400e:c00::244])
+Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
+ [IPv6:2607:f8b0:400e:c00::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3skRdK6tgwzDrXJ
- for <openbmc@lists.ozlabs.org>; Wed, 28 Sep 2016 15:50:45 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3skRf553l4zDrXJ
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Sep 2016 15:51:25 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=wnx5SE3G; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=FDM5oixl; 
  dkim-atps=neutral
-Received: by mail-pf0-x244.google.com with SMTP id 6so1670154pfl.2
- for <openbmc@lists.ozlabs.org>; Tue, 27 Sep 2016 22:50:45 -0700 (PDT)
+Received: by mail-pf0-x241.google.com with SMTP id q2so1674101pfj.0
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Sep 2016 22:51:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=sender:message-id:subject:from:to:date:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=bAusAqOCsv2b4C2RFsY0JsLUlwY7a1og+5ysEnEQEyQ=;
- b=wnx5SE3GIpxRIaEy5YsObhYS2XPhQQTuAqQkFjxw0JiiyTZBjlzRuOZExr8n13a25V
- 4xhhQNOsSk8ZAJ/ichOHec3yMXAeWGTMLgNu50ZPZD5UOGLyIZPItpBZ5iX0aU2NRDdf
- LvHcWAVruo48803SYHPlR2kJzCga6Ec9t3JWede+qK2FB3+JZpXvIDkllkySdExQi49w
- v3S2KbMLfBwB2UeZGcXOLPfUcnqa9QgFhcwsxTJapyvAXdWmGo+DlJ7Jf4iHJsO6ugud
- WCmwrcNhc8cp1wQ1G7To6iGKQMjWhEGS+eEBw7OnhjBZO8kV1nOn2lAqY0JVHZbZefkU
- KFDg==
+ bh=7RC1p8FF6129yWz8gMyQTgyJR09YqeDoyxqNB/RsdWw=;
+ b=FDM5oixl3uRzbC3s0sa6COKwX+khYeEU6iYkdBlEl3FobFx6uCmouCyelaRiUMITQd
+ XrHybS3YNIztTYLy0ZMf082Djs7euFtIOHXui9HcmAvSdh1Gxw8+J7oxWVYKB7NciQF3
+ Fs25aa+wNq2cbru2AInbvvWKUtnRiaqwLLQViD8l2OtOfGNeNVw59WGKuBZmdsGICxkI
+ fr40IprE0p5biDZ77o4Ay9Nmq5e467l52rYrUJBLVf8Dqz9+CDhb0hjS/FSaJI1Sph/i
+ YqETXPSO0/mUVaV8sAm41dwEDVdMva5swdlxNh/jI65w/eUqlqfDCQmMo5S+dlnU4Y0M
+ xRlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:sender:message-id:subject:from:to:date
  :in-reply-to:references:mime-version:content-transfer-encoding;
- bh=bAusAqOCsv2b4C2RFsY0JsLUlwY7a1og+5ysEnEQEyQ=;
- b=DrXaxL97Eb/sZvzUb0cJVt2gf8xzHEyKiC3Yh9Y5DSsv0oIp0frOwmzLNhQl7eyeuy
- 8PklgKRvoWHX+ksLDLhcwU99rKTyzgyGtUahJVvI6jpQyG5ubDX9eaUaCtYrtBB09QtS
- UTj7+ulxL8lIlJe4VMEZ5+S2iwdaH+6qo9EmS36Ll0nEEobK8VYjpHRA6mn52+5TJT6T
- BhPnzO4B8AiV9AGfOdRjkwoEAM0ZNucO+/ALDGijPaadr93dKGOMvShgW0u3tIb9bUdR
- nFqLtw0PvUW5f9aE5BbDWRHGOSUuAcjlgay+Ogv57HarPFUCjdv9mACfyoTGa5wZMaF6
- TmcQ==
-X-Gm-Message-State: AE9vXwPji9Go6Ld/TQBORZH4C0xM2cLaZRvFcSmVNU6qjiC6nV9mDcWm3t1iAsuVZYU9WA==
-X-Received: by 10.98.129.131 with SMTP id t125mr54973564pfd.157.1475041843570; 
- Tue, 27 Sep 2016 22:50:43 -0700 (PDT)
+ bh=7RC1p8FF6129yWz8gMyQTgyJR09YqeDoyxqNB/RsdWw=;
+ b=RTtnlmOb9E+03gSEBbQcmKy55f2TU5CidsrGbjRnnTlMbEMeRFoXltB9nWN68K7SkF
+ dbzkWAvE4SdONfnJsoMBQxXpwAHa0h9kjF09PGkqg+Jj5wzZ3b55LdcMUTkcJlD7Ec1Y
+ +k0XofEvWHUZwWx+jhk5BC/aJR6nM7EP1GnOtgLzJjfb8qnOaVSwg62n/YnDC86yuARl
+ KUPtnVAsFOaR3MeEyahJwsWXdHELEoxYo6Ca7esjOF25tfH7QHjLfB8PqJpGUtnF5owS
+ WW/JwPOp8APxcO9PvKhWGD14PjipRfHt90TKQkQPkEqE7wdQocwg4MWZgwuqKCwIXYaj
+ c+nA==
+X-Gm-Message-State: AE9vXwNz1NMw5nXqTi+a3WDECsA2C5TZiahWCUc9jREPV58YDUI5SQvxIvvsxhup+flgxQ==
+X-Received: by 10.98.200.206 with SMTP id i75mr53933538pfk.172.1475041884138; 
+ Tue, 27 Sep 2016 22:51:24 -0700 (PDT)
 Received: from aurora152 ([203.0.153.9])
- by smtp.gmail.com with ESMTPSA id i8sm8919615paw.25.2016.09.27.22.50.41
+ by smtp.gmail.com with ESMTPSA id s74sm8905893pfs.44.2016.09.27.22.51.22
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 27 Sep 2016 22:50:42 -0700 (PDT)
+ Tue, 27 Sep 2016 22:51:23 -0700 (PDT)
 Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Message-ID: <1475041832.9493.11.camel@jms.id.au>
-Subject: Re: [PATCH v4.7 6/7] net/ncsi: Rework the channel monitoring
+Message-ID: <1475041880.9493.12.camel@jms.id.au>
+Subject: Re: [PATCH v4.7 7/7] net/ncsi: Introduce ncsi_stop_dev()
 From: Joel Stanley <joel@jms.id.au>
 To: Gavin Shan <gwshan@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
-Date: Wed, 28 Sep 2016 15:20:32 +0930
-In-Reply-To: <1475030915-9525-6-git-send-email-gwshan@linux.vnet.ibm.com>
+Date: Wed, 28 Sep 2016 15:21:20 +0930
+In-Reply-To: <1475030915-9525-7-git-send-email-gwshan@linux.vnet.ibm.com>
 References: <1475030915-9525-1-git-send-email-gwshan@linux.vnet.ibm.com>
- <1475030915-9525-6-git-send-email-gwshan@linux.vnet.ibm.com>
+ <1475030915-9525-7-git-send-email-gwshan@linux.vnet.ibm.com>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailer: Evolution 3.21.91-1ubuntu1 
 Mime-Version: 1.0
@@ -62,212 +62,120 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Sep 2016 05:50:46 -0000
+X-List-Received-Date: Wed, 28 Sep 2016 05:51:26 -0000
 
 On Wed, 2016-09-28 at 12:48 +1000, Gavin Shan wrote:
-> The original NCSI channel monitoring was implemented based on a
-> backoff algorithm: the GLS response should be received in the
-> specified interval. Otherwise, the channel is regarded as dead
-> and failover should be taken if current channel is an active one.
-> There are several problems in the implementation: (A) On BCM5718,
-> we found when the IID (Instance ID) in the GLS command packet
-> changes from 255 to 1, the response corresponding to IID#1 never
-> comes in. It means we cannot make the unfair judgement that the
-> channel is dead when one response is missed. (B) The code's
-> readability should be improved. (C) We should do failover when
-> current channel is active one and the channel monitoring should
-> be marked as disabled before doing failover.
-> 
-> This reworks the channel monitoring to address all above issues.
-> The fields for channel monitoring is put into separate struct
-> and the state of channel monitoring is predefined. The channel
-> is regarded alive if the network controller responses to one of
-> two GLS commands or both of them in 5 seconds.
+> This introduces ncsi_stop_dev(), as counterpart to ncsi_start_dev(),
+> to stop the NCSI device so that it can be enabled in future. This
+> API should be called when the network device driver is going to
+> shutdown the device. There are 3 things done in the function: Stop
+> the channel monitoring; Reset channels to inactive state; Report
+> NCSI link down.
 > 
 > Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
+
+Makes sense. Can you split out the change to the faraday driver?
+
 > ---
->  net/ncsi/internal.h    | 12 +++++++++---
->  net/ncsi/ncsi-manage.c | 46 ++++++++++++++++++++++++++------------
-> --------
->  net/ncsi/ncsi-rsp.c    |  2 +-
->  3 files changed, 36 insertions(+), 24 deletions(-)
+>  drivers/net/ethernet/faraday/ftgmac100.c |  2 ++
+>  include/net/ncsi.h                       |  1 +
+>  net/ncsi/ncsi-manage.c                   | 37 +++++++++++++++++++++-
+> ----------
+>  3 files changed, 27 insertions(+), 13 deletions(-)
 > 
-> diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-> index a2e3af9..d9b3705 100644
-> --- a/net/ncsi/internal.h
-> +++ b/net/ncsi/internal.h
-> @@ -187,9 +187,15 @@ struct ncsi_channel {
->  	struct ncsi_channel_mode    modes[NCSI_MODE_MAX];
->  	struct ncsi_channel_filter  *filters[NCSI_FILTER_MAX];
->  	struct ncsi_channel_stats   stats;
-> -	struct timer_list           timer;	/* Link monitor
-> timer  */
-> -	bool                        enabled;	/* Timer is
-> enabled    */
-> -	unsigned int                timeout;	/* Times of
-> timeout    */
-> +	struct {
-> +		struct timer_list   timer;	/* Link monitor
-> timer  */
-> +		bool                enabled;	/* Timer is
-> enabled    */
-> +		unsigned int        state;	/* Link monitor
-> state  */
-
-These comments don't add much value.
-
-> +#define NCSI_CHANNEL_MONITOR_START	0
-> +#define NCSI_CHANNEL_MONITOR_RETRY	1
-> +#define NCSI_CHANNEL_MONITOR_WAIT	2
-> +#define NCSI_CHANNEL_MONITOR_WAIT_MAX	5
-> +	} monitor;
->  	struct list_head            node;
->  	struct list_head            link;
->  };
+> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c
+> b/drivers/net/ethernet/faraday/ftgmac100.c
+> index 134b9c5..f40fa92 100644
+> --- a/drivers/net/ethernet/faraday/ftgmac100.c
+> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
+> @@ -1189,6 +1189,8 @@ static int ftgmac100_stop(struct net_device
+> *netdev)
+>  	napi_disable(&priv->napi);
+>  	if (netdev->phydev)
+>  		phy_stop(netdev->phydev);
+> +	else if (priv->use_ncsi)
+> +		ncsi_stop_dev(priv->ndev);
+>  
+>  	ftgmac100_stop_hw(priv);
+>  	free_irq(priv->irq, netdev);
+> diff --git a/include/net/ncsi.h b/include/net/ncsi.h
+> index 1dbf42f..3d166f7 100644
+> --- a/include/net/ncsi.h
+> +++ b/include/net/ncsi.h
+> @@ -31,6 +31,7 @@ struct ncsi_dev {
+>  struct ncsi_dev *ncsi_register_dev(struct net_device *dev,
+>  				   void (*notifier)(struct ncsi_dev
+> *nd));
+>  int ncsi_start_dev(struct ncsi_dev *nd);
+> +void ncsi_stop_dev(struct ncsi_dev *nd);
+>  void ncsi_unregister_dev(struct ncsi_dev *nd);
+>  #else /* !CONFIG_NET_NCSI */
+>  static inline struct ncsi_dev *ncsi_register_dev(struct net_device
+> *dev,
 > diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-> index 3019432..5813ebe 100644
+> index 5813ebe..73ab65f 100644
 > --- a/net/ncsi/ncsi-manage.c
 > +++ b/net/ncsi/ncsi-manage.c
-> @@ -165,13 +165,13 @@ static void ncsi_channel_monitor(unsigned long
-> data)
->  	struct ncsi_dev_priv *ndp = np->ndp;
->  	struct ncsi_cmd_arg nca;
->  	bool enabled;
-> -	unsigned int timeout;
-> +	unsigned int monitor_state;
->  	unsigned long flags;
->  	int state, ret;
+> @@ -1160,9 +1160,7 @@ EXPORT_SYMBOL_GPL(ncsi_register_dev);
+>  int ncsi_start_dev(struct ncsi_dev *nd)
+>  {
+>  	struct ncsi_dev_priv *ndp = TO_NCSI_DEV_PRIV(nd);
+> -	struct ncsi_package *np;
+> -	struct ncsi_channel *nc;
+> -	int old_state, ret;
+> +	int ret;
 >  
->  	spin_lock_irqsave(&nc->lock, flags);
-> -	timeout = nc->timeout;
-> -	enabled = nc->enabled;
-> +	monitor_state = nc->monitor.state;
-> +	enabled = nc->monitor.enabled;
->  	spin_unlock_irqrestore(&nc->lock, flags);
+>  	if (nd->state != ncsi_dev_state_registered &&
+>  	    nd->state != ncsi_dev_state_functional)
+> @@ -1174,16 +1172,6 @@ int ncsi_start_dev(struct ncsi_dev *nd)
+>  		return 0;
+>  	}
 >  
->  	if (!enabled || !list_empty(&nc->link))
-> @@ -181,7 +181,9 @@ static void ncsi_channel_monitor(unsigned long
-> data)
->  	if (state != NCSI_CHANNEL_INACTIVE && state !=
-> NCSI_CHANNEL_ACTIVE)
->  		return;
->  
-> -	if (!(timeout % 2)) {
-> +	switch (monitor_state) {
-> +	case NCSI_CHANNEL_MONITOR_START:
-> +	case NCSI_CHANNEL_MONITOR_RETRY:
->  		nca.ndp = ndp;
->  		nca.package = np->id;
->  		nca.channel = nc->id;
-> @@ -193,15 +195,19 @@ static void ncsi_channel_monitor(unsigned long
-> data)
->  				   ret);
->  			return;
->  		}
+> -	/* Reset channel's state and start over */
+> -	NCSI_FOR_EACH_PACKAGE(ndp, np) {
+> -		NCSI_FOR_EACH_CHANNEL(np, nc) {
+> -			old_state = atomic_xchg(&nc->state,
+> -						NCSI_CHANNEL_INACTIV
+> E);
+> -			WARN_ON_ONCE(!list_empty(&nc->link) ||
+> -				     old_state ==
+> NCSI_CHANNEL_INVISIBLE);
+> -		}
 > -	}
->  
-> -	if (timeout + 1 >= 3) {
-> +		break;
-> +	case NCSI_CHANNEL_MONITOR_WAIT ...
-> NCSI_CHANNEL_MONITOR_WAIT_MAX:
-
-It's not clear why you have the MAX_WAIT state if it's doing the same
-thing as WAIT.
-
-> +		break;
-> +	default:
->  		if (!(ndp->flags & NCSI_DEV_HWA) &&
-> -		    state == NCSI_CHANNEL_ACTIVE)
-> +		    state == NCSI_CHANNEL_ACTIVE) {
->  			ncsi_report_link(ndp, true);
-> +			ndp->flags |= NCSI_DEV_RESHUFFLE;
-> +		}
->  
->  		spin_lock_irqsave(&ndp->lock, flags);
-> -		atomic_set(&nc->state, NCSI_CHANNEL_INACTIVE);
-> +		atomic_set(&nc->state, NCSI_CHANNEL_ACTIVE);
->  		list_add_tail_rcu(&nc->link, &ndp->channel_queue);
->  		spin_unlock_irqrestore(&ndp->lock, flags);
->  		ncsi_process_next_channel(ndp);
-> @@ -209,10 +215,9 @@ static void ncsi_channel_monitor(unsigned long
-> data)
->  	}
->  
->  	spin_lock_irqsave(&nc->lock, flags);
-> -	nc->timeout = timeout + 1;
-> -	nc->enabled = true;
-> +	nc->monitor.state++;
->  	spin_unlock_irqrestore(&nc->lock, flags);
-> -	mod_timer(&nc->timer, jiffies + HZ * (1 << (nc->timeout /
-> 2)));
-> +	mod_timer(&nc->monitor.timer, jiffies + HZ);
+> -
+>  	if (ndp->flags & NCSI_DEV_HWA)
+>  		ret = ncsi_enable_hwa(ndp);
+>  	else
+> @@ -1193,6 +1181,29 @@ int ncsi_start_dev(struct ncsi_dev *nd)
 >  }
+>  EXPORT_SYMBOL_GPL(ncsi_start_dev);
 >  
->  void ncsi_start_channel_monitor(struct ncsi_channel *nc)
-> @@ -220,12 +225,12 @@ void ncsi_start_channel_monitor(struct
-> ncsi_channel *nc)
->  	unsigned long flags;
->  
->  	spin_lock_irqsave(&nc->lock, flags);
-> -	WARN_ON_ONCE(nc->enabled);
-> -	nc->timeout = 0;
-> -	nc->enabled = true;
-> +	WARN_ON_ONCE(nc->monitor.enabled);
-> +	nc->monitor.enabled = true;
-> +	nc->monitor.state = NCSI_CHANNEL_MONITOR_START;
->  	spin_unlock_irqrestore(&nc->lock, flags);
->  
-> -	mod_timer(&nc->timer, jiffies + HZ * (1 << (nc->timeout /
-> 2)));
-> +	mod_timer(&nc->monitor.timer, jiffies + HZ);
->  }
->  
->  void ncsi_stop_channel_monitor(struct ncsi_channel *nc)
-> @@ -233,14 +238,14 @@ void ncsi_stop_channel_monitor(struct
-> ncsi_channel *nc)
->  	unsigned long flags;
->  
->  	spin_lock_irqsave(&nc->lock, flags);
-> -	if (!nc->enabled) {
-> +	if (!nc->monitor.enabled) {
->  		spin_unlock_irqrestore(&nc->lock, flags);
->  		return;
->  	}
-> -	nc->enabled = false;
-> +	nc->monitor.enabled = false;
->  	spin_unlock_irqrestore(&nc->lock, flags);
->  
-> -	del_timer_sync(&nc->timer);
-> +	del_timer_sync(&nc->monitor.timer);
->  }
->  
->  struct ncsi_channel *ncsi_find_channel(struct ncsi_package *np,
-> @@ -269,8 +274,9 @@ struct ncsi_channel *ncsi_add_channel(struct
-> ncsi_package *np, unsigned char id)
->  	nc->id = id;
->  	nc->package = np;
->  	atomic_set(&nc->state, NCSI_CHANNEL_INACTIVE);
-> -	nc->enabled = false;
-> -	setup_timer(&nc->timer, ncsi_channel_monitor, (unsigned
-> long)nc);
-> +	nc->monitor.enabled = false;
-> +	setup_timer(&nc->monitor.timer,
-> +		    ncsi_channel_monitor, (unsigned long)nc);
->  	spin_lock_init(&nc->lock);
->  	INIT_LIST_HEAD(&nc->link);
->  	for (index = 0; index < NCSI_CAP_MAX; index++)
-> diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
-> index 1429e8b..eec88c7 100644
-> --- a/net/ncsi/ncsi-rsp.c
-> +++ b/net/ncsi/ncsi-rsp.c
-> @@ -322,7 +322,7 @@ static int ncsi_rsp_handler_gls(struct
-> ncsi_request *nr)
->  
->  	/* Reset the channel monitor if it has been enabled */
->  	spin_lock_irqsave(&nc->lock, flags);
-> -	nc->timeout = 0;
-> +	nc->monitor.state = NCSI_CHANNEL_MONITOR_START;
->  	spin_unlock_irqrestore(&nc->lock, flags);
->  
->  	return 0;
+> +void ncsi_stop_dev(struct ncsi_dev *nd)
+> +{
+> +	struct ncsi_dev_priv *ndp = TO_NCSI_DEV_PRIV(nd);
+> +	struct ncsi_package *np;
+> +	struct ncsi_channel *nc;
+> +	int old_state;
+> +
+> +	/* Stop the channel monitor and reset channel's state */
+> +	NCSI_FOR_EACH_PACKAGE(ndp, np) {
+> +		NCSI_FOR_EACH_CHANNEL(np, nc) {
+> +			ncsi_stop_channel_monitor(nc);
+> +
+> +			old_state = atomic_xchg(&nc->state,
+> +						NCSI_CHANNEL_INACTIV
+> E);
+> +			WARN_ON_ONCE(!list_empty(&nc->link) ||
+> +				     old_state ==
+> NCSI_CHANNEL_INVISIBLE);
+> +                }
+> +        }
+> +
+> +	ncsi_report_link(ndp, true);
+> +}
+> +EXPORT_SYMBOL_GPL(ncsi_stop_dev);
+> +
+>  void ncsi_unregister_dev(struct ncsi_dev *nd)
+>  {
+>  	struct ncsi_dev_priv *ndp = TO_NCSI_DEV_PRIV(nd);
 > 
