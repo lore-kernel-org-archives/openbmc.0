@@ -1,55 +1,71 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x241.google.com (mail-ua0-x241.google.com
- [IPv6:2607:f8b0:400c:c08::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <gwshan@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3skxnz20ZJzDrX8
- for <openbmc@lists.ozlabs.org>; Thu, 29 Sep 2016 11:29:59 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=riQQ9aZw; 
- dkim-atps=neutral
-Received: by mail-ua0-x241.google.com with SMTP id i25so2024834uab.0
- for <openbmc@lists.ozlabs.org>; Wed, 28 Sep 2016 18:29:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=vOYotmuuhPn6Du5H80q8tME62Zk1nS/49ZHp4aQfFXE=;
- b=riQQ9aZwBnNiNXNBSnWEzVDS5e0ogUlPDVEw4QINcXcsY+Zz8ZnnqI2eVjQ5z5pU+b
- AK92HkUJzobmwsDIxT6CVjfGnXCO0mlo8sIlin6AxrAvx2q4wom+M/qmlRz8hMSYqyB1
- ++3IWF3yha1ykj5YuqewT3UcxeCbty93C492I0jqcGsYt/b0cR8rSOkgEY7AwnNpdIh0
- FeXHgY+hHIDP0EPLfwWaC6jLGrRdsgJogidB0WgGELg+wLu5uTvRR48PZYfvtJbGW+bx
- CRKfhMj2+oRJlpqfIRTCH6bfNB6VQ6+MczwSy1CB66XNfsFwvFqjDTJmznpK3G05QKW9
- n7Mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=vOYotmuuhPn6Du5H80q8tME62Zk1nS/49ZHp4aQfFXE=;
- b=iGqTO+Z7BoHgOHhx5zuSAG043b/MplfdhxWCeWomIKwXngOdA8IC7K93Va9fXvAu8x
- hj0eSWDEd6gWyLASLb+uA2Ug5kAQx0451hIoCMcYg8vvPI3I4mVKj1O4xbIvz3CNEkNz
- ncAkInDjar5mugWVW9v/UI2XZajae0aVZQ4KLLrsJAYuE0f1XCZjNmOnfAstofKfHKms
- 88IQ42xauuUhiXjFaxrsHPA6wCSLnv1/QZTlhZVCv7TN3gCtZ6zDfQI5/V38+a8GINUL
- sDNHKGT8ECllymKmUysING9NHU+fX3bHlWRQT/RB77VW5q4LpMdFgH+lO4irMj8SjRJA
- AKqA==
-X-Gm-Message-State: AA6/9RmwtmJEzBDeKe4BRVjZnTKsYTcGDonYavLNAReiXspIBHgNYAYEM8eZXYnqquJ20Qru9vTFhBU+dNIRig==
-X-Received: by 10.176.86.136 with SMTP id a8mr8751520uab.118.1475112597249;
- Wed, 28 Sep 2016 18:29:57 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.176.7.71 with HTTP; Wed, 28 Sep 2016 18:29:36 -0700 (PDT)
-In-Reply-To: <1474998214-12720-1-git-send-email-maxims@google.com>
-References: <1474306018-101166-1-git-send-email-maxims@google.com>
- <1474998214-12720-1-git-send-email-maxims@google.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 29 Sep 2016 10:59:36 +0930
-X-Google-Sender-Auth: TJz6UDg_ofWPy-PKk536f0bZD8E
-Message-ID: <CACPK8Xe9qsbigeq-jpUs7LrqV5cMJtMuuXsk3z9kAy84K3=ffg@mail.gmail.com>
-Subject: Re: [PATCH 1/3] aspeed/g5: Device Tree for ast2500, copied from
- openbmc/linux (include file), plus minimal device tree configuration for
- ast2500 eval board.
-To: Maxim Sloyko <maxims@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3skxzm1nmlzDsWf
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Sep 2016 11:38:27 +1000 (AEST)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
+ u8T1bjZV071905
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Sep 2016 21:38:26 -0400
+Received: from e23smtp08.au.ibm.com (e23smtp08.au.ibm.com [202.81.31.141])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 25rrt9jds4-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Sep 2016 21:38:25 -0400
+Received: from localhost
+ by e23smtp08.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <gwshan@linux.vnet.ibm.com>;
+ Thu, 29 Sep 2016 11:38:23 +1000
+Received: from d23dlp03.au.ibm.com (202.81.31.214)
+ by e23smtp08.au.ibm.com (202.81.31.205) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Thu, 29 Sep 2016 11:38:22 +1000
+Received: from d23relay09.au.ibm.com (d23relay09.au.ibm.com [9.185.63.181])
+ by d23dlp03.au.ibm.com (Postfix) with ESMTP id 284FD3578058
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Sep 2016 11:38:22 +1000 (EST)
+Received: from d23av05.au.ibm.com (d23av05.au.ibm.com [9.190.234.119])
+ by d23relay09.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u8T1cMJS6488414
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Sep 2016 11:38:22 +1000
+Received: from d23av05.au.ibm.com (localhost [127.0.0.1])
+ by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u8T1cL1W027473
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Sep 2016 11:38:21 +1000
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u8T1cLRU027450; Thu, 29 Sep 2016 11:38:21 +1000
+Received: from bran.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
+ by ozlabs.au.ibm.com (Postfix) with ESMTP id 29A97A01D8;
+ Thu, 29 Sep 2016 11:38:21 +1000 (AEST)
+Received: from gwshan (shangw.ozlabs.ibm.com [10.61.2.199])
+ by bran.ozlabs.ibm.com (Postfix) with ESMTP id 24810E3C36;
+ Thu, 29 Sep 2016 11:38:21 +1000 (AEST)
+Received: by gwshan (Postfix, from userid 1000)
+ id 25461942E0A; Thu, 29 Sep 2016 11:38:52 +1000 (AEST)
+From: Gavin Shan <gwshan@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, Gavin Shan <gwshan@linux.vnet.ibm.com>
+Subject: [PATCH v2 4.7 1/8] net/ncsi: Avoid unused-value build warning from
+ ia64-linux-gcc
+Date: Thu, 29 Sep 2016 11:38:44 +1000
+X-Mailer: git-send-email 2.1.0
+In-Reply-To: <1475113131-18048-1-git-send-email-gwshan@linux.vnet.ibm.com>
+References: <1475113131-18048-1-git-send-email-gwshan@linux.vnet.ibm.com>
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16092901-0048-0000-0000-000001C2E31C
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 16092901-0049-0000-0000-000046A5909F
+Message-Id: <1475113131-18048-2-git-send-email-gwshan@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-09-28_14:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1609020000
+ definitions=main-1609290026
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,640 +77,288 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 29 Sep 2016 01:30:00 -0000
+X-List-Received-Date: Thu, 29 Sep 2016 01:38:28 -0000
+X-List-Received-Date: Thu, 29 Sep 2016 01:38:28 -0000
 
-On Wed, Sep 28, 2016 at 3:13 AM,  <maxims@google.com> wrote:
-> From: Maxim Sloyko <maxims@google.com>
->
-> Fixed the bug in board initialization, which caused
-> failures during boot with device tree.
-> The flags are used to modify malloc behaviour after relocation,
-> resetting the flag caused it to fail.
+xchg() is used to set NCSI channel's state in order for consistent
+access to the state. xchg()'s return value should be used. Otherwise,
+one build warning will be raised (with -Wunused-value) as below message
+indicates. It is reported by ia64-linux-gcc (GCC) 4.9.0.
 
-This unrelated to the device tree additions and therefore should be in
-a separate patch.
+ net/ncsi/ncsi-manage.c: In function 'ncsi_channel_monitor':
+ arch/ia64/include/uapi/asm/cmpxchg.h:56:2: warning: value computed is \
+ not used [-Wunused-value]
+  ((__typeof__(*(ptr))) __xchg((unsigned long) (x), (ptr), sizeof(*(ptr))))
+   ^
+ net/ncsi/ncsi-manage.c:202:3: note: in expansion of macro 'xchg'
+  xchg(&nc->state, NCSI_CHANNEL_INACTIVE);
 
-The device tree additions look okay.
+This replaces the atomic access to NCSI channel's state with READ_ONCE()
+and WRITE_ONCE() to avoid the above build warning. We needn't hold the
+channel's lock when updating its state as well. No logical changes
+introduced.
 
-> ---
->  arch/arm/dts/Makefile          |   2 +
->  arch/arm/dts/aspeed-g5-evb.dts |  28 +++
->  arch/arm/dts/aspeed-g5.dtsi    | 541 +++++++++++++++++++++++++++++++++++++++++
->  board/aspeed/ast-g5/ast-g5.c   |   1 -
->  4 files changed, 571 insertions(+), 1 deletion(-)
->  create mode 100644 arch/arm/dts/aspeed-g5-evb.dts
->  create mode 100644 arch/arm/dts/aspeed-g5.dtsi
->
-> diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-> index d1f8e22..09efa0a 100644
-> --- a/arch/arm/dts/Makefile
-> +++ b/arch/arm/dts/Makefile
-> @@ -233,6 +233,8 @@ dtb-$(CONFIG_SOC_KEYSTONE) += k2hk-evm.dtb \
->         k2e-evm.dtb \
->         k2g-evm.dtb
->
-> +dtb-$(CONFIG_TARGET_AST_G5) += aspeed-g5-evb.dtb
-> +
->  targets += $(dtb-y)
->
->  # Add any required device tree compiler flags here
-> diff --git a/arch/arm/dts/aspeed-g5-evb.dts b/arch/arm/dts/aspeed-g5-evb.dts
-> new file mode 100644
-> index 0000000..95dc77a
-> --- /dev/null
-> +++ b/arch/arm/dts/aspeed-g5-evb.dts
-> @@ -0,0 +1,28 @@
-> +/dts-v1/;
-> +
-> +#include "aspeed-g5.dtsi"
-> +
-> +/ {
-> +       memory {
-> +               device_type = "memory";
-> +               reg = <0x80000000 0x20000000>;
-> +       };
-> +
-> +       aliases {
-> +               i2c1 = &i2c0;
-> +               i2c4 = &i2c3;
-> +               i2c8 = &i2c7;
-> +       };
-> +};
-> +
-> +&i2c0 {
-> +       status = "okay";
-> +};
-> +
-> +&i2c3 {
-> +       status = "okay";
-> +};
-> +
-> +&i2c7 {
-> +       status = "okay";
-> +};
-> diff --git a/arch/arm/dts/aspeed-g5.dtsi b/arch/arm/dts/aspeed-g5.dtsi
-> new file mode 100644
-> index 0000000..eb81a2e
-> --- /dev/null
-> +++ b/arch/arm/dts/aspeed-g5.dtsi
-> @@ -0,0 +1,541 @@
-> +/* The device tree is copied from
-> + * https://github.com/openbmc/linux/blob/9ec9d09/arch/arm/boot/dts/aspeed-g5.dtsi
-> + */
-> +#include "skeleton.dtsi"
-> +
-> +/ {
-> +       model = "Aspeed BMC";
-> +       compatible = "aspeed,ast2500";
-> +       #address-cells = <1>;
-> +       #size-cells = <1>;
-> +       interrupt-parent = <&vic>;
-> +
-> +       cpus {
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +
-> +               cpu@0 {
-> +                       compatible = "arm,arm1176jzf-s";
-> +                       device_type = "cpu";
-> +                       reg = <0>;
-> +               };
-> +       };
-> +
-> +       ahb {
-> +               compatible = "simple-bus";
-> +               #address-cells = <1>;
-> +               #size-cells = <1>;
-> +               ranges;
-> +
-> +               vic: interrupt-controller@1e6c0080 {
-> +                       compatible = "aspeed,ast2400-vic";
-> +                       interrupt-controller;
-> +                       #interrupt-cells = <1>;
-> +                       valid-sources = <0xfefff7ff 0x0807ffff>;
-> +                       reg = <0x1e6c0080 0x80>;
-> +               };
-> +
-> +               mac0: ethernet@1e660000 {
-> +                       compatible = "faraday,ftgmac100";
-> +                       reg = <0x1e660000 0x180>;
-> +                       interrupts = <2>;
-> +                       no-hw-checksum;
-> +                       status = "disabled";
-> +               };
-> +
-> +               mac1: ethernet@1e680000 {
-> +                       compatible = "faraday,ftgmac100";
-> +                       reg = <0x1e680000 0x180>;
-> +                       interrupts = <3>;
-> +                       no-hw-checksum;
-> +                       status = "disabled";
-> +               };
-> +
-> +               apb {
-> +                       compatible = "simple-bus";
-> +                       #address-cells = <1>;
-> +                       #size-cells = <1>;
-> +                       ranges;
-> +
-> +                       clk_clkin: clk_clkin@1e6e2070 {
-> +                               #clock-cells = <0>;
-> +                               compatible = "aspeed,g5-clkin-clock";
-> +                               reg = <0x1e6e2070 0x04>;
-> +                       };
-> +
-> +                       syscon: syscon@1e6e2000 {
-> +                               compatible = "aspeed,g5-scu", "syscon", "simple-mfd";
-> +                               reg = <0x1e6e2000 0x1a8>;
-> +
-> +                               pinctrl: pinctrl@1e6e2000 {
-> +                                       compatible = "aspeed,g5-pinctrl";
-> +
-> +                                       pinctrl_i2c9_default: i2c9_default {
-> +                                               function = "I2C9";
-> +                                               groups = "I2C9";
-> +                                       };
-> +
-> +                                       pinctrl_i2c10_default: i2c10_default {
-> +                                               function = "I2C10";
-> +                                               groups = "I2C10";
-> +                                       };
-> +
-> +                                       pinctrl_i2c11_default: i2c11_default {
-> +                                               function = "I2C11";
-> +                                               groups = "I2C11";
-> +                                       };
-> +
-> +                                       pinctrl_i2c12_default: i2c12_default {
-> +                                               function = "I2C12";
-> +                                               groups = "I2C12";
-> +                                       };
-> +
-> +                                       pinctrl_i2c13_default: i2c13_default {
-> +                                               function = "I2C13";
-> +                                               groups = "I2C13";
-> +                                       };
-> +
-> +                                       pinctrl_gpid0_default: gpid0_default {
-> +                                               function = "GPID0";
-> +                                               groups = "GPID0";
-> +                                       };
-> +
-> +                                       pinctrl_gpid1_default: gpid1_default {
-> +                                               function = "GPID1";
-> +                                               groups = "GPID1";
-> +                                       };
-> +
-> +                                       pinctrl_sd1_default: sd1_default {
-> +                                               function = "SD1";
-> +                                               groups = "SD1";
-> +                                       };
-> +
-> +                                       pinctrl_i2c5_default: i2c5_default {
-> +                                               function = "I2C5";
-> +                                               groups = "I2C5";
-> +                                       };
-> +
-> +                                       pinctrl_i2c6_default: i2c6_default {
-> +                                               function = "I2C6";
-> +                                               groups = "I2C6";
-> +                                       };
-> +
-> +                                       pinctrl_i2c7_default: i2c7_default {
-> +                                               function = "I2C7";
-> +                                               groups = "I2C7";
-> +                                       };
-> +
-> +                                       pinctrl_i2c8_default: i2c8_default {
-> +                                               function = "I2C8";
-> +                                               groups = "I2C8";
-> +                                       };
-> +
-> +                                       pinctrl_pwm0_default: pwm0_default {
-> +                                               function = "PWM0";
-> +                                               groups = "PWM0";
-> +                                       };
-> +
-> +                                       pinctrl_pwm1_default: pwm1_default {
-> +                                               function = "PWM1";
-> +                                               groups = "PWM1";
-> +                                       };
-> +
-> +                                       pinctrl_pwm2_default: pwm2_default {
-> +                                               function = "PWM2";
-> +                                               groups = "PWM2";
-> +                                       };
-> +
-> +                                       pinctrl_pwm3_default: pwm3_default {
-> +                                               function = "PWM3";
-> +                                               groups = "PWM3";
-> +                                       };
-> +
-> +                                       pinctrl_pwm4_default: pwm4_default {
-> +                                               function = "PWM4";
-> +                                               groups = "PWM4";
-> +                                       };
-> +
-> +                                       pinctrl_pwm5_default: pwm5_default {
-> +                                               function = "PWM5";
-> +                                               groups = "PWM5";
-> +                                       };
-> +
-> +                                       pinctrl_pwm6_default: pwm6_default {
-> +                                               function = "PWM6";
-> +                                               groups = "PWM6";
-> +                                       };
-> +
-> +                                       pinctrl_pwm7_default: pwm7_default {
-> +                                               function = "PWM7";
-> +                                               groups = "PWM7";
-> +                                       };
-> +
-> +                                       pinctrl_i2c3_default: i2c3_default {
-> +                                               function = "I2C3";
-> +                                               groups = "I2C3";
-> +                                       };
-> +
-> +                                       pinctrl_i2c4_default: i2c4_default {
-> +                                               function = "I2C4";
-> +                                               groups = "I2C4";
-> +                                       };
-> +
-> +                                       pinctrl_i2c14_default: i2c14_default {
-> +                                               function = "I2C14";
-> +                                               groups = "I2C14";
-> +                                       };
-> +
-> +                                       pinctrl_rgmii1_default: rgmii1_default {
-> +                                               function = "RGMII1";
-> +                                               groups = "RGMII1";
-> +                                       };
-> +
-> +                                       pinctrl_rmii1_default: rmii1_default {
-> +                                               function = "RMII1";
-> +                                               groups = "RMII1";
-> +                                       };
-> +
-> +                                       pinctrl_rgmii2_default: rgmii2_default {
-> +                                               function = "RGMII2";
-> +                                               groups = "RGMII2";
-> +                                       };
-> +
-> +                                       pinctrl_rmii2_default: rmii2_default {
-> +                                               function = "RMII2";
-> +                                               groups = "RMII2";
-> +                                       };
-> +                               };
-> +                       };
-> +
-> +                       clk_hpll: clk_hpll@1e6e2024 {
-> +                               #clock-cells = <0>;
-> +                               compatible = "aspeed,g5-hpll-clock";
-> +                               reg = <0x1e6e2024 0x4>;
-> +                               clocks = <&clk_clkin>;
-> +                       };
-> +
-> +                       clk_ahb: clk_ahb@1e6e2070 {
-> +                               #clock-cells = <0>;
-> +                               compatible = "aspeed,g5-ahb-clock";
-> +                               reg = <0x1e6e2070 0x4>;
-> +                               clocks = <&clk_hpll>;
-> +                       };
-> +
-> +                       clk_apb: clk_apb@1e6e2008 {
-> +                               #clock-cells = <0>;
-> +                               compatible = "aspeed,g5-apb-clock";
-> +                               reg = <0x1e6e2008 0x4>;
-> +                               clocks = <&clk_hpll>;
-> +                       };
-> +
-> +                       clk_uart: clk_uart@1e6e2008 {
-> +                               #clock-cells = <0>;
-> +                               compatible = "aspeed,uart-clock";
-> +                               reg = <0x1e6e202c 0x4>;
-> +                       };
-> +
-> +                       sram@1e720000 {
-> +                               compatible = "mmio-sram";
-> +                               reg = <0x1e720000 0x9000>;      // 36K
-> +                       };
-> +
-> +                       gpio: gpio@1e780000 {
-> +                               #gpio-cells = <2>;
-> +                               gpio-controller;
-> +                               compatible = "aspeed,ast2500-gpio";
-> +                               reg = <0x1e780000 0x1000>;
-> +                               interrupts = <20>;
-> +                               gpio-ranges = <&pinctrl 0 0 220>;
-> +                       };
-> +
-> +                       timer: timer@1e782000 {
-> +                               compatible = "aspeed,ast2400-timer";
-> +                               reg = <0x1e782000 0x90>;
-> +                               // The moxart_timer driver registers only one
-> +                               // interrupt and assumes it's for timer 1
-> +                               //interrupts = <16 17 18 35 36 37 38 39>;
-> +                               interrupts = <16>;
-> +                               clocks = <&clk_apb>;
-> +                       };
-> +
-> +                       ibt: ibt@1e789140 {
-> +                               compatible = "aspeed,bt-host";
-> +                               reg = <0x1e789140 0x18>;
-> +                               interrupts = <8>;
-> +                       };
-> +
-> +                       wdt1: wdt@1e785000 {
-> +                               compatible = "aspeed,ast2500-wdt";
-> +                               reg = <0x1e785000 0x1c>;
-> +                       };
-> +
-> +                       wdt2: wdt@1e785020 {
-> +                               compatible = "aspeed,ast2500-wdt";
-> +                               reg = <0x1e785020 0x1c>;
-> +                               status = "disabled";
-> +                       };
-> +
-> +                       wdt3: wdt@1e785040 {
-> +                               compatible = "aspeed,wdt";
-> +                               reg = <0x1e785074 0x1c>;
-> +                               status = "disabled";
-> +                       };
-> +
-> +                       uart1: serial@1e783000 {
-> +                               compatible = "ns16550a";
-> +                               reg = <0x1e783000 0x1000>;
-> +                               reg-shift = <2>;
-> +                               interrupts = <9>;
-> +                               clocks = <&clk_uart>;
-> +                               no-loopback-test;
-> +                               status = "disabled";
-> +                       };
-> +
-> +                       uart2: serial@1e78d000 {
-> +                               compatible = "ns16550a";
-> +                               reg = <0x1e78d000 0x1000>;
-> +                               reg-shift = <2>;
-> +                               interrupts = <32>;
-> +                               clocks = <&clk_uart>;
-> +                               no-loopback-test;
-> +                               status = "disabled";
-> +                       };
-> +
-> +                       uart3: serial@1e78e000 {
-> +                               compatible = "ns16550a";
-> +                               reg = <0x1e78e000 0x1000>;
-> +                               reg-shift = <2>;
-> +                               interrupts = <33>;
-> +                               clocks = <&clk_uart>;
-> +                               no-loopback-test;
-> +                               status = "disabled";
-> +                       };
-> +
-> +                       uart4: serial@1e78f000 {
-> +                               compatible = "ns16550a";
-> +                               reg = <0x1e78f000 0x1000>;
-> +                               reg-shift = <2>;
-> +                               interrupts = <34>;
-> +                               clocks = <&clk_uart>;
-> +                               no-loopback-test;
-> +                               status = "disabled";
-> +                       };
-> +
-> +                       uart5: serial@1e784000 {
-> +                               compatible = "ns16550a";
-> +                               reg = <0x1e784000 0x1000>;
-> +                               reg-shift = <2>;
-> +                               interrupts = <10>;
-> +                               clocks = <&clk_uart>;
-> +                               current-speed = <38400>;
-> +                               no-loopback-test;
-> +                               status = "disabled";
-> +                       };
-> +
-> +                       vuart: vuart@1e787000 {
-> +                               compatible = "aspeed,vuart";
-> +                               reg = <0x1e787000 0x1000>;
-> +                               reg-shift = <2>;
-> +                               interrupts = <8>;
-> +                               clocks = <&clk_uart>;
-> +                               no-loopback-test;
-> +                               status = "disabled";
-> +                       };
-> +
-> +                       i2c: i2c@1e78a000 {
-> +                               #address-cells = <1>;
-> +                               #size-cells = <1>;
-> +                               #interrupt-cells = <1>;
-> +
-> +                               compatible = "aspeed,ast2400-i2c-controller";
-> +                               reg = <0x1e78a000 0x40>;
-> +                               ranges = <0 0x1e78a000 0x1000>;
-> +                               interrupts = <12>;
-> +                               clocks = <&clk_apb>;
-> +                               clock-ranges;
-> +                               interrupt-controller;
-> +
-> +                               i2c0: i2c-bus@40 {
-> +                                       #address-cells = <1>;
-> +                                       #size-cells = <0>;
-> +                                       reg = <0x40 0x40>;
-> +                                       compatible = "aspeed,ast2400-i2c-bus";
-> +                                       bus = <0>;
-> +                                       clock-frequency = <100000>;
-> +                                       status = "disabled";
-> +                                       interrupts = <0>;
-> +                                       interrupt-parent = <&i2c>;
-> +                               };
-> +
-> +                               i2c1: i2c-bus@80 {
-> +                                       #address-cells = <1>;
-> +                                       #size-cells = <0>;
-> +                                       reg = <0x80 0x40>;
-> +                                       compatible = "aspeed,ast2400-i2c-bus";
-> +                                       bus = <1>;
-> +                                       clock-frequency = <100000>;
-> +                                       status = "disabled";
-> +                                       interrupts = <1>;
-> +                               };
-> +
-> +                               i2c2: i2c-bus@c0 {
-> +                                       #address-cells = <1>;
-> +                                       #size-cells = <0>;
-> +                                       reg = <0xC0 0x40>;
-> +                                       compatible = "aspeed,ast2400-i2c-bus";
-> +                                       bus = <2>;
-> +                                       clock-frequency = <100000>;
-> +                                       status = "disabled";
-> +                                       interrupts = <2>;
-> +                                       pinctrl-names = "default";
-> +                                       pinctrl-0 = <&pinctrl_i2c3_default>;
-> +                               };
-> +
-> +                               i2c3: i2c-bus@100 {
-> +                                       #address-cells = <1>;
-> +                                       #size-cells = <0>;
-> +                                       reg = <0x100 0x40>;
-> +                                       compatible = "aspeed,ast2400-i2c-bus";
-> +                                       bus = <3>;
-> +                                       clock-frequency = <100000>;
-> +                                       status = "disabled";
-> +                                       interrupts = <3>;
-> +                                       pinctrl-names = "default";
-> +                                       pinctrl-0 = <&pinctrl_i2c4_default>;
-> +                               };
-> +
-> +                               i2c4: i2c-bus@140 {
-> +                                       #address-cells = <1>;
-> +                                       #size-cells = <0>;
-> +                                       reg = <0x140 0x40>;
-> +                                       compatible = "aspeed,ast2400-i2c-bus";
-> +                                       bus = <4>;
-> +                                       clock-frequency = <100000>;
-> +                                       status = "disabled";
-> +                                       interrupts = <4>;
-> +                                       pinctrl-names = "default";
-> +                                       pinctrl-0 = <&pinctrl_i2c5_default>;
-> +                               };
-> +
-> +                               i2c5: i2c-bus@180 {
-> +                                       #address-cells = <1>;
-> +                                       #size-cells = <0>;
-> +                                       reg = <0x180 0x40>;
-> +                                       compatible = "aspeed,ast2400-i2c-bus";
-> +                                       bus = <5>;
-> +                                       clock-frequency = <100000>;
-> +                                       status = "disabled";
-> +                                       interrupts = <5>;
-> +                                       pinctrl-names = "default";
-> +                                       pinctrl-0 = <&pinctrl_i2c6_default>;
-> +                               };
-> +
-> +                               i2c6: i2c-bus@1c0 {
-> +                                       #address-cells = <1>;
-> +                                       #size-cells = <0>;
-> +                                       reg = <0x1C0 0x40>;
-> +                                       compatible = "aspeed,ast2400-i2c-bus";
-> +                                       bus = <6>;
-> +                                       clock-frequency = <100000>;
-> +                                       status = "disabled";
-> +                                       interrupts = <6>;
-> +                                       pinctrl-names = "default";
-> +                                       pinctrl-0 = <&pinctrl_i2c7_default>;
-> +                               };
-> +
-> +                               i2c7: i2c-bus@300 {
-> +                                       #address-cells = <1>;
-> +                                       #size-cells = <0>;
-> +                                       reg = <0x300 0x40>;
-> +                                       compatible = "aspeed,ast2400-i2c-bus";
-> +                                       bus = <7>;
-> +                                       clock-frequency = <100000>;
-> +                                       status = "disabled";
-> +                                       interrupts = <7>;
-> +                                       pinctrl-names = "default";
-> +                                       pinctrl-0 = <&pinctrl_i2c8_default>;
-> +                               };
-> +
-> +                               i2c8: i2c-bus@340 {
-> +                                       #address-cells = <1>;
-> +                                       #size-cells = <0>;
-> +                                       reg = <0x340 0x40>;
-> +                                       compatible = "aspeed,ast2400-i2c-bus";
-> +                                       bus = <8>;
-> +                                       clock-frequency = <100000>;
-> +                                       status = "disabled";
-> +                                       interrupts = <8>;
-> +                                       pinctrl-names = "default";
-> +                                       pinctrl-0 = <&pinctrl_i2c9_default>;
-> +                               };
-> +
-> +                               i2c9: i2c-bus@380 {
-> +                                       #address-cells = <1>;
-> +                                       #size-cells = <0>;
-> +                                       reg = <0x380 0x40>;
-> +                                       compatible = "aspeed,ast2400-i2c-bus";
-> +                                       bus = <9>;
-> +                                       clock-frequency = <100000>;
-> +                                       status = "disabled";
-> +                                       interrupts = <9>;
-> +                                       pinctrl-names = "default";
-> +                                       pinctrl-0 = <&pinctrl_i2c10_default>;
-> +                               };
-> +
-> +                               i2c10: i2c-bus@3c0 {
-> +                                       #address-cells = <1>;
-> +                                       #size-cells = <0>;
-> +                                       reg = <0x3c0 0x40>;
-> +                                       compatible = "aspeed,ast2400-i2c-bus";
-> +                                       bus = <10>;
-> +                                       clock-frequency = <100000>;
-> +                                       status = "disabled";
-> +                                       interrupts = <10>;
-> +                                       pinctrl-names = "default";
-> +                                       pinctrl-0 = <&pinctrl_i2c11_default>;
-> +                               };
-> +
-> +                               i2c11: i2c-bus@400 {
-> +                                       #address-cells = <1>;
-> +                                       #size-cells = <0>;
-> +                                       reg = <0x400 0x40>;
-> +                                       compatible = "aspeed,ast2400-i2c-bus";
-> +                                       bus = <11>;
-> +                                       clock-frequency = <100000>;
-> +                                       status = "disabled";
-> +                                       interrupts = <11>;
-> +                                       pinctrl-names = "default";
-> +                                       pinctrl-0 = <&pinctrl_i2c12_default>;
-> +                               };
-> +
-> +                               i2c12: i2c-bus@440 {
-> +                                       #address-cells = <1>;
-> +                                       #size-cells = <0>;
-> +                                       reg = <0x440 0x40>;
-> +                                       compatible = "aspeed,ast2400-i2c-bus";
-> +                                       bus = <12>;
-> +                                       clock-frequency = <100000>;
-> +                                       status = "disabled";
-> +                                       interrupts = <12>;
-> +                                       pinctrl-names = "default";
-> +                                       pinctrl-0 = <&pinctrl_i2c13_default>;
-> +                               };
-> +
-> +                               i2c13: i2c-bus@480 {
-> +                                       #address-cells = <1>;
-> +                                       #size-cells = <0>;
-> +                                       reg = <0x480 0x40>;
-> +                                       compatible = "aspeed,ast2400-i2c-bus";
-> +                                       bus = <13>;
-> +                                       clock-frequency = <100000>;
-> +                                       status = "disabled";
-> +                                       interrupts = <13>;
-> +                                       pinctrl-names = "default";
-> +                                       pinctrl-0 = <&pinctrl_i2c14_default>;
-> +                               };
-> +
-> +                       };
-> +
-> +               };
-> +       };
-> +};
-> diff --git a/board/aspeed/ast-g5/ast-g5.c b/board/aspeed/ast-g5/ast-g5.c
-> index 81ea88a..6fa1e12 100644
-> --- a/board/aspeed/ast-g5/ast-g5.c
-> +++ b/board/aspeed/ast-g5/ast-g5.c
-> @@ -52,7 +52,6 @@ int board_init(void)
->  {
->         /* adress of boot parameters */
->         gd->bd->bi_boot_params = CONFIG_SYS_SDRAM_BASE + 0x100;
-> -       gd->flags = 0;
->         return 0;
->  }
->
-> --
-> 2.8.0.rc3.226.g39d4020
->
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
+---
+ net/ncsi/ncsi-aen.c    | 19 +++++++++++++------
+ net/ncsi/ncsi-manage.c | 37 +++++++++++++++++++++----------------
+ net/ncsi/ncsi-rsp.c    | 13 +++----------
+ 3 files changed, 37 insertions(+), 32 deletions(-)
+
+diff --git a/net/ncsi/ncsi-aen.c b/net/ncsi/ncsi-aen.c
+index d463468..abc5473 100644
+--- a/net/ncsi/ncsi-aen.c
++++ b/net/ncsi/ncsi-aen.c
+@@ -53,6 +53,7 @@ static int ncsi_aen_handler_lsc(struct ncsi_dev_priv *ndp,
+ 	struct ncsi_aen_lsc_pkt *lsc;
+ 	struct ncsi_channel *nc;
+ 	struct ncsi_channel_mode *ncm;
++	int old_state;
+ 	unsigned long old_data;
+ 	unsigned long flags;
+ 
+@@ -70,12 +71,14 @@ static int ncsi_aen_handler_lsc(struct ncsi_dev_priv *ndp,
+ 	if (!((old_data ^ ncm->data[2]) & 0x1) ||
+ 	    !list_empty(&nc->link))
+ 		return 0;
+-	if (!(nc->state == NCSI_CHANNEL_INACTIVE && (ncm->data[2] & 0x1)) &&
+-	    !(nc->state == NCSI_CHANNEL_ACTIVE && !(ncm->data[2] & 0x1)))
++
++	old_state = READ_ONCE(nc->state);
++	if (!(old_state == NCSI_CHANNEL_INACTIVE && (ncm->data[2] & 0x1)) &&
++	    !(old_state == NCSI_CHANNEL_ACTIVE && !(ncm->data[2] & 0x1)))
+ 		return 0;
+ 
+ 	if (!(ndp->flags & NCSI_DEV_HWA) &&
+-	    nc->state == NCSI_CHANNEL_ACTIVE)
++	    old_state == NCSI_CHANNEL_ACTIVE)
+ 		ndp->flags |= NCSI_DEV_RESHUFFLE;
+ 
+ 	ncsi_stop_channel_monitor(nc);
+@@ -90,6 +93,7 @@ static int ncsi_aen_handler_cr(struct ncsi_dev_priv *ndp,
+ 			       struct ncsi_aen_pkt_hdr *h)
+ {
+ 	struct ncsi_channel *nc;
++	int old_state;
+ 	unsigned long flags;
+ 
+ 	/* Find the NCSI channel */
+@@ -97,13 +101,14 @@ static int ncsi_aen_handler_cr(struct ncsi_dev_priv *ndp,
+ 	if (!nc)
+ 		return -ENODEV;
+ 
++	old_state = READ_ONCE(nc->state);
+ 	if (!list_empty(&nc->link) ||
+-	    nc->state != NCSI_CHANNEL_ACTIVE)
++	    old_state != NCSI_CHANNEL_ACTIVE)
+ 		return 0;
+ 
+ 	ncsi_stop_channel_monitor(nc);
++	WRITE_ONCE(nc->state, NCSI_CHANNEL_INACTIVE);
+ 	spin_lock_irqsave(&ndp->lock, flags);
+-	xchg(&nc->state, NCSI_CHANNEL_INACTIVE);
+ 	list_add_tail_rcu(&nc->link, &ndp->channel_queue);
+ 	spin_unlock_irqrestore(&ndp->lock, flags);
+ 
+@@ -116,6 +121,7 @@ static int ncsi_aen_handler_hncdsc(struct ncsi_dev_priv *ndp,
+ 	struct ncsi_channel *nc;
+ 	struct ncsi_channel_mode *ncm;
+ 	struct ncsi_aen_hncdsc_pkt *hncdsc;
++	int old_state;
+ 	unsigned long flags;
+ 
+ 	/* Find the NCSI channel */
+@@ -127,8 +133,9 @@ static int ncsi_aen_handler_hncdsc(struct ncsi_dev_priv *ndp,
+ 	ncm = &nc->modes[NCSI_MODE_LINK];
+ 	hncdsc = (struct ncsi_aen_hncdsc_pkt *)h;
+ 	ncm->data[3] = ntohl(hncdsc->status);
++	old_state = READ_ONCE(nc->state);
+ 	if (!list_empty(&nc->link) ||
+-	    nc->state != NCSI_CHANNEL_ACTIVE ||
++	    old_state != NCSI_CHANNEL_ACTIVE ||
+ 	    (ncm->data[3] & 0x1))
+ 		return 0;
+ 
+diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+index ef017b8..fc0ae54 100644
+--- a/net/ncsi/ncsi-manage.c
++++ b/net/ncsi/ncsi-manage.c
+@@ -143,7 +143,7 @@ static void ncsi_report_link(struct ncsi_dev_priv *ndp, bool force_down)
+ 	NCSI_FOR_EACH_PACKAGE(ndp, np) {
+ 		NCSI_FOR_EACH_CHANNEL(np, nc) {
+ 			if (!list_empty(&nc->link) ||
+-			    nc->state != NCSI_CHANNEL_ACTIVE)
++			    READ_ONCE(nc->state) != NCSI_CHANNEL_ACTIVE)
+ 				continue;
+ 
+ 			if (nc->modes[NCSI_MODE_LINK].data[2] & 0x1) {
+@@ -166,7 +166,7 @@ static void ncsi_channel_monitor(unsigned long data)
+ 	bool enabled;
+ 	unsigned int timeout;
+ 	unsigned long flags;
+-	int ret;
++	int old_state, ret;
+ 
+ 	spin_lock_irqsave(&nc->lock, flags);
+ 	timeout = nc->timeout;
+@@ -175,8 +175,10 @@ static void ncsi_channel_monitor(unsigned long data)
+ 
+ 	if (!enabled || !list_empty(&nc->link))
+ 		return;
+-	if (nc->state != NCSI_CHANNEL_INACTIVE &&
+-	    nc->state != NCSI_CHANNEL_ACTIVE)
++
++	old_state = READ_ONCE(nc->state);
++	if (old_state != NCSI_CHANNEL_INACTIVE &&
++	    old_state != NCSI_CHANNEL_ACTIVE)
+ 		return;
+ 
+ 	if (!(timeout % 2)) {
+@@ -195,11 +197,11 @@ static void ncsi_channel_monitor(unsigned long data)
+ 
+ 	if (timeout + 1 >= 3) {
+ 		if (!(ndp->flags & NCSI_DEV_HWA) &&
+-		    nc->state == NCSI_CHANNEL_ACTIVE)
++		    old_state == NCSI_CHANNEL_ACTIVE)
+ 			ncsi_report_link(ndp, true);
+ 
++		WRITE_ONCE(nc->state, NCSI_CHANNEL_INACTIVE);
+ 		spin_lock_irqsave(&ndp->lock, flags);
+-		xchg(&nc->state, NCSI_CHANNEL_INACTIVE);
+ 		list_add_tail_rcu(&nc->link, &ndp->channel_queue);
+ 		spin_unlock_irqrestore(&ndp->lock, flags);
+ 		ncsi_process_next_channel(ndp);
+@@ -266,7 +268,7 @@ struct ncsi_channel *ncsi_add_channel(struct ncsi_package *np, unsigned char id)
+ 
+ 	nc->id = id;
+ 	nc->package = np;
+-	nc->state = NCSI_CHANNEL_INACTIVE;
++	WRITE_ONCE(nc->state, NCSI_CHANNEL_INACTIVE);
+ 	nc->enabled = false;
+ 	setup_timer(&nc->timer, ncsi_channel_monitor, (unsigned long)nc);
+ 	spin_lock_init(&nc->lock);
+@@ -309,7 +311,7 @@ static void ncsi_remove_channel(struct ncsi_channel *nc)
+ 		kfree(ncf);
+ 	}
+ 
+-	nc->state = NCSI_CHANNEL_INACTIVE;
++	WRITE_ONCE(nc->state, NCSI_CHANNEL_INACTIVE);
+ 	spin_unlock_irqrestore(&nc->lock, flags);
+ 	ncsi_stop_channel_monitor(nc);
+ 
+@@ -556,7 +558,7 @@ static void ncsi_suspend_channel(struct ncsi_dev_priv *ndp)
+ 
+ 		break;
+ 	case ncsi_dev_state_suspend_done:
+-		xchg(&nc->state, NCSI_CHANNEL_INACTIVE);
++		WRITE_ONCE(nc->state, NCSI_CHANNEL_INACTIVE);
+ 		ncsi_process_next_channel(ndp);
+ 
+ 		break;
+@@ -676,9 +678,9 @@ static void ncsi_configure_channel(struct ncsi_dev_priv *ndp)
+ 		break;
+ 	case ncsi_dev_state_config_done:
+ 		if (nc->modes[NCSI_MODE_LINK].data[2] & 0x1)
+-			xchg(&nc->state, NCSI_CHANNEL_ACTIVE);
++			WRITE_ONCE(nc->state, NCSI_CHANNEL_ACTIVE);
+ 		else
+-			xchg(&nc->state, NCSI_CHANNEL_INACTIVE);
++			WRITE_ONCE(nc->state, NCSI_CHANNEL_INACTIVE);
+ 
+ 		ncsi_start_channel_monitor(nc);
+ 		ncsi_process_next_channel(ndp);
+@@ -708,7 +710,7 @@ static int ncsi_choose_active_channel(struct ncsi_dev_priv *ndp)
+ 	NCSI_FOR_EACH_PACKAGE(ndp, np) {
+ 		NCSI_FOR_EACH_CHANNEL(np, nc) {
+ 			if (!list_empty(&nc->link) ||
+-			    nc->state != NCSI_CHANNEL_INACTIVE)
++			    READ_ONCE(nc->state) != NCSI_CHANNEL_INACTIVE)
+ 				continue;
+ 
+ 			if (!found)
+@@ -770,7 +772,8 @@ static int ncsi_enable_hwa(struct ncsi_dev_priv *ndp)
+ 	spin_lock_irqsave(&ndp->lock, flags);
+ 	NCSI_FOR_EACH_PACKAGE(ndp, np) {
+ 		NCSI_FOR_EACH_CHANNEL(np, nc) {
+-			WARN_ON_ONCE(nc->state != NCSI_CHANNEL_INACTIVE ||
++			WARN_ON_ONCE(READ_ONCE(nc->state) !=
++				     NCSI_CHANNEL_INACTIVE ||
+ 				     !list_empty(&nc->link));
+ 			ncsi_stop_channel_monitor(nc);
+ 			list_add_tail_rcu(&nc->link, &ndp->channel_queue);
+@@ -987,7 +990,8 @@ int ncsi_process_next_channel(struct ncsi_dev_priv *ndp)
+ 		goto out;
+ 	}
+ 
+-	old_state = xchg(&nc->state, NCSI_CHANNEL_INVISIBLE);
++	old_state = READ_ONCE(nc->state);
++	WRITE_ONCE(nc->state, NCSI_CHANNEL_INVISIBLE);
+ 	list_del_init(&nc->link);
+ 
+ 	spin_unlock_irqrestore(&ndp->lock, flags);
+@@ -1006,7 +1010,7 @@ int ncsi_process_next_channel(struct ncsi_dev_priv *ndp)
+ 		break;
+ 	default:
+ 		netdev_err(ndp->ndev.dev, "Invalid state 0x%x on %d:%d\n",
+-			   nc->state, nc->package->id, nc->id);
++			   READ_ONCE(nc->state), nc->package->id, nc->id);
+ 		ncsi_report_link(ndp, false);
+ 		return -EINVAL;
+ 	}
+@@ -1166,7 +1170,8 @@ int ncsi_start_dev(struct ncsi_dev *nd)
+ 	/* Reset channel's state and start over */
+ 	NCSI_FOR_EACH_PACKAGE(ndp, np) {
+ 		NCSI_FOR_EACH_CHANNEL(np, nc) {
+-			old_state = xchg(&nc->state, NCSI_CHANNEL_INACTIVE);
++			old_state = READ_ONCE(nc->state);
++			WRITE_ONCE(nc->state, NCSI_CHANNEL_INACTIVE);
+ 			WARN_ON_ONCE(!list_empty(&nc->link) ||
+ 				     old_state == NCSI_CHANNEL_INVISIBLE);
+ 		}
+diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
+index af84389..9ee25ab 100644
+--- a/net/ncsi/ncsi-rsp.c
++++ b/net/ncsi/ncsi-rsp.c
+@@ -111,7 +111,6 @@ static int ncsi_rsp_handler_dp(struct ncsi_request *nr)
+ 	struct ncsi_dev_priv *ndp = nr->ndp;
+ 	struct ncsi_package *np;
+ 	struct ncsi_channel *nc;
+-	unsigned long flags;
+ 
+ 	/* Find the package */
+ 	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->rsp);
+@@ -121,11 +120,8 @@ static int ncsi_rsp_handler_dp(struct ncsi_request *nr)
+ 		return -ENODEV;
+ 
+ 	/* Change state of all channels attached to the package */
+-	NCSI_FOR_EACH_CHANNEL(np, nc) {
+-		spin_lock_irqsave(&nc->lock, flags);
+-		nc->state = NCSI_CHANNEL_INACTIVE;
+-		spin_unlock_irqrestore(&nc->lock, flags);
+-	}
++	NCSI_FOR_EACH_CHANNEL(np, nc)
++		WRITE_ONCE(nc->state, NCSI_CHANNEL_INACTIVE);
+ 
+ 	return 0;
+ }
+@@ -184,7 +180,6 @@ static int ncsi_rsp_handler_rc(struct ncsi_request *nr)
+ 	struct ncsi_rsp_pkt *rsp;
+ 	struct ncsi_dev_priv *ndp = nr->ndp;
+ 	struct ncsi_channel *nc;
+-	unsigned long flags;
+ 
+ 	/* Find the package and channel */
+ 	rsp = (struct ncsi_rsp_pkt *)skb_network_header(nr->rsp);
+@@ -194,9 +189,7 @@ static int ncsi_rsp_handler_rc(struct ncsi_request *nr)
+ 		return -ENODEV;
+ 
+ 	/* Update state for the specified channel */
+-	spin_lock_irqsave(&nc->lock, flags);
+-	nc->state = NCSI_CHANNEL_INACTIVE;
+-	spin_unlock_irqrestore(&nc->lock, flags);
++	WRITE_ONCE(nc->state, NCSI_CHANNEL_INACTIVE);
+ 
+ 	return 0;
+ }
+-- 
+2.1.0
