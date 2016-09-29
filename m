@@ -1,57 +1,104 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <hamzy@us.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sl6LT2vSszDsfg
- for <openbmc@lists.ozlabs.org>; Thu, 29 Sep 2016 17:55:12 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org;
- dkim=fail reason="signature verification failed" (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=MsmMRAxD; 
- dkim=fail reason="signature verification failed" (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=nePo0Zs1; dkim-atps=neutral
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 30BE020567;
- Thu, 29 Sep 2016 03:55:10 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute7.internal (MEProxy); Thu, 29 Sep 2016 03:55:10 -0400
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=pyGXr
- GSko8A4lCpzkeBV+oEDr9A=; b=MsmMRAxDpciU5yJTIr6HDsis3EHSWJAQvT5lq
- VJWCXRa8oF8ksX92Bq+LYEi8Xzt0TQb8n7nSnS1nhMilid64JXUzgPoIC17SV8HS
- sasNUFVUCQhvrldb3moy7Q7NyLzpmfSh0HutP08gxnQ64XEGO7O0N0Gqeo1eoB6W
- 7yFcLE=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-sasl-enc
- :x-sasl-enc; s=smtpout; bh=pyGXrGSko8A4lCpzkeBV+oEDr9A=; b=nePo0
- Zs1WEKen+uRtgggn5faxYdN0GT/IU2t03xybAGDiOAgDOuGgUH2VoI8LGYV1A41+
- sfH0UJCOM6JU5AnQpEws8VC9WFbRtX8B0aH8yLFkSyEfQ1TKZn6t9zLe5WJFhmmf
- IzMArkJoIqaZquDSjrPE5cLEV7HO3TnKolcosk=
-X-Sasl-enc: lgEfHUwn+Ewnv8kfmy+DOnmUoUKgyoQF5ijDYIxpWdMb 1475135709
-Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 79533F29CC;
- Thu, 29 Sep 2016 03:55:06 -0400 (EDT)
-Message-ID: <1475135699.24463.21.camel@aj.id.au>
-Subject: Re: [PATCH 5/8] pinctrl: aspeed: Enable capture of off-SCU pinmux
- state
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>, Linus Walleij <linus.walleij@linaro.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh+dt@kernel.org>, 
- linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>
-Date: Thu, 29 Sep 2016 17:24:59 +0930
-In-Reply-To: <CACPK8Xc7y3GtcJCVYYs-JKTqBZvqVeZaz5MUk=UX151SX1xEFw@mail.gmail.com>
-References: <cover.115463f791b69859c5ce9dafd61a5755ea039f4b.1474986045.git-series.andrew@aj.id.au>
- <a266046d34009e6e92c4c76699c550c2ba44bd5c.1474986045.git-series.andrew@aj.id.au>
- <CACPK8Xc7y3GtcJCVYYs-JKTqBZvqVeZaz5MUk=UX151SX1xEFw@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-Vy7UROloIyw7sybRF/wJ"
-X-Mailer: Evolution 3.18.5.2-0ubuntu3 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3slJZL5B7kzDsgZ
+ for <openbmc@lists.ozlabs.org>; Fri, 30 Sep 2016 01:36:10 +1000 (AEST)
+Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
+ u8TFY6fn043615
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Sep 2016 11:36:07 -0400
+Received: from e19.ny.us.ibm.com (e19.ny.us.ibm.com [129.33.205.209])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 25s34uyvxn-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Sep 2016 11:36:07 -0400
+Received: from localhost
+ by e19.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <hamzy@us.ibm.com>;
+ Thu, 29 Sep 2016 11:36:07 -0400
+Received: from d01dlp01.pok.ibm.com (9.56.250.166)
+ by e19.ny.us.ibm.com (146.89.104.206) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 29 Sep 2016 11:36:05 -0400
+X-IBM-Helo: d01dlp01.pok.ibm.com
+X-IBM-MailFrom: hamzy@us.ibm.com
+X-IBM-RcptTo: openbmc@lists.ozlabs.org
+Received: from b01cxnp22034.gho.pok.ibm.com (b01cxnp22034.gho.pok.ibm.com
+ [9.57.198.24])
+ by d01dlp01.pok.ibm.com (Postfix) with ESMTP id 94C7038C8046
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Sep 2016 11:36:04 -0400 (EDT)
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u8TFa0xi6816060
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Sep 2016 15:36:04 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 8F834112065
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Sep 2016 11:36:04 -0400 (EDT)
+Received: from d50lp31.co.us.ibm.com (unknown [9.17.249.32])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTPS id 65F92112064
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Sep 2016 11:36:04 -0400 (EDT)
+Received: from localhost
+ by d50lp31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <hamzy@us.ibm.com>;
+ Thu, 29 Sep 2016 09:36:03 -0600
+Received: from smtp.notes.na.collabserv.com (192.155.248.81)
+ by d50lp31.co.us.ibm.com (192.168.2.141) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES128-SHA bits=128/128)
+ Thu, 29 Sep 2016 09:36:00 -0600
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <hamzy@us.ibm.com>;
+ Thu, 29 Sep 2016 15:35:59 -0000
+Received: from us1a3-smtp04.a3.dal06.isc4sb.com (10.106.154.237)
+ by smtp.notes.na.collabserv.com (10.106.227.88) with
+ smtp.notes.na.collabserv.com ESMTP; Thu, 29 Sep 2016 15:35:56 -0000
+Received: from us1a3-mail88.a3.dal06.isc4sb.com ([10.146.21.43])
+ by us1a3-smtp04.a3.dal06.isc4sb.com
+ with ESMTP id 2016092915355663-315857 ;
+ Thu, 29 Sep 2016 15:35:56 +0000 
+To: openbmc@lists.ozlabs.org
+Subject: python command line client and library for OpenBMC
+From: "Mark Hamzy" <hamzy@us.ibm.com>
+Date: Thu, 29 Sep 2016 10:35:56 -0500
+MIME-Version: 1.0
+X-KeepSent: D56266B4:42478DB4-0025803D:00558964;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1FP7 Octobe4, 2013
+X-LLNOutbound: False
+X-Disclaimed: 8175
+X-TNEFEvaluated: 1
+Content-Type: multipart/alternative;
+ boundary="=_alternative 0055AF7C8625803D_="
+x-cbid: 16092915-0056-0000-0000-0000017E6692
+X-IBM-ISS-SpamDetectors: Score=0.423878; BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0;
+ PH=0; SC=0.423878; ST=0; TS=0; UL=0; ISC=
+X-IBM-ISS-DetailInfo: BY=3.00005825; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000186; SDB=6.00762739; UDB=6.00363578; UTC=2016-09-29
+ 15:35:58
+x-cbparentid: 16092915-7094-0000-0000-000001B8A80F
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00005825; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000186; SDB=6.00762738; UDB=6.00363578; IPR=6.00537864; 
+ BA=6.00004771; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00012820; XFM=3.00000011;
+ UTC=2016-09-29 15:36:06
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+Message-Id: <OFD56266B4.42478DB4-ON0025803D.00558964-8625803D.0055B012@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-09-29_09:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1609020000
+ definitions=main-1609290272
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,82 +110,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 29 Sep 2016 07:55:14 -0000
+X-List-Received-Date: Thu, 29 Sep 2016 15:36:11 -0000
 
 
---=-Vy7UROloIyw7sybRF/wJ
-Content-Type: text/plain; charset="UTF-8"
+--=_alternative 0055AF7C8625803D_=
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="US-ASCII"
 
-On Thu, 2016-09-29 at 16:15 +0930, Joel Stanley wrote:
-> On Wed, Sep 28, 2016 at 12:20 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> >=20
-> > The System Control Unit IP in the Aspeed SoCs is typically where the
-> > pinmux configuration is found.
-> >=20
-> > But not always.
-> >=20
-> > On the AST2400 and AST2500 a number of pins depend on state in one of
-> > the SIO, LPC or GFX IP blocks, so add support to at least capture what
-> > that state is. The pinctrl engine for the Aspeed SoCs doesn't try to
-> > inspect or modify the state of the off-SCU IP blocks. Instead, it logs
-> > the state requirement with the expectation that the platform
-> > designer/maintainer arranges for the appropriate configuration to be
-> > applied through the associated drivers.
-> This is unfortunate.
->=20
-> This patch kicks the can down the road, but doesn't solve the problem
-> for a user who wants to configure some functionality that depends on
-> the non-SCU bits. Because of this I'm not sure if we want to put it in
-> the tree.
+So I created a python command line client and library at=20
+https://github.com/hamzy/OpenBMC
 
-I agree that there's not much functionality from a user's perspective,
-but the "kicking the can down the road" assessment might be a little
-harsh. Given the lack of user functionality it becomes more difficult
-to argue for the patch's inclusion given the additional complexity, but
-it does mean that the g4/g5 drivers can completely specify their
-dependencies and not have the aspeed pinctrl core do the wrong thing
-when it encounters the non-SCU IP offsets. It gets us half-way to
-having the pinctrl driver actually configure the state (knowing what it
-needs to configure), which I feel is more than a kick-the-can-down-the-
-road boondoggle.
+What do y'all think about adding it under https://github.com/openbmc ?
 
->=20
-> However, I'm not sure what a proper solution would look like.
+--=20
+Mark
 
-So if we accept that a proper solution includes specifying the off-SCU
-dependencies, the remaining question is how do we tastefully apply the
-desired state on register-spaces the pinctrl driver doesn't own.
+You must be the change you wish to see in the world. -- Mahatma Gandhi
+Never let the future disturb you. You will meet it, if you have to, with=20
+the same weapons of reason which today arm you against the present. --=20
+Marcus Aurelius
 
->  Perhaps
-> Linus can point out another SoC that has a similar problem?
 
-Or failing that, an approach that is acceptable...
+--=_alternative 0055AF7C8625803D_=
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="US-ASCII"
 
-Cheers,
-
-Andrew
---=-Vy7UROloIyw7sybRF/wJ
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAABCgAGBQJX7MjTAAoJEJ0dnzgO5LT5xSIQAIgZqQDmsguxEVfI8v/zVJHA
-UdIlOiLW8wUP5LToIF0JHqT0XgMDp6PlBVb7FCCbn10AknoQOG/1ogZpNoZebVX7
-tuD5tldeSi+lLelpbvTrwue4m9gvRu8FwjnNJv44dIXBMFhm/Zs4enYnh9KaNeZv
-gdqf0+ClCo6yLAm7TSK16Nc16BRct3YqSqaUrvytqT5PzGaycogJNRx8bc7o/Tx/
-D14gH1arZOSzumvQRrpvq/URkRUsZDE9JH3sovDttbd/Mb9BqiXhd+kkRZcqeUsf
-gUP8kuEHArfyAE7i4zZcsG9W8RHY2DGHLShOyXg7VuDRNPtgJYSkEHhypCzC0tnR
-6zurYRu2bEZVnUgDspw6ACdfJVypkqIAfLIJUVf3u0rb2PLTkoDOcNAVJCyNC7LS
-vIFrrZftonNpORwYoNmrzthL5CjLPLVw7T/XZMZrupxDmOV2QgCOOTrcxosqlxF4
-K/od1reRhhfiCkDdjDLHSdNF5MRNb2snh99pu18G2ng6vDD7WOPnmFz25RljwQWi
-zJC8XAv/ZJ2HaIqGq95b7v1Xp6uza2hMX3yPqEW1N6IFqifCLqWky/Ac9O3lmAM1
-+Lgoz3YD+M2JSStBuqTQBHtsiHEAERMD032hFIE6dKzpkaITZaZT2VxwK04deUdx
-bKAxH1NxY59RcrkKAfpk
-=vVsy
------END PGP SIGNATURE-----
-
---=-Vy7UROloIyw7sybRF/wJ--
+<font size=3D2 face=3D"sans-serif">So I created a python command line client
+and library at </font><a href=3Dhttps://github.com/hamzy/OpenBMC><font size=
+=3D2 color=3Dblue face=3D"sans-serif">https://github.com/hamzy/OpenBMC</fon=
+t></a><br><br><font size=3D2 face=3D"sans-serif">What do y'all think about =
+adding it
+under </font><a href=3Dhttps://github.com/openbmc><font size=3D2 color=3Dbl=
+ue face=3D"sans-serif">https://github.com/openbmc</font></a><font size=3D2 =
+face=3D"sans-serif">?</font><br><br><font size=3D2 face=3D"sans-serif">-- <=
+br>Mark<br><br>You must be the change you wish to see in the world. -- Maha=
+tma Gandhi<br>Never let the future disturb you. You will meet it, if you ha=
+ve to, with
+the same weapons of reason which today arm you against the present. --
+Marcus Aurelius</font><BR>
+--=_alternative 0055AF7C8625803D_=--
