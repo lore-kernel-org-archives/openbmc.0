@@ -1,53 +1,50 @@
 Return-Path: <maxims@google.com>
-Received: from mail-yw0-x22e.google.com (mail-yw0-x22e.google.com
- [IPv6:2607:f8b0:4002:c05::22e])
+Received: from mail-pf0-x22d.google.com (mail-pf0-x22d.google.com
+ [IPv6:2607:f8b0:400e:c00::22d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3slNHy48nnzDskT
- for <openbmc@lists.ozlabs.org>; Fri, 30 Sep 2016 04:23:58 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3slNVV4MC4zDskV
+ for <openbmc@lists.ozlabs.org>; Fri, 30 Sep 2016 04:33:05 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=nv0IuLuE; 
+ unprotected) header.d=google.com header.i=@google.com header.b=UrVIrQL4; 
  dkim-atps=neutral
-Received: by mail-yw0-x22e.google.com with SMTP id t67so54306639ywg.3
- for <openbmc@lists.ozlabs.org>; Thu, 29 Sep 2016 11:23:57 -0700 (PDT)
+Received: by mail-pf0-x22d.google.com with SMTP id 21so31603913pfy.0
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Sep 2016 11:33:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=5LYa5dPFh6IfvOAYylrtTBoBaH1a0BQ400X8Xa3KQvo=;
- b=nv0IuLuEKZAaTpC+H7hlVxTOVOb1468PrMyc5/1Mt/u3euc/I4QJoqvGQhRU/Ogdt1
- WMjDoxwCkauxO9dKWJVBzo6w4pINJfaj7W2WwYW3NlATTsqt0KxmiTYxx7xa8PvJ6UIn
- sNqQX/0k+NAGn7hyVt5ITvKeqSfxgYJtZ37BN1Og9f2ix4tlcbQAbG933TNMgZR0Y53C
- UXnk8lotkCryHZnrm0N4MerkNtCwukzDimgAAAFIMVS22LBB4dX3y0KhgIjacXok7RQ4
- 0FMZ3UO39Kf7cUlT8txU8kf3CWF/e36+6QcbLsdH4jUIyoWtZCa7pLpu1+80Xxug6S/V
- Ke8Q==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=/zKgQsg4hmSmB8jaYQr9Pabn/SV5A4S8r7YtiCTnceg=;
+ b=UrVIrQL4UOwAlLZCdqtL3bjDhwufk82lut/AKZgiOo+uopg0xdGSEdF1721c0I9IsH
+ /IU5MLeUiR0JN95IdDzmyl7xI+Dv7qLb1YSAlPyXjEBRzIJgNl1PkUJObWjG9Hj0YvmT
+ dqBzpQnvN629X0V7fK8OZcCP9phstZY0vJn3K3XvbKdaVSA9Sxkn/kLa8nuDuyuIx3bS
+ EIxVodaFa5HdAuANRZ9Qp9/dqNj3U2Z8yDWaTo2uslRtVploURBQtMZUcfKLH3Jx9Ig0
+ aUuikUi4f1B9YiO11Tw3mN8zJ8o0oJAhR6L2DVCAVo7PvqtUvvI4IBuboy5V8COyFz8a
+ eB7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=5LYa5dPFh6IfvOAYylrtTBoBaH1a0BQ400X8Xa3KQvo=;
- b=LBM8P/R41gaohbU6JuvMchYilVHENF5YY0tSenhCDGWUSuO5vgNNecAVmsSt65wVV3
- NzU0kxUURz9EkPmojXNkkMPq2JptR+AZfng+nbMWWW6BqHjhI5JdO1Tp1BGRdLvLsxYu
- /Pjfy+68zneMi7nblkvVRUKMg0dslnmut0tqRPqAMd3Ou37LBgcllQvhcY5eE8/3HZNS
- fpJLgIJDVRnc3dtXR/xF/d3dq3trnaZS/QDzyHj4u8d2dMqSiS7kvqTAlOUZFQfkNBhl
- mz+qhsTfR/6XRpc3h64vM1sgCjSe2wW5QTd6J7lWVVf5ndiKiXlZdsxoZA5VQiObtnMQ
- hbNg==
-X-Gm-Message-State: AA6/9RlmVnD6ouoewf7TyCY/HBRKdt4Fc+Jq/yntflrksRH4ziUfhJ17oiMLBN9vzWu0PGsfokQUfk7jqViABfmi
-X-Received: by 10.13.246.199 with SMTP id g190mr1887490ywf.124.1475173435617; 
- Thu, 29 Sep 2016 11:23:55 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.37.38.80 with HTTP; Thu, 29 Sep 2016 11:23:55 -0700 (PDT)
-In-Reply-To: <CACPK8XfgUCEfcgmZ8P2wpMCRHn-jaVup_X5cpq93bYMkZy-jTw@mail.gmail.com>
-References: <1474306018-101166-1-git-send-email-maxims@google.com>
- <1474998214-12720-1-git-send-email-maxims@google.com>
- <1474998214-12720-2-git-send-email-maxims@google.com>
- <CACPK8XfgUCEfcgmZ8P2wpMCRHn-jaVup_X5cpq93bYMkZy-jTw@mail.gmail.com>
-From: Maxim Sloyko <maxims@google.com>
-Date: Thu, 29 Sep 2016 11:23:55 -0700
-Message-ID: <CAFR_W8rc=2XkpUwPokx2_00wMnZfxq9VTHTOVrXgJ8r7DkJ=0w@mail.gmail.com>
-Subject: Re: [PATCH 2/3] aspeed/g5: helper SCU functions for configuring
- aspeed I2C
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=94eb2c03116c9d4762053da9945a
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=/zKgQsg4hmSmB8jaYQr9Pabn/SV5A4S8r7YtiCTnceg=;
+ b=ddRioW3R3e8uRGWsP0Aqs9Ezh3SiyuCc575nhXLqHX/PqG+qQLd/k4GOucuCMjl+NW
+ 20U33Qi8+95Tn0LkjYlgDTzBrFznMWC9cDXYj99DoBX4+PBxZ3mZJO4wkxppshCHT1nm
+ vEUoZvIs6NU82i/WEETEkv3/H5kwz4Ai1DpwRGteX3yz0BVdpP9Arjbt/rEXel1TktzD
+ vu5iRiauV+C2lUnCmzCMaZt+qQmrfVyyEcCXCSeJB4NCqsjgFtrG3eQfOgCxbXHnIabp
+ CUGeclAFcXuVxxgyyqyqQ/jXr4YADH3TSOcyEWO3wkrvfog/kkCXiNlpAoUZompahzv3
+ HoQA==
+X-Gm-Message-State: AA6/9RmGZ86NBEOxBiDVVZo5szlQcYj5DJQAOiUn1sGHGPWiY06MoDL/G47VPo49rfKuFaoc
+X-Received: by 10.98.85.198 with SMTP id j189mr4680663pfb.123.1475173982947;
+ Thu, 29 Sep 2016 11:33:02 -0700 (PDT)
+Received: from mxsl.svl.corp.google.com ([100.123.242.80])
+ by smtp.gmail.com with ESMTPSA id d2sm21948055pfe.94.2016.09.29.11.33.02
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Thu, 29 Sep 2016 11:33:02 -0700 (PDT)
+From: maxims@google.com
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH] aspeed/g5: Device Tree for ast2500
+Date: Thu, 29 Sep 2016 11:32:54 -0700
+Message-Id: <1475173974-130879-1-git-send-email-maxims@google.com>
+X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
+In-Reply-To: <1474998214-12720-1-git-send-email-maxims@google.com>
+References: <1474998214-12720-1-git-send-email-maxims@google.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,543 +56,613 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 29 Sep 2016 18:23:59 -0000
+X-List-Received-Date: Thu, 29 Sep 2016 18:33:08 -0000
 
---94eb2c03116c9d4762053da9945a
-Content-Type: text/plain; charset=UTF-8
+From: Maxim Sloyko <maxims@google.com>
 
-On Wed, Sep 28, 2016 at 6:03 PM, Joel Stanley <joel@jms.id.au> wrote:
+Device Tree for ast2500, copied from openbmc/linux (include file), plus
+minimal device tree configuration for ast2500 eval board.
+---
+ arch/arm/dts/Makefile          |   2 +
+ arch/arm/dts/aspeed-g5-evb.dts |  28 +++
+ arch/arm/dts/aspeed-g5.dtsi    | 541 +++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 571 insertions(+)
+ create mode 100644 arch/arm/dts/aspeed-g5-evb.dts
+ create mode 100644 arch/arm/dts/aspeed-g5.dtsi
 
-> On Wed, Sep 28, 2016 at 3:13 AM,  <maxims@google.com> wrote:
->
-> You need a commit message.
->
-> > From: Maxim Sloyko <maxims@google.com>
-> >
-> > ---
-> >  arch/arm/include/asm/arch-aspeed/ast_scu.h  |  6 +++
-> >  arch/arm/include/asm/arch-aspeed/regs-scu.h | 74
-> ++++++++++++++++-------------
->
-> Please put the reformatting of header files in a seperate patch.
->
-
-What do you mean by reformatting?
-
-
->
-> >  arch/arm/mach-aspeed/ast-scu.c              | 30 +++++++++++-
-> >  3 files changed, 75 insertions(+), 35 deletions(-)
-> >
-> > diff --git a/arch/arm/include/asm/arch-aspeed/ast_scu.h
-> b/arch/arm/include/asm/arch-aspeed/ast_scu.h
-> > index d248416..80ebd6f 100644
-> > --- a/arch/arm/include/asm/arch-aspeed/ast_scu.h
-> > +++ b/arch/arm/include/asm/arch-aspeed/ast_scu.h
-> > @@ -38,6 +38,7 @@ extern void ast_scu_get_who_init_dram(void);
-> >  extern u32 ast_get_clk_source(void);
-> >  extern u32 ast_get_h_pll_clk(void);
-> >  extern u32 ast_get_ahbclk(void);
-> > +extern u32 ast_get_apbclk(void);
-> >
-> >  extern u32 ast_scu_get_vga_memsize(void);
-> >
-> > @@ -45,4 +46,9 @@ extern void ast_scu_init_eth(u8 num);
-> >  extern void ast_scu_multi_func_eth(u8 num);
-> >  extern void ast_scu_multi_func_romcs(u8 num);
-> >
-> > +/* Enable I2C controller and pins for a particular device.
-> > + * Device numbering starts at 1
-> > + */
-> > +extern void ast_scu_enable_i2c(u8 num);
-> > +
-> >  #endif
-> > diff --git a/arch/arm/include/asm/arch-aspeed/regs-scu.h
-> b/arch/arm/include/asm/arch-aspeed/regs-scu.h
-> > index b89df82..92ce84a 100644
-> > --- a/arch/arm/include/asm/arch-aspeed/regs-scu.h
-> > +++ b/arch/arm/include/asm/arch-aspeed/regs-scu.h
-> > @@ -10,8 +10,8 @@
-> >   *    1. 2012/12/29 Ryan Chen Create
-> >   *
-> >  ************************************************************
-> ********************/
-> > -#ifndef __AST_SCU_H
-> > -#define __AST_SCU_H                     1
-> > +#ifndef __AST_REGS_SCU_H
-> > +#define __AST_REGS_SCU_H                     1
-> >
-> >  #include <asm/arch/aspeed.h>
-> >
-> > @@ -830,49 +830,50 @@
-> >  /* AST_SCU_FUN_PIN_CTRL5               0x90 - Multi-function Pin
-> Control#5 */
-> >  #define SCU_FUN_PIN_SPICS1             (0x1 << 31)
-> >  #define SCU_FUN_PIN_LPC_PLUS           (0x1 << 30)
-> > -#define SCU_FUC_PIN_USB20_HOST         (0x1 << 29)
-> > -#define SCU_FUC_PIN_USB11_PORT4                (0x1 << 28)
-> > -#define SCU_FUC_PIN_I2C14              (0x1 << 27)
-> > -#define SCU_FUC_PIN_I2C13              (0x1 << 26)
-> > -#define SCU_FUC_PIN_I2C12              (0x1 << 25)
-> > -#define SCU_FUC_PIN_I2C11              (0x1 << 24)
-> > -#define SCU_FUC_PIN_I2C10              (0x1 << 23)
-> > -#define SCU_FUC_PIN_I2C9               (0x1 << 22)
-> > -#define SCU_FUC_PIN_I2C8               (0x1 << 21)
-> > -#define SCU_FUC_PIN_I2C7               (0x1 << 20)
-> > -#define SCU_FUC_PIN_I2C6               (0x1 << 19)
-> > -#define SCU_FUC_PIN_I2C5               (0x1 << 18)
-> > -#define SCU_FUC_PIN_I2C4               (0x1 << 17)
-> > -#define SCU_FUC_PIN_I2C3               (0x1 << 16)
-> > -#define SCU_FUC_PIN_MII2_RX_DWN_DIS    (0x1 << 15)
-> > -#define SCU_FUC_PIN_MII2_TX_DWN_DIS    (0x1 << 14)
-> > -#define SCU_FUC_PIN_MII1_RX_DWN_DIS    (0x1 << 13)
-> > -#define SCU_FUC_PIN_MII1_TX_DWN_DIS    (0x1 << 12)
-> > -
-> > -#define SCU_FUC_PIN_MII2_TX_DRIV(x)    (x << 10)
-> > -#define SCU_FUC_PIN_MII2_TX_DRIV_MASK  (0x3 << 10)
-> > -#define SCU_FUC_PIN_MII1_TX_DRIV(x)    (x << 8)
-> > -#define SCU_FUC_PIN_MII1_TX_DRIV_MASK  (0x3 << 8)
-> > +#define SCU_FUN_PIN_USB20_HOST         (0x1 << 29)
-> > +#define SCU_FUN_PIN_USB11_PORT4                (0x1 << 28)
-> > +#define SCU_FUN_PIN_I2C14              (0x1 << 27)
-> > +#define SCU_FUN_PIN_I2C13              (0x1 << 26)
-> > +#define SCU_FUN_PIN_I2C12              (0x1 << 25)
-> > +#define SCU_FUN_PIN_I2C11              (0x1 << 24)
-> > +#define SCU_FUN_PIN_I2C10              (0x1 << 23)
-> > +#define SCU_FUN_PIN_I2C9               (0x1 << 22)
-> > +#define SCU_FUN_PIN_I2C8               (0x1 << 21)
-> > +#define SCU_FUN_PIN_I2C7               (0x1 << 20)
-> > +#define SCU_FUN_PIN_I2C6               (0x1 << 19)
-> > +#define SCU_FUN_PIN_I2C5               (0x1 << 18)
-> > +#define SCU_FUN_PIN_I2C4               (0x1 << 17)
-> > +#define SCU_FUN_PIN_I2C3               (0x1 << 16)
-> > +#define SCU_FUN_PIN_I2C(n)             (0x1 << (16 + (n) - 3))
-> > +#define SCU_FUN_PIN_MII2_RX_DWN_DIS    (0x1 << 15)
-> > +#define SCU_FUN_PIN_MII2_TX_DWN_DIS    (0x1 << 14)
-> > +#define SCU_FUN_PIN_MII1_RX_DWN_DIS    (0x1 << 13)
-> > +#define SCU_FUN_PIN_MII1_TX_DWN_DIS    (0x1 << 12)
->
-> It looks like you're just changing the SCU_FUC_ to SCU_FUN. Without a
-> commit message I'm not sure why you're doing this, can you explain
-> why?
->
-> I don't think it is required.
->
-> If you were to make a change like this you should perform the renaming
-> and update the call sites in a separate patch to any other changes.
-> This makes it easier to review.
->
-
-Because that's a typo that got out of hand. FUN supposed to stand for
-FUNCTION,
-FUC ... no guesses.
-
-
->
->
-> > diff --git a/arch/arm/mach-aspeed/ast-scu.c b/arch/arm/mach-aspeed/ast-
-> scu.c
-> > index 0cc0d67..1452b93 100644
-> > --- a/arch/arm/mach-aspeed/ast-scu.c
-> > +++ b/arch/arm/mach-aspeed/ast-scu.c
-> > @@ -318,6 +318,14 @@ u32 ast_get_ahbclk(void)
-> >
-> >  #endif /* AST_SOC_G5 */
-> >
-> > +u32 ast_get_apbclk(void)
-> > +{
-> > +       u32 h_pll = ast_get_h_pll_clk();
-> > +       u32 apb_div = SCU_GET_PCLK_DIV(ast_scu_read(AST_SCU_CLK_SEL));
-> > +       return h_pll / apb_div;
-> > +}
->
-> This will do for now. We suspect need to write a clock driver that
-> will live in drivers/clk/ to do it properly.
->
-> Can apb_div ever be zero?
->
->
-Oh, this is actually wrong... Fixed.
-
-
-> > +
-> > +
-> >  void ast_scu_show_system_info(void)
-> >  {
-> >
-> > @@ -394,7 +402,7 @@ void ast_scu_multi_func_eth(u8 num)
-> >                               AST_SCU_FUN_PIN_CTRL1);
-> >
-> >                 ast_scu_write(ast_scu_read(AST_SCU_FUN_PIN_CTRL5) |
-> > -                             SCU_FUC_PIN_MAC1_MDIO,
-> > +                             SCU_FUN_PIN_MAC1_MDIO,
-> >                               AST_SCU_FUN_PIN_CTRL5);
-> >
-> >                 break;
-> > @@ -496,3 +504,23 @@ void ast_scu_get_who_init_dram(void)
-> >                 break;
-> >         }
-> >  }
-> > +
-> > +void ast_scu_enable_i2c(u8 num)
-> > +{
->
-> Is num the bus? Perhaps a better name would be "bus_enable" or similar.
->
-> I think you mentioned that num must be > 0. If so, check for zero, log
-> an error and return.
->
->
-> > +       /* Enable I2C Controllers */
-> > +       clrbits_le32(AST_SCU_BASE + AST_SCU_RESET, SCU_RESET_I2C);
-> > +
-> > +       if (num < 3) {
->
-> How do we enable buses number 1 and 2 when AST_SOC_G5 is not set?
->
-
-I don't know. My guess is we don't, as in, the pins are always assigned
-these functions. In datasheet these bits in PIN CTRL8 register are marked
-as "new in ast2500" and there is no mention of sda{1,2},scl{1,2} in ast2500
-datasheet.
-Also, this part is basically taken from aspeed's sdk, this is why I assume
-they are always on.
-
-
->
-> > +#ifdef AST_SOC_G5
-> > +               if (num == 1) {
-> > +                       setbits_le32(AST_SCU_BASE +
-> AST_SCU_FUN_PIN_CTRL8,
-> > +                                                SCU_FUN_PIN_SDA1 |
-> SCU_FUN_PIN_SCL1);
-> > +               } else {
->
-> Make the else check for num == 2, as that's what you're looking for.
->
-> > +                       setbits_le32(AST_SCU_BASE +
-> AST_SCU_FUN_PIN_CTRL8,
-> > +                                                SCU_FUN_PIN_SDA2 |
-> SCU_FUN_PIN_SCL2);
-> > +               }
-> > +#endif
-> > +       } else {
-> > +               setbits_le32(AST_SCU_BASE + AST_SCU_FUN_PIN_CTRL5,
-> SCU_FUN_PIN_I2C(num));
-> > +       }
->
->
-> > +}
-> > --
-> > 2.8.0.rc3.226.g39d4020
-> >
-> > _______________________________________________
-> > openbmc mailing list
-> > openbmc@lists.ozlabs.org
-> > https://lists.ozlabs.org/listinfo/openbmc
->
-
-
-
+diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
+index d1f8e22..09efa0a 100644
+--- a/arch/arm/dts/Makefile
++++ b/arch/arm/dts/Makefile
+@@ -233,6 +233,8 @@ dtb-$(CONFIG_SOC_KEYSTONE) += k2hk-evm.dtb \
+ 	k2e-evm.dtb \
+ 	k2g-evm.dtb
+ 
++dtb-$(CONFIG_TARGET_AST_G5) += aspeed-g5-evb.dtb
++
+ targets += $(dtb-y)
+ 
+ # Add any required device tree compiler flags here
+diff --git a/arch/arm/dts/aspeed-g5-evb.dts b/arch/arm/dts/aspeed-g5-evb.dts
+new file mode 100644
+index 0000000..95dc77a
+--- /dev/null
++++ b/arch/arm/dts/aspeed-g5-evb.dts
+@@ -0,0 +1,28 @@
++/dts-v1/;
++
++#include "aspeed-g5.dtsi"
++
++/ {
++	memory {
++		device_type = "memory";
++		reg = <0x80000000 0x20000000>;
++	};
++
++	aliases {
++		i2c1 = &i2c0;
++		i2c4 = &i2c3;
++		i2c8 = &i2c7;
++	};
++};
++
++&i2c0 {
++	status = "okay";
++};
++
++&i2c3 {
++	status = "okay";
++};
++
++&i2c7 {
++	status = "okay";
++};
+diff --git a/arch/arm/dts/aspeed-g5.dtsi b/arch/arm/dts/aspeed-g5.dtsi
+new file mode 100644
+index 0000000..eb81a2e
+--- /dev/null
++++ b/arch/arm/dts/aspeed-g5.dtsi
+@@ -0,0 +1,541 @@
++/* The device tree is copied from
++ * https://github.com/openbmc/linux/blob/9ec9d09/arch/arm/boot/dts/aspeed-g5.dtsi
++ */
++#include "skeleton.dtsi"
++
++/ {
++	model = "Aspeed BMC";
++	compatible = "aspeed,ast2500";
++	#address-cells = <1>;
++	#size-cells = <1>;
++	interrupt-parent = <&vic>;
++
++	cpus {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		cpu@0 {
++			compatible = "arm,arm1176jzf-s";
++			device_type = "cpu";
++			reg = <0>;
++		};
++	};
++
++	ahb {
++		compatible = "simple-bus";
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		vic: interrupt-controller@1e6c0080 {
++			compatible = "aspeed,ast2400-vic";
++			interrupt-controller;
++			#interrupt-cells = <1>;
++			valid-sources = <0xfefff7ff 0x0807ffff>;
++			reg = <0x1e6c0080 0x80>;
++		};
++
++		mac0: ethernet@1e660000 {
++			compatible = "faraday,ftgmac100";
++			reg = <0x1e660000 0x180>;
++			interrupts = <2>;
++			no-hw-checksum;
++			status = "disabled";
++		};
++
++		mac1: ethernet@1e680000 {
++			compatible = "faraday,ftgmac100";
++			reg = <0x1e680000 0x180>;
++			interrupts = <3>;
++			no-hw-checksum;
++			status = "disabled";
++		};
++
++		apb {
++			compatible = "simple-bus";
++			#address-cells = <1>;
++			#size-cells = <1>;
++			ranges;
++
++			clk_clkin: clk_clkin@1e6e2070 {
++				#clock-cells = <0>;
++				compatible = "aspeed,g5-clkin-clock";
++				reg = <0x1e6e2070 0x04>;
++			};
++
++			syscon: syscon@1e6e2000 {
++				compatible = "aspeed,g5-scu", "syscon", "simple-mfd";
++				reg = <0x1e6e2000 0x1a8>;
++
++				pinctrl: pinctrl@1e6e2000 {
++					compatible = "aspeed,g5-pinctrl";
++
++					pinctrl_i2c9_default: i2c9_default {
++						function = "I2C9";
++						groups = "I2C9";
++					};
++
++					pinctrl_i2c10_default: i2c10_default {
++						function = "I2C10";
++						groups = "I2C10";
++					};
++
++					pinctrl_i2c11_default: i2c11_default {
++						function = "I2C11";
++						groups = "I2C11";
++					};
++
++					pinctrl_i2c12_default: i2c12_default {
++						function = "I2C12";
++						groups = "I2C12";
++					};
++
++					pinctrl_i2c13_default: i2c13_default {
++						function = "I2C13";
++						groups = "I2C13";
++					};
++
++					pinctrl_gpid0_default: gpid0_default {
++						function = "GPID0";
++						groups = "GPID0";
++					};
++
++					pinctrl_gpid1_default: gpid1_default {
++						function = "GPID1";
++						groups = "GPID1";
++					};
++
++					pinctrl_sd1_default: sd1_default {
++						function = "SD1";
++						groups = "SD1";
++					};
++
++					pinctrl_i2c5_default: i2c5_default {
++						function = "I2C5";
++						groups = "I2C5";
++					};
++
++					pinctrl_i2c6_default: i2c6_default {
++						function = "I2C6";
++						groups = "I2C6";
++					};
++
++					pinctrl_i2c7_default: i2c7_default {
++						function = "I2C7";
++						groups = "I2C7";
++					};
++
++					pinctrl_i2c8_default: i2c8_default {
++						function = "I2C8";
++						groups = "I2C8";
++					};
++
++					pinctrl_pwm0_default: pwm0_default {
++						function = "PWM0";
++						groups = "PWM0";
++					};
++
++					pinctrl_pwm1_default: pwm1_default {
++						function = "PWM1";
++						groups = "PWM1";
++					};
++
++					pinctrl_pwm2_default: pwm2_default {
++						function = "PWM2";
++						groups = "PWM2";
++					};
++
++					pinctrl_pwm3_default: pwm3_default {
++						function = "PWM3";
++						groups = "PWM3";
++					};
++
++					pinctrl_pwm4_default: pwm4_default {
++						function = "PWM4";
++						groups = "PWM4";
++					};
++
++					pinctrl_pwm5_default: pwm5_default {
++						function = "PWM5";
++						groups = "PWM5";
++					};
++
++					pinctrl_pwm6_default: pwm6_default {
++						function = "PWM6";
++						groups = "PWM6";
++					};
++
++					pinctrl_pwm7_default: pwm7_default {
++						function = "PWM7";
++						groups = "PWM7";
++					};
++
++					pinctrl_i2c3_default: i2c3_default {
++						function = "I2C3";
++						groups = "I2C3";
++					};
++
++					pinctrl_i2c4_default: i2c4_default {
++						function = "I2C4";
++						groups = "I2C4";
++					};
++
++					pinctrl_i2c14_default: i2c14_default {
++						function = "I2C14";
++						groups = "I2C14";
++					};
++
++					pinctrl_rgmii1_default: rgmii1_default {
++						function = "RGMII1";
++						groups = "RGMII1";
++					};
++
++					pinctrl_rmii1_default: rmii1_default {
++						function = "RMII1";
++						groups = "RMII1";
++					};
++
++					pinctrl_rgmii2_default: rgmii2_default {
++						function = "RGMII2";
++						groups = "RGMII2";
++					};
++
++					pinctrl_rmii2_default: rmii2_default {
++						function = "RMII2";
++						groups = "RMII2";
++					};
++				};
++			};
++
++			clk_hpll: clk_hpll@1e6e2024 {
++				#clock-cells = <0>;
++				compatible = "aspeed,g5-hpll-clock";
++				reg = <0x1e6e2024 0x4>;
++				clocks = <&clk_clkin>;
++			};
++
++			clk_ahb: clk_ahb@1e6e2070 {
++				#clock-cells = <0>;
++				compatible = "aspeed,g5-ahb-clock";
++				reg = <0x1e6e2070 0x4>;
++				clocks = <&clk_hpll>;
++			};
++
++			clk_apb: clk_apb@1e6e2008 {
++				#clock-cells = <0>;
++				compatible = "aspeed,g5-apb-clock";
++				reg = <0x1e6e2008 0x4>;
++				clocks = <&clk_hpll>;
++			};
++
++			clk_uart: clk_uart@1e6e2008 {
++				#clock-cells = <0>;
++				compatible = "aspeed,uart-clock";
++				reg = <0x1e6e202c 0x4>;
++			};
++
++			sram@1e720000 {
++				compatible = "mmio-sram";
++				reg = <0x1e720000 0x9000>;	// 36K
++			};
++
++			gpio: gpio@1e780000 {
++				#gpio-cells = <2>;
++				gpio-controller;
++				compatible = "aspeed,ast2500-gpio";
++				reg = <0x1e780000 0x1000>;
++				interrupts = <20>;
++				gpio-ranges = <&pinctrl 0 0 220>;
++			};
++
++			timer: timer@1e782000 {
++				compatible = "aspeed,ast2400-timer";
++				reg = <0x1e782000 0x90>;
++				// The moxart_timer driver registers only one
++				// interrupt and assumes it's for timer 1
++				//interrupts = <16 17 18 35 36 37 38 39>;
++				interrupts = <16>;
++				clocks = <&clk_apb>;
++			};
++
++			ibt: ibt@1e789140 {
++				compatible = "aspeed,bt-host";
++				reg = <0x1e789140 0x18>;
++				interrupts = <8>;
++			};
++
++			wdt1: wdt@1e785000 {
++				compatible = "aspeed,ast2500-wdt";
++				reg = <0x1e785000 0x1c>;
++			};
++
++			wdt2: wdt@1e785020 {
++				compatible = "aspeed,ast2500-wdt";
++				reg = <0x1e785020 0x1c>;
++				status = "disabled";
++			};
++
++			wdt3: wdt@1e785040 {
++				compatible = "aspeed,wdt";
++				reg = <0x1e785074 0x1c>;
++				status = "disabled";
++			};
++
++			uart1: serial@1e783000 {
++				compatible = "ns16550a";
++				reg = <0x1e783000 0x1000>;
++				reg-shift = <2>;
++				interrupts = <9>;
++				clocks = <&clk_uart>;
++				no-loopback-test;
++				status = "disabled";
++			};
++
++			uart2: serial@1e78d000 {
++				compatible = "ns16550a";
++				reg = <0x1e78d000 0x1000>;
++				reg-shift = <2>;
++				interrupts = <32>;
++				clocks = <&clk_uart>;
++				no-loopback-test;
++				status = "disabled";
++			};
++
++			uart3: serial@1e78e000 {
++				compatible = "ns16550a";
++				reg = <0x1e78e000 0x1000>;
++				reg-shift = <2>;
++				interrupts = <33>;
++				clocks = <&clk_uart>;
++				no-loopback-test;
++				status = "disabled";
++			};
++
++			uart4: serial@1e78f000 {
++				compatible = "ns16550a";
++				reg = <0x1e78f000 0x1000>;
++				reg-shift = <2>;
++				interrupts = <34>;
++				clocks = <&clk_uart>;
++				no-loopback-test;
++				status = "disabled";
++			};
++
++			uart5: serial@1e784000 {
++				compatible = "ns16550a";
++				reg = <0x1e784000 0x1000>;
++				reg-shift = <2>;
++				interrupts = <10>;
++				clocks = <&clk_uart>;
++				current-speed = <38400>;
++				no-loopback-test;
++				status = "disabled";
++			};
++
++			vuart: vuart@1e787000 {
++				compatible = "aspeed,vuart";
++				reg = <0x1e787000 0x1000>;
++				reg-shift = <2>;
++				interrupts = <8>;
++				clocks = <&clk_uart>;
++				no-loopback-test;
++				status = "disabled";
++			};
++
++			i2c: i2c@1e78a000 {
++				#address-cells = <1>;
++				#size-cells = <1>;
++				#interrupt-cells = <1>;
++
++				compatible = "aspeed,ast2400-i2c-controller";
++				reg = <0x1e78a000 0x40>;
++				ranges = <0 0x1e78a000 0x1000>;
++				interrupts = <12>;
++				clocks = <&clk_apb>;
++				clock-ranges;
++				interrupt-controller;
++
++				i2c0: i2c-bus@40 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x40 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <0>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <0>;
++					interrupt-parent = <&i2c>;
++				};
++
++				i2c1: i2c-bus@80 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x80 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <1>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <1>;
++				};
++
++				i2c2: i2c-bus@c0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0xC0 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <2>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <2>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c3_default>;
++				};
++
++				i2c3: i2c-bus@100 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x100 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <3>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <3>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c4_default>;
++				};
++
++				i2c4: i2c-bus@140 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x140 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <4>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <4>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c5_default>;
++				};
++
++				i2c5: i2c-bus@180 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x180 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <5>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <5>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c6_default>;
++				};
++
++				i2c6: i2c-bus@1c0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x1C0 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <6>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <6>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c7_default>;
++				};
++
++				i2c7: i2c-bus@300 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x300 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <7>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <7>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c8_default>;
++				};
++
++				i2c8: i2c-bus@340 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x340 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <8>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <8>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c9_default>;
++				};
++
++				i2c9: i2c-bus@380 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x380 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <9>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <9>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c10_default>;
++				};
++
++				i2c10: i2c-bus@3c0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x3c0 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <10>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <10>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c11_default>;
++				};
++
++				i2c11: i2c-bus@400 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x400 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <11>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <11>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c12_default>;
++				};
++
++				i2c12: i2c-bus@440 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x440 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <12>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <12>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c13_default>;
++				};
++
++				i2c13: i2c-bus@480 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x480 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <13>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <13>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c14_default>;
++				};
++
++			};
++
++		};
++	};
++};
 -- 
-*M*axim *S*loyko
-
---94eb2c03116c9d4762053da9945a
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><br><div class=3D"gmail_extra"><br><div class=3D"gmail_quo=
-te">On Wed, Sep 28, 2016 at 6:03 PM, Joel Stanley <span dir=3D"ltr">&lt;<a =
-href=3D"mailto:joel@jms.id.au" target=3D"_blank">joel@jms.id.au</a>&gt;</sp=
-an> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;=
-border-left:1px #ccc solid;padding-left:1ex">On Wed, Sep 28, 2016 at 3:13 A=
-M,=C2=A0 &lt;<a href=3D"mailto:maxims@google.com">maxims@google.com</a>&gt;=
- wrote:<br>
-<br>
-You need a commit message.<br>
-<span class=3D""><br>
-&gt; From: Maxim Sloyko &lt;<a href=3D"mailto:maxims@google.com">maxims@goo=
-gle.com</a>&gt;<br>
-&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 arch/arm/include/asm/arch-<wbr>aspeed/ast_scu.h=C2=A0 |=C2=A0 6 =
-+++<br>
-&gt;=C2=A0 arch/arm/include/asm/arch-<wbr>aspeed/regs-scu.h | 74 ++++++++++=
-++++++-------------<br>
-<br>
-</span>Please put the reformatting of header files in a seperate patch.<br>=
-</blockquote><div><br></div><div>What do you mean by reformatting?</div><di=
-v>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;=
-border-left:1px #ccc solid;padding-left:1ex">
-<div><div class=3D"h5"><br>
-&gt;=C2=A0 arch/arm/mach-aspeed/ast-scu.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 | 30 +++++++++++-<br>
-&gt;=C2=A0 3 files changed, 75 insertions(+), 35 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/arch/arm/include/asm/arch-<wbr>aspeed/ast_scu.h b/arch/ar=
-m/include/asm/arch-<wbr>aspeed/ast_scu.h<br>
-&gt; index d248416..80ebd6f 100644<br>
-&gt; --- a/arch/arm/include/asm/arch-<wbr>aspeed/ast_scu.h<br>
-&gt; +++ b/arch/arm/include/asm/arch-<wbr>aspeed/ast_scu.h<br>
-&gt; @@ -38,6 +38,7 @@ extern void ast_scu_get_who_init_dram(<wbr>void);<br=
->
-&gt;=C2=A0 extern u32 ast_get_clk_source(void);<br>
-&gt;=C2=A0 extern u32 ast_get_h_pll_clk(void);<br>
-&gt;=C2=A0 extern u32 ast_get_ahbclk(void);<br>
-&gt; +extern u32 ast_get_apbclk(void);<br>
-&gt;<br>
-&gt;=C2=A0 extern u32 ast_scu_get_vga_memsize(void);<br>
-&gt;<br>
-&gt; @@ -45,4 +46,9 @@ extern void ast_scu_init_eth(u8 num);<br>
-&gt;=C2=A0 extern void ast_scu_multi_func_eth(u8 num);<br>
-&gt;=C2=A0 extern void ast_scu_multi_func_romcs(u8 num);<br>
-&gt;<br>
-&gt; +/* Enable I2C controller and pins for a particular device.<br>
-&gt; + * Device numbering starts at 1<br>
-&gt; + */<br>
-&gt; +extern void ast_scu_enable_i2c(u8 num);<br>
-&gt; +<br>
-&gt;=C2=A0 #endif<br>
-&gt; diff --git a/arch/arm/include/asm/arch-<wbr>aspeed/regs-scu.h b/arch/a=
-rm/include/asm/arch-<wbr>aspeed/regs-scu.h<br>
-&gt; index b89df82..92ce84a 100644<br>
-&gt; --- a/arch/arm/include/asm/arch-<wbr>aspeed/regs-scu.h<br>
-&gt; +++ b/arch/arm/include/asm/arch-<wbr>aspeed/regs-scu.h<br>
-&gt; @@ -10,8 +10,8 @@<br>
-&gt;=C2=A0 =C2=A0*=C2=A0 =C2=A0 1. 2012/12/29 Ryan Chen Create<br>
-&gt;=C2=A0 =C2=A0*<br>
-&gt;=C2=A0 ******************************<wbr>*****************************=
-*<wbr>********************/<br>
-&gt; -#ifndef __AST_SCU_H<br>
-&gt; -#define __AST_SCU_H=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A01<br>
-&gt; +#ifndef __AST_REGS_SCU_H<br>
-&gt; +#define __AST_REGS_SCU_H=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A01<br>
-&gt;<br>
-&gt;=C2=A0 #include &lt;asm/arch/aspeed.h&gt;<br>
-&gt;<br>
-&gt; @@ -830,49 +830,50 @@<br>
-&gt;=C2=A0 /* AST_SCU_FUN_PIN_CTRL5=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A00x90 - Multi-function Pin Control#5 */<br>
-&gt;=C2=A0 #define SCU_FUN_PIN_SPICS1=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0(0x1 &lt;&lt; 31)<br>
-&gt;=C2=A0 #define SCU_FUN_PIN_LPC_PLUS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; 30)<br>
-&gt; -#define SCU_FUC_PIN_USB20_HOST=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(0x1 =
-&lt;&lt; 29)<br>
-&gt; -#define SCU_FUC_PIN_USB11_PORT4=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 (0x1 &lt;&lt; 28)<br>
-&gt; -#define SCU_FUC_PIN_I2C14=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 (0x1 &lt;&lt; 27)<br>
-&gt; -#define SCU_FUC_PIN_I2C13=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 (0x1 &lt;&lt; 26)<br>
-&gt; -#define SCU_FUC_PIN_I2C12=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 (0x1 &lt;&lt; 25)<br>
-&gt; -#define SCU_FUC_PIN_I2C11=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 (0x1 &lt;&lt; 24)<br>
-&gt; -#define SCU_FUC_PIN_I2C10=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 (0x1 &lt;&lt; 23)<br>
-&gt; -#define SCU_FUC_PIN_I2C9=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0(0x1 &lt;&lt; 22)<br>
-&gt; -#define SCU_FUC_PIN_I2C8=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0(0x1 &lt;&lt; 21)<br>
-&gt; -#define SCU_FUC_PIN_I2C7=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0(0x1 &lt;&lt; 20)<br>
-&gt; -#define SCU_FUC_PIN_I2C6=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0(0x1 &lt;&lt; 19)<br>
-&gt; -#define SCU_FUC_PIN_I2C5=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0(0x1 &lt;&lt; 18)<br>
-&gt; -#define SCU_FUC_PIN_I2C4=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0(0x1 &lt;&lt; 17)<br>
-&gt; -#define SCU_FUC_PIN_I2C3=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0(0x1 &lt;&lt; 16)<br>
-&gt; -#define SCU_FUC_PIN_MII2_RX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 15)<br=
->
-&gt; -#define SCU_FUC_PIN_MII2_TX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 14)<br=
->
-&gt; -#define SCU_FUC_PIN_MII1_RX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 13)<br=
->
-&gt; -#define SCU_FUC_PIN_MII1_TX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 12)<br=
->
-&gt; -<br>
-&gt; -#define SCU_FUC_PIN_MII2_TX_DRIV(x)=C2=A0 =C2=A0 (x &lt;&lt; 10)<br>
-&gt; -#define SCU_FUC_PIN_MII2_TX_DRIV_MASK=C2=A0 (0x3 &lt;&lt; 10)<br>
-&gt; -#define SCU_FUC_PIN_MII1_TX_DRIV(x)=C2=A0 =C2=A0 (x &lt;&lt; 8)<br>
-&gt; -#define SCU_FUC_PIN_MII1_TX_DRIV_MASK=C2=A0 (0x3 &lt;&lt; 8)<br>
-&gt; +#define SCU_FUN_PIN_USB20_HOST=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(0x1 =
-&lt;&lt; 29)<br>
-&gt; +#define SCU_FUN_PIN_USB11_PORT4=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 (0x1 &lt;&lt; 28)<br>
-&gt; +#define SCU_FUN_PIN_I2C14=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 (0x1 &lt;&lt; 27)<br>
-&gt; +#define SCU_FUN_PIN_I2C13=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 (0x1 &lt;&lt; 26)<br>
-&gt; +#define SCU_FUN_PIN_I2C12=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 (0x1 &lt;&lt; 25)<br>
-&gt; +#define SCU_FUN_PIN_I2C11=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 (0x1 &lt;&lt; 24)<br>
-&gt; +#define SCU_FUN_PIN_I2C10=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 (0x1 &lt;&lt; 23)<br>
-&gt; +#define SCU_FUN_PIN_I2C9=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0(0x1 &lt;&lt; 22)<br>
-&gt; +#define SCU_FUN_PIN_I2C8=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0(0x1 &lt;&lt; 21)<br>
-&gt; +#define SCU_FUN_PIN_I2C7=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0(0x1 &lt;&lt; 20)<br>
-&gt; +#define SCU_FUN_PIN_I2C6=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0(0x1 &lt;&lt; 19)<br>
-&gt; +#define SCU_FUN_PIN_I2C5=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0(0x1 &lt;&lt; 18)<br>
-&gt; +#define SCU_FUN_PIN_I2C4=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0(0x1 &lt;&lt; 17)<br>
-&gt; +#define SCU_FUN_PIN_I2C3=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0(0x1 &lt;&lt; 16)<br>
-&gt; +#define SCU_FUN_PIN_I2C(n)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; (16 + (n) - 3))<br>
-&gt; +#define SCU_FUN_PIN_MII2_RX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 15)<br=
->
-&gt; +#define SCU_FUN_PIN_MII2_TX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 14)<br=
->
-&gt; +#define SCU_FUN_PIN_MII1_RX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 13)<br=
->
-&gt; +#define SCU_FUN_PIN_MII1_TX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 12)<br=
->
-<br>
-</div></div>It looks like you&#39;re just changing the SCU_FUC_ to SCU_FUN.=
- Without a<br>
-commit message I&#39;m not sure why you&#39;re doing this, can you explain<=
-br>
-why?<br>
-<br>
-I don&#39;t think it is required.<br>
-<br>
-If you were to make a change like this you should perform the renaming<br>
-and update the call sites in a separate patch to any other changes.<br>
-This makes it easier to review.<br></blockquote><div><br></div><div>Because=
- that&#39;s a typo that got out of hand. FUN supposed to stand for FUNCTION=
-,</div><div>FUC ... no guesses.</div><div>=C2=A0</div><blockquote class=3D"=
-gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-=
-left:1ex">
-<span class=3D""><br>
-<br>
-&gt; diff --git a/arch/arm/mach-aspeed/ast-<wbr>scu.c b/arch/arm/mach-aspee=
-d/ast-<wbr>scu.c<br>
-&gt; index 0cc0d67..1452b93 100644<br>
-&gt; --- a/arch/arm/mach-aspeed/ast-<wbr>scu.c<br>
-&gt; +++ b/arch/arm/mach-aspeed/ast-<wbr>scu.c<br>
-&gt; @@ -318,6 +318,14 @@ u32 ast_get_ahbclk(void)<br>
-&gt;<br>
-&gt;=C2=A0 #endif /* AST_SOC_G5 */<br>
-&gt;<br>
-&gt; +u32 ast_get_apbclk(void)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0u32 h_pll =3D ast_get_h_pll_clk();<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0u32 apb_div =3D SCU_GET_PCLK_DIV(ast_scu_r=
-ead(<wbr>AST_SCU_CLK_SEL));<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0return h_pll / apb_div;<br>
-&gt; +}<br>
-<br>
-</span>This will do for now. We suspect need to write a clock driver that<b=
-r>
-will live in drivers/clk/ to do it properly.<br>
-<br>
-Can apb_div ever be zero?<br>
-<span class=3D""><br></span></blockquote><div><br></div><div>Oh, this is ac=
-tually wrong... Fixed.=C2=A0</div><div>=C2=A0</div><blockquote class=3D"gma=
-il_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-lef=
-t:1ex"><span class=3D"">
-&gt; +<br>
-&gt; +<br>
-&gt;=C2=A0 void ast_scu_show_system_info(void)<br>
-&gt;=C2=A0 {<br>
-&gt;<br>
-&gt; @@ -394,7 +402,7 @@ void ast_scu_multi_func_eth(u8 num)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AST_SCU_FUN_PIN_CTRL1);<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ast_scu_w=
-rite(ast_scu_read(<wbr>AST_SCU_FUN_PIN_CTRL5) |<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SCU_FUC_PIN_MAC1_MDIO,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SCU_FUN_PIN_MAC1_MDIO,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AST_SCU_FUN_PIN_CTRL5);<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br=
->
-&gt; @@ -496,3 +504,23 @@ void ast_scu_get_who_init_dram(<wbr>void)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br=
->
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 }<br>
-&gt; +<br>
-&gt; +void ast_scu_enable_i2c(u8 num)<br>
-&gt; +{<br>
-<br>
-</span>Is num the bus? Perhaps a better name would be &quot;bus_enable&quot=
-; or similar.<br>
-<br>
-I think you mentioned that num must be &gt; 0. If so, check for zero, log<b=
-r>
-an error and return.<br>
-<span class=3D""><br>
-<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Enable I2C Controllers */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0clrbits_le32(AST_SCU_BASE + AST_SCU_RESET,=
- SCU_RESET_I2C);<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (num &lt; 3) {<br>
-<br>
-</span>How do we enable buses number 1 and 2 when AST_SOC_G5 is not set?<br=
-></blockquote><div><br></div><div>I don&#39;t know. My guess is we don&#39;=
-t, as in, the pins are always assigned these functions. In datasheet these =
-bits in PIN CTRL8 register are marked as &quot;new in ast2500&quot; and the=
-re is no mention of sda{1,2},scl{1,2} in ast2500 datasheet.</div><div>Also,=
- this part is basically taken from aspeed&#39;s sdk, this is why I assume t=
-hey are always on.</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" =
-style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-<span class=3D""><br>
-&gt; +#ifdef AST_SOC_G5<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (num =3D=3D=
- 1) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0setbits_le32(AST_SCU_BASE + AST_SCU_FUN_PIN_CTRL8,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 SCU_FUN_PIN_SDA1 | SCU_FUN_PIN_SCL1);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
-<br>
-</span>Make the else check for num =3D=3D 2, as that&#39;s what you&#39;re =
-looking for.<br>
-<span class=3D""><br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0setbits_le32(AST_SCU_BASE + AST_SCU_FUN_PIN_CTRL8,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 SCU_FUN_PIN_SDA2 | SCU_FUN_PIN_SCL2);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +#endif<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0setbits_le32(A=
-ST_SCU_BASE + AST_SCU_FUN_PIN_CTRL5, SCU_FUN_PIN_I2C(num));<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-<br>
-<br>
-&gt; +}<br>
-&gt; --<br>
-&gt; 2.8.0.rc3.226.g39d4020<br>
-&gt;<br>
-</span>&gt; ______________________________<wbr>_________________<br>
-&gt; openbmc mailing list<br>
-&gt; <a href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</=
-a><br>
-&gt; <a href=3D"https://lists.ozlabs.org/listinfo/openbmc" rel=3D"noreferre=
-r" target=3D"_blank">https://lists.ozlabs.org/<wbr>listinfo/openbmc</a><br>
-</blockquote></div><br><br clear=3D"all"><div><br></div>-- <br><div class=
-=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div><b>M</b>axim <=
-b>S</b>loyko</div></div>
-</div></div>
-
---94eb2c03116c9d4762053da9945a--
+2.8.0.rc3.226.g39d4020
