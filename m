@@ -1,52 +1,56 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-vk0-x242.google.com (mail-vk0-x242.google.com
- [IPv6:2607:f8b0:400c:c05::242])
+Received: from mail-ua0-x244.google.com (mail-ua0-x244.google.com
+ [IPv6:2607:f8b0:400c:c08::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sl2Sv0F16zDsfl
- for <openbmc@lists.ozlabs.org>; Thu, 29 Sep 2016 15:00:31 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sl4p76gRGzDrZr
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Sep 2016 16:45:35 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=Qck/v4zd; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=Mk8qoBbd; 
  dkim-atps=neutral
-Received: by mail-vk0-x242.google.com with SMTP id u196so2390366vkd.1
- for <openbmc@lists.ozlabs.org>; Wed, 28 Sep 2016 22:00:30 -0700 (PDT)
+Received: by mail-ua0-x244.google.com with SMTP id 51so2181388uac.3
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Sep 2016 23:45:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=1XTPHMTk5KNYcp7YxvHIJ8JbIE82NPwCxSWsAio4PtE=;
- b=Qck/v4zdutBmabn96qFXm+tHlgYolMnAo0SaGKbbVL9l/fJ+vVwkOXrb/XTlHcPGxG
- 2jZxz8v916LRos8x+NoQ2PgQrJUugp6ggaeEuICcsh8ZBHwC8TgNN9RFLN1m1nsaCdgQ
- wRzMswp/MPVZAp0VXHgdbAQP2S581+soZFCExajJry/rNRTo3qgebK4YUpxB+aJxF8Rf
- ECP71TndAZPlxUvUb6UqAHjmNTfBoWD4SCUitbXbYTG8YxMzBaku5AlHgafQBJoPzzr8
- JRr0LO0JFCLijGnNdo40XalwQFxQeVO/T43twQx5QEJWh7W0pLO2sMSn5ovC4n2ZudNm
- Ix6g==
+ bh=IJUcHkTsBlBRkaSIUhM6Lk2xJqrIEEUMaCigeZiNBCA=;
+ b=Mk8qoBbdjsu03QprBAoEgIblNvetqSimE7b8XiOY9linlmB5+JKRyv2/P/l0X7uv6G
+ NHPeNg0hDfbDkucjgy46IY7Re7OE9SmOwUS1u/wZMSRncVb4iIuzzr4ZIoCqHqFxVY0C
+ YDylwG5Hdq9Fhr9ksx+B8LoRqigN2wHfcpKM4as9/Wzt5h9RNRSHj6/d3oy2Spc4rTpm
+ Rv09JhQDFIiWSBvy1S8ghcrL3Q+VcJz1PRhqfQcoTUrM8VY7K+OD4/PqqYacz8ebrQ5L
+ IOkjhtASrtwQe49VeoH5iW5j2OPXVECPD5F52m25bYVHmpmNhr7BLqFhIxQafeXSvIwa
+ o6yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=1XTPHMTk5KNYcp7YxvHIJ8JbIE82NPwCxSWsAio4PtE=;
- b=XevdIxNwe+Jquox8vzOdunryO3qciXFLgZDLYAbQcQgqJG+Oq/5FElNCdUNlW2Q2J+
- cVoOV36ordVob8SuEf316m2svhV5Kh+0JxzhMSxsJkmO+PQv7H8TGD0t4yokzUm/v+5b
- FeihvPxssxtIx7bUpGOf9acaWS8pHSuS/+6A5kroKaljUBsYrq2C9EwEM4aHkKt+JO5+
- G+PUqeIOutBkr65535+2clmT9KTqRolFgi4fh8Nv9H5CDBunvTc+BsIaTO4yZYMP/wUW
- aackqknVYWABiz0FNUhQjv2kKwTdDB8JUMzLTYvN8NMAp94sqRw1hBM4oiFI4MGurfrw
- KH0Q==
-X-Gm-Message-State: AA6/9RnyYmM8X9M30AY+XP0U3/cYz0hwJOT399DQ2QArk7A4xXgOkxYfAAGcp/S8PYUPMalNc0lYgtyBFHZh+A==
-X-Received: by 10.31.168.145 with SMTP id r139mr19961143vke.124.1475125229084; 
- Wed, 28 Sep 2016 22:00:29 -0700 (PDT)
+ bh=IJUcHkTsBlBRkaSIUhM6Lk2xJqrIEEUMaCigeZiNBCA=;
+ b=ZRPax3my9k6f21L7Soi8rmKM8+P7vyBeLjo7UromszRLwWCiJX7u2Ub339YeQko7Vh
+ C1JEti6mJqlzDNixViajowRtuWdmRA/0HRgrmNF2raqwU2v+sUPB3SblDD9cDM7nD6Pc
+ N/f3KTiQyx34mbCp9KDIgmX2AfmRoWaeDrTSfYiCDMGQuCVbuMcncuyTpYOohJPbd5al
+ xjSnr1QQcFXMQlM0Q8yUBLYLMEzeeurGTcdALheAr8/QIm8cIsJ7pC/A5Mj+kMubG9nZ
+ fqg1IGpuQ6HymXSjZ6YqPGGyl7CKtCFm1wrjZkg1qKF3w4SDvyi9sGeH/BpDAYXPZHHS
+ PVqg==
+X-Gm-Message-State: AA6/9RnGec0CghNuC2YwN1XV315XvjqJ2c22FUcdZ82VifCiPayOqk4xcJoqtNCgjKDkOzsp1NsuqA1yTgFVKw==
+X-Received: by 10.176.5.169 with SMTP id e38mr7794528uae.7.1475131533665; Wed,
+ 28 Sep 2016 23:45:33 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.176.7.71 with HTTP; Wed, 28 Sep 2016 22:00:08 -0700 (PDT)
-In-Reply-To: <1475113131-18048-7-git-send-email-gwshan@linux.vnet.ibm.com>
-References: <1475113131-18048-1-git-send-email-gwshan@linux.vnet.ibm.com>
- <1475113131-18048-7-git-send-email-gwshan@linux.vnet.ibm.com>
+Received: by 10.176.7.71 with HTTP; Wed, 28 Sep 2016 23:45:13 -0700 (PDT)
+In-Reply-To: <a266046d34009e6e92c4c76699c550c2ba44bd5c.1474986045.git-series.andrew@aj.id.au>
+References: <cover.115463f791b69859c5ce9dafd61a5755ea039f4b.1474986045.git-series.andrew@aj.id.au>
+ <a266046d34009e6e92c4c76699c550c2ba44bd5c.1474986045.git-series.andrew@aj.id.au>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 29 Sep 2016 14:30:08 +0930
-X-Google-Sender-Auth: Mq-GvVCkH9-qdQ72c0X6z0oMG8I
-Message-ID: <CACPK8XecLY=R5NJyCJWt1n9p9JxnAq6XNTy50E2EWrw1GCjuCA@mail.gmail.com>
-Subject: Re: [PATCH v2 4.7 6/8] net/ncsi: Rework the channel monitoring
-To: Gavin Shan <gwshan@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Thu, 29 Sep 2016 16:15:13 +0930
+X-Google-Sender-Auth: WZdsvlZqobhajRprITp3Nnpz_CQ
+Message-ID: <CACPK8Xc7y3GtcJCVYYs-JKTqBZvqVeZaz5MUk=UX151SX1xEFw@mail.gmail.com>
+Subject: Re: [PATCH 5/8] pinctrl: aspeed: Enable capture of off-SCU pinmux
+ state
+To: Andrew Jeffery <andrew@aj.id.au>, Linus Walleij <linus.walleij@linaro.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh+dt@kernel.org>,
+ linux-gpio@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -59,190 +63,197 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 29 Sep 2016 05:00:31 -0000
+X-List-Received-Date: Thu, 29 Sep 2016 06:45:36 -0000
 
-On Thu, Sep 29, 2016 at 11:08 AM, Gavin Shan <gwshan@linux.vnet.ibm.com> wrote:
-> The original NCSI channel monitoring was implemented based on a
-> backoff algorithm: the GLS response should be received in the
-> specified interval. Otherwise, the channel is regarded as dead
-> and failover should be taken if current channel is an active one.
-> There are several problems in the implementation: (A) On BCM5718,
-> we found when the IID (Instance ID) in the GLS command packet
-> changes from 255 to 1, the response corresponding to IID#1 never
-> comes in. It means we cannot make the unfair judgement that the
-> channel is dead when one response is missed. (B) The code's
-> readability should be improved. (C) We should do failover when
-> current channel is active one and the channel monitoring should
-> be marked as disabled before doing failover.
+On Wed, Sep 28, 2016 at 12:20 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> The System Control Unit IP in the Aspeed SoCs is typically where the
+> pinmux configuration is found.
 >
-> This reworks the channel monitoring to address all above issues.
-> The fields for channel monitoring is put into separate struct
-> and the state of channel monitoring is predefined. The channel
-> is regarded alive if the network controller responses to one of
-> two GLS commands or both of them in 5 seconds.
+> But not always.
 >
-> Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
+> On the AST2400 and AST2500 a number of pins depend on state in one of
+> the SIO, LPC or GFX IP blocks, so add support to at least capture what
+> that state is. The pinctrl engine for the Aspeed SoCs doesn't try to
+> inspect or modify the state of the off-SCU IP blocks. Instead, it logs
+> the state requirement with the expectation that the platform
+> designer/maintainer arranges for the appropriate configuration to be
+> applied through the associated drivers.
 
-Reviewed-by: Joel Stanley <joel@jms.id.au>
+This is unfortunate.
 
+This patch kicks the can down the road, but doesn't solve the problem
+for a user who wants to configure some functionality that depends on
+the non-SCU bits. Because of this I'm not sure if we want to put it in
+the tree.
 
+However, I'm not sure what a proper solution would look like. Perhaps
+Linus can point out another SoC that has a similar problem?
+
+Cheers,
+
+Joel
+
+>
+> The IP block of interest is encoded in the reg member of struct
+> aspeed_sig_desc. For compatibility with the existing code, the SCU is
+> defined to have an IP value of 0.
+>
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 > ---
->  net/ncsi/internal.h    | 12 +++++++++---
->  net/ncsi/ncsi-manage.c | 46 ++++++++++++++++++++++++++--------------------
->  net/ncsi/ncsi-rsp.c    |  2 +-
->  3 files changed, 36 insertions(+), 24 deletions(-)
+>  drivers/pinctrl/aspeed/pinctrl-aspeed.c | 53 +++++++++++++++++++++++---
+>  drivers/pinctrl/aspeed/pinctrl-aspeed.h | 16 +++++++-
+>  2 files changed, 61 insertions(+), 8 deletions(-)
 >
-> diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-> index 26e9295..13290a7 100644
-> --- a/net/ncsi/internal.h
-> +++ b/net/ncsi/internal.h
-> @@ -187,9 +187,15 @@ struct ncsi_channel {
->         struct ncsi_channel_mode    modes[NCSI_MODE_MAX];
->         struct ncsi_channel_filter  *filters[NCSI_FILTER_MAX];
->         struct ncsi_channel_stats   stats;
-> -       struct timer_list           timer;      /* Link monitor timer  */
-> -       bool                        enabled;    /* Timer is enabled    */
-> -       unsigned int                timeout;    /* Times of timeout    */
-> +       struct {
-> +               struct timer_list   timer;
-> +               bool                enabled;
-> +               unsigned int        state;
-> +#define NCSI_CHANNEL_MONITOR_START     0
-> +#define NCSI_CHANNEL_MONITOR_RETRY     1
-> +#define NCSI_CHANNEL_MONITOR_WAIT      2
-> +#define NCSI_CHANNEL_MONITOR_WAIT_MAX  5
-> +       } monitor;
->         struct list_head            node;
->         struct list_head            link;
->  };
-> diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-> index 41d6af9..1b797c9 100644
-> --- a/net/ncsi/ncsi-manage.c
-> +++ b/net/ncsi/ncsi-manage.c
-> @@ -164,13 +164,13 @@ static void ncsi_channel_monitor(unsigned long data)
->         struct ncsi_dev_priv *ndp = np->ndp;
->         struct ncsi_cmd_arg nca;
->         bool enabled;
-> -       unsigned int timeout;
-> +       unsigned int monitor_state;
->         unsigned long flags;
->         int old_state, ret;
+> diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed.c b/drivers/pinctrl/aspeed/pinctrl-aspeed.c
+> index 49aeba912531..21ef195d586f 100644
+> --- a/drivers/pinctrl/aspeed/pinctrl-aspeed.c
+> +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed.c
+> @@ -14,6 +14,8 @@
+>  #include "../core.h"
+>  #include "pinctrl-aspeed.h"
 >
->         spin_lock_irqsave(&nc->lock, flags);
-> -       timeout = nc->timeout;
-> -       enabled = nc->enabled;
-> +       enabled = nc->monitor.enabled;
-> +       monitor_state = nc->monitor.state;
->         spin_unlock_irqrestore(&nc->lock, flags);
+> +const char *const aspeed_pinmux_ips[] = { "SCU", "SIO", "GFX", "LPC" };
+> +
+>  int aspeed_pinctrl_get_groups_count(struct pinctrl_dev *pctldev)
+>  {
+>         struct aspeed_pinctrl_data *pdata = pinctrl_dev_get_drvdata(pctldev);
+> @@ -78,7 +80,9 @@ int aspeed_pinmux_get_fn_groups(struct pinctrl_dev *pctldev,
+>  static inline void aspeed_sig_desc_print_val(
+>                 const struct aspeed_sig_desc *desc, bool enable, u32 rv)
+>  {
+> -       pr_debug("SCU%x[0x%08x]=0x%x, got 0x%x from 0x%08x\n", desc->reg,
+> +       pr_debug("Want %s%lX[0x%08X]=0x%X, got 0x%X from 0x%08X\n",
+> +                       aspeed_pinmux_ips[SIG_DESC_IP_FROM_REG(desc->reg)],
+> +                       SIG_DESC_OFFSET_FROM_REG(desc->reg),
+>                         desc->mask, enable ? desc->enable : desc->disable,
+>                         (rv & desc->mask) >> __ffs(desc->mask), rv);
+>  }
+> @@ -105,6 +109,8 @@ static bool aspeed_sig_desc_eval(const struct aspeed_sig_desc *desc,
+>         unsigned int raw;
+>         u32 want;
 >
->         if (!enabled || !list_empty(&nc->link))
-> @@ -181,7 +181,9 @@ static void ncsi_channel_monitor(unsigned long data)
->             old_state != NCSI_CHANNEL_ACTIVE)
->                 return;
+> +       WARN_ON(SIG_DESC_IP_FROM_REG(desc->reg) != ASPEED_IP_SCU);
+> +
+>         if (regmap_read(map, desc->reg, &raw) < 0)
+>                 return false;
 >
-> -       if (!(timeout % 2)) {
-> +       switch (monitor_state) {
-> +       case NCSI_CHANNEL_MONITOR_START:
-> +       case NCSI_CHANNEL_MONITOR_RETRY:
->                 nca.ndp = ndp;
->                 nca.package = np->id;
->                 nca.channel = nc->id;
-> @@ -193,14 +195,18 @@ static void ncsi_channel_monitor(unsigned long data)
->                                    ret);
->                         return;
->                 }
-> -       }
+> @@ -142,9 +148,19 @@ static bool aspeed_sig_expr_eval(const struct aspeed_sig_expr *expr,
 >
-> -       if (timeout + 1 >= 3) {
-> +               break;
-> +       case NCSI_CHANNEL_MONITOR_WAIT ... NCSI_CHANNEL_MONITOR_WAIT_MAX:
-> +               break;
-> +       default:
->                 if (!(ndp->flags & NCSI_DEV_HWA) &&
-> -                   old_state == NCSI_CHANNEL_ACTIVE)
-> +                   old_state == NCSI_CHANNEL_ACTIVE) {
->                         ncsi_report_link(ndp, true);
-> +                       ndp->flags |= NCSI_DEV_RESHUFFLE;
+>         for (i = 0; i < expr->ndescs; i++) {
+>                 const struct aspeed_sig_desc *desc = &expr->descs[i];
+> +               size_t ip = SIG_DESC_IP_FROM_REG(desc->reg);
+> +
+> +               if (ip == ASPEED_IP_SCU) {
+> +                       if (!aspeed_sig_desc_eval(desc, enabled, map))
+> +                               return false;
+> +               } else {
+> +                       size_t offset = SIG_DESC_OFFSET_FROM_REG(desc->reg);
+> +                       const char *ip_name = aspeed_pinmux_ips[ip];
+> +
+> +                       pr_debug("Ignoring configuration of field %s%X[0x%08X]\n",
+> +                                ip_name, offset, desc->mask);
 > +               }
 >
-> -               WRITE_ONCE(nc->state, NCSI_CHANNEL_INACTIVE);
-> +               WRITE_ONCE(nc->state, NCSI_CHANNEL_ACTIVE);
->                 spin_lock_irqsave(&ndp->lock, flags);
->                 list_add_tail_rcu(&nc->link, &ndp->channel_queue);
->                 spin_unlock_irqrestore(&ndp->lock, flags);
-> @@ -209,10 +215,9 @@ static void ncsi_channel_monitor(unsigned long data)
+> -               if (!aspeed_sig_desc_eval(desc, enabled, map))
+> -                       return false;
 >         }
 >
->         spin_lock_irqsave(&nc->lock, flags);
-> -       nc->timeout = timeout + 1;
-> -       nc->enabled = true;
-> +       nc->monitor.state++;
->         spin_unlock_irqrestore(&nc->lock, flags);
-> -       mod_timer(&nc->timer, jiffies + HZ * (1 << (nc->timeout / 2)));
-> +       mod_timer(&nc->monitor.timer, jiffies + HZ);
->  }
+>         return true;
+> @@ -170,7 +186,14 @@ static bool aspeed_sig_expr_set(const struct aspeed_sig_expr *expr,
+>         for (i = 0; i < expr->ndescs; i++) {
+>                 bool ret;
+>                 const struct aspeed_sig_desc *desc = &expr->descs[i];
+> +
+> +               size_t offset = SIG_DESC_OFFSET_FROM_REG(desc->reg);
+> +               size_t ip = SIG_DESC_IP_FROM_REG(desc->reg);
+> +               bool is_scu = (ip == ASPEED_IP_SCU);
+> +               const char *ip_name = aspeed_pinmux_ips[ip];
+> +
+>                 u32 pattern = enable ? desc->enable : desc->disable;
+> +               u32 val = (pattern << __ffs(desc->mask));
 >
->  void ncsi_start_channel_monitor(struct ncsi_channel *nc)
-> @@ -220,12 +225,12 @@ void ncsi_start_channel_monitor(struct ncsi_channel *nc)
->         unsigned long flags;
+>                 /*
+>                  * Strap registers are configured in hardware or by early-boot
+> @@ -179,11 +202,27 @@ static bool aspeed_sig_expr_set(const struct aspeed_sig_expr *expr,
+>                  * deconfigured and is the reason we re-evaluate after writing
+>                  * all descriptor bits.
+>                  */
+> -               if (desc->reg == HW_STRAP1 || desc->reg == HW_STRAP2)
+> +               if (is_scu && (offset == HW_STRAP1 || offset == HW_STRAP2))
+>                         continue;
 >
->         spin_lock_irqsave(&nc->lock, flags);
-> -       WARN_ON_ONCE(nc->enabled);
-> -       nc->timeout = 0;
-> -       nc->enabled = true;
-> +       WARN_ON_ONCE(nc->monitor.enabled);
-> +       nc->monitor.enabled = true;
-> +       nc->monitor.state = NCSI_CHANNEL_MONITOR_START;
->         spin_unlock_irqrestore(&nc->lock, flags);
+> -               ret = regmap_update_bits(map, desc->reg, desc->mask,
+> -                               pattern << __ffs(desc->mask)) == 0;
+> +               /*
+> +                * Sometimes we need help from IP outside the SCU to activate a
+> +                * mux request. Report that we need its cooperation.
+> +                */
+> +               if (enable && !is_scu) {
+> +                       pr_debug("Pinmux request for %s requires cooperation of %s IP: Need (%s%X[0x%08X] = 0x%08X\n",
+> +                               expr->function, ip_name, ip_name, offset,
+> +                               desc->mask, val);
+> +               }
+> +
+> +               /* And only read/write SCU registers */
+> +               if (!is_scu) {
+> +                       pr_debug("Skipping configuration of field %s%X[0x%08X]\n",
+> +                                       ip_name, offset, desc->mask);
+> +                       continue;
+> +               }
+> +
+> +               ret = regmap_update_bits(map, desc->reg, desc->mask, val) == 0;
 >
-> -       mod_timer(&nc->timer, jiffies + HZ * (1 << (nc->timeout / 2)));
-> +       mod_timer(&nc->monitor.timer, jiffies + HZ);
->  }
+>                 if (!ret)
+>                         return ret;
+> @@ -343,6 +382,8 @@ int aspeed_pinmux_set_mux(struct pinctrl_dev *pctldev, unsigned int function,
+>                 const struct aspeed_sig_expr **funcs;
+>                 const struct aspeed_sig_expr ***prios;
 >
->  void ncsi_stop_channel_monitor(struct ncsi_channel *nc)
-> @@ -233,14 +238,14 @@ void ncsi_stop_channel_monitor(struct ncsi_channel *nc)
->         unsigned long flags;
+> +               pr_debug("Muxing pin %d for %s\n", pin, pfunc->name);
+> +
+>                 if (!pdesc)
+>                         return -EINVAL;
 >
->         spin_lock_irqsave(&nc->lock, flags);
-> -       if (!nc->enabled) {
-> +       if (!nc->monitor.enabled) {
->                 spin_unlock_irqrestore(&nc->lock, flags);
->                 return;
->         }
-> -       nc->enabled = false;
-> +       nc->monitor.enabled = false;
->         spin_unlock_irqrestore(&nc->lock, flags);
+> diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed.h b/drivers/pinctrl/aspeed/pinctrl-aspeed.h
+> index 3e72ef8c54bf..4384407d77fb 100644
+> --- a/drivers/pinctrl/aspeed/pinctrl-aspeed.h
+> +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed.h
+> @@ -232,6 +232,15 @@
+>   * group.
+>   */
 >
-> -       del_timer_sync(&nc->timer);
-> +       del_timer_sync(&nc->monitor.timer);
->  }
->
->  struct ncsi_channel *ncsi_find_channel(struct ncsi_package *np,
-> @@ -269,8 +274,9 @@ struct ncsi_channel *ncsi_add_channel(struct ncsi_package *np, unsigned char id)
->         nc->id = id;
->         nc->package = np;
->         WRITE_ONCE(nc->state, NCSI_CHANNEL_INACTIVE);
-> -       nc->enabled = false;
-> -       setup_timer(&nc->timer, ncsi_channel_monitor, (unsigned long)nc);
-> +       nc->monitor.enabled = false;
-> +       setup_timer(&nc->monitor.timer,
-> +                   ncsi_channel_monitor, (unsigned long)nc);
->         spin_lock_init(&nc->lock);
->         INIT_LIST_HEAD(&nc->link);
->         for (index = 0; index < NCSI_CAP_MAX; index++)
-> diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
-> index 5143490..1618eda 100644
-> --- a/net/ncsi/ncsi-rsp.c
-> +++ b/net/ncsi/ncsi-rsp.c
-> @@ -315,7 +315,7 @@ static int ncsi_rsp_handler_gls(struct ncsi_request *nr)
->
->         /* Reset the channel monitor if it has been enabled */
->         spin_lock_irqsave(&nc->lock, flags);
-> -       nc->timeout = 0;
-> +       nc->monitor.state = NCSI_CHANNEL_MONITOR_START;
->         spin_unlock_irqrestore(&nc->lock, flags);
->
->         return 0;
+> +#define ASPEED_IP_SCU  0
+> +#define ASPEED_IP_SIO  1
+> +#define ASPEED_IP_GFX  2
+> +#define ASPEED_IP_LPC  3
+> +
+> +#define SIG_DESC_TO_REG(ip, offset)    (((ip) << 24) | (offset))
+> +#define SIG_DESC_IP_FROM_REG(reg)      (((reg) >> 24) & GENMASK(7, 0))
+> +#define SIG_DESC_OFFSET_FROM_REG(reg)  ((reg) & GENMASK(11, 0))
+> +
+>  /*
+>   * The "Multi-function Pins Mapping and Control" table in the SoC datasheet
+>   * references registers by the device/offset mnemonic. The register macros
+> @@ -261,7 +270,10 @@
+>    * A signal descriptor, which describes the register, bits and the
+>    * enable/disable values that should be compared or written.
+>    *
+> -  * @reg: The register offset from base in bytes
+> +  * @reg: Split into three fields:
+> +  *       31:24: IP selector
+> +  *       23:12: Reserved
+> +  *       11:0: Register offset
+>    * @mask: The mask to apply to the register. The lowest set bit of the mask is
+>    *        used to derive the shift value.
+>    * @enable: The value that enables the function. Value should be in the LSBs,
+> @@ -270,7 +282,7 @@
+>    *           LSBs, not at the position of the mask.
+>    */
+>  struct aspeed_sig_desc {
+> -       unsigned int reg;
+> +       u32 reg;
+>         u32 mask;
+>         u32 enable;
+>         u32 disable;
 > --
-> 2.1.0
->
+> git-series 0.8.10
