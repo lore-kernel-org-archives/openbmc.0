@@ -1,47 +1,47 @@
 Return-Path: <maxims@google.com>
-Received: from mail-pa0-x22a.google.com (mail-pa0-x22a.google.com
- [IPv6:2607:f8b0:400e:c03::22a])
+Received: from mail-pf0-x22c.google.com (mail-pf0-x22c.google.com
+ [IPv6:2607:f8b0:400e:c00::22c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3slSNJ3CzszDvHW
- for <openbmc@lists.ozlabs.org>; Fri, 30 Sep 2016 07:28:00 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3slSNV5HG2zDvHQ
+ for <openbmc@lists.ozlabs.org>; Fri, 30 Sep 2016 07:28:10 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=Tsr0I8Yp; 
+ unprotected) header.d=google.com header.i=@google.com header.b=iplxKoV3; 
  dkim-atps=neutral
-Received: by mail-pa0-x22a.google.com with SMTP id oz2so31320930pac.2
- for <openbmc@lists.ozlabs.org>; Thu, 29 Sep 2016 14:28:00 -0700 (PDT)
+Received: by mail-pf0-x22c.google.com with SMTP id 21so32808970pfy.0
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Sep 2016 14:28:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=ONH49sa62LB07RPltOb8kSuCb85q75ueEO4uW8aumSE=;
- b=Tsr0I8Ypef21QD8c2OMX91mSHcmMDfBIrH7wSgrqBw2Z9Cmh7qHgr7nYZEV/YcNQH/
- yBIoweppWnHnT5ZmD7ZaJbZxRM4Br9SZz5NsyNKT21K4FUslp1KBexIMt8jX3cjyGNmQ
- H2fxgrRW4rI/MbsHU/PuPK0+wqf6xAZua7RKimYqTaRFnGS2XmY+SsjeTmu45T+Zd0dw
- TdXYNgHs0w9n+8Yj1k1BuqqLQWnpotvuqXHfYZF+3S5+ACRJrHIbakxZKr/0Y7XeY9xU
- c/7kAvm3vQCQ7dgfHoHX/nyopHC4xgV3GR0LXlvQdhqz1H/vAe0Ye1T5JwR0+8JSMkOF
- p+ZA==
+ bh=4NI3kSRI1PqipMQOo0kx6KDvcIkFwap/Ru56EkM+dD0=;
+ b=iplxKoV3Pkj3mqr+i4TXDbxix1KDh2N35/gRW3G3zjfAlbeVs+oT2t4J55Psd4eDnf
+ CqG1fnwyDCKkfE/PKesFWUg6u0UtYEyQSY++2m060hTMw6deoVmWHMTNPWSlRYqRU00a
+ +CAzZ0DdbH3kcL+3+BFkadtbyRJaYuw8lYI9shbG1TWCFlqhb5NCzrJqpSZZxYdDB2I7
+ HzfnqyZu3RcAPsE2k/Gg8qqxNlIIXnJMOnjlvP5mjly2pQzxURzx+8qmNrt9w25ZDyjp
+ HtHexqHZegvvwDIsJKLG4hLwXkKxRY9HAhMtGQGm+Ey7w27tuF4hfMNxGYc/TsWPa36d
+ Cbsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=ONH49sa62LB07RPltOb8kSuCb85q75ueEO4uW8aumSE=;
- b=C2vmzZeftwT74uO8eGFP5UPNI3G3UTsn+BMhhd7kedQFrzeXaGYA+rSkAg1DfPdIDz
- WSg4vkURod7EKPfKf2acWpYoNwBnDEmHGVNXkJlqHzj+rJ+kougDcfXL1maJhyY3oTK1
- oWsxTVee+rGx9fYY52wsyBjfOMfNHL6oriMi5ygwZBIiblSe4NIrNhftaP109sSHLV1a
- HxvHnvc8uIXUnBbn90bamldM06RhF02ld0Q0Dt+QmFrICY9qTH3AyS/o+bxw/gFcKH4b
- DwYPY6u16VLL7w0pli6OYaQEtwuRsKTojEcesk9w2LWQd8C9sjBZig4Qjq9B7v+3hCSD
- 6sXg==
-X-Gm-Message-State: AA6/9RkB7xA8/AfnkBR2A3voDhtfCtUJunS/asO6i3RXlATINWVJzeGZCJ0z7HF546SRVHkB
-X-Received: by 10.66.199.38 with SMTP id jh6mr5929269pac.160.1475184478781;
- Thu, 29 Sep 2016 14:27:58 -0700 (PDT)
+ bh=4NI3kSRI1PqipMQOo0kx6KDvcIkFwap/Ru56EkM+dD0=;
+ b=kwt47iOz3wkygqjVD9JsvDsy1DiyBI4IvtNpPPhYDr8DitBfQOgfYmv0sYjQfqblKW
+ HMmS9pne6SipotZgRSGcFi8IhZGUdCBC5HaGJbcI3dlXVTjnxOjG+z2dGbhge1p2s0t/
+ EQaPhqJ6X0ly1SPxKjkVyhs+fQwrZED3IhP8A5ShhJHvSq6U0lBa6ANi+jDCEnrBch5/
+ 0aN5YjoGJvwsWRPrTp6pZ0e/X+KEL1lqHo2a8x5X1YzJj7KWQ0bjYEMqz5K4GtO0DJXg
+ 6LHMaFGjMNFzi5BySWbLEXAlv3eFqh535Qxs7JU0zWSArOCXCL+kFCug73NCQSAgTPY3
+ pfDw==
+X-Gm-Message-State: AA6/9RmLOEkx6GltHb9+p+RHvEZbc1IBCvbdNDAn6zZFgXGtzIR80O4jAQAT3dK8hSCVW+Fv
+X-Received: by 10.98.202.17 with SMTP id n17mr5852290pfg.173.1475184488588;
+ Thu, 29 Sep 2016 14:28:08 -0700 (PDT)
 Received: from mxsl.svl.corp.google.com ([100.123.242.80])
- by smtp.gmail.com with ESMTPSA id p128sm22436351pfg.38.2016.09.29.14.27.58
+ by smtp.gmail.com with ESMTPSA id p128sm22436351pfg.38.2016.09.29.14.28.07
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Thu, 29 Sep 2016 14:27:58 -0700 (PDT)
+ Thu, 29 Sep 2016 14:28:08 -0700 (PDT)
 From: maxims@google.com
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH 2/3] aspeed: Fixed FUC -> FUN typo in SCU.
-Date: Thu, 29 Sep 2016 14:27:06 -0700
-Message-Id: <1475184427-144121-2-git-send-email-maxims@google.com>
+Subject: [PATCH 3/3] aspeed: SCU helper functions for I2C.
+Date: Thu, 29 Sep 2016 14:27:07 -0700
+Message-Id: <1475184427-144121-3-git-send-email-maxims@google.com>
 X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
 In-Reply-To: <1475184427-144121-1-git-send-email-maxims@google.com>
 References: <1474998214-12720-2-git-send-email-maxims@google.com>
@@ -57,115 +57,113 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 29 Sep 2016 21:28:01 -0000
+X-List-Received-Date: Thu, 29 Sep 2016 21:28:11 -0000
 
 From: Maxim Sloyko <maxims@google.com>
 
-Fixed FUC -> FUN typo in SCU.
+SCU helper functions for configuring I2C pins and accessing APB clock.
 ---
- arch/arm/include/asm/arch-aspeed/regs-scu.h | 65 +++++++++++++++--------------
- arch/arm/mach-aspeed/ast-scu.c              |  2 +-
- 2 files changed, 34 insertions(+), 33 deletions(-)
+ arch/arm/include/asm/arch-aspeed/ast_scu.h  |  6 +++++
+ arch/arm/include/asm/arch-aspeed/regs-scu.h |  8 +++++++
+ arch/arm/mach-aspeed/ast-scu.c              | 36 +++++++++++++++++++++++++++++
+ 3 files changed, 50 insertions(+)
 
+diff --git a/arch/arm/include/asm/arch-aspeed/ast_scu.h b/arch/arm/include/asm/arch-aspeed/ast_scu.h
+index d248416..80ebd6f 100644
+--- a/arch/arm/include/asm/arch-aspeed/ast_scu.h
++++ b/arch/arm/include/asm/arch-aspeed/ast_scu.h
+@@ -38,6 +38,7 @@ extern void ast_scu_get_who_init_dram(void);
+ extern u32 ast_get_clk_source(void);
+ extern u32 ast_get_h_pll_clk(void);
+ extern u32 ast_get_ahbclk(void);
++extern u32 ast_get_apbclk(void);
+ 
+ extern u32 ast_scu_get_vga_memsize(void);
+ 
+@@ -45,4 +46,9 @@ extern void ast_scu_init_eth(u8 num);
+ extern void ast_scu_multi_func_eth(u8 num);
+ extern void ast_scu_multi_func_romcs(u8 num);
+ 
++/* Enable I2C controller and pins for a particular device.
++ * Device numbering starts at 1
++ */
++extern void ast_scu_enable_i2c(u8 num);
++
+ #endif
 diff --git a/arch/arm/include/asm/arch-aspeed/regs-scu.h b/arch/arm/include/asm/arch-aspeed/regs-scu.h
-index b714fa9..aab032a 100644
+index aab032a..4c869c1 100644
 --- a/arch/arm/include/asm/arch-aspeed/regs-scu.h
 +++ b/arch/arm/include/asm/arch-aspeed/regs-scu.h
-@@ -830,49 +830,50 @@
- /* AST_SCU_FUN_PIN_CTRL5		0x90 - Multi-function Pin Control#5 */
- #define SCU_FUN_PIN_SPICS1		(0x1 << 31)
- #define SCU_FUN_PIN_LPC_PLUS		(0x1 << 30)
--#define SCU_FUC_PIN_USB20_HOST		(0x1 << 29)
--#define SCU_FUC_PIN_USB11_PORT4		(0x1 << 28)
--#define SCU_FUC_PIN_I2C14		(0x1 << 27)
--#define SCU_FUC_PIN_I2C13		(0x1 << 26)
--#define SCU_FUC_PIN_I2C12		(0x1 << 25)
--#define SCU_FUC_PIN_I2C11		(0x1 << 24)
--#define SCU_FUC_PIN_I2C10		(0x1 << 23)
--#define SCU_FUC_PIN_I2C9		(0x1 << 22)
--#define SCU_FUC_PIN_I2C8		(0x1 << 21)
--#define SCU_FUC_PIN_I2C7		(0x1 << 20)
--#define SCU_FUC_PIN_I2C6		(0x1 << 19)
--#define SCU_FUC_PIN_I2C5		(0x1 << 18)
--#define SCU_FUC_PIN_I2C4		(0x1 << 17)
--#define SCU_FUC_PIN_I2C3		(0x1 << 16)
--#define SCU_FUC_PIN_MII2_RX_DWN_DIS	(0x1 << 15)
--#define SCU_FUC_PIN_MII2_TX_DWN_DIS	(0x1 << 14)
--#define SCU_FUC_PIN_MII1_RX_DWN_DIS	(0x1 << 13)
--#define SCU_FUC_PIN_MII1_TX_DWN_DIS	(0x1 << 12)
--
--#define SCU_FUC_PIN_MII2_TX_DRIV(x)	(x << 10)
--#define SCU_FUC_PIN_MII2_TX_DRIV_MASK	(0x3 << 10)
--#define SCU_FUC_PIN_MII1_TX_DRIV(x)	(x << 8)
--#define SCU_FUC_PIN_MII1_TX_DRIV_MASK	(0x3 << 8)
-+#define SCU_FUN_PIN_USB20_HOST		(0x1 << 29)
-+#define SCU_FUN_PIN_USB11_PORT4		(0x1 << 28)
-+#define SCU_FUN_PIN_I2C14		(0x1 << 27)
-+#define SCU_FUN_PIN_I2C13		(0x1 << 26)
-+#define SCU_FUN_PIN_I2C12		(0x1 << 25)
-+#define SCU_FUN_PIN_I2C11		(0x1 << 24)
-+#define SCU_FUN_PIN_I2C10		(0x1 << 23)
-+#define SCU_FUN_PIN_I2C9		(0x1 << 22)
-+#define SCU_FUN_PIN_I2C8		(0x1 << 21)
-+#define SCU_FUN_PIN_I2C7		(0x1 << 20)
-+#define SCU_FUN_PIN_I2C6		(0x1 << 19)
-+#define SCU_FUN_PIN_I2C5		(0x1 << 18)
-+#define SCU_FUN_PIN_I2C4		(0x1 << 17)
-+#define SCU_FUN_PIN_I2C3		(0x1 << 16)
-+#define SCU_FUN_PIN_I2C(n)		(0x1 << (16 + (n) - 3))
-+#define SCU_FUN_PIN_MII2_RX_DWN_DIS	(0x1 << 15)
-+#define SCU_FUN_PIN_MII2_TX_DWN_DIS	(0x1 << 14)
-+#define SCU_FUN_PIN_MII1_RX_DWN_DIS	(0x1 << 13)
-+#define SCU_FUN_PIN_MII1_TX_DWN_DIS	(0x1 << 12)
+@@ -915,6 +915,11 @@
+ #define SCU_FUN_PIN_ROMA4		(0x1 << 18)
+ #define SCU_FUN_PIN_ROMA3		(0x1 << 17)
+ #define SCU_FUN_PIN_ROMA2		(0x1 << 16)
++/* AST2500 only */
++#define SCU_FUN_PIN_SDA2		(0x1 << 15)
++#define SCU_FUN_PIN_SCL2		(0x1 << 14)
++#define SCU_FUN_PIN_SDA1		(0x1 << 13)
++#define SCU_FUN_PIN_SCL1		(0x1 << 12)
+ 
+ /* AST_SCU_FUN_PIN_CTRL9		0xA8 - Multi-function Pin Control#9 */
+ #define SCU_FUN_PIN_ROMA21		(0x1 << 3)
+@@ -950,4 +955,7 @@
+ /* AST_SCU_BMC_CLASS			0x19C - BMC device class code and revision ID */
+ /* AST_SCU_BMC_DEV_ID			0x1A4 - BMC device ID */
+ 
++#define SCU_I2C_MIN_BUS_NUM			(1)
++#define SCU_I2C_MAX_BUS_NUM			(14)
 +
-+#define SCU_FUN_PIN_MII2_TX_DRIV(x)	(x << 10)
-+#define SCU_FUN_PIN_MII2_TX_DRIV_MASK	(0x3 << 10)
-+#define SCU_FUN_PIN_MII1_TX_DRIV(x)	(x << 8)
-+#define SCU_FUN_PIN_MII1_TX_DRIV_MASK	(0x3 << 8)
- 
- #define MII_NORMAL_DRIV			0x0
- #define MII_HIGH_DRIV			0x2
- 
--#define SCU_FUC_PIN_UART6		(0x1 << 7)
--#define SCU_FUC_PIN_ROM_16BIT		(0x1 << 6)
--#define SCU_FUC_PIN_DIGI_V_OUT(x)	(x)
--#define SCU_FUC_PIN_DIGI_V_OUT_MASK	(0x3)
-+#define SCU_FUN_PIN_UART6		(0x1 << 7)
-+#define SCU_FUN_PIN_ROM_16BIT		(0x1 << 6)
-+#define SCU_FUN_PIN_DIGI_V_OUT(x)	(x)
-+#define SCU_FUN_PIN_DIGI_V_OUT_MASK	(0x3)
- 
- #define VIDEO_DISABLE			0x0
- #define VIDEO_12BITS			0x1
- #define VIDEO_24BITS			0x2
- //#define VIDEO_DISABLE			0x3
- 
--#define SCU_FUC_PIN_USB11_PORT2		(0x1 << 3)
--#define SCU_FUC_PIN_SD1_8BIT		(0x1 << 3)
-+#define SCU_FUN_PIN_USB11_PORT2		(0x1 << 3)
-+#define SCU_FUN_PIN_SD1_8BIT		(0x1 << 3)
- 
--#define SCU_FUC_PIN_MAC1_MDIO		(0x1 << 2)
--#define SCU_FUC_PIN_SD2			(0x1 << 1)
--#define SCU_FUC_PIN_SD1			(0x1 << 0)
-+#define SCU_FUN_PIN_MAC1_MDIO		(0x1 << 2)
-+#define SCU_FUN_PIN_SD2			(0x1 << 1)
-+#define SCU_FUN_PIN_SD1			(0x1 << 0)
- 
- 
- /* AST_SCU_FUN_PIN_CTRL6		0x94 - Multi-function Pin Control#6*/
+ #endif
 diff --git a/arch/arm/mach-aspeed/ast-scu.c b/arch/arm/mach-aspeed/ast-scu.c
-index 0cc0d67..280c421 100644
+index 280c421..5595873 100644
 --- a/arch/arm/mach-aspeed/ast-scu.c
 +++ b/arch/arm/mach-aspeed/ast-scu.c
-@@ -394,7 +394,7 @@ void ast_scu_multi_func_eth(u8 num)
- 			      AST_SCU_FUN_PIN_CTRL1);
+@@ -318,6 +318,17 @@ u32 ast_get_ahbclk(void)
  
- 		ast_scu_write(ast_scu_read(AST_SCU_FUN_PIN_CTRL5) |
--			      SCU_FUC_PIN_MAC1_MDIO,
-+			      SCU_FUN_PIN_MAC1_MDIO,
- 			      AST_SCU_FUN_PIN_CTRL5);
+ #endif /* AST_SOC_G5 */
  
++u32 ast_get_apbclk(void)
++{
++	u32 h_pll = ast_get_h_pll_clk();
++	/* The formula for converting the bit pattern to divisor is
++	 * (4 + 4 * DIV), according to datasheet
++	 */
++	u32 apb_div = 4 + 4 * SCU_GET_PCLK_DIV(ast_scu_read(AST_SCU_CLK_SEL));
++	return h_pll / apb_div;
++}
++
++
+ void ast_scu_show_system_info(void)
+ {
+ 
+@@ -496,3 +507,28 @@ void ast_scu_get_who_init_dram(void)
  		break;
+ 	}
+ }
++
++void ast_scu_enable_i2c(u8 bus_num)
++{
++	if (bus_num < SCU_I2C_MIN_BUS_NUM || bus_num > SCU_I2C_MAX_BUS_NUM) {
++		debug("%s: bus_num is out of range, must be [%d - %d]\n", __func__,
++			  SCU_I2C_MIN_BUS_NUM, SCU_I2C_MAX_BUS_NUM);
++		return;
++	}
++
++	/* Enable I2C Controllers */
++	clrbits_le32(AST_SCU_BASE + AST_SCU_RESET, SCU_RESET_I2C);
++
++	if (bus_num >= 3) {
++		setbits_le32(AST_SCU_BASE + AST_SCU_FUN_PIN_CTRL5,
++					 SCU_FUN_PIN_I2C(bus_num));
++#ifdef AST_SOC_G5
++	} else if (bus_num == 1) {
++		setbits_le32(AST_SCU_BASE + AST_SCU_FUN_PIN_CTRL8,
++					 SCU_FUN_PIN_SDA1 | SCU_FUN_PIN_SCL1);
++	} else if (bus_num == 2) {
++		setbits_le32(AST_SCU_BASE + AST_SCU_FUN_PIN_CTRL8,
++					 SCU_FUN_PIN_SDA2 | SCU_FUN_PIN_SCL2);
++#endif
++	}
++}
 -- 
 2.8.0.rc3.226.g39d4020
