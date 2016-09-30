@@ -1,56 +1,57 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x22f.google.com (mail-ua0-x22f.google.com
- [IPv6:2607:f8b0:400c:c08::22f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+X-Greylist: delayed 537 seconds by postgrey-1.36 at bilbo;
+ Fri, 30 Sep 2016 11:58:15 AEST
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=WydxHWmO; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b=isX5oiDz; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3slZ6b2cBczDvJj
- for <openbmc@lists.ozlabs.org>; Fri, 30 Sep 2016 11:46:31 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=qSSBXfm9; 
- dkim-atps=neutral
-Received: by mail-ua0-x22f.google.com with SMTP id q42so82065426uaq.2
- for <openbmc@lists.ozlabs.org>; Thu, 29 Sep 2016 18:46:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=8uMz2KOY+vGPCc/0O0X3RN0w0cDtjIJWHZonfF0PNF0=;
- b=qSSBXfm9Sa9IBeWj6q2beUpzSMAN0EiK7v5WWAt97PWdh2EUtrMi//yX5dFK7VV7PE
- 5TUfHEFTVtueUsIAajZ8ycPB7XmHdCnzx8YRW0v54snjj49buCQST/xbt9ockUzcG9XF
- 1jnpOycpokLQ2N2VbIMjE6mOMgp13LOdL38YDJz06NWKRL3BNa7YxLiv+2HBC1S7SGrq
- CtgYKWeF31GZ+D6OPEDjTXXoBte0ebr/IIvTLkGwo/34C83u9VSCq3JinwpQ/wItepWk
- txGdytcPn7qBwni4/hhSxzLJtqd4mPPSjbY4pOF3LJVCtCldZ+p4MgxVkCWnxtT7giwQ
- dTAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=8uMz2KOY+vGPCc/0O0X3RN0w0cDtjIJWHZonfF0PNF0=;
- b=OvBiNXsMIK6fOmRYYaGGoFNEcG2+co17jmOhjxPfWZbcK8Ji2ROH8L0SfA1YCdwqoz
- ymZ/WGaVqLMWn3cw0Ik6tnYLU4Sn9QjKT39gxj4g2XmHmaWdc72J5CysJ8D7SrbUpKAs
- 4eSRyxRR9JomZ1cHqRpffScddz8SwrXTJrwsdHH0rF2tL1ASwxciTe8AoCdqbF0OrTWr
- KPCmnWUOSgKSUzAweIdSp5Jl8hiPAEpDdtmkBGxbhBppWTa3JTbnWAa+iwMvWm5R+uy4
- nchJ/ImPGftEUidzc5Zm6jKFFyU/HsdObcKYPhyJzPBQNrI79UgoMCtP94pRfKnyMzSL
- LVRA==
-X-Gm-Message-State: AA6/9RmOPdYlNZHFyMoZExe5oyW/0a6rOlJ/GzhlhV1iEmIhyq7LSMXrfgomM21FegHw6xc3CqUk/hZP2d79tw==
-X-Received: by 10.176.81.56 with SMTP id e53mr1786150uaa.160.1475199989092;
- Thu, 29 Sep 2016 18:46:29 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.176.7.71 with HTTP; Thu, 29 Sep 2016 18:46:08 -0700 (PDT)
-In-Reply-To: <20160930013816.GC7390@heinlein.lan>
-References: <CACPK8XfQPDg0H_aNKmZOje7pPDRE9sJsD-epqAB8uW2X6SrrDg@mail.gmail.com>
- <CALLMt=rbR1usfKPt9G8kdUa2RaqRaaVEG3rV62wSBjaM59qi6Q@mail.gmail.com>
- <CACPK8Xcn=s3NAnVNOYBXwHrnfYPT7xicH-TTXTb50TJU6OHHrA@mail.gmail.com>
- <20160930013816.GC7390@heinlein.lan>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 30 Sep 2016 11:16:08 +0930
-X-Google-Sender-Auth: B1BoCQbSxWUBNsf2xRiNJdLgfXM
-Message-ID: <CACPK8Xd3vP0E14-QSnpKxcLYdnaf=eqZb3hvfm26QCEZCA3aiA@mail.gmail.com>
-Subject: Re: openpower.xyz updates
-To: Patrick Williams <patrick@stwcx.xyz>
-Cc: Andrew Geissler <geissonator@gmail.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3slZN73KtJzDvJl
+ for <openbmc@lists.ozlabs.org>; Fri, 30 Sep 2016 11:58:15 +1000 (AEST)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id 94ACB20A43;
+ Thu, 29 Sep 2016 21:49:16 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute7.internal (MEProxy); Thu, 29 Sep 2016 21:49:16 -0400
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=w9cLQ
+ 1zOIYgxh8RDvl6yuw31/CE=; b=WydxHWmOu2Zt8yGZprcK5XCPeWOIKdMrIyI+g
+ KqviT0uuofGr1LrQN4ldAWk9wvUfsAswuGoczZE3uWZo/p2kvReUW1z/WkY1jqhn
+ 0DHMVTLsVrATH1JOgPaxYWrEY08E26xXTQqW6YsN9rgbzufMvWCwhKYkqFpS5iVk
+ ySDVz0=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-sasl-enc
+ :x-sasl-enc; s=smtpout; bh=w9cLQ1zOIYgxh8RDvl6yuw31/CE=; b=isX5o
+ iDzcZil/90UC1KF08UtCnN4weQMKEwmhh9MG6TmoKz91MpNr30xAd4RW/OadOYkT
+ B1d9Gbv8hbv49azMlGeL45kkzr5lC2B5g3JSIjUhDN9MkTPu98swB6z4zgzT+c89
+ lbsvG/o/mHzNtn1xwxSrR++LZz/RleH2rbPN1k=
+X-Sasl-enc: lg9qKlXDuNHU+VBpZJNbWTRGHVzER/IbwwaPeDLmuPGY 1475200155
+Received: from keelia (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id BC2D5CC07E;
+ Thu, 29 Sep 2016 21:49:14 -0400 (EDT)
+Message-ID: <1475200147.24463.36.camel@aj.id.au>
+Subject: Re: [PATCH 2/3] aspeed/g5: helper SCU functions for configuring
+ aspeed I2C
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Maxim Sloyko <maxims@google.com>, Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Fri, 30 Sep 2016 11:19:07 +0930
+In-Reply-To: <CAFR_W8rc=2XkpUwPokx2_00wMnZfxq9VTHTOVrXgJ8r7DkJ=0w@mail.gmail.com>
+References: <1474306018-101166-1-git-send-email-maxims@google.com>
+ <1474998214-12720-1-git-send-email-maxims@google.com>
+ <1474998214-12720-2-git-send-email-maxims@google.com>
+ <CACPK8XfgUCEfcgmZ8P2wpMCRHn-jaVup_X5cpq93bYMkZy-jTw@mail.gmail.com>
+ <CAFR_W8rc=2XkpUwPokx2_00wMnZfxq9VTHTOVrXgJ8r7DkJ=0w@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-4DyN7wZaSPHHTHXkER36"
+X-Mailer: Evolution 3.18.5.2-0ubuntu3 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,28 +63,70 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 30 Sep 2016 01:46:31 -0000
+X-List-Received-Date: Fri, 30 Sep 2016 01:58:16 -0000
 
-On Fri, Sep 30, 2016 at 11:08 AM, Patrick Williams <patrick@stwcx.xyz> wrote:
-> On Fri, Sep 30, 2016 at 10:37:42AM +0930, Joel Stanley wrote:
->> On Wed, Sep 28, 2016 at 10:08 PM, Andrew Geissler <geissonator@gmail.com> wrote:
->> > Hey Joel, late yesterday afternoon Patrick reported that the gerrit CI
->> > jobs were not triggering.  I took a look and found that our job that
->> > does ID validation (which triggers on patch set creation) was still
->> > working fine but the follow up job that would trigger on the
->> > "Ok-To-Test" comment was no longer triggering.
->>
->> I noticed that many of the gerrit reviews I have pending do not have
->> the OOT or Verified checked. Is the system still having issues?
->
-> Currently, the only testing is done on the openbmc/openbmc repository.
-> According to this query they are all set with both OTT and V.
->
-> https://gerrit.openbmc-project.xyz/#/q/project:openbmc/openbmc+status:open
 
-Okay. Do we plan to test the individual projects as part of an
-openbmc/openbmc build in the future?
+--=-4DyN7wZaSPHHTHXkER36
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, 2016-09-29 at 11:23 -0700, Maxim Sloyko wrote:
+> > > +=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Enable I2C Controllers */
+> > > +=C2=A0 =C2=A0 =C2=A0 =C2=A0clrbits_le32(AST_SCU_BASE + AST_SCU_RESET=
+, SCU_RESET_I2C);
+> > > +
+> > > +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (num < 3) {
+> >=20
+> > How do we enable buses number 1 and 2 when AST_SOC_G5 is not set?
+> I don't know. My guess is we don't, as in, the pins are always
+> assigned these functions. In datasheet these bits in PIN CTRL8
+> register are marked as "new in ast2500" and there is no mention of
+> sda{1,2},scl{1,2} in ast2500 datasheet.
+> Also, this part is basically taken from aspeed's sdk, this is why I
+> assume they are always on.
+
+So to clarify, the AST2400 has (SCL1, SDA1) and (SCL2, SDA2) on fixed
+function pins: (K21, K22) and (J19, J18) respectively. I don't have the
+datasheets for earlier releases of the AST SoCs, so can't speak for
+them. The AST2500 has (SCL1, SDA1) and (SCL2, SDA2) on multi-function
+pins: (M18, M19) and (M20, P20) respectively.
+
+As an aside: In AST2500 case I2Cs 1 and 2 are only multiplexed with
+GPIO and are at a higher priority, so we don't need to flip any other
+bits to enable I2C.
+
+Maybe there should be some comments along these given the code looks
+odd at first glance?
 
 Cheers,
 
-Joel
+Andrew
+
+Separately: This code makes me glad I took a data-driven approach for
+the Linux pinmux driver (not to say that result is beautiful either,
+but I don't want even begin to imagine the maze of conditionals
+protecting corner cases).
+--=-4DyN7wZaSPHHTHXkER36
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAABCgAGBQJX7cSTAAoJEJ0dnzgO5LT5xTIP+we/C5tnSUPqlAm9wGv2KAC8
+mW5gytUJbloRdDVJ2aGnJgsCTj9VFgJk8lvnez0QRiOOHAm8CtEOYHhIrR6SpJvm
+uZWIyv1OPkVqB6pyDTuX0ddwXGxsmchJhYSV2Y6sxCAyLG712SJz5hhFaHbq+1VD
+orfLbJFyCe24Nj9decdDciEV9OfODxeKaHKEdV8xyhtxTee06jwUKXC1GNwafNeP
+wjJqPd4d2kanJTk6tkKL01Z858sBoRvXorXoMLQ8oTZy0TSwmkRbW56ebLeXjOV3
+GSqL+kxApEq1q1k2bt3JjBuaW+sIeiC+3Vuj8dGneeis9IQXE7gWqCCykyOvLiM4
+btjM9sQOjH3iiFJzURzXul/tiFU2k8EsbO1ZDR9yypfsFzFasVHoCxp7UiK07u5A
+gelzqjcTY7a+kwyPEF39PfBq+zO1/NEgrPqXZbZDMZAzVQQ0qy/Y+X11QzoAIgpr
+HmCpgPoQC8mm0N+fW0gHScolOKtkh5eKsFTeUcBrRCCfWqOuELR9F1JyajZTRPm6
+h3OX+IeurB345ppcuAZtSdCfhVtvjgi32o8UNoD78YK/9UL/wEu/EccfAO3hHs+d
+1h/hkjDCVJtdP6oeZDKvOeUREemV4OzH9Fz9lkNJ+KDZSYNh9X/Nb5Ogs8Me34W9
+bchrPczSS2hoGz3sijLE
+=IfoI
+-----END PGP SIGNATURE-----
+
+--=-4DyN7wZaSPHHTHXkER36--
