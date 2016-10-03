@@ -1,50 +1,55 @@
 Return-Path: <maxims@google.com>
-Received: from mail-lf0-x236.google.com (mail-lf0-x236.google.com
- [IPv6:2a00:1450:4010:c07::236])
+Received: from mail-yb0-x233.google.com (mail-yb0-x233.google.com
+ [IPv6:2607:f8b0:4002:c09::233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3snrqb3m5dzDrL1
- for <openbmc@lists.ozlabs.org>; Tue,  4 Oct 2016 05:56:26 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3snrrZ2wk1zDrL5
+ for <openbmc@lists.ozlabs.org>; Tue,  4 Oct 2016 05:57:18 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=LvqtQshc; 
+ unprotected) header.d=google.com header.i=@google.com header.b=SJQe5vC1; 
  dkim-atps=neutral
-Received: by mail-lf0-x236.google.com with SMTP id l131so165015609lfl.2
- for <openbmc@lists.ozlabs.org>; Mon, 03 Oct 2016 11:56:26 -0700 (PDT)
+Received: by mail-yb0-x233.google.com with SMTP id 184so21966725yby.2
+ for <openbmc@lists.ozlabs.org>; Mon, 03 Oct 2016 11:57:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=lDfUOQpYWsobOxBiVjp6nxTS/pScYKP0u7PzE6qUuw8=;
- b=LvqtQshcC2t25LdWiCwPIfnW6YB48kNwifOnKrN3S9y/ssbTARU4xZ1Qe07Js0/xHs
- b/9CtwVa8FEXYoL5Fr6vR2p2p+yeAZLXecfHfeHHuNWkrZVzK2C+Xdq6sb0Il+JkK8y7
- n2IJxwNQ1y7kQGzOSHFVpEizpCbumxtTlWm2xCYta9L54x87VWfmE9p5L7rmePhcmL72
- 40iukWfkTzS67Ad9TquZgVyboc39UrlbvU/ClhjWYNBvKV78K7+0MKYDk/0pkd8Ih26T
- kj/zHRJND34ZwVv7WBJVkosY/7G1xCul5tnvUIrp5xcmCYvEBLLOwnB8yMgrkUe/ytoW
- c2ug==
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=AJp+/7+sF2ZSOm/ockQtJOwq3VNrmWOl5CnhlSHnf3I=;
+ b=SJQe5vC1LX3qC9WMtQRlMUP28qDtt48zGiJnJ2/nPxHRHhP1JRJfaT/Ld8w+u0r8+J
+ A3PLp1jmmezqiwAV3azeF0P2XjWLnsMJiUr0onqzDGSm/mJbE7prpwo2aLknw8Ha2ii0
+ Cgk75/3EFGEqF5crR+GrfZ1VdANFWn77Sy7HzySfVdFahnAAdSL48/57UcM4DNeNwz3T
+ u6QXumHMIS2ro/vYqPCXSx8Om5PQhhX33IhZlv8hIwC+Z6OZ4GkR3ui5sDRTo113T4/7
+ E2uqLkcZjA/ChLUKd/vUXOYucYKl9g06V3iC3hIHR0QkCBGr2sCGDJIhd/N4zQ2s9kyF
+ PIlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=lDfUOQpYWsobOxBiVjp6nxTS/pScYKP0u7PzE6qUuw8=;
- b=m3h7WYrLt8xNpuN1nXYFZEdmQE0/51WVta/vOYVLA5+b7Qb3gUIkZnpjiIlbgqGV34
- gMFC5IwbjG/iqbYYca7wTonhG+gHuteTOcm6/dFfDIn5thgGs2/kF/K8CWox3Pjyfxrk
- NiWOZt04ifc4XjtOkdQEWN8jJR8pBSVnGb3tIFDpE5ZqfQEmSogT84WM2FHrv9TnRx9d
- 6nmrpkIoID3sGI3+BFTIWiE+9PYsrmd1i9eS2RRDtvOqY4YN24SWV5Z7n734rKuFBAeG
- Ppo5d9887nnMMnwAtTyrc8LqaL9kws4kPS8ABSXT1wmJMpPEd4kUggpgQ0+JuKHCB49z
- fIIA==
-X-Gm-Message-State: AA6/9Rl47/Rv5CmRlYbLWAW8QGp0fgHQGss8Ra+vqw4WLSVrCDl0G8ztQVOrTmi8OX3s4p1G
-X-Received: by 10.25.11.216 with SMTP id 207mr8237538lfl.171.1475520981111;
- Mon, 03 Oct 2016 11:56:21 -0700 (PDT)
-Received: from mxsl.svl.corp.google.com ([100.123.242.80])
- by smtp.gmail.com with ESMTPSA id g77sm2941992ljg.13.2016.10.03.11.56.18
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Mon, 03 Oct 2016 11:56:19 -0700 (PDT)
-From: maxims@google.com
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH] aspeed: SCU helper functions for I2C.
-Date: Mon,  3 Oct 2016 11:55:57 -0700
-Message-Id: <1475520957-78581-1-git-send-email-maxims@google.com>
-X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
-In-Reply-To: <1475184427-144121-3-git-send-email-maxims@google.com>
-References: <1475184427-144121-3-git-send-email-maxims@google.com>
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=AJp+/7+sF2ZSOm/ockQtJOwq3VNrmWOl5CnhlSHnf3I=;
+ b=ISmRS9dO+SbvVgmRrQRyRW9vsceqeCeWLfvs1AZyHwqf6/u2TGVDpEccoOG9kAgFcB
+ /VQMSAvcC3PfHENM76Ndi1v79IBBCHwv24KMz7XL0KrRMyZL9LhF3V1MGhsr6k4GjJzK
+ BP91PK6KcupqVpVartwPNRkgxKQJycsB9Ame0o0gpImSXNquJuyUGdwuhQIn4zvgrU+3
+ BYDxdtShtvSxgXmy2KMTAQkrHsuM0By47qTj1za4rakoR4umZBT55Eu2fFPEb9xl6dxf
+ ON5lxPAiGa9osYWWVzVptm+4ZlvdB+poOPPa+vcmylY03LV14z1+AKUm+McO2BxcpwtZ
+ mMog==
+X-Gm-Message-State: AA6/9RlpK71Qa172lBBVoW6TMKbECVUnewabzuH+2sKZZ2ScCvKqh1d7ToE0r5l7dBnfF2HRLrPAGqE7af2EU9KU
+X-Received: by 10.37.5.15 with SMTP id 15mr14383409ybf.158.1475521035553; Mon,
+ 03 Oct 2016 11:57:15 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.37.38.80 with HTTP; Mon, 3 Oct 2016 11:57:15 -0700 (PDT)
+In-Reply-To: <1475200147.24463.36.camel@aj.id.au>
+References: <1474306018-101166-1-git-send-email-maxims@google.com>
+ <1474998214-12720-1-git-send-email-maxims@google.com>
+ <1474998214-12720-2-git-send-email-maxims@google.com>
+ <CACPK8XfgUCEfcgmZ8P2wpMCRHn-jaVup_X5cpq93bYMkZy-jTw@mail.gmail.com>
+ <CAFR_W8rc=2XkpUwPokx2_00wMnZfxq9VTHTOVrXgJ8r7DkJ=0w@mail.gmail.com>
+ <1475200147.24463.36.camel@aj.id.au>
+From: Maxim Sloyko <maxims@google.com>
+Date: Mon, 3 Oct 2016 11:57:15 -0700
+Message-ID: <CAFR_W8q-inp0RqP+uyigVkE88RyASSjtb1Qvc9E427W5-xfG_A@mail.gmail.com>
+Subject: Re: [PATCH 2/3] aspeed/g5: helper SCU functions for configuring
+ aspeed I2C
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary=001a11c010d82f4914053dfa83a4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,115 +61,116 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Oct 2016 18:56:28 -0000
+X-List-Received-Date: Mon, 03 Oct 2016 18:57:18 -0000
 
-From: Maxim Sloyko <maxims@google.com>
+--001a11c010d82f4914053dfa83a4
+Content-Type: text/plain; charset=UTF-8
 
-SCU helper functions for configuring I2C pins and accessing APB clock.
----
- arch/arm/include/asm/arch-aspeed/ast_scu.h  |  6 +++++
- arch/arm/include/asm/arch-aspeed/regs-scu.h |  8 ++++++
- arch/arm/mach-aspeed/ast-scu.c              | 38 +++++++++++++++++++++++++++++
- 3 files changed, 52 insertions(+)
+On Thu, Sep 29, 2016 at 6:49 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
 
-diff --git a/arch/arm/include/asm/arch-aspeed/ast_scu.h b/arch/arm/include/asm/arch-aspeed/ast_scu.h
-index d248416..80ebd6f 100644
---- a/arch/arm/include/asm/arch-aspeed/ast_scu.h
-+++ b/arch/arm/include/asm/arch-aspeed/ast_scu.h
-@@ -38,6 +38,7 @@ extern void ast_scu_get_who_init_dram(void);
- extern u32 ast_get_clk_source(void);
- extern u32 ast_get_h_pll_clk(void);
- extern u32 ast_get_ahbclk(void);
-+extern u32 ast_get_apbclk(void);
- 
- extern u32 ast_scu_get_vga_memsize(void);
- 
-@@ -45,4 +46,9 @@ extern void ast_scu_init_eth(u8 num);
- extern void ast_scu_multi_func_eth(u8 num);
- extern void ast_scu_multi_func_romcs(u8 num);
- 
-+/* Enable I2C controller and pins for a particular device.
-+ * Device numbering starts at 1
-+ */
-+extern void ast_scu_enable_i2c(u8 num);
-+
- #endif
-diff --git a/arch/arm/include/asm/arch-aspeed/regs-scu.h b/arch/arm/include/asm/arch-aspeed/regs-scu.h
-index aab032a..4c869c1 100644
---- a/arch/arm/include/asm/arch-aspeed/regs-scu.h
-+++ b/arch/arm/include/asm/arch-aspeed/regs-scu.h
-@@ -915,6 +915,11 @@
- #define SCU_FUN_PIN_ROMA4		(0x1 << 18)
- #define SCU_FUN_PIN_ROMA3		(0x1 << 17)
- #define SCU_FUN_PIN_ROMA2		(0x1 << 16)
-+/* AST2500 only */
-+#define SCU_FUN_PIN_SDA2		(0x1 << 15)
-+#define SCU_FUN_PIN_SCL2		(0x1 << 14)
-+#define SCU_FUN_PIN_SDA1		(0x1 << 13)
-+#define SCU_FUN_PIN_SCL1		(0x1 << 12)
- 
- /* AST_SCU_FUN_PIN_CTRL9		0xA8 - Multi-function Pin Control#9 */
- #define SCU_FUN_PIN_ROMA21		(0x1 << 3)
-@@ -950,4 +955,7 @@
- /* AST_SCU_BMC_CLASS			0x19C - BMC device class code and revision ID */
- /* AST_SCU_BMC_DEV_ID			0x1A4 - BMC device ID */
- 
-+#define SCU_I2C_MIN_BUS_NUM			(1)
-+#define SCU_I2C_MAX_BUS_NUM			(14)
-+
- #endif
-diff --git a/arch/arm/mach-aspeed/ast-scu.c b/arch/arm/mach-aspeed/ast-scu.c
-index 280c421..1dbd667 100644
---- a/arch/arm/mach-aspeed/ast-scu.c
-+++ b/arch/arm/mach-aspeed/ast-scu.c
-@@ -318,6 +318,17 @@ u32 ast_get_ahbclk(void)
- 
- #endif /* AST_SOC_G5 */
- 
-+u32 ast_get_apbclk(void)
-+{
-+	u32 h_pll = ast_get_h_pll_clk();
-+	/* The formula for converting the bit pattern to divisor is
-+	 * (4 + 4 * DIV), according to datasheet
-+	 */
-+	u32 apb_div = 4 + 4 * SCU_GET_PCLK_DIV(ast_scu_read(AST_SCU_CLK_SEL));
-+	return h_pll / apb_div;
-+}
-+
-+
- void ast_scu_show_system_info(void)
- {
- 
-@@ -496,3 +507,30 @@ void ast_scu_get_who_init_dram(void)
- 		break;
- 	}
- }
-+
-+void ast_scu_enable_i2c(u8 bus_num)
-+{
-+	if (bus_num < SCU_I2C_MIN_BUS_NUM || bus_num > SCU_I2C_MAX_BUS_NUM) {
-+		debug("%s: bus_num is out of range, must be [%d - %d]\n", __func__,
-+			  SCU_I2C_MIN_BUS_NUM, SCU_I2C_MAX_BUS_NUM);
-+		return;
-+	}
-+
-+	/* Enable I2C Controllers */
-+	clrbits_le32(AST_SCU_BASE + AST_SCU_RESET, SCU_RESET_I2C);
-+
-+	if (bus_num >= 3) {
-+		setbits_le32(AST_SCU_BASE + AST_SCU_FUN_PIN_CTRL5,
-+					 SCU_FUN_PIN_I2C(bus_num));
-+#ifdef AST_SOC_G5
-+	/* In AST2400 aka AST_SOC_G4 SDA{1,2}/SCL{1,2} are fixed function pins,
-+	 * so no need to change their function. */
-+	} else if (bus_num == 1) {
-+		setbits_le32(AST_SCU_BASE + AST_SCU_FUN_PIN_CTRL8,
-+					 SCU_FUN_PIN_SDA1 | SCU_FUN_PIN_SCL1);
-+	} else if (bus_num == 2) {
-+		setbits_le32(AST_SCU_BASE + AST_SCU_FUN_PIN_CTRL8,
-+					 SCU_FUN_PIN_SDA2 | SCU_FUN_PIN_SCL2);
-+#endif
-+	}
-+}
+> On Thu, 2016-09-29 at 11:23 -0700, Maxim Sloyko wrote:
+> > > > +       /* Enable I2C Controllers */
+> > > > +       clrbits_le32(AST_SCU_BASE + AST_SCU_RESET, SCU_RESET_I2C);
+> > > > +
+> > > > +       if (num < 3) {
+> > >
+> > > How do we enable buses number 1 and 2 when AST_SOC_G5 is not set?
+> > I don't know. My guess is we don't, as in, the pins are always
+> > assigned these functions. In datasheet these bits in PIN CTRL8
+> > register are marked as "new in ast2500" and there is no mention of
+> > sda{1,2},scl{1,2} in ast2500 datasheet.
+> > Also, this part is basically taken from aspeed's sdk, this is why I
+> > assume they are always on.
+>
+> So to clarify, the AST2400 has (SCL1, SDA1) and (SCL2, SDA2) on fixed
+> function pins: (K21, K22) and (J19, J18) respectively. I don't have the
+> datasheets for earlier releases of the AST SoCs, so can't speak for
+> them. The AST2500 has (SCL1, SDA1) and (SCL2, SDA2) on multi-function
+> pins: (M18, M19) and (M20, P20) respectively.
+>
+> As an aside: In AST2500 case I2Cs 1 and 2 are only multiplexed with
+> GPIO and are at a higher priority, so we don't need to flip any other
+> bits to enable I2C.
+>
+> Maybe there should be some comments along these given the code looks
+> odd at first glance?
+>
+
+Added comment.
+
+
+>
+> Cheers,
+>
+> Andrew
+>
+> Separately: This code makes me glad I took a data-driven approach for
+> the Linux pinmux driver (not to say that result is beautiful either,
+> but I don't want even begin to imagine the maze of conditionals
+> protecting corner cases).
+
+
+
+
 -- 
-2.8.0.rc3.226.g39d4020
+*M*axim *S*loyko
+
+--001a11c010d82f4914053dfa83a4
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><br><div class=3D"gmail_extra"><br><div class=3D"gmail_quo=
+te">On Thu, Sep 29, 2016 at 6:49 PM, Andrew Jeffery <span dir=3D"ltr">&lt;<=
+a href=3D"mailto:andrew@aj.id.au" target=3D"_blank">andrew@aj.id.au</a>&gt;=
+</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .=
+8ex;border-left:1px #ccc solid;padding-left:1ex"><span class=3D"">On Thu, 2=
+016-09-29 at 11:23 -0700, Maxim Sloyko wrote:<br>
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Enable I2C Controllers */<br>
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0clrbits_le32(AST_SCU_BASE + AST_=
+SCU_RESET, SCU_RESET_I2C);<br>
+&gt; &gt; &gt; +<br>
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (num &lt; 3) {<br>
+&gt; &gt;<br>
+&gt; &gt; How do we enable buses number 1 and 2 when AST_SOC_G5 is not set?=
+<br>
+&gt; I don&#39;t know. My guess is we don&#39;t, as in, the pins are always=
+<br>
+&gt; assigned these functions. In datasheet these bits in PIN CTRL8<br>
+&gt; register are marked as &quot;new in ast2500&quot; and there is no ment=
+ion of<br>
+&gt; sda{1,2},scl{1,2} in ast2500 datasheet.<br>
+&gt; Also, this part is basically taken from aspeed&#39;s sdk, this is why =
+I<br>
+&gt; assume they are always on.<br>
+<br>
+</span>So to clarify, the AST2400 has (SCL1, SDA1) and (SCL2, SDA2) on fixe=
+d<br>
+function pins: (K21, K22) and (J19, J18) respectively. I don&#39;t have the=
+<br>
+datasheets for earlier releases of the AST SoCs, so can&#39;t speak for<br>
+them. The AST2500 has (SCL1, SDA1) and (SCL2, SDA2) on multi-function<br>
+pins: (M18, M19) and (M20, P20) respectively.<br>
+<br>
+As an aside: In AST2500 case I2Cs 1 and 2 are only multiplexed with<br>
+GPIO and are at a higher priority, so we don&#39;t need to flip any other<b=
+r>
+bits to enable I2C.<br>
+<br>
+Maybe there should be some comments along these given the code looks<br>
+odd at first glance?<br></blockquote><div><br></div><div>Added comment.</di=
+v><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 =
+.8ex;border-left:1px #ccc solid;padding-left:1ex">
+<br>
+Cheers,<br>
+<br>
+Andrew<br>
+<br>
+Separately: This code makes me glad I took a data-driven approach for<br>
+the Linux pinmux driver (not to say that result is beautiful either,<br>
+but I don&#39;t want even begin to imagine the maze of conditionals<br>
+protecting corner cases).</blockquote></div><br><br clear=3D"all"><div><br>=
+</div>-- <br><div class=3D"gmail_signature" data-smartmail=3D"gmail_signatu=
+re"><div><b>M</b>axim <b>S</b>loyko</div></div>
+</div></div>
+
+--001a11c010d82f4914053dfa83a4--
