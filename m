@@ -1,61 +1,61 @@
 Return-Path: <gwshan@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3spGk55ZMFzDrFn
- for <openbmc@lists.ozlabs.org>; Tue,  4 Oct 2016 22:23:09 +1100 (AEDT)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
- u94BN6vd128285
- for <openbmc@lists.ozlabs.org>; Tue, 4 Oct 2016 07:23:07 -0400
-Received: from e23smtp08.au.ibm.com (e23smtp08.au.ibm.com [202.81.31.141])
- by mx0a-001b2d01.pphosted.com with ESMTP id 25v8js3bdg-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3spGk72NNlzDrKY
+ for <openbmc@lists.ozlabs.org>; Tue,  4 Oct 2016 22:23:11 +1100 (AEDT)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
+ u94BN5Tr060544
+ for <openbmc@lists.ozlabs.org>; Tue, 4 Oct 2016 07:23:08 -0400
+Received: from e23smtp01.au.ibm.com (e23smtp01.au.ibm.com [202.81.31.143])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 25v52ybwd1-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 04 Oct 2016 07:23:07 -0400
+ for <openbmc@lists.ozlabs.org>; Tue, 04 Oct 2016 07:23:08 -0400
 Received: from localhost
- by e23smtp08.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e23smtp01.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <gwshan@linux.vnet.ibm.com>;
  Tue, 4 Oct 2016 21:23:03 +1000
-Received: from d23dlp02.au.ibm.com (202.81.31.213)
- by e23smtp08.au.ibm.com (202.81.31.205) with IBM ESMTP SMTP Gateway:
+Received: from d23dlp01.au.ibm.com (202.81.31.203)
+ by e23smtp01.au.ibm.com (202.81.31.207) with IBM ESMTP SMTP Gateway:
  Authorized Use Only! Violators will be prosecuted; 
  Tue, 4 Oct 2016 21:23:02 +1000
-Received: from d23relay06.au.ibm.com (d23relay06.au.ibm.com [9.185.63.219])
- by d23dlp02.au.ibm.com (Postfix) with ESMTP id 986B52BB0054
+Received: from d23relay07.au.ibm.com (d23relay07.au.ibm.com [9.190.26.37])
+ by d23dlp01.au.ibm.com (Postfix) with ESMTP id CFACB2CE8054
  for <openbmc@lists.ozlabs.org>; Tue,  4 Oct 2016 22:23:01 +1100 (EST)
-Received: from d23av06.au.ibm.com (d23av06.au.ibm.com [9.190.235.151])
- by d23relay06.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u94BN1qq62849184
+Received: from d23av03.au.ibm.com (d23av03.au.ibm.com [9.190.234.97])
+ by d23relay07.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u94BN1Dl57868424
  for <openbmc@lists.ozlabs.org>; Tue, 4 Oct 2016 22:23:01 +1100
-Received: from d23av06.au.ibm.com (localhost [127.0.0.1])
- by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u94BN14Z010345
+Received: from d23av03.au.ibm.com (localhost [127.0.0.1])
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u94BN1K4027644
  for <openbmc@lists.ozlabs.org>; Tue, 4 Oct 2016 22:23:01 +1100
 Received: from gwshan ([9.192.182.193])
- by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with SMTP id
- u94BN0YZ010340; Tue, 4 Oct 2016 22:23:00 +1100
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with SMTP id
+ u94BN0Vt027634; Tue, 4 Oct 2016 22:23:00 +1100
 Received: by gwshan (Postfix, from userid 1000)
- id 589B8943210; Tue,  4 Oct 2016 22:23:31 +1100 (AEDT)
+ id 95E50943211; Tue,  4 Oct 2016 22:23:31 +1100 (AEDT)
 From: Gavin Shan <gwshan@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, Gavin Shan <gwshan@linux.vnet.ibm.com>
-Subject: [PATCH v3 4.7 5/8] net/ncsi: Allow to extend NCSI request properties
-Date: Tue,  4 Oct 2016 22:23:23 +1100
+Subject: [PATCH v3 4.7 6/8] net/ncsi: Rework the channel monitoring
+Date: Tue,  4 Oct 2016 22:23:24 +1100
 X-Mailer: git-send-email 2.1.0
 In-Reply-To: <1475580206-27370-1-git-send-email-gwshan@linux.vnet.ibm.com>
 References: <1475580206-27370-1-git-send-email-gwshan@linux.vnet.ibm.com>
 X-TM-AS-MML: disable
 X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16100411-0048-0000-0000-000001C4D5EB
+x-cbid: 16100411-1617-0000-0000-00000165C85E
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 16100411-0049-0000-0000-000046AE524A
-Message-Id: <1475580206-27370-6-git-send-email-gwshan@linux.vnet.ibm.com>
+x-cbparentid: 16100411-1618-0000-0000-000046DA0156
+Message-Id: <1475580206-27370-7-git-send-email-gwshan@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2016-10-04_03:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=4
+ spamscore=0 suspectscore=1
  malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
  adjust=0 reason=mlx scancount=1 engine=8.0.1-1609300000
  definitions=main-1610040200
@@ -70,170 +70,184 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Oct 2016 11:23:10 -0000
+X-List-Received-Date: Tue, 04 Oct 2016 11:23:11 -0000
 
-There is only one NCSI request property for now: the response for
-the sent command need drive the workqueue or not. So we had one
-field (@driven) for the purpose. We lost the flexibility to extend
-NCSI request properties.
+The original NCSI channel monitoring was implemented based on a
+backoff algorithm: the GLS response should be received in the
+specified interval. Otherwise, the channel is regarded as dead
+and failover should be taken if current channel is an active one.
+There are several problems in the implementation: (A) On BCM5718,
+we found when the IID (Instance ID) in the GLS command packet
+changes from 255 to 1, the response corresponding to IID#1 never
+comes in. It means we cannot make the unfair judgement that the
+channel is dead when one response is missed. (B) The code's
+readability should be improved. (C) We should do failover when
+current channel is active one and the channel monitoring should
+be marked as disabled before doing failover.
 
-This replaces @driven with @flags and @req_flags in NCSI request
-and NCSI command argument struct. Each bit of the newly introduced
-field can be used for one property. No functional changes introduced.
+This reworks the channel monitoring to address all above issues.
+The fields for channel monitoring is put into separate struct
+and the state of channel monitoring is predefined. The channel
+is regarded alive if the network controller responses to one of
+two GLS commands or both of them in 5 seconds.
 
 Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
 Reviewed-by: Joel Stanley <joel@jms.id.au>
 ---
- net/ncsi/internal.h    |  8 +++++---
- net/ncsi/ncsi-cmd.c    |  2 +-
- net/ncsi/ncsi-manage.c | 19 ++++++++++---------
+ net/ncsi/internal.h    | 12 +++++++++---
+ net/ncsi/ncsi-manage.c | 44 +++++++++++++++++++++++++-------------------
  net/ncsi/ncsi-rsp.c    |  2 +-
- 4 files changed, 17 insertions(+), 14 deletions(-)
+ 3 files changed, 35 insertions(+), 23 deletions(-)
 
 diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-index c956fe8..26e9295 100644
+index 26e9295..13290a7 100644
 --- a/net/ncsi/internal.h
 +++ b/net/ncsi/internal.h
-@@ -207,7 +207,8 @@ struct ncsi_package {
- struct ncsi_request {
- 	unsigned char        id;      /* Request ID - 0 to 255           */
- 	bool                 used;    /* Request that has been assigned  */
--	bool                 driven;  /* Drive state machine             */
-+	unsigned int         flags;   /* NCSI request property           */
-+#define NCSI_REQ_FLAG_EVENT_DRIVEN	1
- 	struct ncsi_dev_priv *ndp;    /* Associated NCSI device          */
- 	struct sk_buff       *cmd;    /* Associated NCSI command packet  */
- 	struct sk_buff       *rsp;    /* Associated NCSI response packet */
-@@ -276,7 +277,7 @@ struct ncsi_cmd_arg {
- 	unsigned char        package;     /* Destination package ID        */
- 	unsigned char        channel;     /* Detination channel ID or 0x1f */
- 	unsigned short       payload;     /* Command packet payload length */
--	bool                 driven;      /* Drive the state machine?      */
-+	unsigned int         req_flags;   /* NCSI request properties       */
- 	union {
- 		unsigned char  bytes[16]; /* Command packet specific data  */
- 		unsigned short words[8];
-@@ -315,7 +316,8 @@ void ncsi_find_package_and_channel(struct ncsi_dev_priv *ndp,
- 				   unsigned char id,
- 				   struct ncsi_package **np,
- 				   struct ncsi_channel **nc);
--struct ncsi_request *ncsi_alloc_request(struct ncsi_dev_priv *ndp, bool driven);
-+struct ncsi_request *ncsi_alloc_request(struct ncsi_dev_priv *ndp,
-+					unsigned int req_flags);
- void ncsi_free_request(struct ncsi_request *nr);
- struct ncsi_dev *ncsi_find_dev(struct net_device *dev);
- int ncsi_process_next_channel(struct ncsi_dev_priv *ndp);
-diff --git a/net/ncsi/ncsi-cmd.c b/net/ncsi/ncsi-cmd.c
-index 21057a8..db7083b 100644
---- a/net/ncsi/ncsi-cmd.c
-+++ b/net/ncsi/ncsi-cmd.c
-@@ -272,7 +272,7 @@ static struct ncsi_request *ncsi_alloc_command(struct ncsi_cmd_arg *nca)
- 	struct sk_buff *skb;
- 	struct ncsi_request *nr;
- 
--	nr = ncsi_alloc_request(ndp, nca->driven);
-+	nr = ncsi_alloc_request(ndp, nca->req_flags);
- 	if (!nr)
- 		return NULL;
- 
+@@ -187,9 +187,15 @@ struct ncsi_channel {
+ 	struct ncsi_channel_mode    modes[NCSI_MODE_MAX];
+ 	struct ncsi_channel_filter  *filters[NCSI_FILTER_MAX];
+ 	struct ncsi_channel_stats   stats;
+-	struct timer_list           timer;	/* Link monitor timer  */
+-	bool                        enabled;	/* Timer is enabled    */
+-	unsigned int                timeout;	/* Times of timeout    */
++	struct {
++		struct timer_list   timer;
++		bool                enabled;
++		unsigned int        state;
++#define NCSI_CHANNEL_MONITOR_START	0
++#define NCSI_CHANNEL_MONITOR_RETRY	1
++#define NCSI_CHANNEL_MONITOR_WAIT	2
++#define NCSI_CHANNEL_MONITOR_WAIT_MAX	5
++	} monitor;
+ 	struct list_head            node;
+ 	struct list_head            link;
+ };
 diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-index 00ce2c7..adf5401 100644
+index adf5401..4742c7c 100644
 --- a/net/ncsi/ncsi-manage.c
 +++ b/net/ncsi/ncsi-manage.c
-@@ -194,7 +194,7 @@ static void ncsi_channel_monitor(unsigned long data)
+@@ -172,15 +172,15 @@ static void ncsi_channel_monitor(unsigned long data)
+ 	struct ncsi_dev_priv *ndp = np->ndp;
+ 	struct ncsi_cmd_arg nca;
+ 	bool enabled, chained;
+-	unsigned int timeout;
++	unsigned int monitor_state;
+ 	unsigned long flags;
+ 	int state, ret;
+ 
+ 	spin_lock_irqsave(&nc->lock, flags);
+ 	state = nc->state;
+ 	chained = !list_empty(&nc->link);
+-	timeout = nc->timeout;
+-	enabled = nc->enabled;
++	enabled = nc->monitor.enabled;
++	monitor_state = nc->monitor.state;
+ 	spin_unlock_irqrestore(&nc->lock, flags);
+ 
+ 	if (!enabled || chained)
+@@ -189,7 +189,9 @@ static void ncsi_channel_monitor(unsigned long data)
+ 	    state != NCSI_CHANNEL_ACTIVE)
+ 		return;
+ 
+-	if (!(timeout % 2)) {
++	switch (monitor_state) {
++	case NCSI_CHANNEL_MONITOR_START:
++	case NCSI_CHANNEL_MONITOR_RETRY:
+ 		nca.ndp = ndp;
  		nca.package = np->id;
  		nca.channel = nc->id;
- 		nca.type = NCSI_PKT_CMD_GLS;
--		nca.driven = false;
-+		nca.req_flags = 0;
- 		ret = ncsi_xmit_cmd(&nca);
- 		if (ret) {
- 			netdev_err(ndp->ndev.dev, "Error %d sending GLS\n",
-@@ -419,7 +419,8 @@ void ncsi_find_package_and_channel(struct ncsi_dev_priv *ndp,
-  * be same. Otherwise, the bogus response might be replied. So
-  * the available IDs are allocated in round-robin fashion.
-  */
--struct ncsi_request *ncsi_alloc_request(struct ncsi_dev_priv *ndp, bool driven)
-+struct ncsi_request *ncsi_alloc_request(struct ncsi_dev_priv *ndp,
-+					unsigned int req_flags)
- {
- 	struct ncsi_request *nr = NULL;
- 	int i, limit = ARRAY_SIZE(ndp->requests);
-@@ -433,7 +434,7 @@ struct ncsi_request *ncsi_alloc_request(struct ncsi_dev_priv *ndp, bool driven)
+@@ -201,12 +203,16 @@ static void ncsi_channel_monitor(unsigned long data)
+ 				   ret);
+ 			return;
+ 		}
+-	}
  
- 		nr = &ndp->requests[i];
- 		nr->used = true;
--		nr->driven = driven;
-+		nr->flags = req_flags;
- 		ndp->request_id = i + 1;
- 		goto found;
+-	if (timeout + 1 >= 3) {
++		break;
++	case NCSI_CHANNEL_MONITOR_WAIT ... NCSI_CHANNEL_MONITOR_WAIT_MAX:
++		break;
++	default:
+ 		if (!(ndp->flags & NCSI_DEV_HWA) &&
+-		    state == NCSI_CHANNEL_ACTIVE)
++		    state == NCSI_CHANNEL_ACTIVE) {
+ 			ncsi_report_link(ndp, true);
++			ndp->flags |= NCSI_DEV_RESHUFFLE;
++		}
+ 
+ 		spin_lock_irqsave(&nc->lock, flags);
+ 		nc->state = NCSI_CHANNEL_INVISIBLE;
+@@ -221,10 +227,9 @@ static void ncsi_channel_monitor(unsigned long data)
  	}
-@@ -445,7 +446,7 @@ struct ncsi_request *ncsi_alloc_request(struct ncsi_dev_priv *ndp, bool driven)
  
- 		nr = &ndp->requests[i];
- 		nr->used = true;
--		nr->driven = driven;
-+		nr->flags = req_flags;
- 		ndp->request_id = i + 1;
- 		goto found;
+ 	spin_lock_irqsave(&nc->lock, flags);
+-	nc->timeout = timeout + 1;
+-	nc->enabled = true;
++	nc->monitor.state++;
+ 	spin_unlock_irqrestore(&nc->lock, flags);
+-	mod_timer(&nc->timer, jiffies + HZ * (1 << (nc->timeout / 2)));
++	mod_timer(&nc->monitor.timer, jiffies + HZ);
+ }
+ 
+ void ncsi_start_channel_monitor(struct ncsi_channel *nc)
+@@ -232,12 +237,12 @@ void ncsi_start_channel_monitor(struct ncsi_channel *nc)
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&nc->lock, flags);
+-	WARN_ON_ONCE(nc->enabled);
+-	nc->timeout = 0;
+-	nc->enabled = true;
++	WARN_ON_ONCE(nc->monitor.enabled);
++	nc->monitor.enabled = true;
++	nc->monitor.state = NCSI_CHANNEL_MONITOR_START;
+ 	spin_unlock_irqrestore(&nc->lock, flags);
+ 
+-	mod_timer(&nc->timer, jiffies + HZ * (1 << (nc->timeout / 2)));
++	mod_timer(&nc->monitor.timer, jiffies + HZ);
+ }
+ 
+ void ncsi_stop_channel_monitor(struct ncsi_channel *nc)
+@@ -245,14 +250,14 @@ void ncsi_stop_channel_monitor(struct ncsi_channel *nc)
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&nc->lock, flags);
+-	if (!nc->enabled) {
++	if (!nc->monitor.enabled) {
+ 		spin_unlock_irqrestore(&nc->lock, flags);
+ 		return;
  	}
-@@ -473,7 +474,7 @@ void ncsi_free_request(struct ncsi_request *nr)
- 	nr->cmd = NULL;
- 	nr->rsp = NULL;
- 	nr->used = false;
--	driven = nr->driven;
-+	driven = !!(nr->flags & NCSI_REQ_FLAG_EVENT_DRIVEN);
- 	spin_unlock_irqrestore(&ndp->lock, flags);
+-	nc->enabled = false;
++	nc->monitor.enabled = false;
+ 	spin_unlock_irqrestore(&nc->lock, flags);
  
- 	if (driven && cmd && --ndp->pending_req_num == 0)
-@@ -527,7 +528,7 @@ static void ncsi_suspend_channel(struct ncsi_dev_priv *ndp)
- 	int ret;
+-	del_timer_sync(&nc->timer);
++	del_timer_sync(&nc->monitor.timer);
+ }
  
- 	nca.ndp = ndp;
--	nca.driven = true;
-+	nca.req_flags = NCSI_REQ_FLAG_EVENT_DRIVEN;
- 	switch (nd->state) {
- 	case ncsi_dev_state_suspend:
- 		nd->state = ncsi_dev_state_suspend_select;
-@@ -596,7 +597,7 @@ static void ncsi_configure_channel(struct ncsi_dev_priv *ndp)
- 	int ret;
- 
- 	nca.ndp = ndp;
--	nca.driven = true;
-+	nca.req_flags = NCSI_REQ_FLAG_EVENT_DRIVEN;
- 	switch (nd->state) {
- 	case ncsi_dev_state_config:
- 	case ncsi_dev_state_config_sp:
-@@ -825,7 +826,7 @@ static void ncsi_probe_channel(struct ncsi_dev_priv *ndp)
- 	int ret;
- 
- 	nca.ndp = ndp;
--	nca.driven = true;
-+	nca.req_flags = NCSI_REQ_FLAG_EVENT_DRIVEN;
- 	switch (nd->state) {
- 	case ncsi_dev_state_probe:
- 		nd->state = ncsi_dev_state_probe_deselect;
-@@ -1101,7 +1102,7 @@ static int ncsi_inet6addr_event(struct notifier_block *this,
- 		return NOTIFY_OK;
- 
- 	nca.ndp = ndp;
--	nca.driven = false;
-+	nca.req_flags = 0;
- 	nca.package = np->id;
- 	nca.channel = nc->id;
- 	nca.dwords[0] = nc->caps[NCSI_CAP_MC].cap;
+ struct ncsi_channel *ncsi_find_channel(struct ncsi_package *np,
+@@ -281,8 +286,9 @@ struct ncsi_channel *ncsi_add_channel(struct ncsi_package *np, unsigned char id)
+ 	nc->id = id;
+ 	nc->package = np;
+ 	nc->state = NCSI_CHANNEL_INACTIVE;
+-	nc->enabled = false;
+-	setup_timer(&nc->timer, ncsi_channel_monitor, (unsigned long)nc);
++	nc->monitor.enabled = false;
++	setup_timer(&nc->monitor.timer,
++		    ncsi_channel_monitor, (unsigned long)nc);
+ 	spin_lock_init(&nc->lock);
+ 	INIT_LIST_HEAD(&nc->link);
+ 	for (index = 0; index < NCSI_CAP_MAX; index++)
 diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
-index af84389..86cdaeb 100644
+index 86cdaeb..087db77 100644
 --- a/net/ncsi/ncsi-rsp.c
 +++ b/net/ncsi/ncsi-rsp.c
-@@ -317,7 +317,7 @@ static int ncsi_rsp_handler_gls(struct ncsi_request *nr)
- 	ncm->data[3] = ntohl(rsp->other);
- 	ncm->data[4] = ntohl(rsp->oem_status);
- 
--	if (nr->driven)
-+	if (nr->flags & NCSI_REQ_FLAG_EVENT_DRIVEN)
- 		return 0;
+@@ -322,7 +322,7 @@ static int ncsi_rsp_handler_gls(struct ncsi_request *nr)
  
  	/* Reset the channel monitor if it has been enabled */
+ 	spin_lock_irqsave(&nc->lock, flags);
+-	nc->timeout = 0;
++	nc->monitor.state = NCSI_CHANNEL_MONITOR_START;
+ 	spin_unlock_irqrestore(&nc->lock, flags);
+ 
+ 	return 0;
 -- 
 2.1.0
