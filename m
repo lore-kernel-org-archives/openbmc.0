@@ -1,74 +1,57 @@
-Return-Path: <gwshan@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sp0MN0JmLzDrL7
- for <openbmc@lists.ozlabs.org>; Tue,  4 Oct 2016 11:35:59 +1100 (AEDT)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
- u940XInJ111640
- for <openbmc@lists.ozlabs.org>; Mon, 3 Oct 2016 20:35:56 -0400
-Received: from e23smtp02.au.ibm.com (e23smtp02.au.ibm.com [202.81.31.144])
- by mx0a-001b2d01.pphosted.com with ESMTP id 25uy9j5erx-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 03 Oct 2016 20:35:56 -0400
-Received: from localhost
- by e23smtp02.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <gwshan@linux.vnet.ibm.com>;
- Tue, 4 Oct 2016 10:35:53 +1000
-Received: from d23dlp03.au.ibm.com (202.81.31.214)
- by e23smtp02.au.ibm.com (202.81.31.208) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Tue, 4 Oct 2016 10:35:52 +1000
-Received: from d23relay09.au.ibm.com (d23relay09.au.ibm.com [9.185.63.181])
- by d23dlp03.au.ibm.com (Postfix) with ESMTP id 9F5163578053
- for <openbmc@lists.ozlabs.org>; Tue,  4 Oct 2016 11:35:51 +1100 (EST)
-Received: from d23av05.au.ibm.com (d23av05.au.ibm.com [9.190.234.119])
- by d23relay09.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u940Zpfs57344176
- for <openbmc@lists.ozlabs.org>; Tue, 4 Oct 2016 11:35:51 +1100
-Received: from d23av05.au.ibm.com (localhost [127.0.0.1])
- by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u940ZpQN030898
- for <openbmc@lists.ozlabs.org>; Tue, 4 Oct 2016 11:35:51 +1100
-Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
- by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u940Zosw030895; Tue, 4 Oct 2016 11:35:51 +1100
-Received: from bran.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
- by ozlabs.au.ibm.com (Postfix) with ESMTP id 7A441A00BD;
- Tue,  4 Oct 2016 11:35:50 +1100 (AEDT)
-Received: from gwshan (shangw.ozlabs.ibm.com [10.61.2.199])
- by bran.ozlabs.ibm.com (Postfix) with ESMTP id 3ACB4E3C39;
- Tue,  4 Oct 2016 11:35:50 +1100 (AEDT)
-Received: by gwshan (Postfix, from userid 1000)
- id 41768942DC1; Tue,  4 Oct 2016 11:36:26 +1100 (AEDT)
-Date: Tue, 4 Oct 2016 11:36:26 +1100
-From: Gavin Shan <gwshan@linux.vnet.ibm.com>
-To: Gavin Shan <gwshan@linux.vnet.ibm.com>
-Cc: openbmc@lists.ozlabs.org, joel@jms.id.au
-Subject: Re: [PATCH v2 4.7 0/8] NCSI Fixes
-Reply-To: Gavin Shan <gwshan@linux.vnet.ibm.com>
-References: <1475113131-18048-1-git-send-email-gwshan@linux.vnet.ibm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1475113131-18048-1-git-send-email-gwshan@linux.vnet.ibm.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16100400-0004-0000-0000-000001A1DA21
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 16100400-0005-0000-0000-000008CFAEDD
-Message-Id: <20161004003626.GA309@gwshan>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2016-10-03_14:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1609300000
- definitions=main-1610040008
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sp0yj2zvCzDrKY
+ for <openbmc@lists.ozlabs.org>; Tue,  4 Oct 2016 12:03:09 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+ dkim=fail reason="signature verification failed" (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=heDIQRdg; 
+ dkim=fail reason="signature verification failed" (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b=CxwGwQua; dkim-atps=neutral
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id 416EA206AE;
+ Mon,  3 Oct 2016 21:03:05 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute7.internal (MEProxy); Mon, 03 Oct 2016 21:03:05 -0400
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=grLwW
+ i3NOS4oCzDQxMJalgcCMZQ=; b=heDIQRdglUS/cpeHHNVpIy4Pq+0KWKs3TYkc0
+ L+T0fkGXiv9wSj45iIA0cf7ywY9IkG0ucRArLDAppxAzli7kfx8qvKBoCGiFOuQ8
+ jlnBURZY0+/+BNHhDzEjjrIUColjbf5qdJFYD6HVjvdBLSlTi8hxE8rXJvthpuIh
+ 2YAK7g=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-sasl-enc
+ :x-sasl-enc; s=smtpout; bh=grLwWi3NOS4oCzDQxMJalgcCMZQ=; b=CxwGw
+ QuafyoRBRDT2Sz0eTB0dbKHFMLVdfpca1Yo5x2Q0zySn5fWjhPGx8/ZSkg5IfYAt
+ Q7S+x/3fA7UbQPJOpsNosk1vUy652vD36SiPBAnCsweSeS+XaZ6jkNsZ8ZUL79A3
+ DpSt8KdvAIONQx7jFNpzw1dHUD715ZOxWnMVW8=
+X-Sasl-enc: urEctNXSTrmliuFfom2y7WYI2M9X9en893tuJGISgV/B 1475542984
+Received: from keelia (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id DCCDDCC084;
+ Mon,  3 Oct 2016 21:03:00 -0400 (EDT)
+Message-ID: <1475542973.5030.1.camel@aj.id.au>
+Subject: Re: [PATCH 7/8] pinctrl: aspeed-g4: Add mux configuration for all pins
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Rob Herring <robh@kernel.org>
+Cc: Linus Walleij <linus.walleij@linaro.org>, Joel Stanley <joel@jms.id.au>,
+ Mark Rutland <mark.rutland@arm.com>, linux-gpio@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,  linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org,  openbmc@lists.ozlabs.org, Timothy Pearson
+ <tpearson@raptorengineering.com>
+Date: Tue, 04 Oct 2016 11:32:53 +1030
+In-Reply-To: <20161003190833.GA3065@rob-hp-laptop>
+References: <cover.115463f791b69859c5ce9dafd61a5755ea039f4b.1474986045.git-series.andrew@aj.id.au>
+ <e0d8fa6cd444972e6f048f98da98f0439e6ca39b.1474986045.git-series.andrew@aj.id.au>
+ <20161003190833.GA3065@rob-hp-laptop>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-3NRTLbmWWQvYFjUXjHHe"
+X-Mailer: Evolution 3.18.5.2-0ubuntu3 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -80,38 +63,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Oct 2016 00:36:00 -0000
+X-List-Received-Date: Tue, 04 Oct 2016 01:03:10 -0000
 
-On Thu, Sep 29, 2016 at 11:38:43AM +1000, Gavin Shan wrote:
->
 
-Joel, please hold merging this series because I try pushing this series
-upstream firstly. It's always good to keep code sync'ed between 4.7.x
-with upstream regarding NCSI stack. I will post a updated version if
-it can be upstream in time. Thanks again for your review and comments.
+--=-3NRTLbmWWQvYFjUXjHHe
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, 2016-10-03 at 14:08 -0500, Rob Herring wrote:
+> On Wed, Sep 28, 2016 at 12:20:19AM +0930, Andrew Jeffery wrote:
+> >=20
+> > The patch introducing the g4 pinctrl driver implemented a smattering of
+> > pins to flesh out the implementation of the core and provide bare-bones
+> > support for some OpenPOWER platforms. Now, update the bindings document
+> > to reflect the complete functionality and implement the necessary pin
+> > configuration tables in the driver.
+> We prefer bindings to be complete if possible where as drivers can be=C2=
+=A0
+> expanded over time.
+
+Noted.
+
+>=20
+> >=20
+> >=20
+> > Cc: Timothy Pearson <tpearson@raptorengineering.com>
+> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> > ---
+> > =C2=A0Documentation/devicetree/bindings/pinctrl/pinctrl-aspeed.txt |=C2=
+=A0=C2=A0=C2=A019 +-
+> Acked-by: Rob Herring <robh@kernel.org>
 
 Thanks,
-Gavin
 
->Gavin Shan (8):
->  net/ncsi: Avoid unused-value build warning from ia64-linux-gcc
->  net/ncsi: Introduce NCSI_RESERVED_CHANNEL
->  net/ncsi: Don't probe on the reserved channel ID (0x1f)
->  net/ncsi: Rework request index allocation
->  net/ncsi: Allow to extend NCSI request properties
->  net/ncsi: Rework the channel monitoring
->  net/ncsi: Introduce ncsi_stop_dev()
->  net/faraday: Stop NCSI device on shutdown
->
-> drivers/net/ethernet/faraday/ftgmac100.c |   2 +
-> include/net/ncsi.h                       |   5 +
-> net/ncsi/internal.h                      |  22 ++--
-> net/ncsi/ncsi-aen.c                      |  19 ++--
-> net/ncsi/ncsi-cmd.c                      |   2 +-
-> net/ncsi/ncsi-manage.c                   | 166 ++++++++++++++++++-------------
-> net/ncsi/ncsi-rsp.c                      |  17 +---
-> 7 files changed, 137 insertions(+), 96 deletions(-)
->
->-- 
->2.1.0
->
+Andrew
+
+--=-3NRTLbmWWQvYFjUXjHHe
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAABCgAGBQJX8v+9AAoJEJ0dnzgO5LT5NE0QAKOQ4eHtmtADd4WH2zN9RKBi
+GdKv5ia2zRKevryRrzc4hAGZHi3CFVOQgHxS7qurBSUng9qnrCx7UFBIBvhV4iRM
+kdLEQuUjB4qurUeX2Ym3S8oLbgLWCiEDVsOg9DPC8+SiBpGXJc6jrd/h4IAI/js9
+1NKTZQQiSAmpRuj3T8MhC+myo4OK56rEfalp30OEUnB8QnTiAtXk4DS7cmK2E2HX
+HMv9BMREHBV5M4wSJByBNQ1+MPG0PFwfIp/eWkMxh3zJrf3ljPCX5iwZTlGS0qIX
+zudvWMk3ffMblj6rhWVGUPMPhpsD6CafNHbGAe+K+7dNdY92ozmv6HBMEz8ug7lv
+G97mtnYvDCUNHrDAsA5v1CHVre+hsiwMT9xj3fHzgBl4gkmFkGxhHa12TkqRWtL0
+I+znNONJVanV5ETuYGVrVB3K04cnk8e4sqECdti0w19vLmdLMT0NQ0CO58JrQuJe
+X8GyRMuLlf3R7meAXQCRf3jxD2umqDHm7XsLjAIbs60g07HBZBMHVihhR2mCHllR
+LAUWzxg8j+kFTOJrWZlcrMfEg1/IWZppX2GiN+ya9rwq6AxsUGPClXvxfy4fMhB1
+XlX7SIl7a3CLOiLJaGtVti7sQTbC9icID8SCZLHG18zbSQUpF2dv5CDU8Qf4uQ6q
+ld+DrBwXYb5z3ZyBFpI4
+=0/YM
+-----END PGP SIGNATURE-----
+
+--=-3NRTLbmWWQvYFjUXjHHe--
