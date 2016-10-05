@@ -1,50 +1,50 @@
 Return-Path: <christopher.lee.bostic@gmail.com>
-Received: from mail-oi0-x244.google.com (mail-oi0-x244.google.com
- [IPv6:2607:f8b0:4003:c06::244])
+Received: from mail-oi0-x242.google.com (mail-oi0-x242.google.com
+ [IPv6:2607:f8b0:4003:c06::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sq7M13W8mzDrPG
- for <openbmc@lists.ozlabs.org>; Thu,  6 Oct 2016 07:54:37 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sq7M230f4zDrPG
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Oct 2016 07:54:38 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=nwU7vUoB; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=jKMCHLYt; 
  dkim-atps=neutral
-Received: by mail-oi0-x244.google.com with SMTP id o93so4737277oik.0
- for <openbmc@lists.ozlabs.org>; Wed, 05 Oct 2016 13:54:37 -0700 (PDT)
+Received: by mail-oi0-x242.google.com with SMTP id d132so3133067oib.2
+ for <openbmc@lists.ozlabs.org>; Wed, 05 Oct 2016 13:54:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=V97o/W9Bq8RC2bxTUubm8h9U8GhLI6Gi+nED7Qff9Ys=;
- b=nwU7vUoBtRv7KeyP6P2D/oCKY3GwpVe0Yg3/f84SznzdkTYr2iswjzkpsAwx73nMGa
- bFlUo2otpMixbMX1vfHc63zBQVvpzPi1yIzrvLgE029BaVtRGnF65tihkScZexar11R9
- BNaLZCk8pXH8I5zpi+6vDOL/EuSNjZAnCTfl54qvrPNuKhnO6JFZxbu2hbirYe6H83/i
- thP4dFzgihwb/FGPJnsqNwDT75sndgArPpYTYFUpX3nOG8eNc3eMsK1CjnTTdXoVW/g9
- qdkc7dE3tIZemVVt7XXyL1fhg5kYkiZ9EKUpHiejG9Ca+E/xu0OPNdM4wGyIdpJ1V6iI
- 7KWg==
+ bh=3cqj/cVNWxmeJL8/wqWH8cDDUvvEFtiilAgKeBk7e2w=;
+ b=jKMCHLYtV/mgMONz34mznYxsLI9Qwm8tBFw+T6mTNLabXIn0MR5780wJpzcnpplEzq
+ WOK4RgPBm5a2dbCH738MemWuEIL30YlFMlzPQuwg17xJvbPaCiipqTS3eFKtFQAo3z5a
+ MVUeNISMAph6Z3QOeNpVbMJDfRrzfUVCx2/jHjOTG+SE76GUYtKealwBqxJax2/xGRBZ
+ qotarbW/ImxWWMyEQFcRN7kz2sBLhQLtE/YJV9GpkLqon2LJvBdTSOQAK7yYG5iGb6ax
+ 2WimeweNeAoS6ZblCua8Ya11YSM+zvs49mQCWNveYO8XJXXg5FAEDXygBjs/ZJsk2B41
+ 7ifw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=V97o/W9Bq8RC2bxTUubm8h9U8GhLI6Gi+nED7Qff9Ys=;
- b=PlqeXWZ7qjEEMxZEwJc97yADoq1IYoHhl5gi9dO7TCt3dfVp5ukxn8a71ZSebEKuZP
- jvRFCxYJtkvhsdVDi/Lmxl7OTTyiRplGM1xDyXjB86djlv6eXncJn4h/uyBhjS1ruMG+
- e27B4qLFxgpRngv0iVQZIdBd7351OPb5zaBDJgeain9GlZcQmWOjH/1YY2EWZpFfGUGs
- BCq2E1qXTab3kilBAnGczeb7fKl9J0Bl4txkKZfuB71ZuaOiVWhnyaA4fBh2lofD5Ffz
- 9IPeFjL6Ao1y/Nn0Q6caUgjReN4TfCvDZp5PmKCLIvhsEDG3uddY/6qUFsUIZSaXkAkh
- 2F1w==
-X-Gm-Message-State: AA6/9RnDGL8USmjrG210Za9iYadDvhNcVk7QJblxyHcS7jWlx0eVYyZFO74RCh2VIgmvhg==
-X-Received: by 10.157.52.188 with SMTP id g57mr6678407otc.125.1475700875818;
- Wed, 05 Oct 2016 13:54:35 -0700 (PDT)
+ bh=3cqj/cVNWxmeJL8/wqWH8cDDUvvEFtiilAgKeBk7e2w=;
+ b=Yjo7k2fTHKR1yfWyW2lczDRTzkvqAy68M8NuhswCuBWFAn7LeZ4D3R1u8Y44ueUKfe
+ JCT3TtVMxNtukaZX2YtnTXJQNGYQQVtqsWOl7Vbrnn730LqpUC3ikN5q0gxoH9gZ8KFk
+ gwLvRXvgO55v0gZNsYCBJk3RGaks+b/gHSSbrrQlIIBrgcOpxUcYt/dF9EIHmN8oPzMZ
+ WRm0OHNtXCIP8rm6BXQosnt8mpxlO2Y/RshSTYjpvFFcGnRXot38Zj+11TGyeUtTJNae
+ D1R7rXIRr5eO1OVBtwJIeGNYpNLOHGfuHc3rprKIhU5BmxbwVrXWsFB1F+9HDZBMpAXx
+ 2yyg==
+X-Gm-Message-State: AA6/9RnEhjA/AJx7sM5/H2ZVnOPuHFwmqXrlp7pNOVtjgfBa6c2j/NiSXGOLUKcEyA9vKQ==
+X-Received: by 10.157.32.101 with SMTP id n92mr4216246ota.75.1475700876590;
+ Wed, 05 Oct 2016 13:54:36 -0700 (PDT)
 Received: from Christophers-MacBook-Pro.local.com
  (45-20-192-79.lightspeed.austtx.sbcglobal.net. [45.20.192.79])
- by smtp.gmail.com with ESMTPSA id i18sm3206459oib.12.2016.10.05.13.54.35
+ by smtp.gmail.com with ESMTPSA id i18sm3206459oib.12.2016.10.05.13.54.36
  (version=TLS1 cipher=AES128-SHA bits=128/128);
- Wed, 05 Oct 2016 13:54:35 -0700 (PDT)
+ Wed, 05 Oct 2016 13:54:36 -0700 (PDT)
 From: christopher.lee.bostic@gmail.com
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, zahrens@us.ibm.com, xxpetri@de.ibm.com,
  Jeremy Kerr <jk@ozlabs.org>
-Subject: [PATCH linux 03/15] fsi: add driver to device matches
-Date: Wed,  5 Oct 2016 15:54:16 -0500
-Message-Id: <1475700868-75737-4-git-send-email-christopher.lee.bostic@gmail.com>
+Subject: [PATCH linux 04/15] fsi: Add fsi master definition
+Date: Wed,  5 Oct 2016 15:54:17 -0500
+Message-Id: <1475700868-75737-5-git-send-email-christopher.lee.bostic@gmail.com>
 X-Mailer: git-send-email 2.7.4 (Apple Git-66)
 In-Reply-To: <1475700868-75737-1-git-send-email-christopher.lee.bostic@gmail.com>
 References: <1475700868-75737-1-git-send-email-christopher.lee.bostic@gmail.com>
@@ -63,82 +63,86 @@ X-List-Received-Date: Wed, 05 Oct 2016 20:54:38 -0000
 
 From: Jeremy Kerr <jk@ozlabs.org>
 
-Driver bind to devices based on the engine types & (optional) versions.
-
 Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
 ---
- drivers/fsi/fsi-core.c | 21 +++++++++++++++++++++
- include/linux/fsi.h    | 21 +++++++++++++++++++--
- 2 files changed, 40 insertions(+), 2 deletions(-)
+ drivers/fsi/fsi-core.c   | 20 ++++++++++++++++++++
+ drivers/fsi/fsi-master.h | 37 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 57 insertions(+)
+ create mode 100644 drivers/fsi/fsi-master.h
 
 diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-index 3e45306..3d55bd5 100644
+index 3d55bd5..ce9428d 100644
 --- a/drivers/fsi/fsi-core.c
 +++ b/drivers/fsi/fsi-core.c
-@@ -19,8 +19,29 @@
+@@ -17,6 +17,26 @@
+ #include <linux/fsi.h>
+ #include <linux/module.h>
  
- /* FSI core & Linux bus type definitions */
- 
-+static int fsi_bus_match(struct device *dev, struct device_driver *drv)
++#include "fsi-master.h"
++
++static atomic_t master_idx = ATOMIC_INIT(-1);
++
++/* FSI master support */
++
++int fsi_master_register(struct fsi_master *master)
 +{
-+	struct fsi_device *fsi_dev = to_fsi_dev(dev);
-+	struct fsi_driver *fsi_drv = to_fsi_drv(drv);
-+	const struct fsi_device_id *id;
-+
-+	if (!fsi_drv->id_table)
-+		return 0;
-+
-+	for (id = fsi_drv->id_table; id->engine_type; id++) {
-+		if (id->engine_type != fsi_dev->engine_type)
-+			continue;
-+		if (id->version == FSI_VERSION_ANY ||
-+				id->version == fsi_dev->version)
-+			return 1;
-+	}
-+
++	master->idx = atomic_inc_return(&master_idx);
++	get_device(master->dev);
 +	return 0;
 +}
++EXPORT_SYMBOL_GPL(fsi_master_register);
 +
- struct bus_type fsi_bus_type = {
- 	.name		= "fsi",
-+	.match		= fsi_bus_match,
- };
- EXPORT_SYMBOL_GPL(fsi_bus_type);
++void fsi_master_unregister(struct fsi_master *master)
++{
++	put_device(master->dev);
++}
++EXPORT_SYMBOL_GPL(fsi_master_unregister);
++
+ /* FSI core & Linux bus type definitions */
  
-diff --git a/include/linux/fsi.h b/include/linux/fsi.h
-index 66dcf25..6d843d4 100644
---- a/include/linux/fsi.h
-+++ b/include/linux/fsi.h
-@@ -19,11 +19,28 @@
- #include <linux/device.h>
- 
- struct fsi_device {
--	struct device dev;
-+	struct device		dev;
-+	u8			engine_type;
-+	u8			version;
- };
- 
-+struct fsi_device_id {
-+	u8	engine_type;
-+	u8	version;
+ static int fsi_bus_match(struct device *dev, struct device_driver *drv)
+diff --git a/drivers/fsi/fsi-master.h b/drivers/fsi/fsi-master.h
+new file mode 100644
+index 0000000..e75a810
+--- /dev/null
++++ b/drivers/fsi/fsi-master.h
+@@ -0,0 +1,37 @@
++/*
++ * FSI master definitions. These comprise the core <--> master interface,
++ * to allow the core to interact with the (hardware-specific) masters.
++ *
++ * Copyright (C) IBM Corporation 2016
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ */
++
++#ifndef DRIVERS_FSI_MASTER_H
++#define DRIVERS_FSI_MASTER_H
++
++#include <linux/device.h>
++
++struct fsi_master {
++	struct device	*dev;
++	int		idx;
++	int		n_links;
++	int		(*read)(struct fsi_master *, int link,
++				uint8_t slave, uint32_t addr,
++				void *val, size_t size);
++	int		(*write)(struct fsi_master *, int link,
++				uint8_t slave, uint32_t addr,
++				const void *val, size_t size);
 +};
 +
-+#define FSI_VERSION_ANY		0
++extern int fsi_master_register(struct fsi_master *master);
++extern void fsi_master_unregister(struct fsi_master *master);
 +
-+#define FSI_DEVICE(t) \
-+	.engine_type = (t), .version = FSI_VERSION_ANY,
-+
-+#define FSI_DEVICE_VERSIONED(t, v) \
-+	.engine_type = (t), .version = (v),
-+
-+
- struct fsi_driver {
--	struct device_driver drv;
-+	struct device_driver		drv;
-+	const struct fsi_device_id	*id_table;
- };
- 
- #define to_fsi_dev(devp) container_of(devp, struct fsi_device, dev)
++#endif /* DRIVERS_FSI_MASTER_H */
 -- 
 1.8.2.2
