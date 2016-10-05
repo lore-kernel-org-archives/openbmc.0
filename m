@@ -1,49 +1,50 @@
 Return-Path: <maxims@google.com>
-Received: from mail-yw0-x22b.google.com (mail-yw0-x22b.google.com
- [IPv6:2607:f8b0:4002:c05::22b])
+Received: from mail-yw0-x231.google.com (mail-yw0-x231.google.com
+ [IPv6:2607:f8b0:4002:c05::231])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sq1BG3gBCzDqQq
- for <openbmc@lists.ozlabs.org>; Thu,  6 Oct 2016 03:16:38 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sq1Bq2P36zDrKS
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Oct 2016 03:17:07 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=cgxA2Gxi; 
+ unprotected) header.d=google.com header.i=@google.com header.b=XEbjREhs; 
  dkim-atps=neutral
-Received: by mail-yw0-x22b.google.com with SMTP id t193so85418125ywc.2
- for <openbmc@lists.ozlabs.org>; Wed, 05 Oct 2016 09:16:38 -0700 (PDT)
+Received: by mail-yw0-x231.google.com with SMTP id g192so164936556ywh.1
+ for <openbmc@lists.ozlabs.org>; Wed, 05 Oct 2016 09:17:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=td21VOvKRtd2h6GMxr3hNTnClN+0GoSoqMDOc7rabUo=;
- b=cgxA2GxiUmfsvGWGzxa2dnmrhSbUO7gW7RqC80dZTp62porf4SwHdbMvuN95mH0j46
- +0POO3e7y0wvczGSAgAOEBpWSVDUCy122zzpyywXBO9JEPapsj4aUowe1NAcHTGA8E1k
- b84H6Z3HFn0A8XuHlJoqFfmXVzmPE9U36/GduWhVuHFO7FOsorWkEzRfbGOjEaJ8Su6s
- hwXuazvHetbUCwJOzUCxDX58ZV5OGqGYMAeFmZtTyFTKxnWnL4dGdlvqOnRg2U7UgugO
- t45cqw43fAKh/oRIOFCcGnS982kT0Z51s3gs431LZAHBcZQrbm2F/hnx8OLm3mgcV9Pr
- hv7w==
+ :cc; bh=1+0JsHDEogtPcNHlRU4pR2lgRqxVnzlz9ymWlWDncJs=;
+ b=XEbjREhs+o8KjVPYzqDS9g9VNPD/d4wiKO/cPGSKQ1nvYXssGaSF+Y57qw/8VnGRwJ
+ nkOmGy/Yq0AejDVIg/ay1yB0NoD8jCHdUqfiVp0mJnm1xztFkPhA32rz+/Ji6wpv/Ezi
+ 7hEaktD3mCCWPnijIq/2YHvGJsAXWVPykDMIetwg95PjeXjLskl5Q8nt+ml7fa2j+FTQ
+ zdIjklupEdWbO1aI/T5yyIAm8JfBFr2jYJeCHyWGK5LIxbffptUW5fqFNZjxglCkHJw9
+ Q2cbFQcjFwV/euNIaFph2TsHxQVMwjtuKgwnv2L/5Asij2+oTeT5pin8JS7qIrOflXtG
+ o4yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=td21VOvKRtd2h6GMxr3hNTnClN+0GoSoqMDOc7rabUo=;
- b=jH248zfFXqY+AGdxQph+FgsncXTSaZ/FlT2z+hvCQj0SLAltZl23mV4qUEedPEdd04
- pk0pFDx+1Oj/rhPf1f+oxLCSDUSYsjKmg50cormrqEygdldwO+VjFwYLeLZlqejaaMPX
- lLDs0F0M0sJdm8vfCI5iWx0BNU3+fu3C++9JmMEZeOvkWFCtpCJQdssVBQXkTLNjdFAE
- lWQq1DgTNDSDXE93oZnsaBHcHvxpMXA0XX4tt7C+HaBUWogNeAz+rUtg+GlJwUiBkpRg
- YFnXueipSe8Sx7TEM88Zj4LAe/zBN1FntbF5kkbg0ySNkY46Qo9lRQcKbiFZZqLbxhJ6
- sEeQ==
-X-Gm-Message-State: AA6/9Rn03ypuSeSTZRgoHQHaVfARuRH0p8u4wC754mv5sn8BVHWOek10BI7RJSyWbxHA04RKPvbgLhv//lr/QgZ/
-X-Received: by 10.37.4.203 with SMTP id 194mr7817697ybe.10.1475684196049; Wed,
- 05 Oct 2016 09:16:36 -0700 (PDT)
+ bh=1+0JsHDEogtPcNHlRU4pR2lgRqxVnzlz9ymWlWDncJs=;
+ b=eUf14YHPBeUZXLfNtl8qtBdtNcC4W5Lw/PQYlTaqHC1YjXBOT7JR/YGREq4DbBPvXJ
+ e5WKHaHUelKRQUPk4spgFYohCoYRfN59EngHCDrtTCUrAS8k6zOEvkFVcTG95Dc6KlGB
+ k7E1A0whxfgm4GEdk8vEKRTnGc657YSnuSVx4rqJPPIlgfvHaLl6K/XSIX9FCA934Bat
+ iS2cO6Q3tcEBYM8yRdD+3mIXwBamikZUHhwzL42Tt3H94LNmMwa35SqVexHd7rV7IRNf
+ hZSwQovhjSsMXGfQj4UYvzTDlsk7rHOe7EnacGWin5C0VrgCq6/CE/CQzakPF4UX8VIg
+ wk8w==
+X-Gm-Message-State: AA6/9RlTWI6frNaxQwKp2hHtCwVfUBqEU08VnHTaTblCvdym5KKDUoL5dmG+Qf3YdrUc71c4hpc6950lXeFq2Yl4
+X-Received: by 10.129.153.6 with SMTP id q6mr7382855ywg.356.1475684222192;
+ Wed, 05 Oct 2016 09:17:02 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.37.38.80 with HTTP; Wed, 5 Oct 2016 09:16:35 -0700 (PDT)
-In-Reply-To: <1475520957-78581-1-git-send-email-maxims@google.com>
-References: <1475184427-144121-3-git-send-email-maxims@google.com>
- <1475520957-78581-1-git-send-email-maxims@google.com>
+Received: by 10.37.38.80 with HTTP; Wed, 5 Oct 2016 09:17:01 -0700 (PDT)
+In-Reply-To: <1475184427-144121-2-git-send-email-maxims@google.com>
+References: <1474998214-12720-2-git-send-email-maxims@google.com>
+ <1475184427-144121-1-git-send-email-maxims@google.com>
+ <1475184427-144121-2-git-send-email-maxims@google.com>
 From: Maxim Sloyko <maxims@google.com>
-Date: Wed, 5 Oct 2016 09:16:35 -0700
-Message-ID: <CAFR_W8r2zQG2SrJYMxUNNLT850_0XV0y9oh9xXB-2JesqZYv2Q@mail.gmail.com>
-Subject: Re: [PATCH] aspeed: SCU helper functions for I2C.
+Date: Wed, 5 Oct 2016 09:17:01 -0700
+Message-ID: <CAFR_W8rMeriuOg6Lr+FS4Gr=YCRbVdy3u0P3hP3rw6Q6-Y-e5w@mail.gmail.com>
+Subject: Re: [PATCH 2/3] aspeed: Fixed FUC -> FUN typo in SCU.
 To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=001a11c001e84eea3b053e208091
+Content-Type: multipart/alternative; boundary=94eb2c0bd254f59ce6053e2081a8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,135 +56,128 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Oct 2016 16:16:39 -0000
+X-List-Received-Date: Wed, 05 Oct 2016 16:17:08 -0000
 
---001a11c001e84eea3b053e208091
+--94eb2c0bd254f59ce6053e2081a8
 Content-Type: text/plain; charset=UTF-8
 
 Ping
 
-On Mon, Oct 3, 2016 at 11:55 AM, <maxims@google.com> wrote:
+On Thu, Sep 29, 2016 at 2:27 PM, <maxims@google.com> wrote:
 
 > From: Maxim Sloyko <maxims@google.com>
 >
-> SCU helper functions for configuring I2C pins and accessing APB clock.
+> Fixed FUC -> FUN typo in SCU.
 > ---
->  arch/arm/include/asm/arch-aspeed/ast_scu.h  |  6 +++++
->  arch/arm/include/asm/arch-aspeed/regs-scu.h |  8 ++++++
->  arch/arm/mach-aspeed/ast-scu.c              | 38
-> +++++++++++++++++++++++++++++
->  3 files changed, 52 insertions(+)
+>  arch/arm/include/asm/arch-aspeed/regs-scu.h | 65
+> +++++++++++++++--------------
+>  arch/arm/mach-aspeed/ast-scu.c              |  2 +-
+>  2 files changed, 34 insertions(+), 33 deletions(-)
 >
-> diff --git a/arch/arm/include/asm/arch-aspeed/ast_scu.h
-> b/arch/arm/include/asm/arch-aspeed/ast_scu.h
-> index d248416..80ebd6f 100644
-> --- a/arch/arm/include/asm/arch-aspeed/ast_scu.h
-> +++ b/arch/arm/include/asm/arch-aspeed/ast_scu.h
-> @@ -38,6 +38,7 @@ extern void ast_scu_get_who_init_dram(void);
->  extern u32 ast_get_clk_source(void);
->  extern u32 ast_get_h_pll_clk(void);
->  extern u32 ast_get_ahbclk(void);
-> +extern u32 ast_get_apbclk(void);
->
->  extern u32 ast_scu_get_vga_memsize(void);
->
-> @@ -45,4 +46,9 @@ extern void ast_scu_init_eth(u8 num);
->  extern void ast_scu_multi_func_eth(u8 num);
->  extern void ast_scu_multi_func_romcs(u8 num);
->
-> +/* Enable I2C controller and pins for a particular device.
-> + * Device numbering starts at 1
-> + */
-> +extern void ast_scu_enable_i2c(u8 num);
-> +
->  #endif
 > diff --git a/arch/arm/include/asm/arch-aspeed/regs-scu.h
 > b/arch/arm/include/asm/arch-aspeed/regs-scu.h
-> index aab032a..4c869c1 100644
+> index b714fa9..aab032a 100644
 > --- a/arch/arm/include/asm/arch-aspeed/regs-scu.h
 > +++ b/arch/arm/include/asm/arch-aspeed/regs-scu.h
-> @@ -915,6 +915,11 @@
->  #define SCU_FUN_PIN_ROMA4              (0x1 << 18)
->  #define SCU_FUN_PIN_ROMA3              (0x1 << 17)
->  #define SCU_FUN_PIN_ROMA2              (0x1 << 16)
-> +/* AST2500 only */
-> +#define SCU_FUN_PIN_SDA2               (0x1 << 15)
-> +#define SCU_FUN_PIN_SCL2               (0x1 << 14)
-> +#define SCU_FUN_PIN_SDA1               (0x1 << 13)
-> +#define SCU_FUN_PIN_SCL1               (0x1 << 12)
->
->  /* AST_SCU_FUN_PIN_CTRL9               0xA8 - Multi-function Pin
-> Control#9 */
->  #define SCU_FUN_PIN_ROMA21             (0x1 << 3)
-> @@ -950,4 +955,7 @@
->  /* AST_SCU_BMC_CLASS                   0x19C - BMC device class code and
-> revision ID */
->  /* AST_SCU_BMC_DEV_ID                  0x1A4 - BMC device ID */
->
-> +#define SCU_I2C_MIN_BUS_NUM                    (1)
-> +#define SCU_I2C_MAX_BUS_NUM                    (14)
+> @@ -830,49 +830,50 @@
+>  /* AST_SCU_FUN_PIN_CTRL5               0x90 - Multi-function Pin
+> Control#5 */
+>  #define SCU_FUN_PIN_SPICS1             (0x1 << 31)
+>  #define SCU_FUN_PIN_LPC_PLUS           (0x1 << 30)
+> -#define SCU_FUC_PIN_USB20_HOST         (0x1 << 29)
+> -#define SCU_FUC_PIN_USB11_PORT4                (0x1 << 28)
+> -#define SCU_FUC_PIN_I2C14              (0x1 << 27)
+> -#define SCU_FUC_PIN_I2C13              (0x1 << 26)
+> -#define SCU_FUC_PIN_I2C12              (0x1 << 25)
+> -#define SCU_FUC_PIN_I2C11              (0x1 << 24)
+> -#define SCU_FUC_PIN_I2C10              (0x1 << 23)
+> -#define SCU_FUC_PIN_I2C9               (0x1 << 22)
+> -#define SCU_FUC_PIN_I2C8               (0x1 << 21)
+> -#define SCU_FUC_PIN_I2C7               (0x1 << 20)
+> -#define SCU_FUC_PIN_I2C6               (0x1 << 19)
+> -#define SCU_FUC_PIN_I2C5               (0x1 << 18)
+> -#define SCU_FUC_PIN_I2C4               (0x1 << 17)
+> -#define SCU_FUC_PIN_I2C3               (0x1 << 16)
+> -#define SCU_FUC_PIN_MII2_RX_DWN_DIS    (0x1 << 15)
+> -#define SCU_FUC_PIN_MII2_TX_DWN_DIS    (0x1 << 14)
+> -#define SCU_FUC_PIN_MII1_RX_DWN_DIS    (0x1 << 13)
+> -#define SCU_FUC_PIN_MII1_TX_DWN_DIS    (0x1 << 12)
+> -
+> -#define SCU_FUC_PIN_MII2_TX_DRIV(x)    (x << 10)
+> -#define SCU_FUC_PIN_MII2_TX_DRIV_MASK  (0x3 << 10)
+> -#define SCU_FUC_PIN_MII1_TX_DRIV(x)    (x << 8)
+> -#define SCU_FUC_PIN_MII1_TX_DRIV_MASK  (0x3 << 8)
+> +#define SCU_FUN_PIN_USB20_HOST         (0x1 << 29)
+> +#define SCU_FUN_PIN_USB11_PORT4                (0x1 << 28)
+> +#define SCU_FUN_PIN_I2C14              (0x1 << 27)
+> +#define SCU_FUN_PIN_I2C13              (0x1 << 26)
+> +#define SCU_FUN_PIN_I2C12              (0x1 << 25)
+> +#define SCU_FUN_PIN_I2C11              (0x1 << 24)
+> +#define SCU_FUN_PIN_I2C10              (0x1 << 23)
+> +#define SCU_FUN_PIN_I2C9               (0x1 << 22)
+> +#define SCU_FUN_PIN_I2C8               (0x1 << 21)
+> +#define SCU_FUN_PIN_I2C7               (0x1 << 20)
+> +#define SCU_FUN_PIN_I2C6               (0x1 << 19)
+> +#define SCU_FUN_PIN_I2C5               (0x1 << 18)
+> +#define SCU_FUN_PIN_I2C4               (0x1 << 17)
+> +#define SCU_FUN_PIN_I2C3               (0x1 << 16)
+> +#define SCU_FUN_PIN_I2C(n)             (0x1 << (16 + (n) - 3))
+> +#define SCU_FUN_PIN_MII2_RX_DWN_DIS    (0x1 << 15)
+> +#define SCU_FUN_PIN_MII2_TX_DWN_DIS    (0x1 << 14)
+> +#define SCU_FUN_PIN_MII1_RX_DWN_DIS    (0x1 << 13)
+> +#define SCU_FUN_PIN_MII1_TX_DWN_DIS    (0x1 << 12)
 > +
->  #endif
+> +#define SCU_FUN_PIN_MII2_TX_DRIV(x)    (x << 10)
+> +#define SCU_FUN_PIN_MII2_TX_DRIV_MASK  (0x3 << 10)
+> +#define SCU_FUN_PIN_MII1_TX_DRIV(x)    (x << 8)
+> +#define SCU_FUN_PIN_MII1_TX_DRIV_MASK  (0x3 << 8)
+>
+>  #define MII_NORMAL_DRIV                        0x0
+>  #define MII_HIGH_DRIV                  0x2
+>
+> -#define SCU_FUC_PIN_UART6              (0x1 << 7)
+> -#define SCU_FUC_PIN_ROM_16BIT          (0x1 << 6)
+> -#define SCU_FUC_PIN_DIGI_V_OUT(x)      (x)
+> -#define SCU_FUC_PIN_DIGI_V_OUT_MASK    (0x3)
+> +#define SCU_FUN_PIN_UART6              (0x1 << 7)
+> +#define SCU_FUN_PIN_ROM_16BIT          (0x1 << 6)
+> +#define SCU_FUN_PIN_DIGI_V_OUT(x)      (x)
+> +#define SCU_FUN_PIN_DIGI_V_OUT_MASK    (0x3)
+>
+>  #define VIDEO_DISABLE                  0x0
+>  #define VIDEO_12BITS                   0x1
+>  #define VIDEO_24BITS                   0x2
+>  //#define VIDEO_DISABLE                        0x3
+>
+> -#define SCU_FUC_PIN_USB11_PORT2                (0x1 << 3)
+> -#define SCU_FUC_PIN_SD1_8BIT           (0x1 << 3)
+> +#define SCU_FUN_PIN_USB11_PORT2                (0x1 << 3)
+> +#define SCU_FUN_PIN_SD1_8BIT           (0x1 << 3)
+>
+> -#define SCU_FUC_PIN_MAC1_MDIO          (0x1 << 2)
+> -#define SCU_FUC_PIN_SD2                        (0x1 << 1)
+> -#define SCU_FUC_PIN_SD1                        (0x1 << 0)
+> +#define SCU_FUN_PIN_MAC1_MDIO          (0x1 << 2)
+> +#define SCU_FUN_PIN_SD2                        (0x1 << 1)
+> +#define SCU_FUN_PIN_SD1                        (0x1 << 0)
+>
+>
+>  /* AST_SCU_FUN_PIN_CTRL6               0x94 - Multi-function Pin
+> Control#6*/
 > diff --git a/arch/arm/mach-aspeed/ast-scu.c b/arch/arm/mach-aspeed/ast-
 > scu.c
-> index 280c421..1dbd667 100644
+> index 0cc0d67..280c421 100644
 > --- a/arch/arm/mach-aspeed/ast-scu.c
 > +++ b/arch/arm/mach-aspeed/ast-scu.c
-> @@ -318,6 +318,17 @@ u32 ast_get_ahbclk(void)
+> @@ -394,7 +394,7 @@ void ast_scu_multi_func_eth(u8 num)
+>                               AST_SCU_FUN_PIN_CTRL1);
 >
->  #endif /* AST_SOC_G5 */
+>                 ast_scu_write(ast_scu_read(AST_SCU_FUN_PIN_CTRL5) |
+> -                             SCU_FUC_PIN_MAC1_MDIO,
+> +                             SCU_FUN_PIN_MAC1_MDIO,
+>                               AST_SCU_FUN_PIN_CTRL5);
 >
-> +u32 ast_get_apbclk(void)
-> +{
-> +       u32 h_pll = ast_get_h_pll_clk();
-> +       /* The formula for converting the bit pattern to divisor is
-> +        * (4 + 4 * DIV), according to datasheet
-> +        */
-> +       u32 apb_div = 4 + 4 * SCU_GET_PCLK_DIV(ast_scu_read(
-> AST_SCU_CLK_SEL));
-> +       return h_pll / apb_div;
-> +}
-> +
-> +
->  void ast_scu_show_system_info(void)
->  {
->
-> @@ -496,3 +507,30 @@ void ast_scu_get_who_init_dram(void)
 >                 break;
->         }
->  }
-> +
-> +void ast_scu_enable_i2c(u8 bus_num)
-> +{
-> +       if (bus_num < SCU_I2C_MIN_BUS_NUM || bus_num >
-> SCU_I2C_MAX_BUS_NUM) {
-> +               debug("%s: bus_num is out of range, must be [%d - %d]\n",
-> __func__,
-> +                         SCU_I2C_MIN_BUS_NUM, SCU_I2C_MAX_BUS_NUM);
-> +               return;
-> +       }
-> +
-> +       /* Enable I2C Controllers */
-> +       clrbits_le32(AST_SCU_BASE + AST_SCU_RESET, SCU_RESET_I2C);
-> +
-> +       if (bus_num >= 3) {
-> +               setbits_le32(AST_SCU_BASE + AST_SCU_FUN_PIN_CTRL5,
-> +                                        SCU_FUN_PIN_I2C(bus_num));
-> +#ifdef AST_SOC_G5
-> +       /* In AST2400 aka AST_SOC_G4 SDA{1,2}/SCL{1,2} are fixed function
-> pins,
-> +        * so no need to change their function. */
-> +       } else if (bus_num == 1) {
-> +               setbits_le32(AST_SCU_BASE + AST_SCU_FUN_PIN_CTRL8,
-> +                                        SCU_FUN_PIN_SDA1 |
-> SCU_FUN_PIN_SCL1);
-> +       } else if (bus_num == 2) {
-> +               setbits_le32(AST_SCU_BASE + AST_SCU_FUN_PIN_CTRL8,
-> +                                        SCU_FUN_PIN_SDA2 |
-> SCU_FUN_PIN_SCL2);
-> +#endif
-> +       }
-> +}
 > --
 > 2.8.0.rc3.226.g39d4020
 >
@@ -193,166 +187,191 @@ On Mon, Oct 3, 2016 at 11:55 AM, <maxims@google.com> wrote:
 -- 
 *M*axim *S*loyko
 
---001a11c001e84eea3b053e208091
+--94eb2c0bd254f59ce6053e2081a8
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"ltr">Ping</div><div class=3D"gmail_extra"><br><div class=3D"gma=
-il_quote">On Mon, Oct 3, 2016 at 11:55 AM,  <span dir=3D"ltr">&lt;<a href=
+il_quote">On Thu, Sep 29, 2016 at 2:27 PM,  <span dir=3D"ltr">&lt;<a href=
 =3D"mailto:maxims@google.com" target=3D"_blank">maxims@google.com</a>&gt;</=
 span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8e=
-x;border-left:1px #ccc solid;padding-left:1ex"><span class=3D"">From: Maxim=
- Sloyko &lt;<a href=3D"mailto:maxims@google.com">maxims@google.com</a>&gt;<=
-br>
+x;border-left:1px #ccc solid;padding-left:1ex">From: Maxim Sloyko &lt;<a hr=
+ef=3D"mailto:maxims@google.com">maxims@google.com</a>&gt;<br>
 <br>
-SCU helper functions for configuring I2C pins and accessing APB clock.<br>
+Fixed FUC -&gt; FUN typo in SCU.<br>
 ---<br>
-=C2=A0arch/arm/include/asm/arch-<wbr>aspeed/ast_scu.h=C2=A0 |=C2=A0 6 +++++=
+=C2=A0arch/arm/include/asm/arch-<wbr>aspeed/regs-scu.h | 65 +++++++++++++++=
+--------------<br>
+=C2=A0arch/arm/mach-aspeed/ast-scu.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 |=C2=A0 2 +-<br>
+=C2=A02 files changed, 34 insertions(+), 33 deletions(-)<br>
 <br>
-=C2=A0arch/arm/include/asm/arch-<wbr>aspeed/regs-scu.h |=C2=A0 8 ++++++<br>
-</span>=C2=A0arch/arm/mach-aspeed/ast-scu.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 | 38 +++++++++++++++++++++++++++++<br>
-=C2=A03 files changed, 52 insertions(+)<br>
-<div><div class=3D"h5"><br>
-diff --git a/arch/arm/include/asm/arch-<wbr>aspeed/ast_scu.h b/arch/arm/inc=
-lude/asm/arch-<wbr>aspeed/ast_scu.h<br>
-index d248416..80ebd6f 100644<br>
---- a/arch/arm/include/asm/arch-<wbr>aspeed/ast_scu.h<br>
-+++ b/arch/arm/include/asm/arch-<wbr>aspeed/ast_scu.h<br>
-@@ -38,6 +38,7 @@ extern void ast_scu_get_who_init_dram(<wbr>void);<br>
-=C2=A0extern u32 ast_get_clk_source(void);<br>
-=C2=A0extern u32 ast_get_h_pll_clk(void);<br>
-=C2=A0extern u32 ast_get_ahbclk(void);<br>
-+extern u32 ast_get_apbclk(void);<br>
-<br>
-=C2=A0extern u32 ast_scu_get_vga_memsize(void);<br>
-<br>
-@@ -45,4 +46,9 @@ extern void ast_scu_init_eth(u8 num);<br>
-=C2=A0extern void ast_scu_multi_func_eth(u8 num);<br>
-=C2=A0extern void ast_scu_multi_func_romcs(u8 num);<br>
-<br>
-+/* Enable I2C controller and pins for a particular device.<br>
-+ * Device numbering starts at 1<br>
-+ */<br>
-+extern void ast_scu_enable_i2c(u8 num);<br>
-+<br>
-=C2=A0#endif<br>
 diff --git a/arch/arm/include/asm/arch-<wbr>aspeed/regs-scu.h b/arch/arm/in=
 clude/asm/arch-<wbr>aspeed/regs-scu.h<br>
-index aab032a..4c869c1 100644<br>
+index b714fa9..aab032a 100644<br>
 --- a/arch/arm/include/asm/arch-<wbr>aspeed/regs-scu.h<br>
 +++ b/arch/arm/include/asm/arch-<wbr>aspeed/regs-scu.h<br>
-@@ -915,6 +915,11 @@<br>
-=C2=A0#define SCU_FUN_PIN_ROMA4=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 (0x1 &lt;&lt; 18)<br>
-=C2=A0#define SCU_FUN_PIN_ROMA3=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 (0x1 &lt;&lt; 17)<br>
-=C2=A0#define SCU_FUN_PIN_ROMA2=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 (0x1 &lt;&lt; 16)<br>
-+/* AST2500 only */<br>
-+#define SCU_FUN_PIN_SDA2=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; 15)<br>
-+#define SCU_FUN_PIN_SCL2=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; 14)<br>
-+#define SCU_FUN_PIN_SDA1=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; 13)<br>
-+#define SCU_FUN_PIN_SCL1=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; 12)<br>
-<br>
-=C2=A0/* AST_SCU_FUN_PIN_CTRL9=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A00xA8 - Multi-function Pin Control#9 */<br>
-=C2=A0#define SCU_FUN_PIN_ROMA21=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; 3)<br>
-@@ -950,4 +955,7 @@<br>
-=C2=A0/* AST_SCU_BMC_CLASS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A00x19C - BMC device class code and revision ID */<br>
-=C2=A0/* AST_SCU_BMC_DEV_ID=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 0x1A4 - BMC device ID */<br>
-<br>
-+#define SCU_I2C_MIN_BUS_NUM=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 (1)<br>
-+#define SCU_I2C_MAX_BUS_NUM=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 (14)<br>
+@@ -830,49 +830,50 @@<br>
+=C2=A0/* AST_SCU_FUN_PIN_CTRL5=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A00x90 - Multi-function Pin Control#5 */<br>
+=C2=A0#define SCU_FUN_PIN_SPICS1=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0(0x1 &lt;&lt; 31)<br>
+=C2=A0#define SCU_FUN_PIN_LPC_PLUS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+(0x1 &lt;&lt; 30)<br>
+-#define SCU_FUC_PIN_USB20_HOST=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(0x1 &lt;&=
+lt; 29)<br>
+-#define SCU_FUC_PIN_USB11_PORT4=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 (0x1 &lt;&lt; 28)<br>
+-#define SCU_FUC_PIN_I2C14=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+(0x1 &lt;&lt; 27)<br>
+-#define SCU_FUC_PIN_I2C13=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+(0x1 &lt;&lt; 26)<br>
+-#define SCU_FUC_PIN_I2C12=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+(0x1 &lt;&lt; 25)<br>
+-#define SCU_FUC_PIN_I2C11=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+(0x1 &lt;&lt; 24)<br>
+-#define SCU_FUC_PIN_I2C10=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+(0x1 &lt;&lt; 23)<br>
+-#define SCU_FUC_PIN_I2C9=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0(0x1 &lt;&lt; 22)<br>
+-#define SCU_FUC_PIN_I2C8=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0(0x1 &lt;&lt; 21)<br>
+-#define SCU_FUC_PIN_I2C7=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0(0x1 &lt;&lt; 20)<br>
+-#define SCU_FUC_PIN_I2C6=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0(0x1 &lt;&lt; 19)<br>
+-#define SCU_FUC_PIN_I2C5=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0(0x1 &lt;&lt; 18)<br>
+-#define SCU_FUC_PIN_I2C4=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0(0x1 &lt;&lt; 17)<br>
+-#define SCU_FUC_PIN_I2C3=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0(0x1 &lt;&lt; 16)<br>
+-#define SCU_FUC_PIN_MII2_RX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 15)<br>
+-#define SCU_FUC_PIN_MII2_TX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 14)<br>
+-#define SCU_FUC_PIN_MII1_RX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 13)<br>
+-#define SCU_FUC_PIN_MII1_TX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 12)<br>
+-<br>
+-#define SCU_FUC_PIN_MII2_TX_DRIV(x)=C2=A0 =C2=A0 (x &lt;&lt; 10)<br>
+-#define SCU_FUC_PIN_MII2_TX_DRIV_MASK=C2=A0 (0x3 &lt;&lt; 10)<br>
+-#define SCU_FUC_PIN_MII1_TX_DRIV(x)=C2=A0 =C2=A0 (x &lt;&lt; 8)<br>
+-#define SCU_FUC_PIN_MII1_TX_DRIV_MASK=C2=A0 (0x3 &lt;&lt; 8)<br>
++#define SCU_FUN_PIN_USB20_HOST=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(0x1 &lt;&=
+lt; 29)<br>
++#define SCU_FUN_PIN_USB11_PORT4=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 (0x1 &lt;&lt; 28)<br>
++#define SCU_FUN_PIN_I2C14=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+(0x1 &lt;&lt; 27)<br>
++#define SCU_FUN_PIN_I2C13=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+(0x1 &lt;&lt; 26)<br>
++#define SCU_FUN_PIN_I2C12=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+(0x1 &lt;&lt; 25)<br>
++#define SCU_FUN_PIN_I2C11=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+(0x1 &lt;&lt; 24)<br>
++#define SCU_FUN_PIN_I2C10=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+(0x1 &lt;&lt; 23)<br>
++#define SCU_FUN_PIN_I2C9=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0(0x1 &lt;&lt; 22)<br>
++#define SCU_FUN_PIN_I2C8=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0(0x1 &lt;&lt; 21)<br>
++#define SCU_FUN_PIN_I2C7=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0(0x1 &lt;&lt; 20)<br>
++#define SCU_FUN_PIN_I2C6=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0(0x1 &lt;&lt; 19)<br>
++#define SCU_FUN_PIN_I2C5=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0(0x1 &lt;&lt; 18)<br>
++#define SCU_FUN_PIN_I2C4=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0(0x1 &lt;&lt; 17)<br>
++#define SCU_FUN_PIN_I2C3=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0(0x1 &lt;&lt; 16)<br>
++#define SCU_FUN_PIN_I2C(n)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+(0x1 &lt;&lt; (16 + (n) - 3))<br>
++#define SCU_FUN_PIN_MII2_RX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 15)<br>
++#define SCU_FUN_PIN_MII2_TX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 14)<br>
++#define SCU_FUN_PIN_MII1_RX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 13)<br>
++#define SCU_FUN_PIN_MII1_TX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 12)<br>
 +<br>
-=C2=A0#endif<br>
++#define SCU_FUN_PIN_MII2_TX_DRIV(x)=C2=A0 =C2=A0 (x &lt;&lt; 10)<br>
++#define SCU_FUN_PIN_MII2_TX_DRIV_MASK=C2=A0 (0x3 &lt;&lt; 10)<br>
++#define SCU_FUN_PIN_MII1_TX_DRIV(x)=C2=A0 =C2=A0 (x &lt;&lt; 8)<br>
++#define SCU_FUN_PIN_MII1_TX_DRIV_MASK=C2=A0 (0x3 &lt;&lt; 8)<br>
+<br>
+=C2=A0#define MII_NORMAL_DRIV=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 0x0<br>
+=C2=A0#define MII_HIGH_DRIV=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 0x2<br>
+<br>
+-#define SCU_FUC_PIN_UART6=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+(0x1 &lt;&lt; 7)<br>
+-#define SCU_FUC_PIN_ROM_16BIT=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (0x1 &lt;&=
+lt; 6)<br>
+-#define SCU_FUC_PIN_DIGI_V_OUT(x)=C2=A0 =C2=A0 =C2=A0 (x)<br>
+-#define SCU_FUC_PIN_DIGI_V_OUT_MASK=C2=A0 =C2=A0 (0x3)<br>
++#define SCU_FUN_PIN_UART6=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+(0x1 &lt;&lt; 7)<br>
++#define SCU_FUN_PIN_ROM_16BIT=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (0x1 &lt;&=
+lt; 6)<br>
++#define SCU_FUN_PIN_DIGI_V_OUT(x)=C2=A0 =C2=A0 =C2=A0 (x)<br>
++#define SCU_FUN_PIN_DIGI_V_OUT_MASK=C2=A0 =C2=A0 (0x3)<br>
+<br>
+=C2=A0#define VIDEO_DISABLE=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 0x0<br>
+=C2=A0#define VIDEO_12BITS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A00x1<br>
+=C2=A0#define VIDEO_24BITS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A00x2<br>
+=C2=A0//#define VIDEO_DISABLE=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 0x3<br>
+<br>
+-#define SCU_FUC_PIN_USB11_PORT2=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 (0x1 &lt;&lt; 3)<br>
+-#define SCU_FUC_PIN_SD1_8BIT=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(0x1 =
+&lt;&lt; 3)<br>
++#define SCU_FUN_PIN_USB11_PORT2=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 (0x1 &lt;&lt; 3)<br>
++#define SCU_FUN_PIN_SD1_8BIT=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(0x1 =
+&lt;&lt; 3)<br>
+<br>
+-#define SCU_FUC_PIN_MAC1_MDIO=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (0x1 &lt;&=
+lt; 2)<br>
+-#define SCU_FUC_PIN_SD2=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (0x1 &lt;&lt; 1)<br>
+-#define SCU_FUC_PIN_SD1=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (0x1 &lt;&lt; 0)<br>
++#define SCU_FUN_PIN_MAC1_MDIO=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (0x1 &lt;&=
+lt; 2)<br>
++#define SCU_FUN_PIN_SD2=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (0x1 &lt;&lt; 1)<br>
++#define SCU_FUN_PIN_SD1=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (0x1 &lt;&lt; 0)<br>
+<br>
+<br>
+=C2=A0/* AST_SCU_FUN_PIN_CTRL6=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A00x94 - Multi-function Pin Control#6*/<br>
 diff --git a/arch/arm/mach-aspeed/ast-<wbr>scu.c b/arch/arm/mach-aspeed/ast=
 -<wbr>scu.c<br>
-</div></div>index 280c421..1dbd667 100644<br>
-<span class=3D"">--- a/arch/arm/mach-aspeed/ast-<wbr>scu.c<br>
+index 0cc0d67..280c421 100644<br>
+--- a/arch/arm/mach-aspeed/ast-<wbr>scu.c<br>
 +++ b/arch/arm/mach-aspeed/ast-<wbr>scu.c<br>
-@@ -318,6 +318,17 @@ u32 ast_get_ahbclk(void)<br>
+@@ -394,7 +394,7 @@ void ast_scu_multi_func_eth(u8 num)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AST_SCU_FUN_PIN_CTRL1);<br>
 <br>
-=C2=A0#endif /* AST_SOC_G5 */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ast_scu_write(ast_s=
+cu_read(<wbr>AST_SCU_FUN_PIN_CTRL5) |<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SCU_FUC_PIN_MAC1_MDIO,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SCU_FUN_PIN_MAC1_MDIO,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AST_SCU_FUN_PIN_CTRL5);<br>
 <br>
-+u32 ast_get_apbclk(void)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0u32 h_pll =3D ast_get_h_pll_clk();<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* The formula for converting the bit pattern t=
-o divisor is<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 * (4 + 4 * DIV), according to datasheet<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0u32 apb_div =3D 4 + 4 * SCU_GET_PCLK_DIV(ast_sc=
-u_read(<wbr>AST_SCU_CLK_SEL));<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return h_pll / apb_div;<br>
-+}<br>
-+<br>
-+<br>
-=C2=A0void ast_scu_show_system_info(void)<br>
-=C2=A0{<br>
-<br>
-</span>@@ -496,3 +507,30 @@ void ast_scu_get_who_init_dram(<wbr>void)<br>
-<span class=3D"">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 br=
-eak;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-=C2=A0}<br>
-+<br>
-+void ast_scu_enable_i2c(u8 bus_num)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (bus_num &lt; SCU_I2C_MIN_BUS_NUM || bus_num=
- &gt; SCU_I2C_MAX_BUS_NUM) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0debug(&quot;%s: bus=
-_num is out of range, must be [%d - %d]\n&quot;, __func__,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0SCU_I2C_MIN_BUS_NUM, SCU_I2C_MAX_BUS_NUM);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Enable I2C Controllers */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0clrbits_le32(AST_SCU_BASE + AST_SCU_RESET, SCU_=
-RESET_I2C);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (bus_num &gt;=3D 3) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0setbits_le32(AST_SC=
-U_BASE + AST_SCU_FUN_PIN_CTRL5,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 SCU_FUN_=
-PIN_I2C(bus_num));<br>
-+#ifdef AST_SOC_G5<br>
-</span>+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* In AST2400 aka AST_SOC_G4 SDA{1,2}/SC=
-L{1,2} are fixed function pins,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 * so no need to change their function. */<br>
-<div class=3D"HOEnZb"><div class=3D"h5">+=C2=A0 =C2=A0 =C2=A0 =C2=A0} else =
-if (bus_num =3D=3D 1) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0setbits_le32(AST_SC=
-U_BASE + AST_SCU_FUN_PIN_CTRL8,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 SCU_FUN_=
-PIN_SDA1 | SCU_FUN_PIN_SCL1);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0} else if (bus_num =3D=3D 2) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0setbits_le32(AST_SC=
-U_BASE + AST_SCU_FUN_PIN_CTRL8,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 SCU_FUN_=
-PIN_SDA2 | SCU_FUN_PIN_SCL2);<br>
-+#endif<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+}<br>
---<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 break;<br>
+<span class=3D"HOEnZb"><font color=3D"#888888">--<br>
 2.8.0.rc3.226.g39d4020<br>
 <br>
-</div></div></blockquote></div><br><br clear=3D"all"><div><br></div>-- <br>=
-<div class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div><b>M=
-</b>axim <b>S</b>loyko</div></div>
+</font></span></blockquote></div><br><br clear=3D"all"><div><br></div>-- <b=
+r><div class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div><b=
+>M</b>axim <b>S</b>loyko</div></div>
 </div>
 
---001a11c001e84eea3b053e208091--
+--94eb2c0bd254f59ce6053e2081a8--
