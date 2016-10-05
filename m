@@ -1,50 +1,50 @@
 Return-Path: <christopher.lee.bostic@gmail.com>
-Received: from mail-oi0-x242.google.com (mail-oi0-x242.google.com
- [IPv6:2607:f8b0:4003:c06::242])
+Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
+ [IPv6:2607:f8b0:4003:c06::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sq7M230f4zDrPG
- for <openbmc@lists.ozlabs.org>; Thu,  6 Oct 2016 07:54:38 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sq7M32Xv2zDrPG
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Oct 2016 07:54:39 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=jKMCHLYt; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=klhutpoK; 
  dkim-atps=neutral
-Received: by mail-oi0-x242.google.com with SMTP id d132so3133067oib.2
- for <openbmc@lists.ozlabs.org>; Wed, 05 Oct 2016 13:54:38 -0700 (PDT)
+Received: by mail-oi0-x241.google.com with SMTP id d132so3133082oib.2
+ for <openbmc@lists.ozlabs.org>; Wed, 05 Oct 2016 13:54:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=3cqj/cVNWxmeJL8/wqWH8cDDUvvEFtiilAgKeBk7e2w=;
- b=jKMCHLYtV/mgMONz34mznYxsLI9Qwm8tBFw+T6mTNLabXIn0MR5780wJpzcnpplEzq
- WOK4RgPBm5a2dbCH738MemWuEIL30YlFMlzPQuwg17xJvbPaCiipqTS3eFKtFQAo3z5a
- MVUeNISMAph6Z3QOeNpVbMJDfRrzfUVCx2/jHjOTG+SE76GUYtKealwBqxJax2/xGRBZ
- qotarbW/ImxWWMyEQFcRN7kz2sBLhQLtE/YJV9GpkLqon2LJvBdTSOQAK7yYG5iGb6ax
- 2WimeweNeAoS6ZblCua8Ya11YSM+zvs49mQCWNveYO8XJXXg5FAEDXygBjs/ZJsk2B41
- 7ifw==
+ bh=rOayd6yqQEjURZInnL08jFgLHqOngbsNasG/b6YyVuo=;
+ b=klhutpoK7nnVgHYuh3CEopBJKBYl1G4g5lD6bilt4PGG2TIGO0TqnSHuMA8oCfe41u
+ rsaoMLENoZFgD0obw8VUtfdWYPVOvtqBnKVfqbphc9bVcU7bIJWuC2wL0N18gArfnJSu
+ tGrnrvrpYvjzA8a9g7qpiW97r2beI7g0qo8PZLKMTL0DEJAxyX0uFmPPXJNTzu9uS2+g
+ j0JT7Ji3w0KDbjNw+C6MWcwcre5uTP0BWqvnTO/48qyx5TBe/mKDz88qRZ1O7zc1FAlJ
+ SVldaf0b3A6JHC8pAvNZHSjh7MPcvV83JwkmZoyWyU8sURdPhNh3HOMgl+ZY4Z23Yjt2
+ iv7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=3cqj/cVNWxmeJL8/wqWH8cDDUvvEFtiilAgKeBk7e2w=;
- b=Yjo7k2fTHKR1yfWyW2lczDRTzkvqAy68M8NuhswCuBWFAn7LeZ4D3R1u8Y44ueUKfe
- JCT3TtVMxNtukaZX2YtnTXJQNGYQQVtqsWOl7Vbrnn730LqpUC3ikN5q0gxoH9gZ8KFk
- gwLvRXvgO55v0gZNsYCBJk3RGaks+b/gHSSbrrQlIIBrgcOpxUcYt/dF9EIHmN8oPzMZ
- WRm0OHNtXCIP8rm6BXQosnt8mpxlO2Y/RshSTYjpvFFcGnRXot38Zj+11TGyeUtTJNae
- D1R7rXIRr5eO1OVBtwJIeGNYpNLOHGfuHc3rprKIhU5BmxbwVrXWsFB1F+9HDZBMpAXx
- 2yyg==
-X-Gm-Message-State: AA6/9RnEhjA/AJx7sM5/H2ZVnOPuHFwmqXrlp7pNOVtjgfBa6c2j/NiSXGOLUKcEyA9vKQ==
-X-Received: by 10.157.32.101 with SMTP id n92mr4216246ota.75.1475700876590;
- Wed, 05 Oct 2016 13:54:36 -0700 (PDT)
+ bh=rOayd6yqQEjURZInnL08jFgLHqOngbsNasG/b6YyVuo=;
+ b=i7AkRfHpGjDS8Ofo5NQjvxlFdPpPiy2heMch2HMpJKYVPQvVlJi6/kT+WnMh1+Szxw
+ NwNZ9UiQ02d9RZHmbWsZAtZAS6QaGnMzG33YPijrJIZMsp9hib8JXWEpYF4OxZDxaN8A
+ 6eNr+jv7rFki8QAR2ezX+np3nbkxWc593SXgqEQbb8hbVq3bByGpL/2vQoXb6DcWz5Vr
+ 7IQhlTzvX2+AXuylYBUVUBOMg92jM93NRydzHI+t5FWzoLTDEDylufJbJTwb8v6/CY3d
+ SVHq4q/+L/sSNV6ehgyrP3H/wodpqkMHG7m+zsPZtLDRjOvpUlIxDgKaTsQWV1r6sBAS
+ eVvA==
+X-Gm-Message-State: AA6/9Rn/OZ8/kqrpLPcJWEmm3N1l66hnkNoVCE/zyFwQZP8JxeefJF6TBKNHmoQPfeMrjQ==
+X-Received: by 10.157.43.11 with SMTP id o11mr7223758otb.58.1475700877660;
+ Wed, 05 Oct 2016 13:54:37 -0700 (PDT)
 Received: from Christophers-MacBook-Pro.local.com
  (45-20-192-79.lightspeed.austtx.sbcglobal.net. [45.20.192.79])
  by smtp.gmail.com with ESMTPSA id i18sm3206459oib.12.2016.10.05.13.54.36
  (version=TLS1 cipher=AES128-SHA bits=128/128);
- Wed, 05 Oct 2016 13:54:36 -0700 (PDT)
+ Wed, 05 Oct 2016 13:54:37 -0700 (PDT)
 From: christopher.lee.bostic@gmail.com
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, zahrens@us.ibm.com, xxpetri@de.ibm.com,
  Jeremy Kerr <jk@ozlabs.org>
-Subject: [PATCH linux 04/15] fsi: Add fsi master definition
-Date: Wed,  5 Oct 2016 15:54:17 -0500
-Message-Id: <1475700868-75737-5-git-send-email-christopher.lee.bostic@gmail.com>
+Subject: [PATCH linux 05/15] fsi: Add fake master driver
+Date: Wed,  5 Oct 2016 15:54:18 -0500
+Message-Id: <1475700868-75737-6-git-send-email-christopher.lee.bostic@gmail.com>
 X-Mailer: git-send-email 2.7.4 (Apple Git-66)
 In-Reply-To: <1475700868-75737-1-git-send-email-christopher.lee.bostic@gmail.com>
 References: <1475700868-75737-1-git-send-email-christopher.lee.bostic@gmail.com>
@@ -59,57 +59,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Oct 2016 20:54:38 -0000
+X-List-Received-Date: Wed, 05 Oct 2016 20:54:40 -0000
 
 From: Jeremy Kerr <jk@ozlabs.org>
 
+For debugging, add a fake master driver, that only supports reads,
+returning a fixed set of data.
+
 Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
 ---
- drivers/fsi/fsi-core.c   | 20 ++++++++++++++++++++
- drivers/fsi/fsi-master.h | 37 +++++++++++++++++++++++++++++++++++++
- 2 files changed, 57 insertions(+)
- create mode 100644 drivers/fsi/fsi-master.h
+ drivers/fsi/Kconfig           | 10 +++++
+ drivers/fsi/Makefile          |  1 +
+ drivers/fsi/fsi-master-fake.c | 96 +++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 107 insertions(+)
+ create mode 100644 drivers/fsi/fsi-master-fake.c
 
-diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-index 3d55bd5..ce9428d 100644
---- a/drivers/fsi/fsi-core.c
-+++ b/drivers/fsi/fsi-core.c
-@@ -17,6 +17,26 @@
- #include <linux/fsi.h>
- #include <linux/module.h>
+diff --git a/drivers/fsi/Kconfig b/drivers/fsi/Kconfig
+index 04c1a0e..f065dbe 100644
+--- a/drivers/fsi/Kconfig
++++ b/drivers/fsi/Kconfig
+@@ -9,4 +9,14 @@ config FSI
+ 	---help---
+ 	  FSI - the FRU Support Interface - is a simple bus for low-level
+ 	  access to POWER-based hardware.
++
++if FSI
++
++config FSI_MASTER_FAKE
++	tristate "Fake FSI master"
++	depends on FSI
++	---help---
++	This option enables a fake FSI master driver for debugging.
++endif
++
+ endmenu
+diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
+index db0e5e7..847c00c 100644
+--- a/drivers/fsi/Makefile
++++ b/drivers/fsi/Makefile
+@@ -1,2 +1,3 @@
  
-+#include "fsi-master.h"
-+
-+static atomic_t master_idx = ATOMIC_INIT(-1);
-+
-+/* FSI master support */
-+
-+int fsi_master_register(struct fsi_master *master)
-+{
-+	master->idx = atomic_inc_return(&master_idx);
-+	get_device(master->dev);
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(fsi_master_register);
-+
-+void fsi_master_unregister(struct fsi_master *master)
-+{
-+	put_device(master->dev);
-+}
-+EXPORT_SYMBOL_GPL(fsi_master_unregister);
-+
- /* FSI core & Linux bus type definitions */
- 
- static int fsi_bus_match(struct device *dev, struct device_driver *drv)
-diff --git a/drivers/fsi/fsi-master.h b/drivers/fsi/fsi-master.h
+ obj-$(CONFIG_FSI) += fsi-core.o
++obj-$(CONFIG_FSI_MASTER_FAKE) += fsi-master-fake.o
+diff --git a/drivers/fsi/fsi-master-fake.c b/drivers/fsi/fsi-master-fake.c
 new file mode 100644
-index 0000000..e75a810
+index 0000000..50aac0b
 --- /dev/null
-+++ b/drivers/fsi/fsi-master.h
-@@ -0,0 +1,37 @@
++++ b/drivers/fsi/fsi-master-fake.c
+@@ -0,0 +1,96 @@
 +/*
-+ * FSI master definitions. These comprise the core <--> master interface,
-+ * to allow the core to interact with the (hardware-specific) masters.
++ * Fake FSI master driver for FSI development
 + *
 + * Copyright (C) IBM Corporation 2016
 + *
@@ -123,26 +122,86 @@ index 0000000..e75a810
 + * GNU General Public License for more details.
 + */
 +
-+#ifndef DRIVERS_FSI_MASTER_H
-+#define DRIVERS_FSI_MASTER_H
++#include <linux/platform_device.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_platform.h>
 +
-+#include <linux/device.h>
++#include "fsi-master.h"
 +
-+struct fsi_master {
-+	struct device	*dev;
-+	int		idx;
-+	int		n_links;
-+	int		(*read)(struct fsi_master *, int link,
-+				uint8_t slave, uint32_t addr,
-+				void *val, size_t size);
-+	int		(*write)(struct fsi_master *, int link,
-+				uint8_t slave, uint32_t addr,
-+				const void *val, size_t size);
++const uint8_t data[] = {
++	0xc0, 0x02, 0x08, 0x03,	/* chip id */
++	0x80, 0x01, 0x11, 0x00,	/* peek */
++	0x80, 0x01, 0x20, 0x3e,	/* slave */
++	0x00, 0x01, 0x10, 0xa5,	/* i2c */
 +};
 +
-+extern int fsi_master_register(struct fsi_master *master);
-+extern void fsi_master_unregister(struct fsi_master *master);
 +
-+#endif /* DRIVERS_FSI_MASTER_H */
++static int fsi_master_fake_read(struct fsi_master *_master, int link,
++		uint8_t slave, uint32_t addr, void *val, size_t size)
++{
++	if (link != 0)
++		return -ENODEV;
++
++	if (addr + size > sizeof(data))
++		memset(val, 0, size);
++	else
++		memcpy(val, data + addr, size);
++
++	return 0;
++}
++
++static int fsi_master_fake_write(struct fsi_master *_master, int link,
++		uint8_t slave, uint32_t addr, const void *val, size_t size)
++{
++	if (link != 0)
++		return -ENODEV;
++
++	return -EACCES;
++}
++
++static int fsi_master_fake_probe(struct platform_device *pdev)
++{
++	struct fsi_master *master;
++
++	master = devm_kzalloc(&pdev->dev, sizeof(*master), GFP_KERNEL);
++	if (!master)
++		return -ENOMEM;
++
++	master->dev = &pdev->dev;
++	master->n_links = 1;
++	master->read = fsi_master_fake_read;
++	master->write = fsi_master_fake_write;
++
++	return fsi_master_register(master);
++}
++
++static const struct of_device_id fsi_master_fake_match[] = {
++	{ .compatible = "ibm,fsi-master-fake" },
++	{ },
++};
++
++static struct platform_driver fsi_master_fake_driver = {
++	.driver = {
++		.name		= "fsi-master-fake",
++		.of_match_table	= fsi_master_fake_match,
++	},
++	.probe	= fsi_master_fake_probe,
++};
++
++static int __init fsi_master_fake_init(void)
++{
++	struct device_node *np;
++
++	platform_driver_register(&fsi_master_fake_driver);
++
++	for_each_compatible_node(np, NULL, "ibm,fsi-master-fake")
++		of_platform_device_create(np, NULL, NULL);
++
++	return 0;
++}
++
++module_init(fsi_master_fake_init);
++
 -- 
 1.8.2.2
