@@ -1,50 +1,50 @@
 Return-Path: <christopher.lee.bostic@gmail.com>
-Received: from mail-oi0-x243.google.com (mail-oi0-x243.google.com
- [IPv6:2607:f8b0:4003:c06::243])
+Received: from mail-oi0-x244.google.com (mail-oi0-x244.google.com
+ [IPv6:2607:f8b0:4003:c06::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sq7M46hJTzDrPG
- for <openbmc@lists.ozlabs.org>; Thu,  6 Oct 2016 07:54:40 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sq7M5539szDrPK
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Oct 2016 07:54:41 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=rNCxHKR3; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=FxuZ1NBn; 
  dkim-atps=neutral
-Received: by mail-oi0-x243.google.com with SMTP id d132so3133117oib.2
- for <openbmc@lists.ozlabs.org>; Wed, 05 Oct 2016 13:54:40 -0700 (PDT)
+Received: by mail-oi0-x244.google.com with SMTP id r132so13010972oig.1
+ for <openbmc@lists.ozlabs.org>; Wed, 05 Oct 2016 13:54:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=fVUf1lGwd2x2CFxR4ngY0qQnUGy2NkuV9NfPR7uwWLo=;
- b=rNCxHKR3Dx6FyanPkomuEf7av2EmTTGep15UDOkR8VQlt0Kd/lwQbgmGTj03BcgDrA
- so4cryEJyjT1Xb7JxpLWnIREUEg/2iHDcpRdZQLvbw3SFQi5FzEIWJuYKY5Tu6PNq4sM
- YYufqVmQCAN1442szi/k191zUvZJHMeGvSZqONhFU7ODwkzuo8VMCJl8/CF0FuL9FN97
- k5lCYkfhdtY7jKMlS1v7w+f72EXyB2Uu34fSX9QHrxHRQ756c01mvIecG3DY7icFoSE8
- ohiwoeNl9UI6YSpTcB6XT2YAfpYgT9LYP0WaEs0Zl+NGF08zCZUbks66A2yLarUq2fIl
- 6buQ==
+ bh=N5NyQzJ6e/fsN4DqXJuw05apVoemhSyo9MmjGC3YLog=;
+ b=FxuZ1NBnbhvwayjRLFQ1L8kaLt6g8Gj3Bsmyshly+x8gVcr0CMGqf3iLUGM2OsqR80
+ xltJ/Y+ygbYD5CplTiSngSrNHqYtRvDZMhY0HfJ/Hi6gn7F2qB9O2YfIyPFdPDahQb0C
+ g/w/KBCJLEhTaL3V5RL6giiwUyZ6rFfn1E2oEcr9yiqpy94QzTfIRkuYvrrxLiQx56Ku
+ v0oFxbykclh2/lJI2eSfjkMvR6XOIz01/O94f6L4z89I2dtCK4TQNlSKIr1kyxWz4xvF
+ RKtM+TfO1s0IuMhNJJSL2Cqb50I2Of0h8gs5xYAjgl4LmU/OYaQ5kF7oedq8iaKBf7ux
+ oxsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=fVUf1lGwd2x2CFxR4ngY0qQnUGy2NkuV9NfPR7uwWLo=;
- b=lg+kqt8GtKF/+xH5uhgfOR+tgEAHP5O01jredZzNkb3g/CJ3rANQLdIw1CdxVguh5n
- QaJweNzmkCuwZiBIqpdXzKS219EGBOBVPZJ2xYTJoRLUJDJX2tp25muC0+0kKEejRQwe
- vCOSsm9nmHL7CPrUkMC5Irj9gJbdOmnIFGzev/icG099TXTvAniksdR8KU4ANptt4had
- eviADS6ipc3W29mi4TFcPPPSctMGMlDXG6n+uxErvVmKqPBpaMY1u8y7r82gg7D/fxbT
- EOv6yLb7+ccJjWeVxwCQHblCXtOTknU6N2Bk5RYh7NvWwkioB/z7lUrLdTD0dhN/VOsU
- mKuQ==
-X-Gm-Message-State: AA6/9Rk83bshufmBU+Ll4fOd9vOKkzeSgwOedL/cqc3zMDCIOrMznw4vkeqhpJNtE9QMYA==
-X-Received: by 10.157.2.101 with SMTP id 92mr6686064otb.227.1475700879269;
- Wed, 05 Oct 2016 13:54:39 -0700 (PDT)
+ bh=N5NyQzJ6e/fsN4DqXJuw05apVoemhSyo9MmjGC3YLog=;
+ b=BESu/yRPTdN9nxELhZ7NnmsFf3LpHORE1vqAtDhPbhFlcj6ceCr/ESzAGlvwyJRXHQ
+ bjzMlTl4PEpTmrrsW1wZQEuo00wU0s8kU5kLnseqCl7v8nwwCXJGRYnHX5plAE6LGW2W
+ kjukIGTBouPNs/KjuTzxV992wpO7/5kB6aSRAla2Zhkkbc2TUXXTUIZl8/ZLFdn0okvq
+ +iOr32SdH83rk76U7m/Rge+ScNFavKgsEybanXVN9WVVas6qdHu2AyND4ISkRKYO2zXx
+ Ug3cLt+71srYC8pEp1CS3brQalRQ4PWzx6yQsK4ZgvbPPaMpPV7iIuzkiEQh7PkZQiMH
+ LrbQ==
+X-Gm-Message-State: AA6/9RmkAxuwfXCXlIOX4HMR21U3DbdWrzA/eZiHsiPpYpnvDn/y7QuTQIKrUw+kdA6WqA==
+X-Received: by 10.157.52.67 with SMTP id v61mr7417500otb.181.1475700880039;
+ Wed, 05 Oct 2016 13:54:40 -0700 (PDT)
 Received: from Christophers-MacBook-Pro.local.com
  (45-20-192-79.lightspeed.austtx.sbcglobal.net. [45.20.192.79])
- by smtp.gmail.com with ESMTPSA id i18sm3206459oib.12.2016.10.05.13.54.38
+ by smtp.gmail.com with ESMTPSA id i18sm3206459oib.12.2016.10.05.13.54.39
  (version=TLS1 cipher=AES128-SHA bits=128/128);
- Wed, 05 Oct 2016 13:54:38 -0700 (PDT)
+ Wed, 05 Oct 2016 13:54:39 -0700 (PDT)
 From: christopher.lee.bostic@gmail.com
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, zahrens@us.ibm.com, xxpetri@de.ibm.com,
  Jeremy Kerr <jk@ozlabs.org>
-Subject: [PATCH linux 07/15] fsi: Add slave defintion
-Date: Wed,  5 Oct 2016 15:54:20 -0500
-Message-Id: <1475700868-75737-8-git-send-email-christopher.lee.bostic@gmail.com>
+Subject: [PATCH linux 08/15] fsi: Add empty master scan
+Date: Wed,  5 Oct 2016 15:54:21 -0500
+Message-Id: <1475700868-75737-9-git-send-email-christopher.lee.bostic@gmail.com>
 X-Mailer: git-send-email 2.7.4 (Apple Git-66)
 In-Reply-To: <1475700868-75737-1-git-send-email-christopher.lee.bostic@gmail.com>
 References: <1475700868-75737-1-git-send-email-christopher.lee.bostic@gmail.com>
@@ -59,37 +59,67 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Oct 2016 20:54:41 -0000
+X-List-Received-Date: Wed, 05 Oct 2016 20:54:42 -0000
 
 From: Jeremy Kerr <jk@ozlabs.org>
 
-Add the initial fsi slave device, which is private to the core code.
-This will be a child of the master, and parent to endpoint devices.
+When a new fsi master is added, we will need to scan its links, and
+slaves attached to those links. This change introduces a little shell to
+iterate the links, which we will populate with the actual slave scan in
+a later change.
 
 Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
 ---
- drivers/fsi/fsi-core.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/fsi/fsi-core.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
 diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-index db1a1ce..7df4291 100644
+index 7df4291..9744a55 100644
 --- a/drivers/fsi/fsi-core.c
 +++ b/drivers/fsi/fsi-core.c
-@@ -23,6 +23,15 @@
+@@ -21,6 +21,8 @@
  
+ #include "fsi-master.h"
+ 
++#define FSI_N_SLAVES	4
++
  static atomic_t master_idx = ATOMIC_INIT(-1);
  
-+struct fsi_slave {
-+	struct device		dev;
-+	struct fsi_master	*master;
-+	int			link;
-+	uint8_t			id;
-+};
+ struct fsi_slave {
+@@ -32,12 +34,34 @@ struct fsi_slave {
+ 
+ #define to_fsi_slave(d) container_of(d, struct fsi_slave, dev)
+ 
++/* FSI slave support */
++static int fsi_slave_init(struct fsi_master *master,
++		int link, uint8_t slave_id)
++{
++	/* todo: initialise slave device, perform engine scan */
 +
-+#define to_fsi_slave(d) container_of(d, struct fsi_slave, dev)
++	return -ENODEV;
++}
 +
  /* FSI master support */
  
++static int fsi_master_scan(struct fsi_master *master)
++{
++	int link, slave_id;
++
++	for (link = 0; link < master->n_links; link++)
++		for (slave_id = 0; slave_id < FSI_N_SLAVES; slave_id++)
++			fsi_slave_init(master, link, slave_id);
++
++	return 0;
++
++}
++
  int fsi_master_register(struct fsi_master *master)
+ {
+ 	master->idx = atomic_inc_return(&master_idx);
+ 	get_device(master->dev);
++	fsi_master_scan(master);
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(fsi_master_register);
 -- 
 1.8.2.2
