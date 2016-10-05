@@ -1,50 +1,53 @@
-Return-Path: <maxims@google.com>
-Received: from mail-yw0-x231.google.com (mail-yw0-x231.google.com
- [IPv6:2607:f8b0:4002:c05::231])
+Return-Path: <christopher.lee.bostic@gmail.com>
+Received: from mail-oi0-x244.google.com (mail-oi0-x244.google.com
+ [IPv6:2607:f8b0:4003:c06::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sq1Bq2P36zDrKS
- for <openbmc@lists.ozlabs.org>; Thu,  6 Oct 2016 03:17:07 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sq7M01cHWzDrPK
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Oct 2016 07:54:36 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=XEbjREhs; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=Rx5I56qf; 
  dkim-atps=neutral
-Received: by mail-yw0-x231.google.com with SMTP id g192so164936556ywh.1
- for <openbmc@lists.ozlabs.org>; Wed, 05 Oct 2016 09:17:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=1+0JsHDEogtPcNHlRU4pR2lgRqxVnzlz9ymWlWDncJs=;
- b=XEbjREhs+o8KjVPYzqDS9g9VNPD/d4wiKO/cPGSKQ1nvYXssGaSF+Y57qw/8VnGRwJ
- nkOmGy/Yq0AejDVIg/ay1yB0NoD8jCHdUqfiVp0mJnm1xztFkPhA32rz+/Ji6wpv/Ezi
- 7hEaktD3mCCWPnijIq/2YHvGJsAXWVPykDMIetwg95PjeXjLskl5Q8nt+ml7fa2j+FTQ
- zdIjklupEdWbO1aI/T5yyIAm8JfBFr2jYJeCHyWGK5LIxbffptUW5fqFNZjxglCkHJw9
- Q2cbFQcjFwV/euNIaFph2TsHxQVMwjtuKgwnv2L/5Asij2+oTeT5pin8JS7qIrOflXtG
- o4yg==
+Received: by mail-oi0-x244.google.com with SMTP id r132so13010873oig.1
+ for <openbmc@lists.ozlabs.org>; Wed, 05 Oct 2016 13:54:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=K3fTJrdyzT7h+kStPLVUlg/ayQvOw8y3pGZvpxmcrrM=;
+ b=Rx5I56qfY2LjEV5SgCiip9qs1Xb0Ui5YpM9nmeCP2C/vD8fLmH/2n1e3/l/lGplpFh
+ wPNOknFGw3Jvm8YHqO4WS4L9HXv8pXv148LFjmjHxD8oZfjQaHa6vBU3nHVuha59VN9s
+ A/eTt/opJFmOvn4s1nd99W4jwpK0Bf+GeYx8fnExnmJkCHllnjC16rXktn7h+q/iD5yc
+ Ol8MwLvBzfMrtRKuQU0bgj5sVC7RtknxQQ1dqSaTRBqJZxJArQ+pXQje4XWHbJ3S5g5F
+ KlTgfquUIoNPhHTbQYxuQ05vkNVfjYwIqQjIS4ltXDYeadVBWfuDoOCbWQouxQejdE7S
+ sPkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=1+0JsHDEogtPcNHlRU4pR2lgRqxVnzlz9ymWlWDncJs=;
- b=eUf14YHPBeUZXLfNtl8qtBdtNcC4W5Lw/PQYlTaqHC1YjXBOT7JR/YGREq4DbBPvXJ
- e5WKHaHUelKRQUPk4spgFYohCoYRfN59EngHCDrtTCUrAS8k6zOEvkFVcTG95Dc6KlGB
- k7E1A0whxfgm4GEdk8vEKRTnGc657YSnuSVx4rqJPPIlgfvHaLl6K/XSIX9FCA934Bat
- iS2cO6Q3tcEBYM8yRdD+3mIXwBamikZUHhwzL42Tt3H94LNmMwa35SqVexHd7rV7IRNf
- hZSwQovhjSsMXGfQj4UYvzTDlsk7rHOe7EnacGWin5C0VrgCq6/CE/CQzakPF4UX8VIg
- wk8w==
-X-Gm-Message-State: AA6/9RlTWI6frNaxQwKp2hHtCwVfUBqEU08VnHTaTblCvdym5KKDUoL5dmG+Qf3YdrUc71c4hpc6950lXeFq2Yl4
-X-Received: by 10.129.153.6 with SMTP id q6mr7382855ywg.356.1475684222192;
- Wed, 05 Oct 2016 09:17:02 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.37.38.80 with HTTP; Wed, 5 Oct 2016 09:17:01 -0700 (PDT)
-In-Reply-To: <1475184427-144121-2-git-send-email-maxims@google.com>
-References: <1474998214-12720-2-git-send-email-maxims@google.com>
- <1475184427-144121-1-git-send-email-maxims@google.com>
- <1475184427-144121-2-git-send-email-maxims@google.com>
-From: Maxim Sloyko <maxims@google.com>
-Date: Wed, 5 Oct 2016 09:17:01 -0700
-Message-ID: <CAFR_W8rMeriuOg6Lr+FS4Gr=YCRbVdy3u0P3hP3rw6Q6-Y-e5w@mail.gmail.com>
-Subject: Re: [PATCH 2/3] aspeed: Fixed FUC -> FUN typo in SCU.
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=94eb2c0bd254f59ce6053e2081a8
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=K3fTJrdyzT7h+kStPLVUlg/ayQvOw8y3pGZvpxmcrrM=;
+ b=WC0ckIF4eaI3ybnOjQiwUMYT6912HsRMy6PTdyb7QgUZ+6/F8UkhiH5mFJFs2+fyyb
+ U2mrGbOmt/Jeo1pkBQ1VXMyoBIG6ZEpE8ZTMyw0WFeUj246GCJDoEYVUtZg3eh664ajn
+ TTXqBilYz7eglM1Vbno7oAnjfIc1FCpZl4S6DnQL98Gruyi3sjjvGwOByUp0w7bFUPr3
+ JYd1gWPMmtYMt9ALZnNMwngpjUAMo6QLa3RFhnYEYs984NVluulS/vtINeGdNCApw1GN
+ RBzSjC66tn9wctJQ3m2tRvVWWKiaqVrC35fyyWlixJiEssVK84cCGpEZLgZZQbLlZSq5
+ kybA==
+X-Gm-Message-State: AA6/9RkNGg4zmT9VRivuYq/Hceca/XqQMQLDqX0ZroBFT1AhPSAQa+SyKYteJu74btphKA==
+X-Received: by 10.157.15.154 with SMTP id d26mr7196545otd.162.1475700874517;
+ Wed, 05 Oct 2016 13:54:34 -0700 (PDT)
+Received: from Christophers-MacBook-Pro.local.com
+ (45-20-192-79.lightspeed.austtx.sbcglobal.net. [45.20.192.79])
+ by smtp.gmail.com with ESMTPSA id i18sm3206459oib.12.2016.10.05.13.54.33
+ (version=TLS1 cipher=AES128-SHA bits=128/128);
+ Wed, 05 Oct 2016 13:54:34 -0700 (PDT)
+From: christopher.lee.bostic@gmail.com
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, zahrens@us.ibm.com, xxpetri@de.ibm.com,
+ Jeremy Kerr <jk@ozlabs.org>
+Subject: [PATCH linux 01/15] fsi: Add empty fsi bus definitions
+Date: Wed,  5 Oct 2016 15:54:14 -0500
+Message-Id: <1475700868-75737-2-git-send-email-christopher.lee.bostic@gmail.com>
+X-Mailer: git-send-email 2.7.4 (Apple Git-66)
+In-Reply-To: <1475700868-75737-1-git-send-email-christopher.lee.bostic@gmail.com>
+References: <1475700868-75737-1-git-send-email-christopher.lee.bostic@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,322 +59,145 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Oct 2016 16:17:08 -0000
+X-List-Received-Date: Wed, 05 Oct 2016 20:54:36 -0000
 
---94eb2c0bd254f59ce6053e2081a8
-Content-Type: text/plain; charset=UTF-8
+From: Jeremy Kerr <jk@ozlabs.org>
 
-Ping
+This change adds the initial (empty) fsi bus definition, and introduces
+drivers/fsi/.
 
-On Thu, Sep 29, 2016 at 2:27 PM, <maxims@google.com> wrote:
+Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
+---
+ drivers/Kconfig        |  2 ++
+ drivers/Makefile       |  1 +
+ drivers/fsi/Kconfig    | 12 ++++++++++++
+ drivers/fsi/Makefile   |  2 ++
+ drivers/fsi/fsi-core.c | 38 ++++++++++++++++++++++++++++++++++++++
+ include/linux/fsi.h    | 23 +++++++++++++++++++++++
+ 6 files changed, 78 insertions(+)
+ create mode 100644 drivers/fsi/Kconfig
+ create mode 100644 drivers/fsi/Makefile
+ create mode 100644 drivers/fsi/fsi-core.c
+ create mode 100644 include/linux/fsi.h
 
-> From: Maxim Sloyko <maxims@google.com>
->
-> Fixed FUC -> FUN typo in SCU.
-> ---
->  arch/arm/include/asm/arch-aspeed/regs-scu.h | 65
-> +++++++++++++++--------------
->  arch/arm/mach-aspeed/ast-scu.c              |  2 +-
->  2 files changed, 34 insertions(+), 33 deletions(-)
->
-> diff --git a/arch/arm/include/asm/arch-aspeed/regs-scu.h
-> b/arch/arm/include/asm/arch-aspeed/regs-scu.h
-> index b714fa9..aab032a 100644
-> --- a/arch/arm/include/asm/arch-aspeed/regs-scu.h
-> +++ b/arch/arm/include/asm/arch-aspeed/regs-scu.h
-> @@ -830,49 +830,50 @@
->  /* AST_SCU_FUN_PIN_CTRL5               0x90 - Multi-function Pin
-> Control#5 */
->  #define SCU_FUN_PIN_SPICS1             (0x1 << 31)
->  #define SCU_FUN_PIN_LPC_PLUS           (0x1 << 30)
-> -#define SCU_FUC_PIN_USB20_HOST         (0x1 << 29)
-> -#define SCU_FUC_PIN_USB11_PORT4                (0x1 << 28)
-> -#define SCU_FUC_PIN_I2C14              (0x1 << 27)
-> -#define SCU_FUC_PIN_I2C13              (0x1 << 26)
-> -#define SCU_FUC_PIN_I2C12              (0x1 << 25)
-> -#define SCU_FUC_PIN_I2C11              (0x1 << 24)
-> -#define SCU_FUC_PIN_I2C10              (0x1 << 23)
-> -#define SCU_FUC_PIN_I2C9               (0x1 << 22)
-> -#define SCU_FUC_PIN_I2C8               (0x1 << 21)
-> -#define SCU_FUC_PIN_I2C7               (0x1 << 20)
-> -#define SCU_FUC_PIN_I2C6               (0x1 << 19)
-> -#define SCU_FUC_PIN_I2C5               (0x1 << 18)
-> -#define SCU_FUC_PIN_I2C4               (0x1 << 17)
-> -#define SCU_FUC_PIN_I2C3               (0x1 << 16)
-> -#define SCU_FUC_PIN_MII2_RX_DWN_DIS    (0x1 << 15)
-> -#define SCU_FUC_PIN_MII2_TX_DWN_DIS    (0x1 << 14)
-> -#define SCU_FUC_PIN_MII1_RX_DWN_DIS    (0x1 << 13)
-> -#define SCU_FUC_PIN_MII1_TX_DWN_DIS    (0x1 << 12)
-> -
-> -#define SCU_FUC_PIN_MII2_TX_DRIV(x)    (x << 10)
-> -#define SCU_FUC_PIN_MII2_TX_DRIV_MASK  (0x3 << 10)
-> -#define SCU_FUC_PIN_MII1_TX_DRIV(x)    (x << 8)
-> -#define SCU_FUC_PIN_MII1_TX_DRIV_MASK  (0x3 << 8)
-> +#define SCU_FUN_PIN_USB20_HOST         (0x1 << 29)
-> +#define SCU_FUN_PIN_USB11_PORT4                (0x1 << 28)
-> +#define SCU_FUN_PIN_I2C14              (0x1 << 27)
-> +#define SCU_FUN_PIN_I2C13              (0x1 << 26)
-> +#define SCU_FUN_PIN_I2C12              (0x1 << 25)
-> +#define SCU_FUN_PIN_I2C11              (0x1 << 24)
-> +#define SCU_FUN_PIN_I2C10              (0x1 << 23)
-> +#define SCU_FUN_PIN_I2C9               (0x1 << 22)
-> +#define SCU_FUN_PIN_I2C8               (0x1 << 21)
-> +#define SCU_FUN_PIN_I2C7               (0x1 << 20)
-> +#define SCU_FUN_PIN_I2C6               (0x1 << 19)
-> +#define SCU_FUN_PIN_I2C5               (0x1 << 18)
-> +#define SCU_FUN_PIN_I2C4               (0x1 << 17)
-> +#define SCU_FUN_PIN_I2C3               (0x1 << 16)
-> +#define SCU_FUN_PIN_I2C(n)             (0x1 << (16 + (n) - 3))
-> +#define SCU_FUN_PIN_MII2_RX_DWN_DIS    (0x1 << 15)
-> +#define SCU_FUN_PIN_MII2_TX_DWN_DIS    (0x1 << 14)
-> +#define SCU_FUN_PIN_MII1_RX_DWN_DIS    (0x1 << 13)
-> +#define SCU_FUN_PIN_MII1_TX_DWN_DIS    (0x1 << 12)
-> +
-> +#define SCU_FUN_PIN_MII2_TX_DRIV(x)    (x << 10)
-> +#define SCU_FUN_PIN_MII2_TX_DRIV_MASK  (0x3 << 10)
-> +#define SCU_FUN_PIN_MII1_TX_DRIV(x)    (x << 8)
-> +#define SCU_FUN_PIN_MII1_TX_DRIV_MASK  (0x3 << 8)
->
->  #define MII_NORMAL_DRIV                        0x0
->  #define MII_HIGH_DRIV                  0x2
->
-> -#define SCU_FUC_PIN_UART6              (0x1 << 7)
-> -#define SCU_FUC_PIN_ROM_16BIT          (0x1 << 6)
-> -#define SCU_FUC_PIN_DIGI_V_OUT(x)      (x)
-> -#define SCU_FUC_PIN_DIGI_V_OUT_MASK    (0x3)
-> +#define SCU_FUN_PIN_UART6              (0x1 << 7)
-> +#define SCU_FUN_PIN_ROM_16BIT          (0x1 << 6)
-> +#define SCU_FUN_PIN_DIGI_V_OUT(x)      (x)
-> +#define SCU_FUN_PIN_DIGI_V_OUT_MASK    (0x3)
->
->  #define VIDEO_DISABLE                  0x0
->  #define VIDEO_12BITS                   0x1
->  #define VIDEO_24BITS                   0x2
->  //#define VIDEO_DISABLE                        0x3
->
-> -#define SCU_FUC_PIN_USB11_PORT2                (0x1 << 3)
-> -#define SCU_FUC_PIN_SD1_8BIT           (0x1 << 3)
-> +#define SCU_FUN_PIN_USB11_PORT2                (0x1 << 3)
-> +#define SCU_FUN_PIN_SD1_8BIT           (0x1 << 3)
->
-> -#define SCU_FUC_PIN_MAC1_MDIO          (0x1 << 2)
-> -#define SCU_FUC_PIN_SD2                        (0x1 << 1)
-> -#define SCU_FUC_PIN_SD1                        (0x1 << 0)
-> +#define SCU_FUN_PIN_MAC1_MDIO          (0x1 << 2)
-> +#define SCU_FUN_PIN_SD2                        (0x1 << 1)
-> +#define SCU_FUN_PIN_SD1                        (0x1 << 0)
->
->
->  /* AST_SCU_FUN_PIN_CTRL6               0x94 - Multi-function Pin
-> Control#6*/
-> diff --git a/arch/arm/mach-aspeed/ast-scu.c b/arch/arm/mach-aspeed/ast-
-> scu.c
-> index 0cc0d67..280c421 100644
-> --- a/arch/arm/mach-aspeed/ast-scu.c
-> +++ b/arch/arm/mach-aspeed/ast-scu.c
-> @@ -394,7 +394,7 @@ void ast_scu_multi_func_eth(u8 num)
->                               AST_SCU_FUN_PIN_CTRL1);
->
->                 ast_scu_write(ast_scu_read(AST_SCU_FUN_PIN_CTRL5) |
-> -                             SCU_FUC_PIN_MAC1_MDIO,
-> +                             SCU_FUN_PIN_MAC1_MDIO,
->                               AST_SCU_FUN_PIN_CTRL5);
->
->                 break;
-> --
-> 2.8.0.rc3.226.g39d4020
->
->
-
-
+diff --git a/drivers/Kconfig b/drivers/Kconfig
+index e1e2066..117ca14c 100644
+--- a/drivers/Kconfig
++++ b/drivers/Kconfig
+@@ -202,4 +202,6 @@ source "drivers/hwtracing/intel_th/Kconfig"
+ 
+ source "drivers/fpga/Kconfig"
+ 
++source "drivers/fsi/Kconfig"
++
+ endmenu
+diff --git a/drivers/Makefile b/drivers/Makefile
+index 0b6f3d6..7a1c96f 100644
+--- a/drivers/Makefile
++++ b/drivers/Makefile
+@@ -173,3 +173,4 @@ obj-$(CONFIG_STM)		+= hwtracing/stm/
+ obj-$(CONFIG_ANDROID)		+= android/
+ obj-$(CONFIG_NVMEM)		+= nvmem/
+ obj-$(CONFIG_FPGA)		+= fpga/
++obj-$(CONFIG_FSI)		+= fsi/
+diff --git a/drivers/fsi/Kconfig b/drivers/fsi/Kconfig
+new file mode 100644
+index 0000000..04c1a0e
+--- /dev/null
++++ b/drivers/fsi/Kconfig
+@@ -0,0 +1,12 @@
++#
++# FSI subsystem
++#
++
++menu "FSI support"
++
++config FSI
++	tristate "FSI support"
++	---help---
++	  FSI - the FRU Support Interface - is a simple bus for low-level
++	  access to POWER-based hardware.
++endmenu
+diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
+new file mode 100644
+index 0000000..db0e5e7
+--- /dev/null
++++ b/drivers/fsi/Makefile
+@@ -0,0 +1,2 @@
++
++obj-$(CONFIG_FSI) += fsi-core.o
+diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
+new file mode 100644
+index 0000000..3e45306
+--- /dev/null
++++ b/drivers/fsi/fsi-core.c
+@@ -0,0 +1,38 @@
++/*
++ * FSI core driver
++ *
++ * Copyright (C) IBM Corporation 2016
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ */
++
++#include <linux/device.h>
++#include <linux/fsi.h>
++#include <linux/module.h>
++
++/* FSI core & Linux bus type definitions */
++
++struct bus_type fsi_bus_type = {
++	.name		= "fsi",
++};
++EXPORT_SYMBOL_GPL(fsi_bus_type);
++
++static int fsi_init(void)
++{
++	return bus_register(&fsi_bus_type);
++}
++
++static void fsi_exit(void)
++{
++	bus_unregister(&fsi_bus_type);
++}
++
++module_init(fsi_init);
++module_exit(fsi_exit);
+diff --git a/include/linux/fsi.h b/include/linux/fsi.h
+new file mode 100644
+index 0000000..8e8bdea
+--- /dev/null
++++ b/include/linux/fsi.h
+@@ -0,0 +1,23 @@
++/*
++ * FSI device & driver interfaces
++ *
++ * Copyright (C) IBM Corporation 2016
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ */
++
++#ifndef LINUX_FSI_H
++#define LINUX_FSI_H
++
++#include <linux/device.h>
++
++extern struct bus_type fsi_bus_type;
++
++#endif /* LINUX_FSI_H */
 -- 
-*M*axim *S*loyko
-
---94eb2c0bd254f59ce6053e2081a8
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Ping</div><div class=3D"gmail_extra"><br><div class=3D"gma=
-il_quote">On Thu, Sep 29, 2016 at 2:27 PM,  <span dir=3D"ltr">&lt;<a href=
-=3D"mailto:maxims@google.com" target=3D"_blank">maxims@google.com</a>&gt;</=
-span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8e=
-x;border-left:1px #ccc solid;padding-left:1ex">From: Maxim Sloyko &lt;<a hr=
-ef=3D"mailto:maxims@google.com">maxims@google.com</a>&gt;<br>
-<br>
-Fixed FUC -&gt; FUN typo in SCU.<br>
----<br>
-=C2=A0arch/arm/include/asm/arch-<wbr>aspeed/regs-scu.h | 65 +++++++++++++++=
---------------<br>
-=C2=A0arch/arm/mach-aspeed/ast-scu.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 |=C2=A0 2 +-<br>
-=C2=A02 files changed, 34 insertions(+), 33 deletions(-)<br>
-<br>
-diff --git a/arch/arm/include/asm/arch-<wbr>aspeed/regs-scu.h b/arch/arm/in=
-clude/asm/arch-<wbr>aspeed/regs-scu.h<br>
-index b714fa9..aab032a 100644<br>
---- a/arch/arm/include/asm/arch-<wbr>aspeed/regs-scu.h<br>
-+++ b/arch/arm/include/asm/arch-<wbr>aspeed/regs-scu.h<br>
-@@ -830,49 +830,50 @@<br>
-=C2=A0/* AST_SCU_FUN_PIN_CTRL5=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A00x90 - Multi-function Pin Control#5 */<br>
-=C2=A0#define SCU_FUN_PIN_SPICS1=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; 31)<br>
-=C2=A0#define SCU_FUN_PIN_LPC_PLUS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
-(0x1 &lt;&lt; 30)<br>
--#define SCU_FUC_PIN_USB20_HOST=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(0x1 &lt;&=
-lt; 29)<br>
--#define SCU_FUC_PIN_USB11_PORT4=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 (0x1 &lt;&lt; 28)<br>
--#define SCU_FUC_PIN_I2C14=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-(0x1 &lt;&lt; 27)<br>
--#define SCU_FUC_PIN_I2C13=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-(0x1 &lt;&lt; 26)<br>
--#define SCU_FUC_PIN_I2C12=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-(0x1 &lt;&lt; 25)<br>
--#define SCU_FUC_PIN_I2C11=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-(0x1 &lt;&lt; 24)<br>
--#define SCU_FUC_PIN_I2C10=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-(0x1 &lt;&lt; 23)<br>
--#define SCU_FUC_PIN_I2C9=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; 22)<br>
--#define SCU_FUC_PIN_I2C8=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; 21)<br>
--#define SCU_FUC_PIN_I2C7=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; 20)<br>
--#define SCU_FUC_PIN_I2C6=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; 19)<br>
--#define SCU_FUC_PIN_I2C5=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; 18)<br>
--#define SCU_FUC_PIN_I2C4=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; 17)<br>
--#define SCU_FUC_PIN_I2C3=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; 16)<br>
--#define SCU_FUC_PIN_MII2_RX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 15)<br>
--#define SCU_FUC_PIN_MII2_TX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 14)<br>
--#define SCU_FUC_PIN_MII1_RX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 13)<br>
--#define SCU_FUC_PIN_MII1_TX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 12)<br>
--<br>
--#define SCU_FUC_PIN_MII2_TX_DRIV(x)=C2=A0 =C2=A0 (x &lt;&lt; 10)<br>
--#define SCU_FUC_PIN_MII2_TX_DRIV_MASK=C2=A0 (0x3 &lt;&lt; 10)<br>
--#define SCU_FUC_PIN_MII1_TX_DRIV(x)=C2=A0 =C2=A0 (x &lt;&lt; 8)<br>
--#define SCU_FUC_PIN_MII1_TX_DRIV_MASK=C2=A0 (0x3 &lt;&lt; 8)<br>
-+#define SCU_FUN_PIN_USB20_HOST=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(0x1 &lt;&=
-lt; 29)<br>
-+#define SCU_FUN_PIN_USB11_PORT4=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 (0x1 &lt;&lt; 28)<br>
-+#define SCU_FUN_PIN_I2C14=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-(0x1 &lt;&lt; 27)<br>
-+#define SCU_FUN_PIN_I2C13=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-(0x1 &lt;&lt; 26)<br>
-+#define SCU_FUN_PIN_I2C12=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-(0x1 &lt;&lt; 25)<br>
-+#define SCU_FUN_PIN_I2C11=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-(0x1 &lt;&lt; 24)<br>
-+#define SCU_FUN_PIN_I2C10=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-(0x1 &lt;&lt; 23)<br>
-+#define SCU_FUN_PIN_I2C9=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; 22)<br>
-+#define SCU_FUN_PIN_I2C8=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; 21)<br>
-+#define SCU_FUN_PIN_I2C7=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; 20)<br>
-+#define SCU_FUN_PIN_I2C6=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; 19)<br>
-+#define SCU_FUN_PIN_I2C5=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; 18)<br>
-+#define SCU_FUN_PIN_I2C4=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; 17)<br>
-+#define SCU_FUN_PIN_I2C3=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0(0x1 &lt;&lt; 16)<br>
-+#define SCU_FUN_PIN_I2C(n)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
-(0x1 &lt;&lt; (16 + (n) - 3))<br>
-+#define SCU_FUN_PIN_MII2_RX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 15)<br>
-+#define SCU_FUN_PIN_MII2_TX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 14)<br>
-+#define SCU_FUN_PIN_MII1_RX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 13)<br>
-+#define SCU_FUN_PIN_MII1_TX_DWN_DIS=C2=A0 =C2=A0 (0x1 &lt;&lt; 12)<br>
-+<br>
-+#define SCU_FUN_PIN_MII2_TX_DRIV(x)=C2=A0 =C2=A0 (x &lt;&lt; 10)<br>
-+#define SCU_FUN_PIN_MII2_TX_DRIV_MASK=C2=A0 (0x3 &lt;&lt; 10)<br>
-+#define SCU_FUN_PIN_MII1_TX_DRIV(x)=C2=A0 =C2=A0 (x &lt;&lt; 8)<br>
-+#define SCU_FUN_PIN_MII1_TX_DRIV_MASK=C2=A0 (0x3 &lt;&lt; 8)<br>
-<br>
-=C2=A0#define MII_NORMAL_DRIV=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 0x0<br>
-=C2=A0#define MII_HIGH_DRIV=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 0x2<br>
-<br>
--#define SCU_FUC_PIN_UART6=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-(0x1 &lt;&lt; 7)<br>
--#define SCU_FUC_PIN_ROM_16BIT=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (0x1 &lt;&=
-lt; 6)<br>
--#define SCU_FUC_PIN_DIGI_V_OUT(x)=C2=A0 =C2=A0 =C2=A0 (x)<br>
--#define SCU_FUC_PIN_DIGI_V_OUT_MASK=C2=A0 =C2=A0 (0x3)<br>
-+#define SCU_FUN_PIN_UART6=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-(0x1 &lt;&lt; 7)<br>
-+#define SCU_FUN_PIN_ROM_16BIT=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (0x1 &lt;&=
-lt; 6)<br>
-+#define SCU_FUN_PIN_DIGI_V_OUT(x)=C2=A0 =C2=A0 =C2=A0 (x)<br>
-+#define SCU_FUN_PIN_DIGI_V_OUT_MASK=C2=A0 =C2=A0 (0x3)<br>
-<br>
-=C2=A0#define VIDEO_DISABLE=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 0x0<br>
-=C2=A0#define VIDEO_12BITS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A00x1<br>
-=C2=A0#define VIDEO_24BITS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A00x2<br>
-=C2=A0//#define VIDEO_DISABLE=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 0x3<br>
-<br>
--#define SCU_FUC_PIN_USB11_PORT2=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 (0x1 &lt;&lt; 3)<br>
--#define SCU_FUC_PIN_SD1_8BIT=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(0x1 =
-&lt;&lt; 3)<br>
-+#define SCU_FUN_PIN_USB11_PORT2=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 (0x1 &lt;&lt; 3)<br>
-+#define SCU_FUN_PIN_SD1_8BIT=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(0x1 =
-&lt;&lt; 3)<br>
-<br>
--#define SCU_FUC_PIN_MAC1_MDIO=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (0x1 &lt;&=
-lt; 2)<br>
--#define SCU_FUC_PIN_SD2=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (0x1 &lt;&lt; 1)<br>
--#define SCU_FUC_PIN_SD1=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (0x1 &lt;&lt; 0)<br>
-+#define SCU_FUN_PIN_MAC1_MDIO=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (0x1 &lt;&=
-lt; 2)<br>
-+#define SCU_FUN_PIN_SD2=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (0x1 &lt;&lt; 1)<br>
-+#define SCU_FUN_PIN_SD1=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (0x1 &lt;&lt; 0)<br>
-<br>
-<br>
-=C2=A0/* AST_SCU_FUN_PIN_CTRL6=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A00x94 - Multi-function Pin Control#6*/<br>
-diff --git a/arch/arm/mach-aspeed/ast-<wbr>scu.c b/arch/arm/mach-aspeed/ast=
--<wbr>scu.c<br>
-index 0cc0d67..280c421 100644<br>
---- a/arch/arm/mach-aspeed/ast-<wbr>scu.c<br>
-+++ b/arch/arm/mach-aspeed/ast-<wbr>scu.c<br>
-@@ -394,7 +394,7 @@ void ast_scu_multi_func_eth(u8 num)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AST_SCU_FUN_PIN_CTRL1);<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ast_scu_write(ast_s=
-cu_read(<wbr>AST_SCU_FUN_PIN_CTRL5) |<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SCU_FUC_PIN_MAC1_MDIO,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SCU_FUN_PIN_MAC1_MDIO,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 AST_SCU_FUN_PIN_CTRL5);<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 break;<br>
-<span class=3D"HOEnZb"><font color=3D"#888888">--<br>
-2.8.0.rc3.226.g39d4020<br>
-<br>
-</font></span></blockquote></div><br><br clear=3D"all"><div><br></div>-- <b=
-r><div class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div><b=
->M</b>axim <b>S</b>loyko</div></div>
-</div>
-
---94eb2c0bd254f59ce6053e2081a8--
+1.8.2.2
