@@ -1,56 +1,54 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-vk0-x243.google.com (mail-vk0-x243.google.com
- [IPv6:2607:f8b0:400c:c05::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3spfwS6t7czDqQq
- for <openbmc@lists.ozlabs.org>; Wed,  5 Oct 2016 13:33:28 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=ycJnRCAv; 
- dkim-atps=neutral
-Received: by mail-vk0-x243.google.com with SMTP id b186so3000929vkb.3
- for <openbmc@lists.ozlabs.org>; Tue, 04 Oct 2016 19:33:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=uf8bSkdBMFzz6VJl89nog6ih5dZ8+A9VsbutPJ2JsAw=;
- b=ycJnRCAv0YepLZn8njUfjzcISHnpFxb9LrFnUHRVJ6l/mwrSFrpG3yctnJRwBKwRYF
- aynTnBc+fpKiRgftsgVusyA7tbbzQbyxKGwWaxzaAeDFtWNFtztW4X7dupGYXYlw+Jk9
- lLCTqIkvj9+PtlhYZBs7dzGL8QV7kbJfEf76rJLb4msvtmFd7gQjed3b2cRQ1JT+mqBc
- 35VGN3R89oJ6lIfDpB2zrBCWuPH6rMogjHq5eu0ZtZ/VAiymJxSdTgP3gFAM6qCeN9oq
- jBx64+SB/Nf7MXRZb+XBFPFikzIv2u1gxql3j/1Po+YiQnNixlEk7ptZ2y662SVvXWzE
- pVrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=uf8bSkdBMFzz6VJl89nog6ih5dZ8+A9VsbutPJ2JsAw=;
- b=RMtiEi8elSnKNXhmgCHKXmzcsNCb7/BQv2/lzT17A2REIXJrhkME/66BniKZZw4/HQ
- jJwcThV3t/INCIQ7BUbn2RfpzVTiKJiCiCkNdGqEacUxaIjvkAulp8xizOjinVbLH1y/
- nHUqtUQR/6rWP5nbtu/3J6X6OPJJLhOPVD0mX9860r/GBjumJi4uj51e28VMbNoYVOfY
- tQaum0F1cSdeCMSgVdRzE1aYlIfvXiXappItZ38UQTKH22Ijgg5zYiOtI2jdTCjwRqMq
- 0HgYW1g8TEarslUPUedl/CoEy1OaDwRFidfa1t8MCgHKNzh9Lp3a7/DF3+caSuY8Z6rR
- p/VQ==
-X-Gm-Message-State: AA6/9RkDgss1Ndhyy5fdKq9QIbfMcvNiyx1Thr6p0fV5wKh5BDmOCoqv7oY3JuSoxp/a4E4dKpQlUnaVZxJ3+A==
-X-Received: by 10.31.4.195 with SMTP id 186mr4897625vke.82.1475634806765; Tue,
- 04 Oct 2016 19:33:26 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.176.7.8 with HTTP; Tue, 4 Oct 2016 19:33:06 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3spglb45VczDrKS
+ for <openbmc@lists.ozlabs.org>; Wed,  5 Oct 2016 14:10:51 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=H3ZWnumM; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b=hcVm2ns3; dkim-atps=neutral
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id 23CED2013E;
+ Tue,  4 Oct 2016 23:10:48 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute7.internal (MEProxy); Tue, 04 Oct 2016 23:10:48 -0400
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=uiCiM
+ eB+5FZs+lM9rfyvRZSJoSo=; b=H3ZWnumMFksaOpxqAkmHw0syYIQiKr4p4Ke/e
+ yjqvBZpcXZssjZm3LiV1LvDNa/HE0ECGfcwbSi04bWqZG1SMyUEE32mrNuC7h32l
+ t2QGhPZDdm5i4gHHoQJlYsivslFWRCAaNJMb78x8EETiUa0WiiTVUAla+xQ2kGwM
+ Y0KUsA=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-sasl-enc
+ :x-sasl-enc; s=smtpout; bh=uiCiMeB+5FZs+lM9rfyvRZSJoSo=; b=hcVm2
+ ns3Nu7W2AkrU1cl132BqOL2goIC2zg0oG3e81REIK9l9bSV0CaRDry27rmLpcNlc
+ keN0mL+hBZPFJ4TW/YyPLHx/F+C4j2LwEmHvIvmePJgm6dzFDUgTq6+ewJgcEJUR
+ +FhijD1gcdjhIV7Ig8j/SxjlmUBaug8iGs4z5Q=
+X-Sasl-enc: VESXSfHx3Mn8N8cQMRXeH4x7Lj6jaZxw0dUKpAEFoqNT 1475637047
+Received: from keelia (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 4202CCC089;
+ Tue,  4 Oct 2016 23:10:45 -0400 (EDT)
+Message-ID: <1475637038.5030.20.camel@aj.id.au>
+Subject: Re: [PATCH] aspeed/g5,g4: I2C driver.
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Maxim Sloyko <maxims@google.com>, =?ISO-8859-1?Q?C=E9dric?= Le Goater
+ <clg@kaod.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Wed, 05 Oct 2016 13:40:38 +1030
 In-Reply-To: <CAFR_W8rhiDOkP9RmhgybTMy7X6TUytYqWhU_MUeh3nmj=an0Lg@mail.gmail.com>
 References: <1474998214-12720-3-git-send-email-maxims@google.com>
  <1475527322-95220-1-git-send-email-maxims@google.com>
  <915d2b6a-6275-0053-836b-713de89200f2@kaod.org>
  <CAFR_W8rhiDOkP9RmhgybTMy7X6TUytYqWhU_MUeh3nmj=an0Lg@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 5 Oct 2016 13:03:06 +1030
-X-Google-Sender-Auth: 36KiZUAm5Sm8wBlQUlrW3cASP4c
-Message-ID: <CACPK8XcOTVAGfzPtoaFhd=7qWS7F1VmCdma83dfcL7uPuuUUQw@mail.gmail.com>
-Subject: Re: [PATCH] aspeed/g5,g4: I2C driver.
-To: Maxim Sloyko <maxims@google.com>
-Cc: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-DaD+TzQgZZNQltYPX2v7"
+X-Mailer: Evolution 3.18.5.2-0ubuntu3 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,59 +60,72 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Oct 2016 02:33:29 -0000
+X-List-Received-Date: Wed, 05 Oct 2016 03:10:52 -0000
 
-On Wed, Oct 5, 2016 at 10:45 AM, Maxim Sloyko <maxims@google.com> wrote:
->> On 10/03/2016 10:42 PM, maxims@google.com wrote:
->> > From: Maxim Sloyko <maxims@google.com>
->> >
->> > The driver is very limited: only single master mode is supported
->> > and only byte-by-byte synchronous reads and writes are supported,
->> > no Pool Buffers or DMA.
->>
->> I don't think this is a problem for the moment.
->>
->> You should add your SoB here :
->
->
+
+--=-DaD+TzQgZZNQltYPX2v7
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Maxim,
+
+On Tue, 2016-10-04 at 17:15 -0700, Maxim Sloyko wrote:
+> Hi Cedric,
+>=20
+>=20
+> On Tue, Oct 4, 2016 at 1:59 PM, C=C3=A9dric Le Goater <clg@kaod.org>
+> wrote:
+> > Hello Maxim,
+> >=20
+> > On 10/03/2016 10:42 PM, maxims@google.com wrote:
+> > > From: Maxim Sloyko <maxims@google.com>
+> > >
+> > > The driver is very limited: only single master mode is supported
+> > > and only byte-by-byte synchronous reads and writes are supported,
+> > > no Pool Buffers or DMA.
+> >=20
+> > I don't think this is a problem for the moment.
+> >=20
+> > You should add your SoB here :
 > What is SoB?
 
-Signed-off-by. You can read more about it here:
+I expect C=C3=A9dric means "Signed-off-by" in this case. U-boot requires it
+per:
 
-  http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/SubmittingPatches#n420
+http://www.denx.de/wiki/U-Boot/Patches#Attributing_Code_Copyrights_Sign
 
-I recommend having a read of the SubmittingPatches as well as
-http://www.denx.de/wiki/U-Boot/Patches. While every rule has it's
-exception, it's good background for what is expected.
+Also see the kernel's documentation on the tag for an explanation of
+what it's about:
 
-http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/SubmittingPatches
-http://www.denx.de/wiki/U-Boot/Patches
-http://www.denx.de/wiki/U-Boot/CodingStyle
+https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Docume=
+ntation/SubmittingPatches#n420
 
->> > +
->> > +static int ast_i2c_probe(struct udevice *dev)
->> > +{
->> > +     struct ast_i2c *i2c_bus = dev_get_priv(dev);
->> > +
->> > +     debug("Enabling I2C%u \n", dev->seq);
->> > +     ast_scu_enable_i2c(dev->seq);
->>
->>
->> I don't see that routine in the u-boot openbmc uses. Which version
->> are you on ?
->
->
-> It's in another patch that is also under review. SCU helper functions or
-> something like that.
-
-You can make it clear by sending these patches as part of a series.
-Make them sequential commits in your local git branch, and then use
-git-format-patch to create a sequence of patches.
-
-Your sequence should be bisectable, that is, at each point in history
-the tree should build (and hopefully boot). You can check this by
-using git rebase interactive's executable flag.
+A number of projects (e.g. u-boot) have adopted the same idea.
 
 Cheers,
 
-Joel
+Andrew
+--=-DaD+TzQgZZNQltYPX2v7
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAABCgAGBQJX9G8uAAoJEJ0dnzgO5LT5iS0P/1pj1B/I9Atprcba5F4WuDQ+
+SCzAfa5QtnsViAvitbshMJ1PagRruW0ep+llpbk2b4Zy40POBuwRZX+kqZ1uTvVG
+T6CgmwcaSvueBr1teGyUpUNz8OZFiyeIKbg9tCkZr70I5vxWPXoiUv7xkxE5TLJl
++5XVQLlgqaPIumPayYdvrHq+Z9mqR5OxVda9gJCupcjoPT8vmZsPLl9Hcd6B0ejT
+rAQBTAnjrUCqaw54twiiXJvOirjYVnZNxFtfOPQb5ed+diVjEjluatX2VMauXCMA
++0opJHuum2RATgkoaFx9eZ3HDbziUOXbnid5VgMRAFKhGBGxjiijo994rJh/+BTP
+8ezYHsA/4t+384eh6DDbk+cLvsjdLfKzM3vlFfCOqUhcKtiuY/bl2KEwbsd6iI7a
+91xT3vRCx03sim+1+8oF3I/tORRGbgX1aBOJI9ZIhjkJaFEXrCNMIakBPf7kIcEe
+KWj0AngSDEvzN2wAEbUJQdVcQLJZIu2mNV4RexB1hbgOMmZizaW3QlZ3tdLFNrBR
+mgmh0fCuXU/D0ivPikVKyTNhFunBJTDaTYFiFvMZxGMkXpAL+Mv/M5CYzcjRQ/O+
+I5vGJwurmop1dU1lUu/DDRdMG7Tp2p9tuhgFmDr5DLcArNCnsSNrmeFxlA2OOm98
+oAg95K8uBGR/W6zIav3u
+=p6Y5
+-----END PGP SIGNATURE-----
+
+--=-DaD+TzQgZZNQltYPX2v7--
