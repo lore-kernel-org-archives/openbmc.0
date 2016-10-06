@@ -1,52 +1,70 @@
-Return-Path: <christopher.lee.bostic@gmail.com>
-Received: from mail-oi0-x244.google.com (mail-oi0-x244.google.com
- [IPv6:2607:f8b0:4003:c06::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <mspinler@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sqhYs4vrkzDrSF
- for <openbmc@lists.ozlabs.org>; Fri,  7 Oct 2016 05:50:57 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=l5n7MUj4; 
- dkim-atps=neutral
-Received: by mail-oi0-x244.google.com with SMTP id i127so171829oia.0
- for <openbmc@lists.ozlabs.org>; Thu, 06 Oct 2016 11:50:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=zN6QJtUGy1MFPc8a/UeCd5+1cIvu3NZp/xzKjdPiVAg=;
- b=l5n7MUj4+9LEA9z1T/VfcJxFtk46dhzO14gTw4xVYTPbg/hvJyorvKq95ojY+XVCKm
- 6bsi+bFonTN79AyJrW+xanjf+wMhyV4otqhTGCJTgdKLYIpZieLU468t4fU9SCJJjdCo
- 24gs4u5rEOsHnlmueA1BhQYtmV2x4CbEGDE0zPtCq2pCXRz1MrwwCFhumVqpE2XAAmTM
- QkvDPzqNK8W9DwfqvleexO7swn2XJKR1d/f9FjH+OhoEYiQBHIiGRtkBzQ/Cm/eOW1GI
- ROOStLjeCFu19dXbvAjrrj+74LnPD4VfdIw+g9WVECDZyWEY5D5uUUp+RyAB56FC/MAE
- /HTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=zN6QJtUGy1MFPc8a/UeCd5+1cIvu3NZp/xzKjdPiVAg=;
- b=XCYAasRP6nkilZX5Eq4jTTQuJWhnKysIGAGyvdODiT/JKj4BO0S0qHvdVTN14MkuLu
- zaENr9fhsiY/kRWa09BB1w60+OdDdiSQ36LQ04Wpqhuh7ulki+pGTFrFO5LIJuGcvVq6
- SN6yYKj7FY13F0HFcf8ilmqz7n1/LhqWaoq3SS5ytq/cbZYuIKr/a5qGFm1mPLJT3veE
- 1BdaX8PO7olHQ/1/o5hJ/Af/X8KyDXiZkNFzq4W0TCTAypsRxWV2TmeAPFUV5YoFG9qQ
- IAKhVtH9AMOLWAXhdZRkmv+clzfach31N5kMMGmpMA5an1o0dhtUQXH6lcsgQ09e/COP
- JE6A==
-X-Gm-Message-State: AA6/9RnI/8J8SfvSmD25Ie4Wu83F0tp3LPAsidjWuoyyEQ7HrAOZDAMZaracJaB9B8NmKg9gp9E1KkeFUo3vIw==
-X-Received: by 10.157.35.247 with SMTP id t110mr10508960otb.134.1475779855937; 
- Thu, 06 Oct 2016 11:50:55 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sqkPp6JrQzDrSF
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Oct 2016 07:14:06 +1100 (AEDT)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
+ u96K8pp1125595
+ for <openbmc@lists.ozlabs.org>; Thu, 6 Oct 2016 16:14:04 -0400
+Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 25wu5g72gq-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 06 Oct 2016 16:14:04 -0400
+Received: from localhost
+ by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
+ Thu, 6 Oct 2016 16:14:03 -0400
+Received: from d01dlp01.pok.ibm.com (9.56.250.166)
+ by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Thu, 6 Oct 2016 16:14:01 -0400
+Received: from b01cxnp22033.gho.pok.ibm.com (b01cxnp22033.gho.pok.ibm.com
+ [9.57.198.23])
+ by d01dlp01.pok.ibm.com (Postfix) with ESMTP id 03DFE38C8046
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Oct 2016 16:14:01 -0400 (EDT)
+Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
+ [9.57.199.107])
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u96KE1x812124580
+ for <openbmc@lists.ozlabs.org>; Thu, 6 Oct 2016 20:14:01 GMT
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 0BB2D12404C
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Oct 2016 16:14:01 -0400 (EDT)
+Received: from [9.10.223.205] (unknown [9.10.223.205])
+ by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP id DF3E612403D
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Oct 2016 16:14:00 -0400 (EDT)
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: Matt Spinler <mspinler@linux.vnet.ibm.com>
+Subject: I2C device driver names
+Date: Thu, 6 Oct 2016 15:14:16 -0500
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
+ Thunderbird/45.3.0
 MIME-Version: 1.0
-Received: by 10.202.220.132 with HTTP; Thu, 6 Oct 2016 11:50:55 -0700 (PDT)
-In-Reply-To: <6e8e9ea9-b728-8deb-8859-73904682b7cd@ozlabs.org>
-References: <1475700868-75737-1-git-send-email-christopher.lee.bostic@gmail.com>
- <1475700868-75737-15-git-send-email-christopher.lee.bostic@gmail.com>
- <6e8e9ea9-b728-8deb-8859-73904682b7cd@ozlabs.org>
-From: Christopher Bostic <christopher.lee.bostic@gmail.com>
-Date: Thu, 6 Oct 2016 13:50:55 -0500
-Message-ID: <CAA0LjjXW-h4UXA2OAEVx=5w38z+n_4NmAQQQLP1qj+VuSUt_fA@mail.gmail.com>
-Subject: Re: [PATCH linux 14/15] drivers/fsi: Rename slave to cfam
-To: Jeremy Kerr <jk@ozlabs.org>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, xxpetri@de.ibm.com,
- zahrens@us.ibm.com
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16100620-0044-0000-0000-00000164CBDE
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00005864; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000186; SDB=6.00765167; UDB=6.00365582; IPR=6.00541020; 
+ BA=6.00004791; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00012897; XFM=3.00000011;
+ UTC=2016-10-06 20:14:02
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 16100620-0045-0000-0000-00000591D761
+Message-Id: <b659d152-5481-193e-ce1b-520d3de7d2ba@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-10-06_08:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1609300000
+ definitions=main-1610060351
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,72 +76,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Oct 2016 18:50:58 -0000
+X-List-Received-Date: Thu, 06 Oct 2016 20:14:07 -0000
 
-On Thu, Oct 6, 2016 at 1:58 AM, Jeremy Kerr <jk@ozlabs.org> wrote:
-> Hi Chris,
->
->> Suggested changes to the patch set so far as provided by Jeremy Kerr.
->> Rename slave to cfam to distinguish between the slave engine and its
->> containing cfam.
->
-> I'm still not 100% on that. As is my understanding, a (hardware) CFAM
-> contains multiple slaves, and that not what `struct fsi_slave`
-> represents (it's a single slave).
+Hi,
 
-One other thing that would make a cfam struct that is separate from the
-slave engine useful is the fact that there are several different hardware
-quirks for which the only way for firmware to know what to do is to check
-the cfam type.
+As part of my work to generate a device tree from the machine readable 
+workbook XML, I need to create I2C device entries, which have the 
+compatible properties that need to be filled in.
 
-P8, P9, zNEW cfam types
+The following parts are present in the system I'm trying to build, with 
+firmware requirements to access them.  I took a stab at the names.  
+Could someone doublecheck them and maybe comment on if a driver is 
+missing, or maybe if some upcoming work is known that will include it?  
+I didn't have much luck finding a lot of these in the 
+Documentation/devicetree/bindings directories.
 
-* Controlling master's MATRB bit encoding is different versus other cfams.
-This is not a function of the master type, only cfam type.
+PMBus Power supplies:   ?
 
-   I'd propose something like:
+MAX31785 fan controller:  max,max31785
 
+BMP280:  bosch,bmp280
 
+TMP4523A temp sensor:  ti,tmp423
 
-   uint32_t cfam->decode_matrb(master->matrb)   possibly.
+TMP275 temp sensor: ti,tmp275
 
-* Any master that has cascaded masters downstream must set its
-MSIEP registers differently than if there was no cascaded master.
-This is to work around a known hardware bug in interrupt signaling.
-The only way to determine this is to see if downstream cfam is a type
-that has a cascaded master.  Again independent of a controlling
-master's type.
+pca9552 IO expander:  nxp,pca9552
 
-   bool cfam->has_cascaded_master(master->cfam);
+UCD90160 power sequencer: ti,ucd90160
 
-Several cfam engine device drivers have to work around known
-hardware bugs on specific hardware.  There are cases where
-the same hardware engine (id and version same) behaves differently
-on two different cfam types:
+RX8900CE RTC:  epson,rx8900ce
 
-* IOU mailbox engine has same engine id, version number but
-has different behavior on a CFAM-S type versus an IOU type.
-This would require some form of fsi client query of cfam type
-or initialization of some op.
+24c64 EEPROM:  atmel,24c64
 
-* The P9 iic boe engine did not have its version ID incremented
-from P8 even though there are differences in the command
-register set.  There is no way for the iic driver to know which
-engine its on unless it knows the cfam type.
+There are also a handful of regulators, but so far I haven't heard of 
+any requirements to access them.
 
-The IMD iic engine with the same engine ID and version will
-have differences in iic clocks due to differences in cfam
-type.  The iic bus clock is derived from the parent fsi master
-clock which is divided down differently on different cfam types.
-In order for iic driver to know what frequency its buses are
-operating at has to know the cfam type.
-
-
-
-
-
-
-
->
->
-> Jeremy
+Thanks.
