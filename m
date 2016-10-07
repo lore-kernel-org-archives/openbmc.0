@@ -1,54 +1,74 @@
-Return-Path: <christopher.lee.bostic@gmail.com>
-Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
- [IPv6:2607:f8b0:4003:c06::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <mspinler@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3srJ7q3b4HzDrVW
- for <openbmc@lists.ozlabs.org>; Sat,  8 Oct 2016 05:33:59 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=R6z4BN8i; 
- dkim-atps=neutral
-Received: by mail-oi0-x241.google.com with SMTP id h186so3887146oia.3
- for <openbmc@lists.ozlabs.org>; Fri, 07 Oct 2016 11:33:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=mypidhDHA4www3+MhJsqmp4CQsxTieitPde2Vd0u1hQ=;
- b=R6z4BN8iUM4qcL92LZy6wvEFiVW2bcAfA6RV4XAAMrQggzocVcVgJN4leJFL6KQako
- 4PATikR835arV/Kx3wlQjrmxv0SSaVc9Cn3KE37kFrU/934YqU2/AzCzg7tweuEff0QD
- KtgEQRihMuHiQe+X4Be3pNBkC8ONvFig1oOeNVF0II9UrqqLvpef+eUyXpt+9un9zB4q
- JKxu7YLHYpgTMa8eFjTYcL04muWBzgYTCrYnNnHCZ9TjyhnX5SgUZEgJfeDYsyH89usA
- Soo78hM0WPfP8vHPgFGcI65tJ/czvRnGkNRjH8SHX7U7zg/ZhwGHP5esOo6/zY8LZXVR
- 7K5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=mypidhDHA4www3+MhJsqmp4CQsxTieitPde2Vd0u1hQ=;
- b=isHBjpaq8OJDNhcG64EzTYNFAWsAOjxBEEMcI0ivKxLG1HnqlFVXk8O6uw/brpVEKL
- 4KuNHU0hxPbTzucbXIM+wDg+NTBvreiO21wNgDFBjRnKW9C8JWfCQ0g3K0YQQqxtHBL+
- yohIe7pqyR5ZwLi1t4ZiuE32Of8vqplQyucBVvuHQNSbmoV1wlBE3LXpU23GerrjMO9d
- T+GLdTIyJ2HIC3y530rE4V+ZSjjXTMcKN7FhrAwigt0/NWUN3Rm+peHBTu2bi1H9kPmV
- Fn4F0LvV2pDbPrvBmEFGfoWRFxD8QnB2Cz0/yCcSnbCCzmQrVU9LQLSN9v7Y2J/cy/0B
- M+2g==
-X-Gm-Message-State: AA6/9RnoTrPT+F55J9IM7KYyF3jDVBcW02900IDZ/nMeCBXgVGfcUsIrq0yhA5dZjk2trnMp96m4FTcwBrgOfQ==
-X-Received: by 10.202.61.65 with SMTP id k62mr15888886oia.26.1475865237612;
- Fri, 07 Oct 2016 11:33:57 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3srLDK29VHzDrVW
+ for <openbmc@lists.ozlabs.org>; Sat,  8 Oct 2016 07:08:00 +1100 (AEDT)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
+ u97K4Dc9066749
+ for <openbmc@lists.ozlabs.org>; Fri, 7 Oct 2016 16:07:58 -0400
+Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 25xcb2fbr8-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 07 Oct 2016 16:07:58 -0400
+Received: from localhost
+ by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
+ Fri, 7 Oct 2016 14:07:57 -0600
+Received: from d03dlp01.boulder.ibm.com (9.17.202.177)
+ by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 7 Oct 2016 14:07:55 -0600
+Received: from b01cxnp22035.gho.pok.ibm.com (b01cxnp22035.gho.pok.ibm.com
+ [9.57.198.25])
+ by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id 1E2491FF001F;
+ Fri,  7 Oct 2016 14:07:35 -0600 (MDT)
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u97K7rPb12779860; Fri, 7 Oct 2016 20:07:53 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 613862803E;
+ Fri,  7 Oct 2016 16:07:53 -0400 (EDT)
+Received: from [9.10.223.205] (unknown [9.10.223.205])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id 1D7F62804C;
+ Fri,  7 Oct 2016 16:07:53 -0400 (EDT)
+Subject: Re: I2C device driver names
+To: Milton Miller II <miltonm@us.ibm.com>, Joel Stanley <joel@jms.id.au>
+References: <CACPK8XdPfy7jN6ejsN=w_4wejy2zxBpwb8M3+b0GoLaW=0cKMw@mail.gmail.com>
+ <b659d152-5481-193e-ce1b-520d3de7d2ba@linux.vnet.ibm.com>
+ <OF26A8D55C.BC71B175-ON00258045.000161A7-00258045.00024159@notes.na.collabserv.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: Matt Spinler <mspinler@linux.vnet.ibm.com>
+Date: Fri, 7 Oct 2016 15:08:09 -0500
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
+ Thunderbird/45.3.0
 MIME-Version: 1.0
-Received: by 10.202.220.132 with HTTP; Fri, 7 Oct 2016 11:33:56 -0700 (PDT)
-In-Reply-To: <2ef17303-606f-f570-d0e7-f577f1aee5f9@ozlabs.org>
-References: <1475700868-75737-1-git-send-email-christopher.lee.bostic@gmail.com>
- <1475700868-75737-15-git-send-email-christopher.lee.bostic@gmail.com>
- <6e8e9ea9-b728-8deb-8859-73904682b7cd@ozlabs.org>
- <CAA0LjjV9EUp8L6tpzJbPcmycMVZWvfdBs6jWhuHW-fMfWAK97w@mail.gmail.com>
- <2ef17303-606f-f570-d0e7-f577f1aee5f9@ozlabs.org>
-From: Christopher Bostic <christopher.lee.bostic@gmail.com>
-Date: Fri, 7 Oct 2016 13:33:56 -0500
-Message-ID: <CAA0LjjVvU7Q7P67toQdUjVPPB4gu9aSUUyquB+e3zoc7EOBrdA@mail.gmail.com>
-Subject: Re: [PATCH linux 14/15] drivers/fsi: Rename slave to cfam
-To: Jeremy Kerr <jk@ozlabs.org>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, xxpetri@de.ibm.com,
- zahrens@us.ibm.com
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <OF26A8D55C.BC71B175-ON00258045.000161A7-00258045.00024159@notes.na.collabserv.com>
+Content-Type: multipart/alternative;
+ boundary="------------8214134E73D6310AE9B39A50"
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16100720-0024-0000-0000-000014BD6039
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00005869; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000186; SDB=6.00765610; UDB=6.00365868; IPR=6.00541479; 
+ BA=6.00004792; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00012910; XFM=3.00000011;
+ UTC=2016-10-07 20:07:56
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 16100720-0025-0000-0000-0000452394EF
+Message-Id: <491b910f-a8ab-e70f-4055-928fbd4a7b1f@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-10-07_09:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1609300000
+ definitions=main-1610070345
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,86 +80,268 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Oct 2016 18:34:00 -0000
+X-List-Received-Date: Fri, 07 Oct 2016 20:08:01 -0000
 
-On Thu, Oct 6, 2016 at 8:22 PM, Jeremy Kerr <jk@ozlabs.org> wrote:
-> Hi Chris,
->
->>>> Suggested changes to the patch set so far as provided by Jeremy Kerr.
->>>> Rename slave to cfam to distinguish between the slave engine and its
->>>> containing cfam.
->>>
->>> I'm still not 100% on that. As is my understanding, a (hardware) CFAM
->>> contains multiple slaves, and that not what `struct fsi_slave`
->>> represents (it's a single slave).
->>
->> In redundant configurations yes there are two slaves.  However, any
->> controlling device driver would only ever use one of them.  A redundant
->> system with its own fsi device driver would be controlling the other slave.
->>
->> I still maintain that there is bound to be confusion with slave->read( )
->> etc... which are meant for accessing more than just the slave engine.
->> cfam->read makes it more clear I think that you are accessing some
->> range within the cfam, not just the slave engine.
->>
->> A cfam acts as a slave
->> in a general sense but it doesn't distinguish itself from the slave engine.
->
-> Right, and that's where our confusion is coming from there.
->
-> In my initial series, I've used `struct fsi_slave` to represent *just*
-> the slave on the FSI bus, which is logically separated from the *slave
-> engines*. In this case, a "slave" is a different logical unit from a
-> "slave engine"; the latter being one of the actual functional units made
-> available behind the slave.
->
-> This separation is important, as each of the engines is what will be
-> bound to a FSI device driver, whereas the slave itself will be managed
-> by the core.
-> So we have:
->
->   struct fsi_slave -> core slave logic, knows little about engines
->
->   struct fsi_device -> engine logic, to be bound to a driver
->
-> (whereas a CFAM is slave + engines, right?)
->
-> Nothing outside of the core will be doing slave->read; FSI engine
-> drivers will be using the fsi_device API.
+This is a multi-part message in MIME format.
+--------------8214134E73D6310AE9B39A50
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Jeremy,
+Thanks.  I opened the following issues:
 
-That makes sense.  I wasn't getting what you were thinking.  I'll
-keep your 'struct fsi_slave' as is.   The previous note regarding
-hardware workarounds, though, will possibly require some concept
-of a separate 'struct cfam'.   That or some other construct to
-deal in a common way with all the quirks related to a particular
-cfam.  Can you make Chris Austen's call Tuesday morning
-your time?  We can discuss that further.
+Power supply:  https://github.com/openbmc/openbmc/issues/651
 
->
->> I'm not sure what split out means in this case.  Git am applies each patch
->> in sequence so those warnings will be hit before any patches I add to reverse
->> something are applied.
->>
->> I know we had discussed last week about making it clear what changes
->> you had made versus mine.  As per discussion I left your changes as
->> is in the patch series, then made my recommended changes as the
->> next in the series.   A bit confusing on how to deal with checkpatch,
->> git am, ... in those circumstances.
->
-> Yep, and if there are fixups to those patches, keep them separate from
-> other changes, as I'll apply them directly to my tree.
+MAX31785: https://github.com/openbmc/openbmc/issues/652
 
-So the plan is,  patches 01-12 your set.  patch 13 are my fixups to that.
-Patches 14+ my content.
+UCD90160: https://github.com/openbmc/openbmc/issues/653
 
+RX8900CE: https://github.com/openbmc/openbmc/issues/654
+
+
+
+On 10/6/2016 7:24 PM, Milton Miller II wrote:
 >
-> From your follow-up email, it sounds like we want some identification of
-> the slave HW implementation, to allow the core and drivers to work
-> around any HW issues.
+> On 10/06/2016 about 06:43PM somewhere, Joel Stanley <joel@jms.id.au 
+> <mailto:joel@jms.id.au>> wrote:
+> >
+> >On Fri, Oct 7, 2016 at 7:14 AM, Matt Spinler
+> ><mspinler@linux.vnet.ibm.com <mailto:mspinler@linux.vnet.ibm.com>> wrote:
+> >> Hi,
+> >>
+> >> As part of my work to generate a device tree from the machine
+> >readable
+> >> workbook XML, I need to create I2C device entries, which have the
+> >compatible
+> >> properties that need to be filled in.
+> >>
+> >> The following parts are present in the system I'm trying to build,
+> >with
+> >> firmware requirements to access them. I took a stab at the names.
+> >Could
+> >> someone doublecheck them and maybe comment on if a driver is
+> >missing, or
+> >> maybe if some upcoming work is known that will include it? I
+> >didn't have
+> >> much luck finding a lot of these in the
+> >Documentation/devicetree/bindings
+> >> directories.
 >
-> Cheers,
+> Unique to the i2c subsystem, i2c devices will also match when
+> the vendor is different but the chip name portion matches.
+>
+> >
+> >If they're not in the kernel tree it could mean there is not a driver
+> >for them, or that they are supported as part of the trivial device
+> >bindings.
+> >
+> >>
+> >> PMBus Power supplies: ?
+> >>
+> >> MAX31785 fan controller: max,max31785
+>
+> Maxim for the vendor? see
+> Documentation/devicetree/bindings/vendor-prefixes.txt
+>
+> >
+> >Doesn't appear to be an upstream driver. Please open a ticket.
+> >
+> >>
+> >> BMP280: bosch,bmp280
+> >
+> >Supported by the iio bmp280 driver.
+> >
+> >>
+> >> TMP4523A temp sensor: ti,tmp423
+> >
+> >Supported by the tmp421 hwmon driver.
+> >
+> >>
+> >> TMP275 temp sensor: ti,tmp275
+> >
+> >Documentation/devicetree/bindings/i2c/trivial-devices.txt
+> >
+> >Supported by the lm75 hwmon driver.
+> >
+> >> pca9552 IO expander: nxp,pca9552
+> >
+> >This appears to be a LED driver?
+> >
+> >There's a LED device driver called leds-pca955x.
+>
+> There is also a gpio driver for pca955[4567] in pca953x.c.
+>
+> >
+> >>
+> >> UCD90160 power sequencer: ti,ucd90160
+> >
+> >A kernel driver called ucd9000 appears to support similar chips.
+> >Please open a ticket.
+> >
+> >>
+> >> RX8900CE RTC: epson,rx8900ce
+> >
+> >No upstream driver. Please open a ticket.
+> >
+> >>
+> >> 24c64 EEPROM: atmel,24c64
+> >
+> >LGTM.
+> >
+> >Cheers,
+> >
+> >Joel
+> >
+> >>
+> >> There are also a handful of regulators, but so far I haven't heard
+> >of any
+> >> requirements to access them.
+> >>
+> >> Thanks.
 >
 >
-> Jeremy
+>
+
+
+--------------8214134E73D6310AE9B39A50
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <p>Thanks.  I opened the following issues:</p>
+    <p>Power supply:  <a class="moz-txt-link-freetext" href="https://github.com/openbmc/openbmc/issues/651">https://github.com/openbmc/openbmc/issues/651</a></p>
+    <p>MAX31785: <a class="moz-txt-link-freetext" href="https://github.com/openbmc/openbmc/issues/652">https://github.com/openbmc/openbmc/issues/652</a></p>
+    <p>UCD90160: <a class="moz-txt-link-freetext" href="https://github.com/openbmc/openbmc/issues/653">https://github.com/openbmc/openbmc/issues/653</a></p>
+    <p>RX8900CE: <a class="moz-txt-link-freetext" href="https://github.com/openbmc/openbmc/issues/654">https://github.com/openbmc/openbmc/issues/654</a></p>
+    <p><br>
+    </p>
+    <br>
+    <div class="moz-cite-prefix">On 10/6/2016 7:24 PM, Milton Miller II
+      wrote:<br>
+    </div>
+    <blockquote
+cite="mid:OF26A8D55C.BC71B175-ON00258045.000161A7-00258045.00024159@notes.na.collabserv.com"
+      type="cite"><font face="Default Sans
+        Serif,Verdana,Arial,Helvetica,sans-serif" size="2"><br>
+        On 10/06/2016 about 06:43PM somewhere, Joel Stanley &lt;<a
+          moz-do-not-send="true" href="mailto:joel@jms.id.au"
+          target="_blank">joel@jms.id.au</a>&gt; wrote:<br>
+        &gt;<br>
+        &gt;On Fri, Oct 7, 2016 at 7:14 AM, Matt Spinler<br>
+        &gt;&lt;<a moz-do-not-send="true"
+          href="mailto:mspinler@linux.vnet.ibm.com" target="_blank">mspinler@linux.vnet.ibm.com</a>&gt;
+        wrote:<br>
+        &gt;&gt; Hi,<br>
+        &gt;&gt;<br>
+        &gt;&gt; As part of my work to generate a device tree from the
+        machine<br>
+        &gt;readable<br>
+        &gt;&gt; workbook XML, I need to create I2C device entries,
+        which have the<br>
+        &gt;compatible<br>
+        &gt;&gt; properties that need to be filled in.<br>
+        &gt;&gt;<br>
+        &gt;&gt; The following parts are present in the system I'm
+        trying to build,<br>
+        &gt;with<br>
+        &gt;&gt; firmware requirements to access them. I took a stab at
+        the names.<br>
+        &gt;Could<br>
+        &gt;&gt; someone doublecheck them and maybe comment on if a
+        driver is<br>
+        &gt;missing, or<br>
+        &gt;&gt; maybe if some upcoming work is known that will include
+        it? I<br>
+        &gt;didn't have<br>
+        &gt;&gt; much luck finding a lot of these in the<br>
+        &gt;Documentation/devicetree/bindings<br>
+        &gt;&gt; directories.<br>
+        <br>
+        Unique to the i2c subsystem, i2c devices will also match when <br>
+        the vendor is different but the chip name portion matches.<br>
+        <br>
+        &gt;<br>
+        &gt;If they're not in the kernel tree it could mean there is not
+        a driver<br>
+        &gt;for them, or that they are supported as part of the trivial
+        device<br>
+        &gt;bindings.<br>
+        &gt;<br>
+        &gt;&gt;<br>
+        &gt;&gt; PMBus Power supplies: ?<br>
+        &gt;&gt;<br>
+        &gt;&gt; MAX31785 fan controller: max,max31785<br>
+        <br>
+        Maxim for the vendor? see <br>
+        Documentation/devicetree/bindings/vendor-prefixes.txt<br>
+        <br>
+        &gt;<br>
+        &gt;Doesn't appear to be an upstream driver. Please open a
+        ticket.<br>
+        &gt;<br>
+        &gt;&gt;<br>
+        &gt;&gt; BMP280: bosch,bmp280<br>
+        &gt;<br>
+        &gt;Supported by the iio bmp280 driver.<br>
+        &gt;<br>
+        &gt;&gt;<br>
+        &gt;&gt; TMP4523A temp sensor: ti,tmp423<br>
+        &gt;<br>
+        &gt;Supported by the tmp421 hwmon driver.<br>
+        &gt;<br>
+        &gt;&gt;<br>
+        &gt;&gt; TMP275 temp sensor: ti,tmp275<br>
+        &gt;<br>
+        &gt;Documentation/devicetree/bindings/i2c/trivial-devices.txt<br>
+        &gt;<br>
+        &gt;Supported by the lm75 hwmon driver.<br>
+        &gt;<br>
+        &gt;&gt; pca9552 IO expander: nxp,pca9552<br>
+        &gt;<br>
+        &gt;This appears to be a LED driver?<br>
+        &gt;<br>
+        &gt;There's a LED device driver called leds-pca955x.<br>
+        <br>
+        There is also a gpio driver for pca955[4567] in pca953x.c.<br>
+        <br>
+        &gt;<br>
+        &gt;&gt;<br>
+        &gt;&gt; UCD90160 power sequencer: ti,ucd90160<br>
+        &gt;<br>
+        &gt;A kernel driver called ucd9000 appears to support similar
+        chips.<br>
+        &gt;Please open a ticket.<br>
+        &gt;<br>
+        &gt;&gt;<br>
+        &gt;&gt; RX8900CE RTC: epson,rx8900ce<br>
+        &gt;<br>
+        &gt;No upstream driver. Please open a ticket.<br>
+        &gt;<br>
+        &gt;&gt;<br>
+        &gt;&gt; 24c64 EEPROM: atmel,24c64<br>
+        &gt;<br>
+        &gt;LGTM.<br>
+        &gt;<br>
+        &gt;Cheers,<br>
+        &gt;<br>
+        &gt;Joel<br>
+        &gt;<br>
+        &gt;&gt;<br>
+        &gt;&gt; There are also a handful of regulators, but so far I
+        haven't heard<br>
+        &gt;of any<br>
+        &gt;&gt; requirements to access them.<br>
+        &gt;&gt;<br>
+        &gt;&gt; Thanks.<br>
+        <br>
+        <br>
+      </font><br>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------8214134E73D6310AE9B39A50--
