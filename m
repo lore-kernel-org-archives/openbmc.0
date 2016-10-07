@@ -1,32 +1,55 @@
-Return-Path: <clg@kaod.org>
-Received: from 6.mo1.mail-out.ovh.net (6.mo1.mail-out.ovh.net [46.105.43.205])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sr1Gw179SzDrPL
- for <openbmc@lists.ozlabs.org>; Fri,  7 Oct 2016 18:24:08 +1100 (AEDT)
-Received: from player726.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo1.mail-out.ovh.net (Postfix) with ESMTP id D964812D0E
- for <openbmc@lists.ozlabs.org>; Fri,  7 Oct 2016 09:24:03 +0200 (CEST)
-Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
- [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player726.ha.ovh.net (Postfix) with ESMTPSA id A23842A0069;
- Fri,  7 Oct 2016 09:24:02 +0200 (CEST)
-Subject: Re: [PATCH u-boot 00/12] config cleanups and small fixes
-To: openbmc@lists.ozlabs.org
-References: <1475789205-19618-1-git-send-email-clg@kaod.org>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <6450afc7-7750-5282-aecc-408fd3a11df3@kaod.org>
-Date: Fri, 7 Oct 2016 09:24:02 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.3.0
+Return-Path: <christopher.lee.bostic@gmail.com>
+Received: from mail-oi0-x242.google.com (mail-oi0-x242.google.com
+ [IPv6:2607:f8b0:4003:c06::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3srCLd64kbzDrPL
+ for <openbmc@lists.ozlabs.org>; Sat,  8 Oct 2016 01:58:01 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=dexqfKgh; 
+ dkim-atps=neutral
+Received: by mail-oi0-x242.google.com with SMTP id d132so3511272oib.2
+ for <openbmc@lists.ozlabs.org>; Fri, 07 Oct 2016 07:58:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=UGG20Tcd5RRD0EOuzXdU7iIRvk3b3Zg4W5zx1cP1SBA=;
+ b=dexqfKghGxnxiYQ/zO8NzWZWn2isAF5GtGMx3n2R3yJHaA9sD4rVleS254xjTt7qDN
+ 5jcnrwrjTJih4dz2rOCJAKoiUL3ZP6e+N9R1K7z86E6Do+/5KbBPFiW1Avkwl04TW2hK
+ oXMLQnMAZ5Laqxf5BxGL2HbICwLHghgWlx4GN10bhV/Ora3VZ3P1kTF56UiHDmzECDal
+ fmY4G+/ojwTDlL3dFDsO6WhRCV4Onw9lUPK+H4nifhff6iourFum9J/4hCq5z5ypWBDG
+ 6ILmovWUMXemsEBEPaJp7C7454nEYDPaK7u5DiA28jm/B8RlyZVbUY/9Bpr64Nc9j6OB
+ JowA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=UGG20Tcd5RRD0EOuzXdU7iIRvk3b3Zg4W5zx1cP1SBA=;
+ b=cJ2xqBTfdlhw+DrR+l0dttOEY6WAbrWbYuW9AQVOcR7clNeHsayw2PR9BeAuUnsT0S
+ 21K91eWK/dfW/D22HHOQVBgb+BycBJT/ib4gZLn8RgUZMs1VER1wki5f110F8e8EG2AA
+ AOcO9I6qQNUjubHgLc/gfjXRilnY87L0V/ifK6Zk5Un/W/47qyRiMPtHpOjHVYgVrTbs
+ F+5/iZmak9aKmqNSXw+Ds6SMjF3VzRdLNDXtKikNGjRvMUVgJ5FX1er8HjDDdXHCQpDv
+ sgsTEvG96h7lAqwj/mtj13gFBP9JCbqV0aqCMlklJYGejQ65Bc8BkQQr7iVEZjO8dUPl
+ VmzQ==
+X-Gm-Message-State: AA6/9RnFkB7JwL/dShL7CWieo7ztQjbhJ7CwiLuz7GKwRasT/QZEue9mOmqf3pkl/U9aDHOParMeji/hFbGSpw==
+X-Received: by 10.157.6.45 with SMTP id 42mr13001499otn.100.1475852278682;
+ Fri, 07 Oct 2016 07:57:58 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1475789205-19618-1-git-send-email-clg@kaod.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 5589811563159325651
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrfeefgdduvdefucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+Received: by 10.202.220.132 with HTTP; Fri, 7 Oct 2016 07:57:58 -0700 (PDT)
+In-Reply-To: <7611055b-b2d6-b461-7b0f-f672b577cdc7@ozlabs.org>
+References: <1475700868-75737-1-git-send-email-christopher.lee.bostic@gmail.com>
+ <1475700868-75737-16-git-send-email-christopher.lee.bostic@gmail.com>
+ <428264fa-63bf-23a3-0a54-7acf0f3585ad@ozlabs.org>
+ <CAA0LjjVtq-Mdo7zz7Aim_1Xcn_tG-PqfrEnzWgi50aYcg_S-eA@mail.gmail.com>
+ <7611055b-b2d6-b461-7b0f-f672b577cdc7@ozlabs.org>
+From: Christopher Bostic <christopher.lee.bostic@gmail.com>
+Date: Fri, 7 Oct 2016 09:57:58 -0500
+Message-ID: <CAA0LjjW2mW3iiymQFs70VDCsqzMb07NJfZc3xCaTD_qB-aiU2A@mail.gmail.com>
+Subject: Re: [PATCH linux 15/15] drivers/fsi: Initialize CFAMs for read/write
+ access
+To: Jeremy Kerr <jk@ozlabs.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, xxpetri@de.ibm.com,
+ zahrens@us.ibm.com
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -38,77 +61,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Oct 2016 07:24:08 -0000
+X-List-Received-Date: Fri, 07 Oct 2016 14:58:03 -0000
 
-On 10/06/2016 11:26 PM, Cédric Le Goater wrote:
-> Hello,
-> 
-> Here is a set of cleanups on the configuration. It should ease the
-> port on v2016.11 which is a little more strict on CONFIG_ defines.
+On Thu, Oct 6, 2016 at 8:21 PM, Jeremy Kerr <jk@ozlabs.org> wrote:
+> Hi Chris,
+>
+>> A break can be issued on any available link.
+>
+> OK.
+>
+>> Due to hardware bugs that vary depending on the combination of
+>> master type and cfam type the break command must be issued to
+>> different ID's and addresses accordingly.  This was the reason for
+>> adding the cfam_id, break_id, etc.. to the fsi_master struct.
+>
+> But (according to the docs I have) a break is just a logical 1 for 256
+> clocks - it contains no addressing ID / information. What do the
+> cfam_ids and break_ids represent "on the wire"?
 
-You will need this patch to start with :
+Right, at the protocol level a break is simply 256 1's.   One of the
+cascaded masters on P8,P9 though has quirks where you must
+adjust the target address and ID when writing to the actual hardware.
+I don't know the hardware specifics as to what the bug is but
+the logic responsible for the translation of a firmware initiated MMIO
+onto a link that results in the 256 1's has a bug that corrupts that
+message in some way.  Note that this is even an issue for the gpio
+master since the bug I just described is in the P8,P9 cascaded master
+hardware.
 
-	https://github.com/legoater/u-boot/commit/d76a5e74286cd903c4eb96c3b5f762672121b02a
+Sounds like we need  to schedule a meeting to probably
+go over all the hardware quirks that need to be dealt with.  Exchanging
+emails probably isn't the quickest way.
 
-forgot to send it :/
+Long story short we'll still need a master->break( ) operation defined
+for each master type.
 
-Thanks,
+-Chris
 
-C.
-
-> I also included a couple of fixes on the timer and ramdisk relocation.
-> 
-> 
-> Thanks,
-> 
-> C.
-> 
-> Cédric Le Goater (12):
->   aspeed: add CONFIG_AST_SPI_NOR
->   aspeed: rework top level configuration of the Aspeed SoC
->   aspeed: use CONFIG_TARGET_AST_G{4,5}
->   aspeed: remove CONFIG_SYS_INIT_RAM_END
->   aspeed: replace CONFIG_ASPEED_TIMER_CLK with CONFIG_TIMER_CLK_FREQ
->   aspeed: timer cleanups
->   aspeed: add configuration for the network devices
->   aspeed: remove CONFIG_MAC_NUM
->   aspeed: add CONFIG_DRAM_ECC
->   aspeed: remove CONFIG_PHY_MAX_ADDR
->   bootm: fix ramdisk relocation
->   aspeed: remove hack loading ramdisk in memory
-> 
->  arch/arm/Kconfig                             | 14 +++----
->  arch/arm/include/asm/arch-aspeed/aspeed.h    | 29 --------------
->  arch/arm/include/asm/arch-aspeed/ast-ahbc.h  |  2 +-
->  arch/arm/include/asm/arch-aspeed/platform.h  | 10 +----
->  arch/arm/include/asm/arch-aspeed/regs-ahbc.h |  4 +-
->  arch/arm/include/asm/arch-aspeed/regs-scu.h  | 56 ++++++++++++++--------------
->  arch/arm/mach-aspeed/Kconfig                 | 50 +++++++++++++++++++++++++
->  arch/arm/mach-aspeed/Makefile                |  4 +-
->  arch/arm/mach-aspeed/ast-ahbc.c              |  5 +--
->  arch/arm/mach-aspeed/ast-scu.c               | 19 ++++++----
->  arch/arm/mach-aspeed/cpuinfo.c               |  5 +--
->  arch/arm/mach-aspeed/flash.c                 | 21 +----------
->  arch/arm/mach-aspeed/timer.c                 | 27 ++++++++++----
->  board/aspeed/Kconfig                         | 16 --------
->  board/aspeed/ast-g4/Kconfig                  |  6 ---
->  board/aspeed/ast-g4/ast-g4.c                 |  1 -
->  board/aspeed/ast-g5/Kconfig                  | 15 +++++---
->  cmd/bootm.c                                  |  3 ++
->  common/image.c                               | 11 ------
->  configs/ast_g4_ncsi_defconfig                |  3 ++
->  configs/ast_g4_phy_defconfig                 |  4 ++
->  configs/ast_g5_ncsi_defconfig                |  3 ++
->  configs/ast_g5_phy_defconfig                 |  4 ++
->  drivers/net/Kconfig                          | 19 +++++++++-
->  drivers/net/ftgmac100.c                      | 15 ++++----
->  include/configs/ast-common.h                 | 15 +++-----
->  include/configs/ast-g4-ncsi.h                |  6 +--
->  include/configs/ast-g4-phy.h                 |  9 ++---
->  include/configs/ast-g5-ncsi.h                |  9 ++---
->  include/configs/ast-g5-phy.h                 | 11 ++----
->  30 files changed, 194 insertions(+), 202 deletions(-)
->  delete mode 100644 arch/arm/include/asm/arch-aspeed/aspeed.h
->  create mode 100644 arch/arm/mach-aspeed/Kconfig
->  delete mode 100644 board/aspeed/Kconfig
-> 
+>
+> Cheers,
+>
+>
+> Jeremy
