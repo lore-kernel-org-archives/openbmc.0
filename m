@@ -1,51 +1,50 @@
 Return-Path: <christopher.lee.bostic@gmail.com>
-Received: from mail-oi0-x242.google.com (mail-oi0-x242.google.com
- [IPv6:2607:f8b0:4003:c06::242])
+Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
+ [IPv6:2607:f8b0:4003:c06::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3srCLd64kbzDrPL
- for <openbmc@lists.ozlabs.org>; Sat,  8 Oct 2016 01:58:01 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3srJ7q3b4HzDrVW
+ for <openbmc@lists.ozlabs.org>; Sat,  8 Oct 2016 05:33:59 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=dexqfKgh; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=R6z4BN8i; 
  dkim-atps=neutral
-Received: by mail-oi0-x242.google.com with SMTP id d132so3511272oib.2
- for <openbmc@lists.ozlabs.org>; Fri, 07 Oct 2016 07:58:01 -0700 (PDT)
+Received: by mail-oi0-x241.google.com with SMTP id h186so3887146oia.3
+ for <openbmc@lists.ozlabs.org>; Fri, 07 Oct 2016 11:33:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=UGG20Tcd5RRD0EOuzXdU7iIRvk3b3Zg4W5zx1cP1SBA=;
- b=dexqfKghGxnxiYQ/zO8NzWZWn2isAF5GtGMx3n2R3yJHaA9sD4rVleS254xjTt7qDN
- 5jcnrwrjTJih4dz2rOCJAKoiUL3ZP6e+N9R1K7z86E6Do+/5KbBPFiW1Avkwl04TW2hK
- oXMLQnMAZ5Laqxf5BxGL2HbICwLHghgWlx4GN10bhV/Ora3VZ3P1kTF56UiHDmzECDal
- fmY4G+/ojwTDlL3dFDsO6WhRCV4Onw9lUPK+H4nifhff6iourFum9J/4hCq5z5ypWBDG
- 6ILmovWUMXemsEBEPaJp7C7454nEYDPaK7u5DiA28jm/B8RlyZVbUY/9Bpr64Nc9j6OB
- JowA==
+ :cc; bh=mypidhDHA4www3+MhJsqmp4CQsxTieitPde2Vd0u1hQ=;
+ b=R6z4BN8iUM4qcL92LZy6wvEFiVW2bcAfA6RV4XAAMrQggzocVcVgJN4leJFL6KQako
+ 4PATikR835arV/Kx3wlQjrmxv0SSaVc9Cn3KE37kFrU/934YqU2/AzCzg7tweuEff0QD
+ KtgEQRihMuHiQe+X4Be3pNBkC8ONvFig1oOeNVF0II9UrqqLvpef+eUyXpt+9un9zB4q
+ JKxu7YLHYpgTMa8eFjTYcL04muWBzgYTCrYnNnHCZ9TjyhnX5SgUZEgJfeDYsyH89usA
+ Soo78hM0WPfP8vHPgFGcI65tJ/czvRnGkNRjH8SHX7U7zg/ZhwGHP5esOo6/zY8LZXVR
+ 7K5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=UGG20Tcd5RRD0EOuzXdU7iIRvk3b3Zg4W5zx1cP1SBA=;
- b=cJ2xqBTfdlhw+DrR+l0dttOEY6WAbrWbYuW9AQVOcR7clNeHsayw2PR9BeAuUnsT0S
- 21K91eWK/dfW/D22HHOQVBgb+BycBJT/ib4gZLn8RgUZMs1VER1wki5f110F8e8EG2AA
- AOcO9I6qQNUjubHgLc/gfjXRilnY87L0V/ifK6Zk5Un/W/47qyRiMPtHpOjHVYgVrTbs
- F+5/iZmak9aKmqNSXw+Ds6SMjF3VzRdLNDXtKikNGjRvMUVgJ5FX1er8HjDDdXHCQpDv
- sgsTEvG96h7lAqwj/mtj13gFBP9JCbqV0aqCMlklJYGejQ65Bc8BkQQr7iVEZjO8dUPl
- VmzQ==
-X-Gm-Message-State: AA6/9RnFkB7JwL/dShL7CWieo7ztQjbhJ7CwiLuz7GKwRasT/QZEue9mOmqf3pkl/U9aDHOParMeji/hFbGSpw==
-X-Received: by 10.157.6.45 with SMTP id 42mr13001499otn.100.1475852278682;
- Fri, 07 Oct 2016 07:57:58 -0700 (PDT)
+ bh=mypidhDHA4www3+MhJsqmp4CQsxTieitPde2Vd0u1hQ=;
+ b=isHBjpaq8OJDNhcG64EzTYNFAWsAOjxBEEMcI0ivKxLG1HnqlFVXk8O6uw/brpVEKL
+ 4KuNHU0hxPbTzucbXIM+wDg+NTBvreiO21wNgDFBjRnKW9C8JWfCQ0g3K0YQQqxtHBL+
+ yohIe7pqyR5ZwLi1t4ZiuE32Of8vqplQyucBVvuHQNSbmoV1wlBE3LXpU23GerrjMO9d
+ T+GLdTIyJ2HIC3y530rE4V+ZSjjXTMcKN7FhrAwigt0/NWUN3Rm+peHBTu2bi1H9kPmV
+ Fn4F0LvV2pDbPrvBmEFGfoWRFxD8QnB2Cz0/yCcSnbCCzmQrVU9LQLSN9v7Y2J/cy/0B
+ M+2g==
+X-Gm-Message-State: AA6/9RnoTrPT+F55J9IM7KYyF3jDVBcW02900IDZ/nMeCBXgVGfcUsIrq0yhA5dZjk2trnMp96m4FTcwBrgOfQ==
+X-Received: by 10.202.61.65 with SMTP id k62mr15888886oia.26.1475865237612;
+ Fri, 07 Oct 2016 11:33:57 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.202.220.132 with HTTP; Fri, 7 Oct 2016 07:57:58 -0700 (PDT)
-In-Reply-To: <7611055b-b2d6-b461-7b0f-f672b577cdc7@ozlabs.org>
+Received: by 10.202.220.132 with HTTP; Fri, 7 Oct 2016 11:33:56 -0700 (PDT)
+In-Reply-To: <2ef17303-606f-f570-d0e7-f577f1aee5f9@ozlabs.org>
 References: <1475700868-75737-1-git-send-email-christopher.lee.bostic@gmail.com>
- <1475700868-75737-16-git-send-email-christopher.lee.bostic@gmail.com>
- <428264fa-63bf-23a3-0a54-7acf0f3585ad@ozlabs.org>
- <CAA0LjjVtq-Mdo7zz7Aim_1Xcn_tG-PqfrEnzWgi50aYcg_S-eA@mail.gmail.com>
- <7611055b-b2d6-b461-7b0f-f672b577cdc7@ozlabs.org>
+ <1475700868-75737-15-git-send-email-christopher.lee.bostic@gmail.com>
+ <6e8e9ea9-b728-8deb-8859-73904682b7cd@ozlabs.org>
+ <CAA0LjjV9EUp8L6tpzJbPcmycMVZWvfdBs6jWhuHW-fMfWAK97w@mail.gmail.com>
+ <2ef17303-606f-f570-d0e7-f577f1aee5f9@ozlabs.org>
 From: Christopher Bostic <christopher.lee.bostic@gmail.com>
-Date: Fri, 7 Oct 2016 09:57:58 -0500
-Message-ID: <CAA0LjjW2mW3iiymQFs70VDCsqzMb07NJfZc3xCaTD_qB-aiU2A@mail.gmail.com>
-Subject: Re: [PATCH linux 15/15] drivers/fsi: Initialize CFAMs for read/write
- access
+Date: Fri, 7 Oct 2016 13:33:56 -0500
+Message-ID: <CAA0LjjVvU7Q7P67toQdUjVPPB4gu9aSUUyquB+e3zoc7EOBrdA@mail.gmail.com>
+Subject: Re: [PATCH linux 14/15] drivers/fsi: Rename slave to cfam
 To: Jeremy Kerr <jk@ozlabs.org>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, xxpetri@de.ibm.com,
  zahrens@us.ibm.com
@@ -61,43 +60,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Oct 2016 14:58:03 -0000
+X-List-Received-Date: Fri, 07 Oct 2016 18:34:00 -0000
 
-On Thu, Oct 6, 2016 at 8:21 PM, Jeremy Kerr <jk@ozlabs.org> wrote:
+On Thu, Oct 6, 2016 at 8:22 PM, Jeremy Kerr <jk@ozlabs.org> wrote:
 > Hi Chris,
 >
->> A break can be issued on any available link.
+>>>> Suggested changes to the patch set so far as provided by Jeremy Kerr.
+>>>> Rename slave to cfam to distinguish between the slave engine and its
+>>>> containing cfam.
+>>>
+>>> I'm still not 100% on that. As is my understanding, a (hardware) CFAM
+>>> contains multiple slaves, and that not what `struct fsi_slave`
+>>> represents (it's a single slave).
+>>
+>> In redundant configurations yes there are two slaves.  However, any
+>> controlling device driver would only ever use one of them.  A redundant
+>> system with its own fsi device driver would be controlling the other slave.
+>>
+>> I still maintain that there is bound to be confusion with slave->read( )
+>> etc... which are meant for accessing more than just the slave engine.
+>> cfam->read makes it more clear I think that you are accessing some
+>> range within the cfam, not just the slave engine.
+>>
+>> A cfam acts as a slave
+>> in a general sense but it doesn't distinguish itself from the slave engine.
 >
-> OK.
+> Right, and that's where our confusion is coming from there.
 >
->> Due to hardware bugs that vary depending on the combination of
->> master type and cfam type the break command must be issued to
->> different ID's and addresses accordingly.  This was the reason for
->> adding the cfam_id, break_id, etc.. to the fsi_master struct.
+> In my initial series, I've used `struct fsi_slave` to represent *just*
+> the slave on the FSI bus, which is logically separated from the *slave
+> engines*. In this case, a "slave" is a different logical unit from a
+> "slave engine"; the latter being one of the actual functional units made
+> available behind the slave.
 >
-> But (according to the docs I have) a break is just a logical 1 for 256
-> clocks - it contains no addressing ID / information. What do the
-> cfam_ids and break_ids represent "on the wire"?
+> This separation is important, as each of the engines is what will be
+> bound to a FSI device driver, whereas the slave itself will be managed
+> by the core.
+> So we have:
+>
+>   struct fsi_slave -> core slave logic, knows little about engines
+>
+>   struct fsi_device -> engine logic, to be bound to a driver
+>
+> (whereas a CFAM is slave + engines, right?)
+>
+> Nothing outside of the core will be doing slave->read; FSI engine
+> drivers will be using the fsi_device API.
 
-Right, at the protocol level a break is simply 256 1's.   One of the
-cascaded masters on P8,P9 though has quirks where you must
-adjust the target address and ID when writing to the actual hardware.
-I don't know the hardware specifics as to what the bug is but
-the logic responsible for the translation of a firmware initiated MMIO
-onto a link that results in the 256 1's has a bug that corrupts that
-message in some way.  Note that this is even an issue for the gpio
-master since the bug I just described is in the P8,P9 cascaded master
-hardware.
+Hi Jeremy,
 
-Sounds like we need  to schedule a meeting to probably
-go over all the hardware quirks that need to be dealt with.  Exchanging
-emails probably isn't the quickest way.
+That makes sense.  I wasn't getting what you were thinking.  I'll
+keep your 'struct fsi_slave' as is.   The previous note regarding
+hardware workarounds, though, will possibly require some concept
+of a separate 'struct cfam'.   That or some other construct to
+deal in a common way with all the quirks related to a particular
+cfam.  Can you make Chris Austen's call Tuesday morning
+your time?  We can discuss that further.
 
-Long story short we'll still need a master->break( ) operation defined
-for each master type.
+>
+>> I'm not sure what split out means in this case.  Git am applies each patch
+>> in sequence so those warnings will be hit before any patches I add to reverse
+>> something are applied.
+>>
+>> I know we had discussed last week about making it clear what changes
+>> you had made versus mine.  As per discussion I left your changes as
+>> is in the patch series, then made my recommended changes as the
+>> next in the series.   A bit confusing on how to deal with checkpatch,
+>> git am, ... in those circumstances.
+>
+> Yep, and if there are fixups to those patches, keep them separate from
+> other changes, as I'll apply them directly to my tree.
 
--Chris
+So the plan is,  patches 01-12 your set.  patch 13 are my fixups to that.
+Patches 14+ my content.
 
+>
+> From your follow-up email, it sounds like we want some identification of
+> the slave HW implementation, to allow the core and drivers to work
+> around any HW issues.
 >
 > Cheers,
 >
