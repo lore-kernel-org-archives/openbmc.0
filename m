@@ -1,30 +1,32 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sqsvn6QlwzDrPL
- for <openbmc@lists.ozlabs.org>; Fri,  7 Oct 2016 12:52:05 +1100 (AEDT)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1475805117200239.44090236868112;
- Thu, 6 Oct 2016 18:51:57 -0700 (PDT)
-Date: Thu, 6 Oct 2016 20:51:52 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Joel Stanley <joel@jms.id.au>
-Cc: Matt Spinler <mspinler@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: I2C device driver names
-Message-ID: <20161007015152.GA17914@heinlein.lan>
-References: <b659d152-5481-193e-ce1b-520d3de7d2ba@linux.vnet.ibm.com>
- <CACPK8XdPfy7jN6ejsN=w_4wejy2zxBpwb8M3+b0GoLaW=0cKMw@mail.gmail.com>
+Return-Path: <clg@kaod.org>
+Received: from 6.mo1.mail-out.ovh.net (6.mo1.mail-out.ovh.net [46.105.43.205])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sr1Gw179SzDrPL
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Oct 2016 18:24:08 +1100 (AEDT)
+Received: from player726.ha.ovh.net (b7.ovh.net [213.186.33.57])
+ by mo1.mail-out.ovh.net (Postfix) with ESMTP id D964812D0E
+ for <openbmc@lists.ozlabs.org>; Fri,  7 Oct 2016 09:24:03 +0200 (CEST)
+Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: clg@kaod.org)
+ by player726.ha.ovh.net (Postfix) with ESMTPSA id A23842A0069;
+ Fri,  7 Oct 2016 09:24:02 +0200 (CEST)
+Subject: Re: [PATCH u-boot 00/12] config cleanups and small fixes
+To: openbmc@lists.ozlabs.org
+References: <1475789205-19618-1-git-send-email-clg@kaod.org>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <6450afc7-7750-5282-aecc-408fd3a11df3@kaod.org>
+Date: Fri, 7 Oct 2016 09:24:02 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.3.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="tKW2IUtsqtDRztdT"
-Content-Disposition: inline
-In-Reply-To: <CACPK8XdPfy7jN6ejsN=w_4wejy2zxBpwb8M3+b0GoLaW=0cKMw@mail.gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
+In-Reply-To: <1475789205-19618-1-git-send-email-clg@kaod.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 5589811563159325651
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrfeefgdduvdefucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -36,52 +38,77 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Oct 2016 01:52:06 -0000
+X-List-Received-Date: Fri, 07 Oct 2016 07:24:08 -0000
 
+On 10/06/2016 11:26 PM, Cédric Le Goater wrote:
+> Hello,
+> 
+> Here is a set of cleanups on the configuration. It should ease the
+> port on v2016.11 which is a little more strict on CONFIG_ defines.
 
---tKW2IUtsqtDRztdT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+You will need this patch to start with :
 
-On Fri, Oct 07, 2016 at 10:42:24AM +1100, Joel Stanley wrote:
-> > PMBus Power supplies:   ?
-> >
-> > MAX31785 fan controller:  max,max31785
->=20
-> Doesn't appear to be an upstream driver. Please open a ticket.
+	https://github.com/legoater/u-boot/commit/d76a5e74286cd903c4eb96c3b5f762672121b02a
 
-Timothy @ Raptor wrote a driver for this recently, didn't he?  Joel, I
-thought you were going to merge it in for the time being.  Timothy
-mentioned that there was some upstream work going on in that subsystem
-that was preventing it from be merged in the current state but that the
-subsystem owner was likely going to take it on.
+forgot to send it :/
 
-https://patchwork.ozlabs.org/patch/672045/
+Thanks,
 
---=20
-Patrick Williams
+C.
 
---tKW2IUtsqtDRztdT
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJX9v+4AAoJEKsDR8wtAMEZXuEQAIElr3uOyK3p7ArEuKHRFOQJ
-tEXGshZf2ZIrjojBC/3bQuvCW+7jQbNjm27FhAy3Y3UDvRZSRZHIZm/W+Wp8vPf0
-TqoZylR2aYJWq88n1y0T7atyUnCIYiBZEmJUyuNrQt2omRkraioGfPEx2B5vhiAB
-0kLfB/mBCMCj+L+u00XxsCwsDNEQHB8R2e1CgxpkNjGH7C+qRiOS3Z5bo62OHmeQ
-CHmf690G2vhZ1W6LkKt2BuL8YQFsA2w+22Yyk3DqYdgcyJTw61gPUhNZ1uaZbktP
-JzCnYQYdKg+EdQEXNyTEgIoK+mKKLTOFHIb9qPriXDIl+Z76tm848eoxrGG5lSp6
-MT8JZtCZsxBUquEfrgkHgE/dNJoaQO50wcBjWTQaH33bokhJNCkwcP66CMBjKQL1
-Difrbo3sxfQ5CGffxUP+xR1pIaGDQLqoX3invJUsQ3ihEiTO6gdWl+nopSTSQ7Op
-CeJmpekN6LKGx0uqhQn8vsss+P+iA7ANpYcuOs7SuSDMsRUrMl7zvDcOcEcXbBP/
-05AUe3+xcc+ivwbgAvsgudQ/y7GPOJ0UPs3s2QxZPkkaIdSRO3zBBxB3oWHRaHQT
-Slb1nP1h6YKR/UzDw1Y4T5V36kn9LhR7/FQvuYWby61ok9nM49MA3uOBrkKBuq4h
-J+Rxk/VS+FRz/OwCwJdn
-=2GXV
------END PGP SIGNATURE-----
-
---tKW2IUtsqtDRztdT--
+> I also included a couple of fixes on the timer and ramdisk relocation.
+> 
+> 
+> Thanks,
+> 
+> C.
+> 
+> Cédric Le Goater (12):
+>   aspeed: add CONFIG_AST_SPI_NOR
+>   aspeed: rework top level configuration of the Aspeed SoC
+>   aspeed: use CONFIG_TARGET_AST_G{4,5}
+>   aspeed: remove CONFIG_SYS_INIT_RAM_END
+>   aspeed: replace CONFIG_ASPEED_TIMER_CLK with CONFIG_TIMER_CLK_FREQ
+>   aspeed: timer cleanups
+>   aspeed: add configuration for the network devices
+>   aspeed: remove CONFIG_MAC_NUM
+>   aspeed: add CONFIG_DRAM_ECC
+>   aspeed: remove CONFIG_PHY_MAX_ADDR
+>   bootm: fix ramdisk relocation
+>   aspeed: remove hack loading ramdisk in memory
+> 
+>  arch/arm/Kconfig                             | 14 +++----
+>  arch/arm/include/asm/arch-aspeed/aspeed.h    | 29 --------------
+>  arch/arm/include/asm/arch-aspeed/ast-ahbc.h  |  2 +-
+>  arch/arm/include/asm/arch-aspeed/platform.h  | 10 +----
+>  arch/arm/include/asm/arch-aspeed/regs-ahbc.h |  4 +-
+>  arch/arm/include/asm/arch-aspeed/regs-scu.h  | 56 ++++++++++++++--------------
+>  arch/arm/mach-aspeed/Kconfig                 | 50 +++++++++++++++++++++++++
+>  arch/arm/mach-aspeed/Makefile                |  4 +-
+>  arch/arm/mach-aspeed/ast-ahbc.c              |  5 +--
+>  arch/arm/mach-aspeed/ast-scu.c               | 19 ++++++----
+>  arch/arm/mach-aspeed/cpuinfo.c               |  5 +--
+>  arch/arm/mach-aspeed/flash.c                 | 21 +----------
+>  arch/arm/mach-aspeed/timer.c                 | 27 ++++++++++----
+>  board/aspeed/Kconfig                         | 16 --------
+>  board/aspeed/ast-g4/Kconfig                  |  6 ---
+>  board/aspeed/ast-g4/ast-g4.c                 |  1 -
+>  board/aspeed/ast-g5/Kconfig                  | 15 +++++---
+>  cmd/bootm.c                                  |  3 ++
+>  common/image.c                               | 11 ------
+>  configs/ast_g4_ncsi_defconfig                |  3 ++
+>  configs/ast_g4_phy_defconfig                 |  4 ++
+>  configs/ast_g5_ncsi_defconfig                |  3 ++
+>  configs/ast_g5_phy_defconfig                 |  4 ++
+>  drivers/net/Kconfig                          | 19 +++++++++-
+>  drivers/net/ftgmac100.c                      | 15 ++++----
+>  include/configs/ast-common.h                 | 15 +++-----
+>  include/configs/ast-g4-ncsi.h                |  6 +--
+>  include/configs/ast-g4-phy.h                 |  9 ++---
+>  include/configs/ast-g5-ncsi.h                |  9 ++---
+>  include/configs/ast-g5-phy.h                 | 11 ++----
+>  30 files changed, 194 insertions(+), 202 deletions(-)
+>  delete mode 100644 arch/arm/include/asm/arch-aspeed/aspeed.h
+>  create mode 100644 arch/arm/mach-aspeed/Kconfig
+>  delete mode 100644 board/aspeed/Kconfig
+> 
