@@ -1,74 +1,50 @@
-Return-Path: <mspinler@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <christopher.lee.bostic@gmail.com>
+Received: from mail-oi0-x242.google.com (mail-oi0-x242.google.com
+ [IPv6:2607:f8b0:4003:c06::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3srLDK29VHzDrVW
- for <openbmc@lists.ozlabs.org>; Sat,  8 Oct 2016 07:08:00 +1100 (AEDT)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
- u97K4Dc9066749
- for <openbmc@lists.ozlabs.org>; Fri, 7 Oct 2016 16:07:58 -0400
-Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
- by mx0a-001b2d01.pphosted.com with ESMTP id 25xcb2fbr8-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 07 Oct 2016 16:07:58 -0400
-Received: from localhost
- by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
- Fri, 7 Oct 2016 14:07:57 -0600
-Received: from d03dlp01.boulder.ibm.com (9.17.202.177)
- by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Fri, 7 Oct 2016 14:07:55 -0600
-Received: from b01cxnp22035.gho.pok.ibm.com (b01cxnp22035.gho.pok.ibm.com
- [9.57.198.25])
- by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id 1E2491FF001F;
- Fri,  7 Oct 2016 14:07:35 -0600 (MDT)
-Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
- [9.57.199.106])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u97K7rPb12779860; Fri, 7 Oct 2016 20:07:53 GMT
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 613862803E;
- Fri,  7 Oct 2016 16:07:53 -0400 (EDT)
-Received: from [9.10.223.205] (unknown [9.10.223.205])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id 1D7F62804C;
- Fri,  7 Oct 2016 16:07:53 -0400 (EDT)
-Subject: Re: I2C device driver names
-To: Milton Miller II <miltonm@us.ibm.com>, Joel Stanley <joel@jms.id.au>
-References: <CACPK8XdPfy7jN6ejsN=w_4wejy2zxBpwb8M3+b0GoLaW=0cKMw@mail.gmail.com>
- <b659d152-5481-193e-ce1b-520d3de7d2ba@linux.vnet.ibm.com>
- <OF26A8D55C.BC71B175-ON00258045.000161A7-00258045.00024159@notes.na.collabserv.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: Matt Spinler <mspinler@linux.vnet.ibm.com>
-Date: Fri, 7 Oct 2016 15:08:09 -0500
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
- Thunderbird/45.3.0
-MIME-Version: 1.0
-In-Reply-To: <OF26A8D55C.BC71B175-ON00258045.000161A7-00258045.00024159@notes.na.collabserv.com>
-Content-Type: multipart/alternative;
- boundary="------------8214134E73D6310AE9B39A50"
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16100720-0024-0000-0000-000014BD6039
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00005869; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000186; SDB=6.00765610; UDB=6.00365868; IPR=6.00541479; 
- BA=6.00004792; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00012910; XFM=3.00000011;
- UTC=2016-10-07 20:07:56
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 16100720-0025-0000-0000-0000452394EF
-Message-Id: <491b910f-a8ab-e70f-4055-928fbd4a7b1f@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2016-10-07_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1609300000
- definitions=main-1610070345
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3srtsx703rzDrWR
+ for <openbmc@lists.ozlabs.org>; Sun,  9 Oct 2016 04:39:01 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=MT7S7vYR; 
+ dkim-atps=neutral
+Received: by mail-oi0-x242.google.com with SMTP id d132so5424842oib.2
+ for <openbmc@lists.ozlabs.org>; Sat, 08 Oct 2016 10:39:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=from:to:cc:subject:date:message-id;
+ bh=58XryvEyrJ1U8KxdBR/HwL3bFoNWVlApCbpiVPKKTNs=;
+ b=MT7S7vYRNKOkaxY5/wFaoPwMez5Yez0uJHOaV6mAtK/I4TrAbZo8Iq2tM4rWOdj8GC
+ lGHJdtKv1AAZw0DYrsvNcA/EMdPZPq0Ze6HKZFGcmpHrr1662aXBMOjFBJdx9LiSnyJ6
+ 2EUKo5iFQhICCt85rnPXeyABTuM3IlsLgPMTToxmydBppQxcYaa+wk4YFwBTXMzscPdj
+ GsX0+HJBT594+ETeb2UsczrlIDQ1XfvGxoh+tueHl3pmokqkRHMJ+SrhDkBiCvJbLQeA
+ D7aL0Ycupe53o9Ecde7jH7susu0EXA/MS8iXKcRqbeA4MZajitjaHWUu0F4xZ0BNJl/A
+ YO6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=58XryvEyrJ1U8KxdBR/HwL3bFoNWVlApCbpiVPKKTNs=;
+ b=jxCag+deXO7PJvmeyWXPMXPyceG4Zmihak+7H6amnbX5gKWEYp/NXZLOIWNt9A6kmp
+ wx4KvRm+vKk7vEGd2cftbVvjpS02v6iGPuOXyloKC6hxX74pgv1g6BikEh8K8KRaeCoM
+ qkFEEoCjkHrdVkUv7b/3CCOcimKwoVPCx5jW9i4TULJPL0WIPlETWlH2HCz8jTn/qtYc
+ 3OBsJdyszB2d8sL0SjzRRfarzGDhYvMbYb96oNDR3CxWeBTSixPHOp1hiBq5z/ug+pKX
+ 5XZWJMuR6yD695a5BGXudXg65T8Pau9slKZB0Ze7rkZg7xwh9FwtwWJiZr2jZ9lujl9S
+ YatQ==
+X-Gm-Message-State: AA6/9RnUYCi+in4JljjGpfOOsPxBZN15VrHqmQzYJMApEoHdHRI/EThuP8KdBQtXdwjY1g==
+X-Received: by 10.157.43.105 with SMTP id f38mr15309189otd.77.1475948339672;
+ Sat, 08 Oct 2016 10:38:59 -0700 (PDT)
+Received: from Christophers-MacBook-Pro.local.com
+ (45-20-192-79.lightspeed.austtx.sbcglobal.net. [45.20.192.79])
+ by smtp.gmail.com with ESMTPSA id g17sm8025290otd.38.2016.10.08.10.38.58
+ (version=TLS1 cipher=AES128-SHA bits=128/128);
+ Sat, 08 Oct 2016 10:38:59 -0700 (PDT)
+From: christopher.lee.bostic@gmail.com
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, zahrens@us.ibm.com, xxpetri@de.ibm.com,
+ Chris Bostic <cbostic@us.ibm.com>
+Subject: [PATCH linux v2 00/17] FSI device driver introduction
+Date: Sat,  8 Oct 2016 12:38:36 -0500
+Message-Id: <1475948333-55960-1-git-send-email-christopher.lee.bostic@gmail.com>
+X-Mailer: git-send-email 2.7.4 (Apple Git-66)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -80,268 +56,128 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Oct 2016 20:08:01 -0000
+X-List-Received-Date: Sat, 08 Oct 2016 17:39:02 -0000
 
-This is a multi-part message in MIME format.
---------------8214134E73D6310AE9B39A50
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Chris Bostic <cbostic@us.ibm.com>
 
-Thanks.  I opened the following issues:
+Patches 01-13 have been provided by Jeremy Kerr as an example of
+how FSI function should be phased in. This includes the basic framework
+to add FSI extensions to the Linux bus and device models.
 
-Power supply:  https://github.com/openbmc/openbmc/issues/651
+Patch 14: Minor changes to text formatting, white space removal.
 
-MAX31785: https://github.com/openbmc/openbmc/issues/652
+Patch 15: Recommended changes to patches 01-13 as provided by Jeremy
+Kerr.
 
-UCD90160: https://github.com/openbmc/openbmc/issues/653
+	V2: Removed suggested renaming of struct fsi_slave to fsi_cfam
 
-RX8900CE: https://github.com/openbmc/openbmc/issues/654
+Patch 16: Set up CFAM communications.  Send break command and init
+target cfam id based on master type.
 
-
-
-On 10/6/2016 7:24 PM, Milton Miller II wrote:
->
-> On 10/06/2016 about 06:43PM somewhere, Joel Stanley <joel@jms.id.au 
-> <mailto:joel@jms.id.au>> wrote:
-> >
-> >On Fri, Oct 7, 2016 at 7:14 AM, Matt Spinler
-> ><mspinler@linux.vnet.ibm.com <mailto:mspinler@linux.vnet.ibm.com>> wrote:
-> >> Hi,
-> >>
-> >> As part of my work to generate a device tree from the machine
-> >readable
-> >> workbook XML, I need to create I2C device entries, which have the
-> >compatible
-> >> properties that need to be filled in.
-> >>
-> >> The following parts are present in the system I'm trying to build,
-> >with
-> >> firmware requirements to access them. I took a stab at the names.
-> >Could
-> >> someone doublecheck them and maybe comment on if a driver is
-> >missing, or
-> >> maybe if some upcoming work is known that will include it? I
-> >didn't have
-> >> much luck finding a lot of these in the
-> >Documentation/devicetree/bindings
-> >> directories.
->
-> Unique to the i2c subsystem, i2c devices will also match when
-> the vendor is different but the chip name portion matches.
->
-> >
-> >If they're not in the kernel tree it could mean there is not a driver
-> >for them, or that they are supported as part of the trivial device
-> >bindings.
-> >
-> >>
-> >> PMBus Power supplies: ?
-> >>
-> >> MAX31785 fan controller: max,max31785
->
-> Maxim for the vendor? see
-> Documentation/devicetree/bindings/vendor-prefixes.txt
->
-> >
-> >Doesn't appear to be an upstream driver. Please open a ticket.
-> >
-> >>
-> >> BMP280: bosch,bmp280
-> >
-> >Supported by the iio bmp280 driver.
-> >
-> >>
-> >> TMP4523A temp sensor: ti,tmp423
-> >
-> >Supported by the tmp421 hwmon driver.
-> >
-> >>
-> >> TMP275 temp sensor: ti,tmp275
-> >
-> >Documentation/devicetree/bindings/i2c/trivial-devices.txt
-> >
-> >Supported by the lm75 hwmon driver.
-> >
-> >> pca9552 IO expander: nxp,pca9552
-> >
-> >This appears to be a LED driver?
-> >
-> >There's a LED device driver called leds-pca955x.
->
-> There is also a gpio driver for pca955[4567] in pca953x.c.
->
-> >
-> >>
-> >> UCD90160 power sequencer: ti,ucd90160
-> >
-> >A kernel driver called ucd9000 appears to support similar chips.
-> >Please open a ticket.
-> >
-> >>
-> >> RX8900CE RTC: epson,rx8900ce
-> >
-> >No upstream driver. Please open a ticket.
-> >
-> >>
-> >> 24c64 EEPROM: atmel,24c64
-> >
-> >LGTM.
-> >
-> >Cheers,
-> >
-> >Joel
-> >
-> >>
-> >> There are also a handful of regulators, but so far I haven't heard
-> >of any
-> >> requirements to access them.
-> >>
-> >> Thanks.
->
->
->
+Patch 17: Define FSI gpio master functionality.
 
 
---------------8214134E73D6310AE9B39A50
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Introduction of the IBM 'Flexible Support Interface' (FSI) bus device
+driver. FSI is a high fan out serial bus consisting of a clock and a serial
+data line capable of running at speeds up to 166 MHz.
 
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body bgcolor="#FFFFFF" text="#000000">
-    <p>Thanks.  I opened the following issues:</p>
-    <p>Power supply:  <a class="moz-txt-link-freetext" href="https://github.com/openbmc/openbmc/issues/651">https://github.com/openbmc/openbmc/issues/651</a></p>
-    <p>MAX31785: <a class="moz-txt-link-freetext" href="https://github.com/openbmc/openbmc/issues/652">https://github.com/openbmc/openbmc/issues/652</a></p>
-    <p>UCD90160: <a class="moz-txt-link-freetext" href="https://github.com/openbmc/openbmc/issues/653">https://github.com/openbmc/openbmc/issues/653</a></p>
-    <p>RX8900CE: <a class="moz-txt-link-freetext" href="https://github.com/openbmc/openbmc/issues/654">https://github.com/openbmc/openbmc/issues/654</a></p>
-    <p><br>
-    </p>
-    <br>
-    <div class="moz-cite-prefix">On 10/6/2016 7:24 PM, Milton Miller II
-      wrote:<br>
-    </div>
-    <blockquote
-cite="mid:OF26A8D55C.BC71B175-ON00258045.000161A7-00258045.00024159@notes.na.collabserv.com"
-      type="cite"><font face="Default Sans
-        Serif,Verdana,Arial,Helvetica,sans-serif" size="2"><br>
-        On 10/06/2016 about 06:43PM somewhere, Joel Stanley &lt;<a
-          moz-do-not-send="true" href="mailto:joel@jms.id.au"
-          target="_blank">joel@jms.id.au</a>&gt; wrote:<br>
-        &gt;<br>
-        &gt;On Fri, Oct 7, 2016 at 7:14 AM, Matt Spinler<br>
-        &gt;&lt;<a moz-do-not-send="true"
-          href="mailto:mspinler@linux.vnet.ibm.com" target="_blank">mspinler@linux.vnet.ibm.com</a>&gt;
-        wrote:<br>
-        &gt;&gt; Hi,<br>
-        &gt;&gt;<br>
-        &gt;&gt; As part of my work to generate a device tree from the
-        machine<br>
-        &gt;readable<br>
-        &gt;&gt; workbook XML, I need to create I2C device entries,
-        which have the<br>
-        &gt;compatible<br>
-        &gt;&gt; properties that need to be filled in.<br>
-        &gt;&gt;<br>
-        &gt;&gt; The following parts are present in the system I'm
-        trying to build,<br>
-        &gt;with<br>
-        &gt;&gt; firmware requirements to access them. I took a stab at
-        the names.<br>
-        &gt;Could<br>
-        &gt;&gt; someone doublecheck them and maybe comment on if a
-        driver is<br>
-        &gt;missing, or<br>
-        &gt;&gt; maybe if some upcoming work is known that will include
-        it? I<br>
-        &gt;didn't have<br>
-        &gt;&gt; much luck finding a lot of these in the<br>
-        &gt;Documentation/devicetree/bindings<br>
-        &gt;&gt; directories.<br>
-        <br>
-        Unique to the i2c subsystem, i2c devices will also match when <br>
-        the vendor is different but the chip name portion matches.<br>
-        <br>
-        &gt;<br>
-        &gt;If they're not in the kernel tree it could mean there is not
-        a driver<br>
-        &gt;for them, or that they are supported as part of the trivial
-        device<br>
-        &gt;bindings.<br>
-        &gt;<br>
-        &gt;&gt;<br>
-        &gt;&gt; PMBus Power supplies: ?<br>
-        &gt;&gt;<br>
-        &gt;&gt; MAX31785 fan controller: max,max31785<br>
-        <br>
-        Maxim for the vendor? see <br>
-        Documentation/devicetree/bindings/vendor-prefixes.txt<br>
-        <br>
-        &gt;<br>
-        &gt;Doesn't appear to be an upstream driver. Please open a
-        ticket.<br>
-        &gt;<br>
-        &gt;&gt;<br>
-        &gt;&gt; BMP280: bosch,bmp280<br>
-        &gt;<br>
-        &gt;Supported by the iio bmp280 driver.<br>
-        &gt;<br>
-        &gt;&gt;<br>
-        &gt;&gt; TMP4523A temp sensor: ti,tmp423<br>
-        &gt;<br>
-        &gt;Supported by the tmp421 hwmon driver.<br>
-        &gt;<br>
-        &gt;&gt;<br>
-        &gt;&gt; TMP275 temp sensor: ti,tmp275<br>
-        &gt;<br>
-        &gt;Documentation/devicetree/bindings/i2c/trivial-devices.txt<br>
-        &gt;<br>
-        &gt;Supported by the lm75 hwmon driver.<br>
-        &gt;<br>
-        &gt;&gt; pca9552 IO expander: nxp,pca9552<br>
-        &gt;<br>
-        &gt;This appears to be a LED driver?<br>
-        &gt;<br>
-        &gt;There's a LED device driver called leds-pca955x.<br>
-        <br>
-        There is also a gpio driver for pca955[4567] in pca953x.c.<br>
-        <br>
-        &gt;<br>
-        &gt;&gt;<br>
-        &gt;&gt; UCD90160 power sequencer: ti,ucd90160<br>
-        &gt;<br>
-        &gt;A kernel driver called ucd9000 appears to support similar
-        chips.<br>
-        &gt;Please open a ticket.<br>
-        &gt;<br>
-        &gt;&gt;<br>
-        &gt;&gt; RX8900CE RTC: epson,rx8900ce<br>
-        &gt;<br>
-        &gt;No upstream driver. Please open a ticket.<br>
-        &gt;<br>
-        &gt;&gt;<br>
-        &gt;&gt; 24c64 EEPROM: atmel,24c64<br>
-        &gt;<br>
-        &gt;LGTM.<br>
-        &gt;<br>
-        &gt;Cheers,<br>
-        &gt;<br>
-        &gt;Joel<br>
-        &gt;<br>
-        &gt;&gt;<br>
-        &gt;&gt; There are also a handful of regulators, but so far I
-        haven't heard<br>
-        &gt;of any<br>
-        &gt;&gt; requirements to access them.<br>
-        &gt;&gt;<br>
-        &gt;&gt; Thanks.<br>
-        <br>
-        <br>
-      </font><br>
-    </blockquote>
-    <br>
-  </body>
-</html>
+This patch set does not include extended FSI function such as:
+    *  Hub master support
+    *  Cascaded master support
+    *  Application layer hot plug notification
+    *  Application layer FSI bus status interface
+    *  Interrupt functionality
 
---------------8214134E73D6310AE9B39A50--
+Common FSI terminology:
+
+* Master
+    Controller of the FSI bus.  Only the master is allowed to control the
+    clock line and is the initiator of all transactions on a bus.
+
+* Slave
+    The receiver or target of a master initiated transaction.  The slave
+    cannot initiate communications on a bus and must respond to any
+    master requests for data.
+
+* CFAM
+    Stands for Common Field replaceable unit Access Macro.  A CFAM is an
+    ASIC residing in any device requiring FSI communications. CFAMs
+    consist of an array of hardware 'engines' used for various purposes.
+    I2C masters, UARTs, General Purpose IO hardware are common types of
+    these engines.
+
+* Configuration Space / Table
+    A table contained at the beginning of each CFAM address space.
+    This table lists information such as the CFAM's ID, which engine types
+    and versions it has available, as well as its addressing range.
+
+* Link
+    The combination of a serial clock and data line constituting one
+    FSI communications element. For each link there is a master on one
+    end and a CFAM/slave on the other end.
+
+* Engine
+    A self contained hardware function found within a CFAM.  Examples
+    include I2C masters, UARTs, GPIOs, etc...
+
+* Client
+    A device driver requiring access to its hardware via an FSI bus.
+    For example an I2C client would be a device driver requiring
+    access to an I2C master engine on a remote CFAM accessible via
+    an FSI link.  Clients register with the FSI bus and will receive
+    notifications of bus state changes as well as hot plug events related
+    to engines of interest to them.
+
+---
+
+
+
+
+
+Chris Bostic (4):
+  drivers/fsi: Fix some text formatting
+  drivers/fsi: Revisions to existing patch set
+  drivers/fsi: Set up CFAMs for communication
+  drivers/fsi: Add GPIO master functionality
+
+Jeremy Kerr (13):
+  fsi: Add empty fsi bus definitions
+  fsi: Add device & driver definitions
+  fsi: add driver to device matches
+  fsi: Add fsi master definition
+  fsi: Add fake master driver
+  fsi: enable debug
+  fsi: Add slave defintion
+  fsi: Add empty master scan
+  fsi: Add crc4 helpers
+  fsi: Implement slave initialisation
+  fsi: scan slaves & register devices
+  fsi: Add device read/write/peek functions
+  fsi: Add GPIO master driver
+
+ .../devicetree/bindings/fsi/fsi-master-gpio.txt    |   8 +
+ drivers/Kconfig                                    |   2 +
+ drivers/Makefile                                   |   1 +
+ drivers/fsi/Kconfig                                |  29 ++
+ drivers/fsi/Makefile                               |   4 +
+ drivers/fsi/fsi-cfam.h                             |  63 ++++
+ drivers/fsi/fsi-core.c                             | 398 +++++++++++++++++++++
+ drivers/fsi/fsi-master-fake.c                      | 114 ++++++
+ drivers/fsi/fsi-master-gpio.c                      | 259 ++++++++++++++
+ drivers/fsi/fsi-master.h                           |  42 +++
+ drivers/fsi/fsi-slave.h                            |  62 ++++
+ include/linux/fsi.h                                |  60 ++++
+ 12 files changed, 1042 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/fsi/fsi-master-gpio.txt
+ create mode 100644 drivers/fsi/Kconfig
+ create mode 100644 drivers/fsi/Makefile
+ create mode 100644 drivers/fsi/fsi-cfam.h
+ create mode 100644 drivers/fsi/fsi-core.c
+ create mode 100644 drivers/fsi/fsi-master-fake.c
+ create mode 100644 drivers/fsi/fsi-master-gpio.c
+ create mode 100644 drivers/fsi/fsi-master.h
+ create mode 100644 drivers/fsi/fsi-slave.h
+ create mode 100644 include/linux/fsi.h
+
+-- 
+1.8.2.2
