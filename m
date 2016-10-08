@@ -1,50 +1,50 @@
 Return-Path: <christopher.lee.bostic@gmail.com>
-Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
- [IPv6:2607:f8b0:4003:c06::241])
+Received: from mail-oi0-x244.google.com (mail-oi0-x244.google.com
+ [IPv6:2607:f8b0:4003:c06::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3srtt60nNDzDrWp
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3srtt64RmfzDrWs
  for <openbmc@lists.ozlabs.org>; Sun,  9 Oct 2016 04:39:10 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=zHB1d8YT; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=GNKGRk2q; 
  dkim-atps=neutral
-Received: by mail-oi0-x241.google.com with SMTP id i127so3748916oia.0
+Received: by mail-oi0-x244.google.com with SMTP id i127so3748926oia.0
  for <openbmc@lists.ozlabs.org>; Sat, 08 Oct 2016 10:39:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=UMtP0jgsLfFY2L+xgQOZn9EF88jTMovfMQRiIvtQ3g8=;
- b=zHB1d8YTqRzxF5LdI+WjPVh3qYNQtFyBHf1g1gh5z2Bo/1/NS/xBv6a9ILnoK9iC5D
- ERG3rZH6nfgVgd60Vic8xiipiRJVVE19Fmsn4Ow1c2MBAtjg104bgD35jk3QVZsE3Rsa
- c9ARGbWEoxBLiJqLSwvb0G8HhBi6DnZBAr5Aw433eHpDeb/1oLKhqBbZi9G4K/7Y1C0z
- FhyvM6vfzFk2wnEvYn13QmjRW5lx76qjIBl91kxxxrbTIe8GZArwhrX/mSscavk7/BWJ
- 2x2daQ+pvKCNd5ywUNfJKVprYs4N44MtIfJjrXBNhoTsRlGmCHQAeF0GVxuZlKjDlQmP
- M0qQ==
+ bh=dVJsf7fKWb8n5QOFTK7QZljY2n0Ikn1p/l/KJnrKUpo=;
+ b=GNKGRk2q3SRZryuCExm/CGPoJ9dgSuQX/j9dK74XiBTQihMVEdcgshIpZvEuOT4wIx
+ MWJiIzvQxLLtvvfIS9F6bODjtPgt1aUSr0oTd2FOmJH7Nx3SXHMIOjXbkOKDQO4ADNmR
+ 1fL8o0HayvenioSJdSadU9fmoBL8Cxf+5DMM0JU2WrUGeuS/RqA4iJo0k3QVaRVz6d7o
+ FeotG4ND4/Urf0TpUquGfVfnAWNkv+yH0oddGJPoVcu2/MXrzzTvY0aFcbQXecmtX2ne
+ 5KfJqgJsflwOcN3tiegTsCjSBjQfjiOsJjM67xDLFAlCYUUcSjWlmw+GDLYcFEsyay7n
+ QMAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=UMtP0jgsLfFY2L+xgQOZn9EF88jTMovfMQRiIvtQ3g8=;
- b=flJ+AqAuaSZr2NBm2H8iMhgjAMlOjaxpCX4i1b8oL48kCB5OFip4BHD6UTq1I09by4
- Y4GkBBtpiCsseXzoB/jBmlstBe+ekAsgGzgsRYg8yaDkq3hXPzJ5QgVXHJLkbECSbapW
- aLx6ZhmjEztKZcgFqK5bSvZUCIiVbKAUujnNBfAZ9ToYkJtVGQdoMpjpmp/epzclkNsX
- XODa0Fw1JrB2wEh5/sBO2bYa0eCfMBMNRnFPipYMuvjbB4PcxMv2+MZ4ml6Qb4rcQ+GL
- zS61GWtIrZ7xX8t9ePDm0M8vZlZI2fO81x+QI+27ESbf+15Twnxlm10faVUyxAlRGcMc
- wcCQ==
-X-Gm-Message-State: AA6/9RnTM0XN7pxck3t20d2uXmG8/9ufh658Zty/sLowufkJ9d4Tr/FcpSgxgTCCmb0gAQ==
-X-Received: by 10.157.11.133 with SMTP id 5mr15177164oth.107.1475948348329;
+ bh=dVJsf7fKWb8n5QOFTK7QZljY2n0Ikn1p/l/KJnrKUpo=;
+ b=flSTHOBySjHTgSpy5upJoFwHfYkGamsjTU5Rr09P114UoJETv5Dhwoe/H712AnsAwG
+ 4YU23WC1G5vVC39nrKnKwQ0mT+jTjRUa50AGCHqHujfw7miqEAppyMAo0pWu33mu13eb
+ p8H1uigMrQALzNmgHu6x3S1vBzQHFB7lV5gJSqa+PrctmnqtnvvwG88yRVMrMAhKusvk
+ OLvy3/x61Sr6ZN3NiPIS3MV+jiieHO4cGU5273+iuBC05BxbyKLM1D6yYpy9KvuqfAM1
+ IqHhcnxlPmSuoLrgvC2sT3p0l/Y37moM6UsI3cGM/NY8BPPmYKqQNBf7f3gLj22yJZ5X
+ mYDg==
+X-Gm-Message-State: AA6/9RnbBDSxUGoClS2YWeUsJeODJ0Dnm9E7oR+pGMkOhV1T9AcNTykFxNaMvp7cVfJvWg==
+X-Received: by 10.157.11.49 with SMTP id a46mr14855224ota.184.1475948348951;
  Sat, 08 Oct 2016 10:39:08 -0700 (PDT)
 Received: from Christophers-MacBook-Pro.local.com
  (45-20-192-79.lightspeed.austtx.sbcglobal.net. [45.20.192.79])
- by smtp.gmail.com with ESMTPSA id g17sm8025290otd.38.2016.10.08.10.39.07
+ by smtp.gmail.com with ESMTPSA id g17sm8025290otd.38.2016.10.08.10.39.08
  (version=TLS1 cipher=AES128-SHA bits=128/128);
- Sat, 08 Oct 2016 10:39:07 -0700 (PDT)
+ Sat, 08 Oct 2016 10:39:08 -0700 (PDT)
 From: christopher.lee.bostic@gmail.com
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, zahrens@us.ibm.com, xxpetri@de.ibm.com,
  Jeremy Kerr <jk@ozlabs.org>
-Subject: [PATCH linux v2 12/17] fsi: Add device read/write/peek functions
-Date: Sat,  8 Oct 2016 12:38:48 -0500
-Message-Id: <1475948333-55960-13-git-send-email-christopher.lee.bostic@gmail.com>
+Subject: [PATCH linux v2 13/17] fsi: Add GPIO master driver
+Date: Sat,  8 Oct 2016 12:38:49 -0500
+Message-Id: <1475948333-55960-14-git-send-email-christopher.lee.bostic@gmail.com>
 X-Mailer: git-send-email 2.7.4 (Apple Git-66)
 In-Reply-To: <1475948333-55960-1-git-send-email-christopher.lee.bostic@gmail.com>
 References: <1475948333-55960-1-git-send-email-christopher.lee.bostic@gmail.com>
@@ -59,113 +59,158 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 08 Oct 2016 17:39:10 -0000
+X-List-Received-Date: Sat, 08 Oct 2016 17:39:11 -0000
 
 From: Jeremy Kerr <jk@ozlabs.org>
 
-This change introduces the fsi device API: simple read, write and peek
-accessors for the devices' address spaces.
-
 Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
 ---
- drivers/fsi/fsi-core.c | 44 ++++++++++++++++++++++++++++++++++++++++++++
- include/linux/fsi.h    |  7 ++++++-
- 2 files changed, 50 insertions(+), 1 deletion(-)
+ .../devicetree/bindings/fsi/fsi-master-gpio.txt    |  8 ++
+ drivers/fsi/Kconfig                                |  7 ++
+ drivers/fsi/Makefile                               |  1 +
+ drivers/fsi/fsi-master-gpio.c                      | 92 ++++++++++++++++++++++
+ 4 files changed, 108 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/fsi/fsi-master-gpio.txt
+ create mode 100644 drivers/fsi/fsi-master-gpio.c
 
-diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-index 63d26b5..10bf817 100644
---- a/drivers/fsi/fsi-core.c
-+++ b/drivers/fsi/fsi-core.c
-@@ -32,6 +32,8 @@
- #define FSI_SLAVE_CONF_TYPE_MASK	0x00000ff0
- #define FSI_SLAVE_CONF_TYPE_SHIFT	4
- 
-+#define FSI_PEEK_BASE			0x410
+diff --git a/Documentation/devicetree/bindings/fsi/fsi-master-gpio.txt b/Documentation/devicetree/bindings/fsi/fsi-master-gpio.txt
+new file mode 100644
+index 0000000..44762a3
+--- /dev/null
++++ b/Documentation/devicetree/bindings/fsi/fsi-master-gpio.txt
+@@ -0,0 +1,8 @@
++Device-tree bindings for gpio-based FSI master driver
++-----------------------------------------------------
 +
- static const int engine_page_size = 0x400;
- 
- static atomic_t master_idx = ATOMIC_INIT(-1);
-@@ -45,7 +47,42 @@ struct fsi_slave {
- 
- #define to_fsi_slave(d) container_of(d, struct fsi_slave, dev)
- 
-+static int fsi_slave_read(struct fsi_slave *slave, uint32_t addr,
-+		void *val, size_t size);
-+static int fsi_slave_write(struct fsi_slave *slave, uint32_t addr,
-+		const void *val, size_t size);
++fsi-master {
++	compatible = "ibm,fsi-master", "ibm,fsi-master-gpio";
++	clk-gpio = <&gpio 0>;
++	data-gpio = <&gpio 1>;
++}
+diff --git a/drivers/fsi/Kconfig b/drivers/fsi/Kconfig
+index f065dbe..69e7ee8 100644
+--- a/drivers/fsi/Kconfig
++++ b/drivers/fsi/Kconfig
+@@ -17,6 +17,13 @@ config FSI_MASTER_FAKE
+ 	depends on FSI
+ 	---help---
+ 	This option enables a fake FSI master driver for debugging.
 +
- /* FSI endpoint-device support */
-+int fsi_device_read(struct fsi_device *dev, uint32_t addr, void *val,
-+		size_t size)
++config FSI_MASTER_GPIO
++	tristate "GPIO-based FSI master"
++	depends on FSI
++	select GPIO_DEVRES
++	---help---
++	This option enables a FSI master driver, using GPIO lines directly.
+ endif
+ 
+ endmenu
+diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
+index 847c00c..2021ce5 100644
+--- a/drivers/fsi/Makefile
++++ b/drivers/fsi/Makefile
+@@ -1,3 +1,4 @@
+ 
+ obj-$(CONFIG_FSI) += fsi-core.o
+ obj-$(CONFIG_FSI_MASTER_FAKE) += fsi-master-fake.o
++obj-$(CONFIG_FSI_MASTER_GPIO) += fsi-master-gpio.o
+diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+new file mode 100644
+index 0000000..3855829
+--- /dev/null
++++ b/drivers/fsi/fsi-master-gpio.c
+@@ -0,0 +1,92 @@
++/*
++ * A FSI master controller, using a simple GPIO bit-banging interface
++ */
++
++#include <linux/platform_device.h>
++#include <linux/gpio/consumer.h>
++#include <linux/module.h>
++
++#include "fsi-master.h"
++
++struct fsi_master_gpio {
++	struct fsi_master	master;
++	struct gpio_desc	*gpio_clk;
++	struct gpio_desc	*gpio_data;
++};
++
++#define to_fsi_master_gpio(m) container_of(m, struct fsi_master_gpio, master)
++
++struct fsi_gpio_msg {
++	uint64_t	msg;
++	uint8_t		bits;
++};
++
++static int fsi_master_gpio_read(struct fsi_master *_master, int link,
++		uint8_t slave, uint32_t addr, void *val, size_t size)
 +{
-+	if (addr > dev->size)
-+		return -EINVAL;
++	struct fsi_master_gpio *master = to_fsi_master_gpio(_master);
 +
-+	if (addr + size > dev->size)
-+		return -EINVAL;
++	if (link != 0)
++		return -ENODEV;
 +
-+	return fsi_slave_read(dev->slave, dev->addr + addr, val, size);
++	/* todo: format read into a message, send, poll for response */
++	(void)master;
++
++
++	return 0;
 +}
 +
-+int fsi_device_write(struct fsi_device *dev, uint32_t addr, const void *val,
-+		size_t size)
++static int fsi_master_gpio_write(struct fsi_master *_master, int link,
++		uint8_t slave, uint32_t addr, const void *val, size_t size)
 +{
-+	if (addr > dev->size)
-+		return -EINVAL;
++	struct fsi_master_gpio *master = to_fsi_master_gpio(_master);
 +
-+	if (addr + size > dev->size)
-+		return -EINVAL;
++	if (link != 0)
++		return -ENODEV;
 +
-+	return fsi_slave_write(dev->slave, dev->addr + addr, val, size);
++	/* todo: format write into a message, send, poll for response */
++	(void)master;
++
++	return 0;
 +}
 +
-+int fsi_device_peek(struct fsi_device *dev, void *val)
++static int fsi_master_gpio_probe(struct platform_device *pdev)
 +{
-+	uint32_t addr = FSI_PEEK_BASE + ((dev->unit - 2) * sizeof(uint32_t));
++	struct fsi_master_gpio *master;
++	struct gpio_desc *gpio;
 +
-+	return fsi_slave_read(dev->slave, addr, val, sizeof(uint32_t));
++	master = devm_kzalloc(&pdev->dev, sizeof(*master), GFP_KERNEL);
++	if (!master)
++		return -ENOMEM;
++
++	gpio = devm_gpiod_get(&pdev->dev, "clk", 0);
++	if (IS_ERR(gpio))
++		return PTR_ERR(gpio);
++	master->gpio_clk = gpio;
++
++	gpio = devm_gpiod_get(&pdev->dev, "data", 0);
++	if (IS_ERR(gpio))
++		return PTR_ERR(gpio);
++	master->gpio_data = gpio;
++
++	master->master.read = fsi_master_gpio_read;
++	master->master.write = fsi_master_gpio_write;
++
++	return fsi_master_register(&master->master);
 +}
- 
- static void fsi_device_release(struct device *_device)
- {
-@@ -99,6 +136,13 @@ static int fsi_slave_read(struct fsi_slave *slave, uint32_t addr,
- 			slave->id, addr, val, size);
- }
- 
-+static int fsi_slave_write(struct fsi_slave *slave, uint32_t addr,
-+		const void *val, size_t size)
-+{
-+	return slave->master->write(slave->master, slave->link,
-+			slave->id, addr, val, size);
-+}
 +
- static int fsi_slave_scan(struct fsi_slave *slave)
- {
- 	uint32_t engine_addr;
-diff --git a/include/linux/fsi.h b/include/linux/fsi.h
-index dfd3513..47af0af 100644
---- a/include/linux/fsi.h
-+++ b/include/linux/fsi.h
-@@ -28,6 +28,12 @@ struct fsi_device {
- 	uint32_t		size;
- };
- 
-+extern int fsi_device_read(struct fsi_device *dev, uint32_t addr,
-+		void *val, size_t size);
-+extern int fsi_device_write(struct fsi_device *dev, uint32_t addr,
-+		const void *val, size_t size);
-+extern int fsi_device_peek(struct fsi_device *dev, void *val);
++static const struct of_device_id fsi_master_gpio_match[] = {
++	{ .compatible = "ibm,fsi-master-gpio" },
++	{ },
++};
 +
- struct fsi_device_id {
- 	u8	engine_type;
- 	u8	version;
-@@ -41,7 +47,6 @@ struct fsi_device_id {
- #define FSI_DEVICE_VERSIONED(t, v) \
- 	.engine_type = (t), .version = (v),
- 
--
- struct fsi_driver {
- 	struct device_driver		drv;
- 	const struct fsi_device_id	*id_table;
++static struct platform_driver fsi_master_gpio_driver = {
++	.driver = {
++		.name		= "fsi-master-gpio",
++		.of_match_table	= fsi_master_gpio_match,
++	},
++	.probe	= fsi_master_gpio_probe,
++};
++
++module_platform_driver(fsi_master_gpio_driver);
++
 -- 
 1.8.2.2
