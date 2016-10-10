@@ -3,46 +3,46 @@ Received: from mail-oi0-x242.google.com (mail-oi0-x242.google.com
  [IPv6:2607:f8b0:4003:c06::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3st1cG20P1zDrbk
- for <openbmc@lists.ozlabs.org>; Tue, 11 Oct 2016 00:46:05 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3st1mb6JqtzDrbk
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Oct 2016 00:53:19 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=j+7xabHG; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=yDODQxX7; 
  dkim-atps=neutral
-Received: by mail-oi0-x242.google.com with SMTP id i127so6657352oia.0
- for <openbmc@lists.ozlabs.org>; Mon, 10 Oct 2016 06:46:05 -0700 (PDT)
+Received: by mail-oi0-x242.google.com with SMTP id e12so1337861oib.3
+ for <openbmc@lists.ozlabs.org>; Mon, 10 Oct 2016 06:53:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=lqhu/tJl+oV0UgNMVqHDbR0aBBZjZfltyQGPWbg2E+Y=;
- b=j+7xabHGCqTTjNHU7bNG3G5ULmk/JLKaDSeIc8SXYRGjD7QODK6oYxhNtyKhW71v8v
- hlGonpr14WjsZVkUIOCcGcsEArOuuqkfmLYZ/GBaLpE5mACpDkr/ULCbbRxszPoB0wHj
- GrZ5ndyYlGGyLV8R6TVYLMN/K4a1IdzD3SdbyM5SWOEQ9IMtrfFc3UEfBfewTr7wi3Pg
- DrCissCedK4bre6FO1z4ZcXsLMftp/qRsbR1aqb1dd2LsSjdRN0rGquRCPC99tK03cg8
- YZeAu+TkrNTZGl+GuGow2BaFsjVqCm/ySq8QMV2IuRzT2yHrzbkvO9de0vjFLMq2verR
- SkRg==
+ :cc; bh=qjtoBD7TSzbLmMwDkwV517tlmTJDI84lco3zexmN5PU=;
+ b=yDODQxX74wPtE4sveobDaeAMvob4IvBBZySkWq5ls3TrDEr52i7dzOmK6iFNCs8qP1
+ x03eBIyUbwthmN4bUF0SUxUrfC+F0KfkuSZPcp7+mC/0wuYc3QxopwMOWSZbecQ9gua7
+ Hwv9LyKgZPvT8qOfDgsuiDntxK2x/zVCooX2DX2TaIrAHMwQxy2ZYas0wesX/SxZGEbh
+ +LB4CYKX9eEzEqOZ5UnPJhQvOfEJS6HpQkx516uUTntRxYmnOWwWLvT2i6NO2vj5UMhR
+ 5MKAgTQbJIIAzyYYCD3XaG1tgVDT6Z8N25JQnq7iQbxXHdFO6QwiejWLGWno3JUvhTZa
+ QSHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=lqhu/tJl+oV0UgNMVqHDbR0aBBZjZfltyQGPWbg2E+Y=;
- b=PTaOQPIgjU14jS3sBAHH0GeQytHUbrSstbo+7JGsETtAoJPE9hT322WKIWhjmAnvk+
- tLudFyDb72LkrtVhjSXqm1t9BDSdTD1EIiuhseuATvCaicjaEKsqv1B5s1/nWJMK7GOD
- KK9MyZKOZS+rFy4PCyiPJy6b17BRzxG9B8Xdxi3hjz+s4bDapVeooBaGiGfLqK0Hmdgw
- LGnUpXiNAoQTGN/Ok7f5sJNBhNqjebTwS6emIR5xArejDmP5gKnDUoMJ9t1dp7psVwA2
- sAjv8+humQhIQPEEwlXwmZ/jvuBXcetHe6M9nB3k2GMBgHhbrxrm6i2d2+98xoFm22od
- LKww==
-X-Gm-Message-State: AA6/9Rn9K6/8q7YznCzreXCi3AlaubKaA9tTc8Zr995BYngURvcuCvB56NWn6cHd/1t1lUA0DK+hjUANudagdw==
-X-Received: by 10.202.76.151 with SMTP id z145mr25333317oia.8.1476107164062;
- Mon, 10 Oct 2016 06:46:04 -0700 (PDT)
+ bh=qjtoBD7TSzbLmMwDkwV517tlmTJDI84lco3zexmN5PU=;
+ b=I56noTQiHMIvRpltIulPsJrj0OCNHm2G096prf6NjoqlRPbvAgZDAePDRZOLCtrMs5
+ rOdeDsDjtB0Xegg/pRXSm0Rhu/ZiQxwLCK+y027IejY1jjZpI60v4vPRQW6UeVeplDFT
+ jYgRphzEEBMimBBfsc0of1yMMOuFp9W3SZVFZjBv7qvb1osnHZFojr7u43cHQnR3N0Sq
+ NKhLwtm/rWTeKd/XNfRR3otITJ4eule9ZBzMalYh2MNo6f6dCoTal8gq4CQFWqibFTMN
+ vkzfwgM2vwOdLHD9vU8eOHlAXKtrr4tUZJ6VCdmDySViLD9fQPiHnWbK78vgye9vBYoh
+ Q63g==
+X-Gm-Message-State: AA6/9RnjqDQBLeqbpmXw0RJBBhwCFtZV7TsyQI8VjFWzIBOF0krmpuPEdFa1g24nHNO5Cu/3KHkfW9L63FAZcA==
+X-Received: by 10.202.117.66 with SMTP id q63mr980737oic.185.1476107598136;
+ Mon, 10 Oct 2016 06:53:18 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.202.220.132 with HTTP; Mon, 10 Oct 2016 06:46:03 -0700 (PDT)
-In-Reply-To: <92b7a5c0-71ae-7af7-8090-45f4375a39d5@ozlabs.org>
+Received: by 10.202.220.132 with HTTP; Mon, 10 Oct 2016 06:53:17 -0700 (PDT)
+In-Reply-To: <bf2fa509-3c91-4969-f598-96806594e117@ozlabs.org>
 References: <1475948333-55960-1-git-send-email-christopher.lee.bostic@gmail.com>
- <1475948333-55960-18-git-send-email-christopher.lee.bostic@gmail.com>
- <92b7a5c0-71ae-7af7-8090-45f4375a39d5@ozlabs.org>
+ <1475948333-55960-17-git-send-email-christopher.lee.bostic@gmail.com>
+ <bf2fa509-3c91-4969-f598-96806594e117@ozlabs.org>
 From: Christopher Bostic <christopher.lee.bostic@gmail.com>
-Date: Mon, 10 Oct 2016 08:46:03 -0500
-Message-ID: <CAA0LjjW5Zti-9MJinpN8wM3j6DHJ9W5JT9XtuC80MG7WEkZwXw@mail.gmail.com>
-Subject: Re: [PATCH linux v2 17/17] drivers/fsi: Add GPIO master functionality
+Date: Mon, 10 Oct 2016 08:53:17 -0500
+Message-ID: <CAA0LjjUpFw5bv=WYp+zuPQU7rUtjxkr0YJZC-g3s_9pDDMsX_Q@mail.gmail.com>
+Subject: Re: [PATCH linux v2 16/17] drivers/fsi: Set up CFAMs for communication
 To: Jeremy Kerr <jk@ozlabs.org>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, xxpetri@de.ibm.com,
  zahrens@us.ibm.com
@@ -58,51 +58,110 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Oct 2016 13:46:06 -0000
+X-List-Received-Date: Mon, 10 Oct 2016 13:53:20 -0000
 
 On Sun, Oct 9, 2016 at 7:56 PM, Jeremy Kerr <jk@ozlabs.org> wrote:
 > Hi Chris,
 >
->> Add setup of the GPIO pins for FSI master function.
->> Set up I/O directions, define all pins needed and
->> set up their initial values.  Define serial out
->> operation.
->>
->> Signed-off-by: Chris Bostic <cbostic@us.ibm.com>
+>> +/*
+>> + * Issue a break commad on this link
+>> + */
+>> +static int fsi_master_break(struct fsi_master *master, int link)
+>> +{
+>> +     int rc = 0;
+>> +
+>> +     if (master->send_break)
+>> +             rc = master->send_break(master, link);
+>> +
+>> +     return rc;
+>> +}
 >
-> Awesome! I assume this is still in development though, right?
+> OK, looks good.
+>
+>> +static int fsi_master_fake_break(struct fsi_master *master, int link)
+>> +{
+>> +     if (link != 0)
+>> +             return -ENODEV;
+>> +
+>> +     return 0;
+>> +}
+>> +
+>> +static int fsi_master_fake_set_smode(struct fsi_master *master, int link,
+>> +                                     uint32_t smode)
+>> +{
+>> +     if (link != 0)
+>> +             return -ENODEV;
+>> +
+>> +     return 0;
+>> +}
+>> +
+>
+> Since these are no-ops...
+>
+>>  static int fsi_master_fake_probe(struct platform_device *pdev)
+>>  {
+>>       struct fsi_master *master;
+>> @@ -63,6 +80,8 @@ static int fsi_master_fake_probe(struct platform_device *pdev)
+>>       master->n_links = 1;
+>>       master->read = fsi_master_fake_read;
+>>       master->write = fsi_master_fake_write;
+>> +     master->send_break = fsi_master_fake_break;
+>> +     master->set_smode = fsi_master_fake_set_smode;
+>
+> ... we can just leave the callbacks NULL (the wrapper functions check
+> this).
 >
 
-Yes its not complete as it stands in this set.  I'll put the remainder
-in version 3
-of this set
+Hi Jeremy,
 
->>  struct fsi_master_gpio {
->>       struct fsi_master       master;
->>       struct gpio_desc        *gpio_clk;
->>       struct gpio_desc        *gpio_data;
->> +     struct gpio_desc        *gpio_trans;            /* Voltage translator */
->> +     struct gpio_desc        *gpio_enable;           /* FSI enable */
->> +     struct gpio_desc        *gpio_mux;              /* Mux control */
->>  };
+For break and smode callbacks I did what you had done for
+fsi_master_fake_write( ).
+I'm not sure how mine are any different?
+
+> However:
 >
-> OK, you should update the device-tree binding to include these extra
-
-> GPIOs (and put their descriptions in there). Are they required for all
-> implementations? (is it possible that some would only have clock and
-> data?)
+>> +static int fsi_master_gpio_set_smode(struct fsi_master *_master, int link,
+>> +                                             uint32_t smode)
+>> +{
+>> +     int rc;
+>> +
+>> +     rc = _master->write(_master, link, 0, FSI_SLAVE_BASE + FSI_SMODE,
+>> +                     &smode, sizeof(smode));
+>> +
+>> +     return rc;
+>> +}
+>> +
 >
+> Won't this always be implemented the same way on all masters (ie, a
+> write to a particular slave register)? Why the need for a
+> master-specific callback here?
 
-OK Will update the dev-tree binding.
 
-Good question about other implementations.  It is possible that they could have
-only clock and data.  I suspect some type of enable should be used but
-it wouldn't be strictly necessary.  What would you suggest given the potential
-for pin differences between platforms?
+This will be different for various masters based on the hardware
+issues mentioned
+in previous notes.  For example the cascaded master needs to set a different ID
+in smode.
 
-Thanks,
-Chris
+>
+>> +#define FSI_CMD_BREAK                0xc0de0000      /* Break command */
+>> +
+>
+> This isn't used anywhere; what's it for? It doesn't look like something
+> that all masters will use, so shouldn't be in the global master header.
 
+OK, I'll move this out of the global master header.
+
+>
+>> @@ -29,6 +31,9 @@ struct fsi_master {
+>>       int             (*write)(struct fsi_master *, int link,
+>>                               uint8_t slave, uint32_t addr,
+>>                               const void *val, size_t size);
+>> +     int             (*send_break)(struct fsi_master *, int link);
+>> +     int             (*set_smode)(struct fsi_master *, int link,
+>> +                             uint32_t smode);
+>
+> See above comments - do we really need a set_smode callback?
+>
 > Cheers,
 >
 >
