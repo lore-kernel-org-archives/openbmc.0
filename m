@@ -3,54 +3,55 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3stGWT4SVNzDskb
- for <openbmc@lists.ozlabs.org>; Tue, 11 Oct 2016 10:27:49 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3stGtf41HpzDskb
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Oct 2016 10:44:26 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
  dkim=fail reason="signature verification failed" (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=XMvNb1sd; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=GlwG7DG6; 
  dkim=fail reason="signature verification failed" (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=imwMUMHd; dkim-atps=neutral
+ header.b=VBR3u/Qi; dkim-atps=neutral
 Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id E8FD12084F;
- Mon, 10 Oct 2016 19:27:42 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute7.internal (MEProxy); Mon, 10 Oct 2016 19:27:42 -0400
+ by mailout.nyi.internal (Postfix) with ESMTP id 4567820B04;
+ Mon, 10 Oct 2016 19:44:24 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute7.internal (MEProxy); Mon, 10 Oct 2016 19:44:24 -0400
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=IVY9Z
- ESmopHUMF7UBZSzC4msVXQ=; b=XMvNb1sd88BYwqCvqivWNgaGDR6t/0nV1H6KX
- McV6s3HQhsMO5j1AdDvyl7lFE9PESyULb1XHjUIoTHKXznmfbNMQ+9m+9OAuEeRd
- MEYBsNo38dToaWe4p3bCLVAX1JtHzwEIO+TIyWp5NtJS7gpZEQoGjRjvdLVyMG/+
- DLwoLE=
+ :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=86b0j
+ H+0LBYeEj7uDcu/KjY1U5k=; b=GlwG7DG62gA+yhUD52hL2JBD2SYsznvNw6kxu
+ C6QytPdPIAIJj9gL8xLACy9lyM2NylPdPduHC8G1uVq6CPL9bSDhuJuuI/NtP87u
+ hrwHVNO8Tub+alyhC3eIcRc8cL5D4ysbvvJi0NlGmZN37vDgEIJwGWxIu547ciN5
+ C0+l0E=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-sasl-enc
- :x-sasl-enc; s=smtpout; bh=IVY9ZESmopHUMF7UBZSzC4msVXQ=; b=imwMU
- MHdVmuSCe9ljDewqSlL54cJdjquS7gPe8kUq3EGMxTFg+lHq2esf2VQNEqFugePV
- CZniC09Z/VoHQiOWxO4bagVLDHU2OQdikAFwmfpMV6D6EXFEPAx7JS76ey+LkqxQ
- HD3FtYprC+8NgrJ5buDvAwIIAX6u1lleP4Wb7I=
-X-Sasl-enc: KBxqCbyqjRR1qVwdbMNsgViWE/ogIhvq2Uc2rfbaY2ME 1476142061
+ :x-sasl-enc; s=smtpout; bh=86b0jH+0LBYeEj7uDcu/KjY1U5k=; b=VBR3u
+ /QihNbOK3NY61zA6j3oIOGiCLx6XfbJADC8JWTt/4iuDgOME8JV2GGqiHowu7O5z
+ Ge/gUSOsp6E+Ya26b1Lei/LcwuW78KC93+YsaLHC/CgGubtKTjb5ygBLon5qeirh
+ e3w4d1jq9CVx/9nLrZ0FPtMckVPOQi0pCUoufQ=
+X-Sasl-enc: Kr+h8Jb5jAEjO2yLp/wd3TrWll01zZJE++8aUDhdn8PZ 1476143063
 Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 2BCF8CC087;
- Mon, 10 Oct 2016 19:27:38 -0400 (EDT)
-Message-ID: <1476142055.16733.4.camel@aj.id.au>
-Subject: Re: [PATCH 0/8] pinctrl: aspeed: Fixes for core and g5, implement
- remaining pins
+ by mail.messagingengine.com (Postfix) with ESMTPA id D18EBF29CE;
+ Mon, 10 Oct 2016 19:44:21 -0400 (EDT)
+Message-ID: <1476143058.16733.10.camel@aj.id.au>
+Subject: Re: openpower.xyz updates
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Linus Walleij <linus.walleij@linaro.org>
-Cc: Joel Stanley <joel@jms.id.au>, Mark Rutland <mark.rutland@arm.com>, Rob
- Herring <robh+dt@kernel.org>, "linux-gpio@vger.kernel.org"
- <linux-gpio@vger.kernel.org>,  "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
- <devicetree@vger.kernel.org>, openbmc@lists.ozlabs.org
-Date: Tue, 11 Oct 2016 09:57:35 +1030
-In-Reply-To: <CACRpkdZWbx1_SYJMOn40teQaEw1JAq80kDAp7N+OYaMRRO6NBg@mail.gmail.com>
-References: <cover.115463f791b69859c5ce9dafd61a5755ea039f4b.1474986045.git-series.andrew@aj.id.au>
- <CACRpkdZWbx1_SYJMOn40teQaEw1JAq80kDAp7N+OYaMRRO6NBg@mail.gmail.com>
+To: Andrew Geissler <geissonator@gmail.com>, Patrick Williams
+ <patrick@stwcx.xyz>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley
+ <joel@jms.id.au>,  Chris Smart <chris@distroguy.com>
+Date: Tue, 11 Oct 2016 10:14:18 +1030
+In-Reply-To: <CALLMt=o-pdSefwGK9rSyoW1+6UzMspzkvQmSnZJrz9h3G89W5w@mail.gmail.com>
+References: <CACPK8XfQPDg0H_aNKmZOje7pPDRE9sJsD-epqAB8uW2X6SrrDg@mail.gmail.com>
+ <CALLMt=rbR1usfKPt9G8kdUa2RaqRaaVEG3rV62wSBjaM59qi6Q@mail.gmail.com>
+ <CACPK8Xcn=s3NAnVNOYBXwHrnfYPT7xicH-TTXTb50TJU6OHHrA@mail.gmail.com>
+ <20160930013816.GC7390@heinlein.lan>
+ <CACPK8Xd3vP0E14-QSnpKxcLYdnaf=eqZb3hvfm26QCEZCA3aiA@mail.gmail.com>
+ <20160930131252.GD7390@heinlein.lan>
+ <CALLMt=o-pdSefwGK9rSyoW1+6UzMspzkvQmSnZJrz9h3G89W5w@mail.gmail.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-hVK1QdoxUWFNXarmauyO"
+ protocol="application/pgp-signature"; boundary="=-k+edqj3XvnrhiBsf1RnW"
 X-Mailer: Evolution 3.18.5.2-0ubuntu3 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -64,49 +65,65 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Oct 2016 23:27:51 -0000
+X-List-Received-Date: Mon, 10 Oct 2016 23:44:27 -0000
 
 
---=-hVK1QdoxUWFNXarmauyO
+--=-k+edqj3XvnrhiBsf1RnW
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2016-10-10 at 09:59 +0200, Linus Walleij wrote:
-> On Tue, Sep 27, 2016 at 4:50 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
->=20
-> >=20
-> > The initial Aspeed pinctrl patches implemented a subset of pins for eac=
-h of the
-> > g4 and g5 SoCs. This series provides a number of fixes to the initial p=
-atches,
-> > mostly for issues identified in the g5 driver. The fixes account for th=
-e first
-> > half of the series (up to and including "pinctrl: aspeed-g5: Fix pin
-> > association of SPI1 function") and should be applied for 4.9.
-> Those are applied for fixes.
+On Mon, 2016-10-10 at 11:09 -0500, Andrew Geissler wrote:
+> I noticed our gerrit trigger job to verify userid's was broken again
+> this morning.=C2=A0=C2=A0Looks like the trouble plugin (Git Client Plugin=
+) was
+> upgraded again to the latest version.=C2=A0=C2=A0Anyone out there know wh=
+y/who
+> did it?=C2=A0=C2=A0I'm going to put us back to 1.19.7 per my earlier comm=
+ents.
 
-Thanks!
+Joel and Chris Smart were looking at this yesterday. A job broke:
 
->=20
-> >=20
-> > The second half, from "pinctrl: aspeed: Enable capture of off-SCU pinmu=
-x
-> > state", implements some additional functionality in the core engine for=
- the
-> > Aspeed SoCs and follows up with patches implementing mux configuration =
-tables
-> > for all remaining pins. Given the significant additions in the last few
-> > patches, their lateness in the cycle and the light testing they have re=
-ceived
-> > they are best left for 4.10, but I'm keen to get them out for review.
-> I'm holding these back until v4.9-rc1 is out.
+https://openpower.xyz/job/openpower-op-build/184/console
 
-No worries; they need some discussion when you have the time.
+According to Chris it broke because of:
+
+https://bugs.eclipse.org/bugs/show_bug.cgi?id=3D428039
+
+    15:58 < csmart> joel, basically release() was replaced with close()
+    and so any plugin that uses git needs to be updated
+
+Looks like we're stuck between a rock and a hard place.
 
 Cheers,
 
 Andrew
---=-hVK1QdoxUWFNXarmauyO
+
+>=20
+> There's no fix per-se for this, jenkins is always a bit hit or miss
+> with it's latest LTS version working with the latest plugins.=C2=A0=C2=A0=
+Best
+> thing we can do is when we schedule our next jenkins LTS upgrade, to
+> try all the latest plugins again.
+>=20
+> Andrew
+>=20
+> On Fri, Sep 30, 2016 at 8:12 AM, Patrick Williams <patrick@stwcx.xyz> wro=
+te:
+> >=20
+> > On Fri, Sep 30, 2016 at 11:16:08AM +0930, Joel Stanley wrote:
+> > >=20
+> > > Okay. Do we plan to test the individual projects as part of an
+> > > openbmc/openbmc build in the future?
+> > >=20
+> > Yes.=C2=A0=C2=A0https://github.com/openbmc/openbmc/issues/382
+> >=20
+> > --
+> > Patrick Williams
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+--=-k+edqj3XvnrhiBsf1RnW
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
@@ -114,19 +131,19 @@ Content-Transfer-Encoding: 7bit
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAABCgAGBQJX/CPnAAoJEJ0dnzgO5LT5TsgP/jg5DRyy/3c4awC9o87ZxF4W
-pjTa7TZaLrC9K6Y0yKUVkRb4VQST0ho7+XWa1sUU5BqRkYNxaU3+dgfKTLRq7rhl
-CFxu/zUAWNxMhWZ6gbeJAkEmUGrvhrV0lVhKg/Ect4uYF8rIVtvDpfM7xrpQF9mM
-Ty9PxvtybzI2DqtClNgcCOZYtFNe257zPzFkoYoq4fzPA4f/44SwusWbrAztHISp
-CC/diW7YgNo8/8Y/6AniTy86mcSiGdZ5YWC6qGAjEGVi2SqCHZ5ZSEk8yYu6dGX7
-i4FpUK7R7fUej2li1Z6qvatR/Id85DsjoTz705ywUHbxkILNfY3mALtMf4exWHug
-NXS+TJKy4Gqv4C6kQ429m2ZhrZ0hGheHkQnXh9EBM9+0Cqg40ROdlQkawowSu3yU
-DdlgX2HELuO3PtP50r83U+ya+v892KVj2M1wQh1+VwYTPm8fi9rA+OKgPLkAYdpk
-v+QuKI/65SaxJpr7BEQeIDdI18CcTTwLBIWnPa4ZN34OX/Z2ErQGXpIX0wDcCTCV
-s1dlCe7TPU3UMi7ZElQD+gYNuQ5y2Ac8R67vEY93inhlR6gwdyvA6PsAvolsnf7k
-ZfXPjUQdcY6VRujxX1gZTZzkeGW7sQiwiCRT5OITD1Nq6vt/n5kuJ4jtWa597vJd
-wZiR4q2ucEOj8XdzvtDb
-=Yx7F
+iQIcBAABCgAGBQJX/CfSAAoJEJ0dnzgO5LT5KHoP/3qnYPwLSe7Lka7jr0urc7kr
+fIVKq2dzCyMe5+y7Suvpe/AUkh7iYA2/Y1RmZkH9wcN5eHpjBlh8mjqCjGuTZ3wn
+wxUds6qWAZG2+xvD7ZYVZZLPz1/uykBuy+zD2pvbLie8kkWxA6NtmPqHu7n9aHDc
+Menk1c4TPg5hGjILkfy6Iza0Z41AP2rKI5IyDCFx7l8RGGPYRE0/z6D2/Cjl3lNA
++dYYjmbBI206gU/uAPL+Exld0PH8k+VXJaWe0QyKnEPxIFHSPl3o4N9GOTpxDkye
+YWE7soofxlWdDSBh6YQbSb5nBo8dI7NNKCoQCdn61rwvrLI7Idm0vG5zYjeGI3/P
+CF+SzhFXlYpkUztzxgwM55FihmDsR3n+MFVXmQvW/bcF/6JsTteEZoHQo7EPi5fF
+uY7pjOnXubj55q5qZr7m2kmZ++IAAYTArh9Jn7ezidNQO5jGOH4r0er16Og4AIWY
+VHnb+ZCzy/wZkDYJ0MLYkI60dvIKqSrnGiwYPMO5GJIWC3x1HsL5KKIpyjnFuz0D
+cETEEBPbSQw0YFsRRUqMdR8QSNda+vWMf6AQqYogkoFqeewAN7nNVKURrdLTB8PD
+Oz5lIjyw3AsbvGIhoqjaILfuqWp1ZP2TUucZWSwNicYlNTinerrLW22Sz/z+hgIk
+PInj8QcbqGoJl8jIPg4E
+=7Oxz
 -----END PGP SIGNATURE-----
 
---=-hVK1QdoxUWFNXarmauyO--
+--=-k+edqj3XvnrhiBsf1RnW--
