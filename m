@@ -1,48 +1,43 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-vk0-x241.google.com (mail-vk0-x241.google.com
+ [IPv6:2607:f8b0:400c:c05::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3stGtf41HpzDskb
- for <openbmc@lists.ozlabs.org>; Tue, 11 Oct 2016 10:44:26 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
- dkim=fail reason="signature verification failed" (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=GlwG7DG6; 
- dkim=fail reason="signature verification failed" (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=VBR3u/Qi; dkim-atps=neutral
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 4567820B04;
- Mon, 10 Oct 2016 19:44:24 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute7.internal (MEProxy); Mon, 10 Oct 2016 19:44:24 -0400
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=86b0j
- H+0LBYeEj7uDcu/KjY1U5k=; b=GlwG7DG62gA+yhUD52hL2JBD2SYsznvNw6kxu
- C6QytPdPIAIJj9gL8xLACy9lyM2NylPdPduHC8G1uVq6CPL9bSDhuJuuI/NtP87u
- hrwHVNO8Tub+alyhC3eIcRc8cL5D4ysbvvJi0NlGmZN37vDgEIJwGWxIu547ciN5
- C0+l0E=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-sasl-enc
- :x-sasl-enc; s=smtpout; bh=86b0jH+0LBYeEj7uDcu/KjY1U5k=; b=VBR3u
- /QihNbOK3NY61zA6j3oIOGiCLx6XfbJADC8JWTt/4iuDgOME8JV2GGqiHowu7O5z
- Ge/gUSOsp6E+Ya26b1Lei/LcwuW78KC93+YsaLHC/CgGubtKTjb5ygBLon5qeirh
- e3w4d1jq9CVx/9nLrZ0FPtMckVPOQi0pCUoufQ=
-X-Sasl-enc: Kr+h8Jb5jAEjO2yLp/wd3TrWll01zZJE++8aUDhdn8PZ 1476143063
-Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id D18EBF29CE;
- Mon, 10 Oct 2016 19:44:21 -0400 (EDT)
-Message-ID: <1476143058.16733.10.camel@aj.id.au>
-Subject: Re: openpower.xyz updates
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Andrew Geissler <geissonator@gmail.com>, Patrick Williams
- <patrick@stwcx.xyz>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley
- <joel@jms.id.au>,  Chris Smart <chris@distroguy.com>
-Date: Tue, 11 Oct 2016 10:14:18 +1030
-In-Reply-To: <CALLMt=o-pdSefwGK9rSyoW1+6UzMspzkvQmSnZJrz9h3G89W5w@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3stH0M02d9zDskb
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Oct 2016 10:49:23 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=QFW9I4H1; 
+ dkim-atps=neutral
+Received: by mail-vk0-x241.google.com with SMTP id 192so227562vkl.2
+ for <openbmc@lists.ozlabs.org>; Mon, 10 Oct 2016 16:49:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=nEcoVAmqXc18fzxoCspLRwiFil8Af5n2u0HdMItrF4c=;
+ b=QFW9I4H1dw0uFjASDTiDYAXGK7/Qg5ikfDGAUzzNQGJjuiixTultVntnMNyobcJF5X
+ p+L2CeRg0908bAlveD9E6iSNMUsH4abcF7z63A29RL84uf67Od/VM23BXeQdN7C2SHip
+ iCd3/DBYTH6zw3SYA2foLPuVFFncU8T8sTIPczU2iVsH382rvVn4MSW65M6Ne+DapQ2i
+ c5+9YVqdrDV4vbilYbCb2EAU2p0Ei6ww+/GDnuS0T6q6AlC+yAiL4bR4gpb1WoYTtOzO
+ Pb1fAitWojJpVgXPx3xQ79kNu94tHtwNheS5xvQhcVLro+XcMdAtEGTtbSjKLUUwCezZ
+ a+7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=nEcoVAmqXc18fzxoCspLRwiFil8Af5n2u0HdMItrF4c=;
+ b=ONoYu7vsl6rTyRdVsQ8et3nHwhAMfiS5KPc4vPY+Mp4lXbuDTTpndtWx99OclfTJ5h
+ tAGB7XE+Fhppbtjnx5d8CGgvzxj2Bz293iu08NMZPfw/APQWWs0FHSYteWr/qqDlF1P6
+ l0YRrLVt4JomSoAuM4HcLpqdQkngCau+IYQlNqPPce6oHG5mADVsqCqXqWaW7kitQtuJ
+ rj1oIxO9AHVpCGNZ85Pk1c75qwAP8I8VORrphUfIUcuiyTr9iS/xPlyLeNEDLgzd/Cue
+ L0//BBWzdkX/Ar+v37950F33kCaaRlx7Z/L0S8r3lJRPH9SREVngWfPhdk9lvWpu1Yve
+ jiMA==
+X-Gm-Message-State: AA6/9Rl9KDTM24tRHcPEtZ96qat0rVscNJRUliYjQKnuXN7pqnjbWaSklLX9rNDZVBt1ZUdvRnEz2d22XESErw==
+X-Received: by 10.31.4.195 with SMTP id 186mr881794vke.82.1476143360943; Mon,
+ 10 Oct 2016 16:49:20 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.176.7.8 with HTTP; Mon, 10 Oct 2016 16:49:00 -0700 (PDT)
+In-Reply-To: <1476143058.16733.10.camel@aj.id.au>
 References: <CACPK8XfQPDg0H_aNKmZOje7pPDRE9sJsD-epqAB8uW2X6SrrDg@mail.gmail.com>
  <CALLMt=rbR1usfKPt9G8kdUa2RaqRaaVEG3rV62wSBjaM59qi6Q@mail.gmail.com>
  <CACPK8Xcn=s3NAnVNOYBXwHrnfYPT7xicH-TTXTb50TJU6OHHrA@mail.gmail.com>
@@ -50,10 +45,17 @@ References: <CACPK8XfQPDg0H_aNKmZOje7pPDRE9sJsD-epqAB8uW2X6SrrDg@mail.gmail.com>
  <CACPK8Xd3vP0E14-QSnpKxcLYdnaf=eqZb3hvfm26QCEZCA3aiA@mail.gmail.com>
  <20160930131252.GD7390@heinlein.lan>
  <CALLMt=o-pdSefwGK9rSyoW1+6UzMspzkvQmSnZJrz9h3G89W5w@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-k+edqj3XvnrhiBsf1RnW"
-X-Mailer: Evolution 3.18.5.2-0ubuntu3 
-Mime-Version: 1.0
+ <1476143058.16733.10.camel@aj.id.au>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 11 Oct 2016 10:49:00 +1100
+X-Google-Sender-Auth: 8Nt0dKe4YTll6FSda4z-Aivs5Vw
+Message-ID: <CACPK8XcTWswLZx_HmymWbtC7h3prLS-zUmiF1LfpQ+9XjsmNjA@mail.gmail.com>
+Subject: Re: openpower.xyz updates
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Andrew Geissler <geissonator@gmail.com>,
+ Patrick Williams <patrick@stwcx.xyz>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, Chris Smart <chris@distroguy.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,85 +67,63 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Oct 2016 23:44:27 -0000
+X-List-Received-Date: Mon, 10 Oct 2016 23:49:23 -0000
 
+On Tue, Oct 11, 2016 at 10:44 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> On Mon, 2016-10-10 at 11:09 -0500, Andrew Geissler wrote:
+>> I noticed our gerrit trigger job to verify userid's was broken again
+>> this morning.  Looks like the trouble plugin (Git Client Plugin) was
+>> upgraded again to the latest version.  Anyone out there know why/who
+>> did it?  I'm going to put us back to 1.19.7 per my earlier comments.
+>
+> Joel and Chris Smart were looking at this yesterday. A job broke:
+>
+> https://openpower.xyz/job/openpower-op-build/184/console
+>
+> According to Chris it broke because of:
+>
+> https://bugs.eclipse.org/bugs/show_bug.cgi?id=428039
+>
+>     15:58 < csmart> joel, basically release() was replaced with close()
+>     and so any plugin that uses git needs to be updated
 
---=-k+edqj3XvnrhiBsf1RnW
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Yep.
 
-On Mon, 2016-10-10 at 11:09 -0500, Andrew Geissler wrote:
-> I noticed our gerrit trigger job to verify userid's was broken again
-> this morning.=C2=A0=C2=A0Looks like the trouble plugin (Git Client Plugin=
-) was
-> upgraded again to the latest version.=C2=A0=C2=A0Anyone out there know wh=
-y/who
-> did it?=C2=A0=C2=A0I'm going to put us back to 1.19.7 per my earlier comm=
-ents.
+Andrew G, do you have a bug report for the issue you're having?
 
-Joel and Chris Smart were looking at this yesterday. A job broke:
-
-https://openpower.xyz/job/openpower-op-build/184/console
-
-According to Chris it broke because of:
-
-https://bugs.eclipse.org/bugs/show_bug.cgi?id=3D428039
-
-    15:58 < csmart> joel, basically release() was replaced with close()
-    and so any plugin that uses git needs to be updated
-
-Looks like we're stuck between a rock and a hard place.
+We need to find a solution that lets us stay up to date with fixes from Jenkins.
 
 Cheers,
 
-Andrew
+Joel
 
->=20
-> There's no fix per-se for this, jenkins is always a bit hit or miss
-> with it's latest LTS version working with the latest plugins.=C2=A0=C2=A0=
-Best
-> thing we can do is when we schedule our next jenkins LTS upgrade, to
-> try all the latest plugins again.
->=20
+>
+> Looks like we're stuck between a rock and a hard place.
+>
+> Cheers,
+>
 > Andrew
->=20
-> On Fri, Sep 30, 2016 at 8:12 AM, Patrick Williams <patrick@stwcx.xyz> wro=
-te:
-> >=20
-> > On Fri, Sep 30, 2016 at 11:16:08AM +0930, Joel Stanley wrote:
-> > >=20
-> > > Okay. Do we plan to test the individual projects as part of an
-> > > openbmc/openbmc build in the future?
-> > >=20
-> > Yes.=C2=A0=C2=A0https://github.com/openbmc/openbmc/issues/382
-> >=20
-> > --
-> > Patrick Williams
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
---=-k+edqj3XvnrhiBsf1RnW
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAABCgAGBQJX/CfSAAoJEJ0dnzgO5LT5KHoP/3qnYPwLSe7Lka7jr0urc7kr
-fIVKq2dzCyMe5+y7Suvpe/AUkh7iYA2/Y1RmZkH9wcN5eHpjBlh8mjqCjGuTZ3wn
-wxUds6qWAZG2+xvD7ZYVZZLPz1/uykBuy+zD2pvbLie8kkWxA6NtmPqHu7n9aHDc
-Menk1c4TPg5hGjILkfy6Iza0Z41AP2rKI5IyDCFx7l8RGGPYRE0/z6D2/Cjl3lNA
-+dYYjmbBI206gU/uAPL+Exld0PH8k+VXJaWe0QyKnEPxIFHSPl3o4N9GOTpxDkye
-YWE7soofxlWdDSBh6YQbSb5nBo8dI7NNKCoQCdn61rwvrLI7Idm0vG5zYjeGI3/P
-CF+SzhFXlYpkUztzxgwM55FihmDsR3n+MFVXmQvW/bcF/6JsTteEZoHQo7EPi5fF
-uY7pjOnXubj55q5qZr7m2kmZ++IAAYTArh9Jn7ezidNQO5jGOH4r0er16Og4AIWY
-VHnb+ZCzy/wZkDYJ0MLYkI60dvIKqSrnGiwYPMO5GJIWC3x1HsL5KKIpyjnFuz0D
-cETEEBPbSQw0YFsRRUqMdR8QSNda+vWMf6AQqYogkoFqeewAN7nNVKURrdLTB8PD
-Oz5lIjyw3AsbvGIhoqjaILfuqWp1ZP2TUucZWSwNicYlNTinerrLW22Sz/z+hgIk
-PInj8QcbqGoJl8jIPg4E
-=7Oxz
------END PGP SIGNATURE-----
-
---=-k+edqj3XvnrhiBsf1RnW--
+>
+>>
+>> There's no fix per-se for this, jenkins is always a bit hit or miss
+>> with it's latest LTS version working with the latest plugins.  Best
+>> thing we can do is when we schedule our next jenkins LTS upgrade, to
+>> try all the latest plugins again.
+>>
+>> Andrew
+>>
+>> On Fri, Sep 30, 2016 at 8:12 AM, Patrick Williams <patrick@stwcx.xyz> wrote:
+>> >
+>> > On Fri, Sep 30, 2016 at 11:16:08AM +0930, Joel Stanley wrote:
+>> > >
+>> > > Okay. Do we plan to test the individual projects as part of an
+>> > > openbmc/openbmc build in the future?
+>> > >
+>> > Yes.  https://github.com/openbmc/openbmc/issues/382
+>> >
+>> > --
+>> > Patrick Williams
+>> _______________________________________________
+>> openbmc mailing list
+>> openbmc@lists.ozlabs.org
+>> https://lists.ozlabs.org/listinfo/openbmc
