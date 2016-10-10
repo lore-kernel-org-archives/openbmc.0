@@ -1,28 +1,56 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sshXV3Z1RzDrPL
- for <openbmc@lists.ozlabs.org>; Mon, 10 Oct 2016 11:56:42 +1100 (AEDT)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-ua0-x22a.google.com (mail-ua0-x22a.google.com
+ [IPv6:2607:f8b0:400c:c08::22a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 3sshXV11F8z9s2Q;
- Mon, 10 Oct 2016 11:56:42 +1100 (AEDT)
-Subject: Re: [PATCH linux v2 16/17] drivers/fsi: Set up CFAMs for communication
-To: christopher.lee.bostic@gmail.com, openbmc@lists.ozlabs.org
-References: <1475948333-55960-1-git-send-email-christopher.lee.bostic@gmail.com>
- <1475948333-55960-17-git-send-email-christopher.lee.bostic@gmail.com>
-From: Jeremy Kerr <jk@ozlabs.org>
-Cc: xxpetri@de.ibm.com, zahrens@us.ibm.com
-Message-ID: <bf2fa509-3c91-4969-f598-96806594e117@ozlabs.org>
-Date: Mon, 10 Oct 2016 08:56:41 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.2.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ssjvQ4J9hzDrL1
+ for <openbmc@lists.ozlabs.org>; Mon, 10 Oct 2016 12:58:10 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=ZNKjSG/N; 
+ dkim-atps=neutral
+Received: by mail-ua0-x22a.google.com with SMTP id p102so78710507uap.0
+ for <openbmc@lists.ozlabs.org>; Sun, 09 Oct 2016 18:58:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=+hNs5JShR184N1KZH5vGJjAV1c+AjXwgrWtmhuXAxNg=;
+ b=ZNKjSG/NFjeo1kgwJhgfVHIH1wE+JL/vYqnhnFLkT/r5Ki4mAyT2aHsnyv7GO4Cj01
+ XATF2+WvOvVibjfxSd0m/z3mDzp1eI7Z3HqtlSdJnyqJxaHMhWPTJhLJQVEzvauusG7Q
+ ugPqHDDPc06IXiqNZwraJhamu7bkca+XbsOjJRMUHrvAFm3EN1qFyLEOmXEqcxEtg2fH
+ CFY3VZLVP+Hxdnz9lev4ekkaIgaDy5zt/FYbHNs8govj/j+RxnqEcDZF/odBf4WQxB4b
+ GT6dgO7zMlAwlHiFFViZ6bA4t8gUyT3DMcld4bEH/SYlBkzxNjcz6hp5bIFCSzwpep49
+ wYHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=+hNs5JShR184N1KZH5vGJjAV1c+AjXwgrWtmhuXAxNg=;
+ b=EOo3waMGGS7AzJVjX0P2vPv/v8VoAW+7ViCnqSVDyP/himsxcxJlueVVxl8Cmy+I9Y
+ HPwvoEqg3Pf7dUT4TTp0PM2h4Ewhvmm/r7amz9VKCWkkKCIDXogrXe80w00GllAhGv2T
+ C3GbrC8SrMPhZQQhntThcvfAH2KmFh5VquTGE/nJ024NFqlTghwrZeGd97mNHdP6Uz2c
+ 1KeY7xv0Urx8PHatMvxDH94rBkTJjSDDa6KT1Q0nCAMSED48TMh94eazY+3wn45VTQ5H
+ bWUJN2dA3JfnTpKoOlBMnpwMtdxrwg6MCQs9eNpseNo3I18e2h3znk2uuUywAb47CFKO
+ KmxA==
+X-Gm-Message-State: AA6/9RnvfPZnk/GPSbVr90YAjegkPfTBEN5HrXs3WU2A8eRPldUNFfphj8OrORsgPa8aGxV/a4kvLsLHRBo/9w==
+X-Received: by 10.159.38.133 with SMTP id 5mr9433084uay.31.1476064688212; Sun,
+ 09 Oct 2016 18:58:08 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1475948333-55960-17-git-send-email-christopher.lee.bostic@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Sender: joel.stan@gmail.com
+Received: by 10.176.7.8 with HTTP; Sun, 9 Oct 2016 18:57:47 -0700 (PDT)
+In-Reply-To: <20161007015152.GA17914@heinlein.lan>
+References: <b659d152-5481-193e-ce1b-520d3de7d2ba@linux.vnet.ibm.com>
+ <CACPK8XdPfy7jN6ejsN=w_4wejy2zxBpwb8M3+b0GoLaW=0cKMw@mail.gmail.com>
+ <20161007015152.GA17914@heinlein.lan>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 10 Oct 2016 12:57:47 +1100
+X-Google-Sender-Auth: FDOlM7Pgxa_jqP_mXW9iErxLuAM
+Message-ID: <CACPK8Xfwj82abqJS_j20WZFzwwPZke2y1FCHk3eoMTwJopxDpw@mail.gmail.com>
+Subject: Re: I2C device driver names
+To: Patrick Williams <patrick@stwcx.xyz>,
+ Timothy Pearson <tpearson@raptorengineering.com>
+Cc: Matt Spinler <mspinler@linux.vnet.ibm.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -34,93 +62,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Oct 2016 00:56:42 -0000
+X-List-Received-Date: Mon, 10 Oct 2016 01:58:11 -0000
 
-Hi Chris,
+On Fri, Oct 7, 2016 at 12:51 PM, Patrick Williams <patrick@stwcx.xyz> wrote:
+> On Fri, Oct 07, 2016 at 10:42:24AM +1100, Joel Stanley wrote:
+>> > PMBus Power supplies:   ?
+>> >
+>> > MAX31785 fan controller:  max,max31785
+>>
+>> Doesn't appear to be an upstream driver. Please open a ticket.
+>
+> Timothy @ Raptor wrote a driver for this recently, didn't he?  Joel, I
+> thought you were going to merge it in for the time being.  Timothy
 
-> +/*
-> + * Issue a break commad on this link
-> + */
-> +static int fsi_master_break(struct fsi_master *master, int link)
-> +{
-> +	int rc = 0;
-> +
-> +	if (master->send_break)
-> +		rc = master->send_break(master, link);
-> +
-> +	return rc;
-> +}
+Yeah. I did ask that he spit out the maintainers part of that patch
+before we applied it.
 
-OK, looks good.
+Timothy, are you able to make that change?
 
-> +static int fsi_master_fake_break(struct fsi_master *master, int link)
-> +{
-> +	if (link != 0)
-> +		return -ENODEV;
-> +
-> +	return 0;
-> +}
-> +
-> +static int fsi_master_fake_set_smode(struct fsi_master *master, int link,
-> +					uint32_t smode)
-> +{
-> +	if (link != 0)
-> +		return -ENODEV;
-> +
-> +	return 0;
-> +}
-> +
 
-Since these are no-ops...
+> mentioned that there was some upstream work going on in that subsystem
+> that was preventing it from be merged in the current state but that the
+> subsystem owner was likely going to take it on.
 
->  static int fsi_master_fake_probe(struct platform_device *pdev)
->  {
->  	struct fsi_master *master;
-> @@ -63,6 +80,8 @@ static int fsi_master_fake_probe(struct platform_device *pdev)
->  	master->n_links = 1;
->  	master->read = fsi_master_fake_read;
->  	master->write = fsi_master_fake_write;
-> +	master->send_break = fsi_master_fake_break;
-> +	master->set_smode = fsi_master_fake_set_smode;
-
-... we can just leave the callbacks NULL (the wrapper functions check
-this).
-
-However:
-
-> +static int fsi_master_gpio_set_smode(struct fsi_master *_master, int link,
-> +						uint32_t smode)
-> +{
-> +	int rc;
-> +
-> +	rc = _master->write(_master, link, 0, FSI_SLAVE_BASE + FSI_SMODE,
-> +			&smode, sizeof(smode));
-> +
-> +	return rc;
-> +}
-> +
-
-Won't this always be implemented the same way on all masters (ie, a
-write to a particular slave register)? Why the need for a
-master-specific callback here?
-
-> +#define FSI_CMD_BREAK		0xc0de0000	/* Break command */
-> +
-
-This isn't used anywhere; what's it for? It doesn't look like something
-that all masters will use, so shouldn't be in the global master header.
-
-> @@ -29,6 +31,9 @@ struct fsi_master {
->  	int		(*write)(struct fsi_master *, int link,
->  				uint8_t slave, uint32_t addr,
->  				const void *val, size_t size);
-> +	int		(*send_break)(struct fsi_master *, int link);
-> +	int		(*set_smode)(struct fsi_master *, int link,
-> +				uint32_t smode);
-
-See above comments - do we really need a set_smode callback?
+Timothy, do you have any update on the rewrite?
 
 Cheers,
 
+Joel
 
-Jeremy
+>
+> https://patchwork.ozlabs.org/patch/672045/
+>
+> --
+> Patrick Williams
