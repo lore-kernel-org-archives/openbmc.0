@@ -1,47 +1,28 @@
-Return-Path: <robherring2@gmail.com>
-Received: from mail-oi0-f65.google.com (mail-oi0-f65.google.com
- [209.85.218.65])
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (ozlabs.org [103.22.144.67])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sshWy08WvzDrPL
+ for <openbmc@lists.ozlabs.org>; Mon, 10 Oct 2016 11:56:14 +1100 (AEDT)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sshT35vBVzDrPL
- for <openbmc@lists.ozlabs.org>; Mon, 10 Oct 2016 11:53:43 +1100 (AEDT)
-Received: by mail-oi0-f65.google.com with SMTP id i127so5534778oia.0
- for <openbmc@lists.ozlabs.org>; Sun, 09 Oct 2016 17:53:43 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=uM7Ejasm7Ro0kCEWtWfdE0X5gZucJQjTVriRU1JrMhw=;
- b=lbJehCLt0X6oFrJ+lVDrhfaQ3R9lagc2b22ntRgdrcVIgAgTLsaiZQ2FDW5US99Fxr
- +a2k2a5s9htcDKerPJX2gl0xubrrv9GvR2DcNaMyu0ysIboiHKLF7O8b38PZMqoTn6Tt
- 29+vjuX4CObDcg01Sv+Bs5+RGujdsbOZwEyjBJDBKaXgSPDtYJtZ2B0jGAfwUHKeKXvM
- 73BeEisS5Do19TIabbNpB3QZhkrwYH2eVVcx2ZBFEOKgMTg5zpZjc19KzgeiLXzlxZGP
- ccsadruEMlVaZ79wQayourdpnxlgebfftKAJEfUobNBz09Z2vJ5MR4rXctKOwONvCjwr
- Tg3w==
-X-Gm-Message-State: AA6/9Rn99bc0cYqDCKgvpkUoa/ThwnzFtxymJ1VyQMkh+7MgJx7VpxNNVxx8n3aZRdNpDQ==
-X-Received: by 10.157.15.246 with SMTP id m51mr15570458otd.105.1476060821668; 
- Sun, 09 Oct 2016 17:53:41 -0700 (PDT)
-Received: from localhost (72-48-98-129.dyn.grandenetworks.net. [72.48.98.129])
- by smtp.gmail.com with ESMTPSA id
- v3sm1035060oie.9.2016.10.09.17.53.40
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 09 Oct 2016 17:53:40 -0700 (PDT)
-Date: Sun, 9 Oct 2016 19:53:39 -0500
-From: Rob Herring <robh@kernel.org>
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Linus Walleij <linus.walleij@linaro.org>, Joel Stanley <joel@jms.id.au>,
- Mark Rutland <mark.rutland@arm.com>, linux-gpio@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH 8/8] pinctrl: aspeed-g5: Add mux configuration for all pins
-Message-ID: <20161010005339.GA29854@rob-hp-laptop>
-References: <cover.115463f791b69859c5ce9dafd61a5755ea039f4b.1474986045.git-series.andrew@aj.id.au>
- <a17175fdeaf1656afa307a180a4ab4953d4ad19c.1474986045.git-series.andrew@aj.id.au>
+ by ozlabs.org (Postfix) with ESMTPSA id 3sshWx4mGqz9s2Q;
+ Mon, 10 Oct 2016 11:56:13 +1100 (AEDT)
+Subject: Re: [PATCH linux v2 17/17] drivers/fsi: Add GPIO master functionality
+To: christopher.lee.bostic@gmail.com, openbmc@lists.ozlabs.org
+References: <1475948333-55960-1-git-send-email-christopher.lee.bostic@gmail.com>
+ <1475948333-55960-18-git-send-email-christopher.lee.bostic@gmail.com>
+Cc: xxpetri@de.ibm.com, zahrens@us.ibm.com
+From: Jeremy Kerr <jk@ozlabs.org>
+Message-ID: <92b7a5c0-71ae-7af7-8090-45f4375a39d5@ozlabs.org>
+Date: Mon, 10 Oct 2016 08:56:12 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.2.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a17175fdeaf1656afa307a180a4ab4953d4ad19c.1474986045.git-series.andrew@aj.id.au>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+In-Reply-To: <1475948333-55960-18-git-send-email-christopher.lee.bostic@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -53,21 +34,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Oct 2016 00:53:44 -0000
+X-List-Received-Date: Mon, 10 Oct 2016 00:56:14 -0000
 
-On Wed, Sep 28, 2016 at 12:20:20AM +0930, Andrew Jeffery wrote:
-> The patch introducing the g5 pinctrl driver implemented a smattering of
-> pins to flesh out the implementation of the core and provide bare-bones
-> support for some OpenPOWER platforms and the AST2500 evaluation board.
-> Now, update the bindings document to reflect the complete functionality
-> and implement the necessary pin configuration tables in the driver.
+Hi Chris,
+
+> Add setup of the GPIO pins for FSI master function.
+> Set up I/O directions, define all pins needed and
+> set up their initial values.  Define serial out
+> operation.
 > 
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> ---
->  Documentation/devicetree/bindings/pinctrl/pinctrl-aspeed.txt |   17 +-
+> Signed-off-by: Chris Bostic <cbostic@us.ibm.com>
 
-Acked-by: Rob Herring <robh@kernel.org>
+Awesome! I assume this is still in development though, right?
 
->  drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c                   | 1476 ++++++-
->  drivers/pinctrl/aspeed/pinctrl-aspeed.h                      |    1 +-
->  3 files changed, 1487 insertions(+), 7 deletions(-)
+>  struct fsi_master_gpio {
+>  	struct fsi_master	master;
+>  	struct gpio_desc	*gpio_clk;
+>  	struct gpio_desc	*gpio_data;
+> +	struct gpio_desc	*gpio_trans;		/* Voltage translator */
+> +	struct gpio_desc	*gpio_enable;		/* FSI enable */
+> +	struct gpio_desc	*gpio_mux;		/* Mux control */
+>  };
+
+OK, you should update the device-tree binding to include these extra
+GPIOs (and put their descriptions in there). Are they required for all
+implementations? (is it possible that some would only have clock and
+data?)
+
+Cheers,
+
+
+Jeremy
