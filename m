@@ -1,53 +1,54 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x241.google.com (mail-ua0-x241.google.com
- [IPv6:2607:f8b0:400c:c08::241])
+Received: from mail-vk0-x244.google.com (mail-vk0-x244.google.com
+ [IPv6:2607:f8b0:400c:c05::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ssrS42JJZzDrL1
- for <openbmc@lists.ozlabs.org>; Mon, 10 Oct 2016 17:53:24 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ssrT03X2KzDrL1
+ for <openbmc@lists.ozlabs.org>; Mon, 10 Oct 2016 17:54:11 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=FZ8bFQgD; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=veyw/sal; 
  dkim-atps=neutral
-Received: by mail-ua0-x241.google.com with SMTP id m26so3694673uaa.2
- for <openbmc@lists.ozlabs.org>; Sun, 09 Oct 2016 23:53:24 -0700 (PDT)
+Received: by mail-vk0-x244.google.com with SMTP id b186so3748209vkb.3
+ for <openbmc@lists.ozlabs.org>; Sun, 09 Oct 2016 23:54:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=ntTbqdVAbkXcB2bytV0iw9WcPnY+fBxwzvrh57GHVBM=;
- b=FZ8bFQgD4vRxr3awHKWdj6bVDPgMl7eLrzC2Ox/DuXCIucKjHWgjiHmVAs6lBPcbhF
- cAbZTmWByHVkdvqqdIidJRSWtoWOSNYTXMeGYwEGRA2HuNjEOmXRj6ZJIDgT9pu6Pl9m
- 1/66mfeHo2XLBlJHDqFWm0X2LMEcH6XtTN/AQcJJe1AkdARfpiumTqiiouq73FB02Ldi
- bUCY/QAp3UZzSppsQx2yhwvIO2nmCJRPTHvS5Y7dAL7z0jbtw1DrpmJPnOXpqc80Pixg
- tTokonr8ELTX62+bEJb0XbPV0tjo2zzVkQVbBtbJmIxJtxOSSIJMMIpDvMFeZ3eFL+s9
- TIbQ==
+ bh=/YAT+aU75ZDhjpUYrTqTrvufrOH7RNiN8D3fIyCQ/Wk=;
+ b=veyw/salrqOeLGUpNOiYnAPBu8+fyOkLrrZJfYjVgL07BbI94/10N+O0t5PKv5oNUm
+ tAOKjpugudeudujN/M0wCcqjXN1qardJMWVDGeEJqdbSFUJXRTHkJ8Yvl/MfF9yQmFDS
+ 7tlpxYTD/+IudWIKqPiiRZE4wRsOhDFmQ6VPbJiYtrbGMnfEf04686zaKxofPQxkhf+h
+ 0GlCELvqB5hDjBlk5HYTfwzrBOLKgl/BGMBoxW6mO9K8Gp/yEr5qbYM8n7RkAGfYoOqP
+ UXslHXVpV+6QoF9+bKDpxBnlcuxN4tvEmNnOVegmoIqERWy4wApUeqPZpmDeiCUXItnJ
+ 279g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=ntTbqdVAbkXcB2bytV0iw9WcPnY+fBxwzvrh57GHVBM=;
- b=VXprDKmhLCwjYVvqGPaiEWv4MAe6kjNVcOD7m2Y7ugQjBrZ2Rrhuj1oeN6YB5ThRDf
- N01aY9oixixrr42ejumwmnZeUmkSkPzt1KO2I4Z7YPlFpxeLh7HdXyllLh2zpg/hYRTJ
- YG+7VLir+3/Klb1MtmTjb3pGoVIfjWcV02rFRUmSJ3PjBMRdWbWL2+SbU4xdVdtz52YK
- WWzz47/UWL6qn51oQhQitxS1ptNAzxLfSh9hZ44/6HyH2qm1e4WNnGtaCo2LALgrKKOq
- cp51q4zS8rnP7hSLefWkkd+EsI+MAn2xzdPpPAUm/Bx95vglyHf6i9LVVOUk51R8A1l6
- cVWw==
-X-Gm-Message-State: AA6/9Rk4Ms8++UN2zWhL50BEl0Js1WrvEIskHy/d2s4S1kp1JmuQTztmyZZX3+WGyRkKKQEUmYMzgQ82szCowQ==
-X-Received: by 10.176.84.72 with SMTP id o8mr20741828uaa.128.1476082402110;
- Sun, 09 Oct 2016 23:53:22 -0700 (PDT)
+ bh=/YAT+aU75ZDhjpUYrTqTrvufrOH7RNiN8D3fIyCQ/Wk=;
+ b=jqZvBj8hs2tLGDBkgIt8Q5J+XWaHXN7/Tq/mHe2hxvsOLWGi0Xni/spd6W/6tVBfyr
+ l/xrUS2r8EERtVs9da4TtR5bsE9TnCQsamIhytXD5CpDFQZp3IogQ7VO8OH9PI92lJd9
+ SSiQTJw/2LYHyf2J/4tcr+YBwYW7D5KdFrcBaeYsvREXLFdSOyaMHj32B3iPlxgyW9SI
+ LDkGL2j5ll+FTkjB3F7UMCULH5OpnhVXzZPoWaWSDmnkJpjWNiFo/X1JBhzw6U1LOR4e
+ sN0jMH4c+ppy5P6+e6N/dSNIFMVV+bful5M1/IcqNW/6pla8Q1CMmFYTvkGa+G+16umO
+ CwvA==
+X-Gm-Message-State: AA6/9Rm5pJFkFL8sujippE2x5ZW12b1EA6Iy3CYipr3d12oP1vYM5sX3oGr5avWGe7XtenZaOC4TqX7zIo8Fgg==
+X-Received: by 10.31.115.8 with SMTP id o8mr6928997vkc.2.1476082449863; Sun,
+ 09 Oct 2016 23:54:09 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.176.7.8 with HTTP; Sun, 9 Oct 2016 23:53:01 -0700 (PDT)
-In-Reply-To: <1474058133-27363-8-git-send-email-tpearson@raptorengineering.com>
+Received: by 10.176.7.8 with HTTP; Sun, 9 Oct 2016 23:53:49 -0700 (PDT)
+In-Reply-To: <1474246806.13249.48.camel@aj.id.au>
 References: <1474058133-27363-1-git-send-email-tpearson@raptorengineering.com>
- <1474058133-27363-8-git-send-email-tpearson@raptorengineering.com>
+ <1474058133-27363-15-git-send-email-tpearson@raptorengineering.com>
+ <1474246806.13249.48.camel@aj.id.au>
 From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 10 Oct 2016 17:53:01 +1100
-X-Google-Sender-Auth: k8bisztA18t7yOtTS9LZ_nhdwNo
-Message-ID: <CACPK8Xeyk1sjbLzcpSJXqMqFVFJ0rvhRd4x5jK2qTgwsPCBbQQ@mail.gmail.com>
-Subject: Re: [PATCH 07/17] pinctrl-aspeed-g4: Add definition for GPIO pins J2
- and O2
-To: Timothy Pearson <tpearson@raptorengineering.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Mon, 10 Oct 2016 17:53:49 +1100
+X-Google-Sender-Auth: ajpFAQtbbpsYu9qlyROD13bbLz4
+Message-ID: <CACPK8Xe_RuQLxnyEPiGN0_mHqr+HKWsDtg101jFv0CjVX0jBgg@mail.gmail.com>
+Subject: Re: [PATCH 14/17] Enable RGMII pin functions in Firestone DT
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Timothy Pearson <tpearson@raptorengineering.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -60,92 +61,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Oct 2016 06:53:24 -0000
+X-List-Received-Date: Mon, 10 Oct 2016 06:54:13 -0000
 
-On Sat, Sep 17, 2016 at 6:35 AM, Timothy Pearson
-<tpearson@raptorengineering.com> wrote:
-> This is required for Firestone to boot.
+On Mon, Sep 19, 2016 at 11:00 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> On Fri, 2016-09-16 at 15:35 -0500, Timothy Pearson wrote:
+>> This is required for BMC networking to function.
+>>
+>> Signed-off-by: Timothy Pearson <tpearson@raptorengineering.com>
 >
-> Signed-off-by: Timothy Pearson <tpearson@raptorengineering.com>
+> Acked-by: Andrew Jeffery <andrew@aj.id.au>
 
-These are now part of the dev-4.7 tree as part of Andrew's work.
+This is now applied to the dev-4.7 tree.
 
 Cheers,
 
 Joel
 
-
-> ---
->  drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c |   15 +++++++++++++--
->  1 file changed, 13 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
-> index e356619..610ab48 100644
-> --- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
-> +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
-> @@ -499,6 +499,9 @@ MS_PIN_DECL(E7, GPIOH7, ROMD15, RXD6);
->
->  FUNC_GROUP_DECL(UART6, A8, C7, B7, A7, D7, B6, A6, E7);
->
-> +#define K5 74
-> +SSSF_PIN_DECL(K5, GPIOJ2, SGPMO, SIG_DESC_SET(SCU84, 10));
-> +
->  #define J3 75
->  SSSF_PIN_DECL(J3, GPIOJ3, SGPMI, SIG_DESC_SET(SCU84, 11));
->
-> @@ -727,10 +730,14 @@ SS_PIN_DECL(V6, GPIOO0, VPIG8);
->  SIG_EXPR_LIST_DECL_SINGLE(VPIG9, VPI24, VPI24_DESC, SIG_DESC_SET(SCU88, 9));
->  SS_PIN_DECL(Y5, GPIOO1, VPIG9);
->
-> +#define AA4 114
-> +SIG_EXPR_LIST_DECL_SINGLE(VPIR0, VPI30, VPI30_DESC, SIG_DESC_SET(SCU88, 10));
-> +SS_PIN_DECL(AA4, GPIOO2, VPIR0);
-> +
->  FUNC_GROUP_DECL(VPI18, T5, U3, V1, U4, V2, AA22, W5, Y4, AA3, AB2);
->  FUNC_GROUP_DECL(VPI24, T5, U3, V1, U4, V2, AA22, W5, Y4, AA3, AB2, V6, Y5);
-> -FUNC_GROUP_DECL(VPI30, T5, U3, V1, U4, V2, W1, U5, W4, Y3, AA22, W5, Y4, AA3,
-> -               AB2);
-> +FUNC_GROUP_DECL(VPI30, T5, U3, V1, U4, V2, W1, U5, W4, Y3, AA4, AA22, W5, Y4,
-> +               AA3, AB2);
->
->  #define Y7 125
->  SIG_EXPR_LIST_DECL_SINGLE(GPIOP5, GPIOP5);
-> @@ -1154,6 +1161,7 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEED_G4_NR_PINS] = {
->         ASPEED_PINCTRL_PIN(J20),
->         ASPEED_PINCTRL_PIN(J21),
->         ASPEED_PINCTRL_PIN(J3),
-> +       ASPEED_PINCTRL_PIN(K5),
->         ASPEED_PINCTRL_PIN(K18),
->         ASPEED_PINCTRL_PIN(L22),
->         ASPEED_PINCTRL_PIN(N21),
-> @@ -1189,6 +1197,7 @@ static struct pinctrl_pin_desc aspeed_g4_pins[ASPEED_G4_NR_PINS] = {
->         ASPEED_PINCTRL_PIN(Y4),
->         ASPEED_PINCTRL_PIN(Y5),
->         ASPEED_PINCTRL_PIN(Y7),
-> +       ASPEED_PINCTRL_PIN(AA4),
->  };
->
->  static const struct aspeed_pin_group aspeed_g4_groups[] = {
-> @@ -1231,6 +1240,7 @@ static const struct aspeed_pin_group aspeed_g4_groups[] = {
->         ASPEED_PINCTRL_GROUP(FLBUSY),
->         ASPEED_PINCTRL_GROUP(FLWP),
->         ASPEED_PINCTRL_GROUP(UART6),
-> +       ASPEED_PINCTRL_GROUP(SGPMO),
->         ASPEED_PINCTRL_GROUP(SGPMI),
->         ASPEED_PINCTRL_GROUP(VGAHS),
->         ASPEED_PINCTRL_GROUP(VGAVS),
-> @@ -1341,6 +1351,7 @@ static const struct aspeed_pin_function aspeed_g4_functions[] = {
->         ASPEED_PINCTRL_FUNC(FLBUSY),
->         ASPEED_PINCTRL_FUNC(FLWP),
->         ASPEED_PINCTRL_FUNC(UART6),
-> +       ASPEED_PINCTRL_FUNC(SGPMO),
->         ASPEED_PINCTRL_FUNC(SGPMI),
->         ASPEED_PINCTRL_FUNC(VGAHS),
->         ASPEED_PINCTRL_FUNC(VGAVS),
-> --
-> 1.7.9.5
+>> ---
+>>  arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts |    3 +++
+>>  1 file changed, 3 insertions(+)
+>>
+>> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+>> index 053fafe..36c95a0 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+>> @@ -72,6 +72,9 @@
+>>  &mac0 {
+>>       status = "okay";
+>>
+>> +     pinctrl-names = "default";
+>> +     pinctrl-0 = <&pinctrl_rgmii1_default &pinctrl_mdio1_default>;
+>> +
+>>       no-hw-checksum;
+>>  };
+>>
 >
 > _______________________________________________
 > openbmc mailing list
 > openbmc@lists.ozlabs.org
 > https://lists.ozlabs.org/listinfo/openbmc
+>
