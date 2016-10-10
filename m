@@ -1,55 +1,36 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x233.google.com (mail-ua0-x233.google.com
- [IPv6:2607:f8b0:400c:c08::233])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sss7H6K6GzDrL1
- for <openbmc@lists.ozlabs.org>; Mon, 10 Oct 2016 18:23:55 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=Sq4NB3+5; 
- dkim-atps=neutral
-Received: by mail-ua0-x233.google.com with SMTP id p102so81029533uap.0
- for <openbmc@lists.ozlabs.org>; Mon, 10 Oct 2016 00:23:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=BHRh+U4u2xkZmJN+0k1JyHSMrrihtYlKmzQ3As3mPrA=;
- b=Sq4NB3+5fguaQqOJshUtrCdfxyAhnXtBqEvjOHgaBIDhBpu7YMbn/pivTKowUegIrO
- 8IGVOCG7zDMr6aw4jCtdYO1O2BhAhOYMncXitgCEIRlAEVO4zf0l2D6usMrPdk8UKn83
- Zd5gVgSRTNHXiCaMwYI79tbaHErdMEoilAWV+9XyWYqlEgt8g/KhykkokF01V7ig+Pc5
- v/VAUwrsKxQiBFn2sM+bbvCAkxlCplf6UJ7IHR34KacpkbW7YYk+jE+CN9TrKC23170J
- Ws9D3k7ieqFESyif77XyRx0OajQP4RITm3UiRg4hgT1un6Uy/gtzPk4hKZtsLjY3ZzaY
- 2F+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=BHRh+U4u2xkZmJN+0k1JyHSMrrihtYlKmzQ3As3mPrA=;
- b=YMgaCNAK7uGWjHaIOOZWYVco+GJVU3RZfFm7QM3xkQ5ZCX1qpGktXiCSMGdaSI7zjj
- Xhk6eLzsFg8C74dstji+EHuFTwhCmgvucWDCcFNMLi6/jSaleSZRiM19CE2CAooiafla
- TrMDyI1E4s3fwTjhsX/0WfMNzOMlBYIE0SXjD2fWY8/SQDsmw5Pp8j+KL9g+AD+dTO8a
- DLQn0Ts1XcllkbHVaZatERKIgiR33bmQhxtm4nOUCRBhd9oTf4gl1ngbTFm3KFRvgXxs
- R2A1cqJj8VMkyZP6YAO0VIYbacGKGnH/IZbxFwlXOiSZFHnEhtxb8Ucp8xMlTywTQoz+
- ZDPg==
-X-Gm-Message-State: AA6/9Rn3SSl++KgwUq+CfSkWn9pxkVab1dECfdYP/bL8XzDH/NDseb9EtlKFd6kaPLxqK29wn10M0+ZW3/3hSQ==
-X-Received: by 10.176.67.166 with SMTP id l35mr3945436ual.166.1476084230708;
- Mon, 10 Oct 2016 00:23:50 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.176.7.8 with HTTP; Mon, 10 Oct 2016 00:23:30 -0700 (PDT)
-In-Reply-To: <20161004112517.GA27235@gwshan>
-References: <1475113131-18048-1-git-send-email-gwshan@linux.vnet.ibm.com>
- <20161004003626.GA309@gwshan>
- <CACPK8Xcx7vNOsT6rdLYVJQHwvN6yFyrogOhpPyczU1jMQ8r2rw@mail.gmail.com>
- <20161004112517.GA27235@gwshan>
-From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 10 Oct 2016 18:23:30 +1100
-X-Google-Sender-Auth: uf5D7UuQe9KjqKbxtDDJVDPpC-8
-Message-ID: <CACPK8XfqgxbqWyMQtnm1gQ665zqvZFz=5ZmC4y0RQ2ra8E=s9g@mail.gmail.com>
-Subject: Re: [PATCH v2 4.7 0/8] NCSI Fixes
-To: Gavin Shan <gwshan@linux.vnet.ibm.com>
+Return-Path: <clg@kaod.org>
+Received: from 6.mo1.mail-out.ovh.net (6.mo1.mail-out.ovh.net [46.105.43.205])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ssshW3FQbzDrbq
+ for <openbmc@lists.ozlabs.org>; Mon, 10 Oct 2016 18:49:14 +1100 (AEDT)
+Received: from player726.ha.ovh.net (b7.ovh.net [213.186.33.57])
+ by mo1.mail-out.ovh.net (Postfix) with ESMTP id 162F2136AD
+ for <openbmc@lists.ozlabs.org>; Mon, 10 Oct 2016 09:32:21 +0200 (CEST)
+Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: clg@kaod.org)
+ by player726.ha.ovh.net (Postfix) with ESMTPSA id 991192A0067;
+ Mon, 10 Oct 2016 09:32:19 +0200 (CEST)
+Subject: Re: [PATCH u-boot 00/12] config cleanups and small fixes
+To: Joel Stanley <joel@jms.id.au>
+References: <1475789205-19618-1-git-send-email-clg@kaod.org>
+ <6450afc7-7750-5282-aecc-408fd3a11df3@kaod.org>
+ <CACPK8XcoqDt_kGCVVt=B-8T28xJVbOfwYjVk1o=DEQ+DHO1ayQ@mail.gmail.com>
+ <CACPK8Xdafw1BiWn+QaJ+Dn13mhMJTaV3HF_G=0s4ofqoHZGDbA@mail.gmail.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <ce5094bb-9aa7-b4bd-a6a4-ee829d2c03f4@kaod.org>
+Date: Mon, 10 Oct 2016 09:32:19 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.3.0
+MIME-Version: 1.0
+In-Reply-To: <CACPK8Xdafw1BiWn+QaJ+Dn13mhMJTaV3HF_G=0s4ofqoHZGDbA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 4901323772669168386
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrfeejgddvkedvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,28 +42,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Oct 2016 07:23:56 -0000
+X-List-Received-Date: Mon, 10 Oct 2016 07:49:15 -0000
 
-On Tue, Oct 4, 2016 at 10:25 PM, Gavin Shan <gwshan@linux.vnet.ibm.com> wrote:
-> On Tue, Oct 04, 2016 at 03:58:58PM +1030, Joel Stanley wrote:
->>On Tue, Oct 4, 2016 at 11:06 AM, Gavin Shan <gwshan@linux.vnet.ibm.com> wrote:
->>> On Thu, Sep 29, 2016 at 11:38:43AM +1000, Gavin Shan wrote:
+On 10/10/2016 08:49 AM, Joel Stanley wrote:
+> On Mon, Oct 10, 2016 at 5:24 PM, Joel Stanley <joel@jms.id.au> wrote:
+>> On Fri, Oct 7, 2016 at 6:24 PM, Cédric Le Goater <clg@kaod.org> wrote:
+>>> On 10/06/2016 11:26 PM, Cédric Le Goater wrote:
+>>>> Hello,
 >>>>
+>>>> Here is a set of cleanups on the configuration. It should ease the
+>>>> port on v2016.11 which is a little more strict on CONFIG_ defines.
+>>
+>> Nice one! I had a look at all of the patches and they look good. I
+>> will hold off on the last two relating to ramdisk until we see what
+>> upstream say.
+>>
 >>>
->>> Joel, please hold merging this series because I try pushing this series
->>> upstream firstly. It's always good to keep code sync'ed between 4.7.x
->>> with upstream regarding NCSI stack. I will post a updated version if
->>> it can be upstream in time. Thanks again for your review and comments.
+>>> You will need this patch to start with :
+>>>
+>>>         https://github.com/legoater/u-boot/commit/d76a5e74286cd903c4eb96c3b5f762672121b02a
+>>>
+>>> forgot to send it :/
 >>
->>Okay, will do. Thanks Gavin.
->>
->
-> Thanks, Joel. v3, merged to linux.net ("next" branch), was just posted.
-> Please consider merging it to 4.7 branch :)
+>> No worries, I will include it.
+> 
+> I can't build the defconfig after applying your patches. I get the
+> same result with your trees (05fffe5dc0ec39a11c918d1916d349708cd67cf8,
+> 2d1d53622d3155193832992a11d84775e44190cf).
+> 
+> $ make ast_g4_nsci_defconfig
+> board/aspeed/ast-g5/Kconfig:22:warning: config symbol defined without type
 
-These should be all part of the 4.7 branch now. Please let me know if
-I've missed anything.
+Yes. There is a warning. I tried to add some constants in the config file but
+I am not sure this is the right way to do it.
+
+> ***
+> *** Can't find default configuration "arch/../configs/ast_g4_nsci_defconfig"!
+> ***
+> scripts/kconfig/Makefile:114: recipe for target 'ast_g4_nsci_defconfig' failed
+
+hmm curious. I don't have this problem on the four platforms:
+
+	ast2400_ncsi
+	ast2400_phy
+	ast2500_ncsi
+	ast2500_phy
+
+and the two branches,
+
+	v2016.11-aspeed-openbmc
+	v2016.09-aspeed-openbmc
+
+I am using a f24 to  compile.
 
 Cheers,
 
-Joel
+C.
