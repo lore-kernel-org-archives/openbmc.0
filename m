@@ -1,50 +1,50 @@
 Return-Path: <christopher.lee.bostic@gmail.com>
-Received: from mail-oi0-x242.google.com (mail-oi0-x242.google.com
- [IPv6:2607:f8b0:4003:c06::242])
+Received: from mail-oi0-x244.google.com (mail-oi0-x244.google.com
+ [IPv6:2607:f8b0:4003:c06::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3str4z41PyzDsrf
- for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 08:40:19 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3str501kyrzDsss
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 08:40:20 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=p6VybEvB; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=nAU7FcyT; 
  dkim-atps=neutral
-Received: by mail-oi0-x242.google.com with SMTP id e12so2264247oib.3
- for <openbmc@lists.ozlabs.org>; Tue, 11 Oct 2016 14:40:19 -0700 (PDT)
+Received: by mail-oi0-x244.google.com with SMTP id e12so2264256oib.3
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Oct 2016 14:40:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=42OvQihmRSPWTiN4RyOrsz/BOXFX8iDJ7350OLTLKv4=;
- b=p6VybEvBuvf/6jbceDdtH6AoW0mJ6qOsEjh7om4rHBcd+4PzndEfNOmBGsYJnMzG4L
- bAS7ssYyahqSuskkhyFo61sc6755E0Ga/rWcdx91J1KyXumoEluFs2Wn4LP+VCwbEtRV
- vPHXoAZZxlPY7wUlg3p5VXRug+WM5QiaLIaK+dbmhW8JDwC3SG7s6UFZZZtlIqRnruYh
- /O1OOAL6kKdHRWru9fBGJw6mIbU1IhC0nqUum06lK3YfJRX0uxpYbNOOJSRzTwnWE+QS
- jg1iCkEvrKEkyvY/QU/X13hujyIrKAihcuWf8FuATigfUXBl6PmMp7FcCKrF2fHCaLXa
- CvNw==
+ bh=vL8eKdUab2qsq/yXyGj94ztprnzLC8xLJve2iodNwr0=;
+ b=nAU7FcyTBiUMmaUSFV3Eg811uWIIqInSSk6ZaywOsMCBQAR304NgqPdAQ3i6IBkF64
+ utArPWwmCWxGjugDzcXJl0XQeqk5W+LaGjebvZguuhdusK/7WgrhywogBmrUJ2/hwCrG
+ bCkGKyNU+AwOLVFK66TLiI57ADgicVrasuHC7vqrBlaZMYTUsqWZOLE/Z+pVwjoKcpZJ
+ 1KT6U4xtOedUUeY410gTiyLcmJFXDo0HIIVsE+nmxmy0VP/PH4YhmSNpraMpaoJ3iYtE
+ 6asczN8DuoYLTdrNCA2v2E9v0AioR/XmGvu1+fCOh9SaoVi9sTOKBtaazRkPa+kpZM6z
+ l2lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=42OvQihmRSPWTiN4RyOrsz/BOXFX8iDJ7350OLTLKv4=;
- b=nAHXOmdnHs1sxxl+h37d0gyHYtes9GaBIy3vpu6uahEFryqOTMJtSP84cRSDwo8AaF
- K/rC6rU+7Dn7tiGrMe0ZsE6yb27eildrYk8VJVEkrm46Z16yW8e+WK40PK5nndVsQDNt
- QF6Pl8MCaZk8mRcLgIDFpi2+77vjPkdv3rEoRjbe/tUfUkGpEaN7wGBXyNh90tJ3GPoq
- 0+KfJanj3LwDlLKZyZc1zYb230lwWFezb4tgUrNUBv4LuIEPNXdqjgpBi5oJbOU2KXY9
- Nh8RuC/X+tFoPVi1DcPMIlkkwiQIZjq3pjqIXx4ybRSHlAbeLzz9Aovd6t96Nc5LDm2O
- 6IDQ==
-X-Gm-Message-State: AA6/9Rnj+A1Dbsy8N2nLKqE9BGL+e59I0zY2gQg/E8GnuGh8/idA4ALR7VVtkuZdFXfGQQ==
-X-Received: by 10.157.14.108 with SMTP id n41mr3413446otd.136.1476222017861;
- Tue, 11 Oct 2016 14:40:17 -0700 (PDT)
+ bh=vL8eKdUab2qsq/yXyGj94ztprnzLC8xLJve2iodNwr0=;
+ b=EyV7q8fcyh0m8YV9UN7aIncFDPBbuSAPXmOj1GKZOtQps7d1CAzPN07MW+ty8IX0Si
+ NEv1UNpRoGvTcJ7It4wrLut4vLyoxWl0XnvoXRZ7FqLsCwAyOMk7pjzy9bO0JD15IOQw
+ A22ubpOAxHXpm6dyk6TGWl2yAMlwrFFgKVB3hYjpZM6XjV4BUSISRpHpXxBQPG9xLLIH
+ t01qTjYGNhlWiV+h4J1ti7ylD+3KMgv2s3oxZA08TbaBhSQMatJdLoGHFjoj+f1fPWu3
+ OpTiE5lg+Pp2IvW9CVBly9hE11CLrjNYCCpl6VFGP68+cRvhafv6GP1TnDUGo0Hsc4tR
+ fg8g==
+X-Gm-Message-State: AA6/9Rl72HPEVL+eIqvu2ckxZCUvTFmHLsYPgIplnCbAeDqld0BUc5thGCARPq0FUgC2+Q==
+X-Received: by 10.157.18.178 with SMTP id g47mr2919095otg.230.1476222018520;
+ Tue, 11 Oct 2016 14:40:18 -0700 (PDT)
 Received: from Christophers-MacBook-Pro.local.com
  (45-20-192-79.lightspeed.austtx.sbcglobal.net. [45.20.192.79])
  by smtp.gmail.com with ESMTPSA id h91sm1811153oth.40.2016.10.11.14.40.17
  (version=TLS1 cipher=AES128-SHA bits=128/128);
- Tue, 11 Oct 2016 14:40:17 -0700 (PDT)
+ Tue, 11 Oct 2016 14:40:18 -0700 (PDT)
 From: christopher.lee.bostic@gmail.com
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, zahrens@us.ibm.com, xxpetri@de.ibm.com,
  Chris Bostic <cbostic@us.ibm.com>
-Subject: [PATCH linux v3 14/18] drivers/fsi: Fix some text formatting
-Date: Tue, 11 Oct 2016 16:39:59 -0500
-Message-Id: <1476222003-99697-15-git-send-email-christopher.lee.bostic@gmail.com>
+Subject: [PATCH linux v3 15/18] drivers/fsi: Revisions to existing patch set
+Date: Tue, 11 Oct 2016 16:40:00 -0500
+Message-Id: <1476222003-99697-16-git-send-email-christopher.lee.bostic@gmail.com>
 X-Mailer: git-send-email 2.7.4 (Apple Git-66)
 In-Reply-To: <1476222003-99697-1-git-send-email-christopher.lee.bostic@gmail.com>
 References: <1476222003-99697-1-git-send-email-christopher.lee.bostic@gmail.com>
@@ -63,66 +63,138 @@ X-List-Received-Date: Tue, 11 Oct 2016 21:40:20 -0000
 
 From: Chris Bostic <cbostic@us.ibm.com>
 
-Cleaned up a few formatting warnings like blank lines at EOF
-and block comment style.
+Changes recommended to the patch set so far as supplied by
+Jeremy Kerr.   Moved some CFAM specific details to a new cfam header
 
 Signed-off-by: Chris Bostic <cbostic@us.ibm.com>
----
- drivers/fsi/fsi-core.c        | 8 ++++++--
- drivers/fsi/fsi-master-fake.c | 1 -
- drivers/fsi/fsi-master-gpio.c | 1 -
- 3 files changed, 6 insertions(+), 4 deletions(-)
 
+Changes in V2:
+
+- Removed the renaming of slave to cfam
+---
+ drivers/fsi/fsi-cfam.h | 63 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ drivers/fsi/fsi-core.c | 22 ++++--------------
+ 2 files changed, 68 insertions(+), 17 deletions(-)
+ create mode 100644 drivers/fsi/fsi-cfam.h
+
+diff --git a/drivers/fsi/fsi-cfam.h b/drivers/fsi/fsi-cfam.h
+new file mode 100644
+index 0000000..ddb03cd
+--- /dev/null
++++ b/drivers/fsi/fsi-cfam.h
+@@ -0,0 +1,63 @@
++/*
++ * FSI CFAM definitions
++ *
++ * Copyright (C) IBM Corporation 2016
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ */
++
++#ifndef DRIVERS_FSI_CFAM_H
++#define DRIVERS_FSI_CFAM_H
++
++#include <linux/device.h>
++
++#include "fsi-master.h"
++
++#define FSI_SLAVE_ENG_ID	2
++
++#define FSI_MAX_CFAMS_PER_LINK	4
++#define FSI_CFAM_SIZE		(FSI_LINK_SIZE / FSI_MAX_CFAMS_PER_LINK)
++#define FSI_PEEK_BASE		0x410
++#define FSI_SLAVE_BASE		0x800
++
++/* Config space decoding */
++#define FSI_CFG_NEXT_MASK	0x80000000
++#define FSI_CFG_SLOT_MASK	0x00ff0000
++#define FSI_CFG_SLOT_SHIFT	16
++#define FSI_CFG_VERS_MASK	0x0000f000
++#define FSI_CFG_VERS_SHIFT	12
++#define FSI_CFG_TYPE_MASK	0x00000ff0
++#define FSI_CFG_TYPE_SHIFT	4
++
++/*
++ * Return number of slots in the configuration word
++ */
++static inline uint8_t fsi_cfg_slot(uint32_t x)
++{
++	return (x & FSI_CFG_SLOT_MASK) >> FSI_CFG_SLOT_SHIFT;
++}
++
++/*
++ * Return version in the configuration word
++ */
++static inline uint8_t fsi_cfg_version(uint32_t x)
++{
++	return (x & FSI_CFG_VERS_MASK) >> FSI_CFG_VERS_SHIFT;
++}
++
++/*
++ * Return type field in the configuration word
++ */
++static inline uint8_t fsi_cfg_type(uint32_t x)
++{
++	return (x & FSI_CFG_TYPE_MASK) >> FSI_CFG_TYPE_SHIFT;
++}
++
++#endif /* DRIVERS_FSI_CFAM_H */
 diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-index 10bf817..a3a860a 100644
+index a3a860a..0da8cf0 100644
 --- a/drivers/fsi/fsi-core.c
 +++ b/drivers/fsi/fsi-core.c
-@@ -87,6 +87,7 @@ int fsi_device_peek(struct fsi_device *dev, void *val)
- static void fsi_device_release(struct device *_device)
- {
- 	struct fsi_device *device = to_fsi_dev(_device);
-+
- 	kfree(device);
- }
+@@ -21,19 +21,10 @@
+ #include <linux/slab.h>
  
-@@ -185,8 +186,10 @@ static int fsi_slave_scan(struct fsi_slave *slave)
- 		type = (conf & FSI_SLAVE_CONF_TYPE_MASK)
- 			>> FSI_SLAVE_CONF_TYPE_SHIFT;
+ #include "fsi-master.h"
++#include "fsi-cfam.h"
  
--		/* Unused address areas are marked by a zero type value; this
--		 * skips the defined address areas */
-+		/*
-+		 * Unused address areas are marked by a zero type value; this
-+		 * skips the defined address areas
-+		 */
- 		if (type != 0) {
+ #define FSI_N_SLAVES	4
  
- 			/* create device */
-@@ -229,6 +232,7 @@ static int fsi_slave_scan(struct fsi_slave *slave)
- static void fsi_slave_release(struct device *dev)
- {
- 	struct fsi_slave *slave = to_fsi_slave(dev);
-+
- 	kfree(slave);
- }
- 
-diff --git a/drivers/fsi/fsi-master-fake.c b/drivers/fsi/fsi-master-fake.c
-index 50aac0b..ec1ed5e 100644
---- a/drivers/fsi/fsi-master-fake.c
-+++ b/drivers/fsi/fsi-master-fake.c
-@@ -93,4 +93,3 @@ static int __init fsi_master_fake_init(void)
- }
- 
- module_init(fsi_master_fake_init);
+-#define FSI_SLAVE_CONF_NEXT_MASK	0x80000000
+-#define FSI_SLAVE_CONF_SLOTS_MASK	0x00ff0000
+-#define FSI_SLAVE_CONF_SLOTS_SHIFT	16
+-#define FSI_SLAVE_CONF_VERSION_MASK	0x0000f000
+-#define FSI_SLAVE_CONF_VERSION_SHIFT	12
+-#define FSI_SLAVE_CONF_TYPE_MASK	0x00000ff0
+-#define FSI_SLAVE_CONF_TYPE_SHIFT	4
 -
-diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
-index 3855829..5c3d5cd 100644
---- a/drivers/fsi/fsi-master-gpio.c
-+++ b/drivers/fsi/fsi-master-gpio.c
-@@ -89,4 +89,3 @@ static struct platform_driver fsi_master_gpio_driver = {
- };
- 
- module_platform_driver(fsi_master_gpio_driver);
+-#define FSI_PEEK_BASE			0x410
 -
+ static const int engine_page_size = 0x400;
+ 
+ static atomic_t master_idx = ATOMIC_INIT(-1);
+@@ -179,12 +170,9 @@ static int fsi_slave_scan(struct fsi_slave *slave)
+ 			return -1;
+ 		}
+ 
+-		slots = (conf & FSI_SLAVE_CONF_SLOTS_MASK)
+-			>> FSI_SLAVE_CONF_SLOTS_SHIFT;
+-		version = (conf & FSI_SLAVE_CONF_VERSION_MASK)
+-			>> FSI_SLAVE_CONF_VERSION_SHIFT;
+-		type = (conf & FSI_SLAVE_CONF_TYPE_MASK)
+-			>> FSI_SLAVE_CONF_TYPE_SHIFT;
++		slots = fsi_cfg_slot(conf);
++		version = fsi_cfg_version(conf);
++		type = fsi_cfg_type(conf);
+ 
+ 		/*
+ 		 * Unused address areas are marked by a zero type value; this
+@@ -222,7 +210,7 @@ static int fsi_slave_scan(struct fsi_slave *slave)
+ 
+ 		engine_addr += slots * engine_page_size;
+ 
+-		if (!(conf & FSI_SLAVE_CONF_NEXT_MASK))
++		if (!(conf & FSI_CFG_NEXT_MASK))
+ 			break;
+ 	}
+ 
 -- 
 1.8.2.2
