@@ -1,50 +1,50 @@
 Return-Path: <christopher.lee.bostic@gmail.com>
-Received: from mail-oi0-x243.google.com (mail-oi0-x243.google.com
- [IPv6:2607:f8b0:4003:c06::243])
+Received: from mail-oi0-x244.google.com (mail-oi0-x244.google.com
+ [IPv6:2607:f8b0:4003:c06::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3str4q687fzDsrW
- for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 08:40:11 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3str4r5jVzzDsrT
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 08:40:12 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=Pv9GUerP; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=U5YA4P1N; 
  dkim-atps=neutral
-Received: by mail-oi0-x243.google.com with SMTP id e12so2264114oib.3
- for <openbmc@lists.ozlabs.org>; Tue, 11 Oct 2016 14:40:11 -0700 (PDT)
+Received: by mail-oi0-x244.google.com with SMTP id i127so2271981oia.0
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Oct 2016 14:40:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=qBdxgDogQkodLoIyvzMztGk09+tWxV3I1wNUQoeyZGc=;
- b=Pv9GUerP/xO3SfxQ7eiD0n36EnNbKt8IUfI5eZivcc7bZxpk55AksoYCGRfT27E4+m
- 86iw0DTHKwlp2lYzdSv8XkeiXMaZHqUwp0HG6CsWEteJkwgpk8Zy/I9D+lCfd0JGX13B
- TVzio+TZCa0SO8DK+ml36TMp/k2R09vWcPzH34Yki22eby9binVQmP8xZyvV0lqjYL/n
- BzBx4OvWqYQ/KY6/rqhchRn1gj54KjkxVyGInQB4FPT7/6lYsKr9VgdB8GK4uLpPwiin
- D3E/F1c311UAibyRMu4FSbkrzox9DV1trzxkDj1CPghNdBA6/eWpfw9p7KNH/bgqd9k5
- b9+A==
+ bh=V97o/W9Bq8RC2bxTUubm8h9U8GhLI6Gi+nED7Qff9Ys=;
+ b=U5YA4P1NFTh7y0Tg1M0yLSjyCOSWo9IWZfdNLVBx6w+1LeBNzKUeWh+qfAPWuJlBym
+ SU1a51Iy4xUsOs6RWqJRqeeKGQG0P+WsbQaD543lfevdHZsuCQmX0+RVy3qNDTg6P6u3
+ A9wrkvcwj+Iin2WCoHmBD2AyLamGbSPasuDDGssBvJHtgFbkPnEYYPLBPgehKYbGNzWL
+ dGxGB2/3MGGHFyqNBKVQKeVPboxKttl84SxV6M0UwgwUbYE/U4Ak+p0iIUZgHpWXXTQ1
+ 627282KeGA1gWbR/zMSsy3xXYe1eaXqa5+eSc8vKAMk2PdO1HMSRPMbkpaaGQs/Np+iK
+ uqqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=qBdxgDogQkodLoIyvzMztGk09+tWxV3I1wNUQoeyZGc=;
- b=amdiqo33FA31PYjuyCra1jsBTGm6Bh8LSvn5eS6UpS2a3tZFRrMBKKgnu5VD98Mltw
- mk2nYNnXMByNJtEWNUwlctOVY5fVR3lvF6cBv0n1nLUh7uzWSALjHDY9VEu56w3PWm4s
- cAWyzwxanDxdkAP8u244wy49zDD/Aa25BWqJm6hc83gQ8RZtT9wVJI5+lwgR7MGcWLAx
- wf8WQSs2GUZxqZSaTGzkxFZqjGfRP6M9ohgLJt9gN7CZD5bA5hLKjv+dqeLVRdBHpaV2
- ZUGTwISEWemRVF6QOl5WEBQfc0RBnnTMI3kbBVpQyLMRbi/anwdsPCBBIdZHmMyFh2OJ
- pthA==
-X-Gm-Message-State: AA6/9Rm96chEb2bBvy66pIUjQbTbGYBwjcawhPw5mCKaRoIQgA9LstPIAHZGXhXoKqK+xA==
-X-Received: by 10.202.56.132 with SMTP id f126mr4327724oia.73.1476222010179;
+ bh=V97o/W9Bq8RC2bxTUubm8h9U8GhLI6Gi+nED7Qff9Ys=;
+ b=nFk/KDUCmGI+zgfwW0sAWl6nl1nAj1kukxp9mv4a85Ubmx6MVYXUqrUEaIASX2C8lo
+ /9WXSizO9JfMb0S75oxKeuPGmUzOKIl/l8K3StRh0E3DJUpcx7yCx+sIrAxx0alrggfm
+ HoYse6d1A2FD1JX8Hh675PZzhRgEwwZZNuOKvpMRuR6wF9PiIfYTG/7Js91DOM20GCWE
+ 8uT3miFMu4j1imtUvdN3fRFMIOpjW8WOygs6OLKWrILP6Nv0LPF2a7HZA7wLG0oS2Taj
+ bK2d/UqrG7rsaj1MEKnLlTeM/oCZClxxep3tZ95OBF/LEEDq2gk8jxm4Ej8PRqFx/c6I
+ sFhg==
+X-Gm-Message-State: AA6/9Rkxv14eCMLO3fLZee3egZdmUD7akpmYeians3pLB2Ku6XeJKOtu8fmsjy+YzAUeUQ==
+X-Received: by 10.202.231.80 with SMTP id e77mr4280797oih.107.1476222010818;
  Tue, 11 Oct 2016 14:40:10 -0700 (PDT)
 Received: from Christophers-MacBook-Pro.local.com
  (45-20-192-79.lightspeed.austtx.sbcglobal.net. [45.20.192.79])
- by smtp.gmail.com with ESMTPSA id h91sm1811153oth.40.2016.10.11.14.40.09
+ by smtp.gmail.com with ESMTPSA id h91sm1811153oth.40.2016.10.11.14.40.10
  (version=TLS1 cipher=AES128-SHA bits=128/128);
- Tue, 11 Oct 2016 14:40:09 -0700 (PDT)
+ Tue, 11 Oct 2016 14:40:10 -0700 (PDT)
 From: christopher.lee.bostic@gmail.com
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, zahrens@us.ibm.com, xxpetri@de.ibm.com,
  Jeremy Kerr <jk@ozlabs.org>
-Subject: [PATCH linux v3 02/18] fsi: Add device & driver definitions
-Date: Tue, 11 Oct 2016 16:39:47 -0500
-Message-Id: <1476222003-99697-3-git-send-email-christopher.lee.bostic@gmail.com>
+Subject: [PATCH linux v3 03/18] fsi: add driver to device matches
+Date: Tue, 11 Oct 2016 16:39:48 -0500
+Message-Id: <1476222003-99697-4-git-send-email-christopher.lee.bostic@gmail.com>
 X-Mailer: git-send-email 2.7.4 (Apple Git-66)
 In-Reply-To: <1476222003-99697-1-git-send-email-christopher.lee.bostic@gmail.com>
 References: <1476222003-99697-1-git-send-email-christopher.lee.bostic@gmail.com>
@@ -59,39 +59,86 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Oct 2016 21:40:12 -0000
+X-List-Received-Date: Tue, 11 Oct 2016 21:40:13 -0000
 
 From: Jeremy Kerr <jk@ozlabs.org>
 
-Add structs for fsi devices & drivers, and struct device conversion
-functions.
+Driver bind to devices based on the engine types & (optional) versions.
 
 Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
 ---
- include/linux/fsi.h | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ drivers/fsi/fsi-core.c | 21 +++++++++++++++++++++
+ include/linux/fsi.h    | 21 +++++++++++++++++++--
+ 2 files changed, 40 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
+index 3e45306..3d55bd5 100644
+--- a/drivers/fsi/fsi-core.c
++++ b/drivers/fsi/fsi-core.c
+@@ -19,8 +19,29 @@
+ 
+ /* FSI core & Linux bus type definitions */
+ 
++static int fsi_bus_match(struct device *dev, struct device_driver *drv)
++{
++	struct fsi_device *fsi_dev = to_fsi_dev(dev);
++	struct fsi_driver *fsi_drv = to_fsi_drv(drv);
++	const struct fsi_device_id *id;
++
++	if (!fsi_drv->id_table)
++		return 0;
++
++	for (id = fsi_drv->id_table; id->engine_type; id++) {
++		if (id->engine_type != fsi_dev->engine_type)
++			continue;
++		if (id->version == FSI_VERSION_ANY ||
++				id->version == fsi_dev->version)
++			return 1;
++	}
++
++	return 0;
++}
++
+ struct bus_type fsi_bus_type = {
+ 	.name		= "fsi",
++	.match		= fsi_bus_match,
+ };
+ EXPORT_SYMBOL_GPL(fsi_bus_type);
+ 
 diff --git a/include/linux/fsi.h b/include/linux/fsi.h
-index 8e8bdea..66dcf25 100644
+index 66dcf25..6d843d4 100644
 --- a/include/linux/fsi.h
 +++ b/include/linux/fsi.h
-@@ -18,6 +18,17 @@
- 
+@@ -19,11 +19,28 @@
  #include <linux/device.h>
  
-+struct fsi_device {
-+	struct device dev;
-+};
-+
-+struct fsi_driver {
-+	struct device_driver drv;
-+};
-+
-+#define to_fsi_dev(devp) container_of(devp, struct fsi_device, dev)
-+#define to_fsi_drv(drvp) container_of(drvp, struct fsi_driver, drv)
-+
- extern struct bus_type fsi_bus_type;
+ struct fsi_device {
+-	struct device dev;
++	struct device		dev;
++	u8			engine_type;
++	u8			version;
+ };
  
- #endif /* LINUX_FSI_H */
++struct fsi_device_id {
++	u8	engine_type;
++	u8	version;
++};
++
++#define FSI_VERSION_ANY		0
++
++#define FSI_DEVICE(t) \
++	.engine_type = (t), .version = FSI_VERSION_ANY,
++
++#define FSI_DEVICE_VERSIONED(t, v) \
++	.engine_type = (t), .version = (v),
++
++
+ struct fsi_driver {
+-	struct device_driver drv;
++	struct device_driver		drv;
++	const struct fsi_device_id	*id_table;
+ };
+ 
+ #define to_fsi_dev(devp) container_of(devp, struct fsi_device, dev)
 -- 
 1.8.2.2
