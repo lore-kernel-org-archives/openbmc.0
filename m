@@ -1,52 +1,56 @@
-Return-Path: <christopher.lee.bostic@gmail.com>
-Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
- [IPv6:2607:f8b0:4003:c06::241])
+Return-Path: <brendanhiggins@google.com>
+Received: from mail-yb0-x236.google.com (mail-yb0-x236.google.com
+ [IPv6:2607:f8b0:4002:c09::236])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3svMBF26x9zDsxJ
- for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 05:01:41 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3svPrY0Y9bzDsxJ
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 07:01:33 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=YzxJ2KQ9; 
+ unprotected) header.d=google.com header.i=@google.com header.b=LyLVURlc; 
  dkim-atps=neutral
-Received: by mail-oi0-x241.google.com with SMTP id i127so3998856oia.0
- for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 11:01:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+Received: by mail-yb0-x236.google.com with SMTP id 191so23349804ybv.3
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 13:01:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=XSSQ8bGx+00CeIh0r5aV8EUwoNOQfA9K0b8LrOtsl38=;
- b=YzxJ2KQ93ZOrE9Ll4TI7lyfiG0tKNrJNS5x5vFcbNRF6Vv8T+TIviar6VAudTu6geS
- 95QKQMSawq8+0BzB4Xzqlstq4FQvYSbN2RM/+OlbL1nsLFGDWRa7GZcXLWZq3F9cLoWX
- gbbyfPQ8DXEkjqB9DdJRHUxmBj/BHqE1J+GgvH6uTdjo9GN8afQ3mGsyboBbH4MK151T
- IFIm8YbaK2wjgoXHcT0BDmlSBwNuZRBwCOGCPnTF22pjDb4dA1mkMm1YcAZZRDyFS2bb
- u1G70How5M8ED8lUwe63lhThrtcFPOOVg/AYFc0HOIXpYN8Qa8eVnQdjiBN5oqMLrx5R
- 4yhQ==
+ :cc; bh=Jmo+UNUiRUYKfPVutcezSPymWR7ntsaaoIF/pPN71sA=;
+ b=LyLVURlcZiThZzOF5Y7oDTG+R7rZuMkEgFR5/K88mpxsnYBwGuvWWodsi55wnRHIM0
+ tYaQs3V50OsoFXCQ9Hdfho4MyCaBC3JESEHk4eP9JICurtHYDrbwa2ybJt+4rQSUS49A
+ ff2rMk9/TfBRhvvlEa9jWcZ1qmdZfa4a/MVOxMY6kdDCxKeI1D79p5XcAQ4jWihlohju
+ nZK0AuCRSbLz5VSKbSw3oEq1eviMXqFLzRbJz65T7TT3FKRfXPBLosVdS180PazaU2p+
+ m3IpCWPAbNbudysTewmMCglmBZKA9RKSTAyc1wELi5lFmtCKlRrrlmaPl5bS6YMjjiIG
+ +qfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=XSSQ8bGx+00CeIh0r5aV8EUwoNOQfA9K0b8LrOtsl38=;
- b=QwglkbERWy7Sv4hcvB5gfkUe9n1efBYf0a6Z+BcZD2a0uHzkUlryLVSlweuy/OQZL+
- cnqY2nVNgHomPib1qvSjNkiSPJ2FbMDe38RPqJyXzn2n2bTLfhJjiwYUcN3AX8jRMwiW
- sl9XKJX7jKCuOh3brYeKlTz2b6Z24CkfB1mP0GVdMdJcaDNHI2eJke8otx4R0rcnF7ta
- BJze8oWoq4USZYIqKb0Ls48FrvljBB09//sF62rVNbxMjrg7LAvHPLfOtEI6JpGvLHSQ
- HkMmDkc6wMFTr4PASgN7etCYlPo1+R3KRxqC9dNYskNhOQtXxs1JglLVRv9v1jXZgLMj
- E0IA==
-X-Gm-Message-State: AA6/9RnZgvJQRp6HlQNjXJdv5kkzir5oJDN/8vxFD5/fdYOLdbExJncpWA0dSeRqsb0kxNX/PiOz7eKKmoN5fw==
-X-Received: by 10.157.20.173 with SMTP id d42mr1295232ote.100.1476295299574;
- Wed, 12 Oct 2016 11:01:39 -0700 (PDT)
+ bh=Jmo+UNUiRUYKfPVutcezSPymWR7ntsaaoIF/pPN71sA=;
+ b=d90DgZNviOg4B4bx0dHrQuhvG3lVZyK7DQEYLP+qJXIurKYupP2L7nC0QIBXXg18jh
+ zWxN/NzKhlKNCEcYypOSpPJ3R/hzx/nttbHYEVwAkF9xcDOVqyDbGMFfKGuJuOGVopuk
+ MhE3KE8aKHlM6d2w0+E0N6JDafX/nmEFbGfA+p5bjV4h4luNJ/E3JunahG202b17L8On
+ CSquGc2x3HKyiWED1lbWwF79kgl4VVRqGxkUTq5jS0rh3TA0sQ0i5Mfd+M/x7z7L8lbw
+ 6b4L/hZFBQSYOhc/VO6G+xZ70M9nQhlCvHknW7JTqgFsUl02Q9qmpUS5UW9smRg4Zb83
+ EcXQ==
+X-Gm-Message-State: AA6/9RmPIe6fjFO+V0MVCWh3/ZxQTvPC0AeUZtq9GV+nxg2Kvo1cD/nDD2T3dils4/peQIXJxMM6c8Bay787RPTe
+X-Received: by 10.37.217.204 with SMTP id q195mr2537547ybg.97.1476302490079;
+ Wed, 12 Oct 2016 13:01:30 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.202.220.132 with HTTP; Wed, 12 Oct 2016 11:01:39 -0700 (PDT)
-In-Reply-To: <8e79817e-b68b-9f28-1f5b-90d778e7834c@ozlabs.org>
-References: <1476222003-99697-1-git-send-email-christopher.lee.bostic@gmail.com>
- <1476222003-99697-19-git-send-email-christopher.lee.bostic@gmail.com>
- <8e79817e-b68b-9f28-1f5b-90d778e7834c@ozlabs.org>
-From: Christopher Bostic <christopher.lee.bostic@gmail.com>
-Date: Wed, 12 Oct 2016 13:01:39 -0500
-Message-ID: <CAA0LjjVuhrjdjbkPr9EdQkPuFRWRRZv7+ETZAVOyzdT8r7_XRg@mail.gmail.com>
-Subject: Re: [PATCH linux v3 18/18] drivers/fsi: Add SCOM FSI client device
+Received: by 10.129.169.71 with HTTP; Wed, 12 Oct 2016 13:01:29 -0700 (PDT)
+In-Reply-To: <20160923180219.GA9401@rob-hp-laptop>
+References: <CAFd5g47W-dGVt6hA+FSpqxCqvd5ZpQP=FCCpYGErahF0iKqTEQ@mail.gmail.com>
+ <1474327414-651-1-git-send-email-brendanhiggins@google.com>
+ <1474327414-651-2-git-send-email-brendanhiggins@google.com>
+ <20160923180219.GA9401@rob-hp-laptop>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Wed, 12 Oct 2016 13:01:29 -0700
+Message-ID: <CAFd5g47UYhgNO8SE8jcVGcV7Ti1xnwgQWMzKF17i3e1WFC9e9Q@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] i2c: aspeed: added documentation for Aspeed I2C
  driver
-To: Jeremy Kerr <jk@ozlabs.org>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, xxpetri@de.ibm.com,
- zahrens@us.ibm.com
+To: Rob Herring <robh@kernel.org>
+Cc: Wolfram Sang <wsa@the-dreams.de>, mark.rutland@arm.com,
+ linux-i2c@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>,
+ Jeremy Kerr <jk@ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -59,143 +63,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Oct 2016 18:01:41 -0000
+X-List-Received-Date: Wed, 12 Oct 2016 20:01:33 -0000
 
-On Tue, Oct 11, 2016 at 7:41 PM, Jeremy Kerr <jk@ozlabs.org> wrote:
-> Hi Chris,
->
->> Create a bare bones FSI client device driver that registers
->> with the FSI core.
->
-> Cool!
->
->> diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
->> index 2021ce5..3e31d9a 100644
->> --- a/drivers/fsi/Makefile
->> +++ b/drivers/fsi/Makefile
->> @@ -2,3 +2,4 @@
->>  obj-$(CONFIG_FSI) += fsi-core.o
->>  obj-$(CONFIG_FSI_MASTER_FAKE) += fsi-master-fake.o
->>  obj-$(CONFIG_FSI_MASTER_GPIO) += fsi-master-gpio.o
->> +obj-$(CONFIG_FSI_SCOM) += fsi-scom.o
->> diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
->> index c5e7441..15d8635 100644
->> --- a/drivers/fsi/fsi-core.c
->> +++ b/drivers/fsi/fsi-core.c
->> @@ -391,6 +391,27 @@ static int fsi_bus_match(struct device *dev, struct device_driver *drv)
->>       return 0;
->>  }
->>
->> +int fsidrv_register(struct fsi_driver *fsi_drv)
->> +{
->> +     int rc = 0;
->> +
->> +     if (!fsi_drv)
->> +             return -EINVAL;
->> +     if (!fsi_drv->id_table)
->> +             return -EINVAL;
->> +
->> +     rc = driver_register(&fsi_drv->drv);
->> +
->> +     return rc;
->> +}
->> +EXPORT_SYMBOL_GPL(fsidrv_register);
->> +
->> +void fsidrv_unregister(struct fsi_driver *fsi_drv)
->> +{
->> +     driver_unregister(&fsi_drv->drv);
->> +}
->> +EXPORT_SYMBOL_GPL(fsidrv_unregister);
->> +
->
-> These aren't part of the SCOM engine device driver, they're changes to
-> the core. Can you do them as a separate patch?
->
+I never got an acknowledgement to this email:
+http://www.spinics.net/lists/devicetree/msg143944.html
+The "bus" number is something that is defined as part of the hardware
+specification for this device.
 
-OK, will break these up into separate patches.
+It seems we will not be able to do away with the "bus" number parameter.
 
->
->>       .name           = "fsi",
->>       .match          = fsi_bus_match,
->>
->> diff --git a/drivers/fsi/fsi-scom.c b/drivers/fsi/fsi-scom.c
->> new file mode 100644
->> index 0000000..1600f3b
->> --- /dev/null
->> +++ b/drivers/fsi/fsi-scom.c
->> @@ -0,0 +1,62 @@
->> +/*
->> + * SCOM FSI Client device driver
->> + *
->> + * Copyright (C) IBM Corporation 2016
->> + *
->> + * This program is free software; you can redistribute it and/or modify
->> + * it under the terms of the GNU General Public License version 2 as
->> + * published by the Free Software Foundation.
->> + *
->> + * This program is distributed in the hope that it will be useful,
->> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
->> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
->> + * GNU General Public License for more details.
->> + */
->> +
->> +#include <linux/fsi.h>
->> +#include <linux/module.h>
->> +
->> +#define FSI_ENGID_SCOM               5
->> +
->> +static int scom_probe(struct device *);
->> +
->> +struct fsi_device_id scom_ids[] = {
->> +     {
->> +             .engine_type = FSI_ENGID_SCOM,
->> +             .version = FSI_VERSION_ANY,
->> +     },
->> +     {
->> +             .engine_type = 0,
->> +     }
->
-> You can just use { 0 } for the end sentinel:
->
->   struct fsi_device_id scom_ids[] = {
->         {
->                 .engine_type = FSI_ENGID_SCOM,
->                 .version = FSI_VERSION_ANY,
->         },
->         { 0 }
->   }
->
-> - which makes it a *tiny* bit more obvious that you're only matching one
-> fsi_device_id.
->
+Joel suggested going back to the way I was originally doing it:
+http://www.spinics.net/lists/devicetree/msg144134.html
 
-Will change.
-
->> +static int scom_init(void)
->> +{
->> +     int rc;
->> +
->> +     rc = fsidrv_register(&scom_drv);
->> +
->> +     return rc;
->> +}
->
-> You have this pattern a few times in your series. It's pretty minor, but
-> a little neater if you just return the value directly in cases like
-> that.  For example:
->
->   static int scom_init(void)
->   {
->         return fsidrv_register(&scom_drv);
->   }
-
-Ok will revise that.
-
-Thanks,
-Chris
-
->
-> Cheers,
->
->
-> Jeremy
+Cheers
