@@ -1,48 +1,51 @@
-Return-Path: <eajames.ibm@gmail.com>
-Received: from mail-qk0-x244.google.com (mail-qk0-x244.google.com
- [IPv6:2607:f8b0:400d:c09::244])
+Return-Path: <xow@google.com>
+Received: from mail-pf0-x233.google.com (mail-pf0-x233.google.com
+ [IPv6:2607:f8b0:400e:c00::233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3svTR874YbzDrLv
- for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 09:43:16 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3svTT63NVtzDrLv
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 09:44:58 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=ep2bIUp9; 
+ unprotected) header.d=google.com header.i=@google.com header.b=KKIuFG7P; 
  dkim-atps=neutral
-Received: by mail-qk0-x244.google.com with SMTP id n189so4590532qke.1
- for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 15:43:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=from:to:cc:subject:date:message-id;
- bh=9PtMuO4WeTtwDNtAglc092l+1VE6q9cX96bdlC5GVM4=;
- b=ep2bIUp96c0YZw7J4lRlhfsD1SD5eXIt8yQ0rzxZd8S4vWoZhOb9mz023cvRlwU28E
- /Q7gmmVqcNP3CIAlqNzKLkjbJctuDPe1LV+r+l5DiWI4QZM/inmb6GdB29/9JG9YDSzc
- oZCiwSVvtkNiig/z2w6qLOj9vJSJ4GXXYVrsFrZsU0Q42MF+mLFcOZ9ph1Kr2tHs28Ku
- 6ffQio6RIq/i3PG0ASdDCRkDu5jcDywqKD9C6/4rewa2x4JbzAx0u5ZnrOAvySS1HeYu
- mbhOMZGxrI+THS6Z81kdKEVuu6KiX2wH+2NzNoy1Rq+IV5GVG4b5OJDFgD2Epnb89zfI
- 7e6A==
+Received: by mail-pf0-x233.google.com with SMTP id e6so24616208pfk.3
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 15:44:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=v5oq4eWzwjMte+hLPYp2O8Ed23ZVV1RVWm90n4H7Lpk=;
+ b=KKIuFG7PHsrvYLlkZAAZXZm+Fb7JZfeeWAKo05V9M0D2eAVqo9TTQBlahxPwKuLbn9
+ L3Cem0hujQJDBgedueHtSlQrGX85E3ta5DVSl7VGCCPFlahr5qlYKWKMTwUkq86iu2K9
+ vRVM23ztZmADva4T7bBRCt532KL8RxdD2SUGY5uM1xNpertFJNhVLLCZUrlgGd7cvs7i
+ /yWKwDzWX16ow/MraJhN2OXj8scdl9YJpfH9qZTAPFgo0mvNTu0MjKSeVqpUSIi6+OVb
+ ECMyAZm3JbOu9t9aOgG1VYgAZUXstMdUx/+T1YVBwI1mVWjeJAubKp8KHwHF4YhnvKW1
+ bcHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=9PtMuO4WeTtwDNtAglc092l+1VE6q9cX96bdlC5GVM4=;
- b=b0OcnnXzinyFXC4IZ9wboGPQg/qGA6/xzvCjyiYClwzUyw3uSiVC0U9H+Zvxa66Weg
- 9fZQhx7Jxx5NUz5jJn6/nqO+Vso4cUPQgjfMkhSo3BLpUwRJJcaTRXboXfPUU6kPKnos
- 9T9IFxAGkAC/e50eC8j7pUKfSWH3Oer8VItOKLRChb+vXVBXAZBUOA2EgeWh3lZ2CwBS
- 2mhCAR8fhqu+HUNmS+7h+zvVDiotTeNQ6l9PXDMyrojBSzN+/TeG5iHmVuoVkiXE6bi8
- cOd3xH7R/jL6CpSNaWa8XGSqoQCSmsXVpYtYl8B2BRDUsPZDepJWlWaqPrIIIdCyOKMK
- rzSw==
-X-Gm-Message-State: AA6/9RmfLsL1zdRCY5F++78piyQRUTAUPPFDzj9CqNi+2OOPxlx4o+DE5OTDPWUuYO5qHA==
-X-Received: by 10.55.15.167 with SMTP id 39mr4017437qkp.234.1476312195037;
- Wed, 12 Oct 2016 15:43:15 -0700 (PDT)
-Received: from eajames-austin-w350.austin.ibm.com ([32.97.110.52])
- by smtp.gmail.com with ESMTPSA id q68sm3598371qka.1.2016.10.12.15.43.13
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=v5oq4eWzwjMte+hLPYp2O8Ed23ZVV1RVWm90n4H7Lpk=;
+ b=l/zXgI9tWacfBx1NaFK3hRSG8mfeZwcS0u+KpDXE7YskHSmZuYLXkFzcdGYk9s1dmO
+ 4fWlixHZZbBrmgdN6DJDTE+mx9IP5R2aNmB5kwl/1HgOCg9V65xp0G86SBa6CXjeMwHa
+ N38a1bm8CmRERUYFN3NKnys7FIqQ8a8QdKSv4ISmbTsUCXV70rWElcEfYT/oYctnW4Ry
+ BJ6dYzLLMxnUQ1rDxO1nQt6sLWqZi2pyrL9QJDMJdB9ppvGenfNR0dpod8LfUBuqjj8f
+ LezD/0z/bDCZEi+ubHHtstAXmqtp9NZjaWpHdaqalTOWyx6NgyQiKrGUlsmOLYeboxkG
+ +LAQ==
+X-Gm-Message-State: AA6/9Rn92EQFgu03P44tjf8CrgJmuB5yi6rErTeLJY8N2bVOW89EoBW0dsiF4M28v42Qq/1D
+X-Received: by 10.98.86.139 with SMTP id h11mr5324274pfj.73.1476312296692;
+ Wed, 12 Oct 2016 15:44:56 -0700 (PDT)
+Received: from pewter.svl.corp.google.com ([100.123.242.121])
+ by smtp.gmail.com with ESMTPSA id z6sm14170700pay.31.2016.10.12.15.44.55
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Wed, 12 Oct 2016 15:43:14 -0700 (PDT)
-From: eajames.ibm@gmail.com
+ Wed, 12 Oct 2016 15:44:56 -0700 (PDT)
+From: Xo Wang <xow@google.com>
 To: openbmc@lists.ozlabs.org
-Cc: "Edward A. James" <eajames@us.ibm.com>
-Subject: [RFC linux v3 4/4] hwmon: Add OCC driver polling and parse response
-Date: Wed, 12 Oct 2016 17:43:05 -0500
-Message-Id: <1476312185-20290-1-git-send-email-eajames.ibm@gmail.com>
-X-Mailer: git-send-email 1.9.1
+Subject: [PATCH 1/5] mach-aspeed: Add Zaius BMC-specific early setup
+Date: Wed, 12 Oct 2016 15:44:44 -0700
+Message-Id: <1476312288-100725-1-git-send-email-xow@google.com>
+X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,580 +57,65 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Oct 2016 22:43:17 -0000
+X-List-Received-Date: Wed, 12 Oct 2016 22:44:59 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
+Add initialization for "ingrasys,zaius-bmc" machines to deal with
+hardware issues on EVT1 boards. This overrides incorrect straps that
+enabled the SPI slave and disables pull down resistors that prevented
+buttons inputs from being driven high.
 
-Add code to poll the OCC and parse the response. Add all the necessary
-structures for the P8 OCC.
+This code reads board revision fuse bits directly from GPIO registers
+because GPIO drivers are not available yet.
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
+Signed-off-by: Xo Wang <xow@google.com>
 ---
- drivers/hwmon/occ/occ_i2c.c    |   1 +
- drivers/hwmon/occ/power8_occ.c | 497 ++++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 492 insertions(+), 6 deletions(-)
+ arch/arm/mach-aspeed/aspeed.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-diff --git a/drivers/hwmon/occ/occ_i2c.c b/drivers/hwmon/occ/occ_i2c.c
-index 40ed75d..deb8dc6 100644
---- a/drivers/hwmon/occ/occ_i2c.c
-+++ b/drivers/hwmon/occ/occ_i2c.c
-@@ -59,6 +59,7 @@ int occ_getscom(void *bus, u32 address, u8 *data, size_t offset)
- 	if (rc != sizeof(u64))
- 		return -I2C_READ_ERROR;
- 
-+	/* TODO: is OCC be or le? */
- 	*((u64 *)data) = le64_to_cpu(buf);
- 
- 	return 0;
-diff --git a/drivers/hwmon/occ/power8_occ.c b/drivers/hwmon/occ/power8_occ.c
-index fbfaf08..1a5195e 100644
---- a/drivers/hwmon/occ/power8_occ.c
-+++ b/drivers/hwmon/occ/power8_occ.c
-@@ -31,6 +31,8 @@
- 
- #include "occ.h"
- 
-+#define OCC_DATA_MAX	4096
-+
- /* Defined in POWER8 Processor Registers Specification */
- /* To generate attn to OCC */
- #define ATTN_DATA	0x0006B035
-@@ -45,15 +47,402 @@
- #define OCC_COMMAND_ADDR	0xFFFF6000
- #define OCC_RESPONSE_ADDR	0xFFFF7000
- 
-+#define RESP_DATA_LENGTH	3
-+#define RESP_HEADER_OFFSET	5
-+#define SENSOR_STR_OFFSET	37
-+#define SENSOR_BLOCK_NUM_OFFSET	43
-+#define SENSOR_BLOCK_OFFSET	45
-+
-+enum sensor_type {
-+	FREQ = 0,
-+	TEMP,
-+	POWER,
-+	CAPS,
-+	MAX_OCC_SENSOR_TYPE
-+};
-+
-+/* OCC sensor data format */
-+struct occ_sensor {
-+	u16 sensor_id;
-+	u16 value;
-+};
-+
-+struct power_sensor {
-+	u16 sensor_id;
-+	u32 update_tag;
-+	u32 accumulator;
-+	u16 value;
-+};
-+
-+struct caps_sensor {
-+	u16 curr_powercap;
-+	u16 curr_powerreading;
-+	u16 norm_powercap;
-+	u16 max_powercap;
-+	u16 min_powercap;
-+	u16 user_powerlimit;
-+};
-+
-+struct sensor_data_block {
-+	u8 sensor_type[4];
-+	u8 reserved0;
-+	u8 sensor_format;
-+	u8 sensor_length;
-+	u8 sensor_num;
-+	struct occ_sensor *sensor;
-+	struct power_sensor *power;
-+	struct caps_sensor *caps;
-+};
-+
-+struct occ_poll_header {
-+	u8 status;
-+	u8 ext_status;
-+	u8 occs_present;
-+	u8 config;
-+	u8 occ_state;
-+	u8 reserved0;
-+	u8 reserved1;
-+	u8 error_log_id;
-+	u32 error_log_addr_start;
-+	u16 error_log_length;
-+	u8 reserved2;
-+	u8 reserved3;
-+	u8 occ_code_level[16];
-+	u8 sensor_eye_catcher[6];
-+	u8 sensor_block_num;
-+	u8 sensor_data_version;
-+};
-+
-+struct occ_response {
-+	u8 sequence_num;
-+	u8 cmd_type;
-+	u8 rtn_status;
-+	u16 data_length;
-+	struct occ_poll_header header;
-+	struct sensor_data_block *blocks;
-+	u16 chk_sum;
-+	int sensor_block_id[MAX_OCC_SENSOR_TYPE];
-+};
-+
- struct power8_driver {
- 	struct occ_driver *driver;
- 	struct device *dev;
- 	unsigned long update_interval;
-+	unsigned long last_updated;
- 	u16 user_powercap;
-+	struct mutex update_lock;
-+	bool valid;
-+	struct occ_response occ_response;
- };
- 
--static u8 occ_send_cmd(struct occ_driver *occ, u8 seq, u8 type,
--			    u16 length, u8 *data, u8 *resp)
-+static void deinit_occ_resp_buf(struct occ_response *resp)
-+{
-+	int i;
-+
-+	if (!resp)
-+		return;
-+
-+	if (!resp->blocks)
-+		return;
-+
-+	for (i = 0; i < resp->header.sensor_block_num; ++i) {
-+		kfree(resp->blocks[i].sensor);
-+		kfree(resp->blocks[i].power);
-+		kfree(resp->blocks[i].caps);
-+	}
-+
-+	kfree(resp->blocks);
-+
-+	memset(resp, 0, sizeof(struct occ_response));
-+
-+	for (i = 0; i < MAX_OCC_SENSOR_TYPE; ++i)
-+		resp->sensor_block_id[i] = -1;
-+}
-+
-+static void *occ_get_sensor_by_type(struct occ_response *resp,
-+				    enum sensor_type t)
-+{
-+	void *sensor;
-+
-+	if (!resp->blocks)
-+		return NULL;
-+
-+	if (resp->sensor_block_id[t] == -1)
-+		return NULL;
-+
-+	switch (t) {
-+	case TEMP:
-+	case FREQ:
-+		sensor = resp->blocks[resp->sensor_block_id[t]].sensor;
-+		break;
-+	case POWER:
-+		sensor = resp->blocks[resp->sensor_block_id[t]].power;
-+		break;
-+	case CAPS:
-+		sensor = resp->blocks[resp->sensor_block_id[t]].caps;
-+		break;
-+	default:
-+		sensor = NULL;
-+	}
-+
-+	return sensor;
-+}
-+
-+static int occ_renew_sensor(struct occ_response *resp, u8 sensor_length,
-+			    u8 sensor_num, enum sensor_type t, int block)
-+{
-+	void *sensor;
-+	int rc;
-+
-+	sensor = occ_get_sensor_by_type(resp, t);
-+
-+	/* empty sensor block, release older sensor data */
-+	if (sensor_num == 0 || sensor_length == 0) {
-+		kfree(sensor);
-+		return -1;
-+	}
-+
-+	if (!sensor || sensor_num !=
-+	    resp->blocks[resp->sensor_block_id[t]].sensor_num) {
-+		kfree(sensor);
-+		switch (t) {
-+		case TEMP:
-+		case FREQ:
-+			resp->blocks[block].sensor =
-+				kcalloc(sensor_num, sizeof(struct occ_sensor),
-+					GFP_KERNEL);
-+			if (!resp->blocks[block].sensor) {
-+				rc = -ENOMEM;
-+				goto err;
-+			}
-+			break;
-+		case POWER:
-+			resp->blocks[block].power =
-+				kcalloc(sensor_num,
-+					sizeof(struct power_sensor),
-+					GFP_KERNEL);
-+			if (!resp->blocks[block].power) {
-+				rc = -ENOMEM;
-+				goto err;
-+			}
-+			break;
-+		case CAPS:
-+			resp->blocks[block].caps =
-+				kcalloc(sensor_num, sizeof(struct caps_sensor),
-+					GFP_KERNEL);
-+			if (!resp->blocks[block].caps) {
-+				rc = -ENOMEM;
-+				goto err;
-+			}
-+			break;
-+		default:
-+			rc = -ENOMEM;
-+			goto err;
-+		}
-+	}
-+
-+	return 0;
-+err:
-+	deinit_occ_resp_buf(resp);
-+	return rc;
-+}
-+
-+static int parse_occ_response(struct power8_driver *driver, u8 *data,
-+			      struct occ_response *resp)
-+{
-+	int b;
-+	int s;
-+	int rc;
-+	int dnum = SENSOR_BLOCK_OFFSET;
-+	struct occ_sensor *f_sensor;
-+	struct occ_sensor *t_sensor;
-+	struct power_sensor *p_sensor;
-+	struct caps_sensor *c_sensor;
-+	u8 sensor_block_num;
-+	u8 sensor_type[4];
-+	u8 sensor_format;
-+	u8 sensor_length;
-+	u8 sensor_num;
-+	struct device *dev = driver->dev;
-+
-+	/* check if the data is valid */
-+	if (strncmp(&data[SENSOR_STR_OFFSET], "SENSOR", 6) != 0) {
-+		dev_dbg(dev, "ERROR: no SENSOR String in response\n");
-+		rc = -1;
-+		goto err;
-+	}
-+
-+	sensor_block_num = data[SENSOR_BLOCK_NUM_OFFSET];
-+	if (sensor_block_num == 0) {
-+		dev_dbg(dev, "ERROR: SENSOR block num is 0\n");
-+		rc = -1;
-+		goto err;
-+	}
-+
-+	/* if sensor block has changed, re-malloc */
-+	/* TODO: investigate memory management */
-+	if (sensor_block_num != resp->header.sensor_block_num) {
-+		deinit_occ_resp_buf(resp);
-+		resp->blocks = kcalloc(sensor_block_num,
-+				       sizeof(struct sensor_data_block),
-+				       GFP_KERNEL);
-+		if (!resp->blocks)
-+			return -ENOMEM;
-+	}
-+
-+	memcpy(&resp->header, &data[RESP_HEADER_OFFSET],
-+	       sizeof(struct occ_poll_header));
-+	resp->header.error_log_addr_start =
-+		be32_to_cpu(resp->header.error_log_addr_start);
-+	resp->header.error_log_length =
-+		be16_to_cpu(resp->header.error_log_length);
-+
-+	dev_dbg(dev, "Reading %d sensor blocks\n",
-+		resp->header.sensor_block_num);
-+	for (b = 0; b < sensor_block_num; b++) {
-+		/* 8-byte sensor block head */
-+		strncpy(sensor_type, &data[dnum], 4);
-+		sensor_format = data[dnum + 5];
-+		sensor_length = data[dnum + 6];
-+		sensor_num = data[dnum + 7];
-+		dnum = dnum + 8;
-+
-+		dev_dbg(dev, "sensor block[%d]: type: %s, sensor_num: %d\n", b,
-+			sensor_type, sensor_num);
-+
-+		if (strncmp(sensor_type, "FREQ", 4) == 0) {
-+			rc = occ_renew_sensor(resp, sensor_length, sensor_num,
-+					      FREQ, b);
-+			if (rc)
-+				continue;
-+
-+			resp->sensor_block_id[FREQ] = b;
-+			for (s = 0; s < sensor_num; s++) {
-+				f_sensor = &resp->blocks[b].sensor[s];
-+				f_sensor->sensor_id =
-+					be16_to_cpup((const __be16 *)
-+						     &data[dnum]);
-+				f_sensor->value = be16_to_cpup((const __be16 *)
-+							      &data[dnum + 2]);
-+				dev_dbg(dev,
-+					"sensor[%d]-[%d]: id: %u, value: %u\n",
-+					b, s, f_sensor->sensor_id,
-+					f_sensor->value);
-+				dnum = dnum + sensor_length;
-+			}
-+		} else if (strncmp(sensor_type, "TEMP", 4) == 0) {
-+			rc = occ_renew_sensor(resp, sensor_length,
-+					      sensor_num, TEMP, b);
-+			if (rc)
-+				continue;
-+
-+			resp->sensor_block_id[TEMP] = b;
-+			for (s = 0; s < sensor_num; s++) {
-+				t_sensor = &resp->blocks[b].sensor[s];
-+				t_sensor->sensor_id =
-+					be16_to_cpup((const __be16 *)
-+						     &data[dnum]);
-+				t_sensor->value = be16_to_cpup((const __be16 *)
-+							      &data[dnum + 2]);
-+				dev_dbg(dev,
-+					"sensor[%d]-[%d]: id: %u, value: %u\n",
-+					b, s, t_sensor->sensor_id,
-+					t_sensor->value);
-+				dnum = dnum + sensor_length;
-+			}
-+		} else if (strncmp(sensor_type, "POWR", 4) == 0) {
-+			rc = occ_renew_sensor(resp, sensor_length,
-+				sensor_num, POWER, b);
-+			if (rc)
-+				continue;
-+
-+			resp->sensor_block_id[POWER] = b;
-+			for (s = 0; s < sensor_num; s++) {
-+				p_sensor = &resp->blocks[b].power[s];
-+				p_sensor->sensor_id =
-+					be16_to_cpup((const __be16 *)
-+						     &data[dnum]);
-+				p_sensor->update_tag =
-+					be32_to_cpup((const __be32 *)
-+						     &data[dnum + 2]);
-+				p_sensor->accumulator =
-+					be32_to_cpup((const __be32 *)
-+						     &data[dnum + 6]);
-+				p_sensor->value = be16_to_cpup((const __be16 *)
-+							     &data[dnum + 10]);
-+
-+				dev_dbg(dev,
-+					"sensor[%d]-[%d]: id: %u, value: %u\n",
-+					b, s, p_sensor->sensor_id,
-+					p_sensor->value);
-+
-+				dnum = dnum + sensor_length;
-+			}
-+		} else if (strncmp(sensor_type, "CAPS", 4) == 0) {
-+			rc = occ_renew_sensor(resp, sensor_length,
-+				sensor_num, CAPS, b);
-+			if (rc)
-+				continue;
-+
-+			resp->sensor_block_id[CAPS] = b;
-+			for (s = 0; s < sensor_num; s++) {
-+				c_sensor = &resp->blocks[b].caps[s];
-+				c_sensor->curr_powercap =
-+					be16_to_cpup((const __be16 *)
-+						     &data[dnum]);
-+				c_sensor->curr_powerreading =
-+					be16_to_cpup((const __be16 *)
-+						     &data[dnum + 2]);
-+				c_sensor->norm_powercap =
-+					be16_to_cpup((const __be16 *)
-+						     &data[dnum + 4]);
-+				c_sensor->max_powercap =
-+					be16_to_cpup((const __be16 *)
-+						     &data[dnum + 6]);
-+				c_sensor->min_powercap =
-+					be16_to_cpup((const __be16 *)
-+						     &data[dnum + 8]);
-+				c_sensor->user_powerlimit =
-+					be16_to_cpup((const __be16 *)
-+						     &data[dnum + 10]);
-+
-+				dnum = dnum + sensor_length;
-+				dev_dbg(dev, "CAPS sensor #%d:\n", s);
-+				dev_dbg(dev, "curr_powercap is %x\n",
-+					c_sensor->curr_powercap);
-+				dev_dbg(dev, "curr_powerreading is %x\n",
-+					c_sensor->curr_powerreading);
-+				dev_dbg(dev, "norm_powercap is %x\n",
-+					c_sensor->norm_powercap);
-+				dev_dbg(dev, "max_powercap is %x\n",
-+					c_sensor->max_powercap);
-+				dev_dbg(dev, "min_powercap is %x\n",
-+					c_sensor->min_powercap);
-+				dev_dbg(dev, "user_powerlimit is %x\n",
-+					c_sensor->user_powerlimit);
-+			}
-+
-+		} else {
-+			dev_dbg(dev, "ERROR: sensor type %s not supported\n",
-+				resp->blocks[b].sensor_type);
-+			rc = -1;
-+			goto err;
-+		}
-+
-+		strncpy(resp->blocks[b].sensor_type, sensor_type, 4);
-+		resp->blocks[b].sensor_format = sensor_format;
-+		resp->blocks[b].sensor_length = sensor_length;
-+		resp->blocks[b].sensor_num = sensor_num;
-+	}
-+
-+	return 0;
-+err:
-+	deinit_occ_resp_buf(resp);
-+	return rc;
-+}
-+
-+static u8 occ_send_cmd(struct occ_driver *occ, u8 seq, u8 type, u16 length,
-+		       u8 *data, u8 *resp)
- {
- 	u32 cmd1, cmd2;
- 	u16 checksum;
-@@ -97,6 +486,85 @@ static u8 occ_send_cmd(struct occ_driver *occ, u8 seq, u8 type,
- 	return resp[2];
+diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+index 12a63db..9bf159c 100644
+--- a/arch/arm/mach-aspeed/aspeed.c
++++ b/arch/arm/mach-aspeed/aspeed.c
+@@ -170,6 +170,31 @@ static void __init do_witherspoon_setup(void)
+ 	do_ast2500_common_setup();
  }
  
-+static inline u16 get_occdata_length(u8 *data)
++static void __init do_zaius_setup(void)
 +{
-+	return be16_to_cpup((const __be16 *)&data[RESP_DATA_LENGTH]);
++	unsigned long reg;
++	unsigned long board_rev;
++
++	do_ast2500_common_setup();
++
++	/* Read BOARD_REV[4:0] fuses from GPIOM[7:3] */
++	reg = readl(AST_IO(AST_BASE_GPIO | 0x78));
++	board_rev = (reg >> 3) & 0x1F;
++
++	/* EVT1 hacks */
++	if (board_rev == 0) {
++		/* Set strap[13:12] to 01, Enable SPI master */
++		/* Set bits in writes to SCU7C are cleared from SCU70 */
++		writel(BIT(13), AST_IO(AST_BASE_SCU | 0x7C));
++		/* SCU70 is set-only, so no read-modify-write needed */
++		writel(BIT(12), AST_IO(AST_BASE_SCU | 0x70));
++
++		/* Disable GPIO I, G/AB pulldowns due to weak driving buffers */
++		reg = readl(AST_IO(AST_BASE_SCU | 0x8C));
++		writel(reg | BIT(24) | BIT(22), AST_IO(AST_BASE_SCU | 0x8C));
++	}
 +}
 +
-+static int occ_get_all(struct power8_driver *driver)
-+{
-+	int i, rc;
-+	u8 *occ_data;
-+	u16 num_bytes;
-+	u8 poll_cmd_data = 0x10;
-+	struct device *dev = driver->dev;
-+	struct occ_driver *occ = driver->driver;
-+	struct occ_response *resp = &driver->occ_response;
-+
-+	/*
-+	 * TODO: fetch header, and then allocate the rest of the buffer based
-+	 * on the header size. Assuming the OCC has a fixed sized header
-+	 */
-+	occ_data = devm_kzalloc(dev, OCC_DATA_MAX, GFP_KERNEL);
-+	if (!occ_data)
-+		return -ENOMEM;
-+
-+	rc = occ_send_cmd(occ, 0, 0, 1, &poll_cmd_data, occ_data);
-+	if (rc) {
-+		dev_err(dev, "ERROR: OCC Poll: 0x%x\n", rc);
-+		rc = -EINVAL;
-+		goto out;
-+	}
-+
-+	num_bytes = get_occdata_length(occ_data);
-+
-+	dev_dbg(dev, "OCC data length: %d\n", num_bytes);
-+
-+	if (num_bytes > OCC_DATA_MAX) {
-+		dev_dbg(dev, "ERROR: OCC data length must be < 4KB\n");
-+		rc = -EINVAL;
-+		goto out;
-+	}
-+
-+	if (num_bytes <= 0) {
-+		dev_dbg(dev, "ERROR: OCC data length is zero\n");
-+		rc = -EINVAL;
-+		goto out;
-+	}
-+
-+	/* read remaining data */
-+	for (i = 8; i < num_bytes + 8; i += 8)
-+		occ->bus_ops.getscom(occ->bus, OCB_DATA, occ_data, i);
-+
-+	rc = parse_occ_response(driver, occ_data, resp);
-+
-+out:
-+	devm_kfree(dev, occ_data);
-+	return rc;
-+}
-+
-+static int occ_update_device(struct power8_driver *driver)
-+{
-+	int rc = 0;
-+
-+	mutex_lock(&driver->update_lock);
-+
-+	if (time_after(jiffies, driver->last_updated + driver->update_interval)
-+	    || !driver->valid) {
-+		driver->valid = 1;
-+
-+		rc = occ_get_all(driver);
-+		if (rc)
-+			driver->valid = 0;
-+
-+		driver->last_updated = jiffies;
-+	}
-+
-+	mutex_unlock(&driver->update_lock);
-+
-+	return rc;
-+}
-+
- static ssize_t show_update_interval(struct device *dev,
- 				    struct device_attribute *attr, char *buf)
- {
-@@ -180,14 +648,28 @@ static void occ_remove_hwmon_attrs(struct power8_driver *driver)
- {
- 	struct device *dev = driver->dev;
  
-+	device_remove_file(dev, &dev_attr_user_powercap);
- 	device_remove_file(dev, &dev_attr_update_interval);
- 	device_remove_file(dev, &dev_attr_name);
+ #define SCU_PASSWORD	0x1688A8A8
+ 
+@@ -216,6 +241,8 @@ static void __init aspeed_init_early(void)
+ 		do_ast2500evb_setup();
+ 	if (of_machine_is_compatible("ibm,witherspoon-bmc"))
+ 		do_witherspoon_setup();
++	if (of_machine_is_compatible("ingrasys,zaius-bmc"))
++		do_zaius_setup();
  }
  
- static int occ_create_hwmon_attrs(struct power8_driver *driver)
- {
--	int rc;
-+	int i, rc;
- 	struct device *dev = driver->dev;
-+	struct occ_response *resp = &driver->occ_response;
-+
-+	for (i = 0; i < MAX_OCC_SENSOR_TYPE; ++i)
-+		resp->sensor_block_id[i] = -1;
-+
-+	/* read sensor data from occ. */
-+	rc = occ_update_device(driver);
-+	if (rc != 0) {
-+		dev_err(dev, "ERROR: cannot get occ sensor data: %d\n", rc);
-+		return rc;
-+	}
-+	if (!resp->blocks)
-+		return -1;
- 
- 	rc = device_create_file(dev, &dev_attr_name);
- 	if (rc)
-@@ -197,9 +679,12 @@ static int occ_create_hwmon_attrs(struct power8_driver *driver)
- 	if (rc)
- 		goto error;
- 
--	/* skip powercap for now; we need to determine if CAPS response id
--	 * is present first, which requires polling the OCC
--	 */
-+	if (resp->sensor_block_id[CAPS] >= 0) {
-+		/* user powercap: only for master OCC */
-+		rc = device_create_file(dev, &dev_attr_user_powercap);
-+		if (rc)
-+			goto error;
-+	}
- 
- 	return 0;
- 
+ static void __init aspeed_map_io(void)
 -- 
-1.9.1
+2.8.0.rc3.226.g39d4020
