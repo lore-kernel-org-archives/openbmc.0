@@ -1,49 +1,51 @@
 Return-Path: <xow@google.com>
-Received: from mail-pf0-x233.google.com (mail-pf0-x233.google.com
- [IPv6:2607:f8b0:400e:c00::233])
+Received: from mail-pa0-x22f.google.com (mail-pa0-x22f.google.com
+ [IPv6:2607:f8b0:400e:c03::22f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3svTT63NVtzDrLv
- for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 09:44:58 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3svTT73RPnzDrLv
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 09:44:59 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=KKIuFG7P; 
+ unprotected) header.d=google.com header.i=@google.com header.b=is/+Q98M; 
  dkim-atps=neutral
-Received: by mail-pf0-x233.google.com with SMTP id e6so24616208pfk.3
- for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 15:44:58 -0700 (PDT)
+Received: by mail-pa0-x22f.google.com with SMTP id vu5so32257199pab.0
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 15:44:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=v5oq4eWzwjMte+hLPYp2O8Ed23ZVV1RVWm90n4H7Lpk=;
- b=KKIuFG7PHsrvYLlkZAAZXZm+Fb7JZfeeWAKo05V9M0D2eAVqo9TTQBlahxPwKuLbn9
- L3Cem0hujQJDBgedueHtSlQrGX85E3ta5DVSl7VGCCPFlahr5qlYKWKMTwUkq86iu2K9
- vRVM23ztZmADva4T7bBRCt532KL8RxdD2SUGY5uM1xNpertFJNhVLLCZUrlgGd7cvs7i
- /yWKwDzWX16ow/MraJhN2OXj8scdl9YJpfH9qZTAPFgo0mvNTu0MjKSeVqpUSIi6+OVb
- ECMyAZm3JbOu9t9aOgG1VYgAZUXstMdUx/+T1YVBwI1mVWjeJAubKp8KHwHF4YhnvKW1
- bcHA==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=fIGN1nqBmjUWPn+4crUTmMHJqpS5Jr+3OtJFjNZmj5o=;
+ b=is/+Q98MOQIkOO5OxmTOyClYhS2Z8WgT6AYZlo73cm44VXIZurMjJY5Epvqs9RSA+I
+ qduG9b4PLhpoVtIhkEjjgpoG/c9HEYv/KtTnMJpBtVk4IMXzGQs7clXomRvrEedivQbF
+ wshDFeYdABt1RWs5VNyI1inkvr2u+e/JE4KTBSHf0OEfOkwVL4ff9saPQpXDyduKCgGz
+ ojoOWy9H//7h6U6CsybnG8aOXwn3ov3N5yna5He+e+lW03IPKTztnFwQUJfCjJjTAjwD
+ hahlESVoISdfUHs8XUnBKedYmsNhwUyZ8EUhc4fLtyfW0AGXJa2EHKwmi7mfZzOpAZS7
+ aijQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=v5oq4eWzwjMte+hLPYp2O8Ed23ZVV1RVWm90n4H7Lpk=;
- b=l/zXgI9tWacfBx1NaFK3hRSG8mfeZwcS0u+KpDXE7YskHSmZuYLXkFzcdGYk9s1dmO
- 4fWlixHZZbBrmgdN6DJDTE+mx9IP5R2aNmB5kwl/1HgOCg9V65xp0G86SBa6CXjeMwHa
- N38a1bm8CmRERUYFN3NKnys7FIqQ8a8QdKSv4ISmbTsUCXV70rWElcEfYT/oYctnW4Ry
- BJ6dYzLLMxnUQ1rDxO1nQt6sLWqZi2pyrL9QJDMJdB9ppvGenfNR0dpod8LfUBuqjj8f
- LezD/0z/bDCZEi+ubHHtstAXmqtp9NZjaWpHdaqalTOWyx6NgyQiKrGUlsmOLYeboxkG
- +LAQ==
-X-Gm-Message-State: AA6/9Rn92EQFgu03P44tjf8CrgJmuB5yi6rErTeLJY8N2bVOW89EoBW0dsiF4M28v42Qq/1D
-X-Received: by 10.98.86.139 with SMTP id h11mr5324274pfj.73.1476312296692;
- Wed, 12 Oct 2016 15:44:56 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=fIGN1nqBmjUWPn+4crUTmMHJqpS5Jr+3OtJFjNZmj5o=;
+ b=MMrPIZtsfVk0FnQp0YpBnvO4YYLk9kqBZUZEfNiKRc90ynNjz8o8E2f2cN1CSvnpJm
+ lr/cxWkUnxNsenh71DAoG+3jM6tEH5Fa0sAOk9+P6MQdU+okqbuLRmJVAXbdvVbIPxS2
+ smH/gJe0U7zRQWoBZlnhxB7jDSPKeUgpc8j1l7bmFDhBdYPZjN3OQvqUqrhTJBbiIHdG
+ Fr3WhZQePw/ocGb/XguCE9+Vqw9G9U/c6Eom8XOu6xGV5O6s5Hxna2B/PptFSCDzhMRg
+ kAtsU3AgUidHG4u6PuGOV8bzhGnI4uLxp1TBSWHSJncXkR4AH26j9socytI9ZLRRBLRu
+ rfqQ==
+X-Gm-Message-State: AA6/9RlGzMiBrwGZzUbRQMjgxWFiJXJPDtrUWYeOmepcJX0teXezqYAnWB+/KF3026GoOA2M
+X-Received: by 10.66.165.72 with SMTP id yw8mr4441034pab.128.1476312297376;
+ Wed, 12 Oct 2016 15:44:57 -0700 (PDT)
 Received: from pewter.svl.corp.google.com ([100.123.242.121])
- by smtp.gmail.com with ESMTPSA id z6sm14170700pay.31.2016.10.12.15.44.55
+ by smtp.gmail.com with ESMTPSA id z6sm14170700pay.31.2016.10.12.15.44.56
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
  Wed, 12 Oct 2016 15:44:56 -0700 (PDT)
 From: Xo Wang <xow@google.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH 1/5] mach-aspeed: Add Zaius BMC-specific early setup
-Date: Wed, 12 Oct 2016 15:44:44 -0700
-Message-Id: <1476312288-100725-1-git-send-email-xow@google.com>
+Subject: [PATCH 2/5] ARM: dts: aspeed: zaius: Fix pinctrl on MACs
+Date: Wed, 12 Oct 2016 15:44:45 -0700
+Message-Id: <1476312288-100725-2-git-send-email-xow@google.com>
 X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
+In-Reply-To: <1476312288-100725-1-git-send-email-xow@google.com>
+References: <1476312288-100725-1-git-send-email-xow@google.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -59,63 +61,35 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Wed, 12 Oct 2016 22:44:59 -0000
 
-Add initialization for "ingrasys,zaius-bmc" machines to deal with
-hardware issues on EVT1 boards. This overrides incorrect straps that
-enabled the SPI slave and disables pull down resistors that prevented
-buttons inputs from being driven high.
-
-This code reads board revision fuse bits directly from GPIO registers
-because GPIO drivers are not available yet.
+Update the Zaius dts to reflect that MAC1 is intended for NCSI and MAC2
+is connected to a BCM54612E gigabit PHY.
 
 Signed-off-by: Xo Wang <xow@google.com>
 ---
- arch/arm/mach-aspeed/aspeed.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
-index 12a63db..9bf159c 100644
---- a/arch/arm/mach-aspeed/aspeed.c
-+++ b/arch/arm/mach-aspeed/aspeed.c
-@@ -170,6 +170,31 @@ static void __init do_witherspoon_setup(void)
- 	do_ast2500_common_setup();
- }
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+index 4c4754b..541455f 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+@@ -68,7 +68,7 @@
+ 	status = "okay";
  
-+static void __init do_zaius_setup(void)
-+{
-+	unsigned long reg;
-+	unsigned long board_rev;
-+
-+	do_ast2500_common_setup();
-+
-+	/* Read BOARD_REV[4:0] fuses from GPIOM[7:3] */
-+	reg = readl(AST_IO(AST_BASE_GPIO | 0x78));
-+	board_rev = (reg >> 3) & 0x1F;
-+
-+	/* EVT1 hacks */
-+	if (board_rev == 0) {
-+		/* Set strap[13:12] to 01, Enable SPI master */
-+		/* Set bits in writes to SCU7C are cleared from SCU70 */
-+		writel(BIT(13), AST_IO(AST_BASE_SCU | 0x7C));
-+		/* SCU70 is set-only, so no read-modify-write needed */
-+		writel(BIT(12), AST_IO(AST_BASE_SCU | 0x70));
-+
-+		/* Disable GPIO I, G/AB pulldowns due to weak driving buffers */
-+		reg = readl(AST_IO(AST_BASE_SCU | 0x8C));
-+		writel(reg | BIT(24) | BIT(22), AST_IO(AST_BASE_SCU | 0x8C));
-+	}
-+}
-+
+ 	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_rgmii1_default>;
++	pinctrl-0 = <&pinctrl_rmii1_default>;
+ 	use-ncsi;
+ };
  
- #define SCU_PASSWORD	0x1688A8A8
+@@ -76,7 +76,7 @@
+ 	status = "okay";
  
-@@ -216,6 +241,8 @@ static void __init aspeed_init_early(void)
- 		do_ast2500evb_setup();
- 	if (of_machine_is_compatible("ibm,witherspoon-bmc"))
- 		do_witherspoon_setup();
-+	if (of_machine_is_compatible("ingrasys,zaius-bmc"))
-+		do_zaius_setup();
- }
+ 	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_rgmii2_default>;
++	pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
+ };
  
- static void __init aspeed_map_io(void)
+ &i2c0 {
 -- 
 2.8.0.rc3.226.g39d4020
