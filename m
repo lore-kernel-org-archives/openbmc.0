@@ -1,50 +1,53 @@
-Return-Path: <jaghu@google.com>
-Received: from mail-pf0-x233.google.com (mail-pf0-x233.google.com
- [IPv6:2607:f8b0:400e:c00::233])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-vk0-x243.google.com (mail-vk0-x243.google.com
+ [IPv6:2607:f8b0:400c:c05::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sv1D62GdzzDsrc
- for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 15:32:05 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sv2KW0XqBzDsrc
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 16:21:51 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=Xd5iH4QR; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=Q2h/YoPl; 
  dkim-atps=neutral
-Received: by mail-pf0-x233.google.com with SMTP id e6so12399863pfk.3
- for <openbmc@lists.ozlabs.org>; Tue, 11 Oct 2016 21:32:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=from:to:cc:subject:date:message-id;
- bh=G0fFN0Bl7gpHfb1MJdhlYnGn7ndzVvz5GJjg7Hm9mJI=;
- b=Xd5iH4QRlHThs5mmfIYzChFlOAzt5CZ5q+bmCL7rmgaFEy7V+yvDJAbyvyWSe1GXAN
- eqZRDoPz+e3sogtH0UCIRazqP39mApDynw1CX9Tnznsdnq+Nn6iZVj3Ifh4HYBzSncYR
- 2WXe/78miiusoc78Ck9C3IP0kAzMZKMR6IlQJcNjGus+O/JR01ii6tkYla1oicvnznfY
- q/zNZzSzDp0Qgc7yoknRd7H+DGBW3tAgi0ne622DS8Kl/MhIBlj0edsLquFLc6Yt0mS0
- IaHlnyMT1ZBIkCkUvdYcL6WyT20Xtu6mGlDrtzkPRJZguYf3TIevgRfM04WbgGoX/m9w
- todQ==
+Received: by mail-vk0-x243.google.com with SMTP id 2so1901885vkb.1
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Oct 2016 22:21:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=ZL3GOb6HbsJ3uOA+a9MljBlmp5x6XgTyx2AO4j6hFw8=;
+ b=Q2h/YoPliIMklHlKh6jBK1rYLLD2144qPYm9+Ap/l7pxBVmFZSdeawQll7F4oe0kqY
+ ucHXuMF9Dn7FbWh3pXUL73IfKgL66hvMc/1HHp0ES8hZ25S+UsvVW2OotCDP8s2+H3kd
+ 7dsmeTP5qKlcjr3j0mM4MbywqoA3uTwPPADvtPhlgp83kmZ1n1Z3W5ZaY/0zy5E+fNuM
+ mumHv0p3W3KhaC3M1i3G4RNi0fXgWl9/cKi2QtQuYQ1/RrUerNFJGrJ45jhXihDbv2or
+ YgFerc501YKAOGo5m+jCzYIpqm6sbp5MBieSU44mycGpWGuLHJQv/E7BlWZ062nFvNQ6
+ 1R1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=G0fFN0Bl7gpHfb1MJdhlYnGn7ndzVvz5GJjg7Hm9mJI=;
- b=ES2kynQ+OJFjiN8hvTPr1e/uZ1d2mgMNrGl5NLnaNxIX1Ajkt8nzkTgxlz7u1h/UBx
- 0IyvZiic/0+7xidCl11qbkPZew214SutiUwcZbUr71t5l2z/rIpwgbxU7ofdFFaSCPWV
- Cl2dUXzUDxpqDRy/rSIGspNb6go38dAs43EFnQe6owc1rF0ND53vg+mc5xHSEzeyYdjy
- egmBxrYUhpPu2vPWE1jBjWkiWo4mvruhfiJxf2Zkms1XULsfVRz2QkOyRMuPkHk7/FrL
- heNiFXLom2URuxeuB21wzSrMPB2lJfvJACwpt61Et2AGeYaDIkSS5lYiX71AAeV4N1H/
- zVWA==
-X-Gm-Message-State: AA6/9RkWgQ50r5E/Cw9lfPQNPImsB47+vXDGDE4wWCt6++Y8jjd06FstEgLaKF640CBgbM7T
-X-Received: by 10.98.196.156 with SMTP id h28mr2235234pfk.41.1476246723676;
- Tue, 11 Oct 2016 21:32:03 -0700 (PDT)
-Received: from jaghu22.svl.corp.google.com ([100.123.242.38])
- by smtp.gmail.com with ESMTPSA id z90sm1496258pfd.65.2016.10.11.21.32.02
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 11 Oct 2016 21:32:02 -0700 (PDT)
-From: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
-To: joel@jms.id.au
-Cc: openbmc@lists.ozlabs.org,
- Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
-Subject: [PATCH] drivers: misc: Support for POST card display
-Date: Tue, 11 Oct 2016 21:31:52 -0700
-Message-Id: <1476246712-5397-1-git-send-email-jaghu@google.com>
-X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
-X-Mailman-Approved-At: Wed, 12 Oct 2016 16:13:04 +1100
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=ZL3GOb6HbsJ3uOA+a9MljBlmp5x6XgTyx2AO4j6hFw8=;
+ b=D2ag7heBEwznf+CoM+L1hvqRQ7diXkKHCgqvIuWN1rm5JHgkCPdDQf7j3yQfCVYwZ5
+ Wj2jKt7icDQ+ZMhqgObBtrSzrK7F/JMBqE2goM8uAY8/aRvm8Cpn5k551MPcAzuOfTb4
+ GNKkZFsS0sHKsUZY/5F7yXfcd16TqeoIPEhPgFfoO/K8PhNDvKo0gIcAL79cp/QIDy8c
+ RpQB5y5Z4d9JG+PeVOf+xs3LA6YAjRDzl8hr1Cc+EH856Qo9Evq0TUG5Ah8WC4ckveo2
+ JIxV3H5mG/XObeCtQIj9kMcQCzE33C78H9FISy0M8CJaG/KGQOc6F9gtEMfUGVKz4XmN
+ p7Cw==
+X-Gm-Message-State: AA6/9RkB8NVpiPNiUMksAZW+DekpFU9MfC6IlqIV8ttYEjniLG1HrSjTvdVtzuLY6wMVS2rrhRj+NxX4iaVbFw==
+X-Received: by 10.31.140.147 with SMTP id o141mr4865639vkd.149.1476249708661; 
+ Tue, 11 Oct 2016 22:21:48 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.176.7.8 with HTTP; Tue, 11 Oct 2016 22:21:28 -0700 (PDT)
+In-Reply-To: <1476222162-14541-1-git-send-email-eajames.ibm@gmail.com>
+References: <1476222162-14541-1-git-send-email-eajames.ibm@gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 12 Oct 2016 16:21:28 +1100
+X-Google-Sender-Auth: U8WYfTVc21GP1oEGCookkJmjJDM
+Message-ID: <CACPK8XeKoiSn3DBz=j=Ki5Se315NupZR1EkpDcPfyKf8ZVOrYg@mail.gmail.com>
+Subject: Re: [RFC linux v2 2/2] drivers/hwmon: Isolate bus transfer protocol
+To: eajames.ibm@gmail.com
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ "Edward A. James" <eajames@us.ibm.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,442 +59,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Oct 2016 04:32:07 -0000
+X-List-Received-Date: Wed, 12 Oct 2016 05:21:51 -0000
 
-Added a character driver and a platform driver to display Port80 codes
-(written by the host) and additional codes (generated by the BMC)
-on a POST card (two seven segment LEDs) ;
-Tested that the post codes are displayed properly
-on the POST card by writing to the character device.
+Hey Eddie,
 
-Signed-off-by: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
----
- .../devicetree/bindings/misc/postcard-disp.txt     |  18 ++
- arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts         |   8 +
- drivers/misc/Makefile                              |   2 +
- drivers/misc/update-bmc-postcode.c                 | 117 +++++++++++
- drivers/misc/update-postcard.c                     | 219 +++++++++++++++++++++
- drivers/misc/update-postcard.h                     |   1 +
- 6 files changed, 365 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/misc/postcard-disp.txt
- create mode 100644 drivers/misc/update-bmc-postcode.c
- create mode 100644 drivers/misc/update-postcard.c
- create mode 100644 drivers/misc/update-postcard.h
+On Wed, Oct 12, 2016 at 8:42 AM,  <eajames.ibm@gmail.com> wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
+>
+> - Copy i2c related code into occ_i2c.c and simplify.
+> - Copy common platform code into occ.c; more functions can be placed here
+>   later.
+> - Change core functions to accept OCC driver data parameter instead of
+>   device pointer.
 
-diff --git a/Documentation/devicetree/bindings/misc/postcard-disp.txt b/Documentation/devicetree/bindings/misc/postcard-disp.txt
-new file mode 100644
-index 0000000..164449e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/misc/postcard-disp.txt
-@@ -0,0 +1,18 @@
-+POST card display (two seven segment LEDs) connected to GPIO lines
-+
-+Required properties:
-+- compatible : should be "postcard-display".
-+- clk-gpios :  Should specify the GPIO pin connected to the Clock line on the POST card.
-+- data-gpios : Should specify the GPIO pin connected to Data line on the POST card.
-+- clear-gpios : Should specify the GPIO pin connected to Clear line on the POST card.
-+
-+Examples:
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+postcard {
-+	compatible = "postcard-display";
-+	clk-gpios = <&gpio 0 GPIO_ACTIVE_LOW>;
-+	data-gpios = <&gpio 1 GPIO_ACTIVE_HIGH>;
-+	clear-gpios = <&gpio 1 GPIO_ACTIVE_HIGH>;
-+};
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-index 4c4754b..d555ff1 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-@@ -1,6 +1,7 @@
- /dts-v1/;
+As a general rule, if you find yourself writing a series of bullet
+points in a commit message, then that commit should be split up into
+one patch for each bullet point. This list is a good example of such a
+case.
 
- #include "aspeed-g5.dtsi"
-+#include <dt-bindings/gpio/aspeed-gpio.h>
+I had a brief read of the patch, and I noticed many of the comments
+are descriptions of what some very straightforward code is doing. I
+think you can drop the comments in this case; consider adding another
+patch that removes such comments.
 
- / {
- 	model = "Zaius BMC";
-@@ -58,6 +59,13 @@
- 			};
- 		};
- 	};
-+
-+	postcard {
-+		compatible = "postcard-display";
-+		clk-gpios = <&gpio ASPEED_GPIO(J, 0) GPIO_ACTIVE_HIGH>;
-+		data-gpios = <&gpio ASPEED_GPIO(J, 2) GPIO_ACTIVE_HIGH>;
-+		clr-gpios = <&gpio ASPEED_GPIO(J, 1) GPIO_ACTIVE_HIGH>;
-+	};
- };
+Cheers,
 
- &uart5 {
-diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
-index 724861b..04184b9 100644
---- a/drivers/misc/Makefile
-+++ b/drivers/misc/Makefile
-@@ -58,3 +58,5 @@ obj-$(CONFIG_VEXPRESS_SYSCFG)	+= vexpress-syscfg.o
- obj-$(CONFIG_CXL_BASE)		+= cxl/
- obj-$(CONFIG_PANEL)             += panel.o
- obj-$(CONFIG_ASPEED_BT_IPMI_HOST)	+= bt-host.o
-+obj-y				+= update-postcard.o
-+obj-y				+= update-bmc-postcode.o
-diff --git a/drivers/misc/update-bmc-postcode.c b/drivers/misc/update-bmc-postcode.c
-new file mode 100644
-index 0000000..0b5ded5
---- /dev/null
-+++ b/drivers/misc/update-bmc-postcode.c
-@@ -0,0 +1,117 @@
-+#include <linux/module.h>
-+#include <linux/version.h>
-+#include <linux/kernel.h>
-+#include <linux/types.h>
-+#include <linux/kdev_t.h>
-+#include <linux/fs.h>
-+#include <linux/device.h>
-+#include <linux/cdev.h>
-+#include <linux/uaccess.h>
-+#include <linux/ctype.h>
-+
-+#include "update-postcard.h"
-+
-+#define MAX_POSTCODE_SIZE 3
-+
-+static dev_t bmc_state_dev;
-+static struct cdev c_dev;
-+static struct class *bmc_state_class;
-+
-+static int bmc_state_open(struct inode *i, struct file *f)
-+{
-+	return 0;
-+}
-+
-+static int bmc_state_close(struct inode *i, struct file *f)
-+{
-+	return 0;
-+}
-+
-+static ssize_t bmc_state_read(struct file *f, char __user *buf, size_t
-+				len, loff_t *off)
-+{
-+	return 0;
-+}
-+
-+/* Write post code from bmc to the correct variable */
-+static ssize_t bmc_state_write(struct file *f, const char __user *buf,
-+				size_t len, loff_t *off)
-+{
-+	char tmp[MAX_POSTCODE_SIZE];
-+	int length = len - 1;
-+	int i;
-+
-+	if (length != MAX_POSTCODE_SIZE) {
-+		return -EINVAL;
-+	}
-+
-+	if (copy_from_user(tmp, buf, length) != 0) {
-+		return -EFAULT;
-+	}
-+
-+	for (i = 0; i < MAX_POSTCODE_SIZE; i++) {
-+		if (!isxdigit(tmp[i]))
-+			return -EINVAL;
-+	}
-+
-+	update_postcode(tmp);
-+	return len;
-+}
-+
-+static const struct file_operations bmc_state_fops = {
-+
-+	.owner = THIS_MODULE,
-+	.open = bmc_state_open,
-+	.release = bmc_state_close,
-+	.read = bmc_state_read,
-+	.write = bmc_state_write
-+};
-+
-+static int __init update_bmc_pc_init(void) /* Constructor */
-+{
-+	if (alloc_chrdev_region(&bmc_state_dev, 0, 1, "bmc_state") < 0) {
-+		return -1;
-+	}
-+
-+	bmc_state_class = class_create(THIS_MODULE, "bmc_state");
-+	if (bmc_state_class == NULL) {
-+		goto unregister;
-+		return -1;
-+	}
-+
-+	if (device_create(bmc_state_class, NULL, bmc_state_dev,
-+		NULL, "current_state") == NULL) {
-+		goto class_destroy;
-+		return -1;
-+	}
-+
-+	cdev_init(&c_dev, &bmc_state_fops);
-+	if (cdev_add(&c_dev, bmc_state_dev, 1) == -1) {
-+		goto device_destroy;
-+		return -1;
-+	}
-+
-+	return 0;
-+
-+device_destroy:
-+		device_destroy(bmc_state_class, bmc_state_dev);
-+class_destroy:
-+		class_destroy(bmc_state_class);
-+unregister:
-+		unregister_chrdev_region(bmc_state_dev, 1);
-+	return -1;
-+}
-+
-+static void __exit update_bmc_pc_exit(void)
-+{
-+	cdev_del(&c_dev);
-+	device_destroy(bmc_state_class, bmc_state_dev);
-+	class_destroy(bmc_state_class);
-+	unregister_chrdev_region(bmc_state_dev, 1);
-+}
-+
-+module_init(update_bmc_pc_init);
-+module_exit(update_bmc_pc_exit);
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>");
-+MODULE_DESCRIPTION("Character driver - update bmc postcode");
-diff --git a/drivers/misc/update-postcard.c b/drivers/misc/update-postcard.c
-new file mode 100644
-index 0000000..4b51d70
---- /dev/null
-+++ b/drivers/misc/update-postcard.c
-@@ -0,0 +1,219 @@
-+/* Display Port80 codes (written by the host) and
-+ * additional codes (generated by the EC) to two seven segment LEDs
-+ */
-+
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/timer.h>
-+#include <linux/jiffies.h>
-+#include <linux/sizes.h>
-+#include <linux/map_to_7segment.h>
-+#include <linux/io.h>
-+#include <linux/delay.h>
-+#include <linux/uaccess.h>
-+#include <linux/mutex.h>
-+#include <linux/of_platform.h>
-+#include <linux/gpio/consumer.h>
-+
-+#define POST_CODE_UPDATE_INTVL 1000
-+
-+#define MAX_PC_SIZE 3
-+
-+#define LED_DOT 0x01
-+
-+#define CLOCK_GPIO_NAME "clk"
-+#define DATA_GPIO_NAME "data"
-+#define CLEAR_GPIO_NAME "clr"
-+
-+static struct mutex mutex;
-+
-+static struct timer_list update_timer;
-+
-+static char curr_postcode[3];
-+static u8 pc_valid;
-+
-+static struct gpio_desc *clk_gpio;
-+static struct gpio_desc *data_gpio;
-+static struct gpio_desc *clr_gpio;
-+
-+/*
-+ * 0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
-+ *  _       _   _       _   _   _   _   _   _       _       _   _
-+ * | |   |  _|  _| |_| |_  |_    | |_| |_| |_| |_  |    _| |_  |_
-+ * |_|   | |_   _|   |  _| |_|   | |_|   | | | |_| |_  |_| |_  |
-+ *
-+ * data[7:1] = led[a:g]
-+ * lookup table used for both bytes of lpc post code and lower byte of
-+ * bmc post code
-+ */
-+const u8 seven_seg_bits[] = {
-+	0xFC, 0x60, 0xDA, 0xF2, 0x66, 0xB6, 0xBE, 0xE0,
-+	0xFE, 0xF6, 0xEE, 0x3E, 0x9C, 0x7A, 0x9E, 0x8E
-+	};
-+
-+/*
-+ * 0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
-+ *      _       _   _                              _            _
-+ *     |   |_  |_| |_  _   _   _   _   _   _   _  |_    _|  _| | |
-+ *     |_  |_  |   |                               _|  |_| |_| | |
-+ *
-+ * data[7:1] = led[a:g]
-+ * lookup table used for higher byte of bmc post code
-+ */
-+const u8 special_seven_seg_bits[] = {
-+	0x00, 0x9C, 0x1E, 0xCE, 0x8E, 0x02, 0x02, 0x02,
-+	0x02, 0x02, 0x02, 0x02, 0xB6, 0x7A, 0x7A, 0xEC
-+	};
-+
-+void update_postcode(char *buf)
-+{
-+	mutex_lock(&mutex);
-+	strncpy(curr_postcode, buf, sizeof(curr_postcode));
-+	mutex_unlock(&mutex);
-+	pc_valid = 1;
-+}
-+EXPORT_SYMBOL(update_postcode);
-+
-+/* convert postcode to led pattern
-+ * 7-bits used for each 7-seg display and
-+ * 1 bit used for the 'dot' on both digits.
-+ *
-+ *  @param N/A
-+ *  @return N/A
-+ */
-+static u16 postcode_to_led_signal(void)
-+{
-+	u8 low_display;
-+	u8 high_display;
-+	u16 led_value;
-+	char buf[3];
-+
-+	mutex_lock(&mutex);
-+	strncpy(buf, curr_postcode, sizeof(buf));
-+	mutex_unlock(&mutex);
-+
-+	low_display = seven_seg_bits[hex_to_bin(buf[2])];
-+
-+	high_display = (buf[0] == '1') ?
-+		special_seven_seg_bits[hex_to_bin(buf[1])] :
-+		seven_seg_bits[hex_to_bin(buf[1])];
-+
-+	led_value = low_display | (high_display << 8);
-+	if (buf[0] == '1') {
-+		led_value |= LED_DOT | (LED_DOT << 8);
-+	}
-+
-+	return led_value;
-+}
-+
-+static void update_sgpio(void)
-+{
-+	u16 led_signal;
-+	int i;
-+
-+	/* Convert two bytes of post code to 16 bit led pattern */
-+	led_signal = postcode_to_led_signal();
-+
-+	/* Set the clear signal to low */
-+	gpiod_set_value(clr_gpio, 0);
-+	udelay(1);
-+	/* Set the clear clear to high */
-+	gpiod_set_value(clr_gpio, 1);
-+	udelay(1);
-+
-+	/* Bitbang the 16 bit led pattern
-+	 * 7-bits used for each 7-seg display
-+	 * 1 bit used for the 'dot' on both digits
-+	 */
-+	for (i = 0; i < 16; i++) {
-+		if (led_signal & 0x01) {
-+			/* Set the data signal to high */
-+			gpiod_set_value(data_gpio, 1);
-+		} else {
-+			/* Set the data signal to low */
-+			gpiod_set_value(data_gpio, 0);
-+		}
-+		udelay(1);
-+
-+		/* Set the clock signal to low */
-+		gpiod_set_value(clk_gpio, 0);
-+		udelay(1);
-+		/* Set the clock signal to high */
-+		gpiod_set_value(clk_gpio, 1);
-+		udelay(1);
-+
-+		led_signal >>= 1;
-+	}
-+}
-+
-+static void update_timer_handler(unsigned long data)
-+{
-+	if (pc_valid == 1) {
-+		update_sgpio();
-+	}
-+	mod_timer(&update_timer,
-+		jiffies + msecs_to_jiffies(POST_CODE_UPDATE_INTVL));
-+}
-+
-+static const struct of_device_id of_postcard_match[] = {
-+		{ .compatible = "postcard-display" },
-+			{},
-+};
-+
-+MODULE_DEVICE_TABLE(of, of_postcard_match);
-+
-+static int postcard_probe(struct platform_device *pdev)
-+{
-+	int result;
-+	struct device *dev = &pdev->dev;
-+
-+	/* Requesting the clock gpio */
-+	clk_gpio = devm_gpiod_get(dev, CLOCK_GPIO_NAME,
-+		GPIOD_OUT_HIGH);
-+	if (IS_ERR(clk_gpio))
-+		return PTR_ERR(data_gpio);
-+
-+	/* Requesting the data gpio */
-+	data_gpio = devm_gpiod_get(dev, DATA_GPIO_NAME,
-+		GPIOD_OUT_HIGH);
-+	if (IS_ERR(data_gpio))
-+		return PTR_ERR(data_gpio);
-+
-+	/* Requesting the clear gpio */
-+	clr_gpio = devm_gpiod_get(dev, CLEAR_GPIO_NAME,
-+		GPIOD_OUT_HIGH);
-+	if (IS_ERR(clr_gpio))
-+		return PTR_ERR(clr_gpio);
-+
-+	/* Start timer to update post code every second */
-+	setup_timer(&update_timer, update_timer_handler, 0);
-+	result = mod_timer(&update_timer,
-+		jiffies + msecs_to_jiffies(POST_CODE_UPDATE_INTVL));
-+
-+	if (result)
-+		return result;
-+
-+	mutex_init(&mutex);
-+
-+	return 0;
-+}
-+
-+static void postcard_remove(struct platform_device *pdev)
-+{
-+	del_timer(&update_timer);
-+}
-+
-+static struct platform_driver postcard_display_driver = {
-+	.probe		= postcard_probe,
-+	.shutdown	= postcard_remove,
-+	.driver		= {
-+		.name	= "postcard-display",
-+		.of_match_table = of_postcard_match,
-+	},
-+};
-+
-+module_platform_driver(postcard_display_driver);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>");
-+MODULE_DESCRIPTION("Post card display update driver");
-diff --git a/drivers/misc/update-postcard.h b/drivers/misc/update-postcard.h
-new file mode 100644
-index 0000000..ef82e9091d
---- /dev/null
-+++ b/drivers/misc/update-postcard.h
-@@ -0,0 +1 @@
-+void update_postcode(char *buf);
---
-2.8.0.rc3.226.g39d4020
+Joel
+
+> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+> ---
+>  drivers/hwmon/occ/Makefile     |   2 +-
+>  drivers/hwmon/occ/occ.c        | 127 +++++++++++++++
+>  drivers/hwmon/occ/occ.h        |  47 ++++++
+>  drivers/hwmon/occ/occ_i2c.c    | 150 ++++++++++++++++++
+>  drivers/hwmon/occ/power8_occ.c | 343 +++++++++--------------------------------
+>  drivers/hwmon/occ/power8_occ.h |  25 +++
+>  6 files changed, 422 insertions(+), 272 deletions(-)
+>  create mode 100644 drivers/hwmon/occ/occ.c
+>  create mode 100644 drivers/hwmon/occ/occ.h
+>  create mode 100644 drivers/hwmon/occ/occ_i2c.c
+>  create mode 100644 drivers/hwmon/occ/power8_occ.h
+>
