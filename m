@@ -1,49 +1,52 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-yb0-x22c.google.com (mail-yb0-x22c.google.com
- [IPv6:2607:f8b0:4002:c09::22c])
+Return-Path: <christopher.lee.bostic@gmail.com>
+Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
+ [IPv6:2607:f8b0:4003:c06::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3svJtP6CJqzDsrf
- for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 03:17:48 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3svLKh49ZvzDsrd
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 04:23:04 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=ASvk2spH; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=fTQI6q9N; 
  dkim-atps=neutral
-Received: by mail-yb0-x22c.google.com with SMTP id e20so21323668ybb.0
- for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 09:17:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
+Received: by mail-oi0-x241.google.com with SMTP id e12so3922085oib.3
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 10:23:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=lqeHy8FaB1xZrLCaOGTNZMIOB/U8KuXjMFEMtTABZjs=;
- b=ASvk2spHwFCDVKU/i09c6JzvmsXzu2Z5nt7bxqqn7y8NKwY9WDbY93EHruTbRfXnyc
- d7qL7v3FOvWVOfSW2WjVcVx393ieZk8pM6rHA7b7SLz95bDOgTM4yLymnxwrxagxOEXk
- 0aDu3mMaeH8h+j9KFje6hekKvcYTgfaEdEjiQ6T7hQh+ip14Bpk75rovitkIjgUskuw6
- SES0eoontTDPr70TpBUtIUxRdOgYQs/H8lbQYEdPgmERg7Ib6NY4ETFgJwbmrx3mEWyQ
- RV2IIrGBotVBsdGRekKvDB/2oWWD+FNXpzhK+Kc9O2MJ/MMa1DXWtu65z7909OdSeVQ7
- 2haQ==
+ :cc; bh=T6rZHU9JxnNoDbHPIvGu23l60Y+Nn1W4l1MZDyNoLKM=;
+ b=fTQI6q9NBN+zBXgo25VS77UWJzueIeRZznql3eqRTNFGS5M6FLDcWn60TpscxsU0Um
+ FyHu7esvfy9GH4mlqqYN43AVWIUAmybjPUhY/B/vSvH6BrtqxghvHS2VISjE6jY2ktyv
+ D+tYiH1PIHTSDiisIwP/23GH478CFWUxl7FMMmSTg7QFOx4zPDRF63q+ZSo/MBIbey1Q
+ SsrgS/GCmNILf+HCfuqut1fSaoYLeV++r/l+wDe7unvH3a7yQ5xHdvH/paS/dJNKeDR6
+ uLesc5Kzp83Kyf6sFo2kwI5JkUTj4NMN3JXWH2TFu2ogL5/mOSugpLs3SJzHb4t3hVfo
+ 1AEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=lqeHy8FaB1xZrLCaOGTNZMIOB/U8KuXjMFEMtTABZjs=;
- b=N8krGLeY+uflwBq0rWEZmsyps4eaPk22lrcmuWGpf7p7ZJzSjG4HOynBLgq7tj4flA
- PdfTPLYpDVlDItDlXBT23cLVBr2CEaRkniX/G1omTJ1Ya/+xO8llrA081Bh1aKTPifdt
- VTOLsHoYnAvIcq0v1LetE0cQbiSkl/RnW597NpRwO2vexOITB5Niz8mb2H1TBZDBRCfH
- YD0ghkcxhiuYernWVr33em7iuvwYil7U0j+vXM/jQesHsFtpcEj2JS5i62SwF9jBLDZz
- xtUM25SW1rDN9nw+QrNTWK6MLQcRWx+WBeY9jUYgKutYfdKG+tyP0035M8tlXVKuFyIp
- MV9g==
-X-Gm-Message-State: AA6/9RnD6y5qTVIl5ag6DCHtW7+5xxkLbPxa9UExJ2HgwbcwZ968YKZZkY/3e7lm3fbP9ePKvCwYgAtKmU9kxx7k
-X-Received: by 10.37.75.198 with SMTP id y189mr1697282yba.146.1476289065802;
- Wed, 12 Oct 2016 09:17:45 -0700 (PDT)
+ bh=T6rZHU9JxnNoDbHPIvGu23l60Y+Nn1W4l1MZDyNoLKM=;
+ b=ML9i3gnmEaU4LCk0QpzGeEfbEJZLSlmC6ep48RdFGuK639QSMAudw1tX6xK3xGUczA
+ tSEKFC5XeWjb7wMsydQuTeyc4t5EiqUIqQS8y8KnH144Npbj83r7dK8rYV4OCui3ic5C
+ cEYLJ5DOTKO9J7OoP4tnyXpzwvATI2DYpyU2dv840935lQfgm4gAVWm3bOnEgV1Ezxdu
+ wiuPs/i+7GrLG4mrydx6EZKgxWZlFV1KM5NUGwX4wVFoUWepb7M3TU2wVVpH+jG0qPsi
+ EALULkXtPoUG3IDrgTSZTeq+300WWGBEeZGfwjCEU0G8YrQvHofo8V3hnNL2emGm3276
+ Bgyg==
+X-Gm-Message-State: AA6/9Rl0uIukW4/7Lwc+esDPy35QN0+rEhUzkbF5z8m2MZKRCnT4nCoTqaLobmAHFp//0O+rA9/ZoDg4xKQIoQ==
+X-Received: by 10.202.117.66 with SMTP id q63mr1344332oic.185.1476292982541;
+ Wed, 12 Oct 2016 10:23:02 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.37.160.4 with HTTP; Wed, 12 Oct 2016 09:17:45 -0700 (PDT)
-In-Reply-To: <1476246712-5397-1-git-send-email-jaghu@google.com>
-References: <1476246712-5397-1-git-send-email-jaghu@google.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Wed, 12 Oct 2016 09:17:45 -0700
-Message-ID: <CAPLgG=mwL3BU+msiZLU020_B1ETk=ViXeAvce=Jnz8prBoKipQ@mail.gmail.com>
-Subject: Re: [PATCH] drivers: misc: Support for POST card display
-To: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
-Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=94eb2c0944765b0032053ead5583
+Received: by 10.202.220.132 with HTTP; Wed, 12 Oct 2016 10:23:01 -0700 (PDT)
+In-Reply-To: <337bc0ed-9f0c-afb3-d35d-3962ab7a17b7@ozlabs.org>
+References: <1476222003-99697-1-git-send-email-christopher.lee.bostic@gmail.com>
+ <1476222003-99697-18-git-send-email-christopher.lee.bostic@gmail.com>
+ <337bc0ed-9f0c-afb3-d35d-3962ab7a17b7@ozlabs.org>
+From: Christopher Bostic <christopher.lee.bostic@gmail.com>
+Date: Wed, 12 Oct 2016 12:23:01 -0500
+Message-ID: <CAA0LjjV8OJFNesgcebxwhWBJkT_i2ZLnG-8HFzp8nE7WqP+3qQ@mail.gmail.com>
+Subject: Re: [PATCH linux v3 17/18] drivers/fsi: Add GPIO master functionality
+To: Jeremy Kerr <jk@ozlabs.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, xxpetri@de.ibm.com,
+ zahrens@us.ibm.com
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,1049 +58,445 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Oct 2016 16:17:51 -0000
+X-List-Received-Date: Wed, 12 Oct 2016 17:23:05 -0000
 
---94eb2c0944765b0032053ead5583
-Content-Type: text/plain; charset=UTF-8
-
-Split this into multiple commits: platform driver, character driver, and
-device tree update.
-
-For the platform driver, your comments describe it as being solely for POST
-code output when in practice it can be used to display any integer.  Expand
-the comments to explain the type of hardware assumed (74HC164 wired to
-7-segment displays) so others can implement compatible hardware.
-
-On Tue, Oct 11, 2016 at 9:31 PM, Jaghathiswari Rankappagounder Natarajan <
-jaghu@google.com> wrote:
-
-> Added a character driver and a platform driver to display Port80 codes
-> (written by the host) and additional codes (generated by the BMC)
-> on a POST card (two seven segment LEDs) ;
-> Tested that the post codes are displayed properly
-> on the POST card by writing to the character device.
+On Tue, Oct 11, 2016 at 7:34 PM, Jeremy Kerr <jk@ozlabs.org> wrote:
+> Hi Chris,
 >
-> Signed-off-by: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
-> ---
->  .../devicetree/bindings/misc/postcard-disp.txt     |  18 ++
->  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts         |   8 +
->  drivers/misc/Makefile                              |   2 +
->  drivers/misc/update-bmc-postcode.c                 | 117 +++++++++++
->  drivers/misc/update-postcard.c                     | 219
-> +++++++++++++++++++++
->  drivers/misc/update-postcard.h                     |   1 +
->  6 files changed, 365 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/misc/postcard-disp.
-> txt
->  create mode 100644 drivers/misc/update-bmc-postcode.c
->  create mode 100644 drivers/misc/update-postcard.c
->  create mode 100644 drivers/misc/update-postcard.h
+>> +static void add_crc(struct fsi_gpio_msg *cmd)
+>> +{
+>> +
+>> +}
 >
-> diff --git a/Documentation/devicetree/bindings/misc/postcard-disp.txt
-> b/Documentation/devicetree/bindings/misc/postcard-disp.txt
-> new file mode 100644
-> index 0000000..164449e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/misc/postcard-disp.txt
-> @@ -0,0 +1,18 @@
-> +POST card display (two seven segment LEDs) connected to GPIO lines
-> +
-> +Required properties:
-> +- compatible : should be "postcard-display".
-> +- clk-gpios :  Should specify the GPIO pin connected to the Clock line on
-> the POST card.
-> +- data-gpios : Should specify the GPIO pin connected to Data line on the
-> POST card.
-> +- clear-gpios : Should specify the GPIO pin connected to Clear line on
-> the POST card.
-> +
-> +Examples:
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +
-> +postcard {
-> +       compatible = "postcard-display";
-> +       clk-gpios = <&gpio 0 GPIO_ACTIVE_LOW>;
-> +       data-gpios = <&gpio 1 GPIO_ACTIVE_HIGH>;
-> +       clear-gpios = <&gpio 1 GPIO_ACTIVE_HIGH>;
-> +};
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> index 4c4754b..d555ff1 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> @@ -1,6 +1,7 @@
->  /dts-v1/;
+> I'll send you some code to help with implementing this...
 >
->  #include "aspeed-g5.dtsi"
-> +#include <dt-bindings/gpio/aspeed-gpio.h>
+>> +
+>> +static void set_clock(struct fsi_master_gpio *master)
+>> +{
+>> +     /* This delay is required - do not remove */
 >
->  / {
->         model = "Zaius BMC";
-> @@ -58,6 +59,13 @@
->                         };
->                 };
->         };
-> +
-> +       postcard {
-> +               compatible = "postcard-display";
-> +               clk-gpios = <&gpio ASPEED_GPIO(J, 0) GPIO_ACTIVE_HIGH>;
-> +               data-gpios = <&gpio ASPEED_GPIO(J, 2) GPIO_ACTIVE_HIGH>;
-> +               clr-gpios = <&gpio ASPEED_GPIO(J, 1) GPIO_ACTIVE_HIGH>;
-> +       };
->  };
->
->  &uart5 {
-> diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
-> index 724861b..04184b9 100644
-> --- a/drivers/misc/Makefile
-> +++ b/drivers/misc/Makefile
-> @@ -58,3 +58,5 @@ obj-$(CONFIG_VEXPRESS_SYSCFG) += vexpress-syscfg.o
->  obj-$(CONFIG_CXL_BASE)         += cxl/
->  obj-$(CONFIG_PANEL)             += panel.o
->  obj-$(CONFIG_ASPEED_BT_IPMI_HOST)      += bt-host.o
-> +obj-y                          += update-postcard.o
-> +obj-y                          += update-bmc-postcode.o
-> diff --git a/drivers/misc/update-bmc-postcode.c b/drivers/misc/update-bmc-
-> postcode.c
-> new file mode 100644
-> index 0000000..0b5ded5
-> --- /dev/null
-> +++ b/drivers/misc/update-bmc-postcode.c
-> @@ -0,0 +1,117 @@
-> +#include <linux/module.h>
-> +#include <linux/version.h>
-> +#include <linux/kernel.h>
-> +#include <linux/types.h>
-> +#include <linux/kdev_t.h>
-> +#include <linux/fs.h>
-> +#include <linux/device.h>
-> +#include <linux/cdev.h>
-> +#include <linux/uaccess.h>
-> +#include <linux/ctype.h>
-> +
-> +#include "update-postcard.h"
-> +
-> +#define MAX_POSTCODE_SIZE 3
-> +
-> +static dev_t bmc_state_dev;
-> +static struct cdev c_dev;
-> +static struct class *bmc_state_class;
-> +
-> +static int bmc_state_open(struct inode *i, struct file *f)
-> +{
-> +       return 0;
-> +}
-> +
-> +static int bmc_state_close(struct inode *i, struct file *f)
-> +{
-> +       return 0;
-> +}
-> +
-> +static ssize_t bmc_state_read(struct file *f, char __user *buf, size_t
-> +                               len, loff_t *off)
-> +{
-> +       return 0;
-> +}
-> +
-> +/* Write post code from bmc to the correct variable */
-> +static ssize_t bmc_state_write(struct file *f, const char __user *buf,
-> +                               size_t len, loff_t *off)
-> +{
-> +       char tmp[MAX_POSTCODE_SIZE];
-> +       int length = len - 1;
-> +       int i;
-> +
-> +       if (length != MAX_POSTCODE_SIZE) {
-> +               return -EINVAL;
-> +       }
-> +
-> +       if (copy_from_user(tmp, buf, length) != 0) {
-> +               return -EFAULT;
-> +       }
-> +
-> +       for (i = 0; i < MAX_POSTCODE_SIZE; i++) {
-> +               if (!isxdigit(tmp[i]))
-> +                       return -EINVAL;
-> +       }
-> +
-> +       update_postcode(tmp);
-> +       return len;
-> +}
-> +
-> +static const struct file_operations bmc_state_fops = {
-> +
-> +       .owner = THIS_MODULE,
-> +       .open = bmc_state_open,
-> +       .release = bmc_state_close,
-> +       .read = bmc_state_read,
-> +       .write = bmc_state_write
-> +};
-> +
-> +static int __init update_bmc_pc_init(void) /* Constructor */
-> +{
-> +       if (alloc_chrdev_region(&bmc_state_dev, 0, 1, "bmc_state") < 0) {
-> +               return -1;
-> +       }
-> +
-> +       bmc_state_class = class_create(THIS_MODULE, "bmc_state");
-> +       if (bmc_state_class == NULL) {
-> +               goto unregister;
-> +               return -1;
-> +       }
-> +
-> +       if (device_create(bmc_state_class, NULL, bmc_state_dev,
-> +               NULL, "current_state") == NULL) {
-> +               goto class_destroy;
-> +               return -1;
-> +       }
-> +
-> +       cdev_init(&c_dev, &bmc_state_fops);
-> +       if (cdev_add(&c_dev, bmc_state_dev, 1) == -1) {
-> +               goto device_destroy;
-> +               return -1;
-> +       }
-> +
-> +       return 0;
-> +
-> +device_destroy:
-> +               device_destroy(bmc_state_class, bmc_state_dev);
-> +class_destroy:
-> +               class_destroy(bmc_state_class);
-> +unregister:
-> +               unregister_chrdev_region(bmc_state_dev, 1);
-> +       return -1;
-> +}
-> +
-> +static void __exit update_bmc_pc_exit(void)
-> +{
-> +       cdev_del(&c_dev);
-> +       device_destroy(bmc_state_class, bmc_state_dev);
-> +       class_destroy(bmc_state_class);
-> +       unregister_chrdev_region(bmc_state_dev, 1);
-> +}
-> +
-> +module_init(update_bmc_pc_init);
-> +module_exit(update_bmc_pc_exit);
-> +MODULE_LICENSE("GPL");
-> +MODULE_AUTHOR("Jaghathiswari Rankappagounder Natarajan <jaghu@google.com
-> >");
-> +MODULE_DESCRIPTION("Character driver - update bmc postcode");
-> diff --git a/drivers/misc/update-postcard.c b/drivers/misc/update-
-> postcard.c
-> new file mode 100644
-> index 0000000..4b51d70
-> --- /dev/null
-> +++ b/drivers/misc/update-postcard.c
-> @@ -0,0 +1,219 @@
-> +/* Display Port80 codes (written by the host) and
-> + * additional codes (generated by the EC) to two seven segment LEDs
-> + */
-> +
-> +#include <linux/kernel.h>
-> +#include <linux/module.h>
-> +#include <linux/timer.h>
-> +#include <linux/jiffies.h>
-> +#include <linux/sizes.h>
-> +#include <linux/map_to_7segment.h>
-> +#include <linux/io.h>
-> +#include <linux/delay.h>
-> +#include <linux/uaccess.h>
-> +#include <linux/mutex.h>
-> +#include <linux/of_platform.h>
-> +#include <linux/gpio/consumer.h>
-> +
-> +#define POST_CODE_UPDATE_INTVL 1000
-> +
-> +#define MAX_PC_SIZE 3
-> +
-> +#define LED_DOT 0x01
-> +
-> +#define CLOCK_GPIO_NAME "clk"
-> +#define DATA_GPIO_NAME "data"
-> +#define CLEAR_GPIO_NAME "clr"
-> +
-> +static struct mutex mutex;
-> +
-> +static struct timer_list update_timer;
-> +
-> +static char curr_postcode[3];
-> +static u8 pc_valid;
-> +
-> +static struct gpio_desc *clk_gpio;
-> +static struct gpio_desc *data_gpio;
-> +static struct gpio_desc *clr_gpio;
-> +
-> +/*
-> + * 0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
-> + *  _       _   _       _   _   _   _   _   _       _       _   _
-> + * | |   |  _|  _| |_| |_  |_    | |_| |_| |_| |_  |    _| |_  |_
-> + * |_|   | |_   _|   |  _| |_|   | |_|   | | | |_| |_  |_| |_  |
-> + *
-> + * data[7:1] = led[a:g]
-> + * lookup table used for both bytes of lpc post code and lower byte of
-> + * bmc post code
-> + */
-> +const u8 seven_seg_bits[] = {
-> +       0xFC, 0x60, 0xDA, 0xF2, 0x66, 0xB6, 0xBE, 0xE0,
-> +       0xFE, 0xF6, 0xEE, 0x3E, 0x9C, 0x7A, 0x9E, 0x8E
-> +       };
-> +
-> +/*
-> + * 0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
-> + *      _       _   _                              _            _
-> + *     |   |_  |_| |_  _   _   _   _   _   _   _  |_    _|  _| | |
-> + *     |_  |_  |   |                               _|  |_| |_| | |
-> + *
-> + * data[7:1] = led[a:g]
-> + * lookup table used for higher byte of bmc post code
-> + */
-> +const u8 special_seven_seg_bits[] = {
-> +       0x00, 0x9C, 0x1E, 0xCE, 0x8E, 0x02, 0x02, 0x02,
-> +       0x02, 0x02, 0x02, 0x02, 0xB6, 0x7A, 0x7A, 0xEC
-> +       };
-> +
-> +void update_postcode(char *buf)
-> +{
-> +       mutex_lock(&mutex);
-> +       strncpy(curr_postcode, buf, sizeof(curr_postcode));
-> +       mutex_unlock(&mutex);
-> +       pc_valid = 1;
-> +}
-> +EXPORT_SYMBOL(update_postcode);
-> +
-> +/* convert postcode to led pattern
-> + * 7-bits used for each 7-seg display and
-> + * 1 bit used for the 'dot' on both digits.
-> + *
-> + *  @param N/A
-> + *  @return N/A
-> + */
-> +static u16 postcode_to_led_signal(void)
-> +{
-> +       u8 low_display;
-> +       u8 high_display;
-> +       u16 led_value;
-> +       char buf[3];
-> +
-> +       mutex_lock(&mutex);
-> +       strncpy(buf, curr_postcode, sizeof(buf));
-> +       mutex_unlock(&mutex);
-> +
-> +       low_display = seven_seg_bits[hex_to_bin(buf[2])];
-> +
-> +       high_display = (buf[0] == '1') ?
-> +               special_seven_seg_bits[hex_to_bin(buf[1])] :
-> +               seven_seg_bits[hex_to_bin(buf[1])];
-> +
-> +       led_value = low_display | (high_display << 8);
-> +       if (buf[0] == '1') {
-> +               led_value |= LED_DOT | (LED_DOT << 8);
-> +       }
-> +
-> +       return led_value;
-> +}
-> +
-> +static void update_sgpio(void)
-> +{
-> +       u16 led_signal;
-> +       int i;
-> +
-> +       /* Convert two bytes of post code to 16 bit led pattern */
-> +       led_signal = postcode_to_led_signal();
-> +
-> +       /* Set the clear signal to low */
-> +       gpiod_set_value(clr_gpio, 0);
-> +       udelay(1);
-> +       /* Set the clear clear to high */
-> +       gpiod_set_value(clr_gpio, 1);
-> +       udelay(1);
-> +
-> +       /* Bitbang the 16 bit led pattern
-> +        * 7-bits used for each 7-seg display
-> +        * 1 bit used for the 'dot' on both digits
-> +        */
-> +       for (i = 0; i < 16; i++) {
-> +               if (led_signal & 0x01) {
-> +                       /* Set the data signal to high */
-> +                       gpiod_set_value(data_gpio, 1);
-> +               } else {
-> +                       /* Set the data signal to low */
-> +                       gpiod_set_value(data_gpio, 0);
-> +               }
-> +               udelay(1);
-> +
-> +               /* Set the clock signal to low */
-> +               gpiod_set_value(clk_gpio, 0);
-> +               udelay(1);
-> +               /* Set the clock signal to high */
-> +               gpiod_set_value(clk_gpio, 1);
-> +               udelay(1);
-> +
-> +               led_signal >>= 1;
-> +       }
-> +}
-> +
-> +static void update_timer_handler(unsigned long data)
-> +{
-> +       if (pc_valid == 1) {
-> +               update_sgpio();
-> +       }
-> +       mod_timer(&update_timer,
-> +               jiffies + msecs_to_jiffies(POST_CODE_UPDATE_INTVL));
-> +}
-> +
-> +static const struct of_device_id of_postcard_match[] = {
-> +               { .compatible = "postcard-display" },
-> +                       {},
-> +};
-> +
-> +MODULE_DEVICE_TABLE(of, of_postcard_match);
-> +
-> +static int postcard_probe(struct platform_device *pdev)
-> +{
-> +       int result;
-> +       struct device *dev = &pdev->dev;
-> +
-> +       /* Requesting the clock gpio */
-> +       clk_gpio = devm_gpiod_get(dev, CLOCK_GPIO_NAME,
-> +               GPIOD_OUT_HIGH);
-> +       if (IS_ERR(clk_gpio))
-> +               return PTR_ERR(data_gpio);
-> +
-> +       /* Requesting the data gpio */
-> +       data_gpio = devm_gpiod_get(dev, DATA_GPIO_NAME,
-> +               GPIOD_OUT_HIGH);
-> +       if (IS_ERR(data_gpio))
-> +               return PTR_ERR(data_gpio);
-> +
-> +       /* Requesting the clear gpio */
-> +       clr_gpio = devm_gpiod_get(dev, CLEAR_GPIO_NAME,
-> +               GPIOD_OUT_HIGH);
-> +       if (IS_ERR(clr_gpio))
-> +               return PTR_ERR(clr_gpio);
-> +
-> +       /* Start timer to update post code every second */
-> +       setup_timer(&update_timer, update_timer_handler, 0);
-> +       result = mod_timer(&update_timer,
-> +               jiffies + msecs_to_jiffies(POST_CODE_UPDATE_INTVL));
-> +
-> +       if (result)
-> +               return result;
-> +
-> +       mutex_init(&mutex);
-> +
-> +       return 0;
-> +}
-> +
-> +static void postcard_remove(struct platform_device *pdev)
-> +{
-> +       del_timer(&update_timer);
-> +}
-> +
-> +static struct platform_driver postcard_display_driver = {
-> +       .probe          = postcard_probe,
-> +       .shutdown       = postcard_remove,
-> +       .driver         = {
-> +               .name   = "postcard-display",
-> +               .of_match_table = of_postcard_match,
-> +       },
-> +};
-> +
-> +module_platform_driver(postcard_display_driver);
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_AUTHOR("Jaghathiswari Rankappagounder Natarajan <jaghu@google.com
-> >");
-> +MODULE_DESCRIPTION("Post card display update driver");
-> diff --git a/drivers/misc/update-postcard.h b/drivers/misc/update-
-> postcard.h
-> new file mode 100644
-> index 0000000..ef82e9091d
-> --- /dev/null
-> +++ b/drivers/misc/update-postcard.h
-> @@ -0,0 +1 @@
-> +void update_postcode(char *buf);
-> --
-> 2.8.0.rc3.226.g39d4020
->
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+> We probably don't need these comments, as 'do not remove' applies to
+> most of the code here :)
 >
 
---94eb2c0944765b0032053ead5583
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+OK, will remove those comments.
 
-<div dir=3D"ltr">Split this into multiple commits: platform driver, charact=
-er driver, and device tree update. =C2=A0<div><br></div><div>For the platfo=
-rm driver, your comments describe it as being solely for POST code output w=
-hen in practice it can be used to display any integer.=C2=A0 Expand the com=
-ments to explain the type of hardware assumed (74HC164 wired to 7-segment d=
-isplays) so others can implement compatible hardware. =C2=A0</div></div><di=
-v class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Tue, Oct 11, 2016=
- at 9:31 PM, Jaghathiswari Rankappagounder Natarajan <span dir=3D"ltr">&lt;=
-<a href=3D"mailto:jaghu@google.com" target=3D"_blank">jaghu@google.com</a>&=
-gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 =
-0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Added a character drive=
-r and a platform driver to display Port80 codes<br>
-(written by the host) and additional codes (generated by the BMC)<br>
-on a POST card (two seven segment LEDs) ;<br>
-Tested that the post codes are displayed properly<br>
-on the POST card by writing to the character device.<br>
-<br>
-Signed-off-by: Jaghathiswari Rankappagounder Natarajan &lt;<a href=3D"mailt=
-o:jaghu@google.com">jaghu@google.com</a>&gt;<br>
----<br>
-=C2=A0.../devicetree/bindings/misc/<wbr>postcard-disp.txt=C2=A0 =C2=A0 =C2=
-=A0|=C2=A0 18 ++<br>
-=C2=A0arch/arm/boot/dts/aspeed-bmc-<wbr>opp-zaius.dts=C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0|=C2=A0 =C2=A08 +<br>
-=C2=A0drivers/misc/Makefile=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A02 +<=
-br>
-=C2=A0drivers/misc/update-bmc-<wbr>postcode.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 117 +++++++++++<br>
-=C2=A0drivers/misc/update-postcard.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 219 +++++++++++++++++++++<br>
-=C2=A0drivers/misc/update-postcard.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A01 +<br>
-=C2=A06 files changed, 365 insertions(+)<br>
-=C2=A0create mode 100644 Documentation/devicetree/<wbr>bindings/misc/postca=
-rd-disp.<wbr>txt<br>
-=C2=A0create mode 100644 drivers/misc/update-bmc-<wbr>postcode.c<br>
-=C2=A0create mode 100644 drivers/misc/update-postcard.c<br>
-=C2=A0create mode 100644 drivers/misc/update-postcard.h<br>
-<br>
-diff --git a/Documentation/devicetree/<wbr>bindings/misc/postcard-disp.<wbr=
->txt b/Documentation/devicetree/<wbr>bindings/misc/postcard-disp.<wbr>txt<b=
-r>
-new file mode 100644<br>
-index 0000000..164449e<br>
---- /dev/null<br>
-+++ b/Documentation/devicetree/<wbr>bindings/misc/postcard-disp.<wbr>txt<br=
+>> +static void set_sda_input(struct fsi_master_gpio *master)
+>> +{
+>> +     gpiod_direction_input(master->gpio_data);
+>> +     gpiod_direction_output(master->gpio_trans, 0);
+>> +}
+>> +
+>> +static void set_sda_output(struct fsi_master_gpio *master,
+>> +                        int value)
+>> +{
+>> +     gpiod_direction_output(master->gpio_data, value);
+>> +     gpiod_direction_output(master->gpio_trans, 1);
+>> +}
 >
-@@ -0,0 +1,18 @@<br>
-+POST card display (two seven segment LEDs) connected to GPIO lines<br>
-+<br>
-+Required properties:<br>
-+- compatible : should be &quot;postcard-display&quot;.<br>
-+- clk-gpios :=C2=A0 Should specify the GPIO pin connected to the Clock lin=
-e on the POST card.<br>
-+- data-gpios : Should specify the GPIO pin connected to Data line on the P=
-OST card.<br>
-+- clear-gpios : Should specify the GPIO pin connected to Clear line on the=
- POST card.<br>
-+<br>
-+Examples:<br>
-+<br>
-+#include &lt;dt-bindings/gpio/gpio.h&gt;<br>
-+<br>
-+postcard {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0compatible =3D &quot;postcard-display&quot;;<br=
+> These should be conditional on gpio_trans != NULL.
 >
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0clk-gpios =3D &lt;&amp;gpio 0 GPIO_ACTIVE_LOW&g=
-t;;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0data-gpios =3D &lt;&amp;gpio 1 GPIO_ACTIVE_HIGH=
-&gt;;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0clear-gpios =3D &lt;&amp;gpio 1 GPIO_ACTIVE_HIG=
-H&gt;;<br>
-+};<br>
-diff --git a/arch/arm/boot/dts/aspeed-<wbr>bmc-opp-zaius.dts b/arch/arm/boo=
-t/dts/aspeed-<wbr>bmc-opp-zaius.dts<br>
-index 4c4754b..d555ff1 100644<br>
---- a/arch/arm/boot/dts/aspeed-<wbr>bmc-opp-zaius.dts<br>
-+++ b/arch/arm/boot/dts/aspeed-<wbr>bmc-opp-zaius.dts<br>
-@@ -1,6 +1,7 @@<br>
-=C2=A0/dts-v1/;<br>
-<br>
-=C2=A0#include &quot;aspeed-g5.dtsi&quot;<br>
-+#include &lt;dt-bindings/gpio/aspeed-gpio.<wbr>h&gt;<br>
-<br>
-=C2=A0/ {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 model =3D &quot;Zaius BMC&quot;;<br>
-@@ -58,6 +59,13 @@<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 };<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 };<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 };<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0postcard {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0compatible =3D &quo=
-t;postcard-display&quot;;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0clk-gpios =3D &lt;&=
-amp;gpio ASPEED_GPIO(J, 0) GPIO_ACTIVE_HIGH&gt;;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0data-gpios =3D &lt;=
-&amp;gpio ASPEED_GPIO(J, 2) GPIO_ACTIVE_HIGH&gt;;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0clr-gpios =3D &lt;&=
-amp;gpio ASPEED_GPIO(J, 1) GPIO_ACTIVE_HIGH&gt;;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
-=C2=A0};<br>
-<br>
-=C2=A0&amp;uart5 {<br>
-diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile<br>
-index 724861b..04184b9 100644<br>
---- a/drivers/misc/Makefile<br>
-+++ b/drivers/misc/Makefile<br>
-@@ -58,3 +58,5 @@ obj-$(CONFIG_VEXPRESS_SYSCFG) +=3D vexpress-syscfg.o<br>
-=C2=A0obj-$(CONFIG_CXL_BASE)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+=3D cxl/<br>
-=C2=A0obj-$(CONFIG_PANEL)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+=
-=3D panel.o<br>
-=C2=A0obj-$(CONFIG_ASPEED_BT_IPMI_<wbr>HOST)=C2=A0 =C2=A0 =C2=A0 +=3D bt-ho=
-st.o<br>
-+obj-y=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 +=3D update-postcard.o<br>
-+obj-y=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 +=3D update-bmc-postcode.o<br>
-diff --git a/drivers/misc/update-bmc-<wbr>postcode.c b/drivers/misc/update-=
-bmc-<wbr>postcode.c<br>
-new file mode 100644<br>
-index 0000000..0b5ded5<br>
---- /dev/null<br>
-+++ b/drivers/misc/update-bmc-<wbr>postcode.c<br>
-@@ -0,0 +1,117 @@<br>
-+#include &lt;linux/module.h&gt;<br>
-+#include &lt;linux/version.h&gt;<br>
-+#include &lt;linux/kernel.h&gt;<br>
-+#include &lt;linux/types.h&gt;<br>
-+#include &lt;linux/kdev_t.h&gt;<br>
-+#include &lt;linux/fs.h&gt;<br>
-+#include &lt;linux/device.h&gt;<br>
-+#include &lt;linux/cdev.h&gt;<br>
-+#include &lt;linux/uaccess.h&gt;<br>
-+#include &lt;linux/ctype.h&gt;<br>
-+<br>
-+#include &quot;update-postcard.h&quot;<br>
-+<br>
-+#define MAX_POSTCODE_SIZE 3<br>
-+<br>
-+static dev_t bmc_state_dev;<br>
-+static struct cdev c_dev;<br>
-+static struct class *bmc_state_class;<br>
-+<br>
-+static int bmc_state_open(struct inode *i, struct file *f)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
-+}<br>
-+<br>
-+static int bmc_state_close(struct inode *i, struct file *f)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
-+}<br>
-+<br>
-+static ssize_t bmc_state_read(struct file *f, char __user *buf, size_t<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0len, loff_t *off)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
-+}<br>
-+<br>
-+/* Write post code from bmc to the correct variable */<br>
-+static ssize_t bmc_state_write(struct file *f, const char __user *buf,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0size_t len, loff_t *off)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0char tmp[MAX_POSTCODE_SIZE];<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0int length =3D len - 1;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0int i;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (length !=3D MAX_POSTCODE_SIZE) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (copy_from_user(tmp, buf, length) !=3D 0) {<=
-br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EFAULT;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; MAX_POSTCODE_SIZE; i++) {<=
-br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!isxdigit(tmp[i=
-]))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0return -EINVAL;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0update_postcode(tmp);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return len;<br>
-+}<br>
-+<br>
-+static const struct file_operations bmc_state_fops =3D {<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0.owner =3D THIS_MODULE,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0.open =3D bmc_state_open,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0.release =3D bmc_state_close,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0.read =3D bmc_state_read,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0.write =3D bmc_state_write<br>
-+};<br>
-+<br>
-+static int __init update_bmc_pc_init(void) /* Constructor */<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (alloc_chrdev_region(&amp;bmc_<wbr>state_dev=
-, 0, 1, &quot;bmc_state&quot;) &lt; 0) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -1;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0bmc_state_class =3D class_create(THIS_MODULE, &=
-quot;bmc_state&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (bmc_state_class =3D=3D NULL) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto unregister;<br=
->
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -1;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (device_create(bmc_state_<wbr>class, NULL, b=
-mc_state_dev,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0NULL, &quot;current=
-_state&quot;) =3D=3D NULL) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto class_destroy;=
-<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -1;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0cdev_init(&amp;c_dev, &amp;bmc_state_fops);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (cdev_add(&amp;c_dev, bmc_state_dev, 1) =3D=
-=3D -1) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto device_destroy=
-;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -1;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
-+<br>
-+device_destroy:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0device_destroy(bmc_=
-state_<wbr>class, bmc_state_dev);<br>
-+class_destroy:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0class_destroy(bmc_s=
-tate_class)<wbr>;<br>
-+unregister:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unregister_chrdev_r=
-egion(bmc_<wbr>state_dev, 1);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return -1;<br>
-+}<br>
-+<br>
-+static void __exit update_bmc_pc_exit(void)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0cdev_del(&amp;c_dev);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0device_destroy(bmc_state_<wbr>class, bmc_state_=
-dev);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0class_destroy(bmc_state_class)<wbr>;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0unregister_chrdev_region(bmc_<wbr>state_dev, 1)=
-;<br>
-+}<br>
-+<br>
-+module_init(update_bmc_pc_<wbr>init);<br>
-+module_exit(update_bmc_pc_<wbr>exit);<br>
-+MODULE_LICENSE(&quot;GPL&quot;);<br>
-+MODULE_AUTHOR(&quot;Jaghathiswari Rankappagounder Natarajan &lt;<a href=3D=
-"mailto:jaghu@google.com">jaghu@google.com</a>&gt;&quot;);<br>
-+MODULE_DESCRIPTION(&quot;Character driver - update bmc postcode&quot;);<br=
->
-diff --git a/drivers/misc/update-<wbr>postcard.c b/drivers/misc/update-<wbr=
->postcard.c<br>
-new file mode 100644<br>
-index 0000000..4b51d70<br>
---- /dev/null<br>
-+++ b/drivers/misc/update-<wbr>postcard.c<br>
-@@ -0,0 +1,219 @@<br>
-+/* Display Port80 codes (written by the host) and<br>
-+ * additional codes (generated by the EC) to two seven segment LEDs<br>
-+ */<br>
-+<br>
-+#include &lt;linux/kernel.h&gt;<br>
-+#include &lt;linux/module.h&gt;<br>
-+#include &lt;linux/timer.h&gt;<br>
-+#include &lt;linux/jiffies.h&gt;<br>
-+#include &lt;linux/sizes.h&gt;<br>
-+#include &lt;linux/map_to_7segment.h&gt;<br>
-+#include &lt;linux/io.h&gt;<br>
-+#include &lt;linux/delay.h&gt;<br>
-+#include &lt;linux/uaccess.h&gt;<br>
-+#include &lt;linux/mutex.h&gt;<br>
-+#include &lt;linux/of_platform.h&gt;<br>
-+#include &lt;linux/gpio/consumer.h&gt;<br>
-+<br>
-+#define POST_CODE_UPDATE_INTVL 1000<br>
-+<br>
-+#define MAX_PC_SIZE 3<br>
-+<br>
-+#define LED_DOT 0x01<br>
-+<br>
-+#define CLOCK_GPIO_NAME &quot;clk&quot;<br>
-+#define DATA_GPIO_NAME &quot;data&quot;<br>
-+#define CLEAR_GPIO_NAME &quot;clr&quot;<br>
-+<br>
-+static struct mutex mutex;<br>
-+<br>
-+static struct timer_list update_timer;<br>
-+<br>
-+static char curr_postcode[3];<br>
-+static u8 pc_valid;<br>
-+<br>
-+static struct gpio_desc *clk_gpio;<br>
-+static struct gpio_desc *data_gpio;<br>
-+static struct gpio_desc *clr_gpio;<br>
-+<br>
-+/*<br>
-+ * 0=C2=A0 =C2=A01=C2=A0 =C2=A02=C2=A0 =C2=A03=C2=A0 =C2=A04=C2=A0 =C2=A05=
-=C2=A0 =C2=A06=C2=A0 =C2=A07=C2=A0 =C2=A08=C2=A0 =C2=A09=C2=A0 =C2=A0A=C2=
-=A0 =C2=A0B=C2=A0 =C2=A0C=C2=A0 =C2=A0D=C2=A0 =C2=A0E=C2=A0 =C2=A0F<br>
-+ *=C2=A0 _=C2=A0 =C2=A0 =C2=A0 =C2=A0_=C2=A0 =C2=A0_=C2=A0 =C2=A0 =C2=A0 =
-=C2=A0_=C2=A0 =C2=A0_=C2=A0 =C2=A0_=C2=A0 =C2=A0_=C2=A0 =C2=A0_=C2=A0 =C2=
-=A0_=C2=A0 =C2=A0 =C2=A0 =C2=A0_=C2=A0 =C2=A0 =C2=A0 =C2=A0_=C2=A0 =C2=A0_<=
-br>
-+ * | |=C2=A0 =C2=A0|=C2=A0 _|=C2=A0 _| |_| |_=C2=A0 |_=C2=A0 =C2=A0 | |_| =
-|_| |_| |_=C2=A0 |=C2=A0 =C2=A0 _| |_=C2=A0 |_<br>
-+ * |_|=C2=A0 =C2=A0| |_=C2=A0 =C2=A0_|=C2=A0 =C2=A0|=C2=A0 _| |_|=C2=A0 =
-=C2=A0| |_|=C2=A0 =C2=A0| | | |_| |_=C2=A0 |_| |_=C2=A0 |<br>
-+ *<br>
-+ * data[7:1] =3D led[a:g]<br>
-+ * lookup table used for both bytes of lpc post code and lower byte of<br>
-+ * bmc post code<br>
-+ */<br>
-+const u8 seven_seg_bits[] =3D {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A00xFC, 0x60, 0xDA, 0xF2, 0x66, 0xB6, 0xBE, 0xE0,=
-<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A00xFE, 0xF6, 0xEE, 0x3E, 0x9C, 0x7A, 0x9E, 0x8E<=
-br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
-+<br>
-+/*<br>
-+ * 0=C2=A0 =C2=A01=C2=A0 =C2=A02=C2=A0 =C2=A03=C2=A0 =C2=A04=C2=A0 =C2=A05=
-=C2=A0 =C2=A06=C2=A0 =C2=A07=C2=A0 =C2=A08=C2=A0 =C2=A09=C2=A0 =C2=A0A=C2=
-=A0 =C2=A0B=C2=A0 =C2=A0C=C2=A0 =C2=A0D=C2=A0 =C2=A0E=C2=A0 =C2=A0F<br>
-+ *=C2=A0 =C2=A0 =C2=A0 _=C2=A0 =C2=A0 =C2=A0 =C2=A0_=C2=A0 =C2=A0_=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 _=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 _<br>
-+ *=C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0|_=C2=A0 |_| |_=C2=A0 _=C2=A0 =C2=A0_=
-=C2=A0 =C2=A0_=C2=A0 =C2=A0_=C2=A0 =C2=A0_=C2=A0 =C2=A0_=C2=A0 =C2=A0_=C2=
-=A0 |_=C2=A0 =C2=A0 _|=C2=A0 _| | |<br>
-+ *=C2=A0 =C2=A0 =C2=A0|_=C2=A0 |_=C2=A0 |=C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0_|=C2=A0 |_| |_| | |<br>
-+ *<br>
-+ * data[7:1] =3D led[a:g]<br>
-+ * lookup table used for higher byte of bmc post code<br>
-+ */<br>
-+const u8 special_seven_seg_bits[] =3D {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A00x00, 0x9C, 0x1E, 0xCE, 0x8E, 0x02, 0x02, 0x02,=
-<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A00x02, 0x02, 0x02, 0x02, 0xB6, 0x7A, 0x7A, 0xEC<=
-br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
-+<br>
-+void update_postcode(char *buf)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0mutex_lock(&amp;mutex);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0strncpy(curr_postcode, buf, sizeof(curr_postcod=
-e));<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0mutex_unlock(&amp;mutex);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0pc_valid =3D 1;<br>
-+}<br>
-+EXPORT_SYMBOL(update_<wbr>postcode);<br>
-+<br>
-+/* convert postcode to led pattern<br>
-+ * 7-bits used for each 7-seg display and<br>
-+ * 1 bit used for the &#39;dot&#39; on both digits.<br>
-+ *<br>
-+ *=C2=A0 @param N/A<br>
-+ *=C2=A0 @return N/A<br>
-+ */<br>
-+static u16 postcode_to_led_signal(void)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0u8 low_display;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0u8 high_display;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0u16 led_value;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0char buf[3];<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0mutex_lock(&amp;mutex);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0strncpy(buf, curr_postcode, sizeof(buf));<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0mutex_unlock(&amp;mutex);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0low_display =3D seven_seg_bits[hex_to_bin(buf[<=
-wbr>2])];<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0high_display =3D (buf[0] =3D=3D &#39;1&#39;) ?<=
-br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0special_seven_seg_b=
-its[hex_to_<wbr>bin(buf[1])] :<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0seven_seg_bits[hex_=
-to_bin(buf[<wbr>1])];<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0led_value =3D low_display | (high_display &lt;&=
-lt; 8);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (buf[0] =3D=3D &#39;1&#39;) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0led_value |=3D LED_=
-DOT | (LED_DOT &lt;&lt; 8);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return led_value;<br>
-+}<br>
-+<br>
-+static void update_sgpio(void)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0u16 led_signal;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0int i;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Convert two bytes of post code to 16 bit led=
- pattern */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0led_signal =3D postcode_to_led_signal();<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Set the clear signal to low */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0gpiod_set_value(clr_gpio, 0);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0udelay(1);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Set the clear clear to high */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0gpiod_set_value(clr_gpio, 1);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0udelay(1);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Bitbang the 16 bit led pattern<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 * 7-bits used for each 7-seg display<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 * 1 bit used for the &#39;dot&#39; on both dig=
-its<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; 16; i++) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (led_signal &amp=
-; 0x01) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0/* Set the data signal to high */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0gpiod_set_value(data_gpio, 1);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0/* Set the data signal to low */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0gpiod_set_value(data_gpio, 0);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0udelay(1);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Set the clock si=
-gnal to low */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gpiod_set_value(clk=
-_gpio, 0);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0udelay(1);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Set the clock si=
-gnal to high */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gpiod_set_value(clk=
-_gpio, 1);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0udelay(1);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0led_signal &gt;&gt;=
-=3D 1;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+}<br>
-+<br>
-+static void update_timer_handler(unsigned long data)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (pc_valid =3D=3D 1) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0update_sgpio();<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0mod_timer(&amp;update_timer,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0jiffies + msecs_to_=
-jiffies(POST_CODE_<wbr>UPDATE_INTVL));<br>
-+}<br>
-+<br>
-+static const struct of_device_id of_postcard_match[] =3D {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0{ .compatible =3D &=
-quot;postcard-display&quot; },<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0{},<br>
-+};<br>
-+<br>
-+MODULE_DEVICE_TABLE(of, of_postcard_match);<br>
-+<br>
-+static int postcard_probe(struct platform_device *pdev)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0int result;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0struct device *dev =3D &amp;pdev-&gt;dev;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Requesting the clock gpio */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0clk_gpio =3D devm_gpiod_get(dev, CLOCK_GPIO_NAM=
-E,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0GPIOD_OUT_HIGH);<br=
->
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(clk_gpio))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return PTR_ERR(data=
-_gpio);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Requesting the data gpio */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0data_gpio =3D devm_gpiod_get(dev, DATA_GPIO_NAM=
-E,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0GPIOD_OUT_HIGH);<br=
->
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(data_gpio))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return PTR_ERR(data=
-_gpio);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Requesting the clear gpio */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0clr_gpio =3D devm_gpiod_get(dev, CLEAR_GPIO_NAM=
-E,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0GPIOD_OUT_HIGH);<br=
->
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(clr_gpio))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return PTR_ERR(clr_=
-gpio);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Start timer to update post code every second=
- */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0setup_timer(&amp;update_timer, update_timer_han=
-dler, 0);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0result =3D mod_timer(&amp;update_timer,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0jiffies + msecs_to_=
-jiffies(POST_CODE_<wbr>UPDATE_INTVL));<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (result)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return result;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0mutex_init(&amp;mutex);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
-+}<br>
-+<br>
-+static void postcard_remove(struct platform_device *pdev)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0del_timer(&amp;update_timer);<br>
-+}<br>
-+<br>
-+static struct platform_driver postcard_display_driver =3D {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0.probe=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =3D po=
-stcard_probe,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0.shutdown=C2=A0 =C2=A0 =C2=A0 =C2=A0=3D postcar=
-d_remove,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0.driver=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D {<=
-br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.name=C2=A0 =C2=A0=
-=3D &quot;postcard-display&quot;,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.of_match_table =3D=
- of_postcard_match,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0},<br>
-+};<br>
-+<br>
-+module_platform_driver(<wbr>postcard_display_driver);<br>
-+<br>
-+MODULE_LICENSE(&quot;GPL&quot;);<br>
-+MODULE_AUTHOR(&quot;Jaghathiswari Rankappagounder Natarajan &lt;<a href=3D=
-"mailto:jaghu@google.com">jaghu@google.com</a>&gt;&quot;);<br>
-+MODULE_DESCRIPTION(&quot;Post card display update driver&quot;);<br>
-diff --git a/drivers/misc/update-<wbr>postcard.h b/drivers/misc/update-<wbr=
->postcard.h<br>
-new file mode 100644<br>
-index 0000000..ef82e9091d<br>
---- /dev/null<br>
-+++ b/drivers/misc/update-<wbr>postcard.h<br>
-@@ -0,0 +1 @@<br>
-+void update_postcode(char *buf);<br>
---<br>
-2.8.0.rc3.226.g39d4020<br>
-<br>
-______________________________<wbr>_________________<br>
-openbmc mailing list<br>
-<a href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a><br=
->
-<a href=3D"https://lists.ozlabs.org/listinfo/openbmc" rel=3D"noreferrer" ta=
-rget=3D"_blank">https://lists.ozlabs.org/<wbr>listinfo/openbmc</a><br>
-</blockquote></div><br></div>
 
---94eb2c0944765b0032053ead5583--
+Will fix.
+
+>> +static void serial_in(struct fsi_master_gpio *master, struct fsi_gpio_msg *cmd)
+>
+> Can we have the number of bits to receive a separate parameter? This
+> means we don't need a dual-use *cmd argument, and won't have subtle bugs
+> arise where a caller has not initialised it.
+>
+
+Would you suggest having a separate buffer passed in as well to store the
+serialized in data or use the struct fsi_gpio_msg  msg field?
+
+>> +{
+>> +     uint8_t bit;
+>> +     uint64_t msg = 0;
+>> +     uint8_t in_bit = 0;
+>> +
+>> +     set_sda_input(master);
+>> +
+>> +     for (bit = 0; bit < cmd->bits; bit++) {
+>> +             clock_toggle(master, 1);
+>> +             in_bit = sda_in(master);
+>> +             msg |= in_bit;
+>> +             msg <<= 1;
+>> +     }
+>
+> I think you want the shift before the |=, otherwise your last bit won't
+> be at the end of msg. More on that below though...
+>
+
+Ah right, ok will fix.
+
+>> +     cmd->msg = ~msg;                /*  Data is negative active */
+>> +}
+>> +
+>> +static void serial_out(struct fsi_master_gpio *master, struct fsi_gpio_msg *cmd)
+>
+> Really minor: make *cmd a `const struct fsi_gpio_msg *`.
+>
+
+Will fix.
+
+>> +{
+>> +     uint8_t bit;
+>> +     uint64_t msg = ~cmd->msg;       /* Data is negative active */
+>> +     uint64_t sda_mask = 1;
+>> +     uint64_t last_bit = ~0;
+>> +
+>> +     set_sda_output(master, 0);
+>> +
+>> +     /* Send the start bit */
+>> +     sda_out(master, 1);
+>> +     clock_toggle(master, 1);
+>> +
+>> +     /* Send the message */
+>> +     for (bit = 0; bit < cmd->bits; bit++) {
+>> +             if (last_bit ^ (msg & sda_mask)) {
+>> +                     sda_out(master, msg & sda_mask);
+>> +                     last_bit = msg & sda_mask;
+>> +             }
+>> +             clock_toggle(master, 1);
+>> +             msg >>= 1;
+>> +     }
+>> +}
+>
+> These functions seem incompatible.
+>
+> serial_in clocks the least-significant-bit last, while serial_out clocks
+> the least-significant-bit first.
+>
+> The comment on struct fsi_message is:
+>
+>   /* Our structure for bit-wise message sending. We left-align this, so the
+>    * last bit sent is at the 0x1 mask position.
+>    */
+>   struct fsi_gpio_msg {
+>         uint64_t        msg;
+>         uint8_t         bits;
+>   };
+>
+> - which (I think) matches the message layout described by the docs. If
+> we use that format, we'll need to clock the LSb *last*. We'll also need
+> to start sending from the appropriate bit in the uint64_t, as the bits
+> in msg are left-aligned (ie, messages shorter than 64 bits do not use
+> the least-significant-bits).
+>
+> I'm happy if you'd prefer to change that to right-aligned if that makes
+> message construction easier, but we need to be consistent (and update
+> the comment to suit).
+>
+
+Right, my serial out was mirror imaged.  Will fix.  I modified my existing
+prototype serial_out code for this patch and introduced this bug in the
+process.  No, I agree we should keep it all left aligned.  I'll keep in mind
+we need to start on the appropriate bit in the uint64_t.
+
+> Also, you do `msg & sda_mask` three times in three lines there.
+>
+
+Will fix.
+
+>> +/*
+>> + * Store information on master errors so handler can detect and clean
+>> + * up the bus
+>> + */
+>> +static void fsi_master_gpio_error(struct fsi_master_gpio *master, int error)
+>> +{
+>> +
+>> +}
+>
+> I know this is a todo, but where are you planning to 'store' this
+> information? Shouldn't errors just be returned immediately?
+
+This is intended to be the entry point for the bus error handling code.
+I could return the failing rc to the caller right there but ultimately the
+error handler needs to be invoked somewhere in the call chain
+anyway.  As it is here the error condition is cleaned up as early as
+possible.
+
+Even if the error is of a master type - such as master
+time out errors (MTOE) there is still a possibility that the connected
+slave is in some latched failed state which requires recovery to
+resume normal bus communications (issue a terminate command
+to slave, etc...)
+
+>
+>> +
+>> +static int poll_for_response(struct fsi_master_gpio *master, uint8_t expected,
+>> +                     uint8_t size, void *data)
+>> +{
+>> +     int busy_count = 0, i;
+>> +     struct fsi_gpio_msg response, cmd;
+>> +     int bits_remaining = 0;
+>> +
+>> +     do {
+>> +             response.msg = 0;
+>> +             response.bits = 1;
+>> +             for (i = 0; i < FSI_GPIO_MTOE_COUNT; i++) {
+>> +                     serial_in(master, &response);
+>> +                     if (response.msg)
+>> +                             break;
+>> +             }
+>> +             if (unlikely(i >= FSI_GPIO_MTOE_COUNT)) {
+>> +                     dev_info(master->master.dev,
+>> +                             "Master time out waiting for response\n");
+>> +                     drain_response(master);
+>> +                     fsi_master_gpio_error(master, FSI_GPIO_MTOE);
+>> +                     return FSI_GPIO_MTOE;
+>> +             }
+>> +
+>> +             /* Response received */
+>> +             response.msg = 0;
+>> +             response.bits = 2;
+>> +             serial_in(master, &response);
+>> +             dev_info(master->master.dev, "cfam id:%d\n", (int)response.msg);
+>> +
+>> +             response.msg = 0;
+>> +             response.bits = 2;
+>> +             serial_in(master, &response);
+>> +             dev_info(master->master.dev, "response id:%d\n",
+>> +                                                     (int)response.msg);
+>> +
+>> +             switch (response.msg) {
+>> +             case FSI_GPIO_RESP_ACK:
+>> +                     if (expected == FSI_GPIO_RESP_ACKD)
+>> +                             bits_remaining = 8 * sizeof(size);
+>> +                     break;
+>> +
+>> +             case FSI_GPIO_RESP_BUSY:
+>> +                     /*
+>> +                      * Its necessary to clock slave before issuing
+>> +                      * d-poll, not indicated in the hardware protocol
+>> +                      * spec. < 20 clocks causes slave to hang, 21 ok.
+>> +                      */
+>> +                     set_sda_output(master, 0);
+>> +                     clock_toggle(master, FSI_GPIO_DPOLL_CLOCKS);
+>> +                     cmd.msg = FSI_GPIO_CMD_DPOLL;
+>> +                     cmd.bits = FSI_GPIO_CMD_DPOLL_SIZE;
+>> +                     serial_out(master, &cmd);
+>> +                     continue;
+>> +
+>> +             case FSI_GPIO_RESP_ERRA:
+>> +             case FSI_GPIO_RESP_ERRC:
+>> +                     dev_info(master->master.dev, "ERR received: %d\n",
+>> +                             (int)response.msg);
+>> +                     drain_response(master);
+>> +                     fsi_master_gpio_error(master, response.msg);
+>> +                     return response.msg;
+>> +             }
+>> +
+>> +             /* Read in the data field if applicable */
+>> +             if (bits_remaining) {
+>> +                     response.msg = 0;
+>> +                     response.bits = bits_remaining;
+>> +                     serial_in(master, &response);
+>> +             }
+>> +
+>> +             /* Read in the crc and check it */
+>> +             response.msg = 0;
+>> +             response.bits = FSI_GPIO_CRC_SIZE;
+>> +             serial_in(master, &response);
+>> +
+>> +             /* todo: verify crc is correct, flag error if not */
+>> +
+>> +             return 0;
+>> +
+>> +     } while (busy_count++ < FSI_GPIO_MAX_BUSY);
+>> +
+>> +     return busy_count;
+>> +}
+>> +
+>> +static void build_command(struct fsi_gpio_msg *cmd, uint64_t mode,
+>> +                     uint8_t slave, uint32_t addr, size_t size,
+>> +                     const void *data)
+>> +{
+>> +     cmd->bits = FSI_GPIO_CMD_DFLT_LEN;
+>> +     cmd->msg = FSI_GPIO_CMD_DEFAULT;
+>> +     cmd->msg |= mode;
+>> +
+>> +     /* todo: handle more than just slave id 0 */
+>> +     cmd->msg &= ~FSI_GPIO_CMD_SLAVE_MASK;
+>> +
+>> +     cmd->msg |= (addr << FSI_GPIO_CMD_ADDR_SHIFT);
+>> +     if (size == sizeof(uint8_t)) {
+>> +             if (data)
+>> +                     cmd->msg |=
+>> +                             *((uint8_t *)data) >> FSI_GPIO_CMD_DATA_SHIFT;
+>> +     } else if (size == sizeof(uint16_t)) {
+>> +             cmd->msg |= FSI_GPIO_CMD_SIZE_16;
+>> +             if (data)
+>> +                     cmd->msg |=
+>> +                             *((uint16_t *)data) >> FSI_GPIO_CMD_DATA_SHIFT;
+>> +     } else {
+>> +             cmd->msg |= FSI_GPIO_CMD_SIZE_32;
+>> +             if (data)
+>> +                     cmd->msg |=
+>> +                             *((uint32_t *)data) >> FSI_GPIO_CMD_DATA_SHIFT;
+>> +     }
+>> +     if (mode == FSI_GPIO_CMD_WRITE)
+>> +             cmd->bits += (8 * size);
+>> +
+>> +     add_crc(cmd);
+>> +}
+>> +
+>
+> The message construction will be dependent on the format of struct
+> fsi_msg, so this may need to be updated if that changes from the above
+> comments.
+>
+
+OK will keep that in mind.  Would like to hear your thoughts on my above
+questions before I make any changes here.
+
+>>  static int fsi_master_gpio_read(struct fsi_master *_master, int link,
+>>               uint8_t slave, uint32_t addr, void *val, size_t size)
+>>  {
+>>       struct fsi_master_gpio *master = to_fsi_master_gpio(_master);
+>> +     struct fsi_gpio_msg cmd;
+>> +     int rc;
+>>
+>>       if (link != 0)
+>>               return -ENODEV;
+>>
+>> -     /* todo: format read into a message, send, poll for response */
+>> -     (void)master;
+>> +     /* Send the command */
+>> +     build_command(&cmd, FSI_GPIO_CMD_READ, slave, addr, size, NULL);
+>> +     serial_out(master, &cmd);
+>> +     echo_delay(master);
+>>
+>> +     rc = poll_for_response(master, FSI_GPIO_RESP_ACKD, size, val);
+>>
+>> -     return 0;
+>> +     return rc;
+>>  }
+>>
+>>  static int fsi_master_gpio_write(struct fsi_master *_master, int link,
+>>               uint8_t slave, uint32_t addr, const void *val, size_t size)
+>>  {
+>> +     int rc;
+>>       struct fsi_master_gpio *master = to_fsi_master_gpio(_master);
+>> +     struct fsi_gpio_msg cmd;
+>>
+>>       if (link != 0)
+>>               return -ENODEV;
+>>
+>> -     /* todo: format write into a message, send, poll for response */
+>> -     (void)master;
+>> +     /* Send the command */
+>> +     build_command(&cmd, FSI_GPIO_CMD_WRITE, slave, addr, size, val);
+>> +     serial_out(master, &cmd);
+>> +     echo_delay(master);
+>>
+>> -     return 0;
+>> +     rc = poll_for_response(master, FSI_GPIO_RESP_ACK, size, NULL);
+>> +
+>> +     return rc;
+>>  }
+>>
+>>  /*
+>> @@ -58,14 +349,40 @@ static int fsi_master_gpio_write(struct fsi_master *_master, int link,
+>>  static int fsi_master_gpio_break(struct fsi_master *_master, int link)
+>>  {
+>>       struct fsi_master_gpio *master = to_fsi_master_gpio(_master);
+>> +     uint32_t smode;
+>> +     int rc;
+>>
+>>       if (link != 0)
+>>               return -ENODEV;
+>>
+>> -     /* todo: send the break pattern over gpio */
+>> -     (void)master;
+>> +     set_sda_output(master, 0);
+>> +     clock_toggle(master, FSI_PRE_BREAK_CLOCKS);
+>>
+>> -     return 0;
+>> +     sda_out(master, 1);
+>> +     clock_toggle(master, FSI_BREAK_CLOCKS);
+>> +
+>> +     echo_delay(master);
+>> +
+>> +     sda_out(master, 0);
+>> +     clock_toggle(master, FSI_POST_BREAK_CLOCKS);
+>> +
+>> +     udelay(200);            /* wait for logic reset to take effect */
+>> +     rc = _master->read(_master, link, 3, FSI_SLAVE_BASE + FSI_SMODE,
+>> +                     &smode, sizeof(smode));
+>
+> No need to use the callback, we know that this is a GPIO master.
+>
+
+OK will fix.
+
+>> +     dev_info(_master->dev, "smode after break:%08x rc:%d\n", smode, rc);
+>
+> Use dev_dbg() here. We don't want printk output for normal operations
+> for non-debug.
+>
+
+Will change.
+
+>> +
+>> +     return rc;
+>> +}
+>> +
+>> +static void fsi_master_gpio_init(struct fsi_master_gpio *master)
+>> +{
+>> +     gpiod_direction_output(master->gpio_mux, 1);
+>> +     gpiod_direction_output(master->gpio_clk, 1);
+>> +     set_sda_output(master, 1);
+>> +     gpiod_direction_output(master->gpio_enable, 0);
+>> +
+>> +     /* todo: evaluate if clocks can be reduced */
+>> +     clock_toggle(master, FSI_INIT_CLOCKS);
+>>  }
+>>
+>>  static int fsi_master_gpio_link_enable(struct fsi_master *_master, int link)
+>> @@ -75,8 +392,7 @@ static int fsi_master_gpio_link_enable(struct fsi_master *_master, int link)
+>>       if (link != 0)
+>>               return -ENODEV;
+>>
+>> -     /* todo: set the enable pin */
+>> -     (void)master;
+>> +     gpiod_set_value(master->gpio_enable, 1);
+>>
+>>       return 0;
+>>  }
+>> @@ -100,11 +416,28 @@ static int fsi_master_gpio_probe(struct platform_device *pdev)
+>>               return PTR_ERR(gpio);
+>>       master->gpio_data = gpio;
+>>
+>> +     gpio = devm_gpiod_get(&pdev->dev, "trans", 0);
+>> +     if (IS_ERR(gpio))
+>> +             return PTR_ERR(gpio);
+>> +     master->gpio_trans = gpio;
+>> +
+>> +     gpio = devm_gpiod_get(&pdev->dev, "enable", 0);
+>> +     if (IS_ERR(gpio))
+>> +             return PTR_ERR(gpio);
+>> +     master->gpio_enable = gpio;
+>> +
+>> +     gpio = devm_gpiod_get(&pdev->dev, "mux", 0);
+>> +     if (IS_ERR(gpio))
+>> +             return PTR_ERR(gpio);
+>> +     master->gpio_mux = gpio;
+>> +
+>
+> trans, enable and mux should be optional, right?
+>
+
+Right, I had sent a question via slack to you regarding how to code this up.
+Should the mandatory and optional specifics be placed in the dev tree code
+in arch/arm/boot/*dts  ?  Also any basic examples you could point me to
+would be appreciated.  Which of the platforms would you recommend I
+adjust this for?  I suppose just Witherspoon for now.
+
+Thanks for your feedback.
+Chris
+
+> Cheers,
+>
+>
+> Jeremy
