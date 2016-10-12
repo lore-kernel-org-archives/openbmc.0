@@ -1,52 +1,65 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x241.google.com (mail-ua0-x241.google.com
- [IPv6:2607:f8b0:400c:c08::241])
+Received: from mail-vk0-x22f.google.com (mail-vk0-x22f.google.com
+ [IPv6:2607:f8b0:400c:c05::22f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sv2PQ5b7szDsrc
- for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 16:25:14 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sv2fG5WRmzDsxG
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 16:36:22 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=jYhJKj7I; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=LfcIayT0; 
  dkim-atps=neutral
-Received: by mail-ua0-x241.google.com with SMTP id 10so104458ual.3
- for <openbmc@lists.ozlabs.org>; Tue, 11 Oct 2016 22:25:14 -0700 (PDT)
+Received: by mail-vk0-x22f.google.com with SMTP id 192so40390779vkl.2
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Oct 2016 22:36:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=CSQNTK+cdqNkJYR5gO/aU9GZpythupQYdIOjuf8Mofc=;
- b=jYhJKj7IOHD/Pxepa4Hiht//CbJVf/xUVQpZw2b54qaROhFZlZ+kUVxY3ULSi8SR2y
- t1ozmt1gO0FMrmULn9UjtBs91u9JvcMwWmiqPidrTsVzYIokmtq8f8aHnX+pE+1mhW49
- 0GFW50HExpznjyyuzcHeKLEZ8TB00uplpFXtwZGlix37nytjfKs295wCpUpEaMgGwHYJ
- PUV7roTah1pLXBFOjMkVFxLR0kGBFRjDZQeY9diTbrkLwrKM/CojlIa2b/oc684z3XSA
- Rka36XsKjlEZOTM6LRC7PG2MPX77Lkwl1rgqjEpK8iCD7rWv7JsPpXC0PkeBIGVKoQbE
- /98A==
+ bh=NXUk5NEVFJCSRLrcyuidQ6zoX34ndIvUma1bemRK66g=;
+ b=LfcIayT0K9tnaq8CfPpI7c6EAaG7HEU4UCy2bktptOaV3Cuwv1yA+UL+ImM3JrZbaJ
+ UAoGLJelzT1EvmSFjB3RCX5zHF5/eHT6q/fPXI3RetyWbIJQKMAuycVS+F8VA5bBsmpc
+ Uu1RjEdZVKh5wfsUwMZy6Q1O9JtXMdr3UOWavSwfTtIDZvv3Ip0eue+gzLDv5ZsdLjPf
+ Jn9B232+eeeQnZCDY7QhYGfL2kop++tnaPBT0pSJvaOGeDM4c/b5eRZ5d1BqssZARmCO
+ mBRs6+LXztKEfV+adVX+Tbt88OUEA9kBe2yXDddtGUPSKLF/VqBuO09fyvdCarswaHiV
+ S9fA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=CSQNTK+cdqNkJYR5gO/aU9GZpythupQYdIOjuf8Mofc=;
- b=UrJG/fAHJtz+mfLwCjbHem9LbmsrRm6aZRQ2bomjbh0CmDjQ45RE5NGOMN/e4fFd4b
- GzvpoZhEhgd2dnb2itnNJKHOAlB5TEaqZljfmtdtvW6Ke/moJsVRgOwkf1iwyKMJ+ojO
- eaactM3a9xkKa2SuLVFV4yTyrrlWGtJwhlnAr71S3ZOnBmUWEkfpaVd90aPAPP9LonGh
- Rj13k4fA5ZQ3bYqQIYJenndofxHCuvIQc0EqEWlJtx4mXI+SXy29aMXTpKXs0XC0hahB
- JovvcrlsHD/xpG/i6VGxSbVYfDuc2hJcDfnHlzpPl8K6VGfRntyb0TkbGLWMYJIYnrvX
- 25LQ==
-X-Gm-Message-State: AA6/9RnGUBR/sZPSlT545nFYjgiXgqWldW3PyH6c6E7uNhTthgUpF0eGtf4VPmReVPPOXSIeFzzItgqA2pDM9Q==
-X-Received: by 10.176.1.105 with SMTP id 96mr337435uak.31.1476249912246; Tue,
- 11 Oct 2016 22:25:12 -0700 (PDT)
+ bh=NXUk5NEVFJCSRLrcyuidQ6zoX34ndIvUma1bemRK66g=;
+ b=G8eSjB0aMQC8s3fZztz1p8cftZknoHARUefoVC8ABR6WgI0SfRbEKt89832wfnXXT8
+ YhygBkB9nRiJxX1aDkK+j/3Yr+QMsSIEIdqHEUSOia/wvAX+9P8zgViagcMfpBpet2KO
+ nQbPcgo/BmKmzQf96KOX5RBuRTnSHZgBPbW5AXE0NyEwnKBs40ecSILOJh02aMt+pL+8
+ chStFXxUW6UzXnCXOanhsoPSr7BNkJrdDTyhXh8KmjVXRMR16Pl303jdcpaMf7gtrVZz
+ mZJ5TfcxHUmIJzbhce60vE/CdzQOpCkOdhVA6nOfZyYuCAQNAsaUAJHU5hBP/ydPZFlJ
+ mU/A==
+X-Gm-Message-State: AA6/9RldTF3ioTzzVDK2TrvKKL8zzSZH49lXzxTWS4agu3hV54Fii0VXIamc9yJwXNe0ajgAzrmhZJOFLwIh0Q==
+X-Received: by 10.31.115.8 with SMTP id o8mr6000739vkc.2.1476250580706; Tue,
+ 11 Oct 2016 22:36:20 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.176.7.8 with HTTP; Tue, 11 Oct 2016 22:24:51 -0700 (PDT)
-In-Reply-To: <1476222134-14396-1-git-send-email-eajames.ibm@gmail.com>
-References: <1476222134-14396-1-git-send-email-eajames.ibm@gmail.com>
+Received: by 10.176.7.8 with HTTP; Tue, 11 Oct 2016 22:36:00 -0700 (PDT)
+In-Reply-To: <CACPK8XeB1cFLJQesU2ELhX=F7Nuqx8vxXsVuL+jxvOLJdvridg@mail.gmail.com>
+References: <CACPK8XfQPDg0H_aNKmZOje7pPDRE9sJsD-epqAB8uW2X6SrrDg@mail.gmail.com>
+ <CALLMt=rbR1usfKPt9G8kdUa2RaqRaaVEG3rV62wSBjaM59qi6Q@mail.gmail.com>
+ <CACPK8Xcn=s3NAnVNOYBXwHrnfYPT7xicH-TTXTb50TJU6OHHrA@mail.gmail.com>
+ <20160930013816.GC7390@heinlein.lan>
+ <CACPK8Xd3vP0E14-QSnpKxcLYdnaf=eqZb3hvfm26QCEZCA3aiA@mail.gmail.com>
+ <20160930131252.GD7390@heinlein.lan>
+ <CALLMt=o-pdSefwGK9rSyoW1+6UzMspzkvQmSnZJrz9h3G89W5w@mail.gmail.com>
+ <1476143058.16733.10.camel@aj.id.au> <20161011013601.GA19444@distroguy.com>
+ <CALLMt=rTC2rgPc-_rkdVwN=o688AsKg7WvefEBrSZE48GMzRqA@mail.gmail.com>
+ <20161011020029.GB19444@distroguy.com>
+ <CALLMt=r6FqtAfbGwPH=9TeCq4tsJ9FKFr1g9xA8mP7KKRh36ew@mail.gmail.com>
+ <CACPK8XcFhtDn121B2r6Wv_E8FHWSTw9JFXvpVAt4fkdq3p8+aA@mail.gmail.com>
+ <CACPK8XeB1cFLJQesU2ELhX=F7Nuqx8vxXsVuL+jxvOLJdvridg@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 12 Oct 2016 16:24:51 +1100
-X-Google-Sender-Auth: 1qNvVS7OlIlP0EUOs5ALYsvmKvM
-Message-ID: <CACPK8XeBbw0vxK93gK-=P8br5gc4a7afp9TYeQUNQD4dxYxKhw@mail.gmail.com>
-Subject: Re: [RFC linux v2 0/2] drivers/hwmon: OCC hwmon driver restructuring
-To: eajames.ibm@gmail.com, "Edward A. James" <eajames@us.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Jeremy Kerr <jk@ozlabs.org>, 
- Christopher Bostic <cbostic@us.ibm.com>
+Date: Wed, 12 Oct 2016 16:36:00 +1100
+X-Google-Sender-Auth: b91-miMG7sJSgoiuJAO4nxX6c5Y
+Message-ID: <CACPK8XeNz44e4yMCvKxAGEO+z51FkgDdgvzzVpBKZusCt27epw@mail.gmail.com>
+Subject: Re: openpower.xyz updates
+To: Andrew Geissler <geissonator@gmail.com>
+Cc: Chris Smart <chris@distroguy.com>, Andrew Jeffery <andrew@aj.id.au>, 
+ Patrick Williams <patrick@stwcx.xyz>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -59,81 +72,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Oct 2016 05:25:15 -0000
+X-List-Received-Date: Wed, 12 Oct 2016 05:36:23 -0000
 
-Hey,
-
-On Wed, Oct 12, 2016 at 8:42 AM,  <eajames.ibm@gmail.com> wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
+On Tue, Oct 11, 2016 at 5:23 PM, Joel Stanley <joel@jms.id.au> wrote:
+> On Tue, Oct 11, 2016 at 1:12 PM, Joel Stanley <joel@jms.id.au> wrote:
+> Andrew G, I took a look at the Gerrit plugin between 2.21.1 and 2.22.
 >
-> This patchset is provided to refactor the Power8 OCC hwmon driver. There are a
-> number of issues with the existing driver. Firstly, i2c access was embedded
-> throughout the driver. Secondly, there is no way to easily add different
-> versions of the OCC.
+> https://github.com/jenkinsci/gerrit-trigger-plugin/compare/gerrit-trigger-2.21.1...gerrit-trigger-2.22.0
 >
-> This patchset addresses the first issue by abstracting the bus transfer
-> protocol into a modular structure. In this way, any low level transfer method
-> may be easily implemented.
+> https://issues.jenkins-ci.org/browse/JENKINS-35379
+>
+> Perhaps we could try bisecting the changes made to the plugin to work
+> out what went wrong?
 
-Cool. I think you should consider sending these patches as a series
-that introduce the driver from scratch. You can achieve this by
-reverting the patch that adds the code Yi wrote, and adding your
-cleaned up version as a series of small patches.
+Overnight we upgraded to the latest LTS release of Jenkins to see if
+that fixed our issue. It did not.
 
-This will be one of our first client drivers for Jeremy and Chris' fsi
-bus. I recommend taking a read of the current state of the client
-driver API, and keeping that in mind when you write the i2c version.
+I then tried to downgrade the plugins, but this caused our
+github-oauth plugin to downgrade (I think the new Jenkins release
+tries to downgrade dependencies when downgrading a plugin). This broke
+login, which relies on oauth. I tried to re-upgrade the plugin, but it
+was still broken - an exception was thrown as the plugin was unable to
+parse the oauth config file. For reference, the signatures looked like
+this:
+
+Caused by: java.lang.ClassCastException:
+org.acegisecurity.providers.anonymous.AnonymousAuthenticationToken
+cannot be cast to org.jenkinsci.plugins.GithubAuthenticationToken
+
+com.google.common.util.concurrent.UncheckedExecutionException:
+java.lang.ClassCastException:
+org.acegisecurity.providers.anonymous.AnonymousAuthenticationToken
+cannot be cast to org.jenkinsci.plugins.GithubAuthenticationToken
+
+We tried removing the config file, modifying it, restoring from
+backup, to no avail.
+
+To our luck, the github-oauth plugin was updated over night. The new
+release Just Worked so we ran with that.
+
+Back to the core issue of the Gerrit - Jenkins failure to kick of
+build jobs. I found out more about the design of the Gerrit - Jenkins
+system today.
+
+We have a Gerrit Trigger plugin that listens to the event stream from
+Gerrit over ssh. When it sees a new patch it runs a job that checks
+the submitter against a list of whitelisted users (those in the
+OpenBMC team on Github). If the user is approved, it updates the
+commit with the ok-to-test label.
+
+Another job uses the Trigger plugin to look for the ok-to-test label.
+When it sees this label in the stream, it kicks off a build job. The
+reason Andrew separates out the two is so an admin can manually tick
+the ok-to-test box allowing drive by contributions to be tested.
+
+The bug is due to the newer version of the plugin not seeing these
+events. We're not sure why that happens, but put a workaround in place
+that causes the jobs to still trigger while we sort it out.
 
 Cheers,
 
 Joel
-
-
->
-> The second issue is addressed by separating the "version specific" code for the
-> OCC and the common hwmon code. This task is not yet complete, but the general
-> structure is in place. Ultimately, different OCC versions could be probed up
-> using the device tree.
->
-> Patch 1: "drivers/hwmon: Move OCC driver to occ directory"
-> - Move the existing OCC hwmon driver to it's own directory.
-> - Edit makefiles and Kconfig accordingly to preserve the build.
->
-> Patch 2: "drivers/hwmon: Isolate bus transfer protocol"
-> - Copy i2c related code into occ_i2c.c and simplify.
-> - Copy common platform code into occ.c; more functions can be placed here
->   later.
-> - Change core functions to accept OCC driver data parameter instead of
->   device pointer.
->
-> Edward A. James (2):
->   drivers/hwmon: Move OCC driver to occ directory
->   drivers/hwmon: Isolate bus transfer protocol
->
->  drivers/hwmon/Kconfig          |   13 +-
->  drivers/hwmon/Makefile         |    2 +-
->  drivers/hwmon/occ/Kconfig      |   15 +
->  drivers/hwmon/occ/Makefile     |    1 +
->  drivers/hwmon/occ/occ.c        |  127 ++++
->  drivers/hwmon/occ/occ.h        |   47 ++
->  drivers/hwmon/occ/occ_i2c.c    |  150 +++++
->  drivers/hwmon/occ/power8_occ.c | 1055 +++++++++++++++++++++++++++++++++
->  drivers/hwmon/occ/power8_occ.h |   25 +
->  drivers/hwmon/power8_occ_i2c.c | 1254 ----------------------------------------
->  10 files changed, 1422 insertions(+), 1267 deletions(-)
->  create mode 100644 drivers/hwmon/occ/Kconfig
->  create mode 100644 drivers/hwmon/occ/Makefile
->  create mode 100644 drivers/hwmon/occ/occ.c
->  create mode 100644 drivers/hwmon/occ/occ.h
->  create mode 100644 drivers/hwmon/occ/occ_i2c.c
->  create mode 100644 drivers/hwmon/occ/power8_occ.c
->  create mode 100644 drivers/hwmon/occ/power8_occ.h
->  delete mode 100644 drivers/hwmon/power8_occ_i2c.c
->
-> --
-> 1.9.1
->
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
