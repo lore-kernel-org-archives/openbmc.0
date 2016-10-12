@@ -3,45 +3,45 @@ Received: from mail-qk0-x244.google.com (mail-qk0-x244.google.com
  [IPv6:2607:f8b0:400d:c09::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3svTQr6f7lzDsxl
- for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 09:43:00 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3svTR874YbzDrLv
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 09:43:16 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=OReQOIbe; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=ep2bIUp9; 
  dkim-atps=neutral
-Received: by mail-qk0-x244.google.com with SMTP id n189so4590285qke.1
- for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 15:43:00 -0700 (PDT)
+Received: by mail-qk0-x244.google.com with SMTP id n189so4590532qke.1
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 15:43:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=from:to:cc:subject:date:message-id;
- bh=UFC3AeLwbUfmpqz7ww2iQqSGesm3rWuUBlHnQoBDl1I=;
- b=OReQOIbe/Ckuj63qfxnWDRE2xU7MUxU8S4ocQx1wegsB6AaLFtAL16FGI6bWb9vLNa
- 1+QJVAOcPwDzT6KumJBNNCsdJGVKLDt+utrOig/ummnxLDlLkjb9vz+wObf6BwaCLhzg
- mIs9bv072NbBlbzhmJYWfgZ9BsRsomNalSlKbNb3jfrpw8b2RfcOiYMVJ0hBfQnENGPI
- Q1E3WMv/L1IphaVhcyNVpkqt8Rb8Jm7Y+snAVkl5lZtFYFwTqfgNGyNnF5G4VKmu6PVO
- pCi8ctp6/GtAPVaZd15ktlXUoMnmsgtMQyCX0zWh00cSaREzJwnYh5x/hPlQH4K35Y3h
- bskg==
+ bh=9PtMuO4WeTtwDNtAglc092l+1VE6q9cX96bdlC5GVM4=;
+ b=ep2bIUp96c0YZw7J4lRlhfsD1SD5eXIt8yQ0rzxZd8S4vWoZhOb9mz023cvRlwU28E
+ /Q7gmmVqcNP3CIAlqNzKLkjbJctuDPe1LV+r+l5DiWI4QZM/inmb6GdB29/9JG9YDSzc
+ oZCiwSVvtkNiig/z2w6qLOj9vJSJ4GXXYVrsFrZsU0Q42MF+mLFcOZ9ph1Kr2tHs28Ku
+ 6ffQio6RIq/i3PG0ASdDCRkDu5jcDywqKD9C6/4rewa2x4JbzAx0u5ZnrOAvySS1HeYu
+ mbhOMZGxrI+THS6Z81kdKEVuu6KiX2wH+2NzNoy1Rq+IV5GVG4b5OJDFgD2Epnb89zfI
+ 7e6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=UFC3AeLwbUfmpqz7ww2iQqSGesm3rWuUBlHnQoBDl1I=;
- b=PWr3iTVQGnEdlBQIbFH1nCt8CYYEeiHbi04/DJgB+qihV2AN87DVzorbqF4ZCtbes7
- m57HValmvB7+PRRKzOHZ/ZhsHv5CFJ5IvQra8CSz42mEp3pYxDulk0n3wm2Dyi1eWPp1
- vVhvCnxy9cVxJA/AnWE46VhrQZlpooKps/GV/tY4IvwPx66bHNzZxc9nelnySEgqshoH
- HKE0yX9XZPRMXSr7lMjsfovNA5wCJGhOGxXhYfRsGnSj2vIR5cgBPWYGm+SbFKkCLnaC
- X3REXihyC83zJ12H605X0JbYLyhf20UvXP9yF24awmhabgT5p03ZmnoZvhUzd4cYPqqC
- wzdA==
-X-Gm-Message-State: AA6/9Rm6IvjUPfDm5Yf0L9OduGgxa7hBA5I7TdyX5aPGiXlyJgJT6pCgoj+3HicnLz4djQ==
-X-Received: by 10.55.42.144 with SMTP id q16mr4175023qkq.257.1476312178766;
- Wed, 12 Oct 2016 15:42:58 -0700 (PDT)
+ bh=9PtMuO4WeTtwDNtAglc092l+1VE6q9cX96bdlC5GVM4=;
+ b=b0OcnnXzinyFXC4IZ9wboGPQg/qGA6/xzvCjyiYClwzUyw3uSiVC0U9H+Zvxa66Weg
+ 9fZQhx7Jxx5NUz5jJn6/nqO+Vso4cUPQgjfMkhSo3BLpUwRJJcaTRXboXfPUU6kPKnos
+ 9T9IFxAGkAC/e50eC8j7pUKfSWH3Oer8VItOKLRChb+vXVBXAZBUOA2EgeWh3lZ2CwBS
+ 2mhCAR8fhqu+HUNmS+7h+zvVDiotTeNQ6l9PXDMyrojBSzN+/TeG5iHmVuoVkiXE6bi8
+ cOd3xH7R/jL6CpSNaWa8XGSqoQCSmsXVpYtYl8B2BRDUsPZDepJWlWaqPrIIIdCyOKMK
+ rzSw==
+X-Gm-Message-State: AA6/9RmfLsL1zdRCY5F++78piyQRUTAUPPFDzj9CqNi+2OOPxlx4o+DE5OTDPWUuYO5qHA==
+X-Received: by 10.55.15.167 with SMTP id 39mr4017437qkp.234.1476312195037;
+ Wed, 12 Oct 2016 15:43:15 -0700 (PDT)
 Received: from eajames-austin-w350.austin.ibm.com ([32.97.110.52])
- by smtp.gmail.com with ESMTPSA id g11sm3576278qtb.19.2016.10.12.15.42.57
+ by smtp.gmail.com with ESMTPSA id q68sm3598371qka.1.2016.10.12.15.43.13
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Wed, 12 Oct 2016 15:42:58 -0700 (PDT)
+ Wed, 12 Oct 2016 15:43:14 -0700 (PDT)
 From: eajames.ibm@gmail.com
 To: openbmc@lists.ozlabs.org
 Cc: "Edward A. James" <eajames@us.ibm.com>
-Subject: [RFC linux v3 3/4] hwmon: Add OCC driver basic sysfs attributes
-Date: Wed, 12 Oct 2016 17:42:48 -0500
-Message-Id: <1476312168-20207-1-git-send-email-eajames.ibm@gmail.com>
+Subject: [RFC linux v3 4/4] hwmon: Add OCC driver polling and parse response
+Date: Wed, 12 Oct 2016 17:43:05 -0500
+Message-Id: <1476312185-20290-1-git-send-email-eajames.ibm@gmail.com>
 X-Mailer: git-send-email 1.9.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -54,220 +54,580 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Oct 2016 22:43:01 -0000
+X-List-Received-Date: Wed, 12 Oct 2016 22:43:17 -0000
 
 From: "Edward A. James" <eajames@us.ibm.com>
 
-Add name, update interval, and powercap sysfs files, as well as the method
-to send commands to the OCC.
+Add code to poll the OCC and parse the response. Add all the necessary
+structures for the P8 OCC.
 
 Signed-off-by: Edward A. James <eajames@us.ibm.com>
 ---
- drivers/hwmon/occ/power8_occ.c | 178 ++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 177 insertions(+), 1 deletion(-)
+ drivers/hwmon/occ/occ_i2c.c    |   1 +
+ drivers/hwmon/occ/power8_occ.c | 497 ++++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 492 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/hwmon/occ/occ_i2c.c b/drivers/hwmon/occ/occ_i2c.c
+index 40ed75d..deb8dc6 100644
+--- a/drivers/hwmon/occ/occ_i2c.c
++++ b/drivers/hwmon/occ/occ_i2c.c
+@@ -59,6 +59,7 @@ int occ_getscom(void *bus, u32 address, u8 *data, size_t offset)
+ 	if (rc != sizeof(u64))
+ 		return -I2C_READ_ERROR;
+ 
++	/* TODO: is OCC be or le? */
+ 	*((u64 *)data) = le64_to_cpu(buf);
+ 
+ 	return 0;
 diff --git a/drivers/hwmon/occ/power8_occ.c b/drivers/hwmon/occ/power8_occ.c
-index 15d4bde..fbfaf08 100644
+index fbfaf08..1a5195e 100644
 --- a/drivers/hwmon/occ/power8_occ.c
 +++ b/drivers/hwmon/occ/power8_occ.c
-@@ -31,11 +31,184 @@
+@@ -31,6 +31,8 @@
  
  #include "occ.h"
  
-+/* Defined in POWER8 Processor Registers Specification */
-+/* To generate attn to OCC */
-+#define ATTN_DATA	0x0006B035
-+/* For BMC to read/write SRAM */
-+#define OCB_ADDRESS		0x0006B070
-+#define OCB_DATA		0x0006B075
-+#define OCB_STATUS_CONTROL_AND	0x0006B072
-+#define OCB_STATUS_CONTROL_OR	0x0006B073
-+/* See definition in:
-+ * https://github.com/open-power/docs/blob/master/occ/OCC_OpenPwr_FW_Interfaces.pdf
-+ */
-+#define OCC_COMMAND_ADDR	0xFFFF6000
-+#define OCC_RESPONSE_ADDR	0xFFFF7000
++#define OCC_DATA_MAX	4096
++
+ /* Defined in POWER8 Processor Registers Specification */
+ /* To generate attn to OCC */
+ #define ATTN_DATA	0x0006B035
+@@ -45,15 +47,402 @@
+ #define OCC_COMMAND_ADDR	0xFFFF6000
+ #define OCC_RESPONSE_ADDR	0xFFFF7000
+ 
++#define RESP_DATA_LENGTH	3
++#define RESP_HEADER_OFFSET	5
++#define SENSOR_STR_OFFSET	37
++#define SENSOR_BLOCK_NUM_OFFSET	43
++#define SENSOR_BLOCK_OFFSET	45
++
++enum sensor_type {
++	FREQ = 0,
++	TEMP,
++	POWER,
++	CAPS,
++	MAX_OCC_SENSOR_TYPE
++};
++
++/* OCC sensor data format */
++struct occ_sensor {
++	u16 sensor_id;
++	u16 value;
++};
++
++struct power_sensor {
++	u16 sensor_id;
++	u32 update_tag;
++	u32 accumulator;
++	u16 value;
++};
++
++struct caps_sensor {
++	u16 curr_powercap;
++	u16 curr_powerreading;
++	u16 norm_powercap;
++	u16 max_powercap;
++	u16 min_powercap;
++	u16 user_powerlimit;
++};
++
++struct sensor_data_block {
++	u8 sensor_type[4];
++	u8 reserved0;
++	u8 sensor_format;
++	u8 sensor_length;
++	u8 sensor_num;
++	struct occ_sensor *sensor;
++	struct power_sensor *power;
++	struct caps_sensor *caps;
++};
++
++struct occ_poll_header {
++	u8 status;
++	u8 ext_status;
++	u8 occs_present;
++	u8 config;
++	u8 occ_state;
++	u8 reserved0;
++	u8 reserved1;
++	u8 error_log_id;
++	u32 error_log_addr_start;
++	u16 error_log_length;
++	u8 reserved2;
++	u8 reserved3;
++	u8 occ_code_level[16];
++	u8 sensor_eye_catcher[6];
++	u8 sensor_block_num;
++	u8 sensor_data_version;
++};
++
++struct occ_response {
++	u8 sequence_num;
++	u8 cmd_type;
++	u8 rtn_status;
++	u16 data_length;
++	struct occ_poll_header header;
++	struct sensor_data_block *blocks;
++	u16 chk_sum;
++	int sensor_block_id[MAX_OCC_SENSOR_TYPE];
++};
 +
  struct power8_driver {
  	struct occ_driver *driver;
  	struct device *dev;
-+	unsigned long update_interval;
-+	u16 user_powercap;
+ 	unsigned long update_interval;
++	unsigned long last_updated;
+ 	u16 user_powercap;
++	struct mutex update_lock;
++	bool valid;
++	struct occ_response occ_response;
  };
  
-+static u8 occ_send_cmd(struct occ_driver *occ, u8 seq, u8 type,
-+			    u16 length, u8 *data, u8 *resp)
+-static u8 occ_send_cmd(struct occ_driver *occ, u8 seq, u8 type,
+-			    u16 length, u8 *data, u8 *resp)
++static void deinit_occ_resp_buf(struct occ_response *resp)
 +{
-+	u32 cmd1, cmd2;
-+	u16 checksum;
 +	int i;
 +
-+	length = cpu_to_le16(length);
-+	cmd1 = (seq << 24) | (type << 16) | length;
-+	memcpy(&cmd2, data, length);
-+	cmd2 <<= ((4 - length) * 8);
++	if (!resp)
++		return;
 +
-+	/* checksum: sum of every bytes of cmd1, cmd2 */
-+	checksum = 0;
-+	for (i = 0; i < 4; i++)
-+		checksum += (cmd1 >> (i * 8)) & 0xFF;
-+	for (i = 0; i < 4; i++)
-+		checksum += (cmd2 >> (i * 8)) & 0xFF;
-+	cmd2 |= checksum << ((2 - length) * 8);
++	if (!resp->blocks)
++		return;
 +
-+	/* Init OCB */
-+	occ->bus_ops.putscom(occ->bus, OCB_STATUS_CONTROL_OR,  0x08000000,
-+			     0x00000000);
-+	occ->bus_ops.putscom(occ->bus, OCB_STATUS_CONTROL_AND, 0xFBFFFFFF,
-+			     0xFFFFFFFF);
-+
-+	/* Send command */
-+	occ->bus_ops.putscom(occ->bus, OCB_ADDRESS, OCC_COMMAND_ADDR,
-+			     0x00000000);
-+	occ->bus_ops.putscom(occ->bus, OCB_ADDRESS, OCC_COMMAND_ADDR,
-+			     0x00000000);
-+	occ->bus_ops.putscom(occ->bus, OCB_DATA, cmd1, cmd2);
-+
-+	/* Trigger attention */
-+	occ->bus_ops.putscom(occ->bus, ATTN_DATA, 0x01010000, 0x00000000);
-+
-+	/* Get response data */
-+	occ->bus_ops.putscom(occ->bus, OCB_ADDRESS, OCC_RESPONSE_ADDR,
-+			     0x00000000);
-+	occ->bus_ops.getscom(occ->bus, OCB_DATA, resp, 0);
-+
-+	/* return status */
-+	return resp[2];
-+}
-+
-+static ssize_t show_update_interval(struct device *dev,
-+				    struct device_attribute *attr, char *buf)
-+{
-+	struct power8_driver *driver = dev_get_drvdata(dev);
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%u\n",
-+			jiffies_to_msecs(driver->update_interval));
-+}
-+
-+static ssize_t store_update_interval(struct device *dev,
-+				     struct device_attribute *attr,
-+				     const char *buf, size_t count)
-+{
-+	struct power8_driver *driver = dev_get_drvdata(dev);
-+	unsigned long val;
-+	int rc;
-+
-+	rc = kstrtoul(buf, 10, &val);
-+	if (rc)
-+		return rc;
-+
-+	driver->update_interval = msecs_to_jiffies(val);
-+
-+	return count;
-+}
-+
-+static DEVICE_ATTR(update_interval, S_IWUSR | S_IRUGO, show_update_interval,
-+		   store_update_interval);
-+
-+static ssize_t show_name(struct device *dev,
-+			 struct device_attribute *attr, char *buf)
-+{
-+	return snprintf(buf, PAGE_SIZE - 1, "occ-power8-i2c\n");
-+}
-+
-+static DEVICE_ATTR(name, S_IRUGO, show_name, NULL);
-+
-+static ssize_t show_user_powercap(struct device *dev,
-+				  struct device_attribute *attr, char *buf)
-+{
-+	struct power8_driver *driver = dev_get_drvdata(dev);
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%u\n", driver->user_powercap);
-+}
-+
-+static ssize_t store_user_powercap(struct device *dev,
-+				   struct device_attribute *attr,
-+				   const char *buf, size_t count)
-+{
-+	struct power8_driver *driver = dev_get_drvdata(dev);
-+	u16 val;
-+	u8 resp[8];
-+	int rc;
-+
-+	rc = kstrtou16(buf, 10, &val);
-+	if (rc)
-+		return rc;
-+
-+	dev_dbg(dev, "set user powercap to: %u\n", val);
-+	val = cpu_to_le16(val);
-+	rc = occ_send_cmd(driver->driver, 0, 0x22, 2, (u8 *)&val, resp);
-+	if (rc != 0) {
-+		dev_err(dev,
-+			"ERROR: Set User Powercap: wrong return status: %x\n",
-+			rc);
-+		if (rc == 0x13)
-+			dev_info(dev,
-+				 "ERROR: set invalid powercap value: %x\n",
-+				 val);
-+		return -EINVAL;
++	for (i = 0; i < resp->header.sensor_block_num; ++i) {
++		kfree(resp->blocks[i].sensor);
++		kfree(resp->blocks[i].power);
++		kfree(resp->blocks[i].caps);
 +	}
 +
-+	driver->user_powercap = val;
-+	return count;
++	kfree(resp->blocks);
++
++	memset(resp, 0, sizeof(struct occ_response));
++
++	for (i = 0; i < MAX_OCC_SENSOR_TYPE; ++i)
++		resp->sensor_block_id[i] = -1;
 +}
 +
-+static DEVICE_ATTR(user_powercap, S_IWUSR | S_IRUGO, show_user_powercap,
-+		   store_user_powercap);
-+
-+static void occ_remove_hwmon_attrs(struct power8_driver *driver)
++static void *occ_get_sensor_by_type(struct occ_response *resp,
++				    enum sensor_type t)
 +{
-+	struct device *dev = driver->dev;
++	void *sensor;
 +
-+	device_remove_file(dev, &dev_attr_update_interval);
-+	device_remove_file(dev, &dev_attr_name);
++	if (!resp->blocks)
++		return NULL;
++
++	if (resp->sensor_block_id[t] == -1)
++		return NULL;
++
++	switch (t) {
++	case TEMP:
++	case FREQ:
++		sensor = resp->blocks[resp->sensor_block_id[t]].sensor;
++		break;
++	case POWER:
++		sensor = resp->blocks[resp->sensor_block_id[t]].power;
++		break;
++	case CAPS:
++		sensor = resp->blocks[resp->sensor_block_id[t]].caps;
++		break;
++	default:
++		sensor = NULL;
++	}
++
++	return sensor;
 +}
 +
-+static int occ_create_hwmon_attrs(struct power8_driver *driver)
++static int occ_renew_sensor(struct occ_response *resp, u8 sensor_length,
++			    u8 sensor_num, enum sensor_type t, int block)
 +{
++	void *sensor;
 +	int rc;
-+	struct device *dev = driver->dev;
 +
-+	rc = device_create_file(dev, &dev_attr_name);
-+	if (rc)
-+		goto error;
++	sensor = occ_get_sensor_by_type(resp, t);
 +
-+	rc = device_create_file(dev, &dev_attr_update_interval);
-+	if (rc)
-+		goto error;
++	/* empty sensor block, release older sensor data */
++	if (sensor_num == 0 || sensor_length == 0) {
++		kfree(sensor);
++		return -1;
++	}
 +
-+	/* skip powercap for now; we need to determine if CAPS response id
-+	 * is present first, which requires polling the OCC
-+	 */
++	if (!sensor || sensor_num !=
++	    resp->blocks[resp->sensor_block_id[t]].sensor_num) {
++		kfree(sensor);
++		switch (t) {
++		case TEMP:
++		case FREQ:
++			resp->blocks[block].sensor =
++				kcalloc(sensor_num, sizeof(struct occ_sensor),
++					GFP_KERNEL);
++			if (!resp->blocks[block].sensor) {
++				rc = -ENOMEM;
++				goto err;
++			}
++			break;
++		case POWER:
++			resp->blocks[block].power =
++				kcalloc(sensor_num,
++					sizeof(struct power_sensor),
++					GFP_KERNEL);
++			if (!resp->blocks[block].power) {
++				rc = -ENOMEM;
++				goto err;
++			}
++			break;
++		case CAPS:
++			resp->blocks[block].caps =
++				kcalloc(sensor_num, sizeof(struct caps_sensor),
++					GFP_KERNEL);
++			if (!resp->blocks[block].caps) {
++				rc = -ENOMEM;
++				goto err;
++			}
++			break;
++		default:
++			rc = -ENOMEM;
++			goto err;
++		}
++	}
 +
 +	return 0;
-+
-+error:
-+	dev_err(dev, "ERROR: cannot create hwmon attributes: %d\n", rc);
-+	occ_remove_hwmon_attrs(driver);
++err:
++	deinit_occ_resp_buf(resp);
 +	return rc;
 +}
 +
- int occ_init(struct occ_driver *driver)
- {
- 	struct device *dev = driver->hwmon;
-@@ -50,9 +223,12 @@ int occ_init(struct occ_driver *driver)
- 
- 	dev_set_drvdata(dev, powr);
- 
--	return 0;
-+	return occ_create_hwmon_attrs(powr);
- }
- 
- void occ_exit(struct occ_driver *driver)
- {
-+	struct power8_driver *powr = dev_get_drvdata(driver->hwmon);
++static int parse_occ_response(struct power8_driver *driver, u8 *data,
++			      struct occ_response *resp)
++{
++	int b;
++	int s;
++	int rc;
++	int dnum = SENSOR_BLOCK_OFFSET;
++	struct occ_sensor *f_sensor;
++	struct occ_sensor *t_sensor;
++	struct power_sensor *p_sensor;
++	struct caps_sensor *c_sensor;
++	u8 sensor_block_num;
++	u8 sensor_type[4];
++	u8 sensor_format;
++	u8 sensor_length;
++	u8 sensor_num;
++	struct device *dev = driver->dev;
 +
-+	occ_remove_hwmon_attrs(powr);
++	/* check if the data is valid */
++	if (strncmp(&data[SENSOR_STR_OFFSET], "SENSOR", 6) != 0) {
++		dev_dbg(dev, "ERROR: no SENSOR String in response\n");
++		rc = -1;
++		goto err;
++	}
++
++	sensor_block_num = data[SENSOR_BLOCK_NUM_OFFSET];
++	if (sensor_block_num == 0) {
++		dev_dbg(dev, "ERROR: SENSOR block num is 0\n");
++		rc = -1;
++		goto err;
++	}
++
++	/* if sensor block has changed, re-malloc */
++	/* TODO: investigate memory management */
++	if (sensor_block_num != resp->header.sensor_block_num) {
++		deinit_occ_resp_buf(resp);
++		resp->blocks = kcalloc(sensor_block_num,
++				       sizeof(struct sensor_data_block),
++				       GFP_KERNEL);
++		if (!resp->blocks)
++			return -ENOMEM;
++	}
++
++	memcpy(&resp->header, &data[RESP_HEADER_OFFSET],
++	       sizeof(struct occ_poll_header));
++	resp->header.error_log_addr_start =
++		be32_to_cpu(resp->header.error_log_addr_start);
++	resp->header.error_log_length =
++		be16_to_cpu(resp->header.error_log_length);
++
++	dev_dbg(dev, "Reading %d sensor blocks\n",
++		resp->header.sensor_block_num);
++	for (b = 0; b < sensor_block_num; b++) {
++		/* 8-byte sensor block head */
++		strncpy(sensor_type, &data[dnum], 4);
++		sensor_format = data[dnum + 5];
++		sensor_length = data[dnum + 6];
++		sensor_num = data[dnum + 7];
++		dnum = dnum + 8;
++
++		dev_dbg(dev, "sensor block[%d]: type: %s, sensor_num: %d\n", b,
++			sensor_type, sensor_num);
++
++		if (strncmp(sensor_type, "FREQ", 4) == 0) {
++			rc = occ_renew_sensor(resp, sensor_length, sensor_num,
++					      FREQ, b);
++			if (rc)
++				continue;
++
++			resp->sensor_block_id[FREQ] = b;
++			for (s = 0; s < sensor_num; s++) {
++				f_sensor = &resp->blocks[b].sensor[s];
++				f_sensor->sensor_id =
++					be16_to_cpup((const __be16 *)
++						     &data[dnum]);
++				f_sensor->value = be16_to_cpup((const __be16 *)
++							      &data[dnum + 2]);
++				dev_dbg(dev,
++					"sensor[%d]-[%d]: id: %u, value: %u\n",
++					b, s, f_sensor->sensor_id,
++					f_sensor->value);
++				dnum = dnum + sensor_length;
++			}
++		} else if (strncmp(sensor_type, "TEMP", 4) == 0) {
++			rc = occ_renew_sensor(resp, sensor_length,
++					      sensor_num, TEMP, b);
++			if (rc)
++				continue;
++
++			resp->sensor_block_id[TEMP] = b;
++			for (s = 0; s < sensor_num; s++) {
++				t_sensor = &resp->blocks[b].sensor[s];
++				t_sensor->sensor_id =
++					be16_to_cpup((const __be16 *)
++						     &data[dnum]);
++				t_sensor->value = be16_to_cpup((const __be16 *)
++							      &data[dnum + 2]);
++				dev_dbg(dev,
++					"sensor[%d]-[%d]: id: %u, value: %u\n",
++					b, s, t_sensor->sensor_id,
++					t_sensor->value);
++				dnum = dnum + sensor_length;
++			}
++		} else if (strncmp(sensor_type, "POWR", 4) == 0) {
++			rc = occ_renew_sensor(resp, sensor_length,
++				sensor_num, POWER, b);
++			if (rc)
++				continue;
++
++			resp->sensor_block_id[POWER] = b;
++			for (s = 0; s < sensor_num; s++) {
++				p_sensor = &resp->blocks[b].power[s];
++				p_sensor->sensor_id =
++					be16_to_cpup((const __be16 *)
++						     &data[dnum]);
++				p_sensor->update_tag =
++					be32_to_cpup((const __be32 *)
++						     &data[dnum + 2]);
++				p_sensor->accumulator =
++					be32_to_cpup((const __be32 *)
++						     &data[dnum + 6]);
++				p_sensor->value = be16_to_cpup((const __be16 *)
++							     &data[dnum + 10]);
++
++				dev_dbg(dev,
++					"sensor[%d]-[%d]: id: %u, value: %u\n",
++					b, s, p_sensor->sensor_id,
++					p_sensor->value);
++
++				dnum = dnum + sensor_length;
++			}
++		} else if (strncmp(sensor_type, "CAPS", 4) == 0) {
++			rc = occ_renew_sensor(resp, sensor_length,
++				sensor_num, CAPS, b);
++			if (rc)
++				continue;
++
++			resp->sensor_block_id[CAPS] = b;
++			for (s = 0; s < sensor_num; s++) {
++				c_sensor = &resp->blocks[b].caps[s];
++				c_sensor->curr_powercap =
++					be16_to_cpup((const __be16 *)
++						     &data[dnum]);
++				c_sensor->curr_powerreading =
++					be16_to_cpup((const __be16 *)
++						     &data[dnum + 2]);
++				c_sensor->norm_powercap =
++					be16_to_cpup((const __be16 *)
++						     &data[dnum + 4]);
++				c_sensor->max_powercap =
++					be16_to_cpup((const __be16 *)
++						     &data[dnum + 6]);
++				c_sensor->min_powercap =
++					be16_to_cpup((const __be16 *)
++						     &data[dnum + 8]);
++				c_sensor->user_powerlimit =
++					be16_to_cpup((const __be16 *)
++						     &data[dnum + 10]);
++
++				dnum = dnum + sensor_length;
++				dev_dbg(dev, "CAPS sensor #%d:\n", s);
++				dev_dbg(dev, "curr_powercap is %x\n",
++					c_sensor->curr_powercap);
++				dev_dbg(dev, "curr_powerreading is %x\n",
++					c_sensor->curr_powerreading);
++				dev_dbg(dev, "norm_powercap is %x\n",
++					c_sensor->norm_powercap);
++				dev_dbg(dev, "max_powercap is %x\n",
++					c_sensor->max_powercap);
++				dev_dbg(dev, "min_powercap is %x\n",
++					c_sensor->min_powercap);
++				dev_dbg(dev, "user_powerlimit is %x\n",
++					c_sensor->user_powerlimit);
++			}
++
++		} else {
++			dev_dbg(dev, "ERROR: sensor type %s not supported\n",
++				resp->blocks[b].sensor_type);
++			rc = -1;
++			goto err;
++		}
++
++		strncpy(resp->blocks[b].sensor_type, sensor_type, 4);
++		resp->blocks[b].sensor_format = sensor_format;
++		resp->blocks[b].sensor_length = sensor_length;
++		resp->blocks[b].sensor_num = sensor_num;
++	}
++
++	return 0;
++err:
++	deinit_occ_resp_buf(resp);
++	return rc;
++}
++
++static u8 occ_send_cmd(struct occ_driver *occ, u8 seq, u8 type, u16 length,
++		       u8 *data, u8 *resp)
+ {
+ 	u32 cmd1, cmd2;
+ 	u16 checksum;
+@@ -97,6 +486,85 @@ static u8 occ_send_cmd(struct occ_driver *occ, u8 seq, u8 type,
+ 	return resp[2];
  }
+ 
++static inline u16 get_occdata_length(u8 *data)
++{
++	return be16_to_cpup((const __be16 *)&data[RESP_DATA_LENGTH]);
++}
++
++static int occ_get_all(struct power8_driver *driver)
++{
++	int i, rc;
++	u8 *occ_data;
++	u16 num_bytes;
++	u8 poll_cmd_data = 0x10;
++	struct device *dev = driver->dev;
++	struct occ_driver *occ = driver->driver;
++	struct occ_response *resp = &driver->occ_response;
++
++	/*
++	 * TODO: fetch header, and then allocate the rest of the buffer based
++	 * on the header size. Assuming the OCC has a fixed sized header
++	 */
++	occ_data = devm_kzalloc(dev, OCC_DATA_MAX, GFP_KERNEL);
++	if (!occ_data)
++		return -ENOMEM;
++
++	rc = occ_send_cmd(occ, 0, 0, 1, &poll_cmd_data, occ_data);
++	if (rc) {
++		dev_err(dev, "ERROR: OCC Poll: 0x%x\n", rc);
++		rc = -EINVAL;
++		goto out;
++	}
++
++	num_bytes = get_occdata_length(occ_data);
++
++	dev_dbg(dev, "OCC data length: %d\n", num_bytes);
++
++	if (num_bytes > OCC_DATA_MAX) {
++		dev_dbg(dev, "ERROR: OCC data length must be < 4KB\n");
++		rc = -EINVAL;
++		goto out;
++	}
++
++	if (num_bytes <= 0) {
++		dev_dbg(dev, "ERROR: OCC data length is zero\n");
++		rc = -EINVAL;
++		goto out;
++	}
++
++	/* read remaining data */
++	for (i = 8; i < num_bytes + 8; i += 8)
++		occ->bus_ops.getscom(occ->bus, OCB_DATA, occ_data, i);
++
++	rc = parse_occ_response(driver, occ_data, resp);
++
++out:
++	devm_kfree(dev, occ_data);
++	return rc;
++}
++
++static int occ_update_device(struct power8_driver *driver)
++{
++	int rc = 0;
++
++	mutex_lock(&driver->update_lock);
++
++	if (time_after(jiffies, driver->last_updated + driver->update_interval)
++	    || !driver->valid) {
++		driver->valid = 1;
++
++		rc = occ_get_all(driver);
++		if (rc)
++			driver->valid = 0;
++
++		driver->last_updated = jiffies;
++	}
++
++	mutex_unlock(&driver->update_lock);
++
++	return rc;
++}
++
+ static ssize_t show_update_interval(struct device *dev,
+ 				    struct device_attribute *attr, char *buf)
+ {
+@@ -180,14 +648,28 @@ static void occ_remove_hwmon_attrs(struct power8_driver *driver)
+ {
+ 	struct device *dev = driver->dev;
+ 
++	device_remove_file(dev, &dev_attr_user_powercap);
+ 	device_remove_file(dev, &dev_attr_update_interval);
+ 	device_remove_file(dev, &dev_attr_name);
+ }
+ 
+ static int occ_create_hwmon_attrs(struct power8_driver *driver)
+ {
+-	int rc;
++	int i, rc;
+ 	struct device *dev = driver->dev;
++	struct occ_response *resp = &driver->occ_response;
++
++	for (i = 0; i < MAX_OCC_SENSOR_TYPE; ++i)
++		resp->sensor_block_id[i] = -1;
++
++	/* read sensor data from occ. */
++	rc = occ_update_device(driver);
++	if (rc != 0) {
++		dev_err(dev, "ERROR: cannot get occ sensor data: %d\n", rc);
++		return rc;
++	}
++	if (!resp->blocks)
++		return -1;
+ 
+ 	rc = device_create_file(dev, &dev_attr_name);
+ 	if (rc)
+@@ -197,9 +679,12 @@ static int occ_create_hwmon_attrs(struct power8_driver *driver)
+ 	if (rc)
+ 		goto error;
+ 
+-	/* skip powercap for now; we need to determine if CAPS response id
+-	 * is present first, which requires polling the OCC
+-	 */
++	if (resp->sensor_block_id[CAPS] >= 0) {
++		/* user powercap: only for master OCC */
++		rc = device_create_file(dev, &dev_attr_user_powercap);
++		if (rc)
++			goto error;
++	}
+ 
+ 	return 0;
+ 
 -- 
 1.9.1
