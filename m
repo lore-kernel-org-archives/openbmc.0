@@ -1,58 +1,49 @@
-Return-Path: <tpearson@raptorengineering.com>
-Received: from mail.rptsys.com (mail.rptsys.com [192.119.205.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <raltherr@google.com>
+Received: from mail-yb0-x22c.google.com (mail-yb0-x22c.google.com
+ [IPv6:2607:f8b0:4002:c09::22c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3svHrv1CxjzDsrf
- for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 02:31:26 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=raptorengineering.com header.i=@raptorengineering.com
- header.b=swUHiS04; dkim-atps=neutral
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 01DC2640445;
- Wed, 12 Oct 2016 10:31:22 -0500 (CDT)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id Xi20ODfWf50t; Wed, 12 Oct 2016 10:31:19 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 1F842641208;
- Wed, 12 Oct 2016 10:31:19 -0500 (CDT)
-DKIM-Filter: OpenDKIM Filter v2.9.2 mail.rptsys.com 1F842641208
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
- t=1476286279; bh=rnpcsMI0Qzz1Tohg5znDHb0ILByDODTSLa48QvvN6tk=;
- h=Message-ID:Date:From:MIME-Version:To:Subject:Content-Type:
- Content-Transfer-Encoding;
- b=swUHiS04yNcxerNaxqiRAfZ6FMQicV5BFAICjAglSqB9obPYq/wQo5FEpSRCLPVSx
- SmHEsf0Z79w61MNXsON6LBDHfxM6skGw090IjKHGty4eeYlrbfpU4tjMunlTQ0QUUI
- FP5vYhHlzXJhaG+VQDWVQc8gVaqq3ZCDoVL6bz+k=
-X-Virus-Scanned: amavisd-new at rptsys.com
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id HjqrfvFDwNZc; Wed, 12 Oct 2016 10:31:18 -0500 (CDT)
-Received: from [192.168.3.54] (apollo.starlink.edu [192.168.3.54])
- by mail.rptsys.com (Postfix) with ESMTP id A66E8640445;
- Wed, 12 Oct 2016 10:31:18 -0500 (CDT)
-Message-ID: <57FE5746.2030306@raptorengineeringinc.com>
-Date: Wed, 12 Oct 2016 10:31:18 -0500
-From: Timothy Pearson <tpearson@raptorengineering.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
- rv:1.9.2.9) Gecko/20100922 Thunderbird/3.1.4
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3svJtP6CJqzDsrf
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 03:17:48 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b=ASvk2spH; 
+ dkim-atps=neutral
+Received: by mail-yb0-x22c.google.com with SMTP id e20so21323668ybb.0
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 09:17:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=lqeHy8FaB1xZrLCaOGTNZMIOB/U8KuXjMFEMtTABZjs=;
+ b=ASvk2spHwFCDVKU/i09c6JzvmsXzu2Z5nt7bxqqn7y8NKwY9WDbY93EHruTbRfXnyc
+ d7qL7v3FOvWVOfSW2WjVcVx393ieZk8pM6rHA7b7SLz95bDOgTM4yLymnxwrxagxOEXk
+ 0aDu3mMaeH8h+j9KFje6hekKvcYTgfaEdEjiQ6T7hQh+ip14Bpk75rovitkIjgUskuw6
+ SES0eoontTDPr70TpBUtIUxRdOgYQs/H8lbQYEdPgmERg7Ib6NY4ETFgJwbmrx3mEWyQ
+ RV2IIrGBotVBsdGRekKvDB/2oWWD+FNXpzhK+Kc9O2MJ/MMa1DXWtu65z7909OdSeVQ7
+ 2haQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=lqeHy8FaB1xZrLCaOGTNZMIOB/U8KuXjMFEMtTABZjs=;
+ b=N8krGLeY+uflwBq0rWEZmsyps4eaPk22lrcmuWGpf7p7ZJzSjG4HOynBLgq7tj4flA
+ PdfTPLYpDVlDItDlXBT23cLVBr2CEaRkniX/G1omTJ1Ya/+xO8llrA081Bh1aKTPifdt
+ VTOLsHoYnAvIcq0v1LetE0cQbiSkl/RnW597NpRwO2vexOITB5Niz8mb2H1TBZDBRCfH
+ YD0ghkcxhiuYernWVr33em7iuvwYil7U0j+vXM/jQesHsFtpcEj2JS5i62SwF9jBLDZz
+ xtUM25SW1rDN9nw+QrNTWK6MLQcRWx+WBeY9jUYgKutYfdKG+tyP0035M8tlXVKuFyIp
+ MV9g==
+X-Gm-Message-State: AA6/9RnD6y5qTVIl5ag6DCHtW7+5xxkLbPxa9UExJ2HgwbcwZ968YKZZkY/3e7lm3fbP9ePKvCwYgAtKmU9kxx7k
+X-Received: by 10.37.75.198 with SMTP id y189mr1697282yba.146.1476289065802;
+ Wed, 12 Oct 2016 09:17:45 -0700 (PDT)
 MIME-Version: 1.0
-To: Joel Stanley <joel@jms.id.au>
-CC: Patrick Williams <patrick@stwcx.xyz>, 
- Matt Spinler <mspinler@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: I2C device driver names
-References: <b659d152-5481-193e-ce1b-520d3de7d2ba@linux.vnet.ibm.com>
- <CACPK8XdPfy7jN6ejsN=w_4wejy2zxBpwb8M3+b0GoLaW=0cKMw@mail.gmail.com>
- <20161007015152.GA17914@heinlein.lan>
- <CACPK8Xfwj82abqJS_j20WZFzwwPZke2y1FCHk3eoMTwJopxDpw@mail.gmail.com>
- <57FCFA02.8060001@raptorengineeringinc.com>
- <CACPK8XfcwECCYPgPYG5a5QqxGgtjH_ZQJyTfPuz=+HgGBWyevw@mail.gmail.com>
-In-Reply-To: <CACPK8XfcwECCYPgPYG5a5QqxGgtjH_ZQJyTfPuz=+HgGBWyevw@mail.gmail.com>
-X-Enigmail-Version: 1.1.2
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Received: by 10.37.160.4 with HTTP; Wed, 12 Oct 2016 09:17:45 -0700 (PDT)
+In-Reply-To: <1476246712-5397-1-git-send-email-jaghu@google.com>
+References: <1476246712-5397-1-git-send-email-jaghu@google.com>
+From: Rick Altherr <raltherr@google.com>
+Date: Wed, 12 Oct 2016 09:17:45 -0700
+Message-ID: <CAPLgG=mwL3BU+msiZLU020_B1ETk=ViXeAvce=Jnz8prBoKipQ@mail.gmail.com>
+Subject: Re: [PATCH] drivers: misc: Support for POST card display
+To: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary=94eb2c0944765b0032053ead5583
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,52 +55,1049 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Oct 2016 15:31:28 -0000
+X-List-Received-Date: Wed, 12 Oct 2016 16:17:51 -0000
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA1
+--94eb2c0944765b0032053ead5583
+Content-Type: text/plain; charset=UTF-8
 
-On 10/11/2016 06:11 PM, Joel Stanley wrote:
-> On Wed, Oct 12, 2016 at 1:41 AM, Timothy Pearson
-> <tpearson@raptorengineering.com> wrote:
->>> Yeah. I did ask that he spit out the maintainers part of that patch
->>> before we applied it.
->>>
->>> Timothy, are you able to make that change?
->>
->> No problem.  Updated version sent to the OpenBMC mailing list.
-> 
-> Thanks. I'll take a close look and add it to our tree today.
+Split this into multiple commits: platform driver, character driver, and
+device tree update.
 
-Sounds good, thanks!
+For the platform driver, your comments describe it as being solely for POST
+code output when in practice it can be used to display any integer.  Expand
+the comments to explain the type of hardware assumed (74HC164 wired to
+7-segment displays) so others can implement compatible hardware.
 
-> 
->>> Timothy, do you have any update on the rewrite?
->>
->> Not at this time.  I've requested a status update from the hwmon
->> maintainer that was working on it.
-> 
-> Cool. If you could, please me on future correspondence. I'd like to
-> keep a track of how it goes, and we might be able to offer some help
-> if the hwmon guys don't have time.
+On Tue, Oct 11, 2016 at 9:31 PM, Jaghathiswari Rankappagounder Natarajan <
+jaghu@google.com> wrote:
 
-I don't follow hwmon too closely, but if I hear anything I'll let you know!
+> Added a character driver and a platform driver to display Port80 codes
+> (written by the host) and additional codes (generated by the BMC)
+> on a POST card (two seven segment LEDs) ;
+> Tested that the post codes are displayed properly
+> on the POST card by writing to the character device.
+>
+> Signed-off-by: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
+> ---
+>  .../devicetree/bindings/misc/postcard-disp.txt     |  18 ++
+>  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts         |   8 +
+>  drivers/misc/Makefile                              |   2 +
+>  drivers/misc/update-bmc-postcode.c                 | 117 +++++++++++
+>  drivers/misc/update-postcard.c                     | 219
+> +++++++++++++++++++++
+>  drivers/misc/update-postcard.h                     |   1 +
+>  6 files changed, 365 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/misc/postcard-disp.
+> txt
+>  create mode 100644 drivers/misc/update-bmc-postcode.c
+>  create mode 100644 drivers/misc/update-postcard.c
+>  create mode 100644 drivers/misc/update-postcard.h
+>
+> diff --git a/Documentation/devicetree/bindings/misc/postcard-disp.txt
+> b/Documentation/devicetree/bindings/misc/postcard-disp.txt
+> new file mode 100644
+> index 0000000..164449e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/misc/postcard-disp.txt
+> @@ -0,0 +1,18 @@
+> +POST card display (two seven segment LEDs) connected to GPIO lines
+> +
+> +Required properties:
+> +- compatible : should be "postcard-display".
+> +- clk-gpios :  Should specify the GPIO pin connected to the Clock line on
+> the POST card.
+> +- data-gpios : Should specify the GPIO pin connected to Data line on the
+> POST card.
+> +- clear-gpios : Should specify the GPIO pin connected to Clear line on
+> the POST card.
+> +
+> +Examples:
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +
+> +postcard {
+> +       compatible = "postcard-display";
+> +       clk-gpios = <&gpio 0 GPIO_ACTIVE_LOW>;
+> +       data-gpios = <&gpio 1 GPIO_ACTIVE_HIGH>;
+> +       clear-gpios = <&gpio 1 GPIO_ACTIVE_HIGH>;
+> +};
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> index 4c4754b..d555ff1 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> @@ -1,6 +1,7 @@
+>  /dts-v1/;
+>
+>  #include "aspeed-g5.dtsi"
+> +#include <dt-bindings/gpio/aspeed-gpio.h>
+>
+>  / {
+>         model = "Zaius BMC";
+> @@ -58,6 +59,13 @@
+>                         };
+>                 };
+>         };
+> +
+> +       postcard {
+> +               compatible = "postcard-display";
+> +               clk-gpios = <&gpio ASPEED_GPIO(J, 0) GPIO_ACTIVE_HIGH>;
+> +               data-gpios = <&gpio ASPEED_GPIO(J, 2) GPIO_ACTIVE_HIGH>;
+> +               clr-gpios = <&gpio ASPEED_GPIO(J, 1) GPIO_ACTIVE_HIGH>;
+> +       };
+>  };
+>
+>  &uart5 {
+> diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
+> index 724861b..04184b9 100644
+> --- a/drivers/misc/Makefile
+> +++ b/drivers/misc/Makefile
+> @@ -58,3 +58,5 @@ obj-$(CONFIG_VEXPRESS_SYSCFG) += vexpress-syscfg.o
+>  obj-$(CONFIG_CXL_BASE)         += cxl/
+>  obj-$(CONFIG_PANEL)             += panel.o
+>  obj-$(CONFIG_ASPEED_BT_IPMI_HOST)      += bt-host.o
+> +obj-y                          += update-postcard.o
+> +obj-y                          += update-bmc-postcode.o
+> diff --git a/drivers/misc/update-bmc-postcode.c b/drivers/misc/update-bmc-
+> postcode.c
+> new file mode 100644
+> index 0000000..0b5ded5
+> --- /dev/null
+> +++ b/drivers/misc/update-bmc-postcode.c
+> @@ -0,0 +1,117 @@
+> +#include <linux/module.h>
+> +#include <linux/version.h>
+> +#include <linux/kernel.h>
+> +#include <linux/types.h>
+> +#include <linux/kdev_t.h>
+> +#include <linux/fs.h>
+> +#include <linux/device.h>
+> +#include <linux/cdev.h>
+> +#include <linux/uaccess.h>
+> +#include <linux/ctype.h>
+> +
+> +#include "update-postcard.h"
+> +
+> +#define MAX_POSTCODE_SIZE 3
+> +
+> +static dev_t bmc_state_dev;
+> +static struct cdev c_dev;
+> +static struct class *bmc_state_class;
+> +
+> +static int bmc_state_open(struct inode *i, struct file *f)
+> +{
+> +       return 0;
+> +}
+> +
+> +static int bmc_state_close(struct inode *i, struct file *f)
+> +{
+> +       return 0;
+> +}
+> +
+> +static ssize_t bmc_state_read(struct file *f, char __user *buf, size_t
+> +                               len, loff_t *off)
+> +{
+> +       return 0;
+> +}
+> +
+> +/* Write post code from bmc to the correct variable */
+> +static ssize_t bmc_state_write(struct file *f, const char __user *buf,
+> +                               size_t len, loff_t *off)
+> +{
+> +       char tmp[MAX_POSTCODE_SIZE];
+> +       int length = len - 1;
+> +       int i;
+> +
+> +       if (length != MAX_POSTCODE_SIZE) {
+> +               return -EINVAL;
+> +       }
+> +
+> +       if (copy_from_user(tmp, buf, length) != 0) {
+> +               return -EFAULT;
+> +       }
+> +
+> +       for (i = 0; i < MAX_POSTCODE_SIZE; i++) {
+> +               if (!isxdigit(tmp[i]))
+> +                       return -EINVAL;
+> +       }
+> +
+> +       update_postcode(tmp);
+> +       return len;
+> +}
+> +
+> +static const struct file_operations bmc_state_fops = {
+> +
+> +       .owner = THIS_MODULE,
+> +       .open = bmc_state_open,
+> +       .release = bmc_state_close,
+> +       .read = bmc_state_read,
+> +       .write = bmc_state_write
+> +};
+> +
+> +static int __init update_bmc_pc_init(void) /* Constructor */
+> +{
+> +       if (alloc_chrdev_region(&bmc_state_dev, 0, 1, "bmc_state") < 0) {
+> +               return -1;
+> +       }
+> +
+> +       bmc_state_class = class_create(THIS_MODULE, "bmc_state");
+> +       if (bmc_state_class == NULL) {
+> +               goto unregister;
+> +               return -1;
+> +       }
+> +
+> +       if (device_create(bmc_state_class, NULL, bmc_state_dev,
+> +               NULL, "current_state") == NULL) {
+> +               goto class_destroy;
+> +               return -1;
+> +       }
+> +
+> +       cdev_init(&c_dev, &bmc_state_fops);
+> +       if (cdev_add(&c_dev, bmc_state_dev, 1) == -1) {
+> +               goto device_destroy;
+> +               return -1;
+> +       }
+> +
+> +       return 0;
+> +
+> +device_destroy:
+> +               device_destroy(bmc_state_class, bmc_state_dev);
+> +class_destroy:
+> +               class_destroy(bmc_state_class);
+> +unregister:
+> +               unregister_chrdev_region(bmc_state_dev, 1);
+> +       return -1;
+> +}
+> +
+> +static void __exit update_bmc_pc_exit(void)
+> +{
+> +       cdev_del(&c_dev);
+> +       device_destroy(bmc_state_class, bmc_state_dev);
+> +       class_destroy(bmc_state_class);
+> +       unregister_chrdev_region(bmc_state_dev, 1);
+> +}
+> +
+> +module_init(update_bmc_pc_init);
+> +module_exit(update_bmc_pc_exit);
+> +MODULE_LICENSE("GPL");
+> +MODULE_AUTHOR("Jaghathiswari Rankappagounder Natarajan <jaghu@google.com
+> >");
+> +MODULE_DESCRIPTION("Character driver - update bmc postcode");
+> diff --git a/drivers/misc/update-postcard.c b/drivers/misc/update-
+> postcard.c
+> new file mode 100644
+> index 0000000..4b51d70
+> --- /dev/null
+> +++ b/drivers/misc/update-postcard.c
+> @@ -0,0 +1,219 @@
+> +/* Display Port80 codes (written by the host) and
+> + * additional codes (generated by the EC) to two seven segment LEDs
+> + */
+> +
+> +#include <linux/kernel.h>
+> +#include <linux/module.h>
+> +#include <linux/timer.h>
+> +#include <linux/jiffies.h>
+> +#include <linux/sizes.h>
+> +#include <linux/map_to_7segment.h>
+> +#include <linux/io.h>
+> +#include <linux/delay.h>
+> +#include <linux/uaccess.h>
+> +#include <linux/mutex.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/gpio/consumer.h>
+> +
+> +#define POST_CODE_UPDATE_INTVL 1000
+> +
+> +#define MAX_PC_SIZE 3
+> +
+> +#define LED_DOT 0x01
+> +
+> +#define CLOCK_GPIO_NAME "clk"
+> +#define DATA_GPIO_NAME "data"
+> +#define CLEAR_GPIO_NAME "clr"
+> +
+> +static struct mutex mutex;
+> +
+> +static struct timer_list update_timer;
+> +
+> +static char curr_postcode[3];
+> +static u8 pc_valid;
+> +
+> +static struct gpio_desc *clk_gpio;
+> +static struct gpio_desc *data_gpio;
+> +static struct gpio_desc *clr_gpio;
+> +
+> +/*
+> + * 0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
+> + *  _       _   _       _   _   _   _   _   _       _       _   _
+> + * | |   |  _|  _| |_| |_  |_    | |_| |_| |_| |_  |    _| |_  |_
+> + * |_|   | |_   _|   |  _| |_|   | |_|   | | | |_| |_  |_| |_  |
+> + *
+> + * data[7:1] = led[a:g]
+> + * lookup table used for both bytes of lpc post code and lower byte of
+> + * bmc post code
+> + */
+> +const u8 seven_seg_bits[] = {
+> +       0xFC, 0x60, 0xDA, 0xF2, 0x66, 0xB6, 0xBE, 0xE0,
+> +       0xFE, 0xF6, 0xEE, 0x3E, 0x9C, 0x7A, 0x9E, 0x8E
+> +       };
+> +
+> +/*
+> + * 0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
+> + *      _       _   _                              _            _
+> + *     |   |_  |_| |_  _   _   _   _   _   _   _  |_    _|  _| | |
+> + *     |_  |_  |   |                               _|  |_| |_| | |
+> + *
+> + * data[7:1] = led[a:g]
+> + * lookup table used for higher byte of bmc post code
+> + */
+> +const u8 special_seven_seg_bits[] = {
+> +       0x00, 0x9C, 0x1E, 0xCE, 0x8E, 0x02, 0x02, 0x02,
+> +       0x02, 0x02, 0x02, 0x02, 0xB6, 0x7A, 0x7A, 0xEC
+> +       };
+> +
+> +void update_postcode(char *buf)
+> +{
+> +       mutex_lock(&mutex);
+> +       strncpy(curr_postcode, buf, sizeof(curr_postcode));
+> +       mutex_unlock(&mutex);
+> +       pc_valid = 1;
+> +}
+> +EXPORT_SYMBOL(update_postcode);
+> +
+> +/* convert postcode to led pattern
+> + * 7-bits used for each 7-seg display and
+> + * 1 bit used for the 'dot' on both digits.
+> + *
+> + *  @param N/A
+> + *  @return N/A
+> + */
+> +static u16 postcode_to_led_signal(void)
+> +{
+> +       u8 low_display;
+> +       u8 high_display;
+> +       u16 led_value;
+> +       char buf[3];
+> +
+> +       mutex_lock(&mutex);
+> +       strncpy(buf, curr_postcode, sizeof(buf));
+> +       mutex_unlock(&mutex);
+> +
+> +       low_display = seven_seg_bits[hex_to_bin(buf[2])];
+> +
+> +       high_display = (buf[0] == '1') ?
+> +               special_seven_seg_bits[hex_to_bin(buf[1])] :
+> +               seven_seg_bits[hex_to_bin(buf[1])];
+> +
+> +       led_value = low_display | (high_display << 8);
+> +       if (buf[0] == '1') {
+> +               led_value |= LED_DOT | (LED_DOT << 8);
+> +       }
+> +
+> +       return led_value;
+> +}
+> +
+> +static void update_sgpio(void)
+> +{
+> +       u16 led_signal;
+> +       int i;
+> +
+> +       /* Convert two bytes of post code to 16 bit led pattern */
+> +       led_signal = postcode_to_led_signal();
+> +
+> +       /* Set the clear signal to low */
+> +       gpiod_set_value(clr_gpio, 0);
+> +       udelay(1);
+> +       /* Set the clear clear to high */
+> +       gpiod_set_value(clr_gpio, 1);
+> +       udelay(1);
+> +
+> +       /* Bitbang the 16 bit led pattern
+> +        * 7-bits used for each 7-seg display
+> +        * 1 bit used for the 'dot' on both digits
+> +        */
+> +       for (i = 0; i < 16; i++) {
+> +               if (led_signal & 0x01) {
+> +                       /* Set the data signal to high */
+> +                       gpiod_set_value(data_gpio, 1);
+> +               } else {
+> +                       /* Set the data signal to low */
+> +                       gpiod_set_value(data_gpio, 0);
+> +               }
+> +               udelay(1);
+> +
+> +               /* Set the clock signal to low */
+> +               gpiod_set_value(clk_gpio, 0);
+> +               udelay(1);
+> +               /* Set the clock signal to high */
+> +               gpiod_set_value(clk_gpio, 1);
+> +               udelay(1);
+> +
+> +               led_signal >>= 1;
+> +       }
+> +}
+> +
+> +static void update_timer_handler(unsigned long data)
+> +{
+> +       if (pc_valid == 1) {
+> +               update_sgpio();
+> +       }
+> +       mod_timer(&update_timer,
+> +               jiffies + msecs_to_jiffies(POST_CODE_UPDATE_INTVL));
+> +}
+> +
+> +static const struct of_device_id of_postcard_match[] = {
+> +               { .compatible = "postcard-display" },
+> +                       {},
+> +};
+> +
+> +MODULE_DEVICE_TABLE(of, of_postcard_match);
+> +
+> +static int postcard_probe(struct platform_device *pdev)
+> +{
+> +       int result;
+> +       struct device *dev = &pdev->dev;
+> +
+> +       /* Requesting the clock gpio */
+> +       clk_gpio = devm_gpiod_get(dev, CLOCK_GPIO_NAME,
+> +               GPIOD_OUT_HIGH);
+> +       if (IS_ERR(clk_gpio))
+> +               return PTR_ERR(data_gpio);
+> +
+> +       /* Requesting the data gpio */
+> +       data_gpio = devm_gpiod_get(dev, DATA_GPIO_NAME,
+> +               GPIOD_OUT_HIGH);
+> +       if (IS_ERR(data_gpio))
+> +               return PTR_ERR(data_gpio);
+> +
+> +       /* Requesting the clear gpio */
+> +       clr_gpio = devm_gpiod_get(dev, CLEAR_GPIO_NAME,
+> +               GPIOD_OUT_HIGH);
+> +       if (IS_ERR(clr_gpio))
+> +               return PTR_ERR(clr_gpio);
+> +
+> +       /* Start timer to update post code every second */
+> +       setup_timer(&update_timer, update_timer_handler, 0);
+> +       result = mod_timer(&update_timer,
+> +               jiffies + msecs_to_jiffies(POST_CODE_UPDATE_INTVL));
+> +
+> +       if (result)
+> +               return result;
+> +
+> +       mutex_init(&mutex);
+> +
+> +       return 0;
+> +}
+> +
+> +static void postcard_remove(struct platform_device *pdev)
+> +{
+> +       del_timer(&update_timer);
+> +}
+> +
+> +static struct platform_driver postcard_display_driver = {
+> +       .probe          = postcard_probe,
+> +       .shutdown       = postcard_remove,
+> +       .driver         = {
+> +               .name   = "postcard-display",
+> +               .of_match_table = of_postcard_match,
+> +       },
+> +};
+> +
+> +module_platform_driver(postcard_display_driver);
+> +
+> +MODULE_LICENSE("GPL");
+> +MODULE_AUTHOR("Jaghathiswari Rankappagounder Natarajan <jaghu@google.com
+> >");
+> +MODULE_DESCRIPTION("Post card display update driver");
+> diff --git a/drivers/misc/update-postcard.h b/drivers/misc/update-
+> postcard.h
+> new file mode 100644
+> index 0000000..ef82e9091d
+> --- /dev/null
+> +++ b/drivers/misc/update-postcard.h
+> @@ -0,0 +1 @@
+> +void update_postcode(char *buf);
+> --
+> 2.8.0.rc3.226.g39d4020
+>
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+>
 
-- -- 
-Timothy Pearson
-Raptor Engineering
-+1 (415) 727-8645 (direct line)
-+1 (512) 690-0200 (switchboard)
-https://www.raptorengineering.com
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.11 (GNU/Linux)
-Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org/
+--94eb2c0944765b0032053ead5583
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-iQEcBAEBAgAGBQJX/ldEAAoJEK+E3vEXDOFbVJkH/iUBsjkWPw4GZGfFU/6+b8Mx
-qOquV1/kRXsbV3O/hjJSAbXBjRlfv7S/jCFMmnsxoMoAYzhG0rRANXBMycE9jkSi
-raD2VZs48vgbUGwihrB4FlmuUHcKg8i1QkRNe70hYF0dusasKmNYeDJbt+mKRT4C
-KbHAbjh9TOj52SsDz+uFmEa+iSmuOvZn4nGkMXmXRT9TuPwj4Wu/TsUeRo0CbubJ
-uQCisOyqGQhdZowbJWxgWemr32u9lpXxa3b8OpMI7z3hPT2iB0E6/B28gpg9Hd3u
-8XeY6co7ei+rMS89JqooXGZbV0V1A9E74e/vXAe9MLkICFfTw1Mo45nyXrBtCsw=
-=CDeR
------END PGP SIGNATURE-----
+<div dir=3D"ltr">Split this into multiple commits: platform driver, charact=
+er driver, and device tree update. =C2=A0<div><br></div><div>For the platfo=
+rm driver, your comments describe it as being solely for POST code output w=
+hen in practice it can be used to display any integer.=C2=A0 Expand the com=
+ments to explain the type of hardware assumed (74HC164 wired to 7-segment d=
+isplays) so others can implement compatible hardware. =C2=A0</div></div><di=
+v class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Tue, Oct 11, 2016=
+ at 9:31 PM, Jaghathiswari Rankappagounder Natarajan <span dir=3D"ltr">&lt;=
+<a href=3D"mailto:jaghu@google.com" target=3D"_blank">jaghu@google.com</a>&=
+gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 =
+0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Added a character drive=
+r and a platform driver to display Port80 codes<br>
+(written by the host) and additional codes (generated by the BMC)<br>
+on a POST card (two seven segment LEDs) ;<br>
+Tested that the post codes are displayed properly<br>
+on the POST card by writing to the character device.<br>
+<br>
+Signed-off-by: Jaghathiswari Rankappagounder Natarajan &lt;<a href=3D"mailt=
+o:jaghu@google.com">jaghu@google.com</a>&gt;<br>
+---<br>
+=C2=A0.../devicetree/bindings/misc/<wbr>postcard-disp.txt=C2=A0 =C2=A0 =C2=
+=A0|=C2=A0 18 ++<br>
+=C2=A0arch/arm/boot/dts/aspeed-bmc-<wbr>opp-zaius.dts=C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0|=C2=A0 =C2=A08 +<br>
+=C2=A0drivers/misc/Makefile=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A02 +<=
+br>
+=C2=A0drivers/misc/update-bmc-<wbr>postcode.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 117 +++++++++++<br>
+=C2=A0drivers/misc/update-postcard.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 219 +++++++++++++++++++++<br>
+=C2=A0drivers/misc/update-postcard.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A01 +<br>
+=C2=A06 files changed, 365 insertions(+)<br>
+=C2=A0create mode 100644 Documentation/devicetree/<wbr>bindings/misc/postca=
+rd-disp.<wbr>txt<br>
+=C2=A0create mode 100644 drivers/misc/update-bmc-<wbr>postcode.c<br>
+=C2=A0create mode 100644 drivers/misc/update-postcard.c<br>
+=C2=A0create mode 100644 drivers/misc/update-postcard.h<br>
+<br>
+diff --git a/Documentation/devicetree/<wbr>bindings/misc/postcard-disp.<wbr=
+>txt b/Documentation/devicetree/<wbr>bindings/misc/postcard-disp.<wbr>txt<b=
+r>
+new file mode 100644<br>
+index 0000000..164449e<br>
+--- /dev/null<br>
++++ b/Documentation/devicetree/<wbr>bindings/misc/postcard-disp.<wbr>txt<br=
+>
+@@ -0,0 +1,18 @@<br>
++POST card display (two seven segment LEDs) connected to GPIO lines<br>
++<br>
++Required properties:<br>
++- compatible : should be &quot;postcard-display&quot;.<br>
++- clk-gpios :=C2=A0 Should specify the GPIO pin connected to the Clock lin=
+e on the POST card.<br>
++- data-gpios : Should specify the GPIO pin connected to Data line on the P=
+OST card.<br>
++- clear-gpios : Should specify the GPIO pin connected to Clear line on the=
+ POST card.<br>
++<br>
++Examples:<br>
++<br>
++#include &lt;dt-bindings/gpio/gpio.h&gt;<br>
++<br>
++postcard {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0compatible =3D &quot;postcard-display&quot;;<br=
+>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0clk-gpios =3D &lt;&amp;gpio 0 GPIO_ACTIVE_LOW&g=
+t;;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0data-gpios =3D &lt;&amp;gpio 1 GPIO_ACTIVE_HIGH=
+&gt;;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0clear-gpios =3D &lt;&amp;gpio 1 GPIO_ACTIVE_HIG=
+H&gt;;<br>
++};<br>
+diff --git a/arch/arm/boot/dts/aspeed-<wbr>bmc-opp-zaius.dts b/arch/arm/boo=
+t/dts/aspeed-<wbr>bmc-opp-zaius.dts<br>
+index 4c4754b..d555ff1 100644<br>
+--- a/arch/arm/boot/dts/aspeed-<wbr>bmc-opp-zaius.dts<br>
++++ b/arch/arm/boot/dts/aspeed-<wbr>bmc-opp-zaius.dts<br>
+@@ -1,6 +1,7 @@<br>
+=C2=A0/dts-v1/;<br>
+<br>
+=C2=A0#include &quot;aspeed-g5.dtsi&quot;<br>
++#include &lt;dt-bindings/gpio/aspeed-gpio.<wbr>h&gt;<br>
+<br>
+=C2=A0/ {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 model =3D &quot;Zaius BMC&quot;;<br>
+@@ -58,6 +59,13 @@<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 };<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 };<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 };<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0postcard {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0compatible =3D &quo=
+t;postcard-display&quot;;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0clk-gpios =3D &lt;&=
+amp;gpio ASPEED_GPIO(J, 0) GPIO_ACTIVE_HIGH&gt;;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0data-gpios =3D &lt;=
+&amp;gpio ASPEED_GPIO(J, 2) GPIO_ACTIVE_HIGH&gt;;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0clr-gpios =3D &lt;&=
+amp;gpio ASPEED_GPIO(J, 1) GPIO_ACTIVE_HIGH&gt;;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
+=C2=A0};<br>
+<br>
+=C2=A0&amp;uart5 {<br>
+diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile<br>
+index 724861b..04184b9 100644<br>
+--- a/drivers/misc/Makefile<br>
++++ b/drivers/misc/Makefile<br>
+@@ -58,3 +58,5 @@ obj-$(CONFIG_VEXPRESS_SYSCFG) +=3D vexpress-syscfg.o<br>
+=C2=A0obj-$(CONFIG_CXL_BASE)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+=3D cxl/<br>
+=C2=A0obj-$(CONFIG_PANEL)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+=
+=3D panel.o<br>
+=C2=A0obj-$(CONFIG_ASPEED_BT_IPMI_<wbr>HOST)=C2=A0 =C2=A0 =C2=A0 +=3D bt-ho=
+st.o<br>
++obj-y=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 +=3D update-postcard.o<br>
++obj-y=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 +=3D update-bmc-postcode.o<br>
+diff --git a/drivers/misc/update-bmc-<wbr>postcode.c b/drivers/misc/update-=
+bmc-<wbr>postcode.c<br>
+new file mode 100644<br>
+index 0000000..0b5ded5<br>
+--- /dev/null<br>
++++ b/drivers/misc/update-bmc-<wbr>postcode.c<br>
+@@ -0,0 +1,117 @@<br>
++#include &lt;linux/module.h&gt;<br>
++#include &lt;linux/version.h&gt;<br>
++#include &lt;linux/kernel.h&gt;<br>
++#include &lt;linux/types.h&gt;<br>
++#include &lt;linux/kdev_t.h&gt;<br>
++#include &lt;linux/fs.h&gt;<br>
++#include &lt;linux/device.h&gt;<br>
++#include &lt;linux/cdev.h&gt;<br>
++#include &lt;linux/uaccess.h&gt;<br>
++#include &lt;linux/ctype.h&gt;<br>
++<br>
++#include &quot;update-postcard.h&quot;<br>
++<br>
++#define MAX_POSTCODE_SIZE 3<br>
++<br>
++static dev_t bmc_state_dev;<br>
++static struct cdev c_dev;<br>
++static struct class *bmc_state_class;<br>
++<br>
++static int bmc_state_open(struct inode *i, struct file *f)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
++}<br>
++<br>
++static int bmc_state_close(struct inode *i, struct file *f)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
++}<br>
++<br>
++static ssize_t bmc_state_read(struct file *f, char __user *buf, size_t<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0len, loff_t *off)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
++}<br>
++<br>
++/* Write post code from bmc to the correct variable */<br>
++static ssize_t bmc_state_write(struct file *f, const char __user *buf,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0size_t len, loff_t *off)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0char tmp[MAX_POSTCODE_SIZE];<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0int length =3D len - 1;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0int i;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (length !=3D MAX_POSTCODE_SIZE) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (copy_from_user(tmp, buf, length) !=3D 0) {<=
+br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EFAULT;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; MAX_POSTCODE_SIZE; i++) {<=
+br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!isxdigit(tmp[i=
+]))<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0return -EINVAL;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0update_postcode(tmp);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return len;<br>
++}<br>
++<br>
++static const struct file_operations bmc_state_fops =3D {<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0.owner =3D THIS_MODULE,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0.open =3D bmc_state_open,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0.release =3D bmc_state_close,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0.read =3D bmc_state_read,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0.write =3D bmc_state_write<br>
++};<br>
++<br>
++static int __init update_bmc_pc_init(void) /* Constructor */<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (alloc_chrdev_region(&amp;bmc_<wbr>state_dev=
+, 0, 1, &quot;bmc_state&quot;) &lt; 0) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -1;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0bmc_state_class =3D class_create(THIS_MODULE, &=
+quot;bmc_state&quot;);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (bmc_state_class =3D=3D NULL) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto unregister;<br=
+>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -1;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (device_create(bmc_state_<wbr>class, NULL, b=
+mc_state_dev,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0NULL, &quot;current=
+_state&quot;) =3D=3D NULL) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto class_destroy;=
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -1;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0cdev_init(&amp;c_dev, &amp;bmc_state_fops);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (cdev_add(&amp;c_dev, bmc_state_dev, 1) =3D=
+=3D -1) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto device_destroy=
+;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -1;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
++<br>
++device_destroy:<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0device_destroy(bmc_=
+state_<wbr>class, bmc_state_dev);<br>
++class_destroy:<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0class_destroy(bmc_s=
+tate_class)<wbr>;<br>
++unregister:<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unregister_chrdev_r=
+egion(bmc_<wbr>state_dev, 1);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return -1;<br>
++}<br>
++<br>
++static void __exit update_bmc_pc_exit(void)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0cdev_del(&amp;c_dev);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0device_destroy(bmc_state_<wbr>class, bmc_state_=
+dev);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0class_destroy(bmc_state_class)<wbr>;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0unregister_chrdev_region(bmc_<wbr>state_dev, 1)=
+;<br>
++}<br>
++<br>
++module_init(update_bmc_pc_<wbr>init);<br>
++module_exit(update_bmc_pc_<wbr>exit);<br>
++MODULE_LICENSE(&quot;GPL&quot;);<br>
++MODULE_AUTHOR(&quot;Jaghathiswari Rankappagounder Natarajan &lt;<a href=3D=
+"mailto:jaghu@google.com">jaghu@google.com</a>&gt;&quot;);<br>
++MODULE_DESCRIPTION(&quot;Character driver - update bmc postcode&quot;);<br=
+>
+diff --git a/drivers/misc/update-<wbr>postcard.c b/drivers/misc/update-<wbr=
+>postcard.c<br>
+new file mode 100644<br>
+index 0000000..4b51d70<br>
+--- /dev/null<br>
++++ b/drivers/misc/update-<wbr>postcard.c<br>
+@@ -0,0 +1,219 @@<br>
++/* Display Port80 codes (written by the host) and<br>
++ * additional codes (generated by the EC) to two seven segment LEDs<br>
++ */<br>
++<br>
++#include &lt;linux/kernel.h&gt;<br>
++#include &lt;linux/module.h&gt;<br>
++#include &lt;linux/timer.h&gt;<br>
++#include &lt;linux/jiffies.h&gt;<br>
++#include &lt;linux/sizes.h&gt;<br>
++#include &lt;linux/map_to_7segment.h&gt;<br>
++#include &lt;linux/io.h&gt;<br>
++#include &lt;linux/delay.h&gt;<br>
++#include &lt;linux/uaccess.h&gt;<br>
++#include &lt;linux/mutex.h&gt;<br>
++#include &lt;linux/of_platform.h&gt;<br>
++#include &lt;linux/gpio/consumer.h&gt;<br>
++<br>
++#define POST_CODE_UPDATE_INTVL 1000<br>
++<br>
++#define MAX_PC_SIZE 3<br>
++<br>
++#define LED_DOT 0x01<br>
++<br>
++#define CLOCK_GPIO_NAME &quot;clk&quot;<br>
++#define DATA_GPIO_NAME &quot;data&quot;<br>
++#define CLEAR_GPIO_NAME &quot;clr&quot;<br>
++<br>
++static struct mutex mutex;<br>
++<br>
++static struct timer_list update_timer;<br>
++<br>
++static char curr_postcode[3];<br>
++static u8 pc_valid;<br>
++<br>
++static struct gpio_desc *clk_gpio;<br>
++static struct gpio_desc *data_gpio;<br>
++static struct gpio_desc *clr_gpio;<br>
++<br>
++/*<br>
++ * 0=C2=A0 =C2=A01=C2=A0 =C2=A02=C2=A0 =C2=A03=C2=A0 =C2=A04=C2=A0 =C2=A05=
+=C2=A0 =C2=A06=C2=A0 =C2=A07=C2=A0 =C2=A08=C2=A0 =C2=A09=C2=A0 =C2=A0A=C2=
+=A0 =C2=A0B=C2=A0 =C2=A0C=C2=A0 =C2=A0D=C2=A0 =C2=A0E=C2=A0 =C2=A0F<br>
++ *=C2=A0 _=C2=A0 =C2=A0 =C2=A0 =C2=A0_=C2=A0 =C2=A0_=C2=A0 =C2=A0 =C2=A0 =
+=C2=A0_=C2=A0 =C2=A0_=C2=A0 =C2=A0_=C2=A0 =C2=A0_=C2=A0 =C2=A0_=C2=A0 =C2=
+=A0_=C2=A0 =C2=A0 =C2=A0 =C2=A0_=C2=A0 =C2=A0 =C2=A0 =C2=A0_=C2=A0 =C2=A0_<=
+br>
++ * | |=C2=A0 =C2=A0|=C2=A0 _|=C2=A0 _| |_| |_=C2=A0 |_=C2=A0 =C2=A0 | |_| =
+|_| |_| |_=C2=A0 |=C2=A0 =C2=A0 _| |_=C2=A0 |_<br>
++ * |_|=C2=A0 =C2=A0| |_=C2=A0 =C2=A0_|=C2=A0 =C2=A0|=C2=A0 _| |_|=C2=A0 =
+=C2=A0| |_|=C2=A0 =C2=A0| | | |_| |_=C2=A0 |_| |_=C2=A0 |<br>
++ *<br>
++ * data[7:1] =3D led[a:g]<br>
++ * lookup table used for both bytes of lpc post code and lower byte of<br>
++ * bmc post code<br>
++ */<br>
++const u8 seven_seg_bits[] =3D {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A00xFC, 0x60, 0xDA, 0xF2, 0x66, 0xB6, 0xBE, 0xE0,=
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A00xFE, 0xF6, 0xEE, 0x3E, 0x9C, 0x7A, 0x9E, 0x8E<=
+br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
++<br>
++/*<br>
++ * 0=C2=A0 =C2=A01=C2=A0 =C2=A02=C2=A0 =C2=A03=C2=A0 =C2=A04=C2=A0 =C2=A05=
+=C2=A0 =C2=A06=C2=A0 =C2=A07=C2=A0 =C2=A08=C2=A0 =C2=A09=C2=A0 =C2=A0A=C2=
+=A0 =C2=A0B=C2=A0 =C2=A0C=C2=A0 =C2=A0D=C2=A0 =C2=A0E=C2=A0 =C2=A0F<br>
++ *=C2=A0 =C2=A0 =C2=A0 _=C2=A0 =C2=A0 =C2=A0 =C2=A0_=C2=A0 =C2=A0_=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 _=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 _<br>
++ *=C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0|_=C2=A0 |_| |_=C2=A0 _=C2=A0 =C2=A0_=
+=C2=A0 =C2=A0_=C2=A0 =C2=A0_=C2=A0 =C2=A0_=C2=A0 =C2=A0_=C2=A0 =C2=A0_=C2=
+=A0 |_=C2=A0 =C2=A0 _|=C2=A0 _| | |<br>
++ *=C2=A0 =C2=A0 =C2=A0|_=C2=A0 |_=C2=A0 |=C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0_|=C2=A0 |_| |_| | |<br>
++ *<br>
++ * data[7:1] =3D led[a:g]<br>
++ * lookup table used for higher byte of bmc post code<br>
++ */<br>
++const u8 special_seven_seg_bits[] =3D {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A00x00, 0x9C, 0x1E, 0xCE, 0x8E, 0x02, 0x02, 0x02,=
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A00x02, 0x02, 0x02, 0x02, 0xB6, 0x7A, 0x7A, 0xEC<=
+br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
++<br>
++void update_postcode(char *buf)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0mutex_lock(&amp;mutex);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0strncpy(curr_postcode, buf, sizeof(curr_postcod=
+e));<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0mutex_unlock(&amp;mutex);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0pc_valid =3D 1;<br>
++}<br>
++EXPORT_SYMBOL(update_<wbr>postcode);<br>
++<br>
++/* convert postcode to led pattern<br>
++ * 7-bits used for each 7-seg display and<br>
++ * 1 bit used for the &#39;dot&#39; on both digits.<br>
++ *<br>
++ *=C2=A0 @param N/A<br>
++ *=C2=A0 @return N/A<br>
++ */<br>
++static u16 postcode_to_led_signal(void)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0u8 low_display;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0u8 high_display;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0u16 led_value;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0char buf[3];<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0mutex_lock(&amp;mutex);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0strncpy(buf, curr_postcode, sizeof(buf));<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0mutex_unlock(&amp;mutex);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0low_display =3D seven_seg_bits[hex_to_bin(buf[<=
+wbr>2])];<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0high_display =3D (buf[0] =3D=3D &#39;1&#39;) ?<=
+br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0special_seven_seg_b=
+its[hex_to_<wbr>bin(buf[1])] :<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0seven_seg_bits[hex_=
+to_bin(buf[<wbr>1])];<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0led_value =3D low_display | (high_display &lt;&=
+lt; 8);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (buf[0] =3D=3D &#39;1&#39;) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0led_value |=3D LED_=
+DOT | (LED_DOT &lt;&lt; 8);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return led_value;<br>
++}<br>
++<br>
++static void update_sgpio(void)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0u16 led_signal;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0int i;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Convert two bytes of post code to 16 bit led=
+ pattern */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0led_signal =3D postcode_to_led_signal();<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Set the clear signal to low */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0gpiod_set_value(clr_gpio, 0);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0udelay(1);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Set the clear clear to high */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0gpiod_set_value(clr_gpio, 1);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0udelay(1);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Bitbang the 16 bit led pattern<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * 7-bits used for each 7-seg display<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * 1 bit used for the &#39;dot&#39; on both dig=
+its<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; 16; i++) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (led_signal &amp=
+; 0x01) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0/* Set the data signal to high */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0gpiod_set_value(data_gpio, 1);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0/* Set the data signal to low */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0gpiod_set_value(data_gpio, 0);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0udelay(1);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Set the clock si=
+gnal to low */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gpiod_set_value(clk=
+_gpio, 0);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0udelay(1);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Set the clock si=
+gnal to high */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gpiod_set_value(clk=
+_gpio, 1);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0udelay(1);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0led_signal &gt;&gt;=
+=3D 1;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++}<br>
++<br>
++static void update_timer_handler(unsigned long data)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (pc_valid =3D=3D 1) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0update_sgpio();<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0mod_timer(&amp;update_timer,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0jiffies + msecs_to_=
+jiffies(POST_CODE_<wbr>UPDATE_INTVL));<br>
++}<br>
++<br>
++static const struct of_device_id of_postcard_match[] =3D {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0{ .compatible =3D &=
+quot;postcard-display&quot; },<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0{},<br>
++};<br>
++<br>
++MODULE_DEVICE_TABLE(of, of_postcard_match);<br>
++<br>
++static int postcard_probe(struct platform_device *pdev)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0int result;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0struct device *dev =3D &amp;pdev-&gt;dev;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Requesting the clock gpio */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0clk_gpio =3D devm_gpiod_get(dev, CLOCK_GPIO_NAM=
+E,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0GPIOD_OUT_HIGH);<br=
+>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(clk_gpio))<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return PTR_ERR(data=
+_gpio);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Requesting the data gpio */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0data_gpio =3D devm_gpiod_get(dev, DATA_GPIO_NAM=
+E,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0GPIOD_OUT_HIGH);<br=
+>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(data_gpio))<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return PTR_ERR(data=
+_gpio);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Requesting the clear gpio */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0clr_gpio =3D devm_gpiod_get(dev, CLEAR_GPIO_NAM=
+E,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0GPIOD_OUT_HIGH);<br=
+>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(clr_gpio))<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return PTR_ERR(clr_=
+gpio);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Start timer to update post code every second=
+ */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0setup_timer(&amp;update_timer, update_timer_han=
+dler, 0);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0result =3D mod_timer(&amp;update_timer,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0jiffies + msecs_to_=
+jiffies(POST_CODE_<wbr>UPDATE_INTVL));<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (result)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return result;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0mutex_init(&amp;mutex);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
++}<br>
++<br>
++static void postcard_remove(struct platform_device *pdev)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0del_timer(&amp;update_timer);<br>
++}<br>
++<br>
++static struct platform_driver postcard_display_driver =3D {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0.probe=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =3D po=
+stcard_probe,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0.shutdown=C2=A0 =C2=A0 =C2=A0 =C2=A0=3D postcar=
+d_remove,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0.driver=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D {<=
+br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.name=C2=A0 =C2=A0=
+=3D &quot;postcard-display&quot;,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.of_match_table =3D=
+ of_postcard_match,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0},<br>
++};<br>
++<br>
++module_platform_driver(<wbr>postcard_display_driver);<br>
++<br>
++MODULE_LICENSE(&quot;GPL&quot;);<br>
++MODULE_AUTHOR(&quot;Jaghathiswari Rankappagounder Natarajan &lt;<a href=3D=
+"mailto:jaghu@google.com">jaghu@google.com</a>&gt;&quot;);<br>
++MODULE_DESCRIPTION(&quot;Post card display update driver&quot;);<br>
+diff --git a/drivers/misc/update-<wbr>postcard.h b/drivers/misc/update-<wbr=
+>postcard.h<br>
+new file mode 100644<br>
+index 0000000..ef82e9091d<br>
+--- /dev/null<br>
++++ b/drivers/misc/update-<wbr>postcard.h<br>
+@@ -0,0 +1 @@<br>
++void update_postcode(char *buf);<br>
+--<br>
+2.8.0.rc3.226.g39d4020<br>
+<br>
+______________________________<wbr>_________________<br>
+openbmc mailing list<br>
+<a href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a><br=
+>
+<a href=3D"https://lists.ozlabs.org/listinfo/openbmc" rel=3D"noreferrer" ta=
+rget=3D"_blank">https://lists.ozlabs.org/<wbr>listinfo/openbmc</a><br>
+</blockquote></div><br></div>
+
+--94eb2c0944765b0032053ead5583--
