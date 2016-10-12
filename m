@@ -1,58 +1,28 @@
-Return-Path: <cyrilbur@gmail.com>
-Received: from mail-pf0-x22c.google.com (mail-pf0-x22c.google.com
- [IPv6:2607:f8b0:400e:c00::22c])
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (ozlabs.org [103.22.144.67])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3stvy10cMRzDsrM
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 11:34:33 +1100 (AEDT)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sttzC6dN3zDsrM
- for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 10:50:31 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
- dkim=fail reason="signature verification failed" (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=Q1K2Eoia; 
- dkim-atps=neutral
-Received: by mail-pf0-x22c.google.com with SMTP id e6so9242454pfk.3
- for <openbmc@lists.ozlabs.org>; Tue, 11 Oct 2016 16:50:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=message-id:subject:from:to:cc:date:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=xtGBqbthNzl9u3mbF1ljH3SuMFsdRAAl/fOIfRFEATA=;
- b=Q1K2EoiaOOMIrtCFQLE34zXPRV0hdlZWbOouVuMcJPfiwlvUENf9H8gefvYIAsN2Wo
- IbPrgnfJBNV45enibcC7HcaNmV8Sk1L6adY3V1uwzm/sWush/6N8MN5SoTkzyYgTYYfn
- B6Svi5u9/uYI6+NQOLptucFzKKvVdL7NFGKNKBCaBK7Q6cXipwPZv0wu8NApNuSK1NLt
- Ky+Mg7cjczaJfMEZpZDbhz3geWJeTPJGy8vD8sw4d4qc62d//fokziUislz0GHNYecG0
- NerGbJUKFk3VAF0cN/uD6zKIzoPp0ieb56b0AByuIJDs53rpbMMomBUHmaPlqzTbX1T4
- wVTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=xtGBqbthNzl9u3mbF1ljH3SuMFsdRAAl/fOIfRFEATA=;
- b=CVTr0WYJTox7NlAm7zzV6IARZB29WOIlyEVAXKg5Pae7S5HVKAsKCuqZH+4PjTuCSB
- 6TpdaMjrwGNth7Ub9DWcTcls73MRSaVOSL4qX0yU8zM7oFFu7DDHY6uqg3L2rymnkcJT
- hb7aC/8QlFkY9TTkHjjDPUvqAKb445FmKltjAY3q5boHsC4MgDMMDEhnHQp2gM7sOC2V
- kqxpSm1/zJLuKgGGS0SXOKj6gfv1hQ5/mOXzOYOh7tHHkCKITColJiOoX1ynadVkWvJH
- aeCM2VJ6Vl7tkg3kFcInDg37NcZL27mfGCKcN8c2gfruqOG7hNjj+TUiprp/IccWtvMa
- wIKw==
-X-Gm-Message-State: AA6/9RlCIu4lDtPayWNyf2iJNyDmyGWGUVLkygaZBg+MtOH2nACo7eY96iJIetNqdBbGMQ==
-X-Received: by 10.98.93.210 with SMTP id n79mr816498pfj.69.1476229828768;
- Tue, 11 Oct 2016 16:50:28 -0700 (PDT)
-Received: from cyril.ozlabs.ibm.com ([122.99.82.10])
- by smtp.googlemail.com with ESMTPSA id r84sm6893520pfj.69.2016.10.11.16.50.26
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 11 Oct 2016 16:50:28 -0700 (PDT)
-Message-ID: <1476229824.719.0.camel@gmail.com>
-Subject: Re: libflash questions mostly relating to P9 bringup
-From: Cyril Bur <cyrilbur@gmail.com>
-To: Joel Stanley <joel@jms.id.au>, Xo Wang <xow@google.com>, Benjamin
- Herrenschmidt <benh@kernel.crashing.org>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Wed, 12 Oct 2016 10:50:24 +1100
-In-Reply-To: <CACPK8Xcyv2XLfZ1uawt=jcGDvX9cHOOMB9N9pGv5vV9gQ9objw@mail.gmail.com>
-References: <CAPH-5w5H-qYmjq+94U+jP=Wf57jdahO-jMZ1m=2gB9b8m8kAtA@mail.gmail.com>
- <CACPK8Xcyv2XLfZ1uawt=jcGDvX9cHOOMB9N9pGv5vV9gQ9objw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.20.5 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by ozlabs.org (Postfix) with ESMTPSA id 3stvy04QW7z9svs;
+ Wed, 12 Oct 2016 11:34:32 +1100 (AEDT)
+Subject: Re: [PATCH linux v3 17/18] drivers/fsi: Add GPIO master functionality
+To: christopher.lee.bostic@gmail.com, openbmc@lists.ozlabs.org
+References: <1476222003-99697-1-git-send-email-christopher.lee.bostic@gmail.com>
+ <1476222003-99697-18-git-send-email-christopher.lee.bostic@gmail.com>
+Cc: xxpetri@de.ibm.com, zahrens@us.ibm.com
+From: Jeremy Kerr <jk@ozlabs.org>
+Message-ID: <337bc0ed-9f0c-afb3-d35d-3962ab7a17b7@ozlabs.org>
+Date: Wed, 12 Oct 2016 08:34:31 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.2.0
+MIME-Version: 1.0
+In-Reply-To: <1476222003-99697-18-git-send-email-christopher.lee.bostic@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,126 +34,386 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Oct 2016 23:50:33 -0000
+X-List-Received-Date: Wed, 12 Oct 2016 00:34:33 -0000
 
-On Tue, 2016-10-11 at 17:55 +1100, Joel Stanley wrote:
-> On Sat, Sep 24, 2016 at 11:41 AM, Xo Wang <xow@google.com> wrote:
-> > 
-> > Hi folks,
-> > 
-> > I'm under the impression for P9 bringup we're sticking with BMC-
-> > side
-> > MMIO to set up host PNOR access (as in what the host is booting
-> > from
-> > over LPC). I see—and agree—that we're not gonna have MTD working by
-> > the time we need to boot early machines:
-> > https://github.com/openbmc/openbmc/issues/553
-> 
-> We have mtd support written and in testing. I plan to land it this
-> week.
-> 
-> I would like us to be able to disable /dev/mem access soon. pflash is
-> one area where we almost have the bits in place, so I think we should
-> push to go straight to the correct solution.
-> 
-> > 
-> > 
-> > What does libflash-based PNOR control look like? I mean the hacky
-> > way
-> > we're gonna use for the next month. This is how I *think* it works.
-> > 
-> > booting the host:
-> > 1) the SMC SPI flash master auto-detects (?) how to read like the
-> > FMC
-> > 2) Swiss Army aspeed.c do_x_setup() enables LPC/AHB bridge to the
-> > SPI
-> > flash window
-> > Is that it? Doesn't involve MTD or pflash at all and it just works?
-> 
-> Yes, I think so.
-> 
-> > 
-> > 
-> > updating PNOR from BMC:
-> > 1) org.openbmc.control.Flash's update method calls op-flasher
-> > 2) org.openbmc.control.Flasher invokes libflash erase and program
-> > 3) libflash arch_flash_arm_io.h (?) and friends
-> >   a. know how to talk to the flash controller (BMC_DIRECT)
-> >   b. map AHB, GPIO, and SMC window from /dev/mem
-> >   c. know the size of the host PNOR? (it looks hardcoded)
-> 
-> I suspect it uses the ffs header to determine the pnor size, but I do
-> not know that code well.
-> 
+Hi Chris,
 
-The ffs header has sizes but you could of course flash an ffs partition
-smaller than the total flash and then the ffs size wouldn't be the
-total size. If you mean the size of the flash, there are various
-mechanisms, in this case (PNOR from BMC) libflash has a mapping between
-flash chip ID and total size which it can report up to tools like
-pflash.
+> +static void add_crc(struct fsi_gpio_msg *cmd)
+> +{
+> +
+> +}
 
-Ideally this access method will go away in favour of the BMC kernel
-exposing the flash through /dev/mtd
+I'll send you some code to help with implementing this...
 
-In the case where you would want to know this on the host then it
-should be in the device-tree and subsequently exposed by the powernv
-flash driver (https://github.com/open-power/linux/blob/master/drivers/m
-td/devices/powernv_flash.c) though /proc/mtd
+> +
+> +static void set_clock(struct fsi_master_gpio *master)
+> +{
+> +	/* This delay is required - do not remove */
 
-> > 
-> > 
-> > updating PNOR from host:
-> > 1) whatever calls pflash on host
-> > 2) host libflash powerpc_io.c and friends poke BMC registers over
-> > LPC
-> >   a. write whatever LPC stuff that turns on iLPC2AHB, then use that
-> > to
-> > set GPIO and SMC window to LPC for host access
-> >   b. powerpc_io.c also overwrites the LPC/AHB bridge mapping
-> > (previous
-> > set by BMC kernel) with its own desired config
-> 
-> Hacky. Not really supported.
+We probably don't need these comments, as 'do not remove' applies to
+most of the code here :)
 
-Firstly I should apologise, if we're talking about https://github.com/o
-pen-power/skiboot/blob/master/external/pflash/powerpc_io.c, we
-shouldn't. That code isn't used anymore and I doubt it will work. I'll
-send patches to remove it!
+> +static void set_sda_input(struct fsi_master_gpio *master)
+> +{
+> +	gpiod_direction_input(master->gpio_data);
+> +	gpiod_direction_output(master->gpio_trans, 0);
+> +}
+> +
+> +static void set_sda_output(struct fsi_master_gpio *master,
+> +			   int value)
+> +{
+> +	gpiod_direction_output(master->gpio_data, value);
+> +	gpiod_direction_output(master->gpio_trans, 1);
+> +}
 
-Currently updating PNOR from the host, Joel is correct, it isn't really
-supported by openbmc. Of course it can be done through /dev/mtd exposed
-by host linux (https://github.com/open-power/linux/blob/master/drivers/
-mtd/devices/powernv_flash.c) and backed by a driver in skiboot. I
-really hope that all pflash binaries around today know how to do this.
+These should be conditional on gpio_trans != NULL.
 
-> 
-> > 
-> > 
-> > Can somebody review that I got all this right? I saw some
-> > conflicting
-> > information in https://github.com/openbmc/linux/issues/51
-> > 
-> > Other questions:
-> > - what's the plan for "booting the host" and "updating PNOR from
-> > BMC?"
-> 
-> We plan to expose the contents with an in-memory copy of the
-> firmware.
-> 
-> > 
-> > - is it worth extending the current libflash to read BMC & PNOR
-> > size,
-> > window, etc from device tree?
-> > - what does arch_flash_powerpc.c do? It looks like a whole other
-> > access method with a host-side MTD device.
+> +static void serial_in(struct fsi_master_gpio *master, struct fsi_gpio_msg *cmd)
 
-Hopefully I've answered that...
+Can we have the number of bits to receive a separate parameter? This
+means we don't need a dual-use *cmd argument, and won't have subtle bugs
+arise where a caller has not initialised it.
 
-> > 
-> > thanks
-> > xo
-> > _______________________________________________
-> > openbmc mailing list
-> > openbmc@lists.ozlabs.org
-> > https://lists.ozlabs.org/listinfo/openbmc
+> +{
+> +	uint8_t bit;
+> +	uint64_t msg = 0;
+> +	uint8_t in_bit = 0;
+> +
+> +	set_sda_input(master);
+> +
+> +	for (bit = 0; bit < cmd->bits; bit++) {
+> +		clock_toggle(master, 1);
+> +		in_bit = sda_in(master);
+> +		msg |= in_bit;
+> +		msg <<= 1;
+> +	}
+
+I think you want the shift before the |=, otherwise your last bit won't
+be at the end of msg. More on that below though...
+
+> +	cmd->msg = ~msg;		/*  Data is negative active */
+> +}
+> +
+> +static void serial_out(struct fsi_master_gpio *master, struct fsi_gpio_msg *cmd)
+
+Really minor: make *cmd a `const struct fsi_gpio_msg *`.
+
+> +{
+> +	uint8_t bit;
+> +	uint64_t msg = ~cmd->msg;	/* Data is negative active */
+> +	uint64_t sda_mask = 1;
+> +	uint64_t last_bit = ~0;
+> +
+> +	set_sda_output(master, 0);
+> +
+> +	/* Send the start bit */
+> +	sda_out(master, 1);
+> +	clock_toggle(master, 1);
+> +
+> +	/* Send the message */
+> +	for (bit = 0; bit < cmd->bits; bit++) {
+> +		if (last_bit ^ (msg & sda_mask)) {
+> +			sda_out(master, msg & sda_mask);
+> +			last_bit = msg & sda_mask;
+> +		}
+> +		clock_toggle(master, 1);
+> +		msg >>= 1;
+> +	}
+> +}
+
+These functions seem incompatible.
+
+serial_in clocks the least-significant-bit last, while serial_out clocks
+the least-significant-bit first.
+
+The comment on struct fsi_message is:
+
+  /* Our structure for bit-wise message sending. We left-align this, so the
+   * last bit sent is at the 0x1 mask position.
+   */
+  struct fsi_gpio_msg {
+  	uint64_t	msg;
+  	uint8_t		bits;
+  };
+
+- which (I think) matches the message layout described by the docs. If
+we use that format, we'll need to clock the LSb *last*. We'll also need
+to start sending from the appropriate bit in the uint64_t, as the bits
+in msg are left-aligned (ie, messages shorter than 64 bits do not use
+the least-significant-bits).
+
+I'm happy if you'd prefer to change that to right-aligned if that makes
+message construction easier, but we need to be consistent (and update
+the comment to suit).
+
+Also, you do `msg & sda_mask` three times in three lines there.
+
+> +/*
+> + * Store information on master errors so handler can detect and clean
+> + * up the bus
+> + */
+> +static void fsi_master_gpio_error(struct fsi_master_gpio *master, int error)
+> +{
+> +
+> +}
+
+I know this is a todo, but where are you planning to 'store' this
+information? Shouldn't errors just be returned immediately?
+
+> +
+> +static int poll_for_response(struct fsi_master_gpio *master, uint8_t expected,
+> +			uint8_t size, void *data)
+> +{
+> +	int busy_count = 0, i;
+> +	struct fsi_gpio_msg response, cmd;
+> +	int bits_remaining = 0;
+> +
+> +	do {
+> +		response.msg = 0;
+> +		response.bits = 1;
+> +		for (i = 0; i < FSI_GPIO_MTOE_COUNT; i++) {
+> +			serial_in(master, &response);
+> +			if (response.msg)
+> +				break;
+> +		}
+> +		if (unlikely(i >= FSI_GPIO_MTOE_COUNT)) {
+> +			dev_info(master->master.dev,
+> +				"Master time out waiting for response\n");
+> +			drain_response(master);
+> +			fsi_master_gpio_error(master, FSI_GPIO_MTOE);
+> +			return FSI_GPIO_MTOE;
+> +		}
+> +
+> +		/* Response received */
+> +		response.msg = 0;
+> +		response.bits = 2;
+> +		serial_in(master, &response);
+> +		dev_info(master->master.dev, "cfam id:%d\n", (int)response.msg);
+> +
+> +		response.msg = 0;
+> +		response.bits = 2;
+> +		serial_in(master, &response);
+> +		dev_info(master->master.dev, "response id:%d\n",
+> +							(int)response.msg);
+> +
+> +		switch (response.msg) {
+> +		case FSI_GPIO_RESP_ACK:
+> +			if (expected == FSI_GPIO_RESP_ACKD)
+> +				bits_remaining = 8 * sizeof(size);
+> +			break;
+> +
+> +		case FSI_GPIO_RESP_BUSY:
+> +			/*
+> +			 * Its necessary to clock slave before issuing
+> +			 * d-poll, not indicated in the hardware protocol
+> +			 * spec. < 20 clocks causes slave to hang, 21 ok.
+> +			 */
+> +			set_sda_output(master, 0);
+> +			clock_toggle(master, FSI_GPIO_DPOLL_CLOCKS);
+> +			cmd.msg = FSI_GPIO_CMD_DPOLL;
+> +			cmd.bits = FSI_GPIO_CMD_DPOLL_SIZE;
+> +			serial_out(master, &cmd);
+> +			continue;
+> +
+> +		case FSI_GPIO_RESP_ERRA:
+> +		case FSI_GPIO_RESP_ERRC:
+> +			dev_info(master->master.dev, "ERR received: %d\n",
+> +				(int)response.msg);
+> +			drain_response(master);
+> +			fsi_master_gpio_error(master, response.msg);
+> +			return response.msg;
+> +		}
+> +
+> +		/* Read in the data field if applicable */
+> +		if (bits_remaining) {
+> +			response.msg = 0;
+> +			response.bits = bits_remaining;
+> +			serial_in(master, &response);
+> +		}
+> +
+> +		/* Read in the crc and check it */
+> +		response.msg = 0;
+> +		response.bits = FSI_GPIO_CRC_SIZE;
+> +		serial_in(master, &response);
+> +
+> +		/* todo: verify crc is correct, flag error if not */
+> +
+> +		return 0;
+> +
+> +	} while (busy_count++ < FSI_GPIO_MAX_BUSY);
+> +
+> +	return busy_count;
+> +}
+> +
+> +static void build_command(struct fsi_gpio_msg *cmd, uint64_t mode,
+> +			uint8_t slave, uint32_t addr, size_t size,
+> +			const void *data)
+> +{
+> +	cmd->bits = FSI_GPIO_CMD_DFLT_LEN;
+> +	cmd->msg = FSI_GPIO_CMD_DEFAULT;
+> +	cmd->msg |= mode;
+> +
+> +	/* todo: handle more than just slave id 0 */
+> +	cmd->msg &= ~FSI_GPIO_CMD_SLAVE_MASK;
+> +
+> +	cmd->msg |= (addr << FSI_GPIO_CMD_ADDR_SHIFT);
+> +	if (size == sizeof(uint8_t)) {
+> +		if (data)
+> +			cmd->msg |=
+> +				*((uint8_t *)data) >> FSI_GPIO_CMD_DATA_SHIFT;
+> +	} else if (size == sizeof(uint16_t)) {
+> +		cmd->msg |= FSI_GPIO_CMD_SIZE_16;
+> +		if (data)
+> +			cmd->msg |=
+> +				*((uint16_t *)data) >> FSI_GPIO_CMD_DATA_SHIFT;
+> +	} else {
+> +		cmd->msg |= FSI_GPIO_CMD_SIZE_32;
+> +		if (data)
+> +			cmd->msg |=
+> +				*((uint32_t *)data) >> FSI_GPIO_CMD_DATA_SHIFT;
+> +	}
+> +	if (mode == FSI_GPIO_CMD_WRITE)
+> +		cmd->bits += (8 * size);
+> +
+> +	add_crc(cmd);
+> +}
+> +
+
+The message construction will be dependent on the format of struct
+fsi_msg, so this may need to be updated if that changes from the above
+comments.
+
+>  static int fsi_master_gpio_read(struct fsi_master *_master, int link,
+>  		uint8_t slave, uint32_t addr, void *val, size_t size)
+>  {
+>  	struct fsi_master_gpio *master = to_fsi_master_gpio(_master);
+> +	struct fsi_gpio_msg cmd;
+> +	int rc;
+>  
+>  	if (link != 0)
+>  		return -ENODEV;
+>  
+> -	/* todo: format read into a message, send, poll for response */
+> -	(void)master;
+> +	/* Send the command */
+> +	build_command(&cmd, FSI_GPIO_CMD_READ, slave, addr, size, NULL);
+> +	serial_out(master, &cmd);
+> +	echo_delay(master);
+>  
+> +	rc = poll_for_response(master, FSI_GPIO_RESP_ACKD, size, val);
+>  
+> -	return 0;
+> +	return rc;
+>  }
+>  
+>  static int fsi_master_gpio_write(struct fsi_master *_master, int link,
+>  		uint8_t slave, uint32_t addr, const void *val, size_t size)
+>  {
+> +	int rc;
+>  	struct fsi_master_gpio *master = to_fsi_master_gpio(_master);
+> +	struct fsi_gpio_msg cmd;
+>  
+>  	if (link != 0)
+>  		return -ENODEV;
+>  
+> -	/* todo: format write into a message, send, poll for response */
+> -	(void)master;
+> +	/* Send the command */
+> +	build_command(&cmd, FSI_GPIO_CMD_WRITE, slave, addr, size, val);
+> +	serial_out(master, &cmd);
+> +	echo_delay(master);
+>  
+> -	return 0;
+> +	rc = poll_for_response(master, FSI_GPIO_RESP_ACK, size, NULL);
+> +
+> +	return rc;
+>  }
+>  
+>  /*
+> @@ -58,14 +349,40 @@ static int fsi_master_gpio_write(struct fsi_master *_master, int link,
+>  static int fsi_master_gpio_break(struct fsi_master *_master, int link)
+>  {
+>  	struct fsi_master_gpio *master = to_fsi_master_gpio(_master);
+> +	uint32_t smode;
+> +	int rc;
+>  
+>  	if (link != 0)
+>  		return -ENODEV;
+>  
+> -	/* todo: send the break pattern over gpio */
+> -	(void)master;
+> +	set_sda_output(master, 0);
+> +	clock_toggle(master, FSI_PRE_BREAK_CLOCKS);
+>  
+> -	return 0;
+> +	sda_out(master, 1);
+> +	clock_toggle(master, FSI_BREAK_CLOCKS);
+> +
+> +	echo_delay(master);
+> +
+> +	sda_out(master, 0);
+> +	clock_toggle(master, FSI_POST_BREAK_CLOCKS);
+> +
+> +	udelay(200);		/* wait for logic reset to take effect */
+> +	rc = _master->read(_master, link, 3, FSI_SLAVE_BASE + FSI_SMODE,
+> +			&smode, sizeof(smode));
+
+No need to use the callback, we know that this is a GPIO master.
+
+> +	dev_info(_master->dev, "smode after break:%08x rc:%d\n", smode, rc);
+
+Use dev_dbg() here. We don't want printk output for normal operations
+for non-debug.
+
+> +
+> +	return rc;
+> +}
+> +
+> +static void fsi_master_gpio_init(struct fsi_master_gpio *master)
+> +{
+> +	gpiod_direction_output(master->gpio_mux, 1);
+> +	gpiod_direction_output(master->gpio_clk, 1);
+> +	set_sda_output(master, 1);
+> +	gpiod_direction_output(master->gpio_enable, 0);
+> +
+> +	/* todo: evaluate if clocks can be reduced */
+> +	clock_toggle(master, FSI_INIT_CLOCKS);
+>  }
+>  
+>  static int fsi_master_gpio_link_enable(struct fsi_master *_master, int link)
+> @@ -75,8 +392,7 @@ static int fsi_master_gpio_link_enable(struct fsi_master *_master, int link)
+>  	if (link != 0)
+>  		return -ENODEV;
+>  
+> -	/* todo: set the enable pin */
+> -	(void)master;
+> +	gpiod_set_value(master->gpio_enable, 1);
+>  
+>  	return 0;
+>  }
+> @@ -100,11 +416,28 @@ static int fsi_master_gpio_probe(struct platform_device *pdev)
+>  		return PTR_ERR(gpio);
+>  	master->gpio_data = gpio;
+>  
+> +	gpio = devm_gpiod_get(&pdev->dev, "trans", 0);
+> +	if (IS_ERR(gpio))
+> +		return PTR_ERR(gpio);
+> +	master->gpio_trans = gpio;
+> +
+> +	gpio = devm_gpiod_get(&pdev->dev, "enable", 0);
+> +	if (IS_ERR(gpio))
+> +		return PTR_ERR(gpio);
+> +	master->gpio_enable = gpio;
+> +
+> +	gpio = devm_gpiod_get(&pdev->dev, "mux", 0);
+> +	if (IS_ERR(gpio))
+> +		return PTR_ERR(gpio);
+> +	master->gpio_mux = gpio;
+> +
+
+trans, enable and mux should be optional, right?
+
+Cheers,
+
+
+Jeremy
