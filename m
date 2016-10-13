@@ -1,48 +1,54 @@
-Return-Path: <eajames.ibm@gmail.com>
-Received: from mail-qk0-x243.google.com (mail-qk0-x243.google.com
- [IPv6:2607:f8b0:400d:c09::243])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-vk0-x241.google.com (mail-vk0-x241.google.com
+ [IPv6:2607:f8b0:400c:c05::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sw43d1BdXzDt20
- for <openbmc@lists.ozlabs.org>; Fri, 14 Oct 2016 08:43:25 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sw61f2QSSzDt1l
+ for <openbmc@lists.ozlabs.org>; Fri, 14 Oct 2016 10:11:50 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=lcd0aoCZ; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=X4WPWTlJ; 
  dkim-atps=neutral
-Received: by mail-qk0-x243.google.com with SMTP id z190so7187166qkc.3
- for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 14:43:25 -0700 (PDT)
+Received: by mail-vk0-x241.google.com with SMTP id 83so3209330vkd.0
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 16:11:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=from:to:cc:subject:date:message-id;
- bh=VKXbPJ172paqEnhpC8Dx0Grm3q88/jN0dwM1xFJD+8k=;
- b=lcd0aoCZspaRz87nAuj4DwVZGKr5tXVf6wPCAhDpXn4Dq5HAQ1xpKbsOGIq8kglIf+
- I81OmnzCvlGIpvK1RwsFu0ibbYdRzorVOVmw17TciDqrkZMoUy01KXEhOP02/2j9A8V9
- Hx8yCPfCYMaPYESn83Nid0WQIjtDj3KbE+1cXGHVWTD3QGd3yYwI/2qJrVVZT+Re6Wyp
- 7jlNzsCMfjr5wk22pwtga/GRNI1dxbGGezIoEVLehj7oVeQYITylulD+PVgDFyOeCcG8
- HjHDfYeBXg1Nky89QLA3lxWA6OrWXU+Bj3PZGiM/tfPJPCEN3pkfoJ8GNhuO0D40qu82
- i1aQ==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=YpJO+TtgwUHqIht/Rsp64/djmNsxNl1TwFlTa71aKc8=;
+ b=X4WPWTlJFKHO8dJItPiWMSRfy6ZArvPPq+zhK96iQsCJ4QKyA695+skPkELrcTP4GV
+ CCTX1Bpgdazu04AkbgE0ZooZu1rnoteltfcE7Sm0zyVXt5Y1FoSIv82uLkk6FV9kI0ZB
+ vTCqWqRH/oKhSGbvf9M+H4y6ze6FNm1J1vunaXCFCzFwGELH7ChCpQJw3lgW1TRyyaeH
+ iDaMfm5XjpVmxlmYu8iwC5GODGTMBRwAYK1+QAf9PCAlMMbR68oQbNc2Jnjz+szNeY+4
+ 7cxNnQMhyVzvTphZZEkLdgmFR4QQ8UQEIpsGyLunMV06bOGSAS8HkluSxrh8abdo2qOz
+ bGdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=VKXbPJ172paqEnhpC8Dx0Grm3q88/jN0dwM1xFJD+8k=;
- b=W02yrlxNq0TPnTlQC4nVDmMtcklR6lySrbeeNbNSPSj6ubv7DJkJUjbwaSvHvatI26
- YwsrK6cKhMEawRFHjAaMf5eMkMN0AJUuF0Qr9Iu8svRUmCbpn1qD5jcF7Kg5iGB+rQn6
- iuzWhlgJJVa+HWXsy8TW2Ac5ODedUD1JI2P7gPS6KEQj7N6N+sAa2xCx2ChdmmZ4XXVT
- gvvS1BvbRzWncz2PE/puLtiJfdBNMt7VbCk4iUfjqDwvp0nKouLU3j0PCYvExBWSxO5p
- bL7yKtY0MRROfAhSHg+4CUJzn5Eu0r7454F03HcOPCtWS+ko2R5dJapp1HpPSUgmSqUR
- w3Ng==
-X-Gm-Message-State: AA6/9RkOadGSXHK574opDB0pgWVHw8qMZktLf+F/WK2L3nJtZy/bhe/DlGF/ciO+1ueQzw==
-X-Received: by 10.55.184.2 with SMTP id i2mr9871537qkf.47.1476395003055;
- Thu, 13 Oct 2016 14:43:23 -0700 (PDT)
-Received: from eajames-austin-w350.austin.ibm.com ([32.97.110.53])
- by smtp.gmail.com with ESMTPSA id l6sm5851798qkd.41.2016.10.13.14.43.21
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Thu, 13 Oct 2016 14:43:22 -0700 (PDT)
-From: eajames.ibm@gmail.com
-To: openbmc@lists.ozlabs.org
-Cc: "Edward A. James" <eajames@us.ibm.com>
-Subject: [RFC linux v4 6/6] hwmon: Add OCC CAPS sensors
-Date: Thu, 13 Oct 2016 16:43:13 -0500
-Message-Id: <1476394993-17295-1-git-send-email-eajames.ibm@gmail.com>
-X-Mailer: git-send-email 1.9.1
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=YpJO+TtgwUHqIht/Rsp64/djmNsxNl1TwFlTa71aKc8=;
+ b=mEJQgPa/uX3zGnntMvRSSBv6vhtxp+gYjb3fLYhXCuOjd65FVdz7dlYSqjlxkrucpH
+ WFOSFC64J6xET5l7KgF8N6G1AmC+YW8F/8gLTKsuQoNorFq97gKM4Ey6A36RjQrJHMSQ
+ LMxg+FUFpVl59hUQYJXXQrfmRGysW2Te+bk0dhJc4/SErCWDe5/R4A4jQPvi6WPSpWII
+ 7LHo7vNWoZj5Y9PlQ8hBbgsqB33HSGhf5NugIV7oolPCo+wssvswFPSQ+qccH2kyUm3x
+ emMD+H6OBSCisam0oVYfAtkkXxJcw3SJC4Z8tk4H3NvTn9pDeinam8IDGv1Y/f8j+XCP
+ vNgg==
+X-Gm-Message-State: AA6/9Rn/Q91xRF/QShggEKn2WgARQqBuHbs+cT1CjlPBdw5SvMrre60l+md+Jjo5QJdcO55fIJw03fLw+XPwcw==
+X-Received: by 10.31.140.147 with SMTP id o141mr5729477vkd.149.1476400307054; 
+ Thu, 13 Oct 2016 16:11:47 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.176.7.8 with HTTP; Thu, 13 Oct 2016 16:11:26 -0700 (PDT)
+In-Reply-To: <1476319305-29981-2-git-send-email-jaghu@google.com>
+References: <1476319305-29981-1-git-send-email-jaghu@google.com>
+ <1476319305-29981-2-git-send-email-jaghu@google.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 14 Oct 2016 10:11:26 +1100
+X-Google-Sender-Auth: 0f_nvveLEivb749hMfcB0SObpA8
+Message-ID: <CACPK8Xc6bTOE+rX=jZStZaHf3CxJ9Gp7beGyOYwtdwm7-943Bg@mail.gmail.com>
+Subject: Re: [PATCH linux v1 1/3] drivers: misc: Platform driver to update
+ display on the POST card
+To: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,159 +60,318 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Oct 2016 21:43:25 -0000
+X-List-Received-Date: Thu, 13 Oct 2016 23:11:51 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
+Hello,
 
-Add CAPS sensors to sysfs.
+On Thu, Oct 13, 2016 at 11:41 AM, Jaghathiswari Rankappagounder
+Natarajan <jaghu@google.com> wrote:
+> Platform driver to periodically update the display on the POST card.
+> POST card hardware assumed is 74HC164 wired to two 7-segment displays.
+>
+> Signed-off-by: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
----
- drivers/hwmon/occ/power8_occ.c | 118 ++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 117 insertions(+), 1 deletion(-)
+A good start. In addition to the other reviews, I have some comments below.
 
-diff --git a/drivers/hwmon/occ/power8_occ.c b/drivers/hwmon/occ/power8_occ.c
-index d264bf5..1a85fa0 100644
---- a/drivers/hwmon/occ/power8_occ.c
-+++ b/drivers/hwmon/occ/power8_occ.c
-@@ -659,6 +659,49 @@ static ssize_t show_label(struct device *dev,
- 	return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
- }
- 
-+static ssize_t show_caps(struct device *dev,
-+			 struct device_attribute *attr, char *buf)
-+{
-+	int val;
-+	struct caps_sensor *sensor;
-+	struct sensor_attr_data *sdata = container_of(attr,
-+						      struct sensor_attr_data,
-+						      dev_attr);
-+	struct power8_driver *driver = dev_get_drvdata(dev);
-+	int n = sdata->hwmon_index - 1;
-+
-+	sensor = occ_get_sensor(driver, CAPS);
-+	if (!sensor) {
-+		val = -1;
-+		return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
-+	}
-+
-+	switch (sdata->attr_id) {
-+	case 0:
-+		val = sensor[n].curr_powercap;
-+		break;
-+	case 1:
-+		val = sensor[n].curr_powerreading;
-+		break;
-+	case 2:
-+		val = sensor[n].norm_powercap;
-+		break;
-+	case 3:
-+		val = sensor[n].max_powercap;
-+		break;
-+	case 4:
-+		val = sensor[n].min_powercap;
-+		break;
-+	case 5:
-+		val = sensor[n].user_powerlimit;
-+		break;
-+	default:
-+		val = -1;
-+	}
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
-+}
-+
- static ssize_t show_update_interval(struct device *dev,
- 				    struct device_attribute *attr, char *buf)
- {
-@@ -822,6 +865,77 @@ err:
- 	return rc;
- }
- 
-+static void caps_sensor_attr_init(struct sensor_attr_data *sdata,
-+				  char *attr_name, uint32_t hwmon_index,
-+				  uint32_t attr_id)
-+{
-+	sdata->type = CAPS;
-+	sdata->hwmon_index = hwmon_index;
-+	sdata->attr_id = attr_id;
-+
-+	snprintf(sdata->name, MAX_SENSOR_ATTR_LEN, "%s%d_%s",
-+		 "caps", sdata->hwmon_index, attr_name);
-+
-+	sysfs_attr_init(&sdata->dev_attr.attr);
-+	sdata->dev_attr.attr.name = sdata->name;
-+	sdata->dev_attr.attr.mode = S_IRUGO;
-+	sdata->dev_attr.show = show_caps;
-+}
-+
-+static char *caps_sensor_name[] = {
-+	"curr_powercap",
-+	"curr_powerreading",
-+	"norm_powercap",
-+	"max_powercap",
-+	"min_powercap",
-+	"user_powerlimit",
-+};
-+
-+static int create_caps_sensor_group(struct power8_driver *driver,
-+				    int sensor_num)
-+{
-+	struct device *dev = driver->dev;
-+	struct sensor_group *sensor_groups = driver->sensor_groups;
-+	int field_num = ARRAY_SIZE(caps_sensor_name);
-+	struct sensor_attr_data *sdata;
-+	int i, j, rc;
-+
-+	sensor_groups[CAPS].group.attrs =
-+		devm_kzalloc(dev, sizeof(struct attribute *) * sensor_num *
-+			     field_num + 1, GFP_KERNEL);
-+	if (!sensor_groups[CAPS].group.attrs) {
-+		rc = -ENOMEM;
-+		goto err;
-+	}
-+
-+	sensor_groups[CAPS].sattr =
-+		devm_kzalloc(dev, sizeof(struct sensor_attr_data) *
-+			     sensor_num * field_num, GFP_KERNEL);
-+	if (!sensor_groups[CAPS].sattr) {
-+		rc = -ENOMEM;
-+		goto err;
-+	}
-+
-+	for (j = 0; j < sensor_num; ++j) {
-+		for (i = 0; i < field_num; ++i) {
-+			sdata = &sensor_groups[CAPS].sattr[j * field_num + i];
-+			caps_sensor_attr_init(sdata, caps_sensor_name[i],
-+					      j + 1, i);
-+			sensor_groups[CAPS].group.attrs[j * field_num + i] =
-+				&sdata->dev_attr.attr;
-+		}
-+	}
-+
-+	rc = sysfs_create_group(&dev->kobj, &sensor_groups[CAPS].group);
-+	if (rc)
-+		goto err;
-+
-+	return rc;
-+err:
-+	deinit_sensor_groups(dev, sensor_groups);
-+	return rc;
-+}
-+
- static void occ_remove_hwmon_attrs(struct power8_driver *driver)
- {
- 	struct device *dev = driver->dev;
-@@ -876,7 +990,9 @@ static int occ_create_hwmon_attrs(struct power8_driver *driver)
- 			continue;
- 
- 		sensor_num = resp->blocks[id].sensor_num;
--		if (i != CAPS)
-+		if (i == CAPS)
-+			rc = create_caps_sensor_group(driver, sensor_num);
-+		else
- 			rc = create_sensor_group(driver, i, sensor_num);
- 		if (rc)
- 			goto error;
--- 
-1.9.1
+> ---
+>  drivers/misc/Kconfig           |   6 ++
+>  drivers/misc/Makefile          |   1 +
+>  drivers/misc/update-postcard.c | 219 +++++++++++++++++++++++++++++++++++++++++
+>  drivers/misc/update-postcard.h |   1 +
+>  4 files changed, 227 insertions(+)
+>  create mode 100644 drivers/misc/update-postcard.c
+>  create mode 100644 drivers/misc/update-postcard.h
+>
+> diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
+> index 4617ddc..d65b83f 100644
+> --- a/drivers/misc/Kconfig
+> +++ b/drivers/misc/Kconfig
+> @@ -804,6 +804,12 @@ config PANEL_BOOT_MESSAGE
+>           An empty message will only clear the display at driver init time. Any other
+>           printf()-formatted message is valid with newline and escape codes.
+>
+> +config ASPEED_UPDATE_POSTCARD
+> +       tristate "Platform driver to update POST card"
+> +       help
+> +        Support to periodically update display on the POST card. The POST card
+> +        hardware assumed is 74HC164 wired to two 7-segment displays.
+> +
+>  config ASPEED_BT_IPMI_HOST
+>         tristate "BT IPMI host driver"
+>         help
+> diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
+> index 724861b..730c6c2 100644
+> --- a/drivers/misc/Makefile
+> +++ b/drivers/misc/Makefile
+> @@ -57,4 +57,5 @@ obj-$(CONFIG_ECHO)            += echo/
+>  obj-$(CONFIG_VEXPRESS_SYSCFG)  += vexpress-syscfg.o
+>  obj-$(CONFIG_CXL_BASE)         += cxl/
+>  obj-$(CONFIG_PANEL)             += panel.o
+> +obj-$(CONFIG_ASPEED_UPDATE_POSTCARD)    += update-postcard.o
+>  obj-$(CONFIG_ASPEED_BT_IPMI_HOST)      += bt-host.o
+> diff --git a/drivers/misc/update-postcard.c b/drivers/misc/update-postcard.c
+> new file mode 100644
+> index 0000000..3516c24
+> --- /dev/null
+> +++ b/drivers/misc/update-postcard.c
+> @@ -0,0 +1,219 @@
+
+You need a copyright header here.
+
+> +/* Platform driver to periodically update the display on the POST card.
+> + * POST card hardware assumed is 74HC164 wired to two 7-segment displays.
+> + */
+> +
+> +#include <linux/kernel.h>
+> +#include <linux/module.h>
+> +#include <linux/timer.h>
+> +#include <linux/jiffies.h>
+> +#include <linux/sizes.h>
+> +#include <linux/map_to_7segment.h>
+> +#include <linux/io.h>
+> +#include <linux/delay.h>
+> +#include <linux/uaccess.h>
+> +#include <linux/mutex.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/gpio/consumer.h>
+> +
+> +#define POST_CODE_UPDATE_INTVL 1000
+> +
+> +#define MAX_PC_SIZE 3
+> +
+> +#define LED_DOT 0x01
+> +
+> +#define CLOCK_GPIO_NAME "clk"
+> +#define DATA_GPIO_NAME "data"
+> +#define CLEAR_GPIO_NAME "clr"
+> +
+> +static struct mutex mutex;
+> +
+> +static struct timer_list update_timer;
+> +
+> +static char curr_postcode[3];
+> +static u8 pc_valid;
+> +
+> +static struct gpio_desc *clk_gpio;
+> +static struct gpio_desc *data_gpio;
+> +static struct gpio_desc *clr_gpio;
+> +
+> +/*
+> + * 0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
+> + *  _       _   _       _   _   _   _   _   _       _       _   _
+> + * | |   |  _|  _| |_| |_  |_    | |_| |_| |_| |_  |    _| |_  |_
+> + * |_|   | |_   _|   |  _| |_|   | |_|   | | | |_| |_  |_| |_  |
+> + *
+> + * data[7:1] = led[a:g]
+> + * lookup table used for both bytes of lpc post code and lower byte of
+> + * bmc post code
+> + */
+> +const u8 seven_seg_bits[] = {
+> +       0xFC, 0x60, 0xDA, 0xF2, 0x66, 0xB6, 0xBE, 0xE0,
+> +       0xFE, 0xF6, 0xEE, 0x3E, 0x9C, 0x7A, 0x9E, 0x8E
+> +       };
+> +
+> +/*
+> + * 0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
+> + *      _       _   _                              _            _
+> + *     |   |_  |_| |_  _   _   _   _   _   _   _  |_    _|  _| | |
+> + *     |_  |_  |   |                               _|  |_| |_| | |
+> + *
+> + * data[7:1] = led[a:g]
+> + * lookup table used for higher byte of bmc post code
+> + */
+> +const u8 special_seven_seg_bits[] = {
+> +       0x00, 0x9C, 0x1E, 0xCE, 0x8E, 0x02, 0x02, 0x02,
+> +       0x02, 0x02, 0x02, 0x02, 0xB6, 0x7A, 0x7A, 0xEC
+> +       };
+> +
+> +void update_postcode(char *buf)
+> +{
+> +       mutex_lock(&mutex);
+> +       strncpy(curr_postcode, buf, sizeof(curr_postcode));
+> +       mutex_unlock(&mutex);
+> +       pc_valid = 1;
+> +}
+> +EXPORT_SYMBOL(update_postcode);
+> +
+> +/* convert postcode to led pattern
+> + * 7-bits used for each 7-seg display and
+> + * 1 bit used for the 'dot' on both digits.
+> + *
+> + *  @param N/A
+> + *  @return N/A
+> + */
+
+Kernel style for multi-line comments is like this:
+
+/*
+ * convert postcode to led pattern
+ *  * 7-bits used for each 7-seg display and
+ *  * 1 bit used for the 'dot' on both digits.
+ */
+
+Drop the @param/@return annotations.
+
+> +static u16 postcode_to_led_signal(void)
+> +{
+> +       u8 low_display;
+> +       u8 high_display;
+> +       u16 led_value;
+> +       char buf[3];
+> +
+> +       mutex_lock(&mutex);
+> +       strncpy(buf, curr_postcode, sizeof(buf));
+> +       mutex_unlock(&mutex);
+> +
+> +       low_display = seven_seg_bits[hex_to_bin(buf[2])];
+> +
+> +       high_display = (buf[0] == '1') ?
+> +               special_seven_seg_bits[hex_to_bin(buf[1])] :
+> +               seven_seg_bits[hex_to_bin(buf[1])];
+
+This could be clearer if you used if()
+
+> +
+> +       led_value = low_display | (high_display << 8);
+> +       if (buf[0] == '1') {
+> +               led_value |= LED_DOT | (LED_DOT << 8);
+> +       }
+> +
+> +       return led_value;
+> +}
+> +
+> +static void update_sgpio(void)
+> +{
+> +       u16 led_signal;
+> +       int i;
+> +
+> +       /* Convert two bytes of post code to 16 bit led pattern */
+> +       led_signal = postcode_to_led_signal();
+> +
+> +       /* Set the clear signal to low */
+> +       gpiod_set_value(clr_gpio, 0);
+> +       udelay(1);
+> +       /* Set the clear clear to high */
+> +       gpiod_set_value(clr_gpio, 1);
+> +       udelay(1);
+> +
+> +       /* Bitbang the 16 bit led pattern
+> +        * 7-bits used for each 7-seg display
+> +        * 1 bit used for the 'dot' on both digits
+> +        */
+> +       for (i = 0; i < 16; i++) {
+> +               if (led_signal & 0x01) {
+> +                       /* Set the data signal to high */
+> +                       gpiod_set_value(data_gpio, 1);
+> +               } else {
+> +                       /* Set the data signal to low */
+> +                       gpiod_set_value(data_gpio, 0);
+
+These comments are unnecessary - it's obvious what the code is doing.
+
+> +               }
+> +               udelay(1);
+> +
+> +               /* Set the clock signal to low */
+> +               gpiod_set_value(clk_gpio, 0);
+> +               udelay(1);
+> +               /* Set the clock signal to high */
+> +               gpiod_set_value(clk_gpio, 1);
+> +               udelay(1);
+> +
+> +               led_signal >>= 1;
+> +       }
+> +}
+> +
+> +static void update_timer_handler(unsigned long data)
+> +{
+> +       if (pc_valid == 1) {
+> +               update_sgpio();
+> +       }
+> +       mod_timer(&update_timer,
+> +               jiffies + msecs_to_jiffies(POST_CODE_UPDATE_INTVL));
+> +}
+> +
+> +static const struct of_device_id of_postcard_match[] = {
+> +               { .compatible = "postcard-display" },
+
+We need to come up with a better string here. Along the lines of your
+other reviews, make it generic.
+
+> +                       {},
+> +};
+> +
+> +MODULE_DEVICE_TABLE(of, of_postcard_match);
+> +
+> +static int postcard_probe(struct platform_device *pdev)
+> +{
+> +       int result;
+> +       struct device *dev = &pdev->dev;
+> +
+> +       /* Requesting the clock gpio */
+> +       clk_gpio = devm_gpiod_get(dev, CLOCK_GPIO_NAME,
+> +               GPIOD_OUT_HIGH);
+> +       if (IS_ERR(clk_gpio))
+> +               return PTR_ERR(data_gpio);
+> +
+> +       /* Requesting the data gpio */
+> +       data_gpio = devm_gpiod_get(dev, DATA_GPIO_NAME,
+> +               GPIOD_OUT_HIGH);
+> +       if (IS_ERR(data_gpio))
+> +               return PTR_ERR(data_gpio);
+> +
+> +       /* Requesting the clear gpio */
+> +       clr_gpio = devm_gpiod_get(dev, CLEAR_GPIO_NAME,
+> +               GPIOD_OUT_HIGH);
+> +       if (IS_ERR(clr_gpio))
+> +               return PTR_ERR(clr_gpio);
+> +
+> +       /* Start timer to update post code every second */
+> +       setup_timer(&update_timer, update_timer_handler, 0);
+> +       result = mod_timer(&update_timer,
+> +               jiffies + msecs_to_jiffies(POST_CODE_UPDATE_INTVL));
+> +
+> +       if (result)
+> +               return result;
+> +
+> +       mutex_init(&mutex);
+> +
+> +       return 0;
+> +}
+> +
+> +static void postcard_remove(struct platform_device *pdev)
+> +{
+> +       del_timer(&update_timer);
+
+I think we want del_timer_sync here.
+
+> +}
+> +
+> +static struct platform_driver postcard_display_driver = {
+> +       .probe          = postcard_probe,
+> +       .shutdown       = postcard_remove,
+> +       .driver         = {
+> +               .name   = "postcard-display",
+> +               .of_match_table = of_postcard_match,
+> +       },
+> +};
+> +
+> +module_platform_driver(postcard_display_driver);
+> +
+> +MODULE_LICENSE("GPL");
+> +MODULE_AUTHOR("Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>");
+> +MODULE_DESCRIPTION("Post card display update driver");
+> diff --git a/drivers/misc/update-postcard.h b/drivers/misc/update-postcard.h
+> new file mode 100644
+> index 0000000..ef82e9091d
+> --- /dev/null
+> +++ b/drivers/misc/update-postcard.h
+> @@ -0,0 +1 @@
+> +void update_postcode(char *buf);
+
+Kernel style is to not have headers unless there is a requirement to
+export outside of a file. This should go in the c file.
+
+Cheers,
+
+Joel
