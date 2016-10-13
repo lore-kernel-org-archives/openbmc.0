@@ -1,50 +1,50 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-vk0-x242.google.com (mail-vk0-x242.google.com
- [IPv6:2607:f8b0:400c:c05::242])
+Received: from mail-vk0-x244.google.com (mail-vk0-x244.google.com
+ [IPv6:2607:f8b0:400c:c05::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3svb3D1S88zDsxn
- for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 13:56:24 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3svb3k6zh3zDsxn
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 13:56:50 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=wikrTbXN; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=AFbZxmPS; 
  dkim-atps=neutral
-Received: by mail-vk0-x242.google.com with SMTP id 2so2918057vkb.1
- for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 19:56:24 -0700 (PDT)
+Received: by mail-vk0-x244.google.com with SMTP id 2so2918245vkb.1
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 19:56:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=1aEawAHu/ROEY/xshsVN1iROjqC47/cRZ6DRNf4fRvA=;
- b=wikrTbXN4RX2HqtfLAlbwel/OGvMV0isrnAgnm4SzZDV4YJCz9eeRDg6B1pGbcQK0u
- m+15lTjTkKOly9vJ1SBLJy/dPJqyPLGV8Q+skQHbsg8mPMQsrMjLufi1GKTcigPHmqpl
- qaSAeiyTSMZ6x5d470ZtG+2s7ZLg60bQ5IONoZX1gx6q2aTdyG5Ifn5P7Onl80HqSSi4
- DgKa8M8ISx27zCWGWSuQYr5ZVUlnIwLcF7DywNX6bY3OEqybVrXHvqXwNeIRejfsy6lO
- ZeAUeMvCN9+tP1OCUeiGVtvAArd0cxuOwqvbS7m+FpDWw7EsW299RkNqH6MuNYbhwcnM
- ysnw==
+ bh=bx8TFsPyCWgjWpB3uIL0/MsZxSSd6ZogAtyLoWUZ0zU=;
+ b=AFbZxmPSMqn/1Li2t77LVkVR3nrRO80JY9o9MCqbn5II6YZVhWU72rD+OHzhmttmTQ
+ Z5xaoi3rhyPPi1f2Yz6PIEsYbGNlEYuFuWa5Tz8yGVm5JBa/T+AEFCQnyUfy5pRKJlz3
+ pOV62eL98XO0GfKXQ7trkB8d0xuntLPaxveD7NY8Jh7vB57+QIZzqIxdMZ8puPxTOHLw
+ o1X/GXfS/XQdfmGhLRZ8UYMqnbKg6SWehzAKqt3LevF36BS2/5YFwQM8jWLCU55160Eb
+ IVCCEl0IMZG5ilD/Q2JLBVszqEgvPvBOEQCEFagty5yzZMg0NlyMS2cJuu+0f2+4N4QT
+ DNCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=1aEawAHu/ROEY/xshsVN1iROjqC47/cRZ6DRNf4fRvA=;
- b=F+ROon0u0R41R8ytqmHrrZCDN5t49jDMFPBmZZmntEUM2bQmYRfFLqZZw4zvA0K6xz
- 4t2ja1RvDHy0YjD9tLSEcgNZwbghp6Y0vwRJO5mR3KmlWm26/ne57QNZs72X5IYlTftR
- 85SxTv+Trrw+kFFID8ubQsoKofYGkF3UEdZvRaWlzLEcIV0sRJ33cPJdg+9WUZO1/y2P
- wO2ttGubs5NzOVnT8xjlJrpp5l5bvK817/YnSfrPQd1enou1Um+HJjA3nKvuZH6VU69e
- JfCv6u5Ili5zg1tEaQuRWG6htma/7KWg+Z8g2VAbDdn/6aZtMPH5lnLdchLhMe69k8Gq
- QgBg==
-X-Gm-Message-State: AA6/9Rl/jzg6G/ladaKK7gG1hxnBINA4A1JZnJfgZ3Lvly7ZAWKHSZqbvceU+ytu/vDRQMeeFNAUeO+hQ03YiA==
-X-Received: by 10.31.183.134 with SMTP id h128mr1953981vkf.124.1476327381300; 
- Wed, 12 Oct 2016 19:56:21 -0700 (PDT)
+ bh=bx8TFsPyCWgjWpB3uIL0/MsZxSSd6ZogAtyLoWUZ0zU=;
+ b=R294cLUTtBXmVAmBiYEpiFQQ/NjK3whoZ/f7dIRFCIrQuRtJ3v6zvbzQxESsBatwBs
+ 2anSgpasqSKWHzQMuXEGYv7gJU4t0jwCMu9xkGl5ninbAJD/F7sLRlt+Aim0GToSxguQ
+ yZuWOaAMU7bc+gMnqkZ7waLdXKUqhq+021eBhgJ1ZRuYb5muexl4+yNYiRnngYR0ph9P
+ iMRjB5fo4/jL3CT9QnbnzgD7agQ9RxCNuz/dzCRNDsJ+7W28b8exA8enIu11kj8LzWPC
+ hOfBu8CULQRzcV7jr40rqBj97u7BvAKp1dsJICgvIFPXvHDZwSnu+f+6YSSPiN0og3th
+ tVkQ==
+X-Gm-Message-State: AA6/9RkREpEZAV0dTS3gho/Bpa5gacB0KufyH7MtWDUZatnWIjX+8e6gBDADiiV2ynKZMJ9j/C7FadaQnkfIYQ==
+X-Received: by 10.31.115.8 with SMTP id o8mr2978180vkc.2.1476327409051; Wed,
+ 12 Oct 2016 19:56:49 -0700 (PDT)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.176.7.8 with HTTP; Wed, 12 Oct 2016 19:56:00 -0700 (PDT)
-In-Reply-To: <1476312288-100725-2-git-send-email-xow@google.com>
+Received: by 10.176.7.8 with HTTP; Wed, 12 Oct 2016 19:56:28 -0700 (PDT)
+In-Reply-To: <1476312288-100725-3-git-send-email-xow@google.com>
 References: <1476312288-100725-1-git-send-email-xow@google.com>
- <1476312288-100725-2-git-send-email-xow@google.com>
+ <1476312288-100725-3-git-send-email-xow@google.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 13 Oct 2016 13:56:00 +1100
-X-Google-Sender-Auth: _GJRAjnhFdmkjSRoUbrOJ3ytpj4
-Message-ID: <CACPK8XeRwcKLKLwP3yQNDm6Jme+fWWV4MhA=hZkA7+1PYwAduQ@mail.gmail.com>
-Subject: Re: [PATCH 2/5] ARM: dts: aspeed: zaius: Fix pinctrl on MACs
+Date: Thu, 13 Oct 2016 13:56:28 +1100
+X-Google-Sender-Auth: Cp23i4EU_Egkyq8afl3S4al3_Vw
+Message-ID: <CACPK8XezWQHmDr_BMf780YDA_Qp2RwVaXXCwMqCzmouk9iW5Vg@mail.gmail.com>
+Subject: Re: [PATCH 3/5] ARM: dts: aspeed: zaius: Add static GPIO config
 To: Xo Wang <xow@google.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
@@ -59,42 +59,61 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Oct 2016 02:56:24 -0000
+X-List-Received-Date: Thu, 13 Oct 2016 02:56:51 -0000
 
 On Thu, Oct 13, 2016 at 9:44 AM, Xo Wang <xow@google.com> wrote:
-> Update the Zaius dts to reflect that MAC1 is intended for NCSI and MAC2
-> is connected to a BCM54612E gigabit PHY.
+> Add GPIO hogs that turn on I2C muxes and I2C level shifter.
 >
 > Signed-off-by: Xo Wang <xow@google.com>
 
 Reviewed-by: Joel Stanley <joel@jms.id.au>
 
 > ---
->  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 24 ++++++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
 >
 > diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> index 4c4754b..541455f 100644
+> index 541455f..cc2e84b 100644
 > --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
 > +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> @@ -68,7 +68,7 @@
->         status = "okay";
+> @@ -1,6 +1,7 @@
+>  /dts-v1/;
 >
->         pinctrl-names = "default";
-> -       pinctrl-0 = <&pinctrl_rgmii1_default>;
-> +       pinctrl-0 = <&pinctrl_rmii1_default>;
->         use-ncsi;
+>  #include "aspeed-g5.dtsi"
+> +#include <dt-bindings/gpio/aspeed-gpio.h>
+>
+>  / {
+>         model = "Zaius BMC";
+> @@ -205,6 +206,29 @@
+>          */
 >  };
 >
-> @@ -76,7 +76,7 @@
+> +&gpio {
+> +       line_iso_u146_en {
+> +               gpio-hog;
+> +               gpios = <ASPEED_GPIO(O, 4) GPIO_ACTIVE_HIGH>;
+> +               output-high;
+> +               line-name = "iso_u164_en";
+> +       };
+> +
+> +       line_bmc_i2c2_sw_rst_n {
+> +               gpio-hog;
+> +               gpios = <ASPEED_GPIO(P, 1) GPIO_ACTIVE_HIGH>;
+> +               output-high;
+> +               line-name = "bmc_i2c2_sw_rst_n";
+> +       };
+> +
+> +       line_bmc_i2c5_sw_rst_n {
+> +               gpio-hog;
+> +               gpios = <ASPEED_GPIO(P, 3) GPIO_ACTIVE_HIGH>;
+> +               output-high;
+> +               line-name = "bmc_i2c5_sw_rst_n";
+> +       };
+> +};
+> +
+>  &vuart {
 >         status = "okay";
->
->         pinctrl-names = "default";
-> -       pinctrl-0 = <&pinctrl_rgmii2_default>;
-> +       pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
 >  };
->
->  &i2c0 {
 > --
 > 2.8.0.rc3.226.g39d4020
 >
