@@ -1,53 +1,47 @@
-Return-Path: <xow@google.com>
-Received: from mail-pf0-x22e.google.com (mail-pf0-x22e.google.com
- [IPv6:2607:f8b0:400e:c00::22e])
+Return-Path: <jaghu@google.com>
+Received: from mail-pa0-x235.google.com (mail-pa0-x235.google.com
+ [IPv6:2607:f8b0:400e:c03::235])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3svTTB0NnyzDsrd
- for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 09:45:02 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3svX466PRWzDsxR
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 11:41:58 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=AB2SmVPG; 
+ unprotected) header.d=google.com header.i=@google.com header.b=oJh+oxsZ; 
  dkim-atps=neutral
-Received: by mail-pf0-x22e.google.com with SMTP id r16so1288826pfg.1
- for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 15:45:01 -0700 (PDT)
+Received: by mail-pa0-x235.google.com with SMTP id rz1so33181873pab.1
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 17:41:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=pt7ggki9Ga8ebuyVQ2k/HtH1TMcYzF6S2a6FrVTk8oY=;
- b=AB2SmVPGrG92ErOVC8c8mXXd5MOS2xFiejcCZJpkG5jYPqYdd7wYDbAtHO9fV35pBy
- 9fa2mIqGjojmH5JsypqnGW7k0fr21DCGTh5ITYeid0PVF44R8KBSgGBU3GXPquXXx2vf
- XY2fGKJPR5q16vTvNsr80QKgmGAk6n+jZCZ4nILIfqHI3EP24P58Vb3qgq82slb74eU6
- 4ucX9eYk09gsudVV68do/SCQnOslQo4hfZg2tJwJJjCDA8DG/ftfPEUy0yoWJmKIFfmc
- HutPbXAK9dcATk6P9uJogMKp0TDgWzuRuau9LlTz0hkADT2+SsWdulwl2RoxPh7f14it
- H/xA==
+ h=from:to:cc:subject:date:message-id;
+ bh=/xiLKKxOtbsbVDm417nVo4TgB2SuzpPrvhkeV7pjiFo=;
+ b=oJh+oxsZfr1DO2u4h9AEcewswUA6s6pc3T9pI//ewK0HtghDmwXAGKK6f/d/QfilLk
+ aLz5vL4gqA+4dak4/CKlUv5MorXtprwNiQ6rJV/A1iD5vuHog61T//ec0acdCfYivhHu
+ 0WhA52HbCRo3hHnExhLjFmIvh/w6a5ZMZbJk17NCor+jb7VjvSrolNBQFgYA2Mms+IDs
+ uv8ydFxGPyWf4GbeKVkHVIAf2jEB5H14PyTFPOQXtxR9pdryINn1zt5Q5awC3tcCaGxy
+ OyCzKvv1QUWBJ7JnRw6ASFEZz0zZVDyTTeqOltjMvbrzYGfXXGa7veFDaw6WA0hQvGpM
+ q6ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=pt7ggki9Ga8ebuyVQ2k/HtH1TMcYzF6S2a6FrVTk8oY=;
- b=OHOAGvUhDZL0ki5ObG73PLENpCeraG6Bza+9ApK8R52OR78kLZPYJu6SFmWYmwb25N
- qFWdiga9wf3bNIZ4UckmIGxVzyCxvj51CPZNoFpF935TT6X+qMa7WwfIlmySPNrsraLu
- IqkNM3zbq5HRKag+346+SP3SIfYCIo6ibwiZvsup2xyl9Bn9FLaZLJCRKdOp6jRfKLjL
- 1yrkF9X34/kMQ5fyUZGjF+dHiHXl/4mOCvzfGCS5STGRwKCFn5OiGOSKmSDUpoqBccUp
- Xq8DZ+S1bPuixRhLNy67Fe4OebLMXp2VXXGYtbKCSW7sYEU8f1NbZjuXhPmUMAfLj5sp
- MkpA==
-X-Gm-Message-State: AA6/9RkNoJOKdry1iN1BBFDSO5Gz8Khki8XC7irVDF4yDC6E5OL5F43eURaFYuQr1/MEu42y
-X-Received: by 10.98.217.135 with SMTP id b7mr5298811pfl.103.1476312299797;
- Wed, 12 Oct 2016 15:44:59 -0700 (PDT)
-Received: from pewter.svl.corp.google.com ([100.123.242.121])
- by smtp.gmail.com with ESMTPSA id z6sm14170700pay.31.2016.10.12.15.44.59
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=/xiLKKxOtbsbVDm417nVo4TgB2SuzpPrvhkeV7pjiFo=;
+ b=PUAeMRrFSV0pygRaLBjrK0dS0lZlBSv4bpjBdloVmp3aHL3HFVXOlNwrVnXhsh6IDL
+ 6gRfgahnErhKj4SHrexMhyNhWzXe3Jyqj1p1hsP3nte31X161ymKMVgsPZLBc/28AKio
+ tuR6oeDBUIvflffmzBrJX0KTshNNPIPh0wiD5HVTDX6Tz2SVLeysyhQCSEww+0Y47bYs
+ ceK/bcOw5OQHnfRtvZyHPl6m/xV62r2b3oulmqIasql00thZM3O9Lndo7+rc7gCpr/+W
+ 9/kry6QngeGqJeUpf3xbZGp0jbIDvPDW2cIsbrM64WL37BYXJz+zvhJXItY7OFYGk5OT
+ jqoA==
+X-Gm-Message-State: AA6/9RnY1yTAx3a6jz66HhzkG+LPJUUwXCioFcujhzWXebY8hrzhx5x1+6UXqVkdnF/Qu3mc
+X-Received: by 10.66.6.3 with SMTP id w3mr5044376paw.172.1476319316535;
+ Wed, 12 Oct 2016 17:41:56 -0700 (PDT)
+Received: from jaghu22.svl.corp.google.com ([100.123.242.38])
+ by smtp.gmail.com with ESMTPSA id v86sm14450239pfa.91.2016.10.12.17.41.55
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Wed, 12 Oct 2016 15:44:59 -0700 (PDT)
-From: Xo Wang <xow@google.com>
+ Wed, 12 Oct 2016 17:41:55 -0700 (PDT)
+From: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH 5/5] ARM: dts: aspeed: zaius: Add front panel LEDs
-Date: Wed, 12 Oct 2016 15:44:48 -0700
-Message-Id: <1476312288-100725-5-git-send-email-xow@google.com>
+Subject: POST card display support 
+Date: Wed, 12 Oct 2016 17:41:42 -0700
+Message-Id: <1476319305-29981-1-git-send-email-jaghu@google.com>
 X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
-In-Reply-To: <1476312288-100725-1-git-send-email-xow@google.com>
-References: <1476312288-100725-1-git-send-email-xow@google.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,47 +53,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Oct 2016 22:45:02 -0000
+X-List-Received-Date: Thu, 13 Oct 2016 00:41:59 -0000
 
-Signed-off-by: Xo Wang <xow@google.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+Platform driver in patch 1/3 periodically updates the most current POST code
+from either the BMC or host to the POST card display.
+The POST card hardware assumed is 74HC164 wired to two 7-segment displays.
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-index 8c3912a..eef045b 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-@@ -59,6 +59,30 @@
- 			};
- 		};
- 	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		sys_boot_status {
-+			label = "System boot status";
-+			gpios = <&gpio ASPEED_GPIO(H, 4) GPIO_ACTIVE_LOW>;
-+		};
-+
-+		attention {
-+			label = "Attention";
-+			gpios = <&gpio ASPEED_GPIO(H, 5) GPIO_ACTIVE_LOW>;
-+		};
-+
-+		plt_fault {
-+			label = "Platform fault";
-+			gpios = <&gpio ASPEED_GPIO(H, 6) GPIO_ACTIVE_LOW>;
-+		};
-+
-+		hdd_fault {
-+			label = "Onboard drive fault";
-+			gpios = <&gpio ASPEED_GPIO(H, 7) GPIO_ACTIVE_LOW>;
-+		};
-+	};
- };
- 
- &uart5 {
--- 
-2.8.0.rc3.226.g39d4020
+(to get POST codes from bmc) On BMC state change, the character driver in
+patch 2/3 is the interface to which the systemd (in openbmc) will write the
+POST codes. When a new POST code is written to the character device,
+the update_postcode function in patch 1/3 is called to update the post code.
+
+(to get POST codes from host) When the host writes to port80, the lpc driver can
+directly call update_postcode function in patch 1/3 to update the POST code
+(will be written after lpc driver is finished);
+
+patch 3/3 has devicetree info for controlling the POST card hardware on zaius
