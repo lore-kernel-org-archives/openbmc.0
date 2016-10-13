@@ -1,29 +1,54 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <christopher.lee.bostic@gmail.com>
+Received: from mail-oi0-x244.google.com (mail-oi0-x244.google.com
+ [IPv6:2607:f8b0:4003:c06::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3svs0p0YhMzDt0J
- for <openbmc@lists.ozlabs.org>; Fri, 14 Oct 2016 00:25:13 +1100 (AEDT)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1476365107555841.3534397106195;
- Thu, 13 Oct 2016 06:25:07 -0700 (PDT)
-Date: Thu, 13 Oct 2016 08:25:00 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Arjun Padmanabhan <arjun.padmanabhan@microsemi.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- Balaji Marimuthu <balaji.marimuthu@microsemi.com>
-Subject: Re: [openbmc] Adding new recipe qa error
-Message-ID: <20161013132500.GC32710@heinlein.lan>
-References: <C160D2872FE0DE4683E1910F9BF829414846E409@avsrvexchmbx2.microsemi.net>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3svwv56WkfzDt0b
+ for <openbmc@lists.ozlabs.org>; Fri, 14 Oct 2016 03:20:33 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=FmNXqBAB; 
+ dkim-atps=neutral
+Received: by mail-oi0-x244.google.com with SMTP id i127so5852452oia.0
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 09:20:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=S2/eBRgBicjwU/D4Cze+rJSpWQuLDL2Vpaj9Ey1J8zE=;
+ b=FmNXqBABzMJTp83bAJxTaqXCWCAph+/MvLyaDizeUDKvVf9JFu+QGnIJgZBR9YyFHd
+ RYm8QRm/zEaLNrTI6s10oOD538XjmMsIAW/v3kUZZWWPGsbWJbj6OIHnNk1ZwhKc34Tv
+ OtA/Lojwd6HLjBQ+oBjX4F1lKTa5EuzExm8ZwiBuiABZHnc5biLSt81JYVLZksvoJiPH
+ gsKNknVhpWLH3w3/sdyEE4Y05TMf3/4Ox9X4IFNDtSXhb8zmGEBHH8qr/OAtDGhxp8qB
+ qUu2YhiYr0eDjf0dLyu4qUP1bG9CyXILXn+fJnPAH/SSdp9CKV233PXjBu+bVezzVsXD
+ 99fA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=S2/eBRgBicjwU/D4Cze+rJSpWQuLDL2Vpaj9Ey1J8zE=;
+ b=SuTnqkT5tSzdUfv+rWv70wFslyGELpzgI67jWzvTwpqRb2a8GswyrmAyyPSUdvis30
+ k+w6pzYJcq/Uq5YpqljC5H3ziJdejYMazBiLk8P8DKYw24Ql7AC+VREc0pcxjahopRrL
+ EbKlxkOgTDwoJlmmEKZFDq5Mmbcv18WXxlbEZTysEpy/Bl79ZZKCJ1/Re0C9C5WebP+M
+ q+Pwf+pf6MmMsobcdR8cGeemmSYr0VQbrYYuwcpbNCydApSKRZ+iO7P6bo+spNWURoM+
+ 3Fqkwdv76x6VN2N4JJHSHCGU/sNyfa7q1uVC1eJIGAmS0EHg1uJ4n4McYuVwZh1WnbzX
+ 5NzQ==
+X-Gm-Message-State: AA6/9RkYayF6euQcDfkgEDYLjVPfeGIAY3nGCQ1OR4QjcyITlRbDBoWAqypi5qmSYlnks6MlHw7yNU2a4LzfRQ==
+X-Received: by 10.157.20.173 with SMTP id d42mr4036829ote.100.1476375632081;
+ Thu, 13 Oct 2016 09:20:32 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="Ycz6tD7Th1CMF4v7"
-Content-Disposition: inline
-In-Reply-To: <C160D2872FE0DE4683E1910F9BF829414846E409@avsrvexchmbx2.microsemi.net>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
+Received: by 10.202.220.132 with HTTP; Thu, 13 Oct 2016 09:20:31 -0700 (PDT)
+In-Reply-To: <3e7c44ea-9433-73d5-9231-aac37594e6a3@ozlabs.org>
+References: <1476222003-99697-1-git-send-email-christopher.lee.bostic@gmail.com>
+ <1476222003-99697-18-git-send-email-christopher.lee.bostic@gmail.com>
+ <337bc0ed-9f0c-afb3-d35d-3962ab7a17b7@ozlabs.org>
+ <CAA0LjjV8OJFNesgcebxwhWBJkT_i2ZLnG-8HFzp8nE7WqP+3qQ@mail.gmail.com>
+ <3e7c44ea-9433-73d5-9231-aac37594e6a3@ozlabs.org>
+From: Christopher Bostic <christopher.lee.bostic@gmail.com>
+Date: Thu, 13 Oct 2016 11:20:31 -0500
+Message-ID: <CAA0LjjUw2WDsPdaoCrsf6ozprJs34gaXW_S2k3dnmLQmChgdfA@mail.gmail.com>
+Subject: Re: [PATCH linux v3 17/18] drivers/fsi: Add GPIO master functionality
+To: Jeremy Kerr <jk@ozlabs.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, xxpetri@de.ibm.com,
+ zahrens@us.ibm.com
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -35,81 +60,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Oct 2016 13:25:14 -0000
+X-List-Received-Date: Thu, 13 Oct 2016 16:20:34 -0000
 
+On Wed, Oct 12, 2016 at 8:16 PM, Jeremy Kerr <jk@ozlabs.org> wrote:
+> Hi Chris,
+>
+>>>> +static void serial_in(struct fsi_master_gpio *master, struct fsi_gpio_msg *cmd)
 
---Ycz6tD7Th1CMF4v7
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+>>>> +/*
+>>>> + * Store information on master errors so handler can detect and clean
+>>>> + * up the bus
+>>>> + */
+>>>> +static void fsi_master_gpio_error(struct fsi_master_gpio *master, int error)
+>>>> +{
+>>>> +
+>>>> +}
+>>>
+>>> I know this is a todo, but where are you planning to 'store' this
+>>> information? Shouldn't errors just be returned immediately?
+>>
+>> This is intended to be the entry point for the bus error handling code.
+>> I could return the failing rc to the caller right there but ultimately the
+>> error handler needs to be invoked somewhere in the call chain
+>> anyway.  As it is here the error condition is cleaned up as early as
+>> possible.
+>>
+>> Even if the error is of a master type - such as master
+>> time out errors (MTOE) there is still a possibility that the connected
+>> slave is in some latched failed state which requires recovery to
+>> resume normal bus communications (issue a terminate command
+>> to slave, etc...)
+>
+> OK, makes sense. Would this logic be repeated for all masters? If so, we
+> may want the core to manage common error recovery that involves the
+> slaves.
 
-On Thu, Oct 13, 2016 at 01:07:30PM +0000, Arjun Padmanabhan wrote:
-> As an alternative way, I am adding a custom recipe which includes my appl=
-ication. Application folder structure includes cross-compiled *.a and *.so.
->=20
-> I am getting following errors while do_package_qa().
->=20
->=20
-> -          Mycode-1.0-r0 do_package_qa: QA Issue: non -staticdev package =
-contains static .a library ...............
->=20
-> -          Mycode-1.0-r0 do_package_qa: QA Issue:No GNU_HASH in elf binar=
-y .......................
->=20
-> -Is there any way to include static library in my recipe to openbmc image=
- by getting past qa issue?
->=20
-> -Is there a way to skip GNU_HASH check in so files which is in my custom =
-development recipe?
->=20
-> -          A way I found while searching through google was to add export=
- LD=3D"${LD} --hash-style=3Dgnu" before compiling my binaries. Is there any=
- other way where I can disable GNU_CHECK for my recipe?
->=20
+Hi Jeremy,
 
-Generally speaking, Yocto prefers you to use bitbake itself to build
-your package.  Rather than your recipe pointing to a pre-compiled set of
-binaries, your recipe should point to your source and then build it
-directly.
+There would be some fsi-master-gpio specifics here to deal with
+but there is also a portion of error handling that is standard to all
+masters so that would be spelled out in fsi-core.c.  For now, I'm
+leaving bus error handling out of the first set.
 
-The "QA Issue: non -staticdev pacakge..." issue is a valid issue and one
-you should not disable.  It does not make sense to put a .a file onto an
-installed package on your target because you do not compile and link
-programs on your target.  There is no way to use a .a file on the target
-so it shouldn't be in your recipe.
-
-It sounds like you might be missing one of the general bbclasses that
-you should be importing.  This would create packages within your recipe,
-such as ${PN}-staticdev where all *.a files would be automatically
-placed.
-
-The GNU_HASH check is also likely valid.  You need to make sure that
-your precompiled binaries, if you continue to go that route, are
-compiled with the same flags as the rest of the recipes.
-
---=20
-Patrick Williams
-
---Ycz6tD7Th1CMF4v7
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJX/4ssAAoJEKsDR8wtAMEZddcP/1XDdN1Aio++pP9uKCMxac6L
-sSlQjoDdOrXUt+ddnRPQUcpeYFF4CNxtLcRbRm28hsEg6YJ0961e5+03InPnBiIZ
-gObhLo4OTYUadvnHkOIXeaT0onsem3mRTDhL+j+9gr+iasH4m7N8QC6ntGbdGwj1
-HFUMxmgQkQgNfwAP3Fv2+4In13r5XJkfSwGbUhnC6jf3ftgzbXEUMJeudNL8E2P4
-+515utiXTFAp7dWeq1Ew/srbVcjlJPrtkdhFV25pwhesoUqTdnsC8p3TjluxE4mT
-B3Va2l7Vxyf+JvJD6j/Aox8Oa0BcrEhtsrVB3icOcvB/3mqZIh6BfWjbackGh9fn
-17nLF02zBsIyXIufc0kXF1SfgkO1ZM0FHRxOT9yNvVBzNg9R02XG3K75kbg0opIK
-az+i39Z2lGEte8D7O3mVRT7Vu9xKZe3rqot75hlYtgbANlHX6Mr6RANnwPRTrDbP
-wr38/1G6DB72J6/C99/EQ1s5tza2E6Q9ptiEWVpJtysYSO7Xtd0wLFmnkhtxDVXB
-djIkFOjyui/VhIMlLgkMdtCT9N+yVh75VZalJaOVMwwf3bvLpWmUEPS+QIilOOkd
-ZH1VxiOfOobmKtZmcUzBE0P26CIPUtLqJBJ/PhEvsOrd9pQJkce7615Llaqp+IqT
-xxFFp1hTlVsB1++EeWEz
-=aK6q
------END PGP SIGNATURE-----
-
---Ycz6tD7Th1CMF4v7--
+Thanks
+Chris
