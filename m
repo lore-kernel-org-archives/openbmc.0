@@ -1,36 +1,29 @@
-Return-Path: <clg@kaod.org>
-Received: from 13.mo1.mail-out.ovh.net (13.mo1.mail-out.ovh.net
- [178.33.253.128])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3svrt731MhzDt0J
- for <openbmc@lists.ozlabs.org>; Fri, 14 Oct 2016 00:19:26 +1100 (AEDT)
-Received: from player726.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo1.mail-out.ovh.net (Postfix) with ESMTP id 753AC14505
- for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 15:10:53 +0200 (CEST)
-Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
- [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player726.ha.ovh.net (Postfix) with ESMTPSA id 0E7A52A0088;
- Thu, 13 Oct 2016 15:10:48 +0200 (CEST)
-Subject: Re: [PATCH u-boot] aspeed/g5: Device Tree for ast2500
-To: Joel Stanley <joel@jms.id.au>, Maxim Sloyko <maxims@google.com>
-References: <1476117535-48144-1-git-send-email-maxims@google.com>
- <CACPK8Xdief-K9XMX1NkjZEs8v616vbN9yECBjwq_9DqL-2bx_Q@mail.gmail.com>
- <5c3a669e-471c-3457-9bae-066e31e9d98d@kaod.org>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <ccfcf0f5-459a-b6e6-f485-ddaba7ba6d70@kaod.org>
-Date: Thu, 13 Oct 2016 15:10:48 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.3.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3svs0p0YhMzDt0J
+ for <openbmc@lists.ozlabs.org>; Fri, 14 Oct 2016 00:25:13 +1100 (AEDT)
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mx.zohomail.com
+ with SMTPS id 1476365107555841.3534397106195;
+ Thu, 13 Oct 2016 06:25:07 -0700 (PDT)
+Date: Thu, 13 Oct 2016 08:25:00 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Arjun Padmanabhan <arjun.padmanabhan@microsemi.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ Balaji Marimuthu <balaji.marimuthu@microsemi.com>
+Subject: Re: [openbmc] Adding new recipe qa error
+Message-ID: <20161013132500.GC32710@heinlein.lan>
+References: <C160D2872FE0DE4683E1910F9BF829414846E409@avsrvexchmbx2.microsemi.net>
 MIME-Version: 1.0
-In-Reply-To: <5c3a669e-471c-3457-9bae-066e31e9d98d@kaod.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 9789699691510270722
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrgeeggdehlecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="Ycz6tD7Th1CMF4v7"
+Content-Disposition: inline
+In-Reply-To: <C160D2872FE0DE4683E1910F9BF829414846E409@avsrvexchmbx2.microsemi.net>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -42,117 +35,81 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Oct 2016 13:19:28 -0000
+X-List-Received-Date: Thu, 13 Oct 2016 13:25:14 -0000
 
-Hello Maxim,
 
-On 10/13/2016 09:12 AM, Cédric Le Goater wrote:
-> On 10/13/2016 07:24 AM, Joel Stanley wrote:
->> On Tue, Oct 11, 2016 at 3:38 AM,  <maxims@google.com> wrote:
->>> From: Maxim Sloyko <maxims@google.com>
->>>
->>> Device Tree for ast2500, copied from openbmc/linux (include file), plus
->>> minimal device tree configuration for ast2500 eval board.
->>>
->>> Signed-off-by: Maxim Sloyko <maxims@google.com>
->>> ---
->>>  arch/arm/dts/Makefile          |   2 +
->>>  arch/arm/dts/aspeed-g5-evb.dts |  28 +++
->>>  arch/arm/dts/aspeed-g5.dtsi    | 541 +++++++++++++++++++++++++++++++++++++++++
->>>  3 files changed, 571 insertions(+)
->>>  create mode 100644 arch/arm/dts/aspeed-g5-evb.dts
->>
->> Use the same name as the kernel device tree.
->>
->>>  create mode 100644 arch/arm/dts/aspeed-g5.dtsi
->>>
->>> diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
->>> index d1f8e22..09efa0a 100644
->>> --- a/arch/arm/dts/Makefile
->>> +++ b/arch/arm/dts/Makefile
->>> @@ -233,6 +233,8 @@ dtb-$(CONFIG_SOC_KEYSTONE) += k2hk-evm.dtb \
->>>         k2e-evm.dtb \
->>>         k2g-evm.dtb
->>>
->>> +dtb-$(CONFIG_TARGET_AST_G5) += aspeed-g5-evb.dtb
->>> +
->>>  targets += $(dtb-y)
->>>
->>>  # Add any required device tree compiler flags here
->>> diff --git a/arch/arm/dts/aspeed-g5-evb.dts b/arch/arm/dts/aspeed-g5-evb.dts
->>> new file mode 100644
->>> index 0000000..95dc77a
->>> --- /dev/null
->>> +++ b/arch/arm/dts/aspeed-g5-evb.dts
->>
->> This doesn't include the rest of the devices present in the kernel
->> device tree. Is there a reason why you didn't include them?
->>
->>> @@ -0,0 +1,28 @@
->>> +/dts-v1/;
->>> +
->>> +#include "aspeed-g5.dtsi"
->>> +
->>> +/ {
->>> +       memory {
->>> +               device_type = "memory";
->>> +               reg = <0x80000000 0x20000000>;
->>> +       };
->>> +
->>> +       aliases {
->>> +               i2c1 = &i2c0;
->>> +               i2c4 = &i2c3;
->>> +               i2c8 = &i2c7;
->>
->> Why are you doing this?
->>
->>> +       };
->>> +};
->>> +
->>> +&i2c0 {
->>> +       status = "okay";
->>> +};
->>> +
->>> +&i2c3 {
->>> +       status = "okay";
->>> +};
->>> +
->>> +&i2c7 {
->>> +       status = "okay";
->>> +};
->>> diff --git a/arch/arm/dts/aspeed-g5.dtsi b/arch/arm/dts/aspeed-g5.dtsi
->>> new file mode 100644
->>> index 0000000..eb81a2e
->>> --- /dev/null
->>> +++ b/arch/arm/dts/aspeed-g5.dtsi
->>> @@ -0,0 +1,541 @@
->>> +/* The device tree is copied from
->>> + * https://github.com/openbmc/linux/blob/9ec9d09/arch/arm/boot/dts/aspeed-g5.dtsi
->>
->> Please update this with the latest from the dev-4.7 tree.
-> 
-> May be we should include the flash controllers first in the kernel,
-> we will need that in u-boot as well for a spi-nor driver.
+--Ycz6tD7Th1CMF4v7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Here is my updated tree with a lot of cleanups and various 
-small fixes :
+On Thu, Oct 13, 2016 at 01:07:30PM +0000, Arjun Padmanabhan wrote:
+> As an alternative way, I am adding a custom recipe which includes my appl=
+ication. Application folder structure includes cross-compiled *.a and *.so.
+>=20
+> I am getting following errors while do_package_qa().
+>=20
+>=20
+> -          Mycode-1.0-r0 do_package_qa: QA Issue: non -staticdev package =
+contains static .a library ...............
+>=20
+> -          Mycode-1.0-r0 do_package_qa: QA Issue:No GNU_HASH in elf binar=
+y .......................
+>=20
+> -Is there any way to include static library in my recipe to openbmc image=
+ by getting past qa issue?
+>=20
+> -Is there a way to skip GNU_HASH check in so files which is in my custom =
+development recipe?
+>=20
+> -          A way I found while searching through google was to add export=
+ LD=3D"${LD} --hash-style=3Dgnu" before compiling my binaries. Is there any=
+ other way where I can disable GNU_CHECK for my recipe?
+>=20
 
-	https://github.com/legoater/u-boot/commits/v2016.11-aspeed-openbmc
+Generally speaking, Yocto prefers you to use bitbake itself to build
+your package.  Rather than your recipe pointing to a pre-compiled set of
+binaries, your recipe should point to your source and then build it
+directly.
 
-These are required before sending mainline, last remaining 
-hack being : 
+The "QA Issue: non -staticdev pacakge..." issue is a valid issue and one
+you should not disable.  It does not make sense to put a .a file onto an
+installed package on your target because you do not compile and link
+programs on your target.  There is no way to use a .a file on the target
+so it shouldn't be in your recipe.
 
-	https://github.com/legoater/u-boot/commit/50812645a37b067a7346a924da3e9e0bc1d29eb9
+It sounds like you might be missing one of the general bbclasses that
+you should be importing.  This would create packages within your recipe,
+such as ${PN}-staticdev where all *.a files would be automatically
+placed.
 
-The network driver are not strictly needed for mainline but 
-we need to do something for the flash driver soon. This is 
-very very custom today. So I added the Linux dts as we could 
-use them for a spi-nor driver in U-boot. 
+The GNU_HASH check is also likely valid.  You need to make sure that
+your precompiled binaries, if you continue to go that route, are
+compiled with the same flags as the rest of the recipes.
 
-The dtb just needs to be in the flash image. For that you can 
-use the linux compiled one and dd it at the end of the u-boot 
-partition at 0x20050000 and start hacking.
+--=20
+Patrick Williams
 
-Cheers,
+--Ycz6tD7Th1CMF4v7
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
 
-C. 
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJX/4ssAAoJEKsDR8wtAMEZddcP/1XDdN1Aio++pP9uKCMxac6L
+sSlQjoDdOrXUt+ddnRPQUcpeYFF4CNxtLcRbRm28hsEg6YJ0961e5+03InPnBiIZ
+gObhLo4OTYUadvnHkOIXeaT0onsem3mRTDhL+j+9gr+iasH4m7N8QC6ntGbdGwj1
+HFUMxmgQkQgNfwAP3Fv2+4In13r5XJkfSwGbUhnC6jf3ftgzbXEUMJeudNL8E2P4
++515utiXTFAp7dWeq1Ew/srbVcjlJPrtkdhFV25pwhesoUqTdnsC8p3TjluxE4mT
+B3Va2l7Vxyf+JvJD6j/Aox8Oa0BcrEhtsrVB3icOcvB/3mqZIh6BfWjbackGh9fn
+17nLF02zBsIyXIufc0kXF1SfgkO1ZM0FHRxOT9yNvVBzNg9R02XG3K75kbg0opIK
+az+i39Z2lGEte8D7O3mVRT7Vu9xKZe3rqot75hlYtgbANlHX6Mr6RANnwPRTrDbP
+wr38/1G6DB72J6/C99/EQ1s5tza2E6Q9ptiEWVpJtysYSO7Xtd0wLFmnkhtxDVXB
+djIkFOjyui/VhIMlLgkMdtCT9N+yVh75VZalJaOVMwwf3bvLpWmUEPS+QIilOOkd
+ZH1VxiOfOobmKtZmcUzBE0P26CIPUtLqJBJ/PhEvsOrd9pQJkce7615Llaqp+IqT
+xxFFp1hTlVsB1++EeWEz
+=aK6q
+-----END PGP SIGNATURE-----
+
+--Ycz6tD7Th1CMF4v7--
