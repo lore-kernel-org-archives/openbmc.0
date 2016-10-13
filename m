@@ -1,137 +1,125 @@
 Return-Path: <arjun.padmanabhan@microsemi.com>
-Received: from NAM02-CY1-obe.outbound.protection.outlook.com
- (mail-cys01nam02on0069.outbound.protection.outlook.com [104.47.37.69])
+Received: from NAM01-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam01on0055.outbound.protection.outlook.com [104.47.32.55])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3svk0R1zTSzDsyP
- for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 19:09:26 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3svrd76STCzDt0J
+ for <openbmc@lists.ozlabs.org>; Fri, 14 Oct 2016 00:08:11 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=mscc365.onmicrosoft.com
- header.i=@mscc365.onmicrosoft.com header.b=YmIOLwK8; 
+ header.i=@mscc365.onmicrosoft.com header.b=mni6q+1t; 
  dkim-atps=neutral
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=mscc365.onmicrosoft.com; s=selector1-microsemi-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=7BdxDaQ0oNcFgCwleYoIY8ApJ5S6QPzN0YRWK/j4Phw=;
- b=YmIOLwK8+v5BLl7JPeRT3si4RM8JjgjUdbkRVBfVNiQ/BWioYr5vCbaqLqGHWtr9CesFhcEztWqtH+zT4tjlHFiJoLJMrCP/GEmooKRSMW4Ux9m00LeCRLS5QI7KYp1hY3sp/A54wcfFEJUeuM+mvQHoNpHrnZcQ1Bg9HIpfiI0=
-Received: from BN6PR02CA0044.namprd02.prod.outlook.com (10.173.146.158) by
- BLUPR02MB1217.namprd02.prod.outlook.com (10.163.80.147) with Microsoft SMTP
+ bh=I5JKl5xKv9xTM2wwh4DdpJz113FrUeF1DanwJZEKKkQ=;
+ b=mni6q+1tvfROey/nZV/Q53A8jTR3TcCj74dba5yLibIGt1MQUjgtTNx7aGNMYefWrDvC+H7y0WvnhI6sXRDkSm9Rcqp0flZbhAvAiJaDj+FJcZHy6L2eOtCpMTw2wfyag3yVHtrf/CQQFf5ilLGwLFFb3t7IpYtFQJoLGO76LOs=
+Received: from BLUPR02CA026.namprd02.prod.outlook.com (10.160.23.144) by
+ CY1PR02MB1232.namprd02.prod.outlook.com (10.163.16.15) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
- 15.1.659.11; Thu, 13 Oct 2016 08:09:21 +0000
-Received: from BN1AFFO11FD011.protection.gbl (2a01:111:f400:7c10::171) by
- BN6PR02CA0044.outlook.office365.com (2603:10b6:404:5f::30) with Microsoft
+ 15.1.649.16; Thu, 13 Oct 2016 13:08:05 +0000
+Received: from BN1AFFO11FD041.protection.gbl (2a01:111:f400:7c10::152) by
+ BLUPR02CA026.outlook.office365.com (2a01:111:e400:8ad::16) with Microsoft
  SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.639.5 via Frontend
- Transport; Thu, 13 Oct 2016 08:09:22 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.659.11 via
+ Frontend Transport; Thu, 13 Oct 2016 13:08:04 +0000
 Authentication-Results: spf=none (sender IP is 208.19.100.20)
- smtp.mailfrom=microsemi.com; kaod.org; dkim=none (message not signed)
- header.d=none;kaod.org; dmarc=none action=none header.from=microsemi.com;
+ smtp.mailfrom=microsemi.com; lists.ozlabs.org; dkim=none (message not signed)
+ header.d=none;lists.ozlabs.org; dmarc=none action=none
+ header.from=microsemi.com;
 Received-SPF: None (protection.outlook.com: microsemi.com does not designate
  permitted sender hosts)
 Received: from avsrvexchhts2.microsemi.net (208.19.100.20) by
- BN1AFFO11FD011.mail.protection.outlook.com (10.58.52.71) with Microsoft SMTP
+ BN1AFFO11FD041.mail.protection.outlook.com (10.58.52.252) with Microsoft SMTP
  Server (version=TLS1_0, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA_P384) id
- 15.1.629.5 via Frontend Transport; Thu, 13 Oct 2016 08:09:21 +0000
+ 15.1.629.5 via Frontend Transport; Thu, 13 Oct 2016 13:08:04 +0000
 Received: from AVSRVEXCHMBX2.microsemi.net ([fe80::a552:1d60:6960:9da4]) by
  avsrvexchhts2.microsemi.net ([::1]) with mapi id 14.03.0301.000; Thu, 13 Oct
- 2016 01:08:44 -0700
+ 2016 06:07:31 -0700
 From: Arjun Padmanabhan <arjun.padmanabhan@microsemi.com>
-To: =?utf-8?B?Q8OpZHJpYyBMZSBHb2F0ZXI=?= <clg@kaod.org>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 CC: Balaji Marimuthu <balaji.marimuthu@microsemi.com>
-Subject: RE: FW: Kernel panic error while emulating qemuarm image
-Thread-Topic: FW: Kernel panic error while emulating qemuarm image
-Thread-Index: AdIkdlVJFxw7r6L7Ski1YvuM8vpw4wAllPDAABP4/QAADjqwMP//lQIAgABuycA=
-Date: Thu, 13 Oct 2016 08:08:43 +0000
-Message-ID: <C160D2872FE0DE4683E1910F9BF829414846E354@avsrvexchmbx2.microsemi.net>
-References: <C160D2872FE0DE4683E1910F9BF829414846E2E3@avsrvexchmbx2.microsemi.net>
- <8edc2e64-9ead-43ca-f4ae-d2c262721644@kaod.org>
- <C160D2872FE0DE4683E1910F9BF829414846E33E@avsrvexchmbx2.microsemi.net>
- <c00687ba-1f32-14e9-57f0-52df17aaa6a0@kaod.org>
-In-Reply-To: <c00687ba-1f32-14e9-57f0-52df17aaa6a0@kaod.org>
+Subject: [openbmc] Adding new recipe qa error
+Thread-Topic: [openbmc] Adding new recipe qa error
+Thread-Index: AdIlUZHsLfG+MoINTl2KA7QqFTZrMg==
+Date: Thu, 13 Oct 2016 13:07:30 +0000
+Message-ID: <C160D2872FE0DE4683E1910F9BF829414846E409@avsrvexchmbx2.microsemi.net>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-originating-ip: [10.100.34.10]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/alternative;
+ boundary="_000_C160D2872FE0DE4683E1910F9BF829414846E409avsrvexchmbx2mi_"
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:208.19.100.20; IPV:NLI; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(6009001)(7916002)(2980300002)(428002)(13464003)(189002)(377454003)(51914003)(199003)(24454002)(93886004)(2950100002)(69596002)(104016004)(8936002)(2501003)(86362001)(23676002)(55846006)(54356999)(47776003)(33656002)(105586002)(102836003)(81166006)(50986999)(8676002)(7736002)(101416001)(9686002)(3846002)(2906002)(305945005)(189998001)(4326007)(5890100001)(81156014)(6116002)(7846002)(586003)(356003)(7696004)(5250100002)(106466001)(87936001)(5660300001)(92566002)(5001770100001)(2920100001)(76176999)(53416004)(97736004)(4001430100002)(2900100001)(68736007)(19580405001)(19580395003)(71926001)(49446005)(626004)(107886002)(15975445007)(50466002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BLUPR02MB1217; H:avsrvexchhts2.microsemi.net;
- FPR:; SPF:None; PTR:InfoDomainNonexistent; MX:1; A:1; LANG:en; 
-X-Microsoft-Exchange-Diagnostics: 1; BN1AFFO11FD011;
- 1:1Ltinb+Boj64YBoRDzCAgwlwGaXOU/6+9EEBxGQM24LD9qb8G6JygAuoQaOU6Ys1xwWMAlFtRdrAlI/BDt7R2K6ZYHA/DWpd/+KZ0MvbCP/2aEeUG0XGoABNfWrRI4GLLH/GcQ8YcdQOKrB90ldRVZhU0XBPNgtpvmK5pi3tnhZvDG1ChrXUZGJ37W9VqnGc3sPvziXcar2kjECOqZfJSMoaLSaiaWu7FygmjYqfDxTNYjWytuJaMJ2EfpLy1Zl/zrUNotTIsxM1DzMOJ/FCV+awulkE9oz5qulkOvFOT0SNPtTlIJhYPAnCFZJvD4uEn0xvmnDyivetAiD5B5X6CLqK3INjfnZ19lT5YMMpS2ZJBjaa9N7R5SNaUWRexGreyWvGS2lEL/s0xNG7sTByv80Y8bj4N49jR8DrA6P1cimssIQyv+VmKUvLeywkmD4umlBQmO9UtUUG8eVnPwvhEknqxnepoTpYFluRe9ghLWn6SIwLCuhpcK/BRQynMmSGGsbXClxri5dldjeZk1N/OA==
-X-MS-Office365-Filtering-Correlation-Id: 773a224e-cf2c-4667-3e96-08d3f3403d27
-X-Microsoft-Exchange-Diagnostics: 1; BLUPR02MB1217;
- 2:/IJu7QaTtVLii9tltnMuIR2MQKnC9BKsreE6Y1vUu58dn8YdZ5Ik02MqnXOETJzJ1Vp56Rffg0flo6zG9apE/pVE3MvzbCh82YAymBYLPBBNIHVQZNnSXLEDBlFXa3HC3KHmypqOwfRZHdQWdIausLYpbqLbvXJgB1kcLX4W2nYrBsWqIWKqXjBDOabn6iNLARyjTVLVPi5/n4w6etddVA==;
- 3:YqCTAY2SnBWPqvLbDqu1rIZdzwXtgDycfgO3OzjKI4CskBp/GsYj/eFV4utwlsCZ11Xs0CfzyyxIS8VSqSGYp26QGR/alyQkTxm8uetighat8gyfnnxQ6uXJRftDVRxcM4Er4P6FYV0TsM1ZJ27nyIzRGVDxgXJB62fweNWwwukjWHJNmJnJN98gsd4OZ49QXp7APwtL/IPFUp3z7wt+WHLOv0s+dpYedIN0n1h2IVME2DsrxrK6UA7UN3onSAnc;
- 25:Wog0aymVd5REoKSKHfX6DJQqKdgtkAvzi/sdqv2AniGW1Q05DL8trhxQS85sMGeHGVPvzfklnxDoXFWfjILX3PnOTP+scH/cI4lEkOO+eqyOZf/JFZcXo0djv6z/DYF0OYkYA8cHjRmLsRdw7R51wwdOQ1MMaKkK4KnQsEP1x4lKMYT6lcgMKgL5IdyC72r23b8V1pTDUbCtOjTl2yAqINKn1lmiKslBfyndtjV5ClvrWLhn3mcxXAzPpgwex6wPLrGauAduwlfvSrmger5iQPAE+LZrd1TmMtdXvpqe1y2AucvWNOt70+h0GbHpaXUgxLOrC4GHZB7P34kr9/DmOMfSMWUZFrv+yGC4e+AyJQpaOxMvDALzfAJ9EhoioQCw9M10fbm0CvOCqGy/SDIH+EXexe005MP63kbszgAVWEwT4uwTsnHz+cosKQhMD4xs
-X-Microsoft-Antispam: UriScan:;BCL:0;PCL:0;RULEID:;SRVR:BLUPR02MB1217;
-X-Microsoft-Exchange-Diagnostics: 1; BLUPR02MB1217;
- 31:E1ByH6i/H1lkn89C66ztYbn91AUpWS+cR2IfQUIW5JOWWhORysHVf6jgOwqWeiiErf0yUQhc7bmLAoIY4MscpdV94ezNY+ebOqWOgll1sicDXYDcJvPoxn+wwb4ev9twvT2+lmxBG3ETKxHfRHFNYpp1jin46RgfQhq/c6qhXqAI2UfIy5ltWZg2Nv27A7Nue62LQdnwD2oB6eJ5H62DAjP2ypfSYOOEYURVNoBycSGSEDCxfdVSnNw79sJkLYo0gZsE6aaFqKWfETgGrxA3qg==;
- 20:MxK8b6kAijAS1jPYHymrmqpWOq7luURj696OGgx/mLT2035HkDswDyEmdMW1i4VLod1gSpjHjZ/HOeIRZdCVSgyV7KeCHQIADzuUWSxHCODxkhN+yGAD73iQSfQt8opRRXQUDESmNTYP2Pw3wpw5KNm/5Y2M2Mkp5rCGp2AZ1MATERFjbooqkpb7/70/cjl2kU+w5mafKAxafef33RgJs8sFb1MHnPIGSqNJiG8wJaSI/4gVLr7Q/zAikVb98JGmzf4d1oaKhHqGHhhTHcclzF9dphePZOeWyryCcgNquhJombnsZACdJxxi+E19AxRXKZgY7lPBt3RySAObk+gm1rYNmo6T7Ev3flSW7sPxdiuSMCNYr25eCypaWCRG8XP6YrJGaKYjsFsRPuAD+wWZKguBS0wsNaU62nkJ2rG6KtRYDpP2GhL0pD5VhK52148KGqNMQ+OyG5QpyyEGztifKLoTzgRosgh6bTQECJNG2sMB5bwl8Pe1OCSAzlf9pnLt
-X-Microsoft-Antispam-PRVS: <BLUPR02MB12172BF42AEEC3C8F272E4DDE2DC0@BLUPR02MB1217.namprd02.prod.outlook.com>
-X-Exchange-Antispam-Report-Test: UriScan:(166708455590820)(65623756079841)(265273979862326); 
+ SFS:(10009020)(6009001)(7916002)(2980300002)(428002)(199003)(189002)(55846006)(101416001)(68736007)(16236675004)(102836003)(6116002)(3846002)(33656002)(790700001)(86362001)(586003)(71926001)(7846002)(626004)(260700001)(19625215002)(512954002)(356003)(7736002)(2920100001)(450100001)(97736004)(107886002)(2930100002)(19580395003)(2900100001)(11100500001)(69596002)(81156014)(1730700003)(81166006)(19300405004)(189998001)(5660300001)(7696004)(15975445007)(104016004)(110136003)(8676002)(4001430100002)(105586002)(92566002)(6916009)(106466001)(8936002)(2906002)(4326007)(50986999)(54356999)(53416004)(87936001)(2351001)(84326002)(9326002)(229853001)(9686002)(5250100002)(49446005)(2501003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:CY1PR02MB1232; H:avsrvexchhts2.microsemi.net;
+ FPR:; SPF:None; PTR:InfoDomainNonexistent; A:1; MX:1; LANG:en; 
+X-Microsoft-Exchange-Diagnostics: 1; BN1AFFO11FD041;
+ 1:YSjnl0Flf/Jg5eTXM3iBkEjMaJFQoM5LnA1IymXgNk9OXLj16UCcmN32CImabscXv9m5TtNua1CVrTnBj8mns6bnN822apOMGnHSXZDQRP3HHvUF0bZyy73dYrN4XNj4zpNdC9vQAaZlS6yQJZnacAD1zV6d/6+cMCiIpIXLpZYk1EOBqku8Gka51ENik4Sasb9EhYAEIyZQIJoocrdB869K5Jz8cUKCuMfA5edvlGnMdtCP1CPZMG1aCDO55/J3tB1eJl0zuM8f+ekcj6sjsojNy+32Dqq/uQa5UunPAc4AcI54e2/+ITaJWbZ6E3wiuVQEGSf25Uk/CFr4mtiDHh7w4o2Evts7QPeVfvYcUDVxFgD8AG6uTm9ollz7F5JkIALj+TUYES/Ik94UV2fIWD995DuqizA5+tTBTEcg/hNkAlO/PtNPVBpjkJTFwzZUmbdTj1jFThFyYuHx4AKmO7xI44JT0ppxRHn2RyXPwCbDYSgWdnLRVX6jj13hyv0ZaaZehBPNDqpTPMnEtLECxQ==
+X-MS-Office365-Filtering-Correlation-Id: b87b1bdd-2992-4d81-825e-08d3f369f7ce
+X-Microsoft-Exchange-Diagnostics: 1; CY1PR02MB1232;
+ 2:EthYYwZNZZ2ouPNGzqGafh4Kdi7xZunwqKpmvF7ChaRLwHfldFu06bmr5EsaPFxT3EMIoB+GLZi4kNhUEq9kTvyihKVaSH8BRxaLYNGPoYA73N50jkcnwoT6GYIRdEuo087F16dyzvPJaiFOGU1uyDiyom06ZBP94XavCMCDqsgHdszB1kfIx8kIQPBV/bi81CrExeqSyfFy6s4eb2shMQ==;
+ 3:ye9qmGbfVbQ+ATPGmSjSuzDdNuE3pmJj1AqWbKcAakwfm9O4t02LOC9gcmk/peR8BkgO/1j3A2m67zvMYcosR1T7/ajGoUfWAa3yBW7cKr4yq36mYEU01Upc7VAkOoxrJ6bgAYZxqZdUFTddppo0xGCbnQZiz/0of780yY84jxyrnno+0W/vQ/3W3mgezkC1ZBUav2ddqbgEGCnGC6TMbEqdxx8nHgyKCWS2QE4lzpScs1SjjLgz1hGLMfp3qZ0M;
+ 25:wr/avjYY31Ggwhx95o9ROYOewBJJMUeThBwnhUe+QE1LMh+RHnn2nxVXx4ol3qjxT19GskGfMMcOPqtwYhdlbcG9kDIRfOPTD0/d/ICoCacs1uNlwTDnb0DB2MUGt5R771ZnOmLLTQDrE3IntMOdRUkKGodbJhDxPei4WGMeYJWgBnc3pno8H1keLYoSYh8A2818UwHdavYbDSOnHIQhKDECF2TEv40Gb0e8E8m/TuA8i4Y467z1gM5x4+tDmlzntbxts2Dqy7+oJtZar9w/ZXONofs3QGWxN0LGistsAKEWfwbduenDcv8t8yv9CzNsvgQy07aOz6SDncP1C+EAGQEchceXyGOjngnGnz/ug8GyC9UpDkb6phuwrbvrse79VY3pAFKFK86ix342rWn5FWxgi/TUvF9gvYg6N+lUA5wSMVMeNmYlvGM9RN8ol0jA
+X-Microsoft-Antispam: UriScan:;BCL:0;PCL:0;RULEID:;SRVR:CY1PR02MB1232;
+X-Microsoft-Exchange-Diagnostics: 1; CY1PR02MB1232;
+ 31:reh3lqiPa06aYpmRA+xXHNsGfGfAsFgWzMD3Ea+7bMZEDCXe2jqTYGChOQ2k0scXC+mBnKfVPX5Ooq1TMhUhnqiYWlSRdc5icC0ToTv8EQCmzVmXFucFjP0IIkn555vdTF+HK8csMSikE0JYKEVHZSSMlLj9KCG7naj5LkS5hmWB9sUF9BJOt3CdHZvR6EbhgTH8kMyjj1dxo5KTeBvClh07dtn551GJeBkLyCWV5lXwcmZPopz1NKulx8PMQTOj;
+ 20:YTcpIQdZMsht8+UJMDeBktA/JarITs37+OQEEEkgcHZxrknroZvMjZo3L5rNkXi/iIfI39Rrm1CpbcDW74z8Qiqw6HzRZJ04TqXmSmE5EruMhTOrX7TmAIbHW/VE8KkYAmjTFmaCVl+SHnbKvvvYPP/+cBXQhx9gKmj9bVS8zlBjDg+6Hzk0MBC/sK0cvrznpV6Kaj3mq4tmaZCzZ9OVqyg9xT6+vc2vJjL9+10HpVgBockWUhmIJpOEfi3SCDK01Jc5Vz4KwPKW1WnCnz+47VB+lGjRNKtQBuvMVSlAp+0WlgzqgaCjAl5UDwxSmOkeDfrPpz7ehCfyxsFJzk8zK1u4sEV/9HKEvEsZS1exqFHb8s9t7D80zzZcJvFyd3uP4SccOhIONlPGTwwtrP1a05owd4x+a2sNy1JgV0TRnnq5sPuhFdWQfuF25/5kRh3hXCj6FQKjWcphDzxSGFEdd6fs6u72rKJwrhqnkhpqtLsGUsPuA/MfZyRHZbhfsuAz
+X-Microsoft-Antispam-PRVS: <CY1PR02MB12323CCF43B35CABB1D8F199E2DC0@CY1PR02MB1232.namprd02.prod.outlook.com>
+X-Exchange-Antispam-Report-Test: UriScan:(21748063052155);
 X-Exchange-Antispam-Report-CFA-Test: BCL:0; PCL:0;
- RULEID:(6040176)(601004)(2401047)(13023025)(13024025)(8121501046)(13016025)(13018025)(5005006)(10201501046)(3002001)(6055026);
- SRVR:BLUPR02MB1217; BCL:0; PCL:0; RULEID:; SRVR:BLUPR02MB1217; 
-X-Microsoft-Exchange-Diagnostics: 1; BLUPR02MB1217;
- 4:zVXItSofGGHvQarzyVnBmX4e9Yz0xM6zTg0CqNotSnVM05RhrS8Y5BFsdi5bPoWd4x23KNsM+fuE6sSbOCFBg78FZevMKnx27mtPDJzx4dmWfvsoID/JpDxxIw2okE6tKvybL0Mx/5+tO/DFDTOu3g4JhrvGidAgJkNzy384UbfpKR20TsFZEBkW2vVSjwig+5eZpNLY0fKxW21VdBHa7Mc9kpCnQXYVwSN0y3jFTEZz9xoCxk4IbvEiMytc2uG/+pGIDkWRa99ALa0y3nYIybWljLIh9ubWoBiyO3anKNrhFmfRZ60OPaPwh75ZqbMVb+0UbKhaI91ub0x2RHKP9Ge8UKKM1sqM4SzhuR82K2iWqHisBnKjxNbEMhEjjCXu3B3qQAa5966iusncQziMf8eLEOIuRHGRzLZtsP3uhH7cUoKIelHWSypyW5jhZ4xr5eHlnPPIpLkyEiXsUiG/0nJLmWBD+4c3Bq8kIgUEYx53H8fOU+aI5IGGxVV3l+g8PfC7kvyVdbODOI8Wfi+bdqBLyqel51fqY5m5yrxxzPqyeMPrJSqTNrTf9SMBpKRi/09Ht+y6aIsc7yLjAMpQGz4E7m3aoo7Ne5KuSgt3t1A=
+ RULEID:(6040176)(601004)(2401047)(13016025)(13024025)(13023025)(13018025)(8121501046)(5005006)(10201501046)(3002001)(6055026);
+ SRVR:CY1PR02MB1232; BCL:0; PCL:0; RULEID:; SRVR:CY1PR02MB1232; 
+X-Microsoft-Exchange-Diagnostics: 1; CY1PR02MB1232;
+ 4:mOWgiX0Axqr9u6LtZBKzavBr/vU5YqGpKiu+wNb5X23F3aGhOQCojZGHSfgHiHHw+WGNBCVPRlVxhZIBrCKnL1mhSzYqsfqEPyHnDYo0r0YV93mJLrm9yZKlSwyP0/09xqnipYPYh7n4d4+YdieD9+FFFbmJY4QNI1Tv1pvfzZWCvCjkB9iqIgkrtHVLpumT7i1EGE7UOzVs3rjQWh9LCTF3hJoLiN9Cgo0NO+AL12KNlU9v41+217UOEH0BQAoJwV+DKuqLyf4k4AmTdI0zf5zWJANjV2EKeoIY0uJIbvdzhNz5eIXw5p47jq+uCGhadeOFVXBTEzZJEbpAd/afX90qTrEbAtsDzGoRMXQCdDtiYCnX29hG4Q37hNbr02CQ3frs9KUnIlKj9AYwBjof8iZKp5wWm9tsMvlVN6KUGZAP6GvMpNGADiitoY/8WiX9x2uKcr40Oj1AYcNoXDAjn4k7qgG4AptF5+SJcaRp1hDnvhsHk8PNkHV20wSKQJm7HsnpafZ8sd5/hQP2RC5d1n6si+xNKq2zO7zpNcboLFY=
 X-Forefront-PRVS: 0094E3478A
-X-Microsoft-Exchange-Diagnostics: =?utf-8?B?MTtCTFVQUjAyTUIxMjE3OzIzOjcrOFgvZ1RDY0dkcXhTdnRhdUxTek1yeFUv?=
- =?utf-8?B?eCtNaUZ6UU8reEp5SUtUSkp3R0htWHhXOGJUYnJDVGx1NWdFaDBEbXdRRWpo?=
- =?utf-8?B?VjJBdkRvb0hxcVFyWEpwMVl4WnhMcWJUSXd2MXA3TTU4d1ZtVTYvR2FrNnFP?=
- =?utf-8?B?aXVreGk2cjRxUmxOWWN0ZEdXZ2pZVmhGS09QOUpUUkJ3NlMvYzc5V2l2ZXhu?=
- =?utf-8?B?VEFNd2Joc2FUbGNlb3pPekNpVVZWSG1JQ21MdmVWdDArQW5ZSHJCa1k2R3VT?=
- =?utf-8?B?aUhnUXZINWc0ZzNEb2JiR3c2MVlSUDZUUTFwYlpUbFMycE4yemRLUFdJRkYz?=
- =?utf-8?B?N1BmbGN1T2djWEhxV0RYck5RdDhaaWliWThadXlrdWRIR1JVbWRQZ3lyZCs2?=
- =?utf-8?B?V2dCSm9xYWZtWDRrNHU3cy8vUmpuQ2xBYVRSM1BWblNQTFBHLysyMHExVEF2?=
- =?utf-8?B?N01pMzNWMUtNdHRqUS9vM3lkWUxYdGlKd3NOUlRhL216cFBVZDRGVUc3MEJ4?=
- =?utf-8?B?ZE43b005a1orK1VUUFppQUc3anNINWRESmJpNVVBZ0lLQ3F3Tk0yTFFPeVZ4?=
- =?utf-8?B?b2FpclRkRjhXVlFabUo1bTJrYy9wWDErRnd6TGxQOXdMUTlUcmR2aHJLeGI1?=
- =?utf-8?B?VThoelFqZml3QW10dmRmVDFjUXF4SzVOMytKdEJVR2QxYWJoaTRVSmpIcFhJ?=
- =?utf-8?B?Z0YzNTBJLytXeER2TzU5TmF6WDhibWQ0dmhqamdmaHNjbEFueWZGREJKNE96?=
- =?utf-8?B?ZmlNUGUxR1NHdFRXRVp3SGZMMGY0NmJ3dWJ6aGlmVkVGaldNMVFWNG9zYTZr?=
- =?utf-8?B?Y1pPelZ0MWlBOXRYdUJndWtlMmJ4REZzdVRCNUpWejY5cFpJMGhQWE5yaXJl?=
- =?utf-8?B?OWxYTzh3Nm9qYWlpVmhhUytvVXZZcUdFcTZrK0ZUWEpFamRyUzBBelo5L29y?=
- =?utf-8?B?ZUhYQ3dLaFVhT1NTWGxMcTROWXVCc1JNQ2xXMzB3YW1mdy9wQ3ViZUJRZmRy?=
- =?utf-8?B?RmZVQ2k4MlpRbUFLa3JPSm15QUdCRGhkeW9MUzljaUVaSjlzQkNJdVdJdHZI?=
- =?utf-8?B?ZG9IY2U5UHFNS2grY29VeG1pRWpUOHIrK21hWUlEdlhXNm1PbE1qU053WkNa?=
- =?utf-8?B?ckpXZnlsMTczVHRXell3UjdTVWVUOXhoNHRzYmZiblUvU2VkY09mWXlGVSt3?=
- =?utf-8?B?elVDQUlnNG15QVRDN1NaNzlBRTd0dW56Q3cyaEpsc25JZGYzS0EveC9HNjJu?=
- =?utf-8?B?TU1SVi85bWg3Y2pkWHhkR3NLZmRYNXd0Rk93NWtXK01kdmZ6Z3lmVmJzazM4?=
- =?utf-8?B?Vi9nbENuK0ozUkpHWnVFelEyM2phODc1Q1ZoRjhBdjF1cHhidWViOEFwRXFu?=
- =?utf-8?B?ZHN0UnZVMWRkOG9HYmFweUVGUjg0NGFMT1Y3Q2xOdmVkcTVWai9UbGdrT3BB?=
- =?utf-8?B?NkVlQUpsSWkyMnZwSXgzK2hqNWorWUhkTWp0c3hPajR2eEZteTU1WVJFZFdW?=
- =?utf-8?B?NThWZGpUS0xjVzZMVnNCYnRKVHZ6MjJ5dkpoR3V2Qm1oQ2dxTUt0TkR0eUtC?=
- =?utf-8?B?dW9tQzdaTWRhdHYrVmh5YVZycnVrRWxSSzFudndTZ1RSQzgyZ0JiWW1BakJ5?=
- =?utf-8?B?WlZXL2dDbUpCWHU2ZnpYMkUyQ0t5bFRRNGlRRThTWTI3TWptVGZBZXduTHha?=
- =?utf-8?B?RHlsRENmOE1UOXFQQndJSEZhaGJ3eVlBc3JCazM4YjZIc2FSbEJadHBNNUpO?=
- =?utf-8?B?ZDBXcFJyZ295VGF2VjdjSy9WKzdQcDA0ZHdCb3djbUVuTmtJb1ZNRWxjTnRF?=
- =?utf-8?B?VUJuZlBpeFBaNVhZQ0N0eVFsSEtEbGxoRTBwYkxQemEvb1FmdmgzRnB6eW9r?=
- =?utf-8?B?S012TFVzcDFobm9XWlRKbzJZQ1pta0cyc1VKaEwxWmx2QkNUN05YM3BkcUYx?=
- =?utf-8?B?Ukp1TGJmTk04WS9hSCtheHV5VFE3VkJYcjlNbkJORTZtbk0rSWFKRUpkQU91?=
- =?utf-8?B?ZHZSeXp6S1hpNUVhbVBndzlrejVSMlRCcUd1QT09?=
-X-Microsoft-Exchange-Diagnostics: 1; BLUPR02MB1217;
- 6:YwKGR9tYOVD1/aZghjQMMQtHX4u1rYMcWOOkSWkmtHI+YGsbqJ5d9ZxO1uCiAeCoSpp3XwfzAY2jpi+KjV2I2spm+KGb8ZnkHE8QMe4SNYAYuixmyx8z3DqvyVERgnpY1qGsM4kdStmxMGOzZfrdz4ZJ94QleQfnqNJ+4K1M0mezQSCcuZ0oSqvDXxX8whFWYWnDhS4N/TLaCDrN14dL3/2QC+eRip6e4Omh9NRBicrLemNNspuY9hmzVY6KAED+UWYCesDiWg58JccMjXQ1XcsbZjUE5/E8F0eHKmKvhXTo2tpwMuik1Yqs03RBdPYTp2q1i9yT6iiSf3im0oh95cj7DOO7khZwqY0M3v4a5+0=;
- 5:S/we/RZ2JE+/otdoVG84+WK6QUN92Tn4JaotRmSqLQNPgiA/EAWkgUYvXZQ8V2nc9Z0ocQKKuFqpxumntawNu8Vbfs05YGcjnmTzQaj97ifIuwr3h/HDl0FkOy/6OKS8AwiudizWKKRL/CPX3X/mMnDdAK8q2HOvK9x1Zc78p4Y=;
- 24:SxpHpEPJyr+HFx+8ko1vCM3LKYFBtZlTgHFTtQfJxqH9Mb4ts/tmQ5UQPAvDb6cv3DGYjmm112fu+g2eVpSovlijSv15kPqd6W6w08QA42M=
+X-Microsoft-Exchange-Diagnostics: =?us-ascii?Q?1; CY1PR02MB1232;
+ 23:0FWTGK+syZoIpZd9d/J3n0FFgqNRQuMnty2/r4mc+?=
+ =?us-ascii?Q?qs2xXDfYz5CQ0B1PX/3U5AOXvgnUHmb+YlAoGstVEjlTt3qg9DpsrhIfhx7b?=
+ =?us-ascii?Q?o5s9Ijf+r9pPT+IrOLffm7d0q1wwfsSLx3Bna6x40ltpoADKmVcWZTnq5/XQ?=
+ =?us-ascii?Q?5l0UmoZpT/Tl55VsBxITeVHSSDjY0CXaj4OwzySg4yuxU/6etLgn6UGx99ge?=
+ =?us-ascii?Q?bJmQbyocX4xgSFP2w6JcB6RIa3xNQLEUVwAFyj77Qt5A0PHzqeH+UrSwipCy?=
+ =?us-ascii?Q?4U8BBR4PDvGLEA81cc2jKvwVnTpRJtVpGPiO3OhJ5Botwub2aBmHn2XKdxKl?=
+ =?us-ascii?Q?amxgyjkTjQ0A5g3jaEjNNyHdHx1Jm6bKWnKClUcrfyMtlqwy9SMxJf3PEW2h?=
+ =?us-ascii?Q?W4RXWwDSXfDURnAiyIZg1UMkMvE30sfGDdQZ4HRaeYh/2DQKk8KNg3cO9aQ/?=
+ =?us-ascii?Q?OwkyYXP5a+iHrPVJqYUyCP8MK7Pv2MxTjsULhEpnRR2xis3zxNXdm8qRuMuH?=
+ =?us-ascii?Q?mkaG+E9YReqmQCRRxb2dzj9y/dCBh+j+1VZHJS9M2im26FP0zVdbmaMLddWg?=
+ =?us-ascii?Q?BwoOj1vftTRrnYFPQcQ8c9odB9v16JqC0N5gDkC6+BXTSCu7c99FFEl8uWK5?=
+ =?us-ascii?Q?bKxTlUwUKqLARSPDPp8JgoscnYhbnVKhii6zGpubd0U/yp9ln0wqBNplZuGa?=
+ =?us-ascii?Q?UT2JTupSUABPmNTxi5Cfw6fsH7vsm3uftJObu7esG+2Gj8j3x8YzHFltRnbi?=
+ =?us-ascii?Q?DdIMyiAKMznMOfkX7JopElUJH60VMD9nm7K+QiUnLlItdIOVs05O+N0DTdPp?=
+ =?us-ascii?Q?vj2qbWHrLprALK1i0u7NOaiRMgJzFxsmNxLZ9Nbm8iiIAoyne6jDaD8NMMYT?=
+ =?us-ascii?Q?IdcOs8rbYXwJPMWvOyzGyw4GNWpXiy3KSn3QthaIgNfsiAAmUIuJae1ESfHK?=
+ =?us-ascii?Q?2AhgOKdDGDQVICienuQeXyTrtGuNTd4qNQbdN5ByRpu6QM1ZhTwSnct5XVTc?=
+ =?us-ascii?Q?ZymQYx5itx03NT6mOdA7vFbWUtRE6BmjeFViYhePb0AuuFcgRD0GtF6qL7cO?=
+ =?us-ascii?Q?uBPHFtTKbzej/4Z5UKYURz1D2QMQ0CJpeVL4Q+4r77WrwmmAiupfWPZxXd7r?=
+ =?us-ascii?Q?i+EdTPlraPZDwcTEbnSKfS8dYdsbneqn2qzHvLOOeAU2KVtjQhgZUg8ks6Fd?=
+ =?us-ascii?Q?9FzW4R8tnbLPQ8wMNwqFFJYZuzpRkxb99zNk+UphD3ULfKrQWLAEiR5gW8RV?=
+ =?us-ascii?Q?ptOFhPcCreGyyPgEKvO3ZPtkH/gPF/IiulQyeqoBcFND8f4Ys+CfOq62tNLA?=
+ =?us-ascii?Q?OmHE8M57jUnCYmGoJ+TzzEIsi62o39yAcCDcdfCM6j8UubSLIvi4DQWvbyX7?=
+ =?us-ascii?Q?APGXH4/7TZn8u47SqYjs8UPNQdx4DRJYwMX+1+gulDLkzrk1Vd5UdIlLb1iA?=
+ =?us-ascii?Q?olXu2Xcm2cuAEgUfKWe0+jmGB3kjsJbboUSeG72y3lPKZsxid16z6vnIBgHf?=
+ =?us-ascii?Q?0KiN6Pcfdc/5l7vylRap29SRkeUIsZ4vj1mIpUWI6flsKF0yrIQkd6H?=
+X-Microsoft-Exchange-Diagnostics: 1; CY1PR02MB1232;
+ 6:kmXg+J6p7gEre0i7kzN0vOODsCSUTLBL5jx9q1NR7aJpVFUrW9KvZkevjeN3FTYsGGbv1cDxATtDzbNmTQBlc9ERgLvzEykEwAmYjV0SLS//SrHHY6oKLYAwq9Gau3w3/Oyc35INR1Jpdyj7FikzB49hsLjeTGYSL+oNAhMmXdJGRJ89PgSyHtwZwQLz92enl07CtiILgkH+tspgeIFnFq1bjFS6e8vTzwP5TWsYOjXP3+a4pQNkfFBEwvRRsh6FLH2Ej8/GDJwEhT1PD1oFdaTLTnCMQGERmpzEu4koN5sQ+P5eiZ0LZHYYu9eaH4eLW2gRLtkMhTCnVo0jrWy4MGVij6hjY7vhtm6klVqhMcA=;
+ 5:478v3XAiYAa2btlWI9dyGgKNx1NFaZx27UVh71DrpCE8+Np2dGyHOjENjhjFdhBdwfkPnEYSIRDexpj6S7Ptmvj+4d7nrsHPsmizILwwZYvXtl3dGvOJEWnOcxy+JwZf//zDRYSmWqJ7IBRQmCGOTMNAAIB8VjOH5pEuki34z6c=;
+ 24:b9OrSTNQvhlNznls5MHq6O9u1mUlePJLBlDq6RimM/Ea/Rw0I8Uh562zJmSZiEE3fPkc0Vr784xIM3PaohwuahgbewINmkBgPiZybcmbxp4=
 SpamDiagnosticOutput: 1:99
 SpamDiagnosticMetadata: NSPM
-X-Microsoft-Exchange-Diagnostics: 1; BLUPR02MB1217;
- 7:2yCQmQUjxI3IuFDHceyf1Cgsh2LpQDl8vFtK2XrnsrRuwzTyO/5i/6xh1AUlMN9qRuykUTcbMjHcQSWhOLxoY/RFQ9l2uR2qZ8zMtkWXXB8N7MzZbcia7mFGWxg9+pNlgtkxFgUHDja4d3DxFDyLd4Mrk5oQocOboLK9t7CoqJgMIzqZr4xrko6JdVLp00qy5dP85NMB8fEtX269naSadwPFnYKrPPdT8uJnlvnPtK3SJmgUdKN/W35/A9bZNP7ixkaZQUOJSvllaRfVQYwneP6SUtJeTjimUC0qGQ4kS7Pmg2l0n2FTBAWaGdeDzO7l8R+7MunY9APWIIgOxBLpjs5EW4EzJu7fXNez3poxNH4=
+X-Microsoft-Exchange-Diagnostics: 1; CY1PR02MB1232;
+ 7:FTF+at756tpW+g805/6rsHD43bc3LVxGPjLEo10Fxo0lCJhDuOpT8tAu6Ko9KhpbbwwnCLOW5+fqIPBUHVXZRWHy3szCcu0OIzImmyeBQwyBlixjx5jXQ2EO6ivxh+8QP8TDsR+mkZI/bxj9TiPNnY6v9yhu/Cgy0dVL1syo/ISpkCNNWbSsS1FkWO+81A/0HRCVaTkYtgFsihKahEB66+NskrUSMnERVZPunZm6qVmUsv4M9p67zYypGvBbPVJWOMU/KpyAjcl8b5kQ/w+tahEEKVn5S+yZbW7pVs9244JqL2CbonJdNG9Ss4CD9lLQpAzSSwat3LzLtkhxLd9l6v4jAnQJo5VdIFnvpPRj/6E=
 X-OriginatorOrg: microsemi.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2016 08:09:21.0698 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2016 13:08:04.0093 (UTC)
 X-MS-Exchange-CrossTenant-Id: f267a5c8-86d8-4cc9-af71-1fd2c67c8fad
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f267a5c8-86d8-4cc9-af71-1fd2c67c8fad; Ip=[208.19.100.20];
  Helo=[avsrvexchhts2.microsemi.net]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLUPR02MB1217
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR02MB1232
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -143,72 +131,341 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Oct 2016 08:09:28 -0000
+X-List-Received-Date: Thu, 13 Oct 2016 13:08:13 -0000
 
-SGksDQoNCg0KUmVxdWlyZW1lbnQgaXMgdG8gcnVuIGEgd2Vic2VydmVyIGJhc2VkIG9uIG5vZGVq
-cyBvbiBhcm0gYmFzZWQgZW11bGF0ZWQgZW52aXJvbm1lbnQuDQoNClNpbmNlIG5vZGVqcyBiaW5h
-cmllcyBoYXMgc3VwcG9ydCBvbmx5IGZyb20gYXJtdjYgYXMgcGVyIGh0dHBzOi8vbm9kZWpzLm9y
-Zy9lbi9kb3dubG9hZC8gICwgSSBhbSB0cnlpbmcgdG8gZW11bGF0ZSBhbiBlbnZpcm9ubWVudCBi
-YXNlZCBvbiBhcm12Ni92NyBzbyB0aGF0IEkgY2FuIHJ1biBteSB3ZWJzZXJ2ZXIgb24gZW11bGF0
-ZWQgZW52aXJvbm1lbnQuDQoNClRoYW5rcw0KQXJqdW4gUGFkbWFuYWJoYW4NCg0KLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBDw6lkcmljIExl
-IEdvYXRlciBbbWFpbHRvOmNsZ0BrYW9kLm9yZ10gDQpTZW50OiBUaHVyc2RheSwgT2N0b2JlciAx
-MywgMjAxNiAxOjEyIFBNDQpUbzogQXJqdW4gUGFkbWFuYWJoYW47IG9wZW5ibWNAbGlzdHMub3ps
-YWJzLm9yZw0KQ2M6IEJhbGFqaSBNYXJpbXV0aHUNClN1YmplY3Q6IFJlOiBGVzogS2VybmVsIHBh
-bmljIGVycm9yIHdoaWxlIGVtdWxhdGluZyBxZW11YXJtIGltYWdlDQoNCkVYVEVSTkFMIEVNQUlM
-DQoNCg0KT24gMTAvMTMvMjAxNiAwOTozMiBBTSwgQXJqdW4gUGFkbWFuYWJoYW4gd3JvdGU6DQo+
-IEhpLA0KPg0KPiBUaGFua3MgZm9yIHRoZSByZXBseS4NCj4NCj4gVXBkYXRlOiBGb3IgZGVmYXVs
-dCBjb21waWxhdGlvbihhcm12NWUpIHdpdGhvdXQgY2hhbmdpbmcgdHVuaW5nIA0KPiBmZWF0dXJl
-cywgSSBjb3VsZCBydW4gcWVtdSgyLjcuMCkgd2l0aCBidWlsdCBpbWFnZS4gSXNzdWUgIG9mIGtl
-cm5lbCANCj4gcGFuaWMgaGFwcGVucyB3aGVuIEkgY2hhbmdlIHR1bmluZyBmZWF0dXJlIGZpbGUg
-YXMgSSBtZW50aW9uZWQgaW4gDQo+IHRyYWlsaW5nIG1haWwuDQoNCkkgYW0gbm90IHN1cmUgd2hh
-dCB5b3UgYXJlIHRyeWluZyB0byBhY2hpZXZlIGJ1dCwgdW5kZXIgcWVtdSwgdGhlIG1hY2hpbmUg
-J3BhbG1ldHRvLWJtYycgZW11bGF0ZXMgYSBib2FyZCB3aXRoIGEgQVJNOTI2RUotUyBDUFUgd2hp
-Y2ggaXMgYSB2NS4gU28gaXQgd2lsbCBiZSBkaWZmaWN1bHQgdG8gcnVuIGEga2VybmVsIGNvbXBp
-bGVkIGZvciBhbiBhYm92ZSB2ZXJzaW9uIG9mIHRoZSBpbnN0cnVjdGlvbiBzZXQuDQoNCllvdSB3
-aWxsIG5lZWQgdG8gcnVuIHRoZSBtYWNoaW5lICdhc3QyNTAwLWV2Yicgd2hpY2ggZW11bGF0ZXMg
-YSBib2FyZCB3aXRoIGEgQVJNMTE3Niwgd2hpY2ggaXMgYSB2NisuIFRoYXQgbWlnaHQgYmUgYmV0
-dGVyLg0KDQoNCnFlbXUtc3lzdGVtLWFybSAtbSA1MTIgLU0gYXN0MjUwMC1ldmIgLW5vZ3JhcGhp
-YyBcDQogICAgICAgIC1kcml2ZSBmaWxlPTxwYXRoPi9mbGFzaC1wYWxtZXR0byxmb3JtYXQ9cmF3
-LGlmPW10ZCBcDQogICAgICAgIC1uZXQgbmljIFwNCiAgICAgICAgLW5ldCB1c2VyLGhvc3Rmd2Q9
-OjEyNy4wLjAuMToyMjIyLToyMixob3N0ZndkPToxMjcuMC4wLjE6MjQ0My06NDQzLGhvc3RuYW1l
-PXFlbXUNCg0KdXNpbmcgLWtlcm5lbCBzaG91bGQgd29yayBhbHNvLg0KDQpUaGFua3MNCg0KQy4N
-Cg0KDQo+IFRoYW5rcw0KPiBBcmp1biBQYWRtYW5hYmhhbg0KPg0KPiAtLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQo+
-IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0N
-Cj4NCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogQ8OpZHJpYyBMZSBHb2F0
-ZXIgW21haWx0bzpjbGdAa2FvZC5vcmddDQo+IFNlbnQ6IFRodXJzZGF5LCBPY3RvYmVyIDEzLCAy
-MDE2IDEyOjQ4IFBNDQo+IFRvOiBBcmp1biBQYWRtYW5hYmhhbjsgb3BlbmJtY0BsaXN0cy5vemxh
-YnMub3JnDQo+IENjOiBCYWxhamkgTWFyaW11dGh1DQo+IFN1YmplY3Q6IFJlOiBGVzogS2VybmVs
-IHBhbmljIGVycm9yIHdoaWxlIGVtdWxhdGluZyBxZW11YXJtIGltYWdlDQo+DQo+IEVYVEVSTkFM
-IEVNQUlMDQo+DQo+DQo+IEhlbGxvLA0KPg0KPiBDb3VsZCB5b3UgdHJ5IG91dCB0aGUgaW5zdHJ1
-Y3Rpb25zIHVuZGVyIDoNCj4NCj4gICAgICAgICBodHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9k
-b2NzL2Jsb2IvbWFzdGVyL2NoZWF0c2hlZXQubWQNCj4NCj4gYW5kIHBsZWFzZSB1c2UgdGhpcyBx
-ZW11IHRyZWUgOg0KPg0KPiAgICAgICAgIGh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL3FlbXUN
-Cj4NCj4gTWFpbmxpbmUgaXMgbWlzc2luZyBhIGZldyBtb2RlbHMuDQo+DQo+IFRoYW5rcywNCj4N
-Cj4gQy4NCj4NCj4gT24gMTAvMTMvMjAxNiAwNjo0NiBBTSwgQXJqdW4gUGFkbWFuYWJoYW4gd3Jv
-dGU6DQo+PiBIaSwNCj4+DQo+Pg0KPj4NCj4+IEkgY2xvbmVkIG9wZW5ibWMgcmVwb3NpdG9yeSBh
-bmQgYnVpbHQgaW1hZ2UgZm9yIHFlbXUtYXJtLg0KPj4NCj4+DQo+Pg0KPj4gU2luY2UgSSBuZWVk
-IHRvIGJ1aWxkIGZvciBhcm12NywgSSBjaGFuZ2VkIHR1bmluZyBmaWxlcy4NCj4+DQo+Pg0KPj4N
-Cj4+IFRoZSBmaWxlIEkgY2hhbmdlZCBhbmQgY2hhbmdlcyBJIG1hZGUgd2FzDQo+Pg0KPj4gMS4g
-ICAgICAgbWV0YS9jb25mL21hY2hpbmUvaW5jbHVkZS90dW5lLWFybTkyNmVqcy5pbmMNCj4+DQo+
-PiAtICAgICAgICAgIERFRkFVTFRUVU5FID89IOKAnGFybXY3YeKAnQ0KPj4NCj4+IC0gICAgICAg
-ICAgUmVxdWlyZSBjb25mL21hY2hpbmUvaW5jbHVkZS9hcm0vYXJjaC1hcm12N2EuaW5jDQo+Pg0K
-Pj4NCj4+DQo+PiBBZnRlciBtYWtpbmcgdGhlc2UgY2hhbmdlcywgSSBleGVjdXRlZCBiaXRiYWtl
-IG9ibWMtcGhvc3Bob3ItaW1hZ2UuDQo+Pg0KPj4NCj4+DQo+PiBJIHRyaWVkIHJ1bm5pbmcgcnVu
-cWVtdSBxZW11YXJtIGJ1dCB0aGUgY29tbWFuZCBpcyBzdHVjayBhdCBWTkMuIFBsZWFzZSBmaW5k
-IFNjcmVlblNob3QxLnBuZyBhdHRhY2hlZC4NCj4+DQo+Pg0KPj4NCj4+IEFzIGFuIGFsdGVybmF0
-aXZlIHdheSBJIGRvd25sb2FkZWQgcWVtdS0yLjcuMCBzb3VyY2UgY29kZSBhbmQgYnVpbHQgdGhl
-IHFlbXUgZXhlY3V0YWJsZS4NCj4+DQo+Pg0KPj4NCj4+IFVzaW5nIHRoZSBidWlsdCBleGVjdXRh
-YmxlLCBxZW11IHN0YXJ0ZWQgYnV0IEkgYW0gb2JzZXJ2aW5nIGtlcm5lbC1wYW5pYyBlcnJvci4g
-UGxlYXNlIGZpbmQgU2NyZWVuU2hvdDIucG5nIGF0dGFjaGVkLg0KPj4NCj4+DQo+Pg0KPj4gSXMg
-dGhlcmUgYW55IHdheSB0byBnZXQgcGFzdCB0aGlzIGlzc3VlPyBBbSBJIG1pc3Npbmcgc29tZXRo
-aW5nIG9yIHdoZXRoZXIgdGhlIHN0ZXBzIEkgZGlkIHdhcyB3cm9uZyBmb3IgYnVpbGRpbmcgZm9y
-IGFybXY3Pw0KPj4NCj4+DQo+Pg0KPj4gUmVnYXJkcw0KPj4NCj4+IEFyanVuIFBhZG1hbmFiaGFu
-DQo+Pg0KPj4gU29mdHdhcmUgRGVzaWduIEVuZ2luZWVyDQo+Pg0KPj4gTWljcm9zZW1pIFN0b3Jh
-Z2UgU29sdXRpb25zIEluZGlhIFB2dC4gTHRkLg0KPj4NCj4+DQo+Pg0KPj4gX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4+IG9wZW5ibWMgbWFpbGluZyBs
-aXN0DQo+PiBvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcNCj4+IGh0dHBzOi8vbGlzdHMub3psYWJz
-Lm9yZy9saXN0aW5mby9vcGVuYm1jDQo+Pg0KPg0KDQo=
+--_000_C160D2872FE0DE4683E1910F9BF829414846E409avsrvexchmbx2mi_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+I was using host usb passthorugh for testing my application in emulated env=
+ironment when using qemu-x86-64.  I could access host usb by adding "-usb -=
+device usb-host,hostbus=3Dx,hostaddr=3Dy" to qemu. Usb will be added in /mn=
+t/.
+
+Same command is not working as expected in qemuarm emulated environment. Co=
+mmand is passing but I could not access usb in emulated environment. When e=
+xecuting qemu command, usb is getting ejected from host system.
+
+-Anyone have idea on emulating a host usb in qemuarm environment?
+
+As an alternative way, I am adding a custom recipe which includes my applic=
+ation. Application folder structure includes cross-compiled *.a and *.so.
+
+I am getting following errors while do_package_qa().
+
+
+-          Mycode-1.0-r0 do_package_qa: QA Issue: non -staticdev package co=
+ntains static .a library ...............
+
+-          Mycode-1.0-r0 do_package_qa: QA Issue:No GNU_HASH in elf binary =
+.......................
+
+-Is there any way to include static library in my recipe to openbmc image b=
+y getting past qa issue?
+
+-Is there a way to skip GNU_HASH check in so files which is in my custom de=
+velopment recipe?
+
+-          A way I found while searching through google was to add export L=
+D=3D"${LD} --hash-style=3Dgnu" before compiling my binaries. Is there any o=
+ther way where I can disable GNU_CHECK for my recipe?
+
+
+Thanks and Regards
+Arjun Padmanabhan
+Software Design Engineer
+Microsemi Storage Solutions India Pvt. Ltd.
+
+
+
+
+
+
+
+
+--_000_C160D2872FE0DE4683E1910F9BF829414846E409avsrvexchmbx2mi_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{mso-style-priority:34;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+/* List Definitions */
+@list l0
+	{mso-list-id:305470554;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1579357706 1993132948 67698691 67698693 67698689 67=
+698691 67698693 67698689 67698691 67698693;}
+@list l0:level1
+	{mso-level-start-at:0;
+	mso-level-number-format:bullet;
+	mso-level-text:-;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-font-family:Calibri;
+	mso-bidi-font-family:"Times New Roman";}
+@list l0:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l0:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l0:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l0:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l0:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l0:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l0:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l0:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l1
+	{mso-list-id:1267806244;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-173393092 -691754692 67698691 67698693 67698689 676=
+98691 67698693 67698689 67698691 67698693;}
+@list l1:level1
+	{mso-level-start-at:0;
+	mso-level-number-format:bullet;
+	mso-level-text:-;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-font-family:Calibri;
+	mso-bidi-font-family:"Times New Roman";}
+@list l1:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l1:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l1:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l1:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l1:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l1:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l1:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l1:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I was using host usb passthorugh for testing my appl=
+ication in emulated environment when using qemu-x86-64. &nbsp;I could acces=
+s host usb by adding &#8220;&#8211;usb &#8211;device usb-host,hostbus=3Dx,h=
+ostaddr=3Dy&#8221; to qemu. Usb will be added in /mnt/.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Same command is not working as expected in qemuarm e=
+mulated environment. Command is passing but I could not access usb in emula=
+ted environment. When executing qemu command, usb is getting ejected from h=
+ost system.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">-Anyone have idea on emulating a host usb in qemuarm=
+ environment?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">As an alternative way, I am adding a custom recipe w=
+hich includes my application. Application folder structure includes cross-c=
+ompiled *.a and *.so.
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I am getting following errors while do_package_qa().=
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoListParagraph" style=3D"text-indent:-.25in;mso-list:l0 level=
+1 lfo2"><![if !supportLists]><span style=3D"mso-list:Ignore">-<span style=
+=3D"font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>Mycode-1.0-r0 do_package_qa: QA Issue: non &#8211;s=
+taticdev package contains static .a library &#8230;&#8230;&#8230;&#8230;&#8=
+230;<o:p></o:p></p>
+<p class=3D"MsoListParagraph" style=3D"text-indent:-.25in;mso-list:l0 level=
+1 lfo2"><![if !supportLists]><span style=3D"mso-list:Ignore">-<span style=
+=3D"font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>Mycode-1.0-r0 do_package_qa: QA Issue:No GNU_HASH i=
+n elf binary &#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;..<o:p></o:p>=
+</p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">-Is there any way to include static library in my re=
+cipe to openbmc image by getting past qa issue?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">-Is there a way to skip GNU_HASH check in so files w=
+hich is in my custom development recipe?<o:p></o:p></p>
+<p class=3D"MsoListParagraph" style=3D"text-indent:-.25in;mso-list:l0 level=
+1 lfo2"><![if !supportLists]><span style=3D"mso-list:Ignore">-<span style=
+=3D"font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>A way I found while searching through google was to=
+ add export LD=3D&quot;${LD} --hash-style=3Dgnu&quot; before compiling my b=
+inaries. Is there any other way where I can disable GNU_CHECK for my recipe=
+?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks and Regards<o:p></o:p></p>
+<p class=3D"MsoNormal">Arjun Padmanabhan<o:p></o:p></p>
+<p class=3D"MsoNormal">Software Design Engineer<o:p></o:p></p>
+<p class=3D"MsoNormal">Microsemi Storage Solutions India Pvt. Ltd.<o:p></o:=
+p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_C160D2872FE0DE4683E1910F9BF829414846E409avsrvexchmbx2mi_--
