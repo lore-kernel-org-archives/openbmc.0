@@ -1,31 +1,52 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3svY6515Y7zDrbg
- for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 12:28:45 +1100 (AEDT)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-vk0-x244.google.com (mail-vk0-x244.google.com
+ [IPv6:2607:f8b0:400c:c05::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 3svY645dmMz9s36;
- Thu, 13 Oct 2016 12:28:44 +1100 (AEDT)
-Subject: Re: [PATCH linux v3 16/18] drivers/fsi: Set up CFAMs for communication
-To: Christopher Bostic <christopher.lee.bostic@gmail.com>
-References: <1476222003-99697-1-git-send-email-christopher.lee.bostic@gmail.com>
- <1476222003-99697-17-git-send-email-christopher.lee.bostic@gmail.com>
- <ad154be5-d4e3-a163-4962-167bbea924fa@ozlabs.org>
- <CAA0LjjVMOQebHY3MBhqwa=SX-Pmu1u2+SoaRoEJ-yT1dFz4NTg@mail.gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, xxpetri@de.ibm.com,
- zahrens@us.ibm.com
-From: Jeremy Kerr <jk@ozlabs.org>
-Message-ID: <9fa700d8-2882-cb4c-9606-018f08fd9a04@ozlabs.org>
-Date: Thu, 13 Oct 2016 09:28:44 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.2.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3svb2v1CRVzDsxn
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Oct 2016 13:56:07 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=WVDWYvNJ; 
+ dkim-atps=neutral
+Received: by mail-vk0-x244.google.com with SMTP id 2so2917848vkb.1
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Oct 2016 19:56:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=LNz998qr8ctlOcUNZb5jkaWKd8XCQd8TS0QwDDnjeiw=;
+ b=WVDWYvNJjMj0NLXwyNd2MsPzl32qRxPX+V8r6MYN3LUwL6sN+Cao3RPHyxKVq1L9TO
+ mhtY7YVt6+rgKhEBehuKhhNVQI7d2bf/8FzlFXkfKeu43PXg4wQTJfFfK/RLACgFjRWN
+ ajGmd915tUaizjUzMRnt/iuTor6QY1C6iBeoisEz00MFLKVZIID54Dw4LTNy5P40vXLQ
+ RO0cgctBju2uqKJiYbXa2dXz6OQVctC55bYMRq5FCMzY+amruRPX9cWAgXi0qmV9Ih/8
+ KMFHUeAZ2LK+MD/ByuQi80WafF8kHVr/et3r+mYoLWQDBWxecMCuRWiMFLlnHZRI6+/t
+ ptQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=LNz998qr8ctlOcUNZb5jkaWKd8XCQd8TS0QwDDnjeiw=;
+ b=Y21bpTH6/8OniSsMDS9lqq8q2dSR7UFhcpep0vYZmCasMcZrNxhJ8E1PGqLp23WdfH
+ SFjoHbKLyd8Zn4/ESPfZNzwB9zycDvfR95d0j1b+qh4Iz8q+TVQ/1FZd7ebb024cKJsi
+ IE/nbSdqGkx0lHfokUuMKqJNUZ7+VYhyXG6u7bGkBtn2JWyukSPFfytU5O+yjtiITFen
+ azC9GmfCbwrbxVRx21t0c4og02fo6hU/h8n0PQBvdZCFAR6RqkVrrM+8cQ4vObw2JCB1
+ 7YjCjF+SfyX0wavH3avuIySccpwdXNHjQYqk7RrN3xvpUX9PcG6H8/1eRAt4GSqVL18z
+ D9KQ==
+X-Gm-Message-State: AA6/9RlZwl+RrI4s+Ah7N/PAJlxRB9QcJMBwMD/XPtldVgZIMVCQsKIapyMonJssR3bBgqLztuJFbRcck6Mk/g==
+X-Received: by 10.31.233.6 with SMTP id g6mr2860157vkh.148.1476327364024; Wed,
+ 12 Oct 2016 19:56:04 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAA0LjjVMOQebHY3MBhqwa=SX-Pmu1u2+SoaRoEJ-yT1dFz4NTg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Sender: joel.stan@gmail.com
+Received: by 10.176.7.8 with HTTP; Wed, 12 Oct 2016 19:55:43 -0700 (PDT)
+In-Reply-To: <1476312288-100725-1-git-send-email-xow@google.com>
+References: <1476312288-100725-1-git-send-email-xow@google.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 13 Oct 2016 13:55:43 +1100
+X-Google-Sender-Auth: bMZqucAHW6FBqeLtPxj-L0uCDTI
+Message-ID: <CACPK8XdRCjtnaEYjh0-8HHEx_zADO+KB_RtrPdnONx4ySu3Rqw@mail.gmail.com>
+Subject: Re: [PATCH 1/5] mach-aspeed: Add Zaius BMC-specific early setup
+To: Xo Wang <xow@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -37,82 +58,76 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Oct 2016 01:28:45 -0000
+X-List-Received-Date: Thu, 13 Oct 2016 02:56:07 -0000
 
-Hi Chris,
+On Thu, Oct 13, 2016 at 9:44 AM, Xo Wang <xow@google.com> wrote:
+> Add initialization for "ingrasys,zaius-bmc" machines to deal with
+> hardware issues on EVT1 boards. This overrides incorrect straps that
+> enabled the SPI slave and disables pull down resistors that prevented
+> buttons inputs from being driven high.
+>
+> This code reads board revision fuse bits directly from GPIO registers
+> because GPIO drivers are not available yet.
 
->> You'll probably be better returning rc for both of these cases, no need
->> to squash it to ENODEV (and if you do, EIO might be more appropriate).
->>
-> 
-> The main way to detect if there is a real and functional slave on the other
-> end of the link, at least in the past, was to see if the break command failed
-> or not.
+That's unfortunate, but I can't think of another way to make it work.
 
-But the break has no response, so any failure there would only indicate
-a problem with the master, right? Wouldn't a slave error only be
-detected by the smode write?
+> Signed-off-by: Xo Wang <xow@google.com>
 
-But yes, in that case, -ENODEV is appropriate for the smode write.
+Reviewed-by: Joel Stanley <joel@jms.id.au>
 
->> OK, looks good for a link_enable function of the masters. However, can
->> you add the new callbacks (link_enable & send_break) and their wrappers
->> in a separate earlier patch?
-> 
-> Is this the same change you discuss above where you'd like to see
-> link_enable and send_break code in a separate patch from the set_smode
-> code? Or is this a third patch to spell out sub details on link_enable and
-> send_break?
-
-No, same as above. Sorry for the confusion!
-
->>>  static int fsi_master_scan(struct fsi_master *master)
->>>  {
->>> -     int link, slave_id;
->>> +     int link, slave_id, rc;
->>> +
->>> +     for (link = 0; link < master->n_links; link++) {
->>> +             rc = fsi_master_link_enable(master, link);
->>> +             if (rc)
->>> +                     continue;
->>
->> Shouldn't we fail on that?
->>
-> 
-> Yes, but what that means right now is uncertain.  I can put in a
-> dev_dbg( ) to track the fail but I don't want to exit immediately on
-> that error since there may still be links to deal with in the for
-> loop.
-
-OK, makes sense.
-
->>> diff --git a/drivers/fsi/fsi-slave.h b/drivers/fsi/fsi-slave.h
->>> new file mode 100644
->>> index 0000000..ea7a760
->>> --- /dev/null
->>> +++ b/drivers/fsi/fsi-slave.h
->>> @@ -0,0 +1,62 @@
->>> +/*
->>> + * FSI slave engine definitions.
->>> + *
->>
->> Why does this need to be in a header file? Isn't it only used by the FSI
->> core?
-> 
-> I suppose this is me not being familiar with the common coding practices
-> of the Linux community.  I would typically put constants and structs in an
-> associated header file even if there was no intent to have them be used
-> by anything outside the core.   Is it a requirement that this all be moved
-> into fsi-core.c as a means of limiting accessibility?
-
-It's not a requirement, but a strong convention. Only use headers for
-stuff that you need to share across other files; this gives future
-developers a definite indication of the scope of these macros, consts
-and structs.
-
-The less that is globally accessible, the better.
-
-Regards,
-
-
-Jeremy
+> ---
+>  arch/arm/mach-aspeed/aspeed.c | 27 +++++++++++++++++++++++++++
+>  1 file changed, 27 insertions(+)
+>
+> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+> index 12a63db..9bf159c 100644
+> --- a/arch/arm/mach-aspeed/aspeed.c
+> +++ b/arch/arm/mach-aspeed/aspeed.c
+> @@ -170,6 +170,31 @@ static void __init do_witherspoon_setup(void)
+>         do_ast2500_common_setup();
+>  }
+>
+> +static void __init do_zaius_setup(void)
+> +{
+> +       unsigned long reg;
+> +       unsigned long board_rev;
+> +
+> +       do_ast2500_common_setup();
+> +
+> +       /* Read BOARD_REV[4:0] fuses from GPIOM[7:3] */
+> +       reg = readl(AST_IO(AST_BASE_GPIO | 0x78));
+> +       board_rev = (reg >> 3) & 0x1F;
+> +
+> +       /* EVT1 hacks */
+> +       if (board_rev == 0) {
+> +               /* Set strap[13:12] to 01, Enable SPI master */
+> +               /* Set bits in writes to SCU7C are cleared from SCU70 */
+> +               writel(BIT(13), AST_IO(AST_BASE_SCU | 0x7C));
+> +               /* SCU70 is set-only, so no read-modify-write needed */
+> +               writel(BIT(12), AST_IO(AST_BASE_SCU | 0x70));
+> +
+> +               /* Disable GPIO I, G/AB pulldowns due to weak driving buffers */
+> +               reg = readl(AST_IO(AST_BASE_SCU | 0x8C));
+> +               writel(reg | BIT(24) | BIT(22), AST_IO(AST_BASE_SCU | 0x8C));
+> +       }
+> +}
+> +
+>
+>  #define SCU_PASSWORD   0x1688A8A8
+>
+> @@ -216,6 +241,8 @@ static void __init aspeed_init_early(void)
+>                 do_ast2500evb_setup();
+>         if (of_machine_is_compatible("ibm,witherspoon-bmc"))
+>                 do_witherspoon_setup();
+> +       if (of_machine_is_compatible("ingrasys,zaius-bmc"))
+> +               do_zaius_setup();
+>  }
+>
+>  static void __init aspeed_map_io(void)
+> --
+> 2.8.0.rc3.226.g39d4020
+>
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
