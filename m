@@ -1,50 +1,50 @@
 Return-Path: <christopher.lee.bostic@gmail.com>
-Received: from mail-pa0-x243.google.com (mail-pa0-x243.google.com
- [IPv6:2607:f8b0:400e:c03::243])
+Received: from mail-pf0-x243.google.com (mail-pf0-x243.google.com
+ [IPv6:2607:f8b0:400e:c00::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3swhjk5cg0zDt4m
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3swhjk6QZMzDt3S
  for <openbmc@lists.ozlabs.org>; Sat, 15 Oct 2016 09:15:06 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=G2vDjmj9; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=SBB5ldDi; 
  dkim-atps=neutral
-Received: by mail-pa0-x243.google.com with SMTP id hh10so6542959pac.0
+Received: by mail-pf0-x243.google.com with SMTP id s8so7955490pfj.2
  for <openbmc@lists.ozlabs.org>; Fri, 14 Oct 2016 15:15:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=dVJsf7fKWb8n5QOFTK7QZljY2n0Ikn1p/l/KJnrKUpo=;
- b=G2vDjmj9LoD03rFznr335rPGM33zHsQj0C3/pochC3dxt0CIBbRnj9QvnJ9luKVSw2
- HE45if9b9mdk5TBUHxinDyHBryTT2UJoC8dwvskv30dAQXNFDKpjtHXvXDJDKAolxcco
- A/cjkbdexyZDdgJhEMWt3gCgb+VV5ZP8GPBs4s6LS0Qk1ba+Sx8MoK6f4Ijxx/QzbN1O
- fmc9IUskdVjfvq1UsgwjF1CcxKx21TS27jNoxViWBK9X2hFBTU3xhttaLJKNUy8mZImU
- jGkMg2p6Df8hIPRg60yffHizlmCbxcyJPppz1uTSg5kkJh+A0/Xt7vDMRzlarKgWPl9V
- rCRw==
+ bh=7KmYC1fb+GFar1qklbyw5BRzBi0T8N8ggTCNDQr/A6I=;
+ b=SBB5ldDiz9craFgiF9IIszv1KZkTFTPoRiWcQaMC8726/mEgo+y6X8cpKu+xEiZeYT
+ 2RmOxwCNsOk15IN8KKMZsXo2p3GTDUGeivGLfisGRVlEVmAla+1jBMzvoF1Z3Kj1hcsv
+ pniqAvHBMXL0+gM1TJrM1B3jDPGh+M60cZTqVHfG/S7lezcPPdDbV46zXPMdx/281yZx
+ omrLO8fWXWb9583RlfHIZt0VFqBB+FN3JhxhxI62Ol3dSjXQ9mT9OIPkxXsquOp54dOS
+ BsHIc86hE8k/++0BuJAYcL4CghM2Y+P/PAZq4o595tgFd91p81R/AucTfYMpYGl9Eh//
+ 8E1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=dVJsf7fKWb8n5QOFTK7QZljY2n0Ikn1p/l/KJnrKUpo=;
- b=liKYr3xycdRyLQHyMC0YmxAOjHKvL6ThWGOtb7tHUgVwjT/7g2EsiEbA+2MW6+YyVM
- pE7Fk3fWoa0XX17aXo1o+TiLgDtuV9MfKfX/uHsKUPLRp3bfCGTjWs9aDvWdEJrPDeA5
- 1JxNfVmxhXGA66gTOOuwZRDi/cu3v2YJ8367SkK+stFGtlRIEcUzIrAU0mMyxRFbUJrH
- pGKeNKh0IjaMASB1SkQ8RjI9yPSPEaQc1gU6gar8SFNKXPCX+VeUApjdlBQse36udkiv
- bUdwtx6BzaXsTnHIk/dP9HrUReh0MS/68pm5Xbi8SJuICsaBjuMMEmYtKl/R4BbVL9uS
- 581Q==
-X-Gm-Message-State: AA6/9Rm4BhmPGmnjJaBQkaSN2rlDKtPxPQNEPbyFNDR37eQShYOUpsdaYU4Y0/exJiSF0w==
-X-Received: by 10.66.121.49 with SMTP id lh17mr17948026pab.191.1476483304234; 
- Fri, 14 Oct 2016 15:15:04 -0700 (PDT)
+ bh=7KmYC1fb+GFar1qklbyw5BRzBi0T8N8ggTCNDQr/A6I=;
+ b=ixe6sVhZPuaHuSOv61jI1Qsjg67P+mn76DEiTTUbNfPw0M8i9JRJUgC1PHn/arGSMv
+ AaoK93WlMeYXmrCREpG2ULiLIspHNfmuCYu00lINYHN/daVYeRXmuNLNBw1MLdP9R8vz
+ 90BVivOlmj3UhbjZfqkCseeWDP46b2HAhjvv19PpVz0Tt2ABZMYqukw1G5obOT7kFP4x
+ Q/x9uu+tBrJujOjJFKQ3fb4vQF98VmALtcBB45kNSBps9+Xo5PU/GTqAGyB/BYbrH/Sk
+ UFyswK87U1S6e+GHikmqxGqkHqnf5L5MYGyViaSfdPgHxhlqEkvG66JV/2JtPqbj1XYa
+ Qb2w==
+X-Gm-Message-State: AA6/9RmlcPfjrmI/3B3N2FVeXewZNhemPQBKXVnIhY+jzg39qmOO9jUEicbRSgSfhhLsJw==
+X-Received: by 10.99.140.80 with SMTP id q16mr17911778pgn.31.1476483305330;
+ Fri, 14 Oct 2016 15:15:05 -0700 (PDT)
 Received: from Christophers-MacBook-Pro.local.com
  (45-20-192-79.lightspeed.austtx.sbcglobal.net. [45.20.192.79])
- by smtp.gmail.com with ESMTPSA id p7sm29848874paa.3.2016.10.14.15.15.03
+ by smtp.gmail.com with ESMTPSA id p7sm29848874paa.3.2016.10.14.15.15.04
  (version=TLS1 cipher=AES128-SHA bits=128/128);
- Fri, 14 Oct 2016 15:15:03 -0700 (PDT)
+ Fri, 14 Oct 2016 15:15:04 -0700 (PDT)
 From: christopher.lee.bostic@gmail.com
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, zahrens@us.ibm.com, xxpetri@de.ibm.com,
- Jeremy Kerr <jk@ozlabs.org>
-Subject: [PATCH linux v4 13/20] fsi: Add GPIO master driver
-Date: Fri, 14 Oct 2016 17:14:35 -0500
-Message-Id: <1476483282-85971-14-git-send-email-christopher.lee.bostic@gmail.com>
+ Chris Bostic <cbostic@us.ibm.com>
+Subject: [PATCH linux v4 14/20] drivers/fsi: CRC Utility Updates
+Date: Fri, 14 Oct 2016 17:14:36 -0500
+Message-Id: <1476483282-85971-15-git-send-email-christopher.lee.bostic@gmail.com>
 X-Mailer: git-send-email 2.7.4 (Apple Git-66)
 In-Reply-To: <1476483282-85971-1-git-send-email-christopher.lee.bostic@gmail.com>
 References: <1476483282-85971-1-git-send-email-christopher.lee.bostic@gmail.com>
@@ -61,156 +61,97 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Fri, 14 Oct 2016 22:15:07 -0000
 
-From: Jeremy Kerr <jk@ozlabs.org>
+From: Chris Bostic <cbostic@us.ibm.com>
 
-Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
+Provided by Jeremy Kerr.  Revise the CRC calculation utilities
+to take variable bit length input.
+
+Signed-off-by: Chris Bostic <cbostic@us.ibm.com>
 ---
- .../devicetree/bindings/fsi/fsi-master-gpio.txt    |  8 ++
- drivers/fsi/Kconfig                                |  7 ++
- drivers/fsi/Makefile                               |  1 +
- drivers/fsi/fsi-master-gpio.c                      | 92 ++++++++++++++++++++++
- 4 files changed, 108 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/fsi/fsi-master-gpio.txt
- create mode 100644 drivers/fsi/fsi-master-gpio.c
+ drivers/fsi/fsi-core.c   | 16 +++++++++-------
+ drivers/fsi/fsi-master.h | 21 +++++++++++++++++++++
+ 2 files changed, 30 insertions(+), 7 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/fsi/fsi-master-gpio.txt b/Documentation/devicetree/bindings/fsi/fsi-master-gpio.txt
-new file mode 100644
-index 0000000..44762a3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/fsi/fsi-master-gpio.txt
-@@ -0,0 +1,8 @@
-+Device-tree bindings for gpio-based FSI master driver
-+-----------------------------------------------------
-+
-+fsi-master {
-+	compatible = "ibm,fsi-master", "ibm,fsi-master-gpio";
-+	clk-gpio = <&gpio 0>;
-+	data-gpio = <&gpio 1>;
-+}
-diff --git a/drivers/fsi/Kconfig b/drivers/fsi/Kconfig
-index f065dbe..69e7ee8 100644
---- a/drivers/fsi/Kconfig
-+++ b/drivers/fsi/Kconfig
-@@ -17,6 +17,13 @@ config FSI_MASTER_FAKE
- 	depends on FSI
- 	---help---
- 	This option enables a fake FSI master driver for debugging.
-+
-+config FSI_MASTER_GPIO
-+	tristate "GPIO-based FSI master"
-+	depends on FSI
-+	select GPIO_DEVRES
-+	---help---
-+	This option enables a FSI master driver, using GPIO lines directly.
- endif
+diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
+index 10bf817..07f5034 100644
+--- a/drivers/fsi/fsi-core.c
++++ b/drivers/fsi/fsi-core.c
+@@ -111,21 +111,23 @@ static const uint8_t crc4_tab[] = {
+ 	0x1, 0x6, 0xf, 0x8, 0xa, 0xd, 0x4, 0x3,
+ };
  
- endmenu
-diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
-index 847c00c..2021ce5 100644
---- a/drivers/fsi/Makefile
-+++ b/drivers/fsi/Makefile
-@@ -1,3 +1,4 @@
+-static uint8_t crc4(uint32_t x)
++uint8_t fsi_crc4(uint8_t c, uint64_t x, int bits)
+ {
+-	uint8_t c = 0;
+ 	int i;
  
- obj-$(CONFIG_FSI) += fsi-core.o
- obj-$(CONFIG_FSI_MASTER_FAKE) += fsi-master-fake.o
-+obj-$(CONFIG_FSI_MASTER_GPIO) += fsi-master-gpio.o
-diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
-new file mode 100644
-index 0000000..3855829
---- /dev/null
-+++ b/drivers/fsi/fsi-master-gpio.c
-@@ -0,0 +1,92 @@
-+/*
-+ * A FSI master controller, using a simple GPIO bit-banging interface
++	/* ALign to 4-bits */
++	bits = (bits + 3) & ~0x3;
++
+ 	/* Calculate crc4 over four-bit nibbles, starting at the MSbit */
+-	for (i = 28; i >= 0; i -= 4)
++	for (i = bits; i >= 0; i -= 4)
+ 		c = crc4_tab[c ^ ((x >> i) & 0xf)];
+ 
+ 	return c;
+ }
+ 
+-static bool check_crc4(uint32_t x)
++static bool check_crc4_u32(uint32_t x)
+ {
+-	return crc4(x) == 0;
++	return fsi_crc4(0, x, 32) == 0;
+ }
+ 
+ /* FSI slave support */
+@@ -171,7 +173,7 @@ static int fsi_slave_scan(struct fsi_slave *slave)
+ 
+ 		conf = be32_to_cpu(conf);
+ 
+-		if (!check_crc4(conf)) {
++		if (!check_crc4_u32(conf)) {
+ 			dev_warn(&slave->dev,
+ 				"crc error in slave register at 0x%04x\n",
+ 					i);
+@@ -247,7 +249,7 @@ static int fsi_slave_init(struct fsi_master *master,
+ 	}
+ 
+ 	chip_id = be32_to_cpu(chip_id);
+-	if (!check_crc4(chip_id)) {
++	if (!check_crc4_u32(chip_id)) {
+ 		dev_warn(master->dev, "slave %02x:%02x: invalid chip id CRC!\n",
+ 				link, slave_id);
+ 		return -EIO;
+diff --git a/drivers/fsi/fsi-master.h b/drivers/fsi/fsi-master.h
+index e75a810..cafb433 100644
+--- a/drivers/fsi/fsi-master.h
++++ b/drivers/fsi/fsi-master.h
+@@ -34,4 +34,25 @@ struct fsi_master {
+ extern int fsi_master_register(struct fsi_master *master);
+ extern void fsi_master_unregister(struct fsi_master *master);
+ 
++/**
++ * crc4 helper: Given a starting crc4 state @c, calculate the crc4 vaue of @x,
++ * which is @bits in length. This may be required by master implementations
++ * that do not provide their own hardware checksums.
++ *
++ * The crc4 is performed on 4-bit chunks (which is all we need for FSI
++ * calculations). Typically, we'll want a starting state of 0:
++ *
++ *  c = fsi_crc4(0, msg, len);
++ *
++ * To crc4 a message that includes a single start bit, initialise crc4 state
++ * with:
++ *
++ *  c = fsi_crc4(0, 1, 1);
++ *
++ * Then update with message data:
++ *
++ *  c = fsi_crc4(c, msg, len);
 + */
++uint8_t fsi_crc4(uint8_t c, uint64_t x, int bits);
 +
-+#include <linux/platform_device.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+
-+#include "fsi-master.h"
-+
-+struct fsi_master_gpio {
-+	struct fsi_master	master;
-+	struct gpio_desc	*gpio_clk;
-+	struct gpio_desc	*gpio_data;
-+};
-+
-+#define to_fsi_master_gpio(m) container_of(m, struct fsi_master_gpio, master)
-+
-+struct fsi_gpio_msg {
-+	uint64_t	msg;
-+	uint8_t		bits;
-+};
-+
-+static int fsi_master_gpio_read(struct fsi_master *_master, int link,
-+		uint8_t slave, uint32_t addr, void *val, size_t size)
-+{
-+	struct fsi_master_gpio *master = to_fsi_master_gpio(_master);
-+
-+	if (link != 0)
-+		return -ENODEV;
-+
-+	/* todo: format read into a message, send, poll for response */
-+	(void)master;
-+
-+
-+	return 0;
-+}
-+
-+static int fsi_master_gpio_write(struct fsi_master *_master, int link,
-+		uint8_t slave, uint32_t addr, const void *val, size_t size)
-+{
-+	struct fsi_master_gpio *master = to_fsi_master_gpio(_master);
-+
-+	if (link != 0)
-+		return -ENODEV;
-+
-+	/* todo: format write into a message, send, poll for response */
-+	(void)master;
-+
-+	return 0;
-+}
-+
-+static int fsi_master_gpio_probe(struct platform_device *pdev)
-+{
-+	struct fsi_master_gpio *master;
-+	struct gpio_desc *gpio;
-+
-+	master = devm_kzalloc(&pdev->dev, sizeof(*master), GFP_KERNEL);
-+	if (!master)
-+		return -ENOMEM;
-+
-+	gpio = devm_gpiod_get(&pdev->dev, "clk", 0);
-+	if (IS_ERR(gpio))
-+		return PTR_ERR(gpio);
-+	master->gpio_clk = gpio;
-+
-+	gpio = devm_gpiod_get(&pdev->dev, "data", 0);
-+	if (IS_ERR(gpio))
-+		return PTR_ERR(gpio);
-+	master->gpio_data = gpio;
-+
-+	master->master.read = fsi_master_gpio_read;
-+	master->master.write = fsi_master_gpio_write;
-+
-+	return fsi_master_register(&master->master);
-+}
-+
-+static const struct of_device_id fsi_master_gpio_match[] = {
-+	{ .compatible = "ibm,fsi-master-gpio" },
-+	{ },
-+};
-+
-+static struct platform_driver fsi_master_gpio_driver = {
-+	.driver = {
-+		.name		= "fsi-master-gpio",
-+		.of_match_table	= fsi_master_gpio_match,
-+	},
-+	.probe	= fsi_master_gpio_probe,
-+};
-+
-+module_platform_driver(fsi_master_gpio_driver);
-+
+ #endif /* DRIVERS_FSI_MASTER_H */
 -- 
 1.8.2.2
