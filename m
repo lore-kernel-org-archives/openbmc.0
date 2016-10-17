@@ -3,50 +3,50 @@ Received: from mail-oi0-x242.google.com (mail-oi0-x242.google.com
  [IPv6:2607:f8b0:4003:c06::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3syNKd1Xp0zDt8w
- for <openbmc@lists.ozlabs.org>; Tue, 18 Oct 2016 03:03:33 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3syNPl0l9mzDt8w
+ for <openbmc@lists.ozlabs.org>; Tue, 18 Oct 2016 03:07:07 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=M35JY5gF; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=WOSKecKT; 
  dkim-atps=neutral
-Received: by mail-oi0-x242.google.com with SMTP id e12so12673316oib.3
- for <openbmc@lists.ozlabs.org>; Mon, 17 Oct 2016 09:03:33 -0700 (PDT)
+Received: by mail-oi0-x242.google.com with SMTP id i127so12680586oia.0
+ for <openbmc@lists.ozlabs.org>; Mon, 17 Oct 2016 09:07:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=P76mJuOunWwjsJT+SyOCgQ8RCWyR6iOXLyJPD9UBsFI=;
- b=M35JY5gFLF8GUaZR7Xm+5Jdycgc0TjHu12JXxpsu/cXe9wfxEb4n6oqFkYhwsQCgVR
- aBnMJ6D/pptKNqlbGpOJt6UVZb35MLMTBiSAvWUllhyElElDxbLG2i0Y2oJKd4xWxaJZ
- x5tU0wNcpuX7QNPVLrdx4GpGfvdBFEbmWg47FsNEeZbWhBcGdigKstlO90TMNrqbgyw9
- W8Pzw9LROLyIBl90AAhSflFRTR4Y2iiyMSqGVJTAyqJ8dcneb4v0taKND4eSNuInqQ4n
- Gexx8YzoRN1rda7L9MX+W1i9XlljtmJM+7SDCd+7ZJFd/CXunh5JMeAwo/libnPNjOA+
- Lyiw==
+ :cc; bh=ZL4ItTXXo5wkHpzYYQiafWl5XoRXCuYPznbLV0TF2bQ=;
+ b=WOSKecKTlztvPTZpdwFHlcyKe/2vnN+PTAb7/Pqrn8pE/TDKzeqw/KEVVJqgmnnoln
+ cHfTTTqG0VvDUvl96vu2RCMnCMl3zabM6PEGqonApmgMlQ+JBRFibfDB3XzIsA6q6gKy
+ e5FYijlu4AQ+sYsfFWOtEXt4fVvwcDMADWFIbNDk/+AlvyG/SfSt9zTaVA+2H7Q+KSK0
+ y8Y4ziFBxQ51xOUwT0pDeNowlwHtm1qEJZfDYrntdSqQ3TMcSoexOKILU2kCSAhuafM8
+ TD22nzpKswimirVq2BfgHUzwN9xVswU9wupkUdf3U6gQuqd+31qZOiJ3bELyQq+uG3uD
+ j1Og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=P76mJuOunWwjsJT+SyOCgQ8RCWyR6iOXLyJPD9UBsFI=;
- b=TWRRBpEfq4YAL/zI89L+9QYiH5RhK6KaujE6FIJfKOcKZwggO4p2r0OdE/i38h7+DK
- kcUbdkwKmUDeyuuClw+oiVD9ddkT5EhGiExUTR4hmvqj0zdoKr9jEmPXmvp6oGwkxcNM
- n+sZPp4/JttD7NAsFoKWEg3+VC+w9hbN9tjIxHCsbdqGnqw42C75Ex3t/vQpzD3Auism
- 3pR1zl5Wyzy98QRPos/v1KknRuFiQ97TanIQYvh3t9noqB57dd73RrcgjDmLYNNl9nJN
- xdwH254ms1YzVEVBjEDOvMkUlW6aFW1Yot/6TFYGbljQ/ZXLBvVv3XyQ3JUN4wv/YTsy
- zjOA==
-X-Gm-Message-State: AA6/9RnVSpHQPxS8sVQhl5FHoEGd95ytxDD5vzW/K9JVMS20cI6stVkAfzPkRmSd9Y6sdcXu3gNrOyF6uEoXYA==
-X-Received: by 10.157.34.106 with SMTP id o97mr14222769ota.134.1476720211491; 
- Mon, 17 Oct 2016 09:03:31 -0700 (PDT)
+ bh=ZL4ItTXXo5wkHpzYYQiafWl5XoRXCuYPznbLV0TF2bQ=;
+ b=cMUtphkg/HpNgjGIBxY9ag3DU+8KoQ0yulDn2oDWUnx6vizIm2WKkzbcilavSPasyS
+ 8RVToBSfAZWLxtNF8eXAvheU5ZTa0WXSUNytsa54M0dDCp6JTAKgWJ1yYR16LcTxD1ZE
+ H4eGOPG/3MXNWElfQCf2/5VuQ1EmKOtYE1/BYvzte+dghTwr//TP31faCpm6V3yfgWhy
+ Ny3myzxN0ljvW4d3TZOByXDFK5XZUZAO6XoIZ8KQ6WmT8IOr5D7lpdCFKZl0ksCjdk9y
+ +Yx2ClhBos2yBQRYgvNjnWetQLAG+wm00/Eun5nlj9tPpJsoh9Ig89PzlLYtd/u8f/wr
+ rSwA==
+X-Gm-Message-State: AA6/9RmOgH25Mi6qqUF/b929YWpGSO6COUSmaPpx0ahyGOOZW3C0opmPVlL9LmrutvswDZQyV65D/cmqgqGnpg==
+X-Received: by 10.202.117.66 with SMTP id q63mr15910071oic.185.1476720425401; 
+ Mon, 17 Oct 2016 09:07:05 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.202.221.9 with HTTP; Mon, 17 Oct 2016 09:03:30 -0700 (PDT)
-In-Reply-To: <c4ea6133-9286-b650-3375-f899121f2ce3@ozlabs.org>
+Received: by 10.202.221.9 with HTTP; Mon, 17 Oct 2016 09:07:04 -0700 (PDT)
+In-Reply-To: <CACPK8XdRuubGTBzv6oOaxQhuAfXDbn=qvxCWZYO86Aw1P7AXSA@mail.gmail.com>
 References: <1476483282-85971-1-git-send-email-christopher.lee.bostic@gmail.com>
- <1476483282-85971-20-git-send-email-christopher.lee.bostic@gmail.com>
- <c4ea6133-9286-b650-3375-f899121f2ce3@ozlabs.org>
+ <57f3f105-2631-2d93-2133-55f8abb31578@ozlabs.org>
+ <CACPK8XdRuubGTBzv6oOaxQhuAfXDbn=qvxCWZYO86Aw1P7AXSA@mail.gmail.com>
 From: Christopher Bostic <christopher.lee.bostic@gmail.com>
-Date: Mon, 17 Oct 2016 11:03:30 -0500
-Message-ID: <CAA0LjjX=+xu8Z3w9VZpq8WHGbZCAVCF3541aHNf+yN1w2Sqe1A@mail.gmail.com>
-Subject: Re: [PATCH linux v4 19/20] drivers/fsi: Add client driver register
- utilities
-To: Jeremy Kerr <jk@ozlabs.org>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, xxpetri@de.ibm.com,
- zahrens@us.ibm.com
+Date: Mon, 17 Oct 2016 11:07:04 -0500
+Message-ID: <CAA0LjjVo+cAoZe4hFgvPV+hkRE6Gn8Q9EWYhryLOjzJMU+yP5A@mail.gmail.com>
+Subject: Re: [PATCH linux v4 00/20] FSI device driver introduction
+To: Joel Stanley <joel@jms.id.au>
+Cc: Jeremy Kerr <jk@ozlabs.org>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ xxpetri@de.ibm.com, 
+ zahrens@us.ibm.com, Stewart Smith <stewart@linux.vnet.ibm.com>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -59,47 +59,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Oct 2016 16:03:33 -0000
+X-List-Received-Date: Mon, 17 Oct 2016 16:07:07 -0000
 
-On Mon, Oct 17, 2016 at 3:12 AM, Jeremy Kerr <jk@ozlabs.org> wrote:
-> Hi Chris,
+On Mon, Oct 17, 2016 at 5:18 AM, Joel Stanley <joel@jms.id.au> wrote:
+> Hey Chris,
 >
->> +int fsidrv_register(struct fsi_driver *fsi_drv)
->> +{
->> +     if (!fsi_drv)
->> +             return -EINVAL;
->> +     if (!fsi_drv->id_table)
->> +             return -EINVAL;
->> +
->> +     return driver_register(&fsi_drv->drv);
->> +}
->> +EXPORT_SYMBOL_GPL(fsidrv_register);
->> +
->> +void fsidrv_unregister(struct fsi_driver *fsi_drv)
->> +{
->> +     driver_unregister(&fsi_drv->drv);
->> +}
->> +EXPORT_SYMBOL_GPL(fsidrv_unregister);
->> +
+> On Mon, Oct 17, 2016 at 5:58 PM, Jeremy Kerr <jk@ozlabs.org> wrote:
+>> Overall, this series is getting to look much better - I'd say we're in
+>> good shape for upstream submission soon.
 >
-> Minor, but I think fsi_driver_register / fsi_driver_unregister
-> would be better names; we don't use 'fsidrv' elsewhere.
-
-Hi Jeremy,
-
-OK will change.
-
+> I second this! You and Jeremy have made some good progress this past
+> week or two. Great work from both of you.
 >
-> Do we want a module_fsi_driver macro (similar to module_platform_driver)
-> to reduce boilerplate code?
+> I came the OpenFSI spec[1] on the OpenPower Foundation website the
+> other day. I suggest you include a reference to it in your commit
+> message and cover letter so others can use it as a reference.
+>
+> The fact that it's publicly available is particularly useful when
+> making the upstream submission, as it allows others to check our
+> implementation against a public specification.
+>
+> [1] http://openpowerfoundation.org/wp-content/uploads/resources/OpenFSI-spec/content/ch_preface.html
 >
 
-Will add.
+Hi Joel,
+
+Sure, will add that.
 
 Thanks,
 Chris
 
 > Cheers,
 >
->
-> Jeremy
+> Joel
