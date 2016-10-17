@@ -1,49 +1,48 @@
 Return-Path: <christopher.lee.bostic@gmail.com>
-Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
- [IPv6:2607:f8b0:4003:c06::241])
+Received: from mail-oi0-x242.google.com (mail-oi0-x242.google.com
+ [IPv6:2607:f8b0:4003:c06::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3syM5q5H5SzDt26
- for <openbmc@lists.ozlabs.org>; Tue, 18 Oct 2016 02:08:15 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3syM8H3jPdzDt26
+ for <openbmc@lists.ozlabs.org>; Tue, 18 Oct 2016 02:10:23 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=t4DjJDBz; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=GuYzsoSd; 
  dkim-atps=neutral
-Received: by mail-oi0-x241.google.com with SMTP id e12so12577995oib.3
- for <openbmc@lists.ozlabs.org>; Mon, 17 Oct 2016 08:08:15 -0700 (PDT)
+Received: by mail-oi0-x242.google.com with SMTP id i127so12581706oia.0
+ for <openbmc@lists.ozlabs.org>; Mon, 17 Oct 2016 08:10:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=Cx/Oc3uR2FmNK7JKKyswe18otgfWCCLl2VRyeabbjoU=;
- b=t4DjJDBzPGJSQQ0HOUWZymC0CpbaXEpwAdr76wBNe7eX5xKvFDB7yZSvKQ2UuRq1ap
- FNKZJN7lr81oI+AaLfQ7j35LA4UEp11OfCsqokLlQ+0OmLXoN9kCZVAWQ0VkRipcDP25
- 4rkRcd6R1ENJCqZWrw2laixCHvGSubX6CHLMhyDKXZz8PUGoDp3C2kLgQJAYI07f4UJZ
- enWnr5ci/nqB+mbMGftrf9DLq0RkO2Mu1hreFZt2XyadiS5HXUpu01BOMXESd67Hzaxx
- lHufDM8NE67j8Ziu+2r5I53IgYFNMkIGq0z+pRkkLVaw8WL+SKwENcOF5DR668wPoxaG
- vzlg==
+ :cc; bh=Vj8wmjKFom0d+zd5Bc3qjB6Ms/NBgppvzAXpC6XFZjU=;
+ b=GuYzsoSdoJ1nnQuUnzf2OpzCCLiBN+Y4ynSjhw0DsNVHgEx9pzaFglVrnVtf2+M4TE
+ CYVoHv9969Ig2fsnZofrVwpBMpe4DwHaldZxmJ00wo4q4k0jIh1noll/u9APoKOqOfY2
+ Y/MGQH0CzOIfVxxHnztr3RVNGosJcN2A0zoqap5ieOf13RwOwJjoEUyZkGWqL1Fa4K09
+ GHVsJLqDidHZaxn4FoFhZfuG5t/iAdUMdzAEFRGCflE0GnD1WP/g60rLgO98Jo+XiqnT
+ syiSlj52N0/SIBVFzq2UgfelrEytLT6tNCiUfedKFg3X/4+zwYbbVy0b1RWbpZ0M7IxP
+ BpRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=Cx/Oc3uR2FmNK7JKKyswe18otgfWCCLl2VRyeabbjoU=;
- b=WIbMbaXELPnia6PVF6RAyM/+m+vgS34/VqNZxOUuNY4cKY8Eps6YEsMWsv4xbtrbEq
- G5SyHZq/rJXAvmQauIJVRScCarRYI+VvrwkviPFszzGOfTBZe6BA9eARny+oYPR412bm
- FR89hZLNEzGfPec4FO4KHDUJ7uEkFuNH5P/e9BfuoJuXsH8NXppPZkiiXbsPL4ehAwDq
- R7hPmj5mXNvuicocUNKjPu5f900axhj79pRGk0aqywcEmG3e/xxNzW0skfs4xPZxtlAl
- uyW1S4dYmXAR+AYAHPJTdYxmOBRgPHnCFz5ULos2nsr6mbgs3I2BpD66qBv/9mgCFF14
- W48w==
-X-Gm-Message-State: AA6/9RmL1bD/EM00fER1iFxIb+iksgFu3RqUpiEPb3N7PXg9ZUeiPEs8T+aS0CSMeddii905wxmwJiRHFKd0Lg==
-X-Received: by 10.157.46.93 with SMTP id c29mr13461229otd.35.1476716893658;
- Mon, 17 Oct 2016 08:08:13 -0700 (PDT)
+ bh=Vj8wmjKFom0d+zd5Bc3qjB6Ms/NBgppvzAXpC6XFZjU=;
+ b=O4mbrGQsqJ00FIaBASpn9XnCqrS990aFFLWJjdu2kyBQqJ9rj+CP9ppGe1YiHbx2Ot
+ i6EHPYA56R2UesGcUBPGNfJoxJC5zqAhfPM6PN+TVn7UuN04jVnKZbkTo4ldY7a+N17w
+ zRCa9Jr4shwWkjipk3w2I8jYBhfZQP+5BLe/wP9uovx2UkQXinuqo87IsFGp510QyZ1j
+ P5gNHkQW65LsM18xaS4wCubY+0AhF4oSzDUd1f2hS+dVn+VhaXLX8iht+/z4B7RRjNwI
+ G+qvLSMm84ft5a3K2Wvdu84a8la80JZTfxC3Cj1q+8vXdx/Up5HPspZ9bqs6DA4cC2gy
+ mLRw==
+X-Gm-Message-State: AA6/9Rm00JXVnzAanhf8OYrQFvAeB0PyeEIi3FeHJDkK35vgP9aPp7BfJId7pK2sjDQrd+e4PjoBZ713G5EgXw==
+X-Received: by 10.157.0.38 with SMTP id 35mr13150793ota.24.1476717021518; Mon,
+ 17 Oct 2016 08:10:21 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.202.221.9 with HTTP; Mon, 17 Oct 2016 08:08:13 -0700 (PDT)
-In-Reply-To: <d1b72625-09be-269a-754f-3fe87856523d@ozlabs.org>
+Received: by 10.202.221.9 with HTTP; Mon, 17 Oct 2016 08:10:20 -0700 (PDT)
+In-Reply-To: <bf15af72-4bb5-69b7-974f-c2d34732e5b3@ozlabs.org>
 References: <1476483282-85971-1-git-send-email-christopher.lee.bostic@gmail.com>
- <1476483282-85971-18-git-send-email-christopher.lee.bostic@gmail.com>
- <d1b72625-09be-269a-754f-3fe87856523d@ozlabs.org>
+ <1476483282-85971-21-git-send-email-christopher.lee.bostic@gmail.com>
+ <bf15af72-4bb5-69b7-974f-c2d34732e5b3@ozlabs.org>
 From: Christopher Bostic <christopher.lee.bostic@gmail.com>
-Date: Mon, 17 Oct 2016 10:08:13 -0500
-Message-ID: <CAA0LjjUOXNpbQkTQ8UbVyBbZv_uO7fRQwjm5Pxw4jQ8jNH2R8g@mail.gmail.com>
-Subject: Re: [PATCH linux v4 17/20] drivers/fsi: Set slave SMODE to init
- communications
+Date: Mon, 17 Oct 2016 10:10:20 -0500
+Message-ID: <CAA0LjjUc5mwLChFZHuY7aHryfCBNB4eZRUyR2rNbAoFxBjw6tA@mail.gmail.com>
+Subject: Re: [PATCH linux v4 20/20] drivers/fsi: Add SCOM client driver
 To: Jeremy Kerr <jk@ozlabs.org>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, xxpetri@de.ibm.com,
  zahrens@us.ibm.com
@@ -59,53 +58,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Oct 2016 15:08:16 -0000
+X-List-Received-Date: Mon, 17 Oct 2016 15:10:24 -0000
 
-On Mon, Oct 17, 2016 at 2:04 AM, Jeremy Kerr <jk@ozlabs.org> wrote:
+On Mon, Oct 17, 2016 at 2:27 AM, Jeremy Kerr <jk@ozlabs.org> wrote:
 > Hi Chris,
 >
->> @@ -301,15 +376,26 @@ static int fsi_master_link_enable(struct fsi_master *master, int link)
->>  static int fsi_master_break(struct fsi_master *master, int link)
->>  {
->>       int rc;
->> +     uint32_t smode;
->>
->>       if (!master->send_break)
->>               return -EINVAL;
->>
->> -     rc =  master->send_break(master, link);
->> -     if (rc)
->> +     rc = master->send_break(master, link);
->> +     if (rc) {
->>               dev_info(master->dev, "break failed with:%d\n", rc);
->> +             return rc;
->> +     }
->> +     /* Verify can read slave at default ID location */
->> +     rc = master->read(master, link, 3, FSI_SLAVE_BASE + FSI_SMODE,
->> +                     &smode, sizeof(smode));
->>
->> -     return rc;
->> +     /* If read fails then nothing on other end of link */
->> +     if (rc)
->> +             return -ENODEV;
+>> +     /* todo: fill in and register cdev */
+>> +     /* open, read, write, close file ops */
 >> +
->> +     dev_dbg(master->dev, "smode at ID 3 after break:%08x\n", smode);
->> +     return 0;
->>  }
+>> +     /* todo: user space linkage to get_scom / put_scom */
+>> +     /*  engine init */
 >
-> Should this smode read logic be in fsi_master_break() at all?
+> We have a couple of options for this, but I think a simple chardev would
+> work fine. Were you thinking just a read/write interface, where the
+> off_t is the SCOM address?
 >
-> I'd be inclined to keep the slave detection separate. If it's necessary
-> to check for slave presence, we can do that in the caller.
 
 Hi Jeremy,
 
-OK, will move.
+Yes, the idea was to create the char dev and use the read/write syscalls.
+Might be a good topic for discussion in tonight's call.  Want to make sure
+this adheres to the general openBMC plan for user space access to
+the kernel.
 
 Thanks,
 -Chris
 
->
 > Cheers,
 >
 >
