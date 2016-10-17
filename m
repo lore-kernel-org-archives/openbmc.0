@@ -1,38 +1,37 @@
 Return-Path: <clg@kaod.org>
-Received: from 14.mo1.mail-out.ovh.net (14.mo1.mail-out.ovh.net
- [178.32.97.215])
+Received: from 9.mo1.mail-out.ovh.net (9.mo1.mail-out.ovh.net [178.32.108.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sy93C1606zDvL6
- for <openbmc@lists.ozlabs.org>; Mon, 17 Oct 2016 18:35:19 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sy99W51QZzDvHv
+ for <openbmc@lists.ozlabs.org>; Mon, 17 Oct 2016 18:40:47 +1100 (AEDT)
 Received: from player726.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo1.mail-out.ovh.net (Postfix) with ESMTP id 12F80123E7
- for <openbmc@lists.ozlabs.org>; Mon, 17 Oct 2016 09:35:15 +0200 (CEST)
+ by mo1.mail-out.ovh.net (Postfix) with ESMTP id D9B8E14DB6
+ for <openbmc@lists.ozlabs.org>; Mon, 17 Oct 2016 09:40:40 +0200 (CEST)
 Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
  [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player726.ha.ovh.net (Postfix) with ESMTPSA id 851192A0094;
- Mon, 17 Oct 2016 09:35:11 +0200 (CEST)
-Subject: Re: [PATCH linux dev-4.7 01/12] mtd: spi-nor: support for Aspeed
- AST2500 SoC
+ by player726.ha.ovh.net (Postfix) with ESMTPSA id 768D12A0087;
+ Mon, 17 Oct 2016 09:40:37 +0200 (CEST)
+Subject: Re: [PATCH linux dev-4.7 02/12] mtd: spi-nor: aspeed: Manage the
+ segment address registers
 To: Joel Stanley <joel@jms.id.au>
 References: <1476448684-6149-1-git-send-email-clg@kaod.org>
- <1476448684-6149-2-git-send-email-clg@kaod.org>
- <CACPK8Xc+0=Bgc6ZMEbcvS3e3CxB+aHzQ_m1czzFyu7FJyOanrg@mail.gmail.com>
+ <1476448684-6149-3-git-send-email-clg@kaod.org>
+ <CACPK8Xc9yeobHXZwGahrXFmwLgnrzmxO5UGMmnLfc2n-Cjb_8A@mail.gmail.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Milton Miller <miltonm@us.ibm.com>
 From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <7190bb78-8e56-54e4-4efc-a49c8725c004@kaod.org>
-Date: Mon, 17 Oct 2016 09:35:11 +0200
+Message-ID: <a3e5df09-1e62-2797-721b-7f22b3321c7d@kaod.org>
+Date: Mon, 17 Oct 2016 09:40:36 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
  Thunderbird/45.3.0
 MIME-Version: 1.0
-In-Reply-To: <CACPK8Xc+0=Bgc6ZMEbcvS3e3CxB+aHzQ_m1czzFyu7FJyOanrg@mail.gmail.com>
+In-Reply-To: <CACPK8Xc9yeobHXZwGahrXFmwLgnrzmxO5UGMmnLfc2n-Cjb_8A@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 9165388192215436187
+X-Ovh-Tracer-Id: 9257149034974055323
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrhedugdduvdefucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrhedugdduvdehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -44,211 +43,211 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Oct 2016 07:35:19 -0000
+X-List-Received-Date: Mon, 17 Oct 2016 07:40:48 -0000
 
-On 10/17/2016 07:02 AM, Joel Stanley wrote:
+On 10/17/2016 07:13 AM, Joel Stanley wrote:
 > On Fri, Oct 14, 2016 at 11:07 PM, Cédric Le Goater <clg@kaod.org> wrote:
 >> From: Milton Miller <miltonm@us.ibm.com>
-> 
-> I realise that Milton wrote this, but as it's the first time I've had
-> a chance to review it I'll comment as though you are the author.
-> 
->> The SMC controllers on the Aspeed AST2500 SoC are very similar to the
->> ones found on the AST2400. The differences are on the number of
->> supported flash modules and their default mappings in the SoC address
->> space.
 >>
->> The Aspeed AST2500 has one SPI controller for the BMC firmware and two
->> for the host firmware. All controllers have now the same set of
->> registers compatible with the AST2400 FMC controller and the legacy
->> 'SMC' controller is fully gone.
+>> This changes the aspeed mtd driver to use the segment address
+>> registers from the driver, this eliminating a source of mismatch and
+>> placing the kernel in control using its knowledge instead of relying
+>> on hardware defaults or bootloaders to choose good values for the
+>> windows based on the attached chips.
+>>
+>> The initial commit factors out discovering the current window in which
+>> the flash module is mapped by the controller. The intent is to adjust
+>> the windows to the required size of the attached flash.  Also planned
+>> is to enable direct memory mapped access and dma access, at least for
+>> read accesses when the flash size is supported by the hardware.
+>>
+>> The spi-nor layer already trusts its database of jedec ids over any
+>> information in the device tree, this continues that philosophy
+>> by using the knowledge to optimize the programming of the hardware.
+>> The device tree may be used in the future to limit the choices,
+>> for example specifying a max clock rate based on board wiring.
+>>
+>> This does not have any locking around sanitizing the segments
+>> or copying the new addresses back to the per-chip base address.
+>> In the present code registers are updated before the devices
+>> are probed.
+>>
+>> We may want to cache the offsets in the per-chip structure to
+>> when we support DMA.
 >>
 >> Signed-off-by: Milton Miller <miltonm@us.ibm.com>
->> [clg: couple of cleanups ]
-> 
-> You could probably have done these cleanups as a few different patches
-> to make it easier to review. Not a big deal though. When we upstream
-> this will all squash down. I've a few questions below, but nothing
-> that will stop this going in the tree for now.
-> 
+>> [clg : removed the calculation on the segment registers to check
+>>        overlaps and kept only the reading of the segment base address.
+>>        It needs more work ]
 >> Signed-off-by: Cédric Le Goater <clg@kaod.org>
 >> ---
->>  .../devicetree/bindings/mtd/aspeed-smc.txt         |  30 ++++--
->>  drivers/mtd/spi-nor/aspeed-smc.c                   | 112 ++++++++++++---------
->>  2 files changed, 87 insertions(+), 55 deletions(-)
+>>  drivers/mtd/spi-nor/aspeed-smc.c | 58 +++++++++++++++++++++++++++++++---------
+>>  1 file changed, 46 insertions(+), 12 deletions(-)
 >>
-> 
->> @@ -140,37 +140,56 @@ struct aspeed_smc_info {
->>         u8 maxwidth;            /* max width of spi bus */
->>         bool hasdma;            /* has dma engine */
->>         bool hastype;           /* flash type field exists in cfg reg */
->> -       u8 we0;                 /* we shift for ce 0 in cfg reg */
->> +       u8 we0;                 /* shift for write enable bit for ce 0 */
->>         u8 ctl0;                /* offset in regs of ctl for ce 0 */
->> -       u8 cfg;                 /* offset in regs of cfg */
->>         u8 time;                /* offset in regs of timing */
->>         u8 misc;                /* offset in regs of misc settings */
+>> diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspeed-smc.c
+>> index e8744aef5fdc..a47eecfdfda2 100644
+>> --- a/drivers/mtd/spi-nor/aspeed-smc.c
+>> +++ b/drivers/mtd/spi-nor/aspeed-smc.c
+>> @@ -136,6 +136,7 @@ enum smc_flash_type {
 >>  };
 >>
->> -static struct aspeed_smc_info fmc_info = {
->> +static struct aspeed_smc_info fmc_2400_info = {
+>>  struct aspeed_smc_info {
+>> +       u32 maxsize;            /* maximum size of 1 chip window */
 > 
-> Can these be const?
+> It doesn't look like you use maxsize at all.
 
-They should.
-> 
->>         .nce = 5,
->>         .maxwidth = 4,
->>         .hasdma = true,
->>         .hastype = true,
->>         .we0 = 16,
->>         .ctl0 = 0x10,
->> -       .cfg = 0x00,
->> -       .time = 0x54,
->> -       .misc = 0x50,
->> +       .time = 0x94,
->> +       .misc = 0x54,
->>  };
->>
->> -static struct aspeed_smc_info smc_info = {
->> +static struct aspeed_smc_info smc_2400_info = {
->>         .nce = 1,
->>         .maxwidth = 2,
->>         .hasdma = false,
->>         .hastype = false,
->>         .we0 = 0,
->>         .ctl0 = 0x04,
->> -       .cfg = 0x00,
->>         .time = 0x14,
->>         .misc = 0x10,
->>  };
->>
->> +static struct aspeed_smc_info fmc_2500_info = {
->> +       .nce = 3,
->> +       .maxwidth = 2,
->> +       .hasdma = true,
->> +       .hastype = true,
->> +       .we0 = 16,
->> +       .ctl0 = 0x10,
->> +       .time = 0x94,
->> +       .misc = 0x54,
->> +};
->> +
->> +static struct aspeed_smc_info smc_2500_info = {
->> +       .nce = 2,
->> +       .maxwidth = 2,
->> +       .hasdma = false,
->> +       .hastype = false,
->> +       .we0 = 16,
->> +       .ctl0 = 0x10,
->> +       .time = 0x94,
->> +       .misc = 0x54,
->> +};
->> +
->>  enum smc_ctl_reg_value {
->>         smc_base,               /* base value without mode for other commands */
->>         smc_read,               /* command reg for (maybe fast) reads */
->> @@ -180,7 +199,7 @@ enum smc_ctl_reg_value {
->>
->>  struct aspeed_smc_controller;
->>
->> -struct aspeed_smc_chip {
->> +struct aspeed_smc_per_chip {
-> 
-> Can you explain the rename here? I don't follow.
+Indeed. I removed its use in this patch but I will be useful for 
+the overall check at the end. We could have a window size smaller 
+than the sum of the size of the chip.
 
-I don't think it is useful. I will change that.
-
-> 
->>         struct aspeed_smc_controller *controller;
->>         __le32 __iomem *ctl;                    /* control register */
->>         void __iomem *base;                     /* base of chip window */
->> @@ -193,9 +212,11 @@ struct aspeed_smc_controller {
->>         struct mutex mutex;                     /* controller access mutex */
->>         const struct aspeed_smc_info *info;     /* type info of controller */
->>         void __iomem *regs;                     /* controller registers */
->> -       struct aspeed_smc_chip *chips[0];       /* pointers to attached chips */
->> +       struct aspeed_smc_per_chip *chips[0];   /* pointers to attached chips */
->>  };
-> 
->> @@ -456,36 +478,36 @@ static int aspeed_smc_probe(struct platform_device *dev)
->>
->>                 r = platform_get_resource(dev, IORESOURCE_MEM, n + 1);
->>                 chip->base = devm_ioremap_resource(&dev->dev, r);
->> -
->>                 if (!chip->base)
->>                         continue;
->> +
->>                 chip->controller = controller;
->>                 chip->ctl = controller->regs + info->ctl0 + n * 4;
->>
->> -               /*
->> -                * The device tree said the chip is spi.
->> -                * XXX Need to set it in controller if has_type says the
->> -                * type is programmable.
->> -                */
->> +               /* The device tree said the chip is spi. */
->>                 chip->type = smc_type_spi;
->>
->>                 /*
->> -                * Always turn on the write enable bit in the config register
->> -                * to allow opcodes to be sent in user mode.
->> +                * Always turn on the write enable bit in the type and settings
->> +                * or flash configuration register to allow opcodes to be sent
->> +                * in user mode.  Set the attached chip type for this chip
->> +                * select if the bits exist.
->>                  */
->>                 mutex_lock(&controller->mutex);
-> 
-> Do we need to be taking locks in the drivers probe function?
-
-nah.
-
-> 
->> -               reg = readl(controller->regs + info->cfg);
->> -               dev_dbg(&dev->dev, "flash config was %08x\n", reg);
->> +               reg = readl(controller->regs + TYPE_SETTING_REG);
->> +               dev_dbg(&dev->dev, "flash type and setting was %08x\n", reg);
->>                 reg |= 1 << (info->we0 + n); /* WEn */
->> -               writel(reg, controller->regs + info->cfg);
->> +               if (info->hastype) {
->> +                       reg &= ~(3 << (n * 2));
->> +                       reg |= chip->type << (n * 2);
->> +               }
->> +               writel(reg, controller->regs + TYPE_SETTING_REG);
-> 
-> This is a bit hard to follow. Worked it out in the end though.
-
-Yes. In a cleanup patch, I am introducing functions to differentiate the 
-settings we are doing. Due to the extreme creativeness of the smc interface,
-it is really easy to fall into a trap and use the wrong register/bit ...
-
-The AST2500 SPI flash controller misses a setting for instance. I need
-to send a fix for that.
-
+I am still uncertain how these flash windows work as I could 
+read/write the 128MB chip on the witherspoon with a 8MB window ...
+So I don't want to do too much in this area.
 
 C. 
 
 > 
->>                 mutex_unlock(&controller->mutex);
+> 
+>>         u8 nce;                 /* number of chip enables */
+>>         u8 maxwidth;            /* max width of spi bus */
+>>         bool hasdma;            /* has dma engine */
+>> @@ -147,6 +148,7 @@ struct aspeed_smc_info {
+>>  };
 >>
+>>  static struct aspeed_smc_info fmc_2400_info = {
+>> +       .maxsize = 64 * 1024 * 1024,
+>>         .nce = 5,
+>>         .maxwidth = 4,
+>>         .hasdma = true,
+>> @@ -158,6 +160,7 @@ static struct aspeed_smc_info fmc_2400_info = {
+>>  };
+>>
+>>  static struct aspeed_smc_info smc_2400_info = {
+>> +       .maxsize = 64 * 1024 * 1024,
+>>         .nce = 1,
+>>         .maxwidth = 2,
+>>         .hasdma = false,
+>> @@ -169,6 +172,7 @@ static struct aspeed_smc_info smc_2400_info = {
+>>  };
+>>
+>>  static struct aspeed_smc_info fmc_2500_info = {
+>> +       .maxsize = 256 * 1024 * 1024,
+>>         .nce = 3,
+>>         .maxwidth = 2,
+>>         .hasdma = true,
+>> @@ -180,6 +184,7 @@ static struct aspeed_smc_info fmc_2500_info = {
+>>  };
+>>
+>>  static struct aspeed_smc_info smc_2500_info = {
+>> +       .maxsize = 128 * 1024 * 1024,
+>>         .nce = 2,
+>>         .maxwidth = 2,
+>>         .hasdma = false,
+>> @@ -212,11 +217,17 @@ struct aspeed_smc_controller {
+>>         struct mutex mutex;                     /* controller access mutex */
+>>         const struct aspeed_smc_info *info;     /* type info of controller */
+>>         void __iomem *regs;                     /* controller registers */
+>> +       void __iomem *windows;                  /* per-chip windows resource */
+>>         struct aspeed_smc_per_chip *chips[0];   /* pointers to attached chips */
+>>  };
+>>
+>>  #define TYPE_SETTING_REG 0x0
+>>
+>> +#define LOG_8MB (23)   /* log(2)(8 * 1024 * 1024) */
+>> +#define SEGMENT_ADDR_REG0 0x30
+>> +#define         SEGMENT_ADDR_START(_r) ((((_r) >> 16) & 0xFF) << LOG_8MB)
+>> +#define         SEGMENT_ADDR_END(_r) ((((_r) >> 24) & 0xFF) << LOG_8MB)
+>> +
+>>  #define CONTROL_SPI_AAF_MODE BIT(31)
+>>  #define CONTROL_SPI_IO_MODE_MASK GENMASK(30, 28)
+>>  #define CONTROL_SPI_IO_DUAL_DATA BIT(29)
+>> @@ -403,13 +414,30 @@ of_platform_device_create_or_find(struct device_node *child,
+>>         return cdev;
+>>  }
+>>
+>> +static void __iomem *window_start(struct aspeed_smc_controller *controller,
+>> +                                 struct resource *r, unsigned int n)
+>> +{
+>> +       u32 offset = 0;
+>> +       u32 reg;
+>> +
+>> +       if (controller->info->nce > 1) {
+>> +               reg = readl(controller->regs + SEGMENT_ADDR_REG0 + n * 4);
+>> +
+>> +               if (SEGMENT_ADDR_START(reg) >= SEGMENT_ADDR_END(reg))
+>> +                       return NULL;
+>> +
+>> +               offset = SEGMENT_ADDR_START(reg) - r->start;
+>> +       }
+>> +
+>> +       return controller->windows + offset;
+>> +}
+>> +
+>>  static int aspeed_smc_probe(struct platform_device *dev)
+>>  {
+>>         struct aspeed_smc_controller *controller;
+>>         const struct of_device_id *match;
+>>         const struct aspeed_smc_info *info;
+>>         struct resource *r;
+>> -       void __iomem *regs;
+>>         struct device_node *child;
+>>         int err = 0;
+>>         unsigned int n;
+>> @@ -418,19 +446,24 @@ static int aspeed_smc_probe(struct platform_device *dev)
+>>         if (!match || !match->data)
+>>                 return -ENODEV;
+>>         info = match->data;
+>> -       r = platform_get_resource(dev, IORESOURCE_MEM, 0);
+>> -       regs = devm_ioremap_resource(&dev->dev, r);
+>> -       if (IS_ERR(regs))
+>> -               return PTR_ERR(regs);
+>>
+>>         controller = devm_kzalloc(&dev->dev, sizeof(*controller) +
+>>                 info->nce * sizeof(controller->chips[0]), GFP_KERNEL);
+>>         if (!controller)
+>>                 return -ENOMEM;
+>> -       platform_set_drvdata(dev, controller);
+>> -       controller->regs = regs;
+>>         controller->info = info;
+>>         mutex_init(&controller->mutex);
+>> +       platform_set_drvdata(dev, controller);
+>> +
+>> +       r = platform_get_resource(dev, IORESOURCE_MEM, 0);
+>> +       controller->regs = devm_ioremap_resource(&dev->dev, r);
+>> +       if (IS_ERR(controller->regs))
+>> +               return PTR_ERR(controller->regs);
+>> +
+>> +       r = platform_get_resource(dev, IORESOURCE_MEM, 1);
+>> +       controller->windows = devm_ioremap_resource(&dev->dev, r);
+>> +       if (IS_ERR(controller->windows))
+>> +               return PTR_ERR(controller->windows);
+>>
+>>         /* The pinmux or bootloader will disable legacy mode. */
+>>
+>> @@ -476,17 +509,18 @@ static int aspeed_smc_probe(struct platform_device *dev)
+>>                 if (!chip)
+>>                         continue;
+>>
+>> -               r = platform_get_resource(dev, IORESOURCE_MEM, n + 1);
+>> -               chip->base = devm_ioremap_resource(&dev->dev, r);
+>> -               if (!chip->base)
+>> -                       continue;
+>> -
+>>                 chip->controller = controller;
+>>                 chip->ctl = controller->regs + info->ctl0 + n * 4;
+>>
+>>                 /* The device tree said the chip is spi. */
+>>                 chip->type = smc_type_spi;
+>>
+>> +               chip->base = window_start(controller, r, n);
+>> +               if (!chip->base) {
+>> +                       dev_warn(&cdev->dev, "CE segment window closed.\n");
+>> +                       continue;
+>> +               }
+>> +
 >>                 /*
->>                  * Read the existing control register to get basic values.
->>                  *
->>                  * XXX This register probably needs more sanitation.
->> -                * XXX Do we trust the bootloader or the device tree?
->> -                * spi-nor.c trusts jtag id over passed ids.
->>                  *
->>                  * Do we need support for mode 3 vs mode 0 clock phasing?
->>                  */
->> @@ -531,7 +553,7 @@ static int aspeed_smc_probe(struct platform_device *dev)
->>                  * Adjust clocks if fast read and write are supported.
->>                  * Interpret spi-nor flags to adjust controller settings.
->>                  * Check if resource size big enough for detected chip and
->> -                * add support assisted (normal or fast-) read.
->> +                * add support assisted (normal or fast-) read and dma.
->>                  */
->>
->>                 err = mtd_device_register(&chip->nor.mtd, NULL, 0);
+>>                  * Always turn on the write enable bit in the type and settings
+>>                  * or flash configuration register to allow opcodes to be sent
 >> --
 >> 2.7.4
+>>
