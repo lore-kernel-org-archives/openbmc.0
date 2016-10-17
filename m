@@ -1,55 +1,38 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-vk0-x244.google.com (mail-vk0-x244.google.com
- [IPv6:2607:f8b0:400c:c05::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <clg@kaod.org>
+Received: from 10.mo1.mail-out.ovh.net (10.mo1.mail-out.ovh.net
+ [178.32.96.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sy5xh12nKzDvHV
- for <openbmc@lists.ozlabs.org>; Mon, 17 Oct 2016 16:15:20 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=WRfCUqyj; 
- dkim-atps=neutral
-Received: by mail-vk0-x244.google.com with SMTP id 83so6263405vkd.0
- for <openbmc@lists.ozlabs.org>; Sun, 16 Oct 2016 22:15:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=t2ryn7rPgSgwl5kVOO/IEDzbNID3+VGEbbUT+YAzwAM=;
- b=WRfCUqyjEJTEFQlDmUpQnWzQYN0i66ZSbTsch9UfoXDhC1yMGUfdU9a7We4rmVZWYt
- bLkyYJ0t89707UsCZrSRfiDH2ctiShzUJ9WuBLqAkDxztTvRxxRfxb9O3wFeLHvloRDm
- iYNAgEPFV0b/bjocug2iSREbYsrt1cF3ismeTJmIDxlHbRRn3qftEv8IMDRD2zHbbDqw
- SeequcWOlN+tkheR7U7sqnprqTLB67neOxKjFg42yizD7aGa1ecCtiJhqInZPEa/N/Ql
- YE88/fppay/AaAqtqbf8XY7t3M+OsZyPbUYwK73eZymzMfgkFsDvwL1H6mclB/SmFSTl
- 8kdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=t2ryn7rPgSgwl5kVOO/IEDzbNID3+VGEbbUT+YAzwAM=;
- b=eSVcejYBqYr1rK/Jul37TNJQxcrXBVUIZ8FUmMuU3H+Jhx88fRBMXB9lSQCfDQw9/i
- XH5+S9P/+30VOFHeFhfp/D25esXwl+qo/Ck4MFDENcwMxKfAr2wMmxGuZHhuJWM1kvh1
- 5+rzouQE3SENXGo8rUAWbTmSVz44iBz9kr1iSlr0lfpNX87UWi/DC73M04Hd9tDJKHYf
- mzYUtoVknwZKwYenCHiL7EYQ5orcv+YkYiYe/pFzIvyi8z2Jsc42aQcQAyGnbC0i/hgb
- lYRxykqkkjIhXCGSj3zOrrixAH8cWBUF3TeoQNDaDNUkzMAmCAq4zJGacLsFWpxynXEB
- YmXQ==
-X-Gm-Message-State: AA6/9Rn8PZ7ccK44RF70bnSCZQ3E6j0KYn3x/xx9vzV80v3NBJXaisfiJH6jlyvFJVvfQ4xyyVIyB6S1RNGNQw==
-X-Received: by 10.31.102.6 with SMTP id a6mr13684561vkc.151.1476681318265;
- Sun, 16 Oct 2016 22:15:18 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.176.7.8 with HTTP; Sun, 16 Oct 2016 22:14:57 -0700 (PDT)
-In-Reply-To: <1476448684-6149-1-git-send-email-clg@kaod.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3sy7tx5bC1zDt8w
+ for <openbmc@lists.ozlabs.org>; Mon, 17 Oct 2016 17:43:05 +1100 (AEDT)
+Received: from player726.ha.ovh.net (b7.ovh.net [213.186.33.57])
+ by mo1.mail-out.ovh.net (Postfix) with ESMTP id 9648714BDE
+ for <openbmc@lists.ozlabs.org>; Mon, 17 Oct 2016 08:42:56 +0200 (CEST)
+Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: clg@kaod.org)
+ by player726.ha.ovh.net (Postfix) with ESMTPSA id A5D2B2A0073;
+ Mon, 17 Oct 2016 08:42:53 +0200 (CEST)
+Subject: Re: [PATCH linux dev-4.7 12/12] mtd: spi-nor: aspeed: use fast read
+ when doing DMAs
+To: Joel Stanley <joel@jms.id.au>
 References: <1476448684-6149-1-git-send-email-clg@kaod.org>
-From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 17 Oct 2016 15:44:57 +1030
-X-Google-Sender-Auth: tAjX56Hnzgan7J15CqwFPzs49vU
-Message-ID: <CACPK8Xf45-cxbmeX68bY1fCK-Fy0++vW2JkE1_Oo-E7uE5au9A@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7 00/12] aspeed-smc: add support for AST2500
- and DMA transfers
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+ <1476448684-6149-13-git-send-email-clg@kaod.org>
+ <CACPK8Xf0sLXLkfV_rGVZ6ppLN0590d3TTugYCTrT4sMNe5XBAA@mail.gmail.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Milton Miller <miltonm@us.ibm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <15dbb415-1b10-da15-ede9-184e99304ab3@kaod.org>
+Date: Mon, 17 Oct 2016 08:42:53 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.3.0
+MIME-Version: 1.0
+In-Reply-To: <CACPK8Xf0sLXLkfV_rGVZ6ppLN0590d3TTugYCTrT4sMNe5XBAA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 8281838241329286043
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrhedugdduudefucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,63 +44,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Oct 2016 05:15:20 -0000
+X-List-Received-Date: Mon, 17 Oct 2016 06:43:06 -0000
 
-On Fri, Oct 14, 2016 at 11:07 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrot=
-e:
-> Hello,
->
-> This patchset adds to the current aspeed SMC driver the register
-> settings enabling support for the AST2500. Some initial work is done
-> on the segment registers to provide a better configuration of the
-> mapping windows on the flash modules but this area clearly needs more
-> work to be solid.
+Hello Joel,
 
-Thanks for sending these out. I have a few comments that I'll give you
-a chance to respond to, but then we will apply this to dev-4.7 so
-teams who require flash support have it ready to go.
+On 10/17/2016 07:04 AM, Joel Stanley wrote:
+> On Fri, Oct 14, 2016 at 11:08 PM, Cédric Le Goater <clg@kaod.org> wrote:
+>> Try to improve the speed of transfers when doing DMAs
+> 
+> This could get squashed into the DMA adding patch I think.
 
-At that point, I suggest we send it upstream for comment in it's current st=
-ate.
+If you haven't pushed yet, you can drop this one, it does not 
+change anything in fact. 
 
-Cheers,
+I am currently looking at introducing some timing support 
+to speed up reading on the SPI, like pflash does and I am 
+shuffling the code quite a lot to isolate the different settings.
 
-Joel
+ 
+Just to say they are more changes to come to cleanup the driver.
 
->
-> Also, a first version of DMA read/write is provided. But the speed
-> results are not very satisfying so they are disabled by default. You
->
-> Thanks,
->
-> C.
->
-> C=C3=A9dric Le Goater (7):
->   ARM: dts: aspeed-g5: update ast2500 evb with new spi-nor binding
->   mtd: spi-nor: aspeed: make locking more explicit
->   mtd: spi-nor: aspeed: introduce a device under aspeed_smc_controller
->   mtd: spi-nor: aspeed: add DMA support to smc controller
->   ARM: dts: aspeed: update SMC controller nodes supporting DMAs
->   mtd: spi-nor: aspeed: use property "aspeed,fmc-has-dma"
->   mtd: spi-nor: aspeed: use fast read when doing DMAs
->
-> Milton Miller (5):
->   mtd: spi-nor: support for Aspeed AST2500 SoC
->   mtd: spi-nor: aspeed: Manage the segment address registers
->   mtd: spi-nor: Add Micronix mx66l1g45g spi flash
->   ARM: dts: aspeed-g5: update for new spi-nor binding
->   ARM: dts: aspeed-g5: update witherspoon for new spi-nor binding
->
->  .../devicetree/bindings/mtd/aspeed-smc.txt         |  32 +-
->  arch/arm/boot/dts/aspeed-ast2500-evb.dts           |  28 +-
->  arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts      |   2 +
->  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts   |  28 +-
->  arch/arm/boot/dts/aspeed-g5.dtsi                   |  65 +++
->  drivers/mtd/spi-nor/aspeed-smc.c                   | 449 +++++++++++++++=
-++----
->  drivers/mtd/spi-nor/spi-nor.c                      |   1 +
->  7 files changed, 499 insertions(+), 106 deletions(-)
->
-> --
-> 2.7.4
->
+Thanks for the review,
+
+C.
+
+> 
+>>
+>> Signed-off-by: Cédric Le Goater <clg@kaod.org>
+> 
+> Reviewed-by: Joel Stanley <joel@jms.id.au>
+> 
+>> ---
+>>  drivers/mtd/spi-nor/aspeed-smc.c | 11 +++++++----
+>>  1 file changed, 7 insertions(+), 4 deletions(-)
