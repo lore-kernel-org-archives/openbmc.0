@@ -1,71 +1,49 @@
-Return-Path: <ratagupt@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <raltherr@google.com>
+Received: from mail-yw0-x230.google.com (mail-yw0-x230.google.com
+ [IPv6:2607:f8b0:4002:c05::230])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3szfb23xlCzDt3C
- for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 04:49:34 +1100 (AEDT)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
- u9JHmV1p050467
- for <openbmc@lists.ozlabs.org>; Wed, 19 Oct 2016 13:49:32 -0400
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0a-001b2d01.pphosted.com with ESMTP id 266a6mv43d-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 19 Oct 2016 13:49:31 -0400
-Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <ratagupt@linux.vnet.ibm.com>;
- Wed, 19 Oct 2016 13:49:30 -0400
-Received: from d01dlp02.pok.ibm.com (9.56.250.167)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 19 Oct 2016 13:49:29 -0400
-Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
- [9.57.198.29])
- by d01dlp02.pok.ibm.com (Postfix) with ESMTP id C1C366E803C
- for <openbmc@lists.ozlabs.org>; Wed, 19 Oct 2016 13:49:04 -0400 (EDT)
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u9JHnSAO23855190
- for <openbmc@lists.ozlabs.org>; Wed, 19 Oct 2016 17:49:28 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9FE5CAC048
- for <openbmc@lists.ozlabs.org>; Wed, 19 Oct 2016 13:49:28 -0400 (EDT)
-Received: from [9.77.198.13] (unknown [9.77.198.13])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id 05B1BAC03A
- for <openbmc@lists.ozlabs.org>; Wed, 19 Oct 2016 13:49:27 -0400 (EDT)
-From: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
-Subject: RFC for enablement of slpd on openbmc
-To: openbmc@lists.ozlabs.org
-Date: Wed, 19 Oct 2016 23:19:26 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
- Thunderbird/38.8.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3szjhC5zcRzDvWJ
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 07:09:15 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b=dEWMaoxb; 
+ dkim-atps=neutral
+Received: by mail-yw0-x230.google.com with SMTP id u124so26479038ywg.3
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Oct 2016 13:09:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=d3ZxHoet1Y4O3GWxWcCkwvbtxh3AbcA/oYlTzjBTKls=;
+ b=dEWMaoxbm5i2tUQe1IbUDrkloWjhDhGaBqUOghyBr/uj5XGP8U/BxxKhOADYA8k7JN
+ XGR+A83lLLSs/7ewQiOf/VTifIjt8K1MsMWXPM0mRfY9+Hy/aXSyHjgR3XAwei5paZ2s
+ yzotpfM+X2FnOO2wseZZ3XBzF/nMQEuJ8tXKNvkfp+RSBYjd66DQor/cqu4yWH3cSMH3
+ vxE0nZAiZ3lk6mmg7GS4+Cw4rOV6WTnehV7w3iPv7crPYvVUtie/QOY5ivJ+lR56Tu/3
+ RP0qJ7NViq7ed8PWRWCa1aFmOHKawLe33nBHJbo6Id/Q+MTX0+gFANQXOFnWtLmwb4F5
+ /rkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=d3ZxHoet1Y4O3GWxWcCkwvbtxh3AbcA/oYlTzjBTKls=;
+ b=H/ro0X26XI/AAqZkM/Rdabc6NxnmPRjZIBr6IMhzdzplub/+PWDM4JBvASs/eOxeyr
+ UVzPfpm897VBBXe++KyZ3pLtpTLNUyZi3TBhkRIXmtlQ2+YvN7WzBvFcK9DogKgfnoY1
+ RcJXcjhA3ZXP3sw/CnIsegtJ9l4RzvK5jzsiDtLAB7BdttY1ZFSeBsRhlVsJdlmWRz+F
+ EgJlsf93AmlVFvCF6K1xUeLaWUMtBAPtzIFIcQn0robJ/FxXeyKgZJ1mKA1jn/GLncpS
+ MypR37bHtAm3LyYPdXQF6RJmj1nFySHnypKzSXhTx+u+sEb8Q7tfWnu6wFHr8pdLz0eK
+ YoHg==
+X-Gm-Message-State: AA6/9RlOpkarfycEtggm0dkN4A1xVyhHgwHz0jn85DGO7QyKE5ERfZMSNQvvchnHnT5I682C/YoGftB6vNgxIbzc
+X-Received: by 10.129.53.206 with SMTP id c197mr8035288ywa.205.1476907752196; 
+ Wed, 19 Oct 2016 13:09:12 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="------------030709020209040200060006"
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16101917-0040-0000-0000-000001A133E4
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00005941; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000187; SDB=6.00770269; UDB=6.00369193; IPR=6.00546774; 
- BA=6.00004820; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00013045; XFM=3.00000011;
- UTC=2016-10-19 17:49:29
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 16101917-0041-0000-0000-000005943BE6
-Message-Id: <5807B226.8090400@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2016-10-19_14:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=80
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1609300000
- definitions=main-1610190317
-X-Mailman-Approved-At: Thu, 20 Oct 2016 06:18:41 +1100
+Received: by 10.37.160.4 with HTTP; Wed, 19 Oct 2016 13:09:11 -0700 (PDT)
+In-Reply-To: <5807B226.8090400@linux.vnet.ibm.com>
+References: <5807B226.8090400@linux.vnet.ibm.com>
+From: Rick Altherr <raltherr@google.com>
+Date: Wed, 19 Oct 2016 13:09:11 -0700
+Message-ID: <CAPLgG==AWcsVvswzJQpqbqV0GBU94fN1yTb3p39SUkv5hnRo8g@mail.gmail.com>
+Subject: Re: RFC for enablement of slpd on openbmc
+To: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary=001a11421a26f0034a053f3d617a
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -77,178 +55,202 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Oct 2016 17:49:35 -0000
+X-List-Received-Date: Wed, 19 Oct 2016 20:09:16 -0000
 
-This is a multi-part message in MIME format.
---------------030709020209040200060006
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+--001a11421a26f0034a053f3d617a
+Content-Type: text/plain; charset=UTF-8
 
-Hi All,
+Please make sure there is a distro feature for this that can be turned off
+to remove SLP entirely from the image.
 
+On Wed, Oct 19, 2016 at 10:49 AM, Ratan Gupta <ratagupt@linux.vnet.ibm.com>
+wrote:
 
-*Enabling SLP Server on openBMC*
+> Hi All,
+>
+>
+> *Enabling SLP Server on openBMC*
+>
+> What is SLP
+>
+> =======
+>
+> Service Location Protocol (SLP) is a protocol that provides a framework to
+> allow networking applications to discover the existence, location, and
+> configuration of networked services in enterprise networks.
+>
+> openSLP is widely accepted in the industry
+>
+> What do we need to do?
+>
+> ==============
+>
+> 1) Bring SLP(OpenSLP) in image:- Write the bitbake recipe(didn't find the
+> readily available bitbake recipe)
+>
+> 2) Configure the services through Settings daemon.
+>
+> 3) Write the .service file as it needs to start after network is up(after
+> networkd-online.target)
+>
+> How to configure the services which needs to be registered with slpd
+>
+> ============================================
+>
+> Option 1:- settingsd
+>
+> Note: Gives the flexibility to change the configured services @ runtime.
+> Do we require this functionality?
+>
+> Option 2:conf file for discovery services
+>
+> Note: During build time we can get the service info(service-name,port)
+> from the existing infra(discoveryservice.bbclass)
+>
+> How to register the services
+> ==================
+>
+> 1) Static Registration:- will not work as we need ip/host-name details
+> which we don't have @build time.
+>
+> 2) Application(new DBUS app) will register the configured services to the
+> slpd on startup.
+>
+> We need to provide the dynamic registration support on BMC as IP of BMC
+> can change any time.  Registration of services with slpd takes the URL of
+> the service which includes ip and port of the service which needs to be
+> registered.
+>
+> Create a DBUS service application
+>
+> =====================
+>
+> 1) Once the service starts it registers the configured services with slpd.
+>
+> 2) listening on RTNETLINK event for ip change: raise a dbus signal(for the
+> IP change)
+>
+>      if there is IP change then dereg the old service followed by  reg
+> service as the ip has changed.
+>
+> Regards
+> Ratan Gupta
+>
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+>
+>
 
-What is SLP
+--001a11421a26f0034a053f3d617a
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-=======
+<div dir=3D"ltr">Please make sure there is a distro feature for this that c=
+an be turned off to remove SLP entirely from the image.</div><div class=3D"=
+gmail_extra"><br><div class=3D"gmail_quote">On Wed, Oct 19, 2016 at 10:49 A=
+M, Ratan Gupta <span dir=3D"ltr">&lt;<a href=3D"mailto:ratagupt@linux.vnet.=
+ibm.com" target=3D"_blank">ratagupt@linux.vnet.ibm.com</a>&gt;</span> wrote=
+:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-le=
+ft:1px #ccc solid;padding-left:1ex">
+ =20
 
-Service Location Protocol (SLP) is a protocol that provides a framework 
-to allow networking applications to discover the existence, location, 
-and configuration of networked services in enterprise networks.
-
-openSLP is widely accepted in the industry
-
-What do we need to do?
-
-==============
-
-1) Bring SLP(OpenSLP) in image:- Write the bitbake recipe(didn't find 
-the readily available bitbake recipe)
-
-2) Configure the services through Settings daemon.
-
-3) Write the .service file as it needs to start after network is 
-up(after networkd-online.target)
-
-How to configure the services which needs to be registered with slpd
-
-============================================
-
-Option 1:- settingsd
-
-Note: Gives the flexibility to change the configured services @ runtime. 
-Do we require this functionality?
-
-Option 2:conf file for discovery services
-
-Note: During build time we can get the service info(service-name,port) 
-from the existing infra(discoveryservice.bbclass)
-
-How to register the services
-==================
-
-1) Static Registration:- will not work as we need ip/host-name details 
-which we don't have @build time.
-
-2) Application(new DBUS app) will register the configured services to 
-the slpd on startup.
-
-We need to provide the dynamic registration support on BMC as IP of BMC 
-can change any time.  Registration of services with slpd takes the URL 
-of the service which includes ip and port of the service which needs to 
-be registered.
-
-Create a DBUS service application
-
-=====================
-
-1) Once the service starts it registers the configured services with slpd.
-
-2) listening on RTNETLINK event for ip change: raise a dbus signal(for 
-the IP change)
-
-
-      if there is IP change then dereg the old service followed by reg 
-service as the ip has changed.
-
-Regards
-Ratan Gupta
-
---------------030709020209040200060006
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+   =20
+ =20
+  <div text=3D"#000000" bgcolor=3D"#FFFFFF">
+   =20
     Hi All,<br>
-    <p style="margin-bottom: 0cm; line-height: 100%"><br>
+    <p style=3D"margin-bottom:0cm;line-height:100%"><br>
     </p>
-    <p style="margin-bottom: 0cm; line-height: 100%" align="center"><font
-        style="font-size: 14pt" size="4"><b>Enabling
+    <p style=3D"margin-bottom:0cm;line-height:100%" align=3D"center"><font =
+style=3D"font-size:14pt" size=3D"4"><b>Enabling
           SLP Server on openBMC</b></font></p>
-    <p style="margin-bottom: 0cm; line-height: 100%">What is SLP </p>
-    <p style="margin-bottom: 0cm; line-height: 100%">=======</p>
-    <p style="margin-bottom: 0cm; line-height: 100%">Service Location
+    <p style=3D"margin-bottom:0cm;line-height:100%">What is SLP </p>
+    <p style=3D"margin-bottom:0cm;line-height:100%">=3D=3D=3D=3D=3D=3D=3D</=
+p>
+    <p style=3D"margin-bottom:0cm;line-height:100%">Service Location
       Protocol (SLP) is a protocol that provides a framework to allow
       networking applications to discover the existence, location, and
       configuration of networked services in enterprise networks.</p>
-    <p style="margin-bottom: 0cm; line-height: 100%">openSLP is widely
+    <p style=3D"margin-bottom:0cm;line-height:100%">openSLP is widely
       accepted in the industry</p>
-    <p style="margin-bottom: 0cm; line-height: 100%">What do we need to
+    <p style=3D"margin-bottom:0cm;line-height:100%">What do we need to
       do? </p>
-    <p style="margin-bottom: 0cm; line-height: 100%">==============</p>
-    <p style="margin-bottom: 0cm; line-height: 100%">1) Bring
-      SLP(OpenSLP) in image:- Write the bitbake recipe(didn't find the
+    <p style=3D"margin-bottom:0cm;line-height:100%">=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D</p>
+    <p style=3D"margin-bottom:0cm;line-height:100%">1) Bring
+      SLP(OpenSLP) in image:- Write the bitbake recipe(didn&#39;t find the
       readily available bitbake recipe)</p>
-    <p style="margin-bottom: 0cm; line-height: 100%">2) Configure the
+    <p style=3D"margin-bottom:0cm;line-height:100%">2) Configure the
       services through Settings daemon.</p>
-    <p style="margin-bottom: 0cm; line-height: 100%">3) Write the
+    <p style=3D"margin-bottom:0cm;line-height:100%">3) Write the
       .service file as it needs to start after network is up(after
       networkd-online.target)</p>
-    <p style="margin-bottom: 0cm; line-height: 100%">How to configure
+    <p style=3D"margin-bottom:0cm;line-height:100%">How to configure
       the services which needs to be registered with slpd<br>
     </p>
-    <p style="margin-bottom: 0cm; line-height: 100%">============================================</p>
-    <p style="margin-bottom: 0cm; line-height: 100%"> Option 1:-
+    <p style=3D"margin-bottom:0cm;line-height:100%">=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<wbr>=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D</p>
+    <p style=3D"margin-bottom:0cm;line-height:100%"> Option 1:-
       settingsd </p>
-    <p style="margin-bottom: 0cm; line-height: 100%"> Note: Gives the
+    <p style=3D"margin-bottom:0cm;line-height:100%"> Note: Gives the
       flexibility to change the configured services @ runtime. Do we
       require
       this functionality?</p>
-    <p style="margin-bottom: 0cm; line-height: 100%"> Option 2:conf
+    <p style=3D"margin-bottom:0cm;line-height:100%"> Option 2:conf
       file for discovery services </p>
-    <p style="margin-bottom: 0cm; line-height: 100%"> Note: During
+    <p style=3D"margin-bottom:0cm;line-height:100%"> Note: During
       build time we can get the service info(service-name,port) from the
-      existing infra(discoveryservice.bbclass)</p>
-    <p style="margin-bottom: 0cm; line-height: 100%">How to register the
+      existing infra(discoveryservice.<wbr>bbclass)</p>
+    <p style=3D"margin-bottom:0cm;line-height:100%">How to register the
       services<br>
-      ==================</p>
-    <p style="margin-bottom: 0cm; line-height: 100%">1) Static
+      =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D</p>
+    <p style=3D"margin-bottom:0cm;line-height:100%">1) Static
       Registration:- will not work as we need ip/host-name details which
-      we don't have @build time.</p>
-    <p style="margin-bottom: 0cm; line-height: 100%">2)
+      we don&#39;t have @build time.</p>
+    <p style=3D"margin-bottom:0cm;line-height:100%">2)
       Application(new DBUS app) will register the configured services
       to the slpd on startup. <br>
     </p>
-    <p style="margin-bottom: 0cm; line-height: 100%">We need to provide
+    <p style=3D"margin-bottom:0cm;line-height:100%">We need to provide
       the dynamic registration support on BMC as IP of BMC can change
       any
-      time.  Registration of services with slpd takes the URL of the
+      time.=C2=A0 Registration of services with slpd takes the URL of the
       service which includes ip and port of the service which
       needs to be registered.</p>
-    <p style="margin-bottom: 0cm; line-height: 100%"> </p>
-    <p style="margin-bottom: 0cm; line-height: 100%">Create a DBUS
+    <p style=3D"margin-bottom:0cm;line-height:100%"> </p>
+    <p style=3D"margin-bottom:0cm;line-height:100%">Create a DBUS
       service application </p>
-    <p style="margin-bottom: 0cm; line-height: 100%">=====================<br>
+    <p style=3D"margin-bottom:0cm;line-height:100%">=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
     </p>
-    <p style="margin-bottom: 0cm; line-height: 100%">1) Once the service
+    <p style=3D"margin-bottom:0cm;line-height:100%">1) Once the service
       starts it registers the configured services with slpd.<br>
     </p>
-    <p style="margin-bottom: 0cm; line-height: 100%"> 2) listening
+    <p style=3D"margin-bottom:0cm;line-height:100%"> 2) listening
       on RTNETLINK event for ip change: raise a dbus signal(for the IP
       change)<br>
     </p>
-         <br>
-         if there is IP change then dereg the old service followed by 
+    =C2=A0=C2=A0=C2=A0=C2=A0 <br>
+    =C2=A0=C2=A0=C2=A0=C2=A0 if there is IP change then dereg the old servi=
+ce followed by=C2=A0
     reg service as the ip has changed.<br>
     <br>
-    Regards<br>
+    Regards<span class=3D"HOEnZb"><font color=3D"#888888"><br>
     Ratan Gupta<br>
-    <title></title>
-    <meta name="generator" content="LibreOffice 4.2.8.2 (Linux)">
-    <style type="text/css">
-	<!--
-		@page { margin: 2cm }
-		p { margin-bottom: 0.25cm; line-height: 120% }
-	-->
-	</style>
-  </body>
-</html>
+   =20
+   =20
+   =20
+  </font></span></div>
 
---------------030709020209040200060006--
+<br>______________________________<wbr>_________________<br>
+openbmc mailing list<br>
+<a href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a><br=
+>
+<a href=3D"https://lists.ozlabs.org/listinfo/openbmc" rel=3D"noreferrer" ta=
+rget=3D"_blank">https://lists.ozlabs.org/<wbr>listinfo/openbmc</a><br>
+<br></blockquote></div><br></div>
+
+--001a11421a26f0034a053f3d617a--
