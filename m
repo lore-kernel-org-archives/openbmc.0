@@ -1,28 +1,29 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3sztmF1C4tzDt62
- for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 13:58:20 +1100 (AEDT)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1476932295403290.792732490527;
- Wed, 19 Oct 2016 19:58:15 -0700 (PDT)
-Date: Wed, 19 Oct 2016 21:58:08 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: Merging rights
-Message-ID: <20161020025808.GH32710@heinlein.lan>
-References: <CACPK8Xe12uXO+YfxS_fvwd=4RqBsS_M1ahj9KD=sv9ERMgVOrA@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3szvPS0PRzzDsxX
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 14:27:08 +1100 (AEDT)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.org (Postfix) with ESMTPSA id 3szvPR54DKz9s5w;
+ Thu, 20 Oct 2016 14:27:07 +1100 (AEDT)
+Subject: Re: [PATCH linux v5 17/18] drivers/fsi: Add SCOM FSI client device
+ driver
+To: christopher.lee.bostic@gmail.com, openbmc@lists.ozlabs.org
+References: <1476918586-13475-1-git-send-email-christopher.lee.bostic@gmail.com>
+ <1476918586-13475-18-git-send-email-christopher.lee.bostic@gmail.com>
+From: Jeremy Kerr <jk@ozlabs.org>
+Cc: xxpetri@de.ibm.com, zahrens@us.ibm.com
+Message-ID: <918db920-baf4-ef79-90fe-dc00a06a2430@ozlabs.org>
+Date: Thu, 20 Oct 2016 11:27:07 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.2.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="3eH4Qcq5fItR5cpy"
-Content-Disposition: inline
-In-Reply-To: <CACPK8Xe12uXO+YfxS_fvwd=4RqBsS_M1ahj9KD=sv9ERMgVOrA@mail.gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
+In-Reply-To: <1476918586-13475-18-git-send-email-christopher.lee.bostic@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -34,60 +35,124 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Oct 2016 02:58:21 -0000
+X-List-Received-Date: Thu, 20 Oct 2016 03:27:08 -0000
+
+Hi Chris,
+
+> diff > +static int scom_probe(struct device *);
+> +
+> +struct scom_op {
+> +	uint64_t	data;
+> +	uint32_t	addr;
+> +};
+
+You're making this a userspace interface, so this should go into the
+uapi headers (and then will form part of the unchangeable Linux ABI).
+However, more on the ABI below...
+
+> +struct scom_device {
+> +	struct fsi_device *fsi_dev;
+> +	struct cdev *cdev;
+> +};
+> +
+> +struct scom_device scom_dev;
+> +
+> +struct fsi_device_id scom_ids[] = {
+> +	{
+> +		.engine_type = FSI_ENGID_SCOM,
+> +		.version = FSI_VERSION_ANY,
+> +	},
+> +	{ 0 }
+> +};
+> +
+> +struct fsi_driver scom_drv = {
+> +	.id_table = scom_ids,
+> +	.drv = {
+> +		.name = "scom",
+> +		.bus = &fsi_bus_type,
+> +		.probe = scom_probe,
+> +	}
+> +};
+
+Make these static, and put after the code, just before the
+module_fsi_driver. Then you won't need the forward definition of
+scom_probe.
+
+> > +static ssize_t scom_read(struct file *filep, char __user *buf, size_t len,
+> +			loff_t *offset)
+> +{
+> +	int rc = 0;
+> +	struct scom_op op;
+> +	struct scom_device *scom = &scom_dev;
+> +	struct device *dev = &scom->fsi_dev->dev;
+> +
+> +	/* todo: Retrieve device to operate on from filep->private_data */
+
+Yep, otherwise you only get one scom interface, and crazy results if you
+get probed twice. I'd suggest not leaving this until later.
+
+> +
+> +	if (len != sizeof(struct scom_op))
+> +		return -EINVAL;
+> +
+> +	rc = copy_from_user(&op, buf, len);
+> +	if (rc) {
+> +		dev_dbg(dev, "copy from user failed:%d\n", rc);
+> +		return -EINVAL;
+> +	}
+> +
+> +	rc = get_scom(&op.data, op.addr);
+
+I'm not a huge fan of that ABI to userspace. You already have the
+address in the offset argument, so you can do this without needing new
+uapi headers, using something like:
+
+static ssize_t scom_read(struct file *filep, char __user *buf, size_t len,
+			loff_t *offset)
+{
+	uint64_t val;
+
+	/* todo: can we do 1/2/4/8 byte operations too? */
+	if (len != sizeof(uint64_t))
+		return -EINVAL;
+
+	rc = get_scom(&val, offset);
+	if (rc)
+		return rc;
+
+	rc = copy_to_user(&val, buf, len);
+
+	return rc ? rc : len;
+}
 
 
---3eH4Qcq5fItR5cpy
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Also, have you thought about endianness?
+	
 
-On Thu, Oct 20, 2016 at 12:13:49PM +1030, Joel Stanley wrote:
-> Hello Patrick,
->=20
-> I've had this patch under review for a few days. It's been sitting at
-> +3 for about 5 days now, but I can't commit it as I don't have
-> permission.
->=20
->  https://gerrit.openbmc-project.xyz/#/c/762/
->=20
-> In light of this I think we need more users with permission to commit
-> when code review has been completed.
->=20
-> Can I please be added to that list?
->=20
-> Cheers,
->=20
-> Joel
+> +static int scom_probe(struct device *dev)
+> +{
+> +	struct fsi_device *fsi_dev = to_fsi_dev(dev);
+> +	struct scom_device *scom = &scom_dev;
+> +	int rc;
+> +
+> +	scom->fsi_dev = fsi_dev;
+> +	scom->cdev = cdev_alloc();
+> +	if (!scom->cdev)
+> +		return -ENOMEM;
+> +
+> +	scom->cdev->owner = THIS_MODULE;
+> +
+> +	rc = register_chrdev(0, "scom", &scom_fops);
+> +	if (rc < 0) {
+> +		dev_dbg(dev, "scom major allocation failed:%d\n", rc);
+> +		return rc;
+> +	}
+> +	dev_dbg(dev, "scom major allocated:%d\n", rc);
 
-Oops.  My mistake.  I gave it a +2 but was waiting for the rebase to
-clear Jenkins and then lost track of it.
+You need to register the actual device too, right? We'll want scom0,
+scom1, etc.
 
-Let's talk offline about the merge piece.
+Cheers,
 
---=20
-Patrick Williams
 
---3eH4Qcq5fItR5cpy
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJYCDLAAAoJEKsDR8wtAMEZV48P/jL4z5YfSXFKTvxDq3XftvH9
-i7nmjbBzkegdoSEFKZECkJKI7ix8VYWCptE62VEPsoZ17U82wjZYjNlfmRIC+FH6
-RfpL8vNXVENfPTreFpXuzkPmdUezfQkhOxXPuQcQ6iYBQSIGnxVftEmsKexJKCK+
-T5eDcbh3ascgUpVn2m63xzLcDhh9g/JE8NeNnAPlB8HwOTb2ObDKXGwXrloICm5B
-OQKYgkxjHTIwV0xLmpD8aGuWPPFEcaZiFjtXtiVerYnkXB3RbLxXzzD6K0JM1l28
-5a3oKH7WldQzA3DQLzqKqzupMsosY3h/n9NIyTW3bsTImia91sHuIeZHpbQv0esy
-iQ8cZ4CJCLg4QLit1e6qCxv82nSX576rhQHwFAsmMtwsOHIIyZGV+dJJePV9iHSt
-EXFEyfxPdcPvdfEcmCjYnVuDT6H1ZkoBKLfrNMRrAMorIElQKuIltKcVKvmV/5RM
-Aj6+n5/HKppkH9lvAIWCktH0mvCZA54SLeXAntWpTrWalBLEKx58dU+sH8k8EI5y
-2i+GhvigmiwVcmREFF8HZS0jvYUegMcU0TseEF0iFNxbPvHMC6B4vV/Y8COPqoYB
-ldbkVV3eH1AxEIqWkTUdzItPqE9IxtECU1wmElBTKgeGRN/PIeK1LBX0vjCA0MqQ
-GuMMzbXDzU+3xjTK52Ex
-=4B1A
------END PGP SIGNATURE-----
-
---3eH4Qcq5fItR5cpy--
+Jeremy
