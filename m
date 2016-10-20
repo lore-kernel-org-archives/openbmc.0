@@ -1,48 +1,28 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-vk0-x242.google.com (mail-vk0-x242.google.com
- [IPv6:2607:f8b0:400c:c05::242])
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (ozlabs.org [103.22.144.67])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3szsrq3mgqzDrbg
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 13:17:15 +1100 (AEDT)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3szs6h0HrNzDvPY
- for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 12:44:12 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=E/Cvr1SE; 
- dkim-atps=neutral
-Received: by mail-vk0-x242.google.com with SMTP id 2so2101176vkb.1
- for <openbmc@lists.ozlabs.org>; Wed, 19 Oct 2016 18:44:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:from:date:message-id:subject:to;
- bh=nmFLaNU19vsPa8eq3B+8hj4NK2afqssuQdeFXgh/Sz0=;
- b=E/Cvr1SExpyhJfkPdS6lTKonX0g8L4mSoKAV4UdY9Dz4xG/wgWNmtF0sckBz/tMdOJ
- UcXGoleEAZVO1rEhUq9sH+UyO5e2Jm3heqN1GOTrzBIDUHxjgWCcLfnVYq5MfmsFUi05
- M+pCUYiybObJDM6R63LtudydXfSJ0kzAheiyc4djMjNgStUdBliXM4quz4XAsBcN1Vfp
- E1c8CQEuY2i5PSDJegBoZmm6S+Ku/6AwG1pAwwISMbMVQ3h2fyojSpJcE4irEghkWcYp
- gJHtuNhZH4jwBGnSvuRHF6QvF7wGF+ibVRIsS5bOi2l+BGwosW54ChpXCOOj+LAPY8+Z
- ZHJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
- :to; bh=nmFLaNU19vsPa8eq3B+8hj4NK2afqssuQdeFXgh/Sz0=;
- b=YAQj/wDxG2vLulsuvvH8+KxrpMIvBkX4++OCyV6/L5DGwq/r87pEUvyLY0icxapCl3
- s5m5ux+a9LlO6U10GrvfK4c78x8MdSAch4fUJW6eQdf3yGPLOiHDNTeYDm4s8CUa9Jlt
- /HNlfFKsodmYfyUn0vU2bCxsC2hPltWPFf5rY8eFHYYt5meB+pj0gupa32B1TAYUhavQ
- h7T0qVABSl3bE8jtRyLIhERE4HzCTUxX04ufIqbrlE49wHy/i+VgJPKcgDH7vBzEDIr9
- bM5bfI1juA/v0qqfxm2QI4lhjisy5lTev/W3u5pzKsxeTLHsNApZdry1HH18UMKEU9Y2
- fiyw==
-X-Gm-Message-State: AA6/9RkPB46V50rjhJnX9EcnlBWUSKPpjQE4R4ZZ4t+IzAMIo3kWHE9wyn6v/e0zEiaeoNvET7PRTHpqi2Tycg==
-X-Received: by 10.31.166.208 with SMTP id p199mr7444279vke.145.1476927849704; 
- Wed, 19 Oct 2016 18:44:09 -0700 (PDT)
+ by ozlabs.org (Postfix) with ESMTPSA id 3szsrq14T4z9sCZ;
+ Thu, 20 Oct 2016 13:17:15 +1100 (AEDT)
+Subject: Re: [PATCH linux v5 18/18] Documenation: Add basic FSI text file
+To: christopher.lee.bostic@gmail.com, openbmc@lists.ozlabs.org
+References: <1476918586-13475-1-git-send-email-christopher.lee.bostic@gmail.com>
+ <1476918586-13475-19-git-send-email-christopher.lee.bostic@gmail.com>
+Cc: xxpetri@de.ibm.com, zahrens@us.ibm.com
+From: Jeremy Kerr <jk@ozlabs.org>
+Message-ID: <7cd0c036-5e16-b69a-409d-897a06c263a6@ozlabs.org>
+Date: Thu, 20 Oct 2016 10:17:14 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.2.0
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.176.7.8 with HTTP; Wed, 19 Oct 2016 18:43:49 -0700 (PDT)
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 20 Oct 2016 12:13:49 +1030
-X-Google-Sender-Auth: 4YwB726nc5gwViy_UvaXD7yz3EE
-Message-ID: <CACPK8Xe12uXO+YfxS_fvwd=4RqBsS_M1ahj9KD=sv9ERMgVOrA@mail.gmail.com>
-Subject: Merging rights
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Patrick Williams <patrick@stwcx.xyz>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <1476918586-13475-19-git-send-email-christopher.lee.bostic@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,21 +34,76 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Oct 2016 01:44:12 -0000
+X-List-Received-Date: Thu, 20 Oct 2016 02:17:15 -0000
 
-Hello Patrick,
+Hi Chris,
 
-I've had this patch under review for a few days. It's been sitting at
-+3 for about 5 days now, but I can't commit it as I don't have
-permission.
+> Add documentation explaining the basics of FSI and how to find
+> more information.
+> +The Flexible Support Interface (FSI) is a two wire bus consisting of
+> +a serial data line and a clock capable of running at up to 166 MHz.
+> +FSI features strong data integrity with CRC protection and is capable
+> +of very high fan out.
+> +
+> +The complete hardware specification[1] for FSI is publicly available on
+> +the OpenPower Foundation website:
+> +
+> +[1] http://openpowerfoundation.org/wp-content/uploads/resources/OpenFSI-spec/content/ch_preface.html
+> +
+> +Common FSI terminology:
+> +
+> +* Master
+> +    Controller of the FSI bus.  Only the master is allowed to control the
+> +    clock line and is the initiator of all transactions on a bus.
+> +
+> +* Slave
+> +    The receiver or target of a master initiated transaction.  The slave
+> +    cannot initiate communications on a bus and must respond to any
+> +    master requests for data.
+> +
+> +* CFAM
+> +    Stands for Common Field replaceable unit Access Macro.  A CFAM is an
+> +    ASIC residing in any device requiring FSI communications. CFAMs
+> +    consist of an array of hardware 'engines' used for various purposes.
+> +    I2C masters, UARTs, General Purpose IO hardware are common types of
+> +    these engines.
+> +
+> +* Configuration Space / Configuration Table
+> +    A table contained at the beginning of each CFAM address space.
+> +    This table lists information such as the CFAM's ID, which engine types
+> +    and versions it contains, as well as its addressing range.
+> +
+> +* FSI Client driver
+> +    A device driver that registers with the FSI core so that it can access
+> +    devices it owns on an FSI bus.
 
- https://gerrit.openbmc-project.xyz/#/c/762/
+Is "client" something new, or is this standard FSI terminology? I would
+have thought "engine" is the term used elsewhere.
 
-In light of this I think we need more users with permission to commit
-when code review has been completed.
+Anyway, here's a little more to tie it into the kernel implementation:
 
-Can I please be added to that list?
+------------
+In Linux, we have a core FSI "bus type", along with drivers for FSI
+masters and clients.
+
+The FSI master drivers expose a read/write interface to the bus address
+space. The master drivers are under drivers/fsi/fsi-master-*.c.
+
+The core handles probing and discovery of slaves and slave
+engines, using those read/write interfaces. It is responsible for
+creating the endpoint Linux devices corresponding to the discovered
+engines on each slave.
+
+Slave engines are identified by an 'engine' type, and an optional
+version. Client drivers are matched and bound to these engines during
+discovery.
+
+------------
+
+We may want to add some description of the APIs, but that should do for
+now.
 
 Cheers,
 
-Joel
+
+Jeremy
