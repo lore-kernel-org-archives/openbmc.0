@@ -1,29 +1,53 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3szvPS0PRzzDsxX
- for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 14:27:08 +1100 (AEDT)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+Return-Path: <linus.walleij@linaro.org>
+Received: from mail-qt0-x229.google.com (mail-qt0-x229.google.com
+ [IPv6:2607:f8b0:400d:c0d::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 3szvPR54DKz9s5w;
- Thu, 20 Oct 2016 14:27:07 +1100 (AEDT)
-Subject: Re: [PATCH linux v5 17/18] drivers/fsi: Add SCOM FSI client device
- driver
-To: christopher.lee.bostic@gmail.com, openbmc@lists.ozlabs.org
-References: <1476918586-13475-1-git-send-email-christopher.lee.bostic@gmail.com>
- <1476918586-13475-18-git-send-email-christopher.lee.bostic@gmail.com>
-From: Jeremy Kerr <jk@ozlabs.org>
-Cc: xxpetri@de.ibm.com, zahrens@us.ibm.com
-Message-ID: <918db920-baf4-ef79-90fe-dc00a06a2430@ozlabs.org>
-Date: Thu, 20 Oct 2016 11:27:07 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.2.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t06f90NLMzDvWr
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 22:53:52 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b=Ivq5cfm0; 
+ dkim-atps=neutral
+Received: by mail-qt0-x229.google.com with SMTP id s49so49798232qta.0
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 04:53:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=WNFJXAMrHgzwT6SBRAlmoXLL51gbajY6Sj4Yu6o7ydw=;
+ b=Ivq5cfm0rz286+80sN/X7wjzonT5IvOOVqj6EPmsvKO5qdXwj7MPwDb+13SHtHZ2aR
+ RbI46DfotIv16Sn/xhr0njQ0Ifz/tPUMUE1blozkZItryV1KdgVG+sFel9VomuVWAJoR
+ IBGAzAv76IERrNHhAq34A43x/6vcMbApWLP1k=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=WNFJXAMrHgzwT6SBRAlmoXLL51gbajY6Sj4Yu6o7ydw=;
+ b=Reu4RLbVZxpLvGVq1j6/PIELaNCtpvVq4RPcV0yLB3ACvrc7GvOl69HoTIvTKncDoK
+ 2ipNKsD5IZUY9oJN1rpC0/KlxffoeGxiBZLuIiktwFFNnKm6l6qA5gFn4lFc0r3PWXmJ
+ 87lXM2FDXYzsUBSrrlH1eZOTmOWMgF4j00CJ6X+JonasUbdjq7ZIWTpuYiuBP5HC3qw6
+ G5QjcKRihOZH+OhQ7+J5UfLsJxqZmEEtdm0ADAesrsgsjJbmvq9VPhhM4+5eOBz+eOcz
+ PoTQ9UZcHfbyVogKaOx+GwzwEphnQd1ZKc1zNZzOlGKuUPTALapKJqbRHxk1KsL/RVXt
+ CgmA==
+X-Gm-Message-State: ABUngvfq+KuPxdjDzzk37yAYJt13yUbIbH/tDOYTojeHrAd6qeiYb79CEIjgxTNwbCpmEfDsQNVe/qRacxMhUXz9
+X-Received: by 10.200.50.22 with SMTP id x22mr286102qta.129.1476964429856;
+ Thu, 20 Oct 2016 04:53:49 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1476918586-13475-18-git-send-email-christopher.lee.bostic@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Received: by 10.12.140.13 with HTTP; Thu, 20 Oct 2016 04:53:49 -0700 (PDT)
+In-Reply-To: <b5f67ba76018314d08e240f95951751896687d37.1474986045.git-series.andrew@aj.id.au>
+References: <cover.115463f791b69859c5ce9dafd61a5755ea039f4b.1474986045.git-series.andrew@aj.id.au>
+ <b5f67ba76018314d08e240f95951751896687d37.1474986045.git-series.andrew@aj.id.au>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 20 Oct 2016 13:53:49 +0200
+Message-ID: <CACRpkdYLDesENtq2cQBrWQeL6NH+mO_N5Z=e9=gsoZSCE85Jag@mail.gmail.com>
+Subject: Re: [PATCH 6/8] pinctrl: aspeed-g4: Capture SuperIO pinmux dependency
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Joel Stanley <joel@jms.id.au>, Mark Rutland <mark.rutland@arm.com>, 
+ Rob Herring <robh+dt@kernel.org>, 
+ "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -35,124 +59,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Oct 2016 03:27:08 -0000
+X-List-Received-Date: Thu, 20 Oct 2016 11:53:53 -0000
 
-Hi Chris,
+On Tue, Sep 27, 2016 at 4:50 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
 
-> diff > +static int scom_probe(struct device *);
-> +
-> +struct scom_op {
-> +	uint64_t	data;
-> +	uint32_t	addr;
-> +};
+> Two LPC-related signals in the AST2400 depend on state in the SuperIO IP
+> block. Use the recently added infrastructure to capture this
+> relationship.
+>
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 
-You're making this a userspace interface, so this should go into the
-uapi headers (and then will form part of the unchangeable Linux ABI).
-However, more on the ABI below...
+Patch applied for v4.10.
+(Tell me if I'm applying patches in wrong order or something, and
+I hope this doesn't clash with the fixes.)
 
-> +struct scom_device {
-> +	struct fsi_device *fsi_dev;
-> +	struct cdev *cdev;
-> +};
-> +
-> +struct scom_device scom_dev;
-> +
-> +struct fsi_device_id scom_ids[] = {
-> +	{
-> +		.engine_type = FSI_ENGID_SCOM,
-> +		.version = FSI_VERSION_ANY,
-> +	},
-> +	{ 0 }
-> +};
-> +
-> +struct fsi_driver scom_drv = {
-> +	.id_table = scom_ids,
-> +	.drv = {
-> +		.name = "scom",
-> +		.bus = &fsi_bus_type,
-> +		.probe = scom_probe,
-> +	}
-> +};
-
-Make these static, and put after the code, just before the
-module_fsi_driver. Then you won't need the forward definition of
-scom_probe.
-
-> > +static ssize_t scom_read(struct file *filep, char __user *buf, size_t len,
-> +			loff_t *offset)
-> +{
-> +	int rc = 0;
-> +	struct scom_op op;
-> +	struct scom_device *scom = &scom_dev;
-> +	struct device *dev = &scom->fsi_dev->dev;
-> +
-> +	/* todo: Retrieve device to operate on from filep->private_data */
-
-Yep, otherwise you only get one scom interface, and crazy results if you
-get probed twice. I'd suggest not leaving this until later.
-
-> +
-> +	if (len != sizeof(struct scom_op))
-> +		return -EINVAL;
-> +
-> +	rc = copy_from_user(&op, buf, len);
-> +	if (rc) {
-> +		dev_dbg(dev, "copy from user failed:%d\n", rc);
-> +		return -EINVAL;
-> +	}
-> +
-> +	rc = get_scom(&op.data, op.addr);
-
-I'm not a huge fan of that ABI to userspace. You already have the
-address in the offset argument, so you can do this without needing new
-uapi headers, using something like:
-
-static ssize_t scom_read(struct file *filep, char __user *buf, size_t len,
-			loff_t *offset)
-{
-	uint64_t val;
-
-	/* todo: can we do 1/2/4/8 byte operations too? */
-	if (len != sizeof(uint64_t))
-		return -EINVAL;
-
-	rc = get_scom(&val, offset);
-	if (rc)
-		return rc;
-
-	rc = copy_to_user(&val, buf, len);
-
-	return rc ? rc : len;
-}
-
-
-Also, have you thought about endianness?
-	
-
-> +static int scom_probe(struct device *dev)
-> +{
-> +	struct fsi_device *fsi_dev = to_fsi_dev(dev);
-> +	struct scom_device *scom = &scom_dev;
-> +	int rc;
-> +
-> +	scom->fsi_dev = fsi_dev;
-> +	scom->cdev = cdev_alloc();
-> +	if (!scom->cdev)
-> +		return -ENOMEM;
-> +
-> +	scom->cdev->owner = THIS_MODULE;
-> +
-> +	rc = register_chrdev(0, "scom", &scom_fops);
-> +	if (rc < 0) {
-> +		dev_dbg(dev, "scom major allocation failed:%d\n", rc);
-> +		return rc;
-> +	}
-> +	dev_dbg(dev, "scom major allocated:%d\n", rc);
-
-You need to register the actual device too, right? We'll want scom0,
-scom1, etc.
-
-Cheers,
-
-
-Jeremy
+Yours,
+Linus Walleij
