@@ -1,52 +1,51 @@
 Return-Path: <xow@google.com>
-Received: from mail-qt0-x22c.google.com (mail-qt0-x22c.google.com
- [IPv6:2607:f8b0:400d:c0d::22c])
+Received: from mail-pf0-x22d.google.com (mail-pf0-x22d.google.com
+ [IPv6:2607:f8b0:400e:c00::22d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t0L3R6ZxJzDvXx
- for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 07:28:03 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t0PM51GFjzDvY4
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 09:56:49 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=Ol6XZSNf; 
+ unprotected) header.d=google.com header.i=@google.com header.b=MY3LBvcr; 
  dkim-atps=neutral
-Received: by mail-qt0-x22c.google.com with SMTP id m5so68774569qtb.3
- for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 13:28:03 -0700 (PDT)
+Received: by mail-pf0-x22d.google.com with SMTP id 128so44811233pfz.0
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 15:56:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=Icvra8WprYSaHOIDJ70oK6G8vQsCuc3J8TVb1jqbUZE=;
- b=Ol6XZSNf6NU1N+rpXlJUUcsYV2HKkyiZ7+Ee3A7sFJGR1aCBGTNbNlJPLJGLQArEHF
- sNEOUIunx9n2EvP3xfMieA0FG6ifCsPPuav86l3r8WobuBlrI1W8VnFJxliodm8Cy/PC
- /9Cbvd/uiy7okbBgydHTpgz8NLR171bwQy1URndlmozQuilG3c03NVvUuzpD4baf921x
- q6gDSkTJfyWRJM/K9MZnVolEWFcpBxZ4SrXCEvrd1gdv2jsv+dQIcuIN3bztmVUXb3QQ
- LUNPvTYnFQA/ZVkU/pzJrvPh//A5vYAMs6LOW9x+TcxnlTPLsxO1NkKfsETe+ma7V3Pv
- pBjw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=4xUXOcDn3BihjRXZGLc0eOTiryCWNKvDngLfgdkDF/U=;
+ b=MY3LBvcrkgKcmUKbeLh2P4DGVHqBRf8QRbPUnhSErhvpgc3gAGbuJaQcgIVxIT67cv
+ mTCiTxh3DWF4RGEadmLswgbbYv0+I/xh8+ghcroPve7XpOujWZRWXFUKBZhOLdw4Mcpo
+ sxPJKUBBqTxiRUwWzL7/TrwAqwckFAOa6dbU6cQW92BDU+jjS2160QzcZN7wBsEHL4dl
+ 8BnGU45ooSVwgsTlYVbw3xMfK5O50O79PySFgYjYggMxf3glcByv0djettC+NrD/BU0A
+ FRAt79BQdyYj5fDFfzCJ8HK0R2ME1IpXlbe1jgZFRFJedSyy4cfO1Ef1Hvcjxu/g0HHh
+ VL1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=Icvra8WprYSaHOIDJ70oK6G8vQsCuc3J8TVb1jqbUZE=;
- b=Xd9hK65mg8zPfPN3AwX/zlDjYGo9eW7Ie+ZrLYbG3XC/oXE84z/KFg8VhD/61QsX2l
- bUbrFvsPDx3iVNvuM1vr/+a/AztI280TRsMEN6GCzG4WsdYQggFjtg21IvYSeQ+ZaLWG
- LNL1o17x5pqUJHEJvT7N4MHpCS7Hye1JcPfKvx38PmzZZbnk73oX9FlS+V0cInZn4C1m
- 6MhDviPZmCjbEpdjSu7WEEHrB9Hbm9WzmAnCTtYKc/qAZSpKK04Wxi/sEWwLVyIS7ijB
- Z+xVTnGwZReuuUiRjpxd1ZFsL9EFktO8Y4vCiO5YQuw7dpWMovzFrAZoSztAzc8u4dCg
- lM/g==
-X-Gm-Message-State: ABUngvd4WjWjN4I4F8E2c7pTBslgz0JP8EaOhq+/g8GR+VvLBEXRd/n+D06o8CLW11qe7O491etnLP2hw409cHun
-X-Received: by 10.200.51.144 with SMTP id c16mr2408999qtb.74.1476995280756;
- Thu, 20 Oct 2016 13:28:00 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.200.58.194 with HTTP; Thu, 20 Oct 2016 13:28:00 -0700 (PDT)
-In-Reply-To: <CACPK8XdZY82jsdgghGXD-erP5OhwfSMZqx_aN7tySP7iHRpAMA@mail.gmail.com>
-References: <1476842308-142217-1-git-send-email-xow@google.com>
- <1476842308-142217-2-git-send-email-xow@google.com>
- <CACPK8XdZY82jsdgghGXD-erP5OhwfSMZqx_aN7tySP7iHRpAMA@mail.gmail.com>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=4xUXOcDn3BihjRXZGLc0eOTiryCWNKvDngLfgdkDF/U=;
+ b=lDlzbmcvqH8L2VnWzCqEbSzgKn4MHfrCC3Th/L+uoV3Ad/zFpe7PhP1s7edEvZixe9
+ Pg2VqYuEoKTbKDjMOo6MqVRpbZ0qsHza1RW2oawq+vyDGM77zkf/KJlT/QzuTYGMyXL4
+ UxtzkhvblJS/dUNVOHYtK2En8F49wr8cDGb+ro07WRGNJ3mNdwoMG/JiaLgk8EW/YNdY
+ 7yTpchJ9wGMTsdxyOsS8DKfXFt4wQhvRlnaVzYuHTVzF7WG3MBTA9z0RTCKM9xhTR7L1
+ PMEUc08MgV19bIsABggVS8rl/AFTjnwSoUc8r1jchxPwdh5wlZrILsRu6Z9EnEIDvTu8
+ ZSmw==
+X-Gm-Message-State: AA6/9RlCwoKhmHWwu6t7NxBKLCZRv452C8xMS2QQCs1PPUNfOryxl4zimM3wMrYV5fbFyAaI
+X-Received: by 10.99.42.80 with SMTP id q77mr4152507pgq.3.1477004206786;
+ Thu, 20 Oct 2016 15:56:46 -0700 (PDT)
+Received: from pewter.svl.corp.google.com ([100.123.242.121])
+ by smtp.gmail.com with ESMTPSA id q12sm51769527pfd.7.2016.10.20.15.56.45
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Thu, 20 Oct 2016 15:56:45 -0700 (PDT)
 From: Xo Wang <xow@google.com>
-Date: Thu, 20 Oct 2016 13:28:00 -0700
-Message-ID: <CAPH-5w4Z4N+sm_Cy1g5N6pQWOsd5re_gvkvLCRhMsb8-tttUNQ@mail.gmail.com>
-Subject: Re: [PATCH linux 2/2] phy/broadcom: Add support for BCM54612E
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Timothy Pearson <tpearson@raptorengineering.com>
-Content-Type: text/plain; charset=UTF-8
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux] mach-aspeed: Add Zaius BMC PHY reset
+Date: Thu, 20 Oct 2016 15:56:34 -0700
+Message-Id: <1477004194-107484-1-git-send-email-xow@google.com>
+X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,141 +57,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Oct 2016 20:28:04 -0000
+X-List-Received-Date: Thu, 20 Oct 2016 22:56:49 -0000
 
-Hi Joel,
+The Broadcom PHY for the Zaius BMC requires a hard reset after RGMII
+clocks are enabled. This asserts the reset in case it wasn't performed
+in U-Boot.
 
-On Tue, Oct 18, 2016 at 8:49 PM, Joel Stanley <joel@jms.id.au> wrote:
-> Hello Xo,
->
-> On Wed, Oct 19, 2016 at 12:28 PM, Xo Wang <xow@google.com> wrote:
->> This PHY has internal delays enabled after reset. This clears the
->> internal delay enables unless the interface specifically requests them.
->
-> This looks fine to me. We have a similar patch for adding the Broadcom
-> phy on some of our machines. I just noticed that isn't present in
-> dev-4.7, as we were sorting out an issue that required us to force the
-> PHY into 100MBit mode. Would the aneg change be related to that?
+Signed-off-by: Xo Wang <xow@google.com>
+---
+ arch/arm/mach-aspeed/aspeed.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-Exactly, this is just for a different PHY. I'm not sure about the
-BCM54210E part that Firestone uses. The Broadcom docs for our part's
-internal delay says that it increases with decreasing link speed (1.9
-ns, 4 ns, 50
-ns for 1000 M, 100 M, 10 M, respectively) so it broke for me at all speeds.
-
->
-> I suggest you submit these two one upstream. Use
-> scripts/get_maintainer.pl to work out what mailing list to send it to.
-> CC me so I can provide my ack.
->
-
-Will do, thanks.
-
-cheers
-xo
-
-> If you need any help then please ping me on IRC.
->
-> Cheers,
->
-> Joel
->
->>
->> Signed-off-by: Xo Wang <xow@google.com>
->> ---
->>  drivers/net/phy/broadcom.c | 48 ++++++++++++++++++++++++++++++++++++++++++++++
->>  include/linux/brcmphy.h    |  1 +
->>  2 files changed, 49 insertions(+)
->>
->> diff --git a/drivers/net/phy/broadcom.c b/drivers/net/phy/broadcom.c
->> index 870327e..583ef8a 100644
->> --- a/drivers/net/phy/broadcom.c
->> +++ b/drivers/net/phy/broadcom.c
->> @@ -337,6 +337,41 @@ static int bcm5481_config_aneg(struct phy_device *phydev)
->>         return ret;
->>  }
->>
->> +static int bcm54612e_config_aneg(struct phy_device *phydev)
->> +{
->> +       int ret;
->> +
->> +       /* First, auto-negotiate. */
->> +       ret = genphy_config_aneg(phydev);
->> +
->> +       /* Clear TX internal delay unless requested. */
->> +       if ((phydev->interface != PHY_INTERFACE_MODE_RGMII_ID) &&
->> +           (phydev->interface != PHY_INTERFACE_MODE_RGMII_TXID)) {
->> +               /* Disable TXD to GTXCLK clock delay (default set) */
->> +               /* Bit 9 is the only field in shadow register 00011 */
->> +               bcm_phy_write_shadow(phydev, 0x03, 0);
->> +       }
->> +
->> +       /* Clear RX internal delay unless requested. */
->> +       if ((phydev->interface != PHY_INTERFACE_MODE_RGMII_ID) &&
->> +           (phydev->interface != PHY_INTERFACE_MODE_RGMII_RXID)) {
->> +               u16 reg;
->> +
->> +               /* Errata: reads require filling in the write selector field */
->> +               bcm54xx_auxctl_write(phydev, MII_BCM54XX_AUXCTL_SHDWSEL_MISC,
->> +                                    MII_BCM54XX_AUXCTL_MISC_RDSEL_MISC);
->> +               reg = phy_read(phydev, MII_BCM54XX_AUX_CTL);
->> +               /* Disable RXD to RXC delay (default set) */
->> +               reg &= ~MII_BCM54XX_AUXCTL_MISC_RXD_RXC_SKEW;
->> +               /* Clear shadow selector field */
->> +               reg &= ~MII_BCM54XX_AUXCTL_SHDWSEL_MASK;
->> +               bcm54xx_auxctl_write(phydev, MII_BCM54XX_AUXCTL_SHDWSEL_MISC,
->> +                                    MII_BCM54XX_AUXCTL_MISC_WREN | reg);
->> +       }
->> +
->> +       return ret;
->> +}
->> +
->>  static int brcm_phy_setbits(struct phy_device *phydev, int reg, int set)
->>  {
->>         int val;
->> @@ -485,6 +520,18 @@ static struct phy_driver broadcom_drivers[] = {
->>         .ack_interrupt  = bcm_phy_ack_intr,
->>         .config_intr    = bcm_phy_config_intr,
->>  }, {
->> +       .phy_id         = PHY_ID_BCM54612E,
->> +       .phy_id_mask    = 0xfffffff0,
->> +       .name           = "Broadcom BCM54612E",
->> +       .features       = PHY_GBIT_FEATURES |
->> +                         SUPPORTED_Pause | SUPPORTED_Asym_Pause,
->> +       .flags          = PHY_HAS_MAGICANEG | PHY_HAS_INTERRUPT,
->> +       .config_init    = bcm54xx_config_init,
->> +       .config_aneg    = bcm54612e_config_aneg,
->> +       .read_status    = genphy_read_status,
->> +       .ack_interrupt  = bcm_phy_ack_intr,
->> +       .config_intr    = bcm_phy_config_intr,
->> +}, {
->>         .phy_id         = PHY_ID_BCM54616S,
->>         .phy_id_mask    = 0xfffffff0,
->>         .name           = "Broadcom BCM54616S",
->> @@ -600,6 +647,7 @@ static struct mdio_device_id __maybe_unused broadcom_tbl[] = {
->>         { PHY_ID_BCM5411, 0xfffffff0 },
->>         { PHY_ID_BCM5421, 0xfffffff0 },
->>         { PHY_ID_BCM5461, 0xfffffff0 },
->> +       { PHY_ID_BCM54612E, 0xfffffff0 },
->>         { PHY_ID_BCM54616S, 0xfffffff0 },
->>         { PHY_ID_BCM5464, 0xfffffff0 },
->>         { PHY_ID_BCM5481, 0xfffffff0 },
->> diff --git a/include/linux/brcmphy.h b/include/linux/brcmphy.h
->> index 22c4421..60def78 100644
->> --- a/include/linux/brcmphy.h
->> +++ b/include/linux/brcmphy.h
->> @@ -18,6 +18,7 @@
->>  #define PHY_ID_BCM5421                 0x002060e0
->>  #define PHY_ID_BCM5464                 0x002060b0
->>  #define PHY_ID_BCM5461                 0x002060c0
->> +#define PHY_ID_BCM54612E               0x03625e60
->>  #define PHY_ID_BCM54616S               0x03625d10
->>  #define PHY_ID_BCM57780                        0x03625d90
->>
->> --
->> 2.8.0.rc3.226.g39d4020
->>
->> _______________________________________________
->> openbmc mailing list
->> openbmc@lists.ozlabs.org
->> https://lists.ozlabs.org/listinfo/openbmc
+diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+index 0a1700e..ebb2224 100644
+--- a/arch/arm/mach-aspeed/aspeed.c
++++ b/arch/arm/mach-aspeed/aspeed.c
+@@ -11,6 +11,7 @@
+ #include <linux/of_irq.h>
+ #include <linux/of_platform.h>
+ #include <linux/io.h>
++#include <linux/delay.h>
+ #include <asm/mach-types.h>
+ #include <asm/mach/arch.h>
+ #include <asm/mach/map.h>
+@@ -186,6 +187,9 @@ static void __init do_zaius_setup(void)
+ 
+ 	/* EVT1 hacks */
+ 	if (board_rev == 0) {
++		/* D3 in GPIOA/B/C/D direction and data registers */
++		unsigned long phy_reset_mask = BIT(27);
++
+ 		/* Set strap[13:12] to 01, Enable SPI master */
+ 		/* Set bits in writes to SCU7C are cleared from SCU70 */
+ 		writel(BIT(13), AST_IO(AST_BASE_SCU | 0x7C));
+@@ -195,6 +199,18 @@ static void __init do_zaius_setup(void)
+ 		/* Disable GPIO I, G/AB pulldowns due to weak driving buffers */
+ 		reg = readl(AST_IO(AST_BASE_SCU | 0x8C));
+ 		writel(reg | BIT(24) | BIT(22), AST_IO(AST_BASE_SCU | 0x8C));
++
++		/* Assert MAC2 PHY hardware reset */
++		/* Set pin low */
++		reg = readl(AST_IO(AST_BASE_GPIO | 0x00));
++		writel(reg & ~phy_reset_mask, AST_IO(AST_BASE_GPIO | 0x00));
++		/* Enable pin for output */
++		reg = readl(AST_IO(AST_BASE_GPIO | 0x04));
++		writel(reg | phy_reset_mask, AST_IO(AST_BASE_GPIO | 0x04));
++		udelay(3);
++		/* Set pin high */
++		reg = readl(AST_IO(AST_BASE_GPIO | 0x00));
++		writel(reg | phy_reset_mask, AST_IO(AST_BASE_GPIO | 0x00));
+ 	}
+ }
+ 
+-- 
+2.8.0.rc3.226.g39d4020
