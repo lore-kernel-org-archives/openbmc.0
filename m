@@ -3,47 +3,46 @@ Received: from mail-it0-x241.google.com (mail-it0-x241.google.com
  [IPv6:2607:f8b0:4001:c0b::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t0Bxz0Xv4zDt0N
- for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 02:07:51 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t0C1k1gG4zDt0N
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 02:11:05 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=iHurlucW; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=0ar4xaNz; 
  dkim-atps=neutral
-Received: by mail-it0-x241.google.com with SMTP id 139so6406636itm.2
- for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 08:07:50 -0700 (PDT)
+Received: by mail-it0-x241.google.com with SMTP id 66so6394838itl.3
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 08:11:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=QVeMEpSbwBsh7D5T4Wajr3uk/BVamwo0vE1BlZlTJZc=;
- b=iHurlucWaAXRQw9nVNgFLutFAT1UwMc9awp49g1KDmn6op8unJMk8IYH0OMhcqBsBN
- e+JiU1C3gI0zfPbPEn9NPzgMOgDAtUXBX9ANn7QVbhxlC/MyBgkZmZx4aUBON4RD92YR
- 0ndaUJiRA+mf30R22pVlNhVRoOkesDklHvh6wyQYRqlegfL/JIqFLZf6q9ycMS2jvdJq
- 1HEjn+SRNOSqmRlNNMNnV6rkG9bILeTR8gshox88HJj3eA60sHxCdW651larP8bryrpf
- 1Psg7sXBfkkEk5qApdhKyYQPHvyz+o/6c2nSTzSCCYnegiJz0PDxUYzxoyMMIIxV99kM
- Lnug==
+ :cc; bh=CEGOo/CkYjA3ib7OoZL3rY9haasOoFu8o1I9wup58MY=;
+ b=0ar4xaNzlpJD+BH70Owbc4cpm/s6QV03qxzPWOGKjedAUySfaF2bnc+772EPSozaDY
+ rTSs10aLP964VJYSUKQa1LvlQArJK2O0vpRbCUJWiW0WpwVoomOfyiJwRbIyHENqYoFj
+ EcUxDoi348iK13Im7vVBnk1O1cgZXv6EeFoiQCobCIlGtt4iBZsLWyeIq/ciPuc+vGIF
+ KACXpaqaSpOciOoWz4x1hQROmPRD+bX0GWfglQmkxO9LP39/IPDj7XE8prboZeWHeiOu
+ Gu6GKOHyeMRRT8OIMlfCprreqzD2UXg3wgzIZJgocA0urIO1oepqpUKu/VmjUhlnTuyy
+ PrpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=QVeMEpSbwBsh7D5T4Wajr3uk/BVamwo0vE1BlZlTJZc=;
- b=jF+6HKtThnYsIfzwHgHhUQA0j7dBwkIvF7i9OVsbz4XyVGYwOqj/FgWpjKWiaolsoV
- ysIvCDz8MmJei36Agh82AvBNDIIIGCcGI+wjVahuo5SJT0Xkbar5JGxcVht3we9stf5a
- /IPQBGZ1Sl94RZXQPN4CpmvySRrifP4qGNvrPoXFd8OnySwEyZvSVdog9qxgShdgF+jv
- jfRCQTGYm+pLWIMqOOZUrORrLoB7st/kCuvcfYtjsWPfcYt3g++VszwsIczYGLL3GK4I
- JMwfbpvQWWuv/K31Q7QFrncTwVtWdfXrZQ/qeUwM7FHX8KNA/6e97aFpwa+B/fTV1NqH
- 6lkg==
-X-Gm-Message-State: ABUngvfPQhAieurKmogEuMk42ZzDW1OqR8bGPYJkIuPNUBTRl8E24Abu5/83oan9aZ5u5zc7SJ72RpAucL9CUg==
-X-Received: by 10.157.56.179 with SMTP id p48mr475617otc.22.1476976068460;
- Thu, 20 Oct 2016 08:07:48 -0700 (PDT)
+ bh=CEGOo/CkYjA3ib7OoZL3rY9haasOoFu8o1I9wup58MY=;
+ b=gjszUmXHGUK23qheZzbClWdMwtdVcCDPzfZoogjjKPcMF6upKfBov824bpZkV0DkZd
+ 8Fu238saglz+IrY+mROoU5rYtnWLOgdo6SUVhswXg9OW6E8rDRD2ouRP1CxFVDzvl3FW
+ ioQd8YBWhzyjdtJ1SYdwpCNO0jBfDM0c9swWDIUpIAybmaJo5HF4zmsyVZ1gEXj7SpSh
+ aTANsv8tVYqSzw9SXC4r+wd36aDzkvMqEHcTCjamWIM08zg27N3cPQSCoXVfYkghqo4i
+ q5AzRCbwSITvPIo9XiOUhE781f1Ik9p33WDhLAE4occCAjfpaLwsqmy1l+JjmBlArUSL
+ MUkw==
+X-Gm-Message-State: ABUngvcN6vRQ3xi9yl4EJmfrZ2LebBQGFGV11r5K1+zD8J91ksmhUXVfsPchYbwveLehewdos9EX30dDdl+DHg==
+X-Received: by 10.157.33.166 with SMTP id s35mr482222otb.92.1476976262985;
+ Thu, 20 Oct 2016 08:11:02 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.202.221.9 with HTTP; Thu, 20 Oct 2016 08:07:47 -0700 (PDT)
-In-Reply-To: <fd800f60-7c0c-a63f-27d9-1094fd004a1e@ozlabs.org>
+Received: by 10.202.221.9 with HTTP; Thu, 20 Oct 2016 08:11:02 -0700 (PDT)
+In-Reply-To: <7cd0c036-5e16-b69a-409d-897a06c263a6@ozlabs.org>
 References: <1476918586-13475-1-git-send-email-christopher.lee.bostic@gmail.com>
- <1476918586-13475-17-git-send-email-christopher.lee.bostic@gmail.com>
- <fd800f60-7c0c-a63f-27d9-1094fd004a1e@ozlabs.org>
+ <1476918586-13475-19-git-send-email-christopher.lee.bostic@gmail.com>
+ <7cd0c036-5e16-b69a-409d-897a06c263a6@ozlabs.org>
 From: Christopher Bostic <christopher.lee.bostic@gmail.com>
-Date: Thu, 20 Oct 2016 10:07:47 -0500
-Message-ID: <CAA0LjjVzqgjHuXeuH8B+xW8XKuNzFq_u7MZT7Z5y5DE8FGo0fQ@mail.gmail.com>
-Subject: Re: [PATCH linux v5 16/18] drivers/fsi: Add client driver register
- utilities
+Date: Thu, 20 Oct 2016 10:11:02 -0500
+Message-ID: <CAA0LjjWSn1emFSMBUH9AJGAihxBdYiFWx0rf-sdOFMYAgBiwYg@mail.gmail.com>
+Subject: Re: [PATCH linux v5 18/18] Documenation: Add basic FSI text file
 To: Jeremy Kerr <jk@ozlabs.org>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, xxpetri@de.ibm.com,
  zahrens@us.ibm.com
@@ -59,23 +58,85 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Oct 2016 15:07:51 -0000
+X-List-Received-Date: Thu, 20 Oct 2016 15:11:06 -0000
 
-On Wed, Oct 19, 2016 at 8:29 PM, Jeremy Kerr <jk@ozlabs.org> wrote:
+On Wed, Oct 19, 2016 at 9:17 PM, Jeremy Kerr <jk@ozlabs.org> wrote:
 > Hi Chris,
 >
->> +int fsi_drv_register(struct fsi_driver *fsi_drv)
+>> Add documentation explaining the basics of FSI and how to find
+>> more information.
+>> +The Flexible Support Interface (FSI) is a two wire bus consisting of
+>> +a serial data line and a clock capable of running at up to 166 MHz.
+>> +FSI features strong data integrity with CRC protection and is capable
+>> +of very high fan out.
+>> +
+>> +The complete hardware specification[1] for FSI is publicly available on
+>> +the OpenPower Foundation website:
+>> +
+>> +[1] http://openpowerfoundation.org/wp-content/uploads/resources/OpenFSI-spec/content/ch_preface.html
+>> +
+>> +Common FSI terminology:
+>> +
+>> +* Master
+>> +    Controller of the FSI bus.  Only the master is allowed to control the
+>> +    clock line and is the initiator of all transactions on a bus.
+>> +
+>> +* Slave
+>> +    The receiver or target of a master initiated transaction.  The slave
+>> +    cannot initiate communications on a bus and must respond to any
+>> +    master requests for data.
+>> +
+>> +* CFAM
+>> +    Stands for Common Field replaceable unit Access Macro.  A CFAM is an
+>> +    ASIC residing in any device requiring FSI communications. CFAMs
+>> +    consist of an array of hardware 'engines' used for various purposes.
+>> +    I2C masters, UARTs, General Purpose IO hardware are common types of
+>> +    these engines.
+>> +
+>> +* Configuration Space / Configuration Table
+>> +    A table contained at the beginning of each CFAM address space.
+>> +    This table lists information such as the CFAM's ID, which engine types
+>> +    and versions it contains, as well as its addressing range.
+>> +
+>> +* FSI Client driver
+>> +    A device driver that registers with the FSI core so that it can access
+>> +    devices it owns on an FSI bus.
 >
-> Not fsi_driver_register()?
+> Is "client" something new, or is this standard FSI terminology? I would
+> have thought "engine" is the term used elsewhere.
 >
+> Anyway, here's a little more to tie it into the kernel implementation:
 
 Hi Jeremy,
 
-Will change.
+OK will change client wording to engine and add your text.
+If we can defer the description of API's I'd prefer to do that.
 
 Thanks,
 Chris
 
+>
+> ------------
+> In Linux, we have a core FSI "bus type", along with drivers for FSI
+> masters and clients.
+>
+> The FSI master drivers expose a read/write interface to the bus address
+> space. The master drivers are under drivers/fsi/fsi-master-*.c.
+>
+> The core handles probing and discovery of slaves and slave
+> engines, using those read/write interfaces. It is responsible for
+> creating the endpoint Linux devices corresponding to the discovered
+> engines on each slave.
+>
+> Slave engines are identified by an 'engine' type, and an optional
+> version. Client drivers are matched and bound to these engines during
+> discovery.
+>
+> ------------
+>
+> We may want to add some description of the APIs, but that should do for
+> now.
+>
 > Cheers,
 >
 >
