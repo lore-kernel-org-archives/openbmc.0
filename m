@@ -3,61 +3,62 @@ Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t0PgH10XVzDvYG
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t0PgG5mP2zDvYD
  for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 10:10:50 +1100 (AEDT)
 Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
- u9KN9G6K040559
+ u9KN9DO9040371
  for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 19:10:49 -0400
-Received: from e23smtp02.au.ibm.com (e23smtp02.au.ibm.com [202.81.31.144])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2675yfjyet-1
+Received: from e23smtp04.au.ibm.com (e23smtp04.au.ibm.com [202.81.31.146])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2675yfjyeq-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 19:10:49 -0400
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 19:10:48 -0400
 Received: from localhost
- by e23smtp02.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e23smtp04.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <gwshan@linux.vnet.ibm.com>;
  Fri, 21 Oct 2016 09:10:46 +1000
 Received: from d23dlp01.au.ibm.com (202.81.31.203)
- by e23smtp02.au.ibm.com (202.81.31.208) with IBM ESMTP SMTP Gateway:
+ by e23smtp04.au.ibm.com (202.81.31.210) with IBM ESMTP SMTP Gateway:
  Authorized Use Only! Violators will be prosecuted; 
  Fri, 21 Oct 2016 09:10:45 +1000
-Received: from d23relay07.au.ibm.com (d23relay07.au.ibm.com [9.190.26.37])
- by d23dlp01.au.ibm.com (Postfix) with ESMTP id 025482CE805A
- for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 10:10:45 +1100 (EST)
+Received: from d23relay10.au.ibm.com (d23relay10.au.ibm.com [9.190.26.77])
+ by d23dlp01.au.ibm.com (Postfix) with ESMTP id 7504E2CE8054
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 10:10:44 +1100 (EST)
 Received: from d23av04.au.ibm.com (d23av04.au.ibm.com [9.190.235.139])
- by d23relay07.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u9KNAiPE19595438
+ by d23relay10.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u9KNAi4f6816048
  for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 10:10:44 +1100
 Received: from d23av04.au.ibm.com (localhost [127.0.0.1])
  by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u9KNAiPV015111
+ u9KNAiF9015088
  for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 10:10:44 +1100
 Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
  by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u9KNAitU015104; Fri, 21 Oct 2016 10:10:44 +1100
+ u9KNAh5a015082; Fri, 21 Oct 2016 10:10:43 +1100
 Received: from bran.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
- by ozlabs.au.ibm.com (Postfix) with ESMTP id 76D40A019B;
- Fri, 21 Oct 2016 10:10:44 +1100 (AEDT)
+ by ozlabs.au.ibm.com (Postfix) with ESMTP id D3F04A019B;
+ Fri, 21 Oct 2016 10:10:43 +1100 (AEDT)
 Received: from gwshan (shangw.ozlabs.ibm.com [10.61.2.199])
- by bran.ozlabs.ibm.com (Postfix) with ESMTP id 72937E3C5C;
- Fri, 21 Oct 2016 10:10:44 +1100 (AEDT)
+ by bran.ozlabs.ibm.com (Postfix) with ESMTP id C3986E3C5C;
+ Fri, 21 Oct 2016 10:10:43 +1100 (AEDT)
 Received: by gwshan (Postfix, from userid 1000)
- id 5AFB59417E9; Fri, 21 Oct 2016 10:11:36 +1100 (AEDT)
+ id AE2D99417E9; Fri, 21 Oct 2016 10:11:35 +1100 (AEDT)
 From: Gavin Shan <gwshan@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, Gavin Shan <gwshan@linux.vnet.ibm.com>
-Subject: [PATCH 4.7 4/4] net/ncsi: Improve HNCDSC AEN handler
-Date: Fri, 21 Oct 2016 10:11:32 +1100
+Subject: [PATCH 4.7 3/4] net/ncsi: Choose hot channel as active one if
+ necessary
+Date: Fri, 21 Oct 2016 10:11:31 +1100
 X-Mailer: git-send-email 2.1.0
 In-Reply-To: <1477005092-20632-1-git-send-email-gwshan@linux.vnet.ibm.com>
 References: <1477005092-20632-1-git-send-email-gwshan@linux.vnet.ibm.com>
 X-TM-AS-MML: disable
 X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16102023-0004-0000-0000-000001A95144
+x-cbid: 16102023-0012-0000-0000-000001D9527C
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 16102023-0005-0000-0000-000008EC1FE4
-Message-Id: <1477005092-20632-5-git-send-email-gwshan@linux.vnet.ibm.com>
+x-cbparentid: 16102023-0013-0000-0000-000006402E3F
+Message-Id: <1477005092-20632-4-git-send-email-gwshan@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2016-10-20_12:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -78,60 +79,98 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 20 Oct 2016 23:10:51 -0000
 
-This improves AEN handler for Host Network Controller Driver Status
-Change (HNCDSC):
+The issue was found on BCM5718 which has two NCSI channels in one
+package: C0 and C1. C0 is in link-up state while C1 is in link-down
+state. C0 is chosen as active channel until unplugging and plugging
+C0's cable:  On unplugging C0's cable, LSC (Link State Change) AEN
+packet received on C0 to report link-down event. After that, C1 is
+chosen as active channel. LSC AEN for link-up event is lost on C0
+when plugging C0's cable back. We lose the network even C0 is usable.
 
-   * The channel's lock should be hold when accessing its state.
-   * Do failover when host driver isn't ready.
-   * Configure channel when host driver becomes ready.
+This resolves the issue by recording the (hot) channel that was ever
+chosen as active one. The hot channel is chosen to be active one
+if none of available channels in link-up state. With this, C0 is still
+the active one after unplugging C0's cable. LSC AEN packet received
+on C0 when plugging its cable back.
 
 Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
 ---
- net/ncsi/ncsi-aen.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ net/ncsi/internal.h    |  1 +
+ net/ncsi/ncsi-manage.c | 22 +++++++++++++++++++---
+ 2 files changed, 20 insertions(+), 3 deletions(-)
 
-diff --git a/net/ncsi/ncsi-aen.c b/net/ncsi/ncsi-aen.c
-index b41a661..6898e72 100644
---- a/net/ncsi/ncsi-aen.c
-+++ b/net/ncsi/ncsi-aen.c
-@@ -141,23 +141,35 @@ static int ncsi_aen_handler_hncdsc(struct ncsi_dev_priv *ndp,
- 		return -ENODEV;
+diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
+index eac4858..1308a56 100644
+--- a/net/ncsi/internal.h
++++ b/net/ncsi/internal.h
+@@ -265,6 +265,7 @@ struct ncsi_dev_priv {
+ #endif
+ 	unsigned int        package_num;     /* Number of packages         */
+ 	struct list_head    packages;        /* List of packages           */
++	struct ncsi_channel *hot_channel;    /* Channel was ever active    */
+ 	struct ncsi_request requests[256];   /* Request table              */
+ 	unsigned int        request_id;      /* Last used request ID       */
+ #define NCSI_REQ_START_IDX	1
+diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+index 4789f86..a3bd5fa 100644
+--- a/net/ncsi/ncsi-manage.c
++++ b/net/ncsi/ncsi-manage.c
+@@ -645,6 +645,7 @@ static void ncsi_configure_channel(struct ncsi_dev_priv *ndp)
+ 	struct net_device *dev = nd->dev;
+ 	struct ncsi_package *np = ndp->active_package;
+ 	struct ncsi_channel *nc = ndp->active_channel;
++	struct ncsi_channel *hot_nc = NULL;
+ 	struct ncsi_cmd_arg nca;
+ 	unsigned char index;
+ 	unsigned long flags;
+@@ -750,12 +751,20 @@ static void ncsi_configure_channel(struct ncsi_dev_priv *ndp)
+ 		break;
+ 	case ncsi_dev_state_config_done:
+ 		spin_lock_irqsave(&nc->lock, flags);
+-		if (nc->modes[NCSI_MODE_LINK].data[2] & 0x1)
++		if (nc->modes[NCSI_MODE_LINK].data[2] & 0x1) {
++			hot_nc = nc;
+ 			nc->state = NCSI_CHANNEL_ACTIVE;
+-		else
++		} else {
++			hot_nc = NULL;
+ 			nc->state = NCSI_CHANNEL_INACTIVE;
++		}
+ 		spin_unlock_irqrestore(&nc->lock, flags);
  
- 	/* If the channel is active one, we need reconfigure it */
-+	spin_lock_irqsave(&nc->lock, flags);
- 	ncm = &nc->modes[NCSI_MODE_LINK];
- 	hncdsc = (struct ncsi_aen_hncdsc_pkt *)h;
- 	ncm->data[3] = ntohl(hncdsc->status);
- 	if (!list_empty(&nc->link) ||
--	    nc->state != NCSI_CHANNEL_ACTIVE ||
--	    (ncm->data[3] & 0x1))
-+	    nc->state != NCSI_CHANNEL_ACTIVE) {
-+		spin_unlock_irqrestore(&nc->lock, flags);
- 		return 0;
-+	}
++		/* Update the hot channel */
++		spin_lock_irqsave(&ndp->lock, flags);
++		ndp->hot_channel = hot_nc;
++		spin_unlock_irqrestore(&ndp->lock, flags);
++
+ 		ncsi_start_channel_monitor(nc);
+ 		ncsi_process_next_channel(ndp);
+ 		break;
+@@ -773,10 +782,14 @@ error:
+ static int ncsi_choose_active_channel(struct ncsi_dev_priv *ndp)
+ {
+ 	struct ncsi_package *np;
+-	struct ncsi_channel *nc, *found;
++	struct ncsi_channel *nc, *found, *hot_nc;
+ 	struct ncsi_channel_mode *ncm;
+ 	unsigned long flags;
  
--	if (ndp->flags & NCSI_DEV_HWA)
-+	spin_unlock_irqrestore(&nc->lock, flags);
-+	if (!(ndp->flags & NCSI_DEV_HWA) && !(ncm->data[3] & 0x1))
- 		ndp->flags |= NCSI_DEV_RESHUFFLE;
- 
- 	/* If this channel is the active one and the link doesn't
- 	 * work, we have to choose another channel to be active one.
- 	 * The logic here is exactly similar to what we do when link
- 	 * is down on the active channel.
-+	 *
-+	 * On the other hand, we need configure it when host driver
-+	 * state on the active channel becomes ready.
++	spin_lock_irqsave(&ndp->lock, flags);
++	hot_nc = ndp->hot_channel;
++	spin_unlock_irqrestore(&ndp->lock, flags);
++
+ 	/* The search is done once an inactive channel with up
+ 	 * link is found.
  	 */
- 	ncsi_stop_channel_monitor(nc);
+@@ -794,6 +807,9 @@ static int ncsi_choose_active_channel(struct ncsi_dev_priv *ndp)
+ 			if (!found)
+ 				found = nc;
+ 
++			if (nc == hot_nc)
++				found = nc;
 +
-+	spin_lock_irqsave(&nc->lock, flags);
-+	nc->state = (ncm->data[3] & 0x1) ? NCSI_CHANNEL_INACTIVE :
-+					   NCSI_CHANNEL_ACTIVE;
-+	spin_unlock_irqrestore(&nc->lock, flags);
-+
- 	spin_lock_irqsave(&ndp->lock, flags);
- 	list_add_tail_rcu(&nc->link, &ndp->channel_queue);
- 	spin_unlock_irqrestore(&ndp->lock, flags);
+ 			ncm = &nc->modes[NCSI_MODE_LINK];
+ 			if (ncm->data[2] & 0x1) {
+ 				spin_unlock_irqrestore(&nc->lock, flags);
 -- 
 2.1.0
