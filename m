@@ -1,30 +1,53 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <xow@google.com>
+Received: from mail-pf0-x230.google.com (mail-pf0-x230.google.com
+ [IPv6:2607:f8b0:400e:c00::230])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t0mdh3pJCzDvbS
- for <openbmc@lists.ozlabs.org>; Sat, 22 Oct 2016 00:25:44 +1100 (AEDT)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1477056334527746.5546910433213;
- Fri, 21 Oct 2016 06:25:34 -0700 (PDT)
-Date: Fri, 21 Oct 2016 08:25:33 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
-Cc: openbmc@lists.ozlabs.org
-Subject: Re: RFC for enablement of slpd on openbmc
-Message-ID: <20161021132533.GI32710@heinlein.lan>
-References: <5807B226.8090400@linux.vnet.ibm.com>
- <20161019213222.GG32710@heinlein.lan>
- <5808CCD4.301@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t0srW3qKczDvck
+ for <openbmc@lists.ozlabs.org>; Sat, 22 Oct 2016 04:20:27 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b=bfCy4Pci; 
+ dkim-atps=neutral
+Received: by mail-pf0-x230.google.com with SMTP id r16so59989505pfg.1
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 10:20:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=TFpcp528PSPyaT49MBY9iRdeCAoJSkdbjHDI+6JbzKA=;
+ b=bfCy4Pcilfl+KQ1vASANNFAWxqFx8WF+LJ0opNB7+/mymobNWe+o7bTTgy9iDhjGd4
+ KkVnEWdgjCIny1GtjVOAk1SuyszWSLPjdDCaZqd0ebqz51uJwfgLcJePwNWAINfcdnyb
+ C3KYD9n/v5Jmyhhemv93BenZDMg5x7MWwPqMeukVCbatO/kRSjSRHMI43sxxRLBEu3kf
+ e8bQenRyUhJ/bnu/vkTLtcCvMSODDCKaM8WMnVXJ73zAA+X0/7JPhnmi+pnt+LRorJyH
+ YSya7/SCI96FDZZX2nE+BGeGKdP9zvygQXKSpMO5y2nX+z086lRblT9rQ8ftl5av4Mh+
+ bDVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=TFpcp528PSPyaT49MBY9iRdeCAoJSkdbjHDI+6JbzKA=;
+ b=ViJXsz3IUg4TTnJ1iI2pdurFHUFzW7dhLZATUMlQc7IxeszMx64LrERp1aSBCADh8f
+ TltQKAS3/IDX0CVtgOxKyMQT56jaPENvq7lrvnumsnyj+NZEyjxFroxTzKnnX8Ekg4qt
+ G0o0K6Xl7njn5JAlrMml37Onx9G9pDRBewWpl98/HOcPhjsbMhc2U0nlUy4Iu2TL575g
+ A802TWX1FZwoVgNHLklKKU26CNZ11XRZQOcy5OQow86eItoA2AgqFuvko5VOAqZgF0R8
+ +y2gOfAvbEshuuyZqzcTAjoZk9Wo5C/IuiLZaj7dfXIWX3O1sHRrCdL+iLLTSpKIDPvZ
+ BF9A==
+X-Gm-Message-State: ABUngvctGw/fRqozYjxKJ327wO0n/5h1hNtu82Upwmwa1xW8TGyLXa7xWmnhQ6gHXuNVfOIn
+X-Received: by 10.98.80.2 with SMTP id e2mr3472968pfb.183.1477070424831;
+ Fri, 21 Oct 2016 10:20:24 -0700 (PDT)
+Received: from pewter.svl.corp.google.com ([100.123.242.121])
+ by smtp.gmail.com with ESMTPSA id f129sm6594037pfc.3.2016.10.21.10.20.23
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Fri, 21 Oct 2016 10:20:24 -0700 (PDT)
+From: Xo Wang <xow@google.com>
+To: f.fainelli@gmail.com
+Cc: davem@davemloft.net, jaedon.shin@gmail.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, joel@jms.id.au
+Subject: [PATCH 0/2] Broadcom BCM54612E support
+Date: Fri, 21 Oct 2016 10:20:11 -0700
+Message-Id: <1477070413-92621-1-git-send-email-xow@google.com>
+X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="RUqJLqMNe5u4kDWT"
-Content-Disposition: inline
-In-Reply-To: <5808CCD4.301@linux.vnet.ibm.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -36,110 +59,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Oct 2016 13:25:45 -0000
+X-List-Received-Date: Fri, 21 Oct 2016 17:20:28 -0000
 
+This series is based on tip of torvalds/master.
 
---RUqJLqMNe5u4kDWT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The first patch adds register definitions from Broadcom docs.
 
-On Thu, Oct 20, 2016 at 07:25:32PM +0530, Ratan Gupta wrote:
-> > What is the anticipated size footprint of using openSLP?  The RFC
-> > doesn't seem that significant, so if we do not need the directory aspect
-> > might it be more beneficial to write a small daemon ourself to give SLP
-> > responses rather than trying to mold openSLP to fit our needs?
->     runtime foot print TOP Command shows
->     214     1 daemon   S *3620*   3%   0% slpd -l /tmp/slpd.log  >>>3.5K
->     file size which will take in flash
->     slpd:- 100.4K
->     libslp:-69.7K
+The second patch adds the BCM54612E PHY ID, flags, and device-specific
+RGMII internal delay initialization.
 
-Not horrible then.
+I tested on a custom board with an Aspeed AST2500 SOC with its second
+MAC connected to this PHY.
 
-> > I'm certainly not advocating avoiding using existing open source.  But,
-> > with there not being an update to openSLP since 2013 and all the aspects
-> > we are going to have to work around below, I'm wondering on the benefit.
->    I think we are not doing any workaround here,It is slp (as per the=20
-> RFC)which expects
->    IP in their reg url as the slp needs ip in the reg url,we are=20
-> catering that need via de
-
-What I mean by a "workaround" is that for localhost reasons it would be
-much more convenient to have the daemon do this work of automatically
-updating the URL when the IP changes.  The non-local IP case isn't
-especially interesting for the BMC.=20
-
-> > Do we need to ensure the application is running (or available to run via
-> > socket activation) before we do the registration?  If the application is
-> > being restarted should we remove the registration and add it back after
-> > it comes back?
-> I believe that is not needed as the application(SA) would be dependent=20
-> on the conf
->       and out policy suggest that network services should restart always=
-=20
-> so it would be unnecessary
->       to do reg and unreg
-
-We currently do it this way for Avahi so I am fine doing the same for
-SLP.  Someone ambitious could enhance this aspect in the future.
-
-> > We also can then keep off of something in systemd / networkd to run
-> > 'slp-register ip-change' whenever the IP changes.  This could either
-> > restart *-slp-register.service or it could extract all of the SLP
-> > registrations and update them with new IP addresses.  Putting all of the
-> > *-slp-register.service into a 'target' might make restarting them very
-> > simple.
-> >
-> > With this approach we do not need a long running application.
-> I agree but do we really need to dereg and reg in the case when the=20
-> service is going down as.
->      Our service policy is restart always whenever the network service=20
-> goes down. so service would be down for a moment
->      Long running application i was asking for the IP change event,I am=
-=20
-> not aware if systemd-networkd send some event
->      whenever the ip change occurs.
-
-Correct.  I don't feel it is needed now.
-
-> >> 2) Application(new DBUS app) will register the configured services to
-> >> the slpd on startup.
-> > I am not understanding what the 'dbus app' aspect of this would be.
-> > What would be the dbus interfaces?
->    I thought of if some other app(netman.py) wants to do the reg and=20
-> unreg. so thought of exposing the
->        Register Service
->        unregister Service
->        Raising the DBUS signal in case of IP change.
-
-I don't think we need to dynamically do these, other than the IP change.
-We can handle that through a service restart rather than a long running
-dbus process for an infrequent operation?
-
---=20
-Patrick Williams
-
---RUqJLqMNe5u4kDWT
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJYChdNAAoJEKsDR8wtAMEZEwEP/j4Ija+nbUTC14lhcU5SH0L6
-3w+Ud/ptXsCZqxkF/LrAhEA/89ahMvuZNloK7Dw6r4chjUJEkh2q1lfazhhD77Mv
-+WpbX769J3GLf1Lc/F0xYSRbMaD0ABvIbdiTajPlRtDlWN9vk0MWsWdWv9nz0/JJ
-yoLgi/4KTeQcJKzBKf9Ih6+QQo4pGWKQjtLKfVDIkZVCduwnAEJ5QaR3RIGVOWoJ
-m91EiFSI35TMg+XTUBIfyesTaUTv+WFKcW3uwDN7QUsq4a+2GdWnVeeYeaPOUJMl
-YNF93ZpIIyS9TKdRID4DoI17KT/Y1wH8GevLDiwzF+kbcOhqbAlCdcFxUaUZQSLl
-b3rT1gKFF8NC0N8QhhfFZ6dwaG+DTzTf/INFuWHKTYHq2DHgvLptUrm3MUS15x7O
-OtLs2BHqjnHmP4ukH81Y8YNPtYab+yuu1pX5TlFa36JYYOtaJxzehlsRaphGEQll
-u0+JNI90r9Rc26lBos11KwB58uHmcVQUOkxao41o2gJHC2LZ4lRgluDy40BTCtBH
-oypKMVmXESuesVK/q9nhnzBaFwLDy2FQAvau/tS+wOrNdN0qhCLE57qJOgpK6N6y
-AHmHxReAE7/RCieHL8qfSmeAFmHy4d3CrCHq6oBhHiZTYpde8eS4i8wAG0VYAAOh
-kNyOD2TkRIRzNVnRMzOi
-=0nFD
------END PGP SIGNATURE-----
-
---RUqJLqMNe5u4kDWT--
+Xo Wang (2):
+  net: phy: broadcom: Update Auxiliary Control Register
+  net: phy: broadcom: Add support for BCM54612E
