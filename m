@@ -1,70 +1,31 @@
-Return-Path: <gwshan@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <jk@ozlabs.org>
+Received: from ozlabs.org (ozlabs.org [103.22.144.67])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t0RpM3BfgzDvYW
- for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 11:47:07 +1100 (AEDT)
-Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
- u9L0i581072792
- for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 20:47:05 -0400
-Received: from e23smtp02.au.ibm.com (e23smtp02.au.ibm.com [202.81.31.144])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2675yfwvjk-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 20:47:04 -0400
-Received: from localhost
- by e23smtp02.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <gwshan@linux.vnet.ibm.com>;
- Fri, 21 Oct 2016 10:47:01 +1000
-Received: from d23dlp01.au.ibm.com (202.81.31.203)
- by e23smtp02.au.ibm.com (202.81.31.208) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Fri, 21 Oct 2016 10:46:59 +1000
-Received: from d23relay07.au.ibm.com (d23relay07.au.ibm.com [9.190.26.37])
- by d23dlp01.au.ibm.com (Postfix) with ESMTP id 4A9972CE8056
- for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 11:46:59 +1100 (EST)
-Received: from d23av04.au.ibm.com (d23av04.au.ibm.com [9.190.235.139])
- by d23relay07.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u9L0kxwr20578492
- for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 11:46:59 +1100
-Received: from d23av04.au.ibm.com (localhost [127.0.0.1])
- by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u9L0kwOH022389
- for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 11:46:59 +1100
-Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
- by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u9L0kwtc022386; Fri, 21 Oct 2016 11:46:58 +1100
-Received: from bran.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
- by ozlabs.au.ibm.com (Postfix) with ESMTP id BF8FAA019B;
- Fri, 21 Oct 2016 11:46:58 +1100 (AEDT)
-Received: from gwshan (shangw.ozlabs.ibm.com [10.61.2.199])
- by bran.ozlabs.ibm.com (Postfix) with ESMTP id BA2BEE3C5C;
- Fri, 21 Oct 2016 11:46:58 +1100 (AEDT)
-Received: by gwshan (Postfix, from userid 1000)
- id A20A094212E; Fri, 21 Oct 2016 11:47:50 +1100 (AEDT)
-From: Gavin Shan <gwshan@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, Gavin Shan <gwshan@linux.vnet.ibm.com>
-Subject: [PATCH 4.4 9/9] net/ncsi: Improve HNCDSC AEN handler
-Date: Fri, 21 Oct 2016 11:47:46 +1100
-X-Mailer: git-send-email 2.1.0
-In-Reply-To: <1477010866-15126-1-git-send-email-gwshan@linux.vnet.ibm.com>
-References: <1477010866-15126-1-git-send-email-gwshan@linux.vnet.ibm.com>
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16102100-0004-0000-0000-000001A958C8
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 16102100-0005-0000-0000-000008EC3AE1
-Message-Id: <1477010866-15126-10-git-send-email-gwshan@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2016-10-20_12:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1609300000
- definitions=main-1610210011
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t0ShH4Y1hzDvYL
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 12:26:55 +1100 (AEDT)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.org (Postfix) with ESMTPSA id 3t0ShH1Sgcz9s5g;
+ Fri, 21 Oct 2016 12:26:55 +1100 (AEDT)
+Subject: Re: [PATCH linux v5 15/18] drivers/fsi: Add GPIO FSI master
+To: Christopher Bostic <christopher.lee.bostic@gmail.com>
+References: <1476918586-13475-1-git-send-email-christopher.lee.bostic@gmail.com>
+ <1476918586-13475-16-git-send-email-christopher.lee.bostic@gmail.com>
+ <7393b875-d655-a4ea-afd7-9368ca05d90b@ozlabs.org>
+ <CAA0LjjW4RHRb45XUtW-gk_g_Ro3aqwrxj9ZGFct0nG0NFYjbpQ@mail.gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, xxpetri@de.ibm.com,
+ Jeremy Kerr <jk@0zlabs.org>, zahrens@us.ibm.com
+From: Jeremy Kerr <jk@ozlabs.org>
+Message-ID: <60fa3f67-10c7-8f58-ed43-3e82a4498c57@ozlabs.org>
+Date: Fri, 21 Oct 2016 09:26:54 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.2.0
+MIME-Version: 1.0
+In-Reply-To: <CAA0LjjW4RHRb45XUtW-gk_g_Ro3aqwrxj9ZGFct0nG0NFYjbpQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -76,45 +37,191 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Oct 2016 00:47:08 -0000
+X-List-Received-Date: Fri, 21 Oct 2016 01:26:55 -0000
 
-This improves AEN handler for Host Network Controller Driver Status
-Change (HNCDSC):
+Hi Chris,
 
-   * The channel's lock should be hold when accessing its state.
-   * Do failover when host driver isn't ready.
-   * Configure channel when host driver becomes ready.
+>>> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+>>> index 21619fd..1875313 100644
+>>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+>>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+>>> @@ -167,6 +167,36 @@
+>>>               output-low;
+>>>               line-name = "func_mode2";
+>>>       };
+>>> +
+>>> +     pin_fsi_clk {
+>>> +             gpios = <ASPEED_GPIO(A, 4)  GPIO_ACTIVE_HIGH>;
+>>> +             output-low;
+>>> +             line-name = "fsi_clk";
+>>> +     };
+>>> +
+>>> +     pin_fsi_data {
+>>> +             gpios = <ASPEED_GPIO(A, 5)  GPIO_ACTIVE_HIGH>;
+>>> +             output-low;
+>>> +             line-name = "fsi_data";
+>>> +     };
+>>> +
+>>> +     pin_fsi_trans {
+>>> +             gpios = <ASPEED_GPIO(H, 6)  GPIO_ACTIVE_HIGH>;
+>>> +             output-low;
+>>> +             line-name = "fsi_trans";
+>>> +     };
+>>> +
+>>> +     pin_fsi_enable {
+>>> +             gpios = <ASPEED_GPIO(D, 0)  GPIO_ACTIVE_HIGH>;
+>>> +             output-low;
+>>> +             line-name = "fsi_enable";
+>>> +     };
+>>> +
+>>> +     pin_fsi_mux {
+>>> +             gpios = <ASPEED_GPIO(A, 6)  GPIO_ACTIVE_HIGH>;
+>>> +             output-low;
+>>> +             line-name = "fsi_mux";
+>>> +     };
+>>>  };
+>>
+>> Do we want to add a master node too?
+> 
+> Don't follow what you mean by a master node.  What does that help with?
 
-NOTE: The first one isn't applied to the code in dev-4.4.
+The master node is what describes the fsi master "device" (in this case,
+the usage of a set of GPIOs as a functional unit).
 
-Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
----
- net/ncsi/ncsi-aen.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+The properties above just define some pinctl configuration to describe a
+bunch of GPIOs. This doesn't actually describe anything fsi-master
+related.
 
-diff --git a/net/ncsi/ncsi-aen.c b/net/ncsi/ncsi-aen.c
-index 5bc0873..26ac93d 100644
---- a/net/ncsi/ncsi-aen.c
-+++ b/net/ncsi/ncsi-aen.c
-@@ -142,8 +142,7 @@ static int ncsi_aen_handler_hncdsc(struct ncsi_dev_priv *ndp,
- 	ncm = &nc->nc_modes[NCSI_MODE_LINK];
- 	hncdsc = (struct ncsi_aen_hncdsc_pkt *)h;
- 	ncm->ncm_data[3] = ntohl(hncdsc->status);
--	if (ndp->ndp_active_channel != nc ||
--	    ncm->ncm_data[3] & 0x1)
-+	if (ndp->ndp_active_channel != nc)
- 		return 0;
- 
- 	/* If this channel is the active one and the link doesn't
-@@ -151,7 +150,8 @@ static int ncsi_aen_handler_hncdsc(struct ncsi_dev_priv *ndp,
- 	 * The logic here is exactly similar to what we do when link
- 	 * is down on the active channel.
- 	 */
--	ndp->ndp_flags |= NCSI_DEV_PRIV_FLAG_CHANGE_ACTIVE;
-+	if (!(ncm->ncm_data[3] & 0x1))
-+		ndp->ndp_flags |= NCSI_DEV_PRIV_FLAG_CHANGE_ACTIVE;
- 	ncsi_suspend_dev(nd);
- 
- 	return 0;
--- 
-2.1.0
+To do that, we need the master node too; that's the binding
+specification that we're adding to Documentation/device-tree, and is the
+thing that looks like:
+
+     fsi-master {
+         compatible = "ibm,fsi-master", "ibm,fsi-master-gpio";
+         clk-gpios = <&gpio 0>
+         data-gpios = <&gpio 1>
+     };
+
+or, for one of the fake masters for testing:
+
+     fsi-master {
+         compatible = "ibm,fsi-master", "ibm,fsi-master-fake";
+     };
+
+That master node is what causes the master drivers to be "bound" to a
+device (and multiple masters mean multiple devices instances & probes).
+
+Does this mean you haven't yet tested with either the fake or gpio
+masters? If that's the case, that should be your priority. We're at the
+stage that any further code review would be redundant, as that code is
+fairly likely to need changes as a result of testing.
+
+>> We should also think about what we want to do for multiple links. There
+>> are two main options here:
+>>
+>>   - list them as separate masters in the DT (ie, two fsi-master nodes,
+>>     completely independent); or
+>>
+>>   - enable multiple GPIO descriptors in the gpio properties, eg:
+>>
+>>     fsi-master {
+>>         compatible = "ibm,fsi-master", "ibm,fsi-master-gpio";
+>>         clk-gpios = <&gpio 0 &gpio 6>;
+>>         data-gpios = <&gpio 1 &gpio 7>;
+>>     }
+>>
+>>     which describes a master with two links
+>>
+>> If we use the latter case, we'd want the property name to be plural
+>> (*-gpios) to indicate this.
+> 
+> Its difficult to say how many links we'll eventually need a priori.
+
+We don't need to - this isn't prescribed by the binding.
+
+These *-gpios properties contain one or more "descriptors" of individual
+GPIOs. While the format of a descriptor depends on how the GPIO
+controller describes each GPIO, the notation we've used in that example
+is fairly common, and is:
+
+  clk-gpio = <(pointer to gpio controller) (index within controller)>
+
+in this case, each gpio descriptor takes two cells (a cell is a u32),
+and so the GPIO controller will have a #gpio-cells = <2> property.
+
+Our vanilla master with one link would just be something like:
+
+     fsi-master {
+         compatible = "ibm,fsi-master", "ibm,fsi-master-gpio";
+         clk-gpios = <&gpio 0>
+         data-gpios = <&gpio 1>
+     }
+
+- this describes a single clock and single data line, as each *-gpios
+  property is one descriptor.
+
+Say if we have a FSI master with two links, we would have four cells
+for all the *-gpios properties:
+
+     fsi-master {
+         compatible = "ibm,fsi-master", "ibm,fsi-master-gpio";
+         clk-gpios = <&gpio 0 &gpio 6>;
+         data-gpios = <&gpio 1 &gpio 7>;
+     }
+
+- and the binding would remain as is (just that we should use the plural
+of gpios for the property names, to make this a little more sensible).
+
+This could also be represented as two separate master nodes:
+
+     fsi-master {
+         compatible = "ibm,fsi-master", "ibm,fsi-master-gpio";
+         clk-gpios = <&gpio 0>;
+         data-gpios = <&gpio 1>;
+     }
+
+     fsi-master {
+         compatible = "ibm,fsi-master", "ibm,fsi-master-gpio";
+         clk-gpios = <&gpio 6>;
+         data-gpios = <&gpio 7>;
+     }
+
+Our choice there would depend on the hardware layout. Does is make more
+sense to represent this as two independent masters? Or a single one?
+Would there ever be any shared state between those two masters that a
+driver needs to handle?
+
+Once we've settled that, we will need the device tree binding people to
+take a look, which just involves CCing devicetree-discuss@ozlabs.org for
+patches that modify Documentation/devicetree/*.
+
+>> However, you have two serial_in() calls in the single path, can you
+>> consolidate these?
+>>
+> 
+> Ok, will change.
+> 
+> This type of change I would agree offers some minor performance
+> gain but it does add a few lines of code to decode the slave id that weren't
+> needed before.
+
+This isn't for performance gain, it's purely for readability.
+
+> Since I'm making changes to this file already it makes
+> sense to add this one.   If all that remain though are minor changes like
+> this one I'd like to be able to address those after the first core patch set
+> is approved.   Would this be acceptable?
+
+That can be a tough call. If it's a cleanup post-submission, then you've
+lost the opportunity to roll that cleanup into the original inclusion,
+and will need an extra patch for that cleanup (it's bad form to include
+a cleanup change in something unrelated).
+
+However, if there's minor things that don't warrant resubmission, then
+that should be fine - just be aware that upstream folks may request that
+you change it before submission *anyway*.
+
+Cheers,
+
+
+Jeremy
