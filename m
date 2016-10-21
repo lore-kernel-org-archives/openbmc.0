@@ -1,47 +1,52 @@
-Return-Path: <mine260309@gmail.com>
-Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
- [IPv6:2607:f8b0:400e:c00::241])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-it0-x242.google.com (mail-it0-x242.google.com
+ [IPv6:2607:f8b0:4001:c0b::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t0ZsK2TlJzDt0d
- for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 17:05:09 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t0b9K2F8XzDvK4
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 17:19:01 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=Lq307Ouq; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=XfVpTQdo; 
  dkim-atps=neutral
-Received: by mail-pf0-x241.google.com with SMTP id r16so7632311pfg.3
- for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 23:05:09 -0700 (PDT)
+Received: by mail-it0-x242.google.com with SMTP id 139so9651849itm.2
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 23:19:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=from:to:cc:subject:date:message-id;
- bh=ZpBEHdT7mMP/XyucgzCj8q6MMGPK6q2pbvr2PSygbKE=;
- b=Lq307OuqVpTVFKsn1DP90z/7sNRN0k/3b6ynDx/8W4Q9F1waGNb4uiVnJI2wGELU0z
- YMWuLqBLoi2TOJrXR1jIFPwRkzmZfncvM+W7+HlPNi6ENfv0Yp0TI70jhZ9QkYJ56taP
- L9gI/Cz6TRszj1TjwTTMNMySDusRyXmf+1Jx0kuuOL/GJFiEpq3r/ooLNKQL/8XSDMnu
- 2gk6GsVB7eHyY6irqFEB4AcEW/LVO996498Q/F3vmCBL9oyxVebiEkQM9uBsRiQhM0HT
- CJbWVLc5rIC7cS6HDEY/EErvIS8sll0WSy7OKy8Eyvmgz6FROQpkROLEzYCKWXgcCIyj
- 0iwA==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=KYrW4w92lGACf+YNOlKBubdakkqIYF/SPmrYk98cYEQ=;
+ b=XfVpTQdoz/G04yWbl718cf0c3FcMFi1Tyoe6CNomT4A7IKGbCzeQh5sox6y3SxXToA
+ 9pcHy5hNSkJ0fDIWea91BsgER5yBy9/6JDArVUNSzPSS0dh1sdqQWjtOo2ht4EITXqyH
+ r7bqvFMiKYh4gBVzgPyg9Y6AeaTaEwNfkod46CCxfugw99Pz0G0gDp86yeHHw25hhG7v
+ iDWdFDRb/pR5F81RWVSVZlDr7JTkVQQ5uD/KBkbMuIyK86ROmejaVVBfFnLNpCU/0tKY
+ UYsVPdKT7y3kAADavlyA41iW0syE5Y5pdd43Wd0VKATLJc2zj2Vt19Yf+29DyQQf+VYA
+ 7czw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=ZpBEHdT7mMP/XyucgzCj8q6MMGPK6q2pbvr2PSygbKE=;
- b=T6hZ2QlLhb9+mh16I5U1FStJBo3VekU77sKq3Kx+mLFEkgx0QCdMeTx92mTwxOik2g
- WZPUf8ixCfAIFeoUMb4yIF15qQwZaKhh769XzOTvF1vji/OoeBGSuvI3JkMPkCS0vlfj
- ryuzQQbIhY3IJhLVFalzRrF5n7/AwkfuHNv7Usn3dufycjdAkZ4v+8kXQEX13n1hKiz+
- Z9Ukwx4S1FLheo5RHq3/l0RvECTp4b0aN6ujydbWyCdE7j49Y1N8X56WWXlKvp/UBjiI
- ZXQGwzmbq+c3WFVKX/mg8pf1ZVc8SK114cwWGuCDMu7Q1PP0aCxywJbn8Lp0pjhomZlh
- zPhQ==
-X-Gm-Message-State: AA6/9RncxPzQF2bxMsKaqfVbE8ZAHK9a/v3YuPM2lwiCrGmOPvuO4ANntwZwsLmlzLFbnQ==
-X-Received: by 10.99.171.3 with SMTP id p3mr5448617pgf.119.1477029907545;
- Thu, 20 Oct 2016 23:05:07 -0700 (PDT)
-Received: from localhost ([159.203.222.251])
- by smtp.gmail.com with ESMTPSA id 21sm1562593pfs.88.2016.10.20.23.05.06
- (version=TLS1_2 cipher=AES128-SHA bits=128/128);
- Thu, 20 Oct 2016 23:05:06 -0700 (PDT)
-From: Lei YU <mine260309@gmail.com>
-To: openbmc@lists.ozlabs.org
-Subject: [linux] ARM: dts: aspeed: witherspoon: Add ucd90160 sensor
-Date: Fri, 21 Oct 2016 14:03:16 +0800
-Message-Id: <1477029796-22983-1-git-send-email-mine260309@gmail.com>
-X-Mailer: git-send-email 1.9.1
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=KYrW4w92lGACf+YNOlKBubdakkqIYF/SPmrYk98cYEQ=;
+ b=kTCszkoLLSYq+D3w/XLBhBk0rpWsJpT6QXngS6Vr/EigjrlUwAuk8tT2qGRXhd4pUH
+ bFmTFvrq7iObwAzWBijIUh9M2IO574U/cJnQMKTWFElY8JqmymFDyyid3xAdsYerfxzx
+ 1tVS8HUiTOGne0jkzcpFoble0Q7imwfLpO9I9Xb0xpryPlkpegSyzPOGSdIXDqUshdav
+ 0Sw+U5N6ydNks12YvdEttd3PFHx84CciMcrgaN1XufYmhXKFsqkF4DupusJFYjjE+Kmx
+ vpk/FE23N9KNjk7ouHIqu0mkYrw5EAttuuoYRIfZAMvNVCz/sxVOkgmvBLUxV1EYpNBl
+ lDNQ==
+X-Gm-Message-State: AA6/9Rn/mC/ZVkVzDM/rGjpiXlatmio8gZ7vq21yVzrHCb27CB4JR12DYuY35ZWX7I4Tl7cS5o8DnJN1O6zrgg==
+X-Received: by 10.202.252.9 with SMTP id a9mr9204677oii.124.1477030738753;
+ Thu, 20 Oct 2016 23:18:58 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.182.107.226 with HTTP; Thu, 20 Oct 2016 23:18:38 -0700 (PDT)
+In-Reply-To: <1477029796-22983-1-git-send-email-mine260309@gmail.com>
+References: <1477029796-22983-1-git-send-email-mine260309@gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 21 Oct 2016 16:48:38 +1030
+X-Google-Sender-Auth: Vg4ihjab1RAn75vbyyW-5nKipXc
+Message-ID: <CACPK8XdKmtf9ZYBgcUvk9f3kx8VRjr6wcHVyp906Q3xMSsZaQw@mail.gmail.com>
+Subject: Re: [linux] ARM: dts: aspeed: witherspoon: Add ucd90160 sensor
+To: Lei YU <mine260309@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -53,29 +58,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Oct 2016 06:05:10 -0000
+X-List-Received-Date: Fri, 21 Oct 2016 06:19:02 -0000
 
-Add UCD90160 sensor to enable pmbus hwmon.
+On Fri, Oct 21, 2016 at 4:33 PM, Lei YU <mine260309@gmail.com> wrote:
+> Add UCD90160 sensor to enable pmbus hwmon.
+>
+> Signed-off-by: Lei YU <mine260309@gmail.com>
 
-Signed-off-by: Lei YU <mine260309@gmail.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 4 ++++
- 1 file changed, 4 insertions(+)
+Thanks, applied as 9efee2db48c4b5d08f668c6ce5a0ec1d875be9d3 to dev-4.7.
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index fcc880a..14376f4 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -149,6 +149,10 @@
- 		compatible = "atmel,24c64";
- 		reg = <0x51>;
- 	};
-+	ucd90160@64 {
-+		compatible = "ti,ucd90160";
-+		reg = <0x64>;
-+	};
- };
- 
- &i2c12 {
--- 
-1.9.1
+I gave you the wrong line for your git format-patch. You need to
+include PATCH in your --subject-prefix:
+
+git format-patch --subject-prefix="linux PATCH"
+
+You can also chose to put the branch you're targetting, in this case
+dev-4.7, if it's not clear.
+
+Cheers,
+
+Joel
+
+> ---
+>  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> index fcc880a..14376f4 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> @@ -149,6 +149,10 @@
+>                 compatible = "atmel,24c64";
+>                 reg = <0x51>;
+>         };
+> +       ucd90160@64 {
+> +               compatible = "ti,ucd90160";
+> +               reg = <0x64>;
+> +       };
+>  };
+>
+>  &i2c12 {
+> --
+> 1.9.1
+>
