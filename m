@@ -3,61 +3,61 @@ Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t0RpH4NjkzDvYX
- for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 11:47:03 +1100 (AEDT)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t0RpJ1qRszDvYW
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 11:47:04 +1100 (AEDT)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
- u9L0i5Ye085171
- for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 20:47:01 -0400
-Received: from e23smtp07.au.ibm.com (e23smtp07.au.ibm.com [202.81.31.140])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2675ygwheb-1
+ u9L0i5st052746
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 20:47:02 -0400
+Received: from e23smtp04.au.ibm.com (e23smtp04.au.ibm.com [202.81.31.146])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2675ygntwx-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 20:47:01 -0400
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Oct 2016 20:47:02 -0400
 Received: from localhost
- by e23smtp07.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e23smtp04.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <gwshan@linux.vnet.ibm.com>;
- Fri, 21 Oct 2016 10:46:58 +1000
+ Fri, 21 Oct 2016 10:46:59 +1000
 Received: from d23dlp01.au.ibm.com (202.81.31.203)
- by e23smtp07.au.ibm.com (202.81.31.204) with IBM ESMTP SMTP Gateway:
+ by e23smtp04.au.ibm.com (202.81.31.210) with IBM ESMTP SMTP Gateway:
  Authorized Use Only! Violators will be prosecuted; 
  Fri, 21 Oct 2016 10:46:57 +1000
-Received: from d23relay07.au.ibm.com (d23relay07.au.ibm.com [9.190.26.37])
- by d23dlp01.au.ibm.com (Postfix) with ESMTP id B23762CE8054
- for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 11:46:56 +1100 (EST)
-Received: from d23av04.au.ibm.com (d23av04.au.ibm.com [9.190.235.139])
- by d23relay07.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- u9L0kuDf19464332
- for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 11:46:56 +1100
-Received: from d23av04.au.ibm.com (localhost [127.0.0.1])
- by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- u9L0kurM022339
- for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 11:46:56 +1100
+Received: from d23relay06.au.ibm.com (d23relay06.au.ibm.com [9.185.63.219])
+ by d23dlp01.au.ibm.com (Postfix) with ESMTP id 4DA402CE8059
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 11:46:57 +1100 (EST)
+Received: from d23av01.au.ibm.com (d23av01.au.ibm.com [9.190.234.96])
+ by d23relay06.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ u9L0kvDu17629368
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 11:46:57 +1100
+Received: from d23av01.au.ibm.com (localhost [127.0.0.1])
+ by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ u9L0kunN028566
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 11:46:57 +1100
 Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
- by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- u9L0ktZO022334; Fri, 21 Oct 2016 11:46:55 +1100
+ by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ u9L0kuDJ028561; Fri, 21 Oct 2016 11:46:56 +1100
 Received: from bran.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
- by ozlabs.au.ibm.com (Postfix) with ESMTP id D3C70A019B;
- Fri, 21 Oct 2016 11:46:55 +1100 (AEDT)
+ by ozlabs.au.ibm.com (Postfix) with ESMTP id 9C0F4A019B;
+ Fri, 21 Oct 2016 11:46:56 +1100 (AEDT)
 Received: from gwshan (shangw.ozlabs.ibm.com [10.61.2.199])
- by bran.ozlabs.ibm.com (Postfix) with ESMTP id CE616E3C5C;
- Fri, 21 Oct 2016 11:46:55 +1100 (AEDT)
+ by bran.ozlabs.ibm.com (Postfix) with ESMTP id 95BB5E3C5C;
+ Fri, 21 Oct 2016 11:46:56 +1100 (AEDT)
 Received: by gwshan (Postfix, from userid 1000)
- id B1E1C94212E; Fri, 21 Oct 2016 11:47:47 +1100 (AEDT)
+ id 7B8A194212E; Fri, 21 Oct 2016 11:47:48 +1100 (AEDT)
 From: Gavin Shan <gwshan@linux.vnet.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, Gavin Shan <gwshan@linux.vnet.ibm.com>
-Subject: [PATCH 4.4 2/9] net/ncsi: Introduce NCSI_RESERVED_CHANNEL
-Date: Fri, 21 Oct 2016 11:47:39 +1100
+Subject: [PATCH 4.4 4/9] net/ncsi: Rework request index allocation
+Date: Fri, 21 Oct 2016 11:47:41 +1100
 X-Mailer: git-send-email 2.1.0
 In-Reply-To: <1477010866-15126-1-git-send-email-gwshan@linux.vnet.ibm.com>
 References: <1477010866-15126-1-git-send-email-gwshan@linux.vnet.ibm.com>
 X-TM-AS-MML: disable
 X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16102100-0044-0000-0000-000001F15AAD
+x-cbid: 16102100-0012-0000-0000-000001D95A04
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 16102100-0045-0000-0000-000005C94F44
-Message-Id: <1477010866-15126-3-git-send-email-gwshan@linux.vnet.ibm.com>
+x-cbparentid: 16102100-0013-0000-0000-0000064048C4
+Message-Id: <1477010866-15126-5-git-send-email-gwshan@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2016-10-20_12:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -78,94 +78,90 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Fri, 21 Oct 2016 00:47:04 -0000
 
-This defines NCSI_RESERVED_CHANNEL as the reserved NCSI channel
-ID (0x1f). No logical changes introduced.
+The NCSI request index (struct ncsi_req::nr_id) is put into instance
+ID (IID) field while sending NCSI command packet. It was designed the
+available IDs are given in round-robin fashion. @ndp->request_id was
+introduced to represent the next available ID, but it has been used
+as number of successively allocated IDs. It breaks the round-robin
+design. Besides, we shouldn't put 0 to NCSI command packet's IID
+field, meaning ID#0 should be reserved according section 6.3.1.1
+in NCSI spec (v1.1.0).
+
+This fixes above two issues. With it applied, the available IDs will
+be assigned in round-robin fashion and ID#0 won't be assigned.
 
 Signed-off-by: Gavin Shan <gwshan@linux.vnet.ibm.com>
 Reviewed-by: Joel Stanley <joel@jms.id.au>
 ---
  net/ncsi/internal.h    |  1 +
- net/ncsi/ncsi-manage.c | 14 +++++++-------
- 2 files changed, 8 insertions(+), 7 deletions(-)
+ net/ncsi/ncsi-manage.c | 23 +++++++++++------------
+ 2 files changed, 12 insertions(+), 12 deletions(-)
 
 diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-index e97906c..339177a 100644
+index 339177a..212d77b 100644
 --- a/net/ncsi/internal.h
 +++ b/net/ncsi/internal.h
-@@ -5,6 +5,7 @@ struct ncsi_dev_priv;
- struct ncsi_package;
- 
- #define NCSI_PACKAGE_INDEX(c)	(((c) >> 5) & 0x7)
-+#define NCSI_RESERVED_CHANNEL	0x1f
- #define NCSI_CHANNEL_INDEX(c)	((c) & 0x1ffff)
- #define NCSI_TO_CHANNEL(p, c)	((((p) & 0x7) << 5) | ((c) & 0x1ffff))
- 
+@@ -87,6 +87,7 @@ struct ncsi_dev_priv {
+ 	struct list_head	ndp_packages;
+ 	atomic_t		ndp_pending_reqs;
+ 	atomic_t		ndp_last_req_idx;
++#define NCSI_REQ_START_IDX	1
+ 	spinlock_t		ndp_req_lock;
+ 	struct ncsi_req		ndp_reqs[256];
+ 	struct work_struct	ndp_work;
 diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-index b32aa39..3d1d775 100644
+index b728614..44a740f 100644
 --- a/net/ncsi/ncsi-manage.c
 +++ b/net/ncsi/ncsi-manage.c
-@@ -397,7 +397,7 @@ static void ncsi_dev_config(struct ncsi_dev_priv *ndp)
- 		nca.nca_type = NCSI_PKT_CMD_SP;
- 		nca.nca_bytes[0] = 1;
- 		nca.nca_package = np->np_id;
--		nca.nca_channel = 0x1f;
-+		nca.nca_channel = NCSI_RESERVED_CHANNEL;
- 		ret = ncsi_xmit_cmd(&nca);
- 		if (ret)
- 			goto error;
-@@ -533,7 +533,7 @@ static void ncsi_dev_probe(struct ncsi_dev_priv *ndp)
+@@ -306,30 +306,29 @@ struct ncsi_req *ncsi_alloc_req(struct ncsi_dev_priv *ndp)
+ 	spin_lock_irqsave(&ndp->ndp_req_lock, flags);
  
- 		/* Deselect all possible packages */
- 		nca.nca_type = NCSI_PKT_CMD_DP;
--		nca.nca_channel = 0x1f;
-+		nca.nca_channel = NCSI_RESERVED_CHANNEL;
- 		for (index = 0; index < 8; index++) {
- 			nca.nca_package = index;
- 			ret = ncsi_xmit_cmd(&nca);
-@@ -549,7 +549,7 @@ static void ncsi_dev_probe(struct ncsi_dev_priv *ndp)
- 		/* Select all possible packages */
- 		nca.nca_type = NCSI_PKT_CMD_SP;
- 		nca.nca_bytes[0] = 1;
--		nca.nca_channel = 0x1f;
-+		nca.nca_channel = NCSI_RESERVED_CHANNEL;
- 		for (index = 0; index < 8; index++) {
- 			nca.nca_package = index;
- 			ret = ncsi_xmit_cmd(&nca);
-@@ -608,7 +608,7 @@ static void ncsi_dev_probe(struct ncsi_dev_priv *ndp)
- 		nca.nca_type = NCSI_PKT_CMD_SP;
- 		nca.nca_bytes[0] = 1;
- 		nca.nca_package = ndp->ndp_active_package->np_id;
--		nca.nca_channel = 0x1f;
-+		nca.nca_channel = NCSI_RESERVED_CHANNEL;
- 		ret = ncsi_xmit_cmd(&nca);
- 		if (ret)
- 			goto error;
-@@ -666,7 +666,7 @@ static void ncsi_dev_probe(struct ncsi_dev_priv *ndp)
- 		/* Deselect the active package */
- 		nca.nca_type = NCSI_PKT_CMD_DP;
- 		nca.nca_package = ndp->ndp_active_package->np_id;
--		nca.nca_channel = 0x1f;
-+		nca.nca_channel = NCSI_RESERVED_CHANNEL;
- 		ret = ncsi_xmit_cmd(&nca);
- 		if (ret)
- 			goto error;
-@@ -716,7 +716,7 @@ static void ncsi_dev_suspend(struct ncsi_dev_priv *ndp)
- 		nca.nca_package = np->np_id;
- 		if (nd->nd_state == ncsi_dev_state_suspend_select) {
- 			nca.nca_type = NCSI_PKT_CMD_SP;
--			nca.nca_channel = 0x1f;
-+			nca.nca_channel = NCSI_RESERVED_CHANNEL;
- 			nca.nca_bytes[0] = 1;
- 			nd->nd_state = ncsi_dev_state_suspend_dcnt;
- 		} else if (nd->nd_state == ncsi_dev_state_suspend_dcnt) {
-@@ -730,7 +730,7 @@ static void ncsi_dev_suspend(struct ncsi_dev_priv *ndp)
- 			nd->nd_state = ncsi_dev_state_suspend_deselect;
- 		} else if (nd->nd_state == ncsi_dev_state_suspend_deselect) {
- 			nca.nca_type = NCSI_PKT_CMD_DP;
--			nca.nca_channel = 0x1f;
-+			nca.nca_channel = NCSI_RESERVED_CHANNEL;
- 			nd->nd_state = ncsi_dev_state_suspend_done;
- 		}
+ 	/* Check if there is one available request until the ceiling */
+-	for (idx = atomic_read(&ndp->ndp_last_req_idx);
+-	     !nr && idx < limit; idx++) {
++	for (idx = atomic_read(&ndp->ndp_last_req_idx); idx < limit; idx++) {
+ 		if (ndp->ndp_reqs[idx].nr_used)
+ 			continue;
  
+-		ndp->ndp_reqs[idx].nr_used = true;
+ 		nr = &ndp->ndp_reqs[idx];
+-		atomic_inc(&ndp->ndp_last_req_idx);
+-		if (atomic_read(&ndp->ndp_last_req_idx) >= limit)
+-			atomic_set(&ndp->ndp_last_req_idx, 0);
++		nr->nr_used = true;
++		atomic_set(&ndp->ndp_last_req_idx, idx + 1);
++		goto found;
+ 	}
+ 
+ 	/* Fail back to check from the starting cursor */
+-	for (idx = 0; !nr && idx < atomic_read(&ndp->ndp_last_req_idx); idx++) {
++	for (idx = NCSI_REQ_START_IDX;
++	     idx < atomic_read(&ndp->ndp_last_req_idx); idx++) {
+ 		if (ndp->ndp_reqs[idx].nr_used)
+ 			continue;
+ 
+-		ndp->ndp_reqs[idx].nr_used = true;
+ 		nr = &ndp->ndp_reqs[idx];
+-		atomic_inc(&ndp->ndp_last_req_idx);
+-		if (atomic_read(&ndp->ndp_last_req_idx) >= limit)
+-			atomic_set(&ndp->ndp_last_req_idx, 0);
++		nr->nr_used = true;
++		atomic_set(&ndp->ndp_last_req_idx, idx + 1);
++		goto found;
+ 	}
+ 
++found:
+ 	spin_unlock_irqrestore(&ndp->ndp_req_lock, flags);
+ 	return nr;
+ }
+@@ -834,7 +833,7 @@ struct ncsi_dev *ncsi_register_dev(struct net_device *dev,
+ 	INIT_LIST_HEAD(&ndp->ndp_packages);
+ 	INIT_WORK(&ndp->ndp_work, ncsi_dev_work);
+ 	spin_lock_init(&ndp->ndp_req_lock);
+-	atomic_set(&ndp->ndp_last_req_idx, 0);
++	atomic_set(&ndp->ndp_last_req_idx, NCSI_REQ_START_IDX);
+ 	for (idx = 0; idx < 256; idx++) {
+ 		ndp->ndp_reqs[idx].nr_id = idx;
+ 		ndp->ndp_reqs[idx].nr_ndp = ndp;
 -- 
 2.1.0
