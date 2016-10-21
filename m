@@ -1,30 +1,29 @@
 Return-Path: <clg@kaod.org>
-Received: from 5.mo69.mail-out.ovh.net (5.mo69.mail-out.ovh.net
- [46.105.43.105])
+Received: from 7.mo69.mail-out.ovh.net (7.mo69.mail-out.ovh.net [46.105.50.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t0ZQZ2lb8zDvb6
- for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 16:45:26 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t0ZQd2mvtzDvb0
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 16:45:29 +1100 (AEDT)
 Received: from player798.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo69.mail-out.ovh.net (Postfix) with ESMTP id E531F7EAF
- for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 07:45:22 +0200 (CEST)
+ by mo69.mail-out.ovh.net (Postfix) with ESMTP id 50BF17EAB
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 07:45:26 +0200 (CEST)
 Received: from hermes.kaod.org.com (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
  [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player798.ha.ovh.net (Postfix) with ESMTPSA id B6218540069;
- Fri, 21 Oct 2016 07:45:19 +0200 (CEST)
+ by player798.ha.ovh.net (Postfix) with ESMTPSA id EB707540069;
+ Fri, 21 Oct 2016 07:45:22 +0200 (CEST)
 From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev4.7 v2 6/9] ARM: dts: aspeed-g5: update ast2500 evb
- with new spi-nor binding
-Date: Fri, 21 Oct 2016 07:44:47 +0200
-Message-Id: <1477028690-27239-7-git-send-email-clg@kaod.org>
+Subject: [PATCH linux dev4.7 v2 7/9] mtd: spi-nor: aspeed: add DMA support to
+ smc controller
+Date: Fri, 21 Oct 2016 07:44:48 +0200
+Message-Id: <1477028690-27239-8-git-send-email-clg@kaod.org>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1477028690-27239-1-git-send-email-clg@kaod.org>
 References: <1477028690-27239-1-git-send-email-clg@kaod.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 12353936730697599746
+X-Ovh-Tracer-Id: 12355062627987262210
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
 X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrheelgddutdehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
@@ -39,59 +38,357 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Oct 2016 05:45:26 -0000
+X-List-Received-Date: Fri, 21 Oct 2016 05:45:30 -0000
 
-The ast2500 evb has one flash module for the BMC firmware and one for
-the host.
+The Aspeed FMC controller can handle transfers to the flash modules
+using DMAs. A couple of registers first need to be programmed with the
+DRAM and flash addresses and the length of the transfer. The transfer
+is then initiated using a DMA control register and an interrupt
+notifies the completion.
+
+Such transfers can replace the current IO mode in the read/write ops
+when some conditions are met on the size and the alignment. In case of
+failure, a timeout for instance, the operation is restarted using the
+IO mode.
+
+DMA support does not seem to be that efficient. So we provide some
+sysfs files for tuning and to switch it on and off (default is off)
 
 Signed-off-by: Cédric Le Goater <clg@kaod.org>
 ---
- arch/arm/boot/dts/aspeed-ast2500-evb.dts | 28 ++++++++++++++++------------
- 1 file changed, 16 insertions(+), 12 deletions(-)
+ drivers/mtd/spi-nor/aspeed-smc.c | 241 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 241 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed-ast2500-evb.dts b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-index d34e6f15a0cb..33b3907c436b 100644
---- a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-+++ b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-@@ -18,23 +18,27 @@
- 	memory {
- 		reg = <0x80000000 0x20000000>;
- 	};
-+};
+diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspeed-smc.c
+index aed610d8ab2f..f220df775f2b 100644
+--- a/drivers/mtd/spi-nor/aspeed-smc.c
++++ b/drivers/mtd/spi-nor/aspeed-smc.c
+@@ -20,10 +20,25 @@
+ #include <linux/of.h>
+ #include <linux/of_platform.h>
+ #include <linux/sysfs.h>
++#include <linux/dma-direction.h>
++#include <linux/dma-mapping.h>
  
--	ahb {
--		bmc_pnor: fmc@1e620000 {
--			reg = < 0x1e620000 0x94
--				0x20000000 0x02000000 >;
--			#address-cells = <1>;
--			#size-cells = <0>;
--			compatible = "aspeed,ast2500-fmc";
--			flash@0 {
--				reg = < 0 >;
--				compatible = "jedec,spi-nor" ;
-+&fmc {
-+	status = "okay";
-+	flash@0 {
-+		status = "okay";
- #include "aspeed-bmc-opp-flash-layout.dtsi"
--			};
--		};
- 	};
+ #define DEVICE_NAME	"aspeed-smc"
+ 
+ /*
++ * DMAs do not seem to be that fast, so disable by default
++ */
++static bool use_dma;
++module_param(use_dma, bool, 0644);
++
++static unsigned int min_dma_size = 256;
++module_param(min_dma_size, uint, 0644);
++
++/* with 100ms we had a couple of timeouts */
++static unsigned int dma_timeout = 200;
++module_param(dma_timeout, uint, 0644);
++
++/*
+  * In user mode all data bytes read or written to the chip decode address
+  * range are transferred to or from the SPI bus. The range is treated as a
+  * fifo of arbitratry 1, 2, or 4 byte width but each write has to be aligned
+@@ -206,6 +221,7 @@ struct aspeed_smc_chip {
+ 	__le32 __iomem *ctl;			/* control register */
+ 	void __iomem *base;			/* base of chip window */
+ 	__le32 ctl_val[smc_num_ctl_reg_values];	/* controls with timing */
++	unsigned long phys_base;
+ 	enum smc_flash_type type;		/* what type of flash */
+ 	struct spi_nor nor;
+ };
+@@ -218,6 +234,18 @@ struct aspeed_smc_controller {
+ 	void __iomem *regs;			/* controller registers */
+ 	void __iomem *windows;			/* per-chip windows resource */
+ 
++	/* interrupt handling */
++	int irq;
++
++	/* dma */
++	bool has_dma;
++	struct completion dma_done;
++
++	/* dma logging */
++	size_t dma_length;
++	dma_addr_t dma_addr;			/* bus address of buffer */
++	dma_addr_t flash_addr;			/* flash address */
++
+ 	struct aspeed_smc_chip *chips[0];	/* pointers to attached chips */
  };
  
-+&spi1 {
-+	status = "okay";
-+	flash@0 {
-+		status = "okay";
-+	};
-+};
+@@ -274,11 +302,123 @@ struct aspeed_smc_controller {
+ 	CONTROL_SPI_IO_DUMMY_CYCLES_MASK | CONTROL_SPI_CLOCK_FREQ_SEL_MASK | \
+ 	CONTROL_SPI_LSB_FIRST | CONTROL_SPI_CLOCK_MODE_3)
+ 
++/* Interrupt Control and Status Register */
++#define INTERRUPT_STATUS_REG		0x08
++#define     INTERRUPT_DMA_ENABLE	    BIT(3)
++#define     INTERRUPT_DMA_STATUS	    BIT(11)
 +
-+&spi2 {
-+	status = "okay";
-+};
+ /* Segment Address Registers */
+ #define SEGMENT_ADDR_REG0		0x30
+ #define     SEGMENT_ADDR_START(_r)	    ((((_r) >> 16) & 0xFF) << 23)
+ #define     SEGMENT_ADDR_END(_r)	    ((((_r) >> 24) & 0xFF) << 23)
+ 
 +
- &uart5 {
- 	status = "okay";
- };
++/* DMA Registers */
++#define DMA_CONTROL_REG			0x80
++#define     DMA_ENABLE			    BIT(0)
++#define     DMA_WRITE			    BIT(1)
++
++#define DMA_FLASH_BASE_REG		0x84
++#define DMA_DRAM_BASE_REG		0x88
++#define DMA_LENGTH_REG			0x8c
++
++static void aspeed_smc_dma_done(struct aspeed_smc_controller *controller)
++{
++	writel(0, controller->regs + INTERRUPT_STATUS_REG);
++	writel(0, controller->regs + DMA_CONTROL_REG);
++}
++
++static int aspeed_smc_dma_wait(struct aspeed_smc_chip *chip)
++{
++	struct aspeed_smc_controller *controller = chip->controller;
++
++	if (!wait_for_completion_timeout(&controller->dma_done,
++					 msecs_to_jiffies(dma_timeout))) {
++		dev_err(chip->nor.dev, "timeout waiting for DMA interrupt "
++			"addr@%.8x faddr@%.8x size=%x "
++			"dram@%.8x flash@%.8x done=%x\n",
++			controller->dma_addr,
++			controller->flash_addr,
++			controller->dma_length,
++			readl(controller->regs + DMA_DRAM_BASE_REG),
++			readl(controller->regs + DMA_FLASH_BASE_REG),
++			readl(controller->regs + DMA_LENGTH_REG));
++		return -ETIMEDOUT;
++	}
++
++	return 0;
++}
++
++#define DMA_LENGTH(x) (((x) - 4) & ~0xFE000003)
++#define DMA_ADDR(x) ((x) & ~0xE0000003)
++
++static inline void aspeed_smc_chip_configure(struct aspeed_smc_chip *chip,
++					     u32 ctl)
++{
++	ctl |= CONTROL_SPI_CE_STOP_ACTIVE_CONTROL;
++	writel(ctl, chip->ctl);
++
++	ctl &= ~CONTROL_SPI_CE_STOP_ACTIVE_CONTROL;
++	writel(ctl, chip->ctl);
++}
++
++/*
++ * TODO: configure FREAD mode
++ */
++static int aspeed_smc_dma_start(struct aspeed_smc_chip *chip,
++				u32 offset, void *buf, size_t length,
++				int is_write)
++{
++	struct aspeed_smc_controller *controller = chip->controller;
++	dma_addr_t dma_addr, flash_addr;
++	int ret;
++
++	aspeed_smc_chip_configure(chip, is_write ? chip->ctl_val[smc_write] :
++		chip->ctl_val[smc_base]);
++
++	dev_dbg(chip->nor.dev, "DMA %s to=0x%08x len=0x%08x\n",
++		is_write ? "write" : "read", offset, length);
++
++	dma_addr = dma_map_single(chip->nor.dev, buf, length,
++				  (is_write ? DMA_TO_DEVICE : DMA_FROM_DEVICE));
++
++	if (unlikely(dma_mapping_error(chip->nor.dev, dma_addr))) {
++		dev_err(chip->nor.dev, "Failed to dma_map_single()\n");
++		ret = -ENOMEM;
++		goto out;
++	}
++	flash_addr = chip->phys_base + offset;
++
++	controller->dma_length = length;
++	controller->dma_addr = dma_addr;
++	controller->flash_addr = flash_addr;
++
++	reinit_completion(&controller->dma_done);
++
++	writel(0, controller->regs + DMA_CONTROL_REG);
++	writel(DMA_ADDR(flash_addr), controller->regs +
++	       DMA_FLASH_BASE_REG);
++	writel(DMA_ADDR(dma_addr), controller->regs + DMA_DRAM_BASE_REG);
++	writel(DMA_LENGTH(length), controller->regs + DMA_LENGTH_REG);
++
++	writel(INTERRUPT_DMA_ENABLE,
++	       controller->regs + INTERRUPT_STATUS_REG);
++
++	writel(DMA_ENABLE | (is_write << 1),
++	       controller->regs + DMA_CONTROL_REG);
++
++	ret = aspeed_smc_dma_wait(chip);
++	if (ret)
++		aspeed_smc_dma_done(controller);
++
++	dma_unmap_single(chip->nor.dev,
++			 controller->dma_addr, controller->dma_length,
++			 (is_write ? DMA_TO_DEVICE : DMA_FROM_DEVICE));
++out:
++	aspeed_smc_chip_configure(chip, chip->ctl_val[smc_base]);
++	return ret;
++}
++
+ static u32 spi_control_fill_opcode(u8 opcode)
+ {
+ 	return ((u32)(opcode)) << CONTROL_SPI_COMMAND_SHIFT;
+@@ -400,14 +540,28 @@ static int aspeed_smc_read_user(struct spi_nor *nor, loff_t from, size_t len,
+ 				size_t *retlen, u_char *read_buf)
+ {
+ 	struct aspeed_smc_chip *chip = nor->priv;
++	int ret;
+ 
+ 	mutex_lock(&chip->controller->mutex);
+ 
++	/*
++	 * Try DMA transfer when size and alignment are correct. In case
++	 * of failure, just restart using the IO mode.
++	 */
++	if (!(from & 0x3) && !(len & 0x3) && (len >= min_dma_size) &&
++	    chip->controller->has_dma && use_dma) {
++		ret = aspeed_smc_dma_start(chip, from, read_buf, len, 0);
++		if (!ret)
++			goto out;
++		dev_err(chip->nor.dev, "DMA read failed: %d", ret);
++	}
++
+ 	aspeed_smc_start_user(nor);
+ 	aspeed_smc_send_cmd_addr(nor, nor->read_opcode, from);
+ 	aspeed_smc_from_fifo(read_buf, chip->base, len);
+ 	aspeed_smc_stop_user(nor);
+ 
++out:
+ 	mutex_unlock(&chip->controller->mutex);
+ 
+ 	*retlen += len;
+@@ -418,19 +572,102 @@ static void aspeed_smc_write_user(struct spi_nor *nor, loff_t to, size_t len,
+ 				  size_t *retlen, const u_char *write_buf)
+ {
+ 	struct aspeed_smc_chip *chip = nor->priv;
++	int ret;
+ 
+ 	mutex_lock(&chip->controller->mutex);
+ 
++	/*
++	 * Try DMA transfer when size and alignment are correct. In case
++	 * of failure, just restart using the IO mode.
++	 */
++	if (!(to & 0x3) && !(len & 0x3) && (len >= min_dma_size) &&
++	    chip->controller->has_dma && use_dma) {
++		ret = aspeed_smc_dma_start(chip, to, (void *)write_buf,
++					   len, 1);
++		if (!ret)
++			goto out;
++		dev_err(chip->nor.dev, "DMA write failed: %d", ret);
++	}
++
+ 	aspeed_smc_start_user(nor);
+ 	aspeed_smc_send_cmd_addr(nor, nor->program_opcode, to);
+ 	aspeed_smc_to_fifo(chip->base, write_buf, len);
+ 	aspeed_smc_stop_user(nor);
+ 
++out:
+ 	mutex_unlock(&chip->controller->mutex);
+ 
+ 	*retlen += len;
+ }
+ 
++static irqreturn_t aspeed_smc_irq(int irq, void *arg)
++{
++	struct aspeed_smc_controller *controller = arg;
++	struct device *dev = controller->dev;
++	irqreturn_t ret = IRQ_NONE;
++	u32 dma_ctl = readl(controller->regs + DMA_CONTROL_REG);
++	u32 status = readl(controller->regs + INTERRUPT_STATUS_REG);
++
++	dev_dbg(dev, "received IRQ. status: %x", status);
++
++	if (!(status & INTERRUPT_DMA_ENABLE) || !(dma_ctl & DMA_ENABLE)) {
++		dev_err(dev, "No DMA. bad IRQ status: %x", status);
++		goto out;
++	}
++
++	if (!(status & INTERRUPT_DMA_STATUS)) {
++		dev_err(dev, "DMA still in progress. length %d\n",
++			readl(controller->regs + DMA_LENGTH_REG));
++		goto out;
++	}
++
++	ret = IRQ_HANDLED;
++	aspeed_smc_dma_done(controller);
++	complete(&controller->dma_done);
++
++out:
++	return ret;
++}
++
++static int aspeed_smc_config_irq(struct aspeed_smc_controller *controller,
++				 struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	int rc;
++
++	controller->irq = platform_get_irq(pdev, 0);
++	if (!controller->irq)
++		return -ENODEV;
++
++	rc = devm_request_irq(dev, controller->irq, aspeed_smc_irq, IRQF_SHARED,
++			      DEVICE_NAME, controller);
++	if (rc < 0) {
++		dev_warn(dev, "Unable to request IRQ %d\n", controller->irq);
++		controller->irq = 0;
++		return rc;
++	}
++
++	dev_info(dev, "Using IRQ %d\n", controller->irq);
++	return 0;
++}
++
++static void aspeed_smc_dma_setup(struct aspeed_smc_controller *controller,
++				 struct platform_device *pdev)
++{
++	init_completion(&controller->dma_done);
++
++	controller->has_dma = false;
++	if (of_get_property(controller->dev->of_node, "aspeed,fmc-has-dma",
++			    NULL))
++		controller->has_dma = !aspeed_smc_config_irq(controller, pdev);
++
++	if (controller->has_dma)
++		dev_info(controller->dev, "DMA support %sactivated.\n",
++			 use_dma ? "" : "de");
++	else
++		dev_info(controller->dev, "no DMA support.\n");
++}
++
+ static int aspeed_smc_remove(struct platform_device *dev)
+ {
+ 	struct aspeed_smc_chip *chip;
+@@ -540,6 +777,8 @@ static int aspeed_smc_chip_setup_init(struct aspeed_smc_chip *chip,
+ 		return -1;
+ 	}
+ 
++	chip->phys_base = r->start;
++
+ 	/*
+ 	 * Read the existing control register to get basic values.
+ 	 *
+@@ -647,6 +886,8 @@ static int aspeed_smc_probe(struct platform_device *pdev)
+ 
+ 	controller->dev = &pdev->dev;
+ 
++	aspeed_smc_dma_setup(controller, pdev);
++
+ 	/* The pinmux or bootloader will disable the legacy mode controller */
+ 
+ 	/*
 -- 
 2.7.4
