@@ -1,59 +1,50 @@
-Return-Path: <f.fainelli@gmail.com>
-Received: from mail-pf0-x244.google.com (mail-pf0-x244.google.com
- [IPv6:2607:f8b0:400e:c00::244])
+Return-Path: <kunyi@google.com>
+Received: from mail-pf0-x22f.google.com (mail-pf0-x22f.google.com
+ [IPv6:2607:f8b0:400e:c00::22f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t0zQJ15LfzDvbb
- for <openbmc@lists.ozlabs.org>; Sat, 22 Oct 2016 08:31:36 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t13kx52F5zDt2g
+ for <openbmc@lists.ozlabs.org>; Sat, 22 Oct 2016 11:46:17 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=NYOko0Ju; 
+ unprotected) header.d=google.com header.i=@google.com header.b=Y5HVkVuz; 
  dkim-atps=neutral
-Received: by mail-pf0-x244.google.com with SMTP id i85so9608685pfa.0
- for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 14:31:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=subject:to:references:cc:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding;
- bh=8LAdBniRGayXXTsPMoySBVHlSTWW+qi/7gbselJqx38=;
- b=NYOko0JuzijvQOY72jL7AsrveSCVQhVzp/HRSgM5jL6i3VaaT7y4JworLdkt3sTXk+
- dujf7qnZqprMfxOGf3ZN9YuTavdbsk42fHMqo9LaXjPmjgmRQWBHhDGOwfDySdAjrluR
- WEjimfAAp5ZMaib9JLKRLsOJw1KGo2TU3bchHX/VGR/EUlxJiu+3xyjU1qBFX7XS01+e
- UFCRyWFt2BAxOmInswdX7y1qedEhGNrkYnwxnjuCS8kyBWBHuxsNUXU86aW3nbXEApGx
- mY8Ex+O2oLHwb3jmC9LY8yhP7Vrjmwa9b3c9IUIsRZR/P9cTkv3M6x9YpnR9O7G0+Jow
- PUbA==
+Received: by mail-pf0-x22f.google.com with SMTP id 128so65461744pfz.0
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 17:46:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
+ h=from:to:cc:subject:date:message-id;
+ bh=VdD53qkiZBzapQLUZzOkaj6GI7gY85Zq9ST+1+GPI2s=;
+ b=Y5HVkVuzJv9F2uqBhGBbmhjGdDrLhEk60ZHREpXkYwPzr4ZE1HXvtXT84aaex2N9dh
+ t15jwG9OJGECAkBwzk/JTgUSi/tDOLY6D24Uf0TTaBs+6hAuoVbb1qhvJnlenbHolbfi
+ jOGYoZjXPvLte9RzianqqfW/DbY3+0Vo6xl2QwTZfjiliu2BPU86cs7KrpbgZy5ip0Bx
+ wUxbjwkmRjGyXCnmDogT4QlQhi42gUkIxi0qBtPfkvN6hckGM7bfIMXdYJ8pRA/UTOe4
+ YsjFc/iVxYD14qQUZqZDuKEOIH5YrdurcuYZQNLM/mW5hVEV2nguuan8kRjwFU8sabJx
+ 1Chw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:subject:to:references:cc:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding;
- bh=8LAdBniRGayXXTsPMoySBVHlSTWW+qi/7gbselJqx38=;
- b=Sh3DdzyeovDMXNOGP0yP4bKSWcOnbxw/w1B/NTcsTMth6bL4GIe8Ddway4SGGsEso2
- 4cGD/ONbvXOLML2dXIOJjN/8eIQr5ldtCfZk+TA9DgltYqeVWy+P2oQf45EEDFVvdWOg
- EZeVVwW4eOWXn3bSDikXCAdzJDV+WaaAOyJVmHSunJxeNCB7RoUD8Le4w/noRfY+VX3C
- JVhRTPGb+cDp+mUFmRcXDQeW8eLxP3uYRWMwV1Ji+MEfpr5nGzXMFPFwMJ1XCnWCc1bd
- wsKvBbWgiKIG+Rqwq61Wc81jxH0Q0pxKTUK8M0XxdIXn3kJGQX/tq1DU19VjJjHhzcLX
- KgfA==
-X-Gm-Message-State: ABUngveuU4j7nW+RMlJSmvha7OrJRGNAwF8ACodsiV7D6S6nUsRp9mOtpo6I/dF905uP7g==
-X-Received: by 10.98.70.208 with SMTP id o77mr5152336pfi.177.1477085494557;
- Fri, 21 Oct 2016 14:31:34 -0700 (PDT)
-Received: from [10.112.156.244] ([192.19.255.250])
- by smtp.googlemail.com with ESMTPSA id a7sm7286951pan.34.2016.10.21.14.31.33
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 21 Oct 2016 14:31:34 -0700 (PDT)
-Subject: Re: [PATCH 2/2] net: phy: broadcom: Add support for BCM54612E
-To: Xo Wang <xow@google.com>
-References: <1477070413-92621-1-git-send-email-xow@google.com>
- <1477070413-92621-3-git-send-email-xow@google.com>
-Cc: davem@davemloft.net, jaedon.shin@gmail.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, joel@jms.id.au
-From: Florian Fainelli <f.fainelli@gmail.com>
-Message-ID: <964d671f-8994-802a-11a1-af16170e9b8f@gmail.com>
-Date: Fri, 21 Oct 2016 14:31:32 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.3.0
-MIME-Version: 1.0
-In-Reply-To: <1477070413-92621-3-git-send-email-xow@google.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Sat, 22 Oct 2016 11:42:42 +1100
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=VdD53qkiZBzapQLUZzOkaj6GI7gY85Zq9ST+1+GPI2s=;
+ b=HF3L7/k8+1mUPfysl3nu3jKi15/o5cpITxUMAX1avsZgSd1iS3SCc13ggVdYkJkDMc
+ 3FNJCswybmVzc5eOlKQJNCc+nHMFZnzqkZg2GDEZR6xugMcsHrQVWPeXQZrYM7ncbK8u
+ w/xbZppGFUsFXDP3NRTg2m2qJpZr8qsebIqj5KzW+zapQegyEv6K8ymCVgOQZ/I6wNrN
+ wBNZLacSXaaKUxbrJCLWInfxRhzwlgxOl+Z7O5VjZWQftZKu8AwBNczA/T8W2y6Rj85f
+ 5TBqIXgLcVVSdLdMrScfMNgCp7U1iDIcYVpl4f0g7ucA35VydTO4Xu0kA4VUk+x6csb5
+ N4+g==
+X-Gm-Message-State: ABUngvf7JIN+edyEqq+AkMZ0ljV5eiukGQwN0FaLerXi5pVnheHZ1y/PpmH+Wh0W8bDI1RbJ
+X-Received: by 10.99.117.91 with SMTP id f27mr5288957pgn.75.1477097174939;
+ Fri, 21 Oct 2016 17:46:14 -0700 (PDT)
+Received: from kunyi0.svl.corp.google.com ([100.123.242.82])
+ by smtp.gmail.com with ESMTPSA id yk6sm7682599pab.43.2016.10.21.17.46.14
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Fri, 21 Oct 2016 17:46:14 -0700 (PDT)
+From: Kun Yi <kunyi@google.com>
+To: openbmc@lists.ozlabs.org
+Cc: kunyi@google.com,
+	brendanhiggins@google.com,
+	clg@kaod.org
+Subject: [RFC 0/2] spi: aspeed: SPI1 mode control driver enabling sysfs control
+Date: Fri, 21 Oct 2016 17:45:56 -0700
+Message-Id: <1477097158-139095-1-git-send-email-kunyi@google.com>
+X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,16 +56,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Oct 2016 21:31:36 -0000
+X-List-Received-Date: Sat, 22 Oct 2016 00:46:19 -0000
 
-On 10/21/2016 10:20 AM, Xo Wang wrote:
-> This PHY has internal delays enabled after reset. This clears the
-> internal delay enables unless the interface specifically requests them.
-> 
-> Signed-off-by: Xo Wang <xow@google.com>
+Hello,
 
-Reviewed-by: Florian Fainelli <f.fainelli@gmail.com>
+I'm looking for feedback on a simple Aspeed SPI1 mode control driver that does two things mainly:
+1. Expose a sysfs interface for userland control of SPI1 interface.
+2. Optionally override the SPI1 mode at probe if "start_mode" is configured in 
+   device tree.
 
-Cross checked with the datasheet, this all looks correct to me, thanks!
--- 
-Florian
+Aspeed 24XX/25XX support three interface modes for their SPI1 interface,
+which can be configured via HW strap register. In the typical case of connecting
+a host flash chip SPI1 interface:
+- SPI master mode makes BMC the master to the host SPI flash
+- SPI pass-through mode make whichever external SPI interface connected to SYSSPI 
+  be the master
+- There are also "disable" and "debug" modes. Aspeed 25XX specified the debug
+  mode is reserved though.
+
+In particular, SPI pass-through mode would enable an external SPI master to
+directly program host SPI chip and possibly serve as an alternative way to LPC
+for host CPU accessing SPI flash. I think by providing a sysfs handle, userspace
+applications can have a flexible way to mux host SPI flash ownership between 
+BMC/external on the fly.
+
+Overriding the SPI mode at probe time can be useful to make sure 2500-smc flash
+controller always identifies the flash chip and create /dev/mtd files correctly.
+
+I wrote the driver as a standalone misc driver for the ease of initial implementation.
+There are other options such as merging the functionality into the SMC driver
+itself, possibly enabled by optional device tree arguments/nodes, but I just want to
+send the patches out first to gather comments on perceived usefulness of
+the feature and how you think the driver should be constructed.
+
+Feedback greatly appreciated!
+
+Regards,
+Kun
