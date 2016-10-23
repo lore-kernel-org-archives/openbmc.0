@@ -1,54 +1,55 @@
-Return-Path: <kunyi@google.com>
-Received: from mail-pf0-x236.google.com (mail-pf0-x236.google.com
- [IPv6:2607:f8b0:400e:c00::236])
+Return-Path: <linus.walleij@linaro.org>
+Received: from mail-qk0-x233.google.com (mail-qk0-x233.google.com
+ [IPv6:2607:f8b0:400d:c09::233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t13l90TkZzDvbM
- for <openbmc@lists.ozlabs.org>; Sat, 22 Oct 2016 11:46:29 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=MZ8QSSn/; 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t2D9D2VrJzDvXy
+ for <openbmc@lists.ozlabs.org>; Mon, 24 Oct 2016 09:09:35 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b=NZ+29unm; 
  dkim-atps=neutral
-Received: by mail-pf0-x236.google.com with SMTP id e6so65243289pfk.3
- for <openbmc@lists.ozlabs.org>; Fri, 21 Oct 2016 17:46:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=MSu2kk0KRKfv76tgFh6IgLeZ9BAc4/kCLJfLU+Je9ss=;
- b=MZ8QSSn/MrYe9POnINKKYaeKnlPjJlrNVD0hae+O8gcMz7Mlp8SF3QUlLEGNYBPya4
- 2zBqSp2cQDM3/WgVgUhPJtCEqlXVytQzTAFP7Qqksm1RvP/xCr5zi/0+/maj28Ns29Pv
- 7rlMHhkZDrOl7B1pPJyyoeDIJH81PJtFxlGIoeroHX32ODEHM0iiruNDvyxwL1qao7MY
- Fu9BoJimrSlFrV/8RxwoK+hutKoNI8lmnENw37+b3UNVv6arPrjCJVUvwd/Yqas5p46A
- osAa78sXeWVyG83yRm7POLSsYpjHlzycrnkNRzw3HgE6ITxqDut1F+G3C1hJ4tUupbus
- svIQ==
+Received: by mail-qk0-x233.google.com with SMTP id n189so213980794qke.0
+ for <openbmc@lists.ozlabs.org>; Sun, 23 Oct 2016 15:09:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=evAXjsLItNa9oTSXgtwkG3ObbLT+ik6ejGIZtyCa32E=;
+ b=NZ+29unm1Nxfd1BLCda5wAUJL1GZ3REHRIFebf9UpR9Hxt2SjPZWGcGI7laeHPIfcO
+ Wiei37jm6IY9c8IdH7reYzH6cGzQwQvnEIsHocD13GlYFlMWiPqke2yySCAfWFW2mfTR
+ L+D3Vtdp1+WIRPXOH4c0/hazwK4uKmTXPARP8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=MSu2kk0KRKfv76tgFh6IgLeZ9BAc4/kCLJfLU+Je9ss=;
- b=Lw8jlGUSbUtzsXZPcOVekuPiDU5ZzmLNeudaIuOhronRln7uTYs9RUe827YFCi601G
- Aa5khPKf0jqNnihG8n0aHBEPy4Em5Cf27xbPPG6ENZ5SIFwlcuDO3s2rOTKTnqMeZ/ov
- o+zKfc7DbxCAx167PRRCL5anYSeUdwNq+KYdS809SUzn89Tlkoa66KpH5JO0cV4DJ5Mu
- baO2AVSwN1Ka4qYTp2Pp5ubPYGvn2VZQPGAmRuIVgZxYhmBs318qg58OfGUkZdUuxEcQ
- WlsoF9CpWv6EbvcAIzScp83VTqt00RKYI1mk0N6Vv4wBe9A+quJF5ILC3Lfl+1xwPpX9
- lcdg==
-X-Gm-Message-State: ABUngvda61bHoCKXP4FJ1UgFC+su2ONEbh4dypv1k6iTx/50gS5UM5bwZOJejPJ3PIroxudT
-X-Received: by 10.99.188.1 with SMTP id q1mr5329802pge.145.1477097187284;
- Fri, 21 Oct 2016 17:46:27 -0700 (PDT)
-Received: from kunyi0.svl.corp.google.com ([100.123.242.82])
- by smtp.gmail.com with ESMTPSA id yk6sm7682599pab.43.2016.10.21.17.46.26
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Fri, 21 Oct 2016 17:46:26 -0700 (PDT)
-From: Kun Yi <kunyi@google.com>
-To: openbmc@lists.ozlabs.org
-Cc: kunyi@google.com,
-	brendanhiggins@google.com,
-	clg@kaod.org
-Subject: [RFC 2/2] spi: aspeed: documentation and device tree bindings for
- ASPEED SPI1 mode controller
-Date: Fri, 21 Oct 2016 17:45:58 -0700
-Message-Id: <1477097158-139095-3-git-send-email-kunyi@google.com>
-X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
-In-Reply-To: <1477097158-139095-1-git-send-email-kunyi@google.com>
-References: <1477097158-139095-1-git-send-email-kunyi@google.com>
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=evAXjsLItNa9oTSXgtwkG3ObbLT+ik6ejGIZtyCa32E=;
+ b=YLS3cvqNEkrfSL8ZuLcXpMIjL3oSnrzE11e7pkv50WPt80nJQuhcONHY8HvDi3xo3G
+ F0kdvFKqZlfT6TPFJ4UmL3nv1cPGxXJmsk2hJ++Z4Izwh+HXH5SOUL7JRGULvGOeM+Dm
+ ys8YzGt/u5lxE1qikk26HrxBtwiGO23J/Ne6fMRNK1vPl1hInZVMhjpymvDmayndC4os
+ iGSy4HIC1+nSBVQNIRDsR5jba1/o+KN5j/5+HdPxu/9YFVOSoRRjhLEDj6zfIctJEOWS
+ Z+sjLsruhvjL/VLzL3td5xH4KHcGB9JkbsVKVklHz9U1uVrOZH9K4uIhgYi5TI4TH4MK
+ kmTg==
+X-Gm-Message-State: ABUngvd4oK3oIP8WgUZGG9raDLXW3XBx2doKO0EWUix/U7CajtdWLc9WpvW9S7Ko0al8TlDwx05vJ86Oke2l2e51
+X-Received: by 10.55.75.215 with SMTP id y206mr12226460qka.26.1477260572487;
+ Sun, 23 Oct 2016 15:09:32 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.12.140.13 with HTTP; Sun, 23 Oct 2016 15:09:32 -0700 (PDT)
+In-Reply-To: <1477010011.8917.20.camel@aj.id.au>
+References: <cover.115463f791b69859c5ce9dafd61a5755ea039f4b.1474986045.git-series.andrew@aj.id.au>
+ <b5f67ba76018314d08e240f95951751896687d37.1474986045.git-series.andrew@aj.id.au>
+ <CACRpkdYLDesENtq2cQBrWQeL6NH+mO_N5Z=e9=gsoZSCE85Jag@mail.gmail.com>
+ <1477010011.8917.20.camel@aj.id.au>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Mon, 24 Oct 2016 00:09:32 +0200
+Message-ID: <CACRpkdYZPcjGuRKVL6qwof1p7ZXT4EvwzAuz59oTgp9Z5Dzixw@mail.gmail.com>
+Subject: Re: [PATCH 6/8] pinctrl: aspeed-g4: Capture SuperIO pinmux dependency
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Joel Stanley <joel@jms.id.au>, Mark Rutland <mark.rutland@arm.com>, 
+ Rob Herring <robh+dt@kernel.org>, 
+ "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,74 +61,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 22 Oct 2016 00:46:29 -0000
+X-List-Received-Date: Sun, 23 Oct 2016 22:09:37 -0000
 
-There is no accurate HW representation for the driver at the moment,
-thus it is represented as a "virtual" platform device node. The driver
-is placed in misc for the same reason.
+On Fri, Oct 21, 2016 at 2:33 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
 
-Signed-off-by: Kun Yi <kunyi@google.com>
----
- .../devicetree/bindings/misc/aspeed-spi-mode.txt   | 29 ++++++++++++++++++++++
- arch/arm/boot/dts/aspeed-ast2500-evb.dts           | 10 ++++++++
- 2 files changed, 39 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/misc/aspeed-spi-mode.txt
+>> Patch applied for v4.10.
+>> (Tell me if I'm applying patches in wrong order or something, and
+>> I hope this doesn't clash with the fixes.)
+>
+> Both this patch and 8/8 functionally depend on 5/8. I fetched the
+> pinctrl tree to poke around but this patch didn't appear in any of the
+> updated branches, so I'm not sure whether we have the right ordering.
+> Without it we should hit build failures from missing macro definitions.
+>
+> Have you had a chance to look over patch 5/8? Joel wasn't keen on its
+> current form, so I would appreciate your input.
 
-diff --git a/Documentation/devicetree/bindings/misc/aspeed-spi-mode.txt b/Documentation/devicetree/bindings/misc/aspeed-spi-mode.txt
-new file mode 100644
-index 0000000..540b101
---- /dev/null
-+++ b/Documentation/devicetree/bindings/misc/aspeed-spi-mode.txt
-@@ -0,0 +1,29 @@
-+Device tree entry for SPI1 mode controller on AST24XX/AST25XX.
-+
-+This binding enables the SPI1 mode controller virtual driver that exposes
-+the SPI1 interface toggle capability to userspace through sysfs interface. If
-+optional argument "start_mode" is defined, it also configures the SPI mode.
-+
-+Required Properties:
-+- #address-cells	: should be 1
-+- #size-cells		: should be 1
-+- compatible		: should be "aspeed, aspeed_spi_mode"
-+- reg			: addresses and sizes of HW strap register and HW strap
-+			  reset register. Should be < 0x1e6e2070 0x4 > and
-+			  < 0x1e6e207c 0x4 > respectively.
-+
-+Optional Properties:
-+- start_mode		: spi mode to override HW strap setting during probe.
-+			  Can be 0(disabled) 1(master) or 3(pass-through).
-+			  If not defined, HW strap or pinctrl setting is kept.
-+
-+Example:
-+	spi_mode_ctrl: spi_mode {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		compatible = "aspeed,aspeed_spi_mode";
-+		start_mode = <1>;
-+		status = "okay";
-+		reg = < 0x1e6e2070 0x4
-+			0x1e6e207c 0x4 >;
-+	};
-diff --git a/arch/arm/boot/dts/aspeed-ast2500-evb.dts b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-index 33b3907..f50812a 100644
---- a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-+++ b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-@@ -18,6 +18,16 @@
- 	memory {
- 		reg = <0x80000000 0x20000000>;
- 	};
-+
-+	spi_mode_ctrl: spi_mode {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		compatible = "aspeed,aspeed_spi_mode";
-+		start_mode = <1>;
-+		status = "okay";
-+		reg = < 0x1e6e2070 0x4
-+			0x1e6e207c 0x4 >;
-+	};
- };
- 
- &fmc {
--- 
-2.8.0.rc3.226.g39d4020
+Oops backed this patch out.
+
+Will look at 5/8.
+
+Appreciate if you repost the remaining patches in the series based on
+v4.9-rc2 once it's out, and I'll rebase the pinctrl tree onto that.
+
+Yours,
+Linus Walleij
