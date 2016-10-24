@@ -1,60 +1,54 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x241.google.com (mail-yw0-x241.google.com
+ [IPv6:2607:f8b0:4002:c05::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t2HJF2Y4BzDvXP
- for <openbmc@lists.ozlabs.org>; Mon, 24 Oct 2016 11:30:53 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
- dkim=fail reason="signature verification failed" (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=gLNtfEe0; 
- dkim=fail reason="signature verification failed" (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=Jp6smWue; dkim-atps=neutral
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 5850920843;
- Sun, 23 Oct 2016 20:30:51 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute5.internal (MEProxy); Sun, 23 Oct 2016 20:30:51 -0400
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=ejtBF
- MNUfG87MLSLzgzLj4n2zUs=; b=gLNtfEe0c3q2q4f06o1VpASzuG8SXVt12FWQO
- hupqXsc6XRi7ICeKgKZ3KpP7AD4Bd3A+1ws44IDkmkYWgptm+cij8quIpVHxouox
- 0D3WT54PjmKRV/R98+ojGRMsh4pdU+XM10yDB1Z7WkhYcUJntgEtvFPYWeadr/q7
- qZCTgs=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-sasl-enc
- :x-sasl-enc; s=smtpout; bh=ejtBFMNUfG87MLSLzgzLj4n2zUs=; b=Jp6sm
- WueIUjM7zHCjv0GSdPK/cfDYss9AMXaLNOqoIftTpclFt6cWNzzZzi0fAfvSD1x8
- gNgzjfzr7EIietXnKiAcE8hGIPvCDuQOHO/hZwdkNjr+7jJXt485Er5RgfEmXAIx
- iVciPrPufFU9UpRa8wLcJ3q495xUDrpGpZcFtY=
-X-Sasl-enc: NQkNN82MW5GWMPQ/gNLkRgoArJUME2TwyvCg4diV7LU7 1477269050
-Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 874F0F29CB;
- Sun, 23 Oct 2016 20:30:46 -0400 (EDT)
-Message-ID: <1477269041.6373.41.camel@aj.id.au>
-Subject: Re: [PATCH 6/8] pinctrl: aspeed-g4: Capture SuperIO pinmux dependency
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Linus Walleij <linus.walleij@linaro.org>
-Cc: Joel Stanley <joel@jms.id.au>, Mark Rutland <mark.rutland@arm.com>, Rob
- Herring <robh+dt@kernel.org>, "linux-gpio@vger.kernel.org"
- <linux-gpio@vger.kernel.org>,  "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
- <devicetree@vger.kernel.org>, openbmc@lists.ozlabs.org
-Date: Mon, 24 Oct 2016 11:00:41 +1030
-In-Reply-To: <CACRpkdYZPcjGuRKVL6qwof1p7ZXT4EvwzAuz59oTgp9Z5Dzixw@mail.gmail.com>
-References: <cover.115463f791b69859c5ce9dafd61a5755ea039f4b.1474986045.git-series.andrew@aj.id.au>
- <b5f67ba76018314d08e240f95951751896687d37.1474986045.git-series.andrew@aj.id.au>
- <CACRpkdYLDesENtq2cQBrWQeL6NH+mO_N5Z=e9=gsoZSCE85Jag@mail.gmail.com>
- <1477010011.8917.20.camel@aj.id.au>
- <CACRpkdYZPcjGuRKVL6qwof1p7ZXT4EvwzAuz59oTgp9Z5Dzixw@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-t1RqGp4nYOPvSh0eD+WI"
-X-Mailer: Evolution 3.18.5.2-0ubuntu3 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t2KHV4YVlzDvZ6
+ for <openbmc@lists.ozlabs.org>; Mon, 24 Oct 2016 13:00:22 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=vAyVv6kW; 
+ dkim-atps=neutral
+Received: by mail-yw0-x241.google.com with SMTP id e5so6654950ywc.3
+ for <openbmc@lists.ozlabs.org>; Sun, 23 Oct 2016 19:00:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=sUhwevrwuYOgaNoHrFmeGKN0b4VJAIRYFYqi8fIFA7c=;
+ b=vAyVv6kW7iwMBM9W8I4+7BhTiO9WrLJFrcZ5o+rNvDbseZc0d554FqC9xNTN+YwbWi
+ NopPFlGlXk/QcLz2r9wmRe8qEk6wveeEk10MJVxkyJzDODfKm97p+S5ryDdK7snKVhQq
+ 4ggwU8RVezbiPSWQiSsEiQO7Aw/UPIBKGqL+j832SD/TEsPsKwZMe8ZMrwC5BBtnm1gd
+ 0UFKzAmSQo7iBvlx3SuSCkxPviLOSrOt5RIExitmHBFxaXKJBatT6QMXnZA2tbX1LfLM
+ 78jLlgwIb6FiN0B8gVKtCfDuCNZG3YxxDCXzjRmtuQsrG2AnkuR941PsSC+fp4KHMMXm
+ ePdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=sUhwevrwuYOgaNoHrFmeGKN0b4VJAIRYFYqi8fIFA7c=;
+ b=k1iQSrJu+z7UlM6h5rdhJ3lFRBckZwvf/IhSo2LqAZRrCqNQSHXPb3ekok5ZW0T4eQ
+ GzEbPuNv58ti/f/vjX4B7dmAt0+JFFOTFh8/BB9dXMM3V+pAVDy30VhedNaRXcOqz+3x
+ NoWFr5hMiEjQ2QXME88QTFleSuWeYU2AdxSI1AAQP0LHzRc34BfS362cQhK9FyOuJ1u8
+ 47Sb5HSFgSeubyRGF0B2UBDRlb+ujbAdPxbhLFKYp5Y23rzWu+5FeWfRq4xCG+WPw2dU
+ BqLgKMPZWUosHWqDquzlazx8jICP8UEXgLJz/e5MJV+OSXA/9UOD9Nu6qG66Z+50WMXj
+ HRmA==
+X-Gm-Message-State: AA6/9Rl8GRgE9mSMcXaQYpO25bEFL3CJlthGPF1IRFo9xpDCAfjcKm4me3kAT8gjqSOEueFCtz/xUX+61hFlCA==
+X-Received: by 10.202.81.204 with SMTP id f195mr11285531oib.137.1477274420288; 
+ Sun, 23 Oct 2016 19:00:20 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.182.107.226 with HTTP; Sun, 23 Oct 2016 18:59:59 -0700 (PDT)
+In-Reply-To: <1477097158-139095-1-git-send-email-kunyi@google.com>
+References: <1477097158-139095-1-git-send-email-kunyi@google.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 24 Oct 2016 12:29:59 +1030
+X-Google-Sender-Auth: k4ZblagXhD6pvHHs93TalkKANSs
+Message-ID: <CACPK8XfvnDMEpjZspR7mH-xusANYsvmhC4Y8PD0jOagXRMz=+w@mail.gmail.com>
+Subject: Re: [RFC 0/2] spi: aspeed: SPI1 mode control driver enabling sysfs
+ control
+To: Kun Yi <kunyi@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brendan Higgins <brendanhiggins@google.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,60 +60,65 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Oct 2016 00:30:53 -0000
+X-List-Received-Date: Mon, 24 Oct 2016 02:00:23 -0000
 
+Hell Kun,
 
---=-t1RqGp4nYOPvSh0eD+WI
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Sat, Oct 22, 2016 at 11:15 AM, Kun Yi <kunyi@google.com> wrote:
+> Hello,
+>
+> I'm looking for feedback on a simple Aspeed SPI1 mode control driver that does two things mainly:
+> 1. Expose a sysfs interface for userland control of SPI1 interface.
+> 2. Optionally override the SPI1 mode at probe if "start_mode" is configured in
+>    device tree.
 
-On Mon, 2016-10-24 at 00:09 +0200, Linus Walleij wrote:
-> On Fri, Oct 21, 2016 at 2:33 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
->=20
-> >=20
-> > >=20
-> > > Patch applied for v4.10.
-> > > (Tell me if I'm applying patches in wrong order or something, and
-> > > I hope this doesn't clash with the fixes.)
-> > Both this patch and 8/8 functionally depend on 5/8. I fetched the
-> > pinctrl tree to poke around but this patch didn't appear in any of the
-> > updated branches, so I'm not sure whether we have the right ordering.
-> > Without it we should hit build failures from missing macro definitions.
-> >=20
-> > Have you had a chance to look over patch 5/8? Joel wasn't keen on its
-> > current form, so I would appreciate your input.
-> Oops backed this patch out.
->=20
-> Will look at 5/8.
->=20
-> Appreciate if you repost the remaining patches in the series based on
-> v4.9-rc2 once it's out, and I'll rebase the pinctrl tree onto that.
->=20
+Why do you plan to override the mode at boot time? Is this for firmware updates?
 
-Will do!
+We plan to move away from having the NOR flash accessible from both
+the host and the BMC for all platforms. There's no good way to
+indicate ownership, and the Linux mtd subsystem does not have a good
+way of relinquishing nor reestablishing control. For instance, there's
+no way to "unmount" the MTD device, and there's no way to force a
+re-scan of partitions if you modify the layout.
 
-Andrew
---=-t1RqGp4nYOPvSh0eD+WI
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+I think there are some issues with your approach that break
+pinctrl/pinmux that Andrew will highlight.
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+Cheers,
 
-iQIcBAABCgAGBQJYDVYyAAoJEJ0dnzgO5LT59k4P/3NGHk9ZZhq7eNziiG3ruKdm
-eeYbv+jXfX+RBYdv4Gtw4Z23eCEMgIXnuf0SwZeejDkF+uFwUXMYb295/3dEAtp+
-Qea0RZt0jCGhJms/kgHzOh7mtBJrcA0MirZYXBlURE8elOCnFpcOuyJ1WctJjoxw
-3+ChmKGLVFpBSTEto3P4Ux5VffVVYcv1J2A/PBPWNfNQX4SjhmJPS61PxHgInTAp
-VmRgLJQnqVxZY6dN2P8FQBLRvLWwpTTdWfPdokp61mWd8J14xmY33pqzMz41mB27
-LCtR4IKyA4kr2kZ772Xb5N23T0sVRsmX3IGIT051HUTn5l1yQdfA6NZCXByDMYhf
-+uD1X6CfnJ2Tm5vqYK2Rmfs+D3ipGFpjuEPpyfW4wrgoTbrW9GyknXu7Rx4xFRPD
-RckU4EN0u82q4Fqua5rjqDZ7EMq+iZBw9yWbcnnCwP5+061IrZwKi7VqvjoijFno
-wRDs/NoZxtghTg5dEzOn8oNvnCyNIyw6cOTn+AJqEmblnI/qsL/rpNDKoT2y5k7e
-lagWgHH3L/qt3cvjSmicDeyepCaHCICyEZZ5lSh02n1e28ir6fACbQQbrEGTpX8t
-U2TbHls/YDVv+Xknv9IOOX1t4KGh+0xNec5rgF4Grq2LJiAab1qmy35Vw4DGR62P
-gtAc25Oopt1QJ87U+cOI
-=Bf72
------END PGP SIGNATURE-----
+Joel
 
---=-t1RqGp4nYOPvSh0eD+WI--
+>
+> Aspeed 24XX/25XX support three interface modes for their SPI1 interface,
+> which can be configured via HW strap register. In the typical case of connecting
+> a host flash chip SPI1 interface:
+> - SPI master mode makes BMC the master to the host SPI flash
+> - SPI pass-through mode make whichever external SPI interface connected to SYSSPI
+>   be the master
+> - There are also "disable" and "debug" modes. Aspeed 25XX specified the debug
+>   mode is reserved though.
+>
+> In particular, SPI pass-through mode would enable an external SPI master to
+> directly program host SPI chip and possibly serve as an alternative way to LPC
+> for host CPU accessing SPI flash. I think by providing a sysfs handle, userspace
+> applications can have a flexible way to mux host SPI flash ownership between
+> BMC/external on the fly.
+>
+> Overriding the SPI mode at probe time can be useful to make sure 2500-smc flash
+> controller always identifies the flash chip and create /dev/mtd files correctly.
+>
+> I wrote the driver as a standalone misc driver for the ease of initial implementation.
+> There are other options such as merging the functionality into the SMC driver
+> itself, possibly enabled by optional device tree arguments/nodes, but I just want to
+> send the patches out first to gather comments on perceived usefulness of
+> the feature and how you think the driver should be constructed.
+>
+> Feedback greatly appreciated!
+>
+> Regards,
+> Kun
+>
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
