@@ -1,52 +1,52 @@
 Return-Path: <kunyi@google.com>
-Received: from mail-ua0-x235.google.com (mail-ua0-x235.google.com
- [IPv6:2607:f8b0:400c:c08::235])
+Received: from mail-ua0-x22f.google.com (mail-ua0-x22f.google.com
+ [IPv6:2607:f8b0:400c:c08::22f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t2lN80YQ7zDvK4
- for <openbmc@lists.ozlabs.org>; Tue, 25 Oct 2016 05:35:51 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t2q5G34qCzDvWr
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Oct 2016 08:23:13 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=gQ3U3gXx; 
+ unprotected) header.d=google.com header.i=@google.com header.b=MFFnYrvE; 
  dkim-atps=neutral
-Received: by mail-ua0-x235.google.com with SMTP id 90so18975806uan.2
- for <openbmc@lists.ozlabs.org>; Mon, 24 Oct 2016 11:35:51 -0700 (PDT)
+Received: by mail-ua0-x22f.google.com with SMTP id u14so5989793uau.7
+ for <openbmc@lists.ozlabs.org>; Mon, 24 Oct 2016 14:23:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=by9s4JZ50O381v0AQ+asl4wGrYw1iq3RPLZrVG+xV88=;
- b=gQ3U3gXx8AHuTuhjDl44nJ/R/iB6BbTamM3xYKXDk36yvWPPNxszfcqJn1NwwFA1S5
- LUPEmU5k7AV/bSYnmucHNp5PHmoiz2oKaLnc9BW9MT2FQC2KTEuROqrYpxctGwGPftre
- LQK2wryJ/7CP0QOHek1J0dK9PjOvmoL1hq351YcG54bdhGfNLjiyli3L/JmgK1ftkQKl
- yJAFl25K8Wkf5TRg65DskuaT6BDSfQNhMVsqWS+ORYdKhhhfLG1vk7SuaYubRFrikqsq
- VPXxUJZ9eloBQi5pj/IOVJJXakzkI8pZecjOGxLNCBT7zi7SYfXDCWKV6CPf0ulKCuDP
- 8uXA==
+ :cc; bh=kOLY+gHMdqRdy76IYr/xrTE1Y6UtayOaf2dn7GRhpcM=;
+ b=MFFnYrvEA7p4J3YKL2S1mZSI55gHv81HD3m62BRpgs8eXETiGtMIj8Nsbkm/hgyzYD
+ 52NIdvk/Jpnb4mSAQLrABHZgQtKhGGZZbMhb8feLlXq6BEeet0ytqRQ2PuteKo1t9kxo
+ 6/Z9CsRmnhsaPuORZcL+bDGpQ0ysWWyaLCmMQFu1jrVBNRTtFwYoyiu7ek+QljRvAAkQ
+ FIYYWATMONfcLOuSixXdkPS9mFiKyE7MJO2gWBwoqZ1AsspOjVmRoewDN3xu3INW6OZA
+ 2WCViAysdp14ANNun8RdCWBEk+A5AFgKgLF4G8f3keL8n3FHon9+wzuaHOJz6dD26kRO
+ oZ0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=by9s4JZ50O381v0AQ+asl4wGrYw1iq3RPLZrVG+xV88=;
- b=hPrV7fa4mqbIWwxwtpL1gvFKxtn0Mlrr5viDER5AWBpi/ZJHrc4HEBgpedDlWutHEM
- 7tmwiXVJREAmSkZRKSXTszU6y8bN+AziAM8cyYx6xCW0JC77G6/QFMU9oWnJlu7uSQcV
- IafBVV75DPrURYK3x8XXHxch0P7zwQpdbBZJQ9Ig1KP0nk1LN9q8LTPV+5hA6cpZZz2h
- hPHIJ7BdTAW1joa4/Earv3MBW4wcczxfVycY5demeQcU/yaodcSYNnIE+xR6hBE7iWQF
- R6vy0tizZB5ARuamJH3W3M2u5Mzk5femJ0C4BFGoRly1E4svmwuUzJuBtr2xpoyGLqpt
- sidQ==
-X-Gm-Message-State: ABUngvdciO6n7BXaTjZovFlxsOi4/S3WobM52OYz9M7KXxCy2cq/Zgm+HkmXTv8EYh7EJpmRpepZtSx0HQ9+eYFA
-X-Received: by 10.176.0.232 with SMTP id 95mr6188664uaj.32.1477334149289; Mon,
- 24 Oct 2016 11:35:49 -0700 (PDT)
+ bh=kOLY+gHMdqRdy76IYr/xrTE1Y6UtayOaf2dn7GRhpcM=;
+ b=DxAvtbAQr0ZVSrfBQyu/IIq21DhJhiJKrTHd/t69/TgCgTrmsbF01Hb9vFDvPgRwJE
+ YdfiQ3QzLTvVw2KI7336CuWyg/fPguMOjGTmz9BdTaqv/N+iKpoZKjRp8KH8LxJ55rE6
+ eWPTfEONBB/z7XX3seDw8Yi02blfQqKfPROSSCmrdTYy9dgCTtsT1onvDL0njvqwFDc1
+ NblDuzLwQbyEQlcbTo3dGh9w5PSSIRRfjod005/Eh466rx33qHhLtf9sioPIZqY3c3tE
+ 9P4dOr5GXr01PkwJq0RL0owj2LAEoYD+TkHyX84H1VGe6FoNE3Hc5YTD42YQFzSjp+6+
+ TOCA==
+X-Gm-Message-State: ABUngvdcV6gblonbwIkMc+jlLtouowf5a6XjXbAhADQX/frKxc8cHEABYkgGlpHEPMG7X/3d6XYPxLLHgMZaalO3
+X-Received: by 10.176.65.167 with SMTP id 36mr4164511uap.75.1477344191191;
+ Mon, 24 Oct 2016 14:23:11 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.176.85.222 with HTTP; Mon, 24 Oct 2016 11:35:28 -0700 (PDT)
-In-Reply-To: <CACPK8XfvnDMEpjZspR7mH-xusANYsvmhC4Y8PD0jOagXRMz=+w@mail.gmail.com>
+Received: by 10.176.85.222 with HTTP; Mon, 24 Oct 2016 14:22:50 -0700 (PDT)
+In-Reply-To: <1477278307.6373.52.camel@aj.id.au>
 References: <1477097158-139095-1-git-send-email-kunyi@google.com>
- <CACPK8XfvnDMEpjZspR7mH-xusANYsvmhC4Y8PD0jOagXRMz=+w@mail.gmail.com>
+ <1477278307.6373.52.camel@aj.id.au>
 From: Kun Yi <kunyi@google.com>
-Date: Mon, 24 Oct 2016 11:35:28 -0700
-Message-ID: <CAGMNF6UeeS=dg5UUywiGLod1X4Q9AEuJ5pUdx=bRNuat1bU=ig@mail.gmail.com>
+Date: Mon, 24 Oct 2016 14:22:50 -0700
+Message-ID: <CAGMNF6XdMYX3ZTxtna7ueJcBfpvi=aEF8kaStJgz_pwY0jP2XQ@mail.gmail.com>
 Subject: Re: [RFC 0/2] spi: aspeed: SPI1 mode control driver enabling sysfs
  control
-To: Joel Stanley <joel@jms.id.au>
+To: Andrew Jeffery <andrew@aj.id.au>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Brendan Higgins <brendanhiggins@google.com>
-Content-Type: multipart/alternative; boundary=001a113e01f22f2496053fa0a976
+ Brendan Higgins <brendanhiggins@google.com>, Joel Stanley <joel@jms.id.au>
+Content-Type: multipart/alternative; boundary=94eb2c05543aba6f23053fa2ff6d
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,19 +58,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Oct 2016 18:35:54 -0000
+X-List-Received-Date: Mon, 24 Oct 2016 21:23:15 -0000
 
---001a113e01f22f2496053fa0a976
+--94eb2c05543aba6f23053fa2ff6d
 Content-Type: text/plain; charset=UTF-8
 
-Hi Joel, thanks for commenting!
+Hi Andrew,
 
+One question I have though: I think pinmux/pinctrl driver is supposed to be
+a boot time static pin configure module and parses DT and configures
+accordingly. Is it possible to use pinmux to dynamically modify the pin
+states? This is essentially the problem I'm trying to deal with.
 
-On Sun, Oct 23, 2016 at 6:59 PM, Joel Stanley <joel@jms.id.au> wrote:
+Thanks,
+Kun
 
-> Hell Kun,
+On Sun, Oct 23, 2016 at 8:05 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+
+> Hi Kun,
 >
-> On Sat, Oct 22, 2016 at 11:15 AM, Kun Yi <kunyi@google.com> wrote:
+> On Fri, 2016-10-21 at 17:45 -0700, Kun Yi wrote:
 > > Hello,
 > >
 > > I'm looking for feedback on a simple Aspeed SPI1 mode control driver
@@ -79,54 +86,6 @@ On Sun, Oct 23, 2016 at 6:59 PM, Joel Stanley <joel@jms.id.au> wrote:
 > > 2. Optionally override the SPI1 mode at probe if "start_mode" is
 > configured in
 > >    device tree.
->
-> Why do you plan to override the mode at boot time? Is this for firmware
-> updates?
->
-
-More important here is the ability to change the SPI mode at *run time*.
-One use case is for platforms without eSPI/LPC support. When host CPU is
-booting and BIOS needs to read SPI chip, the most straightforward way for
-BMC to allow host access to the SPI chip is to toggle to SPI pass-through
-mode. Thus the core purpose of the driver is for enabling SPI pass-through
-mode on demand.
-
-Overriding the SPI mode at boot time is only to make sure the host SPI chip
-can be recognized correctly by the SMC driver. Because currently pinctrl
-treats HW strap as read-only, mis-configured HW strap pins will cause SMC
-driver to fail reading SPI flash ID and not register it in MTD subsystem,
-and there is no easy way to probe again later. Though enabling pinctrl to
-set HW strap register might be a better approach as Andrew mentioned.
-
-
-> We plan to move away from having the NOR flash accessible from both
-> the host and the BMC for all platforms. There's no good way to
-> indicate ownership, and the Linux mtd subsystem does not have a good
-> way of relinquishing nor reestablishing control. For instance, there's
-> no way to "unmount" the MTD device, and there's no way to force a
-> re-scan of partitions if you modify the layout.
->
-
-I saw some discussions related on IRC but wasn't clear about the details.
-Could you elaborate a little? Do you plan to only allow BMC daemons to
-access both host/BMC NOR flashes?
-
-I got the impression that mtd will stick around for now. Do we have a time
-frame for deprecating that?
-
-
-> I think there are some issues with your approach that break
-> pinctrl/pinmux that Andrew will highlight.
->
-
-Sure I will reply to those in Andrew's email.
-
-
->
-> Cheers,
->
-> Joel
->
 > >
 > > Aspeed 24XX/25XX support three interface modes for their SPI1 interface,
 > > which can be configured via HW strap register. In the typical case of
@@ -163,17 +122,22 @@ Sure I will reply to those in Andrew's email.
 > just want to
 > > send the patches out first to gather comments on perceived usefulness of
 > > the feature and how you think the driver should be constructed.
-> >
-> > Feedback greatly appreciated!
-> >
-> > Regards,
-> > Kun
-> >
-> > _______________________________________________
-> > openbmc mailing list
-> > openbmc@lists.ozlabs.org
-> > https://lists.ozlabs.org/listinfo/openbmc
 >
+> At least one issue I have with the implementation is that the strap
+> register is currently "owned" by the pinctrl driver, but the patch as
+> it stands has no interaction with this subsystem. Arguably the pinctrl
+> driver is where this should be implemented, as it encapsulates pinmux
+> whose aim is to manage the functionality made available on the SoC's
+> pins.
+>
+> Currently the pinctrl driver treats the strapping register as read-
+> only. That should probably change in light of what you're trying to do
+> here, though only to the extent of allowing the SPI mode switch.
+>
+> Cheers,
+>
+> Andrew
+
 
 
 
@@ -181,19 +145,22 @@ Sure I will reply to those in Andrew's email.
 Regards,
 Kun
 
---001a113e01f22f2496053fa0a976
+--94eb2c05543aba6f23053fa2ff6d
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Hi Joel, thanks for commenting!<div><br><div class=3D"gmai=
-l_extra"><br><div class=3D"gmail_quote">On Sun, Oct 23, 2016 at 6:59 PM, Jo=
-el Stanley <span dir=3D"ltr">&lt;<a href=3D"mailto:joel@jms.id.au" target=
-=3D"_blank">joel@jms.id.au</a>&gt;</span> wrote:<br><blockquote class=3D"gm=
-ail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,=
-204,204);padding-left:1ex">Hell Kun,<br>
-<span class=3D"m_-5664281760833887805m_-1177382596902210427gmail-"><br>
-On Sat, Oct 22, 2016 at 11:15 AM, Kun Yi &lt;<a href=3D"mailto:kunyi@google=
-.com" target=3D"_blank">kunyi@google.com</a>&gt; wrote:<br>
+<div dir=3D"ltr">Hi Andrew,<div><br></div><div>One question I have though: =
+I think pinmux/pinctrl driver is supposed to be a boot time static pin conf=
+igure module and parses DT and configures accordingly. Is it possible to us=
+e pinmux to dynamically modify the pin states? This is essentially the prob=
+lem I&#39;m trying to deal with.</div><div><br></div><div>Thanks,</div><div=
+>Kun=C2=A0</div></div><div class=3D"gmail_extra"><br><div class=3D"gmail_qu=
+ote">On Sun, Oct 23, 2016 at 8:05 PM, Andrew Jeffery <span dir=3D"ltr">&lt;=
+<a href=3D"mailto:andrew@aj.id.au" target=3D"_blank">andrew@aj.id.au</a>&gt=
+;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 =
+.8ex;border-left:1px #ccc solid;padding-left:1ex">Hi Kun,<br>
+<div><div class=3D"h5"><br>
+On Fri, 2016-10-21 at 17:45 -0700, Kun Yi wrote:<br>
 &gt; Hello,<br>
 &gt;<br>
 &gt; I&#39;m looking for feedback on a simple Aspeed SPI1 mode control driv=
@@ -201,51 +168,8 @@ er that does two things mainly:<br>
 &gt; 1. Expose a sysfs interface for userland control of SPI1 interface.<br=
 >
 &gt; 2. Optionally override the SPI1 mode at probe if &quot;start_mode&quot=
-; is configured in<br>
-&gt;=C2=A0 =C2=A0 device tree.<br>
-<br>
-</span>Why do you plan to override the mode at boot time? Is this for firmw=
-are updates?<br></blockquote><div><br></div><div>More important here is the=
- ability to change the SPI mode at *run time*. One use case is for platform=
-s without eSPI/LPC support. When host CPU is booting and BIOS needs to read=
- SPI chip, the most straightforward way for BMC to allow host access to the=
- SPI chip is to toggle to SPI pass-through mode. Thus the core purpose of t=
-he driver is for enabling SPI pass-through mode on demand.<br></div><div><b=
-r></div><div>Overriding the SPI mode at boot time is only to make sure the =
-host SPI chip can be recognized correctly by the SMC driver. Because curren=
-tly pinctrl treats HW strap as read-only, mis-configured HW strap pins will=
- cause SMC driver to fail reading SPI flash ID and not register it in MTD s=
-ubsystem, and there is no easy way to probe again later. Though enabling pi=
-nctrl to set HW strap register might be a better approach as Andrew mention=
-ed.</div><div><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
-px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-We plan to move away from having the NOR flash accessible from both<br>
-the host and the BMC for all platforms. There&#39;s no good way to<br>
-indicate ownership, and the Linux mtd subsystem does not have a good<br>
-way of relinquishing nor reestablishing control. For instance, there&#39;s<=
-br>
-no way to &quot;unmount&quot; the MTD device, and there&#39;s no way to for=
-ce a<br>
-re-scan of partitions if you modify the layout.<br></blockquote><div><br></=
-div><div>I saw some discussions related on IRC but wasn&#39;t clear about t=
-he details. Could you elaborate a little? Do you plan to only allow BMC dae=
-mons to access both host/BMC NOR flashes?</div><div><br></div><div>I got th=
-e impression that mtd will stick around for now. Do we have a time frame fo=
-r deprecating that?</div><div><br></div><blockquote class=3D"gmail_quote" s=
-tyle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pad=
-ding-left:1ex">
-<br>
-I think there are some issues with your approach that break<br>
-pinctrl/pinmux that Andrew will highlight.<br></blockquote><div><br></div><=
-div>Sure I will reply to those in Andrew&#39;s email.</div><div>=C2=A0</div=
-><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border=
--left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-Cheers,<br>
-<br>
-Joel<br>
-<span class=3D"m_-5664281760833887805m_-1177382596902210427gmail-"><br>
+; is configured in=C2=A0<br>
+&gt; =C2=A0=C2=A0=C2=A0device tree.<br>
 &gt;<br>
 &gt; Aspeed 24XX/25XX support three interface modes for their SPI1 interfac=
 e,<br>
@@ -254,11 +178,11 @@ connecting<br>
 &gt; a host flash chip SPI1 interface:<br>
 &gt; - SPI master mode makes BMC the master to the host SPI flash<br>
 &gt; - SPI pass-through mode make whichever external SPI interface connecte=
-d to SYSSPI<br>
-&gt;=C2=A0 =C2=A0be the master<br>
+d to SYSSPI=C2=A0<br>
+&gt; =C2=A0 be the master<br>
 &gt; - There are also &quot;disable&quot; and &quot;debug&quot; modes. Aspe=
 ed 25XX specified the debug<br>
-&gt;=C2=A0 =C2=A0mode is reserved though.<br>
+&gt; =C2=A0 mode is reserved though.<br>
 &gt;<br>
 &gt; In particular, SPI pass-through mode would enable an external SPI mast=
 er to<br>
@@ -267,7 +191,7 @@ y to LPC<br>
 &gt; for host CPU accessing SPI flash. I think by providing a sysfs handle,=
  userspace<br>
 &gt; applications can have a flexible way to mux host SPI flash ownership b=
-etween<br>
+etween=C2=A0<br>
 &gt; BMC/external on the fly.<br>
 &gt;<br>
 &gt; Overriding the SPI mode at probe time can be useful to make sure 2500-=
@@ -284,21 +208,27 @@ I just want to<br>
 &gt; send the patches out first to gather comments on perceived usefulness =
 of<br>
 &gt; the feature and how you think the driver should be constructed.<br>
-&gt;<br>
-&gt; Feedback greatly appreciated!<br>
-&gt;<br>
-&gt; Regards,<br>
-&gt; Kun<br>
-&gt;<br>
-</span>&gt; ______________________________<wbr>_________________<br>
-&gt; openbmc mailing list<br>
-&gt; <a href=3D"mailto:openbmc@lists.ozlabs.org" target=3D"_blank">openbmc@=
-lists.ozlabs.org</a><br>
-&gt; <a href=3D"https://lists.ozlabs.org/listinfo/openbmc" rel=3D"noreferre=
-r" target=3D"_blank">https://lists.ozlabs.org/listi<wbr>nfo/openbmc</a><br>
-</blockquote></div><br><br clear=3D"all"><div><br></div>-- <br><div class=
-=3D"m_-5664281760833887805m_-1177382596902210427gmail_signature"><div dir=
-=3D"ltr">Regards,<div>Kun</div></div></div>
-</div></div></div>
+<br>
+</div></div>At least one issue I have with the implementation is that the s=
+trap<br>
+register is currently &quot;owned&quot; by the pinctrl driver, but the patc=
+h as<br>
+it stands has no interaction with this subsystem. Arguably the pinctrl<br>
+driver is where this should be implemented, as it encapsulates pinmux<br>
+whose aim is to manage the functionality made available on the SoC&#39;s<br=
+>
+pins.<br>
+<br>
+Currently the pinctrl driver treats the strapping register as read-<br>
+only. That should probably change in light of what you&#39;re trying to do<=
+br>
+here, though only to the extent of allowing the SPI mode switch.<br>
+<br>
+Cheers,<br>
+<br>
+Andrew</blockquote></div><br><br clear=3D"all"><div><br></div>-- <br><div c=
+lass=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr=
+">Regards,<div>Kun</div></div></div>
+</div>
 
---001a113e01f22f2496053fa0a976--
+--94eb2c05543aba6f23053fa2ff6d--
