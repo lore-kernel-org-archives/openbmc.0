@@ -1,55 +1,54 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
- [IPv6:2607:f8b0:4003:c06::241])
+Return-Path: <kunyi@google.com>
+Received: from mail-ua0-x22e.google.com (mail-ua0-x22e.google.com
+ [IPv6:2607:f8b0:400c:c08::22e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t3Bp41PCxzDvk1
- for <openbmc@lists.ozlabs.org>; Tue, 25 Oct 2016 23:11:24 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t3LLq4GmvzDvk8
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Oct 2016 04:51:47 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=aCqdQYLX; 
+ unprotected) header.d=google.com header.i=@google.com header.b=H4wBHEJ3; 
  dkim-atps=neutral
-Received: by mail-oi0-x241.google.com with SMTP id n202so3162739oig.2
- for <openbmc@lists.ozlabs.org>; Tue, 25 Oct 2016 05:11:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=OljKHRlnHGnEvRx4sM5P+IzeGA4aHuxzW6DXyDWMubE=;
- b=aCqdQYLX1pgCF0LO7CxlRHuSgh08ciYZMgx7rCaiL4CdE8/+oL1/OIVi2nfwf2kVsS
- qUrzVM+Ooz0wGSFEGoE1K0fPuUAou11FRxWKYsGj1172o+VgOSLCWSbe0bpkdsRQCRw8
- 1IA/LcdDC8SgUQ9F5W4PcxNarT4liRhbgJKdMTXoYEdVyf4OzbP/4241d3dfY+phb6SZ
- N5m9dxJIQFSLmtzP7EDFZ0WSQJqRu3vWBdWUejYJ1fB/aDAyWlKtkz+9HcwRYitSHvMR
- R5VbPtrzZAG5Emfk7+xT4j1DCKY9UGvm0vi/VH8zz7pFzcGdhLQYBREpTmaFce7vdUTJ
- EHwA==
+Received: by mail-ua0-x22e.google.com with SMTP id i31so2129170uai.1
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Oct 2016 10:51:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=AAv+qovgFkGUK7Ah604bUU7DE5HAWJroxx02fiOBUCA=;
+ b=H4wBHEJ3t/XgWDpU72m0WlzAircTCAtIdiAOU6BoCdhSbrgfx/89TBArrvpviRylaJ
+ jc4lbWxGoyRgEO1kCsmlkPRHUOI1oUtSiNR8pBc7pE1zMHiZwQKAoHBJZBCae5GKx0JK
+ gdhQYNf/23pNRflqFxJmZp88HML8dLkVbS096/Bu7mimsMDPrMeNodbmDE5bOZ0WmU7u
+ 0zq7DzBRjqOTHK9pOHj/Umzso0QO2UP/n4vP1gv0JDngggm4DmLamR4W69um4VwUHChb
+ UqngB7Tj61g1re000U2mxdoNieaYaVHfr4IFjMZDLMBAUkuBZUu84/IgRLQndUYIEXCL
+ 7Prg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=OljKHRlnHGnEvRx4sM5P+IzeGA4aHuxzW6DXyDWMubE=;
- b=ITgNvlmL54s+MYFnq41ddD82Iruit5XUJCTt1Gp0DUAKJfczlRpCHhvm+AwAJeAAFu
- JMjUvC0WUg8EGLOfeJCg+kWZeo70dytGZ4pwYiOM3p7Ou3JctM3rOu8UtNeYcufzmyQ5
- RcVks1akZtxr2YPSNMYux/uMsoTt25vmx79O3s1ZJoMZWVvdYOVMSuy04tv9Cxzw4kQR
- 5DUJue1OMyHn5AMJlZYDlonHgG7tW3mFvI1DGcQPTsKUpTSon+Xb1/vCMDgFZa7xAaGJ
- JKMcwdL8PbljA6jPlKwDGhcJCXYe0AigOx9nuDjFZB6HLrFMHAbVjqN+3P7bCV8i3sWK
- 86Gg==
-X-Gm-Message-State: AA6/9RlZ1KWofVJHUHPLuW/jRPnvYBKRuAQTDMV/WTBO2PgmIG8lom2l7Zf4LlAZ2iDJn6q7bv6iB/X4k3Q6WQ==
-X-Received: by 10.202.106.198 with SMTP id f189mr23445386oic.109.1477397482235; 
- Tue, 25 Oct 2016 05:11:22 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=AAv+qovgFkGUK7Ah604bUU7DE5HAWJroxx02fiOBUCA=;
+ b=EpJsG8p0lKjd76kN167vSY/VY1J4JwLcOzKa0tA+1y2CrgjA1uPYlg+YIM+ClPqkXm
+ FufKwvRJD8wAZfVFSlwrWoDennzrN3FU5MvRNsJ9FHUVtantbpy1EbrYPqDpeT9Vi3kz
+ Aofpw839VxPmTqy/ndg+aKepjTt5ep6VsUch4jOfQs3ghFpbh78mEeNfF//Crh0YlrnF
+ x0iegEYuZo7F2G1g62p/YNgsNNJCGUEZo9hwSdL08LSO7VUeNV6wOztj+oGpeCrWgntI
+ 50Nb7J1x1qWli5BpfkOsgN3TBTMLcEGcpRCR/SUa5iwJuTMK6lMAUuh7dfDZwuae55M0
+ Bqzg==
+X-Gm-Message-State: ABUngvfyEQ1CWeY6EFdH3Fk1tCwaSnypINgWNgNBvhs7ZW41GRrcru15lttrsOclSrrA+zRJ6NH0Ok+Bpo9hwi4o
+X-Received: by 10.176.82.161 with SMTP id v30mr14402650uav.23.1477417904619;
+ Tue, 25 Oct 2016 10:51:44 -0700 (PDT)
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.182.107.226 with HTTP; Tue, 25 Oct 2016 05:11:01 -0700 (PDT)
-In-Reply-To: <d2ad5ccb-90b0-b5fa-1d70-f0bd6757ee1e@kaod.org>
-References: <1477039467-25076-1-git-send-email-clg@kaod.org>
- <d2ad5ccb-90b0-b5fa-1d70-f0bd6757ee1e@kaod.org>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 25 Oct 2016 22:41:01 +1030
-X-Google-Sender-Auth: 3qFZVg8rOOTtrHDmZOIVF5zxdQ4
-Message-ID: <CACPK8Xc74MxOwNG83W-TFvJcMATAUV=ENmT7At_oZ7MWNxGrig@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7] mtd: spi-nor: add SECT_4K to mx25l25635e
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Received: by 10.176.85.222 with HTTP; Tue, 25 Oct 2016 10:51:22 -0700 (PDT)
+In-Reply-To: <1477351614.6373.64.camel@aj.id.au>
+References: <1477097158-139095-1-git-send-email-kunyi@google.com>
+ <1477278307.6373.52.camel@aj.id.au>
+ <CAGMNF6XdMYX3ZTxtna7ueJcBfpvi=aEF8kaStJgz_pwY0jP2XQ@mail.gmail.com>
+ <1477351614.6373.64.camel@aj.id.au>
+From: Kun Yi <kunyi@google.com>
+Date: Tue, 25 Oct 2016 10:51:22 -0700
+Message-ID: <CAGMNF6UsbQQoJZtXGoJdQRxBFb0v9oAMMAHFhXsHp49MDmHfZg@mail.gmail.com>
+Subject: Re: [RFC 0/2] spi: aspeed: SPI1 mode control driver enabling sysfs
+ control
+To: Andrew Jeffery <andrew@aj.id.au>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Cyril Bur <cyril.bur@au1.ibm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+ Brendan Higgins <brendanhiggins@google.com>, Joel Stanley <joel@jms.id.au>
+Content-Type: multipart/alternative; boundary=94eb2c192512644914053fb42986
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,25 +60,96 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Oct 2016 12:11:24 -0000
+X-List-Received-Date: Tue, 25 Oct 2016 17:51:48 -0000
 
-On Fri, Oct 21, 2016 at 8:22 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
-:
-> On 10/21/2016 10:44 AM, C=C3=A9dric Le Goater wrote:
->> The current setting is to erase blocks (64KB) but the chip supports
->> sector (4KB) erase and it is currently a problem to erase "partitions"
->> which are smaller than the block size (64KB), the GUARD partition for
->> instance.
+--94eb2c192512644914053fb42986
+Content-Type: text/plain; charset=UTF-8
+
+Thanks Andrew that was helpful! I will look into pinctrl and FMC driver
+then.
+
+Thanks,
+Kun
+
+On Mon, Oct 24, 2016 at 4:26 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+
+> On Mon, 2016-10-24 at 14:22 -0700, Kun Yi wrote:
+> > Hi Andrew,
+> >
+> > One question I have though: I think pinmux/pinctrl driver is supposed
+> > to be a boot time static pin configure module and parses DT and
+> > configures accordingly. Is it possible to use pinmux to dynamically
+> > modify the pin states?
 >
-> There are few other macronixs that would need a similar change but
-> this has an impact on existing jffs2 filesystems on the flash. I am
-> not sure we will be able to merge this change in mainline.
+> Yes, see "Runtime pinmuxing" here (at the bottom of the document):
+>
+> https://git.kernel.org/cgit/linux/kernel/git/torvalds/
+> linux.git/tree/Documentation/pinctrl.txt
+>
+> So you'd need to patch the FMC driver that Milton and Cedric have been
+> working on to (de)activate pin states, likely at probe() and remove()
+> (this implies you'll need to somehow orchestrate a remove/switch,
+> switch/probe dance). Alternatively, provide a way to suspend operations
+> on the MTD and switch the pins between master and passthru in the FMC
+> driver. Some complications are that this functionality is only
+> available for SPI1, and you might need to do a bit of work to guarantee
+> sensible outcomes for operations that might span the mode switch.
+>
+> Cheers,
+>
+> Andrew
 
-We reverted this one in [1] as it was breaking JFFS2 [2] as you predicted.
 
-[1] https://gerrit.openbmc-project.xyz/#/c/892/
-[2] https://github.com/openbmc/openbmc/issues/701
 
-Cheers,
 
-Joel
+-- 
+Regards,
+Kun
+
+--94eb2c192512644914053fb42986
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Thanks Andrew that was helpful! I will look into pinctrl a=
+nd FMC driver then.<div><br></div><div>Thanks,</div><div>Kun</div></div><di=
+v class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Mon, Oct 24, 2016=
+ at 4:26 PM, Andrew Jeffery <span dir=3D"ltr">&lt;<a href=3D"mailto:andrew@=
+aj.id.au" target=3D"_blank">andrew@aj.id.au</a>&gt;</span> wrote:<br><block=
+quote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc=
+ solid;padding-left:1ex"><span class=3D"">On Mon, 2016-10-24 at 14:22 -0700=
+, Kun Yi wrote:<br>
+&gt; Hi Andrew,<br>
+&gt;<br>
+&gt; One question I have though: I think pinmux/pinctrl driver is supposed<=
+br>
+&gt; to be a boot time static pin configure module and parses DT and<br>
+&gt; configures accordingly. Is it possible to use pinmux to dynamically<br=
+>
+&gt; modify the pin states?<br>
+<br>
+</span>Yes, see &quot;Runtime pinmuxing&quot; here (at the bottom of the do=
+cument):<br>
+<br>
+<a href=3D"https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/=
+tree/Documentation/pinctrl.txt" rel=3D"noreferrer" target=3D"_blank">https:=
+//git.kernel.org/cgit/<wbr>linux/kernel/git/torvalds/<wbr>linux.git/tree/Do=
+cumentation/<wbr>pinctrl.txt</a><br>
+<br>
+So you&#39;d need to patch the FMC driver that Milton and Cedric have been<=
+br>
+working on to (de)activate pin states, likely at probe() and remove()<br>
+(this implies you&#39;ll need to somehow orchestrate a remove/switch,<br>
+switch/probe dance). Alternatively, provide a way to suspend operations<br>
+on the MTD and switch the pins between master and passthru in the FMC<br>
+driver. Some complications are that this functionality is only<br>
+available for SPI1, and you might need to do a bit of work to guarantee<br>
+sensible outcomes for operations that might span the mode switch.<br>
+<br>
+Cheers,<br>
+<br>
+Andrew</blockquote></div><br><br clear=3D"all"><div><br></div>-- <br><div c=
+lass=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr=
+">Regards,<div>Kun</div></div></div>
+</div>
+
+--94eb2c192512644914053fb42986--
