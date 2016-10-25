@@ -1,54 +1,45 @@
-Return-Path: <kunyi@google.com>
-Received: from mail-ua0-x22e.google.com (mail-ua0-x22e.google.com
- [IPv6:2607:f8b0:400c:c08::22e])
+Return-Path: <yuenn@google.com>
+Received: from mail-wm0-x235.google.com (mail-wm0-x235.google.com
+ [IPv6:2a00:1450:400c:c09::235])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t3LLq4GmvzDvk8
- for <openbmc@lists.ozlabs.org>; Wed, 26 Oct 2016 04:51:47 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t3Njn2rRkzDvHq
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Oct 2016 06:38:20 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=H4wBHEJ3; 
+ unprotected) header.d=google.com header.i=@google.com header.b=J01+CvTZ; 
  dkim-atps=neutral
-Received: by mail-ua0-x22e.google.com with SMTP id i31so2129170uai.1
- for <openbmc@lists.ozlabs.org>; Tue, 25 Oct 2016 10:51:47 -0700 (PDT)
+Received: by mail-wm0-x235.google.com with SMTP id c78so28373728wme.0
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Oct 2016 12:38:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=AAv+qovgFkGUK7Ah604bUU7DE5HAWJroxx02fiOBUCA=;
- b=H4wBHEJ3t/XgWDpU72m0WlzAircTCAtIdiAOU6BoCdhSbrgfx/89TBArrvpviRylaJ
- jc4lbWxGoyRgEO1kCsmlkPRHUOI1oUtSiNR8pBc7pE1zMHiZwQKAoHBJZBCae5GKx0JK
- gdhQYNf/23pNRflqFxJmZp88HML8dLkVbS096/Bu7mimsMDPrMeNodbmDE5bOZ0WmU7u
- 0zq7DzBRjqOTHK9pOHj/Umzso0QO2UP/n4vP1gv0JDngggm4DmLamR4W69um4VwUHChb
- UqngB7Tj61g1re000U2mxdoNieaYaVHfr4IFjMZDLMBAUkuBZUu84/IgRLQndUYIEXCL
- 7Prg==
+ h=mime-version:from:date:message-id:subject:to;
+ bh=bNd6dZGLHyoxgLXCoRTmMG9v5Yo4CiHvYvTMx7qHmB4=;
+ b=J01+CvTZy1aYtybAYW4ksDT/dQxKXSMJbdmrOrFgENEY4GkGGvIfzulxjOPNH2ctT9
+ OwL1FnjFsdL8HRk+K/56Ko1/8x9NWNYTHsT/Zr15F5aaNH2XN5CJ6oQNrVyZ7dgb82p9
+ folfX81aF1jqNUBhSggVv8AzRj/BLalnaelYLf/exALNMZ9szSPbhSiuPtVhlxufI4CR
+ fsuLxFxRTH0cuSTbsAaRHE6yRQEp0FtGftoFEpmsz7odCmJfp+Otzv1jPOV8uMvYysUl
+ w4zGi69VxBWXvlg9xOSBxtdqbTlw/3aDARiFVSM8rS0C3S6qB0kvDTn541C+FW8sSaSc
+ y7WQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=AAv+qovgFkGUK7Ah604bUU7DE5HAWJroxx02fiOBUCA=;
- b=EpJsG8p0lKjd76kN167vSY/VY1J4JwLcOzKa0tA+1y2CrgjA1uPYlg+YIM+ClPqkXm
- FufKwvRJD8wAZfVFSlwrWoDennzrN3FU5MvRNsJ9FHUVtantbpy1EbrYPqDpeT9Vi3kz
- Aofpw839VxPmTqy/ndg+aKepjTt5ep6VsUch4jOfQs3ghFpbh78mEeNfF//Crh0YlrnF
- x0iegEYuZo7F2G1g62p/YNgsNNJCGUEZo9hwSdL08LSO7VUeNV6wOztj+oGpeCrWgntI
- 50Nb7J1x1qWli5BpfkOsgN3TBTMLcEGcpRCR/SUa5iwJuTMK6lMAUuh7dfDZwuae55M0
- Bqzg==
-X-Gm-Message-State: ABUngvfyEQ1CWeY6EFdH3Fk1tCwaSnypINgWNgNBvhs7ZW41GRrcru15lttrsOclSrrA+zRJ6NH0Ok+Bpo9hwi4o
-X-Received: by 10.176.82.161 with SMTP id v30mr14402650uav.23.1477417904619;
- Tue, 25 Oct 2016 10:51:44 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=bNd6dZGLHyoxgLXCoRTmMG9v5Yo4CiHvYvTMx7qHmB4=;
+ b=Shh5x5k2IDG12LJ/m3AyFPMxH1PsKonXhhF72pRBvHUkoLGJb30586god7rOwft9AO
+ lrWsyU702SbGq2B+Hdye4SDopFB4r81cPureXHW527+FUwTx+S+DpWDCvppeRY/0uIkp
+ Hc7y3v3npGRuWKKj7A8enqVRz04RnHl2CJ2c/s4IP/ue/5ioq1BQFTXVv/ZZlXeyoJIH
+ JraURMY7oj8M22A6KIZUxr5+Tfz8j99Ez7f+iKPWSj3UYibZcLBJlU674DhwikufDvZn
+ Kz6ycWtB7lUpy5rgGwG6x7rNkr6GSrbDRCSSg5K/+k7sJoXo4yDqgNxOatzNZXAR7Hqb
+ 8LKA==
+X-Gm-Message-State: ABUngvdEoaTy/+CHOFDACQzrrZ7B/27IafBQHT3vKupmNqM/0is+b2ZLm/r6k3OWzk5+TCCyLbi4hiZnSltkqtxh
+X-Received: by 10.28.30.3 with SMTP id e3mr5020268wme.40.1477424295318; Tue,
+ 25 Oct 2016 12:38:15 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.176.85.222 with HTTP; Tue, 25 Oct 2016 10:51:22 -0700 (PDT)
-In-Reply-To: <1477351614.6373.64.camel@aj.id.au>
-References: <1477097158-139095-1-git-send-email-kunyi@google.com>
- <1477278307.6373.52.camel@aj.id.au>
- <CAGMNF6XdMYX3ZTxtna7ueJcBfpvi=aEF8kaStJgz_pwY0jP2XQ@mail.gmail.com>
- <1477351614.6373.64.camel@aj.id.au>
-From: Kun Yi <kunyi@google.com>
-Date: Tue, 25 Oct 2016 10:51:22 -0700
-Message-ID: <CAGMNF6UsbQQoJZtXGoJdQRxBFb0v9oAMMAHFhXsHp49MDmHfZg@mail.gmail.com>
-Subject: Re: [RFC 0/2] spi: aspeed: SPI1 mode control driver enabling sysfs
- control
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Brendan Higgins <brendanhiggins@google.com>, Joel Stanley <joel@jms.id.au>
-Content-Type: multipart/alternative; boundary=94eb2c192512644914053fb42986
+Received: by 10.28.54.149 with HTTP; Tue, 25 Oct 2016 12:37:34 -0700 (PDT)
+From: Nancy Yuen <yuenn@google.com>
+Date: Tue, 25 Oct 2016 12:37:34 -0700
+Message-ID: <CADfYTpGhjpJrghBk9GUw_Epi=buw_TWfhAkTr=OzmZrFvfQcSg@mail.gmail.com>
+Subject: Re: Merging rights
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary=001a114b35084e6e6e053fb5a6c5
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,96 +51,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Oct 2016 17:51:48 -0000
+X-List-Received-Date: Tue, 25 Oct 2016 19:38:22 -0000
 
---94eb2c192512644914053fb42986
+--001a114b35084e6e6e053fb5a6c5
 Content-Type: text/plain; charset=UTF-8
 
-Thanks Andrew that was helpful! I will look into pinctrl and FMC driver
-then.
+I'd like to be added as well.  I can help with changes coming via Google.
 
-Thanks,
-Kun
 
-On Mon, Oct 24, 2016 at 4:26 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-
-> On Mon, 2016-10-24 at 14:22 -0700, Kun Yi wrote:
-> > Hi Andrew,
-> >
-> > One question I have though: I think pinmux/pinctrl driver is supposed
-> > to be a boot time static pin configure module and parses DT and
-> > configures accordingly. Is it possible to use pinmux to dynamically
-> > modify the pin states?
+> Date: Thu, 20 Oct 2016 12:13:49 +1030
+> From: Joel Stanley <joel@jms.id.au>
+> To: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Patrick Williams
+>         <patrick@stwcx.xyz>
+> Subject: Merging rights
+> Message-ID:
+>         <CACPK8Xe12uXO+YfxS_fvwd=4RqBsS_M1ahj9KD=sv9ERMgVOrA@mail.
+> gmail.com>
+> Content-Type: text/plain; charset=UTF-8
 >
-> Yes, see "Runtime pinmuxing" here (at the bottom of the document):
+> Hello Patrick,
 >
-> https://git.kernel.org/cgit/linux/kernel/git/torvalds/
-> linux.git/tree/Documentation/pinctrl.txt
+> I've had this patch under review for a few days. It's been sitting at
+> +3 for about 5 days now, but I can't commit it as I don't have
+> permission.
 >
-> So you'd need to patch the FMC driver that Milton and Cedric have been
-> working on to (de)activate pin states, likely at probe() and remove()
-> (this implies you'll need to somehow orchestrate a remove/switch,
-> switch/probe dance). Alternatively, provide a way to suspend operations
-> on the MTD and switch the pins between master and passthru in the FMC
-> driver. Some complications are that this functionality is only
-> available for SPI1, and you might need to do a bit of work to guarantee
-> sensible outcomes for operations that might span the mode switch.
+>  https://gerrit.openbmc-project.xyz/#/c/762/
+>
+> In light of this I think we need more users with permission to commit
+> when code review has been completed.
+>
+> Can I please be added to that list?
 >
 > Cheers,
 >
-> Andrew
+> Joel
+>
+>
 
-
-
-
--- 
-Regards,
-Kun
-
---94eb2c192512644914053fb42986
+--001a114b35084e6e6e053fb5a6c5
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Thanks Andrew that was helpful! I will look into pinctrl a=
-nd FMC driver then.<div><br></div><div>Thanks,</div><div>Kun</div></div><di=
-v class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Mon, Oct 24, 2016=
- at 4:26 PM, Andrew Jeffery <span dir=3D"ltr">&lt;<a href=3D"mailto:andrew@=
-aj.id.au" target=3D"_blank">andrew@aj.id.au</a>&gt;</span> wrote:<br><block=
-quote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc=
- solid;padding-left:1ex"><span class=3D"">On Mon, 2016-10-24 at 14:22 -0700=
-, Kun Yi wrote:<br>
-&gt; Hi Andrew,<br>
-&gt;<br>
-&gt; One question I have though: I think pinmux/pinctrl driver is supposed<=
-br>
-&gt; to be a boot time static pin configure module and parses DT and<br>
-&gt; configures accordingly. Is it possible to use pinmux to dynamically<br=
->
-&gt; modify the pin states?<br>
+<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote"><div=
+>I&#39;d like to be added as well.=C2=A0 I can help with changes coming via=
+ Google.</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"m=
+argin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+Date: Thu, 20 Oct 2016 12:13:49 +1030<br>
+From: Joel Stanley &lt;<a href=3D"mailto:joel@jms.id.au" target=3D"_blank">=
+joel@jms.id.au</a>&gt;<br>
+To: OpenBMC Maillist &lt;<a href=3D"mailto:openbmc@lists.ozlabs.org" target=
+=3D"_blank">openbmc@lists.ozlabs.org</a>&gt;, Patrick Williams<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 &lt;<a href=3D"mailto:patrick@stwcx.xyz" target=
+=3D"_blank">patrick@stwcx.xyz</a>&gt;<br>
+Subject: Merging rights<br>
+Message-ID:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 &lt;CACPK8Xe12uXO+YfxS_fvwd=3D4RqBs<wbr>S_M1ahj=
+9KD=3D<a href=3D"mailto:sv9ERMgVOrA@mail.gmail.com" target=3D"_blank">sv9ER=
+MgVOrA@mail.<wbr>gmail.com</a>&gt;<br>
+Content-Type: text/plain; charset=3DUTF-8<br>
 <br>
-</span>Yes, see &quot;Runtime pinmuxing&quot; here (at the bottom of the do=
-cument):<br>
+Hello Patrick,<br>
 <br>
-<a href=3D"https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/=
-tree/Documentation/pinctrl.txt" rel=3D"noreferrer" target=3D"_blank">https:=
-//git.kernel.org/cgit/<wbr>linux/kernel/git/torvalds/<wbr>linux.git/tree/Do=
-cumentation/<wbr>pinctrl.txt</a><br>
+I&#39;ve had this patch under review for a few days. It&#39;s been sitting =
+at<br>
++3 for about 5 days now, but I can&#39;t commit it as I don&#39;t have<br>
+permission.<br>
 <br>
-So you&#39;d need to patch the FMC driver that Milton and Cedric have been<=
-br>
-working on to (de)activate pin states, likely at probe() and remove()<br>
-(this implies you&#39;ll need to somehow orchestrate a remove/switch,<br>
-switch/probe dance). Alternatively, provide a way to suspend operations<br>
-on the MTD and switch the pins between master and passthru in the FMC<br>
-driver. Some complications are that this functionality is only<br>
-available for SPI1, and you might need to do a bit of work to guarantee<br>
-sensible outcomes for operations that might span the mode switch.<br>
+=C2=A0<a href=3D"https://gerrit.openbmc-project.xyz/#/c/762/" rel=3D"norefe=
+rrer" target=3D"_blank">https://gerrit.openbmc-projec<wbr>t.xyz/#/c/762/</a=
+><br>
+<br>
+In light of this I think we need more users with permission to commit<br>
+when code review has been completed.<br>
+<br>
+Can I please be added to that list?<br>
 <br>
 Cheers,<br>
 <br>
-Andrew</blockquote></div><br><br clear=3D"all"><div><br></div>-- <br><div c=
-lass=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr=
-">Regards,<div>Kun</div></div></div>
-</div>
+Joel<br>
+<br></blockquote></div></div></div>
 
---94eb2c192512644914053fb42986--
+--001a114b35084e6e6e053fb5a6c5--
