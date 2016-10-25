@@ -1,53 +1,52 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <brendanhiggins@google.com>
+Received: from mail-pf0-x22c.google.com (mail-pf0-x22c.google.com
+ [IPv6:2607:f8b0:400e:c00::22c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t2sr93cMCzDvhT
- for <openbmc@lists.ozlabs.org>; Tue, 25 Oct 2016 10:27:05 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=iU/ODbfj; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=mOmI9Kmk; dkim-atps=neutral
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 5F88320836;
- Mon, 24 Oct 2016 19:27:03 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute7.internal (MEProxy); Mon, 24 Oct 2016 19:27:03 -0400
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
- x-sasl-enc:message-id:subject:from:to:cc:date:in-reply-to
- :references:content-type:mime-version; s=mesmtp; bh=uWoQX6uGV2Sb
- rWZ6AXersOw8wW4=; b=iU/ODbfjwcSPe1eWKPm1vKEpmRlv3WKjm+OXvT+Sh6HX
- kzCtt6vVJHpGm/oCYjXAdW1z5eEHQzY1XbPMHC2wN2OD5ZoqcGuxemqGrUFPfj5T
- 5Sj+FxbzpHIami85OuTmADytjGYPLNAmEfNTr8QymDb0Dy2cJQFs06mxuWvjjnc=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=x-sasl-enc:message-id:subject:from:to:cc
- :date:in-reply-to:references:content-type:mime-version; s=
- smtpout; bh=uWoQX6uGV2SbrWZ6AXersOw8wW4=; b=mOmI9KmkqFa7QB3iDS+o
- VYwws3rDfSmJAKHwk+TP9afMq05qS5l1q7y1EOpXZas2/xpQeUAayxr7FI1Cj/Hv
- GZ1bIiC0vjcBT5SIWMzruYBL3rXcI5HGgzfvHHzB21w/Oqq795udlNr+/CRnD5br
- qrEUObZhhvB+4lK/HO6XLJ4=
-X-Sasl-enc: UViae2cudeNDlg/tQlSyfGJpRze8trEmZ4rjxmpFCHch 1477351622
-Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 4B1B4F29CE;
- Mon, 24 Oct 2016 19:27:00 -0400 (EDT)
-Message-ID: <1477351614.6373.64.camel@aj.id.au>
-Subject: Re: [RFC 0/2] spi: aspeed: SPI1 mode control driver enabling sysfs
- control
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Kun Yi <kunyi@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Brendan Higgins
- <brendanhiggins@google.com>, Joel Stanley <joel@jms.id.au>
-Date: Tue, 25 Oct 2016 09:56:54 +1030
-In-Reply-To: <CAGMNF6XdMYX3ZTxtna7ueJcBfpvi=aEF8kaStJgz_pwY0jP2XQ@mail.gmail.com>
-References: <1477097158-139095-1-git-send-email-kunyi@google.com>
- <1477278307.6373.52.camel@aj.id.au>
- <CAGMNF6XdMYX3ZTxtna7ueJcBfpvi=aEF8kaStJgz_pwY0jP2XQ@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-iCrNKwKv+LppauF3I8QY"
-X-Mailer: Evolution 3.18.5.2-0ubuntu3 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t2vXJ6wzTzDvhN
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Oct 2016 11:43:28 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b=FWtoAtvt; 
+ dkim-atps=neutral
+Received: by mail-pf0-x22c.google.com with SMTP id s8so107836443pfj.2
+ for <openbmc@lists.ozlabs.org>; Mon, 24 Oct 2016 17:43:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=WAVxLaOB0ncwAi/k11DPGcuFFyawCE/1h1Wa2+mQMDw=;
+ b=FWtoAtvtOHV2jsKzal9P/QPdamA9Ux1YhRclTYMPjvftqU2/UidB1pK/yU5JLxfsni
+ g8naTG4K0s8Uw6gBv+EQUghKwzL6w4ODEY8GU/hoRwOoICKgPWFQ+Yy2EQb0YfwcWIL/
+ /mAgqwR2A8eYAPLW+cMVIcxMT4NuR3X8EYmgSBhLSwhBZ4Awnx2HTbAqlaoy49aho6UE
+ m1e4ZEL9eNz9gdiayErh8yKAc3kccpjaK5zmasp6FuliFsr3EjexsoZJWJYCunzW4ETK
+ ZsMHmSOxAkbtL378aR3hDnt36cbrgDwX1SPHcJIC/beSxTIn33rYNo68VAebtbAKdF17
+ J00A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=WAVxLaOB0ncwAi/k11DPGcuFFyawCE/1h1Wa2+mQMDw=;
+ b=a70nrddZC7q3hLJj4zpw1jSN7hrCVYv475xxIRlKTn/TSoQ/VRx0RgxFVAx9GYvSrY
+ ruARSUawAcYH5cvbVu8Uk6RS9rlc2cG179uE/oHqI1J8VsWV4CVR46kygxugnxX34Gvj
+ 44JUAnjOdvchqOZh57lI+HuANaPpoF5RDpaKyfx74toKOeqmpenPSkaHxTnRhiizs5wO
+ bvxcZkGVqrLA9RJ7RKMDIGDNykOr4IGm2QTxTPV2jlDvOZgLlquvhyi1CYVSqSLOPUz7
+ 9n2ZNhdIj8OR3l26AlfgKwalLhkd3KDsXkWUvMma5+LnSsPB1vl9dJQJFcGLhCkOSrtS
+ oAlg==
+X-Gm-Message-State: ABUngvduWfaHiC7/aZ5fXxIs62OpT2Gi4KihuDcT0Mhgl6G3Wj3KcxrcagUZmJpVTmpGyS6+
+X-Received: by 10.99.140.94 with SMTP id q30mr4007826pgn.112.1477356206032;
+ Mon, 24 Oct 2016 17:43:26 -0700 (PDT)
+Received: from mactruck.svl.corp.google.com ([100.123.242.94])
+ by smtp.gmail.com with ESMTPSA id m25sm27987088pfg.14.2016.10.24.17.43.25
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Mon, 24 Oct 2016 17:43:25 -0700 (PDT)
+From: Brendan Higgins <brendanhiggins@google.com>
+To: patrick@stwcx.xyz, raltherr@google.com, openbmc@lists.ozlabs.org,
+ anoo@linux.vnet.ibm.com
+Cc: Brendan Higgins <brendanhiggins@google.com>
+Subject: Logging utilities.
+Date: Mon, 24 Oct 2016 17:43:22 -0700
+Message-Id: <1477356202-10960-1-git-send-email-brendanhiggins@google.com>
+X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
+In-Reply-To: <CAPLgG=nnxBf882unObKXWJrPrPK=bJOhNK7_4X=Gw1vJsjAr-w@mail.gmail.com>
+References: <CAPLgG=nnxBf882unObKXWJrPrPK=bJOhNK7_4X=Gw1vJsjAr-w@mail.gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,59 +58,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Oct 2016 23:27:06 -0000
+X-List-Received-Date: Tue, 25 Oct 2016 00:43:30 -0000
 
+Trying to revive this thread: we never concluded discussion on this. For the
+convenience of the reader I have quoted the previous email below:
 
---=-iCrNKwKv+LppauF3I8QY
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> Thank you for the background.  That explains a lot about the path Adriana
+> has gone down.  I completely understand wanting to separate policy from
+> reporting of device and process errors.  Where we differ is that I don't
+> see that as the purpose of logging.  You've described an event-based
+> telemetry system meant to be primarily consumed by other software to drive
+> alerts and automated responses.  I view logging as being primarily for the
+> benefit of a programmer or operator trying to understand what section of
+> _code_ went wrong.  That distinction is part of why glog isn't designed to
+> be super high-performance.  Google uses entirely separate systems for
+> telemetry.  In my and Google's experience, scraping logs to extract
+> information (even when the messages are well structured) winds up being
+> painful to maintain and unreliable over time even when using journald.
 
-On Mon, 2016-10-24 at 14:22 -0700, Kun Yi wrote:
-> Hi Andrew,
->=20
-> One question I have though: I think pinmux/pinctrl driver is supposed
-> to be a boot time static pin configure module and parses DT and
-> configures accordingly. Is it possible to use pinmux to dynamically
-> modify the pin states?=20
+We have a patch set out that adds glog support at:
+https://gerrit.openbmc-project.xyz/#/c/788/
 
-Yes, see "Runtime pinmuxing" here (at the bottom of the document):
-
-https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Docume=
-ntation/pinctrl.txt
-
-So you'd need to patch the FMC driver that Milton and Cedric have been
-working on to (de)activate pin states, likely at probe() and remove()
-(this implies you'll need to somehow orchestrate a remove/switch,
-switch/probe dance). Alternatively, provide a way to suspend operations
-on the MTD and switch the pins between master and passthru in the FMC
-driver. Some complications are that this functionality is only
-available for SPI1, and you might need to do a bit of work to guarantee
-sensible outcomes for operations that might span the mode switch.
-
-Cheers,
-
-Andrew
---=-iCrNKwKv+LppauF3I8QY
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAABCgAGBQJYDpi+AAoJEJ0dnzgO5LT5IJ8P/REzg98NjjwDeS/WSXciDCiA
-53IAQs1+2fI1nADT+ToNmjxNnxGUdaxysf3K5j7ECqKf7+YC3Dg+PJTkilWSVM09
-jTE9C7iJ8FfrjToUK22Vwk0lWcbBTFpJ/A8oAD9zAhIlGd6JB72X6sxcIjYd9SHA
-d/Mk239Qf2RArAGnKMh9ix6Vn4KqMBjXS2C60coQTPZ+KP/JODChF/RPmYpNKzd2
-zGbn382JJVHEetb8fM59ApOz3JQ7Q13Y8+AF1sFb2aFhchr1ASyorSVOGOJ37hny
-+toqSuZ7Xhf/RBsIbJ8KM7ko50F8LPaOPqJaz1i5GME222d9qKXClWpoTbpaa5aj
-qa6uSpk+we2jVMhR1nRROkGRYgTCWLM1xRL74+yLuZrDExa+exZrZW41jhTmbixV
-sZ2jZV1vu+yII7vMyy+hBBZA2GDilJLeta1UpVMTuvvEXFI5gYtoGQ/7hdOVnIO2
-oUxn/Bre9Ngx6oqO+xtQa0Vplib9K0s0fQTraB46COv3LiuinaH7mc7pkMf0tVTV
-c7tcT04M0smwUWSuZHBI4upkDFdiwEn9N1zHM1iGnn78hfSWpLsDdeZKqKNooD/+
-qostZxge4wbKufU22GUV2hB4cDcUyjPlNWS+dupdcM0Se3kVaYiQ6kaT+VnBQ77K
-PEdThCnYEGJYybCx8YXb
-=xCAl
------END PGP SIGNATURE-----
-
---=-iCrNKwKv+LppauF3I8QY--
+In addition, we have a patch for glog that adds support for logging to journald,
+but I would like to get some feedback before I do anything else.
