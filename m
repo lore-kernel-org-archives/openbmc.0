@@ -1,28 +1,32 @@
 Return-Path: <clg@kaod.org>
-X-Greylist: delayed 516 seconds by postgrey-1.36 at bilbo;
- Wed, 26 Oct 2016 18:06:38 AEDT
-Received: from 4.mo68.mail-out.ovh.net (4.mo68.mail-out.ovh.net [46.105.59.63])
+X-Greylist: delayed 501 seconds by postgrey-1.36 at bilbo;
+ Wed, 26 Oct 2016 18:06:42 AEDT
+Received: from 9.mo68.mail-out.ovh.net (9.mo68.mail-out.ovh.net
+ [46.105.78.111])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t3gzy537wzDt2n
- for <openbmc@lists.ozlabs.org>; Wed, 26 Oct 2016 18:06:38 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t3h023BFNzDvHX
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Oct 2016 18:06:41 +1100 (AEDT)
 Received: from player788.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo68.mail-out.ovh.net (Postfix) with ESMTP id 8C641942E
- for <openbmc@lists.ozlabs.org>; Wed, 26 Oct 2016 08:57:57 +0200 (CEST)
+ by mo68.mail-out.ovh.net (Postfix) with ESMTP id 9BB6D9874
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Oct 2016 08:58:22 +0200 (CEST)
 Received: from hermes.kaod.org.com (bad36-1-78-202-132-1.fbx.proxad.net
  [78.202.132.1]) (Authenticated sender: clg@kaod.org)
- by player788.ha.ovh.net (Postfix) with ESMTPSA id 52F22180085;
- Wed, 26 Oct 2016 08:57:55 +0200 (CEST)
+ by player788.ha.ovh.net (Postfix) with ESMTPSA id 7CF64180085;
+ Wed, 26 Oct 2016 08:58:19 +0200 (CEST)
 From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.7 0/8] BT driver sync up
-Date: Wed, 26 Oct 2016 08:57:39 +0200
-Message-Id: <1477465067-19034-1-git-send-email-clg@kaod.org>
+Subject: [PATCH linux dev-4.7 8/8] ipmi: add a sysfs file for configure
+ maximum response time
+Date: Wed, 26 Oct 2016 08:57:47 +0200
+Message-Id: <1477465067-19034-9-git-send-email-clg@kaod.org>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1477465067-19034-1-git-send-email-clg@kaod.org>
+References: <1477465067-19034-1-git-send-email-clg@kaod.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 6049741678081444610
+X-Ovh-Tracer-Id: 6056778551222176514
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
 X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrieekgdduudekucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
@@ -37,52 +41,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Oct 2016 07:06:39 -0000
+X-List-Received-Date: Wed, 26 Oct 2016 07:06:42 -0000
 
-Hello,
+We could also use an ioctl for that purpose. sysfs seems a better
+approach.
 
-Here is a serie syncing the OpenBMC kernel with the BT driver merged
-in mainline linux. This kernel needs an updated version of btbridged :
+Signed-off-by: Cédric Le Goater <clg@kaod.org>
+---
+ drivers/char/ipmi/bt-bmc.c | 31 +++++++++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
-     https://github.com/legoater/btbridge/commits/master
-
-The last two patches add a request expiry list and some configuration
-through sysfs. These are for review only as they need to be sent to
-mainline first.
-
-Thanks,
-
-C.
-
-Cédric Le Goater (8):
-  Revert "misc: Add Aspeed BT IPMI host driver"
-  ARM: aspeed: remove previous definitions in default config
-  ARM: dts: aspeed: remove previous iBT definitions
-  ipmi: add an Aspeed BT IPMI BMC driver
-  ARM: aspeed: Add defconfigs for CONFIG_ASPEED_BT_IPMI_BMC
-  ARM: dts: aspeed: Enable BT IPMI BMC device
-  ipmi: maintain a request expiry list
-  ipmi: add a sysfs file for configure maximum response time
-
- .../bindings/char/ipmi/aspeed,ast2400-bt-bmc.txt   |  23 +
- arch/arm/boot/dts/aspeed-g4.dtsi                   |   2 +-
- arch/arm/boot/dts/aspeed-g5.dtsi                   |   2 +-
- arch/arm/configs/aspeed_g4_defconfig               |   2 +-
- arch/arm/configs/aspeed_g5_defconfig               |   2 +-
- drivers/Makefile                                   |   2 +-
- drivers/char/ipmi/Kconfig                          |   8 +
- drivers/char/ipmi/Makefile                         |   1 +
- drivers/char/ipmi/bt-bmc.c                         | 668 +++++++++++++++++++++
- drivers/misc/Kconfig                               |   5 -
- drivers/misc/Makefile                              |   1 -
- drivers/misc/bt-host.c                             | 427 -------------
- include/uapi/linux/Kbuild                          |   2 +-
- include/uapi/linux/{bt-host.h => bt-bmc.h}         |  12 +-
- 14 files changed, 712 insertions(+), 445 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/char/ipmi/aspeed,ast2400-bt-bmc.txt
- create mode 100644 drivers/char/ipmi/bt-bmc.c
- delete mode 100644 drivers/misc/bt-host.c
- rename include/uapi/linux/{bt-host.h => bt-bmc.h} (55%)
-
+diff --git a/drivers/char/ipmi/bt-bmc.c b/drivers/char/ipmi/bt-bmc.c
+index 228ecdb689de..1ebb0171c724 100644
+--- a/drivers/char/ipmi/bt-bmc.c
++++ b/drivers/char/ipmi/bt-bmc.c
+@@ -84,6 +84,33 @@ struct bt_bmc {
+ 
+ static atomic_t open_count = ATOMIC_INIT(0);
+ 
++static ssize_t bt_bmc_show_response_time(struct device *dev,
++					 struct device_attribute *attr,
++					 char *buf)
++{
++	struct bt_bmc *bt_bmc = dev_get_drvdata(dev);
++
++	return snprintf(buf, PAGE_SIZE - 1, "%d\n", bt_bmc->response_time);
++}
++
++static ssize_t bt_bmc_set_response_time(struct device *dev,
++					struct device_attribute *attr,
++					const char *buf, size_t count)
++{
++	struct bt_bmc *bt_bmc = dev_get_drvdata(dev);
++	unsigned long val;
++	int err;
++
++	err = kstrtoul(buf, 0, &val);
++	if (err)
++		return err;
++	bt_bmc->response_time = val;
++	return count;
++}
++
++static DEVICE_ATTR(response_time, S_IWUSR | S_IRUGO,
++		bt_bmc_show_response_time, bt_bmc_set_response_time);
++
+ static u8 bt_inb(struct bt_bmc *bt_bmc, int reg)
+ {
+ 	return ioread8(bt_bmc->base + reg);
+@@ -572,6 +599,10 @@ static int bt_bmc_probe(struct platform_device *pdev)
+ 	bt_bmc_config_irq(bt_bmc, pdev);
+ 
+ 	bt_bmc->response_time = BT_BMC_RESPONSE_TIME;
++	rc = device_create_file(&pdev->dev, &dev_attr_response_time);
++	if (rc)
++		dev_warn(&pdev->dev, "can't create response_time file\n");
++
+ 
+ 	if (bt_bmc->irq) {
+ 		dev_info(dev, "Using IRQ %d\n", bt_bmc->irq);
 -- 
 2.7.4
