@@ -1,28 +1,52 @@
-Return-Path: <davem@davemloft.net>
-Received: from shards.monkeyblade.net (unknown [184.105.139.130])
- by lists.ozlabs.org (Postfix) with ESMTP id 3t42rN5Kn2zDt4V
- for <openbmc@lists.ozlabs.org>; Thu, 27 Oct 2016 08:16:20 +1100 (AEDT)
-Received: from localhost (cpe-66-108-81-97.nyc.res.rr.com [66.108.81.97])
- (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id 5D169101518E5;
- Wed, 26 Oct 2016 14:16:08 -0700 (PDT)
-Date: Wed, 26 Oct 2016 17:16:05 -0400 (EDT)
-Message-Id: <20161026.171605.2216738980188763095.davem@davemloft.net>
-To: xow@google.com
-Cc: f.fainelli@gmail.com, jaedon.shin@gmail.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, joel@jms.id.au
-Subject: Re: [PATCH 0/2] Broadcom BCM54612E support
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <1477070413-92621-1-git-send-email-xow@google.com>
-References: <1477070413-92621-1-git-send-email-xow@google.com>
-X-Mailer: Mew version 6.7 on Emacs 25.1 / Mule 6.0 (HANACHIRUSATO)
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
- (shards.monkeyblade.net [149.20.54.216]);
- Wed, 26 Oct 2016 14:16:09 -0700 (PDT)
-X-Mailman-Approved-At: Thu, 27 Oct 2016 10:12:34 +1100
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-oi0-x230.google.com (mail-oi0-x230.google.com
+ [IPv6:2607:f8b0:4003:c06::230])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t46tR6m91zDt2s
+ for <openbmc@lists.ozlabs.org>; Thu, 27 Oct 2016 11:18:23 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=yeH485if; 
+ dkim-atps=neutral
+Received: by mail-oi0-x230.google.com with SMTP id y2so21059955oie.0
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Oct 2016 17:18:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=5zqBcskwrbb8DTwQcr715EYrEEwPZzG7P+5UKIVimbE=;
+ b=yeH485if1dYvWwGGilR4VfoP3RKTE/21HPoMrKfmy5eHL+94W2yVhjiR0S3m3M9cxu
+ YvE9APEup6Y2E7oMxgDe+fPE4a/qijAgGqVmivasl2xAjdHx3WS5Sv4Jdl4TARxvepOu
+ sROB5HUY7Wd3jR5hRadI1rm4PHH4S1dhKGMFoRc+aJVf/DCt6PE9GKGPc1xdo+hO8qJg
+ Zvq467ijozuc6unYfriy7KJLrInz/m03y6ktXDT67MWxyBaIDwCUOhsDAK6bogz45nWc
+ gaCTdhVZ3EiROsAn6eJRIdEnmou38cTLk75viwsXbK/UpZ8UUXrpOL5TMbVuoNSjpL6G
+ IEIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=5zqBcskwrbb8DTwQcr715EYrEEwPZzG7P+5UKIVimbE=;
+ b=U/m6n4hAOUT5u0O5hE9yfMKqKdnTP4T9Ct5SWsKwaGZQJKlmQAwNfWIkl0aON8xrlc
+ tkjuIpjyb+cj9EEPlh1kTkHoC8yW+3qglgzeuDhCvTblhIAzlULsF/eooJmhlXNr+hzn
+ Dmj678UR5tLvjlrxYDwf7qDRb7vK3smUDyV3XDTC0vvUy8MieERkJdrAXGKrDWrXTnsU
+ lmUq6K8QZvJXmkhKAzYOKmx1IU7/8hcmBEFmHfK6csJtTldSqnixDNFNuX0qhCKVd3hQ
+ rY9dZvd5Org9c+/kJycja3o3/MWX3eIfZ1SwS3NMu9/iV1P65v7F3R70LAC8sBKbxesU
+ bpIg==
+X-Gm-Message-State: ABUngvfcSHLwQtpCQesx30uvzO9tBNBLhz7XyX+14TmEkTuY6g9q8ePkgso2SIf8HRtzxGhJSD8BuujA5UB/iw==
+X-Received: by 10.157.8.204 with SMTP id 70mr3948200otf.74.1477527502057; Wed,
+ 26 Oct 2016 17:18:22 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.182.107.226 with HTTP; Wed, 26 Oct 2016 17:18:01 -0700 (PDT)
+In-Reply-To: <20161026065509.GA10287@distroguy.com>
+References: <20161026065509.GA10287@distroguy.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 27 Oct 2016 10:48:01 +1030
+X-Google-Sender-Auth: bPWKo4svkzwPI29c523Ue363UMA
+Message-ID: <CACPK8XfM_24R6wAa92cMNtfWhL_JZ_zBwCnDza=sutbwJA_c0Q@mail.gmail.com>
+Subject: Re: [PATCH v2] ARM: dts: witherspoon: add Epson RX8900CE RTC module
+To: Chris Smart <chris@distroguy.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -34,19 +58,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Oct 2016 21:16:20 -0000
+X-List-Received-Date: Thu, 27 Oct 2016 00:18:24 -0000
 
-From: Xo Wang <xow@google.com>
-Date: Fri, 21 Oct 2016 10:20:11 -0700
+Hey Chris,
 
-> This series is based on tip of torvalds/master.
-> 
-> The first patch adds register definitions from Broadcom docs.
-> 
-> The second patch adds the BCM54612E PHY ID, flags, and device-specific
-> RGMII internal delay initialization.
-> 
-> I tested on a custom board with an Aspeed AST2500 SOC with its second
-> MAC connected to this PHY.
+On Wed, Oct 26, 2016 at 5:25 PM, Chris Smart <chris@distroguy.com> wrote:
+>         /* RTC */
+> +       rtc@32 {
+> +               compatible = "epson,rx8900"
+> +               reg = <0x32>;
 
-Series applied to net-next, thanks.
+Did you try building this?
+
+Cheers,
+
+Joel
