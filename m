@@ -3,23 +3,24 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t53Zf2drrzDvPd
- for <openbmc@lists.ozlabs.org>; Fri, 28 Oct 2016 23:52:58 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t54NX3z4FzDvSt
+ for <openbmc@lists.ozlabs.org>; Sat, 29 Oct 2016 00:29:15 +1100 (AEDT)
 Received: from localhost (170.225.9.144 [170.225.9.144]) by mx.zohomail.com
- with SMTPS id 1477659171277147.5504051083808;
- Fri, 28 Oct 2016 05:52:51 -0700 (PDT)
-Date: Fri, 28 Oct 2016 07:52:49 -0500
+ with SMTPS id 1477661341443259.7806290946613;
+ Fri, 28 Oct 2016 06:29:01 -0700 (PDT)
+Date: Fri, 28 Oct 2016 08:28:59 -0500
 From: Patrick Williams <patrick@stwcx.xyz>
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: Gerrit emails
-Message-ID: <20161028125249.esdyeqbkpk6nedc2@asimov>
-References: <CACPK8XeEiMremm9nbKRMxr3G6GmR4OTHjb1DHOxLjPqQ3WNBkg@mail.gmail.com>
+To: Brendan Higgins <brendanhiggins@google.com>
+Cc: raltherr@google.com, openbmc@lists.ozlabs.org, anoo@linux.vnet.ibm.com
+Subject: Re: Logging utilities.
+Message-ID: <20161028132858.4dfarrrqnvjh2so3@asimov>
+References: <CAPLgG=nnxBf882unObKXWJrPrPK=bJOhNK7_4X=Gw1vJsjAr-w@mail.gmail.com>
+ <1477356202-10960-1-git-send-email-brendanhiggins@google.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="meziv3e7mwfchhbb"
+ protocol="application/pgp-signature"; boundary="ugfsftd3ldo4fxem"
 Content-Disposition: inline
-In-Reply-To: <CACPK8XeEiMremm9nbKRMxr3G6GmR4OTHjb1DHOxLjPqQ3WNBkg@mail.gmail.com>
+In-Reply-To: <1477356202-10960-1-git-send-email-brendanhiggins@google.com>
 User-Agent: Mutt/1.6.2 (2016-06-11)
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -33,58 +34,139 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Oct 2016 12:52:59 -0000
+X-List-Received-Date: Fri, 28 Oct 2016 13:29:17 -0000
 
 
---meziv3e7mwfchhbb
+--ugfsftd3ldo4fxem
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 27, 2016 at 05:06:18PM +1030, Joel Stanley wrote:
-> Hi Patrick,
+On Mon, Oct 24, 2016 at 05:43:22PM -0700, Brendan Higgins wrote:
+> Trying to revive this thread: we never concluded discussion on this. For =
+the
+> convenience of the reader I have quoted the previous email below:
 >=20
-> I think you mentioned that Gerrit emails broke a while back. A few
-> people have asked about it recently, so I was wondering if you could
-> update us on how that is going?
+> > Thank you for the background.  That explains a lot about the path Adria=
+na
+> > has gone down.  I completely understand wanting to separate policy from
+> > reporting of device and process errors.  Where we differ is that I don't
+> > see that as the purpose of logging.  You've described an event-based
+> > telemetry system meant to be primarily consumed by other software to dr=
+ive
+> > alerts and automated responses.  I view logging as being primarily for =
+the
+> > benefit of a programmer or operator trying to understand what section of
+> > _code_ went wrong.  That distinction is part of why glog isn't designed=
+ to
+> > be super high-performance.  Google uses entirely separate systems for
+> > telemetry.  In my and Google's experience, scraping logs to extract
+> > information (even when the messages are well structured) winds up being
+> > painful to maintain and unreliable over time even when using journald.
 >=20
-> Do you need help?
+> We have a patch set out that adds glog support at:
+> https://gerrit.openbmc-project.xyz/#/c/788/
+>=20
+> In addition, we have a patch for glog that adds support for logging to jo=
+urnald,
+> but I would like to get some feedback before I do anything else.
 
-I haven't had a chance to work on it.  Plan to get it fixed next week.
+The IBM team and Google team had a in-person discussion on this email
+thread yesterday (10/27).  I'm going to try to recap some of the points
+there.
 
-If you know a good / easy to install localhost SMTP agent you can point
-me at, that would be great.  I need to get that installed and update the
-TXT record on openbmc-project.xyz to enable the server to send emails
-again.
+There ends up being three different aspects of "logging" that we were
+discussing and in some cases using the same words for the different
+aspects.  Those aspects are:
 
-The mail host I am using for my personal email is what I relayed the
-Gerrit emails into and they limit sending to 200 per day, so we end up
-getting rate limited pretty quick with how many people have subscribed
-to all changes.
+   1.  Program level information to assist in debugging.  This is
+   sometimes called "logging", "tracing" or "flight recording".
+
+   2.  Creating a record of something wrong with the system that may
+   require a service action.  IBM has traditionally used the word "error
+   logging" to refer to the action and "serviceable event" to refer to
+   the thing generated by the action.
+
+   3.  Collection of metrics associated with the system for external
+   consumption.  Examples of metrics might be: raw sensor values, BMC
+   memory and filesystem consumption, instances of recovered /
+   predictive failure errors that have not reached a serviceable
+   threshold.
+
+Program level "logging" is intended to go into the journal.  The commit
+=66rom Adriana referenced in the discussion implements this.  This logging
+interface allows unstructured entries, but we prefer to keep metadata tags
+on data items as described earlier in the chain.
+  (ex. {MSG=3D"Failed to open file.", ERRNO=3D%d, FILE_PATH=3D%s} rather th=
+an
+       {"Failed to open file(%d): %s", errno, file_path})
+The interface also allows syslog-style log levels and we could decide on
+a compile flag to disable (compile out) certain log levels.  I believe
+the IBM team discussed earlier in the week adding a compile flag to
+disable DEBUG level in full image builds, but allowing developers to do
+something like "-DPHOSPHOR_LOGGING_DEBUG" to enable full logging on a
+particular application.
+
+We understand that there are some nice features of glog, with respect to
+backtraces for instance, but strongly feel that the API of it will cause
+a fairly significant flash size increase due to iostream-style shift
+operators.  There is also concern, though unmeasured, about the
+performance impact from the increase in the code path to the journald
+interfaces.  The phosphor-logging interfaces compile down to exactly a
+single journald function call per log call, which alleviates both of
+these concerns.
+
+The creation of service action records proposal was what I described
+previously in this email chain.  The commits for that are available in
+Gerrit.  We have found that often the information a developer would want
+to log for application debug is often related to the information that is
+needed to create a serviceable event.  Rather than require the program
+(and developer) to log the same information through two different APIs,
+we have attempted to combine it by leveraging the meta-data fields from
+the program level logging API.  The serviceable event structure is
+defined via a YAML file with required meta-data fields and then the API
+has compile-time assurance that the required meta-data fields have been
+provided.
+
+We recognize this means we are effectively using the journal as an IPC
+mechanism between the program identifying a serviceable event and the
+program recording and reacting to / executing policy for the serviceable
+event.  If this becomes cumbersome or problematic due to journald's
+behavior we believe we can change this implementation choice with
+little or no API modification.
+
+Metrics are typically going to be generated and distributed through the
+system via dbus signals.  For instance, a dbus object is created per
+sensor and the org.freedesktop.Object.PropertiesChanged signal is
+generated when the value of the sensor changes.  We expect to enhance
+the REST server to allow users to subscribe and stream out those sorts
+of signals.  If there isn't an interest in the REST API, an implementer
+is free to create another daemon that subscribes to those signals and
+processes them in another way.
 
 --=20
 Patrick Williams
 
---meziv3e7mwfchhbb
+--ugfsftd3ldo4fxem
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJYE0ohAAoJEKsDR8wtAMEZC9EP/AoPOfMBCfRIqBNLNJomAKN4
-0OsFo3auB6e4aSbPsolArCxtc1j4YtOxPSDvTESyHTQeXpZSSBEbthGXO6OKgTvx
-y/+N477LPUu3yHCbdD39fOHamaV026BYuhlTvMOOKhhNUD7WGXDuBbRpzKAFs99C
-ID7RRUNSW3OUpt7oBQ34/CwCsO2yKaInHV0dp7lI9Su5o1y6h+htjQ4g4ZeQDZvj
-Gs+yeFxgotQzE+PgEZMnmiggjaITefmtJQDdNZoAYf7YmwCKsIXhApPKUBsfgrCo
-yYDYCl6LKrtbje3ibV9Fnh+FNLh5tdNzxUcFpvMUp2ZfGzcQIJtroz3DkPVQXJWQ
-3+FaaEpElV71P4P4u/64QD27GU0R091/H9LnCS8imj7TCpf9sRQS5tD035J40F0Z
-T/5K68cBgBw1kga6W/zaDY4BwECkmoSKDE/lDcZVQCAn7faxp9drHYYndA/YJXFu
-1gARScEIaaJ1riTFz0SXoITAEfcK3ssKBtUOS04Au7bCvEUCs3TlqV1bwDUeccJc
-BzjPpcj+OJUpT774OwZ0ZowrMlxtL47BODljYbPiP6XOl83zFaFiXrKDzGomrnTr
-LdAmoccnMVCt+jpfZwISmoOXPSKgvEFArVTBiHPhmZ3LgquqfM8DlPxJ6P82o5sj
-EHYgEkxzI893J05/MCkB
-=jN/A
+iQIcBAEBCAAGBQJYE1KaAAoJEKsDR8wtAMEZOF8P/1y/6TmFo1CIFy9c+Zs684sK
+zAPHG5D2IFe+6BCz27w8YdpdjixxNI3KpAf4jPcrnS3yh8kR/GUKPz2YbCShtzlI
+6DyutRsAavufL6hv7fTisRAvCZuxHHCqdnPWhuxsnPqlcAp07pBt/GN3529AIvKe
+xFfC/NuZAWJqLL8OqeUwmz5zXtSLmRviMkbqbubaJZgK1DSSEjSjNRHVF6gsKPeY
+92H7VgKs73UjAGa4t6Q51iczCkCJDv1GVLplEuOrvhff0/EgDq6CWb4aALFARcV2
+lKjCe4qq/NRSRtZ3pWvXT8LkJZnyJBFJCOvhyO3pXiD+HP/64P2QnaQESo/+9j2r
+3lhOFC83iotaSCqizpMPHUwDtR6BcHhC/v0idDTjH2yN4smzDYgkIgqPZTk677I0
+sN2+pU/DOlMNpagrMQfqOmT3xheaMTbyam1QfV6kgGyMqyR1ih0ZERpnoZ5qODMm
+wAnRcWU0ALBpt2PqGgMVbKrYrmLdq72hpHCWJ/Wax2B/JZO7MGc+HWcPHy+H06Ab
+QNIJeE0ojFZjQLuaA7rpbETZQqqv5exGof9O5aP/JuEjElyhqo7EWSKjvJJcP/Lk
+dL0eptzgiFpPL4vbw50NHo/RqhnYVDF91MoMIl/WRuuE8sd8OLKkfYX7U77liFM6
+OmSJ8nHVYNAf9X/juwu1
+=VgEl
 -----END PGP SIGNATURE-----
 
---meziv3e7mwfchhbb--
+--ugfsftd3ldo4fxem--
