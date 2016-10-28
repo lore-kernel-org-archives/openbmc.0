@@ -1,50 +1,55 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-yw0-x22d.google.com (mail-yw0-x22d.google.com
- [IPv6:2607:f8b0:4002:c05::22d])
+Return-Path: <christopher.lee.bostic@gmail.com>
+Received: from mail-wm0-x244.google.com (mail-wm0-x244.google.com
+ [IPv6:2a00:1450:400c:c09::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t587n0zwHzDvTT
- for <openbmc@lists.ozlabs.org>; Sat, 29 Oct 2016 03:18:28 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t5DH55RhDzDvSF
+ for <openbmc@lists.ozlabs.org>; Sat, 29 Oct 2016 06:25:05 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=bqY/j0z0; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=NXUUUWzn; 
  dkim-atps=neutral
-Received: by mail-yw0-x22d.google.com with SMTP id w3so90835003ywg.1
- for <openbmc@lists.ozlabs.org>; Fri, 28 Oct 2016 09:18:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
+Received: by mail-wm0-x244.google.com with SMTP id m83so8711891wmc.0
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Oct 2016 12:25:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=4VQhUdZnenM+j0XeCu8VlT1Nn62dfr/ysLdUtTiAv9U=;
- b=bqY/j0z0L4DgHXlr2jX+DKbHDpGnD93QoyBcidHqFCyp8qtsu0q8GMKpeljKpJLugU
- MseNxu+fAjBGJgsmvrvdo5aT+hdmgTVKgfF/8l6rPJ7qGWfVNdOB3oVPmDu9mAF1YeW2
- nigaifwu0VeHcZ9x9DaO2p4PkKDWY3m4D65Z+9YaljfflEoorkMpZrff6w4SXkd1b2uE
- kFDG8yoViIkoxhsjKeVNG2x/GdWD0kULr0hjGbGoozNae+2Zd84YOAke0S+KU0KYnhJs
- 99sis0wewbs7V6Jv7EJPV1jF5qYx+8l1ZBcNg9pI57+5GWCLIEjQJvmsMmSuc5ASkTO1
- 1EyQ==
+ :cc; bh=7g464AQiYgVYI7ZfllP1T+tBT51dfo6KFKp3Kc3jN84=;
+ b=NXUUUWznoByuiv+4m2Jhu70Pfr+P0ck7fwDlV0etBzY/wd+rMvw9wdaqCsLX/PfuSA
+ t+csqd48886rXUd5Gcnt6BD4iEKLXGSpsHvyBWclYUmLJEGNY3I3vjEnLENHc57bMhyC
+ sWMMStBKrl8+aIq/p7bfXw1XgboUTccfm0Tugh9a6L4w3ubu8PUJ/8aY6VIQJ47x0mDI
+ KC6QI3B7rRPUGGWpuREV6uEUFJK0tJSUMT73YDOZTC8tvM0pg3wATd4MkLLyJTbO08Xc
+ A4tvTxXKq4BxJJ6sufcKpV+KnsTTYrL45xg+IMowmcD8TGp4OONf5zz9tdruA1AwkAPy
+ Wfjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=4VQhUdZnenM+j0XeCu8VlT1Nn62dfr/ysLdUtTiAv9U=;
- b=RVjozJdLlas8IoRgtlWPDLHem1R5TiyACrH8FOSHfOeTsVFqJ6mK1PzusQp0THjRr5
- P0fqY26izTzlENWCpqnicfq2e5a44j1ToOVcGqMyZh8YIHZ+yq3YqZSMhTlxBz2n+S+1
- +za2qkCdI3VA8HeyoyUMkDrhFqKiGOa77IWl+Ax5VRfL+3v+BtMsYZlvOo5bRvNlMn0L
- HLwKMpSGs2cJ4GDgy8/78VHpUjZFQGWCtRhEOxQI39mNsnO7WQ/22wzQ0SGwEdW25Qiu
- ADGV3Qtzp2FFQBlwrIBMnN4KwwjBPB9gmU9NlABkDXB6yHG4sjBhj5qSDePfUQOZEMME
- Zk9g==
-X-Gm-Message-State: ABUngvd45eaCGLf62AsOYxs0ezoXnBuP0iYfJU2n/li/Ioy8plxYkMPpZH9oIuBl4kbVpzD1jrlq2KzTebF6nBuP
-X-Received: by 10.129.53.194 with SMTP id c185mr6845782ywa.205.1477671506200; 
- Fri, 28 Oct 2016 09:18:26 -0700 (PDT)
+ bh=7g464AQiYgVYI7ZfllP1T+tBT51dfo6KFKp3Kc3jN84=;
+ b=mrfpotGOmMkuv/FD43MMtwstaMEf5IhcYB5jVn4EUh09UIHxkxNQ+OphKrgMmNkfxj
+ JhwHJYxQaWFFff0DCnFbiTX9FvYpEXKzke7aN3HsveXiFxK6/npPZrM+1d1KO0RVsgHm
+ HUOJxGQAXALdfivspn7zb7UIKuh9lejQPtgvM4MsWPRaiDFryRHxKyL+Myv5mdT2wAlQ
+ S2lio4WgSTC+dKrOqyHq9wUiSke2Kiu5sGkflxYn4Ft7tYihQq80d38nVd0qghrsv/n6
+ tlo/3Awp7zF141cFA5Cv3ffoYZ1D7LtcQnwFj2mzjmy3BqJg/YkBvX4ZhDROAZaGijiv
+ QehA==
+X-Gm-Message-State: ABUngve6q9pLDxqYG3cggEkTwixUs9Tcf0JXoevLRJaDaHxsxxpCFhG/aADR/4/FE64qwU1DrRzlmkJ636aW8w==
+X-Received: by 10.28.151.17 with SMTP id z17mr248951wmd.15.1477682701773; Fri,
+ 28 Oct 2016 12:25:01 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.37.160.4 with HTTP; Fri, 28 Oct 2016 09:18:25 -0700 (PDT)
-In-Reply-To: <20161028125249.esdyeqbkpk6nedc2@asimov>
-References: <CACPK8XeEiMremm9nbKRMxr3G6GmR4OTHjb1DHOxLjPqQ3WNBkg@mail.gmail.com>
- <20161028125249.esdyeqbkpk6nedc2@asimov>
-From: Rick Altherr <raltherr@google.com>
-Date: Fri, 28 Oct 2016 09:18:25 -0700
-Message-ID: <CAPLgG==saSmH97BgDXmtgJy=dhY7vY184mRWVsFHW4Qyvyeshg@mail.gmail.com>
-Subject: Re: Gerrit emails
-To: Patrick Williams <patrick@stwcx.xyz>
-Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=001a114214783a4e20053fef3514
+Received: by 10.80.161.71 with HTTP; Fri, 28 Oct 2016 12:25:01 -0700 (PDT)
+In-Reply-To: <c75d32c6-546a-c5d2-a7ab-052b82de50ea@ozlabs.org>
+References: <1476918586-13475-1-git-send-email-christopher.lee.bostic@gmail.com>
+ <1476918586-13475-18-git-send-email-christopher.lee.bostic@gmail.com>
+ <918db920-baf4-ef79-90fe-dc00a06a2430@ozlabs.org>
+ <CAA0LjjWtdasgpv6NR2UCAuZCb+eP-+sDcsOMeGb4-_MEn1x7dw@mail.gmail.com>
+ <c75d32c6-546a-c5d2-a7ab-052b82de50ea@ozlabs.org>
+From: Christopher Bostic <christopher.lee.bostic@gmail.com>
+Date: Fri, 28 Oct 2016 14:25:01 -0500
+Message-ID: <CAA0LjjWkudTWak5kUY4O8KHsOKFUtjkofwh5ciWxaVrVOdOsBQ@mail.gmail.com>
+Subject: Re: [PATCH linux v5 17/18] drivers/fsi: Add SCOM FSI client device
+ driver
+To: Jeremy Kerr <jk@ozlabs.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, xxpetri@de.ibm.com,
+ zahrens@us.ibm.com
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,95 +61,146 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Oct 2016 16:18:29 -0000
+X-List-Received-Date: Fri, 28 Oct 2016 19:25:06 -0000
 
---001a114214783a4e20053fef3514
-Content-Type: text/plain; charset=UTF-8
+On Fri, Oct 21, 2016 at 12:24 AM, Jeremy Kerr <jk@ozlabs.org> wrote:
+> Hi Chris,
+>
+>>> Also, have you thought about endianness?
+>>
+>> The plan is for endianness is to be dealt with in the fsi-core
+>> so the other engines don't need to worry about it.  Yes there
+>> is likely to be some additions there.  Will need to evaluate.
+>
+> OK.
+>
+>>>> +static int scom_probe(struct device *dev)
+>>>> +{
+>>>> +     struct fsi_device *fsi_dev = to_fsi_dev(dev);
+>>>> +     struct scom_device *scom = &scom_dev;
+>>>> +     int rc;
+>>>> +
+>>>> +     scom->fsi_dev = fsi_dev;
+>>>> +     scom->cdev = cdev_alloc();
+>>>> +     if (!scom->cdev)
+>>>> +             return -ENOMEM;
+>>>> +
+>>>> +     scom->cdev->owner = THIS_MODULE;
+>>>> +
+>>>> +     rc = register_chrdev(0, "scom", &scom_fops);
+>>>> +     if (rc < 0) {
+>>>> +             dev_dbg(dev, "scom major allocation failed:%d\n", rc);
+>>>> +             return rc;
+>>>> +     }
+>>>> +     dev_dbg(dev, "scom major allocated:%d\n", rc);
+>>>
+>>> You need to register the actual device too, right? We'll want scom0,
+>>> scom1, etc.
+>>
+>> Don't understand your meaning here.  Also scom0 and scom1 refer to
+>> what exactly?
+>
+> The actual devices. You're only registering a chardev major number
+> there, not an actual character device, and so this doesn't result in any
+> /dev/scom node being created.
+>
+> You'll want to do a device_create there, to get the minor allocated and
+> have the device appear. However, that means you'll also need to create a
+> class too.
+>
+> If you want to skip all that, just create a miscdev instead. That will
+> take care of the major/minor numbers for you, and will go into the
+> 'misc' device class.
+>
 
-I've always been a fan of postfix.  A send-only localhost config is
-documented in
-http://www.postfix.org/STANDARD_CONFIGURATION_README.html#null_client.
+Hi Jeremy,
 
-On Fri, Oct 28, 2016 at 5:52 AM, Patrick Williams <patrick@stwcx.xyz> wrote:
+Ok, I've added this change for the next set to review.
 
-> On Thu, Oct 27, 2016 at 05:06:18PM +1030, Joel Stanley wrote:
-> > Hi Patrick,
-> >
-> > I think you mentioned that Gerrit emails broke a while back. A few
-> > people have asked about it recently, so I was wondering if you could
-> > update us on how that is going?
-> >
-> > Do you need help?
+>> For a first pass of core code I'd like to be able to deal with a
+>> single engine if possible and expand later.
 >
-> I haven't had a chance to work on it.  Plan to get it fixed next week.
+> There's a right and wrong way to do that though. Currently, it looks
+> like you're intending to register a /dev/scom. Then, when you want to
+> add multiple interfaces in future, that will have to be removed to
+> create /dev/scom0, /dev/scom1, etc. That's a userspace ABI change, which
+> could break old code.
 >
-> If you know a good / easy to install localhost SMTP agent you can point
-> me at, that would be great.  I need to get that installed and update the
-> TXT record on openbmc-project.xyz to enable the server to send emails
-> again.
+> So, even if your driver only handles one device for now, name that in a
+> way that doesn't conflict with that future interface.
 >
-> The mail host I am using for my personal email is what I relayed the
-> Gerrit emails into and they limit sending to 200 per day, so we end up
-> getting rate limited pretty quick with how many people have subscribed
-> to all changes.
+> However, handling multiple devices is pretty trivial. Just allocate your
+> device in the probe, rather than using one static instance, and name it
+> accordingly. Here's what I'd suggest for your probe function:
 >
-> --
-> Patrick Williams
+> struct scom_device {
+>         struct fsi_device       *fsi_dev;
+>         struct miscdevice       mdev;
+>         char                    name[32];
+> };
 >
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+> static atomic_t scom_idx = ATOMIC_INIT(0);
 >
+> static int scom_probe(struct device *dev)
+> {
+>         struct fsi_device *fsi_dev = to_fsi_dev(dev);
+>         struct scom_device *scom;
+>         int rc;
+>
+>         scom = devm_kzalloc(dev, sizeof(*scom), GFP_KERNEL);
+>         if (!scom)
+>                 return -ENOMEM;
+>
+>         snprintf(scom->name, sizeof(scom->name),
+>                         "scom%d", atomic_inc_return(&scom_idx));
+>         scom->fsi_dev = fsi_dev;
+>         scom->mdev.minor = MISC_DYNAMIC_MINOR;
+>         scom->mdev.fops = &scom_fops;
+>         scom->mdev.name = scom->name;
+>         scom->mdev.parent = dev;
+>
+>         return misc_register(&scom->mdev);
+> }
+>
+>
+> Then, in your read/write functions, file->private_data is your mdev, and
+> you can just do a container_of to get the struct scom_device *.
 >
 
---001a114214783a4e20053fef3514
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Added these changes as well to the next patch set.
 
-<div dir=3D"ltr">I&#39;ve always been a fan of postfix.=C2=A0 A send-only l=
-ocalhost config is documented in=C2=A0<a href=3D"http://www.postfix.org/STA=
-NDARD_CONFIGURATION_README.html#null_client">http://www.postfix.org/STANDAR=
-D_CONFIGURATION_README.html#null_client</a>.</div><div class=3D"gmail_extra=
-"><br><div class=3D"gmail_quote">On Fri, Oct 28, 2016 at 5:52 AM, Patrick W=
-illiams <span dir=3D"ltr">&lt;<a href=3D"mailto:patrick@stwcx.xyz" target=
-=3D"_blank">patrick@stwcx.xyz</a>&gt;</span> wrote:<br><blockquote class=3D=
-"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding=
--left:1ex"><span class=3D"">On Thu, Oct 27, 2016 at 05:06:18PM +1030, Joel =
-Stanley wrote:<br>
-&gt; Hi Patrick,<br>
-&gt;<br>
-&gt; I think you mentioned that Gerrit emails broke a while back. A few<br>
-&gt; people have asked about it recently, so I was wondering if you could<b=
-r>
-&gt; update us on how that is going?<br>
-&gt;<br>
-&gt; Do you need help?<br>
-<br>
-</span>I haven&#39;t had a chance to work on it.=C2=A0 Plan to get it fixed=
- next week.<br>
-<br>
-If you know a good / easy to install localhost SMTP agent you can point<br>
-me at, that would be great.=C2=A0 I need to get that installed and update t=
-he<br>
-TXT record on <a href=3D"http://openbmc-project.xyz" rel=3D"noreferrer" tar=
-get=3D"_blank">openbmc-project.xyz</a> to enable the server to send emails<=
-br>
-again.<br>
-<br>
-The mail host I am using for my personal email is what I relayed the<br>
-Gerrit emails into and they limit sending to 200 per day, so we end up<br>
-getting rate limited pretty quick with how many people have subscribed<br>
-to all changes.<br>
-<span class=3D"HOEnZb"><font color=3D"#888888"><br>
---<br>
-Patrick Williams<br>
-</font></span><br>______________________________<wbr>_________________<br>
-openbmc mailing list<br>
-<a href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a><br=
+
+> From your next email:
 >
-<a href=3D"https://lists.ozlabs.org/listinfo/openbmc" rel=3D"noreferrer" ta=
-rget=3D"_blank">https://lists.ozlabs.org/<wbr>listinfo/openbmc</a><br>
-<br></blockquote></div><br></div>
+>> Is there any value in appending an FSI device path to scom?  Like
+>> cat'ing the fsi device name on end.  That's what is done in existing
+>> product and it makes it easy to tell what device is where in the
+>> topology.
+>
+> No, that's not normal convention for providing that sort of information.
+> If we set the device parent (ie, scom->mdev.parent), the device will be
+> referenced correctly through sysfs, so we have the correct hardware bus
+> layout available there. For example:
+>
+>   # cat /sys/bus/fsi/devices/00:00:00:00/misc/scom1/dev
+>   10:62
+>   # ls -l /dev/scom1
+>   crw-------    1 root     root       10,  62 Jan  1 00:00 /dev/scom1
+>
+> Then, if we want symlinks in dev, we add the appropriate udev rules to
+> create those according to system policy. The names in dev should be
+> fairly dynamic (eg, /dev/sdXN, /dev/ipmiN, etc)
+>
+> [One advantage of using a chardev with a proper class is that 'misc'
+> class directory in the sysfs path could be named something more
+> appropriate...]
+>
 
---001a114214783a4e20053fef3514--
+Thanks for the clarification.
+Chris.
+
+
+> Cheers,
+>
+>
+> Jeremy
