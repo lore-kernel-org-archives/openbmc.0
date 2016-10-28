@@ -1,28 +1,44 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <brendanhiggins@google.com>
+Received: from mail-ua0-x235.google.com (mail-ua0-x235.google.com
+ [IPv6:2607:f8b0:400c:c08::235])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t54NX3z4FzDvSt
- for <openbmc@lists.ozlabs.org>; Sat, 29 Oct 2016 00:29:15 +1100 (AEDT)
-Received: from localhost (170.225.9.144 [170.225.9.144]) by mx.zohomail.com
- with SMTPS id 1477661341443259.7806290946613;
- Fri, 28 Oct 2016 06:29:01 -0700 (PDT)
-Date: Fri, 28 Oct 2016 08:28:59 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Brendan Higgins <brendanhiggins@google.com>
-Cc: raltherr@google.com, openbmc@lists.ozlabs.org, anoo@linux.vnet.ibm.com
-Subject: Re: Logging utilities.
-Message-ID: <20161028132858.4dfarrrqnvjh2so3@asimov>
-References: <CAPLgG=nnxBf882unObKXWJrPrPK=bJOhNK7_4X=Gw1vJsjAr-w@mail.gmail.com>
- <1477356202-10960-1-git-send-email-brendanhiggins@google.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t57ty1scPzDvTT
+ for <openbmc@lists.ozlabs.org>; Sat, 29 Oct 2016 03:07:21 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b=cLbPshRV; 
+ dkim-atps=neutral
+Received: by mail-ua0-x235.google.com with SMTP id 20so42248244uak.0
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Oct 2016 09:07:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=K+aCQJfz5aM1MAsQngF14MDguK3q6IA3gJafGIa0+EI=;
+ b=cLbPshRVXn+J2LxqFVnskquWw/jveG2r1MR1rb1+hSg8D2w8X9jWpfW3wdCWq2pOZT
+ t8KuMQeaUMkunVEuo90WdA0Hwpp//j2ln2srnyAjgtAzPByKeo9rBEeWFr24Qh8N9ofN
+ 1p5ZAcRLZlvQlF9IF1F5EYc5flWYUJ8eZglbBzPY7k/3NhhBpdRpeaJ8norns+6lXiou
+ DRQwitDSN3R4R20yPaPlL9VN2o38lHn5tbQIByPVIkc28J1tfbze3ky8yqhOgB+oVRkU
+ Itcbj0K+tOZSo3Pbmu7ABEFezeoA29BP8ZTshXgFxRqO8b++1b1YGZpMHTFut2r1A7kU
+ KIzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=K+aCQJfz5aM1MAsQngF14MDguK3q6IA3gJafGIa0+EI=;
+ b=ZCTFrIBo4vXE/nzAyTtKKnoQkmuHKGdWqPg9xEklulDZk3C8J59BhxtmxM+tjiLne5
+ dmhbtzkJBh2a5ZglOlXrffQyRHxbNJc1LUqXE1OMfx6MtxiIo/mAJ9WgWynjWNoMlVZq
+ +avfxTvdb6HrGeoM9bJG4TkcJZw/dYcWhrO1R0DJeF2J01Y6kAY69zQZ906lcS/YYZ6K
+ uJGpuXx2w5nICcMhHQeDEHi4Okh030pSAJfzuGtIgf9/qA7MDUAuiqUqIouP8p2FybKO
+ +PBhKYnUDEUJeSNqpMUE1xtQw+sLqFJyyDPlWZHxlSIp6OxtJd7cVWAAE91aH24X/Vke
+ 5hkQ==
+X-Gm-Message-State: ABUngvcDncGdYTOWg1as4c3T811fgPiRgwscD+vJOqc/caujafC9GHLJRNwJX3AH6H47pTt7Po49kBXKCRt0ePk0
+X-Received: by 10.176.16.2 with SMTP id f2mr1984233uab.49.1477670839092; Fri,
+ 28 Oct 2016 09:07:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="ugfsftd3ldo4fxem"
-Content-Disposition: inline
-In-Reply-To: <1477356202-10960-1-git-send-email-brendanhiggins@google.com>
-User-Agent: Mutt/1.6.2 (2016-06-11)
-X-Zoho-Virus-Status: 1
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Fri, 28 Oct 2016 16:07:08 +0000
+Message-ID: <CAFd5g44R3dX3LrNrK9v48wqDW1YfuA1psjZso749=eRMAEZO1A@mail.gmail.com>
+Subject: IBM gtest presentation
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary=f403045e315875de50053fef0d2b
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -34,139 +50,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Oct 2016 13:29:17 -0000
+X-List-Received-Date: Fri, 28 Oct 2016 16:07:23 -0000
 
+--f403045e315875de50053fef0d2b
+Content-Type: text/plain; charset=UTF-8
 
---ugfsftd3ldo4fxem
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Hangout link: https://hangouts.google.com/hangouts/_/google.com/ibm-gtest
+
+--f403045e315875de50053fef0d2b
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 24, 2016 at 05:43:22PM -0700, Brendan Higgins wrote:
-> Trying to revive this thread: we never concluded discussion on this. For =
-the
-> convenience of the reader I have quoted the previous email below:
->=20
-> > Thank you for the background.  That explains a lot about the path Adria=
-na
-> > has gone down.  I completely understand wanting to separate policy from
-> > reporting of device and process errors.  Where we differ is that I don't
-> > see that as the purpose of logging.  You've described an event-based
-> > telemetry system meant to be primarily consumed by other software to dr=
-ive
-> > alerts and automated responses.  I view logging as being primarily for =
-the
-> > benefit of a programmer or operator trying to understand what section of
-> > _code_ went wrong.  That distinction is part of why glog isn't designed=
- to
-> > be super high-performance.  Google uses entirely separate systems for
-> > telemetry.  In my and Google's experience, scraping logs to extract
-> > information (even when the messages are well structured) winds up being
-> > painful to maintain and unreliable over time even when using journald.
->=20
-> We have a patch set out that adds glog support at:
-> https://gerrit.openbmc-project.xyz/#/c/788/
->=20
-> In addition, we have a patch for glog that adds support for logging to jo=
-urnald,
-> but I would like to get some feedback before I do anything else.
+<div dir=3D"ltr">Hangout link:=C2=A0<a href=3D"https://hangouts.google.com/=
+hangouts/_/google.com/ibm-gtest">https://hangouts.google.com/hangouts/_/goo=
+gle.com/ibm-gtest</a></div>
 
-The IBM team and Google team had a in-person discussion on this email
-thread yesterday (10/27).  I'm going to try to recap some of the points
-there.
-
-There ends up being three different aspects of "logging" that we were
-discussing and in some cases using the same words for the different
-aspects.  Those aspects are:
-
-   1.  Program level information to assist in debugging.  This is
-   sometimes called "logging", "tracing" or "flight recording".
-
-   2.  Creating a record of something wrong with the system that may
-   require a service action.  IBM has traditionally used the word "error
-   logging" to refer to the action and "serviceable event" to refer to
-   the thing generated by the action.
-
-   3.  Collection of metrics associated with the system for external
-   consumption.  Examples of metrics might be: raw sensor values, BMC
-   memory and filesystem consumption, instances of recovered /
-   predictive failure errors that have not reached a serviceable
-   threshold.
-
-Program level "logging" is intended to go into the journal.  The commit
-=66rom Adriana referenced in the discussion implements this.  This logging
-interface allows unstructured entries, but we prefer to keep metadata tags
-on data items as described earlier in the chain.
-  (ex. {MSG=3D"Failed to open file.", ERRNO=3D%d, FILE_PATH=3D%s} rather th=
-an
-       {"Failed to open file(%d): %s", errno, file_path})
-The interface also allows syslog-style log levels and we could decide on
-a compile flag to disable (compile out) certain log levels.  I believe
-the IBM team discussed earlier in the week adding a compile flag to
-disable DEBUG level in full image builds, but allowing developers to do
-something like "-DPHOSPHOR_LOGGING_DEBUG" to enable full logging on a
-particular application.
-
-We understand that there are some nice features of glog, with respect to
-backtraces for instance, but strongly feel that the API of it will cause
-a fairly significant flash size increase due to iostream-style shift
-operators.  There is also concern, though unmeasured, about the
-performance impact from the increase in the code path to the journald
-interfaces.  The phosphor-logging interfaces compile down to exactly a
-single journald function call per log call, which alleviates both of
-these concerns.
-
-The creation of service action records proposal was what I described
-previously in this email chain.  The commits for that are available in
-Gerrit.  We have found that often the information a developer would want
-to log for application debug is often related to the information that is
-needed to create a serviceable event.  Rather than require the program
-(and developer) to log the same information through two different APIs,
-we have attempted to combine it by leveraging the meta-data fields from
-the program level logging API.  The serviceable event structure is
-defined via a YAML file with required meta-data fields and then the API
-has compile-time assurance that the required meta-data fields have been
-provided.
-
-We recognize this means we are effectively using the journal as an IPC
-mechanism between the program identifying a serviceable event and the
-program recording and reacting to / executing policy for the serviceable
-event.  If this becomes cumbersome or problematic due to journald's
-behavior we believe we can change this implementation choice with
-little or no API modification.
-
-Metrics are typically going to be generated and distributed through the
-system via dbus signals.  For instance, a dbus object is created per
-sensor and the org.freedesktop.Object.PropertiesChanged signal is
-generated when the value of the sensor changes.  We expect to enhance
-the REST server to allow users to subscribe and stream out those sorts
-of signals.  If there isn't an interest in the REST API, an implementer
-is free to create another daemon that subscribes to those signals and
-processes them in another way.
-
---=20
-Patrick Williams
-
---ugfsftd3ldo4fxem
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJYE1KaAAoJEKsDR8wtAMEZOF8P/1y/6TmFo1CIFy9c+Zs684sK
-zAPHG5D2IFe+6BCz27w8YdpdjixxNI3KpAf4jPcrnS3yh8kR/GUKPz2YbCShtzlI
-6DyutRsAavufL6hv7fTisRAvCZuxHHCqdnPWhuxsnPqlcAp07pBt/GN3529AIvKe
-xFfC/NuZAWJqLL8OqeUwmz5zXtSLmRviMkbqbubaJZgK1DSSEjSjNRHVF6gsKPeY
-92H7VgKs73UjAGa4t6Q51iczCkCJDv1GVLplEuOrvhff0/EgDq6CWb4aALFARcV2
-lKjCe4qq/NRSRtZ3pWvXT8LkJZnyJBFJCOvhyO3pXiD+HP/64P2QnaQESo/+9j2r
-3lhOFC83iotaSCqizpMPHUwDtR6BcHhC/v0idDTjH2yN4smzDYgkIgqPZTk677I0
-sN2+pU/DOlMNpagrMQfqOmT3xheaMTbyam1QfV6kgGyMqyR1ih0ZERpnoZ5qODMm
-wAnRcWU0ALBpt2PqGgMVbKrYrmLdq72hpHCWJ/Wax2B/JZO7MGc+HWcPHy+H06Ab
-QNIJeE0ojFZjQLuaA7rpbETZQqqv5exGof9O5aP/JuEjElyhqo7EWSKjvJJcP/Lk
-dL0eptzgiFpPL4vbw50NHo/RqhnYVDF91MoMIl/WRuuE8sd8OLKkfYX7U77liFM6
-OmSJ8nHVYNAf9X/juwu1
-=VgEl
------END PGP SIGNATURE-----
-
---ugfsftd3ldo4fxem--
+--f403045e315875de50053fef0d2b--
