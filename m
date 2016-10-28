@@ -1,51 +1,49 @@
 Return-Path: <christopher.lee.bostic@gmail.com>
-Received: from mail-wm0-x244.google.com (mail-wm0-x244.google.com
- [IPv6:2a00:1450:400c:c09::244])
+Received: from mail-wm0-x243.google.com (mail-wm0-x243.google.com
+ [IPv6:2a00:1450:400c:c09::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t5DH55RhDzDvSF
- for <openbmc@lists.ozlabs.org>; Sat, 29 Oct 2016 06:25:05 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t5GXs3hrfzDvNf
+ for <openbmc@lists.ozlabs.org>; Sat, 29 Oct 2016 08:07:09 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=NXUUUWzn; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=gs6qx/1O; 
  dkim-atps=neutral
-Received: by mail-wm0-x244.google.com with SMTP id m83so8711891wmc.0
- for <openbmc@lists.ozlabs.org>; Fri, 28 Oct 2016 12:25:05 -0700 (PDT)
+Received: by mail-wm0-x243.google.com with SMTP id c17so9005269wmc.3
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Oct 2016 14:07:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=7g464AQiYgVYI7ZfllP1T+tBT51dfo6KFKp3Kc3jN84=;
- b=NXUUUWznoByuiv+4m2Jhu70Pfr+P0ck7fwDlV0etBzY/wd+rMvw9wdaqCsLX/PfuSA
- t+csqd48886rXUd5Gcnt6BD4iEKLXGSpsHvyBWclYUmLJEGNY3I3vjEnLENHc57bMhyC
- sWMMStBKrl8+aIq/p7bfXw1XgboUTccfm0Tugh9a6L4w3ubu8PUJ/8aY6VIQJ47x0mDI
- KC6QI3B7rRPUGGWpuREV6uEUFJK0tJSUMT73YDOZTC8tvM0pg3wATd4MkLLyJTbO08Xc
- A4tvTxXKq4BxJJ6sufcKpV+KnsTTYrL45xg+IMowmcD8TGp4OONf5zz9tdruA1AwkAPy
- Wfjw==
+ :cc; bh=CVL0F8L123qd0W63FRFufjRSqIw+JTE8YJS1jP868so=;
+ b=gs6qx/1OCXZVvBD4bOSzHXFrnxtFGHR9nvBebk3n3jcQ0pz7Oksh241GZOpYFVgBxC
+ hqFkzIACSN9vwqUzKHEOMv+mhrYnOsw/lHggr0KMbyt8khw+Kh0SGL2VhXeU2Uf37ed9
+ jHt2YBGfQvqz9Fi/BAUG+k0Zm32yI5Nj1fUIS/pnogJ4OAJDM54IJnxi17P5Iyw0xIFN
+ F/N4v6sOM1Q7UCWX+gmJiunLWkvY+7edZ6EEzRzXZLbQqvXnsDCMzb/rN9h4DNQeQBjz
+ 6EE88Q/+6sKFIrzxTR1XrU6cgl7baSaMGRc1nnXOeulrnZmpibYrW54RrigGM2cVMNlf
+ xelw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=7g464AQiYgVYI7ZfllP1T+tBT51dfo6KFKp3Kc3jN84=;
- b=mrfpotGOmMkuv/FD43MMtwstaMEf5IhcYB5jVn4EUh09UIHxkxNQ+OphKrgMmNkfxj
- JhwHJYxQaWFFff0DCnFbiTX9FvYpEXKzke7aN3HsveXiFxK6/npPZrM+1d1KO0RVsgHm
- HUOJxGQAXALdfivspn7zb7UIKuh9lejQPtgvM4MsWPRaiDFryRHxKyL+Myv5mdT2wAlQ
- S2lio4WgSTC+dKrOqyHq9wUiSke2Kiu5sGkflxYn4Ft7tYihQq80d38nVd0qghrsv/n6
- tlo/3Awp7zF141cFA5Cv3ffoYZ1D7LtcQnwFj2mzjmy3BqJg/YkBvX4ZhDROAZaGijiv
- QehA==
-X-Gm-Message-State: ABUngve6q9pLDxqYG3cggEkTwixUs9Tcf0JXoevLRJaDaHxsxxpCFhG/aADR/4/FE64qwU1DrRzlmkJ636aW8w==
-X-Received: by 10.28.151.17 with SMTP id z17mr248951wmd.15.1477682701773; Fri,
- 28 Oct 2016 12:25:01 -0700 (PDT)
+ bh=CVL0F8L123qd0W63FRFufjRSqIw+JTE8YJS1jP868so=;
+ b=fyu/NPvVtFw8fQNnmk4k3G33/l+0pyWmz7woiYtDMyoz5gt2oJXoEeNYzODtG2Dzev
+ KFg/OLrZVWOWZp9MNLSp5Fzld6VFbU3ISAyeHvsSiNMI2Wa14c1/bNlprEulVGTvmXmV
+ uhrx0ADSSO9aXgBZ5g0pbYL/d63xLrYC5bAbvQXTjLvtlJFtO/PcJ9D1y1LrJC8YelyQ
+ PTDXXgO0Qzm3tJCf+mrssMVz8YXYifg+gCUtnNUnN7UptOQijAxWCpzONAwiK5QIaCcq
+ Z3fe5u5/bFl+gsqqARUapVxFE+LS58pmG2WKIqMxHfdTYxYYwQdM/f82N97u3L9yuFm8
+ RITA==
+X-Gm-Message-State: ABUngvdu/ewn+NhZbZ5PhrfloBHUDJTPH+fT4ReQyKippVGU5S5pz3fdr79MnazftswQv7ZJUSfJap5UG8OcNg==
+X-Received: by 10.194.172.41 with SMTP id az9mr15829338wjc.105.1477688825064; 
+ Fri, 28 Oct 2016 14:07:05 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.80.161.71 with HTTP; Fri, 28 Oct 2016 12:25:01 -0700 (PDT)
-In-Reply-To: <c75d32c6-546a-c5d2-a7ab-052b82de50ea@ozlabs.org>
+Received: by 10.80.161.71 with HTTP; Fri, 28 Oct 2016 14:07:04 -0700 (PDT)
+In-Reply-To: <fd5171bb-6325-66db-1ec5-7363c73db70e@ozlabs.org>
 References: <1476918586-13475-1-git-send-email-christopher.lee.bostic@gmail.com>
- <1476918586-13475-18-git-send-email-christopher.lee.bostic@gmail.com>
- <918db920-baf4-ef79-90fe-dc00a06a2430@ozlabs.org>
- <CAA0LjjWtdasgpv6NR2UCAuZCb+eP-+sDcsOMeGb4-_MEn1x7dw@mail.gmail.com>
- <c75d32c6-546a-c5d2-a7ab-052b82de50ea@ozlabs.org>
+ <1476918586-13475-14-git-send-email-christopher.lee.bostic@gmail.com>
+ <fd5171bb-6325-66db-1ec5-7363c73db70e@ozlabs.org>
 From: Christopher Bostic <christopher.lee.bostic@gmail.com>
-Date: Fri, 28 Oct 2016 14:25:01 -0500
-Message-ID: <CAA0LjjWkudTWak5kUY4O8KHsOKFUtjkofwh5ciWxaVrVOdOsBQ@mail.gmail.com>
-Subject: Re: [PATCH linux v5 17/18] drivers/fsi: Add SCOM FSI client device
- driver
+Date: Fri, 28 Oct 2016 16:07:04 -0500
+Message-ID: <CAA0LjjWnyTVtVfOLDeSPaJhFugBwbztWRfDBofuJEoWYVa-m6Q@mail.gmail.com>
+Subject: Re: [PATCH linux v5 13/18] drivers/fsi: Set up links for slave
+ communication
 To: Jeremy Kerr <jk@ozlabs.org>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, xxpetri@de.ibm.com,
  zahrens@us.ibm.com
@@ -61,145 +59,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Oct 2016 19:25:06 -0000
+X-List-Received-Date: Fri, 28 Oct 2016 21:07:10 -0000
 
-On Fri, Oct 21, 2016 at 12:24 AM, Jeremy Kerr <jk@ozlabs.org> wrote:
+On Fri, Oct 21, 2016 at 12:28 AM, Jeremy Kerr <jk@ozlabs.org> wrote:
 > Hi Chris,
 >
->>> Also, have you thought about endianness?
+>> diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
+>> index 565c7e3..81ed444 100644
+>> --- a/drivers/fsi/fsi-core.c
+>> +++ b/drivers/fsi/fsi-core.c
+>> @@ -287,13 +287,51 @@ static int fsi_slave_init(struct fsi_master *master,
 >>
->> The plan is for endianness is to be dealt with in the fsi-core
->> so the other engines don't need to worry about it.  Yes there
->> is likely to be some additions there.  Will need to evaluate.
->
-> OK.
->
->>>> +static int scom_probe(struct device *dev)
->>>> +{
->>>> +     struct fsi_device *fsi_dev = to_fsi_dev(dev);
->>>> +     struct scom_device *scom = &scom_dev;
->>>> +     int rc;
->>>> +
->>>> +     scom->fsi_dev = fsi_dev;
->>>> +     scom->cdev = cdev_alloc();
->>>> +     if (!scom->cdev)
->>>> +             return -ENOMEM;
->>>> +
->>>> +     scom->cdev->owner = THIS_MODULE;
->>>> +
->>>> +     rc = register_chrdev(0, "scom", &scom_fops);
->>>> +     if (rc < 0) {
->>>> +             dev_dbg(dev, "scom major allocation failed:%d\n", rc);
->>>> +             return rc;
->>>> +     }
->>>> +     dev_dbg(dev, "scom major allocated:%d\n", rc);
->>>
->>> You need to register the actual device too, right? We'll want scom0,
->>> scom1, etc.
+>>  /* FSI master support */
 >>
->> Don't understand your meaning here.  Also scom0 and scom1 refer to
->> what exactly?
+>> +static int fsi_master_link_enable(struct fsi_master *master, int link)
+>> +{
+>> +     if (master->link_enable)
+>> +             return master->link_enable(master, link);
+>> +
+>> +     return -EINVAL;
+>> +}
 >
-> The actual devices. You're only registering a chardev major number
-> there, not an actual character device, and so this doesn't result in any
-> /dev/scom node being created.
->
-> You'll want to do a device_create there, to get the minor allocated and
-> have the device appear. However, that means you'll also need to create a
-> class too.
->
-> If you want to skip all that, just create a miscdev instead. That will
-> take care of the major/minor numbers for you, and will go into the
-> 'misc' device class.
+> We don't want to error on no ->link_enable callback; this breaks for any
+> masters that don't require this (eg, the fake master)
 >
 
 Hi Jeremy,
 
-Ok, I've added this change for the next set to review.
+OK will change that.
 
->> For a first pass of core code I'd like to be able to deal with a
->> single engine if possible and expand later.
+>> +/*
+>> + * Issue a break command on this link
+>> + */
+>> +static int fsi_master_break(struct fsi_master *master, int link)
+>> +{
+>> +     int rc;
+>> +
+>> +     if (!master->send_break)
+>> +             return -EINVAL;
 >
-> There's a right and wrong way to do that though. Currently, it looks
-> like you're intending to register a /dev/scom. Then, when you want to
-> add multiple interfaces in future, that will have to be removed to
-> create /dev/scom0, /dev/scom1, etc. That's a userspace ABI change, which
-> could break old code.
->
-> So, even if your driver only handles one device for now, name that in a
-> way that doesn't conflict with that future interface.
->
-> However, handling multiple devices is pretty trivial. Just allocate your
-> device in the probe, rather than using one static instance, and name it
-> accordingly. Here's what I'd suggest for your probe function:
->
-> struct scom_device {
->         struct fsi_device       *fsi_dev;
->         struct miscdevice       mdev;
->         char                    name[32];
-> };
->
-> static atomic_t scom_idx = ATOMIC_INIT(0);
->
-> static int scom_probe(struct device *dev)
-> {
->         struct fsi_device *fsi_dev = to_fsi_dev(dev);
->         struct scom_device *scom;
->         int rc;
->
->         scom = devm_kzalloc(dev, sizeof(*scom), GFP_KERNEL);
->         if (!scom)
->                 return -ENOMEM;
->
->         snprintf(scom->name, sizeof(scom->name),
->                         "scom%d", atomic_inc_return(&scom_idx));
->         scom->fsi_dev = fsi_dev;
->         scom->mdev.minor = MISC_DYNAMIC_MINOR;
->         scom->mdev.fops = &scom_fops;
->         scom->mdev.name = scom->name;
->         scom->mdev.parent = dev;
->
->         return misc_register(&scom->mdev);
-> }
->
->
-> Then, in your read/write functions, file->private_data is your mdev, and
-> you can just do a container_of to get the struct scom_device *.
->
+> And do we want to error here? If so, we'll need to implement send_break
+> for the fake master.
 
-Added these changes as well to the next patch set.
+Will remove this as well.
 
 
-> From your next email:
->
->> Is there any value in appending an FSI device path to scom?  Like
->> cat'ing the fsi device name on end.  That's what is done in existing
->> product and it makes it easy to tell what device is where in the
->> topology.
->
-> No, that's not normal convention for providing that sort of information.
-> If we set the device parent (ie, scom->mdev.parent), the device will be
-> referenced correctly through sysfs, so we have the correct hardware bus
-> layout available there. For example:
->
->   # cat /sys/bus/fsi/devices/00:00:00:00/misc/scom1/dev
->   10:62
->   # ls -l /dev/scom1
->   crw-------    1 root     root       10,  62 Jan  1 00:00 /dev/scom1
->
-> Then, if we want symlinks in dev, we add the appropriate udev rules to
-> create those according to system policy. The names in dev should be
-> fairly dynamic (eg, /dev/sdXN, /dev/ipmiN, etc)
->
-> [One advantage of using a chardev with a proper class is that 'misc'
-> class directory in the sysfs path could be named something more
-> appropriate...]
->
+Thanks,
+Chris
 
-Thanks for the clarification.
-Chris.
-
-
+>
 > Cheers,
 >
 >
