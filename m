@@ -3,23 +3,23 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t53WG0JlKzDvNS
- for <openbmc@lists.ozlabs.org>; Fri, 28 Oct 2016 23:50:01 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t53Zf2drrzDvPd
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Oct 2016 23:52:58 +1100 (AEDT)
 Received: from localhost (170.225.9.144 [170.225.9.144]) by mx.zohomail.com
- with SMTPS id 1477658993868288.89157560794706;
- Fri, 28 Oct 2016 05:49:53 -0700 (PDT)
-Date: Fri, 28 Oct 2016 07:49:52 -0500
+ with SMTPS id 1477659171277147.5504051083808;
+ Fri, 28 Oct 2016 05:52:51 -0700 (PDT)
+Date: Fri, 28 Oct 2016 07:52:49 -0500
 From: Patrick Williams <patrick@stwcx.xyz>
-To: Nancy Yuen <yuenn@google.com>
-Cc: openbmc@lists.ozlabs.org
-Subject: Re: Merging rights
-Message-ID: <20161028124952.d5nsytcmuve7iugl@asimov>
-References: <CADfYTpGhjpJrghBk9GUw_Epi=buw_TWfhAkTr=OzmZrFvfQcSg@mail.gmail.com>
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: Gerrit emails
+Message-ID: <20161028125249.esdyeqbkpk6nedc2@asimov>
+References: <CACPK8XeEiMremm9nbKRMxr3G6GmR4OTHjb1DHOxLjPqQ3WNBkg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="ycbariqneah4gs7c"
+ protocol="application/pgp-signature"; boundary="meziv3e7mwfchhbb"
 Content-Disposition: inline
-In-Reply-To: <CADfYTpGhjpJrghBk9GUw_Epi=buw_TWfhAkTr=OzmZrFvfQcSg@mail.gmail.com>
+In-Reply-To: <CACPK8XeEiMremm9nbKRMxr3G6GmR4OTHjb1DHOxLjPqQ3WNBkg@mail.gmail.com>
 User-Agent: Mutt/1.6.2 (2016-06-11)
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -33,51 +33,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Oct 2016 12:50:02 -0000
+X-List-Received-Date: Fri, 28 Oct 2016 12:52:59 -0000
 
 
---ycbariqneah4gs7c
+--meziv3e7mwfchhbb
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 25, 2016 at 12:37:34PM -0700, Nancy Yuen wrote:
-> I'd like to be added as well.  I can help with changes coming via Google.
+On Thu, Oct 27, 2016 at 05:06:18PM +1030, Joel Stanley wrote:
+> Hi Patrick,
+>=20
+> I think you mentioned that Gerrit emails broke a while back. A few
+> people have asked about it recently, so I was wondering if you could
+> update us on how that is going?
+>=20
+> Do you need help?
 
-What I did was change the ACLs so that anyone can merge a commit that
-has a +2 from a maintainer, not just maintainers.  What happened with
-Joel was that I gave it a +2 (ok to merge) but was waiting for a +1
-(verified) from Jenkins and then I went to bed and forgot about it.
-Now, if you have a commit with a +2 from a maintainer and a +1 from
-Jenkins you can click 'submit' on your own.
+I haven't had a chance to work on it.  Plan to get it fixed next week.
 
-As the community progresses along further and individuals establish
-credibility in their expertise areas we will revisit how to spread the
-maintainership workload out.
+If you know a good / easy to install localhost SMTP agent you can point
+me at, that would be great.  I need to get that installed and update the
+TXT record on openbmc-project.xyz to enable the server to send emails
+again.
+
+The mail host I am using for my personal email is what I relayed the
+Gerrit emails into and they limit sending to 200 per day, so we end up
+getting rate limited pretty quick with how many people have subscribed
+to all changes.
 
 --=20
 Patrick Williams
 
---ycbariqneah4gs7c
+--meziv3e7mwfchhbb
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJYE0lwAAoJEKsDR8wtAMEZE4IP/2GcBUdL0oLzJFsF45Bpxl5E
-JXhGs+0tmGZ9V2stCXlE8xfwR3uq4AB3Q5Y5ZkQfrlhjsKPKjMnJ7h058WRC/X8U
-wUDeMYdx2+K97O+I7m+/w2ntps0HuTqhK9TwB0YnsuP+DmvF98BDOCw1EDRAv7qa
-+VYnt+04m/MnDR5oJ00dVIyc+EfE5hyyWMUSkudQxPixp2Pg8Wt6gOV/QngH0Fo5
-fVoZ5q6bk2mGulbXAGb8PNfWqHAYFZu5lZybUY5LsiBlFF0UW3M1zJ8LcUVjuepC
-EjDG2Jlm7jl/V7SUmlBDpuDOepWnXrUMhUXiRAL9JHGB7iiMqmqb8aqBcb6G9zvq
-P+6z9DTKFwWOH7tFjd8HKhiUfNwCwUu7VSkX1dzcbNet/zJvKLgVzOFJA92CuRrN
-Fxv9iG/Mcgw6zln9jmriDp3Kc3oZ36O1tFrk3myz2G5qLe1CrfSpp5oAVEtXy+gf
-zP+n16pJI3D3GK3Rqo+YnvqGapff5teQfqSBj1Nfe5iDMV4qvkt2O7qtGi7jyj8I
-nGeqYuvIB9k/qK/Zug72PKkRGtsAUD5GrThsHJBk919IBx4Q7X8v3y3A+dcuCf2/
-ipPUWk+Ac8ANH1Nnb0ObDVsqOgyfW30m14iAMo3TmaQxBpEXs+/YLipD2zKqniD0
-UWF5ZEP6g3qfK5IK0hjg
-=8yJB
+iQIcBAEBCAAGBQJYE0ohAAoJEKsDR8wtAMEZC9EP/AoPOfMBCfRIqBNLNJomAKN4
+0OsFo3auB6e4aSbPsolArCxtc1j4YtOxPSDvTESyHTQeXpZSSBEbthGXO6OKgTvx
+y/+N477LPUu3yHCbdD39fOHamaV026BYuhlTvMOOKhhNUD7WGXDuBbRpzKAFs99C
+ID7RRUNSW3OUpt7oBQ34/CwCsO2yKaInHV0dp7lI9Su5o1y6h+htjQ4g4ZeQDZvj
+Gs+yeFxgotQzE+PgEZMnmiggjaITefmtJQDdNZoAYf7YmwCKsIXhApPKUBsfgrCo
+yYDYCl6LKrtbje3ibV9Fnh+FNLh5tdNzxUcFpvMUp2ZfGzcQIJtroz3DkPVQXJWQ
+3+FaaEpElV71P4P4u/64QD27GU0R091/H9LnCS8imj7TCpf9sRQS5tD035J40F0Z
+T/5K68cBgBw1kga6W/zaDY4BwECkmoSKDE/lDcZVQCAn7faxp9drHYYndA/YJXFu
+1gARScEIaaJ1riTFz0SXoITAEfcK3ssKBtUOS04Au7bCvEUCs3TlqV1bwDUeccJc
+BzjPpcj+OJUpT774OwZ0ZowrMlxtL47BODljYbPiP6XOl83zFaFiXrKDzGomrnTr
+LdAmoccnMVCt+jpfZwISmoOXPSKgvEFArVTBiHPhmZ3LgquqfM8DlPxJ6P82o5sj
+EHYgEkxzI893J05/MCkB
+=jN/A
 -----END PGP SIGNATURE-----
 
---ycbariqneah4gs7c--
+--meziv3e7mwfchhbb--
