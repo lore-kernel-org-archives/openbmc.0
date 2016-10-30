@@ -1,51 +1,51 @@
 Return-Path: <christopher.lee.bostic@gmail.com>
-Received: from mail-oi0-x244.google.com (mail-oi0-x244.google.com
- [IPv6:2607:f8b0:4003:c06::244])
+Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
+ [IPv6:2607:f8b0:4003:c06::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t6Wrx6qKyzDvNj
- for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 09:10:25 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t6Wrz6JFHzDvWW
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 09:10:27 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=0XO2VSa2; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=hdKGdF2D; 
  dkim-atps=neutral
-Received: by mail-oi0-x244.google.com with SMTP id 62so5827056oif.1
- for <openbmc@lists.ozlabs.org>; Sun, 30 Oct 2016 15:10:25 -0700 (PDT)
+Received: by mail-oi0-x241.google.com with SMTP id 62so5827119oif.1
+ for <openbmc@lists.ozlabs.org>; Sun, 30 Oct 2016 15:10:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=zbQegva7OnNn9VAz6Z6a3/DpgylcOPrvEpKm60BYNNE=;
- b=0XO2VSa2tM3mz8skh5pzS06whGN3WwNZ3CdCqQ91dHDN1sWZ1e3bFN4t1kBfwVtvRD
- tnTxlwdjAfvltyK2Xc8ct2MmfFXdg8TrOu5Yn6xUsmPLF1pcWg8zCVPVuss0/o1UjI+9
- 62VCUOuXVD0O2IWMQ1ezecD819kjeea7CcYbMEOYksgpVEON/JhLIBicU7EWpOCWHkzZ
- g8SCOWgFvhtskAbDJNP+jrM5czFu5R0iQCuRTYPWnGwG1iYsfr1wFLLVPbZrfL3ZAQyl
- umzyIt1PySHw6nWW1NnrgSIQsFGisMpe0xug0L5N7vI+eIKiyOv86oon8JOoBIl0iFPc
- Iy0w==
+ bh=0Vd3PaUgvyxtgEs9xfxREmKiS8zrDrM48TGztQ72MvA=;
+ b=hdKGdF2DxfIU1xE2OqAynpReydtBu9OM+4ZFa7GiQUusfhfUuP62Z7qE/+bU+RwJMn
+ EiZGCbyc91EAdmwx6L4Mw3M+0iHepfZvKM1s3Qg+GQ3akVYWejBUN/SNDIbi6NLK9C4T
+ FKmjJSrhBZcdS1NO0RSS9RUGBFjs6bziXMZwsow5cJBcYL+Nz205mzQQFbAS1zrhp9vQ
+ bG1B1QDMEMIG1yAS5fZPV4/o2a6TgW1z4AF5zVni1vUmncvnFpqHjydL8V6tBOt8w+sO
+ rA9KgBKQfiLWLrYWKK+R0Ku/i5cOTNUhJ+bzSthvRvSCc0zU+zwhIo/nF6VAwN/+G0mY
+ oFGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=zbQegva7OnNn9VAz6Z6a3/DpgylcOPrvEpKm60BYNNE=;
- b=SOSSrQKsc4LtmZygLQKfNm84hbHHQbMvARb5fTodS/l4ZD2wQUrJ8oZQ83JJm4GLqH
- oKM4VFRKvoMnMlS9zgAxy39f8eWz5D5InguYsgvkNvTrtae+7rVOqy3P8inLrBaV/Vu9
- hkS3nM2y8mxd9dZoNR8vgsfrC01CA28FIMs5kwAKNvAicGvy0jov9OcJxERrrUIppGxK
- bbdJM3TP9YHlI4YxVEfj+/XJnLi0PWAnWzx8bwFFjQgDbDunEqLUirdTQTWc6mfejAd6
- CotSCmy+8hxBG6Wm56uV4kvRipLptwtVNI45cFP/lEtc+pNWahPl+Q39hcCm/EVw5GvI
- nQew==
-X-Gm-Message-State: ABUngvfhPu/1Cy7d7NIKdpukMtNgYmQDjWqs0g4Z4MhosXyDfM5byz/iwJNqzQs3x7TmzA==
-X-Received: by 10.202.90.195 with SMTP id o186mr7080129oib.165.1477865424229; 
- Sun, 30 Oct 2016 15:10:24 -0700 (PDT)
+ bh=0Vd3PaUgvyxtgEs9xfxREmKiS8zrDrM48TGztQ72MvA=;
+ b=RUziaVZyhf7FnQhm2A8UOcFM9HsmQCj5Ma5s9yf0coL35CiFMMvAFVxDxYBkBnx59k
+ kHdp+WBYrQ+whn4GVmYDPUddutAOwg47xoduZCu3O+3eI7KaIUYYdRpakfsz865OI2MD
+ T3FjkwS+ZcgcfdUQeMwJOKZaadXeRCk67vMPNpMcgksnZsAWxdNkcY0IGslgd9rESMhI
+ aslx55HtpPJ60SZuC2EXCoxnWCkxOvraIu5Q3NCboTkySr15ob1/8xx/Vn0pbSYwRyfL
+ DmaEhZhHwhknZJXaOZv6aEuZYtB3zZHf7S6LoJJ+3vF3xfXNRnlAfMToctbuOtTektYE
+ w4HQ==
+X-Gm-Message-State: ABUngvcyIdR+4SnNuTTqdXgOpknIksSErSCX+wH81dUT+YiBnxokd27RzLxIL0OUImXrGg==
+X-Received: by 10.202.212.200 with SMTP id l191mr19343589oig.153.1477865425844; 
+ Sun, 30 Oct 2016 15:10:25 -0700 (PDT)
 Received: from Christophers-MacBook-Pro.local.com
  (45-20-192-79.lightspeed.austtx.sbcglobal.net. [45.20.192.79])
- by smtp.gmail.com with ESMTPSA id q59sm7585484ota.20.2016.10.30.15.10.23
+ by smtp.gmail.com with ESMTPSA id q59sm7585484ota.20.2016.10.30.15.10.24
  (version=TLS1 cipher=AES128-SHA bits=128/128);
- Sun, 30 Oct 2016 15:10:23 -0700 (PDT)
+ Sun, 30 Oct 2016 15:10:24 -0700 (PDT)
 From: christopher.lee.bostic@gmail.com
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, zahrens@us.ibm.com, xxpetri@de.ibm.com,
  Chris Bostic <cbostic@us.ibm.com>
-Subject: [PATCH linux v6 14/18] drivers/fsi: Set up links for slave
- communication
-Date: Sun, 30 Oct 2016 17:09:35 -0500
-Message-Id: <1477865379-11566-34-git-send-email-christopher.lee.bostic@gmail.com>
+Subject: [PATCH linux v6 15/18] drivers/fsi: Set slave SMODE to init
+ communications
+Date: Sun, 30 Oct 2016 17:09:36 -0500
+Message-Id: <1477865379-11566-35-git-send-email-christopher.lee.bostic@gmail.com>
 X-Mailer: git-send-email 2.7.4 (Apple Git-66)
 In-Reply-To: <1477865379-11566-1-git-send-email-christopher.lee.bostic@gmail.com>
 References: <1477865379-11566-1-git-send-email-christopher.lee.bostic@gmail.com>
@@ -60,121 +60,184 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 30 Oct 2016 22:10:26 -0000
+X-List-Received-Date: Sun, 30 Oct 2016 22:10:28 -0000
 
 From: Chris Bostic <cbostic@us.ibm.com>
 
-Enable each link and send a break command in preparation
-for scanning each link for slaves.
+Set CFAM to appropriate ID so that the controlling master
+can manage link memory ranges.  Add slave engine register
+definitions.
 
 Signed-off-by: Chris Bostic <cbostic@us.ibm.com>
 
 ---
 
-V3 - Remove definition of BREAK command from fsi-master.h
+V3 - Remove master->set_smode op and make it generic for
+     all masters.
 
-   - Remove definitions of fsi_master_fake for set_smode
-     and break
+V4 - 'Change rc = func(); return rc;' code to 'return func();'
 
-   - Remove master->set_smode master dependent function and
-     moved to a generic base master set_smode.
+   - Change set_smode_defaults to return value instead of
+     passing back via reference.
 
-   - Add fsi_master_link_enable with master type dependencies
+   - Rename fsi_master_set_smode to fsi_slave_set_smode
 
-V4 - Remove all references to set smode
+   - Pass in slave id to fsi_slave_set_smode instead of
+     making assumptions internal to the function.
 
-   - Remove file fsi-slave.h
+   - Only allow slave inits on id 0 - a todo to accommodate
+     all slave ID's.
 
-   - Move link break and enable up into master scan
+V5 - Move SMODE read at default ID out of break and into
+     the caller.
 
-   - Change rc = func(); return rc; coding to return func();
-     Note this is still in place in fsi_master_send_break in
-     anticipation of changes coming up in next patch of this
-     series.
-
-   - Fix comment spelling error
-
-   - Use dev_dbg instead of dev_info when link enable or break
-     fails
-
-   - Remove explicit set of master->break and
-     master->link_enable to NULL due to kzalloc
-
-v6 - Don't return error if master->link_enable or
-     master->break are not defined.
+V6 - Change the slave ID from 0 to 3 when setting smode to
+     new value.
 ---
- drivers/fsi/fsi-core.c   | 38 +++++++++++++++++++++++++++++++++++---
- drivers/fsi/fsi-master.h |  2 ++
- 2 files changed, 37 insertions(+), 3 deletions(-)
+ drivers/fsi/fsi-core.c | 89 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 89 insertions(+)
 
 diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-index 95e867e..7fc15ab 100644
+index 7fc15ab..6ac239a 100644
 --- a/drivers/fsi/fsi-core.c
 +++ b/drivers/fsi/fsi-core.c
-@@ -288,16 +288,48 @@ static int fsi_slave_init(struct fsi_master *master,
+@@ -33,6 +33,7 @@
+ #define FSI_SLAVE_CONF_TYPE_SHIFT	4
  
- /* FSI master support */
+ #define FSI_PEEK_BASE			0x410
++#define FSI_SLAVE_BASE			0x800
  
-+static int fsi_master_link_enable(struct fsi_master *master, int link)
-+{
-+	if (master->link_enable)
-+		return master->link_enable(master, link);
-+
-+	return 0;
-+}
+ static const int engine_page_size = 0x400;
+ 
+@@ -52,6 +53,25 @@ static int fsi_slave_read(struct fsi_slave *slave, uint32_t addr,
+ static int fsi_slave_write(struct fsi_slave *slave, uint32_t addr,
+ 		const void *val, size_t size);
+ 
++/*
++ * FSI slave engine control register offsets
++ */
++#define	FSI_SMODE			0x0	/* R/W: Mode register */
 +
 +/*
-+ * Issue a break command on this link
++ * SMODE fields
 + */
-+static int fsi_master_break(struct fsi_master *master, int link)
-+{
-+	if (master->send_break)
-+		return master->send_break(master, link);
++#define	FSI_SMODE_WSC			0x80000000	/* Warm start done */
++#define	FSI_SMODE_ECRC			0x20000000	/* Hw CRC check */
++#define	FSI_SMODE_SID_SHIFT		24		/* ID shift */
++#define	FSI_SMODE_SID_MASK		3		/* ID Mask */
++#define	FSI_SMODE_ED_SHIFT		20		/* Echo delay shift */
++#define	FSI_SMODE_ED_MASK		0xf		/* Echo delay mask */
++#define	FSI_SMODE_SD_SHIFT		16		/* Send delay shift */
++#define	FSI_SMODE_SD_MASK		0xf		/* Send delay mask */
++#define	FSI_SMODE_LBCRR_SHIFT		8		/* Clk ratio shift */
++#define	FSI_SMODE_LBCRR_MASK		0xf		/* Clk ratio mask */
 +
-+	return 0;
-+}
-+
- static int fsi_master_scan(struct fsi_master *master)
- {
--	int link, slave_id;
-+	int link, slave_id, rc;
-+
-+	for (link = 0; link < master->n_links; link++) {
-+		rc = fsi_master_link_enable(master, link);
-+		if (rc) {
-+			dev_dbg(master->dev,
-+				"Enable link:%d failed with:%d\n", link, rc);
-+			continue;
-+		}
-+		rc = fsi_master_break(master, link);
-+		if (rc) {
-+			dev_dbg(master->dev,
-+				"Break to link:%d failed with:%d\n", link, rc);
-+			continue;
-+		}
- 
--	for (link = 0; link < master->n_links; link++)
- 		for (slave_id = 0; slave_id < FSI_N_SLAVES; slave_id++)
- 			fsi_slave_init(master, link, slave_id);
-+	}
- 
- 	return 0;
--
+ /* FSI endpoint-device support */
+ int fsi_device_read(struct fsi_device *dev, uint32_t addr, void *val,
+ 		size_t size)
+@@ -134,6 +154,31 @@ static bool check_crc4_u32(uint32_t x)
  }
  
- int fsi_master_register(struct fsi_master *master)
-diff --git a/drivers/fsi/fsi-master.h b/drivers/fsi/fsi-master.h
-index cafb433..56aad0e 100644
---- a/drivers/fsi/fsi-master.h
-+++ b/drivers/fsi/fsi-master.h
-@@ -29,6 +29,8 @@ struct fsi_master {
- 	int		(*write)(struct fsi_master *, int link,
- 				uint8_t slave, uint32_t addr,
- 				const void *val, size_t size);
-+	int		(*send_break)(struct fsi_master *, int link);
-+	int		(*link_enable)(struct fsi_master *, int link);
- };
+ /* FSI slave support */
++
++/* Encode slave local bus echo delay */
++static inline uint32_t fsi_smode_echodly(int x)
++{
++	return (x & FSI_SMODE_ED_MASK) << FSI_SMODE_ED_SHIFT;
++}
++
++/* Encode slave local bus send delay */
++static inline uint32_t fsi_smode_senddly(int x)
++{
++	return (x & FSI_SMODE_SD_MASK) << FSI_SMODE_SD_SHIFT;
++}
++
++/* Encode slave local bus clock rate ratio */
++static inline uint32_t fsi_smode_lbcrr(int x)
++{
++	return (x & FSI_SMODE_LBCRR_MASK) << FSI_SMODE_LBCRR_SHIFT;
++}
++
++/* Encode slave ID */
++static inline uint32_t fsi_smode_sid(int x)
++{
++	return (x & FSI_SMODE_SID_MASK) << FSI_SMODE_SID_SHIFT;
++}
++
+ static int fsi_slave_read(struct fsi_slave *slave, uint32_t addr,
+ 		void *val, size_t size)
+ {
+@@ -240,6 +285,22 @@ static void fsi_slave_release(struct device *dev)
+ 	kfree(slave);
+ }
  
- extern int fsi_master_register(struct fsi_master *master);
++static uint32_t set_smode_defaults(struct fsi_master *master)
++{
++	return FSI_SMODE_WSC | FSI_SMODE_ECRC
++		| fsi_smode_echodly(0xf) | fsi_smode_senddly(0xf)
++		| fsi_smode_lbcrr(1);
++}
++
++static int fsi_slave_set_smode(struct fsi_master *master, int link, int id)
++{
++	uint32_t smode = set_smode_defaults(master);
++
++	smode |= fsi_smode_sid(id);
++	return master->write(master, link, 3, FSI_SLAVE_BASE + FSI_SMODE,
++			&smode, sizeof(smode));
++}
++
+ static int fsi_slave_init(struct fsi_master *master,
+ 		int link, uint8_t slave_id)
+ {
+@@ -247,6 +308,21 @@ static int fsi_slave_init(struct fsi_master *master,
+ 	uint32_t chip_id;
+ 	int rc;
+ 
++	/*
++	 * todo: Due to CFAM hardware issues related to BREAK commands we're
++	 * limited to only one CFAM per link.  Once issues are resolved this
++	 * restriction can be removed.
++	 */
++	if (slave_id > 0)
++		return 0;
++
++	rc = fsi_slave_set_smode(master, link, slave_id);
++	if (rc) {
++		dev_warn(master->dev, "can't set smode on slave:%02x:%02x %d\n",
++				link, slave_id, rc);
++		return -ENODEV;
++	}
++
+ 	rc = master->read(master, link, slave_id, 0, &chip_id, sizeof(chip_id));
+ 	if (rc) {
+ 		dev_warn(master->dev, "can't read slave %02x:%02x: %d\n",
+@@ -310,6 +386,7 @@ static int fsi_master_break(struct fsi_master *master, int link)
+ static int fsi_master_scan(struct fsi_master *master)
+ {
+ 	int link, slave_id, rc;
++	uint32_t smode;
+ 
+ 	for (link = 0; link < master->n_links; link++) {
+ 		rc = fsi_master_link_enable(master, link);
+@@ -324,6 +401,18 @@ static int fsi_master_scan(struct fsi_master *master)
+ 				"Break to link:%d failed with:%d\n", link, rc);
+ 			continue;
+ 		}
++		/*
++		 * Verify can read slave at default ID location. If fails
++		 * there must be nothing on other end of link
++		 */
++		rc = master->read(master, link, 3, FSI_SLAVE_BASE + FSI_SMODE,
++				&smode, sizeof(smode));
++		if (rc) {
++			dev_dbg(master->dev,
++				"Read link:%d smode default id failed:%d\n",
++				link, rc);
++			continue;
++		}
+ 
+ 		for (slave_id = 0; slave_id < FSI_N_SLAVES; slave_id++)
+ 			fsi_slave_init(master, link, slave_id);
 -- 
 1.8.2.2
