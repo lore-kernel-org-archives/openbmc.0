@@ -1,50 +1,51 @@
 Return-Path: <christopher.lee.bostic@gmail.com>
-Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
- [IPv6:2607:f8b0:4003:c06::241])
+Received: from mail-oi0-x244.google.com (mail-oi0-x244.google.com
+ [IPv6:2607:f8b0:4003:c06::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t6Wrw6QGLzDvWw
- for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 09:10:24 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t6Wrx6qKyzDvNj
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 09:10:25 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=bN5IZi2s; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=0XO2VSa2; 
  dkim-atps=neutral
-Received: by mail-oi0-x241.google.com with SMTP id i127so8938888oia.0
- for <openbmc@lists.ozlabs.org>; Sun, 30 Oct 2016 15:10:24 -0700 (PDT)
+Received: by mail-oi0-x244.google.com with SMTP id 62so5827056oif.1
+ for <openbmc@lists.ozlabs.org>; Sun, 30 Oct 2016 15:10:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=cOnLtDNTnFAJuIBmhhuaxetBpovbqa+zV2kwB7sGCb0=;
- b=bN5IZi2scdPKV8QEFcT3LKIzfP9/OtnCagaGqF+qwHob6o7mFrCXUJR+DIFoMJKZ86
- 1hbhpuz3TTLY0XdoQTxSt12kRk9VQU/kMFb4FgL36FfC9KfnuhYAbNNBw2kPk4TaDMTO
- NHnOQ877XbfuvzvSAt/K2bVJp8eO2d6rS+F/HXzkTfgiTcIHPvW/5QZaA2j8/s92gMc2
- A6220eDqN83JCAd73cHWYBOg+dGAeFzKb4JP5pzXJuutVNP1CxN7f2WDPzgbuyooUxpP
- rGE4b8/F/oGy5dU9jksJRbSOSXkCN5jkxbNZlRnJ/HsfOH13F1hO6vrWlauI/Rxo+PQS
- Q1+Q==
+ bh=zbQegva7OnNn9VAz6Z6a3/DpgylcOPrvEpKm60BYNNE=;
+ b=0XO2VSa2tM3mz8skh5pzS06whGN3WwNZ3CdCqQ91dHDN1sWZ1e3bFN4t1kBfwVtvRD
+ tnTxlwdjAfvltyK2Xc8ct2MmfFXdg8TrOu5Yn6xUsmPLF1pcWg8zCVPVuss0/o1UjI+9
+ 62VCUOuXVD0O2IWMQ1ezecD819kjeea7CcYbMEOYksgpVEON/JhLIBicU7EWpOCWHkzZ
+ g8SCOWgFvhtskAbDJNP+jrM5czFu5R0iQCuRTYPWnGwG1iYsfr1wFLLVPbZrfL3ZAQyl
+ umzyIt1PySHw6nWW1NnrgSIQsFGisMpe0xug0L5N7vI+eIKiyOv86oon8JOoBIl0iFPc
+ Iy0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=cOnLtDNTnFAJuIBmhhuaxetBpovbqa+zV2kwB7sGCb0=;
- b=dk5x/qja2qB9cXDrVout1d3CFSaOadcu6IuTdtdKeEo/Z8O0dwiN5M6Kffna9kn5ub
- 2+jmMNKPdHMZdfHL4IKbRNLGkLpss9rM2aMgRjjw9+QNtMggckFPiCkdXvmxsa+2kKXM
- qsC+TKpK0UVLkgUJHioqdNSFCi++WWp+27DFXj1qD4+sV60o4C/ZvwPOhyTClfpiFvfq
- lrCeCHPZ88EUL6oBXLiYX/dx4KIdCJOmgQx8sWZsQgwf+lwwaRV4EoErZnRwuTaSLafe
- 7Z8tAkbK+FeTT+/9+58ZSq6uIcpTPu6J0J3zsOhPxmjNoM5SvRlEepktfnXSBkavFf+o
- x84A==
-X-Gm-Message-State: ABUngvdhzien0axpdFQjPxMNDI/sw3wS0Z34u3GT2WdiZ/88hkt6kiuQYka406h45YX95Q==
-X-Received: by 10.202.172.202 with SMTP id v193mr8172198oie.87.1477865423187; 
- Sun, 30 Oct 2016 15:10:23 -0700 (PDT)
+ bh=zbQegva7OnNn9VAz6Z6a3/DpgylcOPrvEpKm60BYNNE=;
+ b=SOSSrQKsc4LtmZygLQKfNm84hbHHQbMvARb5fTodS/l4ZD2wQUrJ8oZQ83JJm4GLqH
+ oKM4VFRKvoMnMlS9zgAxy39f8eWz5D5InguYsgvkNvTrtae+7rVOqy3P8inLrBaV/Vu9
+ hkS3nM2y8mxd9dZoNR8vgsfrC01CA28FIMs5kwAKNvAicGvy0jov9OcJxERrrUIppGxK
+ bbdJM3TP9YHlI4YxVEfj+/XJnLi0PWAnWzx8bwFFjQgDbDunEqLUirdTQTWc6mfejAd6
+ CotSCmy+8hxBG6Wm56uV4kvRipLptwtVNI45cFP/lEtc+pNWahPl+Q39hcCm/EVw5GvI
+ nQew==
+X-Gm-Message-State: ABUngvfhPu/1Cy7d7NIKdpukMtNgYmQDjWqs0g4Z4MhosXyDfM5byz/iwJNqzQs3x7TmzA==
+X-Received: by 10.202.90.195 with SMTP id o186mr7080129oib.165.1477865424229; 
+ Sun, 30 Oct 2016 15:10:24 -0700 (PDT)
 Received: from Christophers-MacBook-Pro.local.com
  (45-20-192-79.lightspeed.austtx.sbcglobal.net. [45.20.192.79])
- by smtp.gmail.com with ESMTPSA id q59sm7585484ota.20.2016.10.30.15.10.22
+ by smtp.gmail.com with ESMTPSA id q59sm7585484ota.20.2016.10.30.15.10.23
  (version=TLS1 cipher=AES128-SHA bits=128/128);
- Sun, 30 Oct 2016 15:10:22 -0700 (PDT)
+ Sun, 30 Oct 2016 15:10:23 -0700 (PDT)
 From: christopher.lee.bostic@gmail.com
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, zahrens@us.ibm.com, xxpetri@de.ibm.com,
  Chris Bostic <cbostic@us.ibm.com>
-Subject: [PATCH linux v6 13/18] drivers/fsi: Minor updates to FSI core
-Date: Sun, 30 Oct 2016 17:09:34 -0500
-Message-Id: <1477865379-11566-33-git-send-email-christopher.lee.bostic@gmail.com>
+Subject: [PATCH linux v6 14/18] drivers/fsi: Set up links for slave
+ communication
+Date: Sun, 30 Oct 2016 17:09:35 -0500
+Message-Id: <1477865379-11566-34-git-send-email-christopher.lee.bostic@gmail.com>
 X-Mailer: git-send-email 2.7.4 (Apple Git-66)
 In-Reply-To: <1477865379-11566-1-git-send-email-christopher.lee.bostic@gmail.com>
 References: <1477865379-11566-1-git-send-email-christopher.lee.bostic@gmail.com>
@@ -59,83 +60,121 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 30 Oct 2016 22:10:25 -0000
+X-List-Received-Date: Sun, 30 Oct 2016 22:10:26 -0000
 
 From: Chris Bostic <cbostic@us.ibm.com>
 
-Added some export symbols for fsi_device_read/write for FSI
-client drivers.  Removed the byte swapping done on CFAM config
-word reads - already in proper order.  Removed fsi_crc4 checks,
-they were incorectly reporting bad crc's.  Need to evaluate
-what is wrong with the method of calculation.
-
-Add missing assignment of slave to fsi_device during scan.
+Enable each link and send a break command in preparation
+for scanning each link for slaves.
 
 Signed-off-by: Chris Bostic <cbostic@us.ibm.com>
+
 ---
- drivers/fsi/fsi-core.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+
+V3 - Remove definition of BREAK command from fsi-master.h
+
+   - Remove definitions of fsi_master_fake for set_smode
+     and break
+
+   - Remove master->set_smode master dependent function and
+     moved to a generic base master set_smode.
+
+   - Add fsi_master_link_enable with master type dependencies
+
+V4 - Remove all references to set smode
+
+   - Remove file fsi-slave.h
+
+   - Move link break and enable up into master scan
+
+   - Change rc = func(); return rc; coding to return func();
+     Note this is still in place in fsi_master_send_break in
+     anticipation of changes coming up in next patch of this
+     series.
+
+   - Fix comment spelling error
+
+   - Use dev_dbg instead of dev_info when link enable or break
+     fails
+
+   - Remove explicit set of master->break and
+     master->link_enable to NULL due to kzalloc
+
+v6 - Don't return error if master->link_enable or
+     master->break are not defined.
+---
+ drivers/fsi/fsi-core.c   | 38 +++++++++++++++++++++++++++++++++++---
+ drivers/fsi/fsi-master.h |  2 ++
+ 2 files changed, 37 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-index 565c7e3..95e867e 100644
+index 95e867e..7fc15ab 100644
 --- a/drivers/fsi/fsi-core.c
 +++ b/drivers/fsi/fsi-core.c
-@@ -64,6 +64,7 @@ int fsi_device_read(struct fsi_device *dev, uint32_t addr, void *val,
+@@ -288,16 +288,48 @@ static int fsi_slave_init(struct fsi_master *master,
  
- 	return fsi_slave_read(dev->slave, dev->addr + addr, val, size);
- }
-+EXPORT_SYMBOL_GPL(fsi_device_read);
+ /* FSI master support */
  
- int fsi_device_write(struct fsi_device *dev, uint32_t addr, const void *val,
- 		size_t size)
-@@ -76,6 +77,7 @@ int fsi_device_write(struct fsi_device *dev, uint32_t addr, const void *val,
- 
- 	return fsi_slave_write(dev->slave, dev->addr + addr, val, size);
- }
-+EXPORT_SYMBOL_GPL(fsi_device_write);
- 
- int fsi_device_peek(struct fsi_device *dev, void *val)
++static int fsi_master_link_enable(struct fsi_master *master, int link)
++{
++	if (master->link_enable)
++		return master->link_enable(master, link);
++
++	return 0;
++}
++
++/*
++ * Issue a break command on this link
++ */
++static int fsi_master_break(struct fsi_master *master, int link)
++{
++	if (master->send_break)
++		return master->send_break(master, link);
++
++	return 0;
++}
++
+ static int fsi_master_scan(struct fsi_master *master)
  {
-@@ -171,16 +173,15 @@ static int fsi_slave_scan(struct fsi_slave *slave)
- 					"error reading slave registers\n");
- 			return -1;
- 		}
--
--		conf = be32_to_cpu(conf);
--
-+/* todo: fix crc calc problems */
-+#if 0
- 		if (!check_crc4_u32(conf)) {
- 			dev_warn(&slave->dev,
- 				"crc error in slave register at 0x%04x\n",
- 					i);
- 			return -1;
- 		}
--
-+#endif
- 		slots = (conf & FSI_SLAVE_CONF_SLOTS_MASK)
- 			>> FSI_SLAVE_CONF_SLOTS_SHIFT;
- 		version = (conf & FSI_SLAVE_CONF_VERSION_MASK)
-@@ -199,6 +200,7 @@ static int fsi_slave_scan(struct fsi_slave *slave)
- 			if (!dev)
- 				return -ENOMEM;
+-	int link, slave_id;
++	int link, slave_id, rc;
++
++	for (link = 0; link < master->n_links; link++) {
++		rc = fsi_master_link_enable(master, link);
++		if (rc) {
++			dev_dbg(master->dev,
++				"Enable link:%d failed with:%d\n", link, rc);
++			continue;
++		}
++		rc = fsi_master_break(master, link);
++		if (rc) {
++			dev_dbg(master->dev,
++				"Break to link:%d failed with:%d\n", link, rc);
++			continue;
++		}
  
-+			dev->slave = slave;
- 			dev->engine_type = type;
- 			dev->version = version;
- 			dev->unit = i;
-@@ -252,11 +254,10 @@ static int fsi_slave_init(struct fsi_master *master,
- 		return -ENODEV;
- 	}
+-	for (link = 0; link < master->n_links; link++)
+ 		for (slave_id = 0; slave_id < FSI_N_SLAVES; slave_id++)
+ 			fsi_slave_init(master, link, slave_id);
++	}
  
--	chip_id = be32_to_cpu(chip_id);
- 	if (!check_crc4_u32(chip_id)) {
- 		dev_warn(master->dev, "slave %02x:%02x: invalid chip id CRC!\n",
- 				link, slave_id);
--		return -EIO;
-+		/* todo, fix crc calc issues.  Just warn for now */
- 	}
+ 	return 0;
+-
+ }
  
- 	pr_debug("fsi: found chip %08x at %02x:%02x:%02x\n",
+ int fsi_master_register(struct fsi_master *master)
+diff --git a/drivers/fsi/fsi-master.h b/drivers/fsi/fsi-master.h
+index cafb433..56aad0e 100644
+--- a/drivers/fsi/fsi-master.h
++++ b/drivers/fsi/fsi-master.h
+@@ -29,6 +29,8 @@ struct fsi_master {
+ 	int		(*write)(struct fsi_master *, int link,
+ 				uint8_t slave, uint32_t addr,
+ 				const void *val, size_t size);
++	int		(*send_break)(struct fsi_master *, int link);
++	int		(*link_enable)(struct fsi_master *, int link);
+ };
+ 
+ extern int fsi_master_register(struct fsi_master *master);
 -- 
 1.8.2.2
