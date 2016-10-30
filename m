@@ -1,52 +1,53 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-oi0-x229.google.com (mail-oi0-x229.google.com
- [IPv6:2607:f8b0:4003:c06::229])
+Return-Path: <christopher.lee.bostic@gmail.com>
+Received: from mail-wm0-x244.google.com (mail-wm0-x244.google.com
+ [IPv6:2a00:1450:400c:c09::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t6BkT4VxlzDvSS
- for <openbmc@lists.ozlabs.org>; Sun, 30 Oct 2016 20:18:41 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t6Vy22xkbzDvRn
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 08:29:46 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=eyYbaztZ; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=00DnRgDl; 
  dkim-atps=neutral
-Received: by mail-oi0-x229.google.com with SMTP id i127so174019041oia.2
- for <openbmc@lists.ozlabs.org>; Sun, 30 Oct 2016 02:18:41 -0700 (PDT)
+Received: by mail-wm0-x244.google.com with SMTP id c17so15870983wmc.3
+ for <openbmc@lists.ozlabs.org>; Sun, 30 Oct 2016 14:29:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=DuKcj0F9LhI3W6z9xrPnSviqG5QngPEGksSX6olbD1o=;
- b=eyYbaztZATjiChDO3iA5a9XLdu/64NImUhoBH3E5v/tRnxpaJTXsIoOqhVfHiqWQuK
- hntKm4mS4SjR0dP9pGvs2YpHLGfxXHk3O0cWFGS9JUAQZtOqWZJo1/vEOVbF2rHW//5o
- rUVDk1V39X+qiDoaGgMGsyYtC0e7lwpchgD43gP62TQvAEEQpwUCr9skE04yUyyRPGJk
- 6x/iKnfzjOKp+zhdKfkCCwBzXZUtcFZv1pOP9hVLHtPhuWtvdof6qMHWA4v94HuaLf4O
- 9GR8Kynu13u5Kq9PbGvio/0ys30Nb5sEoxDIyfBMwiRRlTZ01s8cVgY8PQtov5AnIGmZ
- Vpfg==
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=Nd1tyHjEONevFUXQStIgR2EfJfQT4CgMkKFClpLqUQU=;
+ b=00DnRgDld7G03TrDkNOnhz5OGgiYcuC7h7b/JJHCXhR1uA7lV3SFQmXZF9FAwcH6ue
+ ctgdNdJjuTCuduIs7QIDcQ8V//RiTIKO9HpdSFoqDFbcgdBVIJgIfzd7wZhmUb1G4kWh
+ YfYKyr6szjYgelKtYwJFSdWBhIP6nO0CfVEAQbuF6UNkGAztANGWCWP8o2wHQ4L33qmh
+ muKURfuRpFi8HpVDhPC7wUYEMKiUCiwMceTdcZn7mITeXm+F/y1QpKxcZS0B/W2LGabV
+ P3gbswt7RFDyX4JAq4tqhSwYrWdn5Z/gJCXCSYElBTIwWdbDsXDN6VzIPRytCFz/krPH
+ cKHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=DuKcj0F9LhI3W6z9xrPnSviqG5QngPEGksSX6olbD1o=;
- b=H5LRUqFxMuQkacs4vJT8kujL8fdN9Re7AEDpd1geVEBdv3NV/DrSJFtkAiKOgNowKx
- hdpgrO7ke5X3iTwX8p/ChlcwQjePy0tHU1H/UuArdWH7BGRAG/Aw8Tf4foKepzo+NeSP
- Arzn7mxK47njZYidY01kKj6NQ0gzVGc6n+/1rh6+fDym7ZrSk27idfg4O9UzIgipWsRH
- QtcTVSmku4Xn3tIKyqXChYX3+PTqW/Amg3AVU313smP+ELray1qU6af8ZlvrBFS6nn8Y
- QSJvwRcZaOaodfd+ae4aleCODeIA1cLeeRd2svm8SO1ly7Kf/LnYAAXFs7A7Y6+bp/IS
- yuUg==
-X-Gm-Message-State: ABUngveOmlc7hUJzOACCfZyv6dllfT07MNPUS7xXakbivO5sBcGrnhQJd8qcSQwqCcaeVyNzxn3ad080nVOEhQ==
-X-Received: by 10.157.15.154 with SMTP id d26mr16496643otd.85.1477819118427;
- Sun, 30 Oct 2016 02:18:38 -0700 (PDT)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=Nd1tyHjEONevFUXQStIgR2EfJfQT4CgMkKFClpLqUQU=;
+ b=HeF/kN85G6Xdn5PGyyomL5ZL2IxO6+OsIZ5jFMbFOaLPG/HMmYTOchv9YSZgTEdnKA
+ xv24nw87O5XEVv7FExxRHTK9k2EHuOjluijU/2oFY04md54ZbZAF4LX5VoJP2TYSMHmS
+ LahskJLDE+GCvzmADFuYHCgpyLoghNkmKbXBnQPoMHijul55NVLWtFRMomU2i+RJpjSP
+ HHCABEAQ7mST1zX/l7Ql4rjRVGnymHEFeDA8A9p2Nz5FPOJAwFKTGzc2QXEHZr7dYdlS
+ sxiPxga4mt9KoNyetZgx7gJqFT57V9Rd3xr23/9YEXgOiRMNygQfNUeH5kGisnOWAYgP
+ 6lsg==
+X-Gm-Message-State: ABUngvcA7fpgwSagxv4I2mT/HSoIw7iZldgTcPL+lUz6kfpYCeQhv3MtPUU/Arj2x/HUwdy0g3NGydrolGaWIg==
+X-Received: by 10.194.190.233 with SMTP id gt9mr19802181wjc.46.1477862981935; 
+ Sun, 30 Oct 2016 14:29:41 -0700 (PDT)
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.182.107.226 with HTTP; Sun, 30 Oct 2016 02:18:18 -0700 (PDT)
-In-Reply-To: <20161028125249.esdyeqbkpk6nedc2@asimov>
-References: <CACPK8XeEiMremm9nbKRMxr3G6GmR4OTHjb1DHOxLjPqQ3WNBkg@mail.gmail.com>
- <20161028125249.esdyeqbkpk6nedc2@asimov>
-From: Joel Stanley <joel@jms.id.au>
-Date: Sun, 30 Oct 2016 19:48:18 +1030
-X-Google-Sender-Auth: YRUsqR8DWC3YowyJJD9V90zZuKA
-Message-ID: <CACPK8XfurNsb5t0dahhCXp3bZ7QykudtYMhxWnexUudpsF-Dhw@mail.gmail.com>
-Subject: Re: Gerrit emails
-To: Patrick Williams <patrick@stwcx.xyz>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Received: by 10.80.161.71 with HTTP; Sun, 30 Oct 2016 14:29:41 -0700 (PDT)
+In-Reply-To: <60fa3f67-10c7-8f58-ed43-3e82a4498c57@ozlabs.org>
+References: <1476918586-13475-1-git-send-email-christopher.lee.bostic@gmail.com>
+ <1476918586-13475-16-git-send-email-christopher.lee.bostic@gmail.com>
+ <7393b875-d655-a4ea-afd7-9368ca05d90b@ozlabs.org>
+ <CAA0LjjW4RHRb45XUtW-gk_g_Ro3aqwrxj9ZGFct0nG0NFYjbpQ@mail.gmail.com>
+ <60fa3f67-10c7-8f58-ed43-3e82a4498c57@ozlabs.org>
+From: Christopher Bostic <christopher.lee.bostic@gmail.com>
+Date: Sun, 30 Oct 2016 16:29:41 -0500
+Message-ID: <CAA0LjjVhUqySVUPwCGFfHZB24ay_1OSTOoj5RR27zxrL6cP4rw@mail.gmail.com>
+Subject: Re: [PATCH linux v5 15/18] drivers/fsi: Add GPIO FSI master
+To: Jeremy Kerr <jk@ozlabs.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, xxpetri@de.ibm.com, 
+ Jeremy Kerr <jk@0zlabs.org>, zahrens@us.ibm.com
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -59,37 +60,74 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 30 Oct 2016 09:18:44 -0000
-
-On Fri, Oct 28, 2016 at 11:22 PM, Patrick Williams <patrick@stwcx.xyz> wrote:
-> On Thu, Oct 27, 2016 at 05:06:18PM +1030, Joel Stanley wrote:
->> Hi Patrick,
->>
->> I think you mentioned that Gerrit emails broke a while back. A few
->> people have asked about it recently, so I was wondering if you could
->> update us on how that is going?
->>
->> Do you need help?
->
-> I haven't had a chance to work on it.  Plan to get it fixed next week.
->
-> If you know a good / easy to install localhost SMTP agent you can point
-> me at, that would be great.  I need to get that installed and update the
-> TXT record on openbmc-project.xyz to enable the server to send emails
-> again.
-
-I use ssmtp on my laptop to send from Gmail. It's in Debian and just
-needs a few options in a file in /etc to use.
-
-Cheers,
-
-Joel
+X-List-Received-Date: Sun, 30 Oct 2016 21:29:47 -0000
 
 >
-> The mail host I am using for my personal email is what I relayed the
-> Gerrit emails into and they limit sending to 200 per day, so we end up
-> getting rate limited pretty quick with how many people have subscribed
-> to all changes.
+> Say if we have a FSI master with two links, we would have four cells
+> for all the *-gpios properties:
 >
-> --
-> Patrick Williams
+>      fsi-master {
+>          compatible = "ibm,fsi-master", "ibm,fsi-master-gpio";
+>          clk-gpios = <&gpio 0 &gpio 6>;
+>          data-gpios = <&gpio 1 &gpio 7>;
+>      }
+>
+
+Hi Jeremy,
+
+One thing I don't understand is the numbering conventions.   What does
+6 and 7 represent in this case?
+There are five pins total 0-4 for the existing gpio master.  I've
+followed the numbering as is listed here
+in the latest patch set I'm submitting this afternoon.
+
+> - and the binding would remain as is (just that we should use the plural
+> of gpios for the property names, to make this a little more sensible).
+>
+> This could also be represented as two separate master nodes:
+>
+>      fsi-master {
+>          compatible = "ibm,fsi-master", "ibm,fsi-master-gpio";
+>          clk-gpios = <&gpio 0>;
+>          data-gpios = <&gpio 1>;
+>      }
+>
+>      fsi-master {
+>          compatible = "ibm,fsi-master", "ibm,fsi-master-gpio";
+>          clk-gpios = <&gpio 6>;
+>          data-gpios = <&gpio 7>;
+>      }
+>
+> Our choice there would depend on the hardware layout. Does is make more
+> sense to represent this as two independent masters? Or a single one?
+> Would there ever be any shared state between those two masters that a
+> driver needs to handle?
+
+Up until now, all available FSI masters in hardware,  FSP, P8 "hub", P8 cascade,
+P7 cascade, have all had multiple links controlled by one master.   It would
+make sense I think to continue this.
+
+There is no direct sharing of information between masters other than what's
+required by the firmware to start at the beginning master in the chain and
+walk down each link  and checking 'sub' master states to determine where an
+interrupt or error was sourced.
+
+General flow:
+Identify on which link interrupt / error was reported.
+Look at each CFAM on that link to see if it was reported locally or downstream
+if downstream,  Look at the cascaded master's owned links to see which
+reported.  Etc..
+
+In my opinion that type of master to master information is better kept separated
+as it is in the interests of keep a general design common between real hardware
+FSI masters such as the FSP's and the gpio type master implementations.
+
+>
+> Once we've settled that, we will need the device tree binding people to
+> take a look, which just involves CCing devicetree-discuss@ozlabs.org for
+> patches that modify Documentation/devicetree/*.
+>
+Will keep them off the cc list for now until we all agree which way we go.
+
+Thanks,
+Chris
