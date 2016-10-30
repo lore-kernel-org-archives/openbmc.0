@@ -3,48 +3,48 @@ Received: from mail-oi0-x243.google.com (mail-oi0-x243.google.com
  [IPv6:2607:f8b0:4003:c06::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t6WrD2dvtzDvNj
- for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 09:09:48 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t6WrF2d1KzDvNf
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 09:09:49 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=f+Bq50eX; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=tA7Q9XFr; 
  dkim-atps=neutral
-Received: by mail-oi0-x243.google.com with SMTP id 62so5825258oif.1
- for <openbmc@lists.ozlabs.org>; Sun, 30 Oct 2016 15:09:48 -0700 (PDT)
+Received: by mail-oi0-x243.google.com with SMTP id v84so2660778oie.2
+ for <openbmc@lists.ozlabs.org>; Sun, 30 Oct 2016 15:09:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=K3fTJrdyzT7h+kStPLVUlg/ayQvOw8y3pGZvpxmcrrM=;
- b=f+Bq50eXk7u1PQKh+LnEWdJak3Sy0B07NpaSd3ymDwqzptF1+DXe3o9CJGnzLHE0TC
- AIPcsHcvmxpJK+ezkqrx/oixsiXlOCQGZbsOC6VfvZDRhlWA3JpI6iy2zKu1is7nWRDp
- wNwhWa0SmrXt3W4LptuJfhr8A2A9/p1Ec8IN9wZE7jFPzBrDF9VlaejfHod555gSfkcK
- CXXRaFqlztL3KaZk/eeWazSniS/AvUMamKzSDi9wFB/6Ss0Vr/2AggaJ5trMUQsMxLWA
- 4cOZRyQdB2YOYccLBxQf43djmOxAAAC9WuUgQV+R3iObWQtO9M/Z2VrNZDoS3utoncWE
- 4cNA==
+ bh=qBdxgDogQkodLoIyvzMztGk09+tWxV3I1wNUQoeyZGc=;
+ b=tA7Q9XFrbIh5Ba7I4UIO/k0zDLoUqaXEUSfKhP/J/npinVFRSS6zz/mGRyKIGwAJLb
+ aLha+v+uUJjVshLPubYII6cNHM9xS6MP/dpvNWeWkNHZrDC4lyOvc39s85RSJgWHDWue
+ 32iha2iEaA7k3YZePYnx5YLySurTjvgwXwCflBOxWX7D9yGCgg0BFfCYUDQQBJLZ0jBz
+ QXaUDt/pG6ZUUq+eBn7VnLq/AsALzbuCX/QZ0ZRZuaXtLCZd0Q04toNf+CD+SL1KOPtS
+ O98ehbd6pS9GI6t0W4NayM+sqrYEXPo2X3/rPfQ6OMmkLnNelhaJL8l6y8BmqUbeudmT
+ 4Svw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=K3fTJrdyzT7h+kStPLVUlg/ayQvOw8y3pGZvpxmcrrM=;
- b=lyfx/mcS7UWc5t/eu9Fn1eDMMsVFU1i3M2xspKr9fluegqGTifhKzki+ev4dGaZp60
- jnjl+oLn9vzkObliuoouPgqgLRX9aeDlAQZEoKPyjlgCIzf82d8yIsuURmf8ieWDReKV
- Mx91cs8/l3qFrpqjQ6wR3iKyU/rWQeaMNxHZw/JyfQs6TWzx2caApP14tzpYSgIqrFlQ
- YGPHZsnOAVojZOUKfxmrfRICfzXMhEoGZI9HknhtLEOakZfGCzbKs1n2ClsxpCUUQbzr
- 4iUU15CSPMrQ4j6h9INp50iL8vo1+gEgREerYcXHzw7x0Bpa92HJt5pjh0BLakoFGV1U
- lNbQ==
-X-Gm-Message-State: ABUngvdeJpW1V1UuMygKS/rv2iFcGeLji6MSPrBKzKXUOfttQZkqGkMBCr/6pLfY49dqAA==
-X-Received: by 10.202.84.86 with SMTP id i83mr24291196oib.114.1477865386604;
- Sun, 30 Oct 2016 15:09:46 -0700 (PDT)
+ bh=qBdxgDogQkodLoIyvzMztGk09+tWxV3I1wNUQoeyZGc=;
+ b=NOz2wmK4hBLFpvxibgao8kX4PAuupzSXrjI4+lrec5Kg66vKq5RZHxD3j74w+y7vXX
+ ttX/0gRzK+Dq2+SPlNyIHuNEbqTALKzlY/SkrbxsGj+o44RCDixPn3H4fphp0DknzwI2
+ 3CKfZvJ64PzALKB3C1J8r6MqtOqO8FGZuEyoN+lvVaK1CVloap3/NUdJbnifMYUPGLTj
+ 8dYoLuTpP2jrHamda0R2r7w3MAsQ4PxbT7oPB3dVa9ERiQhmqa0lZtczCC2cXXSlETp9
+ QP9w+CyuJgYeQXyDIn7pgrMrmKkwGmawi+casqM52bzQ2zgSkYNckYgBlajh0LdeF5UV
+ hL/A==
+X-Gm-Message-State: ABUngvdPofwsCLBEkTJzhqV0T0V6grwm00kyKrjOiY025/bxfQ+l1VZbrPNeN2usvNx2mA==
+X-Received: by 10.202.242.9 with SMTP id q9mr22609471oih.140.1477865387678;
+ Sun, 30 Oct 2016 15:09:47 -0700 (PDT)
 Received: from Christophers-MacBook-Pro.local.com
  (45-20-192-79.lightspeed.austtx.sbcglobal.net. [45.20.192.79])
- by smtp.gmail.com with ESMTPSA id q59sm7585484ota.20.2016.10.30.15.09.45
+ by smtp.gmail.com with ESMTPSA id q59sm7585484ota.20.2016.10.30.15.09.46
  (version=TLS1 cipher=AES128-SHA bits=128/128);
- Sun, 30 Oct 2016 15:09:45 -0700 (PDT)
+ Sun, 30 Oct 2016 15:09:46 -0700 (PDT)
 From: christopher.lee.bostic@gmail.com
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, zahrens@us.ibm.com, xxpetri@de.ibm.com,
  Jeremy Kerr <jk@ozlabs.org>
-Subject: [PATCH linux v6 01/18] fsi: Add empty fsi bus definitions
-Date: Sun, 30 Oct 2016 17:09:03 -0500
-Message-Id: <1477865379-11566-2-git-send-email-christopher.lee.bostic@gmail.com>
+Subject: [PATCH linux v6 02/18] fsi: Add device & driver definitions
+Date: Sun, 30 Oct 2016 17:09:04 -0500
+Message-Id: <1477865379-11566-3-git-send-email-christopher.lee.bostic@gmail.com>
 X-Mailer: git-send-email 2.7.4 (Apple Git-66)
 In-Reply-To: <1477865379-11566-1-git-send-email-christopher.lee.bostic@gmail.com>
 References: <1477865379-11566-1-git-send-email-christopher.lee.bostic@gmail.com>
@@ -59,146 +59,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 30 Oct 2016 22:09:48 -0000
-X-List-Received-Date: Sun, 30 Oct 2016 22:09:48 -0000
+X-List-Received-Date: Sun, 30 Oct 2016 22:09:49 -0000
+X-List-Received-Date: Sun, 30 Oct 2016 22:09:49 -0000
 
 From: Jeremy Kerr <jk@ozlabs.org>
 
-This change adds the initial (empty) fsi bus definition, and introduces
-drivers/fsi/.
+Add structs for fsi devices & drivers, and struct device conversion
+functions.
 
 Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
 ---
- drivers/Kconfig        |  2 ++
- drivers/Makefile       |  1 +
- drivers/fsi/Kconfig    | 12 ++++++++++++
- drivers/fsi/Makefile   |  2 ++
- drivers/fsi/fsi-core.c | 38 ++++++++++++++++++++++++++++++++++++++
- include/linux/fsi.h    | 23 +++++++++++++++++++++++
- 6 files changed, 78 insertions(+)
- create mode 100644 drivers/fsi/Kconfig
- create mode 100644 drivers/fsi/Makefile
- create mode 100644 drivers/fsi/fsi-core.c
- create mode 100644 include/linux/fsi.h
+ include/linux/fsi.h | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/Kconfig b/drivers/Kconfig
-index e1e2066..117ca14c 100644
---- a/drivers/Kconfig
-+++ b/drivers/Kconfig
-@@ -202,4 +202,6 @@ source "drivers/hwtracing/intel_th/Kconfig"
- 
- source "drivers/fpga/Kconfig"
- 
-+source "drivers/fsi/Kconfig"
-+
- endmenu
-diff --git a/drivers/Makefile b/drivers/Makefile
-index 0b6f3d6..7a1c96f 100644
---- a/drivers/Makefile
-+++ b/drivers/Makefile
-@@ -173,3 +173,4 @@ obj-$(CONFIG_STM)		+= hwtracing/stm/
- obj-$(CONFIG_ANDROID)		+= android/
- obj-$(CONFIG_NVMEM)		+= nvmem/
- obj-$(CONFIG_FPGA)		+= fpga/
-+obj-$(CONFIG_FSI)		+= fsi/
-diff --git a/drivers/fsi/Kconfig b/drivers/fsi/Kconfig
-new file mode 100644
-index 0000000..04c1a0e
---- /dev/null
-+++ b/drivers/fsi/Kconfig
-@@ -0,0 +1,12 @@
-+#
-+# FSI subsystem
-+#
-+
-+menu "FSI support"
-+
-+config FSI
-+	tristate "FSI support"
-+	---help---
-+	  FSI - the FRU Support Interface - is a simple bus for low-level
-+	  access to POWER-based hardware.
-+endmenu
-diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
-new file mode 100644
-index 0000000..db0e5e7
---- /dev/null
-+++ b/drivers/fsi/Makefile
-@@ -0,0 +1,2 @@
-+
-+obj-$(CONFIG_FSI) += fsi-core.o
-diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-new file mode 100644
-index 0000000..3e45306
---- /dev/null
-+++ b/drivers/fsi/fsi-core.c
-@@ -0,0 +1,38 @@
-+/*
-+ * FSI core driver
-+ *
-+ * Copyright (C) IBM Corporation 2016
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License version 2 as
-+ * published by the Free Software Foundation.
-+ *
-+ * This program is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ * GNU General Public License for more details.
-+ */
-+
-+#include <linux/device.h>
-+#include <linux/fsi.h>
-+#include <linux/module.h>
-+
-+/* FSI core & Linux bus type definitions */
-+
-+struct bus_type fsi_bus_type = {
-+	.name		= "fsi",
-+};
-+EXPORT_SYMBOL_GPL(fsi_bus_type);
-+
-+static int fsi_init(void)
-+{
-+	return bus_register(&fsi_bus_type);
-+}
-+
-+static void fsi_exit(void)
-+{
-+	bus_unregister(&fsi_bus_type);
-+}
-+
-+module_init(fsi_init);
-+module_exit(fsi_exit);
 diff --git a/include/linux/fsi.h b/include/linux/fsi.h
-new file mode 100644
-index 0000000..8e8bdea
---- /dev/null
+index 8e8bdea..66dcf25 100644
+--- a/include/linux/fsi.h
 +++ b/include/linux/fsi.h
-@@ -0,0 +1,23 @@
-+/*
-+ * FSI device & driver interfaces
-+ *
-+ * Copyright (C) IBM Corporation 2016
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License version 2 as
-+ * published by the Free Software Foundation.
-+ *
-+ * This program is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ * GNU General Public License for more details.
-+ */
+@@ -18,6 +18,17 @@
+ 
+ #include <linux/device.h>
+ 
++struct fsi_device {
++	struct device dev;
++};
 +
-+#ifndef LINUX_FSI_H
-+#define LINUX_FSI_H
++struct fsi_driver {
++	struct device_driver drv;
++};
 +
-+#include <linux/device.h>
++#define to_fsi_dev(devp) container_of(devp, struct fsi_device, dev)
++#define to_fsi_drv(drvp) container_of(drvp, struct fsi_driver, drv)
 +
-+extern struct bus_type fsi_bus_type;
-+
-+#endif /* LINUX_FSI_H */
+ extern struct bus_type fsi_bus_type;
+ 
+ #endif /* LINUX_FSI_H */
 -- 
 1.8.2.2
