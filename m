@@ -1,51 +1,50 @@
 Return-Path: <christopher.lee.bostic@gmail.com>
-Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
- [IPv6:2607:f8b0:4003:c06::241])
+Received: from mail-oi0-x242.google.com (mail-oi0-x242.google.com
+ [IPv6:2607:f8b0:4003:c06::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t6Wrb3Wb0zDvNj
- for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 09:10:07 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t6Wrd0GR1zDvNj
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 09:10:08 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=Z2zXMRmx; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=fape26hz; 
  dkim-atps=neutral
-Received: by mail-oi0-x241.google.com with SMTP id 62so5826184oif.1
- for <openbmc@lists.ozlabs.org>; Sun, 30 Oct 2016 15:10:07 -0700 (PDT)
+Received: by mail-oi0-x242.google.com with SMTP id 128so1107975oih.3
+ for <openbmc@lists.ozlabs.org>; Sun, 30 Oct 2016 15:10:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=qqJdfuFAIq097trcBhGJODJk/AieVOAzVKP9mSrWhyI=;
- b=Z2zXMRmxojMNYoCKHdfmhbyoXNGFPTJ2Sn2FvjcM+sRPfYEN8Ng95jdX3PazwhmWdE
- EfPKyil0YMnXPN0sZfWxPSvXU8VWnHeJeRG7PVdSNmqIXPjW/IM+bA69yXOCuEUaEf6S
- E1h6aNsYceOrjjEKt4GQSttXfG4pjpIyQ8TBb4UpCXLVO6K9lTCdDnckqT3Kg0qt4bRA
- kvOP9afv5Kn+1CHRUaL4UMKYNl8IQNoaamXGFQhh8Ig+UvsQbU43YVlsTsuOu+wAMkYr
- ZYY4sPQDMzLioKCeeomXn8Va80fY8E2jIw1DogZLhez6kpHOGPkadghSs56XZXgolMof
- BrPg==
+ bh=3I11Z4zn6kiZF7H+YU9fNvm7/WN2aKfmHrSQlfyvJfw=;
+ b=fape26hzkDsdkD7pPkxuGddcO/S89PLW0Zsl13EqJIB6cnrMRuXhvG7VKdmctegy0o
+ aUfp7DH6X+fbBfqrYIwCXfFrWDcy0FYBmU245VSAU+eCJCXplTEB1GF4rTkQ7kZXs6qh
+ /tOmdwVg6iQ2GsNpE18kC2oJStrtwpxYZ3RyxuiaUx+lheLf3JMxdmIg+RZoIoYWSbUS
+ xSekDWWoXly7CwuChDIYsWy0nujFIzmUDdqMJDYDdZpoHEjK0T0CK0nCnmQtCQghYv1s
+ EhB2TIOsto//bqhoDrg28oknRteyYNMzvjuOPwLNLLgmObsExqjb4W8H3TeJK/khnP1D
+ huNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=qqJdfuFAIq097trcBhGJODJk/AieVOAzVKP9mSrWhyI=;
- b=fB9UwSJ862ygtp7gEULFWSHF8ekr5J3eMnqw1J3gtFgbwbPh7hTB7PNIbTjm0I0DWO
- TNhMbKu4QUSheXR1xJp8KZSgJmto1/wT9kzIUMrUK294E/N4j5urTyATl+cU5QDaFd3S
- eq06tGfrrJ3GJLWLkBJ3/uT51VSS/Lsa6yWkfnJpbR2AjsItR/sotcwC2ojJigby1f8G
- 4AVoAC7g4BuDAWXhzRcZBg1hi1jKBjCzLZoJjTAIF9mXuYvH64RWm2TinvFAWuef+gUZ
- uBXyxjnk3JO3/e8KqZDkZpSyRePzK4Mhn+jD305Z2Ndvtd6XG8RHIqGagCRi/0Veapg6
- 50yw==
-X-Gm-Message-State: ABUngvfMMbrzTqxWYFxvz0tJCfUv5JBYseUYwxuN/u/Au9yuEsJOE9wVGSS1D/hr5GOBew==
-X-Received: by 10.157.11.23 with SMTP id a23mr18059589ota.117.1477865405788;
- Sun, 30 Oct 2016 15:10:05 -0700 (PDT)
+ bh=3I11Z4zn6kiZF7H+YU9fNvm7/WN2aKfmHrSQlfyvJfw=;
+ b=O1pdvxmzRTED1CgIDaWdWVamtN7sSJJNwEQMC9G4i8fLJTi1VxwpDTUOBfQM4eUnlI
+ j0RVHvjWzH4V3uhDK4+xeSAHhkUj8demofNjHN9HVL8Iarv3wWGHsDlmzKMDVuBiEFoU
+ C4LPbcyP3oHQaKxma0bcg7QoOZQTUEn9jLVHqFROK0jvrynisptHvdWXLnC28/31ERcX
+ 5IDBBj/mJ51NNEQQtgArWTGzLJ+rW5kse91A6IAZVRPVLR1TXZkGL8SbAVZ0ztAwls1I
+ NT7nQ2orIUZMiGpMFy17v2NI5XToFmV2hUz0rgcuP3Khelq2zll9QJvCMM5lLjmPGgbz
+ G0vg==
+X-Gm-Message-State: ABUngves91LwB+4nZlDdLbAprIGvPPmy1DOuZZ7ellgY70Nfy3PH7THng6XfmpIP4lNgOQ==
+X-Received: by 10.202.212.200 with SMTP id l191mr19342449oig.153.1477865406929; 
+ Sun, 30 Oct 2016 15:10:06 -0700 (PDT)
 Received: from Christophers-MacBook-Pro.local.com
  (45-20-192-79.lightspeed.austtx.sbcglobal.net. [45.20.192.79])
- by smtp.gmail.com with ESMTPSA id q59sm7585484ota.20.2016.10.30.15.10.04
+ by smtp.gmail.com with ESMTPSA id q59sm7585484ota.20.2016.10.30.15.10.05
  (version=TLS1 cipher=AES128-SHA bits=128/128);
- Sun, 30 Oct 2016 15:10:05 -0700 (PDT)
+ Sun, 30 Oct 2016 15:10:06 -0700 (PDT)
 From: christopher.lee.bostic@gmail.com
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, zahrens@us.ibm.com, xxpetri@de.ibm.com,
  Chris Bostic <cbostic@us.ibm.com>
-Subject: [PATCH linux v6 17/18] drivers/fsi: Add client driver register
- utilities
-Date: Sun, 30 Oct 2016 17:09:19 -0500
-Message-Id: <1477865379-11566-18-git-send-email-christopher.lee.bostic@gmail.com>
+Subject: [PATCH linux v6 18/18] drivers/fsi: Add SCOM FSI client device driver
+Date: Sun, 30 Oct 2016 17:09:20 -0500
+Message-Id: <1477865379-11566-19-git-send-email-christopher.lee.bostic@gmail.com>
 X-Mailer: git-send-email 2.7.4 (Apple Git-66)
 In-Reply-To: <1477865379-11566-1-git-send-email-christopher.lee.bostic@gmail.com>
 References: <1477865379-11566-1-git-send-email-christopher.lee.bostic@gmail.com>
@@ -60,82 +59,313 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 30 Oct 2016 22:10:08 -0000
+X-List-Received-Date: Sun, 30 Oct 2016 22:10:09 -0000
 
 From: Chris Bostic <cbostic@us.ibm.com>
 
-Add driver_register and driver_unregister wrappers for FSI.
+Create a simple SCOM engine device driver that reads and writes
+across an FSI bus.
 
 Signed-off-by: Chris Bostic <cbostic@us.ibm.com>
 
 ---
 
-V4 - Separate out SCOM client driver registration for a follow
-     on patch.
+V4 - Add put_scom and get_scom operations
 
-V5 - Rename fsidrv_register, fsidrv_unregster to fsi_drv_register,
-     fsi_drv_unregister.
+V5 - Add character device registration and fill in read/write
+     syscalls.
 
-   - Add module_fsi_driver() macro for clients that just need
-     to do boilerplate registration
+V6 - Add multi scom engine support. Add list of devices.
+     Use file private data to store and hand off scom structures.
 
-V6 - Rename fsi_drv_register/unregister to fsi_driver_register/..
+   - Add lseek, open, close
+
+   - Remove data/address structure to pass from user space to
+     kernel.  Use offset provided by read/write and pass data
+
+   - Added list setup in init and so did not add the macro
+     module_fsi_driver
+
+   - Global structs made static where possible.
+
+   - Change from char dev to use misc device api as shown
+     in examples from Jeremy Kere.
 ---
- drivers/fsi/fsi-core.c | 18 ++++++++++++++++++
- include/linux/fsi.h    | 12 ++++++++++++
- 2 files changed, 30 insertions(+)
+ drivers/fsi/Kconfig    |   6 ++
+ drivers/fsi/Makefile   |   1 +
+ drivers/fsi/fsi-scom.c | 238 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 245 insertions(+)
+ create mode 100644 drivers/fsi/fsi-scom.c
 
-diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-index 6ac239a..88002fc 100644
---- a/drivers/fsi/fsi-core.c
-+++ b/drivers/fsi/fsi-core.c
-@@ -458,6 +458,24 @@ static int fsi_bus_match(struct device *dev, struct device_driver *drv)
- 	return 0;
- }
+diff --git a/drivers/fsi/Kconfig b/drivers/fsi/Kconfig
+index b21fe3c..1fa9bc0 100644
+--- a/drivers/fsi/Kconfig
++++ b/drivers/fsi/Kconfig
+@@ -23,6 +23,12 @@ config FSI_MASTER_GPIO
+ 	depends on FSI
+ 	---help---
+ 	This option enables a FSI master driver using GPIO lines.
++
++config FSI_SCOM
++	tristate "SCOM FSI client"
++	depends on FSI
++	---help---
++	This option enables the SCOM FSI client device driver.
+ endif
  
-+int fsi_driver_register(struct fsi_driver *fsi_drv)
-+{
-+	if (!fsi_drv)
-+		return -EINVAL;
-+	if (!fsi_drv->id_table)
-+		return -EINVAL;
-+
-+	return driver_register(&fsi_drv->drv);
-+}
-+EXPORT_SYMBOL_GPL(fsi_driver_register);
-+
-+void fsi_driver_unregister(struct fsi_driver *fsi_drv)
-+{
-+	driver_unregister(&fsi_drv->drv);
-+}
-+EXPORT_SYMBOL_GPL(fsi_driver_unregister);
-+
-+
- struct bus_type fsi_bus_type = {
- 	.name		= "fsi",
- 	.match		= fsi_bus_match,
-diff --git a/include/linux/fsi.h b/include/linux/fsi.h
-index 47af0af..62453b7 100644
---- a/include/linux/fsi.h
-+++ b/include/linux/fsi.h
-@@ -55,6 +55,18 @@ struct fsi_driver {
- #define to_fsi_dev(devp) container_of(devp, struct fsi_device, dev)
- #define to_fsi_drv(drvp) container_of(drvp, struct fsi_driver, drv)
- 
-+extern int fsi_driver_register(struct fsi_driver *);
-+extern void fsi_driver_unregister(struct fsi_driver *);
-+
-+/* module_fsi_driver() - Helper macro for drivers that don't do
-+ * anything special in module init/exit.  This eliminates a lot of
-+ * boilerplate.  Each module may only use this macro once, and
-+ * calling it replaces module_init() and module_exit()
+ endmenu
+diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
+index 2021ce5..3e31d9a 100644
+--- a/drivers/fsi/Makefile
++++ b/drivers/fsi/Makefile
+@@ -2,3 +2,4 @@
+ obj-$(CONFIG_FSI) += fsi-core.o
+ obj-$(CONFIG_FSI_MASTER_FAKE) += fsi-master-fake.o
+ obj-$(CONFIG_FSI_MASTER_GPIO) += fsi-master-gpio.o
++obj-$(CONFIG_FSI_SCOM) += fsi-scom.o
+diff --git a/drivers/fsi/fsi-scom.c b/drivers/fsi/fsi-scom.c
+new file mode 100644
+index 0000000..27be082
+--- /dev/null
++++ b/drivers/fsi/fsi-scom.c
+@@ -0,0 +1,238 @@
++/*
++ * SCOM FSI Client device driver
++ *
++ * Copyright (C) IBM Corporation 2016
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERGCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
 + */
-+#define module_fsi_driver(__fsi_driver) \
-+		module_driver(__fsi_driver, fsi_driver_register, \
-+				fsi_driver_unregister)
 +
- extern struct bus_type fsi_bus_type;
- 
- #endif /* LINUX_FSI_H */
++#include <linux/fsi.h>
++#include <linux/module.h>
++#include <linux/cdev.h>
++#include <linux/delay.h>
++#include <linux/fs.h>
++#include <linux/uaccess.h>
++#include <linux/slab.h>
++#include <linux/miscdevice.h>
++#include <linux/list.h>
++
++#define FSI_ENGID_SCOM		0x5
++
++#define SCOM_FSI2PIB_DELAY	50
++
++/* SCOM engine register set */
++#define SCOM_DATA0_REG		0x00
++#define SCOM_DATA1_REG		0x04
++#define SCOM_CMD_REG		0x08
++#define SCOM_RESET_REG		0x1C
++
++#define SCOM_RESET_CMD		0x80000000
++#define SCOM_WRITE_CMD		0x80000000
++
++struct scom_device {
++	struct list_head link;
++	struct fsi_device *fsi_dev;
++	struct miscdevice mdev;
++	char	name[32];
++};
++
++#define to_scom_dev(x)		container_of((x), struct scom_device, mdev)
++
++static struct list_head scom_devices;
++static atomic_t scom_idx = ATOMIC_INIT(0);
++static int scom_probe(struct device *);
++
++static int put_scom(struct scom_device *scom_dev, uint64_t value,
++			uint32_t addr)
++{
++	int rc;
++	uint32_t data = SCOM_RESET_CMD;
++
++	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_RESET_REG, &data,
++				sizeof(uint32_t));
++	if (rc)
++		return rc;
++
++	data = (value >> 32) & 0xffffffff;
++	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_DATA0_REG, &data,
++				sizeof(uint32_t));
++	if (rc)
++		return rc;
++
++	data = value & 0xffffffff;
++	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_DATA1_REG, &data,
++				sizeof(uint32_t));
++	if (rc)
++		return rc;
++
++	data = SCOM_WRITE_CMD | addr;
++	return fsi_device_write(scom_dev->fsi_dev, SCOM_CMD_REG, &data,
++				sizeof(uint32_t));
++}
++
++static int get_scom(struct scom_device *scom_dev, uint64_t *value,
++			uint32_t addr)
++{
++	uint32_t result, data;
++	int rc;
++
++	udelay(SCOM_FSI2PIB_DELAY);
++
++	data = addr;
++	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_CMD_REG, &data,
++				sizeof(uint32_t));
++	if (rc)
++		return rc;
++
++	rc = fsi_device_read(scom_dev->fsi_dev, SCOM_DATA0_REG, &result,
++				sizeof(uint32_t));
++	if (rc)
++		return rc;
++
++	*value |= (uint64_t) result << 32;
++	rc = fsi_device_read(scom_dev->fsi_dev, SCOM_DATA1_REG, &result,
++				sizeof(uint32_t));
++	if (rc)
++		return rc;
++
++	*value |= result;
++
++	return 0;
++}
++
++static loff_t scom_llseek(struct file *filep, loff_t offset, int whence)
++{
++	if (whence != 0)  /* SEEK_SET */
++		return -EINVAL;
++
++	filep->f_pos = offset;
++	return offset;
++}
++
++static ssize_t scom_read(struct file *filep, char __user *buf, size_t len,
++			loff_t *offset)
++{
++	int rc = 0;
++	struct miscdevice *mdev =
++				(struct miscdevice *)filep->private_data;
++	struct scom_device *scom = to_scom_dev(mdev);
++	struct device *dev = &scom->fsi_dev->dev;
++	uint64_t val;
++
++	if (len != sizeof(uint64_t))
++		return -EINVAL;
++
++	rc = get_scom(scom, &val, *offset);
++	if (rc) {
++		dev_dbg(dev, "get_scom fail:%d\n", rc);
++		return rc;
++	}
++
++	rc = copy_to_user(buf, &val, len);
++	if (rc)
++		dev_dbg(dev, "copy to user failed:%d\n", rc);
++
++	return rc ? rc : len;
++}
++
++static ssize_t scom_write(struct file *filep, const char __user *buf,
++			size_t len, loff_t *offset)
++{
++	int rc = 0;
++	struct miscdevice *mdev =
++				(struct miscdevice *)filep->private_data;
++	struct scom_device *scom = to_scom_dev(mdev);
++	struct device *dev = &scom->fsi_dev->dev;
++	uint64_t val;
++
++	if (len != sizeof(uint64_t))
++		return -EINVAL;
++
++	rc = copy_from_user(&val, buf, len);
++	if (rc) {
++		dev_dbg(dev, "copy from user failed:%d\n", rc);
++		return -EINVAL;
++	}
++
++	rc = put_scom(scom, val, *offset);
++	if (rc)
++		dev_dbg(dev, "put_scom failed with:%d\n", rc);
++
++
++	return rc ? rc : len;
++}
++
++static const struct file_operations scom_fops = {
++	.owner	= THIS_MODULE,
++	.llseek	= scom_llseek,
++	.read	= scom_read,
++	.write	= scom_write,
++};
++
++static int scom_probe(struct device *dev)
++{
++	struct fsi_device *fsi_dev = to_fsi_dev(dev);
++	struct scom_device *scom = NULL;
++
++	scom = devm_kzalloc(dev, sizeof(*scom), GFP_KERNEL);
++	if (!scom)
++		return -ENOMEM;
++
++	snprintf(scom->name, sizeof(scom->name),
++			"scom%d", atomic_inc_return(&scom_idx));
++	scom->fsi_dev = fsi_dev;
++	scom->mdev.minor = MISC_DYNAMIC_MINOR;
++	scom->mdev.fops = &scom_fops;
++	scom->mdev.name = scom->name;
++	scom->mdev.parent = dev;
++	list_add(&scom->link, &scom_devices);
++
++	return misc_register(&scom->mdev);
++}
++
++static struct fsi_device_id scom_ids[] = {
++	{
++		.engine_type = FSI_ENGID_SCOM,
++		.version = FSI_VERSION_ANY,
++	},
++	{ 0 }
++};
++
++static struct fsi_driver scom_drv = {
++	.id_table = scom_ids,
++	.drv = {
++		.name = "scom",
++		.bus = &fsi_bus_type,
++		.probe = scom_probe,
++	}
++};
++
++static int scom_init(void)
++{
++	INIT_LIST_HEAD(&scom_devices);
++	return fsi_driver_register(&scom_drv);
++}
++
++static void scom_exit(void)
++{
++	struct list_head *pos;
++	struct scom_device *scom = NULL;
++
++	list_for_each(pos, &scom_devices) {
++		scom = list_entry(pos, struct scom_device, link);
++		misc_deregister(&scom->mdev);
++		devm_kfree(&scom->fsi_dev->dev, scom);
++	}
++	fsi_driver_unregister(&scom_drv);
++}
++
++module_init(scom_init);
++module_exit(scom_exit);
++MODULE_LICENSE("GPL");
 -- 
 1.8.2.2
