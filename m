@@ -3,47 +3,50 @@ Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t6YqF07s6zDvPq
- for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 10:39:04 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t6ZnX3rRXzDvW8
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 11:22:40 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=F5iDy8oG; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=GE1URjhA; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=EzFRsTUM; dkim-atps=neutral
+ header.b=E071Ib46; dkim-atps=neutral
 Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 0A94220664;
- Sun, 30 Oct 2016 19:39:01 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute7.internal (MEProxy); Sun, 30 Oct 2016 19:39:01 -0400
+ by mailout.nyi.internal (Postfix) with ESMTP id 5F6F020422;
+ Sun, 30 Oct 2016 20:22:38 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute7.internal (MEProxy); Sun, 30 Oct 2016 20:22:38 -0400
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
- x-me-sender:x-sasl-enc:message-id:subject:from:to:date
+ x-me-sender:x-sasl-enc:message-id:subject:from:to:cc:date
  :in-reply-to:references:content-type:mime-version; s=mesmtp; bh=
- Gk4Cbp14B4YoYYT6NZqth9LlnWE=; b=F5iDy8oGP+MryB55FKt7+gAcF1wvKciR
- C0XmUPNvdNMDgNA3vbkNQIPjWZlMr7E7fDN9JBGyuTGrlzCrSttN/jZNaizDKiwk
- TJfDzNmoMZp4Sgsq5dNTF9MVDo9YuGx388v0MFkO6LXSJ8qruGtYUxtX2rtXrIy1
- FNdtTrB9NR0=
+ ApEp65WhKhmIowypWHLkYwKU/Kk=; b=GE1URjhAsZ5NWf6HF1HK7UGp72Zv7454
+ xOKakNHaVfvXcQtCRSJRKFX77L0zFkKWYDBoV80ynmzW1HkHiBPBIQazPm6m+0Kh
+ N1qUJ3CuHUaIL2YL9/Gaeo8zaIHXgKmMnNHO3JV4/T+H8Cw5H5x1pE0xmjF6zL6W
+ x34rEczSoz4=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
  messagingengine.com; h=x-me-sender:x-sasl-enc:message-id:subject
- :from:to:date:in-reply-to:references:content-type:mime-version;
- s=smtpout; bh=Gk4Cbp14B4YoYYT6NZqth9LlnWE=; b=EzFRsTUMfDzK+PdQQ
- iaUbQTxXammWOEsi4gT8cQUADcC8mgDXv3IiIZv/k0Dw7g0+Df/ayZvLH8/2LWp0
- JUMw+LGQ0ZZl/0sYehifIl5Rc3K03iErTznwzepOBjLhVfkXCbwEwBfKKBwTQE44
- QpuhVmCmyosNuEtT8uJ4R+9huk=
-X-ME-Sender: <xms:lIQWWNu-vJ6oIytJ1TQdokvxuJvsJyymgCbetPhWsaiVi8Rk5Xwuew>
-X-Sasl-enc: tRfKtBZO9v5YIHfeu+vwzhLmLI6+mQx6Wmj7e3jqbZRh 1477870740
+ :from:to:cc:date:in-reply-to:references:content-type
+ :mime-version; s=smtpout; bh=ApEp65WhKhmIowypWHLkYwKU/Kk=; b=E07
+ 1Ib469XYeSiKbczHXerCOo7CA7aH3+KjNGKBNPHzcO+kwjCo11LfdVUrYa3aYZj4
+ RbEyzcjfidwY4ua54Qucigg2UNxdZxYfRwo646oy9/w82L502Qny6RkZw9t0n8zl
+ lDSY9Dl3PxjXc6E1Ar7fz7Kg+7it+atowgkpQjfI=
+X-ME-Sender: <xms:zo4WWNWGP4f0JZ4PLtn5bFbwC0omAqHUF2g-ItJoLVMyvPpm9KYxEg>
+X-Sasl-enc: bme2rOca7S95/rLSPTj8MAecYm/YGoK8WkYhH1xYmzJh 1477873357
 Received: from keelia (ppp203-122-213-247.static.internode.on.net
  [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 62D79CC083;
- Sun, 30 Oct 2016 19:38:58 -0400 (EDT)
-Message-ID: <1477870732.6373.190.camel@aj.id.au>
-Subject: Re: [linux dev-4.7 PATCH] arm: dts: Add Romulus BMC machine
+ by mail.messagingengine.com (Postfix) with ESMTPA id 3A513F29CD;
+ Sun, 30 Oct 2016 20:22:35 -0400 (EDT)
+Message-ID: <1477873349.6373.202.camel@aj.id.au>
+Subject: Re: [PATCH 0/3] Add QEMU support for the Epson rx8900 RTC
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
-Date: Mon, 31 Oct 2016 10:08:52 +1030
-In-Reply-To: <20161027061935.29217-1-joel@jms.id.au>
-References: <20161027061935.29217-1-joel@jms.id.au>
+To: Alastair D'Silva <alastair@au1.ibm.com>, Joel Stanley <joel@jms.id.au>
+Cc: clg@koad.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Mon, 31 Oct 2016 10:52:29 +1030
+In-Reply-To: <1477542811.2176.93.camel@au1.ibm.com>
+References: <1477535233-7760-1-git-send-email-alastair@au1.ibm.com>
+ <CACPK8XdUpYOF_jgRhzwvUp=P7eemgYYgY7UJW-2TOP+YJnRUHg@mail.gmail.com>
+ <1477542811.2176.93.camel@au1.ibm.com>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-RPKp9VdPpA1v5lzrCCDf"
+ protocol="application/pgp-signature"; boundary="=-2IDgwRFzv8cwKgBH2XFF"
 X-Mailer: Evolution 3.18.5.2-0ubuntu3 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -57,213 +60,68 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 30 Oct 2016 23:39:06 -0000
+X-List-Received-Date: Mon, 31 Oct 2016 00:22:41 -0000
 
 
---=-RPKp9VdPpA1v5lzrCCDf
+--=-2IDgwRFzv8cwKgBH2XFF
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2016-10-27 at 16:49 +1030, Joel Stanley wrote:
-> Romulus is a dual socket OpenPower Power9 system produced by IBM with
-> an Aspeed ast2500 BMC.
+On Thu, 2016-10-27 at 15:33 +1100, Alastair D'Silva wrote:
+> On Thu, 2016-10-27 at 14:52 +1030, Joel Stanley wrote:
+> >=20
+> > Hi Alastair,
+> >=20
+> > On Thu, Oct 27, 2016 at 12:57 PM,=C2=A0=C2=A0<alastair@au1.ibm.com> wro=
+te:
+> > >=20
+> > >=20
+> > > From: Alastair D'Silva <alastair@d-silva.org>
+> > >=20
+> > > This series adds preliminary support for the Epson rx8900 RTC.
+> > >=20
+> > > Setting and retrieving time is supported, and the chip temperature
+> > > is hardcoded.
+> > I commented in the patch about setting the temperature with a
+> > property
+> > so we can adjust it at runtime with the monitor.
+> That sounds like a good idea.
 >=20
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-> ---
-> =C2=A0arch/arm/boot/dts/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-|=C2=A0=C2=A0=C2=A01 +
-> =C2=A0arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 156 ++++++++++++++++=
-+++++++++++
-> =C2=A02 files changed, 157 insertions(+)
-> =C2=A0create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
->=20
-> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-> index b9541c68afc8..ff647a08fe41 100644
-> --- a/arch/arm/boot/dts/Makefile
-> +++ b/arch/arm/boot/dts/Makefile
-> @@ -896,6 +896,7 @@ dtb-$(CONFIG_ARCH_ASPEED) +=3D aspeed-bmc-opp-palmett=
-o.dtb \
-> =C2=A0	aspeed-bmc-opp-garrison.dtb \
-> =C2=A0	aspeed-bmc-opp-witherspoon.dtb \
-> =C2=A0	aspeed-bmc-opp-zaius.dtb \
-> +	aspeed-bmc-opp-romulus.dtb \
-> =C2=A0	aspeed-bmc-facebook-cmm.dtb \
-> =C2=A0	aspeed-ast2500-evb.dtb
-> =C2=A0endif
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot=
-/dts/aspeed-bmc-opp-romulus.dts
-> new file mode 100644
-> index 000000000000..e1be7b0c5484
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> @@ -0,0 +1,156 @@
-> +/dts-v1/;
-> +
-> +#include "aspeed-g5.dtsi"
-> +#include=20
-> +
-> +/ {
-> +	model =3D "Romulus BMC";
-> +	compatible =3D "ibm,romulus-bmc", "aspeed,ast2500";
-> +
-> +	aliases {
-> +		serial4 =3D &uart5;
-> +	};
-> +
-> +	chosen {
-> +		stdout-path =3D &uart5;
-> +		bootargs =3D "console=3DttyS4,115200 earlyprintk";
-> +	};
-> +
-> +	memory {
-> +		reg =3D <0x80000000 0x40000000>;
-> +	};
-> +};
-> +
-> +&fmc {
-> +	status =3D "okay";
-> +	flash@0 {
-> +		status =3D "okay";
-> +#include "aspeed-bmc-opp-flash-layout.dtsi"
-> +	};
-> +	flash@1 {
-> +		status =3D "okay";
-> +		label =3D "alt";
-> +	};
-> +};
-> +
-> +&spi1 {
-> +	status =3D "okay";
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pinctrl_spi1debug_default>;
+> >=20
+> > >=20
+> > >=20
+> > > Other features (in particular, those that require the interrupt
+> > > line)
+> > > are not implmented.
+> > Do you intend to implement these features?
+> Only if necessary. I need to understand how to wire the virtual non-i2c=
+=C2=A0
+> interrupt line from the RTC to the SOC before these could be
+> implemented.
 
-It's definitely strapped this way?
+There are two parts: One is to add a qemu_irq member to your device's
+state struct, and initialise it in your realize() with
+sysbus_init_irq().
 
-Other than that, looks good to me.
+The second part is to wire up the interrupt at the machine level: This
+time in the machine's realize(), invoke:
 
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+    qemu_irq irq =3D qdev_get_gpio_in(DEVICE(&s->vic), irq_nr)
+
+to grab a qemu_irq, and connect it with
+
+    sysbus_connect_irq(SYS_BUS_DEVICE(&s->timerctrl), 0, irq)
+
+In this case, your magic irq_nr value is 22. The interrupt controller's
+default configuration matches the requirements for irq 22, so there
+shouldn't be anything further.
+
+Hope that helps,
 
 Andrew
 
-> +
-> +	flash@0 {
-> +		status =3D "okay";
-> +	};
-> +};
-> +
-> +&uart5 {
-> +	status =3D "okay";
-> +};
-> +
-> +&mac0 {
-> +	status =3D "okay";
-> +
-> +	use-ncsi;
-> +
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pinctrl_rmii1_default>;
-> +};
-> +
-> +&i2c0 {
-> +	status =3D "disabled";
-> +};
-> +
-> +&i2c1 {
-> +	status =3D "enabled";
-> +
-> +	/* CPU1 */
-> +};
-> +
-> +&i2c2 {
-> +	/* FSI Mux */
-> +
-> +	status =3D "okay";
-> +};
-> +
-> +&i2c3 {
-> +	status =3D "okay";
-> +
-> +	/* Clock chip */
-> +};
-> +
-> +&i2c4 {
-> +	status =3D "okay";
-> +
-> +	/* Voltage regulators:
-> +	=C2=A0*=C2=A0=C2=A0CPU0 VDD/VCS
-> +	=C2=A0*=C2=A0=C2=A0CPU0 VDN/VIO
-> +	=C2=A0*=C2=A0=C2=A0CPU0 VDDR A
-> +	=C2=A0*=C2=A0=C2=A0CPU0 VDDR B
-> +	=C2=A0*/
-> +};
-> +
-> +&i2c5 {
-> +	status =3D "okay";
-> +
-> +	/* Voltage regulators:
-> +	=C2=A0*=C2=A0=C2=A0CPU1 VDD/VCS
-> +	=C2=A0*=C2=A0=C2=A0CPU1 VDN/VIO
-> +	=C2=A0*=C2=A0=C2=A0CPU1 VDDR A
-> +	=C2=A0*=C2=A0=C2=A0CPU1 VDDR B
-> +	=C2=A0*/
-> +};
-> +
-> +&i2c6 {
-> +	/* PCIe slot 1 (x8) */
-> +	status =3D "enabled";
-> +};
-> +
-> +&i2c7 {
-> +	/* PCIe slot 2 (x16) */
-> +	status =3D "enabled";
-> +};
-> +
-> +&i2c8 {
-> +	/* PCIe slot 3 (x16) */
-> +	status =3D "enabled";
-> +};
-> +
-> +&i2c9 {
-> +	/* PCIe slot 4 (x16) */
-> +	status =3D "enabled";
-> +};
-> +
-> +&i2c10 {
-> +	/* PCIe slot 5 (x8) */
-> +	status =3D "enabled";
-> +};
-> +
-> +&i2c11 {
-> +	status =3D "okay";
-> +
-> +	rtc@32 {
-> +		compatible =3D "epson,rx8900";
-> +		reg =3D <0x32>;
-> +	};
-> +
-> +	/* TPM */
-> +};
-> +
-> +&i2c12 {
-> +	status =3D "okay";
-> +
-> +	/* CPLD */
-> +	/* Fan Controller 0xa4/a5 */
-> +	/* Power Supply */
-> +	/* Temp Sensor */
-> +	/* Temp Sensor */
-> +
-> +};
-> +
-> +&i2c13 {
-> +	status =3D "disabled";
-> +};
-> +
-> +&vuart {
-> +	status =3D "okay";
-> +};
---=-RPKp9VdPpA1v5lzrCCDf
+>=20
+--=-2IDgwRFzv8cwKgBH2XFF
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
@@ -271,19 +129,19 @@ Content-Transfer-Encoding: 7bit
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAABCgAGBQJYFoSMAAoJEJ0dnzgO5LT5c/kP/2JbJ4lj/3bYj3cfv3Y3Ngoi
-Xa8xg5A7wz4WsZgi379Eya71iCq7NLDOL4bGioKg9awFC6/ylitXwhZ+h7RO8BkA
-0URyBi0OaguLHSlO30AgJ0WbjdcZ+Le7RZVF/ANN93M8B059H1KdmtTaqLzltp/I
-c2a+cdQDMisqNBHDYC2x67tZyZNsnsrqe1c+v7xpPwKl8Czc9cF2KT5iiMlTBqZC
-pM5TZ/cFCZkLu90tJ7TG4HMgzIzjE2ASnYdGYi63y4EPLL8yorNS/z4C6kQQqCxl
-kBVm/QerH6koZOQvVueZk9P0hOItINWCteN25/LvUDwx2sOLz7BnhEOgXuDckTi9
-dS9YJDBoyC1313ItP4QzJ4ac24lTlg9DZItMO1DCGvgsJuAU7gxVh7cN5pxC8UJD
-0VbvDeVVr39UHuLR2iBs0ty+DVlVUktgAvXPT7Pecti3a/KPSpoQm0tv/FxkXrAW
-o2Ynb4Cy5YcqJAQ0zhtPpcXLQ9WrGPDpGYYgIV/+1Iczoes5PjiTZJfwbdQkP3Io
-eleXRkrezW4wVObZ32hdbhbc/ebQ7llOtwNm4JaFnWz8rishdQsis9MgYjpLROh3
-CZq/3zUHHNsWs0FUuXCuND7yYxbIR02c4kkvaWjfGnUGelIC/DOfhp6BI1MMy0pY
-o5UYsXckkZvikyIHASqg
-=6IPD
+iQIcBAABCgAGBQJYFo7FAAoJEJ0dnzgO5LT5ud8P/22YYK51qNAa72lY429g6zQ6
+5+3jr1ZTurmuObPV3yQeQm6edkE3up4KoD/KkIPWjAS4NvlMth7rbPpZ6e45DRSa
+Ctau4az4jlWjStOgmHeyqVrt4EelNf04ui77QJ3GGptt/gJG2qOM58DZZ0l3SAsb
+rTFGowy44uJplxdZ0qf+f1BoI/BpZd0RAO9osBYh3tprF/KXHCM2A+pgay8s9ibS
+/aSjmrm/o0hXIEvZPsAMQ9fA9f/hR+Npw/CNHuJn9wN0JTdToT15klzE0P8tgbNf
+4zS8vvHJIq1IVz4zYP0MV9geGYO6/6qlRuXw5AvMbAlr1FyjCjb4u002pf/MMJeJ
+nLb2snLIYMQugiiPgEhBSp5a29Mx3iW1qtXYuBYhV02yyBafQpzHJecLO1/pDmRy
+eU/aQJzkT+0T63Ipl82YRb6BAE+K03dolUIQOyuwlp3+NUyA4lRiZT7n/d0SVb56
+/FuX53//1BFmj41cSlj9UhaUx0PYIG/ogK05RTf9pSdeb/kICTeznP9A9Kin+mDy
+eweDwDZaDekjW38wJUWRYDqrwYoyNBwn6dfKEvAff1aBgKaHeZtebFDlnrlWhxFL
+oKUqSPH6VK7iYke6D7kLmQwJD8qSzOgC1mFgFKP3fNeWLYlcr6n8kZnhGaAP3J3/
+QAbZl0e398DWbVozilMS
+=ewA1
 -----END PGP SIGNATURE-----
 
---=-RPKp9VdPpA1v5lzrCCDf--
+--=-2IDgwRFzv8cwKgBH2XFF--
