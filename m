@@ -1,33 +1,53 @@
-Return-Path: <clg@kaod.org>
-Received: from 20.mo1.mail-out.ovh.net (20.mo1.mail-out.ovh.net
- [188.165.45.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
+ [IPv6:2607:f8b0:4003:c06::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t6kym6pD0zDvNY
- for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 17:31:12 +1100 (AEDT)
-Received: from player726.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo1.mail-out.ovh.net (Postfix) with ESMTP id 4E26A17345
- for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 07:31:07 +0100 (CET)
-Received: from hermes.kaod.org (bad36-1-78-202-132-1.fbx.proxad.net
- [78.202.132.1]) (Authenticated sender: clg@kaod.org)
- by player726.ha.ovh.net (Postfix) with ESMTPSA id 8478E2A0074
- for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 07:31:06 +0100 (CET)
-Subject: Re: [PATCH linux] pinctrl-aspeed-g5: Never set SCU90[6]
-To: openbmc@lists.ozlabs.org
-References: <1477894297-12249-1-git-send-email-andrew@aj.id.au>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <5f847be5-12a9-c8ca-8365-69c92f831ed6@kaod.org>
-Date: Mon, 31 Oct 2016 07:31:05 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.4.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t6l020tStzDvNY
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 17:32:18 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=wWzlmsho; 
+ dkim-atps=neutral
+Received: by mail-oi0-x241.google.com with SMTP id v84so4008819oie.2
+ for <openbmc@lists.ozlabs.org>; Sun, 30 Oct 2016 23:32:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=12Y0ZFmlORJKku3p2bYCopGoPpKrQAec7m2BuB0LoHI=;
+ b=wWzlmshoEVrmJ/h+MIVP63LB7BGwl+xrFXT8MmP+GDBuyJ7hc2skuYgOjPDMxwT2lY
+ EZPXBUM6hHEd5RZtTQrt4k7EhiKRXyTKAZbuRUN5IT9uit9uRqgdktukFhrS+EjXtDk1
+ erDflZT+zozGGY2w3IYfkLuaO9TVUPYhv5nn7qSKKYeKRwT7GlDu3pAE3sdTf1fnwNAN
+ zL6u2SDr+z3rwaK1asWCm73azVqwcoe4miMbkPLsg5ML+UFQbbPAbpOgzYfS/4Ay/c3A
+ h87FjFQ8H7Lfl1rwGuYZfVY7zId0StJrKAGZ/drZ6aTqZPXE7Js+BECVDgbDLcTF8adz
+ E9Eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=12Y0ZFmlORJKku3p2bYCopGoPpKrQAec7m2BuB0LoHI=;
+ b=NC80qeRjoptZSP3yCW0r3/zTPrn41D1d4jWK1Abx+2wnXDhoH+eBmCM1c2584bwuhS
+ j6vvn42WZmvnEvV2qFt0uFZFelcc7cE+PBN3uqcw8lCjpLDdA57ekzDD4Q5c0wNTUY+6
+ ovYhb9v3WCPPfO9w4M6ywNTBwM+4KPGuJQ1DBXOLLb4kuZJVbtyRLVqkFD1YEgQLqCgm
+ mfWql0cvEdoUwebYxIyPSDJ8Bxf/nAISpFt5T6HC9QefHqaDrHCxN6XcT5D04D3verzk
+ Kni77B0EkQ9sYvFjcy4Ik75Zj+BbiUmSxecZa7nvyuq3yhmx6Wnr/EVpvmiHfXP9eF3y
+ BSOA==
+X-Gm-Message-State: ABUngveE88Qey+NjYmo0MXbQTfv5Juy4b7bUSTFVXlExQuImKS7aIoA9l6i3g6ohjRY8GQ5kjf/RP/INb5c/sw==
+X-Received: by 10.202.106.198 with SMTP id f189mr25677970oic.109.1477895536306; 
+ Sun, 30 Oct 2016 23:32:16 -0700 (PDT)
 MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.182.107.226 with HTTP; Sun, 30 Oct 2016 23:31:55 -0700 (PDT)
 In-Reply-To: <1477894297-12249-1-git-send-email-andrew@aj.id.au>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 16513292460240767746
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrjeekgdeliecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecu
+References: <1477894297-12249-1-git-send-email-andrew@aj.id.au>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 31 Oct 2016 17:01:55 +1030
+X-Google-Sender-Auth: Rm6OsPJN54dzao-ECr2tr8KBpYA
+Message-ID: <CACPK8XeqaxnSfeyYXy1YC03Yej+2dvPzoSqaaNd=-66n9ZEWcw@mail.gmail.com>
+Subject: Re: [PATCH linux] pinctrl-aspeed-g5: Never set SCU90[6]
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -39,42 +59,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Oct 2016 06:31:13 -0000
+X-List-Received-Date: Mon, 31 Oct 2016 06:32:18 -0000
 
-On 10/31/2016 07:11 AM, Andrew Jeffery wrote:
+Hi Andrew,
+
+Thanks for finding a fix so quickly.
+
+On Mon, Oct 31, 2016 at 4:41 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
 > The description of SCU90[6] from the datasheet: 'Reserved, must keep at
-> value ”0”'.
-> 
+> value =E2=80=9D0=E2=80=9D'.
+>
 > Switch from the bit-flipping macro to explicitly configuring
-> .enable = .disable = 0.
-> 
+> .enable =3D .disable =3D 0.
+>
 > If a pin depending on SCU90[6] is requested for GPIO, the export will
 > succeed but changes to the GPIO's value fail to stick. With the fix the
 > value can be toggled as expected. The patch has been tested on an
 > AST2500 EVB.
 
-That is an important condition for SP1 also. Could that have an impact on 
-the spi1debug setting in the witherspoon DTS ? Is it still needed ? 
+I couldn't follow what the issue was and how you fixed it, so I've
+rewritten it in laymans terms. Let me know what you think:
 
-C.
+If a pin depending on bit 6 in SCU90 is requested for GPIO, the export
+will succeed but changes to the GPIO's value will not be accepted by
+the hardware. This is because pinmux has misconfigured the SCU by
+writing 1 to the reserved bit.
 
+The description of SCU90[6] from the datasheet is 'Reserved, must keep
+at value =E2=80=9D0=E2=80=9D'. The fix is to switch pinmux from the bit-fli=
+pping macro
+to explicitly configuring the .enable and .disable values to zero.
+
+The patch has been tested on an AST2500 EVB.
+
+Cheers,
+
+Joel
+
+>
 > Reported-by: Uma Yadlapati <yadlapat@us.ibm.com>
 > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 > ---
 >  drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
+>
+> diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c b/drivers/pinctrl=
+/aspeed/pinctrl-aspeed-g5.c
 > index 481e836d12e5..9a3139c13ffc 100644
 > --- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
 > +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
 > @@ -26,7 +26,7 @@
->  
+>
 >  #define ASPEED_G5_NR_PINS 232
->  
-> -#define COND1		SIG_DESC_BIT(SCU90, 6, 0)
-> +#define COND1		{ SCU90, BIT(6), 0, 0 }
->  #define COND2		{ SCU94, GENMASK(1, 0), 0, 0 }
->  
->  #define LHCR0		SIG_DESC_TO_REG(ASPEED_IP_LPC, 0xA0)
-> 
+>
+> -#define COND1          SIG_DESC_BIT(SCU90, 6, 0)
+> +#define COND1          { SCU90, BIT(6), 0, 0 }
+>  #define COND2          { SCU94, GENMASK(1, 0), 0, 0 }
+>
+>  #define LHCR0          SIG_DESC_TO_REG(ASPEED_IP_LPC, 0xA0)
+> --
+> 2.7.4
+>
