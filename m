@@ -2,30 +2,26 @@ Return-Path: <jk@ozlabs.org>
 Received: from ozlabs.org (ozlabs.org [IPv6:2401:3900:2:1::2])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t6bbf5PPDzDvW8
- for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 11:59:10 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t6c6417VxzDvRg
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 12:22:04 +1100 (AEDT)
 Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 3t6bbf24rlz9ryk;
- Mon, 31 Oct 2016 11:59:10 +1100 (AEDT)
-Subject: Re: [PATCH linux v5 15/18] drivers/fsi: Add GPIO FSI master
-To: Christopher Bostic <christopher.lee.bostic@gmail.com>
-References: <1476918586-13475-1-git-send-email-christopher.lee.bostic@gmail.com>
- <1476918586-13475-16-git-send-email-christopher.lee.bostic@gmail.com>
- <7393b875-d655-a4ea-afd7-9368ca05d90b@ozlabs.org>
- <CAA0LjjW4RHRb45XUtW-gk_g_Ro3aqwrxj9ZGFct0nG0NFYjbpQ@mail.gmail.com>
- <60fa3f67-10c7-8f58-ed43-3e82a4498c57@ozlabs.org>
- <CAA0LjjVhUqySVUPwCGFfHZB24ay_1OSTOoj5RR27zxrL6cP4rw@mail.gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, xxpetri@de.ibm.com,
- Jeremy Kerr <jk@0zlabs.org>, zahrens@us.ibm.com
+ by ozlabs.org (Postfix) with ESMTPSA id 3t6c634h0xz9ryZ;
+ Mon, 31 Oct 2016 12:22:03 +1100 (AEDT)
+Subject: Re: [PATCH linux v6 18/18] drivers/fsi: Add SCOM FSI client device
+ driver
+To: christopher.lee.bostic@gmail.com, openbmc@lists.ozlabs.org
+References: <1477865379-11566-1-git-send-email-christopher.lee.bostic@gmail.com>
+ <1477865379-11566-19-git-send-email-christopher.lee.bostic@gmail.com>
+Cc: xxpetri@de.ibm.com, zahrens@us.ibm.com
 From: Jeremy Kerr <jk@ozlabs.org>
-Message-ID: <259bdf92-b6f2-5615-e889-cd7b98cdae75@ozlabs.org>
-Date: Mon, 31 Oct 2016 08:59:09 +0800
+Message-ID: <9b22edbb-f00e-32fc-e65f-9e5fb7cf6bf1@ozlabs.org>
+Date: Mon, 31 Oct 2016 09:22:03 +0800
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
  Thunderbird/45.2.0
 MIME-Version: 1.0
-In-Reply-To: <CAA0LjjVhUqySVUPwCGFfHZB24ay_1OSTOoj5RR27zxrL6cP4rw@mail.gmail.com>
+In-Reply-To: <1477865379-11566-19-git-send-email-christopher.lee.bostic@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -39,119 +35,187 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Oct 2016 00:59:10 -0000
+X-List-Received-Date: Mon, 31 Oct 2016 01:22:04 -0000
 
 Hi Chris,
 
->> Say if we have a FSI master with two links, we would have four cells
->> for all the *-gpios properties:
->>
->>      fsi-master {
->>          compatible = "ibm,fsi-master", "ibm,fsi-master-gpio";
->>          clk-gpios = <&gpio 0 &gpio 6>;
->>          data-gpios = <&gpio 1 &gpio 7>;
->>      }
->>
-> 
-> Hi Jeremy,
-> 
-> One thing I don't understand is the numbering conventions.   What does
-> 6 and 7 represent in this case?
-> There are five pins total 0-4 for the existing gpio master.
+> Create a simple SCOM engine device driver that reads and writes
+> across an FSI bus.
 
-This is only an example node, and the format of those example *-gpios
-properties isn't really relevant here - what I'm illustrating is that
-we could have multiple GPIOs described by each property.
+Looking good. Is this functional at the moment?
 
-The actual format of those *-gpios properties depends on the GPIO
-controller that they're referring to, and is completely opaque to the
-consumer of those nodes (in our case, that's the fsi master driver).
+A few comments:
 
-Here's how it works:
+> +static struct list_head scom_devices;
+> +static atomic_t scom_idx = ATOMIC_INIT(0);
+> +static int scom_probe(struct device *);
 
-The GPIO controller driver has its own way of referencing an
-individual GPIO, as a tuple of cells. This could be something as
-simple as:
+You don't need this forward declaration anymore
 
-  (gpio-number)
+> +static int get_scom(struct scom_device *scom_dev, uint64_t *value,
+> +			uint32_t addr)
+> +{
+> +	uint32_t result, data;
+> +	int rc;
+> +
+> +	udelay(SCOM_FSI2PIB_DELAY);
 
-or, typically they may have flags (like active-low, etc) too:
+Why this udelay()? Does put_scom() not need it too then? If it's a
+matter of scom engine state, should we adjust this based on the last
+operation?
 
-  (gpio-number,flags)
+If it's necessary, can you add a short comment?
 
-but more complex controllers can use any format, which could better
-reference their hardware layout. To make up an example:
+> +static loff_t scom_llseek(struct file *filep, loff_t offset, int whence)
+> +{
+> +	if (whence != 0)  /* SEEK_SET */
+> +		return -EINVAL;
+> +
+> +	filep->f_pos = offset;
+> +	return offset;
+> +}
 
-  (controller-bank,bank-index,flags)
+I think you can drop this and use .llseek = no_seek_end_llseek instead
+(and then you get SEEK_CUR support too).
 
-The device tree node for the GPIO controller will have a #gpio-cells
-property. This tells us how many cells are required for a tuple that
-describes an individual GPIO.
+> +static ssize_t scom_read(struct file *filep, char __user *buf, size_t len,
+> +			loff_t *offset)
+> +{
+> +	int rc = 0;
+> +	struct miscdevice *mdev =
+> +				(struct miscdevice *)filep->private_data;
+> +	struct scom_device *scom = to_scom_dev(mdev);
+> +	struct device *dev = &scom->fsi_dev->dev;
+> +	uint64_t val;
+> +
+> +	if (len != sizeof(uint64_t))
+> +		return -EINVAL;
+> +
+> +	rc = get_scom(scom, &val, *offset);
+> +	if (rc) {
+> +		dev_dbg(dev, "get_scom fail:%d\n", rc);
+> +		return rc;
+> +	}
+> +
+> +	rc = copy_to_user(buf, &val, len);
+> +	if (rc)
+> +		dev_dbg(dev, "copy to user failed:%d\n", rc);
+> +
+> +	return rc ? rc : len;
+> +}
 
-When we want to reference an individual GPIO from elsewhere in the
-device tree, we use one of these *-gpios properties, which contains:
+What are the semantics of offset after reading & writing? Should two
+reads (with no intervening llseek) read the same address, or subsequent
+addresses?
 
-  1) a pointer to the controller node
-  2) the tuple describing the GPIO within that controller
+> +static ssize_t scom_write(struct file *filep, const char __user *buf,
+> +			size_t len, loff_t *offset)
+> +{
+> +	int rc = 0;
 
-(1) is always a phandle (a single cell that references the phandle
-property of another node). This is how we know which controller we're
-referring to.
+No need to initialise this (and in scom_read too).
 
-Once we have the controller, we can look at its #gpio-cells property -
-this tells us how many cells are needed for (2), which allows the GPIO
-core code to construct that tuple from a DT property.
+> +	struct miscdevice *mdev =
+> +				(struct miscdevice *)filep->private_data;
+> +	struct scom_device *scom = to_scom_dev(mdev);
+> +	struct device *dev = &scom->fsi_dev->dev;
+> +	uint64_t val;
+> +
+> +	if (len != sizeof(uint64_t))
+> +		return -EINVAL;
+> +
+> +	rc = copy_from_user(&val, buf, len);
+> +	if (rc) {
+> +		dev_dbg(dev, "copy from user failed:%d\n", rc);
+> +		return -EINVAL;
+> +	}
 
-We request GPIOs using this tuple - the controller driver (and only that
-driver) knows how to interpret the tuple, and returns the selected tuple
-to our fsi master.
+You don't want to squash that return value; just return rc there.
 
-[The term "tuple" isn't standard here - I'm just using it for the
-purposes of this email. The whole construct (ie, (1) and (2)) is called
-a descriptor though].
+> +
+> +	rc = put_scom(scom, val, *offset);
+> +	if (rc)
+> +		dev_dbg(dev, "put_scom failed with:%d\n", rc);
+> +
+> +
+> +	return rc ? rc : len;
+> +}
+> +
+> +static const struct file_operations scom_fops = {
+> +	.owner	= THIS_MODULE,
+> +	.llseek	= scom_llseek,
+> +	.read	= scom_read,
+> +	.write	= scom_write,
+> +};
+> +
+> +static int scom_probe(struct device *dev)
+> +{
+> +	struct fsi_device *fsi_dev = to_fsi_dev(dev);
+> +	struct scom_device *scom = NULL;
 
-However, the fsi driver doesn't need to care about *any* of that - we
-just do a devm_gpiod_get() and out pops the correct GPIO.
+No need to initialise this either.
 
-We do need to know that format when constructing the device tree though,
-and that will vary from platform to platform. Using the palmetto board
-as an example, we would have something that looks like:
+> +
+> +	scom = devm_kzalloc(dev, sizeof(*scom), GFP_KERNEL);
+> +	if (!scom)
+> +		return -ENOMEM;
+> +
+> +	snprintf(scom->name, sizeof(scom->name),
+> +			"scom%d", atomic_inc_return(&scom_idx));
+> +	scom->fsi_dev = fsi_dev;
+> +	scom->mdev.minor = MISC_DYNAMIC_MINOR;
+> +	scom->mdev.fops = &scom_fops;
+> +	scom->mdev.name = scom->name;
+> +	scom->mdev.parent = dev;
+> +	list_add(&scom->link, &scom_devices);
+> +
+> +	return misc_register(&scom->mdev);
+> +}
+> +
+> +static struct fsi_device_id scom_ids[] = {
+> +	{
+> +		.engine_type = FSI_ENGID_SCOM,
+> +		.version = FSI_VERSION_ANY,
+> +	},
+> +	{ 0 }
+> +};
+> +
+> +static struct fsi_driver scom_drv = {
+> +	.id_table = scom_ids,
+> +	.drv = {
+> +		.name = "scom",
+> +		.bus = &fsi_bus_type,
+> +		.probe = scom_probe,
+> +	}
+> +};
+> +
+> +static int scom_init(void)
+> +{
+> +	INIT_LIST_HEAD(&scom_devices);
+> +	return fsi_driver_register(&scom_drv);
+> +}
+> +
+> +static void scom_exit(void)
+> +{
+> +	struct list_head *pos;
+> +	struct scom_device *scom = NULL;
 
-  fsi-master {
-      compatible = "ibm,fsi-master", "ibm,fsi-master-gpio";
-      clk-gpios = <&gpio ASPEED_GPIO(A,4) GPIO_ACTIVE_LOW>;
-      data-gpios = <&gpio ASPEED_GPIO(A,5) GPIO_ACTIVE_LOW>;
-  }
+... or this.
 
-- using GPIOs A4 and A5, Assuming my reading of the schematic is
-correct.
+> +
+> +	list_for_each(pos, &scom_devices) {
+> +		scom = list_entry(pos, struct scom_device, link);
+> +		misc_deregister(&scom->mdev);
+> +		devm_kfree(&scom->fsi_dev->dev, scom);
+> +	}
+> +	fsi_driver_unregister(&scom_drv);
+> +}
+> +
+> +module_init(scom_init);
+> +module_exit(scom_exit);
+> +MODULE_LICENSE("GPL");
 
-> Up until now, all available FSI masters in hardware,  FSP, P8 "hub",
-> P8 cascade, P7 cascade, have all had multiple links controlled by one
-> master.   It would make sense I think to continue this.
-
-I'm only referring to separate "top-level" masters here (ie, simply the
-groups of GPIOs themselves). There are a couple of considerations here:
-
-  a) Using one-link-per-GPIO-master keeps the driver code a little simpler;
-     it doesn't need to manage multiple links
-
-  b) There is a little more scope for complexity & error in the *-gpios
-      properties, if multiple clk/data/etc lines are described (say, if
-      one FSI link of a multi-master doesn't have a separate mux line..)
-     
-- so I'm slightly preferring the single-link-per-master idea at present
-(of course, that could cascade to other masters behind slave engines,
-but the master driver doesn't need to care about that).
-
-> There is no direct sharing of information between masters other than
-> what's required by the firmware to start at the beginning master in
-> the chain and walk down each link  and checking 'sub' master states to
-> determine where an interrupt or error was sourced.
-
-Again, this only references how we handle the top-level masters.
-
-Regards,
+Cheers,
 
 
 Jeremy
