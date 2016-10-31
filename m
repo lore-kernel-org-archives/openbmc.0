@@ -1,51 +1,34 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <clg@kaod.org>
+Received: from 20.mo1.mail-out.ovh.net (20.mo1.mail-out.ovh.net
+ [188.165.45.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t6lPz089wzDvXj
- for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 17:51:19 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=LsXPnAA7; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=sf3WT6HK; dkim-atps=neutral
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 060EA207AC;
- Mon, 31 Oct 2016 02:51:17 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute7.internal (MEProxy); Mon, 31 Oct 2016 02:51:17 -0400
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
- x-me-sender:x-sasl-enc:from:to:cc:subject:date:message-id
- :mime-version:content-type:content-transfer-encoding; s=mesmtp;
- bh=PV273fYX+OdQVocll79d9rKWHWQ=; b=LsXPnAA7LaPESr35Xiwg6q6KPWsw
- wPjVCL9B3CXtRQa+rkU5vqeMinAhu0iukZ2XZlEnZ6PKJWr85HDZinohC6DE14t/
- p8kMgmxq7ygr1rWwvL8rrHAyMXzKe7YwjmxKr0awv0PCmMVCbNZm3lrkYozePsGN
- KWdbzjlh0eMNH7Q=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=x-me-sender:x-sasl-enc:from:to:cc:subject
- :date:message-id:mime-version:content-type
- :content-transfer-encoding; s=smtpout; bh=PV273fYX+OdQVocll79d9r
- KWHWQ=; b=sf3WT6HK8VewHC1Pin1lZo8s7Jqc3AI3atW+JTZllly+/AdfxtE8Eg
- Kh7cULl2dsu8JznpnjpkUUWL9soihddLQIcV7nClk7wcYD1PAZ2Uf1fQR1ib63hR
- 0negYY3aqiWs0PUoavVD27O2Az+bC077x0OgRtkW5/rzy0fyFpP0Q=
-X-ME-Sender: <xms:5OkWWHdKGN__0ensYnrcQGp9rvQbRlvJRssqSmA69sgJoxmsd30h2Q>
-X-Sasl-enc: dVuAa3UzLOiPE4g9vZI7VVayPfsQx78tfhjbkDAI/8RD 1477896676
-Received: from keelia.au.ibm.com (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 3F745F29CB;
- Mon, 31 Oct 2016 02:51:14 -0400 (EDT)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC <openbmc@lists.ozlabs.org>,
-	Andrew Jeffery <andrew@aj.id.au>
-Subject: [PATCH linux v2] pinctrl-aspeed-g5: Never set SCU90[6]
-Date: Mon, 31 Oct 2016 17:20:35 +1030
-Message-Id: <1477896635-13194-1-git-send-email-andrew@aj.id.au>
-X-Mailer: git-send-email 2.7.4
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t6lvX3hBMzDvNb
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 18:13:27 +1100 (AEDT)
+Received: from player726.ha.ovh.net (b7.ovh.net [213.186.33.57])
+ by mo1.mail-out.ovh.net (Postfix) with ESMTP id 0E03217355
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 07:55:07 +0100 (CET)
+Received: from hermes.kaod.org (bad36-1-78-202-132-1.fbx.proxad.net
+ [78.202.132.1]) (Authenticated sender: clg@kaod.org)
+ by player726.ha.ovh.net (Postfix) with ESMTPSA id 737DF2A0070;
+ Mon, 31 Oct 2016 07:55:02 +0100 (CET)
+Subject: Re: [PATCH 0/3] Add QEMU support for the Epson rx8900 RTC
+To: alastair@au1.ibm.com, openbmc@lists.ozlabs.org
+References: <1477535233-7760-1-git-send-email-alastair@au1.ibm.com>
+Cc: Alastair D'Silva <alastair@d-silva.org>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <a4462054-4aa7-d75d-a76e-e338f6f3c84b@kaod.org>
+Date: Mon, 31 Oct 2016 07:54:57 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.4.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <1477535233-7760-1-git-send-email-alastair@au1.ibm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Ovh-Tracer-Id: 16918334954434300695
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrjeekgddutdduucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,37 +40,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Oct 2016 06:51:19 -0000
+X-List-Received-Date: Mon, 31 Oct 2016 07:13:28 -0000
 
-If a pin depending on bit 6 in SCU90 is requested for GPIO, the export
-will succeed but changes to the GPIO's value will not be accepted by the
-hardware. This is because the pinmux driver has misconfigured the SCU by
-writing 1 to the reserved bit.
+On 10/27/2016 04:27 AM, alastair@au1.ibm.com wrote:
+> From: Alastair D'Silva <alastair@d-silva.org>
+> 
+> This series adds preliminary support for the Epson rx8900 RTC.
+> 
+> Setting and retrieving time is supported, and the chip temperature
+> is hardcoded.
+> 
+> Other features (in particular, those that require the interrupt line)
+> are not implmented.
 
-The description of SCU90[6] from the datasheet is 'Reserved, must keep
-at value ”0”'. The fix is to switch pinmux from the bit-flipping macro
-to explicitly configuring the .enable and .disable values to zero.
+That's not too complex to do but you can keep that for a followup patch. 
 
-The patch has been tested on an AST2500 EVB.
+I think you can send directly to mainline, after the few fixes. 
 
-Reported-by: Uma Yadlapati <yadlapat@us.ibm.com>
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Cheers,
 
-diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
-index 481e836d12e5..9a3139c13ffc 100644
---- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
-+++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
-@@ -26,7 +26,7 @@
- 
- #define ASPEED_G5_NR_PINS 232
- 
--#define COND1		SIG_DESC_BIT(SCU90, 6, 0)
-+#define COND1		{ SCU90, BIT(6), 0, 0 }
- #define COND2		{ SCU94, GENMASK(1, 0), 0, 0 }
- 
- #define LHCR0		SIG_DESC_TO_REG(ASPEED_IP_LPC, 0xA0)
--- 
-2.7.4
+C. 
+
+> Alastair D'Silva (3):
+>   Add Epson RX8900 RTC support
+>   Connect an RX8900 RTC to i2c12 of the AST2500 SOC at address 0x32
+>   Add a unit test for RX8900 RTC (time functionality only)
+> 
+>  default-configs/arm-softmmu.mak |   1 +
+>  hw/arm/aspeed.c                 |   4 +
+>  hw/arm/imx25_pdk.c              |   9 +-
+>  hw/timer/Makefile.objs          |   1 +
+>  hw/timer/rx8900.c               | 426 ++++++++++++++++++++++++++++++++++++++++
+>  tests/Makefile.include          |   2 +
+>  tests/rx8900-test.c             |  82 ++++++++
+>  7 files changed, 521 insertions(+), 4 deletions(-)
+>  create mode 100644 hw/timer/rx8900.c
+>  create mode 100644 tests/rx8900-test.c
+> 
