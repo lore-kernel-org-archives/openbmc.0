@@ -1,24 +1,52 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <mine260309@gmail.com>
+Received: from mail-qt0-x22b.google.com (mail-qt0-x22b.google.com
+ [IPv6:2607:f8b0:400d:c0d::22b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t6yH90NxlzDvJd
- for <openbmc@lists.ozlabs.org>; Tue,  1 Nov 2016 02:01:08 +1100 (AEDT)
-Received: from localhost (32.97.110.51 [32.97.110.51]) by mx.zohomail.com
- with SMTPS id 1477926059158779.1609286553843;
- Mon, 31 Oct 2016 08:00:59 -0700 (PDT)
-Date: Mon, 31 Oct 2016 10:00:56 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Opinions on CLI tools.
-Message-ID: <20161031150038.zcvop7gbpu44ojsf@asimov>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t70CL43XkzDsrV
+ for <openbmc@lists.ozlabs.org>; Tue,  1 Nov 2016 03:27:58 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=RYjtjC3w; 
+ dkim-atps=neutral
+Received: by mail-qt0-x22b.google.com with SMTP id p16so76571523qta.0
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 09:27:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=FBXiyBDcuaymZ5FHUF8XruZ2zsiux+eiHM5y/CmgbuI=;
+ b=RYjtjC3wDICcYnAHfMY4Le+t0Gzn966czebmN8Fv4zSUU2L9aHs545z7B1a0NTdlav
+ vNkTbKOAwJY931surSj9j8Rvb3hej/fr2jTSI3l3aZdGOmtZSBnOs3prrprxkkgJJVvK
+ 7uoCkupgkqUWOc4KH6YkwF71OqGI+oXIQpOkKdxWmaam4WE1ptPNyWe67vQhVmWAQHcK
+ IpD50vaNn5XPIlja/EQO14c7bfW5dNCb54GpjNQEH70ZCqb/PQoRGdPCHxbMcUf+mroB
+ HYOsFJhMBBPlJw2tpqK8T1o7L9DzuxfXs0INIu2C51EaQgTGmYw34fPBIG3a1A7DOEd5
+ nDfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=FBXiyBDcuaymZ5FHUF8XruZ2zsiux+eiHM5y/CmgbuI=;
+ b=dg/10pwoaR6/lKAHEv9V0j2MeqZhWLM8Bj4h+WydBXgl4kz68qyovEzi2mQdtEr4oW
+ KH50dN2qp+EomfbEHI6cs49Dw9nYDhSN5E5Fp3JqCoC1gT6sW7HPrpwYjAI9XtyKbA1P
+ z14K7R3JvA7OcBc1vLVvZaIOktvljy9d2FTPEaVqZIYLWsEy3dGk63fhGqFmXCNGY7y4
+ jV2LD9XdrftSWUcJ/iYzPQgveS5uWKmrMopSW9FUHUgqQMnaCoGCwneHoY4iMqF0Ztre
+ HmCtKp1TSeRuK6j7CR89llogjUov4EIaasKNLxuPzXlIL3+6Mm4UX7UIOM236SJ2BkI5
+ O0oQ==
+X-Gm-Message-State: ABUngveV/GsZqtkwiNKHktWFUvefNf8l+ITfSP6D/Rt+fXJCH1tdfeoTq7kuYNP06GXhLsCWKe3I0pgFoJb2Zw==
+X-Received: by 10.200.49.41 with SMTP id g38mr2225410qtb.99.1477931276107;
+ Mon, 31 Oct 2016 09:27:56 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="6hc3rkzzf3fdvscv"
-Content-Disposition: inline
-User-Agent: Mutt/1.6.2 (2016-06-11)
-X-Zoho-Virus-Status: 1
+Received: by 10.12.146.15 with HTTP; Mon, 31 Oct 2016 09:27:55 -0700 (PDT)
+In-Reply-To: <CACPK8XfurNsb5t0dahhCXp3bZ7QykudtYMhxWnexUudpsF-Dhw@mail.gmail.com>
+References: <CACPK8XeEiMremm9nbKRMxr3G6GmR4OTHjb1DHOxLjPqQ3WNBkg@mail.gmail.com>
+ <20161028125249.esdyeqbkpk6nedc2@asimov>
+ <CACPK8XfurNsb5t0dahhCXp3bZ7QykudtYMhxWnexUudpsF-Dhw@mail.gmail.com>
+From: Mine <mine260309@gmail.com>
+Date: Tue, 1 Nov 2016 00:27:55 +0800
+Message-ID: <CAARXrtm0woMfHH=tk7aOqpMC2+ddnokCy-Ay=5agOdAB8mNT3w@mail.gmail.com>
+Subject: Re: Gerrit emails
+To: Joel Stanley <joel@jms.id.au>
+Cc: Patrick Williams <patrick@stwcx.xyz>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -30,86 +58,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Oct 2016 15:01:09 -0000
+X-List-Received-Date: Mon, 31 Oct 2016 16:27:59 -0000
 
+postfix with send-only config +1, I use it on my RaspberryPi :)
 
---6hc3rkzzf3fdvscv
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--
+BRs,
+Lei YU
 
-I decided we should solicit broader feedback before I merge this commit:
-    https://gerrit.openbmc-project.xyz/#/c/900/2
-
-Xo proposed adding a CLI tool, that appears to have been written and
-maintained by someone at Google, and effectively is a wrapper around a
-number of device driver calls.  Some of the facilities provided by this
-tool would also be provided by "upstream" tools like i2c-tools or pdbg.
-
-Last week the IBM team had a small discussion on strategies for CLI
-tools.  In our legacy product, developers tended to make many many CLI
-tools with little oversight and standards and these tools ended up
-slipping into various "bring up", "debug" and "manufacturing" scripts,
-effectively becoming "requirements".  For OpenBMC, we had proposed
-landing on the other extreme of this, which is to say we should never
-have a CLI tool as a wrapper around an existing tool or to replace
-existing upstream functionality.  (We did have one small tool we
-discussed which was to facilitate easier interaction with the DBus
-interfaces, since otherwise would require a few invocations of 'busctl')
-
-One of our (my) concerns about wrappers is that we end up segmenting our
-own community from the broader Linux ecosystem.  Having available and
-documenting broader tools like 'i2c-tools', 'systemctl', 'journalctl'
-gives us larger mind-share with individuals outside OpenBMC that are
-already familiar with those tools.
-
-A key example we discussed was:
-        obmcutil power-on
-    vs
-        systemctl start host0-power-on.target
-
-The first is certainly "easier" for those that are totally newcomers.
-The second is only slightly more difficult but gives insight into how
-our state-management works.  With the second if someone already has
-knowledge in systemd, from their own Linux experience, that allows them
-to more likely probe into "what else is exposed via systemd targets?"
-rather than just expecting everything to be documented with 'obmcutil
---help'.
-
-With this proposed iotools package I think we have 3 options:
-
-1.  Allow it in, as is, in the debugtools image.  Even though it does
-replicate / wrap some tools, it does provide new abstractions on others.
-
-2.  Add it to a .bbappend in only the meta-zaius tree.
-
-3.  Patch the makefile (and discuss with upstream) to disable
-functionality that is already implemented by other, more widely used,
-tools like i2c-tools.
-
---=20
-Patrick Williams
-
---6hc3rkzzf3fdvscv
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJYF1yoAAoJEKsDR8wtAMEZqT8P/0CVmB6Ql271ZIJZhQ3SHCHy
-+Jqa3DY51oSYFDj6E7MiNOgOQF/6YRWx3ssgoKENhSp1l0FbNP7yLJHI7zp3TtO5
-VUShYxTn746RffFGr7DP0ixw0VdSzK9rffe9e/KA2QARbPzGiTzzj05prX6Ckh0u
-hkJbOsM2LC9eaJar2tMyn5FOpfe3wzsXDI4PrBXNTf3VuLME3f0wXPrWn/b5wCd/
-xvJ0y1GB/dtDu+Fk4yavTX1nwAIN5TbXwXPn500wxJjuwvEOmlvBt7Y/KnXD870X
-2B8JAcSQU5ACaj7bjmnV596qywp0KkBaEWdNel5DLK4gVkS3d9m21/UdLoKuyIYE
-cGghbXEgv91CoMDzeHEK/qpQGc31fkEnNzKGgcHs0JVs6I+Y+sLHRUXYrYZtupLB
-jMxDwIQ/qCSueMlSz0npBArCud2m1hD63/utKq+/nCzQrrQgpSGzRBJRbsBkXayf
-Z5fNbRNhtFTA35V5WFer+UdbFrhGy3WbUZO2UNUgk1zn39EcToJHse7vPRWsMgKw
-+/DFCnL7743taCaATE4Q4CMgIxyQIacQWmac/9Nw6/03zhRnL8uhHa1s4CBhRNun
-wNZ4RdhU7S2psIKwgeEsQ6NzcjrW+jCkJTgfODmb8IfxDrY08mCltLA0B+zLU52k
-VJDFosM2WbYyi2f1Crm/
-=YY14
------END PGP SIGNATURE-----
-
---6hc3rkzzf3fdvscv--
+On Sun, Oct 30, 2016 at 5:18 PM, Joel Stanley <joel@jms.id.au> wrote:
+> On Fri, Oct 28, 2016 at 11:22 PM, Patrick Williams <patrick@stwcx.xyz> wrote:
+>> On Thu, Oct 27, 2016 at 05:06:18PM +1030, Joel Stanley wrote:
+>>> Hi Patrick,
+>>>
+>>> I think you mentioned that Gerrit emails broke a while back. A few
+>>> people have asked about it recently, so I was wondering if you could
+>>> update us on how that is going?
+>>>
+>>> Do you need help?
+>>
+>> I haven't had a chance to work on it.  Plan to get it fixed next week.
+>>
+>> If you know a good / easy to install localhost SMTP agent you can point
+>> me at, that would be great.  I need to get that installed and update the
+>> TXT record on openbmc-project.xyz to enable the server to send emails
+>> again.
+>
+> I use ssmtp on my laptop to send from Gmail. It's in Debian and just
+> needs a few options in a file in /etc to use.
+>
+> Cheers,
+>
+> Joel
+>
+>>
+>> The mail host I am using for my personal email is what I relayed the
+>> Gerrit emails into and they limit sending to 200 per day, so we end up
+>> getting rate limited pretty quick with how many people have subscribed
+>> to all changes.
+>>
+>> --
+>> Patrick Williams
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
