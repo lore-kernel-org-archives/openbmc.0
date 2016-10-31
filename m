@@ -1,28 +1,48 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <jaghu@google.com>
+Received: from mail-pf0-x234.google.com (mail-pf0-x234.google.com
+ [IPv6:2607:f8b0:400e:c00::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t78xW5H75zDvHq
- for <openbmc@lists.ozlabs.org>; Tue,  1 Nov 2016 10:01:35 +1100 (AEDT)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1477954887896917.7881849581648;
- Mon, 31 Oct 2016 16:01:27 -0700 (PDT)
-Date: Mon, 31 Oct 2016 18:01:12 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Xo Wang <xow@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: Jenkins down?
-Message-ID: <20161031230111.GA17105@heinlein.lan>
-References: <CAPH-5w4nfO02yQp_mjZhS2hp9UJUTCyLTZMQMNFO06zTshFqmg@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="Kj7319i9nmIyA2yE"
-Content-Disposition: inline
-In-Reply-To: <CAPH-5w4nfO02yQp_mjZhS2hp9UJUTCyLTZMQMNFO06zTshFqmg@mail.gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t7B0c1l5lzDvNL
+ for <openbmc@lists.ozlabs.org>; Tue,  1 Nov 2016 10:49:19 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b=Z96MIaQp; 
+ dkim-atps=neutral
+Received: by mail-pf0-x234.google.com with SMTP id 189so30972302pfz.3
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Oct 2016 16:49:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
+ h=from:to:cc:subject:date:message-id;
+ bh=8T3AjhqRxIWDPeZSzptbUMh1hzWri7wBxXcMcet6RvM=;
+ b=Z96MIaQpjPK+t/G5eiZR4B4QB9lmZYVhZ/c324b8xcdpUuHgObrlLSqHGd/XIK7MfY
+ RT8CuW5rdbB6JD1upIxw6HuMPukqMc8aM9QP0L9Txbym2j/9YC4M9bxrLs3zcx4dVn/q
+ hKBeCDMpAI9oHsleiJBnX8KR/6t9wMY1IEiJMuqUh/aS2yr/ZLUdSBjzLteRsiKoesLM
+ qSaDEUnrZU9ea+fCAZggjWEVxXZOuS6ZQ8LFyQ7L4PGRCd2nzU+XA3WG7lHTPdPPyjv6
+ m8MpQ7+JNvmrCeggBfqoUDyqdR3N/OAD7LN7/8OzrbhDoaRTwk1dVjI14nieMchzOPIn
+ WgMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=8T3AjhqRxIWDPeZSzptbUMh1hzWri7wBxXcMcet6RvM=;
+ b=ZzxpgzJKsSA4Mqaqt0ey5YtBYZcbEIkSdZrm22XgdD8KkcngrPXW4juFabvTESy/c4
+ bFtqhcg5rdGoWF+m8Q3nDZCjkgRVRcStab0wYwmGACwrt1s2wwOUwOcZc60CN7t6eF1m
+ /nFJIbcwhH/KWxfO/n3eZBW0fBCPvLBkt9rnL1mrbftebj2DtZpAqv6lCD1KgynQ15oS
+ Ce57q0RGR5xCk7uWfTUkJyCG2SHSLCXa3d8rhKv5lI14/te/2UFEBCu0PqOUhXV+8Q67
+ jliaOrzUYXCn09G6p4bBlDm/wGTMLZf6J59vIDcvMR4ljXCQV3VoPuzJGflwYSnnVgFN
+ v02A==
+X-Gm-Message-State: ABUngveGdy0pCMqHw8f9N3UN+msTu7YPTjixyG1SdThiO1yRr8mAy7qUzbotYOgkjrvQWfKS
+X-Received: by 10.98.205.207 with SMTP id o198mr53433030pfg.114.1477957757495; 
+ Mon, 31 Oct 2016 16:49:17 -0700 (PDT)
+Received: from jaghu22.svl.corp.google.com ([100.123.242.38])
+ by smtp.gmail.com with ESMTPSA id v84sm37824374pfd.91.2016.10.31.16.49.15
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Mon, 31 Oct 2016 16:49:15 -0700 (PDT)
+From: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
+To: joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org
+Subject: Support for seven segment display 
+Date: Mon, 31 Oct 2016 16:49:09 -0700
+Message-Id: <1477957752-4831-1-git-send-email-jaghu@google.com>
+X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -34,51 +54,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Oct 2016 23:01:36 -0000
+X-List-Received-Date: Mon, 31 Oct 2016 23:49:20 -0000
 
+The are 3 patches included:
 
---Kj7319i9nmIyA2yE
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The first patch is a character device driver which implements the user-space 
+API for letting a user write to the display including any conversion methods
+necessary to map the user input to a 7-segment display.
 
-On Mon, Oct 31, 2016 at 03:07:43PM -0700, Xo Wang wrote:
-> Hi folks,
->=20
-> I noticed that the CI links in Gerrit are broken. Example:
->=20
-> https://openpower.xyz/job/openbmc-build-gerrit-trigger-multi/903/
->=20
-> Is this from an update?
+The second patch is a platform device driver which provides an API for
+displaying on a 7-segment display, and implements the required bit-banging.
+The hardware assumed is 74HC164 wired to two 7-segment displays.
 
-The Jenkins server only keep a certain number of past builds otherwise
-we would run out of space.
+The third patch adds clock, data and clear signal lines to control 
+seven segment display on zaius platform
 
-I'll retrigger your job.
+Please provide feedback.
 
---=20
-Patrick Williams
-
---Kj7319i9nmIyA2yE
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJYF803AAoJEKsDR8wtAMEZW0QP+QEFrnBcrxAJ9S8HvYFC7pi5
-muet7+1m0kvJNiE4J+Se+DClsFUqe9mPRlnEUMWqVe0W75q6rShFoUbAVr9bR2q7
-UQp4yYQQQU9l91nH5QcSl1/h/+S3XfXMhTwYNLNcfzbSlkAPE49RUCY03014Ackv
-drsdoIik0ikYnFupFZWpxuNjRXSs4sq3KtOhZU2FXtrnw0BdCHjsc26umsTFiURO
-fdYuKizDkHjU8MzWjYkUOoTS3fi5oUZVYo0OtElU4xItwSR097nq7zpN/2K89Xig
-0YrRq2MbeW4KdSXSquoRMEeKtcrtNMolq+xt/rZK5F5RfY1GZoW0fWeEq3n2AKDw
-OXyURlw29mes9bFj0xvZiwg3UWaOyY4WbcA28JMrZ0c6fFvdAqm+ykLCoa7mkgoE
-hv0131hZ766U9AGIn30qrT0fxPFnX8Jo3snZCa6l8zkesYDp25GT28YkSfs4qRXg
-B3dvtcR8eFP0DmbSjmeWe7Mg45Ri/aXJX2h5NgWjGi7+9euiNCYlzUdMlCIhl8Fo
-3s/9oh5C8fAnC0xXOlTBv2OLaiYoux0s89XDmgPLH8YdERtagPuVjSuRc2lNasGb
-6xOt1XansSPVU2Ul5mp3PnWgU1nYoOaMuvVotAuGs8vaqTTizDwrJlSx1ubIVz0e
-UKdZLdgTYgV89c4nqyhf
-=5RBr
------END PGP SIGNATURE-----
-
---Kj7319i9nmIyA2yE--
+Thanks,
+Jagha
