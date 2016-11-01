@@ -1,51 +1,45 @@
-Return-Path: <xow@google.com>
-Received: from mail-qt0-x236.google.com (mail-qt0-x236.google.com
- [IPv6:2607:f8b0:400d:c0d::236])
+Return-Path: <brendanhiggins@google.com>
+Received: from mail-vk0-x235.google.com (mail-vk0-x235.google.com
+ [IPv6:2607:f8b0:400c:c05::235])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t7lnZ2zDGzDvNX
- for <openbmc@lists.ozlabs.org>; Wed,  2 Nov 2016 09:11:45 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t7n484F35zDvNT
+ for <openbmc@lists.ozlabs.org>; Wed,  2 Nov 2016 10:09:28 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=YG2ag3v3; 
+ unprotected) header.d=google.com header.i=@google.com header.b=Pu3Uj1Ds; 
  dkim-atps=neutral
-Received: by mail-qt0-x236.google.com with SMTP id n6so67987814qtd.1
- for <openbmc@lists.ozlabs.org>; Tue, 01 Nov 2016 15:11:45 -0700 (PDT)
+Received: by mail-vk0-x235.google.com with SMTP id p9so40398270vkd.3
+ for <openbmc@lists.ozlabs.org>; Tue, 01 Nov 2016 16:09:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=eKmTR0RkmqPGD9aKqC0ThKXNT7q6bgMdDPiOek40Okg=;
- b=YG2ag3v3ETHYHa9GPhLtRImX6MfI4I8m86lQhO6+oVMWI6+ZAzY/zHO5vw+NOAaI93
- P2lHlFxASIticx+nSBaotY/B4r97ioI8hepF9mGQ9RlpBZVuO/j8zb3Jw7L0ahegELzX
- PDuGT6oPJyAi+XPUs8xuA1GGqbxthtjAuBIexT3wn5O/g03t318BztR5/gVwJRW9VVE1
- 8bZJFrFFobYajFGhd3DqWGAfk/I+cHw58GhMMn3kCiyGOArIjR42l/6koSCHFMu8G4SW
- B2z5tmaXxfW7Gu/fFiR6Mum1FEzNrhAo3YtOj9FAx2yRUd34X+qkElUuXF4UFp13DZpr
- Fs/w==
+ h=mime-version:from:date:message-id:subject:to;
+ bh=q1IJw2oswdVJXGb88wv7eDp06Xm9VtNlll8WsMdmg+E=;
+ b=Pu3Uj1DsrP+oUWpdR6KRW0HvRxyfjVKEDZCOL/pBF2d+oBpgvQofZCMe6Q1fYf+2he
+ ySATep4351ve60UU4yjLyPjfYY9UTtnbc2+HYeXktIB0bWmZzS6kJr4gy2bPijgeFf7w
+ cAkhQ8KOtGfyDf+4DrqZxPDC5fVNISsLKJNGv8N90oIdJ9DENabZ+whUH6Nk6qznN/MM
+ 7Qqu4tpgsUeo/pJgRZ0G2oISbkz2zTCaPovGJwFgvGHbZMnll0UBINJFihUnJyMKu/oH
+ WA0A/vLpiT9cEBes3HOFvWfVt9E6WmVTSFDelR2wHKzvP4HfBEORLoybsBI9csmrr9pj
+ GJWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=eKmTR0RkmqPGD9aKqC0ThKXNT7q6bgMdDPiOek40Okg=;
- b=GGlC23If0Th7mDQUvCClKVSUQZ7QSTly3RqX7wGeg8t5DbOaccWg8vb/LxFN/zR1KL
- QEaeAE/pFQQbyDC+ylEOIzF2ur/GWOBJBLB5jT4npHCc5c2pG7adt158wokuzgpdwmWa
- RtY1DcGCKpAYoq8horCbW0gyzkV/zvRaFeX5tYcWWj3GCsZ0A8GaLB3p2dHxXvLpgJDO
- ovroQs5kZzd8+yabqXVwrayIjNlt00+LDOEzKFOBCsXsbikxhHTH1OuIprbBhwD1PJAu
- 1exwSuGuT0QU9a4AhKFSXnnEHXqXNY3vTPEkqOIQKUpNujCe8YrK/3PQGAeA1orv9NHG
- w+Wg==
-X-Gm-Message-State: ABUngveL6Tr6ss0qcnuuSEH5RhMwf0JVsY+vekpzl/bDCqjTR96q6pQ9iXSq2TDWg8B30sozEmQvs9NfxUyiOP0V
-X-Received: by 10.200.50.93 with SMTP id y29mr319203qta.124.1478038303079;
- Tue, 01 Nov 2016 15:11:43 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=q1IJw2oswdVJXGb88wv7eDp06Xm9VtNlll8WsMdmg+E=;
+ b=GCbjzrINFKdCuCXb9LFLJOObYL/nFnq9nGL7W978iuJsNZFsoGa7KDJfAFt87nl5mW
+ smnUXyHlS5QECRRgfY4uviuLcYp7863UxJe7mBVF6NXwINg7JdEbylXFTfWkSJjB63RJ
+ cGY1sZ/200T68J7V7IYhy1RLiRLo3NEZ9o0dgTwc3SN747IJPYwb9T1Skth8umgYwSeb
+ j0Tpx+ZhA5yn3G4s91L7gxQNGa7U3srUInUkFvFkk3aXIf6NGH3ws1Dkb/57DxijXzR8
+ VtGpJ9uD83rVl4opV7pKvMGwct+4AnZMipte9EQGHKKMJ/uAY79Tof4+PjfbFJY9I6Gu
+ tOIQ==
+X-Gm-Message-State: ABUngvf86SN9q18CtvIMiNVYCph4av2lxx7+z5E5th/MqP8cUR0f3YNZLoU27AEr4US5mWQUG3DBo4ZPYpVVG9fy
+X-Received: by 10.31.156.205 with SMTP id f196mr304361vke.45.1478041765815;
+ Tue, 01 Nov 2016 16:09:25 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.237.57.199 with HTTP; Tue, 1 Nov 2016 15:11:42 -0700 (PDT)
-In-Reply-To: <1AF77AD5-4ACB-4DCF-8429-A87096312A27@fuzziesquirrel.com>
-References: <20161031150038.zcvop7gbpu44ojsf@asimov>
- <1AF77AD5-4ACB-4DCF-8429-A87096312A27@fuzziesquirrel.com>
-From: Xo Wang <xow@google.com>
-Date: Tue, 1 Nov 2016 15:11:42 -0700
-Message-ID: <CAPH-5w5ZUracAQ+mbLtBHaAeo9F+FpyDi-2yQ9UPWExj2__Xiw@mail.gmail.com>
-Subject: Re: Opinions on CLI tools.
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: Patrick Williams <patrick@stwcx.xyz>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+Received: by 10.159.53.80 with HTTP; Tue, 1 Nov 2016 16:09:25 -0700 (PDT)
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Tue, 1 Nov 2016 16:09:25 -0700
+Message-ID: <CAFd5g47LDkSS2g62NTTsXHMyDkwERK9CF=5xaO8Ww9sTvwiGRQ@mail.gmail.com>
+Subject: C++ Feature Whitelist/Blacklist
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary=001a113d24ba6a691f0540456a85
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,94 +51,70 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Nov 2016 22:11:47 -0000
+X-List-Received-Date: Tue, 01 Nov 2016 23:09:29 -0000
 
-Hi Patrick, Brad:
+--001a113d24ba6a691f0540456a85
+Content-Type: text/plain; charset=UTF-8
 
-Based on your criteria, I think iotools would fall into the category
-of a narrow-mindshare tool when viewed from the broader project
-perspective.
+At the OpenBMC meetup last week we discussed creating an authoritative C++
+style guide as well as a feature whitelist/blacklist. I am going to try to
+get an early style guide out fairly soonish (this week or next) that we can
+discuss, but while I do that I would like to bring up the topic of
+explicitly supported/unsupported features to discuss on the mailing list.
+First off, I think it is something that would have much more discussion and
+stronger opinions that would be convenient on gerrit/I would like to start
+the discussion earlier. I also think that there will probably only be a few
+things on that list, so discussion via email should not be overly
+burdensome.
 
-We'll keep the iotools image inclusion internal to our layer, since
-the primary benefit is Google developer familiarity and ease of
-porting our collection of traditionally host-side scripts that depend
-on it.
+At the meeting Patrick brought up two features to blacklist:
 
-cheers
-xo
+   - Streams and stream style operators.
+   - Virtual functions/runtime polymorphism
 
+In the case of virtual functions, I get the sense that the use is more
+discouraged rather than completely forbidden.
 
-On Tue, Nov 1, 2016 at 6:30 AM, Brad Bishop <bradleyb@fuzziesquirrel.com> wrote:
-> If there is value add in these tools, lets get those enhancements in the
-> associated upstream projects.  I agree with the segmentation and mind-share
-> kool-aid.
->
-> That said, the beauty of Yocto is layers, and if someone felt strongly about it,
-> this could be added as-is to a meta-<machine> or meta-<company> layer.  Then
-> the segmentation and mindshare loss would at least be confined to that particular
-> layer.
->
-> -brad
->
->
->> On Oct 31, 2016, at 11:00 AM, Patrick Williams <patrick@stwcx.xyz> wrote:
->>
->> I decided we should solicit broader feedback before I merge this commit:
->>    https://gerrit.openbmc-project.xyz/#/c/900/2
->>
->> Xo proposed adding a CLI tool, that appears to have been written and
->> maintained by someone at Google, and effectively is a wrapper around a
->> number of device driver calls.  Some of the facilities provided by this
->> tool would also be provided by "upstream" tools like i2c-tools or pdbg.
->>
->> Last week the IBM team had a small discussion on strategies for CLI
->> tools.  In our legacy product, developers tended to make many many CLI
->> tools with little oversight and standards and these tools ended up
->> slipping into various "bring up", "debug" and "manufacturing" scripts,
->> effectively becoming "requirements".  For OpenBMC, we had proposed
->> landing on the other extreme of this, which is to say we should never
->> have a CLI tool as a wrapper around an existing tool or to replace
->> existing upstream functionality.  (We did have one small tool we
->> discussed which was to facilitate easier interaction with the DBus
->> interfaces, since otherwise would require a few invocations of 'busctl')
->>
->> One of our (my) concerns about wrappers is that we end up segmenting our
->> own community from the broader Linux ecosystem.  Having available and
->> documenting broader tools like 'i2c-tools', 'systemctl', 'journalctl'
->> gives us larger mind-share with individuals outside OpenBMC that are
->> already familiar with those tools.
->>
->> A key example we discussed was:
->>        obmcutil power-on
->>    vs
->>        systemctl start host0-power-on.target
->>
->> The first is certainly "easier" for those that are totally newcomers.
->> The second is only slightly more difficult but gives insight into how
->> our state-management works.  With the second if someone already has
->> knowledge in systemd, from their own Linux experience, that allows them
->> to more likely probe into "what else is exposed via systemd targets?"
->> rather than just expecting everything to be documented with 'obmcutil
->> --help'.
->>
->> With this proposed iotools package I think we have 3 options:
->>
->> 1.  Allow it in, as is, in the debugtools image.  Even though it does
->> replicate / wrap some tools, it does provide new abstractions on others.
->>
->> 2.  Add it to a .bbappend in only the meta-zaius tree.
->>
->> 3.  Patch the makefile (and discuss with upstream) to disable
->> functionality that is already implemented by other, more widely used,
->> tools like i2c-tools.
->>
->> --
->> Patrick Williams
->> _______________________________________________
->> openbmc mailing list
->> openbmc@lists.ozlabs.org
->> https://lists.ozlabs.org/listinfo/openbmc
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+For the whitelist, the only current candidate is:
+
+   - exceptions
+
+In general, I suppose the notion of a whitelist is rather silly, but
+exceptions have historically been a controversial feature of C++, so I
+figured it best to explicitly call out.
+
+I do not want to mischaracterize the arguments in favor of this proposal;
+it also does not seem fair to offer up a viewpoint with little explanation
+and critique it in the same breath, so instead I will post a follow up
+email with what I propose for the whitelist/blacklist.
+
+Cheers
+
+--001a113d24ba6a691f0540456a85
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">At the OpenBMC meetup last week we discussed creating an a=
+uthoritative C++ style guide as well as a feature whitelist/blacklist. I am=
+ going to try to get an early style guide out fairly soonish (this week or =
+next) that we can discuss, but while I do that I would like to bring up the=
+ topic of explicitly supported/unsupported features to discuss on the maili=
+ng list. First off, I think it is something that would have much more discu=
+ssion and stronger opinions that would be convenient on gerrit/I would like=
+ to start the discussion earlier. I also think that there will probably onl=
+y be a few things on that list, so discussion via email should not be overl=
+y burdensome.<div><br></div><div>At the meeting Patrick brought up two feat=
+ures to blacklist:</div><div><ul><li>Streams and stream style operators.</l=
+i><li>Virtual functions/runtime polymorphism</li></ul>In the case of virtua=
+l functions, I get the sense that the use is more discouraged rather than c=
+ompletely forbidden.</div><div><br></div><div>For the whitelist, the only c=
+urrent candidate is:</div><div><ul><li>exceptions</li></ul>In general, I su=
+ppose the notion of a whitelist is rather silly, but exceptions have histor=
+ically been a controversial feature of C++, so I figured it best to explici=
+tly call out.</div><div><br></div><div>I do not want to mischaracterize the=
+ arguments in favor of this proposal; it also does not seem fair to offer u=
+p a viewpoint with little explanation and critique it in the same breath, s=
+o instead I will post a follow up email with what I propose for the whiteli=
+st/blacklist.</div><div><br></div><div>Cheers</div></div>
+
+--001a113d24ba6a691f0540456a85--
