@@ -1,50 +1,29 @@
-Return-Path: <brendanhiggins@google.com>
-Received: from mail-vk0-x22e.google.com (mail-vk0-x22e.google.com
- [IPv6:2607:f8b0:400c:c05::22e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t7g8H4YbCzDvNT
- for <openbmc@lists.ozlabs.org>; Wed,  2 Nov 2016 05:42:39 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=KsncLxWl; 
- dkim-atps=neutral
-Received: by mail-vk0-x22e.google.com with SMTP id x186so78208000vkd.1
- for <openbmc@lists.ozlabs.org>; Tue, 01 Nov 2016 11:42:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to;
- bh=5hPHL9BHpcHVyrcGDDQOwnOVn2vYhOJDBk2opCVqZ6I=;
- b=KsncLxWltUEGxxDZA3E0pSH+c/U4CFG6AizTVLsw1/2mtP8ny5OG8JI+sXeJikiblU
- aNd9uPpF9gueNxo0ndu69gy07lPG/lShP763jIKIcNuurYRUcBHZdJB7+SBG0vY5vcga
- cAPpK9kg2Q5xNYwxgHJXay+xX8qJWgfARxKBVqrG62qMYdH1lJvX9tx40+3NBM49X7i0
- 4pM/MCzgCsDzebjDj+ivl+3MET9f0JF7AkJTP8WH0UZnWBfreXZIKV4lgfbSMEr/NICX
- cuHOXAkECKRMt0enAl1xQ5NFv3XC0yudy4HfmD/Zv5+iPY2fYpPfOaVldO8VdxPx6wa3
- Dykg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to;
- bh=5hPHL9BHpcHVyrcGDDQOwnOVn2vYhOJDBk2opCVqZ6I=;
- b=bZ8U81+s+LHFUQzhkv3qIRFmsE7+qrlWiR287DaXUN7AfstEzr4rA4in7L/OGDZG96
- Z+WWdeTtuh633ZuGJrbOGJI9B9ktcr1qVw4hlK5Qp8HOIpgT1tIcXr+ET5Y9clYWCtSh
- 3hoOd9E3kzYQZTAHcvTfZApTxReuvj9eqxgdcpCSDPydc2sgbwFIFbT0vjaoQwadQ0+z
- LgLvYK3E0vIf5kJpMiuzAeDiw4vqy2ZJylSveKhHFSuaocltLc3p2P4noz+ypyDZ7xgh
- psnVruPKq/uzOdIJRSP12rjskyU8SLtaNMcNtnnJmjrkMUbXRE9Zwi0hx59Tg0u4COP1
- /1fQ==
-X-Gm-Message-State: ABUngvdUroLh1QYTgq164mkRn2BD3lWTrM2JCJ5h9fbwZVznh1W4vdRmFSWCYuPypNnQQNq5pF+WWuTGOq1olP4P
-X-Received: by 10.31.136.195 with SMTP id k186mr26210202vkd.50.1478025756474; 
- Tue, 01 Nov 2016 11:42:36 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.176.5.102 with HTTP; Tue, 1 Nov 2016 11:42:35 -0700 (PDT)
-In-Reply-To: <CAPLgG=nrn6ttw0AoueeFAiU74ib7v3BZk9OdOyu8mGrx3OCTCQ@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t7glT3nRPzDsxq
+ for <openbmc@lists.ozlabs.org>; Wed,  2 Nov 2016 06:09:41 +1100 (AEDT)
+Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
+ with SMTPS id 1478027375073105.97402184422629;
+ Tue, 1 Nov 2016 12:09:35 -0700 (PDT)
+Date: Tue, 1 Nov 2016 14:09:33 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Rick Altherr <raltherr@google.com>
+Cc: Brendan Higgins <brendanhiggins@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: Adding a MAINTAINERS file
+Message-ID: <20161101190930.gkr6bctv6iejbfj4@asimov>
 References: <CAFd5g47EH6Q=CAbs7BTBC7JBg_Gv_otK78p3hP431qBAKq=fuA@mail.gmail.com>
  <CAPLgG=nrn6ttw0AoueeFAiU74ib7v3BZk9OdOyu8mGrx3OCTCQ@mail.gmail.com>
-From: Brendan Higgins <brendanhiggins@google.com>
-Date: Tue, 1 Nov 2016 11:42:35 -0700
-Message-ID: <CAFd5g47nnkOqbgWF5DudTAvo0zjMSNRO_zM3zXBeC1huBr=zmw@mail.gmail.com>
-Subject: Re: Adding a MAINTAINERS file
-To: Rick Altherr <raltherr@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=001a11442c702f5ca6054041b08e
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="xe3gdfvkteytapng"
+Content-Disposition: inline
+In-Reply-To: <CAPLgG=nrn6ttw0AoueeFAiU74ib7v3BZk9OdOyu8mGrx3OCTCQ@mail.gmail.com>
+User-Agent: Mutt/1.6.2 (2016-06-11)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,29 +35,63 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Nov 2016 18:42:40 -0000
+X-List-Received-Date: Tue, 01 Nov 2016 19:09:42 -0000
 
---001a11442c702f5ca6054041b08e
-Content-Type: text/plain; charset=UTF-8
 
-I would only see a potential advantage for maintainer roles because
-reviewers do not have any special privilege to be enforced by gerrit. As
-for maintainers, most of them are pretty straightforward so I do not see it
-as much of an issue; still, maybe we could add a hook into gerrit for this?
-I still like not needing to use gerrit to see who people are as the update
-process is more transparent and so that someone who just wants to ask a
-question or file an issue does not need to visit gerrit.
-
---001a11442c702f5ca6054041b08e
-Content-Type: text/html; charset=UTF-8
+--xe3gdfvkteytapng
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">I would only see a potential advantage for maintainer role=
-s because reviewers do not have any special privilege to be enforced by ger=
-rit. As for maintainers, most of them are pretty straightforward so I do no=
-t see it as much of an issue; still, maybe we could add a hook into gerrit =
-for this? I still like not needing to use gerrit to see who people are as t=
-he update process is more transparent and so that someone who just wants to=
- ask a question or file an issue does not need to visit gerrit.</div>
+On Tue, Nov 01, 2016 at 02:35:26PM +0000, Rick Altherr wrote:
+> Thanks Brendan. Given the projects usage of Gerrit for most of repos, wou=
+ld
+> there be an advantage to using Gerrit to enforce the reviewer and
+> maintainer roles? How will we prevent MAINTAINERS from getting out of sync
+> with commit privileges?
 
---001a11442c702f5ca6054041b08e--
+The maintainer is effectively managed in Gerrit today by Github groups.
+Those are private, but we could certainly make them public.
+
+    "name": "autotest-maintainers",
+    "description": "[Gerrit] maintainers for repositories associated with a=
+utomated testing",
+    "name": "bitbake-maintainers",
+    "description": "[Gerrit] maintainers for repositories containing bitbak=
+e recipes.",
+    "name": "c-maintainers",
+    "description": "[Gerrit] maintainers of packages written in C.",
+    "name": "cpp-maintainers",
+    "description": "[Gerrit] maintainers of packages written in C++",
+    "name": "python-maintainers",
+    "description": "[Gerrit] maintainers of packages written in python.",
+
+I'm not sure how you can enforce specific reviewers in Gerrit without
+yet another config file per repo that we need to maintain.
+
+--=20
+Patrick Williams
+
+--xe3gdfvkteytapng
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJYGOhqAAoJEKsDR8wtAMEZLhoP/3jZvY+VupN+sGL51uNbAAP8
+jrFAPsKMMb2Q9JqGAN21Yfd8Kn11ATFLCaG4Hh1Lu0QFjRrJiO/2NLiLHUhr4NHM
+mLJoUl9n37CUrW9lFVd5hiZqJLOfhXAIU/Yf0l4b3p15FmbbpuVg3zACDxTucSoG
+n+W3o7X6TXv9bhL7DZO0i8s7zx5DXWwgRXE/ESD87BQzxHYiIzaJDW9tDEgQbY8J
+fHBXtyuKEfXukyF/zXO3efpeISLsJJntxLz7NaNY6vruV4X3Dqxh0AoLXTtAqlch
+OOP5C32BM6PPkbWuMb13mtvKRVQHouUJZcxa1KZPtsdfjj1v/GrtBJ/AsTzUUNNP
+FUsWh9vCjtWt/c7ri55AyByVgftJOb/EE8RlfHnY7Moq1V/gJaiH65/xx2FUnLeS
+f6ryrORWDNCZrnJ8DHyJz6LLWMjeN9AyTlsH0athsB9uko5Nmy7er1WxNqjIxwka
+VeUuraYFh8nknsBTdzFRRwwwcYsHq5Yomjbiip+9W8sCVSt9+Y/XW0LWtxc4GARG
+DLUTEnlmKrbYuJi8x7Djg7htjnwIn1UEWucPVVF6JAHlM60mYKyJe/hcnmN+v4Wb
+LstWOmJ3TS7Gdjp1VlZkkT4cQ8CrEcgbaKVnTJ472HLsoJHouNPN0zD35YglFgev
+q1+xcHR394mHdJ7uMJPJ
+=Xt6V
+-----END PGP SIGNATURE-----
+
+--xe3gdfvkteytapng--
