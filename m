@@ -1,55 +1,53 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-oi0-x232.google.com (mail-oi0-x232.google.com
- [IPv6:2607:f8b0:4003:c06::232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t7p070WTKzDvNS
- for <openbmc@lists.ozlabs.org>; Wed,  2 Nov 2016 10:51:03 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=Yzhx7DBd; 
- dkim-atps=neutral
-Received: by mail-oi0-x232.google.com with SMTP id x4so3664558oix.2
- for <openbmc@lists.ozlabs.org>; Tue, 01 Nov 2016 16:51:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=sqYeKzIaFITCiOBDQ+AzK9Dw2Ixddfa/CAtLLA9W0fk=;
- b=Yzhx7DBdISNNZd2PcvFzHk8X2GQrIhGjbIV2eTuP1z87vb/pHD4o5//dB0P8zrbuR5
- 8+MmK4fFJHJ3jVNQi87RmVZFD5GxvQthtmI/Jd/ngw1MthW+7TO/FDojxK9SmjCyl45J
- Upl+4Fy9lN5xsYYpeMseWBVQX3E8gVRSmporCGjfdyOIJvaF1V1ljDHwKJR0ROzD0Aii
- 2SB0ANNN9cnm8U4luG4GzNmvFcP0BWoGTsiFbu7ZXx8AtxMKhlAYXp2NM8XE+PRUbsF1
- tksK/A4ytat1xqAUGBZwA7r+Qe6vN7392S1YByIHip4QnvUYivIRwt9domxiG9iqVmEA
- cJOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=sqYeKzIaFITCiOBDQ+AzK9Dw2Ixddfa/CAtLLA9W0fk=;
- b=K5H2qE2x1liEz7nwrLESZJowjGu39i4rJ+kfiRCDiEFHRHEO5J7cIB2duP5NIyqiN/
- N1sDc7W8k0m0sXdR1NHMEj4FIqvF7s36l+DiljiFZiZklp30+ii+0mtJQgWSXwnPYQNK
- 8UQeEAic4T2+KSTjk3KJjK6TCileJjvalyoppd/tQGItXSsYQiLRFyy0qSCsQKJR0m+T
- m9oSSd3ewC1FODLKNDu8OzubfupaXcrPi5X/fV9q3l9R0y2wT4sW5FPc6HSlWScRnCkY
- 0EmMyPJscc6Ab4EJyegwS0weimjoMnx5Q/287vnzJDC5+2pXDd2lfAhCRTqA1fRDW7iK
- ymvQ==
-X-Gm-Message-State: ABUngvcqIpWGyigZAA7V1Yf8l8HqwlkwNOF8qy5omlvmYrmSe3ig02ednSLN2ie6V1ekKDrx86L5iJk3S4SPyA==
-X-Received: by 10.202.179.68 with SMTP id c65mr553763oif.125.1478044260278;
- Tue, 01 Nov 2016 16:51:00 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.182.107.226 with HTTP; Tue, 1 Nov 2016 16:50:39 -0700 (PDT)
-In-Reply-To: <CAPH-5w5ZUracAQ+mbLtBHaAeo9F+FpyDi-2yQ9UPWExj2__Xiw@mail.gmail.com>
-References: <20161031150038.zcvop7gbpu44ojsf@asimov>
- <1AF77AD5-4ACB-4DCF-8429-A87096312A27@fuzziesquirrel.com>
- <CAPH-5w5ZUracAQ+mbLtBHaAeo9F+FpyDi-2yQ9UPWExj2__Xiw@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 2 Nov 2016 10:20:39 +1030
-X-Google-Sender-Auth: ZBs-wtgS7t4rxcWQA95zRvKGVOM
-Message-ID: <CACPK8Xd3XC9WcSmnz61NFaEJZPDowL71XovBRqPVYE7DbpEqsQ@mail.gmail.com>
-Subject: Re: Opinions on CLI tools.
-To: Xo Wang <xow@google.com>
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t7p9N34nZzDvNT
+ for <openbmc@lists.ozlabs.org>; Wed,  2 Nov 2016 10:59:04 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=dom17xfu; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b=Nm8FB426; dkim-atps=neutral
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id 44B9E20844;
+ Tue,  1 Nov 2016 19:59:01 -0400 (EDT)
+Received: from frontend1 ([10.202.2.160])
+ by compute7.internal (MEProxy); Tue, 01 Nov 2016 19:59:02 -0400
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
+ x-me-sender:x-sasl-enc:message-id:subject:from:to:cc:date
+ :in-reply-to:references:content-type:mime-version; s=mesmtp; bh=
+ TDSqt/MCiq7L7ycgbWWXLkWzicA=; b=dom17xfu6IgErbhJue2tgXYutVfe4uJJ
+ oZAPCfhvXETB0Rg7noQ+soZAlhqoBxpgHVVqvVBxth9Ec13sT+BkOxysrH2y9TLT
+ oF9rztcOl2UX07qKQ/c4I+xaczUCZxQng7t7PLGvRti26ORXO8GmBYBIU8bBvJ3E
+ 3xBSbAWR61k=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=x-me-sender:x-sasl-enc:message-id:subject
+ :from:to:cc:date:in-reply-to:references:content-type
+ :mime-version; s=smtpout; bh=TDSqt/MCiq7L7ycgbWWXLkWzicA=; b=Nm8
+ FB426LZWDGRCy1fetzVmHbCTbng9INZXNFnpDabiSOvlzDwRQuc0BiJ8leKL/yqR
+ oTVYU2Y7uwJnl6G0GO7RJ+g8ypYkrMeeAYQuH0mr7P2tS58DDZEPmEC3e5yRLXJV
+ y5I6g5er6sk7dlopdSBwztDZIdN2KxgMYEpLhFH8=
+X-ME-Sender: <xms:RSwZWNfyIsWNQ6yKA-w_NqbAqZVzhhrUlB6yfQ1UkfFjHECtAAihxQ>
+X-Sasl-enc: cSFmzD1XLeW6MonvD9SmkjQgWKrWrmg2AJdZB2Huj79p 1478044740
+Received: from keelia (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 2FEC1F29CF;
+ Tue,  1 Nov 2016 19:58:58 -0400 (EDT)
+Message-ID: <1478044732.27396.3.camel@aj.id.au>
+Subject: Re: [PATCH linux] ARM: dts: aspeed-g5: Update zaius with new
+ spi-nor binding
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Joel Stanley <joel@jms.id.au>, Xo Wang <xow@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Wed, 02 Nov 2016 10:28:52 +1030
+In-Reply-To: <CACPK8XfEt+8rdkffHTtfoh13akffxDhrTe0WXZA0-oGbt4FuXg@mail.gmail.com>
+References: <1478043025-78465-1-git-send-email-xow@google.com>
+ <CACPK8XfEt+8rdkffHTtfoh13akffxDhrTe0WXZA0-oGbt4FuXg@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-xZb+rsQ4zyrW2PewcPRO"
+X-Mailer: Evolution 3.18.5.2-0ubuntu3 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,22 +59,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Nov 2016 23:51:03 -0000
+X-List-Received-Date: Tue, 01 Nov 2016 23:59:05 -0000
 
-On Wed, Nov 2, 2016 at 8:41 AM, Xo Wang <xow@google.com> wrote:
-> Hi Patrick, Brad:
->
-> Based on your criteria, I think iotools would fall into the category
-> of a narrow-mindshare tool when viewed from the broader project
-> perspective.
->
-> We'll keep the iotools image inclusion internal to our layer, since
-> the primary benefit is Google developer familiarity and ease of
-> porting our collection of traditionally host-side scripts that depend
-> on it.
 
-Out of interest, which of the tools in there are you using?
+--=-xZb+rsQ4zyrW2PewcPRO
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-Cheers,
+T24gV2VkLCAyMDE2LTExLTAyIGF0IDEwOjE1ICsxMDMwLCBKb2VsIFN0YW5sZXkgd3JvdGU6Cj4g
+SGV5IFhvLAo+IAo+IE9uIFdlZCwgTm92IDIsIDIwMTYgYXQgMTA6MDAgQU0sIFhvIFdhbmcgPHhv
+d0Bnb29nbGUuY29tPiB3cm90ZToKPiAKPiA+IAo+ID4gKyZzcGkxIHsKPiA+ICvCoMKgwqDCoMKg
+wqDCoHN0YXR1cyA9ICJva2F5IjsKPiA+ICvCoMKgwqDCoMKgwqDCoHBpbmN0cmwtbmFtZXMgPSAi
+ZGVmYXVsdCI7Cj4gPiArwqDCoMKgwqDCoMKgwqBwaW5jdHJsLTAgPSA8JnBpbmN0cmxfc3BpMV9k
+ZWZhdWx0PjsKPiA+ICsKPiA+ICvCoMKgwqDCoMKgwqDCoGZsYXNoQDAgewo+ID4gK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoHN0YXR1cyA9ICJva2F5IjsKPiA+ICvCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqBsYWJlbCA9ICJwbm9yIjsKPiA+ICvCoMKgwqDCoMKgwqDCoH07Cj4g
+PiArfTsKPiA+ICsKPiA+ICsmc3BpMiB7Cj4gPiArwqDCoMKgwqDCoMKgwqBzdGF0dXMgPSAib2th
+eSI7Cj4gSSB0aGluayB3ZSB3YW50IHRvIHJlcXVlc3QgdGhlIHBpbnMgaGVyZS4gU29tZXRoaW5n
+IGxpa2UgdGhpczoKPiAKPiArCj4gK8KgwqDCoMKgwqDCoMKgwqDCoHBpbmN0cmwtbmFtZXMgPSAi
+ZGVmYXVsdCI7Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoHBpbmN0cmwtMCA9IDwmcGluY3RybF9zcGky
+Y2tfZGVmYXVsdAo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCZwaW5jdHJsX3NwaTJjczBfZGVmYXVsdAo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCZwaW5jdHJsX3NwaTJjczFfZGVmYXVsdAo+ICvC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCZwaW5jdHJs
+X3NwaTJtaXNvX2RlZmF1bHQKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAmcGluY3RybF9zcGkybW9zaV9kZWZhdWx0PjsKClllcywgd2UgbmVlZCB0
+aGlzLCB0aG91Z2ggbWF5YmUgdGhlIGNoaXAgc2VsZWN0cyBzaG91bGQgYmUgcHVzaGVkIG91dAp0
+byB0aGUgYm9hcmQgZHRzPwoKQW5kcmV3Cgo+ICsKPiAKPiBDYW4geW91IHRyeSB0aGF0IGFuZCBk
+byBhIHRlc3QgYm9vdCBvbiB5b3VyIGhhcmR3YXJlPwo+IAo+IENoZWVycywKPiAKPiBKb2VsCj4g
+Cj4gPiAKPiA+ICvCoMKgwqDCoMKgwqDCoGZsYXNoQDAgewo+ID4gK8KgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoHN0YXR1cyA9ICJva2F5IjsKPiA+ICvCoMKgwqDCoMKgwqDCoH07Cj4gPiAr
+fTsKPiA+ICs=
 
-Joel
+
+--=-xZb+rsQ4zyrW2PewcPRO
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAABCgAGBQJYGSw8AAoJEJ0dnzgO5LT5iAEQAJgoAvFMqyr0i8IQOVq4WWRw
+yhS3xDLIypAqzlnAsUEjvDoXI90ZeF9TaOMw7e7hAs50Qr2ymJce/5ZqjG98Sd1W
+4G9ThvtknAlD0PvOnC82RP0qHDln2QBXsLWlfRrYWBm/pUK17lQ+P92qjiZeP1Nc
+qi98opFevTQ6WJB4UPJ6r4NyBwvkwV3lU2E1Qtnme1kjJ97/dcWgWoeH7fVjCK6d
+KvZJ8WG+T4lfjTqQPb8cALyW9r/c5JVFsDAo46KmyhOptXzF/2ywOGaF8E8+eRrb
+gnoJsatVdJoot8xFY8OO8INC0NpRMLyHGrW5E0BXPx3D5pEigTS/q4oCORMWx4LD
+qkopYzzjZr85HoHCsr0TTEf06zXTpUCKm2z6vM69eqJyy21tqglH0NvEUYCYD9cQ
+PxcAjBc3W14AGeivaO8tXXMLc/MP7ncUFfhOL6gDjUPLBPbAJTi8OHAkWEEj4pgq
+BGs2etwIAw6YCQvb0Bbz7xJ/iV7XAy1NyUTd0lm6LFoUOMIPkyttOxIZpVUYDdwo
++I3XHsY4ZRU+wPHVFMjvpR55/Nzbp52TmDZ6PjWS4xNd1U0ioc9QVCkLiOqx7D+L
+4tpT1m70B32KP+nj1XyFemx/gV5LQEpky6QiXVd2zXudNILJbUGHm/1ispDu6uGR
+FBuTmf9Hhm8ycFJ/FV7g
+=cUGY
+-----END PGP SIGNATURE-----
+
+--=-xZb+rsQ4zyrW2PewcPRO--
