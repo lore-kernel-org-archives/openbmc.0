@@ -1,52 +1,56 @@
-Return-Path: <xow@google.com>
-Received: from mail-pf0-x229.google.com (mail-pf0-x229.google.com
- [IPv6:2607:f8b0:400e:c00::229])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
+ [IPv6:2607:f8b0:4003:c06::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t7nXW34q9zDvNS
- for <openbmc@lists.ozlabs.org>; Wed,  2 Nov 2016 10:30:34 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t7ncS00z1zDvNS
+ for <openbmc@lists.ozlabs.org>; Wed,  2 Nov 2016 10:33:59 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=orDggcki; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=mbW9UzBM; 
  dkim-atps=neutral
-Received: by mail-pf0-x229.google.com with SMTP id i88so9369446pfk.2
- for <openbmc@lists.ozlabs.org>; Tue, 01 Nov 2016 16:30:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=JPEIODFlUVuOub7uFBanxYcxJ8RjIX5TLGs8dssXEjk=;
- b=orDggckiWz2WnybKAG9E5VNGuLjEs3HFyOoStKpve8m7mO2+hJlkIUO2Aqcp7AxBJG
- 7uUvEKYRh2q9X5A9FtX5d55gFdmyC7IHuyLlbwN8smuXd0LCvpHpij2sdnRJbfZQV9hO
- umYE3eT4uzOOAMcEiaao8QKHOUFTb1NltJPCHDnqbUPWDXaOCW611DiLCZ0MBZ3K1/6s
- RtXjkx/RVIMOQK22OhPAkDwwW+LHWHYZ7By0hmvaZATdSchurAXUaAh5FRbW4Sz4MXv9
- +svFpmHi6FDYw8CYCfIeGrCzMZ+T+0T/8+OhfBf7pSwSt6wRoMyfAn/3wfcNk1YgWbLy
- IPtA==
+Received: by mail-oi0-x241.google.com with SMTP id 62so15937034oif.1
+ for <openbmc@lists.ozlabs.org>; Tue, 01 Nov 2016 16:33:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=gKbo+xzYDJgIVQB01ZiZ1z83xEpFByG4r1CfTYTl0fc=;
+ b=mbW9UzBM+kNTsulcQ5fJdPfGZYRKfCjugD0FQV6P7Z2WEOwaghJRE4coBjBBrQOrG8
+ QAcfq8e9oFp5bYWl2KJDatvq/8r/tcYZKT+xZ/B5LnOwFshZW7grV9PiwDhOKDyINHLj
+ 0+JXHymydcYyeQU5EH2KwxzvbUEKU2wXv1XmKeHAeqKoMjBNPLae/E6jFX+Wi5JgW89E
+ 7UngHEHSB8GsZct5FzPOgyY5awmDxCeAt0su0Dg/pRXuHzXCCFivllHgPS6Z/hysJhmD
+ M5WrtOrYYzIfmlU+CNgPN/HU9BkIvTdCerA5v9G/D2nzc59NMH6/X3pe6oPlpLG7A6h0
+ FQ6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=JPEIODFlUVuOub7uFBanxYcxJ8RjIX5TLGs8dssXEjk=;
- b=Zr1Cii3r4gOKoo9bQcVBCkeVNlYqMXBfO4jxPmmyyGXeLpJ8aB2ssShumeKdPrc0sk
- 3jhlRyL9Hf6cpwwRyrLwvEzUCXGOnQcINw2KgNY/2GeDTPe52zLb7ynlMypkzDjROK3/
- K+EB1oVgLfmFY6KNiwv3XMkqiaJa6MbXYgRNWmSizKI0dUswx+WvWgqNYNJjFss0cNH0
- a4vKJuwmIWzMBDo12HO77imbQkjdPhx/7LNDh10O9Dou5zll28pxCR1ZRL13eBGzbOyZ
- i+CoSub9fjvUoM+Nd/zSQplDaIXSDoxtvHjunXPiYNdAlbzpmn70O/MDM+eLfR4l4sqx
- qVNg==
-X-Gm-Message-State: ABUngve0eu8/Ncq1eWolILLISgcF0wwU9GzUfF8DH9pXa6OssKlHXe9geGlYslU8icnV2RN4
-X-Received: by 10.98.200.203 with SMTP id i72mr985539pfk.181.1478043031546;
- Tue, 01 Nov 2016 16:30:31 -0700 (PDT)
-Received: from pewter.svl.corp.google.com ([100.123.242.121])
- by smtp.gmail.com with ESMTPSA id f8sm15486594pfa.72.2016.11.01.16.30.30
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 01 Nov 2016 16:30:30 -0700 (PDT)
-From: Xo Wang <xow@google.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux] ARM: dts: aspeed-g5: Update zaius with new spi-nor
- binding
-Date: Tue,  1 Nov 2016 16:30:25 -0700
-Message-Id: <1478043025-78465-1-git-send-email-xow@google.com>
-X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=gKbo+xzYDJgIVQB01ZiZ1z83xEpFByG4r1CfTYTl0fc=;
+ b=Fd6kQpgzZsq9kX0R3BCACH64h68SCQgtTEM2Gz2TyPFalTT7uokad/Gq65n0R7FGVB
+ hFrMyBiXVKBu2O7Y5UZHj1jR5LsmkuXBo0fBXHZBcBIDsKIRTtNz9U94cnbgcrLU/zk0
+ wSPiUShl9bM5Da1wVEfrlPD4dfr2fuFLijOxoQWj4F2u/lSBTlK+w4GjTI4a22ms0lg9
+ fj5bZz65ZVRIJ4s/0WGEXD0j8NVlvGur+S8jtRyqgIjLmHLBGyXGJUPNb3hC4VzykNuC
+ HuveppzdkZs2SV2PiLgbHgfIvyzOTU3qCT7gPtI/Lg/NIPDWJvmAYeAR8OQoq7KIfqc9
+ f/Gg==
+X-Gm-Message-State: ABUngvdBrHOBb8t3UT2ZzWIRnYnXadyuvHPeH8RsvunyQaFAHdDt+q+6kfqfYRe2R85LBkyq1FWipKVK4Oglmw==
+X-Received: by 10.157.15.154 with SMTP id d26mr381671otd.85.1478043237704;
+ Tue, 01 Nov 2016 16:33:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Sender: joel.stan@gmail.com
+Received: by 10.182.107.226 with HTTP; Tue, 1 Nov 2016 16:33:37 -0700 (PDT)
+In-Reply-To: <CAFd5g45iH7=9EAmnN886DCCToxw-nJ5F_J4VuTxhj0030hHquQ@mail.gmail.com>
+References: <CAFd5g47EH6Q=CAbs7BTBC7JBg_Gv_otK78p3hP431qBAKq=fuA@mail.gmail.com>
+ <CAPLgG=nrn6ttw0AoueeFAiU74ib7v3BZk9OdOyu8mGrx3OCTCQ@mail.gmail.com>
+ <20161101190930.gkr6bctv6iejbfj4@asimov>
+ <CAFd5g45iH7=9EAmnN886DCCToxw-nJ5F_J4VuTxhj0030hHquQ@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 2 Nov 2016 10:03:37 +1030
+X-Google-Sender-Auth: AWFG4zZ2x4EF3FaUh94QvOjtpjU
+Message-ID: <CACPK8Xft1E3F+QStUcFn2zu2xQOR=PaTxTo-n1noUbLSh61huQ@mail.gmail.com>
+Subject: Re: Adding a MAINTAINERS file
+To: Brendan Higgins <brendanhiggins@google.com>
+Cc: Patrick Williams <patrick@stwcx.xyz>, Rick Altherr <raltherr@google.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,99 +62,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Nov 2016 23:30:36 -0000
+X-List-Received-Date: Tue, 01 Nov 2016 23:34:00 -0000
 
-Zaius has one flash module for the BMC firmware, one flash module for
-the host firmware, and one more flash module on SPI2.
+On Wed, Nov 2, 2016 at 6:04 AM, Brendan Higgins
+<brendanhiggins@google.com> wrote:
+>> I'm not sure how you can enforce specific reviewers in Gerrit without
+>> yet another config file per repo that we need to maintain.
+>
+>
+> Again, the goal of listing reviewers is not to enforce a particular set of
+> reviewers, but to offer a quick and easy reference as to who you should be
+> talking to; where to direct your questions; and consequently good people to
+> put on your code reviews; I see no reason to make that a requirement since a
+> maintainer has to sign-off anyway.
 
-Signed-off-by: Xo Wang <xow@google.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 66 ++++++++++++------------------
- 1 file changed, 26 insertions(+), 40 deletions(-)
+Can we add tooling so pushing a review will cc the relevant
+maintainers automatically?
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-index eef045b..2004615 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-@@ -20,46 +20,6 @@
- 		reg = <0x80000000 0x40000000>;
- 	};
- 
--	ahb {
--		bmc_pnor: fmc@1e620000 {
--			reg = < 0x1e620000 0xc4
--				0x20000000 0x04000000 >;
--			#address-cells = <1>;
--			#size-cells = <0>;
--			compatible = "aspeed,ast2500-fmc";
--			flash@0 {
--				reg = < 0 >;
--				compatible = "jedec,spi-nor" ;
--#include "aspeed-bmc-opp-flash-layout.dtsi"
--			};
--		};
--
--		host_pnor: spi@1e630000 {
--			reg = < 0x1e630000 0xc4
--				0x30000000 0x04000000 >;
--			#address-cells = <1>;
--			#size-cells = <0>;
--			compatible = "aspeed,ast2500-smc";
--			flash@0 {
--				reg = < 0 >;
--				compatible = "jedec,spi-nor" ;
--				label = "pnor";
--			};
--		};
--
--		data_pnor: spi@1e631000 {
--			reg = < 0x1e631000 0xc4
--				0x38000000 0x00800000 >;
--			#address-cells = <1>;
--			#size-cells = <0>;
--			compatible = "aspeed,ast2500-smc";
--			flash@0 {
--				reg = < 0 >;
--				compatible = "jedec,spi-nor" ;
--			};
--		};
--	};
--
- 	leds {
- 		compatible = "gpio-leds";
- 
-@@ -85,6 +45,32 @@
- 	};
- };
- 
-+&fmc {
-+	status = "okay";
-+	flash@0 {
-+		status = "okay";
-+#include "aspeed-bmc-opp-flash-layout.dtsi"
-+	};
-+};
-+
-+&spi1 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_spi1_default>;
-+
-+	flash@0 {
-+		status = "okay";
-+		label = "pnor";
-+	};
-+};
-+
-+&spi2 {
-+	status = "okay";
-+	flash@0 {
-+		status = "okay";
-+	};
-+};
-+
- &uart5 {
- 	status = "okay";
- };
--- 
-2.8.0.rc3.226.g39d4020
+In a past life I used repo to interact with gerrit, and we would add
+the reviewers to the command line. This would be similar to the kernel
+workflow of using get_maintainers.pl and git send-email. Perhaps this
+is already available for non-repo Gerrit users, and we just need to
+add it to our documentation.
+
+On the proposal in general; I think it's a good move. Did we consider
+using something like the OWNERS file that is used by Chromium? In that
+project, developers are added to an OWNERS file anywhere in the source
+tree to indicate they should be consulted over changes to that part of
+the tree.
+
+ http://dev.chromium.org/developers/owners-files
+
+As an example, this allows me indicate that I should be consulted when
+you are submitting a change to the u-boot or kernel parts of the tree,
+such as meta-phosphor/common/recipes-kernel.
+
+Cheers,
+
+Joel
