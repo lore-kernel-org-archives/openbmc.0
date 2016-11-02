@@ -1,48 +1,48 @@
 Return-Path: <raltherr@google.com>
-Received: from mail-pf0-x22c.google.com (mail-pf0-x22c.google.com
- [IPv6:2607:f8b0:400e:c00::22c])
+Received: from mail-pf0-x22d.google.com (mail-pf0-x22d.google.com
+ [IPv6:2607:f8b0:400e:c00::22d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t7xH90YmVzDvqB
- for <openbmc@lists.ozlabs.org>; Wed,  2 Nov 2016 16:19:33 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t7xRB4whKzDw95
+ for <openbmc@lists.ozlabs.org>; Wed,  2 Nov 2016 16:26:30 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=H9TvZAdg; 
+ unprotected) header.d=google.com header.i=@google.com header.b=Rwgui1An; 
  dkim-atps=neutral
-Received: by mail-pf0-x22c.google.com with SMTP id i88so4817990pfk.2
- for <openbmc@lists.ozlabs.org>; Tue, 01 Nov 2016 22:19:32 -0700 (PDT)
+Received: by mail-pf0-x22d.google.com with SMTP id i88so4932208pfk.2
+ for <openbmc@lists.ozlabs.org>; Tue, 01 Nov 2016 22:26:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
  h=from:to:subject:date:message-id;
- bh=cmrOu7/1yux2ttHkzmG4t3krRAScsp38tQnp4F1dzFQ=;
- b=H9TvZAdgytSeObzhfaShn6Xk9oQJKHTHnammH8dXJ+QYIGiL4CWbVURkujz8N9seGE
- JOo27SgJf0aJLeRSPcHlZ/ZL/+BPlu2veeOEtGR1PDrwk7gaYfZfJcY2bBWDiojgtdJt
- GI5+nxlionm0BCRiyY1p3ny+kLklqwoQrU00aOk4YUkNyO4HGTck8+Pm7l4H10KN8sSr
- MJ0JfxdSubQkSMRyl2Ap5L438f85shu+NDU5ZzWNgoYFO+XL+/PAKoy+PJ2FYix/pAi5
- kfghtD9a4/aG8H/35Frveln6UfOc5HcCqGF0MZ2+gN0cUR0KvJ10WPbxYN7vOEPa4X36
- 9zuQ==
+ bh=pNDYkkfTHBgTPSFYIubm5mX/YoNQGDwQOe3SHHOGYqU=;
+ b=Rwgui1An/tQef1NWMod6qXKgf0wlGew45CuFc9Ekxz4s/CLizS7Etw+7VZa3g8Jk6t
+ zKTRj4RcNLHG7G7IzvA3L6KqKhjGDYHL1b1RZ00aQWwFVWK1I9cAUQ8pprzvtF4sJmLR
+ V6rnaVx8kq3++5AAMQjl/dpYGaxq+iPBSAB1dHEP93TsEbVb3SE7BIHlMCFs8N+TgrD3
+ ozp+arMeHlAOs4hXV1ZrfOBzjb4jcEy9835RRA25v6i5JKWHhYU5jFkmZ2ruo+ei+M5Q
+ t6pqlP0QlXFjqpkL20Ebo41NGJgHae97v+6KJ9ejDymFP+0CBEgpf+64NpZXSik2LBpB
+ TAkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:from:to:subject:date:message-id;
- bh=cmrOu7/1yux2ttHkzmG4t3krRAScsp38tQnp4F1dzFQ=;
- b=Y9jzLak4MkgC4583qCvpA1+EAdGk+yuuT7VVi+3ZJmKKl35XHSZx1N9GdEazsSOe/K
- 34BDTtk7pd4HNh+kdB0efrTBs02RatTCQHXz1a1aNJMhYrqFaom9C7B33tu9p13IJbhq
- nap+Sp1tkB2pjTnNXF2HDa/4OHmYU9sAoWt9auc/jAGYBjQMBNrKINAZ3E8Et/yJx1pu
- E1SkftjyqP462ntFVD+0QOkv4lRPg4Xz0wZCTT2siCO8xh7W1S6ak98rFHtTHgltk9BV
- X0+koixf+rKn50ex9xPgdLG4LQQHwtzreK0Zb+0fCXWue1pC6KLahwCAFbVEd24hTw1h
- m+KA==
-X-Gm-Message-State: ABUngvcnXolJOxk+QN6qoHfj6TCc6J15yhdKJ1tPHwyaiF+64ksndQ9gnnkobnYcnycwB8Te
-X-Received: by 10.99.213.21 with SMTP id c21mr2874066pgg.176.1478063970450;
- Tue, 01 Nov 2016 22:19:30 -0700 (PDT)
+ bh=pNDYkkfTHBgTPSFYIubm5mX/YoNQGDwQOe3SHHOGYqU=;
+ b=MGLqzjEw0Ahl7VgwLysrkt1bz+L7vKvB49ZcvtNC49gmElRDkqUCRcCa9JbzZDEta+
+ f68DIn+BuYF/mExxnIprF+kBUqhjvxaeQd1LNmtj5zFvJT083fC6b5t1DPNF4hE+w/hs
+ b2myCoSKF6Y5cPX8QLmEp34j1HR9NX/u5Ey0DQxyJ7KyVTAUbO7wQfD4jLmhPBAgTw06
+ QJ+y0jaYPOwk0OJUyn6zz2UDL/7TdhNq+axvfknVGnf9LLgthAJRMVnMvLB/rkFmqE0P
+ v2HgkKJKVVcn893NfKbn4fnaXUtnmRQ+xfobGYFl6GXK3z/1j55CunsvvNA/iwNmzCvy
+ dLDQ==
+X-Gm-Message-State: ABUngvePnsSZUz4mEf/fe3eyRR/rO23RBuCR4Dl0f1QzlzwtbFt8FASwM+DHP04o0qpcV6YU
+X-Received: by 10.99.49.213 with SMTP id x204mr2884661pgx.92.1478064388739;
+ Tue, 01 Nov 2016 22:26:28 -0700 (PDT)
 Received: from raltherr-linux.svl.corp.google.com ([100.123.244.62])
- by smtp.gmail.com with ESMTPSA id rx1sm742300pab.32.2016.11.01.22.19.29
+ by smtp.gmail.com with ESMTPSA id jz5sm837381pad.10.2016.11.01.22.26.27
  for <openbmc@lists.ozlabs.org>
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 01 Nov 2016 22:19:29 -0700 (PDT)
+ Tue, 01 Nov 2016 22:26:28 -0700 (PDT)
 From: Rick Altherr <raltherr@google.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH u-boot] Enable FIT image support and FDT loading for
+Subject: [PATCH u-boot v2] Enable FIT image support and FDT loading for
  AST2400/AST2500
-Date: Tue,  1 Nov 2016 22:19:27 -0700
-Message-Id: <1478063967-28301-1-git-send-email-raltherr@google.com>
+Date: Tue,  1 Nov 2016 22:26:26 -0700
+Message-Id: <1478064386-29575-1-git-send-email-raltherr@google.com>
 X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -55,17 +55,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Nov 2016 05:19:33 -0000
+X-List-Received-Date: Wed, 02 Nov 2016 05:26:31 -0000
 
 FIT is the modern u-boot native image format for kernels, device trees,
 and ramdisks.  Enabling FIT only compiles in support for the image
 format.  For these devices, the kernel+dtb and ramdisk are loaded from
-separate locations in flash and be any mix of legacy or FIT images.
+separate locations in flash and can be any mix of legacy or FIT images.
 When using FIT images, the dtb is stored as a separate entry that
-requires additional support to load it into RAM and pass it to the
-kernel.
+requires CONFIG_OF_LIBFDT to load it into RAM and pass it to the kernel.
+
+Tested under qemu with both legacy and FIT kernel+dtb images for
+palmetto and witherspoon.
 
 Signed-off-by: Rick Altherr <raltherr@google.com>
+---
+Changes since v1:
+- Fixed commit message grammar
+- Clarified config option needed for FDT loading
 ---
  configs/ast_g4_ncsi_defconfig | 3 +++
  configs/ast_g4_phy_defconfig  | 3 +++
