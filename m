@@ -1,53 +1,54 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-oi0-x244.google.com (mail-oi0-x244.google.com
+ [IPv6:2607:f8b0:4003:c06::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t7p9N34nZzDvNT
- for <openbmc@lists.ozlabs.org>; Wed,  2 Nov 2016 10:59:04 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=dom17xfu; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=Nm8FB426; dkim-atps=neutral
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 44B9E20844;
- Tue,  1 Nov 2016 19:59:01 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute7.internal (MEProxy); Tue, 01 Nov 2016 19:59:02 -0400
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
- x-me-sender:x-sasl-enc:message-id:subject:from:to:cc:date
- :in-reply-to:references:content-type:mime-version; s=mesmtp; bh=
- TDSqt/MCiq7L7ycgbWWXLkWzicA=; b=dom17xfu6IgErbhJue2tgXYutVfe4uJJ
- oZAPCfhvXETB0Rg7noQ+soZAlhqoBxpgHVVqvVBxth9Ec13sT+BkOxysrH2y9TLT
- oF9rztcOl2UX07qKQ/c4I+xaczUCZxQng7t7PLGvRti26ORXO8GmBYBIU8bBvJ3E
- 3xBSbAWR61k=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=x-me-sender:x-sasl-enc:message-id:subject
- :from:to:cc:date:in-reply-to:references:content-type
- :mime-version; s=smtpout; bh=TDSqt/MCiq7L7ycgbWWXLkWzicA=; b=Nm8
- FB426LZWDGRCy1fetzVmHbCTbng9INZXNFnpDabiSOvlzDwRQuc0BiJ8leKL/yqR
- oTVYU2Y7uwJnl6G0GO7RJ+g8ypYkrMeeAYQuH0mr7P2tS58DDZEPmEC3e5yRLXJV
- y5I6g5er6sk7dlopdSBwztDZIdN2KxgMYEpLhFH8=
-X-ME-Sender: <xms:RSwZWNfyIsWNQ6yKA-w_NqbAqZVzhhrUlB6yfQ1UkfFjHECtAAihxQ>
-X-Sasl-enc: cSFmzD1XLeW6MonvD9SmkjQgWKrWrmg2AJdZB2Huj79p 1478044740
-Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 2FEC1F29CF;
- Tue,  1 Nov 2016 19:58:58 -0400 (EDT)
-Message-ID: <1478044732.27396.3.camel@aj.id.au>
-Subject: Re: [PATCH linux] ARM: dts: aspeed-g5: Update zaius with new
- spi-nor binding
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>, Xo Wang <xow@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Wed, 02 Nov 2016 10:28:52 +1030
-In-Reply-To: <CACPK8XfEt+8rdkffHTtfoh13akffxDhrTe0WXZA0-oGbt4FuXg@mail.gmail.com>
-References: <1478043025-78465-1-git-send-email-xow@google.com>
- <CACPK8XfEt+8rdkffHTtfoh13akffxDhrTe0WXZA0-oGbt4FuXg@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-xZb+rsQ4zyrW2PewcPRO"
-X-Mailer: Evolution 3.18.5.2-0ubuntu3 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t7pCT1TNKzDvNT
+ for <openbmc@lists.ozlabs.org>; Wed,  2 Nov 2016 11:00:53 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=E45veaYk; 
+ dkim-atps=neutral
+Received: by mail-oi0-x244.google.com with SMTP id 128so11275670oih.3
+ for <openbmc@lists.ozlabs.org>; Tue, 01 Nov 2016 17:00:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=pIRtuT9TuKgHvy3JrfcHEOO8TroaDcRNiObbBXqNmTM=;
+ b=E45veaYkmMEmsodayBvV3aSDKprrU7qhJ7sj0AMJzK/MShg/tPoljCGXCFE8OZPUCX
+ iOI/+O9J1Lr8gYkWDq41zIcZkz6QXxrFmEzZWHjODdI0VfOL1tgPEj7SJPB4FG3yTW2I
+ +CkyGJJcTR1PZYsX4jWVPSBV/lP/EErTnOLgrUVS22J6ToxdppQOxVZheKpzffZrUq20
+ wfPP1IK6va27TI9QJBcIXF9SNsQdfLJOjdTPAcgqaDHhUQ8/5v7MSXPhGB957W8lAyGw
+ AmuYyIvnEBFQNSKKthxTh3mmHdpNo7AKgMZc+aF3nqeSIFmdnuhtAGjq6ewv91fjsvBc
+ plrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=pIRtuT9TuKgHvy3JrfcHEOO8TroaDcRNiObbBXqNmTM=;
+ b=Ncf6YOdZtIkpHil/9/CDNaI+WB2zg5PKuyWLXVk1k57RQcOn3al4WLVPfJ09S30kLJ
+ wW39fBPpxUX68OxP1aCR+8dZ2skq+LOCQu0zdVCBH36GxABGKKiTw5HyLW/Oum+Zpfty
+ q7h/0vkEg0Cm7lDvFp8uTo+Kvr40r65tuB5ZPgwEsJjnKeU/Y4/rhdxMZx2ytSmOBVpi
+ TInbwfwR/WCC8qLIjyKGU8PXy2PAEaxn8+uPrT3dBXEwKpl9FQttnvtkINJVB+0goNz5
+ ORpYWibPmiQ6espji/tS+PSjSUEJ11Eako5MbpKwYfC9vjy2YJhabcmoz3To+yzMJUib
+ Jpmw==
+X-Gm-Message-State: ABUngvdoOOmJUdVMdacTYXCsRVObEodFpxaUySLQLoEeOMN3Hn935vv186gbd0QAUf+eAtS98m241UGwYCC2+Q==
+X-Received: by 10.202.92.198 with SMTP id q189mr682370oib.6.1478044850437;
+ Tue, 01 Nov 2016 17:00:50 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.182.107.226 with HTTP; Tue, 1 Nov 2016 17:00:30 -0700 (PDT)
+In-Reply-To: <1477465067-19034-5-git-send-email-clg@kaod.org>
+References: <1477465067-19034-1-git-send-email-clg@kaod.org>
+ <1477465067-19034-5-git-send-email-clg@kaod.org>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 2 Nov 2016 10:30:30 +1030
+X-Google-Sender-Auth: 9YiSz61eXkUeQD_q2xq4AMJRuFk
+Message-ID: <CACPK8Xd8BthXky3+Bufxu8n-3VnZRJz=rpKjjVPR+9Sdunyvxg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7 4/8] ipmi: add an Aspeed BT IPMI BMC driver
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Jeremy Kerr <jk@ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,60 +60,677 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Nov 2016 23:59:05 -0000
+X-List-Received-Date: Wed, 02 Nov 2016 00:00:54 -0000
 
+Hey Cedric,
 
---=-xZb+rsQ4zyrW2PewcPRO
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+On Wed, Oct 26, 2016 at 5:27 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
+:
+> Backport from mainline of the main IPMI BMC driver patch plus fixes :
+>
+>  - commit d94655b405ba ("ipmi/bt-bmc: remove redundant return value
+>    check of platform_get_resource()")
+>  - commit a3e6061bad62 ("ipmi/bt-bmc: add a dependency on
+>    ARCH_ASPEED")
+>  - commit 1a377a79211a ("ipmi: Fix ioremap error handling in bt-bmc")
+>  - commit 54f9c4d0778b ("ipmi: add an Aspeed BT IPMI BMC driver")
 
-T24gV2VkLCAyMDE2LTExLTAyIGF0IDEwOjE1ICsxMDMwLCBKb2VsIFN0YW5sZXkgd3JvdGU6Cj4g
-SGV5IFhvLAo+IAo+IE9uIFdlZCwgTm92IDIsIDIwMTYgYXQgMTA6MDAgQU0sIFhvIFdhbmcgPHhv
-d0Bnb29nbGUuY29tPiB3cm90ZToKPiAKPiA+IAo+ID4gKyZzcGkxIHsKPiA+ICvCoMKgwqDCoMKg
-wqDCoHN0YXR1cyA9ICJva2F5IjsKPiA+ICvCoMKgwqDCoMKgwqDCoHBpbmN0cmwtbmFtZXMgPSAi
-ZGVmYXVsdCI7Cj4gPiArwqDCoMKgwqDCoMKgwqBwaW5jdHJsLTAgPSA8JnBpbmN0cmxfc3BpMV9k
-ZWZhdWx0PjsKPiA+ICsKPiA+ICvCoMKgwqDCoMKgwqDCoGZsYXNoQDAgewo+ID4gK8KgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoHN0YXR1cyA9ICJva2F5IjsKPiA+ICvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqBsYWJlbCA9ICJwbm9yIjsKPiA+ICvCoMKgwqDCoMKgwqDCoH07Cj4g
-PiArfTsKPiA+ICsKPiA+ICsmc3BpMiB7Cj4gPiArwqDCoMKgwqDCoMKgwqBzdGF0dXMgPSAib2th
-eSI7Cj4gSSB0aGluayB3ZSB3YW50IHRvIHJlcXVlc3QgdGhlIHBpbnMgaGVyZS4gU29tZXRoaW5n
-IGxpa2UgdGhpczoKPiAKPiArCj4gK8KgwqDCoMKgwqDCoMKgwqDCoHBpbmN0cmwtbmFtZXMgPSAi
-ZGVmYXVsdCI7Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoHBpbmN0cmwtMCA9IDwmcGluY3RybF9zcGky
-Y2tfZGVmYXVsdAo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCZwaW5jdHJsX3NwaTJjczBfZGVmYXVsdAo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCZwaW5jdHJsX3NwaTJjczFfZGVmYXVsdAo+ICvC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCZwaW5jdHJs
-X3NwaTJtaXNvX2RlZmF1bHQKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAmcGluY3RybF9zcGkybW9zaV9kZWZhdWx0PjsKClllcywgd2UgbmVlZCB0
-aGlzLCB0aG91Z2ggbWF5YmUgdGhlIGNoaXAgc2VsZWN0cyBzaG91bGQgYmUgcHVzaGVkIG91dAp0
-byB0aGUgYm9hcmQgZHRzPwoKQW5kcmV3Cgo+ICsKPiAKPiBDYW4geW91IHRyeSB0aGF0IGFuZCBk
-byBhIHRlc3QgYm9vdCBvbiB5b3VyIGhhcmR3YXJlPwo+IAo+IENoZWVycywKPiAKPiBKb2VsCj4g
-Cj4gPiAKPiA+ICvCoMKgwqDCoMKgwqDCoGZsYXNoQDAgewo+ID4gK8KgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoHN0YXR1cyA9ICJva2F5IjsKPiA+ICvCoMKgwqDCoMKgwqDCoH07Cj4gPiAr
-fTsKPiA+ICs=
+It has just occurred to me that this driver is written for the iBT
+hardware in the Aspeed, and we also have the BT hardware.
 
+If we were to write a driver for the BT hardware it would clash with
+this one. In particular the compatible string and the character device
+name.
 
---=-xZb+rsQ4zyrW2PewcPRO
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+I propose sending a patch to upstream before the release of 4.9 that
+changes the chardev name to ipmi-ibt-host and changing the comaptible
+string to ast2400-ibt-bmc.
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+What do you think?
 
-iQIcBAABCgAGBQJYGSw8AAoJEJ0dnzgO5LT5iAEQAJgoAvFMqyr0i8IQOVq4WWRw
-yhS3xDLIypAqzlnAsUEjvDoXI90ZeF9TaOMw7e7hAs50Qr2ymJce/5ZqjG98Sd1W
-4G9ThvtknAlD0PvOnC82RP0qHDln2QBXsLWlfRrYWBm/pUK17lQ+P92qjiZeP1Nc
-qi98opFevTQ6WJB4UPJ6r4NyBwvkwV3lU2E1Qtnme1kjJ97/dcWgWoeH7fVjCK6d
-KvZJ8WG+T4lfjTqQPb8cALyW9r/c5JVFsDAo46KmyhOptXzF/2ywOGaF8E8+eRrb
-gnoJsatVdJoot8xFY8OO8INC0NpRMLyHGrW5E0BXPx3D5pEigTS/q4oCORMWx4LD
-qkopYzzjZr85HoHCsr0TTEf06zXTpUCKm2z6vM69eqJyy21tqglH0NvEUYCYD9cQ
-PxcAjBc3W14AGeivaO8tXXMLc/MP7ncUFfhOL6gDjUPLBPbAJTi8OHAkWEEj4pgq
-BGs2etwIAw6YCQvb0Bbz7xJ/iV7XAy1NyUTd0lm6LFoUOMIPkyttOxIZpVUYDdwo
-+I3XHsY4ZRU+wPHVFMjvpR55/Nzbp52TmDZ6PjWS4xNd1U0ioc9QVCkLiOqx7D+L
-4tpT1m70B32KP+nj1XyFemx/gV5LQEpky6QiXVd2zXudNILJbUGHm/1ispDu6uGR
-FBuTmf9Hhm8ycFJ/FV7g
-=cUGY
------END PGP SIGNATURE-----
+Cheers,
 
---=-xZb+rsQ4zyrW2PewcPRO--
+Joel
+
+>
+> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
+> ---
+>  .../bindings/char/ipmi/aspeed,ast2400-bt-bmc.txt   |  23 +
+>  drivers/Makefile                                   |   2 +-
+>  drivers/char/ipmi/Kconfig                          |   8 +
+>  drivers/char/ipmi/Makefile                         |   1 +
+>  drivers/char/ipmi/bt-bmc.c                         | 505 +++++++++++++++=
+++++++
+>  include/uapi/linux/Kbuild                          |   1 +
+>  include/uapi/linux/bt-bmc.h                        |  18 +
+>  7 files changed, 557 insertions(+), 1 deletion(-)
+>  create mode 100644 Documentation/devicetree/bindings/char/ipmi/aspeed,as=
+t2400-bt-bmc.txt
+>  create mode 100644 drivers/char/ipmi/bt-bmc.c
+>  create mode 100644 include/uapi/linux/bt-bmc.h
+>
+> diff --git a/Documentation/devicetree/bindings/char/ipmi/aspeed,ast2400-b=
+t-bmc.txt b/Documentation/devicetree/bindings/char/ipmi/aspeed,ast2400-bt-b=
+mc.txt
+> new file mode 100644
+> index 000000000000..fbbacd958240
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/char/ipmi/aspeed,ast2400-bt-bmc.t=
+xt
+> @@ -0,0 +1,23 @@
+> +* Aspeed BT (Block Transfer) IPMI interface
+> +
+> +The Aspeed SOCs (AST2400 and AST2500) are commonly used as BMCs
+> +(BaseBoard Management Controllers) and the BT interface can be used to
+> +perform in-band IPMI communication with their host.
+> +
+> +Required properties:
+> +
+> +- compatible : should be "aspeed,ast2400-bt-bmc"
+> +- reg: physical address and size of the registers
+> +
+> +Optional properties:
+> +
+> +- interrupts: interrupt generated by the BT interface. without an
+> +  interrupt, the driver will operate in poll mode.
+> +
+> +Example:
+> +
+> +       ibt@1e789140 {
+> +               compatible =3D "aspeed,ast2400-bt-bmc";
+> +               reg =3D <0x1e789140 0x18>;
+> +               interrupts =3D <8>;
+> +       };
+> diff --git a/drivers/Makefile b/drivers/Makefile
+> index 0b6f3d60193d..0a7c60d3b6cc 100644
+> --- a/drivers/Makefile
+> +++ b/drivers/Makefile
+> @@ -21,7 +21,7 @@ obj-y                         +=3D video/
+>  obj-y                          +=3D idle/
+>
+>  # IPMI must come before ACPI in order to provide IPMI opregion support
+> -obj-$(CONFIG_IPMI_HANDLER)     +=3D char/ipmi/
+> +obj-y                          +=3D char/ipmi/
+>
+>  obj-$(CONFIG_ACPI)             +=3D acpi/
+>  obj-$(CONFIG_SFI)              +=3D sfi/
+> diff --git a/drivers/char/ipmi/Kconfig b/drivers/char/ipmi/Kconfig
+> index 6ed9e9fe5233..927fe355442a 100644
+> --- a/drivers/char/ipmi/Kconfig
+> +++ b/drivers/char/ipmi/Kconfig
+> @@ -88,3 +88,11 @@ config IPMI_POWEROFF
+>          the IPMI management controller is capable of this.
+>
+>  endif # IPMI_HANDLER
+> +
+> +config ASPEED_BT_IPMI_BMC
+> +       depends on ARCH_ASPEED
+> +       tristate "BT IPMI bmc driver"
+> +       help
+> +         Provides a driver for the BT (Block Transfer) IPMI interface
+> +         found on Aspeed SOCs (AST2400 and AST2500). The driver
+> +         implements the BMC side of the BT interface.
+> diff --git a/drivers/char/ipmi/Makefile b/drivers/char/ipmi/Makefile
+> index f3ffde1f5f1f..0d98cd91def1 100644
+> --- a/drivers/char/ipmi/Makefile
+> +++ b/drivers/char/ipmi/Makefile
+> @@ -11,3 +11,4 @@ obj-$(CONFIG_IPMI_SSIF) +=3D ipmi_ssif.o
+>  obj-$(CONFIG_IPMI_POWERNV) +=3D ipmi_powernv.o
+>  obj-$(CONFIG_IPMI_WATCHDOG) +=3D ipmi_watchdog.o
+>  obj-$(CONFIG_IPMI_POWEROFF) +=3D ipmi_poweroff.o
+> +obj-$(CONFIG_ASPEED_BT_IPMI_BMC) +=3D bt-bmc.o
+> diff --git a/drivers/char/ipmi/bt-bmc.c b/drivers/char/ipmi/bt-bmc.c
+> new file mode 100644
+> index 000000000000..b49e61320952
+> --- /dev/null
+> +++ b/drivers/char/ipmi/bt-bmc.c
+> @@ -0,0 +1,505 @@
+> +/*
+> + * Copyright (c) 2015-2016, IBM Corporation.
+> + *
+> + * This program is free software; you can redistribute it and/or
+> + * modify it under the terms of the GNU General Public License
+> + * as published by the Free Software Foundation; either version
+> + * 2 of the License, or (at your option) any later version.
+> + */
+> +
+> +#include <linux/atomic.h>
+> +#include <linux/bt-bmc.h>
+> +#include <linux/errno.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/io.h>
+> +#include <linux/miscdevice.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/poll.h>
+> +#include <linux/sched.h>
+> +#include <linux/timer.h>
+> +
+> +/*
+> + * This is a BMC device used to communicate to the host
+> + */
+> +#define DEVICE_NAME    "ipmi-bt-host"
+> +
+> +#define BT_IO_BASE     0xe4
+> +#define BT_IRQ         10
+> +
+> +#define BT_CR0         0x0
+> +#define   BT_CR0_IO_BASE               16
+> +#define   BT_CR0_IRQ                   12
+> +#define   BT_CR0_EN_CLR_SLV_RDP                0x8
+> +#define   BT_CR0_EN_CLR_SLV_WRP                0x4
+> +#define   BT_CR0_ENABLE_IBT            0x1
+> +#define BT_CR1         0x4
+> +#define   BT_CR1_IRQ_H2B       0x01
+> +#define   BT_CR1_IRQ_HBUSY     0x40
+> +#define BT_CR2         0x8
+> +#define   BT_CR2_IRQ_H2B       0x01
+> +#define   BT_CR2_IRQ_HBUSY     0x40
+> +#define BT_CR3         0xc
+> +#define BT_CTRL                0x10
+> +#define   BT_CTRL_B_BUSY               0x80
+> +#define   BT_CTRL_H_BUSY               0x40
+> +#define   BT_CTRL_OEM0                 0x20
+> +#define   BT_CTRL_SMS_ATN              0x10
+> +#define   BT_CTRL_B2H_ATN              0x08
+> +#define   BT_CTRL_H2B_ATN              0x04
+> +#define   BT_CTRL_CLR_RD_PTR           0x02
+> +#define   BT_CTRL_CLR_WR_PTR           0x01
+> +#define BT_BMC2HOST    0x14
+> +#define BT_INTMASK     0x18
+> +#define   BT_INTMASK_B2H_IRQEN         0x01
+> +#define   BT_INTMASK_B2H_IRQ           0x02
+> +#define   BT_INTMASK_BMC_HWRST         0x80
+> +
+> +#define BT_BMC_BUFFER_SIZE 256
+> +
+> +struct bt_bmc {
+> +       struct device           dev;
+> +       struct miscdevice       miscdev;
+> +       void __iomem            *base;
+> +       int                     irq;
+> +       wait_queue_head_t       queue;
+> +       struct timer_list       poll_timer;
+> +       struct mutex            mutex;
+> +};
+> +
+> +static atomic_t open_count =3D ATOMIC_INIT(0);
+> +
+> +static u8 bt_inb(struct bt_bmc *bt_bmc, int reg)
+> +{
+> +       return ioread8(bt_bmc->base + reg);
+> +}
+> +
+> +static void bt_outb(struct bt_bmc *bt_bmc, u8 data, int reg)
+> +{
+> +       iowrite8(data, bt_bmc->base + reg);
+> +}
+> +
+> +static void clr_rd_ptr(struct bt_bmc *bt_bmc)
+> +{
+> +       bt_outb(bt_bmc, BT_CTRL_CLR_RD_PTR, BT_CTRL);
+> +}
+> +
+> +static void clr_wr_ptr(struct bt_bmc *bt_bmc)
+> +{
+> +       bt_outb(bt_bmc, BT_CTRL_CLR_WR_PTR, BT_CTRL);
+> +}
+> +
+> +static void clr_h2b_atn(struct bt_bmc *bt_bmc)
+> +{
+> +       bt_outb(bt_bmc, BT_CTRL_H2B_ATN, BT_CTRL);
+> +}
+> +
+> +static void set_b_busy(struct bt_bmc *bt_bmc)
+> +{
+> +       if (!(bt_inb(bt_bmc, BT_CTRL) & BT_CTRL_B_BUSY))
+> +               bt_outb(bt_bmc, BT_CTRL_B_BUSY, BT_CTRL);
+> +}
+> +
+> +static void clr_b_busy(struct bt_bmc *bt_bmc)
+> +{
+> +       if (bt_inb(bt_bmc, BT_CTRL) & BT_CTRL_B_BUSY)
+> +               bt_outb(bt_bmc, BT_CTRL_B_BUSY, BT_CTRL);
+> +}
+> +
+> +static void set_b2h_atn(struct bt_bmc *bt_bmc)
+> +{
+> +       bt_outb(bt_bmc, BT_CTRL_B2H_ATN, BT_CTRL);
+> +}
+> +
+> +static u8 bt_read(struct bt_bmc *bt_bmc)
+> +{
+> +       return bt_inb(bt_bmc, BT_BMC2HOST);
+> +}
+> +
+> +static ssize_t bt_readn(struct bt_bmc *bt_bmc, u8 *buf, size_t n)
+> +{
+> +       int i;
+> +
+> +       for (i =3D 0; i < n; i++)
+> +               buf[i] =3D bt_read(bt_bmc);
+> +       return n;
+> +}
+> +
+> +static void bt_write(struct bt_bmc *bt_bmc, u8 c)
+> +{
+> +       bt_outb(bt_bmc, c, BT_BMC2HOST);
+> +}
+> +
+> +static ssize_t bt_writen(struct bt_bmc *bt_bmc, u8 *buf, size_t n)
+> +{
+> +       int i;
+> +
+> +       for (i =3D 0; i < n; i++)
+> +               bt_write(bt_bmc, buf[i]);
+> +       return n;
+> +}
+> +
+> +static void set_sms_atn(struct bt_bmc *bt_bmc)
+> +{
+> +       bt_outb(bt_bmc, BT_CTRL_SMS_ATN, BT_CTRL);
+> +}
+> +
+> +static struct bt_bmc *file_bt_bmc(struct file *file)
+> +{
+> +       return container_of(file->private_data, struct bt_bmc, miscdev);
+> +}
+> +
+> +static int bt_bmc_open(struct inode *inode, struct file *file)
+> +{
+> +       struct bt_bmc *bt_bmc =3D file_bt_bmc(file);
+> +
+> +       if (atomic_inc_return(&open_count) =3D=3D 1) {
+> +               clr_b_busy(bt_bmc);
+> +               return 0;
+> +       }
+> +
+> +       atomic_dec(&open_count);
+> +       return -EBUSY;
+> +}
+> +
+> +/*
+> + * The BT (Block Transfer) interface means that entire messages are
+> + * buffered by the host before a notification is sent to the BMC that
+> + * there is data to be read. The first byte is the length and the
+> + * message data follows. The read operation just tries to capture the
+> + * whole before returning it to userspace.
+> + *
+> + * BT Message format :
+> + *
+> + *    Byte 1  Byte 2     Byte 3  Byte 4  Byte 5:N
+> + *    Length  NetFn/LUN  Seq     Cmd     Data
+> + *
+> + */
+> +static ssize_t bt_bmc_read(struct file *file, char __user *buf,
+> +                          size_t count, loff_t *ppos)
+> +{
+> +       struct bt_bmc *bt_bmc =3D file_bt_bmc(file);
+> +       u8 len;
+> +       int len_byte =3D 1;
+> +       u8 kbuffer[BT_BMC_BUFFER_SIZE];
+> +       ssize_t ret =3D 0;
+> +       ssize_t nread;
+> +
+> +       if (!access_ok(VERIFY_WRITE, buf, count))
+> +               return -EFAULT;
+> +
+> +       WARN_ON(*ppos);
+> +
+> +       if (wait_event_interruptible(bt_bmc->queue,
+> +                                    bt_inb(bt_bmc, BT_CTRL) & BT_CTRL_H2=
+B_ATN))
+> +               return -ERESTARTSYS;
+> +
+> +       mutex_lock(&bt_bmc->mutex);
+> +
+> +       if (unlikely(!(bt_inb(bt_bmc, BT_CTRL) & BT_CTRL_H2B_ATN))) {
+> +               ret =3D -EIO;
+> +               goto out_unlock;
+> +       }
+> +
+> +       set_b_busy(bt_bmc);
+> +       clr_h2b_atn(bt_bmc);
+> +       clr_rd_ptr(bt_bmc);
+> +
+> +       /*
+> +        * The BT frames start with the message length, which does not
+> +        * include the length byte.
+> +        */
+> +       kbuffer[0] =3D bt_read(bt_bmc);
+> +       len =3D kbuffer[0];
+> +
+> +       /* We pass the length back to userspace as well */
+> +       if (len + 1 > count)
+> +               len =3D count - 1;
+> +
+> +       while (len) {
+> +               nread =3D min_t(ssize_t, len, sizeof(kbuffer) - len_byte)=
+;
+> +
+> +               bt_readn(bt_bmc, kbuffer + len_byte, nread);
+> +
+> +               if (copy_to_user(buf, kbuffer, nread + len_byte)) {
+> +                       ret =3D -EFAULT;
+> +                       break;
+> +               }
+> +               len -=3D nread;
+> +               buf +=3D nread + len_byte;
+> +               ret +=3D nread + len_byte;
+> +               len_byte =3D 0;
+> +       }
+> +
+> +       clr_b_busy(bt_bmc);
+> +
+> +out_unlock:
+> +       mutex_unlock(&bt_bmc->mutex);
+> +       return ret;
+> +}
+> +
+> +/*
+> + * BT Message response format :
+> + *
+> + *    Byte 1  Byte 2     Byte 3  Byte 4  Byte 5  Byte 6:N
+> + *    Length  NetFn/LUN  Seq     Cmd     Code    Data
+> + */
+> +static ssize_t bt_bmc_write(struct file *file, const char __user *buf,
+> +                           size_t count, loff_t *ppos)
+> +{
+> +       struct bt_bmc *bt_bmc =3D file_bt_bmc(file);
+> +       u8 kbuffer[BT_BMC_BUFFER_SIZE];
+> +       ssize_t ret =3D 0;
+> +       ssize_t nwritten;
+> +
+> +       /*
+> +        * send a minimum response size
+> +        */
+> +       if (count < 5)
+> +               return -EINVAL;
+> +
+> +       if (!access_ok(VERIFY_READ, buf, count))
+> +               return -EFAULT;
+> +
+> +       WARN_ON(*ppos);
+> +
+> +       /*
+> +        * There's no interrupt for clearing bmc busy so we have to
+> +        * poll
+> +        */
+> +       if (wait_event_interruptible(bt_bmc->queue,
+> +                                    !(bt_inb(bt_bmc, BT_CTRL) &
+> +                                      (BT_CTRL_H_BUSY | BT_CTRL_B2H_ATN)=
+)))
+> +               return -ERESTARTSYS;
+> +
+> +       mutex_lock(&bt_bmc->mutex);
+> +
+> +       if (unlikely(bt_inb(bt_bmc, BT_CTRL) &
+> +                    (BT_CTRL_H_BUSY | BT_CTRL_B2H_ATN))) {
+> +               ret =3D -EIO;
+> +               goto out_unlock;
+> +       }
+> +
+> +       clr_wr_ptr(bt_bmc);
+> +
+> +       while (count) {
+> +               nwritten =3D min_t(ssize_t, count, sizeof(kbuffer));
+> +               if (copy_from_user(&kbuffer, buf, nwritten)) {
+> +                       ret =3D -EFAULT;
+> +                       break;
+> +               }
+> +
+> +               bt_writen(bt_bmc, kbuffer, nwritten);
+> +
+> +               count -=3D nwritten;
+> +               buf +=3D nwritten;
+> +               ret +=3D nwritten;
+> +       }
+> +
+> +       set_b2h_atn(bt_bmc);
+> +
+> +out_unlock:
+> +       mutex_unlock(&bt_bmc->mutex);
+> +       return ret;
+> +}
+> +
+> +static long bt_bmc_ioctl(struct file *file, unsigned int cmd,
+> +                        unsigned long param)
+> +{
+> +       struct bt_bmc *bt_bmc =3D file_bt_bmc(file);
+> +
+> +       switch (cmd) {
+> +       case BT_BMC_IOCTL_SMS_ATN:
+> +               set_sms_atn(bt_bmc);
+> +               return 0;
+> +       }
+> +       return -EINVAL;
+> +}
+> +
+> +static int bt_bmc_release(struct inode *inode, struct file *file)
+> +{
+> +       struct bt_bmc *bt_bmc =3D file_bt_bmc(file);
+> +
+> +       atomic_dec(&open_count);
+> +       set_b_busy(bt_bmc);
+> +       return 0;
+> +}
+> +
+> +static unsigned int bt_bmc_poll(struct file *file, poll_table *wait)
+> +{
+> +       struct bt_bmc *bt_bmc =3D file_bt_bmc(file);
+> +       unsigned int mask =3D 0;
+> +       u8 ctrl;
+> +
+> +       poll_wait(file, &bt_bmc->queue, wait);
+> +
+> +       ctrl =3D bt_inb(bt_bmc, BT_CTRL);
+> +
+> +       if (ctrl & BT_CTRL_H2B_ATN)
+> +               mask |=3D POLLIN;
+> +
+> +       if (!(ctrl & (BT_CTRL_H_BUSY | BT_CTRL_B2H_ATN)))
+> +               mask |=3D POLLOUT;
+> +
+> +       return mask;
+> +}
+> +
+> +static const struct file_operations bt_bmc_fops =3D {
+> +       .owner          =3D THIS_MODULE,
+> +       .open           =3D bt_bmc_open,
+> +       .read           =3D bt_bmc_read,
+> +       .write          =3D bt_bmc_write,
+> +       .release        =3D bt_bmc_release,
+> +       .poll           =3D bt_bmc_poll,
+> +       .unlocked_ioctl =3D bt_bmc_ioctl,
+> +};
+> +
+> +static void poll_timer(unsigned long data)
+> +{
+> +       struct bt_bmc *bt_bmc =3D (void *)data;
+> +
+> +       bt_bmc->poll_timer.expires +=3D msecs_to_jiffies(500);
+> +       wake_up(&bt_bmc->queue);
+> +       add_timer(&bt_bmc->poll_timer);
+> +}
+> +
+> +static irqreturn_t bt_bmc_irq(int irq, void *arg)
+> +{
+> +       struct bt_bmc *bt_bmc =3D arg;
+> +       u32 reg;
+> +
+> +       reg =3D ioread32(bt_bmc->base + BT_CR2);
+> +       reg &=3D BT_CR2_IRQ_H2B | BT_CR2_IRQ_HBUSY;
+> +       if (!reg)
+> +               return IRQ_NONE;
+> +
+> +       /* ack pending IRQs */
+> +       iowrite32(reg, bt_bmc->base + BT_CR2);
+> +
+> +       wake_up(&bt_bmc->queue);
+> +       return IRQ_HANDLED;
+> +}
+> +
+> +static int bt_bmc_config_irq(struct bt_bmc *bt_bmc,
+> +                            struct platform_device *pdev)
+> +{
+> +       struct device *dev =3D &pdev->dev;
+> +       u32 reg;
+> +       int rc;
+> +
+> +       bt_bmc->irq =3D platform_get_irq(pdev, 0);
+> +       if (!bt_bmc->irq)
+> +               return -ENODEV;
+> +
+> +       rc =3D devm_request_irq(dev, bt_bmc->irq, bt_bmc_irq, IRQF_SHARED=
+,
+> +                             DEVICE_NAME, bt_bmc);
+> +       if (rc < 0) {
+> +               dev_warn(dev, "Unable to request IRQ %d\n", bt_bmc->irq);
+> +               bt_bmc->irq =3D 0;
+> +               return rc;
+> +       }
+> +
+> +       /*
+> +        * Configure IRQs on the bmc clearing the H2B and HBUSY bits;
+> +        * H2B will be asserted when the bmc has data for us; HBUSY
+> +        * will be cleared (along with B2H) when we can write the next
+> +        * message to the BT buffer
+> +        */
+> +       reg =3D ioread32(bt_bmc->base + BT_CR1);
+> +       reg |=3D BT_CR1_IRQ_H2B | BT_CR1_IRQ_HBUSY;
+> +       iowrite32(reg, bt_bmc->base + BT_CR1);
+> +
+> +       return 0;
+> +}
+> +
+> +static int bt_bmc_probe(struct platform_device *pdev)
+> +{
+> +       struct bt_bmc *bt_bmc;
+> +       struct device *dev;
+> +       struct resource *res;
+> +       int rc;
+> +
+> +       if (!pdev || !pdev->dev.of_node)
+> +               return -ENODEV;
+> +
+> +       dev =3D &pdev->dev;
+> +       dev_info(dev, "Found bt bmc device\n");
+> +
+> +       bt_bmc =3D devm_kzalloc(dev, sizeof(*bt_bmc), GFP_KERNEL);
+> +       if (!bt_bmc)
+> +               return -ENOMEM;
+> +
+> +       dev_set_drvdata(&pdev->dev, bt_bmc);
+> +
+> +       res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> +       bt_bmc->base =3D devm_ioremap_resource(&pdev->dev, res);
+> +       if (IS_ERR(bt_bmc->base))
+> +               return PTR_ERR(bt_bmc->base);
+> +
+> +       mutex_init(&bt_bmc->mutex);
+> +       init_waitqueue_head(&bt_bmc->queue);
+> +
+> +       bt_bmc->miscdev.minor   =3D MISC_DYNAMIC_MINOR,
+> +               bt_bmc->miscdev.name    =3D DEVICE_NAME,
+> +               bt_bmc->miscdev.fops    =3D &bt_bmc_fops,
+> +               bt_bmc->miscdev.parent =3D dev;
+> +       rc =3D misc_register(&bt_bmc->miscdev);
+> +       if (rc) {
+> +               dev_err(dev, "Unable to register misc device\n");
+> +               return rc;
+> +       }
+> +
+> +       bt_bmc_config_irq(bt_bmc, pdev);
+> +
+> +       if (bt_bmc->irq) {
+> +               dev_info(dev, "Using IRQ %d\n", bt_bmc->irq);
+> +       } else {
+> +               dev_info(dev, "No IRQ; using timer\n");
+> +               setup_timer(&bt_bmc->poll_timer, poll_timer,
+> +                           (unsigned long)bt_bmc);
+> +               bt_bmc->poll_timer.expires =3D jiffies + msecs_to_jiffies=
+(10);
+> +               add_timer(&bt_bmc->poll_timer);
+> +       }
+> +
+> +       iowrite32((BT_IO_BASE << BT_CR0_IO_BASE) |
+> +                 (BT_IRQ << BT_CR0_IRQ) |
+> +                 BT_CR0_EN_CLR_SLV_RDP |
+> +                 BT_CR0_EN_CLR_SLV_WRP |
+> +                 BT_CR0_ENABLE_IBT,
+> +                 bt_bmc->base + BT_CR0);
+> +
+> +       clr_b_busy(bt_bmc);
+> +
+> +       return 0;
+> +}
+> +
+> +static int bt_bmc_remove(struct platform_device *pdev)
+> +{
+> +       struct bt_bmc *bt_bmc =3D dev_get_drvdata(&pdev->dev);
+> +
+> +       misc_deregister(&bt_bmc->miscdev);
+> +       if (!bt_bmc->irq)
+> +               del_timer_sync(&bt_bmc->poll_timer);
+> +       return 0;
+> +}
+> +
+> +static const struct of_device_id bt_bmc_match[] =3D {
+> +       { .compatible =3D "aspeed,ast2400-bt-bmc" },
+> +       { },
+> +};
+> +
+> +static struct platform_driver bt_bmc_driver =3D {
+> +       .driver =3D {
+> +               .name           =3D DEVICE_NAME,
+> +               .of_match_table =3D bt_bmc_match,
+> +       },
+> +       .probe =3D bt_bmc_probe,
+> +       .remove =3D bt_bmc_remove,
+> +};
+> +
+> +module_platform_driver(bt_bmc_driver);
+> +
+> +MODULE_DEVICE_TABLE(of, bt_bmc_match);
+> +MODULE_LICENSE("GPL");
+> +MODULE_AUTHOR("Alistair Popple <alistair@popple.id.au>");
+> +MODULE_DESCRIPTION("Linux device interface to the BT interface");
+> diff --git a/include/uapi/linux/Kbuild b/include/uapi/linux/Kbuild
+> index ec10cfef166a..9493842de93b 100644
+> --- a/include/uapi/linux/Kbuild
+> +++ b/include/uapi/linux/Kbuild
+> @@ -74,6 +74,7 @@ header-y +=3D bpf_common.h
+>  header-y +=3D bpf.h
+>  header-y +=3D bpqether.h
+>  header-y +=3D bsg.h
+> +header-y +=3D bt-bmc.h
+>  header-y +=3D btrfs.h
+>  header-y +=3D can.h
+>  header-y +=3D capability.h
+> diff --git a/include/uapi/linux/bt-bmc.h b/include/uapi/linux/bt-bmc.h
+> new file mode 100644
+> index 000000000000..d9ec766a63d0
+> --- /dev/null
+> +++ b/include/uapi/linux/bt-bmc.h
+> @@ -0,0 +1,18 @@
+> +/*
+> + * Copyright (c) 2015-2016, IBM Corporation.
+> + *
+> + * This program is free software; you can redistribute it and/or
+> + * modify it under the terms of the GNU General Public License
+> + * as published by the Free Software Foundation; either version
+> + * 2 of the License, or (at your option) any later version.
+> + */
+> +
+> +#ifndef _UAPI_LINUX_BT_BMC_H
+> +#define _UAPI_LINUX_BT_BMC_H
+> +
+> +#include <linux/ioctl.h>
+> +
+> +#define __BT_BMC_IOCTL_MAGIC   0xb1
+> +#define BT_BMC_IOCTL_SMS_ATN   _IO(__BT_BMC_IOCTL_MAGIC, 0x00)
+> +
+> +#endif /* _UAPI_LINUX_BT_BMC_H */
+> --
+> 2.7.4
+>
