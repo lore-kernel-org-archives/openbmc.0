@@ -1,49 +1,51 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-pf0-x22d.google.com (mail-pf0-x22d.google.com
- [IPv6:2607:f8b0:400e:c00::22d])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
+ [IPv6:2607:f8b0:400e:c00::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t7xRB4whKzDw95
- for <openbmc@lists.ozlabs.org>; Wed,  2 Nov 2016 16:26:30 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t7y5R63pmzDvJX
+ for <openbmc@lists.ozlabs.org>; Wed,  2 Nov 2016 16:56:11 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=Rwgui1An; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=et7+X7Th; 
  dkim-atps=neutral
-Received: by mail-pf0-x22d.google.com with SMTP id i88so4932208pfk.2
- for <openbmc@lists.ozlabs.org>; Tue, 01 Nov 2016 22:26:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=from:to:subject:date:message-id;
- bh=pNDYkkfTHBgTPSFYIubm5mX/YoNQGDwQOe3SHHOGYqU=;
- b=Rwgui1An/tQef1NWMod6qXKgf0wlGew45CuFc9Ekxz4s/CLizS7Etw+7VZa3g8Jk6t
- zKTRj4RcNLHG7G7IzvA3L6KqKhjGDYHL1b1RZ00aQWwFVWK1I9cAUQ8pprzvtF4sJmLR
- V6rnaVx8kq3++5AAMQjl/dpYGaxq+iPBSAB1dHEP93TsEbVb3SE7BIHlMCFs8N+TgrD3
- ozp+arMeHlAOs4hXV1ZrfOBzjb4jcEy9835RRA25v6i5JKWHhYU5jFkmZ2ruo+ei+M5Q
- t6pqlP0QlXFjqpkL20Ebo41NGJgHae97v+6KJ9ejDymFP+0CBEgpf+64NpZXSik2LBpB
- TAkA==
+Received: by mail-pf0-x241.google.com with SMTP id a136so760356pfa.0
+ for <openbmc@lists.ozlabs.org>; Tue, 01 Nov 2016 22:56:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=sender:from:to:subject:date:message-id;
+ bh=wZ3xHo78Y3Rz9BXhVpsC4Yz1/STCB8UL2HzTvAwhuNo=;
+ b=et7+X7ThfM1Yu4wzSNRyqLVoh/JJd9jsFLWxU42NRDXAgoDroVxH7eoIXlSBQ+VeTH
+ eqfMXTbz/WyeRjzWXw0F0FgOjNMrQHzPPKRznKJspShii8mZ2xPfBI+OBZeMNgkT8T9v
+ ifG1bftvTU979IhLXgPGEix0aHz1m3T/aA7x0hlqQ9iOMwiye/FkHep9Mym2rMiJhI6Y
+ Mwlru4wf3wyTlTcrlEFBp87w+3vkUEsY3Ffk/oHq/M/rwLETmQr0QrxBV0Q0/Q1SQNC2
+ EWN5OeukMKuVw2XAw0PnGO+a6M+sySu5FUPMGmbel+mrKGRtiToLy8Q8fiodkI+2cYhq
+ SpxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:subject:date:message-id;
- bh=pNDYkkfTHBgTPSFYIubm5mX/YoNQGDwQOe3SHHOGYqU=;
- b=MGLqzjEw0Ahl7VgwLysrkt1bz+L7vKvB49ZcvtNC49gmElRDkqUCRcCa9JbzZDEta+
- f68DIn+BuYF/mExxnIprF+kBUqhjvxaeQd1LNmtj5zFvJT083fC6b5t1DPNF4hE+w/hs
- b2myCoSKF6Y5cPX8QLmEp34j1HR9NX/u5Ey0DQxyJ7KyVTAUbO7wQfD4jLmhPBAgTw06
- QJ+y0jaYPOwk0OJUyn6zz2UDL/7TdhNq+axvfknVGnf9LLgthAJRMVnMvLB/rkFmqE0P
- v2HgkKJKVVcn893NfKbn4fnaXUtnmRQ+xfobGYFl6GXK3z/1j55CunsvvNA/iwNmzCvy
- dLDQ==
-X-Gm-Message-State: ABUngvePnsSZUz4mEf/fe3eyRR/rO23RBuCR4Dl0f1QzlzwtbFt8FASwM+DHP04o0qpcV6YU
-X-Received: by 10.99.49.213 with SMTP id x204mr2884661pgx.92.1478064388739;
- Tue, 01 Nov 2016 22:26:28 -0700 (PDT)
-Received: from raltherr-linux.svl.corp.google.com ([100.123.244.62])
- by smtp.gmail.com with ESMTPSA id jz5sm837381pad.10.2016.11.01.22.26.27
- for <openbmc@lists.ozlabs.org>
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 01 Nov 2016 22:26:28 -0700 (PDT)
-From: Rick Altherr <raltherr@google.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH u-boot v2] Enable FIT image support and FDT loading for
- AST2400/AST2500
-Date: Tue,  1 Nov 2016 22:26:26 -0700
-Message-Id: <1478064386-29575-1-git-send-email-raltherr@google.com>
-X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
+ h=x-gm-message-state:sender:from:to:subject:date:message-id;
+ bh=wZ3xHo78Y3Rz9BXhVpsC4Yz1/STCB8UL2HzTvAwhuNo=;
+ b=bu2pe9kYNyaB0QYKfhrrnn5+uBbURhBXHAC/Nkk1jUguKKoogAhcjPnWvRe65+/R6O
+ l65HKrKS4Svj/1Xuy+WcJS4EUCae+LGi3kSoGmgvxcZpob3xy6WYB/wrrshwYhfZe13G
+ nUAguRgqhPQa/+M9ZL73ZD4mRtKOC4SqVhgjziEYani9ibIEnDsHDH69CudbryG4KSrj
+ 43bJWANSXDUHawBpZH5NkXljXhdwXa3vyyFxQuWDVZGp5hwvzYE6eIoJpz235Q1p0eX4
+ qVzSP9CbMG7Pzeo+P+5xikpjdulHStF4tR9tI7S+26K3PZUZw/jtLEH0fmomOhzwa8dA
+ twHA==
+X-Gm-Message-State: ABUngvcg9TGOd3J3Q8+PijSP+Sw2cbaRMIfFwHSRWgJ5igWWBAj7jNjxG+1oxZ1129y7pA==
+X-Received: by 10.99.154.2 with SMTP id o2mr3056990pge.19.1478066169695;
+ Tue, 01 Nov 2016 22:56:09 -0700 (PDT)
+Received: from aurora.jms.id.au ([203.0.153.9])
+ by smtp.gmail.com with ESMTPSA id 3sm1083730pfo.31.2016.11.01.22.56.06
+ (version=TLS1 cipher=AES128-SHA bits=128/128);
+ Tue, 01 Nov 2016 22:56:09 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Wed, 02 Nov 2016 16:26:02 +1030
+From: Joel Stanley <joel@jms.id.au>
+To: openbmc@lists.ozlabs.org,
+	Xo Wang <xow@google.com>
+Subject: [PATCH 1/2] arm: aspeed: Add Romulus BMC-specific early setup
+Date: Wed,  2 Nov 2016 16:25:56 +1030
+Message-Id: <20161102055557.24349-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.9.3
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,81 +57,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Nov 2016 05:26:31 -0000
+X-List-Received-Date: Wed, 02 Nov 2016 05:56:12 -0000
 
-FIT is the modern u-boot native image format for kernels, device trees,
-and ramdisks.  Enabling FIT only compiles in support for the image
-format.  For these devices, the kernel+dtb and ramdisk are loaded from
-separate locations in flash and can be any mix of legacy or FIT images.
-When using FIT images, the dtb is stored as a separate entry that
-requires CONFIG_OF_LIBFDT to load it into RAM and pass it to the kernel.
-
-Tested under qemu with both legacy and FIT kernel+dtb images for
-palmetto and witherspoon.
-
-Signed-off-by: Rick Altherr <raltherr@google.com>
+Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
-Changes since v1:
-- Fixed commit message grammar
-- Clarified config option needed for FDT loading
----
- configs/ast_g4_ncsi_defconfig | 3 +++
- configs/ast_g4_phy_defconfig  | 3 +++
- configs/ast_g5_ncsi_defconfig | 3 +++
- configs/ast_g5_phy_defconfig  | 3 +++
- 4 files changed, 12 insertions(+)
+ arch/arm/mach-aspeed/aspeed.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/configs/ast_g4_ncsi_defconfig b/configs/ast_g4_ncsi_defconfig
-index 4ee71c5..70cd3c2 100644
---- a/configs/ast_g4_ncsi_defconfig
-+++ b/configs/ast_g4_ncsi_defconfig
-@@ -3,5 +3,8 @@ CONFIG_TARGET_AST_G4=y
- CONFIG_SYS_PROMPT="ast# "
- CONFIG_CMD_DHCP=y
- CONFIG_CMD_PING=y
-+CONFIG_FIT=y
-+CONFIG_FIT_VERBOSE=y
-+CONFIG_OF_LIBFDT=y
- CONFIG_SPI_FLASH=y
- CONFIG_SYS_NS16550=y
-diff --git a/configs/ast_g4_phy_defconfig b/configs/ast_g4_phy_defconfig
-index 61fd69b..468fbc4 100644
---- a/configs/ast_g4_phy_defconfig
-+++ b/configs/ast_g4_phy_defconfig
-@@ -4,5 +4,8 @@ CONFIG_ASPEED_NET_PHY=y
- CONFIG_SYS_PROMPT="ast# "
- CONFIG_CMD_DHCP=y
- CONFIG_CMD_PING=y
-+CONFIG_FIT=y
-+CONFIG_FIT_VERBOSE=y
-+CONFIG_OF_LIBFDT=y
- CONFIG_SPI_FLASH=y
- CONFIG_SYS_NS16550=y
-diff --git a/configs/ast_g5_ncsi_defconfig b/configs/ast_g5_ncsi_defconfig
-index 6d11afb..8a9c297 100644
---- a/configs/ast_g5_ncsi_defconfig
-+++ b/configs/ast_g5_ncsi_defconfig
-@@ -3,5 +3,8 @@ CONFIG_TARGET_AST_G5=y
- CONFIG_SYS_PROMPT="ast# "
- CONFIG_CMD_DHCP=y
- CONFIG_CMD_PING=y
-+CONFIG_FIT=y
-+CONFIG_FIT_VERBOSE=y
-+CONFIG_OF_LIBFDT=y
- CONFIG_SPI_FLASH=y
- CONFIG_SYS_NS16550=y
-diff --git a/configs/ast_g5_phy_defconfig b/configs/ast_g5_phy_defconfig
-index 20f62e0..fd450b9 100644
---- a/configs/ast_g5_phy_defconfig
-+++ b/configs/ast_g5_phy_defconfig
-@@ -4,5 +4,8 @@ CONFIG_ASPEED_NET_PHY=y
- CONFIG_SYS_PROMPT="ast# "
- CONFIG_CMD_DHCP=y
- CONFIG_CMD_PING=y
-+CONFIG_FIT=y
-+CONFIG_FIT_VERBOSE=y
-+CONFIG_OF_LIBFDT=y
- CONFIG_SPI_FLASH=y
- CONFIG_SYS_NS16550=y
+diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+index ebb2224dcd13..0a4578290d5e 100644
+--- a/arch/arm/mach-aspeed/aspeed.c
++++ b/arch/arm/mach-aspeed/aspeed.c
+@@ -214,6 +214,10 @@ static void __init do_zaius_setup(void)
+ 	}
+ }
+ 
++static void __init do_romulus_setup(void)
++{
++	do_ast2500_common_setup();
++}
+ 
+ #define SCU_PASSWORD	0x1688A8A8
+ 
+@@ -262,6 +266,8 @@ static void __init aspeed_init_early(void)
+ 		do_witherspoon_setup();
+ 	if (of_machine_is_compatible("ingrasys,zaius-bmc"))
+ 		do_zaius_setup();
++	if (of_machine_is_compatible("ibm,romulus-bmc"))
++		do_romulus_setup();
+ }
+ 
+ static void __init aspeed_map_io(void)
 -- 
-2.8.0.rc3.226.g39d4020
+2.9.3
