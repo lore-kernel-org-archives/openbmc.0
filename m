@@ -1,53 +1,25 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
+Return-Path: <bradleyb@fuzziesquirrel.com>
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t86Q82RjTzDvHZ
- for <openbmc@lists.ozlabs.org>; Wed,  2 Nov 2016 23:11:12 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=eHtcefGW; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=CZDI/rCv; dkim-atps=neutral
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 55A4B2079A;
- Wed,  2 Nov 2016 08:11:10 -0400 (EDT)
-Received: from frontend2 ([10.202.2.161])
- by compute7.internal (MEProxy); Wed, 02 Nov 2016 08:11:10 -0400
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
- x-me-sender:x-sasl-enc:message-id:subject:from:to:date
- :in-reply-to:references:content-type:mime-version; s=mesmtp; bh=
- Ha/2AjFcDOQhXTU+kimuAnUoaj8=; b=eHtcefGWPknmus4+86k64b0hebARPvIx
- C2ObabIQSkrnblWSD8CqryKQLKlsilG+v/cxVt5JqhPVs4d9BaKYLn/UWrUQq8V2
- PPvyAYOep44Wz2TzWelvzSiz/LElikSmb9mg1yxpjHQrQDNK7RfjJYddfrONqBbz
- Cs0qMOg+Swc=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=x-me-sender:x-sasl-enc:message-id:subject
- :from:to:date:in-reply-to:references:content-type:mime-version;
- s=smtpout; bh=Ha/2AjFcDOQhXTU+kimuAnUoaj8=; b=CZDI/rCvfdKnaK/KZ
- zz14wbvY3QXWbHZr5lzvccijaIX/qKKT+exaOtGybKE5Qt90IkRs8Sgzut/yss6w
- IzxyVph3kWAF766yUh7xB+LOX+BUzMaF/SiLDX12Os4Ivgu1kZbvrtwxYg/+Vy2F
- BX9GvdB3MBT8TtVFG1TRnoDJ8g=
-X-ME-Sender: <xms:3tcZWKMnJoyt4zDP2XXsf95T-QN8dkyklbcxlykVoyHY9F2aXkkVkA>
-X-Sasl-enc: ZI5y4iQBCx5dGKh8aMo87W1ElO9Hl0HjvS1M4UG/mrNc 1478088668
-Received: from keelia (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 25F4ECC0B9;
- Wed,  2 Nov 2016 08:11:05 -0400 (EDT)
-Message-ID: <1478088662.27396.5.camel@aj.id.au>
-Subject: Re: [PATCH 2/2] arm: aspeed: Set SPI master strap for all boards
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org, Xo Wang
- <xow@google.com>
-Date: Wed, 02 Nov 2016 22:41:02 +1030
-In-Reply-To: <20161102055557.24349-2-joel@jms.id.au>
-References: <20161102055557.24349-1-joel@jms.id.au>
- <20161102055557.24349-2-joel@jms.id.au>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-dvZedE5/L2eLE2DQlBRl"
-X-Mailer: Evolution 3.18.5.2-0ubuntu3 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t896f4z4ZzDvJy
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Nov 2016 01:12:55 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Sender: bradleyb@fuzziesquirrel.com
+Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 9.3 \(3124\))
+Subject: Re: Comments on Sensor design.
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <CAPLgG==F66J2S4Ex+tF1dAQY7RxiDD=rOcmZ8Y50jTcMLDWjrw@mail.gmail.com>
+Date: Wed, 2 Nov 2016 10:12:47 -0400
+Cc: Patrick Williams <patrick@stwcx.xyz>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <53C4D16D-D216-4C12-B760-5328AF3B8685@fuzziesquirrel.com>
+References: <20161031210739.k2x67uz6m55j3n2u@asimov>
+ <CAPLgG==F66J2S4Ex+tF1dAQY7RxiDD=rOcmZ8Y50jTcMLDWjrw@mail.gmail.com>
+To: Rick Altherr <raltherr@google.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,82 +31,123 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Nov 2016 12:11:12 -0000
+X-List-Received-Date: Wed, 02 Nov 2016 14:12:59 -0000
 
 
---=-dvZedE5/L2eLE2DQlBRl
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, 2016-11-02 at 16:25 +1030, Joel Stanley wrote:
-> All of the ast2500 systems that we support have incorrect strapping for
-> SPI. This commit moves the Zaius specific strapping change to the common
-> ast2500 setup, so that Witherspoon, Romulus and the EVB can benefit.
+> On Nov 2, 2016, at 12:58 AM, Rick Altherr <raltherr@google.com> wrote:
 >=20
-> This moves the strapping change out from the Zaius board version check.
-> I don't see an issue there, as the will still be correct for future
-> boards.
+> I see Type and Unit being conflated. =20
+> I find it perfectly reasonable to report temperatures (called a Type =
+in the example, in math/physics circles it would be a measurement =
+dimension) in any of =C2=BAF, =C2=BAC, or K (units). =20
+
+I don=E2=80=99t think either approach prevents this.  For either =
+approach the
+logic for getting a single sensor or a group of sensors is the same:
+(GetObject and GetSubTree are methods provided by the mapper service).
+
+Get a specific temperature<type> sensor in degrees K<unit>:
+---
+sensor =3D =
+GetObject(path=3D/xyz/openbmc_project/sensors/temperature/ambient)
+val =3D sensor.value
+unit =3D sensor.unit
+
+Get all temperature sensors:
+---
+sensors =3D GetSubTree(path=3D/xyz/openbmc_project/sensors/temperature)
+for s in sensors:
+    val =3D s.value
+    unit =3D s.unit
+
+The difference really is just with signal match rules and I don=E2=80=99t =
+really see that one approach over the other
+provides any more or less flexibility.  If you want signals for an =
+entire class of sensors, you just use
+the pathnamespace match rule.
+
+> In the monitoring systems I've designed, I've used something like:
 >=20
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
-
-> ---
-> =C2=A0arch/arm/mach-aspeed/aspeed.c | 12 ++++++------
-> =C2=A01 file changed, 6 insertions(+), 6 deletions(-)
+> Interface xyz.openbmc_project.Sensor
+>                 Properties:
+>                      - Instance Identifier (map<string, string>)
+>                      - Value (integer)
+>                      - Unit (string [enumeration])
+>                      - Scale (integer, n where real_value =3D =
+value*10^n)
 >=20
-> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.=
-c
-> index 0a4578290d5e..57c32ff0fa83 100644
-> --- a/arch/arm/mach-aspeed/aspeed.c
-> +++ b/arch/arm/mach-aspeed/aspeed.c
-> @@ -152,6 +152,12 @@ static void __init do_ast2500_common_setup(void)
-> =C2=A0	reg =3D readl(AST_IO(AST_BASE_MAC0 | 0x40));
-> =C2=A0	reg &=3D ~0x80000000;
-> =C2=A0	writel(reg, AST_IO(AST_BASE_MAC0 | 0x40));
-> +
-> +	/* Set strap[13:12] to 01, Enable SPI master */
-> +	/* Set bits in writes to SCU7C are cleared from SCU70 */
-> +	writel(BIT(13), AST_IO(AST_BASE_SCU | 0x7C));
-> +	/* SCU70 is set-only, so no read-modify-write needed */
-> +	writel(BIT(12), AST_IO(AST_BASE_SCU | 0x70));
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void __init do_ast2500evb_setup(void)
-> @@ -190,12 +196,6 @@ static void __init do_zaius_setup(void)
-> =C2=A0		/* D3 in GPIOA/B/C/D direction and data registers */
-> =C2=A0		unsigned long phy_reset_mask =3D BIT(27);
-> =C2=A0
-> -		/* Set strap[13:12] to 01, Enable SPI master */
-> -		/* Set bits in writes to SCU7C are cleared from SCU70 */
-> -		writel(BIT(13), AST_IO(AST_BASE_SCU | 0x7C));
-> -		/* SCU70 is set-only, so no read-modify-write needed */
-> -		writel(BIT(12), AST_IO(AST_BASE_SCU | 0x70));
-> -
-> =C2=A0		/* Disable GPIO I, G/AB pulldowns due to weak driving buffers */
-> =C2=A0		reg =3D readl(AST_IO(AST_BASE_SCU | 0x8C));
-> =C2=A0		writel(reg | BIT(24) | BIT(22), AST_IO(AST_BASE_SCU | 0x8C));
---=-dvZedE5/L2eLE2DQlBRl
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+> Where the path conveys a broader grouping of device type and the =
+measurement dimension:
+> /xyz/openbmc_project/sensors/cpu/temperature
+> /xyz/openbmc_project/sensors/fan/current_speed
+>=20
+> That allows for querying the data in a variety of ways: all data about =
+a given element in the system (/xyz/openbmc_project/sensors/cpu with =
+instance_id <core=3D1>), one type of measurement across all instances of =
+a device type (/xyz/openbmc_project/sensors/cpu/temperature), etc.
+>=20
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+You can still do this if the sensor objects themselves are the =
+instances.  I think I prefer that because:
+ - it moves the query semantics into the rest (or dbus for that matter) =
+domain, which is uniform across the entire project.
 
-iQIcBAABCgAGBQJYGdfWAAoJEJ0dnzgO5LT5CXwP/2fF0daYeAvu7uI0DmQ/I/Ui
-y3BPmaTEMlB6MjGuXfUvtmJxdsU5E9mG0QvYuLQFmhcdppe5xOQChkRTySTp5Uio
-T2CcP4yUeY4qWhrFZS4yCOQcfrbuV4fYVUZMx4QN+Hu05qMwHBIC9UDT1NfXbDkZ
-18AQYfuvpPWkTA/6LQTHPsf4vDtcgmaAWEaNnu+dQYHiPmvRziXC2KKNX1WOBciV
-91aoal1nrcF7nApp713HNc4YN4OXgVv7O0Q2dsdGEwPKd+OhGgR8Vlwp8wIRG5CY
-3cqC1BM3RVAnZ28wGfCKsMyb1ty+5wIiDJb6vPJucaWydaRmJRNeBkZNOcrj7oPn
-Phxym/0AoXfboLSNrk91NKasLZkmhRjBecHZTJ25oE1j982p/QWgz3VnWXc+7ZDL
-7u0H9XTHmSm6vU0iU5bk6Zu0a1C06mjaLtINUKYFXKNlJtmDiChxsCF7p5LEMeLY
-gzXMqPksaH/1oxYdXXVja4q1pWLOIgYhuCljXfVteWysXSnfSoySqaYQRPMMgTTd
-84GVKbdxRVSB76ki1PSF9jrwUVqAQ1Fz68v8WjZSHsZJDCkZF1MRDVTYs+DhVME2
-G9xGtncnTHqtZDabzjVVGhLc+VT8u618waX0N2WQtjG3C9LYyZcRqN7XznAMlPu1
-UKPmxz8/p5B7CefPPSbN
-=xds9
------END PGP SIGNATURE-----
+> On Mon, Oct 31, 2016 at 2:08 PM, Patrick Williams <patrick@stwcx.xyz> =
+wrote:
+> There was a request for us to start on the openbmc interfaces for
+> Sensors in the near future.  Before we get started on it I wanted to
+> solicit feedback on two divergent approaches.
+>=20
+> Before I start, keep in mind that any proposals for DBus designs will
+> show up here:
+>     =
+https://gerrit.openbmc-project.xyz/#/q/project:openbmc/phosphor-dbus-inter=
+faces+status:open
+>=20
+> The two divergent approaches are:
+>=20
+>     1. Have a single interface for all sensor readings.  Example:
+>             Interface xyz.openbmc_project.Sensor
+>                 Properties:
+>                      - Value (integer)
+>                      - Unit (string [enumeration])
+>                      - Scale (integer, n where real_value =3D =
+value*10^n)
+>=20
+>     2. Have unique interfaces for different kinds of sensor readings.
+>             Interface xyz.openbmc_project.Sensor.Temperature
+>             Interface xyz.openbmc_project.Sensor.Tach
+>                 ( Same value and scale properties )
+>=20
+> In both cases the dbus path could contain the 'type':
+>     /xyz/openbmc_project/sensors/temperature/ambient
+>     /xyz/openbmc_project/sensors/fan_tach/fan0
+>=20
+> The question is essentially should the "Unit" property be used to
+> resolve the 'type' or should we have distinct interfaces for each
+> 'type=E2=80=99?
 
---=-dvZedE5/L2eLE2DQlBRl--
+Patrick - after reading this again I don=E2=80=99t understand.  Why =
+would you not just use
+the path namespace to resolve the type?
+
+>=20
+> For some comparison with other standards, CIM had a single Sensor =
+class
+> while Redfish seems to have multiple classes (Fan, Temperature) for =
+each
+> type.
+>=20
+> --
+> Patrick Williams
+>=20
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+>=20
+>=20
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
