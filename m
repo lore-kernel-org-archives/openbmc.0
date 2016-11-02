@@ -3,48 +3,49 @@ Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t86PV0FbyzDvHZ
- for <openbmc@lists.ozlabs.org>; Wed,  2 Nov 2016 23:10:36 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t86Q82RjTzDvHZ
+ for <openbmc@lists.ozlabs.org>; Wed,  2 Nov 2016 23:11:12 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=RmZy1ehS; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=eHtcefGW; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=OzgqyssE; dkim-atps=neutral
+ header.b=CZDI/rCv; dkim-atps=neutral
 Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 668EC2092A;
- Wed,  2 Nov 2016 08:10:34 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute7.internal (MEProxy); Wed, 02 Nov 2016 08:10:34 -0400
+ by mailout.nyi.internal (Postfix) with ESMTP id 55A4B2079A;
+ Wed,  2 Nov 2016 08:11:10 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute7.internal (MEProxy); Wed, 02 Nov 2016 08:11:10 -0400
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
  x-me-sender:x-sasl-enc:message-id:subject:from:to:date
  :in-reply-to:references:content-type:mime-version; s=mesmtp; bh=
- +N4yyv5o9XhezQkXzisENJDa4Yg=; b=RmZy1ehS5L8aSS2ECefuLf9Ky7V366FL
- NyJyeqo7e17+VzlT6ZqVUk6qTk9Eftv2ios3aOzzmOcQqapuNtVs1htaOwsfSZL0
- XPwruAvOkZsL1j7Jh+VSrZGDdT0RNAAE3D9mrHI+uX5q/JXJnzztSARBcYtc+gZ+
- cwuTFAs9h5c=
+ Ha/2AjFcDOQhXTU+kimuAnUoaj8=; b=eHtcefGWPknmus4+86k64b0hebARPvIx
+ C2ObabIQSkrnblWSD8CqryKQLKlsilG+v/cxVt5JqhPVs4d9BaKYLn/UWrUQq8V2
+ PPvyAYOep44Wz2TzWelvzSiz/LElikSmb9mg1yxpjHQrQDNK7RfjJYddfrONqBbz
+ Cs0qMOg+Swc=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
  messagingengine.com; h=x-me-sender:x-sasl-enc:message-id:subject
  :from:to:date:in-reply-to:references:content-type:mime-version;
- s=smtpout; bh=+N4yyv5o9XhezQkXzisENJDa4Yg=; b=OzgqyssEZk68xv94a
- yWUzAY5SUWWp81BQVU1YeYnUZPb42WPyyrpE6nBZgaK8y+jhGhP/Qk2tR7F0WZXp
- 8Z/i1kY0aWQX8vsVTVOS0dlecQXYkxug+zZrGpkpDv31NQzQiMVacup+FBuw8IHl
- nt5i2ZpfS++EXH1pkPjk/kQWlo=
-X-ME-Sender: <xms:utcZWLhPtDxHn0Gj61OqgDIyteaccwDnNwFoh2t6S0FI2GN8RZTUlw>
-X-Sasl-enc: jfoSnhTPfkvVSkt92Jhn1TWHVvHCDUPWkfRNdeYqATjl 1478088633
+ s=smtpout; bh=Ha/2AjFcDOQhXTU+kimuAnUoaj8=; b=CZDI/rCvfdKnaK/KZ
+ zz14wbvY3QXWbHZr5lzvccijaIX/qKKT+exaOtGybKE5Qt90IkRs8Sgzut/yss6w
+ IzxyVph3kWAF766yUh7xB+LOX+BUzMaF/SiLDX12Os4Ivgu1kZbvrtwxYg/+Vy2F
+ BX9GvdB3MBT8TtVFG1TRnoDJ8g=
+X-ME-Sender: <xms:3tcZWKMnJoyt4zDP2XXsf95T-QN8dkyklbcxlykVoyHY9F2aXkkVkA>
+X-Sasl-enc: ZI5y4iQBCx5dGKh8aMo87W1ElO9Hl0HjvS1M4UG/mrNc 1478088668
 Received: from keelia (ppp203-122-213-247.static.internode.on.net
  [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id A69B8F29CF;
- Wed,  2 Nov 2016 08:10:32 -0400 (EDT)
-Message-ID: <1478088626.27396.4.camel@aj.id.au>
-Subject: Re: [PATCH 1/2] arm: aspeed: Add Romulus BMC-specific early setup
+ by mail.messagingengine.com (Postfix) with ESMTPA id 25F4ECC0B9;
+ Wed,  2 Nov 2016 08:11:05 -0400 (EDT)
+Message-ID: <1478088662.27396.5.camel@aj.id.au>
+Subject: Re: [PATCH 2/2] arm: aspeed: Set SPI master strap for all boards
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org, Xo Wang
  <xow@google.com>
-Date: Wed, 02 Nov 2016 22:40:26 +1030
-In-Reply-To: <20161102055557.24349-1-joel@jms.id.au>
+Date: Wed, 02 Nov 2016 22:41:02 +1030
+In-Reply-To: <20161102055557.24349-2-joel@jms.id.au>
 References: <20161102055557.24349-1-joel@jms.id.au>
+ <20161102055557.24349-2-joel@jms.id.au>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-FPOVxh2yDE7rLHU/Su7J"
+ protocol="application/pgp-signature"; boundary="=-dvZedE5/L2eLE2DQlBRl"
 X-Mailer: Evolution 3.18.5.2-0ubuntu3 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -58,48 +59,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Nov 2016 12:10:39 -0000
+X-List-Received-Date: Wed, 02 Nov 2016 12:11:12 -0000
 
 
---=-FPOVxh2yDE7rLHU/Su7J
+--=-dvZedE5/L2eLE2DQlBRl
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Wed, 2016-11-02 at 16:25 +1030, Joel Stanley wrote:
+> All of the ast2500 systems that we support have incorrect strapping for
+> SPI. This commit moves the Zaius specific strapping change to the common
+> ast2500 setup, so that Witherspoon, Romulus and the EVB can benefit.
+>=20
+> This moves the strapping change out from the Zaius board version check.
+> I don't see an issue there, as the will still be correct for future
+> boards.
+>=20
 > Signed-off-by: Joel Stanley <joel@jms.id.au>
 
 Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 
 > ---
-> =C2=A0arch/arm/mach-aspeed/aspeed.c | 6 ++++++
-> =C2=A01 file changed, 6 insertions(+)
+> =C2=A0arch/arm/mach-aspeed/aspeed.c | 12 ++++++------
+> =C2=A01 file changed, 6 insertions(+), 6 deletions(-)
 >=20
-> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-
-> aspeed/aspeed.c
-> index ebb2224dcd13..0a4578290d5e 100644
+> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.=
+c
+> index 0a4578290d5e..57c32ff0fa83 100644
 > --- a/arch/arm/mach-aspeed/aspeed.c
 > +++ b/arch/arm/mach-aspeed/aspeed.c
-> @@ -214,6 +214,10 @@ static void __init do_zaius_setup(void)
-> =C2=A0	}
+> @@ -152,6 +152,12 @@ static void __init do_ast2500_common_setup(void)
+> =C2=A0	reg =3D readl(AST_IO(AST_BASE_MAC0 | 0x40));
+> =C2=A0	reg &=3D ~0x80000000;
+> =C2=A0	writel(reg, AST_IO(AST_BASE_MAC0 | 0x40));
+> +
+> +	/* Set strap[13:12] to 01, Enable SPI master */
+> +	/* Set bits in writes to SCU7C are cleared from SCU70 */
+> +	writel(BIT(13), AST_IO(AST_BASE_SCU | 0x7C));
+> +	/* SCU70 is set-only, so no read-modify-write needed */
+> +	writel(BIT(12), AST_IO(AST_BASE_SCU | 0x70));
 > =C2=A0}
 > =C2=A0
-> +static void __init do_romulus_setup(void)
-> +{
-> +	do_ast2500_common_setup();
-> +}
+> =C2=A0static void __init do_ast2500evb_setup(void)
+> @@ -190,12 +196,6 @@ static void __init do_zaius_setup(void)
+> =C2=A0		/* D3 in GPIOA/B/C/D direction and data registers */
+> =C2=A0		unsigned long phy_reset_mask =3D BIT(27);
 > =C2=A0
-> =C2=A0#define SCU_PASSWORD	0x1688A8A8
-> =C2=A0
-> @@ -262,6 +266,8 @@ static void __init aspeed_init_early(void)
-> =C2=A0		do_witherspoon_setup();
-> =C2=A0	if (of_machine_is_compatible("ingrasys,zaius-bmc"))
-> =C2=A0		do_zaius_setup();
-> +	if (of_machine_is_compatible("ibm,romulus-bmc"))
-> +		do_romulus_setup();
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void __init aspeed_map_io(void)
---=-FPOVxh2yDE7rLHU/Su7J
+> -		/* Set strap[13:12] to 01, Enable SPI master */
+> -		/* Set bits in writes to SCU7C are cleared from SCU70 */
+> -		writel(BIT(13), AST_IO(AST_BASE_SCU | 0x7C));
+> -		/* SCU70 is set-only, so no read-modify-write needed */
+> -		writel(BIT(12), AST_IO(AST_BASE_SCU | 0x70));
+> -
+> =C2=A0		/* Disable GPIO I, G/AB pulldowns due to weak driving buffers */
+> =C2=A0		reg =3D readl(AST_IO(AST_BASE_SCU | 0x8C));
+> =C2=A0		writel(reg | BIT(24) | BIT(22), AST_IO(AST_BASE_SCU | 0x8C));
+--=-dvZedE5/L2eLE2DQlBRl
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
@@ -107,19 +122,19 @@ Content-Transfer-Encoding: 7bit
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAABCgAGBQJYGdeyAAoJEJ0dnzgO5LT5FIsQAK32OSR21C37DjGjC1hFjGcD
-3GEfU+UcBfdtDfwRMiyexazxKVNmwTnR7M1NQqem4eR00j2uUIRE1WRYLxsEssfI
-KZv8jzNGfEnEfc31VJ2ET/ZfeH5B2maiTmj6p6QHKPWYPnOAJ4hmTi0D64WQycM8
-ZL36Sarp1Ti/bkvcM1nMHPsksp2fmxgLZf215nctmlkKOHzOf52gZOcXw4AGuhK+
-9PZ7FaPJXIPjUbWmL1OKgSF4+jtjQ/f95FMaRkOxBiUvyROrMeoY+pvpiRQed8e6
-DsWkNOWvrTIM6yzKgRnIaYJb6MW8nHwJ0V7KA28C+9tIzw4UBNQvWH35GW1SfuXY
-yBFQy2oNwy+RSQMaUSGRUmbuA+NKniXwhTvgZSxE6HSomzZn+9inR1S6ouQmt+gZ
-ZcevbuKStQnKXL6fkQYLKMb1gOhMREr7eTWyAsjbk2xkEfCHqBcKtRdSyQJReMW0
-j5x70ls+bbzZ+xUbxWTeJlYenXPvL0wn3Dv343Nf2RRUtluzWcY1HmXdw0Cs+N88
-C7IFmH2P8IorbHK3dP9CksFFGLq/JFVSvcDQaV0a9VV9gZ6rwZ9g7O84MHpNF6dL
-Gaod/v+tQHCe3FNX9VIb7Nls9Q8/ckmb9HunnI7dhR5RjPEaZIEKrL/7kFqx6WLp
-5VbFAL/UhxDVapSLfHAZ
-=Y0ye
+iQIcBAABCgAGBQJYGdfWAAoJEJ0dnzgO5LT5CXwP/2fF0daYeAvu7uI0DmQ/I/Ui
+y3BPmaTEMlB6MjGuXfUvtmJxdsU5E9mG0QvYuLQFmhcdppe5xOQChkRTySTp5Uio
+T2CcP4yUeY4qWhrFZS4yCOQcfrbuV4fYVUZMx4QN+Hu05qMwHBIC9UDT1NfXbDkZ
+18AQYfuvpPWkTA/6LQTHPsf4vDtcgmaAWEaNnu+dQYHiPmvRziXC2KKNX1WOBciV
+91aoal1nrcF7nApp713HNc4YN4OXgVv7O0Q2dsdGEwPKd+OhGgR8Vlwp8wIRG5CY
+3cqC1BM3RVAnZ28wGfCKsMyb1ty+5wIiDJb6vPJucaWydaRmJRNeBkZNOcrj7oPn
+Phxym/0AoXfboLSNrk91NKasLZkmhRjBecHZTJ25oE1j982p/QWgz3VnWXc+7ZDL
+7u0H9XTHmSm6vU0iU5bk6Zu0a1C06mjaLtINUKYFXKNlJtmDiChxsCF7p5LEMeLY
+gzXMqPksaH/1oxYdXXVja4q1pWLOIgYhuCljXfVteWysXSnfSoySqaYQRPMMgTTd
+84GVKbdxRVSB76ki1PSF9jrwUVqAQ1Fz68v8WjZSHsZJDCkZF1MRDVTYs+DhVME2
+G9xGtncnTHqtZDabzjVVGhLc+VT8u618waX0N2WQtjG3C9LYyZcRqN7XznAMlPu1
+UKPmxz8/p5B7CefPPSbN
+=xds9
 -----END PGP SIGNATURE-----
 
---=-FPOVxh2yDE7rLHU/Su7J--
+--=-dvZedE5/L2eLE2DQlBRl--
