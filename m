@@ -1,51 +1,52 @@
 Return-Path: <cyrilbur@gmail.com>
-Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
- [IPv6:2607:f8b0:400e:c00::241])
+Received: from mail-pf0-x242.google.com (mail-pf0-x242.google.com
+ [IPv6:2607:f8b0:400e:c00::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t8Qpx2bFZzDvPX
- for <openbmc@lists.ozlabs.org>; Thu,  3 Nov 2016 11:30:17 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t8RNl5bpRzDvPX
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Nov 2016 11:56:07 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=kL1a9ddv; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=h3ntchtH; 
  dkim-atps=neutral
-Received: by mail-pf0-x241.google.com with SMTP id n85so3042184pfi.3
- for <openbmc@lists.ozlabs.org>; Wed, 02 Nov 2016 17:30:17 -0700 (PDT)
+Received: by mail-pf0-x242.google.com with SMTP id i88so3103216pfk.2
+ for <openbmc@lists.ozlabs.org>; Wed, 02 Nov 2016 17:56:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=message-id:subject:from:to:date:in-reply-to:references:mime-version
  :content-transfer-encoding;
- bh=Sb5qAY6ILdkme7PHTO3CawjZQ1Dbtk6uGHKoFg+CZqI=;
- b=kL1a9ddvEI97ykY8+qBJINAy7dAmopEnoYrdNQQNzsUJtaPQMPZxOHtkM1PCJGQejL
- osj8VRROSOOMA1LCQHlLegYfurenA+4y+Qo+Nf8eRLwYTy2lZf3cXJfLQ9cZce8Fm+oN
- +BmU7YCJFOwUbSo8LR5IuLSLFcBdH/ciRWuGMCzgGDDvGGjBLTvxDO0R7IhD5pYO5Zdx
- zCJbXxNqGWKhmvsbiNyZ1OFfEQmNRb6Y8Lm4EEzb8+bTB5fdKw4IK6xHwGTeoYL9ybGp
- tvlpNKuRRpo1rbe1LEQhM+1jvNFSAGhsQ/Hs4i5ETSFCuCW01Y4slm6p75Q6PzaNU+wA
- tBWQ==
+ bh=ChKbzNSyzvrGc9QV8G1p6SAOPpjSPKH1mxZSF/P4BYc=;
+ b=h3ntchtHDVYT00DR/EirZ3ERkYJgKIrPheuuO5Z9qKUKBPRjtmfpfbnASar1MxdyRp
+ Hdc27ft9NadlBAyZwaj7lnwMeDjINZq+beHaiM5L9JRHxZQnAJ2I2BGFWtj4fYFs9IUT
+ 4domd84fPoi3Vf3kXRFF3/jHV+Rx28KlNq1B2ZLVlAlYmgnndDwXuiz9fXDrHW8oqRBT
+ 3hxHSIaW0ezGFCGYHlgTt4FUWXLRvyFoFvQI4lWuBx7A80c5h694muYCpSwbs4itAeXt
+ 6yZnBijvqQUB7JZR933l9oFvjigvIUWBVIu5tb4Rf4ZwrmbPdzeVnd486NBPcrn5GiSm
+ jQeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Sb5qAY6ILdkme7PHTO3CawjZQ1Dbtk6uGHKoFg+CZqI=;
- b=KWJwCypoRbRq4FNK303pw5O+6+dwJMj7xTk8UW4Ajveq1dFAUDIgdPoxGCYtxFrmrg
- SlLAlDvVjs9hbMWQD/jvSZEpGUYxIxXjmDtHvIHGf1dCFmDQV1CeI3HaZ+gepjF6no+E
- fj53oH6rBktOlryhfCxqN3aumqrZ6ZBbH1WHhSegmKclpaOG8P05Q56Q3s/yxWs+CreY
- nrrrZ2zxFOC12zFY51Nm1GiF9kcWK3VdBoQrDPTt4hKoXliGYp4sPakpKXcj4ozhFk/m
- 5v8i1F/fhXJrxK9syKudaUbK95Q7pfgqjnUmx18G2DFKJJdNyAES1LJQ4SgCFRC2KLzn
- n6QQ==
-X-Gm-Message-State: ABUngvf0pEzKDgqhg1GlLEyrkB/cAUVLK4aVMKUtCM7lJw8SzlVGA2JYaP+JNZucrPZX6w==
-X-Received: by 10.99.56.22 with SMTP id f22mr9749639pga.72.1478133015694;
- Wed, 02 Nov 2016 17:30:15 -0700 (PDT)
+ bh=ChKbzNSyzvrGc9QV8G1p6SAOPpjSPKH1mxZSF/P4BYc=;
+ b=d2yi2YLguVMZzrpFrp4oNy7zssXEogJh0gbFVmC0JidGbGCs4k+YsPQXcixnitf3HL
+ hUtyJVTua/uT1ylwS5Pz+zZRodl6Mt9rV5TXQIcd5PiLxRuyJjAiZwe22xMh6SzL9id0
+ LVsOyFU7S1viaGsvBRRqDFb2tO9IIj8H93oupANy7rW3rDYJG1yV6itOGM7AeW+tN3MO
+ Yqc7W1cGheDfPpJ6P0yBUTaWzeIos6w/AjqAIv7jzJM/g4zl06CLkes23mUq8Z+lvWTh
+ QjEXb4WBl+cwXHOE1+fZVOqEbEyRKxvBOWDVS9u8iGQWSKI+zIvd6jYzL1j8EfZwCMbw
+ sF0Q==
+X-Gm-Message-State: ABUngvfNoki81XmlS/bgq90GBGgeYXh7CnGmyZPyPLho3K1GmJk7RHDfSlP0EY9i6SNCfw==
+X-Received: by 10.98.18.6 with SMTP id a6mr12126420pfj.184.1478134565883;
+ Wed, 02 Nov 2016 17:56:05 -0700 (PDT)
 Received: from cyril.ozlabs.ibm.com ([122.99.82.10])
- by smtp.googlemail.com with ESMTPSA id af14sm7448070pac.13.2016.11.02.17.30.13
+ by smtp.googlemail.com with ESMTPSA id 186sm2167902pfv.61.2016.11.02.17.56.03
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 02 Nov 2016 17:30:15 -0700 (PDT)
-Message-ID: <1478133011.728.5.camel@gmail.com>
-Subject: Re: [PATCH linux dev-4.7 0/8] BT driver sync up
+ Wed, 02 Nov 2016 17:56:05 -0700 (PDT)
+Message-ID: <1478134561.728.7.camel@gmail.com>
+Subject: Re: [PATCH linux dev-4.7 4/8] ipmi: add an Aspeed BT IPMI BMC driver
 From: Cyril Bur <cyrilbur@gmail.com>
 To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, 
  openbmc@lists.ozlabs.org
-Date: Thu, 03 Nov 2016 11:30:11 +1100
-In-Reply-To: <1477465067-19034-1-git-send-email-clg@kaod.org>
+Date: Thu, 03 Nov 2016 11:56:01 +1100
+In-Reply-To: <1477465067-19034-5-git-send-email-clg@kaod.org>
 References: <1477465067-19034-1-git-send-email-clg@kaod.org>
+ <1477465067-19034-5-git-send-email-clg@kaod.org>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailer: Evolution 3.22.2 
 Mime-Version: 1.0
@@ -61,59 +62,157 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Nov 2016 00:30:17 -0000
+X-List-Received-Date: Thu, 03 Nov 2016 00:56:08 -0000
 
 On Wed, 2016-10-26 at 08:57 +0200, Cédric Le Goater wrote:
-> Hello,
+> Backport from mainline of the main IPMI BMC driver patch plus fixes :
 > 
-> Here is a serie syncing the OpenBMC kernel with the BT driver merged
-> in mainline linux. This kernel needs an updated version of btbridged
-> :
+>  - commit d94655b405ba ("ipmi/bt-bmc: remove redundant return value
+>    check of platform_get_resource()")
+>  - commit a3e6061bad62 ("ipmi/bt-bmc: add a dependency on
+>    ARCH_ASPEED")
+>  - commit 1a377a79211a ("ipmi: Fix ioremap error handling in bt-bmc")
+>  - commit 54f9c4d0778b ("ipmi: add an Aspeed BT IPMI BMC driver")
 > 
->      https://github.com/legoater/btbridge/commits/master
-> 
-> The last two patches add a request expiry list and some configuration
-> through sysfs. These are for review only as they need to be sent to
-> mainline first.
-> 
+> Signed-off-by: Cédric Le Goater <clg@kaod.org>
+> ---
 
-Tested this series with patched btbridge on palmetto, host comes up
-with no problems.
+[snip]
 
-> Thanks,
-> 
-> C.
-> 
-> Cédric Le Goater (8):
->   Revert "misc: Add Aspeed BT IPMI host driver"
->   ARM: aspeed: remove previous definitions in default config
->   ARM: dts: aspeed: remove previous iBT definitions
->   ipmi: add an Aspeed BT IPMI BMC driver
->   ARM: aspeed: Add defconfigs for CONFIG_ASPEED_BT_IPMI_BMC
->   ARM: dts: aspeed: Enable BT IPMI BMC device
->   ipmi: maintain a request expiry list
->   ipmi: add a sysfs file for configure maximum response time
-> 
->  .../bindings/char/ipmi/aspeed,ast2400-bt-bmc.txt   |  23 +
->  arch/arm/boot/dts/aspeed-g4.dtsi                   |   2 +-
->  arch/arm/boot/dts/aspeed-g5.dtsi                   |   2 +-
->  arch/arm/configs/aspeed_g4_defconfig               |   2 +-
->  arch/arm/configs/aspeed_g5_defconfig               |   2 +-
->  drivers/Makefile                                   |   2 +-
->  drivers/char/ipmi/Kconfig                          |   8 +
->  drivers/char/ipmi/Makefile                         |   1 +
->  drivers/char/ipmi/bt-bmc.c                         | 668
-> +++++++++++++++++++++
->  drivers/misc/Kconfig                               |   5 -
->  drivers/misc/Makefile                              |   1 -
->  drivers/misc/bt-host.c                             | 427 ---------
-> ----
->  include/uapi/linux/Kbuild                          |   2 +-
->  include/uapi/linux/{bt-host.h => bt-bmc.h}         |  12 +-
->  14 files changed, 712 insertions(+), 445 deletions(-)
->  create mode 100644
-> Documentation/devicetree/bindings/char/ipmi/aspeed,ast2400-bt-bmc.txt
->  create mode 100644 drivers/char/ipmi/bt-bmc.c
->  delete mode 100644 drivers/misc/bt-host.c
->  rename include/uapi/linux/{bt-host.h => bt-bmc.h} (55%)
-> 
+> +
+> +static int bt_bmc_probe(struct platform_device *pdev)
+> +{
+> +	struct bt_bmc *bt_bmc;
+> +	struct device *dev;
+> +	struct resource *res;
+> +	int rc;
+> +
+> +	if (!pdev || !pdev->dev.of_node)
+> +		return -ENODEV;
+> +
+> +	dev = &pdev->dev;
+> +	dev_info(dev, "Found bt bmc device\n");
+> +
+> +	bt_bmc = devm_kzalloc(dev, sizeof(*bt_bmc), GFP_KERNEL);
+> +	if (!bt_bmc)
+> +		return -ENOMEM;
+> +
+> +	dev_set_drvdata(&pdev->dev, bt_bmc);
+> +
+> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> +	bt_bmc->base = devm_ioremap_resource(&pdev->dev, res);
+> +	if (IS_ERR(bt_bmc->base))
+> +		return PTR_ERR(bt_bmc->base);
+> +
+> +	mutex_init(&bt_bmc->mutex);
+> +	init_waitqueue_head(&bt_bmc->queue);
+> +
+> +	bt_bmc->miscdev.minor	= MISC_DYNAMIC_MINOR,
+> +		bt_bmc->miscdev.name	= DEVICE_NAME,
+> +		bt_bmc->miscdev.fops	= &bt_bmc_fops,
+> +		bt_bmc->miscdev.parent = dev;
+> +	rc = misc_register(&bt_bmc->miscdev);
+> +	if (rc) {
+> +		dev_err(dev, "Unable to register misc device\n");
+> +		return rc;
+> +	}
+> +
+> +	bt_bmc_config_irq(bt_bmc, pdev);
+> +
+> +	if (bt_bmc->irq) {
+> +		dev_info(dev, "Using IRQ %d\n", bt_bmc->irq);
+> +	} else {
+> +		dev_info(dev, "No IRQ; using timer\n");
+> +		setup_timer(&bt_bmc->poll_timer, poll_timer,
+> +			    (unsigned long)bt_bmc);
+> +		bt_bmc->poll_timer.expires = jiffies +
+> msecs_to_jiffies(10);
+> +		add_timer(&bt_bmc->poll_timer);
+> +	}
+> +
+> +	iowrite32((BT_IO_BASE << BT_CR0_IO_BASE) |
+> +		  (BT_IRQ << BT_CR0_IRQ) |
+> +		  BT_CR0_EN_CLR_SLV_RDP |
+> +		  BT_CR0_EN_CLR_SLV_WRP |
+> +		  BT_CR0_ENABLE_IBT,
+> +		  bt_bmc->base + BT_CR0);
+> +
+> +	clr_b_busy(bt_bmc);
+> +
+> +	return 0;
+> +}
+> +
+> +static int bt_bmc_remove(struct platform_device *pdev)
+> +{
+> +	struct bt_bmc *bt_bmc = dev_get_drvdata(&pdev->dev);
+> +
+> +	misc_deregister(&bt_bmc->miscdev);
+> +	if (!bt_bmc->irq)
+> +		del_timer_sync(&bt_bmc->poll_timer);
+
+The old bt-host driver had:
+       devm_iounmap(&pdev->dev, bt_host->base);
+       devm_kfree(&pdev->dev, bt_host);
+
+Is there kernel magic that means they aren't needed?
+
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id bt_bmc_match[] = {
+> +	{ .compatible = "aspeed,ast2400-bt-bmc" },
+> +	{ },
+> +};
+> +
+> +static struct platform_driver bt_bmc_driver = {
+> +	.driver = {
+> +		.name		= DEVICE_NAME,
+> +		.of_match_table = bt_bmc_match,
+> +	},
+> +	.probe = bt_bmc_probe,
+> +	.remove = bt_bmc_remove,
+> +};
+> +
+> +module_platform_driver(bt_bmc_driver);
+> +
+> +MODULE_DEVICE_TABLE(of, bt_bmc_match);
+> +MODULE_LICENSE("GPL");
+> +MODULE_AUTHOR("Alistair Popple <alistair@popple.id.au>");
+> +MODULE_DESCRIPTION("Linux device interface to the BT interface");
+> diff --git a/include/uapi/linux/Kbuild b/include/uapi/linux/Kbuild
+> index ec10cfef166a..9493842de93b 100644
+> --- a/include/uapi/linux/Kbuild
+> +++ b/include/uapi/linux/Kbuild
+> @@ -74,6 +74,7 @@ header-y += bpf_common.h
+>  header-y += bpf.h
+>  header-y += bpqether.h
+>  header-y += bsg.h
+> +header-y += bt-bmc.h
+>  header-y += btrfs.h
+>  header-y += can.h
+>  header-y += capability.h
+> diff --git a/include/uapi/linux/bt-bmc.h b/include/uapi/linux/bt-
+> bmc.h
+> new file mode 100644
+> index 000000000000..d9ec766a63d0
+> --- /dev/null
+> +++ b/include/uapi/linux/bt-bmc.h
+> @@ -0,0 +1,18 @@
+> +/*
+> + * Copyright (c) 2015-2016, IBM Corporation.
+> + *
+> + * This program is free software; you can redistribute it and/or
+> + * modify it under the terms of the GNU General Public License
+> + * as published by the Free Software Foundation; either version
+> + * 2 of the License, or (at your option) any later version.
+> + */
+> +
+> +#ifndef _UAPI_LINUX_BT_BMC_H
+> +#define _UAPI_LINUX_BT_BMC_H
+> +
+> +#include <linux/ioctl.h>
+> +
+> +#define __BT_BMC_IOCTL_MAGIC	0xb1
+> +#define BT_BMC_IOCTL_SMS_ATN	_IO(__BT_BMC_IOCTL_MAGIC, 0x00)
+> +
+> +#endif /* _UAPI_LINUX_BT_BMC_H */
