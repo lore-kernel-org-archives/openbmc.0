@@ -1,50 +1,34 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-oi0-x22a.google.com (mail-oi0-x22a.google.com
- [IPv6:2607:f8b0:4003:c06::22a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t8Zck6WRnzDq8M
- for <openbmc@lists.ozlabs.org>; Thu,  3 Nov 2016 17:21:58 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=iDyYm3uk; 
- dkim-atps=neutral
-Received: by mail-oi0-x22a.google.com with SMTP id v84so66285030oie.3
- for <openbmc@lists.ozlabs.org>; Wed, 02 Nov 2016 23:21:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to; bh=WjUZN3UwlOlrUFa6sU/jqgBD0QkyuiNMWRLpdc/fGjo=;
- b=iDyYm3uki6HHNdEUk0CovTP2RcnQ7136Nr9+Dhw2Ml8rGxAn8tOOhhVIJBoGSdwlOW
- 2JzDMnlKLOikwpM8CIPM6pAxHNbIZQZINrxMhVns4znbTcLa3NCw3Brc4uhNdnS/lz9x
- 4E9gMFZmZyA7Z0mjgWvUJyFWGPxqFBSNSAUyOVRYPAG1xHsw1Obt8DNk8FNZrly6Tnm6
- VT6GaqUSISxZur+IWeu2YQWQ8NiF+89ARov08DX1Hl9VgqckwCSN2kaER0jdLgyqK4JH
- 9WAm98wpns6c4O9kvnO9NSQdcuSMKbEJYJjZXd5k9UcL7bo/PIIQNeM5rfVGTMZIwLD9
- MMXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to;
- bh=WjUZN3UwlOlrUFa6sU/jqgBD0QkyuiNMWRLpdc/fGjo=;
- b=XbPTI40Yu2XNmV6rhjvC9yIH2Cjy106f4IqDEecJQn/b4Bh6Stfoh59ingDm7BNs4i
- 34sd+grDxLTCH4qyUTw7R7POzDjHGB0OPSP2cPXy2PDtVm//RddeEwYjj3S1QyHLVI7W
- nOIqeThwDNO8kle2z82MZX8xBV3rMx4weetRwyf+0zdUa6ekp2SXR4XfsPFRyggdcMqD
- Y4QOZQbWfu7MV3M7cIeL1Jh++PQOphrmYkQDeiAJFBNpJHYPsBHKZH3+IPNRtKGbwWkP
- Ivt8wX2f/w29g7Yz9sE+L58RSrQutn1GL7tB37px306RinuTm6gkyAroNzsmSwYwX3pY
- af7w==
-X-Gm-Message-State: ABUngvc/sZ22tHSWxr7Y3b4cdNIsRi4/fHkJ38OQ+kHGo6hBsPRikRRPRuEXEjCLeHWRZfN15rPu4yDivB/Jfg==
-X-Received: by 10.157.22.200 with SMTP id s8mr4663828ots.14.1478154116650;
- Wed, 02 Nov 2016 23:21:56 -0700 (PDT)
+Return-Path: <clg@kaod.org>
+Received: from 4.mo1.mail-out.ovh.net (4.mo1.mail-out.ovh.net [46.105.76.26])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t8cs82tFrzDvPH
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Nov 2016 19:02:52 +1100 (AEDT)
+Received: from player770.ha.ovh.net (b7.ovh.net [213.186.33.57])
+ by mo1.mail-out.ovh.net (Postfix) with ESMTP id CC4A215AD8
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Nov 2016 09:02:46 +0100 (CET)
+Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: clg@kaod.org)
+ by player770.ha.ovh.net (Postfix) with ESMTPSA id BD09E3C0090;
+ Thu,  3 Nov 2016 09:02:41 +0100 (CET)
+Subject: Re: [PATCH qemu] wdt: aspeed: Fix failed reboot due to timer
+ miscalculation
+To: Andrew Jeffery <andrew@aj.id.au>
+References: <1478150842-5636-1-git-send-email-andrew@aj.id.au>
+Cc: OpenBMC <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <bc8975a5-ad34-636d-7c29-ecd4c0a4aea3@kaod.org>
+Date: Thu, 3 Nov 2016 09:02:40 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.4.0
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.182.107.226 with HTTP; Wed, 2 Nov 2016 23:21:36 -0700 (PDT)
-In-Reply-To: <CACPK8Xcyic3BsnxTLx8c5p-=34xqrfDTZ4bFKa309hCSZPuhAw@mail.gmail.com>
-References: <CACPK8Xcyic3BsnxTLx8c5p-=34xqrfDTZ4bFKa309hCSZPuhAw@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 3 Nov 2016 16:51:36 +1030
-X-Google-Sender-Auth: ewC_vtLvjGMWBtMlC1r9B7RorSg
-Message-ID: <CACPK8Xf8=uCE3tSrUMtELgYsky6Br5b14BxL3DdH-XTk7ntzGg@mail.gmail.com>
-Subject: Re: op-flasher changes
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <1478150842-5636-1-git-send-email-andrew@aj.id.au>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 17232461024497732563
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrkeehgdeivdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,44 +40,164 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Nov 2016 06:21:59 -0000
+X-List-Received-Date: Thu, 03 Nov 2016 08:02:52 -0000
 
-On Thu, Nov 3, 2016 at 1:09 PM, Joel Stanley <joel@jms.id.au> wrote:
-> This requires some testing. I have a tree that updates the version of
-> skeleton we use to include the first set of patches here:
->
->   https://github.com/shenki/openbmc/tree/flasher-cleanups
+On 11/03/2016 06:27 AM, Andrew Jeffery wrote:
+> The implementation was incorrectly scaling the reload value by
+> nanoseconds per second. In reality the span represented by the reload
+> value is determined by the selected clock, either APB or 1MHz.
+> 
+> Test the selected clock and apply the appropriate scaling, then convert to
+> nanoseconds for the timer infrastructure. Note that the APB rate is hard-coded
+> and reflects the value used by the timer controller, and isn't necessarily an
+> accurate representation of the clock configuration programmed in the SCU.
+> 
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 
-I tested this tree on a Palmetto by using rest to update the PNOR. It
-looks like it succeeded:
+ah ! reboot works ! thanks for taking some time to fix this.
 
-Nov 03 06:11:10 palmetto download_manager.py[668]: Downloading:
-palmetto.pnor from 10.61.2.7
-Nov 03 06:11:10 palmetto phosphor-gevent[782]:
-::c063:abb6:8e91:f402%1230014792 - - [2016-11-03 06:11:10] "POST
-/org/openbmc/control/flash/bios/action/updateViaTftp HTTP/1.1" 200 169
-0.257042
-Nov 03 06:12:00 palmetto flash_bios.exe[710]: Starting flasher:
-bios,/tmp/palmetto.pnor,/org/openbmc/control/flash/bios,
-Nov 03 06:12:00 palmetto flash_bios.exe[710]: flasher:
-/tmp/palmetto.pnor, BMC = 1, address = 0x0
-Nov 03 06:12:00 palmetto flash_bios.exe[710]: Setting up flash
-Nov 03 06:13:24 palmetto phosphor-gevent[782]:
-::c063:abb6:8e91:f402%1230014792 - - [2016-11-03 06:13:24] "GET
-/org/openbmc/control/flash/bios HTTP/1.1" 200 383 0.080871
-Nov 03 06:13:54 palmetto phosphor-gevent[782]:
-::c063:abb6:8e91:f402%1230014792 - - [2016-11-03 06:13:54] "GET
-/org/openbmc/control/flash/bios HTTP/1.1" 200 383 0.082777
-Nov 03 06:15:04 palmetto flash_bios.exe[710]: Erasing... (may take a
-while !) done !
-Nov 03 06:15:04 palmetto flash_bios.exe[710]: About to program
-"/tmp/palmetto.pnor" at 0x00000000..0x02000000 !
-Nov 03 06:15:04 palmetto flash_bios.exe[710]: Programming & Verifying...
-Nov 03 06:15:04 palmetto flash_bios.exe[710]: Flash done
-Nov 03 06:19:25 palmetto systemd[1]: Starting Cleanup of Temporary
-Directories...
-Nov 03 06:19:25 palmetto systemd[1]: Started Cleanup of Temporary Directories.
+> ---
+> 
+> I'm hesitant to send this upstream as I don't like the idea of hardcoding the
+> clock rates in the way that we have (i.e. the timer as well). I think we should
+> rework the timer and the watchdog to derive their clocks from the SCU, but
+> that's more work than I'm willing to put in to get reboots working.
+
+I agree that we should start being more precise in our models and use SCU
+when needed. See below for a first try 
 
 Cheers,
 
-Joel
+C.
+
+
+
+wdt: aspeed: use scu to get clock freq
+
+Signed-off-by: Cédric Le Goater <clg@kaod.org>
+---
+ hw/arm/aspeed_soc.c              |    2 ++
+ hw/misc/aspeed_scu.c             |   12 ++++++++++++
+ hw/watchdog/wdt_aspeed.c         |   17 +++++++++++++++--
+ include/hw/misc/aspeed_scu.h     |    1 +
+ include/hw/watchdog/wdt_aspeed.h |    2 ++
+ 5 files changed, 32 insertions(+), 2 deletions(-)
+
+Index: qemu-aspeed.git/hw/arm/aspeed_soc.c
+===================================================================
+--- qemu-aspeed.git.orig/hw/arm/aspeed_soc.c
++++ qemu-aspeed.git/hw/arm/aspeed_soc.c
+@@ -144,6 +144,8 @@ static void aspeed_soc_init(Object *obj)
+     object_initialize(&s->wdt, sizeof(s->wdt), TYPE_ASPEED_WDT);
+     object_property_add_child(obj, "wdt", OBJECT(&s->wdt), NULL);
+     qdev_set_parent_bus(DEVICE(&s->wdt), sysbus_get_default());
++    object_property_add_const_link(OBJECT(&s->wdt), "scu", OBJECT(&s->scu),
++                                   NULL);
+ }
+ 
+ static void aspeed_soc_realize(DeviceState *dev, Error **errp)
+Index: qemu-aspeed.git/hw/misc/aspeed_scu.c
+===================================================================
+--- qemu-aspeed.git.orig/hw/misc/aspeed_scu.c
++++ qemu-aspeed.git/hw/misc/aspeed_scu.c
+@@ -266,6 +266,18 @@ bool is_supported_silicon_rev(uint32_t s
+     return false;
+ }
+ 
++#define ASPEED_PLL_25MHZ    25000000
++#define ASPEED_PLL_24MHZ    24000000
++#define ASPEED_PLL_12MHZ    12000000
++
++uint32_t aspeed_scu_get_clk(AspeedSCUState *scu)
++{
++    if (scu->hw_strap1 & AST2400_CLK_25M_IN)
++        return ASPEED_PLL_25MHZ;
++    else
++        return ASPEED_PLL_24MHZ;
++}
++
+ static void aspeed_scu_realize(DeviceState *dev, Error **errp)
+ {
+     SysBusDevice *sbd = SYS_BUS_DEVICE(dev);
+Index: qemu-aspeed.git/hw/watchdog/wdt_aspeed.c
+===================================================================
+--- qemu-aspeed.git.orig/hw/watchdog/wdt_aspeed.c
++++ qemu-aspeed.git/hw/watchdog/wdt_aspeed.c
+@@ -7,10 +7,12 @@
+ 
+ #include "qemu/osdep.h"
+ #include "qemu/log.h"
++#include "qapi/error.h"
+ #include "sysemu/watchdog.h"
+ #include "hw/sysbus.h"
+ #include "qemu/timer.h"
+ #include "hw/watchdog/wdt_aspeed.h"
++#include "hw/misc/aspeed_scu.h"
+ 
+ #define WDT_IO_REGION_SIZE 0x1000
+ 
+@@ -87,7 +89,7 @@ static void aspeed_wdt_write(void *opaqu
+ 
+             if (pclk) {
+                 reload = muldiv64(s->reg_reload_value, NANOSECONDS_PER_SECOND,
+-                        PCLK_HZ) ;
++                        s->pclk_freq) ;
+             } else {
+                 reload = s->reg_reload_value * 1000;
+             }
+@@ -104,7 +106,7 @@ static void aspeed_wdt_write(void *opaqu
+ 
+             if (pclk) {
+                 reload = muldiv64(s->reg_reload_value, NANOSECONDS_PER_SECOND,
+-                        PCLK_HZ) ;
++                        s->pclk_freq) ;
+             } else {
+                 reload = s->reg_reload_value * 1000;
+             }
+@@ -183,10 +185,21 @@ static void aspeed_wdt_realize(DeviceSta
+ {
+     SysBusDevice *sbd = SYS_BUS_DEVICE(dev);
+     AspeedWDTState *s = ASPEED_WDT(dev);
++    Object *obj;
++    Error *err = NULL;
+ 
+     s->timer = timer_new_ns(QEMU_CLOCK_VIRTUAL, aspeed_wdt_timer_expired,
+                             dev);
+ 
++    obj = object_property_get_link(OBJECT(dev), "scu", &err);
++    if (!obj) {
++        error_setg(errp, "%s: required link 'scu' not found: %s",
++                   __func__, error_get_pretty(err));
++        return;
++    }
++
++    s->pclk_freq = aspeed_scu_get_clk(ASPEED_SCU(obj));
++
+     memory_region_init_io(&s->iomem, OBJECT(s), &aspeed_wdt_ops, s,
+                           TYPE_ASPEED_WDT, WDT_IO_REGION_SIZE);
+     sysbus_init_mmio(sbd, &s->iomem);
+Index: qemu-aspeed.git/include/hw/misc/aspeed_scu.h
+===================================================================
+--- qemu-aspeed.git.orig/include/hw/misc/aspeed_scu.h
++++ qemu-aspeed.git/include/hw/misc/aspeed_scu.h
+@@ -36,6 +36,7 @@ typedef struct AspeedSCUState {
+ #define AST2500_A1_SILICON_REV   0x04010303U
+ 
+ extern bool is_supported_silicon_rev(uint32_t silicon_rev);
++extern uint32_t aspeed_scu_get_clk(AspeedSCUState *scu);
+ 
+ /*
+  * Extracted from Aspeed SDK v00.03.21. Fixes and extra definitions
+Index: qemu-aspeed.git/include/hw/watchdog/wdt_aspeed.h
+===================================================================
+--- qemu-aspeed.git.orig/include/hw/watchdog/wdt_aspeed.h
++++ qemu-aspeed.git/include/hw/watchdog/wdt_aspeed.h
+@@ -36,6 +36,8 @@ typedef struct AspeedWDTState {
+     uint32_t reg_reload_value;
+     uint32_t reg_restart;
+     uint32_t reg_ctrl;
++
++    uint32_t pclk_freq;
+ } AspeedWDTState;
+ 
+ #endif  /* ASPEED_WDT_H */
