@@ -1,54 +1,50 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-oi0-x22a.google.com (mail-oi0-x22a.google.com
+ [IPv6:2607:f8b0:4003:c06::22a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t8Z110yrZzDvMr
- for <openbmc@lists.ozlabs.org>; Thu,  3 Nov 2016 16:54:29 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=ONeWXTqe; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b=Sly0frXF; dkim-atps=neutral
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id C7382209C3;
- Thu,  3 Nov 2016 01:54:26 -0400 (EDT)
-Received: from frontend1 ([10.202.2.160])
- by compute7.internal (MEProxy); Thu, 03 Nov 2016 01:54:26 -0400
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
- x-me-sender:x-sasl-enc:message-id:subject:from:to:cc:date
- :in-reply-to:references:content-type:mime-version; s=mesmtp; bh=
- j2j8ZIO/zvSSEwqpvoe91o3VhIk=; b=ONeWXTqem13QWa77hfGXitneCI7tvyX/
- 6l5DmnzBVG2aI8kVHHIUtwURuaaLWK81J+lSkjiaWhyxvNTUKCD2Z8XDcWGqcMN6
- Mim7UEazzGsb+e+nsRcl2+UglTs70nYr/j2pZmSng0pkA1jUh2srA6VEt2bFlpJo
- OO7uwMuKyvc=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=x-me-sender:x-sasl-enc:message-id:subject
- :from:to:cc:date:in-reply-to:references:content-type
- :mime-version; s=smtpout; bh=j2j8ZIO/zvSSEwqpvoe91o3VhIk=; b=Sly
- 0frXFttxKF8+MaH6wuw87OEaXBj1qFJ+Pg7h+EOkIxpksVqCTCDPrjYPUtryY3b5
- 82mJzbpcvrHdageFAThEIHE4b/PZHRcGs3SBIy/MgMm1csFf0JINTD9T8UC/G67X
- IIke13hiyJh2zL/9rSpZb+f5WY/Y7zzPYUf3u7jk=
-X-ME-Sender: <xms:EtEaWK2rQ-CK9pbm3Akkgz3THymUmFQZkWfG3e3ACOaSnpsE4qlEuQ>
-X-Sasl-enc: CGdp5TZvh1dF1ym/8jshrFvDqchO0GBOvM/ZLhxAR5E2 1478152465
-Received: from keelia (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 991A6F29CC;
- Thu,  3 Nov 2016 01:54:24 -0400 (EDT)
-Message-ID: <1478152458.27396.33.camel@aj.id.au>
-Subject: Re: [PATCH qemu] wdt: aspeed: Fix failed reboot due to timer
- miscalculation
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>
-Cc: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, OpenBMC
- <openbmc@lists.ozlabs.org>
-Date: Thu, 03 Nov 2016 16:24:18 +1030
-In-Reply-To: <CACPK8XcYWmq97D4etrysQGsrVQHo3O5MAC6MB_ykR0wkS7AoGA@mail.gmail.com>
-References: <1478150842-5636-1-git-send-email-andrew@aj.id.au>
- <CACPK8XcYWmq97D4etrysQGsrVQHo3O5MAC6MB_ykR0wkS7AoGA@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-Ppyd6l2X9cQsuzuCFmq7"
-X-Mailer: Evolution 3.18.5.2-0ubuntu3 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t8Zck6WRnzDq8M
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Nov 2016 17:21:58 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=iDyYm3uk; 
+ dkim-atps=neutral
+Received: by mail-oi0-x22a.google.com with SMTP id v84so66285030oie.3
+ for <openbmc@lists.ozlabs.org>; Wed, 02 Nov 2016 23:21:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to; bh=WjUZN3UwlOlrUFa6sU/jqgBD0QkyuiNMWRLpdc/fGjo=;
+ b=iDyYm3uki6HHNdEUk0CovTP2RcnQ7136Nr9+Dhw2Ml8rGxAn8tOOhhVIJBoGSdwlOW
+ 2JzDMnlKLOikwpM8CIPM6pAxHNbIZQZINrxMhVns4znbTcLa3NCw3Brc4uhNdnS/lz9x
+ 4E9gMFZmZyA7Z0mjgWvUJyFWGPxqFBSNSAUyOVRYPAG1xHsw1Obt8DNk8FNZrly6Tnm6
+ VT6GaqUSISxZur+IWeu2YQWQ8NiF+89ARov08DX1Hl9VgqckwCSN2kaER0jdLgyqK4JH
+ 9WAm98wpns6c4O9kvnO9NSQdcuSMKbEJYJjZXd5k9UcL7bo/PIIQNeM5rfVGTMZIwLD9
+ MMXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to;
+ bh=WjUZN3UwlOlrUFa6sU/jqgBD0QkyuiNMWRLpdc/fGjo=;
+ b=XbPTI40Yu2XNmV6rhjvC9yIH2Cjy106f4IqDEecJQn/b4Bh6Stfoh59ingDm7BNs4i
+ 34sd+grDxLTCH4qyUTw7R7POzDjHGB0OPSP2cPXy2PDtVm//RddeEwYjj3S1QyHLVI7W
+ nOIqeThwDNO8kle2z82MZX8xBV3rMx4weetRwyf+0zdUa6ekp2SXR4XfsPFRyggdcMqD
+ Y4QOZQbWfu7MV3M7cIeL1Jh++PQOphrmYkQDeiAJFBNpJHYPsBHKZH3+IPNRtKGbwWkP
+ Ivt8wX2f/w29g7Yz9sE+L58RSrQutn1GL7tB37px306RinuTm6gkyAroNzsmSwYwX3pY
+ af7w==
+X-Gm-Message-State: ABUngvc/sZ22tHSWxr7Y3b4cdNIsRi4/fHkJ38OQ+kHGo6hBsPRikRRPRuEXEjCLeHWRZfN15rPu4yDivB/Jfg==
+X-Received: by 10.157.22.200 with SMTP id s8mr4663828ots.14.1478154116650;
+ Wed, 02 Nov 2016 23:21:56 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.182.107.226 with HTTP; Wed, 2 Nov 2016 23:21:36 -0700 (PDT)
+In-Reply-To: <CACPK8Xcyic3BsnxTLx8c5p-=34xqrfDTZ4bFKa309hCSZPuhAw@mail.gmail.com>
+References: <CACPK8Xcyic3BsnxTLx8c5p-=34xqrfDTZ4bFKa309hCSZPuhAw@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 3 Nov 2016 16:51:36 +1030
+X-Google-Sender-Auth: ewC_vtLvjGMWBtMlC1r9B7RorSg
+Message-ID: <CACPK8Xf8=uCE3tSrUMtELgYsky6Br5b14BxL3DdH-XTk7ntzGg@mail.gmail.com>
+Subject: Re: op-flasher changes
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,123 +56,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Nov 2016 05:54:29 -0000
+X-List-Received-Date: Thu, 03 Nov 2016 06:21:59 -0000
 
+On Thu, Nov 3, 2016 at 1:09 PM, Joel Stanley <joel@jms.id.au> wrote:
+> This requires some testing. I have a tree that updates the version of
+> skeleton we use to include the first set of patches here:
+>
+>   https://github.com/shenki/openbmc/tree/flasher-cleanups
 
---=-Ppyd6l2X9cQsuzuCFmq7
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+I tested this tree on a Palmetto by using rest to update the PNOR. It
+looks like it succeeded:
 
-T24gVGh1LCAyMDE2LTExLTAzIGF0IDE2OjA5ICsxMDMwLCBKb2VsIFN0YW5sZXkgd3JvdGU6Cj4g
-T24gVGh1LCBOb3YgMywgMjAxNiBhdCAzOjU3IFBNLCBBbmRyZXcgSmVmZmVyeSA8YW5kcmV3QGFq
-LmlkLmF1PiB3cm90ZToKPiA+IAo+ID4gVGhlIGltcGxlbWVudGF0aW9uIHdhcyBpbmNvcnJlY3Rs
-eSBzY2FsaW5nIHRoZSByZWxvYWQgdmFsdWUgYnkKPiA+IG5hbm9zZWNvbmRzIHBlciBzZWNvbmQu
-IEluIHJlYWxpdHkgdGhlIHNwYW4gcmVwcmVzZW50ZWQgYnkgdGhlIHJlbG9hZAo+ID4gdmFsdWUg
-aXMgZGV0ZXJtaW5lZCBieSB0aGUgc2VsZWN0ZWQgY2xvY2ssIGVpdGhlciBBUEIgb3IgMU1Iei4K
-PiA+IAo+ID4gVGVzdCB0aGUgc2VsZWN0ZWQgY2xvY2sgYW5kIGFwcGx5IHRoZSBhcHByb3ByaWF0
-ZSBzY2FsaW5nLCB0aGVuIGNvbnZlcnQgdG8KPiA+IG5hbm9zZWNvbmRzIGZvciB0aGUgdGltZXIg
-aW5mcmFzdHJ1Y3R1cmUuIE5vdGUgdGhhdCB0aGUgQVBCIHJhdGUgaXMgaGFyZC1jb2RlZAo+ID4g
-YW5kIHJlZmxlY3RzIHRoZSB2YWx1ZSB1c2VkIGJ5IHRoZSB0aW1lciBjb250cm9sbGVyLCBhbmQg
-aXNuJ3QgbmVjZXNzYXJpbHkgYW4KPiA+IGFjY3VyYXRlIHJlcHJlc2VudGF0aW9uIG9mIHRoZSBj
-bG9jayBjb25maWd1cmF0aW9uIHByb2dyYW1tZWQgaW4gdGhlIFNDVS4KPiA+IAo+ID4gU2lnbmVk
-LW9mZi1ieTogQW5kcmV3IEplZmZlcnkgPGFuZHJld0Bhai5pZC5hdT4KPiA+IC0tLQo+ID4gCj4g
-PiBJJ20gaGVzaXRhbnQgdG8gc2VuZCB0aGlzIHVwc3RyZWFtIGFzIEkgZG9uJ3QgbGlrZSB0aGUg
-aWRlYSBvZiBoYXJkY29kaW5nIHRoZQo+ID4gY2xvY2sgcmF0ZXMgaW4gdGhlIHdheSB0aGF0IHdl
-IGhhdmUgKGkuZS4gdGhlIHRpbWVyIGFzIHdlbGwpLiBJIHRoaW5rIHdlIHNob3VsZAo+ID4gcmV3
-b3JrIHRoZSB0aW1lciBhbmQgdGhlIHdhdGNoZG9nIHRvIGRlcml2ZSB0aGVpciBjbG9ja3MgZnJv
-bSB0aGUgU0NVLCBidXQKPiA+IHRoYXQncyBtb3JlIHdvcmsgdGhhbiBJJ20gd2lsbGluZyB0byBw
-dXQgaW4gdG8gZ2V0IHJlYm9vdHMgd29ya2luZy4KPiBUaGUgd2F0Y2hkb2cgZHJpdmVyIGFzIHVw
-c3RyZWFtZWQgYWx3YXlzIHJ1bnMgZnJvbSBhIDFNSHogY2xvY2suCgpTbyBJIGFzc3VtZSB5b3Ug
-bWVhbiB0aGUgTGludXggZHJpdmVyIGhlcmU7IGNlcnRhaW5seSBpdCdzIGNvbmZpZ3VyZWQKdGhh
-dCB3YXkuCgo+IAo+IEl0IGxvb2tzIGxpa2UgdGhlIG1vZGVsIG5lZWRzIHRvIGJlIHVwZGF0ZWQg
-d2l0aCB0aGlzIGtub3dsZWRnZS4gVGhlbgo+IHdlIGRvbid0IG5lZWQgdG8gd29ycnkgYWJvdXQg
-aGFyZGNvZGluZy4gCgpBc2lkZSBmcm9tIHRoYXQgdGhpcyBzdWdnZXN0aW9uIGlzIGp1c3QgaGFy
-ZGNvZGluZyBzb21ldGhpbmcKZGlmZmVyZW50Li4uCgo+IFdlIHByaW50IGEgd2FybmluZyBpZiB0
-aGUgYml0Cj4gaW4gdGhlIHJlZ2lzdGVyIHRoYXQgc2F5cyAidXNlIDFNSHoiIGlzIGNsZWFyZWQu
-CgouLi4gYXMgSSBhc3N1bWUgeW91IG1lYW4gd2UgY2Fycnkgb24gY2xvY2tpbmcgYXMgaWYgaW4g
-MU1IeiBtb2RlIChnaXZlbgp0aGUgYWx0ZXJuYXRpdmUgaXMgInVuZGVmaW5lZCIpPyBXaGlsc3Qg
-dGhlIGZhY3QgdGhhdCB3ZSdyZSBhcmd1aW5nCmJldHdlZW4gdHdvIGhhY2tzIG1pZ2h0IG1ha2Ug
-dGhlIGRpc2N1c3Npb24gbW9vdCwgSSBkb24ndCBzZWUgd2h5IHFlbXUKbmVlZHMgdG8ga25vdyBh
-bnl0aGluZyBhYm91dCB3aGF0IExpbnV4IG1pZ2h0IGJlIGRvaW5nLiBBcyBzdWNoIEkKcHJlZmVy
-IG5vdCBlbmNvZGluZyB0aGF0IGluZm9ybWF0aW9uIGluIHRoZSBtb2RlbC4KCkNoZWVycywKCkFu
-ZHJldwoKPiAKPiBDaGVlcnMsCj4gCj4gSm9lbAo+IAo+ID4gCj4gPiAKPiA+IMKgaHcvd2F0Y2hk
-b2cvd2R0X2FzcGVlZC5jIHwgMjggKysrKysrKysrKysrKysrKysrKysrKystLS0tLQo+ID4gwqAx
-IGZpbGUgY2hhbmdlZCwgMjMgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkKPiA+IAo+ID4g
-ZGlmZiAtLWdpdCBhL2h3L3dhdGNoZG9nL3dkdF9hc3BlZWQuYyBiL2h3L3dhdGNoZG9nL3dkdF9h
-c3BlZWQuYwo+ID4gaW5kZXggMmVjMDE3NjliNzQ1Li5jODE2MDhkNmFjNzQgMTAwNjQ0Cj4gPiAt
-LS0gYS9ody93YXRjaGRvZy93ZHRfYXNwZWVkLmMKPiA+ICsrKyBiL2h3L3dhdGNoZG9nL3dkdF9h
-c3BlZWQuYwo+ID4gQEAgLTYxLDExICs2MSwxNCBAQCBzdGF0aWMgdWludDY0X3QgYXNwZWVkX3dk
-dF9yZWFkKHZvaWQgKm9wYXF1ZSwgaHdhZGRyIG9mZnNldCwgdW5zaWduZWQgc2l6ZSkKPiA+IAo+
-ID4gwqB9Cj4gPiAKPiA+ICsjZGVmaW5lIFBDTEtfSFogMjQwMDAwMDAKPiA+ICsKPiA+IMKgc3Rh
-dGljIHZvaWQgYXNwZWVkX3dkdF93cml0ZSh2b2lkICpvcGFxdWUsIGh3YWRkciBvZmZzZXQsIHVp
-bnQ2NF90IGRhdGEsCj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqB1bnNpZ25lZCBzaXplKQo+ID4gwqB7Cj4gPiDCoMKg
-wqDCoMKgQXNwZWVkV0RUU3RhdGUgKnMgPSBBU1BFRURfV0RUKG9wYXF1ZSk7Cj4gPiDCoMKgwqDC
-oMKgYm9vbCBlbiA9IGRhdGEgJiBCSVQoMCk7Cj4gPiArwqDCoMKgwqBib29sIHBjbGsgPSAhKGRh
-dGEgJiBCSVQoNCkpOwo+ID4gCj4gPiDCoMKgwqDCoMKgc3dpdGNoIChvZmZzZXQpIHsKPiA+IMKg
-wqDCoMKgwqBjYXNlIFdEVF9TVEFUVVM6Cj4gPiBAQCAtNzgsMjEgKzgxLDM2IEBAIHN0YXRpYyB2
-b2lkIGFzcGVlZF93ZHRfd3JpdGUodm9pZCAqb3BhcXVlLCBod2FkZHIgb2Zmc2V0LCB1aW50NjRf
-dCBkYXRhLAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgYnJlYWs7Cj4gPiDCoMKgwqDCoMKgY2FzZSBX
-RFRfUkVTVEFSVDoKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoGlmICgoZGF0YSAmIDB4RkZGRikgPT0g
-MHg0NzU1KSB7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgdWludDMyX3QgcmVsb2FkOwo+
-ID4gKwo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBzLT5yZWdfc3RhdHVzID0gcy0+cmVn
-X3JlbG9hZF92YWx1ZTsKPiA+IAo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGlmIChwY2xr
-KSB7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByZWxvYWQgPSBtdWxkaXY2
-NChzLT5yZWdfcmVsb2FkX3ZhbHVlLCBOQU5PU0VDT05EU19QRVJfU0VDT05ELAo+ID4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoFBDTEtfSFopIDsKPiA+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqB9IGVsc2Ugewo+ID4gK8KgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgcmVsb2FkID0gcy0+cmVnX3JlbG9hZF92YWx1ZSAqIDEwMDA7Cj4gPiAr
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgfQo+ID4gKwo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqBpZiAocy0+ZW5hYmxlZCkgewo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoHRpbWVyX21vZChzLT50aW1lciwKPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgcWVtdV9jbG9ja19nZXRfbnMoUUVNVV9DTE9DS19WSVJU
-VUFMKSArCj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoHMtPnJlZ19yZWxvYWRfdmFsdWUgKiBOQU5PU0VDT05EU19QRVJfU0VDT05EKTsKPiA+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgcWVt
-dV9jbG9ja19nZXRfbnMoUUVNVV9DTE9DS19WSVJUVUFMKSArIHJlbG9hZCk7Cj4gPiDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoH0KPiA+IMKgwqDCoMKgwqDCoMKgwqDCoH0KPiA+IMKgwqDCoMKg
-wqDCoMKgwqDCoGJyZWFrOwo+ID4gwqDCoMKgwqDCoGNhc2UgV0RUX0NUUkw6Cj4gPiDCoMKgwqDC
-oMKgwqDCoMKgwqBpZiAoZW4gJiYgIXMtPmVuYWJsZWQpIHsKPiA+ICvCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqB1aW50MzJfdCByZWxvYWQ7Cj4gPiArCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgaWYgKHBjbGspIHsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJlbG9h
-ZCA9IG11bGRpdjY0KHMtPnJlZ19yZWxvYWRfdmFsdWUsIE5BTk9TRUNPTkRTX1BFUl9TRUNPTkQs
-Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgUENM
-S19IWikgOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoH0gZWxzZSB7Cj4gPiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByZWxvYWQgPSBzLT5yZWdfcmVsb2FkX3ZhbHVlICog
-MTAwMDsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqB9Cj4gPiArCj4gPiDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoHMtPmVuYWJsZWQgPSB0cnVlOwo+ID4gLcKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoHRpbWVyX21vZChzLT50aW1lciwKPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoHFlbXVfY2xvY2tfZ2V0X25zKFFFTVVfQ0xPQ0tfVklSVFVBTCkg
-Kwo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgcy0+cmVn
-X3JlbG9hZF92YWx1ZSAqIE5BTk9TRUNPTkRTX1BFUl9TRUNPTkQpOwo+ID4gK8KgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoHRpbWVyX21vZChzLT50aW1lciwgcWVtdV9jbG9ja19nZXRfbnMoUUVNVV9D
-TE9DS19WSVJUVUFMKSArIHJlbG9hZCk7Cj4gPiDCoMKgwqDCoMKgwqDCoMKgwqB9Cj4gPiDCoMKg
-wqDCoMKgwqDCoMKgwqBlbHNlIGlmICghZW4gJiYgcy0+ZW5hYmxlZCkgewo+ID4gwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqBzLT5lbmFibGVkID0gZmFsc2U7Cj4gPiAtLQo+ID4gMi43LjQKPiA+
-IA==
+Nov 03 06:11:10 palmetto download_manager.py[668]: Downloading:
+palmetto.pnor from 10.61.2.7
+Nov 03 06:11:10 palmetto phosphor-gevent[782]:
+::c063:abb6:8e91:f402%1230014792 - - [2016-11-03 06:11:10] "POST
+/org/openbmc/control/flash/bios/action/updateViaTftp HTTP/1.1" 200 169
+0.257042
+Nov 03 06:12:00 palmetto flash_bios.exe[710]: Starting flasher:
+bios,/tmp/palmetto.pnor,/org/openbmc/control/flash/bios,
+Nov 03 06:12:00 palmetto flash_bios.exe[710]: flasher:
+/tmp/palmetto.pnor, BMC = 1, address = 0x0
+Nov 03 06:12:00 palmetto flash_bios.exe[710]: Setting up flash
+Nov 03 06:13:24 palmetto phosphor-gevent[782]:
+::c063:abb6:8e91:f402%1230014792 - - [2016-11-03 06:13:24] "GET
+/org/openbmc/control/flash/bios HTTP/1.1" 200 383 0.080871
+Nov 03 06:13:54 palmetto phosphor-gevent[782]:
+::c063:abb6:8e91:f402%1230014792 - - [2016-11-03 06:13:54] "GET
+/org/openbmc/control/flash/bios HTTP/1.1" 200 383 0.082777
+Nov 03 06:15:04 palmetto flash_bios.exe[710]: Erasing... (may take a
+while !) done !
+Nov 03 06:15:04 palmetto flash_bios.exe[710]: About to program
+"/tmp/palmetto.pnor" at 0x00000000..0x02000000 !
+Nov 03 06:15:04 palmetto flash_bios.exe[710]: Programming & Verifying...
+Nov 03 06:15:04 palmetto flash_bios.exe[710]: Flash done
+Nov 03 06:19:25 palmetto systemd[1]: Starting Cleanup of Temporary
+Directories...
+Nov 03 06:19:25 palmetto systemd[1]: Started Cleanup of Temporary Directories.
 
+Cheers,
 
---=-Ppyd6l2X9cQsuzuCFmq7
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAABCgAGBQJYGtEKAAoJEJ0dnzgO5LT5VD0QAIMQ7X8z1Ms9lBtzOq/B0CSA
-hXUbVyERGjqwmTEGtNVXzjRdjN9XPfNed56pVkBVj0pwyHGJtLRL9wvKOXfLK54R
-Fj7jeGR8mU/HfWtC/ZgbBWLQLXhyCayFsFgVAzAI7ESqDJTul2iCHbfJOImbb4YZ
-YXazn5IqeKlYWl8rYwIxrtsu66XH3kcXH3HLm05/4xijlDpLBMmh0UXDEDwfBp4X
-eyXpYw03C81UvrNVhTVyaZDv9gZpHv7XoS5ImjYxgTp7BinZhmO/F+Th+f5pBpuh
-ZDtOHEJISdGgJgJlMMnXhPcN0HAnohng/Qw8/FmSxn8wpx5eY6JbhHCygb1fUe8Y
-s2uZ//mUrNlThWqVrBD8K3GOm8RLO+3vA5hbPv48df9jSEDZ+nVpAa2YQYZqWuGM
-DKPCOMAWdcFGkBaFniQLYSCkgUFSv0riccXVIW+fo4RdJSWBURNgAbiW1dliFFM1
-8lTIWw1Iupuq5CEAIKirfjIPYerKfwjMglnVOm0VqRbY8z9sE4tyyBgE3xgHXIAq
-vC7GBvqW5YwiYb6T8/yvMkC51eicaquJCKlYaCBkhYWPWlAc/7Gf900yk0BUP+Om
-yEx/Cml1QAqqFtn7VYOWhTBEtygAsXgreuIKyoAD7JexJcb2Q2+bRjk1J3W5AAAH
-NhWgL0xDZF+D9d9tp0Pg
-=Qi/L
------END PGP SIGNATURE-----
-
---=-Ppyd6l2X9cQsuzuCFmq7--
+Joel
