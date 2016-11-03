@@ -1,35 +1,31 @@
-Return-Path: <clg@kaod.org>
-Received: from 5.mo1.mail-out.ovh.net (5.mo1.mail-out.ovh.net [178.33.45.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t8fTn4hwczDvWT
- for <openbmc@lists.ozlabs.org>; Thu,  3 Nov 2016 20:16:13 +1100 (AEDT)
-Received: from player770.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo1.mail-out.ovh.net (Postfix) with ESMTP id D7F89182E3
- for <openbmc@lists.ozlabs.org>; Thu,  3 Nov 2016 10:07:04 +0100 (CET)
-Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
- [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player770.ha.ovh.net (Postfix) with ESMTPSA id B4FD53C0076;
- Thu,  3 Nov 2016 10:06:59 +0100 (CET)
-Subject: Re: [PATCH linux dev-4.7 7/8] ipmi: maintain a request expiry list
-To: Cyril Bur <cyrilbur@gmail.com>, openbmc@lists.ozlabs.org,
- Joel Stanley <joel@jms.id.au>
-References: <1477465067-19034-1-git-send-email-clg@kaod.org>
- <1477465067-19034-8-git-send-email-clg@kaod.org>
- <1478132769.728.3.camel@gmail.com>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <d53f2c10-4ae7-a7f6-827f-581d671341a7@kaod.org>
-Date: Thu, 3 Nov 2016 10:06:55 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.4.0
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t8kCY3ddfzDvRL
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Nov 2016 23:04:09 +1100 (AEDT)
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mx.zohomail.com
+ with SMTPS id 1478174642723566.0165380353358;
+ Thu, 3 Nov 2016 05:04:02 -0700 (PDT)
+Date: Thu, 3 Nov 2016 07:03:58 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Brendan Higgins <brendanhiggins@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: C++ Feature Whitelist/Blacklist
+Message-ID: <20161103120358.GC17105@heinlein.lan>
+References: <CAFd5g47LDkSS2g62NTTsXHMyDkwERK9CF=5xaO8Ww9sTvwiGRQ@mail.gmail.com>
+ <CAFd5g44ro35Wi4-tJK65nucXWoA6n1fxvHAFKXeRZisqH=KHbQ@mail.gmail.com>
+ <20161102171839.GB17105@heinlein.lan>
+ <CAFd5g47QU1FZpv3zyfSTqojaOCaFbE5G-a-OK-2h6YZwoUgPcg@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <1478132769.728.3.camel@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 18317828536679369683
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrkeehgdejjecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="YD3LsXFS42OYHhNZ"
+Content-Disposition: inline
+In-Reply-To: <CAFd5g47QU1FZpv3zyfSTqojaOCaFbE5G-a-OK-2h6YZwoUgPcg@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -41,292 +37,452 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Nov 2016 09:16:14 -0000
-
-On 11/03/2016 01:26 AM, Cyril Bur wrote:
-> On Wed, 2016-10-26 at 08:57 +0200, Cédric Le Goater wrote:
->> Regarding the response expiration handling, the IPMI spec says :
->>
->>    The BMC must not return a given response once the corresponding
->>    Request-to-Response interval has passed. The BMC can ensure this
->>    by maintaining its own internal list of outstanding requests
->> through
->>    the interface. The BMC could age and expire the entries in the
->> list
->>    by expiring the entries at an interval that is somewhat shorter
->> than
->>    the specified Request-to-Response interval....
->>
->> To handle such case, we maintain list of received requests using the
->> seq number of the BT message to identify them. The list is updated
->> each time a request is received and a response is sent. The
->> expiration
->> of the reponses is handled at each updates but also with a timer.
->>
-> 
-> I agree that the BMC kernel is most logical place to do this, at the
-> moment btbridged does attempt something similar no?
->
-> 
-> Should we patch btbridged to not? Should I least remove duplicated
-> logic? 
-
-yes probably. Let's see what mainline says about it first. 
-The patch has a minor flaw: struct ipmi_request should include 
-the NetFn and Command values. Corey might ask for a resend.
+X-List-Received-Date: Thu, 03 Nov 2016 12:04:10 -0000
 
 
-More globally speaking, the patch raises the question on how we 
-manage the BT interface capabilities, the in/out buffer message 
-sizes, allowed retries, etc. For now, this is a bit foggy, there
-are bits in the kernel, in btbridged and in phosphor-host-ipmid.
+--YD3LsXFS42OYHhNZ
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I think we should configure the driver BT capabilities when 
-btbridged is started. I have sent a patch using sysfs but maybe 
-we will switch to an ioctl as Joel proposed. if btbridged knows 
-about the driver configuration, it should probably handle the 
-"Get BT Interface Capabilities" and not phosphor-host-ipmid.
+On Wed, Nov 02, 2016 at 05:02:27PM -0700, Brendan Higgins wrote:
+>     * it seems that Patrick and I have general agreement on (just not
+> necessarily exact
+>       strength of rule):
+>         - Variables of class type with static storage duration (including
+> constants),
+>           plain old data types (POD) are allowed
+
+I'm not convinced we have agreement on this one.
+
+> > I would
+> > prefer we start with industry recognized experts opinion[3] and then
+> > document deviations specific to OpenBMC as they come up.
+>=20
+>=20
+> I agree with trying to follow generally accepted practices and it seems
+> like the CppCoreGuidelines seem to encode that pretty well, but it is not
+> really the same as a style guide and I see no reason why that precludes us
+> from writing one.=20
+
+There is obviously a major cultural difference here (between Google and
+"everyone else").  What Google calls a style guide is a combination of
+what others call two different documents: a coding style guide and a
+coding conventions (or guidelines) document.  Style guides describe the
+location of spaces, names of variables, etc.  Coding guidelines give you
+the "Do's and Don'ts".  The QT project, for example, has called them
+exactly that: "coding style"[1] and "coding conventions"[2].
+
+I honestly think that the difference between the two is partially to
+blame for why we have been talking past each other previously in the
+need for a "style guide".
+
+> I would, however, caution against citing the opinions of
+> "industry recognized experts" as sole justification for something. If the
+> opinion itself is cited with good reasoning/good supported evidence that's
+> fine, but it is important not to discount someone because he disagrees wi=
+th
+> someone important. I am not saying you did that anywhere, all of the
+> arguments you made below either make clear arguments that stand on their
+> own or cite well thought out self-contained arguments, just something to
+> keep in mind.
+
+Also be aware that this is not some weak "appeal to authority" here.
+We're talking about Bjorn and Herb.  In case you are not familiar, they
+are the creator of C++ and the convener of the standards body
+respectively.  Discounting their opinion is like saying Linus doesn't
+know what he is talking about.  The balance is surely tipped in their
+favor coming into any discussion and you better have some pretty
+significant argument against it.
+
+>=20
+> Re: Variables of class type with static storage duration (including
+> constants)
+> -------------------------------------------------------------------------=
+----------------------------
+>=20
+> This proposal is a key example on why it is hard to quantify these types
+> > of rules.  Everyone agrees with a general principle of "reducing
+> > globals", but as spelled out this proposal would prohibit
+> > initializer-list construction, std::string, and the pattern within our
+> > IPMI plugins of "register on load".  These are all reasonable exceptions
+> > that require little justification in my mind.
+>=20
+>=20
+> It sounds like we agree in principle. My proposal would prohibit
+> std::string constants, but it would not prevent their general use.
+> Initializer list construction would not be prohibited for c-style arrays
+> and not its use in general; you would not be able to use it for
+> constructing variables of class type with static storage, but it outright
+> prohibits that anyway. As written currently, yes the ipmid plugin
+> registration code would not conform, but it would be possible to write it
+> in a way that does conform; this is actually something I am working on wi=
+th
+> my changes to ipmid, but that is a discussion for elsewhere. (I would like
+> to be clear that this does not discourage global pointers, but in general
+> these also would require a good justification).
+
+The only time there is unspecified behavior in the standard is when you
+are using a symbol defined in another compilation unit in your own
+compilation unit during the initialization phase of your object.
+
+I do not understand why you would want to prohibit std::string constants
+and any other initializer-list constructed data structures when they are
+not the issue.  We are often generating a data structure from machine
+description files and using the initializer-list syntax to prime those
+structures.  Having to do it outside an initializer-list requires a
+special "globalDataInit()" function which is a needless and less
+efficient hoop to jump through.
+
+In my view, I.22 already has everything covered.  It also has a better
+description of the problem areas in the "Enforcement" heading
+(non-constexpr functions, extern objects).
+
+>=20
+> Re: Implicit conversion constructors and operators
+> -------------------------------------------------------------------
+>=20
+> This would prohibit 'unique_ptr<T>::operator bool()' and
+> > 'string::string(const char*)', which are part of the STL and exist
+> > for concise syntax.  I do agree with this in most cases but there are
+> > cases where they both obvious and crisper.  A non-obvious conversion
+> > should be prohibited.
+>=20
+>=20
+> Maybe I should have called out more clearly that I do not plan on
+> prohibiting widely used parts of the styleguide that do these types of
+> things. In anycase, the smart pointers are special in that they maintain
+> the API that exists for raw pointers and it is common practice for people
+> to check for a nullptr by simply treating it as a boolean value.
+> Nevertheless, the vast majority of custom APIs should not use this featur=
+e,
+> and you seem to agree with this point in general anyway.
+
+I think I agree, it just feels odd to point out.  Who writes an operator
+overload "just because"?  Everyone who writes one thinks that the
+rationale for it is obvious.
+
+> Re: Multiple Inheritance
+> --------------------------------
+>=20
+> > Composition is fairly common practice in C++ which uses multiple
+> > inheritance.  The sdbusplus bindings, as an example, have a specific
+> > template to aid in the composition of N dbus interfaces into a single
+> > C++ class. [4]
+>=20
+>=20
+> Your argument seems to be arguing for allowing multiple inheritance *of
+> interfaces*, which I meant to allow. I said "unless at most one of the
+> parent classes is an interface i.e. only has pure virtual methods", it
+> should have read "unless at most one of the parent classes is *not* an
+> interface i.e. only has pure virtual methods". You can inherit from as ma=
+ny
+> interfaces as you want, but only one (or no) non-interface. Technically,
+> your sdbusplus bindings are not interfaces, but I could see an exception
+> for that, because they are fairly special constructs. *It quacks like an
+> interface*, from the standpoint of an implementor. Also, the CCG sections
+> you cited agree with this standpoint. C.135 specifically calls out
+> interfaces and C.136 seemed to want to discourage the behaviour in the
+> reasoning section.
+
+Right.  There is an obvious overload of the word "interface" in this
+case.  Someone reviewing what you wrote is coming at it with the Java
+language "interface" mindset: a pure-virtual class.  The DBus Interface
+bindings are clearly not pure-virtual but they are "interface-like".
+
+Again, multiple inheritance isn't something that I've seen people even
+attempt typically unless they know what they are doing.  So it seems odd
+to point it out but then exempt "obvious" usage.
+
+> Re: Non-const-non-r-value references
+> ---------------------------------------------------
+>=20
+> > I find this especially unnecessary, not recommended anywhere outside of
+> > the GSG, and having a crippling effect to the language.  C++ is not a
+> > procedural / OO programming language; it is also a functional
+> > programming language.  The bulk of the STL is to facilitate a
+> > functional programming style and many of the C++11 features (lambdas,
+> > constexpr functions, etc.) take large inspiration from FP.  Eliminating
+> > l-value reference makes FP techniques exceptionally harder and
+> > syntactically clumsier.
+>=20
+>=20
+> Again, I explicitly allowed use where necessary to maintain consistency o=
+ur
+> utilize the STL.=20
+
+The logical conclusion of this exemption is to actively encourage use of
+non-const l-value references, which is surely not what you intend
+(though, I do).
+
+    - As an author of an API, I do not know how users are going to
+      organize their own data.
+    - As an author of an API, I should do nothing to preclude reasonable
+      programming patterns.
+    - All container iterators work by default on l-value references.
+    - Functors and lambdas to the STL algorithms work easiest on l-value
+      references.
+    - Therefore, I should conclude that my users could have a collection
+      of things and could desire to use functional programming style,
+      and I should make life easier for them by taking an l-value
+      reference.
+
+> But in general, const references, r-value references, and
+> pointers together fulfill the same purposes and make it easier to
+> understand what the code is doing. Const reference implies nothing will
+> happen to the data, it will not (outside of exceptional circumstances)
+> store that reference and will not modify it; basically it stays in the
+> function. No special semantics are required when calling the function
+> because there is nothing to consider. R-value reference implies that the
+> data will be consumed, you do not own it anymore and it does it in a
+> beautifully explicit way, std::move, which means that you know the data
+> does not belong to you anymore when you call the function. Providing a
+> pointer requires you to either be working with a pointer which is clear
+> because it has different semantics, or you have to pass a pointer
+> explicitly; either way, you know that the function is free to edit what y=
+ou
+> passed in; it should not store it because it does not own it (otherwise u=
+se
+> a smart pointer), but is free to edit it in the context of the function
+> call.=20
+
+I understand what you and the GSG are saying.  I just disagree with it.
+
+In C, everything is a pointer.  I could just write all of my code to not
+use references at all and instead use 'T*' and 'const T*'.  You now
+still have no idea when you read 'foo(&bar, &baz)'.
+
+In C++ there is always const_cast, so even if something is passed by
+const it _could_ be manipulated.  (Not to say this is good practice in
+any way.  See ES.50).
+
+It is a matter of public record[3] that I have reviewed on roughly
+50-100kLOC a year for the last 5 years and I still don't buy into this
+reviewer argument.  If someone is calling an API and I don't know what
+that API is doing, I don't give them a +1 no matter how "obvious" it may
+seem.
+
+The rough summary of my viewpoint is:
+    1) This syntax simply lulls you into a false sense of security as
+       the reviewer.
+    2) This syntax greatly diminishes aspects of modern C++ practices.
+    3) This syntax is not recommended anywhere outside of Google.
+
+> I do not see it standing in the way of FP at all, in FP you are
+> usually dealing with immutable data types which you should use as much as
+> possible i.e. const references, in the case that is expensive you have
+> r-value references and pointers.=20
+
+FP style does not always mean immutable.  A toy example:
+
+    vector<int> stuff =3D ...;
+    auto times2 =3D [](auto& x) { x *=3D 2; }
+    for_each(stuff, times2);
+
+> Although, the CCG does say it is allowed,
+> it admits that non-const references can lead to bugs see the note under
+> F.17.
+
+It is a pretty weak argument for you to use a sectioned titled "For
+'in-out' parameters, pass by reference to non-const" as evidence.
+
+The "error" they are talking about is a reassertion of F.16: "For 'in'
+parameters, pass ... by reference to const".  Non-const implies it could
+be changed.
+
+>=20
+> A very common recommendation in "Exceptional Modern C++" is to define a
+> > function like:
+> >     template <typename T> foo(T&&)
+> > This function operates on both l-value and r-value references
+> > ("universal references" as Meyers calls them).
+>=20
+>=20
+> I think I am missing something here. l-value and r-value references are t=
+wo
+> different things and are treated differently by the compiler. I tried the
+> following:
+>=20
+> int add(int&& l, int&& r) {
+>   return l + r;
+> }
+>=20
+> int main() {
+>   int l =3D 1;
+>   int r =3D 2;
+>   std::cout << "add(1, 2) =3D " << add(l, r) << std::endl;
+>   return 0;
+> }
+>=20
+> and got the following compile error:
+>=20
+> test.cc:10:42: error: cannot bind =E2=80=98int=E2=80=99 lvalue to =E2=80=
+=98int&&=E2=80=99
+>    std::cout << "add(1, 2) =3D " << add(l, r) << std::endl;
+>=20
+> which is precisely what I expected to happen. I think I am missing part of
+> your example.
+
+What I wrote and what you tested are two entirely different things.  I
+wrote a template; you tested a non-template.  Templates and autos fall
+under type-deduction rules.  Read up on those and reference collapsing.
+
+foo(10) =3D> foo(int&&)
+foo(x) =3D> foo(int& &&) =3D> foo(int&)
+
+>=20
+> Re: Exceptions
+> --------------------
+>=20
+> > This was the "old way" in C++ and the standards body specifically
+> > deprecated what you are suggesting.  I'm sure you could read their
+> > rationale.
+>=20
+>=20
+> Sure, I would be happy to. I tried googling around and the only recent
+> update I could find relating to how the compiler treats exceptions was the
+> addition of noexcept. Could you share this?
+
+See deprecation of 'throw(typeid, ...)'. :=20
+http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2010/n3051.html
+
+(I haven't actually read the reasoning myself, I just know it is how it
+was previously done and is now deprecated.)
+
+>=20
+> > In GCC, at least, function attributes can only be defined as part of
+> > declaration and not definition.  That means you would have to forward
+> > declare every function that returns your error type.
+>=20
+>=20
+> That's true. Clang allows you to put the attribute on the type definition,
+> I forgot gcc does not allow that. Still, if the function was part of a
+> public interface, you would have to forward declare anyway. In anycase, my
+> point was that there are alternatives to exceptions where the compiler wi=
+ll
+> actually bug you if you ignore it.
+>=20
+> > In every large project I have been involved with, an integer quickly
+> > becomes insufficient to express "an error".  The projects all make their
+> > own "error object".  According to Titus' talk, Google has one of these
+> > internally as well.  So that means we're now talking about passing
+> > around a heavy object by value or a pointer to one (which is always at
+> > risk of leaking)?  What does this error look like?
+>=20
+>=20
+> Also true, hypothetically we would use some sort of error type. Probably =
+an
+> error enum and an optional string message. Google has an open source one =
+we
+> could use, or we could write our own. In any case, it does not need to be
+> heavy weight, as long as the field list is small the object will be small.
+> For user defined types that fit inside of a few machine types, gcc and
+> clang will frequently pass them via register instead of stack. In any cas=
+e,
+> I would expect the error object to be returned so it would be subject to
+> return value optimization.
+>=20
+> > Having a error return type likely eliminates any RVO and again plays a
+> > huge diminishing role in using functional programming methods.  The two
+> > approaches for output variables become:
+> >     1) Fill-in out parameter reference.  [anti-FP]
+> >     2) Return a tuple<error, real_return>.
+> >
+>=20
+> The approach we use in this case is called StatusOr<T>; it wraps the type
+> being returned and the associated Status object (what we call the error
+> object). This is actually a really common pattern outside of C++ and
+> parallels the error monad type found in a lot of functional programming
+> languages (we do not actually support the fmap operation, but the usage
+> pattern is semantically equivalent).
+
+StatusOr requires everything you are returning to have a [public] default
+constructor available to StatusOr and copy operations.
+
+>=20
+>=20
+> > >         - Exceptions are not typed
+> >
+> > Exceptions are strongly typed in the exact same type system as any
+> > reference.  I don't know what this statement means.
+>=20
+>=20
+> Sorry, what I meant by this is exceptions are unchecked in C++ so you can
+> throw any type; hence, there is no way to enforce what kinds of exceptions
+> are thrown and that those exceptions are caught in functions that do not
+> forward them as in Java.
+
+So we are capable of writing a guideline that we should not use globals
+but we are incapable of writing a guidelines that requires all
+exceptions being derived from std::exception?  Oh, wait... E.14 already
+implies this.
+
+> Re: Virtual Functions
+> ----------------------------
+
+> Interfaces, and thus virtual functions are required for good unit
+> testing and mocking,=20
+
+I agree with the statement "Interfaces are required for good unit
+testing".  I do not agree with the "and thus virtual functions".  You
+can also solve this at link time with two alternative implementations of
+the class. =20
+
+I'm frankly amazed G-Mock doesn't allow this.  The only rationale I can
+come up with is that "big" processors tend to have branch predictors on
+virtual function tables while "small" processors do not, so for the
+environments Google typically targets there really isn't any thought
+put into the cost of virtual.
+
+Though, marking everything virtual also eliminates any sort of 'inline',
+so I am somewhat perplexed even on that aspect as the basis.
 
 
-May be I should open an issue on that topic ? 
+Back to Big Picture
+----------------------------
 
-C.
+I do feel we are seriously missing a broader philosophical question.  In
+what ways do you feel the CppCoreGuidelines do not address all of your
+coding guidelines suggestions?  Rather than write an entirely new
+document why would we not simply point to that and then extend it if we
+feel it is insufficient in a few key areas.  As you saw in my previous
+email, nearly everything we agree on comes from the CCG already and
+nearly everything we disagree on is a contradiction from the CCG.
+
+I do not want to hear that the CCG is "too long".  If you take out the
+references it is in the same order of magnitude as the GSG.  It is also
+organized in a way where each section is a straight-forward statement to
+be followed, so anyone unfamiliar or uninterested can simply read the
+TOC to understand all of the rules (ex. "I.2 Avoid global variables.",
+E.6 Use RAII to prevent leaks").
 
 
->> Signed-off-by: Cédric Le Goater <clg@kaod.org>
->> ---
->>  drivers/char/ipmi/bt-bmc.c | 132
->> +++++++++++++++++++++++++++++++++++++++++++++
->>  1 file changed, 132 insertions(+)
->>
->> diff --git a/drivers/char/ipmi/bt-bmc.c b/drivers/char/ipmi/bt-bmc.c
->> index b49e61320952..228ecdb689de 100644
->> --- a/drivers/char/ipmi/bt-bmc.c
->> +++ b/drivers/char/ipmi/bt-bmc.c
->> @@ -17,6 +17,7 @@
->>  #include <linux/platform_device.h>
->>  #include <linux/poll.h>
->>  #include <linux/sched.h>
->> +#include <linux/slab.h>
->>  #include <linux/timer.h>
->>  
->>  /*
->> @@ -57,6 +58,15 @@
->>  
->>  #define BT_BMC_BUFFER_SIZE 256
->>  
->> +#define BT_BMC_RESPONSE_TIME	5 /* seconds */
->> +
->> +struct ipmi_request {
->> +	struct list_head list;
->> +
->> +	u8 seq;
->> +	unsigned long expires;
->> +};
->> +
->>  struct bt_bmc {
->>  	struct device		dev;
->>  	struct miscdevice	miscdev;
->> @@ -65,6 +75,11 @@ struct bt_bmc {
->>  	wait_queue_head_t	queue;
->>  	struct timer_list	poll_timer;
->>  	struct mutex		mutex;
->> +
->> +	unsigned int		response_time;
->> +	struct timer_list	requests_timer;
->> +	spinlock_t              requests_lock;
->> +	struct list_head        requests;
->>  };
->>  
->>  static atomic_t open_count = ATOMIC_INIT(0);
->> @@ -163,6 +178,94 @@ static int bt_bmc_open(struct inode *inode,
->> struct file *file)
->>  }
->>  
->>  /*
->> + * lock should be held
->> + */
->> +static void drop_expired_requests(struct bt_bmc *bt_bmc)
->> +{
->> +	unsigned long flags = 0;
->> +	struct ipmi_request *req, *next;
->> +	unsigned long next_expires = 0;
->> +	int start_timer = 0;
->> +
->> +	spin_lock_irqsave(&bt_bmc->requests_lock, flags);
->> +	list_for_each_entry_safe(req, next, &bt_bmc->requests, list)
->> {
->> +		if (time_after_eq(jiffies, req->expires)) {
->> +			pr_warn("BT: request seq:%d has expired.
->> dropping\n",
->> +				req->seq);
->> +			list_del(&req->list);
->> +			kfree(req);
->> +			continue;
->> +		}
->> +		if (!start_timer) {
->> +			start_timer = 1;
->> +			next_expires = req->expires;
->> +		} else {
->> +			next_expires = min(next_expires, req-
->>> expires);
->> +		}
->> +	}
->> +	spin_unlock_irqrestore(&bt_bmc->requests_lock, flags);
->> +
->> +	/* and possibly restart */
->> +	if (start_timer)
->> +		mod_timer(&bt_bmc->requests_timer, next_expires);
->> +}
->> +
->> +static void requests_timer(unsigned long data)
->> +{
->> +	struct bt_bmc *bt_bmc = (void *)data;
->> +
->> +	drop_expired_requests(bt_bmc);
->> +}
->> +
->> +static int bt_bmc_add_request(struct bt_bmc *bt_bmc, u8 seq)
->> +{
->> +	struct ipmi_request *req;
->> +
->> +	req = kmalloc(sizeof(*req), GFP_KERNEL);
->> +	if (!req)
->> +		return -ENOMEM;
->> +
->> +	req->seq = seq;
->> +	req->expires = jiffies +
->> +		msecs_to_jiffies(bt_bmc->response_time * 1000);
->> +
->> +	spin_lock(&bt_bmc->requests_lock);
->> +	list_add(&req->list, &bt_bmc->requests);
->> +	spin_unlock(&bt_bmc->requests_lock);
->> +
->> +	drop_expired_requests(bt_bmc);
->> +	return 0;
->> +}
->> +
->> +static int bt_bmc_remove_request(struct bt_bmc *bt_bmc, u8 seq)
->> +{
->> +	struct ipmi_request *req, *next;
->> +	int ret = -EBADRQC; /* Invalid request code */
->> +
->> +	spin_lock(&bt_bmc->requests_lock);
->> +	list_for_each_entry_safe(req, next, &bt_bmc->requests, list)
->> {
->> +		/*
->> +		 * The sequence number should be unique, so remove
->> the
->> +		 * first matching request found. If there are
->> others,
->> +		 * they should expire
->> +		 */
->> +		if (req->seq == seq) {
->> +			list_del(&req->list);
->> +			kfree(req);
->> +			ret = 0;
->> +			break;
->> +		}
->> +	}
->> +	spin_unlock(&bt_bmc->requests_lock);
->> +
->> +	if (ret)
->> +		pr_warn("BT: request seq:%d is invalid\n", seq);
->> +
->> +	drop_expired_requests(bt_bmc);
->> +	return ret;
->> +}
->> +
->> +/*
->>   * The BT (Block Transfer) interface means that entire messages are
->>   * buffered by the host before a notification is sent to the BMC
->> that
->>   * there is data to be read. The first byte is the length and the
->> @@ -231,6 +334,13 @@ static ssize_t bt_bmc_read(struct file *file,
->> char __user *buf,
->>  		len_byte = 0;
->>  	}
->>  
->> +	if (ret > 0) {
->> +		int ret2 = bt_bmc_add_request(bt_bmc, kbuffer[2]);
->> +
->> +		if (ret2)
->> +			ret = ret2;
->> +	}
->> +
->>  	clr_b_busy(bt_bmc);
->>  
->>  out_unlock:
->> @@ -283,12 +393,20 @@ static ssize_t bt_bmc_write(struct file *file,
->> const char __user *buf,
->>  	clr_wr_ptr(bt_bmc);
->>  
->>  	while (count) {
->> +		int ret2;
->> +
->>  		nwritten = min_t(ssize_t, count, sizeof(kbuffer));
->>  		if (copy_from_user(&kbuffer, buf, nwritten)) {
->>  			ret = -EFAULT;
->>  			break;
->>  		}
->>  
->> +		ret2 = bt_bmc_remove_request(bt_bmc, kbuffer[2]);
->> +		if (ret2) {
->> +			ret = ret2;
->> +			break;
->> +		}
->> +
->>  		bt_writen(bt_bmc, kbuffer, nwritten);
->>  
->>  		count -= nwritten;
->> @@ -438,6 +556,8 @@ static int bt_bmc_probe(struct platform_device
->> *pdev)
->>  
->>  	mutex_init(&bt_bmc->mutex);
->>  	init_waitqueue_head(&bt_bmc->queue);
->> +	INIT_LIST_HEAD(&bt_bmc->requests);
->> +	spin_lock_init(&bt_bmc->requests_lock);
->>  
->>  	bt_bmc->miscdev.minor	= MISC_DYNAMIC_MINOR,
->>  		bt_bmc->miscdev.name	= DEVICE_NAME,
->> @@ -451,6 +571,8 @@ static int bt_bmc_probe(struct platform_device
->> *pdev)
->>  
->>  	bt_bmc_config_irq(bt_bmc, pdev);
->>  
->> +	bt_bmc->response_time = BT_BMC_RESPONSE_TIME;
->> +
->>  	if (bt_bmc->irq) {
->>  		dev_info(dev, "Using IRQ %d\n", bt_bmc->irq);
->>  	} else {
->> @@ -468,6 +590,9 @@ static int bt_bmc_probe(struct platform_device
->> *pdev)
->>  		  BT_CR0_ENABLE_IBT,
->>  		  bt_bmc->base + BT_CR0);
->>  
->> +	setup_timer(&bt_bmc->requests_timer, requests_timer,
->> +		    (unsigned long)bt_bmc);
->> +
->>  	clr_b_busy(bt_bmc);
->>  
->>  	return 0;
->> @@ -476,10 +601,17 @@ static int bt_bmc_probe(struct platform_device
->> *pdev)
->>  static int bt_bmc_remove(struct platform_device *pdev)
->>  {
->>  	struct bt_bmc *bt_bmc = dev_get_drvdata(&pdev->dev);
->> +	struct ipmi_request *req, *next;
->>  
->>  	misc_deregister(&bt_bmc->miscdev);
->>  	if (!bt_bmc->irq)
->>  		del_timer_sync(&bt_bmc->poll_timer);
->> +
->> +	del_timer_sync(&bt_bmc->requests_timer);
->> +	list_for_each_entry_safe(req, next, &bt_bmc->requests, list)
->> {
->> +		list_del(&req->list);
->> +		kfree(req);
->> +	}
->>  	return 0;
->>  }
->>  
+[1] http://wiki.qt.io/Qt_Coding_Style
+[2] http://wiki.qt.io/Coding_Conventions
+[3] https://github.com/open-power/hostboot
+--=20
+Patrick Williams
+
+--YD3LsXFS42OYHhNZ
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJYGyeuAAoJEKsDR8wtAMEZhM4P/0UavPUVK+qxJe335bH7AT6H
+Nk1yY9egaoEjQYaZCKw/lfVGitsQ23WlQj3Dl4PdUS5nBTs7E1hQaJwxDpr0XWrX
+5Pvo0zmLQYaegcv5SBspM4//LDSqXvly/jA3a0exUeHZ+cc4WgH15uqX33yorRLY
+o1OrB+TwkIJKr8n5/t3HMuF36NMuyzSgNhOkH0KeqoIdHut23ZqW+f4SNgG57/Oe
+EUOwINOUm6dwm0pjCHFwvY5MtRz9PThVnNfqCLMNvS55tk/sxSMpBdrw+UMKFwEp
+llZ0hA2ypY7bCIr7rlHJl8+ytzErAnidEKF/6LxUmGs+nRR+jMAQLmoBi6nCLFR1
+qFal/iluPhmq+EcWAPGbfbx6emwv8FoiYcapXZTHq0eXjvIAYLMmw7FCpKVRhAQG
+WPrlRYTw0Uyo7sYhMCmdp1SIDUR7wPHFL3JGMjoIytCnzOEz3exvo1dFAI+iIotN
+4i9ec2TQCv1gySEgnbN992hW26nCYX4+CWIzEwroHgPQNAIxiMCddTrtqwf6deN1
+uzPd6LySuaPSzDWpCCYxze2WP2nBn+WMKiDiTtJTeKsMsErFaT850z0FJcD6anaG
+3g6OLL1JZxC+AqVzdqRBFevtkPpEryWkJ3zrdo/EumhHZn5SbQASLxsdrl2cg0tA
+1Li8bnI8ztuUpz+JxhLi
+=mHld
+-----END PGP SIGNATURE-----
+
+--YD3LsXFS42OYHhNZ--
