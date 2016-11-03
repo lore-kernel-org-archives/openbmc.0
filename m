@@ -1,51 +1,51 @@
-Return-Path: <xow@google.com>
-Received: from mail-pf0-x236.google.com (mail-pf0-x236.google.com
- [IPv6:2607:f8b0:400e:c00::236])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-pf0-x243.google.com (mail-pf0-x243.google.com
+ [IPv6:2607:f8b0:400e:c00::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t8yw03WCCzDvVp
- for <openbmc@lists.ozlabs.org>; Fri,  4 Nov 2016 08:36:31 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t906C5kQDzDqMx
+ for <openbmc@lists.ozlabs.org>; Fri,  4 Nov 2016 09:30:27 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=JrB/ROms; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=WfC2xWzl; 
  dkim-atps=neutral
-Received: by mail-pf0-x236.google.com with SMTP id 189so38062920pfz.3
- for <openbmc@lists.ozlabs.org>; Thu, 03 Nov 2016 14:36:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=LKPXH5UOvFQAw1K8p+FYyd/pykt1ZcchnMy1NbDx9HQ=;
- b=JrB/ROmsd1zBj/n0NLfjou212RYGf6edlpWJ0mSKaJT+z8wTuXTnHGyDHq3yPD1Z4d
- 4C3O554Y06GK9eTW1aLRMzp6aBtWFDpscsQB+NgDwMoezvDBTRCqz9PQfKSZUhDnItzM
- 0ViLuPhCRM61rOPXN6ra03NP2C71ZB1igmznaqBVQS3NcCFihfmGugbUMQpDQTOEoJMI
- gDJ6rpbPvihjEXzpcNr9Nzpi056jqfjwtn4q+ympmNJ5Z4b7mMZR/AvgoaJrgSYWLBQm
- f8lSJ8F6v9gKw8moXxiLkfxxFCPZZwtKf67c0frtaKOEWLa3dhAmFmOzILdeR/fy3hIB
- crsQ==
+Received: by mail-pf0-x243.google.com with SMTP id y68so5977147pfb.1
+ for <openbmc@lists.ozlabs.org>; Thu, 03 Nov 2016 15:30:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=sender:from:to:subject:date:message-id;
+ bh=ZSny3yyHIB8ZLaQW+qzIQ8LtTa9fLjTH1oI9ri1ufkE=;
+ b=WfC2xWzlR0RXUsteeyWSEY8x6/5zQKDrU5Z0bcZ65K0WYr9Pk4sh9ocF/LmfV5f7bP
+ Uj2KKYswk5DOFiiQAwFxJhmu7uJujMk91OmZYK4KtmsKlS/EM6e4CbNC2mpVKFMCcPuF
+ aRVTJuMhBzFyOx9Gj4jIiqfd65yspfwytqXgdxuajogdgnQbK3UcOTo2ONKhqJ9PopLf
+ LqOnquccCJUWOGgreMddbvSUMHjFTidiT8qY5r2H2HyGqdoLE8uqpk1Wchhw5ELcW2e2
+ fE5t31L+hI9oFxmkca7LZ2VwHhb6vfCfbIfCv0fIcyh5xMjCA//I/f8oa6uvFAITyvPf
+ h0FA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=LKPXH5UOvFQAw1K8p+FYyd/pykt1ZcchnMy1NbDx9HQ=;
- b=Qg2v47ufy3D4jEc13kGcdtEe2plq3u3Grllra+Iq4pLX3CqnEuBAG7qpBiw6bVLytX
- A7dOfspPjLpyH8RcgfqzbAlotn0SJYQDyEolGs0mEyX8mNHUYmRGLye/wYNYFXsZLlfW
- +VAK/y96/h5uO9ErVf823nt/GDVQqOpdkVrIdUDX/WJzm/69pGWdEFZIY/1HdHt6IjaF
- fWLSwAhoH/mUpsPKbcaFqBdU1o8wBswVU++1DhQ6B6NabMkd1b8aDJ+9o20s92xidUWV
- vKD47DHE+XXkknLRaw29Htmka7QJBAq8YW68KBhnadhoddzO+CHSiiStKP0JCGD+nkNj
- wRJw==
-X-Gm-Message-State: ABUngvcX61oE++82YXPZck1fNh5bGA8OIFdKIne6XNNdZP9/3fLoiiCQAgD6j2RymDhfEoPv
-X-Received: by 10.98.17.196 with SMTP id 65mr20262918pfr.55.1478208989381;
- Thu, 03 Nov 2016 14:36:29 -0700 (PDT)
-Received: from pewter.svl.corp.google.com ([100.123.242.121])
- by smtp.gmail.com with ESMTPSA id r88sm14841891pfe.93.2016.11.03.14.36.28
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Thu, 03 Nov 2016 14:36:28 -0700 (PDT)
-From: Xo Wang <xow@google.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux] ARM: dts: aspeed: zaius: Add UCD90160 power sequencer
-Date: Thu,  3 Nov 2016 14:36:24 -0700
-Message-Id: <1478208984-91788-1-git-send-email-xow@google.com>
-X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ h=x-gm-message-state:sender:from:to:subject:date:message-id;
+ bh=ZSny3yyHIB8ZLaQW+qzIQ8LtTa9fLjTH1oI9ri1ufkE=;
+ b=eXDqURrVJfZd7SKnMk9jK8CAoNcNGM2XXlXEuQaBTum2MVl9o7EwEsM0I/aQXmOjY2
+ J90GsOdIJZZMNEEtQjnPqcUv9KUJDoCnaCuO6w3uaQmN71FSn9ntasS9wVSbk6sLXwFm
+ BBeskkjxuiLhu82gf/jv9ZobLCjhGG4uYKEmH7CduKYlxgNFSzyty9uPybWZ/0L92KyF
+ LZg/3n3tayf7cEKcIuILBskhZRSi5JqKPCK8INw+XRWvZGpqKKCBZRauLWNofDihuhTj
+ 4JZbMAf+FVKMLysHedvmDRJK3sDO8oU4m1ui2fhW7Mx0yWsNhQjdnj+nYWnLQbTxvlp8
+ M2Sw==
+X-Gm-Message-State: ABUngveTMBji8pcJuYYdV0wxv4S5R5+BVYwRNwimnVf3dC0Auw+jXqZF+SJwGFc6ntMT/g==
+X-Received: by 10.98.63.1 with SMTP id m1mr7236962pfa.31.1478212225709;
+ Thu, 03 Nov 2016 15:30:25 -0700 (PDT)
+Received: from aurora.jms.id.au ([2403:480:11:8000:3922:4bc4:ef17:3570])
+ by smtp.gmail.com with ESMTPSA id y29sm14998927pfd.63.2016.11.03.15.30.22
+ (version=TLS1 cipher=AES128-SHA bits=128/128);
+ Thu, 03 Nov 2016 15:30:25 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Fri, 04 Nov 2016 09:00:16 +1030
+From: Joel Stanley <joel@jms.id.au>
+To: andrew@aj.id.au,
+	openbmc@lists.ozlabs.org
+Subject: [linux dev-4.7 PATCH 0/4] Board file cleanup
+Date: Fri,  4 Nov 2016 09:00:05 +1030
+Message-Id: <20161103223009.4794-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.9.3
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,31 +57,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Nov 2016 21:36:33 -0000
+X-List-Received-Date: Thu, 03 Nov 2016 22:30:28 -0000
 
-Add binding to instantiate hwmon sensor support for the UCD90160 power
-sequencer on the Zaius board.
+This is the beginning of the end of the board file. Now that we have drivers
+for most of the functionaltiy of the SoC, we need to start removing the hacks
+we do in early init.
 
-Signed-off-by: Xo Wang <xow@google.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 5 +++++
- 1 file changed, 5 insertions(+)
+I have identified a few low risk changes to start off with. If these go well, I
+will send a second series that perform a more complete cleanup.
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-index 9e59649..673bab8 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-@@ -111,6 +111,11 @@
- 		reg = <0x68>;
- 	};
- 
-+	ucd90160@64 {
-+		compatible = "ti,ucd90160";
-+		reg = <0x64>;
-+	};
-+
- 	/* Power sequencer UCD90160 PMBUS @64h
- 	 * FRU AT24C64D @50h
- 	 * RTC PCF8523 @68h
+Cheers,
+
+Joel
+
+Joel Stanley (4):
+  arm: aspeed: Remove MDIO hack
+  arm: aspeed: Remove Palmetto SCU hack
+  arm: aspeed: Remove setting of SCU90 from common
+  arm: aspeed: Remove SPI controller hacks
+
+ arch/arm/mach-aspeed/aspeed.c | 21 ---------------------
+ 1 file changed, 21 deletions(-)
+
 -- 
-2.8.0.rc3.226.g39d4020
+2.9.3
