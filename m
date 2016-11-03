@@ -1,54 +1,53 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-pf0-x242.google.com (mail-pf0-x242.google.com
- [IPv6:2607:f8b0:400e:c00::242])
+Received: from mail-oi0-x242.google.com (mail-oi0-x242.google.com
+ [IPv6:2607:f8b0:4003:c06::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t906n2yXDzDvRG
- for <openbmc@lists.ozlabs.org>; Fri,  4 Nov 2016 09:30:57 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t90F71dW8zDt1g
+ for <openbmc@lists.ozlabs.org>; Fri,  4 Nov 2016 09:36:27 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=uDHzD9pN; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=kOFo7K8j; 
  dkim-atps=neutral
-Received: by mail-pf0-x242.google.com with SMTP id y68so5978123pfb.1
- for <openbmc@lists.ozlabs.org>; Thu, 03 Nov 2016 15:30:57 -0700 (PDT)
+Received: by mail-oi0-x242.google.com with SMTP id x4so9288173oix.0
+ for <openbmc@lists.ozlabs.org>; Thu, 03 Nov 2016 15:36:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=sender:from:to:subject:date:message-id:in-reply-to:references;
- bh=ItZ8piCBCfhYsme4Ffdcn1u753TrxnXwP1GO+XShDC8=;
- b=uDHzD9pNIAQAblFO94aQuDn15tx055WVsCap0RZwM5ZgrvfXU66RZfee9PP7KCNPXt
- B524LavGU9qwoceR4s+vcWX9zDrVR4X81/Qbq+NCSbaEZlPIjmQTKlGlnADqeAqse+DK
- emCGxSH5m6o1XuxSpsCBEMkacnPwZ82XI4nAaN8tEbYBasRECvedHcluL/gj7H2RC4Yp
- qoItqugovwBlYuVP9tF82FV0/XWrXTugo91ifr5OvX/AOGFPatxgbBRebCps9alRihtQ
- 9qxLUg1HYDzN0FgUVvMjAeLHQB/hMsTXriTqxAiRujYBrlorPbmeusheagfkXRrW1CjT
- PGVg==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=QzCaUMy/h8RhKqsZRoau7GobA6kpLltWJP/RxLyTCqE=;
+ b=kOFo7K8j8hAH8FngjVtwCAI0ga2HmIF+/lNZKFgg0p7KxBNu6FhMZmit/es99n1mPO
+ Xozr3eRbyB4y1rFqD7F5B9HWQYQQRMRo1gGQ5UxWa0HFxfOc5RTTHI6nXeOA3VVzizX0
+ Auaczc+Gl6lAPjOpV9GksTT2GhKHLdrLW7qlQy/XahslcDovLOMJQ2arJRWD9bilAG4B
+ gve/zN/sv0opzam0XBH3fOMpcpWDeXlLyljSxDkenkrxX7nXziTGd4HUsPCu9hNP5iQR
+ knAA+fydA6N6BgWmf1u8BhPSKuMqxP880uQXjqtG+UMooVK0uHDhpCkao8KZl8LPlati
+ Lszg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:sender:from:to:subject:date:message-id
- :in-reply-to:references;
- bh=ItZ8piCBCfhYsme4Ffdcn1u753TrxnXwP1GO+XShDC8=;
- b=fhnehTe2OSfCC274XuQLN1LPR4Swyfg1FKmu8OJoTH3eMVUE6FTRw4Ik9mJQkLr7Br
- uBVgFWisqDoPJVpugmPqziHxK6b8mhmHmw8V0kj9Xdh6b3xYCvjrxLLpVaOVxNh69tHX
- p6ZLBGIRVZtAa1X1Di9c39zMamu/s+FiJwihlSKrK9JHBzf5Fpb+4nb6uuDz9xq8wluE
- ay3AJMwvv4E/odYTsVHYRX1rMfpJS+xrqMrwdekSCQz2TV0ns44Mc2j6VKd8qh76dNFq
- j7+BoBBIf4Lizosmwbyuzo+h97gLA9pXxxCIZiLyj+0sDwmcFIhp7hAAlo6MxwcEi6+T
- OeiQ==
-X-Gm-Message-State: ABUngvduje14haBzbtMtlZYjTQi1IjALQrqCbGgfJFUJ2uOTsRYvIy7f8UxiP/KXBiOFvw==
-X-Received: by 10.98.130.194 with SMTP id w185mr21053265pfd.101.1478212255541; 
- Thu, 03 Nov 2016 15:30:55 -0700 (PDT)
-Received: from aurora.jms.id.au ([2403:480:11:8000:3922:4bc4:ef17:3570])
- by smtp.gmail.com with ESMTPSA id m129sm15048835pfm.13.2016.11.03.15.30.52
- (version=TLS1 cipher=AES128-SHA bits=128/128);
- Thu, 03 Nov 2016 15:30:55 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Fri, 04 Nov 2016 09:00:48 +1030
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=QzCaUMy/h8RhKqsZRoau7GobA6kpLltWJP/RxLyTCqE=;
+ b=O0B+Y2QIMic2JRbcluzn5K0+LL+Xu8QuCts7EQDmo/7Tum3rQL23BR0hPiCVvuX6Cl
+ W7r4NSYghYmAP8MH0iOlbFW9mnjJQDU1bVrBqt2ZKxvYLWFKAVhZONUHO1PuTyqVx8C9
+ RrtBs61f1qFTO1RR+IIXwZ7ENMYtuELoqPhoci/A0xMM5NginY5XRGezXQt74Eceipam
+ rvC53C/dyBl0WjbZGb3rNBVJ5c4UsWMYEwsJa5pGDVier7jnEmCPv3b+Y/RlwXIRdmpM
+ 2QgbhdLfeVd/bw75CHqxKSeXobUTLHV2YmXy78kT6iStkmabzwTCkXHILMaeWMtcXYbS
+ fcTA==
+X-Gm-Message-State: ABUngve3JSaCOIFgqIHDSttIYY/hmxjVLmljK3bOJPLC7tmNegPZ7ShEys8MfBC9XjNRJ6YjPruJhJAtMrOWcA==
+X-Received: by 10.202.114.129 with SMTP id p123mr10921546oic.132.1478212585135; 
+ Thu, 03 Nov 2016 15:36:25 -0700 (PDT)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.182.107.226 with HTTP; Thu, 3 Nov 2016 15:36:04 -0700 (PDT)
+In-Reply-To: <1478208984-91788-1-git-send-email-xow@google.com>
+References: <1478208984-91788-1-git-send-email-xow@google.com>
 From: Joel Stanley <joel@jms.id.au>
-To: andrew@aj.id.au,
-	openbmc@lists.ozlabs.org
-Subject: [linux dev-4.7 PATCH 4/4] arm: aspeed: Remove SPI controller hacks
-Date: Fri,  4 Nov 2016 09:00:09 +1030
-Message-Id: <20161103223009.4794-5-joel@jms.id.au>
-X-Mailer: git-send-email 2.9.3
-In-Reply-To: <20161103223009.4794-1-joel@jms.id.au>
-References: <20161103223009.4794-1-joel@jms.id.au>
+Date: Fri, 4 Nov 2016 09:06:04 +1030
+X-Google-Sender-Auth: YO4jaoF5bivKhljbASOCv_-Yb7c
+Message-ID: <CACPK8XfD1NY5tJSf1K77CEumRp3nVrvShXR_xUWXbGYS4H8_tQ@mail.gmail.com>
+Subject: Re: [PATCH linux] ARM: dts: aspeed: zaius: Add UCD90160 power
+ sequencer
+To: Xo Wang <xow@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,38 +59,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Nov 2016 22:30:57 -0000
+X-List-Received-Date: Thu, 03 Nov 2016 22:36:27 -0000
 
-The spi-nor driver aspeed-smc configures these registers now.
+On Fri, Nov 4, 2016 at 8:06 AM, Xo Wang <xow@google.com> wrote:
+> Add binding to instantiate hwmon sensor support for the UCD90160 power
+> sequencer on the Zaius board.
+>
+> Signed-off-by: Xo Wang <xow@google.com>
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- arch/arm/mach-aspeed/aspeed.c | 10 ----------
- 1 file changed, 10 deletions(-)
+Applied to dev-4.7.
 
-diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
-index 46e711ca275c..f81dccbcd2eb 100644
---- a/arch/arm/mach-aspeed/aspeed.c
-+++ b/arch/arm/mach-aspeed/aspeed.c
-@@ -42,19 +42,9 @@ static void __init do_common_setup(void)
- 	/* Enable LPC FWH cycles, Enable LPC to AHB bridge */
- 	writel(0x00000500, AST_IO(AST_BASE_LPC | 0x80));
- 
--	/* Flash controller */
--	writel(0x00000003, AST_IO(AST_BASE_SPI | 0x00));
--	writel(0x00002404, AST_IO(AST_BASE_SPI | 0x04));
--
- 	/* Set UART routing */
- 	writel(0x00000000, AST_IO(AST_BASE_LPC | 0x9c));
- 
--	/* SCU setup
--	 *  - GPIOC{4,5,6} are FUNC_MODE{0,1,2}. These nets are
--	 *    connected to the Ethernet phy and to ensure the correct
--	 *    operation they all need to be in GPIO mode (SCU90[0] = 0)
--	 *    and then pulled down
--	 */
- 	/* TODO: This should go in the GPIO driver device tree bindings */
- 	writel(0x01C000FF, AST_IO(AST_BASE_SCU | 0x88));
- 	writel(0xC1C000FF, AST_IO(AST_BASE_SCU | 0x8c));
--- 
-2.9.3
+Cheers,
+
+Joel
+
+> ---
+>  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> index 9e59649..673bab8 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> @@ -111,6 +111,11 @@
+>                 reg = <0x68>;
+>         };
+>
+> +       ucd90160@64 {
+> +               compatible = "ti,ucd90160";
+> +               reg = <0x64>;
+> +       };
+> +
+>         /* Power sequencer UCD90160 PMBUS @64h
+>          * FRU AT24C64D @50h
+>          * RTC PCF8523 @68h
+> --
+> 2.8.0.rc3.226.g39d4020
+>
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
