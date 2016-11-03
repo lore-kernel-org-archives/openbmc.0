@@ -1,54 +1,44 @@
-Return-Path: <xow@google.com>
-Received: from mail-qt0-x22c.google.com (mail-qt0-x22c.google.com
- [IPv6:2607:f8b0:400d:c0d::22c])
+Return-Path: <geissonator@gmail.com>
+Received: from mail-oi0-x230.google.com (mail-oi0-x230.google.com
+ [IPv6:2607:f8b0:4003:c06::230])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t8xzl6tc9zDvPD
- for <openbmc@lists.ozlabs.org>; Fri,  4 Nov 2016 07:54:43 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t8yFt3GzfzDvPD
+ for <openbmc@lists.ozlabs.org>; Fri,  4 Nov 2016 08:06:58 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b=IZkHGr0F; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b=YNfUvE87; 
  dkim-atps=neutral
-Received: by mail-qt0-x22c.google.com with SMTP id w33so36432813qtc.3
- for <openbmc@lists.ozlabs.org>; Thu, 03 Nov 2016 13:54:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=9ItVKGuLbfyLt/xDO8/ktub2DTV+573Jr6rCKW8pgt0=;
- b=IZkHGr0FlUQ0GO7hSVjdR73dgOXyFnOpqEBJUP4cABtQ3JFyiTEnO09tlOwn8Qrynb
- e8OdANwv1i2FEAY7VyaRjrFay9O9tuijoQe9BOPoRTfAPcvYg7Je63Toh3zCLH/GUd1v
- WBZGeNdc0YlBav4++qeEBestR7uq0oUGQ52hRJoOTt1mQpTM60muIDjSdM+FcRoWfTzC
- hYuBYscBCR3dDZcFzamVDY4pCKt0Pgdva+5/wkKEuDW7BloMS4x6RJuUX9ddeUL8aYcq
- EkbKzPIrxrll23o1QTZ0jP4dA+w7vxTw7fGo2rS9aOyzai6r7yZ+d+41SzWshwWbjUqi
- 8BgQ==
+Received: by mail-oi0-x230.google.com with SMTP id v84so111136284oie.3
+ for <openbmc@lists.ozlabs.org>; Thu, 03 Nov 2016 14:06:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=xTmnVNcTHXhWsl+yldBhNKTw5jnpRk0Mj2nH0apL8d0=;
+ b=YNfUvE87ado9xKhlroQ6pEBd+gbdhFn/wUjewRlCWeMcE0zyGPJxZ72wLhTnSK8i/7
+ w9MiQc4PkDRm+65tnDH8+GpFzE447v/AiQzQPEPEiwwNlGqoVmH8qwOZfUohV88ouYco
+ ibZoRyFJaLCK3gGu9iVK9oMK9AVonSScyTF/ir86Er+A6b463ns+XJo9x7PdJpDxGApG
+ Q6zxAR8uOM/oYIody4mdDjpLTuLwB1Yc2BCwARwri9WlswVb0dZ3cotubFLXp2mSk8rg
+ bjneU1w8hY/BN1vmGyy60Dry3kTgjPy+xH0hshN2g2ZeI7Y4BYOXinISx8LuLQZ0AlB/
+ NPUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=9ItVKGuLbfyLt/xDO8/ktub2DTV+573Jr6rCKW8pgt0=;
- b=dpin33BV6OwpGd1nVWQZu9FbZCA3V56qBL3b5gZ1IKp9A2PLjNvlHAUeWtQ6RbY9Wt
- iKZuvEgfgofYkLyNRTFMpVHDrPdwI/s95XUgLAmXm/GatJ3QCfE9pDE7nWPOs4gnSc4G
- 1an7SbCAKmPljDbrQLGdYKD6HBWfdKo8ZyOoUK9ICKDD0Ad/3Y4DpRtNAzPoq+/cJzKK
- /C16y9WVcZW0D+z+Y0bMRBts8kSSc8vwJw1YBkG2ka2zmrndUf0PXscxpPhD0B8bbeGs
- iG4NRvhUs3AUrgv5J41JdU+R1AVA35i93hPage2wYGx++tCfX35BrIvZlzeORTY/Yui+
- KaCw==
-X-Gm-Message-State: ABUngve5QG7iKqHy4J1bblrc154Nz8NuTvG9gJ4aUVQeapR+FV1iNoDp74fGaTxRxbnTZu8UwnUBtCqHG8qaTvCX
-X-Received: by 10.200.50.93 with SMTP id y29mr10367147qta.124.1478206480498;
- Thu, 03 Nov 2016 13:54:40 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=xTmnVNcTHXhWsl+yldBhNKTw5jnpRk0Mj2nH0apL8d0=;
+ b=I8E9x4nfBqB5UtEUR4IGna4SyhAHzZIAf/w7K3YyjU4c7bWAnSn3LdkHotnCwEe2Jj
+ xJFa7DNLXSnsFaewPabCLhuSSUCGMcWWomY648GJnMF0/AoVWGw/FQQou+GKuKmGH6CJ
+ bLV838qyOTVFvHGfNZeTfGD2HhhzoNHfG22U7M6nEEnINhxZPMAqGdqMyIS8atl5DwPg
+ MujW7c2NAecU3BvP+laTS0bsbmwFeFGoW8WVA/lTh3LhV65faivHTJZ7JRiXWURlR9zc
+ 13u8ufBuJx5W5YhH+HrR2fGxbBw5HIK68fBbKTpGxMqdnIQm9LJO8tqq/7GC3pi4DykH
+ 4i/w==
+X-Gm-Message-State: ABUngvdwy/lhQE2kiiSGGEFf8kcuN5JKgWRs0biQrZ69oKL1TpHjGs+8apXA2wJcAx8Z+ZUdi1gZ42UoNUlbiQ==
+X-Received: by 10.107.27.142 with SMTP id b136mr10262440iob.15.1478207216096; 
+ Thu, 03 Nov 2016 14:06:56 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.237.57.199 with HTTP; Thu, 3 Nov 2016 13:54:39 -0700 (PDT)
-In-Reply-To: <1478146015.27396.23.camel@aj.id.au>
-References: <1478126380-3189-1-git-send-email-kunyi@google.com>
- <1478126380-3189-2-git-send-email-kunyi@google.com>
- <1478136791.27396.19.camel@aj.id.au>
- <CAGMNF6U=uky88Cooop+jPso2PANgD=8nOr3ZW+3iK+GZ1pJFjQ@mail.gmail.com>
- <1478146015.27396.23.camel@aj.id.au>
-From: Xo Wang <xow@google.com>
-Date: Thu, 3 Nov 2016 13:54:39 -0700
-Message-ID: <CAPH-5w5utE=U7mP1YhQybKQq8+1AsupnUmA1Mek03VYUh87z+w@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7 v1 1/1] pinctrl: aspeed: Enable ASPEED
- pinctrl driver to modify SPI1 strap bits
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Kun Yi <kunyi@google.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Joel Stanley <joel@jms.id.au>
+Received: by 10.107.164.83 with HTTP; Thu, 3 Nov 2016 14:06:55 -0700 (PDT)
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Thu, 3 Nov 2016 16:06:55 -0500
+Message-ID: <CALLMt=oL-4VXYd5kiKgMW7h_7B2gnx1wHv=pHo0pLk=2SuU=8g@mail.gmail.com>
+Subject: Event Log Error Definitions - RFC
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -61,155 +51,82 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Nov 2016 20:54:44 -0000
+X-List-Received-Date: Thu, 03 Nov 2016 21:06:59 -0000
 
-On Wed, Nov 2, 2016 at 9:06 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> On Wed, 2016-11-02 at 20:47 -0700, Kun Yi wrote:
->> Thanks for reviewing, Andrew!
->
-> No worries!
->
->>
->> On Wed, Nov 2, 2016 at 6:33 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
->> >
->> > Hi Kun,
->> >
->> > On Wed, 2016-11-02 at 15:39 -0700, Kun Yi wrote:
->> > >
->> > > Current pinctrl driver treats HWSTRAP1/HWSTRAP2 bits as read-only. Changing
->> > > SPI1 mode requires pinctrl to modify bit 12 and 13 of HWSTRAP1, and keep
->> > > other strap bits as read-only.
->> > >
->> > > Note: with this change devicetree default pinctrl settings for spi1 will
->> > > effectively override any previous mode set by physical strapping or
->> > > aspeed.c when Aspeed smc driver is probed.
->> > >
->> > > Signed-off-by: Kun Yi <kunyi@google.com>
->> > > ---
->> > >  drivers/pinctrl/aspeed/pinctrl-aspeed.c | 22 ++++++++++++++++++++--
->> > >  drivers/pinctrl/aspeed/pinctrl-aspeed.h |  2 +-
->> > >  2 files changed, 21 insertions(+), 3 deletions(-)
->> > >
->> > > diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed.c b/drivers/pinctrl/aspeed/pinctrl-aspeed.c
->> > > index 21ef195..c647503 100644
->> > > --- a/drivers/pinctrl/aspeed/pinctrl-aspeed.c
->> > > +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed.c
->> > > @@ -16,6 +16,8 @@
->> > >
->> > >  const char *const aspeed_pinmux_ips[] = { "SCU", "SIO", "GFX", "LPC" };
->> > >
->> > > +#define SPI1_REG_MASK   0x3000
->> > > +
->> > >  int aspeed_pinctrl_get_groups_count(struct pinctrl_dev *pctldev)
->> > >  {
->> > >       struct aspeed_pinctrl_data *pdata = pinctrl_dev_get_drvdata(pctldev);
->> > > @@ -178,6 +180,7 @@ static bool aspeed_sig_expr_eval(const struct aspeed_sig_expr *expr,
->> > >   *
->> > >   * @return true if the expression is configured as requested, false otherwise
->> > >   */
->> > > +
->> > >  static bool aspeed_sig_expr_set(const struct aspeed_sig_expr *expr,
->> > >                               bool enable, struct regmap *map)
->> > >  {
->> > > @@ -197,15 +200,30 @@ static bool aspeed_sig_expr_set(const struct aspeed_sig_expr *expr,
->> > >
->> > >               /*
->> > >                * Strap registers are configured in hardware or by early-boot
->> > > -              * firmware. Treat them as read-only despite that we can write
->> > > +              * firmware. With the exception of SPI1 interface bits, treat
->> > > +              * them as read-only despite that we can write
->> > >                * them. This may mean that certain functions cannot be
->> > >                * deconfigured and is the reason we re-evaluate after writing
->> > >                * all descriptor bits.
->> > >                */
->> > > -             if (is_scu && (offset == HW_STRAP1 || offset == HW_STRAP2))
->> > > +             if (is_scu && (offset == HW_STRAP2 ||
->> > > +                     offset == HW_STRAP1 && desc->mask != SPI1_REG_MASK))
->> > Maybe the mask comparison would be safer by rewriting as:
->> >
->> >
->> > >
->> > > +             if (is_scu && (offset == HW_STRAP2 ||
->> > > +                     offset == HW_STRAP1 && !(desc->mask & SPI1_REG_MASK)))
->> > That way if (for whatever reason) we change the approach used in the
->> > -g4 and -g5 implementations we still get the expected outcome.
->> >
->> >
->> Good point. I will change this and the next mask comparisons in case
->> only one of strap bit 12/13 is used as desc->mask.
->>
->> >
->> > >
->> > >                       continue;
->> > >
->> > >               /*
->> > > +              * HW_STRAP1 bits can only be set to 0 by writing 1 into
->> > > +              * bits of same offset in SCU7C. To configure different SPI1
->> > > +              * modes, we write 1 to SCU7C[13:12] to clear SPI1 mask to make
->> > > +              * sure later write to strap register can take effect.
->> > > +              */
->> > > +             if (is_scu && offset == HW_STRAP1 &&
->> > > +                 desc->mask == SPI1_REG_MASK) {
->> > > +                     ret = regmap_write(map, HW_STRAP1_RESET, desc->mask);
->> > > +                     if (ret)
->> > > +                             return false;
->> > > +             };
->> > > +
->> > > +             /*
->> > >                * Sometimes we need help from IP outside the SCU to activate a
->> > >                * mux request. Report that we need its cooperation.
->> > >                */
->> > > diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed.h b/drivers/pinctrl/aspeed/pinctrl-aspeed.h
->> > > index 68315a8..46ba16d 100644
->> > > --- a/drivers/pinctrl/aspeed/pinctrl-aspeed.h
->> > > +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed.h
->> > > @@ -268,6 +268,7 @@
->> > >  #define HW_STRAP2       0xD0 /* Strapping */
->> > >
->> > >  #define SIORD30              SIG_DESC_TO_REG(ASPEED_IP_SIO, 0x30)
->> > > +#define HW_STRAP1_RESET      SIG_DESC_TO_REG(ASPEED_IP_SCU, 0x7C)
->> > Maybe HW_STRAP1_CLEAR would be ... clearer? Also in this case the
->> > SIG_DESC_TO_REG() macro is not entirely necessary as we're talking
->> > about the SCU, but being explicit is good. As a note the macro(s) have
->> > gone away in the v2 of the series I've recently sent upstream due to
->> > feedback from the maintainer:
->> >
->> > https://www.spinics.net/lists/arm-kernel/msg540082.html
->> >
->> > Otherwise this looks good to me. Thanks for looking at the problem!
->> >
->> > Andrew
->> >
->> HW_STRAP1_CLEAR does sound better, will rename in v2.
->> Since SIG_DESC_TO_REG() is removed in your v2 patch, should I directly
->> define it as this?
->>
->> #define HW_STRAP1_CLEAR      0x7C
->
-> Yes, that would then work in either case (with or without being applied
-> atop v2).
->
-> Thanks,
->
-> Andrew
->
->>
->> >
->> > >
->> > >
->> > >   /**
->> > >    * A signal descriptor, which describes the register, bits and the
->> > > @@ -580,5 +581,4 @@ int aspeed_gpio_request_enable(struct pinctrl_dev *pctldev,
->> > >  int aspeed_pinctrl_probe(struct platform_device *pdev,
->> > >               struct pinctrl_desc *pdesc,
->> > >               struct aspeed_pinctrl_data *pdata);
->> > > -
->> > >  #endif /* PINCTRL_ASPEED */
->>
->>
->
+The openbmc event log is in full swing with Adriana and I working on
+it last sprint and this sprint.  I'd like to throw some
+questions/design thoughts on there for this sprints current work.
 
-Since the SPI1 strap bits will be mutable by the pinctrl driver,
-should we take the hard-coding out of the mach-aspeed AST2500 fixup?
+A little background first though
+- The initial commit, with the elog interface can be found here:
+https://gerrit.openbmc-project.xyz/#/c/660/
+- You can follow the commit history in the upper right to see all of
+the code associated with it
 
-xo
+The event log is primarily used to log errors that occur within the
+system.  Think things like my power supply isn't working or a core
+wont start or a seeprom has bad vpd.  Our design is to define errors
+within a yaml file (elog.yaml), compile (elog-gen.py) those into a
+header file for compile time validation (elog-gen.hpp), and then have
+the code use the defined error codes when they hit errors.
+
+The event log uses exceptions.  When a user creates an event log, it
+throws an exception.  That exception can be caught and handled by
+calling code or it will be propagated up into the sdbusplus code which
+will then (hand waving here) send the exception over to the calling
+application and turn it back into an exception for the calling
+application to handle.  The idea is that application code looks the
+same (try/catch) when it's calling an internal function and a dbus
+interface.
+
+Now for this sprint, I'm working on a story to allow us to define the
+errors within the phosphor-dbus-interface repo, but to have the meta
+data associated with the error stay in the phosphor-logging repo.  The
+story is https://github.com/openbmc/openbmc/issues/731
+
+Currently the design is that all errors are defined within the
+phosphor-logging/elog.yaml file but we want to move to a portion of
+the error being defined within the phosphor-dbus-interface repo.  The
+idea is that you define the errors a dbus application can return when
+you're defining it's interface, but the meta data (i.e. the data you
+collect with the error like file name info and errno) is defined
+within the phosphor-logging repo.  This ends up being a bit of a pain
+for a dev because they have to update 2 repo's to add a new error but
+the goal is to have a fairly minimal set of errors defined that can be
+shared between applications (and it feels architecturally correct,
+define the errors in the interface, define the data associated with
+those errors in the event log).  We foresee the meta data that can go
+with errors growing in the future (calling out a piece of defective
+hardware is one example).
+
+So here's what I'm thinking:
+
+phosphor-dbus-interface/Common.errors.yaml
+- name: FILE_NOT_FOUND
+
+phosphor-logging/elog.yaml
+- name: FILE_NOT_FOUND:
+        msg: "A required file was not found"
+        level: INFO
+        meta:
+            - str: "ERRNUM=0x%.4X"
+              type: int
+            - str: FILE_PATH=%s
+              type: const char *
+            - str: FILE_NAME=%s
+              type: const char *
+
+The tool phosphor-logging/elog-gen.py is what will take the .yaml
+files, validate all errors defined in phosphor-dbus-interface have a
+corresponding entry in elog.yaml and then generate the elog-gen.hpp
+file.  We want to keep the overlap minimal so putting most of the data
+in the phosphor-logging repo makes the most sense to me.
+
+The Common.errors.yaml is where we put common errors shared across
+multiple dbus applications.  The apps will also have their own
+specific yaml files in phosphor-dbus-interface when needed (i.e.
+Inventory.errors.yaml).
+
+Thought/Comments/Questions?
+
+Andrew
