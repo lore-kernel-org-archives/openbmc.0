@@ -1,56 +1,52 @@
-Return-Path: <cyrilbur@gmail.com>
-Received: from mail-pf0-x242.google.com (mail-pf0-x242.google.com
- [IPv6:2607:f8b0:400e:c00::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t8RNl5bpRzDvPX
- for <openbmc@lists.ozlabs.org>; Thu,  3 Nov 2016 11:56:07 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b=h3ntchtH; 
- dkim-atps=neutral
-Received: by mail-pf0-x242.google.com with SMTP id i88so3103216pfk.2
- for <openbmc@lists.ozlabs.org>; Wed, 02 Nov 2016 17:56:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=message-id:subject:from:to:date:in-reply-to:references:mime-version
- :content-transfer-encoding;
- bh=ChKbzNSyzvrGc9QV8G1p6SAOPpjSPKH1mxZSF/P4BYc=;
- b=h3ntchtHDVYT00DR/EirZ3ERkYJgKIrPheuuO5Z9qKUKBPRjtmfpfbnASar1MxdyRp
- Hdc27ft9NadlBAyZwaj7lnwMeDjINZq+beHaiM5L9JRHxZQnAJ2I2BGFWtj4fYFs9IUT
- 4domd84fPoi3Vf3kXRFF3/jHV+Rx28KlNq1B2ZLVlAlYmgnndDwXuiz9fXDrHW8oqRBT
- 3hxHSIaW0ezGFCGYHlgTt4FUWXLRvyFoFvQI4lWuBx7A80c5h694muYCpSwbs4itAeXt
- 6yZnBijvqQUB7JZR933l9oFvjigvIUWBVIu5tb4Rf4ZwrmbPdzeVnd486NBPcrn5GiSm
- jQeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=ChKbzNSyzvrGc9QV8G1p6SAOPpjSPKH1mxZSF/P4BYc=;
- b=d2yi2YLguVMZzrpFrp4oNy7zssXEogJh0gbFVmC0JidGbGCs4k+YsPQXcixnitf3HL
- hUtyJVTua/uT1ylwS5Pz+zZRodl6Mt9rV5TXQIcd5PiLxRuyJjAiZwe22xMh6SzL9id0
- LVsOyFU7S1viaGsvBRRqDFb2tO9IIj8H93oupANy7rW3rDYJG1yV6itOGM7AeW+tN3MO
- Yqc7W1cGheDfPpJ6P0yBUTaWzeIos6w/AjqAIv7jzJM/g4zl06CLkes23mUq8Z+lvWTh
- QjEXb4WBl+cwXHOE1+fZVOqEbEyRKxvBOWDVS9u8iGQWSKI+zIvd6jYzL1j8EfZwCMbw
- sF0Q==
-X-Gm-Message-State: ABUngvfNoki81XmlS/bgq90GBGgeYXh7CnGmyZPyPLho3K1GmJk7RHDfSlP0EY9i6SNCfw==
-X-Received: by 10.98.18.6 with SMTP id a6mr12126420pfj.184.1478134565883;
- Wed, 02 Nov 2016 17:56:05 -0700 (PDT)
-Received: from cyril.ozlabs.ibm.com ([122.99.82.10])
- by smtp.googlemail.com with ESMTPSA id 186sm2167902pfv.61.2016.11.02.17.56.03
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 02 Nov 2016 17:56:05 -0700 (PDT)
-Message-ID: <1478134561.728.7.camel@gmail.com>
-Subject: Re: [PATCH linux dev-4.7 4/8] ipmi: add an Aspeed BT IPMI BMC driver
-From: Cyril Bur <cyrilbur@gmail.com>
-To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, 
- openbmc@lists.ozlabs.org
-Date: Thu, 03 Nov 2016 11:56:01 +1100
-In-Reply-To: <1477465067-19034-5-git-send-email-clg@kaod.org>
-References: <1477465067-19034-1-git-send-email-clg@kaod.org>
- <1477465067-19034-5-git-send-email-clg@kaod.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.22.2 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t8SCr1mqgzDvNn
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Nov 2016 12:33:28 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b=W1Gakme0; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b=kt6kEniU; dkim-atps=neutral
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id 6D39820BC7;
+ Wed,  2 Nov 2016 21:33:23 -0400 (EDT)
+Received: from frontend2 ([10.202.2.161])
+ by compute7.internal (MEProxy); Wed, 02 Nov 2016 21:33:23 -0400
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
+ x-me-sender:x-sasl-enc:message-id:subject:from:to:date
+ :in-reply-to:references:content-type:mime-version; s=mesmtp; bh=
+ R/jFrREV1GjtfVJiYkeEJdqH94k=; b=W1Gakme0NpZ/+8DbHIacKLzCW64G/NLs
+ 1UHzJAcf+/xlp5hdtK25EhO1Y8+QJkfWf6qjo2z/hSDvXaitavr0gbhSKL2xNCfw
+ hTgXh8MQh0tXFC+JBVjJOwLtIDNxo26FdXGdffDPjosoe8z7huqp746URoB8h0mg
+ pHXxciA54d8=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=x-me-sender:x-sasl-enc:message-id:subject
+ :from:to:date:in-reply-to:references:content-type:mime-version;
+ s=smtpout; bh=R/jFrREV1GjtfVJiYkeEJdqH94k=; b=kt6kEniU4l726lpxS
+ HgIFYrTQzG5dxylf763uDgrOZABrOOxHHP33g/NrSk63y6RLSeSqL/zZBw9hxSxC
+ dnAHFqRtHUJPUx+8KyhRIprBKMoNnDMj+hi3jR3lQAEdBgjKSzazouSr6Zu5Rl97
+ wcRBqjRj3siuztQySGU5XDpA0s=
+X-ME-Sender: <xms:45MaWA8ObTxjuYnvDGaPsXLTSxY4dnYbGTh6q-F1-s9gHjJpBXiCrg>
+X-Sasl-enc: +U8PZ3oKvGer+G+buGxh5AoPygHpTDxXGzUIPZRrAMHO 1478136801
+Received: from keelia (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id A02A4CCF2E;
+ Wed,  2 Nov 2016 21:33:19 -0400 (EDT)
+Message-ID: <1478136791.27396.19.camel@aj.id.au>
+Subject: Re: [PATCH linux dev-4.7 v1 1/1] pinctrl: aspeed: Enable ASPEED
+ pinctrl driver to modify SPI1 strap bits
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Kun Yi <kunyi@google.com>, openbmc@lists.ozlabs.org, joel@jms.id.au
+Date: Thu, 03 Nov 2016 12:03:11 +1030
+In-Reply-To: <1478126380-3189-2-git-send-email-kunyi@google.com>
+References: <1478126380-3189-1-git-send-email-kunyi@google.com>
+ <1478126380-3189-2-git-send-email-kunyi@google.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-p4vQCUPzglJ1rWdwH10U"
+X-Mailer: Evolution 3.18.5.2-0ubuntu3 
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,157 +58,161 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Nov 2016 00:56:08 -0000
+X-List-Received-Date: Thu, 03 Nov 2016 01:33:29 -0000
 
-On Wed, 2016-10-26 at 08:57 +0200, Cédric Le Goater wrote:
-> Backport from mainline of the main IPMI BMC driver patch plus fixes :
-> 
->  - commit d94655b405ba ("ipmi/bt-bmc: remove redundant return value
->    check of platform_get_resource()")
->  - commit a3e6061bad62 ("ipmi/bt-bmc: add a dependency on
->    ARCH_ASPEED")
->  - commit 1a377a79211a ("ipmi: Fix ioremap error handling in bt-bmc")
->  - commit 54f9c4d0778b ("ipmi: add an Aspeed BT IPMI BMC driver")
-> 
-> Signed-off-by: Cédric Le Goater <clg@kaod.org>
+
+--=-p4vQCUPzglJ1rWdwH10U
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Kun,
+
+On Wed, 2016-11-02 at 15:39 -0700, Kun Yi wrote:
+> Current pinctrl driver treats HWSTRAP1/HWSTRAP2 bits as read-only. Changi=
+ng
+> SPI1 mode requires pinctrl to modify bit 12 and 13 of HWSTRAP1, and keep
+> other strap bits as read-only.
+>=20
+> Note: with this change devicetree default pinctrl settings for spi1 will
+> effectively override any previous mode set by physical strapping or
+> aspeed.c when Aspeed smc driver is probed.
+>=20
+> Signed-off-by: Kun Yi <kunyi@google.com>
 > ---
+> =C2=A0drivers/pinctrl/aspeed/pinctrl-aspeed.c | 22 ++++++++++++++++++++--
+> =C2=A0drivers/pinctrl/aspeed/pinctrl-aspeed.h |=C2=A0=C2=A02 +-
+> =C2=A02 files changed, 21 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed.c b/drivers/pinctrl/as=
+peed/pinctrl-aspeed.c
+> index 21ef195..c647503 100644
+> --- a/drivers/pinctrl/aspeed/pinctrl-aspeed.c
+> +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed.c
+> @@ -16,6 +16,8 @@
+> =C2=A0
+> =C2=A0const char *const aspeed_pinmux_ips[] =3D { "SCU", "SIO", "GFX", "L=
+PC" };
+> =C2=A0
+> +#define SPI1_REG_MASK=C2=A0=C2=A0=C2=A00x3000
+> +
+> =C2=A0int aspeed_pinctrl_get_groups_count(struct pinctrl_dev *pctldev)
+> =C2=A0{
+> =C2=A0	struct aspeed_pinctrl_data *pdata =3D pinctrl_dev_get_drvdata(pctl=
+dev);
+> @@ -178,6 +180,7 @@ static bool aspeed_sig_expr_eval(const struct aspeed_=
+sig_expr *expr,
+> =C2=A0 *
+> =C2=A0 * @return true if the expression is configured as requested, false=
+ otherwise
+> =C2=A0 */
+> +
+> =C2=A0static bool aspeed_sig_expr_set(const struct aspeed_sig_expr *expr,
+> =C2=A0				bool enable, struct regmap *map)
+> =C2=A0{
+> @@ -197,15 +200,30 @@ static bool aspeed_sig_expr_set(const struct aspeed=
+_sig_expr *expr,
+> =C2=A0
+> =C2=A0		/*
+> =C2=A0		=C2=A0* Strap registers are configured in hardware or by early-bo=
+ot
+> -		=C2=A0* firmware. Treat them as read-only despite that we can write
+> +		=C2=A0* firmware. With the exception of SPI1 interface bits, treat
+> +		=C2=A0* them as read-only despite that we can write
+> =C2=A0		=C2=A0* them. This may mean that certain functions cannot be
+> =C2=A0		=C2=A0* deconfigured and is the reason we re-evaluate after writi=
+ng
+> =C2=A0		=C2=A0* all descriptor bits.
+> =C2=A0		=C2=A0*/
+> -		if (is_scu && (offset =3D=3D HW_STRAP1 || offset =3D=3D HW_STRAP2))
+> +		if (is_scu && (offset =3D=3D HW_STRAP2 ||
+> +			offset =3D=3D HW_STRAP1 && desc->mask !=3D SPI1_REG_MASK))
 
-[snip]
+Maybe the mask comparison would be safer by rewriting as:
 
-> +
-> +static int bt_bmc_probe(struct platform_device *pdev)
-> +{
-> +	struct bt_bmc *bt_bmc;
-> +	struct device *dev;
-> +	struct resource *res;
-> +	int rc;
-> +
-> +	if (!pdev || !pdev->dev.of_node)
-> +		return -ENODEV;
-> +
-> +	dev = &pdev->dev;
-> +	dev_info(dev, "Found bt bmc device\n");
-> +
-> +	bt_bmc = devm_kzalloc(dev, sizeof(*bt_bmc), GFP_KERNEL);
-> +	if (!bt_bmc)
-> +		return -ENOMEM;
-> +
-> +	dev_set_drvdata(&pdev->dev, bt_bmc);
-> +
-> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	bt_bmc->base = devm_ioremap_resource(&pdev->dev, res);
-> +	if (IS_ERR(bt_bmc->base))
-> +		return PTR_ERR(bt_bmc->base);
-> +
-> +	mutex_init(&bt_bmc->mutex);
-> +	init_waitqueue_head(&bt_bmc->queue);
-> +
-> +	bt_bmc->miscdev.minor	= MISC_DYNAMIC_MINOR,
-> +		bt_bmc->miscdev.name	= DEVICE_NAME,
-> +		bt_bmc->miscdev.fops	= &bt_bmc_fops,
-> +		bt_bmc->miscdev.parent = dev;
-> +	rc = misc_register(&bt_bmc->miscdev);
-> +	if (rc) {
-> +		dev_err(dev, "Unable to register misc device\n");
-> +		return rc;
-> +	}
-> +
-> +	bt_bmc_config_irq(bt_bmc, pdev);
-> +
-> +	if (bt_bmc->irq) {
-> +		dev_info(dev, "Using IRQ %d\n", bt_bmc->irq);
-> +	} else {
-> +		dev_info(dev, "No IRQ; using timer\n");
-> +		setup_timer(&bt_bmc->poll_timer, poll_timer,
-> +			    (unsigned long)bt_bmc);
-> +		bt_bmc->poll_timer.expires = jiffies +
-> msecs_to_jiffies(10);
-> +		add_timer(&bt_bmc->poll_timer);
-> +	}
-> +
-> +	iowrite32((BT_IO_BASE << BT_CR0_IO_BASE) |
-> +		  (BT_IRQ << BT_CR0_IRQ) |
-> +		  BT_CR0_EN_CLR_SLV_RDP |
-> +		  BT_CR0_EN_CLR_SLV_WRP |
-> +		  BT_CR0_ENABLE_IBT,
-> +		  bt_bmc->base + BT_CR0);
-> +
-> +	clr_b_busy(bt_bmc);
-> +
-> +	return 0;
-> +}
-> +
-> +static int bt_bmc_remove(struct platform_device *pdev)
-> +{
-> +	struct bt_bmc *bt_bmc = dev_get_drvdata(&pdev->dev);
-> +
-> +	misc_deregister(&bt_bmc->miscdev);
-> +	if (!bt_bmc->irq)
-> +		del_timer_sync(&bt_bmc->poll_timer);
 
-The old bt-host driver had:
-       devm_iounmap(&pdev->dev, bt_host->base);
-       devm_kfree(&pdev->dev, bt_host);
+> +		if (is_scu && (offset =3D=3D HW_STRAP2 ||
+> +			offset =3D=3D HW_STRAP1 && !(desc->mask & SPI1_REG_MASK)))
 
-Is there kernel magic that means they aren't needed?
+That way if (for whatever reason) we change the approach used in the
+-g4 and -g5 implementations we still get the expected outcome.
 
-> +	return 0;
-> +}
+
+> =C2=A0			continue;
+> =C2=A0
+> =C2=A0		/*
+> +		=C2=A0* HW_STRAP1 bits can only be set to 0 by writing 1 into
+> +		=C2=A0* bits of same offset in SCU7C. To configure different SPI1
+> +		=C2=A0* modes, we write 1 to SCU7C[13:12] to clear SPI1 mask to make
+> +		=C2=A0* sure later write to strap register can take effect.
+> +		=C2=A0*/
+> +		if (is_scu && offset =3D=3D HW_STRAP1 &&
+> +		=C2=A0=C2=A0=C2=A0=C2=A0desc->mask =3D=3D SPI1_REG_MASK) {
+> +			ret =3D regmap_write(map, HW_STRAP1_RESET, desc->mask);
+> +			if (ret)
+> +				return false;
+> +		};
 > +
-> +static const struct of_device_id bt_bmc_match[] = {
-> +	{ .compatible = "aspeed,ast2400-bt-bmc" },
-> +	{ },
-> +};
-> +
-> +static struct platform_driver bt_bmc_driver = {
-> +	.driver = {
-> +		.name		= DEVICE_NAME,
-> +		.of_match_table = bt_bmc_match,
-> +	},
-> +	.probe = bt_bmc_probe,
-> +	.remove = bt_bmc_remove,
-> +};
-> +
-> +module_platform_driver(bt_bmc_driver);
-> +
-> +MODULE_DEVICE_TABLE(of, bt_bmc_match);
-> +MODULE_LICENSE("GPL");
-> +MODULE_AUTHOR("Alistair Popple <alistair@popple.id.au>");
-> +MODULE_DESCRIPTION("Linux device interface to the BT interface");
-> diff --git a/include/uapi/linux/Kbuild b/include/uapi/linux/Kbuild
-> index ec10cfef166a..9493842de93b 100644
-> --- a/include/uapi/linux/Kbuild
-> +++ b/include/uapi/linux/Kbuild
-> @@ -74,6 +74,7 @@ header-y += bpf_common.h
->  header-y += bpf.h
->  header-y += bpqether.h
->  header-y += bsg.h
-> +header-y += bt-bmc.h
->  header-y += btrfs.h
->  header-y += can.h
->  header-y += capability.h
-> diff --git a/include/uapi/linux/bt-bmc.h b/include/uapi/linux/bt-
-> bmc.h
-> new file mode 100644
-> index 000000000000..d9ec766a63d0
-> --- /dev/null
-> +++ b/include/uapi/linux/bt-bmc.h
-> @@ -0,0 +1,18 @@
-> +/*
-> + * Copyright (c) 2015-2016, IBM Corporation.
-> + *
-> + * This program is free software; you can redistribute it and/or
-> + * modify it under the terms of the GNU General Public License
-> + * as published by the Free Software Foundation; either version
-> + * 2 of the License, or (at your option) any later version.
-> + */
-> +
-> +#ifndef _UAPI_LINUX_BT_BMC_H
-> +#define _UAPI_LINUX_BT_BMC_H
-> +
-> +#include <linux/ioctl.h>
-> +
-> +#define __BT_BMC_IOCTL_MAGIC	0xb1
-> +#define BT_BMC_IOCTL_SMS_ATN	_IO(__BT_BMC_IOCTL_MAGIC, 0x00)
-> +
-> +#endif /* _UAPI_LINUX_BT_BMC_H */
+> +		/*
+> =C2=A0		=C2=A0* Sometimes we need help from IP outside the SCU to activat=
+e a
+> =C2=A0		=C2=A0* mux request. Report that we need its cooperation.
+> =C2=A0		=C2=A0*/
+> diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed.h b/drivers/pinctrl/as=
+peed/pinctrl-aspeed.h
+> index 68315a8..46ba16d 100644
+> --- a/drivers/pinctrl/aspeed/pinctrl-aspeed.h
+> +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed.h
+> @@ -268,6 +268,7 @@
+> =C2=A0#define HW_STRAP2=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A00xD0 /* =
+Strapping */
+> =C2=A0
+> =C2=A0#define SIORD30		SIG_DESC_TO_REG(ASPEED_IP_SIO, 0x30)
+> +#define HW_STRAP1_RESET	SIG_DESC_TO_REG(ASPEED_IP_SCU, 0x7C)
+
+Maybe HW_STRAP1_CLEAR would be ... clearer? Also in this case the
+SIG_DESC_TO_REG() macro is not entirely necessary as we're talking
+about the SCU, but being explicit is good. As a note the macro(s) have
+gone away in the v2 of the series I've recently sent upstream due to
+feedback from the maintainer:
+
+https://www.spinics.net/lists/arm-kernel/msg540082.html
+
+Otherwise this looks good to me. Thanks for looking at the problem!
+
+Andrew
+
+> =C2=A0
+> =C2=A0 /**
+> =C2=A0=C2=A0=C2=A0* A signal descriptor, which describes the register, bi=
+ts and the
+> @@ -580,5 +581,4 @@ int aspeed_gpio_request_enable(struct pinctrl_dev *pc=
+tldev,
+> =C2=A0int aspeed_pinctrl_probe(struct platform_device *pdev,
+> =C2=A0		struct pinctrl_desc *pdesc,
+> =C2=A0		struct aspeed_pinctrl_data *pdata);
+> -
+> =C2=A0#endif /* PINCTRL_ASPEED */
+--=-p4vQCUPzglJ1rWdwH10U
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIbBAABCgAGBQJYGpPYAAoJEJ0dnzgO5LT5Bi8P+NHMgFUj4S6Vgq1jo18c+qkN
+/GwemEJW98Jvn+TG3HFgq4VUAM+BSE3MUmZcuF4SbbUjPriX607qBqeKbX+izhC7
+IctC4u+ni84XZzviOsvE1qcz9FafBM3UXeUMtXV3Xqdv8/S2gpfUs2dlnfztKuQE
+nhi3VPaD8DbkB3h0ZbPOKlycuNaXkKtq+X9ukrBUP9ddqvMkF+gAKwuRxl+mQaZI
++4G7a9boigTFo2fI8U1HGepy17l8kqG4E9/JqQxIUV+fJ1AWj+lqz1Tzh7blVz9s
+fV+iLj311DBHa5ENa6zctgpP7nn2HAB0D69R6eLY8DJcgy4nlJoTjti1AZJ3k33e
+mlaG0hEaUy9tZEHt7cLTTlOWXpPI/bAK7BZtfNlgvv9rVuWJMeDRBl34iaMne1vV
+b+z3nJL7LOArbPqfSVXsHq9BHAoBEmXrnywfUO9iuVOV7GmvBMwe0NjwROPM/Q++
+X+kFLnZnBggJkFza0XDbGv2RQsNDH3z6tBgtZIy4YgvEkXlokh3RBNQismuXMcJL
+XFgxgcw1wIN6guk2QiJcUg4ROmuWFJ2C/nzeV4k/QP5DIzsKdpGReGlht3Mr45Zz
+iP3rx+uWLjS+GfkzjovffZJ0ZHjVg5+3cyudchmxJarHyDmSgqY+WEqKBQSooFC9
+tZvIdvbPlVwLlU3w3qc=
+=uBOU
+-----END PGP SIGNATURE-----
+
+--=-p4vQCUPzglJ1rWdwH10U--
