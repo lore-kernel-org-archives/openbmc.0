@@ -1,50 +1,79 @@
-Return-Path: <maxims@google.com>
-Received: from mail-yw0-x229.google.com (mail-yw0-x229.google.com
- [IPv6:2607:f8b0:4002:c05::229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <tomjose@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t9Tlp0bZHzDvgh
- for <openbmc@lists.ozlabs.org>; Sat,  5 Nov 2016 04:46:13 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="kiSHZDWn"; 
- dkim-atps=neutral
-Received: by mail-yw0-x229.google.com with SMTP id r204so97728830ywb.0
- for <openbmc@lists.ozlabs.org>; Fri, 04 Nov 2016 10:46:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=xohnGBe68hDoLteHXkGZX2ULlEzxDexYsWxZQCug7pc=;
- b=kiSHZDWnv6E31kOEVApHD54kKCM0BPuv7n0X9tB/3wjKwX2ltMp4U/zhGavoKhKBaa
- gXzYAFBot8xJTnqVJXhgRYOBi0rPkq/Okfm+OVnyb6SbuQ6a30gMQHoRN02X0Smc/Pq1
- 8pxdFI0bq1usvukph5vi7W2KbfA15lNkSWrZOPijaI/a5P1bcb74NdYJBlAGlnt0nI9S
- TI+rSR/Qj1WXKDBIC2TN1/XPbIKqa8UapBW0ODLHXc2ZLAtrGmfyKFO3uI9//4zl4U1D
- CzFbmRgHzD2lrkjt+zjkYQS8bmBHSysl4DyQPSIP+uUS2YBpOWFmclc39+2hj5/LkUg/
- e1QA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=xohnGBe68hDoLteHXkGZX2ULlEzxDexYsWxZQCug7pc=;
- b=VjwziZS7I3+hrdPaBYJWZg8Mw3lPvlz/Or8AWMqM5W8X2se2H16x093pijne39adtL
- oFpOWbWYwe5aKutRpv9S6YZlLgJa677xy7KgUNYNhB1uEWQhbuImxCbp1b4f2vvSpmFV
- 5SIqu+lx2hAE1GeCMU+r3niM/Ljoo1+hshuLAT9TKp09Q5AwkeCXvp8WsvVn3gUxHZuI
- GjxlQ5aznzJJhVobcn7Y0ikQWaV8+/UwTHvs/CWI43zRes86R0DUZUgou8arTqGCIAsw
- iM7yo18SSwp1k9SwG1ACZEX/t3WUyJ7yD3V3/PQsOoX/Em+CRdi/CFXeU3NhITIlC9c/
- 6mng==
-X-Gm-Message-State: ABUngvdb3d4CzyfAaWGnK/1uOMYm1ISj9RZf2x65f5A+HForDEWVlU03GRMIYCyaduQCRc7/lzoFgrP24ufK4JzO
-X-Received: by 10.13.212.129 with SMTP id w123mr4925544ywd.180.1478281571225; 
- Fri, 04 Nov 2016 10:46:11 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t9Trr30BXzDt1D
+ for <openbmc@lists.ozlabs.org>; Sat,  5 Nov 2016 04:50:36 +1100 (AEDT)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
+ uA4HmjBv124323
+ for <openbmc@lists.ozlabs.org>; Fri, 4 Nov 2016 13:50:34 -0400
+Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 26gsfu1wnu-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 04 Nov 2016 13:50:34 -0400
+Received: from localhost
+ by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <tomjose@linux.vnet.ibm.com>;
+ Fri, 4 Nov 2016 11:50:33 -0600
+Received: from d03dlp01.boulder.ibm.com (9.17.202.177)
+ by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 4 Nov 2016 11:50:31 -0600
+Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
+ [9.57.198.29])
+ by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id D04D1C40001;
+ Fri,  4 Nov 2016 11:50:10 -0600 (MDT)
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ uA4HoOus10748274; Fri, 4 Nov 2016 17:50:30 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 78C5228057;
+ Fri,  4 Nov 2016 13:50:30 -0400 (EDT)
+Received: from [9.124.217.99] (unknown [9.124.217.99])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id B4FEF2803A;
+ Fri,  4 Nov 2016 13:50:27 -0400 (EDT)
+Subject: Re: IPMI LAN command story design - try 3rd send
+To: Patrick Williams <patrick@stwcx.xyz>
+References: <TY1PR06MB0863871D99A02C72E98F2462F6C20@TY1PR06MB0863.apcprd06.prod.outlook.com>
+ <57F37746.6040304@linux.vnet.ibm.com>
+ <20161004145104.d5co7h25dakpcxyz@asimov>
+ <TY1PR06MB0863CF900A7338954B8ED956F6D00@TY1PR06MB0863.apcprd06.prod.outlook.com>
+ <TY1PR06MB08635DA92530A90D5D2C039DF6A30@TY1PR06MB0863.apcprd06.prod.outlook.com>
+ <581C8C7D.8080702@linux.vnet.ibm.com> <20161104141455.GE17105@heinlein.lan>
+Cc: Li Nan <william.bjlinan@hotmail.com>,
+ Adriana Kobylak <anoo@linux.vnet.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: tomjose <tomjose@linux.vnet.ibm.com>
+Date: Fri, 4 Nov 2016 23:20:25 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+ Thunderbird/38.8.0
 MIME-Version: 1.0
-Received: by 10.37.56.210 with HTTP; Fri, 4 Nov 2016 10:46:10 -0700 (PDT)
-In-Reply-To: <7a5ddb25-a5d6-104b-b81e-3d92d43b26e6@kaod.org>
-References: <CAFR_W8qYKipAMj4h8xwMCJi4=AhiYePf=d3ndCGgYzCg=qxfNw@mail.gmail.com>
- <7a5ddb25-a5d6-104b-b81e-3d92d43b26e6@kaod.org>
-From: Maxim Sloyko <maxims@google.com>
-Date: Fri, 4 Nov 2016 10:46:10 -0700
-Message-ID: <CAFR_W8oez8r9qX1A8KD-egFbcBZrWLmNc0hwagmM+XyjKvmiWQ@mail.gmail.com>
-Subject: Re: U-Boot upstreaming
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=001a114fa738eed82105407d3fb5
+In-Reply-To: <20161104141455.GE17105@heinlein.lan>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16110417-0016-0000-0000-00000515546A
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006033; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000189; SDB=6.00776762; UDB=6.00373702; IPR=6.00553909; 
+ BA=6.00004857; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00013216; XFM=3.00000011;
+ UTC=2016-11-04 17:50:33
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 16110417-0017-0000-0000-0000345C0C4A
+Message-Id: <581CCA61.4010202@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-11-04_04:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1609300000
+ definitions=main-1611040332
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,283 +85,69 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Nov 2016 17:46:14 -0000
+X-List-Received-Date: Fri, 04 Nov 2016 17:50:36 -0000
 
---001a114fa738eed82105407d3fb5
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Hi Patrick,
 
-On Fri, Nov 4, 2016 at 8:54 AM, C=C3=A9dric Le Goater <clg@kaod.org> wrote:
+In the IPMI command flow that Nan mentioned in the earlier mail. Any of 
+the following ipmitool command for
+setting the IPv4 configuration, one of the step is to 'Commit 
+Write'(Step 8 in Nan's mail).
 
-> Hello !
->
-> On 11/03/2016 09:44 PM, Maxim Sloyko wrote:
-> > Hi Cedric,
-> >
-> > My manager (Rick Alther) mentioned that you were working on some
-> > minimal "upstreamable" commit for Aspeed in U-Boot. How far were
-> > you able to get?
->
-> Please check :
->
->   https://github.com/openbmc/u-boot/wiki
->
-> This is where we track the ugly details and here is my tree :
->
->    https://github.com/legoater/u-boot/commits/v2016.11-aspeed-openbmc
->
-> Patch one is the "minimum" we have been working on with Joel these
-> last 6 months to :
->
->  * make it compatible with upstream
->  * extract all exoticisms
->  * extract funky drivers
->  * isolate ugly hacks
->
-> I think we are at a point where we need to rewrite bits of lowlevel_init
-> or move them later on in the code. This big asm routines does :
->
->  * LPC patching for ast2300 (we can kill that)
->  * uart init (if SDRAM calibration is done, easy we can keep)
->  * SDRAM calibration (we could use static calibration values instead)
->  * SDRAM size calculation (may be we can move that in a C part)
->  * video clock setting (one reg setting)
->  * JTAG master (one reg setting)
->  * RMII/RGMII clock setting (one reg setting)
->  * GPIO massive reset (not sure if this is useful, should ask Andrew)
->  * SPI Calibration (I have done in C so we can move)
->
+ipmitool lan set 1 ipaddr x.x.x.x
+ipmitool lan set 1 netmask x.x.x.x
+ipmitool lan set 1 defgw ipaddr x.x.x.x
 
-Yes, I looked at it too and it does not look like any of that has any
-business being in lowlevel_init, let alone being implemented in asm.
+As part of the execution of any of the above commands a commit write is 
+executed. In that case we cannot use
+'Commit Write' as a way to denote the completion of a transaction.
 
-Did you try moving this whole function further down the init sequence?
-board_early_init_f might be a good candidate. It might cause problems
-because it does not restore registers properly, but should be an easy fix -=
--
-at this point we would already have stack setup for us (need to be
-configured via CONFIG_SYS_INIT_SP_ADDR to point to the top of SRAM) and
-even have a basic malloc (need to be configured). This would make calling
-into C somewhat easier.
+The IPMI specification expects the IP configuration parameters as 
+non-volatile parameters. The commit write
+parameter is a way to implement rollback feature. The BMC would make a 
+copy of the existing parameters
+when the 'Set in Progress' state is asserted.
 
+The Get/Set LAN Configuration commands do not provide an option to apply 
+the configuration and is identified as
+LAN channel settings. The link below used 'Set Channel Access' command 
+to apply the settings.
+(ipmitool lan set 1 access on). Since LAN configuration parameters are 
+channel settings, we thought of
+applying the LAN configuration parameters as part of 'Set Channel 
+Access'. I am okie if we have
+an OEM command to trigger applying the LAN settings.
 
->
-> > This is also what I was thinking of doing, so we should be able to join
-> forces on this.
-> >
-> > I talked to Simon Glass recently (he's an active contributor to mainlin=
-e
-> U-Boot)
-> > and basically that's the path that he also recommended -- just getting
-> minimal amount
-> > of code in, that can just boot to a prompt. He also said that DRAM
-> driver would have
-> > to be part of it.
->
-> yes. See my comments above.
->
-> > So, the way I see it, there are two big chunks of work here:
-> >  1. Setting up the whole structure. This would include actually adding =
-a
-> board, minimum
-> > amount of supporting code, debug serial console init,
->
-> yes. that is patch one above, in which we still need to cleanup
-> stuff in the .S part.
->
-> >  2. DDR3/DDR4 driver. This is the biggest part of what we have in
-> platform.S now. A lot
-> > of work, but relatively straightforward, just rewrite ~1.5k lines of
-> assembly in C.
->
-> I am not sure this is feasible, AFAIK, you can not call C. I might
-> be wrong.
->
+https://www.thomas-krenn.com/en/wiki/Configuring_IPMI_under_Linux_using_ipmitool
 
-You can. I tried it and it works. We just need stack (see above). Even if
-moving the whole lowlevel_init further down will prove too hard, we can at
-least call
+In Barreleye we did not implement the 'Set Channel Access' command. 
+There was no external
+command to trigger apply the settings. In Barreleye the LAN settings are 
+applied when all the
+three entries(IP Address, Netmask and Gateway address) where set. So 
+only to change the
+IP address, the netmask and gateway address need to be re-entered, which 
+was an imperfect
+solution.
 
-mov sp, =3DTOP_OF_SRAM
-
-at top of lowlevel_init. after this you can write (and call into) pretty
-complicated C functions. This is what I've tried in my early experiments.
-
-
->
-> > Personally, I don't have preference on who does what, as long as we
-> don't step on each
-> > other's toes. It would probably be easier for me to take (1), because I
-> can easily talk
-> > to two people who are in our time zone and have a lot of mainline U-Boo=
-t
-> experience.
-> >
-> > Thoughts?
->
-> you could send patches on top of my tree to cleanup what ever
-> part you want in lowlevel_init. when lowlevel_init reaches a
-> minimum acceptable level, with a full patchset working on top
-> of it, I think we can send for review. Then, we will work on
-> the next details :
->
->  * extra settings
->  * spi/nor driver
->  * ftgmac100 extensions for Aspeed
->  * NCSI support
->  * DTS support
->  * etc.
->
-> There is also a massive hack on the ast2500 mmu disablement in
-> the core part of u-boot that I don't understand. So we could
-> try to fix now or ask help when the patchset is sent.
->
->
-> Cheers,
->
-> C.
->
+Regards,
+Tom
 
 
 
---=20
-*M*axim *S*loyko
-
---001a114fa738eed82105407d3fb5
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><br><div class=3D"gmail_extra"><br><div class=3D"gmail_quo=
-te">On Fri, Nov 4, 2016 at 8:54 AM, C=C3=A9dric Le Goater <span dir=3D"ltr"=
->&lt;<a href=3D"mailto:clg@kaod.org" target=3D"_blank">clg@kaod.org</a>&gt;=
-</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .=
-8ex;border-left:1px #ccc solid;padding-left:1ex">Hello !<br>
-<span class=3D""><br>
-On 11/03/2016 09:44 PM, Maxim Sloyko wrote:<br>
-&gt; Hi Cedric,<br>
-&gt;<br>
-&gt; My manager (Rick Alther) mentioned that you were working on some<br>
-&gt; minimal &quot;upstreamable&quot; commit for Aspeed in U-Boot. How far =
-were<br>
-&gt; you able to get?<br>
-<br>
-</span>Please check :<br>
-<br>
-=C2=A0 <a href=3D"https://github.com/openbmc/u-boot/wiki" rel=3D"noreferrer=
-" target=3D"_blank">https://github.com/openbmc/u-<wbr>boot/wiki</a><br>
-<br>
-This is where we track the ugly details and here is my tree :<br>
-<br>
-=C2=A0 =C2=A0<a href=3D"https://github.com/legoater/u-boot/commits/v2016.11=
--aspeed-openbmc" rel=3D"noreferrer" target=3D"_blank">https://github.com/le=
-goater/u-<wbr>boot/commits/v2016.11-aspeed-<wbr>openbmc</a><br>
-<br>
-Patch one is the &quot;minimum&quot; we have been working on with Joel thes=
-e<br>
-last 6 months to :<br>
-<br>
-=C2=A0* make it compatible with upstream<br>
-=C2=A0* extract all exoticisms<br>
-=C2=A0* extract funky drivers<br>
-=C2=A0* isolate ugly hacks<br>
-<br>
-I think we are at a point where we need to rewrite bits of lowlevel_init<br=
+On Friday 04 November 2016 07:44 PM, Patrick Williams wrote:
+> Tom,
 >
-or move them later on in the code. This big asm routines does :<br>
-<br>
-=C2=A0* LPC patching for ast2300 (we can kill that)<br>
-=C2=A0* uart init (if SDRAM calibration is done, easy we can keep)<br>
-=C2=A0* SDRAM calibration (we could use static calibration values instead)<=
-br>
-=C2=A0* SDRAM size calculation (may be we can move that in a C part)<br>
-=C2=A0* video clock setting (one reg setting)<br>
-=C2=A0* JTAG master (one reg setting)<br>
-=C2=A0* RMII/RGMII clock setting (one reg setting)<br>
-=C2=A0* GPIO massive reset (not sure if this is useful, should ask Andrew)<=
-br>
-=C2=A0* SPI Calibration (I have done in C so we can move)<br></blockquote><=
-div><br></div><div>Yes, I looked at it too and it does not look like any of=
- that has any business being in lowlevel_init, let alone being implemented =
-in asm.</div><div><br></div><div>Did you try moving this whole function fur=
-ther down the init sequence? board_early_init_f might be a good candidate. =
-It might cause problems because it does not restore registers properly, but=
- should be an easy fix --</div><div>at this point we would already have sta=
-ck setup for us (need to be configured via CONFIG_SYS_INIT_SP_ADDR to point=
- to the top of SRAM) and even have a basic malloc (need to be configured). =
-This would make calling into C somewhat easier.=C2=A0</div><div>=C2=A0</div=
-><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1=
-px #ccc solid;padding-left:1ex">
-<span class=3D""><br>
-&gt; This is also what I was thinking of doing, so we should be able to joi=
-n forces on this.<br>
-&gt;<br>
-&gt; I talked to Simon Glass recently (he&#39;s an active contributor to ma=
-inline U-Boot)<br>
-&gt; and basically that&#39;s the path that he also recommended -- just get=
-ting minimal amount<br>
-&gt; of code in, that can just boot to a prompt. He also said that DRAM dri=
-ver would have<br>
-&gt; to be part of it.<br>
-<br>
-</span>yes. See my comments above.<br>
-<span class=3D""><br>
-&gt; So, the way I see it, there are two big chunks of work here:<br>
-&gt;=C2=A0 1. Setting up the whole structure. This would include actually a=
-dding a board, minimum<br>
-&gt; amount of supporting code, debug serial console init,<br>
-<br>
-</span>yes. that is patch one above, in which we still need to cleanup<br>
-stuff in the .S part.<br>
-<span class=3D""><br>
-&gt;=C2=A0 2. DDR3/DDR4 driver. This is the biggest part of what we have in=
- platform.S now. A lot<br>
-&gt; of work, but relatively straightforward, just rewrite ~1.5k lines of a=
-ssembly in C.<br>
-<br>
-</span>I am not sure this is feasible, AFAIK, you can not call C. I might<b=
-r>
-be wrong.<br></blockquote><div><br></div><div>You can. I tried it and it wo=
-rks. We just need stack (see above). Even if moving the whole lowlevel_init=
- further down will prove too hard, we can at least call</div><div><br></div=
-><div>mov sp, =3DTOP_OF_SRAM</div><div><br></div><div>at top of lowlevel_in=
-it. after this you can write (and call into) pretty complicated C functions=
-. This is what I&#39;ve tried in my early experiments.</div><div>=C2=A0</di=
-v><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:=
-1px #ccc solid;padding-left:1ex">
-<span class=3D""><br>
-&gt; Personally, I don&#39;t have preference on who does what, as long as w=
-e don&#39;t step on each<br>
-&gt; other&#39;s toes. It would probably be easier for me to take (1), beca=
-use I can easily talk<br>
-&gt; to two people who are in our time zone and have a lot of mainline U-Bo=
-ot experience.<br>
-&gt;<br>
-&gt; Thoughts?<br>
-<br>
-</span>you could send patches on top of my tree to cleanup what ever<br>
-part you want in lowlevel_init. when lowlevel_init reaches a<br>
-minimum acceptable level, with a full patchset working on top<br>
-of it, I think we can send for review. Then, we will work on<br>
-the next details :<br>
-<br>
-=C2=A0* extra settings<br>
-=C2=A0* spi/nor driver<br>
-=C2=A0* ftgmac100 extensions for Aspeed<br>
-=C2=A0* NCSI support<br>
-=C2=A0* DTS support<br>
-=C2=A0* etc.<br>
-<br>
-There is also a massive hack on the ast2500 mmu disablement in<br>
-the core part of u-boot that I don&#39;t understand. So we could<br>
-try to fix now or ask help when the patchset is sent.<br>
-<br>
-<br>
-Cheers,<br>
-<br>
-C.<br>
-</blockquote></div><br><br clear=3D"all"><div><br></div>-- <br><div class=
-=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div><b>M</b>axim <=
-b>S</b>loyko</div></div>
-</div></div>
-
---001a114fa738eed82105407d3fb5--
+> On Fri, Nov 04, 2016 at 06:56:21PM +0530, tomjose wrote:
+>> The Set Channel access command was decided to be used to mark the end of
+>> a setting LAN configuration transaction.
+> The IPMI spec for the SetLanConfig has a parameter 'Set In Progress'
+> which states: 10b = commit write.  Why are we not utilizing that?  Maybe
+> in addition to Set Channel Access?
+>
+> I don't see anything in the Set Channel Access command description that
+> would be obvious as a mechanism for updating IP addresses.  Was that
+> just quick behavior we decided to do for Barreleye?  Is there any reason
+> why we would not deprecate that behavior in favor of the Set In
+> Progress / commit write?
+>
