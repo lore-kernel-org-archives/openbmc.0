@@ -1,33 +1,35 @@
 Return-Path: <clg@kaod.org>
-Received: from 4.mo1.mail-out.ovh.net (4.mo1.mail-out.ovh.net [46.105.76.26])
+Received: from 3.mo1.mail-out.ovh.net (3.mo1.mail-out.ovh.net [46.105.60.232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t9RH33V5JzDvHd
- for <openbmc@lists.ozlabs.org>; Sat,  5 Nov 2016 02:54:38 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t9Rb656dfzDvWr
+ for <openbmc@lists.ozlabs.org>; Sat,  5 Nov 2016 03:08:33 +1100 (AEDT)
 Received: from player770.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo1.mail-out.ovh.net (Postfix) with ESMTP id EF68718F7E
- for <openbmc@lists.ozlabs.org>; Fri,  4 Nov 2016 16:54:33 +0100 (CET)
+ by mo1.mail-out.ovh.net (Postfix) with ESMTP id B985418E09
+ for <openbmc@lists.ozlabs.org>; Fri,  4 Nov 2016 17:08:29 +0100 (CET)
 Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
  [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player770.ha.ovh.net (Postfix) with ESMTPSA id 81B083C0096;
- Fri,  4 Nov 2016 16:54:32 +0100 (CET)
+ by player770.ha.ovh.net (Postfix) with ESMTPSA id 73F0C3C0073;
+ Fri,  4 Nov 2016 17:08:25 +0100 (CET)
 Subject: Re: U-Boot upstreaming
-To: Maxim Sloyko <maxims@google.com>
+To: Joel Stanley <joel@jms.id.au>, Maxim Sloyko <maxims@google.com>
 References: <CAFR_W8qYKipAMj4h8xwMCJi4=AhiYePf=d3ndCGgYzCg=qxfNw@mail.gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+ <CACPK8Xe-eSzBXTkCYxsjoC9nR7DsAgcPHr3hvKiBF=fZHswaWA@mail.gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Teddy Reed <teddy.reed@gmail.com>
 From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <7a5ddb25-a5d6-104b-b81e-3d92d43b26e6@kaod.org>
-Date: Fri, 4 Nov 2016 16:54:31 +0100
+Message-ID: <bacea3c2-98a3-65d1-018f-e28797dae181@kaod.org>
+Date: Fri, 4 Nov 2016 17:08:25 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
  Thunderbird/45.4.0
 MIME-Version: 1.0
-In-Reply-To: <CAFR_W8qYKipAMj4h8xwMCJi4=AhiYePf=d3ndCGgYzCg=qxfNw@mail.gmail.com>
+In-Reply-To: <CACPK8Xe-eSzBXTkCYxsjoC9nR7DsAgcPHr3hvKiBF=fZHswaWA@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-X-Ovh-Tracer-Id: 12626123032003447554
+X-Ovh-Tracer-Id: 12861436113675979647
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrkeelgdekvdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrkeelgdekgecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -39,92 +41,93 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Nov 2016 15:54:39 -0000
+X-List-Received-Date: Fri, 04 Nov 2016 16:08:35 -0000
 
-Hello !
-
-On 11/03/2016 09:44 PM, Maxim Sloyko wrote:
-> Hi Cedric,
+On 11/04/2016 01:09 AM, Joel Stanley wrote:
+> Hi Maxim,
 > 
-> My manager (Rick Alther) mentioned that you were working on some 
-> minimal "upstreamable" commit for Aspeed in U-Boot. How far were 
-> you able to get?
-
-Please check :
-
-  https://github.com/openbmc/u-boot/wiki
-
-This is where we track the ugly details and here is my tree : 
-
-   https://github.com/legoater/u-boot/commits/v2016.11-aspeed-openbmc
-
-Patch one is the "minimum" we have been working on with Joel these
-last 6 months to :
-
- * make it compatible with upstream
- * extract all exoticisms 
- * extract funky drivers
- * isolate ugly hacks
-
-I think we are at a point where we need to rewrite bits of lowlevel_init
-or move them later on in the code. This big asm routines does : 
-
- * LPC patching for ast2300 (we can kill that)
- * uart init (if SDRAM calibration is done, easy we can keep)
- * SDRAM calibration (we could use static calibration values instead)
- * SDRAM size calculation (may be we can move that in a C part)
- * video clock setting (one reg setting)
- * JTAG master (one reg setting) 
- * RMII/RGMII clock setting (one reg setting) 
- * GPIO massive reset (not sure if this is useful, should ask Andrew)
- * SPI Calibration (I have done in C so we can move)
-
-> This is also what I was thinking of doing, so we should be able to join forces on this.
+> On Fri, Nov 4, 2016 at 7:14 AM, Maxim Sloyko <maxims@google.com> wrote:
+>> Hi Cedric,
+>>
+>> My manager (Rick Alther) mentioned that you were working on some minimal
+>> "upstreamable" commit for Aspeed in U-Boot. How far were you able to get?
+>>
+>> This is also what I was thinking of doing, so we should be able to join
+>> forces on this.
+>>
+>> I talked to Simon Glass recently (he's an active contributor to mainline
+>> U-Boot) and basically that's the path that he also recommended -- just
+>> getting minimal amount of code in, that can just boot to a prompt. He also
+>> said that DRAM driver would have to be part of it.
 > 
-> I talked to Simon Glass recently (he's an active contributor to mainline U-Boot)
-> and basically that's the path that he also recommended -- just getting minimal amount 
-> of code in, that can just boot to a prompt. He also said that DRAM driver would have 
-> to be part of it.
+> I agree. The downside here is Cedric has done a lot of work in
+> cleaning up the Aspeed SDK code already, so we don't want to throw
+> away the good stuff he's done.
 
-yes. See my comments above. 
+half of that work is yours, Joel.
+ 
+>> So, the way I see it, there are two big chunks of work here:
+>>  1. Setting up the whole structure. This would include actually adding a
+>> board, minimum amount of supporting code, debug serial console init,
+> 
+> I have a tree where I've started pulling the build scaffolding -
+> kconfig, makefiles, etc - out of the patch we have.
+> 
+> The second part of it is writing a clean serial driver. The hardware a
+> pretty standard layout, so I imagine we don't need to do much here.
+> Perhaps doing some calculations based on the clock speed to set a baud
+> rate.
+> 
+>>  2. DDR3/DDR4 driver. This is the biggest part of what we have in platform.S
+>> now. A lot of work, but relatively straightforward, just rewrite ~1.5k lines
+>> of assembly in C.
+> 
+> Our concern with rewriting this is future maintainability. If we
+> rewrite it, it becomes harder to incorporate fixes and new hardware
+> support from Aspeed SDKs.
 
-> So, the way I see it, there are two big chunks of work here:
->  1. Setting up the whole structure. This would include actually adding a board, minimum 
-> amount of supporting code, debug serial console init, 
+Yes that is one big concern I think. The platform*.s files are 
+exactly the one shipped by Aspeed.
 
-yes. that is patch one above, in which we still need to cleanup 
-stuff in the .S part.
+> On the other hand, there's no way we can upstream it as-is. So lets
+> re-write it in C, and where we can document parts of the
+> reimplementation with reference to the assembly so making updates is
+> possible.
+> 
+>>
+>> Personally, I don't have preference on who does what, as long as we don't
+>> step on each other's toes. It would probably be easier for me to take (1),
+>> because I can easily talk to two people who are in our time zone and have a
+>> lot of mainline U-Boot experience.
 
->  2. DDR3/DDR4 driver. This is the biggest part of what we have in platform.S now. A lot 
-> of work, but relatively straightforward, just rewrite ~1.5k lines of assembly in C.
+sure. 
 
-I am not sure this is feasible, AFAIK, you can not call C. I might
-be wrong.
+> I think we've got a good handle on (1), however I'll let Cedric
+> comment as to what he would prefer to work on.
 
-> Personally, I don't have preference on who does what, as long as we don't step on each 
-> other's toes. It would probably be easier for me to take (1), because I can easily talk 
-> to two people who are in our time zone and have a lot of mainline U-Boot experience.
->
-> Thoughts?
+My main concern is keeping a full patchset working with the HW 
+we have. I don't think there is much value in pushing mainline 
+some code we don't use because it is too far away from our 
+current need. So whatever we send should be used in our openbmc
+tree, but not in the stable branch of course.
 
-you could send patches on top of my tree to cleanup what ever 
-part you want in lowlevel_init. when lowlevel_init reaches a 
-minimum acceptable level, with a full patchset working on top 
-of it, I think we can send for review. Then, we will work on 
-the next details :
+As said in the other email, I think we are at point where we 
+should dismantle lowlevel_init in little parts. 
 
- * extra settings
- * spi/nor driver
- * ftgmac100 extensions for Aspeed
- * NCSI support
- * DTS support
- * etc. 
+Maxim, may be you could take a look at the SDRAM calibration ? 
 
-There is also a massive hack on the ast2500 mmu disablement in 
-the core part of u-boot that I don't understand. So we could 
-try to fix now or ask help when the patchset is sent.  
-
+This is the biggest part when this is done, the rest should 
+flow. 
 
 Cheers,
 
-C. 
+C.
+
+> Note that this work is continuing on from some work done by Teddy
+> several months ago. He has a tree here:
+> 
+>  https://github.com/theopolis/u-boot-openbmc/tree/v2016.03-openbmc-r3
+> 
+> Cheers,
+> 
+> Joel
