@@ -1,35 +1,51 @@
-Return-Path: <clg@kaod.org>
-Received: from 3.mo1.mail-out.ovh.net (3.mo1.mail-out.ovh.net [46.105.60.232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t9Rb656dfzDvWr
- for <openbmc@lists.ozlabs.org>; Sat,  5 Nov 2016 03:08:33 +1100 (AEDT)
-Received: from player770.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo1.mail-out.ovh.net (Postfix) with ESMTP id B985418E09
- for <openbmc@lists.ozlabs.org>; Fri,  4 Nov 2016 17:08:29 +0100 (CET)
-Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
- [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player770.ha.ovh.net (Postfix) with ESMTPSA id 73F0C3C0073;
- Fri,  4 Nov 2016 17:08:25 +0100 (CET)
-Subject: Re: U-Boot upstreaming
-To: Joel Stanley <joel@jms.id.au>, Maxim Sloyko <maxims@google.com>
-References: <CAFR_W8qYKipAMj4h8xwMCJi4=AhiYePf=d3ndCGgYzCg=qxfNw@mail.gmail.com>
- <CACPK8Xe-eSzBXTkCYxsjoC9nR7DsAgcPHr3hvKiBF=fZHswaWA@mail.gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Teddy Reed <teddy.reed@gmail.com>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <bacea3c2-98a3-65d1-018f-e28797dae181@kaod.org>
-Date: Fri, 4 Nov 2016 17:08:25 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.4.0
+Return-Path: <xow@google.com>
+Received: from mail-qt0-x236.google.com (mail-qt0-x236.google.com
+ [IPv6:2607:f8b0:400d:c0d::236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t9S5Y4t3szDvYk
+ for <openbmc@lists.ozlabs.org>; Sat,  5 Nov 2016 03:31:28 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="QmoaNRTx"; 
+ dkim-atps=neutral
+Received: by mail-qt0-x236.google.com with SMTP id p16so51328655qta.0
+ for <openbmc@lists.ozlabs.org>; Fri, 04 Nov 2016 09:31:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=dOm3koRQFlXQ/syR/CVECwYeoWy3QUS1SuvedAEPMT4=;
+ b=QmoaNRTxI2Cz7X5zViqBJZN/okHyPR3SWg+SU7pe2HDig7Op5ZvSnV1tuNOxn+AUud
+ r+v2QJq7GBlFs9MgDCpW8TEC5XV90yMwbRi3O64zyUOTZCMBJh/Wb/TviVY6Rl36tFP/
+ HMQVit3nM6wbfXP/6FGxiYG6zmf0E23SchTxwzvIRXMPGF0pz/2piXvgi30/ftQOY5nS
+ ILQl4vqHJx2Jj0yjgVx6mVwIAN+WUlneapmFrKag0RPtTxsTU6/egscHtpfcnKqRHVIA
+ FIzMzZBCgM+b5Fk4xYylvQATjRRv3vnVlA3Hvh/f47tkmGbFMGlba25Pqx6BoSlf1JOK
+ Ztrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=dOm3koRQFlXQ/syR/CVECwYeoWy3QUS1SuvedAEPMT4=;
+ b=I/s1a62nMkZjou0Kf7p0pSpUmGiQLvVOtjpeh0sIXI7z9Q30N3cqqal4Djngx5tRPn
+ IVoTbMrpKEpeZU9LdFxT4Je/fXdYMfX2pM56rwl4sRgoYvSiDCrPN37w0ljfYaImUAq1
+ dPa/kE88fCbQmh2SoOO1hvl5Vws6sl62Evx1YEQuyhZwMmNcdyL8TkH3GAkd+dXaItsM
+ XLw0TZ4/e7QrFSfLhDB99ViO4zNNIrVpoAhg+jhxnPD4CnZAAK5nsWSWf807LDsEBEDi
+ yPy9HPvWRUwG3t8b80C7RHXTgsCxnzz2rv0r8C2c+rRXtdeSu5L9tMtP8JzYr35JPQh5
+ tRzw==
+X-Gm-Message-State: ABUngvdmGQ2vQ0HTBH8gUoWPZOZa8ZmNQtWWzBd1WMVj1FGDZYK7fGSLFTDIa/NDHroS8aP2uCO4cSF+aJCaiA12
+X-Received: by 10.237.53.119 with SMTP id b52mr14993893qte.74.1478277086166;
+ Fri, 04 Nov 2016 09:31:26 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CACPK8Xe-eSzBXTkCYxsjoC9nR7DsAgcPHr3hvKiBF=fZHswaWA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Ovh-Tracer-Id: 12861436113675979647
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrkeelgdekgecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+Received: by 10.237.57.199 with HTTP; Fri, 4 Nov 2016 09:31:25 -0700 (PDT)
+In-Reply-To: <1478234347.27396.87.camel@aj.id.au>
+References: <20161104033042.32562-1-joel@jms.id.au>
+ <20161104033042.32562-2-joel@jms.id.au>
+ <1478234347.27396.87.camel@aj.id.au>
+From: Xo Wang <xow@google.com>
+Date: Fri, 4 Nov 2016 09:31:25 -0700
+Message-ID: <CAPH-5w6hyUtfKiceS+oHXCkP0gKyv6nHhSFHtsD9+=-QKArbOw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] arm: aspeed: Remove SPI1 strapping hacks
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -41,93 +57,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Nov 2016 16:08:35 -0000
+X-List-Received-Date: Fri, 04 Nov 2016 16:31:30 -0000
 
-On 11/04/2016 01:09 AM, Joel Stanley wrote:
-> Hi Maxim,
-> 
-> On Fri, Nov 4, 2016 at 7:14 AM, Maxim Sloyko <maxims@google.com> wrote:
->> Hi Cedric,
+On Thu, Nov 3, 2016 at 9:39 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> On Fri, 2016-11-04 at 14:00 +1030, Joel Stanley wrote:
+>> Now that we have device tree and pinmux support for setting the
+>> strapping we can remove these from the board file.
 >>
->> My manager (Rick Alther) mentioned that you were working on some minimal
->> "upstreamable" commit for Aspeed in U-Boot. How far were you able to get?
+>> Signed-off-by: Joel Stanley <joel@jms.id.au>
+>
+> Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+
+Reviewed-by: Xo Wang <xow@google.com>
+
+>
+>> ---
+>>  arch/arm/mach-aspeed/aspeed.c | 13 +------------
+>>  1 file changed, 1 insertion(+), 12 deletions(-)
 >>
->> This is also what I was thinking of doing, so we should be able to join
->> forces on this.
+>> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+>> index ebb2224dcd13..2100e54ffbc2 100644
+>> --- a/arch/arm/mach-aspeed/aspeed.c
+>> +++ b/arch/arm/mach-aspeed/aspeed.c
+>> @@ -160,13 +160,8 @@ static void __init do_ast2500evb_setup(void)
 >>
->> I talked to Simon Glass recently (he's an active contributor to mainline
->> U-Boot) and basically that's the path that he also recommended -- just
->> getting minimal amount of code in, that can just boot to a prompt. He also
->> said that DRAM driver would have to be part of it.
-> 
-> I agree. The downside here is Cedric has done a lot of work in
-> cleaning up the Aspeed SDK code already, so we don't want to throw
-> away the good stuff he's done.
-
-half of that work is yours, Joel.
- 
->> So, the way I see it, there are two big chunks of work here:
->>  1. Setting up the whole structure. This would include actually adding a
->> board, minimum amount of supporting code, debug serial console init,
-> 
-> I have a tree where I've started pulling the build scaffolding -
-> kconfig, makefiles, etc - out of the patch we have.
-> 
-> The second part of it is writing a clean serial driver. The hardware a
-> pretty standard layout, so I imagine we don't need to do much here.
-> Perhaps doing some calculations based on the clock speed to set a baud
-> rate.
-> 
->>  2. DDR3/DDR4 driver. This is the biggest part of what we have in platform.S
->> now. A lot of work, but relatively straightforward, just rewrite ~1.5k lines
->> of assembly in C.
-> 
-> Our concern with rewriting this is future maintainability. If we
-> rewrite it, it becomes harder to incorporate fixes and new hardware
-> support from Aspeed SDKs.
-
-Yes that is one big concern I think. The platform*.s files are 
-exactly the one shipped by Aspeed.
-
-> On the other hand, there's no way we can upstream it as-is. So lets
-> re-write it in C, and where we can document parts of the
-> reimplementation with reference to the assembly so making updates is
-> possible.
-> 
+>>       do_ast2500_common_setup();
 >>
->> Personally, I don't have preference on who does what, as long as we don't
->> step on each other's toes. It would probably be easier for me to take (1),
->> because I can easily talk to two people who are in our time zone and have a
->> lot of mainline U-Boot experience.
-
-sure. 
-
-> I think we've got a good handle on (1), however I'll let Cedric
-> comment as to what he would prefer to work on.
-
-My main concern is keeping a full patchset working with the HW 
-we have. I don't think there is much value in pushing mainline 
-some code we don't use because it is too far away from our 
-current need. So whatever we send should be used in our openbmc
-tree, but not in the stable branch of course.
-
-As said in the other email, I think we are at point where we 
-should dismantle lowlevel_init in little parts. 
-
-Maxim, may be you could take a look at the SDRAM calibration ? 
-
-This is the biggest part when this is done, the rest should 
-flow. 
-
-Cheers,
-
-C.
-
-> Note that this work is continuing on from some work done by Teddy
-> several months ago. He has a tree here:
-> 
->  https://github.com/theopolis/u-boot-openbmc/tree/v2016.03-openbmc-r3
-> 
-> Cheers,
-> 
-> Joel
+>> -     reg = readl(AST_IO(AST_BASE_SCU | 0x70));
+>> -
+>>       /* Set strap to RGMII for dedicated PHY networking */
+>> -     reg |= BIT(6) | BIT(7);
+>> -     /* Enable SPI Master and SPI Slave to AHB Bridge */
+>> -     reg |= BIT(13);
+>> -     writel(reg, AST_IO(AST_BASE_SCU | 0x70));
+>> +     writel(BIT(6) | BIT(7), AST_IO(AST_BASE_SCU | 0x70));
+>>  }
+>>
+>>  static void __init do_witherspoon_setup(void)
+>> @@ -190,12 +185,6 @@ static void __init do_zaius_setup(void)
+>>               /* D3 in GPIOA/B/C/D direction and data registers */
+>>               unsigned long phy_reset_mask = BIT(27);
+>>
+>> -             /* Set strap[13:12] to 01, Enable SPI master */
+>> -             /* Set bits in writes to SCU7C are cleared from SCU70 */
+>> -             writel(BIT(13), AST_IO(AST_BASE_SCU | 0x7C));
+>> -             /* SCU70 is set-only, so no read-modify-write needed */
+>> -             writel(BIT(12), AST_IO(AST_BASE_SCU | 0x70));
+>> -
+>>               /* Disable GPIO I, G/AB pulldowns due to weak driving buffers */
+>>               reg = readl(AST_IO(AST_BASE_SCU | 0x8C));
+>>               writel(reg | BIT(24) | BIT(22), AST_IO(AST_BASE_SCU | 0x8C));
