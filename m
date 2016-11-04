@@ -1,30 +1,33 @@
 Return-Path: <clg@kaod.org>
-Received: from 13.mo1.mail-out.ovh.net (13.mo1.mail-out.ovh.net
- [178.33.253.128])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t9PX61kc9zDvYq
- for <openbmc@lists.ozlabs.org>; Sat,  5 Nov 2016 01:35:49 +1100 (AEDT)
+Received: from 4.mo1.mail-out.ovh.net (4.mo1.mail-out.ovh.net [46.105.76.26])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t9RH33V5JzDvHd
+ for <openbmc@lists.ozlabs.org>; Sat,  5 Nov 2016 02:54:38 +1100 (AEDT)
 Received: from player770.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo1.mail-out.ovh.net (Postfix) with ESMTP id 2070219316
- for <openbmc@lists.ozlabs.org>; Fri,  4 Nov 2016 15:35:45 +0100 (CET)
-Received: from hermes.kaod.org.com (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ by mo1.mail-out.ovh.net (Postfix) with ESMTP id EF68718F7E
+ for <openbmc@lists.ozlabs.org>; Fri,  4 Nov 2016 16:54:33 +0100 (CET)
+Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
  [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player770.ha.ovh.net (Postfix) with ESMTPSA id D51963C006A;
- Fri,  4 Nov 2016 15:35:39 +0100 (CET)
-From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-4.7] clk: add a ahb clock for aspeed g4 
-Date: Fri,  4 Nov 2016 15:35:23 +0100
-Message-Id: <1478270123-20809-1-git-send-email-clg@kaod.org>
-X-Mailer: git-send-email 2.7.4
+ by player770.ha.ovh.net (Postfix) with ESMTPSA id 81B083C0096;
+ Fri,  4 Nov 2016 16:54:32 +0100 (CET)
+Subject: Re: U-Boot upstreaming
+To: Maxim Sloyko <maxims@google.com>
+References: <CAFR_W8qYKipAMj4h8xwMCJi4=AhiYePf=d3ndCGgYzCg=qxfNw@mail.gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <7a5ddb25-a5d6-104b-b81e-3d92d43b26e6@kaod.org>
+Date: Fri, 4 Nov 2016 16:54:31 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.4.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 11295027867937573634
+In-Reply-To: <CAFR_W8qYKipAMj4h8xwMCJi4=AhiYePf=d3ndCGgYzCg=qxfNw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Ovh-Tracer-Id: 12626123032003447554
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrkeelgdeihecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrkeelgdekvdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -36,106 +39,92 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Nov 2016 14:35:50 -0000
+X-List-Received-Date: Fri, 04 Nov 2016 15:54:39 -0000
 
-and fix g5 ahb clock which has a 3bits ratio. 
+Hello !
 
-Signed-off-by: Cédric Le Goater <clg@kaod.org>
----
- arch/arm/boot/dts/aspeed-g4.dtsi |    7 +++++
- drivers/clk/aspeed/clk-g4.c      |   48 +++++++++++++++++++++++++++++++++++++++
- drivers/clk/aspeed/clk-g5.c      |    4 ++-
- 3 files changed, 58 insertions(+), 1 deletion(-)
+On 11/03/2016 09:44 PM, Maxim Sloyko wrote:
+> Hi Cedric,
+> 
+> My manager (Rick Alther) mentioned that you were working on some 
+> minimal "upstreamable" commit for Aspeed in U-Boot. How far were 
+> you able to get?
 
-Index: linux-openbmc-4.7.git/arch/arm/boot/dts/aspeed-g4.dtsi
-===================================================================
---- linux-openbmc-4.7.git.orig/arch/arm/boot/dts/aspeed-g4.dtsi
-+++ linux-openbmc-4.7.git/arch/arm/boot/dts/aspeed-g4.dtsi
-@@ -820,6 +820,13 @@
- 				};
- 			};
- 
-+			clk_ahb: clk_ahb@1e6e2070 {
-+				#clock-cells = <0>;
-+				compatible = "aspeed,g4-ahb-clock";
-+				reg = <0x1e6e2070 0x4>;
-+				clocks = <&clk_hpll>;
-+			};
-+
- 			clk_apb: clk_apb@1e6e2008 {
- 				#clock-cells = <0>;
- 				compatible = "aspeed,g4-apb-clock";
-Index: linux-openbmc-4.7.git/drivers/clk/aspeed/clk-g4.c
-===================================================================
---- linux-openbmc-4.7.git.orig/drivers/clk/aspeed/clk-g4.c
-+++ linux-openbmc-4.7.git/drivers/clk/aspeed/clk-g4.c
-@@ -68,6 +68,54 @@ static void __init aspeed_of_hpll_clk_in
- CLK_OF_DECLARE(aspeed_hpll_clock, "aspeed,g4-hpll-clock",
- 	       aspeed_of_hpll_clk_init);
- 
-+static void __init aspeed_of_ahb_clk_init(struct device_node *node)
-+{
-+	struct clk *clk, *hpll_clk;
-+	void __iomem *base;
-+	int reg, rate, hpll;
-+	const char *name = node->name;
-+	const char *parent_name;
-+
-+	of_property_read_string(node, "clock-output-names", &name);
-+	parent_name = of_clk_get_parent_name(node, 0);
-+
-+	/* Strap register SCU70 */
-+	base = of_iomap(node, 0);
-+	if (!base) {
-+		pr_err("%s: of_iomap failed\n", node->full_name);
-+		return;
-+	}
-+
-+	/* bits 11:10 define the CPU/AHB clock frequency ratio */
-+	reg = (readl(base) >> 10) & 0x03;
-+	iounmap(base);
-+
-+	/* A value of zero is undefined */
-+	WARN_ON(reg == 0);
-+
-+	hpll_clk = of_clk_get(node, 0);
-+	if (IS_ERR(hpll_clk)) {
-+		pr_err("%s: of_clk_get failed\n", node->full_name);
-+		return;
-+	}
-+
-+	hpll = clk_get_rate(hpll_clk);
-+
-+	rate = hpll / (reg + 1);
-+
-+	clk = clk_register_fixed_rate(NULL, name, parent_name, 0, rate);
-+	if (IS_ERR(clk)) {
-+		pr_err("%s: failed to register clock\n", node->full_name);
-+		return;
-+	}
-+
-+	clk_register_clkdev(clk, NULL, name);
-+	of_clk_add_provider(node, of_clk_src_simple_get, clk);
-+}
-+CLK_OF_DECLARE(aspeed_ahb_clock, "aspeed,g4-ahb-clock",
-+	       aspeed_of_ahb_clk_init);
-+
-+
- static void __init aspeed_of_apb_clk_init(struct device_node *node)
- {
- 	struct clk *clk, *hpll_clk;
-Index: linux-openbmc-4.7.git/drivers/clk/aspeed/clk-g5.c
-===================================================================
---- linux-openbmc-4.7.git.orig/drivers/clk/aspeed/clk-g5.c
-+++ linux-openbmc-4.7.git/drivers/clk/aspeed/clk-g5.c
-@@ -119,7 +119,9 @@ static void __init aspeed_of_ahb_clk_ini
- 		pr_err("%s: of_iomap failed\n", node->full_name);
- 		return;
- 	}
--	reg = (readl(base) >> 9) & 0x03;
-+
-+	/* bits 11:9 define the AXI/AHB clock frequency ratio */
-+	reg = (readl(base) >> 9) & 0x07;
- 	iounmap(base);
- 
- 	/* A value of zero is undefined */
+Please check :
+
+  https://github.com/openbmc/u-boot/wiki
+
+This is where we track the ugly details and here is my tree : 
+
+   https://github.com/legoater/u-boot/commits/v2016.11-aspeed-openbmc
+
+Patch one is the "minimum" we have been working on with Joel these
+last 6 months to :
+
+ * make it compatible with upstream
+ * extract all exoticisms 
+ * extract funky drivers
+ * isolate ugly hacks
+
+I think we are at a point where we need to rewrite bits of lowlevel_init
+or move them later on in the code. This big asm routines does : 
+
+ * LPC patching for ast2300 (we can kill that)
+ * uart init (if SDRAM calibration is done, easy we can keep)
+ * SDRAM calibration (we could use static calibration values instead)
+ * SDRAM size calculation (may be we can move that in a C part)
+ * video clock setting (one reg setting)
+ * JTAG master (one reg setting) 
+ * RMII/RGMII clock setting (one reg setting) 
+ * GPIO massive reset (not sure if this is useful, should ask Andrew)
+ * SPI Calibration (I have done in C so we can move)
+
+> This is also what I was thinking of doing, so we should be able to join forces on this.
+> 
+> I talked to Simon Glass recently (he's an active contributor to mainline U-Boot)
+> and basically that's the path that he also recommended -- just getting minimal amount 
+> of code in, that can just boot to a prompt. He also said that DRAM driver would have 
+> to be part of it.
+
+yes. See my comments above. 
+
+> So, the way I see it, there are two big chunks of work here:
+>  1. Setting up the whole structure. This would include actually adding a board, minimum 
+> amount of supporting code, debug serial console init, 
+
+yes. that is patch one above, in which we still need to cleanup 
+stuff in the .S part.
+
+>  2. DDR3/DDR4 driver. This is the biggest part of what we have in platform.S now. A lot 
+> of work, but relatively straightforward, just rewrite ~1.5k lines of assembly in C.
+
+I am not sure this is feasible, AFAIK, you can not call C. I might
+be wrong.
+
+> Personally, I don't have preference on who does what, as long as we don't step on each 
+> other's toes. It would probably be easier for me to take (1), because I can easily talk 
+> to two people who are in our time zone and have a lot of mainline U-Boot experience.
+>
+> Thoughts?
+
+you could send patches on top of my tree to cleanup what ever 
+part you want in lowlevel_init. when lowlevel_init reaches a 
+minimum acceptable level, with a full patchset working on top 
+of it, I think we can send for review. Then, we will work on 
+the next details :
+
+ * extra settings
+ * spi/nor driver
+ * ftgmac100 extensions for Aspeed
+ * NCSI support
+ * DTS support
+ * etc. 
+
+There is also a massive hack on the ast2500 mmu disablement in 
+the core part of u-boot that I don't understand. So we could 
+try to fix now or ask help when the patchset is sent.  
+
+
+Cheers,
+
+C. 
