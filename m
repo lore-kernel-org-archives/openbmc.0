@@ -1,48 +1,29 @@
-Return-Path: <mine260309@gmail.com>
-Received: from mail-qk0-x229.google.com (mail-qk0-x229.google.com
- [IPv6:2607:f8b0:400d:c09::229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t9SPF0fr9zDvYq
- for <openbmc@lists.ozlabs.org>; Sat,  5 Nov 2016 03:45:04 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Svsc+0Yn"; 
- dkim-atps=neutral
-Received: by mail-qk0-x229.google.com with SMTP id o68so104254452qkf.3
- for <openbmc@lists.ozlabs.org>; Fri, 04 Nov 2016 09:45:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=DvUVMc5FtQJyi87ePKV4gDbvsjoPeq5WJYkYd3+u5NA=;
- b=Svsc+0YnPsQsMqkxtNj86S3eEGQGFPheFfnczW+g/R3sctZpayn/+efXvqxOrcXVXw
- KO9bwVgLGFiBtogzW0kBgsjwkJNXvGcyugWFwLdXk2xnNcwf2+6bH1uqFth6CDPhiUeZ
- rNCIOiI24cv38XkFfGF5NytwX5MngNcsJOGVTe6bOID9GSeE6BPkOEnbNhhS6ShLsSur
- mqUwLf+oNDKq73n/Yv5uFtswSuBn8MoQ9cD0krKQ3vOpIN/Zgiex9VMAPO42uSCc5S1T
- 6TpVret/UIlr+3dZ359iwIeUW3EPN0dXWaoKKNA0bW9Lyl/uxp2tlLd4ntcduNQPvVyG
- tFvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=DvUVMc5FtQJyi87ePKV4gDbvsjoPeq5WJYkYd3+u5NA=;
- b=i+YFqiiFG5iSoGbZooOT7Ob0oGSKnPOilZjaQOeVRxuw1P7nr1/+SjcK22v60mnyIu
- BfyTP4CuMwL03KxAoNdETBuhcOUZgzlTCIIALKFZw70wNZr8D4PHuq3Hj8YyY/lxehlF
- DTDnNPkPD33ZO/Rk3YwbxOHy+XKRfQzQrA9VxnYNCL1v6CE6GSAx0m86h/Dr0f6KSG2v
- XoQ8n7QrHCunyAxuqmMUKyhbRfWAXnwDOLsgGc5kk7EWaW/qj0ahWdqkBAFIkJh6M4tb
- kSljLUXuHP4/TwGgqWKzZu4OCgdZGzg83lJPII2dlHdcShqVKnvhq19Evj5qtwLuvBOk
- vNWg==
-X-Gm-Message-State: ABUngvc6lxHUOrA2cZlhUTudiQ+JEN0yMDnDiplBzfCbpLN0+gAIA0TrHaLri4RrRtNK7DAtlCAWM5sf+gl38Q==
-X-Received: by 10.55.15.152 with SMTP id 24mr14420018qkp.45.1478277902651;
- Fri, 04 Nov 2016 09:45:02 -0700 (PDT)
+Return-Path: <clg@kaod.org>
+Received: from 4.mo1.mail-out.ovh.net (4.mo1.mail-out.ovh.net [46.105.76.26])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t9Slv19yKzDvZC
+ for <openbmc@lists.ozlabs.org>; Sat,  5 Nov 2016 04:01:14 +1100 (AEDT)
+Received: from player770.ha.ovh.net (b7.ovh.net [213.186.33.57])
+ by mo1.mail-out.ovh.net (Postfix) with ESMTP id ABABF15C15
+ for <openbmc@lists.ozlabs.org>; Fri,  4 Nov 2016 18:01:10 +0100 (CET)
+Received: from hermes.kaod.org.com (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: clg@kaod.org)
+ by player770.ha.ovh.net (Postfix) with ESMTPSA id CE25B3C007F;
+ Fri,  4 Nov 2016 18:01:07 +0100 (CET)
+From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.7 0/8] Aspeed SMC improvements
+Date: Fri,  4 Nov 2016 18:00:39 +0100
+Message-Id: <1478278847-9164-1-git-send-email-clg@kaod.org>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Received: by 10.12.146.15 with HTTP; Fri, 4 Nov 2016 09:45:02 -0700 (PDT)
-From: Mine <mine260309@gmail.com>
-Date: Fri, 4 Nov 2016 11:45:02 -0500
-Message-ID: <CAARXrtmemiSFPH7RGxFLcddt1Ld4pGTwsDX-rPtAmf2coS8VDg@mail.gmail.com>
-Subject: How to handle GPIO differences between P8 and P9
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 13751178515637963522
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrkeelgdelkecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,35 +35,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Nov 2016 16:45:06 -0000
+X-List-Received-Date: Fri, 04 Nov 2016 17:01:15 -0000
 
-Hi All,
+Hello,
 
-This mail is to discuss how to handle GPIO differences (e.g.
-functionality, IN/OUT) between different HWs.
+Here is short serie improving the Aspeed SMC driver. There are a
+couple of fixes and also changes preparing ground for read
+optimization.
 
-I went into a case the P8 uses two GPIOs, but P9 does not use them: in
-skeleton/op-hostctl/control_host_obj.c:
+Patch 1 and 2 are fixes for the current driver. When merging all the
+code before sending a v1 to mainline, a few minor errors slipped
+through.
 
-GPIO Throttle =3D (GPIO){ "BMC_THROTTLE" };
-GPIO idbtn =3D (GPIO){ "IDBTN" };
-...
-rc |=3D gpio_write(&Throttle,1);
-rc |=3D gpio_write(&idbtn,0);
+Patch 3 and 4 are cleanups.
 
-In P9, BMC_THROTTLE is renamed to N_MODE_N, and changed to an IN GPIO;
-IDBTN is changed to IN GPIO as well.
-If we keep the above code and overriding the GPIOs, writing
-BMC_THROTTLE takes no effect, but writing to IDBTN may break the
-function of its related front panel button.
+Patch 5 and 6 should not have any impacts as we are not using DMAs or
+fast reads, yet.
 
-So I think we need to distinguish such cases to avoid issues.
+Patch 7 and 8 are more important. They change completely the IO
+routines and the way the flash is accessed for reads. These are
+preliminary work for some possible speed improvements.
 
-The question is, how to change the code to support different HWs that
-have unique GPIOs?
+The overall result should be a v2 for upstream.
 
-Thanks!
+Cheers,
 
-=E2=80=94
-BRs,
-Lei YU
+C.
+
+
+Cédric Le Goater (8):
+  mtd: spi-nor: aspeed: fix setting of the register control value for
+    writes
+  mtd: spi-nor: aspeed: improve 4 bytes mode
+  mtd: spi-nor: aspeed: extend the bits definitions
+  mtd: spi-nor: aspeed: add some logging
+  mtd: spi-nor: aspeed: use smc_read mode when doing DMAs
+  mtd: spi-nor: aspeed: prepare for fast read
+  mtd: spi-nor: aspeed: rework io routines
+  mtd: spi-nor: aspeed: use command mode for reads
+
+ drivers/mtd/spi-nor/aspeed-smc.c | 263 +++++++++++++++++++++------------------
+ 1 file changed, 143 insertions(+), 120 deletions(-)
+
+-- 
+2.7.4
