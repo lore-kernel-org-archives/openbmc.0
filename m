@@ -1,58 +1,50 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-oi0-x243.google.com (mail-oi0-x243.google.com
- [IPv6:2607:f8b0:4003:c06::243])
+Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
+ [IPv6:2607:f8b0:400e:c00::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t96mr0DTRzDt11
- for <openbmc@lists.ozlabs.org>; Fri,  4 Nov 2016 14:30:52 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3t96ms1zJ6zDt11
+ for <openbmc@lists.ozlabs.org>; Fri,  4 Nov 2016 14:30:53 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="CfuuP9hh"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="akjyQ4Rl"; 
  dkim-atps=neutral
-Received: by mail-oi0-x243.google.com with SMTP id 62so10303975oif.1
- for <openbmc@lists.ozlabs.org>; Thu, 03 Nov 2016 20:30:51 -0700 (PDT)
+Received: by mail-pf0-x241.google.com with SMTP id i88so6564155pfk.2
+ for <openbmc@lists.ozlabs.org>; Thu, 03 Nov 2016 20:30:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=5XMMkUxn7ICqZwKDPvOnrRTRk60X/z1/IuS+nN/pp7M=;
- b=CfuuP9hhWGziy4CF1eg6xsZ0iItmSmO8gEODa+huliZ9mHG3xqMy+k38tA4s0I74w5
- cL9kmzSoJTNZfaMNdBTNvgvlisF3/t/zjWUMy0BtQChnMrfXjIdezTV+EhlYDNLTZtlH
- +eWe/hxj6nLVDTmzx4zcH070mWtpSTJus/z0ga8EBHCyAfrrLCbWwgKth5Vg1/UHvE2X
- sL6IginD5PmvUVW4kls0SXftuXHvXGevpgsvoJXpv+tkZg4yywNnuEAnpUpogyeNRDE2
- BXCB2rXFc+BuiM5DEH0CE/aMOYPkn60CWFgY0AKI9UIdB9tF5D13249EAuAFznn8kPo3
- sv2g==
+ h=sender:from:to:cc:subject:date:message-id;
+ bh=HUc/dfB7Qn/nS7JLalwDqZen1gIyiluoh40Z+SAe0yM=;
+ b=akjyQ4Rlm5AKHrgAE3aK+EsFxzAhv6pbuk3Qn6NoZr73FxaUD3rvGMilpogg+zKwMy
+ WFwYKvOJ5PF/a4q53bGpAc5PNDJfMLFLfF+vNjV2FJ5jrQE+ulIbYgaWGGYH9WJ9zTVC
+ kAVkYCKjAobn2hvob6xOAbkTqTdBhzzGzzqkv/LVzv/cvdAS/6DUMuZAJP7Xj+jQTnDD
+ gjCrb9XI52JTtHBoH5Y0RGPCMrCppCc1GZKDMuAB2jR0eA0416uZEcN2IjjGGSqep3GE
+ +0PtoElpdjMr4dgXODDXFx2CjlVr2Zf2YHMAvWNHaknoktbGImlp9ogj7XsbgzVtdFku
+ 01mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=5XMMkUxn7ICqZwKDPvOnrRTRk60X/z1/IuS+nN/pp7M=;
- b=fGPnZ4ymmvI1/JHSxZ+rz7cpihRQU2DWD79Fl9iWr5BwRoLF1I8wTlsAAQHGK66+7I
- rsR199uN8rc5MLQW+qJ23QTb1faZDFNcLtW40tWrb7cLwUb5uZQTj8wiU/QBHlIpMnwy
- 4g/QbMcFGiRzMssv5sPZ5rw7vrmXQTPba0C73QFWePHt9xvPq4yXQiyTr7uoSw9fgaFL
- n81IDfVcfWc4uPOpry1WK0dpcsirrn04wahw4s03eEiLuTzDfK/36Z6spgW4EYSFbe9s
- sB279vU3kVyIp48/W6HWF2UZ7M+/sqihDhLc+iuwIVt5Ia28HQUc2V9jAQgM9bn46UYf
- DCLQ==
-X-Gm-Message-State: ABUngvfyLwXlbWlLqrx6IOXtVN4ZjbyMd7vNKKDtJJVUoV55o1DKwWGvz5HC+8xYP8VoN4nbKAnIIkD8r/f+rw==
-X-Received: by 10.157.41.101 with SMTP id d92mr8878512otb.165.1478230250031;
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
+ bh=HUc/dfB7Qn/nS7JLalwDqZen1gIyiluoh40Z+SAe0yM=;
+ b=QsxRvNoui9YBzeAElm/nXEVZHTZP+cUQCx/JoyMEe8vQ/32KquboS21YceHSjRWD8P
+ uW7he6nQE/GryDrZl7GtH8KPqulhbX38a32p6GWcZjvEL5jlWkp9w9WiLylKPxXZMw3z
+ OotygD7Ab7mSFR1pVY4pWmFT2UZ3zhOo015Q1hSxxrxuv1428NPkj5C5YN5sPx1v5WGT
+ OY36jUW4UW7mXpNkCRapSU4TA6yh6M+sT9OOzwQYF5+48QmvrEE2B1ZnWusnIJOIRNg2
+ NZ2+JsFX3/XWB4A5MbxNywb9iUfEgzvGtEFaYjFui73CI/cQ6hnFtozPb8NotNJru08F
+ ka8g==
+X-Gm-Message-State: ABUngvcLJhat3t6t2lr5pNOVAXzV4SMlp9Hga94cFcn3sCGSjpp3ckbqcFhX3HcPqoSD9w==
+X-Received: by 10.99.251.5 with SMTP id o5mr18909799pgh.160.1478230251306;
+ Thu, 03 Nov 2016 20:30:51 -0700 (PDT)
+Received: from aurora.jms.id.au ([203.0.153.9])
+ by smtp.gmail.com with ESMTPSA id 21sm15822337pfs.88.2016.11.03.20.30.47
+ (version=TLS1 cipher=AES128-SHA bits=128/128);
  Thu, 03 Nov 2016 20:30:50 -0700 (PDT)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.182.107.226 with HTTP; Thu, 3 Nov 2016 20:30:29 -0700 (PDT)
-In-Reply-To: <1478222081.27396.43.camel@aj.id.au>
-References: <20161102055557.24349-1-joel@jms.id.au>
- <20161102055557.24349-2-joel@jms.id.au>
- <1478088662.27396.5.camel@aj.id.au>
- <CAPH-5w498pdxsc22+TSMY4u1hEiPmWqrQMa2j6bQzuUsqGkG1A@mail.gmail.com>
- <CACPK8XdWn91bXBgH2CRu=vNKNQWSc6VjhOcJNYcS37F7bC8kgQ@mail.gmail.com>
- <1478222081.27396.43.camel@aj.id.au>
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Fri, 04 Nov 2016 14:00:43 +1030
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 4 Nov 2016 14:00:29 +1030
-X-Google-Sender-Auth: SktR_k3QguM_UBRtLPyWqOgqxQ8
-Message-ID: <CACPK8Xc2SXeRBmve3GrQTUsq=TwEXO71+1WtUfvkLMv=FdPZxA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] arm: aspeed: Set SPI master strap for all boards
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Xo Wang <xow@google.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Kun Yi <kunyi@google.com>
-Content-Type: text/plain; charset=UTF-8
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH 1/2] arm: dts: aspeed: Set SPI1 mode to master
+Date: Fri,  4 Nov 2016 14:00:41 +1030
+Message-Id: <20161104033042.32562-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.9.3
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,19 +56,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Nov 2016 03:30:52 -0000
+X-List-Received-Date: Fri, 04 Nov 2016 03:30:53 -0000
 
-On Fri, Nov 4, 2016 at 11:44 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
->> Thank you both for the prompt review.
->>
->> Applied to dev-4.7.
->
-> Just noting that a this will likely be backed out in favour of Kun Yi's
-> patch[1]. That way we can configure it in the devicetree in spite of
-> the platform's strapping.
+Now that we can modify the strapping with pinmux, select the mode we
+wish the flash to be in with the device tree.
 
-Yup. Unapplied! Wheeee
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     | 2 +-
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Cheers,
-
-Joel
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+index e1be7b0c5484..4c4c547fe412 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+@@ -36,7 +36,7 @@
+ &spi1 {
+ 	status = "okay";
+ 	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_spi1debug_default>;
++	pinctrl-0 = <&pinctrl_spi1_default>;
+ 
+ 	flash@0 {
+ 		status = "okay";
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index 9ff2412eef67..5c93139ad200 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -36,7 +36,7 @@
+ &spi1 {
+ 	status = "okay";
+ 	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_spi1debug_default>;
++	pinctrl-0 = <&pinctrl_spi1_default>;
+ 
+ 	flash@0 {
+ 		status = "okay";
+-- 
+2.9.3
