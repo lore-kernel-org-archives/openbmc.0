@@ -1,37 +1,36 @@
 Return-Path: <clg@kaod.org>
-Received: from 20.mo1.mail-out.ovh.net (20.mo1.mail-out.ovh.net
- [188.165.45.168])
+Received: from 18.mo1.mail-out.ovh.net (18.mo1.mail-out.ovh.net [46.105.35.72])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tC1B73zFVzDsyY
- for <openbmc@lists.ozlabs.org>; Mon,  7 Nov 2016 16:25:51 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tC1gP2ZZpzDrBy
+ for <openbmc@lists.ozlabs.org>; Mon,  7 Nov 2016 16:47:45 +1100 (AEDT)
 Received: from player770.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo1.mail-out.ovh.net (Postfix) with ESMTP id 0BB0417A12
- for <openbmc@lists.ozlabs.org>; Mon,  7 Nov 2016 06:18:40 +0100 (CET)
+ by mo1.mail-out.ovh.net (Postfix) with ESMTP id 814A0179AB
+ for <openbmc@lists.ozlabs.org>; Mon,  7 Nov 2016 06:47:40 +0100 (CET)
 Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
  [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player770.ha.ovh.net (Postfix) with ESMTPSA id D40E73C006E;
- Mon,  7 Nov 2016 06:18:38 +0100 (CET)
-Subject: Re: U-Boot upstreaming
-To: Maxim Sloyko <maxims@google.com>
-References: <CAFR_W8qYKipAMj4h8xwMCJi4=AhiYePf=d3ndCGgYzCg=qxfNw@mail.gmail.com>
- <7a5ddb25-a5d6-104b-b81e-3d92d43b26e6@kaod.org>
- <CAFR_W8oez8r9qX1A8KD-egFbcBZrWLmNc0hwagmM+XyjKvmiWQ@mail.gmail.com>
- <CAFR_W8q+A+V3RyUGO-cNqqYLnzOA_jJaj-eMiYFbtJcN5uN=Dg@mail.gmail.com>
+ by player770.ha.ovh.net (Postfix) with ESMTPSA id E34213C006C;
+ Mon,  7 Nov 2016 06:47:38 +0100 (CET)
+Subject: Re: [PATCH linux dev-4.7 1/8] mtd: spi-nor: aspeed: fix setting of
+ the register control value for writes
+To: Joel Stanley <joel@jms.id.au>
+References: <1478278847-9164-1-git-send-email-clg@kaod.org>
+ <1478278847-9164-2-git-send-email-clg@kaod.org>
+ <CACPK8XdrCx1r7OnMmAMBOELDwc3Afa7rzE6jsre+6ft7ae7YkQ@mail.gmail.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <410725c0-c6da-6d7c-9dc7-b5dfe044e4c7@kaod.org>
-Date: Mon, 7 Nov 2016 06:18:38 +0100
+Message-ID: <f86f5e2b-36aa-7192-369b-d0033e3903cf@kaod.org>
+Date: Mon, 7 Nov 2016 06:47:38 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
  Thunderbird/45.4.0
 MIME-Version: 1.0
-In-Reply-To: <CAFR_W8q+A+V3RyUGO-cNqqYLnzOA_jJaj-eMiYFbtJcN5uN=Dg@mail.gmail.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-X-Ovh-Tracer-Id: 1058064437562411778
+In-Reply-To: <CACPK8XdrCx1r7OnMmAMBOELDwc3Afa7rzE6jsre+6ft7ae7YkQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 1548112375896181506
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrleefgddvgeehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrleefgddvgeelucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -43,41 +42,73 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Nov 2016 05:25:51 -0000
+X-List-Received-Date: Mon, 07 Nov 2016 05:47:45 -0000
 
-Hello,
-
-> OK, so I actually tried this and it works! I did it on my branch 
-> so that I can just quickly give it a try and don't really have time 
-> to prepare proper patch today (this being Friday and all), but this 
-> is the summary of required changes: (the patch is also attached,
->  just in case, but you won't be able to apply it)
-
-nice one :) 
-
-but do we need any of this if we are to remove lowlevel_init ?
-
-> --- a/include/configs/ast-common.h
-> +++ b/include/configs/ast-common.h
-> @@ -33,10 +33,10 @@
->  #define CONFIG_SYS_DCACHE_OFF1
+On 11/07/2016 03:20 AM, Joel Stanley wrote:
+> On Sat, Nov 5, 2016 at 3:30 AM, Cédric Le Goater <clg@kaod.org> wrote:
+>> The setting of the register control value for writes depends on the
+>> base value which was defined only if the mask applied to it changed
+>> the register control value.
+>>
+>> Fix that.
+>>
+>> Signed-off-by: Cédric Le Goater <clg@kaod.org>
+>> ---
+>>  drivers/mtd/spi-nor/aspeed-smc.c | 9 +++++----
+>>  1 file changed, 5 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspeed-smc.c
+>> index f65379bb2287..75ba73ef0660 100644
+>> --- a/drivers/mtd/spi-nor/aspeed-smc.c
+>> +++ b/drivers/mtd/spi-nor/aspeed-smc.c
+>> @@ -756,7 +756,7 @@ static int aspeed_smc_chip_setup_init(struct aspeed_smc_chip *chip,
+>>  {
+>>         struct aspeed_smc_controller *controller = chip->controller;
+>>         const struct aspeed_smc_info *info = controller->info;
+>> -       u32 reg;
+>> +       u32 reg, base_reg;
+>>
+>>         /*
+>>          * Always turn on the write enable bit to allow opcodes to be
+>> @@ -789,12 +789,13 @@ static int aspeed_smc_chip_setup_init(struct aspeed_smc_chip *chip,
+>>         reg = readl(chip->ctl);
+>>         dev_dbg(controller->dev, "control register: %08x\n", reg);
+>>
+>> -       if ((reg & CONTROL_SPI_KEEP_MASK) != reg) {
+>> -               chip->ctl_val[smc_base] = reg & CONTROL_SPI_KEEP_MASK;
+>> +       base_reg = reg & CONTROL_SPI_KEEP_MASK;
+>> +       if (base_reg != reg) {
+>>                 dev_info(controller->dev,
+>>                          "control register changed to: %08x\n",
 > 
-> // Config changes -- this is the most important part. U-Boot will use these to setup stack and heap for us.
->  
->  #define CONFIG_SYS_SDRAM_BASEAST_DRAM_BASE
-> -#define CONFIG_SYS_INIT_RAM_ADDRCONFIG_SYS_SDRAM_BASE
-> -#define CONFIG_SYS_INIT_RAM_SIZE(32*1024)
-> +#define CONFIG_SYS_INIT_RAM_ADDR(AST_SRAM_BASE)
-> +#define CONFIG_SYS_INIT_RAM_SIZE(36*1024)
->  #define CONFIG_SYS_INIT_RAM_END(CONFIG_SYS_INIT_RAM_ADDR + CONFIG_SYS_INIT_RAM_SIZE)
-> -#define CONFIG_SYS_INIT_SP_ADDR (CONFIG_SYS_INIT_RAM_END - GENERATED_GBL_DATA_SIZE)
-> +#define CONFIG_SYS_INIT_SP_ADDR (CONFIG_SYS_INIT_RAM_END)
+> Is this the kind of message we would see if someone else (the host, or
+> pflash) was changing the register while the kernel driver was loaded?
+ 
+It's more to "warn" that the kernel is changing a value that was 
+calculated by hw (strapping or other) or by uboot which does timing 
+calibration using DMAs.
 
-That is a fix I have included in my branch.
+> If so, we might want to make this a dev_warn or even a WARN in order
+> make it really clear that a bad thing has happened.
+
+but yes, a warn might be better in this case.
 
 Thanks,
 
-C.
+C. 
 
-[ is it possible to configure gmail to wrap lines at a reasonable 
-  width ? ] 
+
+> Cheers,
+> 
+> Joel
+> 
+>> -                        chip->ctl_val[smc_base]);
+>> +                        base_reg);
+>>         }
+>> +       chip->ctl_val[smc_base] = base_reg;
+>>
+>>         /*
+>>          * Retain the prior value of the control register as the
+>> --
+>> 2.7.4
+>>
