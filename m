@@ -1,54 +1,55 @@
-Return-Path: <brendanhiggins@google.com>
-Received: from mail-pf0-x22b.google.com (mail-pf0-x22b.google.com
- [IPv6:2607:f8b0:400e:c00::22b])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-it0-x241.google.com (mail-it0-x241.google.com
+ [IPv6:2607:f8b0:4001:c0b::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3t9hhQ1Wj3zDvdR
- for <openbmc@lists.ozlabs.org>; Sat,  5 Nov 2016 12:59:02 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tBx5G1slWzDvMv
+ for <openbmc@lists.ozlabs.org>; Mon,  7 Nov 2016 13:21:22 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="UByxfBlD"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZuOfY2vg"; 
  dkim-atps=neutral
-Received: by mail-pf0-x22b.google.com with SMTP id 189so60719113pfz.3
- for <openbmc@lists.ozlabs.org>; Fri, 04 Nov 2016 18:59:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=IQe4zYLArBghwh9KhP6cZRtcF1GGYkyc8Oxn05ebv7o=;
- b=UByxfBlDD91B9ASXzlBosyAUxHZA57k1gd3qMz1z9Zs5TlJvYtdxNw7otluYKDREs3
- cAhnnGJ052anZsGAjt+pSURE19kb7Yp7mG5dmcEA7Ihrn3qmD9943xOPEEA90HleGI5z
- mhvKEdL7NgrkUUbxW1LB+8exLCUe01nc5nuVkfsfYN0ChRiFB/naUoZOoR0smKeLYwbY
- oOxwGIPy2NjDh8CQO846yyahKe9JoP+G6sCk85yPnKRqii15g+m48IQi6nc6Yvgu0A/M
- mk/5dMpEtWppaUiEI9mhm8oL/tgDz0YXzNkHmjlyCVvhaqOUCkMCM5qNiu7n02Yw3fD2
- IZ5A==
+Received: by mail-it0-x241.google.com with SMTP id b123so1615681itb.2
+ for <openbmc@lists.ozlabs.org>; Sun, 06 Nov 2016 18:21:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=p4aMYU7P3RwbCd6IqbG0CmMxwngKtLZVMtRo9Y14Tro=;
+ b=ZuOfY2vgJNUod70a6X2aAk0YjxqM3B5qHzqkc1zB6WR2N2jUnAKiDfVminxWeViRbf
+ Vet/J3r1vB8FNKuRZuocDE9j9yeKndkCMjETRccGIrHZpbsiOc4OwV8IPOvuczaKtMCS
+ EZlMe29SSWvumgW06StwwclbbFGxmw2E67tZ/1tC0uXirvVxPRbPppd57/4kGM4knkbg
+ IQloDYUpb1/gfMYFmaWsLAQXbzrXT1CxzN+IH5fG9zEOcK62olT4NZUvfaKB+VTxMtA4
+ 885mX+3Ytyatl9M4zw2UdAY1Sx6lewcehYH0HcEoKb66hsme7yvr9mzdCrUvkezIQK0j
+ bp7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=IQe4zYLArBghwh9KhP6cZRtcF1GGYkyc8Oxn05ebv7o=;
- b=cJfE35neoEzdHpzkZee1J7cK6gYRZtAb5Of+UmLOErjHr/RvXqLUWFJqNf0xyioU+A
- 6U0VF4y/S4ZxM0q7EgCAjv5YoVoPfAc6YKdwd7IYeZONMRa/jDMaSi7cFnG1sB8s3NeI
- 358AF9La511Hz94md2qPwvOu++MJXpQ5ByIkl8F+mzJJKnZHDFWmUQNkyoFS1JZ9Xfpm
- sv/Cq+xnmGzpFSnnDEp6BEYqKUFSeP3istoUkF3jUUCnjftNpO8BYUJC7Kt1nFVtRTlx
- lCN6BDGZVJ7ZmVtYu6dgNOFeoUFCxxFXAhi27Y5wyuiOFSwnusCBAKPqC2/CpOh4VS/3
- eVAA==
-X-Gm-Message-State: ABUngveacUxiP8y23lRZeWCd0xGHTHX9VM+cl5/Ir26YRiwp7gQZZ9V4Tmo4AaCYRxrTYdVc
-X-Received: by 10.99.55.66 with SMTP id g2mr26042262pgn.65.1478311140218;
- Fri, 04 Nov 2016 18:59:00 -0700 (PDT)
-Received: from mactruck.svl.corp.google.com ([100.123.242.94])
- by smtp.gmail.com with ESMTPSA id k89sm23153902pfg.6.2016.11.04.18.58.59
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Fri, 04 Nov 2016 18:58:59 -0700 (PDT)
-From: Brendan Higgins <brendanhiggins@google.com>
-To: wsa@the-dreams.de,
-	robh+dt@kernel.org,
-	mark.rutland@arm.com
-Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, joel@jms.id.au,
- openbmc@lists.ozlabs.org, Brendan Higgins <brendanhiggins@google.com>
-Subject: [PATCH v4 2/2] i2c: aspeed: added documentation for Aspeed I2C driver
-Date: Fri,  4 Nov 2016 18:58:19 -0700
-Message-Id: <1478311099-6771-3-git-send-email-brendanhiggins@google.com>
-X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
-In-Reply-To: <1478311099-6771-1-git-send-email-brendanhiggins@google.com>
-References: <1478311099-6771-1-git-send-email-brendanhiggins@google.com>
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=p4aMYU7P3RwbCd6IqbG0CmMxwngKtLZVMtRo9Y14Tro=;
+ b=kQs2N/3/iNN78d2UuSN0ePOar16esxQiYb/QBjx9W6t2Dbzm51nBwsgRcs8q2bIfza
+ 3ftDw2XQUL7Cs/oe8JBsoX6IHhJW+MMBKM1gOJqTF2yCTyFl5tB+wZqlV6sHl0S//M8D
+ Bth0WkcsYFr7i6b6SuA6MZ7tRtSbYqyJUYCdnENtv4nW3PpAaPAwApjempNQ6QQgDlIy
+ +yYtmkWNIxT8/DwH87df+xBoQzAqwKlGT+X7CLns6xEAsDwbPNU/3O9ok44qXhrxukAu
+ vuDeIF/5OTO0rVYJQsYoMgHIzvd7L5BEbuM0uRasz9X3jykIk1D+dcI+7j0cwK3G5f3X
+ 6W+A==
+X-Gm-Message-State: ABUngvd2gldczEbQMQkgKVsTlIyK3ezVdnBnrfRURUXi2O72lhdKSkjbnpdWQmHebJAZ8jfrPDYnEuMUDcbmCA==
+X-Received: by 10.202.77.140 with SMTP id a134mr2995434oib.137.1478485280183; 
+ Sun, 06 Nov 2016 18:21:20 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.182.97.41 with HTTP; Sun, 6 Nov 2016 18:20:59 -0800 (PST)
+In-Reply-To: <1478278847-9164-2-git-send-email-clg@kaod.org>
+References: <1478278847-9164-1-git-send-email-clg@kaod.org>
+ <1478278847-9164-2-git-send-email-clg@kaod.org>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 7 Nov 2016 12:50:59 +1030
+X-Google-Sender-Auth: sSdGs3BSq2_P6EOqA92gCiKv69A
+Message-ID: <CACPK8XdrCx1r7OnMmAMBOELDwc3Afa7rzE6jsre+6ft7ae7YkQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7 1/8] mtd: spi-nor: aspeed: fix setting of
+ the register control value for writes
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,90 +61,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 05 Nov 2016 01:59:02 -0000
+X-List-Received-Date: Mon, 07 Nov 2016 02:21:22 -0000
 
-Added device tree binding documentation for Aspeed I2C controller and
-busses.
+On Sat, Nov 5, 2016 at 3:30 AM, C=C3=A9dric Le Goater <clg@kaod.org> wrote:
+> The setting of the register control value for writes depends on the
+> base value which was defined only if the mask applied to it changed
+> the register control value.
+>
+> Fix that.
+>
+> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
+> ---
+>  drivers/mtd/spi-nor/aspeed-smc.c | 9 +++++----
+>  1 file changed, 5 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspee=
+d-smc.c
+> index f65379bb2287..75ba73ef0660 100644
+> --- a/drivers/mtd/spi-nor/aspeed-smc.c
+> +++ b/drivers/mtd/spi-nor/aspeed-smc.c
+> @@ -756,7 +756,7 @@ static int aspeed_smc_chip_setup_init(struct aspeed_s=
+mc_chip *chip,
+>  {
+>         struct aspeed_smc_controller *controller =3D chip->controller;
+>         const struct aspeed_smc_info *info =3D controller->info;
+> -       u32 reg;
+> +       u32 reg, base_reg;
+>
+>         /*
+>          * Always turn on the write enable bit to allow opcodes to be
+> @@ -789,12 +789,13 @@ static int aspeed_smc_chip_setup_init(struct aspeed=
+_smc_chip *chip,
+>         reg =3D readl(chip->ctl);
+>         dev_dbg(controller->dev, "control register: %08x\n", reg);
+>
+> -       if ((reg & CONTROL_SPI_KEEP_MASK) !=3D reg) {
+> -               chip->ctl_val[smc_base] =3D reg & CONTROL_SPI_KEEP_MASK;
+> +       base_reg =3D reg & CONTROL_SPI_KEEP_MASK;
+> +       if (base_reg !=3D reg) {
+>                 dev_info(controller->dev,
+>                          "control register changed to: %08x\n",
 
-Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
----
-Changes for v2:
-  - None
-Changes for v3:
-  - Removed reference to "bus" device tree param
-Changes for v4:
-  - None
----
- .../devicetree/bindings/i2c/i2c-aspeed.txt         | 61 ++++++++++++++++++++++
- 1 file changed, 61 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+Is this the kind of message we would see if someone else (the host, or
+pflash) was changing the register while the kernel driver was loaded?
 
-diff --git a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
-new file mode 100644
-index 0000000..dd11a97
---- /dev/null
-+++ b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
-@@ -0,0 +1,61 @@
-+Device tree configuration for the I2C controller and busses on the AST24XX
-+and AST25XX SoCs.
-+
-+Controller:
-+
-+	Required Properties:
-+	- #address-cells	: should be 1
-+	- #size-cells 		: should be 1
-+	- #interrupt-cells 	: should be 1
-+	- compatible 		: should be "aspeed,ast2400-i2c-controller"
-+				  or "aspeed,ast2500-i2c-controller"
-+	- reg			: address start and range of controller
-+	- ranges		: defines address offset and range for busses
-+	- interrupts		: interrupt number
-+	- clocks		: root clock of bus, should reference the APB
-+				  clock
-+	- clock-ranges		: specifies that child busses can inherit clocks
-+	- interrupt-controller	: denotes that the controller receives and fires
-+				  new interrupts for child busses
-+
-+Bus:
-+
-+	Required Properties:
-+	- #address-cells	: should be 1
-+	- #size-cells		: should be 0
-+	- reg			: address offset and range of bus
-+	- compatible		: should be "aspeed,ast2400-i2c-bus"
-+				  or "aspeed,ast2500-i2c-bus"
-+	- interrupts		: interrupt number
-+
-+	Optional Properties:
-+	- clock-frequency	: frequency of the bus clock in Hz
-+				  defaults to 100 kHz when not specified
-+
-+Example:
-+
-+i2c: i2c@1e78a000 {
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+	#interrupt-cells = <1>;
-+
-+	compatible = "aspeed,ast2400-i2c-controller";
-+	reg = <0x1e78a000 0x40>;
-+	ranges = <0 0x1e78a000 0x1000>;
-+	interrupts = <12>;
-+	clocks = <&clk_apb>;
-+	clock-ranges;
-+	interrupt-controller;
-+
-+	i2c0: i2c-bus@40 {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		reg = <0x40 0x40>;
-+		compatible = "aspeed,ast2400-i2c-bus";
-+		clock-frequency = <100000>;
-+		status = "disabled";
-+		interrupts = <0>;
-+		interrupt-parent = <&i2c>;
-+	};
-+};
-+
--- 
-2.8.0.rc3.226.g39d4020
+If so, we might want to make this a dev_warn or even a WARN in order
+make it really clear that a bad thing has happened.
+
+Cheers,
+
+Joel
+
+> -                        chip->ctl_val[smc_base]);
+> +                        base_reg);
+>         }
+> +       chip->ctl_val[smc_base] =3D base_reg;
+>
+>         /*
+>          * Retain the prior value of the control register as the
+> --
+> 2.7.4
+>
