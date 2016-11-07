@@ -1,59 +1,33 @@
-Return-Path: <brendanhiggins@google.com>
-Received: from mail-qt0-x234.google.com (mail-qt0-x234.google.com
- [IPv6:2607:f8b0:400d:c0d::234])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tCMvr3cF2zDsxW
- for <openbmc@lists.ozlabs.org>; Tue,  8 Nov 2016 06:29:43 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="OhWaibmr"; 
- dkim-atps=neutral
-Received: by mail-qt0-x234.google.com with SMTP id n6so94096977qtd.1
- for <openbmc@lists.ozlabs.org>; Mon, 07 Nov 2016 11:29:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=9ZATReL5MBmdy0AAl53UkIC5sohndnR1+os7d6pfPgM=;
- b=OhWaibmrCZixl/70jcfnfsHLBdEo/J9FXtyvexU1jbHZGsI7EFvsl7lM6fe/Bf5lME
- vN4cVo/423TfXMxxyUvEBkGZ8UXtzI6uKpo7/E3SDTvIJ7d2lOt3z3ZT8fqxaCTZOE7U
- 7HY8LcSorj+M609T1rIQGUV8iQPCg2eYWcwu1fYqmxecbBp50MfhMS77b8vw84ewIOcY
- t7JED04KMq1ntipNmj/5UJgbPypw94PscAiXDnwzis/HZiS5yp0MHXiYWrn12pjDUM5s
- 2QG+aJuAgZPm4Nj3DtPyKa6lTfLupb9GGXX64RwTWtQZ+LGSnufb82NY6bxU08B1Z/DC
- ndaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=9ZATReL5MBmdy0AAl53UkIC5sohndnR1+os7d6pfPgM=;
- b=R0toX3Ij7//tmOUSzf4T8KziQnPCwDahdXRm8vMgYVidi65C2V+cS1oIAb+AyaigfL
- kvRx1D5URNEVZNJZoRgUuZcPfU84bOr4D5Q7Kt51j4e3lF+aAS6dvG4URR/C7VAixhNp
- 1TxlALwg54fUH269hows5R8dLMrzTiEDlnIAAQZX0C56XflIfcjylHFzglZSD63YzJoM
- cuvyZB9G2je2P9gyX+fUN4BNnBLsfpC3SuarUzpihaJTZbHju6pQGkR5ElANzrA9nFSd
- 3Ao/qq6TiSTAcJRgcrMlETId3uLNcw1ys2hlS0fa2CUKULMEwYUlYhMpmhyT5Rjnbk1y
- sZzQ==
-X-Gm-Message-State: ABUngvct7TfnSW6iLiVtwK0aJV/eWCE0Z95G575nnp7belYN1vslwWZ8u3FcEIdCjz614pVxwbekSP1Y24wmM76a
-X-Received: by 10.237.50.129 with SMTP id z1mr8575777qtd.158.1478546981428;
- Mon, 07 Nov 2016 11:29:41 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tCNWc5qNLzDvM2
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Nov 2016 06:57:15 +1100 (AEDT)
+Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
+ with SMTPS id 1478548628742838.1604374142315;
+ Mon, 7 Nov 2016 11:57:08 -0800 (PST)
+Date: Mon, 7 Nov 2016 13:57:06 -0600
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Nancy Yuen <yuenn@google.com>
+Cc: Brendan Higgins <brendanhiggins@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: C++ Feature Whitelist/Blacklist
+Message-ID: <20161107195706.xojpyngn7cmjntqb@asimov>
+References: <CAFd5g47LDkSS2g62NTTsXHMyDkwERK9CF=5xaO8Ww9sTvwiGRQ@mail.gmail.com>
+ <CAFd5g44ro35Wi4-tJK65nucXWoA6n1fxvHAFKXeRZisqH=KHbQ@mail.gmail.com>
+ <20161102171839.GB17105@heinlein.lan>
+ <CAFd5g47QU1FZpv3zyfSTqojaOCaFbE5G-a-OK-2h6YZwoUgPcg@mail.gmail.com>
+ <20161103120358.GC17105@heinlein.lan>
+ <CADfYTpH5BeijShWafcctTukSUE7DdquNtatdqgVcanNmh+vayQ@mail.gmail.com>
 MIME-Version: 1.0
-Received: by 10.12.137.220 with HTTP; Mon, 7 Nov 2016 11:29:40 -0800 (PST)
-In-Reply-To: <20161107150257.ug6zvs4v656cesep@asimov>
-References: <1477465067-19034-1-git-send-email-clg@kaod.org>
- <1477465067-19034-8-git-send-email-clg@kaod.org>
- <1478132769.728.3.camel@gmail.com>
- <20161103182300.wt2lyseogigfxqfn@asimov>
- <53954820-3eaf-56c6-0a4c-9347ff4dc358@kaod.org>
- <20161104015543.GD17105@heinlein.lan>
- <c1423337-705b-5d24-4205-c9ce8c32f1f4@kaod.org>
- <CAFd5g45PHWivKg17TRofahmtpZiTP8eWpBVrds=XB1EBh1t7QA@mail.gmail.com>
- <66e47401-a567-c100-2a92-ca2ff32023a2@kaod.org>
- <20161107150257.ug6zvs4v656cesep@asimov>
-From: Brendan Higgins <brendanhiggins@google.com>
-Date: Mon, 7 Nov 2016 11:29:40 -0800
-Message-ID: <CAFd5g45UOpJ8-3o-upx8jxN2hVDxh8Gkw6_+EbjzNKqaxsc-sw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7 7/8] ipmi: maintain a request expiry list
-To: Patrick Williams <patrick@stwcx.xyz>,
- =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
-Cc: Cyril Bur <cyrilbur@gmail.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=94eb2c1252589d13550540bb0b3c
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="amd67hxuk2iyfkcd"
+Content-Disposition: inline
+In-Reply-To: <CADfYTpH5BeijShWafcctTukSUE7DdquNtatdqgVcanNmh+vayQ@mail.gmail.com>
+User-Agent: Mutt/1.6.2 (2016-06-11)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,77 +39,123 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Nov 2016 19:29:45 -0000
+X-List-Received-Date: Mon, 07 Nov 2016 19:57:17 -0000
 
---94eb2c1252589d13550540bb0b3c
-Content-Type: text/plain; charset=UTF-8
+
+--amd67hxuk2iyfkcd
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Patrick, you are correct.
+On Mon, Nov 07, 2016 at 02:25:30AM -0800, Nancy Yuen wrote:
+> > Back to Big Picture
+> > ----------------------------
+> >
+> > I do feel we are seriously missing a broader philosophical question.  In
+> > what ways do you feel the CppCoreGuidelines do not address all of your
+> > coding guidelines suggestions?  Rather than write an entirely new
+> > document why would we not simply point to that and then extend it if we
+> > feel it is insufficient in a few key areas.  As you saw in my previous
+> > email, nearly everything we agree on comes from the CCG already and
+> > nearly everything we disagree on is a contradiction from the CCG.
+>=20
+> Our intention isn't to come up with a new document.  In our summit
+> meetings, you agreed we could propose a coding guide as you didn't
+> have anything spelled out and you didn't want to tackle it.  So we put
+> together an initial proposal and we're discussing it.  If your decision is
+> to say that CCG is the final say for all coding practices in openBMC
+> then we'll have to figure out what that means for us.
+>=20
+> > I do not want to hear that the CCG is "too long".  If you take out the
+> > references it is in the same order of magnitude as the GSG.  It is also
+> > organized in a way where each section is a straight-forward statement to
+> > be followed, so anyone unfamiliar or uninterested can simply read the
+> > TOC to understand all of the rules (ex. "I.2 Avoid global variables.",
+> > E.6 Use RAII to prevent leaks").
+>=20
+> "You do not want to hear"...I don't understand why you state is in such
+> a manner or assume we'd make this point.
+>=20
+> > --
+> > Patrick Williams
+>=20
+> ----------
+> Nancy
 
-The { Seq, Command, NetFn } set does not necessarily uniquely identify a
-message. The the OEM/Group extension messages as defined in the IPMI v2.0
-Specification Document Revision 1.1, Section 5.1 Network Function Codes,
-Table 5, under the name OEM/Group defines unique message endpoints by the
-following set: { NetFn, Payload{0, 1, 2}, Command }; where Payload{0, 1, 2}
-are the first three bytes of a message payload.
+Nancy,
 
-In addition, I am working on an OEM/Group extension that would allow a
-single transaction to take place across multiple messages, and in
-particular would allow multiple IPMI requests to be sent, potentially only
-sending (a) response(s) at the end of the transaction; in particular, this
-would allow the following:
+=46rom my perspective, I've pointed to the CCG as the primary document
+=66rom the very beginning.  At the summit I recall hearing two arguments
+against it (and it could very well be my misremembering):
 
-Master     | Slave
-Request -> |
-Request -> |
-Request -> |
-           | <- Response
-           | <- Response
+    1.  It is insufficient.
+    2.  It is too long.  (I remember specifically 'reams of paper' being
+        thrown about).
 
-Where Request and Response have the same sequence number. Note: the change
-I am making would also make the above example valid if there were only one
-request and two responses.
+It is really hard for me to refute your team's perspective of it being
+insufficient without examples.  You did point out the 'iostreams'
+direction in our discussions and I also freely admit both CCG and our
+current 'guidelines' are lacking in what is classically called 'style'
+(indentation, naming conventions, etc.).
 
-@C=C3=A9dric I see two remedies for your patch to allow this:
+I was also unable to on the spot refute the "it is too long".  It is
+easy to assume that the Google Style Guide is shorter, but after this
+discussion began I checked the two to compare and came to the conclusion
+they are in the same ballpark.
 
-1) Allow users to opt out of the expiry list.
+I assumed, perhaps incorrectly, that your team in taking up the "style
+guide" would focus on #1 (where you feel it is insufficient).  It is
+very frustrating to see the proposal simply be a rephrasing of the most
+contentious points of the GSG, because it contradicts the CCG in these
+areas.
 
-2) Update the keep alive list when *either* a new request or a new response
-is sent with a given sequence number (change the list to be a hashmap of
-sequence numbers to timeouts).
+I would like to call a "reset" to this discussion.  It is much easier to
+critique a formal proposal than a supposed proposal.  I have therefore
+spent this morning writing my initial take at a style guide.  I have
+attempted to incorporate all of the areas your team (and a few non-vocal
+members of our team) have expressed where the current guidelines are
+incomplete, without violating or changing any of the current guidelines.
+I do still treat the CCG as the "gold standard" here and have very few
+exceptions to it recorded.  I have kept this proposal exclusively to
+items that are not covered by the CCG.
 
-I will try to get a design doc for discussion describing this extension out
-hopefully sometime this week; I think that might clear some things up.
+Please have your team review this proposal for any areas that you feel
+it is lacking in specificity.
 
-Thanks!
+    https://gerrit.openbmc-project.xyz/1024
 
---94eb2c1252589d13550540bb0b3c
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+These guidelines are also not "set in stone" and I am willing to deviate
+=66rom the CCG if we have good rationale and can come to a consensus as a
+project.  I would like to see us first "approve roughly what is the
+current mode of operations" and then subsequently "propose any
+deviations".  I think each deviation should be approved on its own
+merits and not as a hindrance on the document as a whole.
 
-<div dir=3D"ltr">Patrick, you are correct.<br><br>The { Seq, Command, NetFn=
- } set does not necessarily uniquely identify a message. The the OEM/Group =
-extension messages as defined in the IPMI v2.0 Specification Document Revis=
-ion 1.1, Section 5.1 Network Function Codes, Table 5, under the name OEM/Gr=
-oup defines unique message endpoints by the following set: { NetFn, Payload=
-{0, 1, 2}, Command }; where Payload{0, 1, 2} are the first three bytes of a=
- message payload.<br><br>In addition, I am working on an OEM/Group extensio=
-n that would allow a single transaction to take place across multiple messa=
-ges, and in particular would allow multiple IPMI requests to be sent, poten=
-tially only sending (a) response(s) at the end of the transaction; in parti=
-cular, this would allow the following:<br><br>Master =C2=A0 =C2=A0 | Slave<=
-br>Request -&gt; |<br>Request -&gt; |<br>Request -&gt; |<br>=C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0| &lt;- Response<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0| &lt;- Response<br><br>Where Request and Response have the sa=
-me sequence number. Note: the change I am making would also make the above =
-example valid if there were only one request and two responses.<br><br>@C=
-=C3=A9dric I see two remedies for your patch to allow this:<br><br>1) Allow=
- users to opt out of the expiry list.<br><br>2) Update the keep alive list =
-when *either* a new request or a new response is sent with a given sequence=
- number (change the list to be a hashmap of sequence numbers to timeouts).<=
-br><br>I will try to get a design doc for discussion describing this extens=
-ion out hopefully sometime this week; I think that might clear some things =
-up.<br><br>Thanks!<br></div>
+Is this acceptable?
 
---94eb2c1252589d13550540bb0b3c--
+--=20
+Patrick Williams
+
+--amd67hxuk2iyfkcd
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJYINySAAoJEKsDR8wtAMEZamsP/AkHtx9lmElwK6o5brvswyI3
+4CXon80B8/+gWPhkTwb7cFVhB/i98aqub1ya4BSyHPKCydAuWtMgJxtIq07Uio+K
+o/rbI/s9sowQklcUysSEFvyOA6xeWQVYh07B94rW3PZ4vtPGAA1r5zkVbttDkNaV
+l/XMxfNsWcPUZQQ+0zRsY13UqyPOKAB1TzAcxTSvQ6NLLn6vViCapmhO8zscRQgs
+tgpfu+5pXBmXB7m/WGvOOL1EoIHQlr8gN7VfBKNmE7mpurfJAqzwWhpDSOsDFi3z
+towhlNRv6josE1qehdT1qvKGLkyXVImo42FB1UjUMlhFLUkSMLemtqujxqah5H+k
+UBtM4NLvvJQZmkULzm/3ogtg6Y9m6oJHp3Tv+SOrV2AM8gEhGzwre9uHhL4lPH33
+++Jt2X5Vv4RrGX9w6H7XAibh2pnVIJjtElZ5xlMCtQyNue0zcV+o2kc1ITlqBXgl
+feu3HHyMl3Qikcb9g7z8chpUb9sjEPBCexptkxIeHZOZAMbb/CgFpfnNKFPiz5CU
+BCZ+trl10QnpIEwGEP0Qi/JHu70Hp/cz5+Uly/N3yggZJwMIZGq6bUXNH57zozGU
+iPqOCwcdCq1cyowYtv586+xWsX0eKLT1/n0i1pSTkRfrXu2Bn4Mk7E2TRkrsdohC
+HZ7VLEFw7GwMp8y9xVmL
+=/3fD
+-----END PGP SIGNATURE-----
+
+--amd67hxuk2iyfkcd--
