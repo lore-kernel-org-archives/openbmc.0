@@ -1,55 +1,32 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-it0-x242.google.com (mail-it0-x242.google.com
- [IPv6:2607:f8b0:4001:c0b::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tBxLT6L7CzDvbx
- for <openbmc@lists.ozlabs.org>; Mon,  7 Nov 2016 13:32:49 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="njDwBxB6"; 
- dkim-atps=neutral
-Received: by mail-it0-x242.google.com with SMTP id m138so6875549itm.3
- for <openbmc@lists.ozlabs.org>; Sun, 06 Nov 2016 18:32:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=4fpoRWmpDMce5s8MCYPzhDgi9e/pVhP73KIX27R6J/o=;
- b=njDwBxB6MzZwu0AMM/nxlgZMNevgm+9SBot+RVOQyaqsX74YW8nFWQ2LJ5hOPxvRPH
- eyqkqNd/2pn+RqrHok1kRkXoV+hVbuRGEbZn7dBy11nq64/PwBTC18h4gRpLPcPEmCB7
- +H+G3Nx7gkhmIH/bxQimeH/W9iJU9Fei5ZQvzWvl1kmQC9FuYVJspc4ZbXeadaLui4OY
- RzwZe5Gv05UWED/aKIHEX5pGKDQ3s/CR+r9VCm1RN2F/w/uMGNiN35243xiWG1qf77W8
- LpmgfuEjoAU+cJYQZz54/yNWQPPYyxjHHKfnv8BwY0QJxwSHHMCunjCVlpluFR6upWPj
- 6vmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=4fpoRWmpDMce5s8MCYPzhDgi9e/pVhP73KIX27R6J/o=;
- b=dHlMe+ms1XNAeVkYXfWZNn5qygfvu3IGUxBNp1sPv8WS/d7ChTM/sAm4qKtmgJdZYX
- lZnnBXL+HIopo6FUQ2GteRKR9VIPXs5pYcIINAYsI4jGgAtzmWpvh5c5TwQCrhvEmDOb
- rj1uSLUaMNsH5s5t2s1adu5W35LkpwfE8TLILS5bI5Y+SLkjtDyxu1slmumgolIbaviC
- CaflmL7IhNrdKruwC8C59Dy8LfH6A7IX5sh6c1uCbZViKc9JFiKLtnWxmwYt4y0B9H51
- Wk+2FbN0uBgPykLmLyq9wWW1VwPg4WkYjvicp2qcm2lssbTOstNsmQmPCDiuqP4wk71k
- KOdA==
-X-Gm-Message-State: ABUngvd117Rq7gMUXDR7iBJrxYtwhimpSIfc3CD/bVvih01hq+cQJeuCPd246OMf2GFQnMt9/QrHPGw8tG7skw==
-X-Received: by 10.202.114.129 with SMTP id p123mr3126671oic.132.1478485968138; 
- Sun, 06 Nov 2016 18:32:48 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tByxM03PPzDsrT
+ for <openbmc@lists.ozlabs.org>; Mon,  7 Nov 2016 14:44:38 +1100 (AEDT)
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mx.zohomail.com
+ with SMTPS id 1478490270977998.1345668048458;
+ Sun, 6 Nov 2016 19:44:30 -0800 (PST)
+Date: Sun, 6 Nov 2016 21:44:25 -0600
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Nancy Yuen <yuenn@google.com>
+Cc: Brendan Higgins <brendanhiggins@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: C++ Feature Whitelist/Blacklist
+Message-ID: <20161107034425.GA15757@heinlein.lan>
+References: <CAFd5g47LDkSS2g62NTTsXHMyDkwERK9CF=5xaO8Ww9sTvwiGRQ@mail.gmail.com>
+ <CAFd5g44ro35Wi4-tJK65nucXWoA6n1fxvHAFKXeRZisqH=KHbQ@mail.gmail.com>
+ <20161102171839.GB17105@heinlein.lan>
+ <CADfYTpF_MtD2v07Rmopu11_VVo0SnzTKN73A9NqyBvtsTkSE_Q@mail.gmail.com>
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.182.97.41 with HTTP; Sun, 6 Nov 2016 18:32:27 -0800 (PST)
-In-Reply-To: <1478278847-9164-9-git-send-email-clg@kaod.org>
-References: <1478278847-9164-1-git-send-email-clg@kaod.org>
- <1478278847-9164-9-git-send-email-clg@kaod.org>
-From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 7 Nov 2016 13:02:27 +1030
-X-Google-Sender-Auth: Je-tTazwHo-L7GLLPkhfTEBB-uw
-Message-ID: <CACPK8Xd=NBoaXpUxxv5ym-sTOW4W1KHmQX46LE6RpPOyTdWNPA@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7 8/8] mtd: spi-nor: aspeed: use command mode
- for reads
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="9amGYk9869ThD9tj"
+Content-Disposition: inline
+In-Reply-To: <CADfYTpF_MtD2v07Rmopu11_VVo0SnzTKN73A9NqyBvtsTkSE_Q@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,80 +38,93 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Nov 2016 02:32:50 -0000
+X-List-Received-Date: Mon, 07 Nov 2016 03:44:39 -0000
 
-On Sat, Nov 5, 2016 at 3:30 AM, C=C3=A9dric Le Goater <clg@kaod.org> wrote:
-> When accessing flash contents, let use the "command mode" for read.
->
-> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
-> ---
->  drivers/mtd/spi-nor/aspeed-smc.c | 15 ++++++++-------
->  1 file changed, 8 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspee=
-d-smc.c
-> index 88cbfe7c4340..89085d84b4b5 100644
-> --- a/drivers/mtd/spi-nor/aspeed-smc.c
-> +++ b/drivers/mtd/spi-nor/aspeed-smc.c
-> @@ -522,8 +522,8 @@ static void aspeed_smc_send_cmd_addr(struct spi_nor *=
-nor, u8 cmd, u32 addr)
->         }
->  }
->
-> -static int aspeed_smc_read_user(struct spi_nor *nor, loff_t from, size_t=
- len,
-> -                               size_t *retlen, u_char *read_buf)
-> +static int aspeed_smc_read(struct spi_nor *nor, loff_t from, size_t len,
-> +                          size_t *retlen, u_char *read_buf)
->  {
->         struct aspeed_smc_chip *chip =3D nor->priv;
->         int ret;
-> @@ -542,10 +542,10 @@ static int aspeed_smc_read_user(struct spi_nor *nor=
-, loff_t from, size_t len,
->                 dev_err(chip->nor.dev, "DMA read failed: %d", ret);
->         }
->
-> -       aspeed_smc_start_user(nor);
-> -       aspeed_smc_send_cmd_addr(nor, nor->read_opcode, from);
-> -       aspeed_smc_from_ahb(read_buf, chip->base, len);
-> -       aspeed_smc_stop_user(nor);
-> +       /*
-> +        * we are in read or fread mode by default
-> +        */
-> +       aspeed_smc_from_ahb(read_buf, chip->base + from, len);
 
-Even though I just acked the previous patch, when reading this it's
-not clear that we're doing a read. Perhaps
-smc_{read_from,write_to}_ahb?
+--9amGYk9869ThD9tj
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Cheers,
+Nancy,
 
-Joel
+A few minor responses below.
 
->
->  out:
->         mutex_unlock(&chip->controller->mutex);
-> @@ -861,6 +861,7 @@ static int aspeed_smc_chip_setup_finish(struct aspeed=
-_smc_chip *chip)
->         }
->
->         chip->ctl_val[smc_read] |=3D cmd |
-> +               spi_control_fill_opcode(chip->nor.read_opcode) |
->                 CONTROL_SPI_IO_DUMMY_CYCLES_SET(chip->nor.read_dummy / 8)=
-;
->
->         dev_dbg(controller->dev, "base control register: %08x\n",
-> @@ -956,7 +957,7 @@ static int aspeed_smc_probe(struct platform_device *p=
-dev)
->                 chip->nor.priv =3D chip;
->                 spi_nor_set_flash_node(&chip->nor, child);
->                 chip->nor.mtd.name =3D of_get_property(child, "label", NU=
-LL);
-> -               chip->nor.read =3D aspeed_smc_read_user;
-> +               chip->nor.read =3D aspeed_smc_read;
->                 chip->nor.write =3D aspeed_smc_write_user;
->                 chip->nor.read_reg =3D aspeed_smc_read_reg;
->                 chip->nor.write_reg =3D aspeed_smc_write_reg;
-> --
-> 2.7.4
->
+On Fri, Nov 04, 2016 at 02:46:42AM -0700, Nancy Yuen wrote:
+> As for fitting in the head of the contributor or maintainer, I don't think
+> it's reasonable.  One of the points made during our meeting was that
+> openBMC should be a project other people can come in and contribute to.
+> Future contributors may or may not be devoting all their time to openBMC
+> and may not have the bandwidth to "fit" one of the repos in their head.
+
+What I meant by this was not that every contributor is expected to know
+all of the code, but that the maintainer is likely to know the internal
+APIs of it enough to be able to review contributions.  One of the main
+points of contention is a proposal that "makes it easier to review" and
+that is the part that makes more sense when you are talking about 1+
+MLOC of interdependent code.  That particular point is less interesting
+when you are talking about <50kLOC.
+
+> Btw, Google's codebase is not monolithic.
+
+I realize that was not likely the case, but those were the words Titus
+used in his public talk.
+
+> I also want to echo Brendan's caution in his reply with regard to citing
+> industry experts.  [3] is not a list of do and don't dos by industry
+> experts.  Their abstract clearly states "Please try to verify or disprove
+> rules! In particular, we'd really like to have some of our rules backed up
+> with measurements or better examples"
+
+I feel you have taken this one sentence very much out of context.
+
+The first paragraph of the abstract says:=20
+
+    The C++ Core Guidelines are a collaborative effort led by Bjarne
+    Stroustrup, much like the C++ language itself. They are the result of
+    many person-years of discussion and design across a number of
+    organizations. Their design encourages general applicability and broad
+    adoption but they can be freely copied and modified to meet your
+    organization's needs.
+
+They are actively encouraging others to use this list.  The also state
+in the abstract:
+
+    The rules are designed to be supported by an analysis tool. Violations
+    of rules will be flagged with references (or links) to the relevant
+    rule. We do not expect you to memorize all the rules before trying to
+    write code.
+
+In fact, clang-tidy has a number of checks for these rules to encourage
+their use.
+
+The one sentence you quoted I read as "We are willing to change these
+rules if evidence points to the contrary.  Please prove us wrong."  And,
+in fact, the guidelines are "actively maintained" on Github and have
+changed since their original introduction.
+
+--=20
+Patrick Williams
+
+--9amGYk9869ThD9tj
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAEBCAAGBQJYH/iXAAoJEKsDR8wtAMEZLTwP/jZpL7OJQpCmswigWtp9Sgy7
+GDXT6Pj9RzSynYRmVXaVYY1W4CQg+nF3x53TJ3hUpl1UNRwJtFmDdyZIuX1zorji
+pOxF2iQLuj6TEzkr+W80ZxEGY7NGXa8ixBPfMEhuhYDk9OCXP6ehnQYfIHfAoOaP
+KJ/GnhmwH1T+EjSsUww1HMnGD1e+YHgPzQtvu/CQ9xCweRb5adE+zfJKp4rRLKzG
+VEvzAD0/mFp7dcE+MkKJtZPMiOlz6+Jq81OSlYF6isz3RKfGDj0E8U2AQmKbpQoo
+esV2073qX77416MLFJ6E6aPxGlCC+Ip2A+zdcg8ZMjog3gY54m0xPNBJgLPgb+Pq
+94go/LBoQghPazEHE0DDa5bCFbk+Qa+40tEm5S1D+aTeiCVM+45HDRv7oo2UHmwf
+mm70i/NAzfy/uag+xGsjF8eOZDKOPMqssftmuMZC9KP15n00CJ4wc+VgHWqpjlgn
+JjC0swVEDFgyk758ZvogGRjVHYSe62x+ByYzgavgTA9gjWqOO9tGJmP1z5sZ0SR4
+pAEvHZnvYQkbBhpgq7JNruU9rYXCmWoWijNZaHpXNUmmYycq9S+2+clHFuDK3wfn
+eEHlzt/L7jFWLsiry3LF5p8WLzmm+9XdtmXe+pvuxxiinKxcSfUwQzQLfKlGGmqe
+97bOg0rfZSW8DIZpUpfK
+=yPkk
+-----END PGP SIGNATURE-----
+
+--9amGYk9869ThD9tj--
