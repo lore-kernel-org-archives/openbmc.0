@@ -1,58 +1,48 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <eajames.ibm@gmail.com>
+Received: from mail-it0-x241.google.com (mail-it0-x241.google.com
+ [IPv6:2607:f8b0:4001:c0b::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tCS5F0wjJzDvPb
- for <openbmc@lists.ozlabs.org>; Tue,  8 Nov 2016 09:38:09 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="V3K9Ymio"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="fUcgsSWV"; dkim-atps=neutral
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id E985920740;
- Mon,  7 Nov 2016 17:38:06 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute7.internal (MEProxy); Mon, 07 Nov 2016 17:38:06 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=qYMPb/Yk4/WFl//6ysVO+3MAyg4=; b=V3K9Ym
- ioco+3GX/OJwogjFVzv40KzW0+TWQN8F4e/c63ItK0RidCz1bVvusekZzqcI3kbo
- 0smyg0dB+z/wrOCKAc0JqeLBi2uLASvkpa4nQ82bqTMVXwLwyEogLk94ksYdizmE
- dkECjMjiLgKkaVEzozrnkES1X1TLl/Ar8AFrc=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=qYMPb/Yk4/WFl/
- /6ysVO+3MAyg4=; b=fUcgsSWVYBg5Jdzr8TIklgy1SP4D3LDOiwfI1df31PBJFj
- vesUcuDN0JiBzqVaxE4PGuFr43fv8FvF8zinTB5ihBXAwuY/Mcpa/+cZxaH06roP
- 6xHA8u8q2gGveFIBOixdKfyGl/Wi6VdfS8u2Lad8p2U5515Hpfxk0JUdNUH7U=
-X-ME-Sender: <xms:TgIhWP6ZWGp-KqzpohuKj5byP9__vPzhpmrcE6so96RtOffsU_vWdg>
-X-Sasl-enc: gTIymaiMGFLnLKKpWTpO/VOiHPlN4sSS806qWi5D0fyf 1478558284
-Received: from keelia (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 9589DCC025;
- Mon,  7 Nov 2016 17:38:03 -0500 (EST)
-Message-ID: <1478558276.6206.2.camel@aj.id.au>
-Subject: Re: C++ Feature Whitelist/Blacklist
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Nancy Yuen <yuenn@google.com>, Patrick Williams <patrick@stwcx.xyz>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Brendan Higgins
- <brendanhiggins@google.com>
-Date: Tue, 08 Nov 2016 09:07:56 +1030
-In-Reply-To: <CADfYTpFJc1qp1tmwjeex6S7JTxmCQbJ7QyaOfqbPqqtdzNme7g@mail.gmail.com>
-References: <CAFd5g47LDkSS2g62NTTsXHMyDkwERK9CF=5xaO8Ww9sTvwiGRQ@mail.gmail.com>
- <CAFd5g44ro35Wi4-tJK65nucXWoA6n1fxvHAFKXeRZisqH=KHbQ@mail.gmail.com>
- <20161102171839.GB17105@heinlein.lan>
- <CADfYTpF_MtD2v07Rmopu11_VVo0SnzTKN73A9NqyBvtsTkSE_Q@mail.gmail.com>
- <20161107034425.GA15757@heinlein.lan>
- <CADfYTpFJc1qp1tmwjeex6S7JTxmCQbJ7QyaOfqbPqqtdzNme7g@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-9v2Clscw+9HJDmyBj8K/"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tCSwF48K7zDvPb
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Nov 2016 10:15:25 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="FM6pGr1G"; 
+ dkim-atps=neutral
+Received: by mail-it0-x241.google.com with SMTP id e187so12353348itc.0
+ for <openbmc@lists.ozlabs.org>; Mon, 07 Nov 2016 15:15:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=from:to:cc:subject:date:message-id;
+ bh=BFYaHLeZW+c1Lz+r9v7u9ndmUcTsyxrueOGfMv8Jd/s=;
+ b=FM6pGr1Ge79D8PCDsMfAzhyAAVpHKnL9rnjKlHYSsvE7KMt8laiof7IZsd6H6ghXns
+ t9U04EHREwD4NOOYjwRBtG2nx/30MsWCWZPKCQ4D7XDHvXPaUp052XIH2eF3dnMrkq7r
+ qvA7bbqB7pBUiwYp6tF6idu6o/RWftL7lm8LqTBrypGdxqmrnqhhe2ZsDbwdglZGldMy
+ GSi155wHihgIxkJb7Tc9Tv1U5JC8xdXDdukjjmPFAC+aM/7P1gPNw5bYCQW8d1AKsne7
+ RXO3IuEwpReZXLrR0NKQO6LiJ9/XfPfiyJQ8wbwf4Lg7eIeHgKtV3glRk9XzilLrQn+W
+ IX8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=BFYaHLeZW+c1Lz+r9v7u9ndmUcTsyxrueOGfMv8Jd/s=;
+ b=iz4fV8Y4wvQAasYJa91aoTFKjHU+++dtsbrbWsHFSOuH5r5S3FpBU43upuGs0Z1doa
+ IRw1nEh0UcwnUNOk3IRU704FEEZU0Yun1rpYAI2mIvaLByYv6kRHYx69LyWgQCePSmNg
+ QG61VyigwwzUgy3i0SlH8DF/E5bp/di0eMFpf/VocA2d4H1vm5EaiQuSFljXsqclPfUg
+ li6f2bkOgPObIgL1SlmnRX+w008b2nW/PGUkImURE9cjQbu9IcDheIboiG+yIOFVZMnt
+ qsS+bR50S566D7I4fQOjQdvFuTLFKh5lSn03GOxFNU1LfEyhIg8rLaN9SxJcL/uRUQtK
+ itGA==
+X-Gm-Message-State: ABUngvcspzgBmDTQcNChINewqrMadlPt1c0cxPSzJMtoyvCoxmbQoLm6N9UDvb7t4in7Wg==
+X-Received: by 10.107.8.201 with SMTP id h70mr11396820ioi.139.1478560522886;
+ Mon, 07 Nov 2016 15:15:22 -0800 (PST)
+Received: from eajames-austin-w350.austin.ibm.com ([32.97.110.57])
+ by smtp.gmail.com with ESMTPSA id p77sm6005466iod.35.2016.11.07.15.15.21
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Mon, 07 Nov 2016 15:15:22 -0800 (PST)
+From: eajames.ibm@gmail.com
+To: openbmc@lists.ozlabs.org
+Cc: "Edward A. James" <eajames@us.ibm.com>
+Subject: [PATCH linux v5 0/5] On-Chip Controller (OCC) hwmon driver
+Date: Mon,  7 Nov 2016 17:15:12 -0600
+Message-Id: <1478560512-23791-1-git-send-email-eajames.ibm@gmail.com>
+X-Mailer: git-send-email 1.9.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,53 +54,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Nov 2016 22:38:10 -0000
+X-List-Received-Date: Mon, 07 Nov 2016 23:15:26 -0000
 
+From: "Edward A. James" <eajames@us.ibm.com>
 
---=-9v2Clscw+9HJDmyBj8K/
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This patchset provides a new OCC hwmon driver. There are a number
+of issues with the existing driver. Firstly, i2c access was embedded
+throughout the driver. Secondly, there is no way to easily differentiate
+versions of the OCC.
 
-On Mon, 2016-11-07 at 02:26 -0800, Nancy Yuen wrote:
-> > =C2=A0 =C2=A0 The rules are designed to be supported by an analysis too=
-l. Violations
-> > =C2=A0 =C2=A0 of rules will be flagged with references (or links) to th=
-e relevant
-> > =C2=A0 =C2=A0 rule. We do not expect you to memorize all the rules befo=
-re trying to
-> > =C2=A0 =C2=A0 write code.
-> >
-> > In fact, clang-tidy has a number of checks for these rules to encourage
-> > their use.
->=20
-> I would love it if we could install clang-tidy to enforce these rules on =
-openBMC's gerrit.
+This patchset addresses the first issue by abstracting the bus transfer
+protocol into a modular structure. In this way, any low level transfer
+method may be easily implemented.
 
-+1 for supplementing whatever document we create with tools. They can
-get us a long of the way towards consistency, and any manually tweaked
-inconsistencies can be discussed in code review.
+The second issue is addressed by separating the "version specific" code
+for the OCC and the common hwmon code. This task is not yet complete, but
+the general structure is in place. Ultimately, different OCC versions
+could be probed up using the device tree.
 
-Andrew
---=-9v2Clscw+9HJDmyBj8K/
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Edward A. James (5):
+  Revert "hwmon: Add Power8 OCC hwmon driver"
+  drivers: Add hwmon occ driver framework
+  drivers: hwmon OCC scom bus operations
+  drivers: Add hwmon OCC version specific functions
+  drivers: OCC hwmon driver and sysfs
 
------BEGIN PGP SIGNATURE-----
+ .../devicetree/bindings/i2c/i2c-ibm-occ.txt        |    2 +-
+ drivers/hwmon/Kconfig                              |   13 +-
+ drivers/hwmon/Makefile                             |    2 +-
+ drivers/hwmon/occ/Kconfig                          |   15 +
+ drivers/hwmon/occ/Makefile                         |    1 +
+ drivers/hwmon/occ/occ.c                            |  892 ++++++++++++++
+ drivers/hwmon/occ/occ.h                            |   58 +
+ drivers/hwmon/occ/occ_i2c.c                        |  147 +++
+ drivers/hwmon/occ/p8.c                             |  222 ++++
+ drivers/hwmon/occ/p8.h                             |   29 +
+ drivers/hwmon/occ/p9.c                             |  253 ++++
+ drivers/hwmon/occ/p9.h                             |   29 +
+ drivers/hwmon/occ/scom.h                           |   31 +
+ drivers/hwmon/power8_occ_i2c.c                     | 1254 --------------------
+ 14 files changed, 1680 insertions(+), 1268 deletions(-)
+ create mode 100644 drivers/hwmon/occ/Kconfig
+ create mode 100644 drivers/hwmon/occ/Makefile
+ create mode 100644 drivers/hwmon/occ/occ.c
+ create mode 100644 drivers/hwmon/occ/occ.h
+ create mode 100644 drivers/hwmon/occ/occ_i2c.c
+ create mode 100644 drivers/hwmon/occ/p8.c
+ create mode 100644 drivers/hwmon/occ/p8.h
+ create mode 100644 drivers/hwmon/occ/p9.c
+ create mode 100644 drivers/hwmon/occ/p9.h
+ create mode 100644 drivers/hwmon/occ/scom.h
+ delete mode 100644 drivers/hwmon/power8_occ_i2c.c
 
-iQIcBAABCgAGBQJYIQJEAAoJEJ0dnzgO5LT5tdQP/AlTH48Nn0UIUz4FCj8DnKZw
-2wZTTBPdTTbDdjyDapSQvdBkkNN3D2DfL7z+/qOJm6iH+tPtyZIdiYYYUhH0TOHd
-frPGxgsmFtqGYwJH79P+/j97yF0V3tljmAVaAz7rK8xXYBM23fS2rxdDS8LcSmMC
-vEK3mhKIur2TAFiUEt14K3/tv/aPjbsaTqqiJkF1fUyk8sTq3AepcPtTzI0qzluf
-U02sM/sH+VianEEDpGmfQ5MdLSOhueY7q0GQLzYV6IKBClDpJZ89pLUAqdDLqfNp
-QMppILtDWIe+oIVT8X/UkW5d+dD7HPkTfjnsHSGoN4ULgjdD6HFg3qmdJzHUaG6R
-EEgyMVIbbMM4KsAhBErOflSKXNk+E4G6PZWN5DZPh0ATjqn6xqAtPMDXn4UyQEDv
-Fm41p79XgKXImT1/WcJ4YQG8dAyd5hKze3+XqksRtImjcIgVDeZ8W7jr7HdkjBP/
-qjheoYgrrK9vo/a1AI8cQXGdkDjK3sIdf+TQ/GVLnqKovqfd5qLKfPYNHgMWwgNc
-kQ1hCx7KTrKhSuZx+J7rpen71lAb5yjdeTijBsSREZ/i/CR/p7QEBR89SOK0j6/i
-8IP5A/60KTEpr2F8uqeGZ9PORCUgj7dvBj7lM+vyqCGqqAUyjLM045Iqwp1xW29/
-TaatHWHf7H6ZEf9YSb+p
-=JTkY
------END PGP SIGNATURE-----
-
---=-9v2Clscw+9HJDmyBj8K/--
+-- 
+1.9.1
