@@ -1,54 +1,58 @@
-Return-Path: <xow@google.com>
-Received: from mail-qk0-x233.google.com (mail-qk0-x233.google.com
- [IPv6:2607:f8b0:400d:c09::233])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tCR6H2P6qzDvNW
- for <openbmc@lists.ozlabs.org>; Tue,  8 Nov 2016 08:53:58 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="QnH5+mGH"; 
- dkim-atps=neutral
-Received: by mail-qk0-x233.google.com with SMTP id n21so83800960qka.3
- for <openbmc@lists.ozlabs.org>; Mon, 07 Nov 2016 13:53:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=cPJzdICiOmSKpPuZwo/N1SjoGr6S4lnsnO6XEy3F5ZQ=;
- b=QnH5+mGHbtvg+dlOu1G34sXtjaAwuxp36+D+gbcki7N8TsLN6/+tjqslkvF0NiYQRx
- 7NKtLrXfhRJk5LNk0bln5dCR5XzpZ1g6BCUQX/zwW2cF9AT1sVHpi5KtfJCUIHeXJMy2
- k56y7z6a+Y9buch29hqfbt4g14UPik+GgMlk3xWd4EW73dOymABJ+pkUmRU6DQqQzuG8
- qnuZaIRjqtFqYxYII5W06uTzyNOwYxSs4o5qrtIPm1StWnZ74AZaB9tR1J6DEmJMgG3H
- qNuxDD4fEjVxKV4q0/efIJ2Djxms7DgIws0N89n8HDpraa+wRV6xTgk1fv7vurNd45N0
- L3Aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=cPJzdICiOmSKpPuZwo/N1SjoGr6S4lnsnO6XEy3F5ZQ=;
- b=maGHAo7YeBj8Kq+uj5Df8gnVLfiiQWLXpI68Sm+W0BdfAksD7LGM5DiXkxgbFDMiuL
- Xh2ihd2dPWtdwGqB24YZH1bP0L1usMJBWM5nKbHo6B7SDhIvO5eRgbKufWtIwvUZV4Ow
- IiqCZBatIkGe21wP4r+s7Cqnt8eCyPE7QhTE68bxy7D4SLr05my83a6cIvCbw4p7oisE
- xXIFBuSLDibKEZseyjm9d4dLZRwFdnIQDTMB4EM/xA5+5F8pFigBiWW3nl4wf14YACFc
- 7joUzs0Dk20ZIbOKRiyDrf2g7Zv7wAP7U3IK01lap6vlE1PqdlJFR4/ETknd4k/TUGFU
- Yvaw==
-X-Gm-Message-State: ABUngvdMSB7VPzyqMuUc47nGLl4npaNDh1sWgvtdsHuvGl/Zf6EuU0ASiazvizEbaIxI8w12CBTF1Co/7aqBXJsy
-X-Received: by 10.55.16.134 with SMTP id 6mr10532066qkq.76.1478555633953; Mon,
- 07 Nov 2016 13:53:53 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.237.57.199 with HTTP; Mon, 7 Nov 2016 13:53:53 -0800 (PST)
-In-Reply-To: <CAARXrtmur716MDJJPhHKNwOcGVVnczey0n2ZxXdXV2YB67+Png@mail.gmail.com>
-References: <CAARXrtmemiSFPH7RGxFLcddt1Ld4pGTwsDX-rPtAmf2coS8VDg@mail.gmail.com>
- <20161107040643.GE15757@heinlein.lan>
- <OF7F37D1BE.BCC7E74A-ON48258064.00313B2C-48258064.003271BA@notes.na.collabserv.com>
- <20161107161903.7gbgafvj6vb6w4k4@asimov>
- <CAARXrtmur716MDJJPhHKNwOcGVVnczey0n2ZxXdXV2YB67+Png@mail.gmail.com>
-From: Xo Wang <xow@google.com>
-Date: Mon, 7 Nov 2016 13:53:53 -0800
-Message-ID: <CAPH-5w6jxPPBYPSh1NQF-vg2w2HJ7ZU_r50ttSsUsXDMPS3_5A@mail.gmail.com>
-Subject: Re: How to handle GPIO differences between P8 and P9
-To: Mine <mine260309@gmail.com>
-Cc: Patrick Williams <patrick@stwcx.xyz>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tCS5F0wjJzDvPb
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Nov 2016 09:38:09 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="V3K9Ymio"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="fUcgsSWV"; dkim-atps=neutral
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id E985920740;
+ Mon,  7 Nov 2016 17:38:06 -0500 (EST)
+Received: from frontend2 ([10.202.2.161])
+ by compute7.internal (MEProxy); Mon, 07 Nov 2016 17:38:06 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=mesmtp; bh=qYMPb/Yk4/WFl//6ysVO+3MAyg4=; b=V3K9Ym
+ ioco+3GX/OJwogjFVzv40KzW0+TWQN8F4e/c63ItK0RidCz1bVvusekZzqcI3kbo
+ 0smyg0dB+z/wrOCKAc0JqeLBi2uLASvkpa4nQ82bqTMVXwLwyEogLk94ksYdizmE
+ dkECjMjiLgKkaVEzozrnkES1X1TLl/Ar8AFrc=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=qYMPb/Yk4/WFl/
+ /6ysVO+3MAyg4=; b=fUcgsSWVYBg5Jdzr8TIklgy1SP4D3LDOiwfI1df31PBJFj
+ vesUcuDN0JiBzqVaxE4PGuFr43fv8FvF8zinTB5ihBXAwuY/Mcpa/+cZxaH06roP
+ 6xHA8u8q2gGveFIBOixdKfyGl/Wi6VdfS8u2Lad8p2U5515Hpfxk0JUdNUH7U=
+X-ME-Sender: <xms:TgIhWP6ZWGp-KqzpohuKj5byP9__vPzhpmrcE6so96RtOffsU_vWdg>
+X-Sasl-enc: gTIymaiMGFLnLKKpWTpO/VOiHPlN4sSS806qWi5D0fyf 1478558284
+Received: from keelia (ppp203-122-213-247.static.internode.on.net
+ [203.122.213.247])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 9589DCC025;
+ Mon,  7 Nov 2016 17:38:03 -0500 (EST)
+Message-ID: <1478558276.6206.2.camel@aj.id.au>
+Subject: Re: C++ Feature Whitelist/Blacklist
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Nancy Yuen <yuenn@google.com>, Patrick Williams <patrick@stwcx.xyz>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Brendan Higgins
+ <brendanhiggins@google.com>
+Date: Tue, 08 Nov 2016 09:07:56 +1030
+In-Reply-To: <CADfYTpFJc1qp1tmwjeex6S7JTxmCQbJ7QyaOfqbPqqtdzNme7g@mail.gmail.com>
+References: <CAFd5g47LDkSS2g62NTTsXHMyDkwERK9CF=5xaO8Ww9sTvwiGRQ@mail.gmail.com>
+ <CAFd5g44ro35Wi4-tJK65nucXWoA6n1fxvHAFKXeRZisqH=KHbQ@mail.gmail.com>
+ <20161102171839.GB17105@heinlein.lan>
+ <CADfYTpF_MtD2v07Rmopu11_VVo0SnzTKN73A9NqyBvtsTkSE_Q@mail.gmail.com>
+ <20161107034425.GA15757@heinlein.lan>
+ <CADfYTpFJc1qp1tmwjeex6S7JTxmCQbJ7QyaOfqbPqqtdzNme7g@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-9v2Clscw+9HJDmyBj8K/"
+X-Mailer: Evolution 3.22.1-0ubuntu2 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,60 +64,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Nov 2016 21:54:00 -0000
+X-List-Received-Date: Mon, 07 Nov 2016 22:38:10 -0000
 
-On Mon, Nov 7, 2016 at 9:01 AM, Mine <mine260309@gmail.com> wrote:
-> On Mon, Nov 7, 2016 at 10:19 AM, Patrick Williams <patrick@stwcx.xyz> wrote:
->> On Mon, Nov 07, 2016 at 05:10:59PM +0800, Yi TZ Li wrote:
->>> I committed a patch: https://gerrit.openbmc-project.xyz/#/c/1019/
->>> to add a getSystemName() dbus method in org.obmc.managers.System interface.
->>> There are several places in skeleton requires fix for a specific system.
->>>
->>> Other way be add a compile flag in yocto when building Skeleton.
->>
->> We are really trying to avoid "if (machine_type == ...)" type code.  This
->> becomes a gigantic problem when we are talking about supporting 3 dozen
->> machines.
->>
->> --
->> Patrick Williams
->
-> Yup, I prefer not to write `if (machine_type == ...)` type code, nor
-> to have a compile flag (it just becomes `#if xxx` or `#ifdef xxx`).
->
-> The temp fix by not defining `IDBTN` will not only cause error log,
-> but also prevent the code in `op-hostctl/control_host_obj.c` to work,
-> because it will get error during opening the GPIO, and jump out,
-> resulting in error: "GPIO sequence failed".
->
-> If we are targeting for booting P9 up, I would suggest a temp fix by
-> defining `IDBTN` for both Witherspoon and Romulus.
-> It will not block power on, but may break a function related to LED.
->
-> --
-> BRs,
-> Lei YU
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
 
-We had a similar issue in the op-pwrctl where the source hard-coded
-the system net names. There I put in a short-term solution of adding a
-function-specific abstraction over the net names into the System.py
-config, removing the per-machine patches for name and polarity:
-https://gerrit.openbmc-project.xyz/#/c/606/
-https://gerrit.openbmc-project.xyz/#/c/689/
+--=-9v2Clscw+9HJDmyBj8K/
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-It's not difficult to extend POWER_CONFIG for GPIO functions that only
-exist on one machine, like so:
-https://gerrit.openbmc-project.xyz/#/c/608/3
+On Mon, 2016-11-07 at 02:26 -0800, Nancy Yuen wrote:
+> > =C2=A0 =C2=A0 The rules are designed to be supported by an analysis too=
+l. Violations
+> > =C2=A0 =C2=A0 of rules will be flagged with references (or links) to th=
+e relevant
+> > =C2=A0 =C2=A0 rule. We do not expect you to memorize all the rules befo=
+re trying to
+> > =C2=A0 =C2=A0 write code.
+> >
+> > In fact, clang-tidy has a number of checks for these rules to encourage
+> > their use.
+>=20
+> I would love it if we could install clang-tidy to enforce these rules on =
+openBMC's gerrit.
 
-With the abstraction taking place in the Python machine config, we
-don't need per-machine dispatch in the user interface (op-pwrctl,
-op-hostctl, op-pwr-button, etc).
++1 for supplementing whatever document we create with tools. They can
+get us a long of the way towards consistency, and any manually tweaked
+inconsistencies can be discussed in code review.
 
-Does that work for you in the short term?
+Andrew
+--=-9v2Clscw+9HJDmyBj8K/
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-cheers
-xo
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJYIQJEAAoJEJ0dnzgO5LT5tdQP/AlTH48Nn0UIUz4FCj8DnKZw
+2wZTTBPdTTbDdjyDapSQvdBkkNN3D2DfL7z+/qOJm6iH+tPtyZIdiYYYUhH0TOHd
+frPGxgsmFtqGYwJH79P+/j97yF0V3tljmAVaAz7rK8xXYBM23fS2rxdDS8LcSmMC
+vEK3mhKIur2TAFiUEt14K3/tv/aPjbsaTqqiJkF1fUyk8sTq3AepcPtTzI0qzluf
+U02sM/sH+VianEEDpGmfQ5MdLSOhueY7q0GQLzYV6IKBClDpJZ89pLUAqdDLqfNp
+QMppILtDWIe+oIVT8X/UkW5d+dD7HPkTfjnsHSGoN4ULgjdD6HFg3qmdJzHUaG6R
+EEgyMVIbbMM4KsAhBErOflSKXNk+E4G6PZWN5DZPh0ATjqn6xqAtPMDXn4UyQEDv
+Fm41p79XgKXImT1/WcJ4YQG8dAyd5hKze3+XqksRtImjcIgVDeZ8W7jr7HdkjBP/
+qjheoYgrrK9vo/a1AI8cQXGdkDjK3sIdf+TQ/GVLnqKovqfd5qLKfPYNHgMWwgNc
+kQ1hCx7KTrKhSuZx+J7rpen71lAb5yjdeTijBsSREZ/i/CR/p7QEBR89SOK0j6/i
+8IP5A/60KTEpr2F8uqeGZ9PORCUgj7dvBj7lM+vyqCGqqAUyjLM045Iqwp1xW29/
+TaatHWHf7H6ZEf9YSb+p
+=JTkY
+-----END PGP SIGNATURE-----
+
+--=-9v2Clscw+9HJDmyBj8K/--
