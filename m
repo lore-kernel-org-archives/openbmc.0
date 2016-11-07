@@ -1,33 +1,49 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <brendanhiggins@google.com>
+Received: from mail-qk0-x235.google.com (mail-qk0-x235.google.com
+ [IPv6:2607:f8b0:400d:c09::235])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tCNWc5qNLzDvM2
- for <openbmc@lists.ozlabs.org>; Tue,  8 Nov 2016 06:57:15 +1100 (AEDT)
-Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
- with SMTPS id 1478548628742838.1604374142315;
- Mon, 7 Nov 2016 11:57:08 -0800 (PST)
-Date: Mon, 7 Nov 2016 13:57:06 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Nancy Yuen <yuenn@google.com>
-Cc: Brendan Higgins <brendanhiggins@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: C++ Feature Whitelist/Blacklist
-Message-ID: <20161107195706.xojpyngn7cmjntqb@asimov>
-References: <CAFd5g47LDkSS2g62NTTsXHMyDkwERK9CF=5xaO8Ww9sTvwiGRQ@mail.gmail.com>
- <CAFd5g44ro35Wi4-tJK65nucXWoA6n1fxvHAFKXeRZisqH=KHbQ@mail.gmail.com>
- <20161102171839.GB17105@heinlein.lan>
- <CAFd5g47QU1FZpv3zyfSTqojaOCaFbE5G-a-OK-2h6YZwoUgPcg@mail.gmail.com>
- <20161103120358.GC17105@heinlein.lan>
- <CADfYTpH5BeijShWafcctTukSUE7DdquNtatdqgVcanNmh+vayQ@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tCP820J17zDt4R
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Nov 2016 07:25:21 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="ePPkacM5"; 
+ dkim-atps=neutral
+Received: by mail-qk0-x235.google.com with SMTP id n21so80948919qka.3
+ for <openbmc@lists.ozlabs.org>; Mon, 07 Nov 2016 12:25:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to;
+ bh=u3sizzHYbYiHyxTpwyc/FJy1cDOgAicWwrSXWoS3gCY=;
+ b=ePPkacM5+ft7wheo37Sb11MMUusX0tjyV+D4lox1pigLUxVMijJH5vvDzZ5dO+Qnsn
+ 9kz/S/UBmrQE3wNZvGMDv0O5HLFdrrE1AAQ6STW8Xw7WjlzPh7S5VRXlTaaKmjcBmzWr
+ xPZRLw9tp+v7mnclmCADsGzrwN2QS+GlWbLkw9MjpbkPwt3xo460AoqBXeiF0+y6H1EK
+ XMcJYBE5oRbq/ZIhF4tE2mkxwhDH1bDJPf2UiWLNlCckxpW9e5sOH2rjqwVSI04p/jeR
+ cTEkSIMunIQMlVMFJNrQ0yF1eO30hCsGbYl9aigqUpD0nxLISrYQkJl6o2ZT8TGGMI+2
+ zcTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to;
+ bh=u3sizzHYbYiHyxTpwyc/FJy1cDOgAicWwrSXWoS3gCY=;
+ b=Ikf7k0IRfRaTbbL0bJvcYjbXtvKe85p9F4/bwuelZWwdT1335uDrR+Qjb26Lebu/Bk
+ /FpymMEOc12nq1SZsgLksEJHXLtqTWcRnOnfUigtgappvYhXRx9iiDUu9Xsyfp7LcL4m
+ 2niWQAMlmwsrPx6RmVfOT9mDFQbE377KNn7Gs+VMDRJIYhCbLbWV9RbcCcfFfz5GV2O4
+ 21CNgbCp+KfM7NRcxoM82g3+R5dgqufeUylBloOSHhZiOIlGN2Vi5/0qxyyhDyMRplSJ
+ suD05jUOi/rogGzmlq12LhzRGVW9A5YtWp5EWxnB1lwrGnR1Ku2cmZC7S1HbdV905wXj
+ XddQ==
+X-Gm-Message-State: ABUngveZ3XpFz46ey/2KZUb8myp5fB2t2GIIQTng00U5Ur2PVBX9ktmZm+YDVxRii5T2uaH4LbNLri/qpkclVkvP
+X-Received: by 10.55.23.65 with SMTP id i62mr7916078qkh.238.1478550319096;
+ Mon, 07 Nov 2016 12:25:19 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="amd67hxuk2iyfkcd"
-Content-Disposition: inline
-In-Reply-To: <CADfYTpH5BeijShWafcctTukSUE7DdquNtatdqgVcanNmh+vayQ@mail.gmail.com>
-User-Agent: Mutt/1.6.2 (2016-06-11)
-X-Zoho-Virus-Status: 1
+Received: by 10.12.137.220 with HTTP; Mon, 7 Nov 2016 12:25:18 -0800 (PST)
+In-Reply-To: <58208518.50202@linux.vnet.ibm.com>
+References: <58208518.50202@linux.vnet.ibm.com>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Mon, 7 Nov 2016 12:25:18 -0800
+Message-ID: <CAFd5g45JxpeYZiq3inm0JkKeyQjk7T_4uARLY=Anf9EHXymhBQ@mail.gmail.com>
+Subject: Re: Discussion on IPMI provider libraries
+To: tomjose <tomjose@linux.vnet.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary=001a1147a0528dd2820540bbd253
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -39,123 +55,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Nov 2016 19:57:17 -0000
+X-List-Received-Date: Mon, 07 Nov 2016 20:25:22 -0000
 
+--001a1147a0528dd2820540bbd253
+Content-Type: text/plain; charset=UTF-8
 
---amd67hxuk2iyfkcd
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Sharing the provider libraries makes sense; my first area of concern is the
+API; I am currently working on a change to the API (see
+https://gerrit.openbmc-project.xyz/#/c/841/ for details); I would prefer
+you do not make any changes to the current API, but understand if the need
+arises before my change is ready.
+
+Could you elaborate on how you plan on enforcing privilege? Having each
+provider check privilege level seems like a leaky abstraction to me; I
+think it would make more sense to have privilege managed by the host-ipmid
+and the net-ipmid.
+
+As far as the actual details concerning phosphor-net-ipmid: I do not have
+strong opinions on the matter as Google has no intention of using IPMI over
+LAN at this time, but would welcome discussion on the matter nonetheless.
+
+Cheers
+
+--001a1147a0528dd2820540bbd253
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 07, 2016 at 02:25:30AM -0800, Nancy Yuen wrote:
-> > Back to Big Picture
-> > ----------------------------
-> >
-> > I do feel we are seriously missing a broader philosophical question.  In
-> > what ways do you feel the CppCoreGuidelines do not address all of your
-> > coding guidelines suggestions?  Rather than write an entirely new
-> > document why would we not simply point to that and then extend it if we
-> > feel it is insufficient in a few key areas.  As you saw in my previous
-> > email, nearly everything we agree on comes from the CCG already and
-> > nearly everything we disagree on is a contradiction from the CCG.
->=20
-> Our intention isn't to come up with a new document.  In our summit
-> meetings, you agreed we could propose a coding guide as you didn't
-> have anything spelled out and you didn't want to tackle it.  So we put
-> together an initial proposal and we're discussing it.  If your decision is
-> to say that CCG is the final say for all coding practices in openBMC
-> then we'll have to figure out what that means for us.
->=20
-> > I do not want to hear that the CCG is "too long".  If you take out the
-> > references it is in the same order of magnitude as the GSG.  It is also
-> > organized in a way where each section is a straight-forward statement to
-> > be followed, so anyone unfamiliar or uninterested can simply read the
-> > TOC to understand all of the rules (ex. "I.2 Avoid global variables.",
-> > E.6 Use RAII to prevent leaks").
->=20
-> "You do not want to hear"...I don't understand why you state is in such
-> a manner or assume we'd make this point.
->=20
-> > --
-> > Patrick Williams
->=20
-> ----------
-> Nancy
+<div dir=3D"ltr">Sharing the provider libraries makes sense; my first area =
+of concern is the API; I am currently working on a change to the API (see=
+=C2=A0<a href=3D"https://gerrit.openbmc-project.xyz/#/c/841/" target=3D"_bl=
+ank">https://gerrit.openbmc-<wbr>project.xyz/#/c/841/</a>=C2=A0for details)=
+; I would prefer you do not make any changes to the current API, but unders=
+tand if the need arises before my change is ready.<div><br class=3D"gmail-A=
+pple-interchange-newline"><span style=3D"color:rgb(0,0,0);font-family:sans-=
+serif;font-size:13px">Could you elaborate on how you plan on enforcing priv=
+ilege? Having each provider check privilege level seems like a leaky abstra=
+ction to me; I think it would make more sense to have privilege managed by =
+the host-ipmid and the net-ipmid.</span><br></div><div><br></div><div>As fa=
+r as the actual details concerning <span style=3D"color:rgb(33,33,33);font-=
+family:&quot;helvetica neue&quot;,helvetica,arial,sans-serif">phosphor-net-=
+ipmid: I do not have strong opinions on the matter as Google has no intenti=
+on of using IPMI over LAN at this time, but would welcome discussion on the=
+ matter nonetheless.</span></div><div><span style=3D"color:rgb(33,33,33);fo=
+nt-family:&quot;helvetica neue&quot;,helvetica,arial,sans-serif"><br></span=
+></div><div><span style=3D"color:rgb(33,33,33);font-family:&quot;helvetica =
+neue&quot;,helvetica,arial,sans-serif">Cheers</span></div></div>
 
-Nancy,
-
-=46rom my perspective, I've pointed to the CCG as the primary document
-=66rom the very beginning.  At the summit I recall hearing two arguments
-against it (and it could very well be my misremembering):
-
-    1.  It is insufficient.
-    2.  It is too long.  (I remember specifically 'reams of paper' being
-        thrown about).
-
-It is really hard for me to refute your team's perspective of it being
-insufficient without examples.  You did point out the 'iostreams'
-direction in our discussions and I also freely admit both CCG and our
-current 'guidelines' are lacking in what is classically called 'style'
-(indentation, naming conventions, etc.).
-
-I was also unable to on the spot refute the "it is too long".  It is
-easy to assume that the Google Style Guide is shorter, but after this
-discussion began I checked the two to compare and came to the conclusion
-they are in the same ballpark.
-
-I assumed, perhaps incorrectly, that your team in taking up the "style
-guide" would focus on #1 (where you feel it is insufficient).  It is
-very frustrating to see the proposal simply be a rephrasing of the most
-contentious points of the GSG, because it contradicts the CCG in these
-areas.
-
-I would like to call a "reset" to this discussion.  It is much easier to
-critique a formal proposal than a supposed proposal.  I have therefore
-spent this morning writing my initial take at a style guide.  I have
-attempted to incorporate all of the areas your team (and a few non-vocal
-members of our team) have expressed where the current guidelines are
-incomplete, without violating or changing any of the current guidelines.
-I do still treat the CCG as the "gold standard" here and have very few
-exceptions to it recorded.  I have kept this proposal exclusively to
-items that are not covered by the CCG.
-
-Please have your team review this proposal for any areas that you feel
-it is lacking in specificity.
-
-    https://gerrit.openbmc-project.xyz/1024
-
-These guidelines are also not "set in stone" and I am willing to deviate
-=66rom the CCG if we have good rationale and can come to a consensus as a
-project.  I would like to see us first "approve roughly what is the
-current mode of operations" and then subsequently "propose any
-deviations".  I think each deviation should be approved on its own
-merits and not as a hindrance on the document as a whole.
-
-Is this acceptable?
-
---=20
-Patrick Williams
-
---amd67hxuk2iyfkcd
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJYINySAAoJEKsDR8wtAMEZamsP/AkHtx9lmElwK6o5brvswyI3
-4CXon80B8/+gWPhkTwb7cFVhB/i98aqub1ya4BSyHPKCydAuWtMgJxtIq07Uio+K
-o/rbI/s9sowQklcUysSEFvyOA6xeWQVYh07B94rW3PZ4vtPGAA1r5zkVbttDkNaV
-l/XMxfNsWcPUZQQ+0zRsY13UqyPOKAB1TzAcxTSvQ6NLLn6vViCapmhO8zscRQgs
-tgpfu+5pXBmXB7m/WGvOOL1EoIHQlr8gN7VfBKNmE7mpurfJAqzwWhpDSOsDFi3z
-towhlNRv6josE1qehdT1qvKGLkyXVImo42FB1UjUMlhFLUkSMLemtqujxqah5H+k
-UBtM4NLvvJQZmkULzm/3ogtg6Y9m6oJHp3Tv+SOrV2AM8gEhGzwre9uHhL4lPH33
-++Jt2X5Vv4RrGX9w6H7XAibh2pnVIJjtElZ5xlMCtQyNue0zcV+o2kc1ITlqBXgl
-feu3HHyMl3Qikcb9g7z8chpUb9sjEPBCexptkxIeHZOZAMbb/CgFpfnNKFPiz5CU
-BCZ+trl10QnpIEwGEP0Qi/JHu70Hp/cz5+Uly/N3yggZJwMIZGq6bUXNH57zozGU
-iPqOCwcdCq1cyowYtv586+xWsX0eKLT1/n0i1pSTkRfrXu2Bn4Mk7E2TRkrsdohC
-HZ7VLEFw7GwMp8y9xVmL
-=/3fD
------END PGP SIGNATURE-----
-
---amd67hxuk2iyfkcd--
+--001a1147a0528dd2820540bbd253--
