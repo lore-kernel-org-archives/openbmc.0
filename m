@@ -1,49 +1,54 @@
-Return-Path: <brendanhiggins@google.com>
-Received: from mail-qk0-x235.google.com (mail-qk0-x235.google.com
- [IPv6:2607:f8b0:400d:c09::235])
+Return-Path: <xow@google.com>
+Received: from mail-qk0-x233.google.com (mail-qk0-x233.google.com
+ [IPv6:2607:f8b0:400d:c09::233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tCP820J17zDt4R
- for <openbmc@lists.ozlabs.org>; Tue,  8 Nov 2016 07:25:21 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tCR6H2P6qzDvNW
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Nov 2016 08:53:58 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="ePPkacM5"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="QnH5+mGH"; 
  dkim-atps=neutral
-Received: by mail-qk0-x235.google.com with SMTP id n21so80948919qka.3
- for <openbmc@lists.ozlabs.org>; Mon, 07 Nov 2016 12:25:21 -0800 (PST)
+Received: by mail-qk0-x233.google.com with SMTP id n21so83800960qka.3
+ for <openbmc@lists.ozlabs.org>; Mon, 07 Nov 2016 13:53:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to;
- bh=u3sizzHYbYiHyxTpwyc/FJy1cDOgAicWwrSXWoS3gCY=;
- b=ePPkacM5+ft7wheo37Sb11MMUusX0tjyV+D4lox1pigLUxVMijJH5vvDzZ5dO+Qnsn
- 9kz/S/UBmrQE3wNZvGMDv0O5HLFdrrE1AAQ6STW8Xw7WjlzPh7S5VRXlTaaKmjcBmzWr
- xPZRLw9tp+v7mnclmCADsGzrwN2QS+GlWbLkw9MjpbkPwt3xo460AoqBXeiF0+y6H1EK
- XMcJYBE5oRbq/ZIhF4tE2mkxwhDH1bDJPf2UiWLNlCckxpW9e5sOH2rjqwVSI04p/jeR
- cTEkSIMunIQMlVMFJNrQ0yF1eO30hCsGbYl9aigqUpD0nxLISrYQkJl6o2ZT8TGGMI+2
- zcTA==
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=cPJzdICiOmSKpPuZwo/N1SjoGr6S4lnsnO6XEy3F5ZQ=;
+ b=QnH5+mGHbtvg+dlOu1G34sXtjaAwuxp36+D+gbcki7N8TsLN6/+tjqslkvF0NiYQRx
+ 7NKtLrXfhRJk5LNk0bln5dCR5XzpZ1g6BCUQX/zwW2cF9AT1sVHpi5KtfJCUIHeXJMy2
+ k56y7z6a+Y9buch29hqfbt4g14UPik+GgMlk3xWd4EW73dOymABJ+pkUmRU6DQqQzuG8
+ qnuZaIRjqtFqYxYII5W06uTzyNOwYxSs4o5qrtIPm1StWnZ74AZaB9tR1J6DEmJMgG3H
+ qNuxDD4fEjVxKV4q0/efIJ2Djxms7DgIws0N89n8HDpraa+wRV6xTgk1fv7vurNd45N0
+ L3Aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to;
- bh=u3sizzHYbYiHyxTpwyc/FJy1cDOgAicWwrSXWoS3gCY=;
- b=Ikf7k0IRfRaTbbL0bJvcYjbXtvKe85p9F4/bwuelZWwdT1335uDrR+Qjb26Lebu/Bk
- /FpymMEOc12nq1SZsgLksEJHXLtqTWcRnOnfUigtgappvYhXRx9iiDUu9Xsyfp7LcL4m
- 2niWQAMlmwsrPx6RmVfOT9mDFQbE377KNn7Gs+VMDRJIYhCbLbWV9RbcCcfFfz5GV2O4
- 21CNgbCp+KfM7NRcxoM82g3+R5dgqufeUylBloOSHhZiOIlGN2Vi5/0qxyyhDyMRplSJ
- suD05jUOi/rogGzmlq12LhzRGVW9A5YtWp5EWxnB1lwrGnR1Ku2cmZC7S1HbdV905wXj
- XddQ==
-X-Gm-Message-State: ABUngveZ3XpFz46ey/2KZUb8myp5fB2t2GIIQTng00U5Ur2PVBX9ktmZm+YDVxRii5T2uaH4LbNLri/qpkclVkvP
-X-Received: by 10.55.23.65 with SMTP id i62mr7916078qkh.238.1478550319096;
- Mon, 07 Nov 2016 12:25:19 -0800 (PST)
+ :message-id:subject:to:cc;
+ bh=cPJzdICiOmSKpPuZwo/N1SjoGr6S4lnsnO6XEy3F5ZQ=;
+ b=maGHAo7YeBj8Kq+uj5Df8gnVLfiiQWLXpI68Sm+W0BdfAksD7LGM5DiXkxgbFDMiuL
+ Xh2ihd2dPWtdwGqB24YZH1bP0L1usMJBWM5nKbHo6B7SDhIvO5eRgbKufWtIwvUZV4Ow
+ IiqCZBatIkGe21wP4r+s7Cqnt8eCyPE7QhTE68bxy7D4SLr05my83a6cIvCbw4p7oisE
+ xXIFBuSLDibKEZseyjm9d4dLZRwFdnIQDTMB4EM/xA5+5F8pFigBiWW3nl4wf14YACFc
+ 7joUzs0Dk20ZIbOKRiyDrf2g7Zv7wAP7U3IK01lap6vlE1PqdlJFR4/ETknd4k/TUGFU
+ Yvaw==
+X-Gm-Message-State: ABUngvdMSB7VPzyqMuUc47nGLl4npaNDh1sWgvtdsHuvGl/Zf6EuU0ASiazvizEbaIxI8w12CBTF1Co/7aqBXJsy
+X-Received: by 10.55.16.134 with SMTP id 6mr10532066qkq.76.1478555633953; Mon,
+ 07 Nov 2016 13:53:53 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.12.137.220 with HTTP; Mon, 7 Nov 2016 12:25:18 -0800 (PST)
-In-Reply-To: <58208518.50202@linux.vnet.ibm.com>
-References: <58208518.50202@linux.vnet.ibm.com>
-From: Brendan Higgins <brendanhiggins@google.com>
-Date: Mon, 7 Nov 2016 12:25:18 -0800
-Message-ID: <CAFd5g45JxpeYZiq3inm0JkKeyQjk7T_4uARLY=Anf9EHXymhBQ@mail.gmail.com>
-Subject: Re: Discussion on IPMI provider libraries
-To: tomjose <tomjose@linux.vnet.ibm.com>,
+Received: by 10.237.57.199 with HTTP; Mon, 7 Nov 2016 13:53:53 -0800 (PST)
+In-Reply-To: <CAARXrtmur716MDJJPhHKNwOcGVVnczey0n2ZxXdXV2YB67+Png@mail.gmail.com>
+References: <CAARXrtmemiSFPH7RGxFLcddt1Ld4pGTwsDX-rPtAmf2coS8VDg@mail.gmail.com>
+ <20161107040643.GE15757@heinlein.lan>
+ <OF7F37D1BE.BCC7E74A-ON48258064.00313B2C-48258064.003271BA@notes.na.collabserv.com>
+ <20161107161903.7gbgafvj6vb6w4k4@asimov>
+ <CAARXrtmur716MDJJPhHKNwOcGVVnczey0n2ZxXdXV2YB67+Png@mail.gmail.com>
+From: Xo Wang <xow@google.com>
+Date: Mon, 7 Nov 2016 13:53:53 -0800
+Message-ID: <CAPH-5w6jxPPBYPSh1NQF-vg2w2HJ7ZU_r50ttSsUsXDMPS3_5A@mail.gmail.com>
+Subject: Re: How to handle GPIO differences between P8 and P9
+To: Mine <mine260309@gmail.com>
+Cc: Patrick Williams <patrick@stwcx.xyz>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=001a1147a0528dd2820540bbd253
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,50 +60,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Nov 2016 20:25:22 -0000
+X-List-Received-Date: Mon, 07 Nov 2016 21:54:00 -0000
 
---001a1147a0528dd2820540bbd253
-Content-Type: text/plain; charset=UTF-8
+On Mon, Nov 7, 2016 at 9:01 AM, Mine <mine260309@gmail.com> wrote:
+> On Mon, Nov 7, 2016 at 10:19 AM, Patrick Williams <patrick@stwcx.xyz> wrote:
+>> On Mon, Nov 07, 2016 at 05:10:59PM +0800, Yi TZ Li wrote:
+>>> I committed a patch: https://gerrit.openbmc-project.xyz/#/c/1019/
+>>> to add a getSystemName() dbus method in org.obmc.managers.System interface.
+>>> There are several places in skeleton requires fix for a specific system.
+>>>
+>>> Other way be add a compile flag in yocto when building Skeleton.
+>>
+>> We are really trying to avoid "if (machine_type == ...)" type code.  This
+>> becomes a gigantic problem when we are talking about supporting 3 dozen
+>> machines.
+>>
+>> --
+>> Patrick Williams
+>
+> Yup, I prefer not to write `if (machine_type == ...)` type code, nor
+> to have a compile flag (it just becomes `#if xxx` or `#ifdef xxx`).
+>
+> The temp fix by not defining `IDBTN` will not only cause error log,
+> but also prevent the code in `op-hostctl/control_host_obj.c` to work,
+> because it will get error during opening the GPIO, and jump out,
+> resulting in error: "GPIO sequence failed".
+>
+> If we are targeting for booting P9 up, I would suggest a temp fix by
+> defining `IDBTN` for both Witherspoon and Romulus.
+> It will not block power on, but may break a function related to LED.
+>
+> --
+> BRs,
+> Lei YU
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
 
-Sharing the provider libraries makes sense; my first area of concern is the
-API; I am currently working on a change to the API (see
-https://gerrit.openbmc-project.xyz/#/c/841/ for details); I would prefer
-you do not make any changes to the current API, but understand if the need
-arises before my change is ready.
+We had a similar issue in the op-pwrctl where the source hard-coded
+the system net names. There I put in a short-term solution of adding a
+function-specific abstraction over the net names into the System.py
+config, removing the per-machine patches for name and polarity:
+https://gerrit.openbmc-project.xyz/#/c/606/
+https://gerrit.openbmc-project.xyz/#/c/689/
 
-Could you elaborate on how you plan on enforcing privilege? Having each
-provider check privilege level seems like a leaky abstraction to me; I
-think it would make more sense to have privilege managed by the host-ipmid
-and the net-ipmid.
+It's not difficult to extend POWER_CONFIG for GPIO functions that only
+exist on one machine, like so:
+https://gerrit.openbmc-project.xyz/#/c/608/3
 
-As far as the actual details concerning phosphor-net-ipmid: I do not have
-strong opinions on the matter as Google has no intention of using IPMI over
-LAN at this time, but would welcome discussion on the matter nonetheless.
+With the abstraction taking place in the Python machine config, we
+don't need per-machine dispatch in the user interface (op-pwrctl,
+op-hostctl, op-pwr-button, etc).
 
-Cheers
+Does that work for you in the short term?
 
---001a1147a0528dd2820540bbd253
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Sharing the provider libraries makes sense; my first area =
-of concern is the API; I am currently working on a change to the API (see=
-=C2=A0<a href=3D"https://gerrit.openbmc-project.xyz/#/c/841/" target=3D"_bl=
-ank">https://gerrit.openbmc-<wbr>project.xyz/#/c/841/</a>=C2=A0for details)=
-; I would prefer you do not make any changes to the current API, but unders=
-tand if the need arises before my change is ready.<div><br class=3D"gmail-A=
-pple-interchange-newline"><span style=3D"color:rgb(0,0,0);font-family:sans-=
-serif;font-size:13px">Could you elaborate on how you plan on enforcing priv=
-ilege? Having each provider check privilege level seems like a leaky abstra=
-ction to me; I think it would make more sense to have privilege managed by =
-the host-ipmid and the net-ipmid.</span><br></div><div><br></div><div>As fa=
-r as the actual details concerning <span style=3D"color:rgb(33,33,33);font-=
-family:&quot;helvetica neue&quot;,helvetica,arial,sans-serif">phosphor-net-=
-ipmid: I do not have strong opinions on the matter as Google has no intenti=
-on of using IPMI over LAN at this time, but would welcome discussion on the=
- matter nonetheless.</span></div><div><span style=3D"color:rgb(33,33,33);fo=
-nt-family:&quot;helvetica neue&quot;,helvetica,arial,sans-serif"><br></span=
-></div><div><span style=3D"color:rgb(33,33,33);font-family:&quot;helvetica =
-neue&quot;,helvetica,arial,sans-serif">Cheers</span></div></div>
-
---001a1147a0528dd2820540bbd253--
+cheers
+xo
