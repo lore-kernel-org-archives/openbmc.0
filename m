@@ -1,45 +1,73 @@
-Return-Path: <clg@kaod.org>
-X-Greylist: delayed 314 seconds by postgrey-1.36 at bilbo;
- Tue, 08 Nov 2016 21:04:22 AEDT
-Received: from 12.mo5.mail-out.ovh.net (12.mo5.mail-out.ovh.net [46.105.39.65])
+Return-Path: <tomjose@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tClK229qXzDt1d
- for <openbmc@lists.ozlabs.org>; Tue,  8 Nov 2016 21:04:22 +1100 (AEDT)
-Received: from player688.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo5.mail-out.ovh.net (Postfix) with ESMTP id 8F2D73FD30
- for <openbmc@lists.ozlabs.org>; Tue,  8 Nov 2016 10:59:01 +0100 (CET)
-Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
- [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player688.ha.ovh.net (Postfix) with ESMTPSA id 08762200C3;
- Tue,  8 Nov 2016 10:58:56 +0100 (CET)
-Subject: Re: [PATCH linux dev-4.7 7/8] ipmi: maintain a request expiry list
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tClQp3p2NzDt1p
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Nov 2016 21:09:22 +1100 (AEDT)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
+ uA8A8Rea130740
+ for <openbmc@lists.ozlabs.org>; Tue, 8 Nov 2016 05:09:20 -0500
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 26kb49wurn-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 08 Nov 2016 05:09:19 -0500
+Received: from localhost
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <tomjose@linux.vnet.ibm.com>;
+ Tue, 8 Nov 2016 03:09:18 -0700
+Received: from d03dlp01.boulder.ibm.com (9.17.202.177)
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Tue, 8 Nov 2016 03:09:17 -0700
+Received: from b01cxnp23032.gho.pok.ibm.com (b01cxnp23032.gho.pok.ibm.com
+ [9.57.198.27])
+ by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id 2C6931FF001F;
+ Tue,  8 Nov 2016 03:08:56 -0700 (MST)
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ uA8A9GUS13304294; Tue, 8 Nov 2016 10:09:16 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id E0D21AC03A;
+ Tue,  8 Nov 2016 05:09:15 -0500 (EST)
+Received: from [9.193.119.244] (unknown [9.193.119.244])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id 2E6BAAC040;
+ Tue,  8 Nov 2016 05:09:14 -0500 (EST)
+From: tomjose <tomjose@linux.vnet.ibm.com>
+Subject: Re: Discussion on IPMI provider libraries
 To: Brendan Higgins <brendanhiggins@google.com>,
- Patrick Williams <patrick@stwcx.xyz>
-References: <1477465067-19034-1-git-send-email-clg@kaod.org>
- <1477465067-19034-8-git-send-email-clg@kaod.org>
- <1478132769.728.3.camel@gmail.com> <20161103182300.wt2lyseogigfxqfn@asimov>
- <53954820-3eaf-56c6-0a4c-9347ff4dc358@kaod.org>
- <20161104015543.GD17105@heinlein.lan>
- <c1423337-705b-5d24-4205-c9ce8c32f1f4@kaod.org>
- <CAFd5g45PHWivKg17TRofahmtpZiTP8eWpBVrds=XB1EBh1t7QA@mail.gmail.com>
- <66e47401-a567-c100-2a92-ca2ff32023a2@kaod.org>
- <20161107150257.ug6zvs4v656cesep@asimov>
- <CAFd5g45UOpJ8-3o-upx8jxN2hVDxh8Gkw6_+EbjzNKqaxsc-sw@mail.gmail.com>
-Cc: Cyril Bur <cyrilbur@gmail.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <2ef7d34a-abd4-6b8d-ec80-e19f036aa089@kaod.org>
-Date: Tue, 8 Nov 2016 10:58:56 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.4.0
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <58208518.50202@linux.vnet.ibm.com>
+ <CAFd5g45JxpeYZiq3inm0JkKeyQjk7T_4uARLY=Anf9EHXymhBQ@mail.gmail.com>
+Date: Tue, 8 Nov 2016 15:39:13 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+ Thunderbird/38.8.0
 MIME-Version: 1.0
-In-Reply-To: <CAFd5g45UOpJ8-3o-upx8jxN2hVDxh8Gkw6_+EbjzNKqaxsc-sw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 11665448938561112834
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrleeigddtjecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+In-Reply-To: <CAFd5g45JxpeYZiq3inm0JkKeyQjk7T_4uARLY=Anf9EHXymhBQ@mail.gmail.com>
+Content-Type: multipart/alternative;
+ boundary="------------020708000809010301060809"
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16110810-0004-0000-0000-000010CEB34D
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006041; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000189; SDB=6.00778108; UDB=6.00374705; IPR=6.00555428; 
+ BA=6.00004862; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00013251; XFM=3.00000011;
+ UTC=2016-11-08 10:09:18
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 16110810-0005-0000-0000-00007A67E66B
+Message-Id: <5821A449.3020807@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-11-08_03:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1609300000
+ definitions=main-1611080188
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -51,91 +79,153 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Nov 2016 10:04:24 -0000
+X-List-Received-Date: Tue, 08 Nov 2016 10:09:22 -0000
 
-Hello Brendan,
+This is a multi-part message in MIME format.
+--------------020708000809010301060809
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 11/07/2016 08:29 PM, Brendan Higgins wrote:
-> Patrick, you are correct.
-> 
-> The { Seq, Command, NetFn } set does not necessarily uniquely identify a message. 
-> The the OEM/Group extension messages as defined in the IPMI v2.0 Specification 
-> Document Revision 1.1, Section 5.1 Network Function Codes, Table 5, under the 
-> name OEM/Group defines unique message endpoints by the following set: 
-> 
->    { NetFn, Payload{0, 1, 2}, Command }; 
+
+
+On Tuesday 08 November 2016 01:55 AM, Brendan Higgins wrote:
+> Sharing the provider libraries makes sense; my first area of concern 
+> is the API; I am currently working on a change to the API (see 
+> https://gerrit.openbmc-project.xyz/#/c/841/ 
+> <https://gerrit.openbmc-project.xyz/#/c/841/> for details); I would 
+> prefer you do not make any changes to the current API, but understand 
+> if the need arises before my change is ready.
+ From what i have noticed in the patch, there is support for 
+ipmid_callback_t handlers  as it is now. So the change in API is to 
+accommodate the OEM group ?
+So do you have plans to change the callback signatures for the standard 
+commands already implemented in host-ipmid?
+
 >
-> where Payload{0, 1, 2} are the first three bytes of a message payload.
+> Could you elaborate on how you plan on enforcing privilege? Having 
+> each provider check privilege level seems like a leaky abstraction to 
+> me; I think it would make more sense to have privilege managed by the 
+> host-ipmid and the net-ipmid.
+Table G - Command Number Assignments and Privilege Levels in the IPMI 
+specification gives more details on this.
 
-OK. I missed that part. I was referring to : 
+Each command is assigned a privilege level( Callback, User, Operator, 
+Admin) which means that the command can be executed only on a session 
+with this privilege or higher.
+So if a command needs be executed on net-ipmid path, one of the 
+attribute needed for net-ipmid is the command's privilege level.
+The privilege provided by each command is a registration parameter and 
+it is consumed only by net-ipmid.
 
-  11.1 BT Interface-BMC Request Message Format
+As part of the same issue, i am separating commands that need to be 
+executed from system interface as a separate library.
 
-    ...
-    The Seq field is used in combination with the NetFn and Command fields to 
-    form a unique value. I.e. the same Seq value could be used in multiple 
-    outstanding requests, as long as the combinations of Seq value, NetFn, 
-    and Command were unique among the requests.
-    ...
-and
+The provider libraries is now copied into /usr/lib/host-ipmid. The plan 
+is to have the /usr/lib/ipmid-providers as the default install location 
+for all providers
+and then symlink into /usr/lib/host-ipmid and /usr/lib/net-ipmid 
+depending on whether the provider library is needed in out-of-band or 
+in-band path.
+>
+> As far as the actual details concerning phosphor-net-ipmid: I do not 
+> have strong opinions on the matter as Google has no intention of using 
+> IPMI over LAN at this time, but would welcome discussion on the matter 
+> nonetheless.
+>
+> Cheers
 
-  11.3 Using the Seq Field
-  11.4 Response Expiration Handling
 
-    ...
-    The BMC can define its own internal Seq value or tracking number for
-    this purpose, or it could use the Seq, NetFn, and Command values in the
-    same manner as SMS.
-    ...
+--------------020708000809010301060809
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-> In addition, I am working on an OEM/Group extension that would allow a single 
-> transaction to take place across multiple messages, and in particular would 
-> allow multiple IPMI requests to be sent, potentially only sending (a) 
-> response(s) at the end of the transaction; in particular, this would allow 
-> the following:
-> 
-> Master     | Slave
-> Request -> |
-> Request -> |
-> Request -> |
->            | <- Response
->            | <- Response
-> 
-> Where Request and Response have the same sequence number. Note: the change 
-> I am making would also make the above example valid if there were only one 
-> request and two responses.
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <br>
+    <br>
+    <div class="moz-cite-prefix">On Tuesday 08 November 2016 01:55 AM,
+      Brendan Higgins wrote:<br>
+    </div>
+    <blockquote
+cite="mid:CAFd5g45JxpeYZiq3inm0JkKeyQjk7T_4uARLY=Anf9EHXymhBQ@mail.gmail.com"
+      type="cite">
+      <div dir="ltr">Sharing the provider libraries makes sense; my
+        first area of concern is the API; I am currently working on a
+        change to the API (see <a moz-do-not-send="true"
+          href="https://gerrit.openbmc-project.xyz/#/c/841/"
+          target="_blank">https://gerrit.openbmc-<wbr>project.xyz/#/c/841/</a> for
 
-I am wondering how that fits with the BT Interface Capabilities which can 
-recommend retries.
+        details); I would prefer you do not make any changes to the
+        current API, but understand if the need arises before my change
+        is ready.</div>
+    </blockquote>
+    From what i have noticed in the patch, there is support for
+    ipmid_callback_t handlers  as it is now. So the change in API is to
+    accommodate the OEM group ?<br>
+    So do you have plans to change the callback signatures for the
+    standard commands already implemented in host-ipmid?<br>
+    <br>
+    <blockquote
+cite="mid:CAFd5g45JxpeYZiq3inm0JkKeyQjk7T_4uARLY=Anf9EHXymhBQ@mail.gmail.com"
+      type="cite">
+      <div dir="ltr">
+        <div><br class="gmail-Apple-interchange-newline">
+          <span
+            style="color:rgb(0,0,0);font-family:sans-serif;font-size:13px">Could
 
-> @Cédric I see two remedies for your patch to allow this:
-> 
-> 1) Allow users to opt out of the expiry list.
+            you elaborate on how you plan on enforcing privilege? Having
+            each provider check privilege level seems like a leaky
+            abstraction to me; I think it would make more sense to have
+            privilege managed by the host-ipmid and the net-ipmid.</span><br>
+        </div>
+      </div>
+    </blockquote>
+    Table G - Command Number Assignments and Privilege Levels in the
+    IPMI specification gives more details on this. <br>
+    <br>
+    Each command is assigned a privilege level( Callback, User,
+    Operator, Admin) which means that the command can be executed only
+    on a session with this privilege or higher.<br>
+    So if a command needs be executed on net-ipmid path, one of the
+    attribute needed for net-ipmid is the command's privilege level.<br>
+    The privilege provided by each command is a registration parameter
+    and it is consumed only by net-ipmid.<br>
+    <br>
+    As part of the same issue, i am separating commands that need to be
+    executed from system interface as a separate library. <br>
+    <br>
+    The provider libraries is now copied into /usr/lib/host-ipmid. The
+    plan is to have the /usr/lib/ipmid-providers as the default install
+    location for all providers<br>
+    and then symlink into /usr/lib/host-ipmid and /usr/lib/net-ipmid
+    depending on whether the provider library is needed in out-of-band
+    or in-band path.<br>
+    <blockquote
+cite="mid:CAFd5g45JxpeYZiq3inm0JkKeyQjk7T_4uARLY=Anf9EHXymhBQ@mail.gmail.com"
+      type="cite">
+      <div dir="ltr">
+        <div><br>
+        </div>
+        <div>As far as the actual details concerning <span
+            style="color:rgb(33,33,33);font-family:&quot;helvetica
+            neue&quot;,helvetica,arial,sans-serif">phosphor-net-ipmid: I
+            do not have strong opinions on the matter as Google has no
+            intention of using IPMI over LAN at this time, but would
+            welcome discussion on the matter nonetheless.</span></div>
+        <div><span
+            style="color:rgb(33,33,33);font-family:&quot;helvetica
+            neue&quot;,helvetica,arial,sans-serif"><br>
+          </span></div>
+        <div><span
+            style="color:rgb(33,33,33);font-family:&quot;helvetica
+            neue&quot;,helvetica,arial,sans-serif">Cheers</span></div>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
 
-yes that's should not be too hard.
-
-> 2) Update the keep alive list when *either* a new request or a new response 
-> is sent with a given sequence number (change the list to be a hashmap of 
-> sequence numbers to timeouts).
-
-The BMC driver could also define its own 'Seq' identifier (using the tuple 
-above) to do the request/response matching instead of using the 'Seq' byte.
-
-> I will try to get a design doc for discussion describing this extension out 
-> hopefully sometime this week; I think that might clear some things up.
-
-OK but we should be having this discussion on :
- 
-	openipmi-developer@lists.sourceforge.net
-
-where the patches are being discussed. Corey would have some very valuable
-input. Could you join that thread ? 
-
-	http://lists.infradead.org/pipermail/linux-arm-kernel/2016-November/465131.html
-	
-Or I can copy you, it might be easier and then you can start another thread
-with your design.
-
-Thanks!
-
-C. 
+--------------020708000809010301060809--
