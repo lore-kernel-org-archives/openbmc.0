@@ -1,39 +1,20 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <bradleyb@fuzziesquirrel.com>
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tCnT13cq4zDt31
- for <openbmc@lists.ozlabs.org>; Tue,  8 Nov 2016 22:41:24 +1100 (AEDT)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 147860527775727.548073472603278;
- Tue, 8 Nov 2016 03:41:17 -0800 (PST)
-Date: Tue, 8 Nov 2016 05:41:11 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: tomjose <tomjose@linux.vnet.ibm.com>
-Cc: Li Nan <william.bjlinan@hotmail.com>,
- Adriana Kobylak <anoo@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: IPMI LAN command story design - try 3rd send
-Message-ID: <20161108114111.GG15757@heinlein.lan>
-References: <TY1PR06MB0863871D99A02C72E98F2462F6C20@TY1PR06MB0863.apcprd06.prod.outlook.com>
- <57F37746.6040304@linux.vnet.ibm.com>
- <20161004145104.d5co7h25dakpcxyz@asimov>
- <TY1PR06MB0863CF900A7338954B8ED956F6D00@TY1PR06MB0863.apcprd06.prod.outlook.com>
- <TY1PR06MB08635DA92530A90D5D2C039DF6A30@TY1PR06MB0863.apcprd06.prod.outlook.com>
- <581C8C7D.8080702@linux.vnet.ibm.com>
- <20161104141455.GE17105@heinlein.lan>
- <581CCA61.4010202@linux.vnet.ibm.com>
- <20161107035006.GB15757@heinlein.lan>
- <5821ACDB.5040607@linux.vnet.ibm.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="doKZ0ri6bHmN2Q5y"
-Content-Disposition: inline
-In-Reply-To: <5821ACDB.5040607@linux.vnet.ibm.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tCqZ46pjDzDvMF
+ for <openbmc@lists.ozlabs.org>; Wed,  9 Nov 2016 00:15:55 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Sender: bradleyb@fuzziesquirrel.com
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Where did host ipmi go on qemu and EVB?
+Message-Id: <F6147AA0-C0A8-4765-99F6-B5D8D96E2BAD@fuzziesquirrel.com>
+Date: Tue, 8 Nov 2016 08:15:32 -0500
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Mime-Version: 1.0 (Mac OS X Mail 9.3 \(3124\))
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -45,44 +26,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Nov 2016 11:41:26 -0000
+X-List-Received-Date: Tue, 08 Nov 2016 13:15:57 -0000
 
+A number of people have asked where host IPMI went on the QEMU/EVB =
+platforms.  If this is of interest to you, read on=E2=80=A6.
 
---doKZ0ri6bHmN2Q5y
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Background:
 
-Tom,
+- One of the goals for OpenBMC is meet the needs of a broad range of =
+applications, where applications are servers, switches, routers, raid =
+appliances=E2=80=A6etc.
+- Yocto provides a concept of MACHINE_FEATURES, where features somewhat =
+abstract declarations of the hardware features supported by a board.
 
-Thanks for tracking this down.  I created an issue against xcat to
-discuss and make sure they are happy with our direction.  Hopefully this
-can also be used to track any changes they need to make.
+For a real board, like the OpenPOWER Witherspoon server, the concepts =
+are easy to apply.  Witherspoon is a server, and it has a BT interface =
+on it.  So it isn=E2=80=99t much of a leap conceptually to have this in =
+Witherspoon.conf:
 
-https://github.com/xcat2/xcat-core/issues/2108
+MACHINE_FEATURES +=3D =E2=80=9Cobmc-host-ipmi-hw=E2=80=9D
 
---=20
-Patrick Williams
+The EVBs and QEMU models are different.  Most of us (if not everyone) =
+are working on servers, and initially it was easy to just put the same =
+line in those board config files, so we could prototype applications =
+like host-ipmi on those boards.
 
---doKZ0ri6bHmN2Q5y
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+Thats fine, and you can still do so, but this is no longer the default =
+behavior.  If you want to prototype something on one of these boards, =
+enable the feature in your local.conf, and build images and SDKs with =
+those features enabled.
 
------BEGIN PGP SIGNATURE-----
+I opted to do this because I didn=E2=80=99t want to show any favortism =
+towards servers.  For something with general applicability like a =
+Raspberry Pi or a QEMU model my view is:
 
-iQIcBAEBCAAGBQJYIbnUAAoJEKsDR8wtAMEZJR8P/jxPhKY6TgptnF/8pJLFiWca
-90/cINcMGgS3zvmkhCxoNez3mDP4RGxXCtPeIcwkfTtFQ6LU36zvScJwUw1/0O0m
-Ftt3AY5HZMRHjSIh8uBQzU/nVV7+86FsQD5Pp7xKmFN4VKoKeyi7xYEpxKcvwFNh
-oSAHd14i7dro1gi4E553ys/46H6fbZRPKz2Hdu95V8iG8iZpx4l19uir5pH3xUfW
-JsKrPy7dVbh+9EEeV+C5zXRQ0XXRe4EuZsbuVr6XmI6XH9P5KoSDCi8MJQS7E598
-wuksQqLyfANG1VIi2M9KjlCtwIyGv5NG5H6ivD51Dqvn3gA8aeM0MapVsDzhhJRC
-abP9yfunUfGuXr+jejiZKBVnF5I/vOw8reix4p+nA1IAhXhJ3whVPxeTLighlf/W
-xv+z7iQRBe72TjqcBvM2W75il8h0mysQx/ktxSZl/cSi83sx5kJvIIXjYHdh8h6u
-ShCpEg6j45ksyT8QhvAtswQD5cMNJppSDMnvGcDE4UxHgTHgHWV74swy3WwAgw6m
-vCjT4XoeZsAMpCSOzIyEtQi7AX4Dqe4KVrCHhg2XYyxzbwgBj4wJijXguHHjp66F
-HkHlpgSSOFEPNoMI9PL0OHuuEss7wTNBpwb69fMhtWgU1hxy+I6ld/HRH42F20ey
-0ENuLRP9SiyiTk0QZe+W
-=74Y6
------END PGP SIGNATURE-----
+1 - A machine feature that really does exist in a QEMU model or on an =
+EVB should still be enabled by default.  For example, it makes sense =
+that a =E2=80=98led=E2=80=99 machine feature could exist and be enabled =
+by default on a Raspberry Pi, since a Raspberry Pi, regardless of the =
+application, could have leds hooked up to it.=20
 
---doKZ0ri6bHmN2Q5y--
+2 - Machine features, like a BT interface, that don=E2=80=99t exist in a =
+QEMU model or EVB should not enabled by default.  Despite this, we =
+should strive to make feature implementations work on all the EVBs and =
+QEMU models, as they can be enabled manually via local.conf.
+
+-brad bishop=
