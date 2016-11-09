@@ -1,27 +1,29 @@
 Return-Path: <clg@kaod.org>
-Received: from 14.mo1.mail-out.ovh.net (14.mo1.mail-out.ovh.net
- [178.32.97.215])
+Received: from 8.mo1.mail-out.ovh.net (8.mo1.mail-out.ovh.net [178.33.110.239])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tDJsT5sCQzDvNT
- for <openbmc@lists.ozlabs.org>; Wed,  9 Nov 2016 19:15:57 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tDJsX3FM2zDvNT
+ for <openbmc@lists.ozlabs.org>; Wed,  9 Nov 2016 19:16:00 +1100 (AEDT)
 Received: from player691.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo1.mail-out.ovh.net (Postfix) with ESMTP id CD8DA15B34
- for <openbmc@lists.ozlabs.org>; Wed,  9 Nov 2016 09:15:52 +0100 (CET)
+ by mo1.mail-out.ovh.net (Postfix) with ESMTP id 8FCDD15839
+ for <openbmc@lists.ozlabs.org>; Wed,  9 Nov 2016 09:15:55 +0100 (CET)
 Received: from hermes.kaod.org.com (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
  [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player691.ha.ovh.net (Postfix) with ESMTPSA id E13772600A2;
- Wed,  9 Nov 2016 09:15:49 +0100 (CET)
+ by player691.ha.ovh.net (Postfix) with ESMTPSA id 4EB6A260079;
+ Wed,  9 Nov 2016 09:15:52 +0100 (CET)
 From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH v2 linux dev-4.7 0/7] Aspeed SMC improvements
-Date: Wed,  9 Nov 2016 09:15:36 +0100
-Message-Id: <1478679343-25354-1-git-send-email-clg@kaod.org>
+Subject: [PATCH v2 linux dev-4.7 1/7] mtd: spi-nor: aspeed: fix setting of the
+ register control value for writes
+Date: Wed,  9 Nov 2016 09:15:37 +0100
+Message-Id: <1478679343-25354-2-git-send-email-clg@kaod.org>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1478679343-25354-1-git-send-email-clg@kaod.org>
+References: <1478679343-25354-1-git-send-email-clg@kaod.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 15796375693575621378
+X-Ovh-Tracer-Id: 15797220119112682242
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
 X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrleekgdduvddvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
@@ -36,49 +38,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Nov 2016 08:15:58 -0000
+X-List-Received-Date: Wed, 09 Nov 2016 08:16:01 -0000
 
-Hello,
+The setting of the register control value for writes depends on the
+base value which was defined only if the mask applied to it changed
+the register control value.
 
-Here is short serie improving the Aspeed SMC driver. There are a
-couple of fixes and also changes preparing ground for read
-optimization.
+Fix that.
 
-Patch 1 and 2 are fixes for the current driver. When merging all the
-code before sending a v1 to mainline, a few minor errors slipped
-through.
+Signed-off-by: Cédric Le Goater <clg@kaod.org>
+---
 
-Patch 3 and 4 are cleanups.
+ I kept the info level because nothing wrong is happening. we are just
+ possibly changing an optimized value for a non optimized value
 
-Patch 5 and 6 should not have any impacts as we are not using DMAs or
-fast reads, yet.
+ drivers/mtd/spi-nor/aspeed-smc.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-Patch 7 is more important as the IO routines are completely reworked.
-
-I dropped the patch activating command mode for read. It is broken on
-the witherspoon because the size of the flash module is larger than
-the maximum allowable segment window for a CS. It would nice to
-activate it when possible but this requires more checks. 
-
-I gave the patches a good test on a palmetto, an ast2500 evb and a
-witherspool and the overall result should be a v2 for upstream.
-
-Cheers,
-
-C.
-
-Cédric Le Goater (7):
-  mtd: spi-nor: aspeed: fix setting of the register control value for
-    writes
-  mtd: spi-nor: aspeed: improve 4 bytes mode
-  mtd: spi-nor: aspeed: extend the bits definitions
-  mtd: spi-nor: aspeed: add some logging
-  mtd: spi-nor: aspeed: use smc_read mode when doing DMAs
-  mtd: spi-nor: aspeed: prepare for fast read
-  mtd: spi-nor: aspeed: rework io routines
-
- drivers/mtd/spi-nor/aspeed-smc.c | 265 ++++++++++++++++++++++-----------------
- 1 file changed, 151 insertions(+), 114 deletions(-)
-
+diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspeed-smc.c
+index f65379bb2287..75ba73ef0660 100644
+--- a/drivers/mtd/spi-nor/aspeed-smc.c
++++ b/drivers/mtd/spi-nor/aspeed-smc.c
+@@ -756,7 +756,7 @@ static int aspeed_smc_chip_setup_init(struct aspeed_smc_chip *chip,
+ {
+ 	struct aspeed_smc_controller *controller = chip->controller;
+ 	const struct aspeed_smc_info *info = controller->info;
+-	u32 reg;
++	u32 reg, base_reg;
+ 
+ 	/*
+ 	 * Always turn on the write enable bit to allow opcodes to be
+@@ -789,12 +789,13 @@ static int aspeed_smc_chip_setup_init(struct aspeed_smc_chip *chip,
+ 	reg = readl(chip->ctl);
+ 	dev_dbg(controller->dev, "control register: %08x\n", reg);
+ 
+-	if ((reg & CONTROL_SPI_KEEP_MASK) != reg) {
+-		chip->ctl_val[smc_base] = reg & CONTROL_SPI_KEEP_MASK;
++	base_reg = reg & CONTROL_SPI_KEEP_MASK;
++	if (base_reg != reg) {
+ 		dev_info(controller->dev,
+ 			 "control register changed to: %08x\n",
+-			 chip->ctl_val[smc_base]);
++			 base_reg);
+ 	}
++	chip->ctl_val[smc_base] = base_reg;
+ 
+ 	/*
+ 	 * Retain the prior value of the control register as the
 -- 
 2.7.4
