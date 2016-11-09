@@ -1,31 +1,28 @@
 Return-Path: <clg@kaod.org>
-X-Greylist: delayed 580 seconds by postgrey-1.36 at bilbo;
- Wed, 09 Nov 2016 19:25:59 AEDT
-Received: from 7.mo1.mail-out.ovh.net (7.mo1.mail-out.ovh.net [87.98.158.110])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tDK530xNlzDvbn
- for <openbmc@lists.ozlabs.org>; Wed,  9 Nov 2016 19:25:59 +1100 (AEDT)
+Received: from mo1.mail-out.ovh.net (mo1.mail-out.ovh.net [178.32.228.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tDK5502VkzDvWV
+ for <openbmc@lists.ozlabs.org>; Wed,  9 Nov 2016 19:26:00 +1100 (AEDT)
 Received: from player691.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo1.mail-out.ovh.net (Postfix) with ESMTP id BC5E416DB3
- for <openbmc@lists.ozlabs.org>; Wed,  9 Nov 2016 09:15:58 +0100 (CET)
+ by mo1.mail-out.ovh.net (Postfix) with ESMTP id D827317168
+ for <openbmc@lists.ozlabs.org>; Wed,  9 Nov 2016 09:16:14 +0100 (CET)
 Received: from hermes.kaod.org.com (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
  [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player691.ha.ovh.net (Postfix) with ESMTPSA id 7FC02260086;
- Wed,  9 Nov 2016 09:15:55 +0100 (CET)
+ by player691.ha.ovh.net (Postfix) with ESMTPSA id 99FFA2600B3;
+ Wed,  9 Nov 2016 09:16:11 +0100 (CET)
 From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH v2 linux dev-4.7 2/7] mtd: spi-nor: aspeed: improve 4 bytes
- mode
-Date: Wed,  9 Nov 2016 09:15:38 +0100
-Message-Id: <1478679343-25354-3-git-send-email-clg@kaod.org>
+Subject: [PATCH v2 linux dev-4.7 7/7] mtd: spi-nor: aspeed: rework io routines
+Date: Wed,  9 Nov 2016 09:15:43 +0100
+Message-Id: <1478679343-25354-8-git-send-email-clg@kaod.org>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1478679343-25354-1-git-send-email-clg@kaod.org>
 References: <1478679343-25354-1-git-send-email-clg@kaod.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 15798064543896341250
+X-Ovh-Tracer-Id: 15802568144446458626
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
 X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrleekgdduvddvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
@@ -40,152 +37,194 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Nov 2016 08:25:59 -0000
+X-List-Received-Date: Wed, 09 Nov 2016 08:26:01 -0000
 
-The AST2400 SPI flash uses the CE0 control register to set 4Byte mode
-and the AST2500 FMC and AST2400 FMC flash controllers use the CE
-Control register for this purpose or they are strapped by hardware.
-
-Currently, the setting of the CE0 control register is done for all,
-which is incorrect, so fix that to keep only the AST2400 SPI. Luckily,
-the bogus setting has no impact on operations as bit 13 defines a SPI
-clock divisor.
+The io accessors from pflash are shorter and simpler.
 
 Signed-off-by: Cédric Le Goater <clg@kaod.org>
+Reviewed-by: Joel Stanley <joel@jms.id.au>
 ---
 
- Changes since v1 :
+ Changes since v1:
 
- - added a set_4b() ops
- - removed the use of SZ_16M
+ - renamed the routine
 
- drivers/mtd/spi-nor/aspeed-smc.c | 62 +++++++++++++++++++++++++++-------------
- 1 file changed, 42 insertions(+), 20 deletions(-)
+ drivers/mtd/spi-nor/aspeed-smc.c | 112 +++++++++++++--------------------------
+ 1 file changed, 38 insertions(+), 74 deletions(-)
 
 diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspeed-smc.c
-index 75ba73ef0660..ecc38752c2c3 100644
+index 231d4bda4e97..d3bed34f5aa0 100644
 --- a/drivers/mtd/spi-nor/aspeed-smc.c
 +++ b/drivers/mtd/spi-nor/aspeed-smc.c
-@@ -151,6 +151,8 @@ enum smc_flash_type {
- 	smc_type_spi = 2,	/* controller connected to spi flash */
- };
+@@ -65,84 +65,48 @@ module_param(dma_timeout, uint, 0644);
+  * the memory buffer pointer and count via explicit code. The final updates
+  * to len are optimistically suppressed.
+  */
+-
+-static void aspeed_smc_from_fifo(void *buf, const void __iomem *iop, size_t len)
++static int aspeed_smc_read_from_ahb(void *buf, const void __iomem *src,
++				    size_t len)
+ {
+-	if (!len)
+-		return;
+-
+-	/* Expect a 4 byte input port.  Otherwise just read bytes. */
+-	if (unlikely((unsigned long)iop & 3)) {
+-		while (len--) {
+-			*(u8 *)buf = readb(iop);
+-			buf++;
++	if ((((unsigned long) src | (unsigned long) buf | len) & 3) == 0) {
++		while (len > 3) {
++			*(u32 *) buf = readl(src);
++			buf += 4;
++			src += 4;
++			len -= 4;
+ 		}
+ 	}
  
-+struct aspeed_smc_chip;
-+
- struct aspeed_smc_info {
- 	u32 maxsize;		/* maximum size of 1 chip window */
- 	u8 nce;			/* number of chip enables */
-@@ -160,8 +162,13 @@ struct aspeed_smc_info {
- 	u8 ctl0;		/* offset in regs of ctl for ce 0 */
- 	u8 time;		/* offset in regs of timing */
- 	u8 misc;		/* offset in regs of misc settings */
-+
-+	void (*set_4b)(struct aspeed_smc_chip *chip);
- };
- 
-+static void aspeed_smc_chip_set_4b_smc_2400(struct aspeed_smc_chip *chip);
-+static void aspeed_smc_chip_set_4b(struct aspeed_smc_chip *chip);
-+
- static const struct aspeed_smc_info fmc_2400_info = {
- 	.maxsize = 64 * 1024 * 1024,
- 	.nce = 5,
-@@ -171,6 +178,7 @@ static const struct aspeed_smc_info fmc_2400_info = {
- 	.ctl0 = 0x10,
- 	.time = 0x94,
- 	.misc = 0x54,
-+	.set_4b = aspeed_smc_chip_set_4b,
- };
- 
- static const struct aspeed_smc_info smc_2400_info = {
-@@ -182,6 +190,7 @@ static const struct aspeed_smc_info smc_2400_info = {
- 	.ctl0 = 0x04,
- 	.time = 0x14,
- 	.misc = 0x10,
-+	.set_4b = aspeed_smc_chip_set_4b_smc_2400,
- };
- 
- static const struct aspeed_smc_info fmc_2500_info = {
-@@ -193,6 +202,7 @@ static const struct aspeed_smc_info fmc_2500_info = {
- 	.ctl0 = 0x10,
- 	.time = 0x94,
- 	.misc = 0x54,
-+	.set_4b = aspeed_smc_chip_set_4b,
- };
- 
- static const struct aspeed_smc_info smc_2500_info = {
-@@ -204,6 +214,7 @@ static const struct aspeed_smc_info smc_2500_info = {
- 	.ctl0 = 0x10,
- 	.time = 0x94,
- 	.misc = 0x54,
-+	.set_4b = aspeed_smc_chip_set_4b,
- };
- 
- enum smc_ctl_reg_value {
-@@ -751,6 +762,34 @@ static void aspeed_smc_chip_set_type(struct aspeed_smc_chip *chip, int type)
- 	writel(reg, controller->regs + CONFIG_REG);
+-	/* Align target to word: first byte then half word */
+-	if ((unsigned long)buf & 1) {
+-		*(u8 *)buf = readb(iop);
+-		buf++;
+-		len--;
+-	}
+-	if (((unsigned long)buf & 2) && (len >= 2)) {
+-		*(u16 *)buf = readw(iop);
+-		buf += 2;
+-		len -= 2;
+-	}
+-
+-	/* Transfer words, then remaining halfword and remaining byte */
+-	while (len >= 4) {
+-		*(u32 *)buf = readl(iop);
+-		buf += 4;
+-		len -= 4;
+-	}
+-	if (len & 2) {
+-		*(u16 *)buf = readw(iop);
+-		buf += 2;
++	while (len--) {
++		*(u8 *) buf = readb(src);
++		buf += 1;
++		src += 1;
+ 	}
+-	if (len & 1)
+-		*(u8 *)buf = readb(iop);
++	return 0;
  }
  
-+/*
-+ * The AST2500 FMC and AST2400 FMC flash controllers should be
-+ * strapped by hardware, or autodetected, but the AST2500 SPI flash
-+ * needs to be set.
-+ */
-+static void aspeed_smc_chip_set_4b(struct aspeed_smc_chip *chip)
-+{
-+	struct aspeed_smc_controller *controller = chip->controller;
-+	u32 reg;
-+
-+	if (chip->controller->info == &smc_2500_info) {
-+		reg = readl(controller->regs + CE_CONTROL_REG);
-+		reg |= 1 << chip->cs;
-+		writel(reg, controller->regs + CE_CONTROL_REG);
-+	}
-+}
-+
-+/*
-+ * The AST2400 SPI flash controller does not have a CE Control
-+ * register. It uses the CE0 control register to set 4Byte mode at the
-+ * controller level.
-+ */
-+static void aspeed_smc_chip_set_4b_smc_2400(struct aspeed_smc_chip *chip)
-+{
-+	chip->ctl_val[smc_base] |= CONTROL_SPI_IO_ADDRESS_4B;
-+	chip->ctl_val[smc_read] |= CONTROL_SPI_IO_ADDRESS_4B;
-+}
-+
- static int aspeed_smc_chip_setup_init(struct aspeed_smc_chip *chip,
- 				      struct resource *r)
+-static void aspeed_smc_to_fifo(void __iomem *iop, const void *buf, size_t len)
++static int aspeed_smc_write_to_ahb(void __iomem *dst, const void *buf,
++				   size_t len)
  {
-@@ -815,27 +854,10 @@ static int aspeed_smc_chip_setup_init(struct aspeed_smc_chip *chip,
- static void aspeed_smc_chip_setup_finish(struct aspeed_smc_chip *chip)
- {
- 	struct aspeed_smc_controller *controller = chip->controller;
--	u32 reg;
+-	if (!len)
+-		return;
 -
--	/*
--	 * Set 4 byte mode in the chip controller register and also in
--	 * controller config register. The BMC flash controller is
--	 * strapped by hardware, or autodetected, but the SPI flash
--	 * controller of the AST2500 still needs to be set.
--	 */
--	if (chip->nor.mtd.size > SZ_16M) {
--		chip->ctl_val[smc_base] |= CONTROL_SPI_IO_ADDRESS_4B;
-+	const struct aspeed_smc_info *info = controller->info;
+-	/* Expect a 4 byte output port.  Otherwise just write bytes. */
+-	if ((unsigned long)iop & 3) {
+-		while (len--) {
+-			writeb(*(u8 *)buf, iop);
+-			buf++;
++	if ((((unsigned long) dst | (unsigned long) buf | len) & 3) == 0) {
++		while (len > 3) {
++			u32 val = *(u32 *) buf;
++
++			writel(val, dst);
++			buf += 4;
++			dst += 4;
++			len -= 4;
+ 		}
+-		return;
+ 	}
  
--		/*
--		 * The SPI flash controller of the AST2400 does not
--		 * have such a setting.
--		 */
--		if (chip->controller->info == &smc_2500_info) {
--			reg = readl(controller->regs + CE_CONTROL_REG);
--			reg |= 1 << chip->cs;
--			writel(reg, controller->regs + CE_CONTROL_REG);
--		}
+-	/* Align target to word: first byte then half word */
+-	if ((unsigned long)buf & 1) {
+-		writeb(*(u8 *)buf, iop);
+-		buf++;
+-		len--;
 -	}
-+	if (chip->nor.addr_width == 4 && info->set_4b)
-+		info->set_4b(chip);
+-	if (((unsigned long)buf & 2) && (len >= 2)) {
+-		writew(*(u16 *)buf, iop);
+-		buf += 2;
+-		len -= 2;
+-	}
++	while (len--) {
++		u8 val = *(u8 *) buf;
  
- 	chip->ctl_val[smc_write] = chip->ctl_val[smc_base] |
- 		spi_control_fill_opcode(chip->nor.program_opcode) |
+-	/* Transfer words, then remaining halfword and remaining byte */
+-	while (len >= 4) {
+-		writel(*(u32 *)buf, iop);
+-		buf += 4;
+-		len -= 4;
++		writeb(val, dst);
++		buf += 1;
++		dst += 1;
+ 	}
+-	if (len & 2) {
+-		writew(*(u16 *)buf, iop);
+-		buf += 2;
+-	}
+-	if (len & 1)
+-		writeb(*(u8 *)buf, iop);
++	return 0;
+ }
+ 
+ enum smc_flash_type {
+@@ -518,8 +482,8 @@ static int aspeed_smc_read_reg(struct spi_nor *nor, u8 opcode, u8 *buf, int len)
+ 	mutex_lock(&chip->controller->mutex);
+ 
+ 	aspeed_smc_start_user(nor);
+-	aspeed_smc_to_fifo(chip->base, &opcode, 1);
+-	aspeed_smc_from_fifo(buf, chip->base, len);
++	aspeed_smc_write_to_ahb(chip->base, &opcode, 1);
++	aspeed_smc_read_from_ahb(buf, chip->base, len);
+ 	aspeed_smc_stop_user(nor);
+ 
+ 	mutex_unlock(&chip->controller->mutex);
+@@ -535,8 +499,8 @@ static int aspeed_smc_write_reg(struct spi_nor *nor, u8 opcode, u8 *buf,
+ 	mutex_lock(&chip->controller->mutex);
+ 
+ 	aspeed_smc_start_user(nor);
+-	aspeed_smc_to_fifo(chip->base, &opcode, 1);
+-	aspeed_smc_to_fifo(chip->base, buf, len);
++	aspeed_smc_write_to_ahb(chip->base, &opcode, 1);
++	aspeed_smc_write_to_ahb(chip->base, buf, len);
+ 	aspeed_smc_stop_user(nor);
+ 
+ 	mutex_unlock(&chip->controller->mutex);
+@@ -561,12 +525,12 @@ static void aspeed_smc_send_cmd_addr(struct spi_nor *nor, u8 cmd, u32 addr)
+ 		cmdaddr |= (u32)cmd << 24;
+ 
+ 		temp = cpu_to_be32(cmdaddr);
+-		aspeed_smc_to_fifo(chip->base, &temp, 4);
++		aspeed_smc_write_to_ahb(chip->base, &temp, 4);
+ 		break;
+ 	case 4:
+ 		temp = cpu_to_be32(addr);
+-		aspeed_smc_to_fifo(chip->base, &cmd, 1);
+-		aspeed_smc_to_fifo(chip->base, &temp, 4);
++		aspeed_smc_write_to_ahb(chip->base, &cmd, 1);
++		aspeed_smc_write_to_ahb(chip->base, &temp, 4);
+ 		break;
+ 	}
+ }
+@@ -593,7 +557,7 @@ static int aspeed_smc_read_user(struct spi_nor *nor, loff_t from, size_t len,
+ 
+ 	aspeed_smc_start_user(nor);
+ 	aspeed_smc_send_cmd_addr(nor, nor->read_opcode, from);
+-	aspeed_smc_from_fifo(read_buf, chip->base, len);
++	aspeed_smc_read_from_ahb(read_buf, chip->base, len);
+ 	aspeed_smc_stop_user(nor);
+ 
+ out:
+@@ -626,7 +590,7 @@ static void aspeed_smc_write_user(struct spi_nor *nor, loff_t to, size_t len,
+ 
+ 	aspeed_smc_start_user(nor);
+ 	aspeed_smc_send_cmd_addr(nor, nor->program_opcode, to);
+-	aspeed_smc_to_fifo(chip->base, write_buf, len);
++	aspeed_smc_write_to_ahb(chip->base, write_buf, len);
+ 	aspeed_smc_stop_user(nor);
+ 
+ out:
 -- 
 2.7.4
