@@ -1,32 +1,47 @@
-Return-Path: <clg@kaod.org>
-Received: from 5.mo1.mail-out.ovh.net (5.mo1.mail-out.ovh.net [178.33.45.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tDKJf27G4zDt3D
- for <openbmc@lists.ozlabs.org>; Wed,  9 Nov 2016 19:36:01 +1100 (AEDT)
-Received: from player691.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo1.mail-out.ovh.net (Postfix) with ESMTP id 97B7616D6A
- for <openbmc@lists.ozlabs.org>; Wed,  9 Nov 2016 09:16:11 +0100 (CET)
-Received: from hermes.kaod.org.com (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
- [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player691.ha.ovh.net (Postfix) with ESMTPSA id 616B5260086;
- Wed,  9 Nov 2016 09:16:08 +0100 (CET)
-From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
+Return-Path: <mine260309@gmail.com>
+Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
+ [IPv6:2607:f8b0:400e:c00::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tDXyV1prxzDvb8
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Nov 2016 04:21:06 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Xk5aoiel"; 
+ dkim-atps=neutral
+Received: by mail-pf0-x241.google.com with SMTP id 144so957280pfv.0
+ for <openbmc@lists.ozlabs.org>; Wed, 09 Nov 2016 09:21:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=from:to:cc:subject:date:message-id;
+ bh=EnQIJuNQAb2s5oZy4DZ1VeNz7sbTZEPt0wB2IvBmTbg=;
+ b=Xk5aoielsXnpi1eKjLmG8cDnUghAZQr67d+8YMSW1B4VX5qxO+bbQZhIYS69+4S9Fo
+ jV3NZ2cV0kmrMU50wBFJqaeo7rGBWcg8V53GKSOldApLUg0n8/HqaJfcNyMBOoDgXUQC
+ cC5c9/NSWAgImcAATu6a+TbhXINnRKDplx+qSYyWy9LCDQWl1zD2Tz60bX8i9GGwRgfm
+ 8GOY6vwwyg+hRRc9KuJ5dX+8/NhXCpNp3+wmjekgC04klNT8QFks8G+czieQdp+4PXdI
+ PjJzRa28r1bZswX19wDsLdp5WFHzjsdkvYhN5GwQY5VolR0bUjgq1URztLRbAh+myAy3
+ U8Xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=EnQIJuNQAb2s5oZy4DZ1VeNz7sbTZEPt0wB2IvBmTbg=;
+ b=byDkuXGUdCfsLj/efvl8wdhTanFAKkh3IKsnEiyPdV2lNboh9Wj2pzdr77UXkM+iKS
+ F0GEU/hs+vuSWTVk9M8EHY4eTUuTLuSgyCL7tBB4aKYcQC3W+o/Mv9/g6CdCKNjvGx2n
+ dwURdhSVynUapo/fT7MFRF6VwbQfVUfg3y3G+OIYff1a4CgGQzc/0Sl0zeBDNE1vK5h0
+ KBe1Mk+YRnbjB1610+UlqaGJfPg6AZFzMjz2cAYMQlQVglXOCzEVmwnNKbeTRHkj8+wP
+ ljqMGesYiyr0qyASzjgu9uwJjQ6wp1gaLwzUHiN9Y+Rq29FLfmg2Qq7d+RfpzCuIfpL7
+ VTSQ==
+X-Gm-Message-State: ABUngvdfW/yHtFcKEye4nMlg9XE+S6Vma7egNBkag0Sboi7otjtVqm/Pdq6QxI63a1F9jA==
+X-Received: by 10.98.133.9 with SMTP id u9mr1035995pfd.137.1478712064089;
+ Wed, 09 Nov 2016 09:21:04 -0800 (PST)
+Received: from localhost ([159.203.222.251])
+ by smtp.gmail.com with ESMTPSA id xn11sm640700pac.38.2016.11.09.09.21.02
+ (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+ Wed, 09 Nov 2016 09:21:03 -0800 (PST)
+From: Lei YU <mine260309@gmail.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH v2 linux dev-4.7 6/7] mtd: spi-nor: aspeed: prepare for fast
- read
-Date: Wed,  9 Nov 2016 09:15:42 +0100
-Message-Id: <1478679343-25354-7-git-send-email-clg@kaod.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1478679343-25354-1-git-send-email-clg@kaod.org>
-References: <1478679343-25354-1-git-send-email-clg@kaod.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 15801723721476901634
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelvddrleekgdduvddvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+Subject: [PATCH linux dev-4.7] ARM: dts: aspeed: witherspoon: Add bmp180 sensor
+Date: Thu, 10 Nov 2016 01:18:53 +0800
+Message-Id: <1478711933-11135-1-git-send-email-mine260309@gmail.com>
+X-Mailer: git-send-email 1.9.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -38,113 +53,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Nov 2016 08:36:02 -0000
+X-List-Received-Date: Wed, 09 Nov 2016 17:21:06 -0000
 
-Include dummy cycle in the control register value which will be
-required for fast read.
+Add BMP180 thermal sensor.
 
-Signed-off-by: Cédric Le Goater <clg@kaod.org>
-Reviewed-by: Joel Stanley <joel@jms.id.au>
+Signed-off-by: Lei YU <mine260309@gmail.com>
 ---
- drivers/mtd/spi-nor/aspeed-smc.c | 39 ++++++++++++++++++++++++++++++++++-----
- 1 file changed, 34 insertions(+), 5 deletions(-)
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspeed-smc.c
-index bbe505d5d8a3..231d4bda4e97 100644
---- a/drivers/mtd/spi-nor/aspeed-smc.c
-+++ b/drivers/mtd/spi-nor/aspeed-smc.c
-@@ -306,7 +306,7 @@ struct aspeed_smc_controller {
- #define CONTROL_SPI_COMMAND_SHIFT 16
- #define CONTROL_SPI_DUMMY_CYCLE_COMMAND_OUTPUT BIT(15)
- #define CONTROL_SPI_IO_DUMMY_CYCLES_HI BIT(14)
--#define CONTROL_SPI_IO_DUMMY_CYCLES_HI_SHIFT (14 - 2)
-+#define CONTROL_SPI_IO_DUMMY_CYCLES_HI_SHIFT 14
- #define CONTROL_SPI_IO_ADDRESS_4B BIT(13) /* AST2400 SPI */
- #define CONTROL_SPI_CLK_DIV4 BIT(13) /* others */
- #define CONTROL_SPI_RW_MERGE BIT(12)
-@@ -315,6 +315,10 @@ struct aspeed_smc_controller {
- 				       CONTROL_SPI_IO_DUMMY_CYCLES_LO_SHIFT)
- #define CONTROL_SPI_IO_DUMMY_CYCLES_MASK (CONTROL_SPI_IO_DUMMY_CYCLES_HI | \
- 					  CONTROL_SPI_IO_DUMMY_CYCLES_LO)
-+#define CONTROL_SPI_IO_DUMMY_CYCLES_SET(dummy)				\
-+	(((((dummy) >> 2) & 0x1) << CONTROL_SPI_IO_DUMMY_CYCLES_HI_SHIFT) | \
-+	(((dummy) & 0x3) << CONTROL_SPI_IO_DUMMY_CYCLES_LO_SHIFT))
-+
- #define CONTROL_SPI_CLOCK_FREQ_SEL_SHIFT 8
- #define CONTROL_SPI_CLOCK_FREQ_SEL_MASK GENMASK(11, \
- 					CONTROL_SPI_CLOCK_FREQ_SEL_SHIFT)
-@@ -869,14 +873,18 @@ static int aspeed_smc_chip_setup_init(struct aspeed_smc_chip *chip,
- 	return 0;
- }
- 
--static void aspeed_smc_chip_setup_finish(struct aspeed_smc_chip *chip)
-+static int aspeed_smc_chip_setup_finish(struct aspeed_smc_chip *chip)
- {
- 	struct aspeed_smc_controller *controller = chip->controller;
- 	const struct aspeed_smc_info *info = controller->info;
-+	u32 cmd;
- 
- 	if (chip->nor.addr_width == 4 && info->set_4b)
- 		info->set_4b(chip);
- 
-+	/*
-+	 * base mode has not been optimized yet. use it for writes.
-+	 */
- 	chip->ctl_val[smc_write] = chip->ctl_val[smc_base] |
- 		spi_control_fill_opcode(chip->nor.program_opcode) |
- 		CONTROL_SPI_COMMAND_MODE_WRITE;
-@@ -886,12 +894,29 @@ static void aspeed_smc_chip_setup_finish(struct aspeed_smc_chip *chip)
- 
- 	/*
- 	 * XXX TODO
--	 * Enable fast read mode as required here.
- 	 * Adjust clocks if fast read and write are supported.
- 	 * Interpret spi-nor flags to adjust controller settings.
- 	 * Check if resource size big enough for detected chip and
- 	 * add support assisted (normal or fast-) read and dma.
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index 5c93139..f8a3264 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -84,9 +84,12 @@
+ 	 *    Power Supply 1
+ 	 *    Fir Card ->
+ 	 *      MAX31785 Fan Cntl
+-	 *      BMP180 thermal sense
+ 	 *    Regs 3.3VS, 1.1VCS, 5VCS, 1.8V
  	 */
-+	switch (chip->nor.flash_read) {
-+	case SPI_NOR_NORMAL:
-+		cmd = CONTROL_SPI_COMMAND_MODE_NORMAL;
-+		break;
-+	case SPI_NOR_FAST:
-+		cmd = CONTROL_SPI_COMMAND_MODE_FREAD;
-+		break;
-+	default:
-+		dev_err(chip->nor.dev, "unsupported SPI read mode\n");
-+		return -EINVAL;
-+	}
-+
-+	chip->ctl_val[smc_read] |= cmd |
-+		CONTROL_SPI_IO_DUMMY_CYCLES_SET(chip->nor.read_dummy / 8);
-+
-+	dev_dbg(controller->dev, "base control register: %08x\n",
-+		 chip->ctl_val[smc_read]);
-+	return 0;
- }
++	bmp180@77 {
++		compatible = "bosch,bmp180";
++		reg = <0x77>;
++	};
  
- static int aspeed_smc_probe(struct platform_device *pdev)
-@@ -987,7 +1012,9 @@ static int aspeed_smc_probe(struct platform_device *pdev)
- 		chip->nor.read_reg = aspeed_smc_read_reg;
- 		chip->nor.write_reg = aspeed_smc_write_reg;
+ };
  
--		aspeed_smc_chip_setup_init(chip, r);
-+		err = aspeed_smc_chip_setup_init(chip, r);
-+		if (err)
-+			continue;
- 
- 		/*
- 		 * XXX Add support for SPI_NOR_QUAD and SPI_NOR_DUAL attach
-@@ -997,7 +1024,9 @@ static int aspeed_smc_probe(struct platform_device *pdev)
- 		if (err)
- 			continue;
- 
--		aspeed_smc_chip_setup_finish(chip);
-+		err = aspeed_smc_chip_setup_finish(chip);
-+		if (err)
-+			continue;
- 
- 		err = mtd_device_register(&chip->nor.mtd, NULL, 0);
- 		if (err)
 -- 
-2.7.4
+1.9.1
