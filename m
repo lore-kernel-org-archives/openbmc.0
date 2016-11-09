@@ -1,47 +1,58 @@
-Return-Path: <mouse@yandex-team.ru>
-X-Greylist: delayed 450 seconds by postgrey-1.36 at bilbo;
- Wed, 09 Nov 2016 11:08:48 AEDT
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yandex-team.ru header.i=@yandex-team.ru
- header.b="tvbhlh7V"; dkim-atps=neutral
-Received: from forwardcorp1g.cmail.yandex.net (forwardcorp1g.cmail.yandex.net
- [IPv6:2a02:6b8:0:1465::fd])
+Return-Path: <andrew@aj.id.au>
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tD63N0Wn0zDt31
- for <openbmc@lists.ozlabs.org>; Wed,  9 Nov 2016 11:08:48 +1100 (AEDT)
-Received: from mxbackcorp1m.mail.yandex.net (mxbackcorp1m.mail.yandex.net
- [IPv6:2a02:6b8:0:2519::301])
- by forwardcorp1g.cmail.yandex.net (Yandex) with ESMTP id F27AC20C71;
- Wed,  9 Nov 2016 03:01:04 +0300 (MSK)
-Received: from webcorp01d.yandex-team.ru (webcorp01d.yandex-team.ru
- [5.255.216.158])
- by mxbackcorp1m.mail.yandex.net (nwsmtp/Yandex) with ESMTP id
- tlC2lhT6Pv-14mef6s3; Wed, 09 Nov 2016 03:01:04 +0300
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
- s=default; 
- t=1478649664; bh=4I7hDY+XYe6OHZ1VGY9HcUPR9SuiNbIczgb2AoEDHFU=;
- h=From:To:In-Reply-To:References:Subject:Message-Id:Date;
- b=tvbhlh7Vn/LmT16wnYn5839H1ZQN/gAxPplsbAtiWH0U7z4ablUoIEymvZAfmfbf9
- SoG/luG6G1q5Fudr/51MZTvUXvBuDMdk5URHr+Il/DxuNOK/CxzRNVvb2v1iwFdotg
- oXG2q8q5i8IHHePO4mGw64u36ulz3onWZzoBv64c=
-Authentication-Results: mxbackcorp1m.mail.yandex.net;
- dkim=pass header.i=@yandex-team.ru
-X-Yandex-Sender-Uid: 1120000000001030
-Received: by webcorp01d.yandex-team.ru with HTTP;
- Wed, 09 Nov 2016 03:01:04 +0300
-From: Anton D. Kachalov <mouse@yandex-team.ru>
-To: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-In-Reply-To: <CANsWYUXcJ6zKwJ2R2maOJLHxMGjMCPELvFatW5F6nUNzf1Lf6A@mail.gmail.com>
-References: <CANsWYUXcJ6zKwJ2R2maOJLHxMGjMCPELvFatW5F6nUNzf1Lf6A@mail.gmail.com>
-Subject: Re: Question regarding PWM types in AST2500
-MIME-Version: 1.0
-Message-Id: <209171478649664@webcorp01d.yandex-team.ru>
-X-Mailer: Yamail [ http://yandex.ru ] 5.0
-Date: Wed, 09 Nov 2016 03:01:04 +0300
-Content-Transfer-Encoding: base64
-Content-Type: text/html; charset=utf-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tD7z32b84zDvMb
+ for <openbmc@lists.ozlabs.org>; Wed,  9 Nov 2016 12:35:10 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="d4ek2Wdk"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="elFi2Wj9"; dkim-atps=neutral
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id B586420571;
+ Tue,  8 Nov 2016 20:35:08 -0500 (EST)
+Received: from frontend1 ([10.202.2.160])
+ by compute7.internal (MEProxy); Tue, 08 Nov 2016 20:35:08 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=mesmtp; bh=cco509WlvT2BIflGMkD3As7qhkg=; b=d4ek2W
+ dkyPYt5L9O5CA1nknWi1rYcRM02qW0Rl8TQlpx2BrLMMi+upgNs1ALfb1MuBwgxV
+ ns4RlMj/2tv4M6jyhaW7CA8Aaia3xnv00sazwAyWGPNJabUWMn0F0owkgrRvYgdR
+ loOB56LMcSzMqwceJEfZ3ZllPxerDdv5P8pu0=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=cco509WlvT2BIf
+ lGMkD3As7qhkg=; b=elFi2Wj9oaA5PBUDNl4BoJbzefmoLREgzvM5xym61nSD5+
+ AN0KOTwedgAG/ZndkLYvipblhl7J/LUesBWkmYoZo98T+2485fAuxCFcAI4G32aq
+ mypo92vCpFDvbzXIOuwJ/oK5d37cTh4ibv1XsjyxjQnnX1DOcOZ2sUExBx3Q0=
+X-ME-Sender: <xms:TH0iWCHDeugWYdKx_dHVQb5TasmH3wUB0lT7hh2em6FzTQ16MVTnYQ>
+X-Sasl-enc: F3XxXIHjIwWQOE82dkss9PaQVXXFDIgxkpa5L7N8njGZ 1478655307
+Received: from [10.104.0.15] (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id E7BE3F29D0;
+ Tue,  8 Nov 2016 20:35:06 -0500 (EST)
+Message-ID: <1478655298.6206.8.camel@aj.id.au>
+Subject: Re: How to handle GPIO differences between P8 and P9
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Xo Wang <xow@google.com>, Mine <mine260309@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Wed, 09 Nov 2016 12:04:58 +1030
+In-Reply-To: <CAPH-5w7+to8ch2w8LDYeh97D8wTKdNKdFvtXCYJ=KhbaL7nh-Q@mail.gmail.com>
+References: <CAARXrtmemiSFPH7RGxFLcddt1Ld4pGTwsDX-rPtAmf2coS8VDg@mail.gmail.com>
+ <20161107040643.GE15757@heinlein.lan>
+ <OF7F37D1BE.BCC7E74A-ON48258064.00313B2C-48258064.003271BA@notes.na.collabserv.com>
+ <20161107161903.7gbgafvj6vb6w4k4@asimov>
+ <CAARXrtmur716MDJJPhHKNwOcGVVnczey0n2ZxXdXV2YB67+Png@mail.gmail.com>
+ <CAPH-5w6jxPPBYPSh1NQF-vg2w2HJ7ZU_r50ttSsUsXDMPS3_5A@mail.gmail.com>
+ <CAARXrt=FA=kTrjJ3KAyB03cuiBP=ka6BHf6YuNYh8x-DtyCcHw@mail.gmail.com>
+ <CAPH-5w7+to8ch2w8LDYeh97D8wTKdNKdFvtXCYJ=KhbaL7nh-Q@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-DfyQ/E0TaukKrtaljWWW"
+X-Mailer: Evolution 3.22.1-0ubuntu2 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -53,32 +64,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Nov 2016 00:08:49 -0000
+X-List-Received-Date: Wed, 09 Nov 2016 01:35:12 -0000
 
-PGRpdj5IZWxsby48L2Rpdj48ZGl2PsKgPC9kaXY+PGRpdj5Gcm9tIG15IGZpbmRpbmdzLCB0aG9z
-ZSB0aHJlZSB0eXBlcyBqdXN0IHRvIGhhdmUgdGhyZWUgaW5kZXBlbmRlbnQgUFdNIHNvdXJjZS4g
-RWFjaCBjb3VsZCBiZSBhc3NpZ25lZCB0byB0aGUgOCBQV00gY2hhbm5lbHMgKGFzdDI0MDApIHdp
-dGggaXQncyBvd24gc2V0dGluZ3MgKGZhbGxpbmcvcmlzaW5nIHBvaW50KS4gVHlwZXMgTiBhbmQg
-TSBoYXMgYSAiRmxhdEVuWCIgYml0LCBidXQgSSBkb24ndCBrbm93IGl0J3MgcHVycG9zZS48L2Rp
-dj48ZGl2PsKgPC9kaXY+PGRpdj4wOC4xMS4yMDE2LCAyMDo1NSwgIkphZ2hhdGhpc3dhcmkgUmFu
-a2FwcGFnb3VuZGVyIE5hdGFyYWphbiIgJmx0O2phZ2h1QGdvb2dsZS5jb20mZ3Q7OjwvZGl2Pjxi
-bG9ja3F1b3RlIHR5cGU9ImNpdGUiPjxkaXY+PGRpdj5UaGVyZSBhcmUgMyB0eXBlcyBvZiBQV00g
-LSB0eXBlIE0sIHR5cGUgTiwgdHlwZSBPIGdpdmVuIGluIGFzcGVlZCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoMKgPC9kaXY+PGRpdj5hc3QyNTAwIGRhdGFzaGVldChwYWdlIDY3MSkuIEZyb20gdGhpcyBs
-aW5rIEkgc2VlIHRoYXQgdGhlcmUgYXJlIDMgdHlwZXMgb2YgwqAgwqDCoDwvZGl2PjxkaXY+UFdN
-IDogPGEgaHJlZj0iaHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvUHVsc2Utd2lkdGhfbW9k
-dWxhdGlvbiNUeXBlcyI+aHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvUHVsc2Utd2lkdGhf
-bW9kdWxhdGlvbiNUeXBlczwvYT4gwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqA8L2Rpdj48ZGl2Pkhv
-dyB0byBmaW5kIHdoaWNoIHR5cGUgaXMgcmVsYXRlZCB0byB3aGljaCBkZWZpbml0aW9uPyBJbiB0
-aGUgZGF0YSBzaGVldCB0aGV5IMKgwqA8L2Rpdj48ZGl2PmhhdmUgYWxzbyBnaXZlbiByaXNpbmcg
-YW5kIGZhbGxpbmcgYml0LiBJZiB0aGUgdHlwZSBpcyBub3QgZml4ZWQgZm9yIGEgwqAgwqAgwqAg
-wqAgwqA8L2Rpdj48ZGl2PnBhcnRpY3VsYXIgZGVmaW5pdGlvbiwgZG8gd2UgbmVlZCB0byB1c2Ug
-dGhlc2UgdHdvIGJpdHMgdG8gbWFrZSB0aGUgcHdtIHR5cGUgwqAgwqA8L2Rpdj48ZGl2PmJlaGF2
-ZSBhcyBwZXIgdGhlIHdpa2kgZGVmaW5pdGlvbi48L2Rpdj48ZGl2PsKgPC9kaXY+PGRpdj5UaGFu
-a3MsPC9kaXY+PGRpdj5KYWdoYTwvZGl2PjwvZGl2Piw8cD5fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXzxiciAvPm9wZW5ibWMgbWFpbGluZyBsaXN0PGJyIC8+
-PGEgaHJlZj0ibWFpbHRvOm9wZW5ibWNAbGlzdHMub3psYWJzLm9yZyI+b3BlbmJtY0BsaXN0cy5v
-emxhYnMub3JnPC9hPjxiciAvPjxhIGhyZWY9Imh0dHBzOi8vbGlzdHMub3psYWJzLm9yZy9saXN0
-aW5mby9vcGVuYm1jIj5odHRwczovL2xpc3RzLm96bGFicy5vcmcvbGlzdGluZm8vb3BlbmJtYzwv
-YT48L3A+PC9ibG9ja3F1b3RlPjxkaXY+wqA8L2Rpdj48ZGl2PsKgPC9kaXY+PGRpdj4tLcKgPGJy
-IC8+QW50b24gRC4gS2FjaGFsb3Y8YnIgLz48YnIgLz7CoDwvZGl2PjxkaXY+wqA8L2Rpdj4=
+
+--=-DfyQ/E0TaukKrtaljWWW
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, 2016-11-08 at 15:38 -0800, Xo Wang wrote:
+> FYI something that I didn't implement was adding GPIO polarity
+> support into=C2=A0libopenbmc_intf/gpio. So, all the polarity (active
+> high/low) logic needs to be handled by the application, which is less
+> than ideal.
+
+Ultimately this should be handled by the kernel via devicetree and
+pinconf. I'd hold off on fixing the application because of that, but
+there's also no timeline for implementing pinconf support in pinctrl.
+
+Andrew
+
+>=20
+> cheers
+> xo
+--=-DfyQ/E0TaukKrtaljWWW
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJYIn1CAAoJEJ0dnzgO5LT5UhUP/1AFwhX2RsJXuuGaMmx9XMCt
+Gjd293AoUeaKGmh24H7cY7OazrR2JngATRy8XUoHDhPP8z0FzUq12ZKZglRGigK2
+fr+Jwny+vxhjCJuVnPw2+kB/IAF8rudTIV4KXjq6XoOdVMN9VVQo1FwO11rW52HT
+XcWsE9K4rLh2EzSCHpx6NkVOTOYBhYUkS1fUrsI6uCMrxALnB++hCpr2lMwyCrCm
+/11xhb6Cbbgfa0LBUF82QzERPnkRxYR1dNZpybYK4D8++zcFUh1VOdhoq4v/Odyc
+d7RkBhbo0J2T+rFX6/FBv5BNP2hDnGyISrdfW9rty4EpI0VCpQJnxI1PXsbKlFk1
+s6N4HA0pCiWK/frBDGlSmPHZcT7KFtlkKGRG/nEmNKkHdDB32cuQ8Gk8wZ2mH+Nv
+Td84RD9Auw6BllVp8Z0h7yxT97ZOiuciYL+fUSDvg8fNWehLxUCod+A58JAHCK7R
+IQrk6X6qeAYEcGVftSSpHbVBJ6B7ca7oJ7awbdXvanGiUGCnnv4BWWL6A1rrOEO+
+JxCliPw8ix7ShPBIARsppAH+SO6g29f0UbOzEYlmKXPS2hDLlDiqlqjy32N/EGsD
+W6oiQDdKQK7w8JPmu8JsrE0WzUHS/QbsbnaM9UuS6kjaZ8MDl62QtRa6UAmGNgPn
+hs/xW6LXEVH4n1pbEsfr
+=X/qa
+-----END PGP SIGNATURE-----
+
+--=-DfyQ/E0TaukKrtaljWWW--
