@@ -1,37 +1,56 @@
-Return-Path: <clg@kaod.org>
-Received: from 17.mo5.mail-out.ovh.net (17.mo5.mail-out.ovh.net
- [46.105.56.132])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-it0-x243.google.com (mail-it0-x243.google.com
+ [IPv6:2607:f8b0:4001:c0b::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tF1t665RxzDt0P
- for <openbmc@lists.ozlabs.org>; Thu, 10 Nov 2016 23:03:58 +1100 (AEDT)
-Received: from player773.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo5.mail-out.ovh.net (Postfix) with ESMTP id 32A2644DE0
- for <openbmc@lists.ozlabs.org>; Thu, 10 Nov 2016 12:55:33 +0100 (CET)
-Received: from hermes.kaod.org (deibp9eh1--blueice2n7.emea.ibm.com
- [195.212.29.169]) (Authenticated sender: clg@kaod.org)
- by player773.ha.ovh.net (Postfix) with ESMTPSA id 30E4A60008E;
- Thu, 10 Nov 2016 12:55:09 +0100 (CET)
-Subject: Re: [PATCH u-boot v2] Enable FIT image support and FDT loading for
- AST2400/AST2500
-To: Rick Altherr <raltherr@google.com>, Joel Stanley <joel@jms.id.au>
-References: <1478064386-29575-1-git-send-email-raltherr@google.com>
- <CACPK8XerVGJ06h2nOTbTxW396yt0Go3N5roYjWeH9RXmOAwvOg@mail.gmail.com>
- <CAPLgG==PvpmFWm94esWZET9=8FPVdYvCcOaS24vokOvwnpwCtA@mail.gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <92dcdbf3-ad89-972d-ef9a-d20a1e11373a@kaod.org>
-Date: Thu, 10 Nov 2016 12:55:08 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.4.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tF2300J7nzDvHf
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Nov 2016 23:11:40 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="gcYclUOW"; 
+ dkim-atps=neutral
+Received: by mail-it0-x243.google.com with SMTP id e187so3000296itc.0
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Nov 2016 04:11:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=Nt78/NqVCwdJJx0XgamazPoUxhyJx/mHaP7EbaOuNB0=;
+ b=gcYclUOWfnTX6necb/KQI5uVKKjELvSyjiEUbK4ycBFx3PZlfT7pox3V1p0K1migG2
+ bzyFS0Ik5zaqrbcCli31UjQpk6QIALfpfqwjVjmGaUysFSrD2i9iFOJ+3Nov3cZWPmLB
+ tZtbcjh1FmfDunkKfqdTKv0tWQ7BsoTeFfxnFmnfjQvLhzz6APLAjBpXHixtA2xfnvsX
+ YQNVHZhLlu8dPQg6jfiPmYDeIespSZwDdwH0U4sizoqRLSBji3bzyxr1Zo/ANfdFj4ax
+ lfBj/Lys6cDWUesiaW8wmscqg28cPDUeRbxlXODZChGHzC/J+4JM1r1YCyFWRyqxstGB
+ vtZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=Nt78/NqVCwdJJx0XgamazPoUxhyJx/mHaP7EbaOuNB0=;
+ b=M1SgSdDAfUezV/4pfwHeWEIvKugqcGePxKsoZ40bNsv7/PTpX4kfrbtz28zUN7C1Dh
+ 4pOrF7NJ4uUwX+QBAByG6wvzYkpT4XVFDTRF2oZHqtJkEHv7rN958shU53PyQDPbcgHR
+ dNQ8NxQeJd0U77dvlxkO1WQRR/hgzipgRreQoalfVH2OmgkSgXFxUjM3KG2R8s3/Trbc
+ ZHTtyjZVgAqAEIz2LUoXPZX4+rFa9ksnAlJHcE58x+IuQkx3xystR3gjbJgMLOmL6WyD
+ wvgHRhlGtR/8TfYMWFWPRKdCDNwgkx3PGh6s9+GveONZwTnNkHOD4hkFKjmBBC3zgPR4
+ Obyg==
+X-Gm-Message-State: ABUngvdD+TaUi1SkEnhGZ1Q+TGxUuQpK2IqhGt60vE8UtloQSKCd2g6eJn11uZgeGJ5QSYLLnBaAxHbOTuz7pw==
+X-Received: by 10.202.216.136 with SMTP id p130mr2374537oig.109.1478779898210; 
+ Thu, 10 Nov 2016 04:11:38 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <CAPLgG==PvpmFWm94esWZET9=8FPVdYvCcOaS24vokOvwnpwCtA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 6926536230971673346
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrtdefgdefudcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+Sender: joel.stan@gmail.com
+Received: by 10.182.97.41 with HTTP; Thu, 10 Nov 2016 04:11:17 -0800 (PST)
+In-Reply-To: <8fac795c-8365-6731-806e-83c3457e2533@kaod.org>
+References: <1477465067-19034-1-git-send-email-clg@kaod.org>
+ <40804db4-242b-8e46-d435-ebae8a55ad7a@kaod.org>
+ <CACPK8Xdzo5ONSrD7BCnjNfdF5+zX2t3=1hR52uF7qO3JC-j7Jg@mail.gmail.com>
+ <8fac795c-8365-6731-806e-83c3457e2533@kaod.org>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 10 Nov 2016 22:41:17 +1030
+X-Google-Sender-Auth: ChvreX9LX8iU4orGg6N5ORrWEsk
+Message-ID: <CACPK8XdMjCcZbFb57ow-+qvszr-QBS77uGqCWWUijA9J3Qo6CA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7 0/8] BT driver sync up
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -43,57 +62,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Nov 2016 12:03:59 -0000
+X-List-Received-Date: Thu, 10 Nov 2016 12:11:40 -0000
 
-On 11/10/2016 01:00 AM, Rick Altherr wrote:
-> 
-> 
-> On Tue, Nov 1, 2016 at 11:31 PM, Joel Stanley <joel@jms.id.au <mailto:joel@jms.id.au>> wrote:
-> 
->     Hi Rick,
-> 
->     On Wed, Nov 2, 2016 at 3:56 PM, Rick Altherr <raltherr@google.com <mailto:raltherr@google.com>> wrote:
->     > FIT is the modern u-boot native image format for kernels, device trees,
->     > and ramdisks.  Enabling FIT only compiles in support for the image
->     > format.  For these devices, the kernel+dtb and ramdisk are loaded from
->     > separate locations in flash and can be any mix of legacy or FIT images.
->     > When using FIT images, the dtb is stored as a separate entry that
->     > requires CONFIG_OF_LIBFDT to load it into RAM and pass it to the kernel.
->     >
->     > Tested under qemu with both legacy and FIT kernel+dtb images for
->     > palmetto and witherspoon.
-> 
->     The changes look good to me.
-> 
->     Is the FIT support in v2016.07 new enough for us? Is there any reason
->     to move to a v2016.09 base?
-> 
-> 
-> AFAIK, v2016.07 is new enough.  It certainly includes FIT, FDT loading, and FIT signature checking.
->  
-> 
->     It does introduce a warning in a hack we carry for loading the
->     initramfs, which I think points to a legitimate issue:
-> 
->     common/image.c: In function ‘boot_get_ramdisk’:
->     common/image.c:1078:4: warning: ‘rd_load’ may be used uninitialized in
->     this function [-Wmaybe-uninitialized]
->         memmove ((void *)rd_load, (uchar *)rd_data, rd_len);
->         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> 
->     This code an Aspeed hack we carry. It is required to copy the
->     initramfs from flash. Cedric was doing some investigation into why we
->     need the hack, and it appears to be an upstream bug.
-> 
->     If I read the code correctly, prior to enabling FIT we only accepted
->     IMAGE_FORMAT_LEGACY. If we move the hack to be part of that case we
->     should be ok, as we don't need to do the hack when loading from FIT.
-> 
->     Can you try that and add a second patch to your series that moves the hack?
-> 
-> Looks like Cedric has a patch that just removes the hack.  I'll look into this more and add it to my series.
+On Thu, Nov 10, 2016 at 10:34 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrot=
+e:
+>>> So please drop these two patches. This is too early.
+>>>
+>>> I will send later an interesting fix from Corey which handles
+>>> concurrent reads and writes a little better than we do today.
+>>> But after this is all merged.
+>>
+>> Okay, thanks for the clarification. I applied these patches to dev-v4.7:
+>>
+>>  ARM: dts: aspeed: Enable BT IPMI BMC device
+>>  ARM: aspeed: Add defconfigs for CONFIG_ASPEED_BT_IPMI_BMC
+>>  ipmi: add an Aspeed BT IPMI BMC driver
+>>  ARM: dts: aspeed: remove previous iBT definitions
+>>  ARM: aspeed: remove previous definitions in default config
+>>  Revert "misc: Add Aspeed BT IPMI host driver"
+>
+> It looks safe to take that one also :
+>
+>         http://patchwork.ozlabs.org/patch/690292/
 
-Thanks. tell us how it goes. I think we should be able to remove the hack
-for the ramdisk if we use fdt.
+Oops, will need to update the device trees again. Yep, I will include
+this one along with some updates to the device trees.
 
-C.
+>
+> May be, it is time now for a followup with :
+>
+> +       { .compatible =3D "aspeed,ast2500-ibt-bmc" },
+>
+> ?
+
+For upstream? Yeah. I would consider collecting all of the acks from
+the patch you posted and adding the second string in too, then posting
+as a v2.
+
+Cheers,
+
+Joel
