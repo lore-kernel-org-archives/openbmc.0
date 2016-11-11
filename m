@@ -1,27 +1,51 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
+Return-Path: <andrew@aj.id.au>
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tFRB36JVkzDvnN
- for <openbmc@lists.ozlabs.org>; Fri, 11 Nov 2016 15:04:11 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Sender: bradleyb@fuzziesquirrel.com
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Message-Id: <B2F64170-7A0B-486A-9AEE-A454BACFDC9B@fuzziesquirrel.com>
-Content-Type: multipart/alternative;
- boundary="Apple-Mail=_75274B77-A5D8-4DB8-8D95-3D12543E01A3"
-Mime-Version: 1.0 (Mac OS X Mail 10.1 \(3251\))
-Subject: Re: Comments on Sensor design.
-Date: Thu, 10 Nov 2016 23:04:04 -0500
-In-Reply-To: <20161107035412.GC15757@heinlein.lan>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-To: Patrick Williams <patrick@stwcx.xyz>,
- Xo Wang <xow@google.com>
-References: <20161031210739.k2x67uz6m55j3n2u@asimov>
- <CAPLgG==F66J2S4Ex+tF1dAQY7RxiDD=rOcmZ8Y50jTcMLDWjrw@mail.gmail.com>
- <53C4D16D-D216-4C12-B760-5328AF3B8685@fuzziesquirrel.com>
- <20161107035412.GC15757@heinlein.lan>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tFRNT5hkNzDvnN
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Nov 2016 15:13:13 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="F9aW2IEE"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="HpMGeanS"; dkim-atps=neutral
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id E75AA20D1A;
+ Thu, 10 Nov 2016 23:13:10 -0500 (EST)
+Received: from frontend1 ([10.202.2.160])
+ by compute5.internal (MEProxy); Thu, 10 Nov 2016 23:13:10 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :date:from:in-reply-to:message-id:references:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=Rmy
+ 4Uqf7ue3Ml6ij4ZXNMRGiOgk=; b=F9aW2IEET5JcgQZDbFf5drLL/7EONXXi/fA
+ G7S43Gy+bXrtgj4EvwVC9t08L93D/Ydy4ZnwCUKUCJVM2DdOIR28vXQrO8HrtEyw
+ jX0s93UiFuhfw7zzetOq/qcU7NV3q+kIQAn+LtlSRGs4cAUUMgiozwzO99gh4Fbq
+ vHomV+jA=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:date:from:in-reply-to:message-id
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=smtpout; bh=Rmy4Uqf7ue3Ml6ij4ZXNMRGiOgk=; b=HpMGe
+ anSjglJ0pbzVRaFFmlow1/bP5AwyffV8AIu6yPr1Df95Ow+rbczasM//lDQuM96e
+ uIVzJW54AzaJjyed11VyQZMg27MezbF/5IhSJO/VFcf4GgAzQsD5JC3Fr8SCJDYE
+ EXESlBoVzxgy7DqW//nlNirkWKBd7Clcl/n1E4=
+X-ME-Sender: <xms:VkUlWLDuKnqMmS_gvK7Gl5wUhBFnmrBB_K0E906JyE7U7kWFrkEKow>
+X-Sasl-enc: A4XbYPL21lEuNjRhM+MJxjWdy1rkqPf82d63InVhv01f 1478837590
+Received: from keelia.au.ibm.com (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 578987F079;
+ Thu, 10 Nov 2016 23:13:08 -0500 (EST)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: eajames.ibm@gmail.com,
+	Joel Stanley <joel@jms.id.au>
+Cc: "Edward A . James" <eajames@us.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Andrew Jeffery <andrew@aj.id.au>
+Subject: [RFC PATCH linux 0/9] On-Chip Controller (OCC) hwmon driver
+Date: Fri, 11 Nov 2016 14:42:07 +1030
+Message-Id: <cover.1478835488.git.andrew@aj.id.au>
+X-Mailer: git-send-email 2.9.3
+In-Reply-To: <1478560512-23791-1-git-send-email-eajames.ibm@gmail.com>
+References: <1478560512-23791-1-git-send-email-eajames.ibm@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -33,201 +57,115 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Nov 2016 04:04:12 -0000
+X-List-Received-Date: Fri, 11 Nov 2016 04:13:15 -0000
 
+Hi Eddie,
 
---Apple-Mail=_75274B77-A5D8-4DB8-8D95-3D12543E01A3
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=utf-8
+> This patchset provides a new OCC hwmon driver. There are a number
+> of issues with the existing driver. Firstly, i2c access was embedded
+> throughout the driver. Secondly, there is no way to easily differentiate
+> versions of the OCC.
+> 
+> This patchset addresses the first issue by abstracting the bus transfer
+> protocol into a modular structure. In this way, any low level transfer
+> method may be easily implemented.
+> 
+> The second issue is addressed by separating the "version specific" code
+> for the OCC and the common hwmon code. This task is not yet complete, but
+> the general structure is in place. Ultimately, different OCC versions
+> could be probed up using the device tree.
 
-I have changed my mind.  I think I favor the single interface approach =
-now, with sensor type expressed in the path hierarchy.  =46rom an end =
-user perspective, it makes sense to group all the temperature sensors =
-here for example (this would be a REST collection):
+I agree with all of this. However, I thought some of the layering could still
+be improved, so rather than provide a review through prose I figured it might
+be better for both of us if I mangled the patches directly. 
 
-/xyz/openbmc_project/sensors/temperature
+I've attacked two things. The first is I found the series hard to review due to
+the way the patches were split, as the patches went from trivial to huge (and
+complex) in a fairly short step:
 
-The only other way to express the type outside the BMC (DBUS interfaces =
-are not exposed) is with a property, but that requires a lot queries =
-from a client or a fancy query mechanism like CIM has.  Given that I=E2=80=
-=99m not seeing any motivation to have different interfaces per type or =
-a property in a unified interface that denotes the type.
+> 
+> Edward A. James (5):
+>   Revert "hwmon: Add Power8 OCC hwmon driver"
+>   drivers: Add hwmon occ driver framework
+>   drivers: hwmon OCC scom bus operations
+>   drivers: Add hwmon OCC version specific functions
+>   drivers: OCC hwmon driver and sysfs
 
-So I am proposing just a handful of interfaces for now, found here:
+So I have reworked them into what is now 8 patches (see below) and tried to
+tell a bit more of a story with them (hopefully I succeeded!) Second, I tried
+my hand at reworking the layering as mentioned above, such that hardware
+interaction is split from sysfs, and that the SCOM transport and sensor
+configuration is decoupled from the data parsing. You largely had all of these
+in-place already, I just cut and pasted code around a bit.
 
-https://gerrit.openbmc-project.xyz/#/c/1106
+Please review the patches and provide feedback! I'd like to hear arguments for
+or against both of our approaches. Note though that I've only tested that these
+patches compile, I absolutely have not done any further testing.
 
-This should give us enough definition and still be flexible.
+Joel: Any chance you could chime in with an architectural review?
 
-Moving past the API definition=E2=80=A6there is an unfinished hwmon =
-monitoring application out there:
-https://github.com/openbmc/phosphor-hwmon
+When the dust has settled on the bigger issues we can start to look at the
+finer details of the APIs (there are some bugs, oddities and complexities that
+I would like to address before they are applied to openbmc/linux).
 
-My expectation is that this application will be started via udev+systemd =
-and enter a polling loop with objects implementing the interfaces above, =
-being created/updated on each poll.  This will generate a stream of dbus =
-signals for the rest of the applications to listen to and act on.
+Cheers,
 
-This feels like a pretty general implementation for hwmon class sensors =
-so it seems like a good candidate for the reference implementation.  In =
-the longer term, I anticipate reference implementations for other, =
-non-hwmon classes of sensors.
+Andrew
 
-I=E2=80=99m sure I=E2=80=99ve probably missed something - please let me =
-know.
+Andrew Jeffery (8):
+  hwmon: Add core On-Chip Controller support for POWER CPUs
+  hwmon: occ: Add sysfs interface
+  hwmon: occ: Add I2C SCOM transport implementation
+  hwmon: occ: Add callbacks for parsing P8 OCC datastructures
+  hwmon: occ: Add hwmon implementation for the P8 OCC
+  arm: aspeed: dt: Fix OCC compatible strings
+  hwmon: occ: Add callbacks for parsing P9 OCC datastructures
+  wip: hwmon: occ: Add sketch of the hwmon implementation for the P9 OCC
 
-thx - brad
+Edward A. James (1):
+  Revert "hwmon: Add Power8 OCC hwmon driver"
 
-> On Nov 6, 2016, at 10:54 PM, Patrick Williams <patrick@stwcx.xyz> =
-wrote:
->=20
-> On Wed, Nov 02, 2016 at 10:12:47AM -0400, Brad Bishop wrote:
->>=20
->>> On Nov 2, 2016, at 12:58 AM, Rick Altherr <raltherr@google.com> =
-wrote:
->> The difference really is just with signal match rules and I don=E2=80=99=
-t really see that one approach over the other
->> provides any more or less flexibility.  If you want signals for an =
-entire class of sensors, you just use
->> the pathnamespace match rule.
->=20
-> As long as you feel we have this covered with a mapper call or a =
-signal
-> filter I am fine.  I was concerned with, especially, the number of =
-calls
-> the REST server would need to do in order to subscribe to all the
-> sensors.
->=20
->>> In both cases the dbus path could contain the 'type':
->>>    /xyz/openbmc_project/sensors/temperature/ambient
->>>    /xyz/openbmc_project/sensors/fan_tach/fan0
->>>=20
->>> The question is essentially should the "Unit" property be used to
->>> resolve the 'type' or should we have distinct interfaces for each
->>> 'type=E2=80=99?
->>=20
->> Patrick - after reading this again I don=E2=80=99t understand.  Why =
-would you not just use
->> the path namespace to resolve the type?
->=20
-> I think this was making leap that we would require / document paths as
-> well.  Maybe that is the right thing to do but we don't have a =
-currently
-> defined mechanism for it.  I'm especially not happy with 'fan_tach' as =
-a
-> path match string.
->=20
-> --=20
-> Patrick Williams
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+ .../devicetree/bindings/i2c/i2c-ibm-occ.txt        |   13 -
+ arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts     |    4 +-
+ arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts     |    4 +-
+ arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts      |    4 +-
+ arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts      |    2 +-
+ drivers/hwmon/Kconfig                              |   13 +-
+ drivers/hwmon/Makefile                             |    2 +-
+ drivers/hwmon/occ/Kconfig                          |   38 +
+ drivers/hwmon/occ/Makefile                         |    3 +
+ drivers/hwmon/occ/occ.c                            |  494 ++++++++
+ drivers/hwmon/occ/occ.h                            |   79 ++
+ drivers/hwmon/occ/occ_p8.c                         |  219 ++++
+ drivers/hwmon/occ/occ_p8.h                         |   30 +
+ drivers/hwmon/occ/occ_p8_i2c.c                     |  133 +++
+ drivers/hwmon/occ/occ_p9.c                         |  261 ++++
+ drivers/hwmon/occ/occ_p9.h                         |   30 +
+ drivers/hwmon/occ/occ_p9_fsi.c                     |   93 ++
+ drivers/hwmon/occ/occ_scom_i2c.c                   |   68 ++
+ drivers/hwmon/occ/occ_scom_i2c.h                   |   20 +
+ drivers/hwmon/occ/occ_sysfs.c                      |  498 ++++++++
+ drivers/hwmon/occ/occ_sysfs.h                      |   51 +
+ drivers/hwmon/occ/scom.h                           |   50 +
+ drivers/hwmon/power8_occ_i2c.c                     | 1254 --------------------
+ 23 files changed, 2076 insertions(+), 1287 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/i2c/i2c-ibm-occ.txt
+ create mode 100644 drivers/hwmon/occ/Kconfig
+ create mode 100644 drivers/hwmon/occ/Makefile
+ create mode 100644 drivers/hwmon/occ/occ.c
+ create mode 100644 drivers/hwmon/occ/occ.h
+ create mode 100644 drivers/hwmon/occ/occ_p8.c
+ create mode 100644 drivers/hwmon/occ/occ_p8.h
+ create mode 100644 drivers/hwmon/occ/occ_p8_i2c.c
+ create mode 100644 drivers/hwmon/occ/occ_p9.c
+ create mode 100644 drivers/hwmon/occ/occ_p9.h
+ create mode 100644 drivers/hwmon/occ/occ_p9_fsi.c
+ create mode 100644 drivers/hwmon/occ/occ_scom_i2c.c
+ create mode 100644 drivers/hwmon/occ/occ_scom_i2c.h
+ create mode 100644 drivers/hwmon/occ/occ_sysfs.c
+ create mode 100644 drivers/hwmon/occ/occ_sysfs.h
+ create mode 100644 drivers/hwmon/occ/scom.h
+ delete mode 100644 drivers/hwmon/power8_occ_i2c.c
 
-
---Apple-Mail=_75274B77-A5D8-4DB8-8D95-3D12543E01A3
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=utf-8
-
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html =
-charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
--webkit-nbsp-mode: space; -webkit-line-break: after-white-space;" =
-class=3D""><div class=3D""><div style=3D"font-family: monospace; =
-font-size: 11px;" class=3D"">I have changed my mind. &nbsp;I think I =
-favor the single interface approach now, with sensor type expressed in =
-the path hierarchy. &nbsp;=46rom an end user perspective, it makes sense =
-to group all the temperature sensors here for example (this would be a =
-REST collection):</div><div style=3D"font-family: monospace; font-size: =
-11px;" class=3D""><br class=3D""></div><div style=3D"font-family: =
-monospace; font-size: 11px;" =
-class=3D"">/xyz/openbmc_project/sensors/temperature</div><div =
-style=3D"font-family: monospace; font-size: 11px;" class=3D""><br =
-class=3D""></div><div style=3D"font-family: monospace; font-size: 11px;" =
-class=3D"">The only other way to express the type outside the BMC (DBUS =
-interfaces are not exposed) is with a property, but that requires a lot =
-queries from a client or a fancy query mechanism like CIM has. =
-&nbsp;Given that I=E2=80=99m not seeing any motivation to have different =
-interfaces per type or a property in a unified interface that denotes =
-the type.</div><div style=3D"font-family: monospace; font-size: 11px;" =
-class=3D""><br class=3D""></div><div style=3D"font-family: monospace; =
-font-size: 11px;" class=3D"">So I am proposing just a handful of =
-interfaces for now, found here:</div><div style=3D"font-family: =
-monospace; font-size: 11px;" class=3D""><br class=3D""></div><div =
-style=3D"font-family: monospace; font-size: 11px;" class=3D""><a =
-href=3D"https://gerrit.openbmc-project.xyz/#/c/1106" =
-class=3D"">https://gerrit.openbmc-project.xyz/#/c/1106</a></div><div =
-style=3D"font-family: monospace; font-size: 11px;" class=3D""><br =
-class=3D""></div><div style=3D"font-family: monospace; font-size: 11px;" =
-class=3D"">This should give us enough definition and still be =
-flexible.</div><div style=3D"font-family: monospace; font-size: 11px;" =
-class=3D""><br class=3D""></div><div style=3D"font-family: monospace; =
-font-size: 11px;" class=3D"">Moving past the API definition=E2=80=A6there =
-is an unfinished hwmon monitoring application out there:</div><div =
-style=3D"font-family: monospace; font-size: 11px;" class=3D""><a =
-href=3D"https://github.com/openbmc/phosphor-hwmon" =
-class=3D"">https://github.com/openbmc/phosphor-hwmon</a></div><div =
-style=3D"font-family: monospace; font-size: 11px;" class=3D""><br =
-class=3D""></div><div style=3D"font-family: monospace; font-size: 11px;" =
-class=3D"">My expectation is that this application will be started via =
-udev+systemd and enter a polling loop with objects implementing the =
-interfaces above, being created/updated on each poll. &nbsp;This will =
-generate a stream of dbus signals for the rest of the applications to =
-listen to and act on.</div><div style=3D"font-family: monospace; =
-font-size: 11px;" class=3D""><br class=3D""></div><div =
-style=3D"font-family: monospace; font-size: 11px;" class=3D"">This feels =
-like a pretty general implementation for hwmon class sensors so it seems =
-like a good candidate for the reference implementation. &nbsp;In the =
-longer term, I anticipate reference implementations for other, non-hwmon =
-classes of sensors.</div><div style=3D"font-family: monospace; =
-font-size: 11px;" class=3D""><br class=3D""></div><div =
-style=3D"font-family: monospace; font-size: 11px;" class=3D"">I=E2=80=99m =
-sure I=E2=80=99ve probably missed something - please let me =
-know.</div><div style=3D"font-family: monospace; font-size: 11px;" =
-class=3D""><br class=3D""></div><div style=3D"font-family: monospace; =
-font-size: 11px;" class=3D"">thx - brad</div></div><br =
-class=3D""><div><blockquote type=3D"cite" class=3D""><div class=3D"">On =
-Nov 6, 2016, at 10:54 PM, Patrick Williams &lt;<a =
-href=3D"mailto:patrick@stwcx.xyz" class=3D"">patrick@stwcx.xyz</a>&gt; =
-wrote:</div><br class=3D"Apple-interchange-newline"><div class=3D""><div =
-class=3D"">On Wed, Nov 02, 2016 at 10:12:47AM -0400, Brad Bishop =
-wrote:<br class=3D""><blockquote type=3D"cite" class=3D""><br =
-class=3D""><blockquote type=3D"cite" class=3D"">On Nov 2, 2016, at 12:58 =
-AM, Rick Altherr &lt;<a href=3D"mailto:raltherr@google.com" =
-class=3D"">raltherr@google.com</a>&gt; wrote:<br =
-class=3D""></blockquote>The difference really is just with signal match =
-rules and I don=E2=80=99t really see that one approach over the other<br =
-class=3D"">provides any more or less flexibility. &nbsp;If you want =
-signals for an entire class of sensors, you just use<br class=3D"">the =
-pathnamespace match rule.<br class=3D""></blockquote><br class=3D"">As =
-long as you feel we have this covered with a mapper call or a signal<br =
-class=3D"">filter I am fine. &nbsp;I was concerned with, especially, the =
-number of calls<br class=3D"">the REST server would need to do in order =
-to subscribe to all the<br class=3D"">sensors.<br class=3D""><br =
-class=3D""><blockquote type=3D"cite" class=3D""><blockquote type=3D"cite" =
-class=3D"">In both cases the dbus path could contain the 'type':<br =
-class=3D""> =
-&nbsp;&nbsp;&nbsp;/xyz/openbmc_project/sensors/temperature/ambient<br =
-class=3D""> =
-&nbsp;&nbsp;&nbsp;/xyz/openbmc_project/sensors/fan_tach/fan0<br =
-class=3D""><br class=3D"">The question is essentially should the "Unit" =
-property be used to<br class=3D"">resolve the 'type' or should we have =
-distinct interfaces for each<br class=3D"">'type=E2=80=99?<br =
-class=3D""></blockquote><br class=3D"">Patrick - after reading this =
-again I don=E2=80=99t understand. &nbsp;Why would you not just use<br =
-class=3D"">the path namespace to resolve the type?<br =
-class=3D""></blockquote><br class=3D"">I think this was making leap that =
-we would require / document paths as<br class=3D"">well. &nbsp;Maybe =
-that is the right thing to do but we don't have a currently<br =
-class=3D"">defined mechanism for it. &nbsp;I'm especially not happy with =
-'fan_tach' as a<br class=3D"">path match string.<br class=3D""><br =
-class=3D"">-- <br class=3D"">Patrick Williams<br =
-class=3D"">_______________________________________________<br =
-class=3D"">openbmc mailing list<br class=3D""><a =
-href=3D"mailto:openbmc@lists.ozlabs.org" =
-class=3D"">openbmc@lists.ozlabs.org</a><br =
-class=3D"">https://lists.ozlabs.org/listinfo/openbmc<br =
-class=3D""></div></div></blockquote></div><br class=3D""></body></html>=
-
---Apple-Mail=_75274B77-A5D8-4DB8-8D95-3D12543E01A3--
+-- 
+2.9.3
