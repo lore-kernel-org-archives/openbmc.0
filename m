@@ -1,55 +1,55 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
+ [IPv6:2607:f8b0:4002:c05::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tFRP76LH6zDvns
- for <openbmc@lists.ozlabs.org>; Fri, 11 Nov 2016 15:13:47 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="KfL1oIJE"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="qz5qDGFe"; dkim-atps=neutral
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id D964920D1A;
- Thu, 10 Nov 2016 23:13:45 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute5.internal (MEProxy); Thu, 10 Nov 2016 23:13:45 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:in-reply-to:in-reply-to:message-id:references
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=Zb4td7NO3FJOZyNkUO36tby9zVM=; b=KfL1oI
- JEc1JFFCuidOyg3Mx5f64HueKrN3mlLSI+yyORLjdwT074Xd2yP2iZJv+gUUgfGE
- mcSCKVsNRZt8ZPURAUM0A//WQBG6vhPw0/BZ16JihvLhR98kXPVBM2HM5pck1tMd
- 2HnVr7WYZloW7DMqPipiopN8r+mMNqCbzK/rs=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:in-reply-to:in-reply-to
- :message-id:references:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=Zb4td7NO3FJOZy
- NkUO36tby9zVM=; b=qz5qDGFeIGL49/lpyHr0fYMW23i3fLHPX8Y7AHIoBjti5m
- MIrnHLwm9cmadOWYvZfpnZFey1ZLeyuIAlIzNT8SQleIcg7ETmtRyqoouocPRmbf
- nHbg/NaYV3VF5HbRrl3JFf0BrNEKiT0Ak1T+0uxK3noe69vCUjorxsK2jgIAQ=
-X-ME-Sender: <xms:eUUlWH7s7f0gHATjm7ahzMtdWbW3vtBXUq6kYAKmNNB_vTniqFvfdA>
-X-Sasl-enc: yLthgfPxWFN5vi/QXjPd65diTHFzSBEa7jKGJ30Oh1gk 1478837625
-Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 7A98F7F079;
- Thu, 10 Nov 2016 23:13:43 -0500 (EST)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: eajames.ibm@gmail.com,
-	Joel Stanley <joel@jms.id.au>
-Cc: "Edward A . James" <eajames@us.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Andrew Jeffery <andrew@aj.id.au>
-Subject: [RFC PATCH linux 9/9] wip: hwmon: occ: Add sketch of the hwmon
- implementation for the P9 OCC
-Date: Fri, 11 Nov 2016 14:42:16 +1030
-Message-Id: <89c567400dbd58b02a90720004eacb27d5c58ed1.1478835488.git.andrew@aj.id.au>
-X-Mailer: git-send-email 2.9.3
-In-Reply-To: <cover.1478835488.git.andrew@aj.id.au>
-References: <cover.1478835488.git.andrew@aj.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tFSn313twzDvbg
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Nov 2016 16:16:07 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="i1cBiWvT"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x244.google.com with SMTP id s68so383046ywg.0
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Nov 2016 21:16:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=dtWG6v3Gmv8jMol9MS9az8fviZ/0qzkQcJqGy6DfUWs=;
+ b=i1cBiWvTAl4rBFZOPJedccuU0oIyo5opGG7opOkuDBfXyMoQqptmPku893GB8oUEm1
+ BwGt7KLolcl5n0GuGLAIoGt//B9A3IoMXM93F5j3Nthk3++PuX2i+HL141ao6aXc9LoL
+ tOTpG40mkoulcUqBa+wBMxtOmCWux8BEgNzZ2hIdYX0WRM63DoA5+sPr5dCjKrUv5Fol
+ CCdR+qh7UlX3jB9weCTMBtobAqJoccvYIayEkFrCFFbQ1gD3huvwJOuwEIrPs3sDih0X
+ oAp+cXZ3M42l0g9F7Cz96h/EZ17X0FWyTUtLb+m95c4M/mj540ZApsci9x8b+cbGmGf0
+ ifHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=dtWG6v3Gmv8jMol9MS9az8fviZ/0qzkQcJqGy6DfUWs=;
+ b=iO22xK9JlLX+ZgwLz/K3S9VPBu8MEzBZW1bnQKQFrHF8i1ut5rKYZTi4ci7su8PsIG
+ my8PDTN1kVLmc1h5wgEAShZzAWJB7mjCBfDKXifMg2fMhPb2Fy+386nYUl6xmvw8QFfZ
+ T4EgS1EZH5c5ohhUC97SSZ5ii1nc3ubkZhD2tkeZQS3EZepOZ5wvw3ffJVSsVJv6gPmQ
+ sT8vKnb6Lyg5j23rWJjwaIWW4ycoXM9FQPeeMRq/bPnunUXYTPLDSbZaTWjhfF327pwf
+ 0P8ugPwkjDGHfA2gI1aqEEnBhv+oqa+7gsckhB/xasIRt6YSLCR8uoF5f0cSMyeNT6sx
+ Rw+w==
+X-Gm-Message-State: ABUngveSoPGB1f4kiiDMW171aDWzLz52i2+UFMC0Ps8y3G3msZS8CZsDiTZPxVIsRnnvSi6hoKOno0NGn4yUBQ==
+X-Received: by 10.157.60.206 with SMTP id t14mr453086otf.37.1478841364353;
+ Thu, 10 Nov 2016 21:16:04 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.182.97.41 with HTTP; Thu, 10 Nov 2016 21:16:03 -0800 (PST)
+Received: by 10.182.97.41 with HTTP; Thu, 10 Nov 2016 21:16:03 -0800 (PST)
 In-Reply-To: <cover.1478835488.git.andrew@aj.id.au>
 References: <1478560512-23791-1-git-send-email-eajames.ibm@gmail.com>
  <cover.1478835488.git.andrew@aj.id.au>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 11 Nov 2016 15:46:03 +1030
+X-Google-Sender-Auth: PhY2cyCSlCBk6VGRXzpp8NfqBxA
+Message-ID: <CACPK8XdzofrfSC5di2m33naGUSqpLiQuhZzhJY2J7nBwxujHmA@mail.gmail.com>
+Subject: Re: [RFC PATCH linux 0/9] On-Chip Controller (OCC) hwmon driver
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Edward James <eajames@us.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, eajames.ibm@gmail.com
+Content-Type: multipart/alternative; boundary=94eb2c19242a3399a00540ff96dd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,140 +61,71 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Nov 2016 04:13:48 -0000
+X-List-Received-Date: Fri, 11 Nov 2016 05:16:07 -0000
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- drivers/hwmon/occ/Kconfig      |  9 ++++
- drivers/hwmon/occ/Makefile     |  1 +
- drivers/hwmon/occ/occ_p9_fsi.c | 93 ++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 103 insertions(+)
- create mode 100644 drivers/hwmon/occ/occ_p9_fsi.c
+--94eb2c19242a3399a00540ff96dd
+Content-Type: text/plain; charset=UTF-8
 
-diff --git a/drivers/hwmon/occ/Kconfig b/drivers/hwmon/occ/Kconfig
-index 085e1f370c42..97b97b391bf9 100644
---- a/drivers/hwmon/occ/Kconfig
-+++ b/drivers/hwmon/occ/Kconfig
-@@ -26,4 +26,13 @@ config SENSORS_PPC_OCC_P8_I2C
- 	  This driver can also be built as a module. If so, the module will be
- 	  called occ-p8-i2c.
- 
-+config SENSORS_PPC_OCC_P9_FSI
-+	tristate "POWER9 OCC hwmon support"
-+	help
-+	  Provide a hwmon sysfs interface for the POWER9 On-Chip Controller,
-+	  exposing temperature, frequency and power measurements.
-+
-+	  This driver can also be built as a module. If so, the module will be
-+	  called occ-p9-fsi.
-+
- endif
-diff --git a/drivers/hwmon/occ/Makefile b/drivers/hwmon/occ/Makefile
-index 05a84e987127..77e47e10195e 100644
---- a/drivers/hwmon/occ/Makefile
-+++ b/drivers/hwmon/occ/Makefile
-@@ -1,2 +1,3 @@
- obj-$(CONFIG_SENSORS_PPC_OCC) += occ.o occ_sysfs.o
- obj-$(CONFIG_SENSORS_PPC_OCC_P8_I2C) += occ_scom_i2c.o occ_p8.o occ_p8_i2c.o
-+obj-$(CONFIG_SENSORS_PPC_OCC_P9_FSI) += occ_p9.o occ_p9_fsi.o
-diff --git a/drivers/hwmon/occ/occ_p9_fsi.c b/drivers/hwmon/occ/occ_p9_fsi.c
-new file mode 100644
-index 000000000000..2f651d1b16bf
---- /dev/null
-+++ b/drivers/hwmon/occ/occ_p9_fsi.c
-@@ -0,0 +1,93 @@
-+/*
-+ * occ_p9_fsi.c - hwmon OCC driver
-+ *
-+ * Copyright 2016 IBM Corp.
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation; either version 2 of the License, or
-+ * (at your option) any later version.
-+ *
-+ * This program is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ * GNU General Public License for more details.
-+ */
-+
-+#include <linux/err.h>
-+#include <linux/module.h>
-+#include <linux/init.h>
-+#include <linux/slab.h>
-+#include <linux/err.h>
-+#include <linux/of.h>
-+#include <linux/kernel.h>
-+#include <linux/device.h>
-+
-+#include "scom.h"
-+#include "occ_p9.h"
-+#include "occ_sysfs.h"
-+
-+#define OCC_I2C_NAME	"occ-p9-fsi"
-+
-+static char *caps_sensor_names[] = {
-+	"curr_powercap",
-+	"curr_powerreading",
-+	"norm_powercap",
-+	"max_powercap",
-+	"min_powercap",
-+	"user_powerlimit"
-+};
-+
-+int p9_fsi_getscom(void *bus, u32 address, u8 *data, size_t offset)
-+{
-+	return -SCOM_READ_ERROR;
-+}
-+
-+int p9_fsi_putscom(void *bus, u32 address, u32 data0, u32 data1)
-+{
-+	return -SCOM_WRITE_ERROR;
-+}
-+
-+static struct occ_bus_ops p9_bus_ops = {
-+	.getscom = p9_fsi_getscom,
-+	.putscom = p9_fsi_putscom,
-+};
-+
-+static struct occ_sysfs_config p9_sysfs_config = {
-+	.num_caps_fields = ARRAY_SIZE(caps_sensor_names),
-+	.caps_names = caps_sensor_names,
-+};
-+
-+int occ_p9_probe(struct device *dev, void *client)
-+{
-+	struct occ *occ;
-+	struct occ_sysfs *hwmon;
-+
-+	occ = occ_p9_start(dev, client, p9_bus_ops);
-+	if (IS_ERR(occ))
-+		return PTR_ERR(occ);
-+
-+	hwmon = occ_sysfs_start(dev, occ, &p9_sysfs_config);
-+	if (IS_ERR(hwmon))
-+		return PTR_ERR(hwmon);
-+
-+	return 0;
-+}
-+
-+int occ_p9_remove(void)
-+{
-+	struct occ *occ = NULL;
-+
-+	return occ_p9_stop(occ);
-+}
-+
-+/* used by device table */
-+static const struct of_device_id occ_of_match[] = {
-+	{ .compatible = "ibm,occ-p9-fsi" },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, occ_of_match);
-+
-+MODULE_AUTHOR("Eddie James <eajames@us.ibm.com>");
-+MODULE_DESCRIPTION("BMC P9 OCC hwmon driver");
-+MODULE_LICENSE("GPL");
--- 
-2.9.3
+On 11 Nov 2016 14:43, "Andrew Jeffery" <andrew@aj.id.au> wrote:
+> So I have reworked them into what is now 8 patches (see below) and tried
+to
+> tell a bit more of a story with them (hopefully I succeeded!) Second, I
+tried
+> my hand at reworking the layering as mentioned above, such that hardware
+> interaction is split from sysfs, and that the SCOM transport and sensor
+> configuration is decoupled from the data parsing. You largely had all of
+these
+> in-place already, I just cut and pasted code around a bit.
+
+Did you look at Jeremy and Chris B's FSI patches? I think you would be the
+first client of their new interfaces.
+
+> Please review the patches and provide feedback! I'd like to hear
+arguments for
+> or against both of our approaches. Note though that I've only tested that
+these
+> patches compile, I absolutely have not done any further testing.
+>
+> Joel: Any chance you could chime in with an architectural review?
+
+No worries.
+
+> When the dust has settled on the bigger issues we can start to look at the
+> finer details of the APIs (there are some bugs, oddities and complexities
+that
+> I would like to address before they are applied to openbmc/linux).
+
+I suggest the next step is upstream review. We can put them in the tree if
+it's urgent, but I trust that you and Eddie will beat them into shape in no
+time. If you succeed we can then apply the upstream versions directly.
+
+Cheers,
+
+Joel
+
+--94eb2c19242a3399a00540ff96dd
+Content-Type: text/html; charset=UTF-8
+
+<p dir="ltr"></p>
+<p dir="ltr">On 11 Nov 2016 14:43, &quot;Andrew Jeffery&quot; &lt;<a href="mailto:andrew@aj.id.au">andrew@aj.id.au</a>&gt; wrote:<br>
+&gt; So I have reworked them into what is now 8 patches (see below) and tried to<br>
+&gt; tell a bit more of a story with them (hopefully I succeeded!) Second, I tried<br>
+&gt; my hand at reworking the layering as mentioned above, such that hardware<br>
+&gt; interaction is split from sysfs, and that the SCOM transport and sensor<br>
+&gt; configuration is decoupled from the data parsing. You largely had all of these<br>
+&gt; in-place already, I just cut and pasted code around a bit.</p>
+<p dir="ltr">Did you look at Jeremy and Chris B&#39;s FSI patches? I think you would be the first client of their new interfaces.</p>
+<p dir="ltr">&gt; Please review the patches and provide feedback! I&#39;d like to hear arguments for<br>
+&gt; or against both of our approaches. Note though that I&#39;ve only tested that these<br>
+&gt; patches compile, I absolutely have not done any further testing.<br>
+&gt;<br>
+&gt; Joel: Any chance you could chime in with an architectural review?</p>
+<p dir="ltr">No worries. </p>
+<p dir="ltr">&gt; When the dust has settled on the bigger issues we can start to look at the<br>
+&gt; finer details of the APIs (there are some bugs, oddities and complexities that<br>
+&gt; I would like to address before they are applied to openbmc/linux).</p>
+<p dir="ltr">I suggest the next step is upstream review. We can put them in the tree if it&#39;s urgent, but I trust that you and Eddie will beat them into shape in no time. If you succeed we can then apply the upstream versions directly.</p>
+<p dir="ltr">Cheers,</p>
+<p dir="ltr">Joel</p>
+
+--94eb2c19242a3399a00540ff96dd--
