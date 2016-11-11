@@ -3,47 +3,47 @@ Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tFRP51Vl5zDvp2
- for <openbmc@lists.ozlabs.org>; Fri, 11 Nov 2016 15:13:45 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tFRP76LH6zDvns
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Nov 2016 15:13:47 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="AiLxIAdg"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="KfL1oIJE"; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="IHls++KC"; dkim-atps=neutral
+ header.b="qz5qDGFe"; dkim-atps=neutral
 Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 317D2214F5;
- Thu, 10 Nov 2016 23:13:43 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id D964920D1A;
+ Thu, 10 Nov 2016 23:13:45 -0500 (EST)
 Received: from frontend1 ([10.202.2.160])
- by compute5.internal (MEProxy); Thu, 10 Nov 2016 23:13:43 -0500
+ by compute5.internal (MEProxy); Thu, 10 Nov 2016 23:13:45 -0500
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
  :date:from:in-reply-to:in-reply-to:message-id:references
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=oYaOGYyWUViqt/xPCPI7LwRJIx0=; b=AiLxIA
- dgAie/wQks7vtriM1MGSRX9CXz+uzdSfkIXrGXXQ07gukI3Z982DBZcwVmhPua6a
- RLgo1x5NIZDt8VkI30lTynkAHGxFZYQA5JNPLx8ae7cqltuATwvV3eUs0zCtpjTW
- GLtYzdFQvBMrE29D5mTUsmHLfj5Rro3vWrChs=
+ :x-sasl-enc; s=mesmtp; bh=Zb4td7NO3FJOZyNkUO36tby9zVM=; b=KfL1oI
+ JEc1JFFCuidOyg3Mx5f64HueKrN3mlLSI+yyORLjdwT074Xd2yP2iZJv+gUUgfGE
+ mcSCKVsNRZt8ZPURAUM0A//WQBG6vhPw0/BZ16JihvLhR98kXPVBM2HM5pck1tMd
+ 2HnVr7WYZloW7DMqPipiopN8r+mMNqCbzK/rs=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:date:from:in-reply-to:in-reply-to
  :message-id:references:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=oYaOGYyWUViqt/
- xPCPI7LwRJIx0=; b=IHls++KCJgDyQvniqG3darQEE1ih1LyOdjPT/MUlGQg/VQ
- 7Wi0EAMxLkYKVjfZmxQ32oSDgDx3dV3ZjrcCRzNTF6fo6TYfPHQGDkLtUsB/18PF
- INOKt/pAoq/V6WCEBlMlqYCOCtR60W6yPEw7apjgqspUJJ12Iy7y0TZ1+X/ok=
-X-ME-Sender: <xms:d0UlWFHcqTwWMhLJaRLI4qcogeMMUz4wJck2CmpAPaCbfMWpSOFQGg>
-X-Sasl-enc: dgeRg+lWL9roYfkRXJyiVRupt7j/F2EweFLEuZtrsREU 1478837622
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=Zb4td7NO3FJOZy
+ NkUO36tby9zVM=; b=qz5qDGFeIGL49/lpyHr0fYMW23i3fLHPX8Y7AHIoBjti5m
+ MIrnHLwm9cmadOWYvZfpnZFey1ZLeyuIAlIzNT8SQleIcg7ETmtRyqoouocPRmbf
+ nHbg/NaYV3VF5HbRrl3JFf0BrNEKiT0Ak1T+0uxK3noe69vCUjorxsK2jgIAQ=
+X-ME-Sender: <xms:eUUlWH7s7f0gHATjm7ahzMtdWbW3vtBXUq6kYAKmNNB_vTniqFvfdA>
+X-Sasl-enc: yLthgfPxWFN5vi/QXjPd65diTHFzSBEa7jKGJ30Oh1gk 1478837625
 Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 9AD577F06F;
- Thu, 10 Nov 2016 23:13:40 -0500 (EST)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 7A98F7F079;
+ Thu, 10 Nov 2016 23:13:43 -0500 (EST)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: eajames.ibm@gmail.com,
 	Joel Stanley <joel@jms.id.au>
 Cc: "Edward A . James" <eajames@us.ibm.com>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Andrew Jeffery <andrew@aj.id.au>
-Subject: [RFC PATCH linux 8/9] hwmon: occ: Add callbacks for parsing P9 OCC
- datastructures
-Date: Fri, 11 Nov 2016 14:42:15 +1030
-Message-Id: <e9231e9451e3058c130efd8f164b959e375e6366.1478835488.git.andrew@aj.id.au>
+Subject: [RFC PATCH linux 9/9] wip: hwmon: occ: Add sketch of the hwmon
+ implementation for the P9 OCC
+Date: Fri, 11 Nov 2016 14:42:16 +1030
+Message-Id: <89c567400dbd58b02a90720004eacb27d5c58ed1.1478835488.git.andrew@aj.id.au>
 X-Mailer: git-send-email 2.9.3
 In-Reply-To: <cover.1478835488.git.andrew@aj.id.au>
 References: <cover.1478835488.git.andrew@aj.id.au>
@@ -61,27 +61,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Nov 2016 04:13:45 -0000
+X-List-Received-Date: Fri, 11 Nov 2016 04:13:48 -0000
 
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- drivers/hwmon/occ/occ_p9.c | 261 +++++++++++++++++++++++++++++++++++++++++++++
- drivers/hwmon/occ/occ_p9.h |  30 ++++++
- 2 files changed, 291 insertions(+)
- create mode 100644 drivers/hwmon/occ/occ_p9.c
- create mode 100644 drivers/hwmon/occ/occ_p9.h
+ drivers/hwmon/occ/Kconfig      |  9 ++++
+ drivers/hwmon/occ/Makefile     |  1 +
+ drivers/hwmon/occ/occ_p9_fsi.c | 93 ++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 103 insertions(+)
+ create mode 100644 drivers/hwmon/occ/occ_p9_fsi.c
 
-diff --git a/drivers/hwmon/occ/occ_p9.c b/drivers/hwmon/occ/occ_p9.c
+diff --git a/drivers/hwmon/occ/Kconfig b/drivers/hwmon/occ/Kconfig
+index 085e1f370c42..97b97b391bf9 100644
+--- a/drivers/hwmon/occ/Kconfig
++++ b/drivers/hwmon/occ/Kconfig
+@@ -26,4 +26,13 @@ config SENSORS_PPC_OCC_P8_I2C
+ 	  This driver can also be built as a module. If so, the module will be
+ 	  called occ-p8-i2c.
+ 
++config SENSORS_PPC_OCC_P9_FSI
++	tristate "POWER9 OCC hwmon support"
++	help
++	  Provide a hwmon sysfs interface for the POWER9 On-Chip Controller,
++	  exposing temperature, frequency and power measurements.
++
++	  This driver can also be built as a module. If so, the module will be
++	  called occ-p9-fsi.
++
+ endif
+diff --git a/drivers/hwmon/occ/Makefile b/drivers/hwmon/occ/Makefile
+index 05a84e987127..77e47e10195e 100644
+--- a/drivers/hwmon/occ/Makefile
++++ b/drivers/hwmon/occ/Makefile
+@@ -1,2 +1,3 @@
+ obj-$(CONFIG_SENSORS_PPC_OCC) += occ.o occ_sysfs.o
+ obj-$(CONFIG_SENSORS_PPC_OCC_P8_I2C) += occ_scom_i2c.o occ_p8.o occ_p8_i2c.o
++obj-$(CONFIG_SENSORS_PPC_OCC_P9_FSI) += occ_p9.o occ_p9_fsi.o
+diff --git a/drivers/hwmon/occ/occ_p9_fsi.c b/drivers/hwmon/occ/occ_p9_fsi.c
 new file mode 100644
-index 000000000000..b8986290948b
+index 000000000000..2f651d1b16bf
 --- /dev/null
-+++ b/drivers/hwmon/occ/occ_p9.c
-@@ -0,0 +1,261 @@
++++ b/drivers/hwmon/occ/occ_p9_fsi.c
+@@ -0,0 +1,93 @@
 +/*
-+ * p9.c - OCC hwmon driver
-+ *
-+ * This file contains the Power9-specific methods and data structures for
-+ * the OCC hwmon driver.
++ * occ_p9_fsi.c - hwmon OCC driver
 + *
 + * Copyright 2016 IBM Corp.
 + *
@@ -96,283 +119,82 @@ index 000000000000..b8986290948b
 + * GNU General Public License for more details.
 + */
 +
++#include <linux/err.h>
 +#include <linux/module.h>
 +#include <linux/init.h>
 +#include <linux/slab.h>
-+#include <linux/i2c.h>
 +#include <linux/err.h>
 +#include <linux/of.h>
 +#include <linux/kernel.h>
 +#include <linux/device.h>
 +
-+#include "occ.h"
++#include "scom.h"
 +#include "occ_p9.h"
++#include "occ_sysfs.h"
 +
-+/* P9 OCC sensor data format */
-+struct temp_sensor_p9 {
-+	u32 sensor_id;
-+	u8 fru_type;
-+	u8 value;
-+};
++#define OCC_I2C_NAME	"occ-p9-fsi"
 +
-+struct freq_sensor_p9 {
-+	u32 sensor_id;
-+	u16 value;
-+};
-+
-+struct power_sensor_p9 {
-+	u32 sensor_id;
-+	u8 function_id;
-+	u8 apss_channel;
-+	u16 reserved;
-+	u32 update_tag;
-+	u64 accumulator;
-+	u16 value;
-+};
-+
-+struct caps_sensor_p9 {
-+	u16 curr_powercap;
-+	u16 curr_powerreading;
-+	u16 norm_powercap;
-+	u16 max_powercap;
-+	u16 min_powercap;
-+	u16 user_powerlimit;
-+	u8 user_powerlimit_source;
-+};
-+
-+/*
 +static char *caps_sensor_names[] = {
 +	"curr_powercap",
 +	"curr_powerreading",
 +	"norm_powercap",
 +	"max_powercap",
 +	"min_powercap",
-+	"user_powerlimit",
-+	"user_powerlimit_source"
-+};
-+*/
-+
-+void p9_parse_sensor(u8 *data, void *sensor, int sensor_type, int off,
-+		     int snum)
-+{
-+	switch (sensor_type) {
-+		case FREQ:
-+		{
-+			struct freq_sensor_p9 *fs =
-+				&(((struct freq_sensor_p9 *)sensor)[snum]);
-+			fs->sensor_id =
-+				be32_to_cpup((const __be32 *)&data[off]);
-+			fs->value =
-+				be16_to_cpup((const __be16 *)&data[off + 4]);
-+		}
-+			break;
-+		case TEMP:
-+		{
-+			struct temp_sensor_p9 *ts =
-+				&(((struct temp_sensor_p9 *)sensor)[snum]);
-+			ts->sensor_id =
-+				be32_to_cpup((const __be32 *)&data[off]);
-+			ts->fru_type = data[off + 4];
-+			ts->value = data[off + 5];
-+		}
-+			break;
-+		case POWER:
-+		{
-+			struct power_sensor_p9 *ps =
-+				&(((struct power_sensor_p9 *)sensor)[snum]);
-+			ps->sensor_id =
-+				be32_to_cpup((const __be32 *)&data[off]);
-+			ps->function_id = data[off + 4];
-+			ps->apss_channel = data[off + 5];
-+			/* two bytes reserved */
-+			ps->update_tag =
-+				be32_to_cpup((const __be32 *)&data[off + 8]);
-+			ps->accumulator =
-+				be64_to_cpup((const __be64 *)&data[off + 12]);
-+			ps->value =
-+				be16_to_cpup((const __be16 *)&data[off + 20]);
-+		}
-+			break;
-+		case CAPS:
-+		{
-+			struct caps_sensor_p9 *cs =
-+				&(((struct caps_sensor_p9 *)sensor)[snum]);
-+			cs->curr_powercap =
-+				be16_to_cpup((const __be16 *)&data[off]);
-+			cs->curr_powerreading =
-+				be16_to_cpup((const __be16 *)&data[off + 2]);
-+			cs->norm_powercap =
-+				be16_to_cpup((const __be16 *)&data[off + 4]);
-+			cs->max_powercap =
-+				be16_to_cpup((const __be16 *)&data[off + 6]);
-+			cs->min_powercap =
-+				be16_to_cpup((const __be16 *)&data[off + 8]);
-+			cs->user_powerlimit =
-+				be16_to_cpup((const __be16 *)&data[off + 10]);
-+			cs->user_powerlimit_source = data[off + 12];
-+		}
-+			break;
-+	};
-+}
-+
-+void * p9_alloc_sensor(int sensor_type, int num_sensors)
-+{
-+	switch (sensor_type) {
-+		case FREQ:
-+			return kcalloc(num_sensors,
-+				       sizeof(struct freq_sensor_p9),
-+				       GFP_KERNEL);
-+		case TEMP:
-+			return kcalloc(num_sensors,
-+				       sizeof(struct temp_sensor_p9),
-+				       GFP_KERNEL);
-+		case POWER:
-+			return kcalloc(num_sensors,
-+				       sizeof(struct power_sensor_p9),
-+				       GFP_KERNEL);
-+		case CAPS:
-+			return kcalloc(num_sensors,
-+				       sizeof(struct caps_sensor_p9),
-+				       GFP_KERNEL);
-+		default:
-+			return NULL;
-+	}
-+}
-+
-+int p9_get_sensor_value(struct occ *driver, int sensor_type, int snum)
-+{
-+	void *sensor;
-+
-+	if (sensor_type == CAPS)
-+		return -1;
-+
-+	sensor = occ_get_sensor(driver, sensor_type);
-+	if (!sensor)
-+		return -1;
-+
-+	switch (sensor_type) {
-+		case FREQ:
-+			return ((struct freq_sensor_p9 *)sensor)[snum].value; 
-+		case TEMP:
-+			return ((struct temp_sensor_p9 *)sensor)[snum].value;
-+		case POWER:
-+			return ((struct power_sensor_p9 *)sensor)[snum].value;
-+		default:
-+			return -1;
-+	}
-+}
-+
-+int p9_get_sensor_id(struct occ *driver, int sensor_type, int snum)
-+{
-+	void *sensor;
-+	int i = snum;
-+
-+	if (sensor_type == CAPS)
-+		return -1;
-+
-+	sensor = occ_get_sensor(driver, sensor_type);
-+	if (!sensor)
-+		return -1;
-+
-+	switch (sensor_type) {
-+		case FREQ:
-+			return ((struct freq_sensor_p9 *)sensor)[i].sensor_id;
-+		case TEMP:
-+			return ((struct temp_sensor_p9 *)sensor)[i].sensor_id;
-+		case POWER:
-+			return ((struct power_sensor_p9 *)sensor)[i].sensor_id;
-+		default:
-+			return -1;
-+	}
-+}
-+
-+int p9_get_caps_value(void *sensor, int snum, int caps_field)
-+{
-+	struct caps_sensor_p9 *caps_sensor = sensor;
-+
-+	switch (caps_field) {
-+	case 0:
-+		return caps_sensor[snum].curr_powercap;
-+	case 1:
-+		return caps_sensor[snum].curr_powerreading;
-+	case 2:
-+		return caps_sensor[snum].norm_powercap;
-+	case 3:
-+		return caps_sensor[snum].max_powercap;
-+	case 4:
-+		return caps_sensor[snum].min_powercap;
-+	case 5:
-+		return caps_sensor[snum].user_powerlimit;
-+	case 6:
-+		return caps_sensor[snum].user_powerlimit_source;
-+	default:
-+		return -1;
-+	}
-+}
-+static const struct occ_ops p9_ops = {
-+	.parse_sensor = p9_parse_sensor,
-+	.alloc_sensor = p9_alloc_sensor,
-+	.get_sensor_value = p9_get_sensor_value,
-+	.get_sensor_id = p9_get_sensor_id,
-+	.get_caps_value = p9_get_caps_value,
++	"user_powerlimit"
 +};
 +
-+static const struct occ_config p9_config = {
-+	.command_addr = 0xFFFBE000,
-+	.response_addr = 0xFFFBF000,
++int p9_fsi_getscom(void *bus, u32 address, u8 *data, size_t offset)
++{
++	return -SCOM_READ_ERROR;
++}
++
++int p9_fsi_putscom(void *bus, u32 address, u32 data0, u32 data1)
++{
++	return -SCOM_WRITE_ERROR;
++}
++
++static struct occ_bus_ops p9_bus_ops = {
++	.getscom = p9_fsi_getscom,
++	.putscom = p9_fsi_putscom,
 +};
 +
-+struct occ *occ_p9_start(struct device *dev, void *bus,
-+			 struct occ_bus_ops bus_ops)
-+{
-+	return occ_start(dev, bus, bus_ops, p9_ops, p9_config);
-+}
-+EXPORT_SYMBOL(occ_p9_start);
++static struct occ_sysfs_config p9_sysfs_config = {
++	.num_caps_fields = ARRAY_SIZE(caps_sensor_names),
++	.caps_names = caps_sensor_names,
++};
 +
-+int occ_p9_stop(struct occ *occ)
++int occ_p9_probe(struct device *dev, void *client)
 +{
-+	return occ_stop(occ);
++	struct occ *occ;
++	struct occ_sysfs *hwmon;
++
++	occ = occ_p9_start(dev, client, p9_bus_ops);
++	if (IS_ERR(occ))
++		return PTR_ERR(occ);
++
++	hwmon = occ_sysfs_start(dev, occ, &p9_sysfs_config);
++	if (IS_ERR(hwmon))
++		return PTR_ERR(hwmon);
++
++	return 0;
 +}
-+EXPORT_SYMBOL(occ_p9_stop);
++
++int occ_p9_remove(void)
++{
++	struct occ *occ = NULL;
++
++	return occ_p9_stop(occ);
++}
++
++/* used by device table */
++static const struct of_device_id occ_of_match[] = {
++	{ .compatible = "ibm,occ-p9-fsi" },
++	{}
++};
++MODULE_DEVICE_TABLE(of, occ_of_match);
 +
 +MODULE_AUTHOR("Eddie James <eajames@us.ibm.com>");
-+MODULE_DESCRIPTION("P9 OCC sensors");
++MODULE_DESCRIPTION("BMC P9 OCC hwmon driver");
 +MODULE_LICENSE("GPL");
-diff --git a/drivers/hwmon/occ/occ_p9.h b/drivers/hwmon/occ/occ_p9.h
-new file mode 100644
-index 000000000000..52b38278238b
---- /dev/null
-+++ b/drivers/hwmon/occ/occ_p9.h
-@@ -0,0 +1,30 @@
-+/*
-+ * p9.h - OCC hwmon driver
-+ *
-+ * This file contains Power9-specific function prototypes
-+ *
-+ * Copyright 2016 IBM Corp.
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation; either version 2 of the License, or
-+ * (at your option) any later version.
-+ *
-+ * This program is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ * GNU General Public License for more details.
-+ */
-+
-+#ifndef __P9_H__
-+#define __P9_H__
-+
-+#include "scom.h"
-+#include "occ.h"
-+
-+struct device;
-+
-+struct occ *occ_p9_start(struct device *dev, void *bus, struct occ_bus_ops bus_ops);
-+int occ_p9_stop(struct occ *occ);
-+
-+#endif /* __P9_H__ */
 -- 
 2.9.3
