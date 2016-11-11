@@ -1,55 +1,33 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x244.google.com (mail-yw0-x244.google.com
- [IPv6:2607:f8b0:4002:c05::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <clg@kaod.org>
+Received: from 13.mo4.mail-out.ovh.net (13.mo4.mail-out.ovh.net [178.33.251.8])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tFSn313twzDvbg
- for <openbmc@lists.ozlabs.org>; Fri, 11 Nov 2016 16:16:07 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="i1cBiWvT"; 
- dkim-atps=neutral
-Received: by mail-yw0-x244.google.com with SMTP id s68so383046ywg.0
- for <openbmc@lists.ozlabs.org>; Thu, 10 Nov 2016 21:16:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=dtWG6v3Gmv8jMol9MS9az8fviZ/0qzkQcJqGy6DfUWs=;
- b=i1cBiWvTAl4rBFZOPJedccuU0oIyo5opGG7opOkuDBfXyMoQqptmPku893GB8oUEm1
- BwGt7KLolcl5n0GuGLAIoGt//B9A3IoMXM93F5j3Nthk3++PuX2i+HL141ao6aXc9LoL
- tOTpG40mkoulcUqBa+wBMxtOmCWux8BEgNzZ2hIdYX0WRM63DoA5+sPr5dCjKrUv5Fol
- CCdR+qh7UlX3jB9weCTMBtobAqJoccvYIayEkFrCFFbQ1gD3huvwJOuwEIrPs3sDih0X
- oAp+cXZ3M42l0g9F7Cz96h/EZ17X0FWyTUtLb+m95c4M/mj540ZApsci9x8b+cbGmGf0
- ifHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=dtWG6v3Gmv8jMol9MS9az8fviZ/0qzkQcJqGy6DfUWs=;
- b=iO22xK9JlLX+ZgwLz/K3S9VPBu8MEzBZW1bnQKQFrHF8i1ut5rKYZTi4ci7su8PsIG
- my8PDTN1kVLmc1h5wgEAShZzAWJB7mjCBfDKXifMg2fMhPb2Fy+386nYUl6xmvw8QFfZ
- T4EgS1EZH5c5ohhUC97SSZ5ii1nc3ubkZhD2tkeZQS3EZepOZ5wvw3ffJVSsVJv6gPmQ
- sT8vKnb6Lyg5j23rWJjwaIWW4ycoXM9FQPeeMRq/bPnunUXYTPLDSbZaTWjhfF327pwf
- 0P8ugPwkjDGHfA2gI1aqEEnBhv+oqa+7gsckhB/xasIRt6YSLCR8uoF5f0cSMyeNT6sx
- Rw+w==
-X-Gm-Message-State: ABUngveSoPGB1f4kiiDMW171aDWzLz52i2+UFMC0Ps8y3G3msZS8CZsDiTZPxVIsRnnvSi6hoKOno0NGn4yUBQ==
-X-Received: by 10.157.60.206 with SMTP id t14mr453086otf.37.1478841364353;
- Thu, 10 Nov 2016 21:16:04 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tFXgd3rwJzDvn2
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Nov 2016 19:11:41 +1100 (AEDT)
+Received: from player750.ha.ovh.net (b7.ovh.net [213.186.33.57])
+ by mo4.mail-out.ovh.net (Postfix) with ESMTP id 094A61970C
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Nov 2016 09:02:25 +0100 (CET)
+Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: clg@kaod.org)
+ by player750.ha.ovh.net (Postfix) with ESMTPSA id 4A78A180070;
+ Fri, 11 Nov 2016 09:02:23 +0100 (CET)
+Subject: Re: [PATCH] arm: dts: Add pnor label for wspoon and romulus
+To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
+References: <20161111040238.5972-1-joel@jms.id.au>
+Cc: Cyril Bur <cyril.bur@au1.ibm.com>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <85fa06da-c4d9-e64d-c5af-141f7aa5e074@kaod.org>
+Date: Fri, 11 Nov 2016 09:02:22 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.4.0
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.182.97.41 with HTTP; Thu, 10 Nov 2016 21:16:03 -0800 (PST)
-Received: by 10.182.97.41 with HTTP; Thu, 10 Nov 2016 21:16:03 -0800 (PST)
-In-Reply-To: <cover.1478835488.git.andrew@aj.id.au>
-References: <1478560512-23791-1-git-send-email-eajames.ibm@gmail.com>
- <cover.1478835488.git.andrew@aj.id.au>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 11 Nov 2016 15:46:03 +1030
-X-Google-Sender-Auth: PhY2cyCSlCBk6VGRXzpp8NfqBxA
-Message-ID: <CACPK8XdzofrfSC5di2m33naGUSqpLiQuhZzhJY2J7nBwxujHmA@mail.gmail.com>
-Subject: Re: [RFC PATCH linux 0/9] On-Chip Controller (OCC) hwmon driver
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Edward James <eajames@us.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, eajames.ibm@gmail.com
-Content-Type: multipart/alternative; boundary=94eb2c19242a3399a00540ff96dd
+In-Reply-To: <20161111040238.5972-1-joel@jms.id.au>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 8867869141729250196
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrtdehgdduuddvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,71 +39,153 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Nov 2016 05:16:07 -0000
+X-List-Received-Date: Fri, 11 Nov 2016 08:11:42 -0000
 
---94eb2c19242a3399a00540ff96dd
-Content-Type: text/plain; charset=UTF-8
+On 11/11/2016 05:02 AM, Joel Stanley wrote:
+> This is required by userspace (pflash) to identify the PNOR.
+> 
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
+> ---
+>  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     | 1 +
+>  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 1 +
+>  2 files changed, 2 insertions(+)
+> 
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> index 4c4c547fe412..c23627ec5e84 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+> @@ -40,6 +40,7 @@
+>  
+>  	flash@0 {
+>  		status = "okay";
+> +		label = "pnor";
+>  	};
+>  };
+>  
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> index 7badbda288d3..75c6b68950f9 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> @@ -40,6 +40,7 @@
+>  
+>  	flash@0 {
+>  		status = "okay";
+> +		label = "pnor";
+>  	};
+>  };
+>  
+> 
 
-On 11 Nov 2016 14:43, "Andrew Jeffery" <andrew@aj.id.au> wrote:
-> So I have reworked them into what is now 8 patches (see below) and tried
-to
-> tell a bit more of a story with them (hopefully I succeeded!) Second, I
-tried
-> my hand at reworking the layering as mentioned above, such that hardware
-> interaction is split from sysfs, and that the SCOM transport and sensor
-> configuration is decoupled from the data parsing. You largely had all of
-these
-> in-place already, I just cut and pasted code around a bit.
 
-Did you look at Jeremy and Chris B's FSI patches? I think you would be the
-first client of their new interfaces.
+So, according to :
 
-> Please review the patches and provide feedback! I'd like to hear
-arguments for
-> or against both of our approaches. Note though that I've only tested that
-these
-> patches compile, I absolutely have not done any further testing.
->
-> Joel: Any chance you could chime in with an architectural review?
+	Documentation/devicetree/bindings/mtd/jedec,spi-nor.txt
+	Documentation/devicetree/bindings/mtd/partitions.txt
 
-No worries.
+we can not label the flash module node but we can label the 
+partition instead. Would a patch like below fit the need ? 
+Here is what we get on a palmetto and an EVB, the approach
+are different.
 
-> When the dust has settled on the bigger issues we can start to look at the
-> finer details of the APIs (there are some bugs, oddities and complexities
-that
-> I would like to address before they are applied to openbmc/linux).
+	root@palmetto:~# cat /proc/mtd 
+	dev:    size   erasesize  name
+	mtd0: 00060000 00001000 "u-boot"
+	mtd1: 00020000 00001000 "u-boot-env"
+	mtd2: 00280000 00001000 "kernel"
+	mtd3: 001c0000 00001000 "initramfs"
+	mtd4: 01740000 00001000 "rofs"
+	mtd5: 00400000 00001000 "rwfs"
+	mtd6: 02000000 00010000 "1e630000.spi:pnor@0"
 
-I suggest the next step is upstream review. We can put them in the tree if
-it's urgent, but I trust that you and Eddie will beat them into shape in no
-time. If you succeed we can then apply the upstream versions directly.
+	root@evb-ast2500:~# cat /proc/mtd 
+	dev:    size   erasesize  name
+	mtd0: 00060000 00001000 "u-boot"
+	mtd1: 00020000 00001000 "u-boot-env"
+	mtd2: 00280000 00001000 "kernel"
+	mtd3: 001c0000 00001000 "initramfs"
+	mtd4: 01740000 00001000 "rofs"
+	mtd5: 00400000 00001000 "rwfs"
+	mtd6: 02000000 00010000 "pnor"
+
+The partition definitions probably belongs to the machine dts.
+
+And a udev rules would also fit the purpose I think.
 
 Cheers,
 
-Joel
+C.  
 
---94eb2c19242a3399a00540ff96dd
-Content-Type: text/html; charset=UTF-8
+From 614e34a070c852f36d7f277e4fda0da1f67293c8 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
+Date: Fri, 11 Nov 2016 08:53:45 +0100
+Subject: [PATCH] ARM: dts: aspeed: remove label and use partitions
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-<p dir="ltr"></p>
-<p dir="ltr">On 11 Nov 2016 14:43, &quot;Andrew Jeffery&quot; &lt;<a href="mailto:andrew@aj.id.au">andrew@aj.id.au</a>&gt; wrote:<br>
-&gt; So I have reworked them into what is now 8 patches (see below) and tried to<br>
-&gt; tell a bit more of a story with them (hopefully I succeeded!) Second, I tried<br>
-&gt; my hand at reworking the layering as mentioned above, such that hardware<br>
-&gt; interaction is split from sysfs, and that the SCOM transport and sensor<br>
-&gt; configuration is decoupled from the data parsing. You largely had all of these<br>
-&gt; in-place already, I just cut and pasted code around a bit.</p>
-<p dir="ltr">Did you look at Jeremy and Chris B&#39;s FSI patches? I think you would be the first client of their new interfaces.</p>
-<p dir="ltr">&gt; Please review the patches and provide feedback! I&#39;d like to hear arguments for<br>
-&gt; or against both of our approaches. Note though that I&#39;ve only tested that these<br>
-&gt; patches compile, I absolutely have not done any further testing.<br>
-&gt;<br>
-&gt; Joel: Any chance you could chime in with an architectural review?</p>
-<p dir="ltr">No worries. </p>
-<p dir="ltr">&gt; When the dust has settled on the bigger issues we can start to look at the<br>
-&gt; finer details of the APIs (there are some bugs, oddities and complexities that<br>
-&gt; I would like to address before they are applied to openbmc/linux).</p>
-<p dir="ltr">I suggest the next step is upstream review. We can put them in the tree if it&#39;s urgent, but I trust that you and Eddie will beat them into shape in no time. If you succeed we can then apply the upstream versions directly.</p>
-<p dir="ltr">Cheers,</p>
-<p dir="ltr">Joel</p>
+Signed-off-by: Cédric Le Goater <clg@kaod.org>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi | 5 ++++-
+ arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts      | 3 +--
+ arch/arm/boot/dts/aspeed-g5.dtsi                   | 9 +++++++++
+ 3 files changed, 14 insertions(+), 3 deletions(-)
 
---94eb2c19242a3399a00540ff96dd--
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
+index ca8639b52f6d..be57e7b11bac 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
+@@ -1,7 +1,9 @@
+ /* This file is the label for the bmc primary flash and its partitions */
+-				label = "bmc";
++
++		    partitions {
+ 				#address-cells = < 1 >;
+ 				#size-cells = < 1 >;
++				compatible = "fixed-partitions";
+ 				u-boot {
+ 					reg = < 0 0x60000 >;
+ 					label = "u-boot";
+@@ -26,3 +28,4 @@
+ 					reg = < 0x1c00000 0x400000 >;
+ 					label = "rwfs";
+ 				};
++		    };
+\ No newline at end of file
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+index 0fd60c4eafad..8fe248f4d531 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+@@ -58,10 +58,9 @@
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			compatible = "aspeed,ast2400-smc";
+-			flash {
++			pnor@0 {
+ 				reg = < 0 >;
+ 				compatible = "jedec,spi-nor" ;
+-				label = "pnor";
+ 			};
+ 		};
+ 	};
+diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+index be95fd42dbd7..53bb2472664e 100644
+--- a/arch/arm/boot/dts/aspeed-g5.dtsi
++++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+@@ -62,6 +62,15 @@
+ 				reg = < 0 >;
+ 				compatible = "jedec,spi-nor";
+ 				status = "disabled";
++				partitions {
++					   compatible = "fixed-partitions";
++					   #address-cells = < 1 >;
++					   #size-cells = < 1 >;
++					   pnor@0 {
++						reg = < 0x0 0x2000000 >;
++					   };
++				};
++
+ 			};
+ 			flash@1 {
+ 				reg = < 1 >;
+-- 
+2.7.4
