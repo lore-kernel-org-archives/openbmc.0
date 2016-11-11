@@ -1,52 +1,27 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
- [IPv6:2607:f8b0:400e:c00::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <bradleyb@fuzziesquirrel.com>
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tFR8X0cnhzDvnN
- for <openbmc@lists.ozlabs.org>; Fri, 11 Nov 2016 15:02:52 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Xm+vc/Cs"; 
- dkim-atps=neutral
-Received: by mail-pf0-x241.google.com with SMTP id n85so835740pfi.3
- for <openbmc@lists.ozlabs.org>; Thu, 10 Nov 2016 20:02:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=sender:from:to:cc:subject:date:message-id;
- bh=vPZvxjeOB9QPYcYK7i2xJBoIlfXIYZ4Wwx9BVow6eSM=;
- b=Xm+vc/CsvJX/aGkkC0fTMQoRVDobW+LCZ4y0gctq9VcQBXmZhx9T9xSHHRcf+Fto+Z
- OfLC5A9eSo1DHy/Bb2JmLRF2+TBX436oTB4w3VwwD7WwXzJzr0FFyFxvG39Yov5/McXA
- mPCsu+3P3oac8QGilah6mL3vo9Wzpw43AUfY9FCCT3xivcpa0t1kiyzXeV7E7Z+uMbjM
- 4aQVrKAeu17jC3f4Jt7FAHLG9FFW4aWyatP9HMa98C7+1A4ntAUr/EmMdAJgAONYkON+
- dMF0xV36T2X8g8idceAbnB2KTViizaqNOV5yxvsxT4jZQcimQlJg86HJ1rEW7sP4Spde
- bQxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
- bh=vPZvxjeOB9QPYcYK7i2xJBoIlfXIYZ4Wwx9BVow6eSM=;
- b=AKIurbqEw0qUDJOpsA5Z8o5MHd8MxKjLpgdyIZe1aQ1EpNb5uhxU69OfN/2LraRm7q
- sJKt6z+nY7mQ6b98XnvoJ2jtoAV4LhiIySM8RLiROa4TZLWBgLqTWBUarLE7l5KiFBgY
- 8heZxdFcmstWwXGXelpECZ1oYSkKck1zwdtaOYYSWYY/ZGxA6h8DMeNyv58a4Udp+RyW
- xPbhuxLs39LZ/FvYiYP1GO3O/GRQKdw2bpooglE1my8yEUtr6F5jTQMI57L/LBYhSOkS
- Oe0rICjqsN5sZhO6ylycGX67rBrU79pnVv2wk92DlLvfOQelW+QhfEreipPFRYtN8HBj
- G5dw==
-X-Gm-Message-State: ABUngvfDurHAiiINWzhf9eoHh3ACkED6KQxLfqt02GuAt4I9GpY6mGhZN9H40SMJ8t2N3Q==
-X-Received: by 10.99.122.92 with SMTP id j28mr1222274pgn.64.1478836969803;
- Thu, 10 Nov 2016 20:02:49 -0800 (PST)
-Received: from aurora.jms.id.au ([2403:480:11:8000:a5bb:5ae1:e3b4:2a7])
- by smtp.gmail.com with ESMTPSA id w125sm10662643pfb.8.2016.11.10.20.02.46
- (version=TLS1 cipher=AES128-SHA bits=128/128);
- Thu, 10 Nov 2016 20:02:49 -0800 (PST)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-Received: by aurora.jms.id.au (sSMTP sendmail emulation);
- Fri, 11 Nov 2016 14:32:41 +1030
-From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org
-Cc: Cyril Bur <cyril.bur@au1.ibm.com>,
- =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-Subject: [PATCH] arm: dts: Add pnor label for wspoon and romulus
-Date: Fri, 11 Nov 2016 14:32:38 +1030
-Message-Id: <20161111040238.5972-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.10.2
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tFRB36JVkzDvnN
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Nov 2016 15:04:11 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Sender: bradleyb@fuzziesquirrel.com
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Message-Id: <B2F64170-7A0B-486A-9AEE-A454BACFDC9B@fuzziesquirrel.com>
+Content-Type: multipart/alternative;
+ boundary="Apple-Mail=_75274B77-A5D8-4DB8-8D95-3D12543E01A3"
+Mime-Version: 1.0 (Mac OS X Mail 10.1 \(3251\))
+Subject: Re: Comments on Sensor design.
+Date: Thu, 10 Nov 2016 23:04:04 -0500
+In-Reply-To: <20161107035412.GC15757@heinlein.lan>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+To: Patrick Williams <patrick@stwcx.xyz>,
+ Xo Wang <xow@google.com>
+References: <20161031210739.k2x67uz6m55j3n2u@asimov>
+ <CAPLgG==F66J2S4Ex+tF1dAQY7RxiDD=rOcmZ8Y50jTcMLDWjrw@mail.gmail.com>
+ <53C4D16D-D216-4C12-B760-5328AF3B8685@fuzziesquirrel.com>
+ <20161107035412.GC15757@heinlein.lan>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,39 +33,201 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Nov 2016 04:02:52 -0000
+X-List-Received-Date: Fri, 11 Nov 2016 04:04:12 -0000
 
-This is required by userspace (pflash) to identify the PNOR.
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts     | 1 +
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 1 +
- 2 files changed, 2 insertions(+)
+--Apple-Mail=_75274B77-A5D8-4DB8-8D95-3D12543E01A3
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-index 4c4c547fe412..c23627ec5e84 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-@@ -40,6 +40,7 @@
- 
- 	flash@0 {
- 		status = "okay";
-+		label = "pnor";
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index 7badbda288d3..75c6b68950f9 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -40,6 +40,7 @@
- 
- 	flash@0 {
- 		status = "okay";
-+		label = "pnor";
- 	};
- };
- 
--- 
-2.10.2
+I have changed my mind.  I think I favor the single interface approach =
+now, with sensor type expressed in the path hierarchy.  =46rom an end =
+user perspective, it makes sense to group all the temperature sensors =
+here for example (this would be a REST collection):
+
+/xyz/openbmc_project/sensors/temperature
+
+The only other way to express the type outside the BMC (DBUS interfaces =
+are not exposed) is with a property, but that requires a lot queries =
+from a client or a fancy query mechanism like CIM has.  Given that I=E2=80=
+=99m not seeing any motivation to have different interfaces per type or =
+a property in a unified interface that denotes the type.
+
+So I am proposing just a handful of interfaces for now, found here:
+
+https://gerrit.openbmc-project.xyz/#/c/1106
+
+This should give us enough definition and still be flexible.
+
+Moving past the API definition=E2=80=A6there is an unfinished hwmon =
+monitoring application out there:
+https://github.com/openbmc/phosphor-hwmon
+
+My expectation is that this application will be started via udev+systemd =
+and enter a polling loop with objects implementing the interfaces above, =
+being created/updated on each poll.  This will generate a stream of dbus =
+signals for the rest of the applications to listen to and act on.
+
+This feels like a pretty general implementation for hwmon class sensors =
+so it seems like a good candidate for the reference implementation.  In =
+the longer term, I anticipate reference implementations for other, =
+non-hwmon classes of sensors.
+
+I=E2=80=99m sure I=E2=80=99ve probably missed something - please let me =
+know.
+
+thx - brad
+
+> On Nov 6, 2016, at 10:54 PM, Patrick Williams <patrick@stwcx.xyz> =
+wrote:
+>=20
+> On Wed, Nov 02, 2016 at 10:12:47AM -0400, Brad Bishop wrote:
+>>=20
+>>> On Nov 2, 2016, at 12:58 AM, Rick Altherr <raltherr@google.com> =
+wrote:
+>> The difference really is just with signal match rules and I don=E2=80=99=
+t really see that one approach over the other
+>> provides any more or less flexibility.  If you want signals for an =
+entire class of sensors, you just use
+>> the pathnamespace match rule.
+>=20
+> As long as you feel we have this covered with a mapper call or a =
+signal
+> filter I am fine.  I was concerned with, especially, the number of =
+calls
+> the REST server would need to do in order to subscribe to all the
+> sensors.
+>=20
+>>> In both cases the dbus path could contain the 'type':
+>>>    /xyz/openbmc_project/sensors/temperature/ambient
+>>>    /xyz/openbmc_project/sensors/fan_tach/fan0
+>>>=20
+>>> The question is essentially should the "Unit" property be used to
+>>> resolve the 'type' or should we have distinct interfaces for each
+>>> 'type=E2=80=99?
+>>=20
+>> Patrick - after reading this again I don=E2=80=99t understand.  Why =
+would you not just use
+>> the path namespace to resolve the type?
+>=20
+> I think this was making leap that we would require / document paths as
+> well.  Maybe that is the right thing to do but we don't have a =
+currently
+> defined mechanism for it.  I'm especially not happy with 'fan_tach' as =
+a
+> path match string.
+>=20
+> --=20
+> Patrick Williams
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+
+
+--Apple-Mail=_75274B77-A5D8-4DB8-8D95-3D12543E01A3
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html =
+charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; -webkit-line-break: after-white-space;" =
+class=3D""><div class=3D""><div style=3D"font-family: monospace; =
+font-size: 11px;" class=3D"">I have changed my mind. &nbsp;I think I =
+favor the single interface approach now, with sensor type expressed in =
+the path hierarchy. &nbsp;=46rom an end user perspective, it makes sense =
+to group all the temperature sensors here for example (this would be a =
+REST collection):</div><div style=3D"font-family: monospace; font-size: =
+11px;" class=3D""><br class=3D""></div><div style=3D"font-family: =
+monospace; font-size: 11px;" =
+class=3D"">/xyz/openbmc_project/sensors/temperature</div><div =
+style=3D"font-family: monospace; font-size: 11px;" class=3D""><br =
+class=3D""></div><div style=3D"font-family: monospace; font-size: 11px;" =
+class=3D"">The only other way to express the type outside the BMC (DBUS =
+interfaces are not exposed) is with a property, but that requires a lot =
+queries from a client or a fancy query mechanism like CIM has. =
+&nbsp;Given that I=E2=80=99m not seeing any motivation to have different =
+interfaces per type or a property in a unified interface that denotes =
+the type.</div><div style=3D"font-family: monospace; font-size: 11px;" =
+class=3D""><br class=3D""></div><div style=3D"font-family: monospace; =
+font-size: 11px;" class=3D"">So I am proposing just a handful of =
+interfaces for now, found here:</div><div style=3D"font-family: =
+monospace; font-size: 11px;" class=3D""><br class=3D""></div><div =
+style=3D"font-family: monospace; font-size: 11px;" class=3D""><a =
+href=3D"https://gerrit.openbmc-project.xyz/#/c/1106" =
+class=3D"">https://gerrit.openbmc-project.xyz/#/c/1106</a></div><div =
+style=3D"font-family: monospace; font-size: 11px;" class=3D""><br =
+class=3D""></div><div style=3D"font-family: monospace; font-size: 11px;" =
+class=3D"">This should give us enough definition and still be =
+flexible.</div><div style=3D"font-family: monospace; font-size: 11px;" =
+class=3D""><br class=3D""></div><div style=3D"font-family: monospace; =
+font-size: 11px;" class=3D"">Moving past the API definition=E2=80=A6there =
+is an unfinished hwmon monitoring application out there:</div><div =
+style=3D"font-family: monospace; font-size: 11px;" class=3D""><a =
+href=3D"https://github.com/openbmc/phosphor-hwmon" =
+class=3D"">https://github.com/openbmc/phosphor-hwmon</a></div><div =
+style=3D"font-family: monospace; font-size: 11px;" class=3D""><br =
+class=3D""></div><div style=3D"font-family: monospace; font-size: 11px;" =
+class=3D"">My expectation is that this application will be started via =
+udev+systemd and enter a polling loop with objects implementing the =
+interfaces above, being created/updated on each poll. &nbsp;This will =
+generate a stream of dbus signals for the rest of the applications to =
+listen to and act on.</div><div style=3D"font-family: monospace; =
+font-size: 11px;" class=3D""><br class=3D""></div><div =
+style=3D"font-family: monospace; font-size: 11px;" class=3D"">This feels =
+like a pretty general implementation for hwmon class sensors so it seems =
+like a good candidate for the reference implementation. &nbsp;In the =
+longer term, I anticipate reference implementations for other, non-hwmon =
+classes of sensors.</div><div style=3D"font-family: monospace; =
+font-size: 11px;" class=3D""><br class=3D""></div><div =
+style=3D"font-family: monospace; font-size: 11px;" class=3D"">I=E2=80=99m =
+sure I=E2=80=99ve probably missed something - please let me =
+know.</div><div style=3D"font-family: monospace; font-size: 11px;" =
+class=3D""><br class=3D""></div><div style=3D"font-family: monospace; =
+font-size: 11px;" class=3D"">thx - brad</div></div><br =
+class=3D""><div><blockquote type=3D"cite" class=3D""><div class=3D"">On =
+Nov 6, 2016, at 10:54 PM, Patrick Williams &lt;<a =
+href=3D"mailto:patrick@stwcx.xyz" class=3D"">patrick@stwcx.xyz</a>&gt; =
+wrote:</div><br class=3D"Apple-interchange-newline"><div class=3D""><div =
+class=3D"">On Wed, Nov 02, 2016 at 10:12:47AM -0400, Brad Bishop =
+wrote:<br class=3D""><blockquote type=3D"cite" class=3D""><br =
+class=3D""><blockquote type=3D"cite" class=3D"">On Nov 2, 2016, at 12:58 =
+AM, Rick Altherr &lt;<a href=3D"mailto:raltherr@google.com" =
+class=3D"">raltherr@google.com</a>&gt; wrote:<br =
+class=3D""></blockquote>The difference really is just with signal match =
+rules and I don=E2=80=99t really see that one approach over the other<br =
+class=3D"">provides any more or less flexibility. &nbsp;If you want =
+signals for an entire class of sensors, you just use<br class=3D"">the =
+pathnamespace match rule.<br class=3D""></blockquote><br class=3D"">As =
+long as you feel we have this covered with a mapper call or a signal<br =
+class=3D"">filter I am fine. &nbsp;I was concerned with, especially, the =
+number of calls<br class=3D"">the REST server would need to do in order =
+to subscribe to all the<br class=3D"">sensors.<br class=3D""><br =
+class=3D""><blockquote type=3D"cite" class=3D""><blockquote type=3D"cite" =
+class=3D"">In both cases the dbus path could contain the 'type':<br =
+class=3D""> =
+&nbsp;&nbsp;&nbsp;/xyz/openbmc_project/sensors/temperature/ambient<br =
+class=3D""> =
+&nbsp;&nbsp;&nbsp;/xyz/openbmc_project/sensors/fan_tach/fan0<br =
+class=3D""><br class=3D"">The question is essentially should the "Unit" =
+property be used to<br class=3D"">resolve the 'type' or should we have =
+distinct interfaces for each<br class=3D"">'type=E2=80=99?<br =
+class=3D""></blockquote><br class=3D"">Patrick - after reading this =
+again I don=E2=80=99t understand. &nbsp;Why would you not just use<br =
+class=3D"">the path namespace to resolve the type?<br =
+class=3D""></blockquote><br class=3D"">I think this was making leap that =
+we would require / document paths as<br class=3D"">well. &nbsp;Maybe =
+that is the right thing to do but we don't have a currently<br =
+class=3D"">defined mechanism for it. &nbsp;I'm especially not happy with =
+'fan_tach' as a<br class=3D"">path match string.<br class=3D""><br =
+class=3D"">-- <br class=3D"">Patrick Williams<br =
+class=3D"">_______________________________________________<br =
+class=3D"">openbmc mailing list<br class=3D""><a =
+href=3D"mailto:openbmc@lists.ozlabs.org" =
+class=3D"">openbmc@lists.ozlabs.org</a><br =
+class=3D"">https://lists.ozlabs.org/listinfo/openbmc<br =
+class=3D""></div></div></blockquote></div><br class=3D""></body></html>=
+
+--Apple-Mail=_75274B77-A5D8-4DB8-8D95-3D12543E01A3--
