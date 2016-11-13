@@ -1,50 +1,27 @@
-Return-Path: <yuenn@google.com>
-Received: from mail-wm0-x22d.google.com (mail-wm0-x22d.google.com
- [IPv6:2a00:1450:400c:c09::22d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tFr3f71z4zDt2g
- for <openbmc@lists.ozlabs.org>; Sat, 12 Nov 2016 06:45:02 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="WS/3T65a"; 
- dkim-atps=neutral
-Received: by mail-wm0-x22d.google.com with SMTP id a197so442874353wmd.0
- for <openbmc@lists.ozlabs.org>; Fri, 11 Nov 2016 11:45:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=SKJaFrttHRAT45T1L31dL1qw/8IAywDMep0do4U/Id0=;
- b=WS/3T65aiEiDG+dVMjWUIY46VaSQhoVUWXuLPCG/EnSSZ/hGNLjsETSJbMmHHqzAdn
- fMdbBqZP+PnQBPViVrlLDZ1SVp/jgLlHUV+DPTi+QVUxoiGHXHEdNfjiCwuXgme8LS18
- Mzd4nHlasQcq3I+Rh3dwgZJ7k7nNZlB7+LBMs0uZlArjnJ+uWPcrBtLkgHLzmKbsq1mQ
- 0uJpjSgy2Rgicet+YvTxx5K3na1FfNnILL6++UIEt1AmVYSgz8rP+QzRUGY0SlFLJiJY
- Dpi9sdw8QVYCMwIh2wCxKGqVppINz9HzMQsvJqPdJnONfPEm8hh/WS1x+NQc3rHe6JhI
- D8zQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=SKJaFrttHRAT45T1L31dL1qw/8IAywDMep0do4U/Id0=;
- b=g9aKUDbTOMcHAzsO32/Wk56XV4+n5lFzMZG2q4VhOflj+H9ZNjwWy33TgRi8l7NVsN
- ltNoC9h9lpj15S8sZrifoRBFND3/BmLGIRAaLkAl1PJke4UNhlP/iBzA9PzxOJzecSsH
- T4io0MthgM5AbFvIbmK3RwwyUAsL2mZBJu3rs1Lv2G+V/Kk0oTKAFKkxu3Us0mT+KIoU
- QVZT7htQBtL7Bmj6ZDXHA9efsM29mbQCG4g3UF+adnt4XdjDx3CWwHsa0TmXcsClq19w
- ctwnZtnUbw4ERnzd9XSCDd0g80+ineKRte5hyWJLMlpyZtHLdKGlAXrZjShNKB++7P5V
- o2cQ==
-X-Gm-Message-State: ABUngveXhNXHanW9yOjEbk9mCMEZGGdexlqKrOBYqTM4W/HqRyrt5c1LTandIFHLYMWPveIMytITZOHyu9/gm9FQ
-X-Received: by 10.28.103.134 with SMTP id b128mr13488500wmc.54.1478893496038; 
- Fri, 11 Nov 2016 11:44:56 -0800 (PST)
+Return-Path: <alistair@popple.id.au>
+Received: from ipmail07.adl2.internode.on.net (ipmail07.adl2.internode.on.net
+ [150.101.137.131])
+ by lists.ozlabs.org (Postfix) with ESMTP id 3tH9Gk24l9zDvWr
+ for <openbmc@lists.ozlabs.org>; Mon, 14 Nov 2016 10:44:14 +1100 (AEDT)
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: A2BXAwAs+ihYfQpSY3pcHAEBBAEBCgEBgyYLAQEBAQF3gQCFKJ8eh2yKZYQWIIJNgzYCgl8BAgEBAQEBAhMBARYvMIRhAQEBBCcTPxALFQMJFRAPARE2GYhHAxaxHD2HJg2EEAEBAQcCASSLFoJIgWoWhWEFiEmGFwyBNYlYEzWGPIZehCqBCE+HZIV+iR2EJ4QKgTwRCxyDIRyBcSo0AYdBAQEB
+Received: from static-82-10.transact.net.au (HELO new-mexico.localnet)
+ ([122.99.82.10])
+ by ipmail07.adl2.internode.on.net with ESMTP; 14 Nov 2016 10:14:03 +1030
+From: Alistair Popple <alistair@popple.id.au>
+To: openbmc@lists.ozlabs.org
+Cc: christopher.lee.bostic@gmail.com, xxpetri@de.ibm.com, zahrens@us.ibm.com
+Subject: Re: [PATCH linux v6 18/18] drivers/fsi: Add SCOM FSI client device
+ driver
+Date: Mon, 14 Nov 2016 10:44:01 +1100
+Message-ID: <1518766.oRRvze06Vl@new-mexico>
+User-Agent: KMail/4.14.1 (Linux/4.2.0-0.bpo.1-amd64; KDE/4.14.2; x86_64; ; )
+In-Reply-To: <1477865379-11566-19-git-send-email-christopher.lee.bostic@gmail.com>
+References: <1477865379-11566-1-git-send-email-christopher.lee.bostic@gmail.com>
+ <1477865379-11566-19-git-send-email-christopher.lee.bostic@gmail.com>
 MIME-Version: 1.0
-Received: by 10.28.20.213 with HTTP; Fri, 11 Nov 2016 11:44:15 -0800 (PST)
-In-Reply-To: <31E13033-730E-4EC4-BFA9-A3798CF00792@fuzziesquirrel.com>
-References: <CADfYTpHjti40QXSwPHGvgBUTZO9mK8t5h2dvTCnE+1BUAUi1xA@mail.gmail.com>
- <31E13033-730E-4EC4-BFA9-A3798CF00792@fuzziesquirrel.com>
-From: Nancy Yuen <yuenn@google.com>
-Date: Fri, 11 Nov 2016 11:44:15 -0800
-Message-ID: <CADfYTpEKym3+VidubNthSCC0RYCT1MW4bo4=wzLWnLKtCTTWuA@mail.gmail.com>
-Subject: Re: AUTHORS files
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=001a114b2fae7e497805410bb9fe
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,98 +33,327 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Nov 2016 19:45:03 -0000
+X-List-Received-Date: Sun, 13 Nov 2016 23:44:14 -0000
 
---001a114b2fae7e497805410bb9fe
-Content-Type: text/plain; charset=UTF-8
+Hi Chris,
 
-It is a requirement for any open source project to which a Google employee
-contributes.  The repos must contain a LICENSE file and an AUTHORS file
-that list Google Inc as one of the contributors.
+Is there a similar device driver for the CFAM/FSI that I missed? That is will 
+there be a chardev for read/writing FSI addresses directly (ie. a chardev to 
+call fsi_device_read/write)? Probably not critical for an initial release but 
+we will need one at some point as I'm pretty sure the cronus server for 
+example has get/putcfam commands as some registers aren't available via SCOM.
 
-I was able to get a waiver for the AUTHORS requirement for openBMC current
-repos so no need to worry about it now.
+Regards,
 
+Alistair
 
-----------
-Nancy
-
-On Thu, Nov 10, 2016 at 3:49 PM, Brad Bishop <bradleyb@fuzziesquirrel.com>
-wrote:
-
-> Hi Nancy
->
-> Is it any open source project or just ones on GitHub?
->
-> Would you mind sending a link to an example GitHub project that already
-> has this file?
->
-> Thx!
->
-> -brad
->
-> > On Nov 10, 2016, at 5:36 PM, Nancy Yuen <yuenn@google.com> wrote:
-> >
-> > The open source policy at Google requires that any repo on GitHub we
-> contribute to contain an AUTHORS file listing all contributing
-> companies/people including Google.
-> >
-> > Any objection if I send out patches for AUTHORS files for each of the
-> openbmc repos, listing Google in the ones where we've contributed?
-> >
-> > ----------
-> > Nancy
-> > _______________________________________________
-> > openbmc mailing list
-> > openbmc@lists.ozlabs.org
-> > https://lists.ozlabs.org/listinfo/openbmc
->
-
---001a114b2fae7e497805410bb9fe
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>It is a requirement for any open source project to wh=
-ich a Google employee contributes.=C2=A0 The repos must contain a LICENSE f=
-ile and an AUTHORS file that list Google Inc as one of the contributors.</d=
-iv><div><br></div><div>I was able to get a waiver for the AUTHORS requireme=
-nt for openBMC current repos so no need to worry about it now.</div><div><b=
-r></div></div><div class=3D"gmail_extra"><br clear=3D"all"><div><div class=
-=3D"gmail_signature" data-smartmail=3D"gmail_signature">----------<br>Nancy=
-</div></div>
-<br><div class=3D"gmail_quote">On Thu, Nov 10, 2016 at 3:49 PM, Brad Bishop=
- <span dir=3D"ltr">&lt;<a href=3D"mailto:bradleyb@fuzziesquirrel.com" targe=
-t=3D"_blank">bradleyb@fuzziesquirrel.com</a>&gt;</span> wrote:<br><blockquo=
-te class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc so=
-lid;padding-left:1ex">Hi Nancy<br>
-<br>
-Is it any open source project or just ones on GitHub?<br>
-<br>
-Would you mind sending a link to an example GitHub project that already has=
- this file?<br>
-<br>
-Thx!<br>
-<br>
--brad<br>
-<div><div class=3D"h5"><br>
-&gt; On Nov 10, 2016, at 5:36 PM, Nancy Yuen &lt;<a href=3D"mailto:yuenn@go=
-ogle.com">yuenn@google.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; The open source policy at Google requires that any repo on GitHub we c=
-ontribute to contain an AUTHORS file listing all contributing companies/peo=
-ple including Google.<br>
-&gt;<br>
-&gt; Any objection if I send out patches for AUTHORS files for each of the =
-openbmc repos, listing Google in the ones where we&#39;ve contributed?<br>
-&gt;<br>
-&gt; ----------<br>
-&gt; Nancy<br>
-</div></div>&gt; ______________________________<wbr>_________________<br>
-&gt; openbmc mailing list<br>
-&gt; <a href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</=
-a><br>
-&gt; <a href=3D"https://lists.ozlabs.org/listinfo/openbmc" rel=3D"noreferre=
-r" target=3D"_blank">https://lists.ozlabs.org/<wbr>listinfo/openbmc</a><br>
-</blockquote></div><br></div>
-
---001a114b2fae7e497805410bb9fe--
+On Sun, 30 Oct 2016 05:09:20 PM christopher.lee.bostic@gmail.com wrote:
+> From: Chris Bostic <cbostic@us.ibm.com>
+> 
+> Create a simple SCOM engine device driver that reads and writes
+> across an FSI bus.
+> 
+> Signed-off-by: Chris Bostic <cbostic@us.ibm.com>
+> 
+> ---
+> 
+> V4 - Add put_scom and get_scom operations
+> 
+> V5 - Add character device registration and fill in read/write
+>      syscalls.
+> 
+> V6 - Add multi scom engine support. Add list of devices.
+>      Use file private data to store and hand off scom structures.
+> 
+>    - Add lseek, open, close
+> 
+>    - Remove data/address structure to pass from user space to
+>      kernel.  Use offset provided by read/write and pass data
+> 
+>    - Added list setup in init and so did not add the macro
+>      module_fsi_driver
+> 
+>    - Global structs made static where possible.
+> 
+>    - Change from char dev to use misc device api as shown
+>      in examples from Jeremy Kere.
+> ---
+>  drivers/fsi/Kconfig    |   6 ++
+>  drivers/fsi/Makefile   |   1 +
+>  drivers/fsi/fsi-scom.c | 238 
++++++++++++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 245 insertions(+)
+>  create mode 100644 drivers/fsi/fsi-scom.c
+> 
+> diff --git a/drivers/fsi/Kconfig b/drivers/fsi/Kconfig
+> index b21fe3c..1fa9bc0 100644
+> --- a/drivers/fsi/Kconfig
+> +++ b/drivers/fsi/Kconfig
+> @@ -23,6 +23,12 @@ config FSI_MASTER_GPIO
+>  	depends on FSI
+>  	---help---
+>  	This option enables a FSI master driver using GPIO lines.
+> +
+> +config FSI_SCOM
+> +	tristate "SCOM FSI client"
+> +	depends on FSI
+> +	---help---
+> +	This option enables the SCOM FSI client device driver.
+>  endif
+>  
+>  endmenu
+> diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
+> index 2021ce5..3e31d9a 100644
+> --- a/drivers/fsi/Makefile
+> +++ b/drivers/fsi/Makefile
+> @@ -2,3 +2,4 @@
+>  obj-$(CONFIG_FSI) += fsi-core.o
+>  obj-$(CONFIG_FSI_MASTER_FAKE) += fsi-master-fake.o
+>  obj-$(CONFIG_FSI_MASTER_GPIO) += fsi-master-gpio.o
+> +obj-$(CONFIG_FSI_SCOM) += fsi-scom.o
+> diff --git a/drivers/fsi/fsi-scom.c b/drivers/fsi/fsi-scom.c
+> new file mode 100644
+> index 0000000..27be082
+> --- /dev/null
+> +++ b/drivers/fsi/fsi-scom.c
+> @@ -0,0 +1,238 @@
+> +/*
+> + * SCOM FSI Client device driver
+> + *
+> + * Copyright (C) IBM Corporation 2016
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERGCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + */
+> +
+> +#include <linux/fsi.h>
+> +#include <linux/module.h>
+> +#include <linux/cdev.h>
+> +#include <linux/delay.h>
+> +#include <linux/fs.h>
+> +#include <linux/uaccess.h>
+> +#include <linux/slab.h>
+> +#include <linux/miscdevice.h>
+> +#include <linux/list.h>
+> +
+> +#define FSI_ENGID_SCOM		0x5
+> +
+> +#define SCOM_FSI2PIB_DELAY	50
+> +
+> +/* SCOM engine register set */
+> +#define SCOM_DATA0_REG		0x00
+> +#define SCOM_DATA1_REG		0x04
+> +#define SCOM_CMD_REG		0x08
+> +#define SCOM_RESET_REG		0x1C
+> +
+> +#define SCOM_RESET_CMD		0x80000000
+> +#define SCOM_WRITE_CMD		0x80000000
+> +
+> +struct scom_device {
+> +	struct list_head link;
+> +	struct fsi_device *fsi_dev;
+> +	struct miscdevice mdev;
+> +	char	name[32];
+> +};
+> +
+> +#define to_scom_dev(x)		container_of((x), struct scom_device, 
+mdev)
+> +
+> +static struct list_head scom_devices;
+> +static atomic_t scom_idx = ATOMIC_INIT(0);
+> +static int scom_probe(struct device *);
+> +
+> +static int put_scom(struct scom_device *scom_dev, uint64_t value,
+> +			uint32_t addr)
+> +{
+> +	int rc;
+> +	uint32_t data = SCOM_RESET_CMD;
+> +
+> +	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_RESET_REG, &data,
+> +				sizeof(uint32_t));
+> +	if (rc)
+> +		return rc;
+> +
+> +	data = (value >> 32) & 0xffffffff;
+> +	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_DATA0_REG, &data,
+> +				sizeof(uint32_t));
+> +	if (rc)
+> +		return rc;
+> +
+> +	data = value & 0xffffffff;
+> +	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_DATA1_REG, &data,
+> +				sizeof(uint32_t));
+> +	if (rc)
+> +		return rc;
+> +
+> +	data = SCOM_WRITE_CMD | addr;
+> +	return fsi_device_write(scom_dev->fsi_dev, SCOM_CMD_REG, &data,
+> +				sizeof(uint32_t));
+> +}
+> +
+> +static int get_scom(struct scom_device *scom_dev, uint64_t *value,
+> +			uint32_t addr)
+> +{
+> +	uint32_t result, data;
+> +	int rc;
+> +
+> +	udelay(SCOM_FSI2PIB_DELAY);
+> +
+> +	data = addr;
+> +	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_CMD_REG, &data,
+> +				sizeof(uint32_t));
+> +	if (rc)
+> +		return rc;
+> +
+> +	rc = fsi_device_read(scom_dev->fsi_dev, SCOM_DATA0_REG, &result,
+> +				sizeof(uint32_t));
+> +	if (rc)
+> +		return rc;
+> +
+> +	*value |= (uint64_t) result << 32;
+> +	rc = fsi_device_read(scom_dev->fsi_dev, SCOM_DATA1_REG, &result,
+> +				sizeof(uint32_t));
+> +	if (rc)
+> +		return rc;
+> +
+> +	*value |= result;
+> +
+> +	return 0;
+> +}
+> +
+> +static loff_t scom_llseek(struct file *filep, loff_t offset, int whence)
+> +{
+> +	if (whence != 0)  /* SEEK_SET */
+> +		return -EINVAL;
+> +
+> +	filep->f_pos = offset;
+> +	return offset;
+> +}
+> +
+> +static ssize_t scom_read(struct file *filep, char __user *buf, size_t len,
+> +			loff_t *offset)
+> +{
+> +	int rc = 0;
+> +	struct miscdevice *mdev =
+> +				(struct miscdevice *)filep->private_data;
+> +	struct scom_device *scom = to_scom_dev(mdev);
+> +	struct device *dev = &scom->fsi_dev->dev;
+> +	uint64_t val;
+> +
+> +	if (len != sizeof(uint64_t))
+> +		return -EINVAL;
+> +
+> +	rc = get_scom(scom, &val, *offset);
+> +	if (rc) {
+> +		dev_dbg(dev, "get_scom fail:%d\n", rc);
+> +		return rc;
+> +	}
+> +
+> +	rc = copy_to_user(buf, &val, len);
+> +	if (rc)
+> +		dev_dbg(dev, "copy to user failed:%d\n", rc);
+> +
+> +	return rc ? rc : len;
+> +}
+> +
+> +static ssize_t scom_write(struct file *filep, const char __user *buf,
+> +			size_t len, loff_t *offset)
+> +{
+> +	int rc = 0;
+> +	struct miscdevice *mdev =
+> +				(struct miscdevice *)filep->private_data;
+> +	struct scom_device *scom = to_scom_dev(mdev);
+> +	struct device *dev = &scom->fsi_dev->dev;
+> +	uint64_t val;
+> +
+> +	if (len != sizeof(uint64_t))
+> +		return -EINVAL;
+> +
+> +	rc = copy_from_user(&val, buf, len);
+> +	if (rc) {
+> +		dev_dbg(dev, "copy from user failed:%d\n", rc);
+> +		return -EINVAL;
+> +	}
+> +
+> +	rc = put_scom(scom, val, *offset);
+> +	if (rc)
+> +		dev_dbg(dev, "put_scom failed with:%d\n", rc);
+> +
+> +
+> +	return rc ? rc : len;
+> +}
+> +
+> +static const struct file_operations scom_fops = {
+> +	.owner	= THIS_MODULE,
+> +	.llseek	= scom_llseek,
+> +	.read	= scom_read,
+> +	.write	= scom_write,
+> +};
+> +
+> +static int scom_probe(struct device *dev)
+> +{
+> +	struct fsi_device *fsi_dev = to_fsi_dev(dev);
+> +	struct scom_device *scom = NULL;
+> +
+> +	scom = devm_kzalloc(dev, sizeof(*scom), GFP_KERNEL);
+> +	if (!scom)
+> +		return -ENOMEM;
+> +
+> +	snprintf(scom->name, sizeof(scom->name),
+> +			"scom%d", atomic_inc_return(&scom_idx));
+> +	scom->fsi_dev = fsi_dev;
+> +	scom->mdev.minor = MISC_DYNAMIC_MINOR;
+> +	scom->mdev.fops = &scom_fops;
+> +	scom->mdev.name = scom->name;
+> +	scom->mdev.parent = dev;
+> +	list_add(&scom->link, &scom_devices);
+> +
+> +	return misc_register(&scom->mdev);
+> +}
+> +
+> +static struct fsi_device_id scom_ids[] = {
+> +	{
+> +		.engine_type = FSI_ENGID_SCOM,
+> +		.version = FSI_VERSION_ANY,
+> +	},
+> +	{ 0 }
+> +};
+> +
+> +static struct fsi_driver scom_drv = {
+> +	.id_table = scom_ids,
+> +	.drv = {
+> +		.name = "scom",
+> +		.bus = &fsi_bus_type,
+> +		.probe = scom_probe,
+> +	}
+> +};
+> +
+> +static int scom_init(void)
+> +{
+> +	INIT_LIST_HEAD(&scom_devices);
+> +	return fsi_driver_register(&scom_drv);
+> +}
+> +
+> +static void scom_exit(void)
+> +{
+> +	struct list_head *pos;
+> +	struct scom_device *scom = NULL;
+> +
+> +	list_for_each(pos, &scom_devices) {
+> +		scom = list_entry(pos, struct scom_device, link);
+> +		misc_deregister(&scom->mdev);
+> +		devm_kfree(&scom->fsi_dev->dev, scom);
+> +	}
+> +	fsi_driver_unregister(&scom_drv);
+> +}
+> +
+> +module_init(scom_init);
+> +module_exit(scom_exit);
+> +MODULE_LICENSE("GPL");
+> 
