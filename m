@@ -1,36 +1,46 @@
-Return-Path: <clg@kaod.org>
-Received: from mo4.mail-out.ovh.net (mo4.mail-out.ovh.net [178.32.228.4])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <robherring2@gmail.com>
+Received: from mail-yw0-f196.google.com (mail-yw0-f196.google.com
+ [209.85.161.196])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tHVPy3d70zDvvP
- for <openbmc@lists.ozlabs.org>; Mon, 14 Nov 2016 23:36:38 +1100 (AEDT)
-Received: from player750.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo4.mail-out.ovh.net (Postfix) with ESMTP id 178931CFF0
- for <openbmc@lists.ozlabs.org>; Mon, 14 Nov 2016 13:29:55 +0100 (CET)
-Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
- [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player750.ha.ovh.net (Postfix) with ESMTPSA id 1A1CE180074;
- Mon, 14 Nov 2016 13:29:53 +0100 (CET)
-Subject: Re: [PATCH] arm: dts: Add pnor label for wspoon and romulus
-To: Joel Stanley <joel@jms.id.au>
-References: <20161111040238.5972-1-joel@jms.id.au>
- <85fa06da-c4d9-e64d-c5af-141f7aa5e074@kaod.org>
- <CACPK8XeUh65FM9OC45FZnwVSwLN1ZF7Z5zfasNurHzdBfVKGvA@mail.gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Cyril Bur <cyril.bur@au1.ibm.com>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <932fb723-6330-def0-0cc1-02a190535e00@kaod.org>
-Date: Mon, 14 Nov 2016 13:29:52 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.4.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tHZsr5CNzzDvdG
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Nov 2016 02:57:36 +1100 (AEDT)
+Received: by mail-yw0-f196.google.com with SMTP id b66so7271286ywh.2
+ for <openbmc@lists.ozlabs.org>; Mon, 14 Nov 2016 07:57:36 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=pWSUytCgVgirQnoiwbsWUjDSE6eP/MQRCh6peoP3vxE=;
+ b=aPlMalhXuhRIDPe4TkYwZGZhL4NXznikZ1jfAGEp5t/nnQlYqOA1HTEKETIu+5RFXw
+ USTdCz91L+hbe4ASVGB+DQXii2JKcsJ9s0ou0Sqvyt8BL45D4e6Hi+vUx1qDoMJyD6yT
+ 08moR8mpTKhWGCGdNBeETRB/9udS9y22TwLf+RyJlyiuNA2K3AZcHfJHPAB17D+ZbNIC
+ Ei8q/SPj7IdsMxTM83tQ2ltlbdFbrz9fT2VSRcO/FVKTrzkrUGtZlGu4ONOjk6AVNGyZ
+ W1dlQOOEaeQL9/15YUfXPKo/CB8oHd+M+ZbklFGgRucZYxWmsrmTwQfEJTQVmwhLgwNN
+ InSw==
+X-Gm-Message-State: ABUngvcYaQpLWknRP2WTO4IjD38cuvgq+1etAmQeztPUpRciqad9K3t3OvGwe9fbjtg1fg==
+X-Received: by 10.202.190.138 with SMTP id o132mr8281230oif.166.1479139052771; 
+ Mon, 14 Nov 2016 07:57:32 -0800 (PST)
+Received: from localhost (72-48-98-129.dyn.grandenetworks.net. [72.48.98.129])
+ by smtp.gmail.com with ESMTPSA id
+ 9sm7411029otm.41.2016.11.14.07.57.32
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 14 Nov 2016 07:57:32 -0800 (PST)
+Date: Mon, 14 Nov 2016 09:57:31 -0600
+From: Rob Herring <robh@kernel.org>
+To: Brendan Higgins <brendanhiggins@google.com>
+Cc: wsa@the-dreams.de, mark.rutland@arm.com, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, joel@jms.id.au, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v4 2/2] i2c: aspeed: added documentation for Aspeed I2C
+ driver
+Message-ID: <20161114155731.p4kxmefqevplphtd@rob-hp-laptop>
+References: <1478311099-6771-1-git-send-email-brendanhiggins@google.com>
+ <1478311099-6771-3-git-send-email-brendanhiggins@google.com>
 MIME-Version: 1.0
-In-Reply-To: <CACPK8XeUh65FM9OC45FZnwVSwLN1ZF7Z5zfasNurHzdBfVKGvA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 12556880188757019540
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedruddtgdefkecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1478311099-6771-3-git-send-email-brendanhiggins@google.com>
+User-Agent: Mutt/1.6.2-neo (2016-08-21)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -42,70 +52,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Nov 2016 12:36:39 -0000
+X-List-Received-Date: Mon, 14 Nov 2016 15:57:37 -0000
 
-On 11/14/2016 06:21 AM, Joel Stanley wrote:
-> On Fri, Nov 11, 2016 at 6:32 PM, Cédric Le Goater <clg@kaod.org> wrote:
->> So, according to :
->>
->>         Documentation/devicetree/bindings/mtd/jedec,spi-nor.txt
->>         Documentation/devicetree/bindings/mtd/partitions.txt
->>
->> we can not label the flash module node but we can label the
->> partition instead. Would a patch like below fit the need ?
->> Here is what we get on a palmetto and an EVB, the approach
->> are different.
+On Fri, Nov 04, 2016 at 06:58:19PM -0700, Brendan Higgins wrote:
+> Added device tree binding documentation for Aspeed I2C controller and
+> busses.
 > 
-> Okay. That's annoying.
-> 
-> Is there a reason we can't coax the ast2400 version to call it just
-> 'pnor' as well?
+> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+> ---
+> Changes for v2:
+>   - None
+> Changes for v3:
+>   - Removed reference to "bus" device tree param
+> Changes for v4:
+>   - None
+> ---
+>  .../devicetree/bindings/i2c/i2c-aspeed.txt         | 61 ++++++++++++++++++++++
+>  1 file changed, 61 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
 
-none. that was a proposal for different solutions.
-
->>
->>         root@palmetto:~# cat /proc/mtd
->>         dev:    size   erasesize  name
->>         mtd0: 00060000 00001000 "u-boot"
->>         mtd1: 00020000 00001000 "u-boot-env"
->>         mtd2: 00280000 00001000 "kernel"
->>         mtd3: 001c0000 00001000 "initramfs"
->>         mtd4: 01740000 00001000 "rofs"
->>         mtd5: 00400000 00001000 "rwfs"
->>         mtd6: 02000000 00010000 "1e630000.spi:pnor@0"
-
-we can do a strstr when parsing /proc/mtd. This is probably the 
-best solution to simply handle compatibility.
-
->>         root@evb-ast2500:~# cat /proc/mtd
->>         dev:    size   erasesize  name
->>         mtd0: 00060000 00001000 "u-boot"
->>         mtd1: 00020000 00001000 "u-boot-env"
->>         mtd2: 00280000 00001000 "kernel"
->>         mtd3: 001c0000 00001000 "initramfs"
->>         mtd4: 01740000 00001000 "rofs"
->>         mtd5: 00400000 00001000 "rwfs"
->>         mtd6: 02000000 00010000 "pnor"
-
-The problem here is that we need to know the size of the pnor ... 
-
->>
->> The partition definitions probably belongs to the machine dts.
->>
->> And a udev rules would also fit the purpose I think.
-> 
-> What would you suggest? A symlink to create a /dev/pnor node?
-
-yes. like we did for the vuart. we will need to find a udev 
-attribute for it. I think this is the cleanest. 
-
-Cheers,
-
-C. 
-
-
-> 
-> Cheers,
-> 
-> Joel
-> 
+Acked-by: Rob Herring <robh@kernel.org>
