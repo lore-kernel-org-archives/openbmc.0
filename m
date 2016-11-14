@@ -1,27 +1,55 @@
-Return-Path: <alistair@popple.id.au>
-Received: from ipmail07.adl2.internode.on.net (ipmail07.adl2.internode.on.net
- [150.101.137.131])
- by lists.ozlabs.org (Postfix) with ESMTP id 3tH9Gk24l9zDvWr
- for <openbmc@lists.ozlabs.org>; Mon, 14 Nov 2016 10:44:14 +1100 (AEDT)
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: A2BXAwAs+ihYfQpSY3pcHAEBBAEBCgEBgyYLAQEBAQF3gQCFKJ8eh2yKZYQWIIJNgzYCgl8BAgEBAQEBAhMBARYvMIRhAQEBBCcTPxALFQMJFRAPARE2GYhHAxaxHD2HJg2EEAEBAQcCASSLFoJIgWoWhWEFiEmGFwyBNYlYEzWGPIZehCqBCE+HZIV+iR2EJ4QKgTwRCxyDIRyBcSo0AYdBAQEB
-Received: from static-82-10.transact.net.au (HELO new-mexico.localnet)
- ([122.99.82.10])
- by ipmail07.adl2.internode.on.net with ESMTP; 14 Nov 2016 10:14:03 +1030
-From: Alistair Popple <alistair@popple.id.au>
-To: openbmc@lists.ozlabs.org
-Cc: christopher.lee.bostic@gmail.com, xxpetri@de.ibm.com, zahrens@us.ibm.com
-Subject: Re: [PATCH linux v6 18/18] drivers/fsi: Add SCOM FSI client device
- driver
-Date: Mon, 14 Nov 2016 10:44:01 +1100
-Message-ID: <1518766.oRRvze06Vl@new-mexico>
-User-Agent: KMail/4.14.1 (Linux/4.2.0-0.bpo.1-amd64; KDE/4.14.2; x86_64; ; )
-In-Reply-To: <1477865379-11566-19-git-send-email-christopher.lee.bostic@gmail.com>
-References: <1477865379-11566-1-git-send-email-christopher.lee.bostic@gmail.com>
- <1477865379-11566-19-git-send-email-christopher.lee.bostic@gmail.com>
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-it0-x242.google.com (mail-it0-x242.google.com
+ [IPv6:2607:f8b0:4001:c0b::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tHJmT3m5pzDvPn
+ for <openbmc@lists.ozlabs.org>; Mon, 14 Nov 2016 16:22:01 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Kv26D3tl"; 
+ dkim-atps=neutral
+Received: by mail-it0-x242.google.com with SMTP id c20so9024580itb.0
+ for <openbmc@lists.ozlabs.org>; Sun, 13 Nov 2016 21:22:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=H7Z01JyS2Q9QsKZyLSo8d+s2DHjla0VpPUGGItv5VWM=;
+ b=Kv26D3tl36Hp44WoEIc1z60FeSxLzv1axdaza322s2F54NTxqt8unv7AEOVhYxZGZP
+ cJRtMkZVgqVQrSgPbkqRwF3EcnV5JVtld4VofCDv0PeH5zrnYQbIslPTOS5n3EauTNqf
+ VvyXSac36aIePluGZV2LsRtGT1K5DUi3nyJQxDEV8XsSKi36FCNr7RrTZOknZ0WDpp65
+ +cUp/xWnaXs/cWghAinhCdcrcTh5Ct8gRlHYDnW/8UyrOZe2YsG4R71JawLRBeoKlRFz
+ rF6/fI6onqOto26uYD/WKlOHo91tt/5LC4xCWs2C6vuHL/mFBQzq9z2MF0uvwyiJYVNC
+ qHmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=H7Z01JyS2Q9QsKZyLSo8d+s2DHjla0VpPUGGItv5VWM=;
+ b=TMJvoaVRZfsn45002Lhv4S+B9n+PmS3kUKKdkiUG3nAvKRCFyQmDYOGrdRPuLuRfwK
+ i+aSj/PcJMD0DlHnLDd/cDy8WD7uqsJLjrkUBqzh8ZWB/FocWnwbZTZ+DHIVcRUJOfG6
+ awTctsjKAaV8RHWGYk8qUMYt4/EogXFX0N90Uw35dsVOcaKcEFbz2wiz7fSIepkI33fg
+ t7K2kZ+qAOmBHHZ9lm0mZfMVIaPRwef/xnCxROJxffHzA0P4c5tfWFubcjtqGJGPuf3a
+ HPJKe0x6LLK7DBaW0NUYItAfxEcmA5y7uH3hkjfnuCyLfCRn+B/Rgwm2i1+tPfLIhO+H
+ L+ww==
+X-Gm-Message-State: ABUngvfx/txKcgs7/CCE++PCU0x4ndebrz6nGw6C+L+uZ/N5vJhZKWi5xqo9ZW4RSydgS3hBrvhDiqxzJa58Yw==
+X-Received: by 10.157.63.199 with SMTP id i7mr6271129ote.63.1479100919254;
+ Sun, 13 Nov 2016 21:21:59 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+Sender: joel.stan@gmail.com
+Received: by 10.182.97.41 with HTTP; Sun, 13 Nov 2016 21:21:38 -0800 (PST)
+In-Reply-To: <85fa06da-c4d9-e64d-c5af-141f7aa5e074@kaod.org>
+References: <20161111040238.5972-1-joel@jms.id.au>
+ <85fa06da-c4d9-e64d-c5af-141f7aa5e074@kaod.org>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 14 Nov 2016 15:51:38 +1030
+X-Google-Sender-Auth: RAqaT2xP3TtCJ-B65wXq221nuw0
+Message-ID: <CACPK8XeUh65FM9OC45FZnwVSwLN1ZF7Z5zfasNurHzdBfVKGvA@mail.gmail.com>
+Subject: Re: [PATCH] arm: dts: Add pnor label for wspoon and romulus
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Cyril Bur <cyril.bur@au1.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -33,327 +61,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 13 Nov 2016 23:44:14 -0000
+X-List-Received-Date: Mon, 14 Nov 2016 05:22:02 -0000
 
-Hi Chris,
+On Fri, Nov 11, 2016 at 6:32 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
+:
+> So, according to :
+>
+>         Documentation/devicetree/bindings/mtd/jedec,spi-nor.txt
+>         Documentation/devicetree/bindings/mtd/partitions.txt
+>
+> we can not label the flash module node but we can label the
+> partition instead. Would a patch like below fit the need ?
+> Here is what we get on a palmetto and an EVB, the approach
+> are different.
 
-Is there a similar device driver for the CFAM/FSI that I missed? That is will 
-there be a chardev for read/writing FSI addresses directly (ie. a chardev to 
-call fsi_device_read/write)? Probably not critical for an initial release but 
-we will need one at some point as I'm pretty sure the cronus server for 
-example has get/putcfam commands as some registers aren't available via SCOM.
+Okay. That's annoying.
 
-Regards,
+Is there a reason we can't coax the ast2400 version to call it just
+'pnor' as well?
 
-Alistair
+>
+>         root@palmetto:~# cat /proc/mtd
+>         dev:    size   erasesize  name
+>         mtd0: 00060000 00001000 "u-boot"
+>         mtd1: 00020000 00001000 "u-boot-env"
+>         mtd2: 00280000 00001000 "kernel"
+>         mtd3: 001c0000 00001000 "initramfs"
+>         mtd4: 01740000 00001000 "rofs"
+>         mtd5: 00400000 00001000 "rwfs"
+>         mtd6: 02000000 00010000 "1e630000.spi:pnor@0"
+>
+>         root@evb-ast2500:~# cat /proc/mtd
+>         dev:    size   erasesize  name
+>         mtd0: 00060000 00001000 "u-boot"
+>         mtd1: 00020000 00001000 "u-boot-env"
+>         mtd2: 00280000 00001000 "kernel"
+>         mtd3: 001c0000 00001000 "initramfs"
+>         mtd4: 01740000 00001000 "rofs"
+>         mtd5: 00400000 00001000 "rwfs"
+>         mtd6: 02000000 00010000 "pnor"
+>
+> The partition definitions probably belongs to the machine dts.
+>
+> And a udev rules would also fit the purpose I think.
 
-On Sun, 30 Oct 2016 05:09:20 PM christopher.lee.bostic@gmail.com wrote:
-> From: Chris Bostic <cbostic@us.ibm.com>
-> 
-> Create a simple SCOM engine device driver that reads and writes
-> across an FSI bus.
-> 
-> Signed-off-by: Chris Bostic <cbostic@us.ibm.com>
-> 
-> ---
-> 
-> V4 - Add put_scom and get_scom operations
-> 
-> V5 - Add character device registration and fill in read/write
->      syscalls.
-> 
-> V6 - Add multi scom engine support. Add list of devices.
->      Use file private data to store and hand off scom structures.
-> 
->    - Add lseek, open, close
-> 
->    - Remove data/address structure to pass from user space to
->      kernel.  Use offset provided by read/write and pass data
-> 
->    - Added list setup in init and so did not add the macro
->      module_fsi_driver
-> 
->    - Global structs made static where possible.
-> 
->    - Change from char dev to use misc device api as shown
->      in examples from Jeremy Kere.
-> ---
->  drivers/fsi/Kconfig    |   6 ++
->  drivers/fsi/Makefile   |   1 +
->  drivers/fsi/fsi-scom.c | 238 
-+++++++++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 245 insertions(+)
->  create mode 100644 drivers/fsi/fsi-scom.c
-> 
-> diff --git a/drivers/fsi/Kconfig b/drivers/fsi/Kconfig
-> index b21fe3c..1fa9bc0 100644
-> --- a/drivers/fsi/Kconfig
-> +++ b/drivers/fsi/Kconfig
-> @@ -23,6 +23,12 @@ config FSI_MASTER_GPIO
->  	depends on FSI
->  	---help---
->  	This option enables a FSI master driver using GPIO lines.
-> +
-> +config FSI_SCOM
-> +	tristate "SCOM FSI client"
-> +	depends on FSI
-> +	---help---
-> +	This option enables the SCOM FSI client device driver.
->  endif
->  
->  endmenu
-> diff --git a/drivers/fsi/Makefile b/drivers/fsi/Makefile
-> index 2021ce5..3e31d9a 100644
-> --- a/drivers/fsi/Makefile
-> +++ b/drivers/fsi/Makefile
-> @@ -2,3 +2,4 @@
->  obj-$(CONFIG_FSI) += fsi-core.o
->  obj-$(CONFIG_FSI_MASTER_FAKE) += fsi-master-fake.o
->  obj-$(CONFIG_FSI_MASTER_GPIO) += fsi-master-gpio.o
-> +obj-$(CONFIG_FSI_SCOM) += fsi-scom.o
-> diff --git a/drivers/fsi/fsi-scom.c b/drivers/fsi/fsi-scom.c
-> new file mode 100644
-> index 0000000..27be082
-> --- /dev/null
-> +++ b/drivers/fsi/fsi-scom.c
-> @@ -0,0 +1,238 @@
-> +/*
-> + * SCOM FSI Client device driver
-> + *
-> + * Copyright (C) IBM Corporation 2016
-> + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License version 2 as
-> + * published by the Free Software Foundation.
-> + *
-> + * This program is distributed in the hope that it will be useful,
-> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> + * MERGCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> + * GNU General Public License for more details.
-> + */
-> +
-> +#include <linux/fsi.h>
-> +#include <linux/module.h>
-> +#include <linux/cdev.h>
-> +#include <linux/delay.h>
-> +#include <linux/fs.h>
-> +#include <linux/uaccess.h>
-> +#include <linux/slab.h>
-> +#include <linux/miscdevice.h>
-> +#include <linux/list.h>
-> +
-> +#define FSI_ENGID_SCOM		0x5
-> +
-> +#define SCOM_FSI2PIB_DELAY	50
-> +
-> +/* SCOM engine register set */
-> +#define SCOM_DATA0_REG		0x00
-> +#define SCOM_DATA1_REG		0x04
-> +#define SCOM_CMD_REG		0x08
-> +#define SCOM_RESET_REG		0x1C
-> +
-> +#define SCOM_RESET_CMD		0x80000000
-> +#define SCOM_WRITE_CMD		0x80000000
-> +
-> +struct scom_device {
-> +	struct list_head link;
-> +	struct fsi_device *fsi_dev;
-> +	struct miscdevice mdev;
-> +	char	name[32];
-> +};
-> +
-> +#define to_scom_dev(x)		container_of((x), struct scom_device, 
-mdev)
-> +
-> +static struct list_head scom_devices;
-> +static atomic_t scom_idx = ATOMIC_INIT(0);
-> +static int scom_probe(struct device *);
-> +
-> +static int put_scom(struct scom_device *scom_dev, uint64_t value,
-> +			uint32_t addr)
-> +{
-> +	int rc;
-> +	uint32_t data = SCOM_RESET_CMD;
-> +
-> +	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_RESET_REG, &data,
-> +				sizeof(uint32_t));
-> +	if (rc)
-> +		return rc;
-> +
-> +	data = (value >> 32) & 0xffffffff;
-> +	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_DATA0_REG, &data,
-> +				sizeof(uint32_t));
-> +	if (rc)
-> +		return rc;
-> +
-> +	data = value & 0xffffffff;
-> +	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_DATA1_REG, &data,
-> +				sizeof(uint32_t));
-> +	if (rc)
-> +		return rc;
-> +
-> +	data = SCOM_WRITE_CMD | addr;
-> +	return fsi_device_write(scom_dev->fsi_dev, SCOM_CMD_REG, &data,
-> +				sizeof(uint32_t));
-> +}
-> +
-> +static int get_scom(struct scom_device *scom_dev, uint64_t *value,
-> +			uint32_t addr)
-> +{
-> +	uint32_t result, data;
-> +	int rc;
-> +
-> +	udelay(SCOM_FSI2PIB_DELAY);
-> +
-> +	data = addr;
-> +	rc = fsi_device_write(scom_dev->fsi_dev, SCOM_CMD_REG, &data,
-> +				sizeof(uint32_t));
-> +	if (rc)
-> +		return rc;
-> +
-> +	rc = fsi_device_read(scom_dev->fsi_dev, SCOM_DATA0_REG, &result,
-> +				sizeof(uint32_t));
-> +	if (rc)
-> +		return rc;
-> +
-> +	*value |= (uint64_t) result << 32;
-> +	rc = fsi_device_read(scom_dev->fsi_dev, SCOM_DATA1_REG, &result,
-> +				sizeof(uint32_t));
-> +	if (rc)
-> +		return rc;
-> +
-> +	*value |= result;
-> +
-> +	return 0;
-> +}
-> +
-> +static loff_t scom_llseek(struct file *filep, loff_t offset, int whence)
-> +{
-> +	if (whence != 0)  /* SEEK_SET */
-> +		return -EINVAL;
-> +
-> +	filep->f_pos = offset;
-> +	return offset;
-> +}
-> +
-> +static ssize_t scom_read(struct file *filep, char __user *buf, size_t len,
-> +			loff_t *offset)
-> +{
-> +	int rc = 0;
-> +	struct miscdevice *mdev =
-> +				(struct miscdevice *)filep->private_data;
-> +	struct scom_device *scom = to_scom_dev(mdev);
-> +	struct device *dev = &scom->fsi_dev->dev;
-> +	uint64_t val;
-> +
-> +	if (len != sizeof(uint64_t))
-> +		return -EINVAL;
-> +
-> +	rc = get_scom(scom, &val, *offset);
-> +	if (rc) {
-> +		dev_dbg(dev, "get_scom fail:%d\n", rc);
-> +		return rc;
-> +	}
-> +
-> +	rc = copy_to_user(buf, &val, len);
-> +	if (rc)
-> +		dev_dbg(dev, "copy to user failed:%d\n", rc);
-> +
-> +	return rc ? rc : len;
-> +}
-> +
-> +static ssize_t scom_write(struct file *filep, const char __user *buf,
-> +			size_t len, loff_t *offset)
-> +{
-> +	int rc = 0;
-> +	struct miscdevice *mdev =
-> +				(struct miscdevice *)filep->private_data;
-> +	struct scom_device *scom = to_scom_dev(mdev);
-> +	struct device *dev = &scom->fsi_dev->dev;
-> +	uint64_t val;
-> +
-> +	if (len != sizeof(uint64_t))
-> +		return -EINVAL;
-> +
-> +	rc = copy_from_user(&val, buf, len);
-> +	if (rc) {
-> +		dev_dbg(dev, "copy from user failed:%d\n", rc);
-> +		return -EINVAL;
-> +	}
-> +
-> +	rc = put_scom(scom, val, *offset);
-> +	if (rc)
-> +		dev_dbg(dev, "put_scom failed with:%d\n", rc);
-> +
-> +
-> +	return rc ? rc : len;
-> +}
-> +
-> +static const struct file_operations scom_fops = {
-> +	.owner	= THIS_MODULE,
-> +	.llseek	= scom_llseek,
-> +	.read	= scom_read,
-> +	.write	= scom_write,
-> +};
-> +
-> +static int scom_probe(struct device *dev)
-> +{
-> +	struct fsi_device *fsi_dev = to_fsi_dev(dev);
-> +	struct scom_device *scom = NULL;
-> +
-> +	scom = devm_kzalloc(dev, sizeof(*scom), GFP_KERNEL);
-> +	if (!scom)
-> +		return -ENOMEM;
-> +
-> +	snprintf(scom->name, sizeof(scom->name),
-> +			"scom%d", atomic_inc_return(&scom_idx));
-> +	scom->fsi_dev = fsi_dev;
-> +	scom->mdev.minor = MISC_DYNAMIC_MINOR;
-> +	scom->mdev.fops = &scom_fops;
-> +	scom->mdev.name = scom->name;
-> +	scom->mdev.parent = dev;
-> +	list_add(&scom->link, &scom_devices);
-> +
-> +	return misc_register(&scom->mdev);
-> +}
-> +
-> +static struct fsi_device_id scom_ids[] = {
-> +	{
-> +		.engine_type = FSI_ENGID_SCOM,
-> +		.version = FSI_VERSION_ANY,
-> +	},
-> +	{ 0 }
-> +};
-> +
-> +static struct fsi_driver scom_drv = {
-> +	.id_table = scom_ids,
-> +	.drv = {
-> +		.name = "scom",
-> +		.bus = &fsi_bus_type,
-> +		.probe = scom_probe,
-> +	}
-> +};
-> +
-> +static int scom_init(void)
-> +{
-> +	INIT_LIST_HEAD(&scom_devices);
-> +	return fsi_driver_register(&scom_drv);
-> +}
-> +
-> +static void scom_exit(void)
-> +{
-> +	struct list_head *pos;
-> +	struct scom_device *scom = NULL;
-> +
-> +	list_for_each(pos, &scom_devices) {
-> +		scom = list_entry(pos, struct scom_device, link);
-> +		misc_deregister(&scom->mdev);
-> +		devm_kfree(&scom->fsi_dev->dev, scom);
-> +	}
-> +	fsi_driver_unregister(&scom_drv);
-> +}
-> +
-> +module_init(scom_init);
-> +module_exit(scom_exit);
-> +MODULE_LICENSE("GPL");
-> 
+What would you suggest? A symlink to create a /dev/pnor node?
+
+Cheers,
+
+Joel
