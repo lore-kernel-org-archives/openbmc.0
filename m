@@ -1,51 +1,54 @@
-Return-Path: <brendanhiggins@google.com>
-Received: from mail-qt0-x236.google.com (mail-qt0-x236.google.com
- [IPv6:2607:f8b0:400d:c0d::236])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-it0-x22c.google.com (mail-it0-x22c.google.com
+ [IPv6:2607:f8b0:4001:c0b::22c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tHnYX3gB3zDvQx
- for <openbmc@lists.ozlabs.org>; Tue, 15 Nov 2016 10:59:11 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tHr4t3YXMzDvhN
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Nov 2016 12:53:01 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="VtRBMrBF"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="shnAVzEG"; 
  dkim-atps=neutral
-Received: by mail-qt0-x236.google.com with SMTP id n6so58361574qtd.1
- for <openbmc@lists.ozlabs.org>; Mon, 14 Nov 2016 15:59:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=H2lQ4uz03UrfGkHuG3/G+LC3DbaJBK0fYbtjXpi/Fg4=;
- b=VtRBMrBFUPZyBvIxitvSob+znWA6Ww4ch6SCqitc/pcsozIfjL3gMfW6xrQ1WVQY0x
- LvMaiJw3CI/tIRoyvUIPiwdF1Hd5YWymg86tssm/OJZDfEjyCrNfwwYbPjEpBD1JIj8+
- WRkHW7xTwvuTMsn18IVduZR7vomc9b2y0fKFME7izi4YRVp2xV2p1sEiglaEzYQ8V0Tf
- F83Low9hda6oyo7IobjCoZeoDLBhCl+vkTmfm7Xv1nnOZFWFdpcXILIxKV60GFF02cLo
- niOWC4Teh4+XFr2fkq+6Ke7IONjjLlPL/rylobYC/76rKSw1IkEO0+2WVVEUnipOeB8U
- GAsQ==
+Received: by mail-it0-x22c.google.com with SMTP id c20so118992468itb.0
+ for <openbmc@lists.ozlabs.org>; Mon, 14 Nov 2016 17:53:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=A7CtR+zecvXZSesHTZMf+Jy1dfV18TGDTB/wAt1Ed8I=;
+ b=shnAVzEGjoGtegLWmYKB5cOK9xE/ejzlShQjx3U/4bABT5+StuTJBVhlw0ZjlDiKyL
+ PST2+u5HfF4sZiY348NIuoF6bA0Za2huPC2LuYBJqgC7j7fj7D34zTI6AONdE/fiH++n
+ xKGGqloHK/vywgqESC6Uqmqque6DGMk87opbD1ZnSTivwgD0q/vQwpblVNYz1JR24z97
+ XCzeEpRBIVxzbLfmL4Z73ocTjlktAx0oL4mVgD6BAgPD4X/lTzSM3vUT9MsktAvcwS22
+ cL41XwgdUL5kvX94VQcL/7vT9dq0LZqA15DeFJKV7hfP8qXdNH1DAZ5MfFzOxah9+d8C
+ bEpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=H2lQ4uz03UrfGkHuG3/G+LC3DbaJBK0fYbtjXpi/Fg4=;
- b=QoR0Nm6To0meo6Oxfz8w6a+vhZW7GiE+XYGjvS73ED6ix+6FNL3J+GfiacfHXMNM2o
- XxuoGRNMghaf2T3j/BWo2EtC46bNQZ/8Ph4wmzBuUD801HUIqDin7/iFnjFVC1za+RvL
- 6yr2IQ7sgKogFNahWHRRTX1vx8nWHw54ZCrLhfoE8/C9uCLmDciE6f3MaZF5taex1FR1
- HSEJVr1RvNSvsm1A5z+HYhbdnYINEyFNBBKdRshEmWk6ZtJ4utHgNFAnfkYMR0FRmlhD
- q8xLI7tpdgbenzFRZRmBxmgg6OemsnZeAr2rFfkMttRBQK10IWt+TC86X69J/eud26G0
- ZROA==
-X-Gm-Message-State: ABUngvewP3P+sA6oWER4SzPUsJN8hwYuGBAxe5OlIvWGw5P7QUmObhXeY3JBm0Cpzm+xrtoAoG/ChmnZPMQDZEJv
-X-Received: by 10.200.34.108 with SMTP id p41mr9475989qtp.269.1479167949274;
- Mon, 14 Nov 2016 15:59:09 -0800 (PST)
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=A7CtR+zecvXZSesHTZMf+Jy1dfV18TGDTB/wAt1Ed8I=;
+ b=bikhWyEyANurF9krhR+xi/XogLVPrzW2ZtpXr0NcCBmd/8x9dX8W/dpZbD+kSpyuRo
+ eKdqdMv/U7Ad5RH5fKaaNf9huIG+QanoUSF1MKkhKRj8kPEFjDYGHrRYNRP6tNTLUQxq
+ yv71BFffqrYln29mnbZe9SMesJAPZMWSCfwrPi2hY/HkFEu6mK/jW9AtpgWrag79Yu2A
+ AHRf+X3E8JH71d1KZXpfsaWxA59oesw7CixFL0b/XdWNimcZKlwzkZXuczwU7mfmqIK6
+ soRREu0dmgAWMNoUAQnbJFBhNUOyevPuGsUO8/AzMP25eLgoIqJAcgqH/sK3EFoIvcZy
+ 0qWg==
+X-Gm-Message-State: ABUngveQGQXPFZu+dHoJ/IMTYrr6Axw5HV+Nw9g5KquwGi6Qi5CRN71CfltSN0UgteSEZx25Sx0L6gqeG5tEtg==
+X-Received: by 10.157.63.199 with SMTP id i7mr7859644ote.63.1479174779122;
+ Mon, 14 Nov 2016 17:52:59 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.12.137.220 with HTTP; Mon, 14 Nov 2016 15:59:08 -0800 (PST)
-In-Reply-To: <5821A449.3020807@linux.vnet.ibm.com>
-References: <58208518.50202@linux.vnet.ibm.com>
- <CAFd5g45JxpeYZiq3inm0JkKeyQjk7T_4uARLY=Anf9EHXymhBQ@mail.gmail.com>
- <5821A449.3020807@linux.vnet.ibm.com>
-From: Brendan Higgins <brendanhiggins@google.com>
-Date: Mon, 14 Nov 2016 15:59:08 -0800
-Message-ID: <CAFd5g46QM8PyrGSFjL2Otq_dLOmCcdELL_-nQh1Th09kPMbYFQ@mail.gmail.com>
-Subject: Re: Discussion on IPMI provider libraries
-To: tomjose <tomjose@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=001a11422baa2e42f105414ba089
+Sender: joel.stan@gmail.com
+Received: by 10.182.97.41 with HTTP; Mon, 14 Nov 2016 17:52:38 -0800 (PST)
+In-Reply-To: <CAN61Adc8nt_R47Edj8YYTzwSMqGLB8LSd=ZxE5jeL_sthn=O4w@mail.gmail.com>
+References: <CAN61Adc8nt_R47Edj8YYTzwSMqGLB8LSd=ZxE5jeL_sthn=O4w@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 15 Nov 2016 12:22:38 +1030
+X-Google-Sender-Auth: qKpH8AcuCbC1d-IcVCHgA2KonOQ
+Message-ID: <CACPK8XcAvZbH5ZwTPjs-+jvEyG+JdMce41P6h=WFK_ue7DbqAg@mail.gmail.com>
+Subject: Re: Refactoring skeleton flash control
+To: Abhishek Pandit <abhishekpandit@google.com>, Cyril Bur <cyrilbur@gmail.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: Adriana Kobylak <anoo@linux.vnet.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, Nancy Yuen <yuenn@google.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,54 +60,88 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Nov 2016 23:59:13 -0000
+X-List-Received-Date: Tue, 15 Nov 2016 01:53:03 -0000
 
---001a11422baa2e42f105414ba089
-Content-Type: text/plain; charset=UTF-8
+Hello Abhishek,
+
+On Tue, Nov 15, 2016 at 5:39 AM, Abhishek Pandit
+<abhishekpandit@google.com> wrote:
+> Hey Adriana,
+>
+> I'm planning on refactoring the skeleton flash update code and pulling it
+> out into it's own repo (openbmc/phosphor-flash-control).
+>
+> I've started with how I think the dbus interface should behave:
+> https://gerrit.openbmc-project.xyz/#/c/1166/.
+
+Great!
+
+I've added to cc Ben and Cyril. They are working on smarter ways to
+share access to the PNOR between the Host and the BMC. Your work with
+the BMC flash is not affected by what they are doing, there is some
+overlap where the PNOR is concerned.
+
+They have a prototype for a system that will own access to the host
+flash (aka the  PNOR). Your daemon may end up implementing the
+features they describe, or talking to another daemon that manages the
+PNOR.
+
+> The overall plan for the flash interface in my head:
+>
+> REST (or some other) interface receives image + signature to update flash
+>
+> Gets saved to filesystem and flash control is called
+
+I imagine you mean the tmpfs (which is backed by SDRAM).
+
+> Flash control loads the files into memory and verifies the signature
+>
+> Reference implementation would probably just be pgp
+
+Have you had input from security/cryptography people for what to do here?
+
+> Flash control locks the flash device
+>
+> This needs some more thought and probably new dbus interfaces; important for
+> host flash
+>
+> Image written to flash
+> Lock on flash device released
+> Signal asserted (Done)
+>
+> ---
+>
+> For the most part, I don't think I'll rewrite too much of the existing
+> skeleton code except to have it use the c++ bindings (continue using
+> libflash and existing MTD devices for bmc update).
+
+Consider dropping the libflash dependency. Where we're only dealing
+with mtd devices, the libflash code essentially becomes an
+implementation of 'flashcp'.
+
+> Locking the host flash would require some additional thought since currently
+> it's accessible directly and a mailbox approach would also require some way
+> to lock the flash when doing read/write.
+
+Yep. See my comments above.
+
+Cheers,
+
+Joel
 
 >
-> From what i have noticed in the patch, there is support for
-> ipmid_callback_t handlers  as it is now. So the change in API is to
-> accommodate the OEM group ?
-> So do you have plans to change the callback signatures for the standard
-> commands already implemented in host-ipmid?
-
-
-The support for ipmid_callback_t is only for backwards compatibility. Part
-of the change in the API was to accommodate OEM/Group extensions, yes;
-however, the intention is also to provide a cleaner API in general.
-
-The privilege provided by each command is a registration parameter and it
-> is consumed only by net-ipmid.
-
-
-That's fine, but in that case it should not go in the callback; it should
-be maintained and enforced by net-ipmid when it looks up a handler.
-
-Cheers
-
---001a11422baa2e42f105414ba089
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
-0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><span st=
-yle=3D"font-size:12.8px">From what i have noticed in the patch, there is su=
-pport for ipmid_callback_t handlers=C2=A0 as it is now. So the change in AP=
-I is to accommodate the OEM group ?</span><br style=3D"font-size:12.8px"><s=
-pan style=3D"font-size:12.8px">So do you have plans to change the callback =
-signatures for the standard commands already implemented in host-ipmid?</sp=
-an></blockquote><div><br></div><div>The support for=C2=A0<span style=3D"fon=
-t-size:12.8px">ipmid_callback_t is only for backwards compatibility. Part o=
-f the change in the API was to accommodate OEM/Group extensions, yes; howev=
-er, the intention=C2=A0is also to provide a cleaner API in general.</span><=
-/div><div><span style=3D"font-size:12.8px"><br></span></div><blockquote cla=
-ss=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid =
-rgb(204,204,204);padding-left:1ex"><span style=3D"font-size:12.8px">The pri=
-vilege provided by each command is a registration parameter and it is consu=
-med only by net-ipmid.</span></blockquote><div><br></div><div>That&#39;s fi=
-ne, but in that case it should not go in the callback; it should be maintai=
-ned and enforced by net-ipmid when it looks up a handler.</div><div><br></d=
-iv><div>Cheers</div></div>
-
---001a11422baa2e42f105414ba089--
+> --
+>
+> Please take a look at the gerrit. I'll start adding some more information
+> around locking + signing this week.
+>
+> Abhishek
+>
+>
+>
+>
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+>
