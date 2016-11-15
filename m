@@ -1,32 +1,58 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-yw0-x241.google.com (mail-yw0-x241.google.com
+ [IPv6:2607:f8b0:4002:c05::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tJ4B32fBZzDvZ2
- for <openbmc@lists.ozlabs.org>; Tue, 15 Nov 2016 21:58:19 +1100 (AEDT)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1479207489147502.8579300471441;
- Tue, 15 Nov 2016 02:58:09 -0800 (PST)
-Date: Tue, 15 Nov 2016 04:58:07 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Brendan Higgins <brendanhiggins@google.com>
-Cc: tomjose <tomjose@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: Discussion on IPMI provider libraries
-Message-ID: <20161115105807.GJ15757@heinlein.lan>
-References: <58208518.50202@linux.vnet.ibm.com>
- <CAFd5g45JxpeYZiq3inm0JkKeyQjk7T_4uARLY=Anf9EHXymhBQ@mail.gmail.com>
- <5821A449.3020807@linux.vnet.ibm.com>
- <CAFd5g46QM8PyrGSFjL2Otq_dLOmCcdELL_-nQh1Th09kPMbYFQ@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tJ4Zy0sjMzDvhL
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Nov 2016 22:16:26 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="I+06Tdm0"; 
+ dkim-atps=neutral
+Received: by mail-yw0-x241.google.com with SMTP id s68so10813363ywg.0
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Nov 2016 03:16:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=RTy5Vd/Ph/RmDX7zoksjtAVeWOZ5xrFEEcLdUT97fbo=;
+ b=I+06Tdm0t4gdeNKhp3GVCjBG7r4MIPIYtt/sRhY/wuvSJoFJCLgo+UVv7wQHJ+88A3
+ 4TUXjdmdDG7TiFG+xUn45ILgozd8FLBuPOy6qeAEWmriI3LRr8VshewxQOdUpAA0l5Qs
+ P9dRsZIwRaQDwuVtbBXvpad4cm+KRr1j3UIuB4vbPQlL9km8fuCSydOcWHUsWKFVKEb0
+ ix72U8HdaMuRoSvdQenVMoAHd1jGmVjomvHv73P6jmBYyyr08Y4TcxEp8egPn90rZEYJ
+ +h4qDPSscVYT7khwTwECpg7ScQw2UOP/v/qG6u4imWbGMcytFfwwb5E4tL2HMgquWgUv
+ oayA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=RTy5Vd/Ph/RmDX7zoksjtAVeWOZ5xrFEEcLdUT97fbo=;
+ b=P4Ho1bISPOmiflFoQ7/IYawk900RlRQTRj7x7oawS/5TpHftYvzG7EGgPENT0XkfH8
+ 63cUeQsd6V0nsZ50jbaZdmpDOKXj6dAMgUoxjcbKyezorjaMoExgnKOoHHWiHfVtu1P3
+ LwEDVH0VbzNokZpGhLSB6iz13hLoKVKaHbT7sfwRmCxzA6JfCOgv3soxDqNHZDiI0YOC
+ ZtkMXCooDzKea0o3VfVDnfl6gB5cTy3NuwThgg1s/YcIjmqNcdIlebnyzGvjhqar9M6A
+ ttFuTP8EdJozWvPJ8g2xp5Vvko4c1WPE7hexw/RbX0fCBQSpwlSorQPnchDzwBHw7N7R
+ 8QQg==
+X-Gm-Message-State: ABUngvexGKJt0IF8HI2LLHjpzUgi6bhdoWBBpSnLwQUjXEYJjmBjlHSmZxZIfTrlc2qvmVlEHuDpun0TrId2ow==
+X-Received: by 10.157.63.199 with SMTP id i7mr8389214ote.63.1479208583155;
+ Tue, 15 Nov 2016 03:16:23 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="EVh9lyqKgK19OcEf"
-Content-Disposition: inline
-In-Reply-To: <CAFd5g46QM8PyrGSFjL2Otq_dLOmCcdELL_-nQh1Th09kPMbYFQ@mail.gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
+Sender: joel.stan@gmail.com
+Received: by 10.182.97.41 with HTTP; Tue, 15 Nov 2016 03:16:02 -0800 (PST)
+In-Reply-To: <20161114155731.p4kxmefqevplphtd@rob-hp-laptop>
+References: <1478311099-6771-1-git-send-email-brendanhiggins@google.com>
+ <1478311099-6771-3-git-send-email-brendanhiggins@google.com>
+ <20161114155731.p4kxmefqevplphtd@rob-hp-laptop>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 15 Nov 2016 21:46:02 +1030
+X-Google-Sender-Auth: UqopaQCDBR9NK9Tmz0OKvQG0ffo
+Message-ID: <CACPK8XeaqwKJZHX9BC65wedQY__JKDZAy6RPiwzCB41TMKF=jg@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] i2c: aspeed: added documentation for Aspeed I2C
+ driver
+To: Rob Herring <robh@kernel.org>
+Cc: Brendan Higgins <brendanhiggins@google.com>,
+ Wolfram Sang <wsa@the-dreams.de>, 
+ Mark Rutland <mark.rutland@arm.com>, linux-i2c@vger.kernel.org, 
+ devicetree@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -38,58 +64,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Nov 2016 10:58:20 -0000
+X-List-Received-Date: Tue, 15 Nov 2016 11:16:26 -0000
 
+On Tue, Nov 15, 2016 at 2:27 AM, Rob Herring <robh@kernel.org> wrote:
+> On Fri, Nov 04, 2016 at 06:58:19PM -0700, Brendan Higgins wrote:
+>> Added device tree binding documentation for Aspeed I2C controller and
+>> busses.
+>>
+>> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+>> ---
+>> Changes for v2:
+>>   - None
+>> Changes for v3:
+>>   - Removed reference to "bus" device tree param
+>> Changes for v4:
+>>   - None
+>> ---
+>>  .../devicetree/bindings/i2c/i2c-aspeed.txt         | 61 ++++++++++++++++++++++
+>>  1 file changed, 61 insertions(+)
+>>  create mode 100644 Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+>
+> Acked-by: Rob Herring <robh@kernel.org>
 
---EVh9lyqKgK19OcEf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thanks Rob.
 
-On Mon, Nov 14, 2016 at 03:59:08PM -0800, Brendan Higgins wrote:
-> > The privilege provided by each command is a registration parameter and =
-it
-> > is consumed only by net-ipmid.
->=20
->=20
-> That's fine, but in that case it should not go in the callback; it should
-> be maintained and enforced by net-ipmid when it looks up a handler.
+Acked-by: Joel Stanley <joel@jms.id.au>
 
-Neither net-ipmid nor host-ipmid intrinsically know all of the IPMI
-commands that will or may be registered.  This is especially true for
-OEM commands where the privilege level is determined by the command.
+Cheers,
 
-Are the privilege levels defined by the IPMI spec?  If so, I don't see
-anything incorrect about each provider having it.  If not, it is
-something that we have defined at build time, correct?  Would it be
-acceptable to have multiple symlink locations for net-ipmid providers?
-ie. /usr/lib/phosphor-net-ipmid/user/ ,
-/usr/lib/phosphor-net-ipmid/admin/ , etc.  I suspect we would need to
-break libraries up more because currently a single library provides
-commands at different privilege levels.
-
---=20
-Patrick Williams
-
---EVh9lyqKgK19OcEf
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAEBCAAGBQJYKuo8AAoJEKsDR8wtAMEZyNAQAKOzs5UybhCJeHWZ26Mrx5Y5
-HQrnay/oMdfdO3kgDki5iLfrHxLS49PbGlNBAPmM+nRQxgU+IShZiff3Ts5OW6iC
-xxzswTkd8UV87uMKbgDUqV9b6dcSDEGPc7hylshlSDS3mM1C9Yh6Oz5k7w0yqsx3
-swusyGJRoB3nGWYyamDwMXOjvs8ttmvABi2zLKVSWY+xDyeS94gM0XaflN0psJEN
-qdMLnzvm0SOiIIl5zcGhX87eIkvoT1iw21vDGfQyxC82lFH+a95KPau7CSNVBdYM
-zHfyTCGKxMAn37bK1o0ldf+MPAsKQAXC24xfD24g6Q87vpIXPzm91PNpCB51IBvy
-knXsxokhR7Nh6VKRi/q5KdE1obwmoQUby5DopfbAaDfgkfuNLMKdpyPScyeftlHL
-XrVZgP7hp77ZOuobPcMqF98bwdFEqiMQrETjUb0DYUCiHJ3/yuWZAnzF9FfPYXRd
-7YHY6YJhBncZ9rV44AbkdN9w4BbKWf4P4n5pTnNhk9d6EXAY5lv+JvBCtVRdTb5C
-i6fBdXkd3ZTtBQW7e3zEPKHaBP/KU4ZVCqsjeVJ4Ee01CusXiCydU8Wa5AT8ZUaM
-ulTsxv/sAbZPrLH/z7A2hbewts5e7m9apoZFJEk3B7qODTmElRBwLFF+jk986Zbg
-3nsshgFaockBORCcz9OE
-=QKVR
------END PGP SIGNATURE-----
-
---EVh9lyqKgK19OcEf--
+Joel
