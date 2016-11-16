@@ -1,77 +1,49 @@
-Return-Path: <tomjose@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+Return-Path: <shliyi@cn.ibm.com>
+X-Greylist: delayed 722 seconds by postgrey-1.36 at bilbo;
+ Wed, 16 Nov 2016 22:00:19 AEDT
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.73])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tJZtf1s5NzDvch
- for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2016 18:01:46 +1100 (AEDT)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
- uAG6xET1078232
- for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2016 02:01:43 -0500
-Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
- by mx0b-001b2d01.pphosted.com with ESMTP id 26qxsc9rkn-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2016 02:01:43 -0500
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tJh9v17dyzDvmn
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2016 22:00:18 +1100 (AEDT)
 Received: from localhost
- by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <tomjose@linux.vnet.ibm.com>;
- Wed, 16 Nov 2016 00:01:42 -0700
-Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
- by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 16 Nov 2016 00:01:38 -0700
-Received: from b03cxnp08026.gho.boulder.ibm.com
- (b03cxnp08026.gho.boulder.ibm.com [9.17.130.18])
- by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id E9CBF19D80B7;
- Wed, 16 Nov 2016 00:00:25 -0700 (MST)
-Received: from b03ledav004.gho.boulder.ibm.com
- (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
- by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- uAG713fI31064098; Wed, 16 Nov 2016 00:01:03 -0700
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 4E47F7805F;
- Wed, 16 Nov 2016 00:01:03 -0700 (MST)
-Received: from [9.77.193.31] (unknown [9.77.193.31])
- by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP id AB86778047;
- Wed, 16 Nov 2016 00:01:01 -0700 (MST)
-Subject: Re: Discussion on IPMI provider libraries
-To: Patrick Williams <patrick@stwcx.xyz>,
- Brendan Higgins <brendanhiggins@google.com>
-References: <58208518.50202@linux.vnet.ibm.com>
- <CAFd5g45JxpeYZiq3inm0JkKeyQjk7T_4uARLY=Anf9EHXymhBQ@mail.gmail.com>
- <5821A449.3020807@linux.vnet.ibm.com>
- <CAFd5g46QM8PyrGSFjL2Otq_dLOmCcdELL_-nQh1Th09kPMbYFQ@mail.gmail.com>
- <20161115105807.GJ15757@heinlein.lan>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: tomjose <tomjose@linux.vnet.ibm.com>
-Date: Wed, 16 Nov 2016 12:30:59 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
- Thunderbird/38.8.0
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <shliyi@cn.ibm.com>;
+ Wed, 16 Nov 2016 10:48:12 -0000
+Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
+ by smtp.notes.na.collabserv.com (10.106.227.90) with
+ smtp.notes.na.collabserv.com ESMTP; Wed, 16 Nov 2016 10:48:08 -0000
+X-IBM-Helo: us1a3-smtp05.a3.dal06.isc4sb.com
+X-IBM-MailFrom: shliyi@cn.ibm.com
+X-IBM-RcptTo: dkodihal@linux.vnet.ibm.com;openbmc@lists.ozlabs.org
+Received: from us1a3-mail141.a3.dal06.isc4sb.com ([10.146.38.85])
+ by us1a3-smtp05.a3.dal06.isc4sb.com
+ with ESMTP id 2016111610480693-96150 ;
+ Wed, 16 Nov 2016 10:48:06 +0000 
 MIME-Version: 1.0
-In-Reply-To: <20161115105807.GJ15757@heinlein.lan>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16111607-0024-0000-0000-0000150832D8
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006086; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000189; SDB=6.00781339; UDB=6.00376893; IPR=6.00558849; 
- BA=6.00004883; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00013342; XFM=3.00000011;
- UTC=2016-11-16 07:01:40
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 16111607-0025-0000-0000-0000462C449C
-Message-Id: <582C042B.6080302@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2016-11-15_08:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1609300000
- definitions=main-1611160122
+In-Reply-To: <0ec0dd36-c0c4-ac1e-6e7b-8dbb73196a78@linux.vnet.ibm.com>
+Subject: Re: D-Bus interfaces for FRU VPD inventory
+To: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Message-ID: <OFBF350957.8F8AAB7A-ON4825806D.0037DBBB-4825806D.003B431A@notes.na.collabserv.com>
+From: "Yi TZ Li" <shliyi@cn.ibm.com>
+Date: Wed, 16 Nov 2016 18:47:18 +0800
+References: <0ec0dd36-c0c4-ac1e-6e7b-8dbb73196a78@linux.vnet.ibm.com>
+X-KeepSent: BF350957:8F8AAB7A-4825806D:0037DBBB;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1EXT September 15, 2015
+X-Disclaimed: 50135
+X-TNEFEvaluated: 1
+Content-type: multipart/alternative; 
+ Boundary="0__=C7BB0AFEDFA45D2B8f9e8a93df938690918cC7BB0AFEDFA45D2B"
+Content-Disposition: inline
+x-cbid: 16111610-3108-0000-0000-000001CCA1D3
+X-IBM-ISS-SpamDetectors: Score=0.429909; BY=0.230065; FL=0; FP=0; FZ=0; HX=0; 
+ KW=0; PH=0; SC=0.429909; ST=0; TS=0; UL=0; ISC=
+X-IBM-ISS-DetailInfo: BY=3.00006087; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000189; SDB=6.00781413; UDB=6.00376938; UTC=2016-11-16
+ 10:48:10
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -83,65 +55,113 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Nov 2016 07:01:46 -0000
+X-List-Received-Date: Wed, 16 Nov 2016 11:00:19 -0000
 
 
+--0__=C7BB0AFEDFA45D2B8f9e8a93df938690918cC7BB0AFEDFA45D2B
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/plain; charset=US-ASCII
 
-On Tuesday 15 November 2016 04:28 PM, Patrick Williams wrote:
-> On Mon, Nov 14, 2016 at 03:59:08PM -0800, Brendan Higgins wrote:
->>> The privilege provided by each command is a registration parameter and it
->>> is consumed only by net-ipmid.
->>
->> That's fine, but in that case it should not go in the callback; it should
->> be maintained and enforced by net-ipmid when it looks up a handler.
-> Neither net-ipmid nor host-ipmid intrinsically know all of the IPMI
-> commands that will or may be registered.  This is especially true for
-> OEM commands where the privilege level is determined by the command.
-Agree.
+
+Hi Deepak,
+
+I am reading your patch: https://gerrit.openbmc-project.xyz/#/c/1095/ and
+https://gerrit.openbmc-project.xyz/#/c/1094/,
+and the DBus interfaces you proposed.
+
+But I might miss some background information, hoping you could help:
+
+Please see my questions bellow:
+
+> From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+> To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+> Date: 11/14/2016 02:59 PM
+> Subject: D-Bus interfaces for FRU VPD inventory
+> Sent by: "openbmc" <openbmc-bounces+shliyi=3Dcn.ibm.com@lists.ozlabs.org>
 >
-> Are the privilege levels defined by the IPMI spec?  If so, I don't see
-> anything incorrect about each provider having it.  If not, it is
-> something that we have defined at build time, correct?  Would it be
-> acceptable to have multiple symlink locations for net-ipmid providers?
-> ie. /usr/lib/phosphor-net-ipmid/user/ ,
-> /usr/lib/phosphor-net-ipmid/admin/ , etc.  I suspect we would need to
-> break libraries up more because currently a single library provides
-> commands at different privilege levels.
+> Hello,
 >
-My earlier mail got stripped off when Brendan replied which had details 
-about the privilege levels.
+> I'd like to solicit feedback on the d-bus interfaces that we're
+> defining to represent FRU information, also known as FRU VPD (Vital
+> Product Data).
+>
+> A little background :
+>
+> - The d-bus interfaces are being written as Inventory interfaces, as
+> YAML files, under the openbmc/phosphor-dbus-interfaces repo [1].
 
-The Privilege levels are defined by the IPMI specification. Table G - 
-Command Number Assignments and Privilege Levels in the IPMI 
-specification gives more details on this.
+What is the relationship between the YAML files in
+openbmc/phosphor-dbus-interfaces, and openbmc/phosphor-inventory-manager?
+Will phosphor-inventory-manager (PIM) uses the YAML files to generate dbus
+objects for FRU/VPD?
 
-Every command has a privilege level assigned to the command( Admin, 
-User, Operator or Callback) or the command is system interface only.
+> - As far as sources/formats of VPD are concerned, we've looked at
+> the IPMI FRU information spec [2], and the open-power VPD format [3].
 
-The plan is to break down the system interface commands into a separate 
-library.  The apphandler library in phospor-host-ipmid had support for 
-Get Message Flags,
-Set BMC Global Enables and Read Event Message Buffer which are System 
-Interface commands only. So that net-ipmid would not load the system 
-interface commands.
-In a similar way if an OEM command need not be loaded for net-ipmid, 
-then no symlink would be provided for that library in 
-/usr/lib/phosphor-net-ipmid.
+Will BMC read and parse open-power format VPD? As I understand, Hostboot
+parses those VPD and send them to BMC as IPMI FRU format.
+Will BMC do the same thing as Hostboot?
 
-I have pushed a patch for separating system interface commands: 
-https://gerrit.openbmc-project.xyz/#/c/1020/
+> - The goal has been to define properties in the d-bus interfaces to
+> describe various pieces of FRU VPD, and to describe them in such a
+> way that they're agnostic to the VPD format. It would be up to VPD
+> related applications to parse specific VPD formats and then to
+> populate the Inventory via the new d-bus interfaces.
+> - There are in general two classes of interfaces : those describing
+> physical items such as processors, DIMMs, etc.; and those describing
+> virtual items such as a replaceable item, a repairable item, an item
+> having voltage control enabled, etc.
 
-I did not completely understand the rationale behind having multiple 
-symlink locations for net-ipmid providers. The phosphor-net-ipmid would 
-load the provider libraries
-at starting and net-ipmid would allow multiple sessions with different 
-privilege levels. There is a 'Set Session Privilege Level' command which 
-would change the privilege level to a
-higher( based on the maximum privilege supported for the user) or lower 
-privilege level.
+Could you give an example of the "virtual items"?
+Also there are other FRU items like PCIE card, HDD. How to handle them in
+the new inventory framework?
 
-So the suggestion for multiple symlink  locations for net-ipmid 
-providers(net-ipmid/user.. net-ipmid/admin) is a way for net-ipmid to 
-figure out the privilege level of the command
-instead of a registration parameter(privilege level) in the callback 
-handler?
+Thanks,
+-Yi
+
+--0__=C7BB0AFEDFA45D2B8f9e8a93df938690918cC7BB0AFEDFA45D2B
+Content-Transfer-Encoding: quoted-printable
+Content-type: text/html; charset=US-ASCII
+Content-Disposition: inline
+
+<html><body><p><tt>Hi Deepak,</tt><br><br><tt>I am reading your patch: </tt=
+><a href=3D"https://gerrit.openbmc-project.xyz/#/c/1095/"><tt>https://gerri=
+t.openbmc-project.xyz/#/c/1095/</tt></a><tt>&nbsp;and </tt><a href=3D"https=
+://gerrit.openbmc-project.xyz/#/c/1094/"><tt>https://gerrit.openbmc-project=
+.xyz/#/c/1094/</tt></a><tt>,</tt><br><tt>and the DBus interfaces you propos=
+ed.</tt><br><br><tt>But I might miss some background information, hoping yo=
+u could help:</tt><br><br><tt>Please see my questions bellow:<br><br>&gt; F=
+rom: Deepak Kodihalli &lt;dkodihal@linux.vnet.ibm.com&gt;</tt><br><tt>&gt; =
+To: OpenBMC Maillist &lt;openbmc@lists.ozlabs.org&gt;</tt><br><tt>&gt; Date=
+: 11/14/2016 02:59 PM</tt><br><tt>&gt; Subject: D-Bus interfaces for FRU VP=
+D inventory</tt><br><tt>&gt; Sent by: &quot;openbmc&quot; &lt;openbmc-bounc=
+es+shliyi=3Dcn.ibm.com@lists.ozlabs.org&gt;</tt><br><tt>&gt; <br>&gt; Hello=
+,<br>&gt; <br>&gt; I'd like to solicit feedback on the d-bus interfaces tha=
+t we're <br>&gt; defining to represent FRU information, also known as FRU V=
+PD (Vital <br>&gt; Product Data).<br>&gt; <br>&gt; A little background :<br=
+>&gt; <br>&gt; - The d-bus interfaces are being written as Inventory interf=
+aces, as<br>&gt; YAML files, under the openbmc/phosphor-dbus-interfaces rep=
+o [1].</tt><br><br><tt>What is the relationship between the YAML files in o=
+penbmc/phosphor-dbus-interfaces, and openbmc/phosphor-inventory-manager?</t=
+t><br><tt>Will phosphor-inventory-manager (PIM) uses the YAML files to gene=
+rate dbus objects for FRU/VPD?</tt><br><tt><br>&gt; - As far as sources/for=
+mats of VPD are concerned, we've looked at <br>&gt; the IPMI FRU informatio=
+n spec [2], and the open-power VPD format [3].</tt><br><br><tt>Will BMC rea=
+d and parse open-power format VPD? As I understand, Hostboot parses those V=
+PD and send them to BMC as IPMI FRU format.</tt><br><tt>Will BMC do the sam=
+e thing as Hostboot?</tt><br><tt><br>&gt; - The goal has been to define pro=
+perties in the d-bus interfaces to <br>&gt; describe various pieces of FRU =
+VPD, and to describe them in such a <br>&gt; way that they're agnostic to t=
+he VPD format. It would be up to VPD <br>&gt; related applications to parse=
+ specific VPD formats and then to <br>&gt; populate the Inventory via the n=
+ew d-bus interfaces.<br>&gt; - There are in general two classes of interfac=
+es : those describing <br>&gt; physical items such as processors, DIMMs, et=
+c.; and those describing<br>&gt; virtual items such as a replaceable item, =
+a repairable item, an item<br>&gt; having voltage control enabled, etc.</tt=
+><br><br><tt>Could you give an example of the &quot;virtual items&quot;?</t=
+t><br><tt>Also there are other FRU items like PCIE card, HDD. How to handle=
+ them in the new inventory framework?</tt><br><tt><br>Thanks,</tt><br><tt>-=
+Yi</tt><BR>
+</body></html>
+
+--0__=C7BB0AFEDFA45D2B8f9e8a93df938690918cC7BB0AFEDFA45D2B--
