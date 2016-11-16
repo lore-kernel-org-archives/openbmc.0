@@ -1,49 +1,45 @@
-Return-Path: <shliyi@cn.ibm.com>
-X-Greylist: delayed 722 seconds by postgrey-1.36 at bilbo;
- Wed, 16 Nov 2016 22:00:19 AEDT
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.73])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <hannwang@gmail.com>
+Received: from mail-it0-x232.google.com (mail-it0-x232.google.com
+ [IPv6:2607:f8b0:4001:c0b::232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tJh9v17dyzDvmn
- for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2016 22:00:18 +1100 (AEDT)
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <shliyi@cn.ibm.com>;
- Wed, 16 Nov 2016 10:48:12 -0000
-Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
- by smtp.notes.na.collabserv.com (10.106.227.90) with
- smtp.notes.na.collabserv.com ESMTP; Wed, 16 Nov 2016 10:48:08 -0000
-X-IBM-Helo: us1a3-smtp05.a3.dal06.isc4sb.com
-X-IBM-MailFrom: shliyi@cn.ibm.com
-X-IBM-RcptTo: dkodihal@linux.vnet.ibm.com;openbmc@lists.ozlabs.org
-Received: from us1a3-mail141.a3.dal06.isc4sb.com ([10.146.38.85])
- by us1a3-smtp05.a3.dal06.isc4sb.com
- with ESMTP id 2016111610480693-96150 ;
- Wed, 16 Nov 2016 10:48:06 +0000 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tJhGH1lS7zDvmn
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2016 22:04:07 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="tHrZKkHH"; 
+ dkim-atps=neutral
+Received: by mail-it0-x232.google.com with SMTP id l8so8464833iti.1
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2016 03:04:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=gmWoI86JvRd4MgvQjKaQLXqKw/B6+HHKVHD67BPYynU=;
+ b=tHrZKkHHNUBtM7nNATIcBESp557IyWsUCwf28BiaZJIwAHRdaqwS+IGOg/DSmR0jBB
+ 8X59Ut21UKdEAe/rf37Z7URtQ+2CLp0gjJ4bWWKasBi0ynJT409PnMsddwTRbHghFMgi
+ mX6QTJPCgsjTbv2G2eso3Dc0DvtYmxKn818z3/uqxbcxk5Sub9GMF7ObNaqrdKPqqPOc
+ QdsQiLTEKKqBO/Cg2Uhz8+y/GWAIjTDQacFNIR3hoQBgVfW3OviwgqSXo5QJAst0En0B
+ 8O78zlEaiYzC4a0UBFV6Ciyi8H/BU7Saa4NtViQQIGiUuuZZ5J973STiI/S/M84FHauX
+ XM3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=gmWoI86JvRd4MgvQjKaQLXqKw/B6+HHKVHD67BPYynU=;
+ b=M/8pvVkuW7V1nXGK6MqJXKJYJ68ok8pGa6hWS4Vsqgc01WIC9eOWRseuft62+i47oU
+ EQ91n/opdlKyPgAlNHDsjSzsRwH4tLDxiusPCFmSgiJQZkc1NCPUIvVP40e5oPTBgT7z
+ gLPlMOTa6F+MB8A5Zf9rM6YV0enpLncap6OL4B81b3SgaQLc7JJs+2gaBbIzrFzXEQTv
+ jZEqcNhOpz60DfISA+RS1wJ7aPTuCzonBM2z+0dTJjl4TffjN9l+jJormaZsX7NAiijy
+ A+Dz9jepExn+GnuU1Cge76Yz6009I/0c0jYFzhx4k0QWXQ+ZjBZxc0+q6fE9mNotyGlp
+ rtaw==
+X-Gm-Message-State: ABUngvdZLf77+FjFgyCpKz82+gWkga6LioVaMUAS+7Amgv/vF0+QWvtPrDzNRFEn0/mjfPudL0LaElppS3M8RQ==
+X-Received: by 10.107.35.11 with SMTP id j11mr2050284ioj.68.1479294245160;
+ Wed, 16 Nov 2016 03:04:05 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <0ec0dd36-c0c4-ac1e-6e7b-8dbb73196a78@linux.vnet.ibm.com>
-Subject: Re: D-Bus interfaces for FRU VPD inventory
-To: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Message-ID: <OFBF350957.8F8AAB7A-ON4825806D.0037DBBB-4825806D.003B431A@notes.na.collabserv.com>
-From: "Yi TZ Li" <shliyi@cn.ibm.com>
-Date: Wed, 16 Nov 2016 18:47:18 +0800
-References: <0ec0dd36-c0c4-ac1e-6e7b-8dbb73196a78@linux.vnet.ibm.com>
-X-KeepSent: BF350957:8F8AAB7A-4825806D:0037DBBB;
- type=4; name=$KeepSent
-X-Mailer: IBM Notes Release 9.0.1EXT September 15, 2015
-X-Disclaimed: 50135
-X-TNEFEvaluated: 1
-Content-type: multipart/alternative; 
- Boundary="0__=C7BB0AFEDFA45D2B8f9e8a93df938690918cC7BB0AFEDFA45D2B"
-Content-Disposition: inline
-x-cbid: 16111610-3108-0000-0000-000001CCA1D3
-X-IBM-ISS-SpamDetectors: Score=0.429909; BY=0.230065; FL=0; FP=0; FZ=0; HX=0; 
- KW=0; PH=0; SC=0.429909; ST=0; TS=0; UL=0; ISC=
-X-IBM-ISS-DetailInfo: BY=3.00006087; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000189; SDB=6.00781413; UDB=6.00376938; UTC=2016-11-16
- 10:48:10
+Received: by 10.79.170.13 with HTTP; Wed, 16 Nov 2016 03:03:44 -0800 (PST)
+From: Hann Wang <hannwang@gmail.com>
+Date: Wed, 16 Nov 2016 19:03:44 +0800
+Message-ID: <CALPyGmSubhKwB9NhGDyxfaiqTpv3CdypBcEhTM7wFTc=v9Qyqw@mail.gmail.com>
+Subject: Firestone cannot access local network
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary=001a114190ec004be905416908b3
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,113 +51,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Nov 2016 11:00:19 -0000
+X-List-Received-Date: Wed, 16 Nov 2016 11:04:07 -0000
 
+--001a114190ec004be905416908b3
+Content-Type: text/plain; charset=UTF-8
 
---0__=C7BB0AFEDFA45D2B8f9e8a93df938690918cC7BB0AFEDFA45D2B
+I add BCM54210E drvier to linux kernel, my machine can get IP from DHCP
+serverip now.
+I try access internet is good, but I can't access local network.
+I can ping my laptop in local network, but ssh/telnet/tftp doesn't work.
+I access from another laptop to my laptop is ok.
+
+--001a114190ec004be905416908b3
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-Content-type: text/plain; charset=US-ASCII
 
+<div dir=3D"ltr">I add BCM54210E drvier to linux kernel, my machine can get=
+ IP from DHCP serverip now.<br><div>I try access internet is good, but I ca=
+n&#39;t access local network.</div><div>I can ping my laptop in local netwo=
+rk, but ssh/telnet/tftp doesn&#39;t work.</div><div>I access from another l=
+aptop to my laptop is ok.</div><div><br></div></div>
 
-Hi Deepak,
-
-I am reading your patch: https://gerrit.openbmc-project.xyz/#/c/1095/ and
-https://gerrit.openbmc-project.xyz/#/c/1094/,
-and the DBus interfaces you proposed.
-
-But I might miss some background information, hoping you could help:
-
-Please see my questions bellow:
-
-> From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
-> To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-> Date: 11/14/2016 02:59 PM
-> Subject: D-Bus interfaces for FRU VPD inventory
-> Sent by: "openbmc" <openbmc-bounces+shliyi=3Dcn.ibm.com@lists.ozlabs.org>
->
-> Hello,
->
-> I'd like to solicit feedback on the d-bus interfaces that we're
-> defining to represent FRU information, also known as FRU VPD (Vital
-> Product Data).
->
-> A little background :
->
-> - The d-bus interfaces are being written as Inventory interfaces, as
-> YAML files, under the openbmc/phosphor-dbus-interfaces repo [1].
-
-What is the relationship between the YAML files in
-openbmc/phosphor-dbus-interfaces, and openbmc/phosphor-inventory-manager?
-Will phosphor-inventory-manager (PIM) uses the YAML files to generate dbus
-objects for FRU/VPD?
-
-> - As far as sources/formats of VPD are concerned, we've looked at
-> the IPMI FRU information spec [2], and the open-power VPD format [3].
-
-Will BMC read and parse open-power format VPD? As I understand, Hostboot
-parses those VPD and send them to BMC as IPMI FRU format.
-Will BMC do the same thing as Hostboot?
-
-> - The goal has been to define properties in the d-bus interfaces to
-> describe various pieces of FRU VPD, and to describe them in such a
-> way that they're agnostic to the VPD format. It would be up to VPD
-> related applications to parse specific VPD formats and then to
-> populate the Inventory via the new d-bus interfaces.
-> - There are in general two classes of interfaces : those describing
-> physical items such as processors, DIMMs, etc.; and those describing
-> virtual items such as a replaceable item, a repairable item, an item
-> having voltage control enabled, etc.
-
-Could you give an example of the "virtual items"?
-Also there are other FRU items like PCIE card, HDD. How to handle them in
-the new inventory framework?
-
-Thanks,
--Yi
-
---0__=C7BB0AFEDFA45D2B8f9e8a93df938690918cC7BB0AFEDFA45D2B
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/html; charset=US-ASCII
-Content-Disposition: inline
-
-<html><body><p><tt>Hi Deepak,</tt><br><br><tt>I am reading your patch: </tt=
-><a href=3D"https://gerrit.openbmc-project.xyz/#/c/1095/"><tt>https://gerri=
-t.openbmc-project.xyz/#/c/1095/</tt></a><tt>&nbsp;and </tt><a href=3D"https=
-://gerrit.openbmc-project.xyz/#/c/1094/"><tt>https://gerrit.openbmc-project=
-.xyz/#/c/1094/</tt></a><tt>,</tt><br><tt>and the DBus interfaces you propos=
-ed.</tt><br><br><tt>But I might miss some background information, hoping yo=
-u could help:</tt><br><br><tt>Please see my questions bellow:<br><br>&gt; F=
-rom: Deepak Kodihalli &lt;dkodihal@linux.vnet.ibm.com&gt;</tt><br><tt>&gt; =
-To: OpenBMC Maillist &lt;openbmc@lists.ozlabs.org&gt;</tt><br><tt>&gt; Date=
-: 11/14/2016 02:59 PM</tt><br><tt>&gt; Subject: D-Bus interfaces for FRU VP=
-D inventory</tt><br><tt>&gt; Sent by: &quot;openbmc&quot; &lt;openbmc-bounc=
-es+shliyi=3Dcn.ibm.com@lists.ozlabs.org&gt;</tt><br><tt>&gt; <br>&gt; Hello=
-,<br>&gt; <br>&gt; I'd like to solicit feedback on the d-bus interfaces tha=
-t we're <br>&gt; defining to represent FRU information, also known as FRU V=
-PD (Vital <br>&gt; Product Data).<br>&gt; <br>&gt; A little background :<br=
->&gt; <br>&gt; - The d-bus interfaces are being written as Inventory interf=
-aces, as<br>&gt; YAML files, under the openbmc/phosphor-dbus-interfaces rep=
-o [1].</tt><br><br><tt>What is the relationship between the YAML files in o=
-penbmc/phosphor-dbus-interfaces, and openbmc/phosphor-inventory-manager?</t=
-t><br><tt>Will phosphor-inventory-manager (PIM) uses the YAML files to gene=
-rate dbus objects for FRU/VPD?</tt><br><tt><br>&gt; - As far as sources/for=
-mats of VPD are concerned, we've looked at <br>&gt; the IPMI FRU informatio=
-n spec [2], and the open-power VPD format [3].</tt><br><br><tt>Will BMC rea=
-d and parse open-power format VPD? As I understand, Hostboot parses those V=
-PD and send them to BMC as IPMI FRU format.</tt><br><tt>Will BMC do the sam=
-e thing as Hostboot?</tt><br><tt><br>&gt; - The goal has been to define pro=
-perties in the d-bus interfaces to <br>&gt; describe various pieces of FRU =
-VPD, and to describe them in such a <br>&gt; way that they're agnostic to t=
-he VPD format. It would be up to VPD <br>&gt; related applications to parse=
- specific VPD formats and then to <br>&gt; populate the Inventory via the n=
-ew d-bus interfaces.<br>&gt; - There are in general two classes of interfac=
-es : those describing <br>&gt; physical items such as processors, DIMMs, et=
-c.; and those describing<br>&gt; virtual items such as a replaceable item, =
-a repairable item, an item<br>&gt; having voltage control enabled, etc.</tt=
-><br><br><tt>Could you give an example of the &quot;virtual items&quot;?</t=
-t><br><tt>Also there are other FRU items like PCIE card, HDD. How to handle=
- them in the new inventory framework?</tt><br><tt><br>Thanks,</tt><br><tt>-=
-Yi</tt><BR>
-</body></html>
-
---0__=C7BB0AFEDFA45D2B8f9e8a93df938690918cC7BB0AFEDFA45D2B--
+--001a114190ec004be905416908b3--
