@@ -1,45 +1,67 @@
-Return-Path: <hannwang@gmail.com>
-Received: from mail-it0-x232.google.com (mail-it0-x232.google.com
- [IPv6:2607:f8b0:4001:c0b::232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <dkodihal@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tJhGH1lS7zDvmn
- for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2016 22:04:07 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="tHrZKkHH"; 
- dkim-atps=neutral
-Received: by mail-it0-x232.google.com with SMTP id l8so8464833iti.1
- for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2016 03:04:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:from:date:message-id:subject:to;
- bh=gmWoI86JvRd4MgvQjKaQLXqKw/B6+HHKVHD67BPYynU=;
- b=tHrZKkHHNUBtM7nNATIcBESp557IyWsUCwf28BiaZJIwAHRdaqwS+IGOg/DSmR0jBB
- 8X59Ut21UKdEAe/rf37Z7URtQ+2CLp0gjJ4bWWKasBi0ynJT409PnMsddwTRbHghFMgi
- mX6QTJPCgsjTbv2G2eso3Dc0DvtYmxKn818z3/uqxbcxk5Sub9GMF7ObNaqrdKPqqPOc
- QdsQiLTEKKqBO/Cg2Uhz8+y/GWAIjTDQacFNIR3hoQBgVfW3OviwgqSXo5QJAst0En0B
- 8O78zlEaiYzC4a0UBFV6Ciyi8H/BU7Saa4NtViQQIGiUuuZZ5J973STiI/S/M84FHauX
- XM3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=gmWoI86JvRd4MgvQjKaQLXqKw/B6+HHKVHD67BPYynU=;
- b=M/8pvVkuW7V1nXGK6MqJXKJYJ68ok8pGa6hWS4Vsqgc01WIC9eOWRseuft62+i47oU
- EQ91n/opdlKyPgAlNHDsjSzsRwH4tLDxiusPCFmSgiJQZkc1NCPUIvVP40e5oPTBgT7z
- gLPlMOTa6F+MB8A5Zf9rM6YV0enpLncap6OL4B81b3SgaQLc7JJs+2gaBbIzrFzXEQTv
- jZEqcNhOpz60DfISA+RS1wJ7aPTuCzonBM2z+0dTJjl4TffjN9l+jJormaZsX7NAiijy
- A+Dz9jepExn+GnuU1Cge76Yz6009I/0c0jYFzhx4k0QWXQ+ZjBZxc0+q6fE9mNotyGlp
- rtaw==
-X-Gm-Message-State: ABUngvdZLf77+FjFgyCpKz82+gWkga6LioVaMUAS+7Amgv/vF0+QWvtPrDzNRFEn0/mjfPudL0LaElppS3M8RQ==
-X-Received: by 10.107.35.11 with SMTP id j11mr2050284ioj.68.1479294245160;
- Wed, 16 Nov 2016 03:04:05 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tJk8j15nhzDvhX
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2016 23:29:24 +1100 (AEDT)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
+ uAGCSoqe008204
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2016 07:29:23 -0500
+Received: from e23smtp05.au.ibm.com (e23smtp05.au.ibm.com [202.81.31.147])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 26rfhxt8as-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2016 07:29:22 -0500
+Received: from localhost
+ by e23smtp05.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
+ Wed, 16 Nov 2016 22:29:20 +1000
+Received: from d23dlp03.au.ibm.com (202.81.31.214)
+ by e23smtp05.au.ibm.com (202.81.31.211) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Wed, 16 Nov 2016 22:29:19 +1000
+Received: from d23relay07.au.ibm.com (d23relay07.au.ibm.com [9.190.26.37])
+ by d23dlp03.au.ibm.com (Postfix) with ESMTP id 130F03578053
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2016 23:29:19 +1100 (EST)
+Received: from d23av04.au.ibm.com (d23av04.au.ibm.com [9.190.235.139])
+ by d23relay07.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ uAGCTJ4U32178276
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2016 23:29:19 +1100
+Received: from d23av04.au.ibm.com (localhost [127.0.0.1])
+ by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ uAGCTIQT011235
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2016 23:29:18 +1100
+Received: from Deepaks-MacBook-Pro.local ([9.79.254.2])
+ by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ uAGCTGxG011203; Wed, 16 Nov 2016 23:29:17 +1100
+From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+Subject: Re: D-Bus interfaces for FRU VPD inventory
+To: Yi TZ Li <shliyi@cn.ibm.com>
+References: <0ec0dd36-c0c4-ac1e-6e7b-8dbb73196a78@linux.vnet.ibm.com>
+ <OFBF350957.8F8AAB7A-ON4825806D.0037DBBB-4825806D.003B431A@notes.na.collabserv.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Wed, 16 Nov 2016 17:59:17 +0530
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:45.0)
+ Gecko/20100101 Thunderbird/45.4.0
 MIME-Version: 1.0
-Received: by 10.79.170.13 with HTTP; Wed, 16 Nov 2016 03:03:44 -0800 (PST)
-From: Hann Wang <hannwang@gmail.com>
-Date: Wed, 16 Nov 2016 19:03:44 +0800
-Message-ID: <CALPyGmSubhKwB9NhGDyxfaiqTpv3CdypBcEhTM7wFTc=v9Qyqw@mail.gmail.com>
-Subject: Firestone cannot access local network
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary=001a114190ec004be905416908b3
+In-Reply-To: <OFBF350957.8F8AAB7A-ON4825806D.0037DBBB-4825806D.003B431A@notes.na.collabserv.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16111612-0016-0000-0000-000001F10578
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 16111612-0017-0000-0000-000005DCB6CF
+Message-Id: <8d28c804-fef4-c66a-c472-0c7ddf4c3866@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-11-16_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1609300000
+ definitions=main-1611160205
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -51,25 +73,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Nov 2016 11:04:07 -0000
+X-List-Received-Date: Wed, 16 Nov 2016 12:29:25 -0000
 
---001a114190ec004be905416908b3
-Content-Type: text/plain; charset=UTF-8
+Hi Yi,
 
-I add BCM54210E drvier to linux kernel, my machine can get IP from DHCP
-serverip now.
-I try access internet is good, but I can't access local network.
-I can ping my laptop in local network, but ssh/telnet/tftp doesn't work.
-I access from another laptop to my laptop is ok.
 
---001a114190ec004be905416908b3
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+On 16/11/16 4:17 pm, Yi TZ Li wrote:
+> Hi Deepak,
+>
+> I am reading your patch:
+> https://gerrit.openbmc-project.xyz/#/c/1095/ and
+> https://gerrit.openbmc-project.xyz/#/c/1094/,
+> and the DBus interfaces you proposed.
+>
+> But I might miss some background information, hoping you could help:
+>
+> Please see my questions bellow:
+>
+>> From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+>> To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+>> Date: 11/14/2016 02:59 PM
+>> Subject: D-Bus interfaces for FRU VPD inventory
+>> Sent by: "openbmc" <openbmc-bounces+shliyi=cn.ibm.com@lists.ozlabs.org>
+>>
+>> Hello,
+>>
+>> I'd like to solicit feedback on the d-bus interfaces that we're
+>> defining to represent FRU information, also known as FRU VPD (Vital
+>> Product Data).
+>>
+>> A little background :
+>>
+>> - The d-bus interfaces are being written as Inventory interfaces, as
+>> YAML files, under the openbmc/phosphor-dbus-interfaces repo [1].
+>
+> What is the relationship between the YAML files in
+> openbmc/phosphor-dbus-interfaces, and openbmc/phosphor-inventory-manager?
+> Will phosphor-inventory-manager (PIM) uses the YAML files to generate
+> dbus objects for FRU/VPD?
 
-<div dir=3D"ltr">I add BCM54210E drvier to linux kernel, my machine can get=
- IP from DHCP serverip now.<br><div>I try access internet is good, but I ca=
-n&#39;t access local network.</div><div>I can ping my laptop in local netwo=
-rk, but ssh/telnet/tftp doesn&#39;t work.</div><div>I access from another l=
-aptop to my laptop is ok.</div><div><br></div></div>
+A VPD application will have to parse a specific format of VPD, then make 
+use of PIM to create d-bus objects implementing the proposed d-bus 
+interfaces. I think Brad would have details on how PIM is to be used in 
+this regard.
 
---001a114190ec004be905416908b3--
+>> - As far as sources/formats of VPD are concerned, we've looked at
+>> the IPMI FRU information spec [2], and the open-power VPD format [3].
+>
+> Will BMC read and parse open-power format VPD? As I understand, Hostboot
+> parses those VPD and send them to BMC as IPMI FRU format.
+> Will BMC do the same thing as Hostboot?
+
+You're right about hostboot. It's basically about who has access to the 
+VPD eeprom. BMC would have to do it for certain FRUs. For eg BMC will 
+have to parse the openpower VPD format and then will have to map that to 
+the properties that we're proposing.
+
+>> - The goal has been to define properties in the d-bus interfaces to
+>> describe various pieces of FRU VPD, and to describe them in such a
+>> way that they're agnostic to the VPD format. It would be up to VPD
+>> related applications to parse specific VPD formats and then to
+>> populate the Inventory via the new d-bus interfaces.
+>> - There are in general two classes of interfaces : those describing
+>> physical items such as processors, DIMMs, etc.; and those describing
+>> virtual items such as a replaceable item, a repairable item, an item
+>> having voltage control enabled, etc.
+>
+> Could you give an example of the "virtual items"?
+
+I mentioned some examples above - an 'Asset' item, is another one.
+
+> Also there are other FRU items like PCIE card, HDD. How to handle them
+> in the new inventory framework?
+
+Do you mean handle their VPD (if any), or in general creating d-bus 
+objects for them? I'm not sure about the latter.
+
+> Thanks,
+> -Yi
+
+Regards,
+Deepak
