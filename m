@@ -3,52 +3,51 @@ Received: from mail-oi0-x244.google.com (mail-oi0-x244.google.com
  [IPv6:2607:f8b0:4003:c06::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tJRSh694SzDvnG
- for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2016 12:27:16 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tJRtC1jCyzDvk5
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2016 12:45:55 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="SU03dqc7"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="QlxdU6qz"; 
  dkim-atps=neutral
-Received: by mail-oi0-x244.google.com with SMTP id z62so4798598oiz.1
- for <openbmc@lists.ozlabs.org>; Tue, 15 Nov 2016 17:27:16 -0800 (PST)
+Received: by mail-oi0-x244.google.com with SMTP id f201so1067079oib.0
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Nov 2016 17:45:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=xWO4uS46DJ9G0P6afvadRrws5a+zJay6fZ+TYADn/LE=;
- b=SU03dqc7QF8ygZjEhM+dfYfXkAUxzTm4NZTnuudOohD22jFn4P6xiVAu3dGRZw3Gsi
- tsnTyxhQTxYwa8sHtBMY/Bgdmw7woGGNosrllOPbKeD1CBqni8UMt+nCqOqpz5mkhn2h
- OaVC2Bc2V1wRp0jxUjrbhNdDft8Q8UVxH9T+svwjqKV9tgyImUbbKUrhXivnieM2yqIj
- rlFv+IoE19xh6GCew0RTJwqpVopeIWqaOV5edKmoXtgKDaRW0q2xwhjJ4G+NquBxdOnb
- UGYMBAKZ+WLy2nptoYw6ZqGJFUF8Z9H46FvJ0idzTtJyMAyBpOsqDbrKNGDNrS+5QBBo
- dSXw==
+ :subject:to:cc;
+ bh=+fGdgTkDxcM2oKTp7di9OHrFFVYaovv6SLY3rNRGWCM=;
+ b=QlxdU6qzraI6GVEPXKM/pjIQTDwkXERsaIDg6++yO2PTa+2sRn0jBxgtHKhjm7UWnI
+ BDgknVdGgEg4IIK9r0Z/WxngB0izRzzu4tkyBAhydDa8PJlq8wYBc4GzMCLniC0g3soW
+ 17xqwjlpYAU9oCHDIANZxm177B/Z15V3MfLR/F0n6hB/Hn8KCTElxC4dcCQoomqjpiA0
+ FI9rj3gYbdulkU7+mUuaAwNT+5Znw5dsxo/JZK9scTLPxCGm9A3TE9e328kH1AbjQAPY
+ Ll/S2gsHsYAo8xYezbXvi+PLJ8XwHUJ7ZObz3YsCOZGdXNyWjCafenEY05WL5M4A9DYm
+ T7CQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=xWO4uS46DJ9G0P6afvadRrws5a+zJay6fZ+TYADn/LE=;
- b=e/nSi+dbr75fBJDMmgdZZN3/Bosv5ssV9kQ8uqyk20nt/42pBRN/1/PKfbSZBmanY3
- NYe0nMbvXdVsiQnNxzSIByMLCeMk6OOv46Qypu7Nse3pPta8KANIVv6Eo0xtzRKyax7Q
- 1qJMgz/XoVQ4HWzLkkBbibttcbPx/9bqn/DZKetst3+o9c9tinFEFhCCiL0btxI1GrKS
- jzurs9MsvtebbY343C18fqsguE6AV6z777aGps8EE7FzrIuPsJILQgoM4B3Z9k1tymza
- 0L+EUvMXn2jCTVBE5kLqlAB7zSuGpM4XQT10R7ddrtOPlI9hAzmpnc2w0h8KqLniEHGC
- QV5g==
-X-Gm-Message-State: ABUngvc4YCWOLEUib1fdBvbQW9CP+xcOqS3Ht2MDqrg9EAC1o/65MkarfMKlBuFUl5tleB+fJlj+kOJkDKSvQQ==
-X-Received: by 10.157.36.36 with SMTP id p33mr503552ota.8.1479259634895; Tue,
- 15 Nov 2016 17:27:14 -0800 (PST)
+ :date:message-id:subject:to:cc;
+ bh=+fGdgTkDxcM2oKTp7di9OHrFFVYaovv6SLY3rNRGWCM=;
+ b=Bc3jVJvdt/C18Jcg1WaceocLzHMh9vp5RrlpMsIrpYOVJBSJFIh23dGSmv3WzVjvWq
+ QgwyKSeouugIaHpVYKBI8rqRlBRuyUfqqxdWqvGoFCLkD7fGUEQ8bW46U3tXDzTZ/q+X
+ NhIRy3uMioh6FC1eEP1Kej3qI1TjF7Ov7dF0wCP4Ro3Ro3lyi+Y1liMdFCrmIUo14yYr
+ N/wEqV1eyMKLMKazrvONDj4b82T/vT529cdEvMFuRXUIJ58VpTuwEC01TET92HQfkLdn
+ 0vVGrSnDKItEiG5zhvHkJOm8eqqN4QKNo5mQJkNgqpi5NeIjxLNi2KDSksSzXNOcmBRm
+ eVNA==
+X-Gm-Message-State: ABUngvdZcm2hDJwCiqSP0kNVoeQ+fXAiJtmAsUShjDSrqxyA0hcA9lSi0Wt9UX/SPLEl4q5NkrsbgFfI6DLL1A==
+X-Received: by 10.202.80.203 with SMTP id e194mr625573oib.188.1479260753318;
+ Tue, 15 Nov 2016 17:45:53 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.182.97.41 with HTTP; Tue, 15 Nov 2016 17:26:54 -0800 (PST)
-In-Reply-To: <1479205434-5223-1-git-send-email-clg@kaod.org>
-References: <1479205434-5223-1-git-send-email-clg@kaod.org>
+Received: by 10.182.97.41 with HTTP; Tue, 15 Nov 2016 17:45:32 -0800 (PST)
+In-Reply-To: <CANsWYUXufCoWDwAcQ-Eq1Ase1FKQPfxfkQFDxNok9kYzd63t3w@mail.gmail.com>
+References: <1478117865-32103-1-git-send-email-jaghu@google.com>
+ <CANsWYUXufCoWDwAcQ-Eq1Ase1FKQPfxfkQFDxNok9kYzd63t3w@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 16 Nov 2016 11:56:54 +1030
-X-Google-Sender-Auth: c6vf7lS4stzmWjyq-GN8onHUtqg
-Message-ID: <CACPK8XcxoECp5uTAXpuiKhPok94fW0R+f+sBVcOgaFfNG6HyDg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7] ARM: dts: aspeed: fix flash module device
- nodes
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Date: Wed, 16 Nov 2016 12:15:32 +1030
+X-Google-Sender-Auth: 1WF9PmSjWDHxxwHT240f6L56iW0
+Message-ID: <CACPK8XeURnj9cOa8AEkTXjtx-qShvdGCJXP4ozDR5ZrdNVf-UQ@mail.gmail.com>
+Subject: Re: [PATCH linux v4 0/3] Seven segment display support
+To: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,273 +59,81 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Nov 2016 01:27:17 -0000
+X-List-Received-Date: Wed, 16 Nov 2016 01:45:55 -0000
 
-On Tue, Nov 15, 2016 at 8:53 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
-:
-> The "label" property can not be used under the flash module device
-> nodes. Remove them and use 'pnor' in the device node name to identify
-> the host pnor flash module from user space. Also introduce a
-> 'partitions' node to describe the bmc layout.
+Hello Jagha,
+
+On Wed, Nov 16, 2016 at 7:07 AM, Jaghathiswari Rankappagounder
+Natarajan <jaghu@google.com> wrote:
+> Hi Joel,
 >
-> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
+> Could you please provide feedback for this driver.
 
-Thanks for sending this. For reference userspace sees this now on ast2400:
+You have not addressed all of the comments from Rick in v4 of your
+patches. The first thing I noticed is he pointed out you need to
+separate out the device tree documentation from the code. I stopped
+reading at this point.
 
-# cat /proc/mtd
-dev:    size   erasesize  name
-mtd0: 00060000 00001000 "u-boot"
-mtd1: 00020000 00001000 "u-boot-env"
-mtd2: 00280000 00001000 "kernel"
-mtd3: 001c0000 00001000 "initramfs"
-mtd4: 01740000 00001000 "rofs"
-mtd5: 00400000 00001000 "rwfs"
-mtd6: 02000000 00010000 "1e630000.spi:pnor@0"
-
-And on ast2500:
-
-# cat /proc/mtd
-dev:    size   erasesize  name
-mtd0: 00060000 00001000 "u-boot"
-mtd1: 00020000 00001000 "u-boot-env"
-mtd2: 00280000 00001000 "kernel"
-mtd3: 001c0000 00001000 "initramfs"
-mtd4: 01740000 00001000 "rofs"
-mtd5: 00400000 00001000 "rwfs"
-mtd6: 02000000 00001000 "1e620000.flash-controller:flash@1"
-mtd7: 08000000 00001000 "1e630000.flash-controller:pnor@0"
-
-
-pflash uses strstr to match on a mtd device with 'pnor' in it, so this
-should maintain compatibility with that tool.
-
-Reviewed-by: Joel Stanley <joel@jms.id.au>
+Please go back and re-read the previous review and ensure your patches
+address all comments.
 
 Cheers,
 
 Joel
 
 
-> ---
->  arch/arm/boot/dts/aspeed-ast2500-evb.dts           |  2 +-
->  arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts     |  3 +--
->  arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts     |  3 +--
->  arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi | 17 +++++++++-------=
--
->  arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts      |  3 +--
->  arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts      |  3 +--
->  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts       |  3 +--
->  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts   |  3 +--
->  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts         |  3 +--
->  arch/arm/boot/dts/aspeed-g5.dtsi                   |  4 ++--
->  10 files changed, 19 insertions(+), 25 deletions(-)
 >
-> diff --git a/arch/arm/boot/dts/aspeed-ast2500-evb.dts b/arch/arm/boot/dts=
-/aspeed-ast2500-evb.dts
-> index 37b6793698e0..3dc472ae10e9 100644
-> --- a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-> +++ b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-> @@ -30,7 +30,7 @@
+> Thanks,
+> Jagha
 >
->  &spi1 {
->         status =3D "okay";
-> -       flash@0 {
-> +       pnor@0 {
->                 status =3D "okay";
->         };
->  };
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/bo=
-ot/dts/aspeed-bmc-opp-barreleye.dts
-> index 6ca618bd331d..802ce9557836 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-> @@ -40,10 +40,9 @@
->                         #address-cells =3D <1>;
->                         #size-cells =3D <0>;
->                         compatible =3D "aspeed,ast2400-smc";
-> -                       flash {
-> +                       pnor@0 {
->                                 reg =3D < 0 >;
->                                 compatible =3D "jedec,spi-nor" ;
-> -                               label =3D "pnor";
->                         };
->                 };
->         };
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/bo=
-ot/dts/aspeed-bmc-opp-firestone.dts
-> index e677e9ff00b8..005ff89e0c10 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-> @@ -61,10 +61,9 @@
->                         #address-cells =3D <1>;
->                         #size-cells =3D <0>;
->                         compatible =3D "aspeed,ast2400-smc";
-> -                       flash {
-> +                       pnor@0 {
->                                 reg =3D < 0 >;
->                                 compatible =3D "jedec,spi-nor" ;
-> -                               label =3D "pnor";
->                         };
->                 };
->         };
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi b/arch/ar=
-m/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
-> index ca8639b52f6d..6cfadb42368f 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
-> @@ -1,28 +1,29 @@
-> -/* This file is the label for the bmc primary flash and its partitions *=
-/
-> -                               label =3D "bmc";
-> +               partitions {
->                                 #address-cells =3D < 1 >;
->                                 #size-cells =3D < 1 >;
-> -                               u-boot {
-> +                               compatible =3D "fixed-partitions";
-> +                               u-boot@0 {
->                                         reg =3D < 0 0x60000 >;
->                                         label =3D "u-boot";
->                                 };
-> -                               u-boot-env {
-> +                               u-boot-env@60000 {
->                                         reg =3D < 0x60000 0x20000 >;
->                                         label =3D "u-boot-env";
->                                 };
-> -                               kernel  {
-> +                               kernel@80000 {
->                                         reg =3D < 0x80000 0x280000 >;
->                                         label =3D "kernel";
->                                 };
-> -                               initramfs {
-> +                               initramfs@300000 {
->                                         reg =3D < 0x300000 0x1c0000 >;
->                                         label =3D "initramfs";
->                                 };
-> -                               rofs  {
-> +                               rofs@0c0000 {
->                                         reg =3D < 0x4c0000 0x1740000 >;
->                                         label =3D "rofs";
->                                 };
-> -                               rwfs  {
-> +                               rwfs@1c00000 {
->                                         reg =3D < 0x1c00000 0x400000 >;
->                                         label =3D "rwfs";
->                                 };
-> +               };
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts b/arch/arm/boo=
-t/dts/aspeed-bmc-opp-garrison.dts
-> index a4471fb3b36b..92b29d1c665b 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-> @@ -41,10 +41,9 @@
->                         #address-cells =3D <1>;
->                         #size-cells =3D <0>;
->                         compatible =3D "aspeed,ast2400-smc";
-> -                       flash {
-> +                       pnor@0 {
->                                 reg =3D < 0 >;
->                                 compatible =3D "jedec,spi-nor" ;
-> -                               label =3D "pnor";
->                                 /* spi-max-frequency =3D <>; */
->                                 /* m25p,fast-read; */
->                         };
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boo=
-t/dts/aspeed-bmc-opp-palmetto.dts
-> index 0fd60c4eafad..8fe248f4d531 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> @@ -58,10 +58,9 @@
->                         #address-cells =3D <1>;
->                         #size-cells =3D <0>;
->                         compatible =3D "aspeed,ast2400-smc";
-> -                       flash {
-> +                       pnor@0 {
->                                 reg =3D < 0 >;
->                                 compatible =3D "jedec,spi-nor" ;
-> -                               label =3D "pnor";
->                         };
->                 };
->         };
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot=
-/dts/aspeed-bmc-opp-romulus.dts
-> index 4c4c547fe412..9845e6ca0de9 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> @@ -29,7 +29,6 @@
->         };
->         flash@1 {
->                 status =3D "okay";
-> -               label =3D "alt";
->         };
->  };
 >
-> @@ -38,7 +37,7 @@
->         pinctrl-names =3D "default";
->         pinctrl-0 =3D <&pinctrl_spi1_default>;
->
-> -       flash@0 {
-> +       pnor@0 {
->                 status =3D "okay";
->         };
->  };
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/=
-boot/dts/aspeed-bmc-opp-witherspoon.dts
-> index 7badbda288d3..c7458ae6efd7 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> @@ -29,7 +29,6 @@
->         };
->         flash@1 {
->                 status =3D "okay";
-> -               label =3D "alt";
->         };
->  };
->
-> @@ -38,7 +37,7 @@
->         pinctrl-names =3D "default";
->         pinctrl-0 =3D <&pinctrl_spi1_default>;
->
-> -       flash@0 {
-> +       pnor@0 {
->                 status =3D "okay";
->         };
->  };
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/d=
-ts/aspeed-bmc-opp-zaius.dts
-> index 673bab8006e7..8ef4ecec17cc 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> @@ -58,9 +58,8 @@
->         pinctrl-names =3D "default";
->         pinctrl-0 =3D <&pinctrl_spi1_default>;
->
-> -       flash@0 {
-> +       pnor@0 {
->                 status =3D "okay";
-> -               label =3D "pnor";
->         };
->  };
->
-> diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-=
-g5.dtsi
-> index be95fd42dbd7..099d0aab87b6 100644
-> --- a/arch/arm/boot/dts/aspeed-g5.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-> @@ -58,12 +58,12 @@
->                         #size-cells =3D <0>;
->                         compatible =3D "aspeed,ast2500-smc";
->                         status =3D "disabled";
-> -                       flash@0 {
-> +                       pnor@0 {
->                                 reg =3D < 0 >;
->                                 compatible =3D "jedec,spi-nor";
->                                 status =3D "disabled";
->                         };
-> -                       flash@1 {
-> +                       pnor@1 {
->                                 reg =3D < 1 >;
->                                 compatible =3D "jedec,spi-nor";
->                                 status =3D "disabled";
-> --
-> 2.7.4
+> On Wed, Nov 2, 2016 at 1:17 PM, Jaghathiswari Rankappagounder Natarajan
+> <jaghu@google.com> wrote:
+>>
+>> This patchset includes:
+>>
+>> Character device driver which implements the user-space API for letting a
+>> user
+>> write to two 7-segment displays including any conversion methods necessary
+>> to map the user input to two 7-segment displays.
+>>
+>> Platform device driver which provides an API for displaying on two
+>> 7-segment
+>> displays, and implements the required bit-banging. The hardware assumed is
+>> 74HC164 wired to two 7-segment displays.
+>>
+>> Adding clock, data and clear signal lines in the devicetree to control
+>> seven segment display on zaius platform.
+>>
+>> A changelog between versions is included in the individual patches. Please
+>> provide feedback.
+>>
+>> Thanks,
+>> Jagha
+>>
+>> Jaghathiswari Rankappagounder Natarajan (3):
+>>   drivers: misc: Character device driver for seven segment display
+>>   drivers: misc: Platform driver for seven segment display support
+>>   devicetree: Add devicetree changes to support seven segment display on
+>>     zaius
+>>
+>>  .../bindings/misc/seven_segment_gpio.txt           |  23 +++
+>>  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts         |   8 +
+>>  drivers/misc/Kconfig                               |  16 ++
+>>  drivers/misc/Makefile                              |   2 +
+>>  drivers/misc/seven_seg_disp.c                      | 198
+>> ++++++++++++++++++
+>>  drivers/misc/seven_seg_disp.h                      |  35 ++++
+>>  drivers/misc/seven_seg_gpio.c                      | 225
+>> +++++++++++++++++++++
+>>  7 files changed, 507 insertions(+)
+>>  create mode 100644
+>> Documentation/devicetree/bindings/misc/seven_segment_gpio.txt
+>>  create mode 100644 drivers/misc/seven_seg_disp.c
+>>  create mode 100644 drivers/misc/seven_seg_disp.h
+>>  create mode 100644 drivers/misc/seven_seg_gpio.c
+>>
+>> --
+>> 2.8.0.rc3.226.g39d4020
+>>
 >
