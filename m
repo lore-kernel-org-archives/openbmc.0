@@ -1,50 +1,33 @@
-Return-Path: <hannwang@gmail.com>
-Received: from mail-it0-x233.google.com (mail-it0-x233.google.com
- [IPv6:2607:f8b0:4001:c0b::233])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tK5S76kplzDvmk
- for <openbmc@lists.ozlabs.org>; Thu, 17 Nov 2016 13:59:03 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="yv/jZGUZ"; 
- dkim-atps=neutral
-Received: by mail-it0-x233.google.com with SMTP id j191so14291398ita.1
- for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2016 18:59:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=qFQQHJN1fRtxkkPe5VDpXECJ7SRdwzKzAUl/Ca6V2Y4=;
- b=yv/jZGUZrsBToYeh8nRPqkUmd/4XvWV9cks09LaAmXf8sbnbuLkJ65xhdD/B2iz3ww
- UdtdZI/7KznMeLASVUFy7+4tk/rrtFndtCOKMjtChK60z4YJsau1VyxUYFSV9ldon9++
- oaKkNPZ0YToU6E/hKdYibEVKLpyzUdSp260D8UUgGwPUBKvkzpfBrQ8yndfyF76PK5iF
- mqDgc8Rwehdd8zL5VDwwYk/vwzZv6rqrvgmCgJn0qj31JvtFkr3htGYfifkwYOvPd/GS
- Lr2Ey00Ksqt25ykrWFSWgNYPd9j3i3Sk0YNLZkXmsDGBEEeV9rasoRwCnjGTOwWl76W4
- LCNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=qFQQHJN1fRtxkkPe5VDpXECJ7SRdwzKzAUl/Ca6V2Y4=;
- b=MBWGEtK3RklR2lSqpKSPkbTwMFQ0kWFDzKloWhqsPQ5+7WY/cL2h1Wpbjnw00KJWgl
- Brw/Nb2PdXKTRbuR2f0mvLH0k1gMhsDT4uv5XGjFlONrV9WSWu4M3rFWhjUUrI9Ft7/a
- EkVQcZF1cF/xbEAFUANbdR7FTZSmMcGQyVHANCWIKv4QMlbKpY57ZT/UAfyO0C4L80zZ
- 64NoOKk4T1Xw/5CPxlIsF3Gm867iH72qsucfZrx1WlrZjEUpVZLUOi1IdD2Uo6DeKr7f
- C2SinK8Ddmf3DL0WTokBNgmSJlzKgyQ341xDQYGeoKWUXOgXrJ0KwLcoCY8CRZSfpMZK
- giAQ==
-X-Gm-Message-State: AKaTC01NauW+R7Go5x/sdMmiWPCdIE9ZGqI8nM8J3A4UdgNRepxSztrgm8fRA7o5u4Bn0NDyAQT4aSJJd/KLAQ==
-X-Received: by 10.107.163.136 with SMTP id m130mr1068678ioe.106.1479351541845; 
- Wed, 16 Nov 2016 18:59:01 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tK6050DYBzDvp2
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Nov 2016 14:23:16 +1100 (AEDT)
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mx.zohomail.com
+ with SMTPS id 1479352982551533.5028838938496;
+ Wed, 16 Nov 2016 19:23:02 -0800 (PST)
+Date: Wed, 16 Nov 2016 21:22:55 -0600
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Abhishek Pandit <abhishekpandit@google.com>
+Cc: Cyril Bur <cyrilbur@gmail.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Rick Altherr <raltherr@google.com>, anoo@linux.vnet.ibm.com,
+ openbmc@lists.ozlabs.org, Nancy Yuen <yuenn@google.com>
+Subject: Re: Refactoring skeleton flash control
+Message-ID: <20161117032255.GM15757@heinlein.lan>
+References: <CAN61Adc8nt_R47Edj8YYTzwSMqGLB8LSd=ZxE5jeL_sthn=O4w@mail.gmail.com>
+ <20161115113954.GK15757@heinlein.lan>
+ <CAN61AdfuRqu=fB1UnOhHBti=xPErz3uETfh8jcPtyftxnbUMVQ@mail.gmail.com>
 MIME-Version: 1.0
-Received: by 10.79.170.13 with HTTP; Wed, 16 Nov 2016 18:58:41 -0800 (PST)
-In-Reply-To: <20161116160720.GL15757@heinlein.lan>
-References: <CALPyGmSubhKwB9NhGDyxfaiqTpv3CdypBcEhTM7wFTc=v9Qyqw@mail.gmail.com>
- <20161116160720.GL15757@heinlein.lan>
-From: Hann Wang <hannwang@gmail.com>
-Date: Thu, 17 Nov 2016 10:58:41 +0800
-Message-ID: <CALPyGmT2zBFWt2KR6FHCHh7v-zmVdujEmTm_OiV_0qGxoHKHDQ@mail.gmail.com>
-Subject: Re: Firestone cannot access local network
-To: Patrick Williams <patrick@stwcx.xyz>
-Cc: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary=001a1140ecf22672de0541765fd0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="vdqwC0msT4ilQ2it"
+Content-Disposition: inline
+In-Reply-To: <CAN61AdfuRqu=fB1UnOhHBti=xPErz3uETfh8jcPtyftxnbUMVQ@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,96 +39,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Nov 2016 02:59:04 -0000
-
---001a1140ecf22672de0541765fd0
-Content-Type: text/plain; charset=UTF-8
-
-Hi Patrick,
-
-I confirmed subnet mask and route are correct.
-
-eth0      Link encap:Ethernet  HWaddr 70:E2:84:14:0F:2F
-          inet addr:172.18.0.151  Bcast:172.18.255.255  Mask:255.255.0.0
-          inet6 addr: fe80::72e2:84ff:fe14:f2f%984/64 Scope:Link
-          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-          RX packets:35 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:43 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000
-          RX bytes:5992 (5.8 KiB)  TX bytes:9522 (9.2 KiB)
-
-Kernel IP routing table
-Destination     Gateway         Genmask         Flags Metric Ref    Use
-Iface
-default         gateway         0.0.0.0         UG    1024   0        0 eth0
-172.18.0.0      *               255.255.0.0     U     0      0        0 eth0
-172.18.0.1      *               255.255.255.255 UH    1024   0        0 eth0
+X-List-Received-Date: Thu, 17 Nov 2016 03:23:17 -0000
 
 
-2016-11-17 0:07 GMT+08:00 Patrick Williams <patrick@stwcx.xyz>:
-
-> On Wed, Nov 16, 2016 at 07:03:44PM +0800, Hann Wang wrote:
-> > I add BCM54210E drvier to linux kernel, my machine can get IP from DHCP
-> > serverip now.
-> > I try access internet is good, but I can't access local network.
-> > I can ping my laptop in local network, but ssh/telnet/tftp doesn't work.
-> > I access from another laptop to my laptop is ok.
->
-> That sounds like the subnet mask is wrong?  Have you confirmed
-> 'ifconfig' and 'route' look correct?
->
-> --
-> Patrick Williams
->
-
---001a1140ecf22672de0541765fd0
-Content-Type: text/html; charset=UTF-8
+--vdqwC0msT4ilQ2it
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Hi Patrick,=C2=A0<div><br></div><div>I confirmed subnet ma=
-sk and route are correct.</div><div><br></div><div><div>eth0 =C2=A0 =C2=A0 =
-=C2=A0Link encap:Ethernet =C2=A0HWaddr 70:E2:84:14:0F:2F =C2=A0</div><div>=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 inet addr:172.18.0.151 =C2=A0Bcast:172.1=
-8.255.255 =C2=A0Mask:255.255.0.0</div><div>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 inet6 addr: fe80::72e2:84ff:fe14:f2f%984/64 Scope:Link</div><div>=C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 UP BROADCAST RUNNING MULTICAST =C2=A0MTU:1500 =
-=C2=A0Metric:1</div><div>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 RX packets:35 e=
-rrors:0 dropped:0 overruns:0 frame:0</div><div>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 TX packets:43 errors:0 dropped:0 overruns:0 carrier:0</div><div>=C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 collisions:0 txqueuelen:1000=C2=A0</div><di=
-v>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 RX bytes:5992 (5.8 KiB) =C2=A0TX bytes=
-:9522 (9.2 KiB)</div><div><br></div><div>Kernel IP routing table<br></div><=
-/div><div><div>Destination =C2=A0 =C2=A0 Gateway =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 Genmask =C2=A0 =C2=A0 =C2=A0 =C2=A0 Flags Metric Ref =C2=A0 =C2=A0Use I=
-face</div><div>default =C2=A0 =C2=A0 =C2=A0 =C2=A0 gateway =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 0.0.0.0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 UG =C2=A0 =C2=A01024 =C2=
-=A0 0 =C2=A0 =C2=A0 =C2=A0 =C2=A00 eth0</div><div>172.18.0.0 =C2=A0 =C2=A0 =
-=C2=A0* =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 255.255.0.0 =C2=A0=
- =C2=A0 U =C2=A0 =C2=A0 0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
-0 eth0</div><div>172.18.0.1 =C2=A0 =C2=A0 =C2=A0* =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 255.255.255.255 UH =C2=A0 =C2=A01024 =C2=A0 0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A00 eth0</div></div><div><br></div></div><div class=
-=3D"gmail_extra"><br><div class=3D"gmail_quote">2016-11-17 0:07 GMT+08:00 P=
-atrick Williams <span dir=3D"ltr">&lt;<a href=3D"mailto:patrick@stwcx.xyz" =
-target=3D"_blank">patrick@stwcx.xyz</a>&gt;</span>:<br><blockquote class=3D=
-"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding=
--left:1ex"><div class=3D"HOEnZb"><div class=3D"h5">On Wed, Nov 16, 2016 at =
-07:03:44PM +0800, Hann Wang wrote:<br>
-&gt; I add BCM54210E drvier to linux kernel, my machine can get IP from DHC=
-P<br>
-&gt; serverip now.<br>
-&gt; I try access internet is good, but I can&#39;t access local network.<b=
-r>
-&gt; I can ping my laptop in local network, but ssh/telnet/tftp doesn&#39;t=
- work.<br>
-&gt; I access from another laptop to my laptop is ok.<br>
-<br>
-</div></div>That sounds like the subnet mask is wrong?=C2=A0 Have you confi=
-rmed<br>
-&#39;ifconfig&#39; and &#39;route&#39; look correct?<br>
-<span class=3D"HOEnZb"><font color=3D"#888888"><br>
---<br>
-Patrick Williams<br>
-</font></span></blockquote></div><br></div>
+On Wed, Nov 16, 2016 at 05:06:27PM -0800, Abhishek Pandit wrote:
+> I think the flash interface will need to be updated to be able to identify
+> exactly what software on the flash (i.e. Active). I don't know if a single
+> version for the entire flash (i.e. bmc_v0.1.0) is appropriate or a version
+> for each individual piece of the bmc image (i.e. uboot_v1.1.0,
+> kernel_v4.7.11, rofs_v1.2.3). Providing this would probably require some
+> compile time specialization on the host flash for different architectures.
 
---001a1140ecf22672de0541765fd0--
+Certainly, agree.  I expect different applications for different Host
+flash layout schemes.  In fact, for Power, we are strongly considering
+not even having the Host-NOR flash actually be laid out in "Power NOR"
+format because we are going to use 'memboot' mode.
+
+> For the other states (persisted, available, backup, etc), those just seem
+> like policies and the actual flash interface shouldn't really care about =
+it
+> (unless the intent is to write the "backup" image to the flash itself).
+
+Persisted vs Available is an indication of on-flash or in-tmpfs.
+Backup vs Primary may be an indication of dual-sided flash scheme.
+
+--=20
+Patrick Williams
+
+--vdqwC0msT4ilQ2it
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAEBCAAGBQJYLSKNAAoJEKsDR8wtAMEZAnIP/Rw23pZXelqzo1CXl4PW/g4P
+aXm1Uph2ERrw0WqPhAxmwpVvxcGyKbPkaupgEqvLxNs35riJqEgHRV84i4fuKLrF
+sDmiAqgwXRzQO+gisYLtumF76aQEZ5IIEr01pcrm7WPgfjK4tV22Hfs0wCQFPhAY
+knI5jCOBwLRiy1a8Yo06BO9+zB/0ZHYiujyuSZq8EleBd+/1pxYk1dvsqbXwmNp8
+EUK6c/48mi2bEiwrgjna+ClKc3HUXjFeuCIQTsR/UtHxyeyCeiDHw2R0JepdC5Tk
+nWWUGZp+qKtGClq1MtaObUyfc2NHt3RFG7c6qgg0GoyXyaLXoAwKPmPCFSRPqND4
+9iuhRFETIP6RBAeQUlt3ATGcNXgj6agkzuDzAHykeHv6uBea0ObDS350f7UoSk+z
+09CEpNAXCc/MS1XEII0hR+Qym+MW9dz8WoyoO8vL2f8A3ZFAh1A6pn7BhOY5vQBc
+fFIUYWjCMbhZWC3esmPRHeT5FNnNsG7sQ/d9Qx21gSpTq8rf7BkTp/y0o5fIAvG1
+88SX5byzc4peXF3aTANav8jBYFS9Dg6tjZp4xOu3a6VLbhCBtgHpZIAhF+8T2nVW
+y+KU5kjqjny/dG1eOgNBkRuN31xx6T/c7GnbEz+l4WR+E9pbYTyP0kqCcR/O7FnI
+2qv41Is4Kb81/mPwBBGB
+=faqy
+-----END PGP SIGNATURE-----
+
+--vdqwC0msT4ilQ2it--
