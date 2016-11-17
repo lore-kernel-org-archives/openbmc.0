@@ -3,13 +3,13 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tK6050DYBzDvp2
- for <openbmc@lists.ozlabs.org>; Thu, 17 Nov 2016 14:23:16 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tK62x3M2PzDsyf
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Nov 2016 14:25:45 +1100 (AEDT)
 Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
  [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1479352982551533.5028838938496;
- Wed, 16 Nov 2016 19:23:02 -0800 (PST)
-Date: Wed, 16 Nov 2016 21:22:55 -0600
+ with SMTPS id 147935313321826.943884011201135;
+ Wed, 16 Nov 2016 19:25:33 -0800 (PST)
+Date: Wed, 16 Nov 2016 21:25:25 -0600
 From: Patrick Williams <patrick@stwcx.xyz>
 To: Abhishek Pandit <abhishekpandit@google.com>
 Cc: Cyril Bur <cyrilbur@gmail.com>,
@@ -17,13 +17,13 @@ Cc: Cyril Bur <cyrilbur@gmail.com>,
  Rick Altherr <raltherr@google.com>, anoo@linux.vnet.ibm.com,
  openbmc@lists.ozlabs.org, Nancy Yuen <yuenn@google.com>
 Subject: Re: Refactoring skeleton flash control
-Message-ID: <20161117032255.GM15757@heinlein.lan>
+Message-ID: <20161117032525.GN15757@heinlein.lan>
 References: <CAN61Adc8nt_R47Edj8YYTzwSMqGLB8LSd=ZxE5jeL_sthn=O4w@mail.gmail.com>
  <20161115113954.GK15757@heinlein.lan>
  <CAN61AdfuRqu=fB1UnOhHBti=xPErz3uETfh8jcPtyftxnbUMVQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="vdqwC0msT4ilQ2it"
+ protocol="application/pgp-signature"; boundary="nb8zVy0QMK3AA1xu"
 Content-Disposition: inline
 In-Reply-To: <CAN61AdfuRqu=fB1UnOhHBti=xPErz3uETfh8jcPtyftxnbUMVQ@mail.gmail.com>
 User-Agent: Mutt/1.5.24 (2015-08-30)
@@ -39,57 +39,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Nov 2016 03:23:17 -0000
+X-List-Received-Date: Thu, 17 Nov 2016 03:25:46 -0000
 
 
---vdqwC0msT4ilQ2it
+--nb8zVy0QMK3AA1xu
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 On Wed, Nov 16, 2016 at 05:06:27PM -0800, Abhishek Pandit wrote:
-> I think the flash interface will need to be updated to be able to identify
-> exactly what software on the flash (i.e. Active). I don't know if a single
-> version for the entire flash (i.e. bmc_v0.1.0) is appropriate or a version
-> for each individual piece of the bmc image (i.e. uboot_v1.1.0,
-> kernel_v4.7.11, rofs_v1.2.3). Providing this would probably require some
-> compile time specialization on the host flash for different architectures.
+> Important use cases (from REST perspective):
+> >     - How does a user identify which levels are installed?  Which levels
+> >       are activated?  Which levels are kept for optional downgrade?
+> >       Which levels are stored on redundant media (ex. dual side flash).
+> >     - How does a user upload new levels?
+> >     - How does a user request a level to be activated?
+>=20
+>=20
+> Our traditional approach is host managed. +raltherr might have some more
+> thoughts on this for more bmc-centric software management.
 
-Certainly, agree.  I expect different applications for different Host
-flash layout schemes.  In fact, for Power, we are strongly considering
-not even having the Host-NOR flash actually be laid out in "Power NOR"
-format because we are going to use 'memboot' mode.
-
-> For the other states (persisted, available, backup, etc), those just seem
-> like policies and the actual flash interface shouldn't really care about =
-it
-> (unless the intent is to write the "backup" image to the flash itself).
-
-Persisted vs Available is an indication of on-flash or in-tmpfs.
-Backup vs Primary may be an indication of dual-sided flash scheme.
+Keep in mind that on most systems, the REST API will be present, which
+means all DBus interfaces become, by default, available there as well.
+This is a big part of why I am proposing the interface model be "data
+oriented" rather than "method oriented", for lack of better words.
 
 --=20
 Patrick Williams
 
---vdqwC0msT4ilQ2it
+--nb8zVy0QMK3AA1xu
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAEBCAAGBQJYLSKNAAoJEKsDR8wtAMEZAnIP/Rw23pZXelqzo1CXl4PW/g4P
-aXm1Uph2ERrw0WqPhAxmwpVvxcGyKbPkaupgEqvLxNs35riJqEgHRV84i4fuKLrF
-sDmiAqgwXRzQO+gisYLtumF76aQEZ5IIEr01pcrm7WPgfjK4tV22Hfs0wCQFPhAY
-knI5jCOBwLRiy1a8Yo06BO9+zB/0ZHYiujyuSZq8EleBd+/1pxYk1dvsqbXwmNp8
-EUK6c/48mi2bEiwrgjna+ClKc3HUXjFeuCIQTsR/UtHxyeyCeiDHw2R0JepdC5Tk
-nWWUGZp+qKtGClq1MtaObUyfc2NHt3RFG7c6qgg0GoyXyaLXoAwKPmPCFSRPqND4
-9iuhRFETIP6RBAeQUlt3ATGcNXgj6agkzuDzAHykeHv6uBea0ObDS350f7UoSk+z
-09CEpNAXCc/MS1XEII0hR+Qym+MW9dz8WoyoO8vL2f8A3ZFAh1A6pn7BhOY5vQBc
-fFIUYWjCMbhZWC3esmPRHeT5FNnNsG7sQ/d9Qx21gSpTq8rf7BkTp/y0o5fIAvG1
-88SX5byzc4peXF3aTANav8jBYFS9Dg6tjZp4xOu3a6VLbhCBtgHpZIAhF+8T2nVW
-y+KU5kjqjny/dG1eOgNBkRuN31xx6T/c7GnbEz+l4WR+E9pbYTyP0kqCcR/O7FnI
-2qv41Is4Kb81/mPwBBGB
-=faqy
+iQIcBAEBCAAGBQJYLSMlAAoJEKsDR8wtAMEZ2zUP/3tGrKZ7Qmoo7b32/rbwjOUr
+352WubBzriBxhUJFfQ+3q5HHtOFJctAHgx3jpebR9F6hxhcD2NXO5ExQl6piWEb4
+MTKewnxZGTeS3+atIkpZREl2x5T2inW0IxO3jNOqhpW9auZWQgRjERgerHjfzI4F
+HilVrDVXQcJEnMN0QSsH4YPtdGM+UsO/6LBTOah7rF7na4LbV13qyQ0jx+ySKP7O
+5imNE5z7L07K4L440LVihtQSU8knJX4MMP2jEs5TEvO6ybZYVUCe+m+W9l72Qpkv
+bUHKCa07U4y/ZShDm4CFruTKYuafymiwFINYiJYmgCL9+ehilox84ZO/oO5Q1IrS
+V8lipBtFXXKN9M/ulgaBlQlC0eeFmcaiL3/VaiRMbpRDROT7+SybdQzWIF5IYrPj
+IEzq/rP3SKDZR1l3L7uOAcBr4JL9VQe4pKVC6wMluhWvwBltxgwa1iYolrrf+dsY
+A7gS6gpRZXVGasQIPrd/23Y80+TPt84MltFqkmELff6RILUwJbgW8vwb0Y7zrFK3
+xsvqT9axATBfJt6kDjLijtLW+T2gjUZK/SwYZgNQH+fWb8loxNVKnfaFrXQMsyjU
+76Hxh1F3Ahc29M8powZhLkw7pUeDoyw5RH+Q9/hl6MQSlaPkGi0p/bcm1HHC6uc4
+J7/5tAXuz6j+DMHG8z4u
+=FR0w
 -----END PGP SIGNATURE-----
 
---vdqwC0msT4ilQ2it--
+--nb8zVy0QMK3AA1xu--
