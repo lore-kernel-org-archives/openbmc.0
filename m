@@ -1,56 +1,55 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-yw0-x243.google.com (mail-yw0-x243.google.com
- [IPv6:2607:f8b0:4002:c05::243])
+Received: from mail-it0-x242.google.com (mail-it0-x242.google.com
+ [IPv6:2607:f8b0:4001:c0b::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tK8B50czXzDvsq
- for <openbmc@lists.ozlabs.org>; Thu, 17 Nov 2016 16:02:05 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tK8Gj2RC3zDvrN
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Nov 2016 16:06:05 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="i+wX1cLg"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="HQruUKOs"; 
  dkim-atps=neutral
-Received: by mail-yw0-x243.google.com with SMTP id r204so17521627ywb.3
- for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2016 21:02:04 -0800 (PST)
+Received: by mail-it0-x242.google.com with SMTP id o1so12549249ito.1
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2016 21:06:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=H794COdlZO3IdH0S2ito+hf9Z1SqOISG5CVzW7bSScI=;
- b=i+wX1cLgM482+w/pBOErAdfIJWZCfbOwOIacIGT0QmL+5NXmY+KZwYY6Kafui4aJvo
- FWSnDVYIGxuLIMJdAX1Gnt3L8ZI6yIkDcJZ1ym82b3w5IFbNeRNBGRm3fQ+QuyaV33hq
- zdRV5il4NkMLyJKLeckiVAyO7ftS5LHzIJJZcaRHAIjDuOnsZdaQORxD8RNL2mwTTuPS
- 0ETUP/gbrPboskPDUmxriS5dcnd44LQAQmZIDWXhZey/RVuMITOstHDgYFVl34LoiqXT
- uI8j6QSSf4PfIfez6rJK7hZ1VT22sXNO1+RZAGnfEGaEZo+cHIveuMNdBxIUOHTpeO8X
- VbMw==
+ :subject:to:cc;
+ bh=L0CI6Z+kal1vYEjwYwYgQhz6k56KdhHPte4JQEkkpc4=;
+ b=HQruUKOsXni/NX/riS1yAwh6ndLjDymDVrMlYlPaFkTegpDLMSgtWn/1pwyXwfTSwV
+ gOv+MJ4WLSEScP2QVUte+9oQGlGKINl2E71zkp+4V37NKPe+d9fLhfIG9j6i1Dkcx88g
+ cRPxlELyANc05T9/kckj+czufKi/yyZHAnJRb44mCxMuXIaAwL90gfarLHUihLTghe7U
+ tVbgMjtalTBS4lT/bq4Tlid8E+eRgadWf/fcLPEeOfl8zuaDkvaF1u1IjjkWBjnRNniT
+ DwLC7Z3AQjY7W20BDZTT/olcUmCynWODaL6uKLbvjMjMR4j3A5wcmIEHPiDIc0dOZjdj
+ ftVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=H794COdlZO3IdH0S2ito+hf9Z1SqOISG5CVzW7bSScI=;
- b=dbzp3W9AIT4HOwUV9Wtgk/lfXkwWHqEoa2a7zF1ilVDNEj4iM+cRpZ84o5pEcB7X8r
- bLYURlXXUQGnXAiPnA0pCiX0WVrkerfBsOgsY+sq8HPflMd4N2+rpq3yFAGlrfOPXxOy
- BxK1C4ZSvbfsvDfl6BKfk8X3UppN8a9QguefAxW7gmKY7jMycloJfyqc1hdlFl1RwZne
- xWa6YnfDvZ+X2v3Lttvm60y4aFI2aMN5qFK7mdzzeY/Gyk+oJjaT99FcQFd0KUk/oARl
- seX1EB+5rWL9jPFVFfFJGKwp6KW/aire0qwt7koh7ac7VfQgsqf+aEQ1KaF51ePALFTc
- t0aA==
-X-Gm-Message-State: ABUngvfF810vn/PtCKwmG31cbbqvK0ptSGzm6nE+54sb/Sb4jtQRG0oATxOi0aG3Zkq7rfehfkiZG2woEQ28EQ==
-X-Received: by 10.157.63.199 with SMTP id i7mr476788ote.63.1479358922960; Wed,
- 16 Nov 2016 21:02:02 -0800 (PST)
+ :date:message-id:subject:to:cc;
+ bh=L0CI6Z+kal1vYEjwYwYgQhz6k56KdhHPte4JQEkkpc4=;
+ b=K+eh2c+qb0u249p4Eg7mK9KQRTOIz/ml0J/91iBBIQe0r/qOPccv0ug7OoBskYuDbP
+ VeMjd+p/dhk+TlahttvkSxzFmlZdmmgFXFpe8I/obenE2xZ2PHD3VsvSwPKr4dz3d2Oj
+ Rt7/yZ0VDWhmDxjLmkP5yW2EMgLKI4f9pQ5d4FA2kaw6Dv0bOAcTz73bzfroZmTx7APl
+ ZEsnP+MT1otkgK2DEV9Z5JarTOJDjevxFEtJbrSU35VdCrRSB5jrnWm55rzJb2IosRHu
+ 9r6MUvyID3uqUbXm/wlnajdEjdjRpRQZNYLwpbi/W69DTU75BMaq+5IZ4Lz0unLPBgfZ
+ zRzA==
+X-Gm-Message-State: AKaTC02fRiHkpRi1B9/MQRXsW7M6zMBCeQM/NUBRCFMHBhEy/vTwGkYUI2uP+IfRdEAEUIN9FSfxbUpLfINQ+Q==
+X-Received: by 10.202.55.70 with SMTP id e67mr443675oia.51.1479359163318; Wed,
+ 16 Nov 2016 21:06:03 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.182.97.41 with HTTP; Wed, 16 Nov 2016 21:01:42 -0800 (PST)
-In-Reply-To: <1479335546.5215.9.camel@aj.id.au>
-References: <1479316169-25297-1-git-send-email-clg@kaod.org>
- <1479335546.5215.9.camel@aj.id.au>
+Received: by 10.182.97.41 with HTTP; Wed, 16 Nov 2016 21:05:42 -0800 (PST)
+In-Reply-To: <C160D2872FE0DE4683E1910F9BF82941574257FF@avsrvexchmbx2.microsemi.net>
+References: <C160D2872FE0DE4683E1910F9BF82941574257CE@avsrvexchmbx2.microsemi.net>
+ <CACPK8Xf5OMSNxDN1xnFwSYYbkUSJ9OC_UfD1zFbgu3ZizSJdtg@mail.gmail.com>
+ <C160D2872FE0DE4683E1910F9BF82941574257FF@avsrvexchmbx2.microsemi.net>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 17 Nov 2016 15:31:42 +1030
-X-Google-Sender-Auth: yhX5ilMjoLYxr9RIsQM082gRZI0
-Message-ID: <CACPK8XeiTa_t9Y8BKejFP83LqTYuvhs8fv5ayXG8KUj5NwPHNA@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7] ARM: dts: aspeed: resurrect PNOR on ast2500
- evb
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Thu, 17 Nov 2016 15:35:42 +1030
+X-Google-Sender-Auth: vKHyHF1fwMdC-XpkBvb_Wr2FIiQ
+Message-ID: <CACPK8Xfm=Uaa9vp9aS7Lx-rwCGXHyGCgo=ayF_L6W6wM3HWCjA@mail.gmail.com>
+Subject: Re: Query on image deployment on ASPEED board
+To: Arjun Padmanabhan <arjun.padmanabhan@microsemi.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, 
+ Balaji Marimuthu <balaji.marimuthu@microsemi.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,43 +61,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Nov 2016 05:02:06 -0000
+X-List-Received-Date: Thu, 17 Nov 2016 05:06:05 -0000
 
-On Thu, Nov 17, 2016 at 9:02 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> On Wed, 2016-11-16 at 18:09 +0100, C=C3=A9dric Le Goater wrote:
->> It had gone to the Tartarus again. Let's bring it back to light.
-
-Thanks for the lesson in Greek mythology.
-
->>
->> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
+On Thu, Nov 17, 2016 at 3:30 PM, Arjun Padmanabhan
+<arjun.padmanabhan@microsemi.com> wrote:
+> Hi Joel,
 >
-> Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+> Thanks for reply.
 >
->> ---
->>  arch/arm/boot/dts/aspeed-ast2500-evb.dts | 5 ++++-
->>  1 file changed, 4 insertions(+), 1 deletion(-)
->>
->> diff --git a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
->> b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
->> index 3dc472ae10e9..f60c367573f3 100644
->> --- a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
->> +++ b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
->> @@ -30,7 +30,10 @@
->>
->>  &spi1 {
->>       status =3D "okay";
->> -     pnor@0 {
->> +     pinctrl-names =3D "default";
->> +     pinctrl-0 =3D <&pinctrl_spi1_default>;
->> +
->> +pnor@0 {
+>> Is this an AST2400 EDK?
+> Its' an AST 2400 evaluation board.
 >
-> Whitespace is a bit busted though?
+>> I recommend building on modern Ubuntu or Fedora machine.
+> I am using CENT OS 6.6 to build images for openbmc. Is it recommended?
 
-I will fix this when I apply.
+No. I would never recommend anyone put themselves through that. But it
+should work; one of the teams working on OpenBMC uses RHEL 6.4 to do
+builds.
 
-Reviewed-by: Joel Stanley <joel@jms.id.au>
+>> Once you have an image built in openbmc/build/tmp/deploy/images, you can netboot it with tftp.
+> Should I need a flash programmer to flash image onto ASPEED board? If I want to boot the image from ASPEED board, how should I proceed? Is there a GUI available for the image of ASPEED board?
+
+There is no GUI.
+
+If you have a flash programmer available you can put the
+palmetto-flash image on there. I recommend taking a back up of the
+flash in case it does not work.
+
+You can either build the Palmetto image yourself, or use one from our
+continuous integration server here:
+
+https://openpower.xyz/job/openbmc-build/distro=ubuntu,target=palmetto/lastSuccessfulBuild/artifact/images/palmetto/
+
+It produces output on UART5 at 115200 baud. On my ast2500-evb that
+connector is labeled DEBUG UART.
 
 Cheers,
 
