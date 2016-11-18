@@ -1,49 +1,32 @@
-Return-Path: <christopher.lee.bostic@gmail.com>
-Received: from mail-ua0-x243.google.com (mail-ua0-x243.google.com
- [IPv6:2607:f8b0:400c:c08::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <clg@kaod.org>
+Received: from 14.mo7.mail-out.ovh.net (14.mo7.mail-out.ovh.net
+ [178.33.251.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tL0d34gSmzDvb1
- for <openbmc@lists.ozlabs.org>; Sat, 19 Nov 2016 01:24:55 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="rKse2SbQ"; 
- dkim-atps=neutral
-Received: by mail-ua0-x243.google.com with SMTP id 50so17953846uae.2
- for <openbmc@lists.ozlabs.org>; Fri, 18 Nov 2016 06:24:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to;
- bh=DOsZ5NGDxWXSC2tjyeLbv7vmBYIIbGEblGVKlr/EpgI=;
- b=rKse2SbQ1O++bIEUyav6H241FHEMxaFiUtwIZRlm/kiwEJhllMI1MGBnxLtWCrOAZ0
- 6sno9Y8omyP7pNeedeCy54fc7CGX1aH4zUOy17WHGDQD42paERKWP3aXWxyHk/VMH9Am
- 84/ku2ClG2AWBgcGkvnuDmUNjwak6CiDU5kZqQBSvaXou5BSOvy410sncnrH86iyCJ+F
- +8S5j+UgqSJIIF5lnLPGIZGaYB34T1dJPAjJGa77odGNQCKB3NIE21b+sYu7JtY8+uWw
- ekgTls9xxvGm+h+nBwvL77sxbaA4coT68Dft/rsNGKGw3hCfH7YNlcwJrK7kESoIycQR
- YV6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to;
- bh=DOsZ5NGDxWXSC2tjyeLbv7vmBYIIbGEblGVKlr/EpgI=;
- b=KxSNGFtMT53f896dfLt9BPeWYO7+lPZJcWfwZkFFTU8gqsgfUPqzlUjssVzjADkgja
- TvAalSpRVOfEAcOnUmV2ajkhg8vSAbMrpUGRC5urbPJ4Voa4pTQBMPAkHAvqnKtOFytu
- atFC1vpP0hx4bpsr4+0Itg9nrTi3ErNkbBnUR4+gCnvIz4+AWS3ZS6r/YYnvbTNMeSl/
- 0zT9zJznIUv/NQWdXJvkHLS8JSoB9bhk0k88afXWfqDuTTAteTpGK6VSQzWL76USV8WW
- LlKEF0CeIcHn1elvmHVRs/65eCzCsNUpYGNCfuDFBLOuMaZWPE+yqbe9c2a0Z7KQ+zj0
- ds6g==
-X-Gm-Message-State: ABUngvcwfveG42yMed8wLXsldwZmrsxXVpASGXoYUqf4N1UJYS/kwdzH1mqbwlNtTPi0UykvDZmKy8aL0mYlzA==
-X-Received: by 10.176.80.195 with SMTP id d3mr5803471uaa.125.1479479093020;
- Fri, 18 Nov 2016 06:24:53 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tL0d71YTFzDvb1
+ for <openbmc@lists.ozlabs.org>; Sat, 19 Nov 2016 01:24:59 +1100 (AEDT)
+Received: from player697.ha.ovh.net (b9.ovh.net [213.186.33.59])
+ by mo7.mail-out.ovh.net (Postfix) with ESMTP id B478820795
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Nov 2016 15:24:54 +0100 (CET)
+Received: from hermes.kaod.org.com (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: clg@kaod.org)
+ by player697.ha.ovh.net (Postfix) with ESMTPSA id 7F99B4800A3;
+ Fri, 18 Nov 2016 15:24:51 +0100 (CET)
+From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH qemu 01/38] m25p80: add support for the mx66l1g45g
+Date: Fri, 18 Nov 2016 15:21:41 +0100
+Message-Id: <1479478938-13267-2-git-send-email-clg@kaod.org>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1479478938-13267-1-git-send-email-clg@kaod.org>
+References: <1479478938-13267-1-git-send-email-clg@kaod.org>
 MIME-Version: 1.0
-Received: by 10.159.36.243 with HTTP; Fri, 18 Nov 2016 06:24:52 -0800 (PST)
-In-Reply-To: <OF6A1A7417.88F14B99-ON0025806F.004E9A7D-8625806F.004EA327@notes.na.collabserv.com>
-References: <OF6A1A7417.88F14B99-ON0025806F.004E9A7D-8625806F.004EA327@notes.na.collabserv.com>
-From: Christopher Bostic <christopher.lee.bostic@gmail.com>
-Date: Fri, 18 Nov 2016 08:24:52 -0600
-Message-ID: <CAA0LjjXej1XQ=voNfX_=5YL21bgjf73WK-UE=OgBcb=Pt=aKhg@mail.gmail.com>
-Subject: Re: Fw: [PATCH] aspeed-bmc-opp-palmetto: Add GPIO hogs to devicetree
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>,
- Jeremy Kerr <jk@ozlabs.org>, xxpetri@de.ibm.com, zahrens@us.ibm.com
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 1096063560390642434
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrudekgdeivdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,179 +38,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Nov 2016 14:24:56 -0000
+X-List-Received-Date: Fri, 18 Nov 2016 14:24:59 -0000
 
-On Fri, Nov 18, 2016 at 8:18 AM, Christopher Bostic <cbostic@us.ibm.com> wrote:
-> From: Andrew Jeffery <andrew@aj.id.au>
-> To: Joel Stanley <joel@jms.id.au>
-> Cc: openbmc@lists.ozlabs.org, Cyril Bur <cyrilbur@gmail.com>
-> Date: 11/18/2016 02:13 AM
-> Subject: [PATCH] aspeed-bmc-opp-palmetto: Add GPIO hogs to devicetree
-> Sent by: "openbmc" <openbmc-bounces+cbostic=us.ibm.com@lists.ozlabs.org>
->
-> ________________________________
->
->
->
+Signed-off-by: Cédric Le Goater <clg@kaod.org>
+---
+ hw/block/m25p80.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Hi Andrew,
-
-I notice Pin H6 is in your list assigned as a gpio-hog.   This is a
-pin I use for the voltage direction control via the translator for
-openFSI.  Not familiar with the history here but is that pin being
-used for other purposes or is required to be flagged as a gpio-hog?
-Currently I'm attempting to grab a descriptor for this without that
-requirement.
-
-Thanks,
-Chris
-
-
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> index 21619fd8cd8d..5c689613e5bd 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> @@ -167,6 +167,133 @@
-> output-low;
-> line-name = "func_mode2";
-> };
-> +
-> + pin_gpio_a0 {
-> + gpio-hog;
-> + gpios = <ASPEED_GPIO(A, 0) GPIO_ACTIVE_HIGH>;
-> + input;
-> + line-name = "A0";
-> + };
-> +
-> + pin_gpio_a1 {
-> + gpio-hog;
-> + gpios = <ASPEED_GPIO(A, 1) GPIO_ACTIVE_HIGH>;
-> + output-high;
-> + line-name = "A1";
-> + };
-> +
-> + pin_gpio_b1 {
-> + gpio-hog;
-> + gpios = <ASPEED_GPIO(B, 1) GPIO_ACTIVE_HIGH>;
-> + output-high;
-> + line-name = "B1";
-> + };
-> +
-> + pin_gpio_b2 {
-> + gpio-hog;
-> + gpios = <ASPEED_GPIO(B, 2) GPIO_ACTIVE_HIGH>;
-> + output-high;
-> + line-name = "B2";
-> + };
-> +
-> + pin_gpio_b7 {
-> + gpio-hog;
-> + gpios = <ASPEED_GPIO(B, 7) GPIO_ACTIVE_HIGH>;
-> + output-high;
-> + line-name = "B7";
-> + };
-> +
-> + pin_gpio_d1 {
-> + gpio-hog;
-> + gpios = <ASPEED_GPIO(D, 1) GPIO_ACTIVE_HIGH>;
-> + output-high;
-> + line-name = "D1";
-> + };
-> +
-> + pin_gpio_f1 {
-> + gpio-hog;
-> + gpios = <ASPEED_GPIO(F, 1) GPIO_ACTIVE_HIGH>;
-> + input;
-> + line-name = "F1";
-> + };
-> +
-> + pin_gpio_f4 {
-> + gpio-hog;
-> + gpios = <ASPEED_GPIO(F, 4) GPIO_ACTIVE_HIGH>;
-> + input;
-> + line-name = "F4";
-> + };
-> +
-> + pin_gpio_f5 {
-> + gpio-hog;
-> + gpios = <ASPEED_GPIO(F, 5) GPIO_ACTIVE_HIGH>;
-> + input;
-> + line-name = "F5";
-> + };
-> +
-> + pin_gpio_f7 {
-> + gpio-hog;
-> + gpios = <ASPEED_GPIO(F, 7) GPIO_ACTIVE_HIGH>;
-> + output-high;
-> + line-name = "F7";
-> + };
-> +
-> + pin_gpio_g3 {
-> + gpio-hog;
-> + gpios = <ASPEED_GPIO(G, 3) GPIO_ACTIVE_HIGH>;
-> + output-high;
-> + line-name = "G3";
-> + };
-> +
-> + pin_gpio_g4 {
-> + gpio-hog;
-> + gpios = <ASPEED_GPIO(G, 4) GPIO_ACTIVE_HIGH>;
-> + input;
-> + line-name = "G4";
-> + };
-> +
-> + pin_gpio_g5 {
-> + gpio-hog;
-> + gpios = <ASPEED_GPIO(G, 5) GPIO_ACTIVE_HIGH>;
-> + input;
-> + line-name = "G5";
-> + };
-> +
-> + pin_gpio_h0 {
-> + gpio-hog;
-> + gpios = <ASPEED_GPIO(H, 0) GPIO_ACTIVE_HIGH>;
-> + input;
-> + line-name = "H0";
-> + };
-> +
-> + pin_gpio_h1 {
-> + gpio-hog;
-> + gpios = <ASPEED_GPIO(H, 1) GPIO_ACTIVE_HIGH>;
-> + input;
-> + line-name = "H1";
-> + };
-> +
-> + pin_gpio_h2 {
-> + gpio-hog;
-> + gpios = <ASPEED_GPIO(H, 2) GPIO_ACTIVE_HIGH>;
-> + output-high;
-> + line-name = "H2";
-> + };
-> +
-> + pin_gpio_h6 {
-> + gpio-hog;
-> + gpios = <ASPEED_GPIO(H, 6) GPIO_ACTIVE_HIGH>;
-> + output-high;
-> + line-name = "H6";
-> + };
-> +
-> + pin_gpio_h7 {
-> + gpio-hog;
-> + gpios = <ASPEED_GPIO(H, 7) GPIO_ACTIVE_HIGH>;
-> + output-high;
-> + line-name = "H7";
-> + };
-> +
-> };
->
-> &vuart {
-> --
-> 2.7.4
->
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
->
->
+diff --git a/hw/block/m25p80.c b/hw/block/m25p80.c
+index d29ff4cb4f4b..e3c1166ea6e3 100644
+--- a/hw/block/m25p80.c
++++ b/hw/block/m25p80.c
+@@ -203,6 +203,7 @@ static const FlashPartInfo known_devices[] = {
+     { INFO("mx25l25655e", 0xc22619,      0,  64 << 10, 512, 0) },
+     { INFO("mx66u51235f", 0xc2253a,      0,  64 << 10, 1024, ER_4K | ER_32K) },
+     { INFO("mx66u1g45g",  0xc2253b,      0,  64 << 10, 2048, ER_4K | ER_32K) },
++    { INFO("mx66l1g45g",  0xc2201b,      0,  64 << 10, 2048, ER_4K | ER_32K) },
+ 
+     /* Micron */
+     { INFO("n25q032a11",  0x20bb16,      0,  64 << 10,  64, ER_4K) },
+-- 
+2.7.4
