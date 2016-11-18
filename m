@@ -1,29 +1,28 @@
 Return-Path: <clg@kaod.org>
-Received: from 4.mo7.mail-out.ovh.net (4.mo7.mail-out.ovh.net [178.32.122.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tL0fg05v5zDvb1
- for <openbmc@lists.ozlabs.org>; Sat, 19 Nov 2016 01:26:18 +1100 (AEDT)
+Received: from 9.mo7.mail-out.ovh.net (9.mo7.mail-out.ovh.net [46.105.60.248])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tL0fk1f0xzDvqT
+ for <openbmc@lists.ozlabs.org>; Sat, 19 Nov 2016 01:26:21 +1100 (AEDT)
 Received: from player697.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo7.mail-out.ovh.net (Postfix) with ESMTP id C06401A37C
- for <openbmc@lists.ozlabs.org>; Fri, 18 Nov 2016 15:26:15 +0100 (CET)
+ by mo7.mail-out.ovh.net (Postfix) with ESMTP id 3BEB31E01F
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Nov 2016 15:26:19 +0100 (CET)
 Received: from hermes.kaod.org.com (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
  [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player697.ha.ovh.net (Postfix) with ESMTPSA id 71F08480075;
- Fri, 18 Nov 2016 15:26:12 +0100 (CET)
+ by player697.ha.ovh.net (Postfix) with ESMTPSA id C2AC4480075;
+ Fri, 18 Nov 2016 15:26:15 +0100 (CET)
 From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH qemu 26/38] aspeed/sdmc: fake a few more registers to let DRAM
- calibration run
-Date: Fri, 18 Nov 2016 15:22:06 +0100
-Message-Id: <1479478938-13267-27-git-send-email-clg@kaod.org>
+Subject: [PATCH qemu 27/38] hw/misc: add a TMP42{1,2,3} device model
+Date: Fri, 18 Nov 2016 15:22:07 +0100
+Message-Id: <1479478938-13267-28-git-send-email-clg@kaod.org>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1479478938-13267-1-git-send-email-clg@kaod.org>
 References: <1479478938-13267-1-git-send-email-clg@kaod.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 1118863035735247618
+X-Ovh-Tracer-Id: 1119988936299547394
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
 X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrudekgdeivdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
@@ -38,266 +37,452 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Nov 2016 14:26:19 -0000
+X-List-Received-Date: Fri, 18 Nov 2016 14:26:23 -0000
 
-It helps in understanding the DRAM calibration sequence which is all
-written in assembly, and may be rewritten in C one day.
+Largely inspired by the TMP105 temperature sensor, here is a model for
+the TMP42{1,2,3} temperature sensors.
 
-This provides support only for the AST2400 SoC (DDR3). AST2500 still
-uses the SOC_SCRATCH1 to pretend DRAM was already initialized.
+Specs can be found here :
+
+	http://www.ti.com/lit/gpn/tmp421
 
 Signed-off-by: Cédric Le Goater <clg@kaod.org>
 ---
- hw/misc/aspeed_scu.c          |   2 +-
- hw/misc/aspeed_sdmc.c         | 188 ++++++++++++++++++++++++++++++++++++++++++
- include/hw/misc/aspeed_sdmc.h |   2 +-
- 3 files changed, 190 insertions(+), 2 deletions(-)
+ default-configs/arm-softmmu.mak |   1 +
+ hw/misc/Makefile.objs           |   1 +
+ hw/misc/tmp421.c                | 400 ++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 402 insertions(+)
+ create mode 100644 hw/misc/tmp421.c
 
-diff --git a/hw/misc/aspeed_scu.c b/hw/misc/aspeed_scu.c
-index 95022d3607ad..b5efba9121b2 100644
---- a/hw/misc/aspeed_scu.c
-+++ b/hw/misc/aspeed_scu.c
-@@ -100,7 +100,7 @@ static const uint32_t ast2400_a0_resets[ASPEED_SCU_NR_REGS] = {
-      [PCI_CTRL2]       = 0x20001A03U,
-      [PCI_CTRL3]       = 0x04000030U,
-      [SYS_RST_STATUS]  = 0x00000001U,
--     [SOC_SCRATCH1]    = 0x000000C0U, /* SoC completed DRAM init */
-+     [SOC_SCRATCH1]    = 0x00000000U,
-      [MISC_CTRL2]      = 0x00000023U,
-      [RNG_CTRL]        = 0x0000000EU,
-      [PINMUX_CTRL2]    = 0x0000F000U,
-diff --git a/hw/misc/aspeed_sdmc.c b/hw/misc/aspeed_sdmc.c
-index 867caa2d64dc..c71d18953c1c 100644
---- a/hw/misc/aspeed_sdmc.c
-+++ b/hw/misc/aspeed_sdmc.c
-@@ -80,6 +80,114 @@
-      ASPEED_SDMC_AST2500_RESERVED | ASPEED_SDMC_VGA_COMPAT |            \
-      ASPEED_SDMC_VGA_APERTURE(ASPEED_SDMC_VGA_64MB))
- 
-+/* MCR08: Graphics Memory Protection Register */
-+#define R_GRAPHIC_MEM_PROT              (0x8 / 4)
+diff --git a/default-configs/arm-softmmu.mak b/default-configs/arm-softmmu.mak
+index 6de3e16a3e11..e3ac9e0ec104 100644
+--- a/default-configs/arm-softmmu.mak
++++ b/default-configs/arm-softmmu.mak
+@@ -14,6 +14,7 @@ CONFIG_TWL92230=y
+ CONFIG_TSC2005=y
+ CONFIG_LM832X=y
+ CONFIG_TMP105=y
++CONFIG_TMP421=y
+ CONFIG_STELLARIS=y
+ CONFIG_STELLARIS_INPUT=y
+ CONFIG_STELLARIS_ENET=y
+diff --git a/hw/misc/Makefile.objs b/hw/misc/Makefile.objs
+index 1a89615a6270..69610caa325d 100644
+--- a/hw/misc/Makefile.objs
++++ b/hw/misc/Makefile.objs
+@@ -1,6 +1,7 @@
+ common-obj-$(CONFIG_APPLESMC) += applesmc.o
+ common-obj-$(CONFIG_MAX111X) += max111x.o
+ common-obj-$(CONFIG_TMP105) += tmp105.o
++common-obj-$(CONFIG_TMP421) += tmp421.o
+ common-obj-$(CONFIG_ISA_DEBUG) += debugexit.o
+ common-obj-$(CONFIG_SGA) += sga.o
+ common-obj-$(CONFIG_ISA_TESTDEV) += pc-testdev.o
+diff --git a/hw/misc/tmp421.c b/hw/misc/tmp421.c
+new file mode 100644
+index 000000000000..0e310e0639e1
+--- /dev/null
++++ b/hw/misc/tmp421.c
+@@ -0,0 +1,400 @@
++/*
++ * Texas Instruments TMP421 temperature sensor.
++ *
++ * Copyright (c) 2016 IBM Corporation.
++ *
++ * Largely inspired by :
++ *
++ * Texas Instruments TMP105 temperature sensor.
++ *
++ * Copyright (C) 2008 Nokia Corporation
++ * Written by Andrzej Zaborowski <andrew@openedhand.com>
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License as
++ * published by the Free Software Foundation; either version 2 or
++ * (at your option) version 3 of the License.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License along
++ * with this program; if not, see <http://www.gnu.org/licenses/>.
++ */
 +
-+/* MCR0C: Refresh Timing Register */
-+#define R_REFRESH_TIMING                (0x0C / 4)
++#include "qemu/osdep.h"
++#include "hw/hw.h"
++#include "hw/i2c/i2c.h"
++#include "qapi/error.h"
++#include "qapi/visitor.h"
 +
-+/* MCR10: AC Timing Register #1 */
-+#define R_AC_TIMING1                    (0x10 / 4)
++/* Manufacturer / Device ID's */
++#define TMP421_MANUFACTURER_ID          0x55
++#define TMP421_DEVICE_ID                0x21
++#define TMP422_DEVICE_ID                0x22
++#define TMP423_DEVICE_ID                0x23
 +
-+/* MCR14: AC Timing Register #2 */
-+#define R_AC_TIMING2                    (0x14 / 4)
++typedef struct DeviceInfo {
++    int model;
++    const char *name;
++} DeviceInfo;
 +
-+/* MCR18: CK/DQS Delay Control Register */
-+#define R_CQDQS_DELAY_CTRL              (0x18 / 4)
++static const DeviceInfo devices[] = {
++    { TMP421_DEVICE_ID, "tmp421" },
++    { TMP422_DEVICE_ID, "tmp422" },
++    { TMP423_DEVICE_ID, "tmp423" },
++};
 +
-+/* MCR1C: MCLK to MCLK2X Calibration(CBR) Status Register */
-+#define R_MCLK_CALIB_STATUS             (0x1C / 4)
-+#define   MCLK2X_PHASE                      (0x96 << 16)
++typedef struct TMP421State {
++    /*< private >*/
++    I2CSlave i2c;
++    /*< public >*/
 +
-+/* MCR20: DQS Input Phase Calibration Control and Status */
-+#define R_DQS_INPUT_CALIB_STATUS        (0x20 / 4)
++    int16_t temperature[4];
 +
-+/* MCR24: ????  */
-+#define R_MCR24                         (0x24 / 4)
++    uint8_t status;
++    uint8_t config[2];
++    uint8_t rate;
 +
-+/* MCR28: Mode Setting Control Register */
-+#define R_MODE_SETTING_CTRL             (0x28 / 4)
++    uint8_t len;
++    uint8_t buf[2];
++    uint8_t pointer;
 +
-+/* MCR2C: MRS/EMRS2 Mode Setting Register */
-+#define R_MRS_MODE_SETTING_CTRL         (0x2C / 4)
++} TMP421State;
 +
-+/* MCR30: EMRS/EMRS3 Mode Setting Register */
-+#define R_EMRS_MODE_SETTING_CTRL        (0x30 / 4)
++typedef struct TMP421Class {
++    I2CSlaveClass parent_class;
++    DeviceInfo *dev;
++} TMP421Class;
 +
-+/* MCR34: Power Control Register */
-+#define R_POWER_CTRL                    (0x34 / 4)
++#define TYPE_TMP421 "tmp421-generic"
++#define TMP421(obj) OBJECT_CHECK(TMP421State, (obj), TYPE_TMP421)
 +
-+/* MCR38: Page Miss Latency Mask Register */
-+#define R_PAGE_MISS_MASK                (0x38 / 4)
++#define TMP421_CLASS(klass) \
++     OBJECT_CLASS_CHECK(TMP421Class, (klass), TYPE_TMP421)
++#define TMP421_GET_CLASS(obj) \
++     OBJECT_GET_CLASS(TMP421Class, (obj), TYPE_TMP421)
 +
-+/* MCR40: Maximum Grant Length Register #1 */
-+#define R_MAX_GRANT_LEN1                (0x40 / 4)
++/* the TMP421 registers */
++#define TMP421_STATUS_REG               0x08
++#define    TMP421_STATUS_BUSY             (1 << 7)
++#define TMP421_CONFIG_REG_1             0x09
++#define    TMP421_CONFIG_RANGE            (1 << 2)
++#define    TMP421_CONFIG_SHUTDOWN         (1 << 6)
++#define TMP421_CONFIG_REG_2             0x0A
++#define    TMP421_CONFIG_RC               (1 << 2)
++#define    TMP421_CONFIG_LEN              (1 << 3)
++#define    TMP421_CONFIG_REN              (1 << 4)
++#define    TMP421_CONFIG_REN2             (1 << 5)
++#define    TMP421_CONFIG_REN3             (1 << 6)
 +
-+/* MCR44: Maximum Grant Length Register #2 */
-+#define R_MAX_GRANT_LEN2                (0x44 / 4)
++#define TMP421_CONVERSION_RATE_REG      0x0B
++#define TMP421_ONE_SHOT                 0x0F
 +
-+/* MCR48: Maximum Grant Length Register #3 */
-+#define R_MAX_GRANT_LEN3                (0x48 / 4)
++#define TMP421_RESET                    0xFC
++#define TMP421_MANUFACTURER_ID_REG      0xFE
++#define TMP421_DEVICE_ID_REG            0xFF
 +
-+/* MCR4C: Maximum Grant Length Register #4 */
-+#define R_MAX_GRANT_LEN4                (0x4C / 4)
++#define TMP421_TEMP_MSB0                0x00
++#define TMP421_TEMP_MSB1                0x01
++#define TMP421_TEMP_MSB2                0x02
++#define TMP421_TEMP_MSB3                0x03
++#define TMP421_TEMP_LSB0                0x10
++#define TMP421_TEMP_LSB1                0x11
++#define TMP421_TEMP_LSB2                0x12
++#define TMP421_TEMP_LSB3                0x13
 +
-+/* MCR50: Interrupt Control/Status Register */
-+#define R_IRQ_STATUS_CTRL               (0x50 / 4)
++static const int32_t mins[2] = { -40000, -55000 };
++static const int32_t maxs[2] = { 127000, 150000 };
 +
-+/* MCR54: ECC Protection Address Range Register */
-+#define R_ECC_PROTECT                   (0x54 / 4)
++static void tmp421_get_temperature(Object *obj, Visitor *v, const char *name,
++                                   void *opaque, Error **errp)
++{
++    TMP421State *s = TMP421(obj);
++    bool ext_range = (s->config[0] & TMP421_CONFIG_RANGE);
++    int offset = ext_range * 64 * 256;
++    int64_t value;
++    int tempid;
 +
-+/* MCR58: ????  */
-+#define R_MCR58                         (0x58 / 4)
++    if (sscanf(name, "temperature%d", &tempid) != 1) {
++        error_setg(errp, "error reading %s: %m", name);
++        return;
++    }
 +
-+/* MCR60: IO Buffer Mode Register */
-+#define R_IO_BUFFER_MODE                (0x60 / 4)
++    if (tempid >= 4 || tempid < 0) {
++        error_setg(errp, "error reading %s", name);
++        return;
++    }
 +
-+/* MCR64: DLL Control Register #1 */
-+#define R_DLL_CTRL                      (0x64 / 4)
++    value = ((s->temperature[tempid] - offset) * 1000 + 128) / 256;
 +
-+/* MCR68: DLL Control Register #2 */
-+#define R_DLL_CTRL2                     (0x68 / 4)
++    visit_type_int(v, name, &value, errp);
++}
 +
-+/* MCR6C: DDR IO Impedance Calibration Control */
-+#define R_DDR_IO_IMPEDANCE_CTRL         (0x6C / 4)
++/* Units are 0.001 centigrades relative to 0 C.  s->temperature is 8.8
++ * fixed point, so units are 1/256 centigrades.  A simple ratio will do.
++ */
++static void tmp421_set_temperature(Object *obj, Visitor *v, const char *name,
++                                   void *opaque, Error **errp)
++{
++    TMP421State *s = TMP421(obj);
++    Error *local_err = NULL;
++    int64_t temp;
++    bool ext_range = (s->config[0] & TMP421_CONFIG_RANGE);
++    int offset = ext_range * 64 * 256;
++    int tempid;
 +
-+/* MCR70: ECC Testing Control/Status Register */
-+#define R_ECC_STATUS_CTRL               (0x70 / 4)
-+#define   ECC_TEST_FINISH                  (1 << 12)
++    visit_type_int(v, name, &temp, &local_err);
++    if (local_err) {
++        error_propagate(errp, local_err);
++        return;
++    }
 +
-+/* MCR74: Testing Start Address and Length Register */
-+#define R_START_ADDR_LEN                (0x74 / 4)
++    if (temp >= maxs[ext_range] || temp < mins[ext_range]) {
++        error_setg(errp, "value %" PRId64 ".%03" PRIu64 " °C is out of range",
++                   temp / 1000, temp % 1000);
++        return;
++    }
 +
-+/* MCR78: Testing Fail DQ Bit Register */
-+#define R_FAIL_DQ                       (0x78 / 4)
++    if (sscanf(name, "temperature%d", &tempid) != 1) {
++        error_setg(errp, "error reading %s: %m", name);
++        return;
++    }
 +
-+/* MCR7C: Test Initial Value Register */
-+#define R_TEST_INIT_VALUE               (0x7C / 4)
++    if (tempid >= 4 || tempid < 0) {
++        error_setg(errp, "error reading %s", name);
++        return;
++    }
 +
-+/* MCR80: DQ Input Delay Calibration Control #1 */
-+#define R_DQ_DELAY_CALIB_CTRL1          (0x80 / 4)
-+#define   DQ_DELAY_CALIB_COUNT_DONE        (1 << 31)
++    s->temperature[tempid] = (int16_t) ((temp * 256 - 128) / 1000) + offset;
++}
 +
-+/* MCR84: DQ Input Delay Calibration Control #2 */
-+#define R_DQ_DELAY_CALIB_CTRL2          (0x84 / 4)
++static void tmp421_read(TMP421State *s)
++{
++    TMP421Class *sc = TMP421_GET_CLASS(s);
 +
-+/* MCR88: DQ Input Delay Calibration Control #3 */
-+#define R_DQ_DELAY_CALIB_CTRL3          (0x88 / 4)
++    s->len = 0;
 +
-+/* MCR8C: CK Duty Counter Value */
-+#define R_CK_DUTY_VALUE                 (0x8C / 4)
-+
-+/* MCR100: AST2000 Backward Compatible SCU Password */
-+#define R_COMPAT_SCU_PASSWORD           (0x100 / 4)
-+
-+/* MCR120: AST2000 Backward Compatible SCU MPLL Parameter */
-+#define R_COMPAT_SCU_MPLL               (0x120 / 4)
-+
-+/* MCR170: AST2000 Backward Compatible SCU Hardware Strapping Value */
-+#define R_COMPAT_SCU_HW_STRAPPING       (0x170 / 4)
-+
- static uint64_t aspeed_sdmc_read(void *opaque, hwaddr addr, unsigned size)
- {
-     AspeedSDMCState *s = ASPEED_SDMC(opaque);
-@@ -91,6 +199,48 @@ static uint64_t aspeed_sdmc_read(void *opaque, hwaddr addr, unsigned size)
-     case R_PROT:
-         val = s->unlocked;
-         break;
-+    case R_CONF:
-+    case R_GRAPHIC_MEM_PROT:
-+    case R_REFRESH_TIMING:
-+    case R_AC_TIMING1:
-+    case R_AC_TIMING2:
-+    case R_CQDQS_DELAY_CTRL:
-+    case R_MCLK_CALIB_STATUS:
-+    case R_DQS_INPUT_CALIB_STATUS:
-+    case R_MCR24:
-+    case R_MODE_SETTING_CTRL:
-+    case R_MRS_MODE_SETTING_CTRL:
-+    case R_EMRS_MODE_SETTING_CTRL:
-+    case R_POWER_CTRL:
-+    case R_PAGE_MISS_MASK:
-+    case R_MAX_GRANT_LEN1:
-+    case R_MAX_GRANT_LEN2:
-+    case R_MAX_GRANT_LEN3:
-+    case R_MAX_GRANT_LEN4:
-+    case R_IRQ_STATUS_CTRL:
-+    case R_ECC_PROTECT:
-+    case R_MCR58:
-+    case R_IO_BUFFER_MODE:
-+    case R_DLL_CTRL:
-+    case R_DLL_CTRL2:
-+    case R_DDR_IO_IMPEDANCE_CTRL:
-+    case R_START_ADDR_LEN:
-+    case R_FAIL_DQ:
-+    case R_TEST_INIT_VALUE:
-+    case R_DQ_DELAY_CALIB_CTRL2:
-+    case R_DQ_DELAY_CALIB_CTRL3:
-+    case R_CK_DUTY_VALUE:
-+    case R_COMPAT_SCU_PASSWORD:
-+    case R_COMPAT_SCU_MPLL:
-+    case R_COMPAT_SCU_HW_STRAPPING:
-+        val = s->regs[addr];
++    switch (s->pointer) {
++    case TMP421_MANUFACTURER_ID_REG:
++        s->buf[s->len++] = TMP421_MANUFACTURER_ID;
 +        break;
-+    case R_DQ_DELAY_CALIB_CTRL1:
-+        val = s->regs[addr] | DQ_DELAY_CALIB_COUNT_DONE;
++    case TMP421_DEVICE_ID_REG:
++        s->buf[s->len++] = sc->dev->model;
 +        break;
-+    case R_ECC_STATUS_CTRL:
-+        val = s->regs[addr] | ECC_TEST_FINISH;
++    case TMP421_CONFIG_REG_1:
++        s->buf[s->len++] = s->config[0];
 +        break;
-     default:
-         qemu_log_mask(LOG_GUEST_ERROR,
-                       "%s: Out-of-bounds read at offset 0x%" HWADDR_PRIx "\n",
-@@ -133,6 +283,42 @@ static void aspeed_sdmc_write(void *opaque, hwaddr addr, uint64_t data,
-             g_assert_not_reached();
-         }
-         break;
-+    case R_GRAPHIC_MEM_PROT:
-+    case R_REFRESH_TIMING:
-+    case R_AC_TIMING1:
-+    case R_AC_TIMING2:
-+    case R_CQDQS_DELAY_CTRL:
-+    case R_MCLK_CALIB_STATUS:
-+    case R_DQS_INPUT_CALIB_STATUS:
-+    case R_MCR24:
-+    case R_MODE_SETTING_CTRL:
-+    case R_MRS_MODE_SETTING_CTRL:
-+    case R_EMRS_MODE_SETTING_CTRL:
-+    case R_POWER_CTRL:
-+    case R_PAGE_MISS_MASK:
-+    case R_MAX_GRANT_LEN1:
-+    case R_MAX_GRANT_LEN2:
-+    case R_MAX_GRANT_LEN3:
-+    case R_MAX_GRANT_LEN4:
-+    case R_IRQ_STATUS_CTRL:
-+    case R_ECC_PROTECT:
-+    case R_MCR58:
-+    case R_IO_BUFFER_MODE:
-+    case R_DLL_CTRL:
-+    case R_DLL_CTRL2:
-+    case R_DDR_IO_IMPEDANCE_CTRL:
-+    case R_ECC_STATUS_CTRL:
-+    case R_START_ADDR_LEN:
-+    case R_FAIL_DQ:
-+    case R_TEST_INIT_VALUE:
-+    case R_DQ_DELAY_CALIB_CTRL1:
-+    case R_DQ_DELAY_CALIB_CTRL2:
-+    case R_DQ_DELAY_CALIB_CTRL3:
-+    case R_CK_DUTY_VALUE:
-+    case R_COMPAT_SCU_PASSWORD:
-+    case R_COMPAT_SCU_MPLL:
-+    case R_COMPAT_SCU_HW_STRAPPING:
++    case TMP421_CONFIG_REG_2:
++        s->buf[s->len++] = s->config[1];
 +        break;
-     default:
-         qemu_log_mask(LOG_GUEST_ERROR,
-                       "%s: Out-of-bounds write at offset 0x%" HWADDR_PRIx "\n",
-@@ -221,6 +407,8 @@ static void aspeed_sdmc_reset(DeviceState *dev)
-     default:
-         g_assert_not_reached();
-     }
++    case TMP421_CONVERSION_RATE_REG:
++        s->buf[s->len++] = s->rate;
++        break;
++    case TMP421_STATUS_REG:
++        s->buf[s->len++] = s->status;
++        break;
 +
-+    s->regs[R_MCLK_CALIB_STATUS] = MCLK2X_PHASE;
- }
- 
- static void aspeed_sdmc_realize(DeviceState *dev, Error **errp)
-diff --git a/include/hw/misc/aspeed_sdmc.h b/include/hw/misc/aspeed_sdmc.h
-index a4415d9efc2f..e073a6c9419a 100644
---- a/include/hw/misc/aspeed_sdmc.h
-+++ b/include/hw/misc/aspeed_sdmc.h
-@@ -14,7 +14,7 @@
- #define TYPE_ASPEED_SDMC "aspeed.sdmc"
- #define ASPEED_SDMC(obj) OBJECT_CHECK(AspeedSDMCState, (obj), TYPE_ASPEED_SDMC)
- 
--#define ASPEED_SDMC_NR_REGS (0x8 >> 2)
-+#define ASPEED_SDMC_NR_REGS (0x174 >> 2)
- 
- typedef struct AspeedSDMCState {
-     /*< private >*/
++        /* FIXME: check for channel enablement in config registers */
++    case TMP421_TEMP_MSB0:
++        s->buf[s->len++] = (((uint16_t) s->temperature[0]) >> 8);
++        s->buf[s->len++] = (((uint16_t) s->temperature[0]) >> 0) & 0xf0;
++        break;
++    case TMP421_TEMP_MSB1:
++        s->buf[s->len++] = (((uint16_t) s->temperature[1]) >> 8);
++        s->buf[s->len++] = (((uint16_t) s->temperature[1]) >> 0) & 0xf0;
++        break;
++    case TMP421_TEMP_MSB2:
++        s->buf[s->len++] = (((uint16_t) s->temperature[2]) >> 8);
++        s->buf[s->len++] = (((uint16_t) s->temperature[2]) >> 0) & 0xf0;
++        break;
++    case TMP421_TEMP_MSB3:
++        s->buf[s->len++] = (((uint16_t) s->temperature[3]) >> 8);
++        s->buf[s->len++] = (((uint16_t) s->temperature[3]) >> 0) & 0xf0;
++        break;
++    case TMP421_TEMP_LSB0:
++        s->buf[s->len++] = (((uint16_t) s->temperature[0]) >> 0) & 0xf0;
++        break;
++    case TMP421_TEMP_LSB1:
++        s->buf[s->len++] = (((uint16_t) s->temperature[1]) >> 0) & 0xf0;
++        break;
++    case TMP421_TEMP_LSB2:
++        s->buf[s->len++] = (((uint16_t) s->temperature[2]) >> 0) & 0xf0;
++        break;
++    case TMP421_TEMP_LSB3:
++        s->buf[s->len++] = (((uint16_t) s->temperature[3]) >> 0) & 0xf0;
++        break;
++    }
++}
++
++static void tmp421_reset(I2CSlave *i2c);
++
++static void tmp421_write(TMP421State *s)
++{
++    switch (s->pointer) {
++    case TMP421_CONVERSION_RATE_REG:
++        s->rate = s->buf[0];
++        break;
++    case TMP421_CONFIG_REG_1:
++        s->config[0] = s->buf[0];
++        break;
++    case TMP421_CONFIG_REG_2:
++        s->config[1] = s->buf[0];
++        break;
++    case TMP421_RESET:
++        tmp421_reset(I2C_SLAVE(s));
++        break;
++    }
++}
++
++static int tmp421_rx(I2CSlave *i2c)
++{
++    TMP421State *s = TMP421(i2c);
++
++    if (s->len < 2) {
++        return s->buf[s->len++];
++    } else {
++        return 0xff;
++    }
++}
++
++static int tmp421_tx(I2CSlave *i2c, uint8_t data)
++{
++    TMP421State *s = TMP421(i2c);
++
++    if (s->len == 0) {
++        /* first byte is the register pointer for a read or write
++         * operation */
++        s->pointer = data;
++        s->len++;
++    } else if (s->len == 1) {
++        /* second byte is the data to write. The device only supports
++         * one byte writes */
++        s->buf[0] = data;
++        tmp421_write(s);
++    }
++
++    return 0;
++}
++
++static void tmp421_event(I2CSlave *i2c, enum i2c_event event)
++{
++    TMP421State *s = TMP421(i2c);
++
++    if (event == I2C_START_RECV) {
++        tmp421_read(s);
++    }
++
++    s->len = 0;
++}
++
++static const VMStateDescription vmstate_tmp421 = {
++    .name = "TMP421",
++    .version_id = 0,
++    .minimum_version_id = 0,
++    .fields = (VMStateField[]) {
++        VMSTATE_UINT8(len, TMP421State),
++        VMSTATE_UINT8_ARRAY(buf, TMP421State, 2),
++        VMSTATE_UINT8(pointer, TMP421State),
++        VMSTATE_UINT8_ARRAY(config, TMP421State, 2),
++        VMSTATE_UINT8(status, TMP421State),
++        VMSTATE_UINT8(rate, TMP421State),
++        VMSTATE_INT16_ARRAY(temperature, TMP421State, 4),
++        VMSTATE_I2C_SLAVE(i2c, TMP421State),
++        VMSTATE_END_OF_LIST()
++    }
++};
++
++static void tmp421_reset(I2CSlave *i2c)
++{
++    TMP421State *s = TMP421(i2c);
++    TMP421Class *sc = TMP421_GET_CLASS(s);
++
++    memset(s->temperature, 0, sizeof(s->temperature));
++    s->pointer = 0;
++
++    s->config[0] = 0; /* TMP421_CONFIG_RANGE */
++
++     /* resistance correction and channel enablement */
++    switch (sc->dev->model) {
++    case TMP421_DEVICE_ID:
++        s->config[1] = 0x1c;
++        break;
++    case TMP422_DEVICE_ID:
++        s->config[1] = 0x3c;
++        break;
++    case TMP423_DEVICE_ID:
++        s->config[1] = 0x7c;
++        break;
++    }
++
++    s->rate = 0x7;       /* 8Hz */
++    s->status = 0;
++}
++
++static int tmp421_init(I2CSlave *i2c)
++{
++    TMP421State *s = TMP421(i2c);
++
++    tmp421_reset(&s->i2c);
++
++    return 0;
++}
++
++static void tmp421_initfn(Object *obj)
++{
++    object_property_add(obj, "temperature0", "int",
++                        tmp421_get_temperature,
++                        tmp421_set_temperature, NULL, NULL, NULL);
++    object_property_add(obj, "temperature1", "int",
++                        tmp421_get_temperature,
++                        tmp421_set_temperature, NULL, NULL, NULL);
++    object_property_add(obj, "temperature2", "int",
++                        tmp421_get_temperature,
++                        tmp421_set_temperature, NULL, NULL, NULL);
++    object_property_add(obj, "temperature3", "int",
++                        tmp421_get_temperature,
++                        tmp421_set_temperature, NULL, NULL, NULL);
++}
++
++static void tmp421_class_init(ObjectClass *klass, void *data)
++{
++    DeviceClass *dc = DEVICE_CLASS(klass);
++    I2CSlaveClass *k = I2C_SLAVE_CLASS(klass);
++    TMP421Class *sc = TMP421_CLASS(klass);
++
++    k->init = tmp421_init;
++    k->event = tmp421_event;
++    k->recv = tmp421_rx;
++    k->send = tmp421_tx;
++    dc->vmsd = &vmstate_tmp421;
++    sc->dev = (DeviceInfo *) data;
++}
++
++static const TypeInfo tmp421_info = {
++    .name          = TYPE_TMP421,
++    .parent        = TYPE_I2C_SLAVE,
++    .instance_size = sizeof(TMP421State),
++    .instance_init = tmp421_initfn,
++    .class_init    = tmp421_class_init,
++};
++
++static void tmp421_register_types(void)
++{
++    int i;
++
++    type_register_static(&tmp421_info);
++    for (i = 0; i < ARRAY_SIZE(devices); ++i) {
++        TypeInfo ti = {
++            .name       = devices[i].name,
++            .parent     = TYPE_TMP421,
++            .class_init = tmp421_class_init,
++            .class_data = (void *) &devices[i],
++        };
++        type_register(&ti);
++    }
++}
++
++type_init(tmp421_register_types)
 -- 
 2.7.4
