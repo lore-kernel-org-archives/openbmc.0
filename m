@@ -1,45 +1,27 @@
-Return-Path: <geissonator@gmail.com>
-Received: from mail-it0-x235.google.com (mail-it0-x235.google.com
- [IPv6:2607:f8b0:4001:c0b::235])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tLBGQ4RtbzDvyS
- for <openbmc@lists.ozlabs.org>; Sat, 19 Nov 2016 08:39:26 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="panjA0eF"; 
- dkim-atps=neutral
-Received: by mail-it0-x235.google.com with SMTP id j191so54453539ita.1
- for <openbmc@lists.ozlabs.org>; Fri, 18 Nov 2016 13:39:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:from:date:message-id:subject:to;
- bh=bH6orHAooPaXpjWd2T+edCQc+LgwryNKzssVN6cPlnc=;
- b=panjA0eFovcqF3cfVB6OpK9xrgB78K61oE1tyA3RwjVH+gjxBMlu7/RI4hwyD7Euv7
- T81jGh3+FPrrHqkXXkDwfT8s5kn7mWGZcCsR5oFpFZB7But8ylTaw1cz+I8bTd1flmk3
- 1D/MW1vEPhMwza8i1dH+oW+uNegEzOyXGIZeVlR8cfoVr4lqBUTaZ4WI7ulRP0KP08OE
- V+UCvgGpeWek5rTFvBDDzUW9OUXruwS60g3+EyLzn6DDeYIWl5NRuHh9jV5CACUGaFrc
- uCzQamGFbfO9krRNa+Zs11ltI7CbN/XJ0abGEc+QSsSqpPxMQC0/XJbZ0wiOegnaQ9d4
- VRvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=bH6orHAooPaXpjWd2T+edCQc+LgwryNKzssVN6cPlnc=;
- b=aJwqd88wga/951YcgaN80CFdIa6gW+D5WA/qoA8OhBU6HDWlHXeTuANoPd99KG3KzS
- dK5bLygt6QDL6O2HzIDRldCUsIv4hP7wJhbWpWouNrGbv3nElpqRWsPL14mDTyzqepaJ
- zRhN6nBLsgOiCFRoszPhVmJZ1LKU5h2N228Ki7g5Ra9F1TzBzVCB2thvAJbDgz0/Ajjj
- FM9Kz9JcV9Mf6AZwNPuWydKzIImvvVGM/CJtXYZMd5qmnd5qGzuE6eALJnJB0bbqdRSz
- vM9mIUTOago+9AkfSRGjxCCBxHymk756wuvp5YytOOnmwZ78UYZTcCb6AdLHu1RNTbyh
- aEuw==
-X-Gm-Message-State: AKaTC01QW8SoHCjZsjE+Rf9ph3+OcLjsp0nk6OtZdbTZw5fu6Xrs2/99OW+vdfmEo3jB+mGIvB8iDGNyZbpdAg==
-X-Received: by 10.107.3.223 with SMTP id e92mr1703935ioi.113.1479505164749;
- Fri, 18 Nov 2016 13:39:24 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tLCxC3Hq3zDvmj
+ for <openbmc@lists.ozlabs.org>; Sat, 19 Nov 2016 09:54:38 +1100 (AEDT)
+Received: from localhost (32.97.110.55 [32.97.110.55]) by mx.zohomail.com
+ with SMTPS id 1479509670630691.675366178179;
+ Fri, 18 Nov 2016 14:54:30 -0800 (PST)
+Date: Fri, 18 Nov 2016 16:54:29 -0600
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Andrew Geissler <geissonator@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: Jenkins job for per-repository CI
+Message-ID: <20161118225429.6mytshalgitazutd@asimov>
+References: <CALLMt=oTDrjn5BsFpxfiJX=AKN65_dqWi=bQMswunbwaNxe_0g@mail.gmail.com>
 MIME-Version: 1.0
-Received: by 10.107.164.83 with HTTP; Fri, 18 Nov 2016 13:39:24 -0800 (PST)
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Fri, 18 Nov 2016 15:39:24 -0600
-Message-ID: <CALLMt=oTDrjn5BsFpxfiJX=AKN65_dqWi=bQMswunbwaNxe_0g@mail.gmail.com>
-Subject: Jenkins job for per-repository CI
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="bu5qttl35mbdwtwf"
+Content-Disposition: inline
+In-Reply-To: <CALLMt=oTDrjn5BsFpxfiJX=AKN65_dqWi=bQMswunbwaNxe_0g@mail.gmail.com>
+User-Agent: Mutt/1.6.2 (2016-06-11)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -51,18 +33,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Nov 2016 21:39:27 -0000
+X-List-Received-Date: Fri, 18 Nov 2016 22:54:40 -0000
 
-Matt Barth is working a story to use his new auto tools capabilities
-in each of our repo's to do "make check" calls when code is committed.
 
-For initial prototype work, we created a jenkins job to trigger on
-phosphor-event gerrit changes.  That job is here -
-https://openpower.xyz/job/phosphor-event-gerrit-trigger/
+--bu5qttl35mbdwtwf
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-More to come in the next couple of week.  End goal is a single jenkins
-job, using the template plugin, that will trigger on all our repo's
-and do the "make check".  Over time we'll add gtests to each of our
-repo's to give us more coverage at the individual repo level.
+On Fri, Nov 18, 2016 at 03:39:24PM -0600, Andrew Geissler wrote:
+> For initial prototype work, we created a jenkins job to trigger on
+> phosphor-event gerrit changes.  That job is here -
+> https://openpower.xyz/job/phosphor-event-gerrit-trigger/
 
-Andrew and Matt
+Are you going to convert that over to a template job so that we do not
+need to create (and manage) a new Jenkins job for each repository?
+
+--=20
+Patrick Williams
+
+--bu5qttl35mbdwtwf
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJYL4akAAoJEKsDR8wtAMEZ2BEP/3QM0bGF2Mu/rZavFo8AFMpc
+v3xw6ATpMQMPnjfM1xKOZ1OGTHet+6QKP7lP6xWkE/0eVlgAbsg/MxquT0DbZxt1
+xssK9WWeZuvN+52JzXGbf82/PLUeH8cUxneF8TiQB4A2NHrUINYCXjZwR+uIJE/X
+pM4MlhZOIxbtYbJENP4/+m2Jq3rtb8U1eiuyWxA0WFCm+DM4IkI/xF6SQ9x3S/qm
+jsn/+2ZxTfWQX1N02xDa4u3GRbJC5iWIjSLnKzVDnYl69/q+/qaevMpQvNHZ7PZa
+StU9aV8XJ43tWifRITsnfQavWo6L/E2mNXmRTFIOvpE8U8B8eIqERhmPSU/GRZW5
+zINPqwP8IKgoacKLw13Bu+C79s/MZv1wmeyNO56Mt/SPHbxwlsvUXkTk88IkkafH
+9tnPD8UyDl3Xov0DpRZ99tJjhI29Iug9YRUhI7mRm9y64qT3i1PTUPVrwc+C/3qN
+AMnprkMyTZ5m0QwfD6I6qVGAypdKCUN58lQ37U8AnVf/JLm7TxT5th3hsfItRgnc
+I6tfqiw5yWe2AEskWMHNS1VhvxCVU2zCi/3Ksql84nS8fle7yP8d+SXRzhGk1ciS
+us4B7FrEbU64/riqlcrVVbE6T/BMQcMx0J6UwVhSGH8Jtpi0cAMuWrR/MttUBufg
+qz6a7Ewo3BNbPynO5e5t
+=buxw
+-----END PGP SIGNATURE-----
+
+--bu5qttl35mbdwtwf--
