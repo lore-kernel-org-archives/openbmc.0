@@ -1,30 +1,31 @@
 Return-Path: <clg@kaod.org>
-X-Greylist: delayed 109444 seconds by postgrey-1.36 at bilbo;
- Sat, 19 Nov 2016 01:25:11 AEDT
-Received: from 8.mo7.mail-out.ovh.net (8.mo7.mail-out.ovh.net [46.105.77.114])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tL0dM14XqzDvrX
- for <openbmc@lists.ozlabs.org>; Sat, 19 Nov 2016 01:25:11 +1100 (AEDT)
+X-Greylist: delayed 111574 seconds by postgrey-1.36 at bilbo;
+ Sat, 19 Nov 2016 01:25:15 AEDT
+Received: from 17.mo7.mail-out.ovh.net (17.mo7.mail-out.ovh.net
+ [188.165.35.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tL0dR4CbLzDvns
+ for <openbmc@lists.ozlabs.org>; Sat, 19 Nov 2016 01:25:14 +1100 (AEDT)
 Received: from player697.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo7.mail-out.ovh.net (Postfix) with ESMTP id 91BCD20752
- for <openbmc@lists.ozlabs.org>; Fri, 18 Nov 2016 15:25:07 +0100 (CET)
+ by mo7.mail-out.ovh.net (Postfix) with ESMTP id C92B1205ED
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Nov 2016 15:25:10 +0100 (CET)
 Received: from hermes.kaod.org.com (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
  [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player697.ha.ovh.net (Postfix) with ESMTPSA id 5F3A6480080;
- Fri, 18 Nov 2016 15:25:04 +0100 (CET)
+ by player697.ha.ovh.net (Postfix) with ESMTPSA id 9676F48009E;
+ Fri, 18 Nov 2016 15:25:07 +0100 (CET)
 From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH qemu 05/38] aspeed: add support for the romulus-bmc board
-Date: Fri, 18 Nov 2016 15:21:45 +0100
-Message-Id: <1479478938-13267-6-git-send-email-clg@kaod.org>
+Subject: [PATCH qemu 06/38] aspeed: add a memory region for SRAM
+Date: Fri, 18 Nov 2016 15:21:46 +0100
+Message-Id: <1479478938-13267-7-git-send-email-clg@kaod.org>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1479478938-13267-1-git-send-email-clg@kaod.org>
 References: <1479478938-13267-1-git-send-email-clg@kaod.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 1099722737993026306
+X-Ovh-Tracer-Id: 1100567160743168770
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
 X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrudekgdeivdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
@@ -39,107 +40,113 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Nov 2016 14:25:11 -0000
+X-List-Received-Date: Fri, 18 Nov 2016 14:25:15 -0000
 
-The Romulus machine is an OpenPOWER system with an AST2500 SoC for
-the BMC and a POWER9 chip for the host. It does not make much
-difference for qemu a part from the fact that the FMC controller has
-two SPI flash module slaves.
+The size of the SRAM depends on the SoC model, so use a per-soc
+definition when creating the region.
 
 Signed-off-by: Cédric Le Goater <clg@kaod.org>
 ---
- hw/arm/aspeed.c | 45 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 45 insertions(+)
+ hw/arm/aspeed_soc.c         | 52 +++++++++++++++++++++++++++++++++++++--------
+ include/hw/arm/aspeed_soc.h |  2 ++
+ 2 files changed, 45 insertions(+), 9 deletions(-)
 
-diff --git a/hw/arm/aspeed.c b/hw/arm/aspeed.c
-index 159d562e8912..aea73f79d92c 100644
---- a/hw/arm/aspeed.c
-+++ b/hw/arm/aspeed.c
-@@ -41,8 +41,10 @@ typedef struct AspeedBoardConfig {
- enum {
-     PALMETTO_BMC,
-     AST2500_EVB,
-+    ROMULUS_BMC,
- };
+diff --git a/hw/arm/aspeed_soc.c b/hw/arm/aspeed_soc.c
+index bbbbfd13862c..387b712d8fd5 100644
+--- a/hw/arm/aspeed_soc.c
++++ b/hw/arm/aspeed_soc.c
+@@ -29,6 +29,7 @@
+ #define ASPEED_SOC_VIC_BASE         0x1E6C0000
+ #define ASPEED_SOC_SDMC_BASE        0x1E6E0000
+ #define ASPEED_SOC_SCU_BASE         0x1E6E2000
++#define ASPEED_SOC_SRAM_BASE        0x1E720000
+ #define ASPEED_SOC_TIMER_BASE       0x1E782000
+ #define ASPEED_SOC_I2C_BASE         0x1E78A000
  
-+/* 0x120CE416 */
- #define PALMETTO_BMC_HW_STRAP1 (                                        \
-         SCU_AST2400_HW_STRAP_DRAM_SIZE(DRAM_SIZE_256MB) |               \
-         SCU_AST2400_HW_STRAP_DRAM_CONFIG(2 /* DDR3 with CL=6, CWL=5 */) | \
-@@ -56,6 +58,7 @@ enum {
-         SCU_HW_STRAP_VGA_SIZE_SET(VGA_16M_DRAM) |                       \
-         SCU_AST2400_HW_STRAP_BOOT_MODE(AST2400_SPI_BOOT))
+@@ -47,15 +48,37 @@ static const char *aspeed_soc_ast2500_typenames[] = {
+     "aspeed.smc.ast2500-spi1", "aspeed.smc.ast2500-spi2" };
  
-+/* 0xF100C2E6 */
- #define AST2500_EVB_HW_STRAP1 ((                                        \
-         AST2500_HW_STRAP1_DEFAULTS |                                    \
-         SCU_AST2500_HW_STRAP_SPI_AUTOFETCH_ENABLE |                     \
-@@ -66,6 +69,17 @@ enum {
-         SCU_HW_STRAP_MAC0_RGMII) &                                      \
-         ~SCU_HW_STRAP_2ND_BOOT_WDT)
- 
-+/* 0xF10AE216 */
-+#define ROMULUS_BMC_HW_STRAP1 (                                     \
-+        AST2500_HW_STRAP1_DEFAULTS |                                    \
-+        SCU_AST2500_HW_STRAP_SPI_AUTOFETCH_ENABLE |                     \
-+        SCU_AST2500_HW_STRAP_GPIO_STRAP_ENABLE |                        \
-+        SCU_AST2500_HW_STRAP_UART_DEBUG |                               \
-+        SCU_AST2500_HW_STRAP_DDR4_ENABLE |                              \
-+        SCU_AST2500_HW_STRAP_ACPI_ENABLE |                              \
-+        SCU_HW_STRAP_SPI_WIDTH |                                        \
-+        SCU_HW_STRAP_SPI_MODE(SCU_HW_STRAP_SPI_M_S_EN))
-+
- static const AspeedBoardConfig aspeed_boards[] = {
-     [PALMETTO_BMC] = {
-         .soc_name  = "ast2400-a0",
-@@ -79,6 +93,12 @@ static const AspeedBoardConfig aspeed_boards[] = {
-         .fmc_model = "n25q256a",
-         .spi_model = "mx25l25635e",
-     },
-+    [ROMULUS_BMC]  = {
-+        .soc_name  = "ast2500-a1",
-+        .hw_strap1 = ROMULUS_BMC_HW_STRAP1,
-+        .fmc_model = "n25q256a",
-+        .spi_model = "mx66l1g45g",
+ static const AspeedSoCInfo aspeed_socs[] = {
+-    { "ast2400-a0", "arm926", AST2400_A0_SILICON_REV, AST2400_SDRAM_BASE,
+-      1, aspeed_soc_ast2400_spi_bases,
+-      "aspeed.smc.fmc", aspeed_soc_ast2400_typenames },
+-    { "ast2400",    "arm926", AST2400_A0_SILICON_REV, AST2400_SDRAM_BASE,
+-      1, aspeed_soc_ast2400_spi_bases,
+-     "aspeed.smc.fmc", aspeed_soc_ast2400_typenames },
+-    { "ast2500-a1", "arm1176", AST2500_A1_SILICON_REV, AST2500_SDRAM_BASE,
+-      2, aspeed_soc_ast2500_spi_bases,
+-      "aspeed.smc.ast2500-fmc", aspeed_soc_ast2500_typenames },
++    {
++        .name         = "ast2400-a0",
++        .cpu_model    = "arm926",
++        .silicon_rev  = AST2400_A0_SILICON_REV,
++        .sdram_base   = AST2400_SDRAM_BASE,
++        .sram_size    = 0x8000,
++        .spis_num     = 1,
++        .spi_bases    = aspeed_soc_ast2400_spi_bases,
++        .fmc_typename = "aspeed.smc.fmc",
++        .spi_typename = aspeed_soc_ast2400_typenames,
++    }, {
++        .name         = "ast2400",
++        .cpu_model    = "arm926",
++        .silicon_rev  = AST2400_A0_SILICON_REV,
++        .sdram_base   = AST2400_SDRAM_BASE,
++        .sram_size    = 0x8000,
++        .spis_num     = 1,
++        .spi_bases    = aspeed_soc_ast2400_spi_bases,
++        .fmc_typename = "aspeed.smc.fmc",
++        .spi_typename = aspeed_soc_ast2400_typenames,
++    }, {
++        .name         = "ast2500-a1",
++        .cpu_model    = "arm1176",
++        .silicon_rev  = AST2500_A1_SILICON_REV,
++        .sdram_base   = AST2500_SDRAM_BASE,
++        .sram_size    = 0x9000,
++        .spis_num     = 2,
++        .spi_bases    = aspeed_soc_ast2500_spi_bases,
++        .fmc_typename = "aspeed.smc.ast2500-fmc",
++        .spi_typename = aspeed_soc_ast2500_typenames,
 +    },
  };
  
- static void aspeed_board_init_flashes(AspeedSMCState *s, const char *flashtype,
-@@ -200,10 +220,35 @@ static const TypeInfo ast2500_evb_type = {
-     .class_init = ast2500_evb_class_init,
- };
+ /*
+@@ -157,6 +180,17 @@ static void aspeed_soc_realize(DeviceState *dev, Error **errp)
+         return;
+     }
  
-+static void romulus_bmc_init(MachineState *machine)
-+{
-+    aspeed_board_init(machine, &aspeed_boards[ROMULUS_BMC]);
-+}
++    /* SRAM */
++    memory_region_init_ram(&s->sram, OBJECT(dev), "aspeed.sram",
++                           sc->info->sram_size, &err);
++    if (err) {
++        error_propagate(errp, err);
++        return;
++    }
++    vmstate_register_ram_global(&s->sram);
++    memory_region_add_subregion(get_system_memory(), ASPEED_SOC_SRAM_BASE,
++                                &s->sram);
 +
-+static void romulus_bmc_class_init(ObjectClass *oc, void *data)
-+{
-+    MachineClass *mc = MACHINE_CLASS(oc);
-+
-+    mc->desc = "OpenPOWER Romulus BMC (ARM1176)";
-+    mc->init = romulus_bmc_init;
-+    mc->max_cpus = 1;
-+    mc->no_sdcard = 1;
-+    mc->no_floppy = 1;
-+    mc->no_cdrom = 1;
-+    mc->no_parallel = 1;
-+}
-+
-+static const TypeInfo romulus_bmc_type = {
-+    .name = MACHINE_TYPE_NAME("romulus-bmc"),
-+    .parent = TYPE_MACHINE,
-+    .class_init = romulus_bmc_class_init,
-+};
-+
- static void aspeed_machine_init(void)
- {
-     type_register_static(&palmetto_bmc_type);
-     type_register_static(&ast2500_evb_type);
-+    type_register_static(&romulus_bmc_type);
- }
- 
- type_init(aspeed_machine_init)
+     /* VIC */
+     object_property_set_bool(OBJECT(&s->vic), true, "realized", &err);
+     if (err) {
+diff --git a/include/hw/arm/aspeed_soc.h b/include/hw/arm/aspeed_soc.h
+index 6f1b679c97b1..1ab5deaa0813 100644
+--- a/include/hw/arm/aspeed_soc.h
++++ b/include/hw/arm/aspeed_soc.h
+@@ -29,6 +29,7 @@ typedef struct AspeedSoCState {
+     /*< public >*/
+     ARMCPU cpu;
+     MemoryRegion iomem;
++    MemoryRegion sram;
+     AspeedVICState vic;
+     AspeedTimerCtrlState timerctrl;
+     AspeedI2CState i2c;
+@@ -46,6 +47,7 @@ typedef struct AspeedSoCInfo {
+     const char *cpu_model;
+     uint32_t silicon_rev;
+     hwaddr sdram_base;
++    uint64_t sram_size;
+     int spis_num;
+     const hwaddr *spi_bases;
+     const char *fmc_typename;
 -- 
 2.7.4
