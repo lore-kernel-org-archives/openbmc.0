@@ -1,29 +1,28 @@
 Return-Path: <clg@kaod.org>
-Received: from 17.mo7.mail-out.ovh.net (17.mo7.mail-out.ovh.net
- [188.165.35.227])
+Received: from 4.mo7.mail-out.ovh.net (4.mo7.mail-out.ovh.net [178.32.122.254])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tL0dy4ftKzDvnt
- for <openbmc@lists.ozlabs.org>; Sat, 19 Nov 2016 01:25:42 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tL0f303FzzDvnt
+ for <openbmc@lists.ozlabs.org>; Sat, 19 Nov 2016 01:25:46 +1100 (AEDT)
 Received: from player697.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo7.mail-out.ovh.net (Postfix) with ESMTP id EF73020621
- for <openbmc@lists.ozlabs.org>; Fri, 18 Nov 2016 15:25:39 +0100 (CET)
+ by mo7.mail-out.ovh.net (Postfix) with ESMTP id 361E7207A9
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Nov 2016 15:25:43 +0100 (CET)
 Received: from hermes.kaod.org.com (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
  [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player697.ha.ovh.net (Postfix) with ESMTPSA id A7C5248009A;
- Fri, 18 Nov 2016 15:25:36 +0100 (CET)
+ by player697.ha.ovh.net (Postfix) with ESMTPSA id F3FAE480080;
+ Fri, 18 Nov 2016 15:25:39 +0100 (CET)
 From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH qemu 15/38] aspeed/smc: handle SPI flash Command mode
-Date: Fri, 18 Nov 2016 15:21:55 +0100
-Message-Id: <1479478938-13267-16-git-send-email-clg@kaod.org>
+Subject: [PATCH qemu 16/38] aspeed/smc: add tests for Command mode
+Date: Fri, 18 Nov 2016 15:21:56 +0100
+Message-Id: <1479478938-13267-17-git-send-email-clg@kaod.org>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1479478938-13267-1-git-send-email-clg@kaod.org>
 References: <1479478938-13267-1-git-send-email-clg@kaod.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 1108729934333119234
+X-Ovh-Tracer-Id: 1109855836070382338
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
 X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrudekgdeivdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
@@ -38,243 +37,146 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Nov 2016 14:25:43 -0000
+X-List-Received-Date: Fri, 18 Nov 2016 14:25:47 -0000
 
-The Aspeed SMC controllers have a mode (Command mode) in which
-accesses to the flash content are no different than doing MMIOs. The
-controller generates all the necessary commands to load (or store)
-data in memory.
-
-However, accesses are restricted to the segment window assigned the
-the flash module by the controller. This window is defined by the
-Segment Address Register.
+0005 tests add a read_page_mem test
 
 Signed-off-by: Cédric Le Goater <clg@kaod.org>
 ---
- hw/ssi/aspeed_smc.c | 174 ++++++++++++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 162 insertions(+), 12 deletions(-)
+ tests/m25p80-test.c | 86 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 86 insertions(+)
 
-diff --git a/hw/ssi/aspeed_smc.c b/hw/ssi/aspeed_smc.c
-index 72a44150b0a1..eec087199a22 100644
---- a/hw/ssi/aspeed_smc.c
-+++ b/hw/ssi/aspeed_smc.c
-@@ -69,6 +69,7 @@
- #define R_CTRL0           (0x10 / 4)
- #define   CTRL_CMD_SHIFT           16
- #define   CTRL_CMD_MASK            0xff
-+#define   CTRL_AST2400_SPI_4BYTE   (1 << 13)
- #define   CTRL_CE_STOP_ACTIVE      (1 << 2)
- #define   CTRL_CMD_MODE_MASK       0x3
- #define     CTRL_READMODE          0x0
-@@ -135,6 +136,16 @@
- #define ASPEED_SOC_SPI_FLASH_BASE   0x30000000
- #define ASPEED_SOC_SPI2_FLASH_BASE  0x38000000
+diff --git a/tests/m25p80-test.c b/tests/m25p80-test.c
+index cb7ec81f1a6d..3d449bd194a9 100644
+--- a/tests/m25p80-test.c
++++ b/tests/m25p80-test.c
+@@ -36,6 +36,9 @@
+ #define   CRTL_EXTENDED0       0  /* 32 bit addressing for SPI */
+ #define R_CTRL0             0x10
+ #define   CTRL_CE_STOP_ACTIVE  (1 << 2)
++#define   CTRL_READMODE        0x0
++#define   CTRL_FREADMODE       0x1
++#define   CTRL_WRITEMODE       0x2
+ #define   CTRL_USERMODE        0x3
  
-+/* Flash opcodes. */
-+#define SPI_OP_READ       0x03    /* Read data bytes (low frequency) */
-+#define SPI_OP_WRDI       0x04    /* Write disable */
-+#define SPI_OP_RDSR       0x05    /* Read status register */
-+#define SPI_OP_WREN       0x06    /* Write enable */
-+
-+/* Used for Macronix and Winbond flashes. */
-+#define SPI_OP_EN4B       0xb7    /* Enter 4-byte mode */
-+#define SPI_OP_EX4B       0xe9    /* Exit 4-byte mode */
-+
- /*
-  * Default segments mapping addresses and size for each slave per
-  * controller. These can be changed when board is initialized with the
-@@ -357,6 +368,98 @@ static inline bool aspeed_smc_is_writable(const AspeedSMCFlash *fl)
-     return s->regs[s->r_conf] & (1 << (s->conf_enable_w0 + fl->id));
+ #define ASPEED_FMC_BASE    0x1E620000
+@@ -76,6 +79,22 @@ static void spi_conf(uint32_t value)
+     writel(ASPEED_FMC_BASE + R_CONF, conf);
  }
  
-+static inline int aspeed_smc_flash_cmd(const AspeedSMCFlash *fl)
++static void spi_ce_ctrl(uint32_t value)
 +{
-+    AspeedSMCState *s = fl->controller;
-+    int cmd = (s->regs[s->r_ctrl0 + fl->id] >> CTRL_CMD_SHIFT) & CTRL_CMD_MASK;
++    uint32_t conf = readl(ASPEED_FMC_BASE + R_CE_CTRL);
 +
-+    /* This is the default value for read mode. In other modes, the
-+     * command should be defined */
-+    if (aspeed_smc_flash_mode(fl) == CTRL_READMODE) {
-+        cmd = SPI_OP_READ;
++    conf |= value;
++    writel(ASPEED_FMC_BASE + R_CE_CTRL, conf);
++}
++
++static void spi_ctrl_setmode(uint8_t mode, uint8_t cmd)
++{
++    uint32_t ctrl = readl(ASPEED_FMC_BASE + R_CTRL0);
++    ctrl &= ~(CTRL_USERMODE | 0xff << 16);
++    ctrl |= mode | (cmd << 16);
++    writel(ASPEED_FMC_BASE + R_CTRL0, ctrl);
++}
++
+ static void spi_ctrl_start_user(void)
+ {
+     uint32_t ctrl = readl(ASPEED_FMC_BASE + R_CTRL0);
+@@ -128,6 +147,18 @@ static void read_page(uint32_t addr, uint32_t *page)
+     spi_ctrl_stop_user();
+ }
+ 
++static void read_page_mem(uint32_t addr, uint32_t *page)
++{
++    int i;
++
++    /* move out USER mode to use direct reads from the AHB bus */
++    spi_ctrl_setmode(CTRL_READMODE, READ);
++
++    for (i = 0; i < PAGE_SIZE / 4; i++) {
++        page[i] = make_be32(readl(ASPEED_FLASH_BASE + addr + i * 4));
 +    }
-+
-+    if (!cmd) {
-+        qemu_log_mask(LOG_GUEST_ERROR, "%s: no command defined for mode %d\n",
-+                      __func__, aspeed_smc_flash_mode(fl));
-+    }
-+
-+    return cmd;
 +}
 +
-+static inline int aspeed_smc_flash_is_4byte(const AspeedSMCFlash *fl)
+ static void test_erase_sector(void)
+ {
+     uint32_t some_page_addr = 0x600 * PAGE_SIZE;
+@@ -195,6 +226,7 @@ static void test_write_page(void)
+ 
+     spi_ctrl_start_user();
+     writeb(ASPEED_FLASH_BASE, EN_4BYTE_ADDR);
++    writeb(ASPEED_FLASH_BASE, WREN);
+     writeb(ASPEED_FLASH_BASE, PP);
+     writel(ASPEED_FLASH_BASE, make_be32(my_page_addr));
+ 
+@@ -217,6 +249,58 @@ static void test_write_page(void)
+     }
+ }
+ 
++static void test_read_page_mem(void)
 +{
-+    AspeedSMCState *s = fl->controller;
++    uint32_t my_page_addr = 0x14000 * PAGE_SIZE; /* beyond 16MB */
++    uint32_t some_page_addr = 0x15000 * PAGE_SIZE;
++    uint32_t page[PAGE_SIZE / 4];
++    int i;
 +
-+    if (s->ctrl->segments == aspeed_segments_spi) {
-+        return s->regs[s->r_ctrl0] & CTRL_AST2400_SPI_4BYTE;
-+    } else {
-+        return s->regs[s->r_ce_ctrl] & (1 << (CTRL_EXTENDED0 + fl->id));
-+    }
-+}
-+
-+static void aspeed_smc_flash_select(const AspeedSMCFlash *fl)
-+{
-+    AspeedSMCState *s = fl->controller;
-+
-+    s->regs[s->r_ctrl0 + fl->id] &= ~CTRL_CE_STOP_ACTIVE;
-+    qemu_set_irq(s->cs_lines[fl->id], aspeed_smc_is_ce_stop_active(fl));
-+}
-+
-+static void aspeed_smc_flash_unselect(const AspeedSMCFlash *fl)
-+{
-+    AspeedSMCState *s = fl->controller;
-+
-+    s->regs[s->r_ctrl0 + fl->id] |= CTRL_CE_STOP_ACTIVE;
-+    qemu_set_irq(s->cs_lines[fl->id], aspeed_smc_is_ce_stop_active(fl));
-+}
-+
-+static uint32_t aspeed_smc_check_segment_addr(AspeedSMCFlash *fl, uint32_t addr)
-+{
-+    AspeedSMCState *s = fl->controller;
-+    AspeedSegments seg;
-+
-+    aspeed_smc_reg_to_segment(s->regs[R_SEG_ADDR0 + fl->id], &seg);
-+    if ((addr & (seg.size - 1)) != addr) {
-+        qemu_log_mask(LOG_GUEST_ERROR,
-+                      "%s: invalid address 0x%08x for CS%d segment : "
-+                      "[ 0x%"HWADDR_PRIx" - 0x%"HWADDR_PRIx" ]\n",
-+                      s->ctrl->name, addr, fl->id, seg.addr,
-+                      seg.addr + seg.size);
-+    }
-+
-+    addr &= seg.size - 1;
-+    return addr;
-+}
-+
-+static void aspeed_smc_flash_setup_read(AspeedSMCFlash *fl, uint32_t addr)
-+{
-+    AspeedSMCState *s = fl->controller;
-+    uint8_t cmd = aspeed_smc_flash_cmd(fl);
-+
-+    /*
-+     * To be checked: I am not sure the Aspeed SPI controller needs to
-+     * enable writes when running in READ/FREAD command mode
++    /* Enable 4BYTE mode for flash. This is should be strapped by HW
++     * for CE0 anyhow.
 +     */
++    spi_ce_ctrl(1 << CRTL_EXTENDED0);
 +
-+    /* access can not exceed CS segment */
-+    addr = aspeed_smc_check_segment_addr(fl, addr);
-+
-+    /* TODO: do we have to send 4BYTE each time ? */
-+    if (aspeed_smc_flash_is_4byte(fl)) {
-+        ssi_transfer(s->spi, SPI_OP_EN4B);
++    /* Check what was written */
++    read_page_mem(my_page_addr, page);
++    for (i = 0; i < PAGE_SIZE / 4; i++) {
++        g_assert_cmphex(page[i], ==, my_page_addr + i * 4);
 +    }
 +
-+    ssi_transfer(s->spi, cmd);
-+
-+    if (aspeed_smc_flash_is_4byte(fl)) {
-+        ssi_transfer(s->spi, (addr >> 24) & 0xff);
++    /* Check some other page. It should be full of 0xff */
++    read_page_mem(some_page_addr, page);
++    for (i = 0; i < PAGE_SIZE / 4; i++) {
++        g_assert_cmphex(page[i], ==, 0xffffffff);
 +    }
-+    ssi_transfer(s->spi, (addr >> 16) & 0xff);
-+    ssi_transfer(s->spi, (addr >> 8) & 0xff);
-+    ssi_transfer(s->spi, (addr & 0xff));
 +}
 +
- static uint64_t aspeed_smc_flash_read(void *opaque, hwaddr addr, unsigned size)
- {
-     AspeedSMCFlash *fl = opaque;
-@@ -364,19 +467,55 @@ static uint64_t aspeed_smc_flash_read(void *opaque, hwaddr addr, unsigned size)
-     uint64_t ret = 0;
-     int i;
- 
--    if (aspeed_smc_is_usermode(fl)) {
-+    switch (aspeed_smc_flash_mode(fl)) {
-+    case CTRL_USERMODE:
-         for (i = 0; i < size; i++) {
-             ret |= ssi_transfer(s->spi, 0x0) << (8 * i);
-         }
--    } else {
--        qemu_log_mask(LOG_UNIMP, "%s: usermode not implemented\n",
--                      __func__);
--        ret = -1;
-+        break;
-+    case CTRL_READMODE:
-+    case CTRL_FREADMODE:
-+        aspeed_smc_flash_select(fl);
-+        aspeed_smc_flash_setup_read(fl, addr);
-+
-+        for (i = 0; i < size; i++) {
-+            ret |= ssi_transfer(s->spi, 0x0) << (8 * i);
-+        }
-+
-+        aspeed_smc_flash_unselect(fl);
-+        break;
-+    default:
-+        qemu_log_mask(LOG_GUEST_ERROR, "%s: invalid flash mode %d\n",
-+                      __func__, aspeed_smc_flash_mode(fl));
-     }
- 
-     return ret;
- }
- 
-+static void aspeed_smc_flash_setup_write(AspeedSMCFlash *fl, uint32_t addr)
++static void test_write_page_mem(void)
 +{
-+    AspeedSMCState *s = fl->controller;
-+    uint8_t cmd = aspeed_smc_flash_cmd(fl);
++    uint32_t my_page_addr = 0x15000 * PAGE_SIZE;
++    uint32_t page[PAGE_SIZE / 4];
++    int i;
 +
-+    /* Flash access can not exceed CS segment */
-+    addr = aspeed_smc_check_segment_addr(fl, addr);
++    /* Enable 4BYTE mode for flash. This is should be strapped by HW
++     * for CE0 anyhow.
++     */
++    spi_ce_ctrl(1 << CRTL_EXTENDED0);
 +
-+    /* TODO: do we have to send 4BYTE each time ? */
-+    if (aspeed_smc_flash_is_4byte(fl)) {
-+        ssi_transfer(s->spi, SPI_OP_EN4B);
++    /* move out USER mode to use direct writes to the AHB bus */
++    spi_ctrl_setmode(CTRL_WRITEMODE, PP);
++
++    for (i = 0; i < PAGE_SIZE / 4; i++) {
++        writel(ASPEED_FLASH_BASE + my_page_addr + i * 4,
++               make_be32(my_page_addr + i * 4));
 +    }
 +
-+    ssi_transfer(s->spi, SPI_OP_WREN);
-+    ssi_transfer(s->spi, cmd);
-+
-+    if (aspeed_smc_flash_is_4byte(fl)) {
-+        ssi_transfer(s->spi, (addr >> 24) & 0xff);
++    /* Check what was written */
++    read_page_mem(my_page_addr, page);
++    for (i = 0; i < PAGE_SIZE / 4; i++) {
++        g_assert_cmphex(page[i], ==, my_page_addr + i * 4);
 +    }
-+    ssi_transfer(s->spi, (addr >> 16) & 0xff);
-+    ssi_transfer(s->spi, (addr >> 8) & 0xff);
-+    ssi_transfer(s->spi, (addr & 0xff));
 +}
 +
- static void aspeed_smc_flash_write(void *opaque, hwaddr addr, uint64_t data,
-                            unsigned size)
- {
-@@ -390,14 +529,25 @@ static void aspeed_smc_flash_write(void *opaque, hwaddr addr, uint64_t data,
-         return;
-     }
- 
--    if (!aspeed_smc_is_usermode(fl)) {
--        qemu_log_mask(LOG_UNIMP, "%s: usermode not implemented\n",
--                      __func__);
--        return;
--    }
-+    switch (aspeed_smc_flash_mode(fl)) {
-+    case CTRL_USERMODE:
-+        for (i = 0; i < size; i++) {
-+            ssi_transfer(s->spi, (data >> (8 * i)) & 0xff);
-+        }
-+        break;
-+    case CTRL_WRITEMODE:
-+        aspeed_smc_flash_select(fl);
-+        aspeed_smc_flash_setup_write(fl, addr);
 +
-+        for (i = 0; i < size; i++) {
-+            ssi_transfer(s->spi, (data >> (8 * i)) & 0xff);
-+        }
+ static char tmp_path[] = "/tmp/qtest.m25p80.XXXXXX";
  
--    for (i = 0; i < size; i++) {
--        ssi_transfer(s->spi, (data >> (8 * i)) & 0xff);
-+        aspeed_smc_flash_unselect(fl);
-+        break;
-+    default:
-+        qemu_log_mask(LOG_GUEST_ERROR, "%s: invalid flash mode %d\n",
-+                      __func__, aspeed_smc_flash_mode(fl));
-     }
- }
+ int main(int argc, char **argv)
+@@ -242,6 +326,8 @@ int main(int argc, char **argv)
+     qtest_add_func("/m25p80/erase_sector", test_erase_sector);
+     qtest_add_func("/m25p80/erase_all",  test_erase_all);
+     qtest_add_func("/m25p80/write_page", test_write_page);
++    qtest_add_func("/m25p80/read_page_mem", test_read_page_mem);
++    qtest_add_func("/m25p80/write_page_mem", test_write_page_mem);
+ 
+     ret = g_test_run();
  
 -- 
 2.7.4
