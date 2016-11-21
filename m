@@ -1,53 +1,36 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <clg@kaod.org>
+Received: from mo3.mail-out.ovh.net (mo3.mail-out.ovh.net [178.32.228.3])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tMnl5208YzDsxp
- for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 23:21:21 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="fGT3nGrB"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="tkihXNT8"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 3730B2067B;
- Mon, 21 Nov 2016 07:21:19 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Mon, 21 Nov 2016 07:21:19 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
- content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=RTrgBie1nMUi3dZiOyzAUeT5uSk=; b=fGT3nG
- rBf5yyx5zTRiavVuGTT+7D5H1ndjw4Cx1f04ythdJTEszUBbQLFTJadETU2kAgVG
- T8MmVLIxE60MX7aaGi0aXo2H4hcUSya4M4Ierdcyc6MU7H+QhhaT09t+7O8yBveq
- eG9WYa9NnUd0lZq1XXTkLg+jRhLjk+vc0e0LA=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=RTrgBie1nMUi3d
- ZiOyzAUeT5uSk=; b=tkihXNT8mfxgEHesfkgDqkB7vUOO9lzjuIHEGJbRD8P3hI
- Xaj+fJCJ8FYlB9j6AzQIOvvgcpL1vZNRPi33IwZNsCo3JxWPJOh+/lTlGYY/LTly
- kalye9MdaTGMQMMnjfLlVc2+Wksd99U8LiWtTej0/MIJSTr3yoalV98Q8i350=
-X-ME-Sender: <xms:v-YyWAdvUIod2hLzcLBLlHBX9Lz1qQIl5SkD99qjsQiMOStP-871jw>
-X-Sasl-enc: +j53Fwt1hEtRCBxD+t5ui8oYEaOpA9aI0JzSmbE+/NuF 1479730878
-Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id A37EC24452;
- Mon, 21 Nov 2016 07:21:17 -0500 (EST)
-Message-ID: <1479730873.5215.33.camel@aj.id.au>
-Subject: Re: [PATCH qemu 06/38] aspeed: add a memory region for SRAM
-From: Andrew Jeffery <andrew@aj.id.au>
-To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, 
- openbmc@lists.ozlabs.org
-Date: Mon, 21 Nov 2016 22:51:13 +1030
-In-Reply-To: <1479478938-13267-7-git-send-email-clg@kaod.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tMpNc1vzxzDvhr
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 23:50:23 +1100 (AEDT)
+Received: from player734.ha.ovh.net (b7.ovh.net [213.186.33.57])
+ by mo3.mail-out.ovh.net (Postfix) with ESMTP id 6F805603B0
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 13:50:19 +0100 (CET)
+Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: clg@kaod.org)
+ by player734.ha.ovh.net (Postfix) with ESMTPSA id EAFC52800C3;
+ Mon, 21 Nov 2016 13:50:17 +0100 (CET)
+Subject: Re: [PATCH qemu 20/38] aspeed/smc: handle dummy bytes when doing fast
+ reads
+To: Joel Stanley <joel@jms.id.au>
 References: <1479478938-13267-1-git-send-email-clg@kaod.org>
- <1479478938-13267-7-git-send-email-clg@kaod.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-6ikggMgdePTvbnfLKnm3"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ <1479478938-13267-21-git-send-email-clg@kaod.org>
+ <CACPK8XdekrniuFNtNB3PU7H4STOPMPy-u86VAaQ8cPB7D4OPcw@mail.gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <35fb7897-81f1-0274-e880-5d2d38fbca24@kaod.org>
+Date: Mon, 21 Nov 2016 13:50:17 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.4.0
+MIME-Version: 1.0
+In-Reply-To: <CACPK8XdekrniuFNtNB3PU7H4STOPMPy-u86VAaQ8cPB7D4OPcw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 17116774810008980226
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrvdefgdegfecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,121 +42,66 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Nov 2016 12:21:21 -0000
+X-List-Received-Date: Mon, 21 Nov 2016 12:50:24 -0000
 
+On 11/21/2016 08:25 AM, Joel Stanley wrote:
+> On Sat, Nov 19, 2016 at 12:52 AM, Cédric Le Goater <clg@kaod.org> wrote:
+>> diff --git a/hw/ssi/aspeed_smc.c b/hw/ssi/aspeed_smc.c
+>> index 9596ea94a3bc..c0ae07ef8c96 100644
+>> --- a/hw/ssi/aspeed_smc.c
+>> +++ b/hw/ssi/aspeed_smc.c
+> 
+>> @@ -525,27 +534,49 @@ static void aspeed_smc_flash_setup_read(AspeedSMCFlash *fl, uint32_t addr)
+>>      ssi_transfer(s->spi, (addr & 0xff));
+>>  }
+>>
+>> +static int aspeed_smc_flash_dummies(const AspeedSMCFlash *fl)
+>> +{
+>> +    AspeedSMCState *s = fl->controller;
+>> +    uint32_t r_ctrl0 = s->regs[s->r_ctrl0 + fl->id];
+>> +
+>> +    return ((((r_ctrl0 >> CTRL_DUMMY_HIGH_SHIFT) & 0x1) << 2) |
+>> +            ((r_ctrl0 >> CTRL_DUMMY_LOW_SHIFT) & 0x3)) * 8;
+> 
+> This is crazy :)
 
---=-6ikggMgdePTvbnfLKnm3
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Isn't that lovely :) 
 
-T24gRnJpLCAyMDE2LTExLTE4IGF0IDE1OjIxICswMTAwLCBDw6lkcmljIExlIEdvYXRlciB3cm90
-ZToKPiBUaGUgc2l6ZSBvZiB0aGUgU1JBTSBkZXBlbmRzIG9uIHRoZSBTb0MgbW9kZWwsIHNvIHVz
-ZSBhIHBlci1zb2MKPiBkZWZpbml0aW9uIHdoZW4gY3JlYXRpbmcgdGhlIHJlZ2lvbi4KPiAKPiBT
-aWduZWQtb2ZmLWJ5OiBDw6lkcmljIExlIEdvYXRlciA8Y2xnQGthb2Qub3JnPgoKUmV2aWV3ZWQt
-Ynk6IEFuZHJldyBKZWZmZXJ5IDxhbmRyZXdAYWouaWQuYXU+Cgo+IC0tLQo+IMKgaHcvYXJtL2Fz
-cGVlZF9zb2MuY8KgwqDCoMKgwqDCoMKgwqDCoHwgNTIgKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKy0tLS0tLS0tCj4gwqBpbmNsdWRlL2h3L2FybS9hc3BlZWRfc29jLmggfMKg
-wqAyICsrCj4gwqAyIGZpbGVzIGNoYW5nZWQsIDQ1IGluc2VydGlvbnMoKyksIDkgZGVsZXRpb25z
-KC0pCj4gCj4gZGlmZiAtLWdpdCBhL2h3L2FybS9hc3BlZWRfc29jLmMgYi9ody9hcm0vYXNwZWVk
-X3NvYy5jCj4gaW5kZXggYmJiYmZkMTM4NjJjLi4zODdiNzEyZDhmZDUgMTAwNjQ0Cj4gLS0tIGEv
-aHcvYXJtL2FzcGVlZF9zb2MuYwo+ICsrKyBiL2h3L2FybS9hc3BlZWRfc29jLmMKPiBAQCAtMjks
-NiArMjksNyBAQAo+IMKgI2RlZmluZSBBU1BFRURfU09DX1ZJQ19CQVNFwqDCoMKgwqDCoMKgwqDC
-oMKgMHgxRTZDMDAwMAo+IMKgI2RlZmluZSBBU1BFRURfU09DX1NETUNfQkFTRcKgwqDCoMKgwqDC
-oMKgwqAweDFFNkUwMDAwCj4gwqAjZGVmaW5lIEFTUEVFRF9TT0NfU0NVX0JBU0XCoMKgwqDCoMKg
-wqDCoMKgwqAweDFFNkUyMDAwCj4gKyNkZWZpbmUgQVNQRUVEX1NPQ19TUkFNX0JBU0XCoMKgwqDC
-oMKgwqDCoMKgMHgxRTcyMDAwMAo+IMKgI2RlZmluZSBBU1BFRURfU09DX1RJTUVSX0JBU0XCoMKg
-wqDCoMKgwqDCoDB4MUU3ODIwMDAKPiDCoCNkZWZpbmUgQVNQRUVEX1NPQ19JMkNfQkFTRcKgwqDC
-oMKgwqDCoMKgwqDCoDB4MUU3OEEwMDAKPiDCoAo+IEBAIC00NywxNSArNDgsMzcgQEAgc3RhdGlj
-IGNvbnN0IGNoYXIgKmFzcGVlZF9zb2NfYXN0MjUwMF90eXBlbmFtZXNbXSA9IHsKPiDCoMKgwqDC
-oMKgImFzcGVlZC5zbWMuYXN0MjUwMC1zcGkxIiwgImFzcGVlZC5zbWMuYXN0MjUwMC1zcGkyIiB9
-Owo+IMKgCj4gwqBzdGF0aWMgY29uc3QgQXNwZWVkU29DSW5mbyBhc3BlZWRfc29jc1tdID0gewo+
-IC3CoMKgwqDCoHsgImFzdDI0MDAtYTAiLCAiYXJtOTI2IiwgQVNUMjQwMF9BMF9TSUxJQ09OX1JF
-ViwgQVNUMjQwMF9TRFJBTV9CQVNFLAo+IC3CoMKgwqDCoMKgwqAxLCBhc3BlZWRfc29jX2FzdDI0
-MDBfc3BpX2Jhc2VzLAo+IC3CoMKgwqDCoMKgwqAiYXNwZWVkLnNtYy5mbWMiLCBhc3BlZWRfc29j
-X2FzdDI0MDBfdHlwZW5hbWVzIH0sCj4gLcKgwqDCoMKgeyAiYXN0MjQwMCIswqDCoMKgwqAiYXJt
-OTI2IiwgQVNUMjQwMF9BMF9TSUxJQ09OX1JFViwgQVNUMjQwMF9TRFJBTV9CQVNFLAo+IC3CoMKg
-wqDCoMKgwqAxLCBhc3BlZWRfc29jX2FzdDI0MDBfc3BpX2Jhc2VzLAo+IC3CoMKgwqDCoMKgImFz
-cGVlZC5zbWMuZm1jIiwgYXNwZWVkX3NvY19hc3QyNDAwX3R5cGVuYW1lcyB9LAo+IC3CoMKgwqDC
-oHsgImFzdDI1MDAtYTEiLCAiYXJtMTE3NiIsIEFTVDI1MDBfQTFfU0lMSUNPTl9SRVYsIEFTVDI1
-MDBfU0RSQU1fQkFTRSwKPiAtwqDCoMKgwqDCoMKgMiwgYXNwZWVkX3NvY19hc3QyNTAwX3NwaV9i
-YXNlcywKPiAtwqDCoMKgwqDCoMKgImFzcGVlZC5zbWMuYXN0MjUwMC1mbWMiLCBhc3BlZWRfc29j
-X2FzdDI1MDBfdHlwZW5hbWVzIH0sCj4gK8KgwqDCoMKgewo+ICvCoMKgwqDCoMKgwqDCoMKgLm5h
-bWXCoMKgwqDCoMKgwqDCoMKgwqA9ICJhc3QyNDAwLWEwIiwKPiArwqDCoMKgwqDCoMKgwqDCoC5j
-cHVfbW9kZWzCoMKgwqDCoD0gImFybTkyNiIsCj4gK8KgwqDCoMKgwqDCoMKgwqAuc2lsaWNvbl9y
-ZXbCoMKgPSBBU1QyNDAwX0EwX1NJTElDT05fUkVWLAo+ICvCoMKgwqDCoMKgwqDCoMKgLnNkcmFt
-X2Jhc2XCoMKgwqA9IEFTVDI0MDBfU0RSQU1fQkFTRSwKPiArwqDCoMKgwqDCoMKgwqDCoC5zcmFt
-X3NpemXCoMKgwqDCoD0gMHg4MDAwLAo+ICvCoMKgwqDCoMKgwqDCoMKgLnNwaXNfbnVtwqDCoMKg
-wqDCoD0gMSwKPiArwqDCoMKgwqDCoMKgwqDCoC5zcGlfYmFzZXPCoMKgwqDCoD0gYXNwZWVkX3Nv
-Y19hc3QyNDAwX3NwaV9iYXNlcywKPiArwqDCoMKgwqDCoMKgwqDCoC5mbWNfdHlwZW5hbWUgPSAi
-YXNwZWVkLnNtYy5mbWMiLAo+ICvCoMKgwqDCoMKgwqDCoMKgLnNwaV90eXBlbmFtZSA9IGFzcGVl
-ZF9zb2NfYXN0MjQwMF90eXBlbmFtZXMsCj4gK8KgwqDCoMKgfSwgewo+ICvCoMKgwqDCoMKgwqDC
-oMKgLm5hbWXCoMKgwqDCoMKgwqDCoMKgwqA9ICJhc3QyNDAwIiwKPiArwqDCoMKgwqDCoMKgwqDC
-oC5jcHVfbW9kZWzCoMKgwqDCoD0gImFybTkyNiIsCj4gK8KgwqDCoMKgwqDCoMKgwqAuc2lsaWNv
-bl9yZXbCoMKgPSBBU1QyNDAwX0EwX1NJTElDT05fUkVWLAo+ICvCoMKgwqDCoMKgwqDCoMKgLnNk
-cmFtX2Jhc2XCoMKgwqA9IEFTVDI0MDBfU0RSQU1fQkFTRSwKPiArwqDCoMKgwqDCoMKgwqDCoC5z
-cmFtX3NpemXCoMKgwqDCoD0gMHg4MDAwLAo+ICvCoMKgwqDCoMKgwqDCoMKgLnNwaXNfbnVtwqDC
-oMKgwqDCoD0gMSwKPiArwqDCoMKgwqDCoMKgwqDCoC5zcGlfYmFzZXPCoMKgwqDCoD0gYXNwZWVk
-X3NvY19hc3QyNDAwX3NwaV9iYXNlcywKPiArwqDCoMKgwqDCoMKgwqDCoC5mbWNfdHlwZW5hbWUg
-PSAiYXNwZWVkLnNtYy5mbWMiLAo+ICvCoMKgwqDCoMKgwqDCoMKgLnNwaV90eXBlbmFtZSA9IGFz
-cGVlZF9zb2NfYXN0MjQwMF90eXBlbmFtZXMsCj4gK8KgwqDCoMKgfSwgewo+ICvCoMKgwqDCoMKg
-wqDCoMKgLm5hbWXCoMKgwqDCoMKgwqDCoMKgwqA9ICJhc3QyNTAwLWExIiwKPiArwqDCoMKgwqDC
-oMKgwqDCoC5jcHVfbW9kZWzCoMKgwqDCoD0gImFybTExNzYiLAo+ICvCoMKgwqDCoMKgwqDCoMKg
-LnNpbGljb25fcmV2wqDCoD0gQVNUMjUwMF9BMV9TSUxJQ09OX1JFViwKPiArwqDCoMKgwqDCoMKg
-wqDCoC5zZHJhbV9iYXNlwqDCoMKgPSBBU1QyNTAwX1NEUkFNX0JBU0UsCj4gK8KgwqDCoMKgwqDC
-oMKgwqAuc3JhbV9zaXplwqDCoMKgwqA9IDB4OTAwMCwKPiArwqDCoMKgwqDCoMKgwqDCoC5zcGlz
-X251bcKgwqDCoMKgwqA9IDIsCj4gK8KgwqDCoMKgwqDCoMKgwqAuc3BpX2Jhc2VzwqDCoMKgwqA9
-IGFzcGVlZF9zb2NfYXN0MjUwMF9zcGlfYmFzZXMsCj4gK8KgwqDCoMKgwqDCoMKgwqAuZm1jX3R5
-cGVuYW1lID0gImFzcGVlZC5zbWMuYXN0MjUwMC1mbWMiLAo+ICvCoMKgwqDCoMKgwqDCoMKgLnNw
-aV90eXBlbmFtZSA9IGFzcGVlZF9zb2NfYXN0MjUwMF90eXBlbmFtZXMsCj4gK8KgwqDCoMKgfSwK
-PiDCoH07Cj4gwqAKPiDCoC8qCj4gQEAgLTE1Nyw2ICsxODAsMTcgQEAgc3RhdGljIHZvaWQgYXNw
-ZWVkX3NvY19yZWFsaXplKERldmljZVN0YXRlICpkZXYsIEVycm9yICoqZXJycCkKPiDCoMKgwqDC
-oMKgwqDCoMKgwqByZXR1cm47Cj4gwqDCoMKgwqDCoH0KPiDCoAo+ICvCoMKgwqDCoC8qIFNSQU0g
-Ki8KPiArwqDCoMKgwqBtZW1vcnlfcmVnaW9uX2luaXRfcmFtKCZzLT5zcmFtLCBPQkpFQ1QoZGV2
-KSwgImFzcGVlZC5zcmFtIiwKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgc2MtPmluZm8tPnNyYW1fc2l6ZSwgJmVycik7Cj4gK8KgwqDCoMKg
-aWYgKGVycikgewo+ICvCoMKgwqDCoMKgwqDCoMKgZXJyb3JfcHJvcGFnYXRlKGVycnAsIGVycik7
-Cj4gK8KgwqDCoMKgwqDCoMKgwqByZXR1cm47Cj4gK8KgwqDCoMKgfQo+ICvCoMKgwqDCoHZtc3Rh
-dGVfcmVnaXN0ZXJfcmFtX2dsb2JhbCgmcy0+c3JhbSk7Cj4gK8KgwqDCoMKgbWVtb3J5X3JlZ2lv
-bl9hZGRfc3VicmVnaW9uKGdldF9zeXN0ZW1fbWVtb3J5KCksIEFTUEVFRF9TT0NfU1JBTV9CQVNF
-LAo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgJnMtPnNyYW0pOwo+ICsKPiDCoMKgwqDCoMKgLyogVklDICovCj4gwqDCoMKg
-wqDCoG9iamVjdF9wcm9wZXJ0eV9zZXRfYm9vbChPQkpFQ1QoJnMtPnZpYyksIHRydWUsICJyZWFs
-aXplZCIsICZlcnIpOwo+IMKgwqDCoMKgwqBpZiAoZXJyKSB7Cj4gZGlmZiAtLWdpdCBhL2luY2x1
-ZGUvaHcvYXJtL2FzcGVlZF9zb2MuaCBiL2luY2x1ZGUvaHcvYXJtL2FzcGVlZF9zb2MuaAo+IGlu
-ZGV4IDZmMWI2NzljOTdiMS4uMWFiNWRlYWEwODEzIDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvaHcv
-YXJtL2FzcGVlZF9zb2MuaAo+ICsrKyBiL2luY2x1ZGUvaHcvYXJtL2FzcGVlZF9zb2MuaAo+IEBA
-IC0yOSw2ICsyOSw3IEBAIHR5cGVkZWYgc3RydWN0IEFzcGVlZFNvQ1N0YXRlIHsKPiDCoMKgwqDC
-oMKgLyo8IHB1YmxpYyA+Ki8KPiDCoMKgwqDCoMKgQVJNQ1BVIGNwdTsKPiDCoMKgwqDCoMKgTWVt
-b3J5UmVnaW9uIGlvbWVtOwo+ICvCoMKgwqDCoE1lbW9yeVJlZ2lvbiBzcmFtOwo+IMKgwqDCoMKg
-wqBBc3BlZWRWSUNTdGF0ZSB2aWM7Cj4gwqDCoMKgwqDCoEFzcGVlZFRpbWVyQ3RybFN0YXRlIHRp
-bWVyY3RybDsKPiDCoMKgwqDCoMKgQXNwZWVkSTJDU3RhdGUgaTJjOwo+IEBAIC00Niw2ICs0Nyw3
-IEBAIHR5cGVkZWYgc3RydWN0IEFzcGVlZFNvQ0luZm8gewo+IMKgwqDCoMKgwqBjb25zdCBjaGFy
-ICpjcHVfbW9kZWw7Cj4gwqDCoMKgwqDCoHVpbnQzMl90IHNpbGljb25fcmV2Owo+IMKgwqDCoMKg
-wqBod2FkZHIgc2RyYW1fYmFzZTsKPiArwqDCoMKgwqB1aW50NjRfdCBzcmFtX3NpemU7Cj4gwqDC
-oMKgwqDCoGludCBzcGlzX251bTsKPiDCoMKgwqDCoMKgY29uc3QgaHdhZGRyICpzcGlfYmFzZXM7
-Cj4gwqDCoMKgwqDCoGNvbnN0IGNoYXIgKmZtY190eXBlbmFtZTs=
+Here's another nice one that we have merged already :
 
+	https://github.com/openbmc/qemu/blob/master/include/hw/misc/aspeed_scu.h#L100
 
---=-6ikggMgdePTvbnfLKnm3
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+> It might be easier to read if we had a few local variables. Might not
+> though, so it's up to you.
 
------BEGIN PGP SIGNATURE-----
+yeah. This is not a macro. I can add a dummy_low and a dummy_high to ease
+reading.
 
-iQIcBAABCgAGBQJYMua6AAoJEJ0dnzgO5LT5NeYP/iCeu8egX0I9+4qvKKR+3WdT
-fSPVgdi0DLVGeuBU14ZWrA4ZXzrPBVRzd49GVBcRYHQb6Tj3EvqaKjdCJhWbDeoz
-BEoxa2MLw/64WiXCjLcy71kWmOfORy2c4TXSJzdTey6daBGfiMLMhutUpFpVZ86s
-2pZhwfRsuvV2HTHBpwBOJjQ0bnWq3TuX+p7pV0ki1uLhEGivpfUOkldQziPzPxg6
-aeIZNFJPV2FKnjnellCkS0kpWuvVzJUplUR+PD4yRtKOJPUkot97BCZDQfUPVsT0
-IdQBwN/5WjBL6IBbyMnBouS+vcYFQPRZXazzSy9k/Hov4Wm82u1ILgY7oFvRQ47k
-AHNnUbbzNORsWwCuqRysVOgDA85H4+dz2Yd5NM3MjYU36DNJnduz48BJQiw3Ix6A
-i/qXKELm6EzDshSF3NzPpv3mvgR3VXbjf0vZYhAAKd9ID+fZFTrr/74pXYuU9bLK
-ssff1zY5mJUrLLK8pQNciE0s1Ruc3mLAt7MUi+czUDnC3NTDri9obQ2Za+BLV2eL
-n6XmmqBWrU4/SlQ9soHsNYoWd5t0E6U877W+pHDjd3mq3IOGjWy3dFdwjVjEh+LF
-Z4wQwbKqo7MZKANNL5lA6G4+mhFwykbWo5jCZjRiFzvbVi7bkgdJI710MjJ+3BN5
-LjKWPV2IsOSAMO+drTs/
-=e2VC
------END PGP SIGNATURE-----
+>> +}
+>> +
+>> +static uint64_t aspeed_smc_flash_do_read(AspeedSMCFlash *fl, unsigned size)
+>> +{
+>> +    AspeedSMCState *s = fl->controller;
+>> +    uint64_t ret = 0;
+>> +    int i;
+>> +
+>> +    if (fl->cmd == SPI_OP_READ_FAST) {
+>> +        for (i = 0; i < aspeed_smc_flash_dummies(fl); i++) {
+>> +            ssi_transfer(s->spi, 0x0);
+> 
+> Do you need to check the return value here as well, like you do below?
 
---=-6ikggMgdePTvbnfLKnm3--
+no we don't. the m25p80 model simulates dummy cycles with dummy writes, so
+we can discard the return value which is a zero.
+
+C. 
+
+>> +        }
+>> +    }
+>> +    fl->cmd = 0;
+>> +
+>> +    for (i = 0; i < size; i++) {
+>> +        ret |= ssi_transfer(s->spi, 0x0) << (8 * i);
+>> +    }
+>> +    return ret;
+>> +}
