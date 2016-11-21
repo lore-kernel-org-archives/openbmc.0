@@ -1,54 +1,37 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tMqQR1QZYzDvjG
- for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 00:37:03 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="jcLy5SOm"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="RrTBaORD"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 1B97A20506;
- Mon, 21 Nov 2016 08:37:01 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Mon, 21 Nov 2016 08:37:01 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
- content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=3ZAebbqS10ITS3tnphz+y/PQQgU=; b=jcLy5S
- OmzF2SB6oNj1IZMlk2iKADrJpdhUURpxuFfZb69PaicLs+Fs7ZqyixkDuZbOAfXc
- ccMn0RS0s4+7OSVAEsQH/gl47kuNSounlJnqwMOJ3GhKShB5iIATPFrsa0REJT74
- GoYqUUE3JSFL3gxQNumaPq6/D50C0w5g5uFZI=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=3ZAebbqS10ITS3
- tnphz+y/PQQgU=; b=RrTBaORD/00RXMlLUwl2zzfy8kBtQ1724xyr5fViQ9Kz5Y
- Jlxa93ybnRyyaL8ly4t3cyc3SA43fJGXPfr9c/0Wkfy4DjyaYWV8OjAhspPRpATU
- YgULOMyKHOwH1Ywk5OOibsLSSBaLjo7sW3a2oYsdg+IQCHXbMPSfUFb5yxJv0=
-X-ME-Sender: <xms:ffgyWNBEKobKU-HsVYhDChOOCNTBdKD63p77h7R2XJrEluKUFbSFBw>
-X-Sasl-enc: eCtwD8KpLYDLHvE25Vo4K4PhSswYVsLR+PY4zOvXqwhl 1479735420
-Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 9BF3224CD2;
- Mon, 21 Nov 2016 08:36:59 -0500 (EST)
-Message-ID: <1479735399.2503.11.camel@aj.id.au>
-Subject: Re: [PATCH qemu 13/38] aspeed/smc: introduce a
- aspeed_smc_flash_update_cs() helper
-From: Andrew Jeffery <andrew@aj.id.au>
-To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, 
- openbmc@lists.ozlabs.org
-Date: Tue, 22 Nov 2016 00:06:39 +1030
-In-Reply-To: <1479478938-13267-14-git-send-email-clg@kaod.org>
+Return-Path: <clg@kaod.org>
+X-Greylist: delayed 12898 seconds by postgrey-1.36 at bilbo;
+ Tue, 22 Nov 2016 00:37:32 AEDT
+Received: from 8.mo3.mail-out.ovh.net (8.mo3.mail-out.ovh.net [87.98.172.249])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tMqR00LFPzDvjG
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 00:37:31 +1100 (AEDT)
+Received: from player734.ha.ovh.net (b7.ovh.net [213.186.33.57])
+ by mo3.mail-out.ovh.net (Postfix) with ESMTP id 75BD3604D0
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 14:29:50 +0100 (CET)
+Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: clg@kaod.org)
+ by player734.ha.ovh.net (Postfix) with ESMTPSA id E222E280075;
+ Mon, 21 Nov 2016 14:29:46 +0100 (CET)
+Subject: Re: [PATCH qemu 11/38] aspeed/smc: get the number of flash modules
+ from hw strapping
+To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
 References: <1479478938-13267-1-git-send-email-clg@kaod.org>
- <1479478938-13267-14-git-send-email-clg@kaod.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-LdH0R4L3oyey1mA1+Nco"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ <1479478938-13267-12-git-send-email-clg@kaod.org>
+ <1479734036.2503.5.camel@aj.id.au>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <45ccee63-6edd-9e1a-4214-cb93cb1c0395@kaod.org>
+Date: Mon, 21 Nov 2016 14:29:46 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.4.0
+MIME-Version: 1.0
+In-Reply-To: <1479734036.2503.5.camel@aj.id.au>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 17783870504648084226
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrvdefgdehtdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,79 +43,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Nov 2016 13:37:03 -0000
+X-List-Received-Date: Mon, 21 Nov 2016 13:37:32 -0000
 
+On 11/21/2016 02:13 PM, Andrew Jeffery wrote:
+> On Fri, 2016-11-18 at 15:21 +0100, Cédric Le Goater wrote:
+>> If the second watchdog is activated, a second flash module is
+>> available. It should be of the same model.
+>>
+>>> Signed-off-by: Cédric Le Goater <clg@kaod.org>
+>> ---
+>>  hw/arm/aspeed_soc.c | 26 +++++++++++++++++++++++++-
+>>  1 file changed, 25 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/hw/arm/aspeed_soc.c b/hw/arm/aspeed_soc.c
+>> index 503efe0f5f77..fcf029f8c1c2 100644
+>> --- a/hw/arm/aspeed_soc.c
+>> +++ b/hw/arm/aspeed_soc.c
+>> @@ -170,12 +170,30 @@ static void aspeed_soc_init(Object *obj)
+>>                                "ram-size", &error_abort);
+>>  }
+>>  
+>> +static int aspeed_fmc_get_cs(AspeedSoCState *s, Error **errp)
+>> +{
+>> +    Error *err = NULL;
+>> +    uint32_t hw_strap1;
+>> +
+>> +    hw_strap1 = object_property_get_int(OBJECT(&s->scu), "hw-strap1", errp);
+>> +    if (err) {
+>> +        error_propagate(errp, err);
+>> +        return -1;
+>> +    }
+>> +
+>> +    /*
+>> +     * If the second watchdog is activated, then we have two chips.
+>> +     */
+>> +    return hw_strap1 & SCU_HW_STRAP_2ND_BOOT_WDT ? 2 : 1;
+> 
+> Should we instead count the muxed chip selects? We also have FWSPICS2#.
+>   We would be looking at:
+> 
+> FWSPICS0#: Dedicated pin, no configuration
+> FWSPICS1#: SCU88[24]=1 & COND2
+> FWSPICS2#: SCU88[25]=1 & COND2
+> 
+> Where COND2 is: SCU94[1:0] = 0
 
---=-LdH0R4L3oyey1mA1+Nco
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Yes I agree. that would be much better for the AST2500 but I don't see 
+a solution for the AST2400 ? 
 
-T24gRnJpLCAyMDE2LTExLTE4IGF0IDE1OjIxICswMTAwLCBDw6lkcmljIExlIEdvYXRlciB3cm90
-ZToKPiBhc3BlZWRfc21jX3VwZGF0ZV9jcygpIHdhcyB1c2VsZXNzbHkgbG9vcGluZyBvbiBhbGwg
-Q1MgdG8gdXBkYXRlIHRoZWlyCj4gc3RhdHVzLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEPDqWRyaWMg
-TGUgR29hdGVyIDxjbGdAa2FvZC5vcmc+CgpSZXZpZXdlZC1ieTogQW5kcmV3IEplZmZlcnkgPGFu
-ZHJld0Bhai5pZC5hdT4KCj4gLS0tCj4gwqBody9zc2kvYXNwZWVkX3NtYy5jIHwgMTYgKysrKysr
-LS0tLS0tLS0tLQo+IMKgMSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRp
-b25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2h3L3NzaS9hc3BlZWRfc21jLmMgYi9ody9zc2kvYXNw
-ZWVkX3NtYy5jCj4gaW5kZXggOTFjZGMwYmYxYWM3Li4xYzZjNTA4OWYyNjUgMTAwNjQ0Cj4gLS0t
-IGEvaHcvc3NpL2FzcGVlZF9zbWMuYwo+ICsrKyBiL2h3L3NzaS9hc3BlZWRfc21jLmMKPiBAQCAt
-NDA4LDE0ICs0MDgsMTAgQEAgc3RhdGljIGNvbnN0IE1lbW9yeVJlZ2lvbk9wcyBhc3BlZWRfc21j
-X2ZsYXNoX29wcyA9IHsKPiDCoMKgwqDCoMKgfSwKPiDCoH07Cj4gwqAKPiAtc3RhdGljIHZvaWQg
-YXNwZWVkX3NtY191cGRhdGVfY3MoY29uc3QgQXNwZWVkU01DU3RhdGUgKnMpCj4gK3N0YXRpYyB2
-b2lkIGFzcGVlZF9zbWNfZmxhc2hfdXBkYXRlX2NzKEFzcGVlZFNNQ0ZsYXNoICpmbCkKPiDCoHsK
-PiAtwqDCoMKgwqBpbnQgaTsKPiAtCj4gLcKgwqDCoMKgZm9yIChpID0gMDsgaSA8IHMtPm51bV9j
-czsgKytpKSB7Cj4gLcKgwqDCoMKgwqDCoMKgwqBxZW11X3NldF9pcnEocy0+Y3NfbGluZXNbaV0s
-Cj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGFzcGVlZF9zbWNf
-aXNfY2Vfc3RvcF9hY3RpdmUoJnMtPmZsYXNoZXNbaV0pKTsKPiAtwqDCoMKgwqB9Cj4gK8KgwqDC
-oMKgQXNwZWVkU01DU3RhdGUgKnMgPSBmbC0+Y29udHJvbGxlcjsKPiArwqDCoMKgwqBxZW11X3Nl
-dF9pcnEocy0+Y3NfbGluZXNbZmwtPmlkXSwgYXNwZWVkX3NtY19pc19jZV9zdG9wX2FjdGl2ZShm
-bCkpOwo+IMKgfQo+IMKgCj4gwqBzdGF0aWMgdm9pZCBhc3BlZWRfc21jX3Jlc2V0KERldmljZVN0
-YXRlICpkKQo+IEBAIC00MzEsNiArNDI3LDcgQEAgc3RhdGljIHZvaWQgYXNwZWVkX3NtY19yZXNl
-dChEZXZpY2VTdGF0ZSAqZCkKPiDCoMKgwqDCoMKgLyogVW5zZWxlY3QgYWxsIHNsYXZlcyAqLwo+
-IMKgwqDCoMKgwqBmb3IgKGkgPSAwOyBpIDwgcy0+bnVtX2NzOyArK2kpIHsKPiDCoMKgwqDCoMKg
-wqDCoMKgwqBzLT5yZWdzW3MtPnJfY3RybDAgKyBpXSB8PSBDVFJMX0NFX1NUT1BfQUNUSVZFOwo+
-ICvCoMKgwqDCoMKgwqDCoMKgcWVtdV9zZXRfaXJxKHMtPmNzX2xpbmVzW2ldLCB0cnVlKTsKPiDC
-oMKgwqDCoMKgfQo+IMKgCj4gwqDCoMKgwqDCoC8qIHNldHVwIGRlZmF1bHQgc2VnbWVudCByZWdp
-c3RlciB2YWx1ZXMgZm9yIGFsbCAqLwo+IEBAIC00MzgsOCArNDM1LDYgQEAgc3RhdGljIHZvaWQg
-YXNwZWVkX3NtY19yZXNldChEZXZpY2VTdGF0ZSAqZCkKPiDCoMKgwqDCoMKgwqDCoMKgwqBzLT5y
-ZWdzW1JfU0VHX0FERFIwICsgaV0gPQo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgYXNwZWVk
-X3NtY19zZWdtZW50X3RvX3JlZygmcy0+Y3RybC0+c2VnbWVudHNbaV0pOwo+IMKgwqDCoMKgwqB9
-Cj4gLQo+IC3CoMKgwqDCoGFzcGVlZF9zbWNfdXBkYXRlX2NzKHMpOwo+IMKgfQo+IMKgCj4gwqBz
-dGF0aWMgdWludDY0X3QgYXNwZWVkX3NtY19yZWFkKHZvaWQgKm9wYXF1ZSwgaHdhZGRyIGFkZHIs
-IHVuc2lnbmVkIGludCBzaXplKQo+IEBAIC00ODksOCArNDg0LDkgQEAgc3RhdGljIHZvaWQgYXNw
-ZWVkX3NtY193cml0ZSh2b2lkICpvcGFxdWUsIGh3YWRkciBhZGRyLCB1aW50NjRfdCBkYXRhLAo+
-IMKgwqDCoMKgwqDCoMKgwqDCoGFkZHIgPT0gcy0+cl9jZV9jdHJsKSB7Cj4gwqDCoMKgwqDCoMKg
-wqDCoMKgcy0+cmVnc1thZGRyXSA9IHZhbHVlOwo+IMKgwqDCoMKgwqB9IGVsc2UgaWYgKGFkZHIg
-Pj0gcy0+cl9jdHJsMCAmJiBhZGRyIDwgcy0+cl9jdHJsMCArIHMtPm51bV9jcykgewo+ICvCoMKg
-wqDCoMKgwqDCoMKgaW50IGNzID0gYWRkciAtIHMtPnJfY3RybDA7Cj4gwqDCoMKgwqDCoMKgwqDC
-oMKgcy0+cmVnc1thZGRyXSA9IHZhbHVlOwo+IC3CoMKgwqDCoMKgwqDCoMKgYXNwZWVkX3NtY191
-cGRhdGVfY3Mocyk7Cj4gK8KgwqDCoMKgwqDCoMKgwqBhc3BlZWRfc21jX2ZsYXNoX3VwZGF0ZV9j
-cygmcy0+Zmxhc2hlc1tjc10pOwo+IMKgwqDCoMKgwqB9IGVsc2UgaWYgKGFkZHIgPj0gUl9TRUdf
-QUREUjAgJiYKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGFkZHIgPCBSX1NFR19B
-RERSMCArIHMtPmN0cmwtPm1heF9zbGF2ZXMpIHsKPiDCoMKgwqDCoMKgwqDCoMKgwqBpbnQgY3Mg
-PSBhZGRyIC0gUl9TRUdfQUREUjA7
+C. 
 
-
---=-LdH0R4L3oyey1mA1+Nco
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJYMvhnAAoJEJ0dnzgO5LT5ViAP/1eCNPpaCWyt0lmoBSL0eR+Z
-fV/ivlKLiY8JE3mfHT1AwOF8sGDK846jfr9w+/psaJMNMxX5lTJnvSxHcb8ac3vy
-4JMX+xTMmj2v+hoHRe1oBuOJkELRwZmUxkK3RjGROXu41dnnHNfMw5beiGITs7A3
-khwEHn37I2VlkoAW73h/Dlq8IalXZUpES5cULkswpwOjoMjqjYWFgbjPHJGAjIwW
-OfDNbcvOFPvT6ElMpaadmsKiPsrSvVlIx5RjHqQe2DdASrG0iYgAmExuefLYXdKs
-WMc4QEDrIHClDreh7cOxH5+u/SolP+X7gFCVZXB4Lma3SjgceMfPE0OaRlzs2JKt
-ZIyMiJg8LxyX9gbT8hr/UYNrjCI0bwf7Peq6ZKt5WFqbzGdi0SaDpL42zsrqA4QY
-kX/Kz6yTNOB7SL3GJUwvgInSuXGG1Co90WgoX5UelCVvcD5WsVw1Wi+6u+Oi8kjT
-d9oZ0XkUYVnOgb7w6mS8MhtUwFLMM52T8xXG8Yccevc+NfD7jj2cDLtxLGLOEYmj
-ZahrdRfKeVr0So8QZIemMlSVHpUTJiEqGKJdxGc3IoP8b8z6ceEjDlUymHniWZFW
-TizY+AXaJut+/RFPF/ZfzrpawwFEx1gW8b3r+Vkh2upbcNMSARdE7p473yGGFcM4
-bHLPdnvibAKMndsktAAH
-=Wzsj
------END PGP SIGNATURE-----
-
---=-LdH0R4L3oyey1mA1+Nco--
+>> +}
+>> +
+>>  static void aspeed_soc_realize(DeviceState *dev, Error **errp)
+>>  {
+>>      int i;
+>>      AspeedSoCState *s = ASPEED_SOC(dev);
+>>      AspeedSoCClass *sc = ASPEED_SOC_GET_CLASS(s);
+>>      Error *err = NULL, *local_err = NULL;
+>> +    int fmc_num_cs;
+>>  
+>>      /* IO space */
+>>      memory_region_init_io(&s->iomem, NULL, &aspeed_soc_io_ops, NULL,
+>> @@ -251,7 +269,13 @@ static void aspeed_soc_realize(DeviceState *dev, Error **errp)
+>>                         qdev_get_gpio_in(DEVICE(&s->vic), 12));
+>>  
+>>      /* FMC */
+>> -    object_property_set_int(OBJECT(&s->fmc), 1, "num-cs", &err);
+>> +    fmc_num_cs = aspeed_fmc_get_cs(s, &err);
+>> +    if (err) {
+>> +        error_propagate(errp, err);
+>> +        return;
+>> +    }
+>> +
+>> +    object_property_set_int(OBJECT(&s->fmc), fmc_num_cs, "num-cs", &err);
+>>      object_property_set_bool(OBJECT(&s->fmc), true, "realized", &local_err);
+>>      error_propagate(&err, local_err);
+>>      if (err) {
