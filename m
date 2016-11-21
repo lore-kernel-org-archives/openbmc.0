@@ -1,50 +1,50 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-oi0-x242.google.com (mail-oi0-x242.google.com
- [IPv6:2607:f8b0:4003:c06::242])
+Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
+ [IPv6:2607:f8b0:4003:c06::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tMgBn1JPxzDvk1
- for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 18:26:25 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tMgBs4VQJzDvjm
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 18:26:29 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="zEYDmloj"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="o8ODubC7"; 
  dkim-atps=neutral
-Received: by mail-oi0-x242.google.com with SMTP id m75so2039296oig.1
- for <openbmc@lists.ozlabs.org>; Sun, 20 Nov 2016 23:26:25 -0800 (PST)
+Received: by mail-oi0-x241.google.com with SMTP id f201so17133117oib.0
+ for <openbmc@lists.ozlabs.org>; Sun, 20 Nov 2016 23:26:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc:content-transfer-encoding;
- bh=Q90Zv2ST40J1wLokZs/V9BZ42QTLSnuvCCMrYwVjJMc=;
- b=zEYDmlojvQBd76nzBKGDk2V5JXa1YAzRkOfDYzehtoIlEOhNGCN+Y5p1cOtSlIgN0t
- WjVDSXvKY5/HfhizdtawQ45I/poaR8HlIx60d9xuMtDEV3NTDvghyQiClGtPPc2rjAUl
- eWc8C1CMj63OuXWcMRSmih2HPApIWoqI4TGrRuEhHF8LhHso7QKH6YklYhxLZbanFv9B
- +yLtNaC0x4GJnZhsePGDXh5acb4KNDKyRwWdZIF9VpTRog+Ie7drI/FDJAUWN74+kabv
- oumSktROOWm6mx/rWqrJn57rPgpa6b/OsH6pgk7XHujQq+8XTPrJGjDudxOaDuGpVgFt
- 8jpw==
+ bh=IwH+QTDIWW5OI+0dmyVot+JzdimHu34qi10vLX2jQRU=;
+ b=o8ODubC7bC2GIPkHRLEPWEB3Nul84J0RF0M3ekD0PCk0RSbnKjcrARTHLjbJbo0aqC
+ lFEEclaSuWFsg8p6/iTtre8wDXDcAY+7o3as3YW2Kr+YLlJBmp3ukSvSuxV2GFfNOC0u
+ 10JS/mNO1atlH20qMZpP6cosH3OWL/qDPWrXb8qOcRqEc6ybDocwTRZvUSUz+EZfbOZd
+ mW+n2NOCXKvcQkiYwH1k0oBnHuskRQnniRB5T7zh7YH87rMG4FujN4RoE7KsNkcy0MaF
+ 94zOTj8k4VpiqL/xb5MKQaX9JinNeuDhrM5VEWV5Bo72CDol8F7rxrTB4LVg6w5ix5pQ
+ hZOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=Q90Zv2ST40J1wLokZs/V9BZ42QTLSnuvCCMrYwVjJMc=;
- b=BxGKXf+fY3hJt7vQJYi6IPWB8Twa6hDagWFEgp0LQFFbAeeE8x8601XIG7lNZEqh9E
- sdElLhYkl5aRlkDKWcxMWbnQrSOgmz4B1+2ZGHarc3spXg6YugNMGKpuh7w+YHk04ZbK
- 9r8G4hjZ/zZquUgxQwnM4gRgq6VEnLzOmynU8r4qaZhlFa8i2CSPhSxGnxbFsBtytO4Q
- Yz6fd2fhghzS2ARmZporbt9EATWYIHbS8xW3TpU4PDOO8LlJwUoXyP0jkelQextNaXj7
- cCNQlBlL+Sp2exeDhourPGQqSmXijSzE2VQ03eFvH0LBvqtNHIYN4IbNreH4Selbvtyo
- p87Q==
-X-Gm-Message-State: AKaTC00IRgm1v9QpsXb3NrzPSCtCbnKslDCDRF1GlxiRPVpC92aMCJUt9qSCLorYnIfEILil6/spsqm3R78saA==
-X-Received: by 10.157.17.26 with SMTP id g26mr7361386ote.230.1479713183443;
- Sun, 20 Nov 2016 23:26:23 -0800 (PST)
+ bh=IwH+QTDIWW5OI+0dmyVot+JzdimHu34qi10vLX2jQRU=;
+ b=h5SwoePdGi771PJwi3ujDMT4aiAhZZHFoVPOTbZ12gRIniDKTOW5O8amv40sIcKFE7
+ oYg3w+becVhlYubuxQKCfWSiQzEGjCBURZCxD+Ikyw0xlK0E/Tb0lDyiExLxhkAIlYoQ
+ PvvbsRe2/GXjBFkuJWzFjSFt2TQwPxczQUrE1gJ++DNAC7zX9IXTL82Vxny4hnFQE5N4
+ dmUPd0S9iiQbyZu6kOq0iK6988mlc24WfS6m4S7MFuc2p4yvjttekYwKyrK3xlUDbVcC
+ 2iQ0z2xYsbTMjcrtiM/XnIGpdZn8FaWMeA8NNoNZU30C1D7X/ukt2hLO1AJj+Tmibo38
+ jmrA==
+X-Gm-Message-State: AKaTC02F2qXMySkXWNFni8UZDz3SXqlciACDPkuBBmkMnwXStE9DtILjwRii7JSrpW09EYhqBOUWM+jcd9VNew==
+X-Received: by 10.202.0.205 with SMTP id 196mr7833135oia.44.1479713187928;
+ Sun, 20 Nov 2016 23:26:27 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.182.97.41 with HTTP; Sun, 20 Nov 2016 23:26:02 -0800 (PST)
-In-Reply-To: <1479478938-13267-28-git-send-email-clg@kaod.org>
+Received: by 10.182.97.41 with HTTP; Sun, 20 Nov 2016 23:26:07 -0800 (PST)
+In-Reply-To: <1479478938-13267-29-git-send-email-clg@kaod.org>
 References: <1479478938-13267-1-git-send-email-clg@kaod.org>
- <1479478938-13267-28-git-send-email-clg@kaod.org>
+ <1479478938-13267-29-git-send-email-clg@kaod.org>
 From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 21 Nov 2016 17:56:02 +1030
-X-Google-Sender-Auth: XhG4oAf4Q3ET_iCiRjkSi2C3JcA
-Message-ID: <CACPK8XfwLoXPru6UNJfZVvZheVc4TvW9OSgjmhUEyKHLSQrbdg@mail.gmail.com>
-Subject: Re: [PATCH qemu 27/38] hw/misc: add a TMP42{1,2,3} device model
+Date: Mon, 21 Nov 2016 17:56:07 +1030
+X-Google-Sender-Auth: huKlZUQZzLIZhmi0TcMGj_Ho2Lk
+Message-ID: <CACPK8XcptTBCpJBSpkFP3Gg7Em4X8nXroGsuXBwzu=QTdBSmBg@mail.gmail.com>
+Subject: Re: [PATCH qemu 28/38] aspeed: add a temp sensor device on I2C bus 3
 To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
@@ -60,25 +60,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Nov 2016 07:26:25 -0000
+X-List-Received-Date: Mon, 21 Nov 2016 07:26:30 -0000
 
 On Sat, Nov 19, 2016 at 12:52 AM, C=C3=A9dric Le Goater <clg@kaod.org> wrot=
 e:
-> Largely inspired by the TMP105 temperature sensor, here is a model for
-> the TMP42{1,2,3} temperature sensors.
+> Temperatures can be changed from the monitor with :
 >
-> Specs can be found here :
->
->         http://www.ti.com/lit/gpn/tmp421
+>         (qemu) qom-set /machine/unattached/device[2] temperature0 12000
 >
 > Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
 
 Reviewed-by: Joel Stanley <joel@jms.id.au>
 
 > ---
->  default-configs/arm-softmmu.mak |   1 +
->  hw/misc/Makefile.objs           |   1 +
->  hw/misc/tmp421.c                | 400 ++++++++++++++++++++++++++++++++++=
-++++++
->  3 files changed, 402 insertions(+)
->  create mode 100644 hw/misc/tmp421.c
+>  hw/arm/aspeed_soc.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
