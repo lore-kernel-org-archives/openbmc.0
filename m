@@ -1,54 +1,60 @@
-Return-Path: <cyrilbur@gmail.com>
-Received: from mail-pf0-x243.google.com (mail-pf0-x243.google.com
- [IPv6:2607:f8b0:400e:c00::243])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-oi0-x242.google.com (mail-oi0-x242.google.com
+ [IPv6:2607:f8b0:4003:c06::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tMblW1c4wzDvLt
- for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 15:51:03 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tMbmv1zKmzDvLt
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 15:52:15 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="dRKh8ujg"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="sB0M5odb"; 
  dkim-atps=neutral
-Received: by mail-pf0-x243.google.com with SMTP id 144so17482500pfv.0
- for <openbmc@lists.ozlabs.org>; Sun, 20 Nov 2016 20:51:03 -0800 (PST)
+Received: by mail-oi0-x242.google.com with SMTP id v84so20450293oie.2
+ for <openbmc@lists.ozlabs.org>; Sun, 20 Nov 2016 20:52:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=message-id:subject:from:to:date:mime-version
- :content-transfer-encoding;
- bh=PrWrawyHBMvSCtvFdZraYpsKuvZhUGOl6BsFR3cKHcM=;
- b=dRKh8ujgmdM2Bgb1hG9wR1+w55nrhlgxJdez913MBNaUy3TsVSqreej9sMsYGcikZE
- vQjUtfpIdY2Htf1JkW6pgkgm8suwFvcfmAo6eaYn5M1IsLE13PAbUIow4k+mpehVoclk
- 89p84vLKI5fzFmu71sEihhDkeYvcgbM47Z/1wQBqkteOk9msC3Crr/9lEcWG2TeH6W+r
- aYwi6umKkheTRJigJNeEKBU9SyqHJIfEcijLPGoATdVNY29r2VctSvBjPuIl3iJ4LZrp
- 3fIZrXny+2bYiglGORRedkRe7bO3hRLFK4ZQH4I+1Hw9IwUQK+tr3wN7zKfGqGfDCFUj
- c15A==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=VNGdf3ni1OgyfZuSk0MRPjA/mVes8R1XbgDAi+xebAs=;
+ b=sB0M5odb5/aGbPvOKVYQQwJ7K5OWkCXPKrxf4Zkf2rTWeRmTZzVCCGIsfCYpgrTUM1
+ aU6gTzlEhH5lTy1LwqVh3I95iTjwt39nG/Fg+47bTHcWTHyJiornp8cNOBQRxa5imlK7
+ 3PCFCnAGcXOSnsDlkB/yFqeWL3ctg1hsWWg2qa2EqNbljTxgOnXvnxk273ReA0VgBY+v
+ JTBJGOoGHjKcNwwiLQB/ovq/ws6Jy/wdyK85wzvV41WVp6zORrzjBco5PwOk/vHkqbxz
+ cSYn1n0iBVlZoqGe+cpVSMxWjtluC+7hjUPAEaq9986R4HgCHnDhubAYoh7kRjtlpk/r
+ Fjrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:message-id:subject:from:to:date:mime-version
- :content-transfer-encoding;
- bh=PrWrawyHBMvSCtvFdZraYpsKuvZhUGOl6BsFR3cKHcM=;
- b=CbeGVPKnCXUck11YRLp1rdQ52baa/HTkoX7xYHRx/ITV3RcIKMuD0U2dUFJst9mRt7
- G9IwnuAYUwXryytNeFV+FAE3M6JGBMLdrXugFPOlljKoLiEIKG6Ne1vqA5P6D5CvdnPb
- MCn754/1mKEgekBlC8ej02dKEZ4f8j7HctPDAtz7vHpD6WzJWlaQOVDTF2wWxv3lxZZg
- oI3mczI/WDgdMN67I5zCzbUbmLHQK9n29vd6gt68wPVwvJKHUikse4DrVUNYpTFfHbxE
- KDNMFOL+v3TjtBwNRcc4bEIuw4LkE20asDC6sdXLX5J6JTm34aXQJrYysJDGTCOPfPxB
- Fo6Q==
-X-Gm-Message-State: AKaTC008/kor/v3KqId7Idd3tO2UZyjjhaXSKIqnnydzab6R9s8tyr4xWBBBIxmPEvhRSQ==
-X-Received: by 10.99.127.72 with SMTP id p8mr27796352pgn.183.1479703861403;
- Sun, 20 Nov 2016 20:51:01 -0800 (PST)
-Received: from cyril.ozlabs.ibm.com ([122.99.82.10])
- by smtp.googlemail.com with ESMTPSA id d15sm33441747pfl.46.2016.11.20.20.50.58
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Sun, 20 Nov 2016 20:51:00 -0800 (PST)
-Message-ID: <1479703856.680.2.camel@gmail.com>
-Subject: Restricting HOST flash access on OpenBMC
-From: Cyril Bur <cyrilbur@gmail.com>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Benjamin Herrenschmidt
- <benh@kernel.crashing.org>, Joel Stanley <joel@jms.id.au>, Jeremy Kerr
- <jk@ozlabs.org>, Abhishek Pandit <abhishekpandit@google.com>
-Date: Mon, 21 Nov 2016 15:50:56 +1100
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.22.2 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=VNGdf3ni1OgyfZuSk0MRPjA/mVes8R1XbgDAi+xebAs=;
+ b=eG11jO/eDqgDIRgXIz/Dg5JMYLKj/Yxt5NzMN/5+6OeYII+cPA8Rey4o0kSEmBaOtz
+ V3hSaV7GKzz/Tub35iol27C/fLfLeLsWvQjjhnKhQYCLvpDN6HIj5Rex4vqiGNsCvz02
+ oGD1u+cw0cHfh9Rmi+01EbsU4CLKl1hkQ1SEX40MV0rV51RtJJ3KYhhMPUYOIRv0Fn3/
+ 71haocReW6mZuvbIqX+2XZXfIxkI6d+voYa6SEjd3xi32cM4MqrKS6hcnjNec/YlzEvr
+ rAxpzoUc4AUx5klTumHSZ6wAxMvOTri58LhBti2lA+UyGCPE7oiYxHv+vCfQA7ULH6IV
+ tB+Q==
+X-Gm-Message-State: AKaTC03c5mfA0JS+UY7g7XYDjqppCqbuj3cEckTq+bOS8jKsE5p6778I+HRWYQMowL/t3L8ijawavKlpiBOJkw==
+X-Received: by 10.202.220.139 with SMTP id t133mr7405983oig.82.1479703933285; 
+ Sun, 20 Nov 2016 20:52:13 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.182.97.41 with HTTP; Sun, 20 Nov 2016 20:51:52 -0800 (PST)
+In-Reply-To: <1479696048-75851-1-git-send-email-christopher.lee.bostic@gmail.com>
+References: <1479696048-75851-1-git-send-email-christopher.lee.bostic@gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 21 Nov 2016 15:21:52 +1030
+X-Google-Sender-Auth: ds6jEtgxos6VmoDm-zU6bMAcRfc
+Message-ID: <CACPK8XemnuNG2LCk8ieboP3E1mGCgxLjjYZkcpgehZq=JesJhQ@mail.gmail.com>
+Subject: Re: [PATCH linux 00/19] FSI device driver introduction
+To: Christopher Bostic <christopher.lee.bostic@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ gustavo.padovan@collabora.co.uk, 
+ gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch, 
+ Johannes Thumshirn <jthumshirn@suse.de>, dan.j.williams@intel.com,
+ sre@kernel.org, 
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, k.kozlowski@samsung.com, 
+ Jeremy Kerr <jk@ozlabs.org>, zahrens@us.ibm.com, xxpetri@de.ibm.com, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Alistair Popple <alistair@popple.id.au>, Chris Bostic <cbostic@us.ibm.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,50 +66,83 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Nov 2016 04:51:03 -0000
+X-List-Received-Date: Mon, 21 Nov 2016 04:52:15 -0000
 
-Hello,
+Hello Chris,
 
-Apologies, I have been working on this in a bit of a silo and I suspect
-a lot of people will be interested to know this work is going on.
+On Mon, Nov 21, 2016 at 1:10 PM,  <christopher.lee.bostic@gmail.com> wrote:
 
-The aim of my work is to provide a simple interface for the host and
-the BMC to talk in order for the BMC to give controlled access to the
-flash.
+> Chris Bostic (7):
+>   drivers/fsi: Set up links for slave communication
+>   drivers/fsi: Set slave SMODE to init communication
+>   drivers/fsi: Add master unscan
+>   drivers/fsi: Add GPIO based FSI master
+>   drivers/fsi: Add client driver register utilities
+>   drivers/fsi: Add SCOM FSI client device driver
+>   drivers/fsi: Add Mailbox FSI client device driver
+>
+> Jeremy Kerr (12):
+>   fsi: Add empty fsi bus definitions
+>   fsi: Add device & driver definitions
+>   fsi: add driver to device matches
+>   fsi: Add fsi master definition
+>   fsi: Add fake master driver
 
-At the moment, the BMC maps the host LPC bus to point to the PNOR
-directly. This may be undesirable and presents security concerns. If
-the host can be taught to request access to the flash then the BMC
-could map the LPC bus into a region of its RAM and (depending on
-policy) writes wouldn't get propagated to the actual flash. Policy
-details are for later.
+>   fsi: enable debug
 
-I developed a simple protocol to allow this exchange of information
-documented in the README.md file of the userspace test daemon I wrote
-to proof of concept this: https://github.com/cyrilbur-ibm/mboxbridge/tr
-ee/newio I will no doubt move this somewhere more suitable in due
-course.
+Drop this debug patch.
 
-I chose to use the MBOX registers on the BMC as they provide a fast
-method of data transfer and can raise interrupts on both the host and
-BMC.
+>   fsi: Add slave definition
+>   fsi: Add empty master scan
+>   fsi: Add crc4 helpers
+>   fsi: Implement slave initialisation
+>   fsi: scan slaves & register devices
+>   fsi: Add device read/write/peek functions
 
-The aim of sharing this now is to show that the interface works and
-that implementation independent things can start to be integrated into
-skiboot and linux. Having said that, I would appreciate any feedback, I
-have had my head in this for quite some time please let me know if I've
-missed something.
+A few housekeeping issues:
 
-The implementation is only a proof of concept, some details still need
-to be worked out, especially what happens on BMC reboot. I believe the
-interface is ok in that respect, just my implementation which is
-lacking.
+You're missing patch 1, 4 and 14 from the series.
 
-Do try it out if you want. Of course changes need to be made to the BMC
-kernel as well as skiboot:
-https://github.com/cyrilbur-ibm/linux/tree/newio
-https://github.com/cyrilbur-ibm/skiboot/tree/newio
+Please resend with the full series and add cc linux-kernel@vger.kernel.org.
 
-Thanks,
+You should base your series on an upstream tree. I suggest 4.9-rc1.
+This will mean dropping the patch to the Witherspoon dts which is not
+upstream.
 
-Cyril
+Finally, make the subjects consistent: pick either drivers/fsi or fsi
+for the entire series.
+
+Cheers,
+
+Joel
+
+>
+>  .../devicetree/bindings/fsi/fsi-master-gpio.txt    |  21 +
+>  arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts      |   9 +
+>  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts   |   9 +
+>  drivers/Kconfig                                    |   2 +
+>  drivers/Makefile                                   |   1 +
+>  drivers/fsi/Kconfig                                |  41 ++
+>  drivers/fsi/Makefile                               |   6 +
+>  drivers/fsi/fsi-core.c                             | 533 +++++++++++++++++++
+>  drivers/fsi/fsi-master-fake.c                      |  95 ++++
+>  drivers/fsi/fsi-master-gpio.c                      | 578 +++++++++++++++++++++
+>  drivers/fsi/fsi-master.h                           |  62 +++
+>  drivers/fsi/fsi-mbx.c                              | 196 +++++++
+>  drivers/fsi/fsi-scom.c                             | 225 ++++++++
+>  include/linux/fsi.h                                |  73 +++
+>  14 files changed, 1851 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/fsi/fsi-master-gpio.txt
+>  create mode 100644 drivers/fsi/Kconfig
+>  create mode 100644 drivers/fsi/Makefile
+>  create mode 100644 drivers/fsi/fsi-core.c
+>  create mode 100644 drivers/fsi/fsi-master-fake.c
+>  create mode 100644 drivers/fsi/fsi-master-gpio.c
+>  create mode 100644 drivers/fsi/fsi-master.h
+>  create mode 100644 drivers/fsi/fsi-mbx.c
+>  create mode 100644 drivers/fsi/fsi-scom.c
+>  create mode 100644 include/linux/fsi.h
+>
+> --
+> 1.8.2.2
+>
