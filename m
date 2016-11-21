@@ -1,54 +1,72 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <tomjose@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tMd1K0yTPzDvfn
- for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 16:48:04 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="B/Ec2yI2"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="NbYpAF9v"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 613E820565;
- Mon, 21 Nov 2016 00:48:01 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Mon, 21 Nov 2016 00:48:01 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
- content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=exG69S5mNi7RVyKh+hkTZIMGtXk=; b=B/Ec2y
- I2A8SdFhL/ozK0Wyc/3hMx64BmQwRw5YvH3xItrgG10q+c0kYWJomhdALQnalYaO
- QDNNnFDJhb1LiM7rdtKzEzJ+UkFEjRFKnGK10dHa8y4UFvV4UUiFu64PUwg7l8Iv
- zeHr3EYoOGNYdhQqNlDnuI37VlVmQVSaCfJHA=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=exG69S5mNi7RVy
- Kh+hkTZIMGtXk=; b=NbYpAF9vYvSHhCCgZOy+Lgr2yKSsvtrKRTPi4lmT6UvrZJ
- DaA1dm5C3eXv3dI4zaMneNl3G5/M0UWSIV/9ryU0vlgAaxWIsMyyd88mKU1aXWqR
- 8g2rqJFscfCYJgP1k1O749ZOSpODG6NUEg4T8RF5F2H1crF4uNMbyXe8vAMOo=
-X-ME-Sender: <xms:kYoyWKIy0HRytJ9AJk2Uaf-ZYfTnxBElfLfK8cCV3c5lNCKWH_UQnA>
-X-Sasl-enc: bGdG9u+Mhm83hMBTelCmjDVSGjAxDSJ72everVyE31Xq 1479707280
-Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 8484024754;
- Mon, 21 Nov 2016 00:47:58 -0500 (EST)
-Message-ID: <1479707274.5215.19.camel@aj.id.au>
-Subject: Re: Fw: [PATCH] aspeed-bmc-opp-palmetto: Add GPIO hogs to devicetree
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Christopher Bostic <christopher.lee.bostic@gmail.com>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>, Jeremy Kerr
- <jk@ozlabs.org>, xxpetri@de.ibm.com, zahrens@us.ibm.com
-Date: Mon, 21 Nov 2016 16:17:54 +1030
-In-Reply-To: <CAA0LjjXej1XQ=voNfX_=5YL21bgjf73WK-UE=OgBcb=Pt=aKhg@mail.gmail.com>
-References: <OF6A1A7417.88F14B99-ON0025806F.004E9A7D-8625806F.004EA327@notes.na.collabserv.com>
- <CAA0LjjXej1XQ=voNfX_=5YL21bgjf73WK-UE=OgBcb=Pt=aKhg@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-WDRIkeTr6MQNCBLLQ5NZ"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tMd4s02qCzDt0P
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 16:51:08 +1100 (AEDT)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
+ uAL5nP4l014360
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 00:51:06 -0500
+Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 26usb2bk21-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 00:51:06 -0500
+Received: from localhost
+ by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <tomjose@linux.vnet.ibm.com>;
+ Sun, 20 Nov 2016 22:51:05 -0700
+Received: from d03dlp02.boulder.ibm.com (9.17.202.178)
+ by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Sun, 20 Nov 2016 22:51:03 -0700
+Received: from b03cxnp08025.gho.boulder.ibm.com
+ (b03cxnp08025.gho.boulder.ibm.com [9.17.130.17])
+ by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id 768153E40030;
+ Sun, 20 Nov 2016 22:51:02 -0700 (MST)
+Received: from b03ledav006.gho.boulder.ibm.com
+ (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
+ by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ uAL5p2WI56033512; Sun, 20 Nov 2016 22:51:02 -0700
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 556FCC603C;
+ Sun, 20 Nov 2016 22:51:02 -0700 (MST)
+Received: from [9.79.198.149] (unknown [9.79.198.149])
+ by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id 09393C6042;
+ Sun, 20 Nov 2016 22:51:00 -0700 (MST)
+Subject: Re: Where did host ipmi go on qemu and EVB?
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+References: <F6147AA0-C0A8-4765-99F6-B5D8D96E2BAD@fuzziesquirrel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: tomjose <tomjose@linux.vnet.ibm.com>
+Date: Mon, 21 Nov 2016 11:20:55 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+ Thunderbird/38.8.0
+MIME-Version: 1.0
+In-Reply-To: <F6147AA0-C0A8-4765-99F6-B5D8D96E2BAD@fuzziesquirrel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16112105-8235-0000-0000-000009A64344
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006115; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000189; SDB=6.00783271; UDB=6.00378237; IPR=6.00560890; 
+ BA=6.00004895; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00013389; XFM=3.00000011;
+ UTC=2016-11-21 05:51:04
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 16112105-8236-0000-0000-0000369FD497
+Message-Id: <58328B3F.7070203@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-11-21_03:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1609300000
+ definitions=main-1611210105
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,223 +78,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Nov 2016 05:48:06 -0000
+X-List-Received-Date: Mon, 21 Nov 2016 05:51:09 -0000
+
+Hello Brad,
+
+I would like to enable host IPMI on QEMU platform for my testing.
+
+I was not able to figure out the conf file for enabling the host IPMI on 
+QEMU.
+
+Can you elicit the steps to do the same?
+
+Regards,
+Tom
 
 
---=-WDRIkeTr6MQNCBLLQ5NZ
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Chris,
-
->=20
-> Hi Andrew,
->=20
-> I notice Pin H6 is in your list assigned as a gpio-hog.=C2=A0=C2=A0=C2=A0=
-This is a
-> pin I use for the voltage direction control via the translator for
-> openFSI.=C2=A0=C2=A0Not familiar with the history here but is that pin be=
-ing
-> used for other purposes or is required to be flagged as a gpio-hog?
-
-Ultimately none of these should be hogged. This was just a brain-dead
-way to get the GPIOs in a state that can boot a Palmetto host. There
-was a time where several issues including wrong GPIO state prevented
-OpenBMC from booting a Palmetto host for a month or so, hence this
-patch.
-
-Happy to drop the H6 hog if we still boot okay. I'm still waiting for
-Joel to weigh in on whether he wants to take it.
-
-
-> Currently I'm attempting to grab a descriptor for this without that
-> requirement.
-
-Have you been testing on a Palmetto using an OpenBMC build? If so the
-request should still fail as the patch is applied in the OpenBMC kernel
-build. All I'm proposing here is we move it from OpenBMC into the
-Aspeed kernel tree.
-
-Andrew
-
->=20
-> Thanks,
-> Chris
->=20
->=20
-> > diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> > b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> > index 21619fd8cd8d..5c689613e5bd 100644
-> > --- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> > +++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-> > @@ -167,6 +167,133 @@
-> > output-low;
-> > line-name =3D "func_mode2";
-> > };
-> > +
-> > + pin_gpio_a0 {
-> > + gpio-hog;
-> > + gpios =3D <ASPEED_GPIO(A, 0) GPIO_ACTIVE_HIGH>;
-> > + input;
-> > + line-name =3D "A0";
-> > + };
-> > +
-> > + pin_gpio_a1 {
-> > + gpio-hog;
-> > + gpios =3D <ASPEED_GPIO(A, 1) GPIO_ACTIVE_HIGH>;
-> > + output-high;
-> > + line-name =3D "A1";
-> > + };
-> > +
-> > + pin_gpio_b1 {
-> > + gpio-hog;
-> > + gpios =3D <ASPEED_GPIO(B, 1) GPIO_ACTIVE_HIGH>;
-> > + output-high;
-> > + line-name =3D "B1";
-> > + };
-> > +
-> > + pin_gpio_b2 {
-> > + gpio-hog;
-> > + gpios =3D <ASPEED_GPIO(B, 2) GPIO_ACTIVE_HIGH>;
-> > + output-high;
-> > + line-name =3D "B2";
-> > + };
-> > +
-> > + pin_gpio_b7 {
-> > + gpio-hog;
-> > + gpios =3D <ASPEED_GPIO(B, 7) GPIO_ACTIVE_HIGH>;
-> > + output-high;
-> > + line-name =3D "B7";
-> > + };
-> > +
-> > + pin_gpio_d1 {
-> > + gpio-hog;
-> > + gpios =3D <ASPEED_GPIO(D, 1) GPIO_ACTIVE_HIGH>;
-> > + output-high;
-> > + line-name =3D "D1";
-> > + };
-> > +
-> > + pin_gpio_f1 {
-> > + gpio-hog;
-> > + gpios =3D <ASPEED_GPIO(F, 1) GPIO_ACTIVE_HIGH>;
-> > + input;
-> > + line-name =3D "F1";
-> > + };
-> > +
-> > + pin_gpio_f4 {
-> > + gpio-hog;
-> > + gpios =3D <ASPEED_GPIO(F, 4) GPIO_ACTIVE_HIGH>;
-> > + input;
-> > + line-name =3D "F4";
-> > + };
-> > +
-> > + pin_gpio_f5 {
-> > + gpio-hog;
-> > + gpios =3D <ASPEED_GPIO(F, 5) GPIO_ACTIVE_HIGH>;
-> > + input;
-> > + line-name =3D "F5";
-> > + };
-> > +
-> > + pin_gpio_f7 {
-> > + gpio-hog;
-> > + gpios =3D <ASPEED_GPIO(F, 7) GPIO_ACTIVE_HIGH>;
-> > + output-high;
-> > + line-name =3D "F7";
-> > + };
-> > +
-> > + pin_gpio_g3 {
-> > + gpio-hog;
-> > + gpios =3D <ASPEED_GPIO(G, 3) GPIO_ACTIVE_HIGH>;
-> > + output-high;
-> > + line-name =3D "G3";
-> > + };
-> > +
-> > + pin_gpio_g4 {
-> > + gpio-hog;
-> > + gpios =3D <ASPEED_GPIO(G, 4) GPIO_ACTIVE_HIGH>;
-> > + input;
-> > + line-name =3D "G4";
-> > + };
-> > +
-> > + pin_gpio_g5 {
-> > + gpio-hog;
-> > + gpios =3D <ASPEED_GPIO(G, 5) GPIO_ACTIVE_HIGH>;
-> > + input;
-> > + line-name =3D "G5";
-> > + };
-> > +
-> > + pin_gpio_h0 {
-> > + gpio-hog;
-> > + gpios =3D <ASPEED_GPIO(H, 0) GPIO_ACTIVE_HIGH>;
-> > + input;
-> > + line-name =3D "H0";
-> > + };
-> > +
-> > + pin_gpio_h1 {
-> > + gpio-hog;
-> > + gpios =3D <ASPEED_GPIO(H, 1) GPIO_ACTIVE_HIGH>;
-> > + input;
-> > + line-name =3D "H1";
-> > + };
-> > +
-> > + pin_gpio_h2 {
-> > + gpio-hog;
-> > + gpios =3D <ASPEED_GPIO(H, 2) GPIO_ACTIVE_HIGH>;
-> > + output-high;
-> > + line-name =3D "H2";
-> > + };
-> > +
-> > + pin_gpio_h6 {
-> > + gpio-hog;
-> > + gpios =3D <ASPEED_GPIO(H, 6) GPIO_ACTIVE_HIGH>;
-> > + output-high;
-> > + line-name =3D "H6";
-> > + };
-> > +
-> > + pin_gpio_h7 {
-> > + gpio-hog;
-> > + gpios =3D <ASPEED_GPIO(H, 7) GPIO_ACTIVE_HIGH>;
-> > + output-high;
-> > + line-name =3D "H7";
-> > + };
-> > +
-> > };
-> >=20
-> > &vuart {
-> > --
-> > 2.7.4
-> >=20
-> > _______________________________________________
-> > openbmc mailing list
-> > openbmc@lists.ozlabs.org
-> > https://lists.ozlabs.org/listinfo/openbmc
-> >=20
-> >=20
->=20
+On Tuesday 08 November 2016 06:45 PM, Brad Bishop wrote:
+> A number of people have asked where host IPMI went on the QEMU/EVB platforms.  If this is of interest to you, read on….
+>
+> Background:
+>
+> - One of the goals for OpenBMC is meet the needs of a broad range of applications, where applications are servers, switches, routers, raid appliances…etc.
+> - Yocto provides a concept of MACHINE_FEATURES, where features somewhat abstract declarations of the hardware features supported by a board.
+>
+> For a real board, like the OpenPOWER Witherspoon server, the concepts are easy to apply.  Witherspoon is a server, and it has a BT interface on it.  So it isn’t much of a leap conceptually to have this in Witherspoon.conf:
+>
+> MACHINE_FEATURES += “obmc-host-ipmi-hw”
+>
+> The EVBs and QEMU models are different.  Most of us (if not everyone) are working on servers, and initially it was easy to just put the same line in those board config files, so we could prototype applications like host-ipmi on those boards.
+>
+> Thats fine, and you can still do so, but this is no longer the default behavior.  If you want to prototype something on one of these boards, enable the feature in your local.conf, and build images and SDKs with those features enabled.
+>
+> I opted to do this because I didn’t want to show any favortism towards servers.  For something with general applicability like a Raspberry Pi or a QEMU model my view is:
+>
+> 1 - A machine feature that really does exist in a QEMU model or on an EVB should still be enabled by default.  For example, it makes sense that a ‘led’ machine feature could exist and be enabled by default on a Raspberry Pi, since a Raspberry Pi, regardless of the application, could have leds hooked up to it.
+>
+> 2 - Machine features, like a BT interface, that don’t exist in a QEMU model or EVB should not enabled by default.  Despite this, we should strive to make feature implementations work on all the EVBs and QEMU models, as they can be enabled manually via local.conf.
+>
+> -brad bishop
 > _______________________________________________
 > openbmc mailing list
 > openbmc@lists.ozlabs.org
 > https://lists.ozlabs.org/listinfo/openbmc
---=-WDRIkeTr6MQNCBLLQ5NZ
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJYMoqKAAoJEJ0dnzgO5LT5Qm8P/2e9WTi2LzQ5u3cXYbo171Ci
-gBbkCYA3LncY4BTEYHWmaTp58BCstscECjPv3YjtdBhzo1Se7BelqyzDA9yCuk27
-6ZeHnzLn93UNVyRcvxA+vsnAYV/U3kQGQ1EHfw97Mv80XEN3DKgnr6x/tZgOQO1X
-FgNYf0Z8GoLYhpWJ3JNDhejwhCl2YlesZhIavzIooVn8CnJ7wchuqgm108xqQpwF
-dfjK2KZGLC5m170t8/DrI+4poxW4ljVScQUHLDuSM7nAoYjPIeY1SBRY1qkknZUO
-4KQ8Iab9zCMSqIuigvcZilsROf/+nn4mJ6n8unAjfc99gKBFSdKLUlI+4uPRZG2w
-JHZai2J/sLW08CCOzwThNqGrZa6zuV6iy+sUkfauoSvGU16Lus67ognRUsQcjU3U
-i6bpV4ctfX5PIl9FUGVNi+6qQhPJ8I2mWSomaFd8aMDbWBr4tytaOOKTF8WplF89
-liu3PygioUjW2kxWZJRmJpf8FOp2fs51e74uxIUyg+pXiAH51KFxSwJQlFzpxwUi
-Blb28s6zs+jSPaPuCJL21TKwrTBlEr8rc1HNLg5YtDXUQCnfDkmUeazOv+00Thdn
-LFXXwts+QjuBiecFjeHJIf1Jd544Zun7xVA6Iuf9T00MFYKNCVnaYEI1IJHeQJXJ
-eqF47lDMiMrI/dqbm2oh
-=y3ds
------END PGP SIGNATURE-----
-
---=-WDRIkeTr6MQNCBLLQ5NZ--
