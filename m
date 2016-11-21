@@ -1,52 +1,52 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-io0-x232.google.com (mail-io0-x232.google.com
- [IPv6:2607:f8b0:4001:c06::232])
+Return-Path: <christopher.lee.bostic@gmail.com>
+Received: from mail-vk0-x244.google.com (mail-vk0-x244.google.com
+ [IPv6:2607:f8b0:400c:c05::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tMwyz3Qy3zDvgS
- for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 04:47:06 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tMyV35HcZzDvrr
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 05:55:39 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="h/JvyCMe"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="hdlG+RKO"; 
  dkim-atps=neutral
-Received: by mail-io0-x232.google.com with SMTP id n13so46282943ioe.2
- for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 09:47:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
+Received: by mail-vk0-x244.google.com with SMTP id w194so25377914vkw.3
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 10:55:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=RxNa2zIXjnN7czpFCQ3Lkf3z9hJQaS+oJp/hnYloCIc=;
- b=h/JvyCMe0zueAgJQoxNIylLeHK6Y+tA/pdy/Adb2GA9t7N/WElxduN/S/IcDs6kH2v
- Tm0uwD05ssMcCKwKESaQqA7L1Cp51/wnZpXFCCCoeM8yLjO3kGO2mwsg20p68qk4GV7R
- DNzjqfNbESnMlctcP6SrP4f7rZCyLAQ1J+0oEoQu8y8UyEzFYESCbf/98OwG4R72LZ6a
- EA72d09CPWXt+TFkKL/+VKvwpaLNnIg5UnSbxdP8zZuA03xe8dmp3h/MlZ4QUCGUj+lF
- 0ReMv51iZbSaCdZLiTt+wF3hEl+WZNiUhYQBanbRvlcyXQGX36IEdbK09gwuoISzDe+5
- HKAw==
+ :cc; bh=TC4e5zS44owBw1dqWrbg+6n9rzHdAouC0f3rvtUxyVg=;
+ b=hdlG+RKOQA2rmMlVS0Juwk/kEMHYD8I9RKQtekFUhzcH4L1PVSW/yLgKfzGCL7QxYP
+ /7uqv3kipIj4F/rpjFTkjuW7fx26kb0JwtTdoaj0VMDllUFH2EuwDwNrmbomTzdVvfoZ
+ eF1GY6nGMebtJF3soyTGBpQYBD8ulJDFhnC9AO7IZT00dChqMs3UYkplg0S7ZABiCI7U
+ mHIBLh8y1eUAOsvKW7klip4AgX+4CTDeCYPi1ko6YidRsQdxr1Xu///35z1cY2lH9oU5
+ wY3Koop5NX9IMW1U051ajVSV2vqKBCMmuyrrSOw44ShzBYnq6nfTNjEMOf36HgFyjdGz
+ dPXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=RxNa2zIXjnN7czpFCQ3Lkf3z9hJQaS+oJp/hnYloCIc=;
- b=PlBJUCdUTzqYzqZUE2q4M7jXx1wdAST54fRZq1EFQowgdHBVEKEb8vO+/8cpTDYvbA
- FXsxjc9IniC58DZNYl9dMHZVWfqOXQ1zpVF7TJ0jkjyFEPQ5TWw20exDhD4Y8/Lwe5s0
- n0LOKw3KOh1G6qDofez2vu8+urjLvm0pKF2OFbjTtPJyLeVXiLo/kQCCHs1GcYvVauMF
- RXlDcM/D5qc4RCAvRvqln39fvBiepxRGIyNVClVNBVirD+pcjYyphUc5v69IsRnyucVu
- FdYAaO69sQ38LjUY230Hymn9ykO3KSG0dZjbw1nOWuLQBIANd9JOsplZLIHez96pbnd9
- I57A==
-X-Gm-Message-State: AKaTC0341G6G7XJvHVl4nvoXqcZ293EVNWNVny8kDW7qAWLqyygBraT3Elfvl+eO2S3pojihWkwZRaVuIuZlaWBf
-X-Received: by 10.107.48.134 with SMTP id w128mr15540587iow.226.1479750424929; 
- Mon, 21 Nov 2016 09:47:04 -0800 (PST)
+ bh=TC4e5zS44owBw1dqWrbg+6n9rzHdAouC0f3rvtUxyVg=;
+ b=B+LYMz0aeq3gIlgiembRkmnnXsJeDloVEZ2OsQyBE4MvGWrSkahm+zawAoK0VO2M6e
+ Bh/uyJCCVbHiw4pubV0Z0b8SK6m6vvpe1UemwQJPmoj3cbxA8J5lfpj0wXRvinBtl1y6
+ 6XvY/LQY6+ZLD6LwvYg2k1/kCh6I6wE9b+jSJGuMsPWxnMgRPuN4zXstkNAQmGyzulxt
+ WIvkwEjum3kU0uuhafX58Om4hNQ+3E6yjqBi1DjPhbu7uenS36RoYK1aH0fHLhRiHxxf
+ cSg0CGmY6I5EM6sLlqSHCeuhOyr4JN2qh/0GRH7EaiX/ZmT3OvQOhuUqml1lmUfaffyv
+ O4IQ==
+X-Gm-Message-State: AKaTC02L2tRA4kasv9XYabBELFlny5zIuSvC5gqp4bIPtLsx3rWYXb63Vw3kkULZSESvVPoZrbQ3SrWqz+8PCA==
+X-Received: by 10.31.94.84 with SMTP id s81mr7428205vkb.167.1479754537604;
+ Mon, 21 Nov 2016 10:55:37 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.107.154.197 with HTTP; Mon, 21 Nov 2016 09:47:04 -0800 (PST)
-In-Reply-To: <1479703856.680.2.camel@gmail.com>
-References: <1479703856.680.2.camel@gmail.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Mon, 21 Nov 2016 09:47:04 -0800
-Message-ID: <CAPLgG=nDDGpCMbP3NDDZxmFLMJV53Lc=gfoKpeUz5cFU80=oxA@mail.gmail.com>
-Subject: Re: Restricting HOST flash access on OpenBMC
-To: Cyril Bur <cyrilbur@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Joel Stanley <joel@jms.id.au>, Jeremy Kerr <jk@ozlabs.org>, 
- Abhishek Pandit <abhishekpandit@google.com>
-Content-Type: multipart/alternative; boundary=001a114448d46fbf580541d33e19
+Received: by 10.159.36.243 with HTTP; Mon, 21 Nov 2016 10:55:37 -0800 (PST)
+In-Reply-To: <1479707274.5215.19.camel@aj.id.au>
+References: <OF6A1A7417.88F14B99-ON0025806F.004E9A7D-8625806F.004EA327@notes.na.collabserv.com>
+ <CAA0LjjXej1XQ=voNfX_=5YL21bgjf73WK-UE=OgBcb=Pt=aKhg@mail.gmail.com>
+ <1479707274.5215.19.camel@aj.id.au>
+From: Christopher Bostic <christopher.lee.bostic@gmail.com>
+Date: Mon, 21 Nov 2016 12:55:37 -0600
+Message-ID: <CAA0LjjVH3BEtu7et_2VtpLXgbrHOfRTNvpQFL8c0Eh-kdDLH_Q@mail.gmail.com>
+Subject: Re: Fw: [PATCH] aspeed-bmc-opp-palmetto: Add GPIO hogs to devicetree
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>,
+ Jeremy Kerr <jk@ozlabs.org>, xxpetri@de.ibm.com, zahrens@us.ibm.com
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,134 +58,207 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Nov 2016 17:47:08 -0000
+X-List-Received-Date: Mon, 21 Nov 2016 18:55:40 -0000
 
---001a114448d46fbf580541d33e19
-Content-Type: text/plain; charset=UTF-8
+On Sun, Nov 20, 2016 at 11:47 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> Hi Chris,
+>
+>>
+>> Hi Andrew,
+>>
+>> I notice Pin H6 is in your list assigned as a gpio-hog.   This is a
+>> pin I use for the voltage direction control via the translator for
+>> openFSI.  Not familiar with the history here but is that pin being
+>> used for other purposes or is required to be flagged as a gpio-hog?
+>
+> Ultimately none of these should be hogged. This was just a brain-dead
+> way to get the GPIOs in a state that can boot a Palmetto host. There
+> was a time where several issues including wrong GPIO state prevented
+> OpenBMC from booting a Palmetto host for a month or so, hence this
+> patch.
+>
+> Happy to drop the H6 hog if we still boot okay. I'm still waiting for
+> Joel to weigh in on whether he wants to take it.
+>
+>
+>> Currently I'm attempting to grab a descriptor for this without that
+>> requirement.
+>
+> Have you been testing on a Palmetto using an OpenBMC build? If so the
+> request should still fail as the patch is applied in the OpenBMC kernel
+> build. All I'm proposing here is we move it from OpenBMC into the
+> Aspeed kernel tree.
 
-How does this work on non-LPC platforms?
+Hi Andrew,
 
-On Sun, Nov 20, 2016 at 8:50 PM, Cyril Bur <cyrilbur@gmail.com> wrote:
+Yes I have been testing on Palmetto using OpenBMC builds.  The H6
+pin reports as busy when I request it so for now I have a workaround
+to bypass the gpio interface.  All the other pins I grab via the normal
+dts gpio devm_gpio_get interfaces.   Once the H6 hog can be removed,
+assuming no other code needs it, I can remove my workaround in
+the OpenFSI code.
 
-> Hello,
->
-> Apologies, I have been working on this in a bit of a silo and I suspect
-> a lot of people will be interested to know this work is going on.
->
-> The aim of my work is to provide a simple interface for the host and
-> the BMC to talk in order for the BMC to give controlled access to the
-> flash.
->
-> At the moment, the BMC maps the host LPC bus to point to the PNOR
-> directly. This may be undesirable and presents security concerns. If
-> the host can be taught to request access to the flash then the BMC
-> could map the LPC bus into a region of its RAM and (depending on
-> policy) writes wouldn't get propagated to the actual flash. Policy
-> details are for later.
->
-> I developed a simple protocol to allow this exchange of information
-> documented in the README.md file of the userspace test daemon I wrote
-> to proof of concept this: https://github.com/cyrilbur-ibm/mboxbridge/tr
-> ee/newio I will no doubt move this somewhere more suitable in due
-> course.
->
-> I chose to use the MBOX registers on the BMC as they provide a fast
-> method of data transfer and can raise interrupts on both the host and
-> BMC.
->
-> The aim of sharing this now is to show that the interface works and
-> that implementation independent things can start to be integrated into
-> skiboot and linux. Having said that, I would appreciate any feedback, I
-> have had my head in this for quite some time please let me know if I've
-> missed something.
->
-> The implementation is only a proof of concept, some details still need
-> to be worked out, especially what happens on BMC reboot. I believe the
-> interface is ok in that respect, just my implementation which is
-> lacking.
->
-> Do try it out if you want. Of course changes need to be made to the BMC
-> kernel as well as skiboot:
-> https://github.com/cyrilbur-ibm/linux/tree/newio
-> https://github.com/cyrilbur-ibm/skiboot/tree/newio
->
-> Thanks,
->
-> Cyril
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
->
+Thanks,
+Chris
 
---001a114448d46fbf580541d33e19
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">How does this work on non-LPC platforms?</div><div class=
-=3D"gmail_extra"><br><div class=3D"gmail_quote">On Sun, Nov 20, 2016 at 8:5=
-0 PM, Cyril Bur <span dir=3D"ltr">&lt;<a href=3D"mailto:cyrilbur@gmail.com"=
- target=3D"_blank">cyrilbur@gmail.com</a>&gt;</span> wrote:<br><blockquote =
-class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid=
-;padding-left:1ex">Hello,<br>
-<br>
-Apologies, I have been working on this in a bit of a silo and I suspect<br>
-a lot of people will be interested to know this work is going on.<br>
-<br>
-The aim of my work is to provide a simple interface for the host and<br>
-the BMC to talk in order for the BMC to give controlled access to the<br>
-flash.<br>
-<br>
-At the moment, the BMC maps the host LPC bus to point to the PNOR<br>
-directly. This may be undesirable and presents security concerns. If<br>
-the host can be taught to request access to the flash then the BMC<br>
-could map the LPC bus into a region of its RAM and (depending on<br>
-policy) writes wouldn&#39;t get propagated to the actual flash. Policy<br>
-details are for later.<br>
-<br>
-I developed a simple protocol to allow this exchange of information<br>
-documented in the README.md file of the userspace test daemon I wrote<br>
-to proof of concept this: <a href=3D"https://github.com/cyrilbur-ibm/mboxbr=
-idge/tr
-ee/newio" rel=3D"noreferrer" target=3D"_blank">https://github.com/cyrilbur-=
-<wbr>ibm/mboxbridge/tr<br>
-ee/newio</a> I will no doubt move this somewhere more suitable in due<br>
-course.<br>
-<br>
-I chose to use the MBOX registers on the BMC as they provide a fast<br>
-method of data transfer and can raise interrupts on both the host and<br>
-BMC.<br>
-<br>
-The aim of sharing this now is to show that the interface works and<br>
-that implementation independent things can start to be integrated into<br>
-skiboot and linux. Having said that, I would appreciate any feedback, I<br>
-have had my head in this for quite some time please let me know if I&#39;ve=
-<br>
-missed something.<br>
-<br>
-The implementation is only a proof of concept, some details still need<br>
-to be worked out, especially what happens on BMC reboot. I believe the<br>
-interface is ok in that respect, just my implementation which is<br>
-lacking.<br>
-<br>
-Do try it out if you want. Of course changes need to be made to the BMC<br>
-kernel as well as skiboot:<br>
-<a href=3D"https://github.com/cyrilbur-ibm/linux/tree/newio" rel=3D"norefer=
-rer" target=3D"_blank">https://github.com/cyrilbur-<wbr>ibm/linux/tree/newi=
-o</a><br>
-<a href=3D"https://github.com/cyrilbur-ibm/skiboot/tree/newio" rel=3D"noref=
-errer" target=3D"_blank">https://github.com/cyrilbur-<wbr>ibm/skiboot/tree/=
-newio</a><br>
-<br>
-Thanks,<br>
-<br>
-Cyril<br>
-______________________________<wbr>_________________<br>
-openbmc mailing list<br>
-<a href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a><br=
 >
-<a href=3D"https://lists.ozlabs.org/listinfo/openbmc" rel=3D"noreferrer" ta=
-rget=3D"_blank">https://lists.ozlabs.org/<wbr>listinfo/openbmc</a><br>
-</blockquote></div><br></div>
-
---001a114448d46fbf580541d33e19--
+> Andrew
+>
+>>
+>> Thanks,
+>> Chris
+>>
+>>
+>> > diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+>> > b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+>> > index 21619fd8cd8d..5c689613e5bd 100644
+>> > --- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+>> > +++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+>> > @@ -167,6 +167,133 @@
+>> > output-low;
+>> > line-name = "func_mode2";
+>> > };
+>> > +
+>> > + pin_gpio_a0 {
+>> > + gpio-hog;
+>> > + gpios = <ASPEED_GPIO(A, 0) GPIO_ACTIVE_HIGH>;
+>> > + input;
+>> > + line-name = "A0";
+>> > + };
+>> > +
+>> > + pin_gpio_a1 {
+>> > + gpio-hog;
+>> > + gpios = <ASPEED_GPIO(A, 1) GPIO_ACTIVE_HIGH>;
+>> > + output-high;
+>> > + line-name = "A1";
+>> > + };
+>> > +
+>> > + pin_gpio_b1 {
+>> > + gpio-hog;
+>> > + gpios = <ASPEED_GPIO(B, 1) GPIO_ACTIVE_HIGH>;
+>> > + output-high;
+>> > + line-name = "B1";
+>> > + };
+>> > +
+>> > + pin_gpio_b2 {
+>> > + gpio-hog;
+>> > + gpios = <ASPEED_GPIO(B, 2) GPIO_ACTIVE_HIGH>;
+>> > + output-high;
+>> > + line-name = "B2";
+>> > + };
+>> > +
+>> > + pin_gpio_b7 {
+>> > + gpio-hog;
+>> > + gpios = <ASPEED_GPIO(B, 7) GPIO_ACTIVE_HIGH>;
+>> > + output-high;
+>> > + line-name = "B7";
+>> > + };
+>> > +
+>> > + pin_gpio_d1 {
+>> > + gpio-hog;
+>> > + gpios = <ASPEED_GPIO(D, 1) GPIO_ACTIVE_HIGH>;
+>> > + output-high;
+>> > + line-name = "D1";
+>> > + };
+>> > +
+>> > + pin_gpio_f1 {
+>> > + gpio-hog;
+>> > + gpios = <ASPEED_GPIO(F, 1) GPIO_ACTIVE_HIGH>;
+>> > + input;
+>> > + line-name = "F1";
+>> > + };
+>> > +
+>> > + pin_gpio_f4 {
+>> > + gpio-hog;
+>> > + gpios = <ASPEED_GPIO(F, 4) GPIO_ACTIVE_HIGH>;
+>> > + input;
+>> > + line-name = "F4";
+>> > + };
+>> > +
+>> > + pin_gpio_f5 {
+>> > + gpio-hog;
+>> > + gpios = <ASPEED_GPIO(F, 5) GPIO_ACTIVE_HIGH>;
+>> > + input;
+>> > + line-name = "F5";
+>> > + };
+>> > +
+>> > + pin_gpio_f7 {
+>> > + gpio-hog;
+>> > + gpios = <ASPEED_GPIO(F, 7) GPIO_ACTIVE_HIGH>;
+>> > + output-high;
+>> > + line-name = "F7";
+>> > + };
+>> > +
+>> > + pin_gpio_g3 {
+>> > + gpio-hog;
+>> > + gpios = <ASPEED_GPIO(G, 3) GPIO_ACTIVE_HIGH>;
+>> > + output-high;
+>> > + line-name = "G3";
+>> > + };
+>> > +
+>> > + pin_gpio_g4 {
+>> > + gpio-hog;
+>> > + gpios = <ASPEED_GPIO(G, 4) GPIO_ACTIVE_HIGH>;
+>> > + input;
+>> > + line-name = "G4";
+>> > + };
+>> > +
+>> > + pin_gpio_g5 {
+>> > + gpio-hog;
+>> > + gpios = <ASPEED_GPIO(G, 5) GPIO_ACTIVE_HIGH>;
+>> > + input;
+>> > + line-name = "G5";
+>> > + };
+>> > +
+>> > + pin_gpio_h0 {
+>> > + gpio-hog;
+>> > + gpios = <ASPEED_GPIO(H, 0) GPIO_ACTIVE_HIGH>;
+>> > + input;
+>> > + line-name = "H0";
+>> > + };
+>> > +
+>> > + pin_gpio_h1 {
+>> > + gpio-hog;
+>> > + gpios = <ASPEED_GPIO(H, 1) GPIO_ACTIVE_HIGH>;
+>> > + input;
+>> > + line-name = "H1";
+>> > + };
+>> > +
+>> > + pin_gpio_h2 {
+>> > + gpio-hog;
+>> > + gpios = <ASPEED_GPIO(H, 2) GPIO_ACTIVE_HIGH>;
+>> > + output-high;
+>> > + line-name = "H2";
+>> > + };
+>> > +
+>> > + pin_gpio_h6 {
+>> > + gpio-hog;
+>> > + gpios = <ASPEED_GPIO(H, 6) GPIO_ACTIVE_HIGH>;
+>> > + output-high;
+>> > + line-name = "H6";
+>> > + };
+>> > +
+>> > + pin_gpio_h7 {
+>> > + gpio-hog;
+>> > + gpios = <ASPEED_GPIO(H, 7) GPIO_ACTIVE_HIGH>;
+>> > + output-high;
+>> > + line-name = "H7";
+>> > + };
+>> > +
+>> > };
+>> >
+>> > &vuart {
+>> > --
+>> > 2.7.4
+>> >
+>> > _______________________________________________
+>> > openbmc mailing list
+>> > openbmc@lists.ozlabs.org
+>> > https://lists.ozlabs.org/listinfo/openbmc
+>> >
+>> >
+>>
+>> _______________________________________________
+>> openbmc mailing list
+>> openbmc@lists.ozlabs.org
+>> https://lists.ozlabs.org/listinfo/openbmc
