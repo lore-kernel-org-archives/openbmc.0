@@ -1,37 +1,38 @@
 Return-Path: <clg@kaod.org>
-X-Greylist: delayed 11416 seconds by postgrey-1.36 at bilbo;
- Tue, 22 Nov 2016 00:12:31 AEDT
-Received: from 14.mo3.mail-out.ovh.net (14.mo3.mail-out.ovh.net
- [188.165.43.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tMpt76CmMzDvjG
- for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 00:12:30 +1100 (AEDT)
+Received: from 9.mo3.mail-out.ovh.net (9.mo3.mail-out.ovh.net [87.98.184.141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tMpw1499yzDrBs
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 00:14:09 +1100 (AEDT)
 Received: from player734.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo3.mail-out.ovh.net (Postfix) with ESMTP id 658276019D
- for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 14:03:34 +0100 (CET)
+ by mo3.mail-out.ovh.net (Postfix) with ESMTP id 7DA146019D
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 14:14:06 +0100 (CET)
 Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
  [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player734.ha.ovh.net (Postfix) with ESMTPSA id CC8862800AF;
- Mon, 21 Nov 2016 14:03:31 +0100 (CET)
-Subject: Re: [PATCH qemu 30/38] wdt: Add Aspeed watchdog device model
-To: openbmc@lists.ozlabs.org
+ by player734.ha.ovh.net (Postfix) with ESMTPSA id 9A2292800A3;
+ Mon, 21 Nov 2016 14:14:01 +0100 (CET)
+Subject: Re: [PATCH qemu 03/38] aspeed: attach the second SPI controller
+ object to the SoC
+To: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>
 References: <1479478938-13267-1-git-send-email-clg@kaod.org>
- <1479478938-13267-31-git-send-email-clg@kaod.org>
-Cc: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>
+ <1479478938-13267-4-git-send-email-clg@kaod.org>
+ <1479726239.5215.25.camel@aj.id.au>
+ <CACPK8XeHeUW3-8ewULup=19umJLkavos5_VMWqL=VPnKJTNSEw@mail.gmail.com>
+ <1479729439.5215.30.camel@aj.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <4c0ef35c-ac85-4163-f874-1201460bcd80@kaod.org>
-Date: Mon, 21 Nov 2016 14:03:31 +0100
+Message-ID: <742d0aed-de1e-06b7-49ad-ab08ce9542f3@kaod.org>
+Date: Mon, 21 Nov 2016 14:14:01 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
  Thunderbird/45.4.0
 MIME-Version: 1.0
-In-Reply-To: <1479478938-13267-31-git-send-email-clg@kaod.org>
+In-Reply-To: <1479729439.5215.30.camel@aj.id.au>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 17340547417051859923
+X-Ovh-Tracer-Id: 17518158128178498306
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrvdefgdeggecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrvdefgdegkecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -43,316 +44,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Nov 2016 13:12:32 -0000
+X-List-Received-Date: Mon, 21 Nov 2016 13:14:09 -0000
 
-On 11/18/2016 03:22 PM, Cédric Le Goater wrote:
-> From: Joel Stanley <joel@jms.id.au>
+On 11/21/2016 12:57 PM, Andrew Jeffery wrote:
+> On Mon, 2016-11-21 at 22:12 +1030, Joel Stanley wrote:
+>>> On Mon, Nov 21, 2016 at 9:33 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+>>> On Fri, 2016-11-18 at 15:21 +0100, Cédric Le Goater wrote:
+>>>> Signed-off-by: Cédric Le Goater <clg@kaod.org>
+>>>
+>>>>> Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+>>>
+>>>> ---
+>>>>  hw/arm/aspeed_soc.c | 2 +-
+>>>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/hw/arm/aspeed_soc.c b/hw/arm/aspeed_soc.c
+>>>> index db145e201451..bbbbfd13862c 100644
+>>>> --- a/hw/arm/aspeed_soc.c
+>>>> +++ b/hw/arm/aspeed_soc.c
+>>>> @@ -124,7 +124,7 @@ static void aspeed_soc_init(Object *obj)
+>>>>      for (i = 0; i < sc->info->spis_num; i++) {
+>>>>          object_initialize(&s->spi[i], sizeof(s->spi[i]),
+>>>>                            sc->info->spi_typename[i]);
+>>>> -        object_property_add_child(obj, "spi", OBJECT(&s->spi[i]), NULL);
+>>>> +        object_property_add_child(obj, "spi[*]", OBJECT(&s->spi[i]), NULL);
+>>>
+>>> Such a curious API. I guess it's effective.
+>>
+>> I didn't review this one because wtf is with that *?
 > 
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-> [clg: fixed compile breakage
->       fixed io region size
->       added  watchdog_perform_action() on timer expiry ]
-> Signed-off-by: Cédric Le Goater <clg@kaod.org>
-> ---
->  hw/watchdog/Makefile.objs        |   1 +
->  hw/watchdog/wdt_aspeed.c         | 194 +++++++++++++++++++++++++++++++++++++++
->  include/hw/watchdog/wdt_aspeed.h |  41 +++++++++
->  3 files changed, 236 insertions(+)
->  create mode 100644 hw/watchdog/wdt_aspeed.c
->  create mode 100644 include/hw/watchdog/wdt_aspeed.h
-> 
-> diff --git a/hw/watchdog/Makefile.objs b/hw/watchdog/Makefile.objs
-> index 72e3ffd93c59..9589bed63a3d 100644
-> --- a/hw/watchdog/Makefile.objs
-> +++ b/hw/watchdog/Makefile.objs
-> @@ -2,3 +2,4 @@ common-obj-y += watchdog.o
->  common-obj-$(CONFIG_WDT_IB6300ESB) += wdt_i6300esb.o
->  common-obj-$(CONFIG_WDT_IB700) += wdt_ib700.o
->  common-obj-$(CONFIG_WDT_DIAG288) += wdt_diag288.o
-> +common-obj-$(CONFIG_ASPEED_SOC) += wdt_aspeed.o
-> diff --git a/hw/watchdog/wdt_aspeed.c b/hw/watchdog/wdt_aspeed.c
-> new file mode 100644
-> index 000000000000..29d9d7f91463
-> --- /dev/null
-> +++ b/hw/watchdog/wdt_aspeed.c
-> @@ -0,0 +1,194 @@
-> +/*
-> + * Copyright 2016 IBM Corporation
-> + *
-> + * This code is licensed under the GPL version 2 or later.  See
-> + * the COPYING file in the top-level directory.
-> + */
-> +
-> +#include "qemu/osdep.h"
-> +#include "qemu/log.h"
-> +#include "sysemu/watchdog.h"
-> +#include "hw/sysbus.h"
-> +#include "qemu/timer.h"
-> +#include "hw/watchdog/wdt_aspeed.h"
-> +
-> +#define WDT_IO_REGION_SIZE      0x1000
-> +
-> +#define WDT_STATUS              0x00
-> +#define WDT_RELOAD_VALUE        0x04
-> +#define WDT_RESTART             0x08
-> +#define WDT_CTRL                0x0C
-> +#define WDT_TIMEOUT_STATUS      0x10
-> +#define WDT_TIMEOUT_CLEAR       0x14
-> +#define WDT_RESET_WDITH         0x18
+> According the code it means "keep incrementing a counter until you
+> generate a unique object name and successfully register the object".
+> AKA the 'i' we already use here, just the API doesn't provide an
+> argument to pass it.
 
+yes. see : 
 
-May be we should reduce the size of WDT_IO_REGION_SIZE to 0x20
-to instantiate the three watchdog of the Aspeed AST2500 with 
-one class ? 
-
-Here is the layout :
-
-WDT00: WDT1 Counter Status Register
-WDT04: WDT1 Counter Reload Value Register
-WDT08: WDT1 Counter Restart Register
-WDT0C: WDT1 Control Register
-WDT10: WDT1 Timeout Status Register
-WDT14: WDT1 Clear Timeout Status Register
-WDT18: WDT1 Reset Width Register
-WDT1C: WDT1 Reset Mask Register (AST2500)
-
-WDT20: WDT2 Counter Status Register
-WDT24: WDT2 Counter Reload Value Register
-WDT28: WDT2 Counter Restart Register
-WDT2C: WDT2 Control Register
-WDT30: WDT2 Timeout Status Register
-WDT34: WDT2 Clear Timeout Status Register
-WDT38: WDT2 Reset Width Register
-WDT3C: WDT2 Reset Mask Register  (AST2500)
-
-WDT40: WDT3 Counter Status Register  (AST2500)
-WDT44: WDT3 Counter Reload Value Register  (AST2500)
-WDT48: WDT3 Counter Restart Register  (AST2500)
-WDT4C: WDT3 Control Register  (AST2500)
-WDT50: WDT3 Timeout Status Register  (AST2500)
-WDT54: WDT3 Clear Timeout Status Register  (AST2500)
-WDT5C: WDT3 Reset Mask Register  (AST2500)
+	https://github.com/openbmc/qemu/blob/master/qom/object.c#L910
 
 C.
-
-
-
-
-> +#define WDT_RESTART_MAGIC       0x4755
-> +
-> +static uint64_t aspeed_wdt_read(void *opaque, hwaddr offset, unsigned size)
-> +{
-> +    AspeedWDTState *s = ASPEED_WDT(opaque);
-> +
-> +    switch (offset) {
-> +    case WDT_STATUS:
-> +        return s->reg_status;
-> +    case WDT_RELOAD_VALUE:
-> +        return s->reg_reload_value;
-> +    case WDT_RESTART:
-> +        qemu_log_mask(LOG_GUEST_ERROR,
-> +                      "%s: read from write-only reg at offset 0x%"
-> +                      HWADDR_PRIx "\n", __func__, offset);
-> +        return 0;
-> +    case WDT_CTRL:
-> +        return s->reg_ctrl;
-> +    case WDT_TIMEOUT_STATUS:
-> +    case WDT_TIMEOUT_CLEAR:
-> +    case WDT_RESET_WDITH:
-> +        qemu_log_mask(LOG_UNIMP,
-> +                      "%s: uninmplemented read at offset 0x%" HWADDR_PRIx "\n",
-> +                      __func__, offset);
-> +        return 0;
-> +    default:
-> +        qemu_log_mask(LOG_GUEST_ERROR,
-> +                      "%s: Out-of-bounds read at offset 0x%" HWADDR_PRIx "\n",
-> +                      __func__, offset);
-> +        return 0;
-> +    }
-> +
-> +}
-> +
-> +static void aspeed_wdt_write(void *opaque, hwaddr offset, uint64_t data,
-> +                             unsigned size)
-> +{
-> +    AspeedWDTState *s = ASPEED_WDT(opaque);
-> +    bool en = data & BIT(0);
-> +
-> +    switch (offset) {
-> +    case WDT_STATUS:
-> +        qemu_log_mask(LOG_GUEST_ERROR,
-> +                      "%s: write to read-only reg at offset 0x%"
-> +                      HWADDR_PRIx "\n", __func__, offset);
-> +        break;
-> +    case WDT_RELOAD_VALUE:
-> +        s->reg_reload_value = data;
-> +        break;
-> +    case WDT_RESTART:
-> +        if ((data & 0xFFFF) == 0x4755) {
-> +            s->reg_status = s->reg_reload_value;
-> +
-> +            if (s->enabled) {
-> +                timer_mod(s->timer,
-> +                          qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL) +
-> +                          s->reg_reload_value * NANOSECONDS_PER_SECOND);
-> +            }
-> +        }
-> +        break;
-> +    case WDT_CTRL:
-> +        if (en && !s->enabled) {
-> +            s->enabled = true;
-> +            timer_mod(s->timer,
-> +                      qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL) +
-> +                      s->reg_reload_value * NANOSECONDS_PER_SECOND);
-> +        } else if (!en && s->enabled) {
-> +            s->enabled = false;
-> +            timer_del(s->timer);
-> +        }
-> +        break;
-> +    case WDT_TIMEOUT_STATUS:
-> +    case WDT_TIMEOUT_CLEAR:
-> +    case WDT_RESET_WDITH:
-> +        qemu_log_mask(LOG_UNIMP,
-> +                      "%s: uninmplemented write at offset 0x%" HWADDR_PRIx "\n",
-> +                      __func__, offset);
-> +        break;
-> +    default:
-> +        qemu_log_mask(LOG_GUEST_ERROR,
-> +                      "%s: Out-of-bounds write at offset 0x%" HWADDR_PRIx "\n",
-> +                      __func__, offset);
-> +    }
-> +    return;
-> +}
-> +
-> +static WatchdogTimerModel model = {
-> +    .wdt_name = TYPE_ASPEED_WDT,
-> +    .wdt_description = "aspeed watchdog device",
-> +};
-> +
-> +static const VMStateDescription vmstate_aspeed_wdt = {
-> +    .name = "vmstate_aspeed_wdt",
-> +    .version_id = 0,
-> +    .minimum_version_id = 0,
-> +    .fields = (VMStateField[]) {
-> +        VMSTATE_TIMER_PTR(timer, AspeedWDTState),
-> +        VMSTATE_BOOL(enabled, AspeedWDTState),
-> +        VMSTATE_END_OF_LIST()
-> +    }
-> +};
-> +
-> +static const MemoryRegionOps aspeed_wdt_ops = {
-> +    .read = aspeed_wdt_read,
-> +    .write = aspeed_wdt_write,
-> +    .endianness = DEVICE_LITTLE_ENDIAN,
-> +    .valid.min_access_size = 4,
-> +    .valid.max_access_size = 4,
-> +    .valid.unaligned = false,
-> +};
-> +
-> +static void aspeed_wdt_reset(DeviceState *dev)
-> +{
-> +    AspeedWDTState *s = ASPEED_WDT(dev);
-> +
-> +    s->reg_status = 0x3EF1480;
-> +    s->reg_reload_value = 0x03EF1480;
-> +    s->reg_restart = 0;
-> +    s->reg_ctrl = 0;
-> +
-> +    s->enabled = false;
-> +    timer_del(s->timer);
-> +}
-> +
-> +static void aspeed_wdt_timer_expired(void *dev)
-> +{
-> +    AspeedWDTState *s = ASPEED_WDT(dev);
-> +
-> +    qemu_log_mask(CPU_LOG_RESET, "Watchdog timer expired.\n");
-> +    watchdog_perform_action();
-> +    timer_del(s->timer);
-> +}
-> +
-> +static void aspeed_wdt_realize(DeviceState *dev, Error **errp)
-> +{
-> +    SysBusDevice *sbd = SYS_BUS_DEVICE(dev);
-> +    AspeedWDTState *s = ASPEED_WDT(dev);
-> +
-> +    s->timer = timer_new_ns(QEMU_CLOCK_VIRTUAL, aspeed_wdt_timer_expired,
-> +                            dev);
-> +
-> +    memory_region_init_io(&s->iomem, OBJECT(s), &aspeed_wdt_ops, s,
-> +                          TYPE_ASPEED_WDT, WDT_IO_REGION_SIZE);
-> +    sysbus_init_mmio(sbd, &s->iomem);
-> +}
-> +
-> +static void aspeed_wdt_class_init(ObjectClass *klass, void *data)
-> +{
-> +    DeviceClass *dc = DEVICE_CLASS(klass);
-> +
-> +    dc->realize = aspeed_wdt_realize;
-> +    dc->reset = aspeed_wdt_reset;
-> +    set_bit(DEVICE_CATEGORY_MISC, dc->categories);
-> +    dc->vmsd = &vmstate_aspeed_wdt;
-> +}
-> +
-> +static const TypeInfo aspeed_wdt_info = {
-> +    .parent = TYPE_SYS_BUS_DEVICE,
-> +    .name  = TYPE_ASPEED_WDT,
-> +    .instance_size  = sizeof(AspeedWDTState),
-> +    .class_init = aspeed_wdt_class_init,
-> +};
-> +
-> +static void wdt_aspeed_register_types(void)
-> +{
-> +    watchdog_add_model(&model);
-> +    type_register_static(&aspeed_wdt_info);
-> +}
-> +
-> +type_init(wdt_aspeed_register_types)
-> diff --git a/include/hw/watchdog/wdt_aspeed.h b/include/hw/watchdog/wdt_aspeed.h
-> new file mode 100644
-> index 000000000000..dbf45ae968db
-> --- /dev/null
-> +++ b/include/hw/watchdog/wdt_aspeed.h
-> @@ -0,0 +1,41 @@
-> +/*
-> + * ASPEED Watchdog Controller
-> + *
-> + * Copyright (C) 2016 IBM Corp.
-> + *
-> + * This code is licensed under the GPL version 2 or later. See the
-> + * COPYING file in the top-level directory.
-> + */
-> +#ifndef ASPEED_WDT_H
-> +#define ASPEED_WDT_H
-> +
-> +#include "hw/sysbus.h"
-> +
-> +#define TYPE_ASPEED_WDT "aspeed.wdt"
-> +#define ASPEED_WDT(obj) \
-> +    OBJECT_CHECK(AspeedWDTState, (obj), TYPE_ASPEED_WDT)
-> +#define ASPEED_WDT_CLASS(klass) \
-> +    OBJECT_CLASS_CHECK(AspeedWDTClass, (klass), TYPE_ASPEED_WDT)
-> +#define ASPEED_WDT_GET_CLASS(obj) \
-> +    OBJECT_GET_CLASS(AspeedWDTClass, (obj), TYPE_ASPEED_WDT)
-> +
-> +#define WDT_ASPEED_INIT      0
-> +#define WDT_ASPEED_CHANGE    1
-> +#define WDT_ASPEED_CANCEL    2
-> +
-> +typedef struct AspeedWDTState {
-> +    /*< private >*/
-> +    SysBusDevice parent_obj;
-> +    QEMUTimer *timer;
-> +    bool enabled;
-> +
-> +    /*< public >*/
-> +    MemoryRegion iomem;
-> +
-> +    uint32_t reg_status;
-> +    uint32_t reg_reload_value;
-> +    uint32_t reg_restart;
-> +    uint32_t reg_ctrl;
-> +} AspeedWDTState;
-> +
-> +#endif  /* ASPEED_WDT_H */
-> 
