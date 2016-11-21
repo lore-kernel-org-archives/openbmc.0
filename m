@@ -1,54 +1,56 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
+ [IPv6:2607:f8b0:4003:c06::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tMm5q4xw0zDvs3
- for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 22:07:27 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="EWhQq7Vo"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="db4RXeLV"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 7FBCF204AB;
- Mon, 21 Nov 2016 06:07:25 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Mon, 21 Nov 2016 06:07:25 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
- content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=FjqsigkSxepQUNp3+sXcKR5zKkk=; b=EWhQq7
- VornsIxwYv4qE7PFbhkRb+m2rdlqsHUl0RlEw8BpryILcxlus6DnqO7rvpfihp/d
- 7rd/CdgFX8y5BrnDXUcSSnBKCGvlkTkV6E2BsylzZM6HkFyCoFVUW7moWSt9kmrB
- G8kW7xu+ctmpIilZYpuxfpDakQQ+59EpaWgIA=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=FjqsigkSxepQUN
- p3+sXcKR5zKkk=; b=db4RXeLVulDk+2CCqzjRb1Skw2YAddyj9A/sNqNu65uhKs
- J66px4+N7WLgkXcMCaaf743Sb0makm468i3HrocsOpGs+1yoGGsIgm4+VmLt3VYu
- Jy+MYVZ8CLeqVf6N5InOOhnBpvyAfyOyhhsPF/XLAswE8ruDgJNLjyXYOBY2M=
-X-ME-Sender: <xms:bdUyWAEWS56UNXGQ2M_FjTFsbZ5dAr4vWQArp5CpOULuKX0INk3DkQ>
-X-Sasl-enc: 5GIwqkXFgySN1mxxDIAeNt/TiHsJmxmp8QzRLGNDtrgd 1479726444
-Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 0305724CD4;
- Mon, 21 Nov 2016 06:07:23 -0500 (EST)
-Message-ID: <1479726439.5215.28.camel@aj.id.au>
-Subject: Re: [PATCH qemu 04/38] aspeed: extend the board configuration with
- flash models
-From: Andrew Jeffery <andrew@aj.id.au>
-To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, 
- openbmc@lists.ozlabs.org
-Date: Mon, 21 Nov 2016 21:37:19 +1030
-In-Reply-To: <1479478938-13267-5-git-send-email-clg@kaod.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tMmVK4dMbzDvh6
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 22:25:13 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="wEsqeUv+"; 
+ dkim-atps=neutral
+Received: by mail-oi0-x241.google.com with SMTP id v84so21590481oie.2
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 03:25:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=tBBEmytLXFM37dKIZQcapj/jkLPWKqMT2/Th1Lx2bT8=;
+ b=wEsqeUv+/DkGUYDV0SQJ1IV7C4Heh/NcCrywSJb9DEPH25pdNzu9P13P59n7a7l4hR
+ iBxKZkj9foBtgS1ldllOeyd9Ga8Kvux+nPa3DCadJ+Youp1U2Ufwpt7+59Shoa6i0nQn
+ 8/JOnRiH8i0AConwEH3boKnNGOCkOgCtk0TqM7zlvAj6JCOrcemYBQUXmwb3sQLtxB9g
+ rIUWK/KlP6K5jCgDAfjRmXB8wS9dCVMedZDghZ1pkramr+FzFwSIdhThFi2+nRFYJ3Xw
+ JG9ioos2+GjcnGPVQZI/RGSYFL2Y4M646fWwjtGpxD6/RQihP6c1Xq+Lkvjz7mPFOCP6
+ m+Nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=tBBEmytLXFM37dKIZQcapj/jkLPWKqMT2/Th1Lx2bT8=;
+ b=NUXRhgtHf3MOw3NhpgLJ1INACWAcWAAxCDxVSHEaJ6ZHCghkupOgvef/oIzR5ma+KK
+ fCnn9pqKkvB8Y0b1bzePVw3vcprU5jB52XdjMcuC6/qfwLZJIwB4gnyadip4vMsQPN5/
+ vqCzl8KLCQ0u09zsV92mz4KRxEE8pG8haw2fvgTG3L/fIVoq75FNTeDcZtMSnxkN8mIW
+ 0mQzfLVYCOTBBeHghFhubuB/EGIxVNrD0gVyTWjK6Q8GbxISvXRJVCKEDuAg9ze7rPed
+ msGekLsb/3r4vEPCNOBdKHWdsPhkhVoY7Sh6byxpQ3OWlvZiXeDHIpri84+Rh/23qi+d
+ axCg==
+X-Gm-Message-State: AKaTC00RbSVZIbEW0dMjFRq25pZ2++zHj8sQ2rsER8wkW4b2CtQ6ahfxjIeKxvl1/Qu9WIOvJ399Mp57g/+aJg==
+X-Received: by 10.157.45.166 with SMTP id g35mr8147907otb.223.1479727510931;
+ Mon, 21 Nov 2016 03:25:10 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.182.97.41 with HTTP; Mon, 21 Nov 2016 03:24:50 -0800 (PST)
+In-Reply-To: <7060991b-bdd7-cf80-9450-5b658053643b@kaod.org>
 References: <1479478938-13267-1-git-send-email-clg@kaod.org>
- <1479478938-13267-5-git-send-email-clg@kaod.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-ZfWzB6vFWvqiDukiTyq4"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ <1479478938-13267-20-git-send-email-clg@kaod.org>
+ <CACPK8XcN4uJ59hNj8ULJ-O9B-jk+W2xLBW5z2J6zFVmCcsuAAQ@mail.gmail.com>
+ <7060991b-bdd7-cf80-9450-5b658053643b@kaod.org>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 21 Nov 2016 21:54:50 +1030
+X-Google-Sender-Auth: 6XPlvmLKjxJeMYAp-142ONbRfVg
+Message-ID: <CACPK8XeKKYpcK=59GKOWOQc60YtAu_MkvQCGXXTRtdBh8tqNvQ@mail.gmail.com>
+Subject: Re: [PATCH qemu 19/38] aspeed/smc: add support for DMAs
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,77 +62,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Nov 2016 11:07:28 -0000
+X-List-Received-Date: Mon, 21 Nov 2016 11:25:14 -0000
 
+On Mon, Nov 21, 2016 at 9:37 PM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
+:
+> On 11/21/2016 08:25 AM, Joel Stanley wrote:
+>> On Sat, Nov 19, 2016 at 12:51 AM, C=C3=A9dric Le Goater <clg@kaod.org> w=
+rote:
+>>> Some of SMC controllers on the Aspeed SoCs support DMA to access the
+>>> flash modules. It can operate in a normal mode, to copy to or from the
+>>> flash module mapping window, or in a checksum calculation mode, to
+>>> evaluate the best clock settings for reads.
+>>>
+>>> When DMA is enabled, a DMA request is built and passed on to a bottom
+>>> half to handle the memory transaction. The CPU is notified of the
+>>> completion with an IRQ if it was enabled.
+>>>
+>>> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
+>>> ---
+>>>  hw/ssi/aspeed_smc.c | 234 ++++++++++++++++++++++++++++++++++++++++++++=
+++++++--
+>>>  1 file changed, 227 insertions(+), 7 deletions(-)
+>>>
+>>> diff --git a/hw/ssi/aspeed_smc.c b/hw/ssi/aspeed_smc.c
+>>> index 24c78aa57537..9596ea94a3bc 100644
+>>> --- a/hw/ssi/aspeed_smc.c
+>>> +++ b/hw/ssi/aspeed_smc.c
+>>
+>>> @@ -685,6 +697,202 @@ static uint64_t aspeed_smc_read(void *opaque, hwa=
+ddr addr, unsigned int size)
+>>>      }
+>>>  }
+>>>
+>>> +typedef struct AspeedDmaCo {
+>>> +    AspeedSMCState *s;
+>>> +    int len;
+>>> +    uint32_t flash_addr;
+>>> +    uint32_t dram_addr;
+>>> +    uint32_t checksum;
+>>> +    bool direction;
+>>> +} AspeedDmaCo;
+>>
+>> What does the "Co" part mean?
+>
+> For Coroutine.
+>
+> We could do without Coroutines but I think it makes the code a little
+> cleaner when we spawn the DMAs to do the flash access or the checksum
+> calculation.
 
---=-ZfWzB6vFWvqiDukiTyq4
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Cool, that's what I thought. I agree, sounds like a good idea.
 
-T24gRnJpLCAyMDE2LTExLTE4IGF0IDE1OjIxICswMTAwLCBDw6lkcmljIExlIEdvYXRlciB3cm90
-ZToKPiBGdXR1cmUgbWFjaGluZSB3aWxsIHVzZSBkaWZmZXJlbnQgZmxhc2ggbW9kZWxzIGZvciB0
-aGUgRk1DIGFuZCB0aGUgU1BJCj4gY29udHJvbGxlcnMuCj4gCj4gU2lnbmVkLW9mZi1ieTogQ8Op
-ZHJpYyBMZSBHb2F0ZXIgPGNsZ0BrYW9kLm9yZz4KClJldmlld2VkLWJ5OiBBbmRyZXcgSmVmZmVy
-eSA8YW5kcmV3QGFqLmlkLmF1PgoKPiAtLS0KPiDCoGh3L2FybS9hc3BlZWQuYyB8IDIwICsrKysr
-KysrKysrKysrKystLS0tCj4gwqAxIGZpbGUgY2hhbmdlZCwgMTYgaW5zZXJ0aW9ucygrKSwgNCBk
-ZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvaHcvYXJtL2FzcGVlZC5jIGIvaHcvYXJtL2Fz
-cGVlZC5jCj4gaW5kZXggYzcyMDZmZGE2ZDg1Li4xNTlkNTYyZTg5MTIgMTAwNjQ0Cj4gLS0tIGEv
-aHcvYXJtL2FzcGVlZC5jCj4gKysrIGIvaHcvYXJtL2FzcGVlZC5jCj4gQEAgLTM0LDYgKzM0LDgg
-QEAgdHlwZWRlZiBzdHJ1Y3QgQXNwZWVkQm9hcmRTdGF0ZSB7Cj4gwqB0eXBlZGVmIHN0cnVjdCBB
-c3BlZWRCb2FyZENvbmZpZyB7Cj4gwqDCoMKgwqDCoGNvbnN0IGNoYXIgKnNvY19uYW1lOwo+IMKg
-wqDCoMKgwqB1aW50MzJfdCBod19zdHJhcDE7Cj4gK8KgwqDCoMKgY29uc3QgY2hhciAqZm1jX21v
-ZGVsOwo+ICvCoMKgwqDCoGNvbnN0IGNoYXIgKnNwaV9tb2RlbDsKPiDCoH0gQXNwZWVkQm9hcmRD
-b25maWc7Cj4gwqAKPiDCoGVudW0gewo+IEBAIC02NSw4ICs2NywxOCBAQCBlbnVtIHsKPiDCoMKg
-wqDCoMKgwqDCoMKgwqB+U0NVX0hXX1NUUkFQXzJORF9CT09UX1dEVCkKPiDCoAo+IMKgc3RhdGlj
-IGNvbnN0IEFzcGVlZEJvYXJkQ29uZmlnIGFzcGVlZF9ib2FyZHNbXSA9IHsKPiAtwqDCoMKgwqBb
-UEFMTUVUVE9fQk1DXSA9IHsgImFzdDI0MDAtYTAiLCBQQUxNRVRUT19CTUNfSFdfU1RSQVAxIH0s
-Cj4gLcKgwqDCoMKgW0FTVDI1MDBfRVZCXcKgwqA9IHsgImFzdDI1MDAtYTEiLCBBU1QyNTAwX0VW
-Ql9IV19TVFJBUDEgfSwKPiArwqDCoMKgwqBbUEFMTUVUVE9fQk1DXSA9IHsKPiArwqDCoMKgwqDC
-oMKgwqDCoC5zb2NfbmFtZcKgwqA9ICJhc3QyNDAwLWEwIiwKPiArwqDCoMKgwqDCoMKgwqDCoC5o
-d19zdHJhcDEgPSBQQUxNRVRUT19CTUNfSFdfU1RSQVAxLAo+ICvCoMKgwqDCoMKgwqDCoMKgLmZt
-Y19tb2RlbCA9ICJuMjVxMjU2YSIsCj4gK8KgwqDCoMKgwqDCoMKgwqAuc3BpX21vZGVsID0gIm14
-MjVsMjU2MzVlIiwKPiArwqDCoMKgwqB9LAo+ICvCoMKgwqDCoFtBU1QyNTAwX0VWQl3CoMKgPSB7
-Cj4gK8KgwqDCoMKgwqDCoMKgwqAuc29jX25hbWXCoMKgPSAiYXN0MjUwMC1hMSIsCj4gK8KgwqDC
-oMKgwqDCoMKgwqAuaHdfc3RyYXAxID0gQVNUMjUwMF9FVkJfSFdfU1RSQVAxLAo+ICvCoMKgwqDC
-oMKgwqDCoMKgLmZtY19tb2RlbCA9ICJuMjVxMjU2YSIsCj4gK8KgwqDCoMKgwqDCoMKgwqAuc3Bp
-X21vZGVsID0gIm14MjVsMjU2MzVlIiwKPiArwqDCoMKgwqB9LAo+IMKgfTsKPiDCoAo+IMKgc3Rh
-dGljIHZvaWQgYXNwZWVkX2JvYXJkX2luaXRfZmxhc2hlcyhBc3BlZWRTTUNTdGF0ZSAqcywgY29u
-c3QgY2hhciAqZmxhc2h0eXBlLAo+IEBAIC0xMjgsOCArMTQwLDggQEAgc3RhdGljIHZvaWQgYXNw
-ZWVkX2JvYXJkX2luaXQoTWFjaGluZVN0YXRlICptYWNoaW5lLAo+IMKgwqDCoMKgwqBvYmplY3Rf
-cHJvcGVydHlfYWRkX2NvbnN0X2xpbmsoT0JKRUNUKCZibWMtPnNvYyksICJyYW0iLCBPQkpFQ1Qo
-JmJtYy0+cmFtKSwKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAmZXJyb3JfYWJvcnQpOwo+IMKgCj4gLcKgwqDC
-oMKgYXNwZWVkX2JvYXJkX2luaXRfZmxhc2hlcygmYm1jLT5zb2MuZm1jLCAibjI1cTI1NmEiLCAm
-ZXJyb3JfYWJvcnQpOwo+IC3CoMKgwqDCoGFzcGVlZF9ib2FyZF9pbml0X2ZsYXNoZXMoJmJtYy0+
-c29jLnNwaVswXSwgIm14MjVsMjU2MzVlIiwgJmVycm9yX2Fib3J0KTsKPiArwqDCoMKgwqBhc3Bl
-ZWRfYm9hcmRfaW5pdF9mbGFzaGVzKCZibWMtPnNvYy5mbWMsIGNmZy0+Zm1jX21vZGVsLCAmZXJy
-b3JfYWJvcnQpOwo+ICvCoMKgwqDCoGFzcGVlZF9ib2FyZF9pbml0X2ZsYXNoZXMoJmJtYy0+c29j
-LnNwaVswXSwgY2ZnLT5zcGlfbW9kZWwsICZlcnJvcl9hYm9ydCk7Cj4gwqAKPiDCoMKgwqDCoMKg
-YXNwZWVkX2JvYXJkX2JpbmZvLmtlcm5lbF9maWxlbmFtZSA9IG1hY2hpbmUtPmtlcm5lbF9maWxl
-bmFtZTsKPiDCoMKgwqDCoMKgYXNwZWVkX2JvYXJkX2JpbmZvLmluaXRyZF9maWxlbmFtZSA9IG1h
-Y2hpbmUtPmluaXRyZF9maWxlbmFtZTs=
+Cheers,
 
-
---=-ZfWzB6vFWvqiDukiTyq4
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJYMtVnAAoJEJ0dnzgO5LT5u8sQAJdIkWusaKCGD6vZ1Es3uYB0
-vWxJBBk++70yKIgfSabwPhEasz3JT6ZvuDPGGXH3s1fmLz5tp9VWKRSrBByDLqzh
-3Mx9OJ/gV5OHWZQrIj2mtQ/eztkJsl+vL5J5QEOOGvcPLhpjuZ6xtcHcIOcwjCPW
-tJN5WrG/1BFUHJb8wsqKkx7F7FOLqjNzbdlsyorXSY6q3k85Ll++KNgGFTb70lzk
-QNmZEbNlkkPMAWfNCOQv+b2HRNBEQW3LNVVxuxa7IRU09zSn+Z0+d70yHUvU3NwE
-4i1ZbaC1lo0ZlDsCZ2KGZHDZYwYfTTT+MqMwoo/B9gHgJBJrIeV6b1dgSkMclhHh
-4FYbJ/xjBKX6HGellxl5Y5Ea5w1HIJQ6X6ER+p+TR+K+IzwASpmk8PkmQkHd0y7T
-s/ukVzldcp9kB4rwE6AlKx4PVwkNf5B+jIoOfoS/XdBDc1gPn2W6Rfm7cLmrLEQd
-HnUVcrZUjZyJrOVoCix5b8UcA1OdDhRKhbRas4jOM+I4w/pNfzyG20j9DPVPZzcF
-/CgnUXVYNoQnLNgqN1WGD+O5WJzjDA7YQyqt3ZVpHLq2WviO/Gj93r7VIatBmYto
-sv/BZBelVf3G9Zoym6ougGt1sMj7C3BSehLUEK2I6qoX3yfzeMeL58+TNzLgk7cl
-aVUp6mOrXPFt/6EzKFeE
-=1Btb
------END PGP SIGNATURE-----
-
---=-ZfWzB6vFWvqiDukiTyq4--
+Joel
