@@ -1,53 +1,53 @@
-Return-Path: <jaghu@google.com>
-Received: from mail-pg0-x230.google.com (mail-pg0-x230.google.com
- [IPv6:2607:f8b0:400e:c05::230])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-oi0-x22e.google.com (mail-oi0-x22e.google.com
+ [IPv6:2607:f8b0:4003:c06::22e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tM3H233Q5zDvrm
- for <openbmc@lists.ozlabs.org>; Sun, 20 Nov 2016 18:27:58 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tMVLq70TGzDvfQ
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 11:47:47 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="TtUGjRDl"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="zuOfQjPx"; 
  dkim-atps=neutral
-Received: by mail-pg0-x230.google.com with SMTP id x23so116126925pgx.1
- for <openbmc@lists.ozlabs.org>; Sat, 19 Nov 2016 23:27:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=r680+rJXibBvUqfZlnBoy3DZDcJCGZBJH13vJdwITsA=;
- b=TtUGjRDlhfjtC5u3iqpLtJHXdSRrSVG0nqhYuvXwAVkzy1Nev+9Saj9w9bz6+j8h9/
- obzn4fXbjsGzKKN14e4mCP0DoTVDM29KcqwXhLNOqNYEHb6n1Z5FGSw8mGvUGsZ6SqR8
- iloSonR7jFMeNxlpgWHY8y64f30gnG4Oe0fz7VOzFnVNKjE5L5ytA/wrA+RpNT8rcNiV
- RZsHtI3lLHthD3vrr1SF+ThA4kqzHnrJrX+Hq1QTnUSMpVxAuB6wiUcD1vCtPc8X10Qy
- zaF/q26b88+XlQBAAJ/ZZmlZXzwMZI6I4/2BFd3dj5uzcICBxQFogQMxWe2Kk0n70C6Q
- mggg==
+Received: by mail-oi0-x22e.google.com with SMTP id b126so107389603oia.2
+ for <openbmc@lists.ozlabs.org>; Sun, 20 Nov 2016 16:47:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=irk80pH86c6Bagglq2o3e7gC2bL162Ey/LlYk56xMxA=;
+ b=zuOfQjPxfzZdlpX16MZEjU+UQnWEIPV5/FSYYtLYNnmcTu/YsnPLPxvVbh5NJ1Q52Y
+ xNC0mUxhWUGWiQg1aG4UKnY3i1fUzjzCLwfmSECYo9/ZJ2XX/ive0yERFQzLDDCv4nsd
+ JO/YXDxVZYcruc9Zxckp6+S00fUsudwFX0UyoSaGPFgfQsLTOD+VlE8zvGNKMEmlFz6V
+ 6eufTjC0g3TV5gzxNINiBDw1GW3hBTUJhIG/x61sL7HsJkLn41ot2Q3KnLFiXlpW63cg
+ Y98dCR0a/+OQKWdnjT1CsAeIh9v4RMuHUv0Qd3FBZoVfDY4r1qJcAEp1JAzdLeMFV5NH
+ 0uMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=r680+rJXibBvUqfZlnBoy3DZDcJCGZBJH13vJdwITsA=;
- b=i+a05bYWBd2Gksp29lqD1vMml3L3Mhcb6C5onKEuWtq45Mz1CDxgD+IIncUPp0ZOzX
- lOY0blQ6Rz/brc3BsEgeso6bvKw6fA3WveSb02y4MxQpLBSPM91WlSX3bogudZAOenAI
- bXeeDITTs+1S8waW3zyE94NKWJfA+Q0+oHphRRJDmAEyv8XkiIXf+DaZD49jrkgAy7H/
- O64zqyW2NOz26mN1YWypmZkaPJ9wXePDNR+KD3iy8AwCMxyIvt5XxGcFcc48TEjxrLo9
- 3pl2k4U5S4Z3xLtcELCT9p18zT34weM+2ag99vUEF6ati7T67v7neK8U7Ge7G9IUkXGo
- KOVA==
-X-Gm-Message-State: AKaTC00OXMbjcM1sJ4qZ+HHkIe3Wtnx90nBRlFYrBmNgBJ2p9ns8CNs4I0lasV9p44AtItQQ
-X-Received: by 10.99.145.74 with SMTP id l71mr18045435pge.128.1479626876757;
- Sat, 19 Nov 2016 23:27:56 -0800 (PST)
-Received: from jaghu22.svl.corp.google.com ([100.123.242.38])
- by smtp.gmail.com with ESMTPSA id r2sm28825975pfi.67.2016.11.19.23.27.55
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Sat, 19 Nov 2016 23:27:55 -0800 (PST)
-From: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
-To: openbmc@lists.ozlabs.org,
-	joel@jms.id.au
-Cc: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
-Subject: [PATCH linux v5 4/4] arm: dts: Add dt-binding to support seven
- segment display on zaius
-Date: Sat, 19 Nov 2016 23:27:36 -0800
-Message-Id: <1479626856-18511-5-git-send-email-jaghu@google.com>
-X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
-In-Reply-To: <1479626856-18511-1-git-send-email-jaghu@google.com>
-References: <1479626856-18511-1-git-send-email-jaghu@google.com>
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=irk80pH86c6Bagglq2o3e7gC2bL162Ey/LlYk56xMxA=;
+ b=TlM02SOqXx/0tr/2pH8wLzDF1ixrTXxC02Hc7/Qy+7Lr5bFRLeH+8SVa66O1OOdFEG
+ i6S9dlw0/fR8SLvkgggnHhI6sxhrzr9ox2eo4XkRSutpEhHL1QF4tAnE4hzdZvg8ky5M
+ BNrWct8rqXNgluMfiw6d6diXjGBMG8Za2O/CJnoRE++ZgfCYequOCMNlhm0rfAIwNq6d
+ OBUv11ZjAcz1KBY992rmgP+SqfncT+cPTMfxocgWrfppdMs6ncsgzcWAU1+vtZCq7gmE
+ Dq0EcF4Yoz/w0xWQfX36h6wC1Bp6GK8Wk7moZsxhlY7IqI/2NbCEbvckM2kMY/VUDcoF
+ +Iww==
+X-Gm-Message-State: AKaTC03+oGOZX0BCBiN7hcaPoJpP3IMTmYlAwurAC6l3B+GIj5BlHv81QWNEPoaoZ2BT6JHTD6reqFotj/VFRg==
+X-Received: by 10.157.17.26 with SMTP id g26mr6637746ote.230.1479689265731;
+ Sun, 20 Nov 2016 16:47:45 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.182.97.41 with HTTP; Sun, 20 Nov 2016 16:47:25 -0800 (PST)
+In-Reply-To: <CALLMt=oTDrjn5BsFpxfiJX=AKN65_dqWi=bQMswunbwaNxe_0g@mail.gmail.com>
+References: <CALLMt=oTDrjn5BsFpxfiJX=AKN65_dqWi=bQMswunbwaNxe_0g@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 21 Nov 2016 11:17:25 +1030
+X-Google-Sender-Auth: pDNB6U0gF-aoV5WmciiYUz4oEZo
+Message-ID: <CACPK8Xd10-XSAsqBGhyaKQYfA0YLNZ00qFuW_ocASkXZA=qd_Q@mail.gmail.com>
+Subject: Re: Jenkins job for per-repository CI
+To: msbarth <msbarth@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Andrew Geissler <geissonator@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,52 +59,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 20 Nov 2016 07:27:59 -0000
+X-List-Received-Date: Mon, 21 Nov 2016 00:47:48 -0000
 
-Add clock, data and clear signal GPIO lines to control seven segment display on
-zaius platform.
+Hi Matt,
 
-Signed-off-by: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
----
-v2:
-- Moved the doc file to the same commit as the driver that it describes
--  as suggested by Xo
-- Removed abbreviation of names as suggested by Xo
-- Corrected mismatch of property names between doc and actual usage
--  as suggested by Xo
-- Corrected the gpio designator in the second gpios property as suggested by
--  Xo
+You need to set your username in Thunderbird. I also recommend not top
+posting and disabling HTML mail when sending to mailing lists.
 
-v3:
-- No changes made
+On Sat, Nov 19, 2016 at 8:09 AM, Andrew Geissler <geissonator@gmail.com> wrote:
+> Matt Barth is working a story to use his new auto tools capabilities
+> in each of our repo's to do "make check" calls when code is committed.
 
-v4:
-- Included changelog entry as suggested by Joel
+Cool! I assume make check will be used by developers on the local
+machines too. I think it's important that our development process is
+as frictionaless as possible. To that end, someone should be able to
+git clone && autoreconf && ./configure && make check wherever
+possible.
 
-v5:
-- No changes made
+This is harder for projects that have cross-project dependencies. How
+are you handling these cases?
 
- arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Do you have any code for us to look at?
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-index 8ef4ece..ccb8147 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-@@ -43,6 +43,14 @@
- 			gpios = <&gpio ASPEED_GPIO(H, 7) GPIO_ACTIVE_LOW>;
- 		};
- 	};
-+
-+	seven-seg-disp {
-+		compatible = "seven-seg-gpio-dev";
-+		refresh-interval-ms = "1000";
-+		clock-gpios = <&gpio ASPEED_GPIO(J, 0) GPIO_ACTIVE_HIGH>;
-+		data-gpios = <&gpio ASPEED_GPIO(J, 2) GPIO_ACTIVE_HIGH>;
-+		clear-gpios = <&gpio ASPEED_GPIO(J, 1) GPIO_ACTIVE_HIGH>;
-+	};
- };
+Cheers,
 
- &fmc {
---
-2.8.0.rc3.226.g39d4020
+Joel
