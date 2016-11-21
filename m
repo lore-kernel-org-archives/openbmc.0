@@ -1,53 +1,54 @@
 Return-Path: <christopher.lee.bostic@gmail.com>
-Received: from mail-oi0-x244.google.com (mail-oi0-x244.google.com
- [IPv6:2607:f8b0:4003:c06::244])
+Received: from mail-oi0-x242.google.com (mail-oi0-x242.google.com
+ [IPv6:2607:f8b0:4003:c06::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tMXsb1NYgzDvjC
- for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 13:41:07 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tMXsc2b7lzDvjC
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 13:41:08 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="xlIyzzN7"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="oqrtrNf9"; 
  dkim-atps=neutral
-Received: by mail-oi0-x244.google.com with SMTP id v84so20145341oie.2
- for <openbmc@lists.ozlabs.org>; Sun, 20 Nov 2016 18:41:07 -0800 (PST)
+Received: by mail-oi0-x242.google.com with SMTP id f201so16439704oib.0
+ for <openbmc@lists.ozlabs.org>; Sun, 20 Nov 2016 18:41:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=N5NyQzJ6e/fsN4DqXJuw05apVoemhSyo9MmjGC3YLog=;
- b=xlIyzzN7TOrMBMhgyMAQ1WwGY6ftpB1T1ytg1K57qQ5Z2lcYu+ZRgmtXcWbwO4+DoW
- UWN5C4NT0DC7Eu0QCpjzrKtUbyXDuWr5IKFmmYciQTn9mcbOB1HR/LJKc2zsvVCFBzmE
- J0EQzw2qovcGsvLnyHq4Tjq3aHAO5n+GKm3nbW5JgvgF87yfrP9vtIddjkI4eBSPLUbc
- 3tPx5mI7xanHnuJXLVFm631sSp+TrFqcV/AFUCSz/XuASfUAdYtVCTXx1Q8FrPTslTmJ
- ckE7wRxM96jp/cBYT8OxFetW1Y4ebJvk0+/Cw0BcG7VA4yw/edmYdmM01PlO3JFY7ocu
- b5Kw==
+ bh=69B5JPfYxtvbK7JkpgcOB4Kygt1nLMlYFqA15uvpC1U=;
+ b=oqrtrNf9oOD2PYdy9BFAK/OcSAIue8OM8IyWuetNTb+WYPXyx2dmfX9AGjzUr33Dur
+ 2CF4io8vquJBGrpryb80bN9IUQJkrb1A4tHzjBzlrKn/ZxEqHuhFO7B2yL1Q2J3iw66w
+ yHyJamTKyvk7ImiUhuQzeW0785P/4X0A6DxsSvNwHWEO6UJR+z1DHNdho+Zth7fUuX0n
+ eaIekhV1rOPdUzbNHBBFQ2dBgp6Ws4QnVNooXA35MoBfYqdy3KQxw9KhGXdTnawqXjg0
+ Ph1Ljg0lI+5Umk8yf0hX5FTym5+GqNoUlLHEcVBler5xjH+wdmd8VZdQjqxPIVo/tPnu
+ jArA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=N5NyQzJ6e/fsN4DqXJuw05apVoemhSyo9MmjGC3YLog=;
- b=kPyfVAZdRGSb90ifJTLA/9A95eiLwOB/RlYOiMpibjkmWmNKsCio56KX/CTOv9SqLX
- Jsh1Jx5qfdn0GSRQLxhca8hrI+MRnJkLX16uTY3w1yjbrNEI9v2pIMbuJyoKjPTxemi7
- X/0e50Z+scWbUFiDTdCBv1rK4wNlptLtfTPFuV0OPiYgfP2jSqkuz+x9Yty+geAdtTii
- mZi9SUXYwjIjQ/GdgLtzqQJBtg7RnM+5XVeVIbSt/orTBT4hql2u8gNN42nbSw7tLXU4
- G3nLZOpBFKqgUWb+yMcdFjThRLXsD8McI5knbqwKuBFVte0VWgsoTJwBy+uKP/wh2083
- ywYQ==
-X-Gm-Message-State: AKaTC024hdyKbI3E6TT2N41BedfxLAOzhU5OJCfKAO9IL5iGmS7pEwt9r7WcsgMIcfnxRA==
-X-Received: by 10.157.15.234 with SMTP id m39mr7775697otd.67.1479696065527;
- Sun, 20 Nov 2016 18:41:05 -0800 (PST)
+ bh=69B5JPfYxtvbK7JkpgcOB4Kygt1nLMlYFqA15uvpC1U=;
+ b=bo5PnIMrtUzw3Mwe+HU1Q6octYe0GH8fRE7zC/jrgNPf0icSJJ2bvAWEgGDHi19xRq
+ kS4k147pjOiKKTveHzjbMK6c9Ngl8zBi6lUjHiK0eG0vMrrlOyf7TJiUPsYOYKTgt4SH
+ BR3rkutbA7kbf7mD58A2wQcJEdxIZHYYyNqNi+BliqMgDwU5uwsS4b+USSOj9HWGZiPX
+ TOmGjBLmZ2mbyX7Lf2W9V8NeG5Q0LzbwFmnsiA6vZl0cgorcZz4qRpHMn/b3eZz7KXW6
+ EJip+SG6MqXWUuyC9PYNOOmTfr5slJpK6KdPSnssI9AR+hdVmZAppE+/0AoHeGSrb9dm
+ uc8w==
+X-Gm-Message-State: AKaTC01LLJ0PmUzAB/VfbgeVKbCqWcTaPwk2FeODptAhdbf0hVxNgPHOTxGXsI/wsSB42A==
+X-Received: by 10.157.63.199 with SMTP id i7mr7933850ote.63.1479696066633;
+ Sun, 20 Nov 2016 18:41:06 -0800 (PST)
 Received: from Christophers-MacBook-Pro.local.com
  (45-20-192-79.lightspeed.austtx.sbcglobal.net. [45.20.192.79])
- by smtp.gmail.com with ESMTPSA id 73sm6432307otf.16.2016.11.20.18.41.04
+ by smtp.gmail.com with ESMTPSA id 73sm6432307otf.16.2016.11.20.18.41.05
  (version=TLS1 cipher=AES128-SHA bits=128/128);
- Sun, 20 Nov 2016 18:41:05 -0800 (PST)
+ Sun, 20 Nov 2016 18:41:06 -0800 (PST)
 From: christopher.lee.bostic@gmail.com
 To: openbmc@lists.ozlabs.org, gustavo.padovan@collabora.co.uk,
  gregkh@linuxfoundation.org, daniel.vetter@ffwll.ch, jthumshirn@suse.de,
  dan.j.williams@intel.com, sre@kernel.org, clg@kaod.org,
  k.kozlowski@samsung.com
 Cc: jk@ozlabs.org, joel@jms.id.au, zahrens@us.ibm.com, xxpetri@de.ibm.com,
- benh@kernel.crashing.org, alistair@popple.id.au
-Subject: [PATCH linux 08/19] fsi: Add empty master scan
-Date: Sun, 20 Nov 2016 20:40:37 -0600
-Message-Id: <1479696048-75851-9-git-send-email-christopher.lee.bostic@gmail.com>
+ benh@kernel.crashing.org, alistair@popple.id.au,
+ Chris Bostic <cbostic@us.ibm.com>
+Subject: [PATCH linux 09/19] fsi: Add crc4 helpers
+Date: Sun, 20 Nov 2016 20:40:38 -0600
+Message-Id: <1479696048-75851-10-git-send-email-christopher.lee.bostic@gmail.com>
 X-Mailer: git-send-email 2.7.4 (Apple Git-66)
 In-Reply-To: <1479696048-75851-1-git-send-email-christopher.lee.bostic@gmail.com>
 References: <1479696048-75851-1-git-send-email-christopher.lee.bostic@gmail.com>
@@ -63,67 +64,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Nov 2016 02:41:07 -0000
+X-List-Received-Date: Mon, 21 Nov 2016 02:41:08 -0000
 
 From: Jeremy Kerr <jk@ozlabs.org>
 
-When a new fsi master is added, we will need to scan its links, and
-slaves attached to those links. This change introduces a little shell to
-iterate the links, which we will populate with the actual slave scan in
-a later change.
+Add some helpers for the crc checks for the slave configuration table.
+This works 4-bits-at-a-time, using a simple table approach.
+
+We will need this in the FSI core code, as well as any master
+implementations that need to calculate CRCs in software.
 
 Signed-off-by: Jeremy Kerr <jk@ozlabs.org>
+Signed-off-by: Chris Bostic <cbostic@us.ibm.com>
 ---
- drivers/fsi/fsi-core.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ drivers/fsi/fsi-core.c   | 21 +++++++++++++++++++++
+ drivers/fsi/fsi-master.h | 21 +++++++++++++++++++++
+ 2 files changed, 42 insertions(+)
 
 diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-index 7df4291..9744a55 100644
+index 9744a55..b8d53d5 100644
 --- a/drivers/fsi/fsi-core.c
 +++ b/drivers/fsi/fsi-core.c
-@@ -21,6 +21,8 @@
- 
- #include "fsi-master.h"
- 
-+#define FSI_N_SLAVES	4
-+
- static atomic_t master_idx = ATOMIC_INIT(-1);
- 
- struct fsi_slave {
-@@ -32,12 +34,34 @@ struct fsi_slave {
+@@ -34,6 +34,27 @@ struct fsi_slave {
  
  #define to_fsi_slave(d) container_of(d, struct fsi_slave, dev)
  
-+/* FSI slave support */
-+static int fsi_slave_init(struct fsi_master *master,
-+		int link, uint8_t slave_id)
++/* crc helpers */
++static const uint8_t crc4_tab[] = {
++	0x0, 0x7, 0xe, 0x9, 0xb, 0xc, 0x5, 0x2,
++	0x1, 0x6, 0xf, 0x8, 0xa, 0xd, 0x4, 0x3,
++};
++
++uint8_t fsi_crc4(uint8_t c, uint64_t x, int bits)
 +{
-+	/* todo: initialise slave device, perform engine scan */
++	int i;
 +
-+	return -ENODEV;
++	/* Align to 4-bits */
++	bits = (bits + 3) & ~0x3;
++
++	/* Calculate crc4 over four-bit nibbles, starting at the MSbit */
++	for (i = bits; i >= 0; i -= 4)
++		c = crc4_tab[c ^ ((x >> i) & 0xf)];
++
++	return c;
 +}
++EXPORT_SYMBOL_GPL(fsi_crc4);
 +
- /* FSI master support */
+ /* FSI slave support */
+ static int fsi_slave_init(struct fsi_master *master,
+ 		int link, uint8_t slave_id)
+diff --git a/drivers/fsi/fsi-master.h b/drivers/fsi/fsi-master.h
+index e75a810..cafb433 100644
+--- a/drivers/fsi/fsi-master.h
++++ b/drivers/fsi/fsi-master.h
+@@ -34,4 +34,25 @@ struct fsi_master {
+ extern int fsi_master_register(struct fsi_master *master);
+ extern void fsi_master_unregister(struct fsi_master *master);
  
-+static int fsi_master_scan(struct fsi_master *master)
-+{
-+	int link, slave_id;
++/**
++ * crc4 helper: Given a starting crc4 state @c, calculate the crc4 vaue of @x,
++ * which is @bits in length. This may be required by master implementations
++ * that do not provide their own hardware checksums.
++ *
++ * The crc4 is performed on 4-bit chunks (which is all we need for FSI
++ * calculations). Typically, we'll want a starting state of 0:
++ *
++ *  c = fsi_crc4(0, msg, len);
++ *
++ * To crc4 a message that includes a single start bit, initialise crc4 state
++ * with:
++ *
++ *  c = fsi_crc4(0, 1, 1);
++ *
++ * Then update with message data:
++ *
++ *  c = fsi_crc4(c, msg, len);
++ */
++uint8_t fsi_crc4(uint8_t c, uint64_t x, int bits);
 +
-+	for (link = 0; link < master->n_links; link++)
-+		for (slave_id = 0; slave_id < FSI_N_SLAVES; slave_id++)
-+			fsi_slave_init(master, link, slave_id);
-+
-+	return 0;
-+
-+}
-+
- int fsi_master_register(struct fsi_master *master)
- {
- 	master->idx = atomic_inc_return(&master_idx);
- 	get_device(master->dev);
-+	fsi_master_scan(master);
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(fsi_master_register);
+ #endif /* DRIVERS_FSI_MASTER_H */
 -- 
 1.8.2.2
