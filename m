@@ -1,72 +1,53 @@
-Return-Path: <tomjose@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-oi0-x234.google.com (mail-oi0-x234.google.com
+ [IPv6:2607:f8b0:4003:c06::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tMd4s02qCzDt0P
- for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 16:51:08 +1100 (AEDT)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
- uAL5nP4l014360
- for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 00:51:06 -0500
-Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
- by mx0b-001b2d01.pphosted.com with ESMTP id 26usb2bk21-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 00:51:06 -0500
-Received: from localhost
- by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <tomjose@linux.vnet.ibm.com>;
- Sun, 20 Nov 2016 22:51:05 -0700
-Received: from d03dlp02.boulder.ibm.com (9.17.202.178)
- by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Sun, 20 Nov 2016 22:51:03 -0700
-Received: from b03cxnp08025.gho.boulder.ibm.com
- (b03cxnp08025.gho.boulder.ibm.com [9.17.130.17])
- by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id 768153E40030;
- Sun, 20 Nov 2016 22:51:02 -0700 (MST)
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- uAL5p2WI56033512; Sun, 20 Nov 2016 22:51:02 -0700
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 556FCC603C;
- Sun, 20 Nov 2016 22:51:02 -0700 (MST)
-Received: from [9.79.198.149] (unknown [9.79.198.149])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id 09393C6042;
- Sun, 20 Nov 2016 22:51:00 -0700 (MST)
-Subject: Re: Where did host ipmi go on qemu and EVB?
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-References: <F6147AA0-C0A8-4765-99F6-B5D8D96E2BAD@fuzziesquirrel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: tomjose <tomjose@linux.vnet.ibm.com>
-Date: Mon, 21 Nov 2016 11:20:55 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
- Thunderbird/38.8.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tMd9m5yCQzDvWD
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 16:55:24 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="bfADtifC"; 
+ dkim-atps=neutral
+Received: by mail-oi0-x234.google.com with SMTP id y198so11246307oia.1
+ for <openbmc@lists.ozlabs.org>; Sun, 20 Nov 2016 21:55:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc:content-transfer-encoding;
+ bh=EgFU8V2WaStXi9oodxUgUhGKZcMEQKaQMQTUTptyq5I=;
+ b=bfADtifCjpuoLwtWLp14zi4ZB7UK4DlBV6G96FShTDXMy66AcfEuqj8onsy+Li/d5W
+ dtOJzOc+MSFynWDS+ximQp+05q5UyZIozutJJNy1v8Vc6OklbdCPzaWsdpJBAosqV92J
+ IdG6zDoQhwR/hJFWkp80WGRI2vl65p+z1ObqBebAp7CPYkcedCV8IV5NUJKDYIeabp+b
+ 6eXhqukUqHl4LnFRFVMAuUKvhx4m7drImOjDHBSWRfptpwmPp8hBiiBBe6XZMeGP912V
+ qGv65OFpCuzsIUk12V2SS/dYabersJw5To2ltTbFA0QCtNrHJ7uT+V3vK7aNKl3CsvIP
+ IyuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=EgFU8V2WaStXi9oodxUgUhGKZcMEQKaQMQTUTptyq5I=;
+ b=PdSFNLzNjP/2H5VR7E8rO3CYMvDUmyFqTpq+7mlcv1OnaB7HNWlqwKIVeeOcZBFrCb
+ jmYl5XXDyU4KkD8AIgmkq/3vLJOsMboI0OCoHkOJDAQQpk2o3Zmt+rW4Sa5vlGCLdKa1
+ dkLfJ809O0ABBpfdBhnS5bMAwByyPlkBpi90dt+29psTyLacgCcJlXrMQLg4olSRapXO
+ e4weYTMu7BGu2q+x6QKJMO16F71mKEoHe/X3OuQbsrvS9hVU7/oEoJc8hI0edvPOulwC
+ ZNSheT8O/ygqPE7lRgG0bz9Yp8fQNVIwjtEx197OlpFhfPLr0K3Vcqaqk5+Ds8ATR9GG
+ p8yQ==
+X-Gm-Message-State: AKaTC02jNsKg451AQLzmLG/pX2ZOipK672XPFF/PJmFP4G0m/abz3H1j9WH8ApKXIF/oE3jAoz7b5+Fn6EMfug==
+X-Received: by 10.157.17.26 with SMTP id g26mr7195402ote.230.1479707722730;
+ Sun, 20 Nov 2016 21:55:22 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <F6147AA0-C0A8-4765-99F6-B5D8D96E2BAD@fuzziesquirrel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16112105-8235-0000-0000-000009A64344
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006115; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000189; SDB=6.00783271; UDB=6.00378237; IPR=6.00560890; 
- BA=6.00004895; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00013389; XFM=3.00000011;
- UTC=2016-11-21 05:51:04
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 16112105-8236-0000-0000-0000369FD497
-Message-Id: <58328B3F.7070203@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2016-11-21_03:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1609300000
- definitions=main-1611210105
+Sender: joel.stan@gmail.com
+Received: by 10.182.97.41 with HTTP; Sun, 20 Nov 2016 21:55:02 -0800 (PST)
+In-Reply-To: <CALLMt=oZ7neAge4of5KwzEQbA9nZ_ayuaYwFyUPGqN14Oq-5fA@mail.gmail.com>
+References: <CALLMt=oZ7neAge4of5KwzEQbA9nZ_ayuaYwFyUPGqN14Oq-5fA@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 21 Nov 2016 16:25:02 +1030
+X-Google-Sender-Auth: tA3aR7tCqepegfYqMaeWsMCz_mQ
+Message-ID: <CACPK8XebH8SnRGkxqSHS=QN1PYyWL2vt-NBw-sNA6d8qL6ZCEw@mail.gmail.com>
+Subject: Re: BMC and Host State Management Refactor
+To: Andrew Geissler <geissonator@gmail.com>, jdking@us.ibm.com
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -78,45 +59,87 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Nov 2016 05:51:09 -0000
+X-List-Received-Date: Mon, 21 Nov 2016 05:55:25 -0000
 
-Hello Brad,
+Hi Andrew and Josh,
 
-I would like to enable host IPMI on QEMU platform for my testing.
+On Sat, Nov 19, 2016 at 7:01 AM, Andrew Geissler <geissonator@gmail.com> wr=
+ote:
+> Josh and I are working two stories this sprint that deal with
+> refactoring the bmc and host state management code out of skeleton
+> (#772/#783).  Here=E2=80=99s the proposal on this work.
 
-I was not able to figure out the conf file for enabling the host IPMI on 
-QEMU.
+Thanks for sending out your plan, this is great. I have a few comments
+that came up as I was reading.
 
-Can you elicit the steps to do the same?
+> The overall design for both state management objects is that they will
+> provide a set of properties on which to operate.
+> - DesiredState
+> - CurrentState
+>
+> CurrentState will be a read only property.
 
-Regards,
-Tom
+You've chosen to make the desired and current states be separate,
+which works. Another option would be to have them be the same list of
+states, so you know that when current=3D=3Ddesired you're not waiting on
+anything to happen. What do you think?
 
+>
+> The host control will have these additional properties:
+> - DesiredPowerState
+> - CurrentPowerState
+>
+> Valid states to request for OpenBMC (DesiredState)
+> - READY, REBOOT
+> Valid states to be in for OpenBMC (CurrentState)
+> - NOT_READY, READY (note this proposal removes BASE_APPS and BMC_STARTING=
+).
 
-On Tuesday 08 November 2016 06:45 PM, Brad Bishop wrote:
-> A number of people have asked where host IPMI went on the QEMU/EVB platforms.  If this is of interest to you, read on….
+Does this need to consider states where the device is updating? That
+is, it is not attempting to be ready to control the host, but it is
+turned on and able to accept new firmware?
+
 >
-> Background:
+> READY implies all services started and running successfully (i.e. we
+> reached obmc-standby.target)
 >
-> - One of the goals for OpenBMC is meet the needs of a broad range of applications, where applications are servers, switches, routers, raid appliances…etc.
-> - Yocto provides a concept of MACHINE_FEATURES, where features somewhat abstract declarations of the hardware features supported by a board.
 >
-> For a real board, like the OpenPOWER Witherspoon server, the concepts are easy to apply.  Witherspoon is a server, and it has a BT interface on it.  So it isn’t much of a leap conceptually to have this in Witherspoon.conf:
+> Valid states to request for Host (DesiredState)
+> - OFF, ON, REBOOT
+
+This might need to distinguish between soft-off/soft-reboot and
+printer-on-fire OFF requests.
+
+> Validate states to be in for Host (CurrentState)
+> - OFF, BOOTING, BOOTED
+
+STANDBY, BOOTING, RUNNING?
+
+The bikeshed should be blue.
+
 >
-> MACHINE_FEATURES += “obmc-host-ipmi-hw”
+> BOOTED implies petitboot has reached it's "ready" state.
 >
-> The EVBs and QEMU models are different.  Most of us (if not everyone) are working on servers, and initially it was easy to just put the same line in those board config files, so we could prototype applications like host-ipmi on those boards.
 >
-> Thats fine, and you can still do so, but this is no longer the default behavior.  If you want to prototype something on one of these boards, enable the feature in your local.conf, and build images and SDKs with those features enabled.
+> Valid power states to request for DesiredPowerState
+> - OFF, ON
+> Validate states to be in for CurrentPowerState
+> - OFF, TRANSITION, ON
+
+Does TRANSITION need to distinguish between coming up and going down?
+
 >
-> I opted to do this because I didn’t want to show any favortism towards servers.  For something with general applicability like a Raspberry Pi or a QEMU model my view is:
->
-> 1 - A machine feature that really does exist in a QEMU model or on an EVB should still be enabled by default.  For example, it makes sense that a ‘led’ machine feature could exist and be enabled by default on a Raspberry Pi, since a Raspberry Pi, regardless of the application, could have leds hooked up to it.
->
-> 2 - Machine features, like a BT interface, that don’t exist in a QEMU model or EVB should not enabled by default.  Despite this, we should strive to make feature implementations work on all the EVBs and QEMU models, as they can be enabled manually via local.conf.
->
-> -brad bishop
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+> Patrick and I had some discussion on providing more details on the
+> host booted state (petitboot vs. os booted) but that can be an
+> extension in the future if needed.
+
+I think baking this in from the start is a worthy goal. This then
+feeds into the user-facing APIs, weather that is an IPMI sensor or a
+REST endpoint, that can be queried to ask "what is that damn computer
+up to". If we can make it informative enough that no one ever feels
+the need to watch the console output when the machine is booting then
+we have done a good job.
+
+Cheers,
+
+Joel
