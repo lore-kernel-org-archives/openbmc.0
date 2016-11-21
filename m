@@ -1,53 +1,38 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <clg@kaod.org>
+X-Greylist: delayed 318 seconds by postgrey-1.36 at bilbo;
+ Mon, 21 Nov 2016 21:37:25 AEDT
+Received: from 13.mo3.mail-out.ovh.net (13.mo3.mail-out.ovh.net
+ [188.165.33.202])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tMlJh4wqrzDvxq
- for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 21:31:48 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="fGDmqz4V"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="HrgM6YZR"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 38FF820274;
- Mon, 21 Nov 2016 05:31:46 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Mon, 21 Nov 2016 05:31:46 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=KuCDhu7kmatA0Yz87/G4Ek93ec8=; b=fGDmqz
- 4VlAfiFE69gi4ssfo/FloXZpgWlWnrQrvLoem2aDOUDhrcc3yULAeel7LbCjqCJo
- lyjgxL/AKuSt9O5XaDVAFy7dIaNL/+YI9FkqmoVt1A7QeGu0mpF93Z4VNy6vYig5
- NP5BR1xoWhHberM9gzCA2iAmQRnf4at+OKqMw=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=KuCDhu7kmatA0Y
- z87/G4Ek93ec8=; b=HrgM6YZRJhL3MaJI8ohmVlK59kJYNrEmoyXO+1svf0jE1z
- tH/5HaVMQYt+XhpDjmmkKWQ7jzBTLcjnTCxDWon2ELk2EkA75m5ODLIA3OCCVNs7
- n3oPP00j/CZ4nQFTyAyrY66y1f/FShDFVHZ6ak9ujrKZcQcpeqMQT36QammHQ=
-X-ME-Sender: <xms:Es0yWHLGCKVqCbfwCg7nsJWTGsHg-1nYgArWyc669OanhWX0vvaNJA>
-X-Sasl-enc: pWTHMubCOH3syPGnOkJtjVr+d+xD+qOop7n76bSJAMFo 1479724305
-Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 124DF7E42D;
- Mon, 21 Nov 2016 05:31:43 -0500 (EST)
-Message-ID: <1479724296.5215.21.camel@aj.id.au>
-Subject: Re: [PATCH qemu 01/38] m25p80: add support for the mx66l1g45g
-From: Andrew Jeffery <andrew@aj.id.au>
-To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, 
- openbmc@lists.ozlabs.org
-Date: Mon, 21 Nov 2016 21:01:36 +1030
-In-Reply-To: <1479478938-13267-2-git-send-email-clg@kaod.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tMlR94qbhzDvNT
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 21:37:25 +1100 (AEDT)
+Received: from player734.ha.ovh.net (b7.ovh.net [213.186.33.57])
+ by mo3.mail-out.ovh.net (Postfix) with ESMTP id 3681A6062D
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 11:32:02 +0100 (CET)
+Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: clg@kaod.org)
+ by player734.ha.ovh.net (Postfix) with ESMTPSA id 0976C280069;
+ Mon, 21 Nov 2016 11:32:01 +0100 (CET)
+Subject: Re: [PATCH qemu 16/38] aspeed/smc: add tests for Command mode
+To: Joel Stanley <joel@jms.id.au>
 References: <1479478938-13267-1-git-send-email-clg@kaod.org>
- <1479478938-13267-2-git-send-email-clg@kaod.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-ZlHtZb8frGMMm/CHngmN"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ <1479478938-13267-17-git-send-email-clg@kaod.org>
+ <CACPK8XfaMip0663pbcnMAKDHKOh-3zYwA4GcPe+iBdr6gjCQ+Q@mail.gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <954e6ab7-84e5-5988-6139-e767170f3b79@kaod.org>
+Date: Mon, 21 Nov 2016 11:32:00 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.4.0
+MIME-Version: 1.0
+In-Reply-To: <CACPK8XfaMip0663pbcnMAKDHKOh-3zYwA4GcPe+iBdr6gjCQ+Q@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 14781376929612598018
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrvdefgddugecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,65 +44,159 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Nov 2016 10:31:49 -0000
+X-List-Received-Date: Mon, 21 Nov 2016 10:37:26 -0000
 
+On 11/21/2016 08:25 AM, Joel Stanley wrote:
+> On Sat, Nov 19, 2016 at 12:51 AM, Cédric Le Goater <clg@kaod.org> wrote:
+>> 0005 tests add a read_page_mem test
+> 
+> This looks like something went wrong
 
---=-ZlHtZb8frGMMm/CHngmN
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Euh, yeah I need to write a commit log for this patch ! 
 
-On Fri, 2016-11-18 at 15:21 +0100, C=C3=A9dric Le Goater wrote:
-> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
-
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
-
-> ---
-> =C2=A0hw/block/m25p80.c | 1 +
-> =C2=A01 file changed, 1 insertion(+)
->=20
-> diff --git a/hw/block/m25p80.c b/hw/block/m25p80.c
-> index d29ff4cb4f4b..e3c1166ea6e3 100644
-> --- a/hw/block/m25p80.c
-> +++ b/hw/block/m25p80.c
-> @@ -203,6 +203,7 @@ static const FlashPartInfo known_devices[] =3D {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0{ INFO("mx25l25655e", 0xc22619,=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A00,=C2=A0=C2=A064 << 10, 512, 0) },
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0{ INFO("mx66u51235f", 0xc2253a,=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A00,=C2=A0=C2=A064 << 10, 1024, ER_4K | ER_32K) },
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0{ INFO("mx66u1g45g",=C2=A0=C2=A00xc2253b,=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A00,=C2=A0=C2=A064 << 10, 2048, ER_4K | E=
-R_32K) },
-> +=C2=A0=C2=A0=C2=A0=C2=A0{ INFO("mx66l1g45g",=C2=A0=C2=A00xc2201b,=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A00,=C2=A0=C2=A064 << 10, 2048, ER_4K | ER_32K)=
- },
-
-Looks like there's no flag bit for 64K erase blocks in qemu?
-
-> =C2=A0
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* Micron */
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0{ INFO("n25q032a11",=C2=A0=C2=A00x20bb16,=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A00,=C2=A0=C2=A064 << 10,=C2=A0=C2=A064, =
-ER_4K) },
---=-ZlHtZb8frGMMm/CHngmN
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJYMs0IAAoJEJ0dnzgO5LT5F9cP/2137FpGgWgi1/C2YODfdeRf
-IoRqYL48odrEY9+G1f0qmJWP5u28CMBTPK5DlEtwVWgs7sRBN4nxu3SDnTl6oAAq
-k1GfQGAaRr7RJl5sN0AFRdR40+z/BfxW5lecOnXnSThYYg/4yD36+XQhpw3sglhh
-Whs80dezdDuwZ8mxc+DH5vYJRyb2+faGibj9wbJVNRE3kz27jUXjeWhoosixG0zD
-4DCpcclbawWw1sW9tM0H/AQy8LeaWBtHb/i5xpQjooO1ttiUD4rquGtHHD2wYLDz
-Tkby4fzKiZnZAKUilW7UQVMtRF3Q208AZ7elVaySE+icFKdAwKwnYok5CNEoB23k
-tmpMT9fdttz7d83nzAEtn59vcU2dPAC0969cI6Rm/3dHtcb/qTwM2Eu5/Bw7Mclr
-C5moXEdfPhqiseauCxU3igiE2qn+6y56t/v3Dl8TwGRPp1hhS6KKbvWshOaRU/SN
-1OlzY4N72l/bckEtfpM3TytIfvZa1a4RNdWL8Kt+4cpzydvRFPeTuq6zDfVyHt3G
-4AcsnGE2DKv84ifAbIulc2ehH72ugT8U731h1zneK88BARXIwyJPLw8LxvDhIPJx
-uT0stOQ93iElMS2zZx0aSoiF1MO2nGI1HPjPNhzYXcupsgZWdfYNzjAH8Yvle5ZW
-/RR9Sd2yh4YM5pgerLnB
-=oMxH
------END PGP SIGNATURE-----
-
---=-ZlHtZb8frGMMm/CHngmN--
+C. 
+>>
+>> Signed-off-by: Cédric Le Goater <clg@kaod.org>
+>> ---
+>>  tests/m25p80-test.c | 86 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+>>  1 file changed, 86 insertions(+)
+>>
+>> diff --git a/tests/m25p80-test.c b/tests/m25p80-test.c
+>> index cb7ec81f1a6d..3d449bd194a9 100644
+>> --- a/tests/m25p80-test.c
+>> +++ b/tests/m25p80-test.c
+>> @@ -36,6 +36,9 @@
+>>  #define   CRTL_EXTENDED0       0  /* 32 bit addressing for SPI */
+>>  #define R_CTRL0             0x10
+>>  #define   CTRL_CE_STOP_ACTIVE  (1 << 2)
+>> +#define   CTRL_READMODE        0x0
+>> +#define   CTRL_FREADMODE       0x1
+>> +#define   CTRL_WRITEMODE       0x2
+>>  #define   CTRL_USERMODE        0x3
+>>
+>>  #define ASPEED_FMC_BASE    0x1E620000
+>> @@ -76,6 +79,22 @@ static void spi_conf(uint32_t value)
+>>      writel(ASPEED_FMC_BASE + R_CONF, conf);
+>>  }
+>>
+>> +static void spi_ce_ctrl(uint32_t value)
+>> +{
+>> +    uint32_t conf = readl(ASPEED_FMC_BASE + R_CE_CTRL);
+>> +
+>> +    conf |= value;
+>> +    writel(ASPEED_FMC_BASE + R_CE_CTRL, conf);
+>> +}
+>> +
+>> +static void spi_ctrl_setmode(uint8_t mode, uint8_t cmd)
+>> +{
+>> +    uint32_t ctrl = readl(ASPEED_FMC_BASE + R_CTRL0);
+>> +    ctrl &= ~(CTRL_USERMODE | 0xff << 16);
+>> +    ctrl |= mode | (cmd << 16);
+>> +    writel(ASPEED_FMC_BASE + R_CTRL0, ctrl);
+>> +}
+>> +
+>>  static void spi_ctrl_start_user(void)
+>>  {
+>>      uint32_t ctrl = readl(ASPEED_FMC_BASE + R_CTRL0);
+>> @@ -128,6 +147,18 @@ static void read_page(uint32_t addr, uint32_t *page)
+>>      spi_ctrl_stop_user();
+>>  }
+>>
+>> +static void read_page_mem(uint32_t addr, uint32_t *page)
+>> +{
+>> +    int i;
+>> +
+>> +    /* move out USER mode to use direct reads from the AHB bus */
+>> +    spi_ctrl_setmode(CTRL_READMODE, READ);
+>> +
+>> +    for (i = 0; i < PAGE_SIZE / 4; i++) {
+>> +        page[i] = make_be32(readl(ASPEED_FLASH_BASE + addr + i * 4));
+>> +    }
+>> +}
+>> +
+>>  static void test_erase_sector(void)
+>>  {
+>>      uint32_t some_page_addr = 0x600 * PAGE_SIZE;
+>> @@ -195,6 +226,7 @@ static void test_write_page(void)
+>>
+>>      spi_ctrl_start_user();
+>>      writeb(ASPEED_FLASH_BASE, EN_4BYTE_ADDR);
+>> +    writeb(ASPEED_FLASH_BASE, WREN);
+>>      writeb(ASPEED_FLASH_BASE, PP);
+>>      writel(ASPEED_FLASH_BASE, make_be32(my_page_addr));
+>>
+>> @@ -217,6 +249,58 @@ static void test_write_page(void)
+>>      }
+>>  }
+>>
+>> +static void test_read_page_mem(void)
+>> +{
+>> +    uint32_t my_page_addr = 0x14000 * PAGE_SIZE; /* beyond 16MB */
+>> +    uint32_t some_page_addr = 0x15000 * PAGE_SIZE;
+>> +    uint32_t page[PAGE_SIZE / 4];
+>> +    int i;
+>> +
+>> +    /* Enable 4BYTE mode for flash. This is should be strapped by HW
+>> +     * for CE0 anyhow.
+>> +     */
+>> +    spi_ce_ctrl(1 << CRTL_EXTENDED0);
+>> +
+>> +    /* Check what was written */
+>> +    read_page_mem(my_page_addr, page);
+>> +    for (i = 0; i < PAGE_SIZE / 4; i++) {
+>> +        g_assert_cmphex(page[i], ==, my_page_addr + i * 4);
+>> +    }
+>> +
+>> +    /* Check some other page. It should be full of 0xff */
+>> +    read_page_mem(some_page_addr, page);
+>> +    for (i = 0; i < PAGE_SIZE / 4; i++) {
+>> +        g_assert_cmphex(page[i], ==, 0xffffffff);
+>> +    }
+>> +}
+>> +
+>> +static void test_write_page_mem(void)
+>> +{
+>> +    uint32_t my_page_addr = 0x15000 * PAGE_SIZE;
+>> +    uint32_t page[PAGE_SIZE / 4];
+>> +    int i;
+>> +
+>> +    /* Enable 4BYTE mode for flash. This is should be strapped by HW
+>> +     * for CE0 anyhow.
+>> +     */
+>> +    spi_ce_ctrl(1 << CRTL_EXTENDED0);
+>> +
+>> +    /* move out USER mode to use direct writes to the AHB bus */
+>> +    spi_ctrl_setmode(CTRL_WRITEMODE, PP);
+>> +
+>> +    for (i = 0; i < PAGE_SIZE / 4; i++) {
+>> +        writel(ASPEED_FLASH_BASE + my_page_addr + i * 4,
+>> +               make_be32(my_page_addr + i * 4));
+>> +    }
+>> +
+>> +    /* Check what was written */
+>> +    read_page_mem(my_page_addr, page);
+>> +    for (i = 0; i < PAGE_SIZE / 4; i++) {
+>> +        g_assert_cmphex(page[i], ==, my_page_addr + i * 4);
+>> +    }
+>> +}
+>> +
+>> +
+>>  static char tmp_path[] = "/tmp/qtest.m25p80.XXXXXX";
+>>
+>>  int main(int argc, char **argv)
+>> @@ -242,6 +326,8 @@ int main(int argc, char **argv)
+>>      qtest_add_func("/m25p80/erase_sector", test_erase_sector);
+>>      qtest_add_func("/m25p80/erase_all",  test_erase_all);
+>>      qtest_add_func("/m25p80/write_page", test_write_page);
+>> +    qtest_add_func("/m25p80/read_page_mem", test_read_page_mem);
+>> +    qtest_add_func("/m25p80/write_page_mem", test_write_page_mem);
+>>
+>>      ret = g_test_run();
+>>
+>> --
+>> 2.7.4
+>>
+>> _______________________________________________
+>> openbmc mailing list
+>> openbmc@lists.ozlabs.org
+>> https://lists.ozlabs.org/listinfo/openbmc
