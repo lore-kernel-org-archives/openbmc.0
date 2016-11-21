@@ -1,51 +1,51 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
- [IPv6:2607:f8b0:4003:c06::241])
+Received: from mail-oi0-x243.google.com (mail-oi0-x243.google.com
+ [IPv6:2607:f8b0:4003:c06::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tMgCc1xKDzDvjS
- for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 18:27:08 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tMgCg3l8pzDvj4
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 18:27:11 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="VEPOiD1i"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="c73IwSwu"; 
  dkim-atps=neutral
-Received: by mail-oi0-x241.google.com with SMTP id m75so2041119oig.1
- for <openbmc@lists.ozlabs.org>; Sun, 20 Nov 2016 23:27:08 -0800 (PST)
+Received: by mail-oi0-x243.google.com with SMTP id m75so2041237oig.1
+ for <openbmc@lists.ozlabs.org>; Sun, 20 Nov 2016 23:27:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc:content-transfer-encoding;
- bh=ttTtctxmLzFdBpr9YjGn8jIl2iPCmESIZ8126ClRVo4=;
- b=VEPOiD1iAbum7nI81JNVt/bT2zES9XfxQMyfNBIrt8zb1UR1aEl3nI06WpCUnR69YM
- qfA/6W989lgdmjLp5W1Yn0c5Gcm7jUc98oefw95p9bMIybgBwEcu3rhbAICf9O0lyrkm
- nk8ZS8JHu+UJoPUnvCbAzmAgk1dCN+SOC1ZLYtFK/fVauXaGUJkvmMYKW48rnz1exFUE
- HqQ8DgGqKOIqVjyPmLGMliDJRIQehPSYKQukn4Mz9HT11HVHq27slGkJcQ8IoRTKCcCv
- rcU6ZjHHu7aQdS8kr6sY3hqAF3jadpsNB/azqeV1sZCU7TEDvVfad846D/jTJ60UNmVU
- rW6g==
+ bh=pS4k/ciRbnMObX21cJXgHGqxEcwszTgNEmUVn5FlRdo=;
+ b=c73IwSwu3PPAesjdVlso+KGZHIQPjFafvcYxuCi+lurY6ejd/K+QGHPb06nGeZcgvp
+ dDqHiFJRA5ZGa4Vwp8gVB08U/lMf+XZVaYfoy4iVVbru5OZWPIlq5IDd+T6Orosl+8j5
+ K4W4FwS4sVZCOmE3nzzk9kvKgz6S6zmE5Fq4JHQHASVcLbFrY+kB7nJlwQVbcD0rkxOY
+ IxGM1Y3pf5CryPjIH0ASzdJ3fafSxG7mswaDbTQk7EU040IR0JtSqqPNINAQNrOArazz
+ BwRIyxcDpWDSTZ3gCJ8isw2oRPUeTCnJEzXcIX+QGQQomisHSQ6yA7Z8SOPvpSeaXgAG
+ OF/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=ttTtctxmLzFdBpr9YjGn8jIl2iPCmESIZ8126ClRVo4=;
- b=agb7yipK5SSTehgCl8uGzlsepwDUx7OhRFLlg566PU7FKlW0yoeZf7YSgfgcd0HYV8
- yQWpG+PJLp2n4gFWIM8kxhQI36RTMCWpr5vnMpQ/aOBVWT+E3/8dC8ODRIZ0u+yn83Ai
- R2FIoTc04t/vSy6L+awPNl38rWDeUKjzejN2LsHIIEGLXVvyKZxlf0O6i/XI95yYttKJ
- bPNcrFYKb2X6W5BLMVRNxnGvoxJ99TciJzP1ks1rBYJ8lUCMbVnk9TanaBP02aravAEJ
- d2zOUD/IPSNP0ACwgplwLYdnFrEoMzeOaZckApl5kwbIOdvAYbLI6yKXiT0mvmQx4xZE
- DTQg==
-X-Gm-Message-State: AKaTC02ayB+VDuEd2aSyUhozUaj3hT1iH6IGd0E7v23e4EOyWLOO636uryGUli+f9ewZUP4bSFzaL1S1SsOIMA==
-X-Received: by 10.202.220.139 with SMTP id t133mr7697588oig.82.1479713226543; 
- Sun, 20 Nov 2016 23:27:06 -0800 (PST)
+ bh=pS4k/ciRbnMObX21cJXgHGqxEcwszTgNEmUVn5FlRdo=;
+ b=dajCvMCcZn1po9Xj+3TZC3VgmUg93NhzuQ6X8a885P0++NgsOblDmLAGodMRMAH5mZ
+ il1N6QdudCJQ3kuWdUof7/yVpuiMEF7wJu9wpJYno/liQtjHl2W3Qas7m6wdXeVTRlxF
+ oIPQFTTXJai8buJV1172D9MK5i1WHkHahux42QyHBiIBj2CP3MKqbVtkv5mhxwW6dTyu
+ U4EyQVU1VmJbYk7Vtezc7DjsJFHkLbRnqt7VJlDbZKGSeM+QmOPSoVFScyUj2BC/p7fA
+ dcPJlcso6lEIrQZxmBDxTZvHrpullCiSAbAebmsULzAIQt6ZfhM1+m3jH0s4dhDzxT1T
+ q2sw==
+X-Gm-Message-State: AKaTC01jOOOISc+Ka+YzIGMXvWKOAYtf5zQxUtXxNeMv88C80ViRw+Ludw9y9OSI1ICOD6dE8vWggYOEv78Tog==
+X-Received: by 10.157.27.65 with SMTP id l59mr7449803otl.196.1479713229815;
+ Sun, 20 Nov 2016 23:27:09 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.182.97.41 with HTTP; Sun, 20 Nov 2016 23:26:46 -0800 (PST)
-In-Reply-To: <1479478938-13267-18-git-send-email-clg@kaod.org>
+Received: by 10.182.97.41 with HTTP; Sun, 20 Nov 2016 23:26:49 -0800 (PST)
+In-Reply-To: <1479478938-13267-14-git-send-email-clg@kaod.org>
 References: <1479478938-13267-1-git-send-email-clg@kaod.org>
- <1479478938-13267-18-git-send-email-clg@kaod.org>
+ <1479478938-13267-14-git-send-email-clg@kaod.org>
 From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 21 Nov 2016 17:56:46 +1030
-X-Google-Sender-Auth: JQS9XmhV8Aefd-9L3DijsrrUIKY
-Message-ID: <CACPK8XeH0GH3iy4P5McMit=ZRqFEXiW8Hw8Dso2PraPrUrhfjA@mail.gmail.com>
-Subject: Re: [PATCH qemu 17/38] aspeed/smc: unfold the AspeedSMCController
- array
+Date: Mon, 21 Nov 2016 17:56:49 +1030
+X-Google-Sender-Auth: wFFiS5WkfiGMmvEsbvwyW22OhBs
+Message-ID: <CACPK8Xf8WHf37ZJoNeG_p8-H9BAf8KD6nYkt=S9158axxO-rHw@mail.gmail.com>
+Subject: Re: [PATCH qemu 13/38] aspeed/smc: introduce a
+ aspeed_smc_flash_update_cs() helper
 To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
@@ -61,36 +61,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Nov 2016 07:27:08 -0000
+X-List-Received-Date: Mon, 21 Nov 2016 07:27:12 -0000
 
 On Sat, Nov 19, 2016 at 12:51 AM, C=C3=A9dric Le Goater <clg@kaod.org> wrot=
 e:
-> This is getting difficult to read. Also add a 'has_dma' field for each
-> controller type.
+> aspeed_smc_update_cs() was uselessly looping on all CS to update their
+> status.
 >
 > Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
 
-Reviewd-by: Joel Stanley <joel@jms.id.au>
+Reviewed-by: Joel Stanley <joel@jms.id.au>
 
 > ---
->  hw/ssi/aspeed_smc.c         | 91 ++++++++++++++++++++++++++++++++++++---=
-------
->  include/hw/ssi/aspeed_smc.h |  1 +
->  2 files changed, 74 insertions(+), 18 deletions(-)
+>  hw/ssi/aspeed_smc.c | 16 ++++++----------
+>  1 file changed, 6 insertions(+), 10 deletions(-)
 >
 > diff --git a/hw/ssi/aspeed_smc.c b/hw/ssi/aspeed_smc.c
-> index eec087199a22..8e7e3bd9e335 100644
+> index 91cdc0bf1ac7..1c6c5089f265 100644
 > --- a/hw/ssi/aspeed_smc.c
 > +++ b/hw/ssi/aspeed_smc.c
-> @@ -184,24 +184,79 @@ static const AspeedSegments aspeed_segments_ast2500=
-_spi2[] =3D {
+> @@ -408,14 +408,10 @@ static const MemoryRegionOps aspeed_smc_flash_ops =
+=3D {
+>      },
 >  };
+>
+> -static void aspeed_smc_update_cs(const AspeedSMCState *s)
+> +static void aspeed_smc_flash_update_cs(AspeedSMCFlash *fl)
 
-> +        .name              =3D "aspeed.smc.spi",
-> +        .r_conf            =3D R_SPI_CONF,
-> +        .r_ce_ctrl         =3D 0xff,
+This hunk should have been in patch 12 I think.
 
-What does 0xff mean in this context? Should we have a #define for this?
-
-> +        .r_ctrl0           =3D R_SPI_CTRL0,
-> +        .r_timings         =3D R_SPI_TIMINGS,
+>  {
+> -    int i;
+> -
+> -    for (i =3D 0; i < s->num_cs; ++i) {
+> -        qemu_set_irq(s->cs_lines[i],
+> -                     aspeed_smc_is_ce_stop_active(&s->flashes[i]));
+> -    }
+> +    AspeedSMCState *s =3D fl->controller;
+> +    qemu_set_irq(s->cs_lines[fl->id], aspeed_smc_is_ce_stop_active(fl));
+>  }
