@@ -1,38 +1,54 @@
-Return-Path: <clg@kaod.org>
-X-Greylist: delayed 3305 seconds by postgrey-1.36 at bilbo;
- Mon, 21 Nov 2016 22:02:37 AEDT
-Received: from 15.mo3.mail-out.ovh.net (15.mo3.mail-out.ovh.net
- [87.98.150.177])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tMm0F08wgzDvjf
- for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 22:02:36 +1100 (AEDT)
-Received: from player734.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo3.mail-out.ovh.net (Postfix) with ESMTP id 9B2C1601CF
- for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 10:44:23 +0100 (CET)
-Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
- [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player734.ha.ovh.net (Postfix) with ESMTPSA id 2722E28009F;
- Mon, 21 Nov 2016 10:44:21 +0100 (CET)
-Subject: Re: [PATCH qemu 09/38] aspeed/scu: fix SCU region size
-To: Joel Stanley <joel@jms.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tMm1z2N6jzDsyb
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 22:04:07 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="SxsQRg1Q"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="I0svIzDx"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 38A9D207E1;
+ Mon, 21 Nov 2016 06:04:05 -0500 (EST)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Mon, 21 Nov 2016 06:04:05 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
+ content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=mesmtp; bh=qDerIBcKT5HEniuqI43m8/JcK2Q=; b=SxsQRg
+ 1Qa8Uh0p6NHwzh1gh/BbtGXek9KNclf7BHdXn1Ljsa1t+NRTfYGdmWBfjMGKqDnm
+ 2KoVx62zTs8zY3p1zXxmsBwhz5a36OrJ4CKCBRw5p6Dp/3uSnM4VnqFF7G1ImzPw
+ o37MRk7S/2K3t+GrYSVTuvtKBkvCBgwn/GgXM=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=qDerIBcKT5HEni
+ uqI43m8/JcK2Q=; b=I0svIzDxbe0LqslDPKiBoXtiWzATWiD5/lCHXpHFkiifLc
+ eCJgxM2kVkvrSzzy/K5XHRR13sKF5iTAume/YMggMbNs+j6bSDr8TA2cihyyBUKH
+ 8X400GB+wrhleXlemJXJjZSN9dmHKG4vTXDXsAzOaHae2JT/ytZrv2qXROIKI=
+X-ME-Sender: <xms:pdQyWHl86CqvJFty9LJNZZwhF8GbrbdDU8OA5CyCuNPx3JpiPOCN-Q>
+X-Sasl-enc: ybMUYSM2UKaxbX2HIdjwsnbMLtgW5YvndTqBqCM5Ooez 1479726244
+Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
+ [203.122.213.247])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 372FB247E7;
+ Mon, 21 Nov 2016 06:04:02 -0500 (EST)
+Message-ID: <1479726239.5215.25.camel@aj.id.au>
+Subject: Re: [PATCH qemu 03/38] aspeed: attach the second SPI controller
+ object to the SoC
+From: Andrew Jeffery <andrew@aj.id.au>
+To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, 
+ openbmc@lists.ozlabs.org
+Date: Mon, 21 Nov 2016 21:33:59 +1030
+In-Reply-To: <1479478938-13267-4-git-send-email-clg@kaod.org>
 References: <1479478938-13267-1-git-send-email-clg@kaod.org>
- <1479478938-13267-10-git-send-email-clg@kaod.org>
- <CACPK8XcGXnHy5jj4JUN_XKDALYX0U4vzrffE20nKGduTJ7dZTQ@mail.gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <79cdcdc5-ba12-679c-61a3-894d333a6d4d@kaod.org>
-Date: Mon, 21 Nov 2016 10:44:21 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.4.0
-MIME-Version: 1.0
-In-Reply-To: <CACPK8XcGXnHy5jj4JUN_XKDALYX0U4vzrffE20nKGduTJ7dZTQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 13976639969908984578
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrvdefgddtgecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ <1479478938-13267-4-git-send-email-clg@kaod.org>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-Gw5QlmIMk5OKyfz7yZkC"
+X-Mailer: Evolution 3.22.1-0ubuntu2 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -44,54 +60,65 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Nov 2016 11:02:38 -0000
+X-List-Received-Date: Mon, 21 Nov 2016 11:04:07 -0000
 
-On 11/21/2016 08:26 AM, Joel Stanley wrote:
-> On Sat, Nov 19, 2016 at 12:51 AM, Cédric Le Goater <clg@kaod.org> wrote:
->> Signed-off-by: Cédric Le Goater <clg@kaod.org>
-> 
-> Reviewed-by: Joel Stanley <joel@jms.id.au>
-> 
->> ---
->>  hw/misc/aspeed_scu.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/hw/misc/aspeed_scu.c b/hw/misc/aspeed_scu.c
->> index 34e86385d837..95022d3607ad 100644
->> --- a/hw/misc/aspeed_scu.c
->> +++ b/hw/misc/aspeed_scu.c
->> @@ -86,7 +86,7 @@
->>  #define BMC_DEV_ID           TO_REG(0x1A4)
->>
->>  #define PROT_KEY_UNLOCK 0x1688A8A8
->> -#define SCU_IO_REGION_SIZE 0x20000
->> +#define SCU_IO_REGION_SIZE 0x1000
->>
-> 
-> The last register is at 0x1A4. Do we want to use that as the size?
 
-That is a good remark. 
+--=-Gw5QlmIMk5OKyfz7yZkC
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The Aspeed specs define address space ranges for each controller
-but the full window is not covered by the registers. So when 
-you go beyond the last register, the HW loops back on the first 
-after while. Holes are filled with 0xffffffff or 0x0. 
+On Fri, 2016-11-18 at 15:21 +0100, C=C3=A9dric Le Goater wrote:
+> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
 
-I suppose restricting the window to the last register is the 
-best option. Event if it is possible, going beyond is a guest 
-error anyhow.
+Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 
-Thanks,
+> ---
+> =C2=A0hw/arm/aspeed_soc.c | 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/hw/arm/aspeed_soc.c b/hw/arm/aspeed_soc.c
+> index db145e201451..bbbbfd13862c 100644
+> --- a/hw/arm/aspeed_soc.c
+> +++ b/hw/arm/aspeed_soc.c
+> @@ -124,7 +124,7 @@ static void aspeed_soc_init(Object *obj)
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0for (i =3D 0; i < sc->info->spis_num; i++) =
+{
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0object_initialize(&=
+s->spi[i], sizeof(s->spi[i]),
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0sc->info->spi_typename[i]);
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0object_property_add_chil=
+d(obj, "spi", OBJECT(&s->spi[i]), NULL);
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0object_property_add_chil=
+d(obj, "spi[*]", OBJECT(&s->spi[i]), NULL);
 
-C. 
+Such a curious API. I guess it's effective.
 
-> 
->>  static const uint32_t ast2400_a0_resets[ASPEED_SCU_NR_REGS] = {
->>       [SYS_RST_CTRL]    = 0xFFCFFEDCU,
->> --
->> 2.7.4
->>
->> _______________________________________________
->> openbmc mailing list
->> openbmc@lists.ozlabs.org
->> https://lists.ozlabs.org/listinfo/openbmc
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0qdev_set_parent_bus=
+(DEVICE(&s->spi[i]), sysbus_get_default());
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0}
+> =C2=A0
+--=-Gw5QlmIMk5OKyfz7yZkC
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJYMtSfAAoJEJ0dnzgO5LT5038QALcuSBbM28CWqVmjSLo2VUXL
+QN3THk3sLsja8Y977MoqlPqgCv2BQltK0iXILiHT+SsfaU+pPVTcTQ13n2tWPUcW
+djHz85S3dgH6ik6Ocn/mbK3ABKREVwNIJkmujzz19SPR4VbJeg0Fl7gB9ycM4zOu
+8Mxt/Ilm6Ey5N3Y9xg+/t8S6UxM2Oq9SXwcUoaNcsvnAAA04/aT9LggOKsSTpW8D
+SK4aXZvBDmi1iPfG2GJ2oMTAdnNUOi0E5jCk5qu3ZY83W9kQ8SWbHNAtDiTIeHRu
+NNbrk2TXEje/SP/oewnQPzb+4vTuM2r98+phCtwOA/ikwQlmGUSb038XgLQN27JM
+2wj1gKlDSdvL6KRA8OgEqg2Auk5w2akNWSgGLqAhLZTvdPj/KutD9HUJl6basCUe
+CNWIj6VXJV7mO3YXVau+dKgYxVTDhBzX9hTCnD5Rg2aYJMDtWdtXCHrMTzWBdZV/
+W+kZxtVgzz3ZLqof8urZx1h+Lhf+5RIT4TNnyypSGpjoKwrez1gQxln8fFWfSdQw
+Uu9M3e6U/dLAkDVLABxOgIsIATnbvl65+4WDSFmFg7ZUcqF3/UuWa3NZidxOU9QT
+0Tmq114Njx2/MEGin5T84QnfHZOSA+rzVtKNSWZofDnRqxzVCpj9k7IK33s6MG2Y
+i19I9NevZ3JkSPfWZT6g
+=ezEB
+-----END PGP SIGNATURE-----
+
+--=-Gw5QlmIMk5OKyfz7yZkC--
