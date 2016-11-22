@@ -1,39 +1,34 @@
 Return-Path: <clg@kaod.org>
-Received: from 6.mo3.mail-out.ovh.net (6.mo3.mail-out.ovh.net [188.165.43.173])
+Received: from mo3.mail-out.ovh.net (mo3.mail-out.ovh.net [178.32.228.3])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tNH2f60VszDvw3
- for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 18:21:30 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tNHn40hSSzDw2B
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 18:54:47 +1100 (AEDT)
 Received: from player734.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo3.mail-out.ovh.net (Postfix) with ESMTP id 3077F6062A
- for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 08:21:27 +0100 (CET)
+ by mo3.mail-out.ovh.net (Postfix) with ESMTP id 2C3D5607C3
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 08:54:44 +0100 (CET)
 Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
  [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player734.ha.ovh.net (Postfix) with ESMTPSA id EAE17280083;
- Tue, 22 Nov 2016 08:21:23 +0100 (CET)
-Subject: Re: [PATCH qemu 11/38] aspeed/smc: get the number of flash modules
- from hw strapping
-To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
-References: <1479478938-13267-1-git-send-email-clg@kaod.org>
- <1479478938-13267-12-git-send-email-clg@kaod.org>
- <1479734036.2503.5.camel@aj.id.au>
- <45ccee63-6edd-9e1a-4214-cb93cb1c0395@kaod.org>
- <1479735302.2503.10.camel@aj.id.au>
- <85a1b91c-3efe-5b93-bdbf-91a0741fd853@kaod.org>
- <1479784251.2503.18.camel@aj.id.au>
+ by player734.ha.ovh.net (Postfix) with ESMTPSA id 6E614280077;
+ Tue, 22 Nov 2016 08:54:41 +0100 (CET)
+Subject: Re: Aspeed VUART implementation for QEMU
+To: Alastair D'Silva <alastair@au1.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <1479776162.11116.85.camel@au1.ibm.com>
+Cc: Andrew Jeffery <andrew@aj.id.au>
 From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <b6082460-d8a0-9dfb-9b84-9f98a660e6aa@kaod.org>
-Date: Tue, 22 Nov 2016 08:21:23 +0100
+Message-ID: <1912ed2c-1499-5e71-1817-10d955c060e2@kaod.org>
+Date: Tue, 22 Nov 2016 08:54:41 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
  Thunderbird/45.4.0
 MIME-Version: 1.0
-In-Reply-To: <1479784251.2503.18.camel@aj.id.au>
+In-Reply-To: <1479776162.11116.85.camel@au1.ibm.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 17435404484203481858
+Content-Transfer-Encoding: 7bit
+X-Ovh-Tracer-Id: 17997228538005851051
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrvdeggddutdekucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrvdeggdduudegucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -45,36 +40,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Nov 2016 07:21:31 -0000
+X-List-Received-Date: Tue, 22 Nov 2016 07:54:48 -0000
 
->> So we should set or unset these SCU regs when the SoC is created and 
->> derive the wdt2 enablement from them. I suppose that the helper routine 
->> to check for the conditions would be under SCU. 
->>
->> or do we start a simple pinctrl model and slowly add the enablement
->> of the pins we need ? 
->>
+On 11/22/2016 01:56 AM, Alastair D'Silva wrote:
+> Hi folks,
 > 
-> From the discussion on IRC last night between Cédric, Joel and myself
-> we decided to start on a pinmux backend to help manage these issues.
+> I was thinking of getting stuck into the VUART implementation in QEMU
+> soon.
+> 
+> After reading the docs, I think we should map in a 16550 uart at the
+> address specified in the design docs, and attach the other end of the
+> uart to a socket. Does this sound reasonable?
 
-Do you have a rough idea of an API that the SoC could use ? 
+yes, using a chardev socket to connect it to the other end. 
 
-	enum AspeedAST2500Function {
-		FWSPICS0,
-		FWSPICS1,
-		FWSPICS2,
-	};
+I think we could event connect the console of a pnv guest for that. 
+Use this branch, if you want a full working one :
 
-	enum AspeedAST2400Function {
-		ROMCS1,
-		ROMCS2,
-		ROMCS3,
-		ROMCS4,
-	};
-
-	bool aspeed_pin_is_enabled(AspeedPinmux *p, int func);
-
-Thanks,
+	https://github.com/legoater/qemu/tree/powernv-ipmi-2.8
 
 C. 
+
+
+> Joel mentioned that Cedric has already given this some thought, so I'd
+> love to hear it.
