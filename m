@@ -3,49 +3,47 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tNDwb2dg2zDvsL
- for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 16:46:06 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tNFS91kDGzDw34
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 17:10:01 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="SNaHDJmT"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="VJ9dxhW0"; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="GXi/bDjp"; dkim-atps=neutral
+ header.b="juxkEGkl"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id A13BE209A4;
- Tue, 22 Nov 2016 00:46:04 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id 62A9820844;
+ Tue, 22 Nov 2016 01:09:57 -0500 (EST)
 Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Tue, 22 Nov 2016 00:46:04 -0500
+ by compute4.internal (MEProxy); Tue, 22 Nov 2016 01:09:57 -0500
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
  :content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=tNJmfNbEgQaEMTxt9aH8slKQXX8=; b=SNaHDJ
- mTerGHuuqdpiRhx/D4Nm9CAP1fzWxMc1PDfwi6nRqSeIRHnIgF+Kq28tF2XJsDOL
- HQiO1Sq1WsD9NM2sB98aSYu5xtzrqHpMFV/U5XSC7AuGwajxIuBrvKnTCLgw6plH
- s+uBuumZjhgfkUORnVfCthiFL+b6Il4ehtWIc=
+ :x-sasl-enc; s=mesmtp; bh=09An+WRKT72wj01vdG40JPhuOY4=; b=VJ9dxh
+ W0AgbEg8yHEkGAYawEKjZOFYXrmqeBmU4Z33SIT60P5LRIoFgU2mphhd6xoi1Zrw
+ CMLWJ3nYLl0cxagUhzZqvuUg4SpYSEmZUBwPE9/3SWReu39fSDEHl8OzNrSwfWch
+ +/9nRNZ4/xqVAsspw/otivzmn65Hr0mwUQvdk=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=tNJmfNbEgQaEMT
- xt9aH8slKQXX8=; b=GXi/bDjp+Qo15hcHFkdtfr1f0I7ebA9VZJaQfDHdZmXdHd
- eRzRPoqVCfYqJeUpm2bda5/I06sO/iBxULGdy3eEp5w9FMWUXTDzgnCN+WqGoapW
- DOLlClcPCJlTH7Vqp0gd8XC7uQhztuK8SQ++AgKjsCFY10oYBvE6BZmdBoeHk=
-X-ME-Sender: <xms:nNszWGE-uhprGSOWcLfCUlOTjaYfeVr3jWwIwGdFlVWBs_4g5pMPZQ>
-X-Sasl-enc: 1i1M7/I1xgbFVhu/G10PqvLZ52xVwtVRR1LeP/Oqg2L4 1479793563
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=09An+WRKT72wj0
+ 1vdG40JPhuOY4=; b=juxkEGkl7ZSzr0SYMdqWUlfS8EFu6B2PBuk7Bw4LKK9Pic
+ stystA5SJbEgSHJBevG8hrPJB5QnixSwLOWPWZiVzq0UaU4kaIN2BBVz6JJSm895
+ RCU65mDxgDtNIBk0Lca8Lja6HXRlSMhAszLhjaV7m3J9FdVApmWWGAXyH2YYA=
+X-ME-Sender: <xms:NeEzWLMK00bx4Ew0GJaKQGx7mCdxTsIF4oxr8un5JWUmbMQx0Wvccw>
+X-Sasl-enc: 5x8F+xRDE+RAMmPLGqaZWX5ZoLyxgmuFWPiW3ickNdn4 1479794996
 Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 2BFF77E430;
- Tue, 22 Nov 2016 00:46:02 -0500 (EST)
-Message-ID: <1479793556.2503.34.camel@aj.id.au>
-Subject: Re: [PATCH 4/7] arm: dts: aspeed: Remove unused pinmux from Palmetto
+ by mail.messagingengine.com (Postfix) with ESMTPA id 1B2847E425;
+ Tue, 22 Nov 2016 01:09:55 -0500 (EST)
+Message-ID: <1479794990.2503.38.camel@aj.id.au>
+Subject: Re: [PATCH] pinctrl: aspeed: Add parentheses to HW_STRAP test
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Tue, 22 Nov 2016 16:15:56 +1030
-In-Reply-To: <CACPK8Xeam22AU+U_Vpg+nd_yyaNye-vJ=W5rbE-uD460K-ryBQ@mail.gmail.com>
-References: <20161122040849.31604-1-joel@jms.id.au>
- <20161122040849.31604-4-joel@jms.id.au> <1479792147.2503.30.camel@aj.id.au>
- <CACPK8Xeam22AU+U_Vpg+nd_yyaNye-vJ=W5rbE-uD460K-ryBQ@mail.gmail.com>
+To: joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org
+Date: Tue, 22 Nov 2016 16:39:50 +1030
+In-Reply-To: <20161118070635.17708-1-andrew@aj.id.au>
+References: <20161118070635.17708-1-andrew@aj.id.au>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-4jbC+TyzmEn694H+jIEE"
+ protocol="application/pgp-signature"; boundary="=-MHC1PVUSWvyGQ9TBK6cH"
 X-Mailer: Evolution 3.22.1-0ubuntu2 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -59,69 +57,67 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Nov 2016 05:46:07 -0000
+X-List-Received-Date: Tue, 22 Nov 2016 06:10:02 -0000
 
 
---=-4jbC+TyzmEn694H+jIEE
+--=-MHC1PVUSWvyGQ9TBK6cH
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: quoted-printable
 
-T24gVHVlLCAyMDE2LTExLTIyIGF0IDE2OjA3ICsxMDMwLCBKb2VsIFN0YW5sZXkgd3JvdGU6Cj4g
-PiBPbiBUdWUsIE5vdiAyMiwgMjAxNiBhdCAzOjUyIFBNLCBBbmRyZXcgSmVmZmVyeSA8YW5kcmV3
-QGFqLmlkLmF1PiB3cm90ZToKPiA+IE9uIFR1ZSwgMjAxNi0xMS0yMiBhdCAxNDozOCArMTAzMCwg
-Sm9lbCBTdGFubGV5IHdyb3RlOgo+ID4gPiBUaGVzZSB3ZXJlIHNldCBhcyB0aGUgY29tbW9uIGNv
-ZGUgaW4gdGhlIGJvYXJkIGZpbGUgc2V0IHRoZW0gdG8gdGhlc2UKPiA+ID4gc3RhdGVzLiBBIGNs
-b3NlIHJlYWRpbmcgb2YgdGhlIHNjaG1lYXRpYyBzdWdnZXN0cyB0aGlzIGlzIG5vdCByZXF1aXJl
-ZC4KPiA+ID4gCj4gPiA+ID4gU2lnbmVkLW9mZi1ieTogSm9lbCBTdGFubGV5IDxqb2VsQGptcy5p
-ZC5hdT4KPiA+ID4gCj4gPiA+IC0tLQo+ID4gPiDCoGFyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1i
-bWMtb3BwLXBhbG1ldHRvLmR0cyB8IDkgKy0tLS0tLS0tCj4gPiA+IMKgMSBmaWxlIGNoYW5nZWQs
-IDEgaW5zZXJ0aW9uKCspLCA4IGRlbGV0aW9ucygtKQo+ID4gPiAKPiA+ID4gZGlmZiAtLWdpdCBh
-L2FyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1ibWMtb3BwLXBhbG1ldHRvLmR0cyBiL2FyY2gvYXJt
-L2Jvb3QvZHRzL2FzcGVlZC1ibWMtb3BwLXBhbG1ldHRvLmR0cwo+ID4gPiBpbmRleCA4ZmUyNDhm
-NGQ1MzEuLmQxNmM2NzkzNTQ5OSAxMDA2NDQKPiA+ID4gLS0tIGEvYXJjaC9hcm0vYm9vdC9kdHMv
-YXNwZWVkLWJtYy1vcHAtcGFsbWV0dG8uZHRzCj4gPiA+ICsrKyBiL2FyY2gvYXJtL2Jvb3QvZHRz
-L2FzcGVlZC1ibWMtb3BwLXBhbG1ldHRvLmR0cwo+ID4gPiBAQCAtNzEsMTQgKzcxLDcgQEAKPiA+
-ID4gPiDCoMKgwqDCoHBpbmN0cmwtMCA9IDwmcGluY3RybF9mbGJ1c3lfZGVmYXVsdCAmcGluY3Ry
-bF9mbHdwX2RlZmF1bHQKPiA+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgJnBpbmN0cmxfdmdhaHNfZGVmYXVsdCAmcGluY3RybF92Z2F2c19kZWZhdWx0Cj4gPiA+
-ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgJnBpbmN0cmxfZGRjY2xr
-X2RlZmF1bHQgJnBpbmN0cmxfZGRjZGF0X2RlZmF1bHQKPiA+ID4gCj4gPiA+IC0KPiA+ID4gPiAt
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAmcGluY3RybF9wd20xX2RlZmF1
-bHQgJnBpbmN0cmxfcHdtMl9kZWZhdWx0Cj4gPiA+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgJnBpbmN0cmxfcHdtM19kZWZhdWx0ICZwaW5jdHJsX3B3bTRfZGVmYXVs
-dAo+ID4gPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCZwaW5jdHJs
-X3B3bTVfZGVmYXVsdCAmcGluY3RybF9wd202X2RlZmF1bHQKPiA+ID4gPiAtwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAmcGluY3RybF9wd203X2RlZmF1bHQKPiA+ID4gCj4g
-PiA+IC0KPiA+ID4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAmcGlu
-Y3RybF9ibWNpbnRfZGVmYXVsdCAmcGluY3RybF9mbGFja19kZWZhdWx0PjsKPiA+ID4gCj4gPiA+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAmcGluY3RybF9kZGNj
-bGtfZGVmYXVsdCAmcGluY3RybF9kZGNkYXRfZGVmYXVsdD47Cj4gPiAKPiA+IERvIHdlIG5lZWQg
-YW55IG9mIGl0Pwo+IAo+IEkgZG9uJ3QgdGhpbmsgc28uIFdlIGNvdWxkIHRyeSByZW1vdmluZyB0
-aGUgcmVzdC4gQ2FuIHlvdSBzZW5kIGEgcGF0Y2g/CgpTdXJlIQoKPiAKPiA+IAo+ID4gPiA+IFJl
-dmlld2VkLWJ5OiBBbmRyZXcgSmVmZmVyeSA8YW5kcmV3QGFqLmlkLmF1Pgo+ID4gCj4gPiA+IMKg
-fTsKPiA+ID4gCj4gPiA+IMKgJm1hYzAgew==
+ping, for all the important things :D
 
-
---=-4jbC+TyzmEn694H+jIEE
+On Fri, 2016-11-18 at 17:36 +1030, Andrew Jeffery wrote:
+> Squashes a warning:
+>=20
+> drivers/pinctrl/aspeed/pinctrl-aspeed.c: In function =E2=80=98aspeed_sig_=
+expr_set=E2=80=99:
+> drivers/pinctrl/aspeed/pinctrl-aspeed.c:210:24: warning: suggest parenthe=
+ses around =E2=80=98&&=E2=80=99 within =E2=80=98||=E2=80=99 [-Wparentheses]
+> =C2=A0=C2=A0=C2=A0=C2=A0offset =3D=3D HW_STRAP1 && !(desc->mask & SPI1_RE=
+G_MASK)))
+> =C2=A0=C2=A0=C2=A0=C2=A0~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
+~~~
+>=20
+> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> ---
+> =C2=A0drivers/pinctrl/aspeed/pinctrl-aspeed.c | 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed.c b/drivers/pinctrl/as=
+peed/pinctrl-aspeed.c
+> index ce1399dd8b68..387b75aebc25 100644
+> --- a/drivers/pinctrl/aspeed/pinctrl-aspeed.c
+> +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed.c
+> @@ -207,7 +207,7 @@ static bool aspeed_sig_expr_set(const struct aspeed_s=
+ig_expr *expr,
+> > =C2=A0		=C2=A0* all descriptor bits.
+> > =C2=A0		=C2=A0*/
+> > =C2=A0		if (is_scu && (offset =3D=3D HW_STRAP2 ||
+> > -			offset =3D=3D HW_STRAP1 && !(desc->mask & SPI1_REG_MASK)))
+> > +			(offset =3D=3D HW_STRAP1 && !(desc->mask & SPI1_REG_MASK))))
+> > =C2=A0			continue;
+> =C2=A0
+> > =C2=A0		/*
+--=-MHC1PVUSWvyGQ9TBK6cH
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJYM9uUAAoJEJ0dnzgO5LT59lkP/3FvMqXWyNjaQOHFIjHbLae5
-bmrBoPK2RBMaahJ5IDaboManLTm/seH3ZvOl4eysO2+H8ppZ5QFFyZE7J3mVYtyN
-/RpiaJWJI1C4VV4+5gDvm1LSzHCD9b2Gi7PV9zk1Vwt5sEpbJurt2MAXK0/sfd3F
-xX5nCweeGsr/5Y8QHN3t6mxE739JB/OTle8ygGn4UqPm2cihYhpHtv9ed6G0y1vI
-Bn2niV4q5uLJMKMjyu900l6XDg8PguIaICwiBz4H2g6WAWKG5unDzX6NELDVJ0jI
-UCZ1xSfBPzN8i4ObPFNattbg/QFkOFWWxQLuuPPWdtkHyBlNY7RyBas4BbWFvcO+
-FiHLnMxdinx6IR3tGcCDOzuXNgklNT0xsbKLvrzMfN9p8bHKfa4eteyJIaLyiZgy
-FWTv0Vpj6kmdHiQgYcK6A7B2av1pLqyDbvUNoEE/kCxsUR9XhqaO3jFlIGhqzciJ
-v7B69saPSC5P9iq/EpZbcx6XVFBHyu2HtZUbfyF3/9HjOA8toC4aj48Lvgu/mKDm
-+kefsBG2vXJ0RBWDqVFHLvKHJ+qEH0IJo//GFaCOm9tWad0bubv+0HqC7ox6PLbP
-P08SXG79M3pobO7VSX11sqzW9ir1yf7Hgg5IQzB1daUOCQLFMm2Yv6FBn/2lBufa
-3hDouCd/rJ1Gg74f11uZ
-=xaIl
+iQIcBAABCgAGBQJYM+EuAAoJEJ0dnzgO5LT5U1EP/1dx68fjbFAfHzXUBCWUDP7I
+wu3h4il5mVHA+0eudcENwqT5Jgk8UU9S5nLGwywmyr6ZkZfw25O84zVKlF0mL1pn
+CV0hLzHZwrdWkYeGdvQ1gxOlaBT4nEPSaRg57xXZn8lnIjZnBdeuBnLTO73ea1WL
+Hh+IGHv0kCkYc2unJGkpxGTuueXcEt8CK7vq+6/EwxzlJGQwC9M90fRp9EnQ8cS7
+7MXR0MsrXlYahIo0Ikzq6orROTefXzAk9/lK1nrGH3vOlFE+aQ94tYMYFbQ9EJ9X
+v0NbrATmq2sGhfvwoLa3+F7jfgTdzORqNMAIxUfN8uQ88qtoSr+Sq4XkcJuuhojT
+kirzd/McsAIDzR7f4GMp0iRrF89d0f4FRD252RmgegZP+iRqlMm7S0HlEqql5c8Z
+IK5haEbOS1uuet7gSd4yJzSeqSyTcr1/DOVwXLhEAwH3e4qf+ecqlC5A9fXoc5Dw
+s4PcaOntC3rlow6k+f6mw2siIpWdpzUQQ4BSYwHwRhWh3ix+qwT4yaMZstKlxcyA
+P9Zo7oIeVJu3rb8XXHoJIuFkBj68ZDLF42tx3pV/HNcNDskvG77Z85iHznMiNqJ2
+e2L+E0e10HjnPajhfU2FMriAMYKr1vpZ/YZ1agid+e/4GjYGPREGI6nF/xqL9TTj
+9jIw6yfpAl93EZfdEg13
+=q9lK
 -----END PGP SIGNATURE-----
 
---=-4jbC+TyzmEn694H+jIEE--
+--=-MHC1PVUSWvyGQ9TBK6cH--
