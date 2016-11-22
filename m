@@ -1,52 +1,54 @@
-Return-Path: <geissonator@gmail.com>
-Received: from mail-it0-x234.google.com (mail-it0-x234.google.com
- [IPv6:2607:f8b0:4001:c0b::234])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tN8XF2rmHzDsxm
- for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 13:28:13 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="m2wdnCot"; 
- dkim-atps=neutral
-Received: by mail-it0-x234.google.com with SMTP id y23so1138112itc.0
- for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 18:28:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=r9DPHq9hqakTkXySr2upUDt6lJ311ks3vSPq0yCwosE=;
- b=m2wdnCotKnsMOhq9sgdZE8XLE/n16gD0hG2KIE79xn+9gu6fDZT8IugfnB7wmibYWJ
- +CsZoCPV4Pc9vnj9pmrqiFjCUknX7sYe7dsy7Skq3ZN7V9SXrGDhCfV9/7Pa0oRYDbkL
- iC6QMiX/Rxoq/xKNb6Hry1xdOrR1McNEY1loPPlckJSJbnyNn1RwxQ1CEkZUwZs2Mb5H
- T/hJI2wPhoNW3uwk/QqckNa8mR0ET/AU+z3trDbZMhyplnmioiSN9vOyG7mdKPmEOBQS
- MrgpEH9MnZxEHW7/sAUDd00aTf6hsYAFn6BdhZXOjV2P0H7/rS9t/teXv+mgLpuGKnX6
- TAVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=r9DPHq9hqakTkXySr2upUDt6lJ311ks3vSPq0yCwosE=;
- b=J7yxGykcYAOudbXKu44mg/7ET0GBJfytVSgUfKNv65ZTSfbyB9JkD8c+ra4JKDseQ3
- cXdsxX53YogkzbkIQ6y+6yZU2drfx0E4xzNESLOo9stOt0y4vGVl7MZHCsG9fOFsqm7/
- yViRO8a3c6PdDyNuHkAvKYunKdjlsvMsoc3eV6vcreJRTKhPIW4WV2ZCFvNFSFyR3kkl
- 7P1SsPfnhCqIpfM8tlbd5WG3c6Nt04Bw1ZWrDwwkDtOfAWucNY+xrCMh+7hjE0Y6dTr9
- wB4RQESoDxRThGevAvEuuAMr6wFH3wiu4tA93WBya0lFQETPYy/jYJLVL9XF/XvYfcs1
- jqgw==
-X-Gm-Message-State: AKaTC02HTuviD1AUoh5rXNsvt3aH0OY0NVC3q6qLT17/8sqS6mx4O71HbuyrMYKxpaqEoNs1aOju6bYLlSDAOA==
-X-Received: by 10.36.43.147 with SMTP id h141mr188999ita.47.1479781691028;
- Mon, 21 Nov 2016 18:28:11 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.107.164.83 with HTTP; Mon, 21 Nov 2016 18:28:10 -0800 (PST)
-In-Reply-To: <CACPK8XebH8SnRGkxqSHS=QN1PYyWL2vt-NBw-sNA6d8qL6ZCEw@mail.gmail.com>
-References: <CALLMt=oZ7neAge4of5KwzEQbA9nZ_ayuaYwFyUPGqN14Oq-5fA@mail.gmail.com>
- <CACPK8XebH8SnRGkxqSHS=QN1PYyWL2vt-NBw-sNA6d8qL6ZCEw@mail.gmail.com>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Mon, 21 Nov 2016 20:28:10 -0600
-Message-ID: <CALLMt=pUaq39-YtUQgOcwPOzzhFM8pOB2LgML02uifpKCT3_5Q@mail.gmail.com>
-Subject: Re: BMC and Host State Management Refactor
-To: Joel Stanley <joel@jms.id.au>
-Cc: jdking@us.ibm.com, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tN9PB40QbzDw98
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 14:07:10 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="NuFwqggq"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="IEd9NwH3"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 1B67620703;
+ Mon, 21 Nov 2016 22:07:08 -0500 (EST)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Mon, 21 Nov 2016 22:07:08 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=mesmtp; bh=CpOX2jxmav3fW3Y8gcCJ5/LArMQ=; b=NuFwqg
+ gq673f+ADyknotsVo3aL2F0Ii9YTm/WdjjUMcsZlKpMGGFpAf+4XlstWmgU0BpWt
+ GCGNM5P07+MnqGMRhIB9/vviYj0Q84VR2KRL207AptXz+n/VDoz+aDEmxxSB6/7l
+ z3S0t4D4qyHUN8kFDQw/SZldVYrC8uqfbYLRQ=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=CpOX2jxmav3fW3
+ Y8gcCJ5/LArMQ=; b=IEd9NwH3uRU3owYIl02GUayrIdQen4L1TTX4ewogdap6J1
+ x130KqBAZCTosiVHFoOvHDkblq9dvil+wQWEHi95MF+N7CfLooqbRjjQZizCl1yc
+ iHVdWuKhRNMgAAL8wfH6MNaJr0NYV57wev1Z6W7e6zqMg+BlWJJ9fucOUdZj0=
+X-ME-Sender: <xms:XLYzWDlHa-7b3_Ak-sFVsemKo4jPuoYb1yBPgU9IrljqPkiVoklv9g>
+X-Sasl-enc: /7AfuRm4qIieO1PNULAUQaN94ioa0cBJ8QtFMdhHIlI5 1479784027
+Received: from [10.104.0.15] (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id ACF2A7E425;
+ Mon, 21 Nov 2016 22:07:05 -0500 (EST)
+Message-ID: <1479784018.2503.16.camel@aj.id.au>
+Subject: Re: [PATCH qemu 05/38] aspeed: add support for the romulus-bmc board
+From: Andrew Jeffery <andrew@aj.id.au>
+To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, 
+ openbmc@lists.ozlabs.org
+Date: Tue, 22 Nov 2016 13:36:58 +1030
+In-Reply-To: <5f6bf77e-abc5-cd44-1f1d-ae6dbc13a03a@kaod.org>
+References: <1479478938-13267-1-git-send-email-clg@kaod.org>
+ <1479478938-13267-6-git-send-email-clg@kaod.org>
+ <1479730725.5215.32.camel@aj.id.au>
+ <5f6bf77e-abc5-cd44-1f1d-ae6dbc13a03a@kaod.org>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-A/fn+Bbj6j1Ml6Y+T0R0"
+X-Mailer: Evolution 3.22.1-0ubuntu2 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,124 +60,161 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Nov 2016 02:28:14 -0000
+X-List-Received-Date: Tue, 22 Nov 2016 03:07:11 -0000
 
-On Sun, Nov 20, 2016 at 11:55 PM, Joel Stanley <joel@jms.id.au> wrote:
-> Hi Andrew and Josh,
->
-> On Sat, Nov 19, 2016 at 7:01 AM, Andrew Geissler <geissonator@gmail.com> =
-wrote:
->> Josh and I are working two stories this sprint that deal with
->> refactoring the bmc and host state management code out of skeleton
->> (#772/#783).  Here=E2=80=99s the proposal on this work.
->
-> Thanks for sending out your plan, this is great. I have a few comments
-> that came up as I was reading.
->
->> The overall design for both state management objects is that they will
->> provide a set of properties on which to operate.
->> - DesiredState
->> - CurrentState
->>
->> CurrentState will be a read only property.
->
-> You've chosen to make the desired and current states be separate,
-> which works. Another option would be to have them be the same list of
-> states, so you know that when current=3D=3Ddesired you're not waiting on
-> anything to happen. What do you think?
->
 
-Hmmm, I'm thinking from a DBUS/REST api perspective here.  2 seems
-more intuitive, but also I don't think I understand your proposal
-fully :)  What would this look like from an implementation perspective
-and DBUS/REST interfaces?
+--=-A/fn+Bbj6j1Ml6Y+T0R0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
->>
->> The host control will have these additional properties:
->> - DesiredPowerState
->> - CurrentPowerState
->>
->> Valid states to request for OpenBMC (DesiredState)
->> - READY, REBOOT
->> Valid states to be in for OpenBMC (CurrentState)
->> - NOT_READY, READY (note this proposal removes BASE_APPS and BMC_STARTIN=
-G).
->
-> Does this need to consider states where the device is updating? That
-> is, it is not attempting to be ready to control the host, but it is
-> turned on and able to accept new firmware?
->
+T24gTW9uLCAyMDE2LTExLTIxIGF0IDE1OjQ0ICswMTAwLCBDw6lkcmljIExlIEdvYXRlciB3cm90
+ZToKPiBPbiAxMS8yMS8yMDE2IDAxOjE4IFBNLCBBbmRyZXcgSmVmZmVyeSB3cm90ZToKPiA+IE9u
+IEZyaSwgMjAxNi0xMS0xOCBhdCAxNToyMSArMDEwMCwgQ8OpZHJpYyBMZSBHb2F0ZXIgd3JvdGU6
+Cj4gPiA+IFRoZSBSb211bHVzIG1hY2hpbmUgaXMgYW4gT3BlblBPV0VSIHN5c3RlbSB3aXRoIGFu
+IEFTVDI1MDAgU29DIGZvcgo+ID4gPiB0aGUgQk1DIGFuZCBhIFBPV0VSOSBjaGlwIGZvciB0aGUg
+aG9zdC4gSXQgZG9lcyBub3QgbWFrZSBtdWNoCj4gPiA+IGRpZmZlcmVuY2UgZm9yIHFlbXUgYSBw
+YXJ0IGZyb20gdGhlIGZhY3QgdGhhdCB0aGUgRk1DIGNvbnRyb2xsZXIgaGFzCj4gPiA+IHR3byBT
+UEkgZmxhc2ggbW9kdWxlIHNsYXZlcy4KPiA+ID4gCj4gPiA+ID4gU2lnbmVkLW9mZi1ieTogQ8Op
+ZHJpYyBMZSBHb2F0ZXIgPGNsZ0BrYW9kLm9yZz4KPiA+ID4gCj4gPiA+IC0tLQo+ID4gPiDCoGh3
+L2FybS9hc3BlZWQuYyB8IDQ1ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKwo+ID4gPiDCoDEgZmlsZSBjaGFuZ2VkLCA0NSBpbnNlcnRpb25zKCspCj4gPiA+IAo+
+ID4gPiBkaWZmIC0tZ2l0IGEvaHcvYXJtL2FzcGVlZC5jIGIvaHcvYXJtL2FzcGVlZC5jCj4gPiA+
+IGluZGV4IDE1OWQ1NjJlODkxMi4uYWVhNzNmNzlkOTJjIDEwMDY0NAo+ID4gPiAtLS0gYS9ody9h
+cm0vYXNwZWVkLmMKPiA+ID4gKysrIGIvaHcvYXJtL2FzcGVlZC5jCj4gPiA+IEBAIC00MSw4ICs0
+MSwxMCBAQCB0eXBlZGVmIHN0cnVjdCBBc3BlZWRCb2FyZENvbmZpZyB7Cj4gPiA+IMKgZW51bSB7
+Cj4gPiA+IMKgwqDCoMKgwqBQQUxNRVRUT19CTUMsCj4gPiA+IMKgwqDCoMKgwqBBU1QyNTAwX0VW
+QiwKPiA+ID4gK8KgwqDCoMKgUk9NVUxVU19CTUMsCj4gPiA+IMKgfTsKPiA+ID4gwqAKPiA+ID4g
+Ky8qIDB4MTIwQ0U0MTYgKi8KPiA+ID4gwqAjZGVmaW5lIFBBTE1FVFRPX0JNQ19IV19TVFJBUDEg
+KMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgXAo+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqBTQ1VfQVNU
+MjQwMF9IV19TVFJBUF9EUkFNX1NJWkUoRFJBTV9TSVpFXzI1Nk1CKSB8wqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgXAo+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqBTQ1VfQVNUMjQwMF9IV19T
+VFJBUF9EUkFNX0NPTkZJRygyIC8qIEREUjMgd2l0aCBDTD02LCBDV0w9NSAqLykgfCBcCj4gPiA+
+IEBAIC01Niw2ICs1OCw3IEBAIGVudW0gewo+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqBTQ1VfSFdf
+U1RSQVBfVkdBX1NJWkVfU0VUKFZHQV8xNk1fRFJBTSkgfMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBcCj4gPiA+IMKgwqDCoMKgwqDCoMKgwqDCoFNDVV9BU1Qy
+NDAwX0hXX1NUUkFQX0JPT1RfTU9ERShBU1QyNDAwX1NQSV9CT09UKSkKPiA+ID4gwqAKPiA+ID4g
+Ky8qIDB4RjEwMEMyRTYgKi8KPiA+ID4gwqAjZGVmaW5lIEFTVDI1MDBfRVZCX0hXX1NUUkFQMSAo
+KMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgXAo+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqBBU1QyNTAw
+X0hXX1NUUkFQMV9ERUZBVUxUUyB8wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgXAo+ID4gPiDCoMKgwqDCoMKgwqDC
+oMKgwqBTQ1VfQVNUMjUwMF9IV19TVFJBUF9TUElfQVVUT0ZFVENIX0VOQUJMRSB8wqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgXAo+ID4gPiBAQCAtNjYsNiArNjksMTcg
+QEAgZW51bSB7Cj4gPiA+IMKgwqDCoMKgwqDCoMKgwqDCoFNDVV9IV19TVFJBUF9NQUMwX1JHTUlJ
+KSAmwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoFwKPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKgflNDVV9IV19T
+VFJBUF8yTkRfQk9PVF9XRFQpCj4gPiA+IMKgCj4gPiA+ICsvKiAweEYxMEFFMjE2ICovCj4gCj4g
+VGhhdCBpcyBhIHdpdGhlcnNwb29uIHZhbHVlLiBJIGhhdmVuJ3QgaGFkIGFjY2VzcyB0byBhIFJv
+bXVsdXMgeWV0LgoKT2theS4gV2UgY2FuIGRlcml2ZSBpdCBmcm9tIHRoZSBzY2hlbWF0aWMgYW55
+d2F5LiBJIGNoZWNrZWQgdGhlIHZhbHVlcwp5b3UndmUgY29uZmlndXJlZCB2aWEgdGhlIG1hY3Jv
+cyBhbmQgaXQgbG9va3MgbGlrZSBpdCBtYXRjaGVzLgoKPiAKPiA+ID4gKyNkZWZpbmUgUk9NVUxV
+U19CTUNfSFdfU1RSQVAxICjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoFwKPiA+ID4gK8KgwqDCoMKgwqDCoMKg
+wqBBU1QyNTAwX0hXX1NUUkFQMV9ERUZBVUxUUyB8wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgXAo+ID4gCj4gPiBJ
+biB0aGUgZGVmYXVsdHMgaXQgc2F5cyB3ZSBkZWZpbmUgMTZNQiBWR0EgbWVtb3J5LCBidXQgaG93
+IGRvIHdlIHN0cmFwCj4gPiBmb3IgdGhhdD8gSXQgZG9lc24ndCBsb29rIGxpa2UgeW91IGNhbiBz
+ZXQgYml0IDIgZnJvbSB0aGUgc3RyYXBwaW5nCj4gPiB0YWJsZSwgYW5kIGlmIHdlJ3JlIHNldHRp
+bmcgYml0IDMgYXMgMCB0aGVuIHdlJ3JlIGdldHRpbmcgZWl0aGVyIDggb3IKPiA+IDMyTUIgb2Yg
+bWVtb3J5LiBJcyB0aGVyZSBhIHR5cG8gaW4gdGhlIGRhdGFzaGVldD8KPiAKPiBUaGUgVkdBIG1l
+bW9yeSBzaXplIHNlbGVjdGlvbiBpcyBTQ1U3MFszOjJdLiBCb3RoIGFyZSBSVy4gV2Ugc2hvdWxk
+IGJlIGZpbmUuCgpTb3JyeSwgdGhhdCBsYWNrZWQgYSBiaXQgb2YgY29udGV4dC4gSSB3YXMgbG9v
+a2luZyBhdCB0aGUgZGF0YXNoZWV0IGFuZAp0aGUgc2NoZW1hdGljLCBhbmQgY291bGRuJ3QgZmlu
+ZCBhIHdheSB0byBhZmZlY3QgYml0IDIgaW4gU0NVNzAuIEluCnFlbXUgdGhhdCBkb2Vzbid0IG1h
+dHRlciBzbyBtdWNoLCB3ZSBjYW4gImRvIHdoYXQgd2Ugd2FudCIsIGJ1dCBpdApzZWVtZWQgdGhl
+IGhhcmR3YXJlIHdhcyBvZGRseSBsaW1pdGVkIHVubGVzcyBJJ3ZlIG92ZXJsb29rZWQgc29tZXRo
+aW5nLgoKPiAKPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqBTQ1VfQVNUMjUwMF9IV19TVFJBUF9TUElf
+QVVUT0ZFVENIX0VOQUJMRSB8wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgXAo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoFNDVV9BU1QyNTAwX0hXX1NUUkFQX0dQSU9fU1RS
+QVBfRU5BQkxFIHzCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqBcCj4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgU0NVX0FTVDI1MDBfSFdfU1RSQVBfVUFSVF9ERUJV
+RyB8wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqBcCj4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgU0NVX0FTVDI1MDBfSFdfU1RSQVBfRERS
+NF9FTkFCTEUgfMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoFwKPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqBTQ1VfQVNUMjUwMF9IV19TVFJB
+UF9BQ1BJX0VOQUJMRSB8wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgXAo+ID4gCj4gPiBIZWxsbz8gSXMgdGhhdCB5b3UgSm9uPz8KPiA+
+IAo+ID4gRG9lcyBhbnlvbmUga25vdyB3aHkgd2UncmUgZW5hYmxpbmcgQUNQSSBvbiBSb211bHVz
+Pwo+IAo+IGluZGVlZC4gbm8gaWRlYSB3aHksIGFuZCB0aGVyZSBpcyBubyBkZWZhdWx0IHZhbHVl
+IGZvciB0aGlzIGJpdC4KCkNvbXBhcmluZyB0aGUgQVNUMjQwMCBhbmQgQVNUMjUwMCBkYXRhc2hl
+ZXRzIGl0IHNlZW1zIEFzcGVlZCBpbnZlcnRlZAp0aGUgbWVhbmluZyBvZiB0aGUgYml0IGluIHRo
+ZSBBU1QyNTAwLiBXaGljaCBtaWdodCBtZWFuIHRoZSBzdHJhcHBpbmcKd2FzIGEgaGFuZ292ZXIg
+ZnJvbSBzeXN0ZW1zIHdpdGggYW4gQVNUMjQwMC4KCkpvZWwvUGF0cmljazogVGhpcyBzdHJhcHBp
+bmcgY29uZmxpY3RzIHdpdGggdGhlIGZvbGxvd2luZyBuZXRzOgoKUE1fUENJRV9TTE9UMV9XQUtF
+X0wgKEdQSU9ZMF9TSU9TMyMpClBNX1BDSUVfU0xPVDJfV0FLRV9MIChHUElPWTFfU0lPUzUjKQpQ
+TV9QQ0lFX1NMT1QzX1dBS0VfTCAoR1BJT1kyX1NJT1BXUkVRIykKUE1fUENJRV9TTE9UNF9XQUtF
+X0wgKEdQSU9ZM19TSU9PTkNUUkwjKQpQTV9QQ0lFX1NMT1Q1X1dBS0VfTCAoR1BJT1owX1ZQT0cy
+X05PUkEwX1NJT1BCSSMpCgpJdCBhbHNvIGFmZmVjdHMgdGhlIGZvbGxvd2luZyBub3QtY29ubmVj
+dGVkIG5ldHM6CgpOQ19CTUNfR1BJT1oxIChHUElPWjFfVlBPRzNfTk9SQTFfU0lPUFdSR0QpCk5D
+X0JNQ19HUElPWjIgKEdQSU9aMl9WUE9HNF9OT1JBMl9TSU9QQk8jKQpOQ19CTUNfR1BJT1ozIChH
+UElPWjNfVlBPRzVfTk9SQTNfU0lPU0NJIykKCj4gCj4gCj4gPiA+ICvCoMKgwqDCoMKgwqDCoMKg
+U0NVX0hXX1NUUkFQX1NQSV9XSURUSCB8wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBcCj4gPiA+ICvC
+oMKgwqDCoMKgwqDCoMKgU0NVX0hXX1NUUkFQX1NQSV9NT0RFKFNDVV9IV19TVFJBUF9TUElfTV9T
+X0VOKSkKPiA+IAo+ID4gQWNjb3JkaW5nIHRvIHRoZSBzY2hlbWF0aWMgSSBoYXZlIHdlJ3JlIHNl
+dHRpbmcgYml0IDI3IChGYXN0IHJlc2V0IG1vZGUKPiA+IGZvciBBUk0gSUNFIGRlYnVnZ2VyKS4g
+QnV0IGFwcGFyZW50bHkgdGhhdCdzIG5vdCB3aGF0J3MgYmVlbiByZWFkIG9mZgo+ID4gc29tZSBl
+eGlzdGluZyBSb211bHVzPwo+IAo+IGFnYWluIHRoaXMgaXMgYSB3aXRoZXJzcG9vbiB2YWx1ZS4g
+SXQgbWlnaHQgYmUgZGlmZmVyZW50IG9uIGEgUm9tdWx1cy4KCkFjY29yZGluZyB0byB0aGUgc2No
+ZW1hdGljcyBJIGhhdmUgdGhlIGJpdCBpcyBzZXQgZm9yIFJvbXVsdXMuCgpBbmRyZXcKCj4gCj4g
+VGhhbmtzLAo+IAo+IEMuCj4gCj4gCj4gPiA+ICsKPiA+ID4gwqBzdGF0aWMgY29uc3QgQXNwZWVk
+Qm9hcmRDb25maWcgYXNwZWVkX2JvYXJkc1tdID0gewo+ID4gPiDCoMKgwqDCoMKgW1BBTE1FVFRP
+X0JNQ10gPSB7Cj4gPiA+IMKgwqDCoMKgwqDCoMKgwqDCoC5zb2NfbmFtZcKgwqA9ICJhc3QyNDAw
+LWEwIiwKPiA+ID4gQEAgLTc5LDYgKzkzLDEyIEBAIHN0YXRpYyBjb25zdCBBc3BlZWRCb2FyZENv
+bmZpZyBhc3BlZWRfYm9hcmRzW10gPSB7Cj4gPiA+IMKgwqDCoMKgwqDCoMKgwqDCoC5mbWNfbW9k
+ZWwgPSAibjI1cTI1NmEiLAo+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqAuc3BpX21vZGVsID0gIm14
+MjVsMjU2MzVlIiwKPiA+ID4gwqDCoMKgwqDCoH0sCj4gPiA+ICvCoMKgwqDCoFtST01VTFVTX0JN
+Q13CoMKgPSB7Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgLnNvY19uYW1lwqDCoD0gImFzdDI1MDAt
+YTEiLAo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoC5od19zdHJhcDEgPSBST01VTFVTX0JNQ19IV19T
+VFJBUDEsCj4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgLmZtY19tb2RlbCA9ICJuMjVxMjU2YSIsCj4g
+PiA+ICvCoMKgwqDCoMKgwqDCoMKgLnNwaV9tb2RlbCA9ICJteDY2bDFnNDVnIiwKPiA+ID4gK8Kg
+wqDCoMKgfSwKPiA+ID4gwqB9Owo+ID4gPiDCoAo+ID4gPiDCoHN0YXRpYyB2b2lkIGFzcGVlZF9i
+b2FyZF9pbml0X2ZsYXNoZXMoQXNwZWVkU01DU3RhdGUgKnMsIGNvbnN0IGNoYXIgKmZsYXNodHlw
+ZSwKPiA+ID4gQEAgLTIwMCwxMCArMjIwLDM1IEBAIHN0YXRpYyBjb25zdCBUeXBlSW5mbyBhc3Qy
+NTAwX2V2Yl90eXBlID0gewo+ID4gPiDCoMKgwqDCoMKgLmNsYXNzX2luaXQgPSBhc3QyNTAwX2V2
+Yl9jbGFzc19pbml0LAo+ID4gPiDCoH07Cj4gPiA+IMKgCj4gPiA+ICtzdGF0aWMgdm9pZCByb211
+bHVzX2JtY19pbml0KE1hY2hpbmVTdGF0ZSAqbWFjaGluZSkKPiA+ID4gK3sKPiA+ID4gK8KgwqDC
+oMKgYXNwZWVkX2JvYXJkX2luaXQobWFjaGluZSwgJmFzcGVlZF9ib2FyZHNbUk9NVUxVU19CTUNd
+KTsKPiA+ID4gK30KPiA+ID4gKwo+ID4gPiArc3RhdGljIHZvaWQgcm9tdWx1c19ibWNfY2xhc3Nf
+aW5pdChPYmplY3RDbGFzcyAqb2MsIHZvaWQgKmRhdGEpCj4gPiA+ICt7Cj4gPiA+ICvCoMKgwqDC
+oE1hY2hpbmVDbGFzcyAqbWMgPSBNQUNISU5FX0NMQVNTKG9jKTsKPiA+ID4gKwo+ID4gPiArwqDC
+oMKgwqBtYy0+ZGVzYyA9ICJPcGVuUE9XRVIgUm9tdWx1cyBCTUMgKEFSTTExNzYpIjsKPiA+ID4g
+K8KgwqDCoMKgbWMtPmluaXQgPSByb211bHVzX2JtY19pbml0Owo+ID4gPiArwqDCoMKgwqBtYy0+
+bWF4X2NwdXMgPSAxOwo+ID4gPiArwqDCoMKgwqBtYy0+bm9fc2RjYXJkID0gMTsKPiA+ID4gK8Kg
+wqDCoMKgbWMtPm5vX2Zsb3BweSA9IDE7Cj4gPiA+ICvCoMKgwqDCoG1jLT5ub19jZHJvbSA9IDE7
+Cj4gPiA+ICvCoMKgwqDCoG1jLT5ub19wYXJhbGxlbCA9IDE7Cj4gPiA+ICt9Cj4gPiA+ICsKPiA+
+ID4gK3N0YXRpYyBjb25zdCBUeXBlSW5mbyByb211bHVzX2JtY190eXBlID0gewo+ID4gPiArwqDC
+oMKgwqAubmFtZSA9IE1BQ0hJTkVfVFlQRV9OQU1FKCJyb211bHVzLWJtYyIpLAo+ID4gPiArwqDC
+oMKgwqAucGFyZW50ID0gVFlQRV9NQUNISU5FLAo+ID4gPiArwqDCoMKgwqAuY2xhc3NfaW5pdCA9
+IHJvbXVsdXNfYm1jX2NsYXNzX2luaXQsCj4gPiA+ICt9Owo+ID4gPiArCj4gPiA+IMKgc3RhdGlj
+IHZvaWQgYXNwZWVkX21hY2hpbmVfaW5pdCh2b2lkKQo+ID4gPiDCoHsKPiA+ID4gwqDCoMKgwqDC
+oHR5cGVfcmVnaXN0ZXJfc3RhdGljKCZwYWxtZXR0b19ibWNfdHlwZSk7Cj4gPiA+IMKgwqDCoMKg
+wqB0eXBlX3JlZ2lzdGVyX3N0YXRpYygmYXN0MjUwMF9ldmJfdHlwZSk7Cj4gPiA+ICvCoMKgwqDC
+oHR5cGVfcmVnaXN0ZXJfc3RhdGljKCZyb211bHVzX2JtY190eXBlKTsKPiA+ID4gwqB9Cj4gPiA+
+IMKgCj4gPiA+IMKgdHlwZV9pbml0KGFzcGVlZF9tYWNoaW5lX2luaXQpCj4gCj4g
 
-I think READY implies available for code update?  But good point on
-code updates, when a code update is being performed, a FW_UPDATE state
-seems reasonable.
 
->>
->> READY implies all services started and running successfully (i.e. we
->> reached obmc-standby.target)
->>
->>
->> Valid states to request for Host (DesiredState)
->> - OFF, ON, REBOOT
->
-> This might need to distinguish between soft-off/soft-reboot and
-> printer-on-fire OFF requests.
->
+--=-A/fn+Bbj6j1Ml6Y+T0R0
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-Yeah, the focus of this story was to keep similar function as what's
-in place now, but refactor into c++ and the new sdbusplus interfaces.
-We do probably need more work done with things like you say here.
-We've tended to call the printer-on-fire off's EMERGENCY_ type event
-requests.  At a minimum, I'll be sure these are tracked in future
-stories.
+-----BEGIN PGP SIGNATURE-----
 
->> Validate states to be in for Host (CurrentState)
->> - OFF, BOOTING, BOOTED
->
-> STANDBY, BOOTING, RUNNING?
->
-> The bikeshed should be blue.
->
+iQIcBAABCgAGBQJYM7ZSAAoJEJ0dnzgO5LT5qr8P/RfPiYQ5sHVGKi9Gr8qx0JcI
+AEauDCDVaWa8udAnG+y7AvScmBbDlFvUHN8y2YLcXF2Ks+LB6dbI/tujcXtz7zAE
+68zqETvZztkQTyIXrV6egzBOYybmEsH/wiNJG0KWtGXn07csPhx8SjZczrMrWGuI
+eXSZ/N3ZOYfoGY3/znWkCwdMPhd40OMoI5kIm7mosCNxVVXFYYfSo1RXtAyC/TuZ
+2v5j1uYPXDaKMmfJ8aVhrtB+s34S+5kDdpi1PlWp8wfnO88dTZvq5sNZcHwrc36M
+8M6OSRenvi93UOBmcNjW5jT3IHWCt26u5GFSSRcqO7bpgy8fFtdTNQ/NG98iNXnI
+fB5HutLE7fNrhR06/fc0zRRJXeQmUP4zxcpgFfLDR+pZnwOIkD2QAq9D1T/RGGUW
+zhYM1s9slGQI7QNUmZXlryeXHbC1Qt4aKsJ9S95f7alYiYy6A4JU2klTf8PoaVX8
+2wLWAwIaFzMR+bhdosbx7x6XxJfWLEjFt0UQOruejqTV5gDbPiKWwCmphjF2c/+5
+p7jQZ9l3ahAQa44147fag+C79/WdvJbuManKlA6FsoYBUpweFCrAg8BGnkyUR9ar
+aCg7cpbLJKOU+wfsUjLZicost78dvCJ4Fhd+nH+3RDAZo1NtQ457BoIpTeA4atL6
+Mbr7VJnr59WTJagFMF8P
+=I8Zn
+-----END PGP SIGNATURE-----
 
-Agree
-
->>
->> BOOTED implies petitboot has reached it's "ready" state.
->>
->>
->> Valid power states to request for DesiredPowerState
->> - OFF, ON
->> Validate states to be in for CurrentPowerState
->> - OFF, TRANSITION, ON
->
-> Does TRANSITION need to distinguish between coming up and going down?
->
-
-I'd prefer to keep simple and let the user determine this by looking
-at the DesiredPowerState if it's needed.
-
->>
->> Patrick and I had some discussion on providing more details on the
->> host booted state (petitboot vs. os booted) but that can be an
->> extension in the future if needed.
->
-> I think baking this in from the start is a worthy goal. This then
-> feeds into the user-facing APIs, weather that is an IPMI sensor or a
-> REST endpoint, that can be queried to ask "what is that damn computer
-> up to". If we can make it informative enough that no one ever feels
-> the need to watch the console output when the machine is booting then
-> we have done a good job.
->
-
-Agree but please see above comment about the scope of this story.  I'm
-concerned this opens up a can of worms on extra stuff we'll need from
-hostboot and petitboot.  I'll def make sure to write this down for
-future stories and there wont be anything in this base design that
-will limit that later.
-
-> Cheers,
->
-> Joel
-
-Thanks for the feedback Joel!
-Andrew
+--=-A/fn+Bbj6j1Ml6Y+T0R0--
