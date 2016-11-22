@@ -1,27 +1,57 @@
-Return-Path: <benh@kernel.crashing.org>
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-ua0-x243.google.com (mail-ua0-x243.google.com
+ [IPv6:2607:f8b0:400c:c08::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tN0xV432CzDvsD
- for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 07:46:06 +1100 (AEDT)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.13.8) with ESMTP id uALKjr62021256;
- Mon, 21 Nov 2016 14:45:55 -0600
-Message-ID: <1479761153.10230.49.camel@kernel.crashing.org>
-Subject: Re: Restricting HOST flash access on OpenBMC
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Rick Altherr <raltherr@google.com>, Cyril Bur <cyrilbur@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley
- <joel@jms.id.au>, Jeremy Kerr <jk@ozlabs.org>, Abhishek Pandit
- <abhishekpandit@google.com>
-Date: Tue, 22 Nov 2016 07:45:53 +1100
-In-Reply-To: <CAPLgG=nDDGpCMbP3NDDZxmFLMJV53Lc=gfoKpeUz5cFU80=oxA@mail.gmail.com>
-References: <1479703856.680.2.camel@gmail.com>
- <CAPLgG=nDDGpCMbP3NDDZxmFLMJV53Lc=gfoKpeUz5cFU80=oxA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.20.5 (3.20.5-1.fc24) 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tN5fZ1YNjzDvkT
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 11:18:30 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="wLYobzew"; 
+ dkim-atps=neutral
+Received: by mail-ua0-x243.google.com with SMTP id 20so228251uak.0
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 16:18:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=lpE0u42fq4NoXy14Tbob920MZDjp8SZtFVWO0X2VT8U=;
+ b=wLYobzewQOQWpe9eJX/oiWRYInLwlkM/B+A54O9LdQ8aeCQPcQF2J7PvrfcZbw5ySv
+ 2oXBVLfJ8uyO873YiNjsZSDWGEFrMhwtQi0bYikp/mSHIY/RtY+hma+f+7QYfNGzHz2e
+ OMzlpkKzXI9IVX/KswlZWH4XvsQT35YjjZXlshZx/YLxahCUg0AmhZ+4y6qJQZgCUIAQ
+ OlR0UG6AMR/8nyhXdxwylHvLf0twrefSyUpJJ+R3IwetB7yWHPLXSn8yWDe/O683D4dL
+ 6m1MCUkUTtljrTBUvZ4FnuwWA8kqjL8MYV+cFBsh+xz8ET/RIMe4isbNnXpx7fGXSCJY
+ xK8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=lpE0u42fq4NoXy14Tbob920MZDjp8SZtFVWO0X2VT8U=;
+ b=VlKeUni5MKY1/GO3JlvSOPGSUkvC6ndvlu2go8eD5FFJ3eTAk+wB0R+ksgnKiD9hZn
+ r5Orobn/DtA4us59mvE6KUE0N2yA007NbhV+JPW9cz2KJr+7Br1LlMSMP3f69aFnqwzV
+ ta7Tohjr13bKjxbNT1eK003bPkHsbcXkbI4ppHZ1WE1Q/tD/zLjsvaKXFLR0CTyXIhIk
+ Oeb5OFdfvzJZ+YSIwrR1LMHZDBXFJ/JpuPn+nf7uH8lcb0z1RE1D+03l6RjmMvFHkPMF
+ qmaxHf+Coa3zqQ88zIhFZ5J4EOoPRA8NbpEYqp1bd68XuYvWtmOBblPr/4+zHX9F8OoC
+ qeFg==
+X-Gm-Message-State: AKaTC01dhCP9vAQCsN+CAuii+PX2x2lWkVGt3PVqEtkQWpkbC2XKZI8xvId33zGu9PWkRRxNot8DIKTm54jBlA==
+X-Received: by 10.159.34.41 with SMTP id 38mr9276596uad.160.1479773907491;
+ Mon, 21 Nov 2016 16:18:27 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.176.0.193 with HTTP; Mon, 21 Nov 2016 16:18:07 -0800 (PST)
+In-Reply-To: <CAA0LjjVH3BEtu7et_2VtpLXgbrHOfRTNvpQFL8c0Eh-kdDLH_Q@mail.gmail.com>
+References: <OF6A1A7417.88F14B99-ON0025806F.004E9A7D-8625806F.004EA327@notes.na.collabserv.com>
+ <CAA0LjjXej1XQ=voNfX_=5YL21bgjf73WK-UE=OgBcb=Pt=aKhg@mail.gmail.com>
+ <1479707274.5215.19.camel@aj.id.au>
+ <CAA0LjjVH3BEtu7et_2VtpLXgbrHOfRTNvpQFL8c0Eh-kdDLH_Q@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 22 Nov 2016 10:48:07 +1030
+X-Google-Sender-Auth: Gcc5_Y0YxHroHhHa4wH-VReUSmo
+Message-ID: <CACPK8XcmXQWrpxPK-=qhAxKFB++TgBPGWrLtiLJ1m4_y-fhcbw@mail.gmail.com>
+Subject: Re: Fw: [PATCH] aspeed-bmc-opp-palmetto: Add GPIO hogs to devicetree
+To: Christopher Bostic <christopher.lee.bostic@gmail.com>
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Jeremy Kerr <jk@ozlabs.org>, xxpetri@de.ibm.com, zahrens@us.ibm.com
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -33,92 +63,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Nov 2016 20:46:07 -0000
+X-List-Received-Date: Tue, 22 Nov 2016 00:18:30 -0000
 
-On Mon, 2016-11-21 at 09:47 -0800, Rick Altherr wrote:
-> How does this work on non-LPC platforms?
+On Tue, Nov 22, 2016 at 5:25 AM, Christopher Bostic
+<christopher.lee.bostic@gmail.com> wrote:
+>> Have you been testing on a Palmetto using an OpenBMC build? If so the
+>> request should still fail as the patch is applied in the OpenBMC kernel
+>> build. All I'm proposing here is we move it from OpenBMC into the
+>> Aspeed kernel tree.
+>
+> Yes I have been testing on Palmetto using OpenBMC builds.  The H6
+> pin reports as busy when I request it so for now I have a workaround
+> to bypass the gpio interface.  All the other pins I grab via the normal
+> dts gpio devm_gpio_get interfaces.   Once the H6 hog can be removed,
+> assuming no other code needs it, I can remove my workaround in
+> the OpenFSI code.
 
-A different mechanism such as IPMI can still be used on these.
-
-This is basically a replacement for the code we have today which
-uses a backdoor into the BMC address space to directly manipulate
-the flash controller from the host.
-
-That current mechanism is tricky, causes us to have at least 4 copies
-of the whole flash controller driver, and relies on a backdoor that
-we would like to close.
-
-In the grand scheme of things, you can see this as an "accelerated"
-path to the flash for platforms that have an AST BMC on LPC, but you
-can still fallback to something like IPMI if that path isn't
-available.
+I suggest you add a patch to your tree that removes the hog from the
+palmetto dts file. Now that we have a driver that owns the hardware
+the hog can be removed.
 
 Cheers,
-Ben.
 
-> On Sun, Nov 20, 2016 at 8:50 PM, Cyril Bur <cyrilbur@gmail.com>
-> wrote:
-> > Hello,
-> > 
-> > Apologies, I have been working on this in a bit of a silo and I
-> > suspect
-> > a lot of people will be interested to know this work is going on.
-> > 
-> > The aim of my work is to provide a simple interface for the host
-> > and
-> > the BMC to talk in order for the BMC to give controlled access to
-> > the
-> > flash.
-> > 
-> > At the moment, the BMC maps the host LPC bus to point to the PNOR
-> > directly. This may be undesirable and presents security concerns.
-> > If
-> > the host can be taught to request access to the flash then the BMC
-> > could map the LPC bus into a region of its RAM and (depending on
-> > policy) writes wouldn't get propagated to the actual flash. Policy
-> > details are for later.
-> > 
-> > I developed a simple protocol to allow this exchange of information
-> > documented in the README.md file of the userspace test daemon I
-> > wrote
-> > to proof of concept this: https://github.com/cyrilbur-ibm/mboxbridg
-> > e/tr
-> > ee/newio I will no doubt move this somewhere more suitable in due
-> > course.
-> > 
-> > I chose to use the MBOX registers on the BMC as they provide a fast
-> > method of data transfer and can raise interrupts on both the host
-> > and
-> > BMC.
-> > 
-> > The aim of sharing this now is to show that the interface works and
-> > that implementation independent things can start to be integrated
-> > into
-> > skiboot and linux. Having said that, I would appreciate any
-> > feedback, I
-> > have had my head in this for quite some time please let me know if
-> > I've
-> > missed something.
-> > 
-> > The implementation is only a proof of concept, some details still
-> > need
-> > to be worked out, especially what happens on BMC reboot. I believe
-> > the
-> > interface is ok in that respect, just my implementation which is
-> > lacking.
-> > 
-> > Do try it out if you want. Of course changes need to be made to the
-> > BMC
-> > kernel as well as skiboot:
-> > https://github.com/cyrilbur-ibm/linux/tree/newio
-> > https://github.com/cyrilbur-ibm/skiboot/tree/newio
-> > 
-> > Thanks,
-> > 
-> > Cyril
-> > _______________________________________________
-> > openbmc mailing list
-> > openbmc@lists.ozlabs.org
-> > https://lists.ozlabs.org/listinfo/openbmc
-> > 
-> 
+Joel
