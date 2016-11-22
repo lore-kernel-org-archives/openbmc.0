@@ -3,46 +3,47 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tNDDC2sdGzDvjw
- for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 16:14:35 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tNDJM1ClRzDvjw
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 16:18:11 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="fghSsIi9"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="aIGeCt7L"; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="GYsjKckJ"; dkim-atps=neutral
+ header.b="hJEMgf8t"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 24F43209E5;
- Tue, 22 Nov 2016 00:14:33 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id EB430208E8;
+ Tue, 22 Nov 2016 00:18:08 -0500 (EST)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Tue, 22 Nov 2016 00:14:33 -0500
+ by compute4.internal (MEProxy); Tue, 22 Nov 2016 00:18:08 -0500
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
  content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=8rfMeYlL5rXfhqKfGQxUPTbhwCU=; b=fghSsI
- i97JtsKK3bekzWm3JSaVxfYv8plQxijZhFCkKJwcmVvYciJQWx8tu2Jyx5dAlGT6
- EB03ZX2HVBLFzNSL1pwAmSn7OKIYHbY5zxxQhT02aWVdVvn0dpspxQb+ceoj8ta7
- 20Mqya1J7BahfDrZd24aG6xBpPGPdM2mboBeQ=
+ :x-sasl-enc; s=mesmtp; bh=HJg1gqdWoNQLTve/NL7YSV+Nu44=; b=aIGeCt
+ 7L9XWr3G7r0QiB5V27rKtb0NPiCNIbb6FQJQbeyOj7GAG1o4ZKOEEK30HVe0mHfp
+ Frv/QqqgN0lg0zm9v08zOqo2GoUduJjLL9b3OtWEh4NAOua7mLqBdyTLSUSCRdXm
+ dmgP5zam1aBY8B9J6I9WIlLJTvVtQcDTJp4zQ=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
  messagingengine.com; h=content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=8rfMeYlL5rXfhq
- KfGQxUPTbhwCU=; b=GYsjKckJ8sN9LXaGsPOFPY9jRabjim0fKHC1jcT6EGX5Ia
- vgGJIG5v8Hd23P38uewP5hTV6y/e/wmDlMVmZAkkahcvNob36ytp/rM87+39ob8t
- Zb8/AJH2itdJM9/ycjXlWRMy/Kp5uvCdzmHpJkuKMmLx0qvzGGZaWPUTyqy1E=
-X-ME-Sender: <xms:OdQzWJqnHV3XLxtNl6lHiyDhly5-9YOkOTO6wmF9S8oufaiUakgWgQ>
-X-Sasl-enc: da4wAnsS/4XNVq7ClJd7CRK6SEnG9h0fCSAC0vztVcS+ 1479791672
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=HJg1gqdWoNQLTv
+ e/NL7YSV+Nu44=; b=hJEMgf8tIIdf2fMPDPTEXg5iBu2vgzi7shSqWH1t0Q/3Z3
+ U2NpJ8w6XfTGeOZ23R404UBo1ghTsEl6OFWHgCRy9g0wbYWYJzYlBo7SufbdGLUq
+ lw3tL4STQYV4Bim51lT0ov4szltV6vfNYhxzwgVMo2nUWNC26Wf17avOXzVFQ=
+X-ME-Sender: <xms:ENUzWEa_KVsfGGIxUFkUPQ7Nb2sjwg56Sev1e_RRxRYgMXhV8_TNvw>
+X-Sasl-enc: 07uH3dpDyk6BDWxutn/LFQAOGK7yZsMA0YaZh5avWu0Z 1479791888
 Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id B31FC24033;
- Tue, 22 Nov 2016 00:14:31 -0500 (EST)
-Message-ID: <1479791665.2503.25.camel@aj.id.au>
-Subject: Re: [PATCH 1/7] arm: aspeed: Remove UART muxing hacks
+ by mail.messagingengine.com (Postfix) with ESMTPA id 999C92442C;
+ Tue, 22 Nov 2016 00:18:07 -0500 (EST)
+Message-ID: <1479791884.2503.27.camel@aj.id.au>
+Subject: Re: [PATCH 2/7] arm: dts: aspeed: Add UARTs to Witherspoon
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
-Date: Tue, 22 Nov 2016 15:44:25 +1030
-In-Reply-To: <20161122040849.31604-1-joel@jms.id.au>
+Date: Tue, 22 Nov 2016 15:48:04 +1030
+In-Reply-To: <20161122040849.31604-2-joel@jms.id.au>
 References: <20161122040849.31604-1-joel@jms.id.au>
+ <20161122040849.31604-2-joel@jms.id.au>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-zZTtr6nFF4I9kx5iSUub"
+ protocol="application/pgp-signature"; boundary="=-hh8PP8ITif7eA1+Lj9+y"
 X-Mailer: Evolution 3.22.1-0ubuntu2 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -56,76 +57,82 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Nov 2016 05:14:36 -0000
+X-List-Received-Date: Tue, 22 Nov 2016 05:18:11 -0000
 
 
---=-zZTtr6nFF4I9kx5iSUub
+--=-hh8PP8ITif7eA1+Lj9+y
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Tue, 2016-11-22 at 14:38 +1030, Joel Stanley wrote:
-> These were added during initial bringup. None of these pins are used by
-> OpenBMC for the functions they're being muxed to (UART4 nor the VGA
-> output) so there are no device tree additions required to cover for
-> the removal.
->=20
-> We do use UART5, which is an exclusive function of the pins it sits on,
-> so again no pinmux configuration is required.
+> In addition to the internal BMC debug UART Witherspoon has a RS-232
+> connection on the back of the chassis, and an internal connection to the
+> APSS.
 >=20
 > Signed-off-by: Joel Stanley <joel@jms.id.au>
 
 Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 
 > ---
-> =C2=A0arch/arm/mach-aspeed/aspeed.c | 12 ------------
-> =C2=A01 file changed, 12 deletions(-)
+> =C2=A0arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 23 +++++++++++++=
+++++++++++
+> =C2=A01 file changed, 23 insertions(+)
 >=20
-> diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.=
-c
-> index ce73867aadd4..0e4c34a91ac3 100644
-> --- a/arch/arm/mach-aspeed/aspeed.c
-> +++ b/arch/arm/mach-aspeed/aspeed.c
-> @@ -181,18 +181,6 @@ static void __init aspeed_init_early(void)
-> > =C2=A0	/* Reset AHB bridges */
-> > =C2=A0	writel(0x02, AST_IO(AST_BASE_SCU | 0x04));
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/=
+boot/dts/aspeed-bmc-opp-witherspoon.dts
+> index c7458ae6efd7..5c463f4112f6 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> @@ -42,6 +42,29 @@
+> > =C2=A0	};
+> =C2=A0};
 > =C2=A0
-> > -	/* Enable UART4 RXD4, TXD4, NRI4, NDCD4, NCTS4 */
-> > -	/* TODO: This should be pinmux. Also, why are we enabling uart4? */
-> > -	writel(0xcb000000, AST_IO(AST_BASE_SCU | 0x80));
-> -
-> > -	/* Enable
-> > -	=C2=A0*=C2=A0=C2=A0- UART1 RXD1, RXD1, NRTS1, NDTR1, NRI1, NDSR1, NDC=
-D1, NCTS1.
-> > -	=C2=A0*=C2=A0=C2=A0- VGA DDCDAT, DDCCLK, VGAVS, VGAHS.
-> > -	=C2=A0*=C2=A0=C2=A0- NAND flash FLWP#, FLBUSY#
-> > -	=C2=A0*/
-> > -	/* TODO: This should be pinmux */
-> > -	writel(0x00fff0c0, AST_IO(AST_BASE_SCU | 0x84));
-> -
-> > =C2=A0	/* Enables all the clocks except D2CLK, USB1.1 Host, USB1.1, LHC=
-LK */
-> > =C2=A0	writel(0x10CC5E80, AST_IO(AST_BASE_SCU | 0x0c));
-> =C2=A0
---=-zZTtr6nFF4I9kx5iSUub
+> +&uart1 {
+> > +	/* Rear RS-232 connector */
+> > +	status =3D "okay";
+> +
+> > +	pinctrl-names =3D "default";
+> > +	pinctrl-0 =3D <&pinctrl_txd1_default
+> > +			&pinctrl_rxd1_default
+> > +			&pinctrl_nrts1_default
+> > +			&pinctrl_ndtr1_default
+> > +			&pinctrl_ndsr1_default
+> > +			&pinctrl_ncts1_default
+> > +			&pinctrl_ndcd1_default
+> > +			&pinctrl_nri1_default>;
+> +};
+> +
+> +&uart2 {
+> > +	/* APSS */
+> > +	status =3D "okay";
+> +
+> > +	pinctrl-names =3D "default";
+> > +	pinctrl-0 =3D <&pinctrl_txd2_default &pinctrl_rxd2_default>;
+> +};
+> +
+> =C2=A0&uart5 {
+> > =C2=A0	status =3D "okay";
+> =C2=A0};
+--=-hh8PP8ITif7eA1+Lj9+y
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJYM9QxAAoJEJ0dnzgO5LT5xjUQAKMzfABdAjrQc7reuAxlKJ++
-bLnzBoZCVC4LVfRkxmkmuDj0jMJpsqKK0iHfbhjh2r2ZzYQdW5kWof3PIQEdGyZa
-FkDeOqJcpcFHb7ZueZrolPStojdBp3Bja+/Qz5EBCYy/Wdw7Q0q1BZkAC/tfE+VX
-clMRCvgmVWusFeLYrs1wwK6SlWR7KYpeaPU49A05/zfzp4ZDkzEM90jfmyOPWqXU
-ca4Pg2oTPyAIo4fmM0uJM/R54dT6AJ5/Bpf/MNolI9n51cwwx6fE+OOwLuoPhFUH
-D8oiskS8KdWC1szCX3IDMk24yTClGu1pUj3TzYTQ54JWx9LRwMlKp/VHNvTArtyz
-XAjdEreCFY6jY811mnsRasBq3PMR2l62Sz2cY2tblqoKuTTW9WGZLBPdPEQvfvdd
-ry0G9IsAX4m2nrRKF3GNV6qSbKUFDmt/ikiXXvO9JYTIVoSHSW9FwZcn7p1N5PV6
-AZPVYMsw2HkuQiJ90GVtznHbE1YV5lQURf0cUQc3di937B5+rNNNRMCh+cwCM9go
-YB4m+JidGF35hYduGwlhaQuwPsGgGo52I4PI2YwfoAdWp3FF7UhfTcFLIpo1YhRw
-+ZnRqEkq5yCEaZzSXF1cA2Exdn8EV785763MMWP4S57yVApbZzSuJfzPWkD1Wh3q
-WMuVnU7/Srpa/ZP4/uUu
-=YCMr
+iQIcBAABCgAGBQJYM9UMAAoJEJ0dnzgO5LT5nrAP/3loKOQ3tjOmpgD+Aq+mBC6D
+i0UQpdBK3nfZ3v8PgYOYTKCwDExGp9F5bN4yL9pvBBpdZM9eF7XiFFja1jZtolYo
+AZZkZVMa87YEQS9SFiJoplpoTDeN3e/+fRon3CARWmuTXmg0lL3Qp5G8AbCrfTBI
+BRpdrT/T1O7lguLMl6F29h+8Lpjo/UczXxo/VDEAR2KI2jMbq6PsnNUib3XtxsWV
+teUxdiTxlMKaHN7d91OSBLDO9HGuCmSXNz2IjaJyBc5k6NbiBJLHqlSqAxsguzmj
+vftcrWMnvGgc9xBWAY15X1NecvpI1DWhw0zrEsEPKpfw/VP5e8l/ZVvicwPJZZUD
+k3u9ba20MgdbwMT5S/o9BlVTcjoRhwUTyj6LUqJU1ijyUE+HfeKZG853dI7UbLW9
+/oUOztBrGB7F+2YEGgvRLjlYy767xDzauV3c1crIA7eKLCEKbWQIGGATbDXKNqcf
+rlkapCyYeA2/uhJwjtE0W4xeESPiKXj0Q4Fh5v9llTzSGRJ0d0ad5uYaqP4IrJUg
+kKVY5AQ7lLCWyJlStvSNF6sv5dlhvV6x+KkFu25R1dPKBBfYd4EAfDkapLi87MOT
+OTNebrgLpyMTbdCmZ4SSMrCtlZ0nYYpHCPCjFG/dR0XXWWea8ykCC+L6ZWPDIZYf
+zrpmEfIWxlqDKbKPYEgG
+=DVRU
 -----END PGP SIGNATURE-----
 
---=-zZTtr6nFF4I9kx5iSUub--
+--=-hh8PP8ITif7eA1+Lj9+y--
