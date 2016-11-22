@@ -1,57 +1,52 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <geissonator@gmail.com>
+Received: from mail-it0-x234.google.com (mail-it0-x234.google.com
+ [IPv6:2607:f8b0:4001:c0b::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tN8362sGYzDwDG
- for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 13:06:26 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="KjqgpO5V"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="IKC6MnbL"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 3D9892085F;
- Mon, 21 Nov 2016 21:06:24 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Mon, 21 Nov 2016 21:06:24 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=rzkVWvsJM8/lEgyHfUzkMZE8nps=; b=KjqgpO
- 5VxDwdyszyRq9yonMQD75aK+Ux1DGWtbrKka4wHFH/rQNwfXrpCxTOM4UOJ1JNK8
- mDLO4WMIsBmqH+vTN0TNgWbuny1X+pY2fS0bhgtpSXL39+lGrVfzHhQdPITDpO9p
- UXQPshVZdYFLetIYfwO/qBk6zBc1SmVaQh8do=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=rzkVWvsJM8/lEg
- yHfUzkMZE8nps=; b=IKC6MnbLQaQjfcVA/DQJ5q0UPJ5zgbx+UcOc6SEye6BvLB
- rY+TiLeRYpRX+1aoWj8Ntv/6FiFPZ8NhkASLotgQF1alpNjhvrwkH1d4Wn/FxkUS
- EC9FkRtI6k5Emy30rNp0f7Vo3+ub6ZAzQpxTohK8D4ijNtoxCJJNpmDmyYNag=
-X-ME-Sender: <xms:IKgzWKIluPl-63yTidUIKpEnm0yq7Z-8EZP8p3f2pYZ8gHaG9vdqJQ>
-X-Sasl-enc: zxFkh5qjyD/x7+b2TJyZ4pX1nU8hjA9v47MbWO6HQSpd 1479780383
-Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id BBBEF7E2DF;
- Mon, 21 Nov 2016 21:06:21 -0500 (EST)
-Message-ID: <1479780367.2503.13.camel@aj.id.au>
-Subject: Re: Fw: [PATCH] aspeed-bmc-opp-palmetto: Add GPIO hogs to devicetree
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>, Christopher Bostic
- <christopher.lee.bostic@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Jeremy Kerr
- <jk@ozlabs.org>,  xxpetri@de.ibm.com, zahrens@us.ibm.com
-Date: Tue, 22 Nov 2016 12:36:07 +1030
-In-Reply-To: <CACPK8XcmXQWrpxPK-=qhAxKFB++TgBPGWrLtiLJ1m4_y-fhcbw@mail.gmail.com>
-References: <OF6A1A7417.88F14B99-ON0025806F.004E9A7D-8625806F.004EA327@notes.na.collabserv.com>
- <CAA0LjjXej1XQ=voNfX_=5YL21bgjf73WK-UE=OgBcb=Pt=aKhg@mail.gmail.com>
- <1479707274.5215.19.camel@aj.id.au>
- <CAA0LjjVH3BEtu7et_2VtpLXgbrHOfRTNvpQFL8c0Eh-kdDLH_Q@mail.gmail.com>
- <CACPK8XcmXQWrpxPK-=qhAxKFB++TgBPGWrLtiLJ1m4_y-fhcbw@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-jesYq9FnpTZnyKHIGUrj"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tN8XF2rmHzDsxm
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 13:28:13 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="m2wdnCot"; 
+ dkim-atps=neutral
+Received: by mail-it0-x234.google.com with SMTP id y23so1138112itc.0
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 18:28:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=r9DPHq9hqakTkXySr2upUDt6lJ311ks3vSPq0yCwosE=;
+ b=m2wdnCotKnsMOhq9sgdZE8XLE/n16gD0hG2KIE79xn+9gu6fDZT8IugfnB7wmibYWJ
+ +CsZoCPV4Pc9vnj9pmrqiFjCUknX7sYe7dsy7Skq3ZN7V9SXrGDhCfV9/7Pa0oRYDbkL
+ iC6QMiX/Rxoq/xKNb6Hry1xdOrR1McNEY1loPPlckJSJbnyNn1RwxQ1CEkZUwZs2Mb5H
+ T/hJI2wPhoNW3uwk/QqckNa8mR0ET/AU+z3trDbZMhyplnmioiSN9vOyG7mdKPmEOBQS
+ MrgpEH9MnZxEHW7/sAUDd00aTf6hsYAFn6BdhZXOjV2P0H7/rS9t/teXv+mgLpuGKnX6
+ TAVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=r9DPHq9hqakTkXySr2upUDt6lJ311ks3vSPq0yCwosE=;
+ b=J7yxGykcYAOudbXKu44mg/7ET0GBJfytVSgUfKNv65ZTSfbyB9JkD8c+ra4JKDseQ3
+ cXdsxX53YogkzbkIQ6y+6yZU2drfx0E4xzNESLOo9stOt0y4vGVl7MZHCsG9fOFsqm7/
+ yViRO8a3c6PdDyNuHkAvKYunKdjlsvMsoc3eV6vcreJRTKhPIW4WV2ZCFvNFSFyR3kkl
+ 7P1SsPfnhCqIpfM8tlbd5WG3c6Nt04Bw1ZWrDwwkDtOfAWucNY+xrCMh+7hjE0Y6dTr9
+ wB4RQESoDxRThGevAvEuuAMr6wFH3wiu4tA93WBya0lFQETPYy/jYJLVL9XF/XvYfcs1
+ jqgw==
+X-Gm-Message-State: AKaTC02HTuviD1AUoh5rXNsvt3aH0OY0NVC3q6qLT17/8sqS6mx4O71HbuyrMYKxpaqEoNs1aOju6bYLlSDAOA==
+X-Received: by 10.36.43.147 with SMTP id h141mr188999ita.47.1479781691028;
+ Mon, 21 Nov 2016 18:28:11 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.107.164.83 with HTTP; Mon, 21 Nov 2016 18:28:10 -0800 (PST)
+In-Reply-To: <CACPK8XebH8SnRGkxqSHS=QN1PYyWL2vt-NBw-sNA6d8qL6ZCEw@mail.gmail.com>
+References: <CALLMt=oZ7neAge4of5KwzEQbA9nZ_ayuaYwFyUPGqN14Oq-5fA@mail.gmail.com>
+ <CACPK8XebH8SnRGkxqSHS=QN1PYyWL2vt-NBw-sNA6d8qL6ZCEw@mail.gmail.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Mon, 21 Nov 2016 20:28:10 -0600
+Message-ID: <CALLMt=pUaq39-YtUQgOcwPOzzhFM8pOB2LgML02uifpKCT3_5Q@mail.gmail.com>
+Subject: Re: BMC and Host State Management Refactor
+To: Joel Stanley <joel@jms.id.au>
+Cc: jdking@us.ibm.com, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,70 +58,124 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Nov 2016 02:06:27 -0000
+X-List-Received-Date: Tue, 22 Nov 2016 02:28:14 -0000
 
+On Sun, Nov 20, 2016 at 11:55 PM, Joel Stanley <joel@jms.id.au> wrote:
+> Hi Andrew and Josh,
+>
+> On Sat, Nov 19, 2016 at 7:01 AM, Andrew Geissler <geissonator@gmail.com> =
+wrote:
+>> Josh and I are working two stories this sprint that deal with
+>> refactoring the bmc and host state management code out of skeleton
+>> (#772/#783).  Here=E2=80=99s the proposal on this work.
+>
+> Thanks for sending out your plan, this is great. I have a few comments
+> that came up as I was reading.
+>
+>> The overall design for both state management objects is that they will
+>> provide a set of properties on which to operate.
+>> - DesiredState
+>> - CurrentState
+>>
+>> CurrentState will be a read only property.
+>
+> You've chosen to make the desired and current states be separate,
+> which works. Another option would be to have them be the same list of
+> states, so you know that when current=3D=3Ddesired you're not waiting on
+> anything to happen. What do you think?
+>
 
---=-jesYq9FnpTZnyKHIGUrj
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hmmm, I'm thinking from a DBUS/REST api perspective here.  2 seems
+more intuitive, but also I don't think I understand your proposal
+fully :)  What would this look like from an implementation perspective
+and DBUS/REST interfaces?
 
-On Tue, 2016-11-22 at 10:48 +1030, Joel Stanley wrote:
-> On Tue, Nov 22, 2016 at 5:25 AM, Christopher Bostic
-> > <christopher.lee.bostic@gmail.com> wrote:
-> > > Have you been testing on a Palmetto using an OpenBMC build? If so the
-> > > request should still fail as the patch is applied in the OpenBMC kern=
-el
-> > > build. All I'm proposing here is we move it from OpenBMC into the
-> > > Aspeed kernel tree.
-> >=20
-> > Yes I have been testing on Palmetto using OpenBMC builds.=C2=A0=C2=A0Th=
-e H6
-> > pin reports as busy when I request it so for now I have a workaround
-> > to bypass the gpio interface.=C2=A0
+>>
+>> The host control will have these additional properties:
+>> - DesiredPowerState
+>> - CurrentPowerState
+>>
+>> Valid states to request for OpenBMC (DesiredState)
+>> - READY, REBOOT
+>> Valid states to be in for OpenBMC (CurrentState)
+>> - NOT_READY, READY (note this proposal removes BASE_APPS and BMC_STARTIN=
+G).
+>
+> Does this need to consider states where the device is updating? That
+> is, it is not attempting to be ready to control the host, but it is
+> turned on and able to accept new firmware?
+>
 
-Ah, you should've piped up! We could have saved you the annoyance of
-the work-around.
+I think READY implies available for code update?  But good point on
+code updates, when a code update is being performed, a FW_UPDATE state
+seems reasonable.
 
-> > =C2=A0All the other pins I grab via the normal
-> > dts gpio devm_gpio_get interfaces.=C2=A0=C2=A0=C2=A0Once the H6 hog can=
- be removed,
-> > assuming no other code needs it,
+>>
+>> READY implies all services started and running successfully (i.e. we
+>> reached obmc-standby.target)
+>>
+>>
+>> Valid states to request for Host (DesiredState)
+>> - OFF, ON, REBOOT
+>
+> This might need to distinguish between soft-off/soft-reboot and
+> printer-on-fire OFF requests.
+>
 
-No code explicitly needs the hogs, they're purely a kernel solution to
-configure the GPIOs to boot the host.
+Yeah, the focus of this story was to keep similar function as what's
+in place now, but refactor into c++ and the new sdbusplus interfaces.
+We do probably need more work done with things like you say here.
+We've tended to call the printer-on-fire off's EMERGENCY_ type event
+requests.  At a minimum, I'll be sure these are tracked in future
+stories.
 
-> >  I can remove my workaround in
-> > the OpenFSI code.
->=20
-> I suggest you add a patch to your tree that removes the hog from the
-> palmetto dts file. Now that we have a driver that owns the hardware
-> the hog can be removed.
+>> Validate states to be in for Host (CurrentState)
+>> - OFF, BOOTING, BOOTED
+>
+> STANDBY, BOOTING, RUNNING?
+>
+> The bikeshed should be blue.
+>
 
-Yes, definitely. Chris: I can push a revised version of that patch into
-gerrit if you're interested, though I don't think that we should apply
-it until we have OpenFSI in the kernel and integrated into OpenBMC.
+Agree
 
+>>
+>> BOOTED implies petitboot has reached it's "ready" state.
+>>
+>>
+>> Valid power states to request for DesiredPowerState
+>> - OFF, ON
+>> Validate states to be in for CurrentPowerState
+>> - OFF, TRANSITION, ON
+>
+> Does TRANSITION need to distinguish between coming up and going down?
+>
+
+I'd prefer to keep simple and let the user determine this by looking
+at the DesiredPowerState if it's needed.
+
+>>
+>> Patrick and I had some discussion on providing more details on the
+>> host booted state (petitboot vs. os booted) but that can be an
+>> extension in the future if needed.
+>
+> I think baking this in from the start is a worthy goal. This then
+> feeds into the user-facing APIs, weather that is an IPMI sensor or a
+> REST endpoint, that can be queried to ask "what is that damn computer
+> up to". If we can make it informative enough that no one ever feels
+> the need to watch the console output when the machine is booting then
+> we have done a good job.
+>
+
+Agree but please see above comment about the scope of this story.  I'm
+concerned this opens up a can of worms on extra stuff we'll need from
+hostboot and petitboot.  I'll def make sure to write this down for
+future stories and there wont be anything in this base design that
+will limit that later.
+
+> Cheers,
+>
+> Joel
+
+Thanks for the feedback Joel!
 Andrew
---=-jesYq9FnpTZnyKHIGUrj
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJYM6gPAAoJEJ0dnzgO5LT5/ToQAIa3ptW9Pmxbl8tLhfvDiyJx
-nrZ2zD3NRnMw/JNcBVEzVMUFqe3iaFScW5ubD58YDnuWL4a0FtamLYtuaW6LfrhG
-2OAQX6h/mzViwvmUfqoDhZhiyBNQVEhFfFHu1uz8lSHj5JbfAr+XGVXogZ8EQCSz
-V2AaaiJn8J5i8jDXFz9/QFIcwAGH13KQmlY28W1EA+zwjtd5TMnHqG7yI3hjy2OI
-bN3e9aOPNFGuDQEwOkKOdKqF9QFssaVT/EbIDR+PJnCKGhKc6ds3IPx6vi0PzQ1M
-NOn+dQBGs2d/JtDMhC+HF34arwnwCikjM7+Mz2wFZnBs2UlSB9sNjpL15PPcs5Am
-8Q3ca2OoD2b4VDddsvyuJ/wq0nFOHWXwYbJrQWBaqL0FZC8InGv2pR+pB3aOu+sX
-43+uyv2RqppnY/qSOoUFCqvxievFo87Mjl/1mka94bqo4rMRXQDmWcuXoVSrvciH
-lR3l/K/khGjQFPCZh8fU7gQtI3RKXWfNp7akkOJoQRSsFLO5x5fTdhmdT1AkyUAp
-VMD3cFyvfeCTpsfahEoxi/JVzaaiWKvVy2lkCm3gyCwFmL6IhFJ90ONDFmhpOAba
-IUcasuBs/vbW+4QHfjm6bO+7qxUqEcu0rka/DR8Bx644VlpwupO36U5dK1iY/aql
-oQ7Rmzu1VI6uYbIFkcWe
-=XSIr
------END PGP SIGNATURE-----
-
---=-jesYq9FnpTZnyKHIGUrj--
