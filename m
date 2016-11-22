@@ -1,57 +1,70 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x243.google.com (mail-ua0-x243.google.com
- [IPv6:2607:f8b0:400c:c08::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <alastair@au1.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tN5fZ1YNjzDvkT
- for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 11:18:30 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="wLYobzew"; 
- dkim-atps=neutral
-Received: by mail-ua0-x243.google.com with SMTP id 20so228251uak.0
- for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 16:18:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=lpE0u42fq4NoXy14Tbob920MZDjp8SZtFVWO0X2VT8U=;
- b=wLYobzewQOQWpe9eJX/oiWRYInLwlkM/B+A54O9LdQ8aeCQPcQF2J7PvrfcZbw5ySv
- 2oXBVLfJ8uyO873YiNjsZSDWGEFrMhwtQi0bYikp/mSHIY/RtY+hma+f+7QYfNGzHz2e
- OMzlpkKzXI9IVX/KswlZWH4XvsQT35YjjZXlshZx/YLxahCUg0AmhZ+4y6qJQZgCUIAQ
- OlR0UG6AMR/8nyhXdxwylHvLf0twrefSyUpJJ+R3IwetB7yWHPLXSn8yWDe/O683D4dL
- 6m1MCUkUTtljrTBUvZ4FnuwWA8kqjL8MYV+cFBsh+xz8ET/RIMe4isbNnXpx7fGXSCJY
- xK8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=lpE0u42fq4NoXy14Tbob920MZDjp8SZtFVWO0X2VT8U=;
- b=VlKeUni5MKY1/GO3JlvSOPGSUkvC6ndvlu2go8eD5FFJ3eTAk+wB0R+ksgnKiD9hZn
- r5Orobn/DtA4us59mvE6KUE0N2yA007NbhV+JPW9cz2KJr+7Br1LlMSMP3f69aFnqwzV
- ta7Tohjr13bKjxbNT1eK003bPkHsbcXkbI4ppHZ1WE1Q/tD/zLjsvaKXFLR0CTyXIhIk
- Oeb5OFdfvzJZ+YSIwrR1LMHZDBXFJ/JpuPn+nf7uH8lcb0z1RE1D+03l6RjmMvFHkPMF
- qmaxHf+Coa3zqQ88zIhFZ5J4EOoPRA8NbpEYqp1bd68XuYvWtmOBblPr/4+zHX9F8OoC
- qeFg==
-X-Gm-Message-State: AKaTC01dhCP9vAQCsN+CAuii+PX2x2lWkVGt3PVqEtkQWpkbC2XKZI8xvId33zGu9PWkRRxNot8DIKTm54jBlA==
-X-Received: by 10.159.34.41 with SMTP id 38mr9276596uad.160.1479773907491;
- Mon, 21 Nov 2016 16:18:27 -0800 (PST)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.176.0.193 with HTTP; Mon, 21 Nov 2016 16:18:07 -0800 (PST)
-In-Reply-To: <CAA0LjjVH3BEtu7et_2VtpLXgbrHOfRTNvpQFL8c0Eh-kdDLH_Q@mail.gmail.com>
-References: <OF6A1A7417.88F14B99-ON0025806F.004E9A7D-8625806F.004EA327@notes.na.collabserv.com>
- <CAA0LjjXej1XQ=voNfX_=5YL21bgjf73WK-UE=OgBcb=Pt=aKhg@mail.gmail.com>
- <1479707274.5215.19.camel@aj.id.au>
- <CAA0LjjVH3BEtu7et_2VtpLXgbrHOfRTNvpQFL8c0Eh-kdDLH_Q@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 22 Nov 2016 10:48:07 +1030
-X-Google-Sender-Auth: Gcc5_Y0YxHroHhHa4wH-VReUSmo
-Message-ID: <CACPK8XcmXQWrpxPK-=qhAxKFB++TgBPGWrLtiLJ1m4_y-fhcbw@mail.gmail.com>
-Subject: Re: Fw: [PATCH] aspeed-bmc-opp-palmetto: Add GPIO hogs to devicetree
-To: Christopher Bostic <christopher.lee.bostic@gmail.com>
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Jeremy Kerr <jk@ozlabs.org>, xxpetri@de.ibm.com, zahrens@us.ibm.com
-Content-Type: text/plain; charset=UTF-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tN6V274knzDwqT
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 11:56:10 +1100 (AEDT)
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
+ uAM0sJvZ058811
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 19:56:08 -0500
+Received: from e23smtp06.au.ibm.com (e23smtp06.au.ibm.com [202.81.31.148])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 26v5f00htf-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2016 19:56:08 -0500
+Received: from localhost
+ by e23smtp06.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <alastair@au1.ibm.com>;
+ Tue, 22 Nov 2016 10:56:06 +1000
+Received: from d23dlp03.au.ibm.com (202.81.31.214)
+ by e23smtp06.au.ibm.com (202.81.31.212) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Tue, 22 Nov 2016 10:56:05 +1000
+Received: from d23relay09.au.ibm.com (d23relay09.au.ibm.com [9.185.63.181])
+ by d23dlp03.au.ibm.com (Postfix) with ESMTP id 8381A3578052
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 11:56:04 +1100 (EST)
+Received: from d23av05.au.ibm.com (d23av05.au.ibm.com [9.190.234.119])
+ by d23relay09.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ uAM0u4pI6029822
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 11:56:04 +1100
+Received: from d23av05.au.ibm.com (localhost [127.0.0.1])
+ by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ uAM0u305002693
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 11:56:04 +1100
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ uAM0u3Vv002669; Tue, 22 Nov 2016 11:56:03 +1100
+Received: from adsilva.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
+ (using TLSv1.2 with cipher AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id D9972A004F;
+ Tue, 22 Nov 2016 11:56:02 +1100 (AEDT)
+Subject: Aspeed VUART implementation for QEMU
+From: "Alastair D'Silva" <alastair@au1.ibm.com>
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: Andrew Jeffery <andrew@aj.id.au>, =?ISO-8859-1?Q?C=E9dric?= Le Goater
+ <clg@kaod.org>
+Date: Tue, 22 Nov 2016 11:56:02 +1100
+Organization: IBM Australia
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.20.5 (3.20.5-1.fc24) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16112200-0040-0000-0000-000002CA0F3C
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 16112200-0041-0000-0000-00000BBC3E40
+Message-Id: <1479776162.11116.85.camel@au1.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-11-21_19:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1609300000
+ definitions=main-1611220013
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,26 +76,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Nov 2016 00:18:30 -0000
+X-List-Received-Date: Tue, 22 Nov 2016 00:56:11 -0000
 
-On Tue, Nov 22, 2016 at 5:25 AM, Christopher Bostic
-<christopher.lee.bostic@gmail.com> wrote:
->> Have you been testing on a Palmetto using an OpenBMC build? If so the
->> request should still fail as the patch is applied in the OpenBMC kernel
->> build. All I'm proposing here is we move it from OpenBMC into the
->> Aspeed kernel tree.
->
-> Yes I have been testing on Palmetto using OpenBMC builds.  The H6
-> pin reports as busy when I request it so for now I have a workaround
-> to bypass the gpio interface.  All the other pins I grab via the normal
-> dts gpio devm_gpio_get interfaces.   Once the H6 hog can be removed,
-> assuming no other code needs it, I can remove my workaround in
-> the OpenFSI code.
+Hi folks,
 
-I suggest you add a patch to your tree that removes the hog from the
-palmetto dts file. Now that we have a driver that owns the hardware
-the hog can be removed.
+I was thinking of getting stuck into the VUART implementation in QEMU
+soon.
 
-Cheers,
+After reading the docs, I think we should map in a 16550 uart at the
+address specified in the design docs, and attach the other end of the
+uart to a socket. Does this sound reasonable?
 
-Joel
+Joel mentioned that Cedric has already given this some thought, so I'd
+love to hear it.
+
+-- 
+Alastair D'Silva
+Open Source Developer
+Linux Technology Centre, IBM Australia
+mob: 0423 762 819
