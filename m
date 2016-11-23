@@ -3,52 +3,55 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tNkjP1jYRzDw7k
- for <openbmc@lists.ozlabs.org>; Wed, 23 Nov 2016 12:08:08 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tNl1y2rwJzDwC6
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Nov 2016 12:22:30 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="FmVkShjz"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="iVFi8MrX"; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="pYCGt13F"; dkim-atps=neutral
+ header.b="MrX+YumO"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 1D9862068A;
- Tue, 22 Nov 2016 20:08:06 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id 40417206B4;
+ Tue, 22 Nov 2016 20:22:28 -0500 (EST)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Tue, 22 Nov 2016 20:08:06 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
+ by compute4.internal (MEProxy); Tue, 22 Nov 2016 20:22:28 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
+ content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=pFyS6ArmcT5hgOQ34hs21Z6eiv8=; b=FmVkSh
- jzDIcEIVN7zR1M7OC6noL0ZaSxUd4DCKf0hoDMUi1F+wZBKS9F/XEKXr7hSCDWyF
- aZeYMBhEe11TxSuCh4HizQcJA5/LI2dwfVfySj4YmZO465Ve7cj4cBQ20C684e8H
- E3XZ3ub1q+au9d2j0gW+OCR18r8UowKjvnl3g=
+ :x-sasl-enc; s=mesmtp; bh=hZkpzHRuenQIFan9CkhZh93xyFQ=; b=iVFi8M
+ rXY0hVusITJ6B7Z+qJmGnCVPOQtBz6tazN1D9rzOd374AMro6EZ4dwniT5Aj2+uU
+ HAAlwiTuAzrODyueIDhEkNf+OjKQ9ngbwhSLs5pRFbSZKitl5TAYoQO9xQ/TNGT3
+ VyiacO9GbP2ETZ2Rv+XpO4BcXS+jtfAf2ZLKY=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ messagingengine.com; h=content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=pFyS6ArmcT5hgO
- Q34hs21Z6eiv8=; b=pYCGt13FcNKIzYIjgtgmL72kCaGh+TTGzxbftwtuRa9CtP
- RvP+biHPEw6+fpMCqXciehV3lruf46bHRIbt/ZXibUMWKzmzxnBkYzUmjbJpDMNL
- 1iP41HB3x3to3DfhU7A3TRFNu69LlDjJExvyWzk3BFoBY1lu4S5I9mX6wVw1k=
-X-ME-Sender: <xms:9us0WPUOELXpT097YSwdJfiwgJd0TR4jnw8oTp3FgQorIajkJUcEYw>
-X-Sasl-enc: sVUaC6DYQEEPNGtlin39Qiv3Uh6APSacBOmRLoJdIK/5 1479863285
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=hZkpzHRuenQIFa
+ n9CkhZh93xyFQ=; b=MrX+YumO5qnw9y/1ORU6RNu3YH/vSH426hcnYGhGo6M6Qm
+ B9ubKwXjUslNksRWC05nnP0nC9LEXEXdRSa/frKXERHSQa58buPxv6NwG3/s8UBM
+ Pn99R10CzgLn23bqBdU0qJIV81O/vVnbatcULgCsmny0HNFHm/u0+ifOXDpYA=
+X-ME-Sender: <xms:VO80WPr_phmQXKRW3mUonlkrPffHZtpg5mGmYb6nshUSZwAWH7mW3Q>
+X-Sasl-enc: kGjaHVjXCB/hx84RjhMFOMcUSiya48kasC5mosv6Qn+s 1479864147
 Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id DF45824313;
- Tue, 22 Nov 2016 20:08:03 -0500 (EST)
-Message-ID: <1479863279.2503.42.camel@aj.id.au>
-Subject: Re: BMC and Host State Management Refactor
+ by mail.messagingengine.com (Postfix) with ESMTPA id D492D243C8;
+ Tue, 22 Nov 2016 20:22:26 -0500 (EST)
+Message-ID: <1479864143.2503.44.camel@aj.id.au>
+Subject: Re: [PATCH qemu 11/38] aspeed/smc: get the number of flash modules
+ from hw strapping
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Andrew Geissler <geissonator@gmail.com>
-Cc: Joel Stanley <joel@jms.id.au>, jdking@us.ibm.com, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>
-Date: Wed, 23 Nov 2016 11:37:59 +1030
-In-Reply-To: <CALLMt=rNQSyYX6m--TKns1Hf1frFVmCfE+M77RVcADD8QyfuPg@mail.gmail.com>
-References: <CALLMt=oZ7neAge4of5KwzEQbA9nZ_ayuaYwFyUPGqN14Oq-5fA@mail.gmail.com>
- <CACPK8XebH8SnRGkxqSHS=QN1PYyWL2vt-NBw-sNA6d8qL6ZCEw@mail.gmail.com>
- <CALLMt=pUaq39-YtUQgOcwPOzzhFM8pOB2LgML02uifpKCT3_5Q@mail.gmail.com>
- <1479786054.2503.23.camel@aj.id.au>
- <CALLMt=rNQSyYX6m--TKns1Hf1frFVmCfE+M77RVcADD8QyfuPg@mail.gmail.com>
+To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, 
+ openbmc@lists.ozlabs.org
+Date: Wed, 23 Nov 2016 11:52:23 +1030
+In-Reply-To: <b6082460-d8a0-9dfb-9b84-9f98a660e6aa@kaod.org>
+References: <1479478938-13267-1-git-send-email-clg@kaod.org>
+ <1479478938-13267-12-git-send-email-clg@kaod.org>
+ <1479734036.2503.5.camel@aj.id.au>
+ <45ccee63-6edd-9e1a-4214-cb93cb1c0395@kaod.org>
+ <1479735302.2503.10.camel@aj.id.au>
+ <85a1b91c-3efe-5b93-bdbf-91a0741fd853@kaod.org>
+ <1479784251.2503.18.camel@aj.id.au>
+ <b6082460-d8a0-9dfb-9b84-9f98a660e6aa@kaod.org>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-R8DHBKnoafIdnHv+B5tE"
+ protocol="application/pgp-signature"; boundary="=-ejYZoQuWn1NrRL42sGxm"
 X-Mailer: Evolution 3.22.1-0ubuntu2 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -62,105 +65,96 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Nov 2016 01:08:10 -0000
+X-List-Received-Date: Wed, 23 Nov 2016 01:22:31 -0000
 
 
---=-R8DHBKnoafIdnHv+B5tE
+--=-ejYZoQuWn1NrRL42sGxm
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2016-11-22 at 11:23 -0600, Andrew Geissler wrote:
-> > On Mon, Nov 21, 2016 at 9:40 PM, Andrew Jeffery <andrew@aj.id.au> wrote=
-:
-> > On Mon, 2016-11-21 at 20:28 -0600, Andrew Geissler wrote:
-> > > > > > > > On Sun, Nov 20, 2016 at 11:55 PM, Joel Stanley <joel@jms.id=
-.au> wrote:
-> > > > Hi Andrew and Josh,
-> > > >=20
-> > > > On Sat, Nov 19, 2016 at 7:01 AM, Andrew Geissler <geissonator@gmail=
-.com> wrote:
-> > > > > Josh and I are working two stories this sprint that deal with
-> > > > > refactoring the bmc and host state management code out of skeleto=
-n
-> > > > > (#772/#783).=C2=A0=C2=A0Here=E2=80=99s the proposal on this work.
-> > > >=20
-> > > > Thanks for sending out your plan, this is great. I have a few comme=
-nts
-> > > > that came up as I was reading.
-> > > >=20
-> > > > > The overall design for both state management objects is that they=
- will
-> > > > > provide a set of properties on which to operate.
-> > > > > - DesiredState
-> > > > > - CurrentState
-> > > > >=20
-> > > > > CurrentState will be a read only property.
-> > > >=20
-> > > > You've chosen to make the desired and current states be separate,
-> > > > which works. Another option would be to have them be the same list =
-of
-> > > > states, so you know that when current=3D=3Ddesired you're not waiti=
-ng on
-> > > > anything to happen. What do you think?
-> > > >=20
+On Tue, 2016-11-22 at 08:21 +0100, C=C3=A9dric Le Goater wrote:
+> > > So we should set or unset these SCU regs when the SoC is created
+> > > and=C2=A0
+> > > derive the wdt2 enablement from them. I suppose that the helper
+> > > routine=C2=A0
+> > > to check for the conditions would be under SCU.=C2=A0
 > > >=20
-> > > Hmmm, I'm thinking from a DBUS/REST api perspective here.=C2=A0=C2=A0=
-2 seems
-> > > more intuitive, but also I don't think I understand your proposal
-> > > fully :)
+> > > or do we start a simple pinctrl model and slowly add the
+> > > enablement
+> > > of the pins we need ?=C2=A0
+> > >=20
 > >=20
-> > I think you might be misinterpreting. I don't think Joel was suggesting
-> > you eliminate one of the DesiredState or CurrentState "variables",
-> > rather that the /types/ of the CurrentState and DesiredState variables
-> > be equal. That is, that the same set of states can be assigned to both.
-> >=20
+> > From the discussion on IRC last night between C=C3=A9dric, Joel and
+> > myself
+> > we decided to start on a pinmux backend to help manage these
+> > issues.
 >=20
-> I see now.=C2=A0=C2=A0I'm still not seeing any huge advantages on either
-> proposal over my original.=C2=A0
+> Do you have a rough idea of an API that the SoC could use ?=C2=A0
+>=20
+> 	enum AspeedAST2500Function {
+> 		FWSPICS0,
+> 		FWSPICS1,
+> 		FWSPICS2,
+> 	};
+>=20
+> 	enum AspeedAST2400Function {
+> 		ROMCS1,
+> 		ROMCS2,
+> 		ROMCS3,
+> 		ROMCS4,
+> 	};
+>=20
+> 	bool aspeed_pin_is_enabled(AspeedPinmux *p, int func);
 
-The advantage I see in Joel's proposal is that we have fewer types
-involved in the problem. The alternative (as mentioned below) is you
-rename DesiredState to Transition, in which case I think what you are
-suggesting is okay. Transitions and states are distinct and well
-defined concepts.
+Largely this looks good.
 
-I don't like the idea of "desiring" a state that doesn't exist. Joel's
-initial question suggests he thinks along these lines as well.
+But bikeshedding a bit, but I think the function name should focus on
+functions, not pins. The function maps to some pin in the physical
+case, but for qemu's purposes we don't care about that just yet. Even
+if we do care in the future we can internally map functions to pins
+behind a pinmux abstraction. As such I think we can get away with a
+small tweak:
 
-> =C2=A0I think I'm just going to stick with it
-> for now since there are times where the valid states associated with
-> each (Desired vs. Current) are different
+bool aspeed_pinmux_is_enabled(AspeedPinmux *p, int func);
 
-Can you expand on this to make it clear what you are arguing for?
+Did you have any thought about how we hoist ourselves from a
+AspeedPinmux to say an AspeedAST2500Pinmux with this interface? As it
+stands (without specifying parts of AspeedPinmux) we don't have the
+context to correctly interpret the func arg. Already with these few
+functions we have to test different bits depending on the SoC at hand,
+and the 2500 has the extra requirements of talking to the GFX and LPC
+controllers in other cases.
 
->  and I think having the two as
-> I've defined is a bit more user friendly.
-
-In what way?
-
-Cheers,
+I expect having a tag field internal to p is enough. I'll have a think
+about it.
 
 Andrew
---=-R8DHBKnoafIdnHv+B5tE
+
+>=20
+> Thanks,
+>=20
+> C.=C2=A0
+>=20
+--=-ejYZoQuWn1NrRL42sGxm
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJYNOvwAAoJEJ0dnzgO5LT5OnMQAIbsrBAQ3Q/aKVAmOFZVW7Cq
-adtNZAc9QqU7ONivaxpXk+aeX9NpHHjXu/rENjtoXPb8FJK6jQhM71GcHkQ5lAf/
-BEv4wAWqUc0tVUhQbP1LhPAg61/rmfL0Szyxeb672OgOzU/n9yrR2Yy+nUBP2ssU
-SzcyezgUrbtLUqWQY0V06aQaFOnv/8zSsNqFJLuli/XAHvUYBiNGSOXm08eFfJTw
-0EDm5mnwofYUa0/J9Jh+PWU2AI0S0CFCD4t1m3zzCOIc+GhC8xFJzjwneYWlTpv0
-zSng5jIgiz2+g1YQPwVJ8t4FWoMU7n1URhU8+X9SiEC7XdjEGxi+W6sMQvZkwEME
-Cou6SLy0d/AYL3qyFB63njPGNOurylgv0huyFoAs1ZGhaQFUVokB3x3kgjMwuhUQ
-Ec19f5xbVMoLwUq3jBlOdzDjCmgqMGsitctcwohKI166/dFnbn0PjK22TMOruwnd
-csLMaFnVxAZfZdjyJ3P2FiuaxsyfT+0NT4Abx8diVPRA0YwJkYKXcwXNaBxej59u
-jJBhTG1ryCzFagZ4zT1xq/gKz5Rkx/qEaCgTUZHMqy5EhwEvpdt+NGjGFiOja6wF
-nZoLlBbS1fFXxed0UzYpfptJWYYXo8dXdk/WgLLt9IaIF8HjuSkKShrA4/UfeWnX
-OzMAAkz5jyq07lg3ZER+
-=a3AX
+iQIcBAABCgAGBQJYNO9PAAoJEJ0dnzgO5LT5jtkP/08pSaUIhHSmdr2vB7d+FpR0
+ANI9ahJVc8kwsMOGZqgQ+LPEgRAAF7fUhT2tQqaBCZ3S05tJTQKbVjjr34GNb9mO
+d4wpfg7IyuTpneijwiabF5o/04ybRNOqf9evMGBYNI27YlGf5hdhI97PgkN9SbUQ
+eSekch1sFWuyEQABHer71vRuAA6YVY3s0CUoz7YuKuG9pwryPB1tda+XM5rZetpN
+b7CjmTM3HOTfh4dUPFNCLKP/p9why3/ya3C4yJbHQQwD1vmpTEFIDpzcjNtHBET3
+0N2R4rboDujAlD3k9vgP54xNS0jwLdpmPTWSyTUs5xaVZCSWONHBS2veAdKWVo4e
+Y99t+xJE8FeweDlu2o+kj0bdm7nwqdy45bRxXNjk+rYNPKtYNWthliLKKOI7vvBY
+T9tdyoM/4loKuyhvuhGlEaNif3Z6jl+SdrvZCtG88Ca9chosqWKnqfRutLJnsUxW
+SGCo4/T13sET5uYKpmhVZgc5rsgscTnDHRm3Uk5Y6HoilT5KYhXU6oU8T8xYFwJa
+Cb/S5anWe4m0oKZzDrs1EzuZNizMeNLlvJq3oLQxd+U1Y6PD4fj5q+7o9gx//acH
+XmSWhhIlERPejwMQeZmiP3795x+YWhJPc7h78Gx8cpq6QCoJ87pfs1lPt5hsNIOQ
+ELZKdnW6Rzpey4B/ruLN
+=vsnN
 -----END PGP SIGNATURE-----
 
---=-R8DHBKnoafIdnHv+B5tE--
+--=-ejYZoQuWn1NrRL42sGxm--
