@@ -1,42 +1,44 @@
-Return-Path: <clg@kaod.org>
-Received: from 10.mo5.mail-out.ovh.net (10.mo5.mail-out.ovh.net
- [46.105.52.148])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <hs@denx.de>
+X-Greylist: delayed 583 seconds by postgrey-1.36 at bilbo;
+ Wed, 23 Nov 2016 23:38:04 AEDT
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tNyw936pFzDw0r
- for <openbmc@lists.ozlabs.org>; Wed, 23 Nov 2016 21:18:17 +1100 (AEDT)
-Received: from player773.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo5.mail-out.ovh.net (Postfix) with ESMTP id 8A5A444759
- for <openbmc@lists.ozlabs.org>; Wed, 23 Nov 2016 10:33:07 +0100 (CET)
-Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
- [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player773.ha.ovh.net (Postfix) with ESMTPSA id B7F1B60007C;
- Wed, 23 Nov 2016 10:33:05 +0100 (CET)
-Subject: Re: [PATCH qemu 11/38] aspeed/smc: get the number of flash modules
- from hw strapping
-To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
-References: <1479478938-13267-1-git-send-email-clg@kaod.org>
- <1479478938-13267-12-git-send-email-clg@kaod.org>
- <1479734036.2503.5.camel@aj.id.au>
- <45ccee63-6edd-9e1a-4214-cb93cb1c0395@kaod.org>
- <1479735302.2503.10.camel@aj.id.au>
- <85a1b91c-3efe-5b93-bdbf-91a0741fd853@kaod.org>
- <1479784251.2503.18.camel@aj.id.au>
- <b6082460-d8a0-9dfb-9b84-9f98a660e6aa@kaod.org>
- <1479864143.2503.44.camel@aj.id.au>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <0187082e-64b6-4b84-61bc-bc3014c24d0c@kaod.org>
-Date: Wed, 23 Nov 2016 10:33:05 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.4.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tP21S3HctzDw9c
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Nov 2016 23:38:03 +1100 (AEDT)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 3tP1p10jyYz3hjYZ;
+ Wed, 23 Nov 2016 13:28:09 +0100 (CET)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.68])
+ by mail.m-online.net (Postfix) with ESMTP id 3tP1p06DB8zvl4w;
+ Wed, 23 Nov 2016 13:28:08 +0100 (CET)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.68]) (amavisd-new,
+ port 10024)
+ with ESMTP id 3GnIyljNQ0ai; Wed, 23 Nov 2016 13:28:04 +0100 (CET)
+X-Auth-Info: vLbK9Je+CPTj9o9ug77JYDik+QMiSBnJxv8LezoiN1I=
+Received: from localhost.localdomain (87.97.2.198.pool.invitel.hu
+ [87.97.2.198])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Wed, 23 Nov 2016 13:28:04 +0100 (CET)
+Subject: Re: [U-Boot] [PATCH u-boot 0/5] Aspeed I2C driver, using Driver Model.
+To: maxims@google.com
+References: <1479858976-139210-1-git-send-email-maxims@google.com>
+Cc: sjg@google.com, u-boot@lists.denx.de, openbmc@lists.ozlabs.org
+Reply-To: hs@denx.de
+From: Heiko Schocher <hs@denx.de>
+Message-ID: <58358B53.5030702@denx.de>
+Date: Wed, 23 Nov 2016 13:28:03 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+ Thunderbird/38.1.0
 MIME-Version: 1.0
-In-Reply-To: <1479864143.2503.44.camel@aj.id.au>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 7084725164639095554
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrvdejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+In-Reply-To: <1479858976-139210-1-git-send-email-maxims@google.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Thu, 24 Nov 2016 00:20:54 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -48,139 +50,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Nov 2016 10:18:19 -0000
+X-List-Received-Date: Wed, 23 Nov 2016 12:38:04 -0000
 
-On 11/23/2016 02:22 AM, Andrew Jeffery wrote:
-> On Tue, 2016-11-22 at 08:21 +0100, Cédric Le Goater wrote:
->>>> So we should set or unset these SCU regs when the SoC is created
->>>> and 
->>>> derive the wdt2 enablement from them. I suppose that the helper
->>>> routine 
->>>> to check for the conditions would be under SCU. 
->>>>
->>>> or do we start a simple pinctrl model and slowly add the
->>>> enablement
->>>> of the pins we need ? 
->>>>
->>>
->>> From the discussion on IRC last night between Cédric, Joel and
->>> myself
->>> we decided to start on a pinmux backend to help manage these
->>> issues.
->>
->> Do you have a rough idea of an API that the SoC could use ? 
->>
->> 	enum AspeedAST2500Function {
->> 		FWSPICS0,
->> 		FWSPICS1,
->> 		FWSPICS2,
->> 	};
->>
->> 	enum AspeedAST2400Function {
->> 		ROMCS1,
->> 		ROMCS2,
->> 		ROMCS3,
->> 		ROMCS4,
->> 	};
->>
->> 	bool aspeed_pin_is_enabled(AspeedPinmux *p, int func);
-> 
-> Largely this looks good.
-> 
-> But bikeshedding a bit, but I think the function name should focus on
-> functions, not pins. The function maps to some pin in the physical
-> case, but for qemu's purposes we don't care about that just yet. Even
-> if we do care in the future we can internally map functions to pins
-> behind a pinmux abstraction. As such I think we can get away with a
-> small tweak:
-> 
-> bool aspeed_pinmux_is_enabled(AspeedPinmux *p, int func);
+Hello Maxim,
 
-ok Looks good to me. I will fake this in the patchset to ease the 
-change in the future.
+Am 23.11.2016 um 00:56 schrieb maxims@google.com:
+> From: Maxim Sloyko <maxims@google.com>
+>
+> This series of patches is only meant for openbmc/u-boot tree.
 
-> Did you have any thought about how we hoist ourselves from a
-> AspeedPinmux to say an AspeedAST2500Pinmux with this interface? 
+If this series is not for U-Boot mainline, why do you post this patches
+on the U-Boot Mailinglist?
 
-There are different solutions. We could introduce a class like
+bye,
+Heiko
+> It adds basic support for aspeed i2c. Only single master
+> mode is supported with synchronous transfer.
+>
+> The style is inconsistent with U-Boot style guide in few places,
+> but follows local style in those files.
+>
+> Maxim Sloyko (5):
+>    aspeed/g5: Device Tree for ast2500, copied from openbmc/linux (include
+>      file), plus minimal device tree configuration for ast2500 eval
+>      board.
+>    aspeed: Fixed incosistency in some SCU registers naming.
+>    aspeed: Added function to calculate APB Clock frequency.
+>    aspeed: Added function to configure pins for I2C devices.
+>    aspeed: I2C driver.
+>
+>   arch/arm/dts/Makefile                       |    2 +
+>   arch/arm/dts/aspeed-g5-evb.dts              |   28 +
+>   arch/arm/dts/aspeed-g5.dtsi                 | 1278 +++++++++++++++++++++++++++
+>   arch/arm/include/asm/arch-aspeed/ast_scu.h  |    6 +
+>   arch/arm/include/asm/arch-aspeed/regs-scu.h |   73 +-
+>   arch/arm/mach-aspeed/ast-scu.c              |   41 +-
+>   drivers/i2c/Kconfig                         |    7 +
+>   drivers/i2c/Makefile                        |    1 +
+>   drivers/i2c/ast_i2c.c                       |  305 +++++++
+>   drivers/i2c/ast_i2c.h                       |  143 +++
+>   10 files changed, 1851 insertions(+), 33 deletions(-)
+>   create mode 100644 arch/arm/dts/aspeed-g5-evb.dts
+>   create mode 100644 arch/arm/dts/aspeed-g5.dtsi
+>   create mode 100644 drivers/i2c/ast_i2c.c
+>   create mode 100644 drivers/i2c/ast_i2c.h
+>
+> --
+> 2.8.0.rc3.226.g39d4020
+>
+> _______________________________________________
+> U-Boot mailing list
+> U-Boot@lists.denx.de
+> http://lists.denx.de/mailman/listinfo/u-boot
+>
 
-#define TYPE_ASPEED_PINMUX "aspeed-pinmux"
-#define ASPEED_PINMUX(obj)
-     OBJECT_CHECK(AspeedPinmux, (obj), TYPE_ASPEED_PINMUX)
-#define ASPEED_PINMUX_CLASS(klass) \
-     OBJECT_CLASS_CHECK(AspeedPinmuxClass, (klass), TYPE_ASPEED_PINMUX)
-#define ASPEED_PINMUX_GET_CLASS(obj) \
-     OBJECT_GET_CLASS(AspeedPinmuxClass, (obj), TYPE_ASPEED_PINMUX)
-
-typedef struct AspeedPinmux {
-	...
-} AspeedPinmux;
-
-typedef struct AspeedPinmuxClass {
-	...
-	AspeedPinmuxType pinmux_type;
-        ... 
-
-or
-	... 
-        bool (*is_enabled)(AspeedPinmux *pmux, int func);
-	....
-} AspeedPinmuxClass;
-
-#define TYPE_ASPEED_PINMUX_POWER8E TYPE_ASPEED_PINMUX "-ast2500"
-#define ASPEED_PINMUX_AST2500(obj) \
-    OBJECT_CHECK(AspeedPinmux, (obj), TYPE_ASPEED_PINMUX_AST2500)
-
-#define TYPE_ASPEED_PINMUX_POWER8E TYPE_ASPEED_PINMUX "-ast2400"
-#define ASPEED_PINMUX_AST2400(obj) \
-    OBJECT_CHECK(AspeedPinmux, (obj), TYPE_ASPEED_PINMUX_AST2400)
-
-
-and use 'pinmux_type' to dispatch to specific handlers or directly
-include the handlers we need under the class. 
-
-If we only have handlers and no state, we could define a Interface
-and tie it to the soc object.
-
-typedef struct AspeedPinmuxInterface {
-    Object parent;
-} AspeedPinmuxInterface;
-
-#define TYPE_ASPEED_PINMUX_INTERFACE "aspeed-pinmux-interface"
-#define ASPEED_PINMUX_INTERFACE(obj) \
-     OBJECT_CHECK(AspeedPinmuxInterface, (obj), TYPE_ASPEED_PINMUX_INTERFACE)
-#define ASPEED_PINMUX_INTERFACE_CLASS(klass)                \
-    OBJECT_CLASS_CHECK(AspeedPinmuxInterfaceClass, (klass), \
-                       TYPE_ASPEED_PINMUX_INTERFACE)
-#define ASPEED_PINMUX_INTERFACE_GET_CLASS(obj) \
-     OBJECT_GET_CLASS(AspeedPinmuxInterfaceClass, (obj), TYPE_ASPEED_PINMUX_INTERFACE)
-
-typedef struct AspeedPinmuxInterfaceClass {
-    InterfaceClass parent;
-    bool (*is_enabled)(AspeedPinmuxInterface *dev, int func);
-    ...
-} AspeedPinmuxInterfaceClass;
-
-
-Conceptually, the SoC object would have a set of routines to handle
-muxing. that seems ok to me as pinmux is a rather invasive component 
-needing access to all controllers to be able to set the functions. 
-
-C.
-
-> As it
-> stands (without specifying parts of AspeedPinmux) we don't have the
-> context to correctly interpret the func arg. Already with these few
-> functions we have to test different bits depending on the SoC at hand,
-> and the 2500 has the extra requirements of talking to the GFX and LPC
-> controllers in other cases.
-> 
-> I expect having a tag field internal to p is enough. I'll have a think
-> about it.
-> 
-> Andrew
-> 
->>
->> Thanks,
->>
->> C. 
+-- 
+DENX Software Engineering GmbH,      Managing Director: Wolfgang Denk
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
