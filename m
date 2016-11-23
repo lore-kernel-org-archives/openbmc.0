@@ -1,50 +1,51 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x241.google.com (mail-ua0-x241.google.com
- [IPv6:2607:f8b0:400c:c08::241])
+Received: from mail-ua0-x242.google.com (mail-ua0-x242.google.com
+ [IPv6:2607:f8b0:400c:c08::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tNmt44YRxzDvsv
- for <openbmc@lists.ozlabs.org>; Wed, 23 Nov 2016 13:45:48 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tNqnZ38hLzDw1F
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Nov 2016 15:57:06 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="kEgcYkpr"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="GmsLr/5I"; 
  dkim-atps=neutral
-Received: by mail-ua0-x241.google.com with SMTP id 50so15860uae.2
- for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 18:45:48 -0800 (PST)
+Received: by mail-ua0-x242.google.com with SMTP id 50so134461uae.2
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 20:57:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=t85tfwjLniyYM2T9XQyWwQRx2imGkPZNJFBBFeOZ68M=;
- b=kEgcYkprHYHhPCmwOYAPcDhRMxJz/1QImMwJaZVDWoUe9D+hSJCofn+3XWQdzo52ET
- PP1/r90VgVRXj2tCm38vrkdmcBOVPzy02ri7PP0fySvl6fzRdK/FG+YS5/L/8NUA6f0X
- ZyzfGHuswhhqPP4Ki8AEmKG0uAdvG60iIRMOXC8ixb9dc9fglqigQzOMs7ECzomHBd+S
- hVs3aBHmYQOFqhSZfmigSkiWZ7XYxNGgatybGk03eMkTL7HsMTwTeFIFPzg6MTaVsMr5
- aJZZ1BhaSrDDFP5Ps0nrHLR4JK93Uq+b3XxEORECzn8vsP/wOTSvtIhozVDxz8vsW8Fc
- b7wA==
+ bh=2EhjE6GDGiDqLIxl33Z83Mn0LgvMtnUJf7TX/24OZuE=;
+ b=GmsLr/5IOt03WchAZ/4M7wwkggclFdF1eQyya0IF9QxxL2nKjLZhyTJnnVsVkMm1l3
+ Rs85sHLGelejL1GNFZwdy7vfAp7C4JPtHXLo+Q8gOAYq1Ku+fq+nZpWsGLM1L75a7o8Q
+ 24MA34447+83oeFpOE32o8vH/WDsCs/KJa/nAWAnlrqc7Ltj8fQMRUj0nj/taRP1/GYf
+ FWOcoZZo8erXv6JpIqCNmXqTX2zwLtdFKuH/v1vAU+93T1YUhI5TSOauNX2inHiIvZnZ
+ TGiuiWtnXdIEF/Wz7jaE5xTNdVw1orf2FXU0rc3F+kYWCBQbnunE44nwLQ43+ZXiHGQJ
+ t0Bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=t85tfwjLniyYM2T9XQyWwQRx2imGkPZNJFBBFeOZ68M=;
- b=ScsHEtkOaLqoGa+p7yBnPGTyrbDuMMKekwV3lBvtXMQGQ2mZT6h1fr1SII3VI9/oht
- j9yW+2YVD4habFkYkRPSNURm1ILncjjdlU4keZBeHvA5es9NppHJHmJToGEgY7uaycfV
- Fy432sCZKw3GRKbOylJ5vQhXZizuDEzspcNnMxOSDXRSLAPDM44NiNZWR7SD3H1oZxsh
- WegEYR/LeMhBq85jgsVTXcj/v1+pnRBsZvAAtKktIrES93BrMpD20v63t+Us2ZvRzlRL
- cv5OlY+MnYFudmpbjhb+qReRPesD3icpn1M4ChkzqnpB2I6Mv95Eplk7y1qpksiPyvz8
- PJEg==
-X-Gm-Message-State: AKaTC01Zok0KuQuNkFq8hNjfstjVSxJ8DEUILxxy3+XTIaVCYWvCyrRC6IGESB2EOvQa/tYxCgEY9iKQGygs5Q==
-X-Received: by 10.176.82.157 with SMTP id v29mr470511uav.123.1479869146221;
- Tue, 22 Nov 2016 18:45:46 -0800 (PST)
+ bh=2EhjE6GDGiDqLIxl33Z83Mn0LgvMtnUJf7TX/24OZuE=;
+ b=GITher+fFYLWKARsaNPWpGtWYM7XWIokpSsL6lzLAlIgpFiT2qZsJ8T/doBRXOh8sL
+ A+UZbt2Q+VjYfMnmZNWjjc1UxjLLomXXOITOj85yw3Z0kJZeybM9RPpXCKbg6FK0CQpq
+ NMFyX+YLkNVjxgw1U8xaMzHvmceN65cNUEmEjVJBgxRwkMrF8+e957TmMctYWN/mzOsr
+ g5kGHgUKQ/swlddc5m0cUfxAeqVZD6B+bwuJdMwvnffB5Y2LbilYe41h6PfZoKyzICGB
+ glEnMcmyDVqUCjZW+FJFCt9i/hc2fRbA0E0p6A1IFz7qZBqvwZ1E2fPohhlHBZ5e5w0L
+ 9Udg==
+X-Gm-Message-State: AKaTC03JE06Zhd82rKqKG6eLNv91L/K+rBwCSluNrzftJFeth+8QpOMS6VRG+/Dr/wpKI2BxfzgTBZ747grpIw==
+X-Received: by 10.176.84.207 with SMTP id q15mr665210uaa.177.1479877024391;
+ Tue, 22 Nov 2016 20:57:04 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.176.0.193 with HTTP; Tue, 22 Nov 2016 18:45:25 -0800 (PST)
-In-Reply-To: <1479626856-18511-1-git-send-email-jaghu@google.com>
-References: <1479626856-18511-1-git-send-email-jaghu@google.com>
+Received: by 10.176.0.193 with HTTP; Tue, 22 Nov 2016 20:56:44 -0800 (PST)
+In-Reply-To: <12131479795846@webcorp02g.yandex-team.ru>
+References: <12131479795846@webcorp02g.yandex-team.ru>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 23 Nov 2016 13:15:25 +1030
-X-Google-Sender-Auth: UCGYWWrsheK0PnI3y7uIMJuHXus
-Message-ID: <CACPK8XfHxnYWBho6-r7xkbRm2LETK6ZpKagc6mjWd6xmuXYd+Q@mail.gmail.com>
-Subject: Re: [PATCH linux v5 0/4] Seven segment display support
-To: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
+Date: Wed, 23 Nov 2016 15:26:44 +1030
+X-Google-Sender-Auth: A1L2pSu3PQaCP1Jk6e6ultwRSac
+Message-ID: <CACPK8Xc+dgohMYhShGoifNf4pxWTHzoas1G1+FiffPGBG-7j7Q@mail.gmail.com>
+Subject: Re: [PATCH] ftgmac100: fixup MAC address set during board bringup
+To: "Anton D. Kachalov" <mouse@yandex-team.ru>,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -58,62 +59,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Nov 2016 02:45:49 -0000
+X-List-Received-Date: Wed, 23 Nov 2016 04:57:07 -0000
 
-We spoke on IRC about the clock changes. Lets wait until those issues
-are addressed before reviewing this series.
+On Tue, Nov 22, 2016 at 4:54 PM, Anton D. Kachalov <mouse@yandex-team.ru> wrote:
+> Hardware reset leads to clear all registers.
+> Make the hardware reset first before actual MAC address set in ftgmac100_initialization loop.
+> Based on datasheet only one bit (SW_RST) have to be set in order to proper MAC reset.
+>
+> Signed-off-by: Anton D. Kachalov <mouse@yandex-team.ru>
+
+Thanks for the patch!
+
+> ---
+>  drivers/net/ftgmac100.c       | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/net/ftgmac100.c b/drivers/net/ftgmac100.c
+> --- a/drivers/net/ftgmac100.c   2016-11-22 07:07:44.000000000 +0300
+> +++ b/drivers/net/ftgmac100.c   2016-11-22 07:27:12.131940971 +0300
+> @@ -457,7 +457,7 @@ static void ftgmac100_reset(struct eth_d
+>         debug("%s()\n", __func__);
+>
+>         //Ryan modify
+> -       __raw_writel(__raw_readl(&ftgmac100->maccr) | FTGMAC100_MACCR_SW_RST, &ftgmac100->maccr);
+> +       __raw_writel(FTGMAC100_MACCR_SW_RST, &ftgmac100->maccr);
+
+I assume all of the other values in MACCR will be reset when we do the
+software reset, so that's why you don't need to read-modify-write?
+
+>
+>         while (__raw_readl(&ftgmac100->maccr) & FTGMAC100_MACCR_SW_RST);
+>
+> @@ -791,11 +791,11 @@ int ftgmac100_initialize(bd_t *bd)
+>                 miiphy_register(dev->name, ftgmac100_reg_read, ftgmac100_reg_write);
+>  #endif
+>
+> +               ftgmac100_reset(dev);
+> +
+
+This part of the change looks good.
 
 Cheers,
 
 Joel
 
-On Sun, Nov 20, 2016 at 5:57 PM, Jaghathiswari Rankappagounder
-Natarajan <jaghu@google.com> wrote:
-> This patchset includes:
+>                 /* set the ethernet address */
+>                 ftgmac100_set_mac_from_env(dev);
 >
-> Documentation for the binding which provides an interface for adding clock,
-> data and clear signal GPIO lines to control seven segment display.
->
-> The platform device driver provides an API for displaying on two 7-segment
-> displays, and implements the required bit-banging. The hardware assumed is
-> 74HC164 wired to two 7-segment displays.
->
-> The character device driver implements the user-space API for letting a user
-> write to two 7-segment displays including any conversion methods necessary
-> to map the user input to two 7-segment displays.
->
-> Adding clock, data and clear signal GPIO lines in the devicetree to control
-> seven segment display on zaius platform.
->
-> The platform driver matches on the device tree node; the platform driver also
-> initializes the character device.
->
-> Tested that the seven segment display works properly by writing to the
-> character device file on EVB AST2500 board and on Zaius board.
->
-> A changelog between versions is included in the individual patches. Please
-> provide feedback.
->
-> Jaghathiswari Rankappagounder Natarajan (4):
->   Documentation: dt-bindings: Document bindings for seven segment
->     display support
->   drivers: misc: Character device driver for seven segment display
->   drivers: misc: Platform driver for seven segment display support
->   arm: dts: Add dt-binding to support seven segment display on zaius
->
->  .../devicetree/bindings/misc/seven-seg-gpio.txt    |  27 +++
->  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts         |   8 +
->  drivers/misc/Kconfig                               |  16 ++
->  drivers/misc/Makefile                              |   2 +
->  drivers/misc/seven_seg_disp.c                      | 197 ++++++++++++++++++++
->  drivers/misc/seven_seg_disp.h                      |  34 ++++
->  drivers/misc/seven_seg_gpio.c                      | 206 +++++++++++++++++++++
->  7 files changed, 490 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/misc/seven-seg-gpio.txt
->  create mode 100644 drivers/misc/seven_seg_disp.c
->  create mode 100644 drivers/misc/seven_seg_disp.h
->  create mode 100644 drivers/misc/seven_seg_gpio.c
->
-> --
-> 2.8.0.rc3.226.g39d4020
->
+> -               ftgmac100_reset(dev);
+> -
+>                 card_number++;
+>         }
+>         return card_number;
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
