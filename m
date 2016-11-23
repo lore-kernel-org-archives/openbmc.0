@@ -1,53 +1,52 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-ua0-x241.google.com (mail-ua0-x241.google.com
+ [IPv6:2607:f8b0:400c:c08::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tNl7w5nsvzDwC6
- for <openbmc@lists.ozlabs.org>; Wed, 23 Nov 2016 12:27:40 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="cZ+CSX8N"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="WG66nuhM"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 6872520483;
- Tue, 22 Nov 2016 20:27:38 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Tue, 22 Nov 2016 20:27:38 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=1pDNshccjMZFUsWFwC4WIp8mDk4=; b=cZ+CSX
- 8NnZ8Di+6AmeidPknIY+FBfVkLF5f++F7YzjLbUmdZnSf1FZcYKqesauuC0XTEF8
- 0htaQL3tZzSQFCfGcKgE6Ypr1hVWLyWU8meFb1Ue9nhoYDH4BudsIVwpSk7Jz+aT
- R7mvV8s1DBUjvSerdRvIoLgLEc784j48j2r2M=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=1pDNshccjMZFUs
- WFwC4WIp8mDk4=; b=WG66nuhMS1iruPZI2ebMUMoF1WDyEJd2RWQNsW7xMwGm3c
- hnqGV9CAdx2BF91Zx5N2foLtQVZWXJCgMYdv393gUXPRh4p3LE8Y/mHerKev+y9k
- 1Wzcb7zisK0rmsW3xeIoTBn7DyYuM72WlGEexjCoN+xZfAYB/M0pH7gVI31NQ=
-X-ME-Sender: <xms:ivA0WP8N4eIWNu30OlrX9FkDKBMZtVsS92ZKV8vLzT62o4qd7k6iIQ>
-X-Sasl-enc: SbLBJQe/pU67/jo4yncIVWqPwwN88WSVmWSmXHB38KTG 1479864457
-Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 227CF24066;
- Tue, 22 Nov 2016 20:27:35 -0500 (EST)
-Message-ID: <1479864451.2503.46.camel@aj.id.au>
-Subject: Re: [PATCH] aspeed-bmc-opp-palmetto: Add GPIO hogs to devicetree
-From: Andrew Jeffery <andrew@aj.id.au>
-To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, Joel Stanley
- <joel@jms.id.au>
-Cc: Cyril Bur <cyrilbur@gmail.com>, openbmc@lists.ozlabs.org
-Date: Wed, 23 Nov 2016 11:57:31 +1030
-In-Reply-To: <16ff25a6-dabf-0075-684b-37799ed5abab@kaod.org>
-References: <20161118081221.19651-1-andrew@aj.id.au>
- <16ff25a6-dabf-0075-684b-37799ed5abab@kaod.org>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-6Bg8pT8gzavRYEXGNE3g"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tNmt44YRxzDvsv
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Nov 2016 13:45:48 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="kEgcYkpr"; 
+ dkim-atps=neutral
+Received: by mail-ua0-x241.google.com with SMTP id 50so15860uae.2
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2016 18:45:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=t85tfwjLniyYM2T9XQyWwQRx2imGkPZNJFBBFeOZ68M=;
+ b=kEgcYkprHYHhPCmwOYAPcDhRMxJz/1QImMwJaZVDWoUe9D+hSJCofn+3XWQdzo52ET
+ PP1/r90VgVRXj2tCm38vrkdmcBOVPzy02ri7PP0fySvl6fzRdK/FG+YS5/L/8NUA6f0X
+ ZyzfGHuswhhqPP4Ki8AEmKG0uAdvG60iIRMOXC8ixb9dc9fglqigQzOMs7ECzomHBd+S
+ hVs3aBHmYQOFqhSZfmigSkiWZ7XYxNGgatybGk03eMkTL7HsMTwTeFIFPzg6MTaVsMr5
+ aJZZ1BhaSrDDFP5Ps0nrHLR4JK93Uq+b3XxEORECzn8vsP/wOTSvtIhozVDxz8vsW8Fc
+ b7wA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=t85tfwjLniyYM2T9XQyWwQRx2imGkPZNJFBBFeOZ68M=;
+ b=ScsHEtkOaLqoGa+p7yBnPGTyrbDuMMKekwV3lBvtXMQGQ2mZT6h1fr1SII3VI9/oht
+ j9yW+2YVD4habFkYkRPSNURm1ILncjjdlU4keZBeHvA5es9NppHJHmJToGEgY7uaycfV
+ Fy432sCZKw3GRKbOylJ5vQhXZizuDEzspcNnMxOSDXRSLAPDM44NiNZWR7SD3H1oZxsh
+ WegEYR/LeMhBq85jgsVTXcj/v1+pnRBsZvAAtKktIrES93BrMpD20v63t+Us2ZvRzlRL
+ cv5OlY+MnYFudmpbjhb+qReRPesD3icpn1M4ChkzqnpB2I6Mv95Eplk7y1qpksiPyvz8
+ PJEg==
+X-Gm-Message-State: AKaTC01Zok0KuQuNkFq8hNjfstjVSxJ8DEUILxxy3+XTIaVCYWvCyrRC6IGESB2EOvQa/tYxCgEY9iKQGygs5Q==
+X-Received: by 10.176.82.157 with SMTP id v29mr470511uav.123.1479869146221;
+ Tue, 22 Nov 2016 18:45:46 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.176.0.193 with HTTP; Tue, 22 Nov 2016 18:45:25 -0800 (PST)
+In-Reply-To: <1479626856-18511-1-git-send-email-jaghu@google.com>
+References: <1479626856-18511-1-git-send-email-jaghu@google.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 23 Nov 2016 13:15:25 +1030
+X-Google-Sender-Auth: UCGYWWrsheK0PnI3y7uIMJuHXus
+Message-ID: <CACPK8XfHxnYWBho6-r7xkbRm2LETK6ZpKagc6mjWd6xmuXYd+Q@mail.gmail.com>
+Subject: Re: [PATCH linux v5 0/4] Seven segment display support
+To: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,46 +58,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Nov 2016 01:27:41 -0000
+X-List-Received-Date: Wed, 23 Nov 2016 02:45:49 -0000
 
+We spoke on IRC about the clock changes. Lets wait until those issues
+are addressed before reviewing this series.
 
---=-6Bg8pT8gzavRYEXGNE3g
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Cheers,
 
-On Tue, 2016-11-22 at 17:45 +0100, C=C3=A9dric Le Goater wrote:
-> The palmetto I use runs v1.99.0-275 and I could not boot the system. Unfo=
-rtunately,
-> pdbg does not see the P8 chip so I really don't know what it is up to.
+Joel
 
-These were the symptoms I was seeing with the tip of master on Monday.
-I haven't looked into whether or not -275 is ahead of that, but have
-you tried fetching/building/booting again today? Some fixes were
-applied, but I think Joel said there was still some flaky behaviour.
-
-I don't (yet) think it's directly related to the hogs patch.
-
-Andrew
---=-6Bg8pT8gzavRYEXGNE3g
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJYNPCEAAoJEJ0dnzgO5LT5H64QAKX9oZ6tNHWHduR7sQFtI+yv
-9fl6eUztNNthILO8Kp/ujBs3eziZdG7hwnKOedzuWle2gIM6cVNBqS+FlKSqzvRo
-875Z35Nz8PD1X2WHSUP4jKXz5ZjvUbS5UnKt9MfMlZLbswnBO9NbkzTp/Efr500v
-C14S2dvQ0SIyywBxjVMCLeg80ds8j7WYvQrWpbxOZmxg+vOIKGluvBs2BMXZBa5f
-EWGTdCRdohwSxbSx++/oxV2xfWoErEgp7WtRK3S3Sku32vgwmxbAgGn/mayH+vFq
-xZ2doCjCol4oeu/YE/UnMyIkXlKFgecBG3rN6uOL19mTaW/RU4juvQHwckvox37A
-KAT5tka5/y3L1BnNqgoIW6nao9dat+7HZ90oP1ZXitX0gr/45MIT3mSfuoXyssYZ
-jkVquavpsPc6pK7wTsVMN/RT3pWqFe1FNAsKyTBu8pbkDfq3goiak3A+PMOFkLZb
-Ja1NA4ssbQ+adJ85BT0Wuz3sehhcCNXDoeHbpym74EDH3AxH4rnFZThRH9JF+O2s
-iy21OmVXYyJpQHpSzCYII2ft4+FEiyviEPAM1JO748jIg73SMb9R6T/NfQgBkewb
-hrWu5iaAWGOdw7zvv6gCUsHKXHLV/f1ZlCd/gmyRICg02c45Gyh3TmwjP/M9V0lS
-QGCbw2RyZoFi16L/p0Jk
-=Uz7a
------END PGP SIGNATURE-----
-
---=-6Bg8pT8gzavRYEXGNE3g--
+On Sun, Nov 20, 2016 at 5:57 PM, Jaghathiswari Rankappagounder
+Natarajan <jaghu@google.com> wrote:
+> This patchset includes:
+>
+> Documentation for the binding which provides an interface for adding clock,
+> data and clear signal GPIO lines to control seven segment display.
+>
+> The platform device driver provides an API for displaying on two 7-segment
+> displays, and implements the required bit-banging. The hardware assumed is
+> 74HC164 wired to two 7-segment displays.
+>
+> The character device driver implements the user-space API for letting a user
+> write to two 7-segment displays including any conversion methods necessary
+> to map the user input to two 7-segment displays.
+>
+> Adding clock, data and clear signal GPIO lines in the devicetree to control
+> seven segment display on zaius platform.
+>
+> The platform driver matches on the device tree node; the platform driver also
+> initializes the character device.
+>
+> Tested that the seven segment display works properly by writing to the
+> character device file on EVB AST2500 board and on Zaius board.
+>
+> A changelog between versions is included in the individual patches. Please
+> provide feedback.
+>
+> Jaghathiswari Rankappagounder Natarajan (4):
+>   Documentation: dt-bindings: Document bindings for seven segment
+>     display support
+>   drivers: misc: Character device driver for seven segment display
+>   drivers: misc: Platform driver for seven segment display support
+>   arm: dts: Add dt-binding to support seven segment display on zaius
+>
+>  .../devicetree/bindings/misc/seven-seg-gpio.txt    |  27 +++
+>  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts         |   8 +
+>  drivers/misc/Kconfig                               |  16 ++
+>  drivers/misc/Makefile                              |   2 +
+>  drivers/misc/seven_seg_disp.c                      | 197 ++++++++++++++++++++
+>  drivers/misc/seven_seg_disp.h                      |  34 ++++
+>  drivers/misc/seven_seg_gpio.c                      | 206 +++++++++++++++++++++
+>  7 files changed, 490 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/misc/seven-seg-gpio.txt
+>  create mode 100644 drivers/misc/seven_seg_disp.c
+>  create mode 100644 drivers/misc/seven_seg_disp.h
+>  create mode 100644 drivers/misc/seven_seg_gpio.c
+>
+> --
+> 2.8.0.rc3.226.g39d4020
+>
