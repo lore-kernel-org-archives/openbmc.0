@@ -1,61 +1,60 @@
 Return-Path: <sjg@google.com>
-Received: from mail-oi0-x22b.google.com (mail-oi0-x22b.google.com
- [IPv6:2607:f8b0:4003:c06::22b])
+Received: from mail-oi0-x22c.google.com (mail-oi0-x22c.google.com
+ [IPv6:2607:f8b0:4003:c06::22c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tP72l0SFgzDwDb
- for <openbmc@lists.ozlabs.org>; Thu, 24 Nov 2016 03:24:31 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tP72r2SXYzDwDh
+ for <openbmc@lists.ozlabs.org>; Thu, 24 Nov 2016 03:24:36 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="F7Cx81IP"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="XBydfijK"; 
  dkim=pass (1024-bit key;
- unprotected) header.d=chromium.org header.i=@chromium.org header.b="dd1QnEIP";
+ unprotected) header.d=chromium.org header.i=@chromium.org header.b="JLrnFZKL";
  dkim-atps=neutral
-Received: by mail-oi0-x22b.google.com with SMTP id w63so20688676oiw.0
- for <openbmc@lists.ozlabs.org>; Wed, 23 Nov 2016 08:24:30 -0800 (PST)
+Received: by mail-oi0-x22c.google.com with SMTP id v84so20519090oie.3
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Nov 2016 08:24:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=u2G4f41D8YYs8UYs2VEYIQn5ZMOcI11FJZ/fDTXM3YU=;
- b=F7Cx81IPGcVsOnnbVV8/rwGQM5/d3Wpy9PgbIcDVR3LW/cnJ9o7qelB6T3tyhVuwhQ
- Y15Uanm0Drz0jhBkCRf3pw+O6o6e/So/y6oDCAG6Iv9w801vPP7Qn1PYrQa+9D2Zv+Rm
- p2ZqELwjl/T3h/gXLDWRUeLsWpD47BifkwkKOisyS8BB0+I3d29po85PIgfxFsZi/10n
- z/Vh8svXjCUCK/dG8OY0n9G+yb7E6Gs4FAt3uqlyA0Gpx8OAAx4uwF2RTB4GQjCpVuvu
- zbrMLNPQwb6LSGNDui5435PH7K9tkEB2d83Cg/IexiSeGzo4/Pf9zkWNVitTHhGprhYM
- 6+JQ==
+ bh=ZxcLBFe8OT/2St4eHMpZrkRKeWhIBEOGagTvICtqfMg=;
+ b=XBydfijK1v8BTevKtPRacyCTixFYPzQPTUbABswfd02aaOBei3HMEZ/OzqUUs9NwiS
+ 1EdoEZeT9zkoNdcUCmfnA3C/zJIIGM92NnTnOt8BQZMq+mxh127Wt2UfWlZdyFm7CuGn
+ ZYwz0CXZVZtqcINlt2bfarERvBE63FZpVVZWSmxBbgt8qvHqVjVvafwZ68laR5k3tBEY
+ gpyCPV6bL2g7xV82VAbCqzIUNBKmhj3TeXyCs0/XHBP0lMTuS342xwg8/HHd7eGxo+Gg
+ eKP+U7gw9LpcG1ayh6ZJI3zYRH3ofISRsLN3JEjELRNhd/pAT5MZ6qniQbPfWMy+M1NT
+ vn1w==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=u2G4f41D8YYs8UYs2VEYIQn5ZMOcI11FJZ/fDTXM3YU=;
- b=dd1QnEIPdnaXjX/YrqmgBaCv/YdE2ZrYOHRPWeIMhDnBPJFSiqaBGHZVqFUMValx+6
- Kn1olp/JyevF1xoJDvlSWh0FGyfhQZhjKjKZDtzMrZ3XQLR+eA/yBII3dG7DTbzCXYyC
- hvJ51nscfad5LikTAX6PRLzza1bs6/TL5rey4=
+ bh=ZxcLBFe8OT/2St4eHMpZrkRKeWhIBEOGagTvICtqfMg=;
+ b=JLrnFZKLLFvq9QwsFxUNNVNhR8bAJgoyQhrWcapcuGObuabKsuuQpkUg7AyPlJZQpu
+ syKmBLm20nZlgDtSRQd9g4sQ8b2AF+8g0rpZ3+jAlsyLMYrxZC7uXHVeLqypDL83+Qak
+ Tp5S3IguVNjP6hs1c0komYjpS6mNWpdfg9pJQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=u2G4f41D8YYs8UYs2VEYIQn5ZMOcI11FJZ/fDTXM3YU=;
- b=I9vxUVPQ/oeXYdMmLUe6Uwg646ETrzqYgd1a53Dl3X9fjs7WROxnEaXeIekdlxopQq
- HlxYuS11FlioDv3vgygfuqDF/6IJywy8ZltWOPiiHNuEYZi8PrOl3nRUwPZEgaJsSX8x
- Qu8hnGmBk35ux/MW3LyKOYzph0VbtS6Aty87U5FnqsC8H+otmI1/Pm855HKtU2uYN9xO
- 4tv1V4Q82p2twHxmwagXlkRipD1fMCC2dBhjpf6YS7rNk7rLxechEsGY2sIWOGzwwwpm
- FqdiNzZs2y43r7aPLge1rZ8jh6+Gbe6WLrJsf9VAwCyA3Jjmudz4YYupXyAC3ZYHdJZA
- Rk3g==
-X-Gm-Message-State: AKaTC0300yx9F7wsuBUWnupvlF6YscQszSBbzCzODwqnh51TPehbaEStuBd3gsBcvMWCQcYh9xRVzXh+SD6ZiMt7
-X-Received: by 10.202.104.80 with SMTP id d77mr1907034oic.107.1479918269077;
- Wed, 23 Nov 2016 08:24:29 -0800 (PST)
+ bh=ZxcLBFe8OT/2St4eHMpZrkRKeWhIBEOGagTvICtqfMg=;
+ b=PDeFzM43fJhy+tVKkWZP8884Mf4sNtR09UYgw41SrAWf53pGfS4EYrXuyH1SardJts
+ 5glzuzVvTtMaW6ngSU5Z2UsWf+JSpoMemO0tnO1x7U+htvoxozCswZdiYl9ptTdLbXIr
+ t5+pRt8Dnp85+T/EHVgSm0wRAEMWeHDlkfLCxe+agoLx3EOtiw0QEhfr2fi9OtpRMD/P
+ 7uXEDTIhF0zP3PM7sU9nv2c4QbrU0R7oi3QPXXtcmI9Q2btDx6O2lNC/CXfGLPjPgFKf
+ HktkV7unT/L9lE9nzbLz8PTrlCPGrqgrOV/DeDVC1Pd1929Tii4K1x89fBNGGt4dj7BM
+ fDsw==
+X-Gm-Message-State: AKaTC011+as7yaUJi95Qx7/z8YdAg11IkvV8v7tWTY2RfVnjTzUQB/RixlxF4e8QodAmnZVfnK15JWMq0cvQ8bC4
+X-Received: by 10.157.32.6 with SMTP id n6mr2140414ota.106.1479918274129; Wed,
+ 23 Nov 2016 08:24:34 -0800 (PST)
 MIME-Version: 1.0
 Sender: sjg@google.com
-Received: by 10.182.78.1 with HTTP; Wed, 23 Nov 2016 08:24:08 -0800 (PST)
-In-Reply-To: <CAPnjgZ1zD58OkusQjFCgJJDu5Ge1JNfrrS+-axYJmjijnUkxBw@mail.gmail.com>
+Received: by 10.182.78.1 with HTTP; Wed, 23 Nov 2016 08:24:13 -0800 (PST)
+In-Reply-To: <CAPnjgZ2Zd7wc7Vdui3it9fhMyaXaZPhSXP_Gf3rCnWP_KTi6RQ@mail.gmail.com>
 References: <1479858976-139210-1-git-send-email-maxims@google.com>
- <1479858976-139210-5-git-send-email-maxims@google.com>
- <CAPnjgZ1zD58OkusQjFCgJJDu5Ge1JNfrrS+-axYJmjijnUkxBw@mail.gmail.com>
+ <1479858976-139210-6-git-send-email-maxims@google.com>
+ <CAPnjgZ2Zd7wc7Vdui3it9fhMyaXaZPhSXP_Gf3rCnWP_KTi6RQ@mail.gmail.com>
 From: Simon Glass <sjg@chromium.org>
-Date: Wed, 23 Nov 2016 09:24:08 -0700
-X-Google-Sender-Auth: x1UCbL2bPZh9IRVHNuUacLuHzOs
-Message-ID: <CAPnjgZ3bcJmNNAWSkgkOgQtLNMm-H1QQSqMK6_dcNdiqSgqj=w@mail.gmail.com>
-Subject: Re: [PATCH u-boot 4/5] aspeed: Added function to configure pins for
- I2C devices.
+Date: Wed, 23 Nov 2016 09:24:13 -0700
+X-Google-Sender-Auth: zEZj4JH-lpXjW2SMKceY7pgOESQ
+Message-ID: <CAPnjgZ17hD9KQPbTA92_+mpLFT9pm_DxzrkjV40KoxOt6hPqgQ@mail.gmail.com>
+Subject: Re: [PATCH u-boot 5/5] aspeed: I2C driver.
 To: Maxim Sloyko <maxims@google.com>
 Cc: U-Boot Mailing List <u-boot@lists.denx.de>, openbmc@lists.ozlabs.org
 Content-Type: text/plain; charset=UTF-8
@@ -70,7 +69,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Nov 2016 16:24:31 -0000
+X-List-Received-Date: Wed, 23 Nov 2016 16:24:37 -0000
 
 [resend from correct address]
 
@@ -80,74 +79,590 @@ On 23 November 2016 at 09:13, Simon Glass <sjg@google.com> wrote:
 > On 22 November 2016 at 16:56,  <maxims@google.com> wrote:
 >> From: Maxim Sloyko <maxims@google.com>
 >>
->> In the absence of pinmux driver, I2C driver will be
->> configuring pins directly.
+>> The driver is very limited: only single master mode is supported
+>> and only byte-by-byte synchronous reads and writes are supported,
+>> no Pool Buffers or DMA.
 >
-> Commit subject s/Added/Add/
->
-> and please remove the '.' at the end.
+> Please add that into the Kconfig help too.
 >
 >>
 >> Signed-off-by: Maxim Sloyko <maxims@google.com>
 >> ---
->>  arch/arm/include/asm/arch-aspeed/ast_scu.h |  5 +++++
->>  arch/arm/mach-aspeed/ast-scu.c             | 28 ++++++++++++++++++++++++++++
->>  2 files changed, 33 insertions(+)
+>>  drivers/i2c/Kconfig   |   7 ++
+>>  drivers/i2c/Makefile  |   1 +
+>>  drivers/i2c/ast_i2c.c | 305 ++++++++++++++++++++++++++++++++++++++++++++++++++
+>>  drivers/i2c/ast_i2c.h | 143 +++++++++++++++++++++++
+>>  4 files changed, 456 insertions(+)
+>>  create mode 100644 drivers/i2c/ast_i2c.c
+>>  create mode 100644 drivers/i2c/ast_i2c.h
 >>
->> diff --git a/arch/arm/include/asm/arch-aspeed/ast_scu.h b/arch/arm/include/asm/arch-aspeed/ast_scu.h
->> index eb5aaa2..80ebd6f 100644
->> --- a/arch/arm/include/asm/arch-aspeed/ast_scu.h
->> +++ b/arch/arm/include/asm/arch-aspeed/ast_scu.h
->> @@ -46,4 +46,9 @@ extern void ast_scu_init_eth(u8 num);
->>  extern void ast_scu_multi_func_eth(u8 num);
->>  extern void ast_scu_multi_func_romcs(u8 num);
+>> diff --git a/drivers/i2c/Kconfig b/drivers/i2c/Kconfig
+>> index 6e22bba..720c475 100644
+>> --- a/drivers/i2c/Kconfig
+>> +++ b/drivers/i2c/Kconfig
+>> @@ -90,6 +90,13 @@ config SYS_I2C_DW_ENABLE_STATUS_UNSUPPORTED
+>>           enable status register. This config option can be enabled in such
+>>           cases.
 >>
->> +/* Enable I2C controller and pins for a particular device.
->> + * Device numbering starts at 1
+>> +config SYS_I2C_AST
+>> +       bool "Aspeed I2C Controller"
+>> +       depends on DM_I2C
+>> +       help
+>> +         Say yes here to select Aspeed I2C Host Controller. The driver
+>> +         supports AST2500 and AST2400 controllers.
+>> +
+>>  config SYS_I2C_INTEL
+>>         bool "Intel I2C/SMBUS driver"
+>>         depends on DM_I2C
+>> diff --git a/drivers/i2c/Makefile b/drivers/i2c/Makefile
+>> index 167424d..89e046e 100644
+>> --- a/drivers/i2c/Makefile
+>> +++ b/drivers/i2c/Makefile
+>> @@ -16,6 +16,7 @@ obj-$(CONFIG_PCA9564_I2C) += pca9564_i2c.o
+>>  obj-$(CONFIG_TSI108_I2C) += tsi108_i2c.o
+>>  obj-$(CONFIG_SH_SH7734_I2C) += sh_sh7734_i2c.o
+>>  obj-$(CONFIG_SYS_I2C) += i2c_core.o
+>> +obj-$(CONFIG_SYS_I2C_AST) += ast_i2c.o
+>>  obj-$(CONFIG_SYS_I2C_CADENCE) += i2c-cdns.o
+>>  obj-$(CONFIG_SYS_I2C_DAVINCI) += davinci_i2c.o
+>>  obj-$(CONFIG_SYS_I2C_DW) += designware_i2c.o
+>> diff --git a/drivers/i2c/ast_i2c.c b/drivers/i2c/ast_i2c.c
+>> new file mode 100644
+>> index 0000000..f2c132e
+>> --- /dev/null
+>> +++ b/drivers/i2c/ast_i2c.c
+>> @@ -0,0 +1,305 @@
+>> +/*
+>> + * Copyright (C) 2012-2020  ASPEED Technology Inc.
+>> + * Copyright 2016 IBM Corporation
+>> + * Copyright 2016 Google, Inc.
+>> + *
+>> + * SPDX-License-Identifier:    GPL-2.0+
 >> + */
->> +extern void ast_scu_enable_i2c(u8 num);
+>> +
+>> +#include <common.h>
+>> +#include <dm.h>
+>> +#include <fdtdec.h>
+>> +#include <i2c.h>
+>> +
+>> +#include <asm/arch/ast_scu.h>
+>> +#include <asm/arch/regs-scu.h>
+>> +#include <asm/io.h>
+>> +
+>> +#include "ast_i2c.h"
+>> +
+>> +#define I2C_TIMEOUT_US (100000)
+>> +#define I2C_SLEEP_STEP (20)
 >
-> I suspect this should be done as a pinctrl driver. See for
-> drivers/pinctrl for examples.
+> I2C_SLEEP_STEP_US
+>
+>> +#define EI2C_TIMEOUT (1001)
+>
+> EI2C_TIMEOUT_US
+>
+> Please drop the () on those
 >
 >> +
->>  #endif
->> diff --git a/arch/arm/mach-aspeed/ast-scu.c b/arch/arm/mach-aspeed/ast-scu.c
->> index e00dbe2..b5aa8bf 100644
->> --- a/arch/arm/mach-aspeed/ast-scu.c
->> +++ b/arch/arm/mach-aspeed/ast-scu.c
->> @@ -507,3 +507,31 @@ void ast_scu_get_who_init_dram(void)
->>                 break;
->>         }
->>  }
+>> +DECLARE_GLOBAL_DATA_PTR;
 >> +
->> +void ast_scu_enable_i2c(u8 bus_num)
+>> +struct ast_i2c {
+>
+> Please add a struct comment with member info.
+>
+>> +       u32 id;
+>> +       struct ast_i2c_regs *regs;
+>> +       int speed;
+>> +};
+>> +
+>> +static u32 get_clk_reg_val(u32 divider_ratio)
+>
+> Function comment. Consider returning ulong.
+>
 >> +{
->> +       if (bus_num > SCU_I2C_MAX_BUS_NUM) {
->> +               debug("%s: bus_num is out of range, must be [%d - %d]\n",
->> +                     __func__, SCU_I2C_MIN_BUS_NUM, SCU_I2C_MAX_BUS_NUM);
->> +               return;
+>> +       unsigned int inc = 0, div;
+>> +       u32 scl_low, scl_high, data;
+>> +
+>> +       for (div = 0; divider_ratio >= 16; div++) {
+>> +               inc |= (divider_ratio & 1);
+>> +               divider_ratio >>= 1;
+>> +       }
+>> +       divider_ratio += inc;
+>> +       scl_low = (divider_ratio >> 1) - 1;
+>> +       scl_high = divider_ratio - scl_low - 2;
+>> +       data = 0x77700300 | (scl_high << 16) | (scl_low << 12) | div;
+>
+> blank link here. What is the magic 0x77700300 for? Should either have
+> a comment or a #define
+>
+>> +       return data;
+>> +}
+>> +
+>> +static inline void ast_i2c_clear_interrupts(struct ast_i2c_regs *i2c_base)
+>> +{
+>> +       writel(~0, &i2c_base->isr);
+>> +}
+>> +
+>> +static void ast_i2c_init_bus(struct ast_i2c *i2c_bus)
+>> +{
+>> +       /* Reset device */
+>> +       writel(0, &i2c_bus->regs->fcr);
+>> +       /* Enable Master Mode. Assuming single-master. */
+>
+> nit: Please avoid '.' at end of comments
+>
+>> +       debug("Enable Master for %p\n", i2c_bus->regs);
+>> +       writel(AST_I2CD_MASTER_EN
+>> +              | AST_I2CD_M_SDA_LOCK_EN
+>> +              | AST_I2CD_MULTI_MASTER_DIS | AST_I2CD_M_SCL_DRIVE_EN,
+>> +              &i2c_bus->regs->fcr);
+>> +       debug("FCR: %p\n", &i2c_bus->regs->fcr);
+>> +       /* Enable Interrupts */
+>> +       writel(AST_I2CD_INTR_TX_ACK
+>> +              | AST_I2CD_INTR_TX_NAK
+>> +              | AST_I2CD_INTR_RX_DONE
+>> +              | AST_I2CD_INTR_BUS_RECOVER_DONE
+>> +              | AST_I2CD_INTR_NORMAL_STOP
+>> +              | AST_I2CD_INTR_ABNORMAL, &i2c_bus->regs->icr);
+>> +}
+>> +
+>> +static int ast_i2c_probe(struct udevice *dev)
+>> +{
+>> +       struct ast_i2c *i2c_bus = dev_get_priv(dev);
+>> +
+>> +       debug("Enabling I2C%u\n", dev->seq);
+>> +       ast_scu_enable_i2c(dev->seq);
+>> +
+>> +       i2c_bus->id = dev->seq;
+>> +       struct ast_i2c_regs *i2c_base =
+>> +           (struct ast_i2c_regs *)dev_get_addr(dev);
+>
+> Can you use dev_get_addr_ptr()? Need to check for NULL and return
+> -EINVAL. Also, reading the device tree should really be in the
+> ofdata_to_platdata() method, not probe().
+>
+>> +       i2c_bus->regs = i2c_base;
+>> +
+>> +       ast_i2c_init_bus(i2c_bus);
+>> +       return 0;
+>> +}
+>> +
+>> +static inline int ast_i2c_wait_isr(struct ast_i2c_regs *i2c_base, u32 flag)
+>> +{
+>> +       int timeout = I2C_TIMEOUT_US;
+>
+> blank line here
+>
+>> +       while (!(readl(&i2c_base->isr) & flag) && timeout > 0) {
+>> +               udelay(I2C_SLEEP_STEP);
+>> +               timeout -= I2C_SLEEP_STEP;
+>> +       }
+>
+>
+>> +
+>> +       ast_i2c_clear_interrupts(i2c_base);
+>> +       if (timeout <= 0)
+>> +               return -EI2C_TIMEOUT;
+>
+> return -ETIMEDOUT
+>
+>> +       return 0;
+>> +}
+>> +
+>> +static inline int ast_i2c_send_stop(struct ast_i2c_regs *i2c_base)
+>> +{
+>> +       writel(AST_I2CD_M_STOP_CMD, &i2c_base->csr);
+>
+> blank line (please do this before each return)
+>
+>> +       return ast_i2c_wait_isr(i2c_base, AST_I2CD_INTR_NORMAL_STOP);
+>> +}
+>> +
+>> +static inline int ast_i2c_wait_tx(struct ast_i2c_regs *i2c_base)
+>> +{
+>> +       int timeout = I2C_TIMEOUT_US;
+>> +       u32 flag = AST_I2CD_INTR_TX_ACK | AST_I2CD_INTR_TX_NAK;
+>> +       u32 status = readl(&i2c_base->isr) & flag;
+>
+> blank line (please do this after all decl blocks)
+>
+>> +       while (!status && timeout > 0) {
+>> +               status = readl(&i2c_base->isr) & flag;
+>> +               udelay(I2C_SLEEP_STEP);
+>> +               timeout -= I2C_SLEEP_STEP;
 >> +       }
 >> +
->> +       if (bus_num == 0) {
->> +               /* Enable I2C Controllers */
->> +               clrbits_le32(AST_SCU_BASE + AST_SCU_RESET, SCU_RESET_I2C);
->> +       } else if (bus_num >= 3) {
->> +               setbits_le32(AST_SCU_BASE + AST_SCU_FUN_PIN_CTRL5,
->> +                            SCU_FUN_PIN_I2C(bus_num));
->> +       /* In earlier versions of the SoC these pins are always assigned to
->> +        * respective I2C buses and require no configuration.
->> +        */
->> +#ifdef AST_SOC_G5
->> +       } else if (bus_num == 1) {
->> +               setbits_le32(AST_SCU_BASE + AST_SCU_FUN_PIN_CTRL8,
->> +                            SCU_FUN_PIN_SDA1 | SCU_FUN_PIN_SCL1);
->> +       } else if (bus_num == 2) {
->> +               setbits_le32(AST_SCU_BASE + AST_SCU_FUN_PIN_CTRL8,
->> +                            SCU_FUN_PIN_SDA2 | SCU_FUN_PIN_SCL2);
->> +#endif
->> +       }
+>> +       int ret = 0;
+>
+> Move this to top of function. Declarations should all be at the start
+> of the block.
+>
+>> +       if (status == AST_I2CD_INTR_TX_NAK)
+>> +               ret = -EREMOTEIO;
+>> +
+>> +       if (timeout <= 0)
+>> +               ret = -EI2C_TIMEOUT;
+>> +
+>> +       ast_i2c_clear_interrupts(i2c_base);
+>> +       return ret;
 >> +}
+>> +
+>> +static inline int ast_i2c_start_txn(struct ast_i2c_regs *i2c_base, u8 devaddr)
+>
+> Why inline? The compiler will do that anyway so I think you can drop
+> it. Also please use int or uint for devaddr - particularly on ARM it
+> isn't good to have non-register-sized parameters and return values.
+>
+>> +{
+>> +       /* Start and Send Device Address */
+>> +       writel(devaddr, &i2c_base->trbbr);
+>> +       writel(AST_I2CD_M_START_CMD | AST_I2CD_M_TX_CMD, &i2c_base->csr);
+>> +       return ast_i2c_wait_tx(i2c_base);
+>> +}
+>> +
+>> +static int ast_i2c_read_data(struct ast_i2c *i2c_bus, u8 chip_addr, u8 *buffer,
+>> +                            size_t len, bool send_stop)
+>> +{
+>> +       struct ast_i2c_regs *i2c_base = i2c_bus->regs;
+>> +
+>> +       int i2c_error =
+>> +           ast_i2c_start_txn(i2c_base, (chip_addr << 1) | I2C_M_RD);
+>> +       if (i2c_error < 0)
+>> +               return i2c_error;
+>> +
+>> +       u32 i2c_cmd = AST_I2CD_M_RX_CMD;
+>> +       for (; len > 0; len--, buffer++) {
+>> +               if (len == 1)
+>> +                       i2c_cmd |= AST_I2CD_M_S_RX_CMD_LAST;
+>> +               writel(i2c_cmd, &i2c_base->csr);
+>> +               i2c_error = ast_i2c_wait_isr(i2c_base, AST_I2CD_INTR_RX_DONE);
+>> +               if (i2c_error < 0)
+>> +                       return i2c_error;
+>> +               *buffer = AST_I2CD_RX_DATA_BUF_GET(readl(&i2c_base->trbbr));
+>
+> Instead of AST_I2CD_RX_DATA_BUF_GET(), please define something like
+> AST_I2CD_RX_DATA_SHIFT and _MASK and use then here.
+>
+> #define AST_I2CD_RX_DATA_SHIFT  8
+> #define AST_I2CD_RX_DATA_MASK  (0xff << AST_I2CD_RX_DATA_SHIFT)
+>
+>
+>> +       }
+>> +       ast_i2c_clear_interrupts(i2c_base);
+>> +
+>> +       if (send_stop)
+>> +               return ast_i2c_send_stop(i2c_base);
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +static int ast_i2c_write_data(struct ast_i2c *i2c_bus, u8 chip_addr, u8
+>> +                             *buffer, size_t len, bool send_stop)
+>> +{
+>> +       struct ast_i2c_regs *i2c_base = i2c_bus->regs;
+>> +
+>> +       int i2c_error = ast_i2c_start_txn(i2c_base, (chip_addr << 1));
+>> +       if (i2c_error < 0)
+>> +               return i2c_error;
+>> +
+>> +       for (; len > 0; len--, buffer++) {
+>> +               writel(*buffer, &i2c_base->trbbr);
+>> +               writel(AST_I2CD_M_TX_CMD, &i2c_base->csr);
+>> +               i2c_error = ast_i2c_wait_tx(i2c_base);
+>> +               if (i2c_error < 0)
+>> +                       return i2c_error;
+>> +       }
+>> +
+>> +       if (send_stop)
+>> +               return ast_i2c_send_stop(i2c_base);
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +static int ast_i2c_deblock(struct udevice *dev)
+>> +{
+>> +       struct ast_i2c *i2c_bus = dev_get_priv(dev);
+>> +       struct ast_i2c_regs *i2c_base = i2c_bus->regs;
+>> +
+>> +       u32 csr = readl(&i2c_base->csr);
+>> +
+>> +       int deblock_error = 0;
+>
+> Just 'ret' is good enough.
+>
+>> +       bool sda_high = csr & AST_I2CD_SDA_LINE_STS;
+>> +       bool scl_high = csr & AST_I2CD_SCL_LINE_STS;
+>> +       if (sda_high && scl_high) {
+>> +               /* Bus is idle, no deblocking needed. */
+>> +               return 0;
+>> +       } else if (sda_high) {
+>> +               /* Send stop command */
+>> +               debug("Unterminated TXN in (%x), sending stop\n", csr);
+>> +               deblock_error = ast_i2c_send_stop(i2c_base);
+>> +       } else if (scl_high) {
+>> +               /* Possibly stuck slave */
+>> +               debug("Bus stuck (%x), attempting recovery\n", csr);
+>> +               writel(AST_I2CD_BUS_RECOVER_CMD, &i2c_base->csr);
+>> +               deblock_error = ast_i2c_wait_isr(
+>> +                       i2c_base, AST_I2CD_INTR_BUS_RECOVER_DONE);
+>> +       } else {
+>> +               /* Just try to reinit the device. */
+>> +               ast_i2c_init_bus(i2c_bus);
+>> +       }
+>> +
+>> +       return deblock_error;
+>> +}
+>> +
+>> +static int ast_i2c_xfer(struct udevice *dev, struct i2c_msg *msg, int nmsgs)
+>> +{
+>> +       struct ast_i2c *i2c_bus = dev_get_priv(dev);
+>> +       int ret;
+>> +
+>> +       (void)ast_i2c_deblock(dev);
+>> +       debug("i2c_xfer: %d messages\n", nmsgs);
+>> +       for (; nmsgs > 0; nmsgs--, msg++) {
+>> +               if (msg->flags & I2C_M_RD) {
+>> +                       debug("i2c_read: chip=0x%x, len=0x%x, flags=0x%x\n",
+>> +                             msg->addr, msg->len, msg->flags);
+>> +                       ret =
+>
+> Can you break the line in the parameters instead of at '=' ?
+>
+>> +                           ast_i2c_read_data(i2c_bus, msg->addr, msg->buf,
+>> +                                               msg->len, (nmsgs == 1));
+>> +               } else {
+>> +                       debug("i2c_write: chip=0x%x, len=0x%x, flags=0x%x\n",
+>> +                             msg->addr, msg->len, msg->flags);
+>> +                       ret =
+>> +                           ast_i2c_write_data(i2c_bus, msg->addr, msg->buf,
+>> +                                                msg->len, (nmsgs == 1));
+>> +               }
+>> +               if (ret) {
+>> +                       debug("%s: error (%d)\n", __func__, ret);
+>> +                       return -EREMOTEIO;
+>> +               }
+>> +       }
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +static int ast_i2c_set_speed(struct udevice *dev, unsigned int speed)
+>> +{
+>> +       debug("Setting speed ofr I2C%d to <%u>\n", dev->seq, speed);
+>> +       if (!speed) {
+>> +               debug("No valid speed specified.\n");
+>
+> Drop '.'
+>
+>> +               return -EINVAL;
+>> +       }
+>> +       struct ast_i2c *i2c_bus = dev_get_priv(dev);
+>> +
+>> +       i2c_bus->speed = speed;
+>> +       /* TODO: get this from device tree */
+>> +       u32 pclk = ast_get_apbclk();
+>> +       u32 divider = pclk / speed;
+>> +
+>> +       struct ast_i2c_regs *i2c_base = i2c_bus->regs;
+>> +       if (speed > 400000) {
+>> +               debug("Enabling High Speed\n");
+>> +               setbits_le32(&i2c_base->fcr, AST_I2CD_M_HIGH_SPEED_EN
+>> +                            | AST_I2CD_M_SDA_DRIVE_1T_EN
+>> +                            | AST_I2CD_SDA_DRIVE_1T_EN);
+>> +               writel(0x3, &i2c_base->cactcr2);
+>> +               writel(get_clk_reg_val(divider), &i2c_base->cactcr1);
+>> +       } else {
+>> +               debug("Enabling Normal Speed\n");
+>> +               writel(get_clk_reg_val(divider), &i2c_base->cactcr1);
+>> +               writel(AST_NO_TIMEOUT_CTRL, &i2c_base->cactcr2);
+>> +       }
+>> +
+>> +       ast_i2c_clear_interrupts(i2c_base);
+>> +       return 0;
+>> +}
+>> +
+>> +static const struct dm_i2c_ops ast_i2c_ops = {
+>> +       .xfer = ast_i2c_xfer,
+>> +       .set_bus_speed = ast_i2c_set_speed,
+>> +       .deblock = ast_i2c_deblock,
+>> +};
+>> +
+>> +static const struct udevice_id ast_i2c_ids[] = {
+>> +       {.compatible = "aspeed,ast2400-i2c-controller",},
+>> +       {.compatible = "aspeed,ast2400-i2c-bus",},
+>> +       {},
+>> +};
+>> +
+>> +/* Tell GNU Indent to keep this as is: */
+>> +/* *INDENT-OFF* */
+>> +U_BOOT_DRIVER(i2c_aspeed) = {
+>> +       .name = "i2c_aspeed",
+>> +       .id = UCLASS_I2C,
+>> +       .of_match = ast_i2c_ids,
+>> +       .probe = ast_i2c_probe,
+>> +       .priv_auto_alloc_size = sizeof(struct ast_i2c),
+>> +       .ops = &ast_i2c_ops,
+>> +};
+>> +/* *INDENT-ON* */
+>> diff --git a/drivers/i2c/ast_i2c.h b/drivers/i2c/ast_i2c.h
+>> new file mode 100644
+>> index 0000000..8926fd2
+>> --- /dev/null
+>> +++ b/drivers/i2c/ast_i2c.h
+>> @@ -0,0 +1,143 @@
+>> +/*
+>> + * Copyright (C) 2012-2020  ASPEED Technology Inc.
+>> + * Copyright 2016 IBM Corporation
+>> + * Copyright 2016 Google, Inc.
+>> + *
+>> + * SPDX-License-Identifier:    GPL-2.0+
+>> + */
+>> +#ifndef __AST_I2C_H_
+>> +#define __AST_I2C_H_
+>> +
+>> +struct ast_i2c_regs {
+>> +       uint32_t fcr;
+>> +       uint32_t cactcr1;
+>> +       uint32_t cactcr2;
+>> +       uint32_t icr;
+>> +       uint32_t isr;
+>> +       uint32_t csr;
+>> +       uint32_t sdar;
+>> +       uint32_t pbcr;
+>> +       uint32_t trbbr;
+>> +#ifdef CONFIG_TARGET_AST_G5
+>> +       uint32_t dma_mbar;
+>> +       uint32_t dma_tlr;
+>> +#endif
+>> +};
+>> +
+>> +/* Device Register Definition */
+>> +/* 0x00 : I2CD Function Control Register  */
+>> +#define AST_I2CD_BUFF_SEL_MASK                         (0x7 << 20)
+>
+> It's fine to have the AST_I2CD_ prefix if you want it. But it does
+> make things longer, and this header will only be included in one file.
+> So feel free to prune to AST_ if you like.
+>
+>> +#define AST_I2CD_BUFF_SEL(x)                           (x << 20)
+>> +#define AST_I2CD_M_SDA_LOCK_EN                 (0x1 << 16)
+>> +#define AST_I2CD_MULTI_MASTER_DIS                      (0x1 << 15)
+>> +#define AST_I2CD_M_SCL_DRIVE_EN                (0x1 << 14)
+>> +#define AST_I2CD_MSB_STS                                       (0x1 << 9)
+>> +#define AST_I2CD_SDA_DRIVE_1T_EN                       (0x1 << 8)
+>> +#define AST_I2CD_M_SDA_DRIVE_1T_EN             (0x1 << 7)
+>> +#define AST_I2CD_M_HIGH_SPEED_EN               (0x1 << 6)
+>> +#define AST_I2CD_DEF_ADDR_EN                           (0x1 << 5)
+>> +#define AST_I2CD_DEF_ALERT_EN                          (0x1 << 4)
+>> +#define AST_I2CD_DEF_ARP_EN                                    (0x1 << 3)
+>> +#define AST_I2CD_DEF_GCALL_EN                          (0x1 << 2)
+>> +#define AST_I2CD_SLAVE_EN                                      (0x1 << 1)
+>> +#define AST_I2CD_MASTER_EN                                     (0x1)
+>
+> Avoid brackets around simple constants
+>
+>> +
+>> +/* 0x04 : I2CD Clock and AC Timing Control Register #1 */
+>> +#define AST_I2CD_tBUF                                          (0x1 << 28)
+>> +#define AST_I2CD_tHDSTA                                                (0x1 << 24)
+>> +#define AST_I2CD_tACST                                         (0x1 << 20)
+>> +#define AST_I2CD_tCKHIGH                                       (0x1 << 16)
+>> +#define AST_I2CD_tCKLOW                                                (0x1 << 12)
+>> +#define AST_I2CD_tHDDAT                                                (0x1 << 10)
+>> +#define AST_I2CD_CLK_TO_BASE_DIV                       (0x1 << 8)
+>> +#define AST_I2CD_CLK_BASE_DIV                          (0x1)
+>> +
+>> +/* 0x08 : I2CD Clock and AC Timing Control Register #2 */
+>> +#define AST_I2CD_tTIMEOUT                                      (0x1)
+>> +#define AST_NO_TIMEOUT_CTRL                                    0x0
+>> +
+>> +/* 0x0c : I2CD Interrupt Control Register &
+>> + * 0x10 : I2CD Interrupt Status Register
+>> + *
+>> + * These share bit definitions, so use the same values for the enable &
+>> + * status bits.
+>> + */
+>> +#define AST_I2CD_INTR_SDA_DL_TIMEOUT                   (0x1 << 14)
+>> +#define AST_I2CD_INTR_BUS_RECOVER_DONE                 (0x1 << 13)
+>> +#define AST_I2CD_INTR_SMBUS_ALERT                      (0x1 << 12)
+>> +#define AST_I2CD_INTR_SMBUS_ARP_ADDR                   (0x1 << 11)
+>> +#define AST_I2CD_INTR_SMBUS_DEV_ALERT_ADDR             (0x1 << 10)
+>> +#define AST_I2CD_INTR_SMBUS_DEF_ADDR                   (0x1 << 9)
+>> +#define AST_I2CD_INTR_GCALL_ADDR                       (0x1 << 8)
+>> +#define AST_I2CD_INTR_SLAVE_MATCH                      (0x1 << 7)
+>> +#define AST_I2CD_INTR_SCL_TIMEOUT                      (0x1 << 6)
+>> +#define AST_I2CD_INTR_ABNORMAL                         (0x1 << 5)
+>> +#define AST_I2CD_INTR_NORMAL_STOP                      (0x1 << 4)
+>> +#define AST_I2CD_INTR_ARBIT_LOSS                       (0x1 << 3)
+>> +#define AST_I2CD_INTR_RX_DONE                          (0x1 << 2)
+>> +#define AST_I2CD_INTR_TX_NAK                           (0x1 << 1)
+>> +#define AST_I2CD_INTR_TX_ACK                           (0x1 << 0)
+>> +
+>> +/* 0x14 : I2CD Command/Status Register   */
+>> +#define AST_I2CD_SDA_OE                                        (0x1 << 28)
+>> +#define AST_I2CD_SDA_O                                 (0x1 << 27)
+>> +#define AST_I2CD_SCL_OE                                        (0x1 << 26)
+>> +#define AST_I2CD_SCL_O                                 (0x1 << 25)
+>> +#define AST_I2CD_TX_TIMING                             (0x1 << 24)
+>> +#define AST_I2CD_TX_STATUS                             (0x1 << 23)
+>> +
+>> +/* Tx State Machine */
+>> +#define AST_I2CD_IDLE                                  0x0
+>> +#define AST_I2CD_MACTIVE                               0x8
+>> +#define AST_I2CD_MSTART                                        0x9
+>> +#define AST_I2CD_MSTARTR                               0xa
+>> +#define AST_I2CD_MSTOP                                 0xb
+>> +#define AST_I2CD_MTXD                                  0xc
+>> +#define AST_I2CD_MRXACK                                        0xd
+>> +#define AST_I2CD_MRXD                                  0xe
+>> +#define AST_I2CD_MTXACK                                0xf
+>> +#define AST_I2CD_SWAIT                                 0x1
+>> +#define AST_I2CD_SRXD                                  0x4
+>> +#define AST_I2CD_STXACK                                0x5
+>> +#define AST_I2CD_STXD                                  0x6
+>> +#define AST_I2CD_SRXACK                                0x7
+>> +#define AST_I2CD_RECOVER                               0x3
+>> +
+>> +#define AST_I2CD_SCL_LINE_STS                          (0x1 << 18)
+>> +#define AST_I2CD_SDA_LINE_STS                          (0x1 << 17)
+>> +#define AST_I2CD_BUS_BUSY_STS                          (0x1 << 16)
+>> +#define AST_I2CD_SDA_OE_OUT_DIR                                (0x1 << 15)
+>> +#define AST_I2CD_SDA_O_OUT_DIR                         (0x1 << 14)
+>> +#define AST_I2CD_SCL_OE_OUT_DIR                                (0x1 << 13)
+>> +#define AST_I2CD_SCL_O_OUT_DIR                         (0x1 << 12)
+>> +#define AST_I2CD_BUS_RECOVER_CMD                       (0x1 << 11)
+>> +#define AST_I2CD_S_ALT_EN                              (0x1 << 10)
+>> +#define AST_I2CD_RX_DMA_ENABLE                         (0x1 << 9)
+>> +#define AST_I2CD_TX_DMA_ENABLE                         (0x1 << 8)
+>> +
+>> +/* Command Bit */
+>> +#define AST_I2CD_RX_BUFF_ENABLE                                (0x1 << 7)
+>> +#define AST_I2CD_TX_BUFF_ENABLE                                (0x1 << 6)
+>> +#define AST_I2CD_M_STOP_CMD                                    (0x1 << 5)
+>> +#define AST_I2CD_M_S_RX_CMD_LAST                       (0x1 << 4)
+>> +#define AST_I2CD_M_RX_CMD                                      (0x1 << 3)
+>> +#define AST_I2CD_S_TX_CMD                                      (0x1 << 2)
+>> +#define AST_I2CD_M_TX_CMD                                      (0x1 << 1)
+>> +#define AST_I2CD_M_START_CMD                           (0x1)
+>> +
+>> +/* 0x18 : I2CD Slave Device Address Register   */
+>> +
+>> +/* 0x1C : I2CD Pool Buffer Control Register   */
+>> +#define AST_I2CD_RX_BUF_ADDR_GET(x)                    (((x) >> 24) & 0xff)
+>> +#define AST_I2CD_RX_BUF_END_ADDR_SET(x)                        ((x) << 16)
+>> +#define AST_I2CD_TX_DATA_BUF_END_SET(x)                        (((x) & 0xff) << 8)
+>> +#define AST_I2CD_RX_DATA_BUF_GET(x)                    (((x) >> 8) & 0xff)
+>> +#define AST_I2CD_BUF_BASE_ADDR_SET(x)                  ((x) & 0x3f)
+>
+> Just use simple shift and mask values, and put the logic in your C code.
+>
+>> +
+>> +/* 0x20 : I2CD Transmit/Receive Byte Buffer Register   */
+>> +#define AST_I2CD_GET_MODE(x)                           (((x) >> 8) & 0x1)
+>> +
+>> +#define AST_I2CD_RX_BYTE_BUFFER                                        (0xff << 8)
+>> +#define AST_I2CD_TX_BYTE_BUFFER                                        (0xff)
+>> +
+>> +#endif                         /* __AST_I2C_H_ */
 >> --
 >> 2.8.0.rc3.226.g39d4020
 >>
