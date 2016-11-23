@@ -1,61 +1,61 @@
 Return-Path: <sjg@google.com>
-Received: from mail-oi0-x22d.google.com (mail-oi0-x22d.google.com
- [IPv6:2607:f8b0:4003:c06::22d])
+Received: from mail-oi0-x236.google.com (mail-oi0-x236.google.com
+ [IPv6:2607:f8b0:4003:c06::236])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tP72Z3Sj2zDvqg
- for <openbmc@lists.ozlabs.org>; Thu, 24 Nov 2016 03:24:22 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tP72g0LXxzDvsj
+ for <openbmc@lists.ozlabs.org>; Thu, 24 Nov 2016 03:24:27 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="fqnyURSQ"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="OVX5CiOy"; 
  dkim=pass (1024-bit key;
- unprotected) header.d=chromium.org header.i=@chromium.org header.b="UXJsPAUQ";
+ unprotected) header.d=chromium.org header.i=@chromium.org header.b="nV/KLQkt";
  dkim-atps=neutral
-Received: by mail-oi0-x22d.google.com with SMTP id b126so20544723oia.2
- for <openbmc@lists.ozlabs.org>; Wed, 23 Nov 2016 08:24:22 -0800 (PST)
+Received: by mail-oi0-x236.google.com with SMTP id y198so20683042oia.1
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Nov 2016 08:24:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=WMK5nS2+g59wl6vyTGIMPPrg5tsdGsajTaHMSzZ5dK8=;
- b=fqnyURSQq6IKXsPWZJBGnPI7hhn9xFH93CqU85mzyqPgLo+d0Pbfc8gw8aP2csYweA
- CMl66YyoeXGgAAq5vMfgLlneRoGjoCftaD+58f/+fB6aGHQhn4fbQUQckGVqgCyewiSo
- Co42sKF/Mkrg+AGtz5cGo1vnuhxEjYwKD3Ls/Az/2uS9wxqrMRbGAZkjDa25ZK9KATrv
- BCv25cF2NGyoYkAAaRiPXi55utQCzkzhUfl4s0q7U6MZSfsa3uPKuBHTAWYdqrfW5oKT
- xq6hOxLKmCQ4gD5W5td15GZLacfRvNuOcDmTrHlz3L1LwxR11MnGEeGC1Qg9RgFnyYQf
- z2KQ==
+ bh=Q1cKStBK5V3OLxQfX+cvbnx+aJQI+oq+U2R+wenBdBI=;
+ b=OVX5CiOy5K8gOEwx2NQIFlavFLQQKcMCW7P39HQCt4R5x7GAK0yudX5O0eVf6brDn8
+ VCNWI54UYT8QHaDg0Fmx1r6Hb6ujM1lnn1lyY1QmK4RklPAhfTG7DFRM4g9HUnWsBHPO
+ 5ZhuUbgjoe0zHSQ1qaPIHIwWCeTkTm/KRIxxs9edfm/4CfCfpcUrm5e3wuPQ9i2dWf9R
+ Kj6Y4XRk7MJfujmi/9ZXPhzoh3S6y0pSdYrPlVjR0cUaFHY4/5xhHtwun5DnPd028NYt
+ 2dSyM7r2YxKs6KbQThZ4aTii87LgPeuNCaQHE5C+pb2/2KUIAEmD1wKd+CaTzeocbDNG
+ 8OzA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=WMK5nS2+g59wl6vyTGIMPPrg5tsdGsajTaHMSzZ5dK8=;
- b=UXJsPAUQ9oSJVP3AzrwZK07QnSXK9Vn2a3xiShH48TwRnHmQxG+cq8IBeYsK40FQBP
- oEeHcnoTY72Bn+XXv2NDt6r0BqPa0jE+WGQdHWsvbT6N9sE0QhS0dlsEE8X9rYXR/28v
- WMeT4pQEFNz93ogsVoX4FW1F/mfv+ftEmXcE0=
+ bh=Q1cKStBK5V3OLxQfX+cvbnx+aJQI+oq+U2R+wenBdBI=;
+ b=nV/KLQktMP9BqRdGaAyfoFN6EpfGzt5G3TrkSDpaU7/d0Tkjxodi3/vLsMwC1aVgPh
+ /fUVf2SD95OpnqXXcScrX+HyX8pgJILddT2rjEeim8c2HW+ql5IARmk7XVXX+HRyzSoH
+ ZJNxOZVx6ufT2K2iRt0DVHZbA8rmzSzVn9DJc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=WMK5nS2+g59wl6vyTGIMPPrg5tsdGsajTaHMSzZ5dK8=;
- b=UlYPGhCwLaX1r8PZzFJnkBFLWHRbLfwVjq/UuEK/zo8PygXF+8po8FSplGHauAxXUy
- Byvrf1PiELNUf4rGraDunQjXklXzE0KJRcJIy6kj4R+soFvglDjouh+tJbNx8p+JwA3p
- 3ciiFPhxJULrcDOK0qc4mRtGj0Lv30cXhlB9qM0UpCbYcnfeZOF1fAFOFYqmeGogbwD5
- ioX35DqZqMFDCvUptKt9/fXg5uW0L7xMEjfbvDEgDnbJqWmRe+YsrMJRyA7aLhHP2RYW
- XZRh9jfPWDe0Putflc7IA/xtglr/HORJOPFDmDbbZEXB3FL85NdU7WOY6o9X9tOokxIN
- YLhQ==
-X-Gm-Message-State: AKaTC00h8ztAmLssYaUkQwHTqCG2SdbfSuw/GmFkG0MQIjx+siOxiyEpuI7TvoRbTp3Tjul4EU1akQSqNauR2G7z
-X-Received: by 10.202.88.2 with SMTP id m2mr1897137oib.27.1479918260547; Wed,
- 23 Nov 2016 08:24:20 -0800 (PST)
+ bh=Q1cKStBK5V3OLxQfX+cvbnx+aJQI+oq+U2R+wenBdBI=;
+ b=KVx8m6Htyvupwgs8ga2tgeQxNVkcAcM0aQdAPVsfYJ9mxmCgOKQPbQLfo2pfTI4d0n
+ +fzrQYYo9tRr2uNuKyRHu2gxl8oH3XJfNDZfMnbsg2aQS1OsHUgEPv/PVVnLdzdL9VHY
+ xHZH9NBQDY1E7SuGyD14eJRynZL+HSVOjB+HyzUOcNO65UkVDbQgp+loa+4qrgZzNsVs
+ I4mOTL9iQ03+7xNorkuPOTWkCuVAvrj+4AhITspFFMImPaVAJUnXYB3TDMeuaRBzKqRX
+ HCPjbvgZCwgk17+8sOKBIj7+tMJ2COaNLc6h2dVh7z+Ax8BLwrUD0kh1JQB1bj1bQgBp
+ GX2A==
+X-Gm-Message-State: AKaTC03q0WK/oAOmJdhc5r/mE/Oyg9AN6oA/sG3THaaUCOlyZY1VIpaBjNJWqQNOEaAU7Rr3WCznTCKHpsFMWiQ/
+X-Received: by 10.202.177.65 with SMTP id a62mr1985051oif.52.1479918264765;
+ Wed, 23 Nov 2016 08:24:24 -0800 (PST)
 MIME-Version: 1.0
 Sender: sjg@google.com
-Received: by 10.182.78.1 with HTTP; Wed, 23 Nov 2016 08:24:00 -0800 (PST)
-In-Reply-To: <CAPnjgZ1SUsvOfvdjYtsqxkNoR_0mGMGuvgU_n28rjntr3QAcNA@mail.gmail.com>
+Received: by 10.182.78.1 with HTTP; Wed, 23 Nov 2016 08:24:04 -0800 (PST)
+In-Reply-To: <CAPnjgZ3=TwFGTHcYrBYWk9yoQ+OCb6U26HnCZnbnBazfKz8DVw@mail.gmail.com>
 References: <1479858976-139210-1-git-send-email-maxims@google.com>
- <1479858976-139210-3-git-send-email-maxims@google.com>
- <CAPnjgZ1SUsvOfvdjYtsqxkNoR_0mGMGuvgU_n28rjntr3QAcNA@mail.gmail.com>
+ <1479858976-139210-4-git-send-email-maxims@google.com>
+ <CAPnjgZ3=TwFGTHcYrBYWk9yoQ+OCb6U26HnCZnbnBazfKz8DVw@mail.gmail.com>
 From: Simon Glass <sjg@chromium.org>
-Date: Wed, 23 Nov 2016 09:24:00 -0700
-X-Google-Sender-Auth: 8SSid0UJNyRd_6BADLnn0z_C0Ks
-Message-ID: <CAPnjgZ2J3-OhFYa+oK-5D79hrq=4zBynQAF7fER5fu02=YDcPQ@mail.gmail.com>
-Subject: Re: [PATCH u-boot 2/5] aspeed: Fixed incosistency in some SCU
- registers naming.
+Date: Wed, 23 Nov 2016 09:24:04 -0700
+X-Google-Sender-Auth: EO4UtVepQoYmbMlsCckcHXP07t4
+Message-ID: <CAPnjgZ1DJJHt7AdoKX=-y-8BmLqjkrs5j8_o9Nu19yUZJo69wg@mail.gmail.com>
+Subject: Re: [PATCH u-boot 3/5] aspeed: Added function to calculate APB Clock
+ frequency.
 To: Maxim Sloyko <maxims@google.com>
 Cc: U-Boot Mailing List <u-boot@lists.denx.de>, openbmc@lists.ozlabs.org
 Content-Type: text/plain; charset=UTF-8
@@ -70,7 +70,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Nov 2016 16:24:23 -0000
+X-List-Received-Date: Wed, 23 Nov 2016 16:24:27 -0000
 
 [resend from correct address]
 
@@ -80,17 +80,67 @@ On 23 November 2016 at 09:13, Simon Glass <sjg@google.com> wrote:
 > On 22 November 2016 at 16:56,  <maxims@google.com> wrote:
 >> From: Maxim Sloyko <maxims@google.com>
 >>
->> Basically fixed FUC/FUN typo that went out of hand.
+>
+> For the subject, 'Add' rather than 'Added' (we use present tense)
+>
+>> This is needed by I2C driver.
 >>
 >> Signed-off-by: Maxim Sloyko <maxims@google.com>
->
-> This looks like a mix of whiltespace changes and other changes? If so,
-> can you split it into two patches?
->
 >> ---
->>  arch/arm/include/asm/arch-aspeed/regs-scu.h | 73 ++++++++++++++++-------------
->>  arch/arm/mach-aspeed/ast-scu.c              |  2 +-
->>  2 files changed, 42 insertions(+), 33 deletions(-)
+>>  arch/arm/include/asm/arch-aspeed/ast_scu.h |  1 +
+>>  arch/arm/mach-aspeed/ast-scu.c             | 11 +++++++++++
+>>  2 files changed, 12 insertions(+)
+>>
+>> diff --git a/arch/arm/include/asm/arch-aspeed/ast_scu.h b/arch/arm/include/asm/arch-aspeed/ast_scu.h
+>> index d248416..eb5aaa2 100644
+>> --- a/arch/arm/include/asm/arch-aspeed/ast_scu.h
+>> +++ b/arch/arm/include/asm/arch-aspeed/ast_scu.h
+>> @@ -38,6 +38,7 @@ extern void ast_scu_get_who_init_dram(void);
+>>  extern u32 ast_get_clk_source(void);
+>>  extern u32 ast_get_h_pll_clk(void);
+>>  extern u32 ast_get_ahbclk(void);
+>> +extern u32 ast_get_apbclk(void);
+>
+> Please add a comment as to what this does and what it returns.
+>
+>>
+>>  extern u32 ast_scu_get_vga_memsize(void);
+>>
+>> diff --git a/arch/arm/mach-aspeed/ast-scu.c b/arch/arm/mach-aspeed/ast-scu.c
+>> index 280c421..e00dbe2 100644
+>> --- a/arch/arm/mach-aspeed/ast-scu.c
+>> +++ b/arch/arm/mach-aspeed/ast-scu.c
+>> @@ -318,6 +318,17 @@ u32 ast_get_ahbclk(void)
+>>
+>>  #endif /* AST_SOC_G5 */
+>>
+>> +u32 ast_get_apbclk(void)
+>> +{
+>> +       u32 h_pll = ast_get_h_pll_clk();
+>
+> Can this be ulong, or is there a reason it has to be exactly 32 bits?
+>
+> blank line here (between declarations and code)
+>
+>> +       /* The formula for converting the bit pattern to divisor is
+>
+> /*
+>  * The formula...
+>  * ...
+>  */
+>
+>> +        * (4 + 4 * DIV), according to datasheet
+>> +        */
+>> +       u32 apb_div = 4 + 4 * SCU_GET_PCLK_DIV(ast_scu_read(AST_SCU_CLK_SEL));
+>> +       return h_pll / apb_div;
+>> +}
+>> +
+>> +
+>>  void ast_scu_show_system_info(void)
+>>  {
+>>
+>> --
+>> 2.8.0.rc3.226.g39d4020
 >>
 >
 > Regards,
