@@ -1,62 +1,52 @@
-Return-Path: <sjg@google.com>
-Received: from mail-oi0-x230.google.com (mail-oi0-x230.google.com
- [IPv6:2607:f8b0:4003:c06::230])
+Return-Path: <brendanhiggins@google.com>
+Received: from mail-qt0-x22b.google.com (mail-qt0-x22b.google.com
+ [IPv6:2607:f8b0:400d:c0d::22b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tPDQf2MgCzDw01
- for <openbmc@lists.ozlabs.org>; Thu, 24 Nov 2016 07:27:06 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tPJzx19GCzDw06
+ for <openbmc@lists.ozlabs.org>; Thu, 24 Nov 2016 10:52:45 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="fU3DR2O3"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=chromium.org header.i=@chromium.org header.b="oGnc9p48";
+ unprotected) header.d=google.com header.i=@google.com header.b="RLQJEtL+"; 
  dkim-atps=neutral
-Received: by mail-oi0-x230.google.com with SMTP id y198so28757063oia.1
- for <openbmc@lists.ozlabs.org>; Wed, 23 Nov 2016 12:27:06 -0800 (PST)
+Received: by mail-qt0-x22b.google.com with SMTP id c47so26344622qtc.2
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Nov 2016 15:52:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=XHdnkZZneh9ocH9U4lvG6r/uPiW1KQD5mKptbyurzcI=;
- b=fU3DR2O3VLjdbNla1WFiyandeftH857yu8qBn+xuZ1b57mG5O2Lw+hIDCQbnddpwII
- k4gtyuwBh/h9WDjihB3ZdwiXUJrxP1WSxBQh2ay0Os5qcCISbDm0cjoauP4+G5P4zyeO
- l+pSe0e/0ptmHC7lSX5+IrsiDiQMUJcLrhvR58hMJA80mbSijoiM+LjwRpKMhUFhHybB
- xAqoHc9Se7ReykLjmfxE86AUpaxf7t/41EJpKI9vmtdrkWRtLZIzOp7vwYojbk2xFs3T
- tJbRDkxnHi66GuX/4hP78YYVVyga6U6PXceyiT98cZx/mg3v0sVFWWi9awgFWRxL+xzn
- 3CbQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=XHdnkZZneh9ocH9U4lvG6r/uPiW1KQD5mKptbyurzcI=;
- b=oGnc9p48n+nlycqA4SGiMiP0X20UDw4DqeoivoS/Ik6zCGIjCnhpMzJ6KT+/cVBf1d
- TI3z9650LySK7JGEo1XLUGBBZLxiwkEHmDviUzm/n1PRdNqwhvYS2AK/H2kM4WbO8KCv
- 1uB0YZNN9QV/jd6VYP91b9z0MKhsrRaUyclGE=
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=SDX/lvQcCpDT/3fEOaIsAeDV1rQqNlhAk0Z5MBbTBzE=;
+ b=RLQJEtL+YIDIlNoMXGk9tz8pv2JKfhnMceXYljt3ZkcAOjKd+9BvCIz89S+dVHHE6O
+ pvm+I/Y7hXFnxK8IP3Nn2XWKWX803FFcENQrT1cPkZL0u21lLpmR1cpNFkzGlCS/bnQV
+ ZGSKVE90t7j1IW0lLHpONPZe1H0cuGwUmVuNUPXMnlUsoaPaBquDorwXl6YQ/5BqmqK4
+ e5YwzmqNnxjLLAYFW03BTxI960Oq3OfDCGeA6AXo6TYRxh+l7owU8fPnHCH0QmW0+FDF
+ XHdTHLPQ+Hme79qrVBYpZ7ID1sW/0Kte0zKthn1yAhFYWrr+i3FDnh8EPdG8O6Q95VpZ
+ APFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=XHdnkZZneh9ocH9U4lvG6r/uPiW1KQD5mKptbyurzcI=;
- b=ELW3fNIeCpTe7pwIBkkX9g7XkzNBdkTqQDKGUNtsLb/ZpJlrDYGUdIfQxkj2AK5jyK
- dBnA+UTtRwfTJGsGoccO1KOb5g71vTtU3Sb6sfmqaECgYRrJW4KJF9s8nIgQPpylxpD/
- iTiNATKrKVAd/A3uEF2MQ6zZCacxoznjVV+jFJO73cMNl5i39uG9N3/3uWFUaJzOIJvJ
- 4SQhRQWuHRoYIiGFvBJnhGSMTh8T52fJ7qJiCo2EalPM+nrkQSoDjMTm/vnE77K+8jcH
- NTZt6uwttAzHdNqf/NFiZqewKtNKdhDTtcvKb9SK2qTSPVc0Ykjhgyl8T2o08oCmuC8C
- ObXQ==
-X-Gm-Message-State: AKaTC012NC2OC9InazaGVB485OBNJ8WEUQpPKiituhIG0o4oA4yzMR2qBgprdeazqkUAlv4GxaHzTUpg5lOE1jYy
-X-Received: by 10.202.4.194 with SMTP id 185mr2515364oie.106.1479932824139;
- Wed, 23 Nov 2016 12:27:04 -0800 (PST)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=SDX/lvQcCpDT/3fEOaIsAeDV1rQqNlhAk0Z5MBbTBzE=;
+ b=bcAtxJQoZ4R14w+2tNerO6BB0tZPtK7supsvp4EmcXQE4XDf9lQlZTxiZ0ZG5gqD8x
+ W/yUjWHSyYowJJw/6tejJeAC/QogYjJ8DjTSHAYjSclX2jlfHkri4ML6rmx9/wE2dSwh
+ od3lYVCDAsWgE+VaObuKfudI9ZVGRhja+IqwbzUd1Xi/K+rajU99xt/IesHMLuWmQXMN
+ SnDi6Oq+qH0HDU6xbHH4OgLc8feYxto+bPCaNpTguKsyELmjW79wQICJtB4S4i8SLTuQ
+ OzcDEGSnj1ew12izkMyHoJWg0WyZx4KY1UlFF6qqhnRrSMRphohNF4VmyqwEp8L+sJlc
+ dP7Q==
+X-Gm-Message-State: AKaTC00sDBQqeJ++Opl3oBGTE9wsPVvdnp7ZJJN/XmcY4nQ8fBUfg44s7mgjmyd0HGFf2SbAgkdSHhxZXV0odFbj
+X-Received: by 10.200.56.182 with SMTP id f51mr5129708qtc.208.1479945162819;
+ Wed, 23 Nov 2016 15:52:42 -0800 (PST)
 MIME-Version: 1.0
-Sender: sjg@google.com
-Received: by 10.182.78.1 with HTTP; Wed, 23 Nov 2016 12:26:43 -0800 (PST)
-In-Reply-To: <1479930602-91012-2-git-send-email-maxims@google.com>
-References: <1479858976-139210-1-git-send-email-maxims@google.com>
- <1479930602-91012-1-git-send-email-maxims@google.com>
- <1479930602-91012-2-git-send-email-maxims@google.com>
-From: Simon Glass <sjg@chromium.org>
-Date: Wed, 23 Nov 2016 13:26:43 -0700
-X-Google-Sender-Auth: kbpz5xAiI_KupxYm1AlFlJjZqIc
-Message-ID: <CAPnjgZ1WrMe6S7x7paNjUX179RhyA=iPgP43rUdPS8TGBiGVqg@mail.gmail.com>
-Subject: Re: [PATCH u-boot v1 2/6] aspeed: Fix FUC/FUN typo in SCU
-To: Maxim Sloyko <maxims@google.com>
-Cc: openbmc@lists.ozlabs.org
+Received: by 10.12.137.220 with HTTP; Wed, 23 Nov 2016 15:52:42 -0800 (PST)
+In-Reply-To: <28078e6d-f5e4-da59-e226-baa9a60a4b19@kaod.org>
+References: <1478311099-6771-1-git-send-email-brendanhiggins@google.com>
+ <1478311099-6771-2-git-send-email-brendanhiggins@google.com>
+ <28078e6d-f5e4-da59-e226-baa9a60a4b19@kaod.org>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Wed, 23 Nov 2016 15:52:42 -0800
+Message-ID: <CAFd5g459KtB1YemK31nyoNV7VrqDGtpuGd9q=i-Ha9-CJ8VstA@mail.gmail.com>
+Subject: Re: [PATCH v4 1/2] i2c: aspeed: added driver for Aspeed I2C
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: Wolfram Sang <wsa@the-dreams.de>, robh+dt@kernel.org, mark.rutland@arm.com,
+ devicetree@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ linux-i2c@vger.kernel.org
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -69,16 +59,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Nov 2016 20:27:06 -0000
+X-List-Received-Date: Wed, 23 Nov 2016 23:52:45 -0000
 
-On 23 November 2016 at 12:49, Maxim Sloyko <maxims@google.com> wrote:
-> Change FUC to FUN in SCU registers naming, which was a typo that go out
-> of hand
->
-> Signed-off-by: Maxim Sloyko <maxims@google.com>
-> ---
->  arch/arm/include/asm/arch-aspeed/regs-scu.h | 64 ++++++++++++++---------------
->  arch/arm/mach-aspeed/ast-scu.c              |  2 +-
->  2 files changed, 33 insertions(+), 33 deletions(-)
+> is it safe to start a new transaction when in a interrupt handler ?
 
-Reviewed-by: Simon Glass <sjg@chromium.org>
+Yep, i2c_transfer and most of the other functions in the i2c API that
+wrap the implementations already lock for you.
+
+> Why do you multiply by * msg->len ?
+
+I thought it might make sense to make timeout proportional to message
+length, so their would be a timeout per byte, like what the hardware
+already does. I guess we should just leave that up to the user to
+determine on their own?
+
+> use devm_kzalloc() may be ?
+
+Whoops, good catch. Will update in next version.
