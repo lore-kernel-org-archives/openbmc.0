@@ -1,50 +1,50 @@
 Return-Path: <maxims@google.com>
-Received: from mail-pg0-x236.google.com (mail-pg0-x236.google.com
- [IPv6:2607:f8b0:400e:c05::236])
+Received: from mail-pg0-x234.google.com (mail-pg0-x234.google.com
+ [IPv6:2607:f8b0:400e:c05::234])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tPKnF1dZczDvnn
- for <openbmc@lists.ozlabs.org>; Thu, 24 Nov 2016 11:28:33 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tPKnG0zZWzDvnn
+ for <openbmc@lists.ozlabs.org>; Thu, 24 Nov 2016 11:28:34 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="GkldM+Kk"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="IaPLZoR5"; 
  dkim-atps=neutral
-Received: by mail-pg0-x236.google.com with SMTP id 3so11572020pgd.0
- for <openbmc@lists.ozlabs.org>; Wed, 23 Nov 2016 16:28:33 -0800 (PST)
+Received: by mail-pg0-x234.google.com with SMTP id f188so11436804pgc.3
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Nov 2016 16:28:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=fJcuAejCaXhUj7AcIqTLN2b2rXUS/iQYOZE72+g5uBE=;
- b=GkldM+KkUDAA+JkQYTYjmz2YlZUdyi5g1ozMAkulUxFChQhfDgmwn6RxkLyMa+l884
- mLwrRpRC1EAfbh0Kc5UtnGbCM2L/34FEiqqHfu6b0t4GRFjcJtAWGFOE7j6dcz1K2jd7
- F9aC68Ft0nasXPx9bPoEjQzqOYMUOuruBKZPseaUmjlA/RDMZzibj6NKdonAiaWSuv5E
- 54gnaJ7iTUaDF3ETj7g+bj2q/0SAtoldA9bDB/GYsx0mqioHlxG0tIF09tUiz+bIbkFn
- im047xBGS/Mtjo1WET9s4mzRkN4LD2CZQ7K0X2jy9gmREkIvaVUTzlczVQ7RCiOzE/m7
- OFJw==
+ bh=IyMLKezLze11lAn0+kVrqIpOhypnXsKl6+tdkXMbMcw=;
+ b=IaPLZoR5CD9NM5gmp2c9SXG3PismHOPRycyZkVDD5Uo0VGw4TLb8opGRdsDJM43b/U
+ cXCTBE49s+ycLP/YnFcdSfQxIs7IuVNZEaxkIQvRIh7lHvkZ7Wkrlxa3DVvxuc8YMfLd
+ l5IdrnbbT5tjYNKq6SghabQKgE9BcEqbB5LnQ8B69Uziq7BDr4S4fI0L7kgErYFCwLc3
+ jytBt0qbTH4Yf0TrOMmCjLDOMzmQcebvo6WutbXuCS6DaW0X+tg9K0ARp8H7RT0caon/
+ hzyS80GpDNY0RPDu2UDUze66uWFltT5n/4VNIiEeT/Gn8c9qDX6cCEGUjOTtny6UOO78
+ 25MQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=fJcuAejCaXhUj7AcIqTLN2b2rXUS/iQYOZE72+g5uBE=;
- b=CSjnt/FjhrZLutkw3SV+Rqa2ya1jqB/0X3w9MLD9o2DX/PYcw2C/QaDDfTAAyH9DtE
- rquGyOXAZ9T6HuNWLjx5EAh5MKbjBak9L2Ujiy3kqFD0HTmkDKlDKLU90sTw97vLIZC0
- dXVsNK5qZ2apgKOmjZWavLeu+0u4qOBnPboL4XOQHG9Qs8lvnT1L7ZFnvkzwDr0LW6yH
- 3hu2GDZjr33ym1Czu/b0ogCfQw7q3eOBN1gcBgx/bhRXA3FTTc1nOA8hySVM92aQc9Y2
- pbTYx8kmMEXbQGTb32ekIcDD8Z8VNn1T7LJQShgkhC32ZDTD4imRUvYdiKkEVN/mVCe0
- oPxA==
-X-Gm-Message-State: AKaTC00t0BzAfAx/riHVTz1ZYntguW6cVI0THU/SEEqX4OPDSr6q3WUTQwKb9jZnJobXnbJ8
-X-Received: by 10.98.23.88 with SMTP id 85mr5536357pfx.21.1479947311235;
- Wed, 23 Nov 2016 16:28:31 -0800 (PST)
+ bh=IyMLKezLze11lAn0+kVrqIpOhypnXsKl6+tdkXMbMcw=;
+ b=Xe8GFW/E/58T9o3FLVrZ/lUAvRujGSgs7OYbswqxkv0kI1D+Ju4lSEV8oHoBiiPx5U
+ dhTE9mPRq1sR+Kyybul/P7ApWx3ujMGe6w3KmDx0ExEwKjjWr+ZPCM7EbjJXt92aE5HM
+ zNd/igraVGNREzgLWJMMV2OtQkX0Qrc7epPbbgbKAZRIOERBpZnkzzn1dXzSW/GAiAHg
+ XfZhhmDl1s/asPLMhVZNI1fivmh5MAZyptt0O+CNRG0pijUCHIb+qArOCMhbfUUPxre8
+ u27Y99940Ki+Ax78N3NDPYJXW5+KKvkvceK76REGAGnXCJB/Kqctg1lUY+YF5K6zqXXc
+ aGOg==
+X-Gm-Message-State: AKaTC00BprUypJMlEU92Xq8sbCSgJ3ISp6g56QbaFTVF9q1j8c93z7qGTg2RMZXeBj1N3sl4
+X-Received: by 10.98.28.79 with SMTP id c76mr5503949pfc.8.1479947312138;
+ Wed, 23 Nov 2016 16:28:32 -0800 (PST)
 Received: from mxsl.svl.corp.google.com ([100.123.242.80])
- by smtp.gmail.com with ESMTPSA id d1sm55255435pfb.76.2016.11.23.16.28.30
+ by smtp.gmail.com with ESMTPSA id d1sm55255435pfb.76.2016.11.23.16.28.31
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Wed, 23 Nov 2016 16:28:30 -0800 (PST)
+ Wed, 23 Nov 2016 16:28:31 -0800 (PST)
 From: Maxim Sloyko <maxims@google.com>
 To: sjg@chromium.org
 Cc: openbmc@lists.ozlabs.org,
 	Maxim Sloyko <maxims@google.com>
-Subject: [PATCH u-boot v2 3/6] aspeed/scu: Add definitions needed to configure
- pins for I2C
-Date: Wed, 23 Nov 2016 16:28:09 -0800
-Message-Id: <1479947292-121635-3-git-send-email-maxims@google.com>
+Subject: [PATCH u-boot v2 4/6] aspeed: Add function to calculate APB Clock
+ frequency
+Date: Wed, 23 Nov 2016 16:28:10 -0800
+Message-Id: <1479947292-121635-4-git-send-email-maxims@google.com>
 X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
 In-Reply-To: <1479947292-121635-1-git-send-email-maxims@google.com>
 References: <1479858976-139210-1-git-send-email-maxims@google.com>
@@ -60,51 +60,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 Nov 2016 00:28:33 -0000
+X-List-Received-Date: Thu, 24 Nov 2016 00:28:34 -0000
 
-Add missing definitions for configuring I2C pins
+This is needed by I2C driver.
 
 Signed-off-by: Maxim Sloyko <maxims@google.com>
 ---
 Changes for v1:
-	Split patch into two with this part adding definitions.
-Changes for v2:
-	Dropped redundant parens.
+	Add function comment.
 ---
- arch/arm/include/asm/arch-aspeed/regs-scu.h | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ arch/arm/include/asm/arch-aspeed/ast_scu.h |  4 ++++
+ arch/arm/mach-aspeed/ast-scu.c             | 13 +++++++++++++
+ 2 files changed, 17 insertions(+)
 
-diff --git a/arch/arm/include/asm/arch-aspeed/regs-scu.h b/arch/arm/include/asm/arch-aspeed/regs-scu.h
-index 5445023..be8c8d7 100644
---- a/arch/arm/include/asm/arch-aspeed/regs-scu.h
-+++ b/arch/arm/include/asm/arch-aspeed/regs-scu.h
-@@ -844,11 +844,15 @@
- #define SCU_FUN_PIN_I2C5		(0x1 << 18)
- #define SCU_FUN_PIN_I2C4		(0x1 << 17)
- #define SCU_FUN_PIN_I2C3		(0x1 << 16)
-+#define SCU_FUN_PIN_I2C(n)		(0x1 << (16 + (n) - 3))
- #define SCU_FUN_PIN_MII2_RX_DWN_DIS	(0x1 << 15)
- #define SCU_FUN_PIN_MII2_TX_DWN_DIS	(0x1 << 14)
- #define SCU_FUN_PIN_MII1_RX_DWN_DIS	(0x1 << 13)
- #define SCU_FUN_PIN_MII1_TX_DWN_DIS	(0x1 << 12)
+diff --git a/arch/arm/include/asm/arch-aspeed/ast_scu.h b/arch/arm/include/asm/arch-aspeed/ast_scu.h
+index d248416..6f00e37 100644
+--- a/arch/arm/include/asm/arch-aspeed/ast_scu.h
++++ b/arch/arm/include/asm/arch-aspeed/ast_scu.h
+@@ -38,6 +38,10 @@ extern void ast_scu_get_who_init_dram(void);
+ extern u32 ast_get_clk_source(void);
+ extern u32 ast_get_h_pll_clk(void);
+ extern u32 ast_get_ahbclk(void);
++/*
++ * Return the frequency of APB clock
++ */
++extern u32 ast_get_apbclk(void);
 
-+#define SCU_I2C_MIN_BUS_NUM			1
-+#define SCU_I2C_MAX_BUS_NUM			14
+ extern u32 ast_scu_get_vga_memsize(void);
+
+diff --git a/arch/arm/mach-aspeed/ast-scu.c b/arch/arm/mach-aspeed/ast-scu.c
+index 280c421..87236e2 100644
+--- a/arch/arm/mach-aspeed/ast-scu.c
++++ b/arch/arm/mach-aspeed/ast-scu.c
+@@ -318,6 +318,19 @@ u32 ast_get_ahbclk(void)
+
+ #endif /* AST_SOC_G5 */
+
++u32 ast_get_apbclk(void)
++{
++	ulong h_pll = ast_get_h_pll_clk();
 +
- #define SCU_FUN_PIN_MII2_TX_DRIV(x)	(x << 10)
- #define SCU_FUN_PIN_MII2_TX_DRIV_MASK	(0x3 << 10)
- #define SCU_FUN_PIN_MII1_TX_DRIV(x)	(x << 8)
-@@ -914,6 +918,11 @@
- #define SCU_FUN_PIN_ROMA4		(0x1 << 18)
- #define SCU_FUN_PIN_ROMA3		(0x1 << 17)
- #define SCU_FUN_PIN_ROMA2		(0x1 << 16)
-+/* AST2500 only */
-+#define SCU_FUN_PIN_SDA2		(0x1 << 15)
-+#define SCU_FUN_PIN_SCL2		(0x1 << 14)
-+#define SCU_FUN_PIN_SDA1		(0x1 << 13)
-+#define SCU_FUN_PIN_SCL1		(0x1 << 12)
++	/*
++	 * The formula for converting the bit pattern to divisor is
++	 * (4 + 4 * DIV), according to datasheet
++	 */
++	ulong apb_div = 4 + 4 * SCU_GET_PCLK_DIV(ast_scu_read(AST_SCU_CLK_SEL));
++	return h_pll / apb_div;
++}
++
++
+ void ast_scu_show_system_info(void)
+ {
 
- /* AST_SCU_FUN_PIN_CTRL9		0xA8 - Multi-function Pin Control#9 */
- #define SCU_FUN_PIN_ROMA21		(0x1 << 3)
 --
 2.8.0.rc3.226.g39d4020
