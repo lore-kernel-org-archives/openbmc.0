@@ -1,52 +1,54 @@
 Return-Path: <maxims@google.com>
-Received: from mail-io0-x229.google.com (mail-io0-x229.google.com
- [IPv6:2607:f8b0:4001:c06::229])
+Received: from mail-pg0-x233.google.com (mail-pg0-x233.google.com
+ [IPv6:2607:f8b0:400e:c05::233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tPKFX73JJzDw17
- for <openbmc@lists.ozlabs.org>; Thu, 24 Nov 2016 11:04:32 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tPKnC4YnhzDvnn
+ for <openbmc@lists.ozlabs.org>; Thu, 24 Nov 2016 11:28:31 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="iaQNJlLe"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="fwS00+hP"; 
  dkim-atps=neutral
-Received: by mail-io0-x229.google.com with SMTP id c21so48050470ioj.1
- for <openbmc@lists.ozlabs.org>; Wed, 23 Nov 2016 16:04:32 -0800 (PST)
+Received: by mail-pg0-x233.google.com with SMTP id f188so11436395pgc.3
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Nov 2016 16:28:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=0GQXUErI1NZu4mJMKKkZvS/Va9WptxuQgvuoHBf5eiY=;
- b=iaQNJlLefq8xi+Qj2ma2ubieqAZDBzRhAZbHPrEmtsGmVNE2cvovj1s5ZG/wRNqWH9
- dqdC9JVapKEEeKoO0r/W52+4VSMtP3XEY6i8v9X8dtABWrkSJs70QIaklJ09M1kI5sIT
- CPCntV+U1a7QQVpVom58vMUCqfmYh0vcjVU3or1OiRfs3wl090Ox8+IBy11LLNM+HwfT
- 4OyUKsU4NAeTGpsStJ/3A02LqiAPlJIBL9t+43gc1M/a+q0t9QxQGi3Qrb5aipQ3iyn8
- SFSJAzrT4LTq5CzwVFOXZz+huy2w//0b81By86zQkM5tNief1F46iAQ4L/Ij7WF4lxA8
- UtRg==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=27A+4TOMgmS1QYAUNgknDS6BVI9Z++ppjyAWOJjBW+g=;
+ b=fwS00+hPoNWFxo4ntJbYBPoSqOgcYCRBcU8P8BKJeeHQ6D217zEosuRAsS1sIBI3fi
+ iVdC/rOqk1DCLG5EuyOt0O+zOQg854N/HYRFAjBpU3ycFaJhF67gA1j//sWxOo/18keJ
+ TgUq4d4L3UKWzuJdv+S8E70w9UvcTOG90iKXnjA2Ld5Hgqw7Xmd7iL+rMQFbClqh7pH+
+ nQIhDs0KnHVJ7H7vQ+5iEfGF6CbZuQj3tyTAkMr9394AwEUo7++dJxb8pRgG7L8kFN7I
+ ydK+mmn/yECrBH8VizDissodryTCcE8Kk4NdYO7tmH9cvtaDcZ2hv17X2bpEh1JrnG8V
+ l1Xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=0GQXUErI1NZu4mJMKKkZvS/Va9WptxuQgvuoHBf5eiY=;
- b=B4eMVeyRf5nnVcSvtGBKr8TTzWvgsrN6Qua0GZLTxYXHco7ZNQV0/bZ8LnCGDTRff2
- SWioVrytdXnGYRKnITUVg7Hc0kDfQGCX1eZ0k5eIQlL/YT3ygcl+iZLI9lRmZ+8Fytod
- 7prVQNzJToJaIzG6LhcXYDao+qhiajWH1SozgmEUVt/wQ6HFVwMEBAwih39KUGh8uyRW
- CnYkKJG4sEfHzEXC3hoNqYxkGT3fGhYeQW8oUiYwmiX9OJjHL6VRKPiE16wT5HqmmhoQ
- DQj/xqXZcQojqkzauFnIJi/hao+b6TkzCU3TXIIER7GqYWM2spZXMFjDw/ImHWQhAGwJ
- FO0A==
-X-Gm-Message-State: AKaTC01/oRr3kB1OpM3HiOwAfoA/+rACEfmJypYMU4tFRXSQ24wQyVexfbfeaTqmEzoOmIs5td6KxN4Hcz3PfrBd
-X-Received: by 10.107.58.195 with SMTP id h186mr5786773ioa.117.1479945870043; 
- Wed, 23 Nov 2016 16:04:30 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.107.174.224 with HTTP; Wed, 23 Nov 2016 16:04:29 -0800 (PST)
-In-Reply-To: <CAPnjgZ26E0KL+iQoVM3aCr8WUvkoii_bRvFL7cpkUdaiQmW3bQ@mail.gmail.com>
-References: <1479858976-139210-1-git-send-email-maxims@google.com>
- <1479930602-91012-1-git-send-email-maxims@google.com>
- <1479930602-91012-6-git-send-email-maxims@google.com>
- <CAPnjgZ26E0KL+iQoVM3aCr8WUvkoii_bRvFL7cpkUdaiQmW3bQ@mail.gmail.com>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=27A+4TOMgmS1QYAUNgknDS6BVI9Z++ppjyAWOJjBW+g=;
+ b=DfX97yg3LGAQ5iORAV7idCEcA1SXrxLTIRdBr+PExwcJeILTgQxCIwtY+ClPcp49z3
+ jTGyGGEcT/B50He3axyTcd1zAWGfAllLLIPMYYmRqBCj9TRcVKKe3GpmlutH7YNL3nnB
+ aWtNvt73xgnWnBNbJGAdb3i7uWiDIqUMjE2aCheXYb0LZ410xJTgwoFgXkt0wqEVWz3B
+ I93iRe05/MtOIzQUtrD+7O3u4paD3CbvidyDIhjhOGG2H3C2/jHnqI9WCzCQRI9VAdja
+ ZhsdI6Tp2GE04aaFe5CQEZHN8J6I2vxXCeNYA5yooppSr2LtNzunGpyWbTs33mTrD+RZ
+ y1KA==
+X-Gm-Message-State: AKaTC02zMK1ZrVq4vET/zTBWRAds/vvaEO0XG5oAEK6TyDaXfF9ugjcotlHjpi05wLRPzfve
+X-Received: by 10.99.63.135 with SMTP id m129mr9913042pga.16.1479947309450;
+ Wed, 23 Nov 2016 16:28:29 -0800 (PST)
+Received: from mxsl.svl.corp.google.com ([100.123.242.80])
+ by smtp.gmail.com with ESMTPSA id d1sm55255435pfb.76.2016.11.23.16.28.27
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Wed, 23 Nov 2016 16:28:28 -0800 (PST)
 From: Maxim Sloyko <maxims@google.com>
-Date: Wed, 23 Nov 2016 16:04:29 -0800
-Message-ID: <CAFR_W8r=sDc3PdAE08XnhrFWfWgM100imJjWpkxrLPAZt7Dvsg@mail.gmail.com>
-Subject: Re: [PATCH u-boot v1 6/6] aspeed: I2C driver.
-To: Simon Glass <sjg@chromium.org>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+To: sjg@chromium.org
+Cc: openbmc@lists.ozlabs.org,
+	Maxim Sloyko <maxims@google.com>
+Subject: [PATCH u-boot v2 1/6] aspeed/g5: Device Tree for ast2500,
+ copied from openbmc/linux (include file),
+ plus minimal device tree configuration for ast2500 eval board
+Date: Wed, 23 Nov 2016 16:28:07 -0800
+Message-Id: <1479947292-121635-1-git-send-email-maxims@google.com>
+X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
+In-Reply-To: <1479858976-139210-1-git-send-email-maxims@google.com>
+References: <1479858976-139210-1-git-send-email-maxims@google.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,585 +60,1350 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 Nov 2016 00:04:33 -0000
+X-List-Received-Date: Thu, 24 Nov 2016 00:28:32 -0000
 
-On Wed, Nov 23, 2016 at 12:26 PM, Simon Glass <sjg@chromium.org> wrote:
-> Hi Maxim,
->
-> On 23 November 2016 at 12:50, Maxim Sloyko <maxims@google.com> wrote:
->> The driver is very limited: only single master mode is supported
->> and only byte-by-byte synchronous reads and writes are supported,
->> no Pool Buffers or DMA.
->>
->> Signed-off-by: Maxim Sloyko <maxims@google.com>
->> ---
->>  drivers/i2c/Kconfig   |   9 ++
->>  drivers/i2c/Makefile  |   1 +
->>  drivers/i2c/ast_i2c.c | 334 ++++++++++++++++++++++++++++++++++++++++++++++++++
->>  drivers/i2c/ast_i2c.h | 130 ++++++++++++++++++++
->>  4 files changed, 474 insertions(+)
->>  create mode 100644 drivers/i2c/ast_i2c.c
->>  create mode 100644 drivers/i2c/ast_i2c.h
->
-> Please add a change log for each version.
+aspeed-g5.dtsi include file is copied from
+https://github.com/openbmc/linux/blob/c5682cb/arch/arm/boot/dts/aspeed-g5.dtsi
 
-Will do.
+Signed-off-by: Maxim Sloyko <maxims@google.com>
+---
+ arch/arm/dts/Makefile          |    2 +
+ arch/arm/dts/aspeed-g5-evb.dts |   28 +
+ arch/arm/dts/aspeed-g5.dtsi    | 1278 ++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 1308 insertions(+)
+ create mode 100644 arch/arm/dts/aspeed-g5-evb.dts
+ create mode 100644 arch/arm/dts/aspeed-g5.dtsi
 
->
->>
->> diff --git a/drivers/i2c/Kconfig b/drivers/i2c/Kconfig
->> index 6e22bba..425766a 100644
->> --- a/drivers/i2c/Kconfig
->> +++ b/drivers/i2c/Kconfig
->> @@ -90,6 +90,15 @@ config SYS_I2C_DW_ENABLE_STATUS_UNSUPPORTED
->>           enable status register. This config option can be enabled in such
->>           cases.
->>
->> +config SYS_I2C_AST
->> +       bool "Aspeed I2C Controller"
->> +       depends on DM_I2C
->> +       help
->> +         Say yes here to select Aspeed I2C Host Controller. The driver
->> +         supports AST2500 and AST2400 controllers, but is very limited.
->> +         Only single master mode is supported and only byte-by-byte
->> +         synchronous reads and writes are supported, no Pool Buffers or DMA.
->> +
->>  config SYS_I2C_INTEL
->>         bool "Intel I2C/SMBUS driver"
->>         depends on DM_I2C
->> diff --git a/drivers/i2c/Makefile b/drivers/i2c/Makefile
->> index 167424d..89e046e 100644
->> --- a/drivers/i2c/Makefile
->> +++ b/drivers/i2c/Makefile
->> @@ -16,6 +16,7 @@ obj-$(CONFIG_PCA9564_I2C) += pca9564_i2c.o
->>  obj-$(CONFIG_TSI108_I2C) += tsi108_i2c.o
->>  obj-$(CONFIG_SH_SH7734_I2C) += sh_sh7734_i2c.o
->>  obj-$(CONFIG_SYS_I2C) += i2c_core.o
->> +obj-$(CONFIG_SYS_I2C_AST) += ast_i2c.o
->>  obj-$(CONFIG_SYS_I2C_CADENCE) += i2c-cdns.o
->>  obj-$(CONFIG_SYS_I2C_DAVINCI) += davinci_i2c.o
->>  obj-$(CONFIG_SYS_I2C_DW) += designware_i2c.o
->> diff --git a/drivers/i2c/ast_i2c.c b/drivers/i2c/ast_i2c.c
->> new file mode 100644
->> index 0000000..e785f22
->> --- /dev/null
->> +++ b/drivers/i2c/ast_i2c.c
->> @@ -0,0 +1,334 @@
->> +/*
->> + * Copyright (C) 2012-2020  ASPEED Technology Inc.
->> + * Copyright 2016 IBM Corporation
->> + * Copyright 2016 Google, Inc.
->> + *
->> + * SPDX-License-Identifier:    GPL-2.0+
->> + */
->> +
->> +#include <common.h>
->> +#include <dm.h>
->> +#include <fdtdec.h>
->> +#include <i2c.h>
->> +
->> +#include <asm/arch/ast_scu.h>
->> +#include <asm/arch/regs-scu.h>
->> +#include <asm/io.h>
->> +#include <errno.h>
->> +
->> +#include "ast_i2c.h"
->> +
->> +#define I2C_TIMEOUT_US 100000
->> +#define I2C_SLEEP_STEP_US 20
->> +
->> +DECLARE_GLOBAL_DATA_PTR;
->> +
->> +/*
->> + * Device private data
->> + */
->> +struct ast_i2c {
->> +       /* Device registers */
->> +       struct ast_i2c_regs *regs;
->> +       /* I2C speed in Hz */
->> +       int speed;
->> +};
->> +
->> +/*
->> + * Given desired divider ratio, return the value that needs to be set
->> + * in Clock and AC Timing Control register
->> + */
->> +static u32 get_clk_reg_val(ulong divider_ratio)
->> +{
->> +       ulong inc = 0, div;
->> +       ulong scl_low, scl_high, data;
->> +
->> +       for (div = 0; divider_ratio >= 16; div++) {
->> +               inc |= (divider_ratio & 1);
->> +               divider_ratio >>= 1;
->> +       }
->> +       divider_ratio += inc;
->> +       scl_low = (divider_ratio >> 1) - 1;
->> +       scl_high = divider_ratio - scl_low - 2;
->> +       data = I2CD_CACTC_BASE
->> +                       | (scl_high << I2CD_TCKHIGH_SHIFT)
->> +                       | (scl_low << I2CD_TCKLOW_SHIFT)
->> +                       | (div << I2CD_BASE_DIV_SHIFT);
->> +
->> +       return data;
->> +}
->> +
->> +static inline void ast_i2c_clear_interrupts(struct ast_i2c_regs *i2c_base)
->
-> Drop the inline
-
-Done
-
->
->> +{
->> +       writel(~0, &i2c_base->isr);
->> +}
->> +
->> +static void ast_i2c_init_bus(struct ast_i2c *i2c_bus)
->> +{
->> +       /* Reset device */
->> +       writel(0, &i2c_bus->regs->fcr);
->> +       /* Enable Master Mode. Assuming single-master */
->> +       debug("Enable Master for %p\n", i2c_bus->regs);
->> +       writel(I2CD_MASTER_EN
->> +              | I2CD_M_SDA_LOCK_EN
->> +              | I2CD_MULTI_MASTER_DIS | I2CD_M_SCL_DRIVE_EN,
->> +              &i2c_bus->regs->fcr);
->> +       debug("FCR: %p\n", &i2c_bus->regs->fcr);
->> +       /* Enable Interrupts */
->> +       writel(I2CD_INTR_TX_ACK
->> +              | I2CD_INTR_TX_NAK
->> +              | I2CD_INTR_RX_DONE
->> +              | I2CD_INTR_BUS_RECOVER_DONE
->> +              | I2CD_INTR_NORMAL_STOP
->> +              | I2CD_INTR_ABNORMAL, &i2c_bus->regs->icr);
->> +}
->> +
->> +static int ast_i2c_ofdata_to_platdata(struct udevice *dev)
->> +{
->> +       struct ast_i2c *i2c_bus = dev_get_priv(dev);
->> +       struct ast_i2c_regs *i2c_base = dev_get_addr_ptr(dev);
->
-> blank line here
->
->> +       if (IS_ERR(i2c_base))
->
-> Actually this is supposed to return NULL if it fails (see the function
-> comment), but I see that the impl does not. It returns
-> FDT_ADDR_T_NONE. The correct fix would be to add a new patch to update
-> dev_get_addr_ptr() to return NULL in this case, I think.
-
-It probably would not make sense to make this change in this fork. I
-reverted this back to using dev_get_addr, so it wouldn't rely on
-incorrect implementation.
-
->
->> +               return PTR_ERR(i2c_base);
->> +
->> +       i2c_bus->regs = i2c_base;
->> +
->> +       return 0;
->> +}
->> +
->> +static int ast_i2c_probe(struct udevice *dev)
->> +{
->> +       struct ast_i2c *i2c_bus = dev_get_priv(dev);
->> +
->> +       debug("Enabling I2C%u\n", dev->seq);
->> +       ast_scu_enable_i2c(dev->seq);
->> +
->> +       ast_i2c_init_bus(i2c_bus);
->> +
->> +       return 0;
->> +}
->> +
->> +static inline int ast_i2c_wait_isr(struct ast_i2c_regs *i2c_base, u32 flag)
->> +{
->> +       int timeout = I2C_TIMEOUT_US;
->> +
->> +       while (!(readl(&i2c_base->isr) & flag) && timeout > 0) {
->> +               udelay(I2C_SLEEP_STEP_US);
->> +               timeout -= I2C_SLEEP_STEP_US;
->> +       }
->> +
->> +       ast_i2c_clear_interrupts(i2c_base);
->> +       if (timeout <= 0)
->> +               return -ETIMEDOUT;
->> +
->> +       return 0;
->> +}
->> +
->> +static inline int ast_i2c_send_stop(struct ast_i2c_regs *i2c_base)
->> +{
->> +       writel(I2CD_M_STOP_CMD, &i2c_base->csr);
->> +
->> +       return ast_i2c_wait_isr(i2c_base, I2CD_INTR_NORMAL_STOP);
->> +}
->> +
->> +static inline int ast_i2c_wait_tx(struct ast_i2c_regs *i2c_base)
->> +{
->> +       int timeout = I2C_TIMEOUT_US;
->> +       u32 flag = I2CD_INTR_TX_ACK | I2CD_INTR_TX_NAK;
->> +       u32 status = readl(&i2c_base->isr) & flag;
->> +       int ret = 0;
->> +
->> +       while (!status && timeout > 0) {
->> +               status = readl(&i2c_base->isr) & flag;
->> +               udelay(I2C_SLEEP_STEP_US);
->> +               timeout -= I2C_SLEEP_STEP_US;
->> +       }
->> +
->> +       if (status == I2CD_INTR_TX_NAK)
->> +               ret = -EREMOTEIO;
->> +
->> +       if (timeout <= 0)
->> +               ret = -ETIMEDOUT;
->> +
->> +       ast_i2c_clear_interrupts(i2c_base);
->> +
->> +       return ret;
->> +}
->> +
->> +static int ast_i2c_start_txn(struct ast_i2c_regs *i2c_base, uint devaddr)
->> +{
->> +       /* Start and Send Device Address */
->> +       writel(devaddr, &i2c_base->trbbr);
->> +       writel(I2CD_M_START_CMD | I2CD_M_TX_CMD, &i2c_base->csr);
->> +
->> +       return ast_i2c_wait_tx(i2c_base);
->> +}
->> +
->> +static int ast_i2c_read_data(struct ast_i2c *i2c_bus, u8 chip_addr, u8 *buffer,
->> +                            size_t len, bool send_stop)
->> +{
->> +       struct ast_i2c_regs *i2c_base = i2c_bus->regs;
->> +       int i2c_error =
->> +           ast_i2c_start_txn(i2c_base, (chip_addr << 1) | I2C_M_RD);
->> +       u32 i2c_cmd = I2CD_M_RX_CMD;
->> +
->> +       if (i2c_error < 0)
->> +               return i2c_error;
->> +
->> +       for (; len > 0; len--, buffer++) {
->> +               if (len == 1)
->> +                       i2c_cmd |= I2CD_M_S_RX_CMD_LAST;
->> +               writel(i2c_cmd, &i2c_base->csr);
->> +               i2c_error = ast_i2c_wait_isr(i2c_base, I2CD_INTR_RX_DONE);
->> +               if (i2c_error < 0)
->> +                       return i2c_error;
->> +               *buffer = (readl(&i2c_base->trbbr) & I2CD_RX_DATA_MASK)
->> +                               >> I2CD_RX_DATA_SHIFT;
->> +       }
->> +       ast_i2c_clear_interrupts(i2c_base);
->> +
->> +       if (send_stop)
->> +               return ast_i2c_send_stop(i2c_base);
->> +
->> +       return 0;
->> +}
->> +
->> +static int ast_i2c_write_data(struct ast_i2c *i2c_bus, u8 chip_addr, u8
->> +                             *buffer, size_t len, bool send_stop)
->> +{
->> +       struct ast_i2c_regs *i2c_base = i2c_bus->regs;
->> +       int i2c_error = ast_i2c_start_txn(i2c_base, (chip_addr << 1));
->> +
->> +       if (i2c_error < 0)
->> +               return i2c_error;
->> +
->> +       for (; len > 0; len--, buffer++) {
->> +               writel(*buffer, &i2c_base->trbbr);
->> +               writel(I2CD_M_TX_CMD, &i2c_base->csr);
->> +               i2c_error = ast_i2c_wait_tx(i2c_base);
->> +               if (i2c_error < 0)
->> +                       return i2c_error;
->> +       }
->> +
->> +       if (send_stop)
->> +               return ast_i2c_send_stop(i2c_base);
->> +
->> +       return 0;
->> +}
->> +
->> +static int ast_i2c_deblock(struct udevice *dev)
->> +{
->> +       struct ast_i2c *i2c_bus = dev_get_priv(dev);
->> +       struct ast_i2c_regs *i2c_base = i2c_bus->regs;
->
-> drop blank line
->
->> +
->> +       u32 csr = readl(&i2c_base->csr);
->> +       bool sda_high = csr & I2CD_SDA_LINE_STS;
->> +       bool scl_high = csr & I2CD_SCL_LINE_STS;
->> +
->> +       int ret = 0;
->> +
->> +       if (sda_high && scl_high) {
->> +               /* Bus is idle, no deblocking needed. */
->> +               return 0;
->> +       } else if (sda_high) {
->> +               /* Send stop command */
->> +               debug("Unterminated TXN in (%x), sending stop\n", csr);
->> +               ret = ast_i2c_send_stop(i2c_base);
->> +       } else if (scl_high) {
->> +               /* Possibly stuck slave */
->> +               debug("Bus stuck (%x), attempting recovery\n", csr);
->> +               writel(I2CD_BUS_RECOVER_CMD, &i2c_base->csr);
->> +               ret = ast_i2c_wait_isr(
->> +                       i2c_base, I2CD_INTR_BUS_RECOVER_DONE);
->
-> Parameters should go on the same line as the function name - if you
-> split over, align with the '('.
-
-Done. After dropping AST_  from macro name, the line is < 80 chars.
-
->
->> +       } else {
->> +               /* Just try to reinit the device. */
->> +               ast_i2c_init_bus(i2c_bus);
->> +       }
->> +
->> +       return ret;
->> +}
->> +
->> +static int ast_i2c_xfer(struct udevice *dev, struct i2c_msg *msg, int nmsgs)
->> +{
->> +       struct ast_i2c *i2c_bus = dev_get_priv(dev);
->> +       int ret;
->> +
->> +       (void)ast_i2c_deblock(dev);
->
-> Is this because you want to ignore the error? If so please add a
-> comment. If not, just return the error here.
-
-Done.
-
->
->> +       debug("i2c_xfer: %d messages\n", nmsgs);
->> +       for (; nmsgs > 0; nmsgs--, msg++) {
->> +               if (msg->flags & I2C_M_RD) {
->> +                       debug("i2c_read: chip=0x%x, len=0x%x, flags=0x%x\n",
->> +                             msg->addr, msg->len, msg->flags);
->> +                       ret = ast_i2c_read_data(i2c_bus, msg->addr, msg->buf,
->> +                                               msg->len, (nmsgs == 1));
->> +               } else {
->> +                       debug("i2c_write: chip=0x%x, len=0x%x, flags=0x%x\n",
->> +                             msg->addr, msg->len, msg->flags);
->> +                       ret = ast_i2c_write_data(i2c_bus, msg->addr, msg->buf,
->> +                                                msg->len, (nmsgs == 1));
->> +               }
->> +               if (ret) {
->> +                       debug("%s: error (%d)\n", __func__, ret);
->> +                       return -EREMOTEIO;
->> +               }
->> +       }
->> +
->> +       return 0;
->> +}
->> +
->> +static int ast_i2c_set_speed(struct udevice *dev, unsigned int speed)
->> +{
->> +       struct ast_i2c *i2c_bus = dev_get_priv(dev);
->> +       struct ast_i2c_regs *i2c_base = i2c_bus->regs;
->> +       ulong pclk, divider;
->> +
->> +       debug("Setting speed ofr I2C%d to <%u>\n", dev->seq, speed);
->> +       if (!speed) {
->> +               debug("No valid speed specified\n");
->> +               return -EINVAL;
->> +       }
->> +
->> +       pclk = ast_get_apbclk();
->> +       divider = pclk / speed;
->> +
->> +       i2c_bus->speed = speed;
->> +       if (speed > 400000) {
->> +               debug("Enabling High Speed\n");
->> +               setbits_le32(&i2c_base->fcr, I2CD_M_HIGH_SPEED_EN
->> +                            | I2CD_M_SDA_DRIVE_1T_EN
->> +                            | I2CD_SDA_DRIVE_1T_EN);
->> +               writel(0x3, &i2c_base->cactcr2);
->> +               writel(get_clk_reg_val(divider), &i2c_base->cactcr1);
->> +       } else {
->> +               debug("Enabling Normal Speed\n");
->> +               writel(get_clk_reg_val(divider), &i2c_base->cactcr1);
->> +               writel(I2CD_NO_TIMEOUT_CTRL, &i2c_base->cactcr2);
->> +       }
->> +
->> +       ast_i2c_clear_interrupts(i2c_base);
->> +
->> +       return 0;
->> +}
->> +
->> +static const struct dm_i2c_ops ast_i2c_ops = {
->> +       .xfer = ast_i2c_xfer,
->> +       .set_bus_speed = ast_i2c_set_speed,
->> +       .deblock = ast_i2c_deblock,
->> +};
->> +
->> +static const struct udevice_id ast_i2c_ids[] = {
->> +       {.compatible = "aspeed,ast2400-i2c-controller",},
->> +       {.compatible = "aspeed,ast2400-i2c-bus",},
->> +       {},
->> +};
->> +
->> +/* Tell GNU Indent to keep this as is: */
->> +/* *INDENT-OFF* */
->> +U_BOOT_DRIVER(i2c_aspeed) = {
->> +       .name = "i2c_aspeed",
->> +       .id = UCLASS_I2C,
->> +       .of_match = ast_i2c_ids,
->> +       .probe = ast_i2c_probe,
->> +       .ofdata_to_platdata = ast_i2c_ofdata_to_platdata,
->> +       .priv_auto_alloc_size = sizeof(struct ast_i2c),
->> +       .ops = &ast_i2c_ops,
->> +};
->> +/* *INDENT-ON* */
->> diff --git a/drivers/i2c/ast_i2c.h b/drivers/i2c/ast_i2c.h
->> new file mode 100644
->> index 0000000..ecdb4fe
->> --- /dev/null
->> +++ b/drivers/i2c/ast_i2c.h
->> @@ -0,0 +1,130 @@
->> +/*
->> + * Copyright (C) 2012-2020  ASPEED Technology Inc.
->> + * Copyright 2016 IBM Corporation
->> + * Copyright 2016 Google, Inc.
->> + *
->> + * SPDX-License-Identifier:    GPL-2.0+
->> + */
->> +#ifndef __AST_I2C_H_
->> +#define __AST_I2C_H_
->> +
->> +struct ast_i2c_regs {
->> +       u32 fcr;
->> +       u32 cactcr1;
->> +       u32 cactcr2;
->> +       u32 icr;
->> +       u32 isr;
->> +       u32 csr;
->> +       u32 sdar;
->> +       u32 pbcr;
->> +       u32 trbbr;
->> +#ifdef CONFIG_TARGET_AST_G5
->> +       u32 dma_mbar;
->> +       u32 dma_tlr;
->> +#endif
->> +};
->> +
->> +/* Device Register Definition */
->> +/* 0x00 : I2CD Function Control Register  */
->> +#define I2CD_BUFF_SEL_MASK                             (0x7 << 20)
->> +#define I2CD_BUFF_SEL(x)                               (x << 20)
->> +#define I2CD_M_SDA_LOCK_EN                     (0x1 << 16)
->> +#define I2CD_MULTI_MASTER_DIS                  (0x1 << 15)
->> +#define I2CD_M_SCL_DRIVE_EN            (0x1 << 14)
->> +#define I2CD_MSB_STS                                   (0x1 << 9)
->> +#define I2CD_SDA_DRIVE_1T_EN                   (0x1 << 8)
->> +#define I2CD_M_SDA_DRIVE_1T_EN         (0x1 << 7)
->> +#define I2CD_M_HIGH_SPEED_EN           (0x1 << 6)
->> +#define I2CD_DEF_ADDR_EN                               (0x1 << 5)
->> +#define I2CD_DEF_ALERT_EN                              (0x1 << 4)
->> +#define I2CD_DEF_ARP_EN                                        (0x1 << 3)
->> +#define I2CD_DEF_GCALL_EN                              (0x1 << 2)
->> +#define I2CD_SLAVE_EN                                  (0x1 << 1)
->> +#define I2CD_MASTER_EN                                 (0x1)
->> +
->> +/* 0x04 : I2CD Clock and AC Timing Control Register #1 */
->> +/* Base register value. These bits are always set by the driver. */
->> +#define I2CD_CACTC_BASE                        0xfff00300
->> +#define I2CD_TCKHIGH_SHIFT                     16
->> +#define I2CD_TCKLOW_SHIFT                      12
->> +#define I2CD_THDDAT_SHIFT                      10
->> +#define I2CD_TO_DIV_SHIFT                      8
->> +#define I2CD_BASE_DIV_SHIFT                    0
->> +
->> +/* 0x08 : I2CD Clock and AC Timing Control Register #2 */
->> +#define I2CD_tTIMEOUT                                  1
->> +#define I2CD_NO_TIMEOUT_CTRL                   0
->> +
->> +/* 0x0c : I2CD Interrupt Control Register &
->> + * 0x10 : I2CD Interrupt Status Register
->> + *
->> + * These share bit definitions, so use the same values for the enable &
->> + * status bits.
->> + */
->> +#define I2CD_INTR_SDA_DL_TIMEOUT                       (0x1 << 14)
->> +#define I2CD_INTR_BUS_RECOVER_DONE                     (0x1 << 13)
->> +#define I2CD_INTR_SMBUS_ALERT                  (0x1 << 12)
->> +#define I2CD_INTR_SMBUS_ARP_ADDR                       (0x1 << 11)
->> +#define I2CD_INTR_SMBUS_DEV_ALERT_ADDR         (0x1 << 10)
->> +#define I2CD_INTR_SMBUS_DEF_ADDR                       (0x1 << 9)
->> +#define I2CD_INTR_GCALL_ADDR                   (0x1 << 8)
->> +#define I2CD_INTR_SLAVE_MATCH                  (0x1 << 7)
->> +#define I2CD_INTR_SCL_TIMEOUT                  (0x1 << 6)
->> +#define I2CD_INTR_ABNORMAL                             (0x1 << 5)
->> +#define I2CD_INTR_NORMAL_STOP                  (0x1 << 4)
->> +#define I2CD_INTR_ARBIT_LOSS                   (0x1 << 3)
->> +#define I2CD_INTR_RX_DONE                              (0x1 << 2)
->> +#define I2CD_INTR_TX_NAK                               (0x1 << 1)
->> +#define I2CD_INTR_TX_ACK                               (0x1 << 0)
->> +
->> +/* 0x14 : I2CD Command/Status Register   */
->> +#define I2CD_SDA_OE                                    (0x1 << 28)
->> +#define I2CD_SDA_O                                     (0x1 << 27)
->> +#define I2CD_SCL_OE                                    (0x1 << 26)
->> +#define I2CD_SCL_O                                     (0x1 << 25)
->> +#define I2CD_TX_TIMING                         (0x1 << 24)
->> +#define I2CD_TX_STATUS                         (0x1 << 23)
->> +
->> +/* Tx State Machine */
->> +#define I2CD_IDLE                                      0x0
->> +#define I2CD_MACTIVE                           0x8
->> +#define I2CD_MSTART                                    0x9
->> +#define I2CD_MSTARTR                           0xa
->> +#define I2CD_MSTOP                                     0xb
->> +#define I2CD_MTXD                                      0xc
->> +#define I2CD_MRXACK                                    0xd
->> +#define I2CD_MRXD                                      0xe
->> +#define I2CD_MTXACK                            0xf
->> +#define I2CD_SWAIT                                     0x1
->> +#define I2CD_SRXD                                      0x4
->> +#define I2CD_STXACK                            0x5
->> +#define I2CD_STXD                                      0x6
->> +#define I2CD_SRXACK                            0x7
->> +#define I2CD_RECOVER                           0x3
->> +
->> +#define I2CD_SCL_LINE_STS                              (0x1 << 18)
->> +#define I2CD_SDA_LINE_STS                              (0x1 << 17)
->> +#define I2CD_BUS_BUSY_STS                              (0x1 << 16)
->> +#define I2CD_SDA_OE_OUT_DIR                            (0x1 << 15)
->> +#define I2CD_SDA_O_OUT_DIR                             (0x1 << 14)
->> +#define I2CD_SCL_OE_OUT_DIR                            (0x1 << 13)
->> +#define I2CD_SCL_O_OUT_DIR                             (0x1 << 12)
->> +#define I2CD_BUS_RECOVER_CMD                   (0x1 << 11)
->> +#define I2CD_S_ALT_EN                          (0x1 << 10)
->> +#define I2CD_RX_DMA_ENABLE                             (0x1 << 9)
->> +#define I2CD_TX_DMA_ENABLE                             (0x1 << 8)
->> +
->> +/* Command Bit */
->> +#define I2CD_RX_BUFF_ENABLE                            (0x1 << 7)
->> +#define I2CD_TX_BUFF_ENABLE                            (0x1 << 6)
->> +#define I2CD_M_STOP_CMD                                        (0x1 << 5)
->> +#define I2CD_M_S_RX_CMD_LAST                   (0x1 << 4)
->> +#define I2CD_M_RX_CMD                                  (0x1 << 3)
->> +#define I2CD_S_TX_CMD                                  (0x1 << 2)
->> +#define I2CD_M_TX_CMD                                  (0x1 << 1)
->> +#define I2CD_M_START_CMD                               0x1
->> +
->> +#define I2CD_RX_DATA_SHIFT                     8
->> +#define I2CD_RX_DATA_MASK                      (0xff << I2CD_RX_DATA_SHIFT)
->> +
->> +#endif                         /* __AST_I2C_H_ */
->> --
->> 2.8.0.rc3.226.g39d4020
->>
->
-> Regards,
-> Simon
-
-
-
+diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
+index ef573ec..333bf3b 100644
+--- a/arch/arm/dts/Makefile
++++ b/arch/arm/dts/Makefile
+@@ -262,6 +262,8 @@ dtb-$(CONFIG_SOC_KEYSTONE) += k2hk-evm.dtb \
+ 	k2e-evm.dtb \
+ 	k2g-evm.dtb
+ 
++dtb-$(CONFIG_TARGET_AST_G5) += aspeed-g5-evb.dtb
++
+ targets += $(dtb-y)
+ 
+ # Add any required device tree compiler flags here
+diff --git a/arch/arm/dts/aspeed-g5-evb.dts b/arch/arm/dts/aspeed-g5-evb.dts
+new file mode 100644
+index 0000000..95dc77a
+--- /dev/null
++++ b/arch/arm/dts/aspeed-g5-evb.dts
+@@ -0,0 +1,28 @@
++/dts-v1/;
++
++#include "aspeed-g5.dtsi"
++
++/ {
++	memory {
++		device_type = "memory";
++		reg = <0x80000000 0x20000000>;
++	};
++
++	aliases {
++		i2c1 = &i2c0;
++		i2c4 = &i2c3;
++		i2c8 = &i2c7;
++	};
++};
++
++&i2c0 {
++	status = "okay";
++};
++
++&i2c3 {
++	status = "okay";
++};
++
++&i2c7 {
++	status = "okay";
++};
+diff --git a/arch/arm/dts/aspeed-g5.dtsi b/arch/arm/dts/aspeed-g5.dtsi
+new file mode 100644
+index 0000000..eb87728
+--- /dev/null
++++ b/arch/arm/dts/aspeed-g5.dtsi
+@@ -0,0 +1,1278 @@
++/* This device tree is copied from
++ * https://github.com/openbmc/linux/blob/c5682cb/arch/arm/boot/dts/aspeed-g5.dtsi
++ */
++
++#include "skeleton.dtsi"
++
++/ {
++	model = "Aspeed BMC";
++	compatible = "aspeed,ast2500";
++	#address-cells = <1>;
++	#size-cells = <1>;
++	interrupt-parent = <&vic>;
++
++	cpus {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		cpu@0 {
++			compatible = "arm,arm1176jzf-s";
++			device_type = "cpu";
++			reg = <0>;
++		};
++	};
++
++	ahb {
++		compatible = "simple-bus";
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		fmc: flash-controller@1e620000 {
++			reg = < 0x1e620000 0xc4
++				0x20000000 0x10000000 >;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			compatible = "aspeed,ast2500-fmc";
++			status = "disabled";
++			aspeed,fmc-has-dma;
++			interrupts = <19>;
++			flash@0 {
++				reg = < 0 >;
++				compatible = "jedec,spi-nor";
++				status = "disabled";
++			};
++			flash@1 {
++				reg = < 1 >;
++				compatible = "jedec,spi-nor";
++				status = "disabled";
++			};
++			flash@2 {
++				reg = < 2 >;
++				compatible = "jedec,spi-nor";
++				// compatible = "cfi,flash", "jedec,flash";
++				status = "disabled";
++			};
++		};
++
++		spi1: flash-controller@1e630000 {
++			reg = < 0x1e630000 0xc4
++				0x30000000 0x08000000 >;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			compatible = "aspeed,ast2500-smc";
++			status = "disabled";
++			flash@0 {
++				reg = < 0 >;
++				compatible = "jedec,spi-nor";
++				status = "disabled";
++			};
++			flash@1 {
++				reg = < 1 >;
++				compatible = "jedec,spi-nor";
++				status = "disabled";
++			};
++		};
++
++		spi2: flash-controller@1e631000 {
++			reg = < 0x1e631000 0xc4
++				0x38000000 0x08000000 >;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			compatible = "aspeed,ast2500-smc";
++			status = "disabled";
++			flash@0 {
++				reg = < 0 >;
++				compatible = "jedec,spi-nor";
++				status = "disabled";
++			};
++			flash@1 {
++				reg = < 1 >;
++				compatible = "jedec,spi-nor";
++				status = "disabled";
++			};
++		};
++
++		vic: interrupt-controller@1e6c0080 {
++			compatible = "aspeed,ast2400-vic";
++			interrupt-controller;
++			#interrupt-cells = <1>;
++			valid-sources = <0xfefff7ff 0x0807ffff>;
++			reg = <0x1e6c0080 0x80>;
++		};
++
++		mac0: ethernet@1e660000 {
++			compatible = "faraday,ftgmac100";
++			reg = <0x1e660000 0x180>;
++			interrupts = <2>;
++			no-hw-checksum;
++			status = "disabled";
++		};
++
++		mac1: ethernet@1e680000 {
++			compatible = "faraday,ftgmac100";
++			reg = <0x1e680000 0x180>;
++			interrupts = <3>;
++			no-hw-checksum;
++			status = "disabled";
++		};
++
++		apb {
++			compatible = "simple-bus";
++			#address-cells = <1>;
++			#size-cells = <1>;
++			ranges;
++
++			clk_clkin: clk_clkin@1e6e2070 {
++				#clock-cells = <0>;
++				compatible = "aspeed,g5-clkin-clock";
++				reg = <0x1e6e2070 0x04>;
++			};
++
++			syscon: syscon@1e6e2000 {
++				compatible = "aspeed,g5-scu", "syscon", "simple-mfd";
++				reg = <0x1e6e2000 0x1a8>;
++
++				pinctrl: pinctrl@1e6e2000 {
++					compatible = "aspeed,g5-pinctrl";
++
++					pinctrl_acpi_default: acpi_default {
++						function = "ACPI";
++						groups = "ACPI";
++					};
++
++					pinctrl_adc0_default: adc0_default {
++						function = "ADC0";
++						groups = "ADC0";
++					};
++
++					pinctrl_adc1_default: adc1_default {
++						function = "ADC1";
++						groups = "ADC1";
++					};
++
++					pinctrl_adc10_default: adc10_default {
++						function = "ADC10";
++						groups = "ADC10";
++					};
++
++					pinctrl_adc11_default: adc11_default {
++						function = "ADC11";
++						groups = "ADC11";
++					};
++
++					pinctrl_adc12_default: adc12_default {
++						function = "ADC12";
++						groups = "ADC12";
++					};
++
++					pinctrl_adc13_default: adc13_default {
++						function = "ADC13";
++						groups = "ADC13";
++					};
++
++					pinctrl_adc14_default: adc14_default {
++						function = "ADC14";
++						groups = "ADC14";
++					};
++
++					pinctrl_adc15_default: adc15_default {
++						function = "ADC15";
++						groups = "ADC15";
++					};
++
++					pinctrl_adc2_default: adc2_default {
++						function = "ADC2";
++						groups = "ADC2";
++					};
++
++					pinctrl_adc3_default: adc3_default {
++						function = "ADC3";
++						groups = "ADC3";
++					};
++
++					pinctrl_adc4_default: adc4_default {
++						function = "ADC4";
++						groups = "ADC4";
++					};
++
++					pinctrl_adc5_default: adc5_default {
++						function = "ADC5";
++						groups = "ADC5";
++					};
++
++					pinctrl_adc6_default: adc6_default {
++						function = "ADC6";
++						groups = "ADC6";
++					};
++
++					pinctrl_adc7_default: adc7_default {
++						function = "ADC7";
++						groups = "ADC7";
++					};
++
++					pinctrl_adc8_default: adc8_default {
++						function = "ADC8";
++						groups = "ADC8";
++					};
++
++					pinctrl_adc9_default: adc9_default {
++						function = "ADC9";
++						groups = "ADC9";
++					};
++
++					pinctrl_bmcint_default: bmcint_default {
++						function = "BMCINT";
++						groups = "BMCINT";
++					};
++
++					pinctrl_ddcclk_default: ddcclk_default {
++						function = "DDCCLK";
++						groups = "DDCCLK";
++					};
++
++					pinctrl_ddcdat_default: ddcdat_default {
++						function = "DDCDAT";
++						groups = "DDCDAT";
++					};
++
++					pinctrl_espi_default: espi_default {
++						function = "ESPI";
++						groups = "ESPI";
++					};
++
++					pinctrl_fwspics1_default: fwspics1_default {
++						function = "FWSPICS1";
++						groups = "FWSPICS1";
++					};
++
++					pinctrl_fwspics2_default: fwspics2_default {
++						function = "FWSPICS2";
++						groups = "FWSPICS2";
++					};
++
++					pinctrl_gpid0_default: gpid0_default {
++						function = "GPID0";
++						groups = "GPID0";
++					};
++
++					pinctrl_gpid2_default: gpid2_default {
++						function = "GPID2";
++						groups = "GPID2";
++					};
++
++					pinctrl_gpid4_default: gpid4_default {
++						function = "GPID4";
++						groups = "GPID4";
++					};
++
++					pinctrl_gpid6_default: gpid6_default {
++						function = "GPID6";
++						groups = "GPID6";
++					};
++
++					pinctrl_gpie0_default: gpie0_default {
++						function = "GPIE0";
++						groups = "GPIE0";
++					};
++
++					pinctrl_gpie2_default: gpie2_default {
++						function = "GPIE2";
++						groups = "GPIE2";
++					};
++
++					pinctrl_gpie4_default: gpie4_default {
++						function = "GPIE4";
++						groups = "GPIE4";
++					};
++
++					pinctrl_gpie6_default: gpie6_default {
++						function = "GPIE6";
++						groups = "GPIE6";
++					};
++
++					pinctrl_i2c10_default: i2c10_default {
++						function = "I2C10";
++						groups = "I2C10";
++					};
++
++					pinctrl_i2c11_default: i2c11_default {
++						function = "I2C11";
++						groups = "I2C11";
++					};
++
++					pinctrl_i2c12_default: i2c12_default {
++						function = "I2C12";
++						groups = "I2C12";
++					};
++
++					pinctrl_i2c13_default: i2c13_default {
++						function = "I2C13";
++						groups = "I2C13";
++					};
++
++					pinctrl_i2c14_default: i2c14_default {
++						function = "I2C14";
++						groups = "I2C14";
++					};
++
++					pinctrl_i2c3_default: i2c3_default {
++						function = "I2C3";
++						groups = "I2C3";
++					};
++
++					pinctrl_i2c4_default: i2c4_default {
++						function = "I2C4";
++						groups = "I2C4";
++					};
++
++					pinctrl_i2c5_default: i2c5_default {
++						function = "I2C5";
++						groups = "I2C5";
++					};
++
++					pinctrl_i2c6_default: i2c6_default {
++						function = "I2C6";
++						groups = "I2C6";
++					};
++
++					pinctrl_i2c7_default: i2c7_default {
++						function = "I2C7";
++						groups = "I2C7";
++					};
++
++					pinctrl_i2c8_default: i2c8_default {
++						function = "I2C8";
++						groups = "I2C8";
++					};
++
++					pinctrl_i2c9_default: i2c9_default {
++						function = "I2C9";
++						groups = "I2C9";
++					};
++
++					pinctrl_lad0_default: lad0_default {
++						function = "LAD0";
++						groups = "LAD0";
++					};
++
++					pinctrl_lad1_default: lad1_default {
++						function = "LAD1";
++						groups = "LAD1";
++					};
++
++					pinctrl_lad2_default: lad2_default {
++						function = "LAD2";
++						groups = "LAD2";
++					};
++
++					pinctrl_lad3_default: lad3_default {
++						function = "LAD3";
++						groups = "LAD3";
++					};
++
++					pinctrl_lclk_default: lclk_default {
++						function = "LCLK";
++						groups = "LCLK";
++					};
++
++					pinctrl_lframe_default: lframe_default {
++						function = "LFRAME";
++						groups = "LFRAME";
++					};
++
++					pinctrl_lpchc_default: lpchc_default {
++						function = "LPCHC";
++						groups = "LPCHC";
++					};
++
++					pinctrl_lpcpd_default: lpcpd_default {
++						function = "LPCPD";
++						groups = "LPCPD";
++					};
++
++					pinctrl_lpcplus_default: lpcplus_default {
++						function = "LPCPLUS";
++						groups = "LPCPLUS";
++					};
++
++					pinctrl_lpcpme_default: lpcpme_default {
++						function = "LPCPME";
++						groups = "LPCPME";
++					};
++
++					pinctrl_lpcrst_default: lpcrst_default {
++						function = "LPCRST";
++						groups = "LPCRST";
++					};
++
++					pinctrl_lpcsmi_default: lpcsmi_default {
++						function = "LPCSMI";
++						groups = "LPCSMI";
++					};
++
++					pinctrl_lsirq_default: lsirq_default {
++						function = "LSIRQ";
++						groups = "LSIRQ";
++					};
++
++					pinctrl_mac1link_default: mac1link_default {
++						function = "MAC1LINK";
++						groups = "MAC1LINK";
++					};
++
++					pinctrl_mac2link_default: mac2link_default {
++						function = "MAC2LINK";
++						groups = "MAC2LINK";
++					};
++
++					pinctrl_mdio1_default: mdio1_default {
++						function = "MDIO1";
++						groups = "MDIO1";
++					};
++
++					pinctrl_mdio2_default: mdio2_default {
++						function = "MDIO2";
++						groups = "MDIO2";
++					};
++
++					pinctrl_ncts1_default: ncts1_default {
++						function = "NCTS1";
++						groups = "NCTS1";
++					};
++
++					pinctrl_ncts2_default: ncts2_default {
++						function = "NCTS2";
++						groups = "NCTS2";
++					};
++
++					pinctrl_ncts3_default: ncts3_default {
++						function = "NCTS3";
++						groups = "NCTS3";
++					};
++
++					pinctrl_ncts4_default: ncts4_default {
++						function = "NCTS4";
++						groups = "NCTS4";
++					};
++
++					pinctrl_ndcd1_default: ndcd1_default {
++						function = "NDCD1";
++						groups = "NDCD1";
++					};
++
++					pinctrl_ndcd2_default: ndcd2_default {
++						function = "NDCD2";
++						groups = "NDCD2";
++					};
++
++					pinctrl_ndcd3_default: ndcd3_default {
++						function = "NDCD3";
++						groups = "NDCD3";
++					};
++
++					pinctrl_ndcd4_default: ndcd4_default {
++						function = "NDCD4";
++						groups = "NDCD4";
++					};
++
++					pinctrl_ndsr1_default: ndsr1_default {
++						function = "NDSR1";
++						groups = "NDSR1";
++					};
++
++					pinctrl_ndsr2_default: ndsr2_default {
++						function = "NDSR2";
++						groups = "NDSR2";
++					};
++
++					pinctrl_ndsr3_default: ndsr3_default {
++						function = "NDSR3";
++						groups = "NDSR3";
++					};
++
++					pinctrl_ndsr4_default: ndsr4_default {
++						function = "NDSR4";
++						groups = "NDSR4";
++					};
++
++					pinctrl_ndtr1_default: ndtr1_default {
++						function = "NDTR1";
++						groups = "NDTR1";
++					};
++
++					pinctrl_ndtr2_default: ndtr2_default {
++						function = "NDTR2";
++						groups = "NDTR2";
++					};
++
++					pinctrl_ndtr3_default: ndtr3_default {
++						function = "NDTR3";
++						groups = "NDTR3";
++					};
++
++					pinctrl_ndtr4_default: ndtr4_default {
++						function = "NDTR4";
++						groups = "NDTR4";
++					};
++
++					pinctrl_nri1_default: nri1_default {
++						function = "NRI1";
++						groups = "NRI1";
++					};
++
++					pinctrl_nri2_default: nri2_default {
++						function = "NRI2";
++						groups = "NRI2";
++					};
++
++					pinctrl_nri3_default: nri3_default {
++						function = "NRI3";
++						groups = "NRI3";
++					};
++
++					pinctrl_nri4_default: nri4_default {
++						function = "NRI4";
++						groups = "NRI4";
++					};
++
++					pinctrl_nrts1_default: nrts1_default {
++						function = "NRTS1";
++						groups = "NRTS1";
++					};
++
++					pinctrl_nrts2_default: nrts2_default {
++						function = "NRTS2";
++						groups = "NRTS2";
++					};
++
++					pinctrl_nrts3_default: nrts3_default {
++						function = "NRTS3";
++						groups = "NRTS3";
++					};
++
++					pinctrl_nrts4_default: nrts4_default {
++						function = "NRTS4";
++						groups = "NRTS4";
++					};
++
++					pinctrl_oscclk_default: oscclk_default {
++						function = "OSCCLK";
++						groups = "OSCCLK";
++					};
++
++					pinctrl_pewake_default: pewake_default {
++						function = "PEWAKE";
++						groups = "PEWAKE";
++					};
++
++					pinctrl_pnor_default: pnor_default {
++						function = "PNOR";
++						groups = "PNOR";
++					};
++
++					pinctrl_pwm0_default: pwm0_default {
++						function = "PWM0";
++						groups = "PWM0";
++					};
++
++					pinctrl_pwm1_default: pwm1_default {
++						function = "PWM1";
++						groups = "PWM1";
++					};
++
++					pinctrl_pwm2_default: pwm2_default {
++						function = "PWM2";
++						groups = "PWM2";
++					};
++
++					pinctrl_pwm3_default: pwm3_default {
++						function = "PWM3";
++						groups = "PWM3";
++					};
++
++					pinctrl_pwm4_default: pwm4_default {
++						function = "PWM4";
++						groups = "PWM4";
++					};
++
++					pinctrl_pwm5_default: pwm5_default {
++						function = "PWM5";
++						groups = "PWM5";
++					};
++
++					pinctrl_pwm6_default: pwm6_default {
++						function = "PWM6";
++						groups = "PWM6";
++					};
++
++					pinctrl_pwm7_default: pwm7_default {
++						function = "PWM7";
++						groups = "PWM7";
++					};
++
++					pinctrl_rgmii1_default: rgmii1_default {
++						function = "RGMII1";
++						groups = "RGMII1";
++					};
++
++					pinctrl_rgmii2_default: rgmii2_default {
++						function = "RGMII2";
++						groups = "RGMII2";
++					};
++
++					pinctrl_rmii1_default: rmii1_default {
++						function = "RMII1";
++						groups = "RMII1";
++					};
++
++					pinctrl_rmii2_default: rmii2_default {
++						function = "RMII2";
++						groups = "RMII2";
++					};
++
++					pinctrl_rxd1_default: rxd1_default {
++						function = "RXD1";
++						groups = "RXD1";
++					};
++
++					pinctrl_rxd2_default: rxd2_default {
++						function = "RXD2";
++						groups = "RXD2";
++					};
++
++					pinctrl_rxd3_default: rxd3_default {
++						function = "RXD3";
++						groups = "RXD3";
++					};
++
++					pinctrl_rxd4_default: rxd4_default {
++						function = "RXD4";
++						groups = "RXD4";
++					};
++
++					pinctrl_salt1_default: salt1_default {
++						function = "SALT1";
++						groups = "SALT1";
++					};
++
++					pinctrl_salt10_default: salt10_default {
++						function = "SALT10";
++						groups = "SALT10";
++					};
++
++					pinctrl_salt11_default: salt11_default {
++						function = "SALT11";
++						groups = "SALT11";
++					};
++
++					pinctrl_salt12_default: salt12_default {
++						function = "SALT12";
++						groups = "SALT12";
++					};
++
++					pinctrl_salt13_default: salt13_default {
++						function = "SALT13";
++						groups = "SALT13";
++					};
++
++					pinctrl_salt14_default: salt14_default {
++						function = "SALT14";
++						groups = "SALT14";
++					};
++
++					pinctrl_salt2_default: salt2_default {
++						function = "SALT2";
++						groups = "SALT2";
++					};
++
++					pinctrl_salt3_default: salt3_default {
++						function = "SALT3";
++						groups = "SALT3";
++					};
++
++					pinctrl_salt4_default: salt4_default {
++						function = "SALT4";
++						groups = "SALT4";
++					};
++
++					pinctrl_salt5_default: salt5_default {
++						function = "SALT5";
++						groups = "SALT5";
++					};
++
++					pinctrl_salt6_default: salt6_default {
++						function = "SALT6";
++						groups = "SALT6";
++					};
++
++					pinctrl_salt7_default: salt7_default {
++						function = "SALT7";
++						groups = "SALT7";
++					};
++
++					pinctrl_salt8_default: salt8_default {
++						function = "SALT8";
++						groups = "SALT8";
++					};
++
++					pinctrl_salt9_default: salt9_default {
++						function = "SALT9";
++						groups = "SALT9";
++					};
++
++					pinctrl_scl1_default: scl1_default {
++						function = "SCL1";
++						groups = "SCL1";
++					};
++
++					pinctrl_scl2_default: scl2_default {
++						function = "SCL2";
++						groups = "SCL2";
++					};
++
++					pinctrl_sd1_default: sd1_default {
++						function = "SD1";
++						groups = "SD1";
++					};
++
++					pinctrl_sd2_default: sd2_default {
++						function = "SD2";
++						groups = "SD2";
++					};
++
++					pinctrl_sda1_default: sda1_default {
++						function = "SDA1";
++						groups = "SDA1";
++					};
++
++					pinctrl_sda2_default: sda2_default {
++						function = "SDA2";
++						groups = "SDA2";
++					};
++
++					pinctrl_sgps1_default: sgps1_default {
++						function = "SGPS1";
++						groups = "SGPS1";
++					};
++
++					pinctrl_sgps2_default: sgps2_default {
++						function = "SGPS2";
++						groups = "SGPS2";
++					};
++
++					pinctrl_sioonctrl_default: sioonctrl_default {
++						function = "SIOONCTRL";
++						groups = "SIOONCTRL";
++					};
++
++					pinctrl_siopbi_default: siopbi_default {
++						function = "SIOPBI";
++						groups = "SIOPBI";
++					};
++
++					pinctrl_siopbo_default: siopbo_default {
++						function = "SIOPBO";
++						groups = "SIOPBO";
++					};
++
++					pinctrl_siopwreq_default: siopwreq_default {
++						function = "SIOPWREQ";
++						groups = "SIOPWREQ";
++					};
++
++					pinctrl_siopwrgd_default: siopwrgd_default {
++						function = "SIOPWRGD";
++						groups = "SIOPWRGD";
++					};
++
++					pinctrl_sios3_default: sios3_default {
++						function = "SIOS3";
++						groups = "SIOS3";
++					};
++
++					pinctrl_sios5_default: sios5_default {
++						function = "SIOS5";
++						groups = "SIOS5";
++					};
++
++					pinctrl_siosci_default: siosci_default {
++						function = "SIOSCI";
++						groups = "SIOSCI";
++					};
++
++					pinctrl_spi1_default: spi1_default {
++						function = "SPI1";
++						groups = "SPI1";
++					};
++
++					pinctrl_spi1cs1_default: spi1cs1_default {
++						function = "SPI1CS1";
++						groups = "SPI1CS1";
++					};
++
++					pinctrl_spi1debug_default: spi1debug_default {
++						function = "SPI1DEBUG";
++						groups = "SPI1DEBUG";
++					};
++
++					pinctrl_spi1passthru_default: spi1passthru_default {
++						function = "SPI1PASSTHRU";
++						groups = "SPI1PASSTHRU";
++					};
++
++					pinctrl_spi2ck_default: spi2ck_default {
++						function = "SPI2CK";
++						groups = "SPI2CK";
++					};
++
++					pinctrl_spi2cs0_default: spi2cs0_default {
++						function = "SPI2CS0";
++						groups = "SPI2CS0";
++					};
++
++					pinctrl_spi2cs1_default: spi2cs1_default {
++						function = "SPI2CS1";
++						groups = "SPI2CS1";
++					};
++
++					pinctrl_spi2miso_default: spi2miso_default {
++						function = "SPI2MISO";
++						groups = "SPI2MISO";
++					};
++
++					pinctrl_spi2mosi_default: spi2mosi_default {
++						function = "SPI2MOSI";
++						groups = "SPI2MOSI";
++					};
++
++					pinctrl_timer3_default: timer3_default {
++						function = "TIMER3";
++						groups = "TIMER3";
++					};
++
++					pinctrl_timer4_default: timer4_default {
++						function = "TIMER4";
++						groups = "TIMER4";
++					};
++
++					pinctrl_timer5_default: timer5_default {
++						function = "TIMER5";
++						groups = "TIMER5";
++					};
++
++					pinctrl_timer6_default: timer6_default {
++						function = "TIMER6";
++						groups = "TIMER6";
++					};
++
++					pinctrl_timer7_default: timer7_default {
++						function = "TIMER7";
++						groups = "TIMER7";
++					};
++
++					pinctrl_timer8_default: timer8_default {
++						function = "TIMER8";
++						groups = "TIMER8";
++					};
++
++					pinctrl_txd1_default: txd1_default {
++						function = "TXD1";
++						groups = "TXD1";
++					};
++
++					pinctrl_txd2_default: txd2_default {
++						function = "TXD2";
++						groups = "TXD2";
++					};
++
++					pinctrl_txd3_default: txd3_default {
++						function = "TXD3";
++						groups = "TXD3";
++					};
++
++					pinctrl_txd4_default: txd4_default {
++						function = "TXD4";
++						groups = "TXD4";
++					};
++
++					pinctrl_uart6_default: uart6_default {
++						function = "UART6";
++						groups = "UART6";
++					};
++
++					pinctrl_usbcki_default: usbcki_default {
++						function = "USBCKI";
++						groups = "USBCKI";
++					};
++
++					pinctrl_vgabiosrom_default: vgabiosrom_default {
++						function = "VGABIOSROM";
++						groups = "VGABIOSROM";
++					};
++
++					pinctrl_vgahs_default: vgahs_default {
++						function = "VGAHS";
++						groups = "VGAHS";
++					};
++
++					pinctrl_vgavs_default: vgavs_default {
++						function = "VGAVS";
++						groups = "VGAVS";
++					};
++
++					pinctrl_vpi24_default: vpi24_default {
++						function = "VPI24";
++						groups = "VPI24";
++					};
++
++					pinctrl_vpo_default: vpo_default {
++						function = "VPO";
++						groups = "VPO";
++					};
++
++					pinctrl_wdtrst1_default: wdtrst1_default {
++						function = "WDTRST1";
++						groups = "WDTRST1";
++					};
++
++					pinctrl_wdtrst2_default: wdtrst2_default {
++						function = "WDTRST2";
++						groups = "WDTRST2";
++					};
++
++				};
++			};
++
++			clk_hpll: clk_hpll@1e6e2024 {
++				#clock-cells = <0>;
++				compatible = "aspeed,g5-hpll-clock";
++				reg = <0x1e6e2024 0x4>;
++				clocks = <&clk_clkin>;
++			};
++
++			clk_ahb: clk_ahb@1e6e2070 {
++				#clock-cells = <0>;
++				compatible = "aspeed,g5-ahb-clock";
++				reg = <0x1e6e2070 0x4>;
++				clocks = <&clk_hpll>;
++			};
++
++			clk_apb: clk_apb@1e6e2008 {
++				#clock-cells = <0>;
++				compatible = "aspeed,g5-apb-clock";
++				reg = <0x1e6e2008 0x4>;
++				clocks = <&clk_hpll>;
++			};
++
++			clk_uart: clk_uart@1e6e2008 {
++				#clock-cells = <0>;
++				compatible = "aspeed,uart-clock";
++				reg = <0x1e6e202c 0x4>;
++			};
++
++			sram@1e720000 {
++				compatible = "mmio-sram";
++				reg = <0x1e720000 0x9000>;	// 36K
++			};
++
++			gpio: gpio@1e780000 {
++				#gpio-cells = <2>;
++				gpio-controller;
++				compatible = "aspeed,ast2500-gpio";
++				reg = <0x1e780000 0x1000>;
++				interrupts = <20>;
++				gpio-ranges = <&pinctrl 0 0 220>;
++			};
++
++			timer: timer@1e782000 {
++				compatible = "aspeed,ast2400-timer";
++				reg = <0x1e782000 0x90>;
++				// The moxart_timer driver registers only one
++				// interrupt and assumes it's for timer 1
++				//interrupts = <16 17 18 35 36 37 38 39>;
++				interrupts = <16>;
++				clocks = <&clk_apb>;
++			};
++
++			ibt: ibt@1e789140 {
++				compatible = "aspeed,bt-host";
++				reg = <0x1e789140 0x18>;
++				interrupts = <8>;
++			};
++
++			wdt1: wdt@1e785000 {
++				compatible = "aspeed,ast2500-wdt";
++				reg = <0x1e785000 0x1c>;
++			};
++
++			wdt2: wdt@1e785020 {
++				compatible = "aspeed,ast2500-wdt";
++				reg = <0x1e785020 0x1c>;
++				status = "disabled";
++			};
++
++			wdt3: wdt@1e785040 {
++				compatible = "aspeed,wdt";
++				reg = <0x1e785074 0x1c>;
++				status = "disabled";
++			};
++
++			uart1: serial@1e783000 {
++				compatible = "ns16550a";
++				reg = <0x1e783000 0x1000>;
++				reg-shift = <2>;
++				interrupts = <9>;
++				clocks = <&clk_uart>;
++				no-loopback-test;
++				status = "disabled";
++			};
++
++			uart2: serial@1e78d000 {
++				compatible = "ns16550a";
++				reg = <0x1e78d000 0x1000>;
++				reg-shift = <2>;
++				interrupts = <32>;
++				clocks = <&clk_uart>;
++				no-loopback-test;
++				status = "disabled";
++			};
++
++			uart3: serial@1e78e000 {
++				compatible = "ns16550a";
++				reg = <0x1e78e000 0x1000>;
++				reg-shift = <2>;
++				interrupts = <33>;
++				clocks = <&clk_uart>;
++				no-loopback-test;
++				status = "disabled";
++			};
++
++			uart4: serial@1e78f000 {
++				compatible = "ns16550a";
++				reg = <0x1e78f000 0x1000>;
++				reg-shift = <2>;
++				interrupts = <34>;
++				clocks = <&clk_uart>;
++				no-loopback-test;
++				status = "disabled";
++			};
++
++			uart5: serial@1e784000 {
++				compatible = "ns16550a";
++				reg = <0x1e784000 0x1000>;
++				reg-shift = <2>;
++				interrupts = <10>;
++				clocks = <&clk_uart>;
++				current-speed = <38400>;
++				no-loopback-test;
++				status = "disabled";
++			};
++
++			vuart: vuart@1e787000 {
++				compatible = "aspeed,vuart";
++				reg = <0x1e787000 0x1000>;
++				reg-shift = <2>;
++				interrupts = <8>;
++				clocks = <&clk_uart>;
++				no-loopback-test;
++				status = "disabled";
++			};
++
++			i2c: i2c@1e78a000 {
++				#address-cells = <1>;
++				#size-cells = <1>;
++				#interrupt-cells = <1>;
++
++				compatible = "aspeed,ast2400-i2c-controller";
++				reg = <0x1e78a000 0x40>;
++				ranges = <0 0x1e78a000 0x1000>;
++				interrupts = <12>;
++				clocks = <&clk_apb>;
++				clock-ranges;
++				interrupt-controller;
++
++				i2c0: i2c-bus@40 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x40 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <0>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <0>;
++					interrupt-parent = <&i2c>;
++				};
++
++				i2c1: i2c-bus@80 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x80 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <1>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <1>;
++				};
++
++				i2c2: i2c-bus@c0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0xC0 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <2>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <2>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c3_default>;
++				};
++
++				i2c3: i2c-bus@100 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x100 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <3>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <3>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c4_default>;
++				};
++
++				i2c4: i2c-bus@140 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x140 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <4>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <4>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c5_default>;
++				};
++
++				i2c5: i2c-bus@180 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x180 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <5>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <5>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c6_default>;
++				};
++
++				i2c6: i2c-bus@1c0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x1C0 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <6>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <6>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c7_default>;
++				};
++
++				i2c7: i2c-bus@300 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x300 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <7>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <7>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c8_default>;
++				};
++
++				i2c8: i2c-bus@340 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x340 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <8>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <8>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c9_default>;
++				};
++
++				i2c9: i2c-bus@380 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x380 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <9>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <9>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c10_default>;
++				};
++
++				i2c10: i2c-bus@3c0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x3c0 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <10>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <10>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c11_default>;
++				};
++
++				i2c11: i2c-bus@400 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x400 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <11>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <11>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c12_default>;
++				};
++
++				i2c12: i2c-bus@440 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x440 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <12>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <12>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c13_default>;
++				};
++
++				i2c13: i2c-bus@480 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x480 0x40>;
++					compatible = "aspeed,ast2400-i2c-bus";
++					bus = <13>;
++					clock-frequency = <100000>;
++					status = "disabled";
++					interrupts = <13>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i2c14_default>;
++				};
++
++			};
++
++		};
++	};
++};
 -- 
-Maxim Sloyko
+2.8.0.rc3.226.g39d4020
