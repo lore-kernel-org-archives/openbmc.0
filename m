@@ -3,49 +3,50 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tQ35t05PlzDrPG
- for <openbmc@lists.ozlabs.org>; Fri, 25 Nov 2016 15:30:25 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tQ37T2LjszDvJQ
+ for <openbmc@lists.ozlabs.org>; Fri, 25 Nov 2016 15:31:49 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="BbTGwxZu"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="PVwl886d"; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="OSg+FOEK"; dkim-atps=neutral
+ header.b="VLNwE395"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id C570C20774;
- Thu, 24 Nov 2016 23:30:23 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id 3CB1220746;
+ Thu, 24 Nov 2016 23:31:47 -0500 (EST)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Thu, 24 Nov 2016 23:30:23 -0500
+ by compute4.internal (MEProxy); Thu, 24 Nov 2016 23:31:47 -0500
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
  content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=VkmjS3rzbe5VBJ6eeBcG8U4QxLw=; b=BbTGwx
- Zut+uP68Y5HJv4sSfoHkUqg2gkcqiD69ciSJyCq0Ne/PSpSnx/QC1y8mayw6bxxS
- 2Jumi1YEJNE/ioNEmR6moqt/tYV34VrRI05qsV+39PIfHxEu7U0Y/oUIKWCEhLA0
- 0oBYWrmvOa1HBqNpJgeifwJ7Ssmq0mgEvCtyk=
+ :x-sasl-enc; s=mesmtp; bh=njPPohjOo6i60CVCaO0A+6HhGP4=; b=PVwl88
+ 6dk0x/73eXAlnG8qhvwqQzaqAx+X0f15naF6pzA9v55Q0vft6hCGqc3sZtj2HhBn
+ 5yKP6y0+VrLMLSAtAjI4A5WuceOFi/XHTDgevdhuGu1SDmXa1BHEwP0mX9V3ihID
+ M3zxS0f4FjnGltm7HDRosMX6gF5B8BoTgDejQ=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
  messagingengine.com; h=content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=VkmjS3rzbe5VBJ
- 6eeBcG8U4QxLw=; b=OSg+FOEKe6x+Phvw+hTeHPgKNnKbvI9sJxECa8W3guqKRX
- orEPu6vj8F0jJs0CzhMskWfn+y530l10MwekCQL41ZDqx9odGG9ftHbahQiYG6kQ
- j1dZ5g958Jk9rtRu5iI03I4X/yNOX4YvSfghUx6NNYZkMMjmpWXDD/prN7fUs=
-X-ME-Sender: <xms:X743WLd_1PeqqS5YTRkchB8wJs9dmvQ0e3BN5fST2w_LN6-b5IfecA>
-X-Sasl-enc: CBXTeAbZRq66jqi+WLGQxNdJ3nWLeSqBuzIo2a7AswXd 1480048222
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=njPPohjOo6i60C
+ VCaO0A+6HhGP4=; b=VLNwE395/aPIkuytmOeCLY1qP3y9O04YPaQ0CfaSc842b7
+ 4k+VUsCuZRMypyuHlNYsnIXRF6UEmc3+in8Ji258WoEC4FtnRSjHfmObOR1WsYIV
+ oe379Q79Fl1nk0yHinqAV0E4bsToofflYgfXexBLwpINq+sV/TsL/umDfLUhw=
+X-ME-Sender: <xms:s743WEuCEaUSmT3LUblMQCVbaJ4_v3wWv9ipQKW3VxoXHo_U7o2ciA>
+X-Sasl-enc: P3Umc0hiecmcqS9U9+ZKTZG5GN4Dh5gU7t87Z9wLRz8I 1480048306
 Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
  [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 46E992418C;
- Thu, 24 Nov 2016 23:30:22 -0500 (EST)
-Message-ID: <1480048217.2503.57.camel@aj.id.au>
-Subject: Re: [PATCH qemu 16/38] aspeed/smc: add tests for Command mode
+ by mail.messagingengine.com (Postfix) with ESMTPA id BED4024066;
+ Thu, 24 Nov 2016 23:31:45 -0500 (EST)
+Message-ID: <1480048302.2503.58.camel@aj.id.au>
+Subject: Re: [PATCH qemu 17/38] aspeed/smc: unfold the AspeedSMCController
+ array
 From: Andrew Jeffery <andrew@aj.id.au>
 To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, 
  openbmc@lists.ozlabs.org
-Date: Fri, 25 Nov 2016 15:00:17 +1030
-In-Reply-To: <1479478938-13267-17-git-send-email-clg@kaod.org>
+Date: Fri, 25 Nov 2016 15:01:42 +1030
+In-Reply-To: <1479478938-13267-18-git-send-email-clg@kaod.org>
 References: <1479478938-13267-1-git-send-email-clg@kaod.org>
- <1479478938-13267-17-git-send-email-clg@kaod.org>
+ <1479478938-13267-18-git-send-email-clg@kaod.org>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-XKwFFuzUbNFKZynS3L9E"
+ protocol="application/pgp-signature"; boundary="=-HMmUrIrcxL/WUYmySz9n"
 X-Mailer: Evolution 3.22.1-0ubuntu2 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -59,205 +60,151 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 25 Nov 2016 04:30:26 -0000
+X-List-Received-Date: Fri, 25 Nov 2016 04:31:49 -0000
 
 
---=-XKwFFuzUbNFKZynS3L9E
+--=-HMmUrIrcxL/WUYmySz9n
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
 
-On Fri, 2016-11-18 at 15:21 +0100, C=C3=A9dric Le Goater wrote:
-> 0005 tests add a read_page_mem test
->=20
-> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
+T24gRnJpLCAyMDE2LTExLTE4IGF0IDE1OjIxICswMTAwLCBDw6lkcmljIExlIEdvYXRlciB3cm90
+ZToKPiBUaGlzIGlzIGdldHRpbmcgZGlmZmljdWx0IHRvIHJlYWQuIEFsc28gYWRkIGEgJ2hhc19k
+bWEnIGZpZWxkIGZvcgo+IGVhY2gKPiBjb250cm9sbGVyIHR5cGUuCj4gCj4gU2lnbmVkLW9mZi1i
+eTogQ8OpZHJpYyBMZSBHb2F0ZXIgPGNsZ0BrYW9kLm9yZz4KClJldmlld2VkLWJ5OiBBbmRyZXcg
+SmVmZmVyeSA8YW5kcmV3QGFqLmlkLmF1PgoKPiAtLS0KPiDCoGh3L3NzaS9hc3BlZWRfc21jLmPC
+oMKgwqDCoMKgwqDCoMKgwqB8IDkxCj4gKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrLS0tLS0tLS0tCj4gwqBpbmNsdWRlL2h3L3NzaS9hc3BlZWRfc21jLmggfMKgwqAxICsKPiDC
+oDIgZmlsZXMgY2hhbmdlZCwgNzQgaW5zZXJ0aW9ucygrKSwgMTggZGVsZXRpb25zKC0pCj4gCj4g
+ZGlmZiAtLWdpdCBhL2h3L3NzaS9hc3BlZWRfc21jLmMgYi9ody9zc2kvYXNwZWVkX3NtYy5jCj4g
+aW5kZXggZWVjMDg3MTk5YTIyLi44ZTdlM2JkOWUzMzUgMTAwNjQ0Cj4gLS0tIGEvaHcvc3NpL2Fz
+cGVlZF9zbWMuYwo+ICsrKyBiL2h3L3NzaS9hc3BlZWRfc21jLmMKPiBAQCAtMTg0LDI0ICsxODQs
+NzkgQEAgc3RhdGljIGNvbnN0IEFzcGVlZFNlZ21lbnRzCj4gYXNwZWVkX3NlZ21lbnRzX2FzdDI1
+MDBfc3BpMltdID0gewo+IMKgfTsKPiDCoAo+IMKgc3RhdGljIGNvbnN0IEFzcGVlZFNNQ0NvbnRy
+b2xsZXIgY29udHJvbGxlcnNbXSA9IHsKPiAtwqDCoMKgwqB7ICJhc3BlZWQuc21jLnNtYyIsIFJf
+Q09ORiwgUl9DRV9DVFJMLCBSX0NUUkwwLCBSX1RJTUlOR1MsCj4gLcKgwqDCoMKgwqDCoENPTkZf
+RU5BQkxFX1cwLCA1LCBhc3BlZWRfc2VnbWVudHNfbGVnYWN5LAo+IC3CoMKgwqDCoMKgwqBBU1BF
+RURfU09DX1NNQ19GTEFTSF9CQVNFLCAweDYwMDAwMDAgfSwKPiAtwqDCoMKgwqB7ICJhc3BlZWQu
+c21jLmZtYyIsIFJfQ09ORiwgUl9DRV9DVFJMLCBSX0NUUkwwLCBSX1RJTUlOR1MsCj4gLcKgwqDC
+oMKgwqDCoENPTkZfRU5BQkxFX1cwLCA1LCBhc3BlZWRfc2VnbWVudHNfZm1jLAo+IC3CoMKgwqDC
+oMKgwqBBU1BFRURfU09DX0ZNQ19GTEFTSF9CQVNFLCAweDEwMDAwMDAwIH0sCj4gLcKgwqDCoMKg
+eyAiYXNwZWVkLnNtYy5zcGkiLCBSX1NQSV9DT05GLCAweGZmLCBSX1NQSV9DVFJMMCwKPiBSX1NQ
+SV9USU1JTkdTLAo+IC3CoMKgwqDCoMKgwqBTUElfQ09ORl9FTkFCTEVfVzAsIDEsIGFzcGVlZF9z
+ZWdtZW50c19zcGksCj4gLcKgwqDCoMKgwqDCoEFTUEVFRF9TT0NfU1BJX0ZMQVNIX0JBU0UsIDB4
+MTAwMDAwMDAgfSwKPiAtwqDCoMKgwqB7ICJhc3BlZWQuc21jLmFzdDI1MDAtZm1jIiwgUl9DT05G
+LCBSX0NFX0NUUkwsIFJfQ1RSTDAsCj4gUl9USU1JTkdTLAo+IC3CoMKgwqDCoMKgwqBDT05GX0VO
+QUJMRV9XMCwgMywgYXNwZWVkX3NlZ21lbnRzX2FzdDI1MDBfZm1jLAo+IC3CoMKgwqDCoMKgwqBB
+U1BFRURfU09DX0ZNQ19GTEFTSF9CQVNFLCAweDEwMDAwMDAwIH0sCj4gLcKgwqDCoMKgeyAiYXNw
+ZWVkLnNtYy5hc3QyNTAwLXNwaTEiLCBSX0NPTkYsIFJfQ0VfQ1RSTCwgUl9DVFJMMCwKPiBSX1RJ
+TUlOR1MsCj4gLcKgwqDCoMKgwqDCoENPTkZfRU5BQkxFX1cwLCAyLCBhc3BlZWRfc2VnbWVudHNf
+YXN0MjUwMF9zcGkxLAo+IC3CoMKgwqDCoMKgwqBBU1BFRURfU09DX1NQSV9GTEFTSF9CQVNFLCAw
+eDgwMDAwMDAgfSwKPiAtwqDCoMKgwqB7ICJhc3BlZWQuc21jLmFzdDI1MDAtc3BpMiIsIFJfQ09O
+RiwgUl9DRV9DVFJMLCBSX0NUUkwwLAo+IFJfVElNSU5HUywKPiAtwqDCoMKgwqDCoMKgQ09ORl9F
+TkFCTEVfVzAsIDIsIGFzcGVlZF9zZWdtZW50c19hc3QyNTAwX3NwaTIsCj4gLcKgwqDCoMKgwqDC
+oEFTUEVFRF9TT0NfU1BJMl9GTEFTSF9CQVNFLCAweDgwMDAwMDAgfSwKPiArwqDCoMKgwqB7Cj4g
+K8KgwqDCoMKgwqDCoMKgwqAubmFtZcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqA9ICJhc3Bl
+ZWQuc21jLnNtYyIsCj4gK8KgwqDCoMKgwqDCoMKgwqAucl9jb25mwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgPSBSX0NPTkYsCj4gK8KgwqDCoMKgwqDCoMKgwqAucl9jZV9jdHJswqDCoMKgwqDCoMKg
+wqDCoMKgPSBSX0NFX0NUUkwsCj4gK8KgwqDCoMKgwqDCoMKgwqAucl9jdHJsMMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqA9IFJfQ1RSTDAsCj4gK8KgwqDCoMKgwqDCoMKgwqAucl90aW1pbmdzwqDCoMKg
+wqDCoMKgwqDCoMKgPSBSX1RJTUlOR1MsCj4gK8KgwqDCoMKgwqDCoMKgwqAuY29uZl9lbmFibGVf
+dzDCoMKgwqDCoD0gQ09ORl9FTkFCTEVfVzAsCj4gK8KgwqDCoMKgwqDCoMKgwqAubWF4X3NsYXZl
+c8KgwqDCoMKgwqDCoMKgwqA9IDUsCj4gK8KgwqDCoMKgwqDCoMKgwqAuc2VnbWVudHPCoMKgwqDC
+oMKgwqDCoMKgwqDCoD0gYXNwZWVkX3NlZ21lbnRzX2xlZ2FjeSwKPiArwqDCoMKgwqDCoMKgwqDC
+oC5mbGFzaF93aW5kb3dfYmFzZSA9IEFTUEVFRF9TT0NfU01DX0ZMQVNIX0JBU0UsCj4gK8KgwqDC
+oMKgwqDCoMKgwqAuZmxhc2hfd2luZG93X3NpemUgPSAweDYwMDAwMDAsCj4gK8KgwqDCoMKgwqDC
+oMKgwqAuaGFzX2RtYcKgwqDCoMKgwqDCoMKgwqDCoMKgwqA9IGZhbHNlLAo+ICvCoMKgwqDCoH0s
+IHsKPiArwqDCoMKgwqDCoMKgwqDCoC5uYW1lwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoD0g
+ImFzcGVlZC5zbWMuZm1jIiwKPiArwqDCoMKgwqDCoMKgwqDCoC5yX2NvbmbCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqA9IFJfQ09ORiwKPiArwqDCoMKgwqDCoMKgwqDCoC5yX2NlX2N0cmzCoMKgwqDC
+oMKgwqDCoMKgwqA9IFJfQ0VfQ1RSTCwKPiArwqDCoMKgwqDCoMKgwqDCoC5yX2N0cmwwwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoD0gUl9DVFJMMCwKPiArwqDCoMKgwqDCoMKgwqDCoC5yX3RpbWluZ3PC
+oMKgwqDCoMKgwqDCoMKgwqA9IFJfVElNSU5HUywKPiArwqDCoMKgwqDCoMKgwqDCoC5jb25mX2Vu
+YWJsZV93MMKgwqDCoMKgPSBDT05GX0VOQUJMRV9XMCwKPiArwqDCoMKgwqDCoMKgwqDCoC5tYXhf
+c2xhdmVzwqDCoMKgwqDCoMKgwqDCoD0gNSwKPiArwqDCoMKgwqDCoMKgwqDCoC5zZWdtZW50c8Kg
+wqDCoMKgwqDCoMKgwqDCoMKgPSBhc3BlZWRfc2VnbWVudHNfZm1jLAo+ICvCoMKgwqDCoMKgwqDC
+oMKgLmZsYXNoX3dpbmRvd19iYXNlID0gQVNQRUVEX1NPQ19GTUNfRkxBU0hfQkFTRSwKPiArwqDC
+oMKgwqDCoMKgwqDCoC5mbGFzaF93aW5kb3dfc2l6ZSA9IDB4MTAwMDAwMDAsCj4gK8KgwqDCoMKg
+wqDCoMKgwqAuaGFzX2RtYcKgwqDCoMKgwqDCoMKgwqDCoMKgwqA9IHRydWUsCj4gK8KgwqDCoMKg
+fSwgewo+ICvCoMKgwqDCoMKgwqDCoMKgLm5hbWXCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+PSAiYXNwZWVkLnNtYy5zcGkiLAo+ICvCoMKgwqDCoMKgwqDCoMKgLnJfY29uZsKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoD0gUl9TUElfQ09ORiwKPiArwqDCoMKgwqDCoMKgwqDCoC5yX2NlX2N0cmzC
+oMKgwqDCoMKgwqDCoMKgwqA9IDB4ZmYsCj4gK8KgwqDCoMKgwqDCoMKgwqAucl9jdHJsMMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqA9IFJfU1BJX0NUUkwwLAo+ICvCoMKgwqDCoMKgwqDCoMKgLnJfdGlt
+aW5nc8KgwqDCoMKgwqDCoMKgwqDCoD0gUl9TUElfVElNSU5HUywKPiArwqDCoMKgwqDCoMKgwqDC
+oC5jb25mX2VuYWJsZV93MMKgwqDCoMKgPSBTUElfQ09ORl9FTkFCTEVfVzAsCj4gK8KgwqDCoMKg
+wqDCoMKgwqAubWF4X3NsYXZlc8KgwqDCoMKgwqDCoMKgwqA9IDEsCj4gK8KgwqDCoMKgwqDCoMKg
+wqAuc2VnbWVudHPCoMKgwqDCoMKgwqDCoMKgwqDCoD0gYXNwZWVkX3NlZ21lbnRzX3NwaSwKPiAr
+wqDCoMKgwqDCoMKgwqDCoC5mbGFzaF93aW5kb3dfYmFzZSA9IEFTUEVFRF9TT0NfU1BJX0ZMQVNI
+X0JBU0UsCj4gK8KgwqDCoMKgwqDCoMKgwqAuZmxhc2hfd2luZG93X3NpemUgPSAweDEwMDAwMDAw
+LAo+ICvCoMKgwqDCoMKgwqDCoMKgLmhhc19kbWHCoMKgwqDCoMKgwqDCoMKgwqDCoMKgPSBmYWxz
+ZSwKPiArwqDCoMKgwqB9LCB7Cj4gK8KgwqDCoMKgwqDCoMKgwqAubmFtZcKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqA9ICJhc3BlZWQuc21jLmFzdDI1MDAtZm1jIiwKPiArwqDCoMKgwqDCoMKg
+wqDCoC5yX2NvbmbCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqA9IFJfQ09ORiwKPiArwqDCoMKgwqDC
+oMKgwqDCoC5yX2NlX2N0cmzCoMKgwqDCoMKgwqDCoMKgwqA9IFJfQ0VfQ1RSTCwKPiArwqDCoMKg
+wqDCoMKgwqDCoC5yX2N0cmwwwqDCoMKgwqDCoMKgwqDCoMKgwqDCoD0gUl9DVFJMMCwKPiArwqDC
+oMKgwqDCoMKgwqDCoC5yX3RpbWluZ3PCoMKgwqDCoMKgwqDCoMKgwqA9IFJfVElNSU5HUywKPiAr
+wqDCoMKgwqDCoMKgwqDCoC5jb25mX2VuYWJsZV93MMKgwqDCoMKgPSBDT05GX0VOQUJMRV9XMCwK
+PiArwqDCoMKgwqDCoMKgwqDCoC5tYXhfc2xhdmVzwqDCoMKgwqDCoMKgwqDCoD0gMywKPiArwqDC
+oMKgwqDCoMKgwqDCoC5zZWdtZW50c8KgwqDCoMKgwqDCoMKgwqDCoMKgPSBhc3BlZWRfc2VnbWVu
+dHNfYXN0MjUwMF9mbWMsCj4gK8KgwqDCoMKgwqDCoMKgwqAuZmxhc2hfd2luZG93X2Jhc2UgPSBB
+U1BFRURfU09DX0ZNQ19GTEFTSF9CQVNFLAo+ICvCoMKgwqDCoMKgwqDCoMKgLmZsYXNoX3dpbmRv
+d19zaXplID0gMHgxMDAwMDAwMCwKPiArwqDCoMKgwqDCoMKgwqDCoC5oYXNfZG1hwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoD0gdHJ1ZSwKPiArwqDCoMKgwqB9LCB7Cj4gK8KgwqDCoMKgwqDCoMKgwqAu
+bmFtZcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqA9ICJhc3BlZWQuc21jLmFzdDI1MDAtc3Bp
+MSIsCj4gK8KgwqDCoMKgwqDCoMKgwqAucl9jb25mwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgPSBS
+X0NPTkYsCj4gK8KgwqDCoMKgwqDCoMKgwqAucl9jZV9jdHJswqDCoMKgwqDCoMKgwqDCoMKgPSBS
+X0NFX0NUUkwsCj4gK8KgwqDCoMKgwqDCoMKgwqAucl9jdHJsMMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqA9IFJfQ1RSTDAsCj4gK8KgwqDCoMKgwqDCoMKgwqAucl90aW1pbmdzwqDCoMKgwqDCoMKgwqDC
+oMKgPSBSX1RJTUlOR1MsCj4gK8KgwqDCoMKgwqDCoMKgwqAuY29uZl9lbmFibGVfdzDCoMKgwqDC
+oD0gQ09ORl9FTkFCTEVfVzAsCj4gK8KgwqDCoMKgwqDCoMKgwqAubWF4X3NsYXZlc8KgwqDCoMKg
+wqDCoMKgwqA9IDIsCj4gK8KgwqDCoMKgwqDCoMKgwqAuc2VnbWVudHPCoMKgwqDCoMKgwqDCoMKg
+wqDCoD0gYXNwZWVkX3NlZ21lbnRzX2FzdDI1MDBfc3BpMSwKPiArwqDCoMKgwqDCoMKgwqDCoC5m
+bGFzaF93aW5kb3dfYmFzZSA9IEFTUEVFRF9TT0NfU1BJX0ZMQVNIX0JBU0UsCj4gK8KgwqDCoMKg
+wqDCoMKgwqAuZmxhc2hfd2luZG93X3NpemUgPSAweDgwMDAwMDAsCj4gK8KgwqDCoMKgwqDCoMKg
+wqAuaGFzX2RtYcKgwqDCoMKgwqDCoMKgwqDCoMKgwqA9IGZhbHNlLAo+ICvCoMKgwqDCoH0sIHsK
+PiArwqDCoMKgwqDCoMKgwqDCoC5uYW1lwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoD0gImFz
+cGVlZC5zbWMuYXN0MjUwMC1zcGkyIiwKPiArwqDCoMKgwqDCoMKgwqDCoC5yX2NvbmbCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqA9IFJfQ09ORiwKPiArwqDCoMKgwqDCoMKgwqDCoC5yX2NlX2N0cmzC
+oMKgwqDCoMKgwqDCoMKgwqA9IFJfQ0VfQ1RSTCwKPiArwqDCoMKgwqDCoMKgwqDCoC5yX2N0cmww
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoD0gUl9DVFJMMCwKPiArwqDCoMKgwqDCoMKgwqDCoC5yX3Rp
+bWluZ3PCoMKgwqDCoMKgwqDCoMKgwqA9IFJfVElNSU5HUywKPiArwqDCoMKgwqDCoMKgwqDCoC5j
+b25mX2VuYWJsZV93MMKgwqDCoMKgPSBDT05GX0VOQUJMRV9XMCwKPiArwqDCoMKgwqDCoMKgwqDC
+oC5tYXhfc2xhdmVzwqDCoMKgwqDCoMKgwqDCoD0gMiwKPiArwqDCoMKgwqDCoMKgwqDCoC5zZWdt
+ZW50c8KgwqDCoMKgwqDCoMKgwqDCoMKgPSBhc3BlZWRfc2VnbWVudHNfYXN0MjUwMF9zcGkyLAo+
+ICvCoMKgwqDCoMKgwqDCoMKgLmZsYXNoX3dpbmRvd19iYXNlID0gQVNQRUVEX1NPQ19TUEkyX0ZM
+QVNIX0JBU0UsCj4gK8KgwqDCoMKgwqDCoMKgwqAuZmxhc2hfd2luZG93X3NpemUgPSAweDgwMDAw
+MDAsCj4gK8KgwqDCoMKgwqDCoMKgwqAuaGFzX2RtYcKgwqDCoMKgwqDCoMKgwqDCoMKgwqA9IGZh
+bHNlLAo+ICvCoMKgwqDCoH0sCj4gwqB9Owo+IMKgCj4gwqAvKgo+IGRpZmYgLS1naXQgYS9pbmNs
+dWRlL2h3L3NzaS9hc3BlZWRfc21jLmgKPiBiL2luY2x1ZGUvaHcvc3NpL2FzcGVlZF9zbWMuaAo+
+IGluZGV4IGM2NDk1NGY2MTAzZi4uMzllZTYwMTk0MGU4IDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUv
+aHcvc3NpL2FzcGVlZF9zbWMuaAo+ICsrKyBiL2luY2x1ZGUvaHcvc3NpL2FzcGVlZF9zbWMuaAo+
+IEBAIC00NCw2ICs0NCw3IEBAIHR5cGVkZWYgc3RydWN0IEFzcGVlZFNNQ0NvbnRyb2xsZXIgewo+
+IMKgwqDCoMKgwqBjb25zdCBBc3BlZWRTZWdtZW50cyAqc2VnbWVudHM7Cj4gwqDCoMKgwqDCoGh3
+YWRkciBmbGFzaF93aW5kb3dfYmFzZTsKPiDCoMKgwqDCoMKgdWludDMyX3QgZmxhc2hfd2luZG93
+X3NpemU7Cj4gK8KgwqDCoMKgYm9vbCBoYXNfZG1hOwo+IMKgfSBBc3BlZWRTTUNDb250cm9sbGVy
+Owo+IMKgCj4gwqB0eXBlZGVmIHN0cnVjdCBBc3BlZWRTTUNGbGFzaCB7
 
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 
-> ---
-> =C2=A0tests/m25p80-test.c | 86 ++++++++++++++++++++++++++++++++++++++++++=
-+++++++++++
-> =C2=A01 file changed, 86 insertions(+)
->=20
-> diff --git a/tests/m25p80-test.c b/tests/m25p80-test.c
-> index cb7ec81f1a6d..3d449bd194a9 100644
-> --- a/tests/m25p80-test.c
-> +++ b/tests/m25p80-test.c
-> @@ -36,6 +36,9 @@
-> =C2=A0#define=C2=A0=C2=A0=C2=A0CRTL_EXTENDED0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A00=C2=A0=C2=A0/* 32 bit addressing for SPI */
-> =C2=A0#define R_CTRL0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A00x10
-> =C2=A0#define=C2=A0=C2=A0=C2=A0CTRL_CE_STOP_ACTIVE=C2=A0=C2=A0(1 << 2)
-> +#define=C2=A0=C2=A0=C2=A0CTRL_READMODE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A00x0
-> +#define=C2=A0=C2=A0=C2=A0CTRL_FREADMODE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A00x1
-> +#define=C2=A0=C2=A0=C2=A0CTRL_WRITEMODE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A00x2
-> =C2=A0#define=C2=A0=C2=A0=C2=A0CTRL_USERMODE=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A00x3
-> =C2=A0
-> =C2=A0#define ASPEED_FMC_BASE=C2=A0=C2=A0=C2=A0=C2=A00x1E620000
-> @@ -76,6 +79,22 @@ static void spi_conf(uint32_t value)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0writel(ASPEED_FMC_BASE + R_CONF, conf);
-> =C2=A0}
-> =C2=A0
-> +static void spi_ce_ctrl(uint32_t value)
-> +{
-> +=C2=A0=C2=A0=C2=A0=C2=A0uint32_t conf =3D readl(ASPEED_FMC_BASE + R_CE_C=
-TRL);
-> +
-> +=C2=A0=C2=A0=C2=A0=C2=A0conf |=3D value;
-> +=C2=A0=C2=A0=C2=A0=C2=A0writel(ASPEED_FMC_BASE + R_CE_CTRL, conf);
-> +}
-> +
-> +static void spi_ctrl_setmode(uint8_t mode, uint8_t cmd)
-> +{
-> +=C2=A0=C2=A0=C2=A0=C2=A0uint32_t ctrl =3D readl(ASPEED_FMC_BASE + R_CTRL=
-0);
-> +=C2=A0=C2=A0=C2=A0=C2=A0ctrl &=3D ~(CTRL_USERMODE | 0xff << 16);
-> +=C2=A0=C2=A0=C2=A0=C2=A0ctrl |=3D mode | (cmd << 16);
-> +=C2=A0=C2=A0=C2=A0=C2=A0writel(ASPEED_FMC_BASE + R_CTRL0, ctrl);
-> +}
-> +
-> =C2=A0static void spi_ctrl_start_user(void)
-> =C2=A0{
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0uint32_t ctrl =3D readl(ASPEED_FMC_BASE + R=
-_CTRL0);
-> @@ -128,6 +147,18 @@ static void read_page(uint32_t addr, uint32_t *page)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0spi_ctrl_stop_user();
-> =C2=A0}
-> =C2=A0
-> +static void read_page_mem(uint32_t addr, uint32_t *page)
-> +{
-> +=C2=A0=C2=A0=C2=A0=C2=A0int i;
-> +
-> +=C2=A0=C2=A0=C2=A0=C2=A0/* move out USER mode to use direct reads from t=
-he AHB bus */
-> +=C2=A0=C2=A0=C2=A0=C2=A0spi_ctrl_setmode(CTRL_READMODE, READ);
-> +
-> +=C2=A0=C2=A0=C2=A0=C2=A0for (i =3D 0; i < PAGE_SIZE / 4; i++) {
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0page[i] =3D make_be32(re=
-adl(ASPEED_FLASH_BASE + addr + i * 4));
-> +=C2=A0=C2=A0=C2=A0=C2=A0}
-> +}
-> +
-> =C2=A0static void test_erase_sector(void)
-> =C2=A0{
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0uint32_t some_page_addr =3D 0x600 * PAGE_SI=
-ZE;
-> @@ -195,6 +226,7 @@ static void test_write_page(void)
-> =C2=A0
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0spi_ctrl_start_user();
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0writeb(ASPEED_FLASH_BASE, EN_4BYTE_ADDR);
-> +=C2=A0=C2=A0=C2=A0=C2=A0writeb(ASPEED_FLASH_BASE, WREN);
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0writeb(ASPEED_FLASH_BASE, PP);
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0writel(ASPEED_FLASH_BASE, make_be32(my_page=
-_addr));
-> =C2=A0
-> @@ -217,6 +249,58 @@ static void test_write_page(void)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0}
-> =C2=A0}
-> =C2=A0
-> +static void test_read_page_mem(void)
-> +{
-> +=C2=A0=C2=A0=C2=A0=C2=A0uint32_t my_page_addr =3D 0x14000 * PAGE_SIZE; /=
-* beyond 16MB */
-> +=C2=A0=C2=A0=C2=A0=C2=A0uint32_t some_page_addr =3D 0x15000 * PAGE_SIZE;
-> +=C2=A0=C2=A0=C2=A0=C2=A0uint32_t page[PAGE_SIZE / 4];
-> +=C2=A0=C2=A0=C2=A0=C2=A0int i;
-> +
-> +=C2=A0=C2=A0=C2=A0=C2=A0/* Enable 4BYTE mode for flash. This is should b=
-e strapped by HW
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0* for CE0 anyhow.
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0*/
-> +=C2=A0=C2=A0=C2=A0=C2=A0spi_ce_ctrl(1 << CRTL_EXTENDED0);
-> +
-> +=C2=A0=C2=A0=C2=A0=C2=A0/* Check what was written */
-> +=C2=A0=C2=A0=C2=A0=C2=A0read_page_mem(my_page_addr, page);
-> +=C2=A0=C2=A0=C2=A0=C2=A0for (i =3D 0; i < PAGE_SIZE / 4; i++) {
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0g_assert_cmphex(page[i],=
- =3D=3D, my_page_addr + i * 4);
-> +=C2=A0=C2=A0=C2=A0=C2=A0}
-> +
-> +=C2=A0=C2=A0=C2=A0=C2=A0/* Check some other page. It should be full of 0=
-xff */
-> +=C2=A0=C2=A0=C2=A0=C2=A0read_page_mem(some_page_addr, page);
-> +=C2=A0=C2=A0=C2=A0=C2=A0for (i =3D 0; i < PAGE_SIZE / 4; i++) {
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0g_assert_cmphex(page[i],=
- =3D=3D, 0xffffffff);
-> +=C2=A0=C2=A0=C2=A0=C2=A0}
-> +}
-> +
-> +static void test_write_page_mem(void)
-> +{
-> +=C2=A0=C2=A0=C2=A0=C2=A0uint32_t my_page_addr =3D 0x15000 * PAGE_SIZE;
-> +=C2=A0=C2=A0=C2=A0=C2=A0uint32_t page[PAGE_SIZE / 4];
-> +=C2=A0=C2=A0=C2=A0=C2=A0int i;
-> +
-> +=C2=A0=C2=A0=C2=A0=C2=A0/* Enable 4BYTE mode for flash. This is should b=
-e strapped by HW
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0* for CE0 anyhow.
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0*/
-> +=C2=A0=C2=A0=C2=A0=C2=A0spi_ce_ctrl(1 << CRTL_EXTENDED0);
-> +
-> +=C2=A0=C2=A0=C2=A0=C2=A0/* move out USER mode to use direct writes to th=
-e AHB bus */
-> +=C2=A0=C2=A0=C2=A0=C2=A0spi_ctrl_setmode(CTRL_WRITEMODE, PP);
-> +
-> +=C2=A0=C2=A0=C2=A0=C2=A0for (i =3D 0; i < PAGE_SIZE / 4; i++) {
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0writel(ASPEED_FLASH_BASE=
- + my_page_addr + i * 4,
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0make_be32(my_page_addr + i * 4));
-> +=C2=A0=C2=A0=C2=A0=C2=A0}
-> +
-> +=C2=A0=C2=A0=C2=A0=C2=A0/* Check what was written */
-> +=C2=A0=C2=A0=C2=A0=C2=A0read_page_mem(my_page_addr, page);
-> +=C2=A0=C2=A0=C2=A0=C2=A0for (i =3D 0; i < PAGE_SIZE / 4; i++) {
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0g_assert_cmphex(page[i],=
- =3D=3D, my_page_addr + i * 4);
-> +=C2=A0=C2=A0=C2=A0=C2=A0}
-> +}
-> +
-> +
-> =C2=A0static char tmp_path[] =3D "/tmp/qtest.m25p80.XXXXXX";
-> =C2=A0
-> =C2=A0int main(int argc, char **argv)
-> @@ -242,6 +326,8 @@ int main(int argc, char **argv)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0qtest_add_func("/m25p80/erase_sector", test=
-_erase_sector);
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0qtest_add_func("/m25p80/erase_all",=C2=A0=
-=C2=A0test_erase_all);
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0qtest_add_func("/m25p80/write_page", test_w=
-rite_page);
-> +=C2=A0=C2=A0=C2=A0=C2=A0qtest_add_func("/m25p80/read_page_mem", test_rea=
-d_page_mem);
-> +=C2=A0=C2=A0=C2=A0=C2=A0qtest_add_func("/m25p80/write_page_mem", test_wr=
-ite_page_mem);
-> =C2=A0
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0ret =3D g_test_run();
-> =C2=A0
---=-XKwFFuzUbNFKZynS3L9E
+--=-HMmUrIrcxL/WUYmySz9n
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJYN75aAAoJEJ0dnzgO5LT5G2AQAIN0EcWUhNtnZ0iJZhOf0cwe
-kQ3BF6zJkw30j3p0D8MiYXQhqZNj56/Ch9euvpdzx+0LpCSvBXSdllyjBmFsa2aV
-FrYBvVARPJSSnemKfKi8NjNuxW6rC7h2oA8nnQjgyh2RrNh7RouzRutQByZoPP7b
-L1kLQi/3/9dMopV6RrbDHrFA42HqNmbahg0BUxmqA5tlf1UX0qncxhE+W2MhvKXp
-BobEkcJjFTDZZfsCYZq33Hk9Ltr1diZvZ8A9nCtkjVoEhwWqiUPfcbDKU03rjJkH
-72kguzR7FaEsGlO2Srguxsp5os2ajsVpLIOQHB16qC2iJUc/1qwnAuGBk3UeTE6b
-Y9GOaAH2oMgqAB/GYhjSys1Kb0vKgBiLBWNhjkSrI+LaPnxtAuEOF91RpYRNDkL3
-BZhJQqjnRuly0oD/6xNqWS+Eb9lInHb/54U/7FgvWl+XjIp0RTpv18w39JcUwhGR
-HtLoDCNYxqZbwX/BoDfEpwYxjrveMdnmFrBcz+qmK4lC8ljA4jhDsc067SR4ghXi
-HaHoqsnDBDv9P0JHZmWelRtwGJ7hfWy+L5mDd+zZbllesCYMHMPcbS9eIPzbHmHb
-ZZMDO9gyW1nbT4j+DU5NxLmPR0RiDipg58igDfmFyCwHobLQYzMnut9vmzgPHDJz
-EDX/kWlNpyo/Kd2yiFLl
-=UjAP
+iQIcBAABCgAGBQJYN76uAAoJEJ0dnzgO5LT5oMEQAIymqjOJ9AbB2N7H4v/yiagr
+40E3dgai3hB21UlMipX0k2urEO6NvWyhDgkkBE4ZVlM0lpETQ6gBC1B2OHYl2Mlo
+WT84vLkFAt40RGv/AKc+WGZ6hZk0RMKK9IQmc7wxuZc7s3qxsRVeQe6Z+AGNlTKm
+oPEDf5GVz7FhRvZWC0DLQ521jgZcOM0/hIemztz3HrG+aY7hgmMXyL8zC5Wn8gwT
+WuJoMG5K+miLRRpCNeyLYv1VEevaG89WXgQyECgdMHSwdpEqewv63ry4X4Wgm7cy
++7WWB1dLiQ0plZ9mTlT5sl7AalzvmJUFPHNdfdgYAdYIMQ53zVGdRsDG+8i6grCn
+4lF49i5jRAQp7C84c09ALESoubjlH6QDtDuB6YUffXSS2vMWJwkgrQBfx+xJvP4A
+wxh285I9gWgIyCDEK3IgWpHX/h07UVauBClqDaV+3/CdkHCLf9ivqdpp5tGK4X9k
+1EgU6d9FC28kF6jZzWALc80bZSKFDjXh50lNQmKR/fX+UPZ2srMLPB5EumWnx03F
+Rn9UGOo5TEMDtRzr167mWinONWPjyb4FNa9zCvW+TAbPivpbg8YUgq8bVeGqM6s4
+Cn3dGwU28sFkHrVUtpv5QL76f8cD+ZXoMs7oC3XFhN8jCVpycSTYV6pg1M2zosw7
+WQEKlwNByjBWKzIAtoKs
+=cJlp
 -----END PGP SIGNATURE-----
 
---=-XKwFFuzUbNFKZynS3L9E--
+--=-HMmUrIrcxL/WUYmySz9n--
