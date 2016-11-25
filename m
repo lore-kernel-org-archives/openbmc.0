@@ -3,50 +3,49 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tQ37T2LjszDvJQ
- for <openbmc@lists.ozlabs.org>; Fri, 25 Nov 2016 15:31:49 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tQ3DK5N2nzDvNW
+ for <openbmc@lists.ozlabs.org>; Fri, 25 Nov 2016 15:36:01 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="PVwl886d"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="fg2paCme"; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="VLNwE395"; dkim-atps=neutral
+ header.b="ERFynocs"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 3CB1220746;
- Thu, 24 Nov 2016 23:31:47 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id 857F320620;
+ Thu, 24 Nov 2016 23:35:59 -0500 (EST)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Thu, 24 Nov 2016 23:31:47 -0500
+ by compute4.internal (MEProxy); Thu, 24 Nov 2016 23:35:59 -0500
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
  content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=njPPohjOo6i60CVCaO0A+6HhGP4=; b=PVwl88
- 6dk0x/73eXAlnG8qhvwqQzaqAx+X0f15naF6pzA9v55Q0vft6hCGqc3sZtj2HhBn
- 5yKP6y0+VrLMLSAtAjI4A5WuceOFi/XHTDgevdhuGu1SDmXa1BHEwP0mX9V3ihID
- M3zxS0f4FjnGltm7HDRosMX6gF5B8BoTgDejQ=
+ :x-sasl-enc; s=mesmtp; bh=KkNNWF6bDeliZoCYXgYAOyfTv9A=; b=fg2paC
+ meaNAgoxGWfWgBHC2N+gnU2sOY8WDIdsWiWbbXLQ19kaWdHp59Sh1BTmYlJS7OqS
+ WjMjxLJNXACCzncVtaqbxI+GbSK56wGt/a+YjiBStk+E4Ebq63C0MY5uEV01YErC
+ 8TtLYOaU5OHNdQ2THjT3dZ0hLnRXXQ1W1Rd/I=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
  messagingengine.com; h=content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=njPPohjOo6i60C
- VCaO0A+6HhGP4=; b=VLNwE395/aPIkuytmOeCLY1qP3y9O04YPaQ0CfaSc842b7
- 4k+VUsCuZRMypyuHlNYsnIXRF6UEmc3+in8Ji258WoEC4FtnRSjHfmObOR1WsYIV
- oe379Q79Fl1nk0yHinqAV0E4bsToofflYgfXexBLwpINq+sV/TsL/umDfLUhw=
-X-ME-Sender: <xms:s743WEuCEaUSmT3LUblMQCVbaJ4_v3wWv9ipQKW3VxoXHo_U7o2ciA>
-X-Sasl-enc: P3Umc0hiecmcqS9U9+ZKTZG5GN4Dh5gU7t87Z9wLRz8I 1480048306
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=KkNNWF6bDeliZo
+ CYXgYAOyfTv9A=; b=ERFynocsFUUjZN4ZdlrTtshBzJthiVSy2+t1ZZv8fHhPv+
+ cfAovLcGeeGM1k6sxGoUtJg4IsbOjBfxCuigGHISlsdjhS0x0cwXKAcjrjM+cJpa
+ uXEJ24NRbAIQy/UYzI4/knGDnHCL4qbyUHF03MhYyZjPJaxXTBzlCf2rV3JS0=
+X-ME-Sender: <xms:r783WGCd4gHG0aCE467ljW8B7ERAfLRn--jC79JcocWtvP68FC6Z6A>
+X-Sasl-enc: v3PukF1a0xq0Tu4c5+Er/E+nfMJ3BrKUCNcSUu/gQqBG 1480048558
 Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
  [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id BED4024066;
- Thu, 24 Nov 2016 23:31:45 -0500 (EST)
-Message-ID: <1480048302.2503.58.camel@aj.id.au>
-Subject: Re: [PATCH qemu 17/38] aspeed/smc: unfold the AspeedSMCController
- array
+ by mail.messagingengine.com (Postfix) with ESMTPA id 1785A2418C;
+ Thu, 24 Nov 2016 23:35:57 -0500 (EST)
+Message-ID: <1480048554.2503.59.camel@aj.id.au>
+Subject: Re: [PATCH qemu 18/38] aspeed/smc: add a 'sdram_base' property
 From: Andrew Jeffery <andrew@aj.id.au>
 To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, 
  openbmc@lists.ozlabs.org
-Date: Fri, 25 Nov 2016 15:01:42 +1030
-In-Reply-To: <1479478938-13267-18-git-send-email-clg@kaod.org>
+Date: Fri, 25 Nov 2016 15:05:54 +1030
+In-Reply-To: <1479478938-13267-19-git-send-email-clg@kaod.org>
 References: <1479478938-13267-1-git-send-email-clg@kaod.org>
- <1479478938-13267-18-git-send-email-clg@kaod.org>
+ <1479478938-13267-19-git-send-email-clg@kaod.org>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-HMmUrIrcxL/WUYmySz9n"
+ protocol="application/pgp-signature"; boundary="=-MUVO888a6pD3bQ38eqGG"
 X-Mailer: Evolution 3.22.1-0ubuntu2 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -60,151 +59,104 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 25 Nov 2016 04:31:49 -0000
+X-List-Received-Date: Fri, 25 Nov 2016 04:36:02 -0000
 
 
---=-HMmUrIrcxL/WUYmySz9n
+--=-MUVO888a6pD3bQ38eqGG
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: quoted-printable
 
-T24gRnJpLCAyMDE2LTExLTE4IGF0IDE1OjIxICswMTAwLCBDw6lkcmljIExlIEdvYXRlciB3cm90
-ZToKPiBUaGlzIGlzIGdldHRpbmcgZGlmZmljdWx0IHRvIHJlYWQuIEFsc28gYWRkIGEgJ2hhc19k
-bWEnIGZpZWxkIGZvcgo+IGVhY2gKPiBjb250cm9sbGVyIHR5cGUuCj4gCj4gU2lnbmVkLW9mZi1i
-eTogQ8OpZHJpYyBMZSBHb2F0ZXIgPGNsZ0BrYW9kLm9yZz4KClJldmlld2VkLWJ5OiBBbmRyZXcg
-SmVmZmVyeSA8YW5kcmV3QGFqLmlkLmF1PgoKPiAtLS0KPiDCoGh3L3NzaS9hc3BlZWRfc21jLmPC
-oMKgwqDCoMKgwqDCoMKgwqB8IDkxCj4gKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrLS0tLS0tLS0tCj4gwqBpbmNsdWRlL2h3L3NzaS9hc3BlZWRfc21jLmggfMKgwqAxICsKPiDC
-oDIgZmlsZXMgY2hhbmdlZCwgNzQgaW5zZXJ0aW9ucygrKSwgMTggZGVsZXRpb25zKC0pCj4gCj4g
-ZGlmZiAtLWdpdCBhL2h3L3NzaS9hc3BlZWRfc21jLmMgYi9ody9zc2kvYXNwZWVkX3NtYy5jCj4g
-aW5kZXggZWVjMDg3MTk5YTIyLi44ZTdlM2JkOWUzMzUgMTAwNjQ0Cj4gLS0tIGEvaHcvc3NpL2Fz
-cGVlZF9zbWMuYwo+ICsrKyBiL2h3L3NzaS9hc3BlZWRfc21jLmMKPiBAQCAtMTg0LDI0ICsxODQs
-NzkgQEAgc3RhdGljIGNvbnN0IEFzcGVlZFNlZ21lbnRzCj4gYXNwZWVkX3NlZ21lbnRzX2FzdDI1
-MDBfc3BpMltdID0gewo+IMKgfTsKPiDCoAo+IMKgc3RhdGljIGNvbnN0IEFzcGVlZFNNQ0NvbnRy
-b2xsZXIgY29udHJvbGxlcnNbXSA9IHsKPiAtwqDCoMKgwqB7ICJhc3BlZWQuc21jLnNtYyIsIFJf
-Q09ORiwgUl9DRV9DVFJMLCBSX0NUUkwwLCBSX1RJTUlOR1MsCj4gLcKgwqDCoMKgwqDCoENPTkZf
-RU5BQkxFX1cwLCA1LCBhc3BlZWRfc2VnbWVudHNfbGVnYWN5LAo+IC3CoMKgwqDCoMKgwqBBU1BF
-RURfU09DX1NNQ19GTEFTSF9CQVNFLCAweDYwMDAwMDAgfSwKPiAtwqDCoMKgwqB7ICJhc3BlZWQu
-c21jLmZtYyIsIFJfQ09ORiwgUl9DRV9DVFJMLCBSX0NUUkwwLCBSX1RJTUlOR1MsCj4gLcKgwqDC
-oMKgwqDCoENPTkZfRU5BQkxFX1cwLCA1LCBhc3BlZWRfc2VnbWVudHNfZm1jLAo+IC3CoMKgwqDC
-oMKgwqBBU1BFRURfU09DX0ZNQ19GTEFTSF9CQVNFLCAweDEwMDAwMDAwIH0sCj4gLcKgwqDCoMKg
-eyAiYXNwZWVkLnNtYy5zcGkiLCBSX1NQSV9DT05GLCAweGZmLCBSX1NQSV9DVFJMMCwKPiBSX1NQ
-SV9USU1JTkdTLAo+IC3CoMKgwqDCoMKgwqBTUElfQ09ORl9FTkFCTEVfVzAsIDEsIGFzcGVlZF9z
-ZWdtZW50c19zcGksCj4gLcKgwqDCoMKgwqDCoEFTUEVFRF9TT0NfU1BJX0ZMQVNIX0JBU0UsIDB4
-MTAwMDAwMDAgfSwKPiAtwqDCoMKgwqB7ICJhc3BlZWQuc21jLmFzdDI1MDAtZm1jIiwgUl9DT05G
-LCBSX0NFX0NUUkwsIFJfQ1RSTDAsCj4gUl9USU1JTkdTLAo+IC3CoMKgwqDCoMKgwqBDT05GX0VO
-QUJMRV9XMCwgMywgYXNwZWVkX3NlZ21lbnRzX2FzdDI1MDBfZm1jLAo+IC3CoMKgwqDCoMKgwqBB
-U1BFRURfU09DX0ZNQ19GTEFTSF9CQVNFLCAweDEwMDAwMDAwIH0sCj4gLcKgwqDCoMKgeyAiYXNw
-ZWVkLnNtYy5hc3QyNTAwLXNwaTEiLCBSX0NPTkYsIFJfQ0VfQ1RSTCwgUl9DVFJMMCwKPiBSX1RJ
-TUlOR1MsCj4gLcKgwqDCoMKgwqDCoENPTkZfRU5BQkxFX1cwLCAyLCBhc3BlZWRfc2VnbWVudHNf
-YXN0MjUwMF9zcGkxLAo+IC3CoMKgwqDCoMKgwqBBU1BFRURfU09DX1NQSV9GTEFTSF9CQVNFLCAw
-eDgwMDAwMDAgfSwKPiAtwqDCoMKgwqB7ICJhc3BlZWQuc21jLmFzdDI1MDAtc3BpMiIsIFJfQ09O
-RiwgUl9DRV9DVFJMLCBSX0NUUkwwLAo+IFJfVElNSU5HUywKPiAtwqDCoMKgwqDCoMKgQ09ORl9F
-TkFCTEVfVzAsIDIsIGFzcGVlZF9zZWdtZW50c19hc3QyNTAwX3NwaTIsCj4gLcKgwqDCoMKgwqDC
-oEFTUEVFRF9TT0NfU1BJMl9GTEFTSF9CQVNFLCAweDgwMDAwMDAgfSwKPiArwqDCoMKgwqB7Cj4g
-K8KgwqDCoMKgwqDCoMKgwqAubmFtZcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqA9ICJhc3Bl
-ZWQuc21jLnNtYyIsCj4gK8KgwqDCoMKgwqDCoMKgwqAucl9jb25mwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgPSBSX0NPTkYsCj4gK8KgwqDCoMKgwqDCoMKgwqAucl9jZV9jdHJswqDCoMKgwqDCoMKg
-wqDCoMKgPSBSX0NFX0NUUkwsCj4gK8KgwqDCoMKgwqDCoMKgwqAucl9jdHJsMMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqA9IFJfQ1RSTDAsCj4gK8KgwqDCoMKgwqDCoMKgwqAucl90aW1pbmdzwqDCoMKg
-wqDCoMKgwqDCoMKgPSBSX1RJTUlOR1MsCj4gK8KgwqDCoMKgwqDCoMKgwqAuY29uZl9lbmFibGVf
-dzDCoMKgwqDCoD0gQ09ORl9FTkFCTEVfVzAsCj4gK8KgwqDCoMKgwqDCoMKgwqAubWF4X3NsYXZl
-c8KgwqDCoMKgwqDCoMKgwqA9IDUsCj4gK8KgwqDCoMKgwqDCoMKgwqAuc2VnbWVudHPCoMKgwqDC
-oMKgwqDCoMKgwqDCoD0gYXNwZWVkX3NlZ21lbnRzX2xlZ2FjeSwKPiArwqDCoMKgwqDCoMKgwqDC
-oC5mbGFzaF93aW5kb3dfYmFzZSA9IEFTUEVFRF9TT0NfU01DX0ZMQVNIX0JBU0UsCj4gK8KgwqDC
-oMKgwqDCoMKgwqAuZmxhc2hfd2luZG93X3NpemUgPSAweDYwMDAwMDAsCj4gK8KgwqDCoMKgwqDC
-oMKgwqAuaGFzX2RtYcKgwqDCoMKgwqDCoMKgwqDCoMKgwqA9IGZhbHNlLAo+ICvCoMKgwqDCoH0s
-IHsKPiArwqDCoMKgwqDCoMKgwqDCoC5uYW1lwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoD0g
-ImFzcGVlZC5zbWMuZm1jIiwKPiArwqDCoMKgwqDCoMKgwqDCoC5yX2NvbmbCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqA9IFJfQ09ORiwKPiArwqDCoMKgwqDCoMKgwqDCoC5yX2NlX2N0cmzCoMKgwqDC
-oMKgwqDCoMKgwqA9IFJfQ0VfQ1RSTCwKPiArwqDCoMKgwqDCoMKgwqDCoC5yX2N0cmwwwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoD0gUl9DVFJMMCwKPiArwqDCoMKgwqDCoMKgwqDCoC5yX3RpbWluZ3PC
-oMKgwqDCoMKgwqDCoMKgwqA9IFJfVElNSU5HUywKPiArwqDCoMKgwqDCoMKgwqDCoC5jb25mX2Vu
-YWJsZV93MMKgwqDCoMKgPSBDT05GX0VOQUJMRV9XMCwKPiArwqDCoMKgwqDCoMKgwqDCoC5tYXhf
-c2xhdmVzwqDCoMKgwqDCoMKgwqDCoD0gNSwKPiArwqDCoMKgwqDCoMKgwqDCoC5zZWdtZW50c8Kg
-wqDCoMKgwqDCoMKgwqDCoMKgPSBhc3BlZWRfc2VnbWVudHNfZm1jLAo+ICvCoMKgwqDCoMKgwqDC
-oMKgLmZsYXNoX3dpbmRvd19iYXNlID0gQVNQRUVEX1NPQ19GTUNfRkxBU0hfQkFTRSwKPiArwqDC
-oMKgwqDCoMKgwqDCoC5mbGFzaF93aW5kb3dfc2l6ZSA9IDB4MTAwMDAwMDAsCj4gK8KgwqDCoMKg
-wqDCoMKgwqAuaGFzX2RtYcKgwqDCoMKgwqDCoMKgwqDCoMKgwqA9IHRydWUsCj4gK8KgwqDCoMKg
-fSwgewo+ICvCoMKgwqDCoMKgwqDCoMKgLm5hbWXCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-PSAiYXNwZWVkLnNtYy5zcGkiLAo+ICvCoMKgwqDCoMKgwqDCoMKgLnJfY29uZsKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoD0gUl9TUElfQ09ORiwKPiArwqDCoMKgwqDCoMKgwqDCoC5yX2NlX2N0cmzC
-oMKgwqDCoMKgwqDCoMKgwqA9IDB4ZmYsCj4gK8KgwqDCoMKgwqDCoMKgwqAucl9jdHJsMMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqA9IFJfU1BJX0NUUkwwLAo+ICvCoMKgwqDCoMKgwqDCoMKgLnJfdGlt
-aW5nc8KgwqDCoMKgwqDCoMKgwqDCoD0gUl9TUElfVElNSU5HUywKPiArwqDCoMKgwqDCoMKgwqDC
-oC5jb25mX2VuYWJsZV93MMKgwqDCoMKgPSBTUElfQ09ORl9FTkFCTEVfVzAsCj4gK8KgwqDCoMKg
-wqDCoMKgwqAubWF4X3NsYXZlc8KgwqDCoMKgwqDCoMKgwqA9IDEsCj4gK8KgwqDCoMKgwqDCoMKg
-wqAuc2VnbWVudHPCoMKgwqDCoMKgwqDCoMKgwqDCoD0gYXNwZWVkX3NlZ21lbnRzX3NwaSwKPiAr
-wqDCoMKgwqDCoMKgwqDCoC5mbGFzaF93aW5kb3dfYmFzZSA9IEFTUEVFRF9TT0NfU1BJX0ZMQVNI
-X0JBU0UsCj4gK8KgwqDCoMKgwqDCoMKgwqAuZmxhc2hfd2luZG93X3NpemUgPSAweDEwMDAwMDAw
-LAo+ICvCoMKgwqDCoMKgwqDCoMKgLmhhc19kbWHCoMKgwqDCoMKgwqDCoMKgwqDCoMKgPSBmYWxz
-ZSwKPiArwqDCoMKgwqB9LCB7Cj4gK8KgwqDCoMKgwqDCoMKgwqAubmFtZcKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqA9ICJhc3BlZWQuc21jLmFzdDI1MDAtZm1jIiwKPiArwqDCoMKgwqDCoMKg
-wqDCoC5yX2NvbmbCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqA9IFJfQ09ORiwKPiArwqDCoMKgwqDC
-oMKgwqDCoC5yX2NlX2N0cmzCoMKgwqDCoMKgwqDCoMKgwqA9IFJfQ0VfQ1RSTCwKPiArwqDCoMKg
-wqDCoMKgwqDCoC5yX2N0cmwwwqDCoMKgwqDCoMKgwqDCoMKgwqDCoD0gUl9DVFJMMCwKPiArwqDC
-oMKgwqDCoMKgwqDCoC5yX3RpbWluZ3PCoMKgwqDCoMKgwqDCoMKgwqA9IFJfVElNSU5HUywKPiAr
-wqDCoMKgwqDCoMKgwqDCoC5jb25mX2VuYWJsZV93MMKgwqDCoMKgPSBDT05GX0VOQUJMRV9XMCwK
-PiArwqDCoMKgwqDCoMKgwqDCoC5tYXhfc2xhdmVzwqDCoMKgwqDCoMKgwqDCoD0gMywKPiArwqDC
-oMKgwqDCoMKgwqDCoC5zZWdtZW50c8KgwqDCoMKgwqDCoMKgwqDCoMKgPSBhc3BlZWRfc2VnbWVu
-dHNfYXN0MjUwMF9mbWMsCj4gK8KgwqDCoMKgwqDCoMKgwqAuZmxhc2hfd2luZG93X2Jhc2UgPSBB
-U1BFRURfU09DX0ZNQ19GTEFTSF9CQVNFLAo+ICvCoMKgwqDCoMKgwqDCoMKgLmZsYXNoX3dpbmRv
-d19zaXplID0gMHgxMDAwMDAwMCwKPiArwqDCoMKgwqDCoMKgwqDCoC5oYXNfZG1hwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoD0gdHJ1ZSwKPiArwqDCoMKgwqB9LCB7Cj4gK8KgwqDCoMKgwqDCoMKgwqAu
-bmFtZcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqA9ICJhc3BlZWQuc21jLmFzdDI1MDAtc3Bp
-MSIsCj4gK8KgwqDCoMKgwqDCoMKgwqAucl9jb25mwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgPSBS
-X0NPTkYsCj4gK8KgwqDCoMKgwqDCoMKgwqAucl9jZV9jdHJswqDCoMKgwqDCoMKgwqDCoMKgPSBS
-X0NFX0NUUkwsCj4gK8KgwqDCoMKgwqDCoMKgwqAucl9jdHJsMMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqA9IFJfQ1RSTDAsCj4gK8KgwqDCoMKgwqDCoMKgwqAucl90aW1pbmdzwqDCoMKgwqDCoMKgwqDC
-oMKgPSBSX1RJTUlOR1MsCj4gK8KgwqDCoMKgwqDCoMKgwqAuY29uZl9lbmFibGVfdzDCoMKgwqDC
-oD0gQ09ORl9FTkFCTEVfVzAsCj4gK8KgwqDCoMKgwqDCoMKgwqAubWF4X3NsYXZlc8KgwqDCoMKg
-wqDCoMKgwqA9IDIsCj4gK8KgwqDCoMKgwqDCoMKgwqAuc2VnbWVudHPCoMKgwqDCoMKgwqDCoMKg
-wqDCoD0gYXNwZWVkX3NlZ21lbnRzX2FzdDI1MDBfc3BpMSwKPiArwqDCoMKgwqDCoMKgwqDCoC5m
-bGFzaF93aW5kb3dfYmFzZSA9IEFTUEVFRF9TT0NfU1BJX0ZMQVNIX0JBU0UsCj4gK8KgwqDCoMKg
-wqDCoMKgwqAuZmxhc2hfd2luZG93X3NpemUgPSAweDgwMDAwMDAsCj4gK8KgwqDCoMKgwqDCoMKg
-wqAuaGFzX2RtYcKgwqDCoMKgwqDCoMKgwqDCoMKgwqA9IGZhbHNlLAo+ICvCoMKgwqDCoH0sIHsK
-PiArwqDCoMKgwqDCoMKgwqDCoC5uYW1lwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoD0gImFz
-cGVlZC5zbWMuYXN0MjUwMC1zcGkyIiwKPiArwqDCoMKgwqDCoMKgwqDCoC5yX2NvbmbCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqA9IFJfQ09ORiwKPiArwqDCoMKgwqDCoMKgwqDCoC5yX2NlX2N0cmzC
-oMKgwqDCoMKgwqDCoMKgwqA9IFJfQ0VfQ1RSTCwKPiArwqDCoMKgwqDCoMKgwqDCoC5yX2N0cmww
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoD0gUl9DVFJMMCwKPiArwqDCoMKgwqDCoMKgwqDCoC5yX3Rp
-bWluZ3PCoMKgwqDCoMKgwqDCoMKgwqA9IFJfVElNSU5HUywKPiArwqDCoMKgwqDCoMKgwqDCoC5j
-b25mX2VuYWJsZV93MMKgwqDCoMKgPSBDT05GX0VOQUJMRV9XMCwKPiArwqDCoMKgwqDCoMKgwqDC
-oC5tYXhfc2xhdmVzwqDCoMKgwqDCoMKgwqDCoD0gMiwKPiArwqDCoMKgwqDCoMKgwqDCoC5zZWdt
-ZW50c8KgwqDCoMKgwqDCoMKgwqDCoMKgPSBhc3BlZWRfc2VnbWVudHNfYXN0MjUwMF9zcGkyLAo+
-ICvCoMKgwqDCoMKgwqDCoMKgLmZsYXNoX3dpbmRvd19iYXNlID0gQVNQRUVEX1NPQ19TUEkyX0ZM
-QVNIX0JBU0UsCj4gK8KgwqDCoMKgwqDCoMKgwqAuZmxhc2hfd2luZG93X3NpemUgPSAweDgwMDAw
-MDAsCj4gK8KgwqDCoMKgwqDCoMKgwqAuaGFzX2RtYcKgwqDCoMKgwqDCoMKgwqDCoMKgwqA9IGZh
-bHNlLAo+ICvCoMKgwqDCoH0sCj4gwqB9Owo+IMKgCj4gwqAvKgo+IGRpZmYgLS1naXQgYS9pbmNs
-dWRlL2h3L3NzaS9hc3BlZWRfc21jLmgKPiBiL2luY2x1ZGUvaHcvc3NpL2FzcGVlZF9zbWMuaAo+
-IGluZGV4IGM2NDk1NGY2MTAzZi4uMzllZTYwMTk0MGU4IDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUv
-aHcvc3NpL2FzcGVlZF9zbWMuaAo+ICsrKyBiL2luY2x1ZGUvaHcvc3NpL2FzcGVlZF9zbWMuaAo+
-IEBAIC00NCw2ICs0NCw3IEBAIHR5cGVkZWYgc3RydWN0IEFzcGVlZFNNQ0NvbnRyb2xsZXIgewo+
-IMKgwqDCoMKgwqBjb25zdCBBc3BlZWRTZWdtZW50cyAqc2VnbWVudHM7Cj4gwqDCoMKgwqDCoGh3
-YWRkciBmbGFzaF93aW5kb3dfYmFzZTsKPiDCoMKgwqDCoMKgdWludDMyX3QgZmxhc2hfd2luZG93
-X3NpemU7Cj4gK8KgwqDCoMKgYm9vbCBoYXNfZG1hOwo+IMKgfSBBc3BlZWRTTUNDb250cm9sbGVy
-Owo+IMKgCj4gwqB0eXBlZGVmIHN0cnVjdCBBc3BlZWRTTUNGbGFzaCB7
+On Fri, 2016-11-18 at 15:21 +0100, C=C3=A9dric Le Goater wrote:
+> The setting of the DRAM address of the DMA transaction depends on the
+> DRAM base address of the SoC, so we add a property to give this
+> information to the model.
+>=20
+> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
 
+Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 
---=-HMmUrIrcxL/WUYmySz9n
+> ---
+> =C2=A0hw/arm/aspeed_soc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0| 7 +++++++
+> =C2=A0hw/ssi/aspeed_smc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0| 1 +
+> =C2=A0include/hw/ssi/aspeed_smc.h | 3 +++
+> =C2=A03 files changed, 11 insertions(+)
+>=20
+> diff --git a/hw/arm/aspeed_soc.c b/hw/arm/aspeed_soc.c
+> index fcf029f8c1c2..24354f700115 100644
+> --- a/hw/arm/aspeed_soc.c
+> +++ b/hw/arm/aspeed_soc.c
+> @@ -276,6 +276,13 @@ static void aspeed_soc_realize(DeviceState *dev, Err=
+or **errp)
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0}
+> =C2=A0
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0object_property_set_int(OBJECT(&s->fmc), fm=
+c_num_cs, "num-cs", &err);
+> +=C2=A0=C2=A0=C2=A0=C2=A0object_property_set_int(OBJECT(&s->fmc), sc->inf=
+o->sdram_base, "sdram-base",
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0&local_err);
+> +=C2=A0=C2=A0=C2=A0=C2=A0error_propagate(&err, local_err);
+> +=C2=A0=C2=A0=C2=A0=C2=A0if (err) {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0error_propagate(errp, er=
+r);
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return;
+> +=C2=A0=C2=A0=C2=A0=C2=A0}
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0object_property_set_bool(OBJECT(&s->fmc), t=
+rue, "realized", &local_err);
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0error_propagate(&err, local_err);
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (err) {
+> diff --git a/hw/ssi/aspeed_smc.c b/hw/ssi/aspeed_smc.c
+> index 8e7e3bd9e335..24c78aa57537 100644
+> --- a/hw/ssi/aspeed_smc.c
+> +++ b/hw/ssi/aspeed_smc.c
+> @@ -819,6 +819,7 @@ static const VMStateDescription vmstate_aspeed_smc =
+=3D {
+> =C2=A0};
+> =C2=A0
+> =C2=A0static Property aspeed_smc_properties[] =3D {
+> +=C2=A0=C2=A0=C2=A0=C2=A0DEFINE_PROP_UINT64("sdram-base", AspeedSMCState,=
+ sdram_base, 0),
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0DEFINE_PROP_UINT32("num-cs", AspeedSMCState=
+, num_cs, 1),
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0DEFINE_PROP_END_OF_LIST(),
+> =C2=A0};
+> diff --git a/include/hw/ssi/aspeed_smc.h b/include/hw/ssi/aspeed_smc.h
+> index 39ee601940e8..88a904849801 100644
+> --- a/include/hw/ssi/aspeed_smc.h
+> +++ b/include/hw/ssi/aspeed_smc.h
+> @@ -96,6 +96,9 @@ typedef struct AspeedSMCState {
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0uint8_t r_timings;
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0uint8_t conf_enable_w0;
+> =C2=A0
+> +=C2=A0=C2=A0=C2=A0=C2=A0/* for DMA support */
+> +=C2=A0=C2=A0=C2=A0=C2=A0uint64_t sdram_base;
+> +
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0AspeedSMCFlash *flashes;
+> =C2=A0} AspeedSMCState;
+> =C2=A0
+--=-MUVO888a6pD3bQ38eqGG
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJYN76uAAoJEJ0dnzgO5LT5oMEQAIymqjOJ9AbB2N7H4v/yiagr
-40E3dgai3hB21UlMipX0k2urEO6NvWyhDgkkBE4ZVlM0lpETQ6gBC1B2OHYl2Mlo
-WT84vLkFAt40RGv/AKc+WGZ6hZk0RMKK9IQmc7wxuZc7s3qxsRVeQe6Z+AGNlTKm
-oPEDf5GVz7FhRvZWC0DLQ521jgZcOM0/hIemztz3HrG+aY7hgmMXyL8zC5Wn8gwT
-WuJoMG5K+miLRRpCNeyLYv1VEevaG89WXgQyECgdMHSwdpEqewv63ry4X4Wgm7cy
-+7WWB1dLiQ0plZ9mTlT5sl7AalzvmJUFPHNdfdgYAdYIMQ53zVGdRsDG+8i6grCn
-4lF49i5jRAQp7C84c09ALESoubjlH6QDtDuB6YUffXSS2vMWJwkgrQBfx+xJvP4A
-wxh285I9gWgIyCDEK3IgWpHX/h07UVauBClqDaV+3/CdkHCLf9ivqdpp5tGK4X9k
-1EgU6d9FC28kF6jZzWALc80bZSKFDjXh50lNQmKR/fX+UPZ2srMLPB5EumWnx03F
-Rn9UGOo5TEMDtRzr167mWinONWPjyb4FNa9zCvW+TAbPivpbg8YUgq8bVeGqM6s4
-Cn3dGwU28sFkHrVUtpv5QL76f8cD+ZXoMs7oC3XFhN8jCVpycSTYV6pg1M2zosw7
-WQEKlwNByjBWKzIAtoKs
-=cJlp
+iQIcBAABCgAGBQJYN7+qAAoJEJ0dnzgO5LT57B4P/2UFYh2VOqf3UbXCzTGRqPyX
+grgwfrpaEFNX+WKp6zq32CftI/Jfg0HskeEgGLzrS8Vc4ydRRJ2VBiZ8H6Fvij9l
+cfjCZRtZdrotb9eq2Iwg618Y5lp7vXiqsiO1dnSYbYVKYIBNbVElvwVP5qdrA/53
+QEFeAP5oDMKf1/8d1qsGPsvz+xfy89d2dfa/g5eW+ZGGjyx/VUrHCIUMcb9jGQ7A
+VD4/24tl5RH6GPiGlPBjuleFv12g/9zFhewIJKV3+2606WUJwt6ourOqszV4Fn6f
+TDcQRiKqpUmBCMasaeWXKig5mVD2IPEWl/sA65+HbLxUKQ6W+N7FbXCzOhOFR0Uo
+mPTBVN/9oIAJCXuKynZxGOLVOtdfOy3ps/ikNuezf1Vd+DryiROhyUqVTtchm743
+WRRMD/szP3nYoFT2pVyAtzu/KCW2ZUnDH4ctC0w6OMNlJpbIeAfmtgTLMVtcWW+Z
+i+wS/B47F59t+F4o48u7dJnBGL9pHtxhdcKlMN2qMl0xTjJ7hW+IOjJwZClnXun0
+Do3VWVc/erZ1s0nD6TJtOrtRMuxCySRhH7XHcTWb6BBDTLbhO81rKjW5RgvLKh2t
+Hd1rlVbcJaD8F1yclpfLEjZktjCwKyqMoICgA5ufqYQEtxGuRfbj2xVv85+gVqgU
+ErsG7KDIo0WVo1k/jKYi
+=9ihu
 -----END PGP SIGNATURE-----
 
---=-HMmUrIrcxL/WUYmySz9n--
+--=-MUVO888a6pD3bQ38eqGG--
