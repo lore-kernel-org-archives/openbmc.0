@@ -1,53 +1,53 @@
-Return-Path: <jaghu@google.com>
-Received: from mail-pg0-x22d.google.com (mail-pg0-x22d.google.com
- [IPv6:2607:f8b0:400e:c05::22d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tPYkc310qzDw6p
- for <openbmc@lists.ozlabs.org>; Thu, 24 Nov 2016 20:27:04 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="ePLfonZ6"; 
- dkim-atps=neutral
-Received: by mail-pg0-x22d.google.com with SMTP id f188so16668470pgc.3
- for <openbmc@lists.ozlabs.org>; Thu, 24 Nov 2016 01:27:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=UX/I1W5orN3/fAmYEHBAqrxWk2rWbOsTKiXajV9JI70=;
- b=ePLfonZ67JEi9ZlFJLKu7YUEroZcnwzB6O0AlQ+vklDpN3fq/04c5nxJp5Lkt7L1Pz
- Y4zihdMDrb5BSG9v1uRndhjiYQccswTbeEB/jEa80xd0WrsjWkhzRIZ+3g4+GDBl+PXS
- wHBdLX7MAwVi5nb35tL+7SflPdtyUGRoz0jomQuYyU+Gn116sb20nAmk8dxkhi9yXjZC
- tZQLtZDn6+Aohn3ytGcYKNyfP/jsfKC/WVcbT2vklbnX9B3ZBF4rWx8Qa6J9XeS/VBi5
- EAWV1PaB8rGIx/AGwNEzntVsKSnAzAyxNIhEONyoq5KGJtcWeMFlMXksMiKvEpy5mkn0
- ZjmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=UX/I1W5orN3/fAmYEHBAqrxWk2rWbOsTKiXajV9JI70=;
- b=XohTi9CF39fSHDc6QlYWxh7G22bayf8G5izA1huSZJVgbHJXauCvJq3FNuHvwffwC4
- GGGPbdDLvt+rbKUTKiHtfWA6hvoqN638uaIIAmy6XM7T9fHXINgeXLwNao2DmQ39cZuB
- dtalE/U80fQgOeF0O7oletrOFyrEldMKG3tC3mQ+41uOSMmqy33V9oBtMAuntvIksB+v
- Gq5PeuH1YMFvwwyGpNpHT4RSOHJv0tS1zZjAsFEz4bDlF+zRSMa0yWuUHdhOIbRt/Y6J
- 40E/hQM0Hq0xyDL5ws/9F3cOj98BbiFtLjBRXnouPEEqzsNcBcGqK+ZAJSqh423YYpVd
- THfQ==
-X-Gm-Message-State: AKaTC03vYdEXTub+azlnJbrglQx2ktXU06mOGQf7fm8K9jn73qBEfoqAIKs8OZVbgxRY3Eb1
-X-Received: by 10.98.86.157 with SMTP id h29mr1364233pfj.25.1479979622380;
- Thu, 24 Nov 2016 01:27:02 -0800 (PST)
-Received: from jaghu22.svl.corp.google.com ([100.123.242.38])
- by smtp.gmail.com with ESMTPSA id q145sm58705035pfq.22.2016.11.24.01.27.00
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Thu, 24 Nov 2016 01:27:01 -0800 (PST)
-From: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
-To: openbmc@lists.ozlabs.org,
-	joel@jms.id.au
-Cc: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
-Subject: [PATCH linux v3 3/3] arm: dts: Add dt-binding to support ASPEED
- AST2500 PWM output on zaius
-Date: Thu, 24 Nov 2016 01:26:50 -0800
-Message-Id: <1479979610-2958-4-git-send-email-jaghu@google.com>
-X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
-In-Reply-To: <1479979610-2958-1-git-send-email-jaghu@google.com>
-References: <1479979610-2958-1-git-send-email-jaghu@google.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tQ1GB1GF1zDvxW
+ for <openbmc@lists.ozlabs.org>; Fri, 25 Nov 2016 14:07:30 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="JaISbdWI"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="aGuyfBcC"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 58BC92043C;
+ Thu, 24 Nov 2016 22:07:26 -0500 (EST)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Thu, 24 Nov 2016 22:07:26 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
+ content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=mesmtp; bh=JH7cr89wc1ur91WiAZnRmsCLnTk=; b=JaISbd
+ WI2rtkNhzpa4KKM41iXskzUCN6VXaU1zcaCqVN3wUl+LRQHq1qfiYZwl117DJ6fP
+ HLnk2TpMv8qX7CQBlfbosOprmeIj7Id2j6R0FLy+7l7ETpbcss9vypC/L1H/pWS7
+ Xk2WAvYK1UZfXW7ccSwkibHRorwCUlBiow6R4=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=JH7cr89wc1ur91
+ WiAZnRmsCLnTk=; b=aGuyfBcCz/TG6IjcG+bv9wy9dOp/ShYqP/uQ0t2sUaZkwc
+ MGFokbV0Snlm9X4HWRYkS3k4UOxRtGMnlUheUMGPiePgJaI4pDXNDS/eE+hGn8V/
+ WuB3+PiYSbylyZR/YvMbfU2fhlf88Z7DuUX7kYtvSl/dS0MG2+QcifbopPfMY=
+X-ME-Sender: <xms:7qo3WHzl5ClWM4hQ-EulpgtpkIaYWQe8BHkbvCKagVGI_Yf4z8hxsw>
+X-Sasl-enc: fvlDQrKcQhme4ZZ6LjPyZSoiA+U10BbeuCxBMaITru8r 1480043245
+Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
+ [203.122.213.247])
+ by mail.messagingengine.com (Postfix) with ESMTPA id E3E1124439;
+ Thu, 24 Nov 2016 22:07:24 -0500 (EST)
+Message-ID: <1480043237.2503.55.camel@aj.id.au>
+Subject: Re: [PATCH qemu 14/38] aspeed/smc: autostrap CE0/1 configuration
+From: Andrew Jeffery <andrew@aj.id.au>
+To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, 
+ openbmc@lists.ozlabs.org
+Date: Fri, 25 Nov 2016 13:37:17 +1030
+In-Reply-To: <1479478938-13267-15-git-send-email-clg@kaod.org>
+References: <1479478938-13267-1-git-send-email-clg@kaod.org>
+ <1479478938-13267-15-git-send-email-clg@kaod.org>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-LnQu11kGiVlC6JWGi1mz"
+X-Mailer: Evolution 3.22.1-0ubuntu2 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,90 +59,77 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 Nov 2016 09:27:04 -0000
+X-List-Received-Date: Fri, 25 Nov 2016 03:07:31 -0000
 
-The zaius platform has 4 output fans. Add binding data to control the 4 PWM
-outputs on ASPEED AST2500 on the zaius platform.
 
-Signed-off-by: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
----
-v2:
-- make the pwmX entries children of the pwm_controller entry.
+--=-LnQu11kGiVlC6JWGi1mz
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-v3:
-- changed/removed some property names to reflect the rules in binding document.
+T24gRnJpLCAyMDE2LTExLTE4IGF0IDE1OjIxICswMTAwLCBDw6lkcmljIExlIEdvYXRlciB3cm90
+ZToKPiBIVyBhdXRvZGV0ZWN0IHR5cGUgYW5kIHNpemUgb2YgdGhlIGZpcnN0IGFuZCBzZWNvbmQg
+Zmxhc2ggbW9kdWxlcyBvZgo+IHRoZSBGTUMgY29udHJvbGxlci4KPiAKPiBTaWduZWQtb2ZmLWJ5
+OiBDw6lkcmljIExlIEdvYXRlciA8Y2xnQGthb2Qub3JnPgoKUmV2aWV3ZWQtYnk6IEFuZHJldyBK
+ZWZmZXJ5IDxhbmRyZXdAYWouaWQuYXU+Cgo+IC0tLQo+IMKgaHcvc3NpL2FzcGVlZF9zbWMuYyB8
+IDI2ICsrKysrKysrKysrKysrKysrKysrKy0tLS0tCj4gwqAxIGZpbGUgY2hhbmdlZCwgMjEgaW5z
+ZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvaHcvc3NpL2FzcGVl
+ZF9zbWMuYyBiL2h3L3NzaS9hc3BlZWRfc21jLmMKPiBpbmRleCAxYzZjNTA4OWYyNjUuLjcyYTQ0
+MTUwYjBhMSAxMDA2NDQKPiAtLS0gYS9ody9zc2kvYXNwZWVkX3NtYy5jCj4gKysrIGIvaHcvc3Np
+L2FzcGVlZF9zbWMuYwo+IEBAIC0zOSwxMSArMzksMTQgQEAKPiDCoCNkZWZpbmXCoMKgwqBDT05G
+X0VOQUJMRV9XMsKgwqDCoMKgwqDCoMKgMTgKPiDCoCNkZWZpbmXCoMKgwqBDT05GX0VOQUJMRV9X
+McKgwqDCoMKgwqDCoMKgMTcKPiDCoCNkZWZpbmXCoMKgwqBDT05GX0VOQUJMRV9XMMKgwqDCoMKg
+wqDCoMKgMTYKPiAtI2RlZmluZcKgwqDCoENPTkZfRkxBU0hfVFlQRTTCoMKgwqDCoMKgOQo+IC0j
+ZGVmaW5lwqDCoMKgQ09ORl9GTEFTSF9UWVBFM8KgwqDCoMKgwqA3Cj4gLSNkZWZpbmXCoMKgwqBD
+T05GX0ZMQVNIX1RZUEUywqDCoMKgwqDCoDUKPiAtI2RlZmluZcKgwqDCoENPTkZfRkxBU0hfVFlQ
+RTHCoMKgwqDCoMKgMwo+IC0jZGVmaW5lwqDCoMKgQ09ORl9GTEFTSF9UWVBFMMKgwqDCoMKgwqAx
+Cj4gKyNkZWZpbmXCoMKgwqBDT05GX0ZMQVNIX1RZUEU0wqDCoMKgwqDCoDgKPiArI2RlZmluZcKg
+wqDCoENPTkZfRkxBU0hfVFlQRTPCoMKgwqDCoMKgNgo+ICsjZGVmaW5lwqDCoMKgQ09ORl9GTEFT
+SF9UWVBFMsKgwqDCoMKgwqA0Cj4gKyNkZWZpbmXCoMKgwqBDT05GX0ZMQVNIX1RZUEUxwqDCoMKg
+wqDCoDIKPiArI2RlZmluZcKgwqDCoENPTkZfRkxBU0hfVFlQRTDCoMKgwqDCoMKgMAo+ICsjZGVm
+aW5lwqDCoMKgwqDCoMKgQ09ORl9GTEFTSF9UWVBFX05PUsKgwqDCoDB4MAo+ICsjZGVmaW5lwqDC
+oMKgwqDCoMKgQ09ORl9GTEFTSF9UWVBFX05BTkTCoMKgMHgxCj4gKyNkZWZpbmXCoMKgwqDCoMKg
+wqBDT05GX0ZMQVNIX1RZUEVfU1BJwqDCoMKgMHgyCj4gwqAKPiDCoC8qIENFIENvbnRyb2wgUmVn
+aXN0ZXIgKi8KPiDCoCNkZWZpbmUgUl9DRV9DVFJMwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgKDB4
+MDQgLyA0KQo+IEBAIC00MzUsNiArNDM4LDE5IEBAIHN0YXRpYyB2b2lkIGFzcGVlZF9zbWNfcmVz
+ZXQoRGV2aWNlU3RhdGUgKmQpCj4gwqDCoMKgwqDCoMKgwqDCoMKgcy0+cmVnc1tSX1NFR19BRERS
+MCArIGldID0KPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGFzcGVlZF9zbWNfc2VnbWVudF90
+b19yZWcoJnMtPmN0cmwtPnNlZ21lbnRzW2ldKTsKPiDCoMKgwqDCoMKgfQo+ICsKPiArwqDCoMKg
+wqAvKiBDRTAgYW5kIENFMSBIVyBzdHJhcHBpbmcgZm9yIEZNQyBjb250cm9sbGVycyA6IFNQSSBm
+bGFzaCB0eXBlCj4gK8KgwqDCoMKgwqAqIGFuZCA0QllURSBtb2RlCj4gK8KgwqDCoMKgwqAqLwo+
+ICvCoMKgwqDCoGlmIChzLT5jdHJsLT5zZWdtZW50cyA9PSBhc3BlZWRfc2VnbWVudHNfZm1jIHx8
+Cj4gK8KgwqDCoMKgwqDCoMKgwqBzLT5jdHJsLT5zZWdtZW50cyA9PSBhc3BlZWRfc2VnbWVudHNf
+YXN0MjUwMF9mbWMpIHsKPiArwqDCoMKgwqDCoMKgwqDCoHMtPnJlZ3Nbcy0+cl9jb25mXSB8PSAo
+Q09ORl9GTEFTSF9UWVBFX1NQSSA8PAo+IENPTkZfRkxBU0hfVFlQRTApOwo+ICvCoMKgwqDCoMKg
+wqDCoMKgcy0+cmVnc1tzLT5yX2NvbmZdIHw9IChDT05GX0ZMQVNIX1RZUEVfU1BJIDw8Cj4gQ09O
+Rl9GTEFTSF9UWVBFMSk7Cj4gKwo+ICvCoMKgwqDCoMKgwqDCoMKgLyogV2Ugc2hvdWxkIGJlIGFi
+bGUgdG8gZGV0ZWN0IHRoZSBmbGFzaCBzaXplIGluIHNvbWUgd2F5cy4KPiAqLwo+ICvCoMKgwqDC
+oMKgwqDCoMKgcy0+cmVnc1tzLT5yX2NlX2N0cmxdIHw9ICgxIDw8IChDVFJMX0VYVEVOREVEMCkp
+Owo+ICvCoMKgwqDCoMKgwqDCoMKgcy0+cmVnc1tzLT5yX2NlX2N0cmxdIHw9ICgxIDw8IChDVFJM
+X0VYVEVOREVEMSkpOwo+ICvCoMKgwqDCoH0KPiDCoH0KPiDCoAo+IMKgc3RhdGljIHVpbnQ2NF90
+IGFzcGVlZF9zbWNfcmVhZCh2b2lkICpvcGFxdWUsIGh3YWRkciBhZGRyLCB1bnNpZ25lZAo+IGlu
+dCBzaXplKQ==
 
- arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 40 ++++++++++++++++++++++++++++++
- arch/arm/boot/dts/aspeed-g5.dtsi           |  6 +++++
- 2 files changed, 46 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-index 8ef4ece..0d5960a 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-@@ -43,6 +43,46 @@
- 			gpios = <&gpio ASPEED_GPIO(H, 7) GPIO_ACTIVE_LOW>;
- 		};
- 	};
-+
-+	pwm: pwm-controller@1e786000 {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		reg = <0x1E786000 0x78>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
-+			&pinctrl_pwm2_default &pinctrl_pwm3_default>;
-+		compatible = "aspeed,ast2500-pwm";
-+		clocks = <&pwm_typem_clk>;
-+		pwm_typem_period = <95>;
-+
-+		pwm_port0 {
-+			pwm_port = /bits/ 8 <0x00>;
-+			pwm_enable = /bits/ 8 <0x01>;
-+			pwm_type = /bits/ 8 <0x00>;
-+			pwm_fan_ctrl = /bits/ 8 <0xFF>;
-+		};
-+
-+		pwm_port1 {
-+			pwm_port = /bits/ 8 <0x01>;
-+			pwm_enable = /bits/ 8 <0x01>;
-+			pwm_type = /bits/ 8 <0x00>;
-+			pwm_fan_ctrl = /bits/ 8 <0xFF>;
-+		};
-+
-+		pwm_port2 {
-+			pwm_port = /bits/ 8 <0x02>;
-+			pwm_enable = /bits/ 8 <0x01>;
-+			pwm_type = /bits/ 8 <0x00>;
-+			pwm_fan_ctrl = /bits/ 8 <0xFF>;
-+		};
-+
-+		pwm_port3 {
-+			pwm_port = /bits/ 8 <0x03>;
-+			pwm_enable = /bits/ 8 <0x01>;
-+			pwm_type = /bits/ 8 <0x00>;
-+			pwm_fan_ctrl = /bits/ 8 <0xFF>;
-+		};
-+	};
- };
+--=-LnQu11kGiVlC6JWGi1mz
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
- &fmc {
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index 433461b..017cbb7 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -967,6 +967,12 @@
- 				reg = <0x1e6e202c 0x4>;
- 			};
+-----BEGIN PGP SIGNATURE-----
 
-+			pwm_typem_clk: fixed_clock0 {
-+				#clock-cells = <0>;
-+				compatible = "fixed-clock";
-+				clock-frequency = <25000>;
-+			};
-+
- 			sram@1e720000 {
- 				compatible = "mmio-sram";
- 				reg = <0x1e720000 0x9000>;	// 36K
---
-2.8.0.rc3.226.g39d4020
+iQIcBAABCgAGBQJYN6rmAAoJEJ0dnzgO5LT5K44P/j8Jxg1fIoAJB046+6A4Rthj
+2Wo2u3F3sSiCv7s0YvBZtHAUWrhidFTOQ8B7Xaxq7RornXIUq/tpvoN1oOA7MlAM
+PkziHSkTFx80bIhoAPz2k7k/xAfdFasFariPdSrkRTDySE7nuvKWffsraCShvWEW
+LkTnrrw2Rh/uXUWqBOEzHcDWhoU0+zGJT9K/EkQhtGnJt1T1zUKZ+PzjgLm7u6mL
++8LEYTLBzKu3e7nC61zx0571Ih5EeljuehjICdxZDJ2BQg4l7LW+bva9i0QOC1Cs
+28Timh7pKyMuuNdGgZL1NHxCzkGjsUmaTRYrBDwDHXSvf34iiq3i98Gp0j5FUygQ
+E/y+Jytf6qeImI/1V/dJjb+Xcak4KKQubvborle7T4udB/aTHPZsKWpRz04F2K3p
+4bgCyfBSUKYTy/Rjd5Rq9bmgpMd6ZgNlPv+/sQ4jQmMdq1kjSqVSmK/Rc45oH5G7
+g4aJF1jpV7WM3FidaNf57Umna8PI6A1drM+MLDJiITo4e49IXplk2oPGoFZ0/Opy
+Hx5eyQjJkViImqiPexDyRjUyXTUupUNvKUBqryIQZXbLRONFZPMvGcK+uwf9kXkD
+kUOoDsAdMg47z3RGj1P4XmpJ/9qQO+68zDlQMM+bx9ctJSA3ijD48JhZaDNwK0Gf
+VJdgtGE6A7zKyC9gb8jb
+=u5+W
+-----END PGP SIGNATURE-----
+
+--=-LnQu11kGiVlC6JWGi1mz--
