@@ -3,49 +3,49 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tRqXP2B3bzDvk0
- for <openbmc@lists.ozlabs.org>; Mon, 28 Nov 2016 12:56:05 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tRqhN4J3bzDvjt
+ for <openbmc@lists.ozlabs.org>; Mon, 28 Nov 2016 13:03:00 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="RWyWzhvx"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="KfRA/D2I"; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="P2jbPLVv"; dkim-atps=neutral
+ header.b="eMLh+yk/"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id EFE652093E;
- Sun, 27 Nov 2016 20:56:02 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Sun, 27 Nov 2016 20:56:03 -0500
+ by mailout.nyi.internal (Postfix) with ESMTP id 84E1020DB4;
+ Sun, 27 Nov 2016 21:02:58 -0500 (EST)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Sun, 27 Nov 2016 21:02:58 -0500
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
  content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=YKzAx6jBqbsBmKPeg/LyPGTwLWA=; b=RWyWzh
- vx122E8OTvUCDtgubWxzOoTVlNDQd/vngI1D25+OV3abSXEFqdG+2KYB5s02OwAr
- BYMtwZXIlaicl/kVtAH8aA4pJTHQwV4Lb3HhkOlOX8e7D+cxXr6axqZGMWCjHRn4
- clVnkqr77Uurd1vp/awmoiQn1KopAYYGp9QZE=
+ :x-sasl-enc; s=mesmtp; bh=sEnBL7FHBeHY8XOR5GY9rHsPkcI=; b=KfRA/D
+ 2I+X8N2v/M6k6sIaQ/kBu5X4AHo2gZxmVfXMqDbJM2wCAHTs3aJmLnnAr4suyFBw
+ 95YEt2n7eeVXjTHNY+iXpJ8z39WfZBbd6Ynl00bMXoL0tprxk7e9Zych+yg2sRH3
+ HuCF1sDpB6czyNaCr0Qrpb4ax3Y6KPqmbkMzc=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
  messagingengine.com; h=content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=YKzAx6jBqbsBmK
- Peg/LyPGTwLWA=; b=P2jbPLVvRS394qxOt4R9xxwic5vG5rHAtsAUeKZMotJadx
- hn69ziyRbWsm90q1vAlRsIoU3kEcD180ZjkfrohPMD906GjLs8xUnGlMOV5xx323
- 6zRPQQdBKPd19DsWvwNKpxWTW4GufFYm9WUpYF6faZcG7ylpdlHPW2X8R2ywo=
-X-ME-Sender: <xms:so47WH0toWno2Xw3arSlCphOM_eCuDAIt5NlCvKPUBMg1Dmv4Nhyhg>
-X-Sasl-enc: CjiilW1hZDZ6pW/OFhJhcW+ozS6HAZeQ9KlYImnYTHQ0 1480298161
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=sEnBL7FHBeHY8X
+ OR5GY9rHsPkcI=; b=eMLh+yk/tIpxuNEDlSzCCzf8rwB0Ks1MEvXyD3fWKOuLUW
+ pRjtHVhfDRUU+4RNay2oA6WeIm0VJUeg+xABNG2eG9tiUU+3fzlNMMvFiG3vVFqN
+ seFsSDEvXlg5UdOEpP4MWweglDOyntr20e2qZb3Cyeivs2Fyl9nyOtdqusyhg=
+X-ME-Sender: <xms:UpA7WMt_JPGNKM5BGK5rsRPLOWV_DOi8BL60wd_b8wfCnL3XbD1iWw>
+X-Sasl-enc: Mm/4ohtdsqYXjz3SNIgVCiY3eKhwVwTp4mzeXaJ5ehm2 1480298577
 Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 5DE64245D2;
- Sun, 27 Nov 2016 20:56:00 -0500 (EST)
-Message-ID: <1480298155.2503.68.camel@aj.id.au>
-Subject: Re: [PATCH qemu 25/38] aspeed/sdmc: rework the locking register of
- the memory controller
+ by mail.messagingengine.com (Postfix) with ESMTPA id BCBDD7E3FA;
+ Sun, 27 Nov 2016 21:02:56 -0500 (EST)
+Message-ID: <1480298571.2503.70.camel@aj.id.au>
+Subject: Re: [PATCH qemu 26/38] aspeed/sdmc: fake a few more registers to
+ let DRAM calibration run
 From: Andrew Jeffery <andrew@aj.id.au>
 To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, 
  openbmc@lists.ozlabs.org
-Date: Mon, 28 Nov 2016 12:25:55 +1030
-In-Reply-To: <1479478938-13267-26-git-send-email-clg@kaod.org>
+Date: Mon, 28 Nov 2016 12:32:51 +1030
+In-Reply-To: <1479478938-13267-27-git-send-email-clg@kaod.org>
 References: <1479478938-13267-1-git-send-email-clg@kaod.org>
- <1479478938-13267-26-git-send-email-clg@kaod.org>
+ <1479478938-13267-27-git-send-email-clg@kaod.org>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-hcgtskbjagc6okaf2/Tw"
+ protocol="application/pgp-signature"; boundary="=-yRWQDmdcp5kKXTkY4soc"
 X-Mailer: Evolution 3.22.1-0ubuntu2 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -59,99 +59,318 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Nov 2016 01:56:05 -0000
+X-List-Received-Date: Mon, 28 Nov 2016 02:03:01 -0000
 
 
---=-hcgtskbjagc6okaf2/Tw
+--=-yRWQDmdcp5kKXTkY4soc
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: quoted-printable
 
-T24gRnJpLCAyMDE2LTExLTE4IGF0IDE1OjIyICswMTAwLCBDw6lkcmljIExlIEdvYXRlciB3cm90
-ZToKPiBUaGUgbG9jayByZWdpc3RlciBpcyB1bmxvY2tlZCB3aXRoIGEgd3JpdGUgb2YgYSBzcGVj
-aWFsIHZhbHVlIGFuZAo+IGxvY2tlZCB3aXRoIGEgd3JpdGUgb2YgYW55IG90aGVyIHZhbHVlLiBX
-aGVuIHVubG9ja2VkLCByZWFkcyByZXR1cm4KPiBvbmUgYW5kIHdoZW4gbG9ja2VkIGEgemVyby4K
-PiAKPiA+IFNpZ25lZC1vZmYtYnk6IEPDqWRyaWMgTGUgR29hdGVyIDxjbGdAa2FvZC5vcmc+Cj4g
-LS0tCj4gwqBody9taXNjL2FzcGVlZF9zZG1jLmPCoMKgwqDCoMKgwqDCoMKgwqB8IDI4ICsrKysr
-KysrKysrKysrKysrKystLS0tLS0tLS0KPiDCoGluY2x1ZGUvaHcvbWlzYy9hc3BlZWRfc2RtYy5o
-IHzCoMKgMSArCj4gwqAyIGZpbGVzIGNoYW5nZWQsIDIwIGluc2VydGlvbnMoKyksIDkgZGVsZXRp
-b25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2h3L21pc2MvYXNwZWVkX3NkbWMuYyBiL2h3L21pc2Mv
-YXNwZWVkX3NkbWMuYwo+IGluZGV4IDVmM2FjMGI2ZjYwOC4uODY3Y2FhMmQ2NGRjIDEwMDY0NAo+
-IC0tLSBhL2h3L21pc2MvYXNwZWVkX3NkbWMuYwo+ICsrKyBiL2h3L21pc2MvYXNwZWVkX3NkbWMu
-Ywo+IEBAIC04MywxNyArODMsMjIgQEAKPiDCoHN0YXRpYyB1aW50NjRfdCBhc3BlZWRfc2RtY19y
-ZWFkKHZvaWQgKm9wYXF1ZSwgaHdhZGRyIGFkZHIsIHVuc2lnbmVkIHNpemUpCj4gwqB7Cj4gwqDC
-oMKgwqDCoEFzcGVlZFNETUNTdGF0ZSAqcyA9IEFTUEVFRF9TRE1DKG9wYXF1ZSk7Cj4gK8KgwqDC
-oMKgdWludDY0X3QgdmFsID0gMDsKPiDCoAo+IMKgwqDCoMKgwqBhZGRyID4+PSAyOwo+IMKgCj4g
-LcKgwqDCoMKgaWYgKGFkZHIgPj0gQVJSQVlfU0laRShzLT5yZWdzKSkgewo+ICvCoMKgwqDCoHN3
-aXRjaCAoYWRkcikgewo+ICvCoMKgwqDCoGNhc2UgUl9QUk9UOgo+ICvCoMKgwqDCoMKgwqDCoMKg
-dmFsID0gcy0+dW5sb2NrZWQ7Cj4gK8KgwqDCoMKgwqDCoMKgwqBicmVhazsKPiArwqDCoMKgwqBk
-ZWZhdWx0Ogo+IMKgwqDCoMKgwqDCoMKgwqDCoHFlbXVfbG9nX21hc2soTE9HX0dVRVNUX0VSUk9S
-LAo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAiJXM6IE91
-dC1vZi1ib3VuZHMgcmVhZCBhdCBvZmZzZXQgMHglIiBIV0FERFJfUFJJeCAiXG4iLAo+IMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBfX2Z1bmNfXywgYWRkcik7
-Cj4gLcKgwqDCoMKgwqDCoMKgwqByZXR1cm4gMDsKPiArwqDCoMKgwqDCoMKgwqDCoGJyZWFrOwo+
-IMKgwqDCoMKgwqB9Cj4gwqAKPiAtwqDCoMKgwqByZXR1cm4gcy0+cmVnc1thZGRyXTsKPiArwqDC
-oMKgwqByZXR1cm4gdmFsOwoKVGhpcyBzdWdnZXN0cyB3ZSBvbmx5IGNhcmUgYWJvdXQgUl9QUk9U
-IC0gdGhlIGNoYW5nZSByZXR1cm5zIDAgZm9yIHRoZQp2YWx1ZSBvZiBvdGhlciByZWdpc3RlcnMu
-IFRoYXQgZG9lc24ndCBzZWVtIHJpZ2h0LgoKQW5kcmV3Cgo+IMKgfQo+IMKgCj4gwqBzdGF0aWMg
-dm9pZCBhc3BlZWRfc2RtY193cml0ZSh2b2lkICpvcGFxdWUsIGh3YWRkciBhZGRyLCB1aW50NjRf
-dCBkYXRhLAo+IEBAIC0xMDMsMTkgKzEwOCwxOCBAQCBzdGF0aWMgdm9pZCBhc3BlZWRfc2RtY193
-cml0ZSh2b2lkICpvcGFxdWUsIGh3YWRkciBhZGRyLCB1aW50NjRfdCBkYXRhLAo+IMKgCj4gwqDC
-oMKgwqDCoGFkZHIgPj49IDI7Cj4gwqAKPiAtwqDCoMKgwqBpZiAoYWRkciA+PSBBUlJBWV9TSVpF
-KHMtPnJlZ3MpKSB7Cj4gLcKgwqDCoMKgwqDCoMKgwqBxZW11X2xvZ19tYXNrKExPR19HVUVTVF9F
-UlJPUiwKPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAiJXM6
-IE91dC1vZi1ib3VuZHMgd3JpdGUgYXQgb2Zmc2V0IDB4JSIgSFdBRERSX1BSSXggIlxuIiwKPiAt
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBfX2Z1bmNfXywgYWRk
-cik7Cj4gK8KgwqDCoMKgaWYgKGFkZHIgPT0gUl9QUk9UKSB7Cj4gK8KgwqDCoMKgwqDCoMKgwqBz
-LT51bmxvY2tlZCA9IChkYXRhID09IFBST1RfS0VZX1VOTE9DSyk7Cj4gwqDCoMKgwqDCoMKgwqDC
-oMKgcmV0dXJuOwo+IMKgwqDCoMKgwqB9Cj4gwqAKPiAtwqDCoMKgwqBpZiAoYWRkciAhPSBSX1BS
-T1QgJiYgcy0+cmVnc1tSX1BST1RdICE9IFBST1RfS0VZX1VOTE9DSykgewo+ICvCoMKgwqDCoGlm
-ICghcy0+dW5sb2NrZWQpIHsgLyogVE9ETyBwcm90ZWN0IDogTUNSMDQg4oi8IE1DUjdDICovCj4g
-wqDCoMKgwqDCoMKgwqDCoMKgcWVtdV9sb2dfbWFzayhMT0dfR1VFU1RfRVJST1IsICIlczogU0RN
-QyBpcyBsb2NrZWQhXG4iLCBfX2Z1bmNfXyk7Cj4gwqDCoMKgwqDCoMKgwqDCoMKgcmV0dXJuOwo+
-IMKgwqDCoMKgwqB9Cj4gwqAKPiAtwqDCoMKgwqBpZiAoYWRkciA9PSBSX0NPTkYpIHsKPiArwqDC
-oMKgwqBzd2l0Y2ggKGFkZHIpIHsKPiArwqDCoMKgwqBjYXNlIFJfQ09ORjoKPiDCoMKgwqDCoMKg
-wqDCoMKgwqAvKiBNYWtlIHN1cmUgcmVhZG9ubHkgYml0cyBhcmUga2VwdCAqLwo+IMKgwqDCoMKg
-wqDCoMKgwqDCoHN3aXRjaCAocy0+c2lsaWNvbl9yZXYpIHsKPiDCoMKgwqDCoMKgwqDCoMKgwqBj
-YXNlIEFTVDI0MDBfQTBfU0lMSUNPTl9SRVY6Cj4gQEAgLTEyOCw2ICsxMzIsMTIgQEAgc3RhdGlj
-IHZvaWQgYXNwZWVkX3NkbWNfd3JpdGUodm9pZCAqb3BhcXVlLCBod2FkZHIgYWRkciwgdWludDY0
-X3QgZGF0YSwKPiDCoMKgwqDCoMKgwqDCoMKgwqBkZWZhdWx0Ogo+IMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgZ19hc3NlcnRfbm90X3JlYWNoZWQoKTsKPiDCoMKgwqDCoMKgwqDCoMKgwqB9Cj4g
-K8KgwqDCoMKgwqDCoMKgwqBicmVhazsKPiArwqDCoMKgwqBkZWZhdWx0Ogo+ICvCoMKgwqDCoMKg
-wqDCoMKgcWVtdV9sb2dfbWFzayhMT0dfR1VFU1RfRVJST1IsCj4gK8KgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIiVzOiBPdXQtb2YtYm91bmRzIHdyaXRlIGF0IG9m
-ZnNldCAweCUiIEhXQUREUl9QUkl4ICJcbiIsCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgX19mdW5jX18sIGFkZHIgPDwgMik7Cj4gK8KgwqDCoMKgwqDCoMKg
-wqByZXR1cm47Cj4gwqDCoMKgwqDCoH0KPiDCoAo+IMKgwqDCoMKgwqBzLT5yZWdzW2FkZHJdID0g
-ZGF0YTsKPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9ody9taXNjL2FzcGVlZF9zZG1jLmggYi9pbmNs
-dWRlL2h3L21pc2MvYXNwZWVkX3NkbWMuaAo+IGluZGV4IDU1MWM4YWZkZjRiZS4uYTQ0MTVkOWVm
-YzJmIDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvaHcvbWlzYy9hc3BlZWRfc2RtYy5oCj4gKysrIGIv
-aW5jbHVkZS9ody9taXNjL2FzcGVlZF9zZG1jLmgKPiBAQCAtMjgsNiArMjgsNyBAQCB0eXBlZGVm
-IHN0cnVjdCBBc3BlZWRTRE1DU3RhdGUgewo+IMKgwqDCoMKgwqB1aW50MzJfdCByYW1fYml0czsK
-PiDCoMKgwqDCoMKgdWludDY0X3QgcmFtX3NpemU7Cj4gwqAKPiArwqDCoMKgwqBib29sIHVubG9j
-a2VkOwo+IMKgfSBBc3BlZWRTRE1DU3RhdGU7Cj4gwqAKPiDCoCNlbmRpZiAvKiBBU1BFRURfU0RN
-Q19IICov
+On Fri, 2016-11-18 at 15:22 +0100, C=C3=A9dric Le Goater wrote:
+> It helps in understanding the DRAM calibration sequence which is all
+written in assembly, and may be rewritten in C one day.
 
+This provides support only for the AST2400 SoC (DDR3). AST2500 still
+uses the SOC_SCRATCH1 to pretend DRAM was already initialized.
 
---=-hcgtskbjagc6okaf2/Tw
+Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
+---
+ hw/misc/aspeed_scu.c          |   2 +-
+ hw/misc/aspeed_sdmc.c         | 188 ++++++++++++++++++++++++++++++++++++++=
+++++
+ include/hw/misc/aspeed_sdmc.h |   2 +-
+ 3 files changed, 190 insertions(+), 2 deletions(-)
+
+diff --git a/hw/misc/aspeed_scu.c b/hw/misc/aspeed_scu.c
+index 95022d3607ad..b5efba9121b2 100644
+--- a/hw/misc/aspeed_scu.c
++++ b/hw/misc/aspeed_scu.c
+@@ -100,7 +100,7 @@ static const uint32_t ast2400_a0_resets[ASPEED_SCU_NR_R=
+EGS] =3D {
+      [PCI_CTRL2]       =3D 0x20001A03U,
+      [PCI_CTRL3]       =3D 0x04000030U,
+      [SYS_RST_STATUS]  =3D 0x00000001U,
+-     [SOC_SCRATCH1]    =3D 0x000000C0U, /* SoC completed DRAM init */
++     [SOC_SCRATCH1]    =3D 0x00000000U,
+      [MISC_CTRL2]      =3D 0x00000023U,
+      [RNG_CTRL]        =3D 0x0000000EU,
+      [PINMUX_CTRL2]    =3D 0x0000F000U,
+diff --git a/hw/misc/aspeed_sdmc.c b/hw/misc/aspeed_sdmc.c
+index 867caa2d64dc..c71d18953c1c 100644
+--- a/hw/misc/aspeed_sdmc.c
++++ b/hw/misc/aspeed_sdmc.c
+@@ -80,6 +80,114 @@
+      ASPEED_SDMC_AST2500_RESERVED | ASPEED_SDMC_VGA_COMPAT |            \
+      ASPEED_SDMC_VGA_APERTURE(ASPEED_SDMC_VGA_64MB))
+=20
++/* MCR08: Graphics Memory Protection Register */
++#define R_GRAPHIC_MEM_PROT              (0x8 / 4)
++
++/* MCR0C: Refresh Timing Register */
++#define R_REFRESH_TIMING                (0x0C / 4)
++
++/* MCR10: AC Timing Register #1 */
++#define R_AC_TIMING1                    (0x10 / 4)
++
++/* MCR14: AC Timing Register #2 */
++#define R_AC_TIMING2                    (0x14 / 4)
++
++/* MCR18: CK/DQS Delay Control Register */
++#define R_CQDQS_DELAY_CTRL              (0x18 / 4)
++
++/* MCR1C: MCLK to MCLK2X Calibration(CBR) Status Register */
++#define R_MCLK_CALIB_STATUS             (0x1C / 4)
++#define   MCLK2X_PHASE                      (0x96 << 16)
++
++/* MCR20: DQS Input Phase Calibration Control and Status */
++#define R_DQS_INPUT_CALIB_STATUS        (0x20 / 4)
++
++/* MCR24: ????  */
++#define R_MCR24                         (0x24 / 4)
++
++/* MCR28: Mode Setting Control Register */
++#define R_MODE_SETTING_CTRL             (0x28 / 4)
++
++/* MCR2C: MRS/EMRS2 Mode Setting Register */
++#define R_MRS_MODE_SETTING_CTRL         (0x2C / 4)
++
++/* MCR30: EMRS/EMRS3 Mode Setting Register */
++#define R_EMRS_MODE_SETTING_CTRL        (0x30 / 4)
++
++/* MCR34: Power Control Register */
++#define R_POWER_CTRL                    (0x34 / 4)
++
++/* MCR38: Page Miss Latency Mask Register */
++#define R_PAGE_MISS_MASK                (0x38 / 4)
++
++/* MCR40: Maximum Grant Length Register #1 */
++#define R_MAX_GRANT_LEN1                (0x40 / 4)
++
++/* MCR44: Maximum Grant Length Register #2 */
++#define R_MAX_GRANT_LEN2                (0x44 / 4)
++
++/* MCR48: Maximum Grant Length Register #3 */
++#define R_MAX_GRANT_LEN3                (0x48 / 4)
++
++/* MCR4C: Maximum Grant Length Register #4 */
++#define R_MAX_GRANT_LEN4                (0x4C / 4)
++
++/* MCR50: Interrupt Control/Status Register */
++#define R_IRQ_STATUS_CTRL               (0x50 / 4)
++
++/* MCR54: ECC Protection Address Range Register */
++#define R_ECC_PROTECT                   (0x54 / 4)
++
++/* MCR58: ????  */
++#define R_MCR58                         (0x58 / 4)
++
++/* MCR60: IO Buffer Mode Register */
++#define R_IO_BUFFER_MODE                (0x60 / 4)
++
++/* MCR64: DLL Control Register #1 */
++#define R_DLL_CTRL                      (0x64 / 4)
++
++/* MCR68: DLL Control Register #2 */
++#define R_DLL_CTRL2                     (0x68 / 4)
++
++/* MCR6C: DDR IO Impedance Calibration Control */
++#define R_DDR_IO_IMPEDANCE_CTRL         (0x6C / 4)
++
++/* MCR70: ECC Testing Control/Status Register */
++#define R_ECC_STATUS_CTRL               (0x70 / 4)
++#define   ECC_TEST_FINISH                  (1 << 12)
++
++/* MCR74: Testing Start Address and Length Register */
++#define R_START_ADDR_LEN                (0x74 / 4)
++
++/* MCR78: Testing Fail DQ Bit Register */
++#define R_FAIL_DQ                       (0x78 / 4)
++
++/* MCR7C: Test Initial Value Register */
++#define R_TEST_INIT_VALUE               (0x7C / 4)
++
++/* MCR80: DQ Input Delay Calibration Control #1 */
++#define R_DQ_DELAY_CALIB_CTRL1          (0x80 / 4)
++#define   DQ_DELAY_CALIB_COUNT_DONE        (1 << 31)
++
++/* MCR84: DQ Input Delay Calibration Control #2 */
++#define R_DQ_DELAY_CALIB_CTRL2          (0x84 / 4)
++
++/* MCR88: DQ Input Delay Calibration Control #3 */
++#define R_DQ_DELAY_CALIB_CTRL3          (0x88 / 4)
++
++/* MCR8C: CK Duty Counter Value */
++#define R_CK_DUTY_VALUE                 (0x8C / 4)
++
++/* MCR100: AST2000 Backward Compatible SCU Password */
++#define R_COMPAT_SCU_PASSWORD           (0x100 / 4)
++
++/* MCR120: AST2000 Backward Compatible SCU MPLL Parameter */
++#define R_COMPAT_SCU_MPLL               (0x120 / 4)
++
++/* MCR170: AST2000 Backward Compatible SCU Hardware Strapping Value */
++#define R_COMPAT_SCU_HW_STRAPPING       (0x170 / 4)
++
+ static uint64_t aspeed_sdmc_read(void *opaque, hwaddr addr, unsigned size)
+ {
+     AspeedSDMCState *s =3D ASPEED_SDMC(opaque);
+@@ -91,6 +199,48 @@ static uint64_t aspeed_sdmc_read(void *opaque, hwaddr a=
+ddr, unsigned size)
+     case R_PROT:
+         val =3D s->unlocked;
+         break;
++    case R_CONF:
++    case R_GRAPHIC_MEM_PROT:
++    case R_REFRESH_TIMING:
++    case R_AC_TIMING1:
++    case R_AC_TIMING2:
++    case R_CQDQS_DELAY_CTRL:
++    case R_MCLK_CALIB_STATUS:
++    case R_DQS_INPUT_CALIB_STATUS:
++    case R_MCR24:
++    case R_MODE_SETTING_CTRL:
++    case R_MRS_MODE_SETTING_CTRL:
++    case R_EMRS_MODE_SETTING_CTRL:
++    case R_POWER_CTRL:
++    case R_PAGE_MISS_MASK:
++    case R_MAX_GRANT_LEN1:
++    case R_MAX_GRANT_LEN2:
++    case R_MAX_GRANT_LEN3:
++    case R_MAX_GRANT_LEN4:
++    case R_IRQ_STATUS_CTRL:
++    case R_ECC_PROTECT:
++    case R_MCR58:
++    case R_IO_BUFFER_MODE:
++    case R_DLL_CTRL:
++    case R_DLL_CTRL2:
++    case R_DDR_IO_IMPEDANCE_CTRL:
++    case R_START_ADDR_LEN:
++    case R_FAIL_DQ:
++    case R_TEST_INIT_VALUE:
++    case R_DQ_DELAY_CALIB_CTRL2:
++    case R_DQ_DELAY_CALIB_CTRL3:
++    case R_CK_DUTY_VALUE:
++    case R_COMPAT_SCU_PASSWORD:
++    case R_COMPAT_SCU_MPLL:
++    case R_COMPAT_SCU_HW_STRAPPING:
+
+This is a lengthy list of registers. What are your thoughts about using
+numeric range values with comments?
+
+ case 0x08 ... 0x38: /* GFX memprotect, refresh timings ... */
+ case 0x40 ... 0x58: /* grant length registers, ... */
+ ...
+  val =3D s->regs[addr];
+  break;
+
+Either way I'm probably not fussed, but I'm interested in your
+thoughts.
+
+This addresses my comment on the previous patch, but it would be good
+not to break the SDMC commit-to-commit.
+
+Andrew
+
+> +        val =3D s->regs[addr];
++        break;
++    case R_DQ_DELAY_CALIB_CTRL1:
++        val =3D s->regs[addr] | DQ_DELAY_CALIB_COUNT_DONE;
++        break;
++    case R_ECC_STATUS_CTRL:
++        val =3D s->regs[addr] | ECC_TEST_FINISH;
++        break;
+     default:
+         qemu_log_mask(LOG_GUEST_ERROR,
+                       "%s: Out-of-bounds read at offset 0x%" HWADDR_PRIx "=
+\n",
+@@ -133,6 +283,42 @@ static void aspeed_sdmc_write(void *opaque, hwaddr add=
+r, uint64_t data,
+             g_assert_not_reached();
+         }
+         break;
++    case R_GRAPHIC_MEM_PROT:
++    case R_REFRESH_TIMING:
++    case R_AC_TIMING1:
++    case R_AC_TIMING2:
++    case R_CQDQS_DELAY_CTRL:
++    case R_MCLK_CALIB_STATUS:
++    case R_DQS_INPUT_CALIB_STATUS:
++    case R_MCR24:
++    case R_MODE_SETTING_CTRL:
++    case R_MRS_MODE_SETTING_CTRL:
++    case R_EMRS_MODE_SETTING_CTRL:
++    case R_POWER_CTRL:
++    case R_PAGE_MISS_MASK:
++    case R_MAX_GRANT_LEN1:
++    case R_MAX_GRANT_LEN2:
++    case R_MAX_GRANT_LEN3:
++    case R_MAX_GRANT_LEN4:
++    case R_IRQ_STATUS_CTRL:
++    case R_ECC_PROTECT:
++    case R_MCR58:
++    case R_IO_BUFFER_MODE:
++    case R_DLL_CTRL:
++    case R_DLL_CTRL2:
++    case R_DDR_IO_IMPEDANCE_CTRL:
++    case R_ECC_STATUS_CTRL:
++    case R_START_ADDR_LEN:
++    case R_FAIL_DQ:
++    case R_TEST_INIT_VALUE:
++    case R_DQ_DELAY_CALIB_CTRL1:
++    case R_DQ_DELAY_CALIB_CTRL2:
++    case R_DQ_DELAY_CALIB_CTRL3:
++    case R_CK_DUTY_VALUE:
++    case R_COMPAT_SCU_PASSWORD:
++    case R_COMPAT_SCU_MPLL:
++    case R_COMPAT_SCU_HW_STRAPPING:
++        break;
+     default:
+         qemu_log_mask(LOG_GUEST_ERROR,
+                       "%s: Out-of-bounds write at offset 0x%" HWADDR_PRIx =
+"\n",
+@@ -221,6 +407,8 @@ static void aspeed_sdmc_reset(DeviceState *dev)
+     default:
+         g_assert_not_reached();
+     }
++
++    s->regs[R_MCLK_CALIB_STATUS] =3D MCLK2X_PHASE;
+ }
+=20
+ static void aspeed_sdmc_realize(DeviceState *dev, Error **errp)
+diff --git a/include/hw/misc/aspeed_sdmc.h b/include/hw/misc/aspeed_sdmc.h
+index a4415d9efc2f..e073a6c9419a 100644
+--- a/include/hw/misc/aspeed_sdmc.h
++++ b/include/hw/misc/aspeed_sdmc.h
+@@ -14,7 +14,7 @@
+ #define TYPE_ASPEED_SDMC "aspeed.sdmc"
+ #define ASPEED_SDMC(obj) OBJECT_CHECK(AspeedSDMCState, (obj), TYPE_ASPEED_=
+SDMC)
+=20
+-#define ASPEED_SDMC_NR_REGS (0x8 >> 2)
++#define ASPEED_SDMC_NR_REGS (0x174 >> 2)
+=20
+ typedef struct AspeedSDMCState {
+     /*< private >*/
+--=-yRWQDmdcp5kKXTkY4soc
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJYO46rAAoJEJ0dnzgO5LT5t8AP+wUgfZ3eJKTRcoPotj/AZzED
-YprGqAKf55IbIs5lAwA0XQbJvNVh4KFVD6Pq9me8VmlVIuNJrkvzjcstKUYVB23s
-WOBwaqXwYiFEceLx/Z2eFyxj6POuJHOrncAFr+anTSPU+qUdPWpx31OU5SYBIPsu
-uaHEnmRpKuV7G+2tTHk6L3oUW/nCKJxZNgcu5UuBlKIA9Bu+o06KYJg/YO+1L3KF
-LJB7WOBQtYyyTttJGeLj9gO+AuZXEtOqR3zFRu5O4alt009Q3VOFyNuI/WUivoRj
-bxsZPHFrewiJN2gt97h6Iln933dvoSbwtme6VWwPW13dr8j+U03cz/TYsJJUfGWs
-JnYVBGexbig/lsg95X8YjOtLiQXPfzHexJclaYabB3yXwk4R9r36L3S/s8x7n5rW
-EH757FctyJytWLwF3yge6pRK/pcu0vlqQ7YSau1MxwLCVumRPgvfxoMiWJdAIv/Z
-t+GNX8qObBhv7mwxbFxq3eBeQIKAevj5/xE1pjYf53wXMziHy2dSS88Qr+K0T/8E
-2xjIWUUXJf8FP8dMFkOmP4zHZO87DGVGPmuC8nLuZjDEsVQJOpC0Wy7OpD5U4Ntm
-6qeUvb0jf7pArzCU+rdMvHl0Fz/5vXbOzCJEa4kIM7vTQGPiJYoLOBvFKrVdb3jH
-i1xWz/UUvcP36xwBPP5W
-=hxz7
+iQIcBAABCgAGBQJYO5BLAAoJEJ0dnzgO5LT5FYcP/1lnMWlupqx2LiNS86VyTMUZ
+gN2e17zgQ9ZkgExYmfS3TirUksNffvRprvjlLnL13sg6wMUZd5irwuF95BxfIGEk
+feEA9gHjNIbJHqb77vp+AYE8zL+0JYy591jMWqS2Sfokx4b/jvZLcpFacPWmBLMf
+f0/t382OAD2XxT4R1HJkwAqR+0UvhcYuf3V6KEy6YXjvNjRY2bTRSDtmRA8hW4+b
+++OSS/bN3fovBUJRMojN7HLsNjgD/lnplaH+hrzlgauL4Dq7pQnQz80lpy2lvcdU
+wQSi+O48G5RmUYoeXIOEahA7kGKqTWauN15N8LDapV425fxQQ5vFafJLAX7K647N
+f1XWrHKB7U+wYPeFIiSQQYloCWot91GlN7JdfpASBZrhnaeX6YO34VuNHIVp7SiY
+FQqcfjJ/yqD6vS+Lzsp8qjCDul6sfb0cfdllILpqOlbpuar89s1JE4fWrNxX0Tyr
+qRjRYgxS/q1oAOmvFTDl1wfPDNYcGo4hybt4YmDiisrnobCjGmo2VtO9IaDJalww
+pHQYbaYWL10MGC4NdGdO5Zy7+GZK+Cy1fKFR64eulF2xlTpytPM50idLlZG52gvx
+JSBh9k205SSVgkjFovJUicTGrwcYgtBscBwM+oGyoCiR5e7d+3HOX+C68ppGJ6Uu
+DOc7oPD56xyoY+DQBA6s
+=arHI
 -----END PGP SIGNATURE-----
 
---=-hcgtskbjagc6okaf2/Tw--
+--=-yRWQDmdcp5kKXTkY4soc--
