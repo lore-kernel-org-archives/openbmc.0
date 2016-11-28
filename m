@@ -1,36 +1,37 @@
 Return-Path: <clg@kaod.org>
-Received: from 18.mo4.mail-out.ovh.net (18.mo4.mail-out.ovh.net
- [188.165.54.143])
+X-Greylist: delayed 14574 seconds by postgrey-1.36 at bilbo;
+ Mon, 28 Nov 2016 22:26:59 AEDT
+Received: from 11.mo4.mail-out.ovh.net (11.mo4.mail-out.ovh.net
+ [46.105.34.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tS2QT6PSJzDvWm
- for <openbmc@lists.ozlabs.org>; Mon, 28 Nov 2016 21:06:41 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tS4C74ws2zDvSR
+ for <openbmc@lists.ozlabs.org>; Mon, 28 Nov 2016 22:26:59 +1100 (AEDT)
 Received: from player750.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo4.mail-out.ovh.net (Postfix) with ESMTP id 145571F9B0
- for <openbmc@lists.ozlabs.org>; Mon, 28 Nov 2016 10:58:58 +0100 (CET)
+ by mo4.mail-out.ovh.net (Postfix) with ESMTP id F3E481FB62
+ for <openbmc@lists.ozlabs.org>; Mon, 28 Nov 2016 12:20:23 +0100 (CET)
 Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
  [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player750.ha.ovh.net (Postfix) with ESMTPSA id DB09F1800A2;
- Mon, 28 Nov 2016 10:58:53 +0100 (CET)
-Subject: Re: [PATCH qemu 30/38] wdt: Add Aspeed watchdog device model
+ by player750.ha.ovh.net (Postfix) with ESMTPSA id 43C5318006C;
+ Mon, 28 Nov 2016 12:20:21 +0100 (CET)
+Subject: Re: [PATCH qemu 35/38] net/ftgmac100: add a 'aspeed' property
 To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
 References: <1479478938-13267-1-git-send-email-clg@kaod.org>
- <1479478938-13267-31-git-send-email-clg@kaod.org>
- <4c0ef35c-ac85-4163-f874-1201460bcd80@kaod.org>
- <1480299083.2503.74.camel@aj.id.au>
+ <1479478938-13267-36-git-send-email-clg@kaod.org>
+ <1480299768.2503.79.camel@aj.id.au>
 From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <00c90d83-167b-4868-2c1c-fd855d657ed5@kaod.org>
-Date: Mon, 28 Nov 2016 10:58:53 +0100
+Message-ID: <d6d61259-f7d6-cc34-a21c-244e495ddec0@kaod.org>
+Date: Mon, 28 Nov 2016 12:20:20 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
  Thunderbird/45.4.0
 MIME-Version: 1.0
-In-Reply-To: <1480299083.2503.74.camel@aj.id.au>
+In-Reply-To: <1480299768.2503.79.camel@aj.id.au>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 18438018352602713043
+X-Ovh-Tracer-Id: 1366279539598527234
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrfeeigddtlecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrfeeigddvhecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -42,343 +43,142 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Nov 2016 10:06:42 -0000
+X-List-Received-Date: Mon, 28 Nov 2016 11:27:00 -0000
 
-On 11/28/2016 03:11 AM, Andrew Jeffery wrote:
-> On Mon, 2016-11-21 at 14:03 +0100, Cédric Le Goater wrote:
->> On 11/18/2016 03:22 PM, Cédric Le Goater wrote:
->>> From: Joel Stanley <joel@jms.id.au>
->>>
->>> Signed-off-by: Joel Stanley <joel@jms.id.au>
->>> [clg: fixed compile breakage
->>>       fixed io region size
->>>       added  watchdog_perform_action() on timer expiry ]
->>> Signed-off-by: Cédric Le Goater <clg@kaod.org>
->>> ---
->>>  hw/watchdog/Makefile.objs        |   1 +
->>>  hw/watchdog/wdt_aspeed.c         | 194
->>> +++++++++++++++++++++++++++++++++++++++
->>>  include/hw/watchdog/wdt_aspeed.h |  41 +++++++++
->>>  3 files changed, 236 insertions(+)
->>>  create mode 100644 hw/watchdog/wdt_aspeed.c
->>>  create mode 100644 include/hw/watchdog/wdt_aspeed.h
->>>
->>> diff --git a/hw/watchdog/Makefile.objs b/hw/watchdog/Makefile.objs
->>> index 72e3ffd93c59..9589bed63a3d 100644
->>> --- a/hw/watchdog/Makefile.objs
->>> +++ b/hw/watchdog/Makefile.objs
->>> @@ -2,3 +2,4 @@ common-obj-y += watchdog.o
->>>  common-obj-$(CONFIG_WDT_IB6300ESB) += wdt_i6300esb.o
->>>  common-obj-$(CONFIG_WDT_IB700) += wdt_ib700.o
->>>  common-obj-$(CONFIG_WDT_DIAG288) += wdt_diag288.o
->>> +common-obj-$(CONFIG_ASPEED_SOC) += wdt_aspeed.o
->>> diff --git a/hw/watchdog/wdt_aspeed.c b/hw/watchdog/wdt_aspeed.c
->>> new file mode 100644
->>> index 000000000000..29d9d7f91463
->>> --- /dev/null
->>> +++ b/hw/watchdog/wdt_aspeed.c
->>> @@ -0,0 +1,194 @@
->>> +/*
->>> + * Copyright 2016 IBM Corporation
->>> + *
->>> + * This code is licensed under the GPL version 2 or later.  See
->>> + * the COPYING file in the top-level directory.
->>> + */
->>> +
->>> +#include "qemu/osdep.h"
->>> +#include "qemu/log.h"
->>> +#include "sysemu/watchdog.h"
->>> +#include "hw/sysbus.h"
->>> +#include "qemu/timer.h"
->>> +#include "hw/watchdog/wdt_aspeed.h"
->>> +
->>> +#define WDT_IO_REGION_SIZE      0x1000
->>> +
->>> +#define WDT_STATUS              0x00
->>> +#define WDT_RELOAD_VALUE        0x04
->>> +#define WDT_RESTART             0x08
->>> +#define WDT_CTRL                0x0C
->>> +#define WDT_TIMEOUT_STATUS      0x10
->>> +#define WDT_TIMEOUT_CLEAR       0x14
->>> +#define WDT_RESET_WDITH         0x18
+On 11/28/2016 03:22 AM, Andrew Jeffery wrote:
+> On Fri, 2016-11-18 at 15:22 +0100, Cédric Le Goater wrote:
+>> Aspeed SOCs have different definitions for the end of ring bits. Add
+>> a
+>> property to specify which set of bits should be used by the nic
+>> device
+>> model.
 >>
+>> Signed-off-by: Cédric Le Goater <clg@kaod.org>
+>> ---
+>>  hw/net/ftgmac100.c         | 24 ++++++++++++++++++++----
+>>  include/hw/net/ftgmac100.h |  2 ++
+>>  2 files changed, 22 insertions(+), 4 deletions(-)
 >>
->> May be we should reduce the size of WDT_IO_REGION_SIZE to 0x20
->> to instantiate the three watchdog of the Aspeed AST2500 with 
->> one class ? 
->>
->> Here is the layout :
->>
->> WDT00: WDT1 Counter Status Register
->> WDT04: WDT1 Counter Reload Value Register
->> WDT08: WDT1 Counter Restart Register
->> WDT0C: WDT1 Control Register
->> WDT10: WDT1 Timeout Status Register
->> WDT14: WDT1 Clear Timeout Status Register
->> WDT18: WDT1 Reset Width Register
->> WDT1C: WDT1 Reset Mask Register (AST2500)
->>
->> WDT20: WDT2 Counter Status Register
->> WDT24: WDT2 Counter Reload Value Register
->> WDT28: WDT2 Counter Restart Register
->> WDT2C: WDT2 Control Register
->> WDT30: WDT2 Timeout Status Register
->> WDT34: WDT2 Clear Timeout Status Register
->> WDT38: WDT2 Reset Width Register
->> WDT3C: WDT2 Reset Mask Register  (AST2500)
->>
->> WDT40: WDT3 Counter Status Register  (AST2500)
->> WDT44: WDT3 Counter Reload Value Register  (AST2500)
->> WDT48: WDT3 Counter Restart Register  (AST2500)
->> WDT4C: WDT3 Control Register  (AST2500)
->> WDT50: WDT3 Timeout Status Register  (AST2500)
->> WDT54: WDT3 Clear Timeout Status Register  (AST2500)
->> WDT5C: WDT3 Reset Mask Register  (AST2500)
->>
+>> diff --git a/hw/net/ftgmac100.c b/hw/net/ftgmac100.c
+>> index 22573ff956fd..0a8ab6b9e4d8 100644
+>> --- a/hw/net/ftgmac100.c
+>> +++ b/hw/net/ftgmac100.c
+>> @@ -136,9 +136,11 @@ struct ftgmac100_txdes {
+>>  
+>>  #define FTGMAC100_TXDES0_TXBUF_SIZE(x)   ((x) & 0x3fff)
+>>  #define FTGMAC100_TXDES0_EDOTR           (1 << 15)
+>> +
+>>  #define FTGMAC100_TXDES0_CRC_ERR         (1 << 19)
+>>  #define FTGMAC100_TXDES0_LTS             (1 << 28)
+>>  #define FTGMAC100_TXDES0_FTS             (1 << 29)
+>> +#define FTGMAC100_TXDES0_EDOTR_ASPEED    (1 << 30)
+>>  #define FTGMAC100_TXDES0_TXDMA_OWN       (1 << 31)
+>>  
+>>  #define FTGMAC100_TXDES1_VLANTAG_CI(x)   ((x) & 0xffff)
+>> @@ -174,6 +176,7 @@ struct ftgmac100_rxdes {
+>>  #define FTGMAC100_RXDES0_PAUSE_FRAME     (1 << 25)
+>>  #define FTGMAC100_RXDES0_LRS             (1 << 28)
+>>  #define FTGMAC100_RXDES0_FRS             (1 << 29)
+>> +#define FTGMAC100_RXDES0_EDORR_ASPEED    (1 << 30)
+>>  #define FTGMAC100_RXDES0_RXPKT_RDY       (1 << 31)
+>>  
+>>  #define FTGMAC100_RXDES1_VLANTAG_CI      0xffff
+>> @@ -208,6 +211,18 @@ typedef struct {
+>>      uint32_t        des3;        /* TXBUF_BADR */
+>>  } Ftgmac100Desc  __attribute__ ((aligned(16)));
+>>  
+>> +static inline uint32_t ftgmac100_rxdes0_edorr(Ftgmac100State *s)
+>> +{
+>> +    return s->aspeed ?
+>> +        FTGMAC100_RXDES0_EDORR_ASPEED : FTGMAC100_RXDES0_EDORR;
+>> +}
+>> +
+>> +static inline uint32_t ftgmac100_txdes0_edotr(Ftgmac100State *s)
+>> +{
+>> +    return s->aspeed ?
+>> +        FTGMAC100_TXDES0_EDOTR_ASPEED : FTGMAC100_TXDES0_EDOTR;
+>> +}
+>> +
+>>  /* max frame size is :
+>>   *
+>>   *   9216 for Jumbo frames (+ 4 for VLAN)
+>> @@ -405,7 +420,7 @@ static uint32_t
+>> ftgmac100_find_txdes(Ftgmac100State *s, uint32_t addr)
+>>  
+>>      while (1) {
+>>          ftgmac100_read_bd(&bd, addr);
+>> -        if (bd.des0 & (FTGMAC100_TXDES0_FTS |
+>> FTGMAC100_TXDES0_EDOTR)) {
+>> +        if (bd.des0 & (FTGMAC100_TXDES0_FTS |
+>> ftgmac100_txdes0_edotr(s))) {
+>>              break;
+>>          }
+>>          addr += sizeof(Ftgmac100Desc);
+>> @@ -459,7 +474,7 @@ static void ftgmac100_do_tx(Ftgmac100State *s)
+>>          /* Write back the modified descriptor.  */
+>>          ftgmac100_write_bd(&bd, addr);
+>>          /* Advance to the next descriptor.  */
+>> -        if (bd.des0 & FTGMAC100_TXDES0_EDOTR) {
+>> +        if (bd.des0 & ftgmac100_txdes0_edotr(s)) {
 > 
-> If we're hacking it, can we squash the timer fixups and clock rate
-> derivation into the initial commit? I don't like the idea of sending it
-> broken.
+> Should we just derive the bit and stash it in a state member at realise
+> time? Would save a branch for every call. Interested in your thoughts,
+> not necessarily something that must happen.
 
-sure. I will fold your fixes in the initial patch and add your SoB.
+This is a good suggestion and it is a small change in the code.
+
+Thanks,
+
 
 C.
 
 
-> Andrew
 > 
->> C.
->>
->>
->>
->>
->>> +#define WDT_RESTART_MAGIC       0x4755
->>> +
->>> +static uint64_t aspeed_wdt_read(void *opaque, hwaddr offset,
->>> unsigned size)
->>> +{
->>> +    AspeedWDTState *s = ASPEED_WDT(opaque);
->>> +
->>> +    switch (offset) {
->>> +    case WDT_STATUS:
->>> +        return s->reg_status;
->>> +    case WDT_RELOAD_VALUE:
->>> +        return s->reg_reload_value;
->>> +    case WDT_RESTART:
->>> +        qemu_log_mask(LOG_GUEST_ERROR,
->>> +                      "%s: read from write-only reg at offset 0x%"
->>> +                      HWADDR_PRIx "\n", __func__, offset);
->>> +        return 0;
->>> +    case WDT_CTRL:
->>> +        return s->reg_ctrl;
->>> +    case WDT_TIMEOUT_STATUS:
->>> +    case WDT_TIMEOUT_CLEAR:
->>> +    case WDT_RESET_WDITH:
->>> +        qemu_log_mask(LOG_UNIMP,
->>> +                      "%s: uninmplemented read at offset 0x%"
->>> HWADDR_PRIx "\n",
->>> +                      __func__, offset);
->>> +        return 0;
->>> +    default:
->>> +        qemu_log_mask(LOG_GUEST_ERROR,
->>> +                      "%s: Out-of-bounds read at offset 0x%"
->>> HWADDR_PRIx "\n",
->>> +                      __func__, offset);
->>> +        return 0;
->>> +    }
->>> +
->>> +}
->>> +
->>> +static void aspeed_wdt_write(void *opaque, hwaddr offset, uint64_t
->>> data,
->>> +                             unsigned size)
->>> +{
->>> +    AspeedWDTState *s = ASPEED_WDT(opaque);
->>> +    bool en = data & BIT(0);
->>> +
->>> +    switch (offset) {
->>> +    case WDT_STATUS:
->>> +        qemu_log_mask(LOG_GUEST_ERROR,
->>> +                      "%s: write to read-only reg at offset 0x%"
->>> +                      HWADDR_PRIx "\n", __func__, offset);
->>> +        break;
->>> +    case WDT_RELOAD_VALUE:
->>> +        s->reg_reload_value = data;
->>> +        break;
->>> +    case WDT_RESTART:
->>> +        if ((data & 0xFFFF) == 0x4755) {
->>> +            s->reg_status = s->reg_reload_value;
->>> +
->>> +            if (s->enabled) {
->>> +                timer_mod(s->timer,
->>> +                          qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL) +
->>> +                          s->reg_reload_value *
->>> NANOSECONDS_PER_SECOND);
->>> +            }
->>> +        }
->>> +        break;
->>> +    case WDT_CTRL:
->>> +        if (en && !s->enabled) {
->>> +            s->enabled = true;
->>> +            timer_mod(s->timer,
->>> +                      qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL) +
->>> +                      s->reg_reload_value *
->>> NANOSECONDS_PER_SECOND);
->>> +        } else if (!en && s->enabled) {
->>> +            s->enabled = false;
->>> +            timer_del(s->timer);
->>> +        }
->>> +        break;
->>> +    case WDT_TIMEOUT_STATUS:
->>> +    case WDT_TIMEOUT_CLEAR:
->>> +    case WDT_RESET_WDITH:
->>> +        qemu_log_mask(LOG_UNIMP,
->>> +                      "%s: uninmplemented write at offset 0x%"
->>> HWADDR_PRIx "\n",
->>> +                      __func__, offset);
->>> +        break;
->>> +    default:
->>> +        qemu_log_mask(LOG_GUEST_ERROR,
->>> +                      "%s: Out-of-bounds write at offset 0x%"
->>> HWADDR_PRIx "\n",
->>> +                      __func__, offset);
->>> +    }
->>> +    return;
->>> +}
->>> +
->>> +static WatchdogTimerModel model = {
->>> +    .wdt_name = TYPE_ASPEED_WDT,
->>> +    .wdt_description = "aspeed watchdog device",
->>> +};
->>> +
->>> +static const VMStateDescription vmstate_aspeed_wdt = {
->>> +    .name = "vmstate_aspeed_wdt",
->>> +    .version_id = 0,
->>> +    .minimum_version_id = 0,
->>> +    .fields = (VMStateField[]) {
->>> +        VMSTATE_TIMER_PTR(timer, AspeedWDTState),
->>> +        VMSTATE_BOOL(enabled, AspeedWDTState),
->>> +        VMSTATE_END_OF_LIST()
->>> +    }
->>> +};
->>> +
->>> +static const MemoryRegionOps aspeed_wdt_ops = {
->>> +    .read = aspeed_wdt_read,
->>> +    .write = aspeed_wdt_write,
->>> +    .endianness = DEVICE_LITTLE_ENDIAN,
->>> +    .valid.min_access_size = 4,
->>> +    .valid.max_access_size = 4,
->>> +    .valid.unaligned = false,
->>> +};
->>> +
->>> +static void aspeed_wdt_reset(DeviceState *dev)
->>> +{
->>> +    AspeedWDTState *s = ASPEED_WDT(dev);
->>> +
->>> +    s->reg_status = 0x3EF1480;
->>> +    s->reg_reload_value = 0x03EF1480;
->>> +    s->reg_restart = 0;
->>> +    s->reg_ctrl = 0;
->>> +
->>> +    s->enabled = false;
->>> +    timer_del(s->timer);
->>> +}
->>> +
->>> +static void aspeed_wdt_timer_expired(void *dev)
->>> +{
->>> +    AspeedWDTState *s = ASPEED_WDT(dev);
->>> +
->>> +    qemu_log_mask(CPU_LOG_RESET, "Watchdog timer expired.\n");
->>> +    watchdog_perform_action();
->>> +    timer_del(s->timer);
->>> +}
->>> +
->>> +static void aspeed_wdt_realize(DeviceState *dev, Error **errp)
->>> +{
->>> +    SysBusDevice *sbd = SYS_BUS_DEVICE(dev);
->>> +    AspeedWDTState *s = ASPEED_WDT(dev);
->>> +
->>> +    s->timer = timer_new_ns(QEMU_CLOCK_VIRTUAL,
->>> aspeed_wdt_timer_expired,
->>> +                            dev);
->>> +
->>> +    memory_region_init_io(&s->iomem, OBJECT(s), &aspeed_wdt_ops,
->>> s,
->>> +                          TYPE_ASPEED_WDT, WDT_IO_REGION_SIZE);
->>> +    sysbus_init_mmio(sbd, &s->iomem);
->>> +}
->>> +
->>> +static void aspeed_wdt_class_init(ObjectClass *klass, void *data)
->>> +{
->>> +    DeviceClass *dc = DEVICE_CLASS(klass);
->>> +
->>> +    dc->realize = aspeed_wdt_realize;
->>> +    dc->reset = aspeed_wdt_reset;
->>> +    set_bit(DEVICE_CATEGORY_MISC, dc->categories);
->>> +    dc->vmsd = &vmstate_aspeed_wdt;
->>> +}
->>> +
->>> +static const TypeInfo aspeed_wdt_info = {
->>> +    .parent = TYPE_SYS_BUS_DEVICE,
->>> +    .name  = TYPE_ASPEED_WDT,
->>> +    .instance_size  = sizeof(AspeedWDTState),
->>> +    .class_init = aspeed_wdt_class_init,
->>> +};
->>> +
->>> +static void wdt_aspeed_register_types(void)
->>> +{
->>> +    watchdog_add_model(&model);
->>> +    type_register_static(&aspeed_wdt_info);
->>> +}
->>> +
->>> +type_init(wdt_aspeed_register_types)
->>> diff --git a/include/hw/watchdog/wdt_aspeed.h
->>> b/include/hw/watchdog/wdt_aspeed.h
->>> new file mode 100644
->>> index 000000000000..dbf45ae968db
->>> --- /dev/null
->>> +++ b/include/hw/watchdog/wdt_aspeed.h
->>> @@ -0,0 +1,41 @@
->>> +/*
->>> + * ASPEED Watchdog Controller
->>> + *
->>> + * Copyright (C) 2016 IBM Corp.
->>> + *
->>> + * This code is licensed under the GPL version 2 or later. See the
->>> + * COPYING file in the top-level directory.
->>> + */
->>> +#ifndef ASPEED_WDT_H
->>> +#define ASPEED_WDT_H
->>> +
->>> +#include "hw/sysbus.h"
->>> +
->>> +#define TYPE_ASPEED_WDT "aspeed.wdt"
->>> +#define ASPEED_WDT(obj) \
->>> +    OBJECT_CHECK(AspeedWDTState, (obj), TYPE_ASPEED_WDT)
->>> +#define ASPEED_WDT_CLASS(klass) \
->>> +    OBJECT_CLASS_CHECK(AspeedWDTClass, (klass), TYPE_ASPEED_WDT)
->>> +#define ASPEED_WDT_GET_CLASS(obj) \
->>> +    OBJECT_GET_CLASS(AspeedWDTClass, (obj), TYPE_ASPEED_WDT)
->>> +
->>> +#define WDT_ASPEED_INIT      0
->>> +#define WDT_ASPEED_CHANGE    1
->>> +#define WDT_ASPEED_CANCEL    2
->>> +
->>> +typedef struct AspeedWDTState {
->>> +    /*< private >*/
->>> +    SysBusDevice parent_obj;
->>> +    QEMUTimer *timer;
->>> +    bool enabled;
->>> +
->>> +    /*< public >*/
->>> +    MemoryRegion iomem;
->>> +
->>> +    uint32_t reg_status;
->>> +    uint32_t reg_reload_value;
->>> +    uint32_t reg_restart;
->>> +    uint32_t reg_ctrl;
->>> +} AspeedWDTState;
->>> +
->>> +#endif  /* ASPEED_WDT_H */
->>>
->>
+>>              addr = s->tx_ring;
+>>          } else {
+>>              addr += sizeof(Ftgmac100Desc);
+>> @@ -480,7 +495,7 @@ static void ftgmac100_enable_rx(Ftgmac100State
+>> *s)
+>>      while (1) {
+>>          ftgmac100_read_bd(&bd, s->rx_descriptor);
+>>          full = (bd.des0 & FTGMAC100_RXDES0_RXPKT_RDY);
+>> -        if (!full || bd.des0 & FTGMAC100_TXDES0_EDOTR) {
+>> +        if (!full || bd.des0 & ftgmac100_txdes0_edotr(s)) {
+>>              break;
+>>          }
+>>          s->rx_descriptor += sizeof(Ftgmac100Desc);
+>> @@ -784,7 +799,7 @@ static ssize_t ftgmac100_receive(NetClientState
+>> *nc, const uint8_t *buf,
+>>              s->isr |= FTGMAC100_INT_RPKT_FIFO;
+>>          }
+>>          ftgmac100_write_bd(&bd, addr);
+>> -        if (bd.des0 & FTGMAC100_RXDES0_EDORR) {
+>> +        if (bd.des0 & ftgmac100_rxdes0_edorr(s)) {
+>>              addr = s->rx_ring;
+>>          } else {
+>>              addr += sizeof(Ftgmac100Desc); 
+>> @@ -869,6 +884,7 @@ static const VMStateDescription vmstate_ftgmac100
+>> = {
+>>  };
+>>  
+>>  static Property ftgmac100_properties[] = {
+>> +    DEFINE_PROP_BOOL("aspeed", Ftgmac100State, aspeed, false),
+>>      DEFINE_NIC_PROPERTIES(Ftgmac100State, conf),
+>>      DEFINE_PROP_END_OF_LIST(),
+>>  };
+>> diff --git a/include/hw/net/ftgmac100.h b/include/hw/net/ftgmac100.h
+>> index cc5cb4207a5c..ee8975000260 100644
+>> --- a/include/hw/net/ftgmac100.h
+>> +++ b/include/hw/net/ftgmac100.h
+>> @@ -57,6 +57,8 @@ typedef struct Ftgmac100State {
+>>      uint32_t phy_int;
+>>      uint32_t phy_int_mask;
+>>  
+>> +    bool aspeed;
+>> +
+>>  } Ftgmac100State;
+>>  
+>>  #endif
+> 
+> Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+> 
