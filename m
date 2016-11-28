@@ -3,48 +3,48 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tRr7Q1wDFzDvjl
- for <openbmc@lists.ozlabs.org>; Mon, 28 Nov 2016 13:22:57 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tRrB40BrTzDrPL
+ for <openbmc@lists.ozlabs.org>; Mon, 28 Nov 2016 13:25:16 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="J1M6Lqkg"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="SxUltLt+"; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="eMEAHCa3"; dkim-atps=neutral
+ header.b="DlIBa5JT"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 0BFDE20BB6;
- Sun, 27 Nov 2016 21:22:55 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id ED85A2093F;
+ Sun, 27 Nov 2016 21:25:13 -0500 (EST)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Sun, 27 Nov 2016 21:22:55 -0500
+ by compute4.internal (MEProxy); Sun, 27 Nov 2016 21:25:13 -0500
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
  content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=sZRSgQGaQ36g2sc0FqrcsWtCCzI=; b=J1M6Lq
- kgv/1IGsNvfseBc+k6n47pWDXHAMNlUClAq3bH35OqLh/GRB/vvq0l3an5Q5BMBk
- TNxAewutBSxEMKJBesUVjQppHwUcdEBa2kMZUMlbx8mqWOTXs9M8XNBNVnwDIe/A
- gJK7FUHikYn7ApVXnKL3XtcUBiThIZrG2juyY=
+ :x-sasl-enc; s=mesmtp; bh=0H81RELu0Xj6G/H5PlE5XY+5RL8=; b=SxUltL
+ t+9A7acvpLPl3CzzL1R00RJhXghTY5VPaNEAV4bBFQVFNF7My1PopV4J7ODfwFz0
+ 6oY8Q1s6bYUuLuejILBLIrtAW0vwBzUHD5sB7jEJnnWegPQ3NoqxUrJdHJXAUxzh
+ 0dGLZZeyU8sb/jWBSESfCJwnpcmKgRlOYMbNs=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
  messagingengine.com; h=content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=sZRSgQGaQ36g2s
- c0FqrcsWtCCzI=; b=eMEAHCa36R6PDeSXOyDKSA+YbFUnO75rEloAhWuSSXAo2q
- k0qJ9TNX2trm0uE0PIaMvoqw5LLE3811bzVfHBxSNGWUtICKNeXRcDvJsPvB3c+C
- cuQzVwJzWebQedUBPSJp4noJ/grwYuNp01deH4odR/EvB1XoCUnBsW6Xl6YzU=
-X-ME-Sender: <xms:_pQ7WDlKLQ1YwUtIY8g_sdf7o3lZHvAihxT7b3lbscjTf0rYM7TTAg>
-X-Sasl-enc: DnQUq3QwrP0kMQkKAId132eY/RIyghWimH/R7iK5t4Bt 1480299774
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=0H81RELu0Xj6G/
+ H5PlE5XY+5RL8=; b=DlIBa5JT370Zf5ucDo0wt/B7PMmbzxxHZckOoLBseF+Jl9
+ mN6+brluhdJ8qui9I7CCbSndzpzhtHGCLCiQzcxbxb/2PeGc+15r0uJGwQAabqMz
+ mhNylXyqHGkyFoSd7gOxcicPT9G2CCjTeikli+tFUar5881kNeYFg4E3yUmuI=
+X-ME-Sender: <xms:iZU7WF-NItDrwlShqX6mL9lo_QeadhbxrccaGQbuPE5NNguFQoNGoA>
+X-Sasl-enc: +1hMLFEDFgCYNOYfdTvA8Yck9exQPNqmRRsac2TCq1vW 1480299913
 Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 8F9EC24077;
- Sun, 27 Nov 2016 21:22:53 -0500 (EST)
-Message-ID: <1480299768.2503.79.camel@aj.id.au>
-Subject: Re: [PATCH qemu 35/38] net/ftgmac100: add a 'aspeed' property
+ by mail.messagingengine.com (Postfix) with ESMTPA id 7B3AF24312;
+ Sun, 27 Nov 2016 21:25:12 -0500 (EST)
+Message-ID: <1480299908.2503.81.camel@aj.id.au>
+Subject: Re: [PATCH qemu 36/38] ast2400: add a FTGMAC100 nic
 From: Andrew Jeffery <andrew@aj.id.au>
 To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, 
  openbmc@lists.ozlabs.org
-Date: Mon, 28 Nov 2016 12:52:48 +1030
-In-Reply-To: <1479478938-13267-36-git-send-email-clg@kaod.org>
+Date: Mon, 28 Nov 2016 12:55:08 +1030
+In-Reply-To: <1479478938-13267-37-git-send-email-clg@kaod.org>
 References: <1479478938-13267-1-git-send-email-clg@kaod.org>
- <1479478938-13267-36-git-send-email-clg@kaod.org>
+ <1479478938-13267-37-git-send-email-clg@kaod.org>
 Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-C/jZ0mKdQNtuAAf1IUkd"
+ protocol="application/pgp-signature"; boundary="=-ETlfqBHNhUFCqmmM5mEf"
 X-Mailer: Evolution 3.22.1-0ubuntu2 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -58,125 +58,147 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Nov 2016 02:22:58 -0000
+X-List-Received-Date: Mon, 28 Nov 2016 02:25:16 -0000
 
 
---=-C/jZ0mKdQNtuAAf1IUkd
+--=-ETlfqBHNhUFCqmmM5mEf
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: quoted-printable
 
-T24gRnJpLCAyMDE2LTExLTE4IGF0IDE1OjIyICswMTAwLCBDw6lkcmljIExlIEdvYXRlciB3cm90
-ZToKPiBBc3BlZWQgU09DcyBoYXZlIGRpZmZlcmVudCBkZWZpbml0aW9ucyBmb3IgdGhlIGVuZCBv
-ZiByaW5nIGJpdHMuIEFkZAo+IGEKPiBwcm9wZXJ0eSB0byBzcGVjaWZ5IHdoaWNoIHNldCBvZiBi
-aXRzIHNob3VsZCBiZSB1c2VkIGJ5IHRoZSBuaWMKPiBkZXZpY2UKPiBtb2RlbC4KPiAKPiBTaWdu
-ZWQtb2ZmLWJ5OiBDw6lkcmljIExlIEdvYXRlciA8Y2xnQGthb2Qub3JnPgo+IC0tLQo+IMKgaHcv
-bmV0L2Z0Z21hYzEwMC5jwqDCoMKgwqDCoMKgwqDCoMKgfCAyNCArKysrKysrKysrKysrKysrKysr
-Ky0tLS0KPiDCoGluY2x1ZGUvaHcvbmV0L2Z0Z21hYzEwMC5oIHzCoMKgMiArKwo+IMKgMiBmaWxl
-cyBjaGFuZ2VkLCAyMiBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1n
-aXQgYS9ody9uZXQvZnRnbWFjMTAwLmMgYi9ody9uZXQvZnRnbWFjMTAwLmMKPiBpbmRleCAyMjU3
-M2ZmOTU2ZmQuLjBhOGFiNmI5ZTRkOCAxMDA2NDQKPiAtLS0gYS9ody9uZXQvZnRnbWFjMTAwLmMK
-PiArKysgYi9ody9uZXQvZnRnbWFjMTAwLmMKPiBAQCAtMTM2LDkgKzEzNiwxMSBAQCBzdHJ1Y3Qg
-ZnRnbWFjMTAwX3R4ZGVzIHsKPiDCoAo+IMKgI2RlZmluZSBGVEdNQUMxMDBfVFhERVMwX1RYQlVG
-X1NJWkUoeCnCoMKgwqAoKHgpICYgMHgzZmZmKQo+IMKgI2RlZmluZSBGVEdNQUMxMDBfVFhERVMw
-X0VET1RSwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCgxIDw8IDE1KQo+ICsKPiDCoCNkZWZpbmUgRlRH
-TUFDMTAwX1RYREVTMF9DUkNfRVJSwqDCoMKgwqDCoMKgwqDCoMKgKDEgPDwgMTkpCj4gwqAjZGVm
-aW5lIEZUR01BQzEwMF9UWERFUzBfTFRTwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAoMSA8PCAy
-OCkKPiDCoCNkZWZpbmUgRlRHTUFDMTAwX1RYREVTMF9GVFPCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCgxIDw8IDI5KQo+ICsjZGVmaW5lIEZUR01BQzEwMF9UWERFUzBfRURPVFJfQVNQRUVEwqDC
-oMKgwqAoMSA8PCAzMCkKPiDCoCNkZWZpbmUgRlRHTUFDMTAwX1RYREVTMF9UWERNQV9PV07CoMKg
-wqDCoMKgwqDCoCgxIDw8IDMxKQo+IMKgCj4gwqAjZGVmaW5lIEZUR01BQzEwMF9UWERFUzFfVkxB
-TlRBR19DSSh4KcKgwqDCoCgoeCkgJiAweGZmZmYpCj4gQEAgLTE3NCw2ICsxNzYsNyBAQCBzdHJ1
-Y3QgZnRnbWFjMTAwX3J4ZGVzIHsKPiDCoCNkZWZpbmUgRlRHTUFDMTAwX1JYREVTMF9QQVVTRV9G
-UkFNRcKgwqDCoMKgwqAoMSA8PCAyNSkKPiDCoCNkZWZpbmUgRlRHTUFDMTAwX1JYREVTMF9MUlPC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCgxIDw8IDI4KQo+IMKgI2RlZmluZSBGVEdNQUMxMDBf
-UlhERVMwX0ZSU8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgKDEgPDwgMjkpCj4gKyNkZWZpbmUg
-RlRHTUFDMTAwX1JYREVTMF9FRE9SUl9BU1BFRUTCoMKgwqDCoCgxIDw8IDMwKQo+IMKgI2RlZmlu
-ZSBGVEdNQUMxMDBfUlhERVMwX1JYUEtUX1JEWcKgwqDCoMKgwqDCoMKgKDEgPDwgMzEpCj4gwqAK
-PiDCoCNkZWZpbmUgRlRHTUFDMTAwX1JYREVTMV9WTEFOVEFHX0NJwqDCoMKgwqDCoMKgMHhmZmZm
-Cj4gQEAgLTIwOCw2ICsyMTEsMTggQEAgdHlwZWRlZiBzdHJ1Y3Qgewo+IMKgwqDCoMKgwqB1aW50
-MzJfdMKgwqDCoMKgwqDCoMKgwqBkZXMzO8KgwqDCoMKgwqDCoMKgwqAvKiBUWEJVRl9CQURSICov
-Cj4gwqB9IEZ0Z21hYzEwMERlc2PCoMKgX19hdHRyaWJ1dGVfXyAoKGFsaWduZWQoMTYpKSk7Cj4g
-wqAKPiArc3RhdGljIGlubGluZSB1aW50MzJfdCBmdGdtYWMxMDBfcnhkZXMwX2Vkb3JyKEZ0Z21h
-YzEwMFN0YXRlICpzKQo+ICt7Cj4gK8KgwqDCoMKgcmV0dXJuIHMtPmFzcGVlZCA/Cj4gK8KgwqDC
-oMKgwqDCoMKgwqBGVEdNQUMxMDBfUlhERVMwX0VET1JSX0FTUEVFRCA6IEZUR01BQzEwMF9SWERF
-UzBfRURPUlI7Cj4gK30KPiArCj4gK3N0YXRpYyBpbmxpbmUgdWludDMyX3QgZnRnbWFjMTAwX3R4
-ZGVzMF9lZG90cihGdGdtYWMxMDBTdGF0ZSAqcykKPiArewo+ICvCoMKgwqDCoHJldHVybiBzLT5h
-c3BlZWQgPwo+ICvCoMKgwqDCoMKgwqDCoMKgRlRHTUFDMTAwX1RYREVTMF9FRE9UUl9BU1BFRUQg
-OiBGVEdNQUMxMDBfVFhERVMwX0VET1RSOwo+ICt9Cj4gKwo+IMKgLyogbWF4IGZyYW1lIHNpemUg
-aXMgOgo+IMKgICoKPiDCoCAqwqDCoMKgOTIxNiBmb3IgSnVtYm8gZnJhbWVzICgrIDQgZm9yIFZM
-QU4pCj4gQEAgLTQwNSw3ICs0MjAsNyBAQCBzdGF0aWMgdWludDMyX3QKPiBmdGdtYWMxMDBfZmlu
-ZF90eGRlcyhGdGdtYWMxMDBTdGF0ZSAqcywgdWludDMyX3QgYWRkcikKPiDCoAo+IMKgwqDCoMKg
-wqB3aGlsZSAoMSkgewo+IMKgwqDCoMKgwqDCoMKgwqDCoGZ0Z21hYzEwMF9yZWFkX2JkKCZiZCwg
-YWRkcik7Cj4gLcKgwqDCoMKgwqDCoMKgwqBpZiAoYmQuZGVzMCAmIChGVEdNQUMxMDBfVFhERVMw
-X0ZUUyB8Cj4gRlRHTUFDMTAwX1RYREVTMF9FRE9UUikpIHsKPiArwqDCoMKgwqDCoMKgwqDCoGlm
-IChiZC5kZXMwICYgKEZUR01BQzEwMF9UWERFUzBfRlRTIHwKPiBmdGdtYWMxMDBfdHhkZXMwX2Vk
-b3RyKHMpKSkgewo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgYnJlYWs7Cj4gwqDCoMKgwqDC
-oMKgwqDCoMKgfQo+IMKgwqDCoMKgwqDCoMKgwqDCoGFkZHIgKz0gc2l6ZW9mKEZ0Z21hYzEwMERl
-c2MpOwo+IEBAIC00NTksNyArNDc0LDcgQEAgc3RhdGljIHZvaWQgZnRnbWFjMTAwX2RvX3R4KEZ0
-Z21hYzEwMFN0YXRlICpzKQo+IMKgwqDCoMKgwqDCoMKgwqDCoC8qIFdyaXRlIGJhY2sgdGhlIG1v
-ZGlmaWVkIGRlc2NyaXB0b3IuwqDCoCovCj4gwqDCoMKgwqDCoMKgwqDCoMKgZnRnbWFjMTAwX3dy
-aXRlX2JkKCZiZCwgYWRkcik7Cj4gwqDCoMKgwqDCoMKgwqDCoMKgLyogQWR2YW5jZSB0byB0aGUg
-bmV4dCBkZXNjcmlwdG9yLsKgwqAqLwo+IC3CoMKgwqDCoMKgwqDCoMKgaWYgKGJkLmRlczAgJiBG
-VEdNQUMxMDBfVFhERVMwX0VET1RSKSB7Cj4gK8KgwqDCoMKgwqDCoMKgwqBpZiAoYmQuZGVzMCAm
-IGZ0Z21hYzEwMF90eGRlczBfZWRvdHIocykpIHsKClNob3VsZCB3ZSBqdXN0IGRlcml2ZSB0aGUg
-Yml0IGFuZCBzdGFzaCBpdCBpbiBhIHN0YXRlIG1lbWJlciBhdCByZWFsaXNlCnRpbWU/IFdvdWxk
-IHNhdmUgYSBicmFuY2ggZm9yIGV2ZXJ5IGNhbGwuIEludGVyZXN0ZWQgaW4geW91ciB0aG91Z2h0
-cywKbm90IG5lY2Vzc2FyaWx5IHNvbWV0aGluZyB0aGF0IG11c3QgaGFwcGVuLgoKPiDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoGFkZHIgPSBzLT50eF9yaW5nOwo+IMKgwqDCoMKgwqDCoMKgwqDC
-oH0gZWxzZSB7Cj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBhZGRyICs9IHNpemVvZihGdGdt
-YWMxMDBEZXNjKTsKPiBAQCAtNDgwLDcgKzQ5NSw3IEBAIHN0YXRpYyB2b2lkIGZ0Z21hYzEwMF9l
-bmFibGVfcngoRnRnbWFjMTAwU3RhdGUKPiAqcykKPiDCoMKgwqDCoMKgd2hpbGUgKDEpIHsKPiDC
-oMKgwqDCoMKgwqDCoMKgwqBmdGdtYWMxMDBfcmVhZF9iZCgmYmQsIHMtPnJ4X2Rlc2NyaXB0b3Ip
-Owo+IMKgwqDCoMKgwqDCoMKgwqDCoGZ1bGwgPSAoYmQuZGVzMCAmIEZUR01BQzEwMF9SWERFUzBf
-UlhQS1RfUkRZKTsKPiAtwqDCoMKgwqDCoMKgwqDCoGlmICghZnVsbCB8fCBiZC5kZXMwICYgRlRH
-TUFDMTAwX1RYREVTMF9FRE9UUikgewo+ICvCoMKgwqDCoMKgwqDCoMKgaWYgKCFmdWxsIHx8IGJk
-LmRlczAgJiBmdGdtYWMxMDBfdHhkZXMwX2Vkb3RyKHMpKSB7Cj4gwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqBicmVhazsKPiDCoMKgwqDCoMKgwqDCoMKgwqB9Cj4gwqDCoMKgwqDCoMKgwqDCoMKg
-cy0+cnhfZGVzY3JpcHRvciArPSBzaXplb2YoRnRnbWFjMTAwRGVzYyk7Cj4gQEAgLTc4NCw3ICs3
-OTksNyBAQCBzdGF0aWMgc3NpemVfdCBmdGdtYWMxMDBfcmVjZWl2ZShOZXRDbGllbnRTdGF0ZQo+
-ICpuYywgY29uc3QgdWludDhfdCAqYnVmLAo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgcy0+
-aXNyIHw9IEZUR01BQzEwMF9JTlRfUlBLVF9GSUZPOwo+IMKgwqDCoMKgwqDCoMKgwqDCoH0KPiDC
-oMKgwqDCoMKgwqDCoMKgwqBmdGdtYWMxMDBfd3JpdGVfYmQoJmJkLCBhZGRyKTsKPiAtwqDCoMKg
-wqDCoMKgwqDCoGlmIChiZC5kZXMwICYgRlRHTUFDMTAwX1JYREVTMF9FRE9SUikgewo+ICvCoMKg
-wqDCoMKgwqDCoMKgaWYgKGJkLmRlczAgJiBmdGdtYWMxMDBfcnhkZXMwX2Vkb3JyKHMpKSB7Cj4g
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBhZGRyID0gcy0+cnhfcmluZzsKPiDCoMKgwqDCoMKg
-wqDCoMKgwqB9IGVsc2Ugewo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgYWRkciArPSBzaXpl
-b2YoRnRnbWFjMTAwRGVzYyk7Cj4gQEAgLTg2OSw2ICs4ODQsNyBAQCBzdGF0aWMgY29uc3QgVk1T
-dGF0ZURlc2NyaXB0aW9uIHZtc3RhdGVfZnRnbWFjMTAwCj4gPSB7Cj4gwqB9Owo+IMKgCj4gwqBz
-dGF0aWMgUHJvcGVydHkgZnRnbWFjMTAwX3Byb3BlcnRpZXNbXSA9IHsKPiArwqDCoMKgwqBERUZJ
-TkVfUFJPUF9CT09MKCJhc3BlZWQiLCBGdGdtYWMxMDBTdGF0ZSwgYXNwZWVkLCBmYWxzZSksCj4g
-wqDCoMKgwqDCoERFRklORV9OSUNfUFJPUEVSVElFUyhGdGdtYWMxMDBTdGF0ZSwgY29uZiksCj4g
-wqDCoMKgwqDCoERFRklORV9QUk9QX0VORF9PRl9MSVNUKCksCj4gwqB9Owo+IGRpZmYgLS1naXQg
-YS9pbmNsdWRlL2h3L25ldC9mdGdtYWMxMDAuaCBiL2luY2x1ZGUvaHcvbmV0L2Z0Z21hYzEwMC5o
-Cj4gaW5kZXggY2M1Y2I0MjA3YTVjLi5lZTg5NzUwMDAyNjAgMTAwNjQ0Cj4gLS0tIGEvaW5jbHVk
-ZS9ody9uZXQvZnRnbWFjMTAwLmgKPiArKysgYi9pbmNsdWRlL2h3L25ldC9mdGdtYWMxMDAuaAo+
-IEBAIC01Nyw2ICs1Nyw4IEBAIHR5cGVkZWYgc3RydWN0IEZ0Z21hYzEwMFN0YXRlIHsKPiDCoMKg
-wqDCoMKgdWludDMyX3QgcGh5X2ludDsKPiDCoMKgwqDCoMKgdWludDMyX3QgcGh5X2ludF9tYXNr
-Owo+IMKgCj4gK8KgwqDCoMKgYm9vbCBhc3BlZWQ7Cj4gKwo+IMKgfSBGdGdtYWMxMDBTdGF0ZTsK
-PiDCoAo+IMKgI2VuZGlmCgpSZXZpZXdlZC1ieTogQW5kcmV3IEplZmZlcnkgPGFuZHJld0Bhai5p
-ZC5hdT4K
+On Fri, 2016-11-18 at 15:22 +0100, C=C3=A9dric Le Goater wrote:
+> Only the first nic, but the second shouldn't be too complex to add if
+> needed.
+>=20
+> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
 
+Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 
---=-C/jZ0mKdQNtuAAf1IUkd
+> ---
+> =C2=A0hw/arm/aspeed_soc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0| 21 +++++++++++++++++++++
+> =C2=A0include/hw/arm/aspeed_soc.h |=C2=A0=C2=A02 ++
+> =C2=A02 files changed, 23 insertions(+)
+>=20
+> diff --git a/hw/arm/aspeed_soc.c b/hw/arm/aspeed_soc.c
+> index 06c1f03555b1..f3c41509a4ea 100644
+> --- a/hw/arm/aspeed_soc.c
+> +++ b/hw/arm/aspeed_soc.c
+> @@ -19,6 +19,7 @@
+> =C2=A0#include "hw/char/serial.h"
+> =C2=A0#include "qemu/log.h"
+> =C2=A0#include "hw/i2c/aspeed_i2c.h"
+> +#include "net/net.h"
+> =C2=A0
+> =C2=A0#define ASPEED_SOC_UART_5_BASE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A00=
+x00184000
+> =C2=A0#define ASPEED_SOC_IOMEM_SIZE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A00x00200000
+> @@ -33,6 +34,8 @@
+> =C2=A0#define ASPEED_SOC_TIMER_BASE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A00x1E782000
+> =C2=A0#define ASPEED_SOC_WDT_BASE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A00x1E785000
+> =C2=A0#define ASPEED_SOC_I2C_BASE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A00x1E78A000
+> +#define ASPEED_SOC_ETH1_BASE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A00x1E660000
+> +#define ASPEED_SOC_ETH2_BASE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A00x1E680000
+> =C2=A0
+> =C2=A0static const int uart_irqs[] =3D { 9, 32, 33, 34, 10 };
+> =C2=A0static const int timer_irqs[] =3D { 16, 17, 18, 35, 36, 37, 38, 39,=
+ };
+> @@ -175,6 +178,10 @@ static void aspeed_soc_init(Object *obj)
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0qdev_set_parent_bus(DEVICE(&s->wdt), sysbus=
+_get_default());
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0object_property_add_const_link(OBJECT(&s->w=
+dt), "scu", OBJECT(&s->scu),
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0NULL);
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0object_initialize(&s->ftgmac100, sizeof(s->ftgma=
+c100), TYPE_FTGMAC100);
+> +=C2=A0=C2=A0=C2=A0=C2=A0object_property_add_child(obj, "ftgmac100", OBJE=
+CT(&s->ftgmac100), NULL);
+> +=C2=A0=C2=A0=C2=A0=C2=A0qdev_set_parent_bus(DEVICE(&s->ftgmac100), sysbu=
+s_get_default());
+> =C2=A0}
+> =C2=A0
+> =C2=A0static int aspeed_fmc_get_cs(AspeedSoCState *s, Error **errp)
+> @@ -344,6 +351,20 @@ static void aspeed_soc_realize(DeviceState *dev, Err=
+or **errp)
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return;
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0}
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0sysbus_mmio_map(SYS_BUS_DEVICE(&s->wdt), 0,=
+ ASPEED_SOC_WDT_BASE);
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0/* Net */
+> +=C2=A0=C2=A0=C2=A0=C2=A0qdev_set_nic_properties(DEVICE(&s->ftgmac100), &=
+nd_table[0]);
+> +=C2=A0=C2=A0=C2=A0=C2=A0object_property_set_bool(OBJECT(&s->ftgmac100), =
+true, "aspeed", &err);
+> +=C2=A0=C2=A0=C2=A0=C2=A0object_property_set_bool(OBJECT(&s->ftgmac100), =
+true, "realized",
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0&local_err);
+> +=C2=A0=C2=A0=C2=A0=C2=A0error_propagate(&err, local_err);
+> +=C2=A0=C2=A0=C2=A0=C2=A0if (err) {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0error_propagate(errp, er=
+r);
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return;
+> +=C2=A0=C2=A0=C2=A0=C2=A0}
+> +=C2=A0=C2=A0=C2=A0=C2=A0sysbus_mmio_map(SYS_BUS_DEVICE(&s->ftgmac100), 0=
+, ASPEED_SOC_ETH1_BASE);
+> +=C2=A0=C2=A0=C2=A0=C2=A0sysbus_connect_irq(SYS_BUS_DEVICE(&s->ftgmac100)=
+, 0,
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0qdev_get_=
+gpio_in(DEVICE(&s->vic), 2));
+> =C2=A0}
+> =C2=A0
+> =C2=A0static void aspeed_soc_class_init(ObjectClass *oc, void *data)
+> diff --git a/include/hw/arm/aspeed_soc.h b/include/hw/arm/aspeed_soc.h
+> index dbec0c159885..1fd0dc690be1 100644
+> --- a/include/hw/arm/aspeed_soc.h
+> +++ b/include/hw/arm/aspeed_soc.h
+> @@ -20,6 +20,7 @@
+> =C2=A0#include "hw/i2c/aspeed_i2c.h"
+> =C2=A0#include "hw/ssi/aspeed_smc.h"
+> =C2=A0#include "hw/watchdog/wdt_aspeed.h"
+> +#include "hw/net/ftgmac100.h"
+> =C2=A0
+> =C2=A0#define ASPEED_SPIS_NUM=C2=A0=C2=A02
+> =C2=A0
+> @@ -39,6 +40,7 @@ typedef struct AspeedSoCState {
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0AspeedSMCState spi[ASPEED_SPIS_NUM];
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0AspeedSDMCState sdmc;
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0AspeedWDTState wdt;
+> +=C2=A0=C2=A0=C2=A0=C2=A0Ftgmac100State ftgmac100;
+> =C2=A0} AspeedSoCState;
+> =C2=A0
+> =C2=A0#define TYPE_ASPEED_SOC "aspeed-soc"
+--=-ETlfqBHNhUFCqmmM5mEf
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJYO5T4AAoJEJ0dnzgO5LT5B0QP+wRkfuCB16mBFnrX1d+F4yf3
-GPZ/Wfjt/pWhjiTfH9AEnD9K5XdnlEz6BVyc2UyBQZcjm4DsAfFwDOaRRR8IL6ch
-DV6TwplesSlcX9XqDvvxHeYsUrXo6fbSHk09IHOS+uhhc0UmxwPPC9w2CoA0Irv0
-EFgQt7nXwekgEqCAIy1FkJDb+82MmBzul74ACA6+eJ1B32HqhefT+RNXPCmJvy4W
-91TywNbbJV0DrVXCfvvAOuI23eTGImBmqOFv7T0tjLebU3mbqRPeWNjMdsp1e0sv
-Pli8+fGH4YhUN66Sv9nfjAwgv7foD81WZtfnyLNyQibSGr7DXIpVbpWZBytToSXB
-pBW/P8GiKV3MRvS4Poz8t7WxGpUqxmohIBuFpJBwQquQF7nHnnRpiW77RmB/CRpv
-tI5mMjB5vIBVrpMD1gM9FLRdkUz1WbRX+Jix4cyovryVOFMooNyJWXoNYNflREPs
-LVA246UsS1YrudxM913j5FjG/HDUbkTFyrM0pmuuEKt42v+wx5IccIhSth3bB3tr
-V4Oh3fIBOb6AgdXCzMz2f0k0WGOD3SXYB77rYmR0W2TuTsc/tsy0N0eEtqV+HZSX
-u0VZ55NPIgI+Ky41RVim8rIacEyQH6Ux0C0hd+LOJzVU2YPQrjBPAxetmFgj4VtR
-XFfBFs0cPi1jXEwgGSqf
-=1MJ0
+iQIcBAABCgAGBQJYO5WEAAoJEJ0dnzgO5LT5NtEP/1J4REWaREaM5ua1oDHMjr3c
+d4qidi+/R0eAJvQFsnCa3PK0jhJQMsLHeKx+pAkE3vkQvxaewnF8HDC2JudkIqT4
++jT9XhyRJBDtGdH8UIQcC66f6M9675G1ojGwUl/CiL04eW/4od0FC/80MzJRAkaq
+kgjo4Y8d8SeOwbG2Tzz1D79ezU2L/DtZHlAq4tpFwwG4+gININDNj/OUdWT6i3/X
+EiibWO4SS4kjrvZO442szCm7FrEW+XdQnuEJFL3GL2lRO2x4eBhD88XZdR7RYVbS
+gE21jJ46i8kt8BDxxjeGoGzBSj2Hipakv33zKscR49KJt+F/592UtxcpKH7ScnyA
+Xpkk7Rx0OhmqUj8fT1OZJ0A88ucYAzcb5Av5Rl8BjPatjU2eZiS/sRg9L+fTp2Lg
+sSu9VRiHufK/dcIuAiBEIpErTublP7SvwGeEtp9nimpsyI4EKFzu/GW95LUK3D0B
+sdIO+c0oRznXq7Ptr0fCLL7bQIOUYA0IHzdSKAqVxcxw+hIYM+4Gu11omxEwTtj1
+t72siyMZMmSNbToFS4jLi7uSesU/Tz8wIuFCKxSZzy/NwAO5/Vex9uhMI4W5gWIC
+ma29ew/iVb/Ri8oPaE41FrbsMS+yxXNJrrBXNoHDeqe6zcNkfT815MOJfb8nnH9u
+GRcwNpADQKMYmvjxYCxh
+=MKn0
 -----END PGP SIGNATURE-----
 
---=-C/jZ0mKdQNtuAAf1IUkd--
+--=-ETlfqBHNhUFCqmmM5mEf--
