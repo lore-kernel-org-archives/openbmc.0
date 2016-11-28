@@ -1,34 +1,37 @@
 Return-Path: <clg@kaod.org>
-X-Greylist: delayed 1014 seconds by postgrey-1.36 at bilbo;
- Mon, 28 Nov 2016 18:36:49 AEDT
-Received: from 4.mo4.mail-out.ovh.net (4.mo4.mail-out.ovh.net [178.32.98.131])
+X-Greylist: delayed 4495 seconds by postgrey-1.36 at bilbo;
+ Mon, 28 Nov 2016 19:41:46 AEDT
+Received: from 3.mo4.mail-out.ovh.net (3.mo4.mail-out.ovh.net [46.105.57.129])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tRz5Y367tzDsy6
- for <openbmc@lists.ozlabs.org>; Mon, 28 Nov 2016 18:36:48 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tS0XV3bH0zDvdr
+ for <openbmc@lists.ozlabs.org>; Mon, 28 Nov 2016 19:41:45 +1100 (AEDT)
 Received: from player750.ha.ovh.net (b7.ovh.net [213.186.33.57])
- by mo4.mail-out.ovh.net (Postfix) with ESMTP id E6AAC1F7D7
- for <openbmc@lists.ozlabs.org>; Mon, 28 Nov 2016 08:19:49 +0100 (CET)
-Received: from hermes.kaod.org.com (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ by mo4.mail-out.ovh.net (Postfix) with ESMTP id 3928B1F7FE
+ for <openbmc@lists.ozlabs.org>; Mon, 28 Nov 2016 08:24:02 +0100 (CET)
+Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
  [90.76.55.107]) (Authenticated sender: clg@kaod.org)
- by player750.ha.ovh.net (Postfix) with ESMTPSA id 3874C18007A;
- Mon, 28 Nov 2016 08:19:45 +0100 (CET)
-From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-To: openbmc@lists.ozlabs.org
-Cc: Joel Stanley <joel@jms.id.au>,
- =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-Subject: [PATCH linux dev-4.7] ARM: dts: aspeed: restore labels of the flash
- modules
-Date: Mon, 28 Nov 2016 08:19:42 +0100
-Message-Id: <1480317582-549-1-git-send-email-clg@kaod.org>
-X-Mailer: git-send-email 2.7.4
+ by player750.ha.ovh.net (Postfix) with ESMTPSA id E21B6180076;
+ Mon, 28 Nov 2016 08:24:00 +0100 (CET)
+Subject: Re: [PATCH qemu 21/38] aspeed/smc: adjust the size of the register
+ region
+To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
+References: <1479478938-13267-1-git-send-email-clg@kaod.org>
+ <1479478938-13267-22-git-send-email-clg@kaod.org>
+ <1480297474.2503.65.camel@aj.id.au>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <3b949946-9111-7727-9670-e55a41896371@kaod.org>
+Date: Mon, 28 Nov 2016 08:24:00 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.4.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <1480297474.2503.65.camel@aj.id.au>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 15750495272047774466
+X-Ovh-Tracer-Id: 15821708442241239810
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrfeehgdeljecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrfeehgddutdduucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -40,218 +43,134 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Nov 2016 07:36:49 -0000
+X-List-Received-Date: Mon, 28 Nov 2016 08:41:48 -0000
 
-commit e62c7f111755 ("ARM: dts: aspeed: fix flash module device
-nodes") removed the 'label' property under the flash module device
-nodes because of the lack of support in mainline. This change broke a
-number of OpenBMC user space tools. let's revert the label change.
+On 11/28/2016 02:44 AM, Andrew Jeffery wrote:
+> On Fri, 2016-11-18 at 15:22 +0100, Cédric Le Goater wrote:
+>> The SPI controller of the AST2400 SoC does not support DMAs and
+>> segment registers, hence it has less registers. So we can adjust the
+>> size of the memory region holding the registers depending on the
+>> controller type. We can also remove the guest_error logging which is
+>> useless as the range of the region is strict enough.
+>>
+>>> Signed-off-by: Cédric Le Goater <clg@kaod.org>
+>> ---
+>>  hw/ssi/aspeed_smc.c         | 23 ++++++++---------------
+>>  include/hw/ssi/aspeed_smc.h |  1 +
+>>  2 files changed, 9 insertions(+), 15 deletions(-)
+>>
+>> diff --git a/hw/ssi/aspeed_smc.c b/hw/ssi/aspeed_smc.c
+>> index c0ae07ef8c96..7d7800d96271 100644
+>> --- a/hw/ssi/aspeed_smc.c
+>> +++ b/hw/ssi/aspeed_smc.c
+>> @@ -135,6 +135,8 @@
+>>  #define R_SPI_MISC_CTRL   (0x10 / 4)
+>>  #define R_SPI_TIMINGS     (0x14 / 4)
+>>  
+>> +#define R_SPI_MAX         (0x20 / 4)
+>> +
+>>  #define ASPEED_SOC_SMC_FLASH_BASE   0x10000000
+>>  #define ASPEED_SOC_FMC_FLASH_BASE   0x20000000
+>>  #define ASPEED_SOC_SPI_FLASH_BASE   0x30000000
+>> @@ -221,6 +223,7 @@ static const AspeedSMCController controllers[] = {
+>>          .flash_window_base = ASPEED_SOC_FMC_FLASH_BASE,
+>>          .flash_window_size = 0x10000000,
+>>          .has_dma           = true,
+>> +        .nregs             = ASPEED_SMC_R_MAX,
+>>      }, {
+>>          .name              = "aspeed.smc.spi",
+>>          .r_conf            = R_SPI_CONF,
+>> @@ -233,6 +236,7 @@ static const AspeedSMCController controllers[] = {
+>>          .flash_window_base = ASPEED_SOC_SPI_FLASH_BASE,
+>>          .flash_window_size = 0x10000000,
+>>          .has_dma           = false,
+>> +        .nregs             = R_SPI_MAX,
+>>      }, {
+>>          .name              = "aspeed.smc.ast2500-fmc",
+>>          .r_conf            = R_CONF,
+>> @@ -245,6 +249,7 @@ static const AspeedSMCController controllers[] = {
+>>          .flash_window_base = ASPEED_SOC_FMC_FLASH_BASE,
+>>          .flash_window_size = 0x10000000,
+>>          .has_dma           = true,
+>> +        .nregs             = ASPEED_SMC_R_MAX,
+>>      }, {
+>>          .name              = "aspeed.smc.ast2500-spi1",
+>>          .r_conf            = R_CONF,
+>> @@ -257,6 +262,7 @@ static const AspeedSMCController controllers[] = {
+>>          .flash_window_base = ASPEED_SOC_SPI_FLASH_BASE,
+>>          .flash_window_size = 0x8000000,
+>>          .has_dma           = false,
+>> +        .nregs             = ASPEED_SMC_R_MAX,
+>>      }, {
+>>          .name              = "aspeed.smc.ast2500-spi2",
+>>          .r_conf            = R_CONF,
+>> @@ -269,6 +275,7 @@ static const AspeedSMCController controllers[] = {
+>>          .flash_window_base = ASPEED_SOC_SPI2_FLASH_BASE,
+>>          .flash_window_size = 0x8000000,
+>>          .has_dma           = false,
+>> +        .nregs             = ASPEED_SMC_R_MAX,
+>>      },
+>>  };
+>>  
+>> @@ -712,13 +719,6 @@ static uint64_t aspeed_smc_read(void *opaque, hwaddr addr, unsigned int size)
+>>  
+>>      addr >>= 2;
+>>  
+>> -    if (addr >= ARRAY_SIZE(s->regs)) {
+>> -        qemu_log_mask(LOG_GUEST_ERROR,
+>> -                      "%s: Out-of-bounds read at 0x%" HWADDR_PRIx "\n",
+>> -                      __func__, addr);
+>> -        return 0;
+>> -    }
+>> -
+>>      if (addr == s->r_conf ||
+>>          addr == s->r_timings ||
+>>          addr == s->r_ce_ctrl ||
+>> @@ -942,13 +942,6 @@ static void aspeed_smc_write(void *opaque, hwaddr addr, uint64_t data,
+>>  
+>>      addr >>= 2;
+>>  
+>> -    if (addr >= ARRAY_SIZE(s->regs)) {
+>> -        qemu_log_mask(LOG_GUEST_ERROR,
+>> -                      "%s: Out-of-bounds write at 0x%" HWADDR_PRIx "\n",
+>> -                      __func__, addr);
+>> -        return;
+>> -    }
+>> -
+>>      if (addr == s->r_conf ||
+>>          addr == s->r_timings ||
+>>          addr == s->r_ce_ctrl) {
+>> @@ -1030,7 +1023,7 @@ static void aspeed_smc_realize(DeviceState *dev, Error **errp)
+>>  
+>>      /* The memory region for the controller registers */
+>>      memory_region_init_io(&s->mmio, OBJECT(s), &aspeed_smc_ops, s,
+>> -                          s->ctrl->name, ASPEED_SMC_R_MAX * 4);
+>> +                          s->ctrl->name, s->ctrl->nregs * 4);
+> 
+> It looks like you missed defining nregs for the "aspeed.smc.smc"
+> controller. This would suggest we need to.
 
-Signed-off-by: Cédric Le Goater <clg@kaod.org>
----
+Ah yes. we don't instantiate the legacy controller so I didn't see it.
 
- Joel, I will add a proposal patch to extend the 'jedec,spi-nor'
- binding with a 'label' property in the next version of the Aspeed SMC
- controller patchset. 
+Thanks,
 
- Documentation/devicetree/bindings/mtd/jedec,spi-nor.txt | 2 ++
- arch/arm/boot/dts/aspeed-ast2500-evb.dts                | 3 ++-
- arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts          | 3 ++-
- arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts          | 3 ++-
- arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi      | 1 +
- arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts           | 3 ++-
- arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts           | 3 ++-
- arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts            | 4 +++-
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts        | 4 +++-
- arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts              | 3 ++-
- arch/arm/boot/dts/aspeed-g5.dtsi                        | 4 ++--
- 11 files changed, 23 insertions(+), 10 deletions(-)
+C. 
 
-diff --git a/Documentation/devicetree/bindings/mtd/jedec,spi-nor.txt b/Documentation/devicetree/bindings/mtd/jedec,spi-nor.txt
-index 2c91c03e7eb0..b7cd02a3ebe8 100644
---- a/Documentation/devicetree/bindings/mtd/jedec,spi-nor.txt
-+++ b/Documentation/devicetree/bindings/mtd/jedec,spi-nor.txt
-@@ -65,6 +65,7 @@ Optional properties:
-                    all chips and support for it can not be detected at runtime.
-                    Refer to your chips' datasheet to check if this is supported
-                    by your chip.
-+- label : name to assign to mtd. If omitted, the label is the MTD device name.
- 
- Example:
- 
-@@ -75,4 +76,5 @@ Example:
- 		reg = <0>;
- 		spi-max-frequency = <40000000>;
- 		m25p,fast-read;
-+		label = "System-firmware";
- 	};
-diff --git a/arch/arm/boot/dts/aspeed-ast2500-evb.dts b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-index fe8fc7a801f6..9d88f3aadbc6 100644
---- a/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-+++ b/arch/arm/boot/dts/aspeed-ast2500-evb.dts
-@@ -33,8 +33,9 @@
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_spi1_default>;
- 
--	pnor@0 {
-+	flash@0 {
- 		status = "okay";
-+		label = "pnor";
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-index 802ce9557836..bedff97fb9b9 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-@@ -40,9 +40,10 @@
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			compatible = "aspeed,ast2400-smc";
--			pnor@0 {
-+			flash@0 {
- 				reg = < 0 >;
- 				compatible = "jedec,spi-nor" ;
-+				label = "pnor";
- 			};
- 		};
- 	};
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-index 005ff89e0c10..bbe09fc85b1e 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-@@ -61,9 +61,10 @@
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			compatible = "aspeed,ast2400-smc";
--			pnor@0 {
-+			flash@0 {
- 				reg = < 0 >;
- 				compatible = "jedec,spi-nor" ;
-+				label = "pnor";
- 			};
- 		};
- 	};
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
-index 6cfadb42368f..65095a40a203 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
-@@ -1,3 +1,4 @@
-+		label = "bmc";
- 		partitions {
- 				#address-cells = < 1 >;
- 				#size-cells = < 1 >;
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-index 92b29d1c665b..7737c09aa20e 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-@@ -41,9 +41,10 @@
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			compatible = "aspeed,ast2400-smc";
--			pnor@0 {
-+			flash@0 {
- 				reg = < 0 >;
- 				compatible = "jedec,spi-nor" ;
-+				label = "pnor";
- 				/* spi-max-frequency = <>; */
- 				/* m25p,fast-read; */
- 			};
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-index ed3c4a9e3d9d..f018074f6bb1 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-@@ -58,9 +58,10 @@
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			compatible = "aspeed,ast2400-smc";
--			pnor@0 {
-+			flash {
- 				reg = < 0 >;
- 				compatible = "jedec,spi-nor" ;
-+				label = "pnor";
- 			};
- 		};
- 	};
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-index 9845e6ca0de9..c23627ec5e84 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-@@ -29,6 +29,7 @@
- 	};
- 	flash@1 {
- 		status = "okay";
-+		label = "alt";
- 	};
- };
- 
-@@ -37,8 +38,9 @@
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_spi1_default>;
- 
--	pnor@0 {
-+	flash@0 {
- 		status = "okay";
-+		label = "pnor";
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index 5c463f4112f6..9badf3e94599 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -29,6 +29,7 @@
- 	};
- 	flash@1 {
- 		status = "okay";
-+		label = "alt";
- 	};
- };
- 
-@@ -37,8 +38,9 @@
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_spi1_default>;
- 
--	pnor@0 {
-+	flash@0 {
- 		status = "okay";
-+		label = "pnor";
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-index 8ef4ecec17cc..673bab8006e7 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-@@ -58,8 +58,9 @@
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_spi1_default>;
- 
--	pnor@0 {
-+	flash@0 {
- 		status = "okay";
-+		label = "pnor";
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index 433461bce607..d6ff41ee6c58 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -58,12 +58,12 @@
- 			#size-cells = <0>;
- 			compatible = "aspeed,ast2500-smc";
- 			status = "disabled";
--			pnor@0 {
-+			flash@0 {
- 				reg = < 0 >;
- 				compatible = "jedec,spi-nor";
- 				status = "disabled";
- 			};
--			pnor@1 {
-+			flash@1 {
- 				reg = < 1 >;
- 				compatible = "jedec,spi-nor";
- 				status = "disabled";
--- 
-2.7.4
+
+> Andrew
+> 
+>>      sysbus_init_mmio(sbd, &s->mmio);
+>>  
+>>      /*
+>> diff --git a/include/hw/ssi/aspeed_smc.h b/include/hw/ssi/aspeed_smc.h
+>> index 3ae0a369073d..91bad82e9c65 100644
+>> --- a/include/hw/ssi/aspeed_smc.h
+>> +++ b/include/hw/ssi/aspeed_smc.h
+>> @@ -45,6 +45,7 @@ typedef struct AspeedSMCController {
+>>      hwaddr flash_window_base;
+>>      uint32_t flash_window_size;
+>>      bool has_dma;
+>> +    uint32_t nregs;
+>>  } AspeedSMCController;
+>>  
+>>  typedef struct AspeedSMCFlash {
