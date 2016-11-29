@@ -1,52 +1,30 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x229.google.com (mail-ua0-x229.google.com
- [IPv6:2607:f8b0:400c:c08::229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tSQtb4c0kzDw5k
- for <openbmc@lists.ozlabs.org>; Tue, 29 Nov 2016 12:28:55 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="fwwnIlAt"; 
- dkim-atps=neutral
-Received: by mail-ua0-x229.google.com with SMTP id 12so163059565uas.2
- for <openbmc@lists.ozlabs.org>; Mon, 28 Nov 2016 17:28:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=rJ/bavkg6wtklGlEvrTpE4yPH/eXCxlPWNdyZ9/c0eE=;
- b=fwwnIlAtLG6teBUDLrXbVrySCHbpYXADOMDXd3DitSQxoYMaz/z1rUBw7155B/jfer
- 6rQ/vFzhvDnrqItyNMyWKTH2TB6hKgqc1LqPcbIFsPAgDA+hblAA44LdNjrQ7XTNJqWR
- fok/3PjkGBk7mbTK9PiZoU5gH5fE8Q+WF7bZyIRmVuicpCNBdJj+uhrmT4LIuhwfsTY4
- PuZSIPSvTK8eeNR+nX8Rd7okXpdfikrqOMq1TU0BmTBLxOUBLVJYmoe3k1yPY/oQgFOx
- KWeyazNIgUkRRE94kOuUcthxRO32lEmYL9fFeM9eZPYwTvPvuiyL6J3zE5C33lgXrKCS
- nZsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=rJ/bavkg6wtklGlEvrTpE4yPH/eXCxlPWNdyZ9/c0eE=;
- b=CdQN53TBQFhjzZbdNZuQYUmkuSRJv47rr7S2w48Mc72MOkY20A0pvj0q1dfy56K42I
- ueasp3oAtIAPeT2/QXzzJOHoBizLDxn21G4cgRFD4AL9o8c0C8zpi2diLUIUAnoKBpD1
- eE4qtqf2ys8oAZ6OFQrIsrqaY4Kb9Gcre9Ib69VJ3qT5GWH4yZhfjSMcpp8tWiU1rbfO
- zZ3NYFqWbcMCj26ctxaGO1QRjy9r0EeTLLkBDwjE5hIw2nMF2WfSgkkst9sPSfpu+y3H
- y2nRi3Fqm1FR/qWpN5a2pbzTWBBT9mKoybgcH6sxisHYwLxlbAAr46O4cgke1IfWnkJZ
- kFug==
-X-Gm-Message-State: AKaTC01yDpDU8VjgzilCW1u7HjGtZHhe3qOA93zwPU3Hrglk7ptoYYAfVIoUjXPfUUvvjdTWwRX1qv4MzH/IxA==
-X-Received: by 10.176.84.207 with SMTP id q15mr15336089uaa.177.1480382933090; 
- Mon, 28 Nov 2016 17:28:53 -0800 (PST)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.176.0.193 with HTTP; Mon, 28 Nov 2016 17:28:32 -0800 (PST)
-In-Reply-To: <32e4f53c-5bab-55ba-50f2-25ba891d4127@linux.vnet.ibm.com>
-References: <32e4f53c-5bab-55ba-50f2-25ba891d4127@linux.vnet.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 29 Nov 2016 11:58:32 +1030
-X-Google-Sender-Auth: 90b7n2mBbbL1IFLTChUUp0tF0QM
-Message-ID: <CACPK8Xe9j1knVThhduju-OCipgX_UEZMe4bL+Hf9xJMSWVfq5A@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tSSST4yY5zDvhn
+ for <openbmc@lists.ozlabs.org>; Tue, 29 Nov 2016 13:39:53 +1100 (AEDT)
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mx.zohomail.com
+ with SMTPS id 1480387186798655.3948461875635;
+ Mon, 28 Nov 2016 18:39:46 -0800 (PST)
+Date: Mon, 28 Nov 2016 20:39:34 -0600
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Joel Stanley <joel@jms.id.au>
+Cc: Matt Spinler <mspinler@linux.vnet.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Subject: Re: Starting the phosphor-hwmon service from udev rules
-To: Matt Spinler <mspinler@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+Message-ID: <20161129023934.GR15757@heinlein.lan>
+References: <32e4f53c-5bab-55ba-50f2-25ba891d4127@linux.vnet.ibm.com>
+ <CACPK8Xe9j1knVThhduju-OCipgX_UEZMe4bL+Hf9xJMSWVfq5A@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="Hw0FrjWlp+qkNlJP"
+Content-Disposition: inline
+In-Reply-To: <CACPK8Xe9j1knVThhduju-OCipgX_UEZMe4bL+Hf9xJMSWVfq5A@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,54 +36,99 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 Nov 2016 01:28:56 -0000
+X-List-Received-Date: Tue, 29 Nov 2016 02:39:54 -0000
 
-On Tue, Nov 29, 2016 at 3:01 AM, Matt Spinler
-<mspinler@linux.vnet.ibm.com> wrote:
-> I am working on a story this sprint to start the phosphor-hwmon service from
-> udev rules.  In addition to just starting the service based on a device
-> path, I need to be able to communicate to it some threshold values, like
-> critical high temps for example.
 
-What are the functions of the 'phosphor-hwmon' service?
+--Hw0FrjWlp+qkNlJP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I would consider naming it phosphor-hardware-monitor or similar, in
-case you decide it should monitor things other than Linux 'hwmon'
-devices.
+On Tue, Nov 29, 2016 at 11:58:32AM +1030, Joel Stanley wrote:
 
->
-> I have a proposal for the rules at
-> https://gerrit.openbmc-project.xyz/#/c/1243/.
->
-> It has lines like:
->
-> SUBSYSTEM=="hwmon", DEVPATH=="*i2c-3/3-0077/*", ACTION == "add",
-> TAG+="systemd",
-> ENV{SYSTEMD_WANTS}+="phosphor-hwmon@/sys/class/hwmon/%k.service",
-> ENV{ENVFILE}+="/etc/hwmon.d/hwmon-bmp280-3-77.conf"
+> What are the functions of the 'phosphor-hwmon' service?
 
-Do we need to match only on the path? Can it match on the device driver instead?
+phosphor-hwmon is an implementation of these dbus interfaces, which
+sources its information from the Linux hwmon interfaces:
 
->
-> where the .conf file will contain any threshold values, maybe like CRIT=50.
-> The command line in the unit file would then somehow make a udevadm call to
-> pull out the ENVFILE so it can get passed into the executable along with the
-> device path.
->
-> Is this the recommended way to go about doing this?  Or instead of having a
-> separate udev rule for each device, but 1 service file, is it better to have
-> 1 udev rule but separate service files?
+https://github.com/openbmc/phosphor-dbus-interfaces/tree/master/xyz/openbmc=
+_project/Sensor
 
-It appears you plan on re-implementing the functionality of the
-lm-sensors package. While the upstream project has dissappeared from
-the net, the source code and documentation is still available. I would
-consider firstly trying to re-use existing daemons and configuration
-that we already have access to. If that does not work, then reading
-and re-using the source code to adopt the same design would save you
-time and effort.
+> I would consider naming it phosphor-hardware-monitor or similar, in
+> case you decide it should monitor things other than Linux 'hwmon'
+> devices.
 
-https://web.archive.org/web/20150905145034/http://www.lm-sensors.org/
+An alternative source of data should be in a separate application /
+repository.  The non-hwmon-specific should be mostly contained in the
+generated dbus bindings, so there is no or very little overlap between
+different implementations.
 
-Cheers,
+> > It has lines like:
+> >
+> > SUBSYSTEM=3D=3D"hwmon", DEVPATH=3D=3D"*i2c-3/3-0077/*", ACTION =3D=3D "=
+add",
+> > TAG+=3D"systemd",
+> > ENV{SYSTEMD_WANTS}+=3D"phosphor-hwmon@/sys/class/hwmon/%k.service",
+> > ENV{ENVFILE}+=3D"/etc/hwmon.d/hwmon-bmp280-3-77.conf"
+>=20
+> Do we need to match only on the path? Can it match on the device driver i=
+nstead?
 
-Joel
+The driver name is insufficient to differentiate between two different
+sensors of the same device type.  For instance, the front and rear
+ambient may both be LMxx-class devices, but have different dbus paths
+and potentially different thresholds.
+
+> > where the .conf file will contain any threshold values, maybe like CRIT=
+=3D50.
+> > The command line in the unit file would then somehow make a udevadm cal=
+l to
+> > pull out the ENVFILE so it can get passed into the executable along wit=
+h the
+> > device path.
+> >
+> > Is this the recommended way to go about doing this?  Or instead of havi=
+ng a
+> > separate udev rule for each device, but 1 service file, is it better to=
+ have
+> > 1 udev rule but separate service files?
+>=20
+> It appears you plan on re-implementing the functionality of the
+> lm-sensors package. While the upstream project has dissappeared from
+> the net, the source code and documentation is still available. I would
+> consider firstly trying to re-use existing daemons and configuration
+> that we already have access to. If that does not work, then reading
+> and re-using the source code to adopt the same design would save you
+> time and effort.
+
+Can you give more details on which aspects you feel there is overlap?
+
+In any case, your questions and critiques should all be directed at Brad
+who is implementing phosphor-hwmon and not Matt who asked specifically
+about how to launch the application from MRW-based information?
+
+--=20
+Patrick Williams
+
+--Hw0FrjWlp+qkNlJP
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAEBCAAGBQJYPOpjAAoJEKsDR8wtAMEZoeAP/RPGfK1eb9jjlykZAz5OmFQu
+cgDoeFf3p8YX8R+SY38Y+Jf/uQBWOjaS67vZkL7M5qquMBJajZKNksDXG4kpfj76
+fa//d/kneIiaznKF+AjYCk5pDMrf7Bw6FScWikZArnmU1vxLYnnBBi/Xx0vdgCIh
+YXIQgJlDVF9UDPxKyOEajEYzbWTUHVNVK+kVgY6OQW1E8ai4JyEzFF+E0VSieEvd
+qr5OIokbqGvaLjBiHfYa52LA1xPQuYpi4+a2tB9vPI+uJWhXD6c1unVsg9d5N9I+
+7X4T6XXcnPcmdAkIgvmFwc/sl8xsDxOnt825msEFTxlaqN0Eb5wL1CQSoeY7YpPW
+N3RQGBIQgbSAHgmONx4HguHol6h0BhInUrs8gXwjZZ1umz3I/EDBDYckY7VZtRlC
+0EjTbTDWsfUJwodBj3+ofpEosKevGj2pYa/hH1U0pOS3VJF0B8o1cxStQb5qEdrh
+NvpC7cNmNBxdQVt7DixirhBDlXThyey7lsk3OZvHgvM6DwP43XzJ631ILj3m2bHG
+fWi27SXjgwDJAwFBnH503triY+FrYdiCuwhjKji7FzMYvrW/k1dydxN9hyC7tomQ
+GMTathfFYPA5FP+663kJqQH2nXvwKcQ5azqz4oxEG8yW4/feSH89jmRtI+q2WoIJ
+5pkiHSaFzM5AT1XjkQ+H
+=2NhB
+-----END PGP SIGNATURE-----
+
+--Hw0FrjWlp+qkNlJP--
