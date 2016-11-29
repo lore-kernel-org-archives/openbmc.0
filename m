@@ -1,50 +1,50 @@
 Return-Path: <eajames.ibm@gmail.com>
-Received: from mail-qt0-x244.google.com (mail-qt0-x244.google.com
- [IPv6:2607:f8b0:400d:c0d::244])
+Received: from mail-qt0-x243.google.com (mail-qt0-x243.google.com
+ [IPv6:2607:f8b0:400d:c0d::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tSzcc4L2pzDvw6
- for <openbmc@lists.ozlabs.org>; Wed, 30 Nov 2016 10:03:44 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tSzcy10VqzDvvy
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Nov 2016 10:04:02 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="FvralyyA"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="RXqYLRY8"; 
  dkim-atps=neutral
-Received: by mail-qt0-x244.google.com with SMTP id n34so17532897qtb.3
- for <openbmc@lists.ozlabs.org>; Tue, 29 Nov 2016 15:03:44 -0800 (PST)
+Received: by mail-qt0-x243.google.com with SMTP id m48so17515037qta.2
+ for <openbmc@lists.ozlabs.org>; Tue, 29 Nov 2016 15:04:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=from:to:cc:subject:date:message-id;
- bh=8G8yoXtrAkuTQN2AwvXNK+JsHtsVgk2yLwDiLz3dEuY=;
- b=FvralyyAajpU0pwYzumsc181QZi8gMkFCvG7sfnnzxMNtACZhAfKsMSoa1Be42UxF3
- CroXo2Lv9qX+LtaqpJOyZtLusQ9hEmqxRrleLtsPFfjBDyO7L43/lx1MjGtPZr+JRZNn
- DM6AYP+Flu4TNbINOgeV4lj/2kaXgP7cEaj/FSzu5GzDQGR9hwr2UfAmCOEJv6ph0osh
- un6j/6L9oUpr72kcLoMU95Y0ILmJ2HPkpSeq0YFfJ3ff3U9s/wKfuYvNsYRjXWz+e9QA
- ZaDLFBX1zuOI+Au4NRpMzvoKkGejizEscPPkKE+LrAVjJ8U0pushSuuPQvaSX+93TxXC
- eFBA==
+ bh=Vauq+jqwvaeYWgPPQK2qb+cSsm7cYma3in7Nly3kwrA=;
+ b=RXqYLRY8hiaEYLojCjaa1WzNO9alDPRgKT6imZ/92jyyZYQtgXox544IYCymP6kzgU
+ HAwAwNTZVbAWenLhlTt3xIqbk3xO6ZaKh3bhZYT+MJZbwQ3qrLW/UUQ0MokYkaxSdzTw
+ 5VeK5oXZT3DTx+YeMFBMe7EXJ/jnbmGXh+LvWi6m4/oAA9tTaJJLTPkXBFwqJ/H9MFZw
+ uIL+P8X5UQ//FAdpYYmlanRE7tcjspGCOIkp0Z3gJlVzjbeJkKYR0bCvivqhF2ISPgfh
+ 1cR7wzeKbUIhUHPj4JcRKT64T4OSupHDAZbZZ4VXo17npqvK0EKpuX5v3mYoUimDv7L2
+ 0Eqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=8G8yoXtrAkuTQN2AwvXNK+JsHtsVgk2yLwDiLz3dEuY=;
- b=SMqN/F+ApU6vkk+Gj463nJr9ceZJ6sn3i+cYocG5dFclH79AW3mpcQ3T+evvLI/Sys
- AQEmY5ov683k1PBPJGQEQ96EHzPIFspW0x2WAKurO1pwkBRpevv90vCl34Z1o4mXz2P3
- /RVP64jf1U36feF62CoMAsIz46zJ06vYBxyub1Zc+dnzJ8RfhnwJJ+pHvkSuVQ8NbUHP
- 7LzoCWxNbZ/sN4kRbTdyxt/aTh7DUkILflOF/wc0ldWOn+W2OHgPRXFKhU0PYvEeLn8+
- cdWEeNPeAQF2EFmUfs7VV2qMXoXu0KOEz4xLntS/oZpb4xE1eVg3gct6PkE1ToYnp9Yf
- fOIA==
-X-Gm-Message-State: AKaTC02wdHRv9KqoQjbE4vJJQKy31L3t5G1npx3kgQe/0u2B6yvfG09R+zpToEVXu5IIKQ==
-X-Received: by 10.237.62.209 with SMTP id o17mr26563251qtf.190.1480460622313; 
- Tue, 29 Nov 2016 15:03:42 -0800 (PST)
+ bh=Vauq+jqwvaeYWgPPQK2qb+cSsm7cYma3in7Nly3kwrA=;
+ b=FUHKW4yVM6daCzdZnVv+5l1HE8ZR2cYdqzi8Vb5xTVceC9KKeopI6Gt3Xw5CulOj+V
+ jmtHStAT2g96pLJB5wz3BsTYxj5e95L5gXiBmx9BZZflyVkXHWxxH/v/6/xLC/U35eQV
+ loZ/BLWu18WvZG4J8WrLsQzvycIO1IYgF6pK/vjIO4BeXSv29+e/c4i/MR+ciQ6z21Cb
+ cjgujQ+6G6xA1vvxRXxQe/9621NMKQKNAXeebRsV1n5X3rc3JcQKQ8fDvqobkf90PB2X
+ BpSO1HAR7UeCCyktoHlATSO2xfvjcRkcmYBDhbl4TH1PrIIughSeyTviQWjC67KWuLFd
+ yhkw==
+X-Gm-Message-State: AKaTC034w5XK6Dz3nVb4i73CeBLrXbLoPYjMbR+RoXxAqBABZJRjstcf41reYg10e0u2lQ==
+X-Received: by 10.200.48.120 with SMTP id g53mr29427521qte.113.1480460639798; 
+ Tue, 29 Nov 2016 15:03:59 -0800 (PST)
 Received: from eajames-austin-w350.austin.ibm.com ([32.97.110.52])
- by smtp.gmail.com with ESMTPSA id w8sm32016267qta.25.2016.11.29.15.03.40
+ by smtp.gmail.com with ESMTPSA id x13sm32038791qkb.45.2016.11.29.15.03.58
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 29 Nov 2016 15:03:41 -0800 (PST)
+ Tue, 29 Nov 2016 15:03:59 -0800 (PST)
 From: eajames.ibm@gmail.com
 To: openbmc@lists.ozlabs.org
 Cc: andrew@aj.id.au,
 	joel@jms.id.au,
 	"Edward A. James" <eajames@us.ibm.com>
-Subject: [RFC PATCH linux v6 4/9] hwmon: occ: Add I2C SCOM transport
- implementation
-Date: Tue, 29 Nov 2016 17:03:35 -0600
-Message-Id: <1480460615-28732-1-git-send-email-eajames.ibm@gmail.com>
+Subject: [RFC PATCH linux v6 5/9] hwmon: occ: Add callbacks for parsing P8 OCC
+ datastructures
+Date: Tue, 29 Nov 2016 17:03:52 -0600
+Message-Id: <1480460632-28805-1-git-send-email-eajames.ibm@gmail.com>
 X-Mailer: git-send-email 1.9.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -57,30 +57,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 Nov 2016 23:03:45 -0000
+X-List-Received-Date: Tue, 29 Nov 2016 23:04:02 -0000
 
 From: "Edward A. James" <eajames@us.ibm.com>
 
-The BMC queries the OCC on POWER8 chips with SCOMs over I2C.
-
 Signed-off-by: Edward A. James <eajames@us.ibm.com>
 ---
- drivers/hwmon/occ/occ_scom_i2c.c | 68 ++++++++++++++++++++++++++++++++++++++++
- drivers/hwmon/occ/occ_scom_i2c.h | 20 ++++++++++++
- 2 files changed, 88 insertions(+)
- create mode 100644 drivers/hwmon/occ/occ_scom_i2c.c
- create mode 100644 drivers/hwmon/occ/occ_scom_i2c.h
+ drivers/hwmon/occ/occ_p8.c | 219 +++++++++++++++++++++++++++++++++++++++++++++
+ drivers/hwmon/occ/occ_p8.h |  30 +++++++
+ 2 files changed, 249 insertions(+)
+ create mode 100644 drivers/hwmon/occ/occ_p8.c
+ create mode 100644 drivers/hwmon/occ/occ_p8.h
 
-diff --git a/drivers/hwmon/occ/occ_scom_i2c.c b/drivers/hwmon/occ/occ_scom_i2c.c
+diff --git a/drivers/hwmon/occ/occ_p8.c b/drivers/hwmon/occ/occ_p8.c
 new file mode 100644
-index 0000000..e1bb363
+index 0000000..0335a15
 --- /dev/null
-+++ b/drivers/hwmon/occ/occ_scom_i2c.c
-@@ -0,0 +1,68 @@
++++ b/drivers/hwmon/occ/occ_p8.c
+@@ -0,0 +1,219 @@
 +/*
-+ * occ_i2c.c - hwmon OCC driver
++ * p8.c - OCC hwmon driver
 + *
-+ * This file contains the i2c layer for accessing the OCC over i2c bus.
++ * This file contains the Power8-specific methods and data structures for
++ * the OCC hwmon driver.
 + *
 + * Copyright 2016 IBM Corp.
 + *
@@ -95,66 +94,216 @@ index 0000000..e1bb363
 + * GNU General Public License for more details.
 + */
 +
-+#include <linux/i2c.h>
-+#include <linux/kernel.h>
 +#include <linux/module.h>
++#include <linux/init.h>
++#include <linux/slab.h>
++#include <linux/err.h>
++#include <linux/of.h>
++#include <linux/kernel.h>
++#include <linux/device.h>
++#include <linux/platform_device.h>
 +
-+#include "scom.h"
-+#include "occ_scom_i2c.h"
++#include "occ.h"
++#include "occ_p8.h"
 +
-+#define OCC_I2C_NAME   "occ-p8-i2c"
++/* P8 OCC sensor data format */
++struct occ_sensor_p8 {
++       u16 sensor_id;
++       u16 value;
++};
 +
-+int occ_i2c_getscom(void *bus, u32 address, u8 *data, size_t offset)
++struct power_sensor_p8 {
++       u16 sensor_id;
++       u32 update_tag;
++       u32 accumulator;
++       u16 value;
++};
++
++struct caps_sensor_p8 {
++       u16 curr_powercap;
++       u16 curr_powerreading;
++       u16 norm_powercap;
++       u16 max_powercap;
++       u16 min_powercap;
++       u16 user_powerlimit;
++};
++
++void p8_parse_sensor(u8 *data, void *sensor, int sensor_type, int off,
++                    int snum)
 +{
-+       ssize_t rc;
-+       u64 buf;
-+       struct i2c_client *client = bus;
-+
-+       rc = i2c_master_send(client, (const char *)&address, sizeof(u32));
-+       if (rc != sizeof(u32))
-+               return -SCOM_WRITE_ERROR;
-+
-+       rc = i2c_master_recv(client, (char *)&buf, sizeof(u64));
-+       if (rc != sizeof(u64))
-+               return -SCOM_READ_ERROR;
-+
-+       *((u64 *)&data[offset]) = be64_to_cpu(buf);
-+
-+       return 0;
++       switch (sensor_type) {
++               case FREQ:
++               case TEMP:
++               {
++                       struct occ_sensor_p8 *os =
++                               &(((struct occ_sensor_p8 *)sensor)[snum]);
++                       os->sensor_id =
++                               be16_to_cpup((const __be16 *)&data[off]);
++                       os->value =
++                               be16_to_cpup((const __be16 *)&data[off + 2]);
++               }
++                       break;
++               case POWER:
++               {
++                       struct power_sensor_p8 *ps =
++                               &(((struct power_sensor_p8 *)sensor)[snum]);
++                       ps->sensor_id =
++                               be16_to_cpup((const __be16 *)&data[off]);
++                       ps->update_tag =
++                               be32_to_cpup((const __be32 *)&data[off + 2]);
++                       ps->accumulator =
++                               be32_to_cpup((const __be32 *)&data[off + 6]);
++                       ps->value =
++                               be16_to_cpup((const __be16 *)&data[off + 10]);
++               }
++                       break;
++               case CAPS:
++               {
++                       struct caps_sensor_p8 *cs =
++                               &(((struct caps_sensor_p8 *)sensor)[snum]);
++                       cs->curr_powercap =
++                               be16_to_cpup((const __be16 *)&data[off]);
++                       cs->curr_powerreading =
++                               be16_to_cpup((const __be16 *)&data[off + 2]);
++                       cs->norm_powercap =
++                               be16_to_cpup((const __be16 *)&data[off + 4]);
++                       cs->max_powercap =
++                               be16_to_cpup((const __be16 *)&data[off + 6]);
++                       cs->min_powercap =
++                               be16_to_cpup((const __be16 *)&data[off + 8]);
++                       cs->user_powerlimit =
++                               be16_to_cpup((const __be16 *)&data[off + 10]);
++               }
++                       break;
++       };
 +}
-+EXPORT_SYMBOL(occ_i2c_getscom);
 +
-+int occ_i2c_putscom(void *bus, u32 address, u32 data0, u32 data1)
++void * p8_alloc_sensor(int sensor_type, int num_sensors)
 +{
-+       u32 buf[3];
-+       ssize_t rc;
-+       struct i2c_client *client = bus;
-+
-+       buf[0] = address;
-+       buf[1] = data1;
-+       buf[2] = data0;
-+
-+       rc = i2c_master_send(client, (const char *)buf, sizeof(u32) * 3);
-+       if (rc != sizeof(u32) * 3)
-+               return -SCOM_WRITE_ERROR;
-+
-+       return 0;
++       switch (sensor_type) {
++               case FREQ:
++               case TEMP:
++                       return kcalloc(num_sensors,
++                                      sizeof(struct occ_sensor_p8),
++                                      GFP_KERNEL);
++               case POWER:
++                       return kcalloc(num_sensors,
++                                      sizeof(struct power_sensor_p8),
++                                      GFP_KERNEL);
++               case CAPS:
++                       return kcalloc(num_sensors,
++                                      sizeof(struct caps_sensor_p8),
++                                      GFP_KERNEL);
++               default:
++                       return NULL;
++       }
 +}
-+EXPORT_SYMBOL(occ_i2c_putscom);
++
++int p8_get_sensor_value(struct occ *driver, int sensor_type, int snum)
++{
++       void *sensor;
++
++       if (sensor_type == CAPS)
++               return -1;
++
++       sensor = occ_get_sensor(driver, sensor_type);
++       if (!sensor)
++               return -1;
++
++       switch (sensor_type) {
++               case FREQ:
++               case TEMP:
++                       return ((struct occ_sensor_p8 *)sensor)[snum].value;
++               case POWER:
++                       return ((struct power_sensor_p8 *)sensor)[snum].value;
++               default:
++                       return -1;
++       }
++}
++
++int p8_get_sensor_id(struct occ *driver, int sensor_type, int snum)
++{
++       void *sensor;
++       int i = snum;
++
++       if (sensor_type == CAPS)
++               return -1;
++
++       sensor = occ_get_sensor(driver, sensor_type);
++       if (!sensor)
++               return -1;
++
++       switch (sensor_type) {
++               case FREQ:
++               case TEMP:
++                       return ((struct occ_sensor_p8 *)sensor)[i].sensor_id;
++               case POWER:
++                       return ((struct power_sensor_p8 *)sensor)[i].sensor_id;
++               default:
++                       return -1;
++       }
++}
++
++int p8_get_caps_value(void *sensor, int snum, int caps_field)
++{
++       struct caps_sensor_p8 *caps_sensor = sensor;
++
++       switch (caps_field) {
++       case 0:
++               return caps_sensor[snum].curr_powercap;
++       case 1:
++               return caps_sensor[snum].curr_powerreading;
++       case 2:
++               return caps_sensor[snum].norm_powercap;
++       case 3:
++               return caps_sensor[snum].max_powercap;
++       case 4:
++               return caps_sensor[snum].min_powercap;
++       case 5:
++               return caps_sensor[snum].user_powerlimit;
++       default:
++               return -1;
++       }
++}
++
++static const struct occ_ops p8_ops = {
++       .parse_sensor = p8_parse_sensor,
++       .alloc_sensor = p8_alloc_sensor,
++       .get_sensor_value = p8_get_sensor_value,
++       .get_sensor_id = p8_get_sensor_id,
++       .get_caps_value = p8_get_caps_value,
++};
++
++static const struct occ_config p8_config = {
++       .command_addr = 0xFFFF6000,
++       .response_addr = 0xFFFF7000,
++};
++
++struct occ *occ_p8_start(struct device *dev, void *bus, struct occ_bus_ops bus_ops)
++{
++       return occ_start(dev, bus, bus_ops, p8_ops, p8_config);
++}
++EXPORT_SYMBOL(occ_p8_start);
++
++int occ_p8_stop(struct occ *occ)
++{
++       return occ_stop(occ);
++}
++EXPORT_SYMBOL(occ_p8_stop);
 +
 +MODULE_AUTHOR("Eddie James <eajames@us.ibm.com>");
-+MODULE_DESCRIPTION("I2C OCC SCOM transport");
++MODULE_DESCRIPTION("P8 OCC sensors");
 +MODULE_LICENSE("GPL");
-diff --git a/drivers/hwmon/occ/occ_scom_i2c.h b/drivers/hwmon/occ/occ_scom_i2c.h
+diff --git a/drivers/hwmon/occ/occ_p8.h b/drivers/hwmon/occ/occ_p8.h
 new file mode 100644
-index 0000000..92225f4
+index 0000000..848d564
 --- /dev/null
-+++ b/drivers/hwmon/occ/occ_scom_i2c.h
-@@ -0,0 +1,20 @@
++++ b/drivers/hwmon/occ/occ_p8.h
+@@ -0,0 +1,30 @@
 +/*
-+ * occ_i2c.c - hwmon OCC driver
++ * p8.h - OCC hwmon driver
 + *
-+ * This file contains the i2c layer for accessing the OCC over i2c bus.
++ * This file contains Power8-specific function prototypes
 + *
 + * Copyright 2016 IBM Corp.
 + *
@@ -169,7 +318,17 @@ index 0000000..92225f4
 + * GNU General Public License for more details.
 + */
 +
-+int occ_i2c_getscom(void *bus, u32 address, u8 *data, size_t offset);
-+int occ_i2c_putscom(void *bus, u32 address, u32 data0, u32 data1);
++#ifndef __P8_H__
++#define __P8_H__
++
++#include "scom.h"
++
++struct device;
++
++struct occ *occ_p8_start(struct device *dev, void *bus,
++                        struct occ_bus_ops bus_ops);
++int occ_p8_stop(struct occ *occ);
++
++#endif /* __P8_H__ */
 -- 
 1.9.1
