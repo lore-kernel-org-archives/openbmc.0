@@ -1,49 +1,49 @@
 Return-Path: <eajames.ibm@gmail.com>
-Received: from mail-wj0-x241.google.com (mail-wj0-x241.google.com
- [IPv6:2a00:1450:400c:c01::241])
+Received: from mail-wm0-x244.google.com (mail-wm0-x244.google.com
+ [IPv6:2a00:1450:400c:c09::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tSzXT67vBzDvnR
- for <openbmc@lists.ozlabs.org>; Wed, 30 Nov 2016 10:00:09 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tSzY136trzDvnR
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Nov 2016 10:00:37 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="m0lGgmiZ"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="bv3tHcnL"; 
  dkim-atps=neutral
-Received: by mail-wj0-x241.google.com with SMTP id xy5so20049349wjc.1
- for <openbmc@lists.ozlabs.org>; Tue, 29 Nov 2016 15:00:09 -0800 (PST)
+Received: by mail-wm0-x244.google.com with SMTP id u144so26706514wmu.0
+ for <openbmc@lists.ozlabs.org>; Tue, 29 Nov 2016 15:00:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=08D0pSa1o3cNwj9TjgOBtG5swL5fcuodFlYYF8jYdHE=;
- b=m0lGgmiZ9YQAlrjzShaHS3Te2xoGJ7PxX3vZEqHSK66qYVldiFe5K6+Orb3iBEKOue
- bNVmeWsv+bNs/eax1KoSUqqIzvfI2sUyOBpvmqfggWnHaiyunDo+369BWfs3FeQgiVYF
- v//CWOGjvVWp4nipGPkwJGE2dKYNDZRCFzBhEdiuojHX0eCSJOczLjXerQIKvlLWwObh
- EOfy3nuemMZlTvivl8W7rKjYxZ+8PaittzTyQRf7ugne71+YXB+5+Qxtzzb1lchtfL5M
- cuyFUwr+c/qkC8WgHjtlVqANV2d17nPlDwPUGAwWLBvYKdzQRoIbCt/fRfYQduCgMafN
- +uYw==
+ :cc; bh=AmU0XEPXkUre0wWBsWOtroCFl5DeseTevUY3Ghnuu9g=;
+ b=bv3tHcnLH6H+s+DohZrpJFCGqzHtOK7+XSYIV5GYfcGVyvQoa0IXB96L/R0F4NSI3e
+ xptEydpbKXelLILn4Ip5rncychhQfSWIYP6zU4zTHek4RILr+p+BcC+fkmmgzfFmN1z1
+ MoGeD3/P9QmNd4/idNQE1UWf5LOzpHI7SnPkVVk4d1dSBubitvN/CseHk4C65n4JJDWC
+ p+/t7OMtR//jvNb2q5kRO4NnzjWN+xJTjaFmP6hoRvjjg8kcttr5JBmFz2WTEodixjjV
+ 5YegzE8sbt1k3gTKgIrzDfos2OyEYffePT2tD2TcgYl1SYqvzmDRaaZKYk2nOm639bjt
+ q9Cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=08D0pSa1o3cNwj9TjgOBtG5swL5fcuodFlYYF8jYdHE=;
- b=ioh6ExC4c6iukH6CUKLNJWm4aWtWIV5CHFisvfNnUnGVYaguX17gujZoNAWgOYDIRB
- ATrRm7/evwc2adtAA6wspkuQ4gV+QzO6ia3XriP+/+t/ROdX++RM2u+B0uklw/EaIfoi
- /Xi8nHIG5QqJ01dsIewmVxivqXKnBRj3GrOiR1CVVQF1de1T8M1WahJu9iEG8SeFF8lT
- 3Kc0eTx8wWnOMlBNAcdkdP4OdEvRWReCrLTi06RPznKv82/D743+7/3b5SRER7cuC71v
- 1hMLkwSmVkH+axCw0d0xaOURx0Yvj516Nnkna5B5z2s5P+0nqSqpg6uGRoOKG72ZWTm+
- 35Tg==
-X-Gm-Message-State: AKaTC02VPFRfrJN83ZM06fyWgo/Se1gHfxCe66i2AhRr+ZxZXI0J/uRjkIId/nvxFMC6n3bP3GgQEwDiGQXDaQ==
-X-Received: by 10.194.169.227 with SMTP id ah3mr25428143wjc.2.1480460406701;
- Tue, 29 Nov 2016 15:00:06 -0800 (PST)
+ bh=AmU0XEPXkUre0wWBsWOtroCFl5DeseTevUY3Ghnuu9g=;
+ b=KvZNXuqdU3Zg7zRR9yLPlVSCNTVz7Lmq5xEB+lR7pLGgTroqMGiIlwC95h9J5uhvBa
+ N5wQH6V27PclAZhHQumz8KiLCmETF1vraObeHz9vQPTDS5ffyFUM+RHEZun9gH1MJBSK
+ Rbebe+3gZNe1oJrs5uGAJknBeUH4tueIr1aFYJoaaxXtaM8vhbOsmxqIultV+HFMqsp3
+ Z8Jl/u6P3UyHdI5R8ST9b1TxYkZfGLTQ0CesRjP5eaKlYPvjJVvia2JYu408Rym6ytpA
+ yR6fiVrDnGG35guPMD8DyzX1+WVxBKa+EGS+tHp79pEXQTmaabXVZ35YqpAZdjJuAbQm
+ wLSg==
+X-Gm-Message-State: AKaTC02jn7TkZ1FRRLQPIXVaUjOyYO5Pva8hUTxZjQ9G+jj3pXfb7TwRM06/ljP52IihYb1wT/CHVMyn7kGaYg==
+X-Received: by 10.28.21.1 with SMTP id 1mr28244314wmv.133.1480460434822; Tue,
+ 29 Nov 2016 15:00:34 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.194.37.229 with HTTP; Tue, 29 Nov 2016 15:00:06 -0800 (PST)
-In-Reply-To: <a8d6f13b45861401ffc6ea5b2e1d89519301483a.1478835488.git.andrew@aj.id.au>
+Received: by 10.194.37.229 with HTTP; Tue, 29 Nov 2016 15:00:34 -0800 (PST)
+In-Reply-To: <89c567400dbd58b02a90720004eacb27d5c58ed1.1478835488.git.andrew@aj.id.au>
 References: <1478560512-23791-1-git-send-email-eajames.ibm@gmail.com>
  <cover.1478835488.git.andrew@aj.id.au>
- <a8d6f13b45861401ffc6ea5b2e1d89519301483a.1478835488.git.andrew@aj.id.au>
+ <89c567400dbd58b02a90720004eacb27d5c58ed1.1478835488.git.andrew@aj.id.au>
 From: Eddie James <eajames.ibm@gmail.com>
-Date: Tue, 29 Nov 2016 17:00:06 -0600
-Message-ID: <CALpMbd=eu5gmjZ_-5mt0mkXs+RKXVjQ6ddLXmYzawa4PJJob9A@mail.gmail.com>
-Subject: Re: [RFC PATCH linux 6/9] hwmon: occ: Add hwmon implementation for
- the P8 OCC
+Date: Tue, 29 Nov 2016 17:00:34 -0600
+Message-ID: <CALpMbdnqzBsmEnGV6vZCQkxTFH8z57OnGsG5Sz2+UwSKhMfQfg@mail.gmail.com>
+Subject: Re: [RFC PATCH linux 9/9] wip: hwmon: occ: Add sketch of the hwmon
+ implementation for the P9 OCC
 To: Andrew Jeffery <andrew@aj.id.au>
 Cc: Joel Stanley <joel@jms.id.au>, "Edward A . James" <eajames@us.ibm.com>, 
  OpenBMC Maillist <openbmc@lists.ozlabs.org>
@@ -59,63 +59,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 Nov 2016 23:00:10 -0000
+X-List-Received-Date: Tue, 29 Nov 2016 23:00:38 -0000
 
 Hi Andrew,
 
-One comment on this one.
+Looks pretty good. Do we need to get this finalized before getting
+into our kernel or submitting it upstream? I don't think the SBE or
+FSI interfaces are nailed down, are they?
 
-Thanks,
 Eddie
 
 On Thu, Nov 10, 2016 at 10:12 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
 > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 > ---
->  drivers/hwmon/occ/Kconfig      |  14 +++++
->  drivers/hwmon/occ/Makefile     |   1 +
->  drivers/hwmon/occ/occ_p8_i2c.c | 133 +++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 148 insertions(+)
->  create mode 100644 drivers/hwmon/occ/occ_p8_i2c.c
+>  drivers/hwmon/occ/Kconfig      |  9 ++++
+>  drivers/hwmon/occ/Makefile     |  1 +
+>  drivers/hwmon/occ/occ_p9_fsi.c | 93 ++++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 103 insertions(+)
+>  create mode 100644 drivers/hwmon/occ/occ_p9_fsi.c
 >
 > diff --git a/drivers/hwmon/occ/Kconfig b/drivers/hwmon/occ/Kconfig
-> index cdb64a71af6e..085e1f370c42 100644
+> index 085e1f370c42..97b97b391bf9 100644
 > --- a/drivers/hwmon/occ/Kconfig
 > +++ b/drivers/hwmon/occ/Kconfig
-> @@ -13,3 +13,17 @@ menuconfig SENSORS_PPC_OCC
+> @@ -26,4 +26,13 @@ config SENSORS_PPC_OCC_P8_I2C
+>           This driver can also be built as a module. If so, the module will be
+>           called occ-p8-i2c.
 >
->           This driver can also be built as a module. If so, the module
->           will be called occ.
-> +
-> +if SENSORS_PPC_OCC
-> +
-> +config SENSORS_PPC_OCC_P8_I2C
-> +       tristate "POWER8 OCC hwmon support"
-> +       depends on I2C
+> +config SENSORS_PPC_OCC_P9_FSI
+> +       tristate "POWER9 OCC hwmon support"
 > +       help
-> +         Provide a hwmon sysfs interface for the POWER8 On-Chip Controller,
+> +         Provide a hwmon sysfs interface for the POWER9 On-Chip Controller,
 > +         exposing temperature, frequency and power measurements.
 > +
 > +         This driver can also be built as a module. If so, the module will be
-> +         called occ-p8-i2c.
+> +         called occ-p9-fsi.
 > +
-> +endif
+>  endif
 > diff --git a/drivers/hwmon/occ/Makefile b/drivers/hwmon/occ/Makefile
-> index a6881f93067c..05a84e987127 100644
+> index 05a84e987127..77e47e10195e 100644
 > --- a/drivers/hwmon/occ/Makefile
 > +++ b/drivers/hwmon/occ/Makefile
-> @@ -1 +1,2 @@
+> @@ -1,2 +1,3 @@
 >  obj-$(CONFIG_SENSORS_PPC_OCC) += occ.o occ_sysfs.o
-> +obj-$(CONFIG_SENSORS_PPC_OCC_P8_I2C) += occ_scom_i2c.o occ_p8.o occ_p8_i2c.o
-> diff --git a/drivers/hwmon/occ/occ_p8_i2c.c b/drivers/hwmon/occ/occ_p8_i2c.c
+>  obj-$(CONFIG_SENSORS_PPC_OCC_P8_I2C) += occ_scom_i2c.o occ_p8.o occ_p8_i2c.o
+> +obj-$(CONFIG_SENSORS_PPC_OCC_P9_FSI) += occ_p9.o occ_p9_fsi.o
+> diff --git a/drivers/hwmon/occ/occ_p9_fsi.c b/drivers/hwmon/occ/occ_p9_fsi.c
 > new file mode 100644
-> index 000000000000..1b66f302fe16
+> index 000000000000..2f651d1b16bf
 > --- /dev/null
-> +++ b/drivers/hwmon/occ/occ_p8_i2c.c
-> @@ -0,0 +1,133 @@
+> +++ b/drivers/hwmon/occ/occ_p9_fsi.c
+> @@ -0,0 +1,93 @@
 > +/*
-> + * occ_p8_i2c.c - hwmon OCC driver
-> + *
-> + * This file contains the i2c layer for accessing the OCC over i2c bus.
+> + * occ_p9_fsi.c - hwmon OCC driver
 > + *
 > + * Copyright 2016 IBM Corp.
 > + *
@@ -134,18 +130,16 @@ On Thu, Nov 10, 2016 at 10:12 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
 > +#include <linux/module.h>
 > +#include <linux/init.h>
 > +#include <linux/slab.h>
-> +#include <linux/i2c.h>
 > +#include <linux/err.h>
 > +#include <linux/of.h>
 > +#include <linux/kernel.h>
 > +#include <linux/device.h>
 > +
 > +#include "scom.h"
-> +#include "occ_scom_i2c.h"
-> +#include "occ_p8.h"
+> +#include "occ_p9.h"
 > +#include "occ_sysfs.h"
 > +
-> +#define OCC_I2C_NAME   "occ-p8-i2c"
+> +#define OCC_I2C_NAME   "occ-p9-fsi"
 > +
 > +static char *caps_sensor_names[] = {
 > +       "curr_powercap",
@@ -155,107 +149,59 @@ On Thu, Nov 10, 2016 at 10:12 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
 > +       "min_powercap",
 > +       "user_powerlimit"
 > +};
-
-Does it make more sense to define this in the P8 callbacks code?
-
 > +
-> +int p8_i2c_getscom(void *bus, u32 address, u8 *data, size_t offset)
+> +int p9_fsi_getscom(void *bus, u32 address, u8 *data, size_t offset)
 > +{
-> +       /* P8 i2c slave requires address to be shifted by 1 */
-> +       address = address << 1;
-> +
-> +       return occ_i2c_getscom(bus, address, data, offset);
+> +       return -SCOM_READ_ERROR;
 > +}
 > +
-> +int p8_i2c_putscom(void *bus, u32 address, u32 data0, u32 data1)
+> +int p9_fsi_putscom(void *bus, u32 address, u32 data0, u32 data1)
 > +{
-> +       /* P8 i2c slave requires address to be shifted by 1 */
-> +       address = address << 1;
-> +
-> +       return occ_i2c_putscom(bus, address, data0, data1);
+> +       return -SCOM_WRITE_ERROR;
 > +}
 > +
-> +static struct occ_bus_ops p8_bus_ops = {
-> +       .getscom = p8_i2c_getscom,
-> +       .putscom = p8_i2c_putscom,
+> +static struct occ_bus_ops p9_bus_ops = {
+> +       .getscom = p9_fsi_getscom,
+> +       .putscom = p9_fsi_putscom,
 > +};
 > +
-> +static struct occ_sysfs_config p8_sysfs_config = {
+> +static struct occ_sysfs_config p9_sysfs_config = {
 > +       .num_caps_fields = ARRAY_SIZE(caps_sensor_names),
 > +       .caps_names = caps_sensor_names,
 > +};
-
-Same as above for this structure.
-
 > +
-> +static int occ_p8_probe(struct i2c_client *client,
-> +                        const struct i2c_device_id *id)
+> +int occ_p9_probe(struct device *dev, void *client)
 > +{
 > +       struct occ *occ;
 > +       struct occ_sysfs *hwmon;
 > +
-> +       occ = occ_p8_start(&client->dev, client, p8_bus_ops);
+> +       occ = occ_p9_start(dev, client, p9_bus_ops);
 > +       if (IS_ERR(occ))
 > +               return PTR_ERR(occ);
 > +
-> +       hwmon = occ_sysfs_start(&client->dev, occ, &p8_sysfs_config);
-
-I see why you defined those here. But I guess I don't see why
-occ_sysfs_config has to be separate from occ_config structure. It
-could be populated in occ_p8_start and then passed to occ_sysfs_start
-here.
-
+> +       hwmon = occ_sysfs_start(dev, occ, &p9_sysfs_config);
 > +       if (IS_ERR(hwmon))
 > +               return PTR_ERR(hwmon);
-> +
-> +       i2c_set_clientdata(client, hwmon);
 > +
 > +       return 0;
 > +}
 > +
-> +static int occ_p8_remove(struct i2c_client *client)
+> +int occ_p9_remove(void)
 > +{
-> +       return occ_p8_stop(i2c_get_clientdata(client));
-> +}
+> +       struct occ *occ = NULL;
 > +
-> +/* used by old-style board info. */
-> +static const struct i2c_device_id occ_ids[] = {
-> +       { OCC_I2C_NAME, 0 },
-> +       {}
-> +};
-> +MODULE_DEVICE_TABLE(i2c, occ_ids);
+> +       return occ_p9_stop(occ);
+> +}
 > +
 > +/* used by device table */
 > +static const struct of_device_id occ_of_match[] = {
-> +       { .compatible = "ibm,occ-p8-i2c" },
+> +       { .compatible = "ibm,occ-p9-fsi" },
 > +       {}
 > +};
 > +MODULE_DEVICE_TABLE(of, occ_of_match);
 > +
-> +/*
-> + * i2c-core uses i2c-detect() to detect device in below address list.
-> + * If exists, address will be assigned to client.
-> + * It is also possible to read address from device table.
-> + */
-> +static const unsigned short normal_i2c[] = {0x50, 0x51, I2C_CLIENT_END };
-> +
-> +static struct i2c_driver occ_p8_driver = {
-> +       .class = I2C_CLASS_HWMON,
-> +       .driver = {
-> +               .name = OCC_I2C_NAME,
-> +               .pm = NULL,
-> +               .of_match_table = occ_of_match,
-> +       },
-> +       .probe = occ_p8_probe,
-> +       .remove = occ_p8_remove,
-> +       .id_table = occ_ids,
-> +       .address_list = normal_i2c,
-> +};
-> +
-> +module_i2c_driver(occ_p8_driver);
-> +
 > +MODULE_AUTHOR("Eddie James <eajames@us.ibm.com>");
-> +MODULE_DESCRIPTION("BMC P8 OCC hwmon driver");
+> +MODULE_DESCRIPTION("BMC P9 OCC hwmon driver");
 > +MODULE_LICENSE("GPL");
 > --
 > 2.9.3
