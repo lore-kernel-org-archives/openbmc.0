@@ -1,54 +1,30 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tT2WM3jW5zDrBx
- for <openbmc@lists.ozlabs.org>; Wed, 30 Nov 2016 12:14:23 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="M2YSEMBo"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="D7Pnq1QZ"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 6DE0A206BB;
- Tue, 29 Nov 2016 20:14:21 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Tue, 29 Nov 2016 20:14:21 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=Cr5H7YfCHiWSPMOw3BENKExNKkk=; b=M2YSEM
- BoUpzz5yfLV66wYibln0EiUXH0u0m/o80xLIxWo1JMDYsu2dh5qP+tSc2jJYeyRH
- WtiJyY/prjPFMdQ9w9LyokLu3eFN8WzqeYpb/GWcL+tlNDrTevA/ANLkiEMVqP8Z
- c1W6jmBZ5gmomxdIsMs8h4woKq2IFUroR+rZE=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=Cr5H7YfCHiWSPM
- Ow3BENKExNKkk=; b=D7Pnq1QZU2D2t/BnYlH9F0ItfiZeufSIYyr6ia+LjRV+7u
- Zk8xR5rhPjentbdnZzxobjKH3lpJhiRYO9w2eRn2Ea6vp4gb4rIXN+uOGOuQuXqK
- IHTc1Jnh8HlLbkjDfbZHyMIXkT70vNV/Uiki9Dicu7QzQaqrJTBWqKneHeLdE=
-X-ME-Sender: <xms:7Sc-WJeL3h5UcuFwMtVuReaAqcyM1KVmJHs0nR2_SCP6UwuXYZVUxw>
-X-Sasl-enc: 3y6zyf7vfubwWR+8UKJafTf1axRFYBPe0maXw2NbcDVZ 1480468460
-Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 8BE262461E;
- Tue, 29 Nov 2016 20:14:19 -0500 (EST)
-Message-ID: <1480468456.2503.102.camel@aj.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tT3y81y6hzDvv5
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Nov 2016 13:19:12 +1100 (AEDT)
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mx.zohomail.com
+ with SMTPS id 1480472344369651.9748970530666;
+ Tue, 29 Nov 2016 18:19:04 -0800 (PST)
+Date: Tue, 29 Nov 2016 20:19:02 -0600
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Matt Spinler <mspinler@linux.vnet.ibm.com>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Subject: Re: Starting the phosphor-hwmon service from udev rules
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Matt Spinler <mspinler@linux.vnet.ibm.com>, Patrick Williams
- <patrick@stwcx.xyz>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Wed, 30 Nov 2016 11:44:16 +1030
-In-Reply-To: <accb6902-8485-6f7f-c981-4930bb911b08@linux.vnet.ibm.com>
+Message-ID: <20161130021902.GT15757@heinlein.lan>
 References: <32e4f53c-5bab-55ba-50f2-25ba891d4127@linux.vnet.ibm.com>
  <20161129024216.GS15757@heinlein.lan>
  <accb6902-8485-6f7f-c981-4930bb911b08@linux.vnet.ibm.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-b1EEsfwIPbSY7h7/8CGs"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="nDmTXYS4kVhtHHfR"
+Content-Disposition: inline
+In-Reply-To: <accb6902-8485-6f7f-c981-4930bb911b08@linux.vnet.ibm.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,49 +36,93 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 Nov 2016 01:14:24 -0000
+X-List-Received-Date: Wed, 30 Nov 2016 02:19:12 -0000
 
 
---=-b1EEsfwIPbSY7h7/8CGs
-Content-Type: text/plain; charset="UTF-8"
+--nDmTXYS4kVhtHHfR
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2016-11-29 at 10:30 -0600, Matt Spinler wrote:
-> Another issue I have is if the MRW should have the knowledge of if a
-> device has a hwmon driver or not?=C2=A0 While it would make things a lot
-> more simple if it did, I'm not sure if it's in its domain. If it
-> doesn't, then it would either still generate rules and unit files for
-> every I2C device and some just wouldn't get used
+Matt,
 
-This seems reasonable to me. That way as hwmon drivers are added to the
-kernel we have no extra work to do to enable the devices, and we don't
-have work to do to keep a list of disabled devices.
+We had a phone discussion last night with Joel, Andrew J, and Brad and I
+was suppose to catch up with you today and never found time to.  (It was
+half-impromptu and half-miscommunication on the desired topic.)
 
-The "extra" cruft is a problem if we're running out of space, but I
-doubt udev rules and systemd unit files are going to be our first
-concern there.
+The net is that we came up with a third option for specifying these:
 
-Andrew
---=-b1EEsfwIPbSY7h7/8CGs
+   1. Unique udev rules per device with corresponding environment file, and
+      single systemd service,=20
+   2. Single udev rule per driver, unique systemd service file (with
+      corresponding environment file?) per device.
+
+   3. Single udev rule per driver, single template systemd service file per
+      application (ex. phosphor-hwmon@.service), unique environment file
+      per device.
+
+On Tue, Nov 29, 2016 at 10:30:12AM -0600, Matt Spinler wrote:
+
+> So now I think the rule would look something like:
+> SUBSYSTEM=3D=3D"hwmon", DEVPATH=3D=3D"*i2c-3/3-0077/*", ACTION =3D=3D "ad=
+d",=20
+> TAG+=3D"systemd",=20
+> ENV{SYSTEMD_WANTS}+=3D"phosphor-hwmon-3-0077@/sys/class/hwmon/%k.service"
+
+The 'SYSTEMD_WANTS' is useful if you want to trigger a specific
+service.  If you leave that out, by default systemd triggers a @.device,
+which other services can depend on.  sys-class-i2c-dev-i2c-3-0077.device
+maybe in this case?
+
+> and could use the Environment or EnvironmentFile directive in the=20
+> generated device specific unit file to pick up threshold vars.
+
+In obmc-console@.service we have an example of using 'BindsTo'.  I think
+we could write the phosphor-hwmon@.service to 'BindTo=3Dsys-%i' and also
+ConditionPathExists=3D/etc/conf.d/phosphor-hwmon-%i ,
+EnvironmentFile=3D/etc/conf.d/phosphor-hwmon-%i ?
+
+> Another issue I have is if the MRW should have the knowledge of if a=20
+> device has a hwmon driver or not?  While it would make things a lot more=
+=20
+> simple if it did, I'm not sure if it's in its domain. If it doesn't,=20
+> then it would either still generate rules and unit files for every I2C=20
+> device and some just wouldn't get used, or we'd have to keep that=20
+> knowledge in our tree somewhere.
+> Thoughts on that?
+
+Doesn't it have to?  It isn't just that there is an lm77 sensor out on
+an i2c bus and therefore we create the environment file.  The
+environment file needs to have a decent amount of information, such as
+what is the "NiceName" of the sensor ("FrontAmbient" maybe).  When you
+talk about one of the MAX fan controller chips we potentially have
+multiple fans on that chip so it more than one "sensor" worth of
+configuration as well.  I can't imagine how the MRW data wouldn't
+effectively encode that we expect the device to have an hwmon driver
+(not directly, but indirectly by the presence of this information).
+
+--=20
+Patrick Williams
+
+--nDmTXYS4kVhtHHfR
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJYPifoAAoJEJ0dnzgO5LT57IwQAJj4mgPOdHuttVIYxCN/uuSG
-UiSmjrWqDFEN+W6umcmo9EUxt9eKNqBSmfthAeikLD1F6UD8+/VDRfvroWM7QhTt
-vmOV2vEqeLxqSHMGQagjaKriO/giu6KOvCoS74QuwCIGvKV0hs3/31XZt2ddRBBs
-jT9IG4rY0dljdNRvTpNPK2jgqg7XOmDY2CywT5bvfAm1uR41MhY1kTTDdE2zcqH/
-hANi1peT3ncuNILdiyTYshhHSMYChtNmh/s8n+ANME/VeYqPau+Fnzm6Zu7mowrf
-048JHO244alnoxC8rN4BZwrM82pkJVLIa300DkJ5NGQCp8wiIJ1hD53bl3JIbR3z
-JSIfu1Ktmy0tVIDLfoq2okBVA44w4pYnqBI44i51o8zuZ46KrsyNvJAW+WbRqpT1
-b8mOo9WbzLsJYm5J153S9+GEp3BnMafWNRnBItWJ/IYC6VXY1gP98tFQbV7AtEYe
-H3Pj5zd88u89/eArw64y6i/hOM1h3FqdGUDJjdkl2qhDtbO3ZZSwJAnOwuruQJdc
-pyKkqtHmgTe99/60Izr/cEd4O42ETrrEe5PEzViqHnaa1S8ENhFO/b8HNZ5KpGCf
-QBc9alnL7dJZ40Tkh5bGD29dBCWBOS2f1ylPOSeW71lRsPi4Rqrf0otPjMqdGojt
-fbpuDwZzLCzaBIZtuhy3
-=K1HH
+iQIcBAEBCAAGBQJYPjcUAAoJEKsDR8wtAMEZ3wsQAJenWBJ4QU1SfnyBAiG4KWPB
+JeDzSsVSm6sW8Ph9I/ghY4tSU+GQy/lJx7ZPmZobA5/Go+Cti54hWGRkzxCxQ6MV
+5ZA3RyqZjVxknQCg1c1myH1CTp/lPd/C72Fm3/bvY/R1T+pPNoWEZ0nkpVj6akaa
+Qp1wmAyunid0lIRDkGfy/wO04ugd/0eceMDjDSF6fcZmC6K8ZESwoMpFRKmBC2nW
+XdudSnvm9KRuRj2NBR2xYhinOg4bRLz9G7pTk3v4kBg+0979DMhwKNAb6dzn9e/I
+OJN1pGJ4RQdfOGngMYheCgnllNc8qL5/s/Y7NByzmY2lN8oxWUb+F8LoyVA0Ikf3
+KvWcWDMgfsn+mAJmasND8umAL102fjbUSqEYFb1LzVTMoZs0dnq3AH9bUP28K7zX
+r7hGBt9fR0l4R0sT3sQo6/HOtSTpTDdX7I/YwylQTz39X7fFZDmke34DomWx+Yig
+LlIQmcc3c11gH+GUO5FaLCIGEWfvEujvOtArV4/BEMcyeY0GK3yPLXs3JR/CUa9I
+W8k5IMz8HrzWG0ltdumK6Y3pCF2aCzULCV5SOY8rzhVDaL0amlZwqM1ET+pOox95
+TogX2t3bI/FJceIyutpK5Ho7efXsIQ3yCbjx3hcbZxWaPonE7eb06m6ZR7THAf9l
+ME8qILbWD/bpwmrEx32I
+=9SFX
 -----END PGP SIGNATURE-----
 
---=-b1EEsfwIPbSY7h7/8CGs--
+--nDmTXYS4kVhtHHfR--
