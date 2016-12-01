@@ -1,51 +1,52 @@
-Return-Path: <xow@google.com>
-Received: from mail-pg0-x22f.google.com (mail-pg0-x22f.google.com
- [IPv6:2607:f8b0:400e:c05::22f])
+Return-Path: <maxims@google.com>
+Received: from mail-pg0-x231.google.com (mail-pg0-x231.google.com
+ [IPv6:2607:f8b0:400e:c05::231])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tTmZ41LrWzDvrV
- for <openbmc@lists.ozlabs.org>; Thu,  1 Dec 2016 16:49:15 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tV9Bc3nHMzDvh7
+ for <openbmc@lists.ozlabs.org>; Fri,  2 Dec 2016 08:18:47 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="R4QE4d2k"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="VobsCl1S"; 
  dkim-atps=neutral
-Received: by mail-pg0-x22f.google.com with SMTP id p66so90986547pga.2
- for <openbmc@lists.ozlabs.org>; Wed, 30 Nov 2016 21:49:15 -0800 (PST)
+Received: by mail-pg0-x231.google.com with SMTP id f188so98615510pgc.3
+ for <openbmc@lists.ozlabs.org>; Thu, 01 Dec 2016 13:18:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=9SV3UjLJzoTnN3g0nSCTalAh3l0dco0GXr698jicqjQ=;
- b=R4QE4d2kJdF/kNMykeDHKcGoiYNJYbAwIm4Sf4Maxb3NxOGNebpkcYltQqxAda6M2z
- x8KTsKYXQM/hiZ/PDzMl9fWN0pRJXl7dY+4l2sYgNel1K/oY6aFKxbUTuTjLy4dZVLai
- NtBGETylGDqhJR7vlI+W65cEwEsgphBBfuBz6Trt578PdyU85t3ESz/pQAg5Dm6yI/SE
- 21+S0mrcfmaeZ0DEriLY5dSW3VmboGZx5OgcUxt8FxrBTLOJ1hGmLFjvVu/cb8bkVY1p
- 6Cb3IRL9mqFkJPcP2yNrFL8tUynabttnf3mh5hZL/FEHu2vvc4+Rip5/ws9oDicVwl9c
- 1dFw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=SyuOPfUljRV5H1D5z4ew8qAbN7hj106LXyOynjNUomg=;
+ b=VobsCl1SVcMx5qVAkGrZnLBfeD+8Rgl33TKCADBg6/a4ifucv4abQBnNWgsUsmBd5E
+ AUGabzr1nekpVd12Yl7gsAdcRr3AHKD4e8dOS4aZh2bGAXX0jVQm89UusEuEFMG2vfNp
+ EIUbNl+GxlQjDINclRHpG0irZjhKyd/KMJav5udragK4T+OiP4ZsZG3xiU8Wy+5yir5b
+ GoOCNKcFYz6qPZJH9cVeiUWXgFL7UHiwF4OXnSrjHKFnMejG8Qo1UjRVHtxTvONcFDbO
+ tqrdvQXhO1wKlQ5jyhM47oKuPBVQrqU1fV0xPp51DbjrzQU8vBWgH/bvpJ3DezfYIEZJ
+ DY2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=9SV3UjLJzoTnN3g0nSCTalAh3l0dco0GXr698jicqjQ=;
- b=kkKbxG2r6/1r9yzban/vHz3VL/dFMFqbEWzO8PpqV/9DJtCtEm6AdCIRoKupokDFda
- xyJtJG8LAzIMgQuN8bAFcdpb0bT1q+toPaddUEs5GI9mrVri5syf/1FlWv2dmsSm+8o+
- OqfvY3i699yflApCZBoJP6RvxY3yyA78ABq7VOMpTnhPLavL2KJ/MKw3cOyrEeb3/uRI
- 46nsYP3ffS2vCJHV7xv1I+oZ7uWBG+QRHcXlFN17w3tX8XRtdsuFUeP1vO5fi2UiUzBG
- eNu5uDwSQEqaQomh4bmOlYWW/cH0vETz4CWNYyFAiFDEMwZPY7guRY5wViS5Sau3ejTd
- yWBQ==
-X-Gm-Message-State: AKaTC03WEAbF0Sy1AwBqjSHcwDtsJFwWyaVk/u5FG++uInLcQmE3py9XLkETPIDqGwdatVTf
-X-Received: by 10.99.63.135 with SMTP id m129mr66228517pga.16.1480571353345;
- Wed, 30 Nov 2016 21:49:13 -0800 (PST)
-Received: from pewter.svl.corp.google.com ([100.123.242.121])
- by smtp.gmail.com with ESMTPSA id 135sm89074126pgc.7.2016.11.30.21.49.11
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=SyuOPfUljRV5H1D5z4ew8qAbN7hj106LXyOynjNUomg=;
+ b=BA2sjYm6vX1HbBvdTi7Ful8u49aSBPLoL8uboQ7HwFcnLQrzSt9awyoquASiavttFz
+ 1apgpJa/77JW7raornJc2VCkrlV7VDsVdT0VSz1VCB7wh8lROv8vSfnMh36Ahydili2z
+ 2WTg7WcejFZjytsHxkXYpA36WDVzLGu/gGVKnoy+XI8RGLWw3XhIckJRYIpm7B+klV1A
+ eZ0kvJv3invD7NCL1UzAshSav58UuBoJ53OzQIXNUvyI6Pg+okzO8kfOxhLwrPQqDFZt
+ eXe12RBmF7+ZEDMwVG+zcBewDix0KkjvS+ZUbshS01jTGQOwuxcEXsUZRkRTY2PLnQk9
+ bffw==
+X-Gm-Message-State: AKaTC03E2jCAmNUXhfEzPiRdADdQkL4N7biU2XgkdazhswblIwskQE9pGGdqpR2hxi2y2Qj5
+X-Received: by 10.84.177.129 with SMTP id x1mr84023236plb.105.1480627125917;
+ Thu, 01 Dec 2016 13:18:45 -0800 (PST)
+Received: from mxsl.svl.corp.google.com ([100.123.242.80])
+ by smtp.gmail.com with ESMTPSA id r21sm2264446pfd.44.2016.12.01.13.18.45
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Wed, 30 Nov 2016 21:49:12 -0800 (PST)
-From: Xo Wang <xow@google.com>
+ Thu, 01 Dec 2016 13:18:45 -0800 (PST)
+From: Maxim Sloyko <maxims@google.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux] arm: aspeed: zaius: Setup LPC to AHB bridge
-Date: Wed, 30 Nov 2016 21:49:05 -0800
-Message-Id: <1480571345-135418-1-git-send-email-xow@google.com>
+Cc: sjg@chromium.org,
+	Maxim Sloyko <maxims@google.com>
+Subject: [PATCH u-boot v3 2/6] aspeed: Fix FUC/FUN typo in SCU
+Date: Thu,  1 Dec 2016 13:18:31 -0800
+Message-Id: <1480627115-5759-2-git-send-email-maxims@google.com>
 X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <1480627115-5759-1-git-send-email-maxims@google.com>
+References: <1480627115-5759-1-git-send-email-maxims@google.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,55 +58,119 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Dec 2016 05:49:16 -0000
+X-List-Received-Date: Thu, 01 Dec 2016 21:18:49 -0000
 
-Add explicit SPI1 flash windows rather than use boot values.
-Add 64 MiB mapping for LPC host interface to SPI1 CE0's window.
-Add missing call to do_common_setup() which includes enabling LPC FWH
-access cycles.
+Change FUC to FUN in SCU registers naming, which was a typo that go out
+of hand
 
-Signed-off-by: Xo Wang <xow@google.com>
+Signed-off-by: Maxim Sloyko <maxims@google.com>
+Reviewed-by: Simon Glass <sjg@chromium.org>
 ---
- arch/arm/mach-aspeed/aspeed.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+Changes for v1:
+	Patch split into two parts with this part only fixing the FUC->FUN typo.
+---
+ arch/arm/include/asm/arch-aspeed/regs-scu.h | 64 ++++++++++++++---------------
+ arch/arm/mach-aspeed/ast-scu.c              |  2 +-
+ 2 files changed, 33 insertions(+), 33 deletions(-)
 
-diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
-index a491cd2..807ccc2 100644
---- a/arch/arm/mach-aspeed/aspeed.c
-+++ b/arch/arm/mach-aspeed/aspeed.c
-@@ -137,6 +137,8 @@ static void __init do_zaius_setup(void)
- 	unsigned long reg;
- 	unsigned long board_rev;
- 
-+	do_common_setup();
+diff --git a/arch/arm/include/asm/arch-aspeed/regs-scu.h b/arch/arm/include/asm/arch-aspeed/regs-scu.h
+index b714fa9..5445023 100644
+--- a/arch/arm/include/asm/arch-aspeed/regs-scu.h
++++ b/arch/arm/include/asm/arch-aspeed/regs-scu.h
+@@ -830,49 +830,49 @@
+ /* AST_SCU_FUN_PIN_CTRL5		0x90 - Multi-function Pin Control#5 */
+ #define SCU_FUN_PIN_SPICS1		(0x1 << 31)
+ #define SCU_FUN_PIN_LPC_PLUS		(0x1 << 30)
+-#define SCU_FUC_PIN_USB20_HOST		(0x1 << 29)
+-#define SCU_FUC_PIN_USB11_PORT4		(0x1 << 28)
+-#define SCU_FUC_PIN_I2C14		(0x1 << 27)
+-#define SCU_FUC_PIN_I2C13		(0x1 << 26)
+-#define SCU_FUC_PIN_I2C12		(0x1 << 25)
+-#define SCU_FUC_PIN_I2C11		(0x1 << 24)
+-#define SCU_FUC_PIN_I2C10		(0x1 << 23)
+-#define SCU_FUC_PIN_I2C9		(0x1 << 22)
+-#define SCU_FUC_PIN_I2C8		(0x1 << 21)
+-#define SCU_FUC_PIN_I2C7		(0x1 << 20)
+-#define SCU_FUC_PIN_I2C6		(0x1 << 19)
+-#define SCU_FUC_PIN_I2C5		(0x1 << 18)
+-#define SCU_FUC_PIN_I2C4		(0x1 << 17)
+-#define SCU_FUC_PIN_I2C3		(0x1 << 16)
+-#define SCU_FUC_PIN_MII2_RX_DWN_DIS	(0x1 << 15)
+-#define SCU_FUC_PIN_MII2_TX_DWN_DIS	(0x1 << 14)
+-#define SCU_FUC_PIN_MII1_RX_DWN_DIS	(0x1 << 13)
+-#define SCU_FUC_PIN_MII1_TX_DWN_DIS	(0x1 << 12)
+-
+-#define SCU_FUC_PIN_MII2_TX_DRIV(x)	(x << 10)
+-#define SCU_FUC_PIN_MII2_TX_DRIV_MASK	(0x3 << 10)
+-#define SCU_FUC_PIN_MII1_TX_DRIV(x)	(x << 8)
+-#define SCU_FUC_PIN_MII1_TX_DRIV_MASK	(0x3 << 8)
++#define SCU_FUN_PIN_USB20_HOST		(0x1 << 29)
++#define SCU_FUN_PIN_USB11_PORT4		(0x1 << 28)
++#define SCU_FUN_PIN_I2C14		(0x1 << 27)
++#define SCU_FUN_PIN_I2C13		(0x1 << 26)
++#define SCU_FUN_PIN_I2C12		(0x1 << 25)
++#define SCU_FUN_PIN_I2C11		(0x1 << 24)
++#define SCU_FUN_PIN_I2C10		(0x1 << 23)
++#define SCU_FUN_PIN_I2C9		(0x1 << 22)
++#define SCU_FUN_PIN_I2C8		(0x1 << 21)
++#define SCU_FUN_PIN_I2C7		(0x1 << 20)
++#define SCU_FUN_PIN_I2C6		(0x1 << 19)
++#define SCU_FUN_PIN_I2C5		(0x1 << 18)
++#define SCU_FUN_PIN_I2C4		(0x1 << 17)
++#define SCU_FUN_PIN_I2C3		(0x1 << 16)
++#define SCU_FUN_PIN_MII2_RX_DWN_DIS	(0x1 << 15)
++#define SCU_FUN_PIN_MII2_TX_DWN_DIS	(0x1 << 14)
++#define SCU_FUN_PIN_MII1_RX_DWN_DIS	(0x1 << 13)
++#define SCU_FUN_PIN_MII1_TX_DWN_DIS	(0x1 << 12)
 +
- 	/* Read BOARD_REV[4:0] fuses from GPIOM[7:3] */
- 	reg = readl(AST_IO(AST_BASE_GPIO | 0x78));
- 	board_rev = (reg >> 3) & 0x1F;
-@@ -162,6 +164,24 @@ static void __init do_zaius_setup(void)
- 		reg = readl(AST_IO(AST_BASE_GPIO | 0x00));
- 		writel(reg | phy_reset_mask, AST_IO(AST_BASE_GPIO | 0x00));
- 	}
-+
-+	/* Setup PNOR address mapping for 64M flash
-+	 *
-+	 *   ADRBASE: 0x3000 (0x30000000)
-+	 *   HWMBASE: 0x0C00 (0x0C000000)
-+	 *  ADDRMASK: 0xFC00 (0xFC000000)
-+	 *   HWNCARE: 0x03FF (0x03FF0000)
-+	 *
-+	 * Mapping appears at 0x60300fc000000 on the host
-+	 */
-+	writel(0x30000C00, AST_IO(AST_BASE_LPC | 0x88));
-+	writel(0xFC0003FF, AST_IO(AST_BASE_LPC | 0x8C));
-+
-+	/* Set SPI1 CE1 decoding window to 0x34000000 */
-+	writel(0x70680000, AST_IO(AST_BASE_SPI | 0x34));
-+
-+	/* Set SPI1 CE0 decoding window to 0x30000000 */
-+	writel(0x68600000, AST_IO(AST_BASE_SPI | 0x30));
- }
- 
- static void __init do_witherspoon_setup(void)
--- 
++#define SCU_FUN_PIN_MII2_TX_DRIV(x)	(x << 10)
++#define SCU_FUN_PIN_MII2_TX_DRIV_MASK	(0x3 << 10)
++#define SCU_FUN_PIN_MII1_TX_DRIV(x)	(x << 8)
++#define SCU_FUN_PIN_MII1_TX_DRIV_MASK	(0x3 << 8)
+
+ #define MII_NORMAL_DRIV			0x0
+ #define MII_HIGH_DRIV			0x2
+
+-#define SCU_FUC_PIN_UART6		(0x1 << 7)
+-#define SCU_FUC_PIN_ROM_16BIT		(0x1 << 6)
+-#define SCU_FUC_PIN_DIGI_V_OUT(x)	(x)
+-#define SCU_FUC_PIN_DIGI_V_OUT_MASK	(0x3)
++#define SCU_FUN_PIN_UART6		(0x1 << 7)
++#define SCU_FUN_PIN_ROM_16BIT		(0x1 << 6)
++#define SCU_FUN_PIN_DIGI_V_OUT(x)	(x)
++#define SCU_FUN_PIN_DIGI_V_OUT_MASK	(0x3)
+
+ #define VIDEO_DISABLE			0x0
+ #define VIDEO_12BITS			0x1
+ #define VIDEO_24BITS			0x2
+ //#define VIDEO_DISABLE			0x3
+
+-#define SCU_FUC_PIN_USB11_PORT2		(0x1 << 3)
+-#define SCU_FUC_PIN_SD1_8BIT		(0x1 << 3)
++#define SCU_FUN_PIN_USB11_PORT2		(0x1 << 3)
++#define SCU_FUN_PIN_SD1_8BIT		(0x1 << 3)
+
+-#define SCU_FUC_PIN_MAC1_MDIO		(0x1 << 2)
+-#define SCU_FUC_PIN_SD2			(0x1 << 1)
+-#define SCU_FUC_PIN_SD1			(0x1 << 0)
++#define SCU_FUN_PIN_MAC1_MDIO		(0x1 << 2)
++#define SCU_FUN_PIN_SD2			(0x1 << 1)
++#define SCU_FUN_PIN_SD1			(0x1 << 0)
+
+
+ /* AST_SCU_FUN_PIN_CTRL6		0x94 - Multi-function Pin Control#6*/
+diff --git a/arch/arm/mach-aspeed/ast-scu.c b/arch/arm/mach-aspeed/ast-scu.c
+index 0cc0d67..280c421 100644
+--- a/arch/arm/mach-aspeed/ast-scu.c
++++ b/arch/arm/mach-aspeed/ast-scu.c
+@@ -394,7 +394,7 @@ void ast_scu_multi_func_eth(u8 num)
+ 			      AST_SCU_FUN_PIN_CTRL1);
+
+ 		ast_scu_write(ast_scu_read(AST_SCU_FUN_PIN_CTRL5) |
+-			      SCU_FUC_PIN_MAC1_MDIO,
++			      SCU_FUN_PIN_MAC1_MDIO,
+ 			      AST_SCU_FUN_PIN_CTRL5);
+
+ 		break;
+--
 2.8.0.rc3.226.g39d4020
