@@ -1,54 +1,51 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-vk0-x231.google.com (mail-vk0-x231.google.com
- [IPv6:2607:f8b0:400c:c05::231])
+Return-Path: <xow@google.com>
+Received: from mail-pg0-x22f.google.com (mail-pg0-x22f.google.com
+ [IPv6:2607:f8b0:400e:c05::22f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tThgL45GDzDvyT
- for <openbmc@lists.ozlabs.org>; Thu,  1 Dec 2016 13:53:34 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tTmZ41LrWzDvrV
+ for <openbmc@lists.ozlabs.org>; Thu,  1 Dec 2016 16:49:15 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="aFnnPM2x"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="R4QE4d2k"; 
  dkim-atps=neutral
-Received: by mail-vk0-x231.google.com with SMTP id 137so121551809vkl.0
- for <openbmc@lists.ozlabs.org>; Wed, 30 Nov 2016 18:53:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=girWP2w5BEmRXD2uMAfstK4KzazJ7gA2OmYzz5YrGT4=;
- b=aFnnPM2xJkqis16WBuZMcmWPb9f64f6zepOODQdr2D6nAXFNNkw4ZYrnLnRlUS8SId
- oOz7g3QRGuvsuILO2oQoHizmPO14PytM+WiCJsvszTabbyLiv6J2vOYNkhjHyi64UylK
- /H+9xfYa99yM2tOoRuw3ND5F8ATnLhmuk5aWF86I1D5YYEn9StorDwj6bv4Xsxkj1A+T
- EMkKE2MGw56vfmhQ/il9Hl5fPh2THeRxuMhRIiUFV0YqhtibyFesHgvee/5YLXixkYr7
- Q+C2x2aHLru7pQGAeS1m3mDgdd63Nehl5E0qDgp+sdjAOnaqfYjk33cJxSGSa2rpdQon
- +lWw==
+Received: by mail-pg0-x22f.google.com with SMTP id p66so90986547pga.2
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Nov 2016 21:49:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=9SV3UjLJzoTnN3g0nSCTalAh3l0dco0GXr698jicqjQ=;
+ b=R4QE4d2kJdF/kNMykeDHKcGoiYNJYbAwIm4Sf4Maxb3NxOGNebpkcYltQqxAda6M2z
+ x8KTsKYXQM/hiZ/PDzMl9fWN0pRJXl7dY+4l2sYgNel1K/oY6aFKxbUTuTjLy4dZVLai
+ NtBGETylGDqhJR7vlI+W65cEwEsgphBBfuBz6Trt578PdyU85t3ESz/pQAg5Dm6yI/SE
+ 21+S0mrcfmaeZ0DEriLY5dSW3VmboGZx5OgcUxt8FxrBTLOJ1hGmLFjvVu/cb8bkVY1p
+ 6Cb3IRL9mqFkJPcP2yNrFL8tUynabttnf3mh5hZL/FEHu2vvc4+Rip5/ws9oDicVwl9c
+ 1dFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=girWP2w5BEmRXD2uMAfstK4KzazJ7gA2OmYzz5YrGT4=;
- b=mTiUl5pKMUo8fV4cWS8vZhqbkWJorRpb+R297jaFr0EzH8yGp72hUlV+N2LkOQLXyJ
- kKKDAT+KkmE7BY1kVRMF6xAaigS4XoLbjwFa8uCfWVzv7BbXE84Cxmtfgvp4pBzQ0v02
- A+4LETHr7ToNs2xkKfF/YMvRzGQxBvDMzhJ4LYqe3q2Oe/puYGGxOlzEMVfthp4bJmEf
- 9zlw2KfX7ekdddhewXgfhoO3rRTm4P37OVnuKp3hQ0SbfbGUIoPv/Mxji3PHZiAlulcl
- O8rDt4dpqF9VG643OaqqoLjn3N3FVbxnihCK12tZ6H8qdHm1Ha8meeesG9S88wpoHx46
- 7WFQ==
-X-Gm-Message-State: AKaTC02eGfgXh6Z5VLutsD++XacNcOjhS6+Jnu+9+iIVUxNhpQWKRXrpfX8ufMMr+PcHJ0xTOpIs/D205N/aBQ==
-X-Received: by 10.31.49.216 with SMTP id x207mr13468438vkx.82.1480560812007;
- Wed, 30 Nov 2016 18:53:32 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=9SV3UjLJzoTnN3g0nSCTalAh3l0dco0GXr698jicqjQ=;
+ b=kkKbxG2r6/1r9yzban/vHz3VL/dFMFqbEWzO8PpqV/9DJtCtEm6AdCIRoKupokDFda
+ xyJtJG8LAzIMgQuN8bAFcdpb0bT1q+toPaddUEs5GI9mrVri5syf/1FlWv2dmsSm+8o+
+ OqfvY3i699yflApCZBoJP6RvxY3yyA78ABq7VOMpTnhPLavL2KJ/MKw3cOyrEeb3/uRI
+ 46nsYP3ffS2vCJHV7xv1I+oZ7uWBG+QRHcXlFN17w3tX8XRtdsuFUeP1vO5fi2UiUzBG
+ eNu5uDwSQEqaQomh4bmOlYWW/cH0vETz4CWNYyFAiFDEMwZPY7guRY5wViS5Sau3ejTd
+ yWBQ==
+X-Gm-Message-State: AKaTC03WEAbF0Sy1AwBqjSHcwDtsJFwWyaVk/u5FG++uInLcQmE3py9XLkETPIDqGwdatVTf
+X-Received: by 10.99.63.135 with SMTP id m129mr66228517pga.16.1480571353345;
+ Wed, 30 Nov 2016 21:49:13 -0800 (PST)
+Received: from pewter.svl.corp.google.com ([100.123.242.121])
+ by smtp.gmail.com with ESMTPSA id 135sm89074126pgc.7.2016.11.30.21.49.11
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Wed, 30 Nov 2016 21:49:12 -0800 (PST)
+From: Xo Wang <xow@google.com>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux] arm: aspeed: zaius: Setup LPC to AHB bridge
+Date: Wed, 30 Nov 2016 21:49:05 -0800
+Message-Id: <1480571345-135418-1-git-send-email-xow@google.com>
+X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.159.48.91 with HTTP; Wed, 30 Nov 2016 18:53:11 -0800 (PST)
-In-Reply-To: <CAPnjgZ1p2jSYQsv7fw+kjZ1HgSfV3KM9uHhjJE=3RUWfvnB+_g@mail.gmail.com>
-References: <CACPK8XeEKvZfAVLgwZ2bKne3uhYiXCSOFgoSfmTd7HqG_K3TOw@mail.gmail.com>
- <CAPnjgZ1p2jSYQsv7fw+kjZ1HgSfV3KM9uHhjJE=3RUWfvnB+_g@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 1 Dec 2016 13:23:11 +1030
-X-Google-Sender-Auth: C8jtHEIlHPnpocuF_IrGoqpfUgM
-Message-ID: <CACPK8Xf17NE8b6o+uAmOOKPbbAYnUPWiW6OwubywoSBvLaBptA@mail.gmail.com>
-Subject: Re: Upstream patch submission checklist
-To: Simon Glass <sjg@chromium.org>
-Cc: Christopher Bostic <cbostic@us.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,33 +57,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Dec 2016 02:53:35 -0000
+X-List-Received-Date: Thu, 01 Dec 2016 05:49:16 -0000
 
-On Thu, Dec 1, 2016 at 12:51 PM, Simon Glass <sjg@chromium.org> wrote:
-> On 30 November 2016 at 17:44, Joel Stanley <joel@jms.id.au> wrote:
->> When we submit the fsi patches upstream we want to go through the
->> following checklist:
->
-> You may be interested in patman, which does some of those steps for you:
->
-> - runs get_maintainers.pl
-> - creates a cover letter and generates patches
-> - runs them through checkpatch
-> - applies the patches to check that all is well (your last step)
-> - emails them out
->
-> It also deals with generating change logs.
->
-> You should be able to find it in the U-Boot tree (tools/patman) along
-> with a README.
+Add explicit SPI1 flash windows rather than use boot values.
+Add 64 MiB mapping for LPC host interface to SPI1 CE0's window.
+Add missing call to do_common_setup() which includes enabling LPC FWH
+access cycles.
 
-Thanks Simon!
+Signed-off-by: Xo Wang <xow@google.com>
+---
+ arch/arm/mach-aspeed/aspeed.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-This checklist was for the kernel, but you're right, it applies
-equally to u-boot patches.
-
-I hadn't seen patman until you mentioned it the other day. I will take a look.
-
-Cheers,
-
-Joel
+diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+index a491cd2..807ccc2 100644
+--- a/arch/arm/mach-aspeed/aspeed.c
++++ b/arch/arm/mach-aspeed/aspeed.c
+@@ -137,6 +137,8 @@ static void __init do_zaius_setup(void)
+ 	unsigned long reg;
+ 	unsigned long board_rev;
+ 
++	do_common_setup();
++
+ 	/* Read BOARD_REV[4:0] fuses from GPIOM[7:3] */
+ 	reg = readl(AST_IO(AST_BASE_GPIO | 0x78));
+ 	board_rev = (reg >> 3) & 0x1F;
+@@ -162,6 +164,24 @@ static void __init do_zaius_setup(void)
+ 		reg = readl(AST_IO(AST_BASE_GPIO | 0x00));
+ 		writel(reg | phy_reset_mask, AST_IO(AST_BASE_GPIO | 0x00));
+ 	}
++
++	/* Setup PNOR address mapping for 64M flash
++	 *
++	 *   ADRBASE: 0x3000 (0x30000000)
++	 *   HWMBASE: 0x0C00 (0x0C000000)
++	 *  ADDRMASK: 0xFC00 (0xFC000000)
++	 *   HWNCARE: 0x03FF (0x03FF0000)
++	 *
++	 * Mapping appears at 0x60300fc000000 on the host
++	 */
++	writel(0x30000C00, AST_IO(AST_BASE_LPC | 0x88));
++	writel(0xFC0003FF, AST_IO(AST_BASE_LPC | 0x8C));
++
++	/* Set SPI1 CE1 decoding window to 0x34000000 */
++	writel(0x70680000, AST_IO(AST_BASE_SPI | 0x34));
++
++	/* Set SPI1 CE0 decoding window to 0x30000000 */
++	writel(0x68600000, AST_IO(AST_BASE_SPI | 0x30));
+ }
+ 
+ static void __init do_witherspoon_setup(void)
+-- 
+2.8.0.rc3.226.g39d4020
