@@ -1,55 +1,52 @@
 Return-Path: <raltherr@google.com>
-Received: from mail-pg0-x231.google.com (mail-pg0-x231.google.com
- [IPv6:2607:f8b0:400e:c05::231])
+Received: from mail-pg0-x22c.google.com (mail-pg0-x22c.google.com
+ [IPv6:2607:f8b0:400e:c05::22c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tVpg24vB7zDw40
- for <openbmc@lists.ozlabs.org>; Sat,  3 Dec 2016 09:27:10 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tVpg35Y9zzDw40
+ for <openbmc@lists.ozlabs.org>; Sat,  3 Dec 2016 09:27:11 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="ZuweiSv8"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="kA01fLhV"; 
  dkim-atps=neutral
-Received: by mail-pg0-x231.google.com with SMTP id p66so111929778pga.2
- for <openbmc@lists.ozlabs.org>; Fri, 02 Dec 2016 14:27:10 -0800 (PST)
+Received: by mail-pg0-x22c.google.com with SMTP id p66so111929957pga.2
+ for <openbmc@lists.ozlabs.org>; Fri, 02 Dec 2016 14:27:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=w1OkIsD/N6Znx2WgMTRfBITZiRDSkX1QCZagrqJH188=;
- b=ZuweiSv8yDnUbY5bVKhoWJP5ytmyQGLNIRlg7FFlJyOno1IVF+kRJKxNErMYqFWpGu
- UAH1oJZEKVWMVP7Dh4PKuBruPKRKiqaiiXkgLvmrBxKYy3Azdd1AZ9tuS45w1nv+dJRl
- Lk5vuD6JkXwh+/THlBvRRw8zxxuNWjl7WQa0/Kaxi/3FXBdX+8Y9oAfM6NLsIBah2Uai
- Qs0zXa1OAVEoGYw+3pUXsJ9aOBdadQU8/vmiy/xk8gnEUhDQoPhl6SogAyKIvtQSsaXr
- WFkq/CQncUXqZ4VTnMlQawcV0YH+DRxBawrwQGv3EbT9h0/W5Fu649TXWlcbblIfqo5Z
- oafA==
+ h=from:to:subject:date:message-id:in-reply-to:references;
+ bh=Yhz9oodqKjelYwtjtTojKRzouIPogjCGCaKN9mPv66w=;
+ b=kA01fLhVgOCbOpG0pv1VKBoN5FbJJcBbLFswB59fElNHcXQ+a5eBrfjSNrmIShfNDs
+ 9wFpSPLPC2DcEUi0ix6XmYZCZBOg7i2AFDPty+yIuk7x+ZRS+PLGu4WAa+vaPIlnUB8O
+ gS9WLPcNWJdqcTS0yRBwd26/k552JvY6joDphoxyklVFf7XLuxoQ9lAaoxegiJ486evH
+ AppFHTbAzotxdw55PCGVRHHSn5QS1N5KfY2W2yxxmZ2Lv4xs5fTJZ8BVBtXcCjyXPWmp
+ H3/HQufgtoZqinwnIDyeW+isdklDkrls7aYeKk/r8lQfeS7V2MztdE08JHq5o5HVsgHm
+ Yt3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=w1OkIsD/N6Znx2WgMTRfBITZiRDSkX1QCZagrqJH188=;
- b=Z9ROgjpI30cMkHr+IHyHP3jUkUiULpwstxIZ/aBLPtoIPWne6+UV0xmtNYM46H1wPA
- 1v2g5iP+TqnXNvyn9898BTSSZqRqsJaZEqF5halydfA24ml932ESUKIA3Zj9gKwpZxqH
- FFzInkyYDPwBOXQjDYEEsOeuXxVNY0q8GfHX7K6I/hdinU9tAG8c9cUttuKFbpaKRpBw
- wmAV3VqjypBcmIT49hCPrV55+PBsUVttZmYl/ylEYX71NEq3rPym0Uo8h5e7k/yG0lo2
- 73surH7yiSHw4rqZaV2UAB5w8H1MYAaZ+uP/VQx3SKAAFpG329vI5BC8NnRz21CvMBgS
- ArPA==
-X-Gm-Message-State: AKaTC01EtQVagp5ZqewzG4vu/1O8eCboi0JLHUSaA29r7MqQMt1BuDpoFtwd/hbesDPkALz6
-X-Received: by 10.99.101.65 with SMTP id z62mr84152998pgb.74.1480717628430;
- Fri, 02 Dec 2016 14:27:08 -0800 (PST)
+ h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+ :references;
+ bh=Yhz9oodqKjelYwtjtTojKRzouIPogjCGCaKN9mPv66w=;
+ b=j/wYX/I1K/KWBWxYKqewEewoA6SfZY3s5ytIfiZ784v5bvFaelFknl/p2w18OConfy
+ 7k/pwO7BS7+sow/XLdhOb3eUK3in7s3gTddOqchqSt9jy+ketpZ29MB8HCiG6r6j3/qa
+ Je86MUgmOVKKZDRmiXWVaN4xLq5uX+r05pw61QtrXYGDM1wFVDheSgoPEUFZNcZ6ELW3
+ 8DqovVi/bbpT8DuKzxHldn2nD3UL8poFznVex2hYDV2Qm0s20zwwicXQ9181cDT1hh26
+ jpDVKfGw/McreYZA7HyaUfgF6LofT76IV933KQQdJ3sAO6CsReXtAUtdF6ZF5Dfjjs26
+ rYaA==
+X-Gm-Message-State: AKaTC00aWxzKHes3r8i+FgBgq1c26+hLnhGIEv1GK16Aw1VbCht8CxfpSNZuOyZ9LCcQnWcc
+X-Received: by 10.99.102.69 with SMTP id a66mr82409459pgc.49.1480717629384;
+ Fri, 02 Dec 2016 14:27:09 -0800 (PST)
 Received: from raltherr-linux.svl.corp.google.com ([100.123.244.62])
- by smtp.gmail.com with ESMTPSA id c142sm10020821pfb.23.2016.12.02.14.27.06
+ by smtp.gmail.com with ESMTPSA id c142sm10020821pfb.23.2016.12.02.14.27.08
+ for <openbmc@lists.ozlabs.org>
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Fri, 02 Dec 2016 14:27:06 -0800 (PST)
+ Fri, 02 Dec 2016 14:27:08 -0800 (PST)
 From: Rick Altherr <raltherr@google.com>
 To: openbmc@lists.ozlabs.org
-Cc: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-Subject: [PATCH u-boot v2 1/3] aspeed: remove hack loading ramdisk in memory
-Date: Fri,  2 Dec 2016 14:27:02 -0800
-Message-Id: <1480717624-24994-2-git-send-email-raltherr@google.com>
+Subject: [PATCH u-boot v2 2/3] bootm: relocate ramdisk if
+ CONFIG_SYS_BOOT_RAMDISK_HIGH set
+Date: Fri,  2 Dec 2016 14:27:03 -0800
+Message-Id: <1480717624-24994-3-git-send-email-raltherr@google.com>
 X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
 In-Reply-To: <1480717624-24994-1-git-send-email-raltherr@google.com>
 References: <1480717624-24994-1-git-send-email-raltherr@google.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,37 +58,65 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 Dec 2016 22:27:11 -0000
+X-List-Received-Date: Fri, 02 Dec 2016 22:27:12 -0000
 
-From: Cédric Le Goater <clg@kaod.org>
+In 35fc84f, bootm was refactored so plain 'bootm' and
+'bootm <subcommand>' shared a common implementation.
+The 'bootm ramdisk' command implementation is now part of the common
+implementation but not invoke by plain 'bootm' since the original
+implementation never did ramdisk relocation.  Instead, ramdisk
+relocation happened in image_setup_linux() which is typically called
+during the OS portion of 'bootm'.
 
-Signed-off-by: Cédric Le Goater <clg@kaod.org>
+On ARM, parameters to the Linux kernel can either be passed by FDT or
+ATAGS. When using FDT, image_setup_linux() is called which also triggers
+ramdisk relocation.  When using ATAGS, image_setup_linux() is _not_
+called because it mostly does FDT setup.
+
+Instead of calling image_setup_linux() in both FDT and ATAGS cases,
+include BOOTM_STATE_RAMDISK in the requested states during a plain
+'bootm' if CONFIG_SYS_BOOT_RAMDISK_HIGH is set and remove the ramdisk
+relocation from image_setup_linux().  This causes ramdisk relocation to
+happen on any system where CONFIG_SYS_BOOT_RAMDISK_HIGH regardless of
+the OS being booted.
+
 Signed-off-by: Rick Altherr <raltherr@google.com>
 ---
- common/image.c | 11 -----------
- 1 file changed, 11 deletions(-)
+ cmd/bootm.c    | 3 +++
+ common/image.c | 7 -------
+ 2 files changed, 3 insertions(+), 7 deletions(-)
 
+diff --git a/cmd/bootm.c b/cmd/bootm.c
+index 16fdea5..8da750e 100644
+--- a/cmd/bootm.c
++++ b/cmd/bootm.c
+@@ -131,6 +131,9 @@ int do_bootm(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
+ 	return do_bootm_states(cmdtp, flag, argc, argv, BOOTM_STATE_START |
+ 		BOOTM_STATE_FINDOS | BOOTM_STATE_FINDOTHER |
+ 		BOOTM_STATE_LOADOS |
++#ifdef CONFIG_SYS_BOOT_RAMDISK_HIGH
++		BOOTM_STATE_RAMDISK |
++#endif
+ #if defined(CONFIG_PPC) || defined(CONFIG_MIPS)
+ 		BOOTM_STATE_OS_CMDLINE |
+ #endif
 diff --git a/common/image.c b/common/image.c
-index 20c4807..0be09e5 100644
+index 0be09e5..6584f7f 100644
 --- a/common/image.c
 +++ b/common/image.c
-@@ -1069,17 +1069,6 @@ int boot_get_ramdisk(int argc, char * const argv[], bootm_headers_t *images,
- 				return 1;
- 			}
+@@ -1470,13 +1470,6 @@ int image_setup_linux(bootm_headers_t *images)
+ 			return ret;
  		}
--/// TODO ... Check Why ..................
--#if  defined(CONFIG_ARCH_ASPEED)
--		/*
--		 * We need to copy the ramdisk to SRAM to let Linux boot
--		 */
--		if (rd_data) {
--			memmove ((void *)rd_load, (uchar *)rd_data, rd_len);
--			rd_data = rd_load;
--		}
--#endif /* CONFIG_ASPEED */
--
- 	} else if (images->legacy_hdr_valid &&
- 			image_check_type(&images->legacy_hdr_os_copy,
- 						IH_TYPE_MULTI)) {
+ 	}
+-	if (IMAGE_ENABLE_RAMDISK_HIGH) {
+-		rd_len = images->rd_end - images->rd_start;
+-		ret = boot_ramdisk_high(lmb, images->rd_start, rd_len,
+-				initrd_start, initrd_end);
+-		if (ret)
+-			return ret;
+-	}
+ 
+ 	if (IMAGE_ENABLE_OF_LIBFDT) {
+ 		ret = boot_relocate_fdt(lmb, of_flat_tree, &of_size);
 -- 
 2.8.0.rc3.226.g39d4020
