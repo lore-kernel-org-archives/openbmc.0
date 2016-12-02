@@ -3,47 +3,47 @@ Received: from mail-pg0-x22c.google.com (mail-pg0-x22c.google.com
  [IPv6:2607:f8b0:400e:c05::22c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tVpg35Y9zzDw40
- for <openbmc@lists.ozlabs.org>; Sat,  3 Dec 2016 09:27:11 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tVpg4735zzDw40
+ for <openbmc@lists.ozlabs.org>; Sat,  3 Dec 2016 09:27:12 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="kA01fLhV"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="HxKtAzy1"; 
  dkim-atps=neutral
-Received: by mail-pg0-x22c.google.com with SMTP id p66so111929957pga.2
- for <openbmc@lists.ozlabs.org>; Fri, 02 Dec 2016 14:27:11 -0800 (PST)
+Received: by mail-pg0-x22c.google.com with SMTP id p66so111930103pga.2
+ for <openbmc@lists.ozlabs.org>; Fri, 02 Dec 2016 14:27:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
  h=from:to:subject:date:message-id:in-reply-to:references;
- bh=Yhz9oodqKjelYwtjtTojKRzouIPogjCGCaKN9mPv66w=;
- b=kA01fLhVgOCbOpG0pv1VKBoN5FbJJcBbLFswB59fElNHcXQ+a5eBrfjSNrmIShfNDs
- 9wFpSPLPC2DcEUi0ix6XmYZCZBOg7i2AFDPty+yIuk7x+ZRS+PLGu4WAa+vaPIlnUB8O
- gS9WLPcNWJdqcTS0yRBwd26/k552JvY6joDphoxyklVFf7XLuxoQ9lAaoxegiJ486evH
- AppFHTbAzotxdw55PCGVRHHSn5QS1N5KfY2W2yxxmZ2Lv4xs5fTJZ8BVBtXcCjyXPWmp
- H3/HQufgtoZqinwnIDyeW+isdklDkrls7aYeKk/r8lQfeS7V2MztdE08JHq5o5HVsgHm
- Yt3Q==
+ bh=n/fJL3hV6PtwwsiUYteOm2YK4m8wUPKMZNisns23tJM=;
+ b=HxKtAzy14wysanuXtzSxhgWNZTbm5pHvrF7y4bgMS9Aw6K2Jsg0xf1AgkQ6Qce6G5y
+ UhQUX63rzdDFTIrJM6i78+5ER79Onf3Q+VuLiuqQf87YArdA7vBi0Y8F9ZFvttZMiCIP
+ jQKQPh4DW26dKIeut0eEKCZWIDTDU04dOlKAwkbf2ublVlPv9kM4YCOJnk4GPm81InfC
+ c0MCztcMckGAh3gv/uENs+9L5YAgTZyLsjntOnxIMXQqeWXaiBN5ibcqGcJYFGoE5eG5
+ hzjKTdb5uHffKyHtUkYWBsi/Eolo+UNES13V3i4RN/g5j+xuDADckAfz/Z93kI2Z3LZ8
+ XE6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
  :references;
- bh=Yhz9oodqKjelYwtjtTojKRzouIPogjCGCaKN9mPv66w=;
- b=j/wYX/I1K/KWBWxYKqewEewoA6SfZY3s5ytIfiZ784v5bvFaelFknl/p2w18OConfy
- 7k/pwO7BS7+sow/XLdhOb3eUK3in7s3gTddOqchqSt9jy+ketpZ29MB8HCiG6r6j3/qa
- Je86MUgmOVKKZDRmiXWVaN4xLq5uX+r05pw61QtrXYGDM1wFVDheSgoPEUFZNcZ6ELW3
- 8DqovVi/bbpT8DuKzxHldn2nD3UL8poFznVex2hYDV2Qm0s20zwwicXQ9181cDT1hh26
- jpDVKfGw/McreYZA7HyaUfgF6LofT76IV933KQQdJ3sAO6CsReXtAUtdF6ZF5Dfjjs26
- rYaA==
-X-Gm-Message-State: AKaTC00aWxzKHes3r8i+FgBgq1c26+hLnhGIEv1GK16Aw1VbCht8CxfpSNZuOyZ9LCcQnWcc
-X-Received: by 10.99.102.69 with SMTP id a66mr82409459pgc.49.1480717629384;
- Fri, 02 Dec 2016 14:27:09 -0800 (PST)
+ bh=n/fJL3hV6PtwwsiUYteOm2YK4m8wUPKMZNisns23tJM=;
+ b=emKixOC0MSlZJgOjhfn2CnMMwgV4rHxbcdzeRmDLy5PiSqStXVfLVTg0XKZguN+m+6
+ Lwas/Gr9pYefss1EvTrxbqbgzCOHRYuVRLZcSlpPQSGJoLmZcmTGFxRGZC9ebuM2YSXF
+ t7abU3VuSn/3I4ynPqnirctOlYrvbFqtZQjuKi7v23rF/s/tKoeMXVzwfudltPCY5no9
+ jywrBzfUwy54CuaXZSnDaOE0gw1tcrjFV40pBHXrczE2yXz7QugX4ZtO4D58LlMOs8u7
+ VFLwMPyKK2ETUqvRvor0K6ip/fFEIgVkNcX5WkADbWA/LV5NlcCVMTaWqxOtsQLnkerr
+ LBkg==
+X-Gm-Message-State: AKaTC00rA3WvDDg+qWa76Co4veb09dNALmNR8tPSqLtdrg62kCPLTMdfDfgciQRLlXai+ehl
+X-Received: by 10.99.170.5 with SMTP id e5mr83789978pgf.46.1480717631102;
+ Fri, 02 Dec 2016 14:27:11 -0800 (PST)
 Received: from raltherr-linux.svl.corp.google.com ([100.123.244.62])
- by smtp.gmail.com with ESMTPSA id c142sm10020821pfb.23.2016.12.02.14.27.08
+ by smtp.gmail.com with ESMTPSA id c142sm10020821pfb.23.2016.12.02.14.27.09
  for <openbmc@lists.ozlabs.org>
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Fri, 02 Dec 2016 14:27:08 -0800 (PST)
+ Fri, 02 Dec 2016 14:27:09 -0800 (PST)
 From: Rick Altherr <raltherr@google.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH u-boot v2 2/3] bootm: relocate ramdisk if
- CONFIG_SYS_BOOT_RAMDISK_HIGH set
-Date: Fri,  2 Dec 2016 14:27:03 -0800
-Message-Id: <1480717624-24994-3-git-send-email-raltherr@google.com>
+Subject: [PATCH u-boot v2 3/3] Enable FIT image support and FDT loading for
+ AST2400/AST2500
+Date: Fri,  2 Dec 2016 14:27:04 -0800
+Message-Id: <1480717624-24994-4-git-send-email-raltherr@google.com>
 X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
 In-Reply-To: <1480717624-24994-1-git-send-email-raltherr@google.com>
 References: <1480717624-24994-1-git-send-email-raltherr@google.com>
@@ -58,65 +58,98 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 Dec 2016 22:27:12 -0000
+X-List-Received-Date: Fri, 02 Dec 2016 22:27:13 -0000
 
-In 35fc84f, bootm was refactored so plain 'bootm' and
-'bootm <subcommand>' shared a common implementation.
-The 'bootm ramdisk' command implementation is now part of the common
-implementation but not invoke by plain 'bootm' since the original
-implementation never did ramdisk relocation.  Instead, ramdisk
-relocation happened in image_setup_linux() which is typically called
-during the OS portion of 'bootm'.
+FIT is the modern u-boot native image format for kernels, device trees,
+and ramdisks.  Enabling FIT only compiles in support for the image
+format.  For these devices, the kernel+dtb and ramdisk are loaded from
+separate locations in flash and can be any mix of legacy or FIT images.
+When using FIT images, the dtb is stored as a separate entry that
+requires CONFIG_OF_LIBFDT to load it into RAM and pass it to the kernel.
 
-On ARM, parameters to the Linux kernel can either be passed by FDT or
-ATAGS. When using FDT, image_setup_linux() is called which also triggers
-ramdisk relocation.  When using ATAGS, image_setup_linux() is _not_
-called because it mostly does FDT setup.
+u-boot enables EFI support by default but it only builds once FIT
+support is enabled.  EFI support adds ~13k to the binary and is
+currently unused for any Aspeed platforms.  Explicitly disable EFI
+support now that FIT support is enabled.
 
-Instead of calling image_setup_linux() in both FDT and ATAGS cases,
-include BOOTM_STATE_RAMDISK in the requested states during a plain
-'bootm' if CONFIG_SYS_BOOT_RAMDISK_HIGH is set and remove the ramdisk
-relocation from image_setup_linux().  This causes ramdisk relocation to
-happen on any system where CONFIG_SYS_BOOT_RAMDISK_HIGH regardless of
-the OS being booted.
+Tested under qemu with both legacy and FIT kernel+dtb images for
+palmetto and witherspoon.
 
 Signed-off-by: Rick Altherr <raltherr@google.com>
 ---
- cmd/bootm.c    | 3 +++
- common/image.c | 7 -------
- 2 files changed, 3 insertions(+), 7 deletions(-)
+ configs/ast_g4_ncsi_defconfig | 5 +++++
+ configs/ast_g4_phy_defconfig  | 5 +++++
+ configs/ast_g5_ncsi_defconfig | 5 +++++
+ configs/ast_g5_phy_defconfig  | 5 +++++
+ 4 files changed, 20 insertions(+)
 
-diff --git a/cmd/bootm.c b/cmd/bootm.c
-index 16fdea5..8da750e 100644
---- a/cmd/bootm.c
-+++ b/cmd/bootm.c
-@@ -131,6 +131,9 @@ int do_bootm(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
- 	return do_bootm_states(cmdtp, flag, argc, argv, BOOTM_STATE_START |
- 		BOOTM_STATE_FINDOS | BOOTM_STATE_FINDOTHER |
- 		BOOTM_STATE_LOADOS |
-+#ifdef CONFIG_SYS_BOOT_RAMDISK_HIGH
-+		BOOTM_STATE_RAMDISK |
-+#endif
- #if defined(CONFIG_PPC) || defined(CONFIG_MIPS)
- 		BOOTM_STATE_OS_CMDLINE |
- #endif
-diff --git a/common/image.c b/common/image.c
-index 0be09e5..6584f7f 100644
---- a/common/image.c
-+++ b/common/image.c
-@@ -1470,13 +1470,6 @@ int image_setup_linux(bootm_headers_t *images)
- 			return ret;
- 		}
- 	}
--	if (IMAGE_ENABLE_RAMDISK_HIGH) {
--		rd_len = images->rd_end - images->rd_start;
--		ret = boot_ramdisk_high(lmb, images->rd_start, rd_len,
--				initrd_start, initrd_end);
--		if (ret)
--			return ret;
--	}
- 
- 	if (IMAGE_ENABLE_OF_LIBFDT) {
- 		ret = boot_relocate_fdt(lmb, of_flat_tree, &of_size);
+diff --git a/configs/ast_g4_ncsi_defconfig b/configs/ast_g4_ncsi_defconfig
+index 4ee71c5..ab4907c 100644
+--- a/configs/ast_g4_ncsi_defconfig
++++ b/configs/ast_g4_ncsi_defconfig
+@@ -1,7 +1,12 @@
+ CONFIG_ARM=y
+ CONFIG_TARGET_AST_G4=y
+ CONFIG_SYS_PROMPT="ast# "
++CONFIG_CMD_BOOTEFI=n
+ CONFIG_CMD_DHCP=y
+ CONFIG_CMD_PING=y
++CONFIG_EFI_LOADER=n
++CONFIG_FIT=y
++CONFIG_FIT_VERBOSE=y
++CONFIG_OF_LIBFDT=y
+ CONFIG_SPI_FLASH=y
+ CONFIG_SYS_NS16550=y
+diff --git a/configs/ast_g4_phy_defconfig b/configs/ast_g4_phy_defconfig
+index 61fd69b..21a56c4 100644
+--- a/configs/ast_g4_phy_defconfig
++++ b/configs/ast_g4_phy_defconfig
+@@ -2,7 +2,12 @@ CONFIG_ARM=y
+ CONFIG_TARGET_AST_G4=y
+ CONFIG_ASPEED_NET_PHY=y
+ CONFIG_SYS_PROMPT="ast# "
++CONFIG_CMD_BOOTEFI=n
+ CONFIG_CMD_DHCP=y
+ CONFIG_CMD_PING=y
++CONFIG_EFI_LOADER=n
++CONFIG_FIT=y
++CONFIG_FIT_VERBOSE=y
++CONFIG_OF_LIBFDT=y
+ CONFIG_SPI_FLASH=y
+ CONFIG_SYS_NS16550=y
+diff --git a/configs/ast_g5_ncsi_defconfig b/configs/ast_g5_ncsi_defconfig
+index 6d11afb..7cd4fd1 100644
+--- a/configs/ast_g5_ncsi_defconfig
++++ b/configs/ast_g5_ncsi_defconfig
+@@ -1,7 +1,12 @@
+ CONFIG_ARM=y
+ CONFIG_TARGET_AST_G5=y
+ CONFIG_SYS_PROMPT="ast# "
++CONFIG_CMD_BOOTEFI=n
+ CONFIG_CMD_DHCP=y
+ CONFIG_CMD_PING=y
++CONFIG_EFI_LOADER=n
++CONFIG_FIT=y
++CONFIG_FIT_VERBOSE=y
++CONFIG_OF_LIBFDT=y
+ CONFIG_SPI_FLASH=y
+ CONFIG_SYS_NS16550=y
+diff --git a/configs/ast_g5_phy_defconfig b/configs/ast_g5_phy_defconfig
+index 20f62e0..c686dd2 100644
+--- a/configs/ast_g5_phy_defconfig
++++ b/configs/ast_g5_phy_defconfig
+@@ -2,7 +2,12 @@ CONFIG_ARM=y
+ CONFIG_TARGET_AST_G5=y
+ CONFIG_ASPEED_NET_PHY=y
+ CONFIG_SYS_PROMPT="ast# "
++CONFIG_CMD_BOOTEFI=n
+ CONFIG_CMD_DHCP=y
+ CONFIG_CMD_PING=y
++CONFIG_EFI_LOADER=n
++CONFIG_FIT=y
++CONFIG_FIT_VERBOSE=y
++CONFIG_OF_LIBFDT=y
+ CONFIG_SPI_FLASH=y
+ CONFIG_SYS_NS16550=y
 -- 
 2.8.0.rc3.226.g39d4020
