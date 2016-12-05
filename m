@@ -1,53 +1,52 @@
 Return-Path: <raltherr@google.com>
-Received: from mail-io0-x22b.google.com (mail-io0-x22b.google.com
- [IPv6:2607:f8b0:4001:c06::22b])
+Received: from mail-io0-x230.google.com (mail-io0-x230.google.com
+ [IPv6:2607:f8b0:4001:c06::230])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tXWTg2Dc0zDvhh
- for <openbmc@lists.ozlabs.org>; Tue,  6 Dec 2016 04:09:58 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tXXdS37PkzDvtc
+ for <openbmc@lists.ozlabs.org>; Tue,  6 Dec 2016 05:01:48 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="nbk8FnDn"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="cbE9NyyX"; 
  dkim-atps=neutral
-Received: by mail-io0-x22b.google.com with SMTP id m5so468830302ioe.3
- for <openbmc@lists.ozlabs.org>; Mon, 05 Dec 2016 09:09:58 -0800 (PST)
+Received: by mail-io0-x230.google.com with SMTP id m5so471482323ioe.3
+ for <openbmc@lists.ozlabs.org>; Mon, 05 Dec 2016 10:01:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=tpifsJavnl+W+fKfDSypgy1h8TReMKfl/NfQMPEnmnI=;
- b=nbk8FnDnWKGWnyVDAkXwFYZ1dV9PC6AcEpeT0lUAUPOMj1/8EDps8DUYsAmlxe0kyo
- ok0vAQCp+vlI1Jq7rbzuILObfgmVDfmzwB1hHPQ+j3eslZk6iTVrcAds6JWkct67LvA/
- 3i0vysFMiY2mQK7mRuO826sPhWImQeLlh7GO6yYEVyMcILwgs77Nt2bPte4mmk/UfUdY
- W2oIEnXo8Wd0zkrXcRPHPRSEprMa1UF9X/aHhykZmLTaHLUUA4mwLTyoyeSXVWX+CMug
- oAicPS1ZmpVv30Sx0Vy7aIA+EzNVAkEfKGV2oC+B89WWQH8Zu68I9k5aZJgR3xt8lyqd
- EINw==
+ :cc; bh=wBHcLjhPurcW+KUwIKGSdAwj5GcL9LvwhyBc/cn91pE=;
+ b=cbE9NyyXofEI1H59lcJJ1qMsxrdhsJ1OhVBk9NTQ7Y0yqFfoPdqX7F41cR7EF/CLUQ
+ uydTTfJSiv8c/C7aIxX7NbeoIKcfOCmFXQ+Mh8vAtBHINsXUQGatE+3PLdUa/0OoHcu5
+ Ulps0tyVJver+C+Icefp2/qKLcH9tyTVxsYH9fgxXnvv4C32bhBJXnGgs6Py+NGmqsSj
+ O8d2tnb9KIWIHMPSv7BxbJ46ilxmoYuj6Tf5eDxhb/rfBHsB6NhnBCSTDVoGBB/DK2iN
+ Zcl8QC/EWtLTrEnMoxYMqiN80cVZAu+RjjuHpuHkPwSuMmfD36NCij3MYWPC+PFEan7s
+ IOIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=tpifsJavnl+W+fKfDSypgy1h8TReMKfl/NfQMPEnmnI=;
- b=TlxHG8KSSWfzIDI8eBivNOFeeow/+kQUQcRbxM1p+26741Kkij7T3Dv36nHLzBmU0x
- TbMLONV3n310eBLWnAc8GRwJC7Hya7kCW+FYHvciZbhyuK3fzpj+IXCJ5W6k0pUjFxWX
- U/N8lX7IZJEvj6lvrdyXQt2FO0hXFRgwK5p2nlp5j9PZMEynSGH9fPeEEMtnJ7+suiKx
- b6bOXlXW4l/xhHIBnSHzvJRqYtikec7qc4bqv2kPsTlZj9+RXorIDL3JZeSvF9nqepKI
- suEEiiF1kAvqpqkE41OmuCWFBlinLJmzr0NpjT43qyJ7+v+SJh/cNN8oA5TlGTzNXMjv
- r9Cw==
-X-Gm-Message-State: AKaTC036zD9iStcwHuJwMRIQEFHJkk0uWKwjcLNvXsBdVrbbg6p1SQ0cd9Q96AZ+fcMsCEVmapleAp4GjKnouwbY
-X-Received: by 10.36.190.6 with SMTP id i6mr9266537itf.37.1480957796261; Mon,
- 05 Dec 2016 09:09:56 -0800 (PST)
+ bh=wBHcLjhPurcW+KUwIKGSdAwj5GcL9LvwhyBc/cn91pE=;
+ b=GqDuXeTvepJwcNoUx2+GVjb9loClLk7gBNG4Dz3Iq91qhYuLXemvUi1lUzGOEPdPoI
+ MnHXOlWBywq4pTmv41URZyxS4L/NSmbHB+M3+LYo2mf5b/+tg8OBhnVVgACH2yVyPxGo
+ FRdWuzMoiYfamG7u/qWIy9bspgi7BThIfgM6gXisubm1RIqE3sLYZlK92EpZNkxJGXfi
+ 7VxAZh4VkO7YN8Nxg0OeWtBfKRD/yV0veMzcNNZuUdTCd9gjzhru+ZE3eC1eDil9yMAx
+ 3nsPYGaZ4QV16DsqCHQP0gA+xSqz3X4PnmPtq917gLb8j4Gjx1gldXCVG++IoFFOT8B2
+ BKzQ==
+X-Gm-Message-State: AKaTC01kDaCblxrUQwsZrunItN8B81/iDwgDyIY/DFvCJty3/RLniR+3oU1rjCS/82gASPel5omRlDTEXTKJre0G
+X-Received: by 10.107.53.36 with SMTP id c36mr50232100ioa.55.1480960904151;
+ Mon, 05 Dec 2016 10:01:44 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.107.154.197 with HTTP; Mon, 5 Dec 2016 09:09:55 -0800 (PST)
-In-Reply-To: <e0967b2e-2de1-c41f-1620-e7e0b8d5b158@kaod.org>
+Received: by 10.107.154.197 with HTTP; Mon, 5 Dec 2016 10:01:43 -0800 (PST)
+In-Reply-To: <CAPnjgZ0HHnneMeVM=6ZThS53GwYFgoQKxVnc_pbE42k3SLWpjg@mail.gmail.com>
 References: <1480717624-24994-1-git-send-email-raltherr@google.com>
- <1480717624-24994-2-git-send-email-raltherr@google.com>
- <CAPnjgZ3WpLrsHMARpbkdSRzTd51y4Noi+fYYh+tVncWgG5pUBw@mail.gmail.com>
- <e0967b2e-2de1-c41f-1620-e7e0b8d5b158@kaod.org>
+ <1480717624-24994-3-git-send-email-raltherr@google.com>
+ <CAPnjgZ0HHnneMeVM=6ZThS53GwYFgoQKxVnc_pbE42k3SLWpjg@mail.gmail.com>
 From: Rick Altherr <raltherr@google.com>
-Date: Mon, 5 Dec 2016 09:09:55 -0800
-Message-ID: <CAPLgG=nWr5Cy-8uh=4gq=oReL5GFdKvc4bneiMyMCksQ1j=bCA@mail.gmail.com>
-Subject: Re: [PATCH u-boot v2 1/3] aspeed: remove hack loading ramdisk in
- memory
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
-Cc: Simon Glass <sjg@chromium.org>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=94eb2c19d4ea6001ca0542ec5b88
+Date: Mon, 5 Dec 2016 10:01:43 -0800
+Message-ID: <CAPLgG=m2wsM3EXiNkgYZDLD4A6X9EWsa4GrquQ80E2Y1eOg+CQ@mail.gmail.com>
+Subject: Re: [PATCH u-boot v2 2/3] bootm: relocate ramdisk if
+ CONFIG_SYS_BOOT_RAMDISK_HIGH set
+To: Simon Glass <sjg@chromium.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary=001a1144939a9eb3ef0542ed1415
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,102 +58,112 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Dec 2016 17:10:00 -0000
+X-List-Received-Date: Mon, 05 Dec 2016 18:01:49 -0000
 
---94eb2c19d4ea6001ca0542ec5b88
+--001a1144939a9eb3ef0542ed1415
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-See the next patch in this series.  OpenBMC uses ATAGS when building a
-legacy image.  U-Boot ATAGS support wasn't causing ramdisk relocation.
-It's not really a FIT vs legacy issue so much as a FDT vs ATAGS issue.  We
-could still use legacy images with FDT and the ramdisk would be relocated
-fine.  I fixed the ATAGS support to trigger ramdisk relocation as that's
-the actual bug.
+I think that is an artifact of starting from the Aspeed SDK.  Once these
+changes are in, I plan to propose changing to FIT+FDT.
 
-On Mon, Dec 5, 2016 at 12:13 AM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
-:
+On Sun, Dec 4, 2016 at 10:24 PM, Simon Glass <sjg@chromium.org> wrote:
 
-> Hello,
+> Hi Rick,
 >
-> On 12/05/2016 07:24 AM, Simon Glass wrote:
-> > On 2 December 2016 at 15:27, Rick Altherr <raltherr@google.com> wrote:
-> >> From: C=C3=A9dric Le Goater <clg@kaod.org>
-> >>
-> >> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
-> >> Signed-off-by: Rick Altherr <raltherr@google.com>
-> >> ---
-> >>  common/image.c | 11 -----------
-> >>  1 file changed, 11 deletions(-)
+> On 2 December 2016 at 15:27, Rick Altherr <raltherr@google.com> wrote:
+> > In 35fc84f, bootm was refactored so plain 'bootm' and
+> > 'bootm <subcommand>' shared a common implementation.
+> > The 'bootm ramdisk' command implementation is now part of the common
+> > implementation but not invoke by plain 'bootm' since the original
+> > implementation never did ramdisk relocation.  Instead, ramdisk
+> > relocation happened in image_setup_linux() which is typically called
+> > during the OS portion of 'bootm'.
 > >
-> > Reviewed-by: Simon Glass <sjg@chromium.org>
+> > On ARM, parameters to the Linux kernel can either be passed by FDT or
+> > ATAGS. When using FDT, image_setup_linux() is called which also triggers
+> > ramdisk relocation.  When using ATAGS, image_setup_linux() is _not_
+> > called because it mostly does FDT setup.
 > >
+> > Instead of calling image_setup_linux() in both FDT and ATAGS cases,
+> > include BOOTM_STATE_RAMDISK in the requested states during a plain
+> > 'bootm' if CONFIG_SYS_BOOT_RAMDISK_HIGH is set and remove the ramdisk
+> > relocation from image_setup_linux().  This causes ramdisk relocation to
+> > happen on any system where CONFIG_SYS_BOOT_RAMDISK_HIGH regardless of
+> > the OS being booted.
+> >
+> > Signed-off-by: Rick Altherr <raltherr@google.com>
+> > ---
+> >  cmd/bootm.c    | 3 +++
+> >  common/image.c | 7 -------
+> >  2 files changed, 3 insertions(+), 7 deletions(-)
 >
-> So how do you fix the ramdisk loading ? is using the FIT images
-> enough to work around this problem ?
+> Reviewed-by: Simon Glass <sjg@chromium.org>
 >
-> For legacy type images, this patch seemed to work :
+> But why would you still be using ATAGS?
 >
->         https://github.com/legoater/u-boot/commit/
-> 86fd073a12650ee7fc4e6514f2b0f159be275f29
->
-> I am not sure if this is a good approach though.
->
-> Thanks,
->
-> C.
+> Regards,
+> Simon
 >
 
---94eb2c19d4ea6001ca0542ec5b88
+--001a1144939a9eb3ef0542ed1415
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">See the next patch in this series.=C2=A0 OpenBMC uses ATAG=
-S when building a legacy image.=C2=A0 U-Boot ATAGS support wasn&#39;t causi=
-ng ramdisk relocation.=C2=A0 It&#39;s not really a FIT vs legacy issue so m=
-uch as a FDT vs ATAGS issue.=C2=A0 We could still use legacy images with FD=
-T and the ramdisk would be relocated fine.=C2=A0 I fixed the ATAGS support =
-to trigger ramdisk relocation as that&#39;s the actual bug.</div><div class=
-=3D"gmail_extra"><br><div class=3D"gmail_quote">On Mon, Dec 5, 2016 at 12:1=
-3 AM, C=C3=A9dric Le Goater <span dir=3D"ltr">&lt;<a href=3D"mailto:clg@kao=
-d.org" target=3D"_blank">clg@kaod.org</a>&gt;</span> wrote:<br><blockquote =
-class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid=
-;padding-left:1ex">Hello,<br>
-<div><div class=3D"h5"><br>
-On 12/05/2016 07:24 AM, Simon Glass wrote:<br>
-&gt; On 2 December 2016 at 15:27, Rick Altherr &lt;<a href=3D"mailto:ralthe=
-rr@google.com">raltherr@google.com</a>&gt; wrote:<br>
-&gt;&gt; From: C=C3=A9dric Le Goater &lt;<a href=3D"mailto:clg@kaod.org">cl=
-g@kaod.org</a>&gt;<br>
-&gt;&gt;<br>
-&gt;&gt; Signed-off-by: C=C3=A9dric Le Goater &lt;<a href=3D"mailto:clg@kao=
-d.org">clg@kaod.org</a>&gt;<br>
-&gt;&gt; Signed-off-by: Rick Altherr &lt;<a href=3D"mailto:raltherr@google.=
-com">raltherr@google.com</a>&gt;<br>
-&gt;&gt; ---<br>
-&gt;&gt;=C2=A0 common/image.c | 11 -----------<br>
-&gt;&gt;=C2=A0 1 file changed, 11 deletions(-)<br>
+<div dir=3D"ltr">I think that is an artifact of starting from the Aspeed SD=
+K.=C2=A0 Once these changes are in, I plan to propose changing to FIT+FDT.<=
+/div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Sun, Dec =
+4, 2016 at 10:24 PM, Simon Glass <span dir=3D"ltr">&lt;<a href=3D"mailto:sj=
+g@chromium.org" target=3D"_blank">sjg@chromium.org</a>&gt;</span> wrote:<br=
+><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1=
+px #ccc solid;padding-left:1ex">Hi Rick,<br>
+<span class=3D""><br>
+On 2 December 2016 at 15:27, Rick Altherr &lt;<a href=3D"mailto:raltherr@go=
+ogle.com">raltherr@google.com</a>&gt; wrote:<br>
+&gt; In 35fc84f, bootm was refactored so plain &#39;bootm&#39; and<br>
+&gt; &#39;bootm &lt;subcommand&gt;&#39; shared a common implementation.<br>
+&gt; The &#39;bootm ramdisk&#39; command implementation is now part of the =
+common<br>
+&gt; implementation but not invoke by plain &#39;bootm&#39; since the origi=
+nal<br>
+&gt; implementation never did ramdisk relocation.=C2=A0 Instead, ramdisk<br=
+>
+&gt; relocation happened in image_setup_linux() which is typically called<b=
+r>
+&gt; during the OS portion of &#39;bootm&#39;.<br>
 &gt;<br>
-&gt; Reviewed-by: Simon Glass &lt;<a href=3D"mailto:sjg@chromium.org">sjg@c=
-hromium.org</a>&gt;<br>
+&gt; On ARM, parameters to the Linux kernel can either be passed by FDT or<=
+br>
+&gt; ATAGS. When using FDT, image_setup_linux() is called which also trigge=
+rs<br>
+&gt; ramdisk relocation.=C2=A0 When using ATAGS, image_setup_linux() is _no=
+t_<br>
+&gt; called because it mostly does FDT setup.<br>
 &gt;<br>
+&gt; Instead of calling image_setup_linux() in both FDT and ATAGS cases,<br=
+>
+&gt; include BOOTM_STATE_RAMDISK in the requested states during a plain<br>
+&gt; &#39;bootm&#39; if CONFIG_SYS_BOOT_RAMDISK_HIGH is set and remove the =
+ramdisk<br>
+&gt; relocation from image_setup_linux().=C2=A0 This causes ramdisk relocat=
+ion to<br>
+&gt; happen on any system where CONFIG_SYS_BOOT_RAMDISK_HIGH regardless of<=
+br>
+&gt; the OS being booted.<br>
+&gt;<br>
+&gt; Signed-off-by: Rick Altherr &lt;<a href=3D"mailto:raltherr@google.com"=
+>raltherr@google.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 cmd/bootm.c=C2=A0 =C2=A0 | 3 +++<br>
+&gt;=C2=A0 common/image.c | 7 -------<br>
+&gt;=C2=A0 2 files changed, 3 insertions(+), 7 deletions(-)<br>
 <br>
-</div></div>So how do you fix the ramdisk loading ? is using the FIT images=
+</span>Reviewed-by: Simon Glass &lt;<a href=3D"mailto:sjg@chromium.org">sjg=
+@chromium.org</a>&gt;<br>
 <br>
-enough to work around this problem ?<br>
+But why would you still be using ATAGS?<br>
 <br>
-For legacy type images, this patch seemed to work :<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 <a href=3D"https://github.com/legoater/u-boot/c=
-ommit/86fd073a12650ee7fc4e6514f2b0f159be275f29" rel=3D"noreferrer" target=
-=3D"_blank">https://github.com/legoater/u-<wbr>boot/commit/<wbr>86fd073a126=
-50ee7fc4e6514f2b0f1<wbr>59be275f29</a><br>
-<br>
-I am not sure if this is a good approach though.<br>
-<br>
-Thanks,<br>
-<br>
-C.<br>
+Regards,<br>
+Simon<br>
 </blockquote></div><br></div>
 
---94eb2c19d4ea6001ca0542ec5b88--
+--001a1144939a9eb3ef0542ed1415--
