@@ -1,63 +1,37 @@
-Return-Path: <sjg@google.com>
-Received: from mail-oi0-x22e.google.com (mail-oi0-x22e.google.com
- [IPv6:2607:f8b0:4003:c06::22e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <clg@kaod.org>
+Received: from 10.mo5.mail-out.ovh.net (10.mo5.mail-out.ovh.net
+ [46.105.52.148])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tXF9r4sYPzDvjh
- for <openbmc@lists.ozlabs.org>; Mon,  5 Dec 2016 17:25:20 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="jabJzNi7"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=chromium.org header.i=@chromium.org header.b="W2l4izkr";
- dkim-atps=neutral
-Received: by mail-oi0-x22e.google.com with SMTP id b126so328834310oia.2
- for <openbmc@lists.ozlabs.org>; Sun, 04 Dec 2016 22:25:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=fB8zsmnd/Ia5pe6MWtFAxcb+4p7NJhc5+E9h+MSnqts=;
- b=jabJzNi7mqFvv30JXjw2iF6WUmZPFVPy2sl83dGP7Kq3BgYsurjjWMUjC95zM0HR95
- 8NmKvEJwC3tE7xCMlL1kbXoFBZAoy2JZCNy69ZH4FL+x/kWCpkPosjb9ASbYznD29Skw
- yYztzSRMXynwYDlmoaIMZBrESzYT+xnjGPph9XCw6Ymas04fPO/73VO4en/2JbcAPhTT
- /Kk14Cq8DPVY4tWGthhisnyGgPqCmi+Oq2W2796g257/v55+OAiQubQZy3ab7Aw+Yf6k
- t8Qbk5BzITnuhMcCI8iC8BHttAZzDiU2NwZpYCzfxRZCNNQx/+7Gss6BBYkq8UQuWJMw
- YW0Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=fB8zsmnd/Ia5pe6MWtFAxcb+4p7NJhc5+E9h+MSnqts=;
- b=W2l4izkr5+Xqza7CbBhDHcIHc5Nxc7OqB+VYBmYNOfezf4QySiww9LHX9s0VFJd2VZ
- Jy6XjK3IWG8cPCiPMnx7hHRLK2q3rcHWHupZmAS6KHhFiFemieIsJdVJrEYDfV/5VlwV
- MBVhSo9O1ygyc1mnBriacQpty2D8DOJdsaIac=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=fB8zsmnd/Ia5pe6MWtFAxcb+4p7NJhc5+E9h+MSnqts=;
- b=PTyOcKmf2E5mwbiZ4f5vzGTefRGgIZJXyHC5QkYOaBlzTp4EBKgjPqZ1H4yB8ksGw3
- E/8iyPdg/G38a80DgWBX350xMidv0T6NubcFKkHWYkgEG9bIyQXZA0gjfeFv2JKmnFkM
- Q5bw4rvoqshHbRXKisntuSAEZCEZqSVM8givhsvf3xPeppuJNRV5hUPbpdIUOBKv7Zml
- 3r1wZJa0GMf1cVPJB9qavR6lx4zlm9MiV/keMtL2FAh8T2DvllvEtUR57HKHB5/vH+u3
- Eu0VMrmu7PJCFJhCVxUOaHIJi1bcU4nF/XsMNMM55CgdiI9YQZR9uT3eQSoKqVYOVOn1
- WKmA==
-X-Gm-Message-State: AKaTC00MSv0Eac0ZXAE1WAfVQ2otjphEuGIK4fNjFw7irCDvaCjXRMdOjznsandDcOachaaf2b+zdzZVWe0AKCBM
-X-Received: by 10.157.12.35 with SMTP id 32mr32081034otr.103.1480919118542;
- Sun, 04 Dec 2016 22:25:18 -0800 (PST)
-MIME-Version: 1.0
-Sender: sjg@google.com
-Received: by 10.182.128.229 with HTTP; Sun, 4 Dec 2016 22:24:58 -0800 (PST)
-In-Reply-To: <1480717624-24994-3-git-send-email-raltherr@google.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tXHbH3YTkzDvtQ
+ for <openbmc@lists.ozlabs.org>; Mon,  5 Dec 2016 19:14:02 +1100 (AEDT)
+Received: from player773.ha.ovh.net (b9.ovh.net [213.186.33.59])
+ by mo5.mail-out.ovh.net (Postfix) with ESMTP id D716348629
+ for <openbmc@lists.ozlabs.org>; Mon,  5 Dec 2016 09:13:58 +0100 (CET)
+Received: from hermes.kaod.org (alter.tetaneutral.net [91.224.149.189])
+ (Authenticated sender: postmaster@kaod.org)
+ by player773.ha.ovh.net (Postfix) with ESMTPSA id E7292600092;
+ Mon,  5 Dec 2016 09:13:55 +0100 (CET)
+Subject: Re: [PATCH u-boot v2 1/3] aspeed: remove hack loading ramdisk in
+ memory
+To: Simon Glass <sjg@chromium.org>, Rick Altherr <raltherr@google.com>
 References: <1480717624-24994-1-git-send-email-raltherr@google.com>
- <1480717624-24994-3-git-send-email-raltherr@google.com>
-From: Simon Glass <sjg@chromium.org>
-Date: Sun, 4 Dec 2016 23:24:58 -0700
-X-Google-Sender-Auth: L8aOYB71MUB8nRIUHq4ZG8w4V-g
-Message-ID: <CAPnjgZ0HHnneMeVM=6ZThS53GwYFgoQKxVnc_pbE42k3SLWpjg@mail.gmail.com>
-Subject: Re: [PATCH u-boot v2 2/3] bootm: relocate ramdisk if
- CONFIG_SYS_BOOT_RAMDISK_HIGH set
-To: Rick Altherr <raltherr@google.com>
+ <1480717624-24994-2-git-send-email-raltherr@google.com>
+ <CAPnjgZ3WpLrsHMARpbkdSRzTd51y4Noi+fYYh+tVncWgG5pUBw@mail.gmail.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <e0967b2e-2de1-c41f-1620-e7e0b8d5b158@kaod.org>
+Date: Mon, 5 Dec 2016 09:13:47 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.4.0
+MIME-Version: 1.0
+In-Reply-To: <CAPnjgZ3WpLrsHMARpbkdSRzTd51y4Noi+fYYh+tVncWgG5pUBw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 2433632652106959618
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrgeejgdehjecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -69,40 +43,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Dec 2016 06:25:21 -0000
+X-List-Received-Date: Mon, 05 Dec 2016 08:14:03 -0000
 
-Hi Rick,
+Hello,
 
-On 2 December 2016 at 15:27, Rick Altherr <raltherr@google.com> wrote:
-> In 35fc84f, bootm was refactored so plain 'bootm' and
-> 'bootm <subcommand>' shared a common implementation.
-> The 'bootm ramdisk' command implementation is now part of the common
-> implementation but not invoke by plain 'bootm' since the original
-> implementation never did ramdisk relocation.  Instead, ramdisk
-> relocation happened in image_setup_linux() which is typically called
-> during the OS portion of 'bootm'.
->
-> On ARM, parameters to the Linux kernel can either be passed by FDT or
-> ATAGS. When using FDT, image_setup_linux() is called which also triggers
-> ramdisk relocation.  When using ATAGS, image_setup_linux() is _not_
-> called because it mostly does FDT setup.
->
-> Instead of calling image_setup_linux() in both FDT and ATAGS cases,
-> include BOOTM_STATE_RAMDISK in the requested states during a plain
-> 'bootm' if CONFIG_SYS_BOOT_RAMDISK_HIGH is set and remove the ramdisk
-> relocation from image_setup_linux().  This causes ramdisk relocation to
-> happen on any system where CONFIG_SYS_BOOT_RAMDISK_HIGH regardless of
-> the OS being booted.
->
-> Signed-off-by: Rick Altherr <raltherr@google.com>
-> ---
->  cmd/bootm.c    | 3 +++
->  common/image.c | 7 -------
->  2 files changed, 3 insertions(+), 7 deletions(-)
+On 12/05/2016 07:24 AM, Simon Glass wrote:
+> On 2 December 2016 at 15:27, Rick Altherr <raltherr@google.com> wrote:
+>> From: Cédric Le Goater <clg@kaod.org>
+>>
+>> Signed-off-by: Cédric Le Goater <clg@kaod.org>
+>> Signed-off-by: Rick Altherr <raltherr@google.com>
+>> ---
+>>  common/image.c | 11 -----------
+>>  1 file changed, 11 deletions(-)
+> 
+> Reviewed-by: Simon Glass <sjg@chromium.org>
+> 
 
-Reviewed-by: Simon Glass <sjg@chromium.org>
+So how do you fix the ramdisk loading ? is using the FIT images 
+enough to work around this problem ? 
 
-But why would you still be using ATAGS?
+For legacy type images, this patch seemed to work : 
 
-Regards,
-Simon
+	https://github.com/legoater/u-boot/commit/86fd073a12650ee7fc4e6514f2b0f159be275f29
+
+I am not sure if this is a good approach though.
+
+Thanks,
+
+C.
