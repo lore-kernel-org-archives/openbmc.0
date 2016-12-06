@@ -1,47 +1,50 @@
-Return-Path: <robherring2@gmail.com>
-Received: from mail-oi0-f67.google.com (mail-oi0-f67.google.com
- [209.85.218.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <mouse@yandex-team.ru>
+X-Greylist: delayed 432 seconds by postgrey-1.36 at bilbo;
+ Wed, 07 Dec 2016 00:50:44 AEDT
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yandex-team.ru header.i=@yandex-team.ru
+ header.b="ArYMPdo9"; dkim-atps=neutral
+Received: from forwardcorp1m.cmail.yandex.net (forwardcorp1m.cmail.yandex.net
+ [5.255.216.198])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tXfYD2hqWzDvwD
- for <openbmc@lists.ozlabs.org>; Tue,  6 Dec 2016 09:28:32 +1100 (AEDT)
-Received: by mail-oi0-f67.google.com with SMTP id v84so38572338oie.2
- for <openbmc@lists.ozlabs.org>; Mon, 05 Dec 2016 14:28:32 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=rCT85YHViMENmshR4xNungB45u0mscXB7gqLCTxQ3Ow=;
- b=GryarH7bj1S3FD8VHZNTXxkdQM4gRaiIldAgtLER91R75EgdbDIeVDp7ID2KywdKrC
- zhY5XZ3FsgHA1lD9lUv+UvQIhP9/RfoTxw0xYU9SfhCFaW1Gnvv63ny92zwbhH6scLyh
- 1BD5OdS2tHz1/iF4N6MdVmloU61b4EQyy2kBnAL6uBoAyFs8EX9JZG9Ss9VOwXJW8rMs
- ZeaIwrEZnXcOPMOIpzdhTdxKKuMMhME7PensTrZ/wVw6eVwNGf1DGl0CH0k0Ls+A8hI9
- s1vZjkxbp05l7MGVq7pdpZYo+vqpkrrofWHvLXtv6QzF+4sFf6DYa96kFAdoWrjEwY3C
- pVIg==
-X-Gm-Message-State: AKaTC02i4sJkqkUx4djhVrwMIsmhpbxFWz2HzLldXRJjDos6Wjs4YfYhc9zRFpbACBPgSQ==
-X-Received: by 10.157.63.200 with SMTP id i8mr30346523ote.170.1480976909683;
- Mon, 05 Dec 2016 14:28:29 -0800 (PST)
-Received: from localhost (72-48-98-129.dyn.grandenetworks.net. [72.48.98.129])
- by smtp.gmail.com with ESMTPSA id
- s33sm6643528ota.37.2016.12.05.14.28.29
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 05 Dec 2016 14:28:29 -0800 (PST)
-Date: Mon, 5 Dec 2016 16:28:26 -0600
-From: Rob Herring <robh@kernel.org>
-To: Brendan Higgins <brendanhiggins@google.com>
-Cc: wsa@the-dreams.de, vz@mleia.com, clg@kaod.org, mouse@mayc.ru,
- mark.rutland@arm.com, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, joel@jms.id.au, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH v5 2/2] i2c: aspeed: added documentation for Aspeed I2C
- driver
-Message-ID: <20161205222826.brehi3nbcg3exwum@rob-hp-laptop>
-References: <1480467618-7497-1-git-send-email-brendanhiggins@google.com>
- <1480467618-7497-3-git-send-email-brendanhiggins@google.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tY31J1tnszDt0M
+ for <openbmc@lists.ozlabs.org>; Wed,  7 Dec 2016 00:50:44 +1100 (AEDT)
+Received: from mxbackcorp1m.mail.yandex.net (mxbackcorp1m.mail.yandex.net
+ [IPv6:2a02:6b8:0:2519::301])
+ by forwardcorp1m.cmail.yandex.net (Yandex) with ESMTP id C887120C54;
+ Tue,  6 Dec 2016 16:43:25 +0300 (MSK)
+Received: from webcorp01h.yandex-team.ru (webcorp01h.yandex-team.ru
+ [37.9.109.45])
+ by mxbackcorp1m.mail.yandex.net (nwsmtp/Yandex) with ESMTP id
+ DFQuKSRuXo-hPr4b4b0; Tue, 06 Dec 2016 16:43:25 +0300
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
+ s=default; 
+ t=1481031805; bh=8iyajuorBPxf2FrBh/07CZXi+rnsSb7hyFOmuNCEu+c=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date;
+ b=ArYMPdo9HHCsHWzh0mTKi/1aDHkiPnnwVHPtVauHSo8YXMF3fp/lYZlVTJM4vjS0F
+ BKllsN8rypLPTOMbNzy0mh1TSlWZyvB/p3uv/fg6iRknxUCpALH1mQslrsEY9QjqnU
+ xWgWtrzBXCnbg/NpccDZqlIre/K4RnhAQbpKi6ek=
+Authentication-Results: mxbackcorp1m.mail.yandex.net;
+ dkim=pass header.i=@yandex-team.ru
+X-Yandex-Sender-Uid: 1120000000001030
+Received: by webcorp01h.yandex-team.ru with HTTP;
+ Tue, 06 Dec 2016 16:43:25 +0300
+From: Anton D. Kachalov <mouse@yandex-team.ru>
+To: Joel Stanley <joel@jms.id.au>,
+ =?utf-8?B?Q8OpZHJpYyBMZSBHb2F0ZXI=?= <clg@kaod.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+In-Reply-To: <135601479877296@webcorp02g.yandex-team.ru>
+References: <12131479795846@webcorp02g.yandex-team.ru>
+ <CACPK8Xc+dgohMYhShGoifNf4pxWTHzoas1G1+FiffPGBG-7j7Q@mail.gmail.com>
+ <135601479877296@webcorp02g.yandex-team.ru>
+Subject: Re: [PATCH] ftgmac100: fixup MAC address set during board bringup
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1480467618-7497-3-git-send-email-brendanhiggins@google.com>
-User-Agent: Mutt/1.6.2-neo (2016-08-21)
+Message-Id: <19381481031805@webcorp01h.yandex-team.ru>
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Tue, 06 Dec 2016 16:43:25 +0300
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -53,25 +56,75 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Dec 2016 22:28:32 -0000
+X-List-Received-Date: Tue, 06 Dec 2016 13:50:48 -0000
 
-On Tue, Nov 29, 2016 at 05:00:18PM -0800, Brendan Higgins wrote:
-> Added device tree binding documentation for Aspeed I2C controller and
-> busses.
-> 
-> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
-> ---
-> Changes for v2:
->   - None
-> Changes for v3:
->   - Removed reference to "bus" device tree param
-> Changes for v4:
->   - None
-> Changes for v5:
->   - None
-> ---
->  .../devicetree/bindings/i2c/i2c-aspeed.txt         | 61 ++++++++++++++++++++++
->  1 file changed, 61 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+ping
 
-Acked-by: Rob Herring <robh@kernel.org>
+23.11.2016, 08:12, "Anton D. Kachalov" <mouse@yandex-team.ru>:
+> 23.11.2016, 07:57, "Joel Stanley" <joel@jms.id.au>:
+>>  On Tue, Nov 22, 2016 at 4:54 PM, Anton D. Kachalov <mouse@yandex-team.ru> wrote:
+>>>   Hardware reset leads to clear all registers.
+>>>   Make the hardware reset first before actual MAC address set in ftgmac100_initialization loop.
+>>>   Based on datasheet only one bit (SW_RST) have to be set in order to proper MAC reset.
+>>>
+>>>   Signed-off-by: Anton D. Kachalov <mouse@yandex-team.ru>
+>>
+>>  Thanks for the patch!
+>>
+>>>   ---
+>>>    drivers/net/ftgmac100.c | 6 +++---
+>>>    1 file changed, 3 insertions(+), 3 deletions(-)
+>>>
+>>>   diff --git a/drivers/net/ftgmac100.c b/drivers/net/ftgmac100.c
+>>>   --- a/drivers/net/ftgmac100.c 2016-11-22 07:07:44.000000000 +0300
+>>>   +++ b/drivers/net/ftgmac100.c 2016-11-22 07:27:12.131940971 +0300
+>>>   @@ -457,7 +457,7 @@ static void ftgmac100_reset(struct eth_d
+>>>           debug("%s()\n", __func__);
+>>>
+>>>           //Ryan modify
+>>>   - __raw_writel(__raw_readl(&ftgmac100->maccr) | FTGMAC100_MACCR_SW_RST, &ftgmac100->maccr);
+>>>   + __raw_writel(FTGMAC100_MACCR_SW_RST, &ftgmac100->maccr);
+>>
+>>  I assume all of the other values in MACCR will be reset when we do the
+>>  software reset, so that's why you don't need to read-modify-write?
+>
+> Regarding to the datasheet reset sequence, only one bit (SW_RST) have to be written. Within real hardware (AST2150) read-modify-write doesn't work. Sametime, kernel's driver has a proper init sequence too (only one bit set).
+>
+>>>           while (__raw_readl(&ftgmac100->maccr) & FTGMAC100_MACCR_SW_RST);
+>>>
+>>>   @@ -791,11 +791,11 @@ int ftgmac100_initialize(bd_t *bd)
+>>>                   miiphy_register(dev->name, ftgmac100_reg_read, ftgmac100_reg_write);
+>>>    #endif
+>>>
+>>>   + ftgmac100_reset(dev);
+>>>   +
+>>
+>>  This part of the change looks good.
+>>
+>>  Cheers,
+>>
+>>  Joel
+>>
+>>>                   /* set the ethernet address */
+>>>                   ftgmac100_set_mac_from_env(dev);
+>>>
+>>>   - ftgmac100_reset(dev);
+>>>   -
+>>>                   card_number++;
+>>>           }
+>>>           return card_number;
+>>>   _______________________________________________
+>>>   openbmc mailing list
+>>>   openbmc@lists.ozlabs.org
+>>>   https://lists.ozlabs.org/listinfo/openbmc
+>
+> --
+> Anton D. Kachalov
+>
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+
+-- 
+Anton D. Kachalov
