@@ -1,52 +1,57 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-vk0-x241.google.com (mail-vk0-x241.google.com
- [IPv6:2607:f8b0:400c:c05::241])
+Received: from mail-vk0-x22d.google.com (mail-vk0-x22d.google.com
+ [IPv6:2607:f8b0:400c:c05::22d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tYv3L3BMhzDvk6
- for <openbmc@lists.ozlabs.org>; Thu,  8 Dec 2016 09:55:26 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tYvg01DSmzDw1d
+ for <openbmc@lists.ozlabs.org>; Thu,  8 Dec 2016 10:22:52 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="zCjppN4c"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ReGI9yE5"; 
  dkim-atps=neutral
-Received: by mail-vk0-x241.google.com with SMTP id p9so20647999vkd.1
- for <openbmc@lists.ozlabs.org>; Wed, 07 Dec 2016 14:55:26 -0800 (PST)
+Received: by mail-vk0-x22d.google.com with SMTP id p9so220817213vkd.3
+ for <openbmc@lists.ozlabs.org>; Wed, 07 Dec 2016 15:22:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=h+id6iUH/i54XBxsKp9xQUB5WUpbAG2d3cdfMRw6mes=;
- b=zCjppN4cYSAfF+tthpVEcuS0Ab4ZMGyzahoN0L1yG7wBPV8ORUHUp1s7mQSbHtRuhS
- dFm6cgwiJvK3Upwh8vxfx0Rc3slxExUrFvYYSP0jSI+ZZ5JgfxQ8HutWefeWTRGXtKd7
- tshRH7pXxPybjdil6PkofHYK4KxnAIQQpwCP+Q2r0ukbRPVpJXYR+bqhW3eD2fjNwSTN
- /jwx0ndsACpMVcqLz1t9bA7vn0YponRamHwRZEYjP+22WyQa9cMLVSvNcj7G+knPjEQd
- wVyt+w4TCV5S4I/Bc9mWpdZCWbB6FiYMmS7W3l/xNU9cUN1UjOMJTpRYyZ1tDM8k4ny6
- LqUg==
+ :subject:to:cc:content-transfer-encoding;
+ bh=RCBCYl94/p9rXVLeXSPX5PQtah0lOi3yshLijBwkB60=;
+ b=ReGI9yE5u7yKQ/RsvcRnjh+YGNNbUhJCbtO29rIekmtb0Bxe96vHAfLmoJaZsPDF2V
+ 01a1nvH5wltnAn1pfxYjuZUOlRZzKPNDyQ9thIE2Bp1kvw7KD+vAxkORLfqXSl/syHxV
+ rt9xI5f8VoR9AJWV67rbuM4OmL1gqgn+XrR62INFoTRCYP1wFSebWpyOhgKRm6B15Jp0
+ Mfd8JpMtyZbtAKwLBM6r8jFSmfoQhtAhaSL+7reFY0wa1LY7mPe3ktfYyOqHP3laqbz/
+ gEaL3yrVFS6HI8w20LYx1U8mey3YzACSJAZLKWKMSpMzfr40wttW2cbd7pvUsm1b79fN
+ yovg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=h+id6iUH/i54XBxsKp9xQUB5WUpbAG2d3cdfMRw6mes=;
- b=eKQ/AUz/RQliMlDfZgkc79QK8ozXvJ1YPdGml4K5IYhRJCS/zEraeTdvWw+t9rmU5f
- JiVGFjbPpjzEbb8rNLe9+19dUF7GbeMdW4lNgCJwxjV4ka61L1/E0ApLVh3+E3kc73sp
- Ao5w1juHNQSW24WhkR/HaaaT/59sXbPj3rot2a4UCig5rtA9RSw8LnSJP9e4khMyolTc
- SUL66qBBH8h8/L5WbSLbQe3dE9Mfr6HdvphAkg7HlB9F7YfK8YkT+x8WjqyPxAi68Qh3
- Jt75+QgHZmk7ufx40rr59lbqlfEbaCTgeZK6xPAfLWt+Os4nD+VeMEmZCr9ZZsc8Znn9
- fZ4Q==
-X-Gm-Message-State: AKaTC03TIb0sdB9WM5ufE7MrL00oNL54IFR0HPBDWB8mhdntqOyoqlIqilBndPxuBPWiwbeEEyXYgzx6TC3QKA==
-X-Received: by 10.31.223.68 with SMTP id w65mr19994220vkg.124.1481151324013;
- Wed, 07 Dec 2016 14:55:24 -0800 (PST)
+ :date:message-id:subject:to:cc:content-transfer-encoding;
+ bh=RCBCYl94/p9rXVLeXSPX5PQtah0lOi3yshLijBwkB60=;
+ b=Yj9q33dOCAIoUp70eWV01f5EDzd/n8jGEqWDKMgmp7hs4cEZhBTUQhJ1YeZknqCb+Q
+ C0jaUcKm2lRjJ/JbJyTqadvykKD17y+4M5JnyaulQrrGmxwRV0+qs/UfWsmEUSifOKds
+ pjumSfV+MBJ44N+t/aTTSmSoBO6qsCOwJgOGHRI60EsSz/+QMWSFatpVvrgasnGDOY/g
+ gJGHk8qPXOQe5Kicn7nhY3u29qZZ6PzlQtisO0wGDmSGxpSVjSh2IaxJ0BX5g0LkBWR4
+ mbZh5KuZKQAvWZaP+icJ22wGTKkXOr4iOjIsrLBAKDQlQj4U7Q/62lE4lezYVAvywEJa
+ d8Yw==
+X-Gm-Message-State: AKaTC00v5UqwZrWc28WcO+WYqnpc6bVs15z2r3/wHsqM9nSXqKTLUyScp6MC2stwYpTxYdxzhpabq8xFAZKQag==
+X-Received: by 10.31.130.20 with SMTP id e20mr22626366vkd.149.1481152969989;
+ Wed, 07 Dec 2016 15:22:49 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.159.48.91 with HTTP; Wed, 7 Dec 2016 14:55:03 -0800 (PST)
-In-Reply-To: <8d6aac0e-9d92-3ad9-67ea-f9cbf9032377@linux.vnet.ibm.com>
-References: <8d6aac0e-9d92-3ad9-67ea-f9cbf9032377@linux.vnet.ibm.com>
+Received: by 10.159.48.91 with HTTP; Wed, 7 Dec 2016 15:22:29 -0800 (PST)
+In-Reply-To: <5483e4dc-506b-c5b1-8e62-17408a9c1d9c@kaod.org>
+References: <1481133996-29973-1-git-send-email-raltherr@google.com>
+ <1481133996-29973-4-git-send-email-raltherr@google.com>
+ <5483e4dc-506b-c5b1-8e62-17408a9c1d9c@kaod.org>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 8 Dec 2016 09:25:03 +1030
-X-Google-Sender-Auth: NMPcM4TS3uqVlmc13lgQqOJby7M
-Message-ID: <CACPK8XcKAiTxALun5YiTW-wnQ9BzH0itoqKOqgzxux5ywKXTzw@mail.gmail.com>
-Subject: Re: Supporting different temp sensors at same I2C location
-To: Matt Spinler <mspinler@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Thu, 8 Dec 2016 09:52:29 +1030
+X-Google-Sender-Auth: z_6_Q9ejsDONUZya-d7qeTllEbo
+Message-ID: <CACPK8XcpR534r0nr06TQxr9hyM-_CY5SAFLO15-5yqO+zYsu1A@mail.gmail.com>
+Subject: Re: [PATCH u-boot][PATCH v4 3/3] Enable FIT image support and FDT
+ loading for AST2400/AST2500
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: Rick Altherr <raltherr@google.com>,
+ OpenBMC Mailing List <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,29 +63,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 07 Dec 2016 22:55:27 -0000
+X-List-Received-Date: Wed, 07 Dec 2016 23:22:52 -0000
 
-Hi Matt,
+On Thu, Dec 8, 2016 at 4:54 AM, C=C3=A9dric Le Goater <clg@kaod.org> wrote:
 
-On Wed, Dec 7, 2016 at 8:21 AM, Matt Spinler
-<mspinler@linux.vnet.ibm.com> wrote:
-> On Witherspoon the hardware team is asking us(or maybe warning us?) if they
-> can change the ambient temp/altitude sensor from the BMP280 to a DPS310,
-> which would have the same I2C address.  Only the new one would ship.
->
-> How are things like this usually handled in Linux?  Can both drivers be kept
-> around and just activate based on their probing? Or do we just drop support
-> for the old chip completely, though I haven't asked if this is OK yet.  Or
-> should we push for having a different I2C address and then support both
-> still?
+>> +CONFIG_EFI_LOADER=3Dn
+>> +CONFIG_FIT=3Dy
+>> +CONFIG_FIT_VERBOSE=3Dy
 
-We can keep both drivers around without issue. It takes a few KB of
-extra flash space, but we are still a long way from overflowing the
-space set aside for the kernel.
-
-The harder bit is the device tree. We would need to update the device
-tree depending on which piece of hardware is attached. I'm not sure
-the best way to handle that.
+Are we sure we want verbose to be enabled?
 
 Cheers,
 
