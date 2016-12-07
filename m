@@ -1,31 +1,33 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <vz@mleia.com>
+Received: from mail.mleia.com (mleia.com [178.79.152.223])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tYthL3WbfzDvj3
- for <openbmc@lists.ozlabs.org>; Thu,  8 Dec 2016 09:38:58 +1100 (AEDT)
-Received: from localhost (170.225.9.145 [170.225.9.145]) by mx.zohomail.com
- with SMTPS id 1481150330762663.9950744042782;
- Wed, 7 Dec 2016 14:38:50 -0800 (PST)
-Date: Wed, 7 Dec 2016 16:38:48 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Matt Spinler <mspinler@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: Starting the phosphor-hwmon service from udev rules
-Message-ID: <20161207223848.lciwemew7hhhfngb@asimov>
-References: <32e4f53c-5bab-55ba-50f2-25ba891d4127@linux.vnet.ibm.com>
- <20161129024216.GS15757@heinlein.lan>
- <accb6902-8485-6f7f-c981-4930bb911b08@linux.vnet.ibm.com>
- <20161130021902.GT15757@heinlein.lan>
- <bfe482f8-3731-53f2-b73d-e99331fbac39@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tYJyx27B5zDvyN
+ for <openbmc@lists.ozlabs.org>; Wed,  7 Dec 2016 11:19:36 +1100 (AEDT)
+Received: from mail.mleia.com (localhost [127.0.0.1])
+ by mail.mleia.com (Postfix) with ESMTP id B2561383D83;
+ Wed,  7 Dec 2016 00:19:32 +0000 (GMT)
+Subject: Re: [PATCH v5 2/2] i2c: aspeed: added documentation for Aspeed I2C
+ driver
+To: Brendan Higgins <brendanhiggins@google.com>, wsa@the-dreams.de,
+ clg@kaod.org, mouse@mayc.ru, robh+dt@kernel.org, mark.rutland@arm.com
+References: <1480467618-7497-1-git-send-email-brendanhiggins@google.com>
+ <1480467618-7497-3-git-send-email-brendanhiggins@google.com>
+Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, joel@jms.id.au,
+ openbmc@lists.ozlabs.org
+From: Vladimir Zapolskiy <vz@mleia.com>
+Message-ID: <5ca0db30-76e1-5ffa-fb48-6e0ace945f82@mleia.com>
+Date: Wed, 7 Dec 2016 02:19:26 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Icedove/45.4.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="uqysnbz22m5dh3le"
-Content-Disposition: inline
-In-Reply-To: <bfe482f8-3731-53f2-b73d-e99331fbac39@linux.vnet.ibm.com>
-User-Agent: Mutt/1.6.2 (2016-06-11)
-X-Zoho-Virus-Status: 1
+In-Reply-To: <1480467618-7497-3-git-send-email-brendanhiggins@google.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-49551924 
+X-CRM114-CacheID: sfid-20161207_001932_777933_C1A23A02 
+X-CRM114-Status: GOOD (  26.36  )
+X-Mailman-Approved-At: Thu, 08 Dec 2016 09:52:32 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -37,50 +39,159 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 07 Dec 2016 22:38:59 -0000
+X-List-Received-Date: Wed, 07 Dec 2016 00:19:37 -0000
 
+Hello Brendan,
 
---uqysnbz22m5dh3le
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+please find review comments below.
 
-On Wed, Dec 07, 2016 at 01:44:52PM -0600, Matt Spinler wrote:
-> The issue with this is the %i is the device path of the hwmon driver,=20
-> which looks like
-> /devices/platform/ahb/ahb:apb/1e78a000.i2c/i2c-0/i2c-0/0-0068/hwmon/hwmon=
-0,
-> and the hwmon<num> can't be known ahead of time by the MRW so it can't ma=
-ke
-> conf files named that way.
+On 11/30/2016 03:00 AM, Brendan Higgins wrote:
+> Added device tree binding documentation for Aspeed I2C controller and
+> busses.
 
-Isn't this %i vs %I?  %I would be the unescaped path.  %i would be
-escaped, so it would be devices-platform-ahb-ahb:apb-  (slash changed to
-dash in general)
+This is not the exact description of the added bindings, here you add two
+device tree bindings of interrupt controller device and I2C bus controller
+device.
 
---=20
-Patrick Williams
+Please separate the description into two separate files, place one into
+../interrupt-controller/aspeed,ast2400-i2c-ic.txt and another one into
+../i2c/aspeed,ast2400-i2c.txt file
 
---uqysnbz22m5dh3le
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+The description of device tree bindings must precede the actual drivers,
+assuming that the file with two drivers is also split into two files
+there should be 4 patches for v6:
+1) device tree description of the interrupt controller,
+2) interrupt controller driver,
+3) device tree description of the I2C bus controller,
+4) I2C bus controller driver.
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+> Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+> ---
+> Changes for v2:
+>   - None
+> Changes for v3:
+>   - Removed reference to "bus" device tree param
+> Changes for v4:
+>   - None
+> Changes for v5:
+>   - None
+> ---
+>  .../devicetree/bindings/i2c/i2c-aspeed.txt         | 61 ++++++++++++++++++++++
+>  1 file changed, 61 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+> 
+> diff --git a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+> new file mode 100644
+> index 0000000..dd11a97
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+> @@ -0,0 +1,61 @@
+> +Device tree configuration for the I2C controller and busses on the AST24XX
+> +and AST25XX SoCs.
+> +
+> +Controller:
 
-iQIcBAEBCAAGBQJYSI94AAoJEKsDR8wtAMEZP74QAJtbPjjYIbpSR6rIRUPsBjwb
-fV5bJ0fW8r88QdarkuLCFuvvIEYarapS4SM0MJTQmdx06DXMadIz+SIxL03yitwN
-s6FnIa3v0bZadqelK/LFieDaxNFHI1x5+aE48NUTl6uI4QoJsGO5BdI/xhY80ieZ
-ymMVIZ2NgzRObSBu2JtqFLZ/iF0jZHvhfrMLjQsHuJvwnmm+fPJKQEkaOy8mp7Db
-GY2uicDeOL88ZsbqY9I6MmclMwjWgNYspK0l91TaE2ze8b7mm6FS7l58dbjZ3BJ9
-LzrZJRE9psyDa8aVelEBdBVzJTxyyZ+e9HzhxMCn9dsU9CfGfZoGlrqNax3M5YaQ
-gksLo/o8o+70fbVRu42KQG3p/HHpCeI7Yn+d7PehMRXd73KRXghC6lXcr8Mz2oDW
-MUAkqskCaZyolwDVFMiQmGsjZVqGjx+ZFEVXmJVNybMrRiXDWdnfT35o9SgAO1yE
-WBvbbBgdR6Dh5mHm89PQKsBAOaHsTO4912vwZv3ksE+Ghw5KJI1Itxf/Bl4/N1/I
-zXV4DIMUslRVh6WDf6B57UoLp/a59CEgvamzRQoAFqWIE+pebVCKv/y5XQcZrj9j
-j7b6z7p4hUB14QpxNxQBrz8VCtH4DMLIlECRZJVh91/PRwtF/6S3VoNgnwkJRDwl
-Hj4wCiWo5JfTU3M3OYM1
-=/TSx
------END PGP SIGNATURE-----
+Interrupt controller.
 
---uqysnbz22m5dh3le--
+> +
+> +	Required Properties:
+> +	- #address-cells	: should be 1
+> +	- #size-cells 		: should be 1
+> +	- #interrupt-cells 	: should be 1
+> +	- compatible 		: should be "aspeed,ast2400-i2c-controller"
+> +				  or "aspeed,ast2500-i2c-controller"
+> +	- reg			: address start and range of controller
+> +	- ranges		: defines address offset and range for busses
+> +	- interrupts		: interrupt number
+> +	- clocks		: root clock of bus, should reference the APB
+> +				  clock
+> +	- clock-ranges		: specifies that child busses can inherit clocks
+> +	- interrupt-controller	: denotes that the controller receives and fires
+> +				  new interrupts for child busses
+> +
+> +Bus:
+
+I2C bus controller.
+
+> +
+> +	Required Properties:
+> +	- #address-cells	: should be 1
+> +	- #size-cells		: should be 0
+> +	- reg			: address offset and range of bus
+> +	- compatible		: should be "aspeed,ast2400-i2c-bus"
+> +				  or "aspeed,ast2500-i2c-bus"
+> +	- interrupts		: interrupt number
+> +
+> +	Optional Properties:
+> +	- clock-frequency	: frequency of the bus clock in Hz
+> +				  defaults to 100 kHz when not specified
+> +
+> +Example:
+> +
+> +i2c: i2c@1e78a000 {
+> +	#address-cells = <1>;
+> +	#size-cells = <1>;
+> +	#interrupt-cells = <1>;
+> +
+> +	compatible = "aspeed,ast2400-i2c-controller";
+> +	reg = <0x1e78a000 0x40>;
+> +	ranges = <0 0x1e78a000 0x1000>;
+> +	interrupts = <12>;
+> +	clocks = <&clk_apb>;
+> +	clock-ranges;
+> +	interrupt-controller;
+> +
+> +	i2c0: i2c-bus@40 {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +		reg = <0x40 0x40>;
+> +		compatible = "aspeed,ast2400-i2c-bus";
+> +		clock-frequency = <100000>;
+> +		status = "disabled";
+> +		interrupts = <0>;
+> +		interrupt-parent = <&i2c>;
+> +	};
+> +};
+
+The selected layout of device tree nodes does not reflect the actual
+hardware, I2C bus controller (sub-)devices can not be children of the
+interrupt controller device, they are only consumers of interrupts from
+the interrupt controller device.
+
+In this case the proper and expected device tree description should
+look like the one below:
+
+i2c {
+	compatible = "simple-bus";
+	#address-cells = <1>;
+	#size-cells = <1>;
+	ranges = <0 0x1e78a000 0x1000>;
+
+	i2c-ic: interrupt-controller@0 {
+		compatible = "aspeed,ast2400-i2c-ic";
+		reg = <0x0 0x40>;
+		clocks = <&clk_apb>;
+		interrupt-controller;
+		interrupts = <12>;
+		#interrupt-cells = <1>;
+	};
+
+	i2c0: i2c@40 {
+		compatible = "aspeed,ast2400-i2c";
+		reg = <0x40 0x40>;
+		#address-cells = <1>;
+		#size-cells = <0>;
+		clock-frequency = <100000>;
+		interrupt-parent = <&i2c-ic>;
+		interrupts = <0>;
+		status = "disabled";
+	};
+
+	i2c1: i2c-bus@80 {
+		.....
+	};
+};
+
+--
+With best wishes,
+Vladimir
