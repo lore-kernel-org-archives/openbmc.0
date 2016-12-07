@@ -1,57 +1,54 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x241.google.com (mail-ua0-x241.google.com
- [IPv6:2607:f8b0:400c:c08::241])
+Return-Path: <raltherr@google.com>
+Received: from mail-io0-x22c.google.com (mail-io0-x22c.google.com
+ [IPv6:2607:f8b0:4001:c06::22c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tYvhx5nzbzDw1d
- for <openbmc@lists.ozlabs.org>; Thu,  8 Dec 2016 10:24:33 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tYvlh5kL7zDw2m
+ for <openbmc@lists.ozlabs.org>; Thu,  8 Dec 2016 10:26:56 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="I2lH1qtO"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="cFqT0pm+"; 
  dkim-atps=neutral
-Received: by mail-ua0-x241.google.com with SMTP id 12so40775107uas.3
- for <openbmc@lists.ozlabs.org>; Wed, 07 Dec 2016 15:24:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc:content-transfer-encoding;
- bh=4GX8mbcqpcODaAdW+FjM4dN9ZKM0/3GaLbVr6p4u/vE=;
- b=I2lH1qtOdgYyomdIz3K2QMmoUlTcailW8nMSG0rmrtuZ9iXfJJK9rRSPBIa/HQFWU1
- 4SjmHjKB2DHNaAMWdSVg2ccEwwj25OBOhQn4TzPNDZgvzVubrbcRmJ7UxiG+fji/RSS7
- /atj/2bjFFYW7exZ00yMw69fRQKNLYL87FnlF6DMdGTDcTUDsZNRH7GzdsNIcm10UlKC
- xXEvL9gkxyKLcm/uktqXT8TRA1LQHdUks1pFaxOUx+xcvyYG2yFOS0yjQ56/5oEOgFGC
- 9sMzLiskEvjjkKgNs/FtR3r9PuE8ssiUufRnfECKHzGi+ySYpxodb3P881HRQr5q+yjw
- OCLg==
+Received: by mail-io0-x22c.google.com with SMTP id a124so740358394ioe.2
+ for <openbmc@lists.ozlabs.org>; Wed, 07 Dec 2016 15:26:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=V+ie3FmugeDfevbUN5GmRkOlP6GLhPzh4RIWMhgC42Q=;
+ b=cFqT0pm+lIFqSqu2o9QgJqwAgTG11WoPTvmrC/AdYXFYUpSuUCWIG0IYEtZgPa3kVC
+ 1+NyOwazsp3NiKJq+dKu8TX02JC0hUrNrEf318C4Py92vxBVVjBzlJpIKRlF1pZT+aqh
+ gu5OZ8gNPkxLsCAMg2PJC8wLsnFAWRmqZ74yldPrVwQ6FoX8qlLDkjxNp91NEPl3hrKc
+ QTYaa1H+hCr9TRlRp63ZAszDTr6sIFCm9SwU/JTiAPTC+kAh9x7SbB9YrsERhWDScW+D
+ t/5nfMAadreUyKgyuATi2LnnfxU03R9Bt+t8abLcaOorVJOv1DKOJtC6/ZjEDfqW1zUT
+ A+QA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc:content-transfer-encoding;
- bh=4GX8mbcqpcODaAdW+FjM4dN9ZKM0/3GaLbVr6p4u/vE=;
- b=HiE8E/Dsv7ImLPEaS13dBjUm+HdQ8pJM1AHjYA+MOFpBGCIkh4isytSiFrRo6c+E92
- fmNZddpeEKv9CWsmUgS0hypU+znzuM0CxbwdT/Rj3jgnONzUCpX7OTxIO+ja8MTzThbt
- 06kttS3NrUye6DYoHo6NbJsBVgUUKgxPARXWLKUtySMvVVp0qOJNvjLJxB4MC188vEyg
- axT8eB1Qjye3ALf4dgHugstbEKxQ1WhMeOBMCd5473BVPaPcx1GIqj4x+RRu3tV14Z/z
- 5gI76GuCVqKtRVfLeQ73n/+SoQY2EJFJriaNNGsiZ4kNZll9JNftSCiMgBU75FusvImc
- hD8g==
-X-Gm-Message-State: AKaTC01fzTNvFQRtR85wyIGk7gNsDDcrO94+VgIX5t/7PrbVdi9nrM8HHfI37YTK1T0zPPiTh9TDfhV2XwLuNQ==
-X-Received: by 10.176.84.207 with SMTP id q15mr45223873uaa.177.1481153070227; 
- Wed, 07 Dec 2016 15:24:30 -0800 (PST)
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=V+ie3FmugeDfevbUN5GmRkOlP6GLhPzh4RIWMhgC42Q=;
+ b=iDTH3PCoXHhQi+mncJpINlbBgjw1qg8F7sKpGipKAvEmJhBCIRhPXcRY2Hs9GXaiLH
+ /KWN4tpT/x9qwA5QqBSnc2Y2CALtwQU6JwDPETcJM4xMge1pfTG5L/4r5BunIgCNRAt4
+ gKTDE1n2TkKsvXGfKO8GUUY3hUHP7fj8O9obNd7F6pVR8McSbjxj7/zz/wnxZfA/pt9h
+ uto1v2Qzy3v5aLRBILAPaoOyB8ZZjBA1IRUfwPSKShxMHfJPA6IDeA2CrNS23j7VudXg
+ EivzUiqJcmXXdX9zD7HCdXmm5/Ai52BC2ChuleeKzcgTS+ico2CUJs2hMt05d+Y2h3xz
+ J1bw==
+X-Gm-Message-State: AKaTC032yQCRy6lG1Jw7NEmd5ihfSdKDKjaNteKaUvhwFAVvLaCmuZ5g5uJMkfRRR5xwPkLWmh8BY806Y5Lp1A9a
+X-Received: by 10.107.48.134 with SMTP id w128mr67241560iow.226.1481153214275; 
+ Wed, 07 Dec 2016 15:26:54 -0800 (PST)
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.159.48.91 with HTTP; Wed, 7 Dec 2016 15:24:09 -0800 (PST)
-In-Reply-To: <02df3e2c-86e7-ead5-4ae4-252fdf94495e@kaod.org>
+Received: by 10.107.154.197 with HTTP; Wed, 7 Dec 2016 15:26:53 -0800 (PST)
+In-Reply-To: <CACPK8XcpR534r0nr06TQxr9hyM-_CY5SAFLO15-5yqO+zYsu1A@mail.gmail.com>
 References: <1481133996-29973-1-git-send-email-raltherr@google.com>
- <1481133996-29973-3-git-send-email-raltherr@google.com>
- <02df3e2c-86e7-ead5-4ae4-252fdf94495e@kaod.org>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 8 Dec 2016 09:54:09 +1030
-X-Google-Sender-Auth: X6R2qIy6lhwdxzvQx6CY1wnjPpg
-Message-ID: <CACPK8XeTiqrsgzeRztfonH3YpTbVBnMEKtS6tHvBr9=Kg9G6QQ@mail.gmail.com>
-Subject: Re: [PATCH u-boot][PATCH v4 2/3] bootm: relocate ramdisk if
- CONFIG_SYS_BOOT_RAMDISK_HIGH set
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
-Cc: Rick Altherr <raltherr@google.com>,
+ <1481133996-29973-4-git-send-email-raltherr@google.com>
+ <5483e4dc-506b-c5b1-8e62-17408a9c1d9c@kaod.org>
+ <CACPK8XcpR534r0nr06TQxr9hyM-_CY5SAFLO15-5yqO+zYsu1A@mail.gmail.com>
+From: Rick Altherr <raltherr@google.com>
+Date: Wed, 7 Dec 2016 15:26:53 -0800
+Message-ID: <CAPLgG=mK40uKGdspJnxN8ohZn1XBv41TLknLYsO8JUH94+iZxw@mail.gmail.com>
+Subject: Re: [PATCH u-boot][PATCH v4 3/3] Enable FIT image support and FDT
+ loading for AST2400/AST2500
+To: Joel Stanley <joel@jms.id.au>
+Cc: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
  OpenBMC Mailing List <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/alternative; boundary=001a114448d4324be5054319db3e
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,45 +60,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 07 Dec 2016 23:24:34 -0000
+X-List-Received-Date: Wed, 07 Dec 2016 23:26:57 -0000
 
-On Thu, Dec 8, 2016 at 4:54 AM, C=C3=A9dric Le Goater <clg@kaod.org> wrote:
-> On 12/07/2016 07:06 PM, Rick Altherr wrote:
->> In 35fc84f, bootm was refactored so plain 'bootm' and
->> 'bootm <subcommand>' shared a common implementation.
->> The 'bootm ramdisk' command implementation is now part of the common
->> implementation but not invoke by plain 'bootm' since the original
->> implementation never did ramdisk relocation.  Instead, ramdisk
->> relocation happened in image_setup_linux() which is typically called
->> during the OS portion of 'bootm'.
->>
->> On ARM, parameters to the Linux kernel can either be passed by FDT or
->> ATAGS. When using FDT, image_setup_linux() is called which also triggers
->> ramdisk relocation.  When using ATAGS, image_setup_linux() is _not_
->> called because it mostly does FDT setup.
->>
->> Instead of calling image_setup_linux() in both FDT and ATAGS cases,
->> include BOOTM_STATE_RAMDISK in the requested states during a plain
->> 'bootm' if CONFIG_SYS_BOOT_RAMDISK_HIGH is set and remove the ramdisk
->> relocation from image_setup_linux().  This causes ramdisk relocation to
->> happen on any system where CONFIG_SYS_BOOT_RAMDISK_HIGH regardless of
->> the OS being booted. Also remove IMAGE_ENABLE_RAMDISK_HIGH as it was
->> only used by the now-removed code from image_setup_linux().
->>
->> Signed-off-by: Rick Altherr <raltherr@google.com>
->> Reviewed-by: Simon Glass <sjg@chromium.org>
+--001a114448d4324be5054319db3e
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+It turns on a few error messages when encountering situations not supported
+with FIT images.  Binary size increase is small and it doesn't generate any
+output during normal use.  I'm OK either way.  What do you recommend?
+
+On Wed, Dec 7, 2016 at 3:22 PM, Joel Stanley <joel@jms.id.au> wrote:
+
+> On Thu, Dec 8, 2016 at 4:54 AM, C=C3=A9dric Le Goater <clg@kaod.org> wrot=
+e:
 >
-> looks good.
+> >> +CONFIG_EFI_LOADER=3Dn
+> >> +CONFIG_FIT=3Dy
+> >> +CONFIG_FIT_VERBOSE=3Dy
 >
-> Reviewed-by: C=C3=A9dric Le Goater <clg@kaod.org>
+> Are we sure we want verbose to be enabled?
+>
+> Cheers,
+>
+> Joel
+>
 
-Reviewed-by: Joel Stanley <joel@jms.id.au>
+--001a114448d4324be5054319db3e
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Rick, can you please submit this one upstream too?
+<div dir=3D"ltr">It turns on a few error messages when encountering situati=
+ons not supported with FIT images.=C2=A0 Binary size increase is small and =
+it doesn&#39;t generate any output during normal use.=C2=A0 I&#39;m OK eith=
+er way.=C2=A0 What do you recommend?</div><div class=3D"gmail_extra"><br><d=
+iv class=3D"gmail_quote">On Wed, Dec 7, 2016 at 3:22 PM, Joel Stanley <span=
+ dir=3D"ltr">&lt;<a href=3D"mailto:joel@jms.id.au" target=3D"_blank">joel@j=
+ms.id.au</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=
+=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On Thu, =
+Dec 8, 2016 at 4:54 AM, C=C3=A9dric Le Goater &lt;<a href=3D"mailto:clg@kao=
+d.org">clg@kaod.org</a>&gt; wrote:<br>
+<br>
+&gt;&gt; +CONFIG_EFI_LOADER=3Dn<br>
+&gt;&gt; +CONFIG_FIT=3Dy<br>
+&gt;&gt; +CONFIG_FIT_VERBOSE=3Dy<br>
+<br>
+Are we sure we want verbose to be enabled?<br>
+<br>
+Cheers,<br>
+<br>
+Joel<br>
+</blockquote></div><br></div>
 
-Please keep all of our reviewed-by tags but drop the version when you do so=
-.
-
-Cheers,
-
-Joel
+--001a114448d4324be5054319db3e--
