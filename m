@@ -1,52 +1,63 @@
-Return-Path: <brendanhiggins@google.com>
-Received: from mail-pg0-x235.google.com (mail-pg0-x235.google.com
- [IPv6:2607:f8b0:400e:c05::235])
+Return-Path: <sjg@google.com>
+Received: from mail-oi0-x22f.google.com (mail-oi0-x22f.google.com
+ [IPv6:2607:f8b0:4003:c06::22f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tYJ171FJdzDvyN
- for <openbmc@lists.ozlabs.org>; Wed,  7 Dec 2016 10:36:27 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tYPbN2M4fzDvh9
+ for <openbmc@lists.ozlabs.org>; Wed,  7 Dec 2016 14:47:59 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="DLDL2DHs"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="DBU87W4Q"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=chromium.org header.i=@chromium.org header.b="ge+d3sbP";
  dkim-atps=neutral
-Received: by mail-pg0-x235.google.com with SMTP id 3so154436210pgd.0
- for <openbmc@lists.ozlabs.org>; Tue, 06 Dec 2016 15:36:27 -0800 (PST)
+Received: by mail-oi0-x22f.google.com with SMTP id b126so402686232oia.2
+ for <openbmc@lists.ozlabs.org>; Tue, 06 Dec 2016 19:47:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=DpZbCNYaF3HDAZXm9zzEthhQIULWfEylQSbeITPZ48s=;
- b=DLDL2DHsIvSFj+JjfuPzBrYmVx/Nd/9eX0DZA0ejd4mBrGvEShpytGXX7BJRloCail
- VLVtwKWNat/gR2sTCQqjDfHyJyno/x6g4bnQPEi1qKRwHzQCWJBODv0nKGXPw/1ooLVl
- 4BvjPF4MwtV4ow+r1hDSUpMH1eTg1v7LmHzKuZRqna0/K1VA30Dxqcodu0sXxWxwzquZ
- dVsLn9XUVuhHyL6yLRqA3ZNUXcsHvp2GlmI9ndYYNc6IpSoaE9Q7MeViY0++lcj5lF7l
- vDNiWoZddAQM7sbbLY53mXwBKPPlyOGI2FQuKWDkUh+CDphf4OHYyxFJL3PqWDlWdxDy
- l9eQ==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=KPLAVjfwzJPXdHX2FItQ7VxTk1/amwJAM9OMZlKmfNQ=;
+ b=DBU87W4Qo3y0gr/CBjpIeLr+jEgPjlcAV4o88l+iq/uc9FaJyt8XLoZDU/N7j/+EbJ
+ WBJz+Axfl/h4qanmuuWKA1JAuO75PVlmryuPrNwiYevT4NzijcPGHUW7LERMwkfohpFb
+ IpdJuTPCYzFZVs81VCOyrucfNppYSbJjkmUk0fQd276AzDBpyQeTguV41g2XfDiQVgLp
+ 3kevMkXij6iv1iJbacXR6xkFjzpxPCfLPP7DKMZ5VT3haILHpj2MvaD7v/R4GUKQjTpv
+ TgnlqAE+4/1Zzdzj5oRfxdbfq4CVL8Y6YJXqumLsJ78HCfV/5qJyjcXgwjnk5jn6qGCm
+ mZ1g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=KPLAVjfwzJPXdHX2FItQ7VxTk1/amwJAM9OMZlKmfNQ=;
+ b=ge+d3sbPEW8P0jj1XMQubfVgPGChiAecfMyaIquiLNdyebWcsO8kHQqlGT6Mn8I+NQ
+ SB3RLiDKVmZ6+KagOsbd30bfLiGiTsiwi0MKuh+OAAriGrbjeDV8siggkjwRpfxgVcp4
+ TzDcuzXQm91T0vz7jTDSO7vREjgibwFJVAUTw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=DpZbCNYaF3HDAZXm9zzEthhQIULWfEylQSbeITPZ48s=;
- b=Q9W6TOe821A+7xF8Fp/XtVrRHCk/fr35yTvVkZbtSSW2KXpkLi2h5paBThNH0zR+1e
- fVQ9n2zfLcEUPH5qZiPH3TMGwvO+hMwsr46Ke24yDa1OMUHlPRlgYE0NDYccjWUsgEY+
- r4RbvZhOOFsWpxGGY7DXOznptvq/LKR9Wi1hZfXa34mRK7VTMp5XF+rmRnnEzAE6jhnb
- qBBFMzRwmfM70yzFNml1Joat7GYuAxz6pExFVoZgGFj6OHFujZGFbEKXDCCGFVOid3Tv
- rIDsj1pQSE7H3/EZrvgkDA2zI+DJ6zUnYoIUIzxlIvXR9CO4sxvvv0C2iA5JoIn5VEfN
- B7Ig==
-X-Gm-Message-State: AKaTC017traTPT3Dd63zjkazuRoeWfyaW9VhzbAj+0gFxYbndPFy5KDKGYDquSiri3Tlfzn4
-X-Received: by 10.99.107.4 with SMTP id g4mr117502711pgc.108.1481067385156;
- Tue, 06 Dec 2016 15:36:25 -0800 (PST)
-Received: from mactruck.svl.corp.google.com ([100.123.242.94])
- by smtp.gmail.com with ESMTPSA id b126sm37142409pfg.90.2016.12.06.15.36.24
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 06 Dec 2016 15:36:24 -0800 (PST)
-From: Brendan Higgins <brendanhiggins@google.com>
-To: joel@jms.id.au,
-	openbmc@lists.ozlabs.org
-Cc: Brendan Higgins <brendanhiggins@google.com>
-Subject: [RFC linux 2/2] spi: aspeed: added device tree documentation
-Date: Tue,  6 Dec 2016 15:36:03 -0800
-Message-Id: <1481067363-3782-3-git-send-email-brendanhiggins@google.com>
-X-Mailer: git-send-email 2.8.0.rc3.226.g39d4020
-In-Reply-To: <1481067363-3782-1-git-send-email-brendanhiggins@google.com>
-References: <1481067363-3782-1-git-send-email-brendanhiggins@google.com>
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=KPLAVjfwzJPXdHX2FItQ7VxTk1/amwJAM9OMZlKmfNQ=;
+ b=Uwi2XLAfpO6jCBBZbKz+XzzB5o5/ZeUSC23+YCfciPzSCILxLl8bhBA8DU9mYPRF7c
+ 93dv+QbsaHcXG5DW2/qHz+EQzSdwSlt5V9ZhuWUU9j66Qx7iIwQBp5QELfjpQSoCCuFq
+ 425Z5e/2QhzQP5OttvGJDG+3vSil8OHmRNOm7vWUAvhF2M7VXWVdYHOWVgsjFhQ48V4t
+ cpZnirno9L7z6scqN3aK6y57y/6KgEbrVNPCnJn8YjpOjocurq1YzRnqScMbeXNLvanI
+ C1prv8mkVSeGT3utJk7EGY8JL6Tc0EbYzQGROXTSEf/m0yeV2q+eztIX/TpZJWoLqH0U
+ XZVw==
+X-Gm-Message-State: AKaTC023qy/77iDoWy/kLqW5QE+3G1MmBuoLdqCg4gGzHdmOZtMltMimN1Tx7kRPCFIJln2wIfeH88drprQ3Aaiv
+X-Received: by 10.157.8.46 with SMTP id 43mr37747280oty.54.1481082477305; Tue,
+ 06 Dec 2016 19:47:57 -0800 (PST)
+MIME-Version: 1.0
+Sender: sjg@google.com
+Received: by 10.182.22.226 with HTTP; Tue, 6 Dec 2016 19:47:36 -0800 (PST)
+In-Reply-To: <1480961822-6631-3-git-send-email-raltherr@google.com>
+References: <1480961822-6631-1-git-send-email-raltherr@google.com>
+ <1480961822-6631-3-git-send-email-raltherr@google.com>
+From: Simon Glass <sjg@chromium.org>
+Date: Tue, 6 Dec 2016 22:47:36 -0500
+X-Google-Sender-Auth: 9cnu7t8YOcdoYz8McUZGeIXHuMM
+Message-ID: <CAPnjgZ3P_KRtE2RrwYUyy_BC__wDLHKULU3gB-0HDR8C17X6Eg@mail.gmail.com>
+Subject: Re: [PATCH u-boot v3 2/3] bootm: relocate ramdisk if
+ CONFIG_SYS_BOOT_RAMDISK_HIGH set
+To: Rick Altherr <raltherr@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,55 +69,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 Dec 2016 23:36:27 -0000
+X-List-Received-Date: Wed, 07 Dec 2016 03:48:01 -0000
 
-Added device tree binding documentation for Aspeed AST25XX SoC SPI
-driver.
+On 5 December 2016 at 13:17, Rick Altherr <raltherr@google.com> wrote:
+> In 35fc84f, bootm was refactored so plain 'bootm' and
+> 'bootm <subcommand>' shared a common implementation.
+> The 'bootm ramdisk' command implementation is now part of the common
+> implementation but not invoke by plain 'bootm' since the original
+> implementation never did ramdisk relocation.  Instead, ramdisk
+> relocation happened in image_setup_linux() which is typically called
+> during the OS portion of 'bootm'.
+>
+> On ARM, parameters to the Linux kernel can either be passed by FDT or
+> ATAGS. When using FDT, image_setup_linux() is called which also triggers
+> ramdisk relocation.  When using ATAGS, image_setup_linux() is _not_
+> called because it mostly does FDT setup.
+>
+> Instead of calling image_setup_linux() in both FDT and ATAGS cases,
+> include BOOTM_STATE_RAMDISK in the requested states during a plain
+> 'bootm' if CONFIG_SYS_BOOT_RAMDISK_HIGH is set and remove the ramdisk
+> relocation from image_setup_linux().  This causes ramdisk relocation to
+> happen on any system where CONFIG_SYS_BOOT_RAMDISK_HIGH regardless of
+> the OS being booted. Also remove IMAGE_ENABLE_RAMDISK_HIGH as it was
+> only used by the now-removed code from image_setup_linux().
+>
+> Signed-off-by: Rick Altherr <raltherr@google.com>
+> ---
+>  cmd/bootm.c     | 3 +++
+>  common/image.c  | 7 -------
+>  include/image.h | 6 ------
+>  3 files changed, 3 insertions(+), 13 deletions(-)
 
-Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
----
- .../devicetree/bindings/spi/spi-aspeed.txt         | 33 ++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/spi/spi-aspeed.txt
+Reviewed-by: Simon Glass <sjg@chromium.org>
 
-diff --git a/Documentation/devicetree/bindings/spi/spi-aspeed.txt b/Documentation/devicetree/bindings/spi/spi-aspeed.txt
-new file mode 100644
-index 0000000..8b774d4
---- /dev/null
-+++ b/Documentation/devicetree/bindings/spi/spi-aspeed.txt
-@@ -0,0 +1,33 @@
-+Device tree configuration for the generic Aspeed AST25XX SoC SPI controllers.
-+
-+Required Properties:
-+	- #address-cells	: should be 1
-+	- #size-cells		: should be 0
-+	- compatible		: should be "aspeed,ast2500-spi"
-+	- reg			: address ranges for the control registers
-+				    and IO ports. There is one IO port window
-+				    for each chip select.
-+	- interrupts		: interrupt number
-+
-+Example:
-+
-+	spi1: spi@1e630000 {
-+		compatible = "aspeed,ast2500-spi";
-+		reg = <0x1e630000 0xc1 0x30000000 0x02000000 0x36000000 0x02000000>;
-+		interrupts = <59>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		status = "disabled";
-+		flash@0 {
-+			reg = <0>; /* chip select number */
-+			compatible = "jedec,spi-nor";
-+			spi-max-frequency = <100000000>;
-+			status = "disabled";
-+		};
-+		flash@1 {
-+			reg = <1>; /* chip select number */
-+			compatible = "jedec,spi-nor";
-+			spi-max-frequency = <100000000>;
-+			status = "disabled";
-+		};
-+	};
--- 
-2.8.0.rc3.226.g39d4020
+(when you send a new version you should put any review tags in your
+commit, unless you make changes that you want re-reviewed)
