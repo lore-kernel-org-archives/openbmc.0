@@ -1,54 +1,58 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-io0-x22c.google.com (mail-io0-x22c.google.com
- [IPv6:2607:f8b0:4001:c06::22c])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-ua0-x229.google.com (mail-ua0-x229.google.com
+ [IPv6:2607:f8b0:400c:c08::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tYvlh5kL7zDw2m
- for <openbmc@lists.ozlabs.org>; Thu,  8 Dec 2016 10:26:56 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tYvrf0t6KzDw2m
+ for <openbmc@lists.ozlabs.org>; Thu,  8 Dec 2016 10:31:14 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="cFqT0pm+"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="xdnMRVof"; 
  dkim-atps=neutral
-Received: by mail-io0-x22c.google.com with SMTP id a124so740358394ioe.2
- for <openbmc@lists.ozlabs.org>; Wed, 07 Dec 2016 15:26:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=V+ie3FmugeDfevbUN5GmRkOlP6GLhPzh4RIWMhgC42Q=;
- b=cFqT0pm+lIFqSqu2o9QgJqwAgTG11WoPTvmrC/AdYXFYUpSuUCWIG0IYEtZgPa3kVC
- 1+NyOwazsp3NiKJq+dKu8TX02JC0hUrNrEf318C4Py92vxBVVjBzlJpIKRlF1pZT+aqh
- gu5OZ8gNPkxLsCAMg2PJC8wLsnFAWRmqZ74yldPrVwQ6FoX8qlLDkjxNp91NEPl3hrKc
- QTYaa1H+hCr9TRlRp63ZAszDTr6sIFCm9SwU/JTiAPTC+kAh9x7SbB9YrsERhWDScW+D
- t/5nfMAadreUyKgyuATi2LnnfxU03R9Bt+t8abLcaOorVJOv1DKOJtC6/ZjEDfqW1zUT
- A+QA==
+Received: by mail-ua0-x229.google.com with SMTP id 20so431848059uak.0
+ for <openbmc@lists.ozlabs.org>; Wed, 07 Dec 2016 15:31:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=8/c+2sOo8s4/uopa1SWu2dq5kdLO4rXBf15Sk7a95j4=;
+ b=xdnMRVof5ZFsvMoP2DlVJiuyrCqFFLBNzkkUUZFCRu5CzlwyIXKNJ4cGm3xbENMZD5
+ s5CF9Inq+KgSIwy1SCeQ8/taIkJYfGS9bR5u5moJV6RRsyrZkl4YnnNuFonh9+nH8oDU
+ arWaYiZ+4oQNsxw+YCqNl7iXaeUFGO3E2gLRLrXDs651nXYpV1IVHmyRV175jIzYsUzf
+ 8O160Ai3o1hoOVt2WAxBMl/YzXVK0rYL6KBYR4XDEUE0RzuGN97ZD7KeJzRKoY+qaoJs
+ tEv7mNd/5f2/HjyzYTEC22V1O3WXYHRqnYwQjgXo71ccOdXMPS+V9+jer7IuzD6E1pE5
+ UktQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=V+ie3FmugeDfevbUN5GmRkOlP6GLhPzh4RIWMhgC42Q=;
- b=iDTH3PCoXHhQi+mncJpINlbBgjw1qg8F7sKpGipKAvEmJhBCIRhPXcRY2Hs9GXaiLH
- /KWN4tpT/x9qwA5QqBSnc2Y2CALtwQU6JwDPETcJM4xMge1pfTG5L/4r5BunIgCNRAt4
- gKTDE1n2TkKsvXGfKO8GUUY3hUHP7fj8O9obNd7F6pVR8McSbjxj7/zz/wnxZfA/pt9h
- uto1v2Qzy3v5aLRBILAPaoOyB8ZZjBA1IRUfwPSKShxMHfJPA6IDeA2CrNS23j7VudXg
- EivzUiqJcmXXdX9zD7HCdXmm5/Ai52BC2ChuleeKzcgTS+ico2CUJs2hMt05d+Y2h3xz
- J1bw==
-X-Gm-Message-State: AKaTC032yQCRy6lG1Jw7NEmd5ihfSdKDKjaNteKaUvhwFAVvLaCmuZ5g5uJMkfRRR5xwPkLWmh8BY806Y5Lp1A9a
-X-Received: by 10.107.48.134 with SMTP id w128mr67241560iow.226.1481153214275; 
- Wed, 07 Dec 2016 15:26:54 -0800 (PST)
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=8/c+2sOo8s4/uopa1SWu2dq5kdLO4rXBf15Sk7a95j4=;
+ b=RESQ9TWkEBL4bvyrpgGHMPj+4ZktzCO1UmIdRqI5aAysusm/v6FWqcleplyFH97iRM
+ FZr1IzE5pWYvIQ4IXLWnlgH4RsjC6es8m/+48HCefJCI6sgyuh1OinTKKL/rJksh+JIu
+ QYQckEoma6Gd3nMgSW6ckP9H8XDImEGjFxJK5OO6mKS1JPPf0GIWkcqtJU8AAwdmKyHj
+ vBi8jI6xWY7Jp5LjOZjQXt5xpZfeAwpzJd1VQ2OdT4sod/D4XnKsceylml0iUtVg9cHG
+ FV/Ho3udas3HSqDSUBYV9vRBOfa2punF4exVmR7XCIJPip0kuT4hl2eaMrGrkWLeqnlE
+ 72pQ==
+X-Gm-Message-State: AKaTC02+6+zI+5TzdNklhoDyhntf7bvEZJVGmTs7+scOnuAbKw1Oh39cAWAm0SJBLmc5FKrAjjJrHQZk8HdZmA==
+X-Received: by 10.176.82.181 with SMTP id v50mr46223651uav.31.1481153471814;
+ Wed, 07 Dec 2016 15:31:11 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.107.154.197 with HTTP; Wed, 7 Dec 2016 15:26:53 -0800 (PST)
-In-Reply-To: <CACPK8XcpR534r0nr06TQxr9hyM-_CY5SAFLO15-5yqO+zYsu1A@mail.gmail.com>
+Sender: joel.stan@gmail.com
+Received: by 10.159.48.91 with HTTP; Wed, 7 Dec 2016 15:30:51 -0800 (PST)
+In-Reply-To: <CAPLgG=mK40uKGdspJnxN8ohZn1XBv41TLknLYsO8JUH94+iZxw@mail.gmail.com>
 References: <1481133996-29973-1-git-send-email-raltherr@google.com>
  <1481133996-29973-4-git-send-email-raltherr@google.com>
  <5483e4dc-506b-c5b1-8e62-17408a9c1d9c@kaod.org>
  <CACPK8XcpR534r0nr06TQxr9hyM-_CY5SAFLO15-5yqO+zYsu1A@mail.gmail.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Wed, 7 Dec 2016 15:26:53 -0800
-Message-ID: <CAPLgG=mK40uKGdspJnxN8ohZn1XBv41TLknLYsO8JUH94+iZxw@mail.gmail.com>
+ <CAPLgG=mK40uKGdspJnxN8ohZn1XBv41TLknLYsO8JUH94+iZxw@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 8 Dec 2016 10:00:51 +1030
+X-Google-Sender-Auth: diAiwcTEQiJV3lqoUHEglfvm704
+Message-ID: <CACPK8XfdtsatERmRN28nwV82w6wwKrETXeX94PvVvFEP6ZDo5A@mail.gmail.com>
 Subject: Re: [PATCH u-boot][PATCH v4 3/3] Enable FIT image support and FDT
  loading for AST2400/AST2500
-To: Joel Stanley <joel@jms.id.au>
+To: Rick Altherr <raltherr@google.com>
 Cc: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
  OpenBMC Mailing List <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=001a114448d4324be5054319db3e
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,56 +64,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 07 Dec 2016 23:26:57 -0000
+X-List-Received-Date: Wed, 07 Dec 2016 23:31:14 -0000
 
---001a114448d4324be5054319db3e
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+On Thu, Dec 8, 2016 at 9:56 AM, Rick Altherr <raltherr@google.com> wrote:
+>> >> +CONFIG_EFI_LOADER=n
+>> >> +CONFIG_FIT=y
+>> >> +CONFIG_FIT_VERBOSE=y
+>>
+>> Are we sure we want verbose to be enabled?
+>>
+> It turns on a few error messages when encountering situations not supported
+> with FIT images.  Binary size increase is small and it doesn't generate any
+> output during normal use.  I'm OK either way.  What do you recommend?
 
-It turns on a few error messages when encountering situations not supported
-with FIT images.  Binary size increase is small and it doesn't generate any
-output during normal use.  I'm OK either way.  What do you recommend?
+That's enough justification for me.
 
-On Wed, Dec 7, 2016 at 3:22 PM, Joel Stanley <joel@jms.id.au> wrote:
-
-> On Thu, Dec 8, 2016 at 4:54 AM, C=C3=A9dric Le Goater <clg@kaod.org> wrot=
-e:
->
-> >> +CONFIG_EFI_LOADER=3Dn
-> >> +CONFIG_FIT=3Dy
-> >> +CONFIG_FIT_VERBOSE=3Dy
->
-> Are we sure we want verbose to be enabled?
->
-> Cheers,
->
-> Joel
->
-
---001a114448d4324be5054319db3e
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">It turns on a few error messages when encountering situati=
-ons not supported with FIT images.=C2=A0 Binary size increase is small and =
-it doesn&#39;t generate any output during normal use.=C2=A0 I&#39;m OK eith=
-er way.=C2=A0 What do you recommend?</div><div class=3D"gmail_extra"><br><d=
-iv class=3D"gmail_quote">On Wed, Dec 7, 2016 at 3:22 PM, Joel Stanley <span=
- dir=3D"ltr">&lt;<a href=3D"mailto:joel@jms.id.au" target=3D"_blank">joel@j=
-ms.id.au</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=
-=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On Thu, =
-Dec 8, 2016 at 4:54 AM, C=C3=A9dric Le Goater &lt;<a href=3D"mailto:clg@kao=
-d.org">clg@kaod.org</a>&gt; wrote:<br>
-<br>
-&gt;&gt; +CONFIG_EFI_LOADER=3Dn<br>
-&gt;&gt; +CONFIG_FIT=3Dy<br>
-&gt;&gt; +CONFIG_FIT_VERBOSE=3Dy<br>
-<br>
-Are we sure we want verbose to be enabled?<br>
-<br>
-Cheers,<br>
-<br>
-Joel<br>
-</blockquote></div><br></div>
-
---001a114448d4324be5054319db3e--
+We can always revisit later if users are confused by the extra output.
