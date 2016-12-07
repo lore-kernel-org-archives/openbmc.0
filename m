@@ -1,37 +1,75 @@
-Return-Path: <clg@kaod.org>
-X-Greylist: delayed 4201 seconds by postgrey-1.36 at bilbo;
- Thu, 08 Dec 2016 06:42:17 AEDT
-Received: from 2.mo5.mail-out.ovh.net (2.mo5.mail-out.ovh.net [178.33.109.111])
+Return-Path: <mspinler@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tYpmT4l6czDw2k
- for <openbmc@lists.ozlabs.org>; Thu,  8 Dec 2016 06:42:16 +1100 (AEDT)
-Received: from player760.ha.ovh.net (b9.ovh.net [213.186.33.59])
- by mo5.mail-out.ovh.net (Postfix) with ESMTP id C98F15186A
- for <openbmc@lists.ozlabs.org>; Wed,  7 Dec 2016 19:24:36 +0100 (CET)
-Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
- [90.76.55.107]) (Authenticated sender: postmaster@kaod.org)
- by player760.ha.ovh.net (Postfix) with ESMTPSA id 9CEDC36C;
- Wed,  7 Dec 2016 19:24:35 +0100 (CET)
-Subject: Re: [PATCH u-boot][PATCH v4 2/3] bootm: relocate ramdisk if
- CONFIG_SYS_BOOT_RAMDISK_HIGH set
-To: Rick Altherr <raltherr@google.com>,
- OpenBMC Mailing List <openbmc@lists.ozlabs.org>
-References: <1481133996-29973-1-git-send-email-raltherr@google.com>
- <1481133996-29973-3-git-send-email-raltherr@google.com>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <02df3e2c-86e7-ead5-4ae4-252fdf94495e@kaod.org>
-Date: Wed, 7 Dec 2016 19:24:35 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.4.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tYpqL0zx6zDw2k
+ for <openbmc@lists.ozlabs.org>; Thu,  8 Dec 2016 06:44:45 +1100 (AEDT)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
+ uB7JUR3x120696
+ for <openbmc@lists.ozlabs.org>; Wed, 7 Dec 2016 14:44:43 -0500
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 276qq038yd-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 07 Dec 2016 14:44:43 -0500
+Received: from localhost
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
+ Wed, 7 Dec 2016 14:44:42 -0500
+Received: from d01dlp03.pok.ibm.com (9.56.250.168)
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 7 Dec 2016 14:44:40 -0500
+Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
+ [9.57.198.29])
+ by d01dlp03.pok.ibm.com (Postfix) with ESMTP id 8AE77C9003E;
+ Wed,  7 Dec 2016 14:44:23 -0500 (EST)
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ uB7JidO33604972; Wed, 7 Dec 2016 19:44:40 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 194A9AC05F;
+ Wed,  7 Dec 2016 14:44:40 -0500 (EST)
+Received: from [9.10.99.99] (unknown [9.10.99.99])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP id D6391AC043;
+ Wed,  7 Dec 2016 14:44:39 -0500 (EST)
+Subject: Re: Starting the phosphor-hwmon service from udev rules
+To: Patrick Williams <patrick@stwcx.xyz>
+References: <32e4f53c-5bab-55ba-50f2-25ba891d4127@linux.vnet.ibm.com>
+ <20161129024216.GS15757@heinlein.lan>
+ <accb6902-8485-6f7f-c981-4930bb911b08@linux.vnet.ibm.com>
+ <20161130021902.GT15757@heinlein.lan>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: Matt Spinler <mspinler@linux.vnet.ibm.com>
+Date: Wed, 7 Dec 2016 13:44:52 -0600
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
+ Thunderbird/45.5.1
 MIME-Version: 1.0
-In-Reply-To: <1481133996-29973-3-git-send-email-raltherr@google.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 6044956601777883906
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrhedvgdehtdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+In-Reply-To: <20161130021902.GT15757@heinlein.lan>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16120719-0040-0000-0000-0000021050BC
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006211; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000195; SDB=6.00790663; UDB=6.00382926; IPR=6.00568402; 
+ BA=6.00004951; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00013567; XFM=3.00000011;
+ UTC=2016-12-07 19:44:41
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 16120719-0041-0000-0000-0000060268CD
+Message-Id: <bfe482f8-3731-53f2-b73d-e99331fbac39@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-12-07_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1609300000
+ definitions=main-1612070290
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -43,115 +81,71 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 07 Dec 2016 19:42:18 -0000
+X-List-Received-Date: Wed, 07 Dec 2016 19:44:46 -0000
 
-On 12/07/2016 07:06 PM, Rick Altherr wrote:
-> In 35fc84f, bootm was refactored so plain 'bootm' and
-> 'bootm <subcommand>' shared a common implementation.
-> The 'bootm ramdisk' command implementation is now part of the common
-> implementation but not invoke by plain 'bootm' since the original
-> implementation never did ramdisk relocation.  Instead, ramdisk
-> relocation happened in image_setup_linux() which is typically called
-> during the OS portion of 'bootm'.
-> 
-> On ARM, parameters to the Linux kernel can either be passed by FDT or
-> ATAGS. When using FDT, image_setup_linux() is called which also triggers
-> ramdisk relocation.  When using ATAGS, image_setup_linux() is _not_
-> called because it mostly does FDT setup.
-> 
-> Instead of calling image_setup_linux() in both FDT and ATAGS cases,
-> include BOOTM_STATE_RAMDISK in the requested states during a plain
-> 'bootm' if CONFIG_SYS_BOOT_RAMDISK_HIGH is set and remove the ramdisk
-> relocation from image_setup_linux().  This causes ramdisk relocation to
-> happen on any system where CONFIG_SYS_BOOT_RAMDISK_HIGH regardless of
-> the OS being booted. Also remove IMAGE_ENABLE_RAMDISK_HIGH as it was
-> only used by the now-removed code from image_setup_linux().
-> 
-> Signed-off-by: Rick Altherr <raltherr@google.com>
-> Reviewed-by: Simon Glass <sjg@chromium.org>
 
-looks good.
 
-Reviewed-by: Cédric Le Goater <clg@kaod.org>
+On 11/29/2016 8:19 PM, Patrick Williams wrote:
+> Matt,
+>
+> We had a phone discussion last night with Joel, Andrew J, and Brad and I
+> was suppose to catch up with you today and never found time to.  (It was
+> half-impromptu and half-miscommunication on the desired topic.)
+>
+> The net is that we came up with a third option for specifying these:
+>
+>     1. Unique udev rules per device with corresponding environment file, and
+>        single systemd service,
+>     2. Single udev rule per driver, unique systemd service file (with
+>        corresponding environment file?) per device.
+>
+>     3. Single udev rule per driver, single template systemd service file per
+>        application (ex. phosphor-hwmon@.service), unique environment file
+>        per device.
+>
+> On Tue, Nov 29, 2016 at 10:30:12AM -0600, Matt Spinler wrote:
+>
+>> So now I think the rule would look something like:
+>> SUBSYSTEM=="hwmon", DEVPATH=="*i2c-3/3-0077/*", ACTION == "add",
+>> TAG+="systemd",
+>> ENV{SYSTEMD_WANTS}+="phosphor-hwmon-3-0077@/sys/class/hwmon/%k.service"
+> The 'SYSTEMD_WANTS' is useful if you want to trigger a specific
+> service.  If you leave that out, by default systemd triggers a @.device,
+> which other services can depend on.  sys-class-i2c-dev-i2c-3-0077.device
+> maybe in this case?
+>
+>> and could use the Environment or EnvironmentFile directive in the
+>> generated device specific unit file to pick up threshold vars.
+> In obmc-console@.service we have an example of using 'BindsTo'.  I think
+> we could write the phosphor-hwmon@.service to 'BindTo=sys-%i' and also
+> ConditionPathExists=/etc/conf.d/phosphor-hwmon-%i ,
+> EnvironmentFile=/etc/conf.d/phosphor-hwmon-%i ?
+The issue with this is the %i is the device path of the hwmon driver, 
+which looks like
+/devices/platform/ahb/ahb:apb/1e78a000.i2c/i2c-0/i2c-0/0-0068/hwmon/hwmon0,
+and the hwmon<num> can't be known ahead of time by the MRW so it can't make
+conf files named that way.
 
-Thanks,
+This means the the environment file has to be explicitly set in the 
+service file,  so I'd
+need to generate unique service files.  (Or phosphor-hwmon just
+builds its own env file names based on segments from its device path.)
 
-C. 
 
-> ---
-> 
-> Changes in v4:
-> - Remove unused variables from image_setup_linux()
-> 
-> Changes in v3:
-> - Remove unused #define IMAGE_ENABLE_RAMDISK_HIGH
-> 
-> Changes in v2:
-> - Fix compiler warning caused by ramdisk relocation hack
-> 
->  cmd/bootm.c     |  3 +++
->  common/image.c  | 10 ----------
->  include/image.h |  6 ------
->  3 files changed, 3 insertions(+), 16 deletions(-)
-> 
-> diff --git a/cmd/bootm.c b/cmd/bootm.c
-> index 16fdea5..8da750e 100644
-> --- a/cmd/bootm.c
-> +++ b/cmd/bootm.c
-> @@ -131,6 +131,9 @@ int do_bootm(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
->  	return do_bootm_states(cmdtp, flag, argc, argv, BOOTM_STATE_START |
->  		BOOTM_STATE_FINDOS | BOOTM_STATE_FINDOTHER |
->  		BOOTM_STATE_LOADOS |
-> +#ifdef CONFIG_SYS_BOOT_RAMDISK_HIGH
-> +		BOOTM_STATE_RAMDISK |
-> +#endif
->  #if defined(CONFIG_PPC) || defined(CONFIG_MIPS)
->  		BOOTM_STATE_OS_CMDLINE |
->  #endif
-> diff --git a/common/image.c b/common/image.c
-> index 0be09e5..f9ee9d5 100644
-> --- a/common/image.c
-> +++ b/common/image.c
-> @@ -1453,10 +1453,7 @@ int image_setup_linux(bootm_headers_t *images)
->  {
->  	ulong of_size = images->ft_len;
->  	char **of_flat_tree = &images->ft_addr;
-> -	ulong *initrd_start = &images->initrd_start;
-> -	ulong *initrd_end = &images->initrd_end;
->  	struct lmb *lmb = &images->lmb;
-> -	ulong rd_len;
->  	int ret;
->  
->  	if (IMAGE_ENABLE_OF_LIBFDT)
-> @@ -1470,13 +1467,6 @@ int image_setup_linux(bootm_headers_t *images)
->  			return ret;
->  		}
->  	}
-> -	if (IMAGE_ENABLE_RAMDISK_HIGH) {
-> -		rd_len = images->rd_end - images->rd_start;
-> -		ret = boot_ramdisk_high(lmb, images->rd_start, rd_len,
-> -				initrd_start, initrd_end);
-> -		if (ret)
-> -			return ret;
-> -	}
->  
->  	if (IMAGE_ENABLE_OF_LIBFDT) {
->  		ret = boot_relocate_fdt(lmb, of_flat_tree, &of_size);
-> diff --git a/include/image.h b/include/image.h
-> index d788c26..a16187f 100644
-> --- a/include/image.h
-> +++ b/include/image.h
-> @@ -99,12 +99,6 @@ struct lmb;
->  
->  #endif /* IMAGE_ENABLE_FIT */
->  
-> -#ifdef CONFIG_SYS_BOOT_RAMDISK_HIGH
-> -# define IMAGE_ENABLE_RAMDISK_HIGH	1
-> -#else
-> -# define IMAGE_ENABLE_RAMDISK_HIGH	0
-> -#endif
-> -
->  #ifdef CONFIG_SYS_BOOT_GET_CMDLINE
->  # define IMAGE_BOOT_GET_CMDLINE		1
->  #else
-> 
+>> Another issue I have is if the MRW should have the knowledge of if a
+>> device has a hwmon driver or not?  While it would make things a lot more
+>> simple if it did, I'm not sure if it's in its domain. If it doesn't,
+>> then it would either still generate rules and unit files for every I2C
+>> device and some just wouldn't get used, or we'd have to keep that
+>> knowledge in our tree somewhere.
+>> Thoughts on that?
+> Doesn't it have to?  It isn't just that there is an lm77 sensor out on
+> an i2c bus and therefore we create the environment file.  The
+> environment file needs to have a decent amount of information, such as
+> what is the "NiceName" of the sensor ("FrontAmbient" maybe).  When you
+> talk about one of the MAX fan controller chips we potentially have
+> multiple fans on that chip so it more than one "sensor" worth of
+> configuration as well.  I can't imagine how the MRW data wouldn't
+> effectively encode that we expect the device to have an hwmon driver
+> (not directly, but indirectly by the presence of this information).
+>
