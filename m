@@ -1,63 +1,34 @@
-Return-Path: <sjg@google.com>
-Received: from mail-oi0-x22f.google.com (mail-oi0-x22f.google.com
- [IPv6:2607:f8b0:4003:c06::22f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <clg@kaod.org>
+Received: from mo5.mail-out.ovh.net (mo5.mail-out.ovh.net [178.32.228.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tYPbN2M4fzDvh9
- for <openbmc@lists.ozlabs.org>; Wed,  7 Dec 2016 14:47:59 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="DBU87W4Q"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=chromium.org header.i=@chromium.org header.b="ge+d3sbP";
- dkim-atps=neutral
-Received: by mail-oi0-x22f.google.com with SMTP id b126so402686232oia.2
- for <openbmc@lists.ozlabs.org>; Tue, 06 Dec 2016 19:47:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=KPLAVjfwzJPXdHX2FItQ7VxTk1/amwJAM9OMZlKmfNQ=;
- b=DBU87W4Qo3y0gr/CBjpIeLr+jEgPjlcAV4o88l+iq/uc9FaJyt8XLoZDU/N7j/+EbJ
- WBJz+Axfl/h4qanmuuWKA1JAuO75PVlmryuPrNwiYevT4NzijcPGHUW7LERMwkfohpFb
- IpdJuTPCYzFZVs81VCOyrucfNppYSbJjkmUk0fQd276AzDBpyQeTguV41g2XfDiQVgLp
- 3kevMkXij6iv1iJbacXR6xkFjzpxPCfLPP7DKMZ5VT3haILHpj2MvaD7v/R4GUKQjTpv
- TgnlqAE+4/1Zzdzj5oRfxdbfq4CVL8Y6YJXqumLsJ78HCfV/5qJyjcXgwjnk5jn6qGCm
- mZ1g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=KPLAVjfwzJPXdHX2FItQ7VxTk1/amwJAM9OMZlKmfNQ=;
- b=ge+d3sbPEW8P0jj1XMQubfVgPGChiAecfMyaIquiLNdyebWcsO8kHQqlGT6Mn8I+NQ
- SB3RLiDKVmZ6+KagOsbd30bfLiGiTsiwi0MKuh+OAAriGrbjeDV8siggkjwRpfxgVcp4
- TzDcuzXQm91T0vz7jTDSO7vREjgibwFJVAUTw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=KPLAVjfwzJPXdHX2FItQ7VxTk1/amwJAM9OMZlKmfNQ=;
- b=Uwi2XLAfpO6jCBBZbKz+XzzB5o5/ZeUSC23+YCfciPzSCILxLl8bhBA8DU9mYPRF7c
- 93dv+QbsaHcXG5DW2/qHz+EQzSdwSlt5V9ZhuWUU9j66Qx7iIwQBp5QELfjpQSoCCuFq
- 425Z5e/2QhzQP5OttvGJDG+3vSil8OHmRNOm7vWUAvhF2M7VXWVdYHOWVgsjFhQ48V4t
- cpZnirno9L7z6scqN3aK6y57y/6KgEbrVNPCnJn8YjpOjocurq1YzRnqScMbeXNLvanI
- C1prv8mkVSeGT3utJk7EGY8JL6Tc0EbYzQGROXTSEf/m0yeV2q+eztIX/TpZJWoLqH0U
- XZVw==
-X-Gm-Message-State: AKaTC023qy/77iDoWy/kLqW5QE+3G1MmBuoLdqCg4gGzHdmOZtMltMimN1Tx7kRPCFIJln2wIfeH88drprQ3Aaiv
-X-Received: by 10.157.8.46 with SMTP id 43mr37747280oty.54.1481082477305; Tue,
- 06 Dec 2016 19:47:57 -0800 (PST)
-MIME-Version: 1.0
-Sender: sjg@google.com
-Received: by 10.182.22.226 with HTTP; Tue, 6 Dec 2016 19:47:36 -0800 (PST)
-In-Reply-To: <1480961822-6631-3-git-send-email-raltherr@google.com>
-References: <1480961822-6631-1-git-send-email-raltherr@google.com>
- <1480961822-6631-3-git-send-email-raltherr@google.com>
-From: Simon Glass <sjg@chromium.org>
-Date: Tue, 6 Dec 2016 22:47:36 -0500
-X-Google-Sender-Auth: 9cnu7t8YOcdoYz8McUZGeIXHuMM
-Message-ID: <CAPnjgZ3P_KRtE2RrwYUyy_BC__wDLHKULU3gB-0HDR8C17X6Eg@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tYlbc0TzRzDvk7
+ for <openbmc@lists.ozlabs.org>; Thu,  8 Dec 2016 04:19:23 +1100 (AEDT)
+Received: from player760.ha.ovh.net (b9.ovh.net [213.186.33.59])
+ by mo5.mail-out.ovh.net (Postfix) with ESMTP id 7B3A452A77
+ for <openbmc@lists.ozlabs.org>; Wed,  7 Dec 2016 18:19:16 +0100 (CET)
+Received: from hermes.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: postmaster@kaod.org)
+ by player760.ha.ovh.net (Postfix) with ESMTPSA id 5CCFC39C;
+ Wed,  7 Dec 2016 18:19:12 +0100 (CET)
 Subject: Re: [PATCH u-boot v3 2/3] bootm: relocate ramdisk if
  CONFIG_SYS_BOOT_RAMDISK_HIGH set
-To: Rick Altherr <raltherr@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+To: Rick Altherr <raltherr@google.com>, openbmc@lists.ozlabs.org
+References: <1480961822-6631-1-git-send-email-raltherr@google.com>
+ <1480961822-6631-3-git-send-email-raltherr@google.com>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <92898875-6461-b5bd-dac8-a50540d93bef@kaod.org>
+Date: Wed, 7 Dec 2016 18:19:11 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.4.0
+MIME-Version: 1.0
+In-Reply-To: <1480961822-6631-3-git-send-email-raltherr@google.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Ovh-Tracer-Id: 4941293216300108546
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelfedrhedvgdeggecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -69,9 +40,9 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 07 Dec 2016 03:48:01 -0000
+X-List-Received-Date: Wed, 07 Dec 2016 17:19:25 -0000
 
-On 5 December 2016 at 13:17, Rick Altherr <raltherr@google.com> wrote:
+On 12/05/2016 07:17 PM, Rick Altherr wrote:
 > In 35fc84f, bootm was refactored so plain 'bootm' and
 > 'bootm <subcommand>' shared a common implementation.
 > The 'bootm ramdisk' command implementation is now part of the common
@@ -79,12 +50,12 @@ On 5 December 2016 at 13:17, Rick Altherr <raltherr@google.com> wrote:
 > implementation never did ramdisk relocation.  Instead, ramdisk
 > relocation happened in image_setup_linux() which is typically called
 > during the OS portion of 'bootm'.
->
+> 
 > On ARM, parameters to the Linux kernel can either be passed by FDT or
 > ATAGS. When using FDT, image_setup_linux() is called which also triggers
 > ramdisk relocation.  When using ATAGS, image_setup_linux() is _not_
 > called because it mostly does FDT setup.
->
+> 
 > Instead of calling image_setup_linux() in both FDT and ATAGS cases,
 > include BOOTM_STATE_RAMDISK in the requested states during a plain
 > 'bootm' if CONFIG_SYS_BOOT_RAMDISK_HIGH is set and remove the ramdisk
@@ -92,15 +63,80 @@ On 5 December 2016 at 13:17, Rick Altherr <raltherr@google.com> wrote:
 > happen on any system where CONFIG_SYS_BOOT_RAMDISK_HIGH regardless of
 > the OS being booted. Also remove IMAGE_ENABLE_RAMDISK_HIGH as it was
 > only used by the now-removed code from image_setup_linux().
->
+> 
 > Signed-off-by: Rick Altherr <raltherr@google.com>
 > ---
 >  cmd/bootm.c     | 3 +++
 >  common/image.c  | 7 -------
 >  include/image.h | 6 ------
 >  3 files changed, 3 insertions(+), 13 deletions(-)
+> 
+> diff --git a/cmd/bootm.c b/cmd/bootm.c
+> index 16fdea5..8da750e 100644
+> --- a/cmd/bootm.c
+> +++ b/cmd/bootm.c
+> @@ -131,6 +131,9 @@ int do_bootm(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
+>  	return do_bootm_states(cmdtp, flag, argc, argv, BOOTM_STATE_START |
+>  		BOOTM_STATE_FINDOS | BOOTM_STATE_FINDOTHER |
+>  		BOOTM_STATE_LOADOS |
+> +#ifdef CONFIG_SYS_BOOT_RAMDISK_HIGH
+> +		BOOTM_STATE_RAMDISK |
+> +#endif
+>  #if defined(CONFIG_PPC) || defined(CONFIG_MIPS)
+>  		BOOTM_STATE_OS_CMDLINE |
+>  #endif
+> diff --git a/common/image.c b/common/image.c
+> index 0be09e5..6584f7f 100644
+> --- a/common/image.c
+> +++ b/common/image.c
+> @@ -1470,13 +1470,6 @@ int image_setup_linux(bootm_headers_t *images)
+>  			return ret;
+>  		}
+>  	}
+> -	if (IMAGE_ENABLE_RAMDISK_HIGH) {
+> -		rd_len = images->rd_end - images->rd_start;
+> -		ret = boot_ramdisk_high(lmb, images->rd_start, rd_len,
+> -				initrd_start, initrd_end);
+> -		if (ret)
+> -			return ret;
+> -	}
 
-Reviewed-by: Simon Glass <sjg@chromium.org>
+you might to clean up these warnings first: 
 
-(when you send a new version you should put any review tags in your
-commit, unless you make changes that you want re-reviewed)
+../common/image.c: In function 'image_setup_linux':
+../common/image.c:1543:8: warning: unused variable 'rd_len' [-Wunused-variable]
+  ulong rd_len;
+        ^~~~~~
+../common/image.c:1541:9: warning: unused variable 'initrd_end' [-Wunused-variable]
+  ulong *initrd_end = &images->initrd_end;
+         ^~~~~~~~~~
+../common/image.c:1540:9: warning: unused variable 'initrd_start' [-Wunused-variable]
+  ulong *initrd_start = &images->initrd_start;
+         ^~~~~~~~~~~~
+
+Thanks,
+
+C. 
+
+
+>  
+>  	if (IMAGE_ENABLE_OF_LIBFDT) {
+>  		ret = boot_relocate_fdt(lmb, of_flat_tree, &of_size);
+> diff --git a/include/image.h b/include/image.h
+> index d788c26..a16187f 100644
+> --- a/include/image.h
+> +++ b/include/image.h
+> @@ -99,12 +99,6 @@ struct lmb;
+>  
+>  #endif /* IMAGE_ENABLE_FIT */
+>  
+> -#ifdef CONFIG_SYS_BOOT_RAMDISK_HIGH
+> -# define IMAGE_ENABLE_RAMDISK_HIGH	1
+> -#else
+> -# define IMAGE_ENABLE_RAMDISK_HIGH	0
+> -#endif
+> -
+>  #ifdef CONFIG_SYS_BOOT_GET_CMDLINE
+>  # define IMAGE_BOOT_GET_CMDLINE		1
+>  #else
+> 
