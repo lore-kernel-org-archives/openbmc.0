@@ -1,58 +1,48 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x229.google.com (mail-ua0-x229.google.com
- [IPv6:2607:f8b0:400c:c08::229])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <mouse@yandex-team.ru>
+X-Greylist: delayed 438 seconds by postgrey-1.36 at bilbo;
+ Fri, 09 Dec 2016 03:14:21 AEDT
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yandex-team.ru header.i=@yandex-team.ru
+ header.b="AZWejGsd"; dkim-atps=neutral
+Received: from forwardcorp1o.cmail.yandex.net (forwardcorp1o.cmail.yandex.net
+ [37.9.109.47])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tYvrf0t6KzDw2m
- for <openbmc@lists.ozlabs.org>; Thu,  8 Dec 2016 10:31:14 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="xdnMRVof"; 
- dkim-atps=neutral
-Received: by mail-ua0-x229.google.com with SMTP id 20so431848059uak.0
- for <openbmc@lists.ozlabs.org>; Wed, 07 Dec 2016 15:31:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=8/c+2sOo8s4/uopa1SWu2dq5kdLO4rXBf15Sk7a95j4=;
- b=xdnMRVof5ZFsvMoP2DlVJiuyrCqFFLBNzkkUUZFCRu5CzlwyIXKNJ4cGm3xbENMZD5
- s5CF9Inq+KgSIwy1SCeQ8/taIkJYfGS9bR5u5moJV6RRsyrZkl4YnnNuFonh9+nH8oDU
- arWaYiZ+4oQNsxw+YCqNl7iXaeUFGO3E2gLRLrXDs651nXYpV1IVHmyRV175jIzYsUzf
- 8O160Ai3o1hoOVt2WAxBMl/YzXVK0rYL6KBYR4XDEUE0RzuGN97ZD7KeJzRKoY+qaoJs
- tEv7mNd/5f2/HjyzYTEC22V1O3WXYHRqnYwQjgXo71ccOdXMPS+V9+jer7IuzD6E1pE5
- UktQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=8/c+2sOo8s4/uopa1SWu2dq5kdLO4rXBf15Sk7a95j4=;
- b=RESQ9TWkEBL4bvyrpgGHMPj+4ZktzCO1UmIdRqI5aAysusm/v6FWqcleplyFH97iRM
- FZr1IzE5pWYvIQ4IXLWnlgH4RsjC6es8m/+48HCefJCI6sgyuh1OinTKKL/rJksh+JIu
- QYQckEoma6Gd3nMgSW6ckP9H8XDImEGjFxJK5OO6mKS1JPPf0GIWkcqtJU8AAwdmKyHj
- vBi8jI6xWY7Jp5LjOZjQXt5xpZfeAwpzJd1VQ2OdT4sod/D4XnKsceylml0iUtVg9cHG
- FV/Ho3udas3HSqDSUBYV9vRBOfa2punF4exVmR7XCIJPip0kuT4hl2eaMrGrkWLeqnlE
- 72pQ==
-X-Gm-Message-State: AKaTC02+6+zI+5TzdNklhoDyhntf7bvEZJVGmTs7+scOnuAbKw1Oh39cAWAm0SJBLmc5FKrAjjJrHQZk8HdZmA==
-X-Received: by 10.176.82.181 with SMTP id v50mr46223651uav.31.1481153471814;
- Wed, 07 Dec 2016 15:31:11 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tZL651lrNzDw4H
+ for <openbmc@lists.ozlabs.org>; Fri,  9 Dec 2016 03:14:21 +1100 (AEDT)
+Received: from mxbackcorp1h.mail.yandex.net (mxbackcorp1h.mail.yandex.net
+ [IPv6:2a02:6b8:0:f05::301])
+ by forwardcorp1o.cmail.yandex.net (Yandex) with ESMTP id 3CE1020C86;
+ Thu,  8 Dec 2016 19:06:55 +0300 (MSK)
+Received: from webcorp01f.yandex-team.ru (webcorp01f.yandex-team.ru
+ [77.88.31.45])
+ by mxbackcorp1h.mail.yandex.net (nwsmtp/Yandex) with ESMTP id
+ kz4CiHAM1G-6spStNuT; Thu, 08 Dec 2016 19:06:55 +0300
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
+ s=default; 
+ t=1481213215; bh=DdR1FqVv88d5fpbmJUmMmMPvLSrh/kaaanUD8Z2KJdA=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date;
+ b=AZWejGsdhAYip4k0t+S/1f67QyT+6XSuIROlYEl+m0B4/yHs2Vyj0FiY0HqFmeIbG
+ JvXIL4pRfO0blJTBwHDJwlOdrQFcZd47tO34ioSUyVO5TaxK5c87Zjbg+Rhibaua1v
+ 1XpY7sOF065ZIGLYqXOi6tlgPv5DOnkSREJ1jhuI=
+Authentication-Results: mxbackcorp1h.mail.yandex.net;
+ dkim=pass header.i=@yandex-team.ru
+X-Yandex-Sender-Uid: 1120000000001030
+Received: by webcorp01f.yandex-team.ru with HTTP;
+ Thu, 08 Dec 2016 19:06:54 +0300
+From: Anton D. Kachalov <mouse@yandex-team.ru>
+To: Joel Stanley <joel@jms.id.au>, Matt Spinler <mspinler@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+In-Reply-To: <CACPK8XcKAiTxALun5YiTW-wnQ9BzH0itoqKOqgzxux5ywKXTzw@mail.gmail.com>
+References: <8d6aac0e-9d92-3ad9-67ea-f9cbf9032377@linux.vnet.ibm.com>
+ <CACPK8XcKAiTxALun5YiTW-wnQ9BzH0itoqKOqgzxux5ywKXTzw@mail.gmail.com>
+Subject: Re: Supporting different temp sensors at same I2C location
 MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.159.48.91 with HTTP; Wed, 7 Dec 2016 15:30:51 -0800 (PST)
-In-Reply-To: <CAPLgG=mK40uKGdspJnxN8ohZn1XBv41TLknLYsO8JUH94+iZxw@mail.gmail.com>
-References: <1481133996-29973-1-git-send-email-raltherr@google.com>
- <1481133996-29973-4-git-send-email-raltherr@google.com>
- <5483e4dc-506b-c5b1-8e62-17408a9c1d9c@kaod.org>
- <CACPK8XcpR534r0nr06TQxr9hyM-_CY5SAFLO15-5yqO+zYsu1A@mail.gmail.com>
- <CAPLgG=mK40uKGdspJnxN8ohZn1XBv41TLknLYsO8JUH94+iZxw@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 8 Dec 2016 10:00:51 +1030
-X-Google-Sender-Auth: diAiwcTEQiJV3lqoUHEglfvm704
-Message-ID: <CACPK8XfdtsatERmRN28nwV82w6wwKrETXeX94PvVvFEP6ZDo5A@mail.gmail.com>
-Subject: Re: [PATCH u-boot][PATCH v4 3/3] Enable FIT image support and FDT
- loading for AST2400/AST2500
-To: Rick Altherr <raltherr@google.com>
-Cc: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
- OpenBMC Mailing List <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+Message-Id: <645351481213214@webcorp01f.yandex-team.ru>
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Thu, 08 Dec 2016 19:06:54 +0300
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,19 +54,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 07 Dec 2016 23:31:14 -0000
+X-List-Received-Date: Thu, 08 Dec 2016 16:14:24 -0000
 
-On Thu, Dec 8, 2016 at 9:56 AM, Rick Altherr <raltherr@google.com> wrote:
->> >> +CONFIG_EFI_LOADER=n
->> >> +CONFIG_FIT=y
->> >> +CONFIG_FIT_VERBOSE=y
->>
->> Are we sure we want verbose to be enabled?
->>
-> It turns on a few error messages when encountering situations not supported
-> with FIT images.  Binary size increase is small and it doesn't generate any
-> output during normal use.  I'm OK either way.  What do you recommend?
+Hello Matt,
 
-That's enough justification for me.
+08.12.2016, 01:55, "Joel Stanley" <joel@jms.id.au>:
+> Hi Matt,
+>
+>
+> We can keep both drivers around without issue. It takes a few KB of
+> extra flash space, but we are still a long way from overflowing the
+> space set aside for the kernel.
+>
+> The harder bit is the device tree. We would need to update the device
+> tree depending on which piece of hardware is attached. I'm not sure
+> the best way to handle that.
+>
 
-We can always revisit later if users are confused by the extra output.
+We use device tree overlay support ported from Raspberry Pi kernel tree and user space:
+
+    https://github.com/raspberrypi/linux/tree/rpi-4.9.y/arch/arm/boot/dts/overlays
+    https://github.com/raspberrypi/userland/tree/master/host_applications/linux/apps/
+
+our patchset (100-103):
+
+    https://github.com/ya-mouse/meta-openbmc-yandex/tree/master/meta-yandex/meta-openrack/meta-shaosi/recipes-kernel/linux/linux-obmc
+
+and userspace ported to OpenBMC:
+
+   https://github.com/ya-mouse/meta-openbmc-yandex/tree/master/meta-yandex/meta-openrack/meta-shaosi/recipes-phosphor/dtoverlay
+
+and sample usage during init stage to detect proper board and load specific overlay:
+
+   https://github.com/ya-mouse/meta-openbmc-yandex/blob/master/meta-yandex/meta-openrack/meta-shaosi/recipes-kernel/linux/linux-obmc/overlays/shaosi-CB.dts
+   https://github.com/ya-mouse/meta-openbmc-yandex/blob/master/meta-yandex/meta-openrack/meta-shaosi/recipes-phosphor/initfs/files/obmc-init.sh#L413-L417
+
+Current limitation of overlays is that __symbols__ only created within main DTB, it is not updated by further overlays, so we cannot just populate another tree with e.g. i2c-switch and then, depending on presence pin, add or remove computing node's overlays. As workaround it's possible to create complete base DTB and then using overlays enable or disable some part of tree.
+Another limitation, overlays is a kind of stack. To remove some intermediate overlay, the kernel will remove all precedent overlays and the re-apply remaining.
+
+-- 
+Anton D. Kachalov
