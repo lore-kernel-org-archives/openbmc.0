@@ -1,60 +1,58 @@
 Return-Path: <cyrilbur@gmail.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tZh431YYmzDw7f
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tZh432GwKzDw7k
  for <openbmc@lists.ozlabs.org>; Fri,  9 Dec 2016 16:43:47 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
- uB95doWo018033
- for <openbmc@lists.ozlabs.org>; Fri, 9 Dec 2016 00:43:44 -0500
-Received: from e23smtp07.au.ibm.com (e23smtp07.au.ibm.com [202.81.31.140])
- by mx0a-001b2d01.pphosted.com with ESMTP id 277gu7wumy-1
+ uB95ejm8003626
+ for <openbmc@lists.ozlabs.org>; Fri, 9 Dec 2016 00:43:43 -0500
+Received: from e23smtp02.au.ibm.com (e23smtp02.au.ibm.com [202.81.31.144])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 277me78wff-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 09 Dec 2016 00:43:44 -0500
+ for <openbmc@lists.ozlabs.org>; Fri, 09 Dec 2016 00:43:43 -0500
 Received: from localhost
- by e23smtp07.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e23smtp02.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <cyrilbur@gmail.com>;
- Fri, 9 Dec 2016 15:43:41 +1000
-Received: from d23dlp03.au.ibm.com (202.81.31.214)
- by e23smtp07.au.ibm.com (202.81.31.204) with IBM ESMTP SMTP Gateway:
+ Fri, 9 Dec 2016 15:43:40 +1000
+Received: from d23dlp02.au.ibm.com (202.81.31.213)
+ by e23smtp02.au.ibm.com (202.81.31.208) with IBM ESMTP SMTP Gateway:
  Authorized Use Only! Violators will be prosecuted; 
- Fri, 9 Dec 2016 15:43:38 +1000
+ Fri, 9 Dec 2016 15:43:37 +1000
 Received: from d23relay07.au.ibm.com (d23relay07.au.ibm.com [9.190.26.37])
- by d23dlp03.au.ibm.com (Postfix) with ESMTP id ED0513578056
+ by d23dlp02.au.ibm.com (Postfix) with ESMTP id EC7F22BB0059
  for <openbmc@lists.ozlabs.org>; Fri,  9 Dec 2016 16:43:36 +1100 (EST)
-Received: from d23av05.au.ibm.com (d23av05.au.ibm.com [9.190.234.119])
+Received: from d23av03.au.ibm.com (d23av03.au.ibm.com [9.190.234.97])
  by d23relay07.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- uB95ha9t18809076
+ uB95haFv17432742
  for <openbmc@lists.ozlabs.org>; Fri, 9 Dec 2016 16:43:36 +1100
-Received: from d23av05.au.ibm.com (localhost [127.0.0.1])
- by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- uB95hagL014767
+Received: from d23av03.au.ibm.com (localhost [127.0.0.1])
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ uB95haHI032235
  for <openbmc@lists.ozlabs.org>; Fri, 9 Dec 2016 16:43:36 +1100
 Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
- by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- uB95hawo014760
+ by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ uB95haUB032230
  for <openbmc@lists.ozlabs.org>; Fri, 9 Dec 2016 16:43:36 +1100
 Received: from camb691.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
  (using TLSv1.2 with cipher DHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 75601A026A
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 73B98A0240
  for <openbmc@lists.ozlabs.org>; Fri,  9 Dec 2016 16:43:36 +1100 (AEDT)
 From: Cyril Bur <cyrilbur@gmail.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux 1/3] ARM: dts: aspeed: Update palmetto device tree
-Date: Fri,  9 Dec 2016 16:43:21 +1100
+Subject: [PATCH linux 0/3] LPC/MBOX work
+Date: Fri,  9 Dec 2016 16:43:20 +1100
 X-Mailer: git-send-email 2.10.2
-In-Reply-To: <20161209054323.7320-1-cyrilbur@gmail.com>
-References: <20161209054323.7320-1-cyrilbur@gmail.com>
 X-TM-AS-MML: disable
 X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16120905-0044-0000-0000-0000020E399F
+x-cbid: 16120905-0004-0000-0000-000001C543A4
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 16120905-0045-0000-0000-00000624172E
-Message-Id: <20161209054323.7320-2-cyrilbur@gmail.com>
+x-cbparentid: 16120905-0005-0000-0000-00000946089D
+Message-Id: <20161209054323.7320-1-cyrilbur@gmail.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2016-12-09_03:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -75,69 +73,53 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Fri, 09 Dec 2016 05:43:47 -0000
 
-Palmettos have 512mb of ram. There is always framebuffer memory at the
-top of ram.
+Hello all,
 
-This patch also reserves BMC ram for host to BMC communication.
+I sent an email a while ago about my work to be able for the host to
+be able to access to contents of the pnor without nessesarily being
+able to modify it.
 
-Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts | 25 ++++++++++++++++++++++++-
- arch/arm/boot/dts/aspeed-g4.dtsi              |  6 ++++++
- 2 files changed, 30 insertions(+), 1 deletion(-)
+This involves a protocol for requests through the mbox regsters on the
+BMC and moving the HOST<->BMC LPC bus mapping to a region of BMC RAM.
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-index acaceda2..e810ae7 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-@@ -17,7 +17,30 @@
- 	};
- 
- 	memory {
--		reg = <0x40000000 0x10000000>;
-+		reg = <0x40000000 0x20000000>;
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells= <1>;
-+		ranges;
-+
-+		flash_mem: region@52000000 {
-+			compatible = "aspeed,lpc-ctrl";
-+			no-map;
-+			reg = <0x54000000 0x04000000>; /* 64m */
-+		};
-+
-+		fb_mem: framebuffer@5f000000 {
-+			no-map;
-+			reg = <0x5f000000 0x01000000>; /* 16m */
-+		};
-+	};
-+
-+	flash_buffer {
-+		compatible = "aspeed,lpc-ctrl";
-+		memory-region = <&flash_mem>;
-+		reg = <0x1e789000 8>;
- 	};
- 
-         leds {
-diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-index 7c78eb1..2eba968 100644
---- a/arch/arm/boot/dts/aspeed-g4.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-@@ -870,6 +870,12 @@
- 				interrupts = <8>;
- 			};
- 
-+			mbox: mbox@1e789200 {
-+				compatible = "aspeed,mbox-host";
-+				reg = <0x1e789200 0x5c>;
-+				interrupts = <46>;
-+			};
-+
- 			wdt1: wdt@1e785000 {
- 				compatible = "aspeed,ast2400-wdt";
- 				reg = <0x1e785000 0x1c>;
+These are the kernel patches required to do this. I am going to do the
+changes for the dts for all platforms but I have some questions as to
+how much RAM these platforms truely have. You'll notice I bumped the
+palmetto from 256 to 512, this was in response to my palmetto having
+512 megs. Part of the reason for this is that while I'm at it, I may
+as well reserve off the framebuffer memory (which there is work to
+perhaps use as well), the location of which depends on how much ram
+the BMC has. I'm thinking everything is actually 512, if that is
+accurate, I'll add those changes to a v2.
+
+Cedric (or anyone really): Do you know of a way the lpc-ctrl driver
+could query the MTD subsystem for the size of the PNOR? There is
+currently a hack in the UNMAP ioctl() which can't hang around.
+
+I'm not sure driver/misc is the place for these, thoughts?
+
+Thanks,
+
+Cyril
+
+Cyril Bur (3):
+  ARM: dts: aspeed: Update palmetto device tree
+  drivers/misc: Add aspeed mbox driver
+  drivers/misc: Add aspeed lpc controlling driver
+
+ arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts |  25 +-
+ arch/arm/boot/dts/aspeed-g4.dtsi              |   6 +
+ drivers/misc/Kconfig                          |  14 ++
+ drivers/misc/Makefile                         |   2 +
+ drivers/misc/lpc-ctrl.c                       | 251 ++++++++++++++++++++
+ drivers/misc/mbox-host.c                      | 326 ++++++++++++++++++++++++++
+ include/uapi/linux/lpc-ctrl.h                 |  25 ++
+ include/uapi/linux/mbox-host.h                |  18 ++
+ 8 files changed, 666 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/misc/lpc-ctrl.c
+ create mode 100644 drivers/misc/mbox-host.c
+ create mode 100644 include/uapi/linux/lpc-ctrl.h
+ create mode 100644 include/uapi/linux/mbox-host.h
+
 -- 
 2.10.2
