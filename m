@@ -1,58 +1,31 @@
-Return-Path: <tpearson@raptorengineering.com>
-Received: from mail.rptsys.com (mail.rptsys.com [192.119.205.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tctrt2fq5zDvkV
- for <openbmc@lists.ozlabs.org>; Tue, 13 Dec 2016 06:56:46 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=raptorengineering.com header.i=@raptorengineering.com
- header.b="WL/DUDbz"; dkim-atps=neutral
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 4619A640EB1;
- Mon, 12 Dec 2016 13:56:43 -0600 (CST)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id vbVyzf68ri-L; Mon, 12 Dec 2016 13:56:42 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 10568641103;
- Mon, 12 Dec 2016 13:56:42 -0600 (CST)
-DKIM-Filter: OpenDKIM Filter v2.9.2 mail.rptsys.com 10568641103
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
- t=1481572602; bh=J5cS2L7AEANafqsz9sMtXLVM0kbpWmCHsEN9LZEoXpI=;
- h=Message-ID:Date:From:MIME-Version:To:Subject:Content-Type:
- Content-Transfer-Encoding;
- b=WL/DUDbz/pK460KKqDq8/7d+qn24hA4K16F6FCjMNJK6eHnx2WRjt7kJJqCJmNfqM
- ZtbS4FNXID99jr48hnCsobSYo1SUhf/dSryDJD49+DiI28hGvhh5FpPITBPs42qZbf
- gS+eO2JjbTimeGP1ujcXbeTorwUrK2pt4JHFkI5U=
-X-Virus-Scanned: amavisd-new at rptsys.com
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id qxWtisk8siG4; Mon, 12 Dec 2016 13:56:41 -0600 (CST)
-Received: from [192.168.3.54] (apollo.starlink.edu [192.168.3.54])
- by mail.rptsys.com (Postfix) with ESMTP id D3777640EB1;
- Mon, 12 Dec 2016 13:56:41 -0600 (CST)
-Message-ID: <584F00F9.4010300@raptorengineeringinc.com>
-Date: Mon, 12 Dec 2016 13:56:41 -0600
-From: Timothy Pearson <tpearson@raptorengineering.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
- rv:1.9.2.9) Gecko/20100922 Thunderbird/3.1.4
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tcylg3fqDzDw0l
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Dec 2016 09:52:31 +1100 (AEDT)
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mx.zohomail.com
+ with SMTPS id 1481583141999655.489501167573;
+ Mon, 12 Dec 2016 14:52:21 -0800 (PST)
+Date: Mon, 12 Dec 2016 16:52:15 -0600
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Joel Stanley <joel@jms.id.au>
+Cc: eajames.ibm@gmail.com, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Christopher Bostic <christopher.lee.bostic@gmail.com>,
+ "Edward A. James" <eajames@us.ibm.com>
+Subject: Re: [RFC linux 1/2] drivers: fsi: Add SBE client device driver
+Message-ID: <20161212225215.GA5150@heinlein.lan>
+References: <1481064330-20757-1-git-send-email-eajames.ibm@gmail.com>
+ <CACPK8Xcwk-ctKv-G-RdOo2xcwb3PHfDVfBJa=r4qkm5Ncbuoqw@mail.gmail.com>
 MIME-Version: 1.0
-To: Matt Spinler <mspinler@linux.vnet.ibm.com>
-CC: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: [PATCH] Initial driver for the MAX31785 intelligent fan controller
-References: <1474336344-1821-1-git-send-email-tpearson@raptorengineering.com>
- <1474336344-1821-2-git-send-email-tpearson@raptorengineering.com>
- <CACPK8Xf+m04SOBSV8EJ_xYR3qONU5ydbmA-3LPabZVqE2kvuYw@mail.gmail.com>
- <57E54486.6020304@raptorengineeringinc.com>
- <de14e2a8-06f3-19f9-c783-3d05e6856993@linux.vnet.ibm.com>
- <CACPK8XfZ=yHgx75xBgy8kyQqxpCLwW406hyKvQYfiBpnC6Hvqw@mail.gmail.com>
- <584ED13B.8050206@raptorengineeringinc.com>
- <a5f21dcd-9ab5-68f1-c65c-46600e5d0e33@linux.vnet.ibm.com>
-In-Reply-To: <a5f21dcd-9ab5-68f1-c65c-46600e5d0e33@linux.vnet.ibm.com>
-X-Enigmail-Version: 1.1.2
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="HcAYCG3uE/tztfnV"
+Content-Disposition: inline
+In-Reply-To: <CACPK8Xcwk-ctKv-G-RdOo2xcwb3PHfDVfBJa=r4qkm5Ncbuoqw@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,55 +37,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 12 Dec 2016 19:56:47 -0000
+X-List-Received-Date: Mon, 12 Dec 2016 22:52:32 -0000
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA1
 
-On 12/12/2016 12:17 PM, Matt Spinler wrote:
-> Hi Tim,
-> 
-> 
-> On 12/12/2016 10:32 AM, Timothy Pearson wrote:
-> On 12/11/2016 05:36 PM, Joel Stanley wrote:
->>>> Hi Matt,
->>>>
->>>> On Sat, Dec 10, 2016 at 2:55 AM, Matt Spinler
->>>> <mspinler@linux.vnet.ibm.com> wrote:
->>>>> Hi,
->>>>>
->>>>> We're getting closer to needing the hwmon driver for this.  Has
->>>>> anyone heard
->>>>> an outlook?
-> There is a functional driver merged into the OpenBMC kernel tree.
-> Upstream is still working on a replacement driver as far as I know; they
-> just wanted a different internal implementation of the driver versus the
-> one in the OpenBMC kernel tree.
-> 
->> Your driver is a hwmon driver, so it will make an entry in
->> /sys/class/hwmon?  I realized after
->> I sent this email that the chip wasn't specified in the device tree, so
->> it wasn't going to show
->> up anywhere even if it was.
+--HcAYCG3uE/tztfnV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-This is correct.  You can read fan speeds and set PWM values, as well as
-modifying the automatic fan control modes.
+On Mon, Dec 12, 2016 at 03:26:46PM +1100, Joel Stanley wrote:
+> Lets have a discussion abut what client drivers we will need to have
+> in the kernel for FSI.
+>=20
+> We should consider only creating kernel drivers when the code cannot
+> live in userspace. This would mean situations where exclusive access
+> to some part of the address space is required (SCOMs), when the
+> sequence of reads/writes are timing critical, or when there are IRQs
+> involved.
+>=20
+> For cases where we're simply writing or reading values to the register
+> CFAM address space, writing userspace code should be sufficient.
+>=20
+> What do you think about this approach?
 
-- -- 
-Timothy Pearson
-Raptor Engineering
-+1 (415) 727-8645 (direct line)
-+1 (512) 690-0200 (switchboard)
-https://www.raptorengineering.com
+I'm pretty sure there is some layering going on here.  SBE driver uses
+FSI, OCC driver (on P9) uses SBE.  We can't get an hwmon OCC driver
+without this SBE driver.
+
+Eddie, can you confirm?
+
+--=20
+Patrick Williams
+
+--HcAYCG3uE/tztfnV
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
-Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org/
 
-iQEcBAEBAgAGBQJYTwD1AAoJEK+E3vEXDOFbcMcH/3BBXUpg4He2kS2T2TPZfgWr
-jbWo+2fvdfJ5RZGS/iffrxv26dVw1s6QHocnlnW3xbUhgqQpz7ruXD4YfXtizIgY
-+Fa7zWmptQTNqLbM2brOxKRYXBS1qAgRS9Xmciwk7aWsFMtms5cjLZ5JjLWy01cS
-tPiRcYX+SQ6RcTgNYZi0QlYIB4gUIwJai4WRs3m0V2sFv4iXJB9CNKuv9Tw7miJY
-wNTNQrlV1R0mj05cR8IemgT9S9iONavAZzN71uGSyXHauigMq88BaOVJB/unRtoT
-PAI+5+bqGEH8UhfVQnk+epydPkzxTOYkKG5XLkc8VchfCEawontZ3p5dYy97Das=
-=doBJ
+iQIcBAEBCAAGBQJYTyoVAAoJEKsDR8wtAMEZIlsP/RjG5DBk4Y12JUk56lYXz+o/
++ceCOsl3B9o/kNkg645Pm+BFHDFeGA4xfpMI9ISeiVJxJ3oghz1WDsZ8Drf6Ob73
+VLv+pgtVC6ucAjFSCv2FyoVnlZyoCoF5zbji3QJ31k/Zx3NrlBaOeCrmPvMMp6Fv
+cZRfWHj+fONS17D0OQ4y9kW/DCCNnmyXjClXSuxH6oAxQwomnuyRvdSWmql0frl+
+DklWliLQFpa+42i74QjY0/viXFkArPm1MAEdXuqu0dDyZJyGF5/D7OnfyaEWV5RX
+aMv4PlQ3XqhdruLTv9rLRv2WK0LdRoJAEcGrzPxmmQoUQRFi1E2vtBeB1uoHCt68
+KjnAFbuftNCdmMQdFw1wNjLl7um2dsL/R6NQPJ3wOrZZV7iJDRg7d/IL5+lUYam5
+DcVN+stJKdWHNV1cKo51Cny0aWjzDt6+i3DW3S/5VFddnYkBbYz60/cY46LaG9V3
+l6nYkm1RzBgFNHInKnlXtiKYfgIWHcFEuS1AtPY+USuycdjtQaQO1WdvGEUzW9oS
+b3fdZt7ouRhS8AvVkSE/JDdUrTNJMW9CJcm9jyDYPDuyR77pRN+xnRHHwd/9rRvQ
+iVPsA/AwfQMIghO/3m7Ol0bxxade0Rga116gz9aUXgCDmsqB8/kNqbCAB55tAQ2r
+BrvSocnWDtisPeV/8wyD
+=cO/A
 -----END PGP SIGNATURE-----
+
+--HcAYCG3uE/tztfnV--
