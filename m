@@ -1,54 +1,53 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x242.google.com (mail-ua0-x242.google.com
- [IPv6:2607:f8b0:400c:c08::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3td29s4Dd1zDvkS
- for <openbmc@lists.ozlabs.org>; Tue, 13 Dec 2016 12:26:57 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="WFtD581U"; 
- dkim-atps=neutral
-Received: by mail-ua0-x242.google.com with SMTP id b35so10393087uaa.1
- for <openbmc@lists.ozlabs.org>; Mon, 12 Dec 2016 17:26:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=beqthRvvHJN1irJf5+6VqZLb1leJ6ufx2lKWVu6hhuI=;
- b=WFtD581UDJQ0skTLXSSDIq9flWBXzL0JTGteOCGDL2dgtMzPKsfJmBuIKCp2tDFQDG
- VPx9lj+u4WUjxFyvjjpIOijbzUKvTEoKB6B7sn5lWJcC16I1wfEgExdPpoGEB/tv8vqi
- 1PU9smrP88SgTq2YhiNTkig2H/ZSaxmd934wyxYxEAKdevW72P1m/OmiN1U37MhPJFEE
- 1TgeNF+xpeG5P5HBFAUZtwpEtzTIkjgl61CPumMXhVuCqOU1qqwEcGomry/V9ebnpvnZ
- nIp+V+O7e7199jomGwx/YJ7AGNlK26wCj+N9FAi6CvfhMdq4cnUBoCZupFpQYsVtDiku
- ozaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20130820;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=beqthRvvHJN1irJf5+6VqZLb1leJ6ufx2lKWVu6hhuI=;
- b=PzdeH+gSoFyuOWhegylZniEyhkhTu1wXej37efo1NCCJMaDF8GmjVQEOIlUC6sF0Hu
- doazQFJWzplwIUFXC4dqJd/10g6Xq2PR/gCRHHKqbUKMPQCN9COCo0FU18+brSnZ7ZF7
- T+iMyXsKPZiwMR8+r6nMJ/UaHrMwV285sw17nzg0ss4LUGuOPXP7sY2s/Dh28/wkE6MA
- lyCWPctGkfkDLWLKNgwWbcFnFJDPwcKbcm3hwRHH68pYHQ7aom1NJkkVLjLBUDJ/6R/E
- S8HFVtIXEmQ7pitWvNZRMg3GdYwhRUJI3JNjJFTw7BtOhWBotAGDBj+n1c4Su/PkEApt
- qp2w==
-X-Gm-Message-State: AKaTC00hLyxFSVcYhKdd7D0BQva1TPsyNT0KWq8QsJ/2irR51j+4UWg4f41iXi45i1Eq8Vhh+HyXesSXGA6kRw==
-X-Received: by 10.159.34.41 with SMTP id 38mr29690745uad.160.1481592415323;
- Mon, 12 Dec 2016 17:26:55 -0800 (PST)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.159.48.91 with HTTP; Mon, 12 Dec 2016 17:26:34 -0800 (PST)
-In-Reply-To: <20161209054323.7320-3-cyrilbur@gmail.com>
-References: <20161209054323.7320-1-cyrilbur@gmail.com>
- <20161209054323.7320-3-cyrilbur@gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 13 Dec 2016 12:26:34 +1100
-X-Google-Sender-Auth: htWhaDn91u0YyIRcNbV_8PsmLMQ
-Message-ID: <CACPK8XdisKkgmE2PT5JGE06AD73rrBizsgL0+SbyFkSHShaEKg@mail.gmail.com>
-Subject: Re: [PATCH linux 2/3] drivers/misc: Add aspeed mbox driver
-To: Cyril Bur <cyrilbur@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Andrew Jeffery <andrew@aj.id.au>
-Content-Type: text/plain; charset=UTF-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3td2Fk4nzgzDvkS
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Dec 2016 12:30:18 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="G4Gt7gkO"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="QHg7gmTy"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 9AA9820971;
+ Mon, 12 Dec 2016 20:30:16 -0500 (EST)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Mon, 12 Dec 2016 20:30:16 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=mesmtp; bh=GkcOgUsKRvHFOMj3uGYrPe+yZXw=; b=G4Gt7g
+ kODaES9r8JI7Zm1w5KcPeWZt8Y0kiRJwtAUID7Bb2j67II7sAMWnR5LcVGZYthhE
+ IXYyOsonXSWOLlYTSl+3e55chiXfVfhgQL4irgCzOy2GOX3Lba0m41ckPeD+o49K
+ l1tOOev77XdL2bgJBDK6hCrLqBCDuGikxzzHA=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=GkcOgUsKRvHFOM
+ j3uGYrPe+yZXw=; b=QHg7gmTyjM7T7CWyRX4fsll9N6oZrrkNgstfcKWuAKonrr
+ QWBQVcTxk5FvyX1fP5A3Sjpjz/fuvJjdegxDtcGIOJqtKMyGAdFrMQVECrhoWVol
+ igcdun2lsg1WdRWHkjyiYCOtydx8ayoCR16BLQyZwyVfeJaAnVB5iJBtBzuUg=
+X-ME-Sender: <xms:KE9PWGX5ZFD6gPsAppuW8HQf8iopBR9qhQS4-V2mfm27PqhuEOnW6w>
+X-Sasl-enc: u8vXG8r9DyA4wdKlHUfHvCAVs3jMO/6kzXnOX1qdwPft 1481592615
+Received: from [10.3.85.50] (unknown [203.122.223.123])
+ by mail.messagingengine.com (Postfix) with ESMTPA id E243E24241;
+ Mon, 12 Dec 2016 20:30:14 -0500 (EST)
+Message-ID: <1481592610.3112.17.camel@aj.id.au>
+Subject: Re: [RFC PATCH linux v6 2/9] hwmon: Add core On-Chip Controller
+ support for POWER CPUs
+From: Andrew Jeffery <andrew@aj.id.au>
+To: eajames.ibm@gmail.com, openbmc@lists.ozlabs.org
+Cc: "Edward A. James" <eajames@us.ibm.com>
+Date: Tue, 13 Dec 2016 12:00:10 +1030
+In-Reply-To: <1481522572.3112.12.camel@aj.id.au>
+References: <1480460588-28589-1-git-send-email-eajames.ibm@gmail.com>
+ <1481522572.3112.12.camel@aj.id.au>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-8JxHeZxet6iqv5KMfvIY"
+X-Mailer: Evolution 3.22.1-0ubuntu2 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,155 +59,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Dec 2016 01:26:58 -0000
-
-On Fri, Dec 9, 2016 at 4:43 PM, Cyril Bur <cyrilbur@gmail.com> wrote:
-> Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
-
-Explain why we need this chardev, why it needs ioctls, etc.
-
-> ---
->  drivers/misc/Kconfig           |   7 +
->  drivers/misc/Makefile          |   2 +
->  drivers/misc/mbox-host.c       | 326 +++++++++++++++++++++++++++++++++++++++++
->  include/uapi/linux/mbox-host.h |  18 +++
->  4 files changed, 353 insertions(+)
->  create mode 100644 drivers/misc/mbox-host.c
->  create mode 100644 include/uapi/linux/mbox-host.h
->
-> diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-> index a216b46..44f191d 100644
-> --- a/drivers/misc/Kconfig
-> +++ b/drivers/misc/Kconfig
-> @@ -804,6 +804,13 @@ config PANEL_BOOT_MESSAGE
->           An empty message will only clear the display at driver init time. Any other
->           printf()-formatted message is valid with newline and escape codes.
->
-> +config MBOX_HOST
-> +       depends on ARCH_ASPEED
-
-or COMPILE_TEST
-
-> +       bool "Build MBOX driver for BMC to HOST communication"
-> +       default "n"
-
-If it's depending on ARCH_ASPEED I think default y is ok.
-
-> +       ---help---
-> +         Build the MBOX driver
-
-More text here please.
-
-> +
->  source "drivers/misc/c2port/Kconfig"
->  source "drivers/misc/eeprom/Kconfig"
->  source "drivers/misc/cb710/Kconfig"
-> diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
-> index b2fb6dbf..7bcaf30 100644
-> --- a/drivers/misc/Makefile
-> +++ b/drivers/misc/Makefile
-
-"misc seems a bit too misc" - Andrew Jeffery.
-
-How about drivers/soc? Or drivers/mfd?
-
-> +#define DEVICE_NAME    "mbox-host"
-> +
-> +#define MBOX_NUM_REGS 16
-> +#define MBOX_NUM_DATA_REGS 14
-> +
-> +#define MBOX_DATA_0 0x00
-> +#define MBOX_STATUS_0 0x40
-> +#define MBOX_STATUS_1 0x44
-> +#define MBOX_BMC_CTRL 0x48
-> +       #define MBOX_CTRL_RECV 0x80
-> +       #define MBOX_CTRL_MASK 0x02
-> +       #define MBOX_CTRL_SEND 0x01
-
-If you want to do show these are bits in the CTRL register, do this. I
-think it's more readable to represent the bits as shifts, or even
-better, using the BIT() macro.
-
-#define MBOX_BMC_CTRL 0x48
-#define   MBOX_CTRL_RECV BIT(7)
-#define   MBOX_CTRL_MASK BIT(1)
-
-etc.
-
-> +#define MBOX_HOST_CTRL 0x4c
-> +#define MBOX_INTERRUPT_0 0x50
-> +#define MBOX_INTERRUPT_1 0x54
-> +
-
-> +
-> +static u8 mbox_inb(struct mbox_host *mbox_host, int reg)
-> +{
-> +       return ioread8(mbox_host->base + reg);
-> +}
-> +
-> +static void mbox_outb(struct mbox_host *mbox_host, u8 data, int reg)
-> +{
-> +       iowrite8(data, mbox_host->base + reg);
-> +}
-
-As mentioned in the other email, all access to the LPC address space
-is through regmap.
-
-> +
-> +static struct mbox_host *file_mbox_host(struct file *file)
-> +{
-> +       return container_of(file->private_data, struct mbox_host, miscdev);
-> +}
-> +
-> +static int mbox_host_open(struct inode *inode, struct file *file)
-> +{
-> +       return 0;
-> +}
-
-This means userspace can open this device an unlimited number of
-times. I think we only want one user at a time?
+X-List-Received-Date: Tue, 13 Dec 2016 01:30:19 -0000
 
 
-> +static int mbox_host_release(struct inode *inode, struct file *file)
-> +{
-> +       return 0;
-> +}
+--=-8JxHeZxet6iqv5KMfvIY
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Why not omit the callback?
+On Mon, 2016-12-12 at 16:32 +1030, Andrew Jeffery wrote:
+> > > +=C2=A0=C2=A0=C2=A0/* read remaining data */
+> > > +=C2=A0=C2=A0=C2=A0for (i =3D 8; i < num_bytes + 8; i +=3D 8)
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0driver->bus_ops.getscom(driver->bus, OCB_DATA, occ_data, i);
+>=20
+> This interface needs work. I'd much rather we could write:
+>=20
+> =C2=A0=C2=A0=C2=A0 occ_data[i] =3D driver->bus_ops.getscom(driver->bus, O=
+CB_DATA);
+>=20
+> Looking at patch 4/9 I can't see any reason why we'd need such an
+> unusual interface.
 
-> +
-> +static unsigned int mbox_host_poll(struct file *file, poll_table *wait)
-> +{
-> +       struct mbox_host *mbox_host = file_mbox_host(file);
-> +       unsigned int mask = 0;
-> +
-> +       poll_wait(file, &mbox_host->queue, wait);
-> +
-> +       if (mbox_inb(mbox_host, MBOX_BMC_CTRL) & MBOX_CTRL_RECV)
-> +               mask |= POLLIN;
-> +
-> +       return mask;
-> +}
-> +
-> +static const struct file_operations mbox_host_fops = {
-> +       .owner          = THIS_MODULE,
-> +       .open           = mbox_host_open,
-> +       .read           = mbox_host_read,
-> +       .write          = mbox_host_write,
-> +       .release        = mbox_host_release,
-> +       .poll           = mbox_host_poll,
-> +       .unlocked_ioctl = mbox_host_ioctl,
-> +};
-> +
-> +static void poll_timer(unsigned long data)
-> +{
-> +       struct mbox_host *mbox_host = (void *)data;
-> +
-> +       mbox_host->poll_timer.expires += msecs_to_jiffies(500);
+Actually, I take that back slightly. Ultimately I'd like to get away
+from passing i as a parameter. So instead we could continue to use the
+return value for errors, and pass a pointer to the memory getscom()
+should modify:
 
-Why 500?
+    rc =3D driver->bus_ops.getscom(driver->bus, OCB_DATA, (u64 *)&occ_data[=
+i]);
 
-> +       wake_up(&mbox_host->queue);
-> +       add_timer(&mbox_host->poll_timer);
-> +}
-> +
+The value in (u64 *)&occ_data[i] is only valid if the call is success etc.
+
+Andrew
+
+--=-8JxHeZxet6iqv5KMfvIY
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJYT08iAAoJEJ0dnzgO5LT5g4wQAJLLk2b+MCsJMMIWfXk4figw
+GaDGP+aCpYANOFl5GOBdiSmZSqr/xLBzbxh/8FiME48GchPotgtf3MBIRg4ktM+S
+UGxTMuCiu8XN+ON1T0phJhSKBW+dwbM43yz8ZVw/Vmfj+QI1z2AkmvFEQHQzoTcQ
+3mKJNRLcpCGuTgPO+n7bpvPg03NFx9T7ERCZC/uuWCczvCoWPWgOhtm6W9CVeWXt
+amD/9qh3XxEUg6NkSHeezI0BRuQnCmVw/hnyhtzl546lGS8qcmZ40Rciqi/RQk03
+CT5jzPqSeixcDdjMuFFkjdoTEJDIqO4b9AMkSSaEZFpGl0vv3KoUShfrMT4n3o58
+A6UblsH+hBVZvw0KSZvAhREjZX/ar/lo45C1qG7ZSB1pTWrcGqYi99m9/XgfdNSC
+VNflQvuEZgIum3t5UXouTcXItDPGNwnDb1BApnNfBHxGhwamNaWCcv0fRrUYhOj3
+1Ptpk6OSRatgz960AyKGe+4bGhAi8Qizqf5J48gJEpxAs7O9cdKOlSpcqp6Ay384
+1AFDbfJFix3QQmMCPZReFxFOIwNOvR2BQD6Q/8k64zAoMVemCrAW9h/W9FBDjtSn
+3nqbhV/9Da6MjwaAEawwKNtonynlzshA/K7v9wErdP1OB/hwlaBVt/NUSx3yGxek
+7BAsEtOO/hf+wUszTKhK
+=1cHC
+-----END PGP SIGNATURE-----
+
+--=-8JxHeZxet6iqv5KMfvIY--
