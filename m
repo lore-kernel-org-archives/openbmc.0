@@ -1,68 +1,53 @@
-Return-Path: <cyrilbur@gmail.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-vk0-x241.google.com (mail-vk0-x241.google.com
+ [IPv6:2607:f8b0:400c:c05::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3td6rG2zcWzDvk4
- for <openbmc@lists.ozlabs.org>; Tue, 13 Dec 2016 15:57:02 +1100 (AEDT)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
- uBD4sGfk120048
- for <openbmc@lists.ozlabs.org>; Mon, 12 Dec 2016 23:57:00 -0500
-Received: from e23smtp03.au.ibm.com (e23smtp03.au.ibm.com [202.81.31.145])
- by mx0a-001b2d01.pphosted.com with ESMTP id 27a8a60v7b-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 12 Dec 2016 23:56:59 -0500
-Received: from localhost
- by e23smtp03.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <cyrilbur@gmail.com>;
- Tue, 13 Dec 2016 14:56:57 +1000
-Received: from d23dlp02.au.ibm.com (202.81.31.213)
- by e23smtp03.au.ibm.com (202.81.31.209) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Tue, 13 Dec 2016 14:56:54 +1000
-Received: from d23relay09.au.ibm.com (d23relay09.au.ibm.com [9.185.63.181])
- by d23dlp02.au.ibm.com (Postfix) with ESMTP id 3BCCF2BB0045
- for <openbmc@lists.ozlabs.org>; Tue, 13 Dec 2016 15:56:54 +1100 (EST)
-Received: from d23av03.au.ibm.com (d23av03.au.ibm.com [9.190.234.97])
- by d23relay09.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- uBD4usgc59506702
- for <openbmc@lists.ozlabs.org>; Tue, 13 Dec 2016 15:56:54 +1100
-Received: from d23av03.au.ibm.com (localhost [127.0.0.1])
- by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- uBD4urS5003059
- for <openbmc@lists.ozlabs.org>; Tue, 13 Dec 2016 15:56:53 +1100
-Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
- by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- uBD4urjc003049
- for <openbmc@lists.ozlabs.org>; Tue, 13 Dec 2016 15:56:53 +1100
-Received: from camb691.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
- (using TLSv1.2 with cipher DHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 894FFA01DA
- for <openbmc@lists.ozlabs.org>; Tue, 13 Dec 2016 15:56:53 +1100 (AEDT)
-From: Cyril Bur <cyrilbur@gmail.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux 2/2] ARM: dts: aspeed: Reserve framebuffer memory 2400
- based opp platforms
-Date: Tue, 13 Dec 2016 15:56:23 +1100
-X-Mailer: git-send-email 2.10.2
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3td7JN6p9FzDvkV
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Dec 2016 16:17:56 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="nTzGxcLD"; 
+ dkim-atps=neutral
+Received: by mail-vk0-x241.google.com with SMTP id w194so5532407vkw.3
+ for <openbmc@lists.ozlabs.org>; Mon, 12 Dec 2016 21:17:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=Erkr5ZAWz2kdimDBVpMqyaKVV/GXJ3/FE5kQR2DDQqA=;
+ b=nTzGxcLDFfi2WoCoVBajf8tuhTQJar9s5s3ha7B7XpYENvqVUu2455DasIyMTH7WXJ
+ J4vjJdqYoLh90pMjpeHb/5Sgfiv1Z05Fqjm1JmM9pO64UuFQ/D5ra87FI4WW5PrfeHTW
+ 4bFXQEsCJz2WzLLohhjDnLv52ZXjA9+C0xxqefU/ZlZVRVuPjK36YOzXAiuB/mUxaXMC
+ 9ES51npzdu5hm+gXthVkRmc7Y4qJ1L8T4Kx2gyvMiHSfqTh1NLjno6EjaG9j5cV9Jhf7
+ VYApZVz3B6e557ez2MPoeyi6PhB14HeLTANwmjA74W8EA3U/wQHwJDNDX9H4LbA7hkTY
+ kN2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20130820;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=Erkr5ZAWz2kdimDBVpMqyaKVV/GXJ3/FE5kQR2DDQqA=;
+ b=TKMVsQfCPxB85YHXE7N2nj3u1ywJIQWoAoeoHNaElq7ufacwkZMWSzKU3oYbF7Ep6I
+ WfZ4uR1J0oVwO5aElZgiBK9Qi4tHC6gg+0r14V84Y03y9b6o/Z33WPSJBFi+UoSDVPBA
+ uVqckLbAO08CcjX5tq0MGbDyE4t5kDgf3D5FEiZIM8PxH2lwaAWFSn3fOHxhPIL8Kp9z
+ ccLQQpuSP22LlHTBB99yrvP1m8nhUcqfukB+3ugSk7awACIkGdj7IyYSjVLFSQkxHQRU
+ FI1zfm2QAqXisseD3R8uY8a61UXNqc3nrlKX5V+T9yWVgHCgzdC420owifWvQnFxXIKz
+ RBNg==
+X-Gm-Message-State: AKaTC02N65TmLMyW5gxBuWy+2avamfn95Nus00IB2wtiefTrWu7ZbdkYO55rP73mwkJJIIdch1V3fQ0FQDEi9Q==
+X-Received: by 10.31.52.145 with SMTP id b139mr33475573vka.151.1481606274757; 
+ Mon, 12 Dec 2016 21:17:54 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.159.48.91 with HTTP; Mon, 12 Dec 2016 21:17:34 -0800 (PST)
 In-Reply-To: <20161213045623.1542-1-cyrilbur@gmail.com>
 References: <20161213045623.1542-1-cyrilbur@gmail.com>
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16121304-0008-0000-0000-000000F098CA
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 16121304-0009-0000-0000-000008B048C9
-Message-Id: <20161213045623.1542-2-cyrilbur@gmail.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2016-12-13_02:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1609300000
- definitions=main-1612130083
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 13 Dec 2016 15:47:34 +1030
+X-Google-Sender-Auth: 3_XAhENSpYOrcHLjxInxnP2PNcw
+Message-ID: <CACPK8XeEPJQjLOktSsgR29XgxwRWV_vpwVeVxWE_rn9=Kn0jWA@mail.gmail.com>
+Subject: Re: [PATCH linux 1/2] ARM: dts: aspeed: Set correct memory size for
+ 2400 based opp platforms
+To: Cyril Bur <cyrilbur@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -74,105 +59,86 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Dec 2016 04:57:02 -0000
+X-List-Received-Date: Tue, 13 Dec 2016 05:17:57 -0000
 
-Use 16MB of framebuffer memory at the top of RAM
+On Tue, Dec 13, 2016 at 3:26 PM, Cyril Bur <cyrilbur@gmail.com> wrote:
+> These platforms all have 512MB of memory as opposed to the previously
+> thought 256MB.
+>
+> Update the device trees accordingly
+>
+> Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
 
-Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts | 11 +++++++++++
- arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts | 11 +++++++++++
- arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts  | 11 +++++++++++
- arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts  | 11 +++++++++++
- 4 files changed, 44 insertions(+)
+Thanks. I tweaked the commit message a little and applied to dev-4.7
+as 580004c1267c90ff4a3c82d7c970e93609ae28ed.
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-index 353033b..0f1ff31 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
-@@ -20,6 +20,17 @@
- 		reg = <0x40000000 0x20000000>;
- 	};
- 
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		vga_memory: framebuffer@5f000000 {
-+			no-map;
-+			reg = <0x5f000000 0x01000000>; /* 16MB */
-+		};
-+	};
-+
- 	ahb {
- 		bmc_pnor: fmc@1e620000 {
- 			reg = < 0x1e620000 0x94
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-index ee7b569..bd297d3 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
-@@ -24,6 +24,17 @@
- 		reg = <0x40000000 0x20000000>;
- 	};
- 
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		vga_memory: framebuffer@5f000000 {
-+			no-map;
-+			reg = <0x5f000000 0x01000000>; /* 16MB */
-+		};
-+	};
-+
- 	leds {
- 		compatible = "gpio-leds";
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-index 3f3fd1f..2365483 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
-@@ -20,6 +20,17 @@
- 		reg = <0x40000000 0x20000000>;
- 	};
- 
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		vga_memory: framebuffer@5f000000 {
-+			no-map;
-+			reg = <0x5f000000 0x01000000>; /* 16MB */
-+		};
-+	};
-+
- 	ahb {
- 
- 		fmc@1e620000 {
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-index 816c004..e05a56d 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
-@@ -20,6 +20,17 @@
- 		reg = <0x40000000 0x20000000>;
- 	};
- 
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		vga_memory: framebuffer@5f000000 {
-+			no-map;
-+			reg = <0x5f000000 0x01000000>; /* 16M */
-+		};
-+	};
-+
-         leds {
-                 compatible = "gpio-leds";
- 
--- 
-2.10.2
+Cheers,
+
+Joel
+
+> ---
+>  arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts | 2 +-
+>  arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts | 2 +-
+>  arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts  | 2 +-
+>  arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts  | 2 +-
+>  4 files changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+> index 802ce95..353033b 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+> @@ -17,7 +17,7 @@
+>         };
+>
+>         memory {
+> -               reg = <0x40000000 0x10000000>;
+> +               reg = <0x40000000 0x20000000>;
+>         };
+>
+>         ahb {
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+> index 005ff89..ee7b569 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+> @@ -21,7 +21,7 @@
+>         };
+>
+>         memory {
+> -               reg = < 0x40000000 0x10000000 >;
+> +               reg = <0x40000000 0x20000000>;
+>         };
+>
+>         leds {
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
+> index 92b29d1..3f3fd1f 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
+> @@ -17,7 +17,7 @@
+>         };
+>
+>         memory {
+> -               reg = < 0x40000000 0x10000000 >;
+> +               reg = <0x40000000 0x20000000>;
+>         };
+>
+>         ahb {
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+> index acaceda2..816c004 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+> @@ -17,7 +17,7 @@
+>         };
+>
+>         memory {
+> -               reg = <0x40000000 0x10000000>;
+> +               reg = <0x40000000 0x20000000>;
+>         };
+>
+>          leds {
+> --
+> 2.10.2
+>
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
