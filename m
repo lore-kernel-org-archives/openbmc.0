@@ -1,50 +1,52 @@
-Return-Path: <eajames.ibm@gmail.com>
-Received: from mail-it0-x242.google.com (mail-it0-x242.google.com
- [IPv6:2607:f8b0:4001:c0b::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tgMZ61zFMzDqgj
- for <openbmc@lists.ozlabs.org>; Sat, 17 Dec 2016 07:37:34 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="HIDgO2D6"; 
- dkim-atps=neutral
-Received: by mail-it0-x242.google.com with SMTP id 75so3885180ite.1
- for <openbmc@lists.ozlabs.org>; Fri, 16 Dec 2016 12:37:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=oURlh7iJ0Z15xhe6cXfDcsFUqKqTeTfaaajGyF48+YE=;
- b=HIDgO2D6nmqHCkzop3VOtxOmnwIWkIuRuHQzLIfgXBAl9n/QASIPI8AufdZxgH6zp5
- ubE0WQ+/tsBTuz/8qTqPZ9pz0vUnPOu/xVyEa6yGCmpLXos3Oj4bZdlxCQvn59hk+NHk
- eom2qpCusAC1ROlgfCz2xsLsI5kquwgLu8oPBPNhVY3Moh/4Kld2xAMTPr7znURLxuEI
- Udz/iKOgXrD0CXWEi3wat5R8Eb4u/CrY9d5bOyiXM3y0sqpD2n/fPQy+i6R0fi/rpjdL
- 6550DNimb/oY+vW/i6sZG8hBxUYfAqAZ/dtIbdBLzLq0xkFdPZlm/9OkvvyflWaWdHt6
- ObOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=oURlh7iJ0Z15xhe6cXfDcsFUqKqTeTfaaajGyF48+YE=;
- b=A/vc70NsNUYkUqYL9XWf9x/OPMICgi6T45sIjN0KVnwoNIMV6engDnL0EZJNmcgv+H
- wMnMsRLu63mOktjG8NhSXUNiVrFwculSOU6KkEQex4sNRhUdqM2+vYRVtLwq1+uYTlN9
- /RLtr9GiVjDSr7iXUFyGVgOSuaZVp536QP7vj1J7/OAppA4iQxuPS2Aj3sIKeJ9X0S1Y
- Prfb5bYlLpSEOzrRO+G4w/JTXjakPwPWE0rtQq4gC/Jj/ZuqTIhrpRCzMNcCGhkqcJDk
- N81hQ/WJ8hCzbTug/lTQKTt8xKmaZJrOMrS4+NoL3AWaoMw2IDzl0Lg0GwGSeMbGh8XX
- cv2Q==
-X-Gm-Message-State: AKaTC02aDMcUrji3J2KYWiuyvuLa+ec9kSTKd3KSLbEpzimJeISqsLK1aaIif+NJQ5VF4w==
-X-Received: by 10.36.64.75 with SMTP id n72mr4913199ita.105.1481920652255;
- Fri, 16 Dec 2016 12:37:32 -0800 (PST)
-Received: from eajames-austin-w350.austin.ibm.com ([32.97.110.57])
- by smtp.gmail.com with ESMTPSA id w189sm1912274ith.19.2016.12.16.12.37.30
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Fri, 16 Dec 2016 12:37:31 -0800 (PST)
-From: eajames.ibm@gmail.com
-To: openbmc@lists.ozlabs.org
-Cc: andrew@aj.id.au,
-	joel@jms.id.au,
-	"Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux 0/7] drivers: hwmon: Add On-Chip Controller driver
-Date: Fri, 16 Dec 2016 14:37:23 -0600
-Message-Id: <1481920643-7383-1-git-send-email-eajames.ibm@gmail.com>
-X-Mailer: git-send-email 1.9.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3thgWj2mNjzDwC5
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Dec 2016 10:40:00 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="MLDMJLma"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="RXXJSIai"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id D07162099B;
+ Sun, 18 Dec 2016 18:39:55 -0500 (EST)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Sun, 18 Dec 2016 18:39:55 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
+ content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=mesmtp; bh=m3kjF4AqL+gR0QXiQO5HePzkJw4=; b=MLDMJL
+ maSN//sIKO094ApcQ2FHVso/fJQMlKzdApw6yAJQRi5SewQt0zAzCLB/kckFzbdg
+ 1F11Qdy8zh9BiweZqL3cy9h2jIfjDwVjtlxypzjSp9+Il9SQjbNTxeBPNM9NHSxH
+ mjvM6K4Kox2ZFPs8KPXRjdcLSVHegtrvHBeRg=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=m3kjF4AqL+gR0Q
+ XiQO5HePzkJw4=; b=RXXJSIaiIyHYFJnY78KVHeVQpsdbxUMFEKrw3Fs6pdnlxy
+ k6t6pgR6ZiyzQ3PihIlqB9kPhQ581iq8lYgxTQS60dH96LkqkYC0jR28yKVyV3jP
+ TYAicFb1erHsMgamanmBFX11X1iCDT81cIETIEv/8elCRWTesxa2+G/v47KWQ=
+X-ME-Sender: <xms:Sx5XWIMA8IqkeWUzdHaMiKjtKyOired12IFeNkmHOJRvXoOqBQ6orA>
+X-Sasl-enc: nbaUP4d9qjNEiwWMz9cJVAH0jOf0rpEOBsUwPJ5o97Gp 1482104395
+Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
+ [203.122.213.247])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 7B70A7EA42;
+ Sun, 18 Dec 2016 18:39:54 -0500 (EST)
+Message-ID: <1481757247.3112.57.camel@aj.id.au>
+Subject: Re: [PATCH linux 2/3] drivers/misc: Add aspeed mbox driver
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Cyril Bur <cyrilbur@gmail.com>, openbmc@lists.ozlabs.org
+In-Reply-To: <20161209054323.7320-3-cyrilbur@gmail.com>
+References: <20161209054323.7320-1-cyrilbur@gmail.com>
+ <20161209054323.7320-3-cyrilbur@gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-Q/Zy/bLK7BqWw6VMyRm+"
+Date: Thu, 15 Dec 2016 09:44:08 +1030
+Mime-Version: 1.0
+X-Mailer: Evolution 3.22.1-0ubuntu2 
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,67 +58,70 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Dec 2016 20:37:34 -0000
+X-List-Received-Date: Sun, 18 Dec 2016 23:40:02 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
 
-This patchset adds a hwmon driver to support the OCC (On-Chip Controller)
-on the IBM POWER8 and POWER9 processors, from a BMC (Baseboard Management
-Controller). The OCC is an embedded processor that provides real time
-power and thermal monitoring.
+--=-Q/Zy/bLK7BqWw6VMyRm+
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The driver provides an interface on a BMC to poll OCC sensor data, set
-user power caps, and perform some basic OCC error handling. It interfaces
-with userspace through hwmon.
+On Fri, 2016-12-09 at 16:43 +1100, Cyril Bur wrote:
+> > Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
+> ---
+> =C2=A0drivers/misc/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0|=C2=A0=C2=A0=C2=A07 +
+> =C2=A0drivers/misc/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0|=C2=A0=C2=A0=C2=A02 +
+> =C2=A0drivers/misc/mbox-host.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0|=
+ 326 +++++++++++++++++++++++++++++++++++++++++
 
-The driver is currently functional only for the OCC on POWER8 chips.
-Communicating with the POWER9 OCC requries FSI support.
+Is drivers/misc the right spot? drivers/mailbox seems to be a thing -
+is there any reason it doesn't live there?
 
-Edward A. James (7):
-  hwmon: Add core On-Chip Controller support for POWER CPUs
-  hwmon: occ: Add sysfs interface
-  hwmon: occ: Add I2C transport implementation for SCOM operations
-  hwmon: occ: Add callbacks for parsing P8 OCC datastructures
-  hwmon: occ: Add hwmon implementation for the P8 OCC
-  arm: aspeed: dts: Add I2C POWER8 OCC compatible string
-  hwmon: occ: Add callbacks for parsing P9 OCC datastructures
+> =C2=A0include/uapi/linux/mbox-host.h |=C2=A0=C2=A018 +++
+> =C2=A04 files changed, 353 insertions(+)
+> =C2=A0create mode 100644 drivers/misc/mbox-host.c
+> =C2=A0create mode 100644 include/uapi/linux/mbox-host.h
+>=20
+> diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
+> index a216b46..44f191d 100644
+> --- a/drivers/misc/Kconfig
+> +++ b/drivers/misc/Kconfig
+> @@ -804,6 +804,13 @@ config PANEL_BOOT_MESSAGE
+> > =C2=A0	=C2=A0=C2=A0An empty message will only clear the display at driv=
+er init time. Any other
+> > =C2=A0	=C2=A0=C2=A0printf()-formatted message is valid with newline and=
+ escape codes.
+> =C2=A0
+> +config MBOX_HOST
+> +	depends on ARCH_ASPEED
 
- .../devicetree/bindings/i2c/i2c-ibm-occ.txt        |  13 +
- Documentation/hwmon/occ                            | 100 ++++
- arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts      |   9 +
- drivers/hwmon/Kconfig                              |   2 +
- drivers/hwmon/Makefile                             |   1 +
- drivers/hwmon/occ/Kconfig                          |  29 ++
- drivers/hwmon/occ/Makefile                         |   2 +
- drivers/hwmon/occ/occ.c                            | 519 +++++++++++++++++++++
- drivers/hwmon/occ/occ.h                            |  86 ++++
- drivers/hwmon/occ/occ_p8.c                         | 217 +++++++++
- drivers/hwmon/occ/occ_p8.h                         |  30 ++
- drivers/hwmon/occ/occ_p8_i2c.c                     | 141 ++++++
- drivers/hwmon/occ/occ_p9.c                         | 243 ++++++++++
- drivers/hwmon/occ/occ_p9.h                         |  30 ++
- drivers/hwmon/occ/occ_scom_i2c.c                   |  67 +++
- drivers/hwmon/occ/occ_scom_i2c.h                   |  26 ++
- drivers/hwmon/occ/occ_sysfs.c                      | 492 +++++++++++++++++++
- drivers/hwmon/occ/occ_sysfs.h                      |  52 +++
- drivers/hwmon/occ/scom.h                           |  48 ++
- 19 files changed, 2107 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/i2c/i2c-ibm-occ.txt
- create mode 100644 Documentation/hwmon/occ
- create mode 100644 drivers/hwmon/occ/Kconfig
- create mode 100644 drivers/hwmon/occ/Makefile
- create mode 100644 drivers/hwmon/occ/occ.c
- create mode 100644 drivers/hwmon/occ/occ.h
- create mode 100644 drivers/hwmon/occ/occ_p8.c
- create mode 100644 drivers/hwmon/occ/occ_p8.h
- create mode 100644 drivers/hwmon/occ/occ_p8_i2c.c
- create mode 100644 drivers/hwmon/occ/occ_p9.c
- create mode 100644 drivers/hwmon/occ/occ_p9.h
- create mode 100644 drivers/hwmon/occ/occ_scom_i2c.c
- create mode 100644 drivers/hwmon/occ/occ_scom_i2c.h
- create mode 100644 drivers/hwmon/occ/occ_sysfs.c
- create mode 100644 drivers/hwmon/occ/occ_sysfs.h
- create mode 100644 drivers/hwmon/occ/scom.h
+Given we depend on ARCH_ASPEED maybe we should have 'ASPEED' in the
+config symbol? ASPEED_MBOX_HOST?
 
--- 
-1.9.1
+Also, as Joel's pointed out in other patches, we should probably add ||
+COMPILE_TEST as well.
+
+Andrew
+--=-Q/Zy/bLK7BqWw6VMyRm+
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJYUdJAAAoJEJ0dnzgO5LT5I8UP/1YIbJwC0cE2faeNEo4fifS2
+xH2mvyZt7Tj/j3Btd2E0OQWvHVl1eXN8bWHzNlQTdOL5PxOpzgx3XG1fsPQKUaU/
+hcG4t1eo0BveFQL4kNl1aMgHsryJEdVB6ldc5GD9HVIYLDoXOIELw1cSlwRu7bHv
+3e9ViAud1K9eexzozYQZcnpu+nQC8N15FDp1MI46gz0VkpAQ55P/3VFZgmoeVRze
+U1Cy7YJViAqrPNlFP5FdcoVi584iPBfQzSvu+rAIds7Kls6eZXquFY/470SB2uHy
+bOZvBpdtIMETS3U6kRaQOtK9KRCFYJgYV8f3bHHff3EFV/XvnxnQlpZYOb3MfzHA
+CdxAkqPt7abegdRzhwAqaDVn5qoIG6sXrXk+S2QP0f1K7NPCibKg+CnxBdCwHsqL
+AxKveqMkS407J09jMl0In9vK6Rpk6Cl4mrjBC8d3/Zp+UUbREJy48RtgAprQwH7M
+ETgph69Bkv2MFDRdwvBCDKWDcvxufv5oxQW4dXoKh4Kz+5ffkdW9yp7OgqHjofhf
+p5mNAJlOBOQIPNaOIDiFYDAu/Pb2+l+BW+2ZShZKbZ6Hxe2a49KGlk5l/L5zE1XO
+CBdKYqPcAcCvvscSb7uyruR5nRO37iAmKPyo9jzvXcd8M65xq3E0WILrVdA8XomK
+S1MnUEBSishuGBb+cmDG
+=xrIj
+-----END PGP SIGNATURE-----
+
+--=-Q/Zy/bLK7BqWw6VMyRm+--
