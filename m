@@ -1,44 +1,35 @@
-Return-Path: <linux+openbmc=lists.ozlabs.org@armlinux.org.uk>
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk
- [IPv6:2001:4d48:ad52:3201:214:fdff:fe10:1be6])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tdwvj0cj1zDvk5
- for <openbmc@lists.ozlabs.org>; Wed, 14 Dec 2016 23:32:48 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=armlinux.org.uk header.i=@armlinux.org.uk
- header.b="MMokG99O"; dkim-atps=neutral
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2014; 
- h=Sender:In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date;
- bh=yDWlC3DlWN84ou+7RNlVmaXD9dXlU9VNNg5r1RvQuXQ=; 
- b=MMokG99O9no6K3/xo2b3PnDcRhxtmOZV3qHjkasZKv+kG6iBOf2k52Hyvh9VU3h1nHe9VvJtn4TQVeaVYtQJ+dz6xU5yt9p6qx5iG1ppnjrzTgF5/e8doVyeMX3ETboXmKi0iq+Q6eXq7kRB73EVP58o8ERZ/TlEUzp56Ezn9vA=;
-Received: from n2100.armlinux.org.uk
- ([2002:4e20:1eda:1:214:fdff:fe10:4f86]:38064)
- by pandora.armlinux.org.uk with esmtpsa (TLSv1:DHE-RSA-AES256-SHA:256)
- (Exim 4.82_1-5b7a7c0-XX) (envelope-from <linux@armlinux.org.uk>)
- id 1cH8jc-0004wY-MP; Wed, 14 Dec 2016 12:32:36 +0000
-Received: from linux by n2100.armlinux.org.uk with local (Exim 4.76)
- (envelope-from <linux@n2100.armlinux.org.uk>)
- id 1cH8jZ-000691-Hz; Wed, 14 Dec 2016 12:32:33 +0000
-Date: Wed, 14 Dec 2016 12:32:33 +0000
-From: Russell King - ARM Linux <linux@armlinux.org.uk>
+Return-Path: <thomas.petazzoni@free-electrons.com>
+Received: from mail.free-electrons.com (mail.free-electrons.com [62.4.15.54])
+ by lists.ozlabs.org (Postfix) with ESMTP id 3tdxBd6RsqzDvk5
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Dec 2016 23:45:45 +1100 (AEDT)
+Received: by mail.free-electrons.com (Postfix, from userid 110)
+ id 2F88C20C1C; Wed, 14 Dec 2016 13:45:41 +0100 (CET)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ mail.free-electrons.com
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=5.0 tests=ALL_TRUSTED,SHORTCIRCUIT,
+ URIBL_BLOCKED shortcircuit=ham autolearn=disabled version=3.4.0
+Received: from localhost (LStLambert-657-1-97-87.w90-63.abo.wanadoo.fr
+ [90.63.216.87])
+ by mail.free-electrons.com (Postfix) with ESMTPSA id D6C5220780;
+ Wed, 14 Dec 2016 13:45:30 +0100 (CET)
+Date: Wed, 14 Dec 2016 13:45:30 +0100
+From: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
 To: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
 Cc: openbmc@lists.ozlabs.org, robh+dt@kernel.org, mark.rutland@arm.com,
- arnd@arndb.de, gregkh@linuxfoundation.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, joel@jms.id.au
-Subject: Re: [PATCH linux v1 2/4] drivers: misc: Character device driver for
- seven segment display
-Message-ID: <20161214123233.GF14217@n2100.armlinux.org.uk>
+ linux@armlinux.org.uk, arnd@arndb.de, gregkh@linuxfoundation.org,
+ joel@jms.id.au, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH linux v1 0/4] Seven segment display support
+Message-ID: <20161214134530.2bd54a4e@free-electrons.com>
+In-Reply-To: <1481702104-8617-1-git-send-email-jaghu@google.com>
 References: <1481702104-8617-1-git-send-email-jaghu@google.com>
- <1481702104-8617-3-git-send-email-jaghu@google.com>
+Organization: Free Electrons
+X-Mailer: Claws Mail 3.13.2 (GTK+ 2.24.30; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1481702104-8617-3-git-send-email-jaghu@google.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-Sender: Russell King - ARM Linux <linux@armlinux.org.uk>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Thu, 15 Dec 2016 00:37:18 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -50,59 +41,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 14 Dec 2016 12:32:50 -0000
+X-List-Received-Date: Wed, 14 Dec 2016 12:45:46 -0000
 
-On Tue, Dec 13, 2016 at 11:55:02PM -0800, Jaghathiswari Rankappagounder Natarajan wrote:
-> +int seven_seg_setup_cdev(struct seven_seg_disp_dev *disp_dev,
-> +	void (*update_disp_data)(struct device *, u16 data))
-> +{
-> +	struct device *dev;
-> +	int err;
-> +
-> +	dev = device_create(seven_seg_disp_class, &disp_dev->parent,
-> +			seven_seg_devno,
-> +			NULL, "seven_seg_disp_val");
-> +	if (dev == NULL)
-> +		return -1;
+Hello,
 
-Do not use return -1 in kernel code.
+On Tue, 13 Dec 2016 23:55:00 -0800, Jaghathiswari Rankappagounder
+Natarajan wrote:
 
-> +	disp_dev->dev = dev;
-> +	disp_dev->update_seven_seg_data = update_disp_data;
-> +	disp_dev->disp_data_valid = false;
-> +
-> +	cdev_init(&disp_dev->cdev, &seven_seg_disp_fops);
-> +	err = cdev_add(&disp_dev->cdev, seven_seg_devno, 1);
-> +	if (err)
-> +		device_destroy(seven_seg_disp_class, seven_seg_devno);
-> +	return err;
-> +}
-> +
-> +static int __init seven_seg_disp_init(void)
-> +{
-> +	if (alloc_chrdev_region(&seven_seg_devno, 0, 1, "disp_state") < 0)
-> +		return -1;
+> Documentation for the binding which provides an interface for adding clock,
+> data and clear signal GPIO lines to control seven segment display.
+> 
+> The platform device driver provides an API for displaying on two 7-segment
+> displays, and implements the required bit-banging. The hardware assumed is
+> 74HC164 wired to two 7-segment displays.
+> 
+> The character device driver implements the user-space API for letting a user
+> write to two 7-segment displays including any conversion methods necessary
+> to map the user input to two 7-segment displays.
+> 
+> Adding clock, data and clear signal GPIO lines in the devicetree to control
+> seven segment display on zaius platform.
+> 
+> The platform driver matches on the device tree node; the platform driver also
+> initializes the character device.
+> 
+> Tested that the seven segment display works properly by writing to the
+> character device file on a EVB AST2500 board which also has 74HC164 wired
+> to two 7-segment displays.
 
-Do not use return -1 in kernel code.
+FWIW, I proposed a driver for seven segment displays back in 2013:
 
-> +
-> +	seven_seg_disp_class = class_create(THIS_MODULE, "disp_state");
-> +	if (seven_seg_disp_class == NULL)
-> +		goto unreg_chrdev;
-> +
-> +unreg_chrdev:
-> +	unregister_chrdev_region(seven_seg_devno, 1);
-> +	return -1;
+   http://lists.infradead.org/pipermail/linux-arm-kernel/2013-January/139986.html
 
-Do not use return -1 in kernel code.
+And the feedback from Greg KH was: we don't need a driver for that, do
+it from userspace. See:
 
-(Look up what an errno value of '1' means.  Negative values returned from
-functions are interpreted as negated errno values.)
+   http://lists.infradead.org/pipermail/linux-arm-kernel/2013-January/139992.html
 
-Always propagate error codes, or select an appropriate errno value to
-return.
+So: good luck :-)
 
+Best regards,
+
+Thomas
 -- 
-RMK's Patch system: http://www.armlinux.org.uk/developer/patches/
-FTTC broadband for 0.8mile line: currently at 9.6Mbps down 400kbps up
-according to speedtest.net.
+Thomas Petazzoni, CTO, Free Electrons
+Embedded Linux and Kernel engineering
+http://free-electrons.com
