@@ -1,67 +1,51 @@
-Return-Path: <ddaney.cavm@gmail.com>
-Received: from mail-pf0-x243.google.com (mail-pf0-x243.google.com
- [IPv6:2607:f8b0:400e:c00::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tf6yW3FtqzDw3P
- for <openbmc@lists.ozlabs.org>; Thu, 15 Dec 2016 07:05:54 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="rgVW5KPu"; 
- dkim-atps=neutral
-Received: by mail-pf0-x243.google.com with SMTP id c4so1549250pfb.3
- for <openbmc@lists.ozlabs.org>; Wed, 14 Dec 2016 12:05:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:cc:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding;
- bh=98NdNDULHmLt5T+e8BjGYMu9VM9v737Vru3LqW3p7vQ=;
- b=rgVW5KPum02nmziDvKmfi1brlny3//T/62imKoPVSeDoSZS40pW9x6eZQMH7eIGBe/
- yuJsqza2Li8HQ9RoyYj26ZG19x6yXP5OvFuzFo+RDDSV6HpIjulCzKjDbgjKtFLFoA3O
- MZ7kkiMiiWKuqfGI2sTCdTv54tTLmnqtu3y6Wqtla71Yc69Acq+QmXtGaFeEZsdST1ds
- LNMX3V0riiej9qoDRr49JwMW7C26EctgdKvmHTyun/zDs388RuipZWCl+154CtfMmvzw
- AMfN1rcyLQ2WiKa17Qf/2qQtR9318lOKEp2T3Yrvi9QSyxfj2v8tpe2PaDwQ6G5yHFGV
- OnPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:cc:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding;
- bh=98NdNDULHmLt5T+e8BjGYMu9VM9v737Vru3LqW3p7vQ=;
- b=S2l/Ya5zuU1heBZwQw9XlhKwjJnNwdkwafww5y2LO8YlUOnGMs8TwN3lZILib8720F
- 2SX+is/X5+KRQ6Ay5MkXCaP82P/XLVXNevHLxtgOJTXHSdJxM7x67zobWirNznocuWZ2
- uH9wnla6cni88twFz5+lBpy6aAl7NrXBgKZ70akTjvlNjJSpf7p8OZSnCm82IpoX8dpX
- ZbNI/2ItgKfo8Mk3VoWWcBu14RqTX0841MEa+s0wFr2RTtQU02OEZNaAAVnFojlNs9D+
- /nCnik5LzGrUf6j0bTaqXVMuw7bZ4gJoJRfQ7oiM75zyOOlcJlTo0XhkhAyK/47xpxoR
- qZTQ==
-X-Gm-Message-State: AKaTC02TQNXS8WlFqaJqmymdS6SPaPsoS4u/nUz1BGz1Cco3yNKQblskfxlHWsjoY4sI0w==
-X-Received: by 10.84.198.129 with SMTP id p1mr127196738pld.14.1481745952576;
- Wed, 14 Dec 2016 12:05:52 -0800 (PST)
-Received: from ddl.caveonetworks.com
- (50-233-148-156-static.hfc.comcastbusiness.net. [50.233.148.156])
- by smtp.googlemail.com with ESMTPSA id u78sm83743530pfa.53.2016.12.14.12.05.50
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 14 Dec 2016 12:05:51 -0800 (PST)
-Subject: Re: [PATCH linux v1 0/4] Seven segment display support
-To: Arnd Bergmann <arnd@arndb.de>, Neil Armstrong <narmstrong@baylibre.com>
-References: <1481702104-8617-1-git-send-email-jaghu@google.com>
- <20161214125641.GA5379@kroah.com>
- <ac324946-41da-c090-a0ca-78155611bb7e@baylibre.com>
- <2512681.Wh85HyB8FH@wuerfel>
-Cc: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>,
- mark.rutland@arm.com,
- Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
- devicetree@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
- openbmc@lists.ozlabs.org, linux@armlinux.org.uk,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org, joel@jms.id.au,
- linux-arm-kernel@lists.infradead.org
-From: David Daney <ddaney.cavm@gmail.com>
-Message-ID: <d054a18a-10d1-7aa5-31d5-44af1e5a6c76@gmail.com>
-Date: Wed, 14 Dec 2016 12:05:50 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.5.1
-MIME-Version: 1.0
-In-Reply-To: <2512681.Wh85HyB8FH@wuerfel>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Thu, 15 Dec 2016 07:37:00 +1100
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tfC8Y2YTzzDvk5
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Dec 2016 10:14:52 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="cJogZvLk"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="opLV4VwS"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id CF0AC206BF;
+ Wed, 14 Dec 2016 18:14:48 -0500 (EST)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Wed, 14 Dec 2016 18:14:48 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
+ content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=mesmtp; bh=rhut0Yg56DBXcSyTcyRfjq+0Mew=; b=cJogZv
+ Lk5bBD1YWTyy2fNmoUQeIwQ7HE7NeImxv22QHhKsms/R7lIOsy6qjRdoy8SNCDYY
+ KSgQ2nTBjFcu12yeXHL8GiKFpYC31t3BT2NPHTPzf+4I5SUWHCcvKgRHATF+lCmo
+ PQ3xZdx4qZMk9SILXFnPiPI+BUY3pPe2ztYOY=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=rhut0Yg56DBXcS
+ yTcyRfjq+0Mew=; b=opLV4VwSBFlmCl0xNA4D2FwMrEhH7X1k3YIH/Pt0g1jPsi
+ aYt0Yt9F3aQ2e/I9ntXK3R1yD6LpCGSjT8zQ9f4P6HawQWV7ZkfMLF+f4/YAMUkF
+ s2danjseI2cWrF2kENAoQXvtMHwgwACNlr2f3K95rYwObleEeb2ZOwKrk8ct0=
+X-ME-Sender: <xms:aNJRWMTkc0e1XptQR3FMR5_jycWEAWpf19im10AKme7zQArrX17kjg>
+X-Sasl-enc: PfTT6Hnt4ok6zETQj5aJvqubLQd7lKsxnVROlz71DF9w 1481757288
+Received: from [10.104.0.15] (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 4ACFC7E330;
+ Wed, 14 Dec 2016 18:14:46 -0500 (EST)
+Message-ID: <1481757283.3112.58.camel@aj.id.au>
+Subject: Re: [PATCH linux 2/3] drivers/misc: Add aspeed mbox driver
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Cyril Bur <cyrilbur@gmail.com>, openbmc@lists.ozlabs.org
+Date: Thu, 15 Dec 2016 09:44:43 +1030
+In-Reply-To: <20161209054323.7320-3-cyrilbur@gmail.com>
+References: <20161209054323.7320-1-cyrilbur@gmail.com>
+ <20161209054323.7320-3-cyrilbur@gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-J3brdVM7jbYi4bnqoS+3"
+X-Mailer: Evolution 3.22.1-0ubuntu2 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -73,98 +57,75 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 14 Dec 2016 20:05:56 -0000
+X-List-Received-Date: Wed, 14 Dec 2016 23:14:54 -0000
 
-On 12/14/2016 06:15 AM, Arnd Bergmann wrote:
-> On Wednesday, December 14, 2016 2:12:41 PM CET Neil Armstrong wrote:
->> On 12/14/2016 01:56 PM, Greg KH wrote:
->>> On Wed, Dec 14, 2016 at 01:45:30PM +0100, Thomas Petazzoni wrote:
->>>> Hello,
->>>>
->>>> On Tue, 13 Dec 2016 23:55:00 -0800, Jaghathiswari Rankappagounder
->>>> Natarajan wrote:
->>>>
->>>>> Documentation for the binding which provides an interface for adding clock,
->>>>> data and clear signal GPIO lines to control seven segment display.
->>>>>
->>>>> The platform device driver provides an API for displaying on two 7-segment
->>>>> displays, and implements the required bit-banging. The hardware assumed is
->>>>> 74HC164 wired to two 7-segment displays.
->>>>>
->>>>> The character device driver implements the user-space API for letting a user
->>>>> write to two 7-segment displays including any conversion methods necessary
->>>>> to map the user input to two 7-segment displays.
->>>>>
->>>>> Adding clock, data and clear signal GPIO lines in the devicetree to control
->>>>> seven segment display on zaius platform.
->>>>>
->>>>> The platform driver matches on the device tree node; the platform driver also
->>>>> initializes the character device.
->>>>>
->>>>> Tested that the seven segment display works properly by writing to the
->>>>> character device file on a EVB AST2500 board which also has 74HC164 wired
->>>>> to two 7-segment displays.
->>>>
->>>> FWIW, I proposed a driver for seven segment displays back in 2013:
->>>>
->>>>    http://lists.infradead.org/pipermail/linux-arm-kernel/2013-January/139986.html
->>>>
->>>> And the feedback from Greg KH was: we don't need a driver for that, do
->>>> it from userspace. See:
->>>>
->>>>    http://lists.infradead.org/pipermail/linux-arm-kernel/2013-January/139992.html
->>>>
->>>> So: good luck
->>>
->>> Did anyone ever write a library for this type of thing?
->>>
->>> Again, I don't want to see one-off drivers for random devices like this
->>> that should be able to all be controlled from userspace in a common
->>> manner.  Much like we did for fingerprint readers a long long time
->>> ago...
->>>
->
->> Actually, it's more than a random interface, a lot of SoCs and boards actually have such displays
->> and it's a pity to use UIO, sysfs gpio bitbanging and all sort of ugly stuff to only print a few
->> characters a simple and clean driver could achieve.
->> Some very well known SoCs even have integrated registers to lower the BOM and bypass the need for
->> a 74HC164 like component and avoid gpio bit banging.
->>
->> My personal concern is that you could also need to drive more segments, thus 7-segments
->> is too restrictive.
->>
->> But this driver is well structured, the gpio-bitbanging sub-driver is welcome.
->
-> Maybe we can find a way to fit this into the existing drivers/leds/ subsystem?
->
-> That already supports blinking, brightness and colour attributes of LEDs,
-> so could this be extended to support (one of) digit, number, character
-> or string with a common sysfs attribute and a way to hook up a led driver
-> to that?
 
-We have a lot of boards with an 8-cell dot matrix LED. Each cell is 
-programmed with an 8-bit value.  The mapping of these values to the dots 
-defaults to ASCII character rendering, but there is the facility to 
-install other bitmaps as well.
+--=-J3brdVM7jbYi4bnqoS+3
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Really I view these things not as part of the LED subsystem, but more as 
-a very small frame buffer.
+On Fri, 2016-12-09 at 16:43 +1100, Cyril Bur wrote:
+> > Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
+>=20
+> ---
+> =C2=A0drivers/misc/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0|=C2=A0=C2=A0=C2=A07 +
+> =C2=A0drivers/misc/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0|=C2=A0=C2=A0=C2=A02 +
+> =C2=A0drivers/misc/mbox-host.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0|=
+ 326
+> +++++++++++++++++++++++++++++++++++++++++
 
-We like to display entire words, and the most useful interface from a 
-user point of view is something that consumes entire strings rather than 
-having to manage each cell independently.
+Is drivers/misc the right spot? drivers/mailbox seems to be a thing -
+is there any reason it doesn't live there?
 
-You could imagine that if the text to be displayed were longer than the 
-display, that the driver would make it continuously scroll.  I would 
-like to see a framework where a simple character device were exposed, 
-and from userspace you could do: "echo message > /dev/small-display" and 
-get something sensible.
+> =C2=A0include/uapi/linux/mbox-host.h |=C2=A0=C2=A018 +++
+> =C2=A04 files changed, 353 insertions(+)
+> =C2=A0create mode 100644 drivers/misc/mbox-host.c
+> =C2=A0create mode 100644 include/uapi/linux/mbox-host.h
+>=20
+> diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
+> index a216b46..44f191d 100644
+> --- a/drivers/misc/Kconfig
+> +++ b/drivers/misc/Kconfig
+> @@ -804,6 +804,13 @@ config PANEL_BOOT_MESSAGE
+> > =C2=A0	=C2=A0=C2=A0An empty message will only clear the display at driv=
+er
+> > init time. Any other
+> > =C2=A0	=C2=A0=C2=A0printf()-formatted message is valid with newline and
+> > escape codes.
+>=20
+> =C2=A0
+> +config MBOX_HOST
+> +	depends on ARCH_ASPEED
 
->
-> 	Arnd
->
-> _______________________________________________
-> linux-arm-kernel mailing list
-> linux-arm-kernel@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
->
+Given we depend on ARCH_ASPEED maybe we should have 'ASPEED' in the
+config symbol? ASPEED_MBOX_HOST?
+
+Also, as Joel's pointed out in other patches, we should probably add ||
+COMPILE_TEST as well.
+
+Andrew
+--=-J3brdVM7jbYi4bnqoS+3
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJYUdJjAAoJEJ0dnzgO5LT5JskP/0Tyt5m/zWR0Nl+F1vCy6IPn
+AKWQiTlkrIOXsihNQI94lnb23KvYy4OnBhVOWIW/muGLIZXgznMiPPaQNMXwUxDk
+xht4FvGM+qnuplnmiXmq+882bUg3knC78YdYgGen/jzo9Me01Cd3qtauUKZcTWy4
+94DMlIbjxHKT6WWjamZ00zFA7p17rpTtqnlItDldXsutosZhKKfLinBwqI/Nzxli
+CxHGValJITGRCTPWJl4S29jx7F3JUD0ALf/3HhXoRzggrZNsod85I07L99WUFAgM
+wA9mvyx9miRdx9s5zGUfhHlcQx+xwmhAqt/HGChdctTegtSU+ntjRbTVjalmKnvU
+5y6XBtqYXnAcSSOzArYWS3M7FmHXxx348KrLLZkbddElMaFyYSlmsGdEC09RC91W
+ZHcUb7PYPY8KvFB4b4C7a0vvBjuHUq62oThIuFIrMk7d/dxojPi8Cqgp9//88oHu
+GFgRsNmacfn+ZqKoSQzVQKGTK9S3VzvcVfMaXKQ7vhuhMoJeehCRWMFB3keQE7qj
+iUE4/1R0QLG4gu9sXtcpMSxsLfhZtPfEXBA3LjLd+v5+IyrkEk+4cXkoFjxzvLN2
+gIOxQ2ApFlMZlbMHpqD2sVwbJ4K3oyzIEPk/ZSl1RMBVPGfnMGXbR3FQGanFz5rz
+quSZYOh9plHIJIvZsN8t
+=Swrz
+-----END PGP SIGNATURE-----
+
+--=-J3brdVM7jbYi4bnqoS+3--
