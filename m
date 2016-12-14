@@ -1,28 +1,33 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <gregkh@linuxfoundation.org>
+Received: from mail.linuxfoundation.org (mail.linuxfoundation.org
+ [140.211.169.12])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tdzf1746hzDt3H
- for <openbmc@lists.ozlabs.org>; Thu, 15 Dec 2016 01:36:09 +1100 (AEDT)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 14817261630181008.767427433649;
- Wed, 14 Dec 2016 06:36:03 -0800 (PST)
-Date: Wed, 14 Dec 2016 08:35:56 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
-Cc: openbmc@lists.ozlabs.org
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tf2cj5vFCzDt1Y
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Dec 2016 03:50:12 +1100 (AEDT)
+Received: from localhost (unknown [104.132.0.97])
+ by mail.linuxfoundation.org (Postfix) with ESMTPSA id 5791C5AC;
+ Wed, 14 Dec 2016 16:50:09 +0000 (UTC)
+Date: Wed, 14 Dec 2016 08:50:19 -0800
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Neil Armstrong <narmstrong@baylibre.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>,
+ mark.rutland@arm.com,
+ Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
+ arnd@arndb.de, devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux@armlinux.org.uk, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, joel@jms.id.au, linux-arm-kernel@lists.infradead.org
 Subject: Re: [PATCH linux v1 0/4] Seven segment display support
-Message-ID: <20161214143556.GA13350@heinlein.lan>
+Message-ID: <20161214165019.GC14275@kroah.com>
 References: <1481702104-8617-1-git-send-email-jaghu@google.com>
+ <20161214134530.2bd54a4e@free-electrons.com>
+ <20161214125641.GA5379@kroah.com>
+ <ac324946-41da-c090-a0ca-78155611bb7e@baylibre.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="9jxsPFA5p3P2qPhR"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1481702104-8617-1-git-send-email-jaghu@google.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
+In-Reply-To: <ac324946-41da-c090-a0ca-78155611bb7e@baylibre.com>
+User-Agent: Mutt/1.7.2 (2016-11-26)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -34,108 +39,71 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 14 Dec 2016 14:36:10 -0000
+X-List-Received-Date: Wed, 14 Dec 2016 16:50:14 -0000
 
+On Wed, Dec 14, 2016 at 02:12:41PM +0100, Neil Armstrong wrote:
+> On 12/14/2016 01:56 PM, Greg KH wrote:
+> > On Wed, Dec 14, 2016 at 01:45:30PM +0100, Thomas Petazzoni wrote:
+> >> Hello,
+> >>
+> >> On Tue, 13 Dec 2016 23:55:00 -0800, Jaghathiswari Rankappagounder
+> >> Natarajan wrote:
+> >>
+> >>> Documentation for the binding which provides an interface for adding clock,
+> >>> data and clear signal GPIO lines to control seven segment display.
+> >>>
+> >>> The platform device driver provides an API for displaying on two 7-segment
+> >>> displays, and implements the required bit-banging. The hardware assumed is
+> >>> 74HC164 wired to two 7-segment displays.
+> >>>
+> >>> The character device driver implements the user-space API for letting a user
+> >>> write to two 7-segment displays including any conversion methods necessary
+> >>> to map the user input to two 7-segment displays.
+> >>>
+> >>> Adding clock, data and clear signal GPIO lines in the devicetree to control
+> >>> seven segment display on zaius platform.
+> >>>
+> >>> The platform driver matches on the device tree node; the platform driver also
+> >>> initializes the character device.
+> >>>
+> >>> Tested that the seven segment display works properly by writing to the
+> >>> character device file on a EVB AST2500 board which also has 74HC164 wired
+> >>> to two 7-segment displays.
+> >>
+> >> FWIW, I proposed a driver for seven segment displays back in 2013:
+> >>
+> >>    http://lists.infradead.org/pipermail/linux-arm-kernel/2013-January/139986.html
+> >>
+> >> And the feedback from Greg KH was: we don't need a driver for that, do
+> >> it from userspace. See:
+> >>
+> >>    http://lists.infradead.org/pipermail/linux-arm-kernel/2013-January/139992.html
+> >>
+> >> So: good luck :-)
+> > 
+> > Did anyone ever write a library for this type of thing?
+> > 
+> > Again, I don't want to see one-off drivers for random devices like this
+> > that should be able to all be controlled from userspace in a common
+> > manner.  Much like we did for fingerprint readers a long long time
+> > ago...
+> > 
+> > thanks,
+> > 
+> > greg k-h
+> 
+> Hi Greg,
+> 
+> Actually, it's more than a random interface, a lot of SoCs and boards actually have such displays
+> and it's a pity to use UIO, sysfs gpio bitbanging and all sort of ugly stuff to only print a few
+> characters a simple and clean driver could achieve.
 
---9jxsPFA5p3P2qPhR
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Great, then let's make an API that all devices of this type could use,
+and not just take individual drivers that all have a custom char or
+sysfs interface which requires custom userspace code to be able to drive
+all of the different devices in a common way (i.e. a library would have
+to be written anyways...)
 
-On Tue, Dec 13, 2016 at 11:55:00PM -0800, Jaghathiswari Rankappagounder Nat=
-arajan wrote:
+thanks,
 
-Jaghu,
-
-Bringing the discussion back onto just the OpenBMC list.
-
-Thank you for getting this out to the broader Linux community to solicit
-feedback.  As you see, even if things look good to some of the kernel
-devs here from a "is this generally how the kernel does things" and "is
-this code generally of quality to be acceptable upstream" there is a lot
-of history and design decisions on something as large as the Linux
-kernel for any of us to all keep track of.
-
-When we are adding support for a new device of a type already supported,
-like an i2c-eeprom or a thermal sensor, it is fairly easy to assume
-we're going to go through the upstream community.  When we are adding
-something new, like this 7-seg display, there is more likely to be
-resistance.  Maybe Joel can weigh in on, going forward, how we get early
-feedback so we don't spend a lot of time working on code that will never
-be accepted.
-
-I read through the current responses and the referenced email chain from
-2013 with a similar driver and there seems to be two major points in the
-feedback.
-
-1) The chip you are driving the 7-seg display with is already supported
-as a SPI-attached GPIO controller.
-
-    It does look like that driver plus SPI_BITBANG might allow us to
-    control the GPIOs on that device as a normal GPIO controller.  Is
-    that something you would like to try out and see if you can get
-    working?  Hopefully that would reduce your code to just the
-    translation from character to GPIO settings.
-
-2) The community isn't interested in a one-off driver like this.
-
-    The thread from 2013 raised points about how a 7-segment display
-    driver isn't generic enough to support "X-segment displays".  One
-    of the authors mentioned how some displays have a decimal place that
-    can also be lit.  This lead Greg K-H to the decision that it would
-    best be handled from userspace.
-
-    I believe Google has a desire to get post codes from the BMC U-boot and
-    kernel, hence why you tried to put it into the kernel?  Are there
-    additional reasons for wanting to put it in the kernel?
-
-    I see three possible solutions, and there may be more:
-
-    a) We use SPI_BITBANG and the GPIO driver for this device (which we
-    probably should do in either case) and use device tree "hogging"
-    of the GPIOs to set the initial kernel post code.  This will cause
-    the kernel to light that display correctly as it is initializing.
-    We can then write a userspace application to manipulate the GPIOs
-    after that to change the display as appropriate.
-
-    b) We go back to the LKML with some more background on why we would
-    like this in-kernel, as in something unique to the BMC requirements
-    that needs the support in-kernel, and see if that makes them more
-    receptive.  I'm willing to help you work on the message here if you
-    would like.
-
-    c) We see how willing Joel is to keep this as an out-of-tree driver.
-    It seems to use pretty generic and not-likely-to-change kernel APIs
-    so I don't see this as a large maintenance burden.
-
-    I suspect we would tend to prefer (a) but I don't know if that will
-    still allow it to meet Google's needs.
-
-Feel free to catch me on IRC today if you'd like to have an active
-discussion on this to get things moving faster.
-
---=20
-Patrick Williams
-
---9jxsPFA5p3P2qPhR
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAEBCAAGBQJYUVjKAAoJEKsDR8wtAMEZUlYQAKAvUY8oZdF7o0eFMsFPbWFv
-q4TNrzs4Qj/67dO2OzjS61jDUGhtXwh1jIhd/sdrStLJBfM6KBXuLtXoNCRJ1kU3
-fKPvIAC5XdwXmURJSYY3QwsqQxLgkZPu5pxGNeBUB4DF8igoq34f0rOOzTZmTWW7
-CJuH7EPiEPyrqLOqyeh2c7MkrGlRC9PdVfHhrTHEMNcw8sObOiKdR7RhEe9oECmn
-DVdvZL+RufuN30oa6jEbqSHcOffbgh2ZvcFrtIqGdiRVRY9C4QLLZ70cH+EP1cMZ
-ffuNVhkuofKg4CGZnV/j/ZBKiy1296Fnk5DSfjHsuNcJkbiZ/0EFuoq0CBpk8CGg
-Dw4x4gJBl2GmZHoGk2ZnUJM2ROyaIQ1eNaoSlbMW/yxz39IlStFVKQZ3tp3TbY2g
-7t7q74XdBLIVeixU3+WeCWI9LFzV1ljH5PkadI+c/J6Em6W2Dk/rwLjVAxgwBQny
-Rboddo7ZnPIBPEEJzKtENJ+6q9mb5GI0d/BP+OWsWEXtHcPLINPD2Xt72oKZ3TxT
-cB5fT2pTrptZfiEvQh2j3DwCkknZh89qlaqsc2Pz/LFfN1MqocT59C5a8ufPGGMW
-I+wk27O0iXMY0OdgHDC3VQ+MaFCrMhCvHGc7yjblDvKxqPo29Ns5gc9IIRJLiHSg
-3OMqgxMnz14BzXNFtrVa
-=wsit
------END PGP SIGNATURE-----
-
---9jxsPFA5p3P2qPhR--
+greg k-h
