@@ -1,51 +1,51 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <rlippert@google.com>
+Received: from mail-oi0-x231.google.com (mail-oi0-x231.google.com
+ [IPv6:2607:f8b0:4003:c06::231])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tfC8Y2YTzzDvk5
- for <openbmc@lists.ozlabs.org>; Thu, 15 Dec 2016 10:14:52 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="cJogZvLk"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="opLV4VwS"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id CF0AC206BF;
- Wed, 14 Dec 2016 18:14:48 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Wed, 14 Dec 2016 18:14:48 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
- content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=rhut0Yg56DBXcSyTcyRfjq+0Mew=; b=cJogZv
- Lk5bBD1YWTyy2fNmoUQeIwQ7HE7NeImxv22QHhKsms/R7lIOsy6qjRdoy8SNCDYY
- KSgQ2nTBjFcu12yeXHL8GiKFpYC31t3BT2NPHTPzf+4I5SUWHCcvKgRHATF+lCmo
- PQ3xZdx4qZMk9SILXFnPiPI+BUY3pPe2ztYOY=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=rhut0Yg56DBXcS
- yTcyRfjq+0Mew=; b=opLV4VwSBFlmCl0xNA4D2FwMrEhH7X1k3YIH/Pt0g1jPsi
- aYt0Yt9F3aQ2e/I9ntXK3R1yD6LpCGSjT8zQ9f4P6HawQWV7ZkfMLF+f4/YAMUkF
- s2danjseI2cWrF2kENAoQXvtMHwgwACNlr2f3K95rYwObleEeb2ZOwKrk8ct0=
-X-ME-Sender: <xms:aNJRWMTkc0e1XptQR3FMR5_jycWEAWpf19im10AKme7zQArrX17kjg>
-X-Sasl-enc: PfTT6Hnt4ok6zETQj5aJvqubLQd7lKsxnVROlz71DF9w 1481757288
-Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 4ACFC7E330;
- Wed, 14 Dec 2016 18:14:46 -0500 (EST)
-Message-ID: <1481757283.3112.58.camel@aj.id.au>
-Subject: Re: [PATCH linux 2/3] drivers/misc: Add aspeed mbox driver
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Cyril Bur <cyrilbur@gmail.com>, openbmc@lists.ozlabs.org
-Date: Thu, 15 Dec 2016 09:44:43 +1030
-In-Reply-To: <20161209054323.7320-3-cyrilbur@gmail.com>
-References: <20161209054323.7320-1-cyrilbur@gmail.com>
- <20161209054323.7320-3-cyrilbur@gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-J3brdVM7jbYi4bnqoS+3"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tfCMK1xlZzDvk5
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Dec 2016 10:24:12 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="Oqfw4pTD"; 
+ dkim-atps=neutral
+Received: by mail-oi0-x231.google.com with SMTP id v84so35326064oie.3
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Dec 2016 15:24:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=8EuUgz2Y1+yaP2HkivabFyBInSJk47c7Jqc7dbLmLwk=;
+ b=Oqfw4pTDK45QJXEiOXi8RLqmhm1Otd1ged5/tgr81UKq6SlM8hHCDfAwC034jG0YmC
+ 2sBMdoyUAc6mie3tq0wPrV6BhXyE1wKcSsCW95h3Vol1+/kp18DB4n6R4hc8Fo3lHey3
+ Bpef1jxkDOi3HLe5jCgNPh2cLvGfB3hgYGwb7PqqXHOf20wXmbNB09LjXw/aJZyvSEKP
+ /WhqgHEGqmeJnLHHCFvY4cuHQAYEwOq3uOXcPR+HEAltEZbgYZYyK+wzAAkphq6c0oT0
+ HGCSGp8eX0icZOV9rd0FdFZfBrUTI9u39kGPletN98nZXMTkCwATFgDpYNHao3fRwIwM
+ CYmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=8EuUgz2Y1+yaP2HkivabFyBInSJk47c7Jqc7dbLmLwk=;
+ b=eDGwHGqsvWn70IXS/vjq0lwFed275aspOL8jGD5fqRuIvpRBrhWh/ORHzPhZ+J86Wo
+ WAyc2yVA1jqnHsUITIjVfLNAF0v1OmqPBJR72c8V9Y2XvwEk+6TB4KCqP4LaVcN9spqj
+ 3seGhJnW7om0RzijkvfoqXmRN0vOChMGffhYmdAWOS2vgZ6xjXMb+sKIJDbAUAGKNzMU
+ bMWIcPq2zHFGhzF82RQCGDdLU/nSktvOfYKjFKDBv/gSjNxl1j8TxZCNA4Tqu5mxnCqn
+ gRzCfNVEc08g1vLIFxkb9FlfaTzt+nxpDNLO9gCDIRXcS9sstEBCFB7QTuynpPumpoAI
+ Kokw==
+X-Gm-Message-State: AKaTC00NGtQUwNcoqxOqhg1rQb0Ph0whqWlnn4OUAasfQ0LWXRP+xMhMDWwiWX7UCllFGEwqdtyF71IzI6POVk/7
+X-Received: by 10.157.37.74 with SMTP id j10mr55259591otd.51.1481757850248;
+ Wed, 14 Dec 2016 15:24:10 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.157.32.68 with HTTP; Wed, 14 Dec 2016 15:23:49 -0800 (PST)
+In-Reply-To: <20161214143556.GA13350@heinlein.lan>
+References: <1481702104-8617-1-git-send-email-jaghu@google.com>
+ <20161214143556.GA13350@heinlein.lan>
+From: Rob Lippert <rlippert@google.com>
+Date: Wed, 14 Dec 2016 15:23:49 -0800
+Message-ID: <CAFRv3wwRV0j6YU63VTJ0WDBy3edReCOPmtc4RuSDC82yKDVb5g@mail.gmail.com>
+Subject: Re: [PATCH linux v1 0/4] Seven segment display support
+To: Patrick Williams <patrick@stwcx.xyz>
+Cc: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>,
+ openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,75 +57,105 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 14 Dec 2016 23:14:54 -0000
+X-List-Received-Date: Wed, 14 Dec 2016 23:24:13 -0000
 
+On Wed, Dec 14, 2016 at 6:35 AM, Patrick Williams <patrick@stwcx.xyz> wrote:
+>
+> On Tue, Dec 13, 2016 at 11:55:00PM -0800, Jaghathiswari Rankappagounder Natarajan wrote:
+>
+> Jaghu,
+>
+> Bringing the discussion back onto just the OpenBMC list.
+>
+> Thank you for getting this out to the broader Linux community to solicit
+> feedback.  As you see, even if things look good to some of the kernel
+> devs here from a "is this generally how the kernel does things" and "is
+> this code generally of quality to be acceptable upstream" there is a lot
+> of history and design decisions on something as large as the Linux
+> kernel for any of us to all keep track of.
+>
+> When we are adding support for a new device of a type already supported,
+> like an i2c-eeprom or a thermal sensor, it is fairly easy to assume
+> we're going to go through the upstream community.  When we are adding
+> something new, like this 7-seg display, there is more likely to be
+> resistance.  Maybe Joel can weigh in on, going forward, how we get early
+> feedback so we don't spend a lot of time working on code that will never
+> be accepted.
+>
+> I read through the current responses and the referenced email chain from
+> 2013 with a similar driver and there seems to be two major points in the
+> feedback.
+>
+> 1) The chip you are driving the 7-seg display with is already supported
+> as a SPI-attached GPIO controller.
+>
+>     It does look like that driver plus SPI_BITBANG might allow us to
+>     control the GPIOs on that device as a normal GPIO controller.  Is
+>     that something you would like to try out and see if you can get
+>     working?  Hopefully that would reduce your code to just the
+>     translation from character to GPIO settings.
 
---=-J3brdVM7jbYi4bnqoS+3
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This was my original hope but Jagha tried it and it doesn't work :(
 
-On Fri, 2016-12-09 at 16:43 +1100, Cyril Bur wrote:
-> > Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
->=20
-> ---
-> =C2=A0drivers/misc/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0|=C2=A0=C2=A0=C2=A07 +
-> =C2=A0drivers/misc/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0|=C2=A0=C2=A0=C2=A02 +
-> =C2=A0drivers/misc/mbox-host.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0|=
- 326
-> +++++++++++++++++++++++++++++++++++++++++
+The serial GPIO interface is slightly different wrt the buffer chips
+that we use vs the ones that are needed to work with the serial GPIO
+driver (namely the lack of a "load" signal) and there is no way to
+make it work as far as I can tell.
 
-Is drivers/misc the right spot? drivers/mailbox seems to be a thing -
-is there any reason it doesn't live there?
+>
+>
+> 2) The community isn't interested in a one-off driver like this.
+>
+>     The thread from 2013 raised points about how a 7-segment display
+>     driver isn't generic enough to support "X-segment displays".  One
+>     of the authors mentioned how some displays have a decimal place that
+>     can also be lit.  This lead Greg K-H to the decision that it would
+>     best be handled from userspace.
+>
+>     I believe Google has a desire to get post codes from the BMC U-boot and
+>     kernel, hence why you tried to put it into the kernel?  Are there
+>     additional reasons for wanting to put it in the kernel?
+>
+>     I see three possible solutions, and there may be more:
+>
+>     a) We use SPI_BITBANG and the GPIO driver for this device (which we
+>     probably should do in either case) and use device tree "hogging"
+>     of the GPIOs to set the initial kernel post code.  This will cause
+>     the kernel to light that display correctly as it is initializing.
+>     We can then write a userspace application to manipulate the GPIOs
+>     after that to change the display as appropriate.
+>
+>     b) We go back to the LKML with some more background on why we would
+>     like this in-kernel, as in something unique to the BMC requirements
+>     that needs the support in-kernel, and see if that makes them more
+>     receptive.  I'm willing to help you work on the message here if you
+>     would like.
 
-> =C2=A0include/uapi/linux/mbox-host.h |=C2=A0=C2=A018 +++
-> =C2=A04 files changed, 353 insertions(+)
-> =C2=A0create mode 100644 drivers/misc/mbox-host.c
-> =C2=A0create mode 100644 include/uapi/linux/mbox-host.h
->=20
-> diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-> index a216b46..44f191d 100644
-> --- a/drivers/misc/Kconfig
-> +++ b/drivers/misc/Kconfig
-> @@ -804,6 +804,13 @@ config PANEL_BOOT_MESSAGE
-> > =C2=A0	=C2=A0=C2=A0An empty message will only clear the display at driv=
-er
-> > init time. Any other
-> > =C2=A0	=C2=A0=C2=A0printf()-formatted message is valid with newline and
-> > escape codes.
->=20
-> =C2=A0
-> +config MBOX_HOST
-> +	depends on ARCH_ASPEED
+The other part of this driver that hasn't been written yet is to take
+bytes written to LPC port 80h (from the hostboot/etc. firmware) and
+echo them to the 7seg display.
 
-Given we depend on ARCH_ASPEED maybe we should have 'ASPEED' in the
-config symbol? ASPEED_MBOX_HOST?
+That would be easier to do purely in the kernel, although it should
+also be possible to do it via a userspace app I guess with a lot more
+work...
 
-Also, as Joel's pointed out in other patches, we should probably add ||
-COMPILE_TEST as well.
-
-Andrew
---=-J3brdVM7jbYi4bnqoS+3
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJYUdJjAAoJEJ0dnzgO5LT5JskP/0Tyt5m/zWR0Nl+F1vCy6IPn
-AKWQiTlkrIOXsihNQI94lnb23KvYy4OnBhVOWIW/muGLIZXgznMiPPaQNMXwUxDk
-xht4FvGM+qnuplnmiXmq+882bUg3knC78YdYgGen/jzo9Me01Cd3qtauUKZcTWy4
-94DMlIbjxHKT6WWjamZ00zFA7p17rpTtqnlItDldXsutosZhKKfLinBwqI/Nzxli
-CxHGValJITGRCTPWJl4S29jx7F3JUD0ALf/3HhXoRzggrZNsod85I07L99WUFAgM
-wA9mvyx9miRdx9s5zGUfhHlcQx+xwmhAqt/HGChdctTegtSU+ntjRbTVjalmKnvU
-5y6XBtqYXnAcSSOzArYWS3M7FmHXxx348KrLLZkbddElMaFyYSlmsGdEC09RC91W
-ZHcUb7PYPY8KvFB4b4C7a0vvBjuHUq62oThIuFIrMk7d/dxojPi8Cqgp9//88oHu
-GFgRsNmacfn+ZqKoSQzVQKGTK9S3VzvcVfMaXKQ7vhuhMoJeehCRWMFB3keQE7qj
-iUE4/1R0QLG4gu9sXtcpMSxsLfhZtPfEXBA3LjLd+v5+IyrkEk+4cXkoFjxzvLN2
-gIOxQ2ApFlMZlbMHpqD2sVwbJ4K3oyzIEPk/ZSl1RMBVPGfnMGXbR3FQGanFz5rz
-quSZYOh9plHIJIvZsN8t
-=Swrz
------END PGP SIGNATURE-----
-
---=-J3brdVM7jbYi4bnqoS+3--
+>
+>
+>     c) We see how willing Joel is to keep this as an out-of-tree driver.
+>     It seems to use pretty generic and not-likely-to-change kernel APIs
+>     so I don't see this as a large maintenance burden.
+>
+>     I suspect we would tend to prefer (a) but I don't know if that will
+>     still allow it to meet Google's needs.
+>
+> Feel free to catch me on IRC today if you'd like to have an active
+> discussion on this to get things moving faster.
+>
+> --
+> Patrick Williams
+>
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+>
