@@ -1,55 +1,59 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <linus.walleij@linaro.org>
+Received: from mail-qk0-x234.google.com (mail-qk0-x234.google.com
+ [IPv6:2607:f8b0:400d:c09::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tfpZQ42WVzDw3P
- for <openbmc@lists.ozlabs.org>; Fri, 16 Dec 2016 09:50:54 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tfpxm0lNVzDw51
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Dec 2016 10:07:39 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="h1Fo4lQ2"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="S4gA4hhr"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id E0975207BD;
- Thu, 15 Dec 2016 17:50:51 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Thu, 15 Dec 2016 17:50:51 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=C9ZEWamxTVxWmlTy2JheM8zvfNg=; b=h1Fo4l
- Q2HtZk/5O+VySj4OM/IgNR8w5mH0ArdvLXcy7DI6Y7On2V4P7TAn5uJamhyctX2x
- QfXVOUdFeTHOLWNaBS9DuCa2Yx6OuGHIic/ooB+PMn9KTRgSN7ig2/RDji3AjLhA
- yFRjQbwmjrtRJk8cUdqmbGHqucRIoFuI7WqB8=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=C9ZEWamxTVxWml
- Ty2JheM8zvfNg=; b=S4gA4hhrFKDeURrTMSmSL1zYD+ariEuuhrPZyigdIOQte4
- rIyUm2e8UVcOJeCs7NslIIYDlQYhfRfDTbDyTeN1JD4HiAYQiyiVidqptQw6Oeh6
- nJ4G4SjPV46d/05ZzaCxFHBqwnU1AsKEqzormVdoLZ6iTrwOxM00BUt4Eg0XY=
-X-ME-Sender: <xms:Sx5TWJQIjGbqsfkqoITr74vVw4oxOf60uFEuvnHplAcpt6VqysBzJw>
-X-Sasl-enc: EWD98Ehvfqoiqv7uENFXkbyGLxOVl/MEal5BPI2NxWiR 1481842249
-Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 4A5FB7EA90;
- Thu, 15 Dec 2016 17:50:46 -0500 (EST)
-Message-ID: <1481842236.3112.64.camel@aj.id.au>
-Subject: Re: [PATCH linux 2/3] drivers/misc: Add aspeed mbox driver
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Cyril Bur <cyrilbur@gmail.com>, Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Fri, 16 Dec 2016 09:20:36 +1030
-In-Reply-To: <1481788767.814.8.camel@gmail.com>
-References: <20161209054323.7320-1-cyrilbur@gmail.com>
- <20161209054323.7320-3-cyrilbur@gmail.com>
- <CACPK8XdisKkgmE2PT5JGE06AD73rrBizsgL0+SbyFkSHShaEKg@mail.gmail.com>
- <1481788767.814.8.camel@gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-1M4SCcFTSxRQU8TO9GtI"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b="CRpUJmsv"; 
+ dkim-atps=neutral
+Received: by mail-qk0-x234.google.com with SMTP id n204so73886791qke.2
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Dec 2016 15:07:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=3gfXR53L7FYXH3K2Mgi52pRHCEkE3c31gS8XUVGTAkU=;
+ b=CRpUJmsvi01o9YbtlWbXHmxRoQXc1J5E2avi/DXpQ0K1j77rcZ1l0UPSRS+vwaDoSt
+ h5+t5rxm8+0QpO3rFvzZuxr71ism66MT36ZO6aJghN692ZXsWEwR08wnkw21WnYkcgyN
+ 4ixx5Ch6mTYJxWalufsQkFitgHplGIsB4hLi4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=3gfXR53L7FYXH3K2Mgi52pRHCEkE3c31gS8XUVGTAkU=;
+ b=drHFr/0t6GHzm9LxU0DvVfWK4if3iYNKSX+KXMJsayCgMC+cIVckxp0SilCEuEUIA7
+ j4RVpyyvsStiUf2KeTEzztukMC6KcZ35RtuGUXpEAoVHIMHxf6B/koL6hg4jAVj/+Dpj
+ 7rnj1ypQuW5Bc1La0Z5HwaXUV+zrVFToyaxfBO5I7M6hiQk5i9NCVK+te5pywLghIu4b
+ gw+fsrA0n6quUFH2BoYTU1jBNziIe1RzJFS1pCiQ/y87d3XTPT3VinMSANnYpfRss6Pu
+ MCGNTGgEeZ+mbWoP/s8q4LpYjKSiHO6fT0PP+kWJqIges+Iap1XVaS0SQH9j+TFLZa22
+ NJFw==
+X-Gm-Message-State: AIkVDXLFLZeI6JqaLP3fsweYmqQozWAxlsswzxtW0p11UCOPGFfBEfcfzByGvd6d/a9TEg2nTwPPwfSSdFY4tLl7
+X-Received: by 10.55.113.130 with SMTP id m124mr2645578qkc.116.1481843257396; 
+ Thu, 15 Dec 2016 15:07:37 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.12.163.36 with HTTP; Thu, 15 Dec 2016 15:07:36 -0800 (PST)
+In-Reply-To: <20161214114051.GC14217@n2100.armlinux.org.uk>
+References: <1481702104-8617-1-git-send-email-jaghu@google.com>
+ <1481702104-8617-5-git-send-email-jaghu@google.com>
+ <3917905.e4iOqADnVQ@wuerfel>
+ <10697525.O7CkPN6Gfl@wuerfel> <20161214110635.GB14217@n2100.armlinux.org.uk>
+ <20161214114051.GC14217@n2100.armlinux.org.uk>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Fri, 16 Dec 2016 00:07:36 +0100
+Message-ID: <CACRpkdaqKDJstfypP0EL9e=TA-atiJmK9zwrBHfLmEVV8SLuAQ@mail.gmail.com>
+Subject: Re: [PATCH linux v1 4/4] arm: dts: Add dt-binding to support seven
+ segment display on zaius
+To: Russell King - ARM Linux <linux@armlinux.org.uk>
+Cc: Arnd Bergmann <arnd@arndb.de>, Mark Rutland <mark.rutland@arm.com>, 
+ Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>, 
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ Greg KH <gregkh@linuxfoundation.org>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,42 +65,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Dec 2016 22:50:55 -0000
+X-List-Received-Date: Thu, 15 Dec 2016 23:07:40 -0000
 
+On Wed, Dec 14, 2016 at 12:40 PM, Russell King - ARM Linux
+<linux@armlinux.org.uk> wrote:
 
---=-1M4SCcFTSxRQU8TO9GtI
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> Looking at this more, it's a SPI driver, presumably because the first
+> case where it appeared was on a SPI bus.
+>
+> However, it's not a SPI device as such, it's a piece of standard,
+> general purpose logic that's been around for many years, pre-dating
+> the SPI bus.
 
-On Thu, 2016-12-15 at 18:59 +1100, Cyril Bur wrote:
-> > > +config MBOX_HOST
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0depends on ARCH_ASPEED
-> >=C2=A0
-> > or COMPILE_TEST
->=20
-> Is both a good solution?
+Indeed.
 
-I think Joel meant "|| COMPILE_TEST"
---=-1M4SCcFTSxRQU8TO9GtI
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+> I think a much more sensible approach would be to turn the GPIO side
+> of the 74x164 driver into a library, which can be re-used by multiple
+> bus-specific drivers - one for SPI which allows it to be used in its
+> current form, one for our platform bus which takes the GPIO lines for
+> the data, clock and clear signals.
+>
+> I also don't see why they shouldn't use the same compatible - they're
+> the same _device_ at the end of the day, just wired up differently.
+> It makes the binding documentation a little fun wrt what are required
+> and optional properties, but nothing that shouldn't be too difficult.
 
------BEGIN PGP SIGNATURE-----
+I agree on both accounts.
 
-iQIcBAABCgAGBQJYUx48AAoJEJ0dnzgO5LT5vK8QAJB9lge34bO6ajk1BErb5pd7
-keKRv7kAlxCYG46CAFFv2t9+pOywGGtgLh7TEceX5gYQ7QOWw6Zkdc47efcopVyh
-Pq3d7vFfSLll2NghF+bTeU/eGLSz4P1L3gcWrL+fOkc4ReZyzqHfUG/FTx3l6lRS
-KDLJrew1Y+c/BhlhHFntEKFJAr2K1oNCU0+FLgXcAKAvu0vK2+RYIe20e+nm/rrd
-w9WYvqY+WpksDHYXHeLkld4wCRdjZjpSOaODkS6J1vl46qJLf9ZDkO0o71E0heVs
-qUgtJ2xRlBjWlLZtq4feO6h7lsGmkRzeAKKKssJKY+osWYcqgXvn69wC9YvxVud1
-tw99HltwAIf/4d9kDylpRUvzNChVRpA6k/Ph+CCCLKQNq4DMqHxMPp+1hrEpkqTL
-nsGHC1WPlRZG+0sgu+X52NjhPvDB26wZQXZZTyy79+6aUoKChNqop+YamU1Jmc/n
-8ZLXAn7kfyz8QXPcdeEwfNwtMzCne6jfqIBT1JqB8Si7+p3tJHTEkK0MTdcbmxo9
-qwPPJvdwUdg+waItLmUQUsIP1Kx+gLB52hQzTrY8qh794NZsGoqeuT7XC1ohyBX3
-XaiqC6V38F6ZWfY0KDaVSGJRK3K8csUId7738j3u8xYmP3OKcnn3DRuT5AiOP4NI
-9Dh16TCQVhtzmWKERgf0
-=Asop
------END PGP SIGNATURE-----
+Sorry for not seeing this in the first place, I was well aware that this
+is a standard component and may be connected in a myriad of ways,
+so I should have known better :(
 
---=-1M4SCcFTSxRQU8TO9GtI--
+Yours,
+Linus Walleij
