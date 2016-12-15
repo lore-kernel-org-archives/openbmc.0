@@ -1,51 +1,58 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <cyrilbur@gmail.com>
+Received: from mail-pg0-x243.google.com (mail-pg0-x243.google.com
+ [IPv6:2607:f8b0:400e:c05::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tfFSM2V4WzDvk6
- for <openbmc@lists.ozlabs.org>; Thu, 15 Dec 2016 11:58:42 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="W20AN/lP"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="FzMlu/oE"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 7CA6E20692;
- Wed, 14 Dec 2016 19:58:40 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Wed, 14 Dec 2016 19:58:40 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
- content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=S0Z02ir6AJvw3sQP2tCk8bcth3Y=; b=W20AN/
- lPkGqcYakQgNXP09ASUC78ehgRg8BiB1kJDuiWF3mdu9jvafrGjaDBJ3e3rOqFBF
- yEFnf/RGDLCo0K8ElnwFyM7evVvqagh19tvYOgDmZY3QDnCsOCXC2FNd9cB0IK/O
- GKEhKYsFdtd47I+VqxMNixgDOeKA8ZtecELCQ=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=S0Z02ir6AJvw3s
- QP2tCk8bcth3Y=; b=FzMlu/oEVcAzHcUnUaI3trJ9ifJHoGQ+E8h7g78RNCyPMI
- JOM4DPKdPpLtKxRY63Tt6EDPcLE7plgrJfnDs9MDuPfWBocfbS0rywTe+Zfp5aay
- Y6Q0FbnlnUV4WlnvNJ7JjeTfIoAKPt0eVx3G5KTsnENbCprXNjlOGXYpvRpzM=
-X-ME-Sender: <xms:wOpRWFVnmAGvnVdUa4CVKGkxFN6QMbDbTpFC6i5HgDq2zVlM_BzQcA>
-X-Sasl-enc: pHVbDOBVuPefEBxIamkjVBgFAowNcjboZ9G9/oiDtkVQ 1481763519
-Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 196AC243A5;
- Wed, 14 Dec 2016 19:58:38 -0500 (EST)
-Message-ID: <1481763514.3112.62.camel@aj.id.au>
-Subject: Re: [PATCH linux 3/3] drivers/misc: Add aspeed lpc controlling driver
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Cyril Bur <cyrilbur@gmail.com>, openbmc@lists.ozlabs.org
-Date: Thu, 15 Dec 2016 11:28:34 +1030
-In-Reply-To: <20161209054323.7320-4-cyrilbur@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tfQnz17t1zDw5P
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Dec 2016 18:59:35 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="OEzE7x+r"; 
+ dkim-atps=neutral
+Received: by mail-pg0-x243.google.com with SMTP id x23so5318363pgx.3
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Dec 2016 23:59:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=message-id:subject:from:to:cc:date:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=w5atGO8jMIjuQznrFkUIFFQDtYO0HW97/h6jzwu1Xgk=;
+ b=OEzE7x+rRmpX/+L1K53peqT8RkmV46/CQuL4MjQrRdVT4up32O4qWcvW2od2QLZ06Q
+ PI33QSNMEEPiTxEdxiX0NCSQLX5x1dBbiejkW/sL2KgzZamxsi8XbSyQ0qAjC8tpYa26
+ eNseNCCrX8JBWYC29Z+iVYUkwsmNwg/maCA2LooDeWvaGp0+MiJVUy0OHLOW/Ri197kk
+ MQz5Op6xinDzeAU7VPWejuWZ+HV4h2FHmMqMQTL8qUMlU4+XW2EYYta5yYA8qRhwGP6q
+ ZGaKJhcZX9uGXdgbiNY47qrcXCgi8l8oOigX62jlaBIfojIPQM1hZGDrBzFHs76h9h2o
+ xIOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=w5atGO8jMIjuQznrFkUIFFQDtYO0HW97/h6jzwu1Xgk=;
+ b=jRblp4hGBEdW8xNARkuov2I2GqZL/tL/PeZMLahiONBRwCViMzH3zm6sbubaWxzXx1
+ 9CH9Yn04CjOByF5CeE6N35buQV2kdYezicKdMWt05iZ4j5zhrKslnmrCgubG9i3xyvOc
+ 6jY+1CJcWG8fpwvIdYbe07y6hvf2DpyMtjzScjS+U22d4cUUhqDSwihYGgyrSOWbcAce
+ xZWMxeVkrz2JqwZyceyIDpq5V/+JuBnKZLOsojBXhBKvGu8jKRHsjw60qnfnSiDky8LT
+ pkQFwShh7MPwBXfR3FbNcUGcaJPIZRoR3HiOjqm5f0nFl1BLyKUfoOEnInHxJyPzozw4
+ YHHA==
+X-Gm-Message-State: AKaTC013OgSAiIdpTU6mYEpUgo7UFH22QdnUgEHt1cULY/Y4+8ZlS1zApdUlty1bvcDJxA==
+X-Received: by 10.84.129.35 with SMTP id 32mr23935plb.179.1481788772339;
+ Wed, 14 Dec 2016 23:59:32 -0800 (PST)
+Received: from cyril.ozlabs.ibm.com ([122.99.82.10])
+ by smtp.googlemail.com with ESMTPSA id i194sm1979910pgc.46.2016.12.14.23.59.30
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 14 Dec 2016 23:59:31 -0800 (PST)
+Message-ID: <1481788767.814.8.camel@gmail.com>
+Subject: Re: [PATCH linux 2/3] drivers/misc: Add aspeed mbox driver
+From: Cyril Bur <cyrilbur@gmail.com>
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Andrew Jeffery
+ <andrew@aj.id.au>
+Date: Thu, 15 Dec 2016 18:59:27 +1100
+In-Reply-To: <CACPK8XdisKkgmE2PT5JGE06AD73rrBizsgL0+SbyFkSHShaEKg@mail.gmail.com>
 References: <20161209054323.7320-1-cyrilbur@gmail.com>
- <20161209054323.7320-4-cyrilbur@gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-4ewm3eashDzrNKZADIQs"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
+ <20161209054323.7320-3-cyrilbur@gmail.com>
+ <CACPK8XdisKkgmE2PT5JGE06AD73rrBizsgL0+SbyFkSHShaEKg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.22.2 
 Mime-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,404 +64,195 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Dec 2016 00:58:44 -0000
+X-List-Received-Date: Thu, 15 Dec 2016 07:59:36 -0000
 
-
---=-4ewm3eashDzrNKZADIQs
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, 2016-12-09 at 16:43 +1100, Cyril Bur wrote:
-> This driver exposes a reserved chunk of BMC ram to userspace as well as
-> an ioctl interface to control the BMC<->HOST mapping of the LPC bus.
-> This allows for a communication channel between the BMC and the host
->=20
+On Tue, 2016-12-13 at 12:26 +1100, Joel Stanley wrote:
+> On Fri, Dec 9, 2016 at 4:43 PM, Cyril Bur <cyrilbur@gmail.com> wrote:
 > > Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
-> ---
-> =C2=A0drivers/misc/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0|=C2=A0=C2=A0=C2=A07 ++
-> =C2=A0drivers/misc/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0|=C2=A0=C2=A0=C2=A02 +-
-> =C2=A0drivers/misc/lpc-ctrl.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0| =
-251 ++++++++++++++++++++++++++++++++++++++++++
-> =C2=A0include/uapi/linux/lpc-ctrl.h |=C2=A0=C2=A025 +++++
+> 
+> Explain why we need this chardev, why it needs ioctls, etc.
+> 
 
-The naming might be a bit generic. Control of what? Any LPC device?
+Yeah, we should probably also work on the name and stuff
 
-> =C2=A04 files changed, 284 insertions(+), 1 deletion(-)
-> =C2=A0create mode 100644 drivers/misc/lpc-ctrl.c
-> =C2=A0create mode 100644 include/uapi/linux/lpc-ctrl.h
->=20
-> diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-> index 44f191d..2bd3f92 100644
-> --- a/drivers/misc/Kconfig
-> +++ b/drivers/misc/Kconfig
-> @@ -811,6 +811,13 @@ config MBOX_HOST
-> > =C2=A0	---help---
-> > =C2=A0	=C2=A0=C2=A0Build the MBOX driver
-> =C2=A0
-> +config LPC_CTRL
-> +	depends on ARCH_ASPEED
+> > ---
+> >  drivers/misc/Kconfig           |   7 +
+> >  drivers/misc/Makefile          |   2 +
+> >  drivers/misc/mbox-host.c       | 326
+> > +++++++++++++++++++++++++++++++++++++++++
+> >  include/uapi/linux/mbox-host.h |  18 +++
+> >  4 files changed, 353 insertions(+)
+> >  create mode 100644 drivers/misc/mbox-host.c
+> >  create mode 100644 include/uapi/linux/mbox-host.h
+> > 
+> > diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
+> > index a216b46..44f191d 100644
+> > --- a/drivers/misc/Kconfig
+> > +++ b/drivers/misc/Kconfig
+> > @@ -804,6 +804,13 @@ config PANEL_BOOT_MESSAGE
+> >           An empty message will only clear the display at driver
+> > init time. Any other
+> >           printf()-formatted message is valid with newline and
+> > escape codes.
+> > 
+> > +config MBOX_HOST
+> > +       depends on ARCH_ASPEED
+> 
+> or COMPILE_TEST
 
-Again, maybe we need ASPEED in the config symbol name? And ||
-COMPILE_TEST here too.
+Is both a good solution?
 
-> +	bool "Build a driver to control the BMC to HOST LPC bus"
-> > +	default "n"
-> > +	---help---
-> > +	=C2=A0=C2=A0This will also use a BMC ram region defined in the device=
- tree
-> +
-> =C2=A0source "drivers/misc/c2port/Kconfig"
-> =C2=A0source "drivers/misc/eeprom/Kconfig"
-> =C2=A0source "drivers/misc/cb710/Kconfig"
-> diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
-> index 7bcaf30..e8502de 100644
-> --- a/drivers/misc/Makefile
-> +++ b/drivers/misc/Makefile
-> > @@ -58,4 +58,4 @@ obj-$(CONFIG_VEXPRESS_SYSCFG)	+=3D vexpress-syscfg.o
-> > =C2=A0obj-$(CONFIG_CXL_BASE)		+=3D cxl/
-> =C2=A0obj-$(CONFIG_PANEL)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0+=3D panel.o
-> > =C2=A0obj-$(CONFIG_MBOX_HOST)		+=3D mbox-host.o
-> ->>>>>>> 6252f95... fixup! drivers/misc: Add aspeed mbox driver
+> 
+> > +       bool "Build MBOX driver for BMC to HOST communication"
+> > +       default "n"
+> 
+> If it's depending on ARCH_ASPEED I think default y is ok.
+> 
 
-This doesn't look right.
+Yes
 
-> +obj-$(CONFIG_LPC_CTRL)		+=3D lpc-ctrl.o
-> diff --git a/drivers/misc/lpc-ctrl.c b/drivers/misc/lpc-ctrl.c
-> new file mode 100644
-> index 0000000..f72f44f
-> --- /dev/null
-> +++ b/drivers/misc/lpc-ctrl.c
-> @@ -0,0 +1,251 @@
-> +/*
-> + * Copyright 2016 IBM Corporation
-> + *
-> + * This program is free software; you can redistribute it and/or
-> + * modify it under the terms of the GNU General Public License
-> + * as published by the Free Software Foundation; either version
-> + * 2 of the License, or (at your option) any later version.
-> + */
-> +
-> +#include <linux/mm.h>
-> +#include <linux/module.h>
-> +#include <linux/moduleparam.h>
-> +#include <linux/errno.h>
-> +#include <linux/poll.h>
-> +#include <linux/sched.h>
-> +#include <linux/spinlock.h>
-> +#include <linux/slab.h>
-> +#include <linux/init.h>
-> +#include <linux/device.h>
-> +#include <linux/of.h>
-> +#include <linux/of_address.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/io.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/delay.h>
-> +#include <linux/miscdevice.h>
-> +#include <linux/timer.h>
-> +#include <linux/jiffies.h>
-> +#include <linux/lpc-ctrl.h>
-> +
-> > +#define DEVICE_NAME	"lpc-ctrl"
-> +
-> +#define LPC_HICR7 0x88
-> +#define LPC_HICR8 0x8c
-> +
-> +struct lpc_ctrl {
-> > > +	struct miscdevice	miscdev;
-> > > +	void __iomem		*ctrl;
-> > > +	phys_addr_t			base;
-> > > +	resource_size_t		size;
-> +};
-> +
-> +
-> +static struct lpc_ctrl *file_lpc_ctrl(struct file *file)
-> +{
-> > +	return container_of(file->private_data, struct lpc_ctrl, miscdev);
-> +}
-> +
-> +static int lpc_ctrl_mmap(struct file *file, struct vm_area_struct *vma)
-> +{
-> > +	struct lpc_ctrl *lpc_ctrl =3D file_lpc_ctrl(file);
-> > +	unsigned long vsize =3D vma->vm_end - vma->vm_start;
-> +
-> > +	if (vma->vm_pgoff + vsize > lpc_ctrl->base + lpc_ctrl->size)
-> > +		return -EINVAL;
-> +
-> > +	/* Other checks? */
-> +
-> > +	if (remap_pfn_range(vma, vma->vm_start,
-> > +		(lpc_ctrl->base >> PAGE_SHIFT) + vma->vm_pgoff,
-> > +		vsize, vma->vm_page_prot))
-> > +		return -EAGAIN;
-> +
-> > +	return 0;
-> +}
-> +
-> +static int lpc_ctrl_open(struct inode *inode, struct file *file)
-> +{
-> > +	return 0;
-> +}
-> +
-> +static ssize_t lpc_ctrl_read(struct file *file, char __user *buf,
-> > +				size_t count, loff_t *ppos)
-> +{
-> > +	if (!access_ok(VERIFY_WRITE, buf, count))
-> > +		return -EFAULT;
-> +
-> > +	WARN_ON(*ppos);
-> +
-> > +	return -EPERM;
-> +}
-> +
-> +static ssize_t lpc_ctrl_write(struct file *file, const char __user *buf,
-> > +				size_t count, loff_t *ppos)
-> +{
-> > +	if (!access_ok(VERIFY_READ, buf, count))
-> > +		return -EFAULT;
-> +
-> > +	WARN_ON(*ppos);
-> +
-> > +	return -EPERM;
-> +}
-> +
-> +static long lpc_ctrl_ioctl(struct file *file, unsigned int cmd,
-> > +		unsigned long param)
-> +{
-> > +	struct lpc_mapping map;
-> > +	struct lpc_ctrl *lpc_ctrl =3D file_lpc_ctrl(file);
-> > +	void __user *p =3D (void __user *)param;
-> +
-> > +	switch (cmd) {
-> > +	case LPC_CTRL_IOCTL_SIZE:
-> > +		return copy_to_user(p, &lpc_ctrl->size,
-> > +			sizeof(lpc_ctrl->size)) ? -EFAULT : 0;
-> > +	case LPC_CTRL_IOCTL_MAP:
-> > +		if (copy_from_user(&map, p, sizeof(map)))
-> > +			return -EFAULT;
-> +
-> > +		iowrite32(lpc_ctrl->base | (map.hostaddr >> 16),
-> > +				lpc_ctrl->ctrl + LPC_HICR7);
-> > +		iowrite32((~(map.size - 1)) | ((map.size >> 16) - 1),
-> +				lpc_ctrl->ctrl + LPC_HICR8);
+> > +       ---help---
+> > +         Build the MBOX driver
+> 
+> More text here please.
+> 
+> > +
+> >  source "drivers/misc/c2port/Kconfig"
+> >  source "drivers/misc/eeprom/Kconfig"
+> >  source "drivers/misc/cb710/Kconfig"
+> > diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
+> > index b2fb6dbf..7bcaf30 100644
+> > --- a/drivers/misc/Makefile
+> > +++ b/drivers/misc/Makefile
+> 
+> "misc seems a bit too misc" - Andrew Jeffery.
+> 
+> How about drivers/soc? Or drivers/mfd?
 
-I think these operations could do with some explanation.
+I think we settled on mailbox?
 
-> +		return 0;
-> > +	case LPC_CTRL_IOCTL_UNMAP:
-> > +		if (copy_from_user(&map, p, sizeof(map)))
-> +			return -EFAULT;
+> 
+> > +#define DEVICE_NAME    "mbox-host"
+> > +
+> > +#define MBOX_NUM_REGS 16
+> > +#define MBOX_NUM_DATA_REGS 14
+> > +
+> > +#define MBOX_DATA_0 0x00
+> > +#define MBOX_STATUS_0 0x40
+> > +#define MBOX_STATUS_1 0x44
+> > +#define MBOX_BMC_CTRL 0x48
+> > +       #define MBOX_CTRL_RECV 0x80
+> > +       #define MBOX_CTRL_MASK 0x02
+> > +       #define MBOX_CTRL_SEND 0x01
+> 
+> If you want to do show these are bits in the CTRL register, do this.
+> I
+> think it's more readable to represent the bits as shifts, or even
+> better, using the BIT() macro.
+> 
+> #define MBOX_BMC_CTRL 0x48
+> #define   MBOX_CTRL_RECV BIT(7)
+> #define   MBOX_CTRL_MASK BIT(1)
+> 
+> etc.
+> 
 
-Is this required? We don't use map below.
+Ah yes looks much better now, thanks
 
-> +
-> > +		iowrite32((0x3000 << 16) | (0x0e00),
-> > +				lpc_ctrl->ctrl + LPC_HICR7);
-> > +		iowrite32(((~(0x0200 - 1)) << 16) | ((0x0200) - 1),
-> +				lpc_ctrl->ctrl + LPC_HICR8);
+> > +#define MBOX_HOST_CTRL 0x4c
+> > +#define MBOX_INTERRUPT_0 0x50
+> > +#define MBOX_INTERRUPT_1 0x54
+> > +
+> > +
+> > +static u8 mbox_inb(struct mbox_host *mbox_host, int reg)
+> > +{
+> > +       return ioread8(mbox_host->base + reg);
+> > +}
+> > +
+> > +static void mbox_outb(struct mbox_host *mbox_host, u8 data, int
+> > reg)
+> > +{
+> > +       iowrite8(data, mbox_host->base + reg);
+> > +}
+> 
+> As mentioned in the other email, all access to the LPC address space
+> is through regmap.
 
-Can you comment/#define the magic numbers? I'm not across why we use
-these values.
+Yes.
 
-> +		return 0;
-> > +	}
-> +
-> > +	return -EINVAL;
-> +}
-> +
-> +static int lpc_ctrl_release(struct inode *inode, struct file *file)
-> +{
-> > +	return 0;
-> +}
-> +
-> +static const struct file_operations lpc_ctrl_fops =3D {
-> > > +	.owner		=3D THIS_MODULE,
-> > > +	.mmap		=3D lpc_ctrl_mmap,
-> > > +	.open		=3D lpc_ctrl_open,
-> > > +	.read		=3D lpc_ctrl_read,
-> > > +	.write		=3D lpc_ctrl_write,
-> > > +	.release	=3D lpc_ctrl_release,
-> > > +	.unlocked_ioctl	=3D lpc_ctrl_ioctl,
-> +};
-> +
-> +static int lpc_ctrl_probe(struct platform_device *pdev)
-> +{
-> > +	struct lpc_ctrl *lpc_ctrl;
-> > +	struct device *dev;
-> > +	struct device_node *node;
-> > +	struct resource *res;
-> > +	struct resource resm;
-> > +	int rc;
-> +
-> > +	if (!pdev || !pdev->dev.of_node)
-> > +		return -ENODEV;
-> +
-> > +	dev =3D &pdev->dev;
-> +
-> > +	lpc_ctrl =3D devm_kzalloc(dev, sizeof(*lpc_ctrl), GFP_KERNEL);
-> > +	if (!lpc_ctrl)
-> > +		return -ENOMEM;
-> +
-> > +	dev_set_drvdata(&pdev->dev, lpc_ctrl);
-> +
-> > +	res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> > +	if (!res) {
-> > +		dev_err(dev, "Unable to find resources\n");
-> > +		rc =3D -ENXIO;
-> > +		goto out_free;
-> > +	}
-> +
-> +	/* Todo unmap this on fail cases and exit */
+> 
+> > +
+> > +static struct mbox_host *file_mbox_host(struct file *file)
+> > +{
+> > +       return container_of(file->private_data, struct mbox_host,
+> > miscdev);
+> > +}
+> > +
+> > +static int mbox_host_open(struct inode *inode, struct file *file)
+> > +{
+> > +       return 0;
+> > +}
+> 
+> This means userspace can open this device an unlimited number of
+> times. I think we only want one user at a time?
+> 
 
-You're using devm_*, which if I understand correctly should handle this
-for you.
+That would be wise yes
 
-> +	lpc_ctrl->ctrl =3D devm_ioremap_resource(&pdev->dev, res);
-> > +	if (!lpc_ctrl->ctrl) {
-> > +		rc =3D -ENOMEM;
-> > +		goto out_free;
-> > +	}
-> +
-> > +	node =3D of_parse_phandle(dev->of_node, "memory-region", 0);
-> > +	if (!node) {
-> > +		/*
-> > +		=C2=A0* Should probaby handle this by allocating 4-64k now and
-> > +		=C2=A0* using that
-> > +		=C2=A0*/
-> > +		dev_err(dev, "Didn't find reserved memory\n");
-> > +		rc =3D -EINVAL;
-> > +		goto out;
-> > +	}
-> +
-> > +	rc =3D of_address_to_resource(node, 0, &resm);
-> > +	of_node_put(node);
-> > +	if (rc) {
-> > +		dev_err(dev, "Could address to resource\n");
-> > +		rc =3D -ENOMEM;
-> > +		goto out;
-> > +	}
-> +
-> > +	lpc_ctrl->size =3D resource_size(&resm);
-> > +	lpc_ctrl->base =3D resm.start;
-> +
-> > +	lpc_ctrl->miscdev.minor =3D MISC_DYNAMIC_MINOR;
-> > +	lpc_ctrl->miscdev.name =3D DEVICE_NAME;
-> > +	lpc_ctrl->miscdev.fops =3D &lpc_ctrl_fops;
-> > +	lpc_ctrl->miscdev.parent =3D dev;
-> > +	rc =3D misc_register(&lpc_ctrl->miscdev);
-> > +	if (rc) {
-> > +		dev_err(dev, "Unable to register device\n");
-> > +		goto out;
-> > +	}
-> +
-> > +	dev_info(dev, "Loaded at 0x%08x (0x%08x)\n",
-> > +			lpc_ctrl->base, lpc_ctrl->size);
-> > +	return 0;
-> +
-> +out:
-> > +	devm_iounmap(&pdev->dev, lpc_ctrl->ctrl);
-> +out_free:
-> +	devm_kfree(dev, lpc_ctrl);
+> 
+> > +static int mbox_host_release(struct inode *inode, struct file
+> > *file)
+> > +{
+> > +       return 0;
+> > +}
+> 
+> Why not omit the callback?
+> 
+> > +
+> > +static unsigned int mbox_host_poll(struct file *file, poll_table
+> > *wait)
+> > +{
+> > +       struct mbox_host *mbox_host = file_mbox_host(file);
+> > +       unsigned int mask = 0;
+> > +
+> > +       poll_wait(file, &mbox_host->queue, wait);
+> > +
+> > +       if (mbox_inb(mbox_host, MBOX_BMC_CTRL) & MBOX_CTRL_RECV)
+> > +               mask |= POLLIN;
+> > +
+> > +       return mask;
+> > +}
+> > +
+> > +static const struct file_operations mbox_host_fops = {
+> > +       .owner          = THIS_MODULE,
+> > +       .open           = mbox_host_open,
+> > +       .read           = mbox_host_read,
+> > +       .write          = mbox_host_write,
+> > +       .release        = mbox_host_release,
+> > +       .poll           = mbox_host_poll,
+> > +       .unlocked_ioctl = mbox_host_ioctl,
+> > +};
+> > +
+> > +static void poll_timer(unsigned long data)
+> > +{
+> > +       struct mbox_host *mbox_host = (void *)data;
+> > +
+> > +       mbox_host->poll_timer.expires += msecs_to_jiffies(500);
+> 
+> Why 500?
 
-You shouldn't have to worry about these devm_*() calls.
+Why not? I feel like I should test and justify a number, I honestly
+have no idea whats good but 500msecs feels decent... perhaps I'll
+determine a better number, or a good reason for 500 in my infinite
+spare time ;)
 
-> +	return rc;
-> +}
-> +
-> +static int lpc_ctrl_remove(struct platform_device *pdev)
-> +{
-> > +	struct lpc_ctrl *lpc_ctrl =3D dev_get_drvdata(&pdev->dev);
-> +
-> > +	misc_deregister(&lpc_ctrl->miscdev);
-> > +	devm_iounmap(&pdev->dev, lpc_ctrl->ctrl);
-> +	devm_kfree(&pdev->dev, lpc_ctrl);
 
-As above.
+Thanks for the review,
 
-Andrew
+Cyril
 
-> +	lpc_ctrl =3D NULL;
-> +
-> > +	return 0;
-> +}
-> +
-> +static const struct of_device_id lpc_ctrl_match[] =3D {
-> > +	{ .compatible =3D "aspeed,lpc-ctrl" },
-> > +	{ },
-> +};
-> +
-> +static struct platform_driver lpc_ctrl_driver =3D {
-> > +	.driver =3D {
-> > > +		.name		=3D DEVICE_NAME,
-> > +		.of_match_table =3D lpc_ctrl_match,
-> > +	},
-> > +	.probe =3D lpc_ctrl_probe,
-> > +	.remove =3D lpc_ctrl_remove,
-> +};
-> +
-> +module_platform_driver(lpc_ctrl_driver);
-> +
-> +MODULE_DEVICE_TABLE(of, lpc_ctrl_match);
-> +MODULE_LICENSE("GPL");
-> > +MODULE_AUTHOR("Cyril Bur <cyrilbur@gmail.com>");
-> +MODULE_DESCRIPTION("Linux device interface to control LPC bus");
-> diff --git a/include/uapi/linux/lpc-ctrl.h b/include/uapi/linux/lpc-ctrl.=
-h
-> new file mode 100644
-> index 0000000..c5f1caf
-> --- /dev/null
-> +++ b/include/uapi/linux/lpc-ctrl.h
-> @@ -0,0 +1,25 @@
-> +/*
-> + * Copyright 2016 IBM Corp.
-> + *
-> + * This program is free software; you can redistribute it and/or
-> + * modify it under the terms of the GNU General Public License
-> + * as published by the Free Software Foundation; either version
-> + * 2 of the License, or (at your option) any later version.
-> + */
-> +
-> +#ifndef _UAPI_LINUX_LPC_CTRL_H
-> +#define _UAPI_LINUX_LPC_CTRL_H
-> +
-> +#include <linux/ioctl.h>
-> +
-> +struct lpc_mapping {
-> > +	uint32_t hostaddr;
-> > +	uint32_t size;
-> +};
-> +
-> > +#define __LPC_CTRL_IOCTL_MAGIC	0xb2
-> > +#define LPC_CTRL_IOCTL_SIZE	_IOR(__LPC_CTRL_IOCTL_MAGIC, 0x00, uint32_=
-t)
-> > +#define LPC_CTRL_IOCTL_MAP	_IOW(__LPC_CTRL_IOCTL_MAGIC, 0x01, struct l=
-pc_mapping)
-> > +#define LPC_CTRL_IOCTL_UNMAP	_IO(__LPC_CTRL_IOCTL_MAGIC, 0x02)
-> +
-> +#endif /* _UAPI_LINUX_LPC_CTRL_H */
---=-4ewm3eashDzrNKZADIQs
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJYUeq6AAoJEJ0dnzgO5LT5RsUP/1qMazm0DpvjWZqXtWWO4svh
-P0HY5nSX6ikCbjHdEfXzaJcS1hQ7LLySqDqAIZvjhVd1MlSkjHXQ31i+dNu17UaA
-vJaI0CYTAAvZ+W1q9i7mhR5xGHBu7wWQ/2izIuoJGaMo+VMQOz8CsplT8Pxs3XdB
-RCIdDerCrONJDwhQj0p72CLqqWwJKONdCTnwHvfFQdUXKFdZk9VyB0A8jLyzqbuK
-erTOSomNc3t+aP1Sean+YpiVYqJLSfJJ34NTO2lZHOKwteqE1neIP7eIhyBMtZHw
-g/ji2XJ1zden9u+eqmUkl+GIoSpz103CO1BMhHDCcrDLzrjF+2YMP3np3+ZFiv98
-cnxfgsWwcaDOIII7RbcQ4UWmN9WTQvlwAK4MYAZG105oJdbYXlr4lpmngpsczAAt
-ani8NXiz+CEb8maT6XcrMnIBz/renYGujoO1MOBh/WK7QknFUtOkBvsXWbmUvcSL
-aJqu55RY7CrqOFA9wNttIfDNJ4PPEuU9L+fPSX3R+JXsuKvPdWGDV2EZe7QrJJkt
-d4nuyzFD0HyOHM5Ia+FL6Xk+L4HGS7M6eDNVKjYaFcEV7RRgCbmURbW9IJMFtTrA
-8SSV7eZlRlXGbDqlmWG5T0R7BbWeO/T87Y6F1u2o0AAz7sVG0YGViMtOx5ulsrSV
-8N7RbiZTqpNJ1DcZz3rt
-=Hqap
------END PGP SIGNATURE-----
-
---=-4ewm3eashDzrNKZADIQs--
+> 
+> > +       wake_up(&mbox_host->queue);
+> > +       add_timer(&mbox_host->poll_timer);
+> > +}
+> > +
