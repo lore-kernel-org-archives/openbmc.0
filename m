@@ -1,49 +1,50 @@
 Return-Path: <eajames.ibm@gmail.com>
-Received: from mail-it0-x241.google.com (mail-it0-x241.google.com
- [IPv6:2607:f8b0:4001:c0b::241])
+Received: from mail-io0-x243.google.com (mail-io0-x243.google.com
+ [IPv6:2607:f8b0:4001:c06::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tgMWF1d8PzDvM6
- for <openbmc@lists.ozlabs.org>; Sat, 17 Dec 2016 07:35:05 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tgMWh2JNdzDrPL
+ for <openbmc@lists.ozlabs.org>; Sat, 17 Dec 2016 07:35:28 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="u/2IDk81"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="FMvlS47n"; 
  dkim-atps=neutral
-Received: by mail-it0-x241.google.com with SMTP id c20so3866790itb.0
- for <openbmc@lists.ozlabs.org>; Fri, 16 Dec 2016 12:35:05 -0800 (PST)
+Received: by mail-io0-x243.google.com with SMTP id p13so13143303ioi.0
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Dec 2016 12:35:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id;
- bh=nRjnBIrTmHKb4ZsPip/yhoOYg3l70xit0gr3hcuX+Kg=;
- b=u/2IDk81+TNeaS+XsZHCqSWcu6L6VKEfxDHkWY1CKyPPaw5WotPriQUwhLmaJzwQ/P
- +AFixSa1ti8bWTP72kDYgSO39ossYJctzn1ePvhcM3V0OnrZrYWKtM7QIZ67+5ry/m/f
- S9v6YtAdpqTaOmy/6jaUJRdjEzR7NfqAMQOqFUPCESC9Zi4RYobGgamOc27alA73kNPF
- X6mtVgzQmYqX97eZUClyFDOX+R8pNoLFc50+9xtHWVfh0Tx+PnFg9UPai02zdg0vqZd+
- 1yEAE1cCY6JtnewfQzzRMYMUKeuYDf0E9Q+veSLUII0mpKDmK4xAtV9HDIqcYaDd4ZNX
- qW+g==
+ bh=AygQPmVIulEjnaXBG2DT7A/48UZa9deEAplCifh4Sg8=;
+ b=FMvlS47nVZMFexaUbPUzsU3ZO8i0DvbqlsaU3+6+lZzzWDW7R+LO1d+xRuhooTjMTE
+ 73R5x8cBEjO876TyRf8YErr1xlJXxKhPJeKChBsD92AdKmh7IPHaBzheVmxoQo6SfKIs
+ 6EdAwahLFnnh7wpItEJbw9LH5j71Dr3UGIhlEa2peSp3V/REJydYNk7EkKsqz4xsJL5l
+ LJHbadmdYEbJ6wsoqbIIUHE7GeSRHLCSuOt1mYGOvSZLQcK+u8+tOCanCG/gNE1SDBq4
+ gf1BA+MB4gnUmy3Bx/UwpydefuDBXypxNILYTfkdcWL6P4SsEoTYBc9UFoZM2nPGj3BG
+ tLAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=nRjnBIrTmHKb4ZsPip/yhoOYg3l70xit0gr3hcuX+Kg=;
- b=eGb59PYZhqT+3dzOity1B8tlNSdh3JDyZulX73G3mm5BW0CRTSt9HHN5SUtuw1oK3+
- R686NAodeaB+c4jGbwC+FRRWMqpMZaLTqnnyoYB1mR6Shti3JTVd/Nf2M0fYt1yQiedg
- bTEybBqaxNRmvBu1K8oM2CTj+Q25alRWs2prVz+wAcxv0o/XodGypYdvxfXXqfHyxJnW
- kYtYAv1Kf27LiOuYK/biBivkdN5+dUHg6FxMWAkxT3j/3xAJ56m+wJ9Y8emdIKxGXxmL
- zQXppBJp/iaPZf0ytUlZvZkblVdoMaSd48cT7cMCXNPHnJx8JUUognlH8qUNLTNpqYJa
- bDfw==
-X-Gm-Message-State: AKaTC00FhHQAYfotKFjDN/QI3I+QdA8agY7qZFh3nE5raDooB4DATuEMs7exDTlIlmRAQA==
-X-Received: by 10.36.117.138 with SMTP id y132mr4371832itc.42.1481920503192;
- Fri, 16 Dec 2016 12:35:03 -0800 (PST)
+ bh=AygQPmVIulEjnaXBG2DT7A/48UZa9deEAplCifh4Sg8=;
+ b=IjnoTQYQ2YhOFZipubsL4VXsbcObL69O0ly9Ehb2xjTlaulkB9eExVtf77AXU01rVb
+ XepGYbBt5PT49hTh++VXqLh37QsstPwP4yJY0IDKYLTFJ2jUraqTCvPlcvgEsAON9EHz
+ t+y3any/A0IaQt4SeztmfqMBbGPKGauKDxp1DbgVDW03f+w3Cn57TGyRPptMdY7crFYt
+ 56N+alsz0jBLEXXplwAfoUxc4p6r0ECGzyAdLjLD8fqmE0dAujVSzcgtKArzYJXMZ4jb
+ IwSI+MtIZFvoSmqG2Hte9IlPT9fboM9DEyFWOOqAm0dRTN/EXorEZDVgA0kRvq8+dp46
+ Aekw==
+X-Gm-Message-State: AIkVDXLGHGfZog5aiprjvyiTcsqF8XX39umNAa33nsk3n7G5xcNZEQsRlBtEI33N36Ellg==
+X-Received: by 10.107.50.75 with SMTP id y72mr5442396ioy.22.1481920525670;
+ Fri, 16 Dec 2016 12:35:25 -0800 (PST)
 Received: from eajames-austin-w350.austin.ibm.com ([32.97.110.57])
- by smtp.gmail.com with ESMTPSA id x63sm3308334iod.5.2016.12.16.12.35.01
+ by smtp.gmail.com with ESMTPSA id p77sm3292860iod.35.2016.12.16.12.35.24
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Fri, 16 Dec 2016 12:35:02 -0800 (PST)
+ Fri, 16 Dec 2016 12:35:24 -0800 (PST)
 From: eajames.ibm@gmail.com
 To: openbmc@lists.ozlabs.org
 Cc: andrew@aj.id.au,
 	joel@jms.id.au,
 	"Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux 2/7] hwmon: occ: Add sysfs interface
-Date: Fri, 16 Dec 2016 14:34:56 -0600
-Message-Id: <1481920496-6732-1-git-send-email-eajames.ibm@gmail.com>
+Subject: [PATCH linux 3/7] hwmon: occ: Add I2C transport implementation for
+ SCOM operations
+Date: Fri, 16 Dec 2016 14:35:19 -0600
+Message-Id: <1481920519-6834-1-git-send-email-eajames.ibm@gmail.com>
 X-Mailer: git-send-email 1.9.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -56,101 +57,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Dec 2016 20:35:05 -0000
+X-List-Received-Date: Fri, 16 Dec 2016 20:35:28 -0000
 
 From: "Edward A. James" <eajames@us.ibm.com>
 
-Add a generic mechanism to expose the sensors provided by the OCC in
-sysfs.
+Add functions to send SCOM operations over I2C bus. The BMC can
+communicate with the Power8 host processor over I2C, but needs to use SCOM
+operations in order to access the OCC register space.
 
 Signed-off-by: Edward A. James <eajames@us.ibm.com>
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- Documentation/hwmon/occ       |  48 +++++
- drivers/hwmon/occ/Makefile    |   2 +-
- drivers/hwmon/occ/occ_sysfs.c | 492 ++++++++++++++++++++++++++++++++++++++++++
- drivers/hwmon/occ/occ_sysfs.h |  52 +++++
- 4 files changed, 593 insertions(+), 1 deletion(-)
- create mode 100644 drivers/hwmon/occ/occ_sysfs.c
- create mode 100644 drivers/hwmon/occ/occ_sysfs.h
+ drivers/hwmon/occ/occ_scom_i2c.c | 67 ++++++++++++++++++++++++++++++++++++++++
+ drivers/hwmon/occ/occ_scom_i2c.h | 26 ++++++++++++++++
+ 2 files changed, 93 insertions(+)
+ create mode 100644 drivers/hwmon/occ/occ_scom_i2c.c
+ create mode 100644 drivers/hwmon/occ/occ_scom_i2c.h
 
-diff --git a/Documentation/hwmon/occ b/Documentation/hwmon/occ
-index 79d1642..1ee8689 100644
---- a/Documentation/hwmon/occ
-+++ b/Documentation/hwmon/occ
-@@ -25,6 +25,54 @@ Currently, all versions of the OCC support four types of sensor data: power,
- temperature, frequency, and "caps," which indicate limits and thresholds used
- internally on the OCC.
- 
-+sysfs Entries
-+-------------
-+
-+The OCC driver uses the hwmon sysfs framework to provide data to userspace.
-+
-+The driver exports two sysfs files for each frequency, temperature, and power
-+sensor. These are "input" and "label". The input file contains the value of the
-+sensor. The label file contains the sensor id. The sensor id is the unique
-+internal OCC identifier. Sensor ids may be provided by the OCC specification.
-+The names of these files will be in the following format:
-+	<sensor type><sensor index>_input
-+	<sensor type><sensor index>_label
-+Sensor types will be one of "temp", "freq", or "power". The sensor index is
-+an index to differentiate different sensor files. For example, a single
-+temperature sensor will have two sysfs files: temp1_input and temp1_label.
-+
-+Caps sensors are exported differently. For each caps sensor, the driver will
-+export 6 entries:
-+	curr_powercap - current power cap in watts
-+	curr_powerreading - current power output in watts
-+	norm_powercap - power cap without redundant power
-+	max_powercap - maximum power cap that can be set in watts
-+	min_powercap - minimum power cap that can be set in watts
-+	user_powerlimit - power limit specified by the user in watts
-+In addition, the OCC driver for P9 will export a 7th entry:
-+	user_powerlimit_source - can be one of two values depending on who set
-+		the user_powerlimit. 0x1 - out of band from BMC or host. 0x2 -
-+		in band from other source.
-+The format for these files is caps<sensor index>_<entry type>. For example,
-+caps1_curr_powercap.
-+
-+The driver also provides a number of sysfs entries through hwmon to better
-+control the driver and monitor the OCC.
-+	powercap - read or write the OCC user power limit in watts.
-+	name - read the name of the driver
-+	update_interval - read or write the minimum interval for polling the
-+		OCC.
-+
-+The driver also exports a single sysfs file through the communication protocol
-+device (see BMC - Host Communications). The filename is "online" and represents
-+the status of the OCC with respect to the driver. The OCC can be in one of two
-+states: OCC polling enabled or OCC polling disabled. The purpose of this file
-+is to control the behavior of the driver and it's hwmon sysfs entries, not to
-+infer any information about the state of the physical OCC. Reading the file
-+returns either a 0 (polling disabled) or 1 (polling enabled). Writing 1 to the
-+file enables OCC polling in the driver if communications can be established
-+with the OCC. Writing a 0 to the driver disables OCC polling.
-+
- BMC - Host Communications
- -------------------------
- 
-diff --git a/drivers/hwmon/occ/Makefile b/drivers/hwmon/occ/Makefile
-index 93cb52f..a6881f9 100644
---- a/drivers/hwmon/occ/Makefile
-+++ b/drivers/hwmon/occ/Makefile
-@@ -1 +1 @@
--obj-$(CONFIG_SENSORS_PPC_OCC) += occ.o
-+obj-$(CONFIG_SENSORS_PPC_OCC) += occ.o occ_sysfs.o
-diff --git a/drivers/hwmon/occ/occ_sysfs.c b/drivers/hwmon/occ/occ_sysfs.c
+diff --git a/drivers/hwmon/occ/occ_scom_i2c.c b/drivers/hwmon/occ/occ_scom_i2c.c
 new file mode 100644
-index 0000000..b0e063da
+index 0000000..70e0f51
 --- /dev/null
-+++ b/drivers/hwmon/occ/occ_sysfs.c
-@@ -0,0 +1,492 @@
++++ b/drivers/hwmon/occ/occ_scom_i2c.c
+@@ -0,0 +1,67 @@
 +/*
-+ * occ_sysfs.c - OCC sysfs interface
++ * occ_scom_i2c.c - hwmon OCC driver
 + *
-+ * This file contains the methods and data structures for implementing the OCC
-+ * hwmon sysfs entries.
++ * This file contains the functions for performing SCOM operations over I2C bus
++ * to access the OCC.
 + *
 + * Copyright 2016 IBM Corp.
 + *
@@ -161,494 +95,69 @@ index 0000000..b0e063da
 + *
 + * This program is distributed in the hope that it will be useful,
 + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 + * GNU General Public License for more details.
 + */
 +
-+#include <linux/module.h>
-+#include <linux/init.h>
-+#include <linux/slab.h>
-+#include <linux/jiffies.h>
-+#include <linux/hwmon.h>
-+#include <linux/hwmon-sysfs.h>
-+#include <linux/err.h>
-+#include <linux/mutex.h>
-+#include <linux/delay.h>
++#include <linux/i2c.h>
 +#include <linux/kernel.h>
-+#include <linux/device.h>
++#include <linux/module.h>
 +
-+#include "occ_sysfs.h"
++#include "scom.h"
++#include "occ_scom_i2c.h"
 +
-+#define MAX_SENSOR_ATTR_LEN	32
-+
-+#define RESP_RETURN_CMD_INVAL	0x13
-+
-+struct sensor_attr_data {
-+	enum sensor_type type;
-+	u32 hwmon_index;
-+	u32 attr_id;
-+	char name[MAX_SENSOR_ATTR_LEN];
-+	struct device_attribute dev_attr;
-+};
-+
-+static ssize_t show_input(struct device *dev,
-+			  struct device_attribute *attr, char *buf)
++int occ_i2c_getscom(void *bus, u32 address, u8 *data)
 +{
-+	int val;
-+	struct sensor_attr_data *sdata = container_of(attr,
-+						      struct sensor_attr_data,
-+						      dev_attr);
-+	struct occ_sysfs *driver = dev_get_drvdata(dev);
-+
-+	val = occ_get_sensor_value(driver->occ, sdata->type,
-+				   sdata->hwmon_index - 1);
-+	if (sdata->type == TEMP)
-+		val *= 1000;	/* in millidegree Celsius */
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
-+}
-+
-+/* show_label provides the OCC sensor id. The sensor id will be either a
-+ * 2-byte (for P8) or 4-byte (for P9) value. The sensor id is a way to
-+ * identify what each sensor represents, according to the OCC specification.
-+ */
-+static ssize_t show_label(struct device *dev,
-+			  struct device_attribute *attr, char *buf)
-+{
-+	int val;
-+	struct sensor_attr_data *sdata = container_of(attr,
-+						      struct sensor_attr_data,
-+						      dev_attr);
-+	struct occ_sysfs *driver = dev_get_drvdata(dev);
-+
-+	val = occ_get_sensor_id(driver->occ, sdata->type,
-+				sdata->hwmon_index - 1);
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
-+}
-+
-+static ssize_t show_caps(struct device *dev,
-+			 struct device_attribute *attr, char *buf)
-+{
-+	int val;
-+	struct caps_sensor *sensor;
-+	struct sensor_attr_data *sdata = container_of(attr,
-+						      struct sensor_attr_data,
-+						      dev_attr);
-+	struct occ_sysfs *driver = dev_get_drvdata(dev);
-+
-+	sensor = occ_get_sensor(driver->occ, CAPS);
-+	if (!sensor) {
-+		val = -1;
-+		return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
-+	}
-+
-+	val = occ_get_caps_value(driver->occ, sensor, sdata->hwmon_index - 1,
-+				 sdata->attr_id);
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
-+}
-+
-+static ssize_t show_update_interval(struct device *dev,
-+				    struct device_attribute *attr, char *buf)
-+{
-+	struct occ_sysfs *driver = dev_get_drvdata(dev);
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%lu\n", driver->update_interval);
-+}
-+
-+static ssize_t store_update_interval(struct device *dev,
-+				     struct device_attribute *attr,
-+				     const char *buf, size_t count)
-+{
-+	struct occ_sysfs *driver = dev_get_drvdata(dev);
-+	unsigned long val;
-+	int rc;
-+
-+	rc = kstrtoul(buf, 10, &val);
-+	if (rc)
-+		return rc;
-+
-+	driver->update_interval = val;
-+	occ_set_update_interval(driver->occ, val);
-+
-+	return count;
-+}
-+
-+static DEVICE_ATTR(update_interval, S_IWUSR | S_IRUGO, show_update_interval,
-+		   store_update_interval);
-+
-+static ssize_t show_name(struct device *dev,
-+			 struct device_attribute *attr, char *buf)
-+{
-+	return snprintf(buf, PAGE_SIZE - 1, "occ\n");
-+}
-+
-+static DEVICE_ATTR(name, S_IRUGO, show_name, NULL);
-+
-+static ssize_t show_user_powercap(struct device *dev,
-+				  struct device_attribute *attr, char *buf)
-+{
-+	struct occ_sysfs *driver = dev_get_drvdata(dev);
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%u\n", driver->user_powercap);
-+}
-+
-+static ssize_t store_user_powercap(struct device *dev,
-+				   struct device_attribute *attr,
-+				   const char *buf, size_t count)
-+{
-+	struct occ_sysfs *driver = dev_get_drvdata(dev);
-+	u16 val;
-+	int rc;
-+
-+	rc = kstrtou16(buf, 10, &val);
-+	if (rc)
-+		return rc;
-+
-+	dev_dbg(dev, "set user powercap to: %d\n", val);
-+	rc = occ_set_user_powercap(driver->occ, val);
-+	if (rc) {
-+		dev_err(dev, "set user powercap failed: 0x%x\n", rc);
-+		if (rc == RESP_RETURN_CMD_INVAL) {
-+			dev_err(dev, "set invalid powercap value: %d\n", val);
-+			return -EINVAL;
-+		}
-+
-+		return rc;
-+	}
-+
-+	driver->user_powercap = val;
-+
-+	return count;
-+}
-+
-+static DEVICE_ATTR(user_powercap, S_IWUSR | S_IRUGO, show_user_powercap,
-+		   store_user_powercap);
-+
-+static void deinit_sensor_groups(struct device *dev,
-+				 struct sensor_group *sensor_groups)
-+{
-+	int i;
-+
-+	for (i = 0; i < MAX_OCC_SENSOR_TYPE; i++) {
-+		if (sensor_groups[i].group.attrs)
-+			devm_kfree(dev, sensor_groups[i].group.attrs);
-+		if (sensor_groups[i].sattr)
-+			devm_kfree(dev, sensor_groups[i].sattr);
-+		sensor_groups[i].group.attrs = NULL;
-+		sensor_groups[i].sattr = NULL;
-+	}
-+}
-+
-+static void sensor_attr_init(struct sensor_attr_data *sdata,
-+			     char *sensor_group_name,
-+			     char *attr_name,
-+			     ssize_t (*show)(struct device *dev,
-+					     struct device_attribute *attr,
-+					     char *buf))
-+{
-+	sysfs_attr_init(&sdata->dev_attr.attr);
-+
-+	snprintf(sdata->name, MAX_SENSOR_ATTR_LEN, "%s%d_%s",
-+		 sensor_group_name, sdata->hwmon_index, attr_name);
-+	sdata->dev_attr.attr.name = sdata->name;
-+	sdata->dev_attr.attr.mode = S_IRUGO;
-+	sdata->dev_attr.show = show;
-+}
-+
-+static int create_sensor_group(struct occ_sysfs *driver,
-+			       enum sensor_type type, int sensor_num)
-+{
-+	struct device *dev = driver->dev;
-+	struct sensor_group *sensor_groups = driver->sensor_groups;
-+	struct sensor_attr_data *sdata;
-+	int rc, i;
-+
-+	/* each sensor has 'label' and 'input' attributes */
-+	sensor_groups[type].group.attrs =
-+		devm_kzalloc(dev, sizeof(struct attribute *) *
-+			     sensor_num * 2 + 1, GFP_KERNEL);
-+	if (!sensor_groups[type].group.attrs) {
-+		rc = -ENOMEM;
-+		goto err;
-+	}
-+
-+	sensor_groups[type].sattr =
-+		devm_kzalloc(dev, sizeof(struct sensor_attr_data) *
-+			     sensor_num * 2, GFP_KERNEL);
-+	if (!sensor_groups[type].sattr) {
-+		rc = -ENOMEM;
-+		goto err;
-+	}
-+
-+	for (i = 0; i < sensor_num; i++) {
-+		sdata = &sensor_groups[type].sattr[i];
-+		/* hwmon attributes index starts from 1 */
-+		sdata->hwmon_index = i + 1;
-+		sdata->type = type;
-+		sensor_attr_init(sdata, sensor_groups[type].name, "input",
-+				 show_input);
-+		sensor_groups[type].group.attrs[i] = &sdata->dev_attr.attr;
-+
-+		sdata = &sensor_groups[type].sattr[i + sensor_num];
-+		sdata->hwmon_index = i + 1;
-+		sdata->type = type;
-+		sensor_attr_init(sdata, sensor_groups[type].name, "label",
-+				 show_label);
-+		sensor_groups[type].group.attrs[i + sensor_num] =
-+			&sdata->dev_attr.attr;
-+	}
-+
-+	rc = sysfs_create_group(&dev->kobj, &sensor_groups[type].group);
-+	if (rc)
-+		goto err;
-+
-+	return 0;
-+err:
-+	deinit_sensor_groups(dev, sensor_groups);
-+	return rc;
-+}
-+
-+static void caps_sensor_attr_init(struct sensor_attr_data *sdata,
-+				  char *attr_name, uint32_t hwmon_index,
-+				  uint32_t attr_id)
-+{
-+	sdata->type = CAPS;
-+	sdata->hwmon_index = hwmon_index;
-+	sdata->attr_id = attr_id;
-+
-+	snprintf(sdata->name, MAX_SENSOR_ATTR_LEN, "%s%d_%s",
-+		 "caps", sdata->hwmon_index, attr_name);
-+
-+	sysfs_attr_init(&sdata->dev_attr.attr);
-+	sdata->dev_attr.attr.name = sdata->name;
-+	sdata->dev_attr.attr.mode = S_IRUGO;
-+	sdata->dev_attr.show = show_caps;
-+}
-+
-+static int create_caps_sensor_group(struct occ_sysfs *driver, int sensor_num)
-+{
-+	struct device *dev = driver->dev;
-+	struct sensor_group *sensor_groups = driver->sensor_groups;
-+	int field_num = driver->num_caps_fields;
-+	struct sensor_attr_data *sdata;
-+	int i, j, rc;
-+
-+	sensor_groups[CAPS].group.attrs =
-+		devm_kzalloc(dev, sizeof(struct attribute *) * sensor_num *
-+			     field_num + 1, GFP_KERNEL);
-+	if (!sensor_groups[CAPS].group.attrs) {
-+		rc = -ENOMEM;
-+		goto err;
-+	}
-+
-+	sensor_groups[CAPS].sattr =
-+		devm_kzalloc(dev, sizeof(struct sensor_attr_data) *
-+			     sensor_num * field_num, GFP_KERNEL);
-+	if (!sensor_groups[CAPS].sattr) {
-+		rc = -ENOMEM;
-+		goto err;
-+	}
-+
-+	for (j = 0; j < sensor_num; ++j) {
-+		for (i = 0; i < field_num; ++i) {
-+			sdata = &sensor_groups[CAPS].sattr[j * field_num + i];
-+			caps_sensor_attr_init(sdata,
-+					      driver->caps_names[i], j + 1, i);
-+			sensor_groups[CAPS].group.attrs[j * field_num + i] =
-+				&sdata->dev_attr.attr;
-+		}
-+	}
-+
-+	rc = sysfs_create_group(&dev->kobj, &sensor_groups[CAPS].group);
-+	if (rc)
-+		goto err;
-+
-+	return rc;
-+err:
-+	deinit_sensor_groups(dev, sensor_groups);
-+	return rc;
-+}
-+
-+static void occ_remove_hwmon_attrs(struct occ_sysfs *driver)
-+{
-+	struct device *dev = driver->dev;
-+
-+	device_remove_file(dev, &dev_attr_user_powercap);
-+	device_remove_file(dev, &dev_attr_update_interval);
-+	device_remove_file(dev, &dev_attr_name);
-+}
-+
-+static int occ_create_hwmon_attrs(struct occ_sysfs *driver)
-+{
-+	int i, rc, id, sensor_num;
-+	struct device *dev = driver->dev;
-+	struct sensor_group *sensor_groups = driver->sensor_groups;
-+	struct occ_blocks *resp = NULL;
-+
-+	occ_get_response_blocks(driver->occ, &resp);
-+
-+	for (i = 0; i < MAX_OCC_SENSOR_TYPE; ++i)
-+		resp->sensor_block_id[i] = -1;
-+
-+	/* read sensor data from occ */
-+	rc = occ_update_device(driver->occ);
-+	if (rc) {
-+		dev_err(dev, "cannot get occ sensor data: %d\n", rc);
-+		return rc;
-+	}
-+	if (!resp->blocks)
-+		return -ENOMEM;
-+
-+	rc = device_create_file(dev, &dev_attr_name);
-+	if (rc)
-+		goto error;
-+
-+	rc = device_create_file(dev, &dev_attr_update_interval);
-+	if (rc)
-+		goto error;
-+
-+	if (resp->sensor_block_id[CAPS] >= 0) {
-+		/* user powercap: only for master OCC */
-+		rc = device_create_file(dev, &dev_attr_user_powercap);
-+		if (rc)
-+			goto error;
-+	}
-+
-+	sensor_groups[FREQ].name = "freq";
-+	sensor_groups[TEMP].name = "temp";
-+	sensor_groups[POWER].name = "power";
-+	sensor_groups[CAPS].name = "caps";
-+
-+	for (i = 0; i < MAX_OCC_SENSOR_TYPE; i++) {
-+		id = resp->sensor_block_id[i];
-+		if (id < 0)
-+			continue;
-+
-+		sensor_num = resp->blocks[id].header.sensor_num;
-+		if (i == CAPS)
-+			rc = create_caps_sensor_group(driver, sensor_num);
-+		else
-+			rc = create_sensor_group(driver, i, sensor_num);
-+		if (rc)
-+			goto error;
-+	}
-+
-+	return 0;
-+
-+error:
-+	dev_err(dev, "cannot create hwmon attributes: %d\n", rc);
-+	occ_remove_hwmon_attrs(driver);
-+	return rc;
-+}
-+
-+static ssize_t show_occ_online(struct device *dev,
-+			       struct device_attribute *attr, char *buf)
-+{
-+	struct occ_sysfs *driver = dev_get_drvdata(dev);
-+
-+	return snprintf(buf, PAGE_SIZE - 1, "%u\n", driver->occ_online);
-+}
-+
-+static ssize_t store_occ_online(struct device *dev,
-+				struct device_attribute *attr,
-+				const char *buf, size_t count)
-+{
-+	struct occ_sysfs *driver = dev_get_drvdata(dev);
-+	unsigned long val;
-+	int rc;
-+
-+	rc = kstrtoul(buf, 10, &val);
-+	if (rc)
-+		return rc;
-+
-+	if (val == 1) {
-+		if (driver->occ_online)
-+			return count;
-+
-+		driver->dev = hwmon_device_register(dev);
-+		if (IS_ERR(driver->dev))
-+			return PTR_ERR(driver->dev);
-+
-+		dev_set_drvdata(driver->dev, driver);
-+
-+		rc = occ_create_hwmon_attrs(driver);
-+		if (rc) {
-+			hwmon_device_unregister(driver->dev);
-+			driver->dev = NULL;
-+			return rc;
-+		}
-+	} else if (val == 0) {
-+		if (!driver->occ_online)
-+			return count;
-+
-+		occ_remove_hwmon_attrs(driver);
-+		hwmon_device_unregister(driver->dev);
-+		driver->dev = NULL;
-+	} else
-+		return -EINVAL;
-+
-+	driver->occ_online = val;
-+	return count;
-+}
-+
-+static DEVICE_ATTR(online, S_IWUSR | S_IRUGO, show_occ_online,
-+		   store_occ_online);
-+
-+struct occ_sysfs *occ_sysfs_start(struct device *dev, struct occ *occ,
-+				  struct occ_sysfs_config *config)
-+{
-+	struct occ_sysfs *hwmon = devm_kzalloc(dev, sizeof(struct occ_sysfs),
-+					       GFP_KERNEL);
-+	int rc;
-+
-+	if (!hwmon)
-+		return ERR_PTR(-ENOMEM);
-+
-+	hwmon->occ = occ;
-+	hwmon->num_caps_fields = config->num_caps_fields;
-+	hwmon->caps_names = config->caps_names;
-+
-+	dev_set_drvdata(dev, hwmon);
-+
-+	rc = device_create_file(dev, &dev_attr_online);
-+	if (rc)
-+		return ERR_PTR(rc);
-+
-+	return hwmon;
-+}
-+EXPORT_SYMBOL(occ_sysfs_start);
-+
-+int occ_sysfs_stop(struct device *dev, struct occ_sysfs *driver)
-+{
-+	if (driver->dev) {
-+		occ_remove_hwmon_attrs(driver);
-+		hwmon_device_unregister(driver->dev);
-+	}
-+
-+	device_remove_file(driver->dev, &dev_attr_online);
-+
-+	devm_kfree(dev, driver);
++	ssize_t rc;
++	u64 buf;
++	struct i2c_client *client = bus;
++
++	rc = i2c_master_send(client, (const char *)&address, sizeof(u32));
++	if (rc != sizeof(u32))
++		return -EIO;
++
++	rc = i2c_master_recv(client, (char *)&buf, sizeof(u64));
++	if (rc != sizeof(u64))
++		return -EIO;
++
++	*((u64 *)data) = be64_to_cpu(buf);
 +
 +	return 0;
 +}
-+EXPORT_SYMBOL(occ_sysfs_stop);
++EXPORT_SYMBOL(occ_i2c_getscom);
++
++int occ_i2c_putscom(void *bus, u32 address, u32 data0, u32 data1)
++{
++	u32 buf[3];
++	ssize_t rc;
++	struct i2c_client *client = bus;
++
++	buf[0] = address;
++	buf[1] = data1;
++	buf[2] = data0;
++
++	rc = i2c_master_send(client, (const char *)buf, sizeof(u32) * 3);
++	if (rc != sizeof(u32) * 3)
++		return -EIO;
++
++	return 0;
++}
++EXPORT_SYMBOL(occ_i2c_putscom);
 +
 +MODULE_AUTHOR("Eddie James <eajames@us.ibm.com>");
-+MODULE_DESCRIPTION("OCC sysfs driver");
++MODULE_DESCRIPTION("I2C OCC SCOM transport");
 +MODULE_LICENSE("GPL");
-diff --git a/drivers/hwmon/occ/occ_sysfs.h b/drivers/hwmon/occ/occ_sysfs.h
+diff --git a/drivers/hwmon/occ/occ_scom_i2c.h b/drivers/hwmon/occ/occ_scom_i2c.h
 new file mode 100644
-index 0000000..2a8044f
+index 0000000..204eb4f
 --- /dev/null
-+++ b/drivers/hwmon/occ/occ_sysfs.h
-@@ -0,0 +1,52 @@
++++ b/drivers/hwmon/occ/occ_scom_i2c.h
+@@ -0,0 +1,26 @@
 +/*
-+ * occ_sysfs.h - OCC sysfs interface
++ * occ_scom_i2c.h - hwmon OCC driver
 + *
-+ * This file contains the data structures and function prototypes for the OCC
-+ * hwmon sysfs entries.
++ * This file contains function protoypes for peforming SCOM operations over I2C
++ * bus to access the OCC.
 + *
 + * Copyright 2016 IBM Corp.
 + *
@@ -659,42 +168,16 @@ index 0000000..2a8044f
 + *
 + * This program is distributed in the hope that it will be useful,
 + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 + * GNU General Public License for more details.
 + */
 +
-+#ifndef __OCC_SYSFS_H__
-+#define __OCC_SYSFS_H__
++#ifndef __OCC_SCOM_I2C_H__
++#define __OCC_SCOM_I2C_H__
 +
-+#include "occ.h"
++int occ_i2c_getscom(void *bus, u32 address, u8 *data);
++int occ_i2c_putscom(void *bus, u32 address, u32 data0, u32 data1);
 +
-+struct sensor_group {
-+	char *name;
-+	struct sensor_attr_data *sattr;
-+	struct attribute_group group;
-+};
-+
-+struct occ_sysfs_config {
-+	unsigned int num_caps_fields;
-+	char **caps_names;
-+};
-+
-+struct occ_sysfs {
-+	struct device *dev;
-+	struct occ *occ;
-+
-+	u16 user_powercap;
-+	bool occ_online;
-+	struct sensor_group sensor_groups[MAX_OCC_SENSOR_TYPE];
-+	unsigned long update_interval;
-+	unsigned int num_caps_fields;
-+	char **caps_names;
-+};
-+
-+struct occ_sysfs *occ_sysfs_start(struct device *dev, struct occ *occ,
-+				  struct occ_sysfs_config *config);
-+int occ_sysfs_stop(struct device *dev, struct occ_sysfs *driver);
-+
-+#endif /* __OCC_SYSFS_H__ */
++#endif /* __OCC_SCOM_I2C_H__ */
 -- 
 1.9.1
