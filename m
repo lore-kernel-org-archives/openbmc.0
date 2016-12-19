@@ -1,108 +1,45 @@
-Return-Path: <ivan@de.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <geissonator@gmail.com>
+Received: from mail-it0-x22d.google.com (mail-it0-x22d.google.com
+ [IPv6:2607:f8b0:4001:c0b::22d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3thzZM051qzDwKs
- for <openbmc@lists.ozlabs.org>; Mon, 19 Dec 2016 22:43:22 +1100 (AEDT)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
- uBJBcj67133820
- for <openbmc@lists.ozlabs.org>; Mon, 19 Dec 2016 06:43:20 -0500
-Received: from e06smtp06.uk.ibm.com (e06smtp06.uk.ibm.com [195.75.94.102])
- by mx0a-001b2d01.pphosted.com with ESMTP id 27ecg2pn8a-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 19 Dec 2016 06:43:19 -0500
-Received: from localhost
- by e06smtp06.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <ivan@de.ibm.com>;
- Mon, 19 Dec 2016 11:43:17 -0000
-Received: from d06dlp03.portsmouth.uk.ibm.com (9.149.20.15)
- by e06smtp06.uk.ibm.com (192.168.101.136) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Mon, 19 Dec 2016 11:43:14 -0000
-X-IBM-Helo: d06dlp03.portsmouth.uk.ibm.com
-X-IBM-MailFrom: ivan@de.ibm.com
-X-IBM-RcptTo: openbmc@lists.ozlabs.org
-Received: from b06cxnps3075.portsmouth.uk.ibm.com
- (d06relay10.portsmouth.uk.ibm.com [9.149.109.195])
- by d06dlp03.portsmouth.uk.ibm.com (Postfix) with ESMTP id 535391B08069
- for <openbmc@lists.ozlabs.org>; Mon, 19 Dec 2016 11:45:44 +0000 (GMT)
-Received: from d06av23.portsmouth.uk.ibm.com (d06av23.portsmouth.uk.ibm.com
- [9.149.105.59])
- by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- uBJBhEkm19333498
- for <openbmc@lists.ozlabs.org>; Mon, 19 Dec 2016 11:43:14 GMT
-Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0ECD4A4040
- for <openbmc@lists.ozlabs.org>; Mon, 19 Dec 2016 10:41:19 +0000 (GMT)
-Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D4BBDA4070
- for <openbmc@lists.ozlabs.org>; Mon, 19 Dec 2016 10:41:18 +0000 (GMT)
-Received: from d50lp03.ny.us.ibm.com (unknown [146.89.104.211])
- by d06av23.portsmouth.uk.ibm.com (Postfix) with ESMTPS
- for <openbmc@lists.ozlabs.org>; Mon, 19 Dec 2016 10:41:18 +0000 (GMT)
-Received: from localhost
- by d50lp03.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <ivan@de.ibm.com>;
- Mon, 19 Dec 2016 06:43:12 -0500
-Received: from smtp.notes.na.collabserv.com (192.155.248.74)
- by d50lp03.ny.us.ibm.com (158.87.18.22) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128/128)
- Mon, 19 Dec 2016 06:43:10 -0500
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <ivan@de.ibm.com>;
- Mon, 19 Dec 2016 11:43:09 -0000
-Received: from us1a3-smtp03.a3.dal06.isc4sb.com (10.106.154.98)
- by smtp.notes.na.collabserv.com (10.106.227.92) with
- smtp.notes.na.collabserv.com ESMTP; Mon, 19 Dec 2016 11:43:07 -0000
-Received: from us1a3-mail161.a3.dal06.isc4sb.com ([10.146.71.28])
- by us1a3-smtp03.a3.dal06.isc4sb.com
- with ESMTP id 2016121911430741-118619 ;
- Mon, 19 Dec 2016 11:43:07 +0000 
-In-Reply-To: 
-Subject: about fsp2 board
-From: "Ivan Mikhaylov1" <ivan@de.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: "Karlo Petri" <XXPETRI@de.ibm.com>,
- "Bradley W Bishop" <bradleyb@us.ibm.com>
-Date: Mon, 19 Dec 2016 11:43:07 +0000
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tjB3R4y08zDyS5
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Dec 2016 06:35:47 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ACSjyDe0"; 
+ dkim-atps=neutral
+Received: by mail-it0-x22d.google.com with SMTP id x2so2945278itf.1
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Dec 2016 11:35:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=6EZ5y1t7ezASBgN+gzHrudW98XNZEYPjvyXOZIHTab0=;
+ b=ACSjyDe0Ve2wF1/+wSjtc1YTbN15EGdLNyPpl3FzhLKvXP6z3WVIfmeEpb6nb3y3GQ
+ KiX+wDNWgIYfDYEBvz3IAEeS5heJiHcr4iqKBASPVFmrARWTb2oLhYjCBWj7qw1tyPJY
+ J+Su1VXCZnJ7kMV9CbNtvJ0YvZvluJBktRrtv4TFGA+ZWG0gy8uG0y+nOoR0RZIida+r
+ dsMyVC2hTYXKRErVZnSeTtQbfgzOUQNKjGGcJajimOmWZjBpevjWyRgh+aY1NhPoiHD2
+ CGqQlUPVd4hDJ/K/k2jK+lRneZSLyWZ82EikGQS9Q/+5u+vSoC43lg4/inYI7xusWN0Q
+ yvzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=6EZ5y1t7ezASBgN+gzHrudW98XNZEYPjvyXOZIHTab0=;
+ b=cxJf1QXoWvjl3DFPvsOSnyEHnyjOy4YTYJHRMHkLTBaWm4iZ0DQpuHm2bUJhY0l3V8
+ wFP/hv0lsBjdoM7xp76dfp598aq7P7IxpnwjynNeFpZy3amaxdfyIrWHj+l5sxb22HHL
+ 5gCxkWdm5aIThRglhCPRWRyZdNm3tgeXdRlEAKqmSCkBE80nU+joMC5HXB3Pjnd0OlIn
+ EpGEPWSBc0zbIbvp7V7WTDcxcssfVw40uWOCimaB9w8bLT8ZyxCDDSdMuNnouERP93/p
+ Vgstxlr4NmzTgzSI6q202eVfAk7bcf4NAE9nh5AnunzbfQjBBZYbSUsw3L6e6Xo8ajRG
+ hhTA==
+X-Gm-Message-State: AKaTC011t13DW1SIcFxen+EZLZnrQ26ScBQLPaigfZLDc0Q0VrwM3NdZFjYicN/egJiBPHZ7EMeeaCP1/Z0CiQ==
+X-Received: by 10.36.50.214 with SMTP id j205mr18368415ita.33.1482176145502;
+ Mon, 19 Dec 2016 11:35:45 -0800 (PST)
 MIME-Version: 1.0
-Sensitivity: 
-Importance: Normal
-X-Priority: 3 (Normal)
-References: 
-X-Mailer: IBM iNotes ($HaikuForm 892) | IBM Domino Build
- V851SAAS_11282016_FP2.1 December 02, 2016
-X-LLNOutbound: False
-X-Disclaimed: 48003
-X-TNEFEvaluated: 1
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset=UTF-8
-x-cbid: 16121911-0024-0000-0000-00000276CA0E
-X-IBM-ISS-SpamDetectors: Score=0.423878; BY=0.000038; FL=0; FP=0; FZ=0; HX=0; 
- KW=0; PH=0; SC=0.423878; ST=0; TS=0; UL=0; ISC=
-X-IBM-ISS-DetailInfo: BY=3.00006277; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000198; SDB=6.00795971; UDB=6.00386254; UTC=2016-12-19
- 11:43:08
-x-cbparentid: 16121911-7582-0000-0000-000002857242
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-Message-Id: <OFAB060B32.380FD18C-ON0025808E.003FDC40-0025808E.00405F91@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2016-12-19_08:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=2
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1612190175
-X-Mailman-Approved-At: Tue, 20 Dec 2016 01:59:13 +1100
+Received: by 10.107.36.79 with HTTP; Mon, 19 Dec 2016 11:35:45 -0800 (PST)
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Mon, 19 Dec 2016 13:35:45 -0600
+Message-ID: <CALLMt=rbUsLWmo2knZoNq6SYQF=OGW19MEu0NbxcFd_8DJ0bqQ@mail.gmail.com>
+Subject: Disabling Hardware Continuous Integration Testing
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -114,12 +51,11 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Dec 2016 11:43:23 -0000
+X-List-Received-Date: Mon, 19 Dec 2016 19:35:48 -0000
 
-<font face=3D"Default Sans Serif,Verdana,Arial,Helvetica,sans-serif" size=
-=3D"2">Hello everyone, so probably everyone knows about fsp2 board existenc=
-e that is still using in P and Z systems, what we wanna do in case of Z ser=
-ies, we want to do same way as P doing right now with ast2400/2500. So we w=
-ant to port fsp2 board into upstream kernel and be a part of openbmc projec=
-t.<br>Until now I'm just started to work with it. So if you see any things/=
-thougts which we have to talk, pls tell us...<br></font><BR>
+We've gotten as much pipe cleaning as we're going to get with the HW
+CI.  We're going to disable it until we get
+https://github.com/openbmc/openbmc/issues/862 fixed (or worked
+around).  It's causing too many false failures in our automation runs.
+
+Andrew
