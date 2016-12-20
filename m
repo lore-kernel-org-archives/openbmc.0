@@ -1,51 +1,58 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <jaghu@google.com>
+Received: from mail-wj0-x22a.google.com (mail-wj0-x22a.google.com
+ [IPv6:2a00:1450:400c:c01::22a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tjKX656WdzDwMd
- for <openbmc@lists.ozlabs.org>; Tue, 20 Dec 2016 12:12:38 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="I+SRGWKC"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="US4zKbOA"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id EDE3E2079A;
- Mon, 19 Dec 2016 20:12:35 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Mon, 19 Dec 2016 20:12:35 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=W6AGsB9HjK6xLx3Ajlrd4d7W8QE=; b=I+SRGW
- KCV0nUud6QOUiIm+0Pppx1O8/BnIXz6qqosFWEU93ByN4SYN78ilWV1XeYywW3IP
- 0qv9KFfXqyPhg/+7DZYifLXyPZcQKXM9a2UJQpoBbGkjKSvzfEjBY7zBwthe4b8+
- 11XTao06iyz/mrBH1OrUe9VFLmEzcy3sDl4W4=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=W6AGsB9HjK6xLx
- 3Ajlrd4d7W8QE=; b=US4zKbOA46knuNGIi7LL++Nk5iH/g9+ajJ5jLW34xigLCl
- a0rw2NG7/VPNtJKEH64hjWhKA37EKNBq8K1FDWMeH/EVu8OWhDyw033gHcIsjJlu
- 50zgFPazPKdj9+TKhgesI9T+p6nXZrSIQ+NmwQ+oonuHSO3aY8qAbhd3ClrM8=
-X-ME-Sender: <xms:g4VYWM51e1McHw6P8bu5fL4KrZSdH_srOIuYgdfjkIWdFUabFJRuBA>
-X-Sasl-enc: Bg3kJGbT4X0Dg2PxXz/9FNmfgHqRoGJkTmPFaFPSLofM 1482196355
-Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 08C5B7E7C5;
- Mon, 19 Dec 2016 20:12:33 -0500 (EST)
-Message-ID: <1482196350.3419.20.camel@aj.id.au>
-Subject: Re: [PATCH linux 0/7] drivers: hwmon: Add On-Chip Controller driver
-From: Andrew Jeffery <andrew@aj.id.au>
-To: eajames.ibm@gmail.com, openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, "Edward A. James" <eajames@us.ibm.com>
-Date: Tue, 20 Dec 2016 11:42:30 +1030
-In-Reply-To: <1481920643-7383-1-git-send-email-eajames.ibm@gmail.com>
-References: <1481920643-7383-1-git-send-email-eajames.ibm@gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-m280VcTNT1QUo7FQD02r"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tjPPf436fzDwQy
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Dec 2016 15:07:18 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="I6F+jPcQ"; 
+ dkim-atps=neutral
+Received: by mail-wj0-x22a.google.com with SMTP id v7so166274978wjy.2
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Dec 2016 20:07:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=GSEAM+EMvnNkKkor7BOKoI5rmihI9O2n05HhnCYsUN8=;
+ b=I6F+jPcQK50D96u/t8nTP2FeN5Dow4SQQXcI/eY8+GPwKDVhDc9MWMpFZtuCAheBeT
+ BWsEsQKVuhJxKNWDIAlEFpKsb5Nnk02sSp6Yh8vUB7C7JTud3srwHC1Qn/h868vNs+x8
+ rDFom3MMFDFHd3/Cjxo6ehr8tAH+UtJ6eahXdH8QYpomphQbGc4CHapitSGbhL1vj99w
+ JAcxJeDi2N53FKl89lk/3saIyJoSoKFWtXhWGtT6OWhGGsBqfSU0wmE63XAqhRCvH4i1
+ L0mf9ZizlGWTo3+Dw0SuGn0x+rn4IlWYKBQaZIBnmsvaRAW3yU/imfZj5MszlORMLZtG
+ Wy+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=GSEAM+EMvnNkKkor7BOKoI5rmihI9O2n05HhnCYsUN8=;
+ b=YdiLkabBIJ03nm+UdhIdkaHXm0xz4D0HnoK7lFCmjsJhA0NWJqR8l4MOwNqS+oZcos
+ 1m2voviUQj6KRViy4AbpYRVAIS4UJZklpImqn7+UiUT/nNCDCHqR2GIIKBiAB274QJfv
+ NbQV9iBlvIn/OjYnICzzBtcpnvM5tbatNAhnzOxMu8wVojaih2ro+eQYY3xLPq7DUpa7
+ h5c4pFOoCPZWOPGYcBmJD10HyZM2J5OUZjizOYG/v7wsSEjr8sMgqkPWgc9FpPT2zqop
+ MuL6G11MKO1aDWdtZNf6XfCCbuFVXVmLWz5BFaRdDSfMW/rcnf7j3JW/ORtO/IsJG/3X
+ bFIg==
+X-Gm-Message-State: AIkVDXKA0xzKyR/pHuVj0W2fMkdYut+T7RNfP38ZCqU34Qk2ebPRFbYJKzythy5SILKJDb2f0JjI/M1otY/ryUIP
+X-Received: by 10.194.94.166 with SMTP id dd6mr18551439wjb.88.1482206835354;
+ Mon, 19 Dec 2016 20:07:15 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.194.35.5 with HTTP; Mon, 19 Dec 2016 20:06:54 -0800 (PST)
+In-Reply-To: <d054a18a-10d1-7aa5-31d5-44af1e5a6c76@gmail.com>
+References: <1481702104-8617-1-git-send-email-jaghu@google.com>
+ <20161214125641.GA5379@kroah.com>
+ <ac324946-41da-c090-a0ca-78155611bb7e@baylibre.com>
+ <2512681.Wh85HyB8FH@wuerfel> <d054a18a-10d1-7aa5-31d5-44af1e5a6c76@gmail.com>
+From: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
+Date: Mon, 19 Dec 2016 20:06:54 -0800
+Message-ID: <CANsWYUVuH0z04r301vWR6pOnA94cct5GnMboP9YgkwPgPUGPGg@mail.gmail.com>
+Subject: Re: [PATCH linux v1 0/4] Seven segment display support
+To: David Daney <ddaney.cavm@gmail.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Neil Armstrong <narmstrong@baylibre.com>, 
+ Thomas Petazzoni <thomas.petazzoni@free-electrons.com>,
+ mark.rutland@arm.com, 
+ devicetree@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, linux@armlinux.org.uk, 
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org, 
+ Joel Stanley <joel@jms.id.au>, linux-arm-kernel@lists.infradead.org
+Content-Type: multipart/alternative; boundary=047d7bb040c6e81a4a05440f2b1f
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,118 +64,315 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Dec 2016 01:12:39 -0000
+X-List-Received-Date: Tue, 20 Dec 2016 04:07:19 -0000
+
+--047d7bb040c6e81a4a05440f2b1f
+Content-Type: text/plain; charset=UTF-8
+
+Hi,
+Thanks all for the feedback; Further reimplementation of this driver will
+be handled by
+another member of my team. Please contact Nancy Yuen(yuenn@google.com) for
+any details.
+Summary of main points mentioned in the feedback were :
+  - Address Russell's errno comments
+  - Rebase per Joel's comment
+  - Research fingerprint reader support (mentioned by Greg KH)
+  - Research drivers/leds (mentioned by Arnd)
+  - Reimplement either by making an API that all devices of this type could
+use or in drivers/leds             model or the fingerprint reader model.
 
 
---=-m280VcTNT1QUo7FQD02r
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
 
-SGkgRWRkaWUsCgpPbiBGcmksIDIwMTYtMTItMTYgYXQgMTQ6MzcgLTA2MDAsIGVhamFtZXMuaWJt
-QGdtYWlsLmNvbSB3cm90ZToKPiA+IEZyb206ICJFZHdhcmQgQS4gSmFtZXMiIDxlYWphbWVzQHVz
-LmlibS5jb20+Cj4gCj4gVGhpcyBwYXRjaHNldCBhZGRzIGEgaHdtb24gZHJpdmVyIHRvIHN1cHBv
-cnQgdGhlIE9DQyAoT24tQ2hpcCBDb250cm9sbGVyKQo+IG9uIHRoZSBJQk0gUE9XRVI4IGFuZCBQ
-T1dFUjkgcHJvY2Vzc29ycywgZnJvbSBhIEJNQyAoQmFzZWJvYXJkIE1hbmFnZW1lbnQKPiBDb250
-cm9sbGVyKS4gVGhlIE9DQyBpcyBhbiBlbWJlZGRlZCBwcm9jZXNzb3IgdGhhdCBwcm92aWRlcyBy
-ZWFsIHRpbWUKPiBwb3dlciBhbmQgdGhlcm1hbCBtb25pdG9yaW5nLgo+IAo+IFRoZSBkcml2ZXIg
-cHJvdmlkZXMgYW4gaW50ZXJmYWNlIG9uIGEgQk1DIHRvIHBvbGwgT0NDIHNlbnNvciBkYXRhLCBz
-ZXQKPiB1c2VyIHBvd2VyIGNhcHMsIGFuZCBwZXJmb3JtIHNvbWUgYmFzaWMgT0NDIGVycm9yIGhh
-bmRsaW5nLiBJdCBpbnRlcmZhY2VzCj4gd2l0aCB1c2Vyc3BhY2UgdGhyb3VnaCBod21vbi4KPiAK
-PiBUaGUgZHJpdmVyIGlzIGN1cnJlbnRseSBmdW5jdGlvbmFsIG9ubHkgZm9yIHRoZSBPQ0Mgb24g
-UE9XRVI4IGNoaXBzLgo+IENvbW11bmljYXRpbmcgd2l0aCB0aGUgUE9XRVI5IE9DQyByZXF1cmll
-cyBGU0kgc3VwcG9ydC4KPiAKPiBFZHdhcmQgQS4gSmFtZXMgKDcpOgo+IMKgIGh3bW9uOiBBZGQg
-Y29yZSBPbi1DaGlwIENvbnRyb2xsZXIgc3VwcG9ydCBmb3IgUE9XRVIgQ1BVcwo+IMKgIGh3bW9u
-OiBvY2M6IEFkZCBzeXNmcyBpbnRlcmZhY2UKPiDCoCBod21vbjogb2NjOiBBZGQgSTJDIHRyYW5z
-cG9ydCBpbXBsZW1lbnRhdGlvbiBmb3IgU0NPTSBvcGVyYXRpb25zCj4gwqAgaHdtb246IG9jYzog
-QWRkIGNhbGxiYWNrcyBmb3IgcGFyc2luZyBQOCBPQ0MgZGF0YXN0cnVjdHVyZXMKPiDCoCBod21v
-bjogb2NjOiBBZGQgaHdtb24gaW1wbGVtZW50YXRpb24gZm9yIHRoZSBQOCBPQ0MKPiDCoCBhcm06
-IGFzcGVlZDogZHRzOiBBZGQgSTJDIFBPV0VSOCBPQ0MgY29tcGF0aWJsZSBzdHJpbmcKPiDCoCBo
-d21vbjogb2NjOiBBZGQgY2FsbGJhY2tzIGZvciBwYXJzaW5nIFA5IE9DQyBkYXRhc3RydWN0dXJl
-cwoKSSdtIGhhcHB5IHdpdGggaG93IHRoZXNlIGFyZSBsb29raW5nLiBJIHRoaW5rIGl0J3MgdGlt
-ZSB0byBzZW5kIHRoZQpuZXh0IHNlcmllcyB1cHN0cmVhbSBvbmNlIHlvdSd2ZSBhZGRyZXNzZWQg
-dGhlIGlzc3VlcyBpbiB3aGF0IGhlcmUgaXMKdjcuCgpXaGVuIHNlbmRpbmcgdXBzdHJlYW0sIHBs
-ZWFzZSByZXNldCB0aGUgcmVyb2xsLWNvdW50IHRvIDAgYXMgdXBzdHJlYW0KaGF2ZW4ndCB5ZXQg
-cGFydGljaXBhdGVkIGluIHRoZSByZXZpZXdzIHNvIGl0IG1ha2VzIG5vIHNlbnNlIGZvciB0aGVt
-CnRvIHNlZSB0aGUgcGF0Y2hlcyBhcyBhICJ2OCIgb2YgdGhlIHNlcmllcy4KCkFsc28sIHBsZWFz
-ZSBtYWtlIHN1cmUgdG8gQ2MgSm9lbCBhbmQgbXlzZWxmLCB0aG91Z2ggSSBzdXNwZWN0IGBnaXQK
-c2VuZC1lbWFpbGAgd2lsbCBhdXRvbWF0aWNhbGx5IGFkZCBtZSBhcyBJIGFwcGVhciBpbiB0aGUg
-dGFncy4gSSBkb24ndAprbm93IGlmIFlpJ3MgaW50ZXJlc3RlZCBpbiBiZWluZyBDYydlZCBnaXZl
-biBoZSBhdXRob3JlZCB0aGUgb3JpZ2luYWwKZHJpdmVyLCBtYXliZSBhc2sgaGltLgoKRmluYWxs
-eSwgaXQncyBnb29kIGZvcm0gdG8gdGhyZWFkIHRoZSBwYXRjaGVzIHVuZGVyIHRoZSBjb3ZlciBs
-ZXR0ZXIuClRoaXMgbWFrZXMgdGhlIG1haWwgZWFzeSB0byBmaW5kIGFuZCBoaWRlIGluIHBlb3Bs
-ZSdzIGluYm94ZXMuIEkndmUKbWVudGlvbmVkIHRoaXMgc2V2ZXJhbCB0aW1lcyBidXQgaXQgaGFz
-IHJlY2VpdmVkIG5vIGF0dGVudGlvbiwgYnV0CipwbGVhc2UqIHNvcnQgaXQgb3V0IGJlZm9yZSB5
-b3Ugc2VuZCB0aGUgcGF0Y2hlcyB1cHN0cmVhbS4gRmVlbCBmcmVlIHRvCnVzZSBteSBhZGRyZXNz
-IGFzIGEgdGVzdGluZyBncm91bmQuCgpUaGFua3MgZm9yIHB1dHRpbmcgaW4gdGhlIGVmZm9ydCB0
-byBnZXQgdGhpcyBjb2RlIGNsZWFuZWQgdXAuCgpBbmRyZXcKCj4gCj4gwqAuLi4vZGV2aWNldHJl
-ZS9iaW5kaW5ncy9pMmMvaTJjLWlibS1vY2MudHh0wqDCoMKgwqDCoMKgwqDCoHzCoMKgMTMgKwo+
-IMKgRG9jdW1lbnRhdGlvbi9od21vbi9vY2PCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHwgMTAwICsrKysKPiDCoGFyY2gvYXJtL2Jvb3QvZHRz
-L2FzcGVlZC1ibWMtb3BwLXBhbG1ldHRvLmR0c8KgwqDCoMKgwqDCoHzCoMKgwqA5ICsKPiDCoGRy
-aXZlcnMvaHdtb24vS2NvbmZpZ8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoHzCoMKgwqAyICsKPiDCoGRyaXZlcnMvaHdtb24vTWFrZWZp
-bGXCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgfMKgwqDCoDEgKwo+IMKgZHJpdmVycy9od21vbi9vY2MvS2NvbmZpZ8KgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqB8wqDCoDI5ICsrCj4gwqBkcml2
-ZXJzL2h3bW9uL29jYy9NYWtlZmlsZcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgfMKgwqDCoDIgKwo+IMKgZHJpdmVycy9od21vbi9vY2Mvb2NjLmPCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHwgNTE5
-ICsrKysrKysrKysrKysrKysrKysrKwo+IMKgZHJpdmVycy9od21vbi9vY2Mvb2NjLmjCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHzCoMKgODYg
-KysrKwo+IMKgZHJpdmVycy9od21vbi9vY2Mvb2NjX3A4LmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHwgMjE3ICsrKysrKysrKwo+IMKgZHJpdmVycy9o
-d21vbi9vY2Mvb2NjX3A4LmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoHzCoMKgMzAgKysKPiDCoGRyaXZlcnMvaHdtb24vb2NjL29jY19wOF9pMmMuY8Kg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHwgMTQxICsrKysrKwo+IMKg
-ZHJpdmVycy9od21vbi9vY2Mvb2NjX3A5LmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoHwgMjQzICsrKysrKysrKysKPiDCoGRyaXZlcnMvaHdtb24vb2Nj
-L29jY19wOS5owqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqB8wqDCoDMwICsrCj4gwqBkcml2ZXJzL2h3bW9uL29jYy9vY2Nfc2NvbV9pMmMuY8KgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgfMKgwqA2NyArKysKPiDCoGRyaXZlcnMvaHdt
-b24vb2NjL29jY19zY29tX2kyYy5owqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqB8wqDCoDI2ICsrCj4gwqBkcml2ZXJzL2h3bW9uL29jYy9vY2Nfc3lzZnMuY8KgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgfCA0OTIgKysrKysrKysrKysrKysrKysr
-Kwo+IMKgZHJpdmVycy9od21vbi9vY2Mvb2NjX3N5c2ZzLmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoHzCoMKgNTIgKysrCj4gwqBkcml2ZXJzL2h3bW9uL29jYy9z
-Y29tLmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqB8wqDCoDQ4ICsrCj4gwqAxOSBmaWxlcyBjaGFuZ2VkLCAyMTA3IGluc2VydGlvbnMoKykKPiDC
-oGNyZWF0ZSBtb2RlIDEwMDY0NCBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvaTJj
-L2kyYy1pYm0tb2NjLnR4dAo+IMKgY3JlYXRlIG1vZGUgMTAwNjQ0IERvY3VtZW50YXRpb24vaHdt
-b24vb2NjCj4gwqBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9od21vbi9vY2MvS2NvbmZpZwo+
-IMKgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvaHdtb24vb2NjL01ha2VmaWxlCj4gwqBjcmVh
-dGUgbW9kZSAxMDA2NDQgZHJpdmVycy9od21vbi9vY2Mvb2NjLmMKPiDCoGNyZWF0ZSBtb2RlIDEw
-MDY0NCBkcml2ZXJzL2h3bW9uL29jYy9vY2MuaAo+IMKgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZl
-cnMvaHdtb24vb2NjL29jY19wOC5jCj4gwqBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9od21v
-bi9vY2Mvb2NjX3A4LmgKPiDCoGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2h3bW9uL29jYy9v
-Y2NfcDhfaTJjLmMKPiDCoGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2h3bW9uL29jYy9vY2Nf
-cDkuYwo+IMKgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvaHdtb24vb2NjL29jY19wOS5oCj4g
-wqBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9od21vbi9vY2Mvb2NjX3Njb21faTJjLmMKPiDC
-oGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2h3bW9uL29jYy9vY2Nfc2NvbV9pMmMuaAo+IMKg
-Y3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvaHdtb24vb2NjL29jY19zeXNmcy5jCj4gwqBjcmVh
-dGUgbW9kZSAxMDA2NDQgZHJpdmVycy9od21vbi9vY2Mvb2NjX3N5c2ZzLmgKPiDCoGNyZWF0ZSBt
-b2RlIDEwMDY0NCBkcml2ZXJzL2h3bW9uL29jYy9zY29tLmgKPiA=
+On Wed, Dec 14, 2016 at 12:05 PM, David Daney <ddaney.cavm@gmail.com> wrote:
 
+> On 12/14/2016 06:15 AM, Arnd Bergmann wrote:
+>
+>> On Wednesday, December 14, 2016 2:12:41 PM CET Neil Armstrong wrote:
+>>
+>>> On 12/14/2016 01:56 PM, Greg KH wrote:
+>>>
+>>>> On Wed, Dec 14, 2016 at 01:45:30PM +0100, Thomas Petazzoni wrote:
+>>>>
+>>>>> Hello,
+>>>>>
+>>>>> On Tue, 13 Dec 2016 23:55:00 -0800, Jaghathiswari Rankappagounder
+>>>>> Natarajan wrote:
+>>>>>
+>>>>> Documentation for the binding which provides an interface for adding
+>>>>>> clock,
+>>>>>> data and clear signal GPIO lines to control seven segment display.
+>>>>>>
+>>>>>> The platform device driver provides an API for displaying on two
+>>>>>> 7-segment
+>>>>>> displays, and implements the required bit-banging. The hardware
+>>>>>> assumed is
+>>>>>> 74HC164 wired to two 7-segment displays.
+>>>>>>
+>>>>>> The character device driver implements the user-space API for letting
+>>>>>> a user
+>>>>>> write to two 7-segment displays including any conversion methods
+>>>>>> necessary
+>>>>>> to map the user input to two 7-segment displays.
+>>>>>>
+>>>>>> Adding clock, data and clear signal GPIO lines in the devicetree to
+>>>>>> control
+>>>>>> seven segment display on zaius platform.
+>>>>>>
+>>>>>> The platform driver matches on the device tree node; the platform
+>>>>>> driver also
+>>>>>> initializes the character device.
+>>>>>>
+>>>>>> Tested that the seven segment display works properly by writing to the
+>>>>>> character device file on a EVB AST2500 board which also has 74HC164
+>>>>>> wired
+>>>>>> to two 7-segment displays.
+>>>>>>
+>>>>>
+>>>>> FWIW, I proposed a driver for seven segment displays back in 2013:
+>>>>>
+>>>>>    http://lists.infradead.org/pipermail/linux-arm-kernel/2013-
+>>>>> January/139986.html
+>>>>>
+>>>>> And the feedback from Greg KH was: we don't need a driver for that, do
+>>>>> it from userspace. See:
+>>>>>
+>>>>>    http://lists.infradead.org/pipermail/linux-arm-kernel/2013-
+>>>>> January/139992.html
+>>>>>
+>>>>> So: good luck
+>>>>>
+>>>>
+>>>> Did anyone ever write a library for this type of thing?
+>>>>
+>>>> Again, I don't want to see one-off drivers for random devices like this
+>>>> that should be able to all be controlled from userspace in a common
+>>>> manner.  Much like we did for fingerprint readers a long long time
+>>>> ago...
+>>>>
+>>>>
+>> Actually, it's more than a random interface, a lot of SoCs and boards
+>>> actually have such displays
+>>> and it's a pity to use UIO, sysfs gpio bitbanging and all sort of ugly
+>>> stuff to only print a few
+>>> characters a simple and clean driver could achieve.
+>>> Some very well known SoCs even have integrated registers to lower the
+>>> BOM and bypass the need for
+>>> a 74HC164 like component and avoid gpio bit banging.
+>>>
+>>> My personal concern is that you could also need to drive more segments,
+>>> thus 7-segments
+>>> is too restrictive.
+>>>
+>>> But this driver is well structured, the gpio-bitbanging sub-driver is
+>>> welcome.
+>>>
+>>
+>> Maybe we can find a way to fit this into the existing drivers/leds/
+>> subsystem?
+>>
+>> That already supports blinking, brightness and colour attributes of LEDs,
+>> so could this be extended to support (one of) digit, number, character
+>> or string with a common sysfs attribute and a way to hook up a led driver
+>> to that?
+>>
+>
+> We have a lot of boards with an 8-cell dot matrix LED. Each cell is
+> programmed with an 8-bit value.  The mapping of these values to the dots
+> defaults to ASCII character rendering, but there is the facility to install
+> other bitmaps as well.
+>
+> Really I view these things not as part of the LED subsystem, but more as a
+> very small frame buffer.
+>
+> We like to display entire words, and the most useful interface from a user
+> point of view is something that consumes entire strings rather than having
+> to manage each cell independently.
+>
+> You could imagine that if the text to be displayed were longer than the
+> display, that the driver would make it continuously scroll.  I would like
+> to see a framework where a simple character device were exposed, and from
+> userspace you could do: "echo message > /dev/small-display" and get
+> something sensible.
+>
+>
+>>         Arnd
+>>
+>> _______________________________________________
+>> linux-arm-kernel mailing list
+>> linux-arm-kernel@lists.infradead.org
+>> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
+>>
+>>
+>
 
---=-m280VcTNT1QUo7FQD02r
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+--047d7bb040c6e81a4a05440f2b1f
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP SIGNATURE-----
+<div dir=3D"ltr">Hi,<div>Thanks all for the feedback; Further reimplementat=
+ion of this driver will be handled by</div><div>another member of my team. =
+Please contact Nancy Yuen(<a href=3D"mailto:yuenn@google.com">yuenn@google.=
+com</a>) for any details.</div><div>Summary of main points mentioned in the=
+ feedback were :</div><div><span style=3D"font-size:12.8px">=C2=A0 - Addres=
+s=C2=A0</span><span style=3D"font-size:12.8px">Russell&#39;s=C2=A0</span><s=
+pan style=3D"font-size:12.8px">errno comments</span></div><div><span style=
+=3D"font-size:12.8px">=C2=A0 - Rebase per Joel&#39;s comment</span></div><d=
+iv><span style=3D"font-size:12.8px">=C2=A0 - Research fingerprint reader su=
+pport (mentioned by Greg KH)</span><br style=3D"font-size:12.8px"><span sty=
+le=3D"font-size:12.8px">=C2=A0 - Research drivers/leds (mentioned by Arnd)<=
+/span><br style=3D"font-size:12.8px"><span style=3D"font-size:12.8px">=C2=
+=A0 - Reimplement either by</span><span style=3D"font-size:12.8px">=C2=A0ma=
+king an API that all devices of this type could use or in=C2=A0</span><span=
+ style=3D"font-size:12.8px">drivers/leds =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 model or the fingerprint reader model.</span></div><div><br></div><=
+div><span style=3D"font-size:12.8px"><br></span></div></div><div class=3D"g=
+mail_extra"><br><div class=3D"gmail_quote">On Wed, Dec 14, 2016 at 12:05 PM=
+, David Daney <span dir=3D"ltr">&lt;<a href=3D"mailto:ddaney.cavm@gmail.com=
+" target=3D"_blank">ddaney.cavm@gmail.com</a>&gt;</span> wrote:<br><blockqu=
+ote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc s=
+olid;padding-left:1ex"><div class=3D"HOEnZb"><div class=3D"h5">On 12/14/201=
+6 06:15 AM, Arnd Bergmann wrote:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+On Wednesday, December 14, 2016 2:12:41 PM CET Neil Armstrong wrote:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+On 12/14/2016 01:56 PM, Greg KH wrote:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+On Wed, Dec 14, 2016 at 01:45:30PM +0100, Thomas Petazzoni wrote:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+Hello,<br>
+<br>
+On Tue, 13 Dec 2016 23:55:00 -0800, Jaghathiswari Rankappagounder<br>
+Natarajan wrote:<br>
+<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+Documentation for the binding which provides an interface for adding clock,=
+<br>
+data and clear signal GPIO lines to control seven segment display.<br>
+<br>
+The platform device driver provides an API for displaying on two 7-segment<=
+br>
+displays, and implements the required bit-banging. The hardware assumed is<=
+br>
+74HC164 wired to two 7-segment displays.<br>
+<br>
+The character device driver implements the user-space API for letting a use=
+r<br>
+write to two 7-segment displays including any conversion methods necessary<=
+br>
+to map the user input to two 7-segment displays.<br>
+<br>
+Adding clock, data and clear signal GPIO lines in the devicetree to control=
+<br>
+seven segment display on zaius platform.<br>
+<br>
+The platform driver matches on the device tree node; the platform driver al=
+so<br>
+initializes the character device.<br>
+<br>
+Tested that the seven segment display works properly by writing to the<br>
+character device file on a EVB AST2500 board which also has 74HC164 wired<b=
+r>
+to two 7-segment displays.<br>
+</blockquote>
+<br>
+FWIW, I proposed a driver for seven segment displays back in 2013:<br>
+<br>
+=C2=A0 =C2=A0<a href=3D"http://lists.infradead.org/pipermail/linux-arm-kern=
+el/2013-January/139986.html" rel=3D"noreferrer" target=3D"_blank">http://li=
+sts.infradead.org/pi<wbr>permail/linux-arm-kernel/2013-<wbr>January/139986.=
+html</a><br>
+<br>
+And the feedback from Greg KH was: we don&#39;t need a driver for that, do<=
+br>
+it from userspace. See:<br>
+<br>
+=C2=A0 =C2=A0<a href=3D"http://lists.infradead.org/pipermail/linux-arm-kern=
+el/2013-January/139992.html" rel=3D"noreferrer" target=3D"_blank">http://li=
+sts.infradead.org/pi<wbr>permail/linux-arm-kernel/2013-<wbr>January/139992.=
+html</a><br>
+<br>
+So: good luck<br>
+</blockquote>
+<br>
+Did anyone ever write a library for this type of thing?<br>
+<br>
+Again, I don&#39;t want to see one-off drivers for random devices like this=
+<br>
+that should be able to all be controlled from userspace in a common<br>
+manner.=C2=A0 Much like we did for fingerprint readers a long long time<br>
+ago...<br>
+<br>
+</blockquote></blockquote>
+<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+Actually, it&#39;s more than a random interface, a lot of SoCs and boards a=
+ctually have such displays<br>
+and it&#39;s a pity to use UIO, sysfs gpio bitbanging and all sort of ugly =
+stuff to only print a few<br>
+characters a simple and clean driver could achieve.<br>
+Some very well known SoCs even have integrated registers to lower the BOM a=
+nd bypass the need for<br>
+a 74HC164 like component and avoid gpio bit banging.<br>
+<br>
+My personal concern is that you could also need to drive more segments, thu=
+s 7-segments<br>
+is too restrictive.<br>
+<br>
+But this driver is well structured, the gpio-bitbanging sub-driver is welco=
+me.<br>
+</blockquote>
+<br>
+Maybe we can find a way to fit this into the existing drivers/leds/ subsyst=
+em?<br>
+<br>
+That already supports blinking, brightness and colour attributes of LEDs,<b=
+r>
+so could this be extended to support (one of) digit, number, character<br>
+or string with a common sysfs attribute and a way to hook up a led driver<b=
+r>
+to that?<br>
+</blockquote>
+<br></div></div>
+We have a lot of boards with an 8-cell dot matrix LED. Each cell is program=
+med with an 8-bit value.=C2=A0 The mapping of these values to the dots defa=
+ults to ASCII character rendering, but there is the facility to install oth=
+er bitmaps as well.<br>
+<br>
+Really I view these things not as part of the LED subsystem, but more as a =
+very small frame buffer.<br>
+<br>
+We like to display entire words, and the most useful interface from a user =
+point of view is something that consumes entire strings rather than having =
+to manage each cell independently.<br>
+<br>
+You could imagine that if the text to be displayed were longer than the dis=
+play, that the driver would make it continuously scroll.=C2=A0 I would like=
+ to see a framework where a simple character device were exposed, and from =
+userspace you could do: &quot;echo message &gt; /dev/small-display&quot; an=
+d get something sensible.<br>
+<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 Arnd<br>
+<br>
+______________________________<wbr>_________________<br>
+linux-arm-kernel mailing list<br>
+<a href=3D"mailto:linux-arm-kernel@lists.infradead.org" target=3D"_blank">l=
+inux-arm-kernel@lists.infrade<wbr>ad.org</a><br>
+<a href=3D"http://lists.infradead.org/mailman/listinfo/linux-arm-kernel" re=
+l=3D"noreferrer" target=3D"_blank">http://lists.infradead.org/mai<wbr>lman/=
+listinfo/linux-arm-kernel</a><br>
+<br>
+</blockquote>
+<br>
+</blockquote></div><br></div>
 
-iQIcBAABCgAGBQJYWIV+AAoJEJ0dnzgO5LT5Ne4P/0chZvVTFWFEizajEjyn0W80
-MyrrLQ0Us550QGx4R0pXVNPsXXPEnUlgR6wIpAhUKt/O0jexp3zZpX2gyE5sz725
-k9a4AycghSmPRVrYw2q+GRpogFrvp80aiFyuGSuFfk2Fezkytyqrs2qVFZSDlH71
-Rrh4Jes4NJc2clP4e3aPXC0c2EerFcvmol8vClzwYzS+p0yLu59JIkCuqgcJt4cQ
-me04R1EqNQTnt7SBvUUY3cSFoGFRvcIZguQKZhIQzd8Irop9lz2o7Jpt+VSfa95Y
-aXgCMt0M65+38jwqdnaMTRPynyuRrmHscaXv62YEjWEtaEFgdEuesA7iA2Ub27l4
-MVjjbeRpOqUuahRCVTJOVYGbRcZN0pBlUyn41nqqO0MKO+vH8Oy820mqIQCCb6lh
-md8VrmYbYC2BK7tOUWLn14mnWytMPB/zrnPLGeavTZ3Hcl1fOKnudoQOMr5YADBq
-UDSzabwNNtPMsAhWsrsgY5xPNeyZkhDEIjOUCfu6/k3+qnZAAYGAfWuY9YApPDxB
-vk+wMWws3AZIlRgnOD8qJoRis2kEs3FOueEh5UOEvMnFjmDcuFWHTmpGGNzNNzLg
-7lKcmyG0JIuKEuhNX3wB82QDGLqqIegPr98KSuhxzJf6RJdbDPUrJJm7HV1yw/fx
-YPnS0RVitc1VPqTNFHhE
-=aPBW
------END PGP SIGNATURE-----
-
---=-m280VcTNT1QUo7FQD02r--
+--047d7bb040c6e81a4a05440f2b1f--
