@@ -1,53 +1,55 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x243.google.com (mail-ua0-x243.google.com
- [IPv6:2607:f8b0:400c:c08::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tjH0y1447zDwcn
- for <openbmc@lists.ozlabs.org>; Tue, 20 Dec 2016 10:18:58 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z+HkfkOW"; 
- dkim-atps=neutral
-Received: by mail-ua0-x243.google.com with SMTP id 50so13285873uae.2
- for <openbmc@lists.ozlabs.org>; Mon, 19 Dec 2016 15:18:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=UpiWJJ35v3lo9RpwvbLUjirEVK1pMcaMGrciq7qkR4I=;
- b=Z+HkfkOWey/VHIjlTcKPdcErvuPUMIn9SGwlvuePqpqnygEUiftSg48ZkS6aVporzW
- uyMKsKq1f6BuMYIcuSRAp8IxbHnbYt6G/EtTljsYFJvhlSzkgvTtmMX+IvEnpWB/51EF
- 4d8qOR/gVOpIvLGv9Kz+OUKheTKgBUB2hJcax2Rrn6kQpEX0j9RHV3E23VfOEzHDGjoH
- sGxucfrfRkPADrbIOal6eIjDDP0xX1+H7bJtYQA/E6X7vWiDVU8dlf1DpLzkrQ/CGeOp
- 42iOBkvcm0K651QHxbqhQl9o+AQZD9tL94KXOKcGyJpGKStHjsV2VuJOS8U/Qg0wEKAh
- DRAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=UpiWJJ35v3lo9RpwvbLUjirEVK1pMcaMGrciq7qkR4I=;
- b=eOgu3LXO0yHA9lDLZ/HcZE1L2BJQdmw0fv3i3rktCanpC5atP10Hy3iFHbQTWn5CmD
- I4OrNjVzybOpukT+7pGEB3xe/tpiUXkX3PQ0hSmj7d1gGAz17wuzFtZ+poghl8Bkci3S
- ZDo/PVXG3mcc0ZHHwGwp4sz8RZvNCXnTLY4hmDtrFGkcayZloRXKM/V/SPPvTr1bQezL
- TmYCOoGUfVEI8+n9w/7dYrbuwrmwBd3W8O1kDUG1u8/JRTRUPIIdh1wUV0hqIYkhsoWM
- oz5aQPH8Bb7FAK29nSFnGHf02PP+MUTRBJ7GQ1kVWRywfdHoWDG3fDI8qE3Pw9pYUx3G
- o7hA==
-X-Gm-Message-State: AIkVDXJm3ZL4R0BG85mSznY+V8v5uGtjc41gPhf35ZSnMwKK1dRj8f162uo6pIJEQcOl1w5ZqWsxOdFf5YcCAQ==
-X-Received: by 10.159.50.138 with SMTP id l10mr12600568uab.166.1482189534651; 
- Mon, 19 Dec 2016 15:18:54 -0800 (PST)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.159.48.91 with HTTP; Mon, 19 Dec 2016 15:18:34 -0800 (PST)
-In-Reply-To: <OFAB060B32.380FD18C-ON0025808E.003FDC40-0025808E.00405F91@notes.na.collabserv.com>
-References: <OFAB060B32.380FD18C-ON0025808E.003FDC40-0025808E.00405F91@notes.na.collabserv.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 20 Dec 2016 09:48:34 +1030
-X-Google-Sender-Auth: mtJKJjSJTPmv9KvJtwaFv7qbkC0
-Message-ID: <CACPK8XcryOVx-ch3ffVRUvwU6cXLSBGDu8_CS6wmoixjt=700w@mail.gmail.com>
-Subject: Re: about fsp2 board
-To: Ivan Mikhaylov1 <ivan@de.ibm.com>, Alistair Popple <alistair@popple.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Karlo Petri <XXPETRI@de.ibm.com>, Bradley W Bishop <bradleyb@us.ibm.com>
-Content-Type: text/plain; charset=UTF-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tjJ2z5hchzDwQh
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Dec 2016 11:05:47 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="V0RPR6va"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="StKRmJ48"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id C938720887;
+ Mon, 19 Dec 2016 19:05:43 -0500 (EST)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Mon, 19 Dec 2016 19:05:43 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=mesmtp; bh=YTkgdCQud0fVlcIew1hA5AKIlTo=; b=V0RPR6
+ va6wUlhwHWg/yw02TWLRaVyQcu5ZVGs9VIoA82fDOy/Hg9imG/iW35YbDf+aosQo
+ /P8D5JTENIDsALmcsktuVUEOZJY9U/DJ32BEgJo4LXBto67/mz8/qYvKiZa5nVzq
+ 1cm6kDtLq9Wl3jw9TTCxldeGd6Z/7yeYu8tTE=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=YTkgdCQud0fVlc
+ Iew1hA5AKIlTo=; b=StKRmJ48kXtHAHH06LUXe39H8QFwN1TWLTXgxqiTtFEtrT
+ CmxwmAu+t5eJNP0P/m/9HMDargjKbd5gMzGSyVf+bE0tpfQHoVNTOKQXLdHQ2f2g
+ BkL6DcIhQ3+gBi64IK7gCMevMzkPi5ifCjYQT/vTtRw4mDIRqn0dkjNcBVdqM=
+X-ME-Sender: <xms:13VYWE1AjLCmdLV8lZuc95-pBgfBwmaduXvOlAuswUiNMtWhTARrCg>
+X-Sasl-enc: KxbobHOzyAiVF620W7zZOLgJzh3psyP/jyumkycdBbS3 1482192343
+Received: from [10.104.0.15] (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id D76E124447;
+ Mon, 19 Dec 2016 19:05:41 -0500 (EST)
+Message-ID: <1482192336.3419.6.camel@aj.id.au>
+Subject: Re: [PATCH linux 1/7] hwmon: Add core On-Chip Controller support
+ for POWER CPUs
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Eddie James <eajames.ibm@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley
+ <joel@jms.id.au>,  "Edward A. James" <eajames@us.ibm.com>
+Date: Tue, 20 Dec 2016 10:35:36 +1030
+In-Reply-To: <CALpMbdmje6ofrDpn1j_ZDB1mJ6j9vVt+Bhe7x-DLQG_s3wB6FA@mail.gmail.com>
+References: <1481920475-6638-1-git-send-email-eajames.ibm@gmail.com>
+ <1482127573.3419.4.camel@aj.id.au>
+ <CALpMbdmje6ofrDpn1j_ZDB1mJ6j9vVt+Bhe7x-DLQG_s3wB6FA@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-PmOU60Gr317m8Ye3EEfQ"
+X-Mailer: Evolution 3.22.1-0ubuntu2 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,40 +61,161 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Dec 2016 23:18:58 -0000
+X-List-Received-Date: Tue, 20 Dec 2016 00:05:49 -0000
 
-Hello Ivan,
 
-On Mon, Dec 19, 2016 at 10:13 PM, Ivan Mikhaylov1 <ivan@de.ibm.com> wrote:
-> Hello everyone, so probably everyone knows about fsp2 board existence that
-> is still using in P and Z systems, what we wanna do in case of Z series, we
-> want to do same way as P doing right now with ast2400/2500. So we want to
-> port fsp2 board into upstream kernel and be a part of openbmc project.
-> Until now I'm just started to work with it. So if you see any things/thougts
-> which we have to talk, pls tell us...
+--=-PmOU60Gr317m8Ye3EEfQ
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-Getting your kernel and u-boot patches upstream is something I support.
+SGkgRWRkaWUsCgpPbiBNb24sIDIwMTYtMTItMTkgYXQgMTc6MDUgLTA2MDAsIEVkZGllIEphbWVz
+IHdyb3RlOgouLi4KPiA+ID4gKwo+ID4gPiArc3RhdGljIGludCBwYXJzZV9vY2NfcmVzcG9uc2Uo
+c3RydWN0IG9jYyAqZHJpdmVyLCB1OCAqZGF0YSwKPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBzdHJ1Y3Qgb2NjX3Jlc3BvbnNlICpyZXNw
+KQo+ID4gPiAKPiA+ID4gK3sKPiA+ID4gPiArwqDCoMKgaW50IGI7Cj4gPiA+ID4gK8KgwqDCoGlu
+dCBzOwo+ID4gPiA+ICvCoMKgwqBpbnQgcmM7Cj4gPiA+ID4gK8KgwqDCoGludCBvZmZzZXQgPSBT
+RU5TT1JfQkxPQ0tfT0ZGU0VUOwo+ID4gPiA+ICvCoMKgwqBpbnQgc2Vuc29yX3R5cGU7Cj4gPiA+
+ID4gK8KgwqDCoHU4IHNlbnNvcl9ibG9ja19udW07Cj4gPiA+IAo+ID4gPiArwqDCoMKgwqDCoGNo
+YXIgc2Vuc29yX3R5cGVfc3RyaW5nWzVdID0geyAwIH07Cj4gPiAKPiA+IEdpdmVuIGhvdyB5b3Ug
+cmVhcnJhbmdlZCB0aGluZ3MgYmVsb3csIGRvIHlvdSB0aGluayB3ZSBjYW4gZ2V0IGF3YXkKPiA+
+IHdpdGggcmVtb3Zpbmcgc2Vuc29yX3R5cGVfc3RyaW5nPyBBbHNvLCBzdHJ1Y3Qgc2Vuc29yX2Rh
+dGFfYmxvY2tfdHlwZQo+ID4gZGVmaW5lcyBzZW5zb3JfdHlwZSBhcyBhIGNoYXIgKiB0aGF0IGNh
+bid0IGJlIG51bGwtdGVybWluYXRlZCBhcyBpdHMKPiA+IHNpemUgaXMgNCwgd2hpY2ggc3RpbGwg
+bWFrZXMgbWUgZmVlbCB1bmNvbWZvcnRhYmxlLiBXaGF0IGFyZSB5b3VyCj4gPiB0aG91Z2h0cyBo
+ZXJlPwo+IAo+IFRoZSBpZGVhIG9mIHNlbnNvcl90eXBlX3N0cmluZyB3YXMgdG8gaGF2ZSBhIG51
+bGwtdGVybWluYXRlZCBzdHJpbmcKPiB0aGF0IEkgY291bGQgdXNlIGluIHRoZSBkZWJ1ZyBzdGF0
+ZW1lbnRzIGJlbG93LiBzZW5zb3JfdHlwZSBpcwo+IHJlc3RyaWN0ZWQgdG8gNCBjaGFycyBiZWNh
+dXNlIHRoYXQncyBob3cgaXRzJyBmb3JtYXR0ZWQgaW4gdGhlIE9DQwo+IGRhdGEgYmxvY2suIEFu
+eXdoZXJlIEkgdXNlIHNlbnNvcl90eXBlIEkgdXNlIHRoZSBsZW5ndGgtbGltaXRlZCBzdHJpbmcK
+PiBmdW5jdGlvbiwgc3VjaCBhcyBzdHJuY21wIG9yIHRoZSBsaWtlLCBhbmQgcmVzdHJpY3QgaXQg
+dG8gNCBjaGFycy4gSQo+IGZlZWwgdGhpcyBpcyBhbiBhY2NlcHRhYmxlIHNvbHV0aW9uLCBidXQg
+eW91J3JlIHJpZ2h0LAo+IHNlbnNvcl90eXBlX3N0cmluZyBpc24ndCBzdHJpY3RseSBuZWNlc3Nh
+cnksIGp1c3QgdXNlZnVsIHRvIGJlIGFibGUgdG8KPiBwcmludCB0aGF0IG91dC4KCk9rYXksIEkn
+bSBoYXBweSB3aXRoIHRoYXQuCgo+IAo+ID4gPiArCj4gPiA+ICtzdGF0aWMgdTggb2NjX3NlbmRf
+Y21kKHN0cnVjdCBvY2MgKmRyaXZlciwgdTggc2VxLCB1OCB0eXBlLCB1MTYKPiA+ID4gbGVuZ3Ro
+LAo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqB1OCAqZGF0YSwg
+dTggKnJlc3ApCj4gPiA+IAo+ID4gPiArewo+ID4gPiA+ICvCoMKgwqB1MzIgY21kMSwgY21kMjsK
+PiA+ID4gPiArwqDCoMKgdTE2IGNoZWNrc3VtID0gMDsKPiA+ID4gPiArwqDCoMKgdTE2IGxlbmd0
+aF9iZSA9IGNwdV90b19iZTE2KGxlbmd0aCk7Cj4gPiA+ID4gK8KgwqDCoGludCBpLCByYywgdHJp
+ZXMgPSAwOwo+ID4gPiAKPiA+ID4gK8KgwqDCoMKgwqBjb25zdCBpbnQgbWF4X3RyaWVzID0gKE9D
+Q19CTUNfVElNRU9VVF9TICogMTAwMCkgLwo+ID4gPiBDTURfSU5fUFJHX0lOVF9NUzsKPiA+IAo+
+ID4gSSBleHBlY3Qgd2Ugc2hvdWxkIGp1c3QgI2RlZmluZSB0aGUgZXhwcmVzc2lvbj8KPiA+IAo+
+ID4gPiArCj4gPiA+ID4gK8KgwqDCoGNtZDEgPSAoc2VxIDw8IDI0KSB8ICh0eXBlIDw8IDE2KSB8
+IGxlbmd0aF9iZTsKPiA+ID4gPiArwqDCoMKgbWVtY3B5KCZjbWQyLCBkYXRhLCBsZW5ndGgpOwo+
+ID4gPiA+ICvCoMKgwqBjbWQyIDw8PSAoKDQgLSBsZW5ndGgpICogOCk7Cj4gPiA+IAo+ID4gPiAr
+Cj4gPiA+ID4gK8KgwqDCoC8qIGNoZWNrc3VtOiBzdW0gb2YgZXZlcnkgYnl0ZXMgb2YgY21kMSwg
+Y21kMiAqLwo+ID4gPiA+ICvCoMKgwqBmb3IgKGkgPSAwOyBpIDwgNDsgaSsrKSB7Cj4gPiA+ID4g
+K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqBjaGVja3N1bSArPSAoY21kMSA+PiAoaSAqIDgpKSAmIDB4
+RkY7Cj4gPiA+IAo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBjaGVja3N1bSArPSAo
+Y21kMiA+PiAoaSAqIDgpKSAmIDB4RkY7Cj4gPiAKPiA+IEkgaGF2ZSB0byBhcG9sb2dpc2UgaGVy
+ZSwgYXMgbXkgcmV2aWV3IHdhcyB3cm9uZzogQWRkaXRpb24gaXMKPiA+IGNvbW11dGF0aXZlLCBi
+dXQgbm90IHdoZW4gd2UncmUgbWFza2luZyB0aGUgcmVzdWx0ISBTbyB0aGUgb3JpZ2luYWwKPiA+
+IGFwcHJvYWNoIGlzIHByb2JhYmx5IG1vcmUgY29ycmVjdCwgYW5kIGl0IG9ubHkgb2NjdXJyZWQg
+dG8gbWUgd2hlbgo+ID4gcmVhZGluZyBvdmVyIHRoaXMgcGF0Y2guIFNvcnJ5ISBEaWQgeW91IGdl
+dCBjaGVja3N1bSBlcnJvcnMgYXMgYQo+ID4gcmVzdWx0Pwo+IAo+IE5vIHdvcnJpZXMsIEkgZGlk
+bid0IGNhdGNoIGl0IGVpdGhlciwgYnV0IEkgdGhpbmsgaXQgd29ya2VkIG91dCBPSwo+IHNpbmNl
+IHRoZSBtYXNrIGlzIHJlYWxseSBhcHBsaWVkIHRvIHRoZSBzaGlmdGVkIGNtZCwgCgpZZXMsIEkg
+dGhvdWdodCBhYm91dCB0aGlzIGZ1cnRoZXIgYWZ0ZXIgSSBzZW50IHRoZSBlbWFpbCBhbmQgSSBh
+Z3JlZS4KCj4gYnV0IEkgd2lsbCB0ZXN0Cj4gYm90aCB3YXlzIHRvIG1ha2Ugc3VyZS4uLiBUaGFu
+a3MhCj4gCj4gPiAKPiA+ID4gK8KgwqDCoMKgwqB9Cj4gPiA+ICsKPiA+ID4gPiArwqDCoMKgY21k
+MiB8PSBjaGVja3N1bSA8PCAoKDIgLSBsZW5ndGgpICogOCk7Cj4gPiA+IAo+ID4gPiArCj4gPiA+
+ID4gK8KgwqDCoC8qIEluaXQgT0NCICovCj4gPiA+ID4gK8KgwqDCoHJjID0gZHJpdmVyLT5idXNf
+b3BzLnB1dHNjb20oZHJpdmVyLT5idXMsCj4gPiA+ID4gT0NCX1NUQVRVU19DT05UUk9MX09SLAo+
+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgT0NCX09SX0lOSVQwLCBPQ0JfT1JfSU5JVDEpOwo+ID4gPiA+ICvCoMKg
+wqBpZiAocmMpCj4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqBnb3RvIGVycjsKPiA+ID4g
+Cj4gPiA+ICsKPiA+ID4gPiArwqDCoMKgcmMgPSBkcml2ZXItPmJ1c19vcHMucHV0c2NvbShkcml2
+ZXItPmJ1cywKPiA+ID4gPiBPQ0JfU1RBVFVTX0NPTlRST0xfQU5ELAo+ID4gPiA+ICvCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+T0NCX0FORF9JTklUMCwKPiA+ID4gPiBPQ0JfQU5EX0lOSVQxKTsKPiA+ID4gPiArwqDCoMKgaWYg
+KHJjKQo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgZ290byBlcnI7Cj4gPiA+IAo+ID4g
+PiArCj4gPiA+ID4gK8KgwqDCoC8qIFNlbmQgY29tbWFuZCwgMm5kIGhhbGYgb2YgdGhlIDY0LWJp
+dCBhZGRyIGlzIHVudXNlZAo+ID4gPiA+ICh3cml0ZSAwKSAqLwo+ID4gPiA+ICvCoMKgwqByYyA9
+IGRyaXZlci0+YnVzX29wcy5wdXRzY29tKGRyaXZlci0+YnVzLCBPQ0JfQUREUkVTUywKPiA+ID4g
+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoGRyaXZlci0+Y29uZmlnLmNvbW1hbmRfYWRkciwKPiA+ID4gPiAwKTsKPiA+ID4g
+PiArwqDCoMKgaWYgKHJjKQo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgZ290byBlcnI7
+Cj4gPiA+IAo+ID4gPiArCj4gPiA+ID4gK8KgwqDCoHJjID0gZHJpdmVyLT5idXNfb3BzLnB1dHNj
+b20oZHJpdmVyLT5idXMsIE9DQl9BRERSRVNTLAo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgZHJpdmVyLT5jb25m
+aWcuY29tbWFuZF9hZGRyLAo+ID4gPiA+IDApOwo+ID4gPiA+ICvCoMKgwqBpZiAocmMpCj4gPiA+
+IAo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBnb3RvIGVycjsKPiA+IAo+ID4gVGhp
+cyBjaGFuZ2UgaGlnaGxpZ2h0ZWQgdG8gbWUgdGhhdCB3ZSdyZSBzZW5kaW5nIGNvbW1hbmRfYWRk
+ciB0d2ljZSAtCj4gPiBpcyB0aGlzIG5lY2Vzc2FyeT8KPiAKPiBJJ20gbm90IHN1cmUuLi4gSSds
+bCB0ZXN0IGJvdGggd2l0aG91dCBhbmQgc2VlIGlmIGV2ZXJ5dGhpbmcgd29ya3MgT0suCj4gSSBu
+b3RpY2VkIGl0IHdhcyBzZW50IHR3aWNlLCBidXQgSSBhc3N1bWVkIFlpIGhhZCBzb21lIHJlYXNv
+biBmb3IKPiBkb2luZyBpdC4KCkkgdGhpbmsgdGhpcyB3aWxsIGJlIGEgd2luIGVpdGhlciB3YXk6
+IEVpdGhlciB3ZSByZW1vdmUgb25lLCBvciB3ZQpkb2N1bWVudCB3aHkgd2Ugc2VuZCBpdCB0d2lj
+ZS4KCj4gCj4gPiAKPiA+ID4gKwo+ID4gPiA+ICvCoMKgwqByYyA9IGRyaXZlci0+YnVzX29wcy5w
+dXRzY29tKGRyaXZlci0+YnVzLCBPQ0JfREFUQSwgY21kMSwKPiA+ID4gPiBjbWQyKTsKPiA+ID4g
+PiArwqDCoMKgaWYgKHJjKQo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgZ290byBlcnI7
+Cj4gPiA+IAo+ID4gPiArCj4gPiA+ID4gK8KgwqDCoC8qIFRyaWdnZXIgYXR0ZW50aW9uICovCj4g
+PiA+ID4gK8KgwqDCoHJjID0gZHJpdmVyLT5idXNfb3BzLnB1dHNjb20oZHJpdmVyLT5idXMsIEFU
+VE5fREFUQSwKPiA+ID4gPiBBVFROMCwgQVRUTjEpOwo+ID4gPiA+ICvCoMKgwqBpZiAocmMpCj4g
+PiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqBnb3RvIGVycjsKPiA+ID4gCj4gPiA+ICsKPiA+
+ID4gPiArwqDCoMKgLyogR2V0IHJlc3BvbnNlIGRhdGEgKi8KPiA+ID4gPiArwqDCoMKgcmMgPSBk
+cml2ZXItPmJ1c19vcHMucHV0c2NvbShkcml2ZXItPmJ1cywgT0NCX0FERFJFU1MsCj4gPiA+ID4g
+K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqBkcml2ZXItPmNvbmZpZy5yZXNwb25zZV9hZGRyLAo+ID4gPiA+IDApOwo+ID4gPiA+
+ICvCoMKgwqBpZiAocmMpCj4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqBnb3RvIGVycjsK
+PiA+ID4gCj4gPiA+ICsKPiA+ID4gPiArwqDCoMKgZG8gewo+ID4gPiA+ICvCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgcmMgPSBkcml2ZXItPmJ1c19vcHMuZ2V0c2NvbShkcml2ZXItPmJ1cywKPiA+ID4g
+PiBPQ0JfREFUQSwgcmVzcCk7Cj4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqBpZiAocmMp
+Cj4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgZ290byBlcnI7
+Cj4gPiA+IAo+ID4gPiArCj4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAvKiByZXRyeSBp
+ZiB3ZSBnZXQgImNvbW1hbmQgaW4gcHJvZ3Jlc3MiIHJldHVybgo+ID4gPiA+IHN0YXR1cyAqLwo+
+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgaWYgKHJlc3BbUkVTUF9SRVRVUk5fU1RBVFVT
+XSA9PQo+ID4gPiA+IFJFU1BfUkVUVVJOX0NNRF9JTl9QUkcpIHsKPiA+ID4gPiArwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBzZXRfY3VycmVudF9zdGF0ZShUQVNLX0lOVEVS
+UlVQVElCTEUpOwo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oHNjaGVkdWxlX3RpbWVvdXQobXNlY3NfdG9famlmZmllcyhDTURfSU5fUAo+ID4gPiA+IFJHX0lO
+VF9NUykpOwo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHRy
+aWVzKys7Cj4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqB9IGVsc2UKPiA+ID4gPiArwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBicmVhazsKPiA+ID4gCj4gPiA+ICvC
+oMKgwqDCoMKgfSB3aGlsZSAodHJpZXMgPCBtYXhfdHJpZXMpOwo+ID4gCj4gPiBJJ2xsIGJpa2Vz
+aGVkIHRoaXMgdG8gdHJ5IHNhdmUgdGhlIGJyZWFrIGFuZCBhIHRpbWVvdXQsIHdoaWNoIGlzIHJl
+YWxseQo+ID4gcGlja2luZyBhdCB0aGUgbml0cyBidXQgcmVkdWNlcyBjeWNsb21hdGljIGNvbXBs
+ZXhpdHkgYW5kIHNhdmVzIHNvbWUKPiA+IHRpbWUuIFdoYXQgZG8geW91IHRoaW5rIG9mOgo+ID4g
+Cj4gPiDCoMKgwqDCoGJvb2wgcmV0cnkgPSBmYWxzZTsKPiA+IMKgwqDCoMKgaW50IHRyaWVzID0g
+MDsKPiA+IAo+ID4gwqDCoMKgwqAuLi4KPiA+IAo+ID4gwqDCoMKgwqBkbyB7Cj4gPiDCoMKgwqDC
+oMKgwqDCoMKgaWYgKHJldHJ5KSB7Cj4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBzZXRfY3Vy
+cmVudF9zdGF0ZShUQVNLX0lOVEVSUlVQVElCTEUpOwo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgc2hlZHVsZV90aW1lb3V0KG1zZWNzX3RvX2ppZmZpZXMoQ01EX0lOX1BSR19JTlRfTVMpKTsK
+PiA+IMKgwqDCoMKgwqDCoMKgwqB9Cj4gPiAKPiA+IMKgwqDCoMKgwqDCoMKgwqByYyA9IGRyaXZl
+ci0+YnVzX29wcy5nZXRzY29tKGRyaXZlci0+YnVzLCBPQ0JfREFUQSwgcmVzcCk7Cj4gPiDCoMKg
+wqDCoMKgwqDCoMKgaWYgKHJjKQo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgZ290byBlcnI7
+Cj4gPiAKPiA+IMKgwqDCoMKgwqDCoMKgwqByZXRyeSA9IChyZXNwW1JFU1BfUkVUVVJOX1NUQVRV
+U10gPT0gUkVTUF9SRVRVUk5fQ01EX0lOX1BSRykgJiYgdHJpZXMrKyA8IG1heF90cmllcyk7Cj4g
+PiDCoMKgwqDCoH0gd2hpbGUgKHJldHJ5KTsKPiA+IAo+ID4gQXJlIHdlIG9rYXkgd2l0aCByZXR1
+cm5pbmcgUkVTUF9SRVRVUk5fQ01EX0lOX1BSRyB0byB0aGUgY2FsbGVyPwo+ID4gQmVjYXVzZSB0
+aGF0J3Mgd2hhdCBoYXBwZW5zIGluIGVpdGhlciBjYXNlIGlmIHdlIGV4Y2VlZCBtYXhfdHJpZXMu
+Cj4gCj4gTG9va3MgYSBsaXR0bGUgYml0IGNsZWFuZXIsIEknbGwgaW5jb3Jwb3JhdGUgdGhpcy4g
+QW5kIHllcywgYW55Cj4gbm9uLXplcm8gcmV0dXJuIHdpbGwgYmUgZmxhZ2dlZCBhcyBhbiBlcnJv
+ci4gSWYgd2UgdGltZW91dCBhbmQgYXJlIGFyZQo+IHN0aWxsIGdldHRpbmcgdGhlIGJ1c3kgcmVz
+cG9uc2Ugd2UgZG8gd2FudCBhbiBlcnJvci4KCkJ1dCBhICJrZXJuZWwiIGVycm9yPyBPciB0aGUg
+dmFsdWUgUkVTUF9SRVRVUk5fQ01EX0lOX1BSRz8KCkFuZHJldw==
 
-I suggest you rebase your tree on the latest upstream (v4.9), and get
-it to boot with a simple userspace.
 
-Once you have that working then I suggest we get the essential drivers
-and architecture support upstream. This list might include serial,
-irq, ethernet, and device tree. The code will require rework to meet
-upstream kernel standards. You will also need to be come familiar with
-the tools used by the upstream kernel; git, patches and mailing lists.
-Read this documentation:
+--=-PmOU60Gr317m8Ye3EEfQ
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-https://www.kernel.org/doc/html/latest/development-process/index.html
+-----BEGIN PGP SIGNATURE-----
 
-From there you can develop the rest of the drivers as you need them.
+iQIcBAABCgAGBQJYWHXQAAoJEJ0dnzgO5LT5tNwP/0tqyMetsPj9PkcCXEddyr/7
+ZlTn60HEJLIuvBUM69veM9LvxU09v4QWJAVeaFFd+GLDW0/0h0FW4ZCFUB4K/Uvr
+uHNkcTJtGR4akX9ZSjzEcgKg0E4MGZ6QFNvPhiAQggi8YRiGAslHQgdfvf3+l3eL
+7mgxP+chHnhE/9O6h1M8LC0SlInJ7UDseRGVEAvE+sZ6JmFcHIrUJtKi+y6Gs0yA
+XpW50oIeE0Ml6WSnUzCk5Ki9ico30o7oLbvk88qYBdz691cGv23D3kS9Mvyh5dVR
+hNzSvhvC/Jx+QMAWhVD+otgm7UWcYvb/jP9cyqs8z6KRqcHBf7R6CJczg0WVkn09
+GvxeWrtXKbaQmhAV1Le8PG6ePZoUldEdcIiCdh3C6vMaBJpbulj4cj3aG7XSjI1d
+PDnkW6oPQrKVtLdHtpCFupRWUlhrVbOG2/6i1j8sgZ30crFSnT7SWewAcow2tj8h
+X0jeOMeVkBvRItnpQTLLeKXfm7H1t7roLElMbkO4SOotBiRi5atpz1pnpzOotgIY
+8R+XZZMuh/91BgO8vbPy87pLzdFJkw/LYoCBzvn/pDvFfCb+8VLJ5d6prmJje92O
+C0veFGS8KBJJi7NfWtQ5PSK75rsydA1WmEnhrupkclwmXFXjAknii9/i7mJHYAgX
+TGxwmGmk+1bnJkKmE17R
+=f1yy
+-----END PGP SIGNATURE-----
 
-Alistair (on cc) is the upstream maintainer for the PPC SoC the FSP2
-is based on, so your patches must go through his process before being
-merged by the PowerPC maintainer, and finally hitting Linus' tree.
-
-The u-boot work will be a similar process.
-
-Cheers,
-
-Joel
+--=-PmOU60Gr317m8Ye3EEfQ--
