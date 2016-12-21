@@ -1,28 +1,66 @@
-Return-Path: <alistair@popple.id.au>
-Received: from ipmail06.adl6.internode.on.net (ipmail06.adl6.internode.on.net
- [150.101.137.145])
- by lists.ozlabs.org (Postfix) with ESMTP id 3tjvYc46dpzDwW7
- for <openbmc@lists.ozlabs.org>; Wed, 21 Dec 2016 10:45:56 +1100 (AEDT)
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: A2BLAgDRwVlYfQpSY3pcGQEBAQEBAQEBAQEBBwEBAQEBgywLAQEBAQF5gQaFKokZlWeXGB8LhXgCgj0BAgEBAQEBAhMBARYvMIRoAQEBAwEBOTQLBQsLEgYJFRAPARghDgYTiGMHD6oaixIBAQEBAQEEAQEBAQEjiw+KIQWPAYtvhlKFcIVZgQ2ITYYMjhqED4FNDA0IDiyFbio0AYkGAQEB
-Received: from static-82-10.transact.net.au (HELO new-mexico.localnet)
- ([122.99.82.10])
- by ipmail06.adl6.internode.on.net with ESMTP; 21 Dec 2016 10:15:55 +1030
-From: Alistair Popple <alistair@popple.id.au>
-To: Joel Stanley <joel@jms.id.au>
-Cc: Ivan Mikhaylov1 <ivan@de.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, Karlo Petri <XXPETRI@de.ibm.com>,
- Bradley W Bishop <bradleyb@us.ibm.com>
-Subject: Re: about fsp2 board
-Date: Wed, 21 Dec 2016 10:45:53 +1100
-Message-ID: <7568643.JSUy96KJvh@new-mexico>
-User-Agent: KMail/4.14.1 (Linux/4.2.0-0.bpo.1-amd64; KDE/4.14.2; x86_64; ; )
-In-Reply-To: <CACPK8XcryOVx-ch3ffVRUvwU6cXLSBGDu8_CS6wmoixjt=700w@mail.gmail.com>
-References: <OFAB060B32.380FD18C-ON0025808E.003FDC40-0025808E.00405F91@notes.na.collabserv.com>
- <CACPK8XcryOVx-ch3ffVRUvwU6cXLSBGDu8_CS6wmoixjt=700w@mail.gmail.com>
+Return-Path: <vishwa@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tk3kk71jqzDwXr
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Dec 2016 16:54:22 +1100 (AEDT)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
+ uBL5sHgR125275
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Dec 2016 00:54:20 -0500
+Received: from e28smtp06.in.ibm.com (e28smtp06.in.ibm.com [125.16.236.6])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 27fewt1by4-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Dec 2016 00:54:19 -0500
+Received: from localhost
+ by e28smtp06.in.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <vishwa@linux.vnet.ibm.com>;
+ Wed, 21 Dec 2016 11:23:40 +0530
+Received: from d28dlp02.in.ibm.com (9.184.220.127)
+ by e28smtp06.in.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Wed, 21 Dec 2016 11:23:38 +0530
+Received: from d28relay03.in.ibm.com (d28relay03.in.ibm.com [9.184.220.60])
+ by d28dlp02.in.ibm.com (Postfix) with ESMTP id 912C9394004E
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Dec 2016 11:23:37 +0530 (IST)
+Received: from d28av02.in.ibm.com (d28av02.in.ibm.com [9.184.220.64])
+ by d28relay03.in.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ uBL5rbAG30081184
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Dec 2016 11:23:37 +0530
+Received: from d28av02.in.ibm.com (localhost [127.0.0.1])
+ by d28av02.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ uBL5ra4e019230
+ for <openbmc@lists.ozlabs.org>; Wed, 21 Dec 2016 11:23:36 +0530
+Received: from [9.79.201.87] ([9.79.201.87])
+ by d28av02.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ uBL5raNu019218; Wed, 21 Dec 2016 11:23:36 +0530
+Subject: Re: Why OpenBMC not ready for production?
+To: =?UTF-8?B?0JjQu9GM0Y8g0JrRg9C30L3QtdGG0L7Qsg==?= <ilya@yadro.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <20161220203029.arqocnjnpdtan4bt@yadro.com>
+From: vishwa <vishwa@linux.vnet.ibm.com>
+Date: Wed, 21 Dec 2016 11:23:36 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.5.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+In-Reply-To: <20161220203029.arqocnjnpdtan4bt@yadro.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16122105-0020-0000-0000-000000868339
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 16122105-0021-0000-0000-000001D94100
+Message-Id: <3ce47c1e-ede3-8887-77b7-e4f8c96a33ac@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-12-21_03:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1612210098
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -34,61 +72,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Dec 2016 23:45:56 -0000
+X-List-Received-Date: Wed, 21 Dec 2016 05:54:23 -0000
 
-Hi Ivan,
+hello,
 
-On Tue, 20 Dec 2016 09:48:34 AM Joel Stanley wrote:
-> Hello Ivan,
-> 
-> On Mon, Dec 19, 2016 at 10:13 PM, Ivan Mikhaylov1 <ivan@de.ibm.com> wrote:
-> > Hello everyone, so probably everyone knows about fsp2 board existence that
-> > is still using in P and Z systems, what we wanna do in case of Z series, 
-we
-> > want to do same way as P doing right now with ast2400/2500. So we want to
-> > port fsp2 board into upstream kernel and be a part of openbmc project.
-> > Until now I'm just started to work with it. So if you see any 
-things/thougts
-> > which we have to talk, pls tell us...
-> 
-> Getting your kernel and u-boot patches upstream is something I support.
-> 
-> I suggest you rebase your tree on the latest upstream (v4.9), and get
-> it to boot with a simple userspace.
-> 
-> Once you have that working then I suggest we get the essential drivers
-> and architecture support upstream. This list might include serial,
-> irq, ethernet, and device tree. The code will require rework to meet
-> upstream kernel standards. You will also need to be come familiar with
-> the tools used by the upstream kernel; git, patches and mailing lists.
-> Read this documentation:
-> 
-> https://www.kernel.org/doc/html/latest/development-process/index.html
-> 
-> From there you can develop the rest of the drivers as you need them.
-> 
-> Alistair (on cc) is the upstream maintainer for the PPC SoC the FSP2
-> is based on, so your patches must go through his process before being
-> merged by the PowerPC maintainer, and finally hitting Linus' tree.
+I answered in-line.
 
-Maintaining PPC476 architecture has been pretty low volume so I don't have a 
-separate git tree for the PowerPC maintainer to pull from. Instead patches 
-should be sent to linuxppc-dev@lists.ozlabs.org following the development 
-process above once you think they are ready for review/inclusion.
+On 12/21/2016 02:00 AM, Илья Кузнецов wrote:
+> Hello,
+> Could you please advice if there are any architectural problem in 
+> OpenBMC design or current implementation issues which do not allow use 
+> it in end-customer environment?
+I am not quite sure I understand the question. Rackspace is using 
+OpenBMC stack on their Barreleye box.
 
-Note that much of the architecture support for 476 is already upstream. I'm 
-not sure the scope of what you're up-streaming here but if it involves patches 
-for other subsystems such as device drivers those patches will most likely 
-need to go upstream via the appropriate maintainers tree. The MAINTAINERS file 
-has a list of trees based on file name and get_maintainer.pl will provide 
-suggestions for a given patch.
+http://blog.rackspace.com/now-get-your-own-barreleye
+> What significant efforts should be applied to get it ready? It is 
+> rather rhetorical question, but still I would like to hear opinion of 
+> development team.
 
-Regards,
-
-Alistair
-
-> The u-boot work will be a similar process.
-> 
-> Cheers,
-> 
-> Joel
+Does my answer above help clarify ?. If not, could you explain the 
+requirements and the environment that you want to target ?
+> I apologize if here is not well place for asking such kind of 
+> question. If so, please let me know where to start discussion?
+> Thank you in advance!
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
