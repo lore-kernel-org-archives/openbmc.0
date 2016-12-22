@@ -1,27 +1,65 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <cyrilbur@gmail.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tkXM719PtzDwY1
- for <openbmc@lists.ozlabs.org>; Thu, 22 Dec 2016 11:24:01 +1100 (AEDT)
-Received: from localhost (97-125-199-65.desm.qwest.net [97.125.199.65]) by
- mx.zohomail.com with SMTPS id 1482366223005346.67761846606425;
- Wed, 21 Dec 2016 16:23:43 -0800 (PST)
-Date: Wed, 21 Dec 2016 18:23:41 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: =?utf-8?B?0JjQu9GM0Y8g0JrRg9C30L3QtdGG0L7Qsg==?= <ilya@yadro.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: Why OpenBMC not ready for production?
-Message-ID: <20161222002341.jxcpaapbd5muu62e@asimov>
-References: <20161220203029.arqocnjnpdtan4bt@yadro.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="gksouxgvo5iziiej"
-Content-Disposition: inline
-In-Reply-To: <20161220203029.arqocnjnpdtan4bt@yadro.com>
-User-Agent: Mutt/1.6.2 (2016-06-11)
-X-Zoho-Virus-Status: 1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tkgyq5T2DzDwYj
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Dec 2016 17:06:59 +1100 (AEDT)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
+ uBM64WBK008039
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Dec 2016 01:06:56 -0500
+Received: from e23smtp02.au.ibm.com (e23smtp02.au.ibm.com [202.81.31.144])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 27g1v0nj14-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Dec 2016 01:06:56 -0500
+Received: from localhost
+ by e23smtp02.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cyrilbur@gmail.com>;
+ Thu, 22 Dec 2016 16:06:54 +1000
+Received: from d23dlp02.au.ibm.com (202.81.31.213)
+ by e23smtp02.au.ibm.com (202.81.31.208) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Thu, 22 Dec 2016 16:06:51 +1000
+Received: from d23relay09.au.ibm.com (d23relay09.au.ibm.com [9.185.63.181])
+ by d23dlp02.au.ibm.com (Postfix) with ESMTP id BC8A82BB0045
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Dec 2016 17:06:50 +1100 (EST)
+Received: from d23av02.au.ibm.com (d23av02.au.ibm.com [9.190.235.138])
+ by d23relay09.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ uBM66odX49676506
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Dec 2016 17:06:50 +1100
+Received: from d23av02.au.ibm.com (localhost [127.0.0.1])
+ by d23av02.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ uBM66oHp030213
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Dec 2016 17:06:50 +1100
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av02.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ uBM66oWg030210; Thu, 22 Dec 2016 17:06:50 +1100
+Received: from camb691.ibm.com (unknown [9.81.194.196])
+ (using TLSv1.2 with cipher DHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id E4529A0114;
+ Thu, 22 Dec 2016 17:06:49 +1100 (AEDT)
+From: Cyril Bur <cyrilbur@gmail.com>
+To: openbmc@lists.ozlabs.org
+Cc: millerjo@linux.vnet.ibm.com
+Subject: [PATCH v2 0/5] LPC/MBOX work
+Date: Thu, 22 Dec 2016 17:06:05 +1100
+X-Mailer: git-send-email 2.11.0
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 16122206-0004-0000-0000-000001CB5A45
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 16122206-0005-0000-0000-0000095BD013
+Message-Id: <20161222060610.29695-1-cyrilbur@gmail.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2016-12-22_05:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1612220102
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -33,76 +71,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Dec 2016 00:24:03 -0000
+X-List-Received-Date: Thu, 22 Dec 2016 06:07:00 -0000
 
+Hi all,
 
---gksouxgvo5iziiej
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Sending this v2 a little prematurely but it will be good to have some eyes on it.
 
-On Tue, Dec 20, 2016 at 11:30:29PM +0300, =D0=98=D0=BB=D1=8C=D1=8F =D0=9A=
-=D1=83=D0=B7=D0=BD=D0=B5=D1=86=D0=BE=D0=B2 wrote:
-> Hello,
-> Could you please advice if there are any architectural problem in OpenBMC=
- design or current implementation issues which do not allow use it in end-c=
-ustomer environment?
-> What significant efforts should be applied to get it ready? It is
-> rather rhetorical question, but still I would like to hear opinion of
-> development team.
+I haven't been able to boot the host with this as there are quite a few caveats.
+First of all hostboot expects the flash at a very specific place on the host LPC
+bus per platform. This creates problems when a machine of a certain type has a
+flash chip of a different size as to what it should have. This renders the UNMAP
+ioctl() somewhat useless. We should be able to compensate for this in userspace,
+which is good since I don't want any of these caveats worked around in the kernel.
 
-Ready for production can mean one of two things (or some combination of
-both):
+I have had some troubles with regmap_write() but it is possible the bug has been
+fixed. I will test in the coming days and confirm.
 
-    - Has sufficient functionality to fit our needs.
-    - Has sufficient stability to fit our needs.
+I have attempted to address all the review comments:
+ - Use of regmap
+ - Open counts to avoid opening by different processes
+ - Style fixes
+ - Move mbox to drivers/mailbox
+ - Extra descriptions
 
-There are two branches within our OpenBMC tree: v1.0 and master.  v1.0
-was the branch that shipped / ships on the P8 Barreleye machine.  It has
-relative stability but only functionality that was specifically
-requested by that group.  In that sense it is "ready for production".  Mast=
-er
-is where we are doing our development for next-generation products (P9) and
-as such it currently has less stability than the v1.0 branch.
+Notable exception that I haven't gotten around to but will happily do once we
+get to a working state is preventing mutiple threads from writing mbox registers
+at once
 
-There are architectural changes being done between v1.0 and master to
-better support additional machines and features in the long-term.  In
-some cases, the v1.0 code implementation was machine-specific and we are
-working to make the master version more generic.  Master is not
-currently in a shape where you would place it into production, from a
-stability perspective, but we have a path to get there as we near the
-end of this major development cycle.
+Thanks,
 
-As far as functionality, the master branch is not adding significant
-functionality above what the original v1.0 Barreleye code had, but there
-are some specific adds.  I can either point you to Github where we have
-the "2.0" milestone identified or you can ask about specific features
-you might be interested in and if we currently plan to have that
-complete.
+Cyril 
 
---=20
-Patrick Williams
+Cyril Bur (5):
+  ARM: dts: aspeed: Reserve BMC ram for host to BMC communication
+  ARM: dts: aspeed: Put the lpc_ctrl under lpc_host node for regmap
+  ARM: dts: aspeed: Move mbox under lpc_host node
+  drivers/mailbox: Add aspeed ast2400/ast2500 mbox driver
+  drivers/misc: Add aspeed ast2400/ast2500 lpc controlling driver
 
---gksouxgvo5iziiej
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+ arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts |   6 +
+ arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts |   6 +
+ arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts  |   6 +
+ arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts  |   7 +
+ arch/arm/boot/dts/aspeed-g4.dtsi               |  36 +++
+ drivers/mailbox/Kconfig                        |   9 +
+ drivers/mailbox/Makefile                       |   3 +
+ drivers/mailbox/aspeed-mbox.c                  | 354 +++++++++++++++++++++++++
+ drivers/misc/Kconfig                           |   9 +
+ drivers/misc/Makefile                          |   1 +
+ drivers/misc/aspeed-lpc-ctrl.c                 | 292 ++++++++++++++++++++
+ include/uapi/linux/aspeed-lpc-ctrl.h           |  25 ++
+ include/uapi/linux/aspeed-mbox.h               |  23 ++
+ 13 files changed, 777 insertions(+)
+ create mode 100644 drivers/mailbox/aspeed-mbox.c
+ create mode 100644 drivers/misc/aspeed-lpc-ctrl.c
+ create mode 100644 include/uapi/linux/aspeed-lpc-ctrl.h
+ create mode 100644 include/uapi/linux/aspeed-mbox.h
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJYWx0NAAoJEKsDR8wtAMEZSuMQAI9/IrCpJQHL8lqNXO0Dme8M
-gvwlWnR4RwOClWwIBADVzOM4MlCu3ZJLYq4y/p3CG2SRNX0avWPZNQT/GJknHKWj
-+VmGBaGDwpud1c/yvpUB+ZGAOo1Wgrzu/cRS/erH63C7RGOLjVlUXTyd08zLNQGU
-qWygAvqMA9Y4xWbFJUFBLmgBl4VgMIgX7n1MYhxgTwmc1m3spHQ696rOpUsb24Zz
-LryvCGJDxBwhYxfGAvBjFQHpURlP3ru/++b7qL9YlVAQx14u5fbXFmyN4nnm26m8
-wnnpRbxfnGy254j/SKmPBXiuZx8EBn2KKdYPar62pdpNG3PMpa4oC/V41DJ5tcBT
-iMu3+d7KD3bFVp5rz1tkTotHscx4CD+y89AUyFhK6L7Fa6J0d0kJw+2lOU87gGPU
-fE/eNRiTa3naWHsWnnwGOm4T7gsCU/HTX75FmZHJy4kGSSvxPmEME6nb5FAMCoBA
-YT/EiCblHh/di2ITHF0lUYHSDlf/dggrDnZvOGi7kY2g7LWhdzC9b6/ipTlxhqQZ
-gHZGCpoL/nfmn7+3ODgWsHtVrl2vDLNfF6G+NLWKqnopHG12F9VW9WZsCdbYDYYw
-qpGjaO+8s/RnSOq3ZdtVrHYwmTzarreP8U9uELHbziavcXUioEhpND/bs0JvKB+J
-L5GRc/nqAUCScoopSRlt
-=Biej
------END PGP SIGNATURE-----
-
---gksouxgvo5iziiej--
+-- 
+2.11.0
