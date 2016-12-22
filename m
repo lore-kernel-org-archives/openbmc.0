@@ -1,66 +1,27 @@
-Return-Path: <vishwa@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tk3kk71jqzDwXr
- for <openbmc@lists.ozlabs.org>; Wed, 21 Dec 2016 16:54:22 +1100 (AEDT)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
- uBL5sHgR125275
- for <openbmc@lists.ozlabs.org>; Wed, 21 Dec 2016 00:54:20 -0500
-Received: from e28smtp06.in.ibm.com (e28smtp06.in.ibm.com [125.16.236.6])
- by mx0a-001b2d01.pphosted.com with ESMTP id 27fewt1by4-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 21 Dec 2016 00:54:19 -0500
-Received: from localhost
- by e28smtp06.in.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <vishwa@linux.vnet.ibm.com>;
- Wed, 21 Dec 2016 11:23:40 +0530
-Received: from d28dlp02.in.ibm.com (9.184.220.127)
- by e28smtp06.in.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Wed, 21 Dec 2016 11:23:38 +0530
-Received: from d28relay03.in.ibm.com (d28relay03.in.ibm.com [9.184.220.60])
- by d28dlp02.in.ibm.com (Postfix) with ESMTP id 912C9394004E
- for <openbmc@lists.ozlabs.org>; Wed, 21 Dec 2016 11:23:37 +0530 (IST)
-Received: from d28av02.in.ibm.com (d28av02.in.ibm.com [9.184.220.64])
- by d28relay03.in.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- uBL5rbAG30081184
- for <openbmc@lists.ozlabs.org>; Wed, 21 Dec 2016 11:23:37 +0530
-Received: from d28av02.in.ibm.com (localhost [127.0.0.1])
- by d28av02.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- uBL5ra4e019230
- for <openbmc@lists.ozlabs.org>; Wed, 21 Dec 2016 11:23:36 +0530
-Received: from [9.79.201.87] ([9.79.201.87])
- by d28av02.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- uBL5raNu019218; Wed, 21 Dec 2016 11:23:36 +0530
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tkXM719PtzDwY1
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Dec 2016 11:24:01 +1100 (AEDT)
+Received: from localhost (97-125-199-65.desm.qwest.net [97.125.199.65]) by
+ mx.zohomail.com with SMTPS id 1482366223005346.67761846606425;
+ Wed, 21 Dec 2016 16:23:43 -0800 (PST)
+Date: Wed, 21 Dec 2016 18:23:41 -0600
+From: Patrick Williams <patrick@stwcx.xyz>
+To: =?utf-8?B?0JjQu9GM0Y8g0JrRg9C30L3QtdGG0L7Qsg==?= <ilya@yadro.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Subject: Re: Why OpenBMC not ready for production?
-To: =?UTF-8?B?0JjQu9GM0Y8g0JrRg9C30L3QtdGG0L7Qsg==?= <ilya@yadro.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Message-ID: <20161222002341.jxcpaapbd5muu62e@asimov>
 References: <20161220203029.arqocnjnpdtan4bt@yadro.com>
-From: vishwa <vishwa@linux.vnet.ibm.com>
-Date: Wed, 21 Dec 2016 11:23:36 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
- Thunderbird/45.5.1
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="gksouxgvo5iziiej"
+Content-Disposition: inline
 In-Reply-To: <20161220203029.arqocnjnpdtan4bt@yadro.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 16122105-0020-0000-0000-000000868339
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 16122105-0021-0000-0000-000001D94100
-Message-Id: <3ce47c1e-ede3-8887-77b7-e4f8c96a33ac@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2016-12-21_03:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1612210098
+User-Agent: Mutt/1.6.2 (2016-06-11)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -72,31 +33,76 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Dec 2016 05:54:23 -0000
+X-List-Received-Date: Thu, 22 Dec 2016 00:24:03 -0000
 
-hello,
 
-I answered in-line.
+--gksouxgvo5iziiej
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 12/21/2016 02:00 AM, Илья Кузнецов wrote:
+On Tue, Dec 20, 2016 at 11:30:29PM +0300, =D0=98=D0=BB=D1=8C=D1=8F =D0=9A=
+=D1=83=D0=B7=D0=BD=D0=B5=D1=86=D0=BE=D0=B2 wrote:
 > Hello,
-> Could you please advice if there are any architectural problem in 
-> OpenBMC design or current implementation issues which do not allow use 
-> it in end-customer environment?
-I am not quite sure I understand the question. Rackspace is using 
-OpenBMC stack on their Barreleye box.
-
-http://blog.rackspace.com/now-get-your-own-barreleye
-> What significant efforts should be applied to get it ready? It is 
-> rather rhetorical question, but still I would like to hear opinion of 
+> Could you please advice if there are any architectural problem in OpenBMC=
+ design or current implementation issues which do not allow use it in end-c=
+ustomer environment?
+> What significant efforts should be applied to get it ready? It is
+> rather rhetorical question, but still I would like to hear opinion of
 > development team.
 
-Does my answer above help clarify ?. If not, could you explain the 
-requirements and the environment that you want to target ?
-> I apologize if here is not well place for asking such kind of 
-> question. If so, please let me know where to start discussion?
-> Thank you in advance!
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+Ready for production can mean one of two things (or some combination of
+both):
+
+    - Has sufficient functionality to fit our needs.
+    - Has sufficient stability to fit our needs.
+
+There are two branches within our OpenBMC tree: v1.0 and master.  v1.0
+was the branch that shipped / ships on the P8 Barreleye machine.  It has
+relative stability but only functionality that was specifically
+requested by that group.  In that sense it is "ready for production".  Mast=
+er
+is where we are doing our development for next-generation products (P9) and
+as such it currently has less stability than the v1.0 branch.
+
+There are architectural changes being done between v1.0 and master to
+better support additional machines and features in the long-term.  In
+some cases, the v1.0 code implementation was machine-specific and we are
+working to make the master version more generic.  Master is not
+currently in a shape where you would place it into production, from a
+stability perspective, but we have a path to get there as we near the
+end of this major development cycle.
+
+As far as functionality, the master branch is not adding significant
+functionality above what the original v1.0 Barreleye code had, but there
+are some specific adds.  I can either point you to Github where we have
+the "2.0" milestone identified or you can ask about specific features
+you might be interested in and if we currently plan to have that
+complete.
+
+--=20
+Patrick Williams
+
+--gksouxgvo5iziiej
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJYWx0NAAoJEKsDR8wtAMEZSuMQAI9/IrCpJQHL8lqNXO0Dme8M
+gvwlWnR4RwOClWwIBADVzOM4MlCu3ZJLYq4y/p3CG2SRNX0avWPZNQT/GJknHKWj
++VmGBaGDwpud1c/yvpUB+ZGAOo1Wgrzu/cRS/erH63C7RGOLjVlUXTyd08zLNQGU
+qWygAvqMA9Y4xWbFJUFBLmgBl4VgMIgX7n1MYhxgTwmc1m3spHQ696rOpUsb24Zz
+LryvCGJDxBwhYxfGAvBjFQHpURlP3ru/++b7qL9YlVAQx14u5fbXFmyN4nnm26m8
+wnnpRbxfnGy254j/SKmPBXiuZx8EBn2KKdYPar62pdpNG3PMpa4oC/V41DJ5tcBT
+iMu3+d7KD3bFVp5rz1tkTotHscx4CD+y89AUyFhK6L7Fa6J0d0kJw+2lOU87gGPU
+fE/eNRiTa3naWHsWnnwGOm4T7gsCU/HTX75FmZHJy4kGSSvxPmEME6nb5FAMCoBA
+YT/EiCblHh/di2ITHF0lUYHSDlf/dggrDnZvOGi7kY2g7LWhdzC9b6/ipTlxhqQZ
+gHZGCpoL/nfmn7+3ODgWsHtVrl2vDLNfF6G+NLWKqnopHG12F9VW9WZsCdbYDYYw
+qpGjaO+8s/RnSOq3ZdtVrHYwmTzarreP8U9uELHbziavcXUioEhpND/bs0JvKB+J
+L5GRc/nqAUCScoopSRlt
+=Biej
+-----END PGP SIGNATURE-----
+
+--gksouxgvo5iziiej--
