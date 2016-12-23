@@ -1,54 +1,54 @@
 Return-Path: <cyrilbur@gmail.com>
-Received: from mail-pf0-x243.google.com (mail-pf0-x243.google.com
- [IPv6:2607:f8b0:400e:c00::243])
+Received: from mail-pf0-x242.google.com (mail-pf0-x242.google.com
+ [IPv6:2607:f8b0:400e:c00::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tlLMN0DgDzDwMM
- for <openbmc@lists.ozlabs.org>; Fri, 23 Dec 2016 18:57:04 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tlLXQ6LnczDwM8
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Dec 2016 19:04:54 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Gm0XL3y1"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="gyBA8ahD"; 
  dkim-atps=neutral
-Received: by mail-pf0-x243.google.com with SMTP id 127so3604647pfg.0
- for <openbmc@lists.ozlabs.org>; Thu, 22 Dec 2016 23:57:03 -0800 (PST)
+Received: by mail-pf0-x242.google.com with SMTP id 127so3615969pfg.0
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Dec 2016 00:04:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=message-id:subject:from:to:cc:date:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=mtbHkaH3nxpuK1ZCJWRkJOBN5JlQmepfsBk5tWGaDyA=;
- b=Gm0XL3y1JwZTyxDpsds8yenXieCaDKmNspbx53IcNbJLoruMedy1h76skJSUG+JMcs
- qdeherUUP0ub9Yc296Mygrq+kvjPIqADSv7hVuri8uQU5yPEvESA9RIgd29wsGzBgb7A
- a4OH7/SaIBlNDlEG2u0oqcomsM5XlbyWnMJS2JsOIHYW96/X2TFZt0AKnNCPwe8ZGJOj
- F4FFUnm/SCT2AUrwOHLrWLgNx71EbWxlGEtmvl20qSQ5DO23WiGWyQHy5aPQMQGRqGKQ
- 41/d0PKUkEpNz68MQvduMV20EBES8nMYUvSjUO0IH/0WKGnK0tYX633xtX0tDnCJhmyk
- IEDQ==
+ bh=hyp6uYRxJD/5pt3znrlD2Eq58QyqFXZzXz0Sr5uVVzs=;
+ b=gyBA8ahD08QNwoxIUeIJxbzthDzqp5ZfTbjFO/KTNGjoXVCb5mDsC809szjRIrVfw4
+ 0Zjqx/qNQkwF/G5fHp0z1cCINcj5oum4EUJVjFGZEwCvptXoPrHDjclF35cpbYzN7WJH
+ 1n9VtNNcAsG+nU7WzCPTMtysik2rUqhhktuoXOTvhV4REHK15SWrBoBNJSuE5tlcWKoY
+ 8TITDXUPyXb75KERnxJnLAEjo5KqFyxae4LrrcyWhWYW6tCzCRe+E6ibmNtU3W+spjs9
+ xS7eLWFEH4hxQ2k5lWzie5Tntr1FV26OO1vot9rvCJkxKGGZ2Pykp9n4gjzDRYYmqO00
+ Ifkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=mtbHkaH3nxpuK1ZCJWRkJOBN5JlQmepfsBk5tWGaDyA=;
- b=s34T6vnM+bqYXJu9IlTTJgBEQ76M5FtCcwabzNIl8o3Jr6yDpEqMnliBXv2IFw0svx
- NOb0jBJhCVF8dq0Nil3JOE12iiqP0c1eIWYJHEY3MPCzjPiDak8CXAadA4yiVPBjWoYq
- u+FHl/s+9UkrElZg9KANfWLU0yykb83yI6iPI5vHH9dfSUeelwWNCNbXLJoQXWoPlMy3
- HnBsWf4YHRgncsIZnSwOQ2EaWnE9bG8UJ5n1fHIWsprlUR6yoALPXR5zuUnAYfVQwwtC
- hOtsMvhJ3PJ6dy0Z0Cut1s0iAoxqRfx7DnidpfDC8sJ2AJGSyXO1T/2CYvczS6DeNQ5x
- iwfQ==
-X-Gm-Message-State: AIkVDXKoLi9zL8jZqV7GkOj7bX9/mdfQyhi/954N4ThMhil+Mu/NNWk6ic41Jl4Thd4Baw==
-X-Received: by 10.84.241.66 with SMTP id u2mr26168966plm.107.1482479821499;
- Thu, 22 Dec 2016 23:57:01 -0800 (PST)
+ bh=hyp6uYRxJD/5pt3znrlD2Eq58QyqFXZzXz0Sr5uVVzs=;
+ b=IwX+14QtyLFd7pK8s5ZWJyQBjPMGh9/3A6A+JaBKqwHuQkp2ae9Ilpkn6Lss7ThZ4t
+ 4cT6yhsJ7tzchqQZcgJEnG02l8SJbXH4XxJKO+Srxayi0cKMMXcvnkZupIjuvYpl1XMI
+ GEVf7wQq0X4yvFEkyWFq/jP+y7z0rYSldwD8uRRI+oEaXFLXO+zmrVy8K54iMPaeAtGO
+ cRXCQAZOMyMoXAYNziZlDDOcleZ20yNEEkOnduUBwC2+U9eMEgPj14dTd/gFXdH4t+C3
+ WIUXL6SDkkPa7FRbUiZb3M6AmSlYIppZfFhZFdIFfTcckcSF+O09bPpU+mTO7YtrK9TX
+ 4qYw==
+X-Gm-Message-State: AIkVDXLivEV9Fit9r2E1WC8VfRcCn+7Ad9HVeTQRjSvM1ezF1MgrB78AGj8aoZbRAveKWw==
+X-Received: by 10.98.28.79 with SMTP id c76mr12678938pfc.8.1482480293106;
+ Fri, 23 Dec 2016 00:04:53 -0800 (PST)
 Received: from [192.168.1.20] ([220.240.15.54])
- by smtp.googlemail.com with ESMTPSA id n25sm59841518pfi.33.2016.12.22.23.56.58
+ by smtp.googlemail.com with ESMTPSA id q2sm60338208pga.8.2016.12.23.00.04.50
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 22 Dec 2016 23:57:00 -0800 (PST)
-Message-ID: <1482479795.14044.5.camel@gmail.com>
-Subject: Re: [PATCH v2 4/5] drivers/mailbox: Add aspeed ast2400/ast2500 mbox
- driver
+ Fri, 23 Dec 2016 00:04:52 -0800 (PST)
+Message-ID: <1482480266.14044.7.camel@gmail.com>
+Subject: Re: [PATCH v2 5/5] drivers/misc: Add aspeed ast2400/ast2500 lpc
+ controlling driver
 From: Cyril Bur <cyrilbur@gmail.com>
 To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
 Cc: millerjo@linux.vnet.ibm.com
-Date: Fri, 23 Dec 2016 18:56:35 +1100
-In-Reply-To: <1482460941.3419.26.camel@aj.id.au>
+Date: Fri, 23 Dec 2016 19:04:26 +1100
+In-Reply-To: <1482461737.3419.29.camel@aj.id.au>
 References: <20161222060610.29695-1-cyrilbur@gmail.com>
- <20161222060610.29695-5-cyrilbur@gmail.com>
- <1482460941.3419.26.camel@aj.id.au>
+ <20161222060610.29695-6-cyrilbur@gmail.com>
+ <1482461737.3419.29.camel@aj.id.au>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailer: Evolution 3.22.3 
 Mime-Version: 1.0
@@ -64,70 +64,75 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Dec 2016 07:57:04 -0000
+X-List-Received-Date: Fri, 23 Dec 2016 08:04:55 -0000
 
-On Fri, 2016-12-23 at 13:12 +1030, Andrew Jeffery wrote:
-> Hi Cyril,
-> 
-> This looks good to me. A couple of minor comments below.
-> 
+On Fri, 2016-12-23 at 13:25 +1030, Andrew Jeffery wrote:
 > On Thu, 2016-12-22 at 17:06 +1100, Cyril Bur wrote:
-> > This provides access to the mbox registers on the ast2400 and ast2500 boards.
-> > 
-> > An ioctl() is used to allow users to write to a specific register with a specific
-> > value. This is useful as the other end have configured the mbox registers to
-> > provide an interrupt when a specific regster gets written to.
+> > This driver exposes a reserved chunk of BMC ram to userspace as well as
+> > an ioctl interface to control the BMC<->HOST mapping of the LPC bus.
+> > This allows for a communication channel between the BMC and the host
 > > 
 > > > Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
 > > 
 > > ---
-> >  drivers/mailbox/Kconfig          |   9 +
-> >  drivers/mailbox/Makefile         |   3 +
-> >  drivers/mailbox/aspeed-mbox.c    | 354 +++++++++++++++++++++++++++++++++++++++
-> >  include/uapi/linux/aspeed-mbox.h |  23 +++
-> >  4 files changed, 389 insertions(+)
-> >  create mode 100644 drivers/mailbox/aspeed-mbox.c
-> >  create mode 100644 include/uapi/linux/aspeed-mbox.h
+> >  drivers/misc/Kconfig                 |   9 ++
+> >  drivers/misc/Makefile                |   1 +
+> >  drivers/misc/aspeed-lpc-ctrl.c       | 292 +++++++++++++++++++++++++++++++++++
+> >  include/uapi/linux/aspeed-lpc-ctrl.h |  25 +++
+> >  4 files changed, 327 insertions(+)
+> >  create mode 100644 drivers/misc/aspeed-lpc-ctrl.c
+> >  create mode 100644 include/uapi/linux/aspeed-lpc-ctrl.h
 > > 
-> > diff --git a/drivers/mailbox/Kconfig b/drivers/mailbox/Kconfig
-> > index 5305923752d2..815cfe852dea 100644
-> > --- a/drivers/mailbox/Kconfig
-> > +++ b/drivers/mailbox/Kconfig
-> > @@ -123,4 +123,13 @@ config XGENE_SLIMPRO_MBOX
-> > >  	  It is used to send short messages between ARM64-bit cores and
-> > >  	  the SLIMpro Management Engine, primarily for PM. Say Y here if you
-> > >  	  want to use the APM X-Gene SLIMpro IPCM support.
+> > diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
+> > index a216b4667742..f1e1c043d91c 100644
+> > --- a/drivers/misc/Kconfig
+> > +++ b/drivers/misc/Kconfig
+> > @@ -804,6 +804,15 @@ config PANEL_BOOT_MESSAGE
+> > >  	  An empty message will only clear the display at driver init time. Any other
+> > >  	  printf()-formatted message is valid with newline and escape codes.
 > > 
-> > +
-> > +config ASPEED_MBOX
-> > > +	depends on ARCH_ASPEED || COMPILE_TEST
-> > > +	bool "Aspeed ast2400/2500 Mailbox Controller"
+> >  
+> > +config ASPEED_LPC_CTRL
+> > +	depends on ARCH_ASPEED || COMPILE_TEST
+> 
+> Something that I should have mentioned on 4/5 as well is that we now
+> need to say:
+> 
+>     depends on REGMAP && MFD_SYSCON
+> 
+
+Yeah my bad should have figured that out.
+
+Thanks
+
+> > +	bool "Build a driver to control the BMC to HOST LPC bus"
 > > > +	default "y"
 > > > +	---help---
-> > > +	  Provides a driver for the MBOX regsiters found on Aspeed SOCs
-> > > +	  (AST2400 and AST2500). This driver provides a device for aspeed
-> > > +	  mbox registers
-> > 
-> >  endif
-> > diff --git a/drivers/mailbox/Makefile b/drivers/mailbox/Makefile
-> > index 0be3e742bb7d..99d17f3b9552 100644
-> > --- a/drivers/mailbox/Makefile
-> > +++ b/drivers/mailbox/Makefile
-> > @@ -25,3 +25,6 @@ obj-$(CONFIG_TI_MESSAGE_MANAGER) += ti-msgmgr.o
-> >  obj-$(CONFIG_XGENE_SLIMPRO_MBOX) += mailbox-xgene-slimpro.o
-> >  
-> > >  obj-$(CONFIG_HI6220_MBOX)	+= hi6220-mailbox.o
+> > > +	  Provides a driver to control BMC to HOST LPC mappings through
+> > > +	  ioctl()s, the driver aso provides a read/write interface to a BMC ram
+> > > +	  region where host LPC can be buffered.
 > > 
 > > +
-> > > +obj-$(CONFIG_ASPEED_MBOX)		+= aspeed-mbox.o
+> >  source "drivers/misc/c2port/Kconfig"
+> >  source "drivers/misc/eeprom/Kconfig"
+> >  source "drivers/misc/cb710/Kconfig"
+> > diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
+> > index b2fb6dbffcef..cdcd1af48971 100644
+> > --- a/drivers/misc/Makefile
+> > +++ b/drivers/misc/Makefile
+> > > @@ -57,3 +57,4 @@ obj-$(CONFIG_ECHO)		+= echo/
+> > >  obj-$(CONFIG_VEXPRESS_SYSCFG)	+= vexpress-syscfg.o
+> > >  obj-$(CONFIG_CXL_BASE)		+= cxl/
 > > 
-> > +
-> > diff --git a/drivers/mailbox/aspeed-mbox.c b/drivers/mailbox/aspeed-mbox.c
+> >  obj-$(CONFIG_PANEL)             += panel.o
+> > > +obj-$(CONFIG_ASPEED_LPC_CTRL)	+= aspeed-lpc-ctrl.o
+> > 
+> > diff --git a/drivers/misc/aspeed-lpc-ctrl.c b/drivers/misc/aspeed-lpc-ctrl.c
 > > new file mode 100644
-> > index 000000000000..a5da7fc0fd23
+> > index 000000000000..4698d8fa5a4c
 > > --- /dev/null
-> > +++ b/drivers/mailbox/aspeed-mbox.c
-> > @@ -0,0 +1,354 @@
+> > +++ b/drivers/misc/aspeed-lpc-ctrl.c
+> > @@ -0,0 +1,292 @@
 > > +/*
 > > + * Copyright 2016 IBM Corporation
 > > + *
@@ -137,6 +142,7 @@ On Fri, 2016-12-23 at 13:12 +1030, Andrew Jeffery wrote:
 > > + * 2 of the License, or (at your option) any later version.
 > > + */
 > > +
+> > +#include <linux/mm.h>
 > > +#include <linux/module.h>
 > > +#include <linux/moduleparam.h>
 > > +#include <linux/errno.h>
@@ -147,116 +153,81 @@ On Fri, 2016-12-23 at 13:12 +1030, Andrew Jeffery wrote:
 > > +#include <linux/init.h>
 > > +#include <linux/device.h>
 > > +#include <linux/of.h>
-> > +#include <linux/of_irq.h>
+> > +#include <linux/of_address.h>
 > > +#include <linux/platform_device.h>
 > > +#include <linux/io.h>
 > > +#include <linux/interrupt.h>
 > > +#include <linux/delay.h>
 > > +#include <linux/miscdevice.h>
+> > +#include <linux/mtd/mtd.h>
 > > +#include <linux/timer.h>
 > > +#include <linux/jiffies.h>
 > > +#include <linux/mfd/syscon.h>
 > > +#include <linux/regmap.h>
-> > +#include <linux/aspeed-mbox.h>
+> > +#include <linux/aspeed-lpc-ctrl.h>
 > > +
-> > > +#define DEVICE_NAME	"aspeed-mbox"
+> > > +#define DEVICE_NAME	"aspeed-lpc-ctrl"
 > > 
 > > +
-> > +#define MBOX_NUM_REGS 16
-> > +#define MBOX_NUM_DATA_REGS 14
+> > +#define HICR7 0x8
+> > +#define HICR8 0xc
 > > +
-> > +#define MBOX_DATA_0 0x00
-> > +#define MBOX_STATUS_0 0x40
-> > +#define MBOX_STATUS_1 0x44
-> > +#define MBOX_BMC_CTRL 0x48
-> > +#define   MBOX_CTRL_RECV BIT(7)
-> > +#define   MBOX_CTRL_MASK BIT(1)
-> > +#define   MBOX_CTRL_SEND BIT(0)
-> > +#define MBOX_HOST_CTRL 0x4c
-> > +#define MBOX_INTERRUPT_0 0x50
-> > +#define MBOX_INTERRUPT_1 0x54
-> > +
-> > +struct mbox {
+> > +struct lpc_ctrl {
 > > > > +	struct miscdevice	miscdev;
 > > > > +	struct regmap		*regmap;
-> > > > +	unsigned int		base;
-> > > > +	int			irq;
-> > > > +	wait_queue_head_t	queue;
-> > > > +	struct timer_list	poll_timer;
+> > > > +	phys_addr_t		base;
+> > > > +	resource_size_t		size;
+> > > > +	uint32_t		pnor_size;
+> > > > +	uint32_t		pnor_base;
 > > 
 > > +};
 > > +
-> > +static atomic_t mbox_open_count = ATOMIC_INIT(0);
+> > +static atomic_t lpc_ctrl_open_count = ATOMIC_INIT(0);
 > > +
-> > +static u8 mbox_inb(struct mbox *mbox, int reg)
+> > +static struct lpc_ctrl *file_lpc_ctrl(struct file *file)
 > > +{
-> > > +	/*
-> > > +	 * The mbox registers are actually only 1 byte but are addressed 4
-> > > +	 * bytes appart. The other three bytes are marked 'reserved', they
-> > > +	 * *should* be zero but lets not rely on it.
-> > > +	 * I am going to rely on the fact we can casually read/write to them...
-> > > +	 */
-> > > +	unsigned int val = 0xff; /* If regmap throws an error return 0xff */
-> > > +	regmap_read(mbox->regmap, mbox->base + reg, &val);
-> > 
-> > +	return val & 0xff;
-> > +}
-> > +
-> > +static void mbox_outb(struct mbox *mbox, u8 data, int reg)
-> > +{
-> > +	regmap_write(mbox->regmap, mbox->base + reg, data);
-> 
-> We could use regmap_update_bits() here, but ultimately it's not going
-> to matter. Should we say something if regmap_write() fails (it
-> shouldn't, but if it does that's extra concerning)?
-
-regmap_update_bits() to about touching the reserved section? Probs a
-good idea.
-Yeah I thought about putting a dev_err() in there. I'm not opposed, I
-sort of though, we'll you never see them or when you do something
-really bad has happened you'll probably notice everything broke...
-Still in the incredibly unlikely event that a print proves useful I'm
-happy to add it.
-
-> 
-> > +}
-> > +
-> > +static struct mbox *file_mbox(struct file *file)
-> > +{
-> > > +	return container_of(file->private_data, struct mbox, miscdev);
+> > > +	return container_of(file->private_data, struct lpc_ctrl, miscdev);
 > > 
 > > +}
 > > +
-> > +static int mbox_open(struct inode *inode, struct file *file)
+> > +static int lpc_ctrl_mmap(struct file *file, struct vm_area_struct *vma)
 > > +{
-> > > +	struct mbox *mbox = file_mbox(file);
+> > > +	struct lpc_ctrl *lpc_ctrl = file_lpc_ctrl(file);
+> > > +	unsigned long vsize = vma->vm_end - vma->vm_start;
 > > 
 > > +
-> > > +	if (atomic_inc_return(&mbox_open_count) == 1) {
-> > > +		/*
-> > > +		 * Clear the interrupt status bit if it was left on and unmask
-> > > +		 * interrupts.
-> > > +		 * MBOX_CTRL_RECV bit is W1C, this also unmasks in 1 step
-> > > +		 */
-> > > +		mbox_outb(mbox, MBOX_CTRL_RECV, MBOX_BMC_CTRL);
+> > > +	if (vma->vm_pgoff + vsize > lpc_ctrl->base + lpc_ctrl->size)
+> > > +		return -EINVAL;
+> > 
+> > +
+> > > +	/* Other checks? */
+> > 
+> > +
+> > > +	if (remap_pfn_range(vma, vma->vm_start,
+> > > +		(lpc_ctrl->base >> PAGE_SHIFT) + vma->vm_pgoff,
+> > > +		vsize, vma->vm_page_prot))
+> > > +		return -EAGAIN;
+> > 
+> > +
+> > > +	return 0;
+> > 
+> > +}
+> > +
+> > +static int lpc_ctrl_open(struct inode *inode, struct file *file)
+> > +{
+> > > +	if (atomic_inc_return(&lpc_ctrl_open_count) == 1)
 > > > +		return 0;
-> > > +	}
 > > 
 > > +
-> > > +	atomic_dec(&mbox_open_count);
+> > > +	atomic_dec(&lpc_ctrl_open_count);
 > > > +	return -EBUSY;
 > > 
 > > +}
 > > +
-> > +static ssize_t mbox_read(struct file *file, char __user *buf,
+> > +static ssize_t lpc_ctrl_read(struct file *file, char __user *buf,
 > > > +				size_t count, loff_t *ppos)
 > > 
 > > +{
-> > > +	struct mbox *mbox = file_mbox(file);
-> > > +	char __user *p = buf;
-> > > +	int i;
-> > 
-> > +
 > > > +	if (!access_ok(VERIFY_WRITE, buf, count))
 > > > +		return -EFAULT;
 > > 
@@ -264,32 +235,14 @@ happy to add it.
 > > > +	WARN_ON(*ppos);
 > > 
 > > +
-> > > +	if (wait_event_interruptible(mbox->queue,
-> > > +		mbox_inb(mbox, MBOX_BMC_CTRL) & MBOX_CTRL_RECV))
-> > > +		return -ERESTARTSYS;
-> > 
-> > +
-> > > +	for (i = 0; i < MBOX_NUM_DATA_REGS; i++)
-> > > +		if (__put_user(mbox_inb(mbox, MBOX_DATA_0 + (i * 4)), p++))
-> > > +			return -EFAULT;
-> > 
-> > +
-> > > +	/* MBOX_CTRL_RECV bit is W1C, this also unmasks in 1 step */
-> > > +	mbox_outb(mbox, MBOX_CTRL_RECV, MBOX_BMC_CTRL);
-> > > +	return p - buf;
+> > > +	return -EPERM;
 > > 
 > > +}
 > > +
-> > +static ssize_t mbox_write(struct file *file, const char __user *buf,
+> > +static ssize_t lpc_ctrl_write(struct file *file, const char __user *buf,
 > > > +				size_t count, loff_t *ppos)
 > > 
 > > +{
-> > > +	struct mbox *mbox = file_mbox(file);
-> > > +	const char __user *p = buf;
-> > > +	char c;
-> > > +	int i;
-> > 
-> > +
 > > > +	if (!access_ok(VERIFY_READ, buf, count))
 > > > +		return -EFAULT;
 > > 
@@ -297,55 +250,95 @@ happy to add it.
 > > > +	WARN_ON(*ppos);
 > > 
 > > +
-> > > +	for (i = 0; i < MBOX_NUM_DATA_REGS; i++) {
-> > > +		if (__get_user(c, p))
-> > > +			return -EFAULT;
-> > 
-> > +
-> > > +		mbox_outb(mbox, c, MBOX_DATA_0 + (i * 4));
-> > > +		p++;
-> > > +	}
-> > 
-> > +
-> > > +	mbox_outb(mbox, MBOX_CTRL_SEND, MBOX_BMC_CTRL);
-> > 
-> > +
-> > > +	return p - buf;
+> > > +	return -EPERM;
 > > 
 > > +}
 > > +
-> > +static long mbox_ioctl(struct file *file, unsigned int cmd,
+> > +static long lpc_ctrl_ioctl(struct file *file, unsigned int cmd,
 > > > +		unsigned long param)
 > > 
 > > +{
-> > > +	struct aspeed_mbox_atn atn;
-> > > +	struct mbox *mbox = file_mbox(file);
+> > > +	long rc;
+> > > +	struct lpc_mapping map;
+> > > +	struct lpc_ctrl *lpc_ctrl = file_lpc_ctrl(file);
 > > > +	void __user *p = (void __user *)param;
 > > 
 > > +
 > > > +	switch (cmd) {
-> > 
-> > +	case ASPEED_MBOX_IOCTL_ATN:
-> 
-> I think we should rename the IOCTL as what we do below doesn't
-> necessarily raise an interrupt.
-> 
-
-Agreed, taking unput :). ASPEED_MBOX_IOCTL_WRITE_BYTE ?
-
-
-Thanks,
-
-Cyril
-
-> > +		if (copy_from_user(&atn, p, sizeof(atn)))
+> > > +	case LPC_CTRL_IOCTL_SIZE:
+> > > +		return copy_to_user(p, &lpc_ctrl->size,
+> > > +			sizeof(lpc_ctrl->size)) ? -EFAULT : 0;
+> > > +	case LPC_CTRL_IOCTL_MAP:
+> > > +		if (copy_from_user(&map, p, sizeof(map)))
 > > > +			return -EFAULT;
-> > > +		if (atn.reg > 15)
-> > > +			return -EINVAL;
 > > 
 > > +
-> > > +		mbox_outb(mbox, atn.val, atn.reg);
-> > > +		return 0;
+> > +
+> 
+> Whitespace (double line break).
+> 
+
+Thanks
+
+> > +		/*
+> > > +		 * The top half of HICR7 is the MSB of the BMC address of the
+> > > +		 * mapping.
+> > > +		 * The bottom half of HICR7 is the MSB of the HOST LPC
+> > > +		 * firmware space address of the mapping.
+> > > +		 *
+> > > +		 * The 1 bits in the top of half of HICR8 represent the bits
+> > > +		 * (in the requested address) that should be ignored and
+> > > +		 * replaced with those from the top half of HICR7.
+> > > +		 * The 1 bits in the bottom half of HICR8 represent the bits
+> > > +		 * (in the requested address) that should be kept and pass
+> > > +		 * into the BMC address space.
+> > 
+> > +		 */
+> 
+> If only we could put this comment into the datasheet and re-publish it.
+> 
+
+Glad it makes sense!
+
+> > +
+> > > +		regmap_write(lpc_ctrl->regmap, HICR7,
+> > > +				(lpc_ctrl->base | (map.hostaddr >> 16)));
+> > > +		regmap_write(lpc_ctrl->regmap, HICR8,
+> > 
+> > +			(~(map.size - 1)) | ((map.size >> 16) - 1));
+> 
+> What are your thoughts on error handling
+> 
+
+I'll do the same as unmap.
+
+> > +		return 0;
+> > > +	case LPC_CTRL_IOCTL_UNMAP:
+> > > +		/*
+> > > +		 * The top nibble in host lpc addresses references which
+> > > +		 * firmware space, use space zero hence the & 0x0fff
+> > > +		 */
+> > 
+> > +
+> > > +		dev_info(lpc_ctrl->miscdev.parent, "Setting HICR7 to 0x%08x\n",
+> > 
+> > +			lpc_ctrl->pnor_base | (((-lpc_ctrl->pnor_size) >> 16) & 0x0fff));
+> 
+> Lets drop the dev_info()s, we've confirmed this works with the fixes to
+> the mbox driver.
+
+Yep.
+
+> 
+> > +             rc = regmap_write(lpc_ctrl->regmap, HICR7,
+> > > +			lpc_ctrl->pnor_base | (((-lpc_ctrl->pnor_size) >> 16) & 0x0fff));
+> > > +		if (rc)
+> > > +			return rc;
+> > > +		dev_info(lpc_ctrl->miscdev.parent, "Setting HICR8 to 0x%08x\n",
+> > > +			(~(lpc_ctrl->pnor_size - 1)) | ((lpc_ctrl->pnor_size >> 16) - 1));
+> > > +		rc = regmap_write(lpc_ctrl->regmap, HICR8,
+> > > +			(~(lpc_ctrl->pnor_size - 1)) | ((lpc_ctrl->pnor_size >> 16) - 1));
+> > > +		return rc;
 > > > +	}
 > > 
 > > +
@@ -353,120 +346,31 @@ Cyril
 > > 
 > > +}
 > > +
-> > +static unsigned int mbox_poll(struct file *file, poll_table *wait)
+> > +static int lpc_ctrl_release(struct inode *inode, struct file *file)
 > > +{
-> > > +	struct mbox *mbox = file_mbox(file);
-> > > +	unsigned int mask = 0;
-> > 
-> > +
-> > > +	poll_wait(file, &mbox->queue, wait);
-> > 
-> > +
-> > > +	if (mbox_inb(mbox, MBOX_BMC_CTRL) & MBOX_CTRL_RECV)
-> > > +		mask |= POLLIN;
-> > 
-> > +
-> > > +	return mask;
-> > 
-> > +}
-> > +
-> > +static int mbox_release(struct inode *inode, struct file *file)
-> > +{
-> > > +	atomic_dec(&mbox_open_count);
+> > > +	atomic_dec(&lpc_ctrl_open_count);
 > > > +	return 0;
 > > 
 > > +}
 > > +
-> > +static const struct file_operations mbox_fops = {
+> > +static const struct file_operations lpc_ctrl_fops = {
 > > > > +	.owner		= THIS_MODULE,
-> > > > +	.open		= mbox_open,
-> > > > +	.read		= mbox_read,
-> > > > +	.write		= mbox_write,
-> > > > +	.release	= mbox_release,
-> > > > +	.poll		= mbox_poll,
-> > > > +	.unlocked_ioctl	= mbox_ioctl,
+> > > > +	.mmap		= lpc_ctrl_mmap,
+> > > > +	.open		= lpc_ctrl_open,
+> > > > +	.read		= lpc_ctrl_read,
+> > > > +	.write		= lpc_ctrl_write,
+> > > > +	.release	= lpc_ctrl_release,
+> > > > +	.unlocked_ioctl	= lpc_ctrl_ioctl,
 > > 
 > > +};
 > > +
-> > +static void poll_timer(unsigned long data)
+> > +static int lpc_ctrl_probe(struct platform_device *pdev)
 > > +{
-> > > +	struct mbox *mbox = (void *)data;
-> > 
-> > +
-> > > +	mbox->poll_timer.expires += msecs_to_jiffies(500);
-> > > +	wake_up(&mbox->queue);
-> > > +	add_timer(&mbox->poll_timer);
-> > 
-> > +}
-> > +
-> > +static irqreturn_t mbox_irq(int irq, void *arg)
-> > +{
-> > > +	struct mbox *mbox = arg;
-> > 
-> > +
-> > > +	if (!(mbox_inb(mbox, MBOX_BMC_CTRL) & MBOX_CTRL_RECV))
-> > > +		return IRQ_NONE;
-> > 
-> > +
-> > > +	/*
-> > > +	 * Leave the status bit set so that we know the data is for us,
-> > > +	 * clear it once it has been read.
-> > > +	 */
-> > 
-> > +
-> > > +	/* Mask it off, we'll clear it when we the data gets read */
-> > > +	mbox_outb(mbox, MBOX_CTRL_MASK, MBOX_BMC_CTRL);
-> > 
-> > +
-> > > +	wake_up(&mbox->queue);
-> > > +	return IRQ_HANDLED;
-> > 
-> > +}
-> > +
-> > +static int mbox_config_irq(struct mbox *mbox,
-> > > +		struct platform_device *pdev)
-> > 
-> > +{
-> > > +	struct device *dev = &pdev->dev;
-> > > +	int rc;
-> > 
-> > +
-> > > +	mbox->irq = irq_of_parse_and_map(dev->of_node, 0);
-> > > +	if (!mbox->irq)
-> > > +		return -ENODEV;
-> > 
-> > +
-> > > +	rc = devm_request_irq(dev, mbox->irq, mbox_irq, IRQF_SHARED,
-> > > +			DEVICE_NAME, mbox);
-> > > +	if (rc < 0) {
-> > > +		dev_warn(dev, "Unable to request IRQ %d\n", mbox->irq);
-> > > +		mbox->irq = 0;
-> > > +		return rc;
-> > > +	}
-> > 
-> > +
-> > > +	/*
-> > > +	 * Disable all register based interrupts, we'll have to change
-> > > +	 * this, protocol seemingly will require regs 0 and 15
-> > > +	 */
-> > > +	mbox_outb(mbox, 0x00, MBOX_INTERRUPT_0); /* regs 0 - 7 */
-> > > +	mbox_outb(mbox, 0x00, MBOX_INTERRUPT_1); /* regs 8 - 15 */
-> > 
-> > +
-> > > +	/* W1C */
-> > > +	mbox_outb(mbox, 0xff, MBOX_STATUS_0);
-> > > +	mbox_outb(mbox, 0xff, MBOX_STATUS_1);
-> > 
-> > +
-> > > +	mbox_outb(mbox, MBOX_CTRL_RECV, MBOX_BMC_CTRL);
-> > > +	return 0;
-> > 
-> > +}
-> > +
-> > +static int mbox_probe(struct platform_device *pdev)
-> > +{
-> > > +	struct mbox *mbox;
+> > > +	struct lpc_ctrl *lpc_ctrl;
 > > > +	struct device *dev;
+> > > +	struct device_node *node;
+> > > +	struct resource resm;
+> > > +	struct mtd_info *mtd;
 > > > +	int rc;
 > > 
 > > +
@@ -474,113 +378,161 @@ Cyril
 > > > +		return -ENODEV;
 > > 
 > > +
-> > > +	dev = &pdev->dev;
-> > > +	dev_info(dev, "Found mbox host device\n");
+> > > > +	mtd = get_mtd_device_nm("1e630000.spi:pnor@0");
+> > > 
+> > > +	if (IS_ERR(mtd)) {
+> > > +		dev_err(&pdev->dev, "Couldn't find pnor\n");
+> > > +		return -EPROBE_DEFER;
+> > > +	}
 > > 
 > > +
-> > > +	mbox = devm_kzalloc(dev, sizeof(*mbox), GFP_KERNEL);
-> > > +	if (!mbox)
+> > > +	dev = &pdev->dev;
+> > 
+> > +
+> > > +	lpc_ctrl = devm_kzalloc(dev, sizeof(*lpc_ctrl), GFP_KERNEL);
+> > > +	if (!lpc_ctrl)
 > > > +		return -ENOMEM;
 > > 
 > > +
-> > > +	dev_set_drvdata(&pdev->dev, mbox);
+> > > +	dev_set_drvdata(&pdev->dev, lpc_ctrl);
 > > 
 > > +
-> > > +	rc = of_property_read_u32(dev->of_node, "reg", &mbox->base);
-> > > +	if (rc) {
-> > > +		dev_err(dev, "Couldn't read reg device-tree property\n");
+> > > +	node = of_get_parent(mtd_get_of_node(mtd));
+> > > +	if (!node) {
+> > > +		dev_err(dev, "Couldn't get MTD parent OF node\n");
+> > > +		return -ENODEV;
+> > > +	}
+> > > +	lpc_ctrl->pnor_size = mtd->size;
+> > > +	rc = of_property_read_u32_index(node, "reg", 2,
+> > > +			&lpc_ctrl->pnor_base);
+> > > +	if (rc)
+> > > +		return rc;
+> > 
+> > +
+> > > +	dev_info(dev, "Host PNOR base: 0x%08x size: 0x%08x\n",
+> > > +		lpc_ctrl->pnor_base, lpc_ctrl->pnor_size);
+> > 
+> > +
+> > > +	node = of_parse_phandle(dev->of_node, "memory-region", 0);
+> > > +	if (!node) {
+> > > +		/*
+> > > +		 * Should probaby handle this by allocating 4-64k now and
+> > > +		 * using that
+> > > +		 */
+> > 
+> > +		dev_err(dev, "Didn't find reserved memory\n");
+> 
+> I think this is good enough for the moment?
+> 
+
+Yep, would you prefer I remove the comment? My userspace daemon
+wouldn't handle a buffer smaller than flash so even if we wrote it we
+couldn't use it.
+
+> > +		rc = -EINVAL;
 > > > +		goto out;
 > > > +	}
 > > 
 > > +
-> > > +	mbox->regmap = syscon_node_to_regmap(
+> > > +	rc = of_address_to_resource(node, 0, &resm);
+> > > +	of_node_put(node);
+> > > +	if (rc) {
+> > > +		dev_err(dev, "Could address to resource\n");
+> > > +		rc = -ENOMEM;
+> > > +		goto out;
+> > > +	}
+> > 
+> > +
+> > > +	lpc_ctrl->size = resource_size(&resm);
+> > > +	lpc_ctrl->base = resm.start;
+> > 
+> > +
+> > > +	lpc_ctrl->regmap = syscon_node_to_regmap(
 > > > +			pdev->dev.parent->of_node);
-> > > +	if (IS_ERR(mbox->regmap)) {
+> > > +	if (IS_ERR(lpc_ctrl->regmap)) {
 > > > +		dev_err(dev, "Couldn't get regmap\n");
 > > > +		rc = -ENODEV;
 > > > +		goto out;
 > > > +	}
 > > 
 > > +
-> > > +	init_waitqueue_head(&mbox->queue);
-> > 
-> > +
-> > > +	mbox->miscdev.minor = MISC_DYNAMIC_MINOR;
-> > > +	mbox->miscdev.name = DEVICE_NAME;
-> > > +	mbox->miscdev.fops = &mbox_fops;
-> > > +	mbox->miscdev.parent = dev;
-> > > +	rc = misc_register(&mbox->miscdev);
-> > > +	if (rc) {
+> > > +	lpc_ctrl->miscdev.minor = MISC_DYNAMIC_MINOR;
+> > > +	lpc_ctrl->miscdev.name = DEVICE_NAME;
+> > > +	lpc_ctrl->miscdev.fops = &lpc_ctrl_fops;
+> > > +	lpc_ctrl->miscdev.parent = dev;
+> > > +	rc = misc_register(&lpc_ctrl->miscdev);
+> > > +	if (rc)
 > > > +		dev_err(dev, "Unable to register device\n");
-> > > +		goto out;
-> > > +	}
-> > 
-> > +
-> > > +	mbox_config_irq(mbox, pdev);
-> > 
-> > +
-> > > +	if (mbox->irq) {
-> > > +		dev_info(dev, "Using IRQ %d\n", mbox->irq);
-> > > +	} else {
-> > > +		dev_info(dev, "No IRQ; using timer\n");
-> > > +		setup_timer(&mbox->poll_timer, poll_timer,
-> > > +				(unsigned long)mbox);
-> > > +		mbox->poll_timer.expires = jiffies + msecs_to_jiffies(10);
-> > > +		add_timer(&mbox->poll_timer);
-> > > +	}
+> > > +	else
+> > > +		dev_info(dev, "Loaded at 0x%08x (0x%08x)\n",
+> > > +			lpc_ctrl->base, lpc_ctrl->size);
 > > 
 > > +
 > > +out:
 > > > +	return rc;
 > > 
-> > +
 > > +}
 > > +
-> > +static int mbox_remove(struct platform_device *pdev)
+> > +static int lpc_ctrl_remove(struct platform_device *pdev)
 > > +{
-> > > +	struct mbox *mbox = dev_get_drvdata(&pdev->dev);
+> > > +	struct lpc_ctrl *lpc_ctrl = dev_get_drvdata(&pdev->dev);
 > > 
 > > +
-> > > +	misc_deregister(&mbox->miscdev);
-> > > +	if (!mbox->irq)
-> > > +		del_timer_sync(&mbox->poll_timer);
-> > > +	mbox = NULL;
-> > 
+> > +	misc_deregister(&lpc_ctrl->miscdev);
+> 
+> It feels like there should be a devm_misc_register()...
+> 
+
+Uh sorry?
+
+> > +	lpc_ctrl = NULL;
 > > +
 > > > +	return 0;
 > > 
 > > +}
 > > +
-> > +static const struct of_device_id mbox_match[] = {
-> > > +	{ .compatible = "aspeed,ast2400-mbox" },
-> > > +	{ },
-> > 
+> > +static const struct of_device_id lpc_ctrl_match[] = {
+> > +	{ .compatible = "aspeed,ast2400-lpc-ctrl" },
+> 
+> Another issue I meant to mention on 4/5 was we'll need bindings
+> documentation for these compatible strings.
+> 
+> It's probably also worth adding the AST2500.
+> 
+
+True,
+
+Thanks,
+
+Cyril
+
+> > +	{ },
 > > +};
 > > +
-> > +static struct platform_driver mbox_driver = {
+> > +static struct platform_driver lpc_ctrl_driver = {
 > > > +	.driver = {
 > > > > +		.name		= DEVICE_NAME,
 > > > 
-> > > +		.of_match_table = mbox_match,
+> > > +		.of_match_table = lpc_ctrl_match,
 > > > +	},
-> > > +	.probe = mbox_probe,
-> > > +	.remove = mbox_remove,
+> > > +	.probe = lpc_ctrl_probe,
+> > > +	.remove = lpc_ctrl_remove,
 > > 
 > > +};
 > > +
-> > +module_platform_driver(mbox_driver);
+> > +module_platform_driver(lpc_ctrl_driver);
 > > +
-> > +MODULE_DEVICE_TABLE(of, mbox_match);
+> > +MODULE_DEVICE_TABLE(of, lpc_ctrl_match);
 > > +MODULE_LICENSE("GPL");
 > > > +MODULE_AUTHOR("Cyril Bur <cyrilbur@gmail.com>");
 > > 
-> > +MODULE_DESCRIPTION("Linux device interface to the Aspeed MBOX registers");
-> > diff --git a/include/uapi/linux/aspeed-mbox.h b/include/uapi/linux/aspeed-mbox.h
+> > +MODULE_DESCRIPTION("Linux device interface to control LPC bus");
+> > diff --git a/include/uapi/linux/aspeed-lpc-ctrl.h b/include/uapi/linux/aspeed-lpc-ctrl.h
 > > new file mode 100644
-> > index 000000000000..f4e6a9242fd0
+> > index 000000000000..c5f1caf827ac
 > > --- /dev/null
-> > +++ b/include/uapi/linux/aspeed-mbox.h
-> > @@ -0,0 +1,23 @@
+> > +++ b/include/uapi/linux/aspeed-lpc-ctrl.h
+> > @@ -0,0 +1,25 @@
 > > +/*
 > > + * Copyright 2016 IBM Corp.
 > > + *
@@ -590,19 +542,25 @@ Cyril
 > > + * 2 of the License, or (at your option) any later version.
 > > + */
 > > +
-> > +#ifndef _UAPI_LINUX_MBOX_HOST_H
-> > +#define _UAPI_LINUX_MBOX_HOST_H
+> > +#ifndef _UAPI_LINUX_LPC_CTRL_H
+> > +#define _UAPI_LINUX_LPC_CTRL_H
 > > +
 > > +#include <linux/ioctl.h>
 > > +
-> > +struct aspeed_mbox_atn {
-> > > +	uint8_t reg;
-> > > +	uint8_t val;
+> > +struct lpc_mapping {
+> > > +	uint32_t hostaddr;
+> > > +	uint32_t size;
 > > 
 > > +};
 > > +
-> > > +#define __ASPEED_MBOX_IOCTL_MAGIC	0xb1
-> > > +#define ASPEED_MBOX_IOCTL_ATN	_IOW(__ASPEED_MBOX_IOCTL_MAGIC, 0x00, struct aspeed_mbox_atn)
+> > > +#define __LPC_CTRL_IOCTL_MAGIC	0xb2
+> > > +#define LPC_CTRL_IOCTL_SIZE	_IOR(__LPC_CTRL_IOCTL_MAGIC, 0x00, uint32_t)
+> > > +#define LPC_CTRL_IOCTL_MAP	_IOW(__LPC_CTRL_IOCTL_MAGIC, 0x01, struct lpc_mapping)
+> > > +#define LPC_CTRL_IOCTL_UNMAP	_IO(__LPC_CTRL_IOCTL_MAGIC, 0x02)
 > > 
 > > +
-> > +#endif /* _UAPI_LINUX_MBOX_HOST_H */
+> > +#endif /* _UAPI_LINUX_LPC_CTRL_H */
+> 
+> Cheers,
+> 
+> Andrew
