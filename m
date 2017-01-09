@@ -1,55 +1,52 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <jaghu@google.com>
+Received: from mail-pf0-x234.google.com (mail-pf0-x234.google.com
+ [IPv6:2607:f8b0:400e:c00::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3txZrs613WzDqPG
- for <openbmc@lists.ozlabs.org>; Mon,  9 Jan 2017 10:54:37 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="NIcaWjHj"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="C2iKFpLP"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 863E1209BF;
- Sun,  8 Jan 2017 18:54:31 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Sun, 08 Jan 2017 18:54:31 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=SG1qHJsLLzZoCxDjSBtej9JTxlU=; b=NIcaWj
- Hj6EqRUkLbRRgjSPY8xcgyWzKuirdJNun91oBggdBdUanl6K8XUTtMyQA+xEM6er
- Fkz3Aaafyy4x2UYkCIYCv6+DTB2UFFRTn7joimJJqeS8rmCaErbtKk7GBZm+aOjM
- cZC48YwF2BA8d69wh2oVu0QUmJqQS5UWXoY/4=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=SG1qHJsLLzZoCx
- DjSBtej9JTxlU=; b=C2iKFpLP7FZgMCFtFHC/afdSEHAC34cZispBIl0Ua0gVs5
- 1U3n2c3VKxMRPkbrl5Rwd4c7oconQHACIRX60+tyCLqorrmX1kMJncOcK60QlMoo
- URsYwShWs7EIbnLmgE2ElFYQkBEEPol59EGS0K9tNyWB5lkHTc9ikEzFMwtB8=
-X-ME-Sender: <xms:N9FyWP_B4LcHrrHlLTXukykbo7z9pEOqfiVuOv2iUixgLTgrmY-TQg>
-X-Sasl-enc: DSFeZswMlpleak0WKns8geePc3atpskxxe26yatFagQl 1483919670
-Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 5DA7224462;
- Sun,  8 Jan 2017 18:54:28 -0500 (EST)
-Message-ID: <1483919664.2950.3.camel@aj.id.au>
-Subject: Re: [PATCH v2 4/5] drivers/mailbox: Add aspeed ast2400/ast2500 mbox
- driver
-From: Andrew Jeffery <andrew@aj.id.au>
-To: benh@au1.ibm.com, Cyril Bur <cyrilbur@gmail.com>, openbmc@lists.ozlabs.org
-Cc: millerjo@linux.vnet.ibm.com
-Date: Mon, 09 Jan 2017 10:24:24 +1030
-In-Reply-To: <1483911846.15843.60.camel@au1.ibm.com>
-References: <20161222060610.29695-1-cyrilbur@gmail.com>
- <20161222060610.29695-5-cyrilbur@gmail.com>
- <1482460941.3419.26.camel@aj.id.au> <1482479795.14044.5.camel@gmail.com>
- <1483406661.7801.1.camel@aj.id.au> <1483911846.15843.60.camel@au1.ibm.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-N+8szvZQr8rP+MEAj/Ri"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3ty8Fp6SwGzDqHs
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 08:59:42 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="ozi71LQ8"; 
+ dkim-atps=neutral
+Received: by mail-pf0-x234.google.com with SMTP id f144so24653272pfa.2
+ for <openbmc@lists.ozlabs.org>; Mon, 09 Jan 2017 13:59:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=+4v/rj8gVvev4rHZb2kwL9jlprn2pDBoRNE6HnFs9B8=;
+ b=ozi71LQ8LGKeGUdg1l34qDIUZWrGczV5hqL6B4dC6wfcTd26FwGXMWdvv0dbVj9BFS
+ zgh7/rGH1UhvKBRNK7Da7RRZWV9uKUZGrvlC26zpddXvGijRJjuzAXfsRETDZfLVmdZY
+ oDsQ2RpJJrOhFvqUUnd763zuw/Bk5I+24KiUiyDIvE3HtIVUlkAUIKWNrcR7szBaaIGH
+ VZtZtJyAJF7KLeu088Dh7cu6XxZvO6WwUBEDxjdeGS4p0X8v84ueFk9hp+HTnu2lGZ7c
+ QAA3cVl6gQVpD9VoAMWDjXtqvCjhTC5CzeV/n4XaPE4vr6axPEBQxQ/SrMD20EIecpLc
+ Ggeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=+4v/rj8gVvev4rHZb2kwL9jlprn2pDBoRNE6HnFs9B8=;
+ b=Npn5BDcoZTyprf0gJSsHRRMgFdnoDc7dEiRCKx4VuzjZLwiJcKHkd5Asc+/lmSaGOk
+ XHfJym7F0ROpc48yn/ODnFHbwc0GDukpcAInfAVu3XpwJ1EFFZcmCG16Cay4pzrq1Z5/
+ ftDJCf70fzuBvtBL/AdAoRmy4YOx1YmyTba6Z9IUySrwmUQ+28AWsWfln54/QFmt0Szs
+ vnjVl+bpXqrSc+DXpWc/+XH+qvnnPK3jHU5Wpd0GYjPLJRdXPCLvKZ9p2EWMmolYSKCM
+ oDXWogEZZthFLAgJiC/Fsu9joOBmBVTPZ6ODavtsusJqGDnWLacsBJtDikkoYq8+fPOW
+ jtNA==
+X-Gm-Message-State: AIkVDXLqsGEWutGSDcNpfsyKe/UbzSgAgeDNpINISEwccJIdrKHBxdEd6cdqDO2nrNmaPt2M
+X-Received: by 10.84.241.203 with SMTP id t11mr198344112plm.18.1483999180224; 
+ Mon, 09 Jan 2017 13:59:40 -0800 (PST)
+Received: from jaghu22.svl.corp.google.com ([100.123.242.38])
+ by smtp.gmail.com with ESMTPSA id p67sm181823046pfb.2.2017.01.09.13.59.38
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Mon, 09 Jan 2017 13:59:39 -0800 (PST)
+From: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
+To: openbmc@lists.ozlabs.org, joel@jms.id.au, jdelvare@suse.com,
+ linux@roeck-us.net, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org, corbet@lwn.net, linux-doc@vger.kernel.org,
+ robh+dt@kernel.org, mark.rutland@arm.com, devicetree@vger.kernel.org
+Cc: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
+Subject: [PATCH linux v1 0/2] Support for ASPEED AST2400/AST2500 PWM and Fan
+ Tach driver
+Date: Mon,  9 Jan 2017 13:59:33 -0800
+Message-Id: <20170109215935.30067-1-jaghu@google.com>
+X-Mailer: git-send-email 2.11.0.390.gc69c2f50cf-goog
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,49 +58,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 08 Jan 2017 23:54:39 -0000
+X-List-Received-Date: Mon, 09 Jan 2017 21:59:43 -0000
 
+Support for ASPEED AST2400/AST2500 PWM and Fan Tach driver
 
---=-N+8szvZQr8rP+MEAj/Ri
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Support for ASPEED AST2400/AST2500 PWM and Fan Tach driver.
+The AST2400/AST2500 PWM controller can support 8 PWM output ports.
+The AST2400/AST2500 Fan Tach controller can support 16 tachometer inputs.
+There can be three different PWM clock types (Type M, N and O); Those three
+types just to have three independent PWM sources.
+The driver provides sysfs entries through which the user can configure the
+duty cycle for the particular PWM output port and read the fan rpm value for
+the particular tachometer input.
+Added devicetree binding documentation for AST2400/AST2500 PWM and Fan Tach
+support.
 
-On Sun, 2017-01-08 at 15:44 -0600, Benjamin Herrenschmidt wrote:
-> On Tue, 2017-01-03 at 11:54 +1030, Andrew Jeffery wrote:
-> >=20
-> > regmap_update_bits() will just write back what it read for the
-> > untouched bits, which should be 0 in accordance with the datasheet.
-> > It's not really a change in behaviour as we will still be writing to
-> > reserved bits, but I think it makes the intent clear.
->=20
-> It wastes cycles though...
+Tested on Zaius board (which has AST2500 chip) and observed that when
+duty cycle is lowered then the fan speed is lowered and lower fan rpm value(
+corresponding to the duty cycle) is reported and when the duty cycle is
+increased then the fan speed increases and higher fan rpm value(corresponding
+to the duty cycle) is reported.
 
-True.=C2=A0
+Tested on AST2500 EVB board and observed the PWM output pulses come
+correctly based on the given settings using Logic Saleae Analyzer.
 
-That sways me towards leaving it as a regmap_write().
+Jaghathiswari Rankappagounder Natarajan (2):
+  Documentation: dt-bindings: Document bindings for aspeed pwm and fan
+    tach controller device driver
+  drivers: hwmon: hwmon driver for ASPEED AST2400/2500 PWM and Fan tach
+    controller
 
-Andrew
+ .../devicetree/bindings/hwmon/aspeed-pwm-tacho.txt | 153 ++++
+ Documentation/hwmon/aspeed-pwm-tacho               |  22 +
+ drivers/hwmon/Kconfig                              |   9 +
+ drivers/hwmon/Makefile                             |   1 +
+ drivers/hwmon/aspeed-pwm-tacho.c                   | 884 +++++++++++++++++++++
+ 5 files changed, 1069 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
+ create mode 100644 Documentation/hwmon/aspeed-pwm-tacho
+ create mode 100644 drivers/hwmon/aspeed-pwm-tacho.c
 
---=-N+8szvZQr8rP+MEAj/Ri
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJYctEwAAoJEJ0dnzgO5LT5VSwP/j38Wvn8xn8BKl80uv4anl8d
-uz8VVSrLnaYLzauwbEWgbi8CJUuOvPeoFVn5C3jsSZlsINS31q7l7CGZmT8SEtvu
-3f/TYADmmEt0S1Q9N6auBs6ttoyYr0vFjKwUh4KXbhG7vlmYiIcjDp/ZRPXoaDiZ
-xvupo5Z+3G6flaRw5KUqxZP1QmJYqkYhkR+49GzTP6yWjU/x4fD9LHeQuNy+znYm
-47ShXx6WtQTjSrqKnIoGrc/PuWeUiOtX/+sNUPedrtmylUfhycKNVVWH6Wi/KQ8Z
-cvqQCQaC1eB9zqrS2DNbRY7hmQm/I5jDpNbKqmgU+m7CFMh7oYhHPvBf2YogaWMq
-FpTlZFdpWAav6x7Hv/3lq9Xo9LnCVE1hoAoC93FCNddOUWj5bdE2y6WibkL5/PF5
-jlWG+udlJ+RSmlVF15Zv3gcboHml8RT9Q7iHJVNGaCVk039zK1pCBAKe3QKUPPRf
-CGn+Hku2IZ7hZSYcarpRY/4xg6uaXk9zCaOX5V9t/vsFKVeeFC38NI9S0B3b/Lgw
-BMYdDeJRpWe9+ABguOJ0nUvsDXcYwOvvPv710nOEnwxlReUpvnfpLdn3EopAZbtv
-zxwSt9tAHiLq5GFOxldLNFzzKhq0EDMmsccItmuZWc0sBnHu7UKK3b+bGiDu993m
-+nrU+Brk7V8bvhVggI9b
-=bvaU
------END PGP SIGNATURE-----
-
---=-N+8szvZQr8rP+MEAj/Ri--
+--
+2.11.0.390.gc69c2f50cf-goog
