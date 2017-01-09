@@ -1,49 +1,61 @@
-Return-Path: <xow@google.com>
-Received: from mail-qt0-x232.google.com (mail-qt0-x232.google.com
- [IPv6:2607:f8b0:400d:c0d::232])
+Return-Path: <cyrilbur@gmail.com>
+Received: from mail-pf0-x241.google.com (mail-pf0-x241.google.com
+ [IPv6:2607:f8b0:400e:c00::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3ty9rJ3xqHzDqM6
- for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 10:11:12 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tyB1T37KBzDqM6
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 10:19:09 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="n7P0AceE"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="fTIaidTi"; 
  dkim-atps=neutral
-Received: by mail-qt0-x232.google.com with SMTP id k15so380296294qtg.3
- for <openbmc@lists.ozlabs.org>; Mon, 09 Jan 2017 15:11:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=t06i4bkKwnkxXrjGU0hoOkbHfTtatnFv049hEZ961uI=;
- b=n7P0AceEagkyyk610tWDOWhlYC4lYqMzPcjf1zflXXzac8EZio3Q9chrfThgxlE/1i
- rReRVngh6XHvzaVOjEq3egdLGFlNS1lKbtCHq6L6b5MbAB6uqDQ5g73qAxA9iBTAcCGb
- Dv2g/GzB4pBdR/oOxkStWTXeSGBfwslE6OexcNvjJDpiGEj0piNcWnDW1jsL2nzaTJI4
- F9haRKDXwwqeSSb7lrXfjtuTldkjNGmoklcXQeMShywV+KGaJ/dliUoGQhRTZRNcRB1E
- ynxFSzXz6VXqF4APq1iVfQ7arif09npjWKgOJbNgMAInzKLuLmKuFNyvU/nuyVdHQNQ7
- 1tTg==
+Received: by mail-pf0-x241.google.com with SMTP id f144so6737290pfa.2
+ for <openbmc@lists.ozlabs.org>; Mon, 09 Jan 2017 15:19:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=message-id:subject:from:to:cc:date:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=KkThse1QutwZeqePTo7SJwNqoaBjrxtcbibUdRAtLjM=;
+ b=fTIaidTiGTlzbPWvrM8yn5HGC2vvYCzO3fAmxsQkZRDt/TyfRwKQCeQFFNP/SVo0UU
+ qyqh+M/bOyzyn9kzJTUg0gLH9DED/M3iF18gEz/R+1cGDVPKqj19kqqPKVK+sc0Orqy6
+ i9V9MQVmkTJtrm7yh+1xt1uedglWPKfJSsOQO8TNnxj5fgV8hZDcrCfaQjUskupOVcKc
+ UoWZfL13K5S0VZpTZ524slLo3pWSaBAa9IXjzz1urW6/88DWVtUv/HFAoxUBCL8uA9fL
+ Hu/q7Jn9kRp+l0qlpOrJ7XAFHypx5iufbb3MrRWf/nzcDdm6DVJkOiASnq60yaIjjUf2
+ 4WxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=t06i4bkKwnkxXrjGU0hoOkbHfTtatnFv049hEZ961uI=;
- b=kxKZyqIjsnB3sXxuwYbpVeJ3wkxok1pTvuxlsjveJNyenPNqA1QM0V8OyTlGJ2tuR4
- LFZyGmONDIIEh3MXQwVEiN7JGVepeVUg6DmaZU+y9LW7DIxyx28Uyiuvqq6KnJsuz3jJ
- B4LDY3qWyEUVEtKFR3WudR+wHETahd5CNcpuBf3ToD4LAOR0E2WIu8/RvlraJIwD1JCU
- +cFPnAl+4wCZtu4rizlCalmhHF0/XyhK/5RfR33HTOnk8ia0Kkb7khtf5LV5rNyuB2PY
- BzTBBBpGQXHTfd0bE/iKMJJl0zvn+XwkLnjU0bU7P2VNFDOOLVPSGHiw2cK7HigAcCzc
- IsMA==
-X-Gm-Message-State: AIkVDXKvXQ36hNd8hzx4LSFUMJbWW5p3XHwedSa6ci6CgZmSkbu0Y4BFSxAcJRkWWELSZSN0moa+oRp5GonOA3lO
-X-Received: by 10.237.60.49 with SMTP id t46mr155078qte.140.1484003469755;
- Mon, 09 Jan 2017 15:11:09 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.140.21.18 with HTTP; Mon, 9 Jan 2017 15:11:09 -0800 (PST)
-In-Reply-To: <20161110013556.8542-1-andrew@aj.id.au>
-References: <20161110013556.8542-1-andrew@aj.id.au>
-From: Xo Wang <xow@google.com>
-Date: Mon, 9 Jan 2017 15:11:09 -0800
-Message-ID: <CAPH-5w7O7+65OWEWARC7ihwhoPnqBRe8z_4R3KWRS-nNHsBw-w@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7 0/4] SuperIO and Host Interface Controllers
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Joel Stanley <joel@jms.id.au>, OpenBMC <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=KkThse1QutwZeqePTo7SJwNqoaBjrxtcbibUdRAtLjM=;
+ b=mHbR/E4KymxnSVOv1A6QSQFW1O8PGQGyy6tMDGp8DVn32vxkJDgQwARTtPm2yOX+aS
+ fjEuHEq+afHDZcPIqqyLJKwDNPmcafwDLGmN2mx+NKW7/yDQlGyocRWv43sgGaNdsR5C
+ LGREuAbPg/TuBwfBXFiOPymVjbZrrEmQciEe5mmOkzVQZD4OwayY6A0+x45vOgnCOEqZ
+ zV2eF5yWs1Mg3HCB1iZQnwRooRX2s5FXX22u+UDzO9zRczhuJXEEmKfeXH4kKNDAOO7m
+ B41JmCum2HI9jt668dLgb4joQI5fXmweFMtEvQ7XQPDTao0K9SFmXT2IlwG5dq0R1nAn
+ NkFQ==
+X-Gm-Message-State: AIkVDXKRvrrDTU0z3IypIelGcCC3qLGtEKNnfx+iq1UKCAnRVI1BNLoTB8R4CQMYPwfr1A==
+X-Received: by 10.84.167.2 with SMTP id c2mr310572plb.56.1484003947672;
+ Mon, 09 Jan 2017 15:19:07 -0800 (PST)
+Received: from camb691.ozlabs.ibm.com ([122.99.82.10])
+ by smtp.googlemail.com with ESMTPSA id w5sm10898pfl.31.2017.01.09.15.19.05
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 09 Jan 2017 15:19:07 -0800 (PST)
+Message-ID: <1484003903.6236.7.camel@gmail.com>
+Subject: Re: [PATCH v2 4/5] drivers/mailbox: Add aspeed ast2400/ast2500 mbox
+ driver
+From: Cyril Bur <cyrilbur@gmail.com>
+To: Andrew Jeffery <andrew@aj.id.au>, benh@au1.ibm.com, 
+ openbmc@lists.ozlabs.org
+Cc: millerjo@linux.vnet.ibm.com
+Date: Tue, 10 Jan 2017 10:18:23 +1100
+In-Reply-To: <1484002504.12800.1.camel@aj.id.au>
+References: <20161222060610.29695-1-cyrilbur@gmail.com>
+ <20161222060610.29695-5-cyrilbur@gmail.com>
+ <1482460941.3419.26.camel@aj.id.au> <1482479795.14044.5.camel@gmail.com>
+ <1483406661.7801.1.camel@aj.id.au> <1483911906.15843.61.camel@au1.ibm.com>
+ <1483999740.6236.2.camel@gmail.com> <1484002504.12800.1.camel@aj.id.au>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.22.3 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,51 +67,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 Jan 2017 23:11:14 -0000
+X-List-Received-Date: Mon, 09 Jan 2017 23:19:09 -0000
 
-Hi folks,
+On Tue, 2017-01-10 at 09:25 +1030, Andrew Jeffery wrote:
+> On Tue, 2017-01-10 at 09:09 +1100, Cyril Bur wrote:
+> > On Sun, 2017-01-08 at 15:45 -0600, Benjamin Herrenschmidt wrote:
+> > > On Tue, 2017-01-03 at 11:54 +1030, Andrew Jeffery wrote:
+> > > > > > I think we should rename the IOCTL as what we do below doesn't
+> > > > > > necessarily raise an interrupt.
+> > > > > >  
+> > > > > 
+> > > > >  
+> > > > > Agreed, taking unput :). ASPEED_MBOX_IOCTL_WRITE_BYTE ?
+> > > > 
+> > > > That suggestion works for me.
+> > 
+> > Sorry about the blank one, I'll try typing something this time.
+> > 
+> > > If we are going to do that, maybe we should make this a write()
+> > > at a specific lpos...
+> > > 
+> > 
+> > Andrew, Joel what do you think of this, a write of count 1 at a
+> > specific pos. I like this since it removes ioctls all together and
+> > isn't any harder for userspace.
+> 
+> I'm in favour of removing the ioctl. So the logic would be:
+> 
 
-On Wed, Nov 9, 2016 at 5:35 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
-> Hello,
->
-> This series adds some sysfs drivers exposing parts of the LPC controller. The
-> patches are pretty bare-bones in that they provide zero sanity checking and
-> leave decisions entirely to userspace. They're also slightly tedious, so I
-> expect (hope) their current form will be short-lived.
->
-> Cheers,
->
+Cool done.
+
+> 1. If lpos is zero, assume a MBOX_NUM_DATA_REGS-sized write as we do
+> currently
+
+Just to clarify - if lpos is zero anything smaller than or equal to
+MBOX_NUM_DATA_REGS is good.
+
+> 2. If lpos is non-zero, assume a single byte write
+> 
+
+Sounds good.
+
+> On that, should we be testing the assumptions about buffer sizes?
+> Currently we don't (we use the MBOX_NUM_DATA_REGS rather than count).
+> 
+
+Yeah. Simple checks for your condition 1 and 2.
+
 > Andrew
->
-> Andrew Jeffery (4):
->   misc: Expose Aspeed SuperIO scratch registers (SCRxSIO)
->   misc: Add partial Aspeed LPC Host Interface Control (HIC) driver
->   arm: aspeed: dt: Add SuperIO scratch register nodes
->   arm: aspeed: dt: Add LPC Host Interface Controller nodes
->
->  arch/arm/boot/dts/aspeed-g4.dtsi |  10 ++
->  arch/arm/boot/dts/aspeed-g5.dtsi |  10 ++
->  drivers/misc/Kconfig             |  14 +++
->  drivers/misc/Makefile            |   2 +
->  drivers/misc/aspeed-hic.c        | 198 +++++++++++++++++++++++++++++++++++++++
->  drivers/misc/aspeed-scrsio.c     | 141 ++++++++++++++++++++++++++++
->  6 files changed, 375 insertions(+)
->  create mode 100644 drivers/misc/aspeed-hic.c
->  create mode 100644 drivers/misc/aspeed-scrsio.c
->
-> --
-> 2.9.3
->
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
-
-I noticed that this driver wasn't merged. Was there a change of plan
-to how LPC controller functionality should be exported?
-
-This is still useful for us to set up memboot and to listen for port
-80 post codes.
-
-cheers
-xo
