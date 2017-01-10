@@ -1,62 +1,79 @@
-Return-Path: <cyrilbur@gmail.com>
-Received: from mail-pf0-x242.google.com (mail-pf0-x242.google.com
- [IPv6:2607:f8b0:400e:c00::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <benh@au1.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tyK4b4BzVzDqN3
- for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 15:37:19 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="tW5nX8cq"; 
- dkim-atps=neutral
-Received: by mail-pf0-x242.google.com with SMTP id b22so10464560pfd.3
- for <openbmc@lists.ozlabs.org>; Mon, 09 Jan 2017 20:37:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=message-id:subject:from:to:cc:date:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=JCPrQivFbYGu8ymMu+cuM7dtB3hGE2gP86ZRY8Luc9Y=;
- b=tW5nX8cqo9W2Rvi5UsMBsDkxoTSOsUDYDp4gmzOjivyT7vhlqkFsjFepkbMUCHOc5V
- 5Qp9VfiwAR70CAAtX4nbf4fVIXSlZQhx8OXVdmZqs2V18xLWqFrjhKELXIoJ2ofWIV+o
- Hv3gy27MD68pQIXJ92jDVHZ95b4zqQkCPYzThLJvRi5sAGM8FfXH5qV3Z/tASKneA5RV
- k2DYzl5aI+NTF1QrjBkyka86LP9KCF0UQIt3lMs1H1vw6uVCL2GrawQ1G6GvceOhVlmI
- lbYa8bBsrMZEF2+JPZ3E1OrmxYaWgQKSKIRWq+OEBi2fxiMDezdI12r81Q2bV6O5ut+u
- Pvjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=JCPrQivFbYGu8ymMu+cuM7dtB3hGE2gP86ZRY8Luc9Y=;
- b=tMiDzVrAu6KV2Jd2Tu+fe1nznmUt8Q6FRuxGmKG8imUNBHr/AK49zyxI8MwFVsXN4b
- NQacX/TPFSpyXxp4ASjaPXP6VxRKrCKNkbJzNFr0xqxjhBCf4i697KcpNDZ22FTcir4l
- 1kEI65hJy1nSidUndujvnWOSIpLBX+zck26Xp8awqxB2bQtEUC541Wa4C0jxFEmensQl
- sRDkibx5C0GnnQHvugpKhJ8/QteCjVzlPIjzeXXxH29H+gtphelkiVkN6bCQ1GJ6ho29
- pnLO8MyUicBzL7t41mp0/1LQC5pGB36jO/5lUZqGSoAriovD9oFkwRsF70mA7STZw+Jy
- AwNA==
-X-Gm-Message-State: AIkVDXJB0G8ivSdNiWSzmFR+mqDqSuY4Uod6qC+vMB38qdFE7B2tqoekBmC5O0vaTSeEEQ==
-X-Received: by 10.98.47.68 with SMTP id v65mr1510152pfv.115.1484023037445;
- Mon, 09 Jan 2017 20:37:17 -0800 (PST)
-Received: from camb691.ozlabs.ibm.com ([122.99.82.10])
- by smtp.googlemail.com with ESMTPSA id h185sm1080691pfg.90.2017.01.09.20.37.14
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 09 Jan 2017 20:37:16 -0800 (PST)
-Message-ID: <1484022993.6236.12.camel@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tyK8v0Jc4zDqN4
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 15:41:02 +1100 (AEDT)
+Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
+ v0A4dAxa112308
+ for <openbmc@lists.ozlabs.org>; Mon, 9 Jan 2017 23:41:00 -0500
+Received: from e23smtp07.au.ibm.com (e23smtp07.au.ibm.com [202.81.31.140])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 27vmy4xyn1-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 09 Jan 2017 23:41:00 -0500
+Received: from localhost
+ by e23smtp07.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <benh@au1.ibm.com>;
+ Tue, 10 Jan 2017 14:40:57 +1000
+Received: from d23dlp02.au.ibm.com (202.81.31.213)
+ by e23smtp07.au.ibm.com (202.81.31.204) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Tue, 10 Jan 2017 14:40:54 +1000
+Received: from d23relay10.au.ibm.com (d23relay10.au.ibm.com [9.190.26.77])
+ by d23dlp02.au.ibm.com (Postfix) with ESMTP id 11E842BB0045
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 15:40:54 +1100 (EST)
+Received: from d23av05.au.ibm.com (d23av05.au.ibm.com [9.190.234.119])
+ by d23relay10.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v0A4ertR1442136
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 15:40:53 +1100
+Received: from d23av05.au.ibm.com (localhost [127.0.0.1])
+ by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ v0A4erZ4002687
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 15:40:53 +1100
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ v0A4eroE002680; Tue, 10 Jan 2017 15:40:53 +1100
+Received: from pasglop (unknown [9.192.163.4])
+ (using TLSv1.2 with cipher AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 0A534A0120;
+ Tue, 10 Jan 2017 15:40:50 +1100 (AEDT)
 Subject: Re: [PATCH v2 4/5] drivers/mailbox: Add aspeed ast2400/ast2500 mbox
  driver
-From: Cyril Bur <cyrilbur@gmail.com>
-To: benh@au1.ibm.com, Andrew Jeffery <andrew@aj.id.au>, 
+From: Benjamin Herrenschmidt <benh@au1.ibm.com>
+Reply-To: benh@au1.ibm.com
+To: Cyril Bur <cyrilbur@gmail.com>, Andrew Jeffery <andrew@aj.id.au>,
  openbmc@lists.ozlabs.org
 Cc: millerjo@linux.vnet.ibm.com
-Date: Tue, 10 Jan 2017 15:36:33 +1100
-In-Reply-To: <1484022504.21117.7.camel@au1.ibm.com>
+Date: Mon, 09 Jan 2017 22:40:51 -0600
+In-Reply-To: <1484022993.6236.12.camel@gmail.com>
 References: <20161222060610.29695-1-cyrilbur@gmail.com>
  <20161222060610.29695-5-cyrilbur@gmail.com>
  <1482460941.3419.26.camel@aj.id.au> <1482479795.14044.5.camel@gmail.com>
  <1483406661.7801.1.camel@aj.id.au> <1483911906.15843.61.camel@au1.ibm.com>
  <1483999740.6236.2.camel@gmail.com> <1484002504.12800.1.camel@aj.id.au>
- <1484022504.21117.7.camel@au1.ibm.com>
+ <1484022504.21117.7.camel@au1.ibm.com> <1484022993.6236.12.camel@gmail.com>
+Organization: IBM Australia
 Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.22.3 
+X-Mailer: Evolution 3.22.3 (3.22.3-1.fc25) 
 Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17011004-0044-0000-0000-0000021AE7F2
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17011004-0045-0000-0000-00000653734E
+Message-Id: <1484023251.21117.9.camel@au1.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-01-10_03:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1701100063
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,33 +85,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Jan 2017 04:37:20 -0000
+X-List-Received-Date: Tue, 10 Jan 2017 04:41:03 -0000
 
-On Mon, 2017-01-09 at 22:28 -0600, Benjamin Herrenschmidt wrote:
-> On Tue, 2017-01-10 at 09:25 +1030, Andrew Jeffery wrote:
-> > I'm in favour of removing the ioctl. So the logic would be:
-> > 
-> > 1. If lpos is zero, assume a MBOX_NUM_DATA_REGS-sized write as we do
-> > currently
-> > 2. If lpos is non-zero, assume a single byte write
-> > 
-> > On that, should we be testing the assumptions about buffer sizes?
-> > Currently we don't (we use the MBOX_NUM_DATA_REGS rather than count).
+On Tue, 2017-01-10 at 15:36 +1100, Cyril Bur wrote:
+> So, its basically no more work (I think...) to just have partial
+> writes, which... satisfy this requirement no?
 > 
-> I would enforce the lpos is some specific magic value such as 0x1000
-> for the special write bcs we might want to support partial writes
-> inside the 16 bytes area...
+> Just so we're on the same page - theres nothing 'special' about the
+> write it's just that he other end has mapped that 'data' register to
+> trigger an interrupt... the kernel doesn't know that nor does it need
+> to, the write is like any other, the interrupt gets triggered by
+> hardware.
 
-So, its basically no more work (I think...) to just have partial
-writes, which... satisfy this requirement no?
-
-Just so we're on the same page - theres nothing 'special' about the
-write it's just that he other end has mapped that 'data' register to
-trigger an interrupt... the kernel doesn't know that nor does it need
-to, the write is like any other, the interrupt gets triggered by
-hardware.
-
-> 
-> Cheers,
-> Ben.
-> 
+Ok, that's fine then
