@@ -3,63 +3,62 @@ Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tyR4s1zSQzDqPl
- for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 20:07:57 +1100 (AEDT)
-Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tyR4r10TrzDqQw
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 20:07:55 +1100 (AEDT)
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
- v0A942nb054924
- for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 04:07:55 -0500
-Received: from e23smtp02.au.ibm.com (e23smtp02.au.ibm.com [202.81.31.144])
- by mx0a-001b2d01.pphosted.com with ESMTP id 27vvbxrthm-1
+ v0A95AIf076134
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 04:07:54 -0500
+Received: from e23smtp04.au.ibm.com (e23smtp04.au.ibm.com [202.81.31.146])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 27vrnxr8ke-1
  (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
  for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 04:07:54 -0500
 Received: from localhost
- by e23smtp02.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e23smtp04.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <cyrilbur@gmail.com>;
  Tue, 10 Jan 2017 19:07:52 +1000
 Received: from d23dlp02.au.ibm.com (202.81.31.213)
- by e23smtp02.au.ibm.com (202.81.31.208) with IBM ESMTP SMTP Gateway:
+ by e23smtp04.au.ibm.com (202.81.31.210) with IBM ESMTP SMTP Gateway:
  Authorized Use Only! Violators will be prosecuted; 
  Tue, 10 Jan 2017 19:07:50 +1000
-Received: from d23relay09.au.ibm.com (d23relay09.au.ibm.com [9.185.63.181])
- by d23dlp02.au.ibm.com (Postfix) with ESMTP id 218402BB0055
+Received: from d23relay08.au.ibm.com (d23relay08.au.ibm.com [9.185.71.33])
+ by d23dlp02.au.ibm.com (Postfix) with ESMTP id 18A1B2BB0045
  for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 20:07:50 +1100 (EST)
-Received: from d23av06.au.ibm.com (d23av06.au.ibm.com [9.190.235.151])
- by d23relay09.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v0A97ola60293250
- for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 20:07:50 +1100
-Received: from d23av06.au.ibm.com (localhost [127.0.0.1])
- by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- v0A97nTx015244
+Received: from d23av04.au.ibm.com (d23av04.au.ibm.com [9.190.235.139])
+ by d23relay08.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v0A97qPG51183668
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 20:07:52 +1100
+Received: from d23av04.au.ibm.com (localhost [127.0.0.1])
+ by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ v0A97nZR024174
  for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 20:07:49 +1100
 Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
- by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- v0A97nlD015240
+ by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ v0A97n1k024167
  for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 20:07:49 +1100
 Received: from camb691.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
  (using TLSv1.2 with cipher DHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 82D39A037F
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 7422DA027E
  for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 20:07:49 +1100 (AEDT)
 From: Cyril Bur <cyrilbur@gmail.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH v3 4/5] drivers/misc: Add aspeed ast2400/ast2500 lpc
- controlling driver
-Date: Tue, 10 Jan 2017 20:06:39 +1100
+Subject: [PATCH v3 3/5] ARM: dts: aspeed: Add mailbox and LPC Control nodes
+Date: Tue, 10 Jan 2017 20:06:38 +1100
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20170110090640.12608-1-cyrilbur@gmail.com>
 References: <20170110090640.12608-1-cyrilbur@gmail.com>
 X-TM-AS-MML: disable
 X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17011009-0004-0000-0000-000001D20DF2
+x-cbid: 17011009-0012-0000-0000-000002021080
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17011009-0005-0000-0000-00000975D68B
-Message-Id: <20170110090640.12608-5-cyrilbur@gmail.com>
+x-cbparentid: 17011009-0013-0000-0000-000006C8D581
+Message-Id: <20170110090640.12608-4-cyrilbur@gmail.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
  definitions=2017-01-10_07:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=46
+ spamscore=46 suspectscore=1
  malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
  adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
  definitions=main-1701100129
@@ -76,367 +75,140 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Tue, 10 Jan 2017 09:07:57 -0000
 
-This driver exposes a reserved chunk of BMC ram to userspace as well as
-an ioctl interface to control the BMC<->HOST mapping of the LPC bus.
-This allows for a communication channel between the BMC and the host
+This reserves BMC ram for host to BMC communication required by the LPC
+control driver.
+
+As both these devices exist on the LPC bus these nodes are children of a
+new LPC node
 
 Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
 ---
- drivers/misc/Kconfig                 |   9 ++
- drivers/misc/Makefile                |   1 +
- drivers/misc/aspeed-lpc-ctrl.c       | 282 +++++++++++++++++++++++++++++++++++
- include/uapi/linux/aspeed-lpc-ctrl.h |  25 ++++
- 4 files changed, 317 insertions(+)
- create mode 100644 drivers/misc/aspeed-lpc-ctrl.c
- create mode 100644 include/uapi/linux/aspeed-lpc-ctrl.h
+ arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts |  6 ++++
+ arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts |  6 ++++
+ arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts  |  6 ++++
+ arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts  |  7 +++++
+ arch/arm/boot/dts/aspeed-g4.dtsi               | 38 ++++++++++++++++++++++++++
+ 5 files changed, 63 insertions(+)
 
-diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-index a216b4667742..61ca9025ccb9 100644
---- a/drivers/misc/Kconfig
-+++ b/drivers/misc/Kconfig
-@@ -804,6 +804,15 @@ config PANEL_BOOT_MESSAGE
- 	  An empty message will only clear the display at driver init time. Any other
- 	  printf()-formatted message is valid with newline and escape codes.
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+index 9dc3e67fc98c..19aeb3eb4a0a 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-barreleye.dts
+@@ -29,6 +29,12 @@
+ 			no-map;
+ 			reg = <0x5f000000 0x01000000>; /* 16MB */
+ 		};
++
++		flash_memory: region@54000000 {
++			compatible = "aspeed,ast2400-lpc-ctrl";
++			no-map;
++			reg = <0x54000000 0x04000000>; /* 64M */
++		};
+ 	};
  
-+config ASPEED_LPC_CTRL
-+	depends on (ARCH_ASPEED || COMPILE_TEST) && REGMAP && MFD_SYSCON
-+	bool "Build a driver to control the BMC to HOST LPC bus"
-+	default "y"
-+	---help---
-+	  Provides a driver to control BMC to HOST LPC mappings through
-+	  ioctl()s, the driver aso provides a read/write interface to a BMC ram
-+	  region where host LPC can be buffered.
+ 	ahb {
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+index 68946aa34e31..a99fef94a616 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-firestone.dts
+@@ -33,6 +33,12 @@
+ 			no-map;
+ 			reg = <0x5f000000 0x01000000>; /* 16MB */
+ 		};
 +
- source "drivers/misc/c2port/Kconfig"
- source "drivers/misc/eeprom/Kconfig"
- source "drivers/misc/cb710/Kconfig"
-diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
-index b2fb6dbffcef..cdcd1af48971 100644
---- a/drivers/misc/Makefile
-+++ b/drivers/misc/Makefile
-@@ -57,3 +57,4 @@ obj-$(CONFIG_ECHO)		+= echo/
- obj-$(CONFIG_VEXPRESS_SYSCFG)	+= vexpress-syscfg.o
- obj-$(CONFIG_CXL_BASE)		+= cxl/
- obj-$(CONFIG_PANEL)             += panel.o
-+obj-$(CONFIG_ASPEED_LPC_CTRL)	+= aspeed-lpc-ctrl.o
-diff --git a/drivers/misc/aspeed-lpc-ctrl.c b/drivers/misc/aspeed-lpc-ctrl.c
-new file mode 100644
-index 000000000000..8b95fac2f55b
---- /dev/null
-+++ b/drivers/misc/aspeed-lpc-ctrl.c
-@@ -0,0 +1,282 @@
-+/*
-+ * Copyright 2016 IBM Corporation
-+ *
-+ * This program is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU General Public License
-+ * as published by the Free Software Foundation; either version
-+ * 2 of the License, or (at your option) any later version.
-+ */
++		flash_memory: region@54000000 {
++			compatible = "aspeed,ast2400-lpc-ctrl";
++			no-map;
++			reg = <0x54000000 0x04000000>; /* 64M */
++		};
+ 	};
+ 
+ 	leds {
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
+index 639b8f877184..246ed04bf8b3 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-garrison.dts
+@@ -29,6 +29,12 @@
+ 			no-map;
+ 			reg = <0x5f000000 0x01000000>; /* 16MB */
+ 		};
 +
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/errno.h>
-+#include <linux/init.h>
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/jiffies.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/miscdevice.h>
-+#include <linux/mm.h>
-+#include <linux/module.h>
-+#include <linux/moduleparam.h>
-+#include <linux/of.h>
-+#include <linux/of_address.h>
-+#include <linux/platform_device.h>
-+#include <linux/poll.h>
-+#include <linux/regmap.h>
-+#include <linux/sched.h>
-+#include <linux/slab.h>
-+#include <linux/spinlock.h>
-+#include <linux/timer.h>
++		flash_memory: region@54000000 {
++			compatible = "aspeed,ast2400-lpc-ctrl";
++			no-map;
++			reg = <0x54000000 0x04000000>; /* 64M */
++		};
+ 	};
+ 
+ 	ahb {
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+index 13e9f18fbed8..bba911d79fbf 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+@@ -29,8 +29,15 @@
+ 			no-map;
+ 			reg = <0x5f000000 0x01000000>; /* 16MB */
+ 		};
 +
-+#include <linux/aspeed-lpc-ctrl.h>
++		flash_memory: region@54000000 {
++			compatible = "aspeed,ast2400-lpc-ctrl";
++			no-map;
++			reg = <0x54000000 0x04000000>; /* 64M */
++		};
+ 	};
+ 
 +
-+#define DEVICE_NAME	"aspeed-lpc-ctrl"
+         leds {
+                 compatible = "gpio-leds";
+ 
+diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
+index 7c78eb1c01ff..c84e833c9480 100644
+--- a/arch/arm/boot/dts/aspeed-g4.dtsi
++++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+@@ -33,6 +33,44 @@
+ 		#size-cells = <1>;
+ 		ranges;
+ 
++		lpc: lpc@1e789000 {
++			compatible = "aspeed,ast2400-lpc", "simple-mfd";
++			reg = <0x1e789000 0x1000>;
 +
-+#define HICR7 0x8
-+#define HICR8 0xc
++			#address-cells = <1>;
++			#size-cells = <1>;
++			ranges = <0x0 0x1e789000 0x1000>;
 +
-+struct lpc_ctrl {
-+	struct miscdevice	miscdev;
-+	struct regmap		*regmap;
-+	phys_addr_t		base;
-+	resource_size_t		size;
-+	uint32_t		pnor_size;
-+	uint32_t		pnor_base;
-+};
++			lpc_bmc: lpc-bmc@0 {
++				compatible = "aspeed,ast2400-lpc-bmc";
++				reg = <0x0 0x80>;
++			};
 +
-+static atomic_t lpc_ctrl_open_count = ATOMIC_INIT(0);
++			lpc_host: lpc-host@80 {
++				compatible = "aspeed,ast2400-lpc-host", "simple-mfd", "syscon";
++				reg = <0x80 0x1e0>;
++				reg-io-width = <4>;
 +
-+static struct lpc_ctrl *file_lpc_ctrl(struct file *file)
-+{
-+	return container_of(file->private_data, struct lpc_ctrl, miscdev);
-+}
++				#address-cells = <1>;
++				#size-cells = <1>;
++				ranges = <0x0 0x80 0x1e0>;
 +
-+static int lpc_ctrl_mmap(struct file *file, struct vm_area_struct *vma)
-+{
-+	struct lpc_ctrl *lpc_ctrl = file_lpc_ctrl(file);
-+	unsigned long vsize = vma->vm_end - vma->vm_start;
++				lpc-ctrl@0 {
++					compatible = "aspeed,ast2400-lpc-ctrl";
++					memory-region = <&flash_memory>;
++					flash = <&host_pnor>;
++					reg = <0x0 0x80>;
++				};
 +
-+	if (vma->vm_pgoff + vsize > lpc_ctrl->base + lpc_ctrl->size)
-+		return -EINVAL;
++				mbox: mbox@180 {
++					compatible = "aspeed,ast2400-mbox";
++					reg = <0x180 0x5c>;
++					interrupts = <46>;
++					#mbox-cells = <1>;
++				};
++			};
++		};
 +
-+	/* Other checks? */
-+
-+	if (remap_pfn_range(vma, vma->vm_start,
-+		(lpc_ctrl->base >> PAGE_SHIFT) + vma->vm_pgoff,
-+		vsize, vma->vm_page_prot))
-+		return -EAGAIN;
-+
-+	return 0;
-+}
-+
-+static int lpc_ctrl_open(struct inode *inode, struct file *file)
-+{
-+	if (atomic_inc_return(&lpc_ctrl_open_count) == 1)
-+		return 0;
-+
-+	atomic_dec(&lpc_ctrl_open_count);
-+	return -EBUSY;
-+}
-+
-+static ssize_t lpc_ctrl_read(struct file *file, char __user *buf,
-+				size_t count, loff_t *ppos)
-+{
-+	if (!access_ok(VERIFY_WRITE, buf, count))
-+		return -EFAULT;
-+
-+	return -EPERM;
-+}
-+
-+static ssize_t lpc_ctrl_write(struct file *file, const char __user *buf,
-+				size_t count, loff_t *ppos)
-+{
-+	if (!access_ok(VERIFY_READ, buf, count))
-+		return -EFAULT;
-+
-+	return -EPERM;
-+}
-+
-+static long lpc_ctrl_ioctl(struct file *file, unsigned int cmd,
-+		unsigned long param)
-+{
-+	long rc;
-+	struct lpc_mapping map;
-+	struct lpc_ctrl *lpc_ctrl = file_lpc_ctrl(file);
-+	void __user *p = (void __user *)param;
-+
-+	switch (cmd) {
-+	case LPC_CTRL_IOCTL_SIZE:
-+		return copy_to_user(p, &lpc_ctrl->size,
-+			sizeof(lpc_ctrl->size)) ? -EFAULT : 0;
-+	case LPC_CTRL_IOCTL_MAP:
-+		if (copy_from_user(&map, p, sizeof(map)))
-+			return -EFAULT;
-+
-+
-+		/*
-+		 * The top half of HICR7 is the MSB of the BMC address of the
-+		 * mapping.
-+		 * The bottom half of HICR7 is the MSB of the HOST LPC
-+		 * firmware space address of the mapping.
-+		 *
-+		 * The 1 bits in the top of half of HICR8 represent the bits
-+		 * (in the requested address) that should be ignored and
-+		 * replaced with those from the top half of HICR7.
-+		 * The 1 bits in the bottom half of HICR8 represent the bits
-+		 * (in the requested address) that should be kept and pass
-+		 * into the BMC address space.
-+		 */
-+
-+		rc = regmap_write(lpc_ctrl->regmap, HICR7,
-+				(lpc_ctrl->base | (map.hostaddr >> 16)));
-+		if (rc)
-+			return rc;
-+
-+		rc = regmap_write(lpc_ctrl->regmap, HICR8,
-+			(~(map.size - 1)) | ((map.size >> 16) - 1));
-+		return rc;
-+	case LPC_CTRL_IOCTL_UNMAP:
-+		/*
-+		 * The top nibble in host lpc addresses references which
-+		 * firmware space, use space zero hence the & 0x0fff
-+		 */
-+
-+		rc = regmap_write(lpc_ctrl->regmap, HICR7,
-+			lpc_ctrl->pnor_base | (((-lpc_ctrl->pnor_size) >> 16) & 0x0fff));
-+		if (rc)
-+			return rc;
-+
-+		rc = regmap_write(lpc_ctrl->regmap, HICR8,
-+			(~(lpc_ctrl->pnor_size - 1)) | ((lpc_ctrl->pnor_size >> 16) - 1));
-+		return rc;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int lpc_ctrl_release(struct inode *inode, struct file *file)
-+{
-+	atomic_dec(&lpc_ctrl_open_count);
-+	return 0;
-+}
-+
-+static const struct file_operations lpc_ctrl_fops = {
-+	.owner		= THIS_MODULE,
-+	.mmap		= lpc_ctrl_mmap,
-+	.open		= lpc_ctrl_open,
-+	.read		= lpc_ctrl_read,
-+	.write		= lpc_ctrl_write,
-+	.release	= lpc_ctrl_release,
-+	.unlocked_ioctl	= lpc_ctrl_ioctl,
-+};
-+
-+static int lpc_ctrl_probe(struct platform_device *pdev)
-+{
-+	struct lpc_ctrl *lpc_ctrl;
-+	struct device *dev;
-+	struct device_node *node;
-+	struct resource resm;
-+	int rc;
-+
-+	if (!pdev || !pdev->dev.of_node)
-+		return -ENODEV;
-+
-+	dev = &pdev->dev;
-+
-+	lpc_ctrl = devm_kzalloc(dev, sizeof(*lpc_ctrl), GFP_KERNEL);
-+	if (!lpc_ctrl)
-+		return -ENOMEM;
-+
-+	node = of_parse_phandle(dev->of_node, "flash", 0);
-+	if (!node) {
-+		dev_err(dev, "Didn't find host pnor flash node\n");
-+		rc = -ENODEV;
-+		goto out;
-+	}
-+
-+	rc = of_property_read_u32_index(node, "reg", 3,
-+			&lpc_ctrl->pnor_size);
-+	if (rc)
-+		return rc;
-+	rc = of_property_read_u32_index(node, "reg", 2,
-+			&lpc_ctrl->pnor_base);
-+	if (rc)
-+		return rc;
-+
-+	dev_info(dev, "Host PNOR base: 0x%08x size: 0x%08x\n",
-+		lpc_ctrl->pnor_base, lpc_ctrl->pnor_size);
-+
-+	dev_set_drvdata(&pdev->dev, lpc_ctrl);
-+
-+	node = of_parse_phandle(dev->of_node, "memory-region", 0);
-+	if (!node) {
-+		dev_err(dev, "Didn't find reserved memory\n");
-+		rc = -EINVAL;
-+		goto out;
-+	}
-+
-+	rc = of_address_to_resource(node, 0, &resm);
-+	of_node_put(node);
-+	if (rc) {
-+		dev_err(dev, "Could address to resource\n");
-+		rc = -ENOMEM;
-+		goto out;
-+	}
-+
-+	lpc_ctrl->size = resource_size(&resm);
-+	lpc_ctrl->base = resm.start;
-+
-+	lpc_ctrl->regmap = syscon_node_to_regmap(
-+			pdev->dev.parent->of_node);
-+	if (IS_ERR(lpc_ctrl->regmap)) {
-+		dev_err(dev, "Couldn't get regmap\n");
-+		rc = -ENODEV;
-+		goto out;
-+	}
-+
-+	lpc_ctrl->miscdev.minor = MISC_DYNAMIC_MINOR;
-+	lpc_ctrl->miscdev.name = DEVICE_NAME;
-+	lpc_ctrl->miscdev.fops = &lpc_ctrl_fops;
-+	lpc_ctrl->miscdev.parent = dev;
-+	rc = misc_register(&lpc_ctrl->miscdev);
-+	if (rc)
-+		dev_err(dev, "Unable to register device\n");
-+	else
-+		dev_info(dev, "Loaded at 0x%08x (0x%08x)\n",
-+			lpc_ctrl->base, lpc_ctrl->size);
-+
-+out:
-+	return rc;
-+}
-+
-+static int lpc_ctrl_remove(struct platform_device *pdev)
-+{
-+	struct lpc_ctrl *lpc_ctrl = dev_get_drvdata(&pdev->dev);
-+
-+	misc_deregister(&lpc_ctrl->miscdev);
-+	lpc_ctrl = NULL;
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id lpc_ctrl_match[] = {
-+	{ .compatible = "aspeed,ast2400-lpc-ctrl" },
-+	{ },
-+};
-+
-+static struct platform_driver lpc_ctrl_driver = {
-+	.driver = {
-+		.name		= DEVICE_NAME,
-+		.of_match_table = lpc_ctrl_match,
-+	},
-+	.probe = lpc_ctrl_probe,
-+	.remove = lpc_ctrl_remove,
-+};
-+
-+module_platform_driver(lpc_ctrl_driver);
-+
-+MODULE_DEVICE_TABLE(of, lpc_ctrl_match);
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Cyril Bur <cyrilbur@gmail.com>");
-+MODULE_DESCRIPTION("Linux device interface to control LPC bus");
-diff --git a/include/uapi/linux/aspeed-lpc-ctrl.h b/include/uapi/linux/aspeed-lpc-ctrl.h
-new file mode 100644
-index 000000000000..c5f1caf827ac
---- /dev/null
-+++ b/include/uapi/linux/aspeed-lpc-ctrl.h
-@@ -0,0 +1,25 @@
-+/*
-+ * Copyright 2016 IBM Corp.
-+ *
-+ * This program is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU General Public License
-+ * as published by the Free Software Foundation; either version
-+ * 2 of the License, or (at your option) any later version.
-+ */
-+
-+#ifndef _UAPI_LINUX_LPC_CTRL_H
-+#define _UAPI_LINUX_LPC_CTRL_H
-+
-+#include <linux/ioctl.h>
-+
-+struct lpc_mapping {
-+	uint32_t hostaddr;
-+	uint32_t size;
-+};
-+
-+#define __LPC_CTRL_IOCTL_MAGIC	0xb2
-+#define LPC_CTRL_IOCTL_SIZE	_IOR(__LPC_CTRL_IOCTL_MAGIC, 0x00, uint32_t)
-+#define LPC_CTRL_IOCTL_MAP	_IOW(__LPC_CTRL_IOCTL_MAGIC, 0x01, struct lpc_mapping)
-+#define LPC_CTRL_IOCTL_UNMAP	_IO(__LPC_CTRL_IOCTL_MAGIC, 0x02)
-+
-+#endif /* _UAPI_LINUX_LPC_CTRL_H */
+ 		vic: interrupt-controller@1e6c0080 {
+ 			compatible = "aspeed,ast2400-vic";
+ 			interrupt-controller;
 -- 
 2.11.0
