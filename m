@@ -1,79 +1,34 @@
-Return-Path: <benh@au1.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+Return-Path: <clg@kaod.org>
+Received: from mo179.mail-out.ovh.net (mo179.mail-out.ovh.net [178.32.228.179])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tyK8v0Jc4zDqN4
- for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 15:41:02 +1100 (AEDT)
-Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
- v0A4dAxa112308
- for <openbmc@lists.ozlabs.org>; Mon, 9 Jan 2017 23:41:00 -0500
-Received: from e23smtp07.au.ibm.com (e23smtp07.au.ibm.com [202.81.31.140])
- by mx0b-001b2d01.pphosted.com with ESMTP id 27vmy4xyn1-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 09 Jan 2017 23:41:00 -0500
-Received: from localhost
- by e23smtp07.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <benh@au1.ibm.com>;
- Tue, 10 Jan 2017 14:40:57 +1000
-Received: from d23dlp02.au.ibm.com (202.81.31.213)
- by e23smtp07.au.ibm.com (202.81.31.204) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Tue, 10 Jan 2017 14:40:54 +1000
-Received: from d23relay10.au.ibm.com (d23relay10.au.ibm.com [9.190.26.77])
- by d23dlp02.au.ibm.com (Postfix) with ESMTP id 11E842BB0045
- for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 15:40:54 +1100 (EST)
-Received: from d23av05.au.ibm.com (d23av05.au.ibm.com [9.190.234.119])
- by d23relay10.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v0A4ertR1442136
- for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 15:40:53 +1100
-Received: from d23av05.au.ibm.com (localhost [127.0.0.1])
- by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- v0A4erZ4002687
- for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 15:40:53 +1100
-Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
- by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- v0A4eroE002680; Tue, 10 Jan 2017 15:40:53 +1100
-Received: from pasglop (unknown [9.192.163.4])
- (using TLSv1.2 with cipher AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 0A534A0120;
- Tue, 10 Jan 2017 15:40:50 +1100 (AEDT)
-Subject: Re: [PATCH v2 4/5] drivers/mailbox: Add aspeed ast2400/ast2500 mbox
- driver
-From: Benjamin Herrenschmidt <benh@au1.ibm.com>
-Reply-To: benh@au1.ibm.com
-To: Cyril Bur <cyrilbur@gmail.com>, Andrew Jeffery <andrew@aj.id.au>,
- openbmc@lists.ozlabs.org
-Cc: millerjo@linux.vnet.ibm.com
-Date: Mon, 09 Jan 2017 22:40:51 -0600
-In-Reply-To: <1484022993.6236.12.camel@gmail.com>
-References: <20161222060610.29695-1-cyrilbur@gmail.com>
- <20161222060610.29695-5-cyrilbur@gmail.com>
- <1482460941.3419.26.camel@aj.id.au> <1482479795.14044.5.camel@gmail.com>
- <1483406661.7801.1.camel@aj.id.au> <1483911906.15843.61.camel@au1.ibm.com>
- <1483999740.6236.2.camel@gmail.com> <1484002504.12800.1.camel@aj.id.au>
- <1484022504.21117.7.camel@au1.ibm.com> <1484022993.6236.12.camel@gmail.com>
-Organization: IBM Australia
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.22.3 (3.22.3-1.fc25) 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tyPqC4Wt4zDqMC
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 19:11:02 +1100 (AEDT)
+Received: from player698.ha.ovh.net (b7.ovh.net [213.186.33.57])
+ by mo179.mail-out.ovh.net (Postfix) with ESMTP id F3DCC14670
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 09:10:58 +0100 (CET)
+Received: from zorba.kaod.org (LFbn-1-2234-107.w90-76.abo.wanadoo.fr
+ [90.76.55.107]) (Authenticated sender: postmaster@kaod.org)
+ by player698.ha.ovh.net (Postfix) with ESMTPSA id 506CF52007B;
+ Tue, 10 Jan 2017 09:10:55 +0100 (CET)
+Subject: Re: [PATCH linux 2/3] mtd: spi-nor: aspeed: add support for SPI dual
+ IO read mode
+To: Robert Lippert <roblip@gmail.com>, openbmc@lists.ozlabs.org
+References: <20170110010524.116687-1-rlippert@google.com>
+ <20170110010524.116687-3-rlippert@google.com>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <fbab9bcc-1fa5-cc91-a5ff-d242d0465029@kaod.org>
+Date: Tue, 10 Jan 2017 09:10:55 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.6.0
+MIME-Version: 1.0
+In-Reply-To: <20170110010524.116687-3-rlippert@google.com>
+Content-Type: text/plain; charset=windows-1252
 Content-Transfer-Encoding: 7bit
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17011004-0044-0000-0000-0000021AE7F2
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17011004-0045-0000-0000-00000653734E
-Message-Id: <1484023251.21117.9.camel@au1.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-01-10_03:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1701100063
+X-Ovh-Tracer-Id: 10885481776652389212
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelgedrvdehgdduvdefucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -85,16 +40,106 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Jan 2017 04:41:03 -0000
+X-List-Received-Date: Tue, 10 Jan 2017 08:11:04 -0000
 
-On Tue, 2017-01-10 at 15:36 +1100, Cyril Bur wrote:
-> So, its basically no more work (I think...) to just have partial
-> writes, which... satisfy this requirement no?
+Hello Robert,
+
+On 01/10/2017 02:05 AM, Robert Lippert wrote:
+> Implements support for the dual IO read mode on aspeed SMC/FMC
+> controllers which uses both MISO and MOSI lines for data during a read
+> to double the read bandwidth.
 > 
-> Just so we're on the same page - theres nothing 'special' about the
-> write it's just that he other end has mapped that 'data' register to
-> trigger an interrupt... the kernel doesn't know that nor does it need
-> to, the write is like any other, the interrupt gets triggered by
-> hardware.
+> Signed-off-by: Robert Lippert <rlippert@google.com>
+> ---
+> 
+>  drivers/mtd/spi-nor/aspeed-smc.c | 28 ++++++++++++++++++++++------
+>  1 file changed, 22 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspeed-smc.c
+> index d3bed34f5aa0..a8ca2ab308d7 100644
+> --- a/drivers/mtd/spi-nor/aspeed-smc.c
+> +++ b/drivers/mtd/spi-nor/aspeed-smc.c
+> @@ -540,6 +540,9 @@ static int aspeed_smc_read_user(struct spi_nor *nor, loff_t from, size_t len,
+>  {
+>  	struct aspeed_smc_chip *chip = nor->priv;
+>  	int ret;
+> +	u32 ctl;
+> +	int i;
+> +	u8 dummy = 0;
 
-Ok, that's fine then
+OxFF would be a better value.
+  
+>  	mutex_lock(&chip->controller->mutex);
+>  
+> @@ -557,6 +560,18 @@ static int aspeed_smc_read_user(struct spi_nor *nor, loff_t from, size_t len,
+>  
+>  	aspeed_smc_start_user(nor);
+>  	aspeed_smc_send_cmd_addr(nor, nor->read_opcode, from);
+> +
+> +	/* Send dummy bytes */
+> +	for (i = 0; i < (chip->nor.read_dummy / 8); ++i)
+
+the parentheses are not needed I think.
+ 
+> +		aspeed_smc_write_to_ahb(chip->base, &dummy, 1);
+> +
+> +	if (chip->nor.flash_read == SPI_NOR_DUAL) {
+> +		/* Switch to dual I/O mode for data cycle */
+> +		ctl = readl(chip->ctl) & ~CONTROL_SPI_IO_MODE_MASK;
+> +		ctl |= CONTROL_SPI_IO_DUAL_DATA;
+> +		writel(ctl, chip->ctl);
+> +	}
+
+So why can not we set the controller in aspeed_smc_chip_setup_finish() 
+once and for all ? 
+
+> +
+>  	aspeed_smc_read_from_ahb(read_buf, chip->base, len);
+>  	aspeed_smc_stop_user(nor);
+>  
+> @@ -868,6 +883,7 @@ static int aspeed_smc_chip_setup_finish(struct aspeed_smc_chip *chip)
+>  		cmd = CONTROL_SPI_COMMAND_MODE_NORMAL;
+>  		break;
+>  	case SPI_NOR_FAST:
+> +	case SPI_NOR_DUAL:
+>  		cmd = CONTROL_SPI_COMMAND_MODE_FREAD;
+>  		break;
+>  	default:
+> @@ -876,9 +892,13 @@ static int aspeed_smc_chip_setup_finish(struct aspeed_smc_chip *chip)
+>  	}
+>  
+>  	chip->ctl_val[smc_read] |= cmd |
+> +		spi_control_fill_opcode(chip->nor.read_opcode) |
+>  		CONTROL_SPI_IO_DUMMY_CYCLES_SET(chip->nor.read_dummy / 8);
+>  
+> -	dev_dbg(controller->dev, "base control register: %08x\n",
+> +	if (chip->nor.flash_read == SPI_NOR_DUAL)
+> +		chip->ctl_val[smc_read] |= CONTROL_SPI_IO_DUAL_DATA;
+
+may be we can move that part in the switch setting above  ? 
+
+> +	dev_info(controller->dev, "read control register: %08x\n",
+>  		 chip->ctl_val[smc_read]);
+
+may be keep dev_dbg, but the change of 'base' by 'read' is ok.
+
+Thanks,
+
+C. 
+
+>  	return 0;
+>  }
+> @@ -980,11 +1000,7 @@ static int aspeed_smc_probe(struct platform_device *pdev)
+>  		if (err)
+>  			continue;
+>  
+> -		/*
+> -		 * XXX Add support for SPI_NOR_QUAD and SPI_NOR_DUAL attach
+> -		 * when board support is present as determined by of property.
+> -		 */
+> -		err = spi_nor_scan(&chip->nor, NULL, SPI_NOR_NORMAL);
+> +		err = spi_nor_scan(&chip->nor, NULL, SPI_NOR_DUAL);
+>  		if (err)
+>  			continue;
+>  
+> 
