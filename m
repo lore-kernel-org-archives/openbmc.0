@@ -1,52 +1,52 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <xow@google.com>
+Received: from mail-qt0-x231.google.com (mail-qt0-x231.google.com
+ [IPv6:2607:f8b0:400d:c0d::231])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tyrsY3DzfzDq5s
- for <openbmc@lists.ozlabs.org>; Wed, 11 Jan 2017 12:29:37 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="dFauBmbT"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Mm3Ey+Wv"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 5D17E20811;
- Tue, 10 Jan 2017 20:29:35 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Tue, 10 Jan 2017 20:29:35 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
- content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=BtJQsFC7ClIpy4lGBjxRJyzUULk=; b=dFauBm
- bT0eAuh2Ms6tfJtg+8QDsikx8otWIKGmysn84ZV+IAoEylTefmO38K5VZSZ4SNA+
- WuVFEkYM6+W5rhGmUKorpNqZd1cJVzDGrX8l2nwzjUxCYPScD2C0SBVBkkMjYniN
- z966NOo6/Nt9Yci9gMIPlZi+LrAbwV4fVjNFQ=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=BtJQsFC7ClIpy4
- lGBjxRJyzUULk=; b=Mm3Ey+Wv01x/2hMPUPVUSQhJkoO8jujp/zII+B25+/gA6+
- aMCxWOHbsNOtoofE4jVIFoSfWoKm0DM8gu2abJ7zZKKDWHmwoY7HeNLnBIETB7sJ
- X19stOfY+alfcbtzfVeQCuy3RN1ffxI3mIXleVdwSFV4i61Z2bLA8139ILiA4=
-X-ME-Sender: <xms:f4p1WJ9xqioD5O-Im82RXQPLvyv1VHe1-1G2OZF2I0CFGFLl_qDgpw>
-X-Sasl-enc: HI+PWQ3mbr/BDM+QaEbBFaDqh2pxuNA+abmwZBUnvEzV 1484098174
-Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id B90B124242;
- Tue, 10 Jan 2017 20:29:33 -0500 (EST)
-Message-ID: <1484098170.12800.15.camel@aj.id.au>
-Subject: Re: [PATCH v3 2/5] Documentation: dt: misc: Add Aspeed ast2400/2500
- LPC Control bindings
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Cyril Bur <cyrilbur@gmail.com>, openbmc@lists.ozlabs.org
-Date: Wed, 11 Jan 2017 11:59:30 +1030
-In-Reply-To: <20170110090640.12608-3-cyrilbur@gmail.com>
-References: <20170110090640.12608-1-cyrilbur@gmail.com>
- <20170110090640.12608-3-cyrilbur@gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-0npl6UMKrEnSdJeHvTMk"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tysY33gK0zDqJ8
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Jan 2017 13:00:22 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="RtSvnMgs"; 
+ dkim-atps=neutral
+Received: by mail-qt0-x231.google.com with SMTP id x49so117067247qtc.2
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Jan 2017 18:00:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=rbQ55sJiLoDdBC1WsGohRIo5meUIqRSuq6CemKju1wQ=;
+ b=RtSvnMgsU//TMa1LPbU3lH+JvYSAn10sKei9S9MnmsLbyGuhJkVPp531xmp9kKTJSX
+ Mq1INIB2mXwYrdZHtHUzfqWH8QAp23owALRBKyK8EyyvRY8qcMG/17v4TevdOTewyQ20
+ O6RzXgh+97xwOLFTtAN540jbu+y2jMuOswrV7vi4uUnHZv+dXct8wYoQO4XsL4tgNQtU
+ OV8JwAlvlwUFomCg0trfM86FMk61o19sKqg6cUZvHrtQVmas22OG35iUl0f86nxHqDfP
+ 6OwmHNr/gZpHFAldJzq2izh89q1A4yVb9mzK/MiFpm2HZGPsE5BzeHCo4yupt7hmG9va
+ p3Eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=rbQ55sJiLoDdBC1WsGohRIo5meUIqRSuq6CemKju1wQ=;
+ b=ABb/3qhuw2/epBNPmcWpRKOPwGXrPsBIA5lZrUjGGIXnxAZ6PoKZ2bnFeHr7VqsdZv
+ vjjMWxvaMeKCTgZXgq3ViZZ5j6J6sOhxSnR3nWJ3yZ0X6B73xtHbaiUtkHnxgfirbF5G
+ E45fis0iBK8eD3Yjq0UGORjK8C167mWFCPOJFkbMZTBAoQdhIpCsB3VAoU6cnS++fHRD
+ SDyq8wwokuAzpYTUv99KaLD9j/TV99qbMVQkzMwoVuLzpvSpPLVehC6xVtcD/lihEMAl
+ RE1sxYN7MPVZGkcnRTVSqzJvS/XjuaXb6AYyPStOeOeUiBhKkvfoowgeViWDehm+Uvww
+ l+vw==
+X-Gm-Message-State: AIkVDXL+KLUoLPLLkEmcjVDRIsz0TqCPOI+RN+irZjzu/j6XAgZugSsmldbsznlj/jZo0kMMnuo/VG4VwEBlHrom
+X-Received: by 10.200.57.27 with SMTP id s27mr5288144qtb.230.1484100020209;
+ Tue, 10 Jan 2017 18:00:20 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.140.21.18 with HTTP; Tue, 10 Jan 2017 18:00:19 -0800 (PST)
+In-Reply-To: <1484006630.12800.5.camel@aj.id.au>
+References: <20161110013556.8542-1-andrew@aj.id.au>
+ <CAPH-5w7O7+65OWEWARC7ihwhoPnqBRe8z_4R3KWRS-nNHsBw-w@mail.gmail.com>
+ <1484006630.12800.5.camel@aj.id.au>
+From: Xo Wang <xow@google.com>
+Date: Tue, 10 Jan 2017 18:00:19 -0800
+Message-ID: <CAPH-5w7BGz63j5FcwCcfQoMTaH2eaonU64Y64j6xgHq3Pqwa9g@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7 0/4] SuperIO and Host Interface Controllers
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC <openbmc@lists.ozlabs.org>, 
+ Cyril Bur <cyrilbur@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,46 +58,79 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Jan 2017 01:29:37 -0000
+X-List-Received-Date: Wed, 11 Jan 2017 02:00:24 -0000
 
+Hi Andrew,
 
---=-0npl6UMKrEnSdJeHvTMk
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Mon, Jan 9, 2017 at 4:03 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> Hi Xo,
+>
+> On Mon, 2017-01-09 at 15:11 -0800, Xo Wang wrote:
+>> Hi folks,
+>>
+>> > On Wed, Nov 9, 2016 at 5:35 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+>> > Hello,
+>> >
+>> > This series adds some sysfs drivers exposing parts of the LPC controller. The
+>> > patches are pretty bare-bones in that they provide zero sanity checking and
+>> > leave decisions entirely to userspace. They're also slightly tedious, so I
+>> > expect (hope) their current form will be short-lived.
+>> >
+>> > Cheers,
+>> >
+>> > Andrew
+>> >
+>> > Andrew Jeffery (4):
+>> >   misc: Expose Aspeed SuperIO scratch registers (SCRxSIO)
+>> >   misc: Add partial Aspeed LPC Host Interface Control (HIC) driver
+>> >   arm: aspeed: dt: Add SuperIO scratch register nodes
+>> >   arm: aspeed: dt: Add LPC Host Interface Controller nodes
+>> >
+>> >  arch/arm/boot/dts/aspeed-g4.dtsi |  10 ++
+>> >  arch/arm/boot/dts/aspeed-g5.dtsi |  10 ++
+>> >  drivers/misc/Kconfig             |  14 +++
+>> >  drivers/misc/Makefile            |   2 +
+>> >  drivers/misc/aspeed-hic.c        | 198 +++++++++++++++++++++++++++++++++++++++
+>> >  drivers/misc/aspeed-scrsio.c     | 141 ++++++++++++++++++++++++++++
+>> >  6 files changed, 375 insertions(+)
+>> >  create mode 100644 drivers/misc/aspeed-hic.c
+>> >  create mode 100644 drivers/misc/aspeed-scrsio.c
+>> >
+>> > --
+>> > 2.9.3
+>> >
+>> > _______________________________________________
+>> > openbmc mailing list
+>> > openbmc@lists.ozlabs.org
+>> > https://lists.ozlabs.org/listinfo/openbmc
+>>
+>> I noticed that this driver wasn't merged. Was there a change of plan
+>> to how LPC controller functionality should be exported?
+>>
+>> This is still useful for us to set up memboot and to listen for port
+>> 80 post codes.
+>
+> Cyril has reworked the HICR parts of the memboot function here:
+>
+> https://lists.ozlabs.org/pipermail/openbmc/2016-December/006089.html
+>
+> It would be good to get your feedback the approach. Cyril is going to
+> send out another revision shortly and will Cc you.
+>
+> As for the post codes these patches didn't expose the PCCRs in sysfs -
+> have you modified them?
 
-On Tue, 2017-01-10 at 20:06 +1100, Cyril Bur wrote:
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/misc/aspeed-lpc-ctrl.txt
-> @@ -0,0 +1,78 @@
-> +ASpeed LPC Control
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +This binding defines the LPC control for ASpeed SoCs. Portitions of
+We don't have code that touch PCCRs. I was waiting to see how these
+drivers would go and discuss with Jagha how she would like to
+implement that part of her POST code work.
 
-Typo here ('Portions'), but otherwise the bindings look okay.
+>
+> Regardless, given Cyril now has a better approach for the LPC Host
+> Interface Controller we should probably rethink the approach for
+> SuperIO scratch registers and PCCRs. These patches were always just
+> hacks and Joel had to pushed me to send them out.
+>
+> Andrew
 
-> +the LPC bus can be access by other processors on the system, address
-> +ranges on the bus can map accesses from another processor to regions
-> +of the ASpeed SoC memory space.
---=-0npl6UMKrEnSdJeHvTMk
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJYdYp6AAoJEJ0dnzgO5LT5rbYQAJ7Ual26+cBcOSgRp42Jg+ie
-j2XXDBCVJrMiz4SLeJIVqx/4P9+ZZPwj0nr/9vNMgEZZIRuaSY5XE9xtvwKbh3n4
-ZrOE7ZzHT6km2o4dyo5tx4VrGqRf1EwnSQAG1GO6EmmvIfGb9EWUZkC1sd7DD42h
-fx2dbNUK2Y3GGQg/nJHb/dntxJZp97WHp+oyhNTfZfmN78qvnzsE6M5TXhLghldV
-an3O80prYJbGEpaeVSdz+Iz75x3+MS9G50HlDB7VLDym4SDd60gLwd1ciZurjm5L
-8vHgJPqF7koYifS8BhtOk+mx0DLF42audUTA4AW3y5EG2KYIVSjVIwF3WXLm3DQT
-ydaWaDlzBif7LcKJYBvFXmZl8X2aW7Xf8+317R1FM6NnCX1ruq/NwwvYl+WSoovC
-Q7qmT4D15UOQ6hwBwN4Ey/v9YOLZp1LUGxJbGkt12onk8mQ1NiGH/yj22wPI0LVX
-ktYFrapIOnxDjGnuNVQDFDEZgzfhX2cOe9+Mw+znu7cigp8rnaKn9d6YpwoNinUc
-D3Ghaaj/zBT6xe8ms0+DNiLA/XIjUlJaItB/fJQYFYu19OVAnOg/Rr4f1xV5SWRc
-1Whfxi+UPyt4D+KXFzm7a6dR/n1I6xFo6qnQonU1CKdq/E+IDJ5jsWmZGC/1+bg/
-z9/fe8tMsYk+3LP5BV6H
-=YOnk
------END PGP SIGNATURE-----
-
---=-0npl6UMKrEnSdJeHvTMk--
+cheers
+xo
