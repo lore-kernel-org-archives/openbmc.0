@@ -1,45 +1,68 @@
-Return-Path: <geissonator@gmail.com>
-Received: from mail-io0-x232.google.com (mail-io0-x232.google.com
- [IPv6:2607:f8b0:4001:c06::232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <cyrilbur@gmail.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tzNyy5JzBzDqJ5
- for <openbmc@lists.ozlabs.org>; Thu, 12 Jan 2017 09:36:10 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="SztHxln8"; 
- dkim-atps=neutral
-Received: by mail-io0-x232.google.com with SMTP id l66so5033765ioi.1
- for <openbmc@lists.ozlabs.org>; Wed, 11 Jan 2017 14:36:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=9/TX/zJsBq37OK2OkXQYeA3y87RhbGSNSuhzjrSZaac=;
- b=SztHxln8CxkLWxCi2vzUSrh1R+KF8tRpZIasNm5O/nXU61b6jkA9RGqXIBLeN0Z+AI
- nSVXk3uUD6GLIcAPQNLmgbKofpnPb53X7wKx8sadgDAXPS5oTYletWRJK5kZwZPzoE+d
- TTo/wLoRhHiv9l5OqNsQl1ZcSSwIKRmKCOHbEBMy4CBGfhsullnvCn+mUrUmKd1CZY5n
- d6jlOEXxsl0wjsrqBBEiv4oCpTC4Ayn6d7nhbrxo8KeJ9Jo/6KivT01XVNyaONb2y20D
- BRHHP7lg4iMxqbbuAnhRZUqA67rwriwRZgcS9udzOohEGQPSD/CkR9sfl4J0UCHmyL05
- XnhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=9/TX/zJsBq37OK2OkXQYeA3y87RhbGSNSuhzjrSZaac=;
- b=MAjEdXjDuaAK4Uxs+F8dWK0XI4Odyq2W/7QRJQfFHdMYdPoh2Fl79ETouE15NtpO5V
- 6KXaVJuL0OGw4yOXI5CAz0+3HuOp5dLFxpaab83iff7i7TxZb6j4Yfxelm0C0XMaJs5R
- +5OtJh8PC5a0If73bCRMVs/667JrD8eaJ/gR/FY/qxU9oBTP6dsC7rtuIW3YhDPl/fdS
- y2eYkF4AmoLImvQtSByC4JoFSsmqjvmKj4HX+pW5uIAaPSrRN89AT529qS8A6DhHnf/p
- V+/904vKIk/Ku7/b47hchQ4xb34GTX9JIo3zmgnzMfw72S5oBxXZpBoZ9DrtsKo6QLcc
- elWg==
-X-Gm-Message-State: AIkVDXKsLtnuYQWqH5YVcyA3r2ClwIgEMjyBdGuw18sH1JkvMr14VrvuHkp26qjPp27jG+FkwsYygyXBpvRgMg==
-X-Received: by 10.107.166.18 with SMTP id p18mr2548664ioe.15.1484174168615;
- Wed, 11 Jan 2017 14:36:08 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.107.9.155 with HTTP; Wed, 11 Jan 2017 14:36:08 -0800 (PST)
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Wed, 11 Jan 2017 16:36:08 -0600
-Message-ID: <CALLMt=qDOBvCQO2T_=FS87oQ46WYnKWEE+PrCc8F6gTw9jwYmw@mail.gmail.com>
-Subject: New per-repo CI job
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tzRWF5pPvzDqH1
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Jan 2017 11:30:49 +1100 (AEDT)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
+ v0C0SrZS029117
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Jan 2017 19:30:47 -0500
+Received: from e23smtp07.au.ibm.com (e23smtp07.au.ibm.com [202.81.31.140])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 27wxnw99ws-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Jan 2017 19:30:47 -0500
+Received: from localhost
+ by e23smtp07.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cyrilbur@gmail.com>;
+ Thu, 12 Jan 2017 10:30:44 +1000
+Received: from d23dlp01.au.ibm.com (202.81.31.203)
+ by e23smtp07.au.ibm.com (202.81.31.204) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Thu, 12 Jan 2017 10:30:41 +1000
+Received: from d23relay06.au.ibm.com (d23relay06.au.ibm.com [9.185.63.219])
+ by d23dlp01.au.ibm.com (Postfix) with ESMTP id BDE4D2CE8046
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Jan 2017 11:30:40 +1100 (EST)
+Received: from d23av04.au.ibm.com (d23av04.au.ibm.com [9.190.235.139])
+ by d23relay06.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v0C0UfSh54722640
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Jan 2017 11:30:41 +1100
+Received: from d23av04.au.ibm.com (localhost [127.0.0.1])
+ by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ v0C0UdgA009494
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Jan 2017 11:30:40 +1100
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ v0C0Udm4009491; Thu, 12 Jan 2017 11:30:39 +1100
+Received: from camb691.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
+ (using TLSv1.2 with cipher DHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id EEE82A024F;
+ Thu, 12 Jan 2017 11:30:38 +1100 (AEDT)
+From: Cyril Bur <cyrilbur@gmail.com>
+To: devicetree@vger.kernel.org, jassisinghbrar@gmail.com, arnd@arndb.de,
+ gregkh@linuxfoundation.org
+Cc: joel@jms.id.au, mark.rutland@arm.com, robh+dt@kernel.org,
+ openbmc@lists.ozlabs.org, andrew@aj.id.au, benh@kernel.crashing.org,
+ xow@google.com, jk@ozlabs.org
+Subject: [PATCH 0/4] ASpeed mailbox and LPC control drivers
+Date: Thu, 12 Jan 2017 11:29:06 +1100
+X-Mailer: git-send-email 2.11.0
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17011200-0044-0000-0000-0000021BBEC8
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17011200-0045-0000-0000-00000656A464
+Message-Id: <20170112002910.3650-1-cyrilbur@gmail.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-01-11_18:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=96
+ spamscore=96 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1701120004
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -51,19 +74,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Jan 2017 22:36:11 -0000
+X-List-Received-Date: Thu, 12 Jan 2017 00:30:50 -0000
 
-Matt Barth and I enabled
-https://openpower.xyz/job/openbmc-repository-ci/ today.  This job will
-eventually run against every individual repo, do a build, and do the
-"make check" test.
+Hello,
 
-We verified we can configure it to run against each repo but only have
-it enabled against phosphor-event for now until Matt gets his final
-code pieces in.
+I have written some drivers for the ASpeed AST2400/2500 chips. These
+chips are designed to be used as BMCs and the core reason for these
+drivers has been to introduce a communication channel between two
+processors.
 
-I modified the https://openpower.xyz/job/openbmc-userid-verify/ job to
-do the same validation it does against openbmc/openbmc against
-openbmc/phosphor-event.  Let me know if you see any issues.
+The mailbox registers are the channel through which the two processors
+can communicate, it is worth noting here that the mailbox driver is
+designed to be flexible enough do allow userspace to arbitrarily write
+to one or all or a subset of the mailbox registers. This is important
+as the ASpeed chip allows for enabling hardware interrupts based on
+writes at a per data register level. It is possible that the other
+processor will enable interrupts on one of the data registers, as
+such, the ASpeed end of the protocol will need to be able to treat
+that register specially.
 
-Andrew
+The first intended use of a communication protocol between the ASpeed
+and the other processor is so they can arbitrate on board flash chip
+access. The goal is to have the ASpeed chip perform the reads and
+writes to the flash and present to the other processor in an area of
+its RAM across a shared bus. Currently the other processor has the
+flash mapped directly on the shared bus. The LPC bus controlling
+driver provides a way for the ASpeed userspace to control the mapping
+across the LPC bus between the ASpeed and the other processor. The RAM
+region that the LPC control driver will use should be specified in the
+device tree.
+
+Cyril Bur (4):
+  Documentation: dt: mailbox: Add Aspeed ast2400/2500 bindings
+  Documentation: dt: misc: Add Aspeed ast2400/2500 LPC Control bindings
+  drivers/misc: Add ASpeed LPC control driver
+  drivers/mailbox: Add ASpeed mailbox driver
+
+ .../devicetree/bindings/mailbox/aspeed-mbox.txt    |  44 +++
+ .../devicetree/bindings/misc/aspeed-lpc-ctrl.txt   |  78 +++++
+ drivers/mailbox/Kconfig                            |   9 +
+ drivers/mailbox/Makefile                           |   2 +
+ drivers/mailbox/aspeed-mbox.c                      | 334 +++++++++++++++++++++
+ drivers/misc/Kconfig                               |   9 +
+ drivers/misc/Makefile                              |   1 +
+ drivers/misc/aspeed-lpc-ctrl.c                     | 269 +++++++++++++++++
+ include/uapi/linux/aspeed-lpc-ctrl.h               |  25 ++
+ 9 files changed, 771 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/mailbox/aspeed-mbox.txt
+ create mode 100644 Documentation/devicetree/bindings/misc/aspeed-lpc-ctrl.txt
+ create mode 100644 drivers/mailbox/aspeed-mbox.c
+ create mode 100644 drivers/misc/aspeed-lpc-ctrl.c
+ create mode 100644 include/uapi/linux/aspeed-lpc-ctrl.h
+
+-- 
+2.11.0
