@@ -1,64 +1,60 @@
-Return-Path: <dkodihal@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <cyrilbur@gmail.com>
+Received: from mail-pf0-x244.google.com (mail-pf0-x244.google.com
+ [IPv6:2607:f8b0:400e:c00::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tzgnD1m5rzDqhT
- for <openbmc@lists.ozlabs.org>; Thu, 12 Jan 2017 20:43:44 +1100 (AEDT)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
- v0C9hfir144606
- for <openbmc@lists.ozlabs.org>; Thu, 12 Jan 2017 04:43:41 -0500
-Received: from e23smtp05.au.ibm.com (e23smtp05.au.ibm.com [202.81.31.147])
- by mx0b-001b2d01.pphosted.com with ESMTP id 27wrw6pwtj-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 12 Jan 2017 04:43:35 -0500
-Received: from localhost
- by e23smtp05.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
- Thu, 12 Jan 2017 19:43:33 +1000
-Received: from d23dlp02.au.ibm.com (202.81.31.213)
- by e23smtp05.au.ibm.com (202.81.31.211) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Thu, 12 Jan 2017 19:43:31 +1000
-Received: from d23relay06.au.ibm.com (d23relay06.au.ibm.com [9.185.63.219])
- by d23dlp02.au.ibm.com (Postfix) with ESMTP id E3B792BB0045
- for <openbmc@lists.ozlabs.org>; Thu, 12 Jan 2017 20:43:30 +1100 (EST)
-Received: from d23av03.au.ibm.com (d23av03.au.ibm.com [9.190.234.97])
- by d23relay06.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v0C9hVFc51249328
- for <openbmc@lists.ozlabs.org>; Thu, 12 Jan 2017 20:43:31 +1100
-Received: from d23av03.au.ibm.com (localhost [127.0.0.1])
- by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- v0C9hUeF001241
- for <openbmc@lists.ozlabs.org>; Thu, 12 Jan 2017 20:43:30 +1100
-Received: from Deepaks-MacBook-Pro.local ([9.193.119.48])
- by d23av03.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- v0C9hTpb001197
- for <openbmc@lists.ozlabs.org>; Thu, 12 Jan 2017 20:43:30 +1100
-From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
-Subject: Callout definitions in phosphor-logging : RFC
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Thu, 12 Jan 2017 15:13:28 +0530
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:45.0)
- Gecko/20100101 Thunderbird/45.6.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tzhWX09MgzDq60
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Jan 2017 21:16:56 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="gMTLp98x"; 
+ dkim-atps=neutral
+Received: by mail-pf0-x244.google.com with SMTP id b22so2912554pfd.3
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Jan 2017 02:16:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=message-id:subject:from:to:cc:date:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=sbClQBdnSntXRAHsU1q3CXW8L36yBNUzPRJ0fZaq/wU=;
+ b=gMTLp98xdznd7zvqMlDsf36XCcSqyjqyZIhNjtT5RtyOVrzjbiPMM+oLzDDxMSzAbL
+ luhuEhnE+hbDZgkZfYFq95XCNQV2gJ6Q9J3bzA+jE5ULPqFn8RoN0cf/M9ot9dk7L4+k
+ h1MgxhPR232zPttEtf8tmgaX65kDb7+OcI3VSvQh6kA25SkFOBhorPoVRowS2jHzbMUx
+ 1QSpzgoFUTZqbNFqIFlgQhC202JXvpy9fh7Oglae8haSr4CKUkZCW29ugf+QoS99BPpO
+ iHSG04wksgGye2BzQpDXS3cSa81M6d+ymlrDAMG+HQSeMKDqlFEzxwWeyKYRhn2mJ7TC
+ DKVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=sbClQBdnSntXRAHsU1q3CXW8L36yBNUzPRJ0fZaq/wU=;
+ b=gef6GYCygwrCXeScb8xWLP3JoIsI92a+6Ebie1/fHPLfc1N/1h7yW9azmRwr9H1SMD
+ j38hIXQGGjdHKd466XQa6hTs5//4MDNWZgaPydyBqGKes8lOCcQFctHB2axtXOYH0wzH
+ C54l4NiroO84k0Opv9yd/XF7BMQ83KVHR4XfEbUR4glMPeb7+bqtJEy/Fsm7po6Zo9qt
+ 0siBtKCupI/8ysyQnvL6qSMmHqg7LzoofALSPtalGPcux07iT19oMPN5ZHx4zlbe5eI/
+ iP0A31ir4tYwpHtGgO7+euysQpF6BrNV6Py66St/HuxGQ3e309FClnZvrFUY1Sw0Q7P0
+ 1SWw==
+X-Gm-Message-State: AIkVDXJjHXlCbuzoo9kUBCkMm7ABbGVqVQRLwcPUUSc0SHOjgOIJhi9/qiwk6t+seGHZfg==
+X-Received: by 10.99.170.5 with SMTP id e5mr16703933pgf.46.1484216214377;
+ Thu, 12 Jan 2017 02:16:54 -0800 (PST)
+Received: from camb691.ozlabs.ibm.com ([122.99.82.10])
+ by smtp.googlemail.com with ESMTPSA id 134sm20382577pgh.13.2017.01.12.02.16.49
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Thu, 12 Jan 2017 02:16:53 -0800 (PST)
+Message-ID: <1484216163.11416.8.camel@gmail.com>
+Subject: Re: [PATCH 3/4] drivers/misc: Add ASpeed LPC control driver
+From: Cyril Bur <cyrilbur@gmail.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: devicetree@vger.kernel.org, jassisinghbrar@gmail.com, arnd@arndb.de, 
+ joel@jms.id.au, mark.rutland@arm.com, robh+dt@kernel.org,
+ openbmc@lists.ozlabs.org,  andrew@aj.id.au, benh@kernel.crashing.org,
+ xow@google.com, jk@ozlabs.org
+Date: Thu, 12 Jan 2017 21:16:03 +1100
+In-Reply-To: <20170112074750.GB23943@kroah.com>
+References: <20170112002910.3650-1-cyrilbur@gmail.com>
+ <20170112002910.3650-4-cyrilbur@gmail.com>
+ <20170112074750.GB23943@kroah.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.22.3 
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17011209-0016-0000-0000-0000020C077A
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17011209-0017-0000-0000-000006398D0C
-Message-Id: <82ebc370-99c2-a44e-bf89-68d90acff3ae@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-01-12_07:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1701120134
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -70,71 +66,122 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Jan 2017 09:43:44 -0000
+X-List-Received-Date: Thu, 12 Jan 2017 10:16:56 -0000
 
-Hello,
+On Thu, 2017-01-12 at 08:47 +0100, Greg KH wrote:
+> On Thu, Jan 12, 2017 at 11:29:09AM +1100, Cyril Bur wrote:
+> > +static ssize_t lpc_ctrl_read(struct file *file, char __user *buf,
+> > +				size_t count, loff_t *ppos)
+> > +{
+> > +	if (!access_ok(VERIFY_WRITE, buf, count))
+> > +		return -EFAULT;
+> > +
+> > +	return -EPERM;
+> > +}
+> > +
+> > +static ssize_t lpc_ctrl_write(struct file *file, const char __user *buf,
+> > +				size_t count, loff_t *ppos)
+> > +{
+> > +	if (!access_ok(VERIFY_READ, buf, count))
+> > +		return -EFAULT;
+> > +
+> > +	return -EPERM;
+> > +}
+> 
 
-This sprint I've been working on defining how an openbmc error having a 
-"callout" should be defined. Traditionally IBM servers have this concept 
-of a callout, which is basically an indication of a faulty hardware 
-component in the server. Such a component is typically a "field 
-replaceable unit" or a FRU. Hence the callout is usually a FRU callout. 
-The callout has additional information, which helps determine how the 
-FRU could be serviced or replaced. The callout is included in an error log.
+Hello Greg,
 
-While what necessitates a callout is a failed hardware access operation, 
-for example a failed IIC write, what gets called out depends a lot on 
-the system topology and various policies. The callout design needs to be 
-generic, keeping system specific logic out of the application code. 
-Keeping this in mind, we need to have a set of basic design principles 
-on how a callout should be implemented in openbmc. I've outlined these 
-below. Please provide your feedback. If you don't like the term 
-"callout", please suggest alternatives.
+> Those functions don't actually do anything, so why even include them?
+> 
 
-1) An application running into an error and wanting to do a callout will 
-express the callout in terminologies most familiar to the application, 
-rather than system terminology. As an example, say an application 
-programs the system reference clock via an IIC interface; in case of a 
-failed IIC write, the application will express the callout as an IIC 
-callout, adding information such as the IIC bus and device address. It 
-will not bother about details such as, the FRU in question is the 
-system's reference clock, or maybe that the clock is not a FRU on this 
-system, and the entire system planar may need to be called out for 
-replacement. Such decisions will have to be made by the error logging 
-component, via use of system specific policy files.
+Apologies, I should be more careful with what I send.
 
-2) Based on the above, we've defined some "callout interfaces" which 
-applications may want to use. These interfaces are based on the 
-phosphor-logging's openbmc error definition, so they are expressed in 
-YAML. A callout interface would have metadata specific to that callout. 
-For eg an IIC callout, such as xyz.openbmc_project.Error.Callout.IIC 
-(may the term "callout" isn't needed here, since it's just another 
-error?), would need the device address and the bus information. We have 
-callouts for IIC, GPIO, IPMI sensor to start with. This is up for review 
-in Gerrit [1]. The reasoning behind having a callout defined as an 
-openbmc error is it lets you validate the metadata that an application 
-needs to add to the error log for that callout. This is in-line with the 
-existing phosphor-logging design.
+> And don't call access_ok(), it's racy and no driver should ever do that.
+> 
 
-3) To actually add a callout to an error, that error needs to be defined 
-such that it inherits the callout event. There is an example for this in 
-[1]. With this, a callout will essentially be like any other openbmc 
-error, but there will be metadata, specific to that callout, required to 
-log that error. When an application logs such an error, the metadata 
-pertaining to the callout should be supplied by the application, and 
-this gets to the systemd journal just like a regular error's metadata. 
-The callout metadata will enable the phosphor error log server (work in 
-progress) to be able to identify the callout, and then apply system 
-policies to convert that to a FRU callout.
+Oh, duly noted. I'll be sure to check out how and why. Perhaps it
+would be wise that no driver actually do that, I'm quite sure I used
+other drivers as examples of best practice.
 
-4) The error log server, upon identifying a callout, will with the help 
-of the callout metadata, the system's MRW and various system policies, 
-identify one or more FRUs that need to be called out. It will fetch 
-appropriate FRU inventory objects from the phosphor-inventory-manager, 
-and create associations between the error object and these inventory 
-objects, in order to represent the callouts.
+> > +static long lpc_ctrl_ioctl(struct file *file, unsigned int cmd,
+> > +		unsigned long param)
+> > +{
+> > +	long rc;
+> > +	struct lpc_mapping map;
+> > +	struct lpc_ctrl *lpc_ctrl = file_lpc_ctrl(file);
+> > +	void __user *p = (void __user *)param;
+> > +
+> > +	switch (cmd) {
+> > +	case LPC_CTRL_IOCTL_SIZE:
+> > +		return copy_to_user(p, &lpc_ctrl->size,
+> > +			sizeof(lpc_ctrl->size)) ? -EFAULT : 0;
+> > +	case LPC_CTRL_IOCTL_MAP:
+> > +		if (copy_from_user(&map, p, sizeof(map)))
+> > +			return -EFAULT;
+> > +
+> > +
+> > +		/*
+> > +		 * The top half of HICR7 is the MSB of the BMC address of the
+> > +		 * mapping.
+> > +		 * The bottom half of HICR7 is the MSB of the HOST LPC
+> > +		 * firmware space address of the mapping.
+> > +		 *
+> > +		 * The 1 bits in the top of half of HICR8 represent the bits
+> > +		 * (in the requested address) that should be ignored and
+> > +		 * replaced with those from the top half of HICR7.
+> > +		 * The 1 bits in the bottom half of HICR8 represent the bits
+> > +		 * (in the requested address) that should be kept and pass
+> > +		 * into the BMC address space.
+> > +		 */
+> > +
+> > +		rc = regmap_write(lpc_ctrl->regmap, HICR7,
+> > +				(lpc_ctrl->base | (map.hostaddr >> 16)));
+> > +		if (rc)
+> > +			return rc;
+> > +
+> > +		rc = regmap_write(lpc_ctrl->regmap, HICR8,
+> > +			(~(map.size - 1)) | ((map.size >> 16) - 1));
+> 
+> Look Ma, a kernel exploit!
+> 
 
-[1] https://gerrit.openbmc-project.xyz/#/c/1752
+So 'evil' input here could allow the host to control the bmc,
+personally I file that under 'stupid' input. Also, stupid but not
+accidental, I don't believe one could accidentally come up with such
+input, although you never know what silly things human beings sometimes
+do. For what its worth, I'm not even sure that can happen but I'll
+grant you the benifit of the doubt.
 
-Thanks,
-Deepak
+> {sigh}
+> 
+> Your assignment is to go find a whiteboard/blackboard/whatever and write
+> on it 100 times:
+> 	All input is evil.
+> 
+> I want to see the picture of that before you send any more kernel patches.
+> 
+> > +static int lpc_ctrl_release(struct inode *inode, struct file *file)
+> > +{
+> > +	atomic_dec(&lpc_ctrl_open_count);
+> 
+> Totally unneeded and unnecessary, why do you care?
+> 
+
+My aim here was to only have one process playing with the LPC mapping
+registers at a time.
+
+> Again, use UIO, it will save you from yourself...
+> 
+
+Thank-you! This is the first I've heard of UIO and I'll investigate
+furthur!
+
+
+
+Sincerely,
+
+Cyril
+
+> thanks,
+> 
+> greg k-h
