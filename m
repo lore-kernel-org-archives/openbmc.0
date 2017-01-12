@@ -1,34 +1,33 @@
-Return-Path: <benh@kernel.crashing.org>
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <gregkh@linuxfoundation.org>
+Received: from mail.linuxfoundation.org (mail.linuxfoundation.org
+ [140.211.169.12])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3tzrrD2jW4zDqDT
- for <openbmc@lists.ozlabs.org>; Fri, 13 Jan 2017 03:31:56 +1100 (AEDT)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.13.8) with ESMTP id v0CGVP2E023516;
- Thu, 12 Jan 2017 10:31:26 -0600
-Message-ID: <1484238690.2492.47.camel@kernel.crashing.org>
-Subject: Re: [PATCH 3/4] drivers/misc: Add ASpeed LPC control driver
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Greg KH <gregkh@linuxfoundation.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3tzt3g0r5fzDqNk
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Jan 2017 04:26:54 +1100 (AEDT)
+Received: from localhost (unknown [78.192.101.3])
+ by mail.linuxfoundation.org (Postfix) with ESMTPSA id 64013B55;
+ Thu, 12 Jan 2017 17:26:51 +0000 (UTC)
+Date: Thu, 12 Jan 2017 18:27:13 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 Cc: Cyril Bur <cyrilbur@gmail.com>, devicetree@vger.kernel.org,
  jassisinghbrar@gmail.com, arnd@arndb.de, joel@jms.id.au,
  mark.rutland@arm.com, robh+dt@kernel.org, openbmc@lists.ozlabs.org,
  andrew@aj.id.au, xow@google.com, jk@ozlabs.org
-Date: Thu, 12 Jan 2017 10:31:30 -0600
-In-Reply-To: <20170112162619.GB10283@kroah.com>
+Subject: Re: [PATCH 3/4] drivers/misc: Add ASpeed LPC control driver
+Message-ID: <20170112172713.GF13342@kroah.com>
 References: <20170112002910.3650-1-cyrilbur@gmail.com>
  <20170112002910.3650-4-cyrilbur@gmail.com>
- <20170112074750.GB23943@kroah.com> <1484216163.11416.8.camel@gmail.com>
- <20170112103038.GA19239@kroah.com>
- <1484234867.2492.39.camel@kernel.crashing.org>
- <20170112160051.GB8095@kroah.com>
- <1484237253.2492.43.camel@kernel.crashing.org>
- <20170112162619.GB10283@kroah.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.22.3 (3.22.3-1.fc25) 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20170112074750.GB23943@kroah.com>
+ <1484216163.11416.8.camel@gmail.com>
+ <1484235315.2492.41.camel@kernel.crashing.org>
+ <1484238577.2492.45.camel@kernel.crashing.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1484238577.2492.45.camel@kernel.crashing.org>
+User-Agent: Mutt/1.7.2 (2016-11-26)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -40,21 +39,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Jan 2017 16:31:57 -0000
+X-List-Received-Date: Thu, 12 Jan 2017 17:26:55 -0000
 
-On Thu, 2017-01-12 at 17:26 +0100, Greg KH wrote:
-> I think, you can change things after access_ok() happens, there used to
-> be bugs in that area a few years ago.  I think we fixed them by moving
-> the offending drivers to use copy_*() instead.
+On Thu, Jan 12, 2017 at 10:29:37AM -0600, Benjamin Herrenschmidt wrote:
+> So I think the best approach here is:
+> 
+> 	- A pair of ioctls to read and write random registers in the
+> LPC bridge for all the "generally configuration gunk". These have a
+> filter to ensure that the registers controlling the above mapping
+> cannot be accessed that way.
+> 
+> 	- An ioctl to control the above mapping window. It takes as
+> arguments the location in LPC space, the window type (flash vs.
+> memory), for memory, maybe an ID (several windows to chose from), and
+> the offset& size in the latter. The driver can enforce that the windows
+> are one of the specially reserved areas of memory etc...
+> 
+> 	- An mmap function to map those reserved windows into userspace
+> so the daemon can communicate appropriately (only needed for the memory
+> windows, the flash space is accessed via the normal /dev/mtd drivers)
+> 
+> Greg, does that make sense ?
 
-Ok, I'm surprised though, we still have a metric ton of code,
-especially in filesystems, who do access_ok. Generally the idea here is
-that the enforcement is done by the MMU normally via the permission in
-the page tables. access_ok() is simply needed to make sure we access
-the portion of the page tables representing user space, not kernel
-space, and that is a pretty fixed dichotomy.
+Yes, that makes a lot more sense to me.  Thanks for writing it up,
+hopefully it survives into the next driver submission, otherwise I'll
+ask the same questions again due to not having a short-term memory at
+all :)
 
-Anyway, this is academic, I agree that copy_to/from_... is nicer.
+thanks,
 
-Cheers,
-Ben.
+greg k-h
