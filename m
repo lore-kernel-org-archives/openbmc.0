@@ -1,45 +1,66 @@
-Return-Path: <mine260309@gmail.com>
-Received: from mail-qt0-x232.google.com (mail-qt0-x232.google.com
- [IPv6:2607:f8b0:400d:c0d::232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <cyrilbur@gmail.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v0F3L1YMYzDqWR
- for <openbmc@lists.ozlabs.org>; Fri, 13 Jan 2017 18:42:53 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="uq0/Pq6K"; 
- dkim-atps=neutral
-Received: by mail-qt0-x232.google.com with SMTP id v23so40641017qtb.0
- for <openbmc@lists.ozlabs.org>; Thu, 12 Jan 2017 23:42:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=9PtSE6Wu8F3roE29lJaTYWzByffxyAkXOv94L5GwXzY=;
- b=uq0/Pq6K+Rc9LpKdSune5CPcIZTySjlNpdxpYtDgve9/lXFKrBboNa2srxk1t/mf/j
- 6tCdKdPBdnNmSE0chwUa3Mk06kzUk8d3pA/vVkkGFhk9z6H61owaE4Vbs468ag47Aqwm
- oJAXslOMRnSybRGRSYK/rnQk13OMl5/5gkknfzs3a2F1JyjNfBKBnxiCwFDs1Rg5iksn
- PGKBffdvOR1G7MHncdsxlXxbjz4/JGO3yZknbnjQyTZi1W5ejbKTIC29pb2Utym8cey2
- qwSTbxylEbpvNh2ZbwZS5mroWxDG3Strd7m6hXTjb2WG+3NHGG8O7EwVCF8VbBf/8lq1
- bp7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=9PtSE6Wu8F3roE29lJaTYWzByffxyAkXOv94L5GwXzY=;
- b=Q8f0o8vKyJmkfLdLxkuLR4s4CvUG99wPZaeCAvKaNcjWjdo14nYX3SI0jtlkbogsqr
- hRcXnU5O4PMtPstsQGr1+g4tDmnzwF6vCS0zM7xQWF9pjOL6w20OMu7MiT6wQcmUAC9o
- ssg1yoMAj+5px45sBeteVAKMqDkWsQjziTm0kw7Qb3afN8J98qIKsJBvaD5VyysjDrRz
- UvSObexyc/fqAdrOknleHk0AWEI0Fs6LnBRr6vQ3o+KGQO7drhDaaf6/rTwwZoqipM8s
- Pp1shP+zPk/Zck2T0O2nZdpPlDX7wJ7fgzY0m3l3GFF/GnmAZ6w7oF9FUHXmtWSTZVsJ
- LYng==
-X-Gm-Message-State: AIkVDXJHxDTAmVH8HLkzUhuT7c/arEYbPNF3Q8t9I0QXhkZD90TxjVqTxIIBKWQAO1Pv7HhFrbK0N60EsMv7uA==
-X-Received: by 10.200.1.2 with SMTP id e2mr4610979qtg.142.1484293371263; Thu,
- 12 Jan 2017 23:42:51 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.12.137.122 with HTTP; Thu, 12 Jan 2017 23:42:50 -0800 (PST)
-From: Mine <mine260309@gmail.com>
-Date: Fri, 13 Jan 2017 15:42:50 +0800
-Message-ID: <CAARXrtkPMixp9M0SYyaeP4_j83mRRXNG1O2Tf24rL5OH6CbJvg@mail.gmail.com>
-Subject: RFC: new design of phosphor-time-manager on sdbusplus
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=f403045f39e42300d60545f4fb41
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v0FBW4VbwzDqWR
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Jan 2017 18:49:07 +1100 (AEDT)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
+ v0D7crHt078940
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Jan 2017 02:49:05 -0500
+Received: from e23smtp08.au.ibm.com (e23smtp08.au.ibm.com [202.81.31.141])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 27xqkqefc6-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Jan 2017 02:49:04 -0500
+Received: from localhost
+ by e23smtp08.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cyrilbur@gmail.com>;
+ Fri, 13 Jan 2017 17:49:01 +1000
+Received: from d23dlp01.au.ibm.com (202.81.31.203)
+ by e23smtp08.au.ibm.com (202.81.31.205) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Fri, 13 Jan 2017 17:48:59 +1000
+Received: from d23relay09.au.ibm.com (d23relay09.au.ibm.com [9.185.63.181])
+ by d23dlp01.au.ibm.com (Postfix) with ESMTP id 9D7682CE8057
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Jan 2017 18:48:58 +1100 (EST)
+Received: from d23av06.au.ibm.com (d23av06.au.ibm.com [9.190.235.151])
+ by d23relay09.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v0D7mwc422544420
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Jan 2017 18:48:58 +1100
+Received: from d23av06.au.ibm.com (localhost [127.0.0.1])
+ by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ v0D7mvT6023407
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Jan 2017 18:48:58 +1100
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ v0D7mvVB023397; Fri, 13 Jan 2017 18:48:57 +1100
+Received: from camb691.ozlabs.ibm.com (haven.au.ibm.com [9.192.254.114])
+ (using TLSv1.2 with cipher DHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 3FC0BA00BE;
+ Fri, 13 Jan 2017 18:48:57 +1100 (AEDT)
+From: Cyril Bur <cyrilbur@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: jk@ozlabs.org, benh@kernel.crashing.org, andrew@aj.id.au,
+ openbmc@lists.ozlabs.org, joel@jms.id.au
+Subject: [PATCH v2] drivers/misc: Add ASpeed LPC control driver
+Date: Fri, 13 Jan 2017 18:47:13 +1100
+X-Mailer: git-send-email 2.11.0
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17011307-0048-0000-0000-000001F76B57
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17011307-0049-0000-0000-00004758EC11
+Message-Id: <20170113074713.6175-1-cyrilbur@gmail.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-01-13_05:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1701130111
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -51,207 +72,423 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Jan 2017 07:42:55 -0000
+X-List-Received-Date: Fri, 13 Jan 2017 07:49:08 -0000
 
---f403045f39e42300d60545f4fb41
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+In order to manage server systems, there is typically another processor
+known as a BMC (Baseboard Management Controller) which is responsible
+for powering the server and other various elements, sometimes fans,
+often the system flash.
 
-I=E2=80=99d like to discuss the design of phosphor-time-manager with the ne=
-w
-sdbusplus interfaces.
+The Aspeed BMC family which is what is used on OpenPOWER machines and a
+number of x86 as well is typically connected to the host via an LPC
+(Low Pin Count) bus (among others).
 
-Please see below background and new design, let me know if you have any
-comments.
-Thanks!
-Background
+The LPC bus is an ISA bus on steroids. It's generally used by the
+BMC chip to provide the host with access to the system flash (via MEM/FW
+cycles) that contains the BIOS or other host firmware along with a
+number of SuperIO-style IOs (via IO space) such as UARTs, IPMI
+controllers.
 
-Legacy time-manager expose below interfaces and methods:
+On the BMC chip side, this is all configured via a bunch of registers
+whose content is related to a given policy of what devices are exposed
+at a per system level, which is system/vendor specific, so we don't want
+to bolt that into the BMC kernel. This started with a need to provide
+something nicer than /dev/mem for user space to configure these things.
 
-   - curr_time_mode
-   - curr_time_owner
-   - requested_time_mode
-   - requested_time_owner
-   - GetTime(target)
-   - SetTime(target, time)
+One important aspect of the configuration is how the MEM/FW space is
+exposed to the host (ie, the x86 or POWER). Some registers in that
+bridge can define a window remapping all or portion of the LPC MEM/FW
+space to a portion of the BMC internal bus, with no specific limits
+imposed in HW.
 
-The implementation of Get/SetTime() will check the current time mode and
-owner, and do below:
+I think it makes sense to ensure that this window is configured by a
+kernel driver that can apply some serious sanity checks on what it is
+configured to map.
 
-   - For GetTime(<target>):
-      - If target is =E2=80=9Cbmc=E2=80=9D, return BMC time;
-      - If target is =E2=80=9Chost=E2=80=9D, return Host time;
-      - Else, return error
-   - For SetTime(target, time):
-      - If target is =E2=80=9Cbmc=E2=80=9D:
-         - If mode is NTP, return error
-         - If owner is =E2=80=9CHOST=E2=80=9D, return error
-         - Set BMC time
-      - If target is =E2=80=9Chost=E2=80=9D:
-         - If owner is =E2=80=9CBMC=E2=80=9D, return error
-         - Set Host time
-         - If owner is =E2=80=9CSPLIT=E2=80=9D, save the diff between BMC t=
-ime and Host
-         time;
+In practice, user space wants to control this by flipping the mapping
+between essentially two types of portions of the BMC address space:
 
-New Design
+   - The flash space. This is a region of the BMC MMIO space that
+more/less directly maps the system flash (at least for reads, writes
+are somewhat more complicated).
 
-Now with sdbusplus, we have EpochTime interface, with elapsed property.
+   - One (or more) reserved area(s) of the BMC physical memory.
 
-After discussion with Li Yi and Vishwa, we decided to implement as below:
+The latter is needed for a number of things, such as avoiding letting
+the host manipulate the innards of the BMC flash controller via some
+evil backdoor, we want to do flash updates by routing the window to a
+portion of memory (under control of a mailbox protocol via some
+separate set of registers) which the host can use to write new data in
+bulk and then request the BMC to flash it. There are other uses, such
+as allowing the host to boot from an in-memory flash image rather than
+the one in flash (very handy for continuous integration and test, the
+BMC can just download new images).
 
-Create two objects:
+It is important to note that due to the way the ASpeed chip lets the
+kernel configure the mapping between host LPC addresses and BMC ram
+addresses the offset within the window must be a multiple of size.
+Not doing so will fragment the accessible space rather than simply
+moving 'zero' upwards. This is caused by the nature of HICR8 being a
+mask and the way host LPC addresses are translated.
 
-   - BmcEpoch
-   - HostEpoch
+Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
+---
+v2:
+	Removed unused functions
+	Removed use of access_ok()
+	All input is evil
+	Reworked the interface as per Benjamin Herrenschmidts vision
+	
+ drivers/misc/Kconfig                 |   9 ++
+ drivers/misc/Makefile                |   1 +
+ drivers/misc/aspeed-lpc-ctrl.c       | 264 +++++++++++++++++++++++++++++++++++
+ include/uapi/linux/aspeed-lpc-ctrl.h |  35 +++++
+ 4 files changed, 309 insertions(+)
+ create mode 100644 drivers/misc/aspeed-lpc-ctrl.c
+ create mode 100644 include/uapi/linux/aspeed-lpc-ctrl.h
 
-They both implements EpochTime interface.
-
-For BmcEpoch:
-
-   - When elapsed() is called, return BMC time;
-   - When elapsed(us) is called, use above SetTime(=E2=80=9Cbmc=E2=80=9D) l=
-ogic
-
-For HostEpoch:
-
-   - When elapsed() is called, return HOST time;
-   - When elapsed(us) is called, use above SetTime(=E2=80=9Chost=E2=80=9D) =
-logic.
-
-And there will be no =E2=80=9Ccurr_time_mode/owner=E2=80=9D or =E2=80=9Creq=
-uested_time_mode/owner=E2=80=9D
-properties on DBUS.
-
---
-BRs,
-Lei YU
-
---f403045f39e42300d60545f4fb41
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><p style=3D"outline:none;color:rgb(18,18,18);font-family:a=
-rial,helvetica,sans-serif;font-size:14px;margin:0px 0px 1.2em">I=E2=80=99d =
-like to discuss the design of=C2=A0<code style=3D"outline:none;font-size:0.=
-85em;font-family:consolas,inconsolata,courier,monospace;margin:0px 0.15em;p=
-adding:0px 0.3em;white-space:pre-wrap;border:1px solid rgb(234,234,234);bac=
-kground-color:rgb(248,248,248);border-radius:3px;display:inline">phosphor-t=
-ime-manager</code>=C2=A0with the new sdbusplus interfaces.</p><p style=3D"o=
-utline:none;color:rgb(18,18,18);font-family:arial,helvetica,sans-serif;font=
--size:14px;margin:0px 0px 1.2em">Please see below background and new design=
-, let me know if you have any comments.<br>Thanks!</p><h3 id=3D"gmail-backg=
-round" style=3D"outline:none;color:rgb(18,18,18);font-family:arial,helvetic=
-a,sans-serif;margin:1.3em 0px 1em;padding:0px;font-size:1.3em">Background</=
-h3><p style=3D"outline:none;color:rgb(18,18,18);font-family:arial,helvetica=
-,sans-serif;font-size:14px;margin:0px 0px 1.2em">Legacy time-manager expose=
- below interfaces and methods:</p><ul style=3D"outline:none;color:rgb(18,18=
-,18);font-family:arial,helvetica,sans-serif;font-size:14px;margin:1.2em 0px=
-;padding-left:2em"><li style=3D"outline:none;margin:0.5em 0px">curr_time_mo=
-de</li><li style=3D"outline:none;margin:0.5em 0px">curr_time_owner</li><li =
-style=3D"outline:none;margin:0.5em 0px">requested_time_mode</li><li style=
-=3D"outline:none;margin:0.5em 0px">requested_time_owner</li><li style=3D"ou=
-tline:none;margin:0.5em 0px">GetTime(target)</li><li style=3D"outline:none;=
-margin:0.5em 0px">SetTime(target, time)</li></ul><p style=3D"outline:none;c=
-olor:rgb(18,18,18);font-family:arial,helvetica,sans-serif;font-size:14px;ma=
-rgin:0px 0px 1.2em">The implementation of=C2=A0<code style=3D"outline:none;=
-font-size:0.85em;font-family:consolas,inconsolata,courier,monospace;margin:=
-0px 0.15em;padding:0px 0.3em;white-space:pre-wrap;border:1px solid rgb(234,=
-234,234);background-color:rgb(248,248,248);border-radius:3px;display:inline=
-">Get/SetTime()</code>=C2=A0will check the current time mode and owner, and=
- do below:</p><ul style=3D"outline:none;color:rgb(18,18,18);font-family:ari=
-al,helvetica,sans-serif;font-size:14px;margin:1.2em 0px;padding-left:2em"><=
-li style=3D"outline:none;margin:0.5em 0px">For=C2=A0<code style=3D"outline:=
-none;font-size:0.85em;font-family:consolas,inconsolata,courier,monospace;ma=
-rgin:0px 0.15em;padding:0px 0.3em;white-space:pre-wrap;border:1px solid rgb=
-(234,234,234);background-color:rgb(248,248,248);border-radius:3px;display:i=
-nline">GetTime(&lt;target&gt;)</code>:<ul style=3D"outline:none;margin:0px;=
-padding-left:1em"><li style=3D"outline:none;margin:0.5em 0px">If target is =
-=E2=80=9Cbmc=E2=80=9D, return BMC time;</li><li style=3D"outline:none;margi=
-n:0.5em 0px">If target is =E2=80=9Chost=E2=80=9D, return Host time;</li><li=
- style=3D"outline:none;margin:0.5em 0px">Else, return error</li></ul></li><=
-li style=3D"outline:none;margin:0.5em 0px">For=C2=A0<code style=3D"outline:=
-none;font-size:0.85em;font-family:consolas,inconsolata,courier,monospace;ma=
-rgin:0px 0.15em;padding:0px 0.3em;white-space:pre-wrap;border:1px solid rgb=
-(234,234,234);background-color:rgb(248,248,248);border-radius:3px;display:i=
-nline">SetTime(target, time)</code>:<ul style=3D"outline:none;margin:0px;pa=
-dding-left:1em"><li style=3D"outline:none;margin:0.5em 0px">If target is =
-=E2=80=9Cbmc=E2=80=9D:<ul style=3D"outline:none;margin:0px;padding-left:1em=
-"><li style=3D"outline:none;margin:0.5em 0px">If mode is NTP, return error<=
-/li><li style=3D"outline:none;margin:0.5em 0px">If owner is =E2=80=9CHOST=
-=E2=80=9D, return error</li><li style=3D"outline:none;margin:0.5em 0px">Set=
- BMC time</li></ul></li><li style=3D"outline:none;margin:0.5em 0px">If targ=
-et is =E2=80=9Chost=E2=80=9D:<ul style=3D"outline:none;margin:0px;padding-l=
-eft:1em"><li style=3D"outline:none;margin:0.5em 0px">If owner is =E2=80=9CB=
-MC=E2=80=9D, return error</li><li style=3D"outline:none;margin:0.5em 0px">S=
-et Host time</li><li style=3D"outline:none;margin:0.5em 0px">If owner is =
-=E2=80=9CSPLIT=E2=80=9D, save the diff between BMC time and Host time;</li>=
-</ul></li></ul></li></ul><h3 id=3D"gmail-new-design" style=3D"outline:none;=
-color:rgb(18,18,18);font-family:arial,helvetica,sans-serif;margin:1.3em 0px=
- 1em;padding:0px;font-size:1.3em">New Design</h3><p style=3D"outline:none;c=
-olor:rgb(18,18,18);font-family:arial,helvetica,sans-serif;font-size:14px;ma=
-rgin:0px 0px 1.2em">Now with sdbusplus, we have EpochTime interface, with=
-=C2=A0<code style=3D"outline:none;font-size:0.85em;font-family:consolas,inc=
-onsolata,courier,monospace;margin:0px 0.15em;padding:0px 0.3em;white-space:=
-pre-wrap;border:1px solid rgb(234,234,234);background-color:rgb(248,248,248=
-);border-radius:3px;display:inline">elapsed</code>=C2=A0property.</p><p sty=
-le=3D"outline:none;color:rgb(18,18,18);font-family:arial,helvetica,sans-ser=
-if;font-size:14px;margin:0px 0px 1.2em">After discussion with Li Yi and Vis=
-hwa, we decided to implement as below:</p><p style=3D"outline:none;color:rg=
-b(18,18,18);font-family:arial,helvetica,sans-serif;font-size:14px;margin:0p=
-x 0px 1.2em">Create two objects:</p><ul style=3D"outline:none;color:rgb(18,=
-18,18);font-family:arial,helvetica,sans-serif;font-size:14px;margin:1.2em 0=
-px;padding-left:2em"><li style=3D"outline:none;margin:0.5em 0px"><code styl=
-e=3D"outline:none;font-size:0.85em;font-family:consolas,inconsolata,courier=
-,monospace;margin:0px 0.15em;padding:0px 0.3em;white-space:pre-wrap;border:=
-1px solid rgb(234,234,234);background-color:rgb(248,248,248);border-radius:=
-3px;display:inline">BmcEpoch</code></li><li style=3D"outline:none;margin:0.=
-5em 0px"><code style=3D"outline:none;font-size:0.85em;font-family:consolas,=
-inconsolata,courier,monospace;margin:0px 0.15em;padding:0px 0.3em;white-spa=
-ce:pre-wrap;border:1px solid rgb(234,234,234);background-color:rgb(248,248,=
-248);border-radius:3px;display:inline">HostEpoch</code></li></ul><p style=
-=3D"outline:none;color:rgb(18,18,18);font-family:arial,helvetica,sans-serif=
-;font-size:14px;margin:0px 0px 1.2em">They both implements EpochTime interf=
-ace.</p><p style=3D"outline:none;color:rgb(18,18,18);font-family:arial,helv=
-etica,sans-serif;font-size:14px;margin:0px 0px 1.2em">For=C2=A0<code style=
-=3D"outline:none;font-size:0.85em;font-family:consolas,inconsolata,courier,=
-monospace;margin:0px 0.15em;padding:0px 0.3em;white-space:pre-wrap;border:1=
-px solid rgb(234,234,234);background-color:rgb(248,248,248);border-radius:3=
-px;display:inline">BmcEpoch</code>:</p><ul style=3D"outline:none;color:rgb(=
-18,18,18);font-family:arial,helvetica,sans-serif;font-size:14px;margin:1.2e=
-m 0px;padding-left:2em"><li style=3D"outline:none;margin:0.5em 0px">When=C2=
-=A0<code style=3D"outline:none;font-size:0.85em;font-family:consolas,incons=
-olata,courier,monospace;margin:0px 0.15em;padding:0px 0.3em;white-space:pre=
--wrap;border:1px solid rgb(234,234,234);background-color:rgb(248,248,248);b=
-order-radius:3px;display:inline">elapsed()</code>=C2=A0is called, return BM=
-C time;</li><li style=3D"outline:none;margin:0.5em 0px">When=C2=A0<code sty=
-le=3D"outline:none;font-size:0.85em;font-family:consolas,inconsolata,courie=
-r,monospace;margin:0px 0.15em;padding:0px 0.3em;white-space:pre-wrap;border=
-:1px solid rgb(234,234,234);background-color:rgb(248,248,248);border-radius=
-:3px;display:inline">elapsed(us)</code>=C2=A0is called, use above SetTime(=
-=E2=80=9Cbmc=E2=80=9D) logic</li></ul><p style=3D"outline:none;color:rgb(18=
-,18,18);font-family:arial,helvetica,sans-serif;font-size:14px;margin:0px 0p=
-x 1.2em">For=C2=A0<code style=3D"outline:none;font-size:0.85em;font-family:=
-consolas,inconsolata,courier,monospace;margin:0px 0.15em;padding:0px 0.3em;=
-white-space:pre-wrap;border:1px solid rgb(234,234,234);background-color:rgb=
-(248,248,248);border-radius:3px;display:inline">HostEpoch</code>:</p><ul st=
-yle=3D"outline:none;color:rgb(18,18,18);font-family:arial,helvetica,sans-se=
-rif;font-size:14px;margin:1.2em 0px;padding-left:2em"><li style=3D"outline:=
-none;margin:0.5em 0px">When=C2=A0<code style=3D"outline:none;font-size:0.85=
-em;font-family:consolas,inconsolata,courier,monospace;margin:0px 0.15em;pad=
-ding:0px 0.3em;white-space:pre-wrap;border:1px solid rgb(234,234,234);backg=
-round-color:rgb(248,248,248);border-radius:3px;display:inline">elapsed()</c=
-ode>=C2=A0is called, return HOST time;</li><li style=3D"outline:none;margin=
-:0.5em 0px">When=C2=A0<code style=3D"outline:none;font-size:0.85em;font-fam=
-ily:consolas,inconsolata,courier,monospace;margin:0px 0.15em;padding:0px 0.=
-3em;white-space:pre-wrap;border:1px solid rgb(234,234,234);background-color=
-:rgb(248,248,248);border-radius:3px;display:inline">elapsed(us)</code>=C2=
-=A0is called, use above SetTime(=E2=80=9Chost=E2=80=9D) logic.</li></ul><p =
-style=3D"outline:none;color:rgb(18,18,18);font-family:arial,helvetica,sans-=
-serif;font-size:14px;margin:0px 0px 1.2em">And there will be no =E2=80=9Ccu=
-rr_time_mode/owner=E2=80=9D or =E2=80=9Crequested_time_mode/owner=E2=80=9D =
-properties on DBUS.</p><p style=3D"outline:none;color:rgb(18,18,18);font-fa=
-mily:arial,helvetica,sans-serif;font-size:14px;margin:0px 0px 1.2em">--<br>=
-BRs,<br>Lei YU</p></div>
-
---f403045f39e42300d60545f4fb41--
+diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
+index 64971baf11fa..8696627ce9d2 100644
+--- a/drivers/misc/Kconfig
++++ b/drivers/misc/Kconfig
+@@ -766,6 +766,15 @@ config PANEL_BOOT_MESSAGE
+ 	  An empty message will only clear the display at driver init time. Any other
+ 	  printf()-formatted message is valid with newline and escape codes.
+ 
++config ASPEED_LPC_CTRL
++	depends on (ARCH_ASPEED || COMPILE_TEST) && REGMAP && MFD_SYSCON
++	bool "Build a driver to control the BMC to HOST LPC bus"
++	default "y"
++	---help---
++	  Provides a driver to control BMC to HOST LPC mappings through
++	  ioctl()s, the driver aso provides a read/write interface to a BMC ram
++	  region where host LPC can be buffered.
++
+ source "drivers/misc/c2port/Kconfig"
+ source "drivers/misc/eeprom/Kconfig"
+ source "drivers/misc/cb710/Kconfig"
+diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
+index 31983366090a..de1925a9c80b 100644
+--- a/drivers/misc/Makefile
++++ b/drivers/misc/Makefile
+@@ -53,6 +53,7 @@ obj-$(CONFIG_ECHO)		+= echo/
+ obj-$(CONFIG_VEXPRESS_SYSCFG)	+= vexpress-syscfg.o
+ obj-$(CONFIG_CXL_BASE)		+= cxl/
+ obj-$(CONFIG_PANEL)             += panel.o
++obj-$(CONFIG_ASPEED_LPC_CTRL)	+= aspeed-lpc-ctrl.o
+ 
+ lkdtm-$(CONFIG_LKDTM)		+= lkdtm_core.o
+ lkdtm-$(CONFIG_LKDTM)		+= lkdtm_bugs.o
+diff --git a/drivers/misc/aspeed-lpc-ctrl.c b/drivers/misc/aspeed-lpc-ctrl.c
+new file mode 100644
+index 000000000000..41ac7dbe1187
+--- /dev/null
++++ b/drivers/misc/aspeed-lpc-ctrl.c
+@@ -0,0 +1,264 @@
++/*
++ * Copyright 2017 IBM Corporation
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version
++ * 2 of the License, or (at your option) any later version.
++ */
++
++#include <linux/mfd/syscon.h>
++#include <linux/miscdevice.h>
++#include <linux/mm.h>
++#include <linux/module.h>
++#include <linux/of_address.h>
++#include <linux/platform_device.h>
++#include <linux/poll.h>
++#include <linux/regmap.h>
++
++#include <linux/aspeed-lpc-ctrl.h>
++
++#define DEVICE_NAME	"aspeed-lpc-ctrl"
++
++#define HICR7 0x8
++#define HICR8 0xc
++
++struct aspeed_lpc_ctrl {
++	struct miscdevice	miscdev;
++	struct regmap		*regmap;
++	phys_addr_t		mem_base;
++	resource_size_t		mem_size;
++	__u32		pnor_size;
++	__u32		pnor_base;
++};
++
++static struct aspeed_lpc_ctrl *file_aspeed_lpc_ctrl(struct file *file)
++{
++	return container_of(file->private_data, struct aspeed_lpc_ctrl,
++			miscdev);
++}
++
++static int aspeed_lpc_ctrl_mmap(struct file *file, struct vm_area_struct *vma)
++{
++	struct aspeed_lpc_ctrl *lpc_ctrl = file_aspeed_lpc_ctrl(file);
++	unsigned long vsize = vma->vm_end - vma->vm_start;
++	pgprot_t prot = vma->vm_page_prot;
++
++	if (vma->vm_pgoff + vsize > lpc_ctrl->mem_base + lpc_ctrl->mem_size)
++		return -EINVAL;
++
++	/* AHB access are not cache coherent */
++	if (file->f_flags & O_DSYNC)
++		prot = pgprot_noncached(prot);
++
++	if (remap_pfn_range(vma, vma->vm_start,
++		(lpc_ctrl->mem_base >> PAGE_SHIFT) + vma->vm_pgoff,
++		vsize, prot))
++		return -EAGAIN;
++
++	return 0;
++}
++
++static long aspeed_lpc_ctrl_ioctl(struct file *file, unsigned int cmd,
++		unsigned long param)
++{
++	long rc;
++	struct aspeed_lpc_ctrl_mapping map;
++	struct aspeed_lpc_ctrl *lpc_ctrl = file_aspeed_lpc_ctrl(file);
++	void __user *p = (void __user *)param;
++	u32 addr;
++	u32 size;
++
++	if (copy_from_user(&map, p, sizeof(map)))
++		return -EFAULT;
++
++	switch (cmd) {
++	case ASPEED_LPC_CTRL_IOCTL_GET_SIZE:
++		/* The flash windows don't report their size */
++		if (map.window_type != ASPEED_LPC_CTRL_WINDOW_MEMORY)
++			return -EINVAL;
++
++		/* Support more than one window id in the future */
++		if (map.window_id != 0)
++			return -EINVAL;
++
++		map.size = lpc_ctrl->mem_size;
++
++		return copy_to_user(p, &map, sizeof(map)) ? -EFAULT : 0;
++	case ASPEED_LPC_CTRL_IOCTL_MAP:
++
++		/*
++		 * The top half of HICR7 is the MSB of the BMC address of the
++		 * mapping.
++		 * The bottom half of HICR7 is the MSB of the HOST LPC
++		 * firmware space address of the mapping.
++		 *
++		 * The 1 bits in the top of half of HICR8 represent the bits
++		 * (in the requested address) that should be ignored and
++		 * replaced with those from the top half of HICR7.
++		 * The 1 bits in the bottom half of HICR8 represent the bits
++		 * (in the requested address) that should be kept and pass
++		 * into the BMC address space.
++		 */
++
++		/*
++		 * It doesn't make sense to talk about a size or offset with
++		 * low 16 bits set. Both HICR7 and HICR8 talk about the top 16
++		 * bits of addresses and sizes.
++		 */
++
++		if ((map.size & 0x0000ffff) || (map.offset & 0x0000ffff))
++			return -EINVAL;
++
++		/*
++		 * Because of the way the masks work in HICR8 offset has to
++		 * be a multiple of size
++		 */
++		if (map.offset & (map.size - 1))
++			return -EINVAL;
++
++		if (map.window_type == ASPEED_LPC_CTRL_WINDOW_FLASH) {
++			addr = lpc_ctrl->pnor_base;
++			size = lpc_ctrl->pnor_size;
++		} else if (map.window_type == ASPEED_LPC_CTRL_WINDOW_MEMORY) {
++			addr = lpc_ctrl->mem_base;
++			size = lpc_ctrl->mem_size;
++		} else {
++			return -EINVAL;
++		}
++
++		/* Overflow first! */
++		if (map.offset + map.size < map.offset ||
++			map.offset + map.size > size)
++			return -EINVAL;
++
++		if (map.size == 0 || map.size > size)
++			return -EINVAL;
++
++		addr += map.offset;
++
++		/*
++		 * hostaddr is safe regardless of values. This simply changes
++		 * the address the host has to request on its side of the LPC
++		 * bus. This cannot impact the hosts own memory space by
++		 * surprise as LPC specific accessors are required. The only
++		 * strange thing that could be done is setting the lower 16
++		 * bits but the shift takes care of that.
++		 */
++
++		rc = regmap_write(lpc_ctrl->regmap, HICR7,
++				(addr | (map.addr >> 16)));
++		if (rc)
++			return rc;
++
++		return regmap_write(lpc_ctrl->regmap, HICR8,
++			(~(map.size - 1)) | ((map.size >> 16) - 1));
++	}
++
++	return -EINVAL;
++}
++
++static const struct file_operations aspeed_lpc_ctrl_fops = {
++	.owner		= THIS_MODULE,
++	.mmap		= aspeed_lpc_ctrl_mmap,
++	.unlocked_ioctl	= aspeed_lpc_ctrl_ioctl,
++};
++
++static int aspeed_lpc_ctrl_probe(struct platform_device *pdev)
++{
++	struct aspeed_lpc_ctrl *lpc_ctrl;
++	struct device *dev;
++	struct device_node *node;
++	struct resource resm;
++	int rc;
++
++	dev = &pdev->dev;
++
++	lpc_ctrl = devm_kzalloc(dev, sizeof(*lpc_ctrl), GFP_KERNEL);
++	if (!lpc_ctrl)
++		return -ENOMEM;
++
++	node = of_parse_phandle(dev->of_node, "flash", 0);
++	if (!node) {
++		dev_err(dev, "Didn't find host pnor flash node\n");
++		return -ENODEV;
++	}
++
++	rc = of_property_read_u32_index(node, "reg", 3,
++			&lpc_ctrl->pnor_size);
++	if (rc)
++		return rc;
++	rc = of_property_read_u32_index(node, "reg", 2,
++			&lpc_ctrl->pnor_base);
++	if (rc)
++		return rc;
++
++	dev_set_drvdata(&pdev->dev, lpc_ctrl);
++
++	node = of_parse_phandle(dev->of_node, "memory-region", 0);
++	if (!node) {
++		dev_err(dev, "Didn't find reserved memory\n");
++		return -EINVAL;
++	}
++
++	rc = of_address_to_resource(node, 0, &resm);
++	of_node_put(node);
++	if (rc) {
++		dev_err(dev, "Could address to resource\n");
++		return -ENOMEM;
++	}
++
++	lpc_ctrl->mem_size = resource_size(&resm);
++	lpc_ctrl->mem_base = resm.start;
++
++	lpc_ctrl->regmap = syscon_node_to_regmap(
++			pdev->dev.parent->of_node);
++	if (IS_ERR(lpc_ctrl->regmap)) {
++		dev_err(dev, "Couldn't get regmap\n");
++		return -ENODEV;
++	}
++
++	lpc_ctrl->miscdev.minor = MISC_DYNAMIC_MINOR;
++	lpc_ctrl->miscdev.name = DEVICE_NAME;
++	lpc_ctrl->miscdev.fops = &aspeed_lpc_ctrl_fops;
++	lpc_ctrl->miscdev.parent = dev;
++	rc = misc_register(&lpc_ctrl->miscdev);
++	if (rc)
++		dev_err(dev, "Unable to register device\n");
++	else
++		dev_info(dev, "Loaded at 0x%08x (0x%08x)\n",
++			lpc_ctrl->mem_base, lpc_ctrl->mem_size);
++
++	return rc;
++}
++
++static int aspeed_lpc_ctrl_remove(struct platform_device *pdev)
++{
++	struct aspeed_lpc_ctrl *lpc_ctrl = dev_get_drvdata(&pdev->dev);
++
++	misc_deregister(&lpc_ctrl->miscdev);
++
++	return 0;
++}
++
++static const struct of_device_id aspeed_lpc_ctrl_match[] = {
++	{ .compatible = "aspeed,ast2400-lpc-ctrl" },
++	{ .compatible = "aspeed,ast2500-lpc-ctrl" },
++	{ },
++};
++
++static struct platform_driver aspeed_lpc_ctrl_driver = {
++	.driver = {
++		.name		= DEVICE_NAME,
++		.of_match_table = aspeed_lpc_ctrl_match,
++	},
++	.probe = aspeed_lpc_ctrl_probe,
++	.remove = aspeed_lpc_ctrl_remove,
++};
++
++module_platform_driver(aspeed_lpc_ctrl_driver);
++
++MODULE_DEVICE_TABLE(of, aspeed_lpc_ctrl_match);
++MODULE_LICENSE("GPL");
++MODULE_AUTHOR("Cyril Bur <cyrilbur@gmail.com>");
++MODULE_DESCRIPTION("Linux device interface to control LPC bus");
+diff --git a/include/uapi/linux/aspeed-lpc-ctrl.h b/include/uapi/linux/aspeed-lpc-ctrl.h
+new file mode 100644
+index 000000000000..220220b6c83a
+--- /dev/null
++++ b/include/uapi/linux/aspeed-lpc-ctrl.h
+@@ -0,0 +1,35 @@
++/*
++ * Copyright 2017 IBM Corp.
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version
++ * 2 of the License, or (at your option) any later version.
++ */
++
++#ifndef _UAPI_LINUX_ASPEED_LPC_CTRL_H
++#define _UAPI_LINUX_ASPEED_LPC_CTRL_H
++
++#include <linux/ioctl.h>
++
++/* Window types */
++#define ASPEED_LPC_CTRL_WINDOW_FLASH	1
++#define ASPEED_LPC_CTRL_WINDOW_MEMORY	2
++
++struct aspeed_lpc_ctrl_mapping {
++	__u8	window_type;
++	__u8	window_id;
++	__u32	addr;
++	__u32	offset;
++	__u32	size;
++};
++
++#define __ASPEED_LPC_CTRL_IOCTL_MAGIC	0xb2
++
++#define ASPEED_LPC_CTRL_IOCTL_GET_SIZE	_IOWR(__ASPEED_LPC_CTRL_IOCTL_MAGIC, \
++		0x00, struct aspeed_lpc_ctrl_mapping)
++
++#define ASPEED_LPC_CTRL_IOCTL_MAP	_IOW(__ASPEED_LPC_CTRL_IOCTL_MAGIC, \
++		0x01, struct aspeed_lpc_ctrl_mapping)
++
++#endif /* _UAPI_LINUX_ASPEED_LPC_CTRL_H */
+-- 
+2.11.0
