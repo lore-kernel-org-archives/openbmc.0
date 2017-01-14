@@ -1,66 +1,52 @@
-Return-Path: <mspinler@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <roblip@gmail.com>
+Received: from mail-lf0-x243.google.com (mail-lf0-x243.google.com
+ [IPv6:2a00:1450:4010:c07::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v0XbJ0wbZzDqYp
- for <openbmc@lists.ozlabs.org>; Sat, 14 Jan 2017 06:23:07 +1100 (AEDT)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
- v0DJJtE8143809
- for <openbmc@lists.ozlabs.org>; Fri, 13 Jan 2017 14:23:04 -0500
-Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
- by mx0a-001b2d01.pphosted.com with ESMTP id 27y404202t-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 13 Jan 2017 14:23:03 -0500
-Received: from localhost
- by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
- Fri, 13 Jan 2017 12:23:02 -0700
-Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
- by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Fri, 13 Jan 2017 12:22:59 -0700
-Received: from b03cxnp07028.gho.boulder.ibm.com
- (b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
- by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id ADBA719D8058
- for <openbmc@lists.ozlabs.org>; Fri, 13 Jan 2017 12:22:15 -0700 (MST)
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v0DJMw3a12517842; Fri, 13 Jan 2017 12:22:58 -0700
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 5862BC6042;
- Fri, 13 Jan 2017 12:22:58 -0700 (MST)
-Received: from twohearted.rchland.ibm.com (unknown [9.10.99.32])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id 1E301C6069;
- Fri, 13 Jan 2017 12:22:58 -0700 (MST)
-From: Matt Spinler <mspinler@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: Matt Spinler <spinler@us.ibm.com>
-Subject: [PATCH] arm: dts: aspeed: witherspoon: Add devices
-Date: Fri, 13 Jan 2017 13:23:59 -0600
-X-Mailer: git-send-email 2.11.0
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17011319-0008-0000-0000-000006E92C70
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006427; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000199; SDB=6.00807225; UDB=6.00392914; IPR=6.00584556; 
- BA=6.00005053; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00013912; XFM=3.00000011;
- UTC=2017-01-13 19:23:00
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17011319-0009-0000-0000-00003EF9AD28
-Message-Id: <20170113192359.18149-1-mspinler@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-01-13_12:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1701130256
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v0fpd6hlvzDqVC
+ for <openbmc@lists.ozlabs.org>; Sat, 14 Jan 2017 11:03:21 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="F72oqJzD"; 
+ dkim-atps=neutral
+Received: by mail-lf0-x243.google.com with SMTP id v186so7274351lfa.2
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Jan 2017 16:03:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=qG24vtSAOH11aBDl8B4rBgM8L1fEybH853UqsxjqGqs=;
+ b=F72oqJzDlPARoP/krJR8MjvP6Drp9FsQFRbAAPrKx28enq3HPAcc0vqPUoxLcTkfjf
+ 2QnR3Gbok+FOq2vyR6TGPW1R/QNKvH8HRQeB/f6NtfW2XPFdZZ0FKQo4fP2R/PtxWqcZ
+ DLm8C5/asyOHCNqWvsoD/u+kKGBPS8dA++35ebnacAX8zVXzrjW8A5MXO7ZdP3aHy61+
+ rhB3WE0nhkgMKGK4rFYwEApDRiPgshwNiaTlRtrLlOmaWOa/HD2UWSwXFUMUL/0wvdJ6
+ v97qu/7GrHXqsmr2PU+FVENLWbvILQhTgZ9mSxJjVJkPtMgB4SVauRkSu8+LxwZfO+Pd
+ SQog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=qG24vtSAOH11aBDl8B4rBgM8L1fEybH853UqsxjqGqs=;
+ b=dl2malykpLCNzaCxTE8/74oreaQMCfBZaUw9wE/iG/DPUt+S5GPltMDz2AJQdqlzOI
+ AI8rup5sv2Nw+fhqPIqlGXXxUyxrND9Puq+JbktPTJhFT4beZybBfPUrqBtkwZ+9fuQf
+ CsRXpS7URSTwcq1JJuKQCsp5sws8a2j3iCjNwGrHTp7u0tpE4KtKcmWg5xEgPgm5penk
+ SeT2fgI6cA6xbW76HUelLvOb7Mha/EW3Wl/GrmcFSrVpYlL7lsrge1D6I++2MNR69QYy
+ tXPGmfDqgnrYD+d2iY3vqhd8tu6tA/hbxwBc9s+ceOl+UVcoCvViLn7Fxiv0qyNzNmHt
+ DJHw==
+X-Gm-Message-State: AIkVDXJF3+/KJQnokfLegsVqPJ89mYGuQuAt3kC/yrqEDw2TCiNxxlsrdkuefs51ctrBVpgbKgDA9SN3ZwG3tw==
+X-Received: by 10.46.71.132 with SMTP id u126mr8158268lja.43.1484352198877;
+ Fri, 13 Jan 2017 16:03:18 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.114.12.134 with HTTP; Fri, 13 Jan 2017 16:03:18 -0800 (PST)
+In-Reply-To: <b3b47fb6-3d73-c7a4-064f-d5ccbbd27b1a@kaod.org>
+References: <20170110225555.117814-1-rlippert@google.com>
+ <b3b47fb6-3d73-c7a4-064f-d5ccbbd27b1a@kaod.org>
+From: Rob Lippert <roblip@gmail.com>
+Date: Fri, 13 Jan 2017 16:03:18 -0800
+Message-ID: <CAN+5HW0+CGrw5VSvGqk7hjYEznUxtUecpL3hQCjL=KqtHPXZrw@mail.gmail.com>
+Subject: Re: [PATCH linux v2 0/3] ASPEED SPI driver support for dual IO mode
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -72,103 +58,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Jan 2017 19:23:08 -0000
+X-List-Received-Date: Sat, 14 Jan 2017 00:03:22 -0000
 
-From: Matt Spinler <spinler@us.ibm.com>
+On Fri, Jan 13, 2017 at 5:44 AM, C=C3=A9dric Le Goater <clg@kaod.org> wrote=
+:
+> Hello Robert,
+>
+> On 01/10/2017 11:55 PM, Robert Lippert wrote:
+>>
+>> Adds support for dual IO SPI mode.  This speeds up SPI accesses, droppin=
+g
+>> time to dump an entire 64MB Macronix chip from ~12s to ~6s using:
+>>       dd if=3D/dev/mtdblock0 bs=3D64MB count=3D1 of=3D/dev/null
+>>
+>> The dual IO bit mode should not depend on any board-specific properties
+>> as it uses the same IO lines as single bit mode.  Only issue could be
+>> if a board used a one-way level tranlator or mux on the MOSI line
+>> but that seems unlikely to me.
+>>
+>> Tested on Zaius board with AST2500 chip, not tested on AST2400 but I
+>> expect it to work since registers are identical.
+>>
+>> Note dropped TODO about quad mode since ASPEED SPI controller does
+>> not support quad mode.
+>>
+>> Changes in v2:
+>> - Cleanups suggested by Cedric.
+>
+> could you please give a quick try to this kernel :
+>
+>         https://github.com/legoater/linux/commits/openbmc-4.7
+>
+> This is an openbmc 4.7 kernel with a backport of the mainline smc
+> driver, dma support, fastread support and your dual io support.
+>
+> I have tested it on a palmetto and an ast2500 evb but I don't have
+> the HW you use.
 
-Add more I2C devices and the rear LEDs.
+Tested it after fixing a compilation error for
+s/CONTROL_SPI_IO/CONTROL_IO/ and it works on Zaius board.
 
-Signed-off-by: Matt Spinler <spinler@us.ibm.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 39 ++++++++++++++++++++++--
- 1 file changed, 36 insertions(+), 3 deletions(-)
+But it seems to be a bit slower, about half as fast as I saw before.
+I think it is due to your branch missing this commit from the openbmc
+tree:
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index 9badf3e94599..11de7a957738 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -19,6 +19,22 @@
- 	memory {
- 		reg = <0x80000000 0x40000000>;
- 	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		rear-fault-led {
-+			gpios = <&gpio ASPEED_GPIO(N, 2) GPIO_ACTIVE_LOW>;
-+		};
-+
-+		rear-id-led {
-+			gpios = <&gpio ASPEED_GPIO(N, 4) GPIO_ACTIVE_LOW>;
-+		};
-+
-+		rear-power-led {
-+			gpios = <&gpio ASPEED_GPIO(N, 3) GPIO_ACTIVE_LOW>;
-+		};
-+	};
- };
- 
- &fmc {
-@@ -115,25 +131,38 @@
- 		compatible = "bosch,bmp180";
- 		reg = <0x77>;
- 	};
-+
-+	max31785@52 {
-+		compatible = "maxim,max31785";
-+		reg = <0x52>;
-+	};
- };
- 
- &i2c4 {
- 	status = "okay";
- 
--	/* CP1 TMP423A */
- 	/* CP1 VDN & VDDR */
- 	/* CP1 VDD & VCS */
- 	/* CP1 VIO */
-+
-+	tmp423a@4c {
-+		compatible = "ti,tmp423";
-+		reg = <0x4c>;
-+	};
- };
- 
- 
- &i2c5 {
- 	status = "okay";
- 
--	/* CP1 TMP423A */
- 	/* CP1 VDN & VDDR */
- 	/* CP1 VDD & VCS */
- 	/* CP1 VIO */
-+
-+	tmp423a@4c {
-+		compatible = "ti,tmp423";
-+		reg = <0x4c>;
-+	};
- };
- 
- &i2c6 {
-@@ -152,13 +181,17 @@
- &i2c9 {
- 	status = "okay";
- 
--	/* Tmp275 */
- 
- 	/* MUX
- 	 *    -> PCIe Slot 3
- 	 *    -> PCIe Slot 4
- 	 *    -> PCA9517 -> PEX8725
- 	 */
-+
-+	tmp275@4a {
-+		compatible = "ti,tmp275";
-+		reg = <0x4a>;
-+	};
- };
- 
- &i2c10 {
--- 
-2.11.0
+423ac0dc0117f411244c38b7a351664a4c30c19a mtd: spi-nor: aspeed: rework
+io routines
+
+Thanks,
+-Rob
