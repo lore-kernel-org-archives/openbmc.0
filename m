@@ -1,53 +1,65 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-oi0-x243.google.com (mail-oi0-x243.google.com
- [IPv6:2607:f8b0:4003:c06::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <cyrilbur@gmail.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v1tjJ3JCszDqGt
- for <openbmc@lists.ozlabs.org>; Mon, 16 Jan 2017 11:03:00 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="WWJi5Rk6"; 
- dkim-atps=neutral
-Received: by mail-oi0-x243.google.com with SMTP id u143so11366015oif.3
- for <openbmc@lists.ozlabs.org>; Sun, 15 Jan 2017 16:03:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=hV7Y3fYCs6Kr4baH5TJ6oCQ/6XgW/l9FCClSPm/wDwU=;
- b=WWJi5Rk6y9izxdmaPJAK8NReBTHETttM2fVEw/rwloJyjg38Wo9WdNYsIrism3IWFk
- sqj4S7VGUAAHtwGRYyoo4xkbS5Kmb3h6GHe6nqQdcG7qwS4CShf/sKt1lS1LSOeRqMUM
- j+PNxQzGDxPqn8x+EcXlTLIV7GeIDOWE4UPqYe1fyQueYe6kIwbCgC1M1lHupmVz/jwv
- uCiow2yxXm9DS/8Iy8RRgUwwILH7x5sdj50hKepsbi/o+tCeMU9SYgeu6Jse98oxRQEl
- ZW1sz7roaLFHcrgrVXK7xqaVftLcRu1BicGzUJ45UEai/COR6EoIAF6cM5swMZxYYyVr
- D7yA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=hV7Y3fYCs6Kr4baH5TJ6oCQ/6XgW/l9FCClSPm/wDwU=;
- b=FrH2HrQIBOVflfU7ESSoHnlQqiHb5RcMrUO/XAKUZBuVVkh2h/L7PKKzTk2KHWY5Wk
- 5Mu2rFNr7yCyV561rFJGO71/Y5xU7Tsjjb5I6Wd97zApMtz2SgJawr/sO6+7fqX3JwkG
- P5BTcEGcC7rbQRntWGYxJtkC3ItztU1B7k9FsZ6KCkpaMdmsmMdWnslDlcEkGEJId1aO
- T+Reys6yAtc2jOcrq/6jUhlVS9wSFp9bzcvtq5AvfHvRznBKSPV66tXvAqZaBgOjQbKs
- kA54ZIRCX5AjkLAeW8GD12T9hrMWeVDhyEo3URGqA3h6mu0CTwuT2Ton3UKOFeZLU5lP
- 3M7w==
-X-Gm-Message-State: AIkVDXK4rjSye1UebMmbSNJc+0Z7+SerI81RXWVF6RefZFKQ6yXNuSKwdInKcxBNe9XnUkLXwoyh8aVUGbnj7A==
-X-Received: by 10.202.50.198 with SMTP id y189mr14258628oiy.198.1484524978460; 
- Sun, 15 Jan 2017 16:02:58 -0800 (PST)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.182.245.201 with HTTP; Sun, 15 Jan 2017 16:02:38 -0800 (PST)
-In-Reply-To: <20170113192359.18149-1-mspinler@linux.vnet.ibm.com>
-References: <20170113192359.18149-1-mspinler@linux.vnet.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 16 Jan 2017 11:02:38 +1100
-X-Google-Sender-Auth: -YM8chmN7YIyFQLWSYavFc5vzPk
-Message-ID: <CACPK8XdNFcZjs7e3X4vWFzYjAyBL6KMyzJ91i=qNF43SZXEzeQ@mail.gmail.com>
-Subject: Re: [PATCH] arm: dts: aspeed: witherspoon: Add devices
-To: Matt Spinler <mspinler@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Matt Spinler <spinler@us.ibm.com>
-Content-Type: text/plain; charset=UTF-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v1w8m3rH7zDqJ7
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Jan 2017 12:08:24 +1100 (AEDT)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v0G13Rsm109663
+ for <openbmc@lists.ozlabs.org>; Sun, 15 Jan 2017 20:08:22 -0500
+Received: from e23smtp05.au.ibm.com (e23smtp05.au.ibm.com [202.81.31.147])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 280cbraynp-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Sun, 15 Jan 2017 20:08:22 -0500
+Received: from localhost
+ by e23smtp05.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cyrilbur@gmail.com>;
+ Mon, 16 Jan 2017 11:08:20 +1000
+Received: from d23dlp01.au.ibm.com (202.81.31.203)
+ by e23smtp05.au.ibm.com (202.81.31.211) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Mon, 16 Jan 2017 11:08:18 +1000
+Received: from d23relay09.au.ibm.com (d23relay09.au.ibm.com [9.185.63.181])
+ by d23dlp01.au.ibm.com (Postfix) with ESMTP id 85E972CE8054
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Jan 2017 12:08:17 +1100 (EST)
+Received: from d23av05.au.ibm.com (d23av05.au.ibm.com [9.190.234.119])
+ by d23relay09.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v0G18Hns4850170
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Jan 2017 12:08:17 +1100
+Received: from d23av05.au.ibm.com (localhost [127.0.0.1])
+ by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ v0G18HLa011975
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Jan 2017 12:08:17 +1100
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av05.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ v0G18Gjs011966; Mon, 16 Jan 2017 12:08:16 +1100
+Received: from camb691.ibm.com (unknown [9.83.3.20])
+ (using TLSv1.2 with cipher DHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id AF591A0206;
+ Mon, 16 Jan 2017 12:08:10 +1100 (AEDT)
+From: Cyril Bur <cyrilbur@gmail.com>
+To: joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org, andrew@aj.id.au
+Subject: [PATCH] ARM: dts: aspeed-g5: Add mailbox and LPC Control nodes
+Date: Mon, 16 Jan 2017 12:06:46 +1100
+X-Mailer: git-send-email 2.11.0
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17011601-0016-0000-0000-0000020CED11
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17011601-0017-0000-0000-0000063D8002
+Message-Id: <20170116010646.8057-1-cyrilbur@gmail.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-01-15_20:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=51
+ spamscore=51 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1701160016
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,128 +71,86 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 Jan 2017 00:03:01 -0000
+X-List-Received-Date: Mon, 16 Jan 2017 01:08:25 -0000
 
-On Sat, Jan 14, 2017 at 6:23 AM, Matt Spinler
-<mspinler@linux.vnet.ibm.com> wrote:
-> From: Matt Spinler <spinler@us.ibm.com>
->
-> Add more I2C devices and the rear LEDs.
+This reserves BMC ram for host to BMC communication required by the
+LPC control driver.
 
-Please make the subject line more descriptive. "add i2c and led devices".
+As both these devices exist on the LPC bus these nodes are children
+of a new LPC node.
 
->
-> Signed-off-by: Matt Spinler <spinler@us.ibm.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 39 ++++++++++++++++++++++--
->  1 file changed, 36 insertions(+), 3 deletions(-)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> index 9badf3e94599..11de7a957738 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> @@ -19,6 +19,22 @@
->         memory {
->                 reg = <0x80000000 0x40000000>;
->         };
-> +
-> +       leds {
-> +               compatible = "gpio-leds";
-> +
-> +               rear-fault-led {
+Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
+---
+ arch/arm/boot/dts/aspeed-g5.dtsi | 50 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 50 insertions(+)
 
-Follow the naming of the other machines. This should be "rear-fault".
-
-Are there other fault leds? If not, call it "fault".
-
-> +                       gpios = <&gpio ASPEED_GPIO(N, 2) GPIO_ACTIVE_LOW>;
-
-Did you attempt to compile this patch? It doesn't build for me, with
-the first error on this line.
-
-> +               };
-> +
-> +               rear-id-led {
-
-Same here. Call it "identify". as in the other dts.
-
-> +                       gpios = <&gpio ASPEED_GPIO(N, 4) GPIO_ACTIVE_LOW>;
-> +               };
-> +
-> +               rear-power-led {
-
-power.
-
-> +                       gpios = <&gpio ASPEED_GPIO(N, 3) GPIO_ACTIVE_LOW>;
-> +               };
-> +       };
->  };
->
->  &fmc {
-> @@ -115,25 +131,38 @@
->                 compatible = "bosch,bmp180";
->                 reg = <0x77>;
->         };
-> +
-> +       max31785@52 {
-> +               compatible = "maxim,max31785";
-> +               reg = <0x52>;
-> +       };
->  };
->
->  &i2c4 {
->         status = "okay";
->
-> -       /* CP1 TMP423A */
->         /* CP1 VDN & VDDR */
->         /* CP1 VDD & VCS */
->         /* CP1 VIO */
-> +
-> +       tmp423a@4c {
-> +               compatible = "ti,tmp423";
-> +               reg = <0x4c>;
-> +       };
->  };
->
->
->  &i2c5 {
->         status = "okay";
->
-> -       /* CP1 TMP423A */
->         /* CP1 VDN & VDDR */
->         /* CP1 VDD & VCS */
->         /* CP1 VIO */
-> +
-> +       tmp423a@4c {
-> +               compatible = "ti,tmp423";
-> +               reg = <0x4c>;
-> +       };
->  };
->
->  &i2c6 {
-> @@ -152,13 +181,17 @@
->  &i2c9 {
->         status = "okay";
->
-> -       /* Tmp275 */
->
->         /* MUX
->          *    -> PCIe Slot 3
->          *    -> PCIe Slot 4
->          *    -> PCA9517 -> PEX8725
->          */
-> +
-> +       tmp275@4a {
-> +               compatible = "ti,tmp275";
-> +               reg = <0x4a>;
-> +       };
->  };
->
->  &i2c10 {
-> --
-> 2.11.0
->
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+index d6ff41ee6c58..51c339b46740 100644
+--- a/arch/arm/boot/dts/aspeed-g5.dtsi
++++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+@@ -18,6 +18,18 @@
+ 		};
+ 	};
+ 
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		flash_memory: region@94000000 {
++			compatible = "aspeed,ast2500-lpc-ctrl";
++			no-map;
++			reg = <0x94000000 0x04000000>; /* 64M */
++		};
++	};
++
+ 	ahb {
+ 		compatible = "simple-bus";
+ 		#address-cells = <1>;
+@@ -89,6 +101,44 @@
+ 			};
+ 		};
+ 
++		lpc: lpc@1e789000 {
++			compatible = "aspeed,ast2500-lpc", "simple-mfd";
++			reg = <0x1e789000 0x1000>;
++
++			#address-cells = <1>;
++			#size-cells = <1>;
++			ranges = <0x0 0x1e789000 0x1000>;
++
++			lpc_bmc: lpc-bmc@0 {
++				compatible = "aspeed,ast2500-lpc-bmc";
++				reg = <0x0 0x80>;
++			};
++
++			lpc_host: lpc-host@80 {
++				compatible = "aspeed,ast2500-lpc-host", "simple-mfd", "syscon";
++				reg = <0x80 0x1e0>;
++				reg-io-width = <4>;
++
++				#address-cells = <1>;
++				#size-cells = <1>;
++				ranges = <0x0 0x80 0x1e0>;
++
++				lpc-ctrl@0 {
++					compatible = "aspeed,ast2500-lpc-ctrl";
++					memory-region = <&flash_memory>;
++					flash = <&spi1>;
++					reg = <0x0 0x80>;
++				};
++
++				mbox: mbox@180 {
++					compatible = "aspeed,ast2500-mbox";
++					reg = <0x180 0x5c>;
++					interrupts = <46>;
++					#mbox-cells = <1>;
++				};
++			};
++		};
++
+ 		vic: interrupt-controller@1e6c0080 {
+ 			compatible = "aspeed,ast2400-vic";
+ 			interrupt-controller;
+-- 
+2.11.0
