@@ -1,50 +1,50 @@
 Return-Path: <cyrilbur@gmail.com>
-Received: from mail-pf0-x244.google.com (mail-pf0-x244.google.com
- [IPv6:2607:f8b0:400e:c00::244])
+Received: from mail-pg0-x243.google.com (mail-pg0-x243.google.com
+ [IPv6:2607:f8b0:400e:c05::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v21Jq1ZJSzDqRT
- for <openbmc@lists.ozlabs.org>; Mon, 16 Jan 2017 16:00:43 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v21Mt1d8hzDqRT
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Jan 2017 16:03:22 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="vdfykfoN"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="A1qXQ60J"; 
  dkim-atps=neutral
-Received: by mail-pf0-x244.google.com with SMTP id 19so2584651pfo.3
- for <openbmc@lists.ozlabs.org>; Sun, 15 Jan 2017 21:00:43 -0800 (PST)
+Received: by mail-pg0-x243.google.com with SMTP id 75so4375711pgf.3
+ for <openbmc@lists.ozlabs.org>; Sun, 15 Jan 2017 21:03:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=message-id:subject:from:to:cc:date:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=b558PKPd4N4mA+Wyq4FA6zUsvt3SSIP++NRNYav0qdA=;
- b=vdfykfoNs/SmlctvfJ2Pz3gFK+iif+GKxWhYmKfRv/7rcHlqsoYA1yRCuT5upPtCZu
- qCeFaji6q/pWPpA5dPrwzcWzeJsCXzE+DSCdE+V8AioEpiXtbn7v8bpmLnDXZsA1qQTx
- 9I4gxVQUgLLOomkhef7AxfcSHYG5WBpHZoWCvu8UbASzGiGNelq6qBqhA5d02OATnXtv
- R+XNm5DLm55YtKD0RNj7JhR+Abh+R5x0DtTudqZOiNfxNXPRON489wd5sxiLUxZnRctD
- 2X0/779J/PS85Uw5o5MbtNBTBjBW1v+oyy8BIpBQw5EyTY+ilI/i1smo4BlFTee2pSh3
- H+6A==
+ bh=lkMkCKVFvGwfwwvW2b5uBMZgKamE5yTc+QdC032vtxI=;
+ b=A1qXQ60JUwKkCENpxewN9bSfrdlS3eZEOwe8ePnJke6Aj2j2a1GS9YVy/G+W4Cn1w8
+ Eoytk34pxQEnPP6jnKoLshNYlM1p7HCBT2ii2wj1hxJelLbVXltloPh/kODzIye1YJyj
+ zq9oTeBEi4z36DjWyRyegaqZ5wseSSy/hX038VXZQLmuI4O+zoj4Jg8XWaQddAW/uJ9z
+ 92qWpqJbYLHnfqNEz5xJXYOcCrKIVhq/gTgiEqgrcxs4igs3Q6yccTWMTt0OBrjEPQ+c
+ BtRT21qxiwSv9JxocVM/qjpEqi/c+Iw302fiVV32XkgGWJaZ6Dlr9R3PkXqkjDCp5+NU
+ EjyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=b558PKPd4N4mA+Wyq4FA6zUsvt3SSIP++NRNYav0qdA=;
- b=cuTZrMeyALQZT9+YpxbmBOMSXd4Te4Pey15DbwDHRJQwP3Xt7HTAcPJrmpSmbZclHS
- PY3A9jO7qgfHuI+0wflwQbYmxx0R1ueGnkaF39JeKTjEbC+5/xlWV0Jg9xm4HhWp1I9G
- Cnb3eqTInhe6s5q9ZxyJY1d8gn8AOTVXfZ+2G7SESENNGtV7tEQoijUMho3q3fSLI9L+
- NGSd3cNdI+qfOBSTsGh4XjU3ZMsldJX1ejkAMv8ghYPu2VBi2bPze2YQNhVtfUTGI2ES
- ihoqvBpS1d1sDZhoWILx7mbaxXJM2gNwz0DL2Ni8u/iEX1zXxCo7lnyakhvSzlU5IkjU
- FD/A==
-X-Gm-Message-State: AIkVDXL5BPjvMfMBx4DyUq9kAElvGoPakrhkU9B11+Uy85jkhLxs19tRnmkORyyIaCIdwg==
-X-Received: by 10.84.217.133 with SMTP id p5mr47879540pli.164.1484542841100;
- Sun, 15 Jan 2017 21:00:41 -0800 (PST)
+ bh=lkMkCKVFvGwfwwvW2b5uBMZgKamE5yTc+QdC032vtxI=;
+ b=RZqgv6jlxDYGUmwK/R8vd0CI12yc8/pTJov9nbwsbV0Wibb17Za/oK8I0O8JSgY84C
+ etKWPtGe4lpHdVSCJSzv1gKDlKHPi3VM1vQDXM/BVxNhI0J4qUfdpBzIGgMu9pCzvLUN
+ rlFSbD69oXQUQWiMJ4w/w9nSOdJP2Fir5Si9CJ1YJU4ZW7r7kxcMVA+mLfjCflmPOkZJ
+ f3hFR1nvqhw7L/6ZfwqFLPyisVbcBv3cPbwjnW3MqPX++NTXD7WmMgw410pKAkqDaDQr
+ YUVcoiYKXHH+MrYgy/cB2QIQXgdpw5jA5my/XJ+WK3FlFq/3ad2hp7+R36aQ2JLNvN78
+ OVIQ==
+X-Gm-Message-State: AIkVDXLDUBLJB6r/pbAH6elMP5YXvJBVOBTcj/wiEX24P7PPyPQyeqsDcHAmcdNLdgHTaQ==
+X-Received: by 10.98.223.195 with SMTP id d64mr35442988pfl.80.1484543000414;
+ Sun, 15 Jan 2017 21:03:20 -0800 (PST)
 Received: from [138.44.241.182] ([138.44.241.182])
- by smtp.googlemail.com with ESMTPSA id y201sm1245366pfb.16.2017.01.15.21.00.35
+ by smtp.googlemail.com with ESMTPSA id d68sm11779808pfj.92.2017.01.15.21.03.15
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Sun, 15 Jan 2017 21:00:40 -0800 (PST)
-Message-ID: <1484542781.5646.2.camel@gmail.com>
+ Sun, 15 Jan 2017 21:03:19 -0800 (PST)
+Message-ID: <1484542942.5646.4.camel@gmail.com>
 Subject: Re: [PATCH] ARM: dts: aspeed-g5: Add mailbox and LPC Control nodes
 From: Cyril Bur <cyrilbur@gmail.com>
 To: Joel Stanley <joel@jms.id.au>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Andrew Jeffery
  <andrew@aj.id.au>
-Date: Mon, 16 Jan 2017 15:59:41 +1100
+Date: Mon, 16 Jan 2017 16:02:22 +1100
 In-Reply-To: <CACPK8XfDVKQtO6d6sN8e=dUmE=F-MDMpWrsxDoEkeVU3h+WzSA@mail.gmail.com>
 References: <20170116010646.8057-1-cyrilbur@gmail.com>
  <CACPK8XfDVKQtO6d6sN8e=dUmE=F-MDMpWrsxDoEkeVU3h+WzSA@mail.gmail.com>
@@ -63,7 +63,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 Jan 2017 05:00:44 -0000
+X-List-Received-Date: Mon, 16 Jan 2017 05:03:22 -0000
 
 On Mon, 2017-01-16 at 14:56 +1100, Joel Stanley wrote:
 > On Mon, Jan 16, 2017 at 12:06 PM, Cyril Bur <cyrilbur@gmail.com> wrote:
@@ -98,12 +98,6 @@ On Mon, 2017-01-16 at 14:56 +1100, Joel Stanley wrote:
 > 
 > That doesn't make sense, the RAM isn't a LPC Host Controller.
 > 
-
-Agreed, I have a feeling that the lpc-ctrl driver didn't probe wihtout
-that. I don't have either machine that this would work on handy to
-test. I'm hopeful I'm wrong here because I agree that it doesn't make
-sense that this should have that compatible property.
-
 > > +                       no-map;
 > > +                       reg = <0x94000000 0x04000000>; /* 64M */
 > 
@@ -112,21 +106,8 @@ sense that this should have that compatible property.
 > decide to have an aspeed-bmc-opp.dtsi with common snippets, but for
 > now cut and paste.
 > 
-
-I agree we don't want it here but I have a very strong aversion to
-large chunks of ctrl+c and ctrl+v.
-
 > Have you investigated reserving this memory when the driver probes
 > instead of hardcoding it?
-
-Yes, this is by far the cleanest way of getting such a large chunk. If
-we do want to drop our usage to 4k or 64k then there are methods at
-runtime but for this amount the DT is really the way to go.
-
-This is somthing we can probably add to driver one day. If it doens't
-find a reserved-memory node then it should allocate at runtime but that
- allocation will likely need to be smaller orders of megs
-
 > 
 > > +               };
 > > +       };
@@ -184,11 +165,8 @@ find a reserved-memory node then it should allocate at runtime but that
 > Make this node status = "disabled" in the dtsi.
 > 
 
-Re all those comments above, I think I see what you're getting at.
-
-Thanks,
-
-Cyril
+Oops missed this, do we want to make this disabled - it should exist on
+every ast2500 and it doesn't depend on anything else...
 
 > Cheers,
 > 
