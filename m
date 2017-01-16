@@ -1,73 +1,27 @@
-Return-Path: <mspinler@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v2NvC57hWzDqR9
- for <openbmc@lists.ozlabs.org>; Tue, 17 Jan 2017 06:43:19 +1100 (AEDT)
-Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v0GJcSr6126410
- for <openbmc@lists.ozlabs.org>; Mon, 16 Jan 2017 14:43:15 -0500
-Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2813rssp2y-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 16 Jan 2017 14:43:15 -0500
-Received: from localhost
- by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
- Mon, 16 Jan 2017 12:43:15 -0700
-Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
- by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Mon, 16 Jan 2017 12:43:13 -0700
-Received: from b03cxnp07028.gho.boulder.ibm.com
- (b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
- by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id 26A2F19D801C;
- Mon, 16 Jan 2017 12:42:29 -0700 (MST)
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v0GJhCZu11075934; Mon, 16 Jan 2017 12:43:12 -0700
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A8D92BE042;
- Mon, 16 Jan 2017 12:43:12 -0700 (MST)
-Received: from [9.10.99.159] (unknown [9.10.99.159])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP id 6ED08BE044;
- Mon, 16 Jan 2017 12:43:12 -0700 (MST)
-Subject: Re: [PATCH] arm: dts: aspeed: witherspoon: Add devices
-To: Joel Stanley <joel@jms.id.au>
-References: <20170113192359.18149-1-mspinler@linux.vnet.ibm.com>
- <CACPK8XdNFcZjs7e3X4vWFzYjAyBL6KMyzJ91i=qNF43SZXEzeQ@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v2NxB3q0dzDqR9
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Jan 2017 06:45:02 +1100 (AEDT)
+Received: from localhost (32.97.110.52 [32.97.110.52]) by mx.zohomail.com
+ with SMTPS id 1484595894736502.8449477901165;
+ Mon, 16 Jan 2017 11:44:54 -0800 (PST)
+Date: Mon, 16 Jan 2017 13:44:48 -0600
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Mine <mine260309@gmail.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: Matt Spinler <mspinler@linux.vnet.ibm.com>
-Date: Mon, 16 Jan 2017 13:43:32 -0600
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
- Thunderbird/45.5.1
+Subject: Re: RFC: new design of phosphor-time-manager on sdbusplus
+Message-ID: <20170116194447.d3yzsldsu3qsl5sz@asimov>
+References: <CAARXrtkPMixp9M0SYyaeP4_j83mRRXNG1O2Tf24rL5OH6CbJvg@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <CACPK8XdNFcZjs7e3X4vWFzYjAyBL6KMyzJ91i=qNF43SZXEzeQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17011619-0016-0000-0000-000005E1F2F8
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006445; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000199; SDB=6.00808497; UDB=6.00393760; IPR=6.00585857; 
- BA=6.00005062; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00013939; XFM=3.00000011;
- UTC=2017-01-16 19:43:14
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17011619-0017-0000-0000-0000368976D8
-Message-Id: <71b0925f-8103-76ab-fe97-ecd1c30ff480@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-01-16_15:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1701160277
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="5k3tsv6i5ebpwqso"
+Content-Disposition: inline
+In-Reply-To: <CAARXrtkPMixp9M0SYyaeP4_j83mRRXNG1O2Tf24rL5OH6CbJvg@mail.gmail.com>
+User-Agent: Mutt/1.6.2 (2016-06-11)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -79,133 +33,77 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 Jan 2017 19:43:20 -0000
+X-List-Received-Date: Mon, 16 Jan 2017 19:45:03 -0000
 
 
-On 1/15/2017 6:02 PM, Joel Stanley wrote:
-> On Sat, Jan 14, 2017 at 6:23 AM, Matt Spinler
-> <mspinler@linux.vnet.ibm.com> wrote:
->> From: Matt Spinler <spinler@us.ibm.com>
->>
->> Add more I2C devices and the rear LEDs.
-> Please make the subject line more descriptive. "add i2c and led devices".
-Sure.  Was just trying to fit in the 50 characters.
->> Signed-off-by: Matt Spinler <spinler@us.ibm.com>
->> ---
->>   arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 39 ++++++++++++++++++++++--
->>   1 file changed, 36 insertions(+), 3 deletions(-)
->>
->> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
->> index 9badf3e94599..11de7a957738 100644
->> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
->> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
->> @@ -19,6 +19,22 @@
->>          memory {
->>                  reg = <0x80000000 0x40000000>;
->>          };
->> +
->> +       leds {
->> +               compatible = "gpio-leds";
->> +
->> +               rear-fault-led {
-> Follow the naming of the other machines. This should be "rear-fault".
->
-> Are there other fault leds? If not, call it "fault".
-There's also a set of front LEDs for these functions.  They're off of a 
-9552 and just I haven't gotten to their representation yet.
-When I eventually get the autogeneration of the device tree working, 
-these names will be whatever they show up as in the MRW.
-I will change these to 'rear-fault', etc.
->
->> +                       gpios = <&gpio ASPEED_GPIO(N, 2) GPIO_ACTIVE_LOW>;
-> Did you attempt to compile this patch? It doesn't build for me, with
-> the first error on this line.
-Doh!  I merged it from another tree where I tested it, but missed 
-updating the gpio include to the aspeed version.
+--5k3tsv6i5ebpwqso
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
->> +               };
->> +
->> +               rear-id-led {
-> Same here. Call it "identify". as in the other dts.
-Will change it to rear-identify as mentioned above.
->
->> +                       gpios = <&gpio ASPEED_GPIO(N, 4) GPIO_ACTIVE_LOW>;
->> +               };
->> +
->> +               rear-power-led {
-> power.
-Will be rear-power.
->
->> +                       gpios = <&gpio ASPEED_GPIO(N, 3) GPIO_ACTIVE_LOW>;
->> +               };
->> +       };
->>   };
->>
->>   &fmc {
->> @@ -115,25 +131,38 @@
->>                  compatible = "bosch,bmp180";
->>                  reg = <0x77>;
->>          };
->> +
->> +       max31785@52 {
->> +               compatible = "maxim,max31785";
->> +               reg = <0x52>;
->> +       };
->>   };
->>
->>   &i2c4 {
->>          status = "okay";
->>
->> -       /* CP1 TMP423A */
->>          /* CP1 VDN & VDDR */
->>          /* CP1 VDD & VCS */
->>          /* CP1 VIO */
->> +
->> +       tmp423a@4c {
->> +               compatible = "ti,tmp423";
->> +               reg = <0x4c>;
->> +       };
->>   };
->>
->>
->>   &i2c5 {
->>          status = "okay";
->>
->> -       /* CP1 TMP423A */
->>          /* CP1 VDN & VDDR */
->>          /* CP1 VDD & VCS */
->>          /* CP1 VIO */
->> +
->> +       tmp423a@4c {
->> +               compatible = "ti,tmp423";
->> +               reg = <0x4c>;
->> +       };
->>   };
->>
->>   &i2c6 {
->> @@ -152,13 +181,17 @@
->>   &i2c9 {
->>          status = "okay";
->>
->> -       /* Tmp275 */
->>
->>          /* MUX
->>           *    -> PCIe Slot 3
->>           *    -> PCIe Slot 4
->>           *    -> PCA9517 -> PEX8725
->>           */
->> +
->> +       tmp275@4a {
->> +               compatible = "ti,tmp275";
->> +               reg = <0x4a>;
->> +       };
->>   };
->>
->>   &i2c10 {
->> --
->> 2.11.0
->>
->> _______________________________________________
->> openbmc mailing list
->> openbmc@lists.ozlabs.org
->> https://lists.ozlabs.org/listinfo/openbmc
+On Fri, Jan 13, 2017 at 03:42:50PM +0800, Mine wrote:
+> New Design
+>=20
+> Create two objects:
+
+You mean 'classes' or 'objects'?  I think you mean two classes, which
+initially we will only have 1 instance of each.  Please make sure the
+HostEpoch implementation can relatively-easily be enhanced to have
+multiple instances.
+
+>    - BmcEpoch
+>    - HostEpoch
+>=20
+> They both implements EpochTime interface.
+>=20
+> For BmcEpoch:
+>=20
+>    - When elapsed() is called, return BMC time;
+>    - When elapsed(us) is called, use above SetTime(=E2=80=9Cbmc=E2=80=9D)=
+ logic
+>=20
+> For HostEpoch:
+>=20
+>    - When elapsed() is called, return HOST time;
+>    - When elapsed(us) is called, use above SetTime(=E2=80=9Chost=E2=80=9D=
+) logic.
+
+Seems ok.
+
+The errors also need to be converted to dbus-defined errors, right?
+
+> And there will be no =E2=80=9Ccurr_time_mode/owner=E2=80=9D or =E2=80=9Cr=
+equested_time_mode/owner=E2=80=9D
+> properties on DBUS.
+
+So these are only stored in phosphor-settingsd now or are they also used
+internally for decisions?  I believe the previous implementation had
+them exposed more for debug purposes.  Are you going to add them to the
+journal at least?
+
+--=20
+Patrick Williams
+
+--5k3tsv6i5ebpwqso
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJYfSKvAAoJEKsDR8wtAMEZRjQQAKQ1PAwbXPcFiaOv/iZELNS2
+DTV+vAYwlFnQx+DXq5Uy+ZfPvJfeAHQ8WiuH2ltkGYmzPjwtCu0/EwaTf6RkMQnO
+kh/BhOakdU7LtxxzgjDHbiasdvTvFg69LqHRUP3h8Cj/R117OXUsOPHc8DbW3kSx
+BwtuQ0fb8+ca9vqs+5+bXAmT9Q0rBXqgQnwZmvNPL/d6IcyCGewcT7ydJXXkHuI8
+VqZM0SPzz6E7HrKg6j36wVGTDnX07phZKrnepSpcbR7HHz+MAVZY9TShfdvMMAjE
+qZ62DN81Pe62YeDXkbn2U6LFaDkdqz1gms2YVCH23qssOZoAWQOFCpCiBeyJuJWm
+SD///2jjKRXJL5Y0xReuIxqyvPt9GYkB5lDzeuWuD8BJnDmMnuBijuEblpHPgS43
+YeIwjvsUhF5iNCRF3qzp8rUWKYHiFZFHXDt6IPAz5i0tyVCmgLc1+qiXd3gOlf/V
+fueYSARGxpjUOPGcZ5y0AaHFHEHCiqq68A0sspkaMCvzh339DtdRAsLaq6eGEK4G
+UqHTVHaxhXxotv/3QP2iP4Ccet2obNiEQvNc7oJkLDbox5uxKYCUzB+h2OIS1WF/
+zcV6QtF2ACn/Brqj/t2+CBgkPiPltEeltSXmw3IwRCuQQGdENe3KjBnqsw2+UDFy
+hj71kZ+Zh/7UaUdrQfht
+=Mevr
+-----END PGP SIGNATURE-----
+
+--5k3tsv6i5ebpwqso--
