@@ -1,50 +1,50 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
- [IPv6:2607:f8b0:4003:c06::241])
+Received: from mail-ot0-x244.google.com (mail-ot0-x244.google.com
+ [IPv6:2607:f8b0:4003:c0f::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v2WJB6VTHzDqSY
- for <openbmc@lists.ozlabs.org>; Tue, 17 Jan 2017 11:31:54 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v2WLP47xqzDqSY
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Jan 2017 11:33:49 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="cWxU1c2p"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="eygwRaWA"; 
  dkim-atps=neutral
-Received: by mail-oi0-x241.google.com with SMTP id u143so13743697oif.3
- for <openbmc@lists.ozlabs.org>; Mon, 16 Jan 2017 16:31:54 -0800 (PST)
+Received: by mail-ot0-x244.google.com with SMTP id f9so7842042otd.0
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Jan 2017 16:33:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=+hLOIk43ycb1RHy/1eU2Xem8HprKUKpGyv/KOcepoaA=;
- b=cWxU1c2pk5i/QfHrcYZ3dowKpt941lAyiGFlRxaNX7Vj3CN8g5gOvtjbhkVLxQRPu/
- PmQ7gFI1VhlT4JdZR2hicJGDXzTVyQ6xxNKRtQFoWBA/Po8UBYNBuTT6Tc72ZO/ivgUH
- Ek8SGyyP+/CdC1918NK7SOitceUhgXvH3UgLei5FEOK42whtwJVF/Y1abhTBZG1jX3HA
- kRi2vAgqkwi6G3uphINu7TOdlzF/7y0pNQB0h3ATVdxMfBcgUqsjcinm05iOoj2I0q3Q
- Q1vNVPc6fI75YImPysO8Wsw50wc5yEoHNayp2im/FA7VUHECN4tKj6N9HeO/l1gwZ7LC
- vSDw==
+ bh=TAL2dfMN4hJGZxNf/V/qlfTlizrGyW9xRDEoWAp2PN0=;
+ b=eygwRaWA/6UgA2Nny60NKxJYorrJXC+mnDTJ9s2s1Q6IUv6jM7y7KDTkVfsm/Ozy5q
+ jsD9WvkaQAlUxjYtSV8tqJ+CDGYh1TKJDM5ZcWSWfF6jK12CSEKf2hkklve88xVHNp3V
+ a+z61IycIEk5jRCm2miXKhiStgJmmj3Z2GAcQVRWmccfr8JG9UPd481eSqBywM5VbJMh
+ B2qMEOd8Yr7/CzaSlruNjgOt7CWUIge8x2cnO7V7kLFrFbdv9vKZw1BgOl6TNUkQlucC
+ Zo/rJ9mfqmMcVnmWq0O4oUeETjHm6X2YB842tUCpnz05dV7r4NzPObym8l6lZytFMQOo
+ N37g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=+hLOIk43ycb1RHy/1eU2Xem8HprKUKpGyv/KOcepoaA=;
- b=YuYa8TV8tMt3CoN1KGk2UlZAsrzVc6K674yPeZGtc1O3FolGVBQ1uAQ2KjUxsVU5fL
- 7u3DSS2NOcQo+SgKOIKIWGSe8brzOhOgByZ6RrcuARMq8CQ4eJFIodXiycgAn1OX0Bev
- XaOY+4pJTVGHkehgJnaMOri+lR3tKE/FPTM5YNuQUcj8pqqUbwT4aAohYJxGvI4UN/LH
- 8BP04OeCssC+HedE6KQWrZuSXnaiidzwDZGEvOeUOKY4lpXObl+o53wK0+P+fpodRr8K
- 0Qlaa3EEKAXy+GuQd81DxXed+Vln/3zX89BK/CfRT7/T2d28KyaNFas1DqNIM9L1f0Av
- byFg==
-X-Gm-Message-State: AIkVDXJc0z6i3roMBsYssps7scgU/5QYAtPoRS85YbHeeBD49nw9KITtkCB2c2gvnsKjc0O6tkXFrwcmzfaZUA==
-X-Received: by 10.157.37.99 with SMTP id j32mr17113144otd.223.1484613111412;
- Mon, 16 Jan 2017 16:31:51 -0800 (PST)
+ bh=TAL2dfMN4hJGZxNf/V/qlfTlizrGyW9xRDEoWAp2PN0=;
+ b=GbU+cYqJg6BzMKN/JgyHEAZ3wKe9nMjINpI8Q3bgn71I4WMgURofKKKfl5tImcaEFZ
+ P3nf3GoZ2ytcDUg0IOiQ7HEj1C/Kwr1ogmmeKpfc+VG4URPoU+awktILnJIv0pMT8vp+
+ 6IWA6zUQwYKBYf8fuhkHBIedZ5ruFgyS2dq1NQyr151wqVXAHTJoKmUbxhABdrlllizP
+ Y595Bj83TyxOURAJxUT6DcpDqFHrndoX5/i2jk0dlSU5yoCNMu6/W+vxEwOZvya3t6zT
+ OUNo+TzdiaW1Z5knvkpmZz6T3tKSnwPGvtmNlDaX6G2+L1LGga7H6YT/8j1VCv4pQ4Ta
+ /I3w==
+X-Gm-Message-State: AIkVDXJlAPgbyStKpCjt2d+7usWZpOvis+XmINM2g6FGzxLrrhkeo5/t8sCXQDgk49s+s8zUDi7rw/ywzUVMzA==
+X-Received: by 10.157.17.212 with SMTP id y20mr16804721oty.230.1484613227420; 
+ Mon, 16 Jan 2017 16:33:47 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.182.245.201 with HTTP; Mon, 16 Jan 2017 16:31:31 -0800 (PST)
-In-Reply-To: <20170112021328.27200-2-raltherr@google.com>
-References: <20170112021328.27200-2-raltherr@google.com>
+Received: by 10.182.245.201 with HTTP; Mon, 16 Jan 2017 16:33:26 -0800 (PST)
+In-Reply-To: <20170112021328.27200-3-raltherr@google.com>
+References: <20170112021328.27200-3-raltherr@google.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 17 Jan 2017 11:31:31 +1100
-X-Google-Sender-Auth: KTkcjvV2GhgolWq5B1cOv6UUYcs
-Message-ID: <CACPK8XcQe4U5qvJ3QDW=ORUYGA-4ShVxuCajzTr4n=e=fqnvSw@mail.gmail.com>
-Subject: Re: [U-Boot,1/2] aspeed: Use HUSH shell
-To: Rick Altherr <raltherr@google.com>
+Date: Tue, 17 Jan 2017 11:33:26 +1100
+X-Google-Sender-Auth: zi3jHYY41EEZKTGK0dlAK6q8eFo
+Message-ID: <CACPK8Xd3LtSZ3i_r19AZtVMxRLxXnQwOw8oQc+eS7b5iJvWS9A@mail.gmail.com>
+Subject: Re: [U-Boot,2/2] aspeed: use FIT-provided ramdisk if available
+To: Rick Altherr <raltherr@google.com>, Simon Glass <sjg@chromium.org>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -58,95 +58,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Jan 2017 00:31:55 -0000
-
-Hi Rick,
+X-List-Received-Date: Tue, 17 Jan 2017 00:33:50 -0000
 
 On Thu, Jan 12, 2017 at 1:13 PM, Rick Altherr <raltherr@google.com> wrote:
-> HUSH is the newer command-line interface that provides scripting
-> capabilities.  Those are needed for an boot command that can boot either
-> a FIT image that includes a ramdisk or a separate kernel and ramdisk.
+> If the kernel FIT specifies a ramdisk, use it.  Otherwise, expect a
+> ramdisk at 0x20300000.
+>
+> Signed-off-by: Rick Altherr <raltherr@google.com>
+> ---
+>
+>  include/configs/ast-common.h | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/include/configs/ast-common.h b/include/configs/ast-common.h
+> index b39ea33ce7..110c780070 100644
+> --- a/include/configs/ast-common.h
+> +++ b/include/configs/ast-common.h
+> @@ -96,7 +96,11 @@
+>  #define CONFIG_ENV_OFFSET              0x60000 /* environment starts here  */
+>  #define CONFIG_ENV_SIZE                        0x20000 /* Total Size of Environment Sector */
+>
+> -#define CONFIG_BOOTCOMMAND     "bootm 20080000 20300000"
+> +#define CONFIG_BOOTCOMMAND     \
+> +       "fdt addr 20080000; " \
+> +       "if fdt get value ramdisk_conf /configurations/conf@1 ramdisk; then " \
+> +       "    bootm 20080000; else bootm 20080000 20300000; " \
+> +       "fi"
 
-For some reason this patch didn't arrive in my mailbox. I found it on patchwork.
-
-I took at look at the code size change with enabling this:
-
-$ size u-boot && ls -la u-boot.bin
-   text    data     bss     dec     hex filename
- 215567    7152   71048  293767   47b87 u-boot
--rw-r--r-- 1 joel joel 222536 Dec  8 12:03 u-boot.bin
-
-$ size u-boot && ls -la u-boot.bin
-   text    data     bss     dec     hex filename
- 227643    7448   71448  306539   4ad6b u-boot
--rw-r--r-- 1 joel joel 234908 Jan 16 08:30 u-boot.bin
-
-We go up by 5.6%, or 12KB. We're still well within the 384KB partition
-size, so there is no issue there.
-
-I've merged it into our u-boot tree.
+This feels a little clunky. Is this the method upstream suggests to
+solve this problem?
 
 Cheers,
 
 Joel
-
-
-> Signed-off-by: Rick Altherr <raltherr@google.com>
-
-
-> ---
->
->  configs/ast_g4_ncsi_defconfig | 1 +
->  configs/ast_g4_phy_defconfig  | 1 +
->  configs/ast_g5_ncsi_defconfig | 1 +
->  configs/ast_g5_phy_defconfig  | 1 +
->  4 files changed, 4 insertions(+)
->
-> diff --git a/configs/ast_g4_ncsi_defconfig b/configs/ast_g4_ncsi_defconfig
-> index ab4907cfe2..54686bee5c 100644
-> --- a/configs/ast_g4_ncsi_defconfig
-> +++ b/configs/ast_g4_ncsi_defconfig
-> @@ -7,6 +7,7 @@ CONFIG_CMD_PING=y
->  CONFIG_EFI_LOADER=n
->  CONFIG_FIT=y
->  CONFIG_FIT_VERBOSE=y
-> +CONFIG_HUSH_PARSER=y
->  CONFIG_OF_LIBFDT=y
->  CONFIG_SPI_FLASH=y
->  CONFIG_SYS_NS16550=y
-> diff --git a/configs/ast_g4_phy_defconfig b/configs/ast_g4_phy_defconfig
-> index 21a56c4b96..f8db39ef13 100644
-> --- a/configs/ast_g4_phy_defconfig
-> +++ b/configs/ast_g4_phy_defconfig
-> @@ -8,6 +8,7 @@ CONFIG_CMD_PING=y
->  CONFIG_EFI_LOADER=n
->  CONFIG_FIT=y
->  CONFIG_FIT_VERBOSE=y
-> +CONFIG_HUSH_PARSER=y
->  CONFIG_OF_LIBFDT=y
->  CONFIG_SPI_FLASH=y
->  CONFIG_SYS_NS16550=y
-> diff --git a/configs/ast_g5_ncsi_defconfig b/configs/ast_g5_ncsi_defconfig
-> index 7cd4fd116d..74029ed514 100644
-> --- a/configs/ast_g5_ncsi_defconfig
-> +++ b/configs/ast_g5_ncsi_defconfig
-> @@ -7,6 +7,7 @@ CONFIG_CMD_PING=y
->  CONFIG_EFI_LOADER=n
->  CONFIG_FIT=y
->  CONFIG_FIT_VERBOSE=y
-> +CONFIG_HUSH_PARSER=y
->  CONFIG_OF_LIBFDT=y
->  CONFIG_SPI_FLASH=y
->  CONFIG_SYS_NS16550=y
-> diff --git a/configs/ast_g5_phy_defconfig b/configs/ast_g5_phy_defconfig
-> index c686dd2297..767f3af605 100644
-> --- a/configs/ast_g5_phy_defconfig
-> +++ b/configs/ast_g5_phy_defconfig
-> @@ -8,6 +8,7 @@ CONFIG_CMD_PING=y
->  CONFIG_EFI_LOADER=n
->  CONFIG_FIT=y
->  CONFIG_FIT_VERBOSE=y
-> +CONFIG_HUSH_PARSER=y
->  CONFIG_OF_LIBFDT=y
->  CONFIG_SPI_FLASH=y
->  CONFIG_SYS_NS16550=y
