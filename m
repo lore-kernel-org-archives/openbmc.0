@@ -1,25 +1,52 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <mine260309@gmail.com>
+Received: from mail-qt0-x234.google.com (mail-qt0-x234.google.com
+ [IPv6:2607:f8b0:400d:c0d::234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v2b9h6zGXzDqSB
- for <openbmc@lists.ozlabs.org>; Tue, 17 Jan 2017 14:26:32 +1100 (AEDT)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1484623587291937.1477987953411;
- Mon, 16 Jan 2017 19:26:27 -0800 (PST)
-Date: Mon, 16 Jan 2017 21:26:25 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Slack-like / IRC-alternative for #openbmc
-Message-ID: <20170117032625.GA2370@heinlein.lan>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v2j3d6vVtzDqQ3
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Jan 2017 18:51:41 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="qJnlgBwU"; 
+ dkim-atps=neutral
+Received: by mail-qt0-x234.google.com with SMTP id l7so143224350qtd.1
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Jan 2017 23:51:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=vMSGa6bBKORNVy40D3gAqYl9IrW1mkDRcSU7SzcWWBo=;
+ b=qJnlgBwUrbbmde4iJQtP9BPqVg8VCGAEP7LN08NhwxWLchEGqR05amuoG2lIGgCHIC
+ YhUgZkzM7WJDCmlRzbmWwcclADoP7+9BetQPiI0CuMQYltuU1xMbMJgJAo5xhdyUUZfj
+ FGhBX0aEYs+tEKKtemT5X2zoOagyQ/jnKbumfkFot+v2iyx6mkSawVXgmg4M/yUZ340h
+ jQAzSSg+AXUw8EqPqzKCDCoKRsdkSet/4kBjS2u0h0CW8UDBQyLCJubQiRevRuemGDaD
+ xS6cD7FMIESp5Ic8UX/1FMCOnQU/zrMV0J4a/APKHJZXvxrgCOj4UkmIeeiG5Q4Rn3Ko
+ Bj4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=vMSGa6bBKORNVy40D3gAqYl9IrW1mkDRcSU7SzcWWBo=;
+ b=K9j/xiJpsCwsjc0Z8oYp+Pb4la5dIALd+HXMGl+spgIhvdWHl5gYeeRMKuTdojG7kG
+ KMUjKCA9Qo5dvjCTDqlPOSPGpX7Q30dbSI5whtSh+6c8ljMOjZTS+4osu4IS60/YnxH8
+ iyAFAUC1yZJwyPElhvhzMFEkIWqj38nOWu1rsUT+84e1Xr0WF5O1hn80cj/aWy6aoIVf
+ uxovW6/lvJyidDw1sS7cAJ9syzJtXfEGWJbB524d6M43USTpFxmE7OfBB/CzN91UJioV
+ nbWJWN+iWZZEBzcBEcoG7iT2I3G3QmRt+453nQJannql0TOWxwnU0M2kL53nIDWSJqsW
+ Wr7w==
+X-Gm-Message-State: AIkVDXINXKZIT1xiwBkj0ir2efaxaK9+FxbNXvOb3RGOIiJSKRB/fSuH5DAkM6cYVVNlE7AkzXJY8AKKfeFtWA==
+X-Received: by 10.237.46.103 with SMTP id j94mr31393122qtd.103.1484639499642; 
+ Mon, 16 Jan 2017 23:51:39 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="UugvWAfsgieZRqgk"
-Content-Disposition: inline
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
+Received: by 10.12.137.122 with HTTP; Mon, 16 Jan 2017 23:51:39 -0800 (PST)
+In-Reply-To: <20170116194447.d3yzsldsu3qsl5sz@asimov>
+References: <CAARXrtkPMixp9M0SYyaeP4_j83mRRXNG1O2Tf24rL5OH6CbJvg@mail.gmail.com>
+ <20170116194447.d3yzsldsu3qsl5sz@asimov>
+From: Mine <mine260309@gmail.com>
+Date: Tue, 17 Jan 2017 15:51:39 +0800
+Message-ID: <CAARXrtnHD0s=dMKJwy_XqJ==cpamDiVPn8c4K=+ZPso1d0gSBg@mail.gmail.com>
+Subject: Re: RFC: new design of phosphor-time-manager on sdbusplus
+To: Patrick Williams <patrick@stwcx.xyz>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -31,61 +58,85 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Jan 2017 03:26:33 -0000
+X-List-Received-Date: Tue, 17 Jan 2017 07:51:42 -0000
 
+Hi Patrick,
 
---UugvWAfsgieZRqgk
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Tue, Jan 17, 2017 at 3:44 AM, Patrick Williams <patrick@stwcx.xyz> wrote=
+:
+>
+> On Fri, Jan 13, 2017 at 03:42:50PM +0800, Mine wrote:
+> > New Design
+> >
+> > Create two objects:
+>
+> You mean 'classes' or 'objects'?  I think you mean two classes, which
+> initially we will only have 1 instance of each.  Please make sure the
+> HostEpoch implementation can relatively-easily be enhanced to have
+> multiple instances.
 
-I recently came across an open-source (and free) Slack / IRC alternative
-called 'riot.im' (https://riot.im).  The underlying protocol
-(matrix.org) implements bridging between the native matrix protocol and
-IRC, so we get free mirroring between the two.
+I should be meant to create two "instances" on the bus, eventually it looks
+something like:
+```
+xyz.openbmc_project.Time.Manager
+    /xyz/openbmc_project/time/host_epoch
+        org.freedesktop.DBus.Peer
+        org.freedesktop.DBus.Introspectable
+        org.freedesktop.DBus.Properties
+        xyz.openbmc_project.Time.EpochTime
+    /xyz/openbmc_project/time/bmc_epoch
+        org.freedesktop.DBus.Peer
+        org.freedesktop.DBus.Introspectable
+        org.freedesktop.DBus.Properties
+        xyz.openbmc_project.Time.EpochTime
 
-I set up a channel in matrix (openbmc, obviously) and set up the bridge to
-the Freenode IRC channel.  If you see users with a '[m]' suffix, this is
-their matrix/riot account.
+```
+The service's BUSNAME is still `xyz.openbmc_project.Time.Manager`, and
+it creates two objects, one for BmcEpoch and the other for HostEpoch, who
+both implement xyz.openbmc_project.Time.EpochTime interface.
 
-Advantages of riot.im:
+>
+> >    - BmcEpoch
+> >    - HostEpoch
+> >
+> > They both implements EpochTime interface.
+> >
+> > For BmcEpoch:
+> >
+> >    - When elapsed() is called, return BMC time;
+> >    - When elapsed(us) is called, use above SetTime(=E2=80=9Cbmc=E2=80=
+=9D) logic
+> >
+> > For HostEpoch:
+> >
+> >    - When elapsed() is called, return HOST time;
+> >    - When elapsed(us) is called, use above SetTime(=E2=80=9Chost=E2=80=
+=9D) logic.
+>
+> Seems ok.
+>
+> The errors also need to be converted to dbus-defined errors, right?
+>
+> > And there will be no =E2=80=9Ccurr_time_mode/owner=E2=80=9D or =E2=80=
+=9Crequested_time_mode/owner=E2=80=9D
+> > properties on DBUS.
+>
+> So these are only stored in phosphor-settingsd now or are they also used
+> internally for decisions?  I believe the previous implementation had
+> them exposed more for debug purposes.  Are you going to add them to the
+> journal at least?
 
-    * You can see the log of the chat room to read back on what happened
-      while you were disconnected.
+Yes, the time_mode and time_owner are still stored in
+phosphor-settingsd, and they
+are used internally by phosphor-time-manager, which will register
+callback for the
+settings' change and handled accordingly.
+The difference from the previous implementation is that we do not expose th=
+ese
+settings in time-manager's DBus now.
 
-    * Much better web-client than the Freenode one; it looks very similar
-      to Slack.  The client is also "easier" than an IRC client for
-      the more casual users.  (Not everyone likes a command-line IRC
-      client with a IRC bouncer like ZNC, I hear.)
+What do you mean by "add them to the journal"?
 
-    * Mobile clients for Android and iOS, with notifications.
-
-    * Allows pictures and documents.  These are also sent to IRC as a link.
-
-Feel free to try it out in addition to or instead of IRC.
-
---=20
-Patrick Williams
-
---UugvWAfsgieZRqgk
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAEBCAAGBQJYfY7eAAoJEKsDR8wtAMEZa58P/i9S1oDlMj0yt9ErlaaZDkfj
-piHl13S8BhSKL/IGeaXYDq5weJmm/b1H6oNIUAB69slEoW2y7sUAoz7CEkoXRanW
-mNUniaMTzLPE7jHmbXG/E8gKOeAyShq/UEiG8Rv3tJUcQBEedAN6Wu1UGal19C9w
-afIgCZ04D/iFLbVJKG5lW5YtASX+/AWg7I8TX8rZ1pLOFYowPW6AuGyrAtlsul0d
-o6oZpg1HPIxIv334RrPw5uNBo9VXyHnazEIPqTZPo3WmZ/qtV/+TGFrniKBRbfxt
-a4WD8bFNMpSt9jsBq5PjSJkTMDa7lANM7Uyv5Xy0FRqgS64H3514R5rpiBN/wF8Q
-pp2s7OBJVUzxHjTetyIPjRVWbaJrmCfvsA4J5mgJOw8ZElykyIYow8zdltOw2RN4
-B0QPHUNRjFjOIeUyX8vJsWzTc3KM7jnM8ka+aU8PbNoArT2fLuvDZOvq1C1GeaEl
-0HANbcWxZtVgYhwl7AEpisWV8BAOarZoqAs/t2vJU92XtQnQFHOtARqgJNm/AQu4
-iTs48aAS4vB99161WSyR1je9XGrbc1B0kFCQ4v9e+Bg0YdAW0yJ93fMihiWAGrL7
-4yEpv0eH+DMCPbRjOTEryW2H0V93Mp1AJ4KoMD6ROhElSxbZU3ObzyPrkUl8WVy2
-Ja99h8Bv3WUknMf62OA7
-=zz0e
------END PGP SIGNATURE-----
-
---UugvWAfsgieZRqgk--
+>
+> --
+> Patrick Williams
