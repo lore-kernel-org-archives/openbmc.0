@@ -1,50 +1,68 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-it0-x233.google.com (mail-it0-x233.google.com
- [IPv6:2607:f8b0:4001:c0b::233])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <vishwa@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v35yB6b4mzDqPQ
- for <openbmc@lists.ozlabs.org>; Wed, 18 Jan 2017 10:33:22 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="uhTDC8Bp"; 
- dkim-atps=neutral
-Received: by mail-it0-x233.google.com with SMTP id d9so30257744itc.0
- for <openbmc@lists.ozlabs.org>; Tue, 17 Jan 2017 15:33:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=GswWWFDBSI/aXfbHfgDwPawyzV2WYdXjVJyUAgu66pQ=;
- b=uhTDC8BpDydwymzVFq0LwY/swtKmaxnInko1M6atZl371snpmNhxXqewNRH3PfbYtO
- qebVvakJB+lu9JShY2CQ5cWuDQsVbeY7yGn/0Z00+k+mgZ+iyw6NFQiHWUvs98jwLr8E
- fnWGpnR6LLclp0qP+onJoPh6ULFdQFOq9q1dJC/5YG7RBPuAjb1V1OrZzW6znRggdP/c
- pkudoOaMQBFCQp6iNfiIJ4X9Zy63FFmkEhUYcixxEmjR9QDfPOD/JoZk4suhT/6yOaQT
- hI86ycfmUDVA2UvjztYgER3nMrKlI/yzth0vntRmNwnJbkyIhhUv05qu1/CuTEgmunYy
- sNAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=GswWWFDBSI/aXfbHfgDwPawyzV2WYdXjVJyUAgu66pQ=;
- b=SCWArQKTL1Ggy7tn0GSKq2N0p37yeGWTBc968CUvxSIa18dX5l1hl1dFo8vkD8czMx
- GgYLoxqhZOlU3ydsRnGZU6paXf1ifviX79W3OdQB508WFcmfWg3onGPakbINgxQ9Uyhv
- vv/EuUH5zYE7sIThmn03KY5J6smITJl14wBMVOq9bm75jXPF46qeQwM53nAT1PGg1B5L
- zzlc3LEqDDQHj2Tk27Fhh/6sY5djFTYb/zLq/PUHZFI98dLQ6RwaDk7qVy6EJ5HgvK95
- 3YrGAxi9mFVNO8C6tzI2m75XREKEv99UT3txmHPof94LEi/WM7N+A9IbA7DQ8cxOElQL
- +z7Q==
-X-Gm-Message-State: AIkVDXIdyBrRv3wkpuBqOnmJ5s8QJgoqR1arw4kE9ArBMk+hUJBSflqMHStSfqoVsP/h9YHs3d3pAOtE7UVhvuK9
-X-Received: by 10.36.158.193 with SMTP id p184mr851335itd.8.1484695998204;
- Tue, 17 Jan 2017 15:33:18 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v3PN36PJCzDqFW
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jan 2017 22:08:19 +1100 (AEDT)
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v0IB3iwV045200
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jan 2017 06:08:16 -0500
+Received: from e28smtp02.in.ibm.com (e28smtp02.in.ibm.com [125.16.236.2])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2824xudm1m-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jan 2017 06:08:16 -0500
+Received: from localhost
+ by e28smtp02.in.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <vishwa@linux.vnet.ibm.com>;
+ Wed, 18 Jan 2017 16:38:11 +0530
+Received: from d28dlp02.in.ibm.com (9.184.220.127)
+ by e28smtp02.in.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Wed, 18 Jan 2017 16:38:09 +0530
+Received: from d28relay07.in.ibm.com (d28relay07.in.ibm.com [9.184.220.158])
+ by d28dlp02.in.ibm.com (Postfix) with ESMTP id 7E7E53940066
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jan 2017 16:38:08 +0530 (IST)
+Received: from d28av03.in.ibm.com (d28av03.in.ibm.com [9.184.220.65])
+ by d28relay07.in.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v0IB7H5t28115112
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jan 2017 16:37:17 +0530
+Received: from d28av03.in.ibm.com (localhost [127.0.0.1])
+ by d28av03.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ v0IB87VX013278
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jan 2017 16:38:07 +0530
+Received: from [9.199.66.245] ([9.199.66.245])
+ by d28av03.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ v0IB81MF012982; Wed, 18 Jan 2017 16:38:02 +0530
+Subject: Re: RFC: new design of phosphor-time-manager on sdbusplus
+To: Mine <mine260309@gmail.com>, Patrick Williams <patrick@stwcx.xyz>
+References: <CAARXrtkPMixp9M0SYyaeP4_j83mRRXNG1O2Tf24rL5OH6CbJvg@mail.gmail.com>
+ <20170116194447.d3yzsldsu3qsl5sz@asimov>
+ <CAARXrtnHD0s=dMKJwy_XqJ==cpamDiVPn8c4K=+ZPso1d0gSBg@mail.gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: vishwa <vishwa@linux.vnet.ibm.com>
+Date: Wed, 18 Jan 2017 16:37:56 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.5.1
 MIME-Version: 1.0
-Received: by 10.107.130.106 with HTTP; Tue, 17 Jan 2017 15:33:17 -0800 (PST)
-In-Reply-To: <CACPK8Xd3LtSZ3i_r19AZtVMxRLxXnQwOw8oQc+eS7b5iJvWS9A@mail.gmail.com>
-References: <20170112021328.27200-3-raltherr@google.com>
- <CACPK8Xd3LtSZ3i_r19AZtVMxRLxXnQwOw8oQc+eS7b5iJvWS9A@mail.gmail.com>
-From: Rick Altherr <raltherr@google.com>
-Date: Tue, 17 Jan 2017 15:33:17 -0800
-Message-ID: <CAPLgG=n4YJXe65oirFCsBHPU5v+5BXqJ4W9JjAA6hhVdP0ZCiA@mail.gmail.com>
-Subject: Re: [U-Boot,2/2] aspeed: use FIT-provided ramdisk if available
-To: Joel Stanley <joel@jms.id.au>
-Cc: Simon Glass <sjg@chromium.org>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary=001a114f85ea92e96e054652b91d
+In-Reply-To: <CAARXrtnHD0s=dMKJwy_XqJ==cpamDiVPn8c4K=+ZPso1d0gSBg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17011811-0004-0000-0000-0000052951ED
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17011811-0005-0000-0000-0000132235AB
+Message-Id: <3c0b4208-9e8f-12c7-39a9-749a68d2b788@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-01-18_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1701180156
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,103 +74,82 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Jan 2017 23:33:23 -0000
+X-List-Received-Date: Wed, 18 Jan 2017 11:08:20 -0000
 
---001a114f85ea92e96e054652b91d
-Content-Type: text/plain; charset=UTF-8
-
-I couldn't find any prior examples.  I'll ask upstream what they think.
-
-On Mon, Jan 16, 2017 at 4:33 PM, Joel Stanley <joel@jms.id.au> wrote:
-
-> On Thu, Jan 12, 2017 at 1:13 PM, Rick Altherr <raltherr@google.com> wrote:
-> > If the kernel FIT specifies a ramdisk, use it.  Otherwise, expect a
-> > ramdisk at 0x20300000.
-> >
-> > Signed-off-by: Rick Altherr <raltherr@google.com>
-> > ---
-> >
-> >  include/configs/ast-common.h | 6 +++++-
-> >  1 file changed, 5 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/include/configs/ast-common.h b/include/configs/ast-common.h
-> > index b39ea33ce7..110c780070 100644
-> > --- a/include/configs/ast-common.h
-> > +++ b/include/configs/ast-common.h
-> > @@ -96,7 +96,11 @@
-> >  #define CONFIG_ENV_OFFSET              0x60000 /* environment starts
-> here  */
-> >  #define CONFIG_ENV_SIZE                        0x20000 /* Total Size of
-> Environment Sector */
-> >
-> > -#define CONFIG_BOOTCOMMAND     "bootm 20080000 20300000"
-> > +#define CONFIG_BOOTCOMMAND     \
-> > +       "fdt addr 20080000; " \
-> > +       "if fdt get value ramdisk_conf /configurations/conf@1 ramdisk;
-> then " \
-> > +       "    bootm 20080000; else bootm 20080000 20300000; " \
-> > +       "fi"
+On 01/17/2017 01:21 PM, Mine wrote:
+> Hi Patrick,
 >
-> This feels a little clunky. Is this the method upstream suggests to
-> solve this problem?
+> On Tue, Jan 17, 2017 at 3:44 AM, Patrick Williams <patrick@stwcx.xyz> wrote:
+>> On Fri, Jan 13, 2017 at 03:42:50PM +0800, Mine wrote:
+>>> New Design
+>>>
+>>> Create two objects:
+>> You mean 'classes' or 'objects'?  I think you mean two classes, which
+>> initially we will only have 1 instance of each.  Please make sure the
+>> HostEpoch implementation can relatively-easily be enhanced to have
+>> multiple instances.
+> I should be meant to create two "instances" on the bus, eventually it looks
+> something like:
+> ```
+> xyz.openbmc_project.Time.Manager
+>      /xyz/openbmc_project/time/host_epoch
+>          org.freedesktop.DBus.Peer
+>          org.freedesktop.DBus.Introspectable
+>          org.freedesktop.DBus.Properties
+>          xyz.openbmc_project.Time.EpochTime
+>      /xyz/openbmc_project/time/bmc_epoch
+>          org.freedesktop.DBus.Peer
+>          org.freedesktop.DBus.Introspectable
+>          org.freedesktop.DBus.Properties
+>          xyz.openbmc_project.Time.EpochTime
 >
-> Cheers,
+> ```
+> The service's BUSNAME is still `xyz.openbmc_project.Time.Manager`, and
+> it creates two objects, one for BmcEpoch and the other for HostEpoch, who
+> both implement xyz.openbmc_project.Time.EpochTime interface.
+So TimeManager still owns the responsibility of maintaining offsets etc 
+right ?
+>>>     - BmcEpoch
+>>>     - HostEpoch
+>>>
+>>> They both implements EpochTime interface.
+>>>
+>>> For BmcEpoch:
+>>>
+>>>     - When elapsed() is called, return BMC time;
+>>>     - When elapsed(us) is called, use above SetTime(“bmc”) logic
+>>>
+>>> For HostEpoch:
+>>>
+>>>     - When elapsed() is called, return HOST time;
+>>>     - When elapsed(us) is called, use above SetTime(“host”) logic.
+>> Seems ok.
+>>
+>> The errors also need to be converted to dbus-defined errors, right?
+>>
+>>> And there will be no “curr_time_mode/owner” or “requested_time_mode/owner”
+>>> properties on DBUS.
+>> So these are only stored in phosphor-settingsd now or are they also used
+>> internally for decisions?  I believe the previous implementation had
+>> them exposed more for debug purposes.  Are you going to add them to the
+>> journal at least?
+> Yes, the time_mode and time_owner are still stored in
+> phosphor-settingsd, and they
+> are used internally by phosphor-time-manager, which will register
+> callback for the
+> settings' change and handled accordingly.
+> The difference from the previous implementation is that we do not expose these
+> settings in time-manager's DBus now.
 >
-> Joel
+> What do you mean by "add them to the journal"?
+I believe he is asking you to put that information in the journal traces 
+so that we can use them for debug. I think you don't need anything more 
+to cater to that request as the original implementation already puts 
+those as journal traces.
 >
-
---001a114f85ea92e96e054652b91d
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">I couldn&#39;t find any prior examples.=C2=A0 I&#39;ll ask=
- upstream what they think.</div><div class=3D"gmail_extra"><br><div class=
-=3D"gmail_quote">On Mon, Jan 16, 2017 at 4:33 PM, Joel Stanley <span dir=3D=
-"ltr">&lt;<a href=3D"mailto:joel@jms.id.au" target=3D"_blank">joel@jms.id.a=
-u</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margi=
-n:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><span class=3D"">=
-On Thu, Jan 12, 2017 at 1:13 PM, Rick Altherr &lt;<a href=3D"mailto:ralther=
-r@google.com">raltherr@google.com</a>&gt; wrote:<br>
-&gt; If the kernel FIT specifies a ramdisk, use it.=C2=A0 Otherwise, expect=
- a<br>
-&gt; ramdisk at 0x20300000.<br>
-&gt;<br>
-&gt; Signed-off-by: Rick Altherr &lt;<a href=3D"mailto:raltherr@google.com"=
->raltherr@google.com</a>&gt;<br>
-&gt; ---<br>
-&gt;<br>
-&gt;=C2=A0 include/configs/ast-common.h | 6 +++++-<br>
-&gt;=C2=A0 1 file changed, 5 insertions(+), 1 deletion(-)<br>
-&gt;<br>
-&gt; diff --git a/include/configs/ast-common.h b/include/configs/ast-common=
-.h<br>
-&gt; index b39ea33ce7..110c780070 100644<br>
-&gt; --- a/include/configs/ast-common.h<br>
-&gt; +++ b/include/configs/ast-common.h<br>
-&gt; @@ -96,7 +96,11 @@<br>
-&gt;=C2=A0 #define CONFIG_ENV_OFFSET=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 0x60000 /* environment starts here=C2=A0 */<br>
-&gt;=C2=A0 #define CONFIG_ENV_SIZE=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 0x20000 /* Total Size of Environ=
-ment Sector */<br>
-&gt;<br>
-&gt; -#define CONFIG_BOOTCOMMAND=C2=A0 =C2=A0 =C2=A0&quot;bootm 20080000 20=
-300000&quot;<br>
-&gt; +#define CONFIG_BOOTCOMMAND=C2=A0 =C2=A0 =C2=A0\<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;fdt addr 20080000; &quot; \<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;if fdt get value ramdisk_conf /confi=
-gurations/conf@1 ramdisk; then &quot; \<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;=C2=A0 =C2=A0 bootm 20080000; else b=
-ootm 20080000 20300000; &quot; \<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;fi&quot;<br>
-<br>
-</span>This feels a little clunky. Is this the method upstream suggests to<=
-br>
-solve this problem?<br>
-<br>
-Cheers,<br>
-<br>
-Joel<br>
-</blockquote></div><br></div>
-
---001a114f85ea92e96e054652b91d--
+>> --
+>> Patrick Williams
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
