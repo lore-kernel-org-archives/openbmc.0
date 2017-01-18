@@ -1,48 +1,66 @@
-Return-Path: <geissonator@gmail.com>
-Received: from mail-io0-x236.google.com (mail-io0-x236.google.com
- [IPv6:2607:f8b0:4001:c06::236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <mspinler@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v3hDm6fh2zDqHg
- for <openbmc@lists.ozlabs.org>; Thu, 19 Jan 2017 09:18:00 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="rjAVgm6K"; 
- dkim-atps=neutral
-Received: by mail-io0-x236.google.com with SMTP id v96so23785151ioi.0
- for <openbmc@lists.ozlabs.org>; Wed, 18 Jan 2017 14:18:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=bmFTmlDUpDr3Vs0Dz5GZYi7AVAnqWNJ89nJNCK3Vr+I=;
- b=rjAVgm6KOBSS8UWENTOabUViscTYdMKVEeho1Ur6KTAzdLvhV6wccnYI/TAQhgHzNd
- bOD8baR6s7ilRjwcEDBGM118OUUwcv77iOvNltxSjImb9TPNBU/4kpLYUGb1EhX1GV7l
- R+BaEagWYys2oBDigJbQ+T5ys4nFylRxKLzgX/e6NeajvHEsgRUYyW53KlQfDPp3P/Dc
- vwKAD8GHmE9LAKtI6/UpK7MNFxHL6vOF04ml83Zv5JO6dtw55HicMKjx+CtUTtfnohO7
- gZ7jbicgbXhc02mpoaKMRaufNrUDBIwchQbaUIdL6IeiBDkFdvSrSdMPk+2V10sqa14E
- EYIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=bmFTmlDUpDr3Vs0Dz5GZYi7AVAnqWNJ89nJNCK3Vr+I=;
- b=m2tuH6uP6MbA2MeKUEOJwzDEMxXB7ApKJMzlFIacPasbUhPKqSOjJyyvJyEzlqIz7m
- Jdh3n5WgRpkChBGZ1wh0fZWP0cqIk6psbOyb2gwWhNqeIr9/FDNjpmzgPYlLdW/o7y0W
- RSKlk3DWGwhzhs9gaQVmFqSsajQb2MRTewai62Q9FHNV1AUs2BLfvBGvLTTQplK9XIs/
- NlVIHzPCEmGIdQlRcLEk4a8lrJ7+mDWyLnYRv+Aml0PWOxDus6Zm4hf9T8TZ1bD5iI5s
- K59rkypefJuMtyErGM8mwOJQ2zGwtZ79J9tVYkQ5JdiV2B2WhdTdX5TLiETDwZneN5S8
- a8rQ==
-X-Gm-Message-State: AIkVDXK8bbjJg0xMhx4Ht3a3RkaUO4exh1G3LQrIfSUZnX3CskBbS/NDUFnTLRAt7vqVlT824Wb0P0K1NatC6Q==
-X-Received: by 10.107.166.18 with SMTP id p18mr5797889ioe.15.1484777878439;
- Wed, 18 Jan 2017 14:17:58 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.107.9.155 with HTTP; Wed, 18 Jan 2017 14:17:58 -0800 (PST)
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Wed, 18 Jan 2017 16:17:58 -0600
-Message-ID: <CALLMt=ojtcMuEp0yJA6z5RtoKmwugWdhM-LC3rhHFuxuTCZfJQ@mail.gmail.com>
-Subject: Chassis power on/off targets
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v3hFG6SspzDq5r
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Jan 2017 09:18:26 +1100 (AEDT)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v0IMEFWK046586
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jan 2017 17:18:25 -0500
+Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 282dkhr5j9-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jan 2017 17:18:24 -0500
+Received: from localhost
+ by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
+ Wed, 18 Jan 2017 15:18:24 -0700
+Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
+ by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 18 Jan 2017 15:18:22 -0700
+Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com
+ [9.57.198.26])
+ by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id 22A2E19D8047
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jan 2017 15:17:38 -0700 (MST)
+Received: from b01ledav03.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
+ [9.57.199.108])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v0IMILeF46792740; Wed, 18 Jan 2017 22:18:21 GMT
+Received: from b01ledav03.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 7FCCFB2056;
+ Wed, 18 Jan 2017 17:18:21 -0500 (EST)
+Received: from twohearted.rchland.ibm.com (unknown [9.10.99.32])
+ by b01ledav03.gho.pok.ibm.com (Postfix) with ESMTP id 4F952B2046;
+ Wed, 18 Jan 2017 17:18:21 -0500 (EST)
+From: Matt Spinler <mspinler@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: Matt Spinler <spinler@us.ibm.com>
+Subject: [PATCH] arm: dts: aspeed: witherspoon: Fix BMC's compatible property
+Date: Wed, 18 Jan 2017 16:19:30 -0600
+X-Mailer: git-send-email 2.11.0
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17011822-0024-0000-0000-000015BCCDC4
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006458; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000199; SDB=6.00809508; UDB=6.00394366; IPR=6.00586865; 
+ BA=6.00005072; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00013969; XFM=3.00000011;
+ UTC=2017-01-18 22:18:23
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17011822-0025-0000-0000-000048110051
+Message-Id: <20170118221930.16757-1-mspinler@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-01-18_13:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1701180270
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,81 +72,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Jan 2017 22:18:01 -0000
+X-List-Received-Date: Wed, 18 Jan 2017 22:18:27 -0000
 
-For this sprints story, https://github.com/openbmc/openbmc/issues/951,
-I need to refactor our systemd targets a bit to ensure we=E2=80=99ve got al=
-l
-the required checkpoints the code requires.  For a bit of background
-on systemd and it=E2=80=99s units, targets, and services,
-https://www.freedesktop.org/software/systemd/man/systemd.unit.html# is
-a good launching point.
+From: Matt Spinler <spinler@us.ibm.com>
 
-Within openbmc we have the concept of targets that have associated
-services with them (see /lib/systemd/system/*.wants on a system for
-the full list) and we have targets that are used to control the
-ordering of execution of those services in the .wants targets.
+Update the BMC's compatible property to make it consistent
+with other systems, and also because code is hardcoded to
+check for a certain value.
 
-For example, to power on a system we ask systemd to run
-obmc-chassis-start.target.  When you look at the filesystem you see
-this (with my notes added):
+Signed-off-by: Matt Spinler <spinler@us.ibm.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-ls -al obmc-chassis-start\@0.target.wants
-
-    op-wait-power-on@0.service -> ../op-wait-power-on@.service
-        # Calls pgood_wait on /org/openbmc/control/power%i on
-        o Run before obmc-power-on, obmc-power-start,
-
-    op-power-start@0.service -> ../op-power-start@.service
-              # Calls org.openbmc.control.Power setPowerState 1
-        o Run after obmc-power-start-pre, obmc-fan-control before
-obmc-power-start
-
-    op-inventory-upload@0.service -> ../op-inventory-upload@.service
-       # Calls inventory_upload.py, writes a PNOR partition
-        o Run before obmc-host-starte-pre
-
-    pcie-slot-detect@0.service -> ../pcie-slot-detect@.service
-               # Run pcie_slot_present.exe
-        o Run after obmc-power-on
-
-    obmc-start-host@0.service -> ../op-start-host@.service
-               # Calls "org.openbmc.control.Host boot=E2=80=9D
-        o Run after obmc-power-on, obmc-host-start-pre, before
-obmc-host-start, obmc-host-started
-
-    obmc-start-watchdog@0.service -> ../obmc-start-watchdog@.service
-  # Calls org.openbmc.Watchdog to set then start the watchdog
-        o Run after obmc-host-started
-
-Within these services you have lots of Before/After references to
-other targets, like these to control the ordering of the service
-execution:
-
-obmc-power-start-pre
-obmc-fan-control
-obmc-power-start (this is a .wants, with 2 services associated with it)
-obmc-power-on
-obmc-host-start-pre
-obmc-host-start
-obmc-host-started
-
-For my state purposes, I need to be able to do this:
-
-Just power on and off the chassis (i.e. obmc-power-on/off) (for
-debug/cronus/fsi i2c vpd programming purposes)
-Know when the host has started, and when it has stopped (can use
-existing targets for this)
-
-Currently we have the chassis power and host power tied together in
-obmc-chassis-start, my proposal is to simply make the obmc-power-on
-and obmc-power-off targets that now have services associated with
-them.  Specifically the services required to power on and off (and
-verify they went on and off) the chassis.  So I=E2=80=99ll do this:
-- move op-wait-power-on@.service and op-power-start@.service into the
-obmc-power-on.wants target
-- move op-power-stop@.service and op-wait-power-off@.service into the
-obmc-power-off.wants target.
-
-Thoughts or comments?
-Andrew
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index edfb05c66ce7..6064afa04421 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -5,7 +5,7 @@
+ 
+ / {
+ 	model = "Witherspoon BMC";
+-	compatible = "ibm,witherspoon", "aspeed,ast2500";
++	compatible = "ibm,witherspoon-bmc", "aspeed,ast2500";
+ 
+ 	aliases {
+ 		serial4 = &uart5;
+-- 
+2.11.0
