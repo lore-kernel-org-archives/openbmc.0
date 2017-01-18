@@ -1,48 +1,48 @@
-Return-Path: <robherring2@gmail.com>
-Received: from mail-ot0-f196.google.com (mail-ot0-f196.google.com
- [74.125.82.196])
+Return-Path: <geissonator@gmail.com>
+Received: from mail-io0-x236.google.com (mail-io0-x236.google.com
+ [IPv6:2607:f8b0:4001:c06::236])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v3ft90BdyzDqHj
- for <openbmc@lists.ozlabs.org>; Thu, 19 Jan 2017 08:16:49 +1100 (AEDT)
-Received: by mail-ot0-f196.google.com with SMTP id 36so2382849otx.3
- for <openbmc@lists.ozlabs.org>; Wed, 18 Jan 2017 13:16:48 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v3hDm6fh2zDqHg
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Jan 2017 09:18:00 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="rjAVgm6K"; 
+ dkim-atps=neutral
+Received: by mail-io0-x236.google.com with SMTP id v96so23785151ioi.0
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jan 2017 14:18:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=bmFTmlDUpDr3Vs0Dz5GZYi7AVAnqWNJ89nJNCK3Vr+I=;
+ b=rjAVgm6KOBSS8UWENTOabUViscTYdMKVEeho1Ur6KTAzdLvhV6wccnYI/TAQhgHzNd
+ bOD8baR6s7ilRjwcEDBGM118OUUwcv77iOvNltxSjImb9TPNBU/4kpLYUGb1EhX1GV7l
+ R+BaEagWYys2oBDigJbQ+T5ys4nFylRxKLzgX/e6NeajvHEsgRUYyW53KlQfDPp3P/Dc
+ vwKAD8GHmE9LAKtI6/UpK7MNFxHL6vOF04ml83Zv5JO6dtw55HicMKjx+CtUTtfnohO7
+ gZ7jbicgbXhc02mpoaKMRaufNrUDBIwchQbaUIdL6IeiBDkFdvSrSdMPk+2V10sqa14E
+ EYIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=vUfgNLJIwIDJhyYGxPTAfPa0gjEHgiYtV+lR8PoAinE=;
- b=s3PYYjOpOwKs+7LRIIew6Ti+8s4Bl6Dv8Uixy9ZuZO+em+HwG3zXDoEB2JQJI9Nhz5
- zp9GBPbnb5igB5IVq5te4FigByK1OOcUSFYoHFUU0kjk3TBVBfBNobO13oEP58TlVEWG
- m1a9ctHjuUxX5JiOcGgcgMHU0qFpDBJTZ//803ENUoXj4FZjXcA3YixiN/0TSHjY7O3S
- 6tZCddIzh0rQPdSY9n+UC1pkGXDysS4Qd4wG1xqJc4M3y5IxlHGRfNuohzwotJLI/G+I
- 570XRdfd2XajbwNGYvlkfhQ2AirZuFz31qZh6mJ9FTnGnPu09ogCHoGBsUB431AVgxcM
- NJ2g==
-X-Gm-Message-State: AIkVDXI3vx48J3w0ruRfHH9YrpiAHl92knv4n6d0vX6dIU8tSuDRqfH7DkG/m9Ss9j+Pcg==
-X-Received: by 10.157.17.141 with SMTP id v13mr2450134otf.251.1484774207159;
- Wed, 18 Jan 2017 13:16:47 -0800 (PST)
-Received: from localhost (72-48-98-129.dyn.grandenetworks.net. [72.48.98.129])
- by smtp.gmail.com with ESMTPSA id
- e69sm765917ote.7.2017.01.18.13.16.46
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 18 Jan 2017 13:16:46 -0800 (PST)
-Date: Wed, 18 Jan 2017 15:16:45 -0600
-From: Rob Herring <robh@kernel.org>
-To: Cyril Bur <cyrilbur@gmail.com>
-Cc: devicetree@vger.kernel.org, jassisinghbrar@gmail.com, arnd@arndb.de,
- gregkh@linuxfoundation.org, joel@jms.id.au, mark.rutland@arm.com,
- openbmc@lists.ozlabs.org, andrew@aj.id.au, benh@kernel.crashing.org,
- xow@google.com, jk@ozlabs.org
-Subject: Re: [PATCH 2/4] Documentation: dt: misc: Add Aspeed ast2400/2500 LPC
- Control bindings
-Message-ID: <20170118211645.v54xvmxcsfzxior2@rob-hp-laptop>
-References: <20170112002910.3650-1-cyrilbur@gmail.com>
- <20170112002910.3650-3-cyrilbur@gmail.com>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=bmFTmlDUpDr3Vs0Dz5GZYi7AVAnqWNJ89nJNCK3Vr+I=;
+ b=m2tuH6uP6MbA2MeKUEOJwzDEMxXB7ApKJMzlFIacPasbUhPKqSOjJyyvJyEzlqIz7m
+ Jdh3n5WgRpkChBGZ1wh0fZWP0cqIk6psbOyb2gwWhNqeIr9/FDNjpmzgPYlLdW/o7y0W
+ RSKlk3DWGwhzhs9gaQVmFqSsajQb2MRTewai62Q9FHNV1AUs2BLfvBGvLTTQplK9XIs/
+ NlVIHzPCEmGIdQlRcLEk4a8lrJ7+mDWyLnYRv+Aml0PWOxDus6Zm4hf9T8TZ1bD5iI5s
+ K59rkypefJuMtyErGM8mwOJQ2zGwtZ79J9tVYkQ5JdiV2B2WhdTdX5TLiETDwZneN5S8
+ a8rQ==
+X-Gm-Message-State: AIkVDXK8bbjJg0xMhx4Ht3a3RkaUO4exh1G3LQrIfSUZnX3CskBbS/NDUFnTLRAt7vqVlT824Wb0P0K1NatC6Q==
+X-Received: by 10.107.166.18 with SMTP id p18mr5797889ioe.15.1484777878439;
+ Wed, 18 Jan 2017 14:17:58 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20170112002910.3650-3-cyrilbur@gmail.com>
-User-Agent: Mutt/1.6.2-neo (2016-08-21)
+Received: by 10.107.9.155 with HTTP; Wed, 18 Jan 2017 14:17:58 -0800 (PST)
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Wed, 18 Jan 2017 16:17:58 -0600
+Message-ID: <CALLMt=ojtcMuEp0yJA6z5RtoKmwugWdhM-LC3rhHFuxuTCZfJQ@mail.gmail.com>
+Subject: Chassis power on/off targets
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,109 +54,81 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Jan 2017 21:16:49 -0000
+X-List-Received-Date: Wed, 18 Jan 2017 22:18:01 -0000
 
-On Thu, Jan 12, 2017 at 11:29:08AM +1100, Cyril Bur wrote:
-> Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
-> ---
->  .../devicetree/bindings/misc/aspeed-lpc-ctrl.txt   | 78 ++++++++++++++++++++++
->  1 file changed, 78 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/misc/aspeed-lpc-ctrl.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/misc/aspeed-lpc-ctrl.txt b/Documentation/devicetree/bindings/misc/aspeed-lpc-ctrl.txt
-> new file mode 100644
-> index 000000000000..f84ac83211ec
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/misc/aspeed-lpc-ctrl.txt
-> @@ -0,0 +1,78 @@
-> +ASpeed LPC Control
-> +==================
-> +This binding defines the LPC control for ASpeed SoCs. Partitions of
-> +the LPC bus can be access by other processors on the system, address
-> +ranges on the bus can map accesses from another processor to regions
-> +of the ASpeed SoC memory space.
-> +
-> +Reserved Memory:
-> +================
-> +The driver provides functionality to map the LPC bus to a region of
-> +ASpeed ram. A phandle to a reserved memory node must be provided so
-> +that the driver can safely use this region.
-> +
-> +Flash:
-> +======
-> +The driver provides functionality to unmap the LPC bus from ASpeed
-> +RAM, historically the default mapping has been to the SPI flash
-> +controller on the ASpeed SoC, a phandle to this node should be
-> +supplied.
-> +
-> +Device Node:
-> +============
-> +
-> +As LPC bus configuration registers are at the start of the LPC bus
-> +memory space, it makes most sense for the device to be within the LPC
-> +host node. See Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
-> +for more information. This does not have to be the case, provided the
-> +reg property can give the full address of the LPC bus.
+For this sprints story, https://github.com/openbmc/openbmc/issues/951,
+I need to refactor our systemd targets a bit to ensure we=E2=80=99ve got al=
+l
+the required checkpoints the code requires.  For a bit of background
+on systemd and it=E2=80=99s units, targets, and services,
+https://www.freedesktop.org/software/systemd/man/systemd.unit.html# is
+a good launching point.
 
-Same comment here.
+Within openbmc we have the concept of targets that have associated
+services with them (see /lib/systemd/system/*.wants on a system for
+the full list) and we have targets that are used to control the
+ordering of execution of those services in the .wants targets.
 
-> +
-> +Required properties:
-> +--------------------
-> +
-> +- compatible:		"aspeed,ast2400-lpc-ctrl" for ASpeed ast2400 SoCs
-> +					"aspeed,ast2500-lpc-ctrl" for ASpeed ast2500 SoCs
-> +
-> +- reg:				Location and size of the configuration registers
-> +					for the LPC bus. Note that if the device node is
-> +					within the LPC host node then base is relative to
-> +					that.
-> +
-> +- memory-region:	phandle of the reserved memory region
-> +- flash:			phandle of the SPI flash controller
-> +
-> +Example:
-> +--------
-> +
-> +reserved-memory {
-> +	#address-cells = <1>;
-> +	#size-cells = <1>;
-> +	ranges;
-> +
-> +	...
-> +
-> +	flash_memory: region@54000000 {
-> +		compatible = "aspeed,ast2400-lpc-ctrl";
+For example, to power on a system we ask systemd to run
+obmc-chassis-start.target.  When you look at the filesystem you see
+this (with my notes added):
 
-This doesn't look right?
+ls -al obmc-chassis-start\@0.target.wants
 
-> +		no-map;
-> +		reg = <0x54000000 0x04000000>; /* 64M */
+    op-wait-power-on@0.service -> ../op-wait-power-on@.service
+        # Calls pgood_wait on /org/openbmc/control/power%i on
+        o Run before obmc-power-on, obmc-power-start,
 
-Is this system RAM? reserved-memory is generally for carveouts in system 
-RAM (e.g. the memory node).
+    op-power-start@0.service -> ../op-power-start@.service
+              # Calls org.openbmc.control.Power setPowerState 1
+        o Run after obmc-power-start-pre, obmc-fan-control before
+obmc-power-start
 
-> +	};
-> +};
-> +
-> +host_pnor: spi@1e630000 {
-> +	reg = < 0x1e630000 0x18
-> +			0x30000000 0x02000000 >;
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +	compatible = "aspeed,ast2400-smc";
-> +
-> +	...
-> +
-> +};
-> +
-> +lpc-ctrl@0 {
-> +	compatible = "aspeed,ast2400-lpc-ctrl";
-> +	memory-region = <&flash_memory>;
-> +	flash = <&host_pnor>;
-> +	reg = <0x0 0x80>;
-> +};
-> +
-> -- 
-> 2.11.0
-> 
+    op-inventory-upload@0.service -> ../op-inventory-upload@.service
+       # Calls inventory_upload.py, writes a PNOR partition
+        o Run before obmc-host-starte-pre
+
+    pcie-slot-detect@0.service -> ../pcie-slot-detect@.service
+               # Run pcie_slot_present.exe
+        o Run after obmc-power-on
+
+    obmc-start-host@0.service -> ../op-start-host@.service
+               # Calls "org.openbmc.control.Host boot=E2=80=9D
+        o Run after obmc-power-on, obmc-host-start-pre, before
+obmc-host-start, obmc-host-started
+
+    obmc-start-watchdog@0.service -> ../obmc-start-watchdog@.service
+  # Calls org.openbmc.Watchdog to set then start the watchdog
+        o Run after obmc-host-started
+
+Within these services you have lots of Before/After references to
+other targets, like these to control the ordering of the service
+execution:
+
+obmc-power-start-pre
+obmc-fan-control
+obmc-power-start (this is a .wants, with 2 services associated with it)
+obmc-power-on
+obmc-host-start-pre
+obmc-host-start
+obmc-host-started
+
+For my state purposes, I need to be able to do this:
+
+Just power on and off the chassis (i.e. obmc-power-on/off) (for
+debug/cronus/fsi i2c vpd programming purposes)
+Know when the host has started, and when it has stopped (can use
+existing targets for this)
+
+Currently we have the chassis power and host power tied together in
+obmc-chassis-start, my proposal is to simply make the obmc-power-on
+and obmc-power-off targets that now have services associated with
+them.  Specifically the services required to power on and off (and
+verify they went on and off) the chassis.  So I=E2=80=99ll do this:
+- move op-wait-power-on@.service and op-power-start@.service into the
+obmc-power-on.wants target
+- move op-power-stop@.service and op-wait-power-off@.service into the
+obmc-power-off.wants target.
+
+Thoughts or comments?
+Andrew
