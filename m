@@ -1,30 +1,48 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <robherring2@gmail.com>
+Received: from mail-ot0-f195.google.com (mail-ot0-f195.google.com
+ [74.125.82.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v3V9G3JH7zDqJ5
- for <openbmc@lists.ozlabs.org>; Thu, 19 Jan 2017 01:44:18 +1100 (AEDT)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 148475065037745.59884777996456;
- Wed, 18 Jan 2017 06:44:10 -0800 (PST)
-Date: Wed, 18 Jan 2017 08:44:08 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Mine <mine260309@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: RFC: new design of phosphor-time-manager on sdbusplus
-Message-ID: <20170118144408.GA5120@heinlein.lan>
-References: <CAARXrtkPMixp9M0SYyaeP4_j83mRRXNG1O2Tf24rL5OH6CbJvg@mail.gmail.com>
- <20170116194447.d3yzsldsu3qsl5sz@asimov>
- <CAARXrtnHD0s=dMKJwy_XqJ==cpamDiVPn8c4K=+ZPso1d0gSBg@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v3f253bC2zDqHT
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Jan 2017 07:38:37 +1100 (AEDT)
+Received: by mail-ot0-f195.google.com with SMTP id f9so2299644otd.0
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jan 2017 12:38:37 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=WKfR1+xHzHt3dwFrL0/RXMd0oLVNyVr+7x5Ql+bHDyQ=;
+ b=ZRE5r+pQ/a8xPfZ3mBNYtxnyPYI3vm54RQVJGRpD5OqShDsJs9DIctVNypW7cyomvx
+ tokmcEONvfURPPS46SB8aS1CwpRKA3nTgqalEzSuNRAXJq1PXsAYmE3N/bdaCN2dyjJB
+ OqbkaPyMzTmH5PraxBdjIwz3AEp+smfmTStpfrhzLg9T4GPWkzWarnqAKffN0DR28o/o
+ yPIXsDmTw+QGsyPvXR87j5FepnhruclXTnQsQqB97tK8UCkih+ptrhMtEoXLG3vYxZ/m
+ WTOACfJtdT9u0RXXLFQB8+oMipANKk3cRjwnooc6pvadV1qg6oRbnh5EL0lV1ZZv3Rr6
+ bufg==
+X-Gm-Message-State: AIkVDXIkhVi6ZuJzTO+px1KpEgJ3DTvyn1so+vqhh7pSFCpvaIelUeT7W+G4clguYMYcmA==
+X-Received: by 10.157.38.162 with SMTP id l31mr2389791otb.58.1484771915719;
+ Wed, 18 Jan 2017 12:38:35 -0800 (PST)
+Received: from localhost (72-48-98-129.dyn.grandenetworks.net. [72.48.98.129])
+ by smtp.gmail.com with ESMTPSA id
+ r130sm695117oif.15.2017.01.18.12.38.34
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 18 Jan 2017 12:38:34 -0800 (PST)
+Date: Wed, 18 Jan 2017 14:38:33 -0600
+From: Rob Herring <robh@kernel.org>
+To: Cyril Bur <cyrilbur@gmail.com>
+Cc: devicetree@vger.kernel.org, jassisinghbrar@gmail.com, arnd@arndb.de,
+ gregkh@linuxfoundation.org, joel@jms.id.au, mark.rutland@arm.com,
+ openbmc@lists.ozlabs.org, andrew@aj.id.au, benh@kernel.crashing.org,
+ xow@google.com, jk@ozlabs.org
+Subject: Re: [PATCH 1/4] Documentation: dt: mailbox: Add Aspeed ast2400/2500
+ bindings
+Message-ID: <20170118203833.3htpccig67kpd6xl@rob-hp-laptop>
+References: <20170112002910.3650-1-cyrilbur@gmail.com>
+ <20170112002910.3650-2-cyrilbur@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="SUOF0GtieIMvvwua"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAARXrtnHD0s=dMKJwy_XqJ==cpamDiVPn8c4K=+ZPso1d0gSBg@mail.gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
+In-Reply-To: <20170112002910.3650-2-cyrilbur@gmail.com>
+User-Agent: Mutt/1.6.2-neo (2016-08-21)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -36,92 +54,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Jan 2017 14:44:19 -0000
+X-List-Received-Date: Wed, 18 Jan 2017 20:38:37 -0000
 
+On Thu, Jan 12, 2017 at 11:29:07AM +1100, Cyril Bur wrote:
+> Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
+> ---
+>  .../devicetree/bindings/mailbox/aspeed-mbox.txt    | 44 ++++++++++++++++++++++
+>  1 file changed, 44 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/mailbox/aspeed-mbox.txt
+> 
+> diff --git a/Documentation/devicetree/bindings/mailbox/aspeed-mbox.txt b/Documentation/devicetree/bindings/mailbox/aspeed-mbox.txt
+> new file mode 100644
+> index 000000000000..633cd534d91c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/mailbox/aspeed-mbox.txt
+> @@ -0,0 +1,44 @@
+> +ASpeed Mailbox Driver
+> +=====================
+> +
+> +The ASpeed mailbox allows for communication between different
+> +processors. The mailbox on the ASpeed ast2400 and ast2500 is a set of
+> +16 single byte data registers along with interrupt and configuration
+> +registers directly on the SoC. These are memory mapped on the aspeed
+> +and can be accessed via the SuperIO registers on the other processor.
+> +
+> +Device Node:
+> +============
+> +This represents the mailbox on the Soc.
+> +
+> +As the mailbox registers sit on the LPC bus, it makes most sense for
+> +the device to be within the LPC host node. See
+> +Documentation/devicetree/bindings/mfd/aspeed-lpc.txt for more
+> +information. This does not have to be the case, provided the reg
+> +property can give the full address of the mbox registers.
 
---SUOF0GtieIMvvwua
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This does have to be the case. I'd expect all devices on the LPC bus to 
+be under a LPC bus node.
 
-On Tue, Jan 17, 2017 at 03:51:39PM +0800, Mine wrote:
-> On Tue, Jan 17, 2017 at 3:44 AM, Patrick Williams <patrick@stwcx.xyz> wro=
-te:
-> > On Fri, Jan 13, 2017 at 03:42:50PM +0800, Mine wrote:
+Drop the last sentence, and:
 
-> I should be meant to create two "instances" on the bus, eventually it loo=
-ks
-> something like:
-> ```
-> xyz.openbmc_project.Time.Manager
->     /xyz/openbmc_project/time/host_epoch
->         org.freedesktop.DBus.Peer
->         org.freedesktop.DBus.Introspectable
->         org.freedesktop.DBus.Properties
->         xyz.openbmc_project.Time.EpochTime
->     /xyz/openbmc_project/time/bmc_epoch
->         org.freedesktop.DBus.Peer
->         org.freedesktop.DBus.Introspectable
->         org.freedesktop.DBus.Properties
->         xyz.openbmc_project.Time.EpochTime
-
-There isn't a reason to name the object path "epoch".  /time/bmc and
-/time/host0 is probably more appropriate.
-
-> > > And there will be no =E2=80=9Ccurr_time_mode/owner=E2=80=9D or =E2=80=
-=9Crequested_time_mode/owner=E2=80=9D
-> > > properties on DBUS.
-> >
-> > So these are only stored in phosphor-settingsd now or are they also used
-> > internally for decisions?  I believe the previous implementation had
-> > them exposed more for debug purposes.  Are you going to add them to the
-> > journal at least?
->=20
-> Yes, the time_mode and time_owner are still stored in
-> phosphor-settingsd, and they
-> are used internally by phosphor-time-manager, which will register
-> callback for the
-> settings' change and handled accordingly.
-> The difference from the previous implementation is that we do not expose =
-these
-> settings in time-manager's DBus now.
-
-There are two aspects for consideration here:
-
-    1. The current time manager defers changing the host policies until
-       the next boot.  We need to continue this behavior.
-
-    2. If the process restarts we need it to go back into the "current
-       state" and not the "requested state".  How do we make this
-       happen?  The current implementation might also have a flaw here
-       so maybe we log it as an issue for follow up.
-
-> What do you mean by "add them to the journal"?
-
-Use phosphor-logging.
-
---=20
-Patrick Williams
-
---SUOF0GtieIMvvwua
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAEBCAAGBQJYf382AAoJEKsDR8wtAMEZWD4P/jXIIVyI4cTb/F5STMxAlb3/
-jt21iquMq2tC7neUMHlCa/bSkDwe3jExemskDjUGpb6/SVWlIDAk+bMLDP4einl8
-AUMuPbizlPWRzwedFw2RyKnT1B1wgJ3V/V3gGxk/T8w/XtFsetDCMQg1hLrQ0sWW
-raq/wQzqOuyH0L4sPscskMNi1nPx45HlTIimaKAHNAq4i2JEw1zQGXN1VLNk70vO
-7DSCtnZNmHrRjyab+jqUJKTglP8kWnrysWXVi3oeOj9ala+fht6lf7hEteMojU1C
-WeCdpDOs2Z65XUE2XWxlkvhVuZCleIJ73GSJd7WBXpqJQ+5TTsLOk5ju1tWClA4t
-g0+gIVEv8u+7Ys1cxaQV6oJStySmLVYykULE2paPy1hAi9KkUAVTVvL7ZgxIUWn4
-OyVogOcUc3Swo8Ic+M8meHs2TVo4jLLHZ4v7ETtw9UwwrlGNbh/zo8vEnjbbLdCa
-7FS3NgELU8sQwbx2sqi1VD6rKUn/snvd3UiSBo5r7cHzNg8vjhhtJ4pn3cTKKghf
-WAsV/wAHYAtwe7wGriqurBegEO07hWaPPqRjKZ0bqfsZL9n7W/agTw6rEKckvNVs
-yIEGHlfWjQoRHOr0EWaUHSmhlV0xGyHC/i/alAwCGBvPidQucJL77iLsh6HVF514
-PdaH45uZt2Lze+TGvjND
-=0Vpp
------END PGP SIGNATURE-----
-
---SUOF0GtieIMvvwua--
+Acked-by: Rob Herring <robh@kernel.org>
