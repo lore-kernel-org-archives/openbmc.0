@@ -1,61 +1,54 @@
-Return-Path: <cyrilbur@gmail.com>
-Received: from mail-pg0-x244.google.com (mail-pg0-x244.google.com
- [IPv6:2607:f8b0:400e:c05::244])
+Return-Path: <mine260309@gmail.com>
+Received: from mail-qt0-x22c.google.com (mail-qt0-x22c.google.com
+ [IPv6:2607:f8b0:400d:c0d::22c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v3ky06lRzzDqHR
- for <openbmc@lists.ozlabs.org>; Thu, 19 Jan 2017 11:20:24 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v3qZV2SrKzDqJs
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Jan 2017 14:48:50 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="QWsPxLSD"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ui+szs4l"; 
  dkim-atps=neutral
-Received: by mail-pg0-x244.google.com with SMTP id 194so2559083pgd.0
- for <openbmc@lists.ozlabs.org>; Wed, 18 Jan 2017 16:20:24 -0800 (PST)
+Received: by mail-qt0-x22c.google.com with SMTP id k15so46881921qtg.3
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Jan 2017 19:48:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=message-id:subject:from:to:cc:date:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=5PH9cXW5moI//dAyXUMXqCPIT3vxgLZEHsoTvT1qBcM=;
- b=QWsPxLSDMIgSmZVNlzcp6R4c9XErq1eYFxCeswb6qzUZBR6i02aTIJLS8/qmq0yUC0
- Bhnjtz79XPf14EHlclGhSeHiMSfsfn8ea1APa6LVgPGzeRJEn1wgc+IPs2jmQGkLeLKq
- S5xrjk3FX0GBo00r+he296nLZPh7Cm3Zm1gTjNIihc5DaQgJUuvZMqMyWZRYKywfWqH7
- KYjaq0FUfz7oSFhVGbe2XFNacqXxxdRtQgrN0S9++VreUn5nc31y+X1RUB95xmTQ1W+w
- ygsLDJTECT5IO65WgIeXsOZt4JF2nDB0uJv3PeJRjXbU/6qGP5mGetHsDhldMhIKuvU3
- zfIw==
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=gxVn2OmDxcMJZyyGoS3w927Ko8wZIsFr6ad/vbrFEkw=;
+ b=Ui+szs4l/ZOPaY4R1C1uT4C6tsqpeOttcxxsrSyTPFXcp6OrytWVLwUcrQuQe1pQlS
+ Ws0lFM9WKX2f55vs0p4B9wwr2EfHnM1iFJ+ZEzo2XDV5/SgRnMxVPw9jk8zXXphKEgdm
+ VTMpTK274+LBj7AC/H5BGYItcBG2PM6lMzsC3iY1FXK7Kfik2uFqTgQuLJ4VwnltWFnU
+ LYwxRl2SsC28O1o4+JOO+aSPA38PGRRXrj50BXCGIt7ofpj39OuneBM1XkBlXRXGoxOo
+ 9Xk13wgRc2zvvDDgn14Z/nPqXCFf7BE16abUE6DoTmWnOGiOdW0w/O6MoDN7u5gjZhAJ
+ JmZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=5PH9cXW5moI//dAyXUMXqCPIT3vxgLZEHsoTvT1qBcM=;
- b=LbvogibRzK/d0H4Z8KN85LYRUqS/z6tLBJVggoB4MyWI0Q7AvmEUp3Y9gMfUtvbCtS
- lbkRzILWj5GHD+h2ZgwocvBnfkFuFpnBCyIZ/FWo8PJHkRR/5eJVOQ2eiLA8LW/inMs9
- 2Qnvi/EXlwtY4D9skBwNdQMO/jZY9WFpwJlLTlTgiK4azjYYhHm7SA2dyZTCMB/mJa7B
- F/35fEozBvhNEfajsjKueWNU28d44Ci/SbzlEt+N6bdgYgtiiDZts7XXwh8oREC82ymm
- xqzRo/FYqBSrOeXl2QstQV2T67im/gbr7GSwdVn2MmRh+ZqmuWxfzUoKCytgTWL2d+cP
- KXjQ==
-X-Gm-Message-State: AIkVDXIJP0FLb4shOaP4/Uc2nBbHk/1R4qVgIXZ1j3SIRRgkHuOZEfKiuaFXFGtnFSTxDw==
-X-Received: by 10.99.226.83 with SMTP id y19mr7043432pgj.147.1484785223122;
- Wed, 18 Jan 2017 16:20:23 -0800 (PST)
-Received: from [138.44.241.182] ([138.44.241.182])
- by smtp.googlemail.com with ESMTPSA id x81sm3279451pff.69.2017.01.18.16.20.17
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 18 Jan 2017 16:20:22 -0800 (PST)
-Message-ID: <1484785163.4097.5.camel@gmail.com>
-Subject: Re: [PATCH 2/4] Documentation: dt: misc: Add Aspeed ast2400/2500
- LPC Control bindings
-From: Cyril Bur <cyrilbur@gmail.com>
-To: Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org, jassisinghbrar@gmail.com, arnd@arndb.de, 
- gregkh@linuxfoundation.org, joel@jms.id.au, mark.rutland@arm.com, 
- openbmc@lists.ozlabs.org, andrew@aj.id.au, benh@kernel.crashing.org, 
- xow@google.com, jk@ozlabs.org
-Date: Thu, 19 Jan 2017 11:19:23 +1100
-In-Reply-To: <20170118211645.v54xvmxcsfzxior2@rob-hp-laptop>
-References: <20170112002910.3650-1-cyrilbur@gmail.com>
- <20170112002910.3650-3-cyrilbur@gmail.com>
- <20170118211645.v54xvmxcsfzxior2@rob-hp-laptop>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.22.3 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=gxVn2OmDxcMJZyyGoS3w927Ko8wZIsFr6ad/vbrFEkw=;
+ b=roahjhcSoU0uUs7FqM/iR5s3yYGcHGXxyCRjwhs/MbFsfoIJPMjjc5ATg5GoBPFwCX
+ xLIS26RnkAQI+3tYGJ3zrCaYUYr12v3kQLjLLjG45jRcudFD5SG083lLNN23qLZ26CQn
+ hU+XnaElOJkk3jirx25w116SBP8zXxQhG6cDto2pe8KmTcB2Qk+CQonHmdmJV5K0r5Ma
+ sjFwOv+8CJoMx1DdhW3N1GF/s6MQgtP5zYH12CXnYl9+imhjseojVtHKJFYKosbslOQV
+ dQ3Ugx3ILS2juQw458JAguWE9YEWQ+tJYKgiQNsq7bPQIwAEpef62JEG53BWZoCAa7xy
+ WRng==
+X-Gm-Message-State: AIkVDXKGDnmjGhvfGEnf1oqJpMf6g4RAblfn+g13eFcN5+HsoTXJgtXGXFlFoDc88vKcyTdbu0cdDX6X3fm6dA==
+X-Received: by 10.237.47.33 with SMTP id l30mr6321837qtd.62.1484797728024;
+ Wed, 18 Jan 2017 19:48:48 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.12.137.122 with HTTP; Wed, 18 Jan 2017 19:48:47 -0800 (PST)
+In-Reply-To: <20170118144408.GA5120@heinlein.lan>
+References: <CAARXrtkPMixp9M0SYyaeP4_j83mRRXNG1O2Tf24rL5OH6CbJvg@mail.gmail.com>
+ <20170116194447.d3yzsldsu3qsl5sz@asimov>
+ <CAARXrtnHD0s=dMKJwy_XqJ==cpamDiVPn8c4K=+ZPso1d0gSBg@mail.gmail.com>
+ <20170118144408.GA5120@heinlein.lan>
+From: Mine <mine260309@gmail.com>
+Date: Thu, 19 Jan 2017 11:48:47 +0800
+Message-ID: <CAARXrtmRRC0ix9cXbe=PKdmw_cs=Eend52A1NKy-9WGa0hJwRA@mail.gmail.com>
+Subject: Re: RFC: new design of phosphor-time-manager on sdbusplus
+To: Patrick Williams <patrick@stwcx.xyz>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,135 +60,125 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Jan 2017 00:20:25 -0000
+X-List-Received-Date: Thu, 19 Jan 2017 03:48:51 -0000
 
-On Wed, 2017-01-18 at 15:16 -0600, Rob Herring wrote:
-> On Thu, Jan 12, 2017 at 11:29:08AM +1100, Cyril Bur wrote:
-> > Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
-> > ---
-> >  .../devicetree/bindings/misc/aspeed-lpc-ctrl.txt   | 78 ++++++++++++++++++++++
-> >  1 file changed, 78 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/misc/aspeed-lpc-ctrl.txt
-> > 
-> > diff --git a/Documentation/devicetree/bindings/misc/aspeed-lpc-ctrl.txt b/Documentation/devicetree/bindings/misc/aspeed-lpc-ctrl.txt
-> > new file mode 100644
-> > index 000000000000..f84ac83211ec
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/misc/aspeed-lpc-ctrl.txt
-> > @@ -0,0 +1,78 @@
-> > +ASpeed LPC Control
-> > +==================
-> > +This binding defines the LPC control for ASpeed SoCs. Partitions of
-> > +the LPC bus can be access by other processors on the system, address
-> > +ranges on the bus can map accesses from another processor to regions
-> > +of the ASpeed SoC memory space.
-> > +
-> > +Reserved Memory:
-> > +================
-> > +The driver provides functionality to map the LPC bus to a region of
-> > +ASpeed ram. A phandle to a reserved memory node must be provided so
-> > +that the driver can safely use this region.
-> > +
-> > +Flash:
-> > +======
-> > +The driver provides functionality to unmap the LPC bus from ASpeed
-> > +RAM, historically the default mapping has been to the SPI flash
-> > +controller on the ASpeed SoC, a phandle to this node should be
-> > +supplied.
-> > +
-> > +Device Node:
-> > +============
-> > +
-> > +As LPC bus configuration registers are at the start of the LPC bus
-> > +memory space, it makes most sense for the device to be within the LPC
-> > +host node. See Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
-> > +for more information. This does not have to be the case, provided the
-> > +reg property can give the full address of the LPC bus.
-> 
-> Same comment here.
-> 
+On Wed, Jan 18, 2017 at 10:44 PM, Patrick Williams <patrick@stwcx.xyz> wrot=
+e:
+>
+> On Tue, Jan 17, 2017 at 03:51:39PM +0800, Mine wrote:
+> > On Tue, Jan 17, 2017 at 3:44 AM, Patrick Williams <patrick@stwcx.xyz> w=
+rote:
+> > > On Fri, Jan 13, 2017 at 03:42:50PM +0800, Mine wrote:
+>
+> > I should be meant to create two "instances" on the bus, eventually it l=
+ooks
+> > something like:
+> > ```
+> > xyz.openbmc_project.Time.Manager
+> >     /xyz/openbmc_project/time/host_epoch
+> >         org.freedesktop.DBus.Peer
+> >         org.freedesktop.DBus.Introspectable
+> >         org.freedesktop.DBus.Properties
+> >         xyz.openbmc_project.Time.EpochTime
+> >     /xyz/openbmc_project/time/bmc_epoch
+> >         org.freedesktop.DBus.Peer
+> >         org.freedesktop.DBus.Introspectable
+> >         org.freedesktop.DBus.Properties
+> >         xyz.openbmc_project.Time.EpochTime
+>
+> There isn't a reason to name the object path "epoch".  /time/bmc and
+> /time/host0 is probably more appropriate.
 
-Hi Rob,
+OK.
 
-Yes, thanks.
+>
+> > > > And there will be no =E2=80=9Ccurr_time_mode/owner=E2=80=9D or =E2=
+=80=9Crequested_time_mode/owner=E2=80=9D
+> > > > properties on DBUS.
+> > >
+> > > So these are only stored in phosphor-settingsd now or are they also u=
+sed
+> > > internally for decisions?  I believe the previous implementation had
+> > > them exposed more for debug purposes.  Are you going to add them to t=
+he
+> > > journal at least?
+> >
+> > Yes, the time_mode and time_owner are still stored in
+> > phosphor-settingsd, and they
+> > are used internally by phosphor-time-manager, which will register
+> > callback for the
+> > settings' change and handled accordingly.
+> > The difference from the previous implementation is that we do not expos=
+e these
+> > settings in time-manager's DBus now.
+>
+> There are two aspects for consideration here:
+>
+>     1. The current time manager defers changing the host policies until
+>        the next boot.  We need to continue this behavior.
+>
+>     2. If the process restarts we need it to go back into the "current
+>        state" and not the "requested state".  How do we make this
+>        happen?  The current implementation might also have a flaw here
+>        so maybe we log it as an issue for follow up.
+>
 
-> > +
-> > +Required properties:
-> > +--------------------
-> > +
-> > +- compatible:		"aspeed,ast2400-lpc-ctrl" for ASpeed ast2400 SoCs
-> > +					"aspeed,ast2500-lpc-ctrl" for ASpeed ast2500 SoCs
-> > +
-> > +- reg:				Location and size of the configuration registers
-> > +					for the LPC bus. Note that if the device node is
-> > +					within the LPC host node then base is relative to
-> > +					that.
-> > +
-> > +- memory-region:	phandle of the reserved memory region
-> > +- flash:			phandle of the SPI flash controller
-> > +
-> > +Example:
-> > +--------
-> > +
-> > +reserved-memory {
-> > +	#address-cells = <1>;
-> > +	#size-cells = <1>;
-> > +	ranges;
-> > +
-> > +	...
-> > +
-> > +	flash_memory: region@54000000 {
-> > +		compatible = "aspeed,ast2400-lpc-ctrl";
-> 
-> This doesn't look right?
-> 
+This is the part I did not understand well on the previous "requested"
+and "current" mode.
+My consideration/question (for previous code) is:
+It has two settings of time mode/owner, one in settingsd, the other in
+timemanager, then
+which service is *really* responsible for the setting?
+E.g. if current time owner is BMC, and mode is NTP,. when settingsd
+set time owner to HOST:
+1. timemanager save the owner to requested_owner;
+2. If host is off, it defers the change, then:
+   * In settingsd, owner is HOST, mode is NTP;
+   * In timemanager, current owner is BMC, requested owner is HOST, mode is=
+ NTP
+   It's kindly of complicated and confusing;
+3. If host is on, it sets the owner to HOST, and change the mode to
+MANUAL (it has specific
+comments to indicates that HOST and NTP are exclusive), then:
+   * In settingsd, owner is HOST, mode is MANUAL;
+   * In timemanager, current owner is HOST, requested owner is HOST,
+mode is MANUAL
+   So changing settingsd time owner also affects settingsd mode.
+   It looks as if timemanager is responsible for the setting.
 
-Correct, my mistake, I'll remove.
+I feel this piece of logic is too complicated, it's better that we
+simplifies it:
+1. Enforce that settingsd is the owner of settings, timemanager shall not m=
+odify
+    settingsd's settings, but only register callbacks on changes.
+2. Combine the time mode/owner into:
+   * BMC_NTP  =3D=3D> Both Bmc/Host Epoch return the same time as BMC's NTP=
+ time;
+                              Setting epoch is not allowed
+   * BMC_MANUAL =3D=3D> Both Bmc/Host Epoch return the same BMC time;
+                                    Setting BMC epoch is allowed,
+setting HOST epoch is not allowed
+   * HOST_MANUAL =3D=3D> Both Bmc/Host Epoch return the same HOST time;
+                                      Settings BMC epoch is not
+allowed, settings HOST epoch is allowed
+                                      (It looks like BMC_MANUAL and
+HOST_MANUAL can be merged as MANUAL?
+                                       since they are actually the same)
+   * SPLIT_NTP  =3D=3D> Bmc and Host Epoch are separated;
+                                BMC uses NTP time, and setting is not allow=
+ed;
+                                Host epoch can be get and set;
+   * SPLIT_MANUAL =3D=3D> Bmc and Host Epoch are separated
+                                      Both can be get and set.
 
-> > +		no-map;
-> > +		reg = <0x54000000 0x04000000>; /* 64M */
-> 
-> Is this system RAM? reserved-memory is generally for carveouts in system 
-> RAM (e.g. the memory node).
-> 
+What's your opinion?
 
-Yes it will be a chunk of system RAM. Our intended use case is to use
-system ram to buffer host accesses to system flash (on the bmc). This
-provides control over concurrent access to the flash and place to add
-security measures to prevent the host from backdooring through the
-flash. With the use of a protocol through the platform mailbox.
+> > What do you mean by "add them to the journal"?
+>
+> Use phosphor-logging.
 
-Having said that I don't want to limit myself to just that - there has
-been other ideas for a host<->bmc ram buffer which may or may not see
-the light of day.
+Yes, the code uses phosphor-logging to send log to journal.
 
-I hope that makes sense,
-
-Thanks for the review,
-
-Cyril
-
-> > +	};
-> > +};
-> > +
-> > +host_pnor: spi@1e630000 {
-> > +	reg = < 0x1e630000 0x18
-> > +			0x30000000 0x02000000 >;
-> > +	#address-cells = <1>;
-> > +	#size-cells = <0>;
-> > +	compatible = "aspeed,ast2400-smc";
-> > +
-> > +	...
-> > +
-> > +};
-> > +
-> > +lpc-ctrl@0 {
-> > +	compatible = "aspeed,ast2400-lpc-ctrl";
-> > +	memory-region = <&flash_memory>;
-> > +	flash = <&host_pnor>;
-> > +	reg = <0x0 0x80>;
-> > +};
-> > +
-> > -- 
-> > 2.11.0
-> > 
+>
+> --
+> Patrick Williams
