@@ -1,30 +1,35 @@
-Return-Path: <benh@kernel.crashing.org>
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v46gr1hn5zDqNJ
- for <openbmc@lists.ozlabs.org>; Fri, 20 Jan 2017 02:09:27 +1100 (AEDT)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.13.8) with ESMTP id v0JF8de1030211;
- Thu, 19 Jan 2017 09:08:44 -0600
-Message-ID: <1484838527.24294.45.camel@kernel.crashing.org>
-Subject: Re: [PATCH 1/4] Documentation: dt: mailbox: Add Aspeed ast2400/2500
- bindings
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Cyril Bur <cyrilbur@gmail.com>, Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org, jassisinghbrar@gmail.com, arnd@arndb.de,
- gregkh@linuxfoundation.org, joel@jms.id.au, mark.rutland@arm.com,
- openbmc@lists.ozlabs.org, andrew@aj.id.au, xow@google.com, jk@ozlabs.org
-Date: Thu, 19 Jan 2017 09:08:47 -0600
-In-Reply-To: <1484784318.4097.2.camel@gmail.com>
-References: <20170112002910.3650-1-cyrilbur@gmail.com>
- <20170112002910.3650-2-cyrilbur@gmail.com>
- <20170118203833.3htpccig67kpd6xl@rob-hp-laptop>
- <1484784318.4097.2.camel@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.22.3 (3.22.3-1.fc25) 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v4qwq0csVzDqQH
+ for <openbmc@lists.ozlabs.org>; Sat, 21 Jan 2017 06:08:10 +1100 (AEDT)
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mx.zohomail.com
+ with SMTPS id 1484939283221197.21271473522063;
+ Fri, 20 Jan 2017 11:08:03 -0800 (PST)
+Date: Fri, 20 Jan 2017 13:08:01 -0600
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Mine <mine260309@gmail.com>
+Cc: vishwa <vishwa@linux.vnet.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: RFC: new design of phosphor-time-manager on sdbusplus
+Message-ID: <20170120190801.GB5120@heinlein.lan>
+References: <CAARXrtkPMixp9M0SYyaeP4_j83mRRXNG1O2Tf24rL5OH6CbJvg@mail.gmail.com>
+ <20170116194447.d3yzsldsu3qsl5sz@asimov>
+ <CAARXrtnHD0s=dMKJwy_XqJ==cpamDiVPn8c4K=+ZPso1d0gSBg@mail.gmail.com>
+ <20170118144408.GA5120@heinlein.lan>
+ <CAARXrtmRRC0ix9cXbe=PKdmw_cs=Eend52A1NKy-9WGa0hJwRA@mail.gmail.com>
+ <38683dc2-7d4f-11eb-589c-c87784253610@linux.vnet.ibm.com>
+ <CAARXrt=ZcCdUC73c27aY28ZgLo8Fsu7GH49RWc-wySK4AcXnkw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="nVMJ2NtxeReIH9PS"
+Content-Disposition: inline
+In-Reply-To: <CAARXrt=ZcCdUC73c27aY28ZgLo8Fsu7GH49RWc-wySK4AcXnkw@mail.gmail.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -36,31 +41,87 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Jan 2017 15:09:28 -0000
+X-List-Received-Date: Fri, 20 Jan 2017 19:08:11 -0000
 
-On Thu, 2017-01-19 at 11:05 +1100, Cyril Bur wrote:
-> > > +============
-> > > +This represents the mailbox on the Soc.
-> > > +
-> > > +As the mailbox registers sit on the LPC bus, it makes most sense for
-> > > +the device to be within the LPC host node. See
-> > > +Documentation/devicetree/bindings/mfd/aspeed-lpc.txt for more
-> > > +information. This does not have to be the case, provided the reg
-> > > +property can give the full address of the mbox registers.
-> > 
-> > This does have to be the case. I'd expect all devices on the LPC bus to 
-> > be under a LPC bus node.
-> > 
-> > Drop the last sentence, and:
-> > 
-> > Acked-by: Rob Herring <robh@kernel.org>
-> 
-> Will do, thanks for the review.
 
-Well well ... on the BMC side it's not actually on the LPC bus ;-)
+--nVMJ2NtxeReIH9PS
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-However it's within the LPC host controller register set, and so as such
-can be represented as a child of it.
+On Thu, Jan 19, 2017 at 03:37:34PM +0800, Mine wrote:
+> Currently the time_mode/owner has 8 combinations, some of them are not va=
+lid.
+> Could you help to verify what's the expected behavior in each combination=
+s?
+>=20
+> Mode      | Owner | Set BMC Time  | Set Host Time
+> ------------- | --------- | ----------------------- |
+> -------------------------------------
+> NTP        | BMC   | Not allowed      | Not allowed
+> NTP        | HOST | Invalid case     | Invalid case
+> NTP        | SPLIT | Not allowed      | OK, and just save offset
+> NTP        | BOTH | Not allowed     | OK, and set time to BMC
+> MANUAL | BMC   | OK                  | Not allowed
+> MANUAL | HOST | Not allowed      | OK, and set time to BMC
+> MANUAL | SPLIT | OK                  | OK, and just save offset
+> MANUAL | BOTH | OK                  | OK, and set time to BMC
 
-Cheers,
-Ben.
+Why is 'Set BMC Time' not allowed in any NTP mode in your table?  There
+is no reason to stop 'Set BMC Time' except in the NTP/HOST case.
+
+> If my understanding is correct, then we can see:
+> * NTP/HOST is invalid case, such case shall not exist, the current
+> implementation
+>   either hacks settingsd to change the mode to MANUAL, or just behaves
+> like MANUAL;
+
+When the 'host' owns the clock, 'ntp' vs 'manual' is irrelevant.
+
+> * NTP/BOTH has the same behavior as MANULA/HOST, they can be merged.
+
+No, these are significantly different.  NTP/BOTH means that we run the
+NTP client on the BMC but allow either side to set the time.
+MANUAL/HOST means we do not run the NTP client and the BMC is prohibited
+=66rom setting the time in any way.
+
+> That's why I propose to combine the settings to:
+> * NTP-BMC
+> * NTP-SPLIT
+> * NTP-BOTH (or MANUAL-HOST)
+> * MANUAL-BMC
+> * MANUAL-SPLIT
+> * MANUAL-BOTH
+>=20
+> Then we don't have to "hack" or "disagree" with settingsd, and the
+> logic could be
+> a little simpler.
+
+1. NTP vs Manual controls if the NTP-client is running.
+2. Owner controls who is allowed to set the time.
+
+--=20
+Patrick Williams
+
+--nVMJ2NtxeReIH9PS
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAEBCAAGBQJYgmAOAAoJEKsDR8wtAMEZO3MP/21lIxu9UWsFOPR3PxYYugPu
+mtAlkCh4Mw8x9+fRNOe0RMt83AgKAFvG0t/OkWMY176/HvVSdSQmUzyxHniEEGP+
+my2GQ4WSzqhTLUbUUUE7vWMBO/NaAOHujGwocNq+DAg3BZKDr2f9Cz5VYmnfZVtZ
+ZpEHF0LgA/W4IEnNTMs9V2kOTvkRAAZvjIhpJX8OUr1TZpKcceIxUmVpxP57Od+A
+m7Al/GFgO6oX8eB//w/czBw/a9xwcwUD6YW4N7ovCGoBHp+wHwtoqUBw8ZNPawy4
+pj+1/5hhxz3O6wxqmSus8H1QH6NLoTDrZQL6OGI2cRiyAXDK2xU3068cXbKYFw8v
+O8Vci/o9fxisbV6LkpKAm96UcFoMk8VxZT48CmsFzf39qrXpz/F/FxsLGEw+/Ttq
+m8iSKRbSPBity2yuR7VSWbwBiupUBoxVIdkTy6aA8gyX3FG4FT5OLSPGmqLyyVAw
+nUjnHpsv1JvYVvPbaacTYyYahD3FJ5nXbWSw+zPafzgTwK3ynyHEt9uDnrJxhIpM
+AOEDuco12EnNdU8HJRTENsFf20W5JcpCtjf5WG3cM2rWU/0os7LBg5YUTyk8Fsfj
+dECOGPxRKfU3/XiXuCi15+aLeTt30vFSUQC1IybiwHAgjts/1lQHo1K3ubkfm2TJ
+CzzfolnnqqPdW783k0AX
+=ofHE
+-----END PGP SIGNATURE-----
+
+--nVMJ2NtxeReIH9PS--
