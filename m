@@ -3,33 +3,29 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v4r8p4MdjzDqHW
- for <openbmc@lists.ozlabs.org>; Sat, 21 Jan 2017 06:18:34 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v4rCn1jPHzDqHW
+ for <openbmc@lists.ozlabs.org>; Sat, 21 Jan 2017 06:21:09 +1100 (AEDT)
 Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
  [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1484939908741736.0696141526101;
- Fri, 20 Jan 2017 11:18:28 -0800 (PST)
-Date: Fri, 20 Jan 2017 13:18:26 -0600
+ with SMTPS id 1484940061165961.5955142240729;
+ Fri, 20 Jan 2017 11:21:01 -0800 (PST)
+Date: Fri, 20 Jan 2017 13:20:59 -0600
 From: Patrick Williams <patrick@stwcx.xyz>
-To: Mine <mine260309@gmail.com>
-Cc: vishwa <vishwa@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+To: vishwa <vishwa@linux.vnet.ibm.com>
+Cc: Mine <mine260309@gmail.com>,
+	OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Subject: Re: RFC: new design of phosphor-time-manager on sdbusplus
-Message-ID: <20170120191826.GC5120@heinlein.lan>
+Message-ID: <20170120192059.GD5120@heinlein.lan>
 References: <CAARXrtkPMixp9M0SYyaeP4_j83mRRXNG1O2Tf24rL5OH6CbJvg@mail.gmail.com>
  <20170116194447.d3yzsldsu3qsl5sz@asimov>
  <CAARXrtnHD0s=dMKJwy_XqJ==cpamDiVPn8c4K=+ZPso1d0gSBg@mail.gmail.com>
  <20170118144408.GA5120@heinlein.lan>
- <CAARXrtmRRC0ix9cXbe=PKdmw_cs=Eend52A1NKy-9WGa0hJwRA@mail.gmail.com>
- <38683dc2-7d4f-11eb-589c-c87784253610@linux.vnet.ibm.com>
- <CAARXrt=ZcCdUC73c27aY28ZgLo8Fsu7GH49RWc-wySK4AcXnkw@mail.gmail.com>
- <24b6ca2f-fbe2-bd0a-2fb5-7200f09d9147@linux.vnet.ibm.com>
- <CAARXrt=wECQNYUOZvVQ0OT9hnB8-za3b2cHoZENkgAC4LhcugA@mail.gmail.com>
+ <b5a30dfb-8b32-ef9d-f928-a6def24e21f1@linux.vnet.ibm.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="f0KYrhQ4vYSV2aJu"
+ protocol="application/pgp-signature"; boundary="/3yNEOqWowh/8j+e"
 Content-Disposition: inline
-In-Reply-To: <CAARXrt=wECQNYUOZvVQ0OT9hnB8-za3b2cHoZENkgAC4LhcugA@mail.gmail.com>
+In-Reply-To: <b5a30dfb-8b32-ef9d-f928-a6def24e21f1@linux.vnet.ibm.com>
 User-Agent: Mutt/1.5.24 (2015-08-30)
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -43,82 +39,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Jan 2017 19:18:35 -0000
+X-List-Received-Date: Fri, 20 Jan 2017 19:21:09 -0000
 
 
---f0KYrhQ4vYSV2aJu
+--/3yNEOqWowh/8j+e
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jan 19, 2017 at 05:48:23PM +0800, Mine wrote:
-> Btw, is there any specific reason why the time mode/owner is only changed
-> when host is off?
-
-Yes, I think you're missing the point of having a split clock at all.
-
-Typically you think of a machine as being "owned" by a single party.
-They decide if they want to run NTP on the host or run NTP on the BMC
-and they point at an NTP server they trust and all is fine.
-
-There is another case of a machine being "owned" by one party and "used"
-(leased) by another party.  Typically the owner maintains access to the
-BMC and the lessee maintains access to the Host.  Neither side necessary
-trusts the other side to keep the time correct, so we have the "split"
-mode.
-
-(There are potential security issues with having an incorrect timebase.
-A clear example is that your OS will accept expired SSL certificates if
-you tell it the wrong year.)
-
-If the machine owner sets the clock to "NTP/SPLIT", they no longer care
-what the time of the host is.  They point the NTP config at their own
-NTP server and time, from a BMC perspective, is "correct".  At that
-point the machine lessee can:
-
-    1. Ask for 3rd party attestation records from the BMC to confirm what
-       level of code the BMC is running.  (TPM support, not implemented
-       now).
-    2. Audit the code on Github to understand how the modes / models are
-       implemented and what the system will do as a result.
-    3. Query the BMC on boot to determine what mode it is currently
-       operating in.
-
-At this point the lessee:
+On Thu, Jan 19, 2017 at 05:54:02PM +0530, vishwa wrote:
 =20
-    * Can trust that the machine is running a non-tampered version of
-      code that behaves like our reference implementation.
-    * Knows from our reference implementation that the 'host time' is
-      maintained in a secure manner so that if the "owner's" NTP server
-      were compromised, the 'host time' is still correct.
+> I thought and partially agree to their concern. For changing the owner=20
+> *away from SPLIT*, we can actually consume that readily. Its only the=20
+> change * TO SPLIT* that needs to delayed until off.
 
-If the BMC were allowed to change the mode while the host is running (#3
-is no longer accurate), then it is impossible for the host to trust the
-time.  An attacker could simply change the mode after the host as
-queried.
+Actually the opposite.  You can safely switch to split while running,
+but switch from split or host needs to be deferred.
+
+> >      2. If the process restarts we need it to go back into the "current
+> >         state" and not the "requested state".  How do we make this
+> >         happen?  The current implementation might also have a flaw here
+> >         so maybe we log it as an issue for follow up.
+>=20
+>=20
+> The current implementation only sets the values based on what was set=20
+> prior to reset.
+> It does that by consuming the saved data in /var/lib/obmc/saved_*. So=20
+> there is not an issue there.
+
+Sounds good.
 
 --=20
 Patrick Williams
 
---f0KYrhQ4vYSV2aJu
+--/3yNEOqWowh/8j+e
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAEBCAAGBQJYgmKCAAoJEKsDR8wtAMEZJewQAIHj3tQ6tNd/T3NyD4oEpm0x
-C+QIxtqLLAiCz7xMDIUQXPSZrLnL1rY8iQN0I+3m4sddt7tz8LW0C58SXc3EjCvU
-4sis8GP+Y0hijIyWVd4QuSURXHL4RR6EpxrvkjUXddg9Fdg7QEWF7dmYUu9tlykB
-4yKY6hROhFlLjCkJ0CaRNNBpeS0ffRdpnZ9l3O4OdCsLknGe9fZhwI+z8/vXeUcI
-Qb5qBQxDqKFpAMGxVNB9+L3kYbPvZYuFWk2tNhpkpDSPh20uCpOU5hVN15FmVJGO
-3CyaFD//Tnx4Zv5rM45KIcHVWmM9uvTmlR5cqaTCoub8PvBCWEbIwGJFXQquF6UR
-XLWdsaLnNyJ0RuANKK7gHeUHZ/J0r+WM7JQG69qpYPbFeeH0lM2r6o6U3OJyvYOg
-/TJIm9tvPX/pIGx9vc6Xm6zhZnz96BggzfAyd8m1nOe3YwA9Sdl3+14HDq86OCUx
-lKVR/o+wNYFnfzVQCw6cISkqwFxuSpurxAclKQxDqLtRuvhgEU9CZupiJU552mWk
-bvCcy5dgUsm/eTbEYIpxAMut3UklnSIUYizgv/dexuhmIkhrK6FD9UG1+WuVg0VQ
-9FpdNFiSrfLD0u+SqUjDYEvWLms3JPPXjjcAHWlenSFftB4TKQ/5GAgglXEKjt+6
-srenQdzZb2Y5XfKn14I1
-=wjf4
+iQIcBAEBCAAGBQJYgmMbAAoJEKsDR8wtAMEZreEQAJd7N6xqHKkHYrPvDDVadeTM
+67jA3FPM2LgHx4EaDchURNaa5TJPJBpACVsB+dcY1teWIR8GMLxn6lAclV2mHBlV
+xokYcmeZa5nAsejQWSerBLd9xMrY9kPWOQ5xwtooV/C23bX9rYjX3IH4zSGa2z/T
+0n/szShD+fosoPTdsb9LhGI+XNu/L4VPOjEJbzlCIjsARMoJ30sGfiN0eb+/AxFs
+Qyu9hDHuh8a2fXXWt9XcawOpD3wfD6FeWCgFok2C18mFDHowaJayiLm99DK4c70t
+JDjCXr7JAn8tcV4X2Bu33GcopvKU+oY0l3gxR0B7nZj/4pcy2DE3V3zeqqHDNz1l
+mNRKN7BdZu3jisvNA/G7+SY+hWRFhrqHCTdgX/PcjuXO82w5Bo6aG8ILww6hxxcO
+pxnvnaU8+Y9qyaNwrX6x3XJH7SRdXbz4CH1C/lM5oCuEZAkspqkDey0YhshzkRnj
+JZUVCJOlJGvj27FSeo/5N9+VBYFU4Cxq5W/KWntNQS2jWHdOPJ/Vy2Q2VF08Xi5d
+pBfEmZNfWH8TEbh3sqat+791MaWG7VAOhwEJACSsK8mYfl8pdcX0uAYk2mT2gMkD
+C0FByZ+BE3lwXHthU+P56LZi38nDhdS1fS1p6qtOEzDgKCHjz9fyOcPP/9o0KkO2
+cdOgUq5gkc3C7hAgC4fJ
+=WmL9
 -----END PGP SIGNATURE-----
 
---f0KYrhQ4vYSV2aJu--
+--/3yNEOqWowh/8j+e--
