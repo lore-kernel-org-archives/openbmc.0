@@ -3,19 +3,19 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v4qwq0csVzDqQH
- for <openbmc@lists.ozlabs.org>; Sat, 21 Jan 2017 06:08:10 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v4r8p4MdjzDqHW
+ for <openbmc@lists.ozlabs.org>; Sat, 21 Jan 2017 06:18:34 +1100 (AEDT)
 Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
  [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1484939283221197.21271473522063;
- Fri, 20 Jan 2017 11:08:03 -0800 (PST)
-Date: Fri, 20 Jan 2017 13:08:01 -0600
+ with SMTPS id 1484939908741736.0696141526101;
+ Fri, 20 Jan 2017 11:18:28 -0800 (PST)
+Date: Fri, 20 Jan 2017 13:18:26 -0600
 From: Patrick Williams <patrick@stwcx.xyz>
 To: Mine <mine260309@gmail.com>
 Cc: vishwa <vishwa@linux.vnet.ibm.com>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Subject: Re: RFC: new design of phosphor-time-manager on sdbusplus
-Message-ID: <20170120190801.GB5120@heinlein.lan>
+Message-ID: <20170120191826.GC5120@heinlein.lan>
 References: <CAARXrtkPMixp9M0SYyaeP4_j83mRRXNG1O2Tf24rL5OH6CbJvg@mail.gmail.com>
  <20170116194447.d3yzsldsu3qsl5sz@asimov>
  <CAARXrtnHD0s=dMKJwy_XqJ==cpamDiVPn8c4K=+ZPso1d0gSBg@mail.gmail.com>
@@ -23,11 +23,13 @@ References: <CAARXrtkPMixp9M0SYyaeP4_j83mRRXNG1O2Tf24rL5OH6CbJvg@mail.gmail.com>
  <CAARXrtmRRC0ix9cXbe=PKdmw_cs=Eend52A1NKy-9WGa0hJwRA@mail.gmail.com>
  <38683dc2-7d4f-11eb-589c-c87784253610@linux.vnet.ibm.com>
  <CAARXrt=ZcCdUC73c27aY28ZgLo8Fsu7GH49RWc-wySK4AcXnkw@mail.gmail.com>
+ <24b6ca2f-fbe2-bd0a-2fb5-7200f09d9147@linux.vnet.ibm.com>
+ <CAARXrt=wECQNYUOZvVQ0OT9hnB8-za3b2cHoZENkgAC4LhcugA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="nVMJ2NtxeReIH9PS"
+ protocol="application/pgp-signature"; boundary="f0KYrhQ4vYSV2aJu"
 Content-Disposition: inline
-In-Reply-To: <CAARXrt=ZcCdUC73c27aY28ZgLo8Fsu7GH49RWc-wySK4AcXnkw@mail.gmail.com>
+In-Reply-To: <CAARXrt=wECQNYUOZvVQ0OT9hnB8-za3b2cHoZENkgAC4LhcugA@mail.gmail.com>
 User-Agent: Mutt/1.5.24 (2015-08-30)
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -41,87 +43,82 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Jan 2017 19:08:11 -0000
+X-List-Received-Date: Fri, 20 Jan 2017 19:18:35 -0000
 
 
---nVMJ2NtxeReIH9PS
+--f0KYrhQ4vYSV2aJu
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jan 19, 2017 at 03:37:34PM +0800, Mine wrote:
-> Currently the time_mode/owner has 8 combinations, some of them are not va=
-lid.
-> Could you help to verify what's the expected behavior in each combination=
-s?
->=20
-> Mode      | Owner | Set BMC Time  | Set Host Time
-> ------------- | --------- | ----------------------- |
-> -------------------------------------
-> NTP        | BMC   | Not allowed      | Not allowed
-> NTP        | HOST | Invalid case     | Invalid case
-> NTP        | SPLIT | Not allowed      | OK, and just save offset
-> NTP        | BOTH | Not allowed     | OK, and set time to BMC
-> MANUAL | BMC   | OK                  | Not allowed
-> MANUAL | HOST | Not allowed      | OK, and set time to BMC
-> MANUAL | SPLIT | OK                  | OK, and just save offset
-> MANUAL | BOTH | OK                  | OK, and set time to BMC
+On Thu, Jan 19, 2017 at 05:48:23PM +0800, Mine wrote:
+> Btw, is there any specific reason why the time mode/owner is only changed
+> when host is off?
 
-Why is 'Set BMC Time' not allowed in any NTP mode in your table?  There
-is no reason to stop 'Set BMC Time' except in the NTP/HOST case.
+Yes, I think you're missing the point of having a split clock at all.
 
-> If my understanding is correct, then we can see:
-> * NTP/HOST is invalid case, such case shall not exist, the current
-> implementation
->   either hacks settingsd to change the mode to MANUAL, or just behaves
-> like MANUAL;
+Typically you think of a machine as being "owned" by a single party.
+They decide if they want to run NTP on the host or run NTP on the BMC
+and they point at an NTP server they trust and all is fine.
 
-When the 'host' owns the clock, 'ntp' vs 'manual' is irrelevant.
+There is another case of a machine being "owned" by one party and "used"
+(leased) by another party.  Typically the owner maintains access to the
+BMC and the lessee maintains access to the Host.  Neither side necessary
+trusts the other side to keep the time correct, so we have the "split"
+mode.
 
-> * NTP/BOTH has the same behavior as MANULA/HOST, they can be merged.
+(There are potential security issues with having an incorrect timebase.
+A clear example is that your OS will accept expired SSL certificates if
+you tell it the wrong year.)
 
-No, these are significantly different.  NTP/BOTH means that we run the
-NTP client on the BMC but allow either side to set the time.
-MANUAL/HOST means we do not run the NTP client and the BMC is prohibited
-=66rom setting the time in any way.
+If the machine owner sets the clock to "NTP/SPLIT", they no longer care
+what the time of the host is.  They point the NTP config at their own
+NTP server and time, from a BMC perspective, is "correct".  At that
+point the machine lessee can:
 
-> That's why I propose to combine the settings to:
-> * NTP-BMC
-> * NTP-SPLIT
-> * NTP-BOTH (or MANUAL-HOST)
-> * MANUAL-BMC
-> * MANUAL-SPLIT
-> * MANUAL-BOTH
->=20
-> Then we don't have to "hack" or "disagree" with settingsd, and the
-> logic could be
-> a little simpler.
+    1. Ask for 3rd party attestation records from the BMC to confirm what
+       level of code the BMC is running.  (TPM support, not implemented
+       now).
+    2. Audit the code on Github to understand how the modes / models are
+       implemented and what the system will do as a result.
+    3. Query the BMC on boot to determine what mode it is currently
+       operating in.
 
-1. NTP vs Manual controls if the NTP-client is running.
-2. Owner controls who is allowed to set the time.
+At this point the lessee:
+=20
+    * Can trust that the machine is running a non-tampered version of
+      code that behaves like our reference implementation.
+    * Knows from our reference implementation that the 'host time' is
+      maintained in a secure manner so that if the "owner's" NTP server
+      were compromised, the 'host time' is still correct.
+
+If the BMC were allowed to change the mode while the host is running (#3
+is no longer accurate), then it is impossible for the host to trust the
+time.  An attacker could simply change the mode after the host as
+queried.
 
 --=20
 Patrick Williams
 
---nVMJ2NtxeReIH9PS
+--f0KYrhQ4vYSV2aJu
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAEBCAAGBQJYgmAOAAoJEKsDR8wtAMEZO3MP/21lIxu9UWsFOPR3PxYYugPu
-mtAlkCh4Mw8x9+fRNOe0RMt83AgKAFvG0t/OkWMY176/HvVSdSQmUzyxHniEEGP+
-my2GQ4WSzqhTLUbUUUE7vWMBO/NaAOHujGwocNq+DAg3BZKDr2f9Cz5VYmnfZVtZ
-ZpEHF0LgA/W4IEnNTMs9V2kOTvkRAAZvjIhpJX8OUr1TZpKcceIxUmVpxP57Od+A
-m7Al/GFgO6oX8eB//w/czBw/a9xwcwUD6YW4N7ovCGoBHp+wHwtoqUBw8ZNPawy4
-pj+1/5hhxz3O6wxqmSus8H1QH6NLoTDrZQL6OGI2cRiyAXDK2xU3068cXbKYFw8v
-O8Vci/o9fxisbV6LkpKAm96UcFoMk8VxZT48CmsFzf39qrXpz/F/FxsLGEw+/Ttq
-m8iSKRbSPBity2yuR7VSWbwBiupUBoxVIdkTy6aA8gyX3FG4FT5OLSPGmqLyyVAw
-nUjnHpsv1JvYVvPbaacTYyYahD3FJ5nXbWSw+zPafzgTwK3ynyHEt9uDnrJxhIpM
-AOEDuco12EnNdU8HJRTENsFf20W5JcpCtjf5WG3cM2rWU/0os7LBg5YUTyk8Fsfj
-dECOGPxRKfU3/XiXuCi15+aLeTt30vFSUQC1IybiwHAgjts/1lQHo1K3ubkfm2TJ
-CzzfolnnqqPdW783k0AX
-=ofHE
+iQIcBAEBCAAGBQJYgmKCAAoJEKsDR8wtAMEZJewQAIHj3tQ6tNd/T3NyD4oEpm0x
+C+QIxtqLLAiCz7xMDIUQXPSZrLnL1rY8iQN0I+3m4sddt7tz8LW0C58SXc3EjCvU
+4sis8GP+Y0hijIyWVd4QuSURXHL4RR6EpxrvkjUXddg9Fdg7QEWF7dmYUu9tlykB
+4yKY6hROhFlLjCkJ0CaRNNBpeS0ffRdpnZ9l3O4OdCsLknGe9fZhwI+z8/vXeUcI
+Qb5qBQxDqKFpAMGxVNB9+L3kYbPvZYuFWk2tNhpkpDSPh20uCpOU5hVN15FmVJGO
+3CyaFD//Tnx4Zv5rM45KIcHVWmM9uvTmlR5cqaTCoub8PvBCWEbIwGJFXQquF6UR
+XLWdsaLnNyJ0RuANKK7gHeUHZ/J0r+WM7JQG69qpYPbFeeH0lM2r6o6U3OJyvYOg
+/TJIm9tvPX/pIGx9vc6Xm6zhZnz96BggzfAyd8m1nOe3YwA9Sdl3+14HDq86OCUx
+lKVR/o+wNYFnfzVQCw6cISkqwFxuSpurxAclKQxDqLtRuvhgEU9CZupiJU552mWk
+bvCcy5dgUsm/eTbEYIpxAMut3UklnSIUYizgv/dexuhmIkhrK6FD9UG1+WuVg0VQ
+9FpdNFiSrfLD0u+SqUjDYEvWLms3JPPXjjcAHWlenSFftB4TKQ/5GAgglXEKjt+6
+srenQdzZb2Y5XfKn14I1
+=wjf4
 -----END PGP SIGNATURE-----
 
---nVMJ2NtxeReIH9PS--
+--f0KYrhQ4vYSV2aJu--
