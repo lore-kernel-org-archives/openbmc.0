@@ -1,56 +1,48 @@
 Return-Path: <mine260309@gmail.com>
-Received: from mail-qt0-x233.google.com (mail-qt0-x233.google.com
- [IPv6:2607:f8b0:400d:c0d::233])
+Received: from mail-qt0-x230.google.com (mail-qt0-x230.google.com
+ [IPv6:2607:f8b0:400d:c0d::230])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v5CfG2FZ0zDqX2
- for <openbmc@lists.ozlabs.org>; Sat, 21 Jan 2017 20:56:54 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v5Cxj0wJ7zDqX2
+ for <openbmc@lists.ozlabs.org>; Sat, 21 Jan 2017 21:10:17 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ke6Hi+LO"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="qczC9gjR"; 
  dkim-atps=neutral
-Received: by mail-qt0-x233.google.com with SMTP id k15so66958005qtg.3
- for <openbmc@lists.ozlabs.org>; Sat, 21 Jan 2017 01:56:54 -0800 (PST)
+Received: by mail-qt0-x230.google.com with SMTP id x49so66650887qtc.2
+ for <openbmc@lists.ozlabs.org>; Sat, 21 Jan 2017 02:10:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=nG3W6PfyKjuh3RFOOx8+1o6Ltqv2A6QTS8WpxlQ6uBs=;
- b=ke6Hi+LOQmdHyljsK/7sMFb0ji5x/vQ+FFUzgPFdxVfYXWbd5zGfBrmqGOnqIrRNxO
- o+NVfC6ZtUU0TrgWO2Na0dCKfAFIsuuJw4WCANDgaaZ1RTWDnbBJWEc+vZdJzOsq6F3t
- 8tZ7D3fKmebLKO7D/jb/SaqUn3WrE2WQ/NAL/NbkGRIHc4zRBw32JpTWbEuSH7usapqs
- vFERGXTkgS9Xe3Xi7AHdMKSAq8YuiJHLz9LyxHK9T5xACMQ7vYrAs/TuFTSc+m7zH/Nu
- eXsN2FI1S28YPnXKvbiBcXHXJq67IiE6MnurHZIDRwKbqIi1I0brHxK3MG5I6w/OfH8G
- nSgQ==
+ :cc; bh=p9iy4XYgq2DGNuwNXH3rd2HAXlFMrtRsVmC9au0L3Ek=;
+ b=qczC9gjRuQ4/iBQrq+6g1gmw9sU6cXr/youUuuz8E6gYVmMnsxn3rw/R13waRvr1fK
+ e+cRwAQVqqXmQe8SOvigUU9nZ3xmpKPzgzPQOXeeOAwHqVTGA0bM9NidbVRNFjkcaagE
+ W+ji9UBpIAGlOO7C8CRCEexkO99P3JIdxNFhw97WrCA/eeNHp1EtfSnwDgaJlhJn/91A
+ WURdcxdepRf9g36k7hSbDG6AicJDt2MH0K3ObFPfm7mrBtQ9mneK2hCJU3+18F2FhTEq
+ JvUjY7IZzCA/oZI5YUQIlx27viAP2NRcCNcR5TTu+kchf0MTkBksGxwTTH+ibX3eiyLQ
+ 8iuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=nG3W6PfyKjuh3RFOOx8+1o6Ltqv2A6QTS8WpxlQ6uBs=;
- b=W1HO8yymQ8zu5FcIQjSypCPqL+UMb73FnYn1nME+mEeLN0thUfbMc1frT89inapQ3S
- noPUfgCDpyhVzG0c3DfkMPbGxXqxPBS5BH3uP3TX4xIC6ddu9+5eD9PfOp6F6BrJntJ1
- 52dVfOob6uZgzXd+LIkHW14HIA1grlnWtNtEG8VulwY7n/guVGrnMNYy0jT7G+Q3ZlUy
- 37sHPfRF/mZ13s8fKnuyLW4IUZqkbBOtKACckFAFYLEuycqumNPgaAoiVyb50jz4UGt6
- LFQDMrma76ge0EXx0DPixD23XMBrFh+i6SMMRIHqHIPgqn3ZBeInk6r3lDmSFLTSbPuW
- x0Hg==
-X-Gm-Message-State: AIkVDXKQhpHzf8Bu6BXFItLy4obhiTJWhOWtKpjxJsPzK1LeqWo6nbXK7L1V3ojEDnnYcnF7UXq2YdSkYk1pcQ==
-X-Received: by 10.200.1.2 with SMTP id e2mr14993884qtg.142.1484992611156; Sat,
- 21 Jan 2017 01:56:51 -0800 (PST)
+ bh=p9iy4XYgq2DGNuwNXH3rd2HAXlFMrtRsVmC9au0L3Ek=;
+ b=gwm6d/CU1aZ0rWpKKFlgmh7w141CLSjLAF4+Mrpn3dd734V9dZE5pZ43CZiEY9izUd
+ /JX7fxUg8p5RnkjK8JcZ6m4advbimTpe7qedfMjhQwYSU7yAIMoescKaDmbrhXeVna2h
+ 7YV9S9IzQTO6UQ5Zj1j68OMyezKktjGCifj4ITH8PfkMZYHwbM912hlVHMg19sW6asPk
+ Mh8ncW+GUWNEX1OOAIChFaLDwCGw3AG3+NELHcFcU4dPxmUFRyGSJ7h3vySgUPKBjlXN
+ HWikz0Y/sJtLwAW+Ee9OevxcDYr4nrHO6WYyognezKzNTqi16lbR/Czk9ztiMwFSQF4X
+ guVA==
+X-Gm-Message-State: AIkVDXJiF5xRCmFhyDVunseyWXTlFTiLlFTgJeRrZ+9Ys3hO51Q54iSBlEOAaNdo/bkYgVNrhnGOcyihrP24HA==
+X-Received: by 10.237.47.33 with SMTP id l30mr16169382qtd.62.1484993414899;
+ Sat, 21 Jan 2017 02:10:14 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.12.137.122 with HTTP; Sat, 21 Jan 2017 01:56:50 -0800 (PST)
-In-Reply-To: <20170120190801.GB5120@heinlein.lan>
-References: <CAARXrtkPMixp9M0SYyaeP4_j83mRRXNG1O2Tf24rL5OH6CbJvg@mail.gmail.com>
- <20170116194447.d3yzsldsu3qsl5sz@asimov>
- <CAARXrtnHD0s=dMKJwy_XqJ==cpamDiVPn8c4K=+ZPso1d0gSBg@mail.gmail.com>
- <20170118144408.GA5120@heinlein.lan>
- <CAARXrtmRRC0ix9cXbe=PKdmw_cs=Eend52A1NKy-9WGa0hJwRA@mail.gmail.com>
- <38683dc2-7d4f-11eb-589c-c87784253610@linux.vnet.ibm.com>
- <CAARXrt=ZcCdUC73c27aY28ZgLo8Fsu7GH49RWc-wySK4AcXnkw@mail.gmail.com>
- <20170120190801.GB5120@heinlein.lan>
+Received: by 10.12.137.122 with HTTP; Sat, 21 Jan 2017 02:10:14 -0800 (PST)
+In-Reply-To: <CAPH-5w5h5B5PwPuYDcTyRC8Ea-y4ryxsQ8+q2JtJxc2Oi9+ZWg@mail.gmail.com>
+References: <CAPH-5w5h5B5PwPuYDcTyRC8Ea-y4ryxsQ8+q2JtJxc2Oi9+ZWg@mail.gmail.com>
 From: Mine <mine260309@gmail.com>
-Date: Sat, 21 Jan 2017 17:56:50 +0800
-Message-ID: <CAARXrt==uCfsr_yH=Wfqsj7TocXkW5rrqCbXHHTJhMUsVeaVcA@mail.gmail.com>
-Subject: Re: RFC: new design of phosphor-time-manager on sdbusplus
-To: Patrick Williams <patrick@stwcx.xyz>
-Cc: vishwa <vishwa@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Sat, 21 Jan 2017 18:10:14 +0800
+Message-ID: <CAARXrtmP1i4NZNO+jE5WmS7QRLd3d7E_yR8dDu8qrx82QnOX9Q@mail.gmail.com>
+Subject: Re: Does anyone tftpboot the userspace image?
+To: Xo Wang <xow@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -63,84 +55,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 21 Jan 2017 09:56:55 -0000
+X-List-Received-Date: Sat, 21 Jan 2017 10:10:18 -0000
 
-On Sat, Jan 21, 2017 at 3:08 AM, Patrick Williams <patrick@stwcx.xyz> wrote:
-> On Thu, Jan 19, 2017 at 03:37:34PM +0800, Mine wrote:
->> Currently the time_mode/owner has 8 combinations, some of them are not valid.
->> Could you help to verify what's the expected behavior in each combinations?
->>
->> Mode      | Owner | Set BMC Time  | Set Host Time
->> ------------- | --------- | ----------------------- |
->> -------------------------------------
->> NTP        | BMC   | Not allowed      | Not allowed
->> NTP        | HOST | Invalid case     | Invalid case
->> NTP        | SPLIT | Not allowed      | OK, and just save offset
->> NTP        | BOTH | Not allowed     | OK, and set time to BMC
->> MANUAL | BMC   | OK                  | Not allowed
->> MANUAL | HOST | Not allowed      | OK, and set time to BMC
->> MANUAL | SPLIT | OK                  | OK, and just save offset
->> MANUAL | BOTH | OK                  | OK, and set time to BMC
+Hi Xo,
+
+
+On Sat, Jan 21, 2017 at 9:59 AM, Xo Wang <xow@google.com> wrote:
+> Hi folks,
 >
-> Why is 'Set BMC Time' not allowed in any NTP mode in your table?  There
-> is no reason to stop 'Set BMC Time' except in the NTP/HOST case.
+> I noticed from this discussion
+> https://lists.ozlabs.org/pipermail/openbmc/2016-April/thread.html#2738
+> that kernel developers were tftpbooting the userspace image from a
+> obmc-phosphor-image-<machine>.cpio.lzma.u-boot file.
+>
+> 1. How does/did that work? I guess you needed a custom init in the
+> initrd to load the u-boot container (?) instead of from mtd?
 
-The current implementation uses this logic. (time-manager.cpp:300)
-Actually the above table is the summary of the current implementation's logic.
+In uboot, we can use tftp to load the kernel and initrd to specific address,
+and use `bootm` command to start the kernel.
+E.g. for witherspoon:
+tftp 0x80001000 kernel
+tftp 0x81000000 initrd
+bootm 0x80001000 0x81000000
 
 >
->> If my understanding is correct, then we can see:
->> * NTP/HOST is invalid case, such case shall not exist, the current
->> implementation
->>   either hacks settingsd to change the mode to MANUAL, or just behaves
->> like MANUAL;
->
-> When the 'host' owns the clock, 'ntp' vs 'manual' is irrelevant.
+> 2. Are you still using this? Building the extra .cpio.lzma.u-boot is
+> kind of slow, with an extra ~45 seconds to do 'find | cpio | lzma;
+> mkimage' every build, and it can't be parallelized.
 
-OK
+I believe someone uses this, since it does not require to flash the image to
+the NOR flash, and make it easier to test new build.
 
 >
->> * NTP/BOTH has the same behavior as MANULA/HOST, they can be merged.
+> I ask because I mailed a change to remove those image products from
+> the build, then followed the 'blame' to this use case:
+> https://gerrit.openbmc-project.xyz/#/c/1957/
 >
-> No, these are significantly different.  NTP/BOTH means that we run the
-> NTP client on the BMC but allow either side to set the time.
-> MANUAL/HOST means we do not run the NTP client and the BMC is prohibited
-> from setting the time in any way.
-
-Yup, with or without NTP means BMC will run or disable NTP client.
-But the "same behavior" I mean here is to refer that if set BMC/HOST
-time is allowed
-or not, the current logic:
-NTP/BOTH: setting BMC time is not allowed (you mentioned above that this shall
-be allowed, but the current implementation does not allow it); setting
-HOST time is allowed.
-MANUAL/HOST: setting BMC time is not allowed, setting HOST time is allowed.
-They are the same.
-
-But if your suggestion that in NTP/BOTH setting BMC is allowed, then
-the behavior will be
-different.
-
->
->> That's why I propose to combine the settings to:
->> * NTP-BMC
->> * NTP-SPLIT
->> * NTP-BOTH (or MANUAL-HOST)
->> * MANUAL-BMC
->> * MANUAL-SPLIT
->> * MANUAL-BOTH
->>
->> Then we don't have to "hack" or "disagree" with settingsd, and the
->> logic could be
->> a little simpler.
->
-> 1. NTP vs Manual controls if the NTP-client is running.
-> 2. Owner controls who is allowed to set the time.
-
-Sure. Let's keep the current mode and time separately.
-But please confirm the behavior of setting BCM/HOST time in each
-combination (the table)
-
->
-> --
-> Patrick Williams
+> cheers
+> xo
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
