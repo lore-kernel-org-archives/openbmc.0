@@ -1,33 +1,45 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <xow@google.com>
+Received: from mail-qk0-x230.google.com (mail-qk0-x230.google.com
+ [IPv6:2607:f8b0:400d:c09::230])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v4rCn1jPHzDqHW
- for <openbmc@lists.ozlabs.org>; Sat, 21 Jan 2017 06:21:09 +1100 (AEDT)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1484940061165961.5955142240729;
- Fri, 20 Jan 2017 11:21:01 -0800 (PST)
-Date: Fri, 20 Jan 2017 13:20:59 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: vishwa <vishwa@linux.vnet.ibm.com>
-Cc: Mine <mine260309@gmail.com>,
-	OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: RFC: new design of phosphor-time-manager on sdbusplus
-Message-ID: <20170120192059.GD5120@heinlein.lan>
-References: <CAARXrtkPMixp9M0SYyaeP4_j83mRRXNG1O2Tf24rL5OH6CbJvg@mail.gmail.com>
- <20170116194447.d3yzsldsu3qsl5sz@asimov>
- <CAARXrtnHD0s=dMKJwy_XqJ==cpamDiVPn8c4K=+ZPso1d0gSBg@mail.gmail.com>
- <20170118144408.GA5120@heinlein.lan>
- <b5a30dfb-8b32-ef9d-f928-a6def24e21f1@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v513t3s9szDqVt
+ for <openbmc@lists.ozlabs.org>; Sat, 21 Jan 2017 12:59:54 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="GhyIX92U"; 
+ dkim-atps=neutral
+Received: by mail-qk0-x230.google.com with SMTP id u25so28558558qki.2
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Jan 2017 17:59:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=jMcDfYxQb52+rh7CBY0/GVWazTuGR+QlIMfZvoDF+Cw=;
+ b=GhyIX92U9cMouVASfLLSvxQFbMcUYX7J9GDQLBJm7ACoVET1LZtjrF9cnNz73Bkuct
+ XLnOmvqnWtZJnz4RFlxFm9xNUg3QPXhjnxc4JmRHB6r1ZRYakz8wd8bSkAev2E+re/Hj
+ arsXx2KMVTpVVVBkP/y63vU1E7+nPRkaKk9wpte+/pJNskjg/QZVW2QtTw8VHcbSuecp
+ j87CbnYzul4fBLeW5figVK2wnwQtIAiadTKezRuK0JcDq7vQr2mHjdlmHB5j5vq9BdRu
+ ExXGFqfyUm85uPnH9pvdhZBccc7k/JeZXvfMq0p7m8VXKpYgq/Uhml+aUtycLO0GKykG
+ yp1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=jMcDfYxQb52+rh7CBY0/GVWazTuGR+QlIMfZvoDF+Cw=;
+ b=rRXNJOW0BpYJFJ8nWc9vhZMnq3QiMkL1Z/GdcgijTBkBCS0AKMYDWoSJWcHM1YVqQA
+ ibbWhfxOvMTbfmbngNS8gfL8gfi/Wp1BXe4HstDDRiUAdom/zzC0/lM+IyLNhqxa08Fs
+ 0lKSojNRsiWqTJhUqpsl3y88bMLORvKJRWWk+J+60VqDA98aU55jQ4MVjJFTV04WTBw2
+ 32qgx1EMPTIJCkvZvbVd2I4Ao8jrwU3g8GnedYqOoWuTSrPW4n/IE4gjoL6Fc+2al7aF
+ DTGV5gX14fthOd1UvIWaxZFnXB13q6NMfb211cbGZQ9W84RzOf7yPKtaKQ/Ek6v9r3bf
+ u0jA==
+X-Gm-Message-State: AIkVDXLmgfN0ME2tK4zPyZmP94LAOuq61bw99Cj4Wutj5bNcosoCi51wCSucNk7LImbFr7r4ixUGu1GbqFdZllgx
+X-Received: by 10.200.57.27 with SMTP id s27mr13886510qtb.230.1484963989248;
+ Fri, 20 Jan 2017 17:59:49 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="/3yNEOqWowh/8j+e"
-Content-Disposition: inline
-In-Reply-To: <b5a30dfb-8b32-ef9d-f928-a6def24e21f1@linux.vnet.ibm.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
+Received: by 10.140.21.116 with HTTP; Fri, 20 Jan 2017 17:59:48 -0800 (PST)
+From: Xo Wang <xow@google.com>
+Date: Fri, 20 Jan 2017 17:59:48 -0800
+Message-ID: <CAPH-5w5h5B5PwPuYDcTyRC8Ea-y4ryxsQ8+q2JtJxc2Oi9+ZWg@mail.gmail.com>
+Subject: Does anyone tftpboot the userspace image?
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -39,58 +51,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Jan 2017 19:21:09 -0000
+X-List-Received-Date: Sat, 21 Jan 2017 01:59:55 -0000
 
+Hi folks,
 
---/3yNEOqWowh/8j+e
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I noticed from this discussion
+https://lists.ozlabs.org/pipermail/openbmc/2016-April/thread.html#2738
+that kernel developers were tftpbooting the userspace image from a
+obmc-phosphor-image-<machine>.cpio.lzma.u-boot file.
 
-On Thu, Jan 19, 2017 at 05:54:02PM +0530, vishwa wrote:
-=20
-> I thought and partially agree to their concern. For changing the owner=20
-> *away from SPLIT*, we can actually consume that readily. Its only the=20
-> change * TO SPLIT* that needs to delayed until off.
+1. How does/did that work? I guess you needed a custom init in the
+initrd to load the u-boot container (?) instead of from mtd?
 
-Actually the opposite.  You can safely switch to split while running,
-but switch from split or host needs to be deferred.
+2. Are you still using this? Building the extra .cpio.lzma.u-boot is
+kind of slow, with an extra ~45 seconds to do 'find | cpio | lzma;
+mkimage' every build, and it can't be parallelized.
 
-> >      2. If the process restarts we need it to go back into the "current
-> >         state" and not the "requested state".  How do we make this
-> >         happen?  The current implementation might also have a flaw here
-> >         so maybe we log it as an issue for follow up.
->=20
->=20
-> The current implementation only sets the values based on what was set=20
-> prior to reset.
-> It does that by consuming the saved data in /var/lib/obmc/saved_*. So=20
-> there is not an issue there.
+I ask because I mailed a change to remove those image products from
+the build, then followed the 'blame' to this use case:
+https://gerrit.openbmc-project.xyz/#/c/1957/
 
-Sounds good.
-
---=20
-Patrick Williams
-
---/3yNEOqWowh/8j+e
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAEBCAAGBQJYgmMbAAoJEKsDR8wtAMEZreEQAJd7N6xqHKkHYrPvDDVadeTM
-67jA3FPM2LgHx4EaDchURNaa5TJPJBpACVsB+dcY1teWIR8GMLxn6lAclV2mHBlV
-xokYcmeZa5nAsejQWSerBLd9xMrY9kPWOQ5xwtooV/C23bX9rYjX3IH4zSGa2z/T
-0n/szShD+fosoPTdsb9LhGI+XNu/L4VPOjEJbzlCIjsARMoJ30sGfiN0eb+/AxFs
-Qyu9hDHuh8a2fXXWt9XcawOpD3wfD6FeWCgFok2C18mFDHowaJayiLm99DK4c70t
-JDjCXr7JAn8tcV4X2Bu33GcopvKU+oY0l3gxR0B7nZj/4pcy2DE3V3zeqqHDNz1l
-mNRKN7BdZu3jisvNA/G7+SY+hWRFhrqHCTdgX/PcjuXO82w5Bo6aG8ILww6hxxcO
-pxnvnaU8+Y9qyaNwrX6x3XJH7SRdXbz4CH1C/lM5oCuEZAkspqkDey0YhshzkRnj
-JZUVCJOlJGvj27FSeo/5N9+VBYFU4Cxq5W/KWntNQS2jWHdOPJ/Vy2Q2VF08Xi5d
-pBfEmZNfWH8TEbh3sqat+791MaWG7VAOhwEJACSsK8mYfl8pdcX0uAYk2mT2gMkD
-C0FByZ+BE3lwXHthU+P56LZi38nDhdS1fS1p6qtOEzDgKCHjz9fyOcPP/9o0KkO2
-cdOgUq5gkc3C7hAgC4fJ
-=WmL9
------END PGP SIGNATURE-----
-
---/3yNEOqWowh/8j+e--
+cheers
+xo
