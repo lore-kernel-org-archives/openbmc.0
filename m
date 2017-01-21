@@ -1,49 +1,37 @@
-Return-Path: <mine260309@gmail.com>
-Received: from mail-qt0-x230.google.com (mail-qt0-x230.google.com
- [IPv6:2607:f8b0:400d:c0d::230])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <clg@kaod.org>
+X-Greylist: delayed 4578 seconds by postgrey-1.36 at bilbo;
+ Sun, 22 Jan 2017 04:11:19 AEDT
+Received: from 10.mo3.mail-out.ovh.net (10.mo3.mail-out.ovh.net
+ [87.98.165.232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v5Cxj0wJ7zDqX2
- for <openbmc@lists.ozlabs.org>; Sat, 21 Jan 2017 21:10:17 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="qczC9gjR"; 
- dkim-atps=neutral
-Received: by mail-qt0-x230.google.com with SMTP id x49so66650887qtc.2
- for <openbmc@lists.ozlabs.org>; Sat, 21 Jan 2017 02:10:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=p9iy4XYgq2DGNuwNXH3rd2HAXlFMrtRsVmC9au0L3Ek=;
- b=qczC9gjRuQ4/iBQrq+6g1gmw9sU6cXr/youUuuz8E6gYVmMnsxn3rw/R13waRvr1fK
- e+cRwAQVqqXmQe8SOvigUU9nZ3xmpKPzgzPQOXeeOAwHqVTGA0bM9NidbVRNFjkcaagE
- W+ji9UBpIAGlOO7C8CRCEexkO99P3JIdxNFhw97WrCA/eeNHp1EtfSnwDgaJlhJn/91A
- WURdcxdepRf9g36k7hSbDG6AicJDt2MH0K3ObFPfm7mrBtQ9mneK2hCJU3+18F2FhTEq
- JvUjY7IZzCA/oZI5YUQIlx27viAP2NRcCNcR5TTu+kchf0MTkBksGxwTTH+ibX3eiyLQ
- 8iuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=p9iy4XYgq2DGNuwNXH3rd2HAXlFMrtRsVmC9au0L3Ek=;
- b=gwm6d/CU1aZ0rWpKKFlgmh7w141CLSjLAF4+Mrpn3dd734V9dZE5pZ43CZiEY9izUd
- /JX7fxUg8p5RnkjK8JcZ6m4advbimTpe7qedfMjhQwYSU7yAIMoescKaDmbrhXeVna2h
- 7YV9S9IzQTO6UQ5Zj1j68OMyezKktjGCifj4ITH8PfkMZYHwbM912hlVHMg19sW6asPk
- Mh8ncW+GUWNEX1OOAIChFaLDwCGw3AG3+NELHcFcU4dPxmUFRyGSJ7h3vySgUPKBjlXN
- HWikz0Y/sJtLwAW+Ee9OevxcDYr4nrHO6WYyognezKzNTqi16lbR/Czk9ztiMwFSQF4X
- guVA==
-X-Gm-Message-State: AIkVDXJiF5xRCmFhyDVunseyWXTlFTiLlFTgJeRrZ+9Ys3hO51Q54iSBlEOAaNdo/bkYgVNrhnGOcyihrP24HA==
-X-Received: by 10.237.47.33 with SMTP id l30mr16169382qtd.62.1484993414899;
- Sat, 21 Jan 2017 02:10:14 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.12.137.122 with HTTP; Sat, 21 Jan 2017 02:10:14 -0800 (PST)
-In-Reply-To: <CAPH-5w5h5B5PwPuYDcTyRC8Ea-y4ryxsQ8+q2JtJxc2Oi9+ZWg@mail.gmail.com>
-References: <CAPH-5w5h5B5PwPuYDcTyRC8Ea-y4ryxsQ8+q2JtJxc2Oi9+ZWg@mail.gmail.com>
-From: Mine <mine260309@gmail.com>
-Date: Sat, 21 Jan 2017 18:10:14 +0800
-Message-ID: <CAARXrtmP1i4NZNO+jE5WmS7QRLd3d7E_yR8dDu8qrx82QnOX9Q@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v5PHW6vFwzDqVS
+ for <openbmc@lists.ozlabs.org>; Sun, 22 Jan 2017 04:11:19 +1100 (AEDT)
+Received: from player693.ha.ovh.net (b9.ovh.net [213.186.33.59])
+ by mo3.mail-out.ovh.net (Postfix) with ESMTP id 59F2F771E4
+ for <openbmc@lists.ozlabs.org>; Sat, 21 Jan 2017 16:54:55 +0100 (CET)
+Received: from zorba.kaod.org (LFbn-1-10647-27.w90-89.abo.wanadoo.fr
+ [90.89.233.27]) (Authenticated sender: postmaster@kaod.org)
+ by player693.ha.ovh.net (Postfix) with ESMTPSA id 171FF440071;
+ Sat, 21 Jan 2017 16:54:48 +0100 (CET)
 Subject: Re: Does anyone tftpboot the userspace image?
-To: Xo Wang <xow@google.com>
+To: Mine <mine260309@gmail.com>, Xo Wang <xow@google.com>
+References: <CAPH-5w5h5B5PwPuYDcTyRC8Ea-y4ryxsQ8+q2JtJxc2Oi9+ZWg@mail.gmail.com>
+ <CAARXrtmP1i4NZNO+jE5WmS7QRLd3d7E_yR8dDu8qrx82QnOX9Q@mail.gmail.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <c4e8de61-cca0-ab23-f1ac-fb5d52b0e7b8@kaod.org>
+Date: Sat, 21 Jan 2017 16:54:48 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.6.0
+MIME-Version: 1.0
+In-Reply-To: <CAARXrtmP1i4NZNO+jE5WmS7QRLd3d7E_yR8dDu8qrx82QnOX9Q@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Ovh-Tracer-Id: 9533557463459531522
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrfeelgedrgeehgdekvdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,45 +43,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 21 Jan 2017 10:10:18 -0000
+X-List-Received-Date: Sat, 21 Jan 2017 17:11:20 -0000
 
-Hi Xo,
+Hello, 
 
+On 01/21/2017 11:10 AM, Mine wrote:
+> Hi Xo,
+> 
+> 
+> On Sat, Jan 21, 2017 at 9:59 AM, Xo Wang <xow@google.com> wrote:
+>> Hi folks,
+>>
+>> I noticed from this discussion
+>> https://lists.ozlabs.org/pipermail/openbmc/2016-April/thread.html#2738
+>> that kernel developers were tftpbooting the userspace image from a
+>> obmc-phosphor-image-<machine>.cpio.lzma.u-boot file.
+>>
+>> 1. How does/did that work? I guess you needed a custom init in the
+>> initrd to load the u-boot container (?) instead of from mtd?
+> 
+> In uboot, we can use tftp to load the kernel and initrd to specific address,
+> and use `bootm` command to start the kernel.
+> E.g. for witherspoon:
+> tftp 0x80001000 kernel
+> tftp 0x81000000 initrd
+> bootm 0x80001000 0x81000000
 
-On Sat, Jan 21, 2017 at 9:59 AM, Xo Wang <xow@google.com> wrote:
-> Hi folks,
->
-> I noticed from this discussion
-> https://lists.ozlabs.org/pipermail/openbmc/2016-April/thread.html#2738
-> that kernel developers were tftpbooting the userspace image from a
-> obmc-phosphor-image-<machine>.cpio.lzma.u-boot file.
->
-> 1. How does/did that work? I guess you needed a custom init in the
-> initrd to load the u-boot container (?) instead of from mtd?
+yes. There is nothing more to do to use these images. Just replace
+initrd by obmc-phosphor-image-$platform.cpio.lzma.u-boot
 
-In uboot, we can use tftp to load the kernel and initrd to specific address,
-and use `bootm` command to start the kernel.
-E.g. for witherspoon:
-tftp 0x80001000 kernel
-tftp 0x81000000 initrd
-bootm 0x80001000 0x81000000
+>>
+>> 2. Are you still using this? Building the extra .cpio.lzma.u-boot is
+>> kind of slow, with an extra ~45 seconds to do 'find | cpio | lzma;
+>> mkimage' every build, and it can't be parallelized.
+> 
+> I believe someone uses this, since it does not require to flash the image to
+> the NOR flash, and make it easier to test new build.
 
->
-> 2. Are you still using this? Building the extra .cpio.lzma.u-boot is
-> kind of slow, with an extra ~45 seconds to do 'find | cpio | lzma;
-> mkimage' every build, and it can't be parallelized.
+yes. You can also use it to test an older build to check for 
+regressions or to restore a system that was trashed by a buggy 
+kernel. I have used it a few times and I still do to boot 
+openbmc-1.0 images. It would be nice to keep these images. 
 
-I believe someone uses this, since it does not require to flash the image to
-the NOR flash, and make it easier to test new build.
+Thanks,
 
->
-> I ask because I mailed a change to remove those image products from
-> the build, then followed the 'blame' to this use case:
-> https://gerrit.openbmc-project.xyz/#/c/1957/
->
-> cheers
-> xo
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+C. 
