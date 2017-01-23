@@ -1,48 +1,70 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <msbarth@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v6Kb50ZwYzDqRl
- for <openbmc@lists.ozlabs.org>; Mon, 23 Jan 2017 16:28:01 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="NijyknmX"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="eqdZBfSt"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id F2CC8212AF;
- Mon, 23 Jan 2017 00:27:58 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Mon, 23 Jan 2017 00:27:59 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:message-id:subject:to:x-me-sender:x-me-sender
- :x-sasl-enc:x-sasl-enc; s=mesmtp; bh=vyBBGi2nGIF7X6334QklF7R++Ws
- =; b=NijyknmXufPu7crvAmhu2c6YegRTCwRyn+GpN9/G83qlE2GNaNZpBmOyPMd
- 8VtVinzUueLI+5muTSWf9DTupJsoRWPE5t001cXvndON+MjcJWj6LeYkrW2mqEdY
- 2QgJLVd2kJuLvIzNANowHMe4QXKHDoLeFq1aL6GwbYqC2/hg=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=vy
- BBGi2nGIF7X6334QklF7R++Ws=; b=eqdZBfSt2CUXVmfpkQmuqIku9QAdJmzdnB
- gzbsKRI6hnOZrfozab8JGiG1Cp6uDUSRZrmgUD692ojoP2YsUD7kHN8dBSFhM6go
- UMwCITBo/pi+KcfjPmmPdWrrWz4TBqPx3oeWokz4HYTLr8POgq7dLH7Io8mdvxjD
- NPG1HJKZI=
-X-ME-Sender: <xms:XpSFWHPH8BLn-IGIsuerq-GiKDYHK3Izh5jgd0sgkfEFPkHbLHAWjQ>
-X-Sasl-enc: I3xcWgxXRWn8wUOTkY6te9OZUWnEadWxrNQ9iOhnFJu+ 1485149278
-Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 5D7567E0EC;
- Mon, 23 Jan 2017 00:27:55 -0500 (EST)
-From: Andrew Jeffery <andrew@aj.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v6bZ359Z7zDqJn
+ for <openbmc@lists.ozlabs.org>; Tue, 24 Jan 2017 02:58:03 +1100 (AEDT)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v0NFscv8098532
+ for <openbmc@lists.ozlabs.org>; Mon, 23 Jan 2017 10:58:00 -0500
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 285jbt8e84-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 23 Jan 2017 10:58:00 -0500
+Received: from localhost
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <msbarth@linux.vnet.ibm.com>;
+ Mon, 23 Jan 2017 10:57:59 -0500
+Received: from d01dlp01.pok.ibm.com (9.56.250.166)
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Mon, 23 Jan 2017 10:57:56 -0500
+Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
+ [9.57.198.29])
+ by d01dlp01.pok.ibm.com (Postfix) with ESMTP id 5FAB638C8041;
+ Mon, 23 Jan 2017 10:57:57 -0500 (EST)
+Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
+ [9.57.199.110])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v0NFvui010813910; Mon, 23 Jan 2017 15:57:56 GMT
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 3B3A1AE03B;
+ Mon, 23 Jan 2017 10:57:56 -0500 (EST)
+Received: from [9.10.99.149] (unknown [9.10.99.149])
+ by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP id EC9E2AE05C;
+ Mon, 23 Jan 2017 10:57:55 -0500 (EST)
 To: Joel Stanley <joel@jms.id.au>
-Cc: Andrew Jeffery <andrew@aj.id.au>, Rob Herring <robh+dt@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Russell King <linux@armlinux.org.uk>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-Subject: [PATCH] aspeed: dts: g5: Update GPIO pin range to mux extra banks
-Date: Mon, 23 Jan 2017 15:57:45 +1030
-Message-Id: <20170123052745.9575-1-andrew@aj.id.au>
-X-Mailer: git-send-email 2.9.3
+Cc: bradleyb@fuzziesquirrel.com, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: Matt Barth <msbarth@linux.vnet.ibm.com>
+Subject: GPIO expander user space access(ie. pca9552)
+Date: Mon, 23 Jan 2017 09:58:26 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.4.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17012315-0040-0000-0000-0000026F4310
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006484; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000200; SDB=6.00811585; UDB=6.00395705; IPR=6.00589001; 
+ BA=6.00005084; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014015; XFM=3.00000011;
+ UTC=2017-01-23 15:57:58
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17012315-0041-0000-0000-000006624712
+Message-Id: <6af19fb7-e5aa-bcb5-8027-9cf609e30eda@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-01-23_13:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1701230216
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,30 +76,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 23 Jan 2017 05:28:01 -0000
+X-List-Received-Date: Mon, 23 Jan 2017 15:58:04 -0000
 
-The Aspeed GPIO driver recently gained support for banks Y, Z, AA, AB and AC.
-Update the devicetree so GPIO requests for these pins are routed via pinmux,
-else the export succeeds but the GPIOs are non-functional.
+Is there a defined process/interface to access GPIO expanders from user 
+space to be able to determine when the state changes? Possibly polling a 
+fd or getting notified on the state change?
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- arch/arm/boot/dts/aspeed-g5.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Previously this was an i2c device that was accessed over i2c and the set 
+of interested bits were simply read into the application. An example is 
+the use of a pca9552 for presence detection on chassis fans.
 
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index b664fe380936..a9305b964b11 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -920,8 +920,8 @@
- 				compatible = "aspeed,ast2500-gpio";
- 				reg = <0x1e780000 0x1000>;
- 				interrupts = <20>;
--				gpio-ranges = <&pinctrl 0 0 220>;
- 				interrupt-controller;
-+				gpio-ranges = <&pinctrl 0 0 232>;
- 			};
- 
- 			timer: timer@1e782000 {
--- 
-2.9.3
+Thanks,
+
+Matt
