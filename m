@@ -3,46 +3,49 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v6ydj4jZCzDq8b
- for <openbmc@lists.ozlabs.org>; Tue, 24 Jan 2017 17:17:29 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v6ydm46LjzDq8b
+ for <openbmc@lists.ozlabs.org>; Tue, 24 Jan 2017 17:17:32 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="b2Zxi2ti"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Nu0Q9nan"; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="REc8dx6v"; dkim-atps=neutral
+ header.b="IFu9HJ9o"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 80AF82084A;
- Tue, 24 Jan 2017 01:17:27 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id 82E9B208C4;
+ Tue, 24 Jan 2017 01:17:30 -0500 (EST)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Tue, 24 Jan 2017 01:17:27 -0500
+ by compute4.internal (MEProxy); Tue, 24 Jan 2017 01:17:30 -0500
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:message-id:subject:to:x-me-sender:x-me-sender
- :x-sasl-enc:x-sasl-enc; s=mesmtp; bh=02G2eWOxAmGpRGz2IOT9rwVwrCQ
- =; b=b2Zxi2tiljiMs9qJIuTkCE62je3BQfZHim0JgHVlw4HLtjYJHgfw6KcmriC
- 4TJ3+STXYYk/LXJF3uXwqwwhzBY+eiyVPlj/f7n4s8187p4S431N2Vff0ISe3Lg4
- p5w0LiJ3Ci0UNLkFX+Z2bnNf1jvnMyx2MlWLa/hw1zCQRRYs=
+ :date:from:in-reply-to:message-id:references:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=GIW
+ FJmVHWIpLXu+p+r8yGkZhfvE=; b=Nu0Q9nanIHEYPjPSM520xlfjdWm1zdr6wj/
+ j1jqDAyMG22UZ07HfbNfkUv53Z2TnTDZj6/mbzzBsCKudsP7zpNCNaVqSoGh2NTG
+ pVTI1U2Wz/b/wLZZoed+n2g1B7NNiJRvtv0UBUfi57Pkd5Z15HEjplibQmFzBEu6
+ 3Y8ymRrw=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=02
- G2eWOxAmGpRGz2IOT9rwVwrCQ=; b=REc8dx6v9G+mXAudbK6kHoZ40jRuL5Pdnz
- S2b0jsXJi5mFdqwADtXqs34PXiYAzGyWU9+pO8UoJmMSp+X4SHNSa6Y96qv1l8OX
- M7/lnxwfs5HBYWMXrl9iS3xxl/Xy5zPynAEiNbF7NUgwyLQZuj8x6zS1TWZDPIz6
- fcszb7IB4=
-X-ME-Sender: <xms:d_GGWG9Qs6c5FeeiaFlfTpbYk2cPSX_no0q45RzYdFOTGp6uZVyXJA>
-X-Sasl-enc: IiJ0EhO2JQ57bfhzXmr2bkVGBEDyxrhdhL3NiyaxK9tU 1485238646
+ messagingengine.com; h=cc:date:from:in-reply-to:message-id
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=smtpout; bh=GIWFJmVHWIpLXu+p+r8yGkZhfvE=; b=IFu9H
+ J9oueln39CvquTMsuJTzwo0OUwZaQcxfJfQoqJcddhILB+WOpoCDP5es2JTyq1o+
+ ucSW3YP8hw3xAh7ENjUTPYQqLxN5OKEmc9TxkmcqmDHU3L5ht+4Dm5WHgL3tpyxd
+ +QrKwJXGil0BPKmLiZ5wEfVHoJxUZNffq7qtRo=
+X-ME-Sender: <xms:evGGWG8M63jff2nuANlfGp7bDxrLjEMIcik0_2YKwN1WhgcBfIC6nQ>
+X-Sasl-enc: mpY4cI40LDbadijjcUCLzSboCmgwgN3UURMyBACAzWsu 1485238649
 Received: from keelia.au.ibm.com (ppp203-122-213-247.static.internode.on.net
  [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id DF53024180;
- Tue, 24 Jan 2017 01:17:24 -0500 (EST)
+ by mail.messagingengine.com (Postfix) with ESMTPA id EC0FC24066;
+ Tue, 24 Jan 2017 01:17:27 -0500 (EST)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Linus Walleij <linus.walleij@linaro.org>
-Cc: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
- linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org
-Subject: [PATCH v2 0/2] gpio: aspeed: Implement banks Y, Z, AA, AB and AC
-Date: Tue, 24 Jan 2017 16:46:44 +1030
-Message-Id: <20170124061646.9317-1-andrew@aj.id.au>
+Cc: Joel Stanley <joel@jms.id.au>, linux-gpio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
+ Andrew Jeffery <andrew@aj.id.au>
+Subject: [PATCH v2 1/2] gpio: aspeed: Make bank names strings
+Date: Tue, 24 Jan 2017 16:46:45 +1030
+Message-Id: <20170124061646.9317-2-andrew@aj.id.au>
 X-Mailer: git-send-email 2.9.3
+In-Reply-To: <20170124061646.9317-1-andrew@aj.id.au>
+References: <20170124061646.9317-1-andrew@aj.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,30 +57,70 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 Jan 2017 06:17:30 -0000
+X-List-Received-Date: Tue, 24 Jan 2017 06:17:32 -0000
 
-Hi Linus,
+From: Joel Stanley <joel@jms.id.au>
 
-v2 simply fixes an issue identified by the kbuild test robot. v1 is available
-at: https://lkml.org/lkml/2017/1/23/12
+The Aspeed SoCs have more GPIOs than can be represented with A-Z. The
+documentation uses two letter names such as AA and AB, so make the names
+a three-character array in the bank struct to accommodate this.
 
-This short series resolves a TODO comment in the Aspeed GPIO driver regarding
-banks Y, Z, AA, AB and AC by implementing their support. It's a little involved
-given some of the characteristics of these banks, but hopefully nothing too
-controversial.
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ drivers/gpio/gpio-aspeed.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-Cheers,
-
-Andrew
-
-Andrew Jeffery (1):
-  gpio: aspeed: Add banks Y, Z, AA, AB and AC
-
-Joel Stanley (1):
-  gpio: aspeed: Make bank names strings
-
- drivers/gpio/gpio-aspeed.c | 187 ++++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 166 insertions(+), 21 deletions(-)
-
+diff --git a/drivers/gpio/gpio-aspeed.c b/drivers/gpio/gpio-aspeed.c
+index 03a5925a423c..20f6f8ae4671 100644
+--- a/drivers/gpio/gpio-aspeed.c
++++ b/drivers/gpio/gpio-aspeed.c
+@@ -28,39 +28,39 @@ struct aspeed_gpio {
+ struct aspeed_gpio_bank {
+ 	uint16_t	val_regs;
+ 	uint16_t	irq_regs;
+-	const char	names[4];
++	const char	names[4][3];
+ };
+ 
+ static const struct aspeed_gpio_bank aspeed_gpio_banks[] = {
+ 	{
+ 		.val_regs = 0x0000,
+ 		.irq_regs = 0x0008,
+-		.names = { 'A', 'B', 'C', 'D' },
++		.names = { "A", "B", "C", "D" },
+ 	},
+ 	{
+ 		.val_regs = 0x0020,
+ 		.irq_regs = 0x0028,
+-		.names = { 'E', 'F', 'G', 'H' },
++		.names = { "E", "F", "G", "H" },
+ 	},
+ 	{
+ 		.val_regs = 0x0070,
+ 		.irq_regs = 0x0098,
+-		.names = { 'I', 'J', 'K', 'L' },
++		.names = { "I", "J", "K", "L" },
+ 	},
+ 	{
+ 		.val_regs = 0x0078,
+ 		.irq_regs = 0x00e8,
+-		.names = { 'M', 'N', 'O', 'P' },
++		.names = { "M", "N", "O", "P" },
+ 	},
+ 	{
+ 		.val_regs = 0x0080,
+ 		.irq_regs = 0x0118,
+-		.names = { 'Q', 'R', 'S', 'T' },
++		.names = { "Q", "R", "S", "T" },
+ 	},
+ 	{
+ 		.val_regs = 0x0088,
+ 		.irq_regs = 0x0148,
+-		.names = { 'U', 'V', 'W', 'X' },
++		.names = { "U", "V", "W", "X" },
+ 	},
+ 	/*
+ 	 * A bank exists for { 'Y', 'Z', "AA", "AB" }, but is not implemented.
 -- 
 2.9.3
