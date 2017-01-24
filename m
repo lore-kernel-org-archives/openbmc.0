@@ -3,50 +3,46 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v6pTH5zNJzDqNM
- for <openbmc@lists.ozlabs.org>; Tue, 24 Jan 2017 11:09:39 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v6ydj4jZCzDq8b
+ for <openbmc@lists.ozlabs.org>; Tue, 24 Jan 2017 17:17:29 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="jkjSIPe3"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="b2Zxi2ti"; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="HKTWNXYA"; dkim-atps=neutral
+ header.b="REc8dx6v"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 48BD020AE5;
- Mon, 23 Jan 2017 19:09:34 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Mon, 23 Jan 2017 19:09:34 -0500
+ by mailout.nyi.internal (Postfix) with ESMTP id 80AF82084A;
+ Tue, 24 Jan 2017 01:17:27 -0500 (EST)
+Received: from frontend2 ([10.202.2.161])
+ by compute4.internal (MEProxy); Tue, 24 Jan 2017 01:17:27 -0500
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=Ln5QwKK9kcz5lwcbQVOokESs8pI=; b=jkjSIP
- e3SdNgRtno7UtPw+RQomORECj7qek4W+a7tLp7dSyLYZ21qBWpwWPiHtekwGxH7M
- lafiF2LAUFT4AhpeO2LGDVax403IR5xA9Lg8CsX5QDdSsG7CtnlzfoBLQy6cpTcP
- PIu3d2D/3OpPMN5RDQqav79E2eMYxZLzLsdyU=
+ :date:from:message-id:subject:to:x-me-sender:x-me-sender
+ :x-sasl-enc:x-sasl-enc; s=mesmtp; bh=02G2eWOxAmGpRGz2IOT9rwVwrCQ
+ =; b=b2Zxi2tiljiMs9qJIuTkCE62je3BQfZHim0JgHVlw4HLtjYJHgfw6KcmriC
+ 4TJ3+STXYYk/LXJF3uXwqwwhzBY+eiyVPlj/f7n4s8187p4S431N2Vff0ISe3Lg4
+ p5w0LiJ3Ci0UNLkFX+Z2bnNf1jvnMyx2MlWLa/hw1zCQRRYs=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=Ln5QwKK9kcz5lw
- cbQVOokESs8pI=; b=HKTWNXYA/pPfBbhnTyYBCF98RBL46w78AoAuSYVY5vByUq
- 86OJD5mlPA5b0ru7feM/bIuB1BEdWHoPr0VdNBOWYRCCgGniuwzIEiotRl+GvEFh
- 8FqnX1UUF320rs9gdWT64Nfsafd/Uje+RnjFNwoPxxvc80kUio+/ZELh88dE8=
-X-ME-Sender: <xms:PpuGWA8o3EWE7EBZ3HYqbxK7x2UlLGC5YrCxs7nOnw5paZngGpfrfg>
-X-Sasl-enc: rt8mZxsrghfLLRa0M4fDJOk0F47yBHkYuqsPSE6/cUzz 1485216573
-Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
+ messagingengine.com; h=cc:date:from:message-id:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=02
+ G2eWOxAmGpRGz2IOT9rwVwrCQ=; b=REc8dx6v9G+mXAudbK6kHoZ40jRuL5Pdnz
+ S2b0jsXJi5mFdqwADtXqs34PXiYAzGyWU9+pO8UoJmMSp+X4SHNSa6Y96qv1l8OX
+ M7/lnxwfs5HBYWMXrl9iS3xxl/Xy5zPynAEiNbF7NUgwyLQZuj8x6zS1TWZDPIz6
+ fcszb7IB4=
+X-ME-Sender: <xms:d_GGWG9Qs6c5FeeiaFlfTpbYk2cPSX_no0q45RzYdFOTGp6uZVyXJA>
+X-Sasl-enc: IiJ0EhO2JQ57bfhzXmr2bkVGBEDyxrhdhL3NiyaxK9tU 1485238646
+Received: from keelia.au.ibm.com (ppp203-122-213-247.static.internode.on.net
  [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 45B717E2DE;
- Mon, 23 Jan 2017 19:09:31 -0500 (EST)
-Message-ID: <1485216565.4137.9.camel@aj.id.au>
-Subject: Re: GPIO expander user space access(ie. pca9552)
+ by mail.messagingengine.com (Postfix) with ESMTPA id DF53024180;
+ Tue, 24 Jan 2017 01:17:24 -0500 (EST)
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Matt Barth <msbarth@linux.vnet.ibm.com>, Joel Stanley <joel@jms.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, bradleyb@fuzziesquirrel.com
-Date: Tue, 24 Jan 2017 10:39:25 +1030
-In-Reply-To: <6af19fb7-e5aa-bcb5-8027-9cf609e30eda@linux.vnet.ibm.com>
-References: <6af19fb7-e5aa-bcb5-8027-9cf609e30eda@linux.vnet.ibm.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-elKI2HsaYHmiDmjtG6VK"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+To: Linus Walleij <linus.walleij@linaro.org>
+Cc: Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
+ linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+Subject: [PATCH v2 0/2] gpio: aspeed: Implement banks Y, Z, AA, AB and AC
+Date: Tue, 24 Jan 2017 16:46:44 +1030
+Message-Id: <20170124061646.9317-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.9.3
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,51 +54,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 Jan 2017 00:09:40 -0000
+X-List-Received-Date: Tue, 24 Jan 2017 06:17:30 -0000
 
+Hi Linus,
 
---=-elKI2HsaYHmiDmjtG6VK
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+v2 simply fixes an issue identified by the kbuild test robot. v1 is available
+at: https://lkml.org/lkml/2017/1/23/12
 
-On Mon, 2017-01-23 at 09:58 -0600, Matt Barth wrote:
-> Is there a defined process/interface to access GPIO expanders from user=
-=C2=A0
-> space to be able to determine when the state changes? Possibly polling a=
-=C2=A0
-> fd or getting notified on the state change?
->=20
-> Previously this was an i2c device that was accessed over i2c and the set=
-=C2=A0
-> of interested bits were simply read into the application. An example is=
-=C2=A0
-> the use of a pca9552 for presence detection on chassis fans.
+This short series resolves a TODO comment in the Aspeed GPIO driver regarding
+banks Y, Z, AA, AB and AC by implementing their support. It's a little involved
+given some of the characteristics of these banks, but hopefully nothing too
+controversial.
 
-I expect it should be implemented as a gpiochip driver in the kernel
-and exposed via the usual methods to userspace (GPIO chardev and sysfs,
-though sysfs is considered deprecated).
+Cheers,
 
 Andrew
---=-elKI2HsaYHmiDmjtG6VK
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
 
------BEGIN PGP SIGNATURE-----
+Andrew Jeffery (1):
+  gpio: aspeed: Add banks Y, Z, AA, AB and AC
 
-iQIcBAABCgAGBQJYhps1AAoJEJ0dnzgO5LT5JLYP/A6LcdgE2zEn7JO5sDekegAb
-gmdKl+s+cw+iEv3dBfM9hwTC9gLv7+/uyzBjBUWwHZG/gEWiRnLCsGsQ/OBbwYHo
-ssOHl5IHuJSD91jGdXH3kj2TTB1oIYh9Y8w5uT9Nzja4AVjpa6dw1xJYtMj+Zqx/
-3TE77PPxSTw7ziLdTTau9IUpk5BwLkxLQ3Db5fJS5Vnd/FyB9RePdZuvHUoGMI9q
-5oURqfjzFfHqpXEnQxNxsRRWCbV1ydV1BVZvFEOdGE+G9owDlundJXEMRNb349Y9
-sq5eZukMv6WBKB3MlcGlAW/O7eOy8Gihc+z4vkcEYpaKtgwBGGO7iWOtpneb3jR8
-9TkXh3UOV7xrG114YS7N93qhZHCtv2EZIgOsfyAYyZAL59uS1PyrB+9N3JBTOzbQ
-lBdfj42SQFeXTW6Pdv6hb0LTJOoRIGuhpL9X6IRco9XXTvCvncUS5rhCYt18Yfii
-fyMwjGg6RBskf4ybkMGS/NNd5gd0AS4pOLCjsqQvqsL7hLLFyjxKCA6S48CSQx4v
-5YK55MM0oHAT9VXKdG4Lk6dHGTbQvRM8yIm2Mj/3bT1lL+CS15DxNTH49CCQ5bCq
-fJFL8rxOzIIpyWmIoUwJXdKfCWAp4FT9eWpYLZ6i5Ok4NyNwlaPT1E6Og3DKoJnt
-8pLBAj5yLTpimyyJuYea
-=wnja
------END PGP SIGNATURE-----
+Joel Stanley (1):
+  gpio: aspeed: Make bank names strings
 
---=-elKI2HsaYHmiDmjtG6VK--
+ drivers/gpio/gpio-aspeed.c | 187 ++++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 166 insertions(+), 21 deletions(-)
+
+-- 
+2.9.3
