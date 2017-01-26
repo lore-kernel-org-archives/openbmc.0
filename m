@@ -1,72 +1,53 @@
-Return-Path: <anoo@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <raltherr@google.com>
+Received: from mail-io0-x22e.google.com (mail-io0-x22e.google.com
+ [IPv6:2607:f8b0:4001:c06::22e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v8Qxr3JGbzDq62
- for <openbmc@lists.ozlabs.org>; Fri, 27 Jan 2017 02:36:31 +1100 (AEDT)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v0QFZGh0004382
- for <openbmc@lists.ozlabs.org>; Thu, 26 Jan 2017 10:36:28 -0500
-Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
- by mx0b-001b2d01.pphosted.com with ESMTP id 287ccmjhhq-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 26 Jan 2017 10:36:28 -0500
-Received: from localhost
- by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <anoo@linux.vnet.ibm.com>;
- Thu, 26 Jan 2017 08:36:10 -0700
-Received: from d03dlp02.boulder.ibm.com (9.17.202.178)
- by e37.co.us.ibm.com (192.168.1.137) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 26 Jan 2017 08:36:07 -0700
-Received: from b03cxnp08026.gho.boulder.ibm.com
- (b03cxnp08026.gho.boulder.ibm.com [9.17.130.18])
- by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id 6EA3E3E4004C;
- Thu, 26 Jan 2017 08:36:06 -0700 (MST)
-Received: from b03ledav001.gho.boulder.ibm.com
- (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v0QFa61P11469118; Thu, 26 Jan 2017 08:36:06 -0700
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 59AA96E041;
- Thu, 26 Jan 2017 08:36:06 -0700 (MST)
-Received: from adriana-mbp.austin.ibm.com (unknown [9.53.179.218])
- by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTPS id 179FD6E038;
- Thu, 26 Jan 2017 08:36:06 -0700 (MST)
-From: Adriana Kobylak <anoo@linux.vnet.ibm.com>
-Content-Type: multipart/alternative;
- boundary="Apple-Mail=_6AF7C3AE-A00B-48FF-8D87-5210ED02950E"
-Mime-Version: 1.0 (Mac OS X Mail 10.2 \(3259\))
-Subject: Re: OpenBMC Image Management
-Date: Thu, 26 Jan 2017 09:33:46 -0600
-In-Reply-To: <101001485427397@webcorp03h.yandex-team.ru>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-To: "Anton D. Kachalov" <mouse@yandex-team.ru>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v8Zzc4Z10zDq6X
+ for <openbmc@lists.ozlabs.org>; Fri, 27 Jan 2017 08:38:36 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="JcrlRoXJ"; 
+ dkim-atps=neutral
+Received: by mail-io0-x22e.google.com with SMTP id v96so47484237ioi.0
+ for <openbmc@lists.ozlabs.org>; Thu, 26 Jan 2017 13:38:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=m06ieJey9dbOJN8ds+epp43TeBvgQXFee6Gdq2keB7U=;
+ b=JcrlRoXJfj4R/k5pUliHReQbjStBiJGtxVidPUNBt5Y5ADrQeJlWqmSybmXhuDkPT6
+ 55Y3NWM3yz5KEoBXr5d7Xchoh83uaL+M2y0jIIUZkFMAFn7ATPY3+yqTTnGFxc934C49
+ +RdfCOIoJkKez7p0GLlJ2HJe4o2Hm9JjCC0NKwmP4ih8a3AkDf1yNT2TyDtRCjufMq1S
+ t6iNS3Jq/Enh0LErnEat3ZJOFVrCE+0SCvq6Ezh1+qN6l/uhFbXxaT67IzKz5jL4v9J9
+ ScrT18ek/GHvH1CeF+vCp6vZF+Qi1AL6Pmj3+qWJjWAzGZXpaEV9K3aEiXQnwKUIO9+c
+ e3gA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=m06ieJey9dbOJN8ds+epp43TeBvgQXFee6Gdq2keB7U=;
+ b=NhE4OYHvkxFi+oA2qHHpaLz8Y+DM9d/wcc7OXqEZgGhWhvbnMKRk9pS4q9p9WsUxWn
+ bHkOjVr+JMoStBiGFZejPX4EjiI3MYfgCLb/fFbGb413p/vTc58VL4EIZs8wYIcoyLwv
+ z3660WB7c943Vaj48OePrju15WUvq91lKH+AkQrlJ639uOHFvYoBxvJeygncVJi6Ih8A
+ XFl7oSjE32n6UUXcqosw08l3Y1nsdLDW2JWgJ40g5DxYeT/yre1v/kV2U+Egt8oAo6Y9
+ dmFtK3BxFSLGmLk0zu0gSTGkjbdo5cJZ4ACtPWLsZuRliy9sAcOTSe80QJZscQlKfMnw
+ EZTQ==
+X-Gm-Message-State: AIkVDXJtLzaf1SySkXs2dcokcPQUIw9t096Npu0YXYqvJWCPgAy1eSB4uSmP4GltprxfS+GMP9gbEsp/wDSHWNKe
+X-Received: by 10.107.53.13 with SMTP id c13mr5236421ioa.55.1485466713440;
+ Thu, 26 Jan 2017 13:38:33 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.107.130.106 with HTTP; Thu, 26 Jan 2017 13:38:32 -0800 (PST)
+Received: by 10.107.130.106 with HTTP; Thu, 26 Jan 2017 13:38:32 -0800 (PST)
+In-Reply-To: <1EDA4FEC-68CD-4215-AB90-3F087EEF3CA6@linux.vnet.ibm.com>
 References: <75C63AB7-E340-4A78-BA82-80F96EAEA051@linux.vnet.ibm.com>
  <101001485427397@webcorp03h.yandex-team.ru>
-X-Mailer: Apple Mail (2.3259)
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17012615-0024-0000-0000-000015CE4FA2
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006502; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000200; SDB=6.00813015; UDB=6.00396565; IPR=6.00590430; 
- BA=6.00005091; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014059; XFM=3.00000011;
- UTC=2017-01-26 15:36:08
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17012615-0025-0000-0000-000048485E78
-Message-Id: <1EDA4FEC-68CD-4215-AB90-3F087EEF3CA6@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-01-26_11:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=17
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1701260153
+ <1EDA4FEC-68CD-4215-AB90-3F087EEF3CA6@linux.vnet.ibm.com>
+From: Rick Altherr <raltherr@google.com>
+Date: Thu, 26 Jan 2017 13:38:32 -0800
+Message-ID: <CAPLgG==G2mk-38bmxk_vxB_tOr33p3m7VJKuwVTu8F5qkdJBjw@mail.gmail.com>
+Subject: Re: OpenBMC Image Management
+To: Adriana Kobylak <anoo@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ "Anton D. Kachalov" <mouse@yandex-team.ru>
+Content-Type: multipart/alternative; boundary=001a11449e90c814bf0547062bdd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -78,257 +59,245 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 Jan 2017 15:36:33 -0000
+X-List-Received-Date: Thu, 26 Jan 2017 21:38:37 -0000
 
-
---Apple-Mail=_6AF7C3AE-A00B-48FF-8D87-5210ED02950E
+--001a11449e90c814bf0547062bdd
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=utf-8
 
+Applying patches makes for a security problem as well. Verifying integrity
+and authenticity of the rootfs requires having trusted hashes. dm-verity
+does this at a filesystem level. Patching individual binaries would
+invalidate the signatures.
 
-> On Jan 26, 2017, at 4:43 AM, Anton D. Kachalov <mouse@yandex-team.ru> =
-wrote:
->=20
+On Jan 26, 2017 7:36 AM, "Adriana Kobylak" <anoo@linux.vnet.ibm.com> wrote:
+
+>
+> On Jan 26, 2017, at 4:43 AM, Anton D. Kachalov <mouse@yandex-team.ru>
+> wrote:
+>
 > Hello.
->=20
-> 26.01.2017, 01:32, "Adriana Kobylak" <anoo@linux.vnet.ibm.com =
-<mailto:anoo@linux.vnet.ibm.com>>:
->> General:
->> * Use CRAMFS for read-only partitions, and UBIFS for read-write =
-partitions.
->=20
-> Why CRAMFS? It's small, but supports only zlib compression, has a 16MB =
-file size limitation and marked as obsolete in kernel tree. Why not =
-SquashFS? It's better for larger projects, has a number of modern =
-compression algos.
-
-You=E2=80=99re right Anton, typo mistake, it should be SquashFS, not =
-CRAMFS.
-
->=20
->> PNOR:
->> * Ability to =E2=80=98patch=E2=80=99 by copying a Hostboot image =
-*.bin into a designated directory (/usr/local/ for example).
->=20
-> Would it be good to add support for opkg-based packaging to =
-incrementally (hotfix) system's update? I use it in OpenWRT.
-
-It is a good point, for this we=E2=80=99d need a read-write filesystem =
-to contain the code, and be more formal in updating the revision number =
-in bitbake for the images (currently is set to 0). But since our current =
-use case is about applying temporary (development) patches, not =
-permanent fixes, these changes wouldn=E2=80=99t be a priority at the =
-moment. Also for PNOR images, we don=E2=80=99t own the packaging process =
-(it=E2=80=99s done by the hostboot build).
-
-As additional information, I=E2=80=99ll be sending a more detailed flow =
-of the PNOR update, including how the dbus objects in Patrick=E2=80=99s =
-Software.Version yaml specification would fit, and how to create the =
-virtual PNOR for the host (memory piece) that the mboxd will be =
-interacting with.
-
->=20
->> * Tool to write from PNOR image to BMC format. Implement UBI =
-initially but it could be extended to support different volume =
-managements on other BMCs.
->>=20
->> BMC:
->> *Save multiple firmware versions, starting with 2, to provide the =
-ability to roll-back if needed. If single BMC chip system, save both =
-versions there. If two BMC chip system, save other version in 2nd chip.
->> * Implement various levels of =E2=80=98persistency=E2=80=99, such as =
-dev, factory, field. Dev persistency would allow for local patches =
-(/usr/local/ for example) that can be cleared before shipping to =
-customers. Factory mode could delete the location where user data such =
-as network settings resides but preserves the mac address and uuid for =
-example. Etc.
->>=20
->> Thanks,
->>=20
->> Adriana
->> _______________________________________________
->> openbmc mailing list
->> openbmc@lists.ozlabs.org
->> https://lists.ozlabs.org/listinfo/openbmc
->=20
-> --=20
+>
+> 26.01.2017, 01:32, "Adriana Kobylak" <anoo@linux.vnet.ibm.com>:
+>
+> General:
+> * Use CRAMFS for read-only partitions, and UBIFS for read-write partition=
+s.
+>
+>
+> Why CRAMFS? It's small, but supports only zlib compression, has a 16MB
+> file size limitation and marked as obsolete in kernel tree. Why not
+> SquashFS? It's better for larger projects, has a number of modern
+> compression algos.
+>
+>
+> You=E2=80=99re right Anton, typo mistake, it should be SquashFS, not CRAM=
+FS.
+>
+>
+> PNOR:
+> * Ability to =E2=80=98patch=E2=80=99 by copying a Hostboot image *.bin in=
+to a designated
+> directory (/usr/local/ for example).
+>
+>
+> Would it be good to add support for opkg-based packaging to incrementally
+> (hotfix) system's update? I use it in OpenWRT.
+>
+>
+> It is a good point, for this we=E2=80=99d need a read-write filesystem to=
+ contain
+> the code, and be more formal in updating the revision number in bitbake f=
+or
+> the images (currently is set to 0). But since our current use case is abo=
+ut
+> applying temporary (development) patches, not permanent fixes, these
+> changes wouldn=E2=80=99t be a priority at the moment. Also for PNOR image=
+s, we
+> don=E2=80=99t own the packaging process (it=E2=80=99s done by the hostboo=
+t build).
+>
+> As additional information, I=E2=80=99ll be sending a more detailed flow o=
+f the
+> PNOR update, including how the dbus objects in Patrick=E2=80=99s Software=
+.Version
+> yaml specification would fit, and how to create the virtual PNOR for the
+> host (memory piece) that the mboxd will be interacting with.
+>
+>
+> * Tool to write from PNOR image to BMC format. Implement UBI initially bu=
+t
+> it could be extended to support different volume managements on other BMC=
+s.
+>
+> BMC:
+> *Save multiple firmware versions, starting with 2, to provide the ability
+> to roll-back if needed. If single BMC chip system, save both versions
+> there. If two BMC chip system, save other version in 2nd chip.
+> * Implement various levels of =E2=80=98persistency=E2=80=99, such as dev,=
+ factory, field.
+> Dev persistency would allow for local patches (/usr/local/ for example)
+> that can be cleared before shipping to customers. Factory mode could dele=
+te
+> the location where user data such as network settings resides but preserv=
+es
+> the mac address and uuid for example. Etc.
+>
+> Thanks,
+>
+> Adriana
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+>
+>
+> --
 > Anton D. Kachalov
+>
+>
+>
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+>
+>
 
-
---Apple-Mail=_6AF7C3AE-A00B-48FF-8D87-5210ED02950E
+--001a11449e90c814bf0547062bdd
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=utf-8
 
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html =
-charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
--webkit-nbsp-mode: space; -webkit-line-break: after-white-space;" =
-class=3D""><br class=3D""><div><blockquote type=3D"cite" class=3D""><div =
-class=3D"">On Jan 26, 2017, at 4:43 AM, Anton D. Kachalov &lt;<a =
-href=3D"mailto:mouse@yandex-team.ru" =
-class=3D"">mouse@yandex-team.ru</a>&gt; wrote:</div><br =
-class=3D"Apple-interchange-newline"><div class=3D""><span =
-style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; orphans: auto; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; widows: auto; word-spacing: =
-0px; -webkit-text-stroke-width: 0px; float: none; display: inline =
-!important;" class=3D"">Hello.</span><br style=3D"font-family: =
-ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; orphans: auto; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: =
-0px;" class=3D""><br style=3D"font-family: ArialUnicodeMS; font-size: =
-12px; font-style: normal; font-variant-caps: normal; font-weight: =
-normal; letter-spacing: normal; orphans: auto; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; widows: =
-auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;" class=3D""><span=
- style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; orphans: auto; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; widows: auto; word-spacing: =
-0px; -webkit-text-stroke-width: 0px; float: none; display: inline =
-!important;" class=3D"">26.01.2017, 01:32, "Adriana Kobylak" =
-&lt;</span><a href=3D"mailto:anoo@linux.vnet.ibm.com" =
-style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; orphans: auto; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; widows: auto; word-spacing: =
-0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;" =
-class=3D"">anoo@linux.vnet.ibm.com</a><span style=3D"font-family: =
-ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; orphans: auto; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-float: none; display: inline !important;" class=3D"">&gt;:</span><br =
-style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; orphans: auto; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; widows: auto; word-spacing: =
-0px; -webkit-text-stroke-width: 0px;" class=3D""><blockquote type=3D"cite"=
- style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; orphans: auto; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; widows: auto; word-spacing: =
-0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;" =
-class=3D"">General:<br class=3D"">* Use CRAMFS for read-only partitions, =
-and UBIFS for read-write partitions.<br class=3D""></blockquote><br =
-style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; orphans: auto; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; widows: auto; word-spacing: =
-0px; -webkit-text-stroke-width: 0px;" class=3D""><span =
-style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; orphans: auto; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; widows: auto; word-spacing: =
-0px; -webkit-text-stroke-width: 0px; float: none; display: inline =
-!important;" class=3D"">Why CRAMFS? It's small, but supports only zlib =
-compression, has a 16MB file size limitation and marked as obsolete in =
-kernel tree. Why not SquashFS? It's better for larger projects, has a =
-number of modern compression algos.</span><br style=3D"font-family: =
-ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; orphans: auto; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: =
-0px;" class=3D""></div></blockquote><div><br class=3D""></div>You=E2=80=99=
-re right Anton, typo mistake, it should be SquashFS, not =
-CRAMFS.</div><div><br class=3D""><blockquote type=3D"cite" class=3D""><div=
- class=3D""><br style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
-font-style: normal; font-variant-caps: normal; font-weight: normal; =
-letter-spacing: normal; orphans: auto; text-align: start; text-indent: =
-0px; text-transform: none; white-space: normal; widows: auto; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px;" class=3D""><blockquote=
- type=3D"cite" style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
-font-style: normal; font-variant-caps: normal; font-weight: normal; =
-letter-spacing: normal; orphans: auto; text-align: start; text-indent: =
-0px; text-transform: none; white-space: normal; widows: auto; =
-word-spacing: 0px; -webkit-text-size-adjust: auto; =
--webkit-text-stroke-width: 0px;" class=3D"">PNOR:<br class=3D"">* =
-Ability to =E2=80=98patch=E2=80=99 by copying a Hostboot image *.bin =
-into a designated directory (/usr/local/ for example).<br =
-class=3D""></blockquote><br style=3D"font-family: ArialUnicodeMS; =
-font-size: 12px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; orphans: auto; text-align: =
-start; text-indent: 0px; text-transform: none; white-space: normal; =
-widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;" =
-class=3D""><span style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
-font-style: normal; font-variant-caps: normal; font-weight: normal; =
-letter-spacing: normal; orphans: auto; text-align: start; text-indent: =
-0px; text-transform: none; white-space: normal; widows: auto; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; display: =
-inline !important;" class=3D"">Would it be good to add support for =
-opkg-based packaging to incrementally (hotfix) system's update? I use it =
-in OpenWRT.</span><br style=3D"font-family: ArialUnicodeMS; font-size: =
-12px; font-style: normal; font-variant-caps: normal; font-weight: =
-normal; letter-spacing: normal; orphans: auto; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; widows: =
-auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;" =
-class=3D""></div></blockquote><div><br class=3D""></div>It is a good =
-point, for this we=E2=80=99d need a read-write filesystem to contain the =
-code, and be more formal in updating the revision number in bitbake for =
-the images (currently is set to 0). But since our current use case is =
-about applying temporary (development) patches, not permanent fixes, =
-these changes wouldn=E2=80=99t be a priority at the moment. Also for =
-PNOR images, we don=E2=80=99t own the packaging process (it=E2=80=99s =
-done by the hostboot build).</div><div><br class=3D""></div><div>As =
-additional information, I=E2=80=99ll be sending a more detailed flow of =
-the PNOR update, including how the dbus objects in Patrick=E2=80=99s =
-Software.Version yaml specification would fit, and how to create the =
-virtual PNOR for the host (memory piece) that the mboxd will be =
-interacting with.</div><div><br class=3D""><blockquote type=3D"cite" =
-class=3D""><div class=3D""><br style=3D"font-family: ArialUnicodeMS; =
-font-size: 12px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; orphans: auto; text-align: =
-start; text-indent: 0px; text-transform: none; white-space: normal; =
-widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;" =
-class=3D""><blockquote type=3D"cite" style=3D"font-family: =
-ArialUnicodeMS; font-size: 12px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; orphans: auto; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; =
--webkit-text-stroke-width: 0px;" class=3D"">* Tool to write from PNOR =
-image to BMC format. Implement UBI initially but it could be extended to =
-support different volume managements on other BMCs.<br class=3D""><br =
-class=3D"">BMC:<br class=3D"">*Save multiple firmware versions, starting =
-with 2, to provide the ability to roll-back if needed. If single BMC =
-chip system, save both versions there. If two BMC chip system, save =
-other version in 2nd chip.<br class=3D"">* Implement various levels of =
-=E2=80=98persistency=E2=80=99, such as dev, factory, field. Dev =
-persistency would allow for local patches (/usr/local/ for example) that =
-can be cleared before shipping to customers. Factory mode could delete =
-the location where user data such as network settings resides but =
-preserves the mac address and uuid for example. Etc.<br class=3D""><br =
-class=3D"">Thanks,<br class=3D""><br class=3D"">Adriana<br =
-class=3D"">_______________________________________________<br =
-class=3D"">openbmc mailing list<br class=3D""><a =
-href=3D"mailto:openbmc@lists.ozlabs.org" =
-class=3D"">openbmc@lists.ozlabs.org</a><br =
-class=3D"">https://lists.ozlabs.org/listinfo/openbmc<br =
-class=3D""></blockquote><br style=3D"font-family: ArialUnicodeMS; =
-font-size: 12px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; orphans: auto; text-align: =
-start; text-indent: 0px; text-transform: none; white-space: normal; =
-widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;" =
-class=3D""><span style=3D"font-family: ArialUnicodeMS; font-size: 12px; =
-font-style: normal; font-variant-caps: normal; font-weight: normal; =
-letter-spacing: normal; orphans: auto; text-align: start; text-indent: =
-0px; text-transform: none; white-space: normal; widows: auto; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; display: =
-inline !important;" class=3D"">--<span =
-class=3D"Apple-converted-space">&nbsp;</span></span><br =
-style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; orphans: auto; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; widows: auto; word-spacing: =
-0px; -webkit-text-stroke-width: 0px;" class=3D""><span =
-style=3D"font-family: ArialUnicodeMS; font-size: 12px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; orphans: auto; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; widows: auto; word-spacing: =
-0px; -webkit-text-stroke-width: 0px; float: none; display: inline =
-!important;" class=3D"">Anton D. =
-Kachalov</span></div></blockquote></div><br class=3D""></body></html>=
+<div dir=3D"auto">Applying patches makes for a security problem as well. Ve=
+rifying integrity and authenticity of the rootfs requires having trusted ha=
+shes. dm-verity does this at a filesystem level. Patching individual binari=
+es would invalidate the signatures.</div><div class=3D"gmail_extra"><br><di=
+v class=3D"gmail_quote">On Jan 26, 2017 7:36 AM, &quot;Adriana Kobylak&quot=
+; &lt;<a href=3D"mailto:anoo@linux.vnet.ibm.com">anoo@linux.vnet.ibm.com</a=
+>&gt; wrote:<br type=3D"attribution"><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div st=
+yle=3D"word-wrap:break-word"><br><div><blockquote type=3D"cite"><div>On Jan=
+ 26, 2017, at 4:43 AM, Anton D. Kachalov &lt;<a href=3D"mailto:mouse@yandex=
+-team.ru" target=3D"_blank">mouse@yandex-team.ru</a>&gt; wrote:</div><br cl=
+ass=3D"m_-6212822030987642468Apple-interchange-newline"><div><span style=3D=
+"font-family:ArialUnicodeMS;font-size:12px;font-style:normal;font-variant-c=
+aps:normal;font-weight:normal;letter-spacing:normal;text-align:start;text-i=
+ndent:0px;text-transform:none;white-space:normal;word-spacing:0px;float:non=
+e;display:inline!important">Hello.</span><br style=3D"font-family:ArialUnic=
+odeMS;font-size:12px;font-style:normal;font-variant-caps:normal;font-weight=
+:normal;letter-spacing:normal;text-align:start;text-indent:0px;text-transfo=
+rm:none;white-space:normal;word-spacing:0px"><br style=3D"font-family:Arial=
+UnicodeMS;font-size:12px;font-style:normal;font-variant-caps:normal;font-we=
+ight:normal;letter-spacing:normal;text-align:start;text-indent:0px;text-tra=
+nsform:none;white-space:normal;word-spacing:0px"><span style=3D"font-family=
+:ArialUnicodeMS;font-size:12px;font-style:normal;font-variant-caps:normal;f=
+ont-weight:normal;letter-spacing:normal;text-align:start;text-indent:0px;te=
+xt-transform:none;white-space:normal;word-spacing:0px;float:none;display:in=
+line!important">26.01.2017, 01:32, &quot;Adriana Kobylak&quot; &lt;</span><=
+a href=3D"mailto:anoo@linux.vnet.ibm.com" style=3D"font-family:ArialUnicode=
+MS;font-size:12px;font-style:normal;font-variant-caps:normal;font-weight:no=
+rmal;letter-spacing:normal;text-align:start;text-indent:0px;text-transform:=
+none;white-space:normal;word-spacing:0px" target=3D"_blank">anoo@linux.vnet=
+.ibm.com</a><span style=3D"font-family:ArialUnicodeMS;font-size:12px;font-s=
+tyle:normal;font-variant-caps:normal;font-weight:normal;letter-spacing:norm=
+al;text-align:start;text-indent:0px;text-transform:none;white-space:normal;=
+word-spacing:0px;float:none;display:inline!important">&gt;:</span><br style=
+=3D"font-family:ArialUnicodeMS;font-size:12px;font-style:normal;font-varian=
+t-caps:normal;font-weight:normal;letter-spacing:normal;text-align:start;tex=
+t-indent:0px;text-transform:none;white-space:normal;word-spacing:0px"><bloc=
+kquote type=3D"cite" style=3D"font-family:ArialUnicodeMS;font-size:12px;fon=
+t-style:normal;font-variant-caps:normal;font-weight:normal;letter-spacing:n=
+ormal;text-align:start;text-indent:0px;text-transform:none;white-space:norm=
+al;word-spacing:0px">General:<br>* Use CRAMFS for read-only partitions, and=
+ UBIFS for read-write partitions.<br></blockquote><br style=3D"font-family:=
+ArialUnicodeMS;font-size:12px;font-style:normal;font-variant-caps:normal;fo=
+nt-weight:normal;letter-spacing:normal;text-align:start;text-indent:0px;tex=
+t-transform:none;white-space:normal;word-spacing:0px"><span style=3D"font-f=
+amily:ArialUnicodeMS;font-size:12px;font-style:normal;font-variant-caps:nor=
+mal;font-weight:normal;letter-spacing:normal;text-align:start;text-indent:0=
+px;text-transform:none;white-space:normal;word-spacing:0px;float:none;displ=
+ay:inline!important">Why CRAMFS? It&#39;s small, but supports only zlib com=
+pression, has a 16MB file size limitation and marked as obsolete in kernel =
+tree. Why not SquashFS? It&#39;s better for larger projects, has a number o=
+f modern compression algos.</span><br style=3D"font-family:ArialUnicodeMS;f=
+ont-size:12px;font-style:normal;font-variant-caps:normal;font-weight:normal=
+;letter-spacing:normal;text-align:start;text-indent:0px;text-transform:none=
+;white-space:normal;word-spacing:0px"></div></blockquote><div><br></div>You=
+=E2=80=99re right Anton, typo mistake, it should be SquashFS, not CRAMFS.</=
+div><div><br><blockquote type=3D"cite"><div><br style=3D"font-family:ArialU=
+nicodeMS;font-size:12px;font-style:normal;font-variant-caps:normal;font-wei=
+ght:normal;letter-spacing:normal;text-align:start;text-indent:0px;text-tran=
+sform:none;white-space:normal;word-spacing:0px"><blockquote type=3D"cite" s=
+tyle=3D"font-family:ArialUnicodeMS;font-size:12px;font-style:normal;font-va=
+riant-caps:normal;font-weight:normal;letter-spacing:normal;text-align:start=
+;text-indent:0px;text-transform:none;white-space:normal;word-spacing:0px">P=
+NOR:<br>* Ability to =E2=80=98patch=E2=80=99 by copying a Hostboot image *.=
+bin into a designated directory (/usr/local/ for example).<br></blockquote>=
+<br style=3D"font-family:ArialUnicodeMS;font-size:12px;font-style:normal;fo=
+nt-variant-caps:normal;font-weight:normal;letter-spacing:normal;text-align:=
+start;text-indent:0px;text-transform:none;white-space:normal;word-spacing:0=
+px"><span style=3D"font-family:ArialUnicodeMS;font-size:12px;font-style:nor=
+mal;font-variant-caps:normal;font-weight:normal;letter-spacing:normal;text-=
+align:start;text-indent:0px;text-transform:none;white-space:normal;word-spa=
+cing:0px;float:none;display:inline!important">Would it be good to add suppo=
+rt for opkg-based packaging to incrementally (hotfix) system&#39;s update? =
+I use it in OpenWRT.</span><br style=3D"font-family:ArialUnicodeMS;font-siz=
+e:12px;font-style:normal;font-variant-caps:normal;font-weight:normal;letter=
+-spacing:normal;text-align:start;text-indent:0px;text-transform:none;white-=
+space:normal;word-spacing:0px"></div></blockquote><div><br></div>It is a go=
+od point, for this we=E2=80=99d need a read-write filesystem to contain the=
+ code, and be more formal in updating the revision number in bitbake for th=
+e images (currently is set to 0). But since our current use case is about a=
+pplying temporary (development) patches, not permanent fixes, these changes=
+ wouldn=E2=80=99t be a priority at the moment. Also for PNOR images, we don=
+=E2=80=99t own the packaging process (it=E2=80=99s done by the hostboot bui=
+ld).</div><div><br></div><div>As additional information, I=E2=80=99ll be se=
+nding a more detailed flow of the PNOR update, including how the dbus objec=
+ts in Patrick=E2=80=99s Software.Version yaml specification would fit, and =
+how to create the virtual PNOR for the host (memory piece) that the mboxd w=
+ill be interacting with.</div><div><br><blockquote type=3D"cite"><div><br s=
+tyle=3D"font-family:ArialUnicodeMS;font-size:12px;font-style:normal;font-va=
+riant-caps:normal;font-weight:normal;letter-spacing:normal;text-align:start=
+;text-indent:0px;text-transform:none;white-space:normal;word-spacing:0px"><=
+blockquote type=3D"cite" style=3D"font-family:ArialUnicodeMS;font-size:12px=
+;font-style:normal;font-variant-caps:normal;font-weight:normal;letter-spaci=
+ng:normal;text-align:start;text-indent:0px;text-transform:none;white-space:=
+normal;word-spacing:0px">* Tool to write from PNOR image to BMC format. Imp=
+lement UBI initially but it could be extended to support different volume m=
+anagements on other BMCs.<br><br>BMC:<br>*Save multiple firmware versions, =
+starting with 2, to provide the ability to roll-back if needed. If single B=
+MC chip system, save both versions there. If two BMC chip system, save othe=
+r version in 2nd chip.<br>* Implement various levels of =E2=80=98persistenc=
+y=E2=80=99, such as dev, factory, field. Dev persistency would allow for lo=
+cal patches (/usr/local/ for example) that can be cleared before shipping t=
+o customers. Factory mode could delete the location where user data such as=
+ network settings resides but preserves the mac address and uuid for exampl=
+e. Etc.<br><br>Thanks,<br><br>Adriana<br>______________________________<wbr=
+>_________________<br>openbmc mailing list<br><a href=3D"mailto:openbmc@lis=
+ts.ozlabs.org" target=3D"_blank">openbmc@lists.ozlabs.org</a><br><a href=3D=
+"https://lists.ozlabs.org/listinfo/openbmc" target=3D"_blank">https://lists=
+.ozlabs.org/<wbr>listinfo/openbmc</a><br></blockquote><br style=3D"font-fam=
+ily:ArialUnicodeMS;font-size:12px;font-style:normal;font-variant-caps:norma=
+l;font-weight:normal;letter-spacing:normal;text-align:start;text-indent:0px=
+;text-transform:none;white-space:normal;word-spacing:0px"><span style=3D"fo=
+nt-family:ArialUnicodeMS;font-size:12px;font-style:normal;font-variant-caps=
+:normal;font-weight:normal;letter-spacing:normal;text-align:start;text-inde=
+nt:0px;text-transform:none;white-space:normal;word-spacing:0px;float:none;d=
+isplay:inline!important">--<span class=3D"m_-6212822030987642468Apple-conve=
+rted-space">=C2=A0</span></span><br style=3D"font-family:ArialUnicodeMS;fon=
+t-size:12px;font-style:normal;font-variant-caps:normal;font-weight:normal;l=
+etter-spacing:normal;text-align:start;text-indent:0px;text-transform:none;w=
+hite-space:normal;word-spacing:0px"><span style=3D"font-family:ArialUnicode=
+MS;font-size:12px;font-style:normal;font-variant-caps:normal;font-weight:no=
+rmal;letter-spacing:normal;text-align:start;text-indent:0px;text-transform:=
+none;white-space:normal;word-spacing:0px;float:none;display:inline!importan=
+t">Anton D. Kachalov</span></div></blockquote></div><br></div><br>_________=
+_____________________<wbr>_________________<br>
+openbmc mailing list<br>
+<a href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a><br=
+>
+<a href=3D"https://lists.ozlabs.org/listinfo/openbmc" rel=3D"noreferrer" ta=
+rget=3D"_blank">https://lists.ozlabs.org/<wbr>listinfo/openbmc</a><br>
+<br></blockquote></div></div>
 
---Apple-Mail=_6AF7C3AE-A00B-48FF-8D87-5210ED02950E--
+--001a11449e90c814bf0547062bdd--
