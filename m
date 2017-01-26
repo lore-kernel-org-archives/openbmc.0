@@ -1,44 +1,44 @@
 Return-Path: <linus.walleij@linaro.org>
-Received: from mail-io0-x234.google.com (mail-io0-x234.google.com
- [IPv6:2607:f8b0:4001:c06::234])
+Received: from mail-io0-x233.google.com (mail-io0-x233.google.com
+ [IPv6:2607:f8b0:4001:c06::233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v8NR73bJfzDq62
- for <openbmc@lists.ozlabs.org>; Fri, 27 Jan 2017 00:43:14 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v8NTY2kg7zDq62
+ for <openbmc@lists.ozlabs.org>; Fri, 27 Jan 2017 00:45:21 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="DQK0EYvL"; 
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b="T9ABqTlZ"; 
  dkim-atps=neutral
-Received: by mail-io0-x234.google.com with SMTP id j18so36588804ioe.2
- for <openbmc@lists.ozlabs.org>; Thu, 26 Jan 2017 05:43:14 -0800 (PST)
+Received: by mail-io0-x233.google.com with SMTP id j13so36573571iod.3
+ for <openbmc@lists.ozlabs.org>; Thu, 26 Jan 2017 05:45:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=Eph12QXavS7xUh3SqVa/9vJLJyJNPIFMbdUuq58Km/E=;
- b=DQK0EYvLSzUiNE1IqAOm3FOybfK1/A9ExZ77VwUNJa0nP98erERSF12svTfcnE7Piu
- PZheZTtULHMfrhMfr30KJRKsk257vsn/2wBoGAH5cCMG4Vh4zcXVmC9nF+cNixrUylaR
- sWNSoctwkdZzvoZSyvLyblIPIlgvSMUgik6BE=
+ :cc; bh=xoZSueDgruWmE3E2Q3upLHzbBp5Y2fsqNHf183zSCDY=;
+ b=T9ABqTlZW/BhQIdpRIWvUI3q9T3yZsggQp4+MFcCL0Yo4Oo7wyC9OIIfuddANPd8xX
+ Xgt60HTwtjMydYcyuBLJhhE6IoZq4oxwPE3McELJpn9SLMwowk10YwPEFZrP3jfX4oCw
+ uHe//uIjzdO4jduxhD4svXRJHjH2Z+EfKvtR4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=Eph12QXavS7xUh3SqVa/9vJLJyJNPIFMbdUuq58Km/E=;
- b=e1Ezpobit9jmgF2Ph6R5n41d1rxoXnUiUCC3L18sLwAaKCHvnCqn/xhANxEoHuoXRW
- w0PYBq+u+Zuq7ePCUAmdm4ajtkhPu3WmT/XTCihBtcO3Q4wSvLlhrlfKwfI9LnFmW80N
- 7n/RJlmcawIxlCacrnluEFwMQDcs2oNzSR6kgtxboCu7QW1LIMTkKbG4rctNHqkkun7b
- HlbWHKDxs3oaU41lpS90pHI7AV2R4SWVr4ohC2RK1hfl62WBrTzS0oxLDaO+N3f0Q1TP
- u0RXIDsYkZLOYE3jlesNz6NmdVKTH49pR0Vy8KlLqYsILn2bIWJlvj+dfBQsMSbEZvHJ
- gUBw==
-X-Gm-Message-State: AIkVDXL60BtcpQ1R71OKcQxG23VA03/VUk4duay/Uf8/DqHLttsYtdCY1e87oWZnbgp098HAdaaGVkUrv3mZizKG
-X-Received: by 10.107.146.139 with SMTP id u133mr3024063iod.173.1485438192352; 
- Thu, 26 Jan 2017 05:43:12 -0800 (PST)
+ bh=xoZSueDgruWmE3E2Q3upLHzbBp5Y2fsqNHf183zSCDY=;
+ b=maSY82cJ8OYgu7XecGZ7P+SysPMA8/6JuVhuwScykNQuKygqNrQdqBbV764qHJQ5Dm
+ MOwtXuRCO0t6UisDLwJf7Pn1RoXS6+N71uC08SzLBx+np0uHoGallNPaujBgf6YOeCXb
+ JNpVVG+t2afsnQpjgES1E7SQoE66SPa3qXpxfGo0Lqc19vk8lf+jdktc52GBwyjDPKTE
+ JXdGE1UDXdt/3Brph58xhh1Jgx5fpd+KaaxRxfMiJFlT/fG39UbiKjI3GREuic/tdijU
+ nA2ZULd/lAErhJCUh5VK6AT0XBAjMl3iAe9BR7g5j6lIcHkSEPllwKGpGzk1DlvbHnsx
+ bR3A==
+X-Gm-Message-State: AIkVDXIFMhNmqLMcLzP6cmSkLAxCmq75gtSRVkuM2kfUMOizFvhnEtfBWKuW/HBjCMXFW0VuGrvHlM43tIX+GZ4o
+X-Received: by 10.107.15.12 with SMTP id x12mr2655472ioi.61.1485438319272;
+ Thu, 26 Jan 2017 05:45:19 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.79.169.75 with HTTP; Thu, 26 Jan 2017 05:43:11 -0800 (PST)
-In-Reply-To: <20170123052717.9528-1-andrew@aj.id.au>
-References: <20170123052717.9528-1-andrew@aj.id.au>
+Received: by 10.79.169.75 with HTTP; Thu, 26 Jan 2017 05:45:18 -0800 (PST)
+In-Reply-To: <20170124061646.9317-2-andrew@aj.id.au>
+References: <20170124061646.9317-1-andrew@aj.id.au>
+ <20170124061646.9317-2-andrew@aj.id.au>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 26 Jan 2017 14:43:11 +0100
-Message-ID: <CACRpkdZvgOGqNMArExNoc3EJLSnydpF6TAXsvWD5ubPLA12dNA@mail.gmail.com>
-Subject: Re: [PATCH] pinctrl: aspeed: g4: Fix mux configuration for GPIOs
- AA[4-7], AB[0-7]
+Date: Thu, 26 Jan 2017 14:45:18 +0100
+Message-ID: <CACRpkdaPzQ9VRM9_MDCZ5VugTiXBD0F57=LWScsyb=tshsE8QQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] gpio: aspeed: Make bank names strings
 To: Andrew Jeffery <andrew@aj.id.au>
 Cc: Joel Stanley <joel@jms.id.au>, 
  "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
@@ -56,26 +56,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 Jan 2017 13:43:16 -0000
+X-List-Received-Date: Thu, 26 Jan 2017 13:45:21 -0000
 
-On Mon, Jan 23, 2017 at 6:27 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+On Tue, Jan 24, 2017 at 7:16 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
 
-> Incorrect video output configuration bits were being tested on pins in
-> GPIO banks AA and AB for the ROM{8,16} mux functions. The ROM{8,16}
-> functions are the highest priority for the relevant pins and also the
-> default function, so we require the relevant video output configuration
-> be disabled to mux GPIO functionality. As the wrong bits were being
-> tested a GPIO export would succeed but leave the pin in an unresponsive
-> state (i.e. value updates were ignored).
+> From: Joel Stanley <joel@jms.id.au>
 >
-> This misbehaviour was discovered as part of extending the GPIO
-> controller's support to cover banks Y, Z, AA, AB and AC (AC in the case
-> of the g5 SoC).
+> The Aspeed SoCs have more GPIOs than can be represented with A-Z. The
+> documentation uses two letter names such as AA and AB, so make the names
+> a three-character array in the bank struct to accommodate this.
 >
-> Fixes: 6d329f14a75f ("pinctrl: aspeed-g4: Add mux configuration for all pins")
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
 > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 
-Patch applied.
+I already applied the v1 of this, I guess it's the same.
 
 Yours,
 Linus Walleij
