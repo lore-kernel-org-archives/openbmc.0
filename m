@@ -1,56 +1,29 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v8hYZ6QZwzDq8x
- for <openbmc@lists.ozlabs.org>; Fri, 27 Jan 2017 12:49:54 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="esU6mP86"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="ofBzNa4u"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id B80C520B45;
- Thu, 26 Jan 2017 20:49:52 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Thu, 26 Jan 2017 20:49:52 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=Po5qAl+FR5l/B7o0coQ7ws3tvk4=; b=esU6mP
- 864CjYdh8WWijs+wsVrV72FVKpOwpSkQv3IErdsiVfjI2T1HQfmfoQs3uf/+FZRr
- MsdT9LIErmxwSKMfxvd3GsIEXmCOPSZ6HGWNedLD7DcFFLcshwNKHK4HWUOOSrpN
- 9AutZ5PyOtKJx5rmqqKx1y/ppbxp1ym0vXfWs=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=Po5qAl+FR5l/B7
- o0coQ7ws3tvk4=; b=ofBzNa4uq/VSNCIIpvHxs/G8m8qJRFEZa+zIjp9rsxn1X6
- 3WrFd7N+/k66L6TH6e3RRoa/+/ieXaIyXmR4yu94Z6yf8jJ7u1W7md9PQLq0RH1H
- nyfvXTK9cpgj2SNv/vAqbJHDQ9k6wm9NNx78JSxmmSO9YKUaViDNLZ1ucnrtY=
-X-ME-Sender: <xms:QKeKWFIwxatv0celAqkJacRTkBno56NGlaa-zSnU2hWHnhNppAJpTQ>
-X-Sasl-enc: 2t8DKP3NV0tta2jZ81ncNi5tFonkwnYLghxSgIdjidX7 1485481791
-Received: from [172.16.172.59] (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 52ED224180;
- Thu, 26 Jan 2017 20:49:50 -0500 (EST)
-Message-ID: <1485481784.4137.15.camel@aj.id.au>
-Subject: Re: [PATCH v2 2/2] gpio: aspeed: Add banks Y, Z, AA, AB and AC
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Linus Walleij <linus.walleij@linaro.org>
-Cc: Joel Stanley <joel@jms.id.au>, "linux-gpio@vger.kernel.org"
- <linux-gpio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Fri, 27 Jan 2017 12:19:44 +1030
-In-Reply-To: <CACRpkdZ4hZY1j5U1xfn=trnDJMG1A=K2DbMWxD=79MzmEgouaw@mail.gmail.com>
-References: <20170124061646.9317-1-andrew@aj.id.au>
- <20170124061646.9317-3-andrew@aj.id.au>
- <CACRpkdZ4hZY1j5U1xfn=trnDJMG1A=K2DbMWxD=79MzmEgouaw@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-2TmwVu2AM6AQRVgHp+ox"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3v8kGz3LFlzDq8x
+ for <openbmc@lists.ozlabs.org>; Fri, 27 Jan 2017 14:07:22 +1100 (AEDT)
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mx.zohomail.com
+ with SMTPS id 1485486428493463.1770425403562;
+ Thu, 26 Jan 2017 19:07:08 -0800 (PST)
+Date: Thu, 26 Jan 2017 21:07:06 -0600
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Chris Austen <austenc@us.ibm.com>
+Cc: Adriana Kobylak <anoo@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Subject: Re: OpenBMC Image Management
+Message-ID: <20170127030706.GB5504@heinlein.lan>
+References: <75C63AB7-E340-4A78-BA82-80F96EAEA051@linux.vnet.ibm.com>
+ <OF3E869A3E.DB3E43DE-ON862580B3.008284D7-862580B3.0082FDDB@notes.na.collabserv.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="St7VIuEGZ6dlpu13"
+Content-Disposition: inline
+In-Reply-To: <OF3E869A3E.DB3E43DE-ON862580B3.008284D7-862580B3.0082FDDB@notes.na.collabserv.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,106 +35,93 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 27 Jan 2017 01:49:55 -0000
+X-List-Received-Date: Fri, 27 Jan 2017 03:07:24 -0000
 
 
---=-2TmwVu2AM6AQRVgHp+ox
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+--St7VIuEGZ6dlpu13
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-T24gVGh1LCAyMDE3LTAxLTI2IGF0IDE0OjUxICswMTAwLCBMaW51cyBXYWxsZWlqIHdyb3RlOgo+
-ID4gT24gVHVlLCBKYW4gMjQsIDIwMTcgYXQgNzoxNiBBTSwgQW5kcmV3IEplZmZlcnkgPGFuZHJl
-d0Bhai5pZC5hdT4gd3JvdGU6Cj4gCj4gPiBUaGlzIGlzIGxlc3Mgc3RyYWlnaHQtZm9yd2FyZCB0
-aGFuIG9uZSB3b3VsZCBob3BlLCBhcyBzb21lIGJhbmtzIG9ubHkKPiA+IGhhdmUgNCBwaW5zIHJh
-dGhlciB0aGFuIDgsIG90aGVycyBhcmUgb3V0cHV0IG9ubHksIHlldCBtb3JlIChXIGFuZAo+ID4g
-WCwgYWxyZWFkeSBzdXBwb3J0ZWQpIGFyZSBpbnB1dC1vbmx5LCBhbmQgaW4gdGhlIGNhc2Ugb2Yg
-dGhlIGc0IFNvQyBiYW5rCj4gPiBBQyBkb2Vzbid0IGV4aXN0Lgo+ID4gCj4gPiBBZGQgc29tZSBz
-dHJ1Y3RzIHRvIGRlc2NyaWJlIHRoZSB2YXJ5aW5nIHByb3BlcnRpZXMgb2YgZGlmZmVyZW50IGJh
-bmtzCj4gPiBhbmQgaW50ZWdyYXRlIG1lY2hhbmlzbXMgdG8gZGVueSByZXF1ZXN0cyBmb3IgdW5z
-dXBwb3J0ZWQKPiA+IGNvbmZpZ3VyYXRpb25zLgo+ID4gCj4gPiBTaWduZWQtb2ZmLWJ5OiBBbmRy
-ZXcgSmVmZmVyeSA8YW5kcmV3QGFqLmlkLmF1Pgo+IAo+ICguLi4pCj4gPiArI2luY2x1ZGUgPGxp
-bnV4L2dwaW8uaD4KPiAKPiBOQUsgZG9uJ3QgZG8gdGhhdC4gKEkgd2lsbCBleHBsYWluIGJlbG93
-Li4uKQo+IAo+ICguLi4pCj4gCj4gPiBAQCAtMTg5LDYgKzI1OCwxMiBAQCBzdGF0aWMgaW50IGFz
-cGVlZF9ncGlvX2dldF9kaXJlY3Rpb24oc3RydWN0IGdwaW9fY2hpcCAqZ2MsIHVuc2lnbmVkIGlu
-dCBvZmZzZXQpCj4gPiDCoMKgwqDCoMKgwqDCoMKgdW5zaWduZWQgbG9uZyBmbGFnczsKPiA+IMKg
-wqDCoMKgwqDCoMKgwqB1MzIgdmFsOwo+ID4gCj4gPiArwqDCoMKgwqDCoMKgwqBpZiAoIWhhdmVf
-aW5wdXQoZ3Bpbywgb2Zmc2V0KSkKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBy
-ZXR1cm4gR1BJT0ZfRElSX09VVDsKPiA+ICsKPiA+ICvCoMKgwqDCoMKgwqDCoGlmICghaGF2ZV9v
-dXRwdXQoZ3Bpbywgb2Zmc2V0KSkKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBy
-ZXR1cm4gR1BJT0ZfRElSX0lOOwo+IAo+IFBsZWFzZSByZWZyYWluIGZyb20gdXNpbmcgR1BJT0Zf
-KiBpbiBkcml2ZXJzIGxpa2UgdGhpcy4KPiAKPiBUaGVzZSBmbGFncyBhcmUgcGFydCBvZiB0aGUg
-Y29uc3VtZXIgQVBJLCBub3QgdGhlIGRyaXZlciBBUEkuCj4gCj4gTWFrZSBzdXJlIHRoZSBvbmx5
-IGhlYWRlciB5b3UgaW5jbHVkZSBpbiB5b3VyIGRyaXZlciBpcwo+IDxsaW51eC9ncGlvL2RyaXZl
-ci5oPiBhbmQganVzdCByZXR1cm4gMC8xIGluc3RlYWQgb2YgdGhlc2UKPiBjb25zdGFudHMuCgpO
-byB3b3JyaWVzLCBJJ2xsIHNlbmQgYSBmb2xsb3ctdXAgZml4aW5nIHRoYXQuIEkgd2FzIGhlc2l0
-YW50LCBidXQgdGhlbgpmaWd1cmVkIHRoZXJlIHdhcyBhIHJlYXNvbmFibGUgY2hhbmNlIEknZCBn
-ZXQgdGhlIHZhbHVlcyBhcm91bmQgdGhlCndyb25nIHdheSBhbmQgd2VudCBsb29raW5nIGZvciBt
-YWNyb3MgdGhhdCBtYWRlIGl0IG9idmlvdXNseSBjb3JyZWN0LgoKPiAKPiA+ICtzdGF0aWMgdm9p
-ZCBzZXRfaXJxX3ZhbGlkX21hc2soc3RydWN0IGFzcGVlZF9ncGlvICpncGlvKQo+ID4gK3sKPiA+
-ICvCoMKgwqDCoMKgwqDCoGNvbnN0IHN0cnVjdCBhc3BlZWRfYmFua19wcm9wcyAqcHJvcHMgPSBn
-cGlvLT5jb25maWctPnByb3BzOwo+ID4gKwo+ID4gK8KgwqDCoMKgwqDCoMKgd2hpbGUgKCFpc19i
-YW5rX3Byb3BzX3NlbnRpbmVsKHByb3BzKSkgewo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoHVuc2lnbmVkIGludCBvZmZzZXQ7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgY29uc3QgdW5zaWduZWQgbG9uZyBpbnQgaW5wdXQgPSBwcm9wcy0+aW5wdXQ7Cj4gPiAr
-Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgLyogUHJldHR5IGNydW1teSBhcHBy
-b2FjaCwgYnV0IHNpbWlsYXIgdG8gR1BJTyBjb3JlICovCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgZm9yX2VhY2hfY2xlYXJfYml0KG9mZnNldCwgJmlucHV0LCAzMikgewo+ID4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqB1bnNpZ25lZCBp
-bnQgaSA9IHByb3BzLT5iYW5rICogMzIgKyBvZmZzZXQ7Cj4gPiArCj4gPiArwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGlmIChpID49IGdwaW8tPmNvbmZpZy0+
-bnJfZ3Bpb3MpCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqBicmVhazsKPiA+ICsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgY2xlYXJfYml0KGksIGdwaW8tPmNoaXAuaXJxX3Zh
-bGlkX21hc2spOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoH0KPiA+ICsKPiA+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBwcm9wcysrOwo+ID4gK8KgwqDCoMKgwqDC
-oMKgfQo+ID4gK30KPiAKPiBOaWNlIHRoYXQgeW91IHVzZSB0aGlzIGZlYXR1cmUhCj4gCj4gPiAr
-LyoKPiA+ICsgKiBBbnkgYmFua3Mgbm90IHNwZWNpZmllZCBpbiBhIHN0cnVjdCBhc3BlZWRfYmFu
-a19wcm9wcyBhcnJheSBhcmUgYXNzdW1lZCB0bwo+ID4gKyAqIGhhdmUgdGhlIHByb3BlcnRpZXM6
-Cj4gPiArICoKPiA+ICsgKsKgwqDCoMKgwqB7IC5pbnB1dCA9IDB4ZmZmZmZmZmYsIC5vdXRwdXQg
-PSAweGZmZmZmZmZmIH0KPiA+ICsgKi8KPiA+ICsKPiA+ICtzdGF0aWMgY29uc3Qgc3RydWN0IGFz
-cGVlZF9iYW5rX3Byb3BzIGFzdDI0MDBfYmFua19wcm9wc1tdID0gewo+ID4gK8KgwqDCoMKgwqDC
-oMKgLyrCoMKgwqDCoMKgaW5wdXTCoMKgwqDCoMKgwqBvdXRwdXTCoMKgwqAqLwo+ID4gK8KgwqDC
-oMKgwqDCoMKgeyA1LCAweGZmZmZmZmZmLCAweDAwMDBmZmZmIH0sIC8qIFUvVi9XL1ggKi8KPiA+
-ICvCoMKgwqDCoMKgwqDCoHsgNiwgMHgwMDAwMDAwZiwgMHgwZmZmZmYwZiB9LCAvKiBZL1ovQUEv
-QUIsIHR3byA0LUdQSU8gaG9sZXMgKi8KPiA+ICvCoMKgwqDCoMKgwqDCoHsgfSwKPiA+ICt9Owo+
-ID4gKwo+ID4gK3N0YXRpYyBjb25zdCBzdHJ1Y3QgYXNwZWVkX2dwaW9fY29uZmlnIGFzdDI0MDBf
-Y29uZmlnID0KPiA+ICvCoMKgwqDCoMKgwqDCoC8qIDIyMCBmb3Igc2ltcGxpY2l0eSwgcmVhbGx5
-IDIxNiB3aXRoIHR3byA0LUdQSU8gaG9sZXMsIGZvdXIgYXQgZW5kICovCj4gPiArwqDCoMKgwqDC
-oMKgwqB7IC5ucl9ncGlvcyA9IDIyMCwgLnByb3BzID0gYXN0MjQwMF9iYW5rX3Byb3BzLCB9Owo+
-ID4gKwo+ID4gK3N0YXRpYyBjb25zdCBzdHJ1Y3QgYXNwZWVkX2JhbmtfcHJvcHMgYXN0MjUwMF9i
-YW5rX3Byb3BzW10gPSB7Cj4gPiArwqDCoMKgwqDCoMKgwqAvKsKgwqDCoMKgwqBpbnB1dMKgwqDC
-oMKgwqDCoG91dHB1dMKgwqDCoCovCj4gPiArwqDCoMKgwqDCoMKgwqB7IDUsIDB4ZmZmZmZmZmYs
-IDB4MDAwMGZmZmYgfSwgLyogVS9WL1cvWCAqLwo+ID4gK8KgwqDCoMKgwqDCoMKgeyA2LCAweDBm
-ZmZmZmZmLCAweDBmZmZmZmZmIH0sIC8qIFkvWi9BQS9BQiwgNC1HUElPIGhvbGUgKi8KPiA+ICvC
-oMKgwqDCoMKgwqDCoHsgNywgMHgwMDAwMDBmZiwgMHgwMDAwMDBmZiB9LCAvKiBBQyAqLwo+ID4g
-K8KgwqDCoMKgwqDCoMKgeyB9LAo+ID4gK307Cj4gCj4gQSBiaXQgb2YgbWFnaWMgdmFsdWVzIGJ1
-dCB0aGVyZSBhcmUgY29tbWVudHMgdG8gZXhwbGFpbiBpdCBzbyBPSy4KPiAKPiBZb3UgY291bGQg
-Y29uc2lkZXIgdXNpbmcgdGhlIEdFTk1BU0soKSBtYWNybyBmcm9tIDxsaW51eC9iaXRvcHMuaD4K
-PiB0byBpbmRpY2F0ZSB0aGUgYml0cyBoZXJlIGJ1dCBubyBiaWcgZGVhbC4KCkknbSBnb2luZyB0
-byBsZWF2ZSBpdCBhcyBpcyBpZiB5b3UncmUgbm90IGJvdGhlcmVkLCB1bmxlc3MgdGhlcmUgYXJl
-CnN0cm9uZyBvYmplY3Rpb25zIGZyb20gb3RoZXJzLgoKVGhhbmtzLAoKQW5kcmV3
+On Wed, Jan 25, 2017 at 05:50:46PM -0600, Chris Austen wrote:
+> "openbmc" <openbmc-bounces+austenc=3Dus.ibm.com@lists.ozlabs.org> wrote on
+> 01/25/2017 04:15:27 PM:
+>=20
+> Are there any security goals that need to be considered?
+>=20
 
+There are a few different aspects to security that I can think of:
 
---=-2TmwVu2AM6AQRVgHp+ox
+1. Is there a way to identify and reject an invalid image (Define
+"invalid") before it is applied onto the system?
+
+2. Is there a way to identify an applied image has been tampered with?
+
+3. Is there a way for an image to expose a security flaw in the code
+itself (such as by "fuzzing") to cause unintended effects?
+
+A few statements to answer your question:
+
+    * If there is a fundamental flaw in any of these regards with our desig=
+n,
+      we would like to know about it and will fix it.
+
+    * #1 is typically solved through image signing and a one-time=20
+      verification at the time an image is applied.  Issue
+      openbmc/openbmc#356 is meant to implement this and would be a
+      later feature on top of Adriana's proposed work.
+
+    * #2 is typically solved through "Secureboot" or similar
+      functionality. =20
+        * The Power9 processor can implement Secureboot itself, so the IBM
+          team currently has no plans to implement additional per-use
+          verification of the Host firmware contents [in PNOR] by the BMC.
+        * IBM also does not currently plan to include BMC Secureboot for
+          the Witherspoon machine's initial delivery.
+        * Rick Altherr from Google has been contributing support for
+          U-Boot "FIT" images, which provide something like Secureboot
+          verification for the kernel and initramfs images.
+        * The project would certainly be interested in further
+          development here, but hopefully like most of our features, it
+          can be selectively enabled or disabled for different machines.
+          In particular, given that Power9 is itself performing
+          verification of images, verification of the PNOR by the BMC
+          should be a choice by the vendor weighing boot-speed and
+          security.
+        * Adriana is not intending on doing anything explicit to enable
+          or impede enablement of this.  If there is something in the
+          design or implementation that would significantly impede
+          enablement, or if there is a relatively minor improvement that
+          can be done to aid future enablement, we are very interested
+          in this feedback.
+
+    * We don't intend to have purposeful flaws in the area of #3 (does
+      anyone?).  No one has committed to doing explicit penetration
+      testing here, but we certainly will accept vulnerability reports
+      and, even better, fixes.
+
+--=20
+Patrick Williams
+
+--St7VIuEGZ6dlpu13
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCgAGBQJYiqc4AAoJEJ0dnzgO5LT5DzQP/0bjBM7XPPp1T7FRLytpTu3B
-AT0KzF3E92XkLewuUmHX9EsMg83UwNjcFpWVB7nzidSmopE3kDfbr3Z1igySrOwn
-lMHjIrGAuNDqlvmWA3qmA/9FoRE1Bj8CJHQw6wIlFesNJcUcvT3/S8yFQktPWncG
-P9mBJH0NLlT5D3pGJRbJ1MathvEWbYBxQc6RzTwjnY6khhzyHKTmFuXLdLjzW/Jf
-aRwD3MdPEAHNZ8lgf2ryS9spclTzyyNWW+kElQJ+5oAZtTV1H/BfJB2Te48zAZIM
-Be7wa9e/DzIwmvUsON/6J+nFGQIX6x9la/FWuLfHR6QtUrO0Fp2HK3hUvgRABKxA
-Ynqvkv7KvRJM2zQTJXAawfgqLjXNtgt+YWLLnJGm48IhzlzDb7sxY31rSvmVHcvs
-nPHn4MiOphV/NFVsj0tNagbiFAG+qOc62jjO87xWd7EOssI4nx5RbdGqJJjFz8j0
-ymMLQuFPkuXZPe9/EiJ2NK7VVP6sRsptU1baK5m6JgH8T1yGrpeHMEHN55jkBN5W
-9Zcc7f/w3qndnLL3WZ0L+v2dpHn9GhJjpV6yGMwTmZ3aHIkXBscOgTkbfty4YST9
-Gqd7RnBQ3KtLAJrtIzRSpWNnv2SqLNJkEPosGuQY1RWBzo0xV21wDyr0jT5Hkrgb
-oEunrTPUtAesn/PQb2rz
-=637r
+iQIcBAEBCAAGBQJYirlXAAoJEKsDR8wtAMEZOdAP/A260i0lDB6ZPc6CkAozoIMF
+TVuEyfBwQPpsGIQCNkdjFtTplAyAKfD1JpFSEUXA0Lcu3zOzHK+7kNFyVMvr8jRB
+okEwLxnua6WVBwRQa5hyitaZ2WXHjp0h7+DNWOh95abFg7dVcaMm9++LwzkdTIAP
+V4X8oX4QyB0HtSUGcKeogik/H91HKwn5LRcOr57/6mx2h4phVfeV72ERPyzf2R3O
+R7Ik9vuqLj+ZHgBiJ2jTgxZm3u/qzhy0FimVyc0vmh4jMUVGe7qnDVUkWOzrpmWL
+N22AN0HmGEx4OsYKbjX89+JlARDqWKsXEonuV16PLVRw3fILghe/gESKKdmMcSIK
+NeVPV0i9BucJzKsRlxn4ZIt5YZ0OyJ5tpOWQuqeEyqlbm/gu37CsXNoiNLVCccIV
+lanLMKNOQNwZyEBPLuzeM0HdlpxVuj1sk/dO0q0IOB57rxbSvc+ikEyX0/TxWR1H
+1RozMzg7XD8esUIncaf73nZcsabFXuJb6xev0rNwg5rBIFFpcbRRrS6+AtbpSjiO
+QalpNPZoRwRo5Uap0GOpFdA2gd0c21+4Qk+vlVKKnN2baUgV+NeK145RbFLA4jmV
+TqFz/PP5KTRJAMsbcoUaNrS7Ur7L9WRmYRXy5uXKN1p1bpqt6k9XgEvf4I6rp2Wz
+iDKGK/zmHU87nB0xJJub
+=iZ3/
 -----END PGP SIGNATURE-----
 
---=-2TmwVu2AM6AQRVgHp+ox--
+--St7VIuEGZ6dlpu13--
