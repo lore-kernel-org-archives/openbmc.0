@@ -1,51 +1,48 @@
 Return-Path: <andrew@aj.id.au>
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3v9Skk27p4zDq6j
- for <openbmc@lists.ozlabs.org>; Sat, 28 Jan 2017 19:00:29 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vBX4s6kMPzDq93
+ for <openbmc@lists.ozlabs.org>; Mon, 30 Jan 2017 12:34:53 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="AV5TPadc"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="k8aj5zap"; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="gT6HVbBG"; dkim-atps=neutral
+ header.b="KJ4c5HCg"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 417C6209BC
- for <openbmc@lists.ozlabs.org>; Sat, 28 Jan 2017 03:00:25 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Sat, 28 Jan 2017 03:00:25 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
- content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=SbvkOz5hwqqv42srAEai1Z6aFCE=; b=AV5TPa
- dcuIuWKl78NepyWDzNRPrlwf2E7jmWb/+z0eCYvSTPOhaIsUX/ksw6wLhB1ZoLTI
- YGeiVc2jLyassVq1S7pguLLs5zfCUyVC8ExJLLOjAA1b1YWmsgNHkUE14FyzN1EU
- LY5jQG5kKZK+Bx34Rb+bF/wIk5DzhUKx4gWPw=
+ by mailout.nyi.internal (Postfix) with ESMTP id 7A6F420761;
+ Sun, 29 Jan 2017 20:34:49 -0500 (EST)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Sun, 29 Jan 2017 20:34:49 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:message-id:mime-version:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=LXs
+ ZND9K8ir7eT1v1oiiS24vmp0=; b=k8aj5zapSMQE7+52gWBnA3KkPjlzeva3K8e
+ O1/j+06tqzo1GcltodLK1ywwfrPy4zOBEP1V+m69E35TnKcQrqFM/PMeT3Zjjxod
+ Y8PDtXLPu4uhCt103/jCZZsZZDupITIT42BgJ/Ho9tym8sTtwyKUZgjHJH7TvL5e
+ ++mfuOQU=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=SbvkOz5hwqqv42
- srAEai1Z6aFCE=; b=gT6HVbBGO8JPW77oW8NuutjMaGPV19fS7UcUFiIA6CwixZ
- WC5dnit3IGV/bFrJ7Q5/8m5tShBlbd57vIadAaorGpGP/ch2ZhARQSbrFzlSj+hH
- rb7zWN0fQGk2noruO1ZkM4HgSGqGQtgiyhY3NVqp3+2/XwjJOtiNBKGk5cOy4=
-X-ME-Sender: <xms:mU-MWHRyC1dUUr5i5Klxbe2Cn8cgfcbH6g4oVeibBTN7LDBVttVwOQ>
-X-Sasl-enc: xfyHJM8l+apQYNQWSd067Z31huPR+CvbLIBTtdCk5lH2 1485590424
-Received: from lasair.aj.id.au (ppp203-122-213-247.static.internode.on.net
- [203.122.213.247])
- by mail.messagingengine.com (Postfix) with ESMTPA id 1FA81244B4
- for <openbmc@lists.ozlabs.org>; Sat, 28 Jan 2017 03:00:23 -0500 (EST)
-Message-ID: <1485590413.2450.7.camel@aj.id.au>
-Subject: Re: [PATCH linux v2] arm: aspeed: zaius: Disable LPC reset for UART1
+ messagingengine.com; h=cc:content-type:date:from:message-id
+ :mime-version:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=smtpout; bh=LXsZND9K8ir7eT1v1oiiS24vmp0=; b=KJ4c5
+ HCgoUVAeAT0gUL1I0rc87saYfMa4c/Pp21BAA/s35dE/UB+4YjDZIwnBJN/brvf4
+ YKiOuwbv8HHRT+34EP4NupWDZAulVynSTAkcprlyv4bst1gjuPCoO3ETeo+crdkL
+ Do57sVgIAJr1l9xtag+kJhP06gP4ode1X4SbXU=
+X-ME-Sender: <xms:OZiOWDqU7Qlbk7uCGt5a-AiLtCOVEaHNCpD6zp_TVtTsVouS0uHVWA>
+X-Sasl-enc: 7y7dkHUSocpvzLu427MjCXhnwrNd8nIkP8kvPX+pT84s 1485740088
+Received: from [10.104.0.15] (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 7DB927E0E7;
+ Sun, 29 Jan 2017 20:34:47 -0500 (EST)
+Message-ID: <1485740080.4137.21.camel@aj.id.au>
+Subject: GPIO offsets used by userspace
 From: Andrew Jeffery <andrew@aj.id.au>
-To: openbmc@lists.ozlabs.org
-Date: Sat, 28 Jan 2017 18:30:13 +1030
-In-Reply-To: <CAPLgG==oWWy8pTpLszLOECXK7pQMXW8uE_NgpFz7Awx51q5ohA@mail.gmail.com>
-References: <20170127232307.110483-1-xow@google.com>
- <CAPLgG==oWWy8pTpLszLOECXK7pQMXW8uE_NgpFz7Awx51q5ohA@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha384";
- protocol="application/pgp-signature"; boundary="=-0Go/DIx4elNzceJo3Km/"
-X-Mailer: Evolution 3.20.5 
+To: Joel Stanley <joel@jms.id.au>, Patrick Williams <patrick@stwcx.xyz>
+Cc: OpenBMC <openbmc@lists.ozlabs.org>
+Date: Mon, 30 Jan 2017 12:04:40 +1030
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-/2PFEbqEzTKdMyszUUkN"
+X-Mailer: Evolution 3.22.1-0ubuntu2 
 Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -58,105 +55,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 28 Jan 2017 08:00:31 -0000
+X-List-Received-Date: Mon, 30 Jan 2017 01:34:55 -0000
 
 
---=-0Go/DIx4elNzceJo3Km/
+--=-/2PFEbqEzTKdMyszUUkN
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2017-01-27 at 15:32 -0800, Rick Altherr wrote:
-> I still don't follow.=C2=A0 Is this changing it to drop bytes until the
-> host powers on?=C2=A0 Is this change making it so the device won't open?
+Hi all,
 
-I understand it to be the other way around:=C2=A0
+Just a heads up that when the linked patch is pulled into the OpenBMC
+kernel it will break our userspace. We will need to synchronise the
+kernel bump with the fixes for the machine configs to update the magic
+GPIO offset number.
 
-In the existing configuration UART1 will drop bytes by being held in
-reset until the host initialises the LPC bus (i.e. releases LPCRST#)
-during boot.
+https://lkml.org/lkml/2017/1/26/786
 
-Xo's change reconfigures the SoC so that UART1 reset state doesn't
-depend on LPCRST# (i.e. the host initialising the LPC bus), so it is
-immediately useful in that it won't discard bytes.
+The magic offset is essentially 512-(ngpios) (I don't know why, but
+that's the behaviour), and this now varies between AST2400 and AST2500
+systems due to the AST2500 having an extra bank, and also because the
+AST2400 has a "hole" at the end of its GPIO number space.
 
-Xo?
+Cheers,
 
 Andrew
-
->=20
-> > On Fri, Jan 27, 2017 at 3:23 PM, Xo Wang <xow@google.com> wrote:
-> > Currently, UART1 on Zaius BMC is unusable until brought out of reset by
-> > powering the host on. In this reset state, ttyS0 can still be opened
-> > and UART1 silently drops bytes, which is not obviously expected
-> > behavior.
-> >=20
-> > Clear the LPC block control bit that enables LPCRST# as a reset source
-> > for UART1.
-> >=20
-> > Signed-off-by: Xo Wang <xow@google.com
-> > ---
-> > =C2=A0arch/arm/mach-aspeed/aspeed.c | 7 +++++++
-> > =C2=A01 file changed, 7 insertions(+)
-> >=20
-> > diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspee=
-d.c
-> > index 4bd3680d742d..fa99d8bde5e0 100644
-> > --- a/arch/arm/mach-aspeed/aspeed.c
-> > +++ b/arch/arm/mach-aspeed/aspeed.c
-> > @@ -185,6 +185,13 @@ static void __init do_zaius_setup(void)
-> >=20
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Set SPI1 CE0 decoding window to 0x300000=
-00 */
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 writel(0x68600000, AST_IO(AST_BASE_SPI | 0x=
-30));
-> > +
-> > +=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Disable LPC reset for UART1, otherwise h=
-eld in reset by LPCRST#,
-> > +=C2=A0 =C2=A0 =C2=A0 =C2=A0 * silently dropping bytes until released (=
-usually by host power on)
-> > +=C2=A0 =C2=A0 =C2=A0 =C2=A0 * */
-> > +=C2=A0 =C2=A0 =C2=A0 =C2=A0reg =3D readl(AST_IO(AST_BASE_LPC | 0x98));
-> > +=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Clear "Enable UART1 reset source from LP=
-C" */
-> > +=C2=A0 =C2=A0 =C2=A0 =C2=A0writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC |=
- 0x98));
-> > =C2=A0}
-> >=20
-> > =C2=A0static void __init do_witherspoon_setup(void)
-> > --
-> > 2.11.0.483.g087da7b7c-goog
-> >=20
-> > _______________________________________________
-> > openbmc mailing list
-> > openbmc@lists.ozlabs.org
-> > https://lists.ozlabs.org/listinfo/openbmc
-> >=20
->=20
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
-
---=-0Go/DIx4elNzceJo3Km/
+--=-/2PFEbqEzTKdMyszUUkN
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAABCQAGBQJYjE+OAAoJEJ0dnzgO5LT5CWgQAJfqxpTZ6zuHREBvP1g/vFVB
-5g+poEylV0/NR+xRj7O3z9AN32nYG1UyVSbkGzNkDDDdFcOiJuxzPlggf+i9Vk5H
-iwJSSEpp8tuqmr8DuXCzLyxKQKnwUvMJAPTUNMarLlF/7etZslUL+3lRmTICdeC6
-IovG1RlKikitF9U/JcHmjo8P8Mm0poWnN7TwwS77Gs/Er1SjTNPLG3587YFDok5D
-Zc2WFBXaqy5Ho7sfM4Vylpg2HOiXpM+rlXGJCyIHG+O75yE/JcAUeW2qQ7wca83a
-E/SqFOA8zmybe9FE9UlYOaqDk2fYMeyc8nIA489u8AE9t1VWV5x10zDsQxCHfhmN
-FbeyOnkgFNfOgHcTNT308oqcwMFctsRCG+0kd7c33JVXsAMbZy98fO7QtoanzKV4
-LgrSgSIW38iwCidUF75y+1yJftfeclDV3yyKplHvHfxlHZJSFz4CETaG3pvh+huc
-2RGON/ThJfOIv2ijDmXSk27VXQ1re5BGZcQEtEnrV019yv8hKeAVWmaYMmRGBEHL
-VOspBNw0rJSBAXHETN5aCOSJXgUntmPw0tBTZ78NFnuOFqbw1JyY020RBhCikP4C
-iEjM71aCP6UlsrQ0ZWPlP+SUuK/48d6ntIO2zT7osw9fBlhmZout4GIlFpZn2FzP
-iSs1qXUqwos6vTSclHeN
-=NURx
+iQIcBAABCgAGBQJYjpgwAAoJEJ0dnzgO5LT56QIP+gPYTOWTitYs9jWQODC4wVOi
+yNdGVH1H52qhqJ6Vs55TA+Me206hvjigLMYCP4KKvf+/Z2d+QeYhTH1OAU+LKfia
+Q9CpeEHlMCgNIOwBJfJAlSh4PXUSAJrChWZa+8ejAMQ4kUU4gM/dMj0+SEFHS1Lb
+Q2Uujfo21P/Vkt+9yknJNazN0vYunqNzuCDtdBZOHtGzJk/JTgVbK6O6h7DErDo7
+uow4AafPmmROnEUNK0RRFK84mdk9y5PNqjJbgM0sY5hk+waH9VkrP18XDdBMkpQR
+14QquGZWMkd5cLkscvq47yTorHLmSJiQTAeVHY4+ZBZ0zE1HNiAwMGOCk12Wz34K
+WtMR37+bpCUH/BNHofKAPy1DmxrZ4XlmKirQpUw4dd5XuEkvIbE8XNHFQ8XleWmm
+1RuANxEfM4LI+FGuBYmLdTYU9e2E64KY4caKmEGsh/clYb/GJeaw3bxaye0n9i72
+r2BWYF88G/d+QX8LiiXi+YvIq+2Vq79oVMcPxHm4WP7Hi8pyjuT8AVjNugN+Bxp7
+HmMeXrceP2La8tffzbrCPRAix7BV5Ntv4pf/tow6Cni+AMgUrAw69Nr+HdgAdZZd
+ntUX/SXJRAiMXyHenLbP59n567SSKo36+2con7DtSY4zWj8ejRNbfqwXpEyoiENW
+DBcrt5GDECE9ZWGDuGdz
+=MfIx
 -----END PGP SIGNATURE-----
 
---=-0Go/DIx4elNzceJo3Km/--
+--=-/2PFEbqEzTKdMyszUUkN--
