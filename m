@@ -1,48 +1,29 @@
-Return-Path: <raltherr@google.com>
-Received: from mail-pf0-x232.google.com (mail-pf0-x232.google.com
- [IPv6:2607:f8b0:400e:c00::232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <patrick@stwcx.xyz>
+Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
+ [74.201.84.163])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vCZmf6ZYpzDq99
- for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 05:39:30 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="ZcihHtZ7"; 
- dkim-atps=neutral
-Received: by mail-pf0-x232.google.com with SMTP id f144so109639253pfa.2
- for <openbmc@lists.ozlabs.org>; Tue, 31 Jan 2017 10:39:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=from:to:subject:date:message-id;
- bh=PMi0WaSop2VPxjfxRaQxL6mGRTHCytaXRsmod8cU9BA=;
- b=ZcihHtZ7s3lsEsXxs7qt7imf5ngJC82lxYZdyFEEsCEIExnwD9qzs5hwFrVByQmL1v
- bVyQ4ohzg9VRr4naaOTqXzHyE7z8q6o0sQD6sYJ5VPchphrjNMCKCASTQOAO/i1A3e+E
- 9L3F6gnbytebYZlTTLoVGWOrOprgadosQ4qypABS2Z6JclCX4ThnU2BJzg5hd+3XCyO9
- U/FSpZ8TPq/UaWvRyS5CTH2IF/WA90cXvU5p9ppvVkSQR91qQo5CFzAfJd9DXRpvyQor
- bnaBycEfu0eQp7gqZf1kUEQ1GWfsJBDRKhrp8kg0h5VAY6SrCi0DjCSZRp4FBN6Dn2YI
- G3OA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:date:message-id;
- bh=PMi0WaSop2VPxjfxRaQxL6mGRTHCytaXRsmod8cU9BA=;
- b=RjB7upa9TTlFc+bplcctBQ4kGfKjrS9thh975hrQiZQozlvCKtkgddDQQPPmMEHbZJ
- jsPQqVglesv3AkCs7USKi/JTUEncVqUpoxr9V/OwhvK0PBfWBSfc5ZIaXyGGSefUefSC
- LkN3FP0Y9Fjx6y3yze0FKBqc5+dxLzp5av0FFqbZDxs5l3mGhufQtirWS6r0q9sZMn2O
- vAWRdTzLt/Me8eFpmSQJbX5wbW5HLND3IrZgpaS/5Us75N79/0ToQU1y2saJL8PSc7JK
- i/AcBQHfG/uq9yvFRNQFFBGi1dfYi/MP3LMWyHvW0YQpET9rTRO11G9WoBchhhS+v/vV
- t6pA==
-X-Gm-Message-State: AIkVDXJv/BdfqeB+17OBgb232wy7f897pQToOcksc8lBQQ6f2i7CqXwvHHYVdjz8geXYc8/F
-X-Received: by 10.99.98.132 with SMTP id w126mr32135965pgb.59.1485887968934;
- Tue, 31 Jan 2017 10:39:28 -0800 (PST)
-Received: from raltherr-linux.svl.corp.google.com ([100.123.242.49])
- by smtp.gmail.com with ESMTPSA id r21sm42901673pfd.95.2017.01.31.10.39.28
- for <openbmc@lists.ozlabs.org>
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 31 Jan 2017 10:39:28 -0800 (PST)
-From: Rick Altherr <raltherr@google.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux] dts: aspeed: merge initrd into kernel in flash layout
-Date: Tue, 31 Jan 2017 10:39:27 -0800
-Message-Id: <20170131183927.30887-1-raltherr@google.com>
-X-Mailer: git-send-email 2.11.0.483.g087da7b7c-goog
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vCZz01pj1zDq9K
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 05:48:27 +1100 (AEDT)
+Received: from localhost (32.97.110.57 [32.97.110.57]) by mx.zohomail.com
+ with SMTPS id 148588849532819.543659860875096;
+ Tue, 31 Jan 2017 10:48:15 -0800 (PST)
+Date: Tue, 31 Jan 2017 12:48:08 -0600
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Matt Barth <msbarth@linux.vnet.ibm.com>, Joel Stanley <joel@jms.id.au>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, bradleyb@fuzziesquirrel.com
+Subject: Re: GPIO expander user space access(ie. pca9552)
+Message-ID: <20170131184808.absjhzv6bg2r2a3e@asimov>
+References: <6af19fb7-e5aa-bcb5-8027-9cf609e30eda@linux.vnet.ibm.com>
+ <1485216565.4137.9.camel@aj.id.au>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="com2dje63t767svm"
+Content-Disposition: inline
+In-Reply-To: <1485216565.4137.9.camel@aj.id.au>
+User-Agent: Mutt/1.6.2 (2016-06-11)
+X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,37 +35,79 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 31 Jan 2017 18:39:31 -0000
+X-List-Received-Date: Tue, 31 Jan 2017 18:48:28 -0000
 
-openbmc/openbmc commit 1ed6fe335cda50cf60b7afddbe530077a1b25d27 includes
-the initrd in the kernel image.  Update the flash layout used by OpenBMC
-dts accordingly.  This is required for OpenBMC's kernel update mechanism
-to work as the kernel image now exceeds the size of the original kernel
-partition.
 
-Signed-off-by: Rick Altherr <raltherr@google.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+--com2dje63t767svm
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
-index 65095a40a203..4bcfd1bf8dc5 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
-@@ -12,13 +12,9 @@
- 					label = "u-boot-env";
- 				};
- 				kernel@80000 {
--					reg = < 0x80000 0x280000 >;
-+					reg = < 0x80000 0x440000 >;
- 					label = "kernel";
- 				};
--				initramfs@300000 {
--					reg = < 0x300000 0x1c0000 >;
--					label = "initramfs";
--				};
- 				rofs@0c0000 {
- 					reg = < 0x4c0000 0x1740000 >;
- 					label = "rofs";
--- 
-2.11.0.483.g087da7b7c-goog
+On Tue, Jan 24, 2017 at 10:39:25AM +1030, Andrew Jeffery wrote:
+> On Mon, 2017-01-23 at 09:58 -0600, Matt Barth wrote:
+> > Is there a defined process/interface to access GPIO expanders from user=
+=A0
+> > space to be able to determine when the state changes? Possibly polling =
+a=A0
+> > fd or getting notified on the state change?
+> >=20
+> > Previously this was an i2c device that was accessed over i2c and the se=
+t=A0
+> > of interested bits were simply read into the application. An example is=
+=A0
+> > the use of a pca9552 for presence detection on chassis fans.
+>=20
+> I expect it should be implemented as a gpiochip driver in the kernel
+> and exposed via the usual methods to userspace (GPIO chardev and sysfs,
+> though sysfs is considered deprecated).
+>=20
+> Andrew
+
+There is already leds-pca955x for manipulating a 9552 as an LED
+controller.  That chip can also be used as a GPIO expander (moreover,=20
+individual bits can be configured as a GPIO).  I don't see anything
+obvious in the leds-pca955x that allows manipulating the GPIO aspects.
+
+The leds-pca955x also supports 9553 and 9554.  There is also a gpio-pca953x,
+which supports the 9554, 9555, and 9556.  There does not currently
+appear to be any mechanism, either using leds-... or gpio-... to
+manipulate the GPIO settings of a 9552.
+
+The 955[456] chips have an interrupt line that would typically be wired
+back to the BMC.  This allow the normal GPIO interrupt to be waited on
+(per Joel's email in this stream).  For chips that do not have the
+interrupt line, the gpio-pca953x driver gives a 'dev_warn' if you
+attempt to register an interrupt.
+
+It isn't typical to have the same i2c chip registered in two subsystems
+(leds and gpio) at the same time, is it?  So we would need to get the leds
+driver enhanced to also support gpio manipulation?  Since the chip
+doesn't support an interrupt line we are also stuck with polling,
+correct?
+
+--=20
+Patrick Williams
+
+--com2dje63t767svm
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJYkNvoAAoJEKsDR8wtAMEZlncQAIZG1mtKHBUkn5Ft0Gxs7K+t
+bK3TTo4tAU3QbcuYG9BlOJtkcVznGSfNqsWpEtcmKcPsk6f5cXcqGR49eC7G2kmU
+BvgcjRXZWA7f8aLYBfbTH4DqQZZaAQNh63Ys3yxbpT7Nm9kBlU8hrEzb72PsVvIJ
+gSsYRLOQrYQmVDpej4+BAJs7Rpu/ta/L5EJ9r06vR7UhF9qyILSUSgNw8H50dnIb
+s4Y5xyh+F11Wm9qVoNy3rd6sRqD41PoGhqdf9DeEG9xqPN/kQkTiaySoiM61Kuj1
+g4SPVvUlfXUdHd7tMx1TVQ6zj3E3U/2Si93lQE/7DBX1lwRgU4AQKh0qH1P0v0vQ
+TEiPsE7bjARLztwJjF5gBLirZqTThSJecLRctgaILeaRIBRpv4oTfEhR5SktgXxj
+V14qPoYz32QkN0QIN0rWLp37GIueVXaTrRYnkIiO9li8oBNM7Gfo7DKuOCyFdcZ+
+PHBr82HCWIisonfFPDHrPTWcD7oQu//wjexZCFJnL74SZ6UDdJIb3WCQXLu2ngiB
+AEEx3ajD7srhOJkqas7NSE3bKY3/UfQYx1lCoewg56UoSf/UmZSxp5PrdpB7sX/0
+vyu4Tz4dK+HogyExfk74pQuaVtk75AhJ0nijvxGvzuhhfg6CbaGgI5ZQIY//kPQH
+cM97vTERJOhIIXc7A47j
+=sEW6
+-----END PGP SIGNATURE-----
+
+--com2dje63t767svm--
