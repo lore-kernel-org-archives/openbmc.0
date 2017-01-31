@@ -3,27 +3,25 @@ Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
  [74.201.84.163])
  (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vCZ3D6SFBzDq9d
- for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 05:07:04 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vCZ5d21t8zDq9r
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 05:09:09 +1100 (AEDT)
 Received: from localhost (32.97.110.57 [32.97.110.57]) by mx.zohomail.com
- with SMTPS id 1485886016029822.5107813267296;
- Tue, 31 Jan 2017 10:06:56 -0800 (PST)
-Date: Tue, 31 Jan 2017 12:06:49 -0600
+ with SMTPS id 1485886137106648.0009108301737;
+ Tue, 31 Jan 2017 10:08:57 -0800 (PST)
+Date: Tue, 31 Jan 2017 12:08:50 -0600
 From: Patrick Williams <patrick@stwcx.xyz>
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: "Hergert, Nolan" <nolan.hergert@intel.com>,
- Joel Stanley <joel@jms.id.au>, OpenBMC <openbmc@lists.ozlabs.org>
-Subject: Re: GPIO offsets used by userspace
-Message-ID: <20170131180649.pue34l4u26vvvvma@asimov>
-References: <1485740080.4137.21.camel@aj.id.au>
- <CACPK8XeOQPONhwQ4Q6bPUp7=-AoFArXwCmzDC-tors00i_u=tg@mail.gmail.com>
- <20F6DE8D093BC149AEF7D895510943F51447A0ED@ORSMSX101.amr.corp.intel.com>
- <1485825155.4137.23.camel@aj.id.au>
+To: Rick Altherr <raltherr@google.com>
+Cc: David =?iso-8859-1?Q?M=FCller_=28ELSOFT_AG=29?= <d.mueller@elsoft.ch>,
+ OpenBMC <openbmc@lists.ozlabs.org>
+Subject: Re: Update strategy?
+Message-ID: <20170131180850.mwbrp5les5h64vqm@asimov>
+References: <0b4e0ee9-c10a-a443-f2a0-8f5a26f5c63c@elsoft.ch>
+ <CAPLgG=mZJ8b-A4u1PKj-Gt0=_3rNCAJwiU=em4rJ1-aR7OtAKQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="f2e7zjkj6tegpopc"
+ protocol="application/pgp-signature"; boundary="ztg2igkir7tngmvz"
 Content-Disposition: inline
-In-Reply-To: <1485825155.4137.23.camel@aj.id.au>
+In-Reply-To: <CAPLgG=mZJ8b-A4u1PKj-Gt0=_3rNCAJwiU=em4rJ1-aR7OtAKQ@mail.gmail.com>
 User-Agent: Mutt/1.6.2 (2016-06-11)
 X-Zoho-Virus-Status: 1
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -37,44 +35,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 31 Jan 2017 18:07:05 -0000
+X-List-Received-Date: Tue, 31 Jan 2017 18:09:10 -0000
 
 
---f2e7zjkj6tegpopc
-Content-Type: text/plain; charset=us-ascii
+--ztg2igkir7tngmvz
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jan 31, 2017 at 11:42:35AM +1030, Andrew Jeffery wrote:
-> Patrick: Did you have any plans for reworking the userspace bits?
+On Tue, Jan 31, 2017 at 09:10:39AM -0800, Rick Altherr via openbmc wrote:
+> https://github.com/openbmc/docs/blob/master/code-update.md
+>=20
+> On Tue, Jan 31, 2017 at 2:42 AM, David M=FCller (ELSOFT AG) <
+> d.mueller@elsoft.ch> wrote:
+>=20
+> > Hello
+> >
+> > Is there an "official" way to update/upgrade an OpenBMC installation out
+> > in the field?
+> >
+> > Dave
 
-Yes.  Joel has previously talked about writing a proposal based on the
-kernel team's desires.  I think we're getting close to queuing up the
-work to refactor anything using GPIOs.
+Dave,
+
+Rick's link is to the current working model.  It isn't great.
+
+Adriana had an email thread a few days ago titled "OpenBMC Image
+Management" to start the design on a new implementation.
 
 --=20
 Patrick Williams
 
---f2e7zjkj6tegpopc
+--ztg2igkir7tngmvz
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJYkNI5AAoJEKsDR8wtAMEZX+0P/jq+IITXnSSD7w5jh42pms9r
-lRzP6RBHHccgN9LsBJcjkGdd0pESDwWAWTcJVRfEsy8637QBA+YhCaUXxWETxCMl
-bouysABailp+KLh5d3hkklKKlOGVA27F4tcR3AQtvJobBcg6+/Po+/H7WgE3Dy4N
-6cSTAZEID6UvFutYmaL9Yha/TOj9QAiUHggOkmuBpUYHmnFOLke8Ok3lsG1RqAsh
-EeQYtcw4gatWLc6xmSuB5s2SQcbKwiPcjV7eYKHliuDtxKA0tddHEs7KAELanfsi
-SDEeXZ/zCfURmo25n+cjj3mm4HHfl472KZj00Sa+LRkySCieL2HtbwLQ6hpKiYPi
-GcZU2h1K8x7pKcopY93Ssp2UCYvEK1s9l4HUNPXpltb1xq511zMIBm9ttBnfDOcf
-yf75OkVMvO/hmMHjqFOcqP30HiKrEQbrlX1ORBk+nY00n7IXfSy7uqi5eZh9kevJ
-N/MNVaIbO5V9x5vjgfz+lthdCeIWpzDLItg9J52vMs8jdU91bkQeBhIR3K1wnLx1
-GeNyCLYvsfVRrfFbLWCVK7aC64i66sdYrRJCSZfzn63hcdMUXGhmqfr8XfKCMATN
-qGmil2mCYYh7LuAXmPIfGPN8/AqY4hWiWH0E5yQxwRDb66Y0o86FhYEbXPD5Usg/
-uIVhsgUbomvuLtucr0aI
-=hocF
+iQIcBAEBCAAGBQJYkNKyAAoJEKsDR8wtAMEZuLMQAKeTWqV7zgNdHFNU9XhK42CG
+saRnrWm05xFk1XIxLpsRsMhGkGF/vLItPYNXZ1mI/rRUqNRpXp2EvHsiCxLjQJMO
+IPovXxg//HR6pjLPtm6yP4oD8QAUdQtL0zzbFSirGyIyUyVW8w8yAW6nokBswim8
+Pzi47di3XQncSXsnni0apQ2TguwMT1aM57IW7FO90WrhiXiMUD+SGlrsmg5NaXWb
+3d5cyh/KbYbXN9Pd0u0xaFWBYiWv7cJX3AIPkN4lDvENpg7dodj5znWQfWl7RrmZ
+rdRCWu3Akl4aSzm1YB7X+puCRDsqcROifrXvhACHU6bR3/fqNbKeQg8rI42YYjFA
+WInNcTF48KB9He5oE9hrgsNfCyFBW0yXKNqY8h+QrLd+NpYubcVWrAcu8ZDwfPLm
+yI0uYXqeMa1b4/D4sNZSuxCIuVfxh1pFsYr73AsYCqa6135gu/Ff8zpoO5X4ATAl
+9daMt6XG2s1zb7ZjMzPtyHZ7GdHd1UKstLX1ruW2gf7cBb38eP3G7DZHvnWIq++P
+3AVypz7Rpb1/ol2fnb7tg3nkNJXpFdryIBDiJ4hxXhc66/2zBnW/+S3AhaKysS0T
+5HZFItAtf98cjNcSrtIj+PWey0Eg0MpMBmb2a7lJulmF87AONJbG8sUZdE+I5coV
+pKsXYggDV/YqdnbKoCAv
+=6hZr
 -----END PGP SIGNATURE-----
 
---f2e7zjkj6tegpopc--
+--ztg2igkir7tngmvz--
