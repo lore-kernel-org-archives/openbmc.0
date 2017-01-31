@@ -1,29 +1,71 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <benh@au1.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vCZz01pj1zDq9K
- for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 05:48:27 +1100 (AEDT)
-Received: from localhost (32.97.110.57 [32.97.110.57]) by mx.zohomail.com
- with SMTPS id 148588849532819.543659860875096;
- Tue, 31 Jan 2017 10:48:15 -0800 (PST)
-Date: Tue, 31 Jan 2017 12:48:08 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Matt Barth <msbarth@linux.vnet.ibm.com>, Joel Stanley <joel@jms.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, bradleyb@fuzziesquirrel.com
-Subject: Re: GPIO expander user space access(ie. pca9552)
-Message-ID: <20170131184808.absjhzv6bg2r2a3e@asimov>
-References: <6af19fb7-e5aa-bcb5-8027-9cf609e30eda@linux.vnet.ibm.com>
- <1485216565.4137.9.camel@aj.id.au>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="com2dje63t767svm"
-Content-Disposition: inline
-In-Reply-To: <1485216565.4137.9.camel@aj.id.au>
-User-Agent: Mutt/1.6.2 (2016-06-11)
-X-Zoho-Virus-Status: 1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vCg180ln6zDqBg
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 08:50:35 +1100 (AEDT)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v0VLhY9x085697
+ for <openbmc@lists.ozlabs.org>; Tue, 31 Jan 2017 16:50:33 -0500
+Received: from e23smtp02.au.ibm.com (e23smtp02.au.ibm.com [202.81.31.144])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 28a6qqjve6-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 31 Jan 2017 16:50:33 -0500
+Received: from localhost
+ by e23smtp02.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <benh@au1.ibm.com>;
+ Wed, 1 Feb 2017 07:50:30 +1000
+Received: from d23dlp03.au.ibm.com (202.81.31.214)
+ by e23smtp02.au.ibm.com (202.81.31.208) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ Wed, 1 Feb 2017 07:50:29 +1000
+Received: from d23relay10.au.ibm.com (d23relay10.au.ibm.com [9.190.26.77])
+ by d23dlp03.au.ibm.com (Postfix) with ESMTP id 0E9C83578053
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 08:50:29 +1100 (EST)
+Received: from d23av04.au.ibm.com (d23av04.au.ibm.com [9.190.235.139])
+ by d23relay10.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v0VLoLF427983946
+ for <openbmc@lists.ozlabs.org>; Wed, 1 Feb 2017 08:50:29 +1100
+Received: from d23av04.au.ibm.com (localhost [127.0.0.1])
+ by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+ v0VLnuVV013841
+ for <openbmc@lists.ozlabs.org>; Wed, 1 Feb 2017 08:49:57 +1100
+Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
+ by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
+ v0VLnups013084; Wed, 1 Feb 2017 08:49:56 +1100
+Received: from pasglop (unknown [9.192.205.240])
+ (using TLSv1.2 with cipher AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 12E39A01E2;
+ Wed,  1 Feb 2017 08:49:32 +1100 (AEDT)
+Subject: Re: [PATCH linux] dts: Minimal device tree for Quanta Q71L BMC
+From: Benjamin Herrenschmidt <benh@au1.ibm.com>
+Reply-To: benh@au1.ibm.com
+To: Rick Altherr <raltherr@google.com>, openbmc@lists.ozlabs.org
+Date: Wed, 01 Feb 2017 08:49:30 +1100
+In-Reply-To: <20170131183828.30671-1-raltherr@google.com>
+References: <20170131183828.30671-1-raltherr@google.com>
+Organization: IBM Australia
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.22.4 (3.22.4-2.fc25) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-TM-AS-MML: disable
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17013121-0004-0000-0000-000001DB96A3
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17013121-0005-0000-0000-000009966B21
+Message-Id: <1485899370.2953.7.camel@au1.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-01-31_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1701310175
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -35,79 +77,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 31 Jan 2017 18:48:28 -0000
+X-List-Received-Date: Tue, 31 Jan 2017 21:50:36 -0000
 
+On Tue, 2017-01-31 at 10:38 -0800, Rick Altherr via openbmc wrote:
+> +       memory {
+> +               reg = <0x40000000 0x8000000>;
+> +       };
 
---com2dje63t767svm
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+128M of RAM up here...
 
-On Tue, Jan 24, 2017 at 10:39:25AM +1030, Andrew Jeffery wrote:
-> On Mon, 2017-01-23 at 09:58 -0600, Matt Barth wrote:
-> > Is there a defined process/interface to access GPIO expanders from user=
-=A0
-> > space to be able to determine when the state changes? Possibly polling =
-a=A0
-> > fd or getting notified on the state change?
-> >=20
-> > Previously this was an i2c device that was accessed over i2c and the se=
-t=A0
-> > of interested bits were simply read into the application. An example is=
-=A0
-> > the use of a pca9552 for presence detection on chassis fans.
->=20
-> I expect it should be implemented as a gpiochip driver in the kernel
-> and exposed via the usual methods to userspace (GPIO chardev and sysfs,
-> though sysfs is considered deprecated).
->=20
-> Andrew
+> +       reserved-memory {
+> +               #address-cells = <1>;
+> +               #size-cells = <1>;
+> +               ranges;
+> +
+> +               vga_memory: framebuffer@5f000000 {
+> +                       no-map;
+> +                       reg = <0x5f000000 0x01000000>; /* 16MB */
+> +               };
 
-There is already leds-pca955x for manipulating a 9552 as an LED
-controller.  That chip can also be used as a GPIO expander (moreover,=20
-individual bits can be configured as a GPIO).  I don't see anything
-obvious in the leds-pca955x that allows manipulating the GPIO aspects.
+And framebuffer at 496M... something's not right.
 
-The leds-pca955x also supports 9553 and 9554.  There is also a gpio-pca953x,
-which supports the 9554, 9555, and 9556.  There does not currently
-appear to be any mechanism, either using leds-... or gpio-... to
-manipulate the GPIO settings of a 9552.
-
-The 955[456] chips have an interrupt line that would typically be wired
-back to the BMC.  This allow the normal GPIO interrupt to be waited on
-(per Joel's email in this stream).  For chips that do not have the
-interrupt line, the gpio-pca953x driver gives a 'dev_warn' if you
-attempt to register an interrupt.
-
-It isn't typical to have the same i2c chip registered in two subsystems
-(leds and gpio) at the same time, is it?  So we would need to get the leds
-driver enhanced to also support gpio manipulation?  Since the chip
-doesn't support an interrupt line we are also stuck with polling,
-correct?
-
---=20
-Patrick Williams
-
---com2dje63t767svm
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJYkNvoAAoJEKsDR8wtAMEZlncQAIZG1mtKHBUkn5Ft0Gxs7K+t
-bK3TTo4tAU3QbcuYG9BlOJtkcVznGSfNqsWpEtcmKcPsk6f5cXcqGR49eC7G2kmU
-BvgcjRXZWA7f8aLYBfbTH4DqQZZaAQNh63Ys3yxbpT7Nm9kBlU8hrEzb72PsVvIJ
-gSsYRLOQrYQmVDpej4+BAJs7Rpu/ta/L5EJ9r06vR7UhF9qyILSUSgNw8H50dnIb
-s4Y5xyh+F11Wm9qVoNy3rd6sRqD41PoGhqdf9DeEG9xqPN/kQkTiaySoiM61Kuj1
-g4SPVvUlfXUdHd7tMx1TVQ6zj3E3U/2Si93lQE/7DBX1lwRgU4AQKh0qH1P0v0vQ
-TEiPsE7bjARLztwJjF5gBLirZqTThSJecLRctgaILeaRIBRpv4oTfEhR5SktgXxj
-V14qPoYz32QkN0QIN0rWLp37GIueVXaTrRYnkIiO9li8oBNM7Gfo7DKuOCyFdcZ+
-PHBr82HCWIisonfFPDHrPTWcD7oQu//wjexZCFJnL74SZ6UDdJIb3WCQXLu2ngiB
-AEEx3ajD7srhOJkqas7NSE3bKY3/UfQYx1lCoewg56UoSf/UmZSxp5PrdpB7sX/0
-vyu4Tz4dK+HogyExfk74pQuaVtk75AhJ0nijvxGvzuhhfg6CbaGgI5ZQIY//kPQH
-cM97vTERJOhIIXc7A47j
-=sEW6
------END PGP SIGNATURE-----
-
---com2dje63t767svm--
+> +       };
+> +
