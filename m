@@ -1,49 +1,49 @@
-Return-Path: <linus.walleij@linaro.org>
-Received: from mail-it0-x235.google.com (mail-it0-x235.google.com
- [IPv6:2607:f8b0:4001:c0b::235])
+Return-Path: <raltherr@google.com>
+Received: from mail-io0-x22a.google.com (mail-io0-x22a.google.com
+ [IPv6:2607:f8b0:4001:c06::22a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vCTgz0lgszDq9P
- for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 01:50:06 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="ROCWw2/V"; 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vCXpC3ktNzDq9d
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 04:10:42 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="mrmPVkxK"; 
  dkim-atps=neutral
-Received: by mail-it0-x235.google.com with SMTP id d9so28864977itc.0
- for <openbmc@lists.ozlabs.org>; Tue, 31 Jan 2017 06:50:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+Received: by mail-io0-x22a.google.com with SMTP id j13so136259383iod.3
+ for <openbmc@lists.ozlabs.org>; Tue, 31 Jan 2017 09:10:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=TfdPyyiW0oiClP8bmukyvksW4PiKILVfzdKDbo8W+Qc=;
- b=ROCWw2/Vy6/bn6CyZpMsqYD6YLmiAVq/rbG2BSsIbXfQK7j+81oLjuChTFiGwciZn4
- 3gDO/7Fsy8pCzQMkbtQG8vvDC0aD8L1bbyjTd+tM7FYTOsY/BP80ufFw44SfVbKQCQKc
- jtUBn2g/wsLR1+fMtsQYIgFbUdaI9x9VwXPW4=
+ :cc; bh=38QxyLauyiWQrQ9PDw3ltmOqlGL8BaOzfgEVIMIUJZA=;
+ b=mrmPVkxK0hNw5JR0C7kVAkX2S9bL0BHkIG4gPQ8jm4GUcW70cWsgs9zuaRVP4mb2Fw
+ dkqGptEc60WH4+T6ryglZh+dwP9kTPgSfwc6/2sAB6IicxRCWKjKVbuI5LJU19oYPtby
+ UVgsV8t0sW5pX5D1nLtIQGeOPysDQcYSpe1XMSDv7fhz9ZpGEkngQpOD342WCWfzN4MV
+ uwJPzTl3XMQy2quR6OeOp+W4kb8oYS+MRn/v3BU+ghSyw8g759s1/AVFqQXrX0xCNgPU
+ C4nqUK4yEfka74kxHTUl3j4uHeUsmmDKSdqHRUlbvuTMoXsKrmRJvYtJ6pX/GRkPzAic
+ +o7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=TfdPyyiW0oiClP8bmukyvksW4PiKILVfzdKDbo8W+Qc=;
- b=OhqQ9wzvaxoKpJmj+agiSvO/uYP6IcS8zygyWh6sKuhmgHQqx0hxKooX4Q29q8QWoN
- i+qtjIRmMhmDB6V8lAxvJ6n1Z0Up/Ns5hXPkgPUOKZHYg8Be3S5KIwV47CcFn7xOVLhV
- mbBfSIoZ4fO6WEjXuZirCi8jO1E5J0v6ET13YE7GHF68R7oyh7yKbRt8O1f0UbBXoIQX
- R2xPq0V7wkSSvhBDq69oJg+uvIWc6qHEpzp1psYtkWkBUx+kkdYxoGXA8eygGvis1Xbn
- ZluInHSUFXn3+ZtWs4fEycqx4L5d3HnlQRNNJYisoJOfWbiQO6lY4t9dceP38wszklvi
- sCUg==
-X-Gm-Message-State: AIkVDXKaauq/kTnoR0doawQXfX0dl0IFuVOJNzfLaabaePx8Z6jqFd6ccBkgFAmJeffOXwtnT5XOoZ4Ny0+59OfF
-X-Received: by 10.36.123.136 with SMTP id q130mr20190227itc.25.1485874204256; 
- Tue, 31 Jan 2017 06:50:04 -0800 (PST)
+ bh=38QxyLauyiWQrQ9PDw3ltmOqlGL8BaOzfgEVIMIUJZA=;
+ b=rDPYcskDiAZePmkuSmvXO3yUNir5KkfVw0Ur0I6NToSsaW0R/MhR4bHVypaoHN7r//
+ xPeNhBnHYSoKs0pW6bfx3zjyFaOHTlBHfP5XP3oKIsf9ERMoDaedEMSPjwqIo1Mf1EZs
+ Vz0dtRk6S/ncHnUGZAIbQXLpROyniQJVoutsdQlpgKJDRuTFzfdCMGMA+0vBRd3HL3QV
+ 1Tk9V3lcjtSBD+j5mDoKhVPtnAwe46t5MQYIz/NeYUmCctaEz/QOs7cjEd5i6/M//dvQ
+ k9RyN5XiZLT4x25Wx4xQ4LyYA5pijj0P4QwoKrhYA37iLCuOXFTfQ9m0NcXgnIqwvCSR
+ xu8A==
+X-Gm-Message-State: AIkVDXKCE2Y65Ys+YyBwWPbu+5hpXYQkUWH72qbElUiXRd/Q+4fc9CKGg15SFuLytCXbN8VsTaeD3xb/GwCtv+dl
+X-Received: by 10.107.180.8 with SMTP id d8mr24302356iof.101.1485882640427;
+ Tue, 31 Jan 2017 09:10:40 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.79.169.75 with HTTP; Tue, 31 Jan 2017 06:50:03 -0800 (PST)
-In-Reply-To: <20170127042442.28994-1-andrew@aj.id.au>
-References: <20170127042442.28994-1-andrew@aj.id.au>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 31 Jan 2017 15:50:03 +0100
-Message-ID: <CACRpkdbQu9KkR5_dfKk=1-LWLdQ3dyZdtW1JD3SeZZD1s=X3fg@mail.gmail.com>
-Subject: Re: [PATCH v3] gpio: aspeed: Add banks Y, Z, AA, AB and AC
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Joel Stanley <joel@jms.id.au>, 
- "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+Received: by 10.64.133.226 with HTTP; Tue, 31 Jan 2017 09:10:39 -0800 (PST)
+In-Reply-To: <0b4e0ee9-c10a-a443-f2a0-8f5a26f5c63c@elsoft.ch>
+References: <0b4e0ee9-c10a-a443-f2a0-8f5a26f5c63c@elsoft.ch>
+From: Rick Altherr <raltherr@google.com>
+Date: Tue, 31 Jan 2017 09:10:39 -0800
+Message-ID: <CAPLgG=mZJ8b-A4u1PKj-Gt0=_3rNCAJwiU=em4rJ1-aR7OtAKQ@mail.gmail.com>
+Subject: Re: Update strategy?
+To: =?UTF-8?Q?David_M=C3=BCller_=28ELSOFT_AG=29?= <d.mueller@elsoft.ch>
+Cc: OpenBMC <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary=94eb2c05a656f636a205476702c3
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,26 +55,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 31 Jan 2017 14:50:08 -0000
+X-List-Received-Date: Tue, 31 Jan 2017 17:10:44 -0000
 
-On Fri, Jan 27, 2017 at 5:24 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+--94eb2c05a656f636a205476702c3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-> This is less straight-forward than one would hope, as some banks only
-> have 4 pins rather than 8, others are output only, yet more (W and
-> X, already supported) are input-only, and in the case of the g4 SoC bank
-> AC doesn't exist.
+https://github.com/openbmc/docs/blob/master/code-update.md
+
+On Tue, Jan 31, 2017 at 2:42 AM, David M=C3=BCller (ELSOFT AG) <
+d.mueller@elsoft.ch> wrote:
+
+> Hello
 >
-> Add some structs to describe the varying properties of different banks
-> and integrate mechanisms to deny requests for unsupported
-> configurations.
+> Is there an "official" way to update/upgrade an OpenBMC installation out
+> in the field?
 >
-> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> ---
+> Dave
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
 >
-> Since v2:
 
-Patch applied with some patch -p1 < fuzz
-please check the result.
+--94eb2c05a656f636a205476702c3
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Yours,
-Linus Walleij
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/docs/blob/master/cod=
+e-update.md">https://github.com/openbmc/docs/blob/master/code-update.md</a>=
+<br></div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Tue,=
+ Jan 31, 2017 at 2:42 AM, David M=C3=BCller (ELSOFT AG) <span dir=3D"ltr">&=
+lt;<a href=3D"mailto:d.mueller@elsoft.ch" target=3D"_blank">d.mueller@elsof=
+t.ch</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"ma=
+rgin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Hello<br>
+<br>
+Is there an &quot;official&quot; way to update/upgrade an OpenBMC installat=
+ion out<br>
+in the field?<br>
+<br>
+Dave<br>
+______________________________<wbr>_________________<br>
+openbmc mailing list<br>
+<a href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a><br=
+>
+<a href=3D"https://lists.ozlabs.org/listinfo/openbmc" rel=3D"noreferrer" ta=
+rget=3D"_blank">https://lists.ozlabs.org/<wbr>listinfo/openbmc</a><br>
+</blockquote></div><br></div>
+
+--94eb2c05a656f636a205476702c3--
