@@ -1,71 +1,51 @@
-Return-Path: <benh@au1.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <xow@google.com>
+Received: from mail-qk0-x231.google.com (mail-qk0-x231.google.com
+ [IPv6:2607:f8b0:400d:c09::231])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vCg180ln6zDqBg
- for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 08:50:35 +1100 (AEDT)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v0VLhY9x085697
- for <openbmc@lists.ozlabs.org>; Tue, 31 Jan 2017 16:50:33 -0500
-Received: from e23smtp02.au.ibm.com (e23smtp02.au.ibm.com [202.81.31.144])
- by mx0a-001b2d01.pphosted.com with ESMTP id 28a6qqjve6-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 31 Jan 2017 16:50:33 -0500
-Received: from localhost
- by e23smtp02.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <benh@au1.ibm.com>;
- Wed, 1 Feb 2017 07:50:30 +1000
-Received: from d23dlp03.au.ibm.com (202.81.31.214)
- by e23smtp02.au.ibm.com (202.81.31.208) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- Wed, 1 Feb 2017 07:50:29 +1000
-Received: from d23relay10.au.ibm.com (d23relay10.au.ibm.com [9.190.26.77])
- by d23dlp03.au.ibm.com (Postfix) with ESMTP id 0E9C83578053
- for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 08:50:29 +1100 (EST)
-Received: from d23av04.au.ibm.com (d23av04.au.ibm.com [9.190.235.139])
- by d23relay10.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v0VLoLF427983946
- for <openbmc@lists.ozlabs.org>; Wed, 1 Feb 2017 08:50:29 +1100
-Received: from d23av04.au.ibm.com (localhost [127.0.0.1])
- by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
- v0VLnuVV013841
- for <openbmc@lists.ozlabs.org>; Wed, 1 Feb 2017 08:49:57 +1100
-Received: from ozlabs.au.ibm.com (ozlabs.au.ibm.com [9.192.253.14])
- by d23av04.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
- v0VLnups013084; Wed, 1 Feb 2017 08:49:56 +1100
-Received: from pasglop (unknown [9.192.205.240])
- (using TLSv1.2 with cipher AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 12E39A01E2;
- Wed,  1 Feb 2017 08:49:32 +1100 (AEDT)
-Subject: Re: [PATCH linux] dts: Minimal device tree for Quanta Q71L BMC
-From: Benjamin Herrenschmidt <benh@au1.ibm.com>
-Reply-To: benh@au1.ibm.com
-To: Rick Altherr <raltherr@google.com>, openbmc@lists.ozlabs.org
-Date: Wed, 01 Feb 2017 08:49:30 +1100
-In-Reply-To: <20170131183828.30671-1-raltherr@google.com>
-References: <20170131183828.30671-1-raltherr@google.com>
-Organization: IBM Australia
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.22.4 (3.22.4-2.fc25) 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-MML: disable
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17013121-0004-0000-0000-000001DB96A3
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17013121-0005-0000-0000-000009966B21
-Message-Id: <1485899370.2953.7.camel@au1.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-01-31_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1701310175
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vCgZ93wSJzDq99
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 09:15:45 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="SSn3fYZm"; 
+ dkim-atps=neutral
+Received: by mail-qk0-x231.google.com with SMTP id l126so47474515qkc.1
+ for <openbmc@lists.ozlabs.org>; Tue, 31 Jan 2017 14:15:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=AH5UJQ0PRhCrHr7y6cmC1F4eirGGbsxZt04wjnyDh+w=;
+ b=SSn3fYZmX7p8ryaHE3XxOwGJugCOFuKQJWqXKgjhnjnpfKob3scYLskp03SysKQWpS
+ K9CTHHjRCfLeUWNjPgq5l7I7RAyfcejeb0f64tcrNOapLJeAU4Z278vv24uui0BaPw0n
+ F6R3aK4Z7LBfrYLaUCW2LU1E7Jo42U8qJyMnXfMSzfhjhIySvRFKPUT0rOczYs5bTzC7
+ p2bztpO5MXzbez4OQi9WryfMyYSwePzqmlIM+BP8ufR0dWf1qPSnFgw9MxTnJOKXW1/I
+ +22nuyjWnsV9hOBv2QLaDx42z3I12We8cC61og6D1O9mkXubVeNb+JfHS9pA70/C4Skc
+ 6vtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=AH5UJQ0PRhCrHr7y6cmC1F4eirGGbsxZt04wjnyDh+w=;
+ b=h5kIx5atAZ1UucBopMS6MfAfpHKsonms3yVYDZa9B15fwX4gvF0XwAJHOULsHzwxGf
+ 8XCZ7Pojm5sVFIAgvvr8vN0KHCgSpoR0XM7wFB7w3OVmt71U1OoRSEsL7Syr6N10HJO4
+ ZqQUVeJfL48+6ekjUG3pIR9C2MSvb+QKIAz44kH7m0DMl9oPcmvmX/PJorkSpxN4zNaT
+ vFOGR0rlSLgt04u66lKxhJQQdLNSo1B4fjizBholBKpruBy4PybAeE8DRtssuYPXsFZl
+ 3ACcmwe6HA+SdZzj0fhHT4vd5lzoUrivRr16GstcYH+RP68SWNLZDGB09JgfXqcg0D7h
+ TRqg==
+X-Gm-Message-State: AIkVDXIlnV9dhqnEt1r8GeE2k/kuoN0qgi5rA5GjulXkOIRD+rHImG1FaMVX6VT0zen5ZfqFzuXL77Bu344DnPRa
+X-Received: by 10.55.71.13 with SMTP id u13mr27966091qka.300.1485900942317;
+ Tue, 31 Jan 2017 14:15:42 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.140.21.116 with HTTP; Tue, 31 Jan 2017 14:15:41 -0800 (PST)
+In-Reply-To: <1485825312.4137.25.camel@aj.id.au>
+References: <1485740080.4137.21.camel@aj.id.au>
+ <CACPK8XeOQPONhwQ4Q6bPUp7=-AoFArXwCmzDC-tors00i_u=tg@mail.gmail.com>
+ <1485825312.4137.25.camel@aj.id.au>
+From: Xo Wang <xow@google.com>
+Date: Tue, 31 Jan 2017 14:15:41 -0800
+Message-ID: <CAPH-5w5BgnQTZ+BA1Wvhb3yuc0OsbaKba95nKgHPndpbMvFqSQ@mail.gmail.com>
+Subject: Re: GPIO offsets used by userspace
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -77,26 +57,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 31 Jan 2017 21:50:36 -0000
+X-List-Received-Date: Tue, 31 Jan 2017 22:15:46 -0000
 
-On Tue, 2017-01-31 at 10:38 -0800, Rick Altherr via openbmc wrote:
-> +       memory {
-> +               reg = <0x40000000 0x8000000>;
-> +       };
+On Mon, Jan 30, 2017 at 5:15 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> On Tue, 2017-01-31 at 10:55 +1030, Joel Stanley wrote:
+>> > On Mon, Jan 30, 2017 at 12:04 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+>> > Hi all,
+>> >
+>> > Just a heads up that when the linked patch is pulled into the OpenBMC
+>> > kernel it will break our userspace. We will need to synchronise the
+>> > kernel bump with the fixes for the machine configs to update the magic
+>> > GPIO offset number.
+>> >
+>> > https://lkml.org/lkml/2017/1/26/786
+>> >
+>> > The magic offset is essentially 512-(ngpios) (I don't know why, but
+>> > that's the behaviour), and this now varies between AST2400 and AST2500
+>> > systems due to the AST2500 having an extra bank, and also because the
+>> > AST2400 has a "hole" at the end of its GPIO number space.
+>>
+>> Can you suggest a way to detect this from userspace?
+>
+> Not off the top of my head.
+>
 
-128M of RAM up here...
+I mentioned this on GitHub, but in theory we should have at least one
+/sys/class/gpio/gpiochipN directory, where N is the offset for GPIOs
+provided by that GPIO device.
 
-> +       reserved-memory {
-> +               #address-cells = <1>;
-> +               #size-cells = <1>;
-> +               ranges;
-> +
-> +               vga_memory: framebuffer@5f000000 {
-> +                       no-map;
-> +                       reg = <0x5f000000 0x01000000>; /* 16MB */
-> +               };
+On a BMC not attached to GPIO expanders this directory name could be
+parsed by the Python currently in use. Not foolproof, but it could be
+a working stopgap.
 
-And framebuffer at 496M... something's not right.
+However I don't actually see a /sys/class/gpio/gpiochipN directory on
+the BMCs I touched. Any ideas?
 
-> +       };
-> +
+cheers
+xo
