@@ -1,46 +1,54 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-ot0-x22e.google.com (mail-ot0-x22e.google.com
- [IPv6:2607:f8b0:4003:c0f::22e])
+Received: from mail-ot0-x241.google.com (mail-ot0-x241.google.com
+ [IPv6:2607:f8b0:4003:c0f::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vChvL5l6kzDqBh
- for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 10:15:42 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vCj7K4p5MzDqBh
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 10:26:05 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="lLhFF2pU"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="rSGsnF39"; 
  dkim-atps=neutral
-Received: by mail-ot0-x22e.google.com with SMTP id 73so278018993otj.0
- for <openbmc@lists.ozlabs.org>; Tue, 31 Jan 2017 15:15:42 -0800 (PST)
+Received: by mail-ot0-x241.google.com with SMTP id 73so43550825otj.1
+ for <openbmc@lists.ozlabs.org>; Tue, 31 Jan 2017 15:26:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:from:date:message-id:subject:to;
- bh=NMgXSTHbf+S4yMHMNCRmpQ0tfMK7VQhainq7ZSd/3yw=;
- b=lLhFF2pUrlv6UNqK3JSq3coOxBHwzV6Or1hT6wgvJh39/PLxPEbmzej2Pd3f+xcyju
- 8pyBqwZAjxp+O4J96rjb1t/A7A053BFCabFB+jrxPB0l6rPfNB9zmp61BgSQciL+9ldm
- UXLKskICJHH9M0zrQVgSmQyysb+Yw8bxBay2i7vVWs8h6euKbHmrD/tD6zvOVRLzraZ5
- COekujuZpAu0j6gUSw/YZ3qiwsjSmOElijD8o1Ma8lM6z18jOuSawaUKN2YcotOLk6N1
- hkFwN1kG4hNOIxoHqU6dufdvxSUfr5wvCLtaQUXZGmmrlBqKZP14pwl0FiIB+t+8jF1l
- 0e9w==
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=jUDeezkFYrZ1bjTnF/RxaXUQLvMOMfe0dCvCFcH4Vjs=;
+ b=rSGsnF39bgNFVzrV2SGVObMbcVJKE2X65X9JUpIDEYPVZGM7GIe6q6soA1eXZElud5
+ wEuQVL0SPx216NMWb2NZ0G1iW/eelCudYFS8K/z3G7f4wnfaGlHKQHRQW8ILfpf3L8km
+ +NyyCzVRWoKnsZA1JPLMHLgPq/HI0xS2Wf2yr0eQNRyWGP57qVnd61r+tyPorL4VfFAB
+ vHmXPPX35OVqMtUiNOi+NFgLTPZHibbj8Mj//AK+5F6yxIoWL3HXJAqNd5WZc1yKSURC
+ 8TbjeyQUwmtArpvDEDaz5U6xkgp24XtJrLrrP8WHCbvb8O7o64hLYnxyHhbcYyo7id4l
+ 4OrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
- :to; bh=NMgXSTHbf+S4yMHMNCRmpQ0tfMK7VQhainq7ZSd/3yw=;
- b=ih3qk/SjUrqFznKdxXnjymXo78Eq12+NMsLxjkw3TgQdTlFyRd2nDCoL4JpIFeQIpS
- Cxsp3YvE+nZFCzcO4Gz2G9L/kjiXusq2MpFyVt5Z4CmHKq4n8joyta0GUhxPEtqqZ/K/
- pNOWbayddXmNq7Gf598Tbn5VldH9p/a6Ju0zt0y2s4XsM4QGtNFHM7+GyyuG9pcTxF9t
- paF+FEzE+zP0HO406WBUWNjjEjFepXfq5mIUdYLhGIE5KzFymH6Z4oaYMj+Ji8eRor3k
- QpBj1MF0PBJ80ZqlDHKYT941ac2xROaAqR4mDTrPVVXkY5VmAPeVCNhBnkcfHRsmbxWN
- i3Mw==
-X-Gm-Message-State: AIkVDXLlQ40fBhkpEQhTH+ly983g5sU5Ew8FLWLKBLXIRjACT04wLZtcVcpDMp3OOkHRJhtDQY2YPOOsjR6tzg==
-X-Received: by 10.157.25.140 with SMTP id k12mr16462855otk.174.1485904539951; 
- Tue, 31 Jan 2017 15:15:39 -0800 (PST)
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=jUDeezkFYrZ1bjTnF/RxaXUQLvMOMfe0dCvCFcH4Vjs=;
+ b=F7Obio8Sw0DAA6PA0JfQkSiKVW2cwvD8o+XmecZofg44dJVmdtnAere793OIZZQBJT
+ 6Ub65b4iyB+MpuLRBSvC7LYXs5ABC571aIbz6Tkc7N5RJ+B17RsRK9f0v97XoJl7B+c9
+ /jIHJ+Spoow0rgrZkmzde9Ull24n6yMGxU18G7pJ0EGjpRxJ0lf+b49vpID3TYezF8j1
+ KP+YAy4FDQNq4xWitaSNdJIp/9RY7vxhNsOod5J58/2IW+J+VmsKlmt68XZBwCIJEwIW
+ 0A2u1ZnMO4i8cSMlvQ3EqI6oVVDs4OBh2Is3kH3n9CyDlw1WoyCesKjbJ+1B0WaS6hNt
+ vdYw==
+X-Gm-Message-State: AIkVDXJIYOlqq6yoadu8Z5BhWaveL52OnxRSUqFff+xEKvu4nRM9UI6nkdncCvnMz/SJxFpCCeFUsJPxqJwmHQ==
+X-Received: by 10.157.8.75 with SMTP id 69mr15137497oty.275.1485905163736;
+ Tue, 31 Jan 2017 15:26:03 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.182.245.201 with HTTP; Tue, 31 Jan 2017 15:15:19 -0800 (PST)
+Received: by 10.182.245.201 with HTTP; Tue, 31 Jan 2017 15:25:43 -0800 (PST)
+In-Reply-To: <CAPH-5w5BgnQTZ+BA1Wvhb3yuc0OsbaKba95nKgHPndpbMvFqSQ@mail.gmail.com>
+References: <1485740080.4137.21.camel@aj.id.au>
+ <CACPK8XeOQPONhwQ4Q6bPUp7=-AoFArXwCmzDC-tors00i_u=tg@mail.gmail.com>
+ <1485825312.4137.25.camel@aj.id.au>
+ <CAPH-5w5BgnQTZ+BA1Wvhb3yuc0OsbaKba95nKgHPndpbMvFqSQ@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 1 Feb 2017 09:45:19 +1030
-X-Google-Sender-Auth: lOigytp8vbtMwLsI1-9IJgMqcQY
-Message-ID: <CACPK8Xe4g78ERw_gzj3O1Y56bAtucAewyQAoy1Z9sZOwHLvRmw@mail.gmail.com>
-Subject: DMARC, google.com and "via openbmc"
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Wed, 1 Feb 2017 09:55:43 +1030
+X-Google-Sender-Auth: P4RpCbfPkGgZ8NbMo5vsygHNJRY
+Message-ID: <CACPK8XeZeBhTMy4rtdXULuKbGYjYWtusaAfCoQuWx1qZoQMdEw@mail.gmail.com>
+Subject: Re: GPIO offsets used by userspace
+To: Xo Wang <xow@google.com>
+Cc: Andrew Jeffery <andrew@aj.id.au>, OpenBMC <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -53,41 +61,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 31 Jan 2017 23:15:43 -0000
+X-List-Received-Date: Tue, 31 Jan 2017 23:26:06 -0000
 
-Hey OpenBMCers,
+On Wed, Feb 1, 2017 at 8:45 AM, Xo Wang <xow@google.com> wrote:
+> However I don't actually see a /sys/class/gpio/gpiochipN directory on
+> the BMCs I touched. Any ideas?
 
-tl;dr: emails from google.com will now say "Googler Name via openbmc"
-on the list. This is intentional.
+That's strange. On the machines I looked at we do have that. I double
+checked on a Zaius running the v1.99.1 tag:
 
-The details:
+root@zaius5:~# ls /sys/class/gpio/gpiochip320/
+base       device     label      ngpio      subsystem  uevent
 
-DMARC is annoying for mailing lists. Instead of repeating why, you can
-read about it here[1].
+> I mentioned this on GitHub, but in theory we should have at least one
+> /sys/class/gpio/gpiochipN directory, where N is the offset for GPIOs
+> provided by that GPIO device.
+>
+> On a BMC not attached to GPIO expanders this directory name could be
+> parsed by the Python currently in use. Not foolproof, but it could be
+> a working stopgap.
 
-google.com has a "reject" DMARC policy enabled[2]. This means that
-when a DMARC enforcing recipient (such as jms.id.au, hosted with
-Google Apps) gets an email from a google.com address via the mailing,
-the recipient mail server will reject the emails. It appears Google
-Apps chooses to silently reject.
+You're right, we could find this one. This would break on Witherspoon
+though which will soon gain a driver for a GPIO expander.
 
-So since google.com turned this on some time late last year, I have
-not been receiving any email from google.com addresses.
+We could write some python to iterate through the gpiochipN
+directories, and match against the label:
 
-Our mailing list software (mailman) has an option called
-dmarc_moderation_action that when enabled will perform some extra
-processing on emails sent from a DMARC enabled domain. That processing
-means it re-writes the From header to be "User Name via openbmc
-<openbmc@lists.ozlabs.org>. This ensures the mail passes DMARC.
+root@zaius5:~# cat /sys/class/gpio/gpiochip320/label
+1e780000.gpio
 
-The Reply-To header is set as it was previously so clicking
-Reply-to-All will still do the correct thing.
-
-I've been seeing mail from Xo and Rick today which indicates things are working.
+This would be a stopgap until we could get something saner, like sysfs
+files named after the net or function.
 
 Cheers,
 
 Joel
-
-[1] https://wiki.list.org/DEV/DMARC
-[2] https://dmarcian.com/dmarc-inspector/google.com
