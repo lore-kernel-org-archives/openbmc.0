@@ -1,49 +1,50 @@
-Return-Path: <robherring2@gmail.com>
-Received: from mail-ot0-f193.google.com (mail-ot0-f193.google.com
- [74.125.82.193])
+Return-Path: <linus.walleij@linaro.org>
+Received: from mail-io0-x22a.google.com (mail-io0-x22a.google.com
+ [IPv6:2607:f8b0:4001:c06::22a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vD5qN70J5zDqFF
- for <openbmc@lists.ozlabs.org>; Thu,  2 Feb 2017 01:58:40 +1100 (AEDT)
-Received: by mail-ot0-f193.google.com with SMTP id 65so45600997otq.2
- for <openbmc@lists.ozlabs.org>; Wed, 01 Feb 2017 06:58:40 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vD5qb2lmWzDqFq
+ for <openbmc@lists.ozlabs.org>; Thu,  2 Feb 2017 01:58:51 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b="CYXzGdmi"; 
+ dkim-atps=neutral
+Received: by mail-io0-x22a.google.com with SMTP id j18so158079790ioe.2
+ for <openbmc@lists.ozlabs.org>; Wed, 01 Feb 2017 06:58:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=MSuyUfyDrtxXu9y3As06PRbzKhCB+I3j4RENBnnXVVc=;
+ b=CYXzGdmiIKY1LjeDwcepRdFLgJptgiH9VN6hxT+7EezJmLAtKdYIZ0AVYk1Y8/FEjj
+ lELqSWcq+oOB87RBtaR7faPUloXskg/KX33JzVqXmUPJTvXJUJGkDQzneCOVBPJUhIIw
+ Lzd9Zds/5y34YIrnw+dsIiHmPgTboUZZobILI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=Mrvud+HiFKHMTXq/639gLdkSO8WKat6eqMV7LseDXLs=;
- b=aQlA1wso/8iEac6zJYdg+1mW4hHzXaMrlWaiZaVL+UPi0f6cW2EPbOi7l7NHNjvH/H
- xeBE4UUUyTzNS6xFhc5k5JaRXEgSLTLW0ey3iLoRAunMZ4KRKX+cxjoTTFK0uSWTTZEO
- cvmP3aGS3/vmv+cQ+cqpgy0GMMQxsg3rgeUhj3Ad+lmegZRvOmUmnUWtHr8ZVeFVbZH1
- 04FFoGnuIdh+gYCbQA24MRNYn7LBsdjNDxAqPTpaCIJSX/vdDbCksEKP/ohFA7mpremu
- gYg5odOhxCiRg2WscROMbULNh1orXvNd2tArL+UarC+QJZg3gUrD9j1BEIRPHnjIs0vZ
- UamA==
-X-Gm-Message-State: AMke39mZbxDE4PWozc9ri8+kh/mfNYQxB2BIpCYjYUbwHmUf553skVWsS0PZ5+7zrt/H0A==
-X-Received: by 10.157.46.114 with SMTP id c47mr1423878otd.176.1485961118716;
- Wed, 01 Feb 2017 06:58:38 -0800 (PST)
-Received: from localhost (72-48-98-129.dyn.grandenetworks.net. [72.48.98.129])
- by smtp.gmail.com with ESMTPSA id
- r130sm10517143oif.20.2017.02.01.06.58.38
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 01 Feb 2017 06:58:38 -0800 (PST)
-Date: Wed, 1 Feb 2017 08:58:37 -0600
-From: Rob Herring <robh@kernel.org>
-To: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
-Cc: openbmc@lists.ozlabs.org, linux@roeck-us.net, joel@jms.id.au,
- jdelvare@suse.com, linux-hwmon@vger.kernel.org, corbet@lwn.net,
- linux-doc@vger.kernel.org, mark.rutland@arm.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH linux v2 1/2] Documentation: dt-bindings: Document
- bindings for ASPEED AST2400/AST2500 PWM and Fan tach controller device
- driver
-Message-ID: <20170201145837.ybfqvz4rdpaiw323@rob-hp-laptop>
-References: <20170127093400.28904-1-jaghu@google.com>
- <20170127093400.28904-2-jaghu@google.com>
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=MSuyUfyDrtxXu9y3As06PRbzKhCB+I3j4RENBnnXVVc=;
+ b=JUP0ZpLxTvcxhvN4GBbQOmNS3fqwKHWUkHL7IucGLW3hpodtS9Gc5zjuH459BFH+B4
+ zDUpimIqfEaeLgRM31VPJS/BojalnYaZAloibZ4OkBsA8XR5hGYgE+uEevfuduPodRFU
+ +rhcMw/+tz3jXkrVu7bXN5kz8CF1I6ZNKGBfCqmRnIBHRlqdDDtpw1HLJO+cNuka1EuD
+ Ci5REH0Qb9l7GtwhcvWMtyUgUAUkn5zUHBQsVLmSFUIrb0VvzfINkYVWlZwz+X3fFSuC
+ 5nRQrFR43F3IbAwHDWHjMv2SBHH2+g4SctG8dbG+NFsLItAQXCOWt3k2DjXf9odz0PYC
+ tOKA==
+X-Gm-Message-State: AIkVDXLbnQW8vfyc+fLsMXe65ywkB7frO2hz5EQWGStncLTodvRtyXLtPqb8Xukw0jFK59Owlm5/miNRZDJ02vmD
+X-Received: by 10.107.15.12 with SMTP id x12mr2355574ioi.61.1485961129109;
+ Wed, 01 Feb 2017 06:58:49 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20170127093400.28904-2-jaghu@google.com>
-User-Agent: Mutt/1.6.2-neo (2016-08-21)
+Received: by 10.79.169.75 with HTTP; Wed, 1 Feb 2017 06:58:48 -0800 (PST)
+In-Reply-To: <1485912024.4137.36.camel@aj.id.au>
+References: <20170127042442.28994-1-andrew@aj.id.au>
+ <CACRpkdbQu9KkR5_dfKk=1-LWLdQ3dyZdtW1JD3SeZZD1s=X3fg@mail.gmail.com>
+ <1485910329.4137.34.camel@aj.id.au> <1485912024.4137.36.camel@aj.id.au>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 1 Feb 2017 15:58:48 +0100
+Message-ID: <CACRpkdb-s8wgqwuYHEKHGRyu3uHMWQ01Z8CJZZUmdaYuweTuZQ@mail.gmail.com>
+Subject: Re: [PATCH v3] gpio: aspeed: Add banks Y, Z, AA, AB and AC
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,78 +56,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Feb 2017 14:58:41 -0000
+X-List-Received-Date: Wed, 01 Feb 2017 14:58:52 -0000
 
-On Fri, Jan 27, 2017 at 01:33:59AM -0800, Jaghathiswari Rankappagounder Natarajan wrote:
-> This binding provides interface for adding values related to ASPEED
-> AST2400/2500 PWM and Fan tach controller support.
-> The PWM controller can support upto 8 PWM output ports.
-> The Fan tach controller can support upto 16 tachometer inputs.
-> Types M, N and 0 are three types just to have three independent
-> PWM/Fan Tach related settings.
+On Wed, Feb 1, 2017 at 2:20 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> On Wed, 2017-02-01 at 11:22 +1030, Andrew Jeffery wrote:
+>> On Tue, 2017-01-31 at 15:50 +0100, Linus Walleij wrote:
+>> > > > > > On Fri, Jan 27, 2017 at 5:24 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
+>> > > This is less straight-forward than one would hope, as some banks only
+>> > > have 4 pins rather than 8, others are output only, yet more (W and
+>> > > X, already supported) are input-only, and in the case of the g4 SoC bank
+>> > > AC doesn't exist.
+>> > >
+>> > > Add some structs to describe the varying properties of different banks
+>> > > and integrate mechanisms to deny requests for unsupported
+>> > > configurations.
+>> > >
+>> > > > > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+>> > >
+>> > > ---
+>> > >
+>> > > Since v2:
+>> >
+>> > Patch applied with some patch -p1 < fuzz
+>> > please check the result.
+>>
+>
+> *snip*
+>
+>> Regardless, I'll try to recreate it myself and inspect the fuzz damage.
+>
+> Ah, I think I see what's happened. I didn't send "gpio: aspeed: Make
+> bank names strings" again because you claimed you had applied v1 in the
+> v2 thread[1]. This patch doesn't fuzz when "gpio: aspeed: Make bank
+> names strings" has been applied, so is it possible that you tried
+> applying it to a tree missing "gpio: aspeed: Make bank names strings"?
 
-This still looks overly complicated to me and very specific to ASpeed. 
-You need to define a common structure that works for fans. To start 
-with, define a node for the fans themselves. This should use the 
-PWM binding and a -gpios property for the tach (when connected to a 
-GPIO). 
+I mistakedly applied *both* patches to the pinctrl tree, devel branch.
 
-Something like this:
+I blame stress.
 
-ctrl: fan-controller@1234 {
-	...
-	#pwm-cells = <3>;
-	fan@0 {
-		reg = <0>; /* 'Channel' of the controller */
-		pwms = <&ctrl 0 ...>;
-		tach-gpios = <&gpio 1>;
-		vcc-supply = <&reg_12V>;
-	};
-};
+Oh well I guess I have to keep them there and remove this copy
+from the gpio tree.
 
-We already have a pwm-fan binding. This should build on or possibly 
-replace that.
+If the version I applied in the pinctrl tree is the wrong one (which
+is possible) then please send an incremental patch on top fixing
+the difference, so I can apply that to the pinctrl tree too....
 
-> 
-> Signed-off-by: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
-> ---
-> v2:
-> - Removed '_' in node or property names
-> - Gave some explanation for the properties used.
-> 
->  .../devicetree/bindings/hwmon/aspeed-pwm-tacho.txt | 178 +++++++++++++++++++++
->  1 file changed, 178 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
-> new file mode 100644
-> index 000000000000..290122bfe170
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/aspeed-pwm-tacho.txt
-> @@ -0,0 +1,178 @@
-> +ASPEED AST2400/AST2500 PWM and Fan Tacho controller device driver
-> +
-> +The ASPEED PWM controller can support upto 8 PWM outputs. The ASPEED Fan Tacho
-> +controller can support upto 16 tachometer inputs.
-
-AIUI, each fan has a PWM and a tach input. How would you use more than 8 
-tach inputs?
-
-> +
-> +There are three different types M, N, O. These three types are just to have
-> +different PWM and Fan Tach settings. Each type can have the following settings:
-> +	PWM related:
-> +		1) PWM period
-> +		2) PWM clock division high
-> +		3) PWM clock division low
-> +	Fan Tach related:
-> +		1) Fan Tach type enable
-> +		2) Fan Tach clock division
-> +		3) Fan Tach mode selection
-> +		4) Fan Tach period
-> +
-> +Each PWM port should be assigned a type which can be type M, N or O.
-
-What is the definition of M, N, and O?
-
-Rob
+Yours,
+Linus Walleij
