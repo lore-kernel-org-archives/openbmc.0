@@ -1,49 +1,52 @@
-Return-Path: <mouse@yandex-team.ru>
-X-Greylist: delayed 458 seconds by postgrey-1.36 at bilbo;
- Thu, 02 Feb 2017 03:59:34 AEDT
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yandex-team.ru header.i=@yandex-team.ru
- header.b="vjMOKu4Z"; dkim-atps=neutral
-Received: from forwardcorp1g.cmail.yandex.net (forwardcorp1g.cmail.yandex.net
- [87.250.241.190])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <geissonator@gmail.com>
+Received: from mail-it0-x232.google.com (mail-it0-x232.google.com
+ [IPv6:2607:f8b0:4001:c0b::232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vD8Vt119jzDq96
- for <openbmc@lists.ozlabs.org>; Thu,  2 Feb 2017 03:59:33 +1100 (AEDT)
-Received: from mxbackcorp1m.mail.yandex.net (mxbackcorp1m.mail.yandex.net
- [IPv6:2a02:6b8:0:2519::301])
- by forwardcorp1g.cmail.yandex.net (Yandex) with ESMTP id E025220E8F;
- Wed,  1 Feb 2017 19:51:48 +0300 (MSK)
-Received: from webcorp01e.yandex-team.ru (webcorp01e.yandex-team.ru
- [5.255.227.50])
- by mxbackcorp1m.mail.yandex.net (nwsmtp/Yandex) with ESMTP id
- hGXJSmq5Hc-pmjieC7Z; Wed, 01 Feb 2017 19:51:48 +0300
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
- s=default; 
- t=1485967908; bh=rkJHAtBo3G8tbE6a1/m2xUeJaUIQnztGu4XoCCL9OCc=;
- h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date;
- b=vjMOKu4ZlA7A3A5AeMmegt2um5R6k/KMgqzTdPoYWqo8A2avq4i4USWR6owEWE+Ip
- VyTCj45FJx8ifzTm2OEOp1FtqdsgBs/+VHyBMr9lE7XQrp6PTPjJX7MlMO7qO3tawv
- rkyBiZjK37CkMT6pzU/0NXAwz7NuKFKRlV20aVn0=
-Authentication-Results: mxbackcorp1m.mail.yandex.net;
- dkim=pass header.i=@yandex-team.ru
-X-Yandex-Sender-Uid: 1120000000001030
-Received: by webcorp01e.yandex-team.ru with HTTP;
- Wed, 01 Feb 2017 19:51:48 +0300
-From: Anton D. Kachalov <mouse@yandex-team.ru>
-To: Rick Altherr <raltherr@google.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-In-Reply-To: <CAPLgG=m=K3CWvViASn26iCiHMsr0WRfakuCgum8dXOCPJE43MQ@mail.gmail.com>
-References: <20170201014414.31868-1-raltherr@google.com>
- <4621485941510@webcorp02f.yandex-team.ru>
- <CAPLgG=m=K3CWvViASn26iCiHMsr0WRfakuCgum8dXOCPJE43MQ@mail.gmail.com>
-Subject: Re: [PATCH linux v4] dts: Minimal device tree for Quanta Q71L BMC
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vDFRd6HfDzDq5k
+ for <openbmc@lists.ozlabs.org>; Thu,  2 Feb 2017 07:42:05 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="cFPOxw+5"; 
+ dkim-atps=neutral
+Received: by mail-it0-x232.google.com with SMTP id c7so26586482itd.1
+ for <openbmc@lists.ozlabs.org>; Wed, 01 Feb 2017 12:42:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=ycmJaqvwzXZMOykkEWCIzd8l30MdgDFGrJaYRSdFsSo=;
+ b=cFPOxw+51mI7oQdynacESVTG37IcMW6LXt5FKMSH7P61HZayitZLi7NEqg6hBOo2ex
+ LcUy4QQFtp0h+pNj9VJErQpoAfTlErdRuM1f05KfofqIFUxE+LlMYM+tJYw7XsFEt3fm
+ fD38U4U0DsIlcWyZ92bbbzABmYvE4WvMGI7y5jBApXaAk9iZSRagWLNbJh1Un9Qm1xaw
+ JcOlpjA9muqsOjSmxk3JX9Z9p3t3LiZgZRSAaVT35Io/qbuI+tw99JxAJjoMEoitfTEt
+ k+iDVHIXXA7xiiOHbzUidCp+hg10/TcvO1Yq/a5jShGm1dyed5pCdzIz/1A+56yhrf79
+ qoRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=ycmJaqvwzXZMOykkEWCIzd8l30MdgDFGrJaYRSdFsSo=;
+ b=HeZYb0oCCpHEG5xiqbcD7u52S7MLWlh6w4F+00wOwNwTs4unjRvJ/sJBT8GWHEU4sq
+ 4iw8VVuIRVzAfqyM8DOA6BcJUYtNBl5lK2pwPkAb9XOkS5mlUpWkBFa9mU97I5yRivdd
+ NjSHr+fs+la+wr58NyV0QjL8ZToT8q4TAP+laxC9WIbX17PtA/fXLrLB0PYTJ+Fk9caX
+ 8jlDIl5lUegVyc6ZCnZL4oE39FGhJE4dH87vYFYshv4Hh44EYLBnFJknfJ09CiS23YTz
+ u1+q7NeK8OfjXPIdsVJXYNE0RpDKXL20GBJVx2RlGNHDBaNUHI11GyrAFNjGoHDAsbKB
+ WnGQ==
+X-Gm-Message-State: AIkVDXJ5eCCGeKPC8s+WRtjSdoGtEiO8HQoxwiPag/B+lpzo91Jqja1yUUlloDY3awfHmcQ2WJH8LznJhIvcRQ==
+X-Received: by 10.36.79.71 with SMTP id c68mr3980000itb.47.1485981723277; Wed,
+ 01 Feb 2017 12:42:03 -0800 (PST)
 MIME-Version: 1.0
-Message-Id: <101031485967908@webcorp01e.yandex-team.ru>
-X-Mailer: Yamail [ http://yandex.ru ] 5.0
-Date: Wed, 01 Feb 2017 19:51:48 +0300
-Content-Transfer-Encoding: base64
-Content-Type: text/html; charset=utf-8
+Received: by 10.107.9.155 with HTTP; Wed, 1 Feb 2017 12:42:02 -0800 (PST)
+In-Reply-To: <1485479779.4137.13.camel@aj.id.au>
+References: <CAPH-5w4WA8aVbKA0ptR7ubtpCUuGxZ2RQpuS0W4m1csen-kU-w@mail.gmail.com>
+ <1485479779.4137.13.camel@aj.id.au>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Wed, 1 Feb 2017 14:42:02 -0600
+Message-ID: <CALLMt=qq97zpRTxomzzucenceiZBEJqgbXANoeU_3Kd1S0313A@mail.gmail.com>
+Subject: Re: How to deal with failing services in the boot targets
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Xo Wang <xow@google.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,44 +58,98 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Feb 2017 16:59:37 -0000
+X-List-Received-Date: Wed, 01 Feb 2017 20:42:06 -0000
 
-PGRpdj5IZWxsbyw8L2Rpdj48ZGl2PsKgPC9kaXY+PGRpdj5JIGhhdmUgdGhpcyBvbiBteSB0b2Rv
-IGxpc3QsIGJ1dCBpbiBsb3cgcHJpbyB0b28uIEVhcmx5IEkgZGlkIGEgcHJvb2Ytb2YtY29uY2Vw
-dCBiYXNlZCBvbiBTcGljZSBhbmQgQU1JIGRyaXZlcnMgb24gdG9wIG9mIGtlcm5lbCAzLjE4ICh2
-aWRlb2VuZ2luZSwgdXNiICZhbXA7IGhpZCk6PC9kaXY+PGRpdj7CoDwvZGl2PjxkaXY+PGEgaHJl
-Zj0iaHR0cHM6Ly9naXRodWIuY29tL3lhLW1vdXNlL3NwaWNlLXNlcnZlci1hc3BlZWQiPmh0dHBz
-Oi8vZ2l0aHViLmNvbS95YS1tb3VzZS9zcGljZS1zZXJ2ZXItYXNwZWVkPC9hPjwvZGl2PjxkaXY+
-PGEgaHJlZj0iaHR0cHM6Ly9naXRodWIuY29tL3lhLW1vdXNlL3NwaWNlLXByb3RvY29sIj5odHRw
-czovL2dpdGh1Yi5jb20veWEtbW91c2Uvc3BpY2UtcHJvdG9jb2w8L2E+PC9kaXY+PGRpdj7CoDwv
-ZGl2PjxkaXY+TGF0ZXIgSSByZWNlaXZlIGV4YW1wbGUgc291cmNlcyBmb3IgdmlkZW8gZW5naW5l
-IGZyYW1lIGRlY29kZXIgKFFWICZhbXA7IEpQRUcgc3RyZWFtcykgZnJvbSBBc3BlZWQgdG8gaW1w
-bGVtZW50IGl0IHVuZGVyIHRoZSBjb3JyZXNwb25kaW5nIGxpY2Vuc2UgKGNvbXBhdGlibGUgd2l0
-aCBTcGljZSkuPC9kaXY+PGRpdj7CoDwvZGl2PjxkaXY+SGVyZSBpcyBzb21lIGRpc2N1c3Npb24g
-b24gU3BpY2UtZGV2ZWw6PC9kaXY+PGRpdj7CoDwvZGl2PjxkaXY+PGEgaHJlZj0iaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvYXJjaGl2ZXMvc3BpY2UtZGV2ZWwvMjAxNS1Ob3ZlbWJlci8w
-MjMwNzcuaHRtbCI+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvYXJjaGl2ZXMvc3BpY2Ut
-ZGV2ZWwvMjAxNS1Ob3ZlbWJlci8wMjMwNzcuaHRtbDwvYT48L2Rpdj48ZGl2PsKgPC9kaXY+PGRp
-dj5JIHBsYW4gdG8gc3RhcnQgb3ZlciBhZ2FpbiBhIGxpdHRsZSBsYXRlciB1c2luZyBrZXJuZWwn
-cyBnYWRnZXRzIGFuZCBzbyBvbi48L2Rpdj48ZGl2PsKgPC9kaXY+PGRpdj4wMS4wMi4yMDE3LCAx
-OTo0MSwgIlJpY2sgQWx0aGVyciIgJmx0O3JhbHRoZXJyQGdvb2dsZS5jb20mZ3Q7OjwvZGl2Pjxi
-bG9ja3F1b3RlIHR5cGU9ImNpdGUiPjxkaXY+SSB3b24ndCBiZSB1c2luZyB0aG9zZSBpbiBvdXIg
-ZGVwbG95bWVudCBzY2VuYXJpbyBzbyBhZGRpbmcgc3VwcG9ydCBmb3IgdGhlbSBpcyBsb3cgb24g
-bXkgbGlzdC7CoCBJZiB5b3Ugb3IgYW55b25lIGVsc2UgaXMgaW50ZXJlc3RlZCBpbiB3cml0aW5n
-IGRyaXZlcnMgZm9yIHRoZSBWR0EgYW5kIFVTQiBkZXZpY2UgcGVyaXBoZXJhbHMsIEknbGwgZ2xh
-ZGx5IHByb3ZpZGUgZGlyZWN0aW9uIGFuZCByZXZpZXcgcGF0Y2hlcy48L2Rpdj48ZGl2PsKgPGRp
-dj5PbiBXZWQsIEZlYiAxLCAyMDE3IGF0IDE6MzEgQU0sIEFudG9uIEQuIEthY2hhbG92IDxzcGFu
-PiZsdDs8YSB0YXJnZXQ9Il9ibGFuayIgaHJlZj0ibWFpbHRvOm1vdXNlQHlhbmRleC10ZWFtLnJ1
-Ij5tb3VzZUB5YW5kZXgtdGVhbS5ydTwvYT4mZ3Q7PC9zcGFuPiB3cm90ZTo8YmxvY2txdW90ZSBz
-dHlsZT0ibWFyZ2luOjAgMCAwIDAuOGV4O2JvcmRlci1sZWZ0OjFweCAjY2NjIHNvbGlkO3BhZGRp
-bmctbGVmdDoxZXg7Ij5IZWxsbywgUmljay48YnIgLz48YnIgLz4wMS4wMi4yMDE3LCAwNDo0NCwg
-IlJpY2sgQWx0aGVyciB2aWEgb3BlbmJtYyIgJmx0OzxhIGhyZWY9Im1haWx0bzpvcGVuYm1jQGxp
-c3RzLm96bGFicy5vcmciPm9wZW5ibWNAbGlzdHMub3psYWJzLm9yZzwvYT4mZ3Q7OjxiciAvPjxz
-cGFuPiZndDsgU3VwcG9ydHM6PGJyIC8+Jmd0OyDCoMKgLSBCTUMgY29uc29sZSBVQVJUPGJyIC8+
-Jmd0OyDCoMKgLSBCTUMgYm9vdCBmbGFzaDxiciAvPiZndDsgwqDCoC0gaG9zdCBib290IGZsYXNo
-PGJyIC8+Jmd0OyDCoMKgLSBob3N0IHZpcnR1YWwgVUFSVCAoaG9zdCBjb25zb2xlKTxiciAvPiZn
-dDs8L3NwYW4+PGJyIC8+PGJyIC8+SGF2ZSB5b3UgcGxhbnMgdG8gYWRkIHN1cHBvcnQgZm9yIEtW
-TSBhbmQgVmlydHVhbCBNZWRpYSB0aHJvdWdoIHRoZSBBc3BlZWQ/PC9ibG9ja3F1b3RlPjwvZGl2
-PjwvZGl2PjwvYmxvY2txdW90ZT48ZGl2PsKgPC9kaXY+PGRpdj7CoDwvZGl2PjxkaXY+LS3CoDxi
-ciAvPkFudG9uIEQuIEthY2hhbG92PGJyIC8+PGJyIC8+SVRPLCBTeXN0ZW1zIEFyY2hpdGVjdDxi
-ciAvPlRlbDogNyAoNDk1KSA3MzktNzAtMDAgZXh0Ljc2MTM8L2Rpdj48ZGl2PsKgPC9kaXY+
+Finally got around to doing some testing on this, here's what I got.
+
+My story this sprint, https://github.com/openbmc/openbmc/issues/1033,
+is focused on handling errors when things go wrong.  Specifically,
+when required services fail to execute properly during a systemd
+target execution (power on, power off).  When a fail happens, the obmc
+software needs to notify the users of the system and provide
+mechanisms for either the system to automatically retry the failed
+operation (i.e. reboot the system) or to stay in a quiesced state so
+that error data can be collected and the fail can be investigated.
+
+Michael is working on a story that ties in with this function this
+sprint, https://github.com/openbmc/openbmc/issues/942, in which we=E2=80=99=
+ll
+allow system users to enable or disable the auto reboot function on
+errors (service failure, host checkstop failure, host watchdog
+failure).  He will utilize the new target I=E2=80=99ll be creating in my st=
+ory
+for this.
+
+So we have two main fail scenarios:
+
+1. A service within a target fails
+- If the service is a oneshot type, and you put that it is required
+(not wanted) by the target then the target will fail if the service
+fails
+  - You can simply define a behavior for when the target fails using
+the =E2=80=9COnFailure=E2=80=9D option (i.e. go to a new failure target if =
+any
+required service fails)
+
+- If the service is not a oneshot, then you can not have it fail the
+target (the target only knows that it started successfully)
+  - You have to define a behavior for when the service fails (OnFailure) op=
+tion.
+  - The service can not have "RemainAfterExit=3Dyes=E2=80=9D otherwise the
+OnFailure action does not occur until the service is stopped (instead
+of when it fails)
+
+2. A failure outside of a normal systemd target/service (host watchdog
+expires, host checkstop detected)
+- The service which detects this failure is responsible for logging
+the appropriate error, and instructing systemd to go to the
+appropriate target
+
+The current proposal is that we create a new quiesce target.  This is
+the target that the target/services put for their =E2=80=9COnFailure=3D=E2=
+=80=9C
+instruction and where the services in fail #2 above detect a problem
+will instruct systemd to go to.  We=E2=80=99ll then have code that monitors
+for the entry into this new quiesce target and handles the halt vs
+automatic reboot functionality.
+
+The above info sets up some general guidelines for our targets and
+services (and some refactoring for my story this sprint)
+
+- All targets should have an =E2=80=9COnFailure=3Dobmc-quiesce-system@.targ=
+et=E2=80=9D
+- All services which are required for a target to achieve it=E2=80=99s
+function should be RequiredBy that target (not WantedBy)
+- All services should first try to be Type=3Doneshot so that we can just
+rely on the target fail path
+- If a service can not be =E2=80=9CType=3Doneshot=E2=80=9D, then it needs t=
+o have a
+=E2=80=9COnFailure=3Dobmc-quiesce-system@.target=E2=80=9D and a "RemainAfte=
+rExit=3Dno=E2=80=9D
+- If a service can not be any of these then it=E2=80=99s up to the service
+application to call systemd with the obmc-quiesce-system@.target on
+failures
+
+Thoughts/Questions?
+Andrew
+
+On Thu, Jan 26, 2017 at 7:16 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> On Wed, 2017-01-25 at 15:29 -0800, Xo Wang wrote:
+>> 3) Do other people also want this? To me it seems obvious that failure
+>> to power on should always block starting IPL, but maybe somebody else
+>> has a good reason to use weaker relationships.
+>
+> Sounds highly desirable to me. In an effort to better understand our
+> dependencies I dumped them out with `systemd-analyze dot`. Safe to say
+> I'm not much wiser having seen the graph:
+>
+> http://ozlabs.org/~arj/openbmc/systemd.svg
+>
+> (Source: http://ozlabs.org/~arj/openbmc/systemd.dot.xz )
+>
+> Andrew
+> _______________________________________________
+> openbmc mailing list
+> openbmc@lists.ozlabs.org
+> https://lists.ozlabs.org/listinfo/openbmc
+>
