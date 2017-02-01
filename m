@@ -1,55 +1,53 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <xow@google.com>
+Received: from mail-qk0-x22f.google.com (mail-qk0-x22f.google.com
+ [IPv6:2607:f8b0:400d:c09::22f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vClgN4lvgzDq5s
- for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 12:20:32 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="cNn2dO0g"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="eJs9clby"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 7988520A8D;
- Tue, 31 Jan 2017 20:20:30 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Tue, 31 Jan 2017 20:20:30 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=Sn4PFLyX/m0BtPjW5V02A1T53QA=; b=cNn2dO
- 0gYSvUYnxy/1IDidVCQnuNvH9NAyW/l9VJYYtiG1Rd0or7axUZqJhCLgKHBzb0ZA
- mgAIagD5hSaZJlRwTAfHhQJJhjHuJAYJ/5el1H6gE5Q1tPRxUVzbyhin8cZ1BUMm
- 31BK0G0ZcezBKuTJNTPhYy2s3nDj9FtLDhmis=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=Sn4PFLyX/m0BtP
- jW5V02A1T53QA=; b=eJs9clbyZ0xUlc2Jb6gzFHn6n66UXrUZ3UCilF2IOGWf2Y
- Nb09Gfy4FzEfroeVl0z7VmQe1GBWA8XlLLBUE+odupjPH7MdQxTZAZVgFYTM64hT
- btvndJlgegnWVwEzd6qMiyGnGlsOiSAzUCu3mJAEsNSBSHo3iHKLDPwZQUEqE=
-X-ME-Sender: <xms:3jeRWLClcGTTSA-uU7Fl_cbNhep4v0NvDQUQExOLXDvBC7c4eIe6kw>
-X-Sasl-enc: tWjk4VPDUoGbhqRw4aEL184UOwdZsJEWhklZn6shLmc1 1485912029
-Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 854567E26E;
- Tue, 31 Jan 2017 20:20:28 -0500 (EST)
-Message-ID: <1485912024.4137.36.camel@aj.id.au>
-Subject: Re: [PATCH v3] gpio: aspeed: Add banks Y, Z, AA, AB and AC
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Linus Walleij <linus.walleij@linaro.org>
-Cc: "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, OpenBMC
- Maillist <openbmc@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Date: Wed, 01 Feb 2017 11:50:24 +1030
-In-Reply-To: <1485910329.4137.34.camel@aj.id.au>
-References: <20170127042442.28994-1-andrew@aj.id.au>
- <CACRpkdbQu9KkR5_dfKk=1-LWLdQ3dyZdtW1JD3SeZZD1s=X3fg@mail.gmail.com>
- <1485910329.4137.34.camel@aj.id.au>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-4vKmoMD7tHNRfhm7HjeG"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vClns1ThjzDq9B
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 12:26:08 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="m9Odcq5C"; 
+ dkim-atps=neutral
+Received: by mail-qk0-x22f.google.com with SMTP id s186so3003139qkb.1
+ for <openbmc@lists.ozlabs.org>; Tue, 31 Jan 2017 17:26:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=3w/35MDsSOmNeq6mymlG1pxULSI6JVtO5RemqrHWriM=;
+ b=m9Odcq5CRvpTqwII1+QHeEkIrrVbQjpgwhZnOVRdZAeqWSnsaDmho2TnW9Hh2BBu77
+ oQJiwOL6QrarvJV+lDsgxfeCYahILXh/p624DYYGo8R8T/D6m66blt7XEgMquRmEI4/I
+ OhFblOEDwV/xW1zc1ugqsdKsvtaFbVDrURqZniP+rBCxGLvzNbUiOiftmSlFH1MzGSd6
+ kIbztTz0Oyb73f8+lFeGCUpIAlKH9BrhkiGxeAdMmsc7Rv5uH8IOoEcsNhtjxAmwHFi0
+ hx3Yu79FjyOFQ4iqIDMv5bjwhgBkdI/x6mKqa2iP+LUEWg2ds5WVTq15z5ywaLJH4lat
+ QbNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=3w/35MDsSOmNeq6mymlG1pxULSI6JVtO5RemqrHWriM=;
+ b=rD8MYWOk5H526fid0OLSVLg6uv8YK/JvcEUh9p7WBURoVed14QFCm+nNeB4I8vyc2j
+ GQQiwc4WrQL0OQJFUi/onLVnP+id76VK77QPEZTmKgVp22V20/Vgg157KZovdRBIClJr
+ ZOIAHuz/qJXKbDvdHmQVyH0+EVusK1JtDRpNtuGRaZUQdik6tRKTusd9ZXTJFePsiMLb
+ zj1oj6Y3Fj7xVP0ie1KaIHvIakBzyW9400RYHbeoCpuuHm/wCo052OLczfYMu0s6sVKC
+ bX0Z7qcemhBEYcB3440z0Tq1G/wp/0TTyzl2aY952fkg54mfu8BC9UO/6+BTJuvQbMID
+ uf4Q==
+X-Gm-Message-State: AIkVDXKtNH9NdQaTImy41/DmEhmWC7rvVhU2uV2YHUlIsxp+/DV/VDoP+F1+EW44/l8nmE6g9GcaKYe/TbMdMI3+
+X-Received: by 10.55.165.131 with SMTP id o125mr278821qke.254.1485912365329;
+ Tue, 31 Jan 2017 17:26:05 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.140.21.116 with HTTP; Tue, 31 Jan 2017 17:26:04 -0800 (PST)
+In-Reply-To: <CACPK8XeZeBhTMy4rtdXULuKbGYjYWtusaAfCoQuWx1qZoQMdEw@mail.gmail.com>
+References: <1485740080.4137.21.camel@aj.id.au>
+ <CACPK8XeOQPONhwQ4Q6bPUp7=-AoFArXwCmzDC-tors00i_u=tg@mail.gmail.com>
+ <1485825312.4137.25.camel@aj.id.au>
+ <CAPH-5w5BgnQTZ+BA1Wvhb3yuc0OsbaKba95nKgHPndpbMvFqSQ@mail.gmail.com>
+ <CACPK8XeZeBhTMy4rtdXULuKbGYjYWtusaAfCoQuWx1qZoQMdEw@mail.gmail.com>
+From: Xo Wang <xow@google.com>
+Date: Tue, 31 Jan 2017 17:26:04 -0800
+Message-ID: <CAPH-5w5E+n4DCGN0HnfC_y_tjtTUL+sud8fvnCs07EFMKByrhA@mail.gmail.com>
+Subject: Re: GPIO offsets used by userspace
+To: Joel Stanley <joel@jms.id.au>
+Cc: Andrew Jeffery <andrew@aj.id.au>, OpenBMC <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,85 +59,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Feb 2017 01:20:33 -0000
+X-List-Received-Date: Wed, 01 Feb 2017 01:26:09 -0000
 
+On Tue, Jan 31, 2017 at 3:25 PM, Joel Stanley <joel@jms.id.au> wrote:
+> On Wed, Feb 1, 2017 at 8:45 AM, Xo Wang <xow@google.com> wrote:
+>> However I don't actually see a /sys/class/gpio/gpiochipN directory on
+>> the BMCs I touched. Any ideas?
+>
+> That's strange. On the machines I looked at we do have that. I double
+> checked on a Zaius running the v1.99.1 tag:
+>
+> root@zaius5:~# ls /sys/class/gpio/gpiochip320/
+> base       device     label      ngpio      subsystem  uevent
+>
 
---=-4vKmoMD7tHNRfhm7HjeG
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+So it is! I checked again. Must be a gross malfunction on my part.
 
-On Wed, 2017-02-01 at 11:22 +1030, Andrew Jeffery wrote:
-> On Tue, 2017-01-31 at 15:50 +0100, Linus Walleij wrote:
-> > > > > > On Fri, Jan 27, 2017 at 5:24 AM, Andrew Jeffery <andrew@aj.id.a=
-u> wrote:
-> > > This is less straight-forward than one would hope, as some banks only
-> > > have 4 pins rather than 8, others are output only, yet more (W and
-> > > X, already supported) are input-only, and in the case of the g4 SoC b=
-ank
-> > > AC doesn't exist.
-> > >=20
-> > > Add some structs to describe the varying properties of different bank=
-s
-> > > and integrate mechanisms to deny requests for unsupported
-> > > configurations.
-> > >=20
-> > > > > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> > >=20
-> > > ---
-> > >=20
-> > > Since v2:
-> >=20
-> > Patch applied with some patch -p1 < fuzz
-> > please check the result.
->=20
+>> I mentioned this on GitHub, but in theory we should have at least one
+>> /sys/class/gpio/gpiochipN directory, where N is the offset for GPIOs
+>> provided by that GPIO device.
+>>
+>> On a BMC not attached to GPIO expanders this directory name could be
+>> parsed by the Python currently in use. Not foolproof, but it could be
+>> a working stopgap.
+>
+> You're right, we could find this one. This would break on Witherspoon
+> though which will soon gain a driver for a GPIO expander.
+>
+> We could write some python to iterate through the gpiochipN
+> directories, and match against the label:
+>
+> root@zaius5:~# cat /sys/class/gpio/gpiochip320/label
+> 1e780000.gpio
+>
+> This would be a stopgap until we could get something saner, like sysfs
+> files named after the net or function.
+>
 
-*snip*
+Makes sense.
 
-> Regardless, I'll try to recreate it myself and inspect the fuzz damage.
-
-Ah, I think I see what's happened. I didn't send "gpio: aspeed: Make
-bank names strings" again because you claimed you had applied v1 in the
-v2 thread[1]. This patch doesn't fuzz when "gpio: aspeed: Make bank
-names strings" has been applied, so is it possible that you tried
-applying it to a tree missing "gpio: aspeed: Make bank names strings"?
-
-    $ git reset --hard gpio/for-next
-    HEAD is now at f334eae9c4e9 Merge branch 'devel' into for-next
-    $ git am "/home/andrew/patches/[PATCH_v2_1_2]_gpio:_aspeed:_Make_bank_n=
-ames_strings.mbox"
-    Applying: gpio: aspeed: Make bank names strings
-    $ git am "/home/andrew/patches/[PATCH_v3]_gpio:_aspeed:_Add_banks_Y,_Z,=
-_AA,_AB_and_AC.mbox"
-    Applying: gpio: aspeed: Add banks Y, Z, AA, AB and AC
-    $
-
-    Sorry for the confusion. What should I be doing when sending an updated
-    series where some of the patches have been applied? Send the whole
-    series regardless?
-
-    Andrew
-
-    [1]     https://lkml.org/lkml/2017/1/26/334
---=-4vKmoMD7tHNRfhm7HjeG
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJYkTfYAAoJEJ0dnzgO5LT5SXEQAJpteCJhq/KHyH/mRo7ogbfu
-HbxbFAYC3gtvPyf9+thDXU7jBBiOpAbgT5ScOoHx06ZS6RVJfh39dKZYTxyBVXXF
-9NsWqj4LdgYJdgh1JmhYl2WC+mkI1bsTJqag1CeEGmumS5Au47h+ZTEPbCedeYJJ
-3rhXBx/nJPzdwTxCyBIL/dsFyidSS6UgAGnWEYSIKwO5r+sOR98oY6p5RANCEQsY
-NHC3IG4pCMnu2o5oYYUEdV089aA3Zhtg5bF1U3vKx2wO1+9j26kC/Imf+dXU/lBj
-kGQwcq8j9aDV568imL43yyKs+7oAXYx/Ign4VKpdUJEeXnSgKFmPFePiBNELP2++
-jGSLRvMHU827/+mtQnSo/F3jjG/OKsL4R0vcPcBVGdxA7QVBonjmyCLMBZX9c5Jm
-Vom9KzJIIeFfvzOKcAoyQhgIFZABrbh12Kp2jOk4QAWrCpsL4KO9RE6OvmnOMqIx
-EvHSmgOiop6UEAyVfZuqUAi/8xGk//mfsuUGMAwYWvCh6bZ0X6HJZ9T7tx1dEWd+
-/2sDuB2M3sUObxAjEOokJfm5/frYXW5MufIMN0vDniX0JfO+CVfCixR5n4HFE3nu
-a1tnFrAhbKMgTtZPVRyg1dIfRbFpqfS9rv0YVrWxwOaYFJ1UHoJmK8usg5o8shc0
-yK0LLK92pt5SZMMX2YmR
-=qoHU
------END PGP SIGNATURE-----
-
---=-4vKmoMD7tHNRfhm7HjeG--
+xo
