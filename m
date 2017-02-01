@@ -1,53 +1,55 @@
-Return-Path: <xow@google.com>
-Received: from mail-pg0-x22b.google.com (mail-pg0-x22b.google.com
- [IPv6:2607:f8b0:400e:c05::22b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <andrew@aj.id.au>
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vClVc0qPmzDqLX
- for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 12:12:56 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="V/e4rZyt"; 
- dkim-atps=neutral
-Received: by mail-pg0-x22b.google.com with SMTP id 3so45524701pgj.3
- for <openbmc@lists.ozlabs.org>; Tue, 31 Jan 2017 17:12:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=mxRgp6NkFxSOo3lKXIbHceVNd325VaktjLzDqgp2X+w=;
- b=V/e4rZytTRwSambioCm+9v8L3nTW9blnlz2ziQkwM93csFfMqGomOl0qfFb3pY8nW/
- +LgGq06lnzfC59BtPPipXlytcbwQfAFAAdg2gTF+gc+hYyhaWNt7ZaCG/fleqbtheBWK
- B/6puV3kO7LGh3LECvXUrWydoNVtInHXN2VoBGaT02CU/t4PzQjx2ZpgMSJQ73dX3KPY
- fA+vYji7AzLb4OX2CYyz0XJiapqTf2Gmn768Rc8AJPWAMVosxWTn1jdK9G6EGu081aHj
- fkwXMkxqhZRpoaxJ20/IZ4Nxfhrkvr+j1hzsxOraMD9bvhFrJAMBcnAnxIzUGZwFmHLu
- z0mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=mxRgp6NkFxSOo3lKXIbHceVNd325VaktjLzDqgp2X+w=;
- b=RME3t50I8N+e9yNKsGrmCNj5Njg4azGXxl8OdJp8PCeV5TEjFBGlAb2STGQxxgtnLl
- zPiGLkr+UzvBPyZclaJwgGneo9DotArpbNnGXXB5w9tFaPqEjt86YrK9LHyeAMflTj8h
- 0I+WPP97ytLlKbgHiZkPlGXWmFL7UVm1+CZSsEHfn9W3ZoKEChLk8DA91CsQ/1INEIUK
- BCdMiromp43TANYLd2LhfTeZH969MrXiQUV1RLKeAvsrHtrbUF7wH1d+Hq4QyTXh4hOG
- jCryfIhQ+RIbyN7180jvLGds3p5xRH3s0rdCjoQRDdLZsgRmXJQXYswPBOjcLBXWSIRp
- 2Huw==
-X-Gm-Message-State: AIkVDXKcNWNYyLnHtT5fgnq5Rgk1PJDhds4XNFjXQ1nLWRgg/f20+XcMCToFlfgTcBRdbDyd
-X-Received: by 10.98.144.218 with SMTP id q87mr299094pfk.51.1485911574042;
- Tue, 31 Jan 2017 17:12:54 -0800 (PST)
-Received: from pewter.svl.corp.google.com ([100.123.242.121])
- by smtp.gmail.com with ESMTPSA id p14sm44053983pfl.75.2017.01.31.17.12.53
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 31 Jan 2017 17:12:53 -0800 (PST)
-From: Xo Wang <xow@google.com>
-To: openbmc@lists.ozlabs.org
-Cc: Rick Altherr <raltherr@google.com>, Andrew Jeffery <andrew@aj.id.au>,
- Xo Wang <xow@google.com>
-Subject: [PATCH linux v3] arm: aspeed: zaius: Disable LPC reset for UART1
-Date: Tue, 31 Jan 2017 17:12:30 -0800
-Message-Id: <20170201011230.141303-1-xow@google.com>
-X-Mailer: git-send-email 2.11.0.483.g087da7b7c-goog
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vClgN4lvgzDq5s
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 12:20:32 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="cNn2dO0g"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="eJs9clby"; dkim-atps=neutral
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 7988520A8D;
+ Tue, 31 Jan 2017 20:20:30 -0500 (EST)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Tue, 31 Jan 2017 20:20:30 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=mesmtp; bh=Sn4PFLyX/m0BtPjW5V02A1T53QA=; b=cNn2dO
+ 0gYSvUYnxy/1IDidVCQnuNvH9NAyW/l9VJYYtiG1Rd0or7axUZqJhCLgKHBzb0ZA
+ mgAIagD5hSaZJlRwTAfHhQJJhjHuJAYJ/5el1H6gE5Q1tPRxUVzbyhin8cZ1BUMm
+ 31BK0G0ZcezBKuTJNTPhYy2s3nDj9FtLDhmis=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=Sn4PFLyX/m0BtP
+ jW5V02A1T53QA=; b=eJs9clbyZ0xUlc2Jb6gzFHn6n66UXrUZ3UCilF2IOGWf2Y
+ Nb09Gfy4FzEfroeVl0z7VmQe1GBWA8XlLLBUE+odupjPH7MdQxTZAZVgFYTM64hT
+ btvndJlgegnWVwEzd6qMiyGnGlsOiSAzUCu3mJAEsNSBSHo3iHKLDPwZQUEqE=
+X-ME-Sender: <xms:3jeRWLClcGTTSA-uU7Fl_cbNhep4v0NvDQUQExOLXDvBC7c4eIe6kw>
+X-Sasl-enc: tWjk4VPDUoGbhqRw4aEL184UOwdZsJEWhklZn6shLmc1 1485912029
+Received: from [10.104.0.15] (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 854567E26E;
+ Tue, 31 Jan 2017 20:20:28 -0500 (EST)
+Message-ID: <1485912024.4137.36.camel@aj.id.au>
+Subject: Re: [PATCH v3] gpio: aspeed: Add banks Y, Z, AA, AB and AC
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Linus Walleij <linus.walleij@linaro.org>
+Cc: "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, OpenBMC
+ Maillist <openbmc@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Date: Wed, 01 Feb 2017 11:50:24 +1030
+In-Reply-To: <1485910329.4137.34.camel@aj.id.au>
+References: <20170127042442.28994-1-andrew@aj.id.au>
+ <CACRpkdbQu9KkR5_dfKk=1-LWLdQ3dyZdtW1JD3SeZZD1s=X3fg@mail.gmail.com>
+ <1485910329.4137.34.camel@aj.id.au>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-4vKmoMD7tHNRfhm7HjeG"
+X-Mailer: Evolution 3.22.1-0ubuntu2 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,40 +61,85 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Feb 2017 01:12:57 -0000
+X-List-Received-Date: Wed, 01 Feb 2017 01:20:33 -0000
 
-Currently, UART1 on Zaius BMC is unusable until brought out of reset by
-powering the host on. In that default reset state, ttyS0 can still be
-opened and UART1 silently drops bytes, which is not obviously expected
-behavior.
 
-Clear the LPC block control bit that enables LPCRST# as a reset source
-for UART1, making UART1 immediately useful in that it won't discard
-bytes.
+--=-4vKmoMD7tHNRfhm7HjeG
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Xo Wang <xow@google.com>
----
- arch/arm/mach-aspeed/aspeed.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+On Wed, 2017-02-01 at 11:22 +1030, Andrew Jeffery wrote:
+> On Tue, 2017-01-31 at 15:50 +0100, Linus Walleij wrote:
+> > > > > > On Fri, Jan 27, 2017 at 5:24 AM, Andrew Jeffery <andrew@aj.id.a=
+u> wrote:
+> > > This is less straight-forward than one would hope, as some banks only
+> > > have 4 pins rather than 8, others are output only, yet more (W and
+> > > X, already supported) are input-only, and in the case of the g4 SoC b=
+ank
+> > > AC doesn't exist.
+> > >=20
+> > > Add some structs to describe the varying properties of different bank=
+s
+> > > and integrate mechanisms to deny requests for unsupported
+> > > configurations.
+> > >=20
+> > > > > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> > >=20
+> > > ---
+> > >=20
+> > > Since v2:
+> >=20
+> > Patch applied with some patch -p1 < fuzz
+> > please check the result.
+>=20
 
-diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
-index 4bd3680d742d..b7022eaa7b5d 100644
---- a/arch/arm/mach-aspeed/aspeed.c
-+++ b/arch/arm/mach-aspeed/aspeed.c
-@@ -185,6 +185,14 @@ static void __init do_zaius_setup(void)
- 
- 	/* Set SPI1 CE0 decoding window to 0x30000000 */
- 	writel(0x68600000, AST_IO(AST_BASE_SPI | 0x30));
-+
-+	/* Disable default behavior of UART1 being held in reset by LPCRST#.
-+	 * By releasing UART1 from being controlled by LPC reset, it becomes
-+	 * immediately available regardless of the host being up.
-+	 * */
-+	reg = readl(AST_IO(AST_BASE_LPC | 0x98));
-+	/* Clear "Enable UART1 reset source from LPC" */
-+	writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
- }
- 
- static void __init do_witherspoon_setup(void)
--- 
-2.11.0.483.g087da7b7c-goog
+*snip*
+
+> Regardless, I'll try to recreate it myself and inspect the fuzz damage.
+
+Ah, I think I see what's happened. I didn't send "gpio: aspeed: Make
+bank names strings" again because you claimed you had applied v1 in the
+v2 thread[1]. This patch doesn't fuzz when "gpio: aspeed: Make bank
+names strings" has been applied, so is it possible that you tried
+applying it to a tree missing "gpio: aspeed: Make bank names strings"?
+
+    $ git reset --hard gpio/for-next
+    HEAD is now at f334eae9c4e9 Merge branch 'devel' into for-next
+    $ git am "/home/andrew/patches/[PATCH_v2_1_2]_gpio:_aspeed:_Make_bank_n=
+ames_strings.mbox"
+    Applying: gpio: aspeed: Make bank names strings
+    $ git am "/home/andrew/patches/[PATCH_v3]_gpio:_aspeed:_Add_banks_Y,_Z,=
+_AA,_AB_and_AC.mbox"
+    Applying: gpio: aspeed: Add banks Y, Z, AA, AB and AC
+    $
+
+    Sorry for the confusion. What should I be doing when sending an updated
+    series where some of the patches have been applied? Send the whole
+    series regardless?
+
+    Andrew
+
+    [1]     https://lkml.org/lkml/2017/1/26/334
+--=-4vKmoMD7tHNRfhm7HjeG
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJYkTfYAAoJEJ0dnzgO5LT5SXEQAJpteCJhq/KHyH/mRo7ogbfu
+HbxbFAYC3gtvPyf9+thDXU7jBBiOpAbgT5ScOoHx06ZS6RVJfh39dKZYTxyBVXXF
+9NsWqj4LdgYJdgh1JmhYl2WC+mkI1bsTJqag1CeEGmumS5Au47h+ZTEPbCedeYJJ
+3rhXBx/nJPzdwTxCyBIL/dsFyidSS6UgAGnWEYSIKwO5r+sOR98oY6p5RANCEQsY
+NHC3IG4pCMnu2o5oYYUEdV089aA3Zhtg5bF1U3vKx2wO1+9j26kC/Imf+dXU/lBj
+kGQwcq8j9aDV568imL43yyKs+7oAXYx/Ign4VKpdUJEeXnSgKFmPFePiBNELP2++
+jGSLRvMHU827/+mtQnSo/F3jjG/OKsL4R0vcPcBVGdxA7QVBonjmyCLMBZX9c5Jm
+Vom9KzJIIeFfvzOKcAoyQhgIFZABrbh12Kp2jOk4QAWrCpsL4KO9RE6OvmnOMqIx
+EvHSmgOiop6UEAyVfZuqUAi/8xGk//mfsuUGMAwYWvCh6bZ0X6HJZ9T7tx1dEWd+
+/2sDuB2M3sUObxAjEOokJfm5/frYXW5MufIMN0vDniX0JfO+CVfCixR5n4HFE3nu
+a1tnFrAhbKMgTtZPVRyg1dIfRbFpqfS9rv0YVrWxwOaYFJ1UHoJmK8usg5o8shc0
+yK0LLK92pt5SZMMX2YmR
+=qoHU
+-----END PGP SIGNATURE-----
+
+--=-4vKmoMD7tHNRfhm7HjeG--
