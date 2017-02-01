@@ -1,54 +1,53 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <xow@google.com>
+Received: from mail-pg0-x22b.google.com (mail-pg0-x22b.google.com
+ [IPv6:2607:f8b0:400e:c05::22b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vCl2q0zLkzDqBj
- for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 11:52:18 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="dhOAM5nX"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Mzc9v3m2"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 3D5EB209ED;
- Tue, 31 Jan 2017 19:52:16 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Tue, 31 Jan 2017 19:52:16 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=FWqRcw9SWMzrY0mcgocvJjlyVVs=; b=dhOAM5
- nXS2RaBppA9HLIczE3tcDO8lQy8FYfhbwExlDbmfUOp5hQzRBkMbCAXhNxuleq3N
- 6aHBbc4Us3kRUGi35vQywBN5wB1q/tYETl1JzPidewPlpR54osBrwdgJxD8kthNU
- TrJH8OuuhIpIQquNHvFVdnvd/jcTSst8/ZHKM=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=FWqRcw9SWMzrY0
- mcgocvJjlyVVs=; b=Mzc9v3m2h7Hc38IFMo0vvEJ6JqPI50Wwtd//zU9jg4l6/E
- UEebudZreT0akAXtZ3AVBKU3259VnXdGs8ze+pwgA7qk6Wo4d0V5ctkokCVq0d+n
- yei47on9AnNNBMgxMSm3KqKiz5X3TE5Rq8zzqUt8hrriGPWIS1HIyaYpCqTcM=
-X-ME-Sender: <xms:QDGRWHVLxH39lrbnJHJfzBtR3IGDHZfC6kO2ENvwZC6CScp2auIKSQ>
-X-Sasl-enc: GyI3BxcJFmJiy7lQZ1gb+selSxdp9IuQAKiB3XwJi0lB 1485910335
-Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id D3E042457B;
- Tue, 31 Jan 2017 19:52:13 -0500 (EST)
-Message-ID: <1485910329.4137.34.camel@aj.id.au>
-Subject: Re: [PATCH v3] gpio: aspeed: Add banks Y, Z, AA, AB and AC
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Linus Walleij <linus.walleij@linaro.org>
-Cc: Joel Stanley <joel@jms.id.au>, "linux-gpio@vger.kernel.org"
- <linux-gpio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Wed, 01 Feb 2017 11:22:09 +1030
-In-Reply-To: <CACRpkdbQu9KkR5_dfKk=1-LWLdQ3dyZdtW1JD3SeZZD1s=X3fg@mail.gmail.com>
-References: <20170127042442.28994-1-andrew@aj.id.au>
- <CACRpkdbQu9KkR5_dfKk=1-LWLdQ3dyZdtW1JD3SeZZD1s=X3fg@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-la8e7fYaMZ3DauAZ2YlT"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vClVc0qPmzDqLX
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 12:12:56 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="V/e4rZyt"; 
+ dkim-atps=neutral
+Received: by mail-pg0-x22b.google.com with SMTP id 3so45524701pgj.3
+ for <openbmc@lists.ozlabs.org>; Tue, 31 Jan 2017 17:12:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mxRgp6NkFxSOo3lKXIbHceVNd325VaktjLzDqgp2X+w=;
+ b=V/e4rZytTRwSambioCm+9v8L3nTW9blnlz2ziQkwM93csFfMqGomOl0qfFb3pY8nW/
+ +LgGq06lnzfC59BtPPipXlytcbwQfAFAAdg2gTF+gc+hYyhaWNt7ZaCG/fleqbtheBWK
+ B/6puV3kO7LGh3LECvXUrWydoNVtInHXN2VoBGaT02CU/t4PzQjx2ZpgMSJQ73dX3KPY
+ fA+vYji7AzLb4OX2CYyz0XJiapqTf2Gmn768Rc8AJPWAMVosxWTn1jdK9G6EGu081aHj
+ fkwXMkxqhZRpoaxJ20/IZ4Nxfhrkvr+j1hzsxOraMD9bvhFrJAMBcnAnxIzUGZwFmHLu
+ z0mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mxRgp6NkFxSOo3lKXIbHceVNd325VaktjLzDqgp2X+w=;
+ b=RME3t50I8N+e9yNKsGrmCNj5Njg4azGXxl8OdJp8PCeV5TEjFBGlAb2STGQxxgtnLl
+ zPiGLkr+UzvBPyZclaJwgGneo9DotArpbNnGXXB5w9tFaPqEjt86YrK9LHyeAMflTj8h
+ 0I+WPP97ytLlKbgHiZkPlGXWmFL7UVm1+CZSsEHfn9W3ZoKEChLk8DA91CsQ/1INEIUK
+ BCdMiromp43TANYLd2LhfTeZH969MrXiQUV1RLKeAvsrHtrbUF7wH1d+Hq4QyTXh4hOG
+ jCryfIhQ+RIbyN7180jvLGds3p5xRH3s0rdCjoQRDdLZsgRmXJQXYswPBOjcLBXWSIRp
+ 2Huw==
+X-Gm-Message-State: AIkVDXKcNWNYyLnHtT5fgnq5Rgk1PJDhds4XNFjXQ1nLWRgg/f20+XcMCToFlfgTcBRdbDyd
+X-Received: by 10.98.144.218 with SMTP id q87mr299094pfk.51.1485911574042;
+ Tue, 31 Jan 2017 17:12:54 -0800 (PST)
+Received: from pewter.svl.corp.google.com ([100.123.242.121])
+ by smtp.gmail.com with ESMTPSA id p14sm44053983pfl.75.2017.01.31.17.12.53
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Tue, 31 Jan 2017 17:12:53 -0800 (PST)
+From: Xo Wang <xow@google.com>
+To: openbmc@lists.ozlabs.org
+Cc: Rick Altherr <raltherr@google.com>, Andrew Jeffery <andrew@aj.id.au>,
+ Xo Wang <xow@google.com>
+Subject: [PATCH linux v3] arm: aspeed: zaius: Disable LPC reset for UART1
+Date: Tue, 31 Jan 2017 17:12:30 -0800
+Message-Id: <20170201011230.141303-1-xow@google.com>
+X-Mailer: git-send-email 2.11.0.483.g087da7b7c-goog
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,77 +59,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Feb 2017 00:52:19 -0000
+X-List-Received-Date: Wed, 01 Feb 2017 01:12:57 -0000
 
+Currently, UART1 on Zaius BMC is unusable until brought out of reset by
+powering the host on. In that default reset state, ttyS0 can still be
+opened and UART1 silently drops bytes, which is not obviously expected
+behavior.
 
---=-la8e7fYaMZ3DauAZ2YlT
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Clear the LPC block control bit that enables LPCRST# as a reset source
+for UART1, making UART1 immediately useful in that it won't discard
+bytes.
 
-On Tue, 2017-01-31 at 15:50 +0100, Linus Walleij wrote:
-> > On Fri, Jan 27, 2017 at 5:24 AM, Andrew Jeffery <andrew@aj.id.au> wrote=
-:
->=20
-> > This is less straight-forward than one would hope, as some banks only
-> > have 4 pins rather than 8, others are output only, yet more (W and
-> > X, already supported) are input-only, and in the case of the g4 SoC ban=
-k
-> > AC doesn't exist.
-> >=20
-> > Add some structs to describe the varying properties of different banks
-> > and integrate mechanisms to deny requests for unsupported
-> > configurations.
-> >=20
-> > > > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> > ---
-> >=20
-> > Since v2:
->=20
-> Patch applied with some patch -p1 < fuzz
-> please check the result.
+Signed-off-by: Xo Wang <xow@google.com>
+---
+ arch/arm/mach-aspeed/aspeed.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Have you pushed the tree with the fuzzy patch applied? I can't find it.
-I fetched the gpio (and pinctrl) trees just now, but all I'm seeing is:
-
-    $ git log --all --author "Andrew Jeffery" --committer "Linus Walleij" -=
--grep "AA, AB" --oneline
-    1736f75d35e4 gpio: aspeed: Add banks Y, Z, AA, AB and AC
-    8ccb6dc6e999 pinctrl: aspeed: g4: Fix mux configuration for GPIOs AA[4-=
-7], AB[0-7]
-
-and=20
-
-    $ git show --stat --pretty=3Dfuller 1736f75d35e4
-    commit 1736f75d35e47409ad776273133d0f558a4c8253
-    Author:     Andrew Jeffery <    andrew@aj.id.au    >
-    AuthorDate: Tue Jan 24 16:46:46 2017 +1030
-    Commit:     Linus Walleij <    linus.walleij@linaro.org    >
-    CommitDate: Thu Jan 26 14:45:43 2017 +0100
-
-v3 wasn't sent until Friday the 27th, and the diff of 1736f75d35e4
-still drags in <linux/gpio.h> which v3 removes.
-
-Regardless, I'll try to recreate it myself and inspect the fuzz damage.
---=-la8e7fYaMZ3DauAZ2YlT
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJYkTE6AAoJEJ0dnzgO5LT55KkP/RDY7rZPVAlqCwzjeYjna7br
-uaTnAhwXx8Bgf2WGe8fDeXW6r+cBOtKjflp5lQcyPg7Ji2U+YvMR1+3DbwRelWFW
-cnEV6DijgLF7dv7hpWPL8DgDYcR4xi7T84jZBJ+c9IAeNrPOGLcLNE121e/l0c0E
-Dm4hdgC96oSDFzzio/K2fuvnSs0t+Ge+KdMpBFUJ8GAYATX+Ls6J/2S/oh/vEYly
-cqPAHM085eXpjMdwQVmv8LHSNiZXis5jz79CPpFZiQWH1wUS9gbYKbt0jF2pLjYM
-79tJ2juKK6pLfVtSEr4hvoRSpdID3gfq+hmS964h33/AM0+qVrzS5j3Gu2j+Wm4l
-UqrGwUao8EgwvD8NJ4LyoLDRjE0sGft4+IcpU5IjeBoKKIE06AIYlg6pWYX7WeN0
-LBttMGQyiJTgDNXFWXtxj+d6olmqRi4CcgDkxC8BChTgxl6eFIENL/i1jkRHxp8c
-bXx6tsERO87a6eZV4txxYb7ozx19dsD40fyjQa8w/dDiOjpQ4DQm79Don6zZFHVf
-yms0MMP/EEOXCOstYkJZm8E72NRiYce0rRn+E9PKgOsJYfxuEhKEEZtTDUrknNtp
-0aKpABiRAy5zqB99m+NrmXRftUAiHH91/rSISAfLBvwPzc/61PBQ/W8ZYKwvYQQE
-/UQmr1yTtrO2ZZr2VtAD
-=ZtDw
------END PGP SIGNATURE-----
-
---=-la8e7fYaMZ3DauAZ2YlT--
+diff --git a/arch/arm/mach-aspeed/aspeed.c b/arch/arm/mach-aspeed/aspeed.c
+index 4bd3680d742d..b7022eaa7b5d 100644
+--- a/arch/arm/mach-aspeed/aspeed.c
++++ b/arch/arm/mach-aspeed/aspeed.c
+@@ -185,6 +185,14 @@ static void __init do_zaius_setup(void)
+ 
+ 	/* Set SPI1 CE0 decoding window to 0x30000000 */
+ 	writel(0x68600000, AST_IO(AST_BASE_SPI | 0x30));
++
++	/* Disable default behavior of UART1 being held in reset by LPCRST#.
++	 * By releasing UART1 from being controlled by LPC reset, it becomes
++	 * immediately available regardless of the host being up.
++	 * */
++	reg = readl(AST_IO(AST_BASE_LPC | 0x98));
++	/* Clear "Enable UART1 reset source from LPC" */
++	writel(reg & ~BIT(4), AST_IO(AST_BASE_LPC | 0x98));
+ }
+ 
+ static void __init do_witherspoon_setup(void)
+-- 
+2.11.0.483.g087da7b7c-goog
