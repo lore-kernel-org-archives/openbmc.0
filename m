@@ -1,47 +1,47 @@
 Return-Path: <raltherr@google.com>
-Received: from mail-pg0-x233.google.com (mail-pg0-x233.google.com
- [IPv6:2607:f8b0:400e:c05::233])
+Received: from mail-pf0-x22a.google.com (mail-pf0-x22a.google.com
+ [IPv6:2607:f8b0:400e:c00::22a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vCm6J1MwnzDqC6
- for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 12:40:23 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vCmBp2Ws6zDqBX
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Feb 2017 12:44:18 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="btYEXe0v"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="jzD6NhpU"; 
  dkim-atps=neutral
-Received: by mail-pg0-x233.google.com with SMTP id 14so104338994pgg.1
- for <openbmc@lists.ozlabs.org>; Tue, 31 Jan 2017 17:40:23 -0800 (PST)
+Received: by mail-pf0-x22a.google.com with SMTP id 189so114342149pfu.3
+ for <openbmc@lists.ozlabs.org>; Tue, 31 Jan 2017 17:44:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=from:to:subject:date:message-id;
- bh=FJFrYpG4avRGBuNhrdzFYSSvDNkXNZB283Q1EBxHO5Y=;
- b=btYEXe0vpjFkJ7vQatCRXg2Tp1GtetfjC43HSmI9Fx4r7GBkJYEhdu8sd47RetuKil
- NeBxfqmPRmHzaaO8Ja8IKOfaAe/Nl/FWHsi2WGTkMGp0kn86L0vrkygTmXnsgAf32ASJ
- RVw8pZgY0D1z1XDNVXJs9JsHd8q8Nz+3itT1DVXmyRhhVlW+SIELyjaBc5yj8FfV42ZU
- cldfr84oygiBMEFNtlj6veF+oQENaX6vNik7OPJLG1odv0aI4ZFoM4gcu/XLf8yahHV6
- VHOm4p2RN6TGoK24A/8Qxn36O2RCrwd/V5gHa5mZXpETc1X6EOJNl4lg8zBJL8aKu5y+
- WMbw==
+ bh=2gygxQWGdP2lGXfcESSvDUqlw5TFzE0jybJSQubwdRw=;
+ b=jzD6NhpUuxueMFWUcBflabmT8RCmohlwewPvlKdHjKknFEKsmONxcLLV9pAV1hD8LJ
+ HvE0txUF0hCpp/ohHNST04pvyNakkGlv70GXa0Q5hmJRfhmo7NGQPkbSe6p3II1+2iMa
+ kIEOE0o1vYxSrEZ+Rnubya2hALD9TH3CWd8yomDrDMFLsMCx06SgydaJV2TV2XnrBQpZ
+ DSVhpk3y3sFL98mkrYIoumfbRw6hJXSVOcdGBZGsLNAnGcbUAlDcnJyNh7pOdL6tuZUG
+ Qyg2c4SEZhgD/ThJMW0Adpy5W9sftGAOAOVr52Xi1sAu0yxtCz8OLWDpsVljnGVIuPaJ
+ wFbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:subject:date:message-id;
- bh=FJFrYpG4avRGBuNhrdzFYSSvDNkXNZB283Q1EBxHO5Y=;
- b=fFip9qR7THHu64DY5XivMcz8yTXBngT8WbCBotFkW05H/U1est4zzwfe4VopbmXPMY
- c6JJKcjWFEdcT2ElbQ87xHeGnQmOguch8/2aex5YS/3WgagsGShxwGn7n32SZ9wY9fvu
- CQczT9fe4pZKuaRgQPBTNV0durGY8hUzmVxf6xs7f7BtJJoSckS89jpylKWwGhesvygh
- 8iqHIE6L9g6DalUrpNycALXQEWkGci+v9iUF2LgxzyAtS0XNzqUDHlOKkJfN2ScZXkOZ
- qsFvUTTbUQh24BEtVBykm7rpQW/QPXOCmPdV6+Xk83wB9ck7VQDRoyPLwR4wrDeOT04U
- pFgg==
-X-Gm-Message-State: AIkVDXL8bZeXYE88VJHRRTwhQfYVBmgd0AqWehIik9FoDyYJYmSYipWluJyOrFDEcmyXsj3p
-X-Received: by 10.99.51.76 with SMTP id z73mr411177pgz.137.1485913221042;
- Tue, 31 Jan 2017 17:40:21 -0800 (PST)
+ bh=2gygxQWGdP2lGXfcESSvDUqlw5TFzE0jybJSQubwdRw=;
+ b=Nf8cZp1h/Q28MihhU/rSUFvvY5e0/91OGzID32ILtMYm488rclzmxmDc4aMN4ItUNH
+ d40EdG2YNFCj3YEWi9oAK2gToz4Oh8yfQoQ72KEXhMwa8gKxydKOEce1j9m8j6POhPaT
+ oVgO3FeeKdG+GKnItM2GM2dpXPaFjb0LgB2icvOPik4QOTph3ckfAoUs3Cm8vQBsv3tX
+ zbifo25Q62eHzhbAQOde61ea5b/unCrPcPqa6JmdRuyuMmP/vk1ossf8Wau8E9C6zkJh
+ UOldrJfktQ77XJNSv96X8YYhyydvo7+O4ajFDmhebqJkOgmenjSnr5TIJaQ9menGcgR5
+ 51cw==
+X-Gm-Message-State: AIkVDXIQLmVn2m4oz3GwRlqiKlWsgSvwNKXTFMPc5FRP9kuYTCPCcpO/4C/SDym+xmNOPBzC
+X-Received: by 10.84.178.131 with SMTP id z3mr549078plb.176.1485913455945;
+ Tue, 31 Jan 2017 17:44:15 -0800 (PST)
 Received: from raltherr-linux.svl.corp.google.com ([100.123.242.49])
- by smtp.gmail.com with ESMTPSA id a25sm44436455pgd.26.2017.01.31.17.40.20
+ by smtp.gmail.com with ESMTPSA id r17sm44475845pgg.19.2017.01.31.17.44.15
  for <openbmc@lists.ozlabs.org>
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 31 Jan 2017 17:40:20 -0800 (PST)
+ Tue, 31 Jan 2017 17:44:15 -0800 (PST)
 From: Rick Altherr <raltherr@google.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux v3] dts: Minimal device tree for Quanta Q71L BMC
-Date: Tue, 31 Jan 2017 17:40:19 -0800
-Message-Id: <20170201014019.28427-1-raltherr@google.com>
+Subject: [PATCH linux v4] dts: Minimal device tree for Quanta Q71L BMC
+Date: Tue, 31 Jan 2017 17:44:14 -0800
+Message-Id: <20170201014414.31868-1-raltherr@google.com>
 X-Mailer: git-send-email 2.11.0.483.g087da7b7c-goog
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -54,7 +54,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Feb 2017 01:40:24 -0000
+X-List-Received-Date: Wed, 01 Feb 2017 01:44:19 -0000
 
 Supports:
   - BMC console UART
@@ -62,7 +62,9 @@ Supports:
   - host boot flash
   - host virtual UART (host console)
 
---
+Signed-off-by: Rick Altherr <raltherr@google.com>
+
+---
 Changes in v2:
  - Reserve correct VGA framebuffer location in RAM
  - Remove pinctl settings for FLBUSY and FLWP as Q71L uses those pins as
@@ -71,12 +73,8 @@ Changes in v2:
 Changes in v3:
  - Remove opp prefix from dts filename as this is not an OpenPower
    machine
-
-Signed-off-by: Rick Altherr <raltherr@google.com>
-
-Remove opp prefix
-
-Signed-off-by: Rick Altherr <raltherr@google.com>
+Changes in v4:
+ - Fix commit message noise.  Time to go home.
 ---
  arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts | 120 +++++++++++++++++++++++++++
  1 file changed, 120 insertions(+)
