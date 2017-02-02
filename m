@@ -1,31 +1,53 @@
-Return-Path: <patrick@stwcx.xyz>
-Received: from sender163-mail.zoho.com (sender163-mail.zoho.com
- [74.201.84.163])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-oi0-x244.google.com (mail-oi0-x244.google.com
+ [IPv6:2607:f8b0:4003:c06::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vDT5C13YYzDqGr
- for <openbmc@lists.ozlabs.org>; Thu,  2 Feb 2017 16:26:54 +1100 (AEDT)
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236]) by mx.zohomail.com
- with SMTPS id 1486013204144579.3327052834127;
- Wed, 1 Feb 2017 21:26:44 -0800 (PST)
-Date: Wed, 1 Feb 2017 23:26:42 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Alistair Popple <alistair@popple.id.au>
-Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Subject: Re: Users of SBE FIFO kernel driver
-Message-ID: <20170202052642.GD5504@heinlein.lan>
-References: <edb6e9b2-a7a1-d706-5eb6-5966c06b1113@linux.vnet.ibm.com>
- <CACPK8XdQ2LezJKXzT1Z9=09=XGv=G2ncVxY-LKj7LZ7BFQWaKA@mail.gmail.com>
- <4820133.vKp7aKPARx@new-mexico>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vDTFl0CdWzDqGr
+ for <openbmc@lists.ozlabs.org>; Thu,  2 Feb 2017 16:34:19 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="NoZkbrUe"; 
+ dkim-atps=neutral
+Received: by mail-oi0-x244.google.com with SMTP id w144so432083oiw.1
+ for <openbmc@lists.ozlabs.org>; Wed, 01 Feb 2017 21:34:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=4nhWRDZYAaDgWWeZz7kRVbENjxbtoakdRJnUH3Z7Y2U=;
+ b=NoZkbrUeZOsVpgka4sWn+A8OmrqbNUAGFBaotHswg7+sf7uncXbtF9Na1aeqd8ppYN
+ vJksJee7uy8hhvCgHyd7HeCXmhDzeQ9ZnAVxTgeY32HHbQDJMwF3qeXeXCmc0hFLcBVP
+ 2XAIN9FvoqYYV4PEmrioA0d61sLr2LiVCfEKWQXn/E7+DTrh7V/dJyB25meqkw3xHmPJ
+ vL2n0gVIXomvr2KYyWYPwyz2gpPh/ju33r4MyYn0zO2uQCOjWu/th+f/mSdAwAPeFPrA
+ a+IQCwpjfMtyewQ6wToCwvW1qVdZq+spqFIast94QgsO0zTMmg/m21CNclOCCLpJwpzF
+ wKqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=4nhWRDZYAaDgWWeZz7kRVbENjxbtoakdRJnUH3Z7Y2U=;
+ b=K4QDZnc78K1mS4TfAs4Hed1BFRUMx2qhPMDBzvqWmqfLIT82xw784c1n4a7W8IbLf5
+ 8iytM8QrIH07zQ815m3nuYIjGEjeY5np1etr7ytUbfUcNeNGnnc5+KZsNLPHy2DFbPE/
+ oJlrmFjcWDPd7ETMf4QlVzlziRyfR7n95DPQZwFv72yOWv1AeO7yAOIeBvLzi/OJpW/Z
+ JSP4lMfyrFrMtNa8WP6QC1hyPUrOw6QjwCbAA+P7nfvhRU/Wwo8J42re1Q2p2AcsnRmq
+ 2/HwBX43RH3YKXwk3tkhpz19iTlJcRinO+8815OIUkV24WIpe6nCk9VDxZkHbXXphfN+
+ 4dMA==
+X-Gm-Message-State: AIkVDXJ+QxYXefTYCKp8KeCyXBIWHgwULgCLy0ZLLcZNK4LzGNfv1q6Hg23cMK3IjClJS9SGGo3ioalPKdbjEw==
+X-Received: by 10.202.240.11 with SMTP id o11mr2997758oih.198.1486013657024;
+ Wed, 01 Feb 2017 21:34:17 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="pQhZXvAqiZgbeUkD"
-Content-Disposition: inline
-In-Reply-To: <4820133.vKp7aKPARx@new-mexico>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Zoho-Virus-Status: 1
+Sender: joel.stan@gmail.com
+Received: by 10.182.245.201 with HTTP; Wed, 1 Feb 2017 21:33:56 -0800 (PST)
+In-Reply-To: <20170202042817.8033-1-andrew@aj.id.au>
+References: <20170202042817.8033-1-andrew@aj.id.au>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 2 Feb 2017 16:03:56 +1030
+X-Google-Sender-Auth: PVY7XI8pwZuBaMQ0YBP7xIDNu6I
+Message-ID: <CACPK8XcwRc__FscVSS9N3MOpyjigNFo4MiFQn0_qqxxE=q46oA@mail.gmail.com>
+Subject: Re: [PATCH] gpio: aspeed: Remove dependence on GPIOF_* macros
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Linus Walleij <linus.walleij@linaro.org>, linux-gpio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -37,63 +59,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Feb 2017 05:26:56 -0000
+X-List-Received-Date: Thu, 02 Feb 2017 05:34:19 -0000
 
+On Thu, Feb 2, 2017 at 2:58 PM, Andrew Jeffery <andrew@aj.id.au> wrote:
+> 1736f75d35e47409ad776273133d0f558a4c8253 is a (v2) patch which had
+> unresolved review comments[1]. Address the comments by removing the use
+> of macros from the consumer header (this patch represents the diff
+> between v2 and v3[2]).
+>
+> [1] https://lkml.org/lkml/2017/1/26/337
+> [2] https://lkml.org/lkml/2017/1/26/786
+>
+> Fixes: 1736f75d35e4 ("gpio: aspeed: Add banks Y, Z, AA, AB and AC")
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 
---pQhZXvAqiZgbeUkD
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Acked-by: Joel Stanley <joel@jms.id.au>
 
-On Thu, Feb 02, 2017 at 03:48:02PM +1100, Alistair Popple wrote:
-> On Thu, 2 Feb 2017 01:59:08 PM Joel Stanley wrote:
-> > On Thu, Feb 2, 2017 at 5:58 AM, Christopher Bostic
-> > <cbostic@linux.vnet.ibm.com> wrote:
-> > In addition to Eddie's driver, in userspace we will have the code that
-> > performs the power on sequence.
->=20
-> Yep. For example as Ben mentioned the chip-ops also use the SBE FIFO. How=
-ever=20
-> we certainly don't want to put chip-ops directly in the kernel. It makes =
-more=20
-> sense to use a userspace SBE FIFO API to do the chips-ops, power on seque=
-nce=20
-> etc. from userspace.
+Cheers,
 
-What is being referred to here as the "power on sequence" that goes over
-the SBE FIFO?  We do putcfams to start the power on sequence and there
-is no interaction with the FIFO to the best of my knowledge.
+Joel
 
-On another topic, when we are under secureboot, get/putscom operations
-need to go through the SBE FIFO.  Should there be a kernel driver for
-SCOM with the same userspace API no matter which path we should go?
-This certainly makes an application like pdbg easier.  One hang-up I can
-think of is I am not sure how we are suppose to know and inform the
-kernel if we can do direct SCOM or SBE-FIFO SCOM.  Maybe we always do
-SBE-FIFO SCOM.
-
---=20
-Patrick Williams
-
---pQhZXvAqiZgbeUkD
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAEBCAAGBQJYksMPAAoJEKsDR8wtAMEZ9+8QAJgc3TDpEar5O4UVaL5gDCzG
-gfdj1Xps9SJIEUcuC/WT+TFTygckYvRXICzVHklBpg8zBA6UPrHIJnNaakxSK/q+
-GU3yitfw4aF7zbFAl+j86J7aNR/bGBSNyU74WzrQLHvnWJWo1BrPu7JFA/vvKIy0
-hZP69NqDZV9zsfkl7aeJ9wIvm9UOWUdBzn47nkC43ZzN8e1AYvMonCSz78Bo1LzH
-66dH88sLV7lt8FX8CaiP1MwilPS/tla0C+cwHr7/pASZ9y/5O+P77n6u05SPW9nG
-6b8EXV83+QAeSuTJVpAYuToiCvXiyeiQ3FDF3G9EGCWqYonUhZySy2X88mFVrGWs
-niRNUTTg8sHs7hB33J7IplGu9dIabsj/fIqCIetFPljlGRFi4LA+fSLJGQQqWN1t
-r9U6IrGPjpeMKQqV4Ogrv5nPlL7zBSW1nAKF7UupZXwpjx7QNvwdEBZD0N64iS5w
-uunH1BIeER+t14hgfNOWlByD5B9NomsoHF0TSvGXh2fouHljZ4u9n3y6FpPSWTnN
-WRQUC6Slc1pURyUQJ2NwajB1Y1s7aALd3YNL/p/2vfs/sLxDvRXMrmOLRulnTnL6
-HtCDjhaZLK7GmGpwYDgYyk7O8aRnX1Ggt08/cr21uDjL7GZabTahfnDwpQ8NrhJt
-B8qMZrwrCO6m27/K7JJ5
-=W5Uo
------END PGP SIGNATURE-----
-
---pQhZXvAqiZgbeUkD--
+> ---
+>
+> Note: This should be applied to pinctrl/devel where the linked GPIO patches
+> have landed. See discussion at https://lkml.org/lkml/2017/2/1/390
+>
+>  drivers/gpio/gpio-aspeed.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpio/gpio-aspeed.c b/drivers/gpio/gpio-aspeed.c
+> index 6e4b278a82f1..fb16cc771c0d 100644
+> --- a/drivers/gpio/gpio-aspeed.c
+> +++ b/drivers/gpio/gpio-aspeed.c
+> @@ -15,7 +15,6 @@
+>  #include <linux/io.h>
+>  #include <linux/spinlock.h>
+>  #include <linux/platform_device.h>
+> -#include <linux/gpio.h>
+>  #include <linux/gpio/driver.h>
+>  #include <linux/pinctrl/consumer.h>
+>
+> @@ -259,10 +258,10 @@ static int aspeed_gpio_get_direction(struct gpio_chip *gc, unsigned int offset)
+>         u32 val;
+>
+>         if (!have_input(gpio, offset))
+> -               return GPIOF_DIR_OUT;
+> +               return 0;
+>
+>         if (!have_output(gpio, offset))
+> -               return GPIOF_DIR_IN;
+> +               return 1;
+>
+>         spin_lock_irqsave(&gpio->lock, flags);
+>
+> --
+> 2.9.3
+>
