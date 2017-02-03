@@ -3,44 +3,48 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vF3Zd4RPlzDqBY
- for <openbmc@lists.ozlabs.org>; Fri,  3 Feb 2017 15:20:57 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vF3Zh2GbnzDqBX
+ for <openbmc@lists.ozlabs.org>; Fri,  3 Feb 2017 15:21:00 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="CQyKEqAq"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="hwsRkc9Q"; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="ESqG1YAg"; dkim-atps=neutral
+ header.b="WRH4E89y"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 7E90720A72;
- Thu,  2 Feb 2017 23:20:55 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id 44AFB20A64;
+ Thu,  2 Feb 2017 23:20:58 -0500 (EST)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Thu, 02 Feb 2017 23:20:55 -0500
+ by compute4.internal (MEProxy); Thu, 02 Feb 2017 23:20:58 -0500
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:message-id:subject:to:x-me-sender:x-me-sender
- :x-sasl-enc:x-sasl-enc; s=mesmtp; bh=yajAMp6XzJJ98rq4VCUZlt3k/LA
- =; b=CQyKEqAqXQBOmd9bvUtW2/nVhhofXnKLsijlXrTveKkDC3g/lNnJ6Fg4qQv
- oQVnPSKt7LCrMR1EWjJvKTYeN34wTzv1cOvDK/htlZlu25vVbg4rxkBFCAIVUV2R
- vMSJoMmqw02xaPucsITm2QsWqgyztep4jiIZYjAQc2phRF6g=
+ :date:from:in-reply-to:message-id:references:subject:to
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=eNg
+ 8bMmQsC4QQEr24SLHVL1SSRo=; b=hwsRkc9QxucT7jsOj7WVcHaENCtG3/HpPRC
+ 9elqju1QS4/o0APIm3zUSFGFkc2+2iF8e2XBJLHDAdEnocRlCuAlewfRdI9zTiWQ
+ TqhpZf0JbEGTOkIMehdJv7nNOpNZ+SikTd4/bCS2ZEjrkWqx/r/mynhrYbwZ6IZ6
+ tVECAwI8=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:message-id:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=ya
- jAMp6XzJJ98rq4VCUZlt3k/LA=; b=ESqG1YAgR0Y/vcTP89FuK7rmTsgRtBo/4/
- WnW3ejnO5rtrL8x2AB2MzUOk+YAd9mZvZdoITeSO80PttNUEVd3HY+dabGe9AO6B
- Xf9/MKqazeDnNiDUsqZMlnq3q62C802UeEWhogXTBVhcTQ2Wp0PBoRxdjFomcA/2
- nnuywpPRA=
-X-ME-Sender: <xms:JwWUWPHIakqDtSZDASU5hjmuRddiMxbxJ43Hm4-6MFElvHtDOWvtpw>
-X-Sasl-enc: yp+1/Szbm/Qc+MUkC9chwBlCyv9ulkOnnyQez6qpzUAl 1486095654
+ messagingengine.com; h=cc:date:from:in-reply-to:message-id
+ :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
+ :x-sasl-enc; s=smtpout; bh=eNg8bMmQsC4QQEr24SLHVL1SSRo=; b=WRH4E
+ 89yFuhUSkyL6xDOKKy+J+Bj/aLAtE/CJvHVig3x8ZVkF+UGtzxJwegnTfeMPhWdJ
+ QLs+dQDCTpNMwZZaPMLxLrUl0+ezz06kg4tPvL+8vCmasTakP3aX4Fm7jyWupUBZ
+ c7T0eEzsAnUdkkU2GHT1a6HhoYNEDz9egrlMss=
+X-ME-Sender: <xms:KgWUWKBhmTDIbE0AHCefEA63_bVjdHntUFk57VcP0CG5AnXUq85jHw>
+X-Sasl-enc: v9j8gHaJNXsXY0mI1OoKeafKSpcPGXW4kAOXvnyQJ7n2 1486095657
 Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 69AF7240CC;
- Thu,  2 Feb 2017 23:20:53 -0500 (EST)
+ by mail.messagingengine.com (Postfix) with ESMTPA id F1DA824570;
+ Thu,  2 Feb 2017 23:20:55 -0500 (EST)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Joel Stanley <joel@jms.id.au>
 Cc: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org,
  Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Subject: [RESEND PATCH linux dev-4.7 00/14] Update GPIO and pinctrl to upstream
-Date: Fri,  3 Feb 2017 14:49:59 +1030
-Message-Id: <20170203042013.2719-1-andrew@aj.id.au>
+Subject: [PATCH linux dev-4.7 01/14] gpio: aspeed: dt: Reset bindings to
+ mainline
+Date: Fri,  3 Feb 2017 14:50:00 +1030
+Message-Id: <20170203042013.2719-2-andrew@aj.id.au>
 X-Mailer: git-send-email 2.9.3
+In-Reply-To: <20170203042013.2719-1-andrew@aj.id.au>
+References: <20170203042013.2719-1-andrew@aj.id.au>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -52,61 +56,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Feb 2017 04:20:58 -0000
+X-List-Received-Date: Fri, 03 Feb 2017 04:21:00 -0000
 
-Hi Joel,
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ .../devicetree/bindings/gpio/gpio-aspeed.txt         | 20 +++++++-------------
+ 1 file changed, 7 insertions(+), 13 deletions(-)
 
-This series gets the GPIO and pinctrl subsystems of dev-4.7 into the same state
-as upstream. A handful of patches reset things back to mainline, and then
-patches applied by the GPIO and pinctrl maintainer are cherry-picked in.
-
-The series has three checkpatch warnings, one for "lack" of Kconfig symbol
-description in 2/14 (which simply resets some state to match mainline), a
-second for a duplicate S-o-B tag in 5/14 and another regarding commit message
-line length in 6/14. I've added my S-o-B twice in 5/14 because the patch
-doesn't backport cleanly and I had to remove some code. The commit message
-warning in 6/14 is for a link to the upstream patch and isn't appropriate to
-wrap.
-
-Other than that, it builds with aspeed_g{4,5}_defconfigs and boots in Palmetto
-and Romulus QEMU machines. The cherry-picked patches have been tested on
-Palmetto and AST2500EVB hardware.
-
-Please review.
-
-Cheers,
-
-Andrew
-
-Andrew Jeffery (13):
-  gpio: aspeed: dt: Reset bindings to mainline
-  gpio: aspeed: Reset to mainline
-  aspeed: dt: Mark GPIO controller as interrupt-controller
-  gpio: aspeed: Add banks Y, Z, AA, AB and AC
-  gpio: aspeed: Remove dependence on GPIOF_* macros
-  aspeed: g5: dt: Update GPIO pin range to mux banks Y, Z, AA, AB, AC
-  pinctrl: aspeed: Reset to mainline
-  pinctrl: aspeed: dt: Fix compatibles for the System Control Unit
-  pinctrl: aspeed: Read and write bits in LPC and GFX controllers
-  pinctrl: aspeed-g4: Add mux configuration for all pins
-  pinctrl: aspeed-g5: Add mux configuration for all pins
-  pinctrl: aspeed: Fix kerneldoc return descriptions
-  pinctrl: aspeed: g4: Fix mux configuration for GPIOs AA[4-7], AB[0-7]
-
-Joel Stanley (1):
-  gpio: aspeed: Make bank names strings
-
- .../devicetree/bindings/gpio/gpio-aspeed.txt       |  20 +-
- .../devicetree/bindings/pinctrl/pinctrl-aspeed.txt |  91 ++++++-
- arch/arm/boot/dts/aspeed-g4.dtsi                   |   1 +
- arch/arm/boot/dts/aspeed-g5.dtsi                   |   3 +-
- drivers/gpio/Kconfig                               |  13 +-
- drivers/gpio/gpio-aspeed.c                         | 299 ++++++++++++++-------
- drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c         |  63 ++---
- drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c         |  76 ++++--
- drivers/pinctrl/aspeed/pinctrl-aspeed.c            | 216 +++++++--------
- drivers/pinctrl/aspeed/pinctrl-aspeed.h            |  48 ++--
- 10 files changed, 507 insertions(+), 323 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/gpio/gpio-aspeed.txt b/Documentation/devicetree/bindings/gpio/gpio-aspeed.txt
+index 1954b288cd49..393bb2ed8a77 100644
+--- a/Documentation/devicetree/bindings/gpio/gpio-aspeed.txt
++++ b/Documentation/devicetree/bindings/gpio/gpio-aspeed.txt
+@@ -2,28 +2,22 @@ Aspeed GPIO controller Device Tree Bindings
+ -------------------------------------------
+ 
+ Required properties:
++- compatible		: Either "aspeed,ast2400-gpio" or "aspeed,ast2500-gpio"
++
+ - #gpio-cells 		: Should be two
+ 			  - First cell is the GPIO line number
+ 			  - Second cell is used to specify optional
+ 			    parameters (unused)
+ 
+-- compatible		: Either "aspeed,ast2400-gpio" or "aspeed,ast2500-gpio"
+-
+ - reg			: Address and length of the register set for the device
+ - gpio-controller	: Marks the device node as a GPIO controller.
+ - interrupts		: Interrupt specifier (see interrupt bindings for
+ 			  details)
++- interrupt-controller	: Mark the GPIO controller as an interrupt-controller
+ 
+ Optional properties:
+-- interrupt-controller	: Marks the device node as an interrupt controller.
+-- interrupt-parent	: The parent interrupt controller, optional if inherited
+-- #interrupt-cells 	: Should be 2.  The first cell is the GPIO number.
+-			  The second cell bits[3:0] is used to specify trigger
+-			  type and level flags:
+-			      1 = low-to-high edge triggered.
+-			      2 = high-to-low edge triggered.
+-			      4 = active high level-sensitive.
+-			      8 = active low level-sensitive.
++
++- interrupt-parent     : The parent interrupt controller, optional if inherited
+ 
+ The gpio and interrupt properties are further described in their respective
+ bindings documentation:
+@@ -34,9 +28,9 @@ bindings documentation:
+   Example:
+ 	gpio@1e780000 {
+ 		#gpio-cells = <2>;
+-		compatible = "aspeed,ast2400-gpio"
++		compatible = "aspeed,ast2400-gpio";
+ 		gpio-controller;
+-		interrupt-parent = <&intc>;
+ 		interrupts = <20>;
+ 		reg = <0x1e780000 0x1000>;
++		interrupt-controller;
+ 	};
 -- 
 2.9.3
