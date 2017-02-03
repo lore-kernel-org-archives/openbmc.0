@@ -3,45 +3,44 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vF3Zn1fsyzDqBg
- for <openbmc@lists.ozlabs.org>; Fri,  3 Feb 2017 15:21:05 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vF3Zq5yLMzDqCt
+ for <openbmc@lists.ozlabs.org>; Fri,  3 Feb 2017 15:21:07 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="WFFrNbT4"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="FmtTgwos"; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="SFDCxUR7"; dkim-atps=neutral
+ header.b="YtgX3nN7"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 26B9E20AA1;
- Thu,  2 Feb 2017 23:21:03 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id C38BD20ABD;
+ Thu,  2 Feb 2017 23:21:05 -0500 (EST)
 Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Thu, 02 Feb 2017 23:21:03 -0500
+ by compute4.internal (MEProxy); Thu, 02 Feb 2017 23:21:05 -0500
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
  :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=cY5
- /q6gmUAPrLJyx1GUiO+/C4fs=; b=WFFrNbT4DU7VNsofy/egNCsxABoothVxsyW
- 5zNqRy1aRVSPmIOGL7vfrHOZT3EzMG57lj7RJeaFu8XXuQyhI1Ku8WLgsjHgT6Ls
- m5S55Rk7ETaWYRQWOlFJe3cE3w6UljxF36+SdhX+i4vEaHwbE89qOOok1+tLKAEZ
- fVOYSILc=
+ :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=EvH
+ 8UOByL4CQtcllIdPcKeHz7Ko=; b=FmtTgwos4k+f2427XCWxJe2CCpcUon3QaKr
+ 7Hci8YY8e1gWreJqilIdqXvHM3v+Y3vXqeptFPouyB8lbtjSu4P05MtvTftVqf21
+ UvQZiqkyxEld1SleNnitFBhvSHW5Zwh7+R6DRKDbzF2O0nSm9IbY0Q7Oz2deNzwz
+ ZPd3LlU8=
 DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:date:from:in-reply-to:message-id
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=smtpout; bh=cY5/q6gmUAPrLJyx1GUiO+/C4fs=; b=SFDCx
- UR7D0eom2sD3e6XFVvrsgIM57B3aPTyM43IU7rfMdNlHXlBqHFjzIRPNldByzhlS
- 7uJksCoegdjnbIwpYNOgKvyYLSB7sglzAWy5FVMKN4HtzqolrYSHZFXaX2AiJ/qM
- 4kb/Dg6b9kgUGmuAy44omBX/tcwm7qQW71WlIM=
-X-ME-Sender: <xms:LwWUWJpB1W_P7B1fQPUsQaQ6nB8ad4GAyUtVP6ylQIKMJoaAlct3wg>
-X-Sasl-enc: M1xWj+tMWaacqlv8BlWghP/9Er0F8z83XrhFZya6QQP7 1486095662
+ :x-sasl-enc; s=smtpout; bh=EvH8UOByL4CQtcllIdPcKeHz7Ko=; b=YtgX3
+ nN7z8go4V+xt6cLomu6YzvjP1rQMtHLf1uTtGwqYXdltSjfduQhunzpuGOwXJI4w
+ jxuJ+/ks2ARNL58RdokSBcW9TAkZbXGV5bkCrm7JtZ4xqFBD7EV2PyXRIj4ybtOw
+ 7tB412MVN4XaICIjmYZACk8lshKpsiFeUGNEyU=
+X-ME-Sender: <xms:MQWUWNvNMhYbvBpSpS9cd2n_spkHhdvHGSRjjhaXOIB3_oUhFIC6Hw>
+X-Sasl-enc: aMHWH6HlBcbFlNZ1s51YBfx9MC4Kg5tSzRqswed/hwo2 1486095664
 Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 19F75241D3;
- Thu,  2 Feb 2017 23:21:00 -0500 (EST)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 966F9240CC;
+ Thu,  2 Feb 2017 23:21:03 -0500 (EST)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: Joel Stanley <joel@jms.id.au>
-Cc: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org,
- Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Subject: [PATCH linux dev-4.7 03/14] aspeed: dt: Mark GPIO controller as
- interrupt-controller
-Date: Fri,  3 Feb 2017 14:50:02 +1030
-Message-Id: <20170203042013.2719-4-andrew@aj.id.au>
+Cc: openbmc@lists.ozlabs.org, Christopher Bostic <cbostic@linux.vnet.ibm.com>,
+ Andrew Jeffery <andrew@aj.id.au>
+Subject: [PATCH linux dev-4.7 04/14] gpio: aspeed: Make bank names strings
+Date: Fri,  3 Feb 2017 14:50:03 +1030
+Message-Id: <20170203042013.2719-5-andrew@aj.id.au>
 X-Mailer: git-send-email 2.9.3
 In-Reply-To: <20170203042013.2719-1-andrew@aj.id.au>
 References: <20170203042013.2719-1-andrew@aj.id.au>
@@ -56,39 +55,72 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Feb 2017 04:21:05 -0000
+X-List-Received-Date: Fri, 03 Feb 2017 04:21:08 -0000
 
-This brings the devicetree into line with the mainline bindings.
+From: Joel Stanley <joel@jms.id.au>
 
+The Aspeed SoCs have more GPIOs than can be represented with A-Z. The
+documentation uses two letter names such as AA and AB, so make the names
+a three-character array in the bank struct to accommodate this.
+
+Signed-off-by: Joel Stanley <joel@jms.id.au>
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+(cherry picked from commit 7153f8ef679d5fcb2d9c69a19613399194600f5b)
 ---
- arch/arm/boot/dts/aspeed-g4.dtsi | 1 +
- arch/arm/boot/dts/aspeed-g5.dtsi | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/gpio/gpio-aspeed.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-index 7c78eb1c01ff..28408a2e2ad5 100644
---- a/arch/arm/boot/dts/aspeed-g4.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-@@ -851,6 +851,7 @@
- 				compatible = "aspeed,ast2400-gpio";
- 				reg = <0x1e780000 0x1000>;
- 				interrupts = <20>;
-+				interrupt-controller;
- 				gpio-ranges = <&pinctrl 0 0 220>;
- 			};
+diff --git a/drivers/gpio/gpio-aspeed.c b/drivers/gpio/gpio-aspeed.c
+index 03a5925a423c..20f6f8ae4671 100644
+--- a/drivers/gpio/gpio-aspeed.c
++++ b/drivers/gpio/gpio-aspeed.c
+@@ -28,39 +28,39 @@ struct aspeed_gpio {
+ struct aspeed_gpio_bank {
+ 	uint16_t	val_regs;
+ 	uint16_t	irq_regs;
+-	const char	names[4];
++	const char	names[4][3];
+ };
  
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index 7b1297b7f3da..14e03d8d35dc 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -1016,6 +1016,7 @@
- 				compatible = "aspeed,ast2500-gpio";
- 				reg = <0x1e780000 0x1000>;
- 				interrupts = <20>;
-+				interrupt-controller;
- 				gpio-ranges = <&pinctrl 0 0 220>;
- 			};
- 
+ static const struct aspeed_gpio_bank aspeed_gpio_banks[] = {
+ 	{
+ 		.val_regs = 0x0000,
+ 		.irq_regs = 0x0008,
+-		.names = { 'A', 'B', 'C', 'D' },
++		.names = { "A", "B", "C", "D" },
+ 	},
+ 	{
+ 		.val_regs = 0x0020,
+ 		.irq_regs = 0x0028,
+-		.names = { 'E', 'F', 'G', 'H' },
++		.names = { "E", "F", "G", "H" },
+ 	},
+ 	{
+ 		.val_regs = 0x0070,
+ 		.irq_regs = 0x0098,
+-		.names = { 'I', 'J', 'K', 'L' },
++		.names = { "I", "J", "K", "L" },
+ 	},
+ 	{
+ 		.val_regs = 0x0078,
+ 		.irq_regs = 0x00e8,
+-		.names = { 'M', 'N', 'O', 'P' },
++		.names = { "M", "N", "O", "P" },
+ 	},
+ 	{
+ 		.val_regs = 0x0080,
+ 		.irq_regs = 0x0118,
+-		.names = { 'Q', 'R', 'S', 'T' },
++		.names = { "Q", "R", "S", "T" },
+ 	},
+ 	{
+ 		.val_regs = 0x0088,
+ 		.irq_regs = 0x0148,
+-		.names = { 'U', 'V', 'W', 'X' },
++		.names = { "U", "V", "W", "X" },
+ 	},
+ 	/*
+ 	 * A bank exists for { 'Y', 'Z', "AA", "AB" }, but is not implemented.
 -- 
 2.9.3
