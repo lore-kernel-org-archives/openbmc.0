@@ -1,71 +1,53 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-pg0-x242.google.com (mail-pg0-x242.google.com
+ [IPv6:2607:f8b0:400e:c05::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vDx2y4TlwzDqBZ
- for <openbmc@lists.ozlabs.org>; Fri,  3 Feb 2017 10:26:34 +1100 (AEDT)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v12NIdpP078850
- for <openbmc@lists.ozlabs.org>; Thu, 2 Feb 2017 18:26:32 -0500
-Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
- by mx0b-001b2d01.pphosted.com with ESMTP id 28c8w1uxv4-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 02 Feb 2017 18:26:32 -0500
-Received: from localhost
- by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Thu, 2 Feb 2017 16:26:31 -0700
-Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
- by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Thu, 2 Feb 2017 16:26:28 -0700
-Received: from b03cxnp08026.gho.boulder.ibm.com
- (b03cxnp08026.gho.boulder.ibm.com [9.17.130.18])
- by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id 47D1719D801C;
- Thu,  2 Feb 2017 16:25:42 -0700 (MST)
-Received: from b03ledav004.gho.boulder.ibm.com
- (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
- by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v12NQRBX10682772; Thu, 2 Feb 2017 16:26:27 -0700
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id CE30778056;
- Thu,  2 Feb 2017 16:26:27 -0700 (MST)
-Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP id 6776478038;
- Thu,  2 Feb 2017 16:26:27 -0700 (MST)
-From: eajames@linux.vnet.ibm.com
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, alistair@popple.id.au, benh@kernel.crashing.org,
- Christopher Bostic <cbostic@linux.vnet.ibm.com>,
- Eddie James <eajames@us.ibm.com>
-Subject: [PATCH v2 3/3] drivers/fsi: Add sysfs file to adjust i-poll period
-Date: Thu,  2 Feb 2017 17:26:04 -0600
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1486077964-11346-1-git-send-email-eajames@linux.vnet.ibm.com>
-References: <1486077964-11346-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17020223-0012-0000-0000-0000138A647C
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006545; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000201; SDB=6.00816379; UDB=6.00398660; IPR=6.00593813; 
- BA=6.00005112; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014159; XFM=3.00000011;
- UTC=2017-02-02 23:26:30
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17020223-0013-0000-0000-00004B1545B3
-Message-Id: <1486077964-11346-9-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-02-02_15:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1702020219
-X-Mailman-Approved-At: Fri, 03 Feb 2017 11:12:45 +1100
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vDyrj3sFQzDq6X
+ for <openbmc@lists.ozlabs.org>; Fri,  3 Feb 2017 11:47:48 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="sfYAsKd/"; 
+ dkim-atps=neutral
+Received: by mail-pg0-x242.google.com with SMTP id 204so394048pge.2
+ for <openbmc@lists.ozlabs.org>; Thu, 02 Feb 2017 16:47:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:cc:subject:date:message-id;
+ bh=bqsqiZcx4+tVihbuBxdn/qwxcuIxXUQaAHLu9ybrVBg=;
+ b=sfYAsKd/vMEFw+xYzlfj/z3sjCpEghsjlLeCNHA9v7ByhBHJwuiwayL30HpjnWOhAg
+ ViN6/tsUgNfxhtj5xmVg/7I1tvBc9AiFbJ6cL3UFqFB14rhTpF+5XO79ouSTxPEjj8Hj
+ wUIxLJTOvfbulAjqSPJEHkRwUh1hgUIRm5y09tH/f/7uoyxXL4ekw2+j/MjvmzILsCcn
+ 2LDLondi7JXql1uO28Nm2VP1yMsfAwCu2RfEvQ677LI6uNcf51GI5Kxgt06UCzRtiDk0
+ mDDqpHNFRE/9lgvTujV+s1weDBn2PxalyTyCCgDzDwLHwRe6jUqT6wC8Xln2r7oSNPOg
+ c4Yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
+ bh=bqsqiZcx4+tVihbuBxdn/qwxcuIxXUQaAHLu9ybrVBg=;
+ b=ZDWjjkGqdIbDvp4ovRIIMGm2qTFtV2MMsHRk0ejHDJkrc2J5mYK+6v5bg2tVmEDlC7
+ pr27u/uoOTenTrP8ztmEopW1w4XEYZMCBcDQFk0JaLDFG3xm3GN2w3vruw9OEipBX8Xg
+ kRVePDOmGhqpyKWmwrSrdhStWFrw1YURQKjbEXo4b2B0q/vyr8SGrv3J3hT8FJjxCNM9
+ TsDAy1zcDhWB5Wgma0fALJdJ0ZaAoFNyhHPTE0fPn7+8KPyh5Q/sOWNdKFEoMQVb0Mo4
+ +laFLVSXud579ia0PIk+3PvIHPx8wmaverSh5VU+l8ypd7kpsCUuktvXNTHUnpZa7tQ7
+ xEfg==
+X-Gm-Message-State: AIkVDXJW1/wGgNacjqG1mGFzJPpIAPaD5dbUME7g4MgdzYOLYueD/70c3wihbFXo83nGpA==
+X-Received: by 10.99.149.27 with SMTP id p27mr14269721pgd.21.1486082866869;
+ Thu, 02 Feb 2017 16:47:46 -0800 (PST)
+Received: from aurora.jms.id.au (103-232-208-197.nat.sa.cust.uniti.network.
+ [103.232.208.197])
+ by smtp.gmail.com with ESMTPSA id l12sm61481848pfj.37.2017.02.02.16.47.43
+ (version=TLS1 cipher=AES128-SHA bits=128/128);
+ Thu, 02 Feb 2017 16:47:45 -0800 (PST)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Fri, 03 Feb 2017 11:17:38 +1030
+From: Joel Stanley <joel@jms.id.au>
+To: eajames@linux.vnet.ibm.com,
+	cbostic@linux.vnet.ibm.com
+Cc: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.7] drivers: fsi: Fix compilation warnings
+Date: Fri,  3 Feb 2017 11:17:37 +1030
+Message-Id: <20170203004737.18653-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -77,68 +59,97 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Feb 2017 23:26:35 -0000
+X-List-Received-Date: Fri, 03 Feb 2017 00:47:50 -0000
 
-From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+The i2c driver didn't compile cleanly. Silence the warnings.
 
-Create a sysfs file that can read and modify the period for
-interrupt polling of connected CFAMs.
-
-Signed-off-by: Eddie James <eajames@us.ibm.com>
-Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- drivers/fsi/fsi-core.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+ drivers/fsi/i2c/iic-fsi.c | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-index 2f6fde9..1e9c5a2 100644
---- a/drivers/fsi/fsi-core.c
-+++ b/drivers/fsi/fsi-core.c
-@@ -569,6 +569,30 @@ done:
- 	return 0;
- }
+diff --git a/drivers/fsi/i2c/iic-fsi.c b/drivers/fsi/i2c/iic-fsi.c
+index 3a9b25d03b72..2c0aec9b3152 100644
+--- a/drivers/fsi/i2c/iic-fsi.c
++++ b/drivers/fsi/i2c/iic-fsi.c
+@@ -100,7 +100,7 @@ int readb_wrap(iic_eng_t* eng, unsigned int addr, unsigned char *val,
+ 	if(rc)
+ 	{
+ 		IFLDe(3, "eng[%08x]: fsi_readb_ffdc(%p)=%d\n", eng->id,
+-				addr, rc);
++				(void *)addr, rc);
+ 	}
+ 	return rc;
+ };
+@@ -114,7 +114,7 @@ int readh_wrap(iic_eng_t* eng, unsigned int addr, unsigned short *val,
+ 	if(rc)
+ 	{
+ 		IFLDe(3, "eng[%08x]: fsi_readh_ffdc(%p)=%d\n", eng->id,
+-				addr, rc);
++				(void *)addr, rc);
+ 	}
+ 	return rc;
+ };
+@@ -128,7 +128,7 @@ int readw_wrap(iic_eng_t* eng, unsigned int addr, unsigned long *val,
+ 	if(rc)
+ 	{
+ 		IFLDe(3, "eng[%08x]: fsi_readw_ffdc(%p)=%d\n", eng->id,
+-				addr, rc);
++				(void *)addr, rc);
+ 	}
+ 	return rc;
+ };
+@@ -142,7 +142,7 @@ int writeb_wrap(iic_eng_t* eng, unsigned int addr, unsigned char val,
+ 	if(rc)
+ 	{
+ 		IFLDe(3, "eng[%08x]: fsi_writeb_ffdc(%p)=%d\n", eng->id,
+-				addr, rc);
++				(void *)addr, rc);
+ 	}
+ 	return rc;
+ };
+@@ -156,7 +156,7 @@ int writeh_wrap(iic_eng_t* eng, unsigned int addr, unsigned short val,
+ 	if(rc)
+ 	{
+ 		IFLDe(3, "eng[%08x]: fsi_writeh_ffdc(%p)=%d\n", eng->id,
+-				addr, rc);
++				(void *)addr, rc);
+ 	}
+ 	return rc;
+ };
+@@ -170,7 +170,7 @@ int writew_wrap(iic_eng_t* eng, unsigned int addr, unsigned long val,
+ 	if(rc)
+ 	{
+ 		IFLDe(3, "eng[%08x]: fsi_writew_ffdc(%p)=%d\n", eng->id,
+-				addr, rc);
++				(void *)addr, rc);
+ 	}
+ 	return rc;
+ };
+@@ -197,7 +197,7 @@ static const struct fsi_device_id i2c_ids[] = {
+ 	{ 0 }
+ };
  
-+static ssize_t fsi_ipoll_period_show(struct device *dev,
-+				struct device_attribute *attr, char *buf)
-+{
-+	return snprintf(buf, PAGE_SIZE - 1, "%u\n", fsi_ipoll_period_ms);
-+}
-+
-+static ssize_t fsi_ipoll_period_store(struct device *dev,
-+				struct device_attribute *attr,
-+				const char *buf, size_t count)
-+{
-+	int rc;
-+	unsigned long val = 0;
-+
-+	rc = kstrtoul(buf, 0, &val);
-+
-+	if (val > 1 && val < 10000)
-+	fsi_ipoll_period_ms = val;
-+
-+	return count;
-+}
-+
-+DEVICE_ATTR(fsi_ipoll_period, S_IRUGO | S_IWUSR, fsi_ipoll_period_show,
-+		fsi_ipoll_period_store);
-+
- int fsi_master_register(struct fsi_master *master)
- {
- 	if (!master || !master->dev)
-@@ -578,12 +602,14 @@ int fsi_master_register(struct fsi_master *master)
- 	master->slave_list = false;
- 	get_device(master->dev);
- 	fsi_master_scan(master);
-+	device_create_file(master->dev, &dev_attr_fsi_ipoll_period);
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(fsi_master_register);
+-static const struct fsi_driver i2c_drv = {
++static struct fsi_driver i2c_drv = {
+ 	.id_table = i2c_ids,
+ 	.drv = {
+ 		.name = "iic_fsi_dd",
+@@ -220,7 +220,6 @@ int iic_add_ports(iic_eng_t* eng, uint64_t ports)
+ 	int minor = 0;
+ 	char name[64];
+ 	int rc = 0;
+-	struct fsi_device *fdev = to_fsi_dev(eng->dev);
  
- void fsi_master_unregister(struct fsi_master *master)
+ 	IENTER();
+ 
+@@ -485,7 +484,6 @@ void iic_fsi_shutdown(struct device *dev)
  {
-+	device_remove_file(master->dev, &dev_attr_fsi_ipoll_period);
- 	fsi_master_unscan(master);
- 	put_device(master->dev);
- 	if (master_ipoll) {
+ 	int rc = 0;
+ 	iic_eng_t* eng = (iic_eng_t*)dev_get_drvdata(dev);
+-	struct fsi_device* fsidev = to_fsi_dev(dev);
+ 
+ 	IENTER();
+ 	if(!eng || !eng->ops)
 -- 
-1.8.2.2
+2.11.0
