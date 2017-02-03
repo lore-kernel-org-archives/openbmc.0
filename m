@@ -1,53 +1,76 @@
-Return-Path: <andrew@aj.id.au>
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Return-Path: <eajames@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vF6h00r1czDqBZ
- for <openbmc@lists.ozlabs.org>; Fri,  3 Feb 2017 17:40:48 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="YTXd8aBx"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="O1kGYsn5"; dkim-atps=neutral
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id AA94E209B0;
- Fri,  3 Feb 2017 01:40:45 -0500 (EST)
-Received: from frontend1 ([10.202.2.160])
- by compute4.internal (MEProxy); Fri, 03 Feb 2017 01:40:45 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=mesmtp; bh=HfT2tpVwqt78gZ4kbSRH2WduVdk=; b=YTXd8a
- BxXdwJkh9Na9SSo+impLcpdUD5WmCS0G3C9KLKuDs8v96Pch1Zd7MVt9D1edvQuw
- g9vQw4gAwdPROLv3OoZ0o12dP6jFaKMQoOZwTG8b7H4kdqYAgz9bh5JQ8FBU5W7h
- 3hJRsVpHToZ+rYEqsD6M+PKRjGymIsv13TlFk=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-sender
- :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=HfT2tpVwqt78gZ
- 4kbSRH2WduVdk=; b=O1kGYsn50dQ1wh7cPhI8pQUIkBQNA1ZxaCizgXMFSBgkfG
- lfzi0RPUxEhXUxC0HXy2g297WRnYywcAHFiBk2cttsBwalFaKnlULKofv3x7nhI9
- 41fwYjMPFX+pr8Bn8Oxt1Eikvc+hJ0BDKXeVnq4f+23QP85dia2fdjE9y9VAg=
-X-ME-Sender: <xms:7SWUWGwr43Phd7LTr08-Yfn4CdKJM7O0dtU9027-aWfEAZR3nBJb3w>
-X-Sasl-enc: o+xukQ/0p1pMkEWgTQKKAL3oLe/DSXvzInXklch4u86J 1486104044
-Received: from [10.104.0.15] (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id E5A487E033;
- Fri,  3 Feb 2017 01:40:43 -0500 (EST)
-Message-ID: <1486104037.7271.10.camel@aj.id.au>
-Subject: Re: How to deal with failing services in the boot targets
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Andrew Geissler <geissonator@gmail.com>
-Cc: Xo Wang <xow@google.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Date: Fri, 03 Feb 2017 17:10:37 +1030
-In-Reply-To: <CALLMt=qq97zpRTxomzzucenceiZBEJqgbXANoeU_3Kd1S0313A@mail.gmail.com>
-References: <CAPH-5w4WA8aVbKA0ptR7ubtpCUuGxZ2RQpuS0W4m1csen-kU-w@mail.gmail.com>
- <1485479779.4137.13.camel@aj.id.au>
- <CALLMt=qq97zpRTxomzzucenceiZBEJqgbXANoeU_3Kd1S0313A@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-ibXOc7YyMZ0Nb6Pr8c0S"
-X-Mailer: Evolution 3.22.1-0ubuntu2 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vFMrj14fgzDqBX
+ for <openbmc@lists.ozlabs.org>; Sat,  4 Feb 2017 03:34:12 +1100 (AEDT)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v13GXhSt110875
+ for <openbmc@lists.ozlabs.org>; Fri, 3 Feb 2017 11:34:11 -0500
+Received: from e18.ny.us.ibm.com (e18.ny.us.ibm.com [129.33.205.208])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 28c90960ed-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 03 Feb 2017 11:34:10 -0500
+Received: from localhost
+ by e18.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
+ Fri, 3 Feb 2017 11:34:09 -0500
+Received: from d01dlp02.pok.ibm.com (9.56.250.167)
+ by e18.ny.us.ibm.com (146.89.104.205) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 3 Feb 2017 11:34:06 -0500
+Received: from b01cxnp22035.gho.pok.ibm.com (b01cxnp22035.gho.pok.ibm.com
+ [9.57.198.25])
+ by d01dlp02.pok.ibm.com (Postfix) with ESMTP id AE11E6E804B;
+ Fri,  3 Feb 2017 11:33:37 -0500 (EST)
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v13GY5xQ36241424; Fri, 3 Feb 2017 16:34:05 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 7348C11205E;
+ Fri,  3 Feb 2017 11:34:05 -0500 (EST)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP id CA5D0112062;
+ Fri,  3 Feb 2017 11:34:04 -0500 (EST)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Fri, 03 Feb 2017 10:36:12 -0600
+From: eajames <eajames@linux.vnet.ibm.com>
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Alistair Popple
+ <alistair@popple.id.au>, Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ "Edward A. James" <eajames@us.ibm.com>, joel.stan@gmail.com
+Subject: Re: [PATCH linux v1 0/8] drivers: fsi: interrupt polling, i2c client
+In-Reply-To: <CACPK8XeAONcgX=y1fJueOkqXBiHeQDRf0zXp2XFJFXjU=wNgKw@mail.gmail.com>
+References: <1486077964-11346-1-git-send-email-eajames@linux.vnet.ibm.com>
+ <CACPK8XeAONcgX=y1fJueOkqXBiHeQDRf0zXp2XFJFXjU=wNgKw@mail.gmail.com>
+X-Sender: eajames@linux.vnet.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17020316-0044-0000-0000-000002771730
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006549; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000201; SDB=6.00816720; UDB=6.00398864; IPR=6.00594156; 
+ BA=6.00005114; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014169; XFM=3.00000011;
+ UTC=2017-02-03 16:34:07
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17020316-0045-0000-0000-000006A41A72
+Message-Id: <ca4162fcc8baaa60b48a1dfd3d9cf4d5@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-02-03_11:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1702030158
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,120 +82,102 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Feb 2017 06:40:49 -0000
+X-List-Received-Date: Fri, 03 Feb 2017 16:34:13 -0000
 
+On 2017-02-02 18:55, Joel Stanley wrote:
+> On Fri, Feb 3, 2017 at 9:55 AM,  <eajames@linux.vnet.ibm.com> wrote:
+>> From: "Edward A. James" <eajames@us.ibm.com>
+>> 
+>> First, this series add interrupt polling support to the FSI bus 
+>> driver.
+>> This implements a loop that constantly polls the FSI slave interrupt
+>> status register and triggers any registered client interrupt handlers 
+>> upon
+>> detecting an interrupt.
+>> 
+>> Secondly, this series adds the I2C client driver for FSI bus. This 
+>> driver
+>> interacts with the IBM BOE engine on an FSI slave device.
+>> 
+>> Christopher Bostic (3):
+>>   drivers/fsi: Add slave interrupt polling
+>>   drivers/fsi: Add Client IRQ Enable / Disable
+>>   drivers/fsi: Add sysfs file to adjust i-poll period
+>> 
+>> Edward A. James (5):
+>>   drivers: fsi: Add i2c client driver
+>>   drivers: fsi: i2c: Add engine access wrappers
+>>   drivers: fsi: i2c: probe fsi device for i2c client
+>>   drivers: fsi: i2c: add driver file operations and bus locking
+>>   drivers: fsi: i2c: boe engine
+> 
+> This series was a bit of a mess. The second 5 patches all had trailing
+> whitespace. They didn't build cleanly. These patches had different
+> subject prefxies too. You can generate the subject line like this:
+> 
+> git format-patch --subject-prefix "PATCH linux dev-4.7" and it will
+> spit out patch files with the same subject prefix on all patches.
+> 
+> If you're doing v2, you can do:
+> 
+> git format-patch -v 2  --subject-prefix "PATCH linux dev-4.7" and it
+> will add the v2 or v3 or v100 to your subject line.
+> 
+> The full incarnation might look like this:
+> 
+> git format-patch -v 2  --subject-prefix "PATCH linux dev-4.7"
+> --to=joel@jms.id.au --cc=openbmc@lists.ozlabs.org origin/dev-4.7 -o
+> fsi-patches-v2
+> 
+> And then once you've edited the cover letter, I do this:
+> 
+> git send-email fsi-patches-v2/*
+> 
+> I fixed the mess this time, but please make sure you're sending
+> patches that cleanly apply and don't introduce warnings next time.
+> 
+> Cheers,
+> 
+> Joel
 
---=-ibXOc7YyMZ0Nb6Pr8c0S
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Thanks Joel, my apologies for the dirty patch set. I spent no effort 
+cleaning anything up from the FSP code since this is a temporary 
+measure. As for the subject prefixes, Chris generated the first three 
+and I generated the last 5, so I didn't realize they had different 
+subjects before I sent them out. Won't happen again. Looking forward to 
+working on the new i2c driver.
 
-On Wed, 2017-02-01 at 14:42 -0600, Andrew Geissler wrote:
-> Finally got around to doing some testing on this, here's what I got.
->=20
-> > My story this sprint, https://github.com/openbmc/openbmc/issues/1033,
-> is focused on handling errors when things go wrong.=C2=A0=C2=A0Specifical=
-ly,
-> when required services fail to execute properly during a systemd
-> target execution (power on, power off).=C2=A0=C2=A0When a fail happens, t=
-he obmc
-> software needs to notify the users of the system and provide
-> mechanisms for either the system to automatically retry the failed
-> operation (i.e. reboot the system) or to stay in a quiesced state so
-> that error data can be collected and the fail can be investigated.
->=20
-> Michael is working on a story that ties in with this function this
-> > sprint, https://github.com/openbmc/openbmc/issues/942, in which we=E2=
-=80=99ll
-> allow system users to enable or disable the auto reboot function on
-> errors (service failure, host checkstop failure, host watchdog
-> failure).=C2=A0=C2=A0He will utilize the new target I=E2=80=99ll be creat=
-ing in my story
-> for this.
->=20
-> So we have two main fail scenarios:
->=20
-> 1. A service within a target fails
-> - If the service is a oneshot type, and you put that it is required
-> (not wanted) by the target then the target will fail if the service
-> fails
-> =C2=A0 - You can simply define a behavior for when the target fails using
-> the =E2=80=9COnFailure=E2=80=9D option (i.e. go to a new failure target i=
-f any
-> required service fails)
->=20
-> - If the service is not a oneshot, then you can not have it fail the
-> target (the target only knows that it started successfully)
-> =C2=A0 - You have to define a behavior for when the service fails (OnFail=
-ure) option.
-> =C2=A0 - The service can not have "RemainAfterExit=3Dyes=E2=80=9D otherwi=
-se the
-> OnFailure action does not occur until the service is stopped (instead
-> of when it fails)
->=20
-> 2. A failure outside of a normal systemd target/service (host watchdog
-> expires, host checkstop detected)
-> - The service which detects this failure is responsible for logging
-> the appropriate error, and instructing systemd to go to the
-> appropriate target
->=20
-> The current proposal is that we create a new quiesce target.=C2=A0=C2=A0T=
-his is
-> the target that the target/services put for their =E2=80=9COnFailure=3D=
-=E2=80=9C
-> instruction and where the services in fail #2 above detect a problem
-> will instruct systemd to go to.=C2=A0=C2=A0We=E2=80=99ll then have code t=
-hat monitors
-> for the entry into this new quiesce target and handles the halt vs
-> automatic reboot functionality.
->=20
-> The above info sets up some general guidelines for our targets and
-> services (and some refactoring for my story this sprint)
->=20
-> - All targets should have an =E2=80=9COnFailure=3Dobmc-quiesce-system@.ta=
-rget=E2=80=9D
-> - All services which are required for a target to achieve it=E2=80=99s
-> function should be RequiredBy that target (not WantedBy)
-> - All services should first try to be Type=3Doneshot so that we can just
-> rely on the target fail path
-> - If a service can not be =E2=80=9CType=3Doneshot=E2=80=9D, then it needs=
- to have a
-> =E2=80=9COnFailure=3Dobmc-quiesce-system@.target=E2=80=9D and a "RemainAf=
-terExit=3Dno=E2=80=9D
-> - If a service can not be any of these then it=E2=80=99s up to the servic=
-e
-> application to call systemd with the obmc-quiesce-system@.target on
-> failures
->=20
-> Thoughts/Questions?
+Thanks,
+Eddie
 
-I think this is a sensible set of suggestions. We need to document them
-somewhere obvious so a) we can point people at them and b) reviewers
-can refer to them when reviewing patches adding/updating systemd unit
-files and targets.
-
-Thanks for considering the problem.
-
-Andrew
---=-ibXOc7YyMZ0Nb6Pr8c0S
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAABCgAGBQJYlCXlAAoJEJ0dnzgO5LT59XIQAKL7vKuC/9JkCQ3qCBB0gULd
-6eF/Yvpa3s98601nwpVZf0FG0TMUyyx3S4q6SMoiyOgQxvM1gH7R/0GU/j3wtkPm
-T1xr9qzILHST8Z/Gw7GjnUE74ajh9c9Y41NyIT9EFYO7QZm99/Y0EVa0bg3awI2G
-ahXutpUsnX+wmD7JKWYmDIJU2mZEa1bK09Z1RuZCKUXB13/GAFtVp1AoAch4GinQ
-5F1GR8a/g3KzpoIycZ5vLALakmgBNyqr128f/RztDhE0aHzRx7+aw/vqBVEQertE
-9ALcFHgYUmacQDdcmuzKTwQ3TEFBoW95Dx4KXe0d+75RTGyKMbSYJtDfI6bJnzwx
-foNH7emB7VCxmczG5gEaPGyYVtjKhAK60FmvkOpxF2f58r+qujSAIka8IZuTdTd2
-mM6Woc1OP1X3wPVA89ByshFK+GO1o70rdkeZL9Mk9bFX9qiPJ7Pfxa/JUt4d3urE
-4R0nYXofgRrWR9bNlWfpdq/iFLk4Tu8OzfRjIznevcIyx1weSHsCzZhlvXMilZoB
-ASboAI/yFXt4AGtRrC+1uBHqaa5kqkGa2pfLYYvfGPyi3aIq9OAJB0EhITGZtRtI
-tCdBZ46yllOHSi3hojKbJcOBFwBm+loonOMiwgbzYOS7Dj202C+QTHzJsy3Mrvd+
-Shi2zGsgbCyfnJTq0E6z
-=c/MD
------END PGP SIGNATURE-----
-
---=-ibXOc7YyMZ0Nb6Pr8c0S--
+> 
+>> 
+>>  drivers/fsi/Kconfig           |    6 +
+>>  drivers/fsi/Makefile          |    1 +
+>>  drivers/fsi/fsi-core.c        |  170 +++
+>>  drivers/fsi/fsi-master-gpio.c |    1 +
+>>  drivers/fsi/fsi-master.h      |    2 +
+>>  drivers/fsi/i2c/Makefile      |    1 +
+>>  drivers/fsi/i2c/iic-boe.c     | 1597 +++++++++++++++++++++++++++++
+>>  drivers/fsi/i2c/iic-boe.h     |  180 ++++
+>>  drivers/fsi/i2c/iic-fsi.c     |  715 +++++++++++++
+>>  drivers/fsi/i2c/iic-int.h     |  395 +++++++
+>>  drivers/fsi/i2c/iic-lock.c    |  439 ++++++++
+>>  drivers/fsi/i2c/iic-mstr.c    | 2281 
+>> +++++++++++++++++++++++++++++++++++++++++
+>>  include/linux/fsi.h           |    5 +
+>>  include/uapi/linux/Kbuild     |    1 +
+>>  include/uapi/linux/i2cfsi.h   |  136 +++
+>>  15 files changed, 5930 insertions(+)
+>>  create mode 100644 drivers/fsi/i2c/Makefile
+>>  create mode 100644 drivers/fsi/i2c/iic-boe.c
+>>  create mode 100644 drivers/fsi/i2c/iic-boe.h
+>>  create mode 100644 drivers/fsi/i2c/iic-fsi.c
+>>  create mode 100644 drivers/fsi/i2c/iic-int.h
+>>  create mode 100644 drivers/fsi/i2c/iic-lock.c
+>>  create mode 100644 drivers/fsi/i2c/iic-mstr.c
+>>  create mode 100644 include/uapi/linux/i2cfsi.h
+>> 
+>> --
+>> 1.8.3.1
+>> 
