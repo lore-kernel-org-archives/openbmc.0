@@ -1,29 +1,67 @@
-Return-Path: <benh@kernel.crashing.org>
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vFT9f4XQjzDqBm
- for <openbmc@lists.ozlabs.org>; Sat,  4 Feb 2017 07:34:14 +1100 (AEDT)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
- by gate.crashing.org (8.14.1/8.13.8) with ESMTP id v13KXkSp008424;
- Fri, 3 Feb 2017 14:33:49 -0600
-Message-ID: <1486154026.4850.58.camel@kernel.crashing.org>
-Subject: Re: [PATCH v2 1/3] drivers/fsi: Add slave interrupt polling
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: eajames <eajames@linux.vnet.ibm.com>, Alistair Popple
- <alistair@popple.id.au>
-Cc: openbmc@lists.ozlabs.org, joel@jms.id.au, Christopher Bostic
- <cbostic@linux.vnet.ibm.com>, Eddie James <eajames@us.ibm.com>
-Date: Sat, 04 Feb 2017 07:33:46 +1100
-In-Reply-To: <0c659ead9fa7a83478ae3c1c9648838a@linux.vnet.ibm.com>
-References: <1486077964-11346-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1486077964-11346-7-git-send-email-eajames@linux.vnet.ibm.com>
- <2483723.1jBtLvfriP@new-mexico>
- <0c659ead9fa7a83478ae3c1c9648838a@linux.vnet.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.22.4 (3.22.4-2.fc25) 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vFX3l16FvzDqBm
+ for <openbmc@lists.ozlabs.org>; Sat,  4 Feb 2017 09:44:18 +1100 (AEDT)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v13MdLut019742
+ for <openbmc@lists.ozlabs.org>; Fri, 3 Feb 2017 17:44:14 -0500
+Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 28cyk3p5e7-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 03 Feb 2017 17:44:14 -0500
+Received: from localhost
+ by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Fri, 3 Feb 2017 15:44:13 -0700
+Received: from d03dlp02.boulder.ibm.com (9.17.202.178)
+ by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Fri, 3 Feb 2017 15:44:11 -0700
+Received: from b03cxnp08027.gho.boulder.ibm.com
+ (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
+ by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id 50FB33E40041;
+ Fri,  3 Feb 2017 15:44:11 -0700 (MST)
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v13MiBQT10551656; Fri, 3 Feb 2017 15:44:11 -0700
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2CD026E03F;
+ Fri,  3 Feb 2017 15:44:11 -0700 (MST)
+Received: from christophersmbp.austin.ibm.com (unknown [9.41.174.103])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id DF3006E038;
+ Fri,  3 Feb 2017 15:44:10 -0700 (MST)
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+To: joel@jms.id.au
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.7] ARM: dts: aspeed: witherspoon: Add fsi-master
+ GPIO bindings
+Date: Fri,  3 Feb 2017 16:44:08 -0600
+X-Mailer: git-send-email 2.10.1 (Apple Git-78)
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17020322-0012-0000-0000-0000138CFB76
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006551; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000201; SDB=6.00816844; UDB=6.00398939; IPR=6.00594279; 
+ BA=6.00005114; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014172; XFM=3.00000011;
+ UTC=2017-02-03 22:44:13
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17020322-0013-0000-0000-00004B1D1E25
+Message-Id: <20170203224408.94384-1-cbostic@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-02-03_15:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1702030212
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -35,23 +73,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Feb 2017 20:34:15 -0000
+X-List-Received-Date: Fri, 03 Feb 2017 22:44:19 -0000
 
-On Fri, 2017-02-03 at 10:18 -0600, eajames wrote:
-> The problem here is that there is no hardware irq. FSI is using GPIO 
-> lines to access slave registers. The only indication that we have an 
-> interrupt is a bit set in the "slave interrupt status register". So
-> we 
-> have to poll that register and handle the results. I'm not aware of
-> any 
-> way to turn that into a kernel irq and use the existing kernel 
-> framework. But if it can be done, agreed, we should implement that!
+Define the pins used on Witherspoon by the FSI GPIO master.
 
-The existing kernel i2c framework doesn't require IRQs.
+Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-You can poll, which sucks, but you can. With delays of course.
-
-Also, if you know your i2c bit freq, you can always use a timer.
-
-Cheers,
-Ben.
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index 6064afa..4b2d8aa 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -46,6 +46,18 @@
+ 			gpios = <&gpio ASPEED_GPIO(N, 3) GPIO_ACTIVE_LOW>;
+ 		};
+ 	};
++
++	fsi-master {
++		compatible = "ibm,fsi-master", "ibm,fsi-master-gpio";
++
++		status = "disabled";
++
++		clock-gpios = <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
++		data-gpios = <&gpio ASPEED_GPIO(E, 0) GPIO_ACTIVE_HIGH>;
++		mux-gpios = <&gpio ASPEED_GPIO(A, 6) GPIO_ACTIVE_HIGH>;
++		enable-gpios = <&gpio ASPEED_GPIO(D, 0) GPIO_ACTIVE_HIGH>;
++		trans-gpios = <&gpio ASPEED_GPIO(R, 2) GPIO_ACTIVE_HIGH>;
++	};
+ };
+ 
+ &fmc {
+-- 
+1.8.2.2
