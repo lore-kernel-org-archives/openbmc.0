@@ -3,48 +3,48 @@ Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vF3bP280jzDqC6
- for <openbmc@lists.ozlabs.org>; Fri,  3 Feb 2017 15:21:37 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vF3ng2vFSzDqBX
+ for <openbmc@lists.ozlabs.org>; Fri,  3 Feb 2017 15:30:31 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="EwB9TOjX"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Ie/6OOmu"; 
  dkim=pass (1024-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="k/NqcLDK"; dkim-atps=neutral
+ header.b="ZpMoBjoB"; dkim-atps=neutral
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 40F2A20B28;
- Thu,  2 Feb 2017 23:21:35 -0500 (EST)
-Received: from frontend2 ([10.202.2.161])
- by compute4.internal (MEProxy); Thu, 02 Feb 2017 23:21:35 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=cc
- :date:from:in-reply-to:message-id:references:subject:to
- :x-me-sender:x-me-sender:x-sasl-enc:x-sasl-enc; s=mesmtp; bh=yO6
- yXexts13FpbEQZ4qCEViIx60=; b=EwB9TOjXuWroKHIE3ZqxdFwRJnkWX8pZ+1n
- q5HccL+9kYy19CaUD1jm4r6NbM05tnBQsr9t1G8T+aUhV+44LyC5b5/GMnwmo0WE
- cTCEPKkysI3I3g0Tx1U+CyQZUGVCoZYIvR0f2uIOmPFoMS4ZKCq0ybF1Tk9eSK/4
- K8M904As=
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:date:from:in-reply-to:message-id
+ by mailout.nyi.internal (Postfix) with ESMTP id A780320B13;
+ Thu,  2 Feb 2017 23:30:28 -0500 (EST)
+Received: from frontend1 ([10.202.2.160])
+ by compute4.internal (MEProxy); Thu, 02 Feb 2017 23:30:28 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=aj.id.au; h=
+ content-type:date:from:in-reply-to:message-id:mime-version
  :references:subject:to:x-me-sender:x-me-sender:x-sasl-enc
- :x-sasl-enc; s=smtpout; bh=yO6yXexts13FpbEQZ4qCEViIx60=; b=k/Nqc
- LDKnc8nRp4SBuMcf7VLcOJZI4Vp7YOqmySaFwcRrd03E9BMWBkPhbPDA2l9HVzzz
- LpSJeZfYrggfylPnVzUtowaKhtGZqf+fyzhBHt+RN0eLeHXWyUWB/2yfY1zmsSfg
- HTAzzxFe9vot8eTPwL7q/AK5jMfu52wNwVb62o=
-X-ME-Sender: <xms:TwWUWLWL3wqzQ7fUwFv-x7pR1Ut-Gr4kuEb4EZMej03KaxMShRWWPw>
-X-Sasl-enc: aXw4iUrgHe5J87XKueR3wtvttVtlZwkn/C5RS94VDJBP 1486095694
-Received: from keelia.au.ibm.com (unknown [203.0.153.9])
- by mail.messagingengine.com (Postfix) with ESMTPA id 2AE2C24570;
- Thu,  2 Feb 2017 23:21:32 -0500 (EST)
+ :x-sasl-enc; s=mesmtp; bh=d4aAwcMnfTnzWc3L4Y7Y+JUemfQ=; b=Ie/6OO
+ mubAbWMKuIQThp7ZnAvX2pxAoeZnNDCYNuR8Y49mDlVFqEt1bVYnbbjaBroUzJ0a
+ DPsgWmJlOs8rPYLsLCbbPWhoE38+H5rHwEgtG+2/u1A6n78S+qTg996vIfSfzEjE
+ QCZmNRdWyM44AISaZpwUOY3EfLZuXX9TkG1BA=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-sender
+ :x-me-sender:x-sasl-enc:x-sasl-enc; s=smtpout; bh=d4aAwcMnfTnzWc
+ 3L4Y7Y+JUemfQ=; b=ZpMoBjoB1CSjCvDapa1BvKMG4RGFHL7C0EOi8q/cmuE42L
+ XcufAh9H+7N07vU8Se63m7K0cEW3S6J00kOlYxSaRF5/e0247DMvqwWkFII7VCac
+ hnYamJkAkGhbjv3wd3i3JDeX3c5wHNrKougwgBdK2v21UOrylqCea0BK01Z3M=
+X-ME-Sender: <xms:ZAeUWBfeZEvn7B19sh7R2HDIvy1tRJOCdhH3Pjs7m1SBnzPRDvUlxA>
+X-Sasl-enc: uG2SrCRtvlP3mi0T5xCH47jrwW5WX3+FIO7PZ+Fn3eHt 1486096227
+Received: from [10.104.0.15] (unknown [203.0.153.9])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 39F007E06B;
+ Thu,  2 Feb 2017 23:30:26 -0500 (EST)
+Message-ID: <1486096223.7271.7.camel@aj.id.au>
+Subject: Re: OpenBMC Kernel Development Process
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Joel Stanley <joel@jms.id.au>
-Cc: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org,
- Christopher Bostic <cbostic@linux.vnet.ibm.com>
-Subject: [PATCH linux dev-4.7 14/14] pinctrl: aspeed: g4: Fix mux
- configuration for GPIOs AA[4-7], AB[0-7]
-Date: Fri,  3 Feb 2017 14:50:13 +1030
-Message-Id: <20170203042013.2719-15-andrew@aj.id.au>
-X-Mailer: git-send-email 2.9.3
-In-Reply-To: <20170203042013.2719-1-andrew@aj.id.au>
-References: <20170203042013.2719-1-andrew@aj.id.au>
+To: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Fri, 03 Feb 2017 15:00:23 +1030
+In-Reply-To: <CACPK8Xdny6BHxpcWz2B=a+zELaYHW1aYt+_uR-E9rABNAjS5uQ@mail.gmail.com>
+References: <CACPK8Xdny6BHxpcWz2B=a+zELaYHW1aYt+_uR-E9rABNAjS5uQ@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-yPS5xGlA24BENewzmLBE"
+X-Mailer: Evolution 3.22.1-0ubuntu2 
+Mime-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,119 +56,67 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Feb 2017 04:21:37 -0000
+X-List-Received-Date: Fri, 03 Feb 2017 04:30:32 -0000
 
-Incorrect video output configuration bits were being tested on pins in
-GPIO banks AA and AB for the ROM{8,16} mux functions. The ROM{8,16}
-functions are the highest priority for the relevant pins and also the
-default function, so we require the relevant video output configuration
-be disabled to mux GPIO functionality. As the wrong bits were being
-tested a GPIO export would succeed but leave the pin in an unresponsive
-state (i.e. value updates were ignored).
 
-This misbehaviour was discovered as part of extending the GPIO
-controller's support to cover banks Y, Z, AA, AB and AC (AC in the case
-of the g5 SoC).
+--=-yPS5xGlA24BENewzmLBE
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: 6d329f14a75f ("pinctrl: aspeed-g4: Add mux configuration for all pins")
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
-(cherry picked from commit 8ccb6dc6e999008bc5d50bdb5badedd636f58e1c)
----
- drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c | 32 +++++++++++++++---------------
- 1 file changed, 16 insertions(+), 16 deletions(-)
+On Thu, 2017-02-02 at 15:44 +1030, Joel Stanley wrote:
+> # Processes
+>=20
+> ## Patch submitters (wishing to have a change included through this proce=
+ss)
+>=20
+> =C2=A0- ensure that patches conform to base-level quality guidelines
+> =C2=A0=C2=A0 - no warnings from checkpatch
+> =C2=A0=C2=A0 - does not introduce errors or warnings, for specific defcon=
+figs
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - aspeed_g4_defconfig
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - aspeed_g5_defconfig
+> =C2=A0=C2=A0 - boot test the kernel using the qemu simulation environment
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - At a minimum, the system should boot to =
+a userspace prompt of
+> the OpenBMC userspace
+> =C2=A0- submit upstream first
+> =C2=A0- submit proposed patches to openbmc@lists.ozlabs.org
+> =C2=A0=C2=A0=C2=A0 - This version of hte patch should contain "[PATCH lin=
+ux
+> <branch>]" in the subject, where <branch> is the name of the current
+> OpenBMC development tree
 
-diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
-index 09b668415c56..7de596e2b9d4 100644
---- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
-+++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
-@@ -1615,8 +1615,8 @@ MS_PIN_DECL(L19, GPIOAA3, ROMA13, VPOG3);
- 
- #define L20 212
- #define L20_DESC	SIG_DESC_SET(SCUA4, 28)
--SIG_EXPR_DECL(ROMA14, ROM8, L20_DESC, VPO_24_OFF);
--SIG_EXPR_DECL(ROMA14, ROM16, L20_DESC, VPO_24_OFF);
-+SIG_EXPR_DECL(ROMA14, ROM8, L20_DESC, VPO_OFF_12);
-+SIG_EXPR_DECL(ROMA14, ROM16, L20_DESC, VPO_OFF_12);
- SIG_EXPR_LIST_DECL_DUAL(ROMA14, ROM8, ROM16);
- SIG_EXPR_DECL(VPOG4, VPO24, L20_DESC, VPO24_DESC);
- SIG_EXPR_DECL(VPOG4, VPOOFF1, L20_DESC, VPOOFF1_DESC);
-@@ -1625,8 +1625,8 @@ MS_PIN_DECL(L20, GPIOAA4, ROMA14, VPOG4);
- 
- #define L21 213
- #define L21_DESC	SIG_DESC_SET(SCUA4, 29)
--SIG_EXPR_DECL(ROMA15, ROM8, L21_DESC, VPO_24_OFF);
--SIG_EXPR_DECL(ROMA15, ROM16, L21_DESC, VPO_24_OFF);
-+SIG_EXPR_DECL(ROMA15, ROM8, L21_DESC, VPO_OFF_12);
-+SIG_EXPR_DECL(ROMA15, ROM16, L21_DESC, VPO_OFF_12);
- SIG_EXPR_LIST_DECL_DUAL(ROMA15, ROM8, ROM16);
- SIG_EXPR_DECL(VPOG5, VPO24, L21_DESC, VPO24_DESC);
- SIG_EXPR_DECL(VPOG5, VPOOFF1, L21_DESC, VPOOFF1_DESC);
-@@ -1635,8 +1635,8 @@ MS_PIN_DECL(L21, GPIOAA5, ROMA15, VPOG5);
- 
- #define T18 214
- #define T18_DESC	SIG_DESC_SET(SCUA4, 30)
--SIG_EXPR_DECL(ROMA16, ROM8, T18_DESC, VPO_24_OFF);
--SIG_EXPR_DECL(ROMA16, ROM16, T18_DESC, VPO_24_OFF);
-+SIG_EXPR_DECL(ROMA16, ROM8, T18_DESC, VPO_OFF_12);
-+SIG_EXPR_DECL(ROMA16, ROM16, T18_DESC, VPO_OFF_12);
- SIG_EXPR_LIST_DECL_DUAL(ROMA16, ROM8, ROM16);
- SIG_EXPR_DECL(VPOG6, VPO24, T18_DESC, VPO24_DESC);
- SIG_EXPR_DECL(VPOG6, VPOOFF1, T18_DESC, VPOOFF1_DESC);
-@@ -1645,8 +1645,8 @@ MS_PIN_DECL(T18, GPIOAA6, ROMA16, VPOG6);
- 
- #define N18 215
- #define N18_DESC	SIG_DESC_SET(SCUA4, 31)
--SIG_EXPR_DECL(ROMA17, ROM8, N18_DESC, VPO_24_OFF);
--SIG_EXPR_DECL(ROMA17, ROM16, N18_DESC, VPO_24_OFF);
-+SIG_EXPR_DECL(ROMA17, ROM8, N18_DESC, VPO_OFF_12);
-+SIG_EXPR_DECL(ROMA17, ROM16, N18_DESC, VPO_OFF_12);
- SIG_EXPR_LIST_DECL_DUAL(ROMA17, ROM8, ROM16);
- SIG_EXPR_DECL(VPOG7, VPO24, N18_DESC, VPO24_DESC);
- SIG_EXPR_DECL(VPOG7, VPOOFF1, N18_DESC, VPOOFF1_DESC);
-@@ -1655,8 +1655,8 @@ MS_PIN_DECL(N18, GPIOAA7, ROMA17, VPOG7);
- 
- #define N19 216
- #define N19_DESC	SIG_DESC_SET(SCUA8, 0)
--SIG_EXPR_DECL(ROMA18, ROM8, N19_DESC, VPO_24_OFF);
--SIG_EXPR_DECL(ROMA18, ROM16, N19_DESC, VPO_24_OFF);
-+SIG_EXPR_DECL(ROMA18, ROM8, N19_DESC, VPO_OFF_12);
-+SIG_EXPR_DECL(ROMA18, ROM16, N19_DESC, VPO_OFF_12);
- SIG_EXPR_LIST_DECL_DUAL(ROMA18, ROM8, ROM16);
- SIG_EXPR_DECL(VPOR0, VPO24, N19_DESC, VPO24_DESC);
- SIG_EXPR_DECL(VPOR0, VPOOFF1, N19_DESC, VPOOFF1_DESC);
-@@ -1665,8 +1665,8 @@ MS_PIN_DECL(N19, GPIOAB0, ROMA18, VPOR0);
- 
- #define M18 217
- #define M18_DESC	SIG_DESC_SET(SCUA8, 1)
--SIG_EXPR_DECL(ROMA19, ROM8, M18_DESC, VPO_24_OFF);
--SIG_EXPR_DECL(ROMA19, ROM16, M18_DESC, VPO_24_OFF);
-+SIG_EXPR_DECL(ROMA19, ROM8, M18_DESC, VPO_OFF_12);
-+SIG_EXPR_DECL(ROMA19, ROM16, M18_DESC, VPO_OFF_12);
- SIG_EXPR_LIST_DECL_DUAL(ROMA19, ROM8, ROM16);
- SIG_EXPR_DECL(VPOR1, VPO24, M18_DESC, VPO24_DESC);
- SIG_EXPR_DECL(VPOR1, VPOOFF1, M18_DESC, VPOOFF1_DESC);
-@@ -1675,8 +1675,8 @@ MS_PIN_DECL(M18, GPIOAB1, ROMA19, VPOR1);
- 
- #define N22 218
- #define N22_DESC	SIG_DESC_SET(SCUA8, 2)
--SIG_EXPR_DECL(ROMA20, ROM8, N22_DESC, VPO_24_OFF);
--SIG_EXPR_DECL(ROMA20, ROM16, N22_DESC, VPO_24_OFF);
-+SIG_EXPR_DECL(ROMA20, ROM8, N22_DESC, VPO_OFF_12);
-+SIG_EXPR_DECL(ROMA20, ROM16, N22_DESC, VPO_OFF_12);
- SIG_EXPR_LIST_DECL_DUAL(ROMA20, ROM8, ROM16);
- SIG_EXPR_DECL(VPOR2, VPO24, N22_DESC, VPO24_DESC);
- SIG_EXPR_DECL(VPOR2, VPOOFF1, N22_DESC, VPOOFF1_DESC);
-@@ -1685,8 +1685,8 @@ MS_PIN_DECL(N22, GPIOAB2, ROMA20, VPOR2);
- 
- #define N20 219
- #define N20_DESC	SIG_DESC_SET(SCUA8, 3)
--SIG_EXPR_DECL(ROMA21, ROM8, N20_DESC, VPO_24_OFF);
--SIG_EXPR_DECL(ROMA21, ROM16, N20_DESC, VPO_24_OFF);
-+SIG_EXPR_DECL(ROMA21, ROM8, N20_DESC, VPO_OFF_12);
-+SIG_EXPR_DECL(ROMA21, ROM16, N20_DESC, VPO_OFF_12);
- SIG_EXPR_LIST_DECL_DUAL(ROMA21, ROM8, ROM16);
- SIG_EXPR_DECL(VPOR3, VPO24, N20_DESC, VPO24_DESC);
- SIG_EXPR_DECL(VPOR3, VPOOFF1, N20_DESC, VPOOFF1_DESC);
--- 
-2.9.3
+It should be noted that if you're cherry-picking changes applied
+upstream to backport them to OpenBMC you should be wary of `git send-
+email` Cc'ing people, e.g upstream maintainers, who have Signed-off-by
+tags on the cherry-picked patch.
+
+To avoid this you can do: `git send-email --suppress-cc=3Dsob`.
+
+Separately it would pay to do a `git send-email --dry-run` beforehand,
+and check the result.
+
+Andrew
+--=-yPS5xGlA24BENewzmLBE
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAABCgAGBQJYlAdfAAoJEJ0dnzgO5LT5l0cP/1AU7gY+1JUN/9M+4/PCdy3L
+kguTvXcy2M+ocXmq3wcFr2I0jGohKkog+I/7JCN4DHs1QimqGxSUiIXchw/WgGIb
+CY0QlRr6DSSoJYOkiTvjmV3u7IK1OUrShqHWm5CQxFXn487IRtJHHkVV/Z+g+jML
+B4yToPCk4v1M2e0Hbpclbuxy5DM3Xk7rQnrpLUXKTTmYMNAgoKVjcX3nMMXCTa9P
+nx7PJusZg2eriRvWlFPKdcvHAXeFmKG3a+COJXngdSdzHrGACt/KoQZNyYAhKQxF
+qsl2K1yefTa3LqBkNgnlCSKU8PHvvvQlLPLHiC8w0z4LSLbbUkMrSvqueVkHzRM1
+KEpdDq7hcaNjwUEooxsJWTCvU324rFEqkX1Sye3xGP7h9/EkrroI6tLFazGyuBi1
+1+RknGLAAxwlGQVMUwMaaebPw5zyrue3N6I4k4OvtQzCzniFMG7/HRVuK0SID8kT
+VEM3AUJ60L13BEfx3rb9Ytp8+51iHCFgyK7F2zlgXkvaMml7SYg7wwa+oMK1Xg8N
+ZezTffcrDrzFOpIfHz6X/nTulNy6dKI/R0IqKtwIrqjv3STyDlwRRco8jsuRTneP
+QvIzii7HrFdBDlRK80qlw/mUJUc3X5X5E1fO3rodYwINfKJbqBv4AWW0sVlXWrkB
+eT6N6Tjb1LBLp/AUurct
+=SUtW
+-----END PGP SIGNATURE-----
+
+--=-yPS5xGlA24BENewzmLBE--
