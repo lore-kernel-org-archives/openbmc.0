@@ -1,54 +1,54 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-ot0-x244.google.com (mail-ot0-x244.google.com
- [IPv6:2607:f8b0:4003:c0f::244])
+Received: from mail-oi0-x241.google.com (mail-oi0-x241.google.com
+ [IPv6:2607:f8b0:4003:c06::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vDyx70kSXzDq6X
- for <openbmc@lists.ozlabs.org>; Fri,  3 Feb 2017 11:51:39 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vDz2X3VF9zDq6X
+ for <openbmc@lists.ozlabs.org>; Fri,  3 Feb 2017 11:56:20 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="j+p/QuHZ"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="iJiX9ihe"; 
  dkim-atps=neutral
-Received: by mail-ot0-x244.google.com with SMTP id 36so542189otx.3
- for <openbmc@lists.ozlabs.org>; Thu, 02 Feb 2017 16:51:38 -0800 (PST)
+Received: by mail-oi0-x241.google.com with SMTP id x84so350954oix.2
+ for <openbmc@lists.ozlabs.org>; Thu, 02 Feb 2017 16:56:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=TnFxTKH8/XkZT5Sx0Xfk+LF4LAuwtNA5giqUPjTOXc0=;
- b=j+p/QuHZd7MwCi0r0p4JuPx6q/H++LXi41FnhIa5BJruujBXrydL51YfvzsYvtdYE5
- rjWsSL+bwlXTOZX4gLSKL+s/YKJzgxmj8ReiQot1hvGMXGhvDxpR5Xhct6Z+Ziumzric
- m5XUbD3zandiefi9he2FlpWltCd4NxIeDjWRJc2Dv02DlCX8c9YTBSG6XlosMdHrc9o6
- ulJ2JO+BXhh3EDPXVnFAITTPjnMDso2jJT/nwW8SERV1XR4GRq3UhUKq3xlTU00No9if
- m5v2Jy2vA9IyS3nW2oKl355rqPkpddqF95kEEL3SJUfoFA5cWdho/Ybv8/MNXPfh0lB2
- v7uw==
+ bh=9NtsDA+M0MxgcubYAVOUDFUX2+oxz6RaXfd0g7BBk3U=;
+ b=iJiX9iheLhplsPBvha7lCGAejkVoP0DKK+zbIebUlZWhvaqZn6G5g1AJov2RZmiTTU
+ yEbK2STsPO+buVMruc/6AzJ8tzSIPPaaQXmHFKSr9kgPqfc8ZJEz0rmoyRvExIOZPMLa
+ CGNZvxjTy0+63bOgXiaZYWXdbWiSsGHMBEb+/1A+KVdKGuo7X9wR7+bHg0rv/SDMJAdQ
+ VL0YKYthNG5yYIWi637JXgDmtUOf8lKgZyAMX+iJzxqNoSAlwK4L8ClgFtDQEGRc+w31
+ +kr+wz2Ch8g3ksvAmnlb9XgCzJrrcBikNfSTdcus2wKty28trU3B2lxDNLWEE8lIhAqR
+ gEWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=TnFxTKH8/XkZT5Sx0Xfk+LF4LAuwtNA5giqUPjTOXc0=;
- b=l4xZncCdf+59pIDukAn5n3QaG4cSEIuYUcy54dkWriMnNFieM8XF5T5/SVRqBiPip+
- pfLhUmWDiamCy1q0zGbhJ8Mb5e+WdTzEksJ1CrMUdLkpRnuehpBn7gAiKTk7K7PypAQn
- OqnXiSQpaKv/tLpsGi/ZYSpj38m2dFUzIAc/iYo5nkfBqEmAHZbaFhUVpYvS91ESNQy2
- i5F0mrlNzlPlI9QTVjHGX0OS3hEwH6mIdEOI+3Z3MHCr69H4si7yHlEuJZszQaTz7www
- ZOI9CyOKeuPi2tRbCFGkFNl/hKKHdU7nOWdkRSi6LVQDzxDi/X0m9ABJSlbz0oF2QQiJ
- TyTw==
-X-Gm-Message-State: AIkVDXIC1wHlXkrWgGaNmfPagJT7ItQlR88b5AG0Equ+kFgGbZZpkdyfQnuqZKBy5g4TU2JTjCgyHr+QKa+bCA==
-X-Received: by 10.157.8.75 with SMTP id 69mr5920890oty.275.1486083096786; Thu,
- 02 Feb 2017 16:51:36 -0800 (PST)
+ bh=9NtsDA+M0MxgcubYAVOUDFUX2+oxz6RaXfd0g7BBk3U=;
+ b=WlNOZC5cqXLx468aMW6ctigcxbzimKwFvNxBNRANq3Y/xosaQyKHzudj7u8/ByduCU
+ 4yZa3vkRfqFNoCACmOmA6zBBiOvi8uOWw18BTyNU4GrsQ9/X7l4ks+xX51f+p6mWDcgy
+ vAo7AQ8M2Bcx3Wuh42jgjWe0uSIr9MCRp44BuwrGnFpx4mYGn4Gln7qO6q9zLtt0j6aQ
+ GhHgfUV8UKfbmlPZYKbaZOObD1lNc8T4t9gK9cFfFuZaAYOl6w7YoujLLvYkrfwqlexj
+ ALjjZbsCS7nD6tGXTAwhby5EGJqFb+ACq6ByU3b6Z2X+G+3mqn45OSjQ/6oxEX1dtv2z
+ gw7g==
+X-Gm-Message-State: AIkVDXLo/7/O6oosvpNnUeX6btAjFAVeaW6t977qdyd0QKiquvhn+8NkOblMYOnXYNcKOAo3jypHcOEAC7ojbg==
+X-Received: by 10.202.240.11 with SMTP id o11mr5277510oih.198.1486083378249;
+ Thu, 02 Feb 2017 16:56:18 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.182.245.201 with HTTP; Thu, 2 Feb 2017 16:51:16 -0800 (PST)
-In-Reply-To: <20170131183927.30887-1-raltherr@google.com>
-References: <20170131183927.30887-1-raltherr@google.com>
+Received: by 10.182.245.201 with HTTP; Thu, 2 Feb 2017 16:55:57 -0800 (PST)
+In-Reply-To: <1486077964-11346-1-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1486077964-11346-1-git-send-email-eajames@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 3 Feb 2017 11:21:16 +1030
-X-Google-Sender-Auth: fOBB5tohwYAUVUjvm9VeXfMJUmQ
-Message-ID: <CACPK8Xf7qFw-LgnwTyJH3fMme5w_c99JuJ1LVA74VmFGkBMDPg@mail.gmail.com>
-Subject: Re: [PATCH linux] dts: aspeed: merge initrd into kernel in flash
- layout
-To: Rick Altherr <raltherr@google.com>,
- Brad Bishop <bradleyb@fuzziesquirrel.com>, 
- Patrick Williams <patrick@stwcx.xyz>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Fri, 3 Feb 2017 11:25:57 +1030
+X-Google-Sender-Auth: FJxCadV8bCfuMeNczSoWmVXmqY0
+Message-ID: <CACPK8XeAONcgX=y1fJueOkqXBiHeQDRf0zXp2XFJFXjU=wNgKw@mail.gmail.com>
+Subject: Re: [PATCH linux v1 0/8] drivers: fsi: interrupt polling, i2c client
+To: eajames@linux.vnet.ibm.com
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Alistair Popple <alistair@popple.id.au>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ "Edward A. James" <eajames@us.ibm.com>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -61,57 +61,86 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Feb 2017 00:51:39 -0000
+X-List-Received-Date: Fri, 03 Feb 2017 00:56:21 -0000
 
-On Wed, Feb 1, 2017 at 5:09 AM, Rick Altherr via openbmc
-<openbmc@lists.ozlabs.org> wrote:
-> openbmc/openbmc commit 1ed6fe335cda50cf60b7afddbe530077a1b25d27 includes
-> the initrd in the kernel image.  Update the flash layout used by OpenBMC
-> dts accordingly.  This is required for OpenBMC's kernel update mechanism
-> to work as the kernel image now exceeds the size of the original kernel
-> partition.
+On Fri, Feb 3, 2017 at 9:55 AM,  <eajames@linux.vnet.ibm.com> wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
+>
+> First, this series add interrupt polling support to the FSI bus driver.
+> This implements a loop that constantly polls the FSI slave interrupt
+> status register and triggers any registered client interrupt handlers upon
+> detecting an interrupt.
+>
+> Secondly, this series adds the I2C client driver for FSI bus. This driver
+> interacts with the IBM BOE engine on an FSI slave device.
+>
+> Christopher Bostic (3):
+>   drivers/fsi: Add slave interrupt polling
+>   drivers/fsi: Add Client IRQ Enable / Disable
+>   drivers/fsi: Add sysfs file to adjust i-poll period
+>
+> Edward A. James (5):
+>   drivers: fsi: Add i2c client driver
+>   drivers: fsi: i2c: Add engine access wrappers
+>   drivers: fsi: i2c: probe fsi device for i2c client
+>   drivers: fsi: i2c: add driver file operations and bus locking
+>   drivers: fsi: i2c: boe engine
 
-Brad, Patrick: This change will mean new kernels can't boot on old
-flash layouts, and vice versa.
+This series was a bit of a mess. The second 5 patches all had trailing
+whitespace. They didn't build cleanly. These patches had different
+subject prefxies too. You can generate the subject line like this:
 
-All users will need to do a full-flash update to move to this version,
-and a full flash update to downgrade.
+git format-patch --subject-prefix "PATCH linux dev-4.7" and it will
+spit out patch files with the same subject prefix on all patches.
 
-Are we ok to proceed?
+If you're doing v2, you can do:
+
+git format-patch -v 2  --subject-prefix "PATCH linux dev-4.7" and it
+will add the v2 or v3 or v100 to your subject line.
+
+The full incarnation might look like this:
+
+git format-patch -v 2  --subject-prefix "PATCH linux dev-4.7"
+--to=joel@jms.id.au --cc=openbmc@lists.ozlabs.org origin/dev-4.7 -o
+fsi-patches-v2
+
+And then once you've edited the cover letter, I do this:
+
+git send-email fsi-patches-v2/*
+
+I fixed the mess this time, but please make sure you're sending
+patches that cleanly apply and don't introduce warnings next time.
 
 Cheers,
 
 Joel
 
 >
-> Signed-off-by: Rick Altherr <raltherr@google.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi | 6 +-----
->  1 file changed, 1 insertion(+), 5 deletions(-)
+>  drivers/fsi/Kconfig           |    6 +
+>  drivers/fsi/Makefile          |    1 +
+>  drivers/fsi/fsi-core.c        |  170 +++
+>  drivers/fsi/fsi-master-gpio.c |    1 +
+>  drivers/fsi/fsi-master.h      |    2 +
+>  drivers/fsi/i2c/Makefile      |    1 +
+>  drivers/fsi/i2c/iic-boe.c     | 1597 +++++++++++++++++++++++++++++
+>  drivers/fsi/i2c/iic-boe.h     |  180 ++++
+>  drivers/fsi/i2c/iic-fsi.c     |  715 +++++++++++++
+>  drivers/fsi/i2c/iic-int.h     |  395 +++++++
+>  drivers/fsi/i2c/iic-lock.c    |  439 ++++++++
+>  drivers/fsi/i2c/iic-mstr.c    | 2281 +++++++++++++++++++++++++++++++++++++++++
+>  include/linux/fsi.h           |    5 +
+>  include/uapi/linux/Kbuild     |    1 +
+>  include/uapi/linux/i2cfsi.h   |  136 +++
+>  15 files changed, 5930 insertions(+)
+>  create mode 100644 drivers/fsi/i2c/Makefile
+>  create mode 100644 drivers/fsi/i2c/iic-boe.c
+>  create mode 100644 drivers/fsi/i2c/iic-boe.h
+>  create mode 100644 drivers/fsi/i2c/iic-fsi.c
+>  create mode 100644 drivers/fsi/i2c/iic-int.h
+>  create mode 100644 drivers/fsi/i2c/iic-lock.c
+>  create mode 100644 drivers/fsi/i2c/iic-mstr.c
+>  create mode 100644 include/uapi/linux/i2cfsi.h
 >
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
-> index 65095a40a203..4bcfd1bf8dc5 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout.dtsi
-> @@ -12,13 +12,9 @@
->                                         label = "u-boot-env";
->                                 };
->                                 kernel@80000 {
-> -                                       reg = < 0x80000 0x280000 >;
-> +                                       reg = < 0x80000 0x440000 >;
->                                         label = "kernel";
->                                 };
-> -                               initramfs@300000 {
-> -                                       reg = < 0x300000 0x1c0000 >;
-> -                                       label = "initramfs";
-> -                               };
->                                 rofs@0c0000 {
->                                         reg = < 0x4c0000 0x1740000 >;
->                                         label = "rofs";
 > --
-> 2.11.0.483.g087da7b7c-goog
+> 1.8.3.1
 >
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
