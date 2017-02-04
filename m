@@ -1,76 +1,49 @@
-Return-Path: <vsainath@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <linus.walleij@linaro.org>
+Received: from mail-it0-x22c.google.com (mail-it0-x22c.google.com
+ [IPv6:2607:f8b0:4001:c0b::22c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vFrWB29tqzDqCW
- for <openbmc@lists.ozlabs.org>; Sat,  4 Feb 2017 22:05:41 +1100 (AEDT)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v14Ax67P114484
- for <openbmc@lists.ozlabs.org>; Sat, 4 Feb 2017 06:05:36 -0500
-Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
- by mx0a-001b2d01.pphosted.com with ESMTP id 28dbwtk5gx-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Sat, 04 Feb 2017 06:05:36 -0500
-Received: from localhost
- by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <vsainath@linux.vnet.ibm.com>;
- Sat, 4 Feb 2017 04:05:35 -0700
-Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
- by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Sat, 4 Feb 2017 04:05:33 -0700
-Received: from b03cxnp08028.gho.boulder.ibm.com
- (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
- by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id 29B6819D8026;
- Sat,  4 Feb 2017 04:04:47 -0700 (MST)
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v14B5XAr10486190; Sat, 4 Feb 2017 04:05:33 -0700
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id DAF28C604C;
- Sat,  4 Feb 2017 04:05:32 -0700 (MST)
-Received: from Venkateshs-MacBook-Pro.local (unknown [9.85.74.187])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id 65227C603C;
- Sat,  4 Feb 2017 04:05:31 -0700 (MST)
-Subject: Re: Users of SBE FIFO kernel driver
-To: Christopher Bostic <cbostic@linux.vnet.ibm.com>,
- Joel Stanley <joel@jms.id.au>
-References: <edb6e9b2-a7a1-d706-5eb6-5966c06b1113@linux.vnet.ibm.com>
- <CACPK8XdQ2LezJKXzT1Z9=09=XGv=G2ncVxY-LKj7LZ7BFQWaKA@mail.gmail.com>
- <0a7745db-75d8-43b5-acf6-6f789964bdc0@linux.vnet.ibm.com>
- <526fd16f-3edb-ba7e-9694-9e832c426499@linux.vnet.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: Venkatesh Sainath <vsainath@linux.vnet.ibm.com>
-Date: Sat, 4 Feb 2017 16:35:30 +0530
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:45.0)
- Gecko/20100101 Thunderbird/45.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vG59D483kzDqBm
+ for <openbmc@lists.ozlabs.org>; Sun,  5 Feb 2017 07:35:58 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b="DoMr9ot6"; 
+ dkim-atps=neutral
+Received: by mail-it0-x22c.google.com with SMTP id c7so33119718itd.1
+ for <openbmc@lists.ozlabs.org>; Sat, 04 Feb 2017 12:35:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=5QyZmskpQHC5jNyf4wMUMtf2fMG3KcMBIS9Yd94DoyM=;
+ b=DoMr9ot6QOxOgdJTtU+cXRZ66Jh1ys2lFTmw9fhb3LZH71/Vl+IO3eKH0nKmq2dmn2
+ wiX1hi/AFRG4fZ90X1KH2pwKCXo4ioH6Dh3g0a0sI/7UTfKVhM/Qbeo9JZAgySlqmiiL
+ S0P9n3BIh/gV8BTHl/Q8qpzFxYyLo4YogrkWE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=5QyZmskpQHC5jNyf4wMUMtf2fMG3KcMBIS9Yd94DoyM=;
+ b=MlIgUEFUgHEC1B3MpJ2EZCUm6dTXkSiOBsUPreWvoFqD4PAFRqgrkpE3a4bUPG0Ojo
+ h5b/99JmyWNtmQBLEabVbwgIuv61Xt++brtXJoLf3cilit6JnJ2dek0j0YcFJQe6YGs2
+ kfoJ4vBTjpypoUsM4PoAXXdaU2jWv8hXWkz/1nnkUMc8YB6QqPbFmzr7WaIY0vpul3RO
+ EA3sDSq5KEMEaAJBguo8eaX/90dHewABEIwucOGK2oJsCIWAPnV2EAIrcbyCvV8uEEXS
+ BPlfAwv/KgSfJp7GrYxm+LqdZXSqvCACURvGcxuVerGwwDPkJ9Ky2nmnAYs/2RdfFLCf
+ DaIg==
+X-Gm-Message-State: AIkVDXIvowrQOOSuBaua5xQSC1X6vAjHE0Q2bV8DILtgkGzoL3Oz2VwGQtuanctShdl+Wdw2ylu4JAJsIyIB9v/x
+X-Received: by 10.36.14.20 with SMTP id 20mr2359040ite.56.1486240556421; Sat,
+ 04 Feb 2017 12:35:56 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <526fd16f-3edb-ba7e-9694-9e832c426499@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17020411-0012-0000-0000-0000138DA084
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006554; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000201; SDB=6.00817040; UDB=6.00399081; IPR=6.00594484; 
- BA=6.00005115; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014176; XFM=3.00000011;
- UTC=2017-02-04 11:05:34
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17020411-0013-0000-0000-00004B1F9D8B
-Message-Id: <e73eeb5f-2bae-2c37-1a73-8890cbfb29c9@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-02-04_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1702040122
+Received: by 10.79.169.75 with HTTP; Sat, 4 Feb 2017 12:35:55 -0800 (PST)
+In-Reply-To: <20170202042817.8033-1-andrew@aj.id.au>
+References: <20170202042817.8033-1-andrew@aj.id.au>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Sat, 4 Feb 2017 21:35:55 +0100
+Message-ID: <CACRpkdbbXGuE2u3H0W7XLmaq1VLNnVrGCZYgCC=3_odkifvaaQ@mail.gmail.com>
+Subject: Re: [PATCH] gpio: aspeed: Remove dependence on GPIOF_* macros
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Joel Stanley <joel@jms.id.au>, 
+ "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -82,88 +55,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 04 Feb 2017 11:05:42 -0000
+X-List-Received-Date: Sat, 04 Feb 2017 20:36:02 -0000
 
+On Thu, Feb 2, 2017 at 5:28 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
 
+> 1736f75d35e47409ad776273133d0f558a4c8253 is a (v2) patch which had
+> unresolved review comments[1]. Address the comments by removing the use
+> of macros from the consumer header (this patch represents the diff
+> between v2 and v3[2]).
+>
+> [1] https://lkml.org/lkml/2017/1/26/337
+> [2] https://lkml.org/lkml/2017/1/26/786
+>
+> Fixes: 1736f75d35e4 ("gpio: aspeed: Add banks Y, Z, AA, AB and AC")
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 
-On 04/02/17 12:52 AM, Christopher Bostic wrote:
->
->
-> On 2/1/17 10:48 PM, Venkatesh Sainath wrote:
->> I believe there are 2 drivers here. SBE FIFO driver and SBEI protocol 
->> driver. The SBEI protocol driver is the only user for the submit 
->> operation of SBE FIFO driver (as it requires the protocol knowledge 
->> to communicate with SBE). The SBEI protocol driver will be used by 
->> OCC and any user-space application that may want to perform a direct 
->> HW access over FSI  ( for eg any scom operation).
->>
-> If I understand then the lowest level device driver in the kernel is 
-> the sbe_fifo driver running on OpenFSI.
-> The only thing that should have direct access to this is the sbei 
-> protocol driver - via sbe_fifo submit operations.
->
-> Any other code wishing to access the SBE FIFO engine must go through 
-> the sbei protocol driver.  This would include
-> OCC hwmon driver, SCOM device driver, as well as any user space 
-> applications like host debugger/chip ops (potentially boot sequence if 
-> in fact sbe fifo access is required).
->
-> sbei protocol driver must then provide a means for user space to 
-> access it.
-I agree.
->
-> Where do we stand with the sbei protocol device driver?  Who owns this 
-> and is it complete?
->
-The plan was to port the sbei protocol driver developed on FSP based 
-systems. Chris: I believe Dhruvaraj discussed with you about this driver 
-when he was in Austin. I can share the latest version of this driver.
->>
->> On 02/02/17 8:59 AM, Joel Stanley wrote:
->>> Hi Chris,
->>>
->>> On Thu, Feb 2, 2017 at 5:58 AM, Christopher Bostic
->>> <cbostic@linux.vnet.ibm.com> wrote:
->>>> I've not seen this discussed in the group but if this has already been
->>>> determined than any pointers to the latest documentation would be
->>>> appreciated.
->>>>
->>>> Who are all the potential users of the OpenBMC SBE FIFO device 
->>>> driver?   I
->>>> understand it will need to export its general submit interface to 
->>>> other
->>>> kernel drivers.  Only one I know of for sure would be the OCC 
->>>> driver Eddie
->>>> James is working on.
->>> In addition to Eddie's driver, in userspace we will have the code that
->>> performs the power on sequence.
->>>
->>>> Any others?
->>>>
->>>> What about user space access of the SBE FIFO engine?  What apps would
->>>> require it?  Cronus I assume will need some means to directly 
->>>> access it.
->>> We want userspace API and an in-kernel API.
->>>
->>> The driver you design will need to take into account that there will
->>> be multiple users from each of these APIs. For instance, there will be
->>> Eddie's OCC hwmon driver and the userspace code that kicks off the
->>> boot sequence.
->>>
->>> Cheers,
->>>
->>> Joel
->>> _______________________________________________
->>> openbmc mailing list
->>> openbmc@lists.ozlabs.org
->>> https://lists.ozlabs.org/listinfo/openbmc
->>
->> _______________________________________________
->> openbmc mailing list
->> openbmc@lists.ozlabs.org
->> https://lists.ozlabs.org/listinfo/openbmc
->
-> _______________________________________________
-> openbmc mailing list
-> openbmc@lists.ozlabs.org
-> https://lists.ozlabs.org/listinfo/openbmc
+Patch applied with Joel's ACK.
+
+Thank you for just tirelessly fixing my mistakes, I owe you one.
+
+Yours,
+Linus Walleij
