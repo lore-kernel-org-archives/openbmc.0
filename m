@@ -1,78 +1,53 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-pg0-x244.google.com (mail-pg0-x244.google.com
+ [IPv6:2607:f8b0:400e:c05::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vFMRp3730zDqBX
- for <openbmc@lists.ozlabs.org>; Sat,  4 Feb 2017 03:16:05 +1100 (AEDT)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v13GECR7007047
- for <openbmc@lists.ozlabs.org>; Fri, 3 Feb 2017 11:16:02 -0500
-Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
- by mx0a-001b2d01.pphosted.com with ESMTP id 28cnf0jywc-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 03 Feb 2017 11:16:02 -0500
-Received: from localhost
- by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Fri, 3 Feb 2017 09:16:02 -0700
-Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
- by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Fri, 3 Feb 2017 09:16:00 -0700
-Received: from b01cxnp22034.gho.pok.ibm.com (b01cxnp22034.gho.pok.ibm.com
- [9.57.198.24])
- by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id 0CAEF19D8026;
- Fri,  3 Feb 2017 09:15:13 -0700 (MST)
-Received: from b01ledav03.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v13GFxtx40566864; Fri, 3 Feb 2017 16:15:59 GMT
-Received: from b01ledav03.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 60AE3B204E;
- Fri,  3 Feb 2017 11:15:59 -0500 (EST)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b01ledav03.gho.pok.ibm.com (Postfix) with ESMTP id 95FF0B204D;
- Fri,  3 Feb 2017 11:15:58 -0500 (EST)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Fri, 03 Feb 2017 10:18:05 -0600
-From: eajames <eajames@linux.vnet.ibm.com>
-To: Alistair Popple <alistair@popple.id.au>
-Cc: openbmc@lists.ozlabs.org, joel@jms.id.au, benh@kernel.crashing.org,
- Christopher Bostic <cbostic@linux.vnet.ibm.com>, Eddie James
- <eajames@us.ibm.com>
-Subject: Re: [PATCH v2 1/3] drivers/fsi: Add slave interrupt polling
-In-Reply-To: <2483723.1jBtLvfriP@new-mexico>
-References: <1486077964-11346-1-git-send-email-eajames@linux.vnet.ibm.com>
- <1486077964-11346-7-git-send-email-eajames@linux.vnet.ibm.com>
- <2483723.1jBtLvfriP@new-mexico>
-X-Sender: eajames@linux.vnet.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17020316-0020-0000-0000-00000B44B4DD
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006549; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000201; SDB=6.00816714; UDB=6.00398861; IPR=6.00594150; 
- BA=6.00005114; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014169; XFM=3.00000011;
- UTC=2017-02-03 16:16:01
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17020316-0021-0000-0000-000059CD0B67
-Message-Id: <0c659ead9fa7a83478ae3c1c9648838a@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-02-03_11:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1702030155
-X-Mailman-Approved-At: Mon, 06 Feb 2017 09:26:07 +1100
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vGnRF08DzzDqBW
+ for <openbmc@lists.ozlabs.org>; Mon,  6 Feb 2017 10:50:33 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="l+7zU8AF"; 
+ dkim-atps=neutral
+Received: by mail-pg0-x244.google.com with SMTP id v184so7411553pgv.1
+ for <openbmc@lists.ozlabs.org>; Sun, 05 Feb 2017 15:50:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:cc:subject:date:message-id;
+ bh=nRkyToCtH4lEAkjuq8EgxjbU3nufExsAKATdy5GOsi8=;
+ b=l+7zU8AFo+ObkEKubGAEdIcbzLiahOgDrqNG/mstYAk25+q5QWpDxk1ffy1bs6pXa6
+ +ma6cuZLdm6jlzD+X6gNsArMbzl7MdxDxMzQ7xQ6lOw3K6pXq3e3aC2cZY7b7o1ZygUo
+ qTBr3tnKqLtW/zk/cHvPBpzkeHjdYgGCbhcQUkNK2vYQ1RS9i3aWU30ZFVB+d1EkZ6yX
+ +U1quJhQHAOf3f7iZvLwQzG41yM4N5382kOepkNfkxhWGfUEc5RKd55acKK3bRPAk1FR
+ JL4WDpAJK2H7XdSc94MRh/r4HLnNDwsXKpbnAP0sDTJwWKHBUMFvcjIJAKwc/0rcMPDa
+ kO0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
+ bh=nRkyToCtH4lEAkjuq8EgxjbU3nufExsAKATdy5GOsi8=;
+ b=N+pIdpJ6H1dfLwLKEZluVrQjKuJougxfvC0tmzdvgAxl2HtiAYuoU+aG8je8RXf4xw
+ 1vwtOA2QOoUDBoTnvBrylZ9X+UgPfpXFgfEfeq/Vwh96MYErGxVUN58XMxoCrkVgMz9w
+ zu0LgOFokd+sxCw0F77102R+qFtLtvt8rD8pFkIbcIJ2/JclxaUZdfv6sivnGzgumxd1
+ BsiisdPIcis5UOcCo2+kcPqL862lrbHNKODuyYlI18FWsgDc/QfBkXRwA/MC92TWAzrO
+ AFQIX4GCr/lRlZUfd3TBLzhpfQw4qN+0c5ra2Om6TbCfBj/nnwRkCtPWw4tCJl3MMZpR
+ DTrg==
+X-Gm-Message-State: AIkVDXLy7+xSB2PIEFeTjYvThAjt77wcNB0iaJCpl/4NGUaGYPOp6lc4KYUo/SJUxAm1+g==
+X-Received: by 10.84.231.139 with SMTP id g11mr13504117plk.110.1486338630695; 
+ Sun, 05 Feb 2017 15:50:30 -0800 (PST)
+Received: from aurora.jms.id.au (103-232-208-192.nat.sa.cust.uniti.network.
+ [103.232.208.192])
+ by smtp.gmail.com with ESMTPSA id w76sm83406124pfd.74.2017.02.05.15.50.27
+ (version=TLS1 cipher=AES128-SHA bits=128/128);
+ Sun, 05 Feb 2017 15:50:29 -0800 (PST)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+Received: by aurora.jms.id.au (sSMTP sendmail emulation);
+ Mon, 06 Feb 2017 10:20:23 +1030
+From: Joel Stanley <joel@jms.id.au>
+To: eajames@linux.vnet.ibm.com,
+	cbostic@linux.vnet.ibm.com
+Cc: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.7] fsi: i2c: Silence warnings
+Date: Mon,  6 Feb 2017 10:20:19 +1030
+Message-Id: <20170205235019.12497-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.11.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -84,288 +59,155 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Feb 2017 16:16:06 -0000
+X-List-Received-Date: Sun, 05 Feb 2017 23:50:33 -0000
 
-On 2017-02-02 19:11, Alistair Popple wrote:
-> Hi Edward,
-> 
-> Ideally this should also make use of as much existing kernel
-> infrastructure as possible to avoid remiplementing interfaces that
-> already exist. In the case of IRQs the kernel already has functions
-> implementing interfaces like request_irq() to assign interrupt
-> handlers, etc.
+These were missed the first time around.
 
-Hi,
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+ drivers/fsi/i2c/iic-boe.c  |  4 +++-
+ drivers/fsi/i2c/iic-mstr.c | 46 ++++++++--------------------------------------
+ 2 files changed, 11 insertions(+), 39 deletions(-)
 
-The problem here is that there is no hardware irq. FSI is using GPIO 
-lines to access slave registers. The only indication that we have an 
-interrupt is a bit set in the "slave interrupt status register". So we 
-have to poll that register and handle the results. I'm not aware of any 
-way to turn that into a kernel irq and use the existing kernel 
-framework. But if it can be done, agreed, we should implement that!
-
-Thanks,
-Eddie
-
-> 
-> To hook into these calls you need to implement an irqchip. For example
-> arch/powerpc/platforms/powernv/opal-irqchip.c has a resonable example,
-> although there are plenty others in the kernel including for I2C
-> busses. Searching for "struct irq_chip" should turn up more examples.
-> 
-> Regards,
-> 
-> Alistair
-> 
-> On Thu, 2 Feb 2017 05:26:02 PM eajames@linux.vnet.ibm.com wrote:
->> From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
->> 
->> Scan slaves present for asserting interrupt signals in the si1s
->> register and call a registered client's interrupt handler as
->> appropriate.
->> 
->> Signed-off-by: Eddie James <eajames@us.ibm.com>
->> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
->> ---
->>  drivers/fsi/fsi-core.c        | 99 
->> +++++++++++++++++++++++++++++++++++++++++++
->>  drivers/fsi/fsi-master-gpio.c |  1 +
->>  drivers/fsi/fsi-master.h      |  2 +
->>  include/linux/fsi.h           |  5 +++
->>  4 files changed, 107 insertions(+)
->> 
->> diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
->> index 72e0ca3..4df7218 100644
->> --- a/drivers/fsi/fsi-core.c
->> +++ b/drivers/fsi/fsi-core.c
->> @@ -15,11 +15,15 @@
->> 
->>  #include <linux/device.h>
->>  #include <linux/fsi.h>
->> +#include <linux/kthread.h>
->>  #include <linux/module.h>
->>  #include <linux/slab.h>
->> +#include <linux/jiffies.h>
->> 
->>  #include "fsi-master.h"
->> 
->> +#define DEBUG
->> +
->>  #define FSI_N_SLAVES	4
->> 
->>  #define FSI_SLAVE_CONF_NEXT_MASK	0x80000000
->> @@ -36,7 +40,11 @@
->>  #define FSI_PEEK_BASE			0x410
->>  #define	FSI_SLAVE_BASE			0x800
->> 
->> +#define FSI_IPOLL_PERIOD		msecs_to_jiffies(fsi_ipoll_period_ms)
->> +
->>  static const int engine_page_size = 0x400;
->> +static struct task_struct *master_ipoll;
->> +static unsigned int fsi_ipoll_period_ms = 100;
->> 
->>  static atomic_t master_idx = ATOMIC_INIT(-1);
->> 
->> @@ -60,6 +68,8 @@ static int fsi_slave_write(struct fsi_slave *slave, 
->> uint32_t addr,
->>   * FSI slave engine control register offsets
->>   */
->>  #define	FSI_SMODE		0x0	/* R/W: Mode register */
->> +#define FSI_SI1M		0x18	/* R/W: IRQ mask */
->> +#define FSI_SI1S		0x1C	/* R: IRQ status */
->> 
->>  /*
->>   * SMODE fields
->> @@ -197,6 +207,7 @@ static int fsi_slave_scan(struct fsi_slave *slave)
->>  	uint32_t engine_addr;
->>  	uint32_t conf;
->>  	int rc, i;
->> +	uint8_t si1s_bit = 1;
->> 
->>  	INIT_LIST_HEAD(&slave->my_engines);
->> 
->> @@ -253,6 +264,7 @@ static int fsi_slave_scan(struct fsi_slave *slave)
->>  			dev->unit = i;
->>  			dev->addr = engine_addr;
->>  			dev->size = slots * engine_page_size;
->> +			dev->si1s_bit = si1s_bit++;
->> 
->>  			dev_info(&slave->dev,
->>  			"engine[%i]: type %x, version %x, addr %x size %x\n",
->> @@ -507,6 +519,56 @@ static void fsi_master_unscan(struct fsi_master 
->> *master)
->>  	master->slave_list = false;
->>  }
->> 
->> +static void fsi_master_irq(struct fsi_master *master, int link, 
->> uint32_t si1s)
->> +{
->> +	struct fsi_slave *slave;
->> +	struct fsi_device *fsi_dev;
->> +
->> +	if (list_empty(&master->my_slaves))
->> +		return;
->> +
->> +	slave = list_first_entry(&master->my_slaves, struct fsi_slave,
->> +				list_link);
->> +
->> +	list_for_each_entry(fsi_dev, &slave->my_engines, link) {
->> +		if (si1s & (0x80000000 >> fsi_dev->si1s_bit) &&
->> +		    fsi_dev->irq_handler)
->> +			fsi_dev->irq_handler(0, &fsi_dev->dev);
->> +	}
->> +}
->> +
->> +static int fsi_master_ipoll(void *data)
->> +{
->> +	int rc;
->> +	uint32_t si1s;
->> +	unsigned long elapsed = 0;
->> +	unsigned long previous_jiffies = jiffies;
->> +	struct fsi_master *master = data;
->> +
->> +	while (!kthread_should_stop()) {
->> +		if (!master->ipoll)
->> +			goto done;
->> +
->> +		/* Ignore errors for now */
->> +		rc = master->read(master, 0, 0, FSI_SLAVE_BASE + FSI_SI1S,
->> +				  &si1s, sizeof(uint32_t));
->> +		if (rc)
->> +			goto done;
->> +
->> +		if (si1s & master->ipoll)
->> +			fsi_master_irq(master, 0, si1s);
->> +done:
->> +		elapsed = jiffies - previous_jiffies;
->> +		if (elapsed < FSI_IPOLL_PERIOD) {
->> +			set_current_state(TASK_UNINTERRUPTIBLE);
->> +			schedule_timeout(FSI_IPOLL_PERIOD - elapsed);
->> +		}
->> +		previous_jiffies = jiffies;
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->>  int fsi_master_register(struct fsi_master *master)
->>  {
->>  	if (!master || !master->dev)
->> @@ -524,9 +586,36 @@ void fsi_master_unregister(struct fsi_master 
->> *master)
->>  {
->>  	fsi_master_unscan(master);
->>  	put_device(master->dev);
->> +	if (master_ipoll) {
->> +		kthread_stop(master_ipoll);
->> +		master_ipoll = NULL;
->> +	}
->>  }
->>  EXPORT_SYMBOL_GPL(fsi_master_unregister);
->> 
->> +/*
->> + * TODO: move this to master->start_ipoll( ) -each master may have 
->> its
->> + * own way of doing this
->> + */
->> +int fsi_master_start_ipoll(struct fsi_master *master)
->> +{
->> +	if (master_ipoll) {
->> +		dev_err(master->dev, "Already polling for irqs\n");
->> +		return -EALREADY;
->> +	}
->> +	master_ipoll = kthread_create(fsi_master_ipoll, master,
->> +				"fsi_master_ipoll");
->> +	if (IS_ERR(master_ipoll)) {
->> +		dev_err(master->dev, "Couldn't create ipoll thread rc:%d\n",
->> +			(int)PTR_ERR(master_ipoll));
->> +		return PTR_ERR(master_ipoll);
->> +	}
->> +	wake_up_process(master_ipoll);
->> +
->> +	return 0;
->> +}
->> +EXPORT_SYMBOL_GPL(fsi_master_start_ipoll);
->> +
->>  /* FSI core & Linux bus type definitions */
->> 
->>  static int fsi_bus_match(struct device *dev, struct device_driver 
->> *drv)
->> @@ -566,6 +655,16 @@ void fsi_driver_unregister(struct fsi_driver 
->> *fsi_drv)
->>  }
->>  EXPORT_SYMBOL_GPL(fsi_driver_unregister);
->> 
->> +int fsi_enable_irq(struct fsi_device *dev)
->> +{
->> +	return 0;
->> +}
->> +EXPORT_SYMBOL_GPL(fsi_enable_irq);
->> +
->> +void fsi_disable_irq(struct fsi_device *dev)
->> +{
->> +}
->> +
->>  struct bus_type fsi_bus_type = {
->>  	.name		= "fsi",
->>  	.match		= fsi_bus_match,
->> diff --git a/drivers/fsi/fsi-master-gpio.c 
->> b/drivers/fsi/fsi-master-gpio.c
->> index 83c7cf0..73d9985 100644
->> --- a/drivers/fsi/fsi-master-gpio.c
->> +++ b/drivers/fsi/fsi-master-gpio.c
->> @@ -457,6 +457,7 @@ static ssize_t store_scan(struct device *dev,
->>  	/* clear out any old scan data if present */
->>  	fsi_master_unregister(&master->master);
->>  	fsi_master_register(&master->master);
->> +	fsi_master_start_ipoll(&master->master);
->> 
->>  	return count;
->>  }
->> diff --git a/drivers/fsi/fsi-master.h b/drivers/fsi/fsi-master.h
->> index 454af2b..3737404 100644
->> --- a/drivers/fsi/fsi-master.h
->> +++ b/drivers/fsi/fsi-master.h
->> @@ -25,6 +25,7 @@ struct fsi_master {
->>  	struct device	*dev;
->>  	int		idx;
->>  	int		n_links;
->> +	uint32_t	ipoll;
->>  	int		(*read)(struct fsi_master *, int link,
->>  				uint8_t slave, uint32_t addr,
->>  				void *val, size_t size);
->> @@ -37,6 +38,7 @@ struct fsi_master {
->> 
->>  extern int fsi_master_register(struct fsi_master *master);
->>  extern void fsi_master_unregister(struct fsi_master *master);
->> +extern int fsi_master_start_ipoll(struct fsi_master *master);
->> 
->>  /**
->>   * crc4 helper: Given a starting crc4 state @c, calculate the crc4 
->> vaue of @x,
->> diff --git a/include/linux/fsi.h b/include/linux/fsi.h
->> index 2721255..d22d0c5 100644
->> --- a/include/linux/fsi.h
->> +++ b/include/linux/fsi.h
->> @@ -23,9 +23,11 @@ struct fsi_device {
->>  	u8			engine_type;
->>  	u8			version;
->>  	u8			unit;
->> +	u8			si1s_bit;
->>  	struct fsi_slave	*slave;
->>  	uint32_t		addr;
->>  	uint32_t		size;
->> +	int (*irq_handler)(int, void *);
->>  };
->> 
->>  extern int fsi_device_read(struct fsi_device *dev, uint32_t addr,
->> @@ -69,4 +71,7 @@ extern void fsi_driver_unregister(struct fsi_driver 
->> *);
->> 
->>  extern struct bus_type fsi_bus_type;
->> 
->> +extern int fsi_enable_irq(struct fsi_device *dev);
->> +extern void fsi_disable_irq(struct fsi_device *dev);
->> +
->>  #endif /* LINUX_FSI_H */
->> 
+diff --git a/drivers/fsi/i2c/iic-boe.c b/drivers/fsi/i2c/iic-boe.c
+index 27dc8c1c048e..e7196c0115b1 100644
+--- a/drivers/fsi/i2c/iic-boe.c
++++ b/drivers/fsi/i2c/iic-boe.c
+@@ -124,6 +124,8 @@ static iic_eng_ops_t eng_ops = {
+ int iic_boe_set_speed(iic_bus_t* bus, int i2c_hz)
+ {
+ 	_clock_divider = i2c_hz;
++
++	return 0;
+ }
+ 
+ int iic_boe_get_speed(iic_bus_t* bus)
+@@ -1220,7 +1222,7 @@ int iic_boe_rescue_timeout(iic_eng_t *eng, iic_xfr_t* xfr)
+ 
+ 
+ 	if((fifo_cnt = stat & IIC_BOE_FIFO_COUNT) > 0) {
+-		IFLDi(1, "fifo_cnt[%d]\n", fifo_cnt);
++		IFLDi(1, "fifo_cnt[%lu]\n", fifo_cnt);
+ 
+ 		if(test_bit(IIC_XFR_RD, &xfr->flags))
+ 		{	/* read operation */
+diff --git a/drivers/fsi/i2c/iic-mstr.c b/drivers/fsi/i2c/iic-mstr.c
+index d7f029ceea0d..0d97671eaad2 100644
+--- a/drivers/fsi/i2c/iic-mstr.c
++++ b/drivers/fsi/i2c/iic-mstr.c
+@@ -131,27 +131,6 @@ struct file_operations iic_fops = {
+ 	.mmap = iic_mmap,
+ };
+ 
+-static iic_bus_t * iic_get_bus(unsigned long port, unsigned long type)
+-{
+-	iic_bus_type_t* iterator;
+-	int found = 0;
+-
+-	IENTER();
+-
+-	list_for_each_entry(iterator, &iic_bus_type_list, list)
+-	{
+-		if((iterator->type == type) && (iterator->bus->port == port))
+-		{
+-			found = 1;
+-			break;
+-		}
+-	}
+-
+-	IEXIT(0);
+-	return (found == 1)? iterator->bus: NULL;
+-}
+-
+-
+ int iic_common_open(iic_client_t ** o_client, iic_bus_t * bus, int engine_num)
+ {
+ 	int ret = 0;
+@@ -298,9 +277,6 @@ EXPORT_SYMBOL(iic_sideways_release);
+ int iic_release(struct inode* inode, struct file* filp)
+ {
+ 	iic_client_t* client = (iic_client_t*)filp->private_data;
+-	iic_bus_t* bus = container_of(inode->i_cdev,
+-				      iic_bus_t,
+-				      cdev);
+ 	IENTER();
+ 
+ 	IFLDs(2, "CLOSE    client[%p] bus[%08lx]\n", client, bus->bus_id);
+@@ -318,7 +294,6 @@ EXPORT_SYMBOL(iic_release);
+ 
+ void iic_cleanup_xfr(iic_xfr_t* xfr, dd_ffdc_t ** o_ffdc)
+ {
+-	int i;
+ 	IENTER();
+ 
+ 	del_timer(&xfr->delay);
+@@ -338,7 +313,6 @@ int iic_create_xfr(iic_client_t* client, struct kiocb* iocb,
+ 	iic_xfr_t *xfr;
+ 	iic_xfr_opts_t *t_opts;
+ 	iic_eng_t *eng = client->bus->eng;
+-	int i;
+ 	unsigned short j = 0, count = 0, size = 0;
+ 
+ 	IENTER();
+@@ -393,7 +367,6 @@ int iic_create_xfr(iic_client_t* client, struct kiocb* iocb,
+ 	{
+ 		unsigned long data_sz = xfr->size;
+ 		unsigned long start;
+-		char* data = (char*)&xfr->offset_ffdc;
+ 
+ 		if(t_opts->wsplit)
+ 		{
+@@ -1227,9 +1200,12 @@ ssize_t iic_read(struct file *filp, char __user *buf, size_t count,
+ 	}
+ 
+ 	rc = iic_common_read(client, kbuf, count, offset, NULL);
++	if (rc < 0)
++		goto free;
+ 
+-	copy_to_user(buf, kbuf, count);
++	rc = copy_to_user(buf, kbuf, count);
+ 
++free:
+ 	kfree(kbuf);
+ 
+ exit:
+@@ -1339,10 +1315,13 @@ ssize_t iic_write(struct file *filp, const char __user *buf, size_t count,
+ 		goto exit;
+ 	}
+ 
+-	copy_from_user(kbuf, buf, count);
++	rc = copy_from_user(kbuf, buf, count);
++	if (rc)
++		goto free;
+ 
+ 	rc = iic_common_write(client, kbuf, count, offset, NULL);
+ 
++free:
+ 	kfree(kbuf);
+ 
+ exit:
+@@ -2203,7 +2182,6 @@ iic_bus_t*  iic_create_bus(struct class* classp, iic_eng_t* eng,
+ 	IFLDi(1, "bus[%08lx] created\n", bus->bus_id);
+ 	goto exit;
+ 
+-exit_q_create:
+ 	device_destroy(classp, bus->devnum);
+ exit_class_add:
+ 	cdev_del(&bus->cdev);
+@@ -2248,14 +2226,6 @@ static void __exit iic_exit(void)
+ 	IEXIT(0);
+ }
+ 
+-static int iic_set_trc_sz(const char* val, struct kernel_param *kp)
+-{
+-	int rc = param_set_int(val, kp);
+-	if(rc)
+-		return rc;
+-	return 0;
+-}
+-
+ module_init(iic_init);
+ module_exit(iic_exit);
+ MODULE_AUTHOR("Eddie James <eajames@us.ibm.com>");
+-- 
+2.11.0
