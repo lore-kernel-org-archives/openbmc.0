@@ -1,73 +1,50 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <xow@google.com>
+Received: from mail-qk0-x235.google.com (mail-qk0-x235.google.com
+ [IPv6:2607:f8b0:400d:c09::235])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vHnCv3w8TzDqBN
- for <openbmc@lists.ozlabs.org>; Wed,  8 Feb 2017 01:44:11 +1100 (AEDT)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v17EhiDS060600
- for <openbmc@lists.ozlabs.org>; Tue, 7 Feb 2017 09:44:09 -0500
-Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
- by mx0b-001b2d01.pphosted.com with ESMTP id 28feyn4a6v-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 07 Feb 2017 09:44:08 -0500
-Received: from localhost
- by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Tue, 7 Feb 2017 07:44:07 -0700
-Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
- by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Tue, 7 Feb 2017 07:44:04 -0700
-Received: from b03cxnp07029.gho.boulder.ibm.com
- (b03cxnp07029.gho.boulder.ibm.com [9.17.130.16])
- by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id DC56B19D8026;
- Tue,  7 Feb 2017 07:43:17 -0700 (MST)
-Received: from b03ledav001.gho.boulder.ibm.com
- (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v17Ei48Q16777688; Tue, 7 Feb 2017 07:44:04 -0700
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id F12C76E03A;
- Tue,  7 Feb 2017 07:44:03 -0700 (MST)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP id BA38C6E038;
- Tue,  7 Feb 2017 07:44:03 -0700 (MST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vHwD534pLzDqBW
+ for <openbmc@lists.ozlabs.org>; Wed,  8 Feb 2017 06:59:49 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="gWlgrSn9"; 
+ dkim-atps=neutral
+Received: by mail-qk0-x235.google.com with SMTP id u25so99734108qki.2
+ for <openbmc@lists.ozlabs.org>; Tue, 07 Feb 2017 11:59:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=URdsszmVTefTU7Ogy/gqoM/fXIMto8MkaNM0p44QtKI=;
+ b=gWlgrSn94TAcpaj3Guxtg2JDc5b57m7xw/Mc8vPsGNLeu47VV9HlcNDQrq5P7yEF/j
+ hILueLs8lcxVIW189XRvVx6vdokYfXE6wSxbrJuxqShNwWn3RsKT047zoEv6pbI879wB
+ LfKBlQsp6ywIqDoim+FuNuKUKhrfkZ+VjZzXSq0ZH+/xnc+EPrqs824HGD6HQ9A4IbhR
+ w+uG4lpzI/8eLklbYckT6ARlfjwlRebzLmHtVwrNjvRZworbKAvAVDSY6i7fai5lTzHx
+ TKHhECLXdlSSC0LRHpF0bWLTBwJDGq1U224asCDQ+SZ0MY4OFiN1oapvumXlCCMx4fkr
+ MBKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=URdsszmVTefTU7Ogy/gqoM/fXIMto8MkaNM0p44QtKI=;
+ b=d/mDRWs6caTTg60+YrS/bu9slueh47VIWVcHVArg8rEUR9Mc7iwD/C3RMME8nyJrKd
+ 1wAret3uaaJVjyR4pxWqvVikibQltQrt2EMGHByBPX82ScmLLPobluhYGajYtquaRnPj
+ 3TBOrm0/43ydxX4Z41AepQUQT/wz6bWr9wnnOcuXQHnK6PcTEbzbnTGHr2jA8kTTPIRI
+ fRLEnYF+jSQ+3y0p2ECMtXqDLSgo9W6Ze/Jz9wYFoRIlAQE19IgT5y28QebiziVSPmGr
+ ftkh6A9IdJmleJptnPQXnLIUN3o7uX9wg3m5JcAehASuCT0pn6xTzSbur4TDbGQ0tVym
+ N/vQ==
+X-Gm-Message-State: AMke39n6F7TI1sRiiFH7byu9nF/G6FxX9ti6kc3A/nDys8AE+wS28iFEMMvbgvsY5BGltdIjFago8M2RGyXUUDwc
+X-Received: by 10.55.192.137 with SMTP id v9mr15768112qkv.305.1486497586659;
+ Tue, 07 Feb 2017 11:59:46 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Tue, 07 Feb 2017 08:46:17 -0600
-From: eajames <eajames@linux.vnet.ibm.com>
+Received: by 10.140.21.116 with HTTP; Tue, 7 Feb 2017 11:59:46 -0800 (PST)
+In-Reply-To: <20170207023737.26936-1-joel@jms.id.au>
+References: <20170207023737.26936-1-joel@jms.id.au>
+From: Xo Wang <xow@google.com>
+Date: Tue, 7 Feb 2017 11:59:46 -0800
+Message-ID: <CAPH-5w6ckMjyxn=J2deBycOexc9cCdsMXxLYq44GPQM-xG9S7g@mail.gmail.com>
+Subject: Re: [PATCH] ARM: dts: aspeed: Add FSI pins to Zaius device tree
 To: Joel Stanley <joel@jms.id.au>
-Cc: cbostic@linux.vnet.ibm.com, openbmc@lists.ozlabs.org, joel.stan@gmail.com
-Subject: Re: [PATCH linux dev-4.7] fsi: i2c: Silence warnings
-In-Reply-To: <20170205235019.12497-1-joel@jms.id.au>
-References: <20170205235019.12497-1-joel@jms.id.au>
-X-Sender: eajames@linux.vnet.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17020714-0008-0000-0000-0000072665AF
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006573; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000202; SDB=6.00818498; UDB=6.00399982; IPR=6.00595958; 
- BA=6.00005123; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014211; XFM=3.00000011;
- UTC=2017-02-07 14:44:06
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17020714-0009-0000-0000-00003FB0707D
-Message-Id: <d947b4579d9a082d708de5e5208c3a0f@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-02-07_08:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=2
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1702070141
+Cc: Rick Altherr <raltherr@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -79,166 +56,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Feb 2017 14:44:12 -0000
+X-List-Received-Date: Tue, 07 Feb 2017 19:59:50 -0000
 
-Looks good to me.
+Hi Joel,
 
-Acked-by: Eddie James <eajames@us.ibm.com>
+Thanks for keeping us up to date.
 
-On 2017-02-05 17:50, Joel Stanley wrote:
-> These were missed the first time around.
-> 
+On Mon, Feb 6, 2017 at 6:37 PM, Joel Stanley <joel@jms.id.au> wrote:
+> Pin assignments for the EVT-2 board as described in pdbg. The status is disabled
+> so this does not enable the in-kernel FSI driver yet.
+>
 > Signed-off-by: Joel Stanley <joel@jms.id.au>
 > ---
->  drivers/fsi/i2c/iic-boe.c  |  4 +++-
->  drivers/fsi/i2c/iic-mstr.c | 46 
-> ++++++++--------------------------------------
->  2 files changed, 11 insertions(+), 39 deletions(-)
-> 
-> diff --git a/drivers/fsi/i2c/iic-boe.c b/drivers/fsi/i2c/iic-boe.c
-> index 27dc8c1c048e..e7196c0115b1 100644
-> --- a/drivers/fsi/i2c/iic-boe.c
-> +++ b/drivers/fsi/i2c/iic-boe.c
-> @@ -124,6 +124,8 @@ static iic_eng_ops_t eng_ops = {
->  int iic_boe_set_speed(iic_bus_t* bus, int i2c_hz)
->  {
->  	_clock_divider = i2c_hz;
+>
+> Tested on zaius5 with the driver enabled and it worked.
+>
+>  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> index e2195a641414..e1c9b3f4fe44 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+> @@ -74,6 +74,18 @@
+>                         gpios = <&gpio ASPEED_GPIO(AA, 2) GPIO_ACTIVE_LOW>;
+>                 };
+>         };
 > +
-> +	return 0;
->  }
-> 
->  int iic_boe_get_speed(iic_bus_t* bus)
-> @@ -1220,7 +1222,7 @@ int iic_boe_rescue_timeout(iic_eng_t *eng, 
-> iic_xfr_t* xfr)
-> 
-> 
->  	if((fifo_cnt = stat & IIC_BOE_FIFO_COUNT) > 0) {
-> -		IFLDi(1, "fifo_cnt[%d]\n", fifo_cnt);
-> +		IFLDi(1, "fifo_cnt[%lu]\n", fifo_cnt);
-> 
->  		if(test_bit(IIC_XFR_RD, &xfr->flags))
->  		{	/* read operation */
-> diff --git a/drivers/fsi/i2c/iic-mstr.c b/drivers/fsi/i2c/iic-mstr.c
-> index d7f029ceea0d..0d97671eaad2 100644
-> --- a/drivers/fsi/i2c/iic-mstr.c
-> +++ b/drivers/fsi/i2c/iic-mstr.c
-> @@ -131,27 +131,6 @@ struct file_operations iic_fops = {
->  	.mmap = iic_mmap,
+> +       fsi-master {
+> +               compatible = "ibm,fsi-master", "ibm,fsi-master-gpio";
+
+Andrew's comment for Witherspoon applies here as well
+("ibm,fsi-master-gpio" makes sense as the "definitive" name).
+
+> +
+> +               status = "disabled";
+> +
+> +               clock-gpios = <&gpio ASPEED_GPIO(C, 3) GPIO_ACTIVE_HIGH>;
+> +               data-gpios = <&gpio ASPEED_GPIO(C, 2) GPIO_ACTIVE_HIGH>;
+
+FYI, we'll return to the Norm-recommended assignments for these at the
+next board spin to keep FSI pins on their own GPIO port. Not sure how
+helpful that is in the context of the FSI kernel driver since it's not
+poking the registers directly.
+
+> +               trans-gpios = <&gpio ASPEED_GPIO(O, 6) GPIO_ACTIVE_HIGH>;
+> +               enable-gpios = <&gpio ASPEED_GPIO(D, 0) GPIO_ACTIVE_HIGH>;
+> +               mux-gpios = <&gpio ASPEED_GPIO(P, 6) GPIO_ACTIVE_HIGH>;
+> +       };
 >  };
-> 
-> -static iic_bus_t * iic_get_bus(unsigned long port, unsigned long type)
-> -{
-> -	iic_bus_type_t* iterator;
-> -	int found = 0;
-> -
-> -	IENTER();
-> -
-> -	list_for_each_entry(iterator, &iic_bus_type_list, list)
-> -	{
-> -		if((iterator->type == type) && (iterator->bus->port == port))
-> -		{
-> -			found = 1;
-> -			break;
-> -		}
-> -	}
-> -
-> -	IEXIT(0);
-> -	return (found == 1)? iterator->bus: NULL;
-> -}
-> -
-> -
->  int iic_common_open(iic_client_t ** o_client, iic_bus_t * bus, int 
-> engine_num)
->  {
->  	int ret = 0;
-> @@ -298,9 +277,6 @@ EXPORT_SYMBOL(iic_sideways_release);
->  int iic_release(struct inode* inode, struct file* filp)
->  {
->  	iic_client_t* client = (iic_client_t*)filp->private_data;
-> -	iic_bus_t* bus = container_of(inode->i_cdev,
-> -				      iic_bus_t,
-> -				      cdev);
->  	IENTER();
-> 
->  	IFLDs(2, "CLOSE    client[%p] bus[%08lx]\n", client, bus->bus_id);
-> @@ -318,7 +294,6 @@ EXPORT_SYMBOL(iic_release);
-> 
->  void iic_cleanup_xfr(iic_xfr_t* xfr, dd_ffdc_t ** o_ffdc)
->  {
-> -	int i;
->  	IENTER();
-> 
->  	del_timer(&xfr->delay);
-> @@ -338,7 +313,6 @@ int iic_create_xfr(iic_client_t* client, struct 
-> kiocb* iocb,
->  	iic_xfr_t *xfr;
->  	iic_xfr_opts_t *t_opts;
->  	iic_eng_t *eng = client->bus->eng;
-> -	int i;
->  	unsigned short j = 0, count = 0, size = 0;
-> 
->  	IENTER();
-> @@ -393,7 +367,6 @@ int iic_create_xfr(iic_client_t* client, struct 
-> kiocb* iocb,
->  	{
->  		unsigned long data_sz = xfr->size;
->  		unsigned long start;
-> -		char* data = (char*)&xfr->offset_ffdc;
-> 
->  		if(t_opts->wsplit)
->  		{
-> @@ -1227,9 +1200,12 @@ ssize_t iic_read(struct file *filp, char __user
-> *buf, size_t count,
->  	}
-> 
->  	rc = iic_common_read(client, kbuf, count, offset, NULL);
-> +	if (rc < 0)
-> +		goto free;
-> 
-> -	copy_to_user(buf, kbuf, count);
-> +	rc = copy_to_user(buf, kbuf, count);
-> 
-> +free:
->  	kfree(kbuf);
-> 
->  exit:
-> @@ -1339,10 +1315,13 @@ ssize_t iic_write(struct file *filp, const
-> char __user *buf, size_t count,
->  		goto exit;
->  	}
-> 
-> -	copy_from_user(kbuf, buf, count);
-> +	rc = copy_from_user(kbuf, buf, count);
-> +	if (rc)
-> +		goto free;
-> 
->  	rc = iic_common_write(client, kbuf, count, offset, NULL);
-> 
-> +free:
->  	kfree(kbuf);
-> 
->  exit:
-> @@ -2203,7 +2182,6 @@ iic_bus_t*  iic_create_bus(struct class* classp,
-> iic_eng_t* eng,
->  	IFLDi(1, "bus[%08lx] created\n", bus->bus_id);
->  	goto exit;
-> 
-> -exit_q_create:
->  	device_destroy(classp, bus->devnum);
->  exit_class_add:
->  	cdev_del(&bus->cdev);
-> @@ -2248,14 +2226,6 @@ static void __exit iic_exit(void)
->  	IEXIT(0);
->  }
-> 
-> -static int iic_set_trc_sz(const char* val, struct kernel_param *kp)
-> -{
-> -	int rc = param_set_int(val, kp);
-> -	if(rc)
-> -		return rc;
-> -	return 0;
-> -}
-> -
->  module_init(iic_init);
->  module_exit(iic_exit);
->  MODULE_AUTHOR("Eddie James <eajames@us.ibm.com>");
+>
+>  &fmc {
+> --
+> 2.11.0
+>
+
+cheers
+xo
