@@ -1,53 +1,58 @@
-Return-Path: <jaghu@google.com>
-Received: from mail-pg0-x233.google.com (mail-pg0-x233.google.com
- [IPv6:2607:f8b0:400e:c05::233])
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-ua0-x243.google.com (mail-ua0-x243.google.com
+ [IPv6:2607:f8b0:400c:c08::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vHW1R2WsJzDqCD
- for <openbmc@lists.ozlabs.org>; Tue,  7 Feb 2017 15:04:11 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vHY8x4RDNzDq5W
+ for <openbmc@lists.ozlabs.org>; Tue,  7 Feb 2017 16:40:49 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="O5sB8sk5"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZNXXzUQg"; 
  dkim-atps=neutral
-Received: by mail-pg0-x233.google.com with SMTP id 194so34559329pgd.2
- for <openbmc@lists.ozlabs.org>; Mon, 06 Feb 2017 20:04:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=75Hs8z/hU+1WgcBQBjyWj2dpfnZhcOtKDcU20w6v7S0=;
- b=O5sB8sk5GEJoqFCaKwHpCinXFbA8bbcvrnUMNZtKxQEpXEew3lYy2oagv2vwpFr+Qh
- Eheu+/F+DykeBwtIqTu8wXcD1AYcSsi0Wc2bSe1qgFoU6isblRSLPhINjbpcIuWTmlK5
- GVMeywiRjdTBWrUsfBMYeEF59zkRBFVwk5fXUauYEXwhl7opEMmQjIqjoqrkb246GlFR
- u9iIeoOZfnxSfmpoMDPaosMKHc49oHz7XLzJSFtS7edBtUTSRIMVtDF4wy/FBK6nKlIQ
- PK8VUsBkrsovxhbo3rOfPDWDmKewLc/VXlLo9q/7/SggUwQHq6d3sIO0eqe08Te5VmRQ
- 3fBQ==
+Received: by mail-ua0-x243.google.com with SMTP id f2so9375297uaf.3
+ for <openbmc@lists.ozlabs.org>; Mon, 06 Feb 2017 21:40:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=vyp3w8xbqUPevUk+8GlgYds4W0d+ZzH/kOb1BXwrXBQ=;
+ b=ZNXXzUQgaQg2MWxMFpBnAfOmInIAAQ34mz5S/H3Q4fc+p4/9O5lgJ7s2HAgJPmJIXG
+ o23Fl3S5c/S2HJ6kLncmS1P9unwHbtnIONKr9xFKIZdSB2Or60tx6fAeKJXTGk7lyG+b
+ 5RxbcSUVZlfP6Jvr8osoQWS9YMmjs+SAejLIhCMXAX0mSvF05poRhB+PBD0ELU+trk4K
+ d6yLeDhqCsUswIUCxQASHse75nj1nHzZHXOdueoX/vazxm3kdPxMLz3wmT1BvabrpU3J
+ jwc9Cj1JnJt6TTKGyg+yav+Kkght1dU0HQimtY1DiSez9kfCyJ1TTvBuWtMSCcF8te1v
+ JvnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=75Hs8z/hU+1WgcBQBjyWj2dpfnZhcOtKDcU20w6v7S0=;
- b=bPoEMp4O/N/GjDgDGOWNd3UfDEUYy8oN+MTgEqCZXWTopG1oMv+zKdlfLTGksvSJnR
- SdsWHUqUSQZz/Qb8fuB5RF+zNq0GgFXjn0gRyVYE8YIfrlAaCfBP4jb3HUcxZQFULGyR
- MJ0KCCAzjYFbWtg5ZHWH4TalC2KrFof5qXxn0u4H5QxAOfOdfNDVT9DQF1F5r05Oe0qz
- dzpLn0hr1dRk2059QLZUij6+QxRA2DSdJt/uPQMLxpx57EtwbCbrjLJIy84kUTa3Jeln
- GxIR3phsR/Mxyefgy2oxqdU7hvZUchxR+/DC5/kqAhLkdEkJrboIymQI0g/7LL90gQPE
- zHIA==
-X-Gm-Message-State: AIkVDXJHT/W9P5s4+ePjAROVjb8WTclxs31lgDgOMLPHs2Nrp9jE1dEzBdtTz5j5xKW825ap
-X-Received: by 10.98.66.82 with SMTP id p79mr17364806pfa.10.1486440249219;
- Mon, 06 Feb 2017 20:04:09 -0800 (PST)
-Received: from jaghu22.svl.corp.google.com ([100.123.242.38])
- by smtp.gmail.com with ESMTPSA id p25sm6289384pfd.0.2017.02.06.20.04.07
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Mon, 06 Feb 2017 20:04:08 -0800 (PST)
-From: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
-To: openbmc@lists.ozlabs.org,
-	joel@jms.id.au
-Cc: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
-Subject: [PATCH linux v1 4/4] arm: dts: Add dt-binding to support seven
- segment display on zaius
-Date: Mon,  6 Feb 2017 20:03:56 -0800
-Message-Id: <20170207040356.9891-5-jaghu@google.com>
-X-Mailer: git-send-email 2.11.0.483.g087da7b7c-goog
-In-Reply-To: <20170207040356.9891-1-jaghu@google.com>
-References: <20170207040356.9891-1-jaghu@google.com>
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=vyp3w8xbqUPevUk+8GlgYds4W0d+ZzH/kOb1BXwrXBQ=;
+ b=LWOz7dBc+AYMTOxvvYLNftfF7Ph3jaJZ/NwN079mPHSUjePZeyKjPTR0IIosg4+ui9
+ 2mdQzvd/nR5e5tRwg91vRiHT7ykipWfGeVZlmKYcvITz0hGx86NioD1CeA1NGWjVVQcM
+ LofAKjTSVXZMv8rB2ORGBpNJwSDqBhumA4OdLUIOsAmVO3WUM+mrPXBXl59OEhit7K5+
+ 1LK1vbd972r3IAGLOkA81HvADq/7kHNj0AxVCwEhqapTX97jOe4GyrBmQSpC5KJd9BrW
+ 0TdMQitCCRK/rZDa+nnNYo0Tb7xf/Vs157AolyBEwwApIbYqqqvUPW2BsM/yDCP2Br8+
+ vnVA==
+X-Gm-Message-State: AIkVDXK4PvjyIdF2WfA/aYcYMHEw0qK/gc39QGWYezphy8L1ovzG8AROcujjfExcL0BS4xyfw2e/nGlDWj1iLA==
+X-Received: by 10.159.38.229 with SMTP id 92mr7040248uay.102.1486446045860;
+ Mon, 06 Feb 2017 21:40:45 -0800 (PST)
+MIME-Version: 1.0
+Sender: joel.stan@gmail.com
+Received: by 10.176.92.150 with HTTP; Mon, 6 Feb 2017 21:40:25 -0800 (PST)
+In-Reply-To: <20170112002910.3650-5-cyrilbur@gmail.com>
+References: <20170112002910.3650-1-cyrilbur@gmail.com>
+ <20170112002910.3650-5-cyrilbur@gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 7 Feb 2017 16:10:25 +1030
+X-Google-Sender-Auth: Qf8s_uCxO5rxRDSVparlO5YDiPA
+Message-ID: <CACPK8XcsScjrit-7VHh4oL=zPiMeEAB5_R550U0uPsuQ4WF1mg@mail.gmail.com>
+Subject: Re: [PATCH 4/4] drivers/mailbox: Add ASpeed mailbox driver
+To: Cyril Bur <cyrilbur@gmail.com>
+Cc: devicetree@vger.kernel.org, jassisinghbrar@gmail.com, 
+ Arnd Bergmann <arnd@arndb.de>, gregkh@linuxfoundation.org, 
+ Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh+dt@kernel.org>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, Andrew Jeffery <andrew@aj.id.au>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, Xo Wang <xow@google.com>,
+ Jeremy Kerr <jk@ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,34 +64,138 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Feb 2017 04:04:11 -0000
+X-List-Received-Date: Tue, 07 Feb 2017 05:40:50 -0000
 
-Add clock, data and clear signal GPIO lines to control seven segment display on
-zaius platform.
+On Thu, Jan 12, 2017 at 10:59 AM, Cyril Bur <cyrilbur@gmail.com> wrote:
+> This provides access to the mbox registers on the ast2400 and ast2500
+> boards.
 
-Signed-off-by: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
+s/boards/SoCs/
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-index e2195a641414..2c3297bec9b7 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-@@ -74,6 +74,14 @@
- 			gpios = <&gpio ASPEED_GPIO(AA, 2) GPIO_ACTIVE_LOW>;
- 		};
- 	};
-+
-+	seven-seg-disp {
-+		compatible = "seven-seg-gpio-dev";
-+		refresh-interval-ms = "400";
-+		clock-gpios = <&gpio ASPEED_GPIO(J, 0) GPIO_ACTIVE_HIGH>;
-+		data-gpios = <&gpio ASPEED_GPIO(J, 2) GPIO_ACTIVE_HIGH>;
-+		clear-gpios = <&gpio ASPEED_GPIO(J, 1) GPIO_ACTIVE_HIGH>;
-+	};
- };
+>
+> This driver allows arbitrary reads and writes to the 16 data registers as
+> the other end may have configured the mbox hardware to provide an
+> interrupt when a specific register gets written to.
+>
+> Signed-off-by: Cyril Bur <cyrilbur@gmail.com>
 
- &fmc {
---
-2.11.0.483.g087da7b7c-goog
+Send this to lkml as well next time you submit.
+
+> ---
+>  drivers/mailbox/Kconfig       |   9 ++
+>  drivers/mailbox/Makefile      |   2 +
+>  drivers/mailbox/aspeed-mbox.c | 334 ++++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 345 insertions(+)
+>  create mode 100644 drivers/mailbox/aspeed-mbox.c
+>
+> diff --git a/drivers/mailbox/Kconfig b/drivers/mailbox/Kconfig
+> index ceff415f201c..10a7f3f2765c 100644
+> --- a/drivers/mailbox/Kconfig
+> +++ b/drivers/mailbox/Kconfig
+> @@ -152,4 +152,13 @@ config BCM_PDC_MBOX
+>           Mailbox implementation for the Broadcom PDC ring manager,
+>           which provides access to various offload engines on Broadcom
+>           SoCs. Say Y here if you want to use the Broadcom PDC.
+> +
+> +config ASPEED_MBOX
+
+Call this ASPEED_LPC_MAILBOX, as it's a in the LPC IP block.
+
+> +       depends on (ARCH_ASPEED || COMPILE_TEST) && REGMAP && MFD_SYSCON
+> +       bool "Aspeed ast2400/2500 Mailbox Controller"
+
+Call this Aspeed LPC Mailbox Controller, as the layout is shared by
+SoCs other than the 2500 and 2400.
+
+> +       default "y"
+> +       ---help---
+> +         Provides a driver for the MBOX registers found on Aspeed SOCs
+> +         (AST2400 and AST2500). This driver provides a device for aspeed
+> +         mbox registers
+>  endif
+> diff --git a/drivers/mailbox/Makefile b/drivers/mailbox/Makefile
+> index 7dde4f609ae8..db5b4f3f29e0 100644
+> --- a/drivers/mailbox/Makefile
+> +++ b/drivers/mailbox/Makefile
+> @@ -31,3 +31,5 @@ obj-$(CONFIG_HI6220_MBOX)     += hi6220-mailbox.o
+>  obj-$(CONFIG_BCM_PDC_MBOX)     += bcm-pdc-mailbox.o
+>
+>  obj-$(CONFIG_TEGRA_HSP_MBOX)   += tegra-hsp.o
+> +
+> +obj-$(CONFIG_ASPEED_MBOX)      += aspeed-mbox.o
+> diff --git a/drivers/mailbox/aspeed-mbox.c b/drivers/mailbox/aspeed-mbox.c
+> new file mode 100644
+> index 000000000000..c4ee6ba228ea
+> --- /dev/null
+> +++ b/drivers/mailbox/aspeed-mbox.c
+
+> +
+> +static ssize_t aspeed_mbox_read(struct file *file, char __user *buf,
+> +                               size_t count, loff_t *ppos)
+> +{
+> +       struct aspeed_mbox *mbox = file_mbox(file);
+> +       char __user *p = buf;
+> +       ssize_t ret;
+> +       int i;
+> +
+> +       if (!access_ok(VERIFY_WRITE, buf, count))
+> +               return -EFAULT;
+
+As discussed in the LPC driver review:
+
+ "And don't call access_ok(), it's racy and no driver should ever do that."
+
+Make sure all of the things you fixed in that driver are fixed in this one.
+
+> +
+> +       if (count + *ppos > ASPEED_MBOX_NUM_REGS)
+> +               return -EINVAL;
+> +
+> +       if (file->f_flags & O_NONBLOCK) {
+> +               if (!(aspeed_mbox_inb(mbox, ASPEED_MBOX_BMC_CTRL) &
+> +                               ASPEED_MBOX_CTRL_RECV))
+> +                       return -EAGAIN;
+> +       } else if (wait_event_interruptible(mbox->queue,
+> +                               aspeed_mbox_inb(mbox, ASPEED_MBOX_BMC_CTRL) &
+> +                               ASPEED_MBOX_CTRL_RECV)) {
+> +               return -ERESTARTSYS;
+> +       }
+> +
+> +       mutex_lock(&mbox->mutex);
+> +
+> +       for (i = *ppos; count > 0 && i < ASPEED_MBOX_NUM_REGS; i++) {
+> +               uint8_t reg = aspeed_mbox_inb(mbox, ASPEED_MBOX_DATA_0 + (i * 4));
+> +
+> +               ret = __put_user(reg, p);
+> +               if (ret)
+> +                       goto out_unlock;
+> +
+> +               p++;
+> +               count--;
+> +       }
+> +
+> +       /* ASPEED_MBOX_CTRL_RECV bit is W1C, this also unmasks in 1 step */
+
+W1C? Write to clear?
+
+> +       aspeed_mbox_outb(mbox, ASPEED_MBOX_CTRL_RECV, ASPEED_MBOX_BMC_CTRL);
+> +       ret = p - buf;
+> +
+> +out_unlock:
+> +       mutex_unlock(&mbox->mutex);
+> +       return ret;
+> +}
+> +
+
+> +module_platform_driver(aspeed_mbox_driver);
+> +
+> +MODULE_DEVICE_TABLE(of, aspeed_mbox_match);
+> +MODULE_LICENSE("GPL");
+> +MODULE_AUTHOR("Cyril Bur <cyrilbur@gmail.com>");
+> +MODULE_DESCRIPTION("ASpeed mailbox device driver");
+
+ASPEED or Aspeed.
+
+> --
+> 2.11.0
+>
