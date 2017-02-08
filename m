@@ -1,56 +1,67 @@
-Return-Path: <xow@google.com>
-Received: from mail-qt0-x22d.google.com (mail-qt0-x22d.google.com
- [IPv6:2607:f8b0:400d:c0d::22d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Return-Path: <cbostic@linux.vnet.ibm.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vJcJc1S74zDqBr
- for <openbmc@lists.ozlabs.org>; Thu,  9 Feb 2017 10:06:07 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="SGVyOLPc"; 
- dkim-atps=neutral
-Received: by mail-qt0-x22d.google.com with SMTP id k15so181054122qtg.3
- for <openbmc@lists.ozlabs.org>; Wed, 08 Feb 2017 15:06:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=NSRQc3+SVCN5LecoJTiuE5ViWuHJoMzRpk83R6eHjYM=;
- b=SGVyOLPcfRwO30H4hMD6oB9d+J62gyWWom8smVzkTAPxqohvPOkvoBrM2Gu1rCE4TX
- RbLAe8dyp/YUptkx9MRK55WleHsjjUDWubce/RXXnsjDmOOt3SD8TVGx62oUa3cLsvEP
- mtQFL0cT2LRKrchSJCMxRYpWz06WxZFulTzF9mESPCmqNilJ+bS3pe7aS0JomVpkgbfb
- VSXDYf+dg2tPt23xIvvEJ8zMepWgsfnx5ovPVvZk+j670v6WRFy7XVooGb2QxcYAqILN
- q5KGijjDbtEGK9ANiMi1ejAveI8FO8SGMRM0761YVk9ZbPKRh0tQS8NC1D9INgFwvmdz
- W5lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=NSRQc3+SVCN5LecoJTiuE5ViWuHJoMzRpk83R6eHjYM=;
- b=uRcs+bgIIHAko8z23pvQ05zNdqgELAiAIAnEYzVggd7dU/kydn0fpWh5TzDIxCE4dC
- d+rvL/UQgIu368FMM4mj9ztdo9cgVDFTwuK13LpvatN8DchPxoLItJbkUUToYyJLUy05
- gUjYBiSf8Qm0Lx3t/O0DQvAurq4S51wV+t1HDkZmhDmqhWpBpzCfpQ8v/Ay8nKI36TGK
- 3EhWmBpKsWdgCpHOiSDtBWUxlchRiMYxhZVIvnI4JUSLMCN1Zgtws5SeK+GYNlZDowad
- HfQq9I+Hv1jxPqgCN+oYN96MDO3+BJosEYSxickS31c5dwmTfUSfoMRcof8UFlo5EzFk
- 2vJQ==
-X-Gm-Message-State: AMke39mktQzwEFz+6Kd/LNCQnM8TfepEPpHKFBHiHnho9wU409IMdMPVetBKvCB8pIQXHhke3pImmTbN3cztvwqt
-X-Received: by 10.200.41.153 with SMTP id 25mr41494qts.108.1486595164887; Wed,
- 08 Feb 2017 15:06:04 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.140.21.116 with HTTP; Wed, 8 Feb 2017 15:06:04 -0800 (PST)
-In-Reply-To: <490CE008-B094-4008-83A7-7CD13F3F6C26@fuzziesquirrel.com>
-References: <20170131183927.30887-1-raltherr@google.com>
- <CACPK8Xf7qFw-LgnwTyJH3fMme5w_c99JuJ1LVA74VmFGkBMDPg@mail.gmail.com>
- <CALLMt=pHyZhj8W7i7qWgM6ppf0a+4aUp8+zxfx8QFSuZ_xNpnQ@mail.gmail.com>
- <490CE008-B094-4008-83A7-7CD13F3F6C26@fuzziesquirrel.com>
-From: Xo Wang <xow@google.com>
-Date: Wed, 8 Feb 2017 15:06:04 -0800
-Message-ID: <CAPH-5w7D9XeTpFHJefE-7abYnBY6r32UsRSjZnN4aCEzm1JF0Q@mail.gmail.com>
-Subject: Re: [PATCH linux] dts: aspeed: merge initrd into kernel in flash
- layout
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: Andrew Geissler <geissonator@gmail.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vJcws5bRmzDq5x
+ for <openbmc@lists.ozlabs.org>; Thu,  9 Feb 2017 10:34:05 +1100 (AEDT)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
+ v18NXgSo017059
+ for <openbmc@lists.ozlabs.org>; Wed, 8 Feb 2017 18:34:03 -0500
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 28g0fk0hy3-1
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 08 Feb 2017 18:34:03 -0500
+Received: from localhost
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <cbostic@linux.vnet.ibm.com>;
+ Wed, 8 Feb 2017 16:34:02 -0700
+Received: from d03dlp03.boulder.ibm.com (9.17.202.179)
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ Wed, 8 Feb 2017 16:33:59 -0700
+Received: from b03cxnp08026.gho.boulder.ibm.com
+ (b03cxnp08026.gho.boulder.ibm.com [9.17.130.18])
+ by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id 2896F19D803F;
+ Wed,  8 Feb 2017 16:33:12 -0700 (MST)
+Received: from b03ledav006.gho.boulder.ibm.com
+ (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
+ by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ v18NXwpL10617298; Wed, 8 Feb 2017 16:33:58 -0700
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 6740CC6043;
+ Wed,  8 Feb 2017 16:33:58 -0700 (MST)
+Received: from Christophers-MacBook-Pro.local.com (unknown [9.81.203.157])
+ by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP id A01A7C603E;
+ Wed,  8 Feb 2017 16:33:56 -0700 (MST)
+From: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+To: joel@jms.id.au
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-4.7] drivers/fsi: Adjust slave ID based on address
+ in command send
+Date: Wed,  8 Feb 2017 17:33:50 -0600
+X-Mailer: git-send-email 2.10.1 (Apple Git-78)
+X-TM-AS-GCONF: 00
+X-Content-Scanned: Fidelis XPS MAILER
+x-cbid: 17020823-0004-0000-0000-0000118593AB
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00006581; HX=3.00000240; KW=3.00000007;
+ PH=3.00000004; SC=3.00000203; SDB=6.00819154; UDB=6.00400376; IPR=6.00596613; 
+ BA=6.00005127; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014226; XFM=3.00000011;
+ UTC=2017-02-08 23:34:00
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 17020823-0005-0000-0000-00007CE59CBF
+Message-Id: <20170208233350.56069-1-cbostic@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+ definitions=2017-02-08_14:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=1
+ malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
+ definitions=main-1702080224
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,22 +73,92 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Feb 2017 23:06:08 -0000
+X-List-Received-Date: Wed, 08 Feb 2017 23:34:06 -0000
 
-On Fri, Feb 3, 2017 at 8:44 AM, Brad Bishop <bradleyb@fuzziesquirrel.com> w=
-rote:
-> I=E2=80=99m not suggesting one way or the other as far as how to proceed =
-but I don=E2=80=99t
-> think pulling chips is ever necessary.  You can always netboot and flash =
-the
-> entire image image that way.
->
+In order to access slave address ranges > 0x1FFFFF the slave ID
+must be adjusted accordingly in the command encoding:
 
-The hack we've been using for whole-image updates here on non-netboot
-BMCs is to use flashcp/dd of=3Dmtdblock0/pflash to erase and program the
-BMC flash, then assert the hotswap reset GPIO.
+ID 0: 0x00000000 - 0x001FFFFF
+ID 1: 0x00200000 - 0x003FFFFF
+ID 2: 0x00400000 - 0x005FFFFF
+ID 3: 0x00600000 - 0x007FFFFF
 
-It saves a bit of time rebooting and is reliable, but feels dirty every tim=
-e.
+Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+---
+ drivers/fsi/fsi-master-gpio.c | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
 
-xo
+diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+index 73d9985..428f3db 100644
+--- a/drivers/fsi/fsi-master-gpio.c
++++ b/drivers/fsi/fsi-master-gpio.c
+@@ -30,7 +30,9 @@
+ #define	FSI_GPIO_CMD_READ	0x0400000000000000ULL
+ #define	FSI_GPIO_CMD_SLAVE_MASK	0xC000000000000000ULL
+ #define	FSI_GPIO_CMD_ADDR_SHIFT	37
+-#define	FSI_GPIO_CMD_ADDR_MASK	0x001FFFFF
++#define	FSI_GPIO_CMD_ADR8_MASK	0x001FFFFF
++#define	FSI_GPIO_CMD_ADR16_MASK	0x001FFFFE
++#define	FSI_GPIO_CMD_ADR32_MASK	0x001FFFFC
+ #define	FSI_GPIO_CMD_SLV_SHIFT	62
+ #define	FSI_GPIO_CMD_SIZE_16	0x0000001000000000ULL
+ #define	FSI_GPIO_CMD_SIZE_32	0x0000003000000000ULL
+@@ -40,6 +42,9 @@
+ #define	FSI_GPIO_CMD_DFLT_LEN	28
+ #define	FSI_GPIO_CMD_CRC_SHIFT	60
+ 
++#define	FSI_SLAVE_SHIFT		21
++#define	FSI_SLAVE_MASK		0x3
++
+ /* Bus errors */
+ #define	FSI_GPIO_ERR_BUSY	1	/* Slave stuck in busy state */
+ #define	FSI_GPIO_RESP_ERRA	2	/* Any (misc) Error */
+@@ -301,15 +306,17 @@ static void build_abs_ar_command(struct fsi_gpio_msg *cmd, uint64_t mode,
+ 		const void *data)
+ {
+ 	uint8_t crc;
++	uint32_t addr_mask;
+ 
+ 	cmd->bits = FSI_GPIO_CMD_DFLT_LEN;
+ 	cmd->msg = FSI_GPIO_CMD_DEFAULT;
+ 	cmd->msg |= mode;
+-	cmd->msg &= ~FSI_GPIO_CMD_SLAVE_MASK;
++	if (!slave)
++		slave = (addr >> FSI_SLAVE_SHIFT) & FSI_SLAVE_MASK;
+ 	cmd->msg |= (((uint64_t)slave) << FSI_GPIO_CMD_SLV_SHIFT);
+-	addr &= FSI_GPIO_CMD_ADDR_MASK;
+-	cmd->msg |= (((uint64_t)addr) << FSI_GPIO_CMD_ADDR_SHIFT);
++
+ 	if (size == sizeof(uint8_t)) {
++		addr_mask = FSI_GPIO_CMD_ADR8_MASK;
+ 		if (data) {
+ 			uint8_t cmd_data = *((uint8_t *)data);
+ 
+@@ -317,6 +324,7 @@ static void build_abs_ar_command(struct fsi_gpio_msg *cmd, uint64_t mode,
+ 				((uint64_t)cmd_data) << FSI_GPIO_CMD_DT8_SHIFT;
+ 		}
+ 	} else if (size == sizeof(uint16_t)) {
++		addr_mask = FSI_GPIO_CMD_ADR16_MASK;
+ 		cmd->msg |= FSI_GPIO_CMD_SIZE_16;
+ 		if (data) {
+ 			uint16_t cmd_data;
+@@ -326,6 +334,7 @@ static void build_abs_ar_command(struct fsi_gpio_msg *cmd, uint64_t mode,
+ 				((uint64_t)cmd_data) << FSI_GPIO_CMD_DT16_SHIFT;
+ 		}
+ 	} else {
++		addr_mask = FSI_GPIO_CMD_ADR32_MASK;
+ 		cmd->msg |= FSI_GPIO_CMD_SIZE_32;
+ 		if (data) {
+ 			uint32_t cmd_data;
+@@ -336,6 +345,9 @@ static void build_abs_ar_command(struct fsi_gpio_msg *cmd, uint64_t mode,
+ 		}
+ 	}
+ 
++	addr &= addr_mask;
++	cmd->msg |= (((uint64_t)addr) << FSI_GPIO_CMD_ADDR_SHIFT);
++
+ 	if (mode == FSI_GPIO_CMD_WRITE)
+ 		cmd->bits += (8 * size);
+ 
+-- 
+1.8.2.2
