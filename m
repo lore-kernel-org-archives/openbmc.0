@@ -1,67 +1,56 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <xow@google.com>
+Received: from mail-qt0-x22d.google.com (mail-qt0-x22d.google.com
+ [IPv6:2607:f8b0:400d:c0d::22d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vJYpr0s42zDq60
- for <openbmc@lists.ozlabs.org>; Thu,  9 Feb 2017 08:13:39 +1100 (AEDT)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.20/8.16.0.20) with SMTP id
- v18L8rWT022964
- for <openbmc@lists.ozlabs.org>; Wed, 8 Feb 2017 16:13:37 -0500
-Received: from e38.co.us.ibm.com (e38.co.us.ibm.com [32.97.110.159])
- by mx0a-001b2d01.pphosted.com with ESMTP id 28g801ymbx-1
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 08 Feb 2017 16:13:37 -0500
-Received: from localhost
- by e38.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Wed, 8 Feb 2017 14:13:37 -0700
-Received: from d03dlp01.boulder.ibm.com (9.17.202.177)
- by e38.co.us.ibm.com (192.168.1.138) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- Wed, 8 Feb 2017 14:13:34 -0700
-Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com
- [9.57.198.26])
- by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id 64EF31FF0027;
- Wed,  8 Feb 2017 14:13:11 -0700 (MST)
-Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
- [9.57.199.106])
- by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- v18LDXnC44826810; Wed, 8 Feb 2017 21:13:33 GMT
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 446A52803E;
- Wed,  8 Feb 2017 16:13:33 -0500 (EST)
-Received: from oc3016140333.ibm.com (unknown [9.41.179.225])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP id E2A3828048;
- Wed,  8 Feb 2017 16:13:32 -0500 (EST)
-From: eajames@linux.vnet.ibm.com
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, cbostic@linux.vnet.ibm.com,
- "Edward A. James" <eajames@us.ibm.com>
-Subject: [PATCH linux dev-4.7] drivers: fsi: i2c fix ports
-Date: Wed,  8 Feb 2017 15:13:31 -0600
-X-Mailer: git-send-email 1.8.3.1
-X-TM-AS-GCONF: 00
-X-Content-Scanned: Fidelis XPS MAILER
-x-cbid: 17020821-0028-0000-0000-000006FE7550
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00006581; HX=3.00000240; KW=3.00000007;
- PH=3.00000004; SC=3.00000203; SDB=6.00819108; UDB=6.00400348; IPR=6.00596566; 
- BA=6.00005127; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00014226; XFM=3.00000011;
- UTC=2017-02-08 21:13:35
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 17020821-0029-0000-0000-0000336977F3
-Message-Id: <1486588411-25211-1-git-send-email-eajames@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
- definitions=2017-02-08_12:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=1
- malwarescore=0 phishscore=0 adultscore=0 bulkscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.0.1-1612050000
- definitions=main-1702080201
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vJcJc1S74zDqBr
+ for <openbmc@lists.ozlabs.org>; Thu,  9 Feb 2017 10:06:07 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="SGVyOLPc"; 
+ dkim-atps=neutral
+Received: by mail-qt0-x22d.google.com with SMTP id k15so181054122qtg.3
+ for <openbmc@lists.ozlabs.org>; Wed, 08 Feb 2017 15:06:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=NSRQc3+SVCN5LecoJTiuE5ViWuHJoMzRpk83R6eHjYM=;
+ b=SGVyOLPcfRwO30H4hMD6oB9d+J62gyWWom8smVzkTAPxqohvPOkvoBrM2Gu1rCE4TX
+ RbLAe8dyp/YUptkx9MRK55WleHsjjUDWubce/RXXnsjDmOOt3SD8TVGx62oUa3cLsvEP
+ mtQFL0cT2LRKrchSJCMxRYpWz06WxZFulTzF9mESPCmqNilJ+bS3pe7aS0JomVpkgbfb
+ VSXDYf+dg2tPt23xIvvEJ8zMepWgsfnx5ovPVvZk+j670v6WRFy7XVooGb2QxcYAqILN
+ q5KGijjDbtEGK9ANiMi1ejAveI8FO8SGMRM0761YVk9ZbPKRh0tQS8NC1D9INgFwvmdz
+ W5lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=NSRQc3+SVCN5LecoJTiuE5ViWuHJoMzRpk83R6eHjYM=;
+ b=uRcs+bgIIHAko8z23pvQ05zNdqgELAiAIAnEYzVggd7dU/kydn0fpWh5TzDIxCE4dC
+ d+rvL/UQgIu368FMM4mj9ztdo9cgVDFTwuK13LpvatN8DchPxoLItJbkUUToYyJLUy05
+ gUjYBiSf8Qm0Lx3t/O0DQvAurq4S51wV+t1HDkZmhDmqhWpBpzCfpQ8v/Ay8nKI36TGK
+ 3EhWmBpKsWdgCpHOiSDtBWUxlchRiMYxhZVIvnI4JUSLMCN1Zgtws5SeK+GYNlZDowad
+ HfQq9I+Hv1jxPqgCN+oYN96MDO3+BJosEYSxickS31c5dwmTfUSfoMRcof8UFlo5EzFk
+ 2vJQ==
+X-Gm-Message-State: AMke39mktQzwEFz+6Kd/LNCQnM8TfepEPpHKFBHiHnho9wU409IMdMPVetBKvCB8pIQXHhke3pImmTbN3cztvwqt
+X-Received: by 10.200.41.153 with SMTP id 25mr41494qts.108.1486595164887; Wed,
+ 08 Feb 2017 15:06:04 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.140.21.116 with HTTP; Wed, 8 Feb 2017 15:06:04 -0800 (PST)
+In-Reply-To: <490CE008-B094-4008-83A7-7CD13F3F6C26@fuzziesquirrel.com>
+References: <20170131183927.30887-1-raltherr@google.com>
+ <CACPK8Xf7qFw-LgnwTyJH3fMme5w_c99JuJ1LVA74VmFGkBMDPg@mail.gmail.com>
+ <CALLMt=pHyZhj8W7i7qWgM6ppf0a+4aUp8+zxfx8QFSuZ_xNpnQ@mail.gmail.com>
+ <490CE008-B094-4008-83A7-7CD13F3F6C26@fuzziesquirrel.com>
+From: Xo Wang <xow@google.com>
+Date: Wed, 8 Feb 2017 15:06:04 -0800
+Message-ID: <CAPH-5w7D9XeTpFHJefE-7abYnBY6r32UsRSjZnN4aCEzm1JF0Q@mail.gmail.com>
+Subject: Re: [PATCH linux] dts: aspeed: merge initrd into kernel in flash
+ layout
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: Andrew Geissler <geissonator@gmail.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -73,29 +62,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Feb 2017 21:13:40 -0000
+X-List-Received-Date: Wed, 08 Feb 2017 23:06:08 -0000
 
-From: "Edward A. James" <eajames@us.ibm.com>
+On Fri, Feb 3, 2017 at 8:44 AM, Brad Bishop <bradleyb@fuzziesquirrel.com> w=
+rote:
+> I=E2=80=99m not suggesting one way or the other as far as how to proceed =
+but I don=E2=80=99t
+> think pulling chips is ever necessary.  You can always netboot and flash =
+the
+> entire image image that way.
+>
 
-missing a couple of ports
+The hack we've been using for whole-image updates here on non-netboot
+BMCs is to use flashcp/dd of=3Dmtdblock0/pflash to erase and program the
+BMC flash, then assert the hotswap reset GPIO.
 
-Signed-off-by: Edward A. James <eajames@us.ibm.com>
----
- drivers/fsi/i2c/iic-fsi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+It saves a bit of time rebooting and is reliable, but feels dirty every tim=
+e.
 
-diff --git a/drivers/fsi/i2c/iic-fsi.c b/drivers/fsi/i2c/iic-fsi.c
-index 1723bc3..28d9624 100644
---- a/drivers/fsi/i2c/iic-fsi.c
-+++ b/drivers/fsi/i2c/iic-fsi.c
-@@ -282,7 +282,7 @@ exit:
- 	return 0;
- }
- 
--#define IIC_FSI_PORTS	0xFFFULL
-+#define IIC_FSI_PORTS	0x7FFFULL
- /*
-  * Called when an FSI IIC engine is plugged in.  
-  * Causes creation of the /dev entry.
--- 
-1.8.3.1
+xo
