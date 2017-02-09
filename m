@@ -1,52 +1,51 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-vk0-x235.google.com (mail-vk0-x235.google.com
- [IPv6:2607:f8b0:400c:c05::235])
+Received: from mail-vk0-x241.google.com (mail-vk0-x241.google.com
+ [IPv6:2607:f8b0:400c:c05::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vJjXT6j4WzDqN2
- for <openbmc@lists.ozlabs.org>; Thu,  9 Feb 2017 14:01:45 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vJjjD4JdczDqGV
+ for <openbmc@lists.ozlabs.org>; Thu,  9 Feb 2017 14:09:20 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="f11+v33x"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="tYvMetF3"; 
  dkim-atps=neutral
-Received: by mail-vk0-x235.google.com with SMTP id r136so115369033vke.1
- for <openbmc@lists.ozlabs.org>; Wed, 08 Feb 2017 19:01:45 -0800 (PST)
+Received: by mail-vk0-x241.google.com with SMTP id r136so13468114vke.1
+ for <openbmc@lists.ozlabs.org>; Wed, 08 Feb 2017 19:09:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=aQtl0SAgOkHhz4lgoRCE254caqhDTjd61QCNnUUVf/I=;
- b=f11+v33xBLOVj4QJK0xxJz/3egYBmdsKxXXhxhL79RF5dwoSH6A8FaCq6K9GOGiR/8
- zJAR0VejIBLE1SNTP85bwNTuNDPMcV4lScaZIMuxwHFdbQQt0J/MqhnaNuYH/jvgGSH5
- xvLVloOo6mMJ0Ft31Q30t90DSb7vSBr78MIP+BBHzTaSeGvBfuMG49+yhE3yhokeXmUr
- oNzjosXEg7UfsypQ01ZrXxJPNmuqQhwFs9qzOSCdlir7vRGRzk/S7gEv5rev9oclK9eC
- ILzdbI7jHnmzroHY6f7Fn5KZBgXClNpSLZKrre9R8NW8apvnk7n0xjW/bklMHasL8d8h
- xZGw==
+ bh=zgE0XdiOCAeRjBlIiA6gGQSkR7z8bvgSTqrjoAcrtYg=;
+ b=tYvMetF3+PjGdZQn+igKnTGBmCj01JSp82k4n/AepFE3SHblSq9yFPoM6VgbLPCGmz
+ R2SWan+EyME0hYY2rmBwZni7y9gPDvIj4ALHPOvPPvqOTa9k987si7RuV2ptrKUSRduV
+ 045lYmw7J5XzHHGcZHNSDojh4L6w9YwnUFaW1F1KymkwMHgJZ0CZz+1+WOYgUgjLvICm
+ 7mz4HPNH7nyYytDK5DfYogW7qkBh5P6frqbNaeEOBl42Om+1eOdiSp5LbiQlGtvnKJ4p
+ ZmypE1AKAfhRJhcK52YQG5CDiX5foaOZ6kIvxgWwIkZt/IffWyiMZB7EwcBeYANHxkuY
+ DDbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=aQtl0SAgOkHhz4lgoRCE254caqhDTjd61QCNnUUVf/I=;
- b=D8dAkjGyftLcPeZ9SGqr5bx+3+9FxOBDH91YLHhRkdApwCMLSkGwdo0DQS/6TvhlX8
- GaGVNxXApm1gOycfEWwnZe1z4f3og0irPUWaH1afmdH/s70bDiyX3Bl3rXbrMjPY7fOu
- CfWWKFLaKrhA+knvTdvnrkRywVf5JbX3VgPfNiqN+d4AlxK00zsYJxZKlZSlY6vE4R5K
- 6mLWCQHI3Mj8bDQAeJI09F5RNWdY/IOhvmj1DIQuxdHD51KnnDgxYtVJXI3ZGml117f4
- y+YLp7KaaLQ+HvTSXE7exq+kq0WQK3cKHNh5CmYk5jykXezvjFOZR4G2KjHznFms+hZg
- OOEw==
-X-Gm-Message-State: AMke39lRBwcduSgeUUSVemarYDzrFnuLBz4XNFyTBHwcr05LMwIBsqgcADV4LEAvdNla03TJaZ0c+1ss3fOzVg==
-X-Received: by 10.31.53.204 with SMTP id c195mr352371vka.145.1486609303444;
- Wed, 08 Feb 2017 19:01:43 -0800 (PST)
+ bh=zgE0XdiOCAeRjBlIiA6gGQSkR7z8bvgSTqrjoAcrtYg=;
+ b=JEvO2kgFlDlyWq3ForvY7X3OrNXZukKCZ9iryP0euQtUQpF9RsRNM5a8OkBlcJ5wU7
+ Y+Ng/4/CsAFZJfnw/Bo+8Erlaiq/LOm8dEr8t6Y7xgBNA/rvHputI8vqzjwfiFoGjIKY
+ 5MCI2HkqHyzY4299PxUVe/ZE8fGu4J4CtepMjtM7KVPyWETrT53KrX369xXvKxfkPzAd
+ kwEq5MpvcKNkKuA2iBHIq8+L4RrEuuI3h1c6N1TZTe2kr18SZfwPsYig5RlmnB0ZCY1+
+ O0j0pE7xx3RRAuKHNqeyDS0zPOO9MC3X8TLJpuCNj5uEqii4QuoiKwvx6v9QCebZpm7M
+ JWcA==
+X-Gm-Message-State: AMke39klAqK8ResCJyX8xNzL8Jv2BdIx1bIwoNnpUDs3F+OYiOTr18PIj+affRFFFw9s1UcXkFaL8gt1n7DU0g==
+X-Received: by 10.31.92.1 with SMTP id q1mr378311vkb.151.1486609758104; Wed,
+ 08 Feb 2017 19:09:18 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.176.92.150 with HTTP; Wed, 8 Feb 2017 19:01:23 -0800 (PST)
-In-Reply-To: <CAPH-5w7reqNuPcbf48F+beqFyK=Te5c9rd+0hwvqt4nD0MQXqA@mail.gmail.com>
-References: <CAPH-5w7reqNuPcbf48F+beqFyK=Te5c9rd+0hwvqt4nD0MQXqA@mail.gmail.com>
+Received: by 10.176.92.150 with HTTP; Wed, 8 Feb 2017 19:08:57 -0800 (PST)
+In-Reply-To: <20170207040356.9891-1-jaghu@google.com>
+References: <20170207040356.9891-1-jaghu@google.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 9 Feb 2017 13:31:23 +1030
-X-Google-Sender-Auth: KDiA6tu-FnWxVFZdMCfpHm6e29U
-Message-ID: <CACPK8XfmY3sGcvqQnjmdOOL59RNxQ_M0YGPAROdW5GMujA+BVw@mail.gmail.com>
-Subject: Re: Patchwork lists submitters @google.com as "Rick Altherr via
- openbmc"
-To: Xo Wang <xow@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Thu, 9 Feb 2017 13:38:57 +1030
+X-Google-Sender-Auth: GP6gqxPZwP6OlDdoVWvcsio21EU
+Message-ID: <CACPK8Xc9XftoeQPd0O6s+VgxX0mqZrPkK4nxmiTxArWBwe6TqQ@mail.gmail.com>
+Subject: Re: [PATCH linux v1 0/4] Seven segment display support
+To: Jaghathiswari Rankappagounder Natarajan <jaghu@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Nancy Yuen <yuenn@google.com>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -59,35 +58,83 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Feb 2017 03:01:46 -0000
+X-List-Received-Date: Thu, 09 Feb 2017 03:09:21 -0000
 
-On Wed, Feb 8, 2017 at 8:46 AM, Xo Wang via openbmc
-<openbmc@lists.ozlabs.org> wrote:
-> Hey folks,
->
-> I think Patchwork has decided that the email openbmc@lists.ozlabs.org
-> now maps to the author of the first patch originating from that email
-> (Rick Altherr @ Google).
->
-> So all of the patches from @google.com proxied by Mailman are now
-> showing up as authored by Rick:
-> https://patchwork.ozlabs.org/project/openbmc/list/?submitter=70875&archive=both&state=*
->
-> Since Joel is presumably picking from Patchwork to GitHub, the git
-> author info might be a bit unreliable. You'll have to peek at the
-> Signed-off-by: for the Google blames. :)
+Hello Jagha,
 
-Submitter 70875 is now known as "Unknown sender due to SPF". This
-looks ugly, but does save me from applying misattributed patches.
+On Tue, Feb 7, 2017 at 2:33 PM, Jaghathiswari Rankappagounder
+Natarajan <jaghu@google.com> wrote:
+> Hi Joel,
+> Nancy mentioned this patch can be included into openbmc linux tree now.
+> Some other member will take up the work of addressing the comments from
+> upstream reviewers and send the patch upstream.
 
-I have made some tweaks to the mailing list settings that might let
-DMARC'd mail get through. I have turned off the munging and will keep
-an eye out for missed mail. If it's still broken I will have to turn
-it back on.
+Just before you sent these patches we had a chat on the topic. I
+thought we decided to give the rest of this week for people to review
+the new process, and then on Monday I would publish a tree based on
+4.10 that you could submit patches to. Sorry for not making this
+clear.
 
-Xo (or any other @google.com account holder), if you could reply to
-this thread without ccing me that would be a good test.
+I suspect this set will apply to 4.10 as-is, so I will consider this
+your submission for the 4.10 tree next week.
+
+Next time please have a read of the development process[1] and the
+rules for submitting patches[2] before sending patches. In particular,
+you need to set the target branch in the subject line so I know where
+you want the patches applied. If you you have any questions about the
+process please let me know so I can update the documentation.
+
+[1] https://github.com/openbmc/linux/wiki/DevelopmentProcess
+[2] https://github.com/openbmc/linux/wiki/SubmittingPatches
 
 Cheers,
 
 Joel
+
+>
+> This patchset includes:
+>
+> Documentation for the binding which provides an interface for adding clock,
+> data and clear signal GPIO lines to control seven segment display.
+>
+> The platform device driver provides an API for displaying on two 7-segment
+> displays, and implements the required bit-banging. The hardware assumed is
+> 74HC164 wired to two 7-segment displays.
+>
+> The character device driver implements the user-space API for letting a user
+> write to two 7-segment displays including any conversion methods necessary
+> to map the user input to two 7-segment displays.
+>
+> Adding clock, data and clear signal GPIO lines in the devicetree to control
+> seven segment display on zaius platform.
+>
+> The platform driver matches on the device tree node; the platform driver also
+> initializes the character device.
+>
+> Tested that the seven segment display works properly by writing to the
+> character device file on a EVB AST2500 board which also has 74HC164 wired
+> to two 7-segment displays.
+>
+> Jaghathiswari Rankappagounder Natarajan (4):
+>   Documentation: dt-bindings: Document bindings for seven segment
+>     display support
+>   drivers: misc: Character device driver for seven segment display
+>   drivers: misc: Platform driver for seven segment display support
+>   arm: dts: Add dt-binding to support seven segment display on zaius
+>
+>  .../devicetree/bindings/misc/seven-seg-gpio.txt    |  27 +++
+>  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts         |   8 +
+>  drivers/misc/Kconfig                               |  16 ++
+>  drivers/misc/Makefile                              |   2 +
+>  drivers/misc/seven_seg_disp.c                      | 201 ++++++++++++++++++++
+>  drivers/misc/seven_seg_disp.h                      |  34 ++++
+>  drivers/misc/seven_seg_gpio.c                      | 206 +++++++++++++++++++++
+>  7 files changed, 494 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/misc/seven-seg-gpio.txt
+>  create mode 100644 drivers/misc/seven_seg_disp.c
+>  create mode 100644 drivers/misc/seven_seg_disp.h
+>  create mode 100644 drivers/misc/seven_seg_gpio.c
+>
+> --
+> 2.11.0.483.g087da7b7c-goog
+>
