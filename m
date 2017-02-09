@@ -1,54 +1,29 @@
-Return-Path: <joel.stan@gmail.com>
-Received: from mail-vk0-x244.google.com (mail-vk0-x244.google.com
- [IPv6:2607:f8b0:400c:c05::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vJhbL6pyLzDqBr
- for <openbmc@lists.ozlabs.org>; Thu,  9 Feb 2017 13:19:10 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ty6QZriZ"; 
- dkim-atps=neutral
-Received: by mail-vk0-x244.google.com with SMTP id r136so13403415vke.1
- for <openbmc@lists.ozlabs.org>; Wed, 08 Feb 2017 18:19:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:sender:in-reply-to:references:from:date:message-id
- :subject:to:cc;
- bh=osch7luK73lzEY9T4ejIrZOsItonD8iAWYUExp4LXnw=;
- b=ty6QZriZp0mUx9pn9j4hDz8jlz4MWqotvA2BnHfrYSyG1Aqtb2izwl5ur0fHTByo8B
- vzYwcM/Zvd+Ey/XeDps9LoMj6ShD0K2yf9D1qgv+NUXYWpTM5KbVgxoOD30dUc2HVJ7i
- WX8nP3RRaBMcTU34KTEofmu7AadBnX5zCwYIesGv1NTUooyVLDUSPmRnqpAfcZXpb3NU
- MiAtqsFiGlzknMsSgHYNBy/8lvtQXxaZ3OJzn72q8IIts/t38FZg4DeKCn53mTDdoPX8
- VmkJoOQwYzPnxk56Myd01FmqZ1G3rW4XyHLQv81qYlrjXHlxxbrNR+JyOTKHatRmbu7W
- KgMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
- :date:message-id:subject:to:cc;
- bh=osch7luK73lzEY9T4ejIrZOsItonD8iAWYUExp4LXnw=;
- b=N5IOCJGRa3/NFY4ZEFdiqr2q8Zt4tHqdupY6QkdxK+SsH35CBHKijHL6S/EImswnC7
- S5mFik+AJmvgX/ItWt6wWcE8Q9NS3yRZCMoPJPy6qprttlxtZ6XehjX8MmOWPKa5CjUE
- E3YMH7ESTEugSHOueOi8ZqL0wYIsxPQHuH0V+o2ZAqb/glHhTPk767CICiV7CTg3j3VK
- 5pLI0Q4hllYWYeuHAH09ggd6SUeX0Edixd8JemoC5CvleMHjM++Fx6eJrZRF5fOEmKmg
- GcOKNq8KFmYzm+d/ypkjpmpX3l9dchcTpDyXylb8m7+QWvfUbAQbN/p0I42FnFxuzIEf
- OPHQ==
-X-Gm-Message-State: AMke39n6gpVevGieuNzuYalMGFrf/CepzLps8CvvUT8sN8cq2dOikSNKyjE/AQmHM+55KWZEYF1aPGcgJUohiQ==
-X-Received: by 10.31.49.81 with SMTP id x78mr384036vkx.82.1486606747048; Wed,
- 08 Feb 2017 18:19:07 -0800 (PST)
-MIME-Version: 1.0
-Sender: joel.stan@gmail.com
-Received: by 10.176.92.150 with HTTP; Wed, 8 Feb 2017 18:18:46 -0800 (PST)
-In-Reply-To: <CAPH-5w6ckMjyxn=J2deBycOexc9cCdsMXxLYq44GPQM-xG9S7g@mail.gmail.com>
-References: <20170207023737.26936-1-joel@jms.id.au>
- <CAPH-5w6ckMjyxn=J2deBycOexc9cCdsMXxLYq44GPQM-xG9S7g@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 9 Feb 2017 12:48:46 +1030
-X-Google-Sender-Auth: KKR1Tth2RGC5Em7lAaHCDcgMsuE
-Message-ID: <CACPK8Xd_G-a5ih+WU16pqOM+_gX-ik-eaUsOu_qdMETzqwk+uQ@mail.gmail.com>
-Subject: Re: [PATCH] ARM: dts: aspeed: Add FSI pins to Zaius device tree
-To: Xo Wang <xow@google.com>
-Cc: Rick Altherr <raltherr@google.com>,
+Return-Path: <alistair@popple.id.au>
+Received: from ipmail05.adl6.internode.on.net (ipmail05.adl6.internode.on.net
+ [150.101.137.143])
+ by lists.ozlabs.org (Postfix) with ESMTP id 3vJjNw73r0zDqBx
+ for <openbmc@lists.ozlabs.org>; Thu,  9 Feb 2017 13:55:12 +1100 (AEDT)
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: A2DOBAB11JtY/9MGT0NdGwEBAQMBAQEJAQEBhTuFOIkbkReTJ4IPggyGIgKDMBYBAgEBAQEBAQFiKIRpAQEBAwEnEz8QCxgJFRAPAUcGE4lsCLINOotOAQEBAQEFAgElizuKOQWbcIoNiG6BEoUXiXOTEyYNJH4RDg8ECBEZhQAdGYFcLDUBiH0BAQE
+Received: from mail.puregolfradio.com (HELO new-mexico.localnet)
+ ([67.79.6.211])
+ by ipmail05.adl6.internode.on.net with ESMTP; 09 Feb 2017 13:25:06 +1030
+From: Alistair Popple <alistair@popple.id.au>
+To: Joel Stanley <joel@jms.id.au>
+Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>,
+ Eddie James <eajames.ibm@gmail.com>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH linux dev-4.7] drivers/fsi: Adjust slave ID based on
+ address in command send
+Date: Thu, 09 Feb 2017 13:54:56 +1100
+Message-ID: <12493797.UHNVbxk1rO@new-mexico>
+User-Agent: KMail/4.14.1 (Linux/4.2.0-0.bpo.1-amd64; KDE/4.14.2; x86_64; ; )
+In-Reply-To: <CACPK8XdP-imVAz1Jo+1pk-7HK0+xkqDswjK7nH+p02XoZh5RRA@mail.gmail.com>
+References: <20170208233350.56069-1-cbostic@linux.vnet.ibm.com>
+ <CACPK8XdP-imVAz1Jo+1pk-7HK0+xkqDswjK7nH+p02XoZh5RRA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,69 +35,115 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Feb 2017 02:19:11 -0000
+X-List-Received-Date: Thu, 09 Feb 2017 02:55:13 -0000
 
-On Wed, Feb 8, 2017 at 6:29 AM, Xo Wang <xow@google.com> wrote:
-> Hi Joel,
+On Thu, 9 Feb 2017 10:48:13 AM Joel Stanley wrote:
+> On Thu, Feb 9, 2017 at 10:03 AM, Christopher Bostic
+> <cbostic@linux.vnet.ibm.com> wrote:
+> > In order to access slave address ranges > 0x1FFFFF the slave ID
+> > must be adjusted accordingly in the command encoding:
+> >
+> > ID 0: 0x00000000 - 0x001FFFFF
+> > ID 1: 0x00200000 - 0x003FFFFF
+> > ID 2: 0x00400000 - 0x005FFFFF
+> > ID 3: 0x00600000 - 0x007FFFFF
 >
-> Thanks for keeping us up to date.
+> Alistair and Eddie, can I please get an ack from both of you on this?
 >
-> On Mon, Feb 6, 2017 at 6:37 PM, Joel Stanley <joel@jms.id.au> wrote:
->> Pin assignments for the EVT-2 board as described in pdbg. The status is disabled
->> so this does not enable the in-kernel FSI driver yet.
->>
->> Signed-off-by: Joel Stanley <joel@jms.id.au>
->> ---
->>
->> Tested on zaius5 with the driver enabled and it worked.
->>
->>  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 12 ++++++++++++
->>  1 file changed, 12 insertions(+)
->>
->> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
->> index e2195a641414..e1c9b3f4fe44 100644
->> --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
->> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
->> @@ -74,6 +74,18 @@
->>                         gpios = <&gpio ASPEED_GPIO(AA, 2) GPIO_ACTIVE_LOW>;
->>                 };
->>         };
->> +
->> +       fsi-master {
->> +               compatible = "ibm,fsi-master", "ibm,fsi-master-gpio";
->
-> Andrew's comment for Witherspoon applies here as well
-> ("ibm,fsi-master-gpio" makes sense as the "definitive" name).
+> >
+> > Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> > ---
+> >  drivers/fsi/fsi-master-gpio.c | 20 ++++++++++++++++----
+> >  1 file changed, 16 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+> > index 73d9985..428f3db 100644
+> > --- a/drivers/fsi/fsi-master-gpio.c
+> > +++ b/drivers/fsi/fsi-master-gpio.c
+> > @@ -30,7 +30,9 @@
+> >  #define        FSI_GPIO_CMD_READ       0x0400000000000000ULL
+> >  #define        FSI_GPIO_CMD_SLAVE_MASK 0xC000000000000000ULL
+> >  #define        FSI_GPIO_CMD_ADDR_SHIFT 37
+> > -#define        FSI_GPIO_CMD_ADDR_MASK  0x001FFFFF
+> > +#define        FSI_GPIO_CMD_ADR8_MASK  0x001FFFFF
+> > +#define        FSI_GPIO_CMD_ADR16_MASK 0x001FFFFE
+> > +#define        FSI_GPIO_CMD_ADR32_MASK 0x001FFFFC
+> >  #define        FSI_GPIO_CMD_SLV_SHIFT  62
+> >  #define        FSI_GPIO_CMD_SIZE_16    0x0000001000000000ULL
+> >  #define        FSI_GPIO_CMD_SIZE_32    0x0000003000000000ULL
+> > @@ -40,6 +42,9 @@
+> >  #define        FSI_GPIO_CMD_DFLT_LEN   28
+> >  #define        FSI_GPIO_CMD_CRC_SHIFT  60
+> >
+> > +#define        FSI_SLAVE_SHIFT         21
+> > +#define        FSI_SLAVE_MASK          0x3
+> > +
+> >  /* Bus errors */
+> >  #define        FSI_GPIO_ERR_BUSY       1       /* Slave stuck in busy state */
+> >  #define        FSI_GPIO_RESP_ERRA      2       /* Any (misc) Error */
+> > @@ -301,15 +306,17 @@ static void build_abs_ar_command(struct fsi_gpio_msg *cmd, uint64_t mode,
 
-I agree. I had an offline chat with Andrew about it, suggesting that
-he review the bindings that Chris Bostic has sent upstream. There's
-already a few issues identified with them that we will have to clean
-up.
+Do we need to expose the slave-id outside of this function? Ie. does
+anything currently (or is expected to in future) pass anything other
+than slave=0 to this function? If not we should drop slave-id from the
+function parameters imho.
 
-I suggest leave this matching the other systems for now, and when we
-settle on the new binding I will migrated all machines to use that.
+> >                 const void *data)
+> >  {
+> >         uint8_t crc;
+> > +       uint32_t addr_mask;
+> >
+> >         cmd->bits = FSI_GPIO_CMD_DFLT_LEN;
+> >         cmd->msg = FSI_GPIO_CMD_DEFAULT;
+> >         cmd->msg |= mode;
+> > -       cmd->msg &= ~FSI_GPIO_CMD_SLAVE_MASK;
+> > +       if (!slave)
+> > +               slave = (addr >> FSI_SLAVE_SHIFT) & FSI_SLAVE_MASK;
+> >         cmd->msg |= (((uint64_t)slave) << FSI_GPIO_CMD_SLV_SHIFT);
+> > -       addr &= FSI_GPIO_CMD_ADDR_MASK;
+> > -       cmd->msg |= (((uint64_t)addr) << FSI_GPIO_CMD_ADDR_SHIFT);
+> > +
+> >         if (size == sizeof(uint8_t)) {
+> > +               addr_mask = FSI_GPIO_CMD_ADR8_MASK;
+> >                 if (data) {
+> >                         uint8_t cmd_data = *((uint8_t *)data);
+> >
+> > @@ -317,6 +324,7 @@ static void build_abs_ar_command(struct fsi_gpio_msg *cmd, uint64_t mode,
+> >                                 ((uint64_t)cmd_data) << FSI_GPIO_CMD_DT8_SHIFT;
+> >                 }
+> >         } else if (size == sizeof(uint16_t)) {
+> > +               addr_mask = FSI_GPIO_CMD_ADR16_MASK;
+> >                 cmd->msg |= FSI_GPIO_CMD_SIZE_16;
+> >                 if (data) {
+> >                         uint16_t cmd_data;
+> > @@ -326,6 +334,7 @@ static void build_abs_ar_command(struct fsi_gpio_msg *cmd, uint64_t mode,
+> >                                 ((uint64_t)cmd_data) << FSI_GPIO_CMD_DT16_SHIFT;
+> >                 }
+> >         } else {
+> > +               addr_mask = FSI_GPIO_CMD_ADR32_MASK;
+> >                 cmd->msg |= FSI_GPIO_CMD_SIZE_32;
+> >                 if (data) {
+> >                         uint32_t cmd_data;
+> > @@ -336,6 +345,9 @@ static void build_abs_ar_command(struct fsi_gpio_msg *cmd, uint64_t mode,
+> >                 }
+> >         }
+> >
+> > +       addr &= addr_mask;
 
->
->> +
->> +               status = "disabled";
->> +
->> +               clock-gpios = <&gpio ASPEED_GPIO(C, 3) GPIO_ACTIVE_HIGH>;
->> +               data-gpios = <&gpio ASPEED_GPIO(C, 2) GPIO_ACTIVE_HIGH>;
->
-> FYI, we'll return to the Norm-recommended assignments for these at the
-> next board spin to keep FSI pins on their own GPIO port. Not sure how
-> helpful that is in the context of the FSI kernel driver since it's not
-> poking the registers directly.
+How is the masking of the address different now that you are setting
+the slave-id? Ie. this change looks more general than just setting the
+slave-id so is it fixing a different probelm? Or is somehow related to
+setting the slave-id?
 
-I assume there are electrical reasons for doing that.
+Regards,
 
-How do you suggest we handle the old and new device tree?
+Alistair
 
-We could detect the board revision and then fix up the device tree in u-boot.
-
->
->> +               trans-gpios = <&gpio ASPEED_GPIO(O, 6) GPIO_ACTIVE_HIGH>;
->> +               enable-gpios = <&gpio ASPEED_GPIO(D, 0) GPIO_ACTIVE_HIGH>;
->> +               mux-gpios = <&gpio ASPEED_GPIO(P, 6) GPIO_ACTIVE_HIGH>;
->> +       };
->>  };
+> > +       cmd->msg |= (((uint64_t)addr) << FSI_GPIO_CMD_ADDR_SHIFT);
+> > +
+> >         if (mode == FSI_GPIO_CMD_WRITE)
+> >                 cmd->bits += (8 * size);
+> >
+> > --
+> > 1.8.2.2
+> >
