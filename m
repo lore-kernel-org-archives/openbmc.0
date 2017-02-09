@@ -1,53 +1,52 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-ua0-x232.google.com (mail-ua0-x232.google.com
- [IPv6:2607:f8b0:400c:c08::232])
+Received: from mail-vk0-x241.google.com (mail-vk0-x241.google.com
+ [IPv6:2607:f8b0:400c:c05::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vJnGp45przDqGn
- for <openbmc@lists.ozlabs.org>; Thu,  9 Feb 2017 16:50:10 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vJnNy6SCvzDqGn
+ for <openbmc@lists.ozlabs.org>; Thu,  9 Feb 2017 16:55:30 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="oAxIV7Ab"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Fxc6zJhT"; 
  dkim-atps=neutral
-Received: by mail-ua0-x232.google.com with SMTP id y9so127250286uae.2
- for <openbmc@lists.ozlabs.org>; Wed, 08 Feb 2017 21:50:10 -0800 (PST)
+Received: by mail-vk0-x241.google.com with SMTP id t8so13664958vke.0
+ for <openbmc@lists.ozlabs.org>; Wed, 08 Feb 2017 21:55:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=ec4M17lTgv6jOQwgIdk5tu74NkLAQbmJAQJViGSL7Fs=;
- b=oAxIV7AbPGXuj19azDNmXM50muBXQ8ydO7AgJc8fcCfdLdIMQtlSbFZklSoSTk6Qzu
- q/YORqpF+de7/fL2UiaDzUfL9GaJUcL+jEPmC+W4NUJ+27PKWym7GApGMppWRmbX4/mg
- vadSHOTPt1vTwaXusjmz60xPMdhLYePns5g6rGfbKj5G1XOAqYCQxqnDLL9m/FD7qgZV
- zF8GkKxhBVFBldksQmQ9OrAO/63LnDVAeM+lQmNFZH4eeob5bouyfJdTcYp+qm7216ru
- BGy8nS6Vx6Yj4eOsnFInN3W3IiULtglDdSU+9m4TuFKa3ZMRkFL3JmpT7x4YZG+VwhP9
- ynrA==
+ bh=Leqmah1qroMqGB7NcVUuxjoqcN8+Y9wMZzV3QUOSA9Y=;
+ b=Fxc6zJhTsytgOgiCDvX2TtnvTqNk3rxxaESLbct37zEMuT8OPD83c20/bvuvGXF7ax
+ af3GG+CJvSNChXiAsLC2pUz1NDPvVNVn7MoTdfptYLOROyRy/Aajeg5KcK5SFEUXYFdW
+ lI5o36ktdJe0ZU8qRNjN/wtVmRn0ceFdm8uwpQ1GKfxFhVQvDLb62mgS0j+93umhcxYr
+ aZ9eoJg5dSBYrTkj+Q68Kov7tpodhQa787OBteNIaTw7+LNGcUkmsmXn734Hlhea9pQ5
+ 9e2oQOcArhqHEc4cs2vm4M8XUmuT6Xgu/+aHp2tAljIpjp+KQiTXxS88SRskMG7Fc/FL
+ DvuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=ec4M17lTgv6jOQwgIdk5tu74NkLAQbmJAQJViGSL7Fs=;
- b=hFdZy+TwCz308sqCmg8g5kGzKt0UUa/HDdCq7d+i2IvlOqBpeae8l+Ywhba80F3kff
- 0G5UQUOk3WxyA56SvJGJNsSzhUuD5AjU2swAm79W27xJn+2AwR1z2hiEZlzYeHVZGqaD
- CLnrBqIwxMzxY8882l3UfOCpzkjCVXdlUzoFElHeiD3b884ctBRjSKl8IyYdo4UcRf2g
- UaCzHtYeq4UB4xyeCIVElSI5x1OATn7Yg+JVl9LOl6ywBvDZeoGO41O7Bgx1WNlZFZCI
- dit2PQh+tR9SkS2JHSz2ZqQSbCtRnndNTsOfU5Y7X1zAqZdXyjmORTJM8QXAHD2fVVMy
- Vo4w==
-X-Gm-Message-State: AMke39l8JhU7ywQrLLUfrdLS7MxpLydQ1tFSXTy2b/LgopYOL0dX+VdEiMg/DNfb3torNLOfHCdFdbJaZQoQOw==
-X-Received: by 10.159.32.38 with SMTP id 35mr789518uam.12.1486619407243; Wed,
- 08 Feb 2017 21:50:07 -0800 (PST)
+ bh=Leqmah1qroMqGB7NcVUuxjoqcN8+Y9wMZzV3QUOSA9Y=;
+ b=lBfYodY0E//R3iEvptY8qumB13ZheFImDLdNpTr7W/FIgxJQlz0WH8rYYn20E2YM4i
+ 6ORH2liqLXXYOPVHnRzRwnbSQ7f9SgxYoIb8wRGHD0fEj3hf3dqL/+i3jACMbA+VYlNW
+ 3YMQJmZS0aXcZ0kbWin8P0dDyAnDIV5MsH6WLwoRW5IENNT5yFncoFQUATddvxvngeyx
+ og0brY/9zPd0Sv5CoNsTGp/GwTUWCzbXVz6mMHFJ1DbUDKONdqkVnXgEkUHhqRzclSVb
+ dRql16XO94E0WGS11o2umrIPnD6oZcmjv1yNkT7ghILLCL0FuWnBSpnZzjAVD+6SkAep
+ RNxA==
+X-Gm-Message-State: AMke39l/tbAKJByJPvABiGYpRUMlkB8N6K7ExhJBYzxDYw63DLIkliGrqK0EW9FhB+QKgEu5A2E1qXdxrWsFng==
+X-Received: by 10.31.49.81 with SMTP id x78mr724941vkx.82.1486619728475; Wed,
+ 08 Feb 2017 21:55:28 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.176.92.150 with HTTP; Wed, 8 Feb 2017 21:49:46 -0800 (PST)
-In-Reply-To: <CAPLgG==GnEFG23QYWy81TexkKwcUaERd2gPqRBPnSY82h0fmmQ@mail.gmail.com>
-References: <CAPH-5w7reqNuPcbf48F+beqFyK=Te5c9rd+0hwvqt4nD0MQXqA@mail.gmail.com>
- <CACPK8XfmY3sGcvqQnjmdOOL59RNxQ_M0YGPAROdW5GMujA+BVw@mail.gmail.com>
- <CAPLgG==GnEFG23QYWy81TexkKwcUaERd2gPqRBPnSY82h0fmmQ@mail.gmail.com>
+Received: by 10.176.92.150 with HTTP; Wed, 8 Feb 2017 21:55:08 -0800 (PST)
+In-Reply-To: <20170203193800.90838-1-cbostic@linux.vnet.ibm.com>
+References: <20170203193800.90838-1-cbostic@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 9 Feb 2017 16:19:46 +1030
-X-Google-Sender-Auth: m01972FhjXo5-e877ZaUWRtNrkk
-Message-ID: <CACPK8XeSijSkjAY9F7oUUfFXGYX8zVSfS0KRGO_BEywqScdh0g@mail.gmail.com>
-Subject: Re: Patchwork lists submitters @google.com as "Rick Altherr via
- openbmc"
-To: Rick Altherr <raltherr@google.com>
+Date: Thu, 9 Feb 2017 16:25:08 +1030
+X-Google-Sender-Auth: 59dp9gjee2UB24N0FQNKj1W8duE
+Message-ID: <CACPK8Xfp5_qF3D64rcJz3X2pLx9TPrM_YREmS-dsUmPUrt2JpQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7] drivers/fsi: Clock slave prior to master
+ command
+To: Christopher Bostic <cbostic@linux.vnet.ibm.com>,
+ Alistair Popple <alistair@popple.id.au>, Edward James <eajames@us.ibm.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -61,16 +60,81 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Feb 2017 05:50:11 -0000
+X-List-Received-Date: Thu, 09 Feb 2017 05:55:31 -0000
 
-On Thu, Feb 9, 2017 at 2:43 PM, Rick Altherr <raltherr@google.com> wrote:
-> Testing... Testing... Is this thing on?
+On Sat, Feb 4, 2017 at 6:08 AM, Christopher Bostic
+<cbostic@linux.vnet.ibm.com> wrote:
+> If the FSI bus has been idle for some period it is necessary to
+> wake up the slave so its ready for a new master initiated
+> commands. This is done by clocking out a series of 0's on the
+> SDA line immediately before any command.
+>
+> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
 
-Woot! It works.
+In my testing I did not need this patch even after a long idle period.
 
-I'll leave DMARC rewriting off. Keep an eye out for regressions - if
-you think I've started ignoring your emails please ping me on IRC.
+This patch did help when I tried to read or write to an invalid FSI
+address. I suspect we want to fix the root cause of those invalid
+read/writes - perhaps by catching them before they turn into
+transactions on the bus, or only doing the reset when the bus got into
+a bad state.
+
+Doing it on every read/write seems excessive and will slow down access
+to the bus.
 
 Cheers,
 
 Joel
+
+> ---
+>  drivers/fsi/fsi-master-gpio.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+>
+> diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
+> index 73d9985..49598c33 100644
+> --- a/drivers/fsi/fsi-master-gpio.c
+> +++ b/drivers/fsi/fsi-master-gpio.c
+> @@ -59,6 +59,7 @@
+>  #define        FSI_GPIO_MSG_ID_SIZE            2
+>  #define        FSI_GPIO_MSG_RESPID_SIZE        2
+>  #define        FSI_GPIO_PRIME_SLAVE_CLOCKS     100
+> +#define        FSI_GPIO_WAKE_CLOCKS            32      /* >= 32 ok, 16 fails */
+>
+>  static DEFINE_SPINLOCK(fsi_gpio_cmd_lock);     /* lock around fsi commands */
+>
+> @@ -178,6 +179,16 @@ static void echo_delay(struct fsi_master_gpio *master)
+>  }
+>
+>  /*
+> + * Wake up the slave by clocking it a number of times prior to sending the next
+> + * master command.  Needed when the bus has been idle for a while.
+> + */
+> +static void wake_slave(struct fsi_master_gpio *master)
+> +{
+> +       set_sda_output(master, 1);
+> +       clock_toggle(master, FSI_GPIO_WAKE_CLOCKS);
+> +}
+> +
+> +/*
+>   * Used in bus error cases only.  Clears out any remaining data the slave
+>   * is attempting to send
+>   */
+> @@ -364,6 +375,7 @@ static int fsi_master_gpio_read(struct fsi_master *_master, int link,
+>         build_abs_ar_command(&cmd, FSI_GPIO_CMD_READ, slave, addr, size, NULL);
+>
+>         spin_lock_irqsave(&fsi_gpio_cmd_lock, flags);
+> +       wake_slave(master);
+>         serial_out(master, &cmd);
+>         echo_delay(master);
+>         rc = poll_for_response(master, FSI_GPIO_RESP_ACKD, size, val);
+> @@ -386,6 +398,7 @@ static int fsi_master_gpio_write(struct fsi_master *_master, int link,
+>         build_abs_ar_command(&cmd, FSI_GPIO_CMD_WRITE, slave, addr, size, val);
+>
+>         spin_lock_irqsave(&fsi_gpio_cmd_lock, flags);
+> +       wake_slave(master);
+>         serial_out(master, &cmd);
+>         echo_delay(master);
+>         rc = poll_for_response(master, FSI_GPIO_RESP_ACK, size, NULL);
+> --
+> 1.8.2.2
+>
