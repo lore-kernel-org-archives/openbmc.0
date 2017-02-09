@@ -1,29 +1,53 @@
-Return-Path: <alistair@popple.id.au>
-Received: from ipmail05.adl6.internode.on.net (ipmail05.adl6.internode.on.net
- [150.101.137.143])
- by lists.ozlabs.org (Postfix) with ESMTP id 3vJjNw73r0zDqBx
- for <openbmc@lists.ozlabs.org>; Thu,  9 Feb 2017 13:55:12 +1100 (AEDT)
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: A2DOBAB11JtY/9MGT0NdGwEBAQMBAQEJAQEBhTuFOIkbkReTJ4IPggyGIgKDMBYBAgEBAQEBAQFiKIRpAQEBAwEnEz8QCxgJFRAPAUcGE4lsCLINOotOAQEBAQEFAgElizuKOQWbcIoNiG6BEoUXiXOTEyYNJH4RDg8ECBEZhQAdGYFcLDUBiH0BAQE
-Received: from mail.puregolfradio.com (HELO new-mexico.localnet)
- ([67.79.6.211])
- by ipmail05.adl6.internode.on.net with ESMTP; 09 Feb 2017 13:25:06 +1030
-From: Alistair Popple <alistair@popple.id.au>
-To: Joel Stanley <joel@jms.id.au>
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>,
- Eddie James <eajames.ibm@gmail.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: [PATCH linux dev-4.7] drivers/fsi: Adjust slave ID based on
- address in command send
-Date: Thu, 09 Feb 2017 13:54:56 +1100
-Message-ID: <12493797.UHNVbxk1rO@new-mexico>
-User-Agent: KMail/4.14.1 (Linux/4.2.0-0.bpo.1-amd64; KDE/4.14.2; x86_64; ; )
-In-Reply-To: <CACPK8XdP-imVAz1Jo+1pk-7HK0+xkqDswjK7nH+p02XoZh5RRA@mail.gmail.com>
-References: <20170208233350.56069-1-cbostic@linux.vnet.ibm.com>
- <CACPK8XdP-imVAz1Jo+1pk-7HK0+xkqDswjK7nH+p02XoZh5RRA@mail.gmail.com>
+Return-Path: <joel.stan@gmail.com>
+Received: from mail-vk0-x235.google.com (mail-vk0-x235.google.com
+ [IPv6:2607:f8b0:400c:c05::235])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vJjXT6j4WzDqN2
+ for <openbmc@lists.ozlabs.org>; Thu,  9 Feb 2017 14:01:45 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="f11+v33x"; 
+ dkim-atps=neutral
+Received: by mail-vk0-x235.google.com with SMTP id r136so115369033vke.1
+ for <openbmc@lists.ozlabs.org>; Wed, 08 Feb 2017 19:01:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:sender:in-reply-to:references:from:date:message-id
+ :subject:to:cc;
+ bh=aQtl0SAgOkHhz4lgoRCE254caqhDTjd61QCNnUUVf/I=;
+ b=f11+v33xBLOVj4QJK0xxJz/3egYBmdsKxXXhxhL79RF5dwoSH6A8FaCq6K9GOGiR/8
+ zJAR0VejIBLE1SNTP85bwNTuNDPMcV4lScaZIMuxwHFdbQQt0J/MqhnaNuYH/jvgGSH5
+ xvLVloOo6mMJ0Ft31Q30t90DSb7vSBr78MIP+BBHzTaSeGvBfuMG49+yhE3yhokeXmUr
+ oNzjosXEg7UfsypQ01ZrXxJPNmuqQhwFs9qzOSCdlir7vRGRzk/S7gEv5rev9oclK9eC
+ ILzdbI7jHnmzroHY6f7Fn5KZBgXClNpSLZKrre9R8NW8apvnk7n0xjW/bklMHasL8d8h
+ xZGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
+ :date:message-id:subject:to:cc;
+ bh=aQtl0SAgOkHhz4lgoRCE254caqhDTjd61QCNnUUVf/I=;
+ b=D8dAkjGyftLcPeZ9SGqr5bx+3+9FxOBDH91YLHhRkdApwCMLSkGwdo0DQS/6TvhlX8
+ GaGVNxXApm1gOycfEWwnZe1z4f3og0irPUWaH1afmdH/s70bDiyX3Bl3rXbrMjPY7fOu
+ CfWWKFLaKrhA+knvTdvnrkRywVf5JbX3VgPfNiqN+d4AlxK00zsYJxZKlZSlY6vE4R5K
+ 6mLWCQHI3Mj8bDQAeJI09F5RNWdY/IOhvmj1DIQuxdHD51KnnDgxYtVJXI3ZGml117f4
+ y+YLp7KaaLQ+HvTSXE7exq+kq0WQK3cKHNh5CmYk5jykXezvjFOZR4G2KjHznFms+hZg
+ OOEw==
+X-Gm-Message-State: AMke39lRBwcduSgeUUSVemarYDzrFnuLBz4XNFyTBHwcr05LMwIBsqgcADV4LEAvdNla03TJaZ0c+1ss3fOzVg==
+X-Received: by 10.31.53.204 with SMTP id c195mr352371vka.145.1486609303444;
+ Wed, 08 Feb 2017 19:01:43 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+Sender: joel.stan@gmail.com
+Received: by 10.176.92.150 with HTTP; Wed, 8 Feb 2017 19:01:23 -0800 (PST)
+In-Reply-To: <CAPH-5w7reqNuPcbf48F+beqFyK=Te5c9rd+0hwvqt4nD0MQXqA@mail.gmail.com>
+References: <CAPH-5w7reqNuPcbf48F+beqFyK=Te5c9rd+0hwvqt4nD0MQXqA@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 9 Feb 2017 13:31:23 +1030
+X-Google-Sender-Auth: KDiA6tu-FnWxVFZdMCfpHm6e29U
+Message-ID: <CACPK8XfmY3sGcvqQnjmdOOL59RNxQ_M0YGPAROdW5GMujA+BVw@mail.gmail.com>
+Subject: Re: Patchwork lists submitters @google.com as "Rick Altherr via
+ openbmc"
+To: Xo Wang <xow@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -35,115 +59,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Feb 2017 02:55:13 -0000
+X-List-Received-Date: Thu, 09 Feb 2017 03:01:46 -0000
 
-On Thu, 9 Feb 2017 10:48:13 AM Joel Stanley wrote:
-> On Thu, Feb 9, 2017 at 10:03 AM, Christopher Bostic
-> <cbostic@linux.vnet.ibm.com> wrote:
-> > In order to access slave address ranges > 0x1FFFFF the slave ID
-> > must be adjusted accordingly in the command encoding:
-> >
-> > ID 0: 0x00000000 - 0x001FFFFF
-> > ID 1: 0x00200000 - 0x003FFFFF
-> > ID 2: 0x00400000 - 0x005FFFFF
-> > ID 3: 0x00600000 - 0x007FFFFF
+On Wed, Feb 8, 2017 at 8:46 AM, Xo Wang via openbmc
+<openbmc@lists.ozlabs.org> wrote:
+> Hey folks,
 >
-> Alistair and Eddie, can I please get an ack from both of you on this?
+> I think Patchwork has decided that the email openbmc@lists.ozlabs.org
+> now maps to the author of the first patch originating from that email
+> (Rick Altherr @ Google).
 >
-> >
-> > Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
-> > ---
-> >  drivers/fsi/fsi-master-gpio.c | 20 ++++++++++++++++----
-> >  1 file changed, 16 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
-> > index 73d9985..428f3db 100644
-> > --- a/drivers/fsi/fsi-master-gpio.c
-> > +++ b/drivers/fsi/fsi-master-gpio.c
-> > @@ -30,7 +30,9 @@
-> >  #define        FSI_GPIO_CMD_READ       0x0400000000000000ULL
-> >  #define        FSI_GPIO_CMD_SLAVE_MASK 0xC000000000000000ULL
-> >  #define        FSI_GPIO_CMD_ADDR_SHIFT 37
-> > -#define        FSI_GPIO_CMD_ADDR_MASK  0x001FFFFF
-> > +#define        FSI_GPIO_CMD_ADR8_MASK  0x001FFFFF
-> > +#define        FSI_GPIO_CMD_ADR16_MASK 0x001FFFFE
-> > +#define        FSI_GPIO_CMD_ADR32_MASK 0x001FFFFC
-> >  #define        FSI_GPIO_CMD_SLV_SHIFT  62
-> >  #define        FSI_GPIO_CMD_SIZE_16    0x0000001000000000ULL
-> >  #define        FSI_GPIO_CMD_SIZE_32    0x0000003000000000ULL
-> > @@ -40,6 +42,9 @@
-> >  #define        FSI_GPIO_CMD_DFLT_LEN   28
-> >  #define        FSI_GPIO_CMD_CRC_SHIFT  60
-> >
-> > +#define        FSI_SLAVE_SHIFT         21
-> > +#define        FSI_SLAVE_MASK          0x3
-> > +
-> >  /* Bus errors */
-> >  #define        FSI_GPIO_ERR_BUSY       1       /* Slave stuck in busy state */
-> >  #define        FSI_GPIO_RESP_ERRA      2       /* Any (misc) Error */
-> > @@ -301,15 +306,17 @@ static void build_abs_ar_command(struct fsi_gpio_msg *cmd, uint64_t mode,
+> So all of the patches from @google.com proxied by Mailman are now
+> showing up as authored by Rick:
+> https://patchwork.ozlabs.org/project/openbmc/list/?submitter=70875&archive=both&state=*
+>
+> Since Joel is presumably picking from Patchwork to GitHub, the git
+> author info might be a bit unreliable. You'll have to peek at the
+> Signed-off-by: for the Google blames. :)
 
-Do we need to expose the slave-id outside of this function? Ie. does
-anything currently (or is expected to in future) pass anything other
-than slave=0 to this function? If not we should drop slave-id from the
-function parameters imho.
+Submitter 70875 is now known as "Unknown sender due to SPF". This
+looks ugly, but does save me from applying misattributed patches.
 
-> >                 const void *data)
-> >  {
-> >         uint8_t crc;
-> > +       uint32_t addr_mask;
-> >
-> >         cmd->bits = FSI_GPIO_CMD_DFLT_LEN;
-> >         cmd->msg = FSI_GPIO_CMD_DEFAULT;
-> >         cmd->msg |= mode;
-> > -       cmd->msg &= ~FSI_GPIO_CMD_SLAVE_MASK;
-> > +       if (!slave)
-> > +               slave = (addr >> FSI_SLAVE_SHIFT) & FSI_SLAVE_MASK;
-> >         cmd->msg |= (((uint64_t)slave) << FSI_GPIO_CMD_SLV_SHIFT);
-> > -       addr &= FSI_GPIO_CMD_ADDR_MASK;
-> > -       cmd->msg |= (((uint64_t)addr) << FSI_GPIO_CMD_ADDR_SHIFT);
-> > +
-> >         if (size == sizeof(uint8_t)) {
-> > +               addr_mask = FSI_GPIO_CMD_ADR8_MASK;
-> >                 if (data) {
-> >                         uint8_t cmd_data = *((uint8_t *)data);
-> >
-> > @@ -317,6 +324,7 @@ static void build_abs_ar_command(struct fsi_gpio_msg *cmd, uint64_t mode,
-> >                                 ((uint64_t)cmd_data) << FSI_GPIO_CMD_DT8_SHIFT;
-> >                 }
-> >         } else if (size == sizeof(uint16_t)) {
-> > +               addr_mask = FSI_GPIO_CMD_ADR16_MASK;
-> >                 cmd->msg |= FSI_GPIO_CMD_SIZE_16;
-> >                 if (data) {
-> >                         uint16_t cmd_data;
-> > @@ -326,6 +334,7 @@ static void build_abs_ar_command(struct fsi_gpio_msg *cmd, uint64_t mode,
-> >                                 ((uint64_t)cmd_data) << FSI_GPIO_CMD_DT16_SHIFT;
-> >                 }
-> >         } else {
-> > +               addr_mask = FSI_GPIO_CMD_ADR32_MASK;
-> >                 cmd->msg |= FSI_GPIO_CMD_SIZE_32;
-> >                 if (data) {
-> >                         uint32_t cmd_data;
-> > @@ -336,6 +345,9 @@ static void build_abs_ar_command(struct fsi_gpio_msg *cmd, uint64_t mode,
-> >                 }
-> >         }
-> >
-> > +       addr &= addr_mask;
+I have made some tweaks to the mailing list settings that might let
+DMARC'd mail get through. I have turned off the munging and will keep
+an eye out for missed mail. If it's still broken I will have to turn
+it back on.
 
-How is the masking of the address different now that you are setting
-the slave-id? Ie. this change looks more general than just setting the
-slave-id so is it fixing a different probelm? Or is somehow related to
-setting the slave-id?
+Xo (or any other @google.com account holder), if you could reply to
+this thread without ccing me that would be a good test.
 
-Regards,
+Cheers,
 
-Alistair
-
-> > +       cmd->msg |= (((uint64_t)addr) << FSI_GPIO_CMD_ADDR_SHIFT);
-> > +
-> >         if (mode == FSI_GPIO_CMD_WRITE)
-> >                 cmd->bits += (8 * size);
-> >
-> > --
-> > 1.8.2.2
-> >
+Joel
