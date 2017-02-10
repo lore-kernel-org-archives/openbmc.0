@@ -1,55 +1,53 @@
 Return-Path: <joel.stan@gmail.com>
-Received: from mail-vk0-x244.google.com (mail-vk0-x244.google.com
- [IPv6:2607:f8b0:400c:c05::244])
+Received: from mail-vk0-x242.google.com (mail-vk0-x242.google.com
+ [IPv6:2607:f8b0:400c:c05::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 3vKH1M3J0szDqBQ
- for <openbmc@lists.ozlabs.org>; Fri, 10 Feb 2017 12:10:15 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 3vKH9W0JrbzDqHC
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Feb 2017 12:17:19 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="SgN+wQ+V"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="fJErnJFo"; 
  dkim-atps=neutral
-Received: by mail-vk0-x244.google.com with SMTP id r136so1632118vke.1
- for <openbmc@lists.ozlabs.org>; Thu, 09 Feb 2017 17:10:15 -0800 (PST)
+Received: by mail-vk0-x242.google.com with SMTP id 23so1634255vkc.2
+ for <openbmc@lists.ozlabs.org>; Thu, 09 Feb 2017 17:17:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:sender:in-reply-to:references:from:date:message-id
  :subject:to:cc;
- bh=R8qFyUS1ySNntkNM6vKX7/QpHNiAvS+DEzpKb8GJKEY=;
- b=SgN+wQ+VkonShsqyFpgLO2gr14YAlRD2ZRAHjEtMXnC83vO9I35q2smq78k557HqGJ
- Zg3ttwgAoBVWF0OSPI2RnabTCpMBHRk2XZasnQpfm15C0LEzW6g416s/y1TLm5MGuJTO
- olIvW0uElork5iaYX1VSWPSQ+6VAVf3lQr2ZmITEijI1PM3Nc/NsjiFkimrQDlGG+as4
- XKfi9xp6wDZYwrqhcqVnYx3mMoW86cAVgS2xkcIhwPzEmGhUGJmCclzDlYTZMrZ/s8Z9
- xQgoNGS9oWDUWAuEnurgLKgO0KG6p9oQFwl1PVomN2K87rQXwH/jz0W/hZaljNJVZXWf
- HL6w==
+ bh=hCmi+PfU6obKgc7GSo2wj4Uc8rrqcGgXX1nWugmULbI=;
+ b=fJErnJFo/zfMpdCyPRAWQLrAHOiyrMKKG0F+VxyRjPqJODTpCF5R8r7T9RqQet8RzB
+ bTk47cuZlJ0+0D7zLD/vJttqzJZhQJpH4B6/cMvBa8YEYp+PKd+/5hmL3Gy/5KXaRdih
+ rwTb8QKXTZt5zmF/olSTCuVYQ6nIP0mgeq4SRH/5Qac4/Nj36UEtVhNMds2XGLGo7zI+
+ kehiqiIrEo/0Q2INtAYrrDsZ4dhYOEoiRBGSQ2OJvuPhf/u79Kw6SoU1IXqnTFMTx11O
+ WXUaP56MynAh/OsNiRtseVX1/pLvpSOfpbZQt/ms0Jx0QIgl+sF6275krASZpVqgVgMV
+ VvAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:sender:in-reply-to:references:from
  :date:message-id:subject:to:cc;
- bh=R8qFyUS1ySNntkNM6vKX7/QpHNiAvS+DEzpKb8GJKEY=;
- b=Yixf8evtm/+yfEYt4zmAQJmH4S1pxUW5hrolnAP50uxesI8e3gQ9MYB4d8yL7xZBqz
- 28Ttvb31yEWSsfTis53BYZed9ta+9w6Tx7mFdDa5s5HTxQugfJObfJLHMJgMKLKd/dxb
- nJCXkBSw5h3vBElqczZdIUmKTcpgV+tIba3Mwy+twcO78R6fN6qEjraLBIH/L4GROItT
- +QuqYTu291wYhuD2BgMyLt9R9zuW6aQXCeIPt/TR+/xyHzkGqckWki5mrydyvaGv+94t
- qUI8hnIyfKuddfDn+pU0aZ3zAz2VHXJR7etUj85uQ38MY2J//KS2rMTw2P+xTfwPnqHZ
- PjaQ==
-X-Gm-Message-State: AMke39lxOumiso+R+vMHWN+g/1+3hw8AMRCZfx/7WqlRtkRcqhrx4eh5Gb3xhBGhhkLSOA1V66QZS246uUa3Cw==
-X-Received: by 10.31.47.85 with SMTP id v82mr3099383vkv.2.1486689013153; Thu,
- 09 Feb 2017 17:10:13 -0800 (PST)
+ bh=hCmi+PfU6obKgc7GSo2wj4Uc8rrqcGgXX1nWugmULbI=;
+ b=i3hAZmXDyHkhmSO+mngHfbRgcGgHaa8CFXjSlHJH2fDVHkOhDQRAsTC0Z9OVg5g8Tf
+ XASht2xAwsMpiPQ/9a+SH/o1n2+3zXFFOzkdOF/p9hI9h2L0um7Q2EsI7rVcX1qrweSE
+ K7cETPtNphlwx11/dltbcqaHOm79J6OI7nLvP6L1VYGlYroaOtPaswCGlSbFO9oP/1Eh
+ i4WpyN2zVJtqjRB+3at3Y5A0TGrynzmmfeQ+x8hYnkd9qyo2qgochrV/snkqFttAZa+8
+ gdw2BgXNeVXAQXgysgKUQEQO2V+GlpDrryii4R1rhcrKye9QL0OF7hCp9pb+X5dW4cug
+ dqGg==
+X-Gm-Message-State: AMke39mzIzepk9Kfsy7iiO64eCBWeR9Cp0vISzuZ4C8AyF71wSEzkbq7vImY+9ebjWZBMq/RSF5ALMVKT9MKoA==
+X-Received: by 10.31.49.81 with SMTP id x78mr3049077vkx.82.1486689436548; Thu,
+ 09 Feb 2017 17:17:16 -0800 (PST)
 MIME-Version: 1.0
 Sender: joel.stan@gmail.com
-Received: by 10.176.92.150 with HTTP; Thu, 9 Feb 2017 17:09:52 -0800 (PST)
-In-Reply-To: <fddca6ab-22b6-8d75-de64-c52f264676b5@linux.vnet.ibm.com>
-References: <20170209201737.74109-1-cbostic@linux.vnet.ibm.com>
- <fddca6ab-22b6-8d75-de64-c52f264676b5@linux.vnet.ibm.com>
+Received: by 10.176.92.150 with HTTP; Thu, 9 Feb 2017 17:16:55 -0800 (PST)
+In-Reply-To: <1486588411-25211-1-git-send-email-eajames@linux.vnet.ibm.com>
+References: <1486588411-25211-1-git-send-email-eajames@linux.vnet.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 10 Feb 2017 11:39:52 +1030
-X-Google-Sender-Auth: GTOLn0aorT6p_tBZS9Xi9Bidc3I
-Message-ID: <CACPK8XeBDtp+vErZxhLVOKP6dFjwVk4VLgTB2vyFha15LWKXiQ@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.7 v2] drivers/fsi: Adjust slave ID based on
- address
-To: Eddie James <eajames@linux.vnet.ibm.com>,
- Alistair Popple <alistair@popple.id.au>
-Cc: Christopher Bostic <cbostic@linux.vnet.ibm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Fri, 10 Feb 2017 11:46:55 +1030
+X-Google-Sender-Auth: utC8zKDp1dmBMLuF9FM8XmtuABE
+Message-ID: <CACPK8XfoaPOPJASAerAW6gCjCjidmPcKW_wRYgOYq7K-NccO-w@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.7] drivers: fsi: i2c fix ports
+To: eajames <eajames@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Christopher Bostic <cbostic@linux.vnet.ibm.com>,
+ "Edward A. James" <eajames@us.ibm.com>
 Content-Type: text/plain; charset=UTF-8
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.23
@@ -62,36 +60,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Feb 2017 01:10:16 -0000
+X-List-Received-Date: Fri, 10 Feb 2017 01:17:19 -0000
 
-On Fri, Feb 10, 2017 at 10:01 AM, Eddie James
-<eajames@linux.vnet.ibm.com> wrote:
-> Looks good to me.
+On Thu, Feb 9, 2017 at 7:43 AM,  <eajames@linux.vnet.ibm.com> wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
 >
-> Reviewed-by: Eddie James <eajames@us.ibm.com>
+> missing a couple of ports
 >
->
-> On 02/09/2017 02:17 PM, Christopher Bostic wrote:
->>
->> In order to access slave address ranges > 0x1FFFFF the slave ID
->> must be adjusted accordingly in the command encoding:
->>
->> ID 0: 0x00000000 - 0x001FFFFF
->> ID 1: 0x00200000 - 0x003FFFFF
->> ID 2: 0x00400000 - 0x005FFFFF
->> ID 3: 0x00600000 - 0x007FFFFF
->>
->> Signed-off-by: Christopher Bostic <cbostic@linux.vnet.ibm.com>
+> Signed-off-by: Edward A. James <eajames@us.ibm.com>
 
-via the magic of instant messaging:
-
-Acked-by: Alistair Popple <alistair@popple.id.au>
-
-Merged into dev-4.7.
-
-Chris, please make sure you incorporate this fix into the series
-you're sending upstream.
+This depends on "drivers: fsi: i2c fix probing". You should send it as
+part of a series so the maintainer (me) knows which order to apply
+them in.
 
 Cheers,
 
 Joel
+
+> ---
+>  drivers/fsi/i2c/iic-fsi.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/fsi/i2c/iic-fsi.c b/drivers/fsi/i2c/iic-fsi.c
+> index 1723bc3..28d9624 100644
+> --- a/drivers/fsi/i2c/iic-fsi.c
+> +++ b/drivers/fsi/i2c/iic-fsi.c
+> @@ -282,7 +282,7 @@ exit:
+>         return 0;
+>  }
+>
+> -#define IIC_FSI_PORTS  0xFFFULL
+> +#define IIC_FSI_PORTS  0x7FFFULL
+>  /*
+>   * Called when an FSI IIC engine is plugged in.
+>   * Causes creation of the /dev entry.
+> --
+> 1.8.3.1
+>
